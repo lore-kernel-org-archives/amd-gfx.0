@@ -1,63 +1,62 @@
-From: Alex Deucher <alexdeucher@gmail.com>
-Subject: Re: [PATCH 15/15] amdgpu: remove CONFIG_DRM_AMDGPU_USERPTR
-Date: Tue, 6 Aug 2019 14:58:58 -0400
-Message-ID: <CADnq5_Puv-N=FVpNXhv7gOWZ8=tgBD2VjrKpVzEE0imWqJdD1A@mail.gmail.com>
-References: <20190806160554.14046-1-hch@lst.de> <20190806160554.14046-16-hch@lst.de>
- <20190806174437.GK11627@ziepe.ca> <587b1c3c-83c4-7de9-242f-6516528049f4@amd.com>
+From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH] drm/amd/display: Add number of slices per line to DSC
+ parameter validation
+Date: Tue, 6 Aug 2019 15:04:36 -0400
+Message-ID: <CADnq5_NLTOQ31XXhw3o8aoJkRmzq6guurgUz13cxKD6U6M90Cw@mail.gmail.com>
+References: <CADnq5_OL1+bJUGh44AY48DP=G=xTtdrf+kO2233qjJzudWhw_Q@mail.gmail.com>
+ <20190806174549.7856-1-harry.wentland@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <587b1c3c-83c4-7de9-242f-6516528049f4@amd.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: "Kuehling, Felix" <Felix.Kuehling@amd.com>
-Cc: Jason Gunthorpe <jgg@ziepe.ca>, Christoph Hellwig <hch@lst.de>, "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Koenig, Christian" <Christian.Koenig@amd.com>, Ralph Campbell <rcampbell@nvidia.com>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "nouveau@lists.freedesktop.org" <nouveau@lists.freedesktop.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "linux-mm@kvack.org" <linux-mm@kvack.org>, =?UTF-8?B?SsOpcsO0bWUgR2xpc3Nl?= <jglisse@redhat.com>, Ben Skeggs <bskeggs@redhat.com>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20190806174549.7856-1-harry.wentland-5C7GfCeVMHo@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>
+Cc: Chunming Zhou <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, Hariprasad Kelam <hariprasad.kelam-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "Leo (Sunpeng) Li" <sunpeng.li-5C7GfCeVMHo@public.gmane.org>, LKML <linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Nikola Cornij <nikola.cornij-5C7GfCeVMHo@public.gmane.org>, Dave Airlie <airlied-cv59FeDIM0c@public.gmane.org>, Dmytro Laktyushkin <Dmytro.Laktyushkin-5C7GfCeVMHo@public.gmane.org>, Maling list - DRI developers <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>, "Deucher,
+ Alexander" <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, Colin Ian King <colin.king-Z7WLFzj8eWMS+FvcfC7Uqw@public.gmane.org>, Christian Koenig <christian.koenig-5C7GfCeVMHo@public.gmane.org>
 
-On Tue, Aug 6, 2019 at 1:51 PM Kuehling, Felix <Felix.Kuehling@amd.com> wrote:
->
-> On 2019-08-06 13:44, Jason Gunthorpe wrote:
-> > On Tue, Aug 06, 2019 at 07:05:53PM +0300, Christoph Hellwig wrote:
-> >> The option is just used to select HMM mirror support and has a very
-> >> confusing help text.  Just pull in the HMM mirror code by default
-> >> instead.
-> >>
-> >> Signed-off-by: Christoph Hellwig <hch@lst.de>
-> >> ---
-> >>   drivers/gpu/drm/Kconfig                 |  2 ++
-> >>   drivers/gpu/drm/amd/amdgpu/Kconfig      | 10 ----------
-> >>   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c |  6 ------
-> >>   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h | 12 ------------
-> >>   4 files changed, 2 insertions(+), 28 deletions(-)
-> > Felix, was this an effort to avoid the arch restriction on hmm or
-> > something? Also can't see why this was like this.
->
-> This option predates KFD's support of userptrs, which in turn predates
-> HMM. Radeon has the same kind of option, though it doesn't affect HMM in
-> that case.
->
-> Alex, Christian, can you think of a good reason to maintain userptr
-> support as an option in amdgpu? I suspect it was originally meant as a
-> way to allow kernels with amdgpu without MMU notifiers. Now it would
-> allow a kernel with amdgpu without HMM or MMU notifiers. I don't know if
-> this is a useful thing to have.
-
-Right.  There were people that didn't have MMU notifiers that wanted
-support for the GPU.  For a lot of older APIs, a lack of userptr
-support was not a big deal (it just disabled some optimizations and
-API extensions), but as it becomes more relevant it may make sense to
-just make it a requirement.
-
-Alex
-
->
-> Regards,
->    Felix
->
-> >
-> > Reviewed-by: Jason Gunthorpe <jgg@mellanox.com>
-> >
-> > Jason
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+T24gVHVlLCBBdWcgNiwgMjAxOSBhdCAxOjQ1IFBNIEhhcnJ5IFdlbnRsYW5kIDxoYXJyeS53ZW50
+bGFuZEBhbWQuY29tPiB3cm90ZToKPgo+IEZyb206IE5pa29sYSBDb3JuaWogPG5pa29sYS5jb3Ju
+aWpAYW1kLmNvbT4KPgo+IFt3aHldCj4gTnVtYmVyIG9mIHNsaWNlcyBwZXIgbGluZSB3YXMgbWlz
+dGFrZW5seSBsZWZ0IG91dAo+Cj4gQ2M6IEhhcmlwcmFzYWQgS2VsYW0gPGhhcmlwcmFzYWQua2Vs
+YW1AZ21haWwuY29tPgo+IFNpZ25lZC1vZmYtYnk6IE5pa29sYSBDb3JuaWogPG5pa29sYS5jb3Ju
+aWpAYW1kLmNvbT4KPiBTaWduZWQtb2ZmLWJ5OiBIYXJyeSBXZW50bGFuZCA8aGFycnkud2VudGxh
+bmRAYW1kLmNvbT4KPiBSZXZpZXdlZC1ieTogSGFycnkgV2VudGxhbmQgPGhhcnJ5LndlbnRsYW5k
+QGFtZC5jb20+CgpBY2tlZC1ieTogQWxleCBEZXVjaGVyIDxhbGV4YW5kZXIuZGV1Y2hlckBhbWQu
+Y29tPgoKPiAtLS0KPgo+IFRoYW5rcywgSGFyaXByYXNhZCwgZm9yIHlvdXIgcGF0Y2guIFRoZSBz
+ZWNvbmQgY29uZGl0aW9uIHNob3VsZCBhY3R1YWxseSBjaGVjawo+IGZvciBudW1fc2xpY2VzX2gu
+Cj4KPiBIYXJyeQo+Cj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9kY24yMC9kY24y
+MF9kc2MuYyB8IDIgKy0KPiAgMSBmaWxlIGNoYW5nZWQsIDEgaW5zZXJ0aW9uKCspLCAxIGRlbGV0
+aW9uKC0pCj4KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2Rj
+bjIwL2RjbjIwX2RzYy5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2RjbjIwL2Rj
+bjIwX2RzYy5jCj4gaW5kZXggZTg3MGNhYThkNGZhLi5hZGI2OWMwMzhlZmIgMTAwNjQ0Cj4gLS0t
+IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2RjbjIwL2RjbjIwX2RzYy5jCj4gKysr
+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2RjbjIwL2RjbjIwX2RzYy5jCj4gQEAg
+LTMwMiw3ICszMDIsNyBAQCBzdGF0aWMgYm9vbCBkc2NfcHJlcGFyZV9jb25maWcoc3RydWN0IGRp
+c3BsYXlfc3RyZWFtX2NvbXByZXNzb3IgKmRzYywgY29uc3Qgc3RydQo+ICAgICAgICAgICAgICAg
+ICAgICAgZHNjX2NmZy0+ZGNfZHNjX2NmZy5saW5lYnVmX2RlcHRoID09IDApKSk7Cj4gICAgICAg
+ICBBU1NFUlQoOTYgPD0gZHNjX2NmZy0+ZGNfZHNjX2NmZy5iaXRzX3Blcl9waXhlbCAmJiBkc2Nf
+Y2ZnLT5kY19kc2NfY2ZnLmJpdHNfcGVyX3BpeGVsIDw9IDB4M2ZmKTsgLy8gNi4wIDw9IGJpdHNf
+cGVyX3BpeGVsIDw9IDYzLjkzNzUKPgo+IC0gICAgICAgaWYgKCFkc2NfY2ZnLT5kY19kc2NfY2Zn
+Lm51bV9zbGljZXNfdiB8fCAhZHNjX2NmZy0+ZGNfZHNjX2NmZy5udW1fc2xpY2VzX3YgfHwKPiAr
+ICAgICAgIGlmICghZHNjX2NmZy0+ZGNfZHNjX2NmZy5udW1fc2xpY2VzX3YgfHwgIWRzY19jZmct
+PmRjX2RzY19jZmcubnVtX3NsaWNlc19oIHx8Cj4gICAgICAgICAgICAgICAgICEoZHNjX2NmZy0+
+ZGNfZHNjX2NmZy52ZXJzaW9uX21pbm9yID09IDEgfHwgZHNjX2NmZy0+ZGNfZHNjX2NmZy52ZXJz
+aW9uX21pbm9yID09IDIpIHx8Cj4gICAgICAgICAgICAgICAgICFkc2NfY2ZnLT5waWNfd2lkdGgg
+fHwgIWRzY19jZmctPnBpY19oZWlnaHQgfHwKPiAgICAgICAgICAgICAgICAgISgoZHNjX2NmZy0+
+ZGNfZHNjX2NmZy52ZXJzaW9uX21pbm9yID09IDEgJiYgLy8gdjEuMSBsaW5lIGJ1ZmZlciBkZXB0
+aCByYW5nZToKPiAtLQo+IDIuMjIuMAo+Cj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX18KPiBhbWQtZ2Z4IG1haWxpbmcgbGlzdAo+IGFtZC1nZnhAbGlzdHMu
+ZnJlZWRlc2t0b3Aub3JnCj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9s
+aXN0aW5mby9hbWQtZ2Z4Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
+Cmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
