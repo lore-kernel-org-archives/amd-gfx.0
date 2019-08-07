@@ -1,72 +1,155 @@
-From: Kai-Heng Feng <kai.heng.feng@canonical.com>
-Subject: Re: [Regression] "drm/amdgpu: enable gfxoff again on raven series
- (v2)"
-Date: Thu, 8 Aug 2019 01:44:32 +0800
-Message-ID: <624BFB8F-B586-492E-BEA6-4B138DAEC831@canonical.com>
-References: <3EB0E920-31D7-4C91-A360-DBFB4417AC2F@canonical.com>
- <MN2PR12MB330979BAFF5BCC758258D54CECD40@MN2PR12MB3309.namprd12.prod.outlook.com>
-Mime-Version: 1.0 (Mac OS X Mail 12.4 \(3445.104.11\))
-Content-Type: text/plain;
-        charset=utf-8;
-        delsp=yes;
-        format=flowed
-Content-Transfer-Encoding: 8bit
+From: Jason Gunthorpe <jgg@mellanox.com>
+Subject: Re: [PATCH 04/15] mm: remove the pgmap field from struct hmm_vma_walk
+Date: Wed, 7 Aug 2019 17:45:53 +0000
+Message-ID: <20190807174548.GJ1571@mellanox.com>
+References: <20190806160554.14046-1-hch@lst.de>
+ <20190806160554.14046-5-hch@lst.de>
+Mime-Version: 1.0
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <MN2PR12MB330979BAFF5BCC758258D54CECD40@MN2PR12MB3309.namprd12.prod.outlook.com>
+In-Reply-To: <20190806160554.14046-5-hch@lst.de>
+Content-Language: en-US
+Content-ID: <1920BF82988BC542A48F1F6D6A0BA986@eurprd05.prod.outlook.com>
 Sender: linux-kernel-owner@vger.kernel.org
-To: "Huang, Ray" <Ray.Huang@amd.com>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Koenig, Christian" <Christian.Koenig@amd.com>, "Zhou, David(ChunMing)" <David1.Zhou@amd.com>, amd-gfx list <amd-gfx@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, LKML <linux-kernel@vger.kernel.org>, Anthony Wong <anthony.wong@canonical.com>
+To: Christoph Hellwig <hch@lst.de>, Dan Williams <dan.j.williams@intel.com>
+Cc: =?iso-8859-1?Q?J=E9r=F4me_Glisse?= <jglisse@redhat.com>, Ben Skeggs <bskeggs@redhat.com>, Felix Kuehling <Felix.Kuehling@amd.com>, Ralph Campbell <rcampbell@nvidia.com>, "linux-mm@kvack.org" <linux-mm@kvack.org>, "nouveau@lists.freedesktop.org" <nouveau@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
 List-Id: amd-gfx.lists.freedesktop.org
 
-Hi Ray,
+On Tue, Aug 06, 2019 at 07:05:42PM +0300, Christoph Hellwig wrote:
+> There is only a single place where the pgmap is passed over a function
+> call, so replace it with local variables in the places where we deal
+> with the pgmap.
+>=20
+> Signed-off-by: Christoph Hellwig <hch@lst.de>
+>  mm/hmm.c | 62 ++++++++++++++++++++++++--------------------------------
+>  1 file changed, 27 insertions(+), 35 deletions(-)
+>=20
+> diff --git a/mm/hmm.c b/mm/hmm.c
+> index 9a908902e4cc..d66fa29b42e0 100644
+> +++ b/mm/hmm.c
+> @@ -278,7 +278,6 @@ EXPORT_SYMBOL(hmm_mirror_unregister);
+> =20
+>  struct hmm_vma_walk {
+>  	struct hmm_range	*range;
+> -	struct dev_pagemap	*pgmap;
+>  	unsigned long		last;
+>  	unsigned int		flags;
+>  };
+> @@ -475,6 +474,7 @@ static int hmm_vma_handle_pmd(struct mm_walk *walk,
+>  #ifdef CONFIG_TRANSPARENT_HUGEPAGE
+>  	struct hmm_vma_walk *hmm_vma_walk =3D walk->private;
+>  	struct hmm_range *range =3D hmm_vma_walk->range;
+> +	struct dev_pagemap *pgmap =3D NULL;
+>  	unsigned long pfn, npages, i;
+>  	bool fault, write_fault;
+>  	uint64_t cpu_flags;
+> @@ -490,17 +490,14 @@ static int hmm_vma_handle_pmd(struct mm_walk *walk,
+>  	pfn =3D pmd_pfn(pmd) + pte_index(addr);
+>  	for (i =3D 0; addr < end; addr +=3D PAGE_SIZE, i++, pfn++) {
+>  		if (pmd_devmap(pmd)) {
+> -			hmm_vma_walk->pgmap =3D get_dev_pagemap(pfn,
+> -					      hmm_vma_walk->pgmap);
+> -			if (unlikely(!hmm_vma_walk->pgmap))
+> +			pgmap =3D get_dev_pagemap(pfn, pgmap);
+> +			if (unlikely(!pgmap))
+>  				return -EBUSY;
 
-at 00:03, Huang, Ray <Ray.Huang@amd.com> wrote:
+Unrelated to this patch, but what is the point of getting checking
+that the pgmap exists for the page and then immediately releasing it?
+This code has this pattern in several places.
 
-> May I know the all firmware version in your system?
+It feels racy
 
-# cat amdgpu_firmware_info
-VCE feature version: 0, firmware version: 0x00000000
-UVD feature version: 0, firmware version: 0x00000000
-MC feature version: 0, firmware version: 0x00000000
-ME feature version: 40, firmware version: 0x00000099
-PFP feature version: 40, firmware version: 0x000000ae
-CE feature version: 40, firmware version: 0x0000004d
-RLC feature version: 1, firmware version: 0x00000213
-RLC SRLC feature version: 1, firmware version: 0x00000001
-RLC SRLG feature version: 1, firmware version: 0x00000001
-RLC SRLS feature version: 1, firmware version: 0x00000001
-MEC feature version: 40, firmware version: 0x0000018b
-MEC2 feature version: 40, firmware version: 0x0000018b
-SOS feature version: 0, firmware version: 0x00000000
-ASD feature version: 0, firmware version: 0x001ad4d4
-TA XGMI feature version: 0, firmware version: 0x00000000
-TA RAS feature version: 0, firmware version: 0x00000000
-SMC feature version: 0, firmware version: 0x00001e44
-SDMA0 feature version: 41, firmware version: 0x000000a9
-VCN feature version: 0, firmware version: 0x0110901c
-DMCU feature version: 0, firmware version: 0x00000000
-VBIOS version: 113-RAVEN-103
+>  		}
+>  		pfns[i] =3D hmm_device_entry_from_pfn(range, pfn) | cpu_flags;
+>  	}
+> -	if (hmm_vma_walk->pgmap) {
+> -		put_dev_pagemap(hmm_vma_walk->pgmap);
+> -		hmm_vma_walk->pgmap =3D NULL;
 
-Kai-Heng
+Putting the value in the hmm_vma_walk would have made some sense to me
+if the pgmap was not set to NULL all over the place. Then the most
+xa_loads would be eliminated, as I would expect the pgmap tends to be
+mostly uniform for these use cases.
 
->
-> Thanks,
-> Ray
->
-> From: Kai-Heng Feng <kai.heng.feng@canonical.com>
-> Sent: Wednesday, August 7, 2019 8:50 PM
-> To: Huang, Ray
-> Cc: Deucher, Alexander; Koenig, Christian; Zhou, David(ChunMing); amd-gfx  
-> list; dri-devel@lists.freedesktop.org; LKML; Anthony Wong
-> Subject: [Regression] "drm/amdgpu: enable gfxoff again on raven series  
-> (v2)"
->
-> Hi,
->
-> After commit 005440066f92 ("drm/amdgpu: enable gfxoff again on raven series
-> (v2)”), browsers on Raven Ridge systems cause serious corruption like this:
-> https://launchpadlibrarian.net/436319772/Screenshot%20from%202019-08-07%2004-20-34.png
->
-> Firmwares for Raven Ridge is up-to-date.
->
-> Kai-Heng
+Is there some reason the pgmap ref can't be held across
+faulting/sleeping? ie like below.
+
+Anyhow, I looked over this pretty carefully and the change looks
+functionally OK, I just don't know why the code is like this in the
+first place.
+
+Reviewed-by: Jason Gunthorpe <jgg@mellanox.com>
+
+diff --git a/mm/hmm.c b/mm/hmm.c
+index 9a908902e4cc38..4e30128c23a505 100644
+--- a/mm/hmm.c
++++ b/mm/hmm.c
+@@ -497,10 +497,6 @@ static int hmm_vma_handle_pmd(struct mm_walk *walk,
+ 		}
+ 		pfns[i] =3D hmm_device_entry_from_pfn(range, pfn) | cpu_flags;
+ 	}
+-	if (hmm_vma_walk->pgmap) {
+-		put_dev_pagemap(hmm_vma_walk->pgmap);
+-		hmm_vma_walk->pgmap =3D NULL;
+-	}
+ 	hmm_vma_walk->last =3D end;
+ 	return 0;
+ #else
+@@ -604,10 +600,6 @@ static int hmm_vma_handle_pte(struct mm_walk *walk, un=
+signed long addr,
+ 	return 0;
+=20
+ fault:
+-	if (hmm_vma_walk->pgmap) {
+-		put_dev_pagemap(hmm_vma_walk->pgmap);
+-		hmm_vma_walk->pgmap =3D NULL;
+-	}
+ 	pte_unmap(ptep);
+ 	/* Fault any virtual address we were asked to fault */
+ 	return hmm_vma_walk_hole_(addr, end, fault, write_fault, walk);
+@@ -690,16 +682,6 @@ static int hmm_vma_walk_pmd(pmd_t *pmdp,
+ 			return r;
+ 		}
+ 	}
+-	if (hmm_vma_walk->pgmap) {
+-		/*
+-		 * We do put_dev_pagemap() here and not in hmm_vma_handle_pte()
+-		 * so that we can leverage get_dev_pagemap() optimization which
+-		 * will not re-take a reference on a pgmap if we already have
+-		 * one.
+-		 */
+-		put_dev_pagemap(hmm_vma_walk->pgmap);
+-		hmm_vma_walk->pgmap =3D NULL;
+-	}
+ 	pte_unmap(ptep - 1);
+=20
+ 	hmm_vma_walk->last =3D addr;
+@@ -751,10 +733,6 @@ static int hmm_vma_walk_pud(pud_t *pudp,
+ 			pfns[i] =3D hmm_device_entry_from_pfn(range, pfn) |
+ 				  cpu_flags;
+ 		}
+-		if (hmm_vma_walk->pgmap) {
+-			put_dev_pagemap(hmm_vma_walk->pgmap);
+-			hmm_vma_walk->pgmap =3D NULL;
+-		}
+ 		hmm_vma_walk->last =3D end;
+ 		return 0;
+ 	}
+@@ -1026,6 +1004,14 @@ long hmm_range_fault(struct hmm_range *range, unsign=
+ed int flags)
+ 			/* Keep trying while the range is valid. */
+ 		} while (ret =3D=3D -EBUSY && range->valid);
+=20
++		/*
++		 * We do put_dev_pagemap() here so that we can leverage
++		 * get_dev_pagemap() optimization which will not re-take a
++		 * reference on a pgmap if we already have one.
++		 */
++		if (hmm_vma_walk->pgmap)
++			put_dev_pagemap(hmm_vma_walk->pgmap);
++
+ 		if (ret) {
+ 			unsigned long i;
+=20
