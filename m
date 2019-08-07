@@ -1,116 +1,141 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH 1/2] drm/amdgpu: Export function to flush TLB of specific
- vm hub
-Date: Wed, 7 Aug 2019 10:50:30 +0200
-Message-ID: <65784ad0-7693-9c98-82ee-66713c99f49b@gmail.com>
-References: <1564761834-19210-1-git-send-email-Oak.Zeng@amd.com>
- <855377a1-69ca-891e-1dad-5b93f57671da@gmail.com>
- <BL0PR12MB2580778BFD71E211AC18CFAF80D40@BL0PR12MB2580.namprd12.prod.outlook.com>
-Reply-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
+From: Hans Verkuil <hverkuil-cisco@xs4all.nl>
+Subject: Re: [PATCH v3 10/41] media/ivtv: convert put_page() to
+ put_user_page*()
+Date: Wed, 7 Aug 2019 10:51:17 +0200
+Message-ID: <6fd38719-b5d3-f981-732f-da904e029546@xs4all.nl>
+References: <20190807013340.9706-1-jhubbard@nvidia.com>
+ <20190807013340.9706-11-jhubbard@nvidia.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <BL0PR12MB2580778BFD71E211AC18CFAF80D40-b4cIHhjg/p/XzH18dTCKOgdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20190807013340.9706-11-jhubbard@nvidia.com>
 Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Zeng, Oak" <Oak.Zeng-5C7GfCeVMHo@public.gmane.org>, "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>, "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Zhang, Hawking" <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>, "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Cc: "Zhou1, Tao" <Tao.Zhou1-5C7GfCeVMHo@public.gmane.org>, "Liu, Shaoyun" <Shaoyun.Liu-5C7GfCeVMHo@public.gmane.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: john.hubbard@gmail.com, Andrew Morton <akpm@linux-foundation.org>
+Cc: Christoph Hellwig <hch@infradead.org>, Dan Williams <dan.j.williams@intel.com>, Dave Chinner <david@fromorbit.com>, Dave Hansen <dave.hansen@linux.intel.com>, Ira Weiny <ira.weiny@intel.com>, Jan Kara <jack@suse.cz>, Jason Gunthorpe <jgg@ziepe.ca>, =?UTF-8?B?SsOpcsO0bWUgR2xpc3Nl?= <jglisse@redhat.com>, LKML <linux-kernel@vger.kernel.org>, amd-gfx@lists.freedesktop.org, ceph-devel@vger.kernel.org, devel@driverdev.osuosl.org, devel@lists.orangefs.org, dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, kvm@vger.kernel.org, linux-arm-kernel@lists.infradead.org, linux-block@vger.kernel.org, linux-crypto@vger.kernel.org, linux-fbdev@vger.kernel.org, linux-fsdevel@vger.kernel.org, linux-media@vger.kernel.org, linux-mm@kvack.org, linux-nfs@vger.kernel.orgli
+List-Id: amd-gfx.lists.freedesktop.org
 
-PiBEb2VzIHRoZSBjb2RlZCBiZWxvdyBpbnZhbGlkYXRlIFRMQiBvbiBib3RoIG1tIGFuZCBnZngg
-aHViPwpObywganVzdCB0aGUgZ2Z4IGh1Yi4gVGhlIFZNSFVCcyBvbiBOYXZpIGFyZSB1bmZvcnR1
-bmF0ZWx5IHJlYWxseSBidWdneSwgCnNvIHdlIGhhZCB0byBkbyBhIGxvdCBvZiB3b3JrYXJvdW5k
-cyB0byBnZXQgdGhlbSBpbnRvIGEgc3RhdGUgd2hlcmUgdGhleSAKYWN0dWFsbHkgZGlkIHdoYXQg
-d2FzIGV4cGVjdGVkIGZyb20gdGhlbS4KCk9uZSBtYWpvciBpc3N1ZSBmb3IgZXhhbXBsZSBpcyB0
-aGF0IHlvdSBjYW4ndCBkbyBNTUlPIGJhc2VkIFZNIAppbnZhbGlkYXRpb24gd2hlbiB0aGUgZW5n
-aW5lIGlzIGJ1c3kuIFRvIHdvcmsgYXJvdW5kIHRoaXMgd2UgZG8gdGhlIAppbnZhbGlkYXRpb24g
-d2l0aCB0aGUgKElJUkMpIFNETUEgZW5naW5lIGFzIHNvb24gYXMgdGhhdCBvbmUgaXMgd29ya2lu
-Zy4KClRoZSBpcyB0aGUgY29kZSB5b3UgYXJlIG5vdGluZyBiZWxvdy4KClJlZ2FyZHMsCkNocmlz
-dGlhbi4KCkFtIDA3LjA4LjE5IHVtIDA0OjQwIHNjaHJpZWIgWmVuZywgT2FrOgo+IE9rLCB3aWxs
-IGRvIGl0Lgo+Cj4gQlRXLCBkb2VzIHRob3NlIGNvZGVzIGJlbG93IHJlYWxseSBuZWVkZWQsIGlu
-IGZ1bmN0aW9uIGdtY192MTBfMF9mbHVzaF9ncHVfdGxiLiBJIHRoaW5rIGlmIHdlIGhhdmUgdGhl
-IGJ1ZywgdGhlbiBiZWZvcmUgYmVsb3cgY29kZXMsIHdoZW4gd2UgZmx1c2ggVExCIG9mIGdmeGh1
-YiB0aHJvdWdoIG1taW8sIGl0IGhhcyBhbHJlYWR5IHRyaWdnZXJlZCB0aGUgYnVnLiBBbHNvIGFz
-IHdlIGFscmVhZHkgaW52YWxpZGF0ZWQgdGxiIG9uIGJvdGggbW0gYW5kIGdmeCBodWIgKGluIHRo
-ZSBzYW1lIGZ1bmN0aW9uIGdtY192MTBfMF9mbHVzaF9ncHVfdGxiKSwgd2hhdCBpcyB0aGUgcG9p
-bnQgb2YgYmVsb3cgY29kZXM/IERvZXMgdGhlIGNvZGVkIGJlbG93IGludmFsaWRhdGUgVExCIG9u
-IGJvdGggbW0gYW5kIGdmeCBodWI/IEFsc28gQFpoYW5nLCBIYXdraW5nQERldWNoZXIsIEFsZXhh
-bmRlcgo+Cj4gCS8qIFRoZSBTRE1BIG9uIE5hdmkgaGFzIGEgYnVnIHdoaWNoIGNhbiB0aGVvcmV0
-aWNhbGx5IHJlc3VsdCBpbiBtZW1vcnkKPiAJICogY29ycnVwdGlvbiBpZiBhbiBpbnZhbGlkYXRp
-b24gaGFwcGVucyBhdCB0aGUgc2FtZSB0aW1lIGFzIGFuIFZBCj4gCSAqIHRyYW5zbGF0aW9uLiBB
-dm9pZCB0aGlzIGJ5IGRvaW5nIHRoZSBpbnZhbGlkYXRpb24gZnJvbSB0aGUgU0RNQQo+IAkgKiBp
-dHNlbGYuCj4gCSAqLwo+IAlyID0gYW1kZ3B1X2pvYl9hbGxvY193aXRoX2liKGFkZXYsIDE2ICog
-NCwgJmpvYik7Cj4gCWlmIChyKQo+IAkJZ290byBlcnJvcl9hbGxvYzsKPgo+IAlqb2ItPnZtX3Bk
-X2FkZHIgPSBhbWRncHVfZ21jX3BkX2FkZHIoYWRldi0+Z2FydC5ibyk7Cj4gCWpvYi0+dm1fbmVl
-ZHNfZmx1c2ggPSB0cnVlOwo+IAlhbWRncHVfcmluZ19wYWRfaWIocmluZywgJmpvYi0+aWJzWzBd
-KTsKPiAJciA9IGFtZGdwdV9qb2Jfc3VibWl0KGpvYiwgJmFkZXYtPm1tYW4uZW50aXR5LAo+IAkJ
-CSAgICAgIEFNREdQVV9GRU5DRV9PV05FUl9VTkRFRklORUQsICZmZW5jZSk7Cj4KPiBSZWdhcmRz
-LAo+IE9hawo+Cj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0KPiBGcm9tOiBDaHJpc3RpYW4g
-S8O2bmlnIDxja29lbmlnLmxlaWNodHp1bWVya2VuQGdtYWlsLmNvbT4KPiBTZW50OiBNb25kYXks
-IEF1Z3VzdCA1LCAyMDE5IDU6MzcgQU0KPiBUbzogWmVuZywgT2FrIDxPYWsuWmVuZ0BhbWQuY29t
-PjsgYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPiBDYzogS3VlaGxpbmcsIEZlbGl4IDxG
-ZWxpeC5LdWVobGluZ0BhbWQuY29tPjsgWmhvdTEsIFRhbyA8VGFvLlpob3UxQGFtZC5jb20+OyBM
-aXUsIFNoYW95dW4gPFNoYW95dW4uTGl1QGFtZC5jb20+Cj4gU3ViamVjdDogUmU6IFtQQVRDSCAx
-LzJdIGRybS9hbWRncHU6IEV4cG9ydCBmdW5jdGlvbiB0byBmbHVzaCBUTEIgb2Ygc3BlY2lmaWMg
-dm0gaHViCj4KPiBBbSAwMi4wOC4xOSB1bSAxODowNCBzY2hyaWViIFplbmcsIE9hazoKPj4gVGhp
-cyBpcyBmb3Iga2ZkIHRvIHJldXNlIGFtZGdwdSBUTEIgaW52YWxpZGF0aW9uIGZ1bmN0aW9uLiBU
-aGVyZSBpcwo+PiBhbHJlYWR5IGEgZ21jIGZ1bmN0aW9uIGZsdXNoX2dwdV90bGIgdG8gZmx1c2gg
-VExCIG9uIGFsbCB2bSBodWIuIE9uCj4+IGdmeDEwLCBrZmQgb25seSBuZWVkcyB0byBmbHVzaCBU
-TEIgb24gZ2Z4IGh1YiBidXQgbm90IG9uIG1tIGh1Yi4gU28KPj4gZXhwb3J0IGEgZnVuY3Rpb24g
-Zm9yIEtGRCBmbHVzaCBUTEIgb25seSBvbiBnZnggaHViLgo+IEkgd291bGQgcmF0aGVyIGdvIGFo
-ZWFkIGFuZCBhZGQgYW5vdGhlciBwYXJhbWV0ZXIgdG8gZmx1c2hfZ3B1X3RsYiB0byBub3RlIHdo
-aWNoIGh1YiBuZWVkcyBmbHVzaGluZy4KPgo+IFdlIGNhbiBwcm9iYWJseSBlYXNpbHkgZXh0ZW5k
-IHRoZSBmZXcgY2FsbGVycyB0byBmbHVzaCBhbGwgaHVicyBuZWVkZWQuCj4KPiBDaHJpc3RpYW4u
-Cj4KPj4gQ2hhbmdlLUlkOiBJNThmZjAwOTY5Zjg4NDM4Y2ZkM2RjN2U5ZGViN2JmZjBjMWJiNDEz
-Mwo+PiBTaWduZWQtb2ZmLWJ5OiBPYWsgWmVuZyA8T2FrLlplbmdAYW1kLmNvbT4KPj4gLS0tCj4+
-ICAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9nbWMuaCB8IDQgKysrKwo+PiAg
-ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNfdjEwXzAuYyAgfCAxICsKPj4gICAgMiBm
-aWxlcyBjaGFuZ2VkLCA1IGluc2VydGlvbnMoKykKPj4KPj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMv
-Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9nbWMuaAo+PiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-YW1kZ3B1L2FtZGdwdV9nbWMuaAo+PiBpbmRleCAwNzExNDVhLi4wYmQ0YTRmIDEwMDY0NAo+PiAt
-LS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZ21jLmgKPj4gKysrIGIvZHJp
-dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2dtYy5oCj4+IEBAIC04OCw2ICs4OCw5IEBA
-IHN0cnVjdCBhbWRncHVfdm1odWIgewo+PiAgICAgKiBHUFUgTUMgc3RydWN0dXJlcywgZnVuY3Rp
-b25zICYgaGVscGVycwo+PiAgICAgKi8KPj4gICAgc3RydWN0IGFtZGdwdV9nbWNfZnVuY3Mgewo+
-PiArCS8qIGZsdXNoIHZtIHRsYiBvZiBzcGVjaWZpYyBodWIgKi8KPj4gKwl2b2lkICgqZmx1c2hf
-dm1faHViKShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwgdWludDMyX3Qgdm1pZCwKPj4gKwkJ
-CQkgICB1bnNpZ25lZCBpbnQgdm1odWIsIHVpbnQzMl90IGZsdXNoX3R5cGUpOwo+PiAgICAJLyog
-Zmx1c2ggdGhlIHZtIHRsYiB2aWEgbW1pbyAqLwo+PiAgICAJdm9pZCAoKmZsdXNoX2dwdV90bGIp
-KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LAo+PiAgICAJCQkgICAgICB1aW50MzJfdCB2bWlk
-LCB1aW50MzJfdCBmbHVzaF90eXBlKTsgQEAgLTE4MCw2ICsxODMsNyBAQAo+PiBzdHJ1Y3QgYW1k
-Z3B1X2dtYyB7Cj4+ICAgIAlzdHJ1Y3QgcmFzX2NvbW1vbl9pZiAgICAqcmFzX2lmOwo+PiAgICB9
-Owo+PiAgICAKPj4gKyNkZWZpbmUgYW1kZ3B1X2dtY19mbHVzaF92bV9odWIoYWRldiwgdm1pZCwg
-dm1odWIsIHR5cGUpCj4+ICsoKGFkZXYpLT5nbWMuZ21jX2Z1bmNzLT5mbHVzaF92bV9odWIoKGFk
-ZXYpLCAodm1pZCksICh2bWh1YiksCj4+ICsodHlwZSkpKQo+PiAgICAjZGVmaW5lIGFtZGdwdV9n
-bWNfZmx1c2hfZ3B1X3RsYihhZGV2LCB2bWlkLCB0eXBlKSAoYWRldiktPmdtYy5nbWNfZnVuY3Mt
-PmZsdXNoX2dwdV90bGIoKGFkZXYpLCAodm1pZCksICh0eXBlKSkKPj4gICAgI2RlZmluZSBhbWRn
-cHVfZ21jX2VtaXRfZmx1c2hfZ3B1X3RsYihyLCB2bWlkLCBhZGRyKSAociktPmFkZXYtPmdtYy5n
-bWNfZnVuY3MtPmVtaXRfZmx1c2hfZ3B1X3RsYigociksICh2bWlkKSwgKGFkZHIpKQo+PiAgICAj
-ZGVmaW5lIGFtZGdwdV9nbWNfZW1pdF9wYXNpZF9tYXBwaW5nKHIsIHZtaWQsIHBhc2lkKQo+PiAo
-ciktPmFkZXYtPmdtYy5nbWNfZnVuY3MtPmVtaXRfcGFzaWRfbWFwcGluZygociksICh2bWlkKSwg
-KHBhc2lkKSkKPj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192
-MTBfMC5jCj4+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ21jX3YxMF8wLmMKPj4gaW5k
-ZXggNGUzYWMxMC4uMjQ3NTE1ZCAxMDA2NDQKPj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9h
-bWRncHUvZ21jX3YxMF8wLmMKPj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ21j
-X3YxMF8wLmMKPj4gQEAgLTQxNiw2ICs0MTYsNyBAQCBzdGF0aWMgdm9pZCBnbWNfdjEwXzBfZ2V0
-X3ZtX3BkZShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwgaW50IGxldmVsLAo+PiAgICB9Cj4+
-ICAgIAo+PiAgICBzdGF0aWMgY29uc3Qgc3RydWN0IGFtZGdwdV9nbWNfZnVuY3MgZ21jX3YxMF8w
-X2dtY19mdW5jcyA9IHsKPj4gKwkuZmx1c2hfdm1faHViID0gZ21jX3YxMF8wX2ZsdXNoX3ZtX2h1
-YiwKPj4gICAgCS5mbHVzaF9ncHVfdGxiID0gZ21jX3YxMF8wX2ZsdXNoX2dwdV90bGIsCj4+ICAg
-IAkuZW1pdF9mbHVzaF9ncHVfdGxiID0gZ21jX3YxMF8wX2VtaXRfZmx1c2hfZ3B1X3RsYiwKPj4g
-ICAgCS5lbWl0X3Bhc2lkX21hcHBpbmcgPSBnbWNfdjEwXzBfZW1pdF9wYXNpZF9tYXBwaW5nLAo+
-IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCj4gYW1kLWdm
-eCBtYWlsaW5nIGxpc3QKPiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+IGh0dHBzOi8v
-bGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAoKX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxp
-c3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3Rv
-cC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+On 8/7/19 3:33 AM, john.hubbard@gmail.com wrote:
+> From: John Hubbard <jhubbard@nvidia.com>
+> 
+> For pages that were retained via get_user_pages*(), release those pages
+> via the new put_user_page*() routines, instead of via put_page() or
+> release_pages().
+> 
+> This is part a tree-wide conversion, as described in commit fc1d8e7cca2d
+> ("mm: introduce put_user_page*(), placeholder versions").
+> 
+> Cc: Andy Walls <awalls@md.metrocast.net>
+> Cc: Mauro Carvalho Chehab <mchehab@kernel.org>
+> Cc: linux-media@vger.kernel.org
+> Signed-off-by: John Hubbard <jhubbard@nvidia.com>
+
+Acked-by: Hans Verkuil <hverkuil-cisco@xs4all.nl>
+
+Regards,
+
+	Hans
+
+> ---
+>  drivers/media/pci/ivtv/ivtv-udma.c | 14 ++++----------
+>  drivers/media/pci/ivtv/ivtv-yuv.c  | 11 +++--------
+>  2 files changed, 7 insertions(+), 18 deletions(-)
+> 
+> diff --git a/drivers/media/pci/ivtv/ivtv-udma.c b/drivers/media/pci/ivtv/ivtv-udma.c
+> index 5f8883031c9c..7c7f33c2412b 100644
+> --- a/drivers/media/pci/ivtv/ivtv-udma.c
+> +++ b/drivers/media/pci/ivtv/ivtv-udma.c
+> @@ -92,7 +92,7 @@ int ivtv_udma_setup(struct ivtv *itv, unsigned long ivtv_dest_addr,
+>  {
+>  	struct ivtv_dma_page_info user_dma;
+>  	struct ivtv_user_dma *dma = &itv->udma;
+> -	int i, err;
+> +	int err;
+>  
+>  	IVTV_DEBUG_DMA("ivtv_udma_setup, dst: 0x%08x\n", (unsigned int)ivtv_dest_addr);
+>  
+> @@ -119,8 +119,7 @@ int ivtv_udma_setup(struct ivtv *itv, unsigned long ivtv_dest_addr,
+>  		IVTV_DEBUG_WARN("failed to map user pages, returned %d instead of %d\n",
+>  			   err, user_dma.page_count);
+>  		if (err >= 0) {
+> -			for (i = 0; i < err; i++)
+> -				put_page(dma->map[i]);
+> +			put_user_pages(dma->map, err);
+>  			return -EINVAL;
+>  		}
+>  		return err;
+> @@ -130,9 +129,7 @@ int ivtv_udma_setup(struct ivtv *itv, unsigned long ivtv_dest_addr,
+>  
+>  	/* Fill SG List with new values */
+>  	if (ivtv_udma_fill_sg_list(dma, &user_dma, 0) < 0) {
+> -		for (i = 0; i < dma->page_count; i++) {
+> -			put_page(dma->map[i]);
+> -		}
+> +		put_user_pages(dma->map, dma->page_count);
+>  		dma->page_count = 0;
+>  		return -ENOMEM;
+>  	}
+> @@ -153,7 +150,6 @@ int ivtv_udma_setup(struct ivtv *itv, unsigned long ivtv_dest_addr,
+>  void ivtv_udma_unmap(struct ivtv *itv)
+>  {
+>  	struct ivtv_user_dma *dma = &itv->udma;
+> -	int i;
+>  
+>  	IVTV_DEBUG_INFO("ivtv_unmap_user_dma\n");
+>  
+> @@ -170,9 +166,7 @@ void ivtv_udma_unmap(struct ivtv *itv)
+>  	ivtv_udma_sync_for_cpu(itv);
+>  
+>  	/* Release User Pages */
+> -	for (i = 0; i < dma->page_count; i++) {
+> -		put_page(dma->map[i]);
+> -	}
+> +	put_user_pages(dma->map, dma->page_count);
+>  	dma->page_count = 0;
+>  }
+>  
+> diff --git a/drivers/media/pci/ivtv/ivtv-yuv.c b/drivers/media/pci/ivtv/ivtv-yuv.c
+> index cd2fe2d444c0..2c61a11d391d 100644
+> --- a/drivers/media/pci/ivtv/ivtv-yuv.c
+> +++ b/drivers/media/pci/ivtv/ivtv-yuv.c
+> @@ -30,7 +30,6 @@ static int ivtv_yuv_prep_user_dma(struct ivtv *itv, struct ivtv_user_dma *dma,
+>  	struct yuv_playback_info *yi = &itv->yuv_info;
+>  	u8 frame = yi->draw_frame;
+>  	struct yuv_frame_info *f = &yi->new_frame_info[frame];
+> -	int i;
+>  	int y_pages, uv_pages;
+>  	unsigned long y_buffer_offset, uv_buffer_offset;
+>  	int y_decode_height, uv_decode_height, y_size;
+> @@ -81,8 +80,7 @@ static int ivtv_yuv_prep_user_dma(struct ivtv *itv, struct ivtv_user_dma *dma,
+>  				 uv_pages, uv_dma.page_count);
+>  
+>  			if (uv_pages >= 0) {
+> -				for (i = 0; i < uv_pages; i++)
+> -					put_page(dma->map[y_pages + i]);
+> +				put_user_pages(&dma->map[y_pages], uv_pages);
+>  				rc = -EFAULT;
+>  			} else {
+>  				rc = uv_pages;
+> @@ -93,8 +91,7 @@ static int ivtv_yuv_prep_user_dma(struct ivtv *itv, struct ivtv_user_dma *dma,
+>  				 y_pages, y_dma.page_count);
+>  		}
+>  		if (y_pages >= 0) {
+> -			for (i = 0; i < y_pages; i++)
+> -				put_page(dma->map[i]);
+> +			put_user_pages(dma->map, y_pages);
+>  			/*
+>  			 * Inherit the -EFAULT from rc's
+>  			 * initialization, but allow it to be
+> @@ -112,9 +109,7 @@ static int ivtv_yuv_prep_user_dma(struct ivtv *itv, struct ivtv_user_dma *dma,
+>  	/* Fill & map SG List */
+>  	if (ivtv_udma_fill_sg_list (dma, &uv_dma, ivtv_udma_fill_sg_list (dma, &y_dma, 0)) < 0) {
+>  		IVTV_DEBUG_WARN("could not allocate bounce buffers for highmem userspace buffers\n");
+> -		for (i = 0; i < dma->page_count; i++) {
+> -			put_page(dma->map[i]);
+> -		}
+> +		put_user_pages(dma->map, dma->page_count);
+>  		dma->page_count = 0;
+>  		return -ENOMEM;
+>  	}
+> 
