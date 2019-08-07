@@ -1,44 +1,60 @@
-From: "Pelloux-prayer, Pierre-eric" <Pierre-eric.Pelloux-prayer-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH] drm/amdgpu: fix gfx9 soft recovery
-Date: Wed, 7 Aug 2019 07:40:27 +0000
-Message-ID: <20190807074023.31659-1-pierre-eric.pelloux-prayer@amd.com>
+From: Hans Verkuil <hverkuil-cisco@xs4all.nl>
+Subject: Re: [PATCH v3 11/41] media/v4l2-core/mm: convert put_page() to
+ put_user_page*()
+Date: Wed, 7 Aug 2019 10:07:02 +0200
+Message-ID: <8a02b10a-507b-2eb3-19aa-1cb498c1a4af@xs4all.nl>
+References: <20190807013340.9706-1-jhubbard@nvidia.com>
+ <20190807013340.9706-12-jhubbard@nvidia.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
+Return-path: <netdev-owner@vger.kernel.org>
+In-Reply-To: <20190807013340.9706-12-jhubbard@nvidia.com>
 Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Pelloux-prayer,
- Pierre-eric" <Pierre-eric.Pelloux-prayer-5C7GfCeVMHo@public.gmane.org>
+Sender: netdev-owner@vger.kernel.org
+To: john.hubbard@gmail.com, Andrew Morton <akpm@linux-foundation.org>
+Cc: Christoph Hellwig <hch@infradead.org>, Dan Williams <dan.j.williams@intel.com>, Dave Chinner <david@fromorbit.com>, Dave Hansen <dave.hansen@linux.intel.com>, Ira Weiny <ira.weiny@intel.com>, Jan Kara <jack@suse.cz>, Jason Gunthorpe <jgg@ziepe.ca>, =?UTF-8?B?SsOpcsO0bWUgR2xpc3Nl?= <jglisse@redhat.com>, LKML <linux-kernel@vger.kernel.org>, amd-gfx@lists.freedesktop.org, ceph-devel@vger.kernel.org, devel@driverdev.osuosl.org, devel@lists.orangefs.org, dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, kvm@vger.kernel.org, linux-arm-kernel@lists.infradead.org, linux-block@vger.kernel.org, linux-crypto@vger.kernel.org, linux-fbdev@vger.kernel.org, linux-fsdevel@vger.kernel.org, linux-media@vger.kernel.org, linux-mm@kvack.org, linux-nfs@vger.kernel.orgli
+List-Id: amd-gfx.lists.freedesktop.org
 
-VGhlIFNPQzE1X1JFR19PRkZTRVQoKSBtYWNybyB3YXNuJ3QgdXNlZCwgbWFraW5nIHRoZSBzb2Z0
-IHJlY292ZXJ5IGZhaWwuCgp2MjogdXNlIFdSRUczMl9TT0MxNSBpbnN0ZWFkIG9mIFdSRUczMiAr
-IFNPQzE1X1JFR19PRkZTRVQKClNpZ25lZC1vZmYtYnk6IFBpZXJyZS1FcmljIFBlbGxvdXgtUHJh
-eWVyIDxwaWVycmUtZXJpYy5wZWxsb3V4LXByYXllckBhbWQuY29tPgpSZXZpZXdlZC1ieTogQWxl
-eCBEZXVjaGVyIDxhbGV4YW5kZXIuZGV1Y2hlckBhbWQuY29tPgotLS0KIGRyaXZlcnMvZ3B1L2Ry
-bS9hbWQvYW1kZ3B1L2dmeF92OV8wLmMgfCAyICstCiAxIGZpbGUgY2hhbmdlZCwgMSBpbnNlcnRp
-b24oKyksIDEgZGVsZXRpb24oLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
-ZGdwdS9nZnhfdjlfMC5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y5XzAuYwpp
-bmRleCBiY2QwMzAxZWVlMWUuLjFhMjk2M2U0YmM2OCAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUv
-ZHJtL2FtZC9hbWRncHUvZ2Z4X3Y5XzAuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
-dS9nZnhfdjlfMC5jCkBAIC01Mzc1LDcgKzUzNzUsNyBAQCBzdGF0aWMgdm9pZCBnZnhfdjlfMF9y
-aW5nX3NvZnRfcmVjb3Zlcnkoc3RydWN0IGFtZGdwdV9yaW5nICpyaW5nLCB1bnNpZ25lZCB2bWlk
-KQogCXZhbHVlID0gUkVHX1NFVF9GSUVMRCh2YWx1ZSwgU1FfQ01ELCBNT0RFLCAweDAxKTsKIAl2
-YWx1ZSA9IFJFR19TRVRfRklFTEQodmFsdWUsIFNRX0NNRCwgQ0hFQ0tfVk1JRCwgMSk7CiAJdmFs
-dWUgPSBSRUdfU0VUX0ZJRUxEKHZhbHVlLCBTUV9DTUQsIFZNX0lELCB2bWlkKTsKLQlXUkVHMzIo
-bW1TUV9DTUQsIHZhbHVlKTsKKwlXUkVHMzJfU09DMTUoR0MsIDAsIG1tU1FfQ01ELCB2YWx1ZSk7
-CiB9CiAKIHN0YXRpYyB2b2lkIGdmeF92OV8wX3NldF9nZnhfZW9wX2ludGVycnVwdF9zdGF0ZShz
-dHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwKLS0gCjIuMjMuMC5yYzEKCl9fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFt
-ZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
-L21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
+On 8/7/19 3:33 AM, john.hubbard@gmail.com wrote:
+> From: John Hubbard <jhubbard@nvidia.com>
+> 
+> For pages that were retained via get_user_pages*(), release those pages
+> via the new put_user_page*() routines, instead of via put_page() or
+> release_pages().
+> 
+> This is part a tree-wide conversion, as described in commit fc1d8e7cca2d
+> ("mm: introduce put_user_page*(), placeholder versions").
+> 
+> Cc: Mauro Carvalho Chehab <mchehab@kernel.org>
+> Cc: Kees Cook <keescook@chromium.org>
+> Cc: Hans Verkuil <hans.verkuil@cisco.com>
+> Cc: Sakari Ailus <sakari.ailus@linux.intel.com>
+> Cc: Jan Kara <jack@suse.cz>
+> Cc: Robin Murphy <robin.murphy@arm.com>
+> Cc: Souptick Joarder <jrdr.linux@gmail.com>
+> Cc: Dan Williams <dan.j.williams@intel.com>
+> Cc: linux-media@vger.kernel.org
+> Signed-off-by: John Hubbard <jhubbard@nvidia.com>
+
+Acked-by: Hans Verkuil <hverkuil-cisco@xs4all.nl>
+
+> ---
+>  drivers/media/v4l2-core/videobuf-dma-sg.c | 3 +--
+>  1 file changed, 1 insertion(+), 2 deletions(-)
+> 
+> diff --git a/drivers/media/v4l2-core/videobuf-dma-sg.c b/drivers/media/v4l2-core/videobuf-dma-sg.c
+> index 66a6c6c236a7..d6eeb437ec19 100644
+> --- a/drivers/media/v4l2-core/videobuf-dma-sg.c
+> +++ b/drivers/media/v4l2-core/videobuf-dma-sg.c
+> @@ -349,8 +349,7 @@ int videobuf_dma_free(struct videobuf_dmabuf *dma)
+>  	BUG_ON(dma->sglen);
+>  
+>  	if (dma->pages) {
+> -		for (i = 0; i < dma->nr_pages; i++)
+> -			put_page(dma->pages[i]);
+> +		put_user_pages(dma->pages, dma->nr_pages);
+>  		kfree(dma->pages);
+>  		dma->pages = NULL;
+>  	}
+> 
