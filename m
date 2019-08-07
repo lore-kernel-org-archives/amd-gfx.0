@@ -1,54 +1,96 @@
-From: "Zhang, Hawking" <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH v2 libdrm 0/3] add ras inject test for gfx and umc module
-Date: Wed, 7 Aug 2019 08:14:41 +0000
-Message-ID: <DM5PR12MB1418C7E671D67CA685C185C5FCD40@DM5PR12MB1418.namprd12.prod.outlook.com>
-References: <20190807065202.30023-1-guchun.chen@amd.com>
+From: Jan Kara <jack@suse.cz>
+Subject: Re: [PATCH 00/34] put_user_pages(): miscellaneous call sites
+Date: Wed, 7 Aug 2019 10:37:26 +0200
+Message-ID: <20190807083726.GA14658@quack2.suse.cz>
+References: <20190802022005.5117-1-jhubbard@nvidia.com>
+ <20190802091244.GD6461@dhcp22.suse.cz>
+ <20190802124146.GL25064@quack2.suse.cz>
+ <20190802142443.GB5597@bombadil.infradead.org>
+ <20190802145227.GQ25064@quack2.suse.cz>
+ <076e7826-67a5-4829-aae2-2b90f302cebd@nvidia.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190807065202.30023-1-guchun.chen-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Li, Dennis" <Dennis.Li-5C7GfCeVMHo@public.gmane.org>, "Pan,
- Xinhui" <Xinhui.Pan-5C7GfCeVMHo@public.gmane.org>, "Zhou1, Tao" <Tao.Zhou1-5C7GfCeVMHo@public.gmane.org>
-Cc: "Chen, Guchun" <Guchun.Chen-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset=us-ascii
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Content-Disposition: inline
+In-Reply-To: <076e7826-67a5-4829-aae2-2b90f302cebd@nvidia.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: John Hubbard <jhubbard@nvidia.com>
+Cc: Jan Kara <jack@suse.cz>, Matthew Wilcox <willy@infradead.org>, Michal Hocko <mhocko@kernel.org>, john.hubbard@gmail.com, Andrew Morton <akpm@linux-foundation.org>, Christoph Hellwig <hch@infradead.org>, Dan Williams <dan.j.williams@intel.com>, Dave Chinner <david@fromorbit.com>, Dave Hansen <dave.hansen@linux.intel.com>, Ira Weiny <ira.weiny@intel.com>, Jason Gunthorpe <jgg@ziepe.ca>, =?iso-8859-1?B?Suly9G1l?= Glisse <jglisse@redhat.com>, LKML <linux-kernel@vger.kernel.org>, amd-gfx@lists.freedesktop.org, ceph-devel@vger.kernel.org, devel@driverdev.osuosl.org, devel@lists.orangefs.org, dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, kvm@vger.kernel.org, linux-arm-kernel@lists.infradead.org, linux-block@vger.kernel.org, linux-crypto@vger.kernel.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-UmV2aWV3ZWQtYnk6IEhhd2tpbmcgWmhhbmcgPEhhd2tpbmcuWmhhbmdAYW1kLmNvbT4NCg0KUmVn
-YXJkcywNCkhhd2tpbmcNCi0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQpGcm9tOiBhbWQtZ2Z4
-IDxhbWQtZ2Z4LWJvdW5jZXNAbGlzdHMuZnJlZWRlc2t0b3Aub3JnPiBPbiBCZWhhbGYgT2YgR3Vj
-aHVuIENoZW4NClNlbnQ6IDIwMTnlubQ45pyIN+aXpSAxNDo1Mg0KVG86IGFtZC1nZnhAbGlzdHMu
-ZnJlZWRlc2t0b3Aub3JnOyBaaGFuZywgSGF3a2luZyA8SGF3a2luZy5aaGFuZ0BhbWQuY29tPjsg
-TGksIERlbm5pcyA8RGVubmlzLkxpQGFtZC5jb20+OyBQYW4sIFhpbmh1aSA8WGluaHVpLlBhbkBh
-bWQuY29tPjsgWmhvdTEsIFRhbyA8VGFvLlpob3UxQGFtZC5jb20+DQpDYzogQ2hlbiwgR3VjaHVu
-IDxHdWNodW4uQ2hlbkBhbWQuY29tPg0KU3ViamVjdDogW1BBVENIIHYyIGxpYmRybSAwLzNdIGFk
-ZCByYXMgaW5qZWN0IHRlc3QgZm9yIGdmeCBhbmQgdW1jIG1vZHVsZQ0KDQpUaGVzZSBwYXRjaGVz
-IGFyZSB0byBzdXBwb3J0IHJhcyBpbmplY3QgdGVzdCBmb3IgZ2Z4IGFuZCB1bWMgbW9kdWxlcy4N
-Cg0KUGF0Y2ggdjI6DQpDb3JyZWN0ICJlamVjdCIgaW4gYWxsIGNvbW1pdHMgdG8gImluamVjdCIu
-DQpBZGQgbW9yZSBlcnJvciBjaGVja3MgYW5kIHByaW50IHdoZW4gcGFyc2luZyBjb25maWd1cmF0
-aW9uIGZpbGUuDQpBZGQgdW1jIG11bHRpX3VuY29ycmVjdGFibGUgdGVzdCBpbiBkZWZhdWx0IGNv
-bmZpZ3VyYXRpb24gZmlsZS4NCg0KR3VjaHVuIENoZW4gKDMpOg0KICBhbWRncHU6IGFkZCBnZngg
-cmFzIGluamVjdCBjb25maWd1cmF0aW9uIGZpbGUNCiAgdGVzdHMvYW1kZ3B1L3JhczogcmVmaW5l
-IHJhcyBpbmplY3QgdGVzdA0KICBhbWRncHU6IGFkZCB1bWMgcmFzIGluamVjdCB0ZXN0IGNvbmZp
-Z3VyYXRpb24NCg0KIGNvbmZpZ3VyZS5hYyAgICAgICAgICAgICB8ICAxOCArKw0KIGRhdGEvYW1k
-Z3B1X3Jhcy5qc29uICAgICB8IDI2NyArKysrKysrKysrKysrKysrKysrKw0KIG1lc29uLmJ1aWxk
-ICAgICAgICAgICAgICB8ICAgMSArDQogdGVzdHMvYW1kZ3B1L01ha2VmaWxlLmFtIHwgICA1ICst
-DQogdGVzdHMvYW1kZ3B1L21lc29uLmJ1aWxkIHwgIDE2ICstDQogdGVzdHMvYW1kZ3B1L3Jhc190
-ZXN0cy5jIHwgNTI3ICsrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrLS0tLQ0KIDYg
-ZmlsZXMgY2hhbmdlZCwgNzgzIGluc2VydGlvbnMoKyksIDUxIGRlbGV0aW9ucygtKSAgY3JlYXRl
-IG1vZGUgMTAwNjQ0IGRhdGEvYW1kZ3B1X3Jhcy5qc29uDQoNCi0tDQoyLjE3LjENCg0KX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18NCmFtZC1nZnggbWFpbGlu
-ZyBsaXN0DQphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0KaHR0cHM6Ly9saXN0cy5mcmVl
-ZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4DQpfX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4
-QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWls
-bWFuL2xpc3RpbmZvL2FtZC1nZng=
+On Fri 02-08-19 12:14:09, John Hubbard wrote:
+> On 8/2/19 7:52 AM, Jan Kara wrote:
+> > On Fri 02-08-19 07:24:43, Matthew Wilcox wrote:
+> > > On Fri, Aug 02, 2019 at 02:41:46PM +0200, Jan Kara wrote:
+> > > > On Fri 02-08-19 11:12:44, Michal Hocko wrote:
+> > > > > On Thu 01-08-19 19:19:31, john.hubbard@gmail.com wrote:
+> > > > > [...]
+> > > > > > 2) Convert all of the call sites for get_user_pages*(), to
+> > > > > > invoke put_user_page*(), instead of put_page(). This involves dozens of
+> > > > > > call sites, and will take some time.
+> > > > > 
+> > > > > How do we make sure this is the case and it will remain the case in the
+> > > > > future? There must be some automagic to enforce/check that. It is simply
+> > > > > not manageable to do it every now and then because then 3) will simply
+> > > > > be never safe.
+> > > > > 
+> > > > > Have you considered coccinele or some other scripted way to do the
+> > > > > transition? I have no idea how to deal with future changes that would
+> > > > > break the balance though.
+> 
+> Hi Michal,
+> 
+> Yes, I've thought about it, and coccinelle falls a bit short (it's not smart
+> enough to know which put_page()'s to convert). However, there is a debug
+> option planned: a yet-to-be-posted commit [1] uses struct page extensions
+> (obviously protected by CONFIG_DEBUG_GET_USER_PAGES_REFERENCES) to add
+> a redundant counter. That allows:
+> 
+> void __put_page(struct page *page)
+> {
+> 	...
+> 	/* Someone called put_page() instead of put_user_page() */
+> 	WARN_ON_ONCE(atomic_read(&page_ext->pin_count) > 0);
+> 
+> > > > 
+> > > > Yeah, that's why I've been suggesting at LSF/MM that we may need to create
+> > > > a gup wrapper - say vaddr_pin_pages() - and track which sites dropping
+> > > > references got converted by using this wrapper instead of gup. The
+> > > > counterpart would then be more logically named as unpin_page() or whatever
+> > > > instead of put_user_page().  Sure this is not completely foolproof (you can
+> > > > create new callsite using vaddr_pin_pages() and then just drop refs using
+> > > > put_page()) but I suppose it would be a high enough barrier for missed
+> > > > conversions... Thoughts?
+> 
+> The debug option above is still a bit simplistic in its implementation
+> (and maybe not taking full advantage of the data it has), but I think
+> it's preferable, because it monitors the "core" and WARNs.
+> 
+> Instead of the wrapper, I'm thinking: documentation and the passage of
+> time, plus the debug option (perhaps enhanced--probably once I post it
+> someone will notice opportunities), yes?
+
+So I think your debug option and my suggested renaming serve a bit
+different purposes (and thus both make sense). If you do the renaming, you
+can just grep to see unconverted sites. Also when someone merges new GUP
+user (unaware of the new rules) while you switch GUP to use pins instead of
+ordinary references, you'll get compilation error in case of renaming
+instead of hard to debug refcount leak without the renaming. And such
+conflict is almost bound to happen given the size of GUP patch set... Also
+the renaming serves against the "coding inertia" - i.e., GUP is around for
+ages so people just use it without checking any documentation or comments.
+After switching how GUP works, what used to be correct isn't anymore so
+renaming the function serves as a warning that something has really
+changed.
+
+Your refcount debug patches are good to catch bugs in the conversions done
+but that requires you to be able to excercise the code path in the first
+place which may require particular HW or so, and you also have to enable
+the debug option which means you already aim at verifying the GUP
+references are treated properly.
+
+								Honza
+
+-- 
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
