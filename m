@@ -1,96 +1,63 @@
-From: Jan Kara <jack@suse.cz>
-Subject: Re: [PATCH 00/34] put_user_pages(): miscellaneous call sites
-Date: Wed, 7 Aug 2019 10:37:26 +0200
-Message-ID: <20190807083726.GA14658@quack2.suse.cz>
-References: <20190802022005.5117-1-jhubbard@nvidia.com>
- <20190802091244.GD6461@dhcp22.suse.cz>
- <20190802124146.GL25064@quack2.suse.cz>
- <20190802142443.GB5597@bombadil.infradead.org>
- <20190802145227.GQ25064@quack2.suse.cz>
- <076e7826-67a5-4829-aae2-2b90f302cebd@nvidia.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH 1/5] drm/amdgpu: Extends amdgpu vm definitions
+Date: Wed, 7 Aug 2019 10:41:34 +0200
+Message-ID: <3e4f2f68-8840-d85c-052e-fc54dbf45fd4@gmail.com>
+References: <1565145062-16674-1-git-send-email-Oak.Zeng@amd.com>
+Reply-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
 Mime-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Content-Disposition: inline
-In-Reply-To: <076e7826-67a5-4829-aae2-2b90f302cebd@nvidia.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: John Hubbard <jhubbard@nvidia.com>
-Cc: Jan Kara <jack@suse.cz>, Matthew Wilcox <willy@infradead.org>, Michal Hocko <mhocko@kernel.org>, john.hubbard@gmail.com, Andrew Morton <akpm@linux-foundation.org>, Christoph Hellwig <hch@infradead.org>, Dan Williams <dan.j.williams@intel.com>, Dave Chinner <david@fromorbit.com>, Dave Hansen <dave.hansen@linux.intel.com>, Ira Weiny <ira.weiny@intel.com>, Jason Gunthorpe <jgg@ziepe.ca>, =?iso-8859-1?B?Suly9G1l?= Glisse <jglisse@redhat.com>, LKML <linux-kernel@vger.kernel.org>, amd-gfx@lists.freedesktop.org, ceph-devel@vger.kernel.org, devel@driverdev.osuosl.org, devel@lists.orangefs.org, dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, kvm@vger.kernel.org, linux-arm-kernel@lists.infradead.org, linux-block@vger.kernel.org, linux-crypto@vger.kernel.org
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <1565145062-16674-1-git-send-email-Oak.Zeng-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Zeng, Oak" <Oak.Zeng-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>, "Koenig,
+ Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "Keely, Sean" <Sean.Keely-5C7GfCeVMHo@public.gmane.org>
 
-On Fri 02-08-19 12:14:09, John Hubbard wrote:
-> On 8/2/19 7:52 AM, Jan Kara wrote:
-> > On Fri 02-08-19 07:24:43, Matthew Wilcox wrote:
-> > > On Fri, Aug 02, 2019 at 02:41:46PM +0200, Jan Kara wrote:
-> > > > On Fri 02-08-19 11:12:44, Michal Hocko wrote:
-> > > > > On Thu 01-08-19 19:19:31, john.hubbard@gmail.com wrote:
-> > > > > [...]
-> > > > > > 2) Convert all of the call sites for get_user_pages*(), to
-> > > > > > invoke put_user_page*(), instead of put_page(). This involves dozens of
-> > > > > > call sites, and will take some time.
-> > > > > 
-> > > > > How do we make sure this is the case and it will remain the case in the
-> > > > > future? There must be some automagic to enforce/check that. It is simply
-> > > > > not manageable to do it every now and then because then 3) will simply
-> > > > > be never safe.
-> > > > > 
-> > > > > Have you considered coccinele or some other scripted way to do the
-> > > > > transition? I have no idea how to deal with future changes that would
-> > > > > break the balance though.
-> 
-> Hi Michal,
-> 
-> Yes, I've thought about it, and coccinelle falls a bit short (it's not smart
-> enough to know which put_page()'s to convert). However, there is a debug
-> option planned: a yet-to-be-posted commit [1] uses struct page extensions
-> (obviously protected by CONFIG_DEBUG_GET_USER_PAGES_REFERENCES) to add
-> a redundant counter. That allows:
-> 
-> void __put_page(struct page *page)
-> {
-> 	...
-> 	/* Someone called put_page() instead of put_user_page() */
-> 	WARN_ON_ONCE(atomic_read(&page_ext->pin_count) > 0);
-> 
-> > > > 
-> > > > Yeah, that's why I've been suggesting at LSF/MM that we may need to create
-> > > > a gup wrapper - say vaddr_pin_pages() - and track which sites dropping
-> > > > references got converted by using this wrapper instead of gup. The
-> > > > counterpart would then be more logically named as unpin_page() or whatever
-> > > > instead of put_user_page().  Sure this is not completely foolproof (you can
-> > > > create new callsite using vaddr_pin_pages() and then just drop refs using
-> > > > put_page()) but I suppose it would be a high enough barrier for missed
-> > > > conversions... Thoughts?
-> 
-> The debug option above is still a bit simplistic in its implementation
-> (and maybe not taking full advantage of the data it has), but I think
-> it's preferable, because it monitors the "core" and WARNs.
-> 
-> Instead of the wrapper, I'm thinking: documentation and the passage of
-> time, plus the debug option (perhaps enhanced--probably once I post it
-> someone will notice opportunities), yes?
-
-So I think your debug option and my suggested renaming serve a bit
-different purposes (and thus both make sense). If you do the renaming, you
-can just grep to see unconverted sites. Also when someone merges new GUP
-user (unaware of the new rules) while you switch GUP to use pins instead of
-ordinary references, you'll get compilation error in case of renaming
-instead of hard to debug refcount leak without the renaming. And such
-conflict is almost bound to happen given the size of GUP patch set... Also
-the renaming serves against the "coding inertia" - i.e., GUP is around for
-ages so people just use it without checking any documentation or comments.
-After switching how GUP works, what used to be correct isn't anymore so
-renaming the function serves as a warning that something has really
-changed.
-
-Your refcount debug patches are good to catch bugs in the conversions done
-but that requires you to be able to excercise the code path in the first
-place which may require particular HW or so, and you also have to enable
-the debug option which means you already aim at verifying the GUP
-references are treated properly.
-
-								Honza
-
--- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+QW0gMDcuMDguMTkgdW0gMDQ6MzEgc2NocmllYiBaZW5nLCBPYWs6Cj4gQWRkIGRlZmluaXRpb24g
+b2YgYWxsIHN1cHBvcnRlZCBtdHlwZXMuIFRoZSBSVyBtdHlwZQo+IGlzIHJlY2VudGx5IGludHJv
+ZHVjZWQgZm9yIGFyY3R1cnVzLiBBbHNvIGFkZCBkZWZpbml0aW9uCj4gZm9yIHRoZSBjYWNoYWJs
+ZS9zbm9vcGFibGUgYml0LCB3aGljaCB3aWxsIGJlIHVzZWQgbGF0ZXIKPiBpbiB0aGlzIHNlcmll
+cy4KPgo+IENoYW5nZS1JZDogSTk2ZmM5YmI0YjZiMWU2MmJkYzEwYjYwMGQ4YWFhNmE4MDIxMjhk
+NmQKPiBTaWduZWQtb2ZmLWJ5OiBPYWsgWmVuZyA8T2FrLlplbmdAYW1kLmNvbT4KPiAtLS0KPiAg
+IGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5oIHwgOSArKysrKysrLS0KPiAg
+IGluY2x1ZGUvdWFwaS9kcm0vYW1kZ3B1X2RybS5oICAgICAgICAgIHwgNCArKysrCj4gICAyIGZp
+bGVzIGNoYW5nZWQsIDExIGluc2VydGlvbnMoKyksIDIgZGVsZXRpb25zKC0pCj4KPiBkaWZmIC0t
+Z2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmggYi9kcml2ZXJzL2dw
+dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uaAo+IGluZGV4IDJlZGEzYTguLjdhNzc0NzcgMTAw
+NjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmgKPiArKysg
+Yi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uaAo+IEBAIC04MCw4ICs4MCwx
+MyBAQCBzdHJ1Y3QgYW1kZ3B1X2JvX2xpc3RfZW50cnk7Cj4gICAjZGVmaW5lIEFNREdQVV9QVEVf
+TVRZUEVfVkcxMChhKQkoKHVpbnQ2NF90KShhKSA8PCA1NykKPiAgICNkZWZpbmUgQU1ER1BVX1BU
+RV9NVFlQRV9WRzEwX01BU0sJQU1ER1BVX1BURV9NVFlQRV9WRzEwKDNVTEwpCj4gICAKPiAtI2Rl
+ZmluZSBBTURHUFVfTVRZUEVfTkMgMAo+IC0jZGVmaW5lIEFNREdQVV9NVFlQRV9DQyAyCj4gK2Vu
+dW0gYW1kZ3B1X210eXBlIHsKPiArCUFNREdQVV9NVFlQRV9OQyA9IDAsCj4gKwlBTURHUFVfTVRZ
+UEVfV0MgPSAxLAo+ICsJQU1ER1BVX01UWVBFX0NDID0gMiwKPiArCUFNREdQVV9NVFlQRV9VQyA9
+IDMsCj4gKwlBTURHUFVfTVRZUEVfUlcgPSA0LAo+ICt9Owo+ICAgCj4gICAjZGVmaW5lIEFNREdQ
+VV9QVEVfREVGQVVMVF9BVEMgIChBTURHUFVfUFRFX1NZU1RFTSAgICAgIFwKPiAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgfCBBTURHUFVfUFRFX1NOT09QRUQgICAgXAo+IGRpZmYg
+LS1naXQgYS9pbmNsdWRlL3VhcGkvZHJtL2FtZGdwdV9kcm0uaCBiL2luY2x1ZGUvdWFwaS9kcm0v
+YW1kZ3B1X2RybS5oCj4gaW5kZXggY2E5N2I2OC4uMjg4OTY2MyAxMDA2NDQKPiAtLS0gYS9pbmNs
+dWRlL3VhcGkvZHJtL2FtZGdwdV9kcm0uaAo+ICsrKyBiL2luY2x1ZGUvdWFwaS9kcm0vYW1kZ3B1
+X2RybS5oCj4gQEAgLTUwMyw2ICs1MDMsMTAgQEAgc3RydWN0IGRybV9hbWRncHVfZ2VtX29wIHsK
+PiAgICNkZWZpbmUgQU1ER1BVX1ZNX01UWVBFX0NDCQkoMyA8PCA1KQo+ICAgLyogVXNlIFVDIE1U
+WVBFIGluc3RlYWQgb2YgZGVmYXVsdCBNVFlQRSAqLwo+ICAgI2RlZmluZSBBTURHUFVfVk1fTVRZ
+UEVfVUMJCSg0IDw8IDUpCj4gKy8qIFVzZSBSVyBNVFlQRSBpbnN0ZWFkIG9mIGRlZmF1bHQgTVRZ
+UEUgKi8KPiArI2RlZmluZSBBTURHUFVfVk1fTVRZUEVfUlcJCSg1IDw8IDUpCgo+ICsvKiBDYWNo
+ZWFibGUvc25vb3BhYmxlICovCj4gKyNkZWZpbmUgQU1ER1BVX1ZNX1BBR0VfU05PT1BFRAkJKDEg
+PDwgOSkKClRoYXQncyBhIHJhdGhlciBiaWcgTkFLLiBDYWNoZSBzbm9vcGluZyBpcyBub3Qgc29t
+ZXRoaW5nIHVzZXJzcGFjZSBpcyAKYWxsb3dlZCB0byBiZSBhd2FyZSBvZi4KCkNocmlzdGlhbi4K
+Cj4gICAKPiAgIHN0cnVjdCBkcm1fYW1kZ3B1X2dlbV92YSB7Cj4gICAJLyoqIEdFTSBvYmplY3Qg
+aGFuZGxlICovCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+XwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRw
+czovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
