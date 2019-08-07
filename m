@@ -1,59 +1,66 @@
-From: "Koenig, Christian" <Christian.Koenig@amd.com>
-Subject: Re: [PATCH] drm/amdgpu: replace readq/writeq with atomic64 operations
-Date: Wed, 7 Aug 2019 10:55:01 +0000
-Message-ID: <18cd9fa5-2d87-2f41-b5fa-927b9790287d@amd.com>
-References: <20190807025640.682-1-tao.zhou1@amd.com>
- <20190807070834.GA24792@infradead.org>
- <daff9fc7-ead8-40e0-9a16-cb3b90b01722@amd.com>
- <20190807104104.GA18773@infradead.org>
+From: Jason Gunthorpe <jgg-VPRAkNaXOzVWk0Htik3J/w@public.gmane.org>
+Subject: Re: [PATCH v3 hmm 10/11] drm/amdkfd: use mmu_notifier_put
+Date: Wed, 7 Aug 2019 11:42:05 +0000
+Message-ID: <20190807114159.GA1571@mellanox.com>
+References: <20190806231548.25242-1-jgg@ziepe.ca>
+	<20190806231548.25242-11-jgg@ziepe.ca>
+	<d58a1a8f-f80c-edfe-4b57-6fde9c0ca180@amd.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Return-path: <linux-arm-kernel-bounces+linux-arm-kernel=m.gmane.org@lists.infradead.org>
-In-Reply-To: <20190807104104.GA18773@infradead.org>
+Return-path: <iommu-bounces-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org>
+In-Reply-To: <d58a1a8f-f80c-edfe-4b57-6fde9c0ca180-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
-Content-ID: <38B2E3E82706954B8BB64564CFF144C3@namprd12.prod.outlook.com>
-List-Unsubscribe: <http://lists.infradead.org/mailman/options/linux-arm-kernel>,
- <mailto:linux-arm-kernel-request@lists.infradead.org?subject=unsubscribe>
-List-Archive: <http://lists.infradead.org/pipermail/linux-arm-kernel/>
-List-Post: <mailto:linux-arm-kernel@lists.infradead.org>
-List-Help: <mailto:linux-arm-kernel-request@lists.infradead.org?subject=help>
-List-Subscribe: <http://lists.infradead.org/mailman/listinfo/linux-arm-kernel>,
- <mailto:linux-arm-kernel-request@lists.infradead.org?subject=subscribe>
-Sender: "linux-arm-kernel" <linux-arm-kernel-bounces@lists.infradead.org>
-Errors-To: linux-arm-kernel-bounces+linux-arm-kernel=m.gmane.org@lists.infradead.org
-To: Christoph Hellwig <hch@infradead.org>
-Cc: "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>, "kernel-build-reports@lists.linaro.org" <kernel-build-reports@lists.linaro.org>, "Zhou1, Tao" <Tao.Zhou1@amd.com>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "broonie@kernel.org" <broonie@kernel.org>, "linux-next@vger.kernel.org" <linux-next@vger.kernel.org>, "Deucher,
- Alexander" <Alexander.Deucher@amd.com>, "akpm@linux-foundation.org" <akpm@linux-foundation.org>, "Li,
- Dennis" <Dennis.Li@amd.com>, "Zhang, Hawking" <Hawking.Zhang@amd.com>
+Content-ID: <FEC4B53D5BFE794F897559B0282A7946-wNKe6lTLrGecE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
+List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/iommu>,
+	<mailto:iommu-request-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org?subject=unsubscribe>
+List-Archive: <http://lists.linuxfoundation.org/pipermail/iommu/>
+List-Post: <mailto:iommu-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org>
+List-Help: <mailto:iommu-request-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/iommu>,
+	<mailto:iommu-request-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org?subject=subscribe>
+Sender: iommu-bounces-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org
+Errors-To: iommu-bounces-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org
+To: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
+Cc: Andrea Arcangeli <aarcange-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>, "Zhou,
+	David(ChunMing)" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, Ralph Campbell <rcampbell-DDmLM1+adcrQT0dZR+AlfA@public.gmane.org>, Dimitri Sivanich <sivanich-sJ/iWh9BUns@public.gmane.org>, Gavin Shan <shangw-23VcF4HTsmIX0ybBhKVfKdBPR1lH4CV8@public.gmane.org>, Andrea Righi <andrea-oIIqvOZpAevzfdHfmsDf5w@public.gmane.org>, "linux-rdma-u79uwXL29TY76Z2rM5mHXA@public.gmane.org" <linux-rdma-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, John Hubbard <jhubbard-DDmLM1+adcrQT0dZR+AlfA@public.gmane.org>, "intel-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <intel-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org" <linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, "dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "linux-mm-Bw31MaZKKs3YtjvyW6yDsg@public.gmane.org" <linux-mm-Bw31MaZKKs3YtjvyW6yDsg@public.gmane.org>, =?iso-8859-1?Q?J=E9r=F4me_Glisse?= <jglisse-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>, "iommu-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org" <iommu-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Deucher,
+	Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>Christ
 List-Id: amd-gfx.lists.freedesktop.org
 
-Am 07.08.19 um 12:41 schrieb Christoph Hellwig:
-> On Wed, Aug 07, 2019 at 08:53:25AM +0000, Koenig, Christian wrote:
->> Am 07.08.19 um 09:08 schrieb Christoph Hellwig:
->>> On Wed, Aug 07, 2019 at 10:56:40AM +0800, Tao Zhou wrote:
->>>> readq/writeq are not supported on all architectures
->>> NAK.  You must not use atomic_* on __iomem (MMIO) memory.
->> Well then what's the right thing to do here?
->>
->> Essentially writeq/readq doesn't seems to be available on all
->> architectures either.
-> writeq/readq are provided whenever the CPU actually supports 64-bit
-> atomic loads and stores.
+On Tue, Aug 06, 2019 at 11:47:44PM +0000, Kuehling, Felix wrote:
+> On 2019-08-06 19:15, Jason Gunthorpe wrote:
+> > From: Jason Gunthorpe <jgg-VPRAkNaXOzVWk0Htik3J/w@public.gmane.org>
+> >
+> > The sequence of mmu_notifier_unregister_no_release(),
+> > mmu_notifier_call_srcu() is identical to mmu_notifier_put() with the
+> > free_notifier callback.
+> >
+> > As this is the last user of those APIs, converting it means we can drop
+> > them.
+> >
+> > Signed-off-by: Jason Gunthorpe <jgg-VPRAkNaXOzVWk0Htik3J/w@public.gmane.org>
+> 
+> Reviewed-by: Felix Kuehling <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
+> 
+> >   drivers/gpu/drm/amd/amdkfd/kfd_priv.h    |  3 ---
+> >   drivers/gpu/drm/amd/amdkfd/kfd_process.c | 10 ++++------
+> >   2 files changed, 4 insertions(+), 9 deletions(-)
+> >
+> > I'm really not sure what this is doing, but it is very strange to have a
+> > release with no other callback. It would be good if this would change to use
+> > get as well.
+> KFD uses the MMU notifier to detect process termination and free all the 
+> resources associated with the process. This was first added for APUs 
+> where the IOMMUv2 is set up to perform address translations using the 
+> CPU page table for device memory access. That's where the association of 
+> KFD process resources with the lifetime of the mm_struct comes from.
 
-Is there a config option which we can make the driver depend on?
+When all the HW objects that could do DMA to this process are
+destroyed then the mmu notififer should be torn down. The module
+should remain locked until the DMA objects are destroyed.
 
-I mean that ARM doesn't support 64bit atomic loads and stores on MMIO is 
-quite a boomer for us.
+I'm still unclear why this is needed, the IOMMU for PASID already has
+notififers, and already blocks access when the mm_struct goes away,
+why add a second layer of tracking?
 
-Toa do you of hand know what we actually need the 64bit atomic stores 
-for? E.g. what is the hardware background?
-
-Regards,
-Christian.
-
-> If it doesn't provide them atomic64* is
-> not going to be atomic vs the I/O device either.  And that is on top
-> of the fact that for various architectures you can't simply use
-> plain loads and stores on MMIO memory to start with, which is why
-> we have the special accessors and the __iomem annotation.
+Jason
