@@ -1,104 +1,116 @@
-From: Michal Hocko <mhocko@kernel.org>
-Subject: Re: [PATCH 00/34] put_user_pages(): miscellaneous call sites
-Date: Wed, 7 Aug 2019 10:46:49 +0200
-Message-ID: <20190807084649.GQ11812@dhcp22.suse.cz>
-References: <20190802022005.5117-1-jhubbard@nvidia.com>
- <20190802091244.GD6461@dhcp22.suse.cz>
- <20190802124146.GL25064@quack2.suse.cz>
- <20190802142443.GB5597@bombadil.infradead.org>
- <20190802145227.GQ25064@quack2.suse.cz>
- <076e7826-67a5-4829-aae2-2b90f302cebd@nvidia.com>
- <20190807083726.GA14658@quack2.suse.cz>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH 1/2] drm/amdgpu: Export function to flush TLB of specific
+ vm hub
+Date: Wed, 7 Aug 2019 10:50:30 +0200
+Message-ID: <65784ad0-7693-9c98-82ee-66713c99f49b@gmail.com>
+References: <1564761834-19210-1-git-send-email-Oak.Zeng@amd.com>
+ <855377a1-69ca-891e-1dad-5b93f57671da@gmail.com>
+ <BL0PR12MB2580778BFD71E211AC18CFAF80D40@BL0PR12MB2580.namprd12.prod.outlook.com>
+Reply-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
 Mime-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Content-Disposition: inline
-In-Reply-To: <20190807083726.GA14658@quack2.suse.cz>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Jan Kara <jack@suse.cz>
-Cc: John Hubbard <jhubbard@nvidia.com>, Matthew Wilcox <willy@infradead.org>, john.hubbard@gmail.com, Andrew Morton <akpm@linux-foundation.org>, Christoph Hellwig <hch@infradead.org>, Dan Williams <dan.j.williams@intel.com>, Dave Chinner <david@fromorbit.com>, Dave Hansen <dave.hansen@linux.intel.com>, Ira Weiny <ira.weiny@intel.com>, Jason Gunthorpe <jgg@ziepe.ca>, =?iso-8859-1?B?Suly9G1l?= Glisse <jglisse@redhat.com>, LKML <linux-kernel@vger.kernel.org>, amd-gfx@lists.freedesktop.org, ceph-devel@vger.kernel.org, devel@driverdev.osuosl.org, devel@lists.orangefs.org, dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, kvm@vger.kernel.org, linux-arm-kernel@lists.infradead.org, linux-block@vger.kernel.org, linux-crypto@vger.kernel.org, linux-fbdev@vg
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <BL0PR12MB2580778BFD71E211AC18CFAF80D40-b4cIHhjg/p/XzH18dTCKOgdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Zeng, Oak" <Oak.Zeng-5C7GfCeVMHo@public.gmane.org>, "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>, "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Zhang, Hawking" <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>, "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Cc: "Zhou1, Tao" <Tao.Zhou1-5C7GfCeVMHo@public.gmane.org>, "Liu, Shaoyun" <Shaoyun.Liu-5C7GfCeVMHo@public.gmane.org>
 
-On Wed 07-08-19 10:37:26, Jan Kara wrote:
-> On Fri 02-08-19 12:14:09, John Hubbard wrote:
-> > On 8/2/19 7:52 AM, Jan Kara wrote:
-> > > On Fri 02-08-19 07:24:43, Matthew Wilcox wrote:
-> > > > On Fri, Aug 02, 2019 at 02:41:46PM +0200, Jan Kara wrote:
-> > > > > On Fri 02-08-19 11:12:44, Michal Hocko wrote:
-> > > > > > On Thu 01-08-19 19:19:31, john.hubbard@gmail.com wrote:
-> > > > > > [...]
-> > > > > > > 2) Convert all of the call sites for get_user_pages*(), to
-> > > > > > > invoke put_user_page*(), instead of put_page(). This involves dozens of
-> > > > > > > call sites, and will take some time.
-> > > > > > 
-> > > > > > How do we make sure this is the case and it will remain the case in the
-> > > > > > future? There must be some automagic to enforce/check that. It is simply
-> > > > > > not manageable to do it every now and then because then 3) will simply
-> > > > > > be never safe.
-> > > > > > 
-> > > > > > Have you considered coccinele or some other scripted way to do the
-> > > > > > transition? I have no idea how to deal with future changes that would
-> > > > > > break the balance though.
-> > 
-> > Hi Michal,
-> > 
-> > Yes, I've thought about it, and coccinelle falls a bit short (it's not smart
-> > enough to know which put_page()'s to convert). However, there is a debug
-> > option planned: a yet-to-be-posted commit [1] uses struct page extensions
-> > (obviously protected by CONFIG_DEBUG_GET_USER_PAGES_REFERENCES) to add
-> > a redundant counter. That allows:
-> > 
-> > void __put_page(struct page *page)
-> > {
-> > 	...
-> > 	/* Someone called put_page() instead of put_user_page() */
-> > 	WARN_ON_ONCE(atomic_read(&page_ext->pin_count) > 0);
-> > 
-> > > > > 
-> > > > > Yeah, that's why I've been suggesting at LSF/MM that we may need to create
-> > > > > a gup wrapper - say vaddr_pin_pages() - and track which sites dropping
-> > > > > references got converted by using this wrapper instead of gup. The
-> > > > > counterpart would then be more logically named as unpin_page() or whatever
-> > > > > instead of put_user_page().  Sure this is not completely foolproof (you can
-> > > > > create new callsite using vaddr_pin_pages() and then just drop refs using
-> > > > > put_page()) but I suppose it would be a high enough barrier for missed
-> > > > > conversions... Thoughts?
-> > 
-> > The debug option above is still a bit simplistic in its implementation
-> > (and maybe not taking full advantage of the data it has), but I think
-> > it's preferable, because it monitors the "core" and WARNs.
-> > 
-> > Instead of the wrapper, I'm thinking: documentation and the passage of
-> > time, plus the debug option (perhaps enhanced--probably once I post it
-> > someone will notice opportunities), yes?
-> 
-> So I think your debug option and my suggested renaming serve a bit
-> different purposes (and thus both make sense). If you do the renaming, you
-> can just grep to see unconverted sites. Also when someone merges new GUP
-> user (unaware of the new rules) while you switch GUP to use pins instead of
-> ordinary references, you'll get compilation error in case of renaming
-> instead of hard to debug refcount leak without the renaming. And such
-> conflict is almost bound to happen given the size of GUP patch set... Also
-> the renaming serves against the "coding inertia" - i.e., GUP is around for
-> ages so people just use it without checking any documentation or comments.
-> After switching how GUP works, what used to be correct isn't anymore so
-> renaming the function serves as a warning that something has really
-> changed.
-
-Fully agreed!
-
-> Your refcount debug patches are good to catch bugs in the conversions done
-> but that requires you to be able to excercise the code path in the first
-> place which may require particular HW or so, and you also have to enable
-> the debug option which means you already aim at verifying the GUP
-> references are treated properly.
-> 
-> 								Honza
-> 
-> -- 
-> Jan Kara <jack@suse.com>
-> SUSE Labs, CR
-
--- 
-Michal Hocko
-SUSE Labs
+PiBEb2VzIHRoZSBjb2RlZCBiZWxvdyBpbnZhbGlkYXRlIFRMQiBvbiBib3RoIG1tIGFuZCBnZngg
+aHViPwpObywganVzdCB0aGUgZ2Z4IGh1Yi4gVGhlIFZNSFVCcyBvbiBOYXZpIGFyZSB1bmZvcnR1
+bmF0ZWx5IHJlYWxseSBidWdneSwgCnNvIHdlIGhhZCB0byBkbyBhIGxvdCBvZiB3b3JrYXJvdW5k
+cyB0byBnZXQgdGhlbSBpbnRvIGEgc3RhdGUgd2hlcmUgdGhleSAKYWN0dWFsbHkgZGlkIHdoYXQg
+d2FzIGV4cGVjdGVkIGZyb20gdGhlbS4KCk9uZSBtYWpvciBpc3N1ZSBmb3IgZXhhbXBsZSBpcyB0
+aGF0IHlvdSBjYW4ndCBkbyBNTUlPIGJhc2VkIFZNIAppbnZhbGlkYXRpb24gd2hlbiB0aGUgZW5n
+aW5lIGlzIGJ1c3kuIFRvIHdvcmsgYXJvdW5kIHRoaXMgd2UgZG8gdGhlIAppbnZhbGlkYXRpb24g
+d2l0aCB0aGUgKElJUkMpIFNETUEgZW5naW5lIGFzIHNvb24gYXMgdGhhdCBvbmUgaXMgd29ya2lu
+Zy4KClRoZSBpcyB0aGUgY29kZSB5b3UgYXJlIG5vdGluZyBiZWxvdy4KClJlZ2FyZHMsCkNocmlz
+dGlhbi4KCkFtIDA3LjA4LjE5IHVtIDA0OjQwIHNjaHJpZWIgWmVuZywgT2FrOgo+IE9rLCB3aWxs
+IGRvIGl0Lgo+Cj4gQlRXLCBkb2VzIHRob3NlIGNvZGVzIGJlbG93IHJlYWxseSBuZWVkZWQsIGlu
+IGZ1bmN0aW9uIGdtY192MTBfMF9mbHVzaF9ncHVfdGxiLiBJIHRoaW5rIGlmIHdlIGhhdmUgdGhl
+IGJ1ZywgdGhlbiBiZWZvcmUgYmVsb3cgY29kZXMsIHdoZW4gd2UgZmx1c2ggVExCIG9mIGdmeGh1
+YiB0aHJvdWdoIG1taW8sIGl0IGhhcyBhbHJlYWR5IHRyaWdnZXJlZCB0aGUgYnVnLiBBbHNvIGFz
+IHdlIGFscmVhZHkgaW52YWxpZGF0ZWQgdGxiIG9uIGJvdGggbW0gYW5kIGdmeCBodWIgKGluIHRo
+ZSBzYW1lIGZ1bmN0aW9uIGdtY192MTBfMF9mbHVzaF9ncHVfdGxiKSwgd2hhdCBpcyB0aGUgcG9p
+bnQgb2YgYmVsb3cgY29kZXM/IERvZXMgdGhlIGNvZGVkIGJlbG93IGludmFsaWRhdGUgVExCIG9u
+IGJvdGggbW0gYW5kIGdmeCBodWI/IEFsc28gQFpoYW5nLCBIYXdraW5nQERldWNoZXIsIEFsZXhh
+bmRlcgo+Cj4gCS8qIFRoZSBTRE1BIG9uIE5hdmkgaGFzIGEgYnVnIHdoaWNoIGNhbiB0aGVvcmV0
+aWNhbGx5IHJlc3VsdCBpbiBtZW1vcnkKPiAJICogY29ycnVwdGlvbiBpZiBhbiBpbnZhbGlkYXRp
+b24gaGFwcGVucyBhdCB0aGUgc2FtZSB0aW1lIGFzIGFuIFZBCj4gCSAqIHRyYW5zbGF0aW9uLiBB
+dm9pZCB0aGlzIGJ5IGRvaW5nIHRoZSBpbnZhbGlkYXRpb24gZnJvbSB0aGUgU0RNQQo+IAkgKiBp
+dHNlbGYuCj4gCSAqLwo+IAlyID0gYW1kZ3B1X2pvYl9hbGxvY193aXRoX2liKGFkZXYsIDE2ICog
+NCwgJmpvYik7Cj4gCWlmIChyKQo+IAkJZ290byBlcnJvcl9hbGxvYzsKPgo+IAlqb2ItPnZtX3Bk
+X2FkZHIgPSBhbWRncHVfZ21jX3BkX2FkZHIoYWRldi0+Z2FydC5ibyk7Cj4gCWpvYi0+dm1fbmVl
+ZHNfZmx1c2ggPSB0cnVlOwo+IAlhbWRncHVfcmluZ19wYWRfaWIocmluZywgJmpvYi0+aWJzWzBd
+KTsKPiAJciA9IGFtZGdwdV9qb2Jfc3VibWl0KGpvYiwgJmFkZXYtPm1tYW4uZW50aXR5LAo+IAkJ
+CSAgICAgIEFNREdQVV9GRU5DRV9PV05FUl9VTkRFRklORUQsICZmZW5jZSk7Cj4KPiBSZWdhcmRz
+LAo+IE9hawo+Cj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0KPiBGcm9tOiBDaHJpc3RpYW4g
+S8O2bmlnIDxja29lbmlnLmxlaWNodHp1bWVya2VuQGdtYWlsLmNvbT4KPiBTZW50OiBNb25kYXks
+IEF1Z3VzdCA1LCAyMDE5IDU6MzcgQU0KPiBUbzogWmVuZywgT2FrIDxPYWsuWmVuZ0BhbWQuY29t
+PjsgYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPiBDYzogS3VlaGxpbmcsIEZlbGl4IDxG
+ZWxpeC5LdWVobGluZ0BhbWQuY29tPjsgWmhvdTEsIFRhbyA8VGFvLlpob3UxQGFtZC5jb20+OyBM
+aXUsIFNoYW95dW4gPFNoYW95dW4uTGl1QGFtZC5jb20+Cj4gU3ViamVjdDogUmU6IFtQQVRDSCAx
+LzJdIGRybS9hbWRncHU6IEV4cG9ydCBmdW5jdGlvbiB0byBmbHVzaCBUTEIgb2Ygc3BlY2lmaWMg
+dm0gaHViCj4KPiBBbSAwMi4wOC4xOSB1bSAxODowNCBzY2hyaWViIFplbmcsIE9hazoKPj4gVGhp
+cyBpcyBmb3Iga2ZkIHRvIHJldXNlIGFtZGdwdSBUTEIgaW52YWxpZGF0aW9uIGZ1bmN0aW9uLiBU
+aGVyZSBpcwo+PiBhbHJlYWR5IGEgZ21jIGZ1bmN0aW9uIGZsdXNoX2dwdV90bGIgdG8gZmx1c2gg
+VExCIG9uIGFsbCB2bSBodWIuIE9uCj4+IGdmeDEwLCBrZmQgb25seSBuZWVkcyB0byBmbHVzaCBU
+TEIgb24gZ2Z4IGh1YiBidXQgbm90IG9uIG1tIGh1Yi4gU28KPj4gZXhwb3J0IGEgZnVuY3Rpb24g
+Zm9yIEtGRCBmbHVzaCBUTEIgb25seSBvbiBnZnggaHViLgo+IEkgd291bGQgcmF0aGVyIGdvIGFo
+ZWFkIGFuZCBhZGQgYW5vdGhlciBwYXJhbWV0ZXIgdG8gZmx1c2hfZ3B1X3RsYiB0byBub3RlIHdo
+aWNoIGh1YiBuZWVkcyBmbHVzaGluZy4KPgo+IFdlIGNhbiBwcm9iYWJseSBlYXNpbHkgZXh0ZW5k
+IHRoZSBmZXcgY2FsbGVycyB0byBmbHVzaCBhbGwgaHVicyBuZWVkZWQuCj4KPiBDaHJpc3RpYW4u
+Cj4KPj4gQ2hhbmdlLUlkOiBJNThmZjAwOTY5Zjg4NDM4Y2ZkM2RjN2U5ZGViN2JmZjBjMWJiNDEz
+Mwo+PiBTaWduZWQtb2ZmLWJ5OiBPYWsgWmVuZyA8T2FrLlplbmdAYW1kLmNvbT4KPj4gLS0tCj4+
+ICAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9nbWMuaCB8IDQgKysrKwo+PiAg
+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNfdjEwXzAuYyAgfCAxICsKPj4gICAgMiBm
+aWxlcyBjaGFuZ2VkLCA1IGluc2VydGlvbnMoKykKPj4KPj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMv
+Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9nbWMuaAo+PiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQv
+YW1kZ3B1L2FtZGdwdV9nbWMuaAo+PiBpbmRleCAwNzExNDVhLi4wYmQ0YTRmIDEwMDY0NAo+PiAt
+LS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZ21jLmgKPj4gKysrIGIvZHJp
+dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2dtYy5oCj4+IEBAIC04OCw2ICs4OCw5IEBA
+IHN0cnVjdCBhbWRncHVfdm1odWIgewo+PiAgICAgKiBHUFUgTUMgc3RydWN0dXJlcywgZnVuY3Rp
+b25zICYgaGVscGVycwo+PiAgICAgKi8KPj4gICAgc3RydWN0IGFtZGdwdV9nbWNfZnVuY3Mgewo+
+PiArCS8qIGZsdXNoIHZtIHRsYiBvZiBzcGVjaWZpYyBodWIgKi8KPj4gKwl2b2lkICgqZmx1c2hf
+dm1faHViKShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwgdWludDMyX3Qgdm1pZCwKPj4gKwkJ
+CQkgICB1bnNpZ25lZCBpbnQgdm1odWIsIHVpbnQzMl90IGZsdXNoX3R5cGUpOwo+PiAgICAJLyog
+Zmx1c2ggdGhlIHZtIHRsYiB2aWEgbW1pbyAqLwo+PiAgICAJdm9pZCAoKmZsdXNoX2dwdV90bGIp
+KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LAo+PiAgICAJCQkgICAgICB1aW50MzJfdCB2bWlk
+LCB1aW50MzJfdCBmbHVzaF90eXBlKTsgQEAgLTE4MCw2ICsxODMsNyBAQAo+PiBzdHJ1Y3QgYW1k
+Z3B1X2dtYyB7Cj4+ICAgIAlzdHJ1Y3QgcmFzX2NvbW1vbl9pZiAgICAqcmFzX2lmOwo+PiAgICB9
+Owo+PiAgICAKPj4gKyNkZWZpbmUgYW1kZ3B1X2dtY19mbHVzaF92bV9odWIoYWRldiwgdm1pZCwg
+dm1odWIsIHR5cGUpCj4+ICsoKGFkZXYpLT5nbWMuZ21jX2Z1bmNzLT5mbHVzaF92bV9odWIoKGFk
+ZXYpLCAodm1pZCksICh2bWh1YiksCj4+ICsodHlwZSkpKQo+PiAgICAjZGVmaW5lIGFtZGdwdV9n
+bWNfZmx1c2hfZ3B1X3RsYihhZGV2LCB2bWlkLCB0eXBlKSAoYWRldiktPmdtYy5nbWNfZnVuY3Mt
+PmZsdXNoX2dwdV90bGIoKGFkZXYpLCAodm1pZCksICh0eXBlKSkKPj4gICAgI2RlZmluZSBhbWRn
+cHVfZ21jX2VtaXRfZmx1c2hfZ3B1X3RsYihyLCB2bWlkLCBhZGRyKSAociktPmFkZXYtPmdtYy5n
+bWNfZnVuY3MtPmVtaXRfZmx1c2hfZ3B1X3RsYigociksICh2bWlkKSwgKGFkZHIpKQo+PiAgICAj
+ZGVmaW5lIGFtZGdwdV9nbWNfZW1pdF9wYXNpZF9tYXBwaW5nKHIsIHZtaWQsIHBhc2lkKQo+PiAo
+ciktPmFkZXYtPmdtYy5nbWNfZnVuY3MtPmVtaXRfcGFzaWRfbWFwcGluZygociksICh2bWlkKSwg
+KHBhc2lkKSkKPj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192
+MTBfMC5jCj4+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ21jX3YxMF8wLmMKPj4gaW5k
+ZXggNGUzYWMxMC4uMjQ3NTE1ZCAxMDA2NDQKPj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9h
+bWRncHUvZ21jX3YxMF8wLmMKPj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ21j
+X3YxMF8wLmMKPj4gQEAgLTQxNiw2ICs0MTYsNyBAQCBzdGF0aWMgdm9pZCBnbWNfdjEwXzBfZ2V0
+X3ZtX3BkZShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwgaW50IGxldmVsLAo+PiAgICB9Cj4+
+ICAgIAo+PiAgICBzdGF0aWMgY29uc3Qgc3RydWN0IGFtZGdwdV9nbWNfZnVuY3MgZ21jX3YxMF8w
+X2dtY19mdW5jcyA9IHsKPj4gKwkuZmx1c2hfdm1faHViID0gZ21jX3YxMF8wX2ZsdXNoX3ZtX2h1
+YiwKPj4gICAgCS5mbHVzaF9ncHVfdGxiID0gZ21jX3YxMF8wX2ZsdXNoX2dwdV90bGIsCj4+ICAg
+IAkuZW1pdF9mbHVzaF9ncHVfdGxiID0gZ21jX3YxMF8wX2VtaXRfZmx1c2hfZ3B1X3RsYiwKPj4g
+ICAgCS5lbWl0X3Bhc2lkX21hcHBpbmcgPSBnbWNfdjEwXzBfZW1pdF9wYXNpZF9tYXBwaW5nLAo+
+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCj4gYW1kLWdm
+eCBtYWlsaW5nIGxpc3QKPiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+IGh0dHBzOi8v
+bGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAoKX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxp
+c3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3Rv
+cC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
