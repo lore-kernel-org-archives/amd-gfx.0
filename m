@@ -1,46 +1,28 @@
-From: Guchun Chen <guchun.chen-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH v2 libdrm 3/3] amdgpu: add umc ras inject test configuration
-Date: Wed, 7 Aug 2019 14:52:02 +0800
-Message-ID: <20190807065202.30023-4-guchun.chen@amd.com>
-References: <20190807065202.30023-1-guchun.chen@amd.com>
+From: Christoph Hellwig <hch@infradead.org>
+Subject: Re: [PATCH] drm/amdgpu: replace readq/writeq with atomic64 operations
+Date: Wed, 7 Aug 2019 00:08:34 -0700
+Message-ID: <20190807070834.GA24792@infradead.org>
+References: <20190807025640.682-1-tao.zhou1@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190807065202.30023-1-guchun.chen-5C7GfCeVMHo@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Hawking.Zhang-5C7GfCeVMHo@public.gmane.org, Dennis.Li-5C7GfCeVMHo@public.gmane.org, Xinhui.Pan-5C7GfCeVMHo@public.gmane.org, Tao.Zhou1-5C7GfCeVMHo@public.gmane.org
-Cc: Dennis Li <dennis.li-5C7GfCeVMHo@public.gmane.org>, Guchun Chen <guchun.chen-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+Return-path: <linux-arm-kernel-bounces+linux-arm-kernel=m.gmane.org@lists.infradead.org>
+Content-Disposition: inline
+In-Reply-To: <20190807025640.682-1-tao.zhou1@amd.com>
+List-Unsubscribe: <http://lists.infradead.org/mailman/options/linux-arm-kernel>,
+ <mailto:linux-arm-kernel-request@lists.infradead.org?subject=unsubscribe>
+List-Archive: <http://lists.infradead.org/pipermail/linux-arm-kernel/>
+List-Post: <mailto:linux-arm-kernel@lists.infradead.org>
+List-Help: <mailto:linux-arm-kernel-request@lists.infradead.org?subject=help>
+List-Subscribe: <http://lists.infradead.org/mailman/listinfo/linux-arm-kernel>,
+ <mailto:linux-arm-kernel-request@lists.infradead.org?subject=subscribe>
+Sender: "linux-arm-kernel" <linux-arm-kernel-bounces@lists.infradead.org>
+Errors-To: linux-arm-kernel-bounces+linux-arm-kernel=m.gmane.org@lists.infradead.org
+To: Tao Zhou <tao.zhou1@amd.com>
+Cc: linux-arm-kernel@lists.infradead.org, kernel-build-reports@lists.linaro.org, amd-gfx@lists.freedesktop.org, broonie@kernel.org, linux-next@vger.kernel.org, alexander.deucher@amd.com, akpm@linux-foundation.org, christian.koenig@amd.com, dennis.li@amd.com, hawking.zhang@amd.com
+List-Id: amd-gfx.lists.freedesktop.org
 
-Qm90aCB1bWMgc2luZ2xlX2NvcnJlY3RhYmxlIGFuZCBtdWx0aV91bmNvcnJlY3RhYmxlCmluamVj
-dCB0eXBlcyBhcmUgYWRkZWQuCgpDaGFuZ2UtSWQ6IEk3NzlmMmY0ZjU5YzY5ZmIwOGZkYzA5Yjdh
-ZGJhNWIzNmUzYWYyMGNlClNpZ25lZC1vZmYtYnk6IERlbm5pcyBMaSA8ZGVubmlzLmxpQGFtZC5j
-b20+ClNpZ25lZC1vZmYtYnk6IEd1Y2h1biBDaGVuIDxndWNodW4uY2hlbkBhbWQuY29tPgotLS0K
-IGRhdGEvYW1kZ3B1X3Jhcy5qc29uIHwgMTcgKysrKysrKysrKysrKysrKysKIDEgZmlsZSBjaGFu
-Z2VkLCAxNyBpbnNlcnRpb25zKCspCgpkaWZmIC0tZ2l0IGEvZGF0YS9hbWRncHVfcmFzLmpzb24g
-Yi9kYXRhL2FtZGdwdV9yYXMuanNvbgppbmRleCAwODYzYTE4Mi4uMjZmZDk0NjUgMTAwNjQ0Ci0t
-LSBhL2RhdGEvYW1kZ3B1X3Jhcy5qc29uCisrKyBiL2RhdGEvYW1kZ3B1X3Jhcy5qc29uCkBAIC0x
-LDYgKzEsOSBAQAogewogICAgICJ2ZXJzaW9uIjogIjAuMC4xIiwKICAgICAiYmxvY2siOiB7Cisg
-ICAgICAgICJ1bWMiOiB7CisgICAgICAgICAgICAiaW5kZXgiOiAwCisgICAgICAgIH0sCiAgICAg
-ICAgICJnZngiOiB7CiAgICAgICAgICAgICAiaW5kZXgiOiAyLAogICAgICAgICAgICAgInN1YmJs
-b2NrIjogewpAQCAtMTI2LDYgKzEyOSwyMCBAQAogICAgICAgICAicG9pc29uIjogOAogICAgIH0s
-CiAgICAgInRlc3RzIjogWworICAgICAgICB7CisgICAgICAgICAgICAibmFtZSI6ICJyYXNfdW1j
-LjEuMCIsCisgICAgICAgICAgICAiYmxvY2siOiAidW1jIiwKKyAgICAgICAgICAgICJ0eXBlIjog
-InNpbmdsZV9jb3JyZWN0YWJsZSIsCisgICAgICAgICAgICAiYWRkcmVzcyI6IDAsCisgICAgICAg
-ICAgICAidmFsdWUiOiAwCisgICAgICAgIH0sCisgICAgICAgIHsKKyAgICAgICAgICAgICJuYW1l
-IjogInJhc191bWMuMS4wIiwKKyAgICAgICAgICAgICJibG9jayI6ICJ1bWMiLAorICAgICAgICAg
-ICAgInR5cGUiOiAibXVsdGlfdW5jb3JyZWN0YWJsZSIsCisgICAgICAgICAgICAiYWRkcmVzcyI6
-IDAsCisgICAgICAgICAgICAidmFsdWUiOiAwCisgICAgICAgIH0sCiAgICAgICAgIHsKICAgICAg
-ICAgICAgICJuYW1lIjogInJhc19nZnguMi4xIiwKICAgICAgICAgICAgICJibG9jayI6ICJnZngi
-LAotLSAKMi4xNy4xCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpo
-dHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
+On Wed, Aug 07, 2019 at 10:56:40AM +0800, Tao Zhou wrote:
+> readq/writeq are not supported on all architectures
+
+NAK.  You must not use atomic_* on __iomem (MMIO) memory.
