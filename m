@@ -1,60 +1,54 @@
-From: Hans Verkuil <hverkuil-cisco@xs4all.nl>
-Subject: Re: [PATCH v3 11/41] media/v4l2-core/mm: convert put_page() to
- put_user_page*()
-Date: Wed, 7 Aug 2019 10:07:02 +0200
-Message-ID: <8a02b10a-507b-2eb3-19aa-1cb498c1a4af@xs4all.nl>
-References: <20190807013340.9706-1-jhubbard@nvidia.com>
- <20190807013340.9706-12-jhubbard@nvidia.com>
+From: "Zhang, Hawking" <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: [PATCH v2 libdrm 0/3] add ras inject test for gfx and umc module
+Date: Wed, 7 Aug 2019 08:14:41 +0000
+Message-ID: <DM5PR12MB1418C7E671D67CA685C185C5FCD40@DM5PR12MB1418.namprd12.prod.outlook.com>
+References: <20190807065202.30023-1-guchun.chen@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
-Return-path: <netdev-owner@vger.kernel.org>
-In-Reply-To: <20190807013340.9706-12-jhubbard@nvidia.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20190807065202.30023-1-guchun.chen-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
-Sender: netdev-owner@vger.kernel.org
-To: john.hubbard@gmail.com, Andrew Morton <akpm@linux-foundation.org>
-Cc: Christoph Hellwig <hch@infradead.org>, Dan Williams <dan.j.williams@intel.com>, Dave Chinner <david@fromorbit.com>, Dave Hansen <dave.hansen@linux.intel.com>, Ira Weiny <ira.weiny@intel.com>, Jan Kara <jack@suse.cz>, Jason Gunthorpe <jgg@ziepe.ca>, =?UTF-8?B?SsOpcsO0bWUgR2xpc3Nl?= <jglisse@redhat.com>, LKML <linux-kernel@vger.kernel.org>, amd-gfx@lists.freedesktop.org, ceph-devel@vger.kernel.org, devel@driverdev.osuosl.org, devel@lists.orangefs.org, dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, kvm@vger.kernel.org, linux-arm-kernel@lists.infradead.org, linux-block@vger.kernel.org, linux-crypto@vger.kernel.org, linux-fbdev@vger.kernel.org, linux-fsdevel@vger.kernel.org, linux-media@vger.kernel.org, linux-mm@kvack.org, linux-nfs@vger.kernel.orgli
-List-Id: amd-gfx.lists.freedesktop.org
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Li, Dennis" <Dennis.Li-5C7GfCeVMHo@public.gmane.org>, "Pan,
+ Xinhui" <Xinhui.Pan-5C7GfCeVMHo@public.gmane.org>, "Zhou1, Tao" <Tao.Zhou1-5C7GfCeVMHo@public.gmane.org>
+Cc: "Chen, Guchun" <Guchun.Chen-5C7GfCeVMHo@public.gmane.org>
 
-On 8/7/19 3:33 AM, john.hubbard@gmail.com wrote:
-> From: John Hubbard <jhubbard@nvidia.com>
-> 
-> For pages that were retained via get_user_pages*(), release those pages
-> via the new put_user_page*() routines, instead of via put_page() or
-> release_pages().
-> 
-> This is part a tree-wide conversion, as described in commit fc1d8e7cca2d
-> ("mm: introduce put_user_page*(), placeholder versions").
-> 
-> Cc: Mauro Carvalho Chehab <mchehab@kernel.org>
-> Cc: Kees Cook <keescook@chromium.org>
-> Cc: Hans Verkuil <hans.verkuil@cisco.com>
-> Cc: Sakari Ailus <sakari.ailus@linux.intel.com>
-> Cc: Jan Kara <jack@suse.cz>
-> Cc: Robin Murphy <robin.murphy@arm.com>
-> Cc: Souptick Joarder <jrdr.linux@gmail.com>
-> Cc: Dan Williams <dan.j.williams@intel.com>
-> Cc: linux-media@vger.kernel.org
-> Signed-off-by: John Hubbard <jhubbard@nvidia.com>
-
-Acked-by: Hans Verkuil <hverkuil-cisco@xs4all.nl>
-
-> ---
->  drivers/media/v4l2-core/videobuf-dma-sg.c | 3 +--
->  1 file changed, 1 insertion(+), 2 deletions(-)
-> 
-> diff --git a/drivers/media/v4l2-core/videobuf-dma-sg.c b/drivers/media/v4l2-core/videobuf-dma-sg.c
-> index 66a6c6c236a7..d6eeb437ec19 100644
-> --- a/drivers/media/v4l2-core/videobuf-dma-sg.c
-> +++ b/drivers/media/v4l2-core/videobuf-dma-sg.c
-> @@ -349,8 +349,7 @@ int videobuf_dma_free(struct videobuf_dmabuf *dma)
->  	BUG_ON(dma->sglen);
->  
->  	if (dma->pages) {
-> -		for (i = 0; i < dma->nr_pages; i++)
-> -			put_page(dma->pages[i]);
-> +		put_user_pages(dma->pages, dma->nr_pages);
->  		kfree(dma->pages);
->  		dma->pages = NULL;
->  	}
-> 
+UmV2aWV3ZWQtYnk6IEhhd2tpbmcgWmhhbmcgPEhhd2tpbmcuWmhhbmdAYW1kLmNvbT4NCg0KUmVn
+YXJkcywNCkhhd2tpbmcNCi0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQpGcm9tOiBhbWQtZ2Z4
+IDxhbWQtZ2Z4LWJvdW5jZXNAbGlzdHMuZnJlZWRlc2t0b3Aub3JnPiBPbiBCZWhhbGYgT2YgR3Vj
+aHVuIENoZW4NClNlbnQ6IDIwMTnlubQ45pyIN+aXpSAxNDo1Mg0KVG86IGFtZC1nZnhAbGlzdHMu
+ZnJlZWRlc2t0b3Aub3JnOyBaaGFuZywgSGF3a2luZyA8SGF3a2luZy5aaGFuZ0BhbWQuY29tPjsg
+TGksIERlbm5pcyA8RGVubmlzLkxpQGFtZC5jb20+OyBQYW4sIFhpbmh1aSA8WGluaHVpLlBhbkBh
+bWQuY29tPjsgWmhvdTEsIFRhbyA8VGFvLlpob3UxQGFtZC5jb20+DQpDYzogQ2hlbiwgR3VjaHVu
+IDxHdWNodW4uQ2hlbkBhbWQuY29tPg0KU3ViamVjdDogW1BBVENIIHYyIGxpYmRybSAwLzNdIGFk
+ZCByYXMgaW5qZWN0IHRlc3QgZm9yIGdmeCBhbmQgdW1jIG1vZHVsZQ0KDQpUaGVzZSBwYXRjaGVz
+IGFyZSB0byBzdXBwb3J0IHJhcyBpbmplY3QgdGVzdCBmb3IgZ2Z4IGFuZCB1bWMgbW9kdWxlcy4N
+Cg0KUGF0Y2ggdjI6DQpDb3JyZWN0ICJlamVjdCIgaW4gYWxsIGNvbW1pdHMgdG8gImluamVjdCIu
+DQpBZGQgbW9yZSBlcnJvciBjaGVja3MgYW5kIHByaW50IHdoZW4gcGFyc2luZyBjb25maWd1cmF0
+aW9uIGZpbGUuDQpBZGQgdW1jIG11bHRpX3VuY29ycmVjdGFibGUgdGVzdCBpbiBkZWZhdWx0IGNv
+bmZpZ3VyYXRpb24gZmlsZS4NCg0KR3VjaHVuIENoZW4gKDMpOg0KICBhbWRncHU6IGFkZCBnZngg
+cmFzIGluamVjdCBjb25maWd1cmF0aW9uIGZpbGUNCiAgdGVzdHMvYW1kZ3B1L3JhczogcmVmaW5l
+IHJhcyBpbmplY3QgdGVzdA0KICBhbWRncHU6IGFkZCB1bWMgcmFzIGluamVjdCB0ZXN0IGNvbmZp
+Z3VyYXRpb24NCg0KIGNvbmZpZ3VyZS5hYyAgICAgICAgICAgICB8ICAxOCArKw0KIGRhdGEvYW1k
+Z3B1X3Jhcy5qc29uICAgICB8IDI2NyArKysrKysrKysrKysrKysrKysrKw0KIG1lc29uLmJ1aWxk
+ICAgICAgICAgICAgICB8ICAgMSArDQogdGVzdHMvYW1kZ3B1L01ha2VmaWxlLmFtIHwgICA1ICst
+DQogdGVzdHMvYW1kZ3B1L21lc29uLmJ1aWxkIHwgIDE2ICstDQogdGVzdHMvYW1kZ3B1L3Jhc190
+ZXN0cy5jIHwgNTI3ICsrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrLS0tLQ0KIDYg
+ZmlsZXMgY2hhbmdlZCwgNzgzIGluc2VydGlvbnMoKyksIDUxIGRlbGV0aW9ucygtKSAgY3JlYXRl
+IG1vZGUgMTAwNjQ0IGRhdGEvYW1kZ3B1X3Jhcy5qc29uDQoNCi0tDQoyLjE3LjENCg0KX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18NCmFtZC1nZnggbWFpbGlu
+ZyBsaXN0DQphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0KaHR0cHM6Ly9saXN0cy5mcmVl
+ZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4DQpfX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4
+QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWls
+bWFuL2xpc3RpbmZvL2FtZC1nZng=
