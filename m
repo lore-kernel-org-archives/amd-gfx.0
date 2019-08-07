@@ -1,141 +1,38 @@
-From: Hans Verkuil <hverkuil-cisco@xs4all.nl>
-Subject: Re: [PATCH v3 10/41] media/ivtv: convert put_page() to
- put_user_page*()
-Date: Wed, 7 Aug 2019 10:51:17 +0200
-Message-ID: <6fd38719-b5d3-f981-732f-da904e029546@xs4all.nl>
-References: <20190807013340.9706-1-jhubbard@nvidia.com>
- <20190807013340.9706-11-jhubbard@nvidia.com>
+From: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu: replace readq/writeq with atomic64 operations
+Date: Wed, 7 Aug 2019 08:53:25 +0000
+Message-ID: <daff9fc7-ead8-40e0-9a16-cb3b90b01722@amd.com>
+References: <20190807025640.682-1-tao.zhou1@amd.com>
+ <20190807070834.GA24792@infradead.org>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20190807013340.9706-11-jhubbard@nvidia.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20190807070834.GA24792-wEGCiKHe2LqWVfeAwA7xHQ@public.gmane.org>
 Content-Language: en-US
-Sender: linux-kernel-owner@vger.kernel.org
-To: john.hubbard@gmail.com, Andrew Morton <akpm@linux-foundation.org>
-Cc: Christoph Hellwig <hch@infradead.org>, Dan Williams <dan.j.williams@intel.com>, Dave Chinner <david@fromorbit.com>, Dave Hansen <dave.hansen@linux.intel.com>, Ira Weiny <ira.weiny@intel.com>, Jan Kara <jack@suse.cz>, Jason Gunthorpe <jgg@ziepe.ca>, =?UTF-8?B?SsOpcsO0bWUgR2xpc3Nl?= <jglisse@redhat.com>, LKML <linux-kernel@vger.kernel.org>, amd-gfx@lists.freedesktop.org, ceph-devel@vger.kernel.org, devel@driverdev.osuosl.org, devel@lists.orangefs.org, dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, kvm@vger.kernel.org, linux-arm-kernel@lists.infradead.org, linux-block@vger.kernel.org, linux-crypto@vger.kernel.org, linux-fbdev@vger.kernel.org, linux-fsdevel@vger.kernel.org, linux-media@vger.kernel.org, linux-mm@kvack.org, linux-nfs@vger.kernel.orgli
-List-Id: amd-gfx.lists.freedesktop.org
+Content-ID: <E712C262E9D105428F8F25A3E55ED872-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Christoph Hellwig <hch-wEGCiKHe2LqWVfeAwA7xHQ@public.gmane.org>, "Zhou1, Tao" <Tao.Zhou1-5C7GfCeVMHo@public.gmane.org>
+Cc: "linux-arm-kernel-IAPFreCvJWM7uuMidbF8XUB+6BGkLq7r@public.gmane.org" <linux-arm-kernel-IAPFreCvJWM7uuMidbF8XUB+6BGkLq7r@public.gmane.org>, "kernel-build-reports-cunTk1MwBs8s++Sfvej+rw@public.gmane.org" <kernel-build-reports-cunTk1MwBs8s++Sfvej+rw@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "broonie-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org" <broonie-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org>, "linux-next-u79uwXL29TY76Z2rM5mHXA@public.gmane.org" <linux-next-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, "Deucher,
+ Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "akpm-de/tnXTf+JLsfHDXvbKv3WD2FQJk+8+b@public.gmane.org" <akpm-de/tnXTf+JLsfHDXvbKv3WD2FQJk+8+b@public.gmane.org>, "Li,
+ Dennis" <Dennis.Li-5C7GfCeVMHo@public.gmane.org>, "Zhang, Hawking" <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>
 
-On 8/7/19 3:33 AM, john.hubbard@gmail.com wrote:
-> From: John Hubbard <jhubbard@nvidia.com>
-> 
-> For pages that were retained via get_user_pages*(), release those pages
-> via the new put_user_page*() routines, instead of via put_page() or
-> release_pages().
-> 
-> This is part a tree-wide conversion, as described in commit fc1d8e7cca2d
-> ("mm: introduce put_user_page*(), placeholder versions").
-> 
-> Cc: Andy Walls <awalls@md.metrocast.net>
-> Cc: Mauro Carvalho Chehab <mchehab@kernel.org>
-> Cc: linux-media@vger.kernel.org
-> Signed-off-by: John Hubbard <jhubbard@nvidia.com>
-
-Acked-by: Hans Verkuil <hverkuil-cisco@xs4all.nl>
-
-Regards,
-
-	Hans
-
-> ---
->  drivers/media/pci/ivtv/ivtv-udma.c | 14 ++++----------
->  drivers/media/pci/ivtv/ivtv-yuv.c  | 11 +++--------
->  2 files changed, 7 insertions(+), 18 deletions(-)
-> 
-> diff --git a/drivers/media/pci/ivtv/ivtv-udma.c b/drivers/media/pci/ivtv/ivtv-udma.c
-> index 5f8883031c9c..7c7f33c2412b 100644
-> --- a/drivers/media/pci/ivtv/ivtv-udma.c
-> +++ b/drivers/media/pci/ivtv/ivtv-udma.c
-> @@ -92,7 +92,7 @@ int ivtv_udma_setup(struct ivtv *itv, unsigned long ivtv_dest_addr,
->  {
->  	struct ivtv_dma_page_info user_dma;
->  	struct ivtv_user_dma *dma = &itv->udma;
-> -	int i, err;
-> +	int err;
->  
->  	IVTV_DEBUG_DMA("ivtv_udma_setup, dst: 0x%08x\n", (unsigned int)ivtv_dest_addr);
->  
-> @@ -119,8 +119,7 @@ int ivtv_udma_setup(struct ivtv *itv, unsigned long ivtv_dest_addr,
->  		IVTV_DEBUG_WARN("failed to map user pages, returned %d instead of %d\n",
->  			   err, user_dma.page_count);
->  		if (err >= 0) {
-> -			for (i = 0; i < err; i++)
-> -				put_page(dma->map[i]);
-> +			put_user_pages(dma->map, err);
->  			return -EINVAL;
->  		}
->  		return err;
-> @@ -130,9 +129,7 @@ int ivtv_udma_setup(struct ivtv *itv, unsigned long ivtv_dest_addr,
->  
->  	/* Fill SG List with new values */
->  	if (ivtv_udma_fill_sg_list(dma, &user_dma, 0) < 0) {
-> -		for (i = 0; i < dma->page_count; i++) {
-> -			put_page(dma->map[i]);
-> -		}
-> +		put_user_pages(dma->map, dma->page_count);
->  		dma->page_count = 0;
->  		return -ENOMEM;
->  	}
-> @@ -153,7 +150,6 @@ int ivtv_udma_setup(struct ivtv *itv, unsigned long ivtv_dest_addr,
->  void ivtv_udma_unmap(struct ivtv *itv)
->  {
->  	struct ivtv_user_dma *dma = &itv->udma;
-> -	int i;
->  
->  	IVTV_DEBUG_INFO("ivtv_unmap_user_dma\n");
->  
-> @@ -170,9 +166,7 @@ void ivtv_udma_unmap(struct ivtv *itv)
->  	ivtv_udma_sync_for_cpu(itv);
->  
->  	/* Release User Pages */
-> -	for (i = 0; i < dma->page_count; i++) {
-> -		put_page(dma->map[i]);
-> -	}
-> +	put_user_pages(dma->map, dma->page_count);
->  	dma->page_count = 0;
->  }
->  
-> diff --git a/drivers/media/pci/ivtv/ivtv-yuv.c b/drivers/media/pci/ivtv/ivtv-yuv.c
-> index cd2fe2d444c0..2c61a11d391d 100644
-> --- a/drivers/media/pci/ivtv/ivtv-yuv.c
-> +++ b/drivers/media/pci/ivtv/ivtv-yuv.c
-> @@ -30,7 +30,6 @@ static int ivtv_yuv_prep_user_dma(struct ivtv *itv, struct ivtv_user_dma *dma,
->  	struct yuv_playback_info *yi = &itv->yuv_info;
->  	u8 frame = yi->draw_frame;
->  	struct yuv_frame_info *f = &yi->new_frame_info[frame];
-> -	int i;
->  	int y_pages, uv_pages;
->  	unsigned long y_buffer_offset, uv_buffer_offset;
->  	int y_decode_height, uv_decode_height, y_size;
-> @@ -81,8 +80,7 @@ static int ivtv_yuv_prep_user_dma(struct ivtv *itv, struct ivtv_user_dma *dma,
->  				 uv_pages, uv_dma.page_count);
->  
->  			if (uv_pages >= 0) {
-> -				for (i = 0; i < uv_pages; i++)
-> -					put_page(dma->map[y_pages + i]);
-> +				put_user_pages(&dma->map[y_pages], uv_pages);
->  				rc = -EFAULT;
->  			} else {
->  				rc = uv_pages;
-> @@ -93,8 +91,7 @@ static int ivtv_yuv_prep_user_dma(struct ivtv *itv, struct ivtv_user_dma *dma,
->  				 y_pages, y_dma.page_count);
->  		}
->  		if (y_pages >= 0) {
-> -			for (i = 0; i < y_pages; i++)
-> -				put_page(dma->map[i]);
-> +			put_user_pages(dma->map, y_pages);
->  			/*
->  			 * Inherit the -EFAULT from rc's
->  			 * initialization, but allow it to be
-> @@ -112,9 +109,7 @@ static int ivtv_yuv_prep_user_dma(struct ivtv *itv, struct ivtv_user_dma *dma,
->  	/* Fill & map SG List */
->  	if (ivtv_udma_fill_sg_list (dma, &uv_dma, ivtv_udma_fill_sg_list (dma, &y_dma, 0)) < 0) {
->  		IVTV_DEBUG_WARN("could not allocate bounce buffers for highmem userspace buffers\n");
-> -		for (i = 0; i < dma->page_count; i++) {
-> -			put_page(dma->map[i]);
-> -		}
-> +		put_user_pages(dma->map, dma->page_count);
->  		dma->page_count = 0;
->  		return -ENOMEM;
->  	}
-> 
+QW0gMDcuMDguMTkgdW0gMDk6MDggc2NocmllYiBDaHJpc3RvcGggSGVsbHdpZzoNCj4gT24gV2Vk
+LCBBdWcgMDcsIDIwMTkgYXQgMTA6NTY6NDBBTSArMDgwMCwgVGFvIFpob3Ugd3JvdGU6DQo+PiBy
+ZWFkcS93cml0ZXEgYXJlIG5vdCBzdXBwb3J0ZWQgb24gYWxsIGFyY2hpdGVjdHVyZXMNCj4gTkFL
+LiAgWW91IG11c3Qgbm90IHVzZSBhdG9taWNfKiBvbiBfX2lvbWVtIChNTUlPKSBtZW1vcnkuDQoN
+CldlbGwgdGhlbiB3aGF0J3MgdGhlIHJpZ2h0IHRoaW5nIHRvIGRvIGhlcmU/DQoNCkVzc2VudGlh
+bGx5IHdyaXRlcS9yZWFkcSBkb2Vzbid0IHNlZW1zIHRvIGJlIGF2YWlsYWJsZSBvbiBhbGwgDQph
+cmNoaXRlY3R1cmVzIGVpdGhlci4NCg0KUmVnYXJkcywNCkNocmlzdGlhbi4NCl9fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0
+CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Au
+b3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
