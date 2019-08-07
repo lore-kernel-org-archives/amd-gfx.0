@@ -1,51 +1,71 @@
-From: "Quan, Evan" <Evan.Quan@amd.com>
-Subject: RE: [PATCH][drm-next] drm/amd/powerplay: remove redundant duplicated
- return check
-Date: Wed, 7 Aug 2019 02:57:02 +0000
-Message-ID: <MN2PR12MB334491A28234DD9F23CA8843E4D40@MN2PR12MB3344.namprd12.prod.outlook.com>
-References: <20190805102940.26024-1-colin.king@canonical.com>
+From: Jisheng Zhang <Jisheng.Zhang@synaptics.com>
+Subject: Re: [PATCH] drm/amdgpu: replace readq/writeq with atomic64 operations
+Date: Wed, 7 Aug 2019 03:09:05 +0000
+Message-ID: <20190807105759.58a28ef0@xhacker.debian>
+References: <20190807025640.682-1-tao.zhou1@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20190805102940.26024-1-colin.king@canonical.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+Return-path: <linux-arm-kernel-bounces+linux-arm-kernel=m.gmane.org@lists.infradead.org>
+In-Reply-To: <20190807025640.682-1-tao.zhou1@amd.com>
 Content-Language: en-US
-Sender: linux-kernel-owner@vger.kernel.org
-To: Colin King <colin.king@canonical.com>, Rex Zhu <rex.zhu@amd.com>, "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Koenig, Christian" <Christian.Koenig@amd.com>, "Zhou, David(ChunMing)" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>
-Cc: "kernel-janitors@vger.kernel.org" <kernel-janitors@vger.kernel.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Content-ID: <5E427FF48ECA554D95F17DF5415C85A3@namprd03.prod.outlook.com>
+List-Unsubscribe: <http://lists.infradead.org/mailman/options/linux-arm-kernel>,
+ <mailto:linux-arm-kernel-request@lists.infradead.org?subject=unsubscribe>
+List-Archive: <http://lists.infradead.org/pipermail/linux-arm-kernel/>
+List-Post: <mailto:linux-arm-kernel@lists.infradead.org>
+List-Help: <mailto:linux-arm-kernel-request@lists.infradead.org?subject=help>
+List-Subscribe: <http://lists.infradead.org/mailman/listinfo/linux-arm-kernel>,
+ <mailto:linux-arm-kernel-request@lists.infradead.org?subject=subscribe>
+Sender: "linux-arm-kernel" <linux-arm-kernel-bounces@lists.infradead.org>
+Errors-To: linux-arm-kernel-bounces+linux-arm-kernel=m.gmane.org@lists.infradead.org
+To: Tao Zhou <tao.zhou1@amd.com>
+Cc: "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>, "kernel-build-reports@lists.linaro.org" <kernel-build-reports@lists.linaro.org>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "broonie@kernel.org" <broonie@kernel.org>, "linux-next@vger.kernel.org" <linux-next@vger.kernel.org>, "alexander.deucher@amd.com" <alexander.deucher@amd.com>, "akpm@linux-foundation.org" <akpm@linux-foundation.org>, "christian.koenig@amd.com" <christian.koenig@amd.com>, "dennis.li@amd.com" <dennis.li@amd.com>, "hawking.zhang@amd.com" <hawking.zhang@amd.com>
 List-Id: amd-gfx.lists.freedesktop.org
 
-VGhhbmtzISBSZXZpZXdlZC1ieTogRXZhbiBRdWFuIDxldmFuLnF1YW5AYW1kLmNvbT4NCg0KPiAt
-LS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBDb2xpbiBLaW5nIDxjb2xpbi5raW5n
-QGNhbm9uaWNhbC5jb20+DQo+IFNlbnQ6IE1vbmRheSwgQXVndXN0IDA1LCAyMDE5IDY6MzAgUE0N
-Cj4gVG86IFJleCBaaHUgPHJleC56aHVAYW1kLmNvbT47IFF1YW4sIEV2YW4gPEV2YW4uUXVhbkBh
-bWQuY29tPjsNCj4gRGV1Y2hlciwgQWxleGFuZGVyIDxBbGV4YW5kZXIuRGV1Y2hlckBhbWQuY29t
-PjsgS29lbmlnLCBDaHJpc3RpYW4NCj4gPENocmlzdGlhbi5Lb2VuaWdAYW1kLmNvbT47IFpob3Us
-IERhdmlkKENodW5NaW5nKQ0KPiA8RGF2aWQxLlpob3VAYW1kLmNvbT47IERhdmlkIEFpcmxpZSA8
-YWlybGllZEBsaW51eC5pZT47IERhbmllbCBWZXR0ZXINCj4gPGRhbmllbEBmZndsbC5jaD47IGFt
-ZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnOyBkcmktDQo+IGRldmVsQGxpc3RzLmZyZWVkZXNr
-dG9wLm9yZw0KPiBDYzoga2VybmVsLWphbml0b3JzQHZnZXIua2VybmVsLm9yZzsgbGludXgta2Vy
-bmVsQHZnZXIua2VybmVsLm9yZw0KPiBTdWJqZWN0OiBbUEFUQ0hdW2RybS1uZXh0XSBkcm0vYW1k
-L3Bvd2VycGxheTogcmVtb3ZlIHJlZHVuZGFudA0KPiBkdXBsaWNhdGVkIHJldHVybiBjaGVjaw0K
-PiANCj4gRnJvbTogQ29saW4gSWFuIEtpbmcgPGNvbGluLmtpbmdAY2Fub25pY2FsLmNvbT4NCj4g
-DQo+IFRoZSBjaGVjayBvbiByZXQgaXMgZHVwbGljYXRlZCBpbiB0d28gcGxhY2VzLCBpdCBpcyBy
-ZWR1bmRhbnQgY29kZS4NCj4gUmVtb3ZlIGl0Lg0KPiANCj4gQWRkcmVzc2VzLUNvdmVyaXR5OiAo
-IkxvZ2ljYWxseSBkZWFkIGNvZGUiKQ0KPiBGaXhlczogYjk0YWZiNjFjZGFlICgiZHJtL2FtZC9w
-b3dlcnBsYXk6IGhvbm9yIGh3IGxpbWl0IG9uIGZldGNoaW5nDQo+IG1ldHJpY3MgZGF0YSBmb3Ig
-bmF2aTEwIikNCj4gU2lnbmVkLW9mZi1ieTogQ29saW4gSWFuIEtpbmcgPGNvbGluLmtpbmdAY2Fu
-b25pY2FsLmNvbT4NCj4gLS0tDQo+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9uYXZp
-MTBfcHB0LmMgfCA0IC0tLS0NCj4gIDEgZmlsZSBjaGFuZ2VkLCA0IGRlbGV0aW9ucygtKQ0KPiAN
-Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L25hdmkxMF9wcHQu
-Yw0KPiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L25hdmkxMF9wcHQuYw0KPiBpbmRl
-eCBkNjJjMjc4NGIxMDIuLmIyNzJjOGRjOGY3OSAxMDA2NDQNCj4gLS0tIGEvZHJpdmVycy9ncHUv
-ZHJtL2FtZC9wb3dlcnBsYXkvbmF2aTEwX3BwdC5jDQo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9h
-bWQvcG93ZXJwbGF5L25hdmkxMF9wcHQuYw0KPiBAQCAtOTQxLDggKzk0MSw2IEBAIHN0YXRpYyBp
-bnQgbmF2aTEwX2dldF9ncHVfcG93ZXIoc3RydWN0IHNtdV9jb250ZXh0DQo+ICpzbXUsIHVpbnQz
-Ml90ICp2YWx1ZSkNCj4gIAlyZXQgPSBuYXZpMTBfZ2V0X21ldHJpY3NfdGFibGUoc211LCAmbWV0
-cmljcyk7DQo+ICAJaWYgKHJldCkNCj4gIAkJcmV0dXJuIHJldDsNCj4gLQlpZiAocmV0KQ0KPiAt
-CQlyZXR1cm4gcmV0Ow0KPiANCj4gIAkqdmFsdWUgPSBtZXRyaWNzLkF2ZXJhZ2VTb2NrZXRQb3dl
-ciA8PCA4Ow0KPiANCj4gQEAgLTEwMDEsOCArOTk5LDYgQEAgc3RhdGljIGludCBuYXZpMTBfZ2V0
-X2Zhbl9zcGVlZF9ycG0oc3RydWN0DQo+IHNtdV9jb250ZXh0ICpzbXUsDQo+ICAJcmV0ID0gbmF2
-aTEwX2dldF9tZXRyaWNzX3RhYmxlKHNtdSwgJm1ldHJpY3MpOw0KPiAgCWlmIChyZXQpDQo+ICAJ
-CXJldHVybiByZXQ7DQo+IC0JaWYgKHJldCkNCj4gLQkJcmV0dXJuIHJldDsNCj4gDQo+ICAJKnNw
-ZWVkID0gbWV0cmljcy5DdXJyRmFuU3BlZWQ7DQo+IA0KPiAtLQ0KPiAyLjIwLjENCg0K
+On Wed, 7 Aug 2019 10:56:40 +0800 Tao Zhou wrote:
+
+
+> 
+> 
+> readq/writeq are not supported on all architectures
+> 
+> Signed-off-by: Tao Zhou <tao.zhou1@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 8 ++------
+>  1 file changed, 2 insertions(+), 6 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> index 558fe6d091ed..7eb9e0b9235a 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> @@ -272,14 +272,10 @@ void amdgpu_mm_wreg(struct amdgpu_device *adev, uint32_t reg, uint32_t v,
+>   */
+>  uint64_t amdgpu_mm_rreg64(struct amdgpu_device *adev, uint32_t reg)
+>  {
+> -       uint64_t ret;
+> -
+>         if ((reg * 4) < adev->rmmio_size)
+> -               ret = readq(((void __iomem *)adev->rmmio) + (reg * 4));
+> +               return atomic64_read((atomic64_t *)(adev->rmmio + (reg * 4)));
+
+atomic64_read doesn't equal to readq on some architectures..
+
+>         else
+>                 BUG();
+> -
+> -       return ret;
+>  }
+> 
+>  /**
+> @@ -294,7 +290,7 @@ uint64_t amdgpu_mm_rreg64(struct amdgpu_device *adev, uint32_t reg)
+>  void amdgpu_mm_wreg64(struct amdgpu_device *adev, uint32_t reg, uint64_t v)
+>  {
+>         if ((reg * 4) < adev->rmmio_size)
+> -               writeq(v, ((void __iomem *)adev->rmmio) + (reg * 4));
+> +               atomic64_set((atomic64_t *)(adev->rmmio + (reg * 4)), v);
+>         else
+>                 BUG();
+>  }
+> --
+> 2.17.1
