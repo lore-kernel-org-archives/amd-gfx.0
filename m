@@ -1,44 +1,89 @@
-From: John Hubbard <jhubbard@nvidia.com>
-Subject: Re: [PATCH v3 00/39] put_user_pages(): miscellaneous call sites
-Date: Tue, 6 Aug 2019 18:49:55 -0700
-Message-ID: <912eb2bd-4102-05c1-5571-c261617ad30b@nvidia.com>
-References: <20190807013340.9706-1-jhubbard@nvidia.com>
+From: "Zeng, Oak" <Oak.Zeng-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH 2/5] drm/amdgpu: Support new arcturus mtype
+Date: Wed, 7 Aug 2019 02:31:10 +0000
+Message-ID: <1565145062-16674-2-git-send-email-Oak.Zeng@amd.com>
+References: <1565145062-16674-1-git-send-email-Oak.Zeng@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-Return-path: <driverdev-devel-bounces@linuxdriverproject.org>
-In-Reply-To: <20190807013340.9706-1-jhubbard@nvidia.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <1565145062-16674-1-git-send-email-Oak.Zeng-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
-List-Unsubscribe: <http://driverdev.linuxdriverproject.org/mailman/options/driverdev-devel>,
- <mailto:driverdev-devel-request@linuxdriverproject.org?subject=unsubscribe>
-List-Archive: <http://driverdev.linuxdriverproject.org/pipermail/driverdev-devel/>
-List-Post: <mailto:driverdev-devel@linuxdriverproject.org>
-List-Help: <mailto:driverdev-devel-request@linuxdriverproject.org?subject=help>
-List-Subscribe: <http://driverdev.linuxdriverproject.org/mailman/listinfo/driverdev-devel>,
- <mailto:driverdev-devel-request@linuxdriverproject.org?subject=subscribe>
-Errors-To: driverdev-devel-bounces@linuxdriverproject.org
-Sender: "devel" <driverdev-devel-bounces@linuxdriverproject.org>
-To: john.hubbard@gmail.com, Andrew Morton <akpm@linux-foundation.org>
-Cc: linux-fbdev@vger.kernel.org, Jan Kara <jack@suse.cz>, kvm@vger.kernel.org, Dave Hansen <dave.hansen@linux.intel.com>, Dave Chinner <david@fromorbit.com>, dri-devel@lists.freedesktop.org, linux-mm@kvack.org, sparclinux@vger.kernel.org, ceph-devel@vger.kernel.org, devel@driverdev.osuosl.org, rds-devel@oss.oracle.com, linux-rdma@vger.kernel.org, x86@kernel.org, amd-gfx@lists.freedesktop.org, Christoph Hellwig <hch@infradead.org>, Jason Gunthorpe <jgg@ziepe.ca>, xen-devel@lists.xenproject.org, devel@lists.orangefs.org, linux-media@vger.kernel.org, intel-gfx@lists.freedesktop.org, linux-block@vger.kernel.org, =?UTF-8?B?SsOpcsO0bWUgR2xpc3Nl?= <jglisse@redhat.com>, linux-rpi-kernel@lists.infradead.org, Dan Williams <dan.j.williams@intel.com>, linux-arm-kernel@lists.infradead.org, linux-nfs@vger.kernel.org, netdev@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>, linux-xfs@
-List-Id: amd-gfx.lists.freedesktop.org
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>, "Zeng, Oak" <Oak.Zeng-5C7GfCeVMHo@public.gmane.org>, "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "Keely,
+ Sean" <Sean.Keely-5C7GfCeVMHo@public.gmane.org>
 
-On 8/6/19 6:32 PM, john.hubbard@gmail.com wrote:
-> From: John Hubbard <jhubbard@nvidia.com>
-> ...
-> 
-> John Hubbard (38):
->   mm/gup: add make_dirty arg to put_user_pages_dirty_lock()
-...
->  54 files changed, 191 insertions(+), 323 deletions(-)
-> 
-ahem, yes, apparently this is what happens if I add a few patches while editing
-the cover letter... :) 
-
-The subject line should read "00/41", and the list of files affected here is
-therefore under-reported in this cover letter. However, the patch series itself is 
-intact and ready for submission.
-
-thanks,
--- 
-John Hubbard
-NVIDIA
+QXJjdHVydXMgcmVwdXJwb3NlZCBtdHlwZSBXQyB0byBSVy4gTW9kaWZ5IGdtYyBmdW5jdGlvbnMK
+dG8gc3VwcG9ydCB0aGUgbmV3IG10eXBlCgpDaGFuZ2UtSWQ6IElkYzMzOGU1Mzg2YTU3MDIwZjQ1
+MjYyMDI1ZTI2NjRhYjRiYTlmMjkxClNpZ25lZC1vZmYtYnk6IE9hayBaZW5nIDxPYWsuWmVuZ0Bh
+bWQuY29tPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192OV8wLmMgICAgIHwg
+NjEgKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrLQogZHJpdmVycy9ncHUvZHJtL2FtZC9p
+bmNsdWRlL3ZlZ2ExMF9lbnVtLmggfCAgNyArKysrCiAyIGZpbGVzIGNoYW5nZWQsIDY3IGluc2Vy
+dGlvbnMoKyksIDEgZGVsZXRpb24oLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1k
+L2FtZGdwdS9nbWNfdjlfMC5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ21jX3Y5XzAu
+YwppbmRleCBhMmFhMzVlLi44OTA2NGQ5IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1k
+L2FtZGdwdS9nbWNfdjlfMC5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192
+OV8wLmMKQEAgLTU5OSw2ICs1OTksNTAgQEAgc3RhdGljIHVpbnQ2NF90IGdtY192OV8wX2dldF92
+bV9wdGVfZmxhZ3Moc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsCiAJcmV0dXJuIHB0ZV9mbGFn
+OwogfQogCitzdGF0aWMgdWludDY0X3QgZ21jX3Y5XzBfYXJjdHVydXNfZ2V0X3ZtX3B0ZV9mbGFn
+cyhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwKKwkJCQkJCXVpbnQzMl90IGZsYWdzKQorCit7
+CisJdWludDY0X3QgcHRlX2ZsYWcgPSAwOworCisJaWYgKGZsYWdzICYgQU1ER1BVX1ZNX1BBR0Vf
+RVhFQ1VUQUJMRSkKKwkJcHRlX2ZsYWcgfD0gQU1ER1BVX1BURV9FWEVDVVRBQkxFOworCWlmIChm
+bGFncyAmIEFNREdQVV9WTV9QQUdFX1JFQURBQkxFKQorCQlwdGVfZmxhZyB8PSBBTURHUFVfUFRF
+X1JFQURBQkxFOworCWlmIChmbGFncyAmIEFNREdQVV9WTV9QQUdFX1dSSVRFQUJMRSkKKwkJcHRl
+X2ZsYWcgfD0gQU1ER1BVX1BURV9XUklURUFCTEU7CisKKwlpZiAoYWRldi0+Z21jLnpmYl9zaXpl
+ID4gMCkKKwkJcHRlX2ZsYWcgfD0gQU1ER1BVX1BURV9TWVNURU07CisKKwlzd2l0Y2ggKGZsYWdz
+ICYgQU1ER1BVX1ZNX01UWVBFX01BU0spIHsKKwljYXNlIEFNREdQVV9WTV9NVFlQRV9ERUZBVUxU
+OgorCQlwdGVfZmxhZyB8PSBBTURHUFVfUFRFX01UWVBFX1ZHMTAoTVRZUEVfQVJDVFVSVVNfTkMp
+OworCQlicmVhazsKKwljYXNlIEFNREdQVV9WTV9NVFlQRV9OQzoKKwkJcHRlX2ZsYWcgfD0gQU1E
+R1BVX1BURV9NVFlQRV9WRzEwKE1UWVBFX0FSQ1RVUlVTX05DKTsKKwkJYnJlYWs7CisJY2FzZSBB
+TURHUFVfVk1fTVRZUEVfUlc6CisJCXB0ZV9mbGFnIHw9IEFNREdQVV9QVEVfTVRZUEVfVkcxMChN
+VFlQRV9BUkNUVVJVU19SVyk7CisJCWJyZWFrOworCWNhc2UgQU1ER1BVX1ZNX01UWVBFX0NDOgor
+CQlwdGVfZmxhZyB8PSBBTURHUFVfUFRFX01UWVBFX1ZHMTAoTVRZUEVfQVJDVFVSVVNfQ0MpOwor
+CQlicmVhazsKKwljYXNlIEFNREdQVV9WTV9NVFlQRV9VQzoKKwkJcHRlX2ZsYWcgfD0gQU1ER1BV
+X1BURV9NVFlQRV9WRzEwKE1UWVBFX0FSQ1RVUlVTX1VDKTsKKwkJYnJlYWs7CisJZGVmYXVsdDoK
+KwkJcHRlX2ZsYWcgfD0gQU1ER1BVX1BURV9NVFlQRV9WRzEwKE1UWVBFX0FSQ1RVUlVTX05DKTsK
+KwkJYnJlYWs7CisJfQorCisJaWYgKGZsYWdzICYgQU1ER1BVX1ZNX1BBR0VfUFJUKQorCQlwdGVf
+ZmxhZyB8PSBBTURHUFVfUFRFX1BSVDsKKworCXJldHVybiBwdGVfZmxhZzsKK30KKworCiBzdGF0
+aWMgdm9pZCBnbWNfdjlfMF9nZXRfdm1fcGRlKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LCBp
+bnQgbGV2ZWwsCiAJCQkJdWludDY0X3QgKmFkZHIsIHVpbnQ2NF90ICpmbGFncykKIHsKQEAgLTYz
+MSw5ICs2NzUsMjQgQEAgc3RhdGljIGNvbnN0IHN0cnVjdCBhbWRncHVfZ21jX2Z1bmNzIGdtY192
+OV8wX2dtY19mdW5jcyA9IHsKIAkuZ2V0X3ZtX3BkZSA9IGdtY192OV8wX2dldF92bV9wZGUKIH07
+CiAKK3N0YXRpYyBjb25zdCBzdHJ1Y3QgYW1kZ3B1X2dtY19mdW5jcyBnbWNfdjlfMF9hcmN0dXJ1
+c19nbWNfZnVuY3MgPSB7CisJLmZsdXNoX2dwdV90bGIgPSBnbWNfdjlfMF9mbHVzaF9ncHVfdGxi
+LAorCS5lbWl0X2ZsdXNoX2dwdV90bGIgPSBnbWNfdjlfMF9lbWl0X2ZsdXNoX2dwdV90bGIsCisJ
+LmVtaXRfcGFzaWRfbWFwcGluZyA9IGdtY192OV8wX2VtaXRfcGFzaWRfbWFwcGluZywKKwkuZ2V0
+X3ZtX3B0ZV9mbGFncyA9IGdtY192OV8wX2FyY3R1cnVzX2dldF92bV9wdGVfZmxhZ3MsCisJLmdl
+dF92bV9wZGUgPSBnbWNfdjlfMF9nZXRfdm1fcGRlCit9OworCiBzdGF0aWMgdm9pZCBnbWNfdjlf
+MF9zZXRfZ21jX2Z1bmNzKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQogewotCWFkZXYtPmdt
+Yy5nbWNfZnVuY3MgPSAmZ21jX3Y5XzBfZ21jX2Z1bmNzOworCXN3aXRjaCAoYWRldi0+YXNpY190
+eXBlKSB7CisJY2FzZSBDSElQX0FSQ1RVUlVTOgorCQlhZGV2LT5nbWMuZ21jX2Z1bmNzID0gJmdt
+Y192OV8wX2FyY3R1cnVzX2dtY19mdW5jczsKKwkJYnJlYWs7CisJZGVmYXVsdDoKKwkJYWRldi0+
+Z21jLmdtY19mdW5jcyA9ICZnbWNfdjlfMF9nbWNfZnVuY3M7CisJCWJyZWFrOworCX0KIH0KIAog
+c3RhdGljIHZvaWQgZ21jX3Y5XzBfc2V0X3VtY19mdW5jcyhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAq
+YWRldikKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvaW5jbHVkZS92ZWdhMTBfZW51
+bS5oIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9pbmNsdWRlL3ZlZ2ExMF9lbnVtLmgKaW5kZXggYzE0
+YmE2NS4uMGQ2ZDk3ZCAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9pbmNsdWRlL3Zl
+Z2ExMF9lbnVtLmgKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9pbmNsdWRlL3ZlZ2ExMF9lbnVt
+LmgKQEAgLTEwNDEsNiArMTA0MSwxMyBAQCBNVFlQRV9DQyAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgID0gMHgwMDAwMDAwMiwKIE1UWVBFX1VDICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgPSAweDAwMDAwMDAzLAogfSBNVFlQRTsKIAordHlwZWRlZiBlbnVtIE1UWVBFX0FS
+Q1RVUlVTIHsKK01UWVBFX0FSQ1RVUlVTX05DICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgPSAweDAwMDAwMDAwLAorTVRZUEVfQVJDVFVSVVNfUlcgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICA9IDB4MDAwMDAwMDEsCitNVFlQRV9BUkNUVVJVU19DQyAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgID0gMHgwMDAwMDAwMiwKK01UWVBFX0FSQ1RVUlVTX1VDICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgPSAweDAwMDAwMDAzLAorfSBNVFlQRV9BUkNUVVJV
+UzsKKwogLyoKICAqIFJNSV9DSUQgZW51bQogICovCi0tIAoyLjcuNAoKX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1k
+LWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcv
+bWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
