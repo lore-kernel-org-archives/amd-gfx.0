@@ -1,43 +1,59 @@
-From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel@daenzer.net>
-Subject: Re: The issue with page allocation 5.3 rc1-rc2 (seems drm culprit
- here)
-Date: Thu, 8 Aug 2019 10:12:59 +0200
-Message-ID: <6d5110ab-6539-378d-f643-0a1d4cf0ff73@daenzer.net>
-References: <20190806014830.7424-1-hdanton@sina.com>
- <CABXGCsMRGRpd9AoJdvZqdpqCP3QzVGzfDPiX=PzVys6QFBLAvA@mail.gmail.com>
- <CADnq5_O08v3_NUZ_zUZJFYwv_tUY7TFFz2GGudqgWEX6nh5LFA@mail.gmail.com>
+From: "Huang, Ray" <Ray.Huang-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: [Regression] "drm/amdgpu: enable gfxoff again on raven series
+ (v2)"
+Date: Thu, 8 Aug 2019 08:14:53 +0000
+Message-ID: <MN2PR12MB3309A9960E429AA5B0A8AD19ECD70@MN2PR12MB3309.namprd12.prod.outlook.com>
+References: <3EB0E920-31D7-4C91-A360-DBFB4417AC2F@canonical.com>
+ <MN2PR12MB330979BAFF5BCC758258D54CECD40@MN2PR12MB3309.namprd12.prod.outlook.com>
+ <624BFB8F-B586-492E-BEA6-4B138DAEC831@canonical.com>
+ <MN2PR12MB3309680845257BC66644133CECD70@MN2PR12MB3309.namprd12.prod.outlook.com>
+ <615a4948-d0f9-46fc-f43e-2025455e9af6@daenzer.net>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-In-Reply-To: <CADnq5_O08v3_NUZ_zUZJFYwv_tUY7TFFz2GGudqgWEX6nh5LFA@mail.gmail.com>
-Content-Language: en-CA
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: Alex Deucher <alexdeucher@gmail.com>, Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
-Cc: Hillf Danton <hdanton@sina.com>, Linux List Kernel Mailing <linux-kernel@vger.kernel.org>, amd-gfx list <amd-gfx@lists.freedesktop.org>, Linux Memory Management List <linux-mm@kvack.org>, dri-devel <dri-devel@lists.freedesktop.org>, "Deucher,
- Alexander" <Alexander.Deucher@amd.com>, "Koenig,
- Christian" <Christian.Koenig@amd.com>
-List-Id: amd-gfx.lists.freedesktop.org
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <615a4948-d0f9-46fc-f43e-2025455e9af6-otUistvHUpPR7s880joybQ@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: =?utf-8?B?TWljaGVsIETDpG56ZXI=?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, Kai-Heng Feng <kai.heng.feng-Z7WLFzj8eWMS+FvcfC7Uqw@public.gmane.org>, "Olsak, Marek" <Marek.Olsak-5C7GfCeVMHo@public.gmane.org>
+Cc: "Zhou, David(ChunMing)" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, LKML <linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Anthony Wong <anthony.wong-Z7WLFzj8eWMS+FvcfC7Uqw@public.gmane.org>, "dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Deucher,
+ Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Koenig,
+ Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
 
-T24gMjAxOS0wOC0wOCA3OjMxIGEubS4sIEFsZXggRGV1Y2hlciB3cm90ZToKPiBPbiBXZWQsIEF1
-ZyA3LCAyMDE5IGF0IDExOjQ5IFBNIE1pa2hhaWwgR2F2cmlsb3YKPiA8bWlraGFpbC52LmdhdnJp
-bG92QGdtYWlsLmNvbT4gd3JvdGU6Cj4+Cj4+IFVuZm9ydHVuYXRlbHkgZXJyb3IgImdub21lLXNo
-ZWxsOiBwYWdlIGFsbG9jYXRpb24gZmFpbHVyZTogb3JkZXI6NCwKPj4gbW9kZToweDQwY2MwKEdG
-UF9LRVJORUx8X19HRlBfQ09NUCksCj4+IG5vZGVtYXNrPShudWxsKSxjcHVzZXQ9LyxtZW1zX2Fs
-bG93ZWQ9MCIgc3RpbGwgaGFwcGVucyBldmVuIHdpdGgKPj4gYXBwbHlpbmcgdGhpcyBwYXRjaC4K
-PiAKPiBJIHRoaW5rIHdlIGNhbiBqdXN0IGRyb3AgdGhlIGttYWxsb2MgYWx0b2dldGhlci4gIEhv
-dyBhYm91dCB0aGlzIHBhdGNoPwoKTWVtb3J5IGFsbG9jYXRlZCBieSBrdnovbWFsbG9jIG5lZWRz
-IHRvIGJlIGZyZWVkIHdpdGgga3ZmcmVlLgoKCi0tIApFYXJ0aGxpbmcgTWljaGVsIETDpG56ZXIg
-ICAgICAgICAgICAgICB8ICAgICAgICAgICAgICBodHRwczovL3d3dy5hbWQuY29tCkxpYnJlIHNv
-ZnR3YXJlIGVudGh1c2lhc3QgICAgICAgICAgICAgfCAgICAgICAgICAgICBNZXNhIGFuZCBYIGRl
-dmVsb3BlcgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpk
-cmktZGV2ZWwgbWFpbGluZyBsaXN0CmRyaS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0
-cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9kcmktZGV2ZWw=
+PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBNaWNoZWwgRMOkbnplciA8bWlj
+aGVsQGRhZW56ZXIubmV0Pg0KPiBTZW50OiBUaHVyc2RheSwgQXVndXN0IDA4LCAyMDE5IDQ6MTAg
+UE0NCj4gVG86IEh1YW5nLCBSYXkgPFJheS5IdWFuZ0BhbWQuY29tPjsgS2FpLUhlbmcgRmVuZw0K
+PiA8a2FpLmhlbmcuZmVuZ0BjYW5vbmljYWwuY29tPg0KPiBDYzogWmhvdSwgRGF2aWQoQ2h1bk1p
+bmcpIDxEYXZpZDEuWmhvdUBhbWQuY29tPjsgTEtNTCA8bGludXgtDQo+IGtlcm5lbEB2Z2VyLmtl
+cm5lbC5vcmc+OyBkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnOyBBbnRob255IFdvbmcN
+Cj4gPGFudGhvbnkud29uZ0BjYW5vbmljYWwuY29tPjsgYW1kLWdmeCBsaXN0IDxhbWQtDQo+IGdm
+eEBsaXN0cy5mcmVlZGVza3RvcC5vcmc+OyBEZXVjaGVyLCBBbGV4YW5kZXINCj4gPEFsZXhhbmRl
+ci5EZXVjaGVyQGFtZC5jb20+OyBLb2VuaWcsIENocmlzdGlhbg0KPiA8Q2hyaXN0aWFuLktvZW5p
+Z0BhbWQuY29tPg0KPiBTdWJqZWN0OiBSZTogW1JlZ3Jlc3Npb25dICJkcm0vYW1kZ3B1OiBlbmFi
+bGUgZ2Z4b2ZmIGFnYWluIG9uIHJhdmVuIHNlcmllcw0KPiAodjIpIg0KPiANCj4gT24gMjAxOS0w
+OC0wOCA4OjI5IGEubS4sIEh1YW5nLCBSYXkgd3JvdGU6DQo+ID4+IEZyb206IEthaS1IZW5nIEZl
+bmcgPGthaS5oZW5nLmZlbmdAY2Fub25pY2FsLmNvbT4gYXQgMDA6MDMsIEh1YW5nLA0KPiA+PiBS
+YXkgPFJheS5IdWFuZ0BhbWQuY29tPiB3cm90ZToNCj4gPj4NCj4gPj4+IE1heSBJIGtub3cgdGhl
+IGFsbCBmaXJtd2FyZSB2ZXJzaW9uIGluIHlvdXIgc3lzdGVtPw0KPiA+DQo+ID4gU2VlbXMgdG8g
+dGhlIGlzc3VlIHdlIGVuY291bnRlcmVkIHdpdGggSU9NTVUgZW5hYmxlZC4gQ291bGQgeW91DQo+
+IHBsZWFzZSBkaXNhYmxlIGlvbW11IGluIFNCSU9TIG9yIEdSVUI/DQo+IA0KPiBUaGUgZHJpdmVy
+IG5lZWRzIHRvIHdvcmsgd2l0aCB0aGUgSU9NTVUgZW5hYmxlZC4gSWYgbm90aGluZyBlbHNlLCBS
+T0NtDQo+IG9ubHkgd29ya3Mgd2l0aCBJT01NVSBJIHRoaW5rLg0KPiANCg0KWWVzLiBST0NtIGlu
+IEFQVSByZXF1aXJlZCBJT01NVSB2Mi4gU28gZmFyLCBJIGFtIGFza2luZyBLYWktSGVuZyB0byBk
+byBzb21lIHRlc3RzIHRvIG1ha2Ugc3VyZSB0aGUgaXNzdWUgdGhhdCB3YXMgZW5jb3VudGVyZWQg
+YnkgdXMgYmVmb3JlLiAoKyBNYXJlaykNCg0KVGhhbmtzLA0KUmF5DQoNCj4gDQo+IC0tDQo+IEVh
+cnRobGluZyBNaWNoZWwgRMOkbnplciAgICAgICAgICAgICAgIHwgICAgICAgICAgICAgIGh0dHBz
+Oi8vd3d3LmFtZC5jb20NCj4gTGlicmUgc29mdHdhcmUgZW50aHVzaWFzdCAgICAgICAgICAgICB8
+ICAgICAgICAgICAgIE1lc2EgYW5kIFggZGV2ZWxvcGVyDQpfX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxp
+c3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFu
+L2xpc3RpbmZvL2FtZC1nZng=
