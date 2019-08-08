@@ -1,75 +1,140 @@
-From: Tianci Yin <tianci.yin-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH 2/2] drm/amd/powerplay: update smu11_driver_if_navi10.h
-Date: Thu, 8 Aug 2019 13:25:47 +0800
-Message-ID: <1565241947-31011-2-git-send-email-tianci.yin@amd.com>
-References: <1565241947-31011-1-git-send-email-tianci.yin@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Subject: Re: The issue with page allocation 5.3 rc1-rc2 (seems drm culprit here)
+Date: Thu, 8 Aug 2019 01:31:50 -0400
+Message-ID: <CADnq5_O08v3_NUZ_zUZJFYwv_tUY7TFFz2GGudqgWEX6nh5LFA@mail.gmail.com>
+References: <20190806014830.7424-1-hdanton@sina.com> <CABXGCsMRGRpd9AoJdvZqdpqCP3QzVGzfDPiX=PzVys6QFBLAvA@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1565241947-31011-1-git-send-email-tianci.yin-5C7GfCeVMHo@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Jack Xiao <Jack.Xiao-5C7GfCeVMHo@public.gmane.org>, Kevin Wang <Kevin1.Wang-5C7GfCeVMHo@public.gmane.org>, Tianci Yin <tianci.yin-5C7GfCeVMHo@public.gmane.org>, Hawking Zhang <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>, Evan Quan <evan.quan-5C7GfCeVMHo@public.gmane.org>, Xiaojie Yuan <xiaojie.yuan-5C7GfCeVMHo@public.gmane.org>
+Content-Type: multipart/mixed; boundary="00000000000097c52f058f94601e"
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <CABXGCsMRGRpd9AoJdvZqdpqCP3QzVGzfDPiX=PzVys6QFBLAvA@mail.gmail.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+Cc: Hillf Danton <hdanton@sina.com>, Dave Airlie <airlied@gmail.com>, Linux List Kernel Mailing <linux-kernel@vger.kernel.org>, amd-gfx list <amd-gfx@lists.freedesktop.org>, Linux Memory Management List <linux-mm@kvack.org>, dri-devel <dri-devel@lists.freedesktop.org>, "Deucher, Alexander" <Alexander.Deucher@amd.com>, Harry Wentland <harry.wentland@amd.com>, "Koenig, Christian" <Christian.Koenig@amd.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
-RnJvbTogdGlhbmN5aW4gPHRpYW5jaS55aW5AYW1kLmNvbT4KCnVwZGF0ZSB0aGUgc211MTFfZHJp
-dmVyX2lmX25hdmkxMC5oIHNpbmNlIG5hdmkxNCBzbXUgZncKdXBkYXRlIHRvIDUzLjEyCgpDaGFu
-Z2UtSWQ6IElmMGY3MjllYzg3Yzk4ZjI0ZTE3OTRmMDg0N2VhYzViYTIzNjcxZTM0ClJldmlld2Vk
-LWJ5OiBFdmFuIFF1YW4gPGV2YW4ucXVhbkBhbWQuY29tPgpTaWduZWQtb2ZmLWJ5OiB0aWFuY3lp
-biA8dGlhbmNpLnlpbkBhbWQuY29tPgotLS0KIC4uLi9kcm0vYW1kL3Bvd2VycGxheS9pbmMvc211
-MTFfZHJpdmVyX2lmX25hdmkxMC5oIHwgMjYgKysrKysrKysrKysrKysrKystLS0tLQogZHJpdmVy
-cy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaW5jL3NtdV92MTFfMC5oICAgICAgfCAgMiArLQogMiBm
-aWxlcyBjaGFuZ2VkLCAyMiBpbnNlcnRpb25zKCspLCA2IGRlbGV0aW9ucygtKQoKZGlmZiAtLWdp
-dCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2luYy9zbXUxMV9kcml2ZXJfaWZfbmF2
-aTEwLmggYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9pbmMvc211MTFfZHJpdmVyX2lm
-X25hdmkxMC5oCmluZGV4IDZkOWU3OWUuLjRiN2M1YzIgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1
-L2RybS9hbWQvcG93ZXJwbGF5L2luYy9zbXUxMV9kcml2ZXJfaWZfbmF2aTEwLmgKKysrIGIvZHJp
-dmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaW5jL3NtdTExX2RyaXZlcl9pZl9uYXZpMTAuaApA
-QCAtNTA2LDEwICs1MDYsMTEgQEAgdHlwZWRlZiBzdHJ1Y3QgewogICB1aW50MzJfdCBTdGF0dXM7
-CiAKICAgdWludDE2X3QgRGllVGVtcGVyYXR1cmU7Ci0gIHVpbnQxNl90IE1lbW9yeVRlbXBlcmF0
-dXJlOworICB1aW50MTZfdCBDdXJyZW50TWVtb3J5VGVtcGVyYXR1cmU7CiAKLSAgdWludDE2X3Qg
-U2VsZWN0ZWRDYXJkUG93ZXI7Ci0gIHVpbnQxNl90IFJlc2VydmVkNDsgCisgIHVpbnQxNl90IE1l
-bW9yeVRlbXBlcmF0dXJlOworICB1aW50OF90IE1lbW9yeUhvdHNwb3RQb3NpdGlvbjsKKyAgdWlu
-dDhfdCBSZXNlcnZlZDQ7CiAKICAgdWludDMyX3QgQm9hcmRMZXZlbEVuZXJneUFjY3VtdWxhdG9y
-OyAgCiB9IE91dE9mQmFuZE1vbml0b3JfdDsKQEAgLTgwMSw3ICs4MDIsMTMgQEAgdHlwZWRlZiBz
-dHJ1Y3QgewogICAvLyBNdmRkIFN2aTIgRGl2IFJhdGlvIFNldHRpbmcKICAgdWludDMyX3QgICAg
-IE12ZGRSYXRpbzsgLy8gVGhpcyBpcyB1c2VkIGZvciBNVkREIFZpZCB3b3JrYXJvdW5kLiBJdCBo
-YXMgMTYgZnJhY3Rpb25hbCBiaXRzIChRMTYuMTYpCiAKLSAgdWludDMyX3QgICAgIEJvYXJkUmVz
-ZXJ2ZWRbOV07CisgIC8vRklYTUU6IFJlbmVzZXMgVlIgd29ya2Fyb3VuZAorICB1aW50OF90ICAg
-ICAgUmVuZXNlc0xvYWRMaW5lRW5hYmxlZDsKKyAgdWludDhfdCAgICAgIEdmeExvYWRsaW5lUmVz
-aXN0YW5jZTsKKyAgdWludDhfdCAgICAgIFNvY0xvYWRsaW5lUmVzaXN0YW5jZTsKKyAgdWludDhf
-dCAgICAgIFBhZGRpbmc4X0xvYWRsaW5lOworCisgIHVpbnQzMl90ICAgICBCb2FyZFJlc2VydmVk
-WzhdOwogCiAgIC8vIFBhZGRpbmcgZm9yIE1NSFVCIC0gZG8gbm90IG1vZGlmeSB0aGlzCiAgIHVp
-bnQzMl90ICAgICBNbUh1YlBhZGRpbmdbOF07IC8vIFNNVSBpbnRlcm5hbCB1c2UKQEAgLTkwNSwx
-MyArOTEyLDIyIEBAIHR5cGVkZWYgc3RydWN0IHsKIH0gV2F0ZXJtYXJrc190OwogCiB0eXBlZGVm
-IHN0cnVjdCB7CisgIHVpbnQxNl90IGF2Z1BzbUNvdW50WzI4XTsKKyAgdWludDE2X3QgbWluUHNt
-Q291bnRbMjhdOworICBmbG9hdCAgICBhdmdQc21Wb2x0YWdlWzI4XTsKKyAgZmxvYXQgICAgbWlu
-UHNtVm9sdGFnZVsyOF07CisKKyAgdWludDMyX3QgICAgIE1tSHViUGFkZGluZ1szMl07IC8vIFNN
-VSBpbnRlcm5hbCB1c2UKK30gQXZmc0RlYnVnVGFibGVfdF9OVjE0OworCit0eXBlZGVmIHN0cnVj
-dCB7CiAgIHVpbnQxNl90IGF2Z1BzbUNvdW50WzM2XTsKICAgdWludDE2X3QgbWluUHNtQ291bnRb
-MzZdOwogICBmbG9hdCAgICBhdmdQc21Wb2x0YWdlWzM2XTsgCiAgIGZsb2F0ICAgIG1pblBzbVZv
-bHRhZ2VbMzZdOwogCiAgIHVpbnQzMl90ICAgICBNbUh1YlBhZGRpbmdbOF07IC8vIFNNVSBpbnRl
-cm5hbCB1c2UKLX0gQXZmc0RlYnVnVGFibGVfdDsKK30gQXZmc0RlYnVnVGFibGVfdF9OVjEwOwog
-CiB0eXBlZGVmIHN0cnVjdCB7CiAgIHVpbnQ4X3QgIEF2ZnNWZXJzaW9uOwpkaWZmIC0tZ2l0IGEv
-ZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaW5jL3NtdV92MTFfMC5oIGIvZHJpdmVycy9n
-cHUvZHJtL2FtZC9wb3dlcnBsYXkvaW5jL3NtdV92MTFfMC5oCmluZGV4IDk3NjA1ZTkuLmVlODU0
-MmQgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2luYy9zbXVfdjEx
-XzAuaAorKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9pbmMvc211X3YxMV8wLmgK
-QEAgLTI4LDcgKzI4LDcgQEAKICNkZWZpbmUgU01VMTFfRFJJVkVSX0lGX1ZFUlNJT05fSU5WIDB4
-RkZGRkZGRkYKICNkZWZpbmUgU01VMTFfRFJJVkVSX0lGX1ZFUlNJT05fVkcyMCAweDEzCiAjZGVm
-aW5lIFNNVTExX0RSSVZFUl9JRl9WRVJTSU9OX05WMTAgMHgzMwotI2RlZmluZSBTTVUxMV9EUklW
-RVJfSUZfVkVSU0lPTl9OVjE0IDB4MzMKKyNkZWZpbmUgU01VMTFfRFJJVkVSX0lGX1ZFUlNJT05f
-TlYxNCAweDM0CiAKIC8qIE1QIEFwZXJ0dXJlcyAqLwogI2RlZmluZSBNUDBfUHVibGljCQkJMHgw
-MzgwMDAwMAotLSAKMi43LjQKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Au
-b3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdm
-eA==
+--00000000000097c52f058f94601e
+Content-Type: text/plain; charset="UTF-8"
+
+On Wed, Aug 7, 2019 at 11:49 PM Mikhail Gavrilov
+<mikhail.v.gavrilov@gmail.com> wrote:
+>
+> On Tue, 6 Aug 2019 at 06:48, Hillf Danton <hdanton@sina.com> wrote:
+> >
+> > My bad, respin with one header file added.
+> >
+> > Hillf
+> > -----8<---
+> >
+> > --- a/drivers/gpu/drm/amd/display/dc/core/dc.c
+> > +++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
+> > @@ -23,6 +23,7 @@
+> >   */
+> >
+> >  #include <linux/slab.h>
+> > +#include <linux/mm.h>
+> >
+> >  #include "dm_services.h"
+> >
+> > @@ -1174,8 +1175,12 @@ struct dc_state *dc_create_state(struct
+> >         struct dc_state *context = kzalloc(sizeof(struct dc_state),
+> >                                            GFP_KERNEL);
+> >
+> > -       if (!context)
+> > -               return NULL;
+> > +       if (!context) {
+> > +               context = kvzalloc(sizeof(struct dc_state),
+> > +                                          GFP_KERNEL);
+> > +               if (!context)
+> > +                       return NULL;
+> > +       }
+> >         /* Each context must have their own instance of VBA and in order to
+> >          * initialize and obtain IP and SOC the base DML instance from DC is
+> >          * initially copied into every context
+> > @@ -1195,8 +1200,13 @@ struct dc_state *dc_copy_state(struct dc
+> >         struct dc_state *new_ctx = kmemdup(src_ctx,
+> >                         sizeof(struct dc_state), GFP_KERNEL);
+> >
+> > -       if (!new_ctx)
+> > -               return NULL;
+> > +       if (!new_ctx) {
+> > +               new_ctx = kvmalloc(sizeof(*new_ctx), GFP_KERNEL);
+> > +               if (new_ctx)
+> > +                       *new_ctx = *src_ctx;
+> > +               else
+> > +                       return NULL;
+> > +       }
+> >
+> >         for (i = 0; i < MAX_PIPES; i++) {
+> >                         struct pipe_ctx *cur_pipe = &new_ctx->res_ctx.pipe_ctx[i];
+> > @@ -1230,7 +1240,7 @@ static void dc_state_free(struct kref *k
+> >  {
+> >         struct dc_state *context = container_of(kref, struct dc_state, refcount);
+> >         dc_resource_state_destruct(context);
+> > -       kfree(context);
+> > +       kvfree(context);
+> >  }
+> >
+> >  void dc_release_state(struct dc_state *context)
+> > --
+> >
+>
+> Unfortunately error "gnome-shell: page allocation failure: order:4,
+> mode:0x40cc0(GFP_KERNEL|__GFP_COMP),
+> nodemask=(null),cpuset=/,mems_allowed=0" still happens even with
+> applying this patch.
+
+I think we can just drop the kmalloc altogether.  How about this patch?
+
+Alex
+
+>
+> Thanks.
+>
+>
+> --
+> Best Regards,
+> Mike Gavrilov.
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--00000000000097c52f058f94601e
+Content-Type: text/x-patch; charset="US-ASCII";
+	name="0001-drm-amd-display-use-kvmalloc-for-dc_state.patch"
+Content-Disposition: attachment;
+	filename="0001-drm-amd-display-use-kvmalloc-for-dc_state.patch"
+Content-Transfer-Encoding: base64
+Content-ID: <f_jz28unhl0>
+X-Attachment-Id: f_jz28unhl0
+
+RnJvbSBjM2JhNmYwNWNhM2UwMzcxMjU0ZmJmYjFhOGMwNjI3NGUzY2RiOTZlIE1vbiBTZXAgMTcg
+MDA6MDA6MDAgMjAwMQpGcm9tOiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5j
+b20+CkRhdGU6IFRodSwgOCBBdWcgMjAxOSAwMDoyOToyMyAtMDUwMApTdWJqZWN0OiBbUEFUQ0hd
+IGRybS9hbWQvZGlzcGxheTogdXNlIGt2bWFsbG9jIGZvciBkY19zdGF0ZQoKSXQncyBsYXJnZSBh
+bmQgZG9lc24ndCBuZWVkIGNvbnRpZ3VvdXMgbWVtb3J5LgoKU2lnbmVkLW9mZi1ieTogQWxleCBE
+ZXVjaGVyIDxhbGV4YW5kZXIuZGV1Y2hlckBhbWQuY29tPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9h
+bWQvZGlzcGxheS9kYy9jb3JlL2RjLmMgfCA5ICsrKysrLS0tLQogMSBmaWxlIGNoYW5nZWQsIDUg
+aW5zZXJ0aW9ucygrKSwgNCBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9k
+cm0vYW1kL2Rpc3BsYXkvZGMvY29yZS9kYy5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5
+L2RjL2NvcmUvZGMuYwppbmRleCAyNTJiNjIxZDkzYTkuLmVmNzgwYTRlNDg0YSAxMDA2NDQKLS0t
+IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2NvcmUvZGMuYworKysgYi9kcml2ZXJz
+L2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvY29yZS9kYy5jCkBAIC0yMyw2ICsyMyw3IEBACiAgKi8K
+IAogI2luY2x1ZGUgPGxpbnV4L3NsYWIuaD4KKyNpbmNsdWRlIDxsaW51eC9tbS5oPgogCiAjaW5j
+bHVkZSAiZG1fc2VydmljZXMuaCIKIApAQCAtMTE4Myw4ICsxMTg0LDggQEAgYm9vbCBkY19wb3N0
+X3VwZGF0ZV9zdXJmYWNlc190b19zdHJlYW0oc3RydWN0IGRjICpkYykKIAogc3RydWN0IGRjX3N0
+YXRlICpkY19jcmVhdGVfc3RhdGUoc3RydWN0IGRjICpkYykKIHsKLQlzdHJ1Y3QgZGNfc3RhdGUg
+KmNvbnRleHQgPSBremFsbG9jKHNpemVvZihzdHJ1Y3QgZGNfc3RhdGUpLAotCQkJCQkgICBHRlBf
+S0VSTkVMKTsKKwlzdHJ1Y3QgZGNfc3RhdGUgKmNvbnRleHQgPSBrdnphbGxvYyhzaXplb2Yoc3Ry
+dWN0IGRjX3N0YXRlKSwKKwkJCQkJICAgIEdGUF9LRVJORUwpOwogCiAJaWYgKCFjb250ZXh0KQog
+CQlyZXR1cm4gTlVMTDsKQEAgLTEyMDQsMTEgKzEyMDUsMTEgQEAgc3RydWN0IGRjX3N0YXRlICpk
+Y19jcmVhdGVfc3RhdGUoc3RydWN0IGRjICpkYykKIHN0cnVjdCBkY19zdGF0ZSAqZGNfY29weV9z
+dGF0ZShzdHJ1Y3QgZGNfc3RhdGUgKnNyY19jdHgpCiB7CiAJaW50IGksIGo7Ci0Jc3RydWN0IGRj
+X3N0YXRlICpuZXdfY3R4ID0ga21lbWR1cChzcmNfY3R4LAotCQkJc2l6ZW9mKHN0cnVjdCBkY19z
+dGF0ZSksIEdGUF9LRVJORUwpOworCXN0cnVjdCBkY19zdGF0ZSAqbmV3X2N0eCA9IGt2bWFsbG9j
+KHNpemVvZihzdHJ1Y3QgZGNfc3RhdGUpLCBHRlBfS0VSTkVMKTsKIAogCWlmICghbmV3X2N0eCkK
+IAkJcmV0dXJuIE5VTEw7CisJbWVtY3B5KG5ld19jdHgsIHNyY19jdHgsIHNpemVvZihzdHJ1Y3Qg
+ZGNfc3RhdGUpKTsKIAogCWZvciAoaSA9IDA7IGkgPCBNQVhfUElQRVM7IGkrKykgewogCQkJc3Ry
+dWN0IHBpcGVfY3R4ICpjdXJfcGlwZSA9ICZuZXdfY3R4LT5yZXNfY3R4LnBpcGVfY3R4W2ldOwot
+LSAKMi4yMC4xCgo=
+--00000000000097c52f058f94601e--
