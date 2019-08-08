@@ -1,38 +1,46 @@
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: Re: [PATCH v19 00/15] arm64: untag user pointers passed to the
- kernel
-Date: Thu, 8 Aug 2019 15:33:00 -0700
-Message-ID: <20190808153300.09d3eb80772515f0ea062833@linux-foundation.org>
+From: Kees Cook <keescook@chromium.org>
+Subject: Re: [PATCH v19 00/15] arm64: untag user pointers passed to the kernel
+Date: Thu, 8 Aug 2019 16:09:04 -0700
+Message-ID: <201908081608.A4F6711@keescook>
 References: <cover.1563904656.git.andreyknvl@google.com>
-        <CAAeHK+yc0D_nd7nTRsY4=qcSx+eQR0VLut3uXMf4NEiE-VpeCw@mail.gmail.com>
-        <20190724140212.qzvbcx5j2gi5lcoj@willie-the-truck>
-        <CAAeHK+xXzdQHpVXL7f1T2Ef2P7GwFmDMSaBH4VG8fT3=c_OnjQ@mail.gmail.com>
-        <20190724142059.GC21234@fuggles.cambridge.arm.com>
-        <20190806171335.4dzjex5asoertaob@willie-the-truck>
-        <CAAeHK+zF01mxU+PkEYLkoVu-ZZM6jNfL_OwMJKRwLr-sdU4Myg@mail.gmail.com>
-        <201908081410.C16D2BD@keescook>
+ <CAAeHK+yc0D_nd7nTRsY4=qcSx+eQR0VLut3uXMf4NEiE-VpeCw@mail.gmail.com>
+ <20190724140212.qzvbcx5j2gi5lcoj@willie-the-truck>
+ <CAAeHK+xXzdQHpVXL7f1T2Ef2P7GwFmDMSaBH4VG8fT3=c_OnjQ@mail.gmail.com>
+ <20190724142059.GC21234@fuggles.cambridge.arm.com>
+ <20190806171335.4dzjex5asoertaob@willie-the-truck>
+ <CAAeHK+zF01mxU+PkEYLkoVu-ZZM6jNfL_OwMJKRwLr-sdU4Myg@mail.gmail.com>
+ <201908081410.C16D2BD@keescook>
+ <20190808153300.09d3eb80772515f0ea062833@linux-foundation.org>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
 Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <201908081410.C16D2BD@keescook>
+Content-Disposition: inline
+In-Reply-To: <20190808153300.09d3eb80772515f0ea062833@linux-foundation.org>
 Sender: linux-kernel-owner@vger.kernel.org
-To: Kees Cook <keescook@chromium.org>
+To: Andrew Morton <akpm@linux-foundation.org>
 Cc: Andrey Konovalov <andreyknvl@google.com>, Will Deacon <will@kernel.org>, Will Deacon <will.deacon@arm.com>, Vincenzo Frascino <vincenzo.frascino@arm.com>, Catalin Marinas <catalin.marinas@arm.com>, Mark Rutland <mark.rutland@arm.com>, kvm@vger.kernel.org, Szabolcs Nagy <Szabolcs.Nagy@arm.com>, dri-devel@lists.freedesktop.org, Kostya Serebryany <kcc@google.com>, Khalid Aziz <khalid.aziz@oracle.com>, "open list:KERNEL SELFTEST FRAMEWORK" <linux-kselftest@vger.kernel.org>, Felix Kuehling <Felix.Kuehling@amd.com>, Jacob Bramley <Jacob.Bramley@arm.com>, Leon Romanovsky <leon@kernel.org>, linux-rdma@vger.kernel.org, amd-gfx@lists.freedesktop.org, Christoph Hellwig <hch@infradead.org>, Jason Gunthorpe <jgg@ziepe.ca>, Linux ARM <linux-arm-kernel@lis>
 List-Id: amd-gfx.lists.freedesktop.org
 
-On Thu, 8 Aug 2019 14:12:19 -0700 Kees Cook <keescook@chromium.org> wrote:
-
-> > The ones that are left are the mm ones: 4, 5, 6, 7 and 8.
-> > 
-> > Andrew, could you take a look and give your Acked-by or pick them up directly?
+On Thu, Aug 08, 2019 at 03:33:00PM -0700, Andrew Morton wrote:
+> On Thu, 8 Aug 2019 14:12:19 -0700 Kees Cook <keescook@chromium.org> wrote:
 > 
-> Given the subsystem Acks, it seems like 3-10 and 12 could all just go
-> via Andrew? I hope he agrees. :)
+> > > The ones that are left are the mm ones: 4, 5, 6, 7 and 8.
+> > > 
+> > > Andrew, could you take a look and give your Acked-by or pick them up directly?
+> > 
+> > Given the subsystem Acks, it seems like 3-10 and 12 could all just go
+> > via Andrew? I hope he agrees. :)
+> 
+> I'll grab everything that has not yet appeared in linux-next.  If more
+> of these patches appear in linux-next I'll drop those as well.
+> 
+> The review discussion against " [PATCH v19 02/15] arm64: Introduce
+> prctl() options to control the tagged user addresses ABI" has petered
+> out inconclusively.  prctl() vs arch_prctl().
 
-I'll grab everything that has not yet appeared in linux-next.  If more
-of these patches appear in linux-next I'll drop those as well.
+I've always disliked arch_prctl() existing at all. Given that tagging is
+likely to be a multi-architectural feature, it seems like the controls
+should live in prctl() to me.
 
-The review discussion against " [PATCH v19 02/15] arm64: Introduce
-prctl() options to control the tagged user addresses ABI" has petered
-out inconclusively.  prctl() vs arch_prctl().
+-- 
+Kees Cook
