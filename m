@@ -1,16 +1,16 @@
 From: Christoph Hellwig <hch-jcswGhMUV9g@public.gmane.org>
-Subject: Re: [PATCH v3 hmm 04/11] misc/sgi-gru: use mmu_notifier_get/put
-	for struct gru_mm_struct
-Date: Thu, 8 Aug 2019 12:25:56 +0200
-Message-ID: <20190808102556.GB648@lst.de>
+Subject: Re: [PATCH v3 hmm 02/11] mm/mmu_notifiers: do not speculatively
+	allocate a mmu_notifier_mm
+Date: Thu, 8 Aug 2019 12:26:52 +0200
+Message-ID: <20190808102652.GC648@lst.de>
 References: <20190806231548.25242-1-jgg@ziepe.ca>
-	<20190806231548.25242-5-jgg@ziepe.ca>
+	<20190806231548.25242-3-jgg@ziepe.ca>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Return-path: <iommu-bounces-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org>
 Content-Disposition: inline
-In-Reply-To: <20190806231548.25242-5-jgg-uk2M96/98Pc@public.gmane.org>
+In-Reply-To: <20190806231548.25242-3-jgg-uk2M96/98Pc@public.gmane.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/iommu>,
 	<mailto:iommu-request-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org?subject=unsubscribe>
 List-Archive: <http://lists.linuxfoundation.org/pipermail/iommu/>
@@ -23,6 +23,26 @@ Errors-To: iommu-bounces-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gman
 To: Jason Gunthorpe <jgg-uk2M96/98Pc@public.gmane.org>
 Cc: Andrea Arcangeli <aarcange-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>, "David (ChunMing) Zhou" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, Ralph Campbell <rcampbell-DDmLM1+adcrQT0dZR+AlfA@public.gmane.org>, Dimitri Sivanich <sivanich-sJ/iWh9BUns@public.gmane.org>, Gavin Shan <shangw-23VcF4HTsmIX0ybBhKVfKdBPR1lH4CV8@public.gmane.org>, Andrea Righi <andrea-oIIqvOZpAevzfdHfmsDf5w@public.gmane.org>, linux-rdma-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, John Hubbard <jhubbard-DDmLM1+adcrQT0dZR+AlfA@public.gmane.org>, "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>, linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>, linux-mm-Bw31MaZKKs3YtjvyW6yDsg@public.gmane.org, =?iso-8859-1?B?Suly9G1l?= Glisse <jglisse-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>, iommu-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Jason Gunthorpe <jgg-VPRAkNaXOzVWk0Htik3J/w@public.gmane.org>, Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, intel-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Christoph Hellwig <hch-jcswGhMUV9g@public.gmane.org>
 List-Id: amd-gfx.lists.freedesktop.org
+
+On Tue, Aug 06, 2019 at 08:15:39PM -0300, Jason Gunthorpe wrote:
+> From: Jason Gunthorpe <jgg-VPRAkNaXOzVWk0Htik3J/w@public.gmane.org>
+> 
+> A prior commit e0f3c3f78da2 ("mm/mmu_notifier: init notifier if necessary")
+> made an attempt at doing this, but had to be reverted as calling
+> the GFP_KERNEL allocator under the i_mmap_mutex causes deadlock, see
+> commit 35cfa2b0b491 ("mm/mmu_notifier: allocate mmu_notifier in advance").
+> 
+> However, we can avoid that problem by doing the allocation only under
+> the mmap_sem, which is already happening.
+> 
+> Since all writers to mm->mmu_notifier_mm hold the write side of the
+> mmap_sem reading it under that sem is deterministic and we can use that to
+> decide if the allocation path is required, without speculation.
+> 
+> The actual update to mmu_notifier_mm must still be done under the
+> mm_take_all_locks() to ensure read-side coherency.
+> 
+> Signed-off-by: Jason Gunthorpe <jgg-VPRAkNaXOzVWk0Htik3J/w@public.gmane.org>
 
 Looks good,
 
