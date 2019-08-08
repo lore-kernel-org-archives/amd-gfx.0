@@ -1,19 +1,20 @@
-From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [Regression] "drm/amdgpu: enable gfxoff again on raven series
- (v2)"
-Date: Thu, 8 Aug 2019 15:03:46 +0000
-Message-ID: <BN6PR12MB1809CF339E9855E854551552F7D70@BN6PR12MB1809.namprd12.prod.outlook.com>
-References: <3EB0E920-31D7-4C91-A360-DBFB4417AC2F@canonical.com>
- <MN2PR12MB330979BAFF5BCC758258D54CECD40@MN2PR12MB3309.namprd12.prod.outlook.com>
- <624BFB8F-B586-492E-BEA6-4B138DAEC831@canonical.com>
- <MN2PR12MB3309680845257BC66644133CECD70@MN2PR12MB3309.namprd12.prod.outlook.com>
- <615a4948-d0f9-46fc-f43e-2025455e9af6@daenzer.net>,
- <MN2PR12MB3309A9960E429AA5B0A8AD19ECD70@MN2PR12MB3309.namprd12.prod.outlook.com>
+From: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu: update ras sysfs feature info
+Date: Thu, 8 Aug 2019 15:10:35 +0000
+Message-ID: <d09024c8-c723-1524-b43f-625a7807ae9b@amd.com>
+References: <20190805080408.20770-1-tao.zhou1@amd.com>
+ <DM5PR12MB14183A68E61B70184BEC459FFCDA0@DM5PR12MB1418.namprd12.prod.outlook.com>
+ <BN6PR12MB16188930BC2E19E50B0EDB9185D70@BN6PR12MB1618.namprd12.prod.outlook.com>
+ <DM5PR12MB141855615C68E69C503AC4B7FCD70@DM5PR12MB1418.namprd12.prod.outlook.com>
+ <eeb641a8-2336-e177-cb8b-bcf6c21acdef@gmail.com>
+ <DM5PR12MB141892A269179BD41156EFBEFCD70@DM5PR12MB1418.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0345816301=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <MN2PR12MB3309A9960E429AA5B0A8AD19ECD70-rweVpJHSKTpWdvXm18W95QdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
+In-Reply-To: <DM5PR12MB141892A269179BD41156EFBEFCD70-2J9CzHegvk81aAVlcVN8UQdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
 Content-Language: en-US
+Content-ID: <A46E65D6738FD44D9B5F52B7934178F4-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -24,187 +25,117 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Huang, Ray" <Ray.Huang-5C7GfCeVMHo@public.gmane.org>, =?iso-8859-1?Q?Michel_D=E4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, Kai-Heng Feng <kai.heng.feng-Z7WLFzj8eWMS+FvcfC7Uqw@public.gmane.org>, "Olsak,
- Marek" <Marek.Olsak-5C7GfCeVMHo@public.gmane.org>
-Cc: "Zhou, David(ChunMing)" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, LKML <linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Anthony Wong <anthony.wong-Z7WLFzj8eWMS+FvcfC7Uqw@public.gmane.org>, "dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Koenig,
- Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
+To: "Zhang, Hawking" <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>, "Russell, Kent" <Kent.Russell-5C7GfCeVMHo@public.gmane.org>, "Zhou1, Tao" <Tao.Zhou1-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Pan,
+ Xinhui" <Xinhui.Pan-5C7GfCeVMHo@public.gmane.org>, "Freehill, Chris" <Chris.Freehill-5C7GfCeVMHo@public.gmane.org>
 
---===============0345816301==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_BN6PR12MB1809CF339E9855E854551552F7D70BN6PR12MB1809namp_"
-
---_000_BN6PR12MB1809CF339E9855E854551552F7D70BN6PR12MB1809namp_
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-Maybe we can check if iommu is enabled in the driver and do the appropriate=
- thing with respect to gfxoff, assuming this is not platform specific.
-
-Alex
-________________________________
-From: Huang, Ray <Ray.Huang-5C7GfCeVMHo@public.gmane.org>
-Sent: Thursday, August 8, 2019 4:14 AM
-To: Michel D=E4nzer <michel-otUistvHUpPR7s880joybQ@public.gmane.org>; Kai-Heng Feng <kai.heng.feng@cano=
-nical.com>; Olsak, Marek <Marek.Olsak-5C7GfCeVMHo@public.gmane.org>
-Cc: Zhou, David(ChunMing) <David1.Zhou-5C7GfCeVMHo@public.gmane.org>; LKML <linux-kernel-fy+rA21nqHI@public.gmane.org=
-rnel.org>; dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org=
->; Anthony Wong <anthony.wong-Z7WLFzj8eWMS+FvcfC7Uqw@public.gmane.org>; amd-gfx list <amd-gfx@lists.f=
-reedesktop.org>; Deucher, Alexander <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>; Koenig, Ch=
-ristian <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [Regression] "drm/amdgpu: enable gfxoff again on raven series =
-(v2)"
-
-> -----Original Message-----
-> From: Michel D=E4nzer <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-> Sent: Thursday, August 08, 2019 4:10 PM
-> To: Huang, Ray <Ray.Huang-5C7GfCeVMHo@public.gmane.org>; Kai-Heng Feng
-> <kai.heng.feng-Z7WLFzj8eWMS+FvcfC7Uqw@public.gmane.org>
-> Cc: Zhou, David(ChunMing) <David1.Zhou-5C7GfCeVMHo@public.gmane.org>; LKML <linux-
-> kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>; dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; Anthony Wong
-> <anthony.wong-Z7WLFzj8eWMS+FvcfC7Uqw@public.gmane.org>; amd-gfx list <amd-
-> gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>; Deucher, Alexander
-> <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>; Koenig, Christian
-> <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
-> Subject: Re: [Regression] "drm/amdgpu: enable gfxoff again on raven serie=
-s
-> (v2)"
->
-> On 2019-08-08 8:29 a.m., Huang, Ray wrote:
-> >> From: Kai-Heng Feng <kai.heng.feng-Z7WLFzj8eWMS+FvcfC7Uqw@public.gmane.org> at 00:03, Huang,
-> >> Ray <Ray.Huang-5C7GfCeVMHo@public.gmane.org> wrote:
-> >>
-> >>> May I know the all firmware version in your system?
-> >
-> > Seems to the issue we encountered with IOMMU enabled. Could you
-> please disable iommu in SBIOS or GRUB?
->
-> The driver needs to work with the IOMMU enabled. If nothing else, ROCm
-> only works with IOMMU I think.
->
-
-Yes. ROCm in APU required IOMMU v2. So far, I am asking Kai-Heng to do some=
- tests to make sure the issue that was encountered by us before. (+ Marek)
-
-Thanks,
-Ray
-
->
-> --
-> Earthling Michel D=E4nzer               |              https://www.amd.co=
-m
-> Libre software enthusiast             |             Mesa and X developer
-
---_000_BN6PR12MB1809CF339E9855E854551552F7D70BN6PR12MB1809namp_
-Content-Type: text/html; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Maybe we can check if iommu is enabled in the driver and do the appropriate=
- thing with respect to gfxoff, assuming this is not platform specific.</div=
->
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Alex<br>
-</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Huang, Ray &lt;Ray.Hu=
-ang-5C7GfCeVMHo@public.gmane.org&gt;<br>
-<b>Sent:</b> Thursday, August 8, 2019 4:14 AM<br>
-<b>To:</b> Michel D=E4nzer &lt;michel-otUistvHUpPR7s880joybQ@public.gmane.org&gt;; Kai-Heng Feng &lt;ka=
-i.heng.feng-Z7WLFzj8eWMS+FvcfC7Uqw@public.gmane.org&gt;; Olsak, Marek &lt;Marek.Olsak-5C7GfCeVMHo@public.gmane.org&gt;<br>
-<b>Cc:</b> Zhou, David(ChunMing) &lt;David1.Zhou-5C7GfCeVMHo@public.gmane.org&gt;; LKML &lt;linu=
-x-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org&gt;; dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org &lt;dri-devel=
-@lists.freedesktop.org&gt;; Anthony Wong &lt;anthony.wong-Z7WLFzj8eWMS+FvcfC7Uqw@public.gmane.org&gt;=
-; amd-gfx list &lt;amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt;; Deucher,
- Alexander &lt;Alexander.Deucher-5C7GfCeVMHo@public.gmane.org&gt;; Koenig, Christian &lt;Christi=
-an.Koenig-5C7GfCeVMHo@public.gmane.org&gt;<br>
-<b>Subject:</b> RE: [Regression] &quot;drm/amdgpu: enable gfxoff again on r=
-aven series (v2)&quot;</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">&gt; -----Original Message-----<br>
-&gt; From: Michel D=E4nzer &lt;michel-otUistvHUpPR7s880joybQ@public.gmane.org&gt;<br>
-&gt; Sent: Thursday, August 08, 2019 4:10 PM<br>
-&gt; To: Huang, Ray &lt;Ray.Huang-5C7GfCeVMHo@public.gmane.org&gt;; Kai-Heng Feng<br>
-&gt; &lt;kai.heng.feng-Z7WLFzj8eWMS+FvcfC7Uqw@public.gmane.org&gt;<br>
-&gt; Cc: Zhou, David(ChunMing) &lt;David1.Zhou-5C7GfCeVMHo@public.gmane.org&gt;; LKML &lt;linux-=
-<br>
-&gt; kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org&gt;; dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; Anthony W=
-ong<br>
-&gt; &lt;anthony.wong-Z7WLFzj8eWMS+FvcfC7Uqw@public.gmane.org&gt;; amd-gfx list &lt;amd-<br>
-&gt; gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt;; Deucher, Alexander<br>
-&gt; &lt;Alexander.Deucher-5C7GfCeVMHo@public.gmane.org&gt;; Koenig, Christian<br>
-&gt; &lt;Christian.Koenig-5C7GfCeVMHo@public.gmane.org&gt;<br>
-&gt; Subject: Re: [Regression] &quot;drm/amdgpu: enable gfxoff again on rav=
-en series<br>
-&gt; (v2)&quot;<br>
-&gt; <br>
-&gt; On 2019-08-08 8:29 a.m., Huang, Ray wrote:<br>
-&gt; &gt;&gt; From: Kai-Heng Feng &lt;kai.heng.feng-Z7WLFzj8eWMS+FvcfC7Uqw@public.gmane.org&gt; at 00=
-:03, Huang,<br>
-&gt; &gt;&gt; Ray &lt;Ray.Huang-5C7GfCeVMHo@public.gmane.org&gt; wrote:<br>
-&gt; &gt;&gt;<br>
-&gt; &gt;&gt;&gt; May I know the all firmware version in your system?<br>
-&gt; &gt;<br>
-&gt; &gt; Seems to the issue we encountered with IOMMU enabled. Could you<b=
-r>
-&gt; please disable iommu in SBIOS or GRUB?<br>
-&gt; <br>
-&gt; The driver needs to work with the IOMMU enabled. If nothing else, ROCm=
-<br>
-&gt; only works with IOMMU I think.<br>
-&gt; <br>
-<br>
-Yes. ROCm in APU required IOMMU v2. So far, I am asking Kai-Heng to do some=
- tests to make sure the issue that was encountered by us before. (&#43; Mar=
-ek)<br>
-<br>
-Thanks,<br>
-Ray<br>
-<br>
-&gt; <br>
-&gt; --<br>
-&gt; Earthling Michel D=E4nzer&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href=3D"https://www.amd.com=
-">
-https://www.amd.com</a><br>
-&gt; Libre software enthusiast&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp; Mesa and X developer<br>
-</div>
-</span></font></div>
-</body>
-</html>
-
---_000_BN6PR12MB1809CF339E9855E854551552F7D70BN6PR12MB1809namp_--
-
---===============0345816301==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
-
---===============0345816301==--
+SGkgSGF3a2luZywNCg0KYSBtdWx0aSBsaW5lIHZhbHVlIGlzIG5vdCB0aGUgcHJvYmxlbSwgYnV0
+IGhlcmUgeW91IGhhdmUgbXVsdGlwbGUgdmFsdWVzLg0KDQpFLmcuIGluIHRoZSBjYXNlIG9mIHRo
+ZSBwcCB0YWJsZXMgdGhhdCBpcyBvbmUgYmlnIGFycmF5IG9mIHBvd2VyIA0KcHJvZmlsZXMgYW5k
+IHdlIGFjdHVhbGx5IGhhZCBhIGRpc2N1c3Npb24gaWYgZXhwb3NpbmcgdGhlbSBsaWtlIHRoaXMg
+aXMgDQpvayBvciBub3QuDQoNCkJ1dCBpbiB0aGUgY2FzZSBvZiB0aGUgcmFzIGZlYXR1cmVzIHlv
+dSBnb3QgbXVsdGlwbGUgZGlmZmVyZW50IHRoaW5ncyBpbiANCnRoZSBzYW1lIGZpbGUuIEFuZCB0
+aGF0IGluIHR1cm4gaXMgYSBjbGVhciB2aW9sYXRpb24gb2YgdGhlIHN5c2ZzIHJ1bGVzLg0KDQpJ
+IGRvbid0IHRoaW5rIHdlIGNhbid0IHVwc3RyZWFtIHRoZSBpbnRlcmZhY2UgbGlrZSB0aGlzLiBT
+ZWUgaGVyZSBmb3IgYSANCmdvb2Qgc3VtbWFyeSBvZiB0aGUgcnVsZXMgYXMgd2VsbDogaHR0cHM6
+Ly9sd24ubmV0L0FydGljbGVzLzM3ODg4NC8NCg0KUmVnYXJkcywNCkNocmlzdGlhbi4NCg0KQW0g
+MDguMDguMTkgdW0gMTc6MDAgc2NocmllYiBaaGFuZywgSGF3a2luZzoNCj4gSGkgQ2hyaXMsDQo+
+DQo+IEknbSBub3QgYXdhcmUgb2YgaG93IFJPQ00gU01JIHVzaW5nIGZlYXR1cmUgbm9kZXMuIGJ1
+dCBub3QgYWxsIHRoZSBzeXNmcyBhcmUgaW50ZW5kZWQgdG8gYmUgdXNlZCBieSB1cHBlciBsZXZl
+bCBhcHBzL2xpYnMuDQo+DQo+IFRoZXJlIGFyZSBidW5jaGVzIG9mIHN5c2ZzIGVudHJpZXMgdGhh
+dCBoYXZlIG11bHRpcGxlIGxpbmUgdmFsdWUuIFRoZSBtb3N0IGNvbXBsaWNhdGUgb25lIHdvdWxk
+IGJlIHBwX3Bvd2VyX3Byb2ZpbGVfbW9kZSwgd2hpY2ggbG9va3MgbGlrZS4NCj4NCj4gMCBCT09U
+VVBfREVGQVVMVCo6DQo+ICAgICAgICAgICAgICAgICAgICAgIDAoICAgICAgIEdGWENMSykgICAg
+ICAgMCAgICAgICAwICAgICAgIDEgICAgICAgMCAgICAgICA0ICAgICA4MDAgNDU4NzUyMCAgLTY1
+NTM2ICAgICAgIDANCj4gICAgICAgICAgICAgICAgICAgICAgMSggICAgICAgU09DQ0xLKSAgICAg
+ICAwICAgICAgIDAgICAgICAgMSAgICAgICAwICAgICAgIDQgICAgIDgwMCAgMzI3NjgwICAgLTY1
+NTMgICAgICAgMA0KPiAgICAgICAgICAgICAgICAgICAgICAyKCAgICAgICAgIFVDTEspICAgICAg
+IDAgICAgICAgMCAgICAgICAxICAgICAgIDAgICAgICAgNCAgICAgODAwICAzMjc2ODAgIC02NTUz
+NiAgICAgICAwDQo+IC4uLi4uLi4NCj4gMSAzRF9GVUxMX1NDUkVFTiA6DQo+ICAgICAgICAgICAg
+ICAgICAgICAgIDAoICAgICAgIEdGWENMSykgICAgICAgMCAgICAgICAxICAgICAgIDEgICAgICAg
+MCAgICAgICA0ICAgICA4MDAgNDU4NzUyMCAgLTY1NTM2ICAgICAgIDANCj4gICAgICAgICAgICAg
+ICAgICAgICAgMSggICAgICAgU09DQ0xLKSAgICAgICAwICAgICAgIDEgICAgICAgNCAgICAgODUw
+ICAgICAgIDQgICAgIDgwMCAgMzI3NjgwICAtNjU1MzYgICAgICAgMA0KPg0KPiBSZWdhcmRzLA0K
+PiBIYXdraW5nDQo+IC0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQo+IEZyb206IENocmlzdGlh
+biBLw7ZuaWcgPGNrb2VuaWcubGVpY2h0enVtZXJrZW5AZ21haWwuY29tPg0KPiBTZW50OiAyMDE5
+5bm0OOaciDjml6UgMjI6MjUNCj4gVG86IFpoYW5nLCBIYXdraW5nIDxIYXdraW5nLlpoYW5nQGFt
+ZC5jb20+OyBSdXNzZWxsLCBLZW50IDxLZW50LlJ1c3NlbGxAYW1kLmNvbT47IFpob3UxLCBUYW8g
+PFRhby5aaG91MUBhbWQuY29tPjsgYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmc7IFBhbiwg
+WGluaHVpIDxYaW5odWkuUGFuQGFtZC5jb20+OyBGcmVlaGlsbCwgQ2hyaXMgPENocmlzLkZyZWVo
+aWxsQGFtZC5jb20+DQo+IFN1YmplY3Q6IFJlOiBbUEFUQ0hdIGRybS9hbWRncHU6IHVwZGF0ZSBy
+YXMgc3lzZnMgZmVhdHVyZSBpbmZvDQo+DQo+IEhpIEhhd2tpbmcsDQo+DQo+IGxvb2tzIGxpa2Ug
+eW91IHNraXBwZWQgbXkgcmVzcG9uc2UuDQo+DQo+IEV2ZW4gdGhlIGN1cnJlbnQgd2F5IGhvdyBz
+eXNmcyBpcyB1c2VkIGluIHRoZSByYXMgY29kZSBpcyBhIGNsZWFyIE5PLUdPIGFuZCBzaG91bGQg
+YmUgZml4ZWQgYmVmb3JlIHRoaXMgaXMgcHVzaGVkIHVwc3RyZWFtLg0KPg0KPiBBIHN5c2ZzIGVu
+dHJ5IHNob3VsZCBzZXJpb3VzbHkgTk9UIHJldHVybiBhIG11bHRpIGxpbmUgdmFsdWUgd2hpY2gg
+bmVlZHMgdG8gYmUgZXh0ZW5zaXZlbHkgcGFyc2VkIGJ5IHRoZSBhcHBsaWNhdGlvbi4NCj4NCj4g
+UmVnYXJkcywNCj4gQ2hyaXN0aWFuLg0KPg0KPiBBbSAwOC4wOC4xOSB1bSAxNTo1MCBzY2hyaWVi
+IFpoYW5nLCBIYXdraW5nOg0KPj4gVW5kZXJzdG9vZCBhbmQgYWdyZWUgd2Ugc2hvdWxkIGtlZXAg
+c3RhYmxlIGludGVyZmFjZXMuDQo+Pg0KPj4gQnV0IHRoZSBpbmZvcm1hdGlvbiBpbiBmZWF0dXJl
+IG5vZGUgaXMgbm90IGNvcnJlY3QgYW5kIG1ha2VzIHBlb3BsZSBjb25mdXNpbmcuIEJhc2ljYWxs
+eSwgZWFjaCBJUCBibG9ja3MgY2FuIHN1cHBvcnQgYWxsIHRoZSBmb3VyIGVycm9yIHR5cGVzLCBu
+b3QganVzdCBtdWx0aS11bmNvcnJlY3RhYmxlLiBBcyBhIHJlc3VsdCwgYW55IHVwcGVyIGxldmVs
+IGFwcHMvbGlicyB0aGF0IHJlYWQgZnJvbSB0aGlzIGZpbGUgd2lsbCBqdXN0IGdldCBjb25mdXNp
+bmcgaW5mb3JtYXRpb24gYXMgd2VsbC4gVGhlIGZlYXR1cmUgbWFzayBpcyBhbHJlYWR5IGdvb2Qg
+ZW5vdWdoIGZvciB0aGlzIG5vZGUuDQo+Pg0KPj4gUmVnYXJkcywNCj4+IEhhd2tpbmcNCj4+IC0t
+LS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQo+PiBGcm9tOiBSdXNzZWxsLCBLZW50IDxLZW50LlJ1
+c3NlbGxAYW1kLmNvbT4NCj4+IFNlbnQ6IDIwMTnlubQ45pyIOOaXpSAyMDo1MQ0KPj4gVG86IFpo
+YW5nLCBIYXdraW5nIDxIYXdraW5nLlpoYW5nQGFtZC5jb20+OyBaaG91MSwgVGFvDQo+PiA8VGFv
+Llpob3UxQGFtZC5jb20+OyBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZzsgUGFuLCBYaW5o
+dWkNCj4+IDxYaW5odWkuUGFuQGFtZC5jb20+OyBGcmVlaGlsbCwgQ2hyaXMgPENocmlzLkZyZWVo
+aWxsQGFtZC5jb20+DQo+PiBDYzogWmhvdTEsIFRhbyA8VGFvLlpob3UxQGFtZC5jb20+DQo+PiBT
+dWJqZWN0OiBSRTogW1BBVENIXSBkcm0vYW1kZ3B1OiB1cGRhdGUgcmFzIHN5c2ZzIGZlYXR1cmUg
+aW5mbw0KPj4NCj4+ICtDaHJpcyBGcmVlaGlsbA0KPj4NCj4+IFdoaWxlIEkgY2FuIHVuZGVyc3Rh
+bmQgdGhpcyBjaGFuZ2UsIHRoaXMgYnJva2Ugb3VyIFNNSSBpbnRlcmZhY2UsIHdoaWNoIHdhcyBl
+eHBlY3RpbmcgYSBzcGVjaWZpYyBzdHJpbmcgZm9ybWF0IGZvciB0aGUgcmFzL2ZlYXR1cmVzIGZp
+bGUuIFRoaXMgaGFzIGhhcHBlbmVkIGEgZmV3IHRpbWVzIG5vdywgd2hlcmUgY2hhbmdlcyB0byB0
+aGUgUkFTIHN5c2ZzIGZpbGVzIGhhcyBicm9rZSB0aGUgU01JIENMSSBhbmQvb3IgU01JIExJQi4g
+Q2FuIHdlIHBsZWFzZSBnZXQgYSBzdGFibGUgaW50ZXJmYWNlIGFuZCBzeXNmcyBmb3JtYXQgc2V0
+IHVwIGJlZm9yZSBwdWJsaXNoaW5nIHBhdGNoZXM/IFRoaXMgaXMgY3JlYXRpbmcgYSBsb3Qgb2Yg
+ZXh0cmEgd29yayBmb3IgZGV2ZWxvcGVycyB3aXRoIHRoZSBTTUkgdG8gY29uc3RhbnRseSBrZWVw
+IHVwIHdpdGggdGhlIGNoYW5nZXMgYmVpbmcgbWFkZSB0byBzeXNmcyBmaWxlcy4gVGhhbmsgeW91
+Lg0KPj4NCj4+ICAgIEtlbnQNCj4+DQo+PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPj4g
+RnJvbTogYW1kLWdmeCA8YW1kLWdmeC1ib3VuY2VzQGxpc3RzLmZyZWVkZXNrdG9wLm9yZz4gT24g
+QmVoYWxmIE9mDQo+PiBaaGFuZywgSGF3a2luZw0KPj4gU2VudDogTW9uZGF5LCBBdWd1c3QgNSwg
+MjAxOSA0OjE1IEFNDQo+PiBUbzogWmhvdTEsIFRhbyA8VGFvLlpob3UxQGFtZC5jb20+OyBhbWQt
+Z2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZzsNCj4+IFBhbiwgWGluaHVpIDxYaW5odWkuUGFuQGFt
+ZC5jb20+DQo+PiBDYzogWmhvdTEsIFRhbyA8VGFvLlpob3UxQGFtZC5jb20+DQo+PiBTdWJqZWN0
+OiBSRTogW1BBVENIXSBkcm0vYW1kZ3B1OiB1cGRhdGUgcmFzIHN5c2ZzIGZlYXR1cmUgaW5mbw0K
+Pj4NCj4+IFJldmlld2VkLWJ5OiBIYXdraW5nIFpoYW5nIDxIYXdraW5nLlpoYW5nQGFtZC5jb20+
+DQo+Pg0KPj4gUmVnYXJkcywNCj4+IEhhd2tpbmcNCj4+IC0tLS0tT3JpZ2luYWwgTWVzc2FnZS0t
+LS0tDQo+PiBGcm9tOiBhbWQtZ2Z4IDxhbWQtZ2Z4LWJvdW5jZXNAbGlzdHMuZnJlZWRlc2t0b3Au
+b3JnPiBPbiBCZWhhbGYgT2YgVGFvDQo+PiBaaG91DQo+PiBTZW50OiAyMDE55bm0OOaciDXml6Ug
+MTY6MDQNCj4+IFRvOiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZzsgUGFuLCBYaW5odWkg
+PFhpbmh1aS5QYW5AYW1kLmNvbT47DQo+PiBaaGFuZywgSGF3a2luZyA8SGF3a2luZy5aaGFuZ0Bh
+bWQuY29tPg0KPj4gQ2M6IFpob3UxLCBUYW8gPFRhby5aaG91MUBhbWQuY29tPg0KPj4gU3ViamVj
+dDogW1BBVENIXSBkcm0vYW1kZ3B1OiB1cGRhdGUgcmFzIHN5c2ZzIGZlYXR1cmUgaW5mbw0KPj4N
+Cj4+IHJlbW92ZSBjb25mdXNlZCByYXMgZXJyb3IgdHlwZSBpbmZvDQo+Pg0KPj4gU2lnbmVkLW9m
+Zi1ieTogVGFvIFpob3UgPHRhby56aG91MUBhbWQuY29tPg0KPj4gLS0tDQo+PiAgICBkcml2ZXJz
+L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcmFzLmMgfCAxNyArKysrKy0tLS0tLS0tLS0tLQ0K
+Pj4gICAgMSBmaWxlIGNoYW5nZWQsIDUgaW5zZXJ0aW9ucygrKSwgMTIgZGVsZXRpb25zKC0pDQo+
+Pg0KPj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9yYXMu
+Yw0KPj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcmFzLmMNCj4+IGluZGV4
+IGQyZThhODVmNmUzOC4uMzY5NjUxMjQ3YjIzIDEwMDY0NA0KPj4gLS0tIGEvZHJpdmVycy9ncHUv
+ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Jhcy5jDQo+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1k
+L2FtZGdwdS9hbWRncHVfcmFzLmMNCj4+IEBAIC03ODcsMjUgKzc4NywxOCBAQCBzdGF0aWMgc3Np
+emVfdCBhbWRncHVfcmFzX3N5c2ZzX2ZlYXR1cmVzX3JlYWQoc3RydWN0IGRldmljZSAqZGV2LA0K
+Pj4gICAgCXN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2ID0gZGRldi0+ZGV2X3ByaXZhdGU7DQo+
+PiAgICAJc3RydWN0IHJhc19jb21tb25faWYgaGVhZDsNCj4+ICAgIAlpbnQgcmFzX2Jsb2NrX2Nv
+dW50ID0gQU1ER1BVX1JBU19CTE9DS19DT1VOVDsNCj4+IC0JaW50IGk7DQo+PiArCWludCBpLCBl
+bmFibGVkOw0KPj4gICAgCXNzaXplX3QgczsNCj4+IC0Jc3RydWN0IHJhc19tYW5hZ2VyICpvYmo7
+DQo+PiAgICANCj4+ICAgIAlzID0gc2NucHJpbnRmKGJ1ZiwgUEFHRV9TSVpFLCAiZmVhdHVyZSBt
+YXNrOiAweCV4XG4iLA0KPj4gY29uLT5mZWF0dXJlcyk7DQo+PiAgICANCj4+ICAgIAlmb3IgKGkg
+PSAwOyBpIDwgcmFzX2Jsb2NrX2NvdW50OyBpKyspIHsNCj4+ICAgIAkJaGVhZC5ibG9jayA9IGk7
+DQo+PiArCQllbmFibGVkID0gYW1kZ3B1X3Jhc19pc19mZWF0dXJlX2VuYWJsZWQoYWRldiwgJmhl
+YWQpOw0KPj4gICAgDQo+PiAtCQlpZiAoYW1kZ3B1X3Jhc19pc19mZWF0dXJlX2VuYWJsZWQoYWRl
+diwgJmhlYWQpKSB7DQo+PiAtCQkJb2JqID0gYW1kZ3B1X3Jhc19maW5kX29iaihhZGV2LCAmaGVh
+ZCk7DQo+PiAtCQkJcyArPSBzY25wcmludGYoJmJ1ZltzXSwgUEFHRV9TSVpFIC0gcywNCj4+IC0J
+CQkJCSIlczogJXNcbiIsDQo+PiAtCQkJCQlyYXNfYmxvY2tfc3RyKGkpLA0KPj4gLQkJCQkJcmFz
+X2Vycl9zdHIob2JqLT5oZWFkLnR5cGUpKTsNCj4+IC0JCX0gZWxzZQ0KPj4gLQkJCXMgKz0gc2Nu
+cHJpbnRmKCZidWZbc10sIFBBR0VfU0laRSAtIHMsDQo+PiAtCQkJCQkiJXM6IGRpc2FibGVkXG4i
+LA0KPj4gLQkJCQkJcmFzX2Jsb2NrX3N0cihpKSk7DQo+PiArCQlzICs9IHNjbnByaW50ZigmYnVm
+W3NdLCBQQUdFX1NJWkUgLSBzLA0KPj4gKwkJCQkiJXMgcmFzIGZlYXR1cmUgbWFzazogJXNcbiIs
+DQo+PiArCQkJCXJhc19ibG9ja19zdHIoaSksIGVuYWJsZWQ/Im9uIjoib2ZmIik7DQo+PiAgICAJ
+fQ0KPj4gICAgDQo+PiAgICAJcmV0dXJuIHM7DQoNCl9fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMu
+ZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlz
+dGluZm8vYW1kLWdmeA==
