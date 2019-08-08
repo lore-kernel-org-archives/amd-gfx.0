@@ -1,101 +1,93 @@
-From: Kai-Heng Feng <kai.heng.feng@canonical.com>
-Subject: Re: [Regression] "drm/amdgpu: enable gfxoff again on raven series
- (v2)"
-Date: Thu, 8 Aug 2019 14:40:35 +0800
-Message-ID: <94CAE10C-1C2D-4A62-A26B-971A8EEE277A@canonical.com>
-References: <3EB0E920-31D7-4C91-A360-DBFB4417AC2F@canonical.com>
- <MN2PR12MB330979BAFF5BCC758258D54CECD40@MN2PR12MB3309.namprd12.prod.outlook.com>
- <624BFB8F-B586-492E-BEA6-4B138DAEC831@canonical.com>
- <MN2PR12MB3309680845257BC66644133CECD70@MN2PR12MB3309.namprd12.prod.outlook.com>
-Mime-Version: 1.0 (Mac OS X Mail 12.4 \(3445.104.11\))
-Content-Type: text/plain;
-        charset=utf-8;
-        delsp=yes;
-        format=flowed
-Content-Transfer-Encoding: 8bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <MN2PR12MB3309680845257BC66644133CECD70@MN2PR12MB3309.namprd12.prod.outlook.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: "Huang, Ray" <Ray.Huang@amd.com>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Koenig, Christian" <Christian.Koenig@amd.com>, "Zhou, David(ChunMing)" <David1.Zhou@amd.com>, amd-gfx list <amd-gfx@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, LKML <linux-kernel@vger.kernel.org>, Anthony Wong <anthony.wong@canonical.com>
-List-Id: amd-gfx.lists.freedesktop.org
+From: "Zhang, Hawking" <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: [PATCH 2/2] drm/amd/powerplay: update smu11_driver_if_navi10.h
+Date: Thu, 8 Aug 2019 06:44:16 +0000
+Message-ID: <DM5PR12MB1418CBD425F639C429DFED25FCD70@DM5PR12MB1418.namprd12.prod.outlook.com>
+References: <1565243343-7561-1-git-send-email-tianci.yin@amd.com>
+ <1565243343-7561-2-git-send-email-tianci.yin@amd.com>
+Mime-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <1565243343-7561-2-git-send-email-tianci.yin-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Xiao, Jack" <Jack.Xiao-5C7GfCeVMHo@public.gmane.org>, "Wang,
+ Kevin(Yang)" <Kevin1.Wang-5C7GfCeVMHo@public.gmane.org>, "Quan,
+ Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>, "Yin, Tianci (Rico)" <Tianci.Yin-5C7GfCeVMHo@public.gmane.org>, "Yuan,
+ Xiaojie" <Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org>
 
-at 14:29, Huang, Ray <Ray.Huang@amd.com> wrote:
-
->> -----Original Message-----
->> From: Kai-Heng Feng <kai.heng.feng@canonical.com>
->> Sent: Thursday, August 08, 2019 1:45 AM
->> To: Huang, Ray <Ray.Huang@amd.com>
->> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian
->> <Christian.Koenig@amd.com>; Zhou, David(ChunMing)
->> <David1.Zhou@amd.com>; amd-gfx list <amd-gfx@lists.freedesktop.org>;
->> dri-devel@lists.freedesktop.org; LKML <linux-kernel@vger.kernel.org>;
->> Anthony Wong <anthony.wong@canonical.com>
->> Subject: Re: [Regression] "drm/amdgpu: enable gfxoff again on raven series
->> (v2)"
->>
->> Hi Ray,
->>
->> at 00:03, Huang, Ray <Ray.Huang@amd.com> wrote:
->>
->>> May I know the all firmware version in your system?
->
-> Seems to the issue we encountered with IOMMU enabled. Could you please  
-> disable iommu in SBIOS or GRUB?
-
-Yes, "amd_iommu=off" can workaround the issue.
-
-Kai-Heng
-
->
-> Thanks,
-> Ray
->
->> # cat amdgpu_firmware_info
->> VCE feature version: 0, firmware version: 0x00000000
->> UVD feature version: 0, firmware version: 0x00000000
->> MC feature version: 0, firmware version: 0x00000000
->> ME feature version: 40, firmware version: 0x00000099
->> PFP feature version: 40, firmware version: 0x000000ae
->> CE feature version: 40, firmware version: 0x0000004d
->> RLC feature version: 1, firmware version: 0x00000213
->> RLC SRLC feature version: 1, firmware version: 0x00000001
->> RLC SRLG feature version: 1, firmware version: 0x00000001
->> RLC SRLS feature version: 1, firmware version: 0x00000001
->> MEC feature version: 40, firmware version: 0x0000018b
->> MEC2 feature version: 40, firmware version: 0x0000018b
->> SOS feature version: 0, firmware version: 0x00000000
->> ASD feature version: 0, firmware version: 0x001ad4d4
->> TA XGMI feature version: 0, firmware version: 0x00000000
->> TA RAS feature version: 0, firmware version: 0x00000000
->> SMC feature version: 0, firmware version: 0x00001e44
->> SDMA0 feature version: 41, firmware version: 0x000000a9
->> VCN feature version: 0, firmware version: 0x0110901c
->> DMCU feature version: 0, firmware version: 0x00000000
->> VBIOS version: 113-RAVEN-103
->>
->> Kai-Heng
->>
->>> Thanks,
->>> Ray
->>>
->>> From: Kai-Heng Feng <kai.heng.feng@canonical.com>
->>> Sent: Wednesday, August 7, 2019 8:50 PM
->>> To: Huang, Ray
->>> Cc: Deucher, Alexander; Koenig, Christian; Zhou, David(ChunMing); amd-
->> gfx
->>> list; dri-devel@lists.freedesktop.org; LKML; Anthony Wong
->>> Subject: [Regression] "drm/amdgpu: enable gfxoff again on raven series
->>> (v2)"
->>>
->>> Hi,
->>>
->>> After commit 005440066f92 ("drm/amdgpu: enable gfxoff again on raven
->> series
->>> (v2)”), browsers on Raven Ridge systems cause serious corruption like  
->>> this:
->>> https://launchpadlibrarian.net/436319772/Screenshot%20from%202019-
->> 08-07%2004-20-34.png
->>> Firmwares for Raven Ridge is up-to-date.
->>>
->>> Kai-Heng
+U2VyaWVzIGlzIFJldmlld2VkLWJ5OiBIYXdraW5nIFpoYW5nIDxIYXdraW5nLlpoYW5nQGFtZC5j
+b20+DQoNClJlZ2FyZHMsDQpIYXdraW5nDQotLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KRnJv
+bTogYW1kLWdmeCA8YW1kLWdmeC1ib3VuY2VzQGxpc3RzLmZyZWVkZXNrdG9wLm9yZz4gT24gQmVo
+YWxmIE9mIFRpYW5jaSBZaW4NClNlbnQ6IDIwMTnlubQ45pyIOOaXpSAxMzo0OQ0KVG86IGFtZC1n
+ZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnDQpDYzogWGlhbywgSmFjayA8SmFjay5YaWFvQGFtZC5j
+b20+OyBXYW5nLCBLZXZpbihZYW5nKSA8S2V2aW4xLldhbmdAYW1kLmNvbT47IFlpbiwgVGlhbmNp
+IChSaWNvKSA8VGlhbmNpLllpbkBhbWQuY29tPjsgWmhhbmcsIEhhd2tpbmcgPEhhd2tpbmcuWmhh
+bmdAYW1kLmNvbT47IFF1YW4sIEV2YW4gPEV2YW4uUXVhbkBhbWQuY29tPjsgWXVhbiwgWGlhb2pp
+ZSA8WGlhb2ppZS5ZdWFuQGFtZC5jb20+DQpTdWJqZWN0OiBbUEFUQ0ggMi8yXSBkcm0vYW1kL3Bv
+d2VycGxheTogdXBkYXRlIHNtdTExX2RyaXZlcl9pZl9uYXZpMTAuaA0KDQpGcm9tOiB0aWFuY3lp
+biA8dGlhbmNpLnlpbkBhbWQuY29tPg0KDQp1cGRhdGUgdGhlIHNtdTExX2RyaXZlcl9pZl9uYXZp
+MTAuaCBzaW5jZSBuYXZpMTQgc211IGZ3IHVwZGF0ZSB0byA1My4xMg0KDQpDaGFuZ2UtSWQ6IElm
+MGY3MjllYzg3Yzk4ZjI0ZTE3OTRmMDg0N2VhYzViYTIzNjcxZTM0DQpSZXZpZXdlZC1ieTogRXZh
+biBRdWFuIDxldmFuLnF1YW5AYW1kLmNvbT4NClNpZ25lZC1vZmYtYnk6IHRpYW5jeWluIDx0aWFu
+Y2kueWluQGFtZC5jb20+DQotLS0NCiAuLi4vZHJtL2FtZC9wb3dlcnBsYXkvaW5jL3NtdTExX2Ry
+aXZlcl9pZl9uYXZpMTAuaCB8IDI1ICsrKysrKysrKysrKysrKysrLS0tLS0NCiBkcml2ZXJzL2dw
+dS9kcm0vYW1kL3Bvd2VycGxheS9pbmMvc211X3YxMV8wLmggICAgICB8ICAyICstDQogMiBmaWxl
+cyBjaGFuZ2VkLCAyMSBpbnNlcnRpb25zKCspLCA2IGRlbGV0aW9ucygtKQ0KDQpkaWZmIC0tZ2l0
+IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaW5jL3NtdTExX2RyaXZlcl9pZl9uYXZp
+MTAuaCBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2luYy9zbXUxMV9kcml2ZXJfaWZf
+bmF2aTEwLmgNCmluZGV4IDZkOWU3OWUuLmFjMDEyMGUgMTAwNjQ0DQotLS0gYS9kcml2ZXJzL2dw
+dS9kcm0vYW1kL3Bvd2VycGxheS9pbmMvc211MTFfZHJpdmVyX2lmX25hdmkxMC5oDQorKysgYi9k
+cml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9pbmMvc211MTFfZHJpdmVyX2lmX25hdmkxMC5o
+DQpAQCAtNTA2LDEwICs1MDYsMTEgQEAgdHlwZWRlZiBzdHJ1Y3Qgew0KICAgdWludDMyX3QgU3Rh
+dHVzOw0KIA0KICAgdWludDE2X3QgRGllVGVtcGVyYXR1cmU7DQotICB1aW50MTZfdCBNZW1vcnlU
+ZW1wZXJhdHVyZTsNCisgIHVpbnQxNl90IEN1cnJlbnRNZW1vcnlUZW1wZXJhdHVyZTsNCiANCi0g
+IHVpbnQxNl90IFNlbGVjdGVkQ2FyZFBvd2VyOw0KLSAgdWludDE2X3QgUmVzZXJ2ZWQ0OyANCisg
+IHVpbnQxNl90IE1lbW9yeVRlbXBlcmF0dXJlOw0KKyAgdWludDhfdCBNZW1vcnlIb3RzcG90UG9z
+aXRpb247DQorICB1aW50OF90IFJlc2VydmVkNDsNCiANCiAgIHVpbnQzMl90IEJvYXJkTGV2ZWxF
+bmVyZ3lBY2N1bXVsYXRvcjsgIH0gT3V0T2ZCYW5kTW9uaXRvcl90OyBAQCAtODAxLDcgKzgwMiwx
+MiBAQCB0eXBlZGVmIHN0cnVjdCB7DQogICAvLyBNdmRkIFN2aTIgRGl2IFJhdGlvIFNldHRpbmcN
+CiAgIHVpbnQzMl90ICAgICBNdmRkUmF0aW87IC8vIFRoaXMgaXMgdXNlZCBmb3IgTVZERCBWaWQg
+d29ya2Fyb3VuZC4gSXQgaGFzIDE2IGZyYWN0aW9uYWwgYml0cyAoUTE2LjE2KQ0KIA0KLSAgdWlu
+dDMyX3QgICAgIEJvYXJkUmVzZXJ2ZWRbOV07DQorICB1aW50OF90ICAgICAgUmVuZXNlc0xvYWRM
+aW5lRW5hYmxlZDsNCisgIHVpbnQ4X3QgICAgICBHZnhMb2FkbGluZVJlc2lzdGFuY2U7DQorICB1
+aW50OF90ICAgICAgU29jTG9hZGxpbmVSZXNpc3RhbmNlOw0KKyAgdWludDhfdCAgICAgIFBhZGRp
+bmc4X0xvYWRsaW5lOw0KKw0KKyAgdWludDMyX3QgICAgIEJvYXJkUmVzZXJ2ZWRbOF07DQogDQog
+ICAvLyBQYWRkaW5nIGZvciBNTUhVQiAtIGRvIG5vdCBtb2RpZnkgdGhpcw0KICAgdWludDMyX3Qg
+ICAgIE1tSHViUGFkZGluZ1s4XTsgLy8gU01VIGludGVybmFsIHVzZQ0KQEAgLTkwNSwxMyArOTEx
+LDIyIEBAIHR5cGVkZWYgc3RydWN0IHsNCiB9IFdhdGVybWFya3NfdDsNCiANCiB0eXBlZGVmIHN0
+cnVjdCB7DQorICB1aW50MTZfdCBhdmdQc21Db3VudFsyOF07DQorICB1aW50MTZfdCBtaW5Qc21D
+b3VudFsyOF07DQorICBmbG9hdCAgICBhdmdQc21Wb2x0YWdlWzI4XTsNCisgIGZsb2F0ICAgIG1p
+blBzbVZvbHRhZ2VbMjhdOw0KKw0KKyAgdWludDMyX3QgICAgIE1tSHViUGFkZGluZ1szMl07IC8v
+IFNNVSBpbnRlcm5hbCB1c2UNCit9IEF2ZnNEZWJ1Z1RhYmxlX3RfTlYxNDsNCisNCit0eXBlZGVm
+IHN0cnVjdCB7DQogICB1aW50MTZfdCBhdmdQc21Db3VudFszNl07DQogICB1aW50MTZfdCBtaW5Q
+c21Db3VudFszNl07DQogICBmbG9hdCAgICBhdmdQc21Wb2x0YWdlWzM2XTsgDQogICBmbG9hdCAg
+ICBtaW5Qc21Wb2x0YWdlWzM2XTsNCiANCiAgIHVpbnQzMl90ICAgICBNbUh1YlBhZGRpbmdbOF07
+IC8vIFNNVSBpbnRlcm5hbCB1c2UNCi19IEF2ZnNEZWJ1Z1RhYmxlX3Q7DQorfSBBdmZzRGVidWdU
+YWJsZV90X05WMTA7DQogDQogdHlwZWRlZiBzdHJ1Y3Qgew0KICAgdWludDhfdCAgQXZmc1ZlcnNp
+b247DQpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaW5jL3NtdV92
+MTFfMC5oIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaW5jL3NtdV92MTFfMC5oDQpp
+bmRleCA5NzYwNWU5Li5lZTg1NDJkIDEwMDY0NA0KLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9w
+b3dlcnBsYXkvaW5jL3NtdV92MTFfMC5oDQorKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2Vy
+cGxheS9pbmMvc211X3YxMV8wLmgNCkBAIC0yOCw3ICsyOCw3IEBADQogI2RlZmluZSBTTVUxMV9E
+UklWRVJfSUZfVkVSU0lPTl9JTlYgMHhGRkZGRkZGRiAgI2RlZmluZSBTTVUxMV9EUklWRVJfSUZf
+VkVSU0lPTl9WRzIwIDB4MTMgICNkZWZpbmUgU01VMTFfRFJJVkVSX0lGX1ZFUlNJT05fTlYxMCAw
+eDMzIC0jZGVmaW5lIFNNVTExX0RSSVZFUl9JRl9WRVJTSU9OX05WMTQgMHgzMw0KKyNkZWZpbmUg
+U01VMTFfRFJJVkVSX0lGX1ZFUlNJT05fTlYxNCAweDM0DQogDQogLyogTVAgQXBlcnR1cmVzICov
+DQogI2RlZmluZSBNUDBfUHVibGljCQkJMHgwMzgwMDAwMA0KLS0NCjIuNy40DQoNCl9fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fDQphbWQtZ2Z4IG1haWxpbmcg
+bGlzdA0KYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCmh0dHBzOi8vbGlzdHMuZnJlZWRl
+c2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA0KX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBs
+aXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1h
+bi9saXN0aW5mby9hbWQtZ2Z4
