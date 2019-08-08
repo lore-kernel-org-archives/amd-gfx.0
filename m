@@ -1,98 +1,88 @@
-From: Kees Cook <keescook@chromium.org>
-Subject: Re: [PATCH v19 00/15] arm64: untag user pointers passed to the kernel
-Date: Thu, 8 Aug 2019 14:12:19 -0700
-Message-ID: <201908081410.C16D2BD@keescook>
-References: <cover.1563904656.git.andreyknvl@google.com>
- <CAAeHK+yc0D_nd7nTRsY4=qcSx+eQR0VLut3uXMf4NEiE-VpeCw@mail.gmail.com>
- <20190724140212.qzvbcx5j2gi5lcoj@willie-the-truck>
- <CAAeHK+xXzdQHpVXL7f1T2Ef2P7GwFmDMSaBH4VG8fT3=c_OnjQ@mail.gmail.com>
- <20190724142059.GC21234@fuggles.cambridge.arm.com>
- <20190806171335.4dzjex5asoertaob@willie-the-truck>
- <CAAeHK+zF01mxU+PkEYLkoVu-ZZM6jNfL_OwMJKRwLr-sdU4Myg@mail.gmail.com>
+From: Ralph Campbell <rcampbell-DDmLM1+adcrQT0dZR+AlfA@public.gmane.org>
+Subject: Re: [PATCH] nouveau/hmm: map pages after migration
+Date: Thu, 8 Aug 2019 14:29:34 -0700
+Message-ID: <0b96a8d8-86b5-3ce0-db95-669963c1f8a7@nvidia.com>
+References: <20190807150214.3629-1-rcampbell@nvidia.com>
+ <20190808070701.GC29382@lst.de>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Content-Disposition: inline
-In-Reply-To: <CAAeHK+zF01mxU+PkEYLkoVu-ZZM6jNfL_OwMJKRwLr-sdU4Myg@mail.gmail.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Andrey Konovalov <andreyknvl@google.com>
-Cc: Will Deacon <will@kernel.org>, Andrew Morton <akpm@linux-foundation.org>, Will Deacon <will.deacon@arm.com>, Vincenzo Frascino <vincenzo.frascino@arm.com>, Catalin Marinas <catalin.marinas@arm.com>, Mark Rutland <mark.rutland@arm.com>, kvm@vger.kernel.org, Szabolcs Nagy <Szabolcs.Nagy@arm.com>, dri-devel@lists.freedesktop.org, Kostya Serebryany <kcc@google.com>, Khalid Aziz <khalid.aziz@oracle.com>, "open list:KERNEL SELFTEST FRAMEWORK" <linux-kselftest@vger.kernel.org>, Felix Kuehling <Felix.Kuehling@amd.com>, Jacob Bramley <Jacob.Bramley@arm.com>, Leon Romanovsky <leon@kernel.org>, linux-rdma@vger.kernel.org, amd-gfx@lists.freedesktop.org, Christoph Hellwig <hch@infradead.org>, Jason Gunthorpe <jgg@ziepe.ca>, Linux ARM <linux-arm-kernel@li>
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
+Return-path: <nouveau-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20190808070701.GC29382-jcswGhMUV9g@public.gmane.org>
+Content-Language: en-US
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/nouveau>,
+ <mailto:nouveau-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/nouveau>
+List-Post: <mailto:nouveau-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:nouveau-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/nouveau>,
+ <mailto:nouveau-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: nouveau-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "Nouveau" <nouveau-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Christoph Hellwig <hch-jcswGhMUV9g@public.gmane.org>
+Cc: nouveau-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, linux-mm-Bw31MaZKKs3YtjvyW6yDsg@public.gmane.org, Jason Gunthorpe <jgg-VPRAkNaXOzVWk0Htik3J/w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Ben Skeggs <bskeggs-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>
 List-Id: amd-gfx.lists.freedesktop.org
 
-On Wed, Aug 07, 2019 at 07:17:35PM +0200, Andrey Konovalov wrote:
-> On Tue, Aug 6, 2019 at 7:13 PM Will Deacon <will@kernel.org> wrote:
-> >
-> > On Wed, Jul 24, 2019 at 03:20:59PM +0100, Will Deacon wrote:
-> > > On Wed, Jul 24, 2019 at 04:16:49PM +0200, Andrey Konovalov wrote:
-> > > > On Wed, Jul 24, 2019 at 4:02 PM Will Deacon <will@kernel.org> wrote:
-> > > > > On Tue, Jul 23, 2019 at 08:03:29PM +0200, Andrey Konovalov wrote:
-> > > > > > Should this go through the mm or the arm tree?
-> > > > >
-> > > > > I would certainly prefer to take at least the arm64 bits via the arm64 tree
-> > > > > (i.e. patches 1, 2 and 15). We also need a Documentation patch describing
-> > > > > the new ABI.
-> > > >
-> > > > Sounds good! Should I post those patches together with the
-> > > > Documentation patches from Vincenzo as a separate patchset?
-> > >
-> > > Yes, please (although as you say below, we need a new version of those
-> > > patches from Vincenzo to address the feedback on v5). The other thing I
-> > > should say is that I'd be happy to queue the other patches in the series
-> > > too, but some of them are missing acks from the relevant maintainers (e.g.
-> > > the mm/ and fs/ changes).
-> >
-> > Ok, I've queued patches 1, 2, and 15 on a stable branch here:
-> >
-> >   https://git.kernel.org/pub/scm/linux/kernel/git/arm64/linux.git/log/?h=for-next/tbi
-> >
-> > which should find its way into -next shortly via our for-next/core branch.
-> > If you want to make changes, please send additional patches on top.
-> >
-> > This is targetting 5.4, but I will drop it before the merge window if
-> > we don't have both of the following in place:
-> >
-> >   * Updated ABI documentation with Acks from Catalin and Kevin
-> 
-> Catalin has posted a new version today.
-> 
-> >   * The other patches in the series either Acked (so I can pick them up)
-> >     or queued via some other tree(s) for 5.4.
-> 
-> So we have the following patches in this series:
-> 
-> 1. arm64: untag user pointers in access_ok and __uaccess_mask_ptr
-> 2. arm64: Introduce prctl() options to control the tagged user addresses ABI
-> 3. lib: untag user pointers in strn*_user
-> 4. mm: untag user pointers passed to memory syscalls
-> 5. mm: untag user pointers in mm/gup.c
-> 6. mm: untag user pointers in get_vaddr_frames
-> 7. fs/namespace: untag user pointers in copy_mount_options
-> 8. userfaultfd: untag user pointers
-> 9. drm/amdgpu: untag user pointers
-> 10. drm/radeon: untag user pointers in radeon_gem_userptr_ioctl
-> 11. IB/mlx4: untag user pointers in mlx4_get_umem_mr
-> 12. media/v4l2-core: untag user pointers in videobuf_dma_contig_user_get
-> 13. tee/shm: untag user pointers in tee_shm_register
-> 14. vfio/type1: untag user pointers in vaddr_get_pfn
-> 15. selftests, arm64: add a selftest for passing tagged pointers to kernel
-> 
-> 1, 2 and 15 have been picked by Will.
-> 
-> 11 has been picked up by Jason.
-> 
-> 9, 10, 12, 13 and 14 have acks from their subsystem maintainers.
-> 
-> 3 touches generic lib code, I'm not sure if there's a dedicated
-> maintainer for that.
-
-Andrew tends to pick up lib/ patches.
-
-> The ones that are left are the mm ones: 4, 5, 6, 7 and 8.
-> 
-> Andrew, could you take a look and give your Acked-by or pick them up directly?
-
-Given the subsystem Acks, it seems like 3-10 and 12 could all just go
-via Andrew? I hope he agrees. :)
-
--- 
-Kees Cook
+Ck9uIDgvOC8xOSAxMjowNyBBTSwgQ2hyaXN0b3BoIEhlbGx3aWcgd3JvdGU6Cj4gT24gV2VkLCBB
+dWcgMDcsIDIwMTkgYXQgMDg6MDI6MTRBTSAtMDcwMCwgUmFscGggQ2FtcGJlbGwgd3JvdGU6Cj4+
+IFdoZW4gbWVtb3J5IGlzIG1pZ3JhdGVkIHRvIHRoZSBHUFUgaXQgaXMgbGlrZWx5IHRvIGJlIGFj
+Y2Vzc2VkIGJ5IEdQVQo+PiBjb2RlIHNvb24gYWZ0ZXJ3YXJkcy4gSW5zdGVhZCBvZiB3YWl0aW5n
+IGZvciBhIEdQVSBmYXVsdCwgbWFwIHRoZQo+PiBtaWdyYXRlZCBtZW1vcnkgaW50byB0aGUgR1BV
+IHBhZ2UgdGFibGVzIHdpdGggdGhlIHNhbWUgYWNjZXNzIHBlcm1pc3Npb25zCj4+IGFzIHRoZSBz
+b3VyY2UgQ1BVIHBhZ2UgdGFibGUgZW50cmllcy4gVGhpcyBwcmVzZXJ2ZXMgY29weSBvbiB3cml0
+ZQo+PiBzZW1hbnRpY3MuCj4+Cj4+IFNpZ25lZC1vZmYtYnk6IFJhbHBoIENhbXBiZWxsIDxyY2Ft
+cGJlbGxAbnZpZGlhLmNvbT4KPj4gQ2M6IENocmlzdG9waCBIZWxsd2lnIDxoY2hAbHN0LmRlPgo+
+PiBDYzogSmFzb24gR3VudGhvcnBlIDxqZ2dAbWVsbGFub3guY29tPgo+PiBDYzogIkrDqXLDtG1l
+IEdsaXNzZSIgPGpnbGlzc2VAcmVkaGF0LmNvbT4KPj4gQ2M6IEJlbiBTa2VnZ3MgPGJza2VnZ3NA
+cmVkaGF0LmNvbT4KPj4gLS0tCj4+Cj4+IFRoaXMgcGF0Y2ggaXMgYmFzZWQgb24gdG9wIG9mIENo
+cmlzdG9waCBIZWxsd2lnJ3MgOSBwYXRjaCBzZXJpZXMKPj4gaHR0cHM6Ly9sb3JlLmtlcm5lbC5v
+cmcvbGludXgtbW0vMjAxOTA3MjkyMzQ2MTEuR0M3MTcxQHJlZGhhdC5jb20vVC8jdQo+PiAidHVy
+biB0aGUgaG1tIG1pZ3JhdGVfdm1hIHVwc2lkZSBkb3duIiBidXQgd2l0aG91dCBwYXRjaCA5Cj4+
+ICJtbTogcmVtb3ZlIHRoZSB1bnVzZWQgTUlHUkFURV9QRk5fV1JJVEUiIGFuZCBhZGRzIGEgdXNl
+IGZvciB0aGUgZmxhZy4KPiAKPiBUaGlzIGxvb2tzIHVzZWZ1bC4gIEkndmUgYWxyZWFkeSBkcm9w
+cGVkIHRoYXQgcGF0Y2ggZm9yIHRoZSBwZW5kaW5nCj4gcmVzZW5kLgoKVGhhbmtzLgoKPiAKPj4g
+ICBzdGF0aWMgdW5zaWduZWQgbG9uZyBub3V2ZWF1X2RtZW1fbWlncmF0ZV9jb3B5X29uZShzdHJ1
+Y3Qgbm91dmVhdV9kcm0gKmRybSwKPj4gLQkJc3RydWN0IHZtX2FyZWFfc3RydWN0ICp2bWEsIHVu
+c2lnbmVkIGxvbmcgYWRkciwKPj4gLQkJdW5zaWduZWQgbG9uZyBzcmMsIGRtYV9hZGRyX3QgKmRt
+YV9hZGRyKQo+PiArCQlzdHJ1Y3Qgdm1fYXJlYV9zdHJ1Y3QgKnZtYSwgdW5zaWduZWQgbG9uZyBz
+cmMsCj4+ICsJCWRtYV9hZGRyX3QgKmRtYV9hZGRyLCB1NjQgKnBmbikKPiAKPiBJJ2xsIHBpY2sg
+dXAgdGhlIHJlbW92YWwgb2YgdGhlIG5vdCBuZWVkZWQgYWRkciBhcmd1bWVudCBmb3IgdGhlIHBh
+dGNoCj4gaW50cm9kdWNpbmcgbm91dmVhdV9kbWVtX21pZ3JhdGVfY29weV9vbmUsIHRoYW5rcywK
+PiAKPj4gICBzdGF0aWMgdm9pZCBub3V2ZWF1X2RtZW1fbWlncmF0ZV9jaHVuayhzdHJ1Y3QgbWln
+cmF0ZV92bWEgKmFyZ3MsCj4+IC0JCXN0cnVjdCBub3V2ZWF1X2RybSAqZHJtLCBkbWFfYWRkcl90
+ICpkbWFfYWRkcnMpCj4+ICsJCXN0cnVjdCBub3V2ZWF1X2RybSAqZHJtLCBkbWFfYWRkcl90ICpk
+bWFfYWRkcnMsIHU2NCAqcGZucykKPj4gICB7Cj4+ICAgCXN0cnVjdCBub3V2ZWF1X2ZlbmNlICpm
+ZW5jZTsKPj4gICAJdW5zaWduZWQgbG9uZyBhZGRyID0gYXJncy0+c3RhcnQsIG5yX2RtYSA9IDAs
+IGk7Cj4+ICAgCj4+ICAgCWZvciAoaSA9IDA7IGFkZHIgPCBhcmdzLT5lbmQ7IGkrKykgewo+PiAg
+IAkJYXJncy0+ZHN0W2ldID0gbm91dmVhdV9kbWVtX21pZ3JhdGVfY29weV9vbmUoZHJtLCBhcmdz
+LT52bWEsCj4+IC0JCQkJYWRkciwgYXJncy0+c3JjW2ldLCAmZG1hX2FkZHJzW25yX2RtYV0pOwo+
+PiArCQkJCWFyZ3MtPnNyY1tpXSwgJmRtYV9hZGRyc1tucl9kbWFdLCAmcGZuc1tpXSk7Cj4gCj4g
+Tml0OiBJIGZpbmQgdGhlICZwZm5zW2ldIHdheSB0byBwYXNzIHRoZSBhcmd1bWVudCBhIGxpdHRs
+ZSB3ZWlyZCB0byByZWFkLgo+IFdoeSBub3QgInBmbnMgKyBpIj8KCk9LLCB3aWxsIGRvIGluIHYy
+LgpTaG91bGQgSSBjb252ZXJ0IHRvICJkbWFfYWRkcnMgKyBucl9kbWEiIHRvbz8KCj4+ICt1NjQg
+Kgo+PiArbm91dmVhdV9wZm5zX2FsbG9jKHVuc2lnbmVkIGxvbmcgbnBhZ2VzKQo+PiArewo+PiAr
+CXN0cnVjdCBub3V2ZWF1X3Bmbm1hcF9hcmdzICphcmdzOwo+PiArCj4+ICsJYXJncyA9IGt6YWxs
+b2Moc2l6ZW9mKCphcmdzKSArIG5wYWdlcyAqIHNpemVvZihhcmdzLT5wLnBoeXNbMF0pLAo+IAo+
+IENhbiB3ZSB1c2Ugc3RydWN0X3NpemUgaGVyZT8KClllcywgZ29vZCBzdWdnZXN0aW9uLgoKPiAK
+Pj4gKwlpbnQgcmV0Owo+PiArCj4+ICsJaWYgKCFzdm0pCj4+ICsJCXJldHVybjsKPj4gKwo+PiAr
+CW11dGV4X2xvY2soJnN2bS0+bXV0ZXgpOwo+PiArCXN2bW0gPSBub3V2ZWF1X2ZpbmRfc3ZtbShz
+dm0sIG1tKTsKPj4gKwlpZiAoIXN2bW0pIHsKPj4gKwkJbXV0ZXhfdW5sb2NrKCZzdm0tPm11dGV4
+KTsKPj4gKwkJcmV0dXJuOwo+PiArCX0KPj4gKwltdXRleF91bmxvY2soJnN2bS0+bXV0ZXgpOwo+
+IAo+IEdpdmVuIHRoYXQgbm91dmVhdV9maW5kX3N2bW0gZG9lc24ndCB0YWtlIGFueSBraW5kIG9m
+IHJlZmVyZW5jZSwgd2hhdAo+IGd1cmFudGVlcyBzdm1tIGRvZXNuJ3QgZ28gYXdheSBhZnRlciBk
+cm9wcGluZyB0aGUgbG9jaz8KCkkgYXNrZWQgQmVuIGFuZCBKZXJvbWUgYWJvdXQgdGhpcyB0b28u
+CkknbSBzdGlsbCBsb29raW5nIGludG8gaXQuCgo+IAo+PiBAQCAtNDQsNSArNDksMTkgQEAgc3Rh
+dGljIGlubGluZSBpbnQgbm91dmVhdV9zdm1tX2JpbmQoc3RydWN0IGRybV9kZXZpY2UgKmRldmlj
+ZSwgdm9pZCAqcCwKPj4gICB7Cj4+ICAgCXJldHVybiAtRU5PU1lTOwo+PiAgIH0KPj4gKwo+PiAr
+dTY0ICpub3V2ZWF1X3BmbnNfYWxsb2ModW5zaWduZWQgbG9uZyBucGFnZXMpCj4+ICt7Cj4+ICsJ
+cmV0dXJuIE5VTEw7Cj4+ICt9Cj4+ICsKPj4gK3ZvaWQgbm91dmVhdV9wZm5zX2ZyZWUodTY0ICpw
+Zm5zKQo+PiArewo+PiArfQo+PiArCj4+ICt2b2lkIG5vdXZlYXVfcGZuc19tYXAoc3RydWN0IG5v
+dXZlYXVfZHJtICpkcm0sIHN0cnVjdCBtbV9zdHJ1Y3QgKm1tLAo+PiArCQkgICAgICB1bnNpZ25l
+ZCBsb25nIGFkZHIsIHU2NCAqcGZucywgdW5zaWduZWQgbG9uZyBucGFnZXMpCj4+ICt7Cj4+ICt9
+Cj4+ICAgI2VuZGlmIC8qIElTX0VOQUJMRUQoQ09ORklHX0RSTV9OT1VWRUFVX1NWTSkgKi8KPiAK
+PiBub3V2ZWF1X2RtZW0uYyBhbmQgbm91dmVhdV9zdm0uYyBhcmUgYm90aCBidWlsdCBjb25kaXRp
+b25hbCBvbgo+IENPTkZJR19EUk1fTk9VVkVBVV9TVk0sIHNvIHRoZXJlIGlzIG5vIG5lZWQgZm9y
+IHN0dWJzIGhlcmUuCj4gCgpHb29kIHBvaW50LiBJJ2xsIHJlbW92ZSB0aGVtIGluIHYyLgpfX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpOb3V2ZWF1IG1haWxp
+bmcgbGlzdApOb3V2ZWF1QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVk
+ZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL25vdXZlYXU=
