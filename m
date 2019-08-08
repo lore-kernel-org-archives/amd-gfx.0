@@ -1,17 +1,18 @@
-From: "Zhang, Hawking" <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH] drm/amdgpu: update ras sysfs feature info
-Date: Thu, 8 Aug 2019 15:00:28 +0000
-Message-ID: <DM5PR12MB141892A269179BD41156EFBEFCD70@DM5PR12MB1418.namprd12.prod.outlook.com>
-References: <20190805080408.20770-1-tao.zhou1@amd.com>
- <DM5PR12MB14183A68E61B70184BEC459FFCDA0@DM5PR12MB1418.namprd12.prod.outlook.com>
- <BN6PR12MB16188930BC2E19E50B0EDB9185D70@BN6PR12MB1618.namprd12.prod.outlook.com>
- <DM5PR12MB141855615C68E69C503AC4B7FCD70@DM5PR12MB1418.namprd12.prod.outlook.com>
- <eeb641a8-2336-e177-cb8b-bcf6c21acdef@gmail.com>
+From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [Regression] "drm/amdgpu: enable gfxoff again on raven series
+ (v2)"
+Date: Thu, 8 Aug 2019 15:03:46 +0000
+Message-ID: <BN6PR12MB1809CF339E9855E854551552F7D70@BN6PR12MB1809.namprd12.prod.outlook.com>
+References: <3EB0E920-31D7-4C91-A360-DBFB4417AC2F@canonical.com>
+ <MN2PR12MB330979BAFF5BCC758258D54CECD40@MN2PR12MB3309.namprd12.prod.outlook.com>
+ <624BFB8F-B586-492E-BEA6-4B138DAEC831@canonical.com>
+ <MN2PR12MB3309680845257BC66644133CECD70@MN2PR12MB3309.namprd12.prod.outlook.com>
+ <615a4948-d0f9-46fc-f43e-2025455e9af6@daenzer.net>,
+ <MN2PR12MB3309A9960E429AA5B0A8AD19ECD70@MN2PR12MB3309.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0345816301=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <eeb641a8-2336-e177-cb8b-bcf6c21acdef-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+In-Reply-To: <MN2PR12MB3309A9960E429AA5B0A8AD19ECD70-rweVpJHSKTpWdvXm18W95QdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -23,103 +24,187 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "Russell, Kent" <Kent.Russell-5C7GfCeVMHo@public.gmane.org>, "Zhou1, Tao" <Tao.Zhou1-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Pan,
- Xinhui" <Xinhui.Pan-5C7GfCeVMHo@public.gmane.org>, "Freehill, Chris" <Chris.Freehill-5C7GfCeVMHo@public.gmane.org>
+To: "Huang, Ray" <Ray.Huang-5C7GfCeVMHo@public.gmane.org>, =?iso-8859-1?Q?Michel_D=E4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, Kai-Heng Feng <kai.heng.feng-Z7WLFzj8eWMS+FvcfC7Uqw@public.gmane.org>, "Olsak,
+ Marek" <Marek.Olsak-5C7GfCeVMHo@public.gmane.org>
+Cc: "Zhou, David(ChunMing)" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, LKML <linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Anthony Wong <anthony.wong-Z7WLFzj8eWMS+FvcfC7Uqw@public.gmane.org>, "dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Koenig,
+ Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
 
-SGkgQ2hyaXMsDQoNCkknbSBub3QgYXdhcmUgb2YgaG93IFJPQ00gU01JIHVzaW5nIGZlYXR1cmUg
-bm9kZXMuIGJ1dCBub3QgYWxsIHRoZSBzeXNmcyBhcmUgaW50ZW5kZWQgdG8gYmUgdXNlZCBieSB1
-cHBlciBsZXZlbCBhcHBzL2xpYnMuIA0KDQpUaGVyZSBhcmUgYnVuY2hlcyBvZiBzeXNmcyBlbnRy
-aWVzIHRoYXQgaGF2ZSBtdWx0aXBsZSBsaW5lIHZhbHVlLiBUaGUgbW9zdCBjb21wbGljYXRlIG9u
-ZSB3b3VsZCBiZSBwcF9wb3dlcl9wcm9maWxlX21vZGUsIHdoaWNoIGxvb2tzIGxpa2UuIA0KDQow
-IEJPT1RVUF9ERUZBVUxUKjoNCiAgICAgICAgICAgICAgICAgICAgMCggICAgICAgR0ZYQ0xLKSAg
-ICAgICAwICAgICAgIDAgICAgICAgMSAgICAgICAwICAgICAgIDQgICAgIDgwMCA0NTg3NTIwICAt
-NjU1MzYgICAgICAgMA0KICAgICAgICAgICAgICAgICAgICAxKCAgICAgICBTT0NDTEspICAgICAg
-IDAgICAgICAgMCAgICAgICAxICAgICAgIDAgICAgICAgNCAgICAgODAwICAzMjc2ODAgICAtNjU1
-MyAgICAgICAwDQogICAgICAgICAgICAgICAgICAgIDIoICAgICAgICAgVUNMSykgICAgICAgMCAg
-ICAgICAwICAgICAgIDEgICAgICAgMCAgICAgICA0ICAgICA4MDAgIDMyNzY4MCAgLTY1NTM2ICAg
-ICAgIDANCi4uLi4uLi4NCjEgM0RfRlVMTF9TQ1JFRU4gOg0KICAgICAgICAgICAgICAgICAgICAw
-KCAgICAgICBHRlhDTEspICAgICAgIDAgICAgICAgMSAgICAgICAxICAgICAgIDAgICAgICAgNCAg
-ICAgODAwIDQ1ODc1MjAgIC02NTUzNiAgICAgICAwDQogICAgICAgICAgICAgICAgICAgIDEoICAg
-ICAgIFNPQ0NMSykgICAgICAgMCAgICAgICAxICAgICAgIDQgICAgIDg1MCAgICAgICA0ICAgICA4
-MDAgIDMyNzY4MCAgLTY1NTM2ICAgICAgIDANCg0KUmVnYXJkcywNCkhhd2tpbmcNCi0tLS0tT3Jp
-Z2luYWwgTWVzc2FnZS0tLS0tDQpGcm9tOiBDaHJpc3RpYW4gS8O2bmlnIDxja29lbmlnLmxlaWNo
-dHp1bWVya2VuQGdtYWlsLmNvbT4gDQpTZW50OiAyMDE55bm0OOaciDjml6UgMjI6MjUNClRvOiBa
-aGFuZywgSGF3a2luZyA8SGF3a2luZy5aaGFuZ0BhbWQuY29tPjsgUnVzc2VsbCwgS2VudCA8S2Vu
-dC5SdXNzZWxsQGFtZC5jb20+OyBaaG91MSwgVGFvIDxUYW8uWmhvdTFAYW1kLmNvbT47IGFtZC1n
-ZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnOyBQYW4sIFhpbmh1aSA8WGluaHVpLlBhbkBhbWQuY29t
-PjsgRnJlZWhpbGwsIENocmlzIDxDaHJpcy5GcmVlaGlsbEBhbWQuY29tPg0KU3ViamVjdDogUmU6
-IFtQQVRDSF0gZHJtL2FtZGdwdTogdXBkYXRlIHJhcyBzeXNmcyBmZWF0dXJlIGluZm8NCg0KSGkg
-SGF3a2luZywNCg0KbG9va3MgbGlrZSB5b3Ugc2tpcHBlZCBteSByZXNwb25zZS4NCg0KRXZlbiB0
-aGUgY3VycmVudCB3YXkgaG93IHN5c2ZzIGlzIHVzZWQgaW4gdGhlIHJhcyBjb2RlIGlzIGEgY2xl
-YXIgTk8tR08gYW5kIHNob3VsZCBiZSBmaXhlZCBiZWZvcmUgdGhpcyBpcyBwdXNoZWQgdXBzdHJl
-YW0uDQoNCkEgc3lzZnMgZW50cnkgc2hvdWxkIHNlcmlvdXNseSBOT1QgcmV0dXJuIGEgbXVsdGkg
-bGluZSB2YWx1ZSB3aGljaCBuZWVkcyB0byBiZSBleHRlbnNpdmVseSBwYXJzZWQgYnkgdGhlIGFw
-cGxpY2F0aW9uLg0KDQpSZWdhcmRzLA0KQ2hyaXN0aWFuLg0KDQpBbSAwOC4wOC4xOSB1bSAxNTo1
-MCBzY2hyaWViIFpoYW5nLCBIYXdraW5nOg0KPiBVbmRlcnN0b29kIGFuZCBhZ3JlZSB3ZSBzaG91
-bGQga2VlcCBzdGFibGUgaW50ZXJmYWNlcy4NCj4NCj4gQnV0IHRoZSBpbmZvcm1hdGlvbiBpbiBm
-ZWF0dXJlIG5vZGUgaXMgbm90IGNvcnJlY3QgYW5kIG1ha2VzIHBlb3BsZSBjb25mdXNpbmcuIEJh
-c2ljYWxseSwgZWFjaCBJUCBibG9ja3MgY2FuIHN1cHBvcnQgYWxsIHRoZSBmb3VyIGVycm9yIHR5
-cGVzLCBub3QganVzdCBtdWx0aS11bmNvcnJlY3RhYmxlLiBBcyBhIHJlc3VsdCwgYW55IHVwcGVy
-IGxldmVsIGFwcHMvbGlicyB0aGF0IHJlYWQgZnJvbSB0aGlzIGZpbGUgd2lsbCBqdXN0IGdldCBj
-b25mdXNpbmcgaW5mb3JtYXRpb24gYXMgd2VsbC4gVGhlIGZlYXR1cmUgbWFzayBpcyBhbHJlYWR5
-IGdvb2QgZW5vdWdoIGZvciB0aGlzIG5vZGUuDQo+DQo+IFJlZ2FyZHMsDQo+IEhhd2tpbmcNCj4g
-LS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4gRnJvbTogUnVzc2VsbCwgS2VudCA8S2VudC5S
-dXNzZWxsQGFtZC5jb20+DQo+IFNlbnQ6IDIwMTnlubQ45pyIOOaXpSAyMDo1MQ0KPiBUbzogWmhh
-bmcsIEhhd2tpbmcgPEhhd2tpbmcuWmhhbmdAYW1kLmNvbT47IFpob3UxLCBUYW8gDQo+IDxUYW8u
-WmhvdTFAYW1kLmNvbT47IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnOyBQYW4sIFhpbmh1
-aSANCj4gPFhpbmh1aS5QYW5AYW1kLmNvbT47IEZyZWVoaWxsLCBDaHJpcyA8Q2hyaXMuRnJlZWhp
-bGxAYW1kLmNvbT4NCj4gQ2M6IFpob3UxLCBUYW8gPFRhby5aaG91MUBhbWQuY29tPg0KPiBTdWJq
-ZWN0OiBSRTogW1BBVENIXSBkcm0vYW1kZ3B1OiB1cGRhdGUgcmFzIHN5c2ZzIGZlYXR1cmUgaW5m
-bw0KPg0KPiArQ2hyaXMgRnJlZWhpbGwNCj4NCj4gV2hpbGUgSSBjYW4gdW5kZXJzdGFuZCB0aGlz
-IGNoYW5nZSwgdGhpcyBicm9rZSBvdXIgU01JIGludGVyZmFjZSwgd2hpY2ggd2FzIGV4cGVjdGlu
-ZyBhIHNwZWNpZmljIHN0cmluZyBmb3JtYXQgZm9yIHRoZSByYXMvZmVhdHVyZXMgZmlsZS4gVGhp
-cyBoYXMgaGFwcGVuZWQgYSBmZXcgdGltZXMgbm93LCB3aGVyZSBjaGFuZ2VzIHRvIHRoZSBSQVMg
-c3lzZnMgZmlsZXMgaGFzIGJyb2tlIHRoZSBTTUkgQ0xJIGFuZC9vciBTTUkgTElCLiBDYW4gd2Ug
-cGxlYXNlIGdldCBhIHN0YWJsZSBpbnRlcmZhY2UgYW5kIHN5c2ZzIGZvcm1hdCBzZXQgdXAgYmVm
-b3JlIHB1Ymxpc2hpbmcgcGF0Y2hlcz8gVGhpcyBpcyBjcmVhdGluZyBhIGxvdCBvZiBleHRyYSB3
-b3JrIGZvciBkZXZlbG9wZXJzIHdpdGggdGhlIFNNSSB0byBjb25zdGFudGx5IGtlZXAgdXAgd2l0
-aCB0aGUgY2hhbmdlcyBiZWluZyBtYWRlIHRvIHN5c2ZzIGZpbGVzLiBUaGFuayB5b3UuDQo+DQo+
-ICAgS2VudA0KPg0KPiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBhbWQtZ2Z4
-IDxhbWQtZ2Z4LWJvdW5jZXNAbGlzdHMuZnJlZWRlc2t0b3Aub3JnPiBPbiBCZWhhbGYgT2YgDQo+
-IFpoYW5nLCBIYXdraW5nDQo+IFNlbnQ6IE1vbmRheSwgQXVndXN0IDUsIDIwMTkgNDoxNSBBTQ0K
-PiBUbzogWmhvdTEsIFRhbyA8VGFvLlpob3UxQGFtZC5jb20+OyBhbWQtZ2Z4QGxpc3RzLmZyZWVk
-ZXNrdG9wLm9yZzsgDQo+IFBhbiwgWGluaHVpIDxYaW5odWkuUGFuQGFtZC5jb20+DQo+IENjOiBa
-aG91MSwgVGFvIDxUYW8uWmhvdTFAYW1kLmNvbT4NCj4gU3ViamVjdDogUkU6IFtQQVRDSF0gZHJt
-L2FtZGdwdTogdXBkYXRlIHJhcyBzeXNmcyBmZWF0dXJlIGluZm8NCj4NCj4gUmV2aWV3ZWQtYnk6
-IEhhd2tpbmcgWmhhbmcgPEhhd2tpbmcuWmhhbmdAYW1kLmNvbT4NCj4NCj4gUmVnYXJkcywNCj4g
-SGF3a2luZw0KPiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBhbWQtZ2Z4IDxh
-bWQtZ2Z4LWJvdW5jZXNAbGlzdHMuZnJlZWRlc2t0b3Aub3JnPiBPbiBCZWhhbGYgT2YgVGFvIA0K
-PiBaaG91DQo+IFNlbnQ6IDIwMTnlubQ45pyINeaXpSAxNjowNA0KPiBUbzogYW1kLWdmeEBsaXN0
-cy5mcmVlZGVza3RvcC5vcmc7IFBhbiwgWGluaHVpIDxYaW5odWkuUGFuQGFtZC5jb20+OyANCj4g
-WmhhbmcsIEhhd2tpbmcgPEhhd2tpbmcuWmhhbmdAYW1kLmNvbT4NCj4gQ2M6IFpob3UxLCBUYW8g
-PFRhby5aaG91MUBhbWQuY29tPg0KPiBTdWJqZWN0OiBbUEFUQ0hdIGRybS9hbWRncHU6IHVwZGF0
-ZSByYXMgc3lzZnMgZmVhdHVyZSBpbmZvDQo+DQo+IHJlbW92ZSBjb25mdXNlZCByYXMgZXJyb3Ig
-dHlwZSBpbmZvDQo+DQo+IFNpZ25lZC1vZmYtYnk6IFRhbyBaaG91IDx0YW8uemhvdTFAYW1kLmNv
-bT4NCj4gLS0tDQo+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Jhcy5jIHwg
-MTcgKysrKystLS0tLS0tLS0tLS0NCj4gICAxIGZpbGUgY2hhbmdlZCwgNSBpbnNlcnRpb25zKCsp
-LCAxMiBkZWxldGlvbnMoLSkNCj4NCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-YW1kZ3B1L2FtZGdwdV9yYXMuYyANCj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
-cHVfcmFzLmMNCj4gaW5kZXggZDJlOGE4NWY2ZTM4Li4zNjk2NTEyNDdiMjMgMTAwNjQ0DQo+IC0t
-LSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9yYXMuYw0KPiArKysgYi9kcml2
-ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcmFzLmMNCj4gQEAgLTc4NywyNSArNzg3LDE4
-IEBAIHN0YXRpYyBzc2l6ZV90IGFtZGdwdV9yYXNfc3lzZnNfZmVhdHVyZXNfcmVhZChzdHJ1Y3Qg
-ZGV2aWNlICpkZXYsDQo+ICAgCXN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2ID0gZGRldi0+ZGV2
-X3ByaXZhdGU7DQo+ICAgCXN0cnVjdCByYXNfY29tbW9uX2lmIGhlYWQ7DQo+ICAgCWludCByYXNf
-YmxvY2tfY291bnQgPSBBTURHUFVfUkFTX0JMT0NLX0NPVU5UOw0KPiAtCWludCBpOw0KPiArCWlu
-dCBpLCBlbmFibGVkOw0KPiAgIAlzc2l6ZV90IHM7DQo+IC0Jc3RydWN0IHJhc19tYW5hZ2VyICpv
-Ymo7DQo+ICAgDQo+ICAgCXMgPSBzY25wcmludGYoYnVmLCBQQUdFX1NJWkUsICJmZWF0dXJlIG1h
-c2s6IDB4JXhcbiIsIA0KPiBjb24tPmZlYXR1cmVzKTsNCj4gICANCj4gICAJZm9yIChpID0gMDsg
-aSA8IHJhc19ibG9ja19jb3VudDsgaSsrKSB7DQo+ICAgCQloZWFkLmJsb2NrID0gaTsNCj4gKwkJ
-ZW5hYmxlZCA9IGFtZGdwdV9yYXNfaXNfZmVhdHVyZV9lbmFibGVkKGFkZXYsICZoZWFkKTsNCj4g
-ICANCj4gLQkJaWYgKGFtZGdwdV9yYXNfaXNfZmVhdHVyZV9lbmFibGVkKGFkZXYsICZoZWFkKSkg
-ew0KPiAtCQkJb2JqID0gYW1kZ3B1X3Jhc19maW5kX29iaihhZGV2LCAmaGVhZCk7DQo+IC0JCQlz
-ICs9IHNjbnByaW50ZigmYnVmW3NdLCBQQUdFX1NJWkUgLSBzLA0KPiAtCQkJCQkiJXM6ICVzXG4i
-LA0KPiAtCQkJCQlyYXNfYmxvY2tfc3RyKGkpLA0KPiAtCQkJCQlyYXNfZXJyX3N0cihvYmotPmhl
-YWQudHlwZSkpOw0KPiAtCQl9IGVsc2UNCj4gLQkJCXMgKz0gc2NucHJpbnRmKCZidWZbc10sIFBB
-R0VfU0laRSAtIHMsDQo+IC0JCQkJCSIlczogZGlzYWJsZWRcbiIsDQo+IC0JCQkJCXJhc19ibG9j
-a19zdHIoaSkpOw0KPiArCQlzICs9IHNjbnByaW50ZigmYnVmW3NdLCBQQUdFX1NJWkUgLSBzLA0K
-PiArCQkJCSIlcyByYXMgZmVhdHVyZSBtYXNrOiAlc1xuIiwNCj4gKwkJCQlyYXNfYmxvY2tfc3Ry
-KGkpLCBlbmFibGVkPyJvbiI6Im9mZiIpOw0KPiAgIAl9DQo+ICAgDQo+ICAgCXJldHVybiBzOw0K
-DQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4
-IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3Rz
-LmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
+--===============0345816301==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_BN6PR12MB1809CF339E9855E854551552F7D70BN6PR12MB1809namp_"
+
+--_000_BN6PR12MB1809CF339E9855E854551552F7D70BN6PR12MB1809namp_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+Maybe we can check if iommu is enabled in the driver and do the appropriate=
+ thing with respect to gfxoff, assuming this is not platform specific.
+
+Alex
+________________________________
+From: Huang, Ray <Ray.Huang-5C7GfCeVMHo@public.gmane.org>
+Sent: Thursday, August 8, 2019 4:14 AM
+To: Michel D=E4nzer <michel-otUistvHUpPR7s880joybQ@public.gmane.org>; Kai-Heng Feng <kai.heng.feng@cano=
+nical.com>; Olsak, Marek <Marek.Olsak-5C7GfCeVMHo@public.gmane.org>
+Cc: Zhou, David(ChunMing) <David1.Zhou-5C7GfCeVMHo@public.gmane.org>; LKML <linux-kernel-fy+rA21nqHI@public.gmane.org=
+rnel.org>; dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org=
+>; Anthony Wong <anthony.wong-Z7WLFzj8eWMS+FvcfC7Uqw@public.gmane.org>; amd-gfx list <amd-gfx@lists.f=
+reedesktop.org>; Deucher, Alexander <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>; Koenig, Ch=
+ristian <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: [Regression] "drm/amdgpu: enable gfxoff again on raven series =
+(v2)"
+
+> -----Original Message-----
+> From: Michel D=E4nzer <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
+> Sent: Thursday, August 08, 2019 4:10 PM
+> To: Huang, Ray <Ray.Huang-5C7GfCeVMHo@public.gmane.org>; Kai-Heng Feng
+> <kai.heng.feng-Z7WLFzj8eWMS+FvcfC7Uqw@public.gmane.org>
+> Cc: Zhou, David(ChunMing) <David1.Zhou-5C7GfCeVMHo@public.gmane.org>; LKML <linux-
+> kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>; dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; Anthony Wong
+> <anthony.wong-Z7WLFzj8eWMS+FvcfC7Uqw@public.gmane.org>; amd-gfx list <amd-
+> gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>; Deucher, Alexander
+> <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>; Koenig, Christian
+> <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
+> Subject: Re: [Regression] "drm/amdgpu: enable gfxoff again on raven serie=
+s
+> (v2)"
+>
+> On 2019-08-08 8:29 a.m., Huang, Ray wrote:
+> >> From: Kai-Heng Feng <kai.heng.feng-Z7WLFzj8eWMS+FvcfC7Uqw@public.gmane.org> at 00:03, Huang,
+> >> Ray <Ray.Huang-5C7GfCeVMHo@public.gmane.org> wrote:
+> >>
+> >>> May I know the all firmware version in your system?
+> >
+> > Seems to the issue we encountered with IOMMU enabled. Could you
+> please disable iommu in SBIOS or GRUB?
+>
+> The driver needs to work with the IOMMU enabled. If nothing else, ROCm
+> only works with IOMMU I think.
+>
+
+Yes. ROCm in APU required IOMMU v2. So far, I am asking Kai-Heng to do some=
+ tests to make sure the issue that was encountered by us before. (+ Marek)
+
+Thanks,
+Ray
+
+>
+> --
+> Earthling Michel D=E4nzer               |              https://www.amd.co=
+m
+> Libre software enthusiast             |             Mesa and X developer
+
+--_000_BN6PR12MB1809CF339E9855E854551552F7D70BN6PR12MB1809namp_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Maybe we can check if iommu is enabled in the driver and do the appropriate=
+ thing with respect to gfxoff, assuming this is not platform specific.</div=
+>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Alex<br>
+</div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Huang, Ray &lt;Ray.Hu=
+ang-5C7GfCeVMHo@public.gmane.org&gt;<br>
+<b>Sent:</b> Thursday, August 8, 2019 4:14 AM<br>
+<b>To:</b> Michel D=E4nzer &lt;michel-otUistvHUpPR7s880joybQ@public.gmane.org&gt;; Kai-Heng Feng &lt;ka=
+i.heng.feng-Z7WLFzj8eWMS+FvcfC7Uqw@public.gmane.org&gt;; Olsak, Marek &lt;Marek.Olsak-5C7GfCeVMHo@public.gmane.org&gt;<br>
+<b>Cc:</b> Zhou, David(ChunMing) &lt;David1.Zhou-5C7GfCeVMHo@public.gmane.org&gt;; LKML &lt;linu=
+x-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org&gt;; dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org &lt;dri-devel=
+@lists.freedesktop.org&gt;; Anthony Wong &lt;anthony.wong-Z7WLFzj8eWMS+FvcfC7Uqw@public.gmane.org&gt;=
+; amd-gfx list &lt;amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt;; Deucher,
+ Alexander &lt;Alexander.Deucher-5C7GfCeVMHo@public.gmane.org&gt;; Koenig, Christian &lt;Christi=
+an.Koenig-5C7GfCeVMHo@public.gmane.org&gt;<br>
+<b>Subject:</b> RE: [Regression] &quot;drm/amdgpu: enable gfxoff again on r=
+aven series (v2)&quot;</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">&gt; -----Original Message-----<br>
+&gt; From: Michel D=E4nzer &lt;michel-otUistvHUpPR7s880joybQ@public.gmane.org&gt;<br>
+&gt; Sent: Thursday, August 08, 2019 4:10 PM<br>
+&gt; To: Huang, Ray &lt;Ray.Huang-5C7GfCeVMHo@public.gmane.org&gt;; Kai-Heng Feng<br>
+&gt; &lt;kai.heng.feng-Z7WLFzj8eWMS+FvcfC7Uqw@public.gmane.org&gt;<br>
+&gt; Cc: Zhou, David(ChunMing) &lt;David1.Zhou-5C7GfCeVMHo@public.gmane.org&gt;; LKML &lt;linux-=
+<br>
+&gt; kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org&gt;; dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; Anthony W=
+ong<br>
+&gt; &lt;anthony.wong-Z7WLFzj8eWMS+FvcfC7Uqw@public.gmane.org&gt;; amd-gfx list &lt;amd-<br>
+&gt; gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt;; Deucher, Alexander<br>
+&gt; &lt;Alexander.Deucher-5C7GfCeVMHo@public.gmane.org&gt;; Koenig, Christian<br>
+&gt; &lt;Christian.Koenig-5C7GfCeVMHo@public.gmane.org&gt;<br>
+&gt; Subject: Re: [Regression] &quot;drm/amdgpu: enable gfxoff again on rav=
+en series<br>
+&gt; (v2)&quot;<br>
+&gt; <br>
+&gt; On 2019-08-08 8:29 a.m., Huang, Ray wrote:<br>
+&gt; &gt;&gt; From: Kai-Heng Feng &lt;kai.heng.feng-Z7WLFzj8eWMS+FvcfC7Uqw@public.gmane.org&gt; at 00=
+:03, Huang,<br>
+&gt; &gt;&gt; Ray &lt;Ray.Huang-5C7GfCeVMHo@public.gmane.org&gt; wrote:<br>
+&gt; &gt;&gt;<br>
+&gt; &gt;&gt;&gt; May I know the all firmware version in your system?<br>
+&gt; &gt;<br>
+&gt; &gt; Seems to the issue we encountered with IOMMU enabled. Could you<b=
+r>
+&gt; please disable iommu in SBIOS or GRUB?<br>
+&gt; <br>
+&gt; The driver needs to work with the IOMMU enabled. If nothing else, ROCm=
+<br>
+&gt; only works with IOMMU I think.<br>
+&gt; <br>
+<br>
+Yes. ROCm in APU required IOMMU v2. So far, I am asking Kai-Heng to do some=
+ tests to make sure the issue that was encountered by us before. (&#43; Mar=
+ek)<br>
+<br>
+Thanks,<br>
+Ray<br>
+<br>
+&gt; <br>
+&gt; --<br>
+&gt; Earthling Michel D=E4nzer&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href=3D"https://www.amd.com=
+">
+https://www.amd.com</a><br>
+&gt; Libre software enthusiast&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp; Mesa and X developer<br>
+</div>
+</span></font></div>
+</body>
+</html>
+
+--_000_BN6PR12MB1809CF339E9855E854551552F7D70BN6PR12MB1809namp_--
+
+--===============0345816301==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+
+--===============0345816301==--
