@@ -1,43 +1,76 @@
-From: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
-Subject: [PATCH] drm/amd/display: Fix a typo - amdpgu_dm --> amdgpu_dm
-Date: Fri,  9 Aug 2019 17:46:16 +0200
-Message-ID: <20190809154616.25479-1-christophe.jaillet@wanadoo.fr>
+From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: [PATCH 00/27] Add Renoir APU support
+Date: Fri,  9 Aug 2019 10:52:36 -0500
+Message-ID: <20190809155302.4733-1-alexander.deucher@amd.com>
 Mime-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Sender: linux-kernel-owner@vger.kernel.org
-To: harry.wentland@amd.com, sunpeng.li@amd.com, alexander.deucher@amd.com, christian.koenig@amd.com, David1.Zhou@amd.com, airlied@linux.ie, daniel@ffwll.ch, nicholas.kazlauskas@amd.com, David.Francis@amd.com, mario.kleiner.de@gmail.com, Bhawanpreet.Lakha@amd.com, Anthony.Koo@amd.com
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, kernel-janitors@vger.kernel.org, Christophe JAILLET <christophe.jaillet@wanadoo.fr>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
 
-This should be 'amdgpu_dm', not 'amdpgu_dm'
-
-Signed-off-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
----
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 332ac9d985f2..1ccd0e4d459f 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -836,7 +836,7 @@ static void s3_handle_mst(struct drm_device *dev, bool suspend)
- 
- /**
-  * dm_hw_init() - Initialize DC device
-- * @handle: The base driver device containing the amdpgu_dm device.
-+ * @handle: The base driver device containing the amdgpu_dm device.
-  *
-  * Initialize the &struct amdgpu_display_manager device. This involves calling
-  * the initializers of each DM component, then populating the struct with them.
-@@ -866,7 +866,7 @@ static int dm_hw_init(void *handle)
- 
- /**
-  * dm_hw_fini() - Teardown DC device
-- * @handle: The base driver device containing the amdpgu_dm device.
-+ * @handle: The base driver device containing the amdgpu_dm device.
-  *
-  * Teardown components within &struct amdgpu_display_manager that require
-  * cleanup. This involves cleaning up the DRM device, DC, and any modules that
--- 
-2.20.1
+VGhpcyBwYXRjaCBzZXQgcHJvdmlkZXMgaW5pdGlhbCBzdXBwb3J0IGZvciBhIG5ldyBBUFUsCnJl
+bm9pci4KCkFhcm9uIExpdSAoOSk6CiAgZHJtL2FtZGdwdTogZml4IG5vIGludGVycnVwdCBpc3N1
+ZSBmb3IgcmVub2lyIGVtdQogIGRybS9hbWRncHU6IGVuYWJsZSBkY2UgdmlydHVhbCBpcCBtb2R1
+bGUgZm9yIFJlbm9pcgogIGRybS9hbWRncHU6IGFkZCBhc2ljIGZ1bmNzIGZvciByZW5vaXIKICBk
+cm0vYW1kZ3B1OiBzZXQgcmxjIGZ1bmNzIGZvciByZW5vaXIKICBkcm0vYW1kZ3B1OiBhZGQgcHNw
+X3YxMl8wIGZvciByZW5vaXIgKHYyKQogIGRybS9hbWRncHU6IGVuYWJsZSBjbG9jayBnYXRpbmcg
+Zm9yIHJlbm9pcgogIGRybS9hbWRncHU6IGVuYWJsZSBwb3dlciBnYXRpbmcgZm9yIHJlbm9pcgog
+IGRybS9hbWRncHU6IHVwZGF0ZSBsYnB3IGZvciByZW5vaXIKICBkcm0vYW1kZ3B1OiBzZXQgZncg
+ZGVmYXVsdCBsb2FkaW5nIGJ5IHBzcCBmb3IgcmVub2lyCgpBbGV4IERldWNoZXIgKDEpOgogIGRy
+bS9hbWRncHU6IGZsYWcgcmVub2lyIGFzIGV4cGVyaW1lbnRhbCBmb3Igbm93CgpIdWFuZyBSdWkg
+KDE0KToKICBkcm0vYW1kZ3B1OiBhZGQgcmVub2lyIGhlYWRlciBmaWxlcyAodjIpCiAgZHJtL2Ft
+ZGdwdTogYWRkIHJlbm9pciBhc2ljX3R5cGUgZW51bQogIGRybS9hbWRncHU6IGFkZCByZW5vaXIg
+c3VwcG9ydCBmb3IgZ3B1X2luZm8gYW5kIGlwIGJsb2NrIHNldHRpbmcKICBkcm0vYW1kZ3B1OiBh
+ZGQgc29jMTUgY29tbW9uIGlwIGJsb2NrIHN1cHBvcnQgZm9yIHJlbm9pcgogIGRybS9hbWRncHU6
+IGFkZCBnbWMgdjkgc3VwcG9ydHMgZm9yIHJlbm9pcgogIGRybS9hbWRncHU6IHNldCBmdyBsb2Fk
+IHR5cGUgZm9yIHJlbm9pcgogIGRybS9hbWRncHU6IGFkZCBnZnggc3VwcG9ydCBmb3IgcmVub2ly
+CiAgZHJtL2FtZGdwdTogYWRkIHNkbWEgc3VwcG9ydCBmb3IgcmVub2lyCiAgZHJtL2FtZGdwdTog
+c2V0IGlwIGJsb2NrcyBmb3IgcmVub2lyCiAgZHJtL2FtZGdwdTogYWRkIHJlbm9pciBwY2kgaWQK
+ICBkcm0vYW1kZ3B1OiBhZGQgZ2Z4IGdvbGRlbiBzZXR0aW5ncyBmb3IgcmVub2lyICh2MikKICBk
+cm0vYW1kZ3B1OiBhZGQgc2RtYSBnb2xkZW4gc2V0dGluZ3MgZm9yIHJlbm9pcgogIGRybS9hbWRn
+cHU6IHVzZSBkaXJlY3QgbG9hZGluZyBvbiByZW5vaXIgdmNuIGZvciB0aGUgbW9tZW50CiAgZHJt
+L2FtZGdwdTogc2tpcCBtZWMyIGp1bXAgdGFibGUgbG9hZGluZyBmb3IgcmVub2lyCgpMZW8gTGl1
+ICgzKToKICBkcm0vYW1kZ3B1OiBlbmFibGUgUmVub2lyIFZDTiBmaXJtd2FyZSBsb2FkaW5nCiAg
+ZHJtL2FtZGdwdTogZW5hYmxlIERvb3JiZWxsIHN1cHBvcnQgZm9yIFJlbm9pciAodjIpCiAgZHJt
+L2FtZGdwdTogYWRkIFZDTjIuMCB0byBSZW5vaXIgSVAgYmxvY2tzCgogZHJpdmVycy9ncHUvZHJt
+L2FtZC9hbWRncHUvTWFrZWZpbGUgICAgICAgICAgIHwgICAzICstCiBkcml2ZXJzL2dwdS9kcm0v
+YW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMgICAgfCAgIDkgKy0KIGRyaXZlcnMvZ3B1L2RybS9h
+bWQvYW1kZ3B1L2FtZGdwdV9kcnYuYyAgICAgICB8ICAgMyArCiBkcml2ZXJzL2dwdS9kcm0vYW1k
+L2FtZGdwdS9hbWRncHVfcHNwLmMgICAgICAgfCAgMTcgKwogZHJpdmVycy9ncHUvZHJtL2FtZC9h
+bWRncHUvYW1kZ3B1X3BzcC5oICAgICAgIHwgICAxICsKIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
+Z3B1L2FtZGdwdV91Y29kZS5jICAgICB8ICAgMiArCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
+dS9hbWRncHVfdmNuLmMgICAgICAgfCAgMTcgKy0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
+L2RjZV92aXJ0dWFsLmMgICAgICB8ICAgMSArCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9n
+ZnhfdjlfMC5jICAgICAgICAgfCAgNTYgKy0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dt
+Y192OV8wLmMgICAgICAgICB8ICAgNyArCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9uYmlv
+X3Y3XzAuYyAgICAgICAgfCAgMjEgKwogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvcHNwX3Yx
+Ml8wLmMgICAgICAgIHwgNTY1ICsrKysrKysrKysrKwogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
+cHUvcHNwX3YxMl8wLmggICAgICAgIHwgIDMwICsKIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
+L3NkbWFfdjRfMC5jICAgICAgICB8ICAyMyArLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
+c29jMTUuYyAgICAgICAgICAgIHwgIDIxICsKIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3Zj
+bl92Ml8wLmMgICAgICAgICB8ICAgOSArLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvdmVn
+YTEwX2loLmMgICAgICAgIHwgICAyICstCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS92ZWdh
+MTBfcmVnX2luaXQuYyAgfCAgIDQgKwogLi4uL2luY2x1ZGUvYXNpY19yZWcvbXAvbXBfMTJfMF8w
+X29mZnNldC5oICAgIHwgMzM2ICsrKysrKysKIC4uLi9pbmNsdWRlL2FzaWNfcmVnL21wL21wXzEy
+XzBfMF9zaF9tYXNrLmggICB8IDg2NiArKysrKysrKysrKysrKysrKysKIGluY2x1ZGUvZHJtL2Ft
+ZF9hc2ljX3R5cGUuaCAgICAgICAgICAgICAgICAgICB8ICAgMSArCiAyMSBmaWxlcyBjaGFuZ2Vk
+LCAxOTgyIGluc2VydGlvbnMoKyksIDEyIGRlbGV0aW9ucygtKQogY3JlYXRlIG1vZGUgMTAwNjQ0
+IGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3BzcF92MTJfMC5jCiBjcmVhdGUgbW9kZSAxMDA2
+NDQgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvcHNwX3YxMl8wLmgKIGNyZWF0ZSBtb2RlIDEw
+MDY0NCBkcml2ZXJzL2dwdS9kcm0vYW1kL2luY2x1ZGUvYXNpY19yZWcvbXAvbXBfMTJfMF8wX29m
+ZnNldC5oCiBjcmVhdGUgbW9kZSAxMDA2NDQgZHJpdmVycy9ncHUvZHJtL2FtZC9pbmNsdWRlL2Fz
+aWNfcmVnL21wL21wXzEyXzBfMF9zaF9tYXNrLmgKCi0tIAoyLjIwLjEKCl9fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFt
+ZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
+L21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
