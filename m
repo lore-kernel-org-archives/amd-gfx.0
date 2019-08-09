@@ -1,128 +1,106 @@
-From: Catalin Marinas <catalin.marinas@arm.com>
-Subject: Re: [PATCH v19 02/15] arm64: Introduce prctl() options to control
- the tagged user addresses ABI
-Date: Fri, 9 Aug 2019 17:08:00 +0100
-Message-ID: <20190809160800.GC23083@arrakis.emea.arm.com>
-References: <cover.1563904656.git.andreyknvl@google.com>
- <1c05651c53f90d07e98ee4973c2786ccf315db12.1563904656.git.andreyknvl@google.com>
+From: "Weiny, Ira" <ira.weiny@intel.com>
+Subject: Re: [PATCH 00/34] put_user_pages(): miscellaneous call
+ sites
+Date: Fri, 9 Aug 2019 17:56:20 +0000
+Message-ID: <2807E5FD2F6FDA4886F6618EAC48510E79E7F367@CRSMSX101.amr.corp.intel.com>
+References: <20190802022005.5117-1-jhubbard@nvidia.com>
+ <20190802091244.GD6461@dhcp22.suse.cz>
+ <20190802124146.GL25064@quack2.suse.cz>
+ <20190802142443.GB5597@bombadil.infradead.org>
+ <20190802145227.GQ25064@quack2.suse.cz>
+ <076e7826-67a5-4829-aae2-2b90f302cebd@nvidia.com>
+ <20190807083726.GA14658@quack2.suse.cz>
+ <20190807084649.GQ11812@dhcp22.suse.cz>
+ <20190808023637.GA1508@iweiny-DESK2.sc.intel.com>
+ <20190809083435.GA17568@quack2.suse.cz>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Content-Disposition: inline
-In-Reply-To: <1c05651c53f90d07e98ee4973c2786ccf315db12.1563904656.git.andreyknvl@google.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Andrey Konovalov <andreyknvl@google.com>, Will Deacon <will.deacon@arm.com>
-Cc: linux-arm-kernel@lists.infradead.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-rdma@vger.kernel.org, linux-media@vger.kernel.org, kvm@vger.kernel.org, linux-kselftest@vger.kernel.org, Vincenzo Frascino <vincenzo.frascino@arm.com>, Mark Rutland <mark.rutland@arm.com>, Andrew Morton <akpm@linux-foundation.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Kees Cook <keescook@chromium.org>, Yishai Hadas <yishaih@mellanox.com>, Felix Kuehling <Felix.Kuehling@amd.com>, Alexander Deucher <Alexander.Deucher@amd.com>, Christian Koenig <Christian.Koenig@amd.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Jens Wiklander <jens.wiklander@linaro.org>, Alex Williamson <alex.williamson@red>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <intel-gfx-bounces@lists.freedesktop.org>
+In-Reply-To: <20190809083435.GA17568@quack2.suse.cz>
+Content-Language: en-US
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/intel-gfx>,
+ <mailto:intel-gfx-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/intel-gfx>
+List-Post: <mailto:intel-gfx@lists.freedesktop.org>
+List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
+ <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: intel-gfx-bounces@lists.freedesktop.org
+Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
+To: Jan Kara <jack@suse.cz>
+Cc: "linux-fbdev@vger.kernel.org" <linux-fbdev@vger.kernel.org>, "kvm@vger.kernel.org" <kvm@vger.kernel.org>, Dave Hansen <dave.hansen@linux.intel.com>, Dave Chinner <david@fromorbit.com>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, Michal Hocko <mhocko@kernel.org>, "linux-mm@kvack.org" <linux-mm@kvack.org>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "sparclinux@vger.kernel.org" <sparclinux@vger.kernel.org>, "Williams,
+ Dan J" <dan.j.williams@intel.com>, "devel@driverdev.osuosl.org" <devel@driverdev.osuosl.org>, "rds-devel@oss.oracle.com" <rds-devel@oss.oracle.com>, "linux-rdma@vger.kernel.org" <linux-rdma@vger.kernel.org>, "x86@kernel.org" <x86@kernel.org>, Matthew Wilcox <willy@infradead.org>, Christoph Hellwig <hch@infradead.org>, Jason Gunthorpe <jgg@ziepe.ca>, "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 List-Id: amd-gfx.lists.freedesktop.org
 
-On Tue, Jul 23, 2019 at 07:58:39PM +0200, Andrey Konovalov wrote:
-> From: Catalin Marinas <catalin.marinas@arm.com>
-> 
-> It is not desirable to relax the ABI to allow tagged user addresses into
-> the kernel indiscriminately. This patch introduces a prctl() interface
-> for enabling or disabling the tagged ABI with a global sysctl control
-> for preventing applications from enabling the relaxed ABI (meant for
-> testing user-space prctl() return error checking without reconfiguring
-> the kernel). The ABI properties are inherited by threads of the same
-> application and fork()'ed children but cleared on execve(). A Kconfig
-> option allows the overall disabling of the relaxed ABI.
-> 
-> The PR_SET_TAGGED_ADDR_CTRL will be expanded in the future to handle
-> MTE-specific settings like imprecise vs precise exceptions.
-> 
-> Reviewed-by: Kees Cook <keescook@chromium.org>
-> Signed-off-by: Catalin Marinas <catalin.marinas@arm.com>
-> Signed-off-by: Andrey Konovalov <andreyknvl@google.com>
-
-Following several discussions on the list and in private, I'm proposing
-the update below. I can send it as a patch on top of the current series
-since Will has already queued this.
-
----------------8<-------------------------------------
->From 1b3f57ab0c2c51f8b31c19fb34d270e1f3ee57fe Mon Sep 17 00:00:00 2001
-From: Catalin Marinas <catalin.marinas@arm.com>
-Date: Fri, 9 Aug 2019 15:09:15 +0100
-Subject: [PATCH] fixup! arm64: Introduce prctl() options to control the
- tagged user addresses ABI
-
-Rename abi.tagged_addr sysctl control to abi.tagged_addr_disabled,
-defaulting to 0. Only prevent prctl(PR_TAGGED_ADDR_ENABLE)from being
-called when abi.tagged_addr_disabled==1.
-
-Force unused arg* of the new prctl() to 0.
-
-Signed-off-by: Catalin Marinas <catalin.marinas@arm.com>
----
- arch/arm64/kernel/process.c | 17 ++++++++++-------
- kernel/sys.c                |  4 ++++
- 2 files changed, 14 insertions(+), 7 deletions(-)
-
-diff --git a/arch/arm64/kernel/process.c b/arch/arm64/kernel/process.c
-index 76b7c55026aa..03689c0beb34 100644
---- a/arch/arm64/kernel/process.c
-+++ b/arch/arm64/kernel/process.c
-@@ -579,17 +579,22 @@ void arch_setup_new_exec(void)
- /*
-  * Control the relaxed ABI allowing tagged user addresses into the kernel.
-  */
--static unsigned int tagged_addr_prctl_allowed = 1;
-+static unsigned int tagged_addr_disabled;
- 
- long set_tagged_addr_ctrl(unsigned long arg)
- {
--	if (!tagged_addr_prctl_allowed)
--		return -EINVAL;
- 	if (is_compat_task())
- 		return -EINVAL;
- 	if (arg & ~PR_TAGGED_ADDR_ENABLE)
- 		return -EINVAL;
- 
-+	/*
-+	 * Do not allow the enabling of the tagged address ABI if globally
-+	 * disabled via sysctl abi.tagged_addr_disabled.
-+	 */
-+	if (arg & PR_TAGGED_ADDR_ENABLE && tagged_addr_disabled)
-+		return -EINVAL;
-+
- 	update_thread_flag(TIF_TAGGED_ADDR, arg & PR_TAGGED_ADDR_ENABLE);
- 
- 	return 0;
-@@ -597,8 +602,6 @@ long set_tagged_addr_ctrl(unsigned long arg)
- 
- long get_tagged_addr_ctrl(void)
- {
--	if (!tagged_addr_prctl_allowed)
--		return -EINVAL;
- 	if (is_compat_task())
- 		return -EINVAL;
- 
-@@ -618,9 +621,9 @@ static int one = 1;
- 
- static struct ctl_table tagged_addr_sysctl_table[] = {
- 	{
--		.procname	= "tagged_addr",
-+		.procname	= "tagged_addr_disabled",
- 		.mode		= 0644,
--		.data		= &tagged_addr_prctl_allowed,
-+		.data		= &tagged_addr_disabled,
- 		.maxlen		= sizeof(int),
- 		.proc_handler	= proc_dointvec_minmax,
- 		.extra1		= &zero,
-diff --git a/kernel/sys.c b/kernel/sys.c
-index c6c4d5358bd3..ec48396b4943 100644
---- a/kernel/sys.c
-+++ b/kernel/sys.c
-@@ -2499,9 +2499,13 @@ SYSCALL_DEFINE5(prctl, int, option, unsigned long, arg2, unsigned long, arg3,
- 		error = PAC_RESET_KEYS(me, arg2);
- 		break;
- 	case PR_SET_TAGGED_ADDR_CTRL:
-+		if (arg3 || arg4 || arg5)
-+			return -EINVAL;
- 		error = SET_TAGGED_ADDR_CTRL(arg2);
- 		break;
- 	case PR_GET_TAGGED_ADDR_CTRL:
-+		if (arg2 || arg3 || arg4 || arg5)
-+			return -EINVAL;
- 		error = GET_TAGGED_ADDR_CTRL();
- 		break;
- 	default:
+PiAKPiBPbiBXZWQgMDctMDgtMTkgMTk6MzY6MzcsIElyYSBXZWlueSB3cm90ZToKPiA+IE9uIFdl
+ZCwgQXVnIDA3LCAyMDE5IGF0IDEwOjQ2OjQ5QU0gKzAyMDAsIE1pY2hhbCBIb2NrbyB3cm90ZToK
+PiA+ID4gPiBTbyBJIHRoaW5rIHlvdXIgZGVidWcgb3B0aW9uIGFuZCBteSBzdWdnZXN0ZWQgcmVu
+YW1pbmcgc2VydmUgYSBiaXQKPiA+ID4gPiBkaWZmZXJlbnQgcHVycG9zZXMgKGFuZCB0aHVzIGJv
+dGggbWFrZSBzZW5zZSkuIElmIHlvdSBkbyB0aGUKPiA+ID4gPiByZW5hbWluZywgeW91IGNhbiBq
+dXN0IGdyZXAgdG8gc2VlIHVuY29udmVydGVkIHNpdGVzLiBBbHNvIHdoZW4KPiA+ID4gPiBzb21l
+b25lIG1lcmdlcyBuZXcgR1VQIHVzZXIgKHVuYXdhcmUgb2YgdGhlIG5ldyBydWxlcykgd2hpbGUg
+eW91Cj4gPiA+ID4gc3dpdGNoIEdVUCB0byB1c2UgcGlucyBpbnN0ZWFkIG9mIG9yZGluYXJ5IHJl
+ZmVyZW5jZXMsIHlvdSdsbCBnZXQKPiA+ID4gPiBjb21waWxhdGlvbiBlcnJvciBpbiBjYXNlIG9m
+IHJlbmFtaW5nIGluc3RlYWQgb2YgaGFyZCB0byBkZWJ1Zwo+ID4gPiA+IHJlZmNvdW50IGxlYWsg
+d2l0aG91dCB0aGUgcmVuYW1pbmcuIEFuZCBzdWNoIGNvbmZsaWN0IGlzIGFsbW9zdAo+ID4gPiA+
+IGJvdW5kIHRvIGhhcHBlbiBnaXZlbiB0aGUgc2l6ZSBvZiBHVVAgcGF0Y2ggc2V0Li4uIEFsc28g
+dGhlCj4gPiA+ID4gcmVuYW1pbmcgc2VydmVzIGFnYWluc3QgdGhlICJjb2RpbmcgaW5lcnRpYSIg
+LSBpLmUuLCBHVVAgaXMgYXJvdW5kIGZvcgo+IGFnZXMgc28gcGVvcGxlIGp1c3QgdXNlIGl0IHdp
+dGhvdXQgY2hlY2tpbmcgYW55IGRvY3VtZW50YXRpb24gb3IgY29tbWVudHMuCj4gPiA+ID4gQWZ0
+ZXIgc3dpdGNoaW5nIGhvdyBHVVAgd29ya3MsIHdoYXQgdXNlZCB0byBiZSBjb3JyZWN0IGlzbid0
+Cj4gPiA+ID4gYW55bW9yZSBzbyByZW5hbWluZyB0aGUgZnVuY3Rpb24gc2VydmVzIGFzIGEgd2Fy
+bmluZyB0aGF0Cj4gPiA+ID4gc29tZXRoaW5nIGhhcyByZWFsbHkgY2hhbmdlZC4KPiA+ID4KPiA+
+ID4gRnVsbHkgYWdyZWVkIQo+ID4KPiA+IE9rIFByaW9yIHRvIHRoaXMgSSd2ZSBiZWVuIGJhc2lu
+ZyBhbGwgbXkgd29yayBmb3IgdGhlIFJETUEvRlMgREFYCj4gPiBzdHVmZiBpbiBKb2hucyBwdXRf
+dXNlcl9wYWdlcygpLi4uICAoSW5jbHVkaW5nIHdoZW4gSSBwcm9wb3NlZCBmYWlsaW5nCj4gPiB0
+cnVuY2F0ZSB3aXRoIGEgbGVhc2UgaW4gSnVuZSBbMV0pCj4gPgo+ID4gSG93ZXZlciwgYmFzZWQg
+b24gdGhlIHN1Z2dlc3Rpb25zIGluIHRoYXQgdGhyZWFkIGl0IGJlY2FtZSBjbGVhciB0aGF0Cj4g
+PiBhIG5ldyBpbnRlcmZhY2Ugd2FzIGdvaW5nIHRvIG5lZWQgdG8gYmUgYWRkZWQgdG8gcGFzcyBp
+biB0aGUgIlJETUEKPiA+IGZpbGUiIGluZm9ybWF0aW9uIHRvIEdVUCB0byBhc3NvY2lhdGUgZmls
+ZSBwaW5zIHdpdGggdGhlIGNvcnJlY3QgcHJvY2Vzc2VzLi4uCj4gPgo+ID4gSSBoYXZlIG1hbnkg
+ZHJhd2luZ3Mgb24gbXkgd2hpdGUgYm9hcmQgd2l0aCAiYSB3aG9sZSBsb3Qgb2YgbGluZXMiIG9u
+Cj4gPiB0aGVtIHRvIG1ha2Ugc3VyZSB0aGF0IGlmIGEgcHJvY2VzcyBvcGVucyBhIGZpbGUsIG1t
+YXBzIGl0LCBwaW5zIGl0Cj4gPiB3aXRoIFJETUEsIF9jbG9zZXNfIGl0LCBhbmQgdW1tYXBzIGl0
+OyB0aGF0IHRoZSByZXN1bHRpbmcgZmlsZSBwaW4gY2FuCj4gPiBzdGlsbCBiZSB0cmFjZWQgYmFj
+ayB0byB0aGUgUkRNQSBjb250ZXh0IGFuZCBhbGwgdGhlIHByb2Nlc3NlcyB3aGljaAo+ID4gbWF5
+IGhhdmUgYWNjZXNzIHRvIGl0Li4uLiAgTm8gbWF0dGVyIHdoZXJlIHRoZSBvcmlnaW5hbCBjb250
+ZXh0IG1heQo+ID4gaGF2ZSBjb21lIGZyb20uICBJIGJlbGlldmUgSSBoYXZlIGFjY29tcGxpc2hl
+ZCB0aGF0Lgo+ID4KPiA+IEJlZm9yZSBJIGdvIG9uLCBJIHdvdWxkIGxpa2UgdG8gc2F5IHRoYXQg
+dGhlICJpbWJhbGFuY2UiIG9mCj4gPiBnZXRfdXNlcl9wYWdlcygpIGFuZCBwdXRfcGFnZSgpIGJv
+dGhlcnMgbWUgZnJvbSBhIHB1cmlzdCBzdGFuZHBvaW50Li4uCj4gPiBIb3dldmVyLCBzaW5jZSB0
+aGlzIGRpc2N1c3Npb24gY3JvcHBlZCB1cCBJIHdlbnQgYWhlYWQgYW5kIHBvcnRlZCBteQo+ID4g
+d29yayB0byBMaW51cycgY3VycmVudCBtYXN0ZXIKPiA+ICg1LjMtcmMzKykgYW5kIGluIGRvaW5n
+IHNvIEkgb25seSBoYWQgdG8gc3RlYWwgYSBiaXQgb2YgSm9obnMgY29kZS4uLgo+ID4gU29ycnkg
+Sm9obi4uLiAgOi0oCj4gPgo+ID4gSSBkb24ndCBoYXZlIHRoZSBjb21taXQgbWVzc2FnZXMgYWxs
+IGNsZWFuZWQgdXAgYW5kIEkga25vdyB0aGVyZSBtYXkKPiA+IGJlIHNvbWUgZGlzY3Vzc2lvbiBv
+biB0aGVzZSBuZXcgaW50ZXJmYWNlcyBidXQgSSB3YW50ZWQgdG8gdGhyb3cgdGhpcwo+ID4gc2Vy
+aWVzIG91dCB0aGVyZSBiZWNhdXNlIEkgdGhpbmsgaXQgbWF5IGJlIHdoYXQgSmFuIGFuZCBNaWNo
+YWwgYXJlCj4gPiBkcml2aW5nIGF0IChvciBhdCBsZWFzdCBpbiB0aGF0IGRpcmVjdGlvbi4KPiA+
+Cj4gPiBSaWdodCBub3cgb25seSBSRE1BIGFuZCBEQVggRlMncyBhcmUgc3VwcG9ydGVkLiAgT3Ro
+ZXIgdXNlcnMgb2YgR1VQCj4gPiB3aWxsIHN0aWxsIGZhaWwgb24gYSBEQVggZmlsZSBhbmQgcmVn
+dWxhciBmaWxlcyB3aWxsIHN0aWxsIGJlIGF0Cj4gPiByaXNrLlsyXQo+ID4KPiA+IEkndmUgcHVz
+aGVkIHRoaXMgd29yayAoYmFzZWQgNS4zLXJjMysgKDMzOTIwZjFlYzViZikpIGhlcmVbM106Cj4g
+Pgo+ID4gaHR0cHM6Ly9naXRodWIuY29tL3dlaW55Mi9saW51eC1rZXJuZWwvdHJlZS9saW51cy1y
+ZG1hZnNkYXgtYjAtdjMKPiA+Cj4gPiBJIHRoaW5rIHRoZSBtb3N0IHJlbGV2YW50IHBhdGNoIHRv
+IHRoaXMgY29udmVyc2F0aW9uIGlzOgo+ID4KPiA+IGh0dHBzOi8vZ2l0aHViLmNvbS93ZWlueTIv
+bGludXgtCj4ga2VybmVsL2NvbW1pdC81ZDM3NzY1M2JhNWNmMTFjM2I3MTZmOTAKPiA+IDRiMDU3
+YmVlNjY0MWFhZjYKPiA+Cj4gPiBJIHN0b2xlIEphbnMgc3VnZ2VzdGlvbiBmb3IgYSBuYW1lIGFz
+IHRoZSBuYW1lIEkgdXNlZCB3aGlsZQo+ID4gcHJvdG90eXBpbmcgd2FzIHByZXR0eSBiYWQuLi4g
+IFNvIFRoYW5rcyBKYW4uLi4gIDstKQo+IAo+IEZvciB5b3VyIGZ1bmN0aW9uLCBJJ2QgY2hvb3Nl
+IGEgbmFtZSBsaWtlIHZhZGRyX3Bpbl9sZWFzZWRfcGFnZXMoKSBzbyB0aGF0Cj4gYXNzb2NpYXRp
+b24gd2l0aCBhIGxlYXNlIGlzIGNsZWFyIGZyb20gdGhlIG5hbWUgOikKCk15IGd1dCB3YXMgdG8g
+anVzdCBjaGFuZ2UgdGhpcyBhcyB5b3Ugc3VnZ2VzdGVkLiAgQnV0IHRoZSBmYWN0IGlzIHRoYXQg
+dGhlc2UgY2FsbHMgY2FuIGdldCB1c2VkIG9uIGFub255bW91cyBwYWdlcyBhcyB3ZWxsLiAgU28g
+dGhlICJsZWFzZWQiIHNlbWFudGljIG1heSBub3QgYXBwbHkuLi4gIE9UT0ggaWYgYSBmaWxlIGlz
+IGVuY291bnRlcmVkIGl0IHdpbGwgZmFpbCB0aGUgcGluLi4uICA6LS8gIEknbSBnb2luZyB0byBs
+ZWF2ZSBpdCBmb3Igbm93IGFuZCBnZXQgdGhlIHBhdGNoZXMgc3VibWl0dGVkIHRvIHRoZSBsaXN0
+Li4uCgo+IEFsc28gSSdkIGNob29zZSB0aGUKPiBjb3VudGVycGFydCB0byBiZSB2YWRkcl91bnBp
+bl9sZWFzZWRfcGFnZVtzXSgpLiBFc3BlY2lhbGx5IGhhdmluZyBwdXRfcGFnZQo+IGluIHRoZSBu
+YW1lIGxvb2tzIGNvbmZ1c2luZyB0byBtZS4uLgoKQWggeWVzLCB0b3RhbGx5IGFncmVlIHdpdGgg
+dGhlICJwaW4vdW5waW4iIHN5bW1ldHJ5LiAgSSd2ZSBjaGFuZ2VkIGZyb20gInB1dCIgdG8gInVu
+cGluIi4uLgoKVGhhbmtzLApJcmEKCj4gCj4gCQkJCQkJCQlIb256YQo+IAo+IC0tCj4gSmFuIEth
+cmEgPGphY2tAc3VzZS5jb20+Cj4gU1VTRSBMYWJzLCBDUgpfX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fXwpJbnRlbC1nZnggbWFpbGluZyBsaXN0CkludGVsLWdm
+eEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFp
+bG1hbi9saXN0aW5mby9pbnRlbC1nZng=
