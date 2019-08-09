@@ -1,207 +1,56 @@
-From: "Wang, Kevin(Yang)" <Kevin1.Wang-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 4/4] drm/amdgpu: enable mmhub clock gating for Arcturus
-Date: Fri, 9 Aug 2019 11:30:09 +0000
-Message-ID: <MN2PR12MB32964418478AEB81F9F9C7DDA2D60@MN2PR12MB3296.namprd12.prod.outlook.com>
-References: <1565350016-7071-1-git-send-email-le.ma@amd.com>,
- <1565350016-7071-4-git-send-email-le.ma@amd.com>
+From: Bartlomiej Zolnierkiewicz <b.zolnierkie@samsung.com>
+Subject: Re: [PATCH v3 20/41] fbdev/pvr2fb: convert put_page() to
+ put_user_page*()
+Date: Fri, 9 Aug 2019 13:38:31 +0200
+Message-ID: <1f1656b4-3411-3237-726f-8fb7b73ae363@samsung.com>
+References: <20190807013340.9706-1-jhubbard@nvidia.com>
+ <CGME20190807013420epcas1p1a38f499e39127e66501040b7e9e788ba@epcas1p1.samsung.com>
+ <20190807013340.9706-21-jhubbard@nvidia.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0645978981=="
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1565350016-7071-4-git-send-email-le.ma-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Ma, Le" <Le.Ma-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-
---===============0645978981==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_MN2PR12MB32964418478AEB81F9F9C7DDA2D60MN2PR12MB3296namp_"
-
---_000_MN2PR12MB32964418478AEB81F9F9C7DDA2D60MN2PR12MB3296namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-Reviewed-by: Kevin Wang <kevin1.wang-5C7GfCeVMHo@public.gmane.org>
-________________________________
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Le Ma <l=
-e.ma-5C7GfCeVMHo@public.gmane.org>
-Sent: Friday, August 9, 2019 7:26 PM
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: Ma, Le <Le.Ma-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH 4/4] drm/amdgpu: enable mmhub clock gating for Arcturus
-
-Init MC_MGCG/LS flag. Also apply to athub CG.
-
-Change-Id: Ic00cb8e6d69eb75dd32f34f778352cee93063ee0
-Signed-off-by: Le Ma <le.ma-5C7GfCeVMHo@public.gmane.org>
----
- drivers/gpu/drm/amd/amdgpu/mmhub_v9_4.c | 1 -
- drivers/gpu/drm/amd/amdgpu/soc15.c      | 4 +++-
- 2 files changed, 3 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v9_4.c b/drivers/gpu/drm/amd/=
-amdgpu/mmhub_v9_4.c
-index e52e4d1..0cf7ef4 100644
---- a/drivers/gpu/drm/amd/amdgpu/mmhub_v9_4.c
-+++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v9_4.c
-@@ -615,7 +615,6 @@ int mmhub_v9_4_set_clockgating(struct amdgpu_device *ad=
-ev,
-         return 0;
- }
-
--/* TODO: get 2 mmhub instances CG state */
- void mmhub_v9_4_get_clockgating(struct amdgpu_device *adev, u32 *flags)
- {
-         int data, data1;
-diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c b/drivers/gpu/drm/amd/amdgp=
-u/soc15.c
-index aecba1c..235cb5b 100644
---- a/drivers/gpu/drm/amd/amdgpu/soc15.c
-+++ b/drivers/gpu/drm/amd/amdgpu/soc15.c
-@@ -1126,7 +1126,9 @@ static int soc15_common_early_init(void *handle)
-                         AMD_CG_SUPPORT_HDP_MGCG |
-                         AMD_CG_SUPPORT_HDP_LS |
-                         AMD_CG_SUPPORT_SDMA_MGCG |
--                       AMD_CG_SUPPORT_SDMA_LS;
-+                       AMD_CG_SUPPORT_SDMA_LS |
-+                       AMD_CG_SUPPORT_MC_MGCG |
-+                       AMD_CG_SUPPORT_MC_LS;
-                 adev->pg_flags =3D 0;
-                 adev->external_rev_id =3D adev->rev_id + 0x32;
-                 break;
---
-2.7.4
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---_000_MN2PR12MB32964418478AEB81F9F9C7DDA2D60MN2PR12MB3296namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<span style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; backgrou=
-nd-color: rgb(255, 255, 255); display: inline !important">Reviewed-by: Kevi=
-n Wang &lt;kevin1.wang-5C7GfCeVMHo@public.gmane.org&gt;</span><br>
-</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
-ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Le Ma &lt;le.ma-5C7GfCeVMHo@public.gmane.org&gt;<b=
-r>
-<b>Sent:</b> Friday, August 9, 2019 7:26 PM<br>
-<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org &lt;amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&=
-gt;<br>
-<b>Cc:</b> Ma, Le &lt;Le.Ma-5C7GfCeVMHo@public.gmane.org&gt;<br>
-<b>Subject:</b> [PATCH 4/4] drm/amdgpu: enable mmhub clock gating for Arctu=
-rus</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">Init MC_MGCG/LS flag. Also apply to athub CG.<br>
-<br>
-Change-Id: Ic00cb8e6d69eb75dd32f34f778352cee93063ee0<br>
-Signed-off-by: Le Ma &lt;le.ma-5C7GfCeVMHo@public.gmane.org&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/mmhub_v9_4.c | 1 -<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/soc15.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | 4 =
-&#43;&#43;&#43;-<br>
-&nbsp;2 files changed, 3 insertions(&#43;), 2 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v9_4.c b/drivers/gpu/drm/amd/=
-amdgpu/mmhub_v9_4.c<br>
-index e52e4d1..0cf7ef4 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/mmhub_v9_4.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/mmhub_v9_4.c<br>
-@@ -615,7 &#43;615,6 @@ int mmhub_v9_4_set_clockgating(struct amdgpu_device=
- *adev,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
-&nbsp;}<br>
-&nbsp;<br>
--/* TODO: get 2 mmhub instances CG state */<br>
-&nbsp;void mmhub_v9_4_get_clockgating(struct amdgpu_device *adev, u32 *flag=
-s)<br>
-&nbsp;{<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int data, data1;<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c b/drivers/gpu/drm/amd/amdgp=
-u/soc15.c<br>
-index aecba1c..235cb5b 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/soc15.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/soc15.c<br>
-@@ -1126,7 &#43;1126,9 @@ static int soc15_common_early_init(void *handle)<=
-br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMD_C=
-G_SUPPORT_HDP_MGCG |<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMD_C=
-G_SUPPORT_HDP_LS |<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMD_C=
-G_SUPPORT_SDMA_MGCG |<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMD_CG_SUPPORT_S=
-DMA_LS;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMD_CG_SUPPO=
-RT_SDMA_LS |<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMD_CG_SUPPO=
-RT_MC_MGCG |<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMD_CG_SUPPO=
-RT_MC_LS;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; adev-&gt;pg_flags =3D 0;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; adev-&gt;external_rev_id =3D adev-&gt;rev_id &#43; 0x=
-32;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; break;<br>
--- <br>
-2.7.4<br>
-<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
-lists.freedesktop.org/mailman/listinfo/amd-gfx</a></div>
-</span></font></div>
-</body>
-</html>
-
---_000_MN2PR12MB32964418478AEB81F9F9C7DDA2D60MN2PR12MB3296namp_--
-
---===============0645978981==
 Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
 Content-Transfer-Encoding: base64
-Content-Disposition: inline
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+In-Reply-To: <20190807013340.9706-21-jhubbard@nvidia.com>
+Content-Language: en-US
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: john.hubbard@gmail.com
+Cc: linux-fbdev@vger.kernel.org, Jan Kara <jack@suse.cz>, kvm@vger.kernel.org, Dave Hansen <dave.hansen@linux.intel.com>, Dave Chinner <david@fromorbit.com>, dri-devel@lists.freedesktop.org, linux-mm@kvack.org, sparclinux@vger.kernel.org, Ira Weiny <ira.weiny@intel.com>, Dan Williams <dan.j.williams@intel.com>, devel@driverdev.osuosl.org, rds-devel@oss.oracle.com, linux-rdma@vger.kernel.org, x86@kernel.org, amd-gfx@lists.freedesktop.org, Christoph Hellwig <hch@infradead.org>, Jason Gunthorpe <jgg@ziepe.ca>, xen-devel@lists.xenproject.org, devel@lists.orangefs.org, linux-media@vger.kernel.org, Kees Cook <keescook@chromium.org>, John Hubbard <jhubbard@nvidia.com>, intel-gfx@lists.freedesktop.org, linux-block@vger.kernel.org, =?UTF-8?B?SsOpcsO0bWUgR2xpc3Nl?= <jglisse@redhat.com>, linux-rpi-kernel@lists.infradead.org, Arvind Yadav <arvind.yadav.cs@gmail.com>, ceph-devel@vger.ker
+List-Id: amd-gfx.lists.freedesktop.org
 
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
-
---===============0645978981==--
+Ck9uIDgvNy8xOSAzOjMzIEFNLCBqb2huLmh1YmJhcmRAZ21haWwuY29tIHdyb3RlOgo+IEZyb206
+IEpvaG4gSHViYmFyZCA8amh1YmJhcmRAbnZpZGlhLmNvbT4KPiAKPiBGb3IgcGFnZXMgdGhhdCB3
+ZXJlIHJldGFpbmVkIHZpYSBnZXRfdXNlcl9wYWdlcyooKSwgcmVsZWFzZSB0aG9zZSBwYWdlcwo+
+IHZpYSB0aGUgbmV3IHB1dF91c2VyX3BhZ2UqKCkgcm91dGluZXMsIGluc3RlYWQgb2YgdmlhIHB1
+dF9wYWdlKCkgb3IKPiByZWxlYXNlX3BhZ2VzKCkuCj4gCj4gVGhpcyBpcyBwYXJ0IGEgdHJlZS13
+aWRlIGNvbnZlcnNpb24sIGFzIGRlc2NyaWJlZCBpbiBjb21taXQgZmMxZDhlN2NjYTJkCj4gKCJt
+bTogaW50cm9kdWNlIHB1dF91c2VyX3BhZ2UqKCksIHBsYWNlaG9sZGVyIHZlcnNpb25zIikuCj4g
+Cj4gQ2M6IEJhcnRsb21pZWogWm9sbmllcmtpZXdpY3ogPGIuem9sbmllcmtpZUBzYW1zdW5nLmNv
+bT4KPiBDYzogS2VlcyBDb29rIDxrZWVzY29va0BjaHJvbWl1bS5vcmc+Cj4gQ2M6IEFsIFZpcm8g
+PHZpcm9AemVuaXYubGludXgub3JnLnVrPgo+IENjOiBCaHVtaWthIEdveWFsIDxiaHVtaXJrc0Bn
+bWFpbC5jb20+Cj4gQ2M6IEFydmluZCBZYWRhdiA8YXJ2aW5kLnlhZGF2LmNzQGdtYWlsLmNvbT4K
+PiBDYzogZHJpLWRldmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+IENjOiBsaW51eC1mYmRldkB2
+Z2VyLmtlcm5lbC5vcmcKPiBTaWduZWQtb2ZmLWJ5OiBKb2huIEh1YmJhcmQgPGpodWJiYXJkQG52
+aWRpYS5jb20+CgpBY2tlZC1ieTogQmFydGxvbWllaiBab2xuaWVya2lld2ljeiA8Yi56b2xuaWVy
+a2llQHNhbXN1bmcuY29tPgoKQmVzdCByZWdhcmRzLAotLQpCYXJ0bG9taWVqIFpvbG5pZXJraWV3
+aWN6ClNhbXN1bmcgUiZEIEluc3RpdHV0ZSBQb2xhbmQKU2Ftc3VuZyBFbGVjdHJvbmljcwoKPiAt
+LS0KPiAgZHJpdmVycy92aWRlby9mYmRldi9wdnIyZmIuYyB8IDMgKy0tCj4gIDEgZmlsZSBjaGFu
+Z2VkLCAxIGluc2VydGlvbigrKSwgMiBkZWxldGlvbnMoLSkKPiAKPiBkaWZmIC0tZ2l0IGEvZHJp
+dmVycy92aWRlby9mYmRldi9wdnIyZmIuYyBiL2RyaXZlcnMvdmlkZW8vZmJkZXYvcHZyMmZiLmMK
+PiBpbmRleCA3ZmY0YjZiODQyODIuLjBlNGY5YWE2NDQ0ZCAxMDA2NDQKPiAtLS0gYS9kcml2ZXJz
+L3ZpZGVvL2ZiZGV2L3B2cjJmYi5jCj4gKysrIGIvZHJpdmVycy92aWRlby9mYmRldi9wdnIyZmIu
+Ywo+IEBAIC03MDAsOCArNzAwLDcgQEAgc3RhdGljIHNzaXplX3QgcHZyMmZiX3dyaXRlKHN0cnVj
+dCBmYl9pbmZvICppbmZvLCBjb25zdCBjaGFyICpidWYsCj4gIAlyZXQgPSBjb3VudDsKPiAgCj4g
+IG91dF91bm1hcDoKPiAtCWZvciAoaSA9IDA7IGkgPCBucl9wYWdlczsgaSsrKQo+IC0JCXB1dF9w
+YWdlKHBhZ2VzW2ldKTsKPiArCXB1dF91c2VyX3BhZ2VzKHBhZ2VzLCBucl9wYWdlcyk7Cj4gIAo+
+ICAJa2ZyZWUocGFnZXMpOwpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fXwpkcmktZGV2ZWwgbWFpbGluZyBsaXN0CmRyaS1kZXZlbEBsaXN0cy5mcmVlZGVza3Rv
+cC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9kcmkt
+ZGV2ZWw=
