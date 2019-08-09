@@ -1,77 +1,90 @@
-From: Tao Zhou <tao.zhou1-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH 2/2] drm/amdgpu: remove RREG64/WREG64
-Date: Fri, 9 Aug 2019 15:57:51 +0800
-Message-ID: <20190809075751.5078-2-tao.zhou1@amd.com>
-References: <20190809075751.5078-1-tao.zhou1@amd.com>
+From: Jan Kara <jack@suse.cz>
+Subject: Re: [PATCH 00/34] put_user_pages(): miscellaneous call sites
+Date: Fri, 9 Aug 2019 10:34:35 +0200
+Message-ID: <20190809083435.GA17568@quack2.suse.cz>
+References: <20190802022005.5117-1-jhubbard@nvidia.com>
+ <20190802091244.GD6461@dhcp22.suse.cz>
+ <20190802124146.GL25064@quack2.suse.cz>
+ <20190802142443.GB5597@bombadil.infradead.org>
+ <20190802145227.GQ25064@quack2.suse.cz>
+ <076e7826-67a5-4829-aae2-2b90f302cebd@nvidia.com>
+ <20190807083726.GA14658@quack2.suse.cz>
+ <20190807084649.GQ11812@dhcp22.suse.cz>
+ <20190808023637.GA1508@iweiny-DESK2.sc.intel.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190809075751.5078-1-tao.zhou1-5C7GfCeVMHo@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, alexander.deucher-5C7GfCeVMHo@public.gmane.org, hawking.zhang-5C7GfCeVMHo@public.gmane.org, christian.koenig-5C7GfCeVMHo@public.gmane.org
-Cc: Tao Zhou <tao.zhou1-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset=us-ascii
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Content-Disposition: inline
+In-Reply-To: <20190808023637.GA1508@iweiny-DESK2.sc.intel.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Ira Weiny <ira.weiny@intel.com>
+Cc: Michal Hocko <mhocko@kernel.org>, Jan Kara <jack@suse.cz>, John Hubbard <jhubbard@nvidia.com>, Matthew Wilcox <willy@infradead.org>, john.hubbard@gmail.com, Andrew Morton <akpm@linux-foundation.org>, Christoph Hellwig <hch@infradead.org>, Dan Williams <dan.j.williams@intel.com>, Dave Chinner <david@fromorbit.com>, Dave Hansen <dave.hansen@linux.intel.com>, Jason Gunthorpe <jgg@ziepe.ca>, =?iso-8859-1?B?Suly9G1l?= Glisse <jglisse@redhat.com>, LKML <linux-kernel@vger.kernel.org>, amd-gfx@lists.freedesktop.org, ceph-devel@vger.kernel.org, devel@driverdev.osuosl.org, devel@lists.orangefs.org, dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, kvm@vger.kernel.org, linux-arm-kernel@lists.infradead.org, linux-block@vger.kernel.org, linux-crypto@vger.kernel.o
+List-Id: amd-gfx.lists.freedesktop.org
 
-YXRvbWljIDY0IGJpdHMgUkVHIG9wZXJhdGlvbnMgYXJlIHVzZWxlc3MgY3VycmVudGx5CgpTaWdu
-ZWQtb2ZmLWJ5OiBUYW8gWmhvdSA8dGFvLnpob3UxQGFtZC5jb20+Ci0tLQogZHJpdmVycy9ncHUv
-ZHJtL2FtZC9hbWRncHUvYW1kZ3B1LmggICAgICAgIHwgIDQgLS0tCiBkcml2ZXJzL2dwdS9kcm0v
-YW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMgfCAzMyAtLS0tLS0tLS0tLS0tLS0tLS0tLS0tCiAy
-IGZpbGVzIGNoYW5nZWQsIDM3IGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5oIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
-Z3B1LmgKaW5kZXggZWQxYTIxN2U4NmU0Li5mNmFlNTY1MmIyZTUgMTAwNjQ0Ci0tLSBhL2RyaXZl
-cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5oCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-YW1kZ3B1L2FtZGdwdS5oCkBAIC0xMDQyLDggKzEwNDIsNiBAQCB2b2lkIGFtZGdwdV9tbV93cmVn
-KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LCB1aW50MzJfdCByZWcsIHVpbnQzMl90IHYsCiAJ
-CSAgICB1aW50MzJfdCBhY2NfZmxhZ3MpOwogdm9pZCBhbWRncHVfbW1fd3JlZzgoc3RydWN0IGFt
-ZGdwdV9kZXZpY2UgKmFkZXYsIHVpbnQzMl90IG9mZnNldCwgdWludDhfdCB2YWx1ZSk7CiB1aW50
-OF90IGFtZGdwdV9tbV9ycmVnOChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwgdWludDMyX3Qg
-b2Zmc2V0KTsKLXVpbnQ2NF90IGFtZGdwdV9tbV9ycmVnNjQoc3RydWN0IGFtZGdwdV9kZXZpY2Ug
-KmFkZXYsIHVpbnQzMl90IHJlZyk7Ci12b2lkIGFtZGdwdV9tbV93cmVnNjQoc3RydWN0IGFtZGdw
-dV9kZXZpY2UgKmFkZXYsIHVpbnQzMl90IHJlZywgdWludDY0X3Qgdik7CiAKIHUzMiBhbWRncHVf
-aW9fcnJlZyhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwgdTMyIHJlZyk7CiB2b2lkIGFtZGdw
-dV9pb193cmVnKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LCB1MzIgcmVnLCB1MzIgdik7CkBA
-IC0xMDcxLDggKzEwNjksNiBAQCBpbnQgZW11X3NvY19hc2ljX2luaXQoc3RydWN0IGFtZGdwdV9k
-ZXZpY2UgKmFkZXYpOwogI2RlZmluZSBEUkVHMzIocmVnKSBwcmludGsoS0VSTl9JTkZPICJSRUdJ
-U1RFUjogIiAjcmVnICIgOiAweCUwOFhcbiIsIGFtZGdwdV9tbV9ycmVnKGFkZXYsIChyZWcpLCAw
-KSkKICNkZWZpbmUgV1JFRzMyKHJlZywgdikgYW1kZ3B1X21tX3dyZWcoYWRldiwgKHJlZyksICh2
-KSwgMCkKICNkZWZpbmUgV1JFRzMyX0lEWChyZWcsIHYpIGFtZGdwdV9tbV93cmVnKGFkZXYsIChy
-ZWcpLCAodiksIEFNREdQVV9SRUdTX0lEWCkKLSNkZWZpbmUgUlJFRzY0KHJlZykgYW1kZ3B1X21t
-X3JyZWc2NChhZGV2LCAocmVnKSkKLSNkZWZpbmUgV1JFRzY0KHJlZywgdikgYW1kZ3B1X21tX3dy
-ZWc2NChhZGV2LCAocmVnKSwgKHYpKQogI2RlZmluZSBSRUdfU0VUKEZJRUxELCB2KSAoKCh2KSA8
-PCBGSUVMRCMjX1NISUZUKSAmIEZJRUxEIyNfTUFTSykKICNkZWZpbmUgUkVHX0dFVChGSUVMRCwg
-dikgKCgodikgPDwgRklFTEQjI19TSElGVCkgJiBGSUVMRCMjX01BU0spCiAjZGVmaW5lIFJSRUcz
-Ml9QQ0lFKHJlZykgYWRldi0+cGNpZV9ycmVnKGFkZXYsIChyZWcpKQpkaWZmIC0tZ2l0IGEvZHJp
-dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jIGIvZHJpdmVycy9ncHUvZHJt
-L2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jCmluZGV4IDdlYjllMGI5MjM1YS4uMmY0M2M1OGY1
-ZDAzIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNl
-LmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jCkBAIC0y
-NjIsMzkgKzI2Miw2IEBAIHZvaWQgYW1kZ3B1X21tX3dyZWcoc3RydWN0IGFtZGdwdV9kZXZpY2Ug
-KmFkZXYsIHVpbnQzMl90IHJlZywgdWludDMyX3QgdiwKIAl9CiB9CiAKLS8qKgotICogYW1kZ3B1
-X21tX3JyZWc2NCAtIHJlYWQgYSA2NCBiaXQgbWVtb3J5IG1hcHBlZCBJTyByZWdpc3RlcgotICoK
-LSAqIEBhZGV2OiBhbWRncHVfZGV2aWNlIHBvaW50ZXIKLSAqIEByZWc6IGR3b3JkIGFsaWduZWQg
-cmVnaXN0ZXIgb2Zmc2V0Ci0gKgotICogUmV0dXJucyB0aGUgNjQgYml0IHZhbHVlIGZyb20gdGhl
-IG9mZnNldCBzcGVjaWZpZWQuCi0gKi8KLXVpbnQ2NF90IGFtZGdwdV9tbV9ycmVnNjQoc3RydWN0
-IGFtZGdwdV9kZXZpY2UgKmFkZXYsIHVpbnQzMl90IHJlZykKLXsKLQlpZiAoKHJlZyAqIDQpIDwg
-YWRldi0+cm1taW9fc2l6ZSkKLQkJcmV0dXJuIGF0b21pYzY0X3JlYWQoKGF0b21pYzY0X3QgKiko
-YWRldi0+cm1taW8gKyAocmVnICogNCkpKTsKLQllbHNlCi0JCUJVRygpOwotfQotCi0vKioKLSAq
-IGFtZGdwdV9tbV93cmVnNjQgLSB3cml0ZSB0byBhIDY0IGJpdCBtZW1vcnkgbWFwcGVkIElPIHJl
-Z2lzdGVyCi0gKgotICogQGFkZXY6IGFtZGdwdV9kZXZpY2UgcG9pbnRlcgotICogQHJlZzogZHdv
-cmQgYWxpZ25lZCByZWdpc3RlciBvZmZzZXQKLSAqIEB2OiA2NCBiaXQgdmFsdWUgdG8gd3JpdGUg
-dG8gdGhlIHJlZ2lzdGVyCi0gKgotICogV3JpdGVzIHRoZSB2YWx1ZSBzcGVjaWZpZWQgdG8gdGhl
-IG9mZnNldCBzcGVjaWZpZWQuCi0gKi8KLXZvaWQgYW1kZ3B1X21tX3dyZWc2NChzdHJ1Y3QgYW1k
-Z3B1X2RldmljZSAqYWRldiwgdWludDMyX3QgcmVnLCB1aW50NjRfdCB2KQotewotCWlmICgocmVn
-ICogNCkgPCBhZGV2LT5ybW1pb19zaXplKQotCQlhdG9taWM2NF9zZXQoKGF0b21pYzY0X3QgKiko
-YWRldi0+cm1taW8gKyAocmVnICogNCkpLCB2KTsKLQllbHNlCi0JCUJVRygpOwotfQotCiAvKioK
-ICAqIGFtZGdwdV9pb19ycmVnIC0gcmVhZCBhbiBJTyByZWdpc3RlcgogICoKLS0gCjIuMTcuMQoK
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+On Wed 07-08-19 19:36:37, Ira Weiny wrote:
+> On Wed, Aug 07, 2019 at 10:46:49AM +0200, Michal Hocko wrote:
+> > > So I think your debug option and my suggested renaming serve a bit
+> > > different purposes (and thus both make sense). If you do the renaming, you
+> > > can just grep to see unconverted sites. Also when someone merges new GUP
+> > > user (unaware of the new rules) while you switch GUP to use pins instead of
+> > > ordinary references, you'll get compilation error in case of renaming
+> > > instead of hard to debug refcount leak without the renaming. And such
+> > > conflict is almost bound to happen given the size of GUP patch set... Also
+> > > the renaming serves against the "coding inertia" - i.e., GUP is around for
+> > > ages so people just use it without checking any documentation or comments.
+> > > After switching how GUP works, what used to be correct isn't anymore so
+> > > renaming the function serves as a warning that something has really
+> > > changed.
+> > 
+> > Fully agreed!
+> 
+> Ok Prior to this I've been basing all my work for the RDMA/FS DAX stuff in
+> Johns put_user_pages()...  (Including when I proposed failing truncate with a
+> lease in June [1])
+> 
+> However, based on the suggestions in that thread it became clear that a new
+> interface was going to need to be added to pass in the "RDMA file" information
+> to GUP to associate file pins with the correct processes...
+> 
+> I have many drawings on my white board with "a whole lot of lines" on them to
+> make sure that if a process opens a file, mmaps it, pins it with RDMA, _closes_
+> it, and ummaps it; that the resulting file pin can still be traced back to the
+> RDMA context and all the processes which may have access to it....  No matter
+> where the original context may have come from.  I believe I have accomplished
+> that.
+> 
+> Before I go on, I would like to say that the "imbalance" of get_user_pages()
+> and put_page() bothers me from a purist standpoint...  However, since this
+> discussion cropped up I went ahead and ported my work to Linus' current master
+> (5.3-rc3+) and in doing so I only had to steal a bit of Johns code...  Sorry
+> John...  :-(
+> 
+> I don't have the commit messages all cleaned up and I know there may be some
+> discussion on these new interfaces but I wanted to throw this series out there
+> because I think it may be what Jan and Michal are driving at (or at least in
+> that direction.
+> 
+> Right now only RDMA and DAX FS's are supported.  Other users of GUP will still
+> fail on a DAX file and regular files will still be at risk.[2]
+> 
+> I've pushed this work (based 5.3-rc3+ (33920f1ec5bf)) here[3]:
+> 
+> https://github.com/weiny2/linux-kernel/tree/linus-rdmafsdax-b0-v3
+> 
+> I think the most relevant patch to this conversation is:
+> 
+> https://github.com/weiny2/linux-kernel/commit/5d377653ba5cf11c3b716f904b057bee6641aaf6
+> 
+> I stole Jans suggestion for a name as the name I used while prototyping was
+> pretty bad...  So Thanks Jan...  ;-)
+
+For your function, I'd choose a name like vaddr_pin_leased_pages() so that
+association with a lease is clear from the name :) Also I'd choose the
+counterpart to be vaddr_unpin_leased_page[s](). Especially having put_page in
+the name looks confusing to me...
+
+								Honza
+
+-- 
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
