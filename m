@@ -1,90 +1,92 @@
-From: Jan Kara <jack@suse.cz>
-Subject: Re: [PATCH 00/34] put_user_pages(): miscellaneous call sites
-Date: Fri, 9 Aug 2019 10:34:35 +0200
-Message-ID: <20190809083435.GA17568@quack2.suse.cz>
-References: <20190802022005.5117-1-jhubbard@nvidia.com>
- <20190802091244.GD6461@dhcp22.suse.cz>
- <20190802124146.GL25064@quack2.suse.cz>
- <20190802142443.GB5597@bombadil.infradead.org>
- <20190802145227.GQ25064@quack2.suse.cz>
- <076e7826-67a5-4829-aae2-2b90f302cebd@nvidia.com>
- <20190807083726.GA14658@quack2.suse.cz>
- <20190807084649.GQ11812@dhcp22.suse.cz>
- <20190808023637.GA1508@iweiny-DESK2.sc.intel.com>
+From: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 1/2] drm/amdgpu: implement UMC 64 bits REG operations
+Date: Fri, 9 Aug 2019 08:41:14 +0000
+Message-ID: <36c9cb7a-11ab-5ab7-ba74-4267a08f34b0@amd.com>
+References: <20190809075751.5078-1-tao.zhou1@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Content-Disposition: inline
-In-Reply-To: <20190808023637.GA1508@iweiny-DESK2.sc.intel.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Ira Weiny <ira.weiny@intel.com>
-Cc: Michal Hocko <mhocko@kernel.org>, Jan Kara <jack@suse.cz>, John Hubbard <jhubbard@nvidia.com>, Matthew Wilcox <willy@infradead.org>, john.hubbard@gmail.com, Andrew Morton <akpm@linux-foundation.org>, Christoph Hellwig <hch@infradead.org>, Dan Williams <dan.j.williams@intel.com>, Dave Chinner <david@fromorbit.com>, Dave Hansen <dave.hansen@linux.intel.com>, Jason Gunthorpe <jgg@ziepe.ca>, =?iso-8859-1?B?Suly9G1l?= Glisse <jglisse@redhat.com>, LKML <linux-kernel@vger.kernel.org>, amd-gfx@lists.freedesktop.org, ceph-devel@vger.kernel.org, devel@driverdev.osuosl.org, devel@lists.orangefs.org, dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, kvm@vger.kernel.org, linux-arm-kernel@lists.infradead.org, linux-block@vger.kernel.org, linux-crypto@vger.kernel.o
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20190809075751.5078-1-tao.zhou1-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
+Content-ID: <BF5351956DC5DC4FAFD0958403BE9826-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Zhou1, Tao" <Tao.Zhou1-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Zhang, Hawking" <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>
 
-On Wed 07-08-19 19:36:37, Ira Weiny wrote:
-> On Wed, Aug 07, 2019 at 10:46:49AM +0200, Michal Hocko wrote:
-> > > So I think your debug option and my suggested renaming serve a bit
-> > > different purposes (and thus both make sense). If you do the renaming, you
-> > > can just grep to see unconverted sites. Also when someone merges new GUP
-> > > user (unaware of the new rules) while you switch GUP to use pins instead of
-> > > ordinary references, you'll get compilation error in case of renaming
-> > > instead of hard to debug refcount leak without the renaming. And such
-> > > conflict is almost bound to happen given the size of GUP patch set... Also
-> > > the renaming serves against the "coding inertia" - i.e., GUP is around for
-> > > ages so people just use it without checking any documentation or comments.
-> > > After switching how GUP works, what used to be correct isn't anymore so
-> > > renaming the function serves as a warning that something has really
-> > > changed.
-> > 
-> > Fully agreed!
-> 
-> Ok Prior to this I've been basing all my work for the RDMA/FS DAX stuff in
-> Johns put_user_pages()...  (Including when I proposed failing truncate with a
-> lease in June [1])
-> 
-> However, based on the suggestions in that thread it became clear that a new
-> interface was going to need to be added to pass in the "RDMA file" information
-> to GUP to associate file pins with the correct processes...
-> 
-> I have many drawings on my white board with "a whole lot of lines" on them to
-> make sure that if a process opens a file, mmaps it, pins it with RDMA, _closes_
-> it, and ummaps it; that the resulting file pin can still be traced back to the
-> RDMA context and all the processes which may have access to it....  No matter
-> where the original context may have come from.  I believe I have accomplished
-> that.
-> 
-> Before I go on, I would like to say that the "imbalance" of get_user_pages()
-> and put_page() bothers me from a purist standpoint...  However, since this
-> discussion cropped up I went ahead and ported my work to Linus' current master
-> (5.3-rc3+) and in doing so I only had to steal a bit of Johns code...  Sorry
-> John...  :-(
-> 
-> I don't have the commit messages all cleaned up and I know there may be some
-> discussion on these new interfaces but I wanted to throw this series out there
-> because I think it may be what Jan and Michal are driving at (or at least in
-> that direction.
-> 
-> Right now only RDMA and DAX FS's are supported.  Other users of GUP will still
-> fail on a DAX file and regular files will still be at risk.[2]
-> 
-> I've pushed this work (based 5.3-rc3+ (33920f1ec5bf)) here[3]:
-> 
-> https://github.com/weiny2/linux-kernel/tree/linus-rdmafsdax-b0-v3
-> 
-> I think the most relevant patch to this conversation is:
-> 
-> https://github.com/weiny2/linux-kernel/commit/5d377653ba5cf11c3b716f904b057bee6641aaf6
-> 
-> I stole Jans suggestion for a name as the name I used while prototyping was
-> pretty bad...  So Thanks Jan...  ;-)
-
-For your function, I'd choose a name like vaddr_pin_leased_pages() so that
-association with a lease is clear from the name :) Also I'd choose the
-counterpart to be vaddr_unpin_leased_page[s](). Especially having put_page in
-the name looks confusing to me...
-
-								Honza
-
--- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+UmV2aWV3ZWQtYnk6IENocmlzdGlhbiBLw7ZuaWcgPGNocmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4g
+Zm9yIHRoZSBzZXJpZXMuDQoNCkFtIDA5LjA4LjE5IHVtIDA5OjU3IHNjaHJpZWIgVGFvIFpob3U6
+DQo+IGltcGxlbWVudCA2NCBiaXRzIG9wZXJhdGlvbnMgdmlhIDMyIGJpdHMgaW50ZXJmYWNlDQo+
+DQo+IHYyOiBtYWtlIHVzZSBvZiBsb3dlcl8zMl9iaXRzKCkgYW5kIHVwcGVyXzMyX2JpdHMoKSBt
+YWNyb3MNCj4NCj4gU2lnbmVkLW9mZi1ieTogVGFvIFpob3UgPHRhby56aG91MUBhbWQuY29tPg0K
+PiAtLS0NCj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdW1jLmggfCAgOSAr
+KysrKysrKysNCj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS91bWNfdjZfMS5jICAgfCAx
+MCArKysrKy0tLS0tDQo+ICAgMiBmaWxlcyBjaGFuZ2VkLCAxNCBpbnNlcnRpb25zKCspLCA1IGRl
+bGV0aW9ucygtKQ0KPg0KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
+YW1kZ3B1X3VtYy5oIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3VtYy5oDQo+
+IGluZGV4IDllZmRkNjYyNzllNS4uOTc1YWZhMDRkZjA5IDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJz
+L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdW1jLmgNCj4gKysrIGIvZHJpdmVycy9ncHUvZHJt
+L2FtZC9hbWRncHUvYW1kZ3B1X3VtYy5oDQo+IEBAIC0yMSw2ICsyMSwxNSBAQA0KPiAgICNpZm5k
+ZWYgX19BTURHUFVfVU1DX0hfXw0KPiAgICNkZWZpbmUgX19BTURHUFVfVU1DX0hfXw0KPiAgIA0K
+PiArLyogaW1wbGVtZW50IDY0IGJpdHMgUkVHIG9wZXJhdGlvbnMgdmlhIDMyIGJpdHMgaW50ZXJm
+YWNlICovDQo+ICsjZGVmaW5lIFJSRUc2NF9VTUMocmVnKQkoUlJFRzMyKHJlZykgfCBcDQo+ICsJ
+CQkJKCh1aW50NjRfdClSUkVHMzIoKHJlZykgKyAxKSA8PCAzMikpDQo+ICsjZGVmaW5lIFdSRUc2
+NF9VTUMocmVnLCB2KQlcDQo+ICsJZG8gewlcDQo+ICsJCVdSRUczMigocmVnKSwgbG93ZXJfMzJf
+Yml0cyh2KSk7CVwNCj4gKwkJV1JFRzMyKChyZWcpICsgMSwgdXBwZXJfMzJfYml0cyh2KSk7CVwN
+Cj4gKwl9IHdoaWxlICgwKQ0KPiArDQo+ICAgLyoNCj4gICAgKiB2b2lkICgqZnVuYykoc3RydWN0
+IGFtZGdwdV9kZXZpY2UgKmFkZXYsIHN0cnVjdCByYXNfZXJyX2RhdGEgKmVycl9kYXRhLA0KPiAg
+ICAqCQkJCXVpbnQzMl90IHVtY19yZWdfb2Zmc2V0LCB1aW50MzJfdCBjaGFubmVsX2luZGV4KQ0K
+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvdW1jX3Y2XzEuYyBiL2Ry
+aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3VtY192Nl8xLmMNCj4gaW5kZXggNjRkZjM3Yjg2MGRk
+Li44NTAyZTczNmY3MjEgMTAwNjQ0DQo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
+L3VtY192Nl8xLmMNCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvdW1jX3Y2XzEu
+Yw0KPiBAQCAtMTE2LDcgKzExNiw3IEBAIHN0YXRpYyB2b2lkIHVtY192Nl8xX3F1ZXJ5X2NvcnJl
+Y3RhYmxlX2Vycm9yX2NvdW50KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LA0KPiAgIA0KPiAg
+IAkvKiBjaGVjayBmb3IgU1JBTSBjb3JyZWN0YWJsZSBlcnJvcg0KPiAgIAkgIE1DVU1DX1NUQVRV
+UyBpcyBhIDY0IGJpdCByZWdpc3RlciAqLw0KPiAtCW1jX3VtY19zdGF0dXMgPSBSUkVHNjQobWNf
+dW1jX3N0YXR1c19hZGRyICsgdW1jX3JlZ19vZmZzZXQpOw0KPiArCW1jX3VtY19zdGF0dXMgPSBS
+UkVHNjRfVU1DKG1jX3VtY19zdGF0dXNfYWRkciArIHVtY19yZWdfb2Zmc2V0KTsNCj4gICAJaWYg
+KFJFR19HRVRfRklFTEQobWNfdW1jX3N0YXR1cywgTUNBX1VNQ19VTUMwX01DVU1DX1NUQVRVU1Qw
+LCBFcnJvckNvZGVFeHQpID09IDYgJiYNCj4gICAJICAgIFJFR19HRVRfRklFTEQobWNfdW1jX3N0
+YXR1cywgTUNBX1VNQ19VTUMwX01DVU1DX1NUQVRVU1QwLCBWYWwpID09IDEgJiYNCj4gICAJICAg
+IFJFR19HRVRfRklFTEQobWNfdW1jX3N0YXR1cywgTUNBX1VNQ19VTUMwX01DVU1DX1NUQVRVU1Qw
+LCBDRUNDKSA9PSAxKQ0KPiBAQCAtMTM0LDcgKzEzNCw3IEBAIHN0YXRpYyB2b2lkIHVtY192Nl8x
+X3F1ZXJyeV91bmNvcnJlY3RhYmxlX2Vycm9yX2NvdW50KHN0cnVjdCBhbWRncHVfZGV2aWNlICph
+ZGV2DQo+ICAgICAgICAgICAgICAgICAgIFNPQzE1X1JFR19PRkZTRVQoVU1DLCAwLCBtbU1DQV9V
+TUNfVU1DMF9NQ1VNQ19TVEFUVVNUMCk7DQo+ICAgDQo+ICAgCS8qIGNoZWNrIHRoZSBNQ1VNQ19T
+VEFUVVMgKi8NCj4gLQltY191bWNfc3RhdHVzID0gUlJFRzY0KG1jX3VtY19zdGF0dXNfYWRkciAr
+IHVtY19yZWdfb2Zmc2V0KTsNCj4gKwltY191bWNfc3RhdHVzID0gUlJFRzY0X1VNQyhtY191bWNf
+c3RhdHVzX2FkZHIgKyB1bWNfcmVnX29mZnNldCk7DQo+ICAgCWlmICgoUkVHX0dFVF9GSUVMRCht
+Y191bWNfc3RhdHVzLCBNQ0FfVU1DX1VNQzBfTUNVTUNfU1RBVFVTVDAsIFZhbCkgPT0gMSkgJiYN
+Cj4gICAJICAgIChSRUdfR0VUX0ZJRUxEKG1jX3VtY19zdGF0dXMsIE1DQV9VTUNfVU1DMF9NQ1VN
+Q19TVEFUVVNUMCwgRGVmZXJyZWQpID09IDEgfHwNCj4gICAJICAgIFJFR19HRVRfRklFTEQobWNf
+dW1jX3N0YXR1cywgTUNBX1VNQ19VTUMwX01DVU1DX1NUQVRVU1QwLCBVRUNDKSA9PSAxIHx8DQo+
+IEBAIC0xNzMsMTEgKzE3MywxMSBAQCBzdGF0aWMgdm9pZCB1bWNfdjZfMV9xdWVyeV9lcnJvcl9h
+ZGRyZXNzKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LA0KPiAgIAkvKiBza2lwIGVycm9yIGFk
+ZHJlc3MgcHJvY2VzcyBpZiAtRU5PTUVNICovDQo+ICAgCWlmICghZXJyX2RhdGEtPmVycl9hZGRy
+KSB7DQo+ICAgCQkvKiBjbGVhciB1bWMgc3RhdHVzICovDQo+IC0JCVdSRUc2NChtY191bWNfc3Rh
+dHVzX2FkZHIgKyB1bWNfcmVnX29mZnNldCwgMHgwVUxMKTsNCj4gKwkJV1JFRzY0X1VNQyhtY191
+bWNfc3RhdHVzX2FkZHIgKyB1bWNfcmVnX29mZnNldCwgMHgwVUxMKTsNCj4gICAJCXJldHVybjsN
+Cj4gICAJfQ0KPiAgIA0KPiAtCW1jX3VtY19zdGF0dXMgPSBSUkVHNjQobWNfdW1jX3N0YXR1c19h
+ZGRyICsgdW1jX3JlZ19vZmZzZXQpOw0KPiArCW1jX3VtY19zdGF0dXMgPSBSUkVHNjRfVU1DKG1j
+X3VtY19zdGF0dXNfYWRkciArIHVtY19yZWdfb2Zmc2V0KTsNCj4gICANCj4gICAJLyogY2FsY3Vs
+YXRlIGVycm9yIGFkZHJlc3MgaWYgdWUvY2UgZXJyb3IgaXMgZGV0ZWN0ZWQgKi8NCj4gICAJaWYg
+KFJFR19HRVRfRklFTEQobWNfdW1jX3N0YXR1cywgTUNBX1VNQ19VTUMwX01DVU1DX1NUQVRVU1Qw
+LCBWYWwpID09IDEgJiYNCj4gQEAgLTIwMCw3ICsyMDAsNyBAQCBzdGF0aWMgdm9pZCB1bWNfdjZf
+MV9xdWVyeV9lcnJvcl9hZGRyZXNzKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LA0KPiAgIAl9
+DQo+ICAgDQo+ICAgCS8qIGNsZWFyIHVtYyBzdGF0dXMgKi8NCj4gLQlXUkVHNjQobWNfdW1jX3N0
+YXR1c19hZGRyICsgdW1jX3JlZ19vZmZzZXQsIDB4MFVMTCk7DQo+ICsJV1JFRzY0X1VNQyhtY191
+bWNfc3RhdHVzX2FkZHIgKyB1bWNfcmVnX29mZnNldCwgMHgwVUxMKTsNCj4gICB9DQo+ICAgDQo+
+ICAgc3RhdGljIHZvaWQgdW1jX3Y2XzFfcXVlcnlfcmFzX2Vycm9yX2FkZHJlc3Moc3RydWN0IGFt
+ZGdwdV9kZXZpY2UgKmFkZXYsDQoNCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0
+b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1k
+LWdmeA==
