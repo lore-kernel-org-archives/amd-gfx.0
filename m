@@ -1,74 +1,61 @@
-From: Gerd Hoffmann <kraxel@redhat.com>
-Subject: Re: 1c74ca7a1a9a ("drm/fb-helper: call vga_remove_vgacon
- automatically.")
-Date: Fri, 9 Aug 2019 10:54:41 +0200
-Message-ID: <20190809085441.vwg2psrndjo2366q@sirius.home.kraxel.org>
-References: <20190808174542.GN20745@zn.tnic>
- <20190809072133.2xlafq4qxitgky6l@sirius.home.kraxel.org>
- <20190809074700.GD2152@zn.tnic>
+From: Catalin Marinas <catalin.marinas@arm.com>
+Subject: Re: [PATCH v19 00/15] arm64: untag user pointers passed to the kernel
+Date: Fri, 9 Aug 2019 10:00:17 +0100
+Message-ID: <20190809090016.GA23083@arrakis.emea.arm.com>
+References: <cover.1563904656.git.andreyknvl@google.com>
+ <CAAeHK+yc0D_nd7nTRsY4=qcSx+eQR0VLut3uXMf4NEiE-VpeCw@mail.gmail.com>
+ <20190724140212.qzvbcx5j2gi5lcoj@willie-the-truck>
+ <CAAeHK+xXzdQHpVXL7f1T2Ef2P7GwFmDMSaBH4VG8fT3=c_OnjQ@mail.gmail.com>
+ <20190724142059.GC21234@fuggles.cambridge.arm.com>
+ <20190806171335.4dzjex5asoertaob@willie-the-truck>
+ <CAAeHK+zF01mxU+PkEYLkoVu-ZZM6jNfL_OwMJKRwLr-sdU4Myg@mail.gmail.com>
+ <201908081410.C16D2BD@keescook>
+ <20190808153300.09d3eb80772515f0ea062833@linux-foundation.org>
+ <201908081608.A4F6711@keescook>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
+Content-Type: text/plain; charset=us-ascii
+Return-path: <linux-kernel-owner@vger.kernel.org>
 Content-Disposition: inline
-In-Reply-To: <20190809074700.GD2152@zn.tnic>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: Borislav Petkov <bp@alien8.de>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+In-Reply-To: <201908081608.A4F6711@keescook>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Kees Cook <keescook@chromium.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, Andrey Konovalov <andreyknvl@google.com>, Will Deacon <will@kernel.org>, Will Deacon <will.deacon@arm.com>, Vincenzo Frascino <vincenzo.frascino@arm.com>, Mark Rutland <mark.rutland@arm.com>, kvm@vger.kernel.org, Szabolcs Nagy <Szabolcs.Nagy@arm.com>, dri-devel@lists.freedesktop.org, Kostya Serebryany <kcc@google.com>, Khalid Aziz <khalid.aziz@oracle.com>, "open list:KERNEL SELFTEST FRAMEWORK" <linux-kselftest@vger.kernel.org>, Felix Kuehling <Felix.Kuehling@amd.com>, Jacob Bramley <Jacob.Bramley@arm.com>, Leon Romanovsky <leon@kernel.org>, linux-rdma@vger.kernel.org, amd-gfx@lists.freedesktop.org, Christoph Hellwig <hch@infradead.org>, Jason Gunthorpe <jgg@ziepe.ca>, Linux ARM <linux-arm-kernel@lis>
 List-Id: amd-gfx.lists.freedesktop.org
 
-T24gRnJpLCBBdWcgMDksIDIwMTkgYXQgMDk6NDc6MDBBTSArMDIwMCwgQm9yaXNsYXYgUGV0a292
-IHdyb3RlOgo+IEhpLAo+IAo+IE9uIEZyaSwgQXVnIDA5LCAyMDE5IGF0IDA5OjIxOjMzQU0gKzAy
-MDAsIEdlcmQgSG9mZm1hbm4gd3JvdGU6Cj4gPiBPbiBUaHUsIEF1ZyAwOCwgMjAxOSBhdCAwNzo0
-NTo0MlBNICswMjAwLCBCb3Jpc2xhdiBQZXRrb3Ygd3JvdGU6Cj4gPiA+IEhpLAo+ID4gPiAKPiA+
-ID4gZm9yIHNvbWUgdW5mYXRob21hYmxlIHRvIG1lIHJlYXNvbiwgdGhlIGNvbW1pdCBpbiAkU3Vi
-amVjdCBicmVha3MKPiA+ID4gYm9vdGluZyBvZiB0aGUgMzItYml0IHBhcnRpdGlvbiBvZiBvbmUg
-b2YgbXkgdGVzdCBib3hlcy4gVGhlIGJveCBkb2Vzbid0Cj4gPiA+IGZpbmlzaCBib290aW5nIChu
-b3JtYWxseSBpdCBib290cyBpbiB0ZXh0IG1vZGUsIHRoZXJlIGlzIG5vIFggc2VydmVyCj4gPiA+
-IHNldHVwIG9uIGl0KSBidXQgaXQgaXMgc3RpbGwgcmVzcG9uc2libGUgaW4gdGhlIHNlbnNlIHRo
-YXQgSSBjYW4gcmVib290Cj4gPiA+IGl0IHdpdGggdGhlIFN5c3JxIGNvbWJpbmF0aW9uLiBObyBv
-dGhlciBrZXlzdHJva2VzIGhhdmUgZWZmZWN0Lgo+ID4gCj4gPiBJcyAidGV4dCBtb2RlIiBhY3R1
-YWwgdmdhIHRleHQgbW9kZSBvciBsaW51eCBjb25zb2xlIEAgZmJjb24/Cj4gPiBXaGF0IGRpc3Bs
-YXkgaGFyZHdhcmUgZG8geW91IGhhdmU/Cj4gPiAKPiA+IENhbiB5b3Ugc3NoIGludG8gdGhlIG1h
-Y2hpbmU/ICBJZiBzbywgY2FuIHlvdSBncmFiIGEga2VybmVsIGxvZyBwbGVhc2U/Cj4gPiBJZiBu
-b3QgcGxlYXNlIHNlbmQgYSBrZXJuZWwgbG9nIG9mIGEgYm9vdCB3aXRoIHRoZSBwYXRjaCByZXZl
-cnRlZC4KPiAKPiBoZXJlJ3MgZG1lc2cgaW4gYSBwcml2YXRlIG1haWwuCgpbIGFkZGluZyBiYWNr
-IHRoZSBtYWlsaW5nIGxpc3QgXQoKPiBJIGNhbiBsb2cgaW50byB0aGUgbWFjaGluZSBhbmQgdGhl
-cmUKPiBhcmUgc29tZSBpbnRlcmVzdGluZyBsaW5lcyBpbiBkbWVzZyB3aGljaCBJIGhvcGUgc2hv
-dWxkIGFuc3dlciB5b3VyCj4gcXVlc3Rpb25zOgo+IAo+IFsgICAgOC4xMzgyNDFdIHJhZGVvbiAw
-MDAwOjAwOjAxLjA6IHJlbW92ZV9jb25mbGljdGluZ19wY2lfZnJhbWVidWZmZXJzOiBiYXIgMDog
-MHhlMDAwMDAwMCAtPiAweGVmZmZmZmZmCj4gWyAgICA4LjEzODU0NV0gcmFkZW9uIDAwMDA6MDA6
-MDEuMDogcmVtb3ZlX2NvbmZsaWN0aW5nX3BjaV9mcmFtZWJ1ZmZlcnM6IGJhciAyOiAweGYwMzAw
-MDAwIC0+IDB4ZjAzM2ZmZmYKPiBbICAgIDguMTM4ODU0XSByYWRlb24gMDAwMDowMDowMS4wOiB2
-Z2FhcmI6IGRlYWN0aXZhdGUgdmdhIGNvbnNvbGUKPiBbICAgIDguMTQwMjY5XSBDb25zb2xlOiBz
-d2l0Y2hpbmcgdG8gY29sb3VyIGR1bW15IGRldmljZSA4MHgyNQoKQSBiaXQgbGF0ZXI6CgogICBb
-ICAgIDguMTk4MTM4XSByYWRlb24gMDAwMDowMDowMS4wOiBEaXJlY3QgZmlybXdhcmUgbG9hZCBm
-b3IgcmFkZW9uL1BBTE1fcGZwLmJpbiBmYWlsZWQgd2l0aCBlcnJvciAtMgogICBbICAgIDguMTk4
-MzUxXSByNjAwX2NwOiBGYWlsZWQgdG8gbG9hZCBmaXJtd2FyZSAicmFkZW9uL1BBTE1fcGZwLmJp
-biIKICAgWyAgICA4LjE5ODUxMl0gW2RybTpldmVyZ3JlZW5faW5pdCBbcmFkZW9uXV0gKkVSUk9S
-KiBGYWlsZWQgdG8gbG9hZCBmaXJtd2FyZSEKICAgWyAgICA4LjE5ODU5MF0gcmFkZW9uIDAwMDA6
-MDA6MDEuMDogRmF0YWwgZXJyb3IgZHVyaW5nIEdQVSBpbml0CgpTbyB0aGUgcmFkZW9uIGRybSBk
-cml2ZXIgdHJpZXMgdG8gbG9hZCBhbmQgZmFpbHMgZHVlIHRvIG1pc3NpbmcgZmlybXdhcmUsCnRo
-YXRzIHdoeSB5b3UgaGF2ZSBhIG5vbi13b3JraW5nIGRpc3BsYXkuCgpTbyB5b3VyIG9wdGlvbnMg
-YXJlOgogIChhKSBpbnN0YWxsIGxpbnV4LWZpcm13YXJlLCBzbyB0aGUgcmFkZW9uIGRyaXZlciBj
-YW4gaW5pdGlhbGl6ZSwgb3IKICAoYikgYm9vdCB5b3VyIGtlcm5lbCB3aXRoICJub21vZGVzZXQi
-IGNvbW1hbmQgbGluZSBvcHRpb24uICBUaGUgcmFkZW9uCiAgICAgIGRyaXZlciB3aWxsIG5vdCBp
-bml0aWFsaXplIHRoZW4sIGFuZCBhbHNvIG5vdCBkaXNhYmxlIGNvbmZsaWN0aW5nCiAgICAgIGRp
-c3BsYXkgZHJpdmVycyAodmdhY29uIG9yIGZiY29uIEAgdmVzYWZiL2VmaWZiKS4KClBvc3NpYmx5
-IGl0IGFsc28gbWFrZXMgc2Vuc2UgdG8gaGF2ZSB0aGUgcmFkZW9uIGRyaXZlciB0cnkgbG9hZCB0
-aGUgZmlybXdhcmUKKGZyb20gZGlzaykgcmF0aGVyIGVhcmx5IGluIHRoZSBpbml0aWFsaXphdGlv
-biBwcm9jZXNzLCBiZWZvcmUgY2FsbGluZwpkcm1fZmJfaGVscGVyX3JlbW92ZV9jb25mbGljdGlu
-Z19wY2lfZnJhbWVidWZmZXJzLCBzbyBmaXJtd2FyZSBub3QgYmVpbmcKaW5zdGFsbGVkIGRvZXNu
-J3Qga2lsbCB0aGUgZGlzcGxheS4KClsgQ2MnaW5nIGFtZC1nZnggZm9yIGNvbW1lbnRzIF0uCgpj
-aGVlcnMsCiAgR2VyZAoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX18KZHJpLWRldmVsIG1haWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Au
-b3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRl
-dmVs
+On Thu, Aug 08, 2019 at 04:09:04PM -0700, Kees Cook wrote:
+> On Thu, Aug 08, 2019 at 03:33:00PM -0700, Andrew Morton wrote:
+> > On Thu, 8 Aug 2019 14:12:19 -0700 Kees Cook <keescook@chromium.org> wrote:
+> > 
+> > > > The ones that are left are the mm ones: 4, 5, 6, 7 and 8.
+> > > > 
+> > > > Andrew, could you take a look and give your Acked-by or pick them up directly?
+> > > 
+> > > Given the subsystem Acks, it seems like 3-10 and 12 could all just go
+> > > via Andrew? I hope he agrees. :)
+> > 
+> > I'll grab everything that has not yet appeared in linux-next.  If more
+> > of these patches appear in linux-next I'll drop those as well.
+> > 
+> > The review discussion against " [PATCH v19 02/15] arm64: Introduce
+> > prctl() options to control the tagged user addresses ABI" has petered
+> > out inconclusively.  prctl() vs arch_prctl().
+> 
+> I've always disliked arch_prctl() existing at all. Given that tagging is
+> likely to be a multi-architectural feature, it seems like the controls
+> should live in prctl() to me.
+
+It took a bit of grep'ing to figure out what Dave H meant by
+arch_prctl(). It's an x86-specific syscall which we do not have on arm64
+(and possibly any other architecture). Actually, we don't have any arm64
+specific syscalls, only the generic unistd.h, hence the confusion. For
+other arm64-specific prctls like SVE we used the generic sys_prctl() and
+I can see x86 not being consistent either (PR_MPX_ENABLE_MANAGEMENT).
+
+In general I disagree with adding any arm64-specific syscalls but in
+this instance it can't even be justified. I'd rather see some clean-up
+similar to arch_ptrace/ptrace_request than introducing new syscall
+numbers (but as I suggested in my reply to Dave, that's for another
+patch series).
+
+-- 
+Catalin
