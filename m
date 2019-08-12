@@ -1,164 +1,55 @@
-From: Alex Deucher <alexdeucher@gmail.com>
-Subject: Re: [PATCH] drm/amd/display: Fix a typo - dce_aduio_mask --> dce_audio_mask
-Date: Mon, 12 Aug 2019 12:09:14 -0400
-Message-ID: <CADnq5_MM+ojG+jmuW-FpdusYzsa2BW_pguGPoMYSQFo4d5z72g@mail.gmail.com>
-References: <20190809201219.629-1-christophe.jaillet@wanadoo.fr>
+From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH][drm-next] drm/amd/powerplay: remove redundant duplicated
+ return check
+Date: Mon, 12 Aug 2019 12:10:42 -0400
+Message-ID: <CADnq5_MKp-x-aEEFtL3B8T7PJ+JusqJAykZwZ4Eu25ieOEPuhg@mail.gmail.com>
+References: <20190805102940.26024-1-colin.king@canonical.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20190809201219.629-1-christophe.jaillet@wanadoo.fr>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
-Cc: "Wentland, Harry" <harry.wentland@amd.com>, "Leo (Sunpeng) Li" <sunpeng.li@amd.com>, "Deucher, Alexander" <alexander.deucher@amd.com>, Christian Koenig <christian.koenig@amd.com>, Chunming Zhou <David1.Zhou@amd.com>, Dave Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, kernel-janitors@vger.kernel.org, Maling list - DRI developers <dri-devel@lists.freedesktop.org>, amd-gfx list <amd-gfx@lists.freedesktop.org>, LKML <linux-kernel@vger.kernel.org>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20190805102940.26024-1-colin.king-Z7WLFzj8eWMS+FvcfC7Uqw@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Colin King <colin.king-Z7WLFzj8eWMS+FvcfC7Uqw@public.gmane.org>
+Cc: David Zhou <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, David Airlie <airlied-cv59FeDIM0c@public.gmane.org>, kernel-janitors-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, LKML <linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Maling list - DRI developers <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>, Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, Evan Quan <evan.quan-5C7GfCeVMHo@public.gmane.org>, Rex Zhu <rex.zhu-5C7GfCeVMHo@public.gmane.org>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
 
-Applied.  thanks!
-
-Alex
-
-On Sat, Aug 10, 2019 at 9:55 AM Christophe JAILLET
-<christophe.jaillet@wanadoo.fr> wrote:
->
-> This should be 'dce_audio_mask', not 'dce_aduio_mask'.
->
-> Signed-off-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
-> ---
->  drivers/gpu/drm/amd/display/dc/dce/dce_audio.c          | 2 +-
->  drivers/gpu/drm/amd/display/dc/dce/dce_audio.h          | 6 +++---
->  drivers/gpu/drm/amd/display/dc/dce100/dce100_resource.c | 2 +-
->  drivers/gpu/drm/amd/display/dc/dce110/dce110_resource.c | 2 +-
->  drivers/gpu/drm/amd/display/dc/dce112/dce112_resource.c | 2 +-
->  drivers/gpu/drm/amd/display/dc/dce120/dce120_resource.c | 2 +-
->  drivers/gpu/drm/amd/display/dc/dce80/dce80_resource.c   | 2 +-
->  drivers/gpu/drm/amd/display/dc/dcn10/dcn10_resource.c   | 2 +-
->  8 files changed, 10 insertions(+), 10 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_audio.c b/drivers/gpu/drm/amd/display/dc/dce/dce_audio.c
-> index 549704998f84..1e88c5f46be7 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dce/dce_audio.c
-> +++ b/drivers/gpu/drm/amd/display/dc/dce/dce_audio.c
-> @@ -937,7 +937,7 @@ struct audio *dce_audio_create(
->                 unsigned int inst,
->                 const struct dce_audio_registers *reg,
->                 const struct dce_audio_shift *shifts,
-> -               const struct dce_aduio_mask *masks
-> +               const struct dce_audio_mask *masks
->                 )
->  {
->         struct dce_audio *audio = kzalloc(sizeof(*audio), GFP_KERNEL);
-> diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_audio.h b/drivers/gpu/drm/amd/display/dc/dce/dce_audio.h
-> index a0d5724aab31..1392fab0860b 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dce/dce_audio.h
-> +++ b/drivers/gpu/drm/amd/display/dc/dce/dce_audio.h
-> @@ -101,7 +101,7 @@ struct dce_audio_shift {
->         uint32_t DCCG_AUDIO_DTO1_USE_512FBR_DTO;
->  };
->
-> -struct dce_aduio_mask {
-> +struct dce_audio_mask {
->         uint32_t AZALIA_ENDPOINT_REG_INDEX;
->         uint32_t AZALIA_ENDPOINT_REG_DATA;
->
-> @@ -125,7 +125,7 @@ struct dce_audio {
->         struct audio base;
->         const struct dce_audio_registers *regs;
->         const struct dce_audio_shift *shifts;
-> -       const struct dce_aduio_mask *masks;
-> +       const struct dce_audio_mask *masks;
->  };
->
->  struct audio *dce_audio_create(
-> @@ -133,7 +133,7 @@ struct audio *dce_audio_create(
->                 unsigned int inst,
->                 const struct dce_audio_registers *reg,
->                 const struct dce_audio_shift *shifts,
-> -               const struct dce_aduio_mask *masks);
-> +               const struct dce_audio_mask *masks);
->
->  void dce_aud_destroy(struct audio **audio);
->
-> diff --git a/drivers/gpu/drm/amd/display/dc/dce100/dce100_resource.c b/drivers/gpu/drm/amd/display/dc/dce100/dce100_resource.c
-> index 6248c8455314..81116286b15b 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dce100/dce100_resource.c
-> +++ b/drivers/gpu/drm/amd/display/dc/dce100/dce100_resource.c
-> @@ -304,7 +304,7 @@ static const struct dce_audio_shift audio_shift = {
->                 AUD_COMMON_MASK_SH_LIST(__SHIFT)
->  };
->
-> -static const struct dce_aduio_mask audio_mask = {
-> +static const struct dce_audio_mask audio_mask = {
->                 AUD_COMMON_MASK_SH_LIST(_MASK)
->  };
->
-> diff --git a/drivers/gpu/drm/amd/display/dc/dce110/dce110_resource.c b/drivers/gpu/drm/amd/display/dc/dce110/dce110_resource.c
-> index 764329264c3b..765e26454a18 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dce110/dce110_resource.c
-> +++ b/drivers/gpu/drm/amd/display/dc/dce110/dce110_resource.c
-> @@ -331,7 +331,7 @@ static const struct dce_audio_shift audio_shift = {
->                 AUD_COMMON_MASK_SH_LIST(__SHIFT)
->  };
->
-> -static const struct dce_aduio_mask audio_mask = {
-> +static const struct dce_audio_mask audio_mask = {
->                 AUD_COMMON_MASK_SH_LIST(_MASK)
->  };
->
-> diff --git a/drivers/gpu/drm/amd/display/dc/dce112/dce112_resource.c b/drivers/gpu/drm/amd/display/dc/dce112/dce112_resource.c
-> index c6136e0ed1a4..3ac4c7e73050 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dce112/dce112_resource.c
-> +++ b/drivers/gpu/drm/amd/display/dc/dce112/dce112_resource.c
-> @@ -337,7 +337,7 @@ static const struct dce_audio_shift audio_shift = {
->                 AUD_COMMON_MASK_SH_LIST(__SHIFT)
->  };
->
-> -static const struct dce_aduio_mask audio_mask = {
-> +static const struct dce_audio_mask audio_mask = {
->                 AUD_COMMON_MASK_SH_LIST(_MASK)
->  };
->
-> diff --git a/drivers/gpu/drm/amd/display/dc/dce120/dce120_resource.c b/drivers/gpu/drm/amd/display/dc/dce120/dce120_resource.c
-> index 54be7ab370df..9a922cd39cf2 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dce120/dce120_resource.c
-> +++ b/drivers/gpu/drm/amd/display/dc/dce120/dce120_resource.c
-> @@ -352,7 +352,7 @@ static const struct dce_audio_shift audio_shift = {
->                 DCE120_AUD_COMMON_MASK_SH_LIST(__SHIFT)
->  };
->
-> -static const struct dce_aduio_mask audio_mask = {
-> +static const struct dce_audio_mask audio_mask = {
->                 DCE120_AUD_COMMON_MASK_SH_LIST(_MASK)
->  };
->
-> diff --git a/drivers/gpu/drm/amd/display/dc/dce80/dce80_resource.c b/drivers/gpu/drm/amd/display/dc/dce80/dce80_resource.c
-> index 860a524ebcfa..2a1ce9ecc66e 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dce80/dce80_resource.c
-> +++ b/drivers/gpu/drm/amd/display/dc/dce80/dce80_resource.c
-> @@ -322,7 +322,7 @@ static const struct dce_audio_shift audio_shift = {
->                 AUD_COMMON_MASK_SH_LIST(__SHIFT)
->  };
->
-> -static const struct dce_aduio_mask audio_mask = {
-> +static const struct dce_audio_mask audio_mask = {
->                 AUD_COMMON_MASK_SH_LIST(_MASK)
->  };
->
-> diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_resource.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_resource.c
-> index 1a20461c2937..1c5835975935 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_resource.c
-> +++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_resource.c
-> @@ -270,7 +270,7 @@ static const struct dce_audio_shift audio_shift = {
->                 DCE120_AUD_COMMON_MASK_SH_LIST(__SHIFT)
->  };
->
-> -static const struct dce_aduio_mask audio_mask = {
-> +static const struct dce_audio_mask audio_mask = {
->                 DCE120_AUD_COMMON_MASK_SH_LIST(_MASK)
->  };
->
-> --
-> 2.20.1
->
-> _______________________________________________
-> dri-devel mailing list
-> dri-devel@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/dri-devel
+QXBwbGllZC4gIHRoYW5rcyEKCkFsZXgKCk9uIE1vbiwgQXVnIDUsIDIwMTkgYXQgNjoyOSBBTSBD
+b2xpbiBLaW5nIDxjb2xpbi5raW5nQGNhbm9uaWNhbC5jb20+IHdyb3RlOgo+Cj4gRnJvbTogQ29s
+aW4gSWFuIEtpbmcgPGNvbGluLmtpbmdAY2Fub25pY2FsLmNvbT4KPgo+IFRoZSBjaGVjayBvbiBy
+ZXQgaXMgZHVwbGljYXRlZCBpbiB0d28gcGxhY2VzLCBpdCBpcyByZWR1bmRhbnQgY29kZS4KPiBS
+ZW1vdmUgaXQuCj4KPiBBZGRyZXNzZXMtQ292ZXJpdHk6ICgiTG9naWNhbGx5IGRlYWQgY29kZSIp
+Cj4gRml4ZXM6IGI5NGFmYjYxY2RhZSAoImRybS9hbWQvcG93ZXJwbGF5OiBob25vciBodyBsaW1p
+dCBvbiBmZXRjaGluZyBtZXRyaWNzIGRhdGEgZm9yIG5hdmkxMCIpCj4gU2lnbmVkLW9mZi1ieTog
+Q29saW4gSWFuIEtpbmcgPGNvbGluLmtpbmdAY2Fub25pY2FsLmNvbT4KPiAtLS0KPiAgZHJpdmVy
+cy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvbmF2aTEwX3BwdC5jIHwgNCAtLS0tCj4gIDEgZmlsZSBj
+aGFuZ2VkLCA0IGRlbGV0aW9ucygtKQo+Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9h
+bWQvcG93ZXJwbGF5L25hdmkxMF9wcHQuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5
+L25hdmkxMF9wcHQuYwo+IGluZGV4IGQ2MmMyNzg0YjEwMi4uYjI3MmM4ZGM4Zjc5IDEwMDY0NAo+
+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L25hdmkxMF9wcHQuYwo+ICsrKyBi
+L2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L25hdmkxMF9wcHQuYwo+IEBAIC05NDEsOCAr
+OTQxLDYgQEAgc3RhdGljIGludCBuYXZpMTBfZ2V0X2dwdV9wb3dlcihzdHJ1Y3Qgc211X2NvbnRl
+eHQgKnNtdSwgdWludDMyX3QgKnZhbHVlKQo+ICAgICAgICAgcmV0ID0gbmF2aTEwX2dldF9tZXRy
+aWNzX3RhYmxlKHNtdSwgJm1ldHJpY3MpOwo+ICAgICAgICAgaWYgKHJldCkKPiAgICAgICAgICAg
+ICAgICAgcmV0dXJuIHJldDsKPiAtICAgICAgIGlmIChyZXQpCj4gLSAgICAgICAgICAgICAgIHJl
+dHVybiByZXQ7Cj4KPiAgICAgICAgICp2YWx1ZSA9IG1ldHJpY3MuQXZlcmFnZVNvY2tldFBvd2Vy
+IDw8IDg7Cj4KPiBAQCAtMTAwMSw4ICs5OTksNiBAQCBzdGF0aWMgaW50IG5hdmkxMF9nZXRfZmFu
+X3NwZWVkX3JwbShzdHJ1Y3Qgc211X2NvbnRleHQgKnNtdSwKPiAgICAgICAgIHJldCA9IG5hdmkx
+MF9nZXRfbWV0cmljc190YWJsZShzbXUsICZtZXRyaWNzKTsKPiAgICAgICAgIGlmIChyZXQpCj4g
+ICAgICAgICAgICAgICAgIHJldHVybiByZXQ7Cj4gLSAgICAgICBpZiAocmV0KQo+IC0gICAgICAg
+ICAgICAgICByZXR1cm4gcmV0Owo+Cj4gICAgICAgICAqc3BlZWQgPSBtZXRyaWNzLkN1cnJGYW5T
+cGVlZDsKPgo+IC0tCj4gMi4yMC4xCj4KPiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fXwo+IGRyaS1kZXZlbCBtYWlsaW5nIGxpc3QKPiBkcmktZGV2ZWxAbGlz
+dHMuZnJlZWRlc2t0b3Aub3JnCj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1h
+bi9saXN0aW5mby9kcmktZGV2ZWwKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3Rv
+cC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQt
+Z2Z4
