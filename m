@@ -1,14 +1,13 @@
-From: "Gui, Jack" <Jack.Gui-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH 2/2] drm/amd/powerplay: add arcturus_is_dpm_running
+From: "Wang, Kevin(Yang)" <Kevin1.Wang-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 2/2] drm/amd/powerplay: add arcturus_is_dpm_running
  function for arcturus
-Date: Mon, 12 Aug 2019 09:51:17 +0000
-Message-ID: <MN2PR12MB35820DB4E84513D7F47606088BD30@MN2PR12MB3582.namprd12.prod.outlook.com>
+Date: Mon, 12 Aug 2019 09:52:15 +0000
+Message-ID: <MN2PR12MB3296807CB0DAC9F94D795E56A2D30@MN2PR12MB3296.namprd12.prod.outlook.com>
 References: <1565598138-13844-1-git-send-email-Jack.Gui@amd.com>
- <1565598138-13844-2-git-send-email-Jack.Gui@amd.com>
+ <1565598138-13844-2-git-send-email-Jack.Gui@amd.com>,
  <MN2PR12MB33441DEDEEB00F8F321F72BBE4D30@MN2PR12MB3344.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1464525492=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 In-Reply-To: <MN2PR12MB33441DEDEEB00F8F321F72BBE4D30-rweVpJHSKToDMgCC8P//OwdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
 Content-Language: en-US
@@ -22,62 +21,292 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Quan, Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Quan, Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>, "Gui, Jack" <Jack.Gui-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-SGkgRXZhbiwNCg0KQWxsIHN1cHBvcnRlZCBmZWF0dXJlIGNhbiBiZSBzZXQgdGhlcmUsIA0KQW55
-b25lIG9mIHRoZXNlIGZlYXR1cmVzIGlzIHJ1bm5pbmcsIHdlIGNhbiBqdWRnZSBkcG0gaXMgcnVu
-bmluZy4gIA0KDQpCUiwNCkphY2sgR3VpDQoNCi0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQpG
-cm9tOiBRdWFuLCBFdmFuIDxFdmFuLlF1YW5AYW1kLmNvbT4gDQpTZW50OiBNb25kYXksIEF1Z3Vz
-dCAxMiwgMjAxOSA1OjM5IFBNDQpUbzogR3VpLCBKYWNrIDxKYWNrLkd1aUBhbWQuY29tPjsgYW1k
-LWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCkNjOiBHdWksIEphY2sgPEphY2suR3VpQGFtZC5j
-b20+DQpTdWJqZWN0OiBSRTogW1BBVENIIDIvMl0gZHJtL2FtZC9wb3dlcnBsYXk6IGFkZCBhcmN0
-dXJ1c19pc19kcG1fcnVubmluZyBmdW5jdGlvbiBmb3IgYXJjdHVydXMNCg0KUGxlYXNlIHNldCBG
-RUFUVVJFX0RQTV9QUkVGRVRDSEVSX01BU0sgfCBGRUFUVVJFX0RQTV9HRlhDTEtfTUFTSyBvbmx5
-LiBGb3Igbm93LCBvbmx5IHRoZXNlIHR3byBhcmUgZW5hYmxlZCBvbiBhcmN0dXJ1cy4NCg0KV2l0
-aCB0aGF0IGZpeGVkLCB0aGUgcGF0Y2ggaXMgcmV2aWV3ZWQtYnk6IEV2YW4gUXVhbiA8ZXZhbi5x
-dWFuQGFtZC5jb20+DQo+IC0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQo+IEZyb206IGFtZC1n
-ZnggPGFtZC1nZngtYm91bmNlc0BsaXN0cy5mcmVlZGVza3RvcC5vcmc+IE9uIEJlaGFsZiBPZiAN
-Cj4gQ2hlbmdtaW5nIEd1aQ0KPiBTZW50OiBNb25kYXksIEF1Z3VzdCAxMiwgMjAxOSA0OjIyIFBN
-DQo+IFRvOiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0KPiBDYzogR3VpLCBKYWNrIDxK
-YWNrLkd1aUBhbWQuY29tPg0KPiBTdWJqZWN0OiBbUEFUQ0ggMi8yXSBkcm0vYW1kL3Bvd2VycGxh
-eTogYWRkIGFyY3R1cnVzX2lzX2RwbV9ydW5uaW5nIA0KPiBmdW5jdGlvbiBmb3IgYXJjdHVydXMN
-Cj4gDQo+IGFkZCBhcmN0dXJ1c19pc19kcG1fcnVubmluZyBmdW5jdGlvbg0KPiANCj4gU2lnbmVk
-LW9mZi1ieTogQ2hlbmdtaW5nIEd1aSA8SmFjay5HdWlAYW1kLmNvbT4NCj4gLS0tDQo+ICBkcml2
-ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9hcmN0dXJ1c19wcHQuYyB8IDIxDQo+ICsrKysrKysr
-KysrKysrKysrKysrKw0KPiAgMSBmaWxlIGNoYW5nZWQsIDIxIGluc2VydGlvbnMoKykNCj4gDQo+
-IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9hcmN0dXJ1c19wcHQu
-Yw0KPiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2FyY3R1cnVzX3BwdC5jDQo+IGlu
-ZGV4IDAzY2U4NzEuLjkxMDdiZWIgMTAwNjQ0DQo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-cG93ZXJwbGF5L2FyY3R1cnVzX3BwdC5jDQo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93
-ZXJwbGF5L2FyY3R1cnVzX3BwdC5jDQo+IEBAIC01MSw2ICs1MSwxNSBAQA0KPiAgI2RlZmluZSBT
-TVVfRkVBVFVSRVNfSElHSF9NQVNLICAgICAgIDB4RkZGRkZGRkYwMDAwMDAwMA0KPiAgI2RlZmlu
-ZSBTTVVfRkVBVFVSRVNfSElHSF9TSElGVCAgICAgIDMyDQo+IA0KPiArI2RlZmluZSBTTUNfRFBN
-X0ZFQVRVUkUgKCBcDQo+ICsJRkVBVFVSRV9EUE1fUFJFRkVUQ0hFUl9NQVNLIHwgXA0KPiArCUZF
-QVRVUkVfRFBNX0dGWENMS19NQVNLIHwgXA0KPiArCUZFQVRVUkVfRFBNX1VDTEtfTUFTSyB8IFwN
-Cj4gKwlGRUFUVVJFX0RQTV9TT0NDTEtfTUFTSyB8IFwNCj4gKwlGRUFUVVJFX0RQTV9NUDBDTEtf
-TUFTSyB8IFwNCj4gKwlGRUFUVVJFX0RQTV9GQ0xLX01BU0sgfCBcDQo+ICsJRkVBVFVSRV9EUE1f
-WEdNSV9NQVNLKQ0KPiArDQo+ICAvKiBwb3NzaWJsZSBmcmVxdWVuY3kgZHJpZnQgKDFNaHopICov
-DQo+ICAjZGVmaW5lIEVQU0lMT04JCQkJMQ0KPiANCj4gQEAgLTE4NzMsNiArMTg4MiwxNyBAQCBz
-dGF0aWMgdm9pZCBhcmN0dXJ1c19kdW1wX3BwdGFibGUoc3RydWN0IA0KPiBzbXVfY29udGV4dCAq
-c211KQ0KPiANCj4gIH0NCj4gDQo+ICtzdGF0aWMgYm9vbCBhcmN0dXJ1c19pc19kcG1fcnVubmlu
-ZyhzdHJ1Y3Qgc211X2NvbnRleHQgKnNtdSkgew0KPiArCWludCByZXQgPSAwOw0KPiArCXVpbnQz
-Ml90IGZlYXR1cmVfbWFza1syXTsNCj4gKwl1bnNpZ25lZCBsb25nIGZlYXR1cmVfZW5hYmxlZDsN
-Cj4gKwlyZXQgPSBzbXVfZmVhdHVyZV9nZXRfZW5hYmxlZF9tYXNrKHNtdSwgZmVhdHVyZV9tYXNr
-LCAyKTsNCj4gKwlmZWF0dXJlX2VuYWJsZWQgPSAodW5zaWduZWQgbG9uZykoKHVpbnQ2NF90KWZl
-YXR1cmVfbWFza1swXSB8DQo+ICsJCQkgICAoKHVpbnQ2NF90KWZlYXR1cmVfbWFza1sxXSA8PCAz
-MikpOw0KPiArCXJldHVybiAhIShmZWF0dXJlX2VuYWJsZWQgJiBTTUNfRFBNX0ZFQVRVUkUpOyB9
-DQo+ICsNCj4gIHN0YXRpYyBjb25zdCBzdHJ1Y3QgcHB0YWJsZV9mdW5jcyBhcmN0dXJ1c19wcHRf
-ZnVuY3MgPSB7DQo+ICAJLyogdHJhbnNsYXRlIHNtdSBpbmRleCBpbnRvIGFyY3R1cnVzIHNwZWNp
-ZmljIGluZGV4ICovDQo+ICAJLmdldF9zbXVfbXNnX2luZGV4ID0gYXJjdHVydXNfZ2V0X3NtdV9t
-c2dfaW5kZXgsIEBAIC0xOTEwLDYNCj4gKzE5MzAsNyBAQCBzdGF0aWMgY29uc3Qgc3RydWN0IHBw
-dGFibGVfZnVuY3MgYXJjdHVydXNfcHB0X2Z1bmNzID0gew0KPiAgCS8qIGRlYnVnIChpbnRlcm5h
-bCB1c2VkKSAqLw0KPiAgCS5kdW1wX3BwdGFibGUgPSBhcmN0dXJ1c19kdW1wX3BwdGFibGUsDQo+
-ICAJLmdldF9wb3dlcl9saW1pdCA9IGFyY3R1cnVzX2dldF9wb3dlcl9saW1pdCwNCj4gKwkuaXNf
-ZHBtX3J1bm5pbmcgPSBhcmN0dXJ1c19pc19kcG1fcnVubmluZywNCj4gIH07DQo+IA0KPiAgdm9p
-ZCBhcmN0dXJ1c19zZXRfcHB0X2Z1bmNzKHN0cnVjdCBzbXVfY29udGV4dCAqc211KQ0KPiAtLQ0K
-PiAyLjcuNA0KPiANCj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX18NCj4gYW1kLWdmeCBtYWlsaW5nIGxpc3QNCj4gYW1kLWdmeEBsaXN0cy5mcmVlZGVza3Rv
-cC5vcmcNCj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9h
-bWQtZ2Z4DQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwph
-bWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczov
-L2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
+--===============1464525492==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_MN2PR12MB3296807CB0DAC9F94D795E56A2D30MN2PR12MB3296namp_"
+
+--_000_MN2PR12MB3296807CB0DAC9F94D795E56A2D30MN2PR12MB3296namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+if any DPM feature is enabled, then DPM is running, return true.
+if all DPM feature is disabled, the DPM is not running, return false.
+so the macro of  "SMC_DPM_FEATURE" should be include all dpm feature, wheth=
+er is enabled or supported.
+i think the @Gui, Jack<mailto:Jack.Gui-5C7GfCeVMHo@public.gmane.org>'s patch is right.
+
+Best Regards,
+Kevin
+
+________________________________
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Quan, Ev=
+an <Evan.Quan-5C7GfCeVMHo@public.gmane.org>
+Sent: Monday, August 12, 2019 5:38 PM
+To: Gui, Jack <Jack.Gui-5C7GfCeVMHo@public.gmane.org>; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org <amd-gfx@li=
+sts.freedesktop.org>
+Cc: Gui, Jack <Jack.Gui-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: [PATCH 2/2] drm/amd/powerplay: add arcturus_is_dpm_running fun=
+ction for arcturus
+
+Please set FEATURE_DPM_PREFETCHER_MASK | FEATURE_DPM_GFXCLK_MASK only. For =
+now, only these two are enabled on arcturus.
+
+With that fixed, the patch is reviewed-by: Evan Quan <evan.quan-5C7GfCeVMHo@public.gmane.org>
+> -----Original Message-----
+> From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> On Behalf Of
+> Chengming Gui
+> Sent: Monday, August 12, 2019 4:22 PM
+> To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> Cc: Gui, Jack <Jack.Gui-5C7GfCeVMHo@public.gmane.org>
+> Subject: [PATCH 2/2] drm/amd/powerplay: add arcturus_is_dpm_running
+> function for arcturus
+>
+> add arcturus_is_dpm_running function
+>
+> Signed-off-by: Chengming Gui <Jack.Gui-5C7GfCeVMHo@public.gmane.org>
+> ---
+>  drivers/gpu/drm/amd/powerplay/arcturus_ppt.c | 21
+> +++++++++++++++++++++
+>  1 file changed, 21 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c
+> b/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c
+> index 03ce871..9107beb 100644
+> --- a/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c
+> +++ b/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c
+> @@ -51,6 +51,15 @@
+>  #define SMU_FEATURES_HIGH_MASK       0xFFFFFFFF00000000
+>  #define SMU_FEATURES_HIGH_SHIFT      32
+>
+> +#define SMC_DPM_FEATURE ( \
+> +     FEATURE_DPM_PREFETCHER_MASK | \
+> +     FEATURE_DPM_GFXCLK_MASK | \
+> +     FEATURE_DPM_UCLK_MASK | \
+> +     FEATURE_DPM_SOCCLK_MASK | \
+> +     FEATURE_DPM_MP0CLK_MASK | \
+> +     FEATURE_DPM_FCLK_MASK | \
+> +     FEATURE_DPM_XGMI_MASK)
+> +
+>  /* possible frequency drift (1Mhz) */
+>  #define EPSILON                              1
+>
+> @@ -1873,6 +1882,17 @@ static void arcturus_dump_pptable(struct
+> smu_context *smu)
+>
+>  }
+>
+> +static bool arcturus_is_dpm_running(struct smu_context *smu) {
+> +     int ret =3D 0;
+> +     uint32_t feature_mask[2];
+> +     unsigned long feature_enabled;
+> +     ret =3D smu_feature_get_enabled_mask(smu, feature_mask, 2);
+> +     feature_enabled =3D (unsigned long)((uint64_t)feature_mask[0] |
+> +                        ((uint64_t)feature_mask[1] << 32));
+> +     return !!(feature_enabled & SMC_DPM_FEATURE); }
+> +
+>  static const struct pptable_funcs arcturus_ppt_funcs =3D {
+>        /* translate smu index into arcturus specific index */
+>        .get_smu_msg_index =3D arcturus_get_smu_msg_index, @@ -1910,6
+> +1930,7 @@ static const struct pptable_funcs arcturus_ppt_funcs =3D {
+>        /* debug (internal used) */
+>        .dump_pptable =3D arcturus_dump_pptable,
+>        .get_power_limit =3D arcturus_get_power_limit,
+> +     .is_dpm_running =3D arcturus_is_dpm_running,
+>  };
+>
+>  void arcturus_set_ppt_funcs(struct smu_context *smu)
+> --
+> 2.7.4
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+_______________________________________________
+amd-gfx mailing list
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--_000_MN2PR12MB3296807CB0DAC9F94D795E56A2D30MN2PR12MB3296namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<span>if any DPM feature is enabled, then DPM is running, return true.</spa=
+n></div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<span>if all DPM feature is disabled, the DPM is not running, return false.=
+</span></div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<span style=3D"color: rgb(0, 0, 0); font-family: Calibri, Arial, Helvetica,=
+ sans-serif; font-size: 12pt;">so the macro of&nbsp; &quot;</span><i style=
+=3D"font-size: 12pt; font-variant-ligatures: inherit; font-variant-caps: in=
+herit; font-weight: inherit;">SMC_DPM_FEATURE</i><span style=3D"color: rgb(=
+0, 0, 0); font-family: Calibri, Arial, Helvetica, sans-serif; font-size: 12=
+pt;">&quot;
+ should be include all dpm feature, whether is enabled or supported.</span>=
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<span>i think the&nbsp;<a id=3D"OWAAM823302" class=3D"_1OtrSZdhKXVv3Uhaivrd=
+J4 mention ms-bgc-nlr ms-fcl-b" href=3D"mailto:Jack.Gui-5C7GfCeVMHo@public.gmane.org">@Gui, Jack=
+</a>'s patch is right.</span></div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<span><br>
+</span></div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<span>Best Regards,<br>
+Kevin<br>
+</span><span></span><br>
+</div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
+ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Quan, Evan &lt;Evan.Quan@amd.=
+com&gt;<br>
+<b>Sent:</b> Monday, August 12, 2019 5:38 PM<br>
+<b>To:</b> Gui, Jack &lt;Jack.Gui-5C7GfCeVMHo@public.gmane.org&gt;; amd-gfx-PD4FTy7X32lNgt0PjOBp9/EVdHwE84te@public.gmane.org=
+g &lt;amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt;<br>
+<b>Cc:</b> Gui, Jack &lt;Jack.Gui-5C7GfCeVMHo@public.gmane.org&gt;<br>
+<b>Subject:</b> RE: [PATCH 2/2] drm/amd/powerplay: add arcturus_is_dpm_runn=
+ing function for arcturus</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">Please set FEATURE_DPM_PREFETCHER_MASK | FEATURE_D=
+PM_GFXCLK_MASK only. For now, only these two are enabled on arcturus.<br>
+<br>
+With that fixed, the patch is reviewed-by: Evan Quan &lt;evan.quan-5C7GfCeVMHo@public.gmane.org&=
+gt;<br>
+&gt; -----Original Message-----<br>
+&gt; From: amd-gfx &lt;amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; On Behalf =
+Of<br>
+&gt; Chengming Gui<br>
+&gt; Sent: Monday, August 12, 2019 4:22 PM<br>
+&gt; To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+&gt; Cc: Gui, Jack &lt;Jack.Gui-5C7GfCeVMHo@public.gmane.org&gt;<br>
+&gt; Subject: [PATCH 2/2] drm/amd/powerplay: add arcturus_is_dpm_running<br=
+>
+&gt; function for arcturus<br>
+&gt; <br>
+&gt; add arcturus_is_dpm_running function<br>
+&gt; <br>
+&gt; Signed-off-by: Chengming Gui &lt;Jack.Gui-5C7GfCeVMHo@public.gmane.org&gt;<br>
+&gt; ---<br>
+&gt;&nbsp; drivers/gpu/drm/amd/powerplay/arcturus_ppt.c | 21<br>
+&gt; &#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;=
+&#43;&#43;&#43;&#43;&#43;&#43;&#43;<br>
+&gt;&nbsp; 1 file changed, 21 insertions(&#43;)<br>
+&gt; <br>
+&gt; diff --git a/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c<br>
+&gt; b/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c<br>
+&gt; index 03ce871..9107beb 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c<br>
+&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c<br>
+&gt; @@ -51,6 &#43;51,15 @@<br>
+&gt;&nbsp; #define SMU_FEATURES_HIGH_MASK&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p; 0xFFFFFFFF00000000<br>
+&gt;&nbsp; #define SMU_FEATURES_HIGH_SHIFT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 32=
+<br>
+&gt; <br>
+&gt; &#43;#define SMC_DPM_FEATURE ( \<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; FEATURE_DPM_PREFETCHER_MASK | \<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; FEATURE_DPM_GFXCLK_MASK | \<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; FEATURE_DPM_UCLK_MASK | \<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; FEATURE_DPM_SOCCLK_MASK | \<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; FEATURE_DPM_MP0CLK_MASK | \<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; FEATURE_DPM_FCLK_MASK | \<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; FEATURE_DPM_XGMI_MASK)<br>
+&gt; &#43;<br>
+&gt;&nbsp; /* possible frequency drift (1Mhz) */<br>
+&gt;&nbsp; #define EPSILON&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1<br>
+&gt; <br>
+&gt; @@ -1873,6 &#43;1882,17 @@ static void arcturus_dump_pptable(struct<br=
+>
+&gt; smu_context *smu)<br>
+&gt; <br>
+&gt;&nbsp; }<br>
+&gt; <br>
+&gt; &#43;static bool arcturus_is_dpm_running(struct smu_context *smu) {<br=
+>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; int ret =3D 0;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t feature_mask[2];<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; unsigned long feature_enabled;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D smu_feature_get_enabled_mask(smu=
+, feature_mask, 2);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; feature_enabled =3D (unsigned long)((uin=
+t64_t)feature_mask[0] |<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (=
+(uint64_t)feature_mask[1] &lt;&lt; 32));<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; return !!(feature_enabled &amp; SMC_DPM_=
+FEATURE); }<br>
+&gt; &#43;<br>
+&gt;&nbsp; static const struct pptable_funcs arcturus_ppt_funcs =3D {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* translate smu index into =
+arcturus specific index */<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .get_smu_msg_index =3D arctu=
+rus_get_smu_msg_index, @@ -1910,6<br>
+&gt; &#43;1930,7 @@ static const struct pptable_funcs arcturus_ppt_funcs =
+=3D {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* debug (internal used) */<=
+br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .dump_pptable =3D arcturus_d=
+ump_pptable,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .get_power_limit =3D arcturu=
+s_get_power_limit,<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; .is_dpm_running =3D arcturus_is_dpm_runn=
+ing,<br>
+&gt;&nbsp; };<br>
+&gt; <br>
+&gt;&nbsp; void arcturus_set_ppt_funcs(struct smu_context *smu)<br>
+&gt; --<br>
+&gt; 2.7.4<br>
+&gt; <br>
+&gt; _______________________________________________<br>
+&gt; amd-gfx mailing list<br>
+&gt; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+&gt; <a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">htt=
+ps://lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
+_______________________________________________<br>
+amd-gfx mailing list<br>
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
+lists.freedesktop.org/mailman/listinfo/amd-gfx</a></div>
+</span></font></div>
+</body>
+</html>
+
+--_000_MN2PR12MB3296807CB0DAC9F94D795E56A2D30MN2PR12MB3296namp_--
+
+--===============1464525492==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+
+--===============1464525492==--
