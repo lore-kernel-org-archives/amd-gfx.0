@@ -1,40 +1,92 @@
-From: Ralph Campbell <rcampbell@nvidia.com>
-Subject: Re: [PATCH] nouveau/hmm: map pages after migration
-Date: Mon, 12 Aug 2019 12:42:30 -0700
-Message-ID: <1a84e6b6-31e6-6955-509f-9883f4a7a322@nvidia.com>
-References: <20190807150214.3629-1-rcampbell@nvidia.com>
- <20190808070701.GC29382@lst.de>
- <0b96a8d8-86b5-3ce0-db95-669963c1f8a7@nvidia.com>
- <20190810111308.GB26349@lst.de>
+From: "Deng, Emily" <Emily.Deng-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: [PATCH] SWDEV-197284 - drm/amdgpu: Only use the peek function in
+ productor side is not correct
+Date: Tue, 13 Aug 2019 02:32:36 +0000
+Message-ID: <MN2PR12MB29756562F2194B2EAA2146438FD20@MN2PR12MB2975.namprd12.prod.outlook.com>
+References: <1565595762-8141-1-git-send-email-Emily.Deng@amd.com>
+ <d05d8b60-ab08-67ec-b57b-6de6b2e40d3e@gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20190810111308.GB26349@lst.de>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <d05d8b60-ab08-67ec-b57b-6de6b2e40d3e-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 Content-Language: en-US
-Sender: linux-kernel-owner@vger.kernel.org
-To: Christoph Hellwig <hch@lst.de>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, Jason Gunthorpe <jgg@mellanox.com>, =?UTF-8?B?SsOpcsO0bWUgR2xpc3Nl?= <jglisse@redhat.com>, Ben Skeggs <bskeggs@redhat.com>
-List-Id: amd-gfx.lists.freedesktop.org
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-
-On 8/10/19 4:13 AM, Christoph Hellwig wrote:
-> On something vaguely related to this patch:
-> 
-> You use the NVIF_VMM_PFNMAP_V0_V* defines from nvif/if000c.h, which are
-> a little odd as we only ever set these bits, but they also don't seem
-> to appear to be in values that are directly fed to the hardware.
-> 
-> On the other hand mmu/vmm.h defines a set of NVIF_VMM_PFNMAP_V0_*
-
-Yes, I see NVKM_VMM_PFN_*
-
-> constants with similar names and identical values, and those are used
-> in mmu/vmmgp100.c and what appears to finally do the low-level dma
-> mapping and talking to the hardware.  Are these two sets of constants
-> supposed to be the same?  Are the actual hardware values or just a
-> driver internal interface?
-
-It looks a bit odd to me too.
-I don't really know the structure/history of nouveau.
-Perhaps Ben Skeggs can shed more light on your question.
+T2ssIHBsZWFzZSBpZ25vcmUgdGhpcyBwYXRjaC4NCg0KDQpCZXN0IHdpc2hlcw0KRW1pbHkgRGVu
+Zw0KDQo+LS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj5Gcm9tOiBDaHJpc3RpYW4gS8O2bmln
+IDxja29lbmlnLmxlaWNodHp1bWVya2VuQGdtYWlsLmNvbT4NCj5TZW50OiBUdWVzZGF5LCBBdWd1
+c3QgMTMsIDIwMTkgMTowMCBBTQ0KPlRvOiBEZW5nLCBFbWlseSA8RW1pbHkuRGVuZ0BhbWQuY29t
+PjsgYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCj5TdWJqZWN0OiBSZTogW1BBVENIXSBT
+V0RFVi0xOTcyODQgLSBkcm0vYW1kZ3B1OiBPbmx5IHVzZSB0aGUgcGVlaw0KPmZ1bmN0aW9uIGlu
+IHByb2R1Y3RvciBzaWRlIGlzIG5vdCBjb3JyZWN0DQo+DQo+QW0gMTIuMDguMTkgdW0gMDk6NDIg
+c2NocmllYiBFbWlseSBEZW5nOg0KPj4gRm9yIHNwc2MgcXVldWUsIHVzZSBwZWVrIGZ1bmN0aW9u
+IHdvdWxkIGNhdXNlIGVycm9yIGluIHByb2R1Y3RvciBzaWRlLg0KPj4gQXMgZm9yIHRoZSBsYXN0
+IGVsZW1lbnQsIHdoZW4gdGhlIHB1c2ggam9iIGlzIG9jY3VycmluZyBkdXJpbmcgcG9wDQo+PiBq
+b2IsIHRoZSBwZWVrIGZ1bmN0aW9uIHdpbGwgbm90IGJlIHVwZGF0ZWQgaW4gdGltZSwgYW5kIGl0
+IHdpbGwgcmV0dXJuIE5VTEwuDQo+Pg0KPj4gU28gdXNlIHF1ZXVlIGNvdW50IGZvciBkb3VibGUg
+Y29uZmlybWluZyB0aGUgam9iIHF1ZXVlIGlzIGVtcHR5Lg0KPg0KPkZvciB0aGUgdXBzdHJlYW0g
+YnJhbmNoIEknbSBnb2luZyB0byBwdXNoIG15IHBhdGNoIHdoaWNoIGlzIG5vdCBhcyBpbnZhc2l2
+ZQ0KPmFzIHRoaXMgb25lLg0KPg0KPkNocmlzdGlhbi4NCj4NCj4+DQo+PiBTaWduZWQtb2ZmLWJ5
+OiBFbWlseSBEZW5nIDxFbWlseS5EZW5nQGFtZC5jb20+DQo+PiAtLS0NCj4+ICAgZHJpdmVycy9n
+cHUvZHJtL3NjaGVkdWxlci9zY2hlZF9lbnRpdHkuYyB8IDQgKystLQ0KPj4gICBpbmNsdWRlL2Ry
+bS9zcHNjX3F1ZXVlLmggICAgICAgICAgICAgICAgIHwgNyArKystLS0tDQo+PiAgIDIgZmlsZXMg
+Y2hhbmdlZCwgNSBpbnNlcnRpb25zKCspLCA2IGRlbGV0aW9ucygtKQ0KPj4NCj4+IGRpZmYgLS1n
+aXQgYS9kcml2ZXJzL2dwdS9kcm0vc2NoZWR1bGVyL3NjaGVkX2VudGl0eS5jDQo+PiBiL2RyaXZl
+cnMvZ3B1L2RybS9zY2hlZHVsZXIvc2NoZWRfZW50aXR5LmMNCj4+IGluZGV4IDM1ZGRiZWMuLmU3
+NDg5NGYgMTAwNjQ0DQo+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vc2NoZWR1bGVyL3NjaGVkX2Vu
+dGl0eS5jDQo+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vc2NoZWR1bGVyL3NjaGVkX2VudGl0eS5j
+DQo+PiBAQCAtOTUsNyArOTUsNyBAQCBzdGF0aWMgYm9vbCBkcm1fc2NoZWRfZW50aXR5X2lzX2lk
+bGUoc3RydWN0DQo+ZHJtX3NjaGVkX2VudGl0eSAqZW50aXR5KQ0KPj4gICAJcm1iKCk7IC8qIGZv
+ciBsaXN0X2VtcHR5IHRvIHdvcmsgd2l0aG91dCBsb2NrICovDQo+Pg0KPj4gICAJaWYgKGxpc3Rf
+ZW1wdHkoJmVudGl0eS0+bGlzdCkgfHwNCj4+IC0JICAgIHNwc2NfcXVldWVfcGVlaygmZW50aXR5
+LT5qb2JfcXVldWUpID09IE5VTEwpDQo+PiArCSAgICAoKHNwc2NfcXVldWVfcGVlaygmZW50aXR5
+LT5qb2JfcXVldWUpID09IE5VTEwpICYmDQo+PiArIXNwc2NfcXVldWVfY291bnQoJmVudGl0eS0+
+am9iX3F1ZXVlKSkpDQo+PiAgIAkJcmV0dXJuIHRydWU7DQo+Pg0KPj4gICAJcmV0dXJuIGZhbHNl
+Ow0KPj4gQEAgLTI4MSw3ICsyODEsNyBAQCB2b2lkIGRybV9zY2hlZF9lbnRpdHlfZmluaShzdHJ1
+Y3QgZHJtX3NjaGVkX2VudGl0eQ0KPiplbnRpdHkpDQo+PiAgIAkvKiBDb25zdW1wdGlvbiBvZiBl
+eGlzdGluZyBJQnMgd2Fzbid0IGNvbXBsZXRlZC4gRm9yY2VmdWxseQ0KPj4gICAJICogcmVtb3Zl
+IHRoZW0gaGVyZS4NCj4+ICAgCSAqLw0KPj4gLQlpZiAoc3BzY19xdWV1ZV9wZWVrKCZlbnRpdHkt
+PmpvYl9xdWV1ZSkpIHsNCj4+ICsJaWYgKChzcHNjX3F1ZXVlX3BlZWsoJmVudGl0eS0+am9iX3F1
+ZXVlKSA9PSBOVUxMKSAmJg0KPj4gKyFzcHNjX3F1ZXVlX2NvdW50KCZlbnRpdHktPmpvYl9xdWV1
+ZSkpIHsNCj4+ICAgCQlpZiAoc2NoZWQpIHsNCj4+ICAgCQkJLyogUGFyayB0aGUga2VybmVsIGZv
+ciBhIG1vbWVudCB0byBtYWtlIHN1cmUgaXQgaXNuJ3QNCj5wcm9jZXNzaW5nDQo+PiAgIAkJCSAq
+IG91ciBlbml0eS4NCj4+IGRpZmYgLS1naXQgYS9pbmNsdWRlL2RybS9zcHNjX3F1ZXVlLmggYi9p
+bmNsdWRlL2RybS9zcHNjX3F1ZXVlLmggaW5kZXgNCj4+IDEyNWYwOTYuLjc4MDkyYjkgMTAwNjQ0
+DQo+PiAtLS0gYS9pbmNsdWRlL2RybS9zcHNjX3F1ZXVlLmgNCj4+ICsrKyBiL2luY2x1ZGUvZHJt
+L3Nwc2NfcXVldWUuaA0KPj4gQEAgLTU0LDkgKzU0LDggQEAgc3RhdGljIGlubGluZSB2b2lkIHNw
+c2NfcXVldWVfaW5pdChzdHJ1Y3Qgc3BzY19xdWV1ZQ0KPj4gKnF1ZXVlKQ0KPj4NCj4+ICAgc3Rh
+dGljIGlubGluZSBzdHJ1Y3Qgc3BzY19ub2RlICpzcHNjX3F1ZXVlX3BlZWsoc3RydWN0IHNwc2Nf
+cXVldWUgKnF1ZXVlKQ0KPj4gICB7DQo+PiAtCXJldHVybiBxdWV1ZS0+aGVhZDsNCj4+ICsJcmV0
+dXJuIFJFQURfT05DRShxdWV1ZS0+aGVhZCk7DQo+PiAgIH0NCj4+IC0NCj4+ICAgc3RhdGljIGlu
+bGluZSBpbnQgc3BzY19xdWV1ZV9jb3VudChzdHJ1Y3Qgc3BzY19xdWV1ZSAqcXVldWUpDQo+PiAg
+IHsNCj4+ICAgCXJldHVybiBhdG9taWNfcmVhZCgmcXVldWUtPmpvYl9jb3VudCk7IEBAIC03MCw5
+ICs2OSw5IEBAIHN0YXRpYw0KPj4gaW5saW5lIGJvb2wgc3BzY19xdWV1ZV9wdXNoKHN0cnVjdCBz
+cHNjX3F1ZXVlICpxdWV1ZSwgc3RydWN0IHNwc2Nfbm9kZQ0KPj4gKm4NCj4+DQo+PiAgIAlwcmVl
+bXB0X2Rpc2FibGUoKTsNCj4+DQo+PiArCWF0b21pY19pbmMoJnF1ZXVlLT5qb2JfY291bnQpOw0K
+Pj4gICAJdGFpbCA9IChzdHJ1Y3Qgc3BzY19ub2RlICoqKWF0b21pY19sb25nX3hjaGcoJnF1ZXVl
+LT50YWlsLA0KPihsb25nKSZub2RlLT5uZXh0KTsNCj4+ICAgCVdSSVRFX09OQ0UoKnRhaWwsIG5v
+ZGUpOw0KPj4gLQlhdG9taWNfaW5jKCZxdWV1ZS0+am9iX2NvdW50KTsNCj4+DQo+PiAgIAkvKg0K
+Pj4gICAJICogSW4gY2FzZSBvZiBmaXJzdCBlbGVtZW50IHZlcmlmeSBuZXcgbm9kZSB3aWxsIGJl
+IHZpc2libGUgdG8gdGhlDQo+PiBjb25zdW1lciBAQCAtOTMsNiArOTIsNyBAQCBzdGF0aWMgaW5s
+aW5lIHN0cnVjdCBzcHNjX25vZGUNCj4qc3BzY19xdWV1ZV9wb3Aoc3RydWN0IHNwc2NfcXVldWUg
+KnF1ZXVlKQ0KPj4gICAJLyogVmVyaWZ5IHJlYWRpbmcgZnJvbSBtZW1vcnkgYW5kIG5vdCB0aGUg
+Y2FjaGUgKi8NCj4+ICAgCXNtcF9ybWIoKTsNCj4+DQo+PiArCWF0b21pY19kZWMoJnF1ZXVlLT5q
+b2JfY291bnQpOw0KPj4gICAJbm9kZSA9IFJFQURfT05DRShxdWV1ZS0+aGVhZCk7DQo+Pg0KPj4g
+ICAJaWYgKCFub2RlKQ0KPj4gQEAgLTExMyw3ICsxMTMsNiBAQCBzdGF0aWMgaW5saW5lIHN0cnVj
+dCBzcHNjX25vZGUNCj4qc3BzY19xdWV1ZV9wb3Aoc3RydWN0IHNwc2NfcXVldWUgKnF1ZXVlKQ0K
+Pj4gICAJCX0NCj4+ICAgCX0NCj4+DQo+PiAtCWF0b21pY19kZWMoJnF1ZXVlLT5qb2JfY291bnQp
+Ow0KPj4gICAJcmV0dXJuIG5vZGU7DQo+PiAgIH0NCj4+DQoNCl9fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhA
+bGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxt
+YW4vbGlzdGluZm8vYW1kLWdmeA==
