@@ -1,67 +1,51 @@
-From: "Quan, Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH] drm/amd/powerplay: fix message of SetHardMinByFreq failed
- when feature is disabled
-Date: Tue, 13 Aug 2019 03:38:28 +0000
-Message-ID: <MN2PR12MB3344F707640F4E656C27191DE4D20@MN2PR12MB3344.namprd12.prod.outlook.com>
-References: <20190813023347.8666-1-kevin1.wang@amd.com>
+From: Stefan Wahren <stefan.wahren@i2se.com>
+Subject: Re: [PATCH v2 15/34] staging/vc04_services: convert put_page() to
+ put_user_page*()
+Date: Tue, 13 Aug 2019 07:23:36 +0200
+Message-ID: <f92a9b35-072c-a452-3248-ded047a9ee7e@i2se.com>
+References: <20190804224915.28669-1-jhubbard@nvidia.com>
+ <20190804224915.28669-16-jhubbard@nvidia.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190813023347.8666-1-kevin1.wang-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+Return-path: <linux-arm-kernel-bounces+linux-arm-kernel=m.gmane.org@lists.infradead.org>
+In-Reply-To: <20190804224915.28669-16-jhubbard@nvidia.com>
 Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "dl.srdc_lnx_nv10" <dl.srdc_lnx_nv10-5C7GfCeVMHo@public.gmane.org>
-Cc: "Feng, Kenneth" <Kenneth.Feng-5C7GfCeVMHo@public.gmane.org>, "Wang,
- Kevin(Yang)" <Kevin1.Wang-5C7GfCeVMHo@public.gmane.org>, "Huang, Ray" <Ray.Huang-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Unsubscribe: <http://lists.infradead.org/mailman/options/linux-arm-kernel>,
+ <mailto:linux-arm-kernel-request@lists.infradead.org?subject=unsubscribe>
+List-Archive: <http://lists.infradead.org/pipermail/linux-arm-kernel/>
+List-Post: <mailto:linux-arm-kernel@lists.infradead.org>
+List-Help: <mailto:linux-arm-kernel-request@lists.infradead.org?subject=help>
+List-Subscribe: <http://lists.infradead.org/mailman/listinfo/linux-arm-kernel>,
+ <mailto:linux-arm-kernel-request@lists.infradead.org?subject=subscribe>
+Sender: "linux-arm-kernel" <linux-arm-kernel-bounces@lists.infradead.org>
+Errors-To: linux-arm-kernel-bounces+linux-arm-kernel=m.gmane.org@lists.infradead.org
+To: john.hubbard@gmail.com, Andrew Morton <akpm@linux-foundation.org>
+Cc: linux-fbdev@vger.kernel.org, Jan Kara <jack@suse.cz>, kvm@vger.kernel.org, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Dave Hansen <dave.hansen@linux.intel.com>, Dave Chinner <david@fromorbit.com>, dri-devel@lists.freedesktop.org, linux-mm@kvack.org, sparclinux@vger.kernel.org, Suniel Mahesh <sunil.m@techveda.org>, Dan Williams <dan.j.williams@intel.com>, devel@driverdev.osuosl.org, rds-devel@oss.oracle.com, linux-rdma@vger.kernel.org, Ira Weiny <ira.weiny@intel.com>, x86@kernel.org, amd-gfx@lists.freedesktop.org, Christoph Hellwig <hch@infradead.org>, Jason Gunthorpe <jgg@ziepe.ca>, John Hubbard <jhubbard@nvidia.com>, xen-devel@lists.xenproject.org, devel@lists.orangefs.org, linux-media@vger.kernel.org, Mihaela Muraru <mihaela.muraru21@gmail.com>, intel-gfx@lists.freedesktop.org, linux-block@vger.kernel.org, =?UTF-8?B?SsOpcsO0bWUgR2xpc3Nl?= <jglisse@redhat.com>l
+List-Id: amd-gfx.lists.freedesktop.org
 
-UmV2aWV3ZWQtYnk6IEV2YW4gUXVhbiA8ZXZhbi5xdWFuQGFtZC5jb20+DQoNCj4gLS0tLS1Pcmln
-aW5hbCBNZXNzYWdlLS0tLS0NCj4gRnJvbTogYW1kLWdmeCA8YW1kLWdmeC1ib3VuY2VzQGxpc3Rz
-LmZyZWVkZXNrdG9wLm9yZz4gT24gQmVoYWxmIE9mDQo+IFdhbmcsIEtldmluKFlhbmcpDQo+IFNl
-bnQ6IFR1ZXNkYXksIEF1Z3VzdCAxMywgMjAxOSAxMDozNCBBTQ0KPiBUbzogZGwuc3JkY19sbnhf
-bnYxMCA8ZGwuc3JkY19sbnhfbnYxMEBhbWQuY29tPg0KPiBDYzogV2FuZywgS2V2aW4oWWFuZykg
-PEtldmluMS5XYW5nQGFtZC5jb20+OyBIdWFuZywgUmF5DQo+IDxSYXkuSHVhbmdAYW1kLmNvbT47
-IEZlbmcsIEtlbm5ldGggPEtlbm5ldGguRmVuZ0BhbWQuY29tPjsgYW1kLQ0KPiBnZnhAbGlzdHMu
-ZnJlZWRlc2t0b3Aub3JnDQo+IFN1YmplY3Q6IFtQQVRDSF0gZHJtL2FtZC9wb3dlcnBsYXk6IGZp
-eCBtZXNzYWdlIG9mIFNldEhhcmRNaW5CeUZyZXENCj4gZmFpbGVkIHdoZW4gZmVhdHVyZSBpcyBk
-aXNhYmxlZA0KPiANCj4gdGhlIGRpcmVjdCBzZW5kIG1lc3NhZ2UgdG8gc21jIHRvIHNldCBoYXJk
-IGNsb2tjIHdpbGwgZmFpbGVkDQo+IHdoZW4gc21jIGNsb2NrIGRwbSBmZWF0dXJlIGlzIGRpc2Fi
-bGVkLg0KPiBzbyB1c2UgZnVuY3Rpb24gb2Ygc211X3NldF9oYXJkX2ZyZXFfcmFuZ2UgdG8gcmVw
-bGFjZSBpdC4NCj4gdGhlIGZ1bmN0aW9uIHdpbGwgY2hlY2sgZmVhdHVyZSBlbmFibGVtZW50Lg0K
-PiANCj4gZWc6IHdoZW4gdWNsayAobWNsaykgZHBtIGZlYXR1cmUgaXMgZGlzYWJsZWQgb24gbmF2
-aTEwDQo+IFvCoCAzMDAuNjc1OTAxXSBhbWRncHU6IFtwb3dlcnBsYXldIGZhaWxlZCBzZW5kIG1l
-c3NhZ2U6DQo+IFNldEhhcmRNaW5CeUZyZXEoMjgpDQo+IMKgwqAgcGFyYW06IDB4MDAwMjAwNjQg
-cmVzcG9uc2UgMHhmZmZmZmZmYg0KPiANCj4gU2lnbmVkLW9mZi1ieTogS2V2aW4gV2FuZyA8a2V2
-aW4xLndhbmdAYW1kLmNvbT4NCj4gLS0tDQo+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxh
-eS9zbXVfdjExXzAuYyB8IDEwICstLS0tLS0tLS0NCj4gIDEgZmlsZSBjaGFuZ2VkLCAxIGluc2Vy
-dGlvbigrKSwgOSBkZWxldGlvbnMoLSkNCj4gDQo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9k
-cm0vYW1kL3Bvd2VycGxheS9zbXVfdjExXzAuYw0KPiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93
-ZXJwbGF5L3NtdV92MTFfMC5jDQo+IGluZGV4IDNhMDgxYWNkZjFhOC4uM2E0OWNhYmY3MjZmIDEw
-MDY0NA0KPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9zbXVfdjExXzAuYw0K
-PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9zbXVfdjExXzAuYw0KPiBAQCAt
-MTMwNiwxNiArMTMwNiw4IEBAIHNtdV92MTFfMF9kaXNwbGF5X2Nsb2NrX3ZvbHRhZ2VfcmVxdWVz
-dChzdHJ1Y3QNCj4gc211X2NvbnRleHQgKnNtdSwNCj4gIAkJaWYgKGNsa19zZWxlY3QgPT0gU01V
-X1VDTEsgJiYgc211LT5kaXNhYmxlX3VjbGtfc3dpdGNoKQ0KPiAgCQkJcmV0dXJuIDA7DQo+IA0K
-PiAtCQljbGtfaWQgPSBzbXVfY2xrX2dldF9pbmRleChzbXUsIGNsa19zZWxlY3QpOw0KPiAtCQlp
-ZiAoY2xrX2lkIDwgMCkgew0KPiAtCQkJcmV0ID0gLUVJTlZBTDsNCj4gLQkJCWdvdG8gZmFpbGVk
-Ow0KPiAtCQl9DQo+IC0NCj4gLQ0KPiAgCQltdXRleF9sb2NrKCZzbXUtPm11dGV4KTsNCj4gLQkJ
-cmV0ID0gc211X3NlbmRfc21jX21zZ193aXRoX3BhcmFtKHNtdSwNCj4gU01VX01TR19TZXRIYXJk
-TWluQnlGcmVxLA0KPiAtCQkJKGNsa19pZCA8PCAxNikgfCBjbGtfZnJlcSk7DQo+ICsJCXJldCA9
-IHNtdV9zZXRfaGFyZF9mcmVxX3JhbmdlKHNtdSwgY2xrX3NlbGVjdCwgMCwgY2xrX2ZyZXEpOw0K
-PiAgCQltdXRleF91bmxvY2soJnNtdS0+bXV0ZXgpOw0KPiANCj4gIAkJaWYoY2xrX3NlbGVjdCA9
-PSBTTVVfVUNMSykNCj4gLS0NCj4gMi4yMi4wDQo+IA0KPiBfX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fXw0KPiBhbWQtZ2Z4IG1haWxpbmcgbGlzdA0KPiBhbWQt
-Z2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0KPiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9y
-Zy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngNCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJl
-ZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGlu
-Zm8vYW1kLWdmeA==
+On 05.08.19 00:48, john.hubbard@gmail.com wrote:
+> From: John Hubbard <jhubbard@nvidia.com>
+>
+> For pages that were retained via get_user_pages*(), release those pages
+> via the new put_user_page*() routines, instead of via put_page() or
+> release_pages().
+>
+> This is part a tree-wide conversion, as described in commit fc1d8e7cca2d
+> ("mm: introduce put_user_page*(), placeholder versions").
+>
+> Acked-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+>
+> Cc: Eric Anholt <eric@anholt.net>
+> Cc: Stefan Wahren <stefan.wahren@i2se.com>
+> Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+> Cc: Mihaela Muraru <mihaela.muraru21@gmail.com>
+> Cc: Suniel Mahesh <sunil.m@techveda.org>
+> Cc: Al Viro <viro@zeniv.linux.org.uk>
+> Cc: Sidong Yang <realwakka@gmail.com>
+> Cc: Kishore KP <kishore.p@techveda.org>
+> Cc: linux-rpi-kernel@lists.infradead.org
+> Cc: linux-arm-kernel@lists.infradead.org
+> Cc: devel@driverdev.osuosl.org
+> Signed-off-by: John Hubbard <jhubbard@nvidia.com>
+Acked-by: Stefan Wahren <stefan.wahren@i2se.com>
