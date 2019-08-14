@@ -1,51 +1,34 @@
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH 1/3] drm/amd/powerplay: Fix meaning of 0x1E PPSMC_MSG
-Date: Wed, 14 Aug 2019 16:04:19 -0400
-Message-ID: <CADnq5_PxNzEa7Wfx-1DmVNh3Bj_D8UcLNaNNqgZiVn_OGn6sqA@mail.gmail.com>
-References: <1565812414-26117-1-git-send-email-andrey.grodzovsky@amd.com>
- <1565812414-26117-2-git-send-email-andrey.grodzovsky@amd.com>
+From: Ralph Campbell <rcampbell@nvidia.com>
+Subject: Re: [PATCH v3 hmm 01/11] mm/mmu_notifiers: hoist
+ do_mmu_notifier_register down_write to the caller
+Date: Wed, 14 Aug 2019 13:14:24 -0700
+Message-ID: <1391be01-932c-68ca-0160-e08ed2a0243d@nvidia.com>
+References: <20190806231548.25242-1-jgg@ziepe.ca>
+ <20190806231548.25242-2-jgg@ziepe.ca>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1565812414-26117-2-git-send-email-andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Andrey Grodzovsky <andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>
-Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Quan,
- Evan" <evan.quan-5C7GfCeVMHo@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "S,
- Shirish" <Shirish.S-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset="utf-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20190806231548.25242-2-jgg@ziepe.ca>
+Content-Language: en-US
+Sender: linux-kernel-owner@vger.kernel.org
+To: Jason Gunthorpe <jgg@ziepe.ca>, linux-mm@kvack.org
+Cc: Andrea Arcangeli <aarcange@redhat.com>, Christoph Hellwig <hch@lst.de>, John Hubbard <jhubbard@nvidia.com>, =?UTF-8?B?SsOpcsO0bWUgR2xpc3Nl?= <jglisse@redhat.com>, "Kuehling, Felix" <Felix.Kuehling@amd.com>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, Dimitri Sivanich <sivanich@sgi.com>, dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org, linux-rdma@vger.kernel.org, iommu@lists.linux-foundation.org, intel-gfx@lists.freedesktop.org, Gavin Shan <shangw@linux.vnet.ibm.com>, Andrea Righi <andrea@betterlinux.com>, Jason Gunthorpe <jgg@mellanox.com>, Christoph Hellwig <hch@infradead.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gV2VkLCBBdWcgMTQsIDIwMTkgYXQgMzo1MyBQTSBBbmRyZXkgR3JvZHpvdnNreQo8YW5kcmV5
-Lmdyb2R6b3Zza3lAYW1kLmNvbT4gd3JvdGU6Cj4KPiBCeSBjb21wYXJpbmcgdG8gd2luZG93cyBp
-dCBtZWFucyBBU0lDIHJlc2V0Lgo+Cj4gU2lnbmVkLW9mZi1ieTogQW5kcmV5IEdyb2R6b3Zza3kg
-PGFuZHJleS5ncm9kem92c2t5QGFtZC5jb20+CgpSZXZpZXdlZC1ieTogQWxleCBEZXVjaGVyIDxh
-bGV4YW5kZXIuZGV1Y2hlckBhbWQuY29tPgoKPiAtLS0KPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9w
-b3dlcnBsYXkvaW5jL3J2X3Bwc21jLmggfCAyICstCj4gIDEgZmlsZSBjaGFuZ2VkLCAxIGluc2Vy
-dGlvbigrKSwgMSBkZWxldGlvbigtKQo+Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9h
-bWQvcG93ZXJwbGF5L2luYy9ydl9wcHNtYy5oIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBs
-YXkvaW5jL3J2X3Bwc21jLmgKPiBpbmRleCA5MDg3OWU0Li5kZjQ2NzdkIDEwMDY0NAo+IC0tLSBh
-L2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2luYy9ydl9wcHNtYy5oCj4gKysrIGIvZHJp
-dmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaW5jL3J2X3Bwc21jLmgKPiBAQCAtNTksNyArNTks
-NyBAQAo+ICAjZGVmaW5lIFBQU01DX01TR19TZXREcml2ZXJEcmFtQWRkckxvdyAgICAgICAgICAw
-eDFCCj4gICNkZWZpbmUgUFBTTUNfTVNHX1RyYW5zZmVyVGFibGVTbXUyRHJhbSAgICAgICAgIDB4
-MUMKPiAgI2RlZmluZSBQUFNNQ19NU0dfVHJhbnNmZXJUYWJsZURyYW0yU211ICAgICAgICAgMHgx
-RAo+IC0jZGVmaW5lIFBQU01DX01TR19Db250cm9sR2Z4Uk0gICAgICAgICAgICAgICAgICAweDFF
-Cj4gKyNkZWZpbmUgUFBTTUNfTVNHX0RldmljZURyaXZlclJlc2V0ICAgICAgICAgICAgIDB4MUUK
-PiAgI2RlZmluZSBQUFNNQ19NU0dfU2V0R2Z4Y2xrT3ZlcmRyaXZlQnlGcmVxVmlkICAgMHgxRgo+
-ICAjZGVmaW5lIFBQU01DX01TR19TZXRIYXJkTWluRGNlZmNsa0J5RnJlcSAgICAgICAweDIwCj4g
-ICNkZWZpbmUgUFBTTUNfTVNHX1NldEhhcmRNaW5Tb2NjbGtCeUZyZXEgICAgICAgIDB4MjEKPiAt
-LQo+IDIuNy40Cj4KPiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fXwo+IGFtZC1nZnggbWFpbGluZyBsaXN0Cj4gYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5v
-cmcKPiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1n
-ZngKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdm
-eCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0
-cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+
+On 8/6/19 4:15 PM, Jason Gunthorpe wrote:
+> From: Jason Gunthorpe <jgg@mellanox.com>
+> 
+> This simplifies the code to not have so many one line functions and extra
+> logic. __mmu_notifier_register() simply becomes the entry point to
+> register the notifier, and the other one calls it under lock.
+> 
+> Also add a lockdep_assert to check that the callers are holding the lock
+> as expected.
+> 
+> Suggested-by: Christoph Hellwig <hch@infradead.org>
+> Signed-off-by: Jason Gunthorpe <jgg@mellanox.com>
+
+Nice clean up.
+Reviewed-by: Ralph Campbell <rcampbell@nvidia.com>
