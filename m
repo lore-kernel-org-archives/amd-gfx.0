@@ -1,61 +1,113 @@
-From: "Zhang, Hawking" <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH] drm/amd/powerplay: add smu if version for navi12
-Date: Wed, 14 Aug 2019 12:37:12 +0000
-Message-ID: <DM5PR12MB14188BB737D446728D222F01FCAD0@DM5PR12MB1418.namprd12.prod.outlook.com>
-References: <20190814112940.10644-1-xiaojie.yuan@amd.com>
+From: Jason Gunthorpe <jgg@mellanox.com>
+Subject: Re: [PATCH 04/15] mm: remove the pgmap field from struct hmm_vma_walk
+Date: Wed, 14 Aug 2019 13:27:50 +0000
+Message-ID: <20190814132746.GE13756@mellanox.com>
+References: <20190806160554.14046-1-hch@lst.de>
+ <20190806160554.14046-5-hch@lst.de> <20190807174548.GJ1571@mellanox.com>
+ <CAPcyv4hPCuHBLhSJgZZEh0CbuuJNPLFDA3f-79FX5uVOO0yubA@mail.gmail.com>
+ <20190808065933.GA29382@lst.de>
+ <CAPcyv4hMUzw8vyXFRPe2pdwef0npbMm9tx9wiZ9MWkHGhH1V6w@mail.gmail.com>
+ <20190814073854.GA27249@lst.de>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190814112940.10644-1-xiaojie.yuan-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20190814073854.GA27249@lst.de>
 Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Yuan, Xiaojie" <Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Xiao, Jack" <Jack.Xiao-5C7GfCeVMHo@public.gmane.org>, "Yin,
- Tianci (Rico)" <Tianci.Yin-5C7GfCeVMHo@public.gmane.org>, "Wang,
- Kevin(Yang)" <Kevin1.Wang-5C7GfCeVMHo@public.gmane.org>
+Content-ID: <EF42566A523CE142A2EFF155B9958285@eurprd05.prod.outlook.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Christoph Hellwig <hch@lst.de>
+Cc: Dan Williams <dan.j.williams@intel.com>, =?iso-8859-1?Q?J=E9r=F4me_Glisse?= <jglisse@redhat.com>, Ben Skeggs <bskeggs@redhat.com>, Felix Kuehling <Felix.Kuehling@amd.com>, Ralph Campbell <rcampbell@nvidia.com>, "linux-mm@kvack.org" <linux-mm@kvack.org>, "nouveau@lists.freedesktop.org" <nouveau@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-UmV2aWV3ZWQtYnk6IEhhd2tpbmcgWmhhbmcgPEhhd2tpbmcuWmhhbmdAYW1kLmNvbT4NCg0KUmVn
-YXJkcywNCkhhd2tpbmcNCi0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQpGcm9tOiBZdWFuLCBY
-aWFvamllIDxYaWFvamllLll1YW5AYW1kLmNvbT4gDQpTZW50OiAyMDE55bm0OOaciDE05pelIDE5
-OjMwDQpUbzogYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCkNjOiBaaGFuZywgSGF3a2lu
-ZyA8SGF3a2luZy5aaGFuZ0BhbWQuY29tPjsgWGlhbywgSmFjayA8SmFjay5YaWFvQGFtZC5jb20+
-OyBZaW4sIFRpYW5jaSAoUmljbykgPFRpYW5jaS5ZaW5AYW1kLmNvbT47IFdhbmcsIEtldmluKFlh
-bmcpIDxLZXZpbjEuV2FuZ0BhbWQuY29tPjsgWXVhbiwgWGlhb2ppZSA8WGlhb2ppZS5ZdWFuQGFt
-ZC5jb20+DQpTdWJqZWN0OiBbUEFUQ0hdIGRybS9hbWQvcG93ZXJwbGF5OiBhZGQgc211IGlmIHZl
-cnNpb24gZm9yIG5hdmkxMg0KDQpTaWduZWQtb2ZmLWJ5OiBYaWFvamllIFl1YW4gPHhpYW9qaWUu
-eXVhbkBhbWQuY29tPg0KLS0tDQogZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaW5jL3Nt
-dV92MTFfMC5oIHwgMSArDQogZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvc211X3YxMV8w
-LmMgICAgIHwgMyArKysNCiAyIGZpbGVzIGNoYW5nZWQsIDQgaW5zZXJ0aW9ucygrKQ0KDQpkaWZm
-IC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaW5jL3NtdV92MTFfMC5oIGIv
-ZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaW5jL3NtdV92MTFfMC5oDQppbmRleCA5NzYw
-NWU5NjNjMmIuLmViMDRkMDY3NTdkMyAxMDA2NDQNCi0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-cG93ZXJwbGF5L2luYy9zbXVfdjExXzAuaA0KKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dl
-cnBsYXkvaW5jL3NtdV92MTFfMC5oDQpAQCAtMjgsNiArMjgsNyBAQA0KICNkZWZpbmUgU01VMTFf
-RFJJVkVSX0lGX1ZFUlNJT05fSU5WIDB4RkZGRkZGRkYgICNkZWZpbmUgU01VMTFfRFJJVkVSX0lG
-X1ZFUlNJT05fVkcyMCAweDEzICAjZGVmaW5lIFNNVTExX0RSSVZFUl9JRl9WRVJTSU9OX05WMTAg
-MHgzMw0KKyNkZWZpbmUgU01VMTFfRFJJVkVSX0lGX1ZFUlNJT05fTlYxMiAweDMzDQogI2RlZmlu
-ZSBTTVUxMV9EUklWRVJfSUZfVkVSU0lPTl9OVjE0IDB4MzMNCiANCiAvKiBNUCBBcGVydHVyZXMg
-Ki8NCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9zbXVfdjExXzAu
-YyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L3NtdV92MTFfMC5jDQppbmRleCA5MWRm
-YWUxYTJiMTYuLjFlNzY2YThhODQ0NyAxMDA2NDQNCi0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-cG93ZXJwbGF5L3NtdV92MTFfMC5jDQorKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxh
-eS9zbXVfdjExXzAuYw0KQEAgLTI3OCw2ICsyNzgsOSBAQCBzdGF0aWMgaW50IHNtdV92MTFfMF9j
-aGVja19md192ZXJzaW9uKHN0cnVjdCBzbXVfY29udGV4dCAqc211KQ0KIAljYXNlIENISVBfTkFW
-STEwOg0KIAkJc211LT5zbWNfaWZfdmVyc2lvbiA9IFNNVTExX0RSSVZFUl9JRl9WRVJTSU9OX05W
-MTA7DQogCQlicmVhazsNCisJY2FzZSBDSElQX05BVkkxMjoNCisJCXNtdS0+c21jX2lmX3ZlcnNp
-b24gPSBTTVUxMV9EUklWRVJfSUZfVkVSU0lPTl9OVjEyOw0KKwkJYnJlYWs7DQogCWNhc2UgQ0hJ
-UF9OQVZJMTQ6DQogCQlzbXUtPnNtY19pZl92ZXJzaW9uID0gU01VMTFfRFJJVkVSX0lGX1ZFUlNJ
-T05fTlYxNDsNCiAJCWJyZWFrOw0KLS0NCjIuMjAuMQ0KDQpfX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxp
-c3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFu
-L2xpc3RpbmZvL2FtZC1nZng=
+On Wed, Aug 14, 2019 at 09:38:54AM +0200, Christoph Hellwig wrote:
+> On Tue, Aug 13, 2019 at 06:36:33PM -0700, Dan Williams wrote:
+> > Section alignment constraints somewhat save us here. The only example
+> > I can think of a PMD not containing a uniform pgmap association for
+> > each pte is the case when the pgmap overlaps normal dram, i.e. shares
+> > the same 'struct memory_section' for a given span. Otherwise, distinct
+> > pgmaps arrange to manage their own exclusive sections (and now
+> > subsections as of v5.3). Otherwise the implementation could not
+> > guarantee different mapping lifetimes.
+> >=20
+> > That said, this seems to want a better mechanism to determine "pfn is
+> > ZONE_DEVICE".
+>=20
+> So I guess this patch is fine for now, and once you provide a better
+> mechanism we can switch over to it?
+
+What about the version I sent to just get rid of all the strange
+put_dev_pagemaps while scanning? Odds are good we will work with only
+a single pagemap, so it makes some sense to cache it once we find it?
+
+diff --git a/mm/hmm.c b/mm/hmm.c
+index 9a908902e4cc38..4e30128c23a505 100644
+--- a/mm/hmm.c
++++ b/mm/hmm.c
+@@ -497,10 +497,6 @@ static int hmm_vma_handle_pmd(struct mm_walk *walk,
+ 		}
+ 		pfns[i] =3D hmm_device_entry_from_pfn(range, pfn) | cpu_flags;
+ 	}
+-	if (hmm_vma_walk->pgmap) {
+-		put_dev_pagemap(hmm_vma_walk->pgmap);
+-		hmm_vma_walk->pgmap =3D NULL;
+-	}
+ 	hmm_vma_walk->last =3D end;
+ 	return 0;
+ #else
+@@ -604,10 +600,6 @@ static int hmm_vma_handle_pte(struct mm_walk *walk, un=
+signed long addr,
+ 	return 0;
+=20
+ fault:
+-	if (hmm_vma_walk->pgmap) {
+-		put_dev_pagemap(hmm_vma_walk->pgmap);
+-		hmm_vma_walk->pgmap =3D NULL;
+-	}
+ 	pte_unmap(ptep);
+ 	/* Fault any virtual address we were asked to fault */
+ 	return hmm_vma_walk_hole_(addr, end, fault, write_fault, walk);
+@@ -690,16 +682,6 @@ static int hmm_vma_walk_pmd(pmd_t *pmdp,
+ 			return r;
+ 		}
+ 	}
+-	if (hmm_vma_walk->pgmap) {
+-		/*
+-		 * We do put_dev_pagemap() here and not in hmm_vma_handle_pte()
+-		 * so that we can leverage get_dev_pagemap() optimization which
+-		 * will not re-take a reference on a pgmap if we already have
+-		 * one.
+-		 */
+-		put_dev_pagemap(hmm_vma_walk->pgmap);
+-		hmm_vma_walk->pgmap =3D NULL;
+-	}
+ 	pte_unmap(ptep - 1);
+=20
+ 	hmm_vma_walk->last =3D addr;
+@@ -751,10 +733,6 @@ static int hmm_vma_walk_pud(pud_t *pudp,
+ 			pfns[i] =3D hmm_device_entry_from_pfn(range, pfn) |
+ 				  cpu_flags;
+ 		}
+-		if (hmm_vma_walk->pgmap) {
+-			put_dev_pagemap(hmm_vma_walk->pgmap);
+-			hmm_vma_walk->pgmap =3D NULL;
+-		}
+ 		hmm_vma_walk->last =3D end;
+ 		return 0;
+ 	}
+@@ -1026,6 +1004,14 @@ long hmm_range_fault(struct hmm_range *range, unsign=
+ed int flags)
+ 			/* Keep trying while the range is valid. */
+ 		} while (ret =3D=3D -EBUSY && range->valid);
+=20
++		/*
++		 * We do put_dev_pagemap() here so that we can leverage
++		 * get_dev_pagemap() optimization which will not re-take a
++		 * reference on a pgmap if we already have one.
++		 */
++		if (hmm_vma_walk->pgmap)
++			put_dev_pagemap(hmm_vma_walk->pgmap);
++
+ 		if (ret) {
+ 			unsigned long i;
+=20
