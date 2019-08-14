@@ -1,67 +1,69 @@
-From: Dan Williams <dan.j.williams@intel.com>
-Subject: Re: [PATCH 04/15] mm: remove the pgmap field from struct hmm_vma_walk
-Date: Tue, 13 Aug 2019 18:36:33 -0700
-Message-ID: <CAPcyv4hMUzw8vyXFRPe2pdwef0npbMm9tx9wiZ9MWkHGhH1V6w@mail.gmail.com>
-References: <20190806160554.14046-1-hch@lst.de> <20190806160554.14046-5-hch@lst.de>
- <20190807174548.GJ1571@mellanox.com> <CAPcyv4hPCuHBLhSJgZZEh0CbuuJNPLFDA3f-79FX5uVOO0yubA@mail.gmail.com>
- <20190808065933.GA29382@lst.de>
+From: Sasha Levin <sashal-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org>
+Subject: [PATCH AUTOSEL 5.2 105/123] drm/amdgpu: pin the csb buffer on hw init
+ for gfx v8
+Date: Tue, 13 Aug 2019 22:10:29 -0400
+Message-ID: <20190814021047.14828-105-sashal@kernel.org>
+References: <20190814021047.14828-1-sashal@kernel.org>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20190808065933.GA29382@lst.de>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Christoph Hellwig <hch@lst.de>
-Cc: Jason Gunthorpe <jgg@mellanox.com>, =?UTF-8?B?SsOpcsO0bWUgR2xpc3Nl?= <jglisse@redhat.com>, Ben Skeggs <bskeggs@redhat.com>, Felix Kuehling <Felix.Kuehling@amd.com>, Ralph Campbell <rcampbell@nvidia.com>, "linux-mm@kvack.org" <linux-mm@kvack.org>, "nouveau@lists.freedesktop.org" <nouveau@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20190814021047.14828-1-sashal-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, stable-u79uwXL29TY76Z2rM5mHXA@public.gmane.org
+Cc: Sasha Levin <sashal-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org>, Paul Gover <pmw.gover-/E1597aS9LT10XsdtD+oqA@public.gmane.org>, Feifei Xu <Feifei.Xu-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, Likun Gao <Likun.Gao-5C7GfCeVMHo@public.gmane.org>, Xiaojie Yuan <xiaojie.yuan-5C7GfCeVMHo@public.gmane.org>
 
-On Wed, Aug 7, 2019 at 11:59 PM Christoph Hellwig <hch@lst.de> wrote:
->
-> On Wed, Aug 07, 2019 at 11:47:22AM -0700, Dan Williams wrote:
-> > > Unrelated to this patch, but what is the point of getting checking
-> > > that the pgmap exists for the page and then immediately releasing it?
-> > > This code has this pattern in several places.
-> > >
-> > > It feels racy
-> >
-> > Agree, not sure what the intent is here. The only other reason call
-> > get_dev_pagemap() is to just check in general if the pfn is indeed
-> > owned by some ZONE_DEVICE instance, but if the intent is to make sure
-> > the device is still attached/enabled that check is invalidated at
-> > put_dev_pagemap().
-> >
-> > If it's the former case, validating ZONE_DEVICE pfns, I imagine we can
-> > do something cheaper with a helper that is on the order of the same
-> > cost as pfn_valid(). I.e. replace PTE_DEVMAP with a mem_section flag
-> > or something similar.
->
-> The hmm literally never dereferences the pgmap, so validity checking is
-> the only explanation for it.
->
-> > > +               /*
-> > > +                * We do put_dev_pagemap() here so that we can leverage
-> > > +                * get_dev_pagemap() optimization which will not re-take a
-> > > +                * reference on a pgmap if we already have one.
-> > > +                */
-> > > +               if (hmm_vma_walk->pgmap)
-> > > +                       put_dev_pagemap(hmm_vma_walk->pgmap);
-> > > +
-> >
-> > Seems ok, but only if the caller is guaranteeing that the range does
-> > not span outside of a single pagemap instance. If that guarantee is
-> > met why not just have the caller pass in a pinned pagemap? If that
-> > guarantee is not met, then I think we're back to your race concern.
->
-> It iterates over multiple ptes in a non-huge pmd.  Is there any kind of
-> limitations on different pgmap instances inside a pmd?  I can't think
-> of one, so this might actually be a bug.
-
-Section alignment constraints somewhat save us here. The only example
-I can think of a PMD not containing a uniform pgmap association for
-each pte is the case when the pgmap overlaps normal dram, i.e. shares
-the same 'struct memory_section' for a given span. Otherwise, distinct
-pgmaps arrange to manage their own exclusive sections (and now
-subsections as of v5.3). Otherwise the implementation could not
-guarantee different mapping lifetimes.
-
-That said, this seems to want a better mechanism to determine "pfn is
-ZONE_DEVICE".
+RnJvbTogTGlrdW4gR2FvIDxMaWt1bi5HYW9AYW1kLmNvbT4KClsgVXBzdHJlYW0gY29tbWl0IDcy
+Y2RhOWJiNWUyMTlhZWEwZjJmNjJmNTZhZTA1MTk4YzU5MDIyYTcgXQoKV2l0aG91dCB0aGlzIHBp
+biwgdGhlIGNzYiBidWZmZXIgd2lsbCBiZSBmaWxsZWQgd2l0aCBpbmNvbnNpc3RlbnQKZGF0YSBh
+ZnRlciBTMyByZXN1bWUuIEFuZCB0aGF0IHdpbGwgY2F1c2VzIGdmeCBoYW5nIG9uIGdmeG9mZgpl
+eGl0IHNpbmNlIHRoaXMgY3NiIHdpbGwgYmUgZXhlY3V0ZWQgdGhlbi4KClNpZ25lZC1vZmYtYnk6
+IExpa3VuIEdhbyA8TGlrdW4uR2FvQGFtZC5jb20+ClRlc3RlZC1ieTogUGF1bCBHb3ZlciA8cG13
+LmdvdmVyQHlhaG9vLmNvLnVrPgpSZXZpZXdlZC1ieTogRmVpZmVpIFh1IDxGZWlmZWkuWHVAYW1k
+LmNvbT4KUmV2aWV3ZWQtYnk6IFhpYW9qaWUgWXVhbiA8eGlhb2ppZS55dWFuQGFtZC5jb20+ClNp
+Z25lZC1vZmYtYnk6IEFsZXggRGV1Y2hlciA8YWxleGFuZGVyLmRldWNoZXJAYW1kLmNvbT4KU2ln
+bmVkLW9mZi1ieTogU2FzaGEgTGV2aW4gPHNhc2hhbEBrZXJuZWwub3JnPgotLS0KIGRyaXZlcnMv
+Z3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92OF8wLmMgfCA0MCArKysrKysrKysrKysrKysrKysrKysr
+KysrKysKIDEgZmlsZSBjaGFuZ2VkLCA0MCBpbnNlcnRpb25zKCspCgpkaWZmIC0tZ2l0IGEvZHJp
+dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y4XzAuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQv
+YW1kZ3B1L2dmeF92OF8wLmMKaW5kZXggMDI5NTVlNmU5ZGQ5ZS4uYzIxZWY5OWNjNTkwZiAxMDA2
+NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y4XzAuYworKysgYi9kcml2
+ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjhfMC5jCkBAIC0xMzE3LDYgKzEzMTcsMzkgQEAg
+c3RhdGljIGludCBnZnhfdjhfMF9ybGNfaW5pdChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikK
+IAlyZXR1cm4gMDsKIH0KIAorc3RhdGljIGludCBnZnhfdjhfMF9jc2JfdnJhbV9waW4oc3RydWN0
+IGFtZGdwdV9kZXZpY2UgKmFkZXYpCit7CisJaW50IHI7CisKKwlyID0gYW1kZ3B1X2JvX3Jlc2Vy
+dmUoYWRldi0+Z2Z4LnJsYy5jbGVhcl9zdGF0ZV9vYmosIGZhbHNlKTsKKwlpZiAodW5saWtlbHko
+ciAhPSAwKSkKKwkJcmV0dXJuIHI7CisKKwlyID0gYW1kZ3B1X2JvX3BpbihhZGV2LT5nZngucmxj
+LmNsZWFyX3N0YXRlX29iaiwKKwkJCUFNREdQVV9HRU1fRE9NQUlOX1ZSQU0pOworCWlmICghcikK
+KwkJYWRldi0+Z2Z4LnJsYy5jbGVhcl9zdGF0ZV9ncHVfYWRkciA9CisJCQlhbWRncHVfYm9fZ3B1
+X29mZnNldChhZGV2LT5nZngucmxjLmNsZWFyX3N0YXRlX29iaik7CisKKwlhbWRncHVfYm9fdW5y
+ZXNlcnZlKGFkZXYtPmdmeC5ybGMuY2xlYXJfc3RhdGVfb2JqKTsKKworCXJldHVybiByOworfQor
+CitzdGF0aWMgdm9pZCBnZnhfdjhfMF9jc2JfdnJhbV91bnBpbihzdHJ1Y3QgYW1kZ3B1X2Rldmlj
+ZSAqYWRldikKK3sKKwlpbnQgcjsKKworCWlmICghYWRldi0+Z2Z4LnJsYy5jbGVhcl9zdGF0ZV9v
+YmopCisJCXJldHVybjsKKworCXIgPSBhbWRncHVfYm9fcmVzZXJ2ZShhZGV2LT5nZngucmxjLmNs
+ZWFyX3N0YXRlX29iaiwgdHJ1ZSk7CisJaWYgKGxpa2VseShyID09IDApKSB7CisJCWFtZGdwdV9i
+b191bnBpbihhZGV2LT5nZngucmxjLmNsZWFyX3N0YXRlX29iaik7CisJCWFtZGdwdV9ib191bnJl
+c2VydmUoYWRldi0+Z2Z4LnJsYy5jbGVhcl9zdGF0ZV9vYmopOworCX0KK30KKwogc3RhdGljIHZv
+aWQgZ2Z4X3Y4XzBfbWVjX2Zpbmkoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpCiB7CiAJYW1k
+Z3B1X2JvX2ZyZWVfa2VybmVsKCZhZGV2LT5nZngubWVjLmhwZF9lb3Bfb2JqLCBOVUxMLCBOVUxM
+KTsKQEAgLTQ3NzcsNiArNDgxMCwxMCBAQCBzdGF0aWMgaW50IGdmeF92OF8wX2h3X2luaXQodm9p
+ZCAqaGFuZGxlKQogCWdmeF92OF8wX2luaXRfZ29sZGVuX3JlZ2lzdGVycyhhZGV2KTsKIAlnZnhf
+djhfMF9jb25zdGFudHNfaW5pdChhZGV2KTsKIAorCXIgPSBnZnhfdjhfMF9jc2JfdnJhbV9waW4o
+YWRldik7CisJaWYgKHIpCisJCXJldHVybiByOworCiAJciA9IGFkZXYtPmdmeC5ybGMuZnVuY3Mt
+PnJlc3VtZShhZGV2KTsKIAlpZiAocikKIAkJcmV0dXJuIHI7CkBAIC00ODkzLDYgKzQ5MzAsOSBA
+QCBzdGF0aWMgaW50IGdmeF92OF8wX2h3X2Zpbmkodm9pZCAqaGFuZGxlKQogCWVsc2UKIAkJcHJf
+ZXJyKCJybGMgaXMgYnVzeSwgc2tpcCBoYWx0IHJsY1xuIik7CiAJYW1kZ3B1X2dmeF9ybGNfZXhp
+dF9zYWZlX21vZGUoYWRldik7CisKKwlnZnhfdjhfMF9jc2JfdnJhbV91bnBpbihhZGV2KTsKKwog
+CXJldHVybiAwOwogfQogCi0tIAoyLjIwLjEKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJl
+ZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGlu
+Zm8vYW1kLWdmeA==
