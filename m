@@ -1,170 +1,347 @@
-From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH v2 0/5] Add mode 2 GPU reset for RV2/Picasso
-Date: Wed, 14 Aug 2019 20:51:10 +0000
-Message-ID: <BN6PR12MB1809EB3B93ED7046B4F8710DF7AD0@BN6PR12MB1809.namprd12.prod.outlook.com>
-References: <1565815217-9533-1-git-send-email-andrey.grodzovsky@amd.com>
+From: Ralph Campbell <rcampbell@nvidia.com>
+Subject: Re: [PATCH v3 hmm 03/11] mm/mmu_notifiers: add a get/put scheme for
+ the registration
+Date: Wed, 14 Aug 2019 14:20:31 -0700
+Message-ID: <0a23adb8-b827-cd90-503e-bfa84166c67e@nvidia.com>
+References: <20190806231548.25242-1-jgg@ziepe.ca>
+ <20190806231548.25242-4-jgg@ziepe.ca>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1885713873=="
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1565815217-9533-1-git-send-email-andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset="utf-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20190806231548.25242-4-jgg@ziepe.ca>
 Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Grodzovsky, Andrey" <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Quan, Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>, "S, Shirish" <Shirish.S-5C7GfCeVMHo@public.gmane.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Jason Gunthorpe <jgg@ziepe.ca>, linux-mm@kvack.org
+Cc: Andrea Arcangeli <aarcange@redhat.com>, Christoph Hellwig <hch@lst.de>, John Hubbard <jhubbard@nvidia.com>, =?UTF-8?B?SsOpcsO0bWUgR2xpc3Nl?= <jglisse@redhat.com>, "Kuehling, Felix" <Felix.Kuehling@amd.com>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, Dimitri Sivanich <sivanich@sgi.com>, dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org, linux-rdma@vger.kernel.org, iommu@lists.linux-foundation.org, intel-gfx@lists.freedesktop.org, Gavin Shan <shangw@linux.vnet.ibm.com>, Andrea Righi <andrea@betterlinux.com>, Jason Gunthorpe <jgg@mellanox.com>, Christoph Hellwig <hch@infradead.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
---===============1885713873==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_BN6PR12MB1809EB3B93ED7046B4F8710DF7AD0BN6PR12MB1809namp_"
 
---_000_BN6PR12MB1809EB3B93ED7046B4F8710DF7AD0BN6PR12MB1809namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+On 8/6/19 4:15 PM, Jason Gunthorpe wrote:
+> From: Jason Gunthorpe <jgg@mellanox.com>
+> 
+> Many places in the kernel have a flow where userspace will create some
+> object and that object will need to connect to the subsystem's
+> mmu_notifier subscription for the duration of its lifetime.
+> 
+> In this case the subsystem is usually tracking multiple mm_structs and it
+> is difficult to keep track of what struct mmu_notifier's have been
+> allocated for what mm's.
+> 
+> Since this has been open coded in a variety of exciting ways, provide core
+> functionality to do this safely.
+> 
+> This approach uses the strct mmu_notifier_ops * as a key to determine if
 
-Please add patch descriptions for patches 3, 4, 5.  With that fixed, series=
- is:
-Reviewed-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-________________________________
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Andrey G=
-rodzovsky <andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>
-Sent: Wednesday, August 14, 2019 4:40 PM
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: Deucher, Alexander <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>; Grodzovsky, Andrey <And=
-rey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>; Quan, Evan <Evan.Quan-5C7GfCeVMHo@public.gmane.org>; S, Shirish <Shiris=
-h.S-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH v2 0/5] Add mode 2 GPU reset for RV2/Picasso
+s/strct/struct
 
-This patchset adds mode 2 reset through SMU for RV2 and Picasso.
+> the subsystem has a notifier registered on the mm or not. If there is a
+> registration then the existing notifier struct is returned, otherwise the
+> ops->alloc_notifiers() is used to create a new per-subsystem notifier for
+> the mm.
+> 
+> The destroy side incorporates an async call_srcu based destruction which
+> will avoid bugs in the callers such as commit 6d7c3cde93c1 ("mm/hmm: fix
+> use after free with struct hmm in the mmu notifiers").
+> 
+> Since we are inside the mmu notifier core locking is fairly simple, the
+> allocation uses the same approach as for mmu_notifier_mm, the write side
+> of the mmap_sem makes everything deterministic and we only need to do
+> hlist_add_head_rcu() under the mm_take_all_locks(). The new users count
+> and the discoverability in the hlist is fully serialized by the
+> mmu_notifier_mm->lock.
+> 
+> Co-developed-by: Christoph Hellwig <hch@infradead.org>
+> Signed-off-by: Christoph Hellwig <hch@infradead.org>
+> Signed-off-by: Jason Gunthorpe <jgg@mellanox.com>
 
-v2:
-Split into more patches per functional unit.
-Add some NULL checks and fix typos.
+Reviewed-by: Ralph Campbell <rcampbell@nvidia.com>
 
-Andrey Grodzovsky (5):
-  drm/amd/powerplay: Fix meaning of 0x1E PPSMC_MSG
-  drm/amd/powerplay: add mode2 reset callback for pp_smu_mgr
-  drm/amd/powerpay: Implement mode2 reset callback for SMU10
-  drm/amd/poweplay: Add amd_pm_funcs callback for mode 2
-  drm/amdgpu: Use new mode2 reset interface for RV.
+> ---
+>   include/linux/mmu_notifier.h |  35 ++++++++
+>   mm/mmu_notifier.c            | 156 +++++++++++++++++++++++++++++++++--
+>   2 files changed, 185 insertions(+), 6 deletions(-)
+> 
+> diff --git a/include/linux/mmu_notifier.h b/include/linux/mmu_notifier.h
+> index b6c004bd9f6ad9..31aa971315a142 100644
+> --- a/include/linux/mmu_notifier.h
+> +++ b/include/linux/mmu_notifier.h
+> @@ -211,6 +211,19 @@ struct mmu_notifier_ops {
+>   	 */
+>   	void (*invalidate_range)(struct mmu_notifier *mn, struct mm_struct *mm,
+>   				 unsigned long start, unsigned long end);
+> +
+> +	/*
+> +	 * These callbacks are used with the get/put interface to manage the
+> +	 * lifetime of the mmu_notifier memory. alloc_notifier() returns a new
+> +	 * notifier for use with the mm.
+> +	 *
+> +	 * free_notifier() is only called after the mmu_notifier has been
+> +	 * fully put, calls to any ops callback are prevented and no ops
+> +	 * callbacks are currently running. It is called from a SRCU callback
+> +	 * and cannot sleep.
+> +	 */
+> +	struct mmu_notifier *(*alloc_notifier)(struct mm_struct *mm);
+> +	void (*free_notifier)(struct mmu_notifier *mn);
+>   };
+>   
+>   /*
+> @@ -227,6 +240,9 @@ struct mmu_notifier_ops {
+>   struct mmu_notifier {
+>   	struct hlist_node hlist;
+>   	const struct mmu_notifier_ops *ops;
+> +	struct mm_struct *mm;
+> +	struct rcu_head rcu;
+> +	unsigned int users;
+>   };
+>   
+>   static inline int mm_has_notifiers(struct mm_struct *mm)
+> @@ -234,6 +250,21 @@ static inline int mm_has_notifiers(struct mm_struct *mm)
+>   	return unlikely(mm->mmu_notifier_mm);
+>   }
+>   
+> +struct mmu_notifier *mmu_notifier_get_locked(const struct mmu_notifier_ops *ops,
+> +					     struct mm_struct *mm);
+> +static inline struct mmu_notifier *
+> +mmu_notifier_get(const struct mmu_notifier_ops *ops, struct mm_struct *mm)
+> +{
+> +	struct mmu_notifier *ret;
+> +
+> +	down_write(&mm->mmap_sem);
+> +	ret = mmu_notifier_get_locked(ops, mm);
+> +	up_write(&mm->mmap_sem);
+> +	return ret;
+> +}
+> +void mmu_notifier_put(struct mmu_notifier *mn);
+> +void mmu_notifier_synchronize(void);
+> +
+>   extern int mmu_notifier_register(struct mmu_notifier *mn,
+>   				 struct mm_struct *mm);
+>   extern int __mmu_notifier_register(struct mmu_notifier *mn,
+> @@ -581,6 +612,10 @@ static inline void mmu_notifier_mm_destroy(struct mm_struct *mm)
+>   #define pudp_huge_clear_flush_notify pudp_huge_clear_flush
+>   #define set_pte_at_notify set_pte_at
+>   
+> +static inline void mmu_notifier_synchronize(void)
+> +{
+> +}
+> +
+>   #endif /* CONFIG_MMU_NOTIFIER */
+>   
+>   #endif /* _LINUX_MMU_NOTIFIER_H */
+> diff --git a/mm/mmu_notifier.c b/mm/mmu_notifier.c
+> index 696810f632ade1..4a770b5211b71d 100644
+> --- a/mm/mmu_notifier.c
+> +++ b/mm/mmu_notifier.c
+> @@ -248,6 +248,9 @@ int __mmu_notifier_register(struct mmu_notifier *mn, struct mm_struct *mm)
+>   	lockdep_assert_held_write(&mm->mmap_sem);
+>   	BUG_ON(atomic_read(&mm->mm_users) <= 0);
+>   
+> +	mn->mm = mm;
+> +	mn->users = 1;
+> +
+>   	if (!mm->mmu_notifier_mm) {
+>   		/*
+>   		 * kmalloc cannot be called under mm_take_all_locks(), but we
+> @@ -295,18 +298,24 @@ int __mmu_notifier_register(struct mmu_notifier *mn, struct mm_struct *mm)
+>   }
+>   EXPORT_SYMBOL_GPL(__mmu_notifier_register);
+>   
+> -/*
+> +/**
+> + * mmu_notifier_register - Register a notifier on a mm
+> + * @mn: The notifier to attach
+> + * @mm : The mm to attach the notifier to
 
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c        |  1 +
- drivers/gpu/drm/amd/amdgpu/soc15.c                | 25 +++++++++++++++----=
-----
- drivers/gpu/drm/amd/include/kgd_pp_interface.h    |  1 +
- drivers/gpu/drm/amd/powerplay/amd_powerplay.c     | 21 +++++++++++++++++++
- drivers/gpu/drm/amd/powerplay/hwmgr/smu10_hwmgr.c |  7 +++++++
- drivers/gpu/drm/amd/powerplay/inc/hwmgr.h         |  9 ++++++++
- drivers/gpu/drm/amd/powerplay/inc/rv_ppsmc.h      |  2 +-
- 7 files changed, 57 insertions(+), 9 deletions(-)
+Why the space before the colon?
+I know, super tiny nit.
 
---
-2.7.4
+> + *
+>    * Must not hold mmap_sem nor any other VM related lock when calling
+>    * this registration function. Must also ensure mm_users can't go down
+>    * to zero while this runs to avoid races with mmu_notifier_release,
+>    * so mm has to be current->mm or the mm should be pinned safely such
+>    * as with get_task_mm(). If the mm is not current->mm, the mm_users
+>    * pin should be released by calling mmput after mmu_notifier_register
+> - * returns. mmu_notifier_unregister must be always called to
+> - * unregister the notifier. mm_count is automatically pinned to allow
+> - * mmu_notifier_unregister to safely run at any time later, before or
+> - * after exit_mmap. ->release will always be called before exit_mmap
+> - * frees the pages.
+> + * returns.
+> + *
+> + * mmu_notifier_unregister() or mmu_notifier_put() must be always called to
+> + * unregister the notifier.
+> + *
+> + * While the caller has a mmu_notifer get the mm pointer will remain valid,
 
-_______________________________________________
-amd-gfx mailing list
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+s/mmu_notifer/mmu_notifier
+Maybe "While the caller has a mmu_notifier, the mn->mm pointer will 
+remain valid,"
 
---_000_BN6PR12MB1809EB3B93ED7046B4F8710DF7AD0BN6PR12MB1809namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+> + * and can be converted to an active mm pointer via mmget_not_zero().
+>    */
+>   int mmu_notifier_register(struct mmu_notifier *mn, struct mm_struct *mm)
+>   {
+> @@ -319,6 +328,72 @@ int mmu_notifier_register(struct mmu_notifier *mn, struct mm_struct *mm)
+>   }
+>   EXPORT_SYMBOL_GPL(mmu_notifier_register);
+>   
+> +static struct mmu_notifier *
+> +find_get_mmu_notifier(struct mm_struct *mm, const struct mmu_notifier_ops *ops)
+> +{
+> +	struct mmu_notifier *mn;
+> +
+> +	spin_lock(&mm->mmu_notifier_mm->lock);
+> +	hlist_for_each_entry_rcu (mn, &mm->mmu_notifier_mm->list, hlist) {
+> +		if (mn->ops != ops)
+> +			continue;
+> +
+> +		if (likely(mn->users != UINT_MAX))
+> +			mn->users++;
+> +		else
+> +			mn = ERR_PTR(-EOVERFLOW);
+> +		spin_unlock(&mm->mmu_notifier_mm->lock);
+> +		return mn;
+> +	}
+> +	spin_unlock(&mm->mmu_notifier_mm->lock);
+> +	return NULL;
+> +}
+> +
+> +/**
+> + * mmu_notifier_get_locked - Return the single struct mmu_notifier for
+> + *                           the mm & ops
+> + * @ops: The operations struct being subscribe with
+> + * @mm : The mm to attach notifiers too
+> + *
+> + * This function either allocates a new mmu_notifier via
+> + * ops->alloc_notifier(), or returns an already existing notifier on the
+> + * list. The value of the ops pointer is used to determine when two notifiers
+> + * are the same.
+> + *
+> + * Each call to mmu_notifier_get() must be paired with a caller to
 
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Please add patch descriptions for patches 3, 4, 5.&nbsp; With that fixed, s=
-eries is:</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Reviewed-by: Alex Deucher &lt;alexander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
-</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
-ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Andrey Grodzovsky &lt;andrey.=
-grodzovsky-5C7GfCeVMHo@public.gmane.org&gt;<br>
-<b>Sent:</b> Wednesday, August 14, 2019 4:40 PM<br>
-<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org &lt;amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&=
-gt;<br>
-<b>Cc:</b> Deucher, Alexander &lt;Alexander.Deucher-5C7GfCeVMHo@public.gmane.org&gt;; Grodzovsky=
-, Andrey &lt;Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org&gt;; Quan, Evan &lt;Evan.Quan-urvtwAKJhsc@public.gmane.org=
-m&gt;; S, Shirish &lt;Shirish.S-5C7GfCeVMHo@public.gmane.org&gt;<br>
-<b>Subject:</b> [PATCH v2 0/5] Add mode 2 GPU reset for RV2/Picasso</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">This patchset adds mode 2 reset through SMU for RV=
-2 and Picasso.<br>
-<br>
-v2:<br>
-Split into more patches per functional unit.<br>
-Add some NULL checks and fix typos.<br>
-<br>
-Andrey Grodzovsky (5):<br>
-&nbsp; drm/amd/powerplay: Fix meaning of 0x1E PPSMC_MSG<br>
-&nbsp; drm/amd/powerplay: add mode2 reset callback for pp_smu_mgr<br>
-&nbsp; drm/amd/powerpay: Implement mode2 reset callback for SMU10<br>
-&nbsp; drm/amd/poweplay: Add amd_pm_funcs callback for mode 2<br>
-&nbsp; drm/amdgpu: Use new mode2 reset interface for RV.<br>
-<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_device.c&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp; |&nbsp; 1 &#43;<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/soc15.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | 25 &#43;&#43;&#43=
-;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;--------<br>
-&nbsp;drivers/gpu/drm/amd/include/kgd_pp_interface.h&nbsp;&nbsp;&nbsp; |&nb=
-sp; 1 &#43;<br>
-&nbsp;drivers/gpu/drm/amd/powerplay/amd_powerplay.c&nbsp;&nbsp;&nbsp;&nbsp;=
- | 21 &#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43=
-;&#43;&#43;&#43;&#43;&#43;<br>
-&nbsp;drivers/gpu/drm/amd/powerplay/hwmgr/smu10_hwmgr.c |&nbsp; 7 &#43;&#43=
-;&#43;&#43;&#43;&#43;&#43;<br>
-&nbsp;drivers/gpu/drm/amd/powerplay/inc/hwmgr.h&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp; |&nbsp; 9 &#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;<br>
-&nbsp;drivers/gpu/drm/amd/powerplay/inc/rv_ppsmc.h&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp; |&nbsp; 2 &#43;-<br>
-&nbsp;7 files changed, 57 insertions(&#43;), 9 deletions(-)<br>
-<br>
--- <br>
-2.7.4<br>
-<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
-lists.freedesktop.org/mailman/listinfo/amd-gfx</a></div>
-</span></font></div>
-</body>
-</html>
+s/caller/call
 
---_000_BN6PR12MB1809EB3B93ED7046B4F8710DF7AD0BN6PR12MB1809namp_--
+> + * mmu_notifier_put(). The caller must hold the write side of mm->mmap_sem.
+> + *
+> + * While the caller has a mmu_notifer get the mm pointer will remain valid,
 
---===============1885713873==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
+same as "mmu_notifer" above.
 
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+> + * and can be converted to an active mm pointer via mmget_not_zero().
+> + */
+> +struct mmu_notifier *mmu_notifier_get_locked(const struct mmu_notifier_ops *ops,
+> +					     struct mm_struct *mm)
+> +{
+> +	struct mmu_notifier *mn;
+> +	int ret;
+> +
+> +	lockdep_assert_held_write(&mm->mmap_sem);
+> +
+> +	if (mm->mmu_notifier_mm) {
+> +		mn = find_get_mmu_notifier(mm, ops);
+> +		if (mn)
+> +			return mn;
+> +	}
+> +
+> +	mn = ops->alloc_notifier(mm);
+> +	if (IS_ERR(mn))
+> +		return mn;
+> +	mn->ops = ops;
+> +	ret = __mmu_notifier_register(mn, mm);
+> +	if (ret)
+> +		goto out_free;
+> +	return mn;
+> +out_free:
+> +	mn->ops->free_notifier(mn);
+> +	return ERR_PTR(ret);
+> +}
+> +EXPORT_SYMBOL_GPL(mmu_notifier_get_locked);
+> +
+>   /* this is called after the last mmu_notifier_unregister() returned */
+>   void __mmu_notifier_mm_destroy(struct mm_struct *mm)
+>   {
+> @@ -397,6 +472,75 @@ void mmu_notifier_unregister_no_release(struct mmu_notifier *mn,
+>   }
+>   EXPORT_SYMBOL_GPL(mmu_notifier_unregister_no_release);
+>   
+> +static void mmu_notifier_free_rcu(struct rcu_head *rcu)
+> +{
+> +	struct mmu_notifier *mn = container_of(rcu, struct mmu_notifier, rcu);
+> +	struct mm_struct *mm = mn->mm;
+> +
+> +	mn->ops->free_notifier(mn);
+> +	/* Pairs with the get in __mmu_notifier_register() */
+> +	mmdrop(mm);
+> +}
+> +
+> +/**
+> + * mmu_notifier_put - Release the reference on the notifier
+> + * @mn: The notifier to act on
+> + *
+> + * This function must be paired with each mmu_notifier_get(), it releases the
+> + * reference obtained by the get. If this is the last reference then process
+> + * to free the notifier will be run asynchronously.
+> + *
+> + * Unlike mmu_notifier_unregister() the get/put flow only calls ops->release
+> + * when the mm_struct is destroyed. Instead free_notifier is always called to
+> + * release any resources held by the user.
+> + *
+> + * As ops->release is not guaranteed to be called, the user must ensure that
+> + * all sptes are dropped, and no new sptes can be established before
+> + * mmu_notifier_put() is called.
+> + *
+> + * This function can be called from the ops->release callback, however the
+> + * caller must still ensure it is called pairwise with mmu_notifier_get().
+> + *
+> + * Modules calling this function must call mmu_notifier_module_unload() in
 
---===============1885713873==--
+I think you mean mmu_notifier_synchronize().
+
+> + * their __exit functions to ensure the async work is completed.
+> + */
+> +void mmu_notifier_put(struct mmu_notifier *mn)
+> +{
+> +	struct mm_struct *mm = mn->mm;
+> +
+> +	spin_lock(&mm->mmu_notifier_mm->lock);
+> +	if (WARN_ON(!mn->users) || --mn->users)
+> +		goto out_unlock;
+> +	hlist_del_init_rcu(&mn->hlist);
+> +	spin_unlock(&mm->mmu_notifier_mm->lock);
+> +
+> +	call_srcu(&srcu, &mn->rcu, mmu_notifier_free_rcu);
+> +	return;
+> +
+> +out_unlock:
+> +	spin_unlock(&mm->mmu_notifier_mm->lock);
+> +}
+> +EXPORT_SYMBOL_GPL(mmu_notifier_put);
+> +
+> +/**
+> + * mmu_notifier_synchronize - Ensure all mmu_notifiers are freed
+> + *
+> + * This function ensures that all outsanding async SRU work from
+
+s/outsanding/outstanding
+
+> + * mmu_notifier_put() is completed. After it returns any mmu_notifier_ops
+> + * associated with an unused mmu_notifier will no longer be called.
+> + *
+> + * Before using the caller must ensure that all of its mmu_notifiers have been
+> + * fully released via mmu_notifier_put().
+> + *
+> + * Modules using the mmu_notifier_put() API should call this in their __exit
+> + * function to avoid module unloading races.
+> + */
+> +void mmu_notifier_synchronize(void)
+> +{
+> +	synchronize_srcu(&srcu);
+> +}
+> +EXPORT_SYMBOL_GPL(mmu_notifier_synchronize);
+> +
+>   bool
+>   mmu_notifier_range_update_to_read_only(const struct mmu_notifier_range *range)
+>   {
+> 
