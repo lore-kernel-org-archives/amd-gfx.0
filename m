@@ -1,43 +1,402 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH] drm/amdkfd: Fill amdgpu_task_info for KFD VMs
-Date: Wed, 14 Aug 2019 10:13:00 +0200
-Message-ID: <1557e6fe-60a0-39ff-1ffd-2133be879113@gmail.com>
-References: <20190813192007.15881-1-Yong.Zhao@amd.com>
-Reply-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
+From: Thierry Reding <thierry.reding@gmail.com>
+Subject: Re: [PATCH v6 08/17] drm/ttm: use gem vma_node
+Date: Wed, 14 Aug 2019 11:35:24 +0200
+Message-ID: <20190814093524.GA31345@ulmo>
+References: <20190805140119.7337-1-kraxel@redhat.com>
+ <20190805140119.7337-9-kraxel@redhat.com>
+ <20190813151115.GA29955@ulmo>
+ <20190814055827.6hrxj6daovxxnnvw@sirius.home.kraxel.org>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190813192007.15881-1-Yong.Zhao-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Zhao, Yong" <Yong.Zhao-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Type: multipart/mixed; boundary="===============2063637072=="
+Return-path: <intel-gfx-bounces@lists.freedesktop.org>
+In-Reply-To: <20190814055827.6hrxj6daovxxnnvw@sirius.home.kraxel.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/intel-gfx>,
+ <mailto:intel-gfx-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/intel-gfx>
+List-Post: <mailto:intel-gfx@lists.freedesktop.org>
+List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
+ <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: intel-gfx-bounces@lists.freedesktop.org
+Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
+To: Gerd Hoffmann <kraxel@redhat.com>
+Cc: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, linux-graphics-maintainer@vmware.com, Ben Skeggs <bskeggs@redhat.com>, spice-devel@lists.freedesktop.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-QW0gMTMuMDguMTkgdW0gMjE6MjAgc2NocmllYiBaaGFvLCBZb25nOgo+IFRoZSBhbWRncHVfdGFz
-a19pbmZvIHdpbGwgYmUgdXNlZCB3aGVuIHByaW50aW5nIFZNIHBhZ2UgZmF1bHQgZm9yIEtGRAo+
-IHByb2Nlc3Nlcy4KPgo+IENoYW5nZS1JZDogSWZkOTgzZGI1ZGNlYjFkNDc3ZTcyODdlNDg5M2Y4
-MDU2NWE3YTZiMDYKPiBTaWduZWQtb2ZmLWJ5OiBZb25nIFpoYW8gPFlvbmcuWmhhb0BhbWQuY29t
-PgoKQWNrZWQtYnk6IENocmlzdGlhbiBLw7ZuaWcgPGNocmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4K
-Cj4gLS0tCj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfcHJvY2Vzcy5jIHwgMiAr
-Kwo+ICAgMSBmaWxlIGNoYW5nZWQsIDIgaW5zZXJ0aW9ucygrKQo+Cj4gZGlmZiAtLWdpdCBhL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9wcm9jZXNzLmMgYi9kcml2ZXJzL2dwdS9kcm0v
-YW1kL2FtZGtmZC9rZmRfcHJvY2Vzcy5jCj4gaW5kZXggOGYxMDc2YzBjODhhLi4yZWM0Mjc0OWY5
-NzEgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX3Byb2Nlc3Mu
-Ywo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9wcm9jZXNzLmMKPiBAQCAt
-ODAxLDYgKzgwMSw4IEBAIGludCBrZmRfcHJvY2Vzc19kZXZpY2VfaW5pdF92bShzdHJ1Y3Qga2Zk
-X3Byb2Nlc3NfZGV2aWNlICpwZGQsCj4gICAJCXJldHVybiByZXQ7Cj4gICAJfQo+ICAgCj4gKwlh
-bWRncHVfdm1fc2V0X3Rhc2tfaW5mbyhwZGQtPnZtKTsKPiArCj4gICAJcmV0ID0ga2ZkX3Byb2Nl
-c3NfZGV2aWNlX3Jlc2VydmVfaWJfbWVtKHBkZCk7Cj4gICAJaWYgKHJldCkKPiAgIAkJZ290byBl
-cnJfcmVzZXJ2ZV9pYl9tZW07CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9w
-Lm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1n
-Zng=
+
+--===============2063637072==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="2JFBq9zoW8cOFH7v"
+Content-Disposition: inline
+
+
+--2JFBq9zoW8cOFH7v
+Content-Type: multipart/mixed; boundary="eJnRUKwClWJh1Khz"
+Content-Disposition: inline
+
+
+--eJnRUKwClWJh1Khz
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Wed, Aug 14, 2019 at 07:58:27AM +0200, Gerd Hoffmann wrote:
+> > Hi Gerd,
+> >=20
+> > I've been seeing a regression on Nouveau with recent linux-next releases
+> > and git bisect points at this commit as the first bad one. If I revert
+> > it (there's a tiny conflict with a patch that was merged subsequently),
+> > things are back to normal.
+> >=20
+> > I think the reason for this issue is that Nouveau doesn't use GEM
+> > objects for all buffer objects,
+>=20
+> That shouldn't be a problem ...
+>=20
+> > and even when it uses GEM objects, the
+> > code will not initialize the GEM object until after the buffer objects
+> > and the backing TTM objects have been created.
+>=20
+> ... but the initialization order is.
+>=20
+> ttm_bo_uses_embedded_gem_object() assumes gem gets initialized first.
+>=20
+> drm_gem_object_init() init calling drm_vma_node_reset() again is
+> probably the root cause for the breakage.
+>=20
+> > I tried to fix that by making sure drm_gem_object_init() gets called by
+> > Nouveau before ttm_bo_init(), but the changes are fairly involved and I
+> > was unable to get the GEM reference counting right. I can look into the
+> > proper fix some more, but it might be worth reverting this patch for
+> > now to get Nouveau working again.
+>=20
+> Changing the order doesn't look hard.  Patch attached (untested, have no
+> test hardware).  But maybe I missed some detail ...
+>=20
+> The other patch attached works around the issue with a flag, to avoid
+> drm_vma_node_reset() being called twice.
+
+I came up with something very similar by splitting up nouveau_bo_new()
+into allocation and initialization steps, so that when necessary the GEM
+object can be initialized in between. I think that's slightly more
+flexible and easier to understand than a boolean flag.
+
+Thierry
+
+--eJnRUKwClWJh1Khz
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline;
+	filename="0001-drm-nouveau-Initialize-GEM-object-before-TTM-object.patch"
+Content-Transfer-Encoding: quoted-printable
+
+=46rom a1130a6affcb7c00133e89f3e498cb6757f5bb51 Mon Sep 17 00:00:00 2001
+=46rom: Thierry Reding <treding@nvidia.com>
+Date: Wed, 14 Aug 2019 11:00:48 +0200
+Subject: [PATCH] drm/nouveau: Initialize GEM object before TTM object
+
+TTM assumes that drivers initialize the embedded GEM object before
+calling the ttm_bo_init() function. This is not currently the case
+in the Nouveau driver. Fix this by splitting up nouveau_bo_new()
+into nouveau_bo_alloc() and nouveau_bo_init() so that the GEM can
+be initialized before TTM BO initialization when necessary.
+
+Fixes: b96f3e7c8069 ("drm/ttm: use gem vma_node")
+Signed-off-by: Thierry Reding <treding@nvidia.com>
+---
+ drivers/gpu/drm/nouveau/nouveau_bo.c    | 69 ++++++++++++++++---------
+ drivers/gpu/drm/nouveau/nouveau_bo.h    |  4 ++
+ drivers/gpu/drm/nouveau/nouveau_gem.c   | 29 ++++++-----
+ drivers/gpu/drm/nouveau/nouveau_prime.c | 16 ++++--
+ 4 files changed, 77 insertions(+), 41 deletions(-)
+
+diff --git a/drivers/gpu/drm/nouveau/nouveau_bo.c b/drivers/gpu/drm/nouveau=
+/nouveau_bo.c
+index 99e391be9370..b3d3e07de1af 100644
+--- a/drivers/gpu/drm/nouveau/nouveau_bo.c
++++ b/drivers/gpu/drm/nouveau/nouveau_bo.c
+@@ -185,31 +185,24 @@ nouveau_bo_fixup_align(struct nouveau_bo *nvbo, u32 f=
+lags,
+ 	*size =3D roundup_64(*size, PAGE_SIZE);
+ }
+=20
+-int
+-nouveau_bo_new(struct nouveau_cli *cli, u64 size, int align,
+-	       uint32_t flags, uint32_t tile_mode, uint32_t tile_flags,
+-	       struct sg_table *sg, struct reservation_object *robj,
+-	       struct nouveau_bo **pnvbo)
++struct nouveau_bo *
++nouveau_bo_alloc(struct nouveau_cli *cli, u64 size, u32 flags, u32 tile_mo=
+de,
++		 u32 tile_flags)
+ {
+ 	struct nouveau_drm *drm =3D cli->drm;
+ 	struct nouveau_bo *nvbo;
+ 	struct nvif_mmu *mmu =3D &cli->mmu;
+ 	struct nvif_vmm *vmm =3D cli->svm.cli ? &cli->svm.vmm : &cli->vmm.vmm;
+-	size_t acc_size;
+-	int type =3D ttm_bo_type_device;
+-	int ret, i, pi =3D -1;
++	int i, pi =3D -1;
+=20
+ 	if (!size) {
+ 		NV_WARN(drm, "skipped size %016llx\n", size);
+-		return -EINVAL;
++		return ERR_PTR(-EINVAL);
+ 	}
+=20
+-	if (sg)
+-		type =3D ttm_bo_type_sg;
+-
+ 	nvbo =3D kzalloc(sizeof(struct nouveau_bo), GFP_KERNEL);
+ 	if (!nvbo)
+-		return -ENOMEM;
++		return ERR_PTR(-ENOMEM);
+ 	INIT_LIST_HEAD(&nvbo->head);
+ 	INIT_LIST_HEAD(&nvbo->entry);
+ 	INIT_LIST_HEAD(&nvbo->vma_list);
+@@ -231,7 +224,7 @@ nouveau_bo_new(struct nouveau_cli *cli, u64 size, int a=
+lign,
+ 		nvbo->kind =3D (tile_flags & 0x0000ff00) >> 8;
+ 		if (!nvif_mmu_kind_valid(mmu, nvbo->kind)) {
+ 			kfree(nvbo);
+-			return -EINVAL;
++			return ERR_PTR(-EINVAL);
+ 		}
+=20
+ 		nvbo->comp =3D mmu->kind[nvbo->kind] !=3D nvbo->kind;
+@@ -241,7 +234,7 @@ nouveau_bo_new(struct nouveau_cli *cli, u64 size, int a=
+lign,
+ 		nvbo->comp =3D (tile_flags & 0x00030000) >> 16;
+ 		if (!nvif_mmu_kind_valid(mmu, nvbo->kind)) {
+ 			kfree(nvbo);
+-			return -EINVAL;
++			return ERR_PTR(-EINVAL);
+ 		}
+ 	} else {
+ 		nvbo->zeta =3D (tile_flags & 0x00000007);
+@@ -278,7 +271,7 @@ nouveau_bo_new(struct nouveau_cli *cli, u64 size, int a=
+lign,
+ 	}
+=20
+ 	if (WARN_ON(pi < 0))
+-		return -EINVAL;
++		return ERR_PTR(-EINVAL);
+=20
+ 	/* Disable compression if suitable settings couldn't be found. */
+ 	if (nvbo->comp && !vmm->page[pi].comp) {
+@@ -288,23 +281,51 @@ nouveau_bo_new(struct nouveau_cli *cli, u64 size, int=
+ align,
+ 	}
+ 	nvbo->page =3D vmm->page[pi].shift;
+=20
++	return nvbo;
++}
++
++int
++nouveau_bo_init(struct nouveau_bo *nvbo, u64 size, int align, u32 flags,
++		struct sg_table *sg, struct reservation_object *robj)
++{
++	int type =3D sg ? ttm_bo_type_sg : ttm_bo_type_device;
++	size_t acc_size;
++	int ret;
++
++	acc_size =3D ttm_bo_dma_acc_size(nvbo->bo.bdev, size, sizeof(*nvbo));
++
+ 	nouveau_bo_fixup_align(nvbo, flags, &align, &size);
+ 	nvbo->bo.mem.num_pages =3D size >> PAGE_SHIFT;
+ 	nouveau_bo_placement_set(nvbo, flags, 0);
+=20
+-	acc_size =3D ttm_bo_dma_acc_size(&drm->ttm.bdev, size,
+-				       sizeof(struct nouveau_bo));
+-
+-	ret =3D ttm_bo_init(&drm->ttm.bdev, &nvbo->bo, size,
+-			  type, &nvbo->placement,
+-			  align >> PAGE_SHIFT, false, acc_size, sg,
+-			  robj, nouveau_bo_del_ttm);
+-
++	ret =3D ttm_bo_init(nvbo->bo.bdev, &nvbo->bo, size, type,
++			  &nvbo->placement, align >> PAGE_SHIFT, false,
++			  acc_size, sg, robj, nouveau_bo_del_ttm);
+ 	if (ret) {
+ 		/* ttm will call nouveau_bo_del_ttm if it fails.. */
+ 		return ret;
+ 	}
+=20
++	return 0;
++}
++
++int
++nouveau_bo_new(struct nouveau_cli *cli, u64 size, int align,
++	       uint32_t flags, uint32_t tile_mode, uint32_t tile_flags,
++	       struct sg_table *sg, struct reservation_object *robj,
++	       struct nouveau_bo **pnvbo)
++{
++	struct nouveau_bo *nvbo;
++	int ret;
++
++	nvbo =3D nouveau_bo_alloc(cli, size, flags, tile_mode, tile_flags);
++	if (IS_ERR(nvbo))
++		return PTR_ERR(nvbo);
++
++	ret =3D nouveau_bo_init(nvbo, size, align, flags, sg, robj);
++	if (ret)
++		return ret;
++
+ 	*pnvbo =3D nvbo;
+ 	return 0;
+ }
+diff --git a/drivers/gpu/drm/nouveau/nouveau_bo.h b/drivers/gpu/drm/nouveau=
+/nouveau_bo.h
+index d675efe8e7f9..7529035b971f 100644
+--- a/drivers/gpu/drm/nouveau/nouveau_bo.h
++++ b/drivers/gpu/drm/nouveau/nouveau_bo.h
+@@ -71,6 +71,10 @@ nouveau_bo_ref(struct nouveau_bo *ref, struct nouveau_bo=
+ **pnvbo)
+ extern struct ttm_bo_driver nouveau_bo_driver;
+=20
+ void nouveau_bo_move_init(struct nouveau_drm *);
++struct nouveau_bo *nouveau_bo_alloc(struct nouveau_cli *, u64 size, u32 fl=
+ags,
++				    u32 tile_mode, u32 tile_flags);
++int  nouveau_bo_init(struct nouveau_bo *, u64 size, int align, u32 flags,
++		     struct sg_table *sg, struct reservation_object *robj);
+ int  nouveau_bo_new(struct nouveau_cli *, u64 size, int align, u32 flags,
+ 		    u32 tile_mode, u32 tile_flags, struct sg_table *sg,
+ 		    struct reservation_object *robj,
+diff --git a/drivers/gpu/drm/nouveau/nouveau_gem.c b/drivers/gpu/drm/nouvea=
+u/nouveau_gem.c
+index c7368aa0bdec..e9c772e07789 100644
+--- a/drivers/gpu/drm/nouveau/nouveau_gem.c
++++ b/drivers/gpu/drm/nouveau/nouveau_gem.c
+@@ -188,11 +188,23 @@ nouveau_gem_new(struct nouveau_cli *cli, u64 size, in=
+t align, uint32_t domain,
+ 	if (domain & NOUVEAU_GEM_DOMAIN_COHERENT)
+ 		flags |=3D TTM_PL_FLAG_UNCACHED;
+=20
+-	ret =3D nouveau_bo_new(cli, size, align, flags, tile_mode,
+-			     tile_flags, NULL, NULL, pnvbo);
+-	if (ret)
++	nvbo =3D nouveau_bo_alloc(cli, size, flags, tile_mode, tile_flags);
++	if (IS_ERR(nvbo))
++		return PTR_ERR(nvbo);
++
++	/* Initialize the embedded gem-object. We return a single gem-reference
++	 * to the caller, instead of a normal nouveau_bo ttm reference. */
++	ret =3D drm_gem_object_init(drm->dev, &nvbo->bo.base, size);
++	if (ret) {
++		nouveau_bo_ref(NULL, &nvbo);
++		return ret;
++	}
++
++	ret =3D nouveau_bo_init(nvbo, size, align, flags, NULL, NULL);
++	if (ret) {
++		nouveau_bo_ref(NULL, &nvbo);
+ 		return ret;
+-	nvbo =3D *pnvbo;
++	}
+=20
+ 	/* we restrict allowed domains on nv50+ to only the types
+ 	 * that were requested at creation time.  not possibly on
+@@ -203,15 +215,8 @@ nouveau_gem_new(struct nouveau_cli *cli, u64 size, int=
+ align, uint32_t domain,
+ 	if (drm->client.device.info.family >=3D NV_DEVICE_INFO_V0_TESLA)
+ 		nvbo->valid_domains &=3D domain;
+=20
+-	/* Initialize the embedded gem-object. We return a single gem-reference
+-	 * to the caller, instead of a normal nouveau_bo ttm reference. */
+-	ret =3D drm_gem_object_init(drm->dev, &nvbo->bo.base, nvbo->bo.mem.size);
+-	if (ret) {
+-		nouveau_bo_ref(NULL, pnvbo);
+-		return -ENOMEM;
+-	}
+-
+ 	nvbo->bo.persistent_swap_storage =3D nvbo->bo.base.filp;
++	*pnvbo =3D nvbo;
+ 	return 0;
+ }
+=20
+diff --git a/drivers/gpu/drm/nouveau/nouveau_prime.c b/drivers/gpu/drm/nouv=
+eau/nouveau_prime.c
+index e86ad7ae622b..0ca71a84e23a 100644
+--- a/drivers/gpu/drm/nouveau/nouveau_prime.c
++++ b/drivers/gpu/drm/nouveau/nouveau_prime.c
+@@ -63,28 +63,34 @@ struct drm_gem_object *nouveau_gem_prime_import_sg_tabl=
+e(struct drm_device *dev,
+ 	struct nouveau_drm *drm =3D nouveau_drm(dev);
+ 	struct nouveau_bo *nvbo;
+ 	struct reservation_object *robj =3D attach->dmabuf->resv;
++	size_t size =3D attach->dmabuf->size;
+ 	u32 flags =3D 0;
+ 	int ret;
+=20
+ 	flags =3D TTM_PL_FLAG_TT;
+=20
+ 	reservation_object_lock(robj, NULL);
+-	ret =3D nouveau_bo_new(&drm->client, attach->dmabuf->size, 0, flags, 0, 0,
+-			     sg, robj, &nvbo);
++	nvbo =3D nouveau_bo_alloc(&drm->client, size, flags, 0, 0);
+ 	reservation_object_unlock(robj);
+-	if (ret)
+-		return ERR_PTR(ret);
++	if (IS_ERR(nvbo))
++		return ERR_CAST(nvbo);
+=20
+ 	nvbo->valid_domains =3D NOUVEAU_GEM_DOMAIN_GART;
+=20
+ 	/* Initialize the embedded gem-object. We return a single gem-reference
+ 	 * to the caller, instead of a normal nouveau_bo ttm reference. */
+-	ret =3D drm_gem_object_init(dev, &nvbo->bo.base, nvbo->bo.mem.size);
++	ret =3D drm_gem_object_init(dev, &nvbo->bo.base, size);
+ 	if (ret) {
+ 		nouveau_bo_ref(NULL, &nvbo);
+ 		return ERR_PTR(-ENOMEM);
+ 	}
+=20
++	ret =3D nouveau_bo_init(nvbo, size, 0, flags, sg, robj);
++	if (ret) {
++		nouveau_bo_ref(NULL, &nvbo);
++		return ERR_PTR(ret);
++	}
++
+ 	return &nvbo->bo.base;
+ }
+=20
+--=20
+2.22.0
+
+
+--eJnRUKwClWJh1Khz--
+
+--2JFBq9zoW8cOFH7v
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCAAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAl1T1dkACgkQ3SOs138+
+s6GGPg//XrgyQzQlwug5SUgtNlNC+x2OZkmflw6fqA4ajzFtTrxZZ2o9oZrwNYL0
+TWT6d78UxZLN9Hcw6bMpgvw/bA86regVkJv+F0EqyB/F7ykTNiI0z+WtmLbf1+KY
+J4PLnrNrxO9P/b/ZLhl04nw+SwIiedvMKvRDgEDTMPzJlul6S99BexcjtEavJ+lD
+RIMq02ZbVbWoJuAyY2DxEl72/DWutHrrCo4esVnm+23zJtHZ5HdKJHCN2FKT04x8
+U7XdFr7XFOJz15vra21kOcKWGAX2WwXRPrZkXnby60zTuGsqmrsJmSxlgDD+cwmi
+PlWW2k38ZaQ2s/QVzsxwbw5at6F8oa8dDqzt/bvzqcTyjpyFglsR91HdrhFrLo1Y
+yvLPoXE00wDMGIIAFC25LX4azoMx6sqVsTnN4lBRJvD5HpLbXTs6uNOaptTFkm/n
+2ZV+032RA2DUen+o7dOeOn3v/GEL4LjW/pYfKn1YN6aguzTNLyrpD2zb0+jiPtcj
+7P8f2Wb+ba1B20xysHmK66aIot5lBhjVFi/XNIHwwLp0pVGyHAnW6dCARdtjxNC8
+tLwE+83WXMUrmpEekPP74nioj6ogMlKwjbuSmMS2k3/NhpHDJpZsraxbDxjR68oC
+BAzl/fJQAGquwEHfx3gXQDWj+gJqGMaXw74xbawhS3fJQOr7k7g=
+=q93D
+-----END PGP SIGNATURE-----
+
+--2JFBq9zoW8cOFH7v--
+
+--===============2063637072==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KSW50ZWwtZ2Z4
+IG1haWxpbmcgbGlzdApJbnRlbC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
+dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vaW50ZWwtZ2Z4
+
+--===============2063637072==--
