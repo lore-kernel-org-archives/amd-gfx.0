@@ -1,121 +1,111 @@
-From: Alex Deucher <alexdeucher@gmail.com>
-Subject: Re: [PATCH 1/4] drm/radeon: handle PCIe root ports with addressing limitations
-Date: Thu, 15 Aug 2019 10:15:48 -0400
-Message-ID: <CADnq5_NghUyn1K7ed6E_vk-8SgLXKj3QpriGRxbNDChdb0hU5Q@mail.gmail.com>
-References: <20190815072703.7010-1-hch@lst.de> <20190815072703.7010-2-hch@lst.de>
+From: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 1/4] drm/radeon: handle PCIe root ports with addressing
+ limitations
+Date: Thu, 15 Aug 2019 14:29:55 +0000
+Message-ID: <838ea437-f4b4-fc0a-c31c-db4568d1877e@amd.com>
+References: <20190815072703.7010-1-hch@lst.de>
+ <20190815072703.7010-2-hch@lst.de>
  <d1cf1435-92e3-edb5-c239-18c71f2d27c7@amd.com>
+ <CADnq5_NghUyn1K7ed6E_vk-8SgLXKj3QpriGRxbNDChdb0hU5Q@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <d1cf1435-92e3-edb5-c239-18c71f2d27c7@amd.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: "Koenig, Christian" <Christian.Koenig@amd.com>
-Cc: Christoph Hellwig <hch@lst.de>, "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Zhou, David(ChunMing)" <David1.Zhou@amd.com>, Atish Patra <Atish.Patra@wdc.com>, Alistair Francis <alistair.francis@wdc.com>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <CADnq5_NghUyn1K7ed6E_vk-8SgLXKj3QpriGRxbNDChdb0hU5Q-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
+Content-Language: en-US
+Content-ID: <1D855281E343EE4F974C7CEDAF1DBD5B-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Cc: "Zhou, David(ChunMing)" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, "linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org" <linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, "dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Atish Patra <Atish.Patra-Sjgp3cTcYWE@public.gmane.org>, Alistair Francis <alistair.francis-Sjgp3cTcYWE@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Deucher,
+ Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, Christoph Hellwig <hch-jcswGhMUV9g@public.gmane.org>
 
-On Thu, Aug 15, 2019 at 4:34 AM Koenig, Christian
-<Christian.Koenig@amd.com> wrote:
->
-> Am 15.08.19 um 09:27 schrieb Christoph Hellwig:
-> > radeon uses a need_dma32 flag to indicate to the drm core that some
-> > allocations need to be done using GFP_DMA32, but it only checks the
-> > device addressing capabilities to make that decision.  Unfortunately
-> > PCIe root ports that have limited addressing exist as well.  Use the
-> > dma_addressing_limited instead to also take those into account.
-> >
-> > Reported-by: Atish Patra <Atish.Patra@wdc.com>
-> > Signed-off-by: Christoph Hellwig <hch@lst.de>
->
-> Looks sane to me. Reviewed-by: Christian K=C3=B6nig <christian.koenig@amd=
-.com>.
-
-Is this for the full series or just this patch?
-
-Alex
-
->
-> Should we merge this through our normal amdgpu/radeon branches or do you
-> want to send this upstream somehow else?
->
-> Thanks,
-> Christian.
->
-> > ---
-> >   drivers/gpu/drm/radeon/radeon.h        |  1 -
-> >   drivers/gpu/drm/radeon/radeon_device.c | 12 +++++-------
-> >   drivers/gpu/drm/radeon/radeon_ttm.c    |  2 +-
-> >   3 files changed, 6 insertions(+), 9 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/radeon/radeon.h b/drivers/gpu/drm/radeon/r=
-adeon.h
-> > index 32808e50be12..1a0b22526a75 100644
-> > --- a/drivers/gpu/drm/radeon/radeon.h
-> > +++ b/drivers/gpu/drm/radeon/radeon.h
-> > @@ -2387,7 +2387,6 @@ struct radeon_device {
-> >       struct radeon_wb                wb;
-> >       struct radeon_dummy_page        dummy_page;
-> >       bool                            shutdown;
-> > -     bool                            need_dma32;
-> >       bool                            need_swiotlb;
-> >       bool                            accel_working;
-> >       bool                            fastfb_working; /* IGP feature*/
-> > diff --git a/drivers/gpu/drm/radeon/radeon_device.c b/drivers/gpu/drm/r=
-adeon/radeon_device.c
-> > index dceb554e5674..b8cc05826667 100644
-> > --- a/drivers/gpu/drm/radeon/radeon_device.c
-> > +++ b/drivers/gpu/drm/radeon/radeon_device.c
-> > @@ -1365,27 +1365,25 @@ int radeon_device_init(struct radeon_device *rd=
-ev,
-> >       else
-> >               rdev->mc.mc_mask =3D 0xffffffffULL; /* 32 bit MC */
-> >
-> > -     /* set DMA mask + need_dma32 flags.
-> > +     /* set DMA mask.
-> >        * PCIE - can handle 40-bits.
-> >        * IGP - can handle 40-bits
-> >        * AGP - generally dma32 is safest
-> >        * PCI - dma32 for legacy pci gart, 40 bits on newer asics
-> >        */
-> > -     rdev->need_dma32 =3D false;
-> > +     dma_bits =3D 40;
-> >       if (rdev->flags & RADEON_IS_AGP)
-> > -             rdev->need_dma32 =3D true;
-> > +             dma_bits =3D 32;
-> >       if ((rdev->flags & RADEON_IS_PCI) &&
-> >           (rdev->family <=3D CHIP_RS740))
-> > -             rdev->need_dma32 =3D true;
-> > +             dma_bits =3D 32;
-> >   #ifdef CONFIG_PPC64
-> >       if (rdev->family =3D=3D CHIP_CEDAR)
-> > -             rdev->need_dma32 =3D true;
-> > +             dma_bits =3D 32;
-> >   #endif
-> >
-> > -     dma_bits =3D rdev->need_dma32 ? 32 : 40;
-> >       r =3D pci_set_dma_mask(rdev->pdev, DMA_BIT_MASK(dma_bits));
-> >       if (r) {
-> > -             rdev->need_dma32 =3D true;
-> >               dma_bits =3D 32;
-> >               pr_warn("radeon: No suitable DMA available\n");
-> >       }
-> > diff --git a/drivers/gpu/drm/radeon/radeon_ttm.c b/drivers/gpu/drm/rade=
-on/radeon_ttm.c
-> > index fb3696bc616d..116a27b25dc4 100644
-> > --- a/drivers/gpu/drm/radeon/radeon_ttm.c
-> > +++ b/drivers/gpu/drm/radeon/radeon_ttm.c
-> > @@ -794,7 +794,7 @@ int radeon_ttm_init(struct radeon_device *rdev)
-> >       r =3D ttm_bo_device_init(&rdev->mman.bdev,
-> >                              &radeon_bo_driver,
-> >                              rdev->ddev->anon_inode->i_mapping,
-> > -                            rdev->need_dma32);
-> > +                            dma_addressing_limited(&rdev->pdev->dev));
-> >       if (r) {
-> >               DRM_ERROR("failed initializing buffer object driver(%d).\=
-n", r);
-> >               return r;
->
-> _______________________________________________
-> dri-devel mailing list
-> dri-devel@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/dri-devel
+QW0gMTUuMDguMTkgdW0gMTY6MTUgc2NocmllYiBBbGV4IERldWNoZXI6DQo+IE9uIFRodSwgQXVn
+IDE1LCAyMDE5IGF0IDQ6MzQgQU0gS29lbmlnLCBDaHJpc3RpYW4NCj4gPENocmlzdGlhbi5Lb2Vu
+aWdAYW1kLmNvbT4gd3JvdGU6DQo+PiBBbSAxNS4wOC4xOSB1bSAwOToyNyBzY2hyaWViIENocmlz
+dG9waCBIZWxsd2lnOg0KPj4+IHJhZGVvbiB1c2VzIGEgbmVlZF9kbWEzMiBmbGFnIHRvIGluZGlj
+YXRlIHRvIHRoZSBkcm0gY29yZSB0aGF0IHNvbWUNCj4+PiBhbGxvY2F0aW9ucyBuZWVkIHRvIGJl
+IGRvbmUgdXNpbmcgR0ZQX0RNQTMyLCBidXQgaXQgb25seSBjaGVja3MgdGhlDQo+Pj4gZGV2aWNl
+IGFkZHJlc3NpbmcgY2FwYWJpbGl0aWVzIHRvIG1ha2UgdGhhdCBkZWNpc2lvbi4gIFVuZm9ydHVu
+YXRlbHkNCj4+PiBQQ0llIHJvb3QgcG9ydHMgdGhhdCBoYXZlIGxpbWl0ZWQgYWRkcmVzc2luZyBl
+eGlzdCBhcyB3ZWxsLiAgVXNlIHRoZQ0KPj4+IGRtYV9hZGRyZXNzaW5nX2xpbWl0ZWQgaW5zdGVh
+ZCB0byBhbHNvIHRha2UgdGhvc2UgaW50byBhY2NvdW50Lg0KPj4+DQo+Pj4gUmVwb3J0ZWQtYnk6
+IEF0aXNoIFBhdHJhIDxBdGlzaC5QYXRyYUB3ZGMuY29tPg0KPj4+IFNpZ25lZC1vZmYtYnk6IENo
+cmlzdG9waCBIZWxsd2lnIDxoY2hAbHN0LmRlPg0KPj4gTG9va3Mgc2FuZSB0byBtZS4gUmV2aWV3
+ZWQtYnk6IENocmlzdGlhbiBLw7ZuaWcgPGNocmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4uDQo+IElz
+IHRoaXMgZm9yIHRoZSBmdWxsIHNlcmllcyBvciBqdXN0IHRoaXMgcGF0Y2g/DQoNCkZvciB0aGUg
+ZnVsbCBzZXJpZXMsIHNvcnJ5IGZvciBub3QgYmVpbmcgY2xlYXIgb24gdGhpcy4NCg0KQ2hyaXN0
+aWFuLg0KDQo+DQo+IEFsZXgNCj4NCj4+IFNob3VsZCB3ZSBtZXJnZSB0aGlzIHRocm91Z2ggb3Vy
+IG5vcm1hbCBhbWRncHUvcmFkZW9uIGJyYW5jaGVzIG9yIGRvIHlvdQ0KPj4gd2FudCB0byBzZW5k
+IHRoaXMgdXBzdHJlYW0gc29tZWhvdyBlbHNlPw0KPj4NCj4+IFRoYW5rcywNCj4+IENocmlzdGlh
+bi4NCj4+DQo+Pj4gLS0tDQo+Pj4gICAgZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9yYWRlb24uaCAg
+ICAgICAgfCAgMSAtDQo+Pj4gICAgZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9yYWRlb25fZGV2aWNl
+LmMgfCAxMiArKysrKy0tLS0tLS0NCj4+PiAgICBkcml2ZXJzL2dwdS9kcm0vcmFkZW9uL3JhZGVv
+bl90dG0uYyAgICB8ICAyICstDQo+Pj4gICAgMyBmaWxlcyBjaGFuZ2VkLCA2IGluc2VydGlvbnMo
+KyksIDkgZGVsZXRpb25zKC0pDQo+Pj4NCj4+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJt
+L3JhZGVvbi9yYWRlb24uaCBiL2RyaXZlcnMvZ3B1L2RybS9yYWRlb24vcmFkZW9uLmgNCj4+PiBp
+bmRleCAzMjgwOGU1MGJlMTIuLjFhMGIyMjUyNmE3NSAxMDA2NDQNCj4+PiAtLS0gYS9kcml2ZXJz
+L2dwdS9kcm0vcmFkZW9uL3JhZGVvbi5oDQo+Pj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL3JhZGVv
+bi9yYWRlb24uaA0KPj4+IEBAIC0yMzg3LDcgKzIzODcsNiBAQCBzdHJ1Y3QgcmFkZW9uX2Rldmlj
+ZSB7DQo+Pj4gICAgICAgIHN0cnVjdCByYWRlb25fd2IgICAgICAgICAgICAgICAgd2I7DQo+Pj4g
+ICAgICAgIHN0cnVjdCByYWRlb25fZHVtbXlfcGFnZSAgICAgICAgZHVtbXlfcGFnZTsNCj4+PiAg
+ICAgICAgYm9vbCAgICAgICAgICAgICAgICAgICAgICAgICAgICBzaHV0ZG93bjsNCj4+PiAtICAg
+ICBib29sICAgICAgICAgICAgICAgICAgICAgICAgICAgIG5lZWRfZG1hMzI7DQo+Pj4gICAgICAg
+IGJvb2wgICAgICAgICAgICAgICAgICAgICAgICAgICAgbmVlZF9zd2lvdGxiOw0KPj4+ICAgICAg
+ICBib29sICAgICAgICAgICAgICAgICAgICAgICAgICAgIGFjY2VsX3dvcmtpbmc7DQo+Pj4gICAg
+ICAgIGJvb2wgICAgICAgICAgICAgICAgICAgICAgICAgICAgZmFzdGZiX3dvcmtpbmc7IC8qIElH
+UCBmZWF0dXJlKi8NCj4+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9yYWRl
+b25fZGV2aWNlLmMgYi9kcml2ZXJzL2dwdS9kcm0vcmFkZW9uL3JhZGVvbl9kZXZpY2UuYw0KPj4+
+IGluZGV4IGRjZWI1NTRlNTY3NC4uYjhjYzA1ODI2NjY3IDEwMDY0NA0KPj4+IC0tLSBhL2RyaXZl
+cnMvZ3B1L2RybS9yYWRlb24vcmFkZW9uX2RldmljZS5jDQo+Pj4gKysrIGIvZHJpdmVycy9ncHUv
+ZHJtL3JhZGVvbi9yYWRlb25fZGV2aWNlLmMNCj4+PiBAQCAtMTM2NSwyNyArMTM2NSwyNSBAQCBp
+bnQgcmFkZW9uX2RldmljZV9pbml0KHN0cnVjdCByYWRlb25fZGV2aWNlICpyZGV2LA0KPj4+ICAg
+ICAgICBlbHNlDQo+Pj4gICAgICAgICAgICAgICAgcmRldi0+bWMubWNfbWFzayA9IDB4ZmZmZmZm
+ZmZVTEw7IC8qIDMyIGJpdCBNQyAqLw0KPj4+DQo+Pj4gLSAgICAgLyogc2V0IERNQSBtYXNrICsg
+bmVlZF9kbWEzMiBmbGFncy4NCj4+PiArICAgICAvKiBzZXQgRE1BIG1hc2suDQo+Pj4gICAgICAg
+ICAqIFBDSUUgLSBjYW4gaGFuZGxlIDQwLWJpdHMuDQo+Pj4gICAgICAgICAqIElHUCAtIGNhbiBo
+YW5kbGUgNDAtYml0cw0KPj4+ICAgICAgICAgKiBBR1AgLSBnZW5lcmFsbHkgZG1hMzIgaXMgc2Fm
+ZXN0DQo+Pj4gICAgICAgICAqIFBDSSAtIGRtYTMyIGZvciBsZWdhY3kgcGNpIGdhcnQsIDQwIGJp
+dHMgb24gbmV3ZXIgYXNpY3MNCj4+PiAgICAgICAgICovDQo+Pj4gLSAgICAgcmRldi0+bmVlZF9k
+bWEzMiA9IGZhbHNlOw0KPj4+ICsgICAgIGRtYV9iaXRzID0gNDA7DQo+Pj4gICAgICAgIGlmIChy
+ZGV2LT5mbGFncyAmIFJBREVPTl9JU19BR1ApDQo+Pj4gLSAgICAgICAgICAgICByZGV2LT5uZWVk
+X2RtYTMyID0gdHJ1ZTsNCj4+PiArICAgICAgICAgICAgIGRtYV9iaXRzID0gMzI7DQo+Pj4gICAg
+ICAgIGlmICgocmRldi0+ZmxhZ3MgJiBSQURFT05fSVNfUENJKSAmJg0KPj4+ICAgICAgICAgICAg
+KHJkZXYtPmZhbWlseSA8PSBDSElQX1JTNzQwKSkNCj4+PiAtICAgICAgICAgICAgIHJkZXYtPm5l
+ZWRfZG1hMzIgPSB0cnVlOw0KPj4+ICsgICAgICAgICAgICAgZG1hX2JpdHMgPSAzMjsNCj4+PiAg
+ICAjaWZkZWYgQ09ORklHX1BQQzY0DQo+Pj4gICAgICAgIGlmIChyZGV2LT5mYW1pbHkgPT0gQ0hJ
+UF9DRURBUikNCj4+PiAtICAgICAgICAgICAgIHJkZXYtPm5lZWRfZG1hMzIgPSB0cnVlOw0KPj4+
+ICsgICAgICAgICAgICAgZG1hX2JpdHMgPSAzMjsNCj4+PiAgICAjZW5kaWYNCj4+Pg0KPj4+IC0g
+ICAgIGRtYV9iaXRzID0gcmRldi0+bmVlZF9kbWEzMiA/IDMyIDogNDA7DQo+Pj4gICAgICAgIHIg
+PSBwY2lfc2V0X2RtYV9tYXNrKHJkZXYtPnBkZXYsIERNQV9CSVRfTUFTSyhkbWFfYml0cykpOw0K
+Pj4+ICAgICAgICBpZiAocikgew0KPj4+IC0gICAgICAgICAgICAgcmRldi0+bmVlZF9kbWEzMiA9
+IHRydWU7DQo+Pj4gICAgICAgICAgICAgICAgZG1hX2JpdHMgPSAzMjsNCj4+PiAgICAgICAgICAg
+ICAgICBwcl93YXJuKCJyYWRlb246IE5vIHN1aXRhYmxlIERNQSBhdmFpbGFibGVcbiIpOw0KPj4+
+ICAgICAgICB9DQo+Pj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9yYWRlb24vcmFkZW9u
+X3R0bS5jIGIvZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9yYWRlb25fdHRtLmMNCj4+PiBpbmRleCBm
+YjM2OTZiYzYxNmQuLjExNmEyN2IyNWRjNCAxMDA2NDQNCj4+PiAtLS0gYS9kcml2ZXJzL2dwdS9k
+cm0vcmFkZW9uL3JhZGVvbl90dG0uYw0KPj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9yYWRlb24v
+cmFkZW9uX3R0bS5jDQo+Pj4gQEAgLTc5NCw3ICs3OTQsNyBAQCBpbnQgcmFkZW9uX3R0bV9pbml0
+KHN0cnVjdCByYWRlb25fZGV2aWNlICpyZGV2KQ0KPj4+ICAgICAgICByID0gdHRtX2JvX2Rldmlj
+ZV9pbml0KCZyZGV2LT5tbWFuLmJkZXYsDQo+Pj4gICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgJnJhZGVvbl9ib19kcml2ZXIsDQo+Pj4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+cmRldi0+ZGRldi0+YW5vbl9pbm9kZS0+aV9tYXBwaW5nLA0KPj4+IC0gICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgcmRldi0+bmVlZF9kbWEzMik7DQo+Pj4gKyAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICBkbWFfYWRkcmVzc2luZ19saW1pdGVkKCZyZGV2LT5wZGV2LT5kZXYpKTsNCj4+PiAg
+ICAgICAgaWYgKHIpIHsNCj4+PiAgICAgICAgICAgICAgICBEUk1fRVJST1IoImZhaWxlZCBpbml0
+aWFsaXppbmcgYnVmZmVyIG9iamVjdCBkcml2ZXIoJWQpLlxuIiwgcik7DQo+Pj4gICAgICAgICAg
+ICAgICAgcmV0dXJuIHI7DQo+PiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fXw0KPj4gZHJpLWRldmVsIG1haWxpbmcgbGlzdA0KPj4gZHJpLWRldmVsQGxpc3Rz
+LmZyZWVkZXNrdG9wLm9yZw0KPj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1h
+bi9saXN0aW5mby9kcmktZGV2ZWwNCg0KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVz
+a3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9h
+bWQtZ2Z4
