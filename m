@@ -1,42 +1,80 @@
-From: Jason Gunthorpe <jgg@ziepe.ca>
-Subject: Re: [PATCH v3 hmm 03/11] mm/mmu_notifiers: add a get/put scheme for
- the registration
-Date: Wed, 14 Aug 2019 21:13:19 -0300
-Message-ID: <20190815001319.GF11200@ziepe.ca>
-References: <20190806231548.25242-1-jgg@ziepe.ca>
- <20190806231548.25242-4-jgg@ziepe.ca>
- <0a23adb8-b827-cd90-503e-bfa84166c67e@nvidia.com>
+From: "Quan, Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: [PATCH v2 5/5] drm/amdgpu: Use new mode2 reset interface for RV.
+Date: Thu, 15 Aug 2019 01:29:05 +0000
+Message-ID: <MN2PR12MB3344CD79B2DF515F1B8B4519E4AC0@MN2PR12MB3344.namprd12.prod.outlook.com>
+References: <1565815217-9533-1-git-send-email-andrey.grodzovsky@amd.com>
+ <1565815217-9533-6-git-send-email-andrey.grodzovsky@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Content-Disposition: inline
-In-Reply-To: <0a23adb8-b827-cd90-503e-bfa84166c67e@nvidia.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Ralph Campbell <rcampbell@nvidia.com>
-Cc: linux-mm@kvack.org, Andrea Arcangeli <aarcange@redhat.com>, Christoph Hellwig <hch@lst.de>, John Hubbard <jhubbard@nvidia.com>, =?utf-8?B?SsOpcsO0bWU=?= Glisse <jglisse@redhat.com>, "Kuehling, Felix" <Felix.Kuehling@amd.com>, Alex Deucher <alexander.deucher@amd.com>, Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, Dimitri Sivanich <sivanich@sgi.com>, dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org, linux-rdma@vger.kernel.org, iommu@lists.linux-foundation.org, intel-gfx@lists.freedesktop.org, Gavin Shan <shangw@linux.vnet.ibm.com>, Andrea Righi <andrea@betterlinux.com>, Christoph Hellwig <hch@infradead.org>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <1565815217-9533-6-git-send-email-andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Grodzovsky,
+ Andrey" <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>, "S, Shirish" <Shirish.S-5C7GfCeVMHo@public.gmane.org>
 
-On Wed, Aug 14, 2019 at 02:20:31PM -0700, Ralph Campbell wrote:
-> 
-> On 8/6/19 4:15 PM, Jason Gunthorpe wrote:
-> > From: Jason Gunthorpe <jgg@mellanox.com>
-> > 
-> > Many places in the kernel have a flow where userspace will create some
-> > object and that object will need to connect to the subsystem's
-> > mmu_notifier subscription for the duration of its lifetime.
-> > 
-> > In this case the subsystem is usually tracking multiple mm_structs and it
-> > is difficult to keep track of what struct mmu_notifier's have been
-> > allocated for what mm's.
-> > 
-> > Since this has been open coded in a variety of exciting ways, provide core
-> > functionality to do this safely.
-> > 
-> > This approach uses the strct mmu_notifier_ops * as a key to determine if
-> 
-> s/strct/struct
-
-Yes, thanks for all of this, I like having comments, but I'm a
-terrible proofreader :(
-
-Jason
+U2VyaWVzIGlzIFJldmlld2VkLWJ5OiBFdmFuIFF1YW4gPGV2YW4ucXVhbkBhbWQuY29tPg0KDQo+
+IC0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQo+IEZyb206IGFtZC1nZnggPGFtZC1nZngtYm91
+bmNlc0BsaXN0cy5mcmVlZGVza3RvcC5vcmc+IE9uIEJlaGFsZiBPZg0KPiBBbmRyZXkgR3JvZHpv
+dnNreQ0KPiBTZW50OiBUaHVyc2RheSwgQXVndXN0IDE1LCAyMDE5IDQ6NDAgQU0NCj4gVG86IGFt
+ZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnDQo+IENjOiBEZXVjaGVyLCBBbGV4YW5kZXIgPEFs
+ZXhhbmRlci5EZXVjaGVyQGFtZC5jb20+OyBHcm9kem92c2t5LA0KPiBBbmRyZXkgPEFuZHJleS5H
+cm9kem92c2t5QGFtZC5jb20+OyBRdWFuLCBFdmFuDQo+IDxFdmFuLlF1YW5AYW1kLmNvbT47IFMs
+IFNoaXJpc2ggPFNoaXJpc2guU0BhbWQuY29tPg0KPiBTdWJqZWN0OiBbUEFUQ0ggdjIgNS81XSBk
+cm0vYW1kZ3B1OiBVc2UgbmV3IG1vZGUyIHJlc2V0IGludGVyZmFjZSBmb3IgUlYuDQo+IA0KPiB2
+MjoNCj4gQ2hlY2sgcHBmdW5jcyBwb2ludGVyIGZvciBOVUxMDQo+IA0KPiBTaWduZWQtb2ZmLWJ5
+OiBBbmRyZXkgR3JvZHpvdnNreSA8YW5kcmV5Lmdyb2R6b3Zza3lAYW1kLmNvbT4NCj4gLS0tDQo+
+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMgfCAgMSArDQo+ICBk
+cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9zb2MxNS5jICAgICAgICAgfCAyNSArKysrKysrKysr
+KysrKysrKy0tLS0tLS0NCj4gLQ0KPiAgMiBmaWxlcyBjaGFuZ2VkLCAxOCBpbnNlcnRpb25zKCsp
+LCA4IGRlbGV0aW9ucygtKQ0KPiANCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQv
+YW1kZ3B1L2FtZGdwdV9kZXZpY2UuYw0KPiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
+ZGdwdV9kZXZpY2UuYw0KPiBpbmRleCAyNzUyNzczLi4wMmIzZTdkIDEwMDY0NA0KPiAtLS0gYS9k
+cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMNCj4gKysrIGIvZHJpdmVy
+cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jDQo+IEBAIC0zNTI0LDYgKzM1MjQs
+NyBAQCBib29sIGFtZGdwdV9kZXZpY2Vfc2hvdWxkX3JlY292ZXJfZ3B1KHN0cnVjdA0KPiBhbWRn
+cHVfZGV2aWNlICphZGV2KQ0KPiAgCQljYXNlIENISVBfVkVHQTIwOg0KPiAgCQljYXNlIENISVBf
+VkVHQTEwOg0KPiAgCQljYXNlIENISVBfVkVHQTEyOg0KPiArCQljYXNlIENISVBfUkFWRU46DQo+
+ICAJCQlicmVhazsNCj4gIAkJZGVmYXVsdDoNCj4gIAkJCWdvdG8gZGlzYWJsZWQ7DQo+IGRpZmYg
+LS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9zb2MxNS5jDQo+IGIvZHJpdmVycy9n
+cHUvZHJtL2FtZC9hbWRncHUvc29jMTUuYw0KPiBpbmRleCBjMmQzMjRkLi43N2U2Nzk5IDEwMDY0
+NA0KPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9zb2MxNS5jDQo+ICsrKyBiL2Ry
+aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3NvYzE1LmMNCj4gQEAgLTUwOCw2ICs1MDgsMTUgQEAg
+c3RhdGljIGludCBzb2MxNV9hc2ljX2JhY29fcmVzZXQoc3RydWN0DQo+IGFtZGdwdV9kZXZpY2Ug
+KmFkZXYpDQo+ICAJcmV0dXJuIDA7DQo+ICB9DQo+IA0KPiArc3RhdGljIGludCBzb2MxNV9tb2Rl
+Ml9yZXNldChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikgew0KPiArCWlmICghYWRldi0+cG93
+ZXJwbGF5LnBwX2Z1bmNzIHx8DQo+ICsJICAgICFhZGV2LT5wb3dlcnBsYXkucHBfZnVuY3MtPmFz
+aWNfcmVzZXRfbW9kZV8yKQ0KPiArCQlyZXR1cm4gLUVOT0VOVDsNCj4gKw0KPiArCXJldHVybg0K
+PiArYWRldi0+cG93ZXJwbGF5LnBwX2Z1bmNzLT5hc2ljX3Jlc2V0X21vZGVfMihhZGV2LQ0KPiA+
+cG93ZXJwbGF5LnBwX2hhbmRsZSk7DQo+ICt9DQo+ICsNCj4gIHN0YXRpYyBlbnVtIGFtZF9yZXNl
+dF9tZXRob2QNCj4gIHNvYzE1X2FzaWNfcmVzZXRfbWV0aG9kKHN0cnVjdCBhbWRncHVfZGV2aWNl
+ICphZGV2KSAgeyBAQCAtNTQ2LDE0DQo+ICs1NTUsMTQgQEAgc29jMTVfYXNpY19yZXNldF9tZXRo
+b2Qoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpDQo+IA0KPiAgc3RhdGljIGludCBzb2MxNV9h
+c2ljX3Jlc2V0KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KSAgew0KPiAtCWludCByZXQ7DQo+
+IC0NCj4gLQlpZiAoc29jMTVfYXNpY19yZXNldF9tZXRob2QoYWRldikgPT0gQU1EX1JFU0VUX01F
+VEhPRF9CQUNPKQ0KPiAtCQlyZXQgPSBzb2MxNV9hc2ljX2JhY29fcmVzZXQoYWRldik7DQo+IC0J
+ZWxzZQ0KPiAtCQlyZXQgPSBzb2MxNV9hc2ljX21vZGUxX3Jlc2V0KGFkZXYpOw0KPiAtDQo+IC0J
+cmV0dXJuIHJldDsNCj4gKwlzd2l0Y2ggKHNvYzE1X2FzaWNfcmVzZXRfbWV0aG9kKGFkZXYpKSB7
+DQo+ICsJCWNhc2UgQU1EX1JFU0VUX01FVEhPRF9CQUNPOg0KPiArCQkJcmV0dXJuIHNvYzE1X2Fz
+aWNfYmFjb19yZXNldChhZGV2KTsNCj4gKwkJY2FzZSBBTURfUkVTRVRfTUVUSE9EX01PREUyOg0K
+PiArCQkJcmV0dXJuIHNvYzE1X21vZGUyX3Jlc2V0KGFkZXYpOw0KPiArCQlkZWZhdWx0Og0KPiAr
+CQkJcmV0dXJuIHNvYzE1X2FzaWNfbW9kZTFfcmVzZXQoYWRldik7DQo+ICsJfQ0KPiAgfQ0KPiAN
+Cj4gIC8qc3RhdGljIGludCBzb2MxNV9zZXRfdXZkX2Nsb2NrKHN0cnVjdCBhbWRncHVfZGV2aWNl
+ICphZGV2LCB1MzIgY2xvY2ssDQo+IC0tDQo+IDIuNy40DQo+IA0KPiBfX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXw0KPiBhbWQtZ2Z4IG1haWxpbmcgbGlzdA0K
+PiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0KPiBodHRwczovL2xpc3RzLmZyZWVkZXNr
+dG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngNCl9fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlz
+dHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4v
+bGlzdGluZm8vYW1kLWdmeA==
