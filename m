@@ -1,80 +1,24 @@
-From: "Yuan, Xiaojie" <Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH 2/2] drm/amdgpu: add firmware header printing for psp fw
- loading
-Date: Thu, 15 Aug 2019 09:48:34 +0000
-Message-ID: <20190815094815.20819-2-xiaojie.yuan@amd.com>
-References: <20190815094815.20819-1-xiaojie.yuan@amd.com>
+From: Christoph Hellwig <hch@lst.de>
+Subject: Re: [PATCH 1/4] drm/radeon: handle PCIe root ports with addressing
+ limitations
+Date: Thu, 15 Aug 2019 12:06:10 +0200
+Message-ID: <20190815100610.GA28728@lst.de>
+References: <20190815072703.7010-1-hch@lst.de> <20190815072703.7010-2-hch@lst.de> <d1cf1435-92e3-edb5-c239-18c71f2d27c7@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190815094815.20819-1-xiaojie.yuan-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Xiao, Jack" <Jack.Xiao-5C7GfCeVMHo@public.gmane.org>, "Huang, Ray" <Ray.Huang-5C7GfCeVMHo@public.gmane.org>, "Yuan,
- Xiaojie" <Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org>, "Zhang, Hawking" <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset=iso-8859-1
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Content-Disposition: inline
+In-Reply-To: <d1cf1435-92e3-edb5-c239-18c71f2d27c7@amd.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: "Koenig, Christian" <Christian.Koenig@amd.com>
+Cc: Christoph Hellwig <hch@lst.de>, "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Zhou, David(ChunMing)" <David1.Zhou@amd.com>, Atish Patra <Atish.Patra@wdc.com>, Alistair Francis <alistair.francis@wdc.com>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-ZmlybXdhcmUgaGVhZGVyIGluZm9ybWF0aW9uIGlzIHByaW50ZWQgZm9yIGRpcmVjdCBmdyBsb2Fk
-aW5nIGJ1dCBub3QKYWRkZWQgZm9yIHBzcCBmdyBsb2FkaW5nIHlldAoKU2lnbmVkLW9mZi1ieTog
-WGlhb2ppZSBZdWFuIDx4aWFvamllLnl1YW5AYW1kLmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0v
-YW1kL2FtZGdwdS9hbWRncHVfcHNwLmMgfCA1NCArKysrKysrKysrKysrKysrKysrKysrKysrCiAx
-IGZpbGUgY2hhbmdlZCwgNTQgaW5zZXJ0aW9ucygrKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9wc3AuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
-L2FtZGdwdV9wc3AuYwppbmRleCA0YjJkMmZkNzJkYzYuLjc3MTVjMGRhNTIyOSAxMDA2NDQKLS0t
-IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3BzcC5jCisrKyBiL2RyaXZlcnMv
-Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9wc3AuYwpAQCAtOTQ0LDYgKzk0NCw1OCBAQCBzdGF0
-aWMgaW50IHBzcF9nZXRfZndfdHlwZShzdHJ1Y3QgYW1kZ3B1X2Zpcm13YXJlX2luZm8gKnVjb2Rl
-LAogCXJldHVybiAwOwogfQogCitzdGF0aWMgdm9pZCBwc3BfcHJpbnRfZndfaGRyKHN0cnVjdCBw
-c3BfY29udGV4dCAqcHNwLAorCQkJICAgICBzdHJ1Y3QgYW1kZ3B1X2Zpcm13YXJlX2luZm8gKnVj
-b2RlKQoreworCXN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2ID0gcHNwLT5hZGV2OworCWNvbnN0
-IHN0cnVjdCBzZG1hX2Zpcm13YXJlX2hlYWRlcl92MV8wICpzZG1hX2hkciA9CisJCShjb25zdCBz
-dHJ1Y3Qgc2RtYV9maXJtd2FyZV9oZWFkZXJfdjFfMCAqKQorCQlhZGV2LT5zZG1hLmluc3RhbmNl
-W3Vjb2RlLT51Y29kZV9pZCAtIEFNREdQVV9VQ09ERV9JRF9TRE1BMF0uZnctPmRhdGE7CisJY29u
-c3Qgc3RydWN0IGdmeF9maXJtd2FyZV9oZWFkZXJfdjFfMCAqY2VfaGRyID0KKwkJKGNvbnN0IHN0
-cnVjdCBnZnhfZmlybXdhcmVfaGVhZGVyX3YxXzAgKilhZGV2LT5nZnguY2VfZnctPmRhdGE7CisJ
-Y29uc3Qgc3RydWN0IGdmeF9maXJtd2FyZV9oZWFkZXJfdjFfMCAqcGZwX2hkciA9CisJCShjb25z
-dCBzdHJ1Y3QgZ2Z4X2Zpcm13YXJlX2hlYWRlcl92MV8wICopYWRldi0+Z2Z4LnBmcF9mdy0+ZGF0
-YTsKKwljb25zdCBzdHJ1Y3QgZ2Z4X2Zpcm13YXJlX2hlYWRlcl92MV8wICptZV9oZHIgPQorCQko
-Y29uc3Qgc3RydWN0IGdmeF9maXJtd2FyZV9oZWFkZXJfdjFfMCAqKWFkZXYtPmdmeC5tZV9mdy0+
-ZGF0YTsKKwljb25zdCBzdHJ1Y3QgZ2Z4X2Zpcm13YXJlX2hlYWRlcl92MV8wICptZWNfaGRyID0K
-KwkJKGNvbnN0IHN0cnVjdCBnZnhfZmlybXdhcmVfaGVhZGVyX3YxXzAgKilhZGV2LT5nZngubWVj
-X2Z3LT5kYXRhOworCWNvbnN0IHN0cnVjdCBybGNfZmlybXdhcmVfaGVhZGVyX3YyXzAgKnJsY19o
-ZHIgPQorCQkoY29uc3Qgc3RydWN0IHJsY19maXJtd2FyZV9oZWFkZXJfdjJfMCAqKWFkZXYtPmdm
-eC5ybGNfZnctPmRhdGE7CisJY29uc3Qgc3RydWN0IHNtY19maXJtd2FyZV9oZWFkZXJfdjFfMCAq
-c21jX2hkciA9CisJCShjb25zdCBzdHJ1Y3Qgc21jX2Zpcm13YXJlX2hlYWRlcl92MV8wICopYWRl
-di0+cG0uZnctPmRhdGE7CisKKwlzd2l0Y2ggKHVjb2RlLT51Y29kZV9pZCkgeworCWNhc2UgQU1E
-R1BVX1VDT0RFX0lEX1NETUEwOgorCWNhc2UgQU1ER1BVX1VDT0RFX0lEX1NETUExOgorCWNhc2Ug
-QU1ER1BVX1VDT0RFX0lEX1NETUEyOgorCWNhc2UgQU1ER1BVX1VDT0RFX0lEX1NETUEzOgorCWNh
-c2UgQU1ER1BVX1VDT0RFX0lEX1NETUE0OgorCWNhc2UgQU1ER1BVX1VDT0RFX0lEX1NETUE1Ogor
-CWNhc2UgQU1ER1BVX1VDT0RFX0lEX1NETUE2OgorCWNhc2UgQU1ER1BVX1VDT0RFX0lEX1NETUE3
-OgorCQlhbWRncHVfdWNvZGVfcHJpbnRfc2RtYV9oZHIoJnNkbWFfaGRyLT5oZWFkZXIpOworCQli
-cmVhazsKKwljYXNlIEFNREdQVV9VQ09ERV9JRF9DUF9DRToKKwkJYW1kZ3B1X3Vjb2RlX3ByaW50
-X2dmeF9oZHIoJmNlX2hkci0+aGVhZGVyKTsKKwkJYnJlYWs7CisJY2FzZSBBTURHUFVfVUNPREVf
-SURfQ1BfUEZQOgorCQlhbWRncHVfdWNvZGVfcHJpbnRfZ2Z4X2hkcigmcGZwX2hkci0+aGVhZGVy
-KTsKKwkJYnJlYWs7CisJY2FzZSBBTURHUFVfVUNPREVfSURfQ1BfTUU6CisJCWFtZGdwdV91Y29k
-ZV9wcmludF9nZnhfaGRyKCZtZV9oZHItPmhlYWRlcik7CisJCWJyZWFrOworCWNhc2UgQU1ER1BV
-X1VDT0RFX0lEX0NQX01FQzE6CisJCWFtZGdwdV91Y29kZV9wcmludF9nZnhfaGRyKCZtZWNfaGRy
-LT5oZWFkZXIpOworCQlicmVhazsKKwljYXNlIEFNREdQVV9VQ09ERV9JRF9STENfRzoKKwkJYW1k
-Z3B1X3Vjb2RlX3ByaW50X3JsY19oZHIoJnJsY19oZHItPmhlYWRlcik7CisJCWJyZWFrOworCWNh
-c2UgQU1ER1BVX1VDT0RFX0lEX1NNQzoKKwkJYW1kZ3B1X3Vjb2RlX3ByaW50X3NtY19oZHIoJnNt
-Y19oZHItPmhlYWRlcik7CisJCWJyZWFrOworCX0KK30KKwogc3RhdGljIGludCBwc3BfcHJlcF9s
-b2FkX2lwX2Z3X2NtZF9idWYoc3RydWN0IGFtZGdwdV9maXJtd2FyZV9pbmZvICp1Y29kZSwKIAkJ
-CQkgICAgICAgc3RydWN0IHBzcF9nZnhfY21kX3Jlc3AgKmNtZCkKIHsKQEAgLTEwMjgsNiArMTA4
-MCw4IEBAIHN0YXRpYyBpbnQgcHNwX25wX2Z3X2xvYWQoc3RydWN0IHBzcF9jb250ZXh0ICpwc3Ap
-CiAJCSAgICB1Y29kZS0+dWNvZGVfaWQgPT0gQU1ER1BVX1VDT0RFX0lEX0NQX01FQzJfSlQpCiAJ
-CQljb250aW51ZTsKIAorCQlwc3BfcHJpbnRfZndfaGRyKHBzcCwgdWNvZGUpOworCiAJCXJldCA9
-IHBzcF9leGVjdXRlX25wX2Z3X2xvYWQocHNwLCB1Y29kZSk7CiAJCWlmIChyZXQpCiAJCQlyZXR1
-cm4gcmV0OwotLSAKMi4yMC4xCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9w
-Lm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1n
-Zng=
+On Thu, Aug 15, 2019 at 08:34:10AM +0000, Koenig, Christian wrote:
+> Looks sane to me. Reviewed-by: Christian König <christian.koenig@amd.com>.
+> 
+> Should we merge this through our normal amdgpu/radeon branches or do you 
+> want to send this upstream somehow else?
+
+This is intended for your trees.
