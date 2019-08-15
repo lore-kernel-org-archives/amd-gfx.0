@@ -1,111 +1,1366 @@
-From: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 1/4] drm/radeon: handle PCIe root ports with addressing
- limitations
-Date: Thu, 15 Aug 2019 14:29:55 +0000
-Message-ID: <838ea437-f4b4-fc0a-c31c-db4568d1877e@amd.com>
-References: <20190815072703.7010-1-hch@lst.de>
- <20190815072703.7010-2-hch@lst.de>
- <d1cf1435-92e3-edb5-c239-18c71f2d27c7@amd.com>
- <CADnq5_NghUyn1K7ed6E_vk-8SgLXKj3QpriGRxbNDChdb0hU5Q@mail.gmail.com>
-Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CADnq5_NghUyn1K7ed6E_vk-8SgLXKj3QpriGRxbNDChdb0hU5Q-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
-Content-Language: en-US
-Content-ID: <1D855281E343EE4F974C7CEDAF1DBD5B-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: "Zhou, David(ChunMing)" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, "linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org" <linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, "dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Atish Patra <Atish.Patra-Sjgp3cTcYWE@public.gmane.org>, Alistair Francis <alistair.francis-Sjgp3cTcYWE@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Deucher,
- Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, Christoph Hellwig <hch-jcswGhMUV9g@public.gmane.org>
+From: Kai-Heng Feng <kai.heng.feng@canonical.com>
+Subject: Re: [PATCH] drm/amdgpu: Apply flags after amdgpu_device_ip_init()
+Date: Thu, 15 Aug 2019 22:56:37 +0800
+Message-ID: <8D8229FF-933A-43CF-AE05-52E969E3B942@canonical.com>
+References: <20190815051117.24003-1-kai.heng.feng@canonical.com>
+ <BN6PR12MB180950AE744B37AAFADC2FEAF7AC0@BN6PR12MB1809.namprd12.prod.outlook.com>
+Mime-Version: 1.0 (Mac OS X Mail 12.4 \(3445.104.11\))
+Content-Type: text/plain;
+        charset=utf-8;
+        delsp=yes;
+        format=flowed
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <BN6PR12MB180950AE744B37AAFADC2FEAF7AC0@BN6PR12MB1809.namprd12.prod.outlook.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: "Deucher, Alexander" <Alexander.Deucher@amd.com>
+Cc: "Koenig, Christian" <Christian.Koenig@amd.com>, "Zhou, David(ChunMing)" <David1.Zhou@amd.com>, "Huang, Ray" <Ray.Huang@amd.com>, "anthony.wong@canonical.com" <anthony.wong@canonical.com>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-QW0gMTUuMDguMTkgdW0gMTY6MTUgc2NocmllYiBBbGV4IERldWNoZXI6DQo+IE9uIFRodSwgQXVn
-IDE1LCAyMDE5IGF0IDQ6MzQgQU0gS29lbmlnLCBDaHJpc3RpYW4NCj4gPENocmlzdGlhbi5Lb2Vu
-aWdAYW1kLmNvbT4gd3JvdGU6DQo+PiBBbSAxNS4wOC4xOSB1bSAwOToyNyBzY2hyaWViIENocmlz
-dG9waCBIZWxsd2lnOg0KPj4+IHJhZGVvbiB1c2VzIGEgbmVlZF9kbWEzMiBmbGFnIHRvIGluZGlj
-YXRlIHRvIHRoZSBkcm0gY29yZSB0aGF0IHNvbWUNCj4+PiBhbGxvY2F0aW9ucyBuZWVkIHRvIGJl
-IGRvbmUgdXNpbmcgR0ZQX0RNQTMyLCBidXQgaXQgb25seSBjaGVja3MgdGhlDQo+Pj4gZGV2aWNl
-IGFkZHJlc3NpbmcgY2FwYWJpbGl0aWVzIHRvIG1ha2UgdGhhdCBkZWNpc2lvbi4gIFVuZm9ydHVu
-YXRlbHkNCj4+PiBQQ0llIHJvb3QgcG9ydHMgdGhhdCBoYXZlIGxpbWl0ZWQgYWRkcmVzc2luZyBl
-eGlzdCBhcyB3ZWxsLiAgVXNlIHRoZQ0KPj4+IGRtYV9hZGRyZXNzaW5nX2xpbWl0ZWQgaW5zdGVh
-ZCB0byBhbHNvIHRha2UgdGhvc2UgaW50byBhY2NvdW50Lg0KPj4+DQo+Pj4gUmVwb3J0ZWQtYnk6
-IEF0aXNoIFBhdHJhIDxBdGlzaC5QYXRyYUB3ZGMuY29tPg0KPj4+IFNpZ25lZC1vZmYtYnk6IENo
-cmlzdG9waCBIZWxsd2lnIDxoY2hAbHN0LmRlPg0KPj4gTG9va3Mgc2FuZSB0byBtZS4gUmV2aWV3
-ZWQtYnk6IENocmlzdGlhbiBLw7ZuaWcgPGNocmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4uDQo+IElz
-IHRoaXMgZm9yIHRoZSBmdWxsIHNlcmllcyBvciBqdXN0IHRoaXMgcGF0Y2g/DQoNCkZvciB0aGUg
-ZnVsbCBzZXJpZXMsIHNvcnJ5IGZvciBub3QgYmVpbmcgY2xlYXIgb24gdGhpcy4NCg0KQ2hyaXN0
-aWFuLg0KDQo+DQo+IEFsZXgNCj4NCj4+IFNob3VsZCB3ZSBtZXJnZSB0aGlzIHRocm91Z2ggb3Vy
-IG5vcm1hbCBhbWRncHUvcmFkZW9uIGJyYW5jaGVzIG9yIGRvIHlvdQ0KPj4gd2FudCB0byBzZW5k
-IHRoaXMgdXBzdHJlYW0gc29tZWhvdyBlbHNlPw0KPj4NCj4+IFRoYW5rcywNCj4+IENocmlzdGlh
-bi4NCj4+DQo+Pj4gLS0tDQo+Pj4gICAgZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9yYWRlb24uaCAg
-ICAgICAgfCAgMSAtDQo+Pj4gICAgZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9yYWRlb25fZGV2aWNl
-LmMgfCAxMiArKysrKy0tLS0tLS0NCj4+PiAgICBkcml2ZXJzL2dwdS9kcm0vcmFkZW9uL3JhZGVv
-bl90dG0uYyAgICB8ICAyICstDQo+Pj4gICAgMyBmaWxlcyBjaGFuZ2VkLCA2IGluc2VydGlvbnMo
-KyksIDkgZGVsZXRpb25zKC0pDQo+Pj4NCj4+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJt
-L3JhZGVvbi9yYWRlb24uaCBiL2RyaXZlcnMvZ3B1L2RybS9yYWRlb24vcmFkZW9uLmgNCj4+PiBp
-bmRleCAzMjgwOGU1MGJlMTIuLjFhMGIyMjUyNmE3NSAxMDA2NDQNCj4+PiAtLS0gYS9kcml2ZXJz
-L2dwdS9kcm0vcmFkZW9uL3JhZGVvbi5oDQo+Pj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL3JhZGVv
-bi9yYWRlb24uaA0KPj4+IEBAIC0yMzg3LDcgKzIzODcsNiBAQCBzdHJ1Y3QgcmFkZW9uX2Rldmlj
-ZSB7DQo+Pj4gICAgICAgIHN0cnVjdCByYWRlb25fd2IgICAgICAgICAgICAgICAgd2I7DQo+Pj4g
-ICAgICAgIHN0cnVjdCByYWRlb25fZHVtbXlfcGFnZSAgICAgICAgZHVtbXlfcGFnZTsNCj4+PiAg
-ICAgICAgYm9vbCAgICAgICAgICAgICAgICAgICAgICAgICAgICBzaHV0ZG93bjsNCj4+PiAtICAg
-ICBib29sICAgICAgICAgICAgICAgICAgICAgICAgICAgIG5lZWRfZG1hMzI7DQo+Pj4gICAgICAg
-IGJvb2wgICAgICAgICAgICAgICAgICAgICAgICAgICAgbmVlZF9zd2lvdGxiOw0KPj4+ICAgICAg
-ICBib29sICAgICAgICAgICAgICAgICAgICAgICAgICAgIGFjY2VsX3dvcmtpbmc7DQo+Pj4gICAg
-ICAgIGJvb2wgICAgICAgICAgICAgICAgICAgICAgICAgICAgZmFzdGZiX3dvcmtpbmc7IC8qIElH
-UCBmZWF0dXJlKi8NCj4+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9yYWRl
-b25fZGV2aWNlLmMgYi9kcml2ZXJzL2dwdS9kcm0vcmFkZW9uL3JhZGVvbl9kZXZpY2UuYw0KPj4+
-IGluZGV4IGRjZWI1NTRlNTY3NC4uYjhjYzA1ODI2NjY3IDEwMDY0NA0KPj4+IC0tLSBhL2RyaXZl
-cnMvZ3B1L2RybS9yYWRlb24vcmFkZW9uX2RldmljZS5jDQo+Pj4gKysrIGIvZHJpdmVycy9ncHUv
-ZHJtL3JhZGVvbi9yYWRlb25fZGV2aWNlLmMNCj4+PiBAQCAtMTM2NSwyNyArMTM2NSwyNSBAQCBp
-bnQgcmFkZW9uX2RldmljZV9pbml0KHN0cnVjdCByYWRlb25fZGV2aWNlICpyZGV2LA0KPj4+ICAg
-ICAgICBlbHNlDQo+Pj4gICAgICAgICAgICAgICAgcmRldi0+bWMubWNfbWFzayA9IDB4ZmZmZmZm
-ZmZVTEw7IC8qIDMyIGJpdCBNQyAqLw0KPj4+DQo+Pj4gLSAgICAgLyogc2V0IERNQSBtYXNrICsg
-bmVlZF9kbWEzMiBmbGFncy4NCj4+PiArICAgICAvKiBzZXQgRE1BIG1hc2suDQo+Pj4gICAgICAg
-ICAqIFBDSUUgLSBjYW4gaGFuZGxlIDQwLWJpdHMuDQo+Pj4gICAgICAgICAqIElHUCAtIGNhbiBo
-YW5kbGUgNDAtYml0cw0KPj4+ICAgICAgICAgKiBBR1AgLSBnZW5lcmFsbHkgZG1hMzIgaXMgc2Fm
-ZXN0DQo+Pj4gICAgICAgICAqIFBDSSAtIGRtYTMyIGZvciBsZWdhY3kgcGNpIGdhcnQsIDQwIGJp
-dHMgb24gbmV3ZXIgYXNpY3MNCj4+PiAgICAgICAgICovDQo+Pj4gLSAgICAgcmRldi0+bmVlZF9k
-bWEzMiA9IGZhbHNlOw0KPj4+ICsgICAgIGRtYV9iaXRzID0gNDA7DQo+Pj4gICAgICAgIGlmIChy
-ZGV2LT5mbGFncyAmIFJBREVPTl9JU19BR1ApDQo+Pj4gLSAgICAgICAgICAgICByZGV2LT5uZWVk
-X2RtYTMyID0gdHJ1ZTsNCj4+PiArICAgICAgICAgICAgIGRtYV9iaXRzID0gMzI7DQo+Pj4gICAg
-ICAgIGlmICgocmRldi0+ZmxhZ3MgJiBSQURFT05fSVNfUENJKSAmJg0KPj4+ICAgICAgICAgICAg
-KHJkZXYtPmZhbWlseSA8PSBDSElQX1JTNzQwKSkNCj4+PiAtICAgICAgICAgICAgIHJkZXYtPm5l
-ZWRfZG1hMzIgPSB0cnVlOw0KPj4+ICsgICAgICAgICAgICAgZG1hX2JpdHMgPSAzMjsNCj4+PiAg
-ICAjaWZkZWYgQ09ORklHX1BQQzY0DQo+Pj4gICAgICAgIGlmIChyZGV2LT5mYW1pbHkgPT0gQ0hJ
-UF9DRURBUikNCj4+PiAtICAgICAgICAgICAgIHJkZXYtPm5lZWRfZG1hMzIgPSB0cnVlOw0KPj4+
-ICsgICAgICAgICAgICAgZG1hX2JpdHMgPSAzMjsNCj4+PiAgICAjZW5kaWYNCj4+Pg0KPj4+IC0g
-ICAgIGRtYV9iaXRzID0gcmRldi0+bmVlZF9kbWEzMiA/IDMyIDogNDA7DQo+Pj4gICAgICAgIHIg
-PSBwY2lfc2V0X2RtYV9tYXNrKHJkZXYtPnBkZXYsIERNQV9CSVRfTUFTSyhkbWFfYml0cykpOw0K
-Pj4+ICAgICAgICBpZiAocikgew0KPj4+IC0gICAgICAgICAgICAgcmRldi0+bmVlZF9kbWEzMiA9
-IHRydWU7DQo+Pj4gICAgICAgICAgICAgICAgZG1hX2JpdHMgPSAzMjsNCj4+PiAgICAgICAgICAg
-ICAgICBwcl93YXJuKCJyYWRlb246IE5vIHN1aXRhYmxlIERNQSBhdmFpbGFibGVcbiIpOw0KPj4+
-ICAgICAgICB9DQo+Pj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9yYWRlb24vcmFkZW9u
-X3R0bS5jIGIvZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9yYWRlb25fdHRtLmMNCj4+PiBpbmRleCBm
-YjM2OTZiYzYxNmQuLjExNmEyN2IyNWRjNCAxMDA2NDQNCj4+PiAtLS0gYS9kcml2ZXJzL2dwdS9k
-cm0vcmFkZW9uL3JhZGVvbl90dG0uYw0KPj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9yYWRlb24v
-cmFkZW9uX3R0bS5jDQo+Pj4gQEAgLTc5NCw3ICs3OTQsNyBAQCBpbnQgcmFkZW9uX3R0bV9pbml0
-KHN0cnVjdCByYWRlb25fZGV2aWNlICpyZGV2KQ0KPj4+ICAgICAgICByID0gdHRtX2JvX2Rldmlj
-ZV9pbml0KCZyZGV2LT5tbWFuLmJkZXYsDQo+Pj4gICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgJnJhZGVvbl9ib19kcml2ZXIsDQo+Pj4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-cmRldi0+ZGRldi0+YW5vbl9pbm9kZS0+aV9tYXBwaW5nLA0KPj4+IC0gICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgcmRldi0+bmVlZF9kbWEzMik7DQo+Pj4gKyAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICBkbWFfYWRkcmVzc2luZ19saW1pdGVkKCZyZGV2LT5wZGV2LT5kZXYpKTsNCj4+PiAg
-ICAgICAgaWYgKHIpIHsNCj4+PiAgICAgICAgICAgICAgICBEUk1fRVJST1IoImZhaWxlZCBpbml0
-aWFsaXppbmcgYnVmZmVyIG9iamVjdCBkcml2ZXIoJWQpLlxuIiwgcik7DQo+Pj4gICAgICAgICAg
-ICAgICAgcmV0dXJuIHI7DQo+PiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fXw0KPj4gZHJpLWRldmVsIG1haWxpbmcgbGlzdA0KPj4gZHJpLWRldmVsQGxpc3Rz
-LmZyZWVkZXNrdG9wLm9yZw0KPj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1h
-bi9saXN0aW5mby9kcmktZGV2ZWwNCg0KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVz
-a3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9h
-bWQtZ2Z4
+at 21:33, Deucher, Alexander <Alexander.Deucher@amd.com> wrote:
+
+> Thanks for finding this!  I think the attached patch should fix the issue  
+> and it's much less invasive.
+
+Yes it also fix the issue, please add by tested-by:
+Tested-by: Kai-Heng Feng <kai.heng.feng@canonical.com>
+
+I took this more or less future proof approach because I think this won’t  
+be the last chip that needs firmware information, which isn’t available in  
+early init, to decides its flags.
+
+Yes it’s intrusive to carve out all flags from early init callbacks, but I  
+don’t think it’s that ugly.
+
+Kai-Heng
+
+>
+> Alex
+> From: Kai-Heng Feng <kai.heng.feng@canonical.com>
+> Sent: Thursday, August 15, 2019 1:11 AM
+> To: Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian  
+> <Christian.Koenig@amd.com>; Zhou, David(ChunMing) <David1.Zhou@amd.com>
+> Cc: Huang, Ray <Ray.Huang@amd.com>; anthony.wong@canonical.com  
+> <anthony.wong@canonical.com>; amd-gfx@lists.freedesktop.org  
+> <amd-gfx@lists.freedesktop.org>; dri-devel@lists.freedesktop.org  
+> <dri-devel@lists.freedesktop.org>; linux-kernel@vger.kernel.org  
+> <linux-kernel@vger.kernel.org>; Kai-Heng Feng  
+> <kai.heng.feng@canonical.com>
+> Subject: [PATCH] drm/amdgpu: Apply flags after amdgpu_device_ip_init()
+>
+> After commit 005440066f92 ("drm/amdgpu: enable gfxoff again on raven
+> series (v2)"), some Raven Ridge systems start to have rendering
+> corruption in browser [1].
+>
+> Chip specific flags like cg_flags and pg_flags are applied in
+> amdgpu_device_ip_early_init(). For Raven Ridge, the flags may depend on
+> pp_feature's PP_GFXOFF_MASK bit, which can be negated in
+> amdgpu_device_ip_init() based on firmware information. At that time it's
+> already too late, since cg_flags and pg_flags are already set.
+>
+> Apply flags after amdgpu_device_ip_init() and consolidate all flags to
+> one place, to solve the issue.
+>
+> [1]  
+> https://lore.kernel.org/lkml/3EB0E920-31D7-4C91-A360-DBFB4417AC2F@canonical.com/
+>
+> Fixes: 005440066f92 ("drm/amdgpu: enable gfxoff again on raven series  
+> (v2)")
+> Signed-off-by: Kai-Heng Feng <kai.heng.feng@canonical.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 589 +++++++++++++++++++++
+>  drivers/gpu/drm/amd/amdgpu/cik.c           |  87 ---
+>  drivers/gpu/drm/amd/amdgpu/nv.c            |  50 --
+>  drivers/gpu/drm/amd/amdgpu/si.c            |  83 ---
+>  drivers/gpu/drm/amd/amdgpu/soc15.c         | 140 -----
+>  drivers/gpu/drm/amd/amdgpu/vi.c            | 162 ------
+>  6 files changed, 589 insertions(+), 522 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c  
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> index 275277364a8a..10ea4899c338 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> @@ -1852,6 +1852,591 @@ static int amdgpu_device_ip_init(struct  
+> amdgpu_device *adev)
+>          return r;
+>  }
+>
+> +#define CZ_REV_BRISTOL(rev)     \
+> +       ((rev >= 0xC8 && rev <= 0xCE) || (rev >= 0xE1 && rev <= 0xE6))
+> +
+> +static int amdgpu_device_apply_flags(struct amdgpu_device *adev)
+> +{
+> +       switch (adev->asic_type) {
+> +       case CHIP_TAHITI:
+> +               adev->cg_flags =
+> +                       AMD_CG_SUPPORT_GFX_MGCG |
+> +                       AMD_CG_SUPPORT_GFX_MGLS |
+> +                       /*AMD_CG_SUPPORT_GFX_CGCG |*/
+> +                       AMD_CG_SUPPORT_GFX_CGLS |
+> +                       AMD_CG_SUPPORT_GFX_CGTS |
+> +                       AMD_CG_SUPPORT_GFX_CP_LS |
+> +                       AMD_CG_SUPPORT_MC_MGCG |
+> +                       AMD_CG_SUPPORT_SDMA_MGCG |
+> +                       AMD_CG_SUPPORT_BIF_LS |
+> +                       AMD_CG_SUPPORT_VCE_MGCG |
+> +                       AMD_CG_SUPPORT_UVD_MGCG |
+> +                       AMD_CG_SUPPORT_HDP_LS |
+> +                       AMD_CG_SUPPORT_HDP_MGCG;
+> +               adev->pg_flags = 0;
+> +               break;
+> +       case CHIP_PITCAIRN:
+> +               adev->cg_flags =
+> +                       AMD_CG_SUPPORT_GFX_MGCG |
+> +                       AMD_CG_SUPPORT_GFX_MGLS |
+> +                       /*AMD_CG_SUPPORT_GFX_CGCG |*/
+> +                       AMD_CG_SUPPORT_GFX_CGLS |
+> +                       AMD_CG_SUPPORT_GFX_CGTS |
+> +                       AMD_CG_SUPPORT_GFX_CP_LS |
+> +                       AMD_CG_SUPPORT_GFX_RLC_LS |
+> +                       AMD_CG_SUPPORT_MC_LS |
+> +                       AMD_CG_SUPPORT_MC_MGCG |
+> +                       AMD_CG_SUPPORT_SDMA_MGCG |
+> +                       AMD_CG_SUPPORT_BIF_LS |
+> +                       AMD_CG_SUPPORT_VCE_MGCG |
+> +                       AMD_CG_SUPPORT_UVD_MGCG |
+> +                       AMD_CG_SUPPORT_HDP_LS |
+> +                       AMD_CG_SUPPORT_HDP_MGCG;
+> +               adev->pg_flags = 0;
+> +               break;
+> +       case CHIP_VERDE:
+> +               adev->cg_flags =
+> +                       AMD_CG_SUPPORT_GFX_MGCG |
+> +                       AMD_CG_SUPPORT_GFX_MGLS |
+> +                       AMD_CG_SUPPORT_GFX_CGLS |
+> +                       AMD_CG_SUPPORT_GFX_CGTS |
+> +                       AMD_CG_SUPPORT_GFX_CGTS_LS |
+> +                       AMD_CG_SUPPORT_GFX_CP_LS |
+> +                       AMD_CG_SUPPORT_MC_LS |
+> +                       AMD_CG_SUPPORT_MC_MGCG |
+> +                       AMD_CG_SUPPORT_SDMA_MGCG |
+> +                       AMD_CG_SUPPORT_SDMA_LS |
+> +                       AMD_CG_SUPPORT_BIF_LS |
+> +                       AMD_CG_SUPPORT_VCE_MGCG |
+> +                       AMD_CG_SUPPORT_UVD_MGCG |
+> +                       AMD_CG_SUPPORT_HDP_LS |
+> +                       AMD_CG_SUPPORT_HDP_MGCG;
+> +               adev->pg_flags = 0;
+> +               //???
+> +               break;
+> +       case CHIP_OLAND:
+> +               adev->cg_flags =
+> +                       AMD_CG_SUPPORT_GFX_MGCG |
+> +                       AMD_CG_SUPPORT_GFX_MGLS |
+> +                       /*AMD_CG_SUPPORT_GFX_CGCG |*/
+> +                       AMD_CG_SUPPORT_GFX_CGLS |
+> +                       AMD_CG_SUPPORT_GFX_CGTS |
+> +                       AMD_CG_SUPPORT_GFX_CP_LS |
+> +                       AMD_CG_SUPPORT_GFX_RLC_LS |
+> +                       AMD_CG_SUPPORT_MC_LS |
+> +                       AMD_CG_SUPPORT_MC_MGCG |
+> +                       AMD_CG_SUPPORT_SDMA_MGCG |
+> +                       AMD_CG_SUPPORT_BIF_LS |
+> +                       AMD_CG_SUPPORT_UVD_MGCG |
+> +                       AMD_CG_SUPPORT_HDP_LS |
+> +                       AMD_CG_SUPPORT_HDP_MGCG;
+> +               adev->pg_flags = 0;
+> +               break;
+> +       case CHIP_HAINAN:
+> +               adev->cg_flags =
+> +                       AMD_CG_SUPPORT_GFX_MGCG |
+> +                       AMD_CG_SUPPORT_GFX_MGLS |
+> +                       /*AMD_CG_SUPPORT_GFX_CGCG |*/
+> +                       AMD_CG_SUPPORT_GFX_CGLS |
+> +                       AMD_CG_SUPPORT_GFX_CGTS |
+> +                       AMD_CG_SUPPORT_GFX_CP_LS |
+> +                       AMD_CG_SUPPORT_GFX_RLC_LS |
+> +                       AMD_CG_SUPPORT_MC_LS |
+> +                       AMD_CG_SUPPORT_MC_MGCG |
+> +                       AMD_CG_SUPPORT_SDMA_MGCG |
+> +                       AMD_CG_SUPPORT_BIF_LS |
+> +                       AMD_CG_SUPPORT_HDP_LS |
+> +                       AMD_CG_SUPPORT_HDP_MGCG;
+> +               adev->pg_flags = 0;
+> +               break;
+> +       case CHIP_BONAIRE:
+> +               adev->cg_flags =
+> +                       AMD_CG_SUPPORT_GFX_MGCG |
+> +                       AMD_CG_SUPPORT_GFX_MGLS |
+> +                       /*AMD_CG_SUPPORT_GFX_CGCG |*/
+> +                       AMD_CG_SUPPORT_GFX_CGLS |
+> +                       AMD_CG_SUPPORT_GFX_CGTS |
+> +                       AMD_CG_SUPPORT_GFX_CGTS_LS |
+> +                       AMD_CG_SUPPORT_GFX_CP_LS |
+> +                       AMD_CG_SUPPORT_MC_LS |
+> +                       AMD_CG_SUPPORT_MC_MGCG |
+> +                       AMD_CG_SUPPORT_SDMA_MGCG |
+> +                       AMD_CG_SUPPORT_SDMA_LS |
+> +                       AMD_CG_SUPPORT_BIF_LS |
+> +                       AMD_CG_SUPPORT_VCE_MGCG |
+> +                       AMD_CG_SUPPORT_UVD_MGCG |
+> +                       AMD_CG_SUPPORT_HDP_LS |
+> +                       AMD_CG_SUPPORT_HDP_MGCG;
+> +               adev->pg_flags = 0;
+> +               break;
+> +       case CHIP_HAWAII:
+> +               adev->cg_flags =
+> +                       AMD_CG_SUPPORT_GFX_MGCG |
+> +                       AMD_CG_SUPPORT_GFX_MGLS |
+> +                       /*AMD_CG_SUPPORT_GFX_CGCG |*/
+> +                       AMD_CG_SUPPORT_GFX_CGLS |
+> +                       AMD_CG_SUPPORT_GFX_CGTS |
+> +                       AMD_CG_SUPPORT_GFX_CP_LS |
+> +                       AMD_CG_SUPPORT_MC_LS |
+> +                       AMD_CG_SUPPORT_MC_MGCG |
+> +                       AMD_CG_SUPPORT_SDMA_MGCG |
+> +                       AMD_CG_SUPPORT_SDMA_LS |
+> +                       AMD_CG_SUPPORT_BIF_LS |
+> +                       AMD_CG_SUPPORT_VCE_MGCG |
+> +                       AMD_CG_SUPPORT_UVD_MGCG |
+> +                       AMD_CG_SUPPORT_HDP_LS |
+> +                       AMD_CG_SUPPORT_HDP_MGCG;
+> +               adev->pg_flags = 0;
+> +               break;
+> +       case CHIP_KAVERI:
+> +               adev->cg_flags =
+> +                       AMD_CG_SUPPORT_GFX_MGCG |
+> +                       AMD_CG_SUPPORT_GFX_MGLS |
+> +                       /*AMD_CG_SUPPORT_GFX_CGCG |*/
+> +                       AMD_CG_SUPPORT_GFX_CGLS |
+> +                       AMD_CG_SUPPORT_GFX_CGTS |
+> +                       AMD_CG_SUPPORT_GFX_CGTS_LS |
+> +                       AMD_CG_SUPPORT_GFX_CP_LS |
+> +                       AMD_CG_SUPPORT_SDMA_MGCG |
+> +                       AMD_CG_SUPPORT_SDMA_LS |
+> +                       AMD_CG_SUPPORT_BIF_LS |
+> +                       AMD_CG_SUPPORT_VCE_MGCG |
+> +                       AMD_CG_SUPPORT_UVD_MGCG |
+> +                       AMD_CG_SUPPORT_HDP_LS |
+> +                       AMD_CG_SUPPORT_HDP_MGCG;
+> +               adev->pg_flags =
+> +                       /*AMD_PG_SUPPORT_GFX_PG |
+> +                         AMD_PG_SUPPORT_GFX_SMG |
+> +                         AMD_PG_SUPPORT_GFX_DMG |*/
+> +                       AMD_PG_SUPPORT_UVD |
+> +                       AMD_PG_SUPPORT_VCE |
+> +                       /*  AMD_PG_SUPPORT_CP |
+> +                         AMD_PG_SUPPORT_GDS |
+> +                         AMD_PG_SUPPORT_RLC_SMU_HS |
+> +                         AMD_PG_SUPPORT_ACP |
+> +                         AMD_PG_SUPPORT_SAMU |*/
+> +                       0;
+> +               break;
+> +       case CHIP_KABINI:
+> +       case CHIP_MULLINS:
+> +               adev->cg_flags =
+> +                       AMD_CG_SUPPORT_GFX_MGCG |
+> +                       AMD_CG_SUPPORT_GFX_MGLS |
+> +                       /*AMD_CG_SUPPORT_GFX_CGCG |*/
+> +                       AMD_CG_SUPPORT_GFX_CGLS |
+> +                       AMD_CG_SUPPORT_GFX_CGTS |
+> +                       AMD_CG_SUPPORT_GFX_CGTS_LS |
+> +                       AMD_CG_SUPPORT_GFX_CP_LS |
+> +                       AMD_CG_SUPPORT_SDMA_MGCG |
+> +                       AMD_CG_SUPPORT_SDMA_LS |
+> +                       AMD_CG_SUPPORT_BIF_LS |
+> +                       AMD_CG_SUPPORT_VCE_MGCG |
+> +                       AMD_CG_SUPPORT_UVD_MGCG |
+> +                       AMD_CG_SUPPORT_HDP_LS |
+> +                       AMD_CG_SUPPORT_HDP_MGCG;
+> +               adev->pg_flags =
+> +                       /*AMD_PG_SUPPORT_GFX_PG |
+> +                         AMD_PG_SUPPORT_GFX_SMG | */
+> +                       AMD_PG_SUPPORT_UVD |
+> +                       /*AMD_PG_SUPPORT_VCE |
+> +                         AMD_PG_SUPPORT_CP |
+> +                         AMD_PG_SUPPORT_GDS |
+> +                         AMD_PG_SUPPORT_RLC_SMU_HS |
+> +                         AMD_PG_SUPPORT_SAMU |*/
+> +                       0;
+> +               break;
+> +       case CHIP_TOPAZ:
+> +               adev->cg_flags = 0;
+> +               adev->pg_flags = 0;
+> +               break;
+> +       case CHIP_FIJI:
+> +               adev->cg_flags = AMD_CG_SUPPORT_GFX_MGCG |
+> +                       AMD_CG_SUPPORT_GFX_MGLS |
+> +                       AMD_CG_SUPPORT_GFX_RLC_LS |
+> +                       AMD_CG_SUPPORT_GFX_CP_LS |
+> +                       AMD_CG_SUPPORT_GFX_CGTS |
+> +                       AMD_CG_SUPPORT_GFX_CGTS_LS |
+> +                       AMD_CG_SUPPORT_GFX_CGCG |
+> +                       AMD_CG_SUPPORT_GFX_CGLS |
+> +                       AMD_CG_SUPPORT_SDMA_MGCG |
+> +                       AMD_CG_SUPPORT_SDMA_LS |
+> +                       AMD_CG_SUPPORT_BIF_LS |
+> +                       AMD_CG_SUPPORT_HDP_MGCG |
+> +                       AMD_CG_SUPPORT_HDP_LS |
+> +                       AMD_CG_SUPPORT_ROM_MGCG |
+> +                       AMD_CG_SUPPORT_MC_MGCG |
+> +                       AMD_CG_SUPPORT_MC_LS |
+> +                       AMD_CG_SUPPORT_UVD_MGCG;
+> +               adev->pg_flags = 0;
+> +               break;
+> +       case CHIP_TONGA:
+> +               adev->cg_flags = AMD_CG_SUPPORT_GFX_MGCG |
+> +                       AMD_CG_SUPPORT_GFX_CGCG |
+> +                       AMD_CG_SUPPORT_GFX_CGLS |
+> +                       AMD_CG_SUPPORT_SDMA_MGCG |
+> +                       AMD_CG_SUPPORT_SDMA_LS |
+> +                       AMD_CG_SUPPORT_BIF_LS |
+> +                       AMD_CG_SUPPORT_HDP_MGCG |
+> +                       AMD_CG_SUPPORT_HDP_LS |
+> +                       AMD_CG_SUPPORT_ROM_MGCG |
+> +                       AMD_CG_SUPPORT_MC_MGCG |
+> +                       AMD_CG_SUPPORT_MC_LS |
+> +                       AMD_CG_SUPPORT_DRM_LS |
+> +                       AMD_CG_SUPPORT_UVD_MGCG;
+> +               adev->pg_flags = 0;
+> +               break;
+> +       case CHIP_POLARIS11:
+> +               adev->cg_flags = AMD_CG_SUPPORT_GFX_MGCG |
+> +                       AMD_CG_SUPPORT_GFX_RLC_LS |
+> +                       AMD_CG_SUPPORT_GFX_CP_LS |
+> +                       AMD_CG_SUPPORT_GFX_CGCG |
+> +                       AMD_CG_SUPPORT_GFX_CGLS |
+> +                       AMD_CG_SUPPORT_GFX_3D_CGCG |
+> +                       AMD_CG_SUPPORT_GFX_3D_CGLS |
+> +                       AMD_CG_SUPPORT_SDMA_MGCG |
+> +                       AMD_CG_SUPPORT_SDMA_LS |
+> +                       AMD_CG_SUPPORT_BIF_MGCG |
+> +                       AMD_CG_SUPPORT_BIF_LS |
+> +                       AMD_CG_SUPPORT_HDP_MGCG |
+> +                       AMD_CG_SUPPORT_HDP_LS |
+> +                       AMD_CG_SUPPORT_ROM_MGCG |
+> +                       AMD_CG_SUPPORT_MC_MGCG |
+> +                       AMD_CG_SUPPORT_MC_LS |
+> +                       AMD_CG_SUPPORT_DRM_LS |
+> +                       AMD_CG_SUPPORT_UVD_MGCG |
+> +                       AMD_CG_SUPPORT_VCE_MGCG;
+> +               adev->pg_flags = 0;
+> +               break;
+> +       case CHIP_POLARIS10:
+> +               adev->cg_flags = AMD_CG_SUPPORT_GFX_MGCG |
+> +                       AMD_CG_SUPPORT_GFX_RLC_LS |
+> +                       AMD_CG_SUPPORT_GFX_CP_LS |
+> +                       AMD_CG_SUPPORT_GFX_CGCG |
+> +                       AMD_CG_SUPPORT_GFX_CGLS |
+> +                       AMD_CG_SUPPORT_GFX_3D_CGCG |
+> +                       AMD_CG_SUPPORT_GFX_3D_CGLS |
+> +                       AMD_CG_SUPPORT_SDMA_MGCG |
+> +                       AMD_CG_SUPPORT_SDMA_LS |
+> +                       AMD_CG_SUPPORT_BIF_MGCG |
+> +                       AMD_CG_SUPPORT_BIF_LS |
+> +                       AMD_CG_SUPPORT_HDP_MGCG |
+> +                       AMD_CG_SUPPORT_HDP_LS |
+> +                       AMD_CG_SUPPORT_ROM_MGCG |
+> +                       AMD_CG_SUPPORT_MC_MGCG |
+> +                       AMD_CG_SUPPORT_MC_LS |
+> +                       AMD_CG_SUPPORT_DRM_LS |
+> +                       AMD_CG_SUPPORT_UVD_MGCG |
+> +                       AMD_CG_SUPPORT_VCE_MGCG;
+> +               adev->pg_flags = 0;
+> +               break;
+> +       case CHIP_POLARIS12:
+> +               adev->cg_flags = AMD_CG_SUPPORT_GFX_MGCG |
+> +                       AMD_CG_SUPPORT_GFX_RLC_LS |
+> +                       AMD_CG_SUPPORT_GFX_CP_LS |
+> +                       AMD_CG_SUPPORT_GFX_CGCG |
+> +                       AMD_CG_SUPPORT_GFX_CGLS |
+> +                       AMD_CG_SUPPORT_GFX_3D_CGCG |
+> +                       AMD_CG_SUPPORT_GFX_3D_CGLS |
+> +                       AMD_CG_SUPPORT_SDMA_MGCG |
+> +                       AMD_CG_SUPPORT_SDMA_LS |
+> +                       AMD_CG_SUPPORT_BIF_MGCG |
+> +                       AMD_CG_SUPPORT_BIF_LS |
+> +                       AMD_CG_SUPPORT_HDP_MGCG |
+> +                       AMD_CG_SUPPORT_HDP_LS |
+> +                       AMD_CG_SUPPORT_ROM_MGCG |
+> +                       AMD_CG_SUPPORT_MC_MGCG |
+> +                       AMD_CG_SUPPORT_MC_LS |
+> +                       AMD_CG_SUPPORT_DRM_LS |
+> +                       AMD_CG_SUPPORT_UVD_MGCG |
+> +                       AMD_CG_SUPPORT_VCE_MGCG;
+> +               adev->pg_flags = 0;
+> +               break;
+> +       case CHIP_VEGAM:
+> +               adev->cg_flags = 0;
+> +                       /*AMD_CG_SUPPORT_GFX_MGCG |
+> +                       AMD_CG_SUPPORT_GFX_RLC_LS |
+> +                       AMD_CG_SUPPORT_GFX_CP_LS |
+> +                       AMD_CG_SUPPORT_GFX_CGCG |
+> +                       AMD_CG_SUPPORT_GFX_CGLS |
+> +                       AMD_CG_SUPPORT_GFX_3D_CGCG |
+> +                       AMD_CG_SUPPORT_GFX_3D_CGLS |
+> +                       AMD_CG_SUPPORT_SDMA_MGCG |
+> +                       AMD_CG_SUPPORT_SDMA_LS |
+> +                       AMD_CG_SUPPORT_BIF_MGCG |
+> +                       AMD_CG_SUPPORT_BIF_LS |
+> +                       AMD_CG_SUPPORT_HDP_MGCG |
+> +                       AMD_CG_SUPPORT_HDP_LS |
+> +                       AMD_CG_SUPPORT_ROM_MGCG |
+> +                       AMD_CG_SUPPORT_MC_MGCG |
+> +                       AMD_CG_SUPPORT_MC_LS |
+> +                       AMD_CG_SUPPORT_DRM_LS |
+> +                       AMD_CG_SUPPORT_UVD_MGCG |
+> +                       AMD_CG_SUPPORT_VCE_MGCG;*/
+> +               adev->pg_flags = 0;
+> +               break;
+> +       case CHIP_CARRIZO:
+> +               adev->cg_flags = AMD_CG_SUPPORT_UVD_MGCG |
+> +                       AMD_CG_SUPPORT_GFX_MGCG |
+> +                       AMD_CG_SUPPORT_GFX_MGLS |
+> +                       AMD_CG_SUPPORT_GFX_RLC_LS |
+> +                       AMD_CG_SUPPORT_GFX_CP_LS |
+> +                       AMD_CG_SUPPORT_GFX_CGTS |
+> +                       AMD_CG_SUPPORT_GFX_CGTS_LS |
+> +                       AMD_CG_SUPPORT_GFX_CGCG |
+> +                       AMD_CG_SUPPORT_GFX_CGLS |
+> +                       AMD_CG_SUPPORT_BIF_LS |
+> +                       AMD_CG_SUPPORT_HDP_MGCG |
+> +                       AMD_CG_SUPPORT_HDP_LS |
+> +                       AMD_CG_SUPPORT_SDMA_MGCG |
+> +                       AMD_CG_SUPPORT_SDMA_LS |
+> +                       AMD_CG_SUPPORT_VCE_MGCG;
+> +               /* rev0 hardware requires workarounds to support PG */
+> +               adev->pg_flags = 0;
+> +               if (adev->rev_id != 0x00 ||  
+> CZ_REV_BRISTOL(adev->pdev->revision)) {
+> +                       adev->pg_flags |= AMD_PG_SUPPORT_GFX_SMG |
+> +                               AMD_PG_SUPPORT_GFX_PIPELINE |
+> +                               AMD_PG_SUPPORT_CP |
+> +                               AMD_PG_SUPPORT_UVD |
+> +                               AMD_PG_SUPPORT_VCE;
+> +               }
+> +               break;
+> +       case CHIP_STONEY:
+> +               adev->cg_flags = AMD_CG_SUPPORT_UVD_MGCG |
+> +                       AMD_CG_SUPPORT_GFX_MGCG |
+> +                       AMD_CG_SUPPORT_GFX_MGLS |
+> +                       AMD_CG_SUPPORT_GFX_RLC_LS |
+> +                       AMD_CG_SUPPORT_GFX_CP_LS |
+> +                       AMD_CG_SUPPORT_GFX_CGTS |
+> +                       AMD_CG_SUPPORT_GFX_CGTS_LS |
+> +                       AMD_CG_SUPPORT_GFX_CGLS |
+> +                       AMD_CG_SUPPORT_BIF_LS |
+> +                       AMD_CG_SUPPORT_HDP_MGCG |
+> +                       AMD_CG_SUPPORT_HDP_LS |
+> +                       AMD_CG_SUPPORT_SDMA_MGCG |
+> +                       AMD_CG_SUPPORT_SDMA_LS |
+> +                       AMD_CG_SUPPORT_VCE_MGCG;
+> +               adev->pg_flags = AMD_PG_SUPPORT_GFX_PG |
+> +                       AMD_PG_SUPPORT_GFX_SMG |
+> +                       AMD_PG_SUPPORT_GFX_PIPELINE |
+> +                       AMD_PG_SUPPORT_CP |
+> +                       AMD_PG_SUPPORT_UVD |
+> +                       AMD_PG_SUPPORT_VCE;
+> +               break;
+> +       case CHIP_VEGA10:
+> +               adev->cg_flags = AMD_CG_SUPPORT_GFX_MGCG |
+> +                       AMD_CG_SUPPORT_GFX_MGLS |
+> +                       AMD_CG_SUPPORT_GFX_RLC_LS |
+> +                       AMD_CG_SUPPORT_GFX_CP_LS |
+> +                       AMD_CG_SUPPORT_GFX_3D_CGCG |
+> +                       AMD_CG_SUPPORT_GFX_3D_CGLS |
+> +                       AMD_CG_SUPPORT_GFX_CGCG |
+> +                       AMD_CG_SUPPORT_GFX_CGLS |
+> +                       AMD_CG_SUPPORT_BIF_MGCG |
+> +                       AMD_CG_SUPPORT_BIF_LS |
+> +                       AMD_CG_SUPPORT_HDP_LS |
+> +                       AMD_CG_SUPPORT_DRM_MGCG |
+> +                       AMD_CG_SUPPORT_DRM_LS |
+> +                       AMD_CG_SUPPORT_ROM_MGCG |
+> +                       AMD_CG_SUPPORT_DF_MGCG |
+> +                       AMD_CG_SUPPORT_SDMA_MGCG |
+> +                       AMD_CG_SUPPORT_SDMA_LS |
+> +                       AMD_CG_SUPPORT_MC_MGCG |
+> +                       AMD_CG_SUPPORT_MC_LS;
+> +               adev->pg_flags = 0;
+> +               break;
+> +       case CHIP_VEGA12:
+> +               adev->cg_flags = AMD_CG_SUPPORT_GFX_MGCG |
+> +                       AMD_CG_SUPPORT_GFX_MGLS |
+> +                       AMD_CG_SUPPORT_GFX_CGCG |
+> +                       AMD_CG_SUPPORT_GFX_CGLS |
+> +                       AMD_CG_SUPPORT_GFX_3D_CGCG |
+> +                       AMD_CG_SUPPORT_GFX_3D_CGLS |
+> +                       AMD_CG_SUPPORT_GFX_CP_LS |
+> +                       AMD_CG_SUPPORT_MC_LS |
+> +                       AMD_CG_SUPPORT_MC_MGCG |
+> +                       AMD_CG_SUPPORT_SDMA_MGCG |
+> +                       AMD_CG_SUPPORT_SDMA_LS |
+> +                       AMD_CG_SUPPORT_BIF_MGCG |
+> +                       AMD_CG_SUPPORT_BIF_LS |
+> +                       AMD_CG_SUPPORT_HDP_MGCG |
+> +                       AMD_CG_SUPPORT_HDP_LS |
+> +                       AMD_CG_SUPPORT_ROM_MGCG |
+> +                       AMD_CG_SUPPORT_VCE_MGCG |
+> +                       AMD_CG_SUPPORT_UVD_MGCG;
+> +               adev->pg_flags = 0;
+> +               break;
+> +       case CHIP_VEGA20:
+> +               adev->cg_flags = AMD_CG_SUPPORT_GFX_MGCG |
+> +                       AMD_CG_SUPPORT_GFX_MGLS |
+> +                       AMD_CG_SUPPORT_GFX_CGCG |
+> +                       AMD_CG_SUPPORT_GFX_CGLS |
+> +                       AMD_CG_SUPPORT_GFX_3D_CGCG |
+> +                       AMD_CG_SUPPORT_GFX_3D_CGLS |
+> +                       AMD_CG_SUPPORT_GFX_CP_LS |
+> +                       AMD_CG_SUPPORT_MC_LS |
+> +                       AMD_CG_SUPPORT_MC_MGCG |
+> +                       AMD_CG_SUPPORT_SDMA_MGCG |
+> +                       AMD_CG_SUPPORT_SDMA_LS |
+> +                       AMD_CG_SUPPORT_BIF_MGCG |
+> +                       AMD_CG_SUPPORT_BIF_LS |
+> +                       AMD_CG_SUPPORT_HDP_MGCG |
+> +                       AMD_CG_SUPPORT_HDP_LS |
+> +                       AMD_CG_SUPPORT_ROM_MGCG |
+> +                       AMD_CG_SUPPORT_VCE_MGCG |
+> +                       AMD_CG_SUPPORT_UVD_MGCG;
+> +               adev->pg_flags = 0;
+> +               break;
+> +       case CHIP_RAVEN:
+> +               if (adev->rev_id >= 0x8) {
+> +                       adev->cg_flags = AMD_CG_SUPPORT_GFX_MGCG |
+> +                               AMD_CG_SUPPORT_GFX_MGLS |
+> +                               AMD_CG_SUPPORT_GFX_CP_LS |
+> +                               AMD_CG_SUPPORT_GFX_3D_CGCG |
+> +                               AMD_CG_SUPPORT_GFX_3D_CGLS |
+> +                               AMD_CG_SUPPORT_GFX_CGCG |
+> +                               AMD_CG_SUPPORT_GFX_CGLS |
+> +                               AMD_CG_SUPPORT_BIF_LS |
+> +                               AMD_CG_SUPPORT_HDP_LS |
+> +                               AMD_CG_SUPPORT_ROM_MGCG |
+> +                               AMD_CG_SUPPORT_MC_MGCG |
+> +                               AMD_CG_SUPPORT_MC_LS |
+> +                               AMD_CG_SUPPORT_SDMA_MGCG |
+> +                               AMD_CG_SUPPORT_SDMA_LS |
+> +                               AMD_CG_SUPPORT_VCN_MGCG;
+> +
+> +                       adev->pg_flags = AMD_PG_SUPPORT_SDMA |  
+> AMD_PG_SUPPORT_VCN;
+> +               } else if (adev->pdev->device == 0x15d8) {
+> +                       adev->cg_flags = AMD_CG_SUPPORT_GFX_MGCG |
+> +                               AMD_CG_SUPPORT_GFX_MGLS |
+> +                               AMD_CG_SUPPORT_GFX_CP_LS |
+> +                               AMD_CG_SUPPORT_GFX_3D_CGCG |
+> +                               AMD_CG_SUPPORT_GFX_3D_CGLS |
+> +                               AMD_CG_SUPPORT_GFX_CGCG |
+> +                               AMD_CG_SUPPORT_GFX_CGLS |
+> +                               AMD_CG_SUPPORT_BIF_LS |
+> +                               AMD_CG_SUPPORT_HDP_LS |
+> +                               AMD_CG_SUPPORT_ROM_MGCG |
+> +                               AMD_CG_SUPPORT_MC_MGCG |
+> +                               AMD_CG_SUPPORT_MC_LS |
+> +                               AMD_CG_SUPPORT_SDMA_MGCG |
+> +                               AMD_CG_SUPPORT_SDMA_LS;
+> +
+> +                       adev->pg_flags = AMD_PG_SUPPORT_SDMA |
+> +                               AMD_PG_SUPPORT_MMHUB |
+> +                               AMD_PG_SUPPORT_VCN |
+> +                               AMD_PG_SUPPORT_VCN_DPG;
+> +               } else {
+> +                       adev->cg_flags = AMD_CG_SUPPORT_GFX_MGCG |
+> +                               AMD_CG_SUPPORT_GFX_MGLS |
+> +                               AMD_CG_SUPPORT_GFX_RLC_LS |
+> +                               AMD_CG_SUPPORT_GFX_CP_LS |
+> +                               AMD_CG_SUPPORT_GFX_3D_CGCG |
+> +                               AMD_CG_SUPPORT_GFX_3D_CGLS |
+> +                               AMD_CG_SUPPORT_GFX_CGCG |
+> +                               AMD_CG_SUPPORT_GFX_CGLS |
+> +                               AMD_CG_SUPPORT_BIF_MGCG |
+> +                               AMD_CG_SUPPORT_BIF_LS |
+> +                               AMD_CG_SUPPORT_HDP_MGCG |
+> +                               AMD_CG_SUPPORT_HDP_LS |
+> +                               AMD_CG_SUPPORT_DRM_MGCG |
+> +                               AMD_CG_SUPPORT_DRM_LS |
+> +                               AMD_CG_SUPPORT_ROM_MGCG |
+> +                               AMD_CG_SUPPORT_MC_MGCG |
+> +                               AMD_CG_SUPPORT_MC_LS |
+> +                               AMD_CG_SUPPORT_SDMA_MGCG |
+> +                               AMD_CG_SUPPORT_SDMA_LS |
+> +                               AMD_CG_SUPPORT_VCN_MGCG;
+> +
+> +                       adev->pg_flags = AMD_PG_SUPPORT_SDMA |  
+> AMD_PG_SUPPORT_VCN;
+> +               }
+> +
+> +               if (adev->pm.pp_feature & PP_GFXOFF_MASK)
+> +                       adev->pg_flags |= AMD_PG_SUPPORT_GFX_PG |
+> +                               AMD_PG_SUPPORT_CP |
+> +                               AMD_PG_SUPPORT_RLC_SMU_HS;
+> +               break;
+> +       case CHIP_ARCTURUS:
+> +               adev->cg_flags = AMD_CG_SUPPORT_GFX_MGCG |
+> +                       AMD_CG_SUPPORT_GFX_MGLS |
+> +                       AMD_CG_SUPPORT_GFX_CGCG |
+> +                       AMD_CG_SUPPORT_GFX_CGLS |
+> +                       AMD_CG_SUPPORT_GFX_CP_LS |
+> +                       AMD_CG_SUPPORT_HDP_MGCG |
+> +                       AMD_CG_SUPPORT_HDP_LS |
+> +                       AMD_CG_SUPPORT_SDMA_MGCG |
+> +                       AMD_CG_SUPPORT_SDMA_LS |
+> +                       AMD_CG_SUPPORT_MC_MGCG |
+> +                       AMD_CG_SUPPORT_MC_LS;
+> +               adev->pg_flags = 0;
+> +               break;
+> +       case CHIP_RENOIR:
+> +               adev->cg_flags = 0;
+> +               adev->pg_flags = 0;
+> +               break;
+> +       case CHIP_NAVI10:
+> +               adev->cg_flags = AMD_CG_SUPPORT_GFX_MGCG |
+> +                       AMD_CG_SUPPORT_GFX_CGCG |
+> +                       AMD_CG_SUPPORT_IH_CG |
+> +                       AMD_CG_SUPPORT_HDP_MGCG |
+> +                       AMD_CG_SUPPORT_HDP_LS |
+> +                       AMD_CG_SUPPORT_SDMA_MGCG |
+> +                       AMD_CG_SUPPORT_SDMA_LS |
+> +                       AMD_CG_SUPPORT_MC_MGCG |
+> +                       AMD_CG_SUPPORT_MC_LS |
+> +                       AMD_CG_SUPPORT_ATHUB_MGCG |
+> +                       AMD_CG_SUPPORT_ATHUB_LS |
+> +                       AMD_CG_SUPPORT_VCN_MGCG |
+> +                       AMD_CG_SUPPORT_BIF_MGCG |
+> +                       AMD_CG_SUPPORT_BIF_LS;
+> +               adev->pg_flags = AMD_PG_SUPPORT_VCN |
+> +                       AMD_PG_SUPPORT_VCN_DPG |
+> +                       AMD_PG_SUPPORT_MMHUB |
+> +                       AMD_PG_SUPPORT_ATHUB;
+> +               break;
+> +       case CHIP_NAVI14:
+> +               adev->cg_flags = AMD_CG_SUPPORT_GFX_MGCG |
+> +                       AMD_CG_SUPPORT_GFX_CGCG |
+> +                       AMD_CG_SUPPORT_IH_CG |
+> +                       AMD_CG_SUPPORT_HDP_MGCG |
+> +                       AMD_CG_SUPPORT_HDP_LS |
+> +                       AMD_CG_SUPPORT_SDMA_MGCG |
+> +                       AMD_CG_SUPPORT_SDMA_LS |
+> +                       AMD_CG_SUPPORT_MC_MGCG |
+> +                       AMD_CG_SUPPORT_MC_LS |
+> +                       AMD_CG_SUPPORT_ATHUB_MGCG |
+> +                       AMD_CG_SUPPORT_ATHUB_LS |
+> +                       AMD_CG_SUPPORT_VCN_MGCG |
+> +                       AMD_CG_SUPPORT_BIF_MGCG |
+> +                       AMD_CG_SUPPORT_BIF_LS;
+> +               adev->pg_flags = AMD_PG_SUPPORT_VCN |
+> +                       AMD_PG_SUPPORT_VCN_DPG;
+> +               break;
+> +       case CHIP_NAVI12:
+> +               adev->cg_flags = AMD_CG_SUPPORT_GFX_MGCG |
+> +                       AMD_CG_SUPPORT_GFX_MGLS |
+> +                       AMD_CG_SUPPORT_GFX_CGCG |
+> +                       AMD_CG_SUPPORT_GFX_CP_LS |
+> +                       AMD_CG_SUPPORT_GFX_RLC_LS |
+> +                       AMD_CG_SUPPORT_IH_CG |
+> +                       AMD_CG_SUPPORT_HDP_MGCG |
+> +                       AMD_CG_SUPPORT_HDP_LS |
+> +                       AMD_CG_SUPPORT_SDMA_MGCG |
+> +                       AMD_CG_SUPPORT_SDMA_LS |
+> +                       AMD_CG_SUPPORT_MC_MGCG |
+> +                       AMD_CG_SUPPORT_MC_LS |
+> +                       AMD_CG_SUPPORT_ATHUB_MGCG |
+> +                       AMD_CG_SUPPORT_ATHUB_LS |
+> +                       AMD_CG_SUPPORT_VCN_MGCG;
+> +               adev->pg_flags = AMD_PG_SUPPORT_VCN_DPG;
+> +               break;
+> +       default:
+> +               /* FIXME: not supported yet */
+> +               return -EINVAL;
+> +       }
+> +
+> +       return 0;
+> +}
+> +
+>  /**
+>   * amdgpu_device_fill_reset_magic - writes reset magic to gart pointer
+>   *
+> @@ -2827,6 +3412,10 @@ int amdgpu_device_init(struct amdgpu_device *adev,
+>                  goto failed;
+>          }
+>
+> +       r = amdgpu_device_apply_flags(adev);
+> +       if (r)
+> +               goto failed;
+> +
+>          adev->accel_working = true;
+>
+>          amdgpu_vm_check_compute_bug(adev);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/cik.c  
+> b/drivers/gpu/drm/amd/amdgpu/cik.c
+> index 7b63d7a8298a..01e2211e251d 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/cik.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/cik.c
+> @@ -1862,74 +1862,12 @@ static int cik_common_early_init(void *handle)
+>          adev->external_rev_id = 0xFF;
+>          switch (adev->asic_type) {
+>          case CHIP_BONAIRE:
+> -               adev->cg_flags =
+> -                       AMD_CG_SUPPORT_GFX_MGCG |
+> -                       AMD_CG_SUPPORT_GFX_MGLS |
+> -                       /*AMD_CG_SUPPORT_GFX_CGCG |*/
+> -                       AMD_CG_SUPPORT_GFX_CGLS |
+> -                       AMD_CG_SUPPORT_GFX_CGTS |
+> -                       AMD_CG_SUPPORT_GFX_CGTS_LS |
+> -                       AMD_CG_SUPPORT_GFX_CP_LS |
+> -                       AMD_CG_SUPPORT_MC_LS |
+> -                       AMD_CG_SUPPORT_MC_MGCG |
+> -                       AMD_CG_SUPPORT_SDMA_MGCG |
+> -                       AMD_CG_SUPPORT_SDMA_LS |
+> -                       AMD_CG_SUPPORT_BIF_LS |
+> -                       AMD_CG_SUPPORT_VCE_MGCG |
+> -                       AMD_CG_SUPPORT_UVD_MGCG |
+> -                       AMD_CG_SUPPORT_HDP_LS |
+> -                       AMD_CG_SUPPORT_HDP_MGCG;
+> -               adev->pg_flags = 0;
+>                  adev->external_rev_id = adev->rev_id + 0x14;
+>                  break;
+>          case CHIP_HAWAII:
+> -               adev->cg_flags =
+> -                       AMD_CG_SUPPORT_GFX_MGCG |
+> -                       AMD_CG_SUPPORT_GFX_MGLS |
+> -                       /*AMD_CG_SUPPORT_GFX_CGCG |*/
+> -                       AMD_CG_SUPPORT_GFX_CGLS |
+> -                       AMD_CG_SUPPORT_GFX_CGTS |
+> -                       AMD_CG_SUPPORT_GFX_CP_LS |
+> -                       AMD_CG_SUPPORT_MC_LS |
+> -                       AMD_CG_SUPPORT_MC_MGCG |
+> -                       AMD_CG_SUPPORT_SDMA_MGCG |
+> -                       AMD_CG_SUPPORT_SDMA_LS |
+> -                       AMD_CG_SUPPORT_BIF_LS |
+> -                       AMD_CG_SUPPORT_VCE_MGCG |
+> -                       AMD_CG_SUPPORT_UVD_MGCG |
+> -                       AMD_CG_SUPPORT_HDP_LS |
+> -                       AMD_CG_SUPPORT_HDP_MGCG;
+> -               adev->pg_flags = 0;
+>                  adev->external_rev_id = 0x28;
+>                  break;
+>          case CHIP_KAVERI:
+> -               adev->cg_flags =
+> -                       AMD_CG_SUPPORT_GFX_MGCG |
+> -                       AMD_CG_SUPPORT_GFX_MGLS |
+> -                       /*AMD_CG_SUPPORT_GFX_CGCG |*/
+> -                       AMD_CG_SUPPORT_GFX_CGLS |
+> -                       AMD_CG_SUPPORT_GFX_CGTS |
+> -                       AMD_CG_SUPPORT_GFX_CGTS_LS |
+> -                       AMD_CG_SUPPORT_GFX_CP_LS |
+> -                       AMD_CG_SUPPORT_SDMA_MGCG |
+> -                       AMD_CG_SUPPORT_SDMA_LS |
+> -                       AMD_CG_SUPPORT_BIF_LS |
+> -                       AMD_CG_SUPPORT_VCE_MGCG |
+> -                       AMD_CG_SUPPORT_UVD_MGCG |
+> -                       AMD_CG_SUPPORT_HDP_LS |
+> -                       AMD_CG_SUPPORT_HDP_MGCG;
+> -               adev->pg_flags =
+> -                       /*AMD_PG_SUPPORT_GFX_PG |
+> -                         AMD_PG_SUPPORT_GFX_SMG |
+> -                         AMD_PG_SUPPORT_GFX_DMG |*/
+> -                       AMD_PG_SUPPORT_UVD |
+> -                       AMD_PG_SUPPORT_VCE |
+> -                       /*  AMD_PG_SUPPORT_CP |
+> -                         AMD_PG_SUPPORT_GDS |
+> -                         AMD_PG_SUPPORT_RLC_SMU_HS |
+> -                         AMD_PG_SUPPORT_ACP |
+> -                         AMD_PG_SUPPORT_SAMU |*/
+> -                       0;
+>                  if (adev->pdev->device == 0x1312 ||
+>                          adev->pdev->device == 0x1316 ||
+>                          adev->pdev->device == 0x1317)
+> @@ -1939,31 +1877,6 @@ static int cik_common_early_init(void *handle)
+>                  break;
+>          case CHIP_KABINI:
+>          case CHIP_MULLINS:
+> -               adev->cg_flags =
+> -                       AMD_CG_SUPPORT_GFX_MGCG |
+> -                       AMD_CG_SUPPORT_GFX_MGLS |
+> -                       /*AMD_CG_SUPPORT_GFX_CGCG |*/
+> -                       AMD_CG_SUPPORT_GFX_CGLS |
+> -                       AMD_CG_SUPPORT_GFX_CGTS |
+> -                       AMD_CG_SUPPORT_GFX_CGTS_LS |
+> -                       AMD_CG_SUPPORT_GFX_CP_LS |
+> -                       AMD_CG_SUPPORT_SDMA_MGCG |
+> -                       AMD_CG_SUPPORT_SDMA_LS |
+> -                       AMD_CG_SUPPORT_BIF_LS |
+> -                       AMD_CG_SUPPORT_VCE_MGCG |
+> -                       AMD_CG_SUPPORT_UVD_MGCG |
+> -                       AMD_CG_SUPPORT_HDP_LS |
+> -                       AMD_CG_SUPPORT_HDP_MGCG;
+> -               adev->pg_flags =
+> -                       /*AMD_PG_SUPPORT_GFX_PG |
+> -                         AMD_PG_SUPPORT_GFX_SMG | */
+> -                       AMD_PG_SUPPORT_UVD |
+> -                       /*AMD_PG_SUPPORT_VCE |
+> -                         AMD_PG_SUPPORT_CP |
+> -                         AMD_PG_SUPPORT_GDS |
+> -                         AMD_PG_SUPPORT_RLC_SMU_HS |
+> -                         AMD_PG_SUPPORT_SAMU |*/
+> -                       0;
+>                  if (adev->asic_type == CHIP_KABINI) {
+>                          if (adev->rev_id == 0)
+>                                  adev->external_rev_id = 0x81;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/nv.c  
+> b/drivers/gpu/drm/amd/amdgpu/nv.c
+> index d4a2012b4832..30d100dc7b29 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/nv.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/nv.c
+> @@ -600,62 +600,12 @@ static int nv_common_early_init(void *handle)
+>          adev->external_rev_id = 0xff;
+>          switch (adev->asic_type) {
+>          case CHIP_NAVI10:
+> -               adev->cg_flags = AMD_CG_SUPPORT_GFX_MGCG |
+> -                       AMD_CG_SUPPORT_GFX_CGCG |
+> -                       AMD_CG_SUPPORT_IH_CG |
+> -                       AMD_CG_SUPPORT_HDP_MGCG |
+> -                       AMD_CG_SUPPORT_HDP_LS |
+> -                       AMD_CG_SUPPORT_SDMA_MGCG |
+> -                       AMD_CG_SUPPORT_SDMA_LS |
+> -                       AMD_CG_SUPPORT_MC_MGCG |
+> -                       AMD_CG_SUPPORT_MC_LS |
+> -                       AMD_CG_SUPPORT_ATHUB_MGCG |
+> -                       AMD_CG_SUPPORT_ATHUB_LS |
+> -                       AMD_CG_SUPPORT_VCN_MGCG |
+> -                       AMD_CG_SUPPORT_BIF_MGCG |
+> -                       AMD_CG_SUPPORT_BIF_LS;
+> -               adev->pg_flags = AMD_PG_SUPPORT_VCN |
+> -                       AMD_PG_SUPPORT_VCN_DPG |
+> -                       AMD_PG_SUPPORT_MMHUB |
+> -                       AMD_PG_SUPPORT_ATHUB;
+>                  adev->external_rev_id = adev->rev_id + 0x1;
+>                  break;
+>          case CHIP_NAVI14:
+> -               adev->cg_flags = AMD_CG_SUPPORT_GFX_MGCG |
+> -                       AMD_CG_SUPPORT_GFX_CGCG |
+> -                       AMD_CG_SUPPORT_IH_CG |
+> -                       AMD_CG_SUPPORT_HDP_MGCG |
+> -                       AMD_CG_SUPPORT_HDP_LS |
+> -                       AMD_CG_SUPPORT_SDMA_MGCG |
+> -                       AMD_CG_SUPPORT_SDMA_LS |
+> -                       AMD_CG_SUPPORT_MC_MGCG |
+> -                       AMD_CG_SUPPORT_MC_LS |
+> -                       AMD_CG_SUPPORT_ATHUB_MGCG |
+> -                       AMD_CG_SUPPORT_ATHUB_LS |
+> -                       AMD_CG_SUPPORT_VCN_MGCG |
+> -                       AMD_CG_SUPPORT_BIF_MGCG |
+> -                       AMD_CG_SUPPORT_BIF_LS;
+> -               adev->pg_flags = AMD_PG_SUPPORT_VCN |
+> -                       AMD_PG_SUPPORT_VCN_DPG;
+>                  adev->external_rev_id = adev->rev_id + 20;
+>                  break;
+>          case CHIP_NAVI12:
+> -               adev->cg_flags = AMD_CG_SUPPORT_GFX_MGCG |
+> -                       AMD_CG_SUPPORT_GFX_MGLS |
+> -                       AMD_CG_SUPPORT_GFX_CGCG |
+> -                       AMD_CG_SUPPORT_GFX_CP_LS |
+> -                       AMD_CG_SUPPORT_GFX_RLC_LS |
+> -                       AMD_CG_SUPPORT_IH_CG |
+> -                       AMD_CG_SUPPORT_HDP_MGCG |
+> -                       AMD_CG_SUPPORT_HDP_LS |
+> -                       AMD_CG_SUPPORT_SDMA_MGCG |
+> -                       AMD_CG_SUPPORT_SDMA_LS |
+> -                       AMD_CG_SUPPORT_MC_MGCG |
+> -                       AMD_CG_SUPPORT_MC_LS |
+> -                       AMD_CG_SUPPORT_ATHUB_MGCG |
+> -                       AMD_CG_SUPPORT_ATHUB_LS |
+> -                       AMD_CG_SUPPORT_VCN_MGCG;
+> -               adev->pg_flags = AMD_PG_SUPPORT_VCN_DPG;
+>                  adev->external_rev_id = adev->rev_id + 0xa;
+>                  break;
+>          default:
+> diff --git a/drivers/gpu/drm/amd/amdgpu/si.c  
+> b/drivers/gpu/drm/amd/amdgpu/si.c
+> index 904361451650..22ba2d7e797f 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/si.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/si.c
+> @@ -1442,104 +1442,21 @@ static int si_common_early_init(void *handle)
+>          adev->external_rev_id = 0xFF;
+>          switch (adev->asic_type) {
+>          case CHIP_TAHITI:
+> -               adev->cg_flags =
+> -                       AMD_CG_SUPPORT_GFX_MGCG |
+> -                       AMD_CG_SUPPORT_GFX_MGLS |
+> -                       /*AMD_CG_SUPPORT_GFX_CGCG |*/
+> -                       AMD_CG_SUPPORT_GFX_CGLS |
+> -                       AMD_CG_SUPPORT_GFX_CGTS |
+> -                       AMD_CG_SUPPORT_GFX_CP_LS |
+> -                       AMD_CG_SUPPORT_MC_MGCG |
+> -                       AMD_CG_SUPPORT_SDMA_MGCG |
+> -                       AMD_CG_SUPPORT_BIF_LS |
+> -                       AMD_CG_SUPPORT_VCE_MGCG |
+> -                       AMD_CG_SUPPORT_UVD_MGCG |
+> -                       AMD_CG_SUPPORT_HDP_LS |
+> -                       AMD_CG_SUPPORT_HDP_MGCG;
+> -               adev->pg_flags = 0;
+>                  adev->external_rev_id = (adev->rev_id == 0) ? 1 :
+>                                          (adev->rev_id == 1) ? 5 : 6;
+>                  break;
+>          case CHIP_PITCAIRN:
+> -               adev->cg_flags =
+> -                       AMD_CG_SUPPORT_GFX_MGCG |
+> -                       AMD_CG_SUPPORT_GFX_MGLS |
+> -                       /*AMD_CG_SUPPORT_GFX_CGCG |*/
+> -                       AMD_CG_SUPPORT_GFX_CGLS |
+> -                       AMD_CG_SUPPORT_GFX_CGTS |
+> -                       AMD_CG_SUPPORT_GFX_CP_LS |
+> -                       AMD_CG_SUPPORT_GFX_RLC_LS |
+> -                       AMD_CG_SUPPORT_MC_LS |
+> -                       AMD_CG_SUPPORT_MC_MGCG |
+> -                       AMD_CG_SUPPORT_SDMA_MGCG |
+> -                       AMD_CG_SUPPORT_BIF_LS |
+> -                       AMD_CG_SUPPORT_VCE_MGCG |
+> -                       AMD_CG_SUPPORT_UVD_MGCG |
+> -                       AMD_CG_SUPPORT_HDP_LS |
+> -                       AMD_CG_SUPPORT_HDP_MGCG;
+> -               adev->pg_flags = 0;
+>                  adev->external_rev_id = adev->rev_id + 20;
+>                  break;
+> -
+>          case CHIP_VERDE:
+> -               adev->cg_flags =
+> -                       AMD_CG_SUPPORT_GFX_MGCG |
+> -                       AMD_CG_SUPPORT_GFX_MGLS |
+> -                       AMD_CG_SUPPORT_GFX_CGLS |
+> -                       AMD_CG_SUPPORT_GFX_CGTS |
+> -                       AMD_CG_SUPPORT_GFX_CGTS_LS |
+> -                       AMD_CG_SUPPORT_GFX_CP_LS |
+> -                       AMD_CG_SUPPORT_MC_LS |
+> -                       AMD_CG_SUPPORT_MC_MGCG |
+> -                       AMD_CG_SUPPORT_SDMA_MGCG |
+> -                       AMD_CG_SUPPORT_SDMA_LS |
+> -                       AMD_CG_SUPPORT_BIF_LS |
+> -                       AMD_CG_SUPPORT_VCE_MGCG |
+> -                       AMD_CG_SUPPORT_UVD_MGCG |
+> -                       AMD_CG_SUPPORT_HDP_LS |
+> -                       AMD_CG_SUPPORT_HDP_MGCG;
+> -               adev->pg_flags = 0;
+> -               //???
+>                  adev->external_rev_id = adev->rev_id + 40;
+>                  break;
+>          case CHIP_OLAND:
+> -               adev->cg_flags =
+> -                       AMD_CG_SUPPORT_GFX_MGCG |
+> -                       AMD_CG_SUPPORT_GFX_MGLS |
+> -                       /*AMD_CG_SUPPORT_GFX_CGCG |*/
+> -                       AMD_CG_SUPPORT_GFX_CGLS |
+> -                       AMD_CG_SUPPORT_GFX_CGTS |
+> -                       AMD_CG_SUPPORT_GFX_CP_LS |
+> -                       AMD_CG_SUPPORT_GFX_RLC_LS |
+> -                       AMD_CG_SUPPORT_MC_LS |
+> -                       AMD_CG_SUPPORT_MC_MGCG |
+> -                       AMD_CG_SUPPORT_SDMA_MGCG |
+> -                       AMD_CG_SUPPORT_BIF_LS |
+> -                       AMD_CG_SUPPORT_UVD_MGCG |
+> -                       AMD_CG_SUPPORT_HDP_LS |
+> -                       AMD_CG_SUPPORT_HDP_MGCG;
+> -               adev->pg_flags = 0;
+>                  adev->external_rev_id = 60;
+>                  break;
+>          case CHIP_HAINAN:
+> -               adev->cg_flags =
+> -                       AMD_CG_SUPPORT_GFX_MGCG |
+> -                       AMD_CG_SUPPORT_GFX_MGLS |
+> -                       /*AMD_CG_SUPPORT_GFX_CGCG |*/
+> -                       AMD_CG_SUPPORT_GFX_CGLS |
+> -                       AMD_CG_SUPPORT_GFX_CGTS |
+> -                       AMD_CG_SUPPORT_GFX_CP_LS |
+> -                       AMD_CG_SUPPORT_GFX_RLC_LS |
+> -                       AMD_CG_SUPPORT_MC_LS |
+> -                       AMD_CG_SUPPORT_MC_MGCG |
+> -                       AMD_CG_SUPPORT_SDMA_MGCG |
+> -                       AMD_CG_SUPPORT_BIF_LS |
+> -                       AMD_CG_SUPPORT_HDP_LS |
+> -                       AMD_CG_SUPPORT_HDP_MGCG;
+> -               adev->pg_flags = 0;
+>                  adev->external_rev_id = 70;
+>                  break;
+> -
+>          default:
+>                  return -EINVAL;
+>          }
+> diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c  
+> b/drivers/gpu/drm/amd/amdgpu/soc15.c
+> index c2d324d8da75..f2849fc463b8 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/soc15.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/soc15.c
+> @@ -983,72 +983,14 @@ static int soc15_common_early_init(void *handle)
+>          switch (adev->asic_type) {
+>          case CHIP_VEGA10:
+>                  adev->asic_funcs = &soc15_asic_funcs;
+> -               adev->cg_flags = AMD_CG_SUPPORT_GFX_MGCG |
+> -                       AMD_CG_SUPPORT_GFX_MGLS |
+> -                       AMD_CG_SUPPORT_GFX_RLC_LS |
+> -                       AMD_CG_SUPPORT_GFX_CP_LS |
+> -                       AMD_CG_SUPPORT_GFX_3D_CGCG |
+> -                       AMD_CG_SUPPORT_GFX_3D_CGLS |
+> -                       AMD_CG_SUPPORT_GFX_CGCG |
+> -                       AMD_CG_SUPPORT_GFX_CGLS |
+> -                       AMD_CG_SUPPORT_BIF_MGCG |
+> -                       AMD_CG_SUPPORT_BIF_LS |
+> -                       AMD_CG_SUPPORT_HDP_LS |
+> -                       AMD_CG_SUPPORT_DRM_MGCG |
+> -                       AMD_CG_SUPPORT_DRM_LS |
+> -                       AMD_CG_SUPPORT_ROM_MGCG |
+> -                       AMD_CG_SUPPORT_DF_MGCG |
+> -                       AMD_CG_SUPPORT_SDMA_MGCG |
+> -                       AMD_CG_SUPPORT_SDMA_LS |
+> -                       AMD_CG_SUPPORT_MC_MGCG |
+> -                       AMD_CG_SUPPORT_MC_LS;
+> -               adev->pg_flags = 0;
+>                  adev->external_rev_id = 0x1;
+>                  break;
+>          case CHIP_VEGA12:
+>                  adev->asic_funcs = &soc15_asic_funcs;
+> -               adev->cg_flags = AMD_CG_SUPPORT_GFX_MGCG |
+> -                       AMD_CG_SUPPORT_GFX_MGLS |
+> -                       AMD_CG_SUPPORT_GFX_CGCG |
+> -                       AMD_CG_SUPPORT_GFX_CGLS |
+> -                       AMD_CG_SUPPORT_GFX_3D_CGCG |
+> -                       AMD_CG_SUPPORT_GFX_3D_CGLS |
+> -                       AMD_CG_SUPPORT_GFX_CP_LS |
+> -                       AMD_CG_SUPPORT_MC_LS |
+> -                       AMD_CG_SUPPORT_MC_MGCG |
+> -                       AMD_CG_SUPPORT_SDMA_MGCG |
+> -                       AMD_CG_SUPPORT_SDMA_LS |
+> -                       AMD_CG_SUPPORT_BIF_MGCG |
+> -                       AMD_CG_SUPPORT_BIF_LS |
+> -                       AMD_CG_SUPPORT_HDP_MGCG |
+> -                       AMD_CG_SUPPORT_HDP_LS |
+> -                       AMD_CG_SUPPORT_ROM_MGCG |
+> -                       AMD_CG_SUPPORT_VCE_MGCG |
+> -                       AMD_CG_SUPPORT_UVD_MGCG;
+> -               adev->pg_flags = 0;
+>                  adev->external_rev_id = adev->rev_id + 0x14;
+>                  break;
+>          case CHIP_VEGA20:
+>                  adev->asic_funcs = &vega20_asic_funcs;
+> -               adev->cg_flags = AMD_CG_SUPPORT_GFX_MGCG |
+> -                       AMD_CG_SUPPORT_GFX_MGLS |
+> -                       AMD_CG_SUPPORT_GFX_CGCG |
+> -                       AMD_CG_SUPPORT_GFX_CGLS |
+> -                       AMD_CG_SUPPORT_GFX_3D_CGCG |
+> -                       AMD_CG_SUPPORT_GFX_3D_CGLS |
+> -                       AMD_CG_SUPPORT_GFX_CP_LS |
+> -                       AMD_CG_SUPPORT_MC_LS |
+> -                       AMD_CG_SUPPORT_MC_MGCG |
+> -                       AMD_CG_SUPPORT_SDMA_MGCG |
+> -                       AMD_CG_SUPPORT_SDMA_LS |
+> -                       AMD_CG_SUPPORT_BIF_MGCG |
+> -                       AMD_CG_SUPPORT_BIF_LS |
+> -                       AMD_CG_SUPPORT_HDP_MGCG |
+> -                       AMD_CG_SUPPORT_HDP_LS |
+> -                       AMD_CG_SUPPORT_ROM_MGCG |
+> -                       AMD_CG_SUPPORT_VCE_MGCG |
+> -                       AMD_CG_SUPPORT_UVD_MGCG;
+> -               adev->pg_flags = 0;
+>                  adev->external_rev_id = adev->rev_id + 0x28;
+>                  break;
+>          case CHIP_RAVEN:
+> @@ -1061,95 +1003,13 @@ static int soc15_common_early_init(void *handle)
+>                          adev->external_rev_id = adev->rev_id + 0x20;
+>                  else
+>                          adev->external_rev_id = adev->rev_id + 0x01;
+> -
+> -               if (adev->rev_id >= 0x8) {
+> -                       adev->cg_flags = AMD_CG_SUPPORT_GFX_MGCG |
+> -                               AMD_CG_SUPPORT_GFX_MGLS |
+> -                               AMD_CG_SUPPORT_GFX_CP_LS |
+> -                               AMD_CG_SUPPORT_GFX_3D_CGCG |
+> -                               AMD_CG_SUPPORT_GFX_3D_CGLS |
+> -                               AMD_CG_SUPPORT_GFX_CGCG |
+> -                               AMD_CG_SUPPORT_GFX_CGLS |
+> -                               AMD_CG_SUPPORT_BIF_LS |
+> -                               AMD_CG_SUPPORT_HDP_LS |
+> -                               AMD_CG_SUPPORT_ROM_MGCG |
+> -                               AMD_CG_SUPPORT_MC_MGCG |
+> -                               AMD_CG_SUPPORT_MC_LS |
+> -                               AMD_CG_SUPPORT_SDMA_MGCG |
+> -                               AMD_CG_SUPPORT_SDMA_LS |
+> -                               AMD_CG_SUPPORT_VCN_MGCG;
+> -
+> -                       adev->pg_flags = AMD_PG_SUPPORT_SDMA |  
+> AMD_PG_SUPPORT_VCN;
+> -               } else if (adev->pdev->device == 0x15d8) {
+> -                       adev->cg_flags = AMD_CG_SUPPORT_GFX_MGCG |
+> -                               AMD_CG_SUPPORT_GFX_MGLS |
+> -                               AMD_CG_SUPPORT_GFX_CP_LS |
+> -                               AMD_CG_SUPPORT_GFX_3D_CGCG |
+> -                               AMD_CG_SUPPORT_GFX_3D_CGLS |
+> -                               AMD_CG_SUPPORT_GFX_CGCG |
+> -                               AMD_CG_SUPPORT_GFX_CGLS |
+> -                               AMD_CG_SUPPORT_BIF_LS |
+> -                               AMD_CG_SUPPORT_HDP_LS |
+> -                               AMD_CG_SUPPORT_ROM_MGCG |
+> -                               AMD_CG_SUPPORT_MC_MGCG |
+> -                               AMD_CG_SUPPORT_MC_LS |
+> -                               AMD_CG_SUPPORT_SDMA_MGCG |
+> -                               AMD_CG_SUPPORT_SDMA_LS;
+> -
+> -                       adev->pg_flags = AMD_PG_SUPPORT_SDMA |
+> -                               AMD_PG_SUPPORT_MMHUB |
+> -                               AMD_PG_SUPPORT_VCN |
+> -                               AMD_PG_SUPPORT_VCN_DPG;
+> -               } else {
+> -                       adev->cg_flags = AMD_CG_SUPPORT_GFX_MGCG |
+> -                               AMD_CG_SUPPORT_GFX_MGLS |
+> -                               AMD_CG_SUPPORT_GFX_RLC_LS |
+> -                               AMD_CG_SUPPORT_GFX_CP_LS |
+> -                               AMD_CG_SUPPORT_GFX_3D_CGCG |
+> -                               AMD_CG_SUPPORT_GFX_3D_CGLS |
+> -                               AMD_CG_SUPPORT_GFX_CGCG |
+> -                               AMD_CG_SUPPORT_GFX_CGLS |
+> -                               AMD_CG_SUPPORT_BIF_MGCG |
+> -                               AMD_CG_SUPPORT_BIF_LS |
+> -                               AMD_CG_SUPPORT_HDP_MGCG |
+> -                               AMD_CG_SUPPORT_HDP_LS |
+> -                               AMD_CG_SUPPORT_DRM_MGCG |
+> -                               AMD_CG_SUPPORT_DRM_LS |
+> -                               AMD_CG_SUPPORT_ROM_MGCG |
+> -                               AMD_CG_SUPPORT_MC_MGCG |
+> -                               AMD_CG_SUPPORT_MC_LS |
+> -                               AMD_CG_SUPPORT_SDMA_MGCG |
+> -                               AMD_CG_SUPPORT_SDMA_LS |
+> -                               AMD_CG_SUPPORT_VCN_MGCG;
+> -
+> -                       adev->pg_flags = AMD_PG_SUPPORT_SDMA |  
+> AMD_PG_SUPPORT_VCN;
+> -               }
+> -
+> -               if (adev->pm.pp_feature & PP_GFXOFF_MASK)
+> -                       adev->pg_flags |= AMD_PG_SUPPORT_GFX_PG |
+> -                               AMD_PG_SUPPORT_CP |
+> -                               AMD_PG_SUPPORT_RLC_SMU_HS;
+>                  break;
+>          case CHIP_ARCTURUS:
+>                  adev->asic_funcs = &vega20_asic_funcs;
+> -               adev->cg_flags = AMD_CG_SUPPORT_GFX_MGCG |
+> -                       AMD_CG_SUPPORT_GFX_MGLS |
+> -                       AMD_CG_SUPPORT_GFX_CGCG |
+> -                       AMD_CG_SUPPORT_GFX_CGLS |
+> -                       AMD_CG_SUPPORT_GFX_CP_LS |
+> -                       AMD_CG_SUPPORT_HDP_MGCG |
+> -                       AMD_CG_SUPPORT_HDP_LS |
+> -                       AMD_CG_SUPPORT_SDMA_MGCG |
+> -                       AMD_CG_SUPPORT_SDMA_LS |
+> -                       AMD_CG_SUPPORT_MC_MGCG |
+> -                       AMD_CG_SUPPORT_MC_LS;
+> -               adev->pg_flags = 0;
+>                  adev->external_rev_id = adev->rev_id + 0x32;
+>                  break;
+>          case CHIP_RENOIR:
+>                  adev->asic_funcs = &soc15_asic_funcs;
+> -               adev->cg_flags = 0;
+> -               adev->pg_flags = 0;
+>                  adev->external_rev_id = adev->rev_id + 0x91;
+>                  break;
+>          default:
+> diff --git a/drivers/gpu/drm/amd/amdgpu/vi.c  
+> b/drivers/gpu/drm/amd/amdgpu/vi.c
+> index 56c882b3ea3c..6a94c72e86f2 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/vi.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/vi.c
+> @@ -1042,9 +1042,6 @@ static const struct amdgpu_asic_funcs vi_asic_funcs =
+>          .get_pcie_replay_count = &vi_get_pcie_replay_count,
+>  };
+>
+> -#define CZ_REV_BRISTOL(rev)     \
+> -       ((rev >= 0xC8 && rev <= 0xCE) || (rev >= 0xE1 && rev <= 0xE6))
+> -
+>  static int vi_common_early_init(void *handle)
+>  {
+>          struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+> @@ -1071,189 +1068,30 @@ static int vi_common_early_init(void *handle)
+>          adev->external_rev_id = 0xFF;
+>          switch (adev->asic_type) {
+>          case CHIP_TOPAZ:
+> -               adev->cg_flags = 0;
+> -               adev->pg_flags = 0;
+>                  adev->external_rev_id = 0x1;
+>                  break;
+>          case CHIP_FIJI:
+> -               adev->cg_flags = AMD_CG_SUPPORT_GFX_MGCG |
+> -                       AMD_CG_SUPPORT_GFX_MGLS |
+> -                       AMD_CG_SUPPORT_GFX_RLC_LS |
+> -                       AMD_CG_SUPPORT_GFX_CP_LS |
+> -                       AMD_CG_SUPPORT_GFX_CGTS |
+> -                       AMD_CG_SUPPORT_GFX_CGTS_LS |
+> -                       AMD_CG_SUPPORT_GFX_CGCG |
+> -                       AMD_CG_SUPPORT_GFX_CGLS |
+> -                       AMD_CG_SUPPORT_SDMA_MGCG |
+> -                       AMD_CG_SUPPORT_SDMA_LS |
+> -                       AMD_CG_SUPPORT_BIF_LS |
+> -                       AMD_CG_SUPPORT_HDP_MGCG |
+> -                       AMD_CG_SUPPORT_HDP_LS |
+> -                       AMD_CG_SUPPORT_ROM_MGCG |
+> -                       AMD_CG_SUPPORT_MC_MGCG |
+> -                       AMD_CG_SUPPORT_MC_LS |
+> -                       AMD_CG_SUPPORT_UVD_MGCG;
+> -               adev->pg_flags = 0;
+>                  adev->external_rev_id = adev->rev_id + 0x3c;
+>                  break;
+>          case CHIP_TONGA:
+> -               adev->cg_flags = AMD_CG_SUPPORT_GFX_MGCG |
+> -                       AMD_CG_SUPPORT_GFX_CGCG |
+> -                       AMD_CG_SUPPORT_GFX_CGLS |
+> -                       AMD_CG_SUPPORT_SDMA_MGCG |
+> -                       AMD_CG_SUPPORT_SDMA_LS |
+> -                       AMD_CG_SUPPORT_BIF_LS |
+> -                       AMD_CG_SUPPORT_HDP_MGCG |
+> -                       AMD_CG_SUPPORT_HDP_LS |
+> -                       AMD_CG_SUPPORT_ROM_MGCG |
+> -                       AMD_CG_SUPPORT_MC_MGCG |
+> -                       AMD_CG_SUPPORT_MC_LS |
+> -                       AMD_CG_SUPPORT_DRM_LS |
+> -                       AMD_CG_SUPPORT_UVD_MGCG;
+> -               adev->pg_flags = 0;
+>                  adev->external_rev_id = adev->rev_id + 0x14;
+>                  break;
+>          case CHIP_POLARIS11:
+> -               adev->cg_flags = AMD_CG_SUPPORT_GFX_MGCG |
+> -                       AMD_CG_SUPPORT_GFX_RLC_LS |
+> -                       AMD_CG_SUPPORT_GFX_CP_LS |
+> -                       AMD_CG_SUPPORT_GFX_CGCG |
+> -                       AMD_CG_SUPPORT_GFX_CGLS |
+> -                       AMD_CG_SUPPORT_GFX_3D_CGCG |
+> -                       AMD_CG_SUPPORT_GFX_3D_CGLS |
+> -                       AMD_CG_SUPPORT_SDMA_MGCG |
+> -                       AMD_CG_SUPPORT_SDMA_LS |
+> -                       AMD_CG_SUPPORT_BIF_MGCG |
+> -                       AMD_CG_SUPPORT_BIF_LS |
+> -                       AMD_CG_SUPPORT_HDP_MGCG |
+> -                       AMD_CG_SUPPORT_HDP_LS |
+> -                       AMD_CG_SUPPORT_ROM_MGCG |
+> -                       AMD_CG_SUPPORT_MC_MGCG |
+> -                       AMD_CG_SUPPORT_MC_LS |
+> -                       AMD_CG_SUPPORT_DRM_LS |
+> -                       AMD_CG_SUPPORT_UVD_MGCG |
+> -                       AMD_CG_SUPPORT_VCE_MGCG;
+> -               adev->pg_flags = 0;
+>                  adev->external_rev_id = adev->rev_id + 0x5A;
+>                  break;
+>          case CHIP_POLARIS10:
+> -               adev->cg_flags = AMD_CG_SUPPORT_GFX_MGCG |
+> -                       AMD_CG_SUPPORT_GFX_RLC_LS |
+> -                       AMD_CG_SUPPORT_GFX_CP_LS |
+> -                       AMD_CG_SUPPORT_GFX_CGCG |
+> -                       AMD_CG_SUPPORT_GFX_CGLS |
+> -                       AMD_CG_SUPPORT_GFX_3D_CGCG |
+> -                       AMD_CG_SUPPORT_GFX_3D_CGLS |
+> -                       AMD_CG_SUPPORT_SDMA_MGCG |
+> -                       AMD_CG_SUPPORT_SDMA_LS |
+> -                       AMD_CG_SUPPORT_BIF_MGCG |
+> -                       AMD_CG_SUPPORT_BIF_LS |
+> -                       AMD_CG_SUPPORT_HDP_MGCG |
+> -                       AMD_CG_SUPPORT_HDP_LS |
+> -                       AMD_CG_SUPPORT_ROM_MGCG |
+> -                       AMD_CG_SUPPORT_MC_MGCG |
+> -                       AMD_CG_SUPPORT_MC_LS |
+> -                       AMD_CG_SUPPORT_DRM_LS |
+> -                       AMD_CG_SUPPORT_UVD_MGCG |
+> -                       AMD_CG_SUPPORT_VCE_MGCG;
+> -               adev->pg_flags = 0;
+>                  adev->external_rev_id = adev->rev_id + 0x50;
+>                  break;
+>          case CHIP_POLARIS12:
+> -               adev->cg_flags = AMD_CG_SUPPORT_GFX_MGCG |
+> -                       AMD_CG_SUPPORT_GFX_RLC_LS |
+> -                       AMD_CG_SUPPORT_GFX_CP_LS |
+> -                       AMD_CG_SUPPORT_GFX_CGCG |
+> -                       AMD_CG_SUPPORT_GFX_CGLS |
+> -                       AMD_CG_SUPPORT_GFX_3D_CGCG |
+> -                       AMD_CG_SUPPORT_GFX_3D_CGLS |
+> -                       AMD_CG_SUPPORT_SDMA_MGCG |
+> -                       AMD_CG_SUPPORT_SDMA_LS |
+> -                       AMD_CG_SUPPORT_BIF_MGCG |
+> -                       AMD_CG_SUPPORT_BIF_LS |
+> -                       AMD_CG_SUPPORT_HDP_MGCG |
+> -                       AMD_CG_SUPPORT_HDP_LS |
+> -                       AMD_CG_SUPPORT_ROM_MGCG |
+> -                       AMD_CG_SUPPORT_MC_MGCG |
+> -                       AMD_CG_SUPPORT_MC_LS |
+> -                       AMD_CG_SUPPORT_DRM_LS |
+> -                       AMD_CG_SUPPORT_UVD_MGCG |
+> -                       AMD_CG_SUPPORT_VCE_MGCG;
+> -               adev->pg_flags = 0;
+>                  adev->external_rev_id = adev->rev_id + 0x64;
+>                  break;
+>          case CHIP_VEGAM:
+> -               adev->cg_flags = 0;
+> -                       /*AMD_CG_SUPPORT_GFX_MGCG |
+> -                       AMD_CG_SUPPORT_GFX_RLC_LS |
+> -                       AMD_CG_SUPPORT_GFX_CP_LS |
+> -                       AMD_CG_SUPPORT_GFX_CGCG |
+> -                       AMD_CG_SUPPORT_GFX_CGLS |
+> -                       AMD_CG_SUPPORT_GFX_3D_CGCG |
+> -                       AMD_CG_SUPPORT_GFX_3D_CGLS |
+> -                       AMD_CG_SUPPORT_SDMA_MGCG |
+> -                       AMD_CG_SUPPORT_SDMA_LS |
+> -                       AMD_CG_SUPPORT_BIF_MGCG |
+> -                       AMD_CG_SUPPORT_BIF_LS |
+> -                       AMD_CG_SUPPORT_HDP_MGCG |
+> -                       AMD_CG_SUPPORT_HDP_LS |
+> -                       AMD_CG_SUPPORT_ROM_MGCG |
+> -                       AMD_CG_SUPPORT_MC_MGCG |
+> -                       AMD_CG_SUPPORT_MC_LS |
+> -                       AMD_CG_SUPPORT_DRM_LS |
+> -                       AMD_CG_SUPPORT_UVD_MGCG |
+> -                       AMD_CG_SUPPORT_VCE_MGCG;*/
+> -               adev->pg_flags = 0;
+>                  adev->external_rev_id = adev->rev_id + 0x6E;
+>                  break;
+>          case CHIP_CARRIZO:
+> -               adev->cg_flags = AMD_CG_SUPPORT_UVD_MGCG |
+> -                       AMD_CG_SUPPORT_GFX_MGCG |
+> -                       AMD_CG_SUPPORT_GFX_MGLS |
+> -                       AMD_CG_SUPPORT_GFX_RLC_LS |
+> -                       AMD_CG_SUPPORT_GFX_CP_LS |
+> -                       AMD_CG_SUPPORT_GFX_CGTS |
+> -                       AMD_CG_SUPPORT_GFX_CGTS_LS |
+> -                       AMD_CG_SUPPORT_GFX_CGCG |
+> -                       AMD_CG_SUPPORT_GFX_CGLS |
+> -                       AMD_CG_SUPPORT_BIF_LS |
+> -                       AMD_CG_SUPPORT_HDP_MGCG |
+> -                       AMD_CG_SUPPORT_HDP_LS |
+> -                       AMD_CG_SUPPORT_SDMA_MGCG |
+> -                       AMD_CG_SUPPORT_SDMA_LS |
+> -                       AMD_CG_SUPPORT_VCE_MGCG;
+> -               /* rev0 hardware requires workarounds to support PG */
+> -               adev->pg_flags = 0;
+> -               if (adev->rev_id != 0x00 ||  
+> CZ_REV_BRISTOL(adev->pdev->revision)) {
+> -                       adev->pg_flags |= AMD_PG_SUPPORT_GFX_SMG |
+> -                               AMD_PG_SUPPORT_GFX_PIPELINE |
+> -                               AMD_PG_SUPPORT_CP |
+> -                               AMD_PG_SUPPORT_UVD |
+> -                               AMD_PG_SUPPORT_VCE;
+> -               }
+>                  adev->external_rev_id = adev->rev_id + 0x1;
+>                  break;
+>          case CHIP_STONEY:
+> -               adev->cg_flags = AMD_CG_SUPPORT_UVD_MGCG |
+> -                       AMD_CG_SUPPORT_GFX_MGCG |
+> -                       AMD_CG_SUPPORT_GFX_MGLS |
+> -                       AMD_CG_SUPPORT_GFX_RLC_LS |
+> -                       AMD_CG_SUPPORT_GFX_CP_LS |
+> -                       AMD_CG_SUPPORT_GFX_CGTS |
+> -                       AMD_CG_SUPPORT_GFX_CGTS_LS |
+> -                       AMD_CG_SUPPORT_GFX_CGLS |
+> -                       AMD_CG_SUPPORT_BIF_LS |
+> -                       AMD_CG_SUPPORT_HDP_MGCG |
+> -                       AMD_CG_SUPPORT_HDP_LS |
+> -                       AMD_CG_SUPPORT_SDMA_MGCG |
+> -                       AMD_CG_SUPPORT_SDMA_LS |
+> -                       AMD_CG_SUPPORT_VCE_MGCG;
+> -               adev->pg_flags = AMD_PG_SUPPORT_GFX_PG |
+> -                       AMD_PG_SUPPORT_GFX_SMG |
+> -                       AMD_PG_SUPPORT_GFX_PIPELINE |
+> -                       AMD_PG_SUPPORT_CP |
+> -                       AMD_PG_SUPPORT_UVD |
+> -                       AMD_PG_SUPPORT_VCE;
+>                  adev->external_rev_id = adev->rev_id + 0x61;
+>                  break;
+>          default:
+> -- 
+> 2.17.1
+>
+> <0001-drm-amdgpu-gfx9-update-pg_flags-after-determining-if.patch>
