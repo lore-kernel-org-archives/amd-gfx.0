@@ -1,68 +1,54 @@
-From: Jason Gunthorpe <jgg-VPRAkNaXOzVWk0Htik3J/w@public.gmane.org>
-Subject: Re: [PATCH 04/15] mm: remove the pgmap field from struct
- hmm_vma_walk
-Date: Thu, 15 Aug 2019 19:22:02 +0000
-Message-ID: <20190815192157.GB22970@mellanox.com>
-References: <20190806160554.14046-1-hch@lst.de>
- <20190806160554.14046-5-hch@lst.de> <20190807174548.GJ1571@mellanox.com>
- <CAPcyv4hPCuHBLhSJgZZEh0CbuuJNPLFDA3f-79FX5uVOO0yubA@mail.gmail.com>
- <20190808065933.GA29382@lst.de>
- <CAPcyv4hMUzw8vyXFRPe2pdwef0npbMm9tx9wiZ9MWkHGhH1V6w@mail.gmail.com>
+From: Dan Williams <dan.j.williams@intel.com>
+Subject: Re: [PATCH 04/15] mm: remove the pgmap field from struct hmm_vma_walk
+Date: Thu, 15 Aug 2019 12:36:58 -0700
+Message-ID: <CAPcyv4g4hzcEA=TPYVTiqpbtOoS30ahogRUttCvQAvXQbQjfnw@mail.gmail.com>
+References: <20190806160554.14046-1-hch@lst.de> <20190806160554.14046-5-hch@lst.de>
+ <20190807174548.GJ1571@mellanox.com> <CAPcyv4hPCuHBLhSJgZZEh0CbuuJNPLFDA3f-79FX5uVOO0yubA@mail.gmail.com>
+ <20190808065933.GA29382@lst.de> <CAPcyv4hMUzw8vyXFRPe2pdwef0npbMm9tx9wiZ9MWkHGhH1V6w@mail.gmail.com>
  <20190814073854.GA27249@lst.de> <20190814132746.GE13756@mellanox.com>
- <CAPcyv4g8usp8prJ+1bMtyV1xuedp5FKErBp-N8+KzR=rJ-v0QQ@mail.gmail.com>
- <20190815180325.GA4920@redhat.com>
+ <CAPcyv4g8usp8prJ+1bMtyV1xuedp5FKErBp-N8+KzR=rJ-v0QQ@mail.gmail.com> <20190815180325.GA4920@redhat.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <nouveau-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190815180325.GA4920-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>
-Content-Language: en-US
-Content-ID: <45C50639B74BC0449B53AC8E6F4A6DDB-wNKe6lTLrGecE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/nouveau>,
- <mailto:nouveau-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/nouveau>
-List-Post: <mailto:nouveau-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:nouveau-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/nouveau>,
- <mailto:nouveau-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: nouveau-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "Nouveau" <nouveau-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Jerome Glisse <jglisse-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>
-Cc: Ralph Campbell <rcampbell-DDmLM1+adcrQT0dZR+AlfA@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "nouveau-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <nouveau-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Felix Kuehling <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>, "linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org" <linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, "dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "linux-mm-Bw31MaZKKs3YtjvyW6yDsg@public.gmane.org" <linux-mm-Bw31MaZKKs3YtjvyW6yDsg@public.gmane.org>, Ben Skeggs <bskeggs-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>, Dan Williams <dan.j.williams-ral2JQCrhuEAvxtiuMwx3w@public.gmane.org>, Christoph Hellwig <hch-jcswGhMUV9g@public.gmane.org>
+Content-Type: text/plain; charset="UTF-8"
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20190815180325.GA4920@redhat.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Jerome Glisse <jglisse@redhat.com>
+Cc: Jason Gunthorpe <jgg@mellanox.com>, Christoph Hellwig <hch@lst.de>, Ben Skeggs <bskeggs@redhat.com>, Felix Kuehling <Felix.Kuehling@amd.com>, Ralph Campbell <rcampbell@nvidia.com>, "linux-mm@kvack.org" <linux-mm@kvack.org>, "nouveau@lists.freedesktop.org" <nouveau@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
 List-Id: amd-gfx.lists.freedesktop.org
 
-T24gVGh1LCBBdWcgMTUsIDIwMTkgYXQgMDI6MDM6MjVQTSAtMDQwMCwgSmVyb21lIEdsaXNzZSB3
-cm90ZToKPiBPbiBXZWQsIEF1ZyAxNCwgMjAxOSBhdCAwNzo0ODoyOEFNIC0wNzAwLCBEYW4gV2ls
-bGlhbXMgd3JvdGU6Cj4gPiBPbiBXZWQsIEF1ZyAxNCwgMjAxOSBhdCA2OjI4IEFNIEphc29uIEd1
-bnRob3JwZSA8amdnQG1lbGxhbm94LmNvbT4gd3JvdGU6Cj4gPiA+Cj4gPiA+IE9uIFdlZCwgQXVn
-IDE0LCAyMDE5IGF0IDA5OjM4OjU0QU0gKzAyMDAsIENocmlzdG9waCBIZWxsd2lnIHdyb3RlOgo+
-ID4gPiA+IE9uIFR1ZSwgQXVnIDEzLCAyMDE5IGF0IDA2OjM2OjMzUE0gLTA3MDAsIERhbiBXaWxs
-aWFtcyB3cm90ZToKPiA+ID4gPiA+IFNlY3Rpb24gYWxpZ25tZW50IGNvbnN0cmFpbnRzIHNvbWV3
-aGF0IHNhdmUgdXMgaGVyZS4gVGhlIG9ubHkgZXhhbXBsZQo+ID4gPiA+ID4gSSBjYW4gdGhpbmsg
-b2YgYSBQTUQgbm90IGNvbnRhaW5pbmcgYSB1bmlmb3JtIHBnbWFwIGFzc29jaWF0aW9uIGZvcgo+
-ID4gPiA+ID4gZWFjaCBwdGUgaXMgdGhlIGNhc2Ugd2hlbiB0aGUgcGdtYXAgb3ZlcmxhcHMgbm9y
-bWFsIGRyYW0sIGkuZS4gc2hhcmVzCj4gPiA+ID4gPiB0aGUgc2FtZSAnc3RydWN0IG1lbW9yeV9z
-ZWN0aW9uJyBmb3IgYSBnaXZlbiBzcGFuLiBPdGhlcndpc2UsIGRpc3RpbmN0Cj4gPiA+ID4gPiBw
-Z21hcHMgYXJyYW5nZSB0byBtYW5hZ2UgdGhlaXIgb3duIGV4Y2x1c2l2ZSBzZWN0aW9ucyAoYW5k
-IG5vdwo+ID4gPiA+ID4gc3Vic2VjdGlvbnMgYXMgb2YgdjUuMykuIE90aGVyd2lzZSB0aGUgaW1w
-bGVtZW50YXRpb24gY291bGQgbm90Cj4gPiA+ID4gPiBndWFyYW50ZWUgZGlmZmVyZW50IG1hcHBp
-bmcgbGlmZXRpbWVzLgo+ID4gPiA+ID4KPiA+ID4gPiA+IFRoYXQgc2FpZCwgdGhpcyBzZWVtcyB0
-byB3YW50IGEgYmV0dGVyIG1lY2hhbmlzbSB0byBkZXRlcm1pbmUgInBmbiBpcwo+ID4gPiA+ID4g
-Wk9ORV9ERVZJQ0UiLgo+ID4gPiA+Cj4gPiA+ID4gU28gSSBndWVzcyB0aGlzIHBhdGNoIGlzIGZp
-bmUgZm9yIG5vdywgYW5kIG9uY2UgeW91IHByb3ZpZGUgYSBiZXR0ZXIKPiA+ID4gPiBtZWNoYW5p
-c20gd2UgY2FuIHN3aXRjaCBvdmVyIHRvIGl0Pwo+ID4gPgo+ID4gPiBXaGF0IGFib3V0IHRoZSB2
-ZXJzaW9uIEkgc2VudCB0byBqdXN0IGdldCByaWQgb2YgYWxsIHRoZSBzdHJhbmdlCj4gPiA+IHB1
-dF9kZXZfcGFnZW1hcHMgd2hpbGUgc2Nhbm5pbmc/IE9kZHMgYXJlIGdvb2Qgd2Ugd2lsbCB3b3Jr
-IHdpdGggb25seQo+ID4gPiBhIHNpbmdsZSBwYWdlbWFwLCBzbyBpdCBtYWtlcyBzb21lIHNlbnNl
-IHRvIGNhY2hlIGl0IG9uY2Ugd2UgZmluZCBpdD8KPiA+IAo+ID4gWWVzLCBpZiB0aGUgc2NhbiBp
-cyBvdmVyIGEgc2luZ2xlIHBtZCB0aGVuIGNhY2hpbmcgaXQgbWFrZXMgc2Vuc2UuCj4gCj4gUXVp
-dGUgZnJhbmtseSBhbiBlYXNpZXIgYW4gYmV0dGVyIHNvbHV0aW9uIGlzIHRvIHJlbW92ZSB0aGUg
-cGFnZW1hcAo+IGxvb2t1cCBhcyBITU0gdXNlciBhYmlkZSBieSBtbXUgbm90aWZpZXIgaXQgbWVh
-bnMgd2Ugd2lsbCBub3QgbWFrZQo+IHVzZSBvciBkZXJlZmVyZW5jZSB0aGUgc3RydWN0IHBhZ2Ug
-c28gdGhhdCB3ZSBhcmUgc2FmZSBmcm9tIGFueQo+IHJhY2luZyBob3R1bnBsdWcgb2YgZGF4IG1l
-bW9yeSAoYXMgbG9uZyBhcyBkZXZpY2UgZHJpdmVyIHVzaW5nIGhtbQo+IGRvIG5vdCBoYXZlIGEg
-YnVnKS4KClllcywgSSBhbHNvIHdvdWxkIHByZWZlciB0byBkcm9wIHRoZSBjb25mdXNpbmcgY2hl
-Y2tzIGVudGlyZWx5IC0KQ2hyaXN0b3BoIGNhbiB5b3UgcmVzZW5kIHRoaXMgcGF0Y2g/CgpUaGFu
-a3MsCkphc29uIApfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-XwpOb3V2ZWF1IG1haWxpbmcgbGlzdApOb3V2ZWF1QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRw
-czovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL25vdXZlYXU=
+On Thu, Aug 15, 2019 at 11:07 AM Jerome Glisse <jglisse@redhat.com> wrote:
+>
+> On Wed, Aug 14, 2019 at 07:48:28AM -0700, Dan Williams wrote:
+> > On Wed, Aug 14, 2019 at 6:28 AM Jason Gunthorpe <jgg@mellanox.com> wrote:
+> > >
+> > > On Wed, Aug 14, 2019 at 09:38:54AM +0200, Christoph Hellwig wrote:
+> > > > On Tue, Aug 13, 2019 at 06:36:33PM -0700, Dan Williams wrote:
+> > > > > Section alignment constraints somewhat save us here. The only example
+> > > > > I can think of a PMD not containing a uniform pgmap association for
+> > > > > each pte is the case when the pgmap overlaps normal dram, i.e. shares
+> > > > > the same 'struct memory_section' for a given span. Otherwise, distinct
+> > > > > pgmaps arrange to manage their own exclusive sections (and now
+> > > > > subsections as of v5.3). Otherwise the implementation could not
+> > > > > guarantee different mapping lifetimes.
+> > > > >
+> > > > > That said, this seems to want a better mechanism to determine "pfn is
+> > > > > ZONE_DEVICE".
+> > > >
+> > > > So I guess this patch is fine for now, and once you provide a better
+> > > > mechanism we can switch over to it?
+> > >
+> > > What about the version I sent to just get rid of all the strange
+> > > put_dev_pagemaps while scanning? Odds are good we will work with only
+> > > a single pagemap, so it makes some sense to cache it once we find it?
+> >
+> > Yes, if the scan is over a single pmd then caching it makes sense.
+>
+> Quite frankly an easier an better solution is to remove the pagemap
+> lookup as HMM user abide by mmu notifier it means we will not make
+> use or dereference the struct page so that we are safe from any
+> racing hotunplug of dax memory (as long as device driver using hmm
+> do not have a bug).
+
+Yes, as long as the driver remove is synchronized against HMM
+operations via another mechanism then there is no need to take pagemap
+references. Can you briefly describe what that other mechanism is?
