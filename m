@@ -1,64 +1,43 @@
-From: Jerome Glisse <jglisse@redhat.com>
-Subject: Re: [PATCH 04/15] mm: remove the pgmap field from struct hmm_vma_walk
-Date: Thu, 15 Aug 2019 16:51:33 -0400
-Message-ID: <20190815205132.GC25517@redhat.com>
-References: <CAPcyv4hMUzw8vyXFRPe2pdwef0npbMm9tx9wiZ9MWkHGhH1V6w@mail.gmail.com>
- <20190814073854.GA27249@lst.de>
- <20190814132746.GE13756@mellanox.com>
- <CAPcyv4g8usp8prJ+1bMtyV1xuedp5FKErBp-N8+KzR=rJ-v0QQ@mail.gmail.com>
- <20190815180325.GA4920@redhat.com>
- <CAPcyv4g4hzcEA=TPYVTiqpbtOoS30ahogRUttCvQAvXQbQjfnw@mail.gmail.com>
- <20190815194339.GC9253@redhat.com>
- <CAPcyv4jid8_=-8hBpn_Qm=c4S8BapL9B9RGT7e9uu303yH=Yqw@mail.gmail.com>
- <20190815203306.GB25517@redhat.com>
- <20190815204128.GI22970@mellanox.com>
+From: "Yang, Philip" <Philip.Yang@amd.com>
+Subject: [PATCH] mm/hmm: hmm_range_fault handle pages swapped out
+Date: Thu, 15 Aug 2019 20:52:56 +0000
+Message-ID: <20190815205227.7949-1-Philip.Yang@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Transfer-Encoding: 8bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Content-Disposition: inline
-In-Reply-To: <20190815204128.GI22970@mellanox.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Jason Gunthorpe <jgg@mellanox.com>
-Cc: Dan Williams <dan.j.williams@intel.com>, Christoph Hellwig <hch@lst.de>, Ben Skeggs <bskeggs@redhat.com>, Felix Kuehling <Felix.Kuehling@amd.com>, Ralph Campbell <rcampbell@nvidia.com>, "linux-mm@kvack.org" <linux-mm@kvack.org>, "nouveau@lists.freedesktop.org" <nouveau@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+Content-Language: en-US
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: "jglisse@redhat.com" <jglisse@redhat.com>, "alex.deucher@amd.com" <alex.deucher@amd.com>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Kuehling, Felix" <Felix.Kuehling@amd.com>, "jgg@mellanox.com" <jgg@mellanox.com>, "linux-mm@kvack.org" <linux-mm@kvack.org>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>
+Cc: "Yang, Philip" <Philip.Yang@amd.com>
 List-Id: amd-gfx.lists.freedesktop.org
 
-On Thu, Aug 15, 2019 at 08:41:33PM +0000, Jason Gunthorpe wrote:
-> On Thu, Aug 15, 2019 at 04:33:06PM -0400, Jerome Glisse wrote:
-> 
-> > So nor HMM nor driver should dereference the struct page (i do not
-> > think any iommu driver would either),
-> 
-> Er, they do technically deref the struct page:
-> 
-> nouveau_dmem_convert_pfn(struct nouveau_drm *drm,
-> 			 struct hmm_range *range)
-> 		struct page *page;
-> 		page = hmm_pfn_to_page(range, range->pfns[i]);
-> 		if (!nouveau_dmem_page(drm, page)) {
-> 
-> 
-> nouveau_dmem_page(struct nouveau_drm *drm, struct page *page)
-> {
-> 	return is_device_private_page(page) && drm->dmem == page_to_dmem(page)
-> 
-> 
-> Which does touch 'page->pgmap'
-> 
-> Is this OK without having a get_dev_pagemap() ?
->
-> Noting that the collision-retry scheme doesn't protect anything here
-> as we can have a concurrent invalidation while doing the above deref.
-
-Uh ? How so ? We are not reading the same code i think.
-
-My read is that function is call when holding the device
-lock which exclude any racing mmu notifier from making
-forward progress and it is also protected by the range so
-at the time this happens it is safe to dereference the
-struct page. In this case any way we can update the
-nouveau_dmem_page() to check that page page->pgmap == the
-expected pgmap.
-
-Cheers,
-Jérôme
+aG1tX3JhbmdlX2ZhdWx0IG1heSByZXR1cm4gTlVMTCBwYWdlcyBiZWNhdXNlIHNvbWUgb2YgcGZu
+cyBhcmUgZXF1YWwgdG8KSE1NX1BGTl9OT05FLiBUaGlzIGhhcHBlbnMgcmFuZG9tbHkgdW5kZXIg
+bWVtb3J5IHByZXNzdXJlLiBUaGUgcmVhc29uIGlzCmZvciBzd2FwcGVkIG91dCBwYWdlIHB0ZSBw
+YXRoLCBobW1fdm1hX2hhbmRsZV9wdGUgZG9lc24ndCB1cGRhdGUgZmF1bHQKdmFyaWFibGUgZnJv
+bSBjcHVfZmxhZ3MsIHNvIGl0IGZhaWxlZCB0byBjYWxsIGhtbV92YW1fZG9fZmF1bHQgdG8gc3dh
+cAp0aGUgcGFnZSBpbi4KClRoZSBmaXggaXMgdG8gY2FsbCBobW1fcHRlX25lZWRfZmF1bHQgdG8g
+dXBkYXRlIGZhdWx0IHZhcmlhYmxlLgoKQ2hhbmdlLUlkOiBJMmU4NjExNDg1NTYzZDExZDkzODg4
+MWMxOGI3OTM1ZmExZTdjOTFlZQpTaWduZWQtb2ZmLWJ5OiBQaGlsaXAgWWFuZyA8UGhpbGlwLllh
+bmdAYW1kLmNvbT4KLS0tCiBtbS9obW0uYyB8IDMgKysrCiAxIGZpbGUgY2hhbmdlZCwgMyBpbnNl
+cnRpb25zKCspCgpkaWZmIC0tZ2l0IGEvbW0vaG1tLmMgYi9tbS9obW0uYwppbmRleCA5ZjIyNTYy
+ZTJjNDMuLjdjYTRmYjM5ZDNkOCAxMDA2NDQKLS0tIGEvbW0vaG1tLmMKKysrIGIvbW0vaG1tLmMK
+QEAgLTU0NCw2ICs1NDQsOSBAQCBzdGF0aWMgaW50IGhtbV92bWFfaGFuZGxlX3B0ZShzdHJ1Y3Qg
+bW1fd2FsayAqd2FsaywgdW5zaWduZWQgbG9uZyBhZGRyLAogCQlzd3BfZW50cnlfdCBlbnRyeSA9
+IHB0ZV90b19zd3BfZW50cnkocHRlKTsKIAogCQlpZiAoIW5vbl9zd2FwX2VudHJ5KGVudHJ5KSkg
+eworCQkJY3B1X2ZsYWdzID0gcHRlX3RvX2htbV9wZm5fZmxhZ3MocmFuZ2UsIHB0ZSk7CisJCQlo
+bW1fcHRlX25lZWRfZmF1bHQoaG1tX3ZtYV93YWxrLCBvcmlnX3BmbiwgY3B1X2ZsYWdzLAorCQkJ
+CQkgICAmZmF1bHQsICZ3cml0ZV9mYXVsdCk7CiAJCQlpZiAoZmF1bHQgfHwgd3JpdGVfZmF1bHQp
+CiAJCQkJZ290byBmYXVsdDsKIAkJCXJldHVybiAwOwotLSAKMi4xNy4xCgpfX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpkcmktZGV2ZWwgbWFpbGluZyBsaXN0
+CmRyaS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3Rv
+cC5vcmcvbWFpbG1hbi9saXN0aW5mby9kcmktZGV2ZWw=
