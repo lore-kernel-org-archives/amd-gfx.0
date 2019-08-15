@@ -1,24 +1,52 @@
-From: Christoph Hellwig <hch@lst.de>
-Subject: Re: [PATCH 1/4] drm/radeon: handle PCIe root ports with addressing
- limitations
-Date: Thu, 15 Aug 2019 12:06:10 +0200
-Message-ID: <20190815100610.GA28728@lst.de>
-References: <20190815072703.7010-1-hch@lst.de> <20190815072703.7010-2-hch@lst.de> <d1cf1435-92e3-edb5-c239-18c71f2d27c7@amd.com>
+From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu: remove special autoload handling for navi12
+Date: Thu, 15 Aug 2019 09:07:15 -0400
+Message-ID: <CADnq5_P=L+WsykKyYmW+FNCwYFY3VkRM9q5jfos70ogAJqhVJA@mail.gmail.com>
+References: <20190815084320.20015-1-xiaojie.yuan@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Transfer-Encoding: 8bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Content-Disposition: inline
-In-Reply-To: <d1cf1435-92e3-edb5-c239-18c71f2d27c7@amd.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: "Koenig, Christian" <Christian.Koenig@amd.com>
-Cc: Christoph Hellwig <hch@lst.de>, "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Zhou, David(ChunMing)" <David1.Zhou@amd.com>, Atish Patra <Atish.Patra@wdc.com>, Alistair Francis <alistair.francis@wdc.com>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20190815084320.20015-1-xiaojie.yuan-5C7GfCeVMHo@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Yuan, Xiaojie" <Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org>
+Cc: "Xiao, Jack" <Jack.Xiao-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Zhang,
+ Hawking" <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>
 
-On Thu, Aug 15, 2019 at 08:34:10AM +0000, Koenig, Christian wrote:
-> Looks sane to me. Reviewed-by: Christian König <christian.koenig@amd.com>.
-> 
-> Should we merge this through our normal amdgpu/radeon branches or do you 
-> want to send this upstream somehow else?
-
-This is intended for your trees.
+T24gVGh1LCBBdWcgMTUsIDIwMTkgYXQgNDo0MyBBTSBZdWFuLCBYaWFvamllIDxYaWFvamllLll1
+YW5AYW1kLmNvbT4gd3JvdGU6Cj4KPiBzL3IgbGlzdCBpbiBybGMgZmlybXdhcmUgaXMgcmVhZHks
+IHNvIHJlbW92ZSB0aGUgc3BlY2lhbCBhdXRvbG9hZCBoYW5kbGluZwo+Cj4gU2lnbmVkLW9mZi1i
+eTogWGlhb2ppZSBZdWFuIDx4aWFvamllLnl1YW5AYW1kLmNvbT4KCkFja2VkLWJ5OiBBbGV4IERl
+dWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+Cgo+IC0tLQo+ICBkcml2ZXJzL2dwdS9k
+cm0vYW1kL2FtZGdwdS9hbWRncHVfcHNwLmMgfCAzICstLQo+ICAxIGZpbGUgY2hhbmdlZCwgMSBp
+bnNlcnRpb24oKyksIDIgZGVsZXRpb25zKC0pCj4KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUv
+ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3BzcC5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
+YW1kZ3B1X3BzcC5jCj4gaW5kZXggYWFhNGNkZjhiY2FlLi40YjJkMmZkNzJkYzYgMTAwNjQ0Cj4g
+LS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3BzcC5jCj4gKysrIGIvZHJp
+dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3BzcC5jCj4gQEAgLTEwMzMsOCArMTAzMyw3
+IEBAIHN0YXRpYyBpbnQgcHNwX25wX2Z3X2xvYWQoc3RydWN0IHBzcF9jb250ZXh0ICpwc3ApCj4g
+ICAgICAgICAgICAgICAgICAgICAgICAgcmV0dXJuIHJldDsKPgo+ICAgICAgICAgICAgICAgICAv
+KiBTdGFydCBybGMgYXV0b2xvYWQgYWZ0ZXIgcHNwIHJlY2lldmVkIGFsbCB0aGUgZ2Z4IGZpcm13
+YXJlICovCj4gLSAgICAgICAgICAgICAgIGlmICh1Y29kZS0+dWNvZGVfaWQgPT0gQU1ER1BVX1VD
+T0RFX0lEX1JMQ19SRVNUT1JFX0xJU1RfU1JNX01FTSB8fAo+IC0gICAgICAgICAgICAgICAgICAg
+KGFkZXYtPmFzaWNfdHlwZSA9PSBDSElQX05BVkkxMiAmJiB1Y29kZS0+dWNvZGVfaWQgPT0gQU1E
+R1BVX1VDT0RFX0lEX1JMQ19HKSkgewo+ICsgICAgICAgICAgICAgICBpZiAodWNvZGUtPnVjb2Rl
+X2lkID09IEFNREdQVV9VQ09ERV9JRF9STENfUkVTVE9SRV9MSVNUX1NSTV9NRU0pIHsKPiAgICAg
+ICAgICAgICAgICAgICAgICAgICByZXQgPSBwc3BfcmxjX2F1dG9sb2FkKHBzcCk7Cj4gICAgICAg
+ICAgICAgICAgICAgICAgICAgaWYgKHJldCkgewo+ICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgRFJNX0VSUk9SKCJGYWlsZWQgdG8gc3RhcnQgcmxjIGF1dG9sb2FkXG4iKTsKPiAtLQo+
+IDIuMjAuMQo+Cj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X18KPiBhbWQtZ2Z4IG1haWxpbmcgbGlzdAo+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
+Cj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZngg
+bWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMu
+ZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
