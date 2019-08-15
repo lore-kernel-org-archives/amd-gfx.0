@@ -1,46 +1,59 @@
-From: Alex Deucher <alexdeucher@gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: Apply flags after amdgpu_device_ip_init()
-Date: Thu, 15 Aug 2019 11:28:01 -0400
-Message-ID: <CADnq5_MqvH-jUdDUOeBM6zgwYKiv21Wuejw4sR5TwY7bJss_ow@mail.gmail.com>
-References: <20190815051117.24003-1-kai.heng.feng@canonical.com>
- <BN6PR12MB180950AE744B37AAFADC2FEAF7AC0@BN6PR12MB1809.namprd12.prod.outlook.com>
- <8D8229FF-933A-43CF-AE05-52E969E3B942@canonical.com>
+From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: [PATCH] drm/amdgpu/gfx9: update pg_flags after determining if gfx off
+ is possible
+Date: Thu, 15 Aug 2019 10:44:26 -0500
+Message-ID: <20190815154426.12213-1-alexander.deucher@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <8D8229FF-933A-43CF-AE05-52E969E3B942@canonical.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Kai-Heng Feng <kai.heng.feng@canonical.com>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Zhou, David(ChunMing)" <David1.Zhou@amd.com>, "anthony.wong@canonical.com" <anthony.wong@canonical.com>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "Huang, Ray" <Ray.Huang@amd.com>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Koenig, Christian" <Christian.Koenig@amd.com>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, Kai-Heng Feng <kai.heng.feng-Z7WLFzj8eWMS+FvcfC7Uqw@public.gmane.org>
 
-On Thu, Aug 15, 2019 at 10:59 AM Kai-Heng Feng
-<kai.heng.feng@canonical.com> wrote:
->
-> at 21:33, Deucher, Alexander <Alexander.Deucher@amd.com> wrote:
->
-> > Thanks for finding this!  I think the attached patch should fix the iss=
-ue
-> > and it's much less invasive.
->
-> Yes it also fix the issue, please add by tested-by:
-> Tested-by: Kai-Heng Feng <kai.heng.feng@canonical.com>
->
-
-Thanks!
-
-> I took this more or less future proof approach because I think this won=
-=E2=80=99t
-> be the last chip that needs firmware information, which isn=E2=80=99t ava=
-ilable in
-> early init, to decides its flags.
->
-> Yes it=E2=80=99s intrusive to carve out all flags from early init callbac=
-ks, but I
-> don=E2=80=99t think it=E2=80=99s that ugly.
-
-Not a bad approach, but I'd prefer to keep the power and clock gating
-flags in the asic specifc code rather than in the common code.
-
-Alex
+V2UgbmVlZCB0byBzZXQgY2VydGFpbiBwb3dlciBnYXRpbmcgZmxhZ3MgYWZ0ZXIgd2UgZGV0ZXJt
+aW5lCmlmIHRoZSBmaXJtd2FyZSB2ZXJzaW9uIGlzIHN1ZmZpY2llbnQgdG8gc3VwcG9ydCBnZnhv
+ZmYuClByZXZpb3VzbHkgd2Ugc2V0IHRoZSBwZyBmbGFncyBpbiBlYXJseSBpbml0LCBidXQgd2Ug
+bGF0ZXIKd2UgbWlnaHQgaGF2ZSBkaXNhYmxlZCBnZnhvZmYgaWYgdGhlIGZpcm13YXJlIHZlcnNp
+b25zIGRpZG4ndApzdXBwb3J0IGl0LiAgTW92ZSBhZGRpbmcgdGhlIGFkZGl0aW9uYWwgcGcgZmxh
+Z3MgYWZ0ZXIgd2UKZGV0ZXJtaW5lIHdoZXRoZXIgb3Igbm90IHRvIHN1cHBvcnQgZ2Z4b2ZmLgoK
+Rml4ZXM6IDAwNTQ0MDA2NmY5MiAoImRybS9hbWRncHU6IGVuYWJsZSBnZnhvZmYgYWdhaW4gb24g
+cmF2ZW4gc2VyaWVzICh2MikiKQpUZXN0ZWQtYnk6IEthaS1IZW5nIEZlbmcgPGthaS5oZW5nLmZl
+bmdAY2Fub25pY2FsLmNvbT4KU2lnbmVkLW9mZi1ieTogQWxleCBEZXVjaGVyIDxhbGV4YW5kZXIu
+ZGV1Y2hlckBhbWQuY29tPgpDYzogS2FpLUhlbmcgRmVuZyA8a2FpLmhlbmcuZmVuZ0BjYW5vbmlj
+YWwuY29tPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92OV8wLmMgfCA0ICsr
+KysKIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3NvYzE1LmMgICAgfCA1IC0tLS0tCiAyIGZp
+bGVzIGNoYW5nZWQsIDQgaW5zZXJ0aW9ucygrKSwgNSBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQg
+YS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjlfMC5jIGIvZHJpdmVycy9ncHUvZHJt
+L2FtZC9hbWRncHUvZ2Z4X3Y5XzAuYwppbmRleCBkYTU5ZTY1MGFiMTUuLjZlZWE5YzY3NWQwMSAx
+MDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y5XzAuYworKysgYi9k
+cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjlfMC5jCkBAIC0xMDM3LDYgKzEwMzcsMTAg
+QEAgc3RhdGljIHZvaWQgZ2Z4X3Y5XzBfY2hlY2tfaWZfbmVlZF9nZnhvZmYoc3RydWN0IGFtZGdw
+dV9kZXZpY2UgKmFkZXYpCiAJCSAgICAoYWRldi0+Z2Z4LnJsY19mZWF0dXJlX3ZlcnNpb24gPCAx
+KSB8fAogCQkgICAgIWFkZXYtPmdmeC5ybGMuaXNfcmxjX3YyXzEpCiAJCQlhZGV2LT5wbS5wcF9m
+ZWF0dXJlICY9IH5QUF9HRlhPRkZfTUFTSzsKKwkJaWYgKGFkZXYtPnBtLnBwX2ZlYXR1cmUgJiBQ
+UF9HRlhPRkZfTUFTSykKKwkJCWFkZXYtPnBnX2ZsYWdzIHw9IEFNRF9QR19TVVBQT1JUX0dGWF9Q
+RyB8CisJCQkJQU1EX1BHX1NVUFBPUlRfQ1AgfAorCQkJCUFNRF9QR19TVVBQT1JUX1JMQ19TTVVf
+SFM7CiAJCWJyZWFrOwogCWRlZmF1bHQ6CiAJCWJyZWFrOwpkaWZmIC0tZ2l0IGEvZHJpdmVycy9n
+cHUvZHJtL2FtZC9hbWRncHUvc29jMTUuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3Nv
+YzE1LmMKaW5kZXggNzdlNjc5OTIwYzFjLi4yY2Y2MTk0NmYzZjEgMTAwNjQ0Ci0tLSBhL2RyaXZl
+cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3NvYzE1LmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9h
+bWRncHUvc29jMTUuYwpAQCAtMTEzMywxMSArMTEzMyw2IEBAIHN0YXRpYyBpbnQgc29jMTVfY29t
+bW9uX2Vhcmx5X2luaXQodm9pZCAqaGFuZGxlKQogCiAJCQlhZGV2LT5wZ19mbGFncyA9IEFNRF9Q
+R19TVVBQT1JUX1NETUEgfCBBTURfUEdfU1VQUE9SVF9WQ047CiAJCX0KLQotCQlpZiAoYWRldi0+
+cG0ucHBfZmVhdHVyZSAmIFBQX0dGWE9GRl9NQVNLKQotCQkJYWRldi0+cGdfZmxhZ3MgfD0gQU1E
+X1BHX1NVUFBPUlRfR0ZYX1BHIHwKLQkJCQlBTURfUEdfU1VQUE9SVF9DUCB8Ci0JCQkJQU1EX1BH
+X1NVUFBPUlRfUkxDX1NNVV9IUzsKIAkJYnJlYWs7CiAJY2FzZSBDSElQX0FSQ1RVUlVTOgogCQlh
+ZGV2LT5hc2ljX2Z1bmNzID0gJnZlZ2EyMF9hc2ljX2Z1bmNzOwotLSAKMi4yMC4xCgpfX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcg
+bGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNr
+dG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
