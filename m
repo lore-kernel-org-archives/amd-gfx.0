@@ -1,14 +1,16 @@
-From: "Quan, Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH 3/4] drm/amd/powerplay: get bootup fclk value
-Date: Fri, 16 Aug 2019 07:59:57 +0000
-Message-ID: <MN2PR12MB3344896B119B12D504E130C8E4AF0@MN2PR12MB3344.namprd12.prod.outlook.com>
-References: <20190816060807.11922-1-evan.quan@amd.com>,
- <20190816060807.11922-3-evan.quan@amd.com>
- <MN2PR12MB3296E1EFA5B50EBA18CE1841A2AF0@MN2PR12MB3296.namprd12.prod.outlook.com>
+From: Kevin Wang <kevwa-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 2/4] drm/amd/powerplay: expose supported clock domains
+ only through sysfs
+Date: Fri, 16 Aug 2019 08:24:34 +0000
+Message-ID: <cf5092ae-0e0b-5b86-871a-088ea8fd543b@amd.com>
+References: <20190816060807.11922-1-evan.quan@amd.com>
+ <20190816060807.11922-2-evan.quan@amd.com>
+ <MN2PR12MB329617CB0EF329673FB44F77A2AF0@MN2PR12MB3296.namprd12.prod.outlook.com>
+ <MN2PR12MB3344559C0257D2BB3DB68832E4AF0@MN2PR12MB3344.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============2028343620=="
+Content-Type: multipart/mixed; boundary="===============0918225658=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <MN2PR12MB3296E1EFA5B50EBA18CE1841A2AF0-rweVpJHSKTqAm9ToKNQgFgdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
+In-Reply-To: <MN2PR12MB3344559C0257D2BB3DB68832E4AF0-rweVpJHSKToDMgCC8P//OwdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -20,430 +22,347 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Wang, Kevin(Yang)" <Kevin1.Wang-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Quan, Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>, "Wang, Kevin(Yang)" <Kevin1.Wang-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============2028343620==
+--===============0918225658==
 Content-Language: en-US
 Content-Type: multipart/alternative;
-	boundary="_000_MN2PR12MB3344896B119B12D504E130C8E4AF0MN2PR12MB3344namp_"
+	boundary="_000_cf5092ae0e0b5b86871a088ea8fd543bamdcom_"
 
---_000_MN2PR12MB3344896B119B12D504E130C8E4AF0MN2PR12MB3344namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+--_000_cf5092ae0e0b5b86871a088ea8fd543bamdcom_
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-Since smu_get_atom_data_table() was already used in smu_v11_0_get_vbios_boo=
-tup_values(). We should get all our needed information at once.
-Also, what smu_get_atom_data_table() does is to get the data table from vbi=
-os. It's a time and resource cost job.
-I do not think it's a good idea to call it again just to get some informati=
-on we should already know.
+c3VyZSwgaSBrbm93LCBJIGZlZWwgdGhpcyBpcyBub3QgYSBnb29kIHdheSB0byBkbyBjb2RlIHdo
+ZW4gb3RoZXIgYXNpY3MgaGF2ZSBzaW1pbGFyIHByb2JsZW1zLg0Kd2UnZCBiZXR0ZXIgYWRkIGEg
+aGVscGVyIGZ1bmN0aW9uIHRvIGNoZWNrIHdoaWNoIHN5c2ZzIGludGVyZmFjZSBpcyBzdXBwb3J0
+ZWQgZm9yIGVhY2ggYXNpYy4NCm9yIG1vdmUgdGhlc2Ugc3lzZnMgaW50ZXJmYWNlIHRvIGFzaWMg
+ZmlsZSB0byBjcmVhdGUuDQoNCmFueXdheSwgd2UgY2FuIG9wdGltaXplIHRoaXMgbG9naWMgbGF0
+ZXIuDQpSZXZpZXdlZC1ieTogS2V2aW4gV2FuZyA8a2V2aW4xLndhbmdAYW1kLmNvbT48bWFpbHRv
+OmtldmluMS53YW5nQGFtZC5jb20+DQoNCkJlc3QgUmVnYXJkcywNCktldmluDQoNCk9uIDgvMTYv
+MTkgMzo1MiBQTSwgUXVhbiwgRXZhbiB3cm90ZToNCkJhc2NpYWxseSwgd2Ugc2hvdWxkIG5vdCBl
+eHBvc2UgdGhlIHN5c2ZzIGludGVyZmFjZSBmb3IgdGhvc2UgZmVhdHVyZXMgbm90IHN1cHBvcnRl
+ZCBieSB0aGUgQVNJQy4NCkFzLCB0aGVyZSBhcmUgc29tZSB0b29scy90ZXN0cyB3aGljaCBqdWRn
+ZXMgd2hldGhlciB0aGUgZmVhdHVyZSBpcyBzdXBwb3J0ZWQgYnkgdGhlIGV4aXN0ZW5jZSBvZiB0
+aGUgZmlsZS4NClRoaXMgY2FuIGZpeCBzb21lIHRlc3QgZmFpbHVyZSBpbiByb2NtIHRlc3Qgc3Vp
+dC4NCg0KUmVnYXJkcywNCkV2YW4NCkZyb206IFdhbmcsIEtldmluKFlhbmcpIDxLZXZpbjEuV2Fu
+Z0BhbWQuY29tPjxtYWlsdG86S2V2aW4xLldhbmdAYW1kLmNvbT4NClNlbnQ6IEZyaWRheSwgQXVn
+dXN0IDE2LCAyMDE5IDM6MTYgUE0NClRvOiBRdWFuLCBFdmFuIDxFdmFuLlF1YW5AYW1kLmNvbT48
+bWFpbHRvOkV2YW4uUXVhbkBhbWQuY29tPjsgYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmc8
+bWFpbHRvOmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnPg0KU3ViamVjdDogUmU6IFtQQVRD
+SCAyLzRdIGRybS9hbWQvcG93ZXJwbGF5OiBleHBvc2Ugc3VwcG9ydGVkIGNsb2NrIGRvbWFpbnMg
+b25seSB0aHJvdWdoIHN5c2ZzDQoNCkkgZG9uJ3QgcmVjb21tZW5kIGl0LiBXaGF0J3MgdGhlIHBy
+b2JsZW0gaWYgd2Uga2VlcCBpdCB0aGUgd2F5IGl0IGlzPw0KbWF5YmUgb3RoZXIgYXNpYyBhbHNv
+IGhhcyBzYW1lIHByb2JsZW1zLCBpZiBkbyBpdCwgdGhlIG90aGVyIGFzaWMgc2hvdWxkICBhZGQg
+YSBjb25kaXRpb24gaW4gdGhlcmUgdG9vLg0KZWc6IG5hdmkxMCBkb24ndCBzdXBwb3J0IHNlbnNv
+ciBvZiAgInBwX2RwbV9wY2llIi4NCg0KQmVzdCBSZWdhcmRzLA0KS2V2aW4NCl9fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fDQpGcm9tOiBhbWQtZ2Z4IDxhbWQtZ2Z4LWJvdW5jZXNAbGlz
+dHMuZnJlZWRlc2t0b3Aub3JnPG1haWx0bzphbWQtZ2Z4LWJvdW5jZXNAbGlzdHMuZnJlZWRlc2t0
+b3Aub3JnPj4gb24gYmVoYWxmIG9mIEV2YW4gUXVhbiA8ZXZhbi5xdWFuQGFtZC5jb208bWFpbHRv
+OmV2YW4ucXVhbkBhbWQuY29tPj4NClNlbnQ6IEZyaWRheSwgQXVndXN0IDE2LCAyMDE5IDI6MDgg
+UE0NClRvOiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZzxtYWlsdG86YW1kLWdmeEBsaXN0
+cy5mcmVlZGVza3RvcC5vcmc+IDxhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZzxtYWlsdG86
+YW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmc+Pg0KQ2M6IFF1YW4sIEV2YW4gPEV2YW4uUXVh
+bkBhbWQuY29tPG1haWx0bzpFdmFuLlF1YW5AYW1kLmNvbT4+DQpTdWJqZWN0OiBbUEFUQ0ggMi80
+XSBkcm0vYW1kL3Bvd2VycGxheTogZXhwb3NlIHN1cHBvcnRlZCBjbG9jayBkb21haW5zIG9ubHkg
+dGhyb3VnaCBzeXNmcw0KDQpEbyBub3QgZXhwb3NlIHRob3NlIHVuc3VwcG9ydGVkIGNsb2NrIGRv
+bWFpbnMgdGhyb3VnaCBzeXNmcyBvbg0KQXJjdHVydXMuDQoNCkNoYW5nZS1JZDogSTUyNmU3YmQ0
+NTdmZGNkOGM3OWQ0NTgxYmI5Yjc3ZTVjYjU3ZjU4NDQNClNpZ25lZC1vZmYtYnk6IEV2YW4gUXVh
+biA8ZXZhbi5xdWFuQGFtZC5jb208bWFpbHRvOmV2YW4ucXVhbkBhbWQuY29tPj4NCi0tLQ0KIGRy
+aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9wbS5jIHwgMjYgKysrKysrKysrKysrKysr
+Ky0tLS0tLS0tLS0NCiAxIGZpbGUgY2hhbmdlZCwgMTYgaW5zZXJ0aW9ucygrKSwgMTAgZGVsZXRp
+b25zKC0pDQoNCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
+cG0uYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9wbS5jDQppbmRleCBjNTY0
+MmJlOWI0NGIuLjdhY2NmMmM3ZjhjZCAxMDA2NDQNCi0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQv
+YW1kZ3B1L2FtZGdwdV9wbS5jDQorKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
+cHVfcG0uYw0KQEAgLTI4NzksMTAgKzI4NzksMTIgQEAgaW50IGFtZGdwdV9wbV9zeXNmc19pbml0
+KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQ0KICAgICAgICAgICAgICAgICAgICAgICAgIERS
+TV9FUlJPUigiZmFpbGVkIHRvIGNyZWF0ZSBkZXZpY2UgZmlsZSBwcF9kcG1fc29jY2xrXG4iKTsN
+CiAgICAgICAgICAgICAgICAgICAgICAgICByZXR1cm4gcmV0Ow0KICAgICAgICAgICAgICAgICB9
+DQotICAgICAgICAgICAgICAgcmV0ID0gZGV2aWNlX2NyZWF0ZV9maWxlKGFkZXYtPmRldiwgJmRl
+dl9hdHRyX3BwX2RwbV9kY2VmY2xrKTsNCi0gICAgICAgICAgICAgICBpZiAocmV0KSB7DQotICAg
+ICAgICAgICAgICAgICAgICAgICBEUk1fRVJST1IoImZhaWxlZCB0byBjcmVhdGUgZGV2aWNlIGZp
+bGUgcHBfZHBtX2RjZWZjbGtcbiIpOw0KLSAgICAgICAgICAgICAgICAgICAgICAgcmV0dXJuIHJl
+dDsNCisgICAgICAgICAgICAgICBpZiAoYWRldi0+YXNpY190eXBlICE9IENISVBfQVJDVFVSVVMp
+IHsNCisgICAgICAgICAgICAgICAgICAgICAgIHJldCA9IGRldmljZV9jcmVhdGVfZmlsZShhZGV2
+LT5kZXYsICZkZXZfYXR0cl9wcF9kcG1fZGNlZmNsayk7DQorICAgICAgICAgICAgICAgICAgICAg
+ICBpZiAocmV0KSB7DQorICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIERSTV9FUlJPUigi
+ZmFpbGVkIHRvIGNyZWF0ZSBkZXZpY2UgZmlsZSBwcF9kcG1fZGNlZmNsa1xuIik7DQorICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgIHJldHVybiByZXQ7DQorICAgICAgICAgICAgICAgICAg
+ICAgICB9DQogICAgICAgICAgICAgICAgIH0NCiAgICAgICAgIH0NCiAgICAgICAgIGlmIChhZGV2
+LT5hc2ljX3R5cGUgPj0gQ0hJUF9WRUdBMjApIHsNCkBAIC0yODkyLDEwICsyODk0LDEyIEBAIGlu
+dCBhbWRncHVfcG1fc3lzZnNfaW5pdChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikNCiAgICAg
+ICAgICAgICAgICAgICAgICAgICByZXR1cm4gcmV0Ow0KICAgICAgICAgICAgICAgICB9DQogICAg
+ICAgICB9DQotICAgICAgIHJldCA9IGRldmljZV9jcmVhdGVfZmlsZShhZGV2LT5kZXYsICZkZXZf
+YXR0cl9wcF9kcG1fcGNpZSk7DQotICAgICAgIGlmIChyZXQpIHsNCi0gICAgICAgICAgICAgICBE
+Uk1fRVJST1IoImZhaWxlZCB0byBjcmVhdGUgZGV2aWNlIGZpbGUgcHBfZHBtX3BjaWVcbiIpOw0K
+LSAgICAgICAgICAgICAgIHJldHVybiByZXQ7DQorICAgICAgIGlmIChhZGV2LT5hc2ljX3R5cGUg
+IT0gQ0hJUF9BUkNUVVJVUykgew0KKyAgICAgICAgICAgICAgIHJldCA9IGRldmljZV9jcmVhdGVf
+ZmlsZShhZGV2LT5kZXYsICZkZXZfYXR0cl9wcF9kcG1fcGNpZSk7DQorICAgICAgICAgICAgICAg
+aWYgKHJldCkgew0KKyAgICAgICAgICAgICAgICAgICAgICAgRFJNX0VSUk9SKCJmYWlsZWQgdG8g
+Y3JlYXRlIGRldmljZSBmaWxlIHBwX2RwbV9wY2llXG4iKTsNCisgICAgICAgICAgICAgICAgICAg
+ICAgIHJldHVybiByZXQ7DQorICAgICAgICAgICAgICAgfQ0KICAgICAgICAgfQ0KICAgICAgICAg
+cmV0ID0gZGV2aWNlX2NyZWF0ZV9maWxlKGFkZXYtPmRldiwgJmRldl9hdHRyX3BwX3NjbGtfb2Qp
+Ow0KICAgICAgICAgaWYgKHJldCkgew0KQEAgLTI5OTksOSArMzAwMywxMSBAQCB2b2lkIGFtZGdw
+dV9wbV9zeXNmc19maW5pKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQ0KICAgICAgICAgZGV2
+aWNlX3JlbW92ZV9maWxlKGFkZXYtPmRldiwgJmRldl9hdHRyX3BwX2RwbV9tY2xrKTsNCiAgICAg
+ICAgIGlmIChhZGV2LT5hc2ljX3R5cGUgPj0gQ0hJUF9WRUdBMTApIHsNCiAgICAgICAgICAgICAg
+ICAgZGV2aWNlX3JlbW92ZV9maWxlKGFkZXYtPmRldiwgJmRldl9hdHRyX3BwX2RwbV9zb2NjbGsp
+Ow0KLSAgICAgICAgICAgICAgIGRldmljZV9yZW1vdmVfZmlsZShhZGV2LT5kZXYsICZkZXZfYXR0
+cl9wcF9kcG1fZGNlZmNsayk7DQorICAgICAgICAgICAgICAgaWYgKGFkZXYtPmFzaWNfdHlwZSAh
+PSBDSElQX0FSQ1RVUlVTKQ0KKyAgICAgICAgICAgICAgICAgICAgICAgZGV2aWNlX3JlbW92ZV9m
+aWxlKGFkZXYtPmRldiwgJmRldl9hdHRyX3BwX2RwbV9kY2VmY2xrKTsNCiAgICAgICAgIH0NCi0g
+ICAgICAgZGV2aWNlX3JlbW92ZV9maWxlKGFkZXYtPmRldiwgJmRldl9hdHRyX3BwX2RwbV9wY2ll
+KTsNCisgICAgICAgaWYgKGFkZXYtPmFzaWNfdHlwZSAhPSBDSElQX0FSQ1RVUlVTKQ0KKyAgICAg
+ICAgICAgICAgIGRldmljZV9yZW1vdmVfZmlsZShhZGV2LT5kZXYsICZkZXZfYXR0cl9wcF9kcG1f
+cGNpZSk7DQogICAgICAgICBpZiAoYWRldi0+YXNpY190eXBlID49IENISVBfVkVHQTIwKQ0KICAg
+ICAgICAgICAgICAgICBkZXZpY2VfcmVtb3ZlX2ZpbGUoYWRldi0+ZGV2LCAmZGV2X2F0dHJfcHBf
+ZHBtX2ZjbGspOw0KICAgICAgICAgZGV2aWNlX3JlbW92ZV9maWxlKGFkZXYtPmRldiwgJmRldl9h
+dHRyX3BwX3NjbGtfb2QpOw0KLS0NCjIuMjIuMA0KDQpfX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fXw0KYW1kLWdmeCBtYWlsaW5nIGxpc3QNCmFtZC1nZnhAbGlz
+dHMuZnJlZWRlc2t0b3Aub3JnPG1haWx0bzphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZz4N
+Cmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA0K
 
-Regards,
-Evan
-From: Wang, Kevin(Yang) <Kevin1.Wang-5C7GfCeVMHo@public.gmane.org>
-Sent: Friday, August 16, 2019 3:10 PM
-To: Quan, Evan <Evan.Quan-5C7GfCeVMHo@public.gmane.org>; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Subject: Re: [PATCH 3/4] drm/amd/powerplay: get bootup fclk value
+--_000_cf5092ae0e0b5b86871a088ea8fd543bamdcom_
+Content-Type: text/html; charset="utf-8"
+Content-ID: <ADF75E79D9DDFF4FB867BF680F3E5E53-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
+Content-Transfer-Encoding: base64
 
-i think we can use a function to retrieve this information without storing =
-it separately.
-likes:  ret =3D smu_get_atom_data_table(smu, index, &size, &frev, &crev,
-                                      (uint8_t **)&header);
-because these information is a generic information from atom_common_table_h=
-eader.
-and other function don't care it except in smu_v11_0_get_clk_info_from_vbio=
-s.
+PGh0bWw+DQo8aGVhZD4NCjxtZXRhIGh0dHAtZXF1aXY9IkNvbnRlbnQtVHlwZSIgY29udGVudD0i
+dGV4dC9odG1sOyBjaGFyc2V0PXV0Zi04Ij4NCjwvaGVhZD4NCjxib2R5IHRleHQ9IiMwMDAwMDAi
+IGJnY29sb3I9IiNGRkZGRkYiPg0KPHA+c3VyZSwgaSBrbm93LCBJIGZlZWwgdGhpcyBpcyBub3Qg
+YSBnb29kIHdheSB0byBkbyBjb2RlIHdoZW4gb3RoZXIgYXNpY3MgaGF2ZSBzaW1pbGFyIHByb2Js
+ZW1zLjxicj4NCndlJ2QgYmV0dGVyIGFkZCBhIGhlbHBlciBmdW5jdGlvbiB0byBjaGVjayB3aGlj
+aCBzeXNmcyBpbnRlcmZhY2UgaXMgc3VwcG9ydGVkIGZvciBlYWNoIGFzaWMuPGJyPg0Kb3IgbW92
+ZSB0aGVzZSBzeXNmcyBpbnRlcmZhY2UgdG8gYXNpYyBmaWxlIHRvIGNyZWF0ZS48YnI+DQo8L3A+
+DQo8cD5hbnl3YXksIHdlIGNhbiBvcHRpbWl6ZSB0aGlzIGxvZ2ljIGxhdGVyLjxicj4NClJldmll
+d2VkLWJ5OiBLZXZpbiBXYW5nIDxhIGNsYXNzPSJtb3otdHh0LWxpbmstcmZjMjM5NkUiIGhyZWY9
+Im1haWx0bzprZXZpbjEud2FuZ0BhbWQuY29tIj4NCiZsdDtrZXZpbjEud2FuZ0BhbWQuY29tJmd0
+OzwvYT48YnI+DQo8YnI+DQpCZXN0IFJlZ2FyZHMsPGJyPg0KS2V2aW48YnI+DQo8L3A+DQo8ZGl2
+IGNsYXNzPSJtb3otY2l0ZS1wcmVmaXgiPk9uIDgvMTYvMTkgMzo1MiBQTSwgUXVhbiwgRXZhbiB3
+cm90ZTo8YnI+DQo8L2Rpdj4NCjxibG9ja3F1b3RlIHR5cGU9ImNpdGUiIGNpdGU9Im1pZDpNTjJQ
+UjEyTUIzMzQ0NTU5QzAyNTdEMkJCM0RCNjg4MzJFNEFGMEBNTjJQUjEyTUIzMzQ0Lm5hbXByZDEy
+LnByb2Qub3V0bG9vay5jb20iPg0KPG1ldGEgbmFtZT0iR2VuZXJhdG9yIiBjb250ZW50PSJNaWNy
+b3NvZnQgV29yZCAxNSAoZmlsdGVyZWQNCiAgICAgICAgbWVkaXVtKSI+DQo8IS0tW2lmICFtc29d
+PjxzdHlsZT52XDoqIHtiZWhhdmlvcjp1cmwoI2RlZmF1bHQjVk1MKTt9DQpvXDoqIHtiZWhhdmlv
+cjp1cmwoI2RlZmF1bHQjVk1MKTt9DQp3XDoqIHtiZWhhdmlvcjp1cmwoI2RlZmF1bHQjVk1MKTt9
+DQouc2hhcGUge2JlaGF2aW9yOnVybCgjZGVmYXVsdCNWTUwpO30NCjwvc3R5bGU+PCFbZW5kaWZd
+LS0+PHN0eWxlPjwhLS0NCi8qIEZvbnQgRGVmaW5pdGlvbnMgKi8NCkBmb250LWZhY2UNCgl7Zm9u
+dC1mYW1pbHk6U2ltU3VuOw0KCXBhbm9zZS0xOjIgMSA2IDAgMyAxIDEgMSAxIDE7fQ0KQGZvbnQt
+ZmFjZQ0KCXtmb250LWZhbWlseToiQ2FtYnJpYSBNYXRoIjsNCglwYW5vc2UtMToyIDQgNSAzIDUg
+NCA2IDMgMiA0O30NCkBmb250LWZhY2UNCgl7Zm9udC1mYW1pbHk6Q2FsaWJyaTsNCglwYW5vc2Ut
+MToyIDE1IDUgMiAyIDIgNCAzIDIgNDt9DQpAZm9udC1mYWNlDQoJe2ZvbnQtZmFtaWx5OlNpbVN1
+bjsNCglwYW5vc2UtMToyIDEgNiAwIDMgMSAxIDEgMSAxO30NCi8qIFN0eWxlIERlZmluaXRpb25z
+ICovDQpwLk1zb05vcm1hbCwgbGkuTXNvTm9ybWFsLCBkaXYuTXNvTm9ybWFsDQoJe21hcmdpbjow
+aW47DQoJbWFyZ2luLWJvdHRvbTouMDAwMXB0Ow0KCWZvbnQtc2l6ZToxMS4wcHQ7DQoJZm9udC1m
+YW1pbHk6IkNhbGlicmkiLHNhbnMtc2VyaWY7fQ0KYTpsaW5rLCBzcGFuLk1zb0h5cGVybGluaw0K
+CXttc28tc3R5bGUtcHJpb3JpdHk6OTk7DQoJY29sb3I6Ymx1ZTsNCgl0ZXh0LWRlY29yYXRpb246
+dW5kZXJsaW5lO30NCmE6dmlzaXRlZCwgc3Bhbi5Nc29IeXBlcmxpbmtGb2xsb3dlZA0KCXttc28t
+c3R5bGUtcHJpb3JpdHk6OTk7DQoJY29sb3I6cHVycGxlOw0KCXRleHQtZGVjb3JhdGlvbjp1bmRl
+cmxpbmU7fQ0KcC5tc29ub3JtYWwwLCBsaS5tc29ub3JtYWwwLCBkaXYubXNvbm9ybWFsMA0KCXtt
+c28tc3R5bGUtbmFtZTptc29ub3JtYWw7DQoJbWFyZ2luOjBpbjsNCgltYXJnaW4tYm90dG9tOi4w
+MDAxcHQ7DQoJZm9udC1zaXplOjExLjBwdDsNCglmb250LWZhbWlseToiQ2FsaWJyaSIsc2Fucy1z
+ZXJpZjt9DQpzcGFuLkVtYWlsU3R5bGUyMA0KCXttc28tc3R5bGUtdHlwZTpwZXJzb25hbC1yZXBs
+eTsNCglmb250LWZhbWlseToiQ2FsaWJyaSIsc2Fucy1zZXJpZjsNCgljb2xvcjp3aW5kb3d0ZXh0
+O30NCi5Nc29DaHBEZWZhdWx0DQoJe21zby1zdHlsZS10eXBlOmV4cG9ydC1vbmx5Ow0KCWZvbnQt
+c2l6ZToxMC4wcHQ7fQ0KQHBhZ2UgV29yZFNlY3Rpb24xDQoJe3NpemU6OC41aW4gMTEuMGluOw0K
+CW1hcmdpbjoxLjBpbiAxLjI1aW4gMS4waW4gMS4yNWluO30NCmRpdi5Xb3JkU2VjdGlvbjENCgl7
+cGFnZTpXb3JkU2VjdGlvbjE7fQ0KLS0+PC9zdHlsZT48IS0tW2lmIGd0ZSBtc28gOV0+PHhtbD4N
+CjxvOnNoYXBlZGVmYXVsdHMgdjpleHQ9ImVkaXQiIHNwaWRtYXg9IjEwMjYiIC8+DQo8L3htbD48
+IVtlbmRpZl0tLT48IS0tW2lmIGd0ZSBtc28gOV0+PHhtbD4NCjxvOnNoYXBlbGF5b3V0IHY6ZXh0
+PSJlZGl0Ij4NCjxvOmlkbWFwIHY6ZXh0PSJlZGl0IiBkYXRhPSIxIiAvPg0KPC9vOnNoYXBlbGF5
+b3V0PjwveG1sPjwhW2VuZGlmXS0tPg0KPGRpdiBjbGFzcz0iV29yZFNlY3Rpb24xIj4NCjxwIGNs
+YXNzPSJNc29Ob3JtYWwiPkJhc2NpYWxseSwgd2Ugc2hvdWxkIG5vdCBleHBvc2UgdGhlIHN5c2Zz
+IGludGVyZmFjZSBmb3IgdGhvc2UgZmVhdHVyZXMgbm90IHN1cHBvcnRlZCBieSB0aGUgQVNJQy48
+bzpwPjwvbzpwPjwvcD4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPkFzLCB0aGVyZSBhcmUgc29tZSB0
+b29scy90ZXN0cyB3aGljaCBqdWRnZXMgd2hldGhlciB0aGUgZmVhdHVyZSBpcyBzdXBwb3J0ZWQg
+YnkgdGhlIGV4aXN0ZW5jZSBvZiB0aGUgZmlsZS48bzpwPjwvbzpwPjwvcD4NCjxwIGNsYXNzPSJN
+c29Ob3JtYWwiPlRoaXMgY2FuIGZpeCBzb21lIHRlc3QgZmFpbHVyZSBpbiByb2NtIHRlc3Qgc3Vp
+dC48bzpwPjwvbzpwPjwvcD4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxvOnA+Jm5ic3A7PC9vOnA+
+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+UmVnYXJkcyw8bzpwPjwvbzpwPjwvcD4NCjxwIGNs
+YXNzPSJNc29Ob3JtYWwiPkV2YW48bzpwPjwvbzpwPjwvcD4NCjxkaXYgc3R5bGU9ImJvcmRlcjpu
+b25lO2JvcmRlci1sZWZ0OnNvbGlkIGJsdWUgMS41cHQ7cGFkZGluZzowaW4NCiAgICAgICAgICAw
+aW4gMGluIDQuMHB0Ij4NCjxkaXY+DQo8ZGl2IHN0eWxlPSJib3JkZXI6bm9uZTtib3JkZXItdG9w
+OnNvbGlkICNFMUUxRTENCiAgICAgICAgICAgICAgMS4wcHQ7cGFkZGluZzozLjBwdCAwaW4gMGlu
+IDBpbiI+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48Yj5Gcm9tOjwvYj4gV2FuZywgS2V2aW4oWWFu
+ZykgPGEgY2xhc3M9Im1vei10eHQtbGluay1yZmMyMzk2RSIgaHJlZj0ibWFpbHRvOktldmluMS5X
+YW5nQGFtZC5jb20iPg0KJmx0O0tldmluMS5XYW5nQGFtZC5jb20mZ3Q7PC9hPiA8YnI+DQo8Yj5T
+ZW50OjwvYj4gRnJpZGF5LCBBdWd1c3QgMTYsIDIwMTkgMzoxNiBQTTxicj4NCjxiPlRvOjwvYj4g
+UXVhbiwgRXZhbiA8YSBjbGFzcz0ibW96LXR4dC1saW5rLXJmYzIzOTZFIiBocmVmPSJtYWlsdG86
+RXZhbi5RdWFuQGFtZC5jb20iPg0KJmx0O0V2YW4uUXVhbkBhbWQuY29tJmd0OzwvYT47IDxhIGNs
+YXNzPSJtb3otdHh0LWxpbmstYWJicmV2aWF0ZWQiIGhyZWY9Im1haWx0bzphbWQtZ2Z4QGxpc3Rz
+LmZyZWVkZXNrdG9wLm9yZyI+DQphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZzwvYT48YnI+
+DQo8Yj5TdWJqZWN0OjwvYj4gUmU6IFtQQVRDSCAyLzRdIGRybS9hbWQvcG93ZXJwbGF5OiBleHBv
+c2Ugc3VwcG9ydGVkIGNsb2NrIGRvbWFpbnMgb25seSB0aHJvdWdoIHN5c2ZzPG86cD48L286cD48
+L3A+DQo8L2Rpdj4NCjwvZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PG86cD4mbmJzcDs8L286
+cD48L3A+DQo8ZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PHNwYW4gc3R5bGU9ImZvbnQtc2l6
+ZToxMi4wcHQ7Y29sb3I6YmxhY2siPkkgZG9uJ3QgcmVjb21tZW5kIGl0LiBXaGF0J3MgdGhlIHBy
+b2JsZW0gaWYgd2Uga2VlcCBpdCB0aGUgd2F5IGl0IGlzPzxvOnA+PC9vOnA+PC9zcGFuPjwvcD4N
+CjwvZGl2Pg0KPGRpdj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxzcGFuIHN0eWxlPSJmb250LXNp
+emU6MTIuMHB0O2NvbG9yOmJsYWNrIj5tYXliZSBvdGhlciBhc2ljIGFsc28gaGFzIHNhbWUgcHJv
+YmxlbXMsIGlmIGRvIGl0LCB0aGUgb3RoZXIgYXNpYyBzaG91bGQmbmJzcDsgYWRkIGEgY29uZGl0
+aW9uIGluIHRoZXJlIHRvby48bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8L2Rpdj4NCjxkaXY+DQo8
+cCBjbGFzcz0iTXNvTm9ybWFsIj48c3BhbiBzdHlsZT0iZm9udC1zaXplOjEyLjBwdDtjb2xvcjpi
+bGFjayI+ZWc6IG5hdmkxMCBkb24ndCBzdXBwb3J0IHNlbnNvciBvZiZuYnNwOyAmcXVvdDtwcF9k
+cG1fcGNpZSZxdW90Oy48bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8L2Rpdj4NCjxkaXY+DQo8cCBj
+bGFzcz0iTXNvTm9ybWFsIj48c3BhbiBzdHlsZT0iZm9udC1zaXplOjEyLjBwdDtjb2xvcjpibGFj
+ayI+PG86cD4mbmJzcDs8L286cD48L3NwYW4+PC9wPg0KPC9kaXY+DQo8ZGl2Pg0KPHAgY2xhc3M9
+Ik1zb05vcm1hbCI+PHNwYW4gc3R5bGU9ImZvbnQtc2l6ZToxMi4wcHQ7Y29sb3I6YmxhY2siPkJl
+c3QgUmVnYXJkcyw8YnI+DQpLZXZpbjxvOnA+PC9vOnA+PC9zcGFuPjwvcD4NCjwvZGl2Pg0KPGRp
+diBjbGFzcz0iTXNvTm9ybWFsIiBzdHlsZT0idGV4dC1hbGlnbjpjZW50ZXIiIGFsaWduPSJjZW50
+ZXIiPg0KPGhyIHdpZHRoPSI5OCUiIHNpemU9IjIiIGFsaWduPSJjZW50ZXIiPg0KPC9kaXY+DQo8
+ZGl2IGlkPSJkaXZScGx5RndkTXNnIj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxiPjxzcGFuIHN0
+eWxlPSJjb2xvcjpibGFjayI+RnJvbTo8L3NwYW4+PC9iPjxzcGFuIHN0eWxlPSJjb2xvcjpibGFj
+ayI+IGFtZC1nZnggJmx0OzxhIGhyZWY9Im1haWx0bzphbWQtZ2Z4LWJvdW5jZXNAbGlzdHMuZnJl
+ZWRlc2t0b3Aub3JnIiBtb3otZG8tbm90LXNlbmQ9InRydWUiPmFtZC1nZngtYm91bmNlc0BsaXN0
+cy5mcmVlZGVza3RvcC5vcmc8L2E+Jmd0OyBvbiBiZWhhbGYgb2YgRXZhbiBRdWFuICZsdDs8YSBo
+cmVmPSJtYWlsdG86ZXZhbi5xdWFuQGFtZC5jb20iIG1vei1kby1ub3Qtc2VuZD0idHJ1ZSI+ZXZh
+bi5xdWFuQGFtZC5jb208L2E+Jmd0Ozxicj4NCjxiPlNlbnQ6PC9iPiBGcmlkYXksIEF1Z3VzdCAx
+NiwgMjAxOSAyOjA4IFBNPGJyPg0KPGI+VG86PC9iPiA8YSBocmVmPSJtYWlsdG86YW1kLWdmeEBs
+aXN0cy5mcmVlZGVza3RvcC5vcmciIG1vei1kby1ub3Qtc2VuZD0idHJ1ZSI+DQphbWQtZ2Z4QGxp
+c3RzLmZyZWVkZXNrdG9wLm9yZzwvYT4gJmx0OzxhIGhyZWY9Im1haWx0bzphbWQtZ2Z4QGxpc3Rz
+LmZyZWVkZXNrdG9wLm9yZyIgbW96LWRvLW5vdC1zZW5kPSJ0cnVlIj5hbWQtZ2Z4QGxpc3RzLmZy
+ZWVkZXNrdG9wLm9yZzwvYT4mZ3Q7PGJyPg0KPGI+Q2M6PC9iPiBRdWFuLCBFdmFuICZsdDs8YSBo
+cmVmPSJtYWlsdG86RXZhbi5RdWFuQGFtZC5jb20iIG1vei1kby1ub3Qtc2VuZD0idHJ1ZSI+RXZh
+bi5RdWFuQGFtZC5jb208L2E+Jmd0Ozxicj4NCjxiPlN1YmplY3Q6PC9iPiBbUEFUQ0ggMi80XSBk
+cm0vYW1kL3Bvd2VycGxheTogZXhwb3NlIHN1cHBvcnRlZCBjbG9jayBkb21haW5zIG9ubHkgdGhy
+b3VnaCBzeXNmczwvc3Bhbj4NCjxvOnA+PC9vOnA+PC9wPg0KPGRpdj4NCjxwIGNsYXNzPSJNc29O
+b3JtYWwiPiZuYnNwOzxvOnA+PC9vOnA+PC9wPg0KPC9kaXY+DQo8L2Rpdj4NCjxkaXY+DQo8ZGl2
+Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+RG8gbm90IGV4cG9zZSB0aG9zZSB1bnN1cHBvcnRlZCBj
+bG9jayBkb21haW5zIHRocm91Z2ggc3lzZnMgb248YnI+DQpBcmN0dXJ1cy48YnI+DQo8YnI+DQpD
+aGFuZ2UtSWQ6IEk1MjZlN2JkNDU3ZmRjZDhjNzlkNDU4MWJiOWI3N2U1Y2I1N2Y1ODQ0PGJyPg0K
+U2lnbmVkLW9mZi1ieTogRXZhbiBRdWFuICZsdDs8YSBocmVmPSJtYWlsdG86ZXZhbi5xdWFuQGFt
+ZC5jb20iIG1vei1kby1ub3Qtc2VuZD0idHJ1ZSI+ZXZhbi5xdWFuQGFtZC5jb208L2E+Jmd0Ozxi
+cj4NCi0tLTxicj4NCiZuYnNwO2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9wbS5j
+IHwgMjYgJiM0MzsmIzQzOyYjNDM7JiM0MzsmIzQzOyYjNDM7JiM0MzsmIzQzOyYjNDM7JiM0Mzsm
+IzQzOyYjNDM7JiM0MzsmIzQzOyYjNDM7JiM0MzstLS0tLS0tLS0tPGJyPg0KJm5ic3A7MSBmaWxl
+IGNoYW5nZWQsIDE2IGluc2VydGlvbnMoJiM0MzspLCAxMCBkZWxldGlvbnMoLSk8YnI+DQo8YnI+
+DQpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3BtLmMgYi9k
+cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcG0uYzxicj4NCmluZGV4IGM1NjQyYmU5
+YjQ0Yi4uN2FjY2YyYzdmOGNkIDEwMDY0NDxicj4NCi0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQv
+YW1kZ3B1L2FtZGdwdV9wbS5jPGJyPg0KJiM0MzsmIzQzOyYjNDM7IGIvZHJpdmVycy9ncHUvZHJt
+L2FtZC9hbWRncHUvYW1kZ3B1X3BtLmM8YnI+DQpAQCAtMjg3OSwxMCAmIzQzOzI4NzksMTIgQEAg
+aW50IGFtZGdwdV9wbV9zeXNmc19pbml0KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KTxicj4N
+CiZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZu
+YnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNw
+OyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyBEUk1fRVJST1IoJnF1b3Q7ZmFpbGVkIHRv
+IGNyZWF0ZSBkZXZpY2UgZmlsZSBwcF9kcG1fc29jY2xrXG4mcXVvdDspOzxicj4NCiZuYnNwOyZu
+YnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNw
+OyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZu
+YnNwOyZuYnNwOyZuYnNwOyZuYnNwOyByZXR1cm4gcmV0Ozxicj4NCiZuYnNwOyZuYnNwOyZuYnNw
+OyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZu
+YnNwOyZuYnNwOyZuYnNwOyZuYnNwOyB9PGJyPg0KLSZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZu
+YnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNw
+OyByZXQgPSBkZXZpY2VfY3JlYXRlX2ZpbGUoYWRldi0mZ3Q7ZGV2LCAmYW1wO2Rldl9hdHRyX3Bw
+X2RwbV9kY2VmY2xrKTs8YnI+DQotJm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7
+Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7IGlmIChyZXQp
+IHs8YnI+DQotJm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7
+Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5i
+c3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7IERSTV9FUlJPUigmcXVvdDtmYWlsZWQgdG8gY3Jl
+YXRlIGRldmljZSBmaWxlIHBwX2RwbV9kY2VmY2xrXG4mcXVvdDspOzxicj4NCi0mbmJzcDsmbmJz
+cDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsm
+bmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJz
+cDsmbmJzcDsgcmV0dXJuIHJldDs8YnI+DQomIzQzOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZu
+YnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNw
+OyBpZiAoYWRldi0mZ3Q7YXNpY190eXBlICE9IENISVBfQVJDVFVSVVMpIHs8YnI+DQomIzQzOyZu
+YnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNw
+OyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZu
+YnNwOyZuYnNwOyZuYnNwOyByZXQgPSBkZXZpY2VfY3JlYXRlX2ZpbGUoYWRldi0mZ3Q7ZGV2LCAm
+YW1wO2Rldl9hdHRyX3BwX2RwbV9kY2VmY2xrKTs8YnI+DQomIzQzOyZuYnNwOyZuYnNwOyZuYnNw
+OyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZu
+YnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNw
+OyBpZiAocmV0KSB7PGJyPg0KJiM0MzsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJz
+cDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsm
+bmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJz
+cDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsgRFJNX0VSUk9SKCZxdW90O2ZhaWxlZCB0
+byBjcmVhdGUgZGV2aWNlIGZpbGUgcHBfZHBtX2RjZWZjbGtcbiZxdW90Oyk7PGJyPg0KJiM0Mzsm
+bmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJz
+cDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsm
+bmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJz
+cDsmbmJzcDsgcmV0dXJuIHJldDs8YnI+DQomIzQzOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZu
+YnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNw
+OyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyB9PGJyPg0K
+Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5i
+c3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7IH08YnI+DQombmJzcDsmbmJz
+cDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsgfTxicj4NCiZuYnNwOyZuYnNw
+OyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyBpZiAoYWRldi0mZ3Q7YXNpY190
+eXBlICZndDs9IENISVBfVkVHQTIwKSB7PGJyPg0KQEAgLTI4OTIsMTAgJiM0MzsyODk0LDEyIEBA
+IGludCBhbWRncHVfcG1fc3lzZnNfaW5pdChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldik8YnI+
+DQombmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsm
+bmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJz
+cDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsgcmV0dXJuIHJldDs8YnI+DQombmJzcDsm
+bmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJz
+cDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsgfTxicj4NCiZuYnNwOyZuYnNwOyZuYnNw
+OyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyB9PGJyPg0KLSZuYnNwOyZuYnNwOyZuYnNw
+OyZuYnNwOyZuYnNwOyZuYnNwOyByZXQgPSBkZXZpY2VfY3JlYXRlX2ZpbGUoYWRldi0mZ3Q7ZGV2
+LCAmYW1wO2Rldl9hdHRyX3BwX2RwbV9wY2llKTs8YnI+DQotJm5ic3A7Jm5ic3A7Jm5ic3A7Jm5i
+c3A7Jm5ic3A7Jm5ic3A7IGlmIChyZXQpIHs8YnI+DQotJm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7
+Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5i
+c3A7IERSTV9FUlJPUigmcXVvdDtmYWlsZWQgdG8gY3JlYXRlIGRldmljZSBmaWxlIHBwX2RwbV9w
+Y2llXG4mcXVvdDspOzxicj4NCi0mbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsm
+bmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsgcmV0dXJuIHJl
+dDs8YnI+DQomIzQzOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyBpZiAoYWRl
+di0mZ3Q7YXNpY190eXBlICE9IENISVBfQVJDVFVSVVMpIHs8YnI+DQomIzQzOyZuYnNwOyZuYnNw
+OyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZu
+YnNwOyZuYnNwOyZuYnNwOyByZXQgPSBkZXZpY2VfY3JlYXRlX2ZpbGUoYWRldi0mZ3Q7ZGV2LCAm
+YW1wO2Rldl9hdHRyX3BwX2RwbV9wY2llKTs8YnI+DQomIzQzOyZuYnNwOyZuYnNwOyZuYnNwOyZu
+YnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNw
+OyZuYnNwOyBpZiAocmV0KSB7PGJyPg0KJiM0MzsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJz
+cDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsm
+bmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsgRFJNX0VSUk9S
+KCZxdW90O2ZhaWxlZCB0byBjcmVhdGUgZGV2aWNlIGZpbGUgcHBfZHBtX3BjaWVcbiZxdW90Oyk7
+PGJyPg0KJiM0MzsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJz
+cDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsm
+bmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsgcmV0dXJuIHJldDs8YnI+DQomIzQzOyZuYnNw
+OyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZu
+YnNwOyZuYnNwOyZuYnNwOyZuYnNwOyB9PGJyPg0KJm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5i
+c3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7IH08YnI+DQombmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJz
+cDsmbmJzcDsmbmJzcDsmbmJzcDsgcmV0ID0gZGV2aWNlX2NyZWF0ZV9maWxlKGFkZXYtJmd0O2Rl
+diwgJmFtcDtkZXZfYXR0cl9wcF9zY2xrX29kKTs8YnI+DQombmJzcDsmbmJzcDsmbmJzcDsmbmJz
+cDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsgaWYgKHJldCkgezxicj4NCkBAIC0yOTk5LDkgJiM0
+MzszMDAzLDExIEBAIHZvaWQgYW1kZ3B1X3BtX3N5c2ZzX2Zpbmkoc3RydWN0IGFtZGdwdV9kZXZp
+Y2UgKmFkZXYpPGJyPg0KJm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7
+Jm5ic3A7IGRldmljZV9yZW1vdmVfZmlsZShhZGV2LSZndDtkZXYsICZhbXA7ZGV2X2F0dHJfcHBf
+ZHBtX21jbGspOzxicj4NCiZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNw
+OyZuYnNwOyBpZiAoYWRldi0mZ3Q7YXNpY190eXBlICZndDs9IENISVBfVkVHQTEwKSB7PGJyPg0K
+Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5i
+c3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7IGRldmljZV9yZW1vdmVfZmls
+ZShhZGV2LSZndDtkZXYsICZhbXA7ZGV2X2F0dHJfcHBfZHBtX3NvY2Nsayk7PGJyPg0KLSZuYnNw
+OyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZu
+YnNwOyZuYnNwOyZuYnNwOyZuYnNwOyBkZXZpY2VfcmVtb3ZlX2ZpbGUoYWRldi0mZ3Q7ZGV2LCAm
+YW1wO2Rldl9hdHRyX3BwX2RwbV9kY2VmY2xrKTs8YnI+DQomIzQzOyZuYnNwOyZuYnNwOyZuYnNw
+OyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZu
+YnNwOyZuYnNwOyBpZiAoYWRldi0mZ3Q7YXNpY190eXBlICE9IENISVBfQVJDVFVSVVMpPGJyPg0K
+JiM0MzsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJz
+cDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsm
+bmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsgZGV2aWNlX3JlbW92ZV9maWxlKGFkZXYtJmd0O2Rldiwg
+JmFtcDtkZXZfYXR0cl9wcF9kcG1fZGNlZmNsayk7PGJyPg0KJm5ic3A7Jm5ic3A7Jm5ic3A7Jm5i
+c3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7IH08YnI+DQotJm5ic3A7Jm5ic3A7Jm5ic3A7Jm5i
+c3A7Jm5ic3A7Jm5ic3A7IGRldmljZV9yZW1vdmVfZmlsZShhZGV2LSZndDtkZXYsICZhbXA7ZGV2
+X2F0dHJfcHBfZHBtX3BjaWUpOzxicj4NCiYjNDM7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5i
+c3A7Jm5ic3A7IGlmIChhZGV2LSZndDthc2ljX3R5cGUgIT0gQ0hJUF9BUkNUVVJVUyk8YnI+DQom
+IzQzOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNw
+OyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyBkZXZpY2VfcmVtb3ZlX2ZpbGUoYWRldi0m
+Z3Q7ZGV2LCAmYW1wO2Rldl9hdHRyX3BwX2RwbV9wY2llKTs8YnI+DQombmJzcDsmbmJzcDsmbmJz
+cDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsgaWYgKGFkZXYtJmd0O2FzaWNfdHlwZSAm
+Z3Q7PSBDSElQX1ZFR0EyMCk8YnI+DQombmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJz
+cDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsm
+bmJzcDsgZGV2aWNlX3JlbW92ZV9maWxlKGFkZXYtJmd0O2RldiwgJmFtcDtkZXZfYXR0cl9wcF9k
+cG1fZmNsayk7PGJyPg0KJm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7
+Jm5ic3A7IGRldmljZV9yZW1vdmVfZmlsZShhZGV2LSZndDtkZXYsICZhbXA7ZGV2X2F0dHJfcHBf
+c2Nsa19vZCk7PGJyPg0KLS0gPGJyPg0KMi4yMi4wPGJyPg0KPGJyPg0KX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX188YnI+DQphbWQtZ2Z4IG1haWxpbmcgbGlz
+dDxicj4NCjxhIGhyZWY9Im1haWx0bzphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZyIgbW96
+LWRvLW5vdC1zZW5kPSJ0cnVlIj5hbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZzwvYT48YnI+
+DQo8YSBocmVmPSJodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZv
+L2FtZC1nZngiIG1vei1kby1ub3Qtc2VuZD0idHJ1ZSI+aHR0cHM6Ly9saXN0cy5mcmVlZGVza3Rv
+cC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4PC9hPjxvOnA+PC9vOnA+PC9wPg0KPC9kaXY+
+DQo8L2Rpdj4NCjwvZGl2Pg0KPC9kaXY+DQo8L2Jsb2NrcXVvdGU+DQo8L2JvZHk+DQo8L2h0bWw+
+DQo=
 
-Best Regards,
-Kevin
-________________________________
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-bounces=
-@lists.freedesktop.org>> on behalf of Evan Quan <evan.quan-5C7GfCeVMHo@public.gmane.org<mailto:e=
-van.quan-5C7GfCeVMHo@public.gmane.org>>
-Sent: Friday, August 16, 2019 2:08 PM
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> <am=
-d-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>>
-Cc: Quan, Evan <Evan.Quan-5C7GfCeVMHo@public.gmane.org<mailto:Evan.Quan-5C7GfCeVMHo@public.gmane.org>>
-Subject: [PATCH 3/4] drm/amd/powerplay: get bootup fclk value
+--_000_cf5092ae0e0b5b86871a088ea8fd543bamdcom_--
 
-This is available with firmwareinfo table v3.2 or later.
-
-Change-Id: I223edf3c616b9e3e2527c752214fef5ab53d1cea
-Signed-off-by: Evan Quan <evan.quan-5C7GfCeVMHo@public.gmane.org<mailto:evan.quan-5C7GfCeVMHo@public.gmane.org>>
----
- .../gpu/drm/amd/powerplay/inc/amdgpu_smu.h    |  3 +++
- drivers/gpu/drm/amd/powerplay/smu_v11_0.c     | 21 +++++++++++++++++++
- 2 files changed, 24 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h b/drivers/gpu/d=
-rm/amd/powerplay/inc/amdgpu_smu.h
-index ca9b9ec39de8..2c16eb412954 100644
---- a/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h
-+++ b/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h
-@@ -222,6 +222,9 @@ struct smu_bios_boot_up_values
-         uint16_t                        vdd_gfx;
-         uint8_t                         cooling_id;
-         uint32_t                        pp_table_id;
-+       uint32_t                        format_revision;
-+       uint32_t                        content_revision;
-+       uint32_t                        fclk;
- };
-
- enum smu_table_id
-diff --git a/drivers/gpu/drm/amd/powerplay/smu_v11_0.c b/drivers/gpu/drm/am=
-d/powerplay/smu_v11_0.c
-index 4a51de4ff162..df7b65360ac7 100644
---- a/drivers/gpu/drm/amd/powerplay/smu_v11_0.c
-+++ b/drivers/gpu/drm/amd/powerplay/smu_v11_0.c
-@@ -568,6 +568,9 @@ int smu_v11_0_get_vbios_bootup_values(struct smu_contex=
-t *smu)
-                 smu->smu_table.boot_values.pp_table_id =3D v_3_3->pplib_pp=
-table_id;
-         }
-
-+       smu->smu_table.boot_values.format_revision =3D header->format_revis=
-ion;
-+       smu->smu_table.boot_values.content_revision =3D header->content_rev=
-ision;
-+
-         return 0;
- }
-
-@@ -647,6 +650,24 @@ static int smu_v11_0_get_clk_info_from_vbios(struct sm=
-u_context *smu)
-         output =3D (struct atom_get_smu_clock_info_output_parameters_v3_1 =
-*)&input;
-         smu->smu_table.boot_values.dclk =3D le32_to_cpu(output->atom_smu_o=
-utputclkfreq.smu_clock_freq_hz) / 10000;
-
-+       if ((smu->smu_table.boot_values.format_revision =3D=3D 3) &&
-+           (smu->smu_table.boot_values.content_revision >=3D 2)) {
-+               memset(&input, 0, sizeof(input));
-+               input.clk_id =3D SMU11_SYSPLL1_0_FCLK_ID;
-+               input.syspll_id =3D SMU11_SYSPLL1_2_ID;
-+               input.command =3D GET_SMU_CLOCK_INFO_V3_1_GET_CLOCK_FREQ;
-+               index =3D get_index_into_master_table(atom_master_list_of_c=
-ommand_functions_v2_1,
-+                                                   getsmuclockinfo);
-+
-+               ret =3D amdgpu_atom_execute_table(adev->mode_info.atom_cont=
-ext, index,
-+                                               (uint32_t *)&input);
-+               if (ret)
-+                       return -EINVAL;
-+
-+               output =3D (struct atom_get_smu_clock_info_output_parameter=
-s_v3_1 *)&input;
-+               smu->smu_table.boot_values.fclk =3D le32_to_cpu(output->ato=
-m_smu_outputclkfreq.smu_clock_freq_hz) / 10000;
-+       }
-+
-         return 0;
- }
-
---
-2.22.0
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---_000_MN2PR12MB3344896B119B12D504E130C8E4AF0MN2PR12MB3344namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
-osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
-xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
-//www.w3.org/TR/REC-html40">
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
-<!--[if !mso]><style>v\:* {behavior:url(#default#VML);}
-o\:* {behavior:url(#default#VML);}
-w\:* {behavior:url(#default#VML);}
-.shape {behavior:url(#default#VML);}
-</style><![endif]--><style><!--
-/* Font Definitions */
-@font-face
-	{font-family:SimSun;
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-@font-face
-	{font-family:"Cambria Math";
-	panose-1:2 4 5 3 5 4 6 3 2 4;}
-@font-face
-	{font-family:Calibri;
-	panose-1:2 15 5 2 2 2 4 3 2 4;}
-@font-face
-	{font-family:SimSun;
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-/* Style Definitions */
-p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin:0in;
-	margin-bottom:.0001pt;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif;}
-a:link, span.MsoHyperlink
-	{mso-style-priority:99;
-	color:blue;
-	text-decoration:underline;}
-a:visited, span.MsoHyperlinkFollowed
-	{mso-style-priority:99;
-	color:purple;
-	text-decoration:underline;}
-p.msonormal0, li.msonormal0, div.msonormal0
-	{mso-style-name:msonormal;
-	margin:0in;
-	margin-bottom:.0001pt;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif;}
-span.EmailStyle20
-	{mso-style-type:personal-reply;
-	font-family:"Calibri",sans-serif;
-	color:windowtext;}
-.MsoChpDefault
-	{mso-style-type:export-only;
-	font-size:10.0pt;}
-@page WordSection1
-	{size:8.5in 11.0in;
-	margin:1.0in 1.25in 1.0in 1.25in;}
-div.WordSection1
-	{page:WordSection1;}
---></style><!--[if gte mso 9]><xml>
-<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
-</xml><![endif]--><!--[if gte mso 9]><xml>
-<o:shapelayout v:ext=3D"edit">
-<o:idmap v:ext=3D"edit" data=3D"1" />
-</o:shapelayout></xml><![endif]-->
-</head>
-<body lang=3D"EN-US" link=3D"blue" vlink=3D"purple">
-<div class=3D"WordSection1">
-<p class=3D"MsoNormal">Since smu_get_atom_data_table() was already used in =
-smu_v11_0_get_vbios_bootup_values(). We should get all our needed informati=
-on at once.<o:p></o:p></p>
-<p class=3D"MsoNormal">Also, what smu_get_atom_data_table() does is to get =
-the data table from vbios. It&#8217;s a time and resource cost job.<o:p></o=
-:p></p>
-<p class=3D"MsoNormal">I do not think it&#8217;s a good idea to call it aga=
-in just to get some information we should already know.<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">Regards,<o:p></o:p></p>
-<p class=3D"MsoNormal">Evan<o:p></o:p></p>
-<div style=3D"border:none;border-left:solid blue 1.5pt;padding:0in 0in 0in =
-4.0pt">
-<div>
-<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
-0in 0in">
-<p class=3D"MsoNormal"><b>From:</b> Wang, Kevin(Yang) &lt;Kevin1.Wang@amd.c=
-om&gt; <br>
-<b>Sent:</b> Friday, August 16, 2019 3:10 PM<br>
-<b>To:</b> Quan, Evan &lt;Evan.Quan-5C7GfCeVMHo@public.gmane.org&gt;; amd-gfx-PD4FTy7X32lNgt0PjOBp9/rsn8yoX9R0@public.gmane.org=
-org<br>
-<b>Subject:</b> Re: [PATCH 3/4] drm/amd/powerplay: get bootup fclk value<o:=
-p></o:p></p>
-</div>
-</div>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<div>
-<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">i think=
- we can use a function to retrieve this information without storing it sepa=
-rately.<o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">likes:&=
-nbsp;<i>&nbsp;ret =3D smu_get_atom_data_table(smu, index, &amp;size, &amp;f=
-rev, &amp;crev,&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbs=
-p; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &n=
-bsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp=
-; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nb=
-sp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;<br>
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp=
-; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; (uint8_t **)&amp;=
-header);&nbsp;&nbsp;</i><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">because=
- these information is a generic information from atom_common_table_header.<=
-o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">and oth=
-er function don't care it except in&nbsp;smu_v11_0_get_clk_info_from_vbios.=
-<o:p></o:p></span></p>
-</div>
-<div>
-<div>
-<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black"><o:p>&n=
-bsp;</o:p></span></p>
-</div>
-</div>
-<div>
-<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">Best Re=
-gards,<br>
-Kevin<o:p></o:p></span></p>
-</div>
-<div class=3D"MsoNormal" align=3D"center" style=3D"text-align:center">
-<hr size=3D"2" width=3D"98%" align=3D"center">
-</div>
-<div id=3D"divRplyFwdMsg">
-<p class=3D"MsoNormal"><b><span style=3D"color:black">From:</span></b><span=
- style=3D"color:black"> amd-gfx &lt;<a href=3D"mailto:amd-gfx-bounces@lists=
-.freedesktop.org">amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>&gt; on behalf o=
-f Evan Quan &lt;<a href=3D"mailto:evan.quan-5C7GfCeVMHo@public.gmane.org">evan.quan-5C7GfCeVMHo@public.gmane.org</a>&=
-gt;<br>
-<b>Sent:</b> Friday, August 16, 2019 2:08 PM<br>
-<b>To:</b> <a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx@lists.f=
-reedesktop.org</a> &lt;<a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd=
--gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>&gt;<br>
-<b>Cc:</b> Quan, Evan &lt;<a href=3D"mailto:Evan.Quan-5C7GfCeVMHo@public.gmane.org">Evan.Quan@am=
-d.com</a>&gt;<br>
-<b>Subject:</b> [PATCH 3/4] drm/amd/powerplay: get bootup fclk value</span>=
- <o:p>
-</o:p></p>
-<div>
-<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
-</div>
-</div>
-<div>
-<div>
-<p class=3D"MsoNormal">This is available with firmwareinfo table v3.2 or la=
-ter.<br>
-<br>
-Change-Id: I223edf3c616b9e3e2527c752214fef5ab53d1cea<br>
-Signed-off-by: Evan Quan &lt;<a href=3D"mailto:evan.quan-5C7GfCeVMHo@public.gmane.org">evan.quan=
-@amd.com</a>&gt;<br>
----<br>
-&nbsp;.../gpu/drm/amd/powerplay/inc/amdgpu_smu.h&nbsp;&nbsp;&nbsp; |&nbsp; =
-3 &#43;&#43;&#43;<br>
-&nbsp;drivers/gpu/drm/amd/powerplay/smu_v11_0.c&nbsp;&nbsp;&nbsp;&nbsp; | 2=
-1 &#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#4=
-3;&#43;&#43;&#43;&#43;<br>
-&nbsp;2 files changed, 24 insertions(&#43;)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h b/drivers/gpu/d=
-rm/amd/powerplay/inc/amdgpu_smu.h<br>
-index ca9b9ec39de8..2c16eb412954 100644<br>
---- a/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h<br>
-@@ -222,6 &#43;222,9 @@ struct smu_bios_boot_up_values<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint16_t&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; vdd_gfx;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint8_t&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; cooling_id;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pp_table_id;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; format_revision;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; content_revision;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; fclk;<br>
-&nbsp;};<br>
-&nbsp;<br>
-&nbsp;enum smu_table_id<br>
-diff --git a/drivers/gpu/drm/amd/powerplay/smu_v11_0.c b/drivers/gpu/drm/am=
-d/powerplay/smu_v11_0.c<br>
-index 4a51de4ff162..df7b65360ac7 100644<br>
---- a/drivers/gpu/drm/amd/powerplay/smu_v11_0.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/smu_v11_0.c<br>
-@@ -568,6 &#43;568,9 @@ int smu_v11_0_get_vbios_bootup_values(struct smu_co=
-ntext *smu)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; smu-&gt;smu_table.boot_values.pp_table_id =3D v_3_3-&=
-gt;pplib_pptable_id;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; smu-&gt;smu_table.boot_values.for=
-mat_revision =3D header-&gt;format_revision;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; smu-&gt;smu_table.boot_values.con=
-tent_revision =3D header-&gt;content_revision;<br>
-&#43;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
-&nbsp;}<br>
-&nbsp;<br>
-@@ -647,6 &#43;650,24 @@ static int smu_v11_0_get_clk_info_from_vbios(struc=
-t smu_context *smu)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; output =3D (struct atom_ge=
-t_smu_clock_info_output_parameters_v3_1 *)&amp;input;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; smu-&gt;smu_table.boot_val=
-ues.dclk =3D le32_to_cpu(output-&gt;atom_smu_outputclkfreq.smu_clock_freq_h=
-z) / 10000;<br>
-&nbsp;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if ((smu-&gt;smu_table.boot_value=
-s.format_revision =3D=3D 3) &amp;&amp;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (smu-&gt;=
-smu_table.boot_values.content_revision &gt;=3D 2)) {<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; memset(&amp;input, 0, sizeof(input));<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; input.clk_id =3D SMU11_SYSPLL1_0_FCLK_ID;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; input.syspll_id =3D SMU11_SYSPLL1_2_ID;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; input.command =3D GET_SMU_CLOCK_INFO_V3_1_GET_CLOCK_FREQ;<br=
->
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; index =3D get_index_into_master_table(atom_master_list_of_co=
-mmand_functions_v2_1,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp; getsmuclockinfo);<br>
-&#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; ret =3D amdgpu_atom_execute_table(adev-&gt;mode_info.atom_co=
-ntext, index,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (uint32_t *)&amp;i=
-nput);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; if (ret)<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return -EINV=
-AL;<br>
-&#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; output =3D (struct atom_get_smu_clock_info_output_parameters=
-_v3_1 *)&amp;input;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; smu-&gt;smu_table.boot_values.fclk =3D le32_to_cpu(output-&g=
-t;atom_smu_outputclkfreq.smu_clock_freq_hz) / 10000;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&#43;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
-&nbsp;}<br>
-&nbsp;<br>
--- <br>
-2.22.0<br>
-<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-<a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9/rsn8yoX9R0@public.gmane.org=
-org</a><br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
-lists.freedesktop.org/mailman/listinfo/amd-gfx</a><o:p></o:p></p>
-</div>
-</div>
-</div>
-</div>
-</body>
-</html>
-
---_000_MN2PR12MB3344896B119B12D504E130C8E4AF0MN2PR12MB3344namp_--
-
---===============2028343620==
+--===============0918225658==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -453,4 +372,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
 
---===============2028343620==--
+--===============0918225658==--
