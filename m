@@ -1,44 +1,49 @@
-From: Christoph Hellwig <hch@lst.de>
-Subject: Re: [PATCH 04/15] mm: remove the pgmap field from struct
- hmm_vma_walk
-Date: Fri, 16 Aug 2019 14:34:12 +0200
-Message-ID: <20190816123412.GB22140@lst.de>
-References: <20190815180325.GA4920@redhat.com> <CAPcyv4g4hzcEA=TPYVTiqpbtOoS30ahogRUttCvQAvXQbQjfnw@mail.gmail.com> <20190815194339.GC9253@redhat.com> <CAPcyv4jid8_=-8hBpn_Qm=c4S8BapL9B9RGT7e9uu303yH=Yqw@mail.gmail.com> <20190815203306.GB25517@redhat.com> <20190815204128.GI22970@mellanox.com> <20190815205132.GC25517@redhat.com> <20190816004303.GC9929@mellanox.com> <20190816044448.GB4093@lst.de> <20190816123036.GD5412@mellanox.com>
+From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: [PATCH] drm/amdgpu: fix dma_fence_wait without reference
+Date: Fri, 16 Aug 2019 15:21:31 +0200
+Message-ID: <20190816132131.1951-1-christian.koenig@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Content-Disposition: inline
-In-Reply-To: <20190816123036.GD5412@mellanox.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Jason Gunthorpe <jgg@mellanox.com>
-Cc: Christoph Hellwig <hch@lst.de>, Jerome Glisse <jglisse@redhat.com>, Dan Williams <dan.j.williams@intel.com>, Ben Skeggs <bskeggs@redhat.com>, Felix Kuehling <Felix.Kuehling@amd.com>, Ralph Campbell <rcampbell@nvidia.com>, "linux-mm@kvack.org" <linux-mm@kvack.org>, "nouveau@lists.freedesktop.org" <nouveau@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-On Fri, Aug 16, 2019 at 12:30:41PM +0000, Jason Gunthorpe wrote:
-> 
-> For instance, a system may have multiple DEVICE_PRIVATE map's owned by
-> the same driver - but multiple physical devices using that driver.
-> 
-> Each physical device's driver should only ever get DEVICE_PRIVATE
-> pages for it's own on-device memory. Never a DEVICE_PRIVATE for
-> another device's memory.
-> 
-> The dev_pagemap_ops would not be unique enough, right?
-
-True.
-
-> 
-> Probably also clusters of same-driver struct device can share a
-> DEVICE_PRIVATE, at least high end GPU's now have private memory
-> coherency busses between their devices.
-> 
-> Since we want to trigger migration to CPU on incompatible
-> DEVICE_PRIVATE pages, it seems best to sort this out in the
-> hmm_range_fault?
-> 
-> Maybe some sort of unique ID inside the page->pgmap and passed as
-> input?
-
-Yes, we'll probably need an owner field.  And it's not just
-hmm_range_fault, the migrate_vma_* routines as affected in the same
-way.
+V2UgbmVlZCB0byBncmFiIGEgcmVmZXJlbmNlIHRvIHRoZSBmZW5jZSB3ZSB3YWl0IGZvci4KClNp
+Z25lZC1vZmYtYnk6IENocmlzdGlhbiBLw7ZuaWcgPGNocmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4K
+LS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfY3R4LmMgfCAyNyArKysrKysr
+KysrKysrKy0tLS0tLS0tLS0tCiAxIGZpbGUgY2hhbmdlZCwgMTUgaW5zZXJ0aW9ucygrKSwgMTIg
+ZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
+Z3B1X2N0eC5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2N0eC5jCmluZGV4
+IGY1MzlhMmE5Mjc3NC4uNzM5OGI0ODUwNjQ5IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0v
+YW1kL2FtZGdwdS9hbWRncHVfY3R4LmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
+YW1kZ3B1X2N0eC5jCkBAIC01MzQsMjEgKzUzNCwyNCBAQCBpbnQgYW1kZ3B1X2N0eF93YWl0X3By
+ZXZfZmVuY2Uoc3RydWN0IGFtZGdwdV9jdHggKmN0eCwKIAkJCSAgICAgICBzdHJ1Y3QgZHJtX3Nj
+aGVkX2VudGl0eSAqZW50aXR5KQogewogCXN0cnVjdCBhbWRncHVfY3R4X2VudGl0eSAqY2VudGl0
+eSA9IHRvX2FtZGdwdV9jdHhfZW50aXR5KGVudGl0eSk7Ci0JdW5zaWduZWQgaWR4ID0gY2VudGl0
+eS0+c2VxdWVuY2UgJiAoYW1kZ3B1X3NjaGVkX2pvYnMgLSAxKTsKLQlzdHJ1Y3QgZG1hX2ZlbmNl
+ICpvdGhlciA9IGNlbnRpdHktPmZlbmNlc1tpZHhdOworCXN0cnVjdCBkbWFfZmVuY2UgKm90aGVy
+OworCXVuc2lnbmVkIGlkeDsKKwlsb25nIHI7CiAKLQlpZiAob3RoZXIpIHsKLQkJc2lnbmVkIGxv
+bmcgcjsKLQkJciA9IGRtYV9mZW5jZV93YWl0KG90aGVyLCB0cnVlKTsKLQkJaWYgKHIgPCAwKSB7
+Ci0JCQlpZiAociAhPSAtRVJFU1RBUlRTWVMpCi0JCQkJRFJNX0VSUk9SKCJFcnJvciAoJWxkKSB3
+YWl0aW5nIGZvciBmZW5jZSFcbiIsIHIpOworCXNwaW5fbG9jaygmY3R4LT5yaW5nX2xvY2spOwor
+CWlkeCA9IGNlbnRpdHktPnNlcXVlbmNlICYgKGFtZGdwdV9zY2hlZF9qb2JzIC0gMSk7CisJb3Ro
+ZXIgPSBkbWFfZmVuY2VfZ2V0KGNlbnRpdHktPmZlbmNlc1tpZHhdKTsKKwlzcGluX3VubG9jaygm
+Y3R4LT5yaW5nX2xvY2spOwogCi0JCQlyZXR1cm4gcjsKLQkJfQotCX0KKwlpZiAoIW90aGVyKQor
+CQlyZXR1cm4gMDsKIAotCXJldHVybiAwOworCXIgPSBkbWFfZmVuY2Vfd2FpdChvdGhlciwgdHJ1
+ZSk7CisJaWYgKHIgPCAwICYmIHIgIT0gLUVSRVNUQVJUU1lTKQorCQlEUk1fRVJST1IoIkVycm9y
+ICglbGQpIHdhaXRpbmcgZm9yIGZlbmNlIVxuIiwgcik7CisKKwlkbWFfZmVuY2VfcHV0KG90aGVy
+KTsKKwlyZXR1cm4gcjsKIH0KIAogdm9pZCBhbWRncHVfY3R4X21ncl9pbml0KHN0cnVjdCBhbWRn
+cHVfY3R4X21nciAqbWdyKQotLSAKMi4xNy4xCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZy
+ZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3Rp
+bmZvL2FtZC1nZng=
