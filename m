@@ -1,41 +1,47 @@
-From: "StDenis, Tom" <Tom.StDenis-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH] drm/amd/amdgpu: Disable GFX_PG on laptop raven part
-Date: Fri, 16 Aug 2019 17:01:47 +0000
-Message-ID: <20190816170121.8172-1-tom.stdenis@amd.com>
+From: Dan Williams <dan.j.williams@intel.com>
+Subject: Re: [PATCH 04/15] mm: remove the pgmap field from struct hmm_vma_walk
+Date: Fri, 16 Aug 2019 10:21:41 -0700
+Message-ID: <CAPcyv4jgHF05gdRoOFZORqeOBE9Z7PhagsSD+LVnjH2dc3mrFg@mail.gmail.com>
+References: <CAPcyv4g8usp8prJ+1bMtyV1xuedp5FKErBp-N8+KzR=rJ-v0QQ@mail.gmail.com>
+ <20190815180325.GA4920@redhat.com> <CAPcyv4g4hzcEA=TPYVTiqpbtOoS30ahogRUttCvQAvXQbQjfnw@mail.gmail.com>
+ <20190815194339.GC9253@redhat.com> <CAPcyv4jid8_=-8hBpn_Qm=c4S8BapL9B9RGT7e9uu303yH=Yqw@mail.gmail.com>
+ <20190815203306.GB25517@redhat.com> <20190815204128.GI22970@mellanox.com>
+ <CAPcyv4j_Mxbw+T+yXTMdkrMoS_uxg+TXXgTM_EPBJ8XfXKxytA@mail.gmail.com>
+ <20190816004053.GB9929@mellanox.com> <CAPcyv4gMPVmY59aQAT64jQf9qXrACKOuV=DfVs4sNySCXJhkdA@mail.gmail.com>
+ <20190816122414.GC5412@mellanox.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "StDenis, Tom" <Tom.StDenis-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset="UTF-8"
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20190816122414.GC5412@mellanox.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Jason Gunthorpe <jgg@mellanox.com>
+Cc: Jerome Glisse <jglisse@redhat.com>, Christoph Hellwig <hch@lst.de>, Ben Skeggs <bskeggs@redhat.com>, Felix Kuehling <Felix.Kuehling@amd.com>, Ralph Campbell <rcampbell@nvidia.com>, "linux-mm@kvack.org" <linux-mm@kvack.org>, "nouveau@lists.freedesktop.org" <nouveau@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-R0ZYX1BHIGNhdXNlcyB2aXN1YWwgKGFuZCBsaWtlbHkgbWVtb3J5KSBjb3JydXB0aW9uIG9uIGxh
-cHRvcApyYXZlbiBwYXJ0cy4gIFVudGlsIGl0J3MgZnVsbHkgZGlhZ25vc2VkIGxldCdzIGRpc2Fi
-bGUgaXQgdG8gZW5zdXJlCnN0YWJsZSBvcGVyYXRpb24uCgpUZXN0ZWQgb24gYSBEZWxsIExhdGl0
-dWRlIDU0OTUuCgpTaWduZWQtb2ZmLWJ5OiBUb20gU3QgRGVuaXMgPHRvbS5zdGRlbmlzQGFtZC5j
-b20+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvc29jMTUuYyB8IDUgKysrKysKIDEg
-ZmlsZSBjaGFuZ2VkLCA1IGluc2VydGlvbnMoKykKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9k
-cm0vYW1kL2FtZGdwdS9zb2MxNS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvc29jMTUu
-YwppbmRleCA3N2U2Nzk5MjBjMWMuLjI3YTUwMGY3NWY1NyAxMDA2NDQKLS0tIGEvZHJpdmVycy9n
-cHUvZHJtL2FtZC9hbWRncHUvc29jMTUuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
-dS9zb2MxNS5jCkBAIC0xMTM4LDYgKzExMzgsMTEgQEAgc3RhdGljIGludCBzb2MxNV9jb21tb25f
-ZWFybHlfaW5pdCh2b2lkICpoYW5kbGUpCiAJCQlhZGV2LT5wZ19mbGFncyB8PSBBTURfUEdfU1VQ
-UE9SVF9HRlhfUEcgfAogCQkJCUFNRF9QR19TVVBQT1JUX0NQIHwKIAkJCQlBTURfUEdfU1VQUE9S
-VF9STENfU01VX0hTOworCisJCS8vIGRpc2FibGUgR0ZYX1BHIHVudGlsIGRlYnVnZ2VkLgorCQlp
-ZiAoYWRldi0+ZXh0ZXJuYWxfcmV2X2lkID09IDB4MjEpCisJCQlhZGV2LT5wZ19mbGFncyAmPSB+
-QU1EX1BHX1NVUFBPUlRfR0ZYX1BHOworCiAJCWJyZWFrOwogCWNhc2UgQ0hJUF9BUkNUVVJVUzoK
-IAkJYWRldi0+YXNpY19mdW5jcyA9ICZ2ZWdhMjBfYXNpY19mdW5jczsKLS0gCjIuMjEuMAoKX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWls
-aW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVl
-ZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+On Fri, Aug 16, 2019 at 5:24 AM Jason Gunthorpe <jgg@mellanox.com> wrote:
+>
+> On Thu, Aug 15, 2019 at 08:54:46PM -0700, Dan Williams wrote:
+>
+> > > However, this means we cannot do any processing of ZONE_DEVICE pages
+> > > outside the driver lock, so eg, doing any DMA map that might rely on
+> > > MEMORY_DEVICE_PCI_P2PDMA has to be done in the driver lock, which is
+> > > a bit unfortunate.
+> >
+> > Wouldn't P2PDMA use page pins? Not needing to hold a lock over
+> > ZONE_DEVICE page operations was one of the motivations for plumbing
+> > get_dev_pagemap() with a percpu-ref.
+>
+> hmm_range_fault() doesn't use page pins at all, so if a ZONE_DEVICE
+> page comes out of it then it needs to use another locking pattern.
+>
+> If I follow it all right:
+>
+> We can do a get_dev_pagemap inside the page_walk and touch the pgmap,
+> or we can do the 'device mutex && retry' pattern and touch the pgmap
+> in the driver, under that lock.
+>
+> However in all cases the current get_dev_pagemap()'s in the page walk
+> are not necessary, and we can delete them.
+
+Yes, as long as 'struct page' instances resulting from that lookup are
+not passed outside of that lock.
