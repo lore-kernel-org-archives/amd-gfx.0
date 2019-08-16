@@ -1,56 +1,74 @@
-From: "Zhu, Changfeng" <Changfeng.Zhu-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH] drm/amdgpu: Set no-retry as default.
-Date: Fri, 16 Aug 2019 03:27:39 +0000
-Message-ID: <MN2PR12MB2896E30C65B0066C2EF4419CFDAF0@MN2PR12MB2896.namprd12.prod.outlook.com>
-References: <20190816032131.3232-1-Feifei.Xu@amd.com>
+From: Dan Williams <dan.j.williams@intel.com>
+Subject: Re: [PATCH 04/15] mm: remove the pgmap field from struct hmm_vma_walk
+Date: Thu, 15 Aug 2019 20:54:46 -0700
+Message-ID: <CAPcyv4gMPVmY59aQAT64jQf9qXrACKOuV=DfVs4sNySCXJhkdA@mail.gmail.com>
+References: <20190814073854.GA27249@lst.de> <20190814132746.GE13756@mellanox.com>
+ <CAPcyv4g8usp8prJ+1bMtyV1xuedp5FKErBp-N8+KzR=rJ-v0QQ@mail.gmail.com>
+ <20190815180325.GA4920@redhat.com> <CAPcyv4g4hzcEA=TPYVTiqpbtOoS30ahogRUttCvQAvXQbQjfnw@mail.gmail.com>
+ <20190815194339.GC9253@redhat.com> <CAPcyv4jid8_=-8hBpn_Qm=c4S8BapL9B9RGT7e9uu303yH=Yqw@mail.gmail.com>
+ <20190815203306.GB25517@redhat.com> <20190815204128.GI22970@mellanox.com>
+ <CAPcyv4j_Mxbw+T+yXTMdkrMoS_uxg+TXXgTM_EPBJ8XfXKxytA@mail.gmail.com> <20190816004053.GB9929@mellanox.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190816032131.3232-1-Feifei.Xu-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Xu, Feifei" <Feifei.Xu-5C7GfCeVMHo@public.gmane.org>, "Li, Candice" <Candice.Li-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset="UTF-8"
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20190816004053.GB9929@mellanox.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Jason Gunthorpe <jgg@mellanox.com>
+Cc: Jerome Glisse <jglisse@redhat.com>, Christoph Hellwig <hch@lst.de>, Ben Skeggs <bskeggs@redhat.com>, Felix Kuehling <Felix.Kuehling@amd.com>, Ralph Campbell <rcampbell@nvidia.com>, "linux-mm@kvack.org" <linux-mm@kvack.org>, "nouveau@lists.freedesktop.org" <nouveau@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-UmV2aWV3ZWQtYnk6IGNoYW5nemh1IDxDaGFuZ2ZlbmcuWmh1QGFtZC5jb20+DQoNCi0tLS0tT3Jp
-Z2luYWwgTWVzc2FnZS0tLS0tDQpGcm9tOiBhbWQtZ2Z4IDxhbWQtZ2Z4LWJvdW5jZXNAbGlzdHMu
-ZnJlZWRlc2t0b3Aub3JnPiBPbiBCZWhhbGYgT2YgRmVpZmVpIFh1DQpTZW50OiBGcmlkYXksIEF1
-Z3VzdCAxNiwgMjAxOSAxMToyMiBBTQ0KVG86IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
-DQpDYzogWHUsIEZlaWZlaSA8RmVpZmVpLlh1QGFtZC5jb20+OyBMaSwgQ2FuZGljZSA8Q2FuZGlj
-ZS5MaUBhbWQuY29tPg0KU3ViamVjdDogW1BBVENIXSBkcm0vYW1kZ3B1OiBTZXQgbm8tcmV0cnkg
-YXMgZGVmYXVsdC4NCg0KVGhpcyBpcyB0byBpbXByb3ZlIHBlcmZvcm1hbmNlLg0KDQpTaWduZWQt
-b2ZmLWJ5OiBGZWlmZWkgWHUgPEZlaWZlaS5YdUBhbWQuY29tPg0KVGVzdGVkLWJ5OiBDYW5kaWNl
-IExpIDxjYW5kaWNlLmxpQGFtZC5jb20+DQotLS0NCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
-dS9hbWRncHVfZHJ2LmMgfCA0ICsrLS0NCiAxIGZpbGUgY2hhbmdlZCwgMiBpbnNlcnRpb25zKCsp
-LCAyIGRlbGV0aW9ucygtKQ0KDQpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
-cHUvYW1kZ3B1X2Rydi5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rydi5j
-DQppbmRleCAxNTM3MDU4NDhjYzguLjBkZjU0ZDQ1MzY5YyAxMDA2NDQNCi0tLSBhL2RyaXZlcnMv
-Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kcnYuYw0KKysrIGIvZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9hbWRncHUvYW1kZ3B1X2Rydi5jDQpAQCAtMTQ1LDcgKzE0NSw3IEBAIGludCBhbWRncHVfYXN5
-bmNfZ2Z4X3JpbmcgPSAxOyAgaW50IGFtZGdwdV9tY2JwID0gMDsgIGludCBhbWRncHVfZGlzY292
-ZXJ5ID0gLTE7ICBpbnQgYW1kZ3B1X21lcyA9IDA7IC1pbnQgYW1kZ3B1X25vcmV0cnk7DQoraW50
-IGFtZGdwdV9ub3JldHJ5ID0gMTsNCiANCiBzdHJ1Y3QgYW1kZ3B1X21ncHVfaW5mbyBtZ3B1X2lu
-Zm8gPSB7DQogCS5tdXRleCA9IF9fTVVURVhfSU5JVElBTElaRVIobWdwdV9pbmZvLm11dGV4KSwN
-CkBAIC02MjEsNyArNjIxLDcgQEAgTU9EVUxFX1BBUk1fREVTQyhtZXMsICBtb2R1bGVfcGFyYW1f
-bmFtZWQobWVzLCBhbWRncHVfbWVzLCBpbnQsIDA0NDQpOw0KIA0KIE1PRFVMRV9QQVJNX0RFU0Mo
-bm9yZXRyeSwNCi0JIkRpc2FibGUgcmV0cnkgZmF1bHRzICgwID0gcmV0cnkgZW5hYmxlZCAoZGVm
-YXVsdCksIDEgPSByZXRyeSBkaXNhYmxlZCkiKTsNCisJIkRpc2FibGUgcmV0cnkgZmF1bHRzICgw
-ID0gcmV0cnkgZW5hYmxlZCwgMSA9IHJldHJ5IGRpc2FibGVkIA0KKyhkZWZhdWx0KSkiKTsNCiBt
-b2R1bGVfcGFyYW1fbmFtZWQobm9yZXRyeSwgYW1kZ3B1X25vcmV0cnksIGludCwgMDY0NCk7DQog
-DQogI2lmZGVmIENPTkZJR19IU0FfQU1EDQotLQ0KMi4xNy4xDQoNCl9fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fDQphbWQtZ2Z4IG1haWxpbmcgbGlzdA0KYW1k
-LWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
-L21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA0KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVl
-ZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5m
-by9hbWQtZ2Z4
+On Thu, Aug 15, 2019 at 5:41 PM Jason Gunthorpe <jgg@mellanox.com> wrote:
+>
+> On Thu, Aug 15, 2019 at 01:47:12PM -0700, Dan Williams wrote:
+> > On Thu, Aug 15, 2019 at 1:41 PM Jason Gunthorpe <jgg@mellanox.com> wrote:
+> > >
+> > > On Thu, Aug 15, 2019 at 04:33:06PM -0400, Jerome Glisse wrote:
+> > >
+> > > > So nor HMM nor driver should dereference the struct page (i do not
+> > > > think any iommu driver would either),
+> > >
+> > > Er, they do technically deref the struct page:
+> > >
+> > > nouveau_dmem_convert_pfn(struct nouveau_drm *drm,
+> > >                          struct hmm_range *range)
+> > >                 struct page *page;
+> > >                 page = hmm_pfn_to_page(range, range->pfns[i]);
+> > >                 if (!nouveau_dmem_page(drm, page)) {
+> > >
+> > >
+> > > nouveau_dmem_page(struct nouveau_drm *drm, struct page *page)
+> > > {
+> > >         return is_device_private_page(page) && drm->dmem == page_to_dmem(page)
+> > >
+> > >
+> > > Which does touch 'page->pgmap'
+> > >
+> > > Is this OK without having a get_dev_pagemap() ?
+> > >
+> > > Noting that the collision-retry scheme doesn't protect anything here
+> > > as we can have a concurrent invalidation while doing the above deref.
+> >
+> > As long take_driver_page_table_lock() in Jerome's flow can replace
+> > percpu_ref_tryget_live() on the pagemap reference. It seems
+> > nouveau_dmem_convert_pfn() happens after:
+> >
+> >                         mutex_lock(&svmm->mutex);
+> >                         if (!nouveau_range_done(&range)) {
+> >
+> > ...so I would expect that to be functionally equivalent to validating
+> > the reference count.
+>
+> Yes, OK, that makes sense, I was mostly surprised by the statement the
+> driver doesn't touch the struct page..
+>
+> I suppose "doesn't touch the struct page out of the driver lock" is
+> the case.
+>
+> However, this means we cannot do any processing of ZONE_DEVICE pages
+> outside the driver lock, so eg, doing any DMA map that might rely on
+> MEMORY_DEVICE_PCI_P2PDMA has to be done in the driver lock, which is
+> a bit unfortunate.
+
+Wouldn't P2PDMA use page pins? Not needing to hold a lock over
+ZONE_DEVICE page operations was one of the motivations for plumbing
+get_dev_pagemap() with a percpu-ref.
