@@ -1,47 +1,51 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH libdrm] amdgpu: add mmhub ras inject unit test
-Date: Fri, 16 Aug 2019 13:12:08 +0200
-Message-ID: <b6cde318-e453-8a89-095c-69708f0981ef@gmail.com>
-References: <20190816110401.11069-1-guchun.chen@amd.com>
-Reply-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
+From: Jason Gunthorpe <jgg@mellanox.com>
+Subject: Re: [PATCH 04/15] mm: remove the pgmap field from struct hmm_vma_walk
+Date: Fri, 16 Aug 2019 12:24:25 +0000
+Message-ID: <20190816122414.GC5412@mellanox.com>
+References: <CAPcyv4g8usp8prJ+1bMtyV1xuedp5FKErBp-N8+KzR=rJ-v0QQ@mail.gmail.com>
+ <20190815180325.GA4920@redhat.com>
+ <CAPcyv4g4hzcEA=TPYVTiqpbtOoS30ahogRUttCvQAvXQbQjfnw@mail.gmail.com>
+ <20190815194339.GC9253@redhat.com>
+ <CAPcyv4jid8_=-8hBpn_Qm=c4S8BapL9B9RGT7e9uu303yH=Yqw@mail.gmail.com>
+ <20190815203306.GB25517@redhat.com> <20190815204128.GI22970@mellanox.com>
+ <CAPcyv4j_Mxbw+T+yXTMdkrMoS_uxg+TXXgTM_EPBJ8XfXKxytA@mail.gmail.com>
+ <20190816004053.GB9929@mellanox.com>
+ <CAPcyv4gMPVmY59aQAT64jQf9qXrACKOuV=DfVs4sNySCXJhkdA@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190816110401.11069-1-guchun.chen-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <CAPcyv4gMPVmY59aQAT64jQf9qXrACKOuV=DfVs4sNySCXJhkdA@mail.gmail.com>
 Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Guchun Chen <guchun.chen-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Hawking.Zhang-5C7GfCeVMHo@public.gmane.org, Dennis.Li-5C7GfCeVMHo@public.gmane.org, flora.cui-5C7GfCeVMHo@public.gmane.org, Tao.Zhou1-5C7GfCeVMHo@public.gmane.org
-Cc: Candice.Li-5C7GfCeVMHo@public.gmane.org
+Content-ID: <43A39A5E1EC938439754F1B9A3ACBE6E@eurprd05.prod.outlook.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Dan Williams <dan.j.williams@intel.com>
+Cc: Jerome Glisse <jglisse@redhat.com>, Christoph Hellwig <hch@lst.de>, Ben Skeggs <bskeggs@redhat.com>, Felix Kuehling <Felix.Kuehling@amd.com>, Ralph Campbell <rcampbell@nvidia.com>, "linux-mm@kvack.org" <linux-mm@kvack.org>, "nouveau@lists.freedesktop.org" <nouveau@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-V2VsbCB0aGlzIGRvZXNuJ3QgbG9vayBsaWtlIEMgdG8gbWUuIERpZCB3ZSBhZGRlZCBhIGNvbmZp
-Z3VyYXRpb24gZmlsZSAKZm9yIHRoZSByYXMgdW5pdCB0ZXN0cyBvciBzb21ldGhpbmcgbGlrZSB0
-aGF0PwoKQ2hyaXN0aWFuLgoKQW0gMTYuMDguMTkgdW0gMTM6MDQgc2NocmllYiBHdWNodW4gQ2hl
-bjoKPiBDaGFuZ2UtSWQ6IElhNzZiOTUxNjJmNWY2ZjQxOWY3MGI1M2VmNDQzYmNlYWYyZTA5MmUw
-Cj4gU2lnbmVkLW9mZi1ieTogR3VjaHVuIENoZW4gPGd1Y2h1bi5jaGVuQGFtZC5jb20+Cj4gLS0t
-Cj4gICBkYXRhL2FtZGdwdV9yYXMuanNvbiB8IDEwICsrKysrKysrKysKPiAgIDEgZmlsZSBjaGFu
-Z2VkLCAxMCBpbnNlcnRpb25zKCspCj4KPiBkaWZmIC0tZ2l0IGEvZGF0YS9hbWRncHVfcmFzLmpz
-b24gYi9kYXRhL2FtZGdwdV9yYXMuanNvbgo+IGluZGV4IDI2ZmQ5NDY1Li40ODRmMTJmMiAxMDA2
-NDQKPiAtLS0gYS9kYXRhL2FtZGdwdV9yYXMuanNvbgo+ICsrKyBiL2RhdGEvYW1kZ3B1X3Jhcy5q
-c29uCj4gQEAgLTEyMSw2ICsxMjEsOSBAQAo+ICAgICAgICAgICAgICAgICAgICJ1dGNfYXRjbDJf
-Y2FjaGVfNGtfYmFuayI6IDExMQo+ICAgICAgICAgICAgICAgfQo+ICAgICAgICAgICB9LAo+ICsg
-ICAgICAgICJtbWh1YiI6IHsKPiArICAgICAgICAgICAgImluZGV4IjogMwo+ICsgICAgICAgIH0s
-Cj4gICAgICAgfSwKPiAgICAgICAidHlwZSI6IHsKPiAgICAgICAgICAgInBhcml0eSI6IDEsCj4g
-QEAgLTI2Myw1ICsyNjYsMTIgQEAKPiAgICAgICAgICAgICAgICJhZGRyZXNzIjogMCwKPiAgICAg
-ICAgICAgICAgICJ2YWx1ZSI6IDAKPiAgICAgICAgICAgfSwKPiArICAgICAgICB7Cj4gKyAgICAg
-ICAgICAgICJuYW1lIjogInJhc19tbWh1Yi4xLjAiLAo+ICsgICAgICAgICAgICAiYmxvY2siOiAi
-bW1odWIiLAo+ICsgICAgICAgICAgICAidHlwZSI6ICJzaW5nbGVfY29ycmVjdGFibGUiLAo+ICsg
-ICAgICAgICAgICAiYWRkcmVzcyI6IDAsCj4gKyAgICAgICAgICAgICJ2YWx1ZSI6IDAKPiArICAg
-ICAgICB9LAo+ICAgICAgIF0KPiAgIH0KCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRl
-c2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8v
-YW1kLWdmeA==
+On Thu, Aug 15, 2019 at 08:54:46PM -0700, Dan Williams wrote:
+
+> > However, this means we cannot do any processing of ZONE_DEVICE pages
+> > outside the driver lock, so eg, doing any DMA map that might rely on
+> > MEMORY_DEVICE_PCI_P2PDMA has to be done in the driver lock, which is
+> > a bit unfortunate.
+>=20
+> Wouldn't P2PDMA use page pins? Not needing to hold a lock over
+> ZONE_DEVICE page operations was one of the motivations for plumbing
+> get_dev_pagemap() with a percpu-ref.
+
+hmm_range_fault() doesn't use page pins at all, so if a ZONE_DEVICE
+page comes out of it then it needs to use another locking pattern.
+
+If I follow it all right:
+
+We can do a get_dev_pagemap inside the page_walk and touch the pgmap,
+or we can do the 'device mutex && retry' pattern and touch the pgmap
+in the driver, under that lock.
+
+However in all cases the current get_dev_pagemap()'s in the page walk
+are not necessary, and we can delete them.
+
+?
+
+Jason
