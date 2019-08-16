@@ -1,50 +1,50 @@
-From: "Souza, Jose" <jose.souza@intel.com>
-Subject: Re:
- =?utf-8?b?4pyXIEZpLkNJLlNQQVJTRTogd2FybmluZyBmb3Ig?=
- =?utf-8?q?drm/connector=3A_Allow_max_possible_encoders_to_attach_to_a_con?=
- =?utf-8?q?nector_=28rev2=29?=
-Date: Fri, 16 Aug 2019 21:46:03 +0000
-Message-ID: <29e7ed6454978be6b47e9b8e7684331f9680af30.camel@intel.com>
-References: <20190816195424.7185-1-jose.souza@intel.com>
- <20190816212926.13759.37782@emeril.freedesktop.org>
+From: Colin King <colin.king@canonical.com>
+Subject: [PATCH][drm-next] drm/amd/display: fix a potential null pointer dereference
+Date: Fri, 16 Aug 2019 23:10:11 +0100
+Message-ID: <20190816221011.10750-1-colin.king@canonical.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <intel-gfx-bounces@lists.freedesktop.org>
-In-Reply-To: <20190816212926.13759.37782@emeril.freedesktop.org>
-Content-Language: en-US
-Content-ID: <E007B18ABDC3AF4DB29A0E6871371BE1@intel.com>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/intel-gfx>,
- <mailto:intel-gfx-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/intel-gfx>
-List-Post: <mailto:intel-gfx@lists.freedesktop.org>
-List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
- <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: intel-gfx-bounces@lists.freedesktop.org
-Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-To: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>
-Cc: "alexander.deucher@amd.com" <alexander.deucher@amd.com>, "nouveau@lists.freedesktop.org" <nouveau@lists.freedesktop.org>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Pandiyan,
- Dhinakaran" <dhinakaran.pandiyan@intel.com>
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, David Zhou <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
 List-Id: amd-gfx.lists.freedesktop.org
 
-T24gRnJpLCAyMDE5LTA4LTE2IGF0IDIxOjI5ICswMDAwLCBQYXRjaHdvcmsgd3JvdGU6DQo+ID09
-IFNlcmllcyBEZXRhaWxzID09DQo+IA0KPiBTZXJpZXM6IGRybS9jb25uZWN0b3I6IEFsbG93IG1h
-eCBwb3NzaWJsZSBlbmNvZGVycyB0byBhdHRhY2ggdG8gYQ0KPiBjb25uZWN0b3IgKHJldjIpDQo+
-IFVSTCAgIDogaHR0cHM6Ly9wYXRjaHdvcmsuZnJlZWRlc2t0b3Aub3JnL3Nlcmllcy82Mjc0My8N
-Cj4gU3RhdGUgOiB3YXJuaW5nDQo+IA0KPiA9PSBTdW1tYXJ5ID09DQo+IA0KPiAkIGRpbSBzcGFy
-c2Ugb3JpZ2luL2RybS10aXANCj4gU3BhcnNlIHZlcnNpb246IHYwLjYuMA0KPiBDb21taXQ6IGRy
-bS9jb25uZWN0b3I6IEFsbG93IG1heCBwb3NzaWJsZSBlbmNvZGVycyB0byBhdHRhY2ggdG8gYQ0K
-PiBjb25uZWN0b3INCj4gKyBeDQo+ICsgfQ0KPiArZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
-Li4vZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtLmM6NDgwMjoxOg0KPiB3YXJuaW5nOiBjb250
-cm9sIHJlYWNoZXMgZW5kIG9mIG5vbi12b2lkIGZ1bmN0aW9uIFstV3JldHVybi10eXBlXQ0KPiAr
-ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvLi4vZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2Rt
-LmM6IEluDQo+IGZ1bmN0aW9uIOKAmGFtZGdwdV9kbV9jb25uZWN0b3JfdG9fZW5jb2RlcuKAmToN
-Cg0KTWlzc2VkIGEgInJldHVybiBOVUxMOyIgdGhhdCB3aWxsIG5vdCBiZSByZWFjaGVkLg0KV2ls
-bCBmaXggdGhhdCBpbiB0aGUgbmV4dCB2ZXJzaW9uIGFmdGVyIGdldCBzb21lIGNvbW1lbnRzLg0K
-DQo+IA0KPiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXw0K
-PiBJbnRlbC1nZnggbWFpbGluZyBsaXN0DQo+IEludGVsLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5v
-cmcNCj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9pbnRl
-bC1nZngNCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCklu
-dGVsLWdmeCBtYWlsaW5nIGxpc3QKSW50ZWwtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRw
-czovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2ludGVsLWdmeA==
+From: Colin Ian King <colin.king@canonical.com>
+
+Currently the pointer init_data is dereferenced on the assignment
+of fw_info before init_data is sanity checked to see if it is null.
+Fix te potential null pointer dereference on init_data by only
+performing dereference after it is null checked.
+
+Addresses-Coverity: ("Dereference before null check")
+Fixes: 9adc8050bf3c ("drm/amd/display: make firmware info only load once during dc_bios create")
+Signed-off-by: Colin Ian King <colin.king@canonical.com>
+---
+ drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c b/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c
+index bee81bf288be..926954c804a6 100644
+--- a/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c
++++ b/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c
+@@ -1235,7 +1235,7 @@ static bool calc_pll_max_vco_construct(
+ 			struct calc_pll_clock_source_init_data *init_data)
+ {
+ 	uint32_t i;
+-	struct dc_firmware_info *fw_info = &init_data->bp->fw_info;
++	struct dc_firmware_info *fw_info;
+ 	if (calc_pll_cs == NULL ||
+ 			init_data == NULL ||
+ 			init_data->bp == NULL)
+@@ -1244,6 +1244,7 @@ static bool calc_pll_max_vco_construct(
+ 	if (init_data->bp->fw_info_valid)
+ 		return false;
+ 
++	fw_info = &init_data->bp->fw_info;
+ 	calc_pll_cs->ctx = init_data->ctx;
+ 	calc_pll_cs->ref_freq_khz = fw_info->pll_info.crystal_frequency;
+ 	calc_pll_cs->min_vco_khz =
+-- 
+2.20.1
