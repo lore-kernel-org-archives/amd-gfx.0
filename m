@@ -1,57 +1,47 @@
-From: Chunming Zhou <zhoucm1-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: fix dma_fence_wait without reference
-Date: Fri, 16 Aug 2019 13:58:18 +0000
-Message-ID: <cd332e89-6764-dc58-ecc7-dfc058b7e213@amd.com>
-References: <20190816132131.1951-1-christian.koenig@amd.com>
+From: Jason Gunthorpe <jgg@ziepe.ca>
+Subject: Re: [PATCH v3 hmm 00/11] Add mmu_notifier_get/put for managing mmu
+ notifier registrations
+Date: Fri, 16 Aug 2019 12:14:52 -0300
+Message-ID: <20190816151452.GA8562@ziepe.ca>
+References: <20190806231548.25242-1-jgg@ziepe.ca>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190816132131.1951-1-christian.koenig-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-Content-ID: <E19CBBBB394F9B44A251F8FFB4541611-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?utf-8?B?Q2hyaXN0aWFuIEvDtm5pZw==?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Type: text/plain; charset=us-ascii
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Content-Disposition: inline
+In-Reply-To: <20190806231548.25242-1-jgg@ziepe.ca>
+Sender: linux-kernel-owner@vger.kernel.org
+To: linux-mm@kvack.org
+Cc: Andrea Arcangeli <aarcange@redhat.com>, Christoph Hellwig <hch@lst.de>, John Hubbard <jhubbard@nvidia.com>, =?utf-8?B?SsOpcsO0bWU=?= Glisse <jglisse@redhat.com>, Ralph Campbell <rcampbell@nvidia.com>, "Kuehling, Felix" <Felix.Kuehling@amd.com>, Alex Deucher <alexander.deucher@amd.com>, Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, Dimitri Sivanich <sivanich@sgi.com>, dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org, linux-rdma@vger.kernel.org, iommu@lists.linux-foundation.org, intel-gfx@lists.freedesktop.org, Gavin Shan <shangw@linux.vnet.ibm.com>, Andrea Righi <andrea@betterlinux.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
-UmV2aWV3ZWQtYnk6IENodW5taW5nIFpob3UgPGRhdmlkMS56aG91QGFtZC5jb20+DQoNCuWcqCAy
-MDE5LzgvMTYgMjE6MjEsIENocmlzdGlhbiBLw7ZuaWcg5YaZ6YGTOg0KPiBXZSBuZWVkIHRvIGdy
-YWIgYSByZWZlcmVuY2UgdG8gdGhlIGZlbmNlIHdlIHdhaXQgZm9yLg0KPg0KPiBTaWduZWQtb2Zm
-LWJ5OiBDaHJpc3RpYW4gS8O2bmlnIDxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+DQo+IC0tLQ0K
-PiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9jdHguYyB8IDI3ICsrKysrKysr
-KysrKysrLS0tLS0tLS0tLS0NCj4gICAxIGZpbGUgY2hhbmdlZCwgMTUgaW5zZXJ0aW9ucygrKSwg
-MTIgZGVsZXRpb25zKC0pDQo+DQo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
-ZGdwdS9hbWRncHVfY3R4LmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfY3R4
-LmMNCj4gaW5kZXggZjUzOWEyYTkyNzc0Li43Mzk4YjQ4NTA2NDkgMTAwNjQ0DQo+IC0tLSBhL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9jdHguYw0KPiArKysgYi9kcml2ZXJzL2dw
-dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfY3R4LmMNCj4gQEAgLTUzNCwyMSArNTM0LDI0IEBAIGlu
-dCBhbWRncHVfY3R4X3dhaXRfcHJldl9mZW5jZShzdHJ1Y3QgYW1kZ3B1X2N0eCAqY3R4LA0KPiAg
-IAkJCSAgICAgICBzdHJ1Y3QgZHJtX3NjaGVkX2VudGl0eSAqZW50aXR5KQ0KPiAgIHsNCj4gICAJ
-c3RydWN0IGFtZGdwdV9jdHhfZW50aXR5ICpjZW50aXR5ID0gdG9fYW1kZ3B1X2N0eF9lbnRpdHko
-ZW50aXR5KTsNCj4gLQl1bnNpZ25lZCBpZHggPSBjZW50aXR5LT5zZXF1ZW5jZSAmIChhbWRncHVf
-c2NoZWRfam9icyAtIDEpOw0KPiAtCXN0cnVjdCBkbWFfZmVuY2UgKm90aGVyID0gY2VudGl0eS0+
-ZmVuY2VzW2lkeF07DQo+ICsJc3RydWN0IGRtYV9mZW5jZSAqb3RoZXI7DQo+ICsJdW5zaWduZWQg
-aWR4Ow0KPiArCWxvbmcgcjsNCj4gICANCj4gLQlpZiAob3RoZXIpIHsNCj4gLQkJc2lnbmVkIGxv
-bmcgcjsNCj4gLQkJciA9IGRtYV9mZW5jZV93YWl0KG90aGVyLCB0cnVlKTsNCj4gLQkJaWYgKHIg
-PCAwKSB7DQo+IC0JCQlpZiAociAhPSAtRVJFU1RBUlRTWVMpDQo+IC0JCQkJRFJNX0VSUk9SKCJF
-cnJvciAoJWxkKSB3YWl0aW5nIGZvciBmZW5jZSFcbiIsIHIpOw0KPiArCXNwaW5fbG9jaygmY3R4
-LT5yaW5nX2xvY2spOw0KPiArCWlkeCA9IGNlbnRpdHktPnNlcXVlbmNlICYgKGFtZGdwdV9zY2hl
-ZF9qb2JzIC0gMSk7DQo+ICsJb3RoZXIgPSBkbWFfZmVuY2VfZ2V0KGNlbnRpdHktPmZlbmNlc1tp
-ZHhdKTsNCj4gKwlzcGluX3VubG9jaygmY3R4LT5yaW5nX2xvY2spOw0KPiAgIA0KPiAtCQkJcmV0
-dXJuIHI7DQo+IC0JCX0NCj4gLQl9DQo+ICsJaWYgKCFvdGhlcikNCj4gKwkJcmV0dXJuIDA7DQo+
-ICAgDQo+IC0JcmV0dXJuIDA7DQo+ICsJciA9IGRtYV9mZW5jZV93YWl0KG90aGVyLCB0cnVlKTsN
-Cj4gKwlpZiAociA8IDAgJiYgciAhPSAtRVJFU1RBUlRTWVMpDQo+ICsJCURSTV9FUlJPUigiRXJy
-b3IgKCVsZCkgd2FpdGluZyBmb3IgZmVuY2UhXG4iLCByKTsNCj4gKw0KPiArCWRtYV9mZW5jZV9w
-dXQob3RoZXIpOw0KPiArCXJldHVybiByOw0KPiAgIH0NCj4gICANCj4gICB2b2lkIGFtZGdwdV9j
-dHhfbWdyX2luaXQoc3RydWN0IGFtZGdwdV9jdHhfbWdyICptZ3IpDQpfX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQt
-Z2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9t
-YWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
+On Tue, Aug 06, 2019 at 08:15:37PM -0300, Jason Gunthorpe wrote:
+> This series is already entangled with patches in the hmm & RDMA tree and
+> will require some git topic branches for the RDMA ODP stuff. I intend for
+> it to go through the hmm tree.
+
+> Jason Gunthorpe (11):
+>   mm/mmu_notifiers: hoist do_mmu_notifier_register down_write to the
+>     caller
+>   mm/mmu_notifiers: do not speculatively allocate a mmu_notifier_mm
+>   mm/mmu_notifiers: add a get/put scheme for the registration
+>   misc/sgi-gru: use mmu_notifier_get/put for struct gru_mm_struct
+>   hmm: use mmu_notifier_get/put for 'struct hmm'
+>   drm/radeon: use mmu_notifier_get/put for struct radeon_mn
+>   drm/amdkfd: fix a use after free race with mmu_notifer unregister
+>   drm/amdkfd: use mmu_notifier_put
+
+Other than these patches:
+
+>   RDMA/odp: use mmu_notifier_get/put for 'struct ib_ucontext_per_mm'
+>   RDMA/odp: remove ib_ucontext from ib_umem
+>   mm/mmu_notifiers: remove unregister_no_release
+
+This series has been applied.
+
+I will apply the ODP patches when the series they depend on is merged
+to the RDMA tree
+
+Any further acks/remarks I will annotate, thanks in advance
+
+Thanks to all reviewers,
+Jason
