@@ -1,55 +1,50 @@
-From: Ralph Campbell <rcampbell@nvidia.com>
-Subject: Re: [PATCH 04/15] mm: remove the pgmap field from struct hmm_vma_walk
-Date: Fri, 16 Aug 2019 14:10:47 -0700
-Message-ID: <c679d6b2-e7f6-3980-6905-94d48bfb056d@nvidia.com>
-References: <CAPcyv4g4hzcEA=TPYVTiqpbtOoS30ahogRUttCvQAvXQbQjfnw@mail.gmail.com>
- <20190815194339.GC9253@redhat.com>
- <CAPcyv4jid8_=-8hBpn_Qm=c4S8BapL9B9RGT7e9uu303yH=Yqw@mail.gmail.com>
- <20190815203306.GB25517@redhat.com> <20190815204128.GI22970@mellanox.com>
- <CAPcyv4j_Mxbw+T+yXTMdkrMoS_uxg+TXXgTM_EPBJ8XfXKxytA@mail.gmail.com>
- <20190816004053.GB9929@mellanox.com>
- <CAPcyv4gMPVmY59aQAT64jQf9qXrACKOuV=DfVs4sNySCXJhkdA@mail.gmail.com>
- <20190816122414.GC5412@mellanox.com>
- <CAPcyv4jgHF05gdRoOFZORqeOBE9Z7PhagsSD+LVnjH2dc3mrFg@mail.gmail.com>
- <20190816172846.GJ5398@ziepe.ca>
+From: "Souza, Jose" <jose.souza@intel.com>
+Subject: Re:
+ =?utf-8?b?4pyXIEZpLkNJLlNQQVJTRTogd2FybmluZyBmb3Ig?=
+ =?utf-8?q?drm/connector=3A_Allow_max_possible_encoders_to_attach_to_a_con?=
+ =?utf-8?q?nector_=28rev2=29?=
+Date: Fri, 16 Aug 2019 21:46:03 +0000
+Message-ID: <29e7ed6454978be6b47e9b8e7684331f9680af30.camel@intel.com>
+References: <20190816195424.7185-1-jose.souza@intel.com>
+ <20190816212926.13759.37782@emeril.freedesktop.org>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20190816172846.GJ5398@ziepe.ca>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <intel-gfx-bounces@lists.freedesktop.org>
+In-Reply-To: <20190816212926.13759.37782@emeril.freedesktop.org>
 Content-Language: en-US
-Sender: linux-kernel-owner@vger.kernel.org
-To: Jason Gunthorpe <jgg@ziepe.ca>, Dan Williams <dan.j.williams@intel.com>
-Cc: Jerome Glisse <jglisse@redhat.com>, Christoph Hellwig <hch@lst.de>, Ben Skeggs <bskeggs@redhat.com>, Felix Kuehling <Felix.Kuehling@amd.com>, "linux-mm@kvack.org" <linux-mm@kvack.org>, "nouveau@lists.freedesktop.org" <nouveau@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Content-ID: <E007B18ABDC3AF4DB29A0E6871371BE1@intel.com>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/intel-gfx>,
+ <mailto:intel-gfx-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/intel-gfx>
+List-Post: <mailto:intel-gfx@lists.freedesktop.org>
+List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
+ <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: intel-gfx-bounces@lists.freedesktop.org
+Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
+To: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>
+Cc: "alexander.deucher@amd.com" <alexander.deucher@amd.com>, "nouveau@lists.freedesktop.org" <nouveau@lists.freedesktop.org>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Pandiyan,
+ Dhinakaran" <dhinakaran.pandiyan@intel.com>
 List-Id: amd-gfx.lists.freedesktop.org
 
-
-On 8/16/19 10:28 AM, Jason Gunthorpe wrote:
-> On Fri, Aug 16, 2019 at 10:21:41AM -0700, Dan Williams wrote:
-> 
->>> We can do a get_dev_pagemap inside the page_walk and touch the pgmap,
->>> or we can do the 'device mutex && retry' pattern and touch the pgmap
->>> in the driver, under that lock.
->>>
->>> However in all cases the current get_dev_pagemap()'s in the page walk
->>> are not necessary, and we can delete them.
->>
->> Yes, as long as 'struct page' instances resulting from that lookup are
->> not passed outside of that lock.
-> 
-> Indeed.
-> 
-> Also, I was reflecting over lunch that the hmm_range_fault should only
-> return DEVICE_PRIVATE pages for the caller's device (see other thread
-> with HCH), and in this case, the caller should also be responsible to
-> ensure that the driver is not calling hmm_range_fault at the same time
-> it is deleting it's own DEVICE_PRIVATE mapping - ie by fencing its
-> page fault handler.
-
-Yes, that would make it a one step process to access another
-device's migrated memory pages.
-Right now, it has to be a two step process where the caller calls
-hmm_range_fault, check the struct page to see if it is device
-private and not owned, then call hmm_range_fault again with
-range->pfns[i] |= range->flags[HMM_PFN_DEVICE_PRIVATE] to cause
-the other device to migrate the page back to system memory.
+T24gRnJpLCAyMDE5LTA4LTE2IGF0IDIxOjI5ICswMDAwLCBQYXRjaHdvcmsgd3JvdGU6DQo+ID09
+IFNlcmllcyBEZXRhaWxzID09DQo+IA0KPiBTZXJpZXM6IGRybS9jb25uZWN0b3I6IEFsbG93IG1h
+eCBwb3NzaWJsZSBlbmNvZGVycyB0byBhdHRhY2ggdG8gYQ0KPiBjb25uZWN0b3IgKHJldjIpDQo+
+IFVSTCAgIDogaHR0cHM6Ly9wYXRjaHdvcmsuZnJlZWRlc2t0b3Aub3JnL3Nlcmllcy82Mjc0My8N
+Cj4gU3RhdGUgOiB3YXJuaW5nDQo+IA0KPiA9PSBTdW1tYXJ5ID09DQo+IA0KPiAkIGRpbSBzcGFy
+c2Ugb3JpZ2luL2RybS10aXANCj4gU3BhcnNlIHZlcnNpb246IHYwLjYuMA0KPiBDb21taXQ6IGRy
+bS9jb25uZWN0b3I6IEFsbG93IG1heCBwb3NzaWJsZSBlbmNvZGVycyB0byBhdHRhY2ggdG8gYQ0K
+PiBjb25uZWN0b3INCj4gKyBeDQo+ICsgfQ0KPiArZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
+Li4vZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtLmM6NDgwMjoxOg0KPiB3YXJuaW5nOiBjb250
+cm9sIHJlYWNoZXMgZW5kIG9mIG5vbi12b2lkIGZ1bmN0aW9uIFstV3JldHVybi10eXBlXQ0KPiAr
+ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvLi4vZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2Rt
+LmM6IEluDQo+IGZ1bmN0aW9uIOKAmGFtZGdwdV9kbV9jb25uZWN0b3JfdG9fZW5jb2RlcuKAmToN
+Cg0KTWlzc2VkIGEgInJldHVybiBOVUxMOyIgdGhhdCB3aWxsIG5vdCBiZSByZWFjaGVkLg0KV2ls
+bCBmaXggdGhhdCBpbiB0aGUgbmV4dCB2ZXJzaW9uIGFmdGVyIGdldCBzb21lIGNvbW1lbnRzLg0K
+DQo+IA0KPiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXw0K
+PiBJbnRlbC1nZnggbWFpbGluZyBsaXN0DQo+IEludGVsLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5v
+cmcNCj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9pbnRl
+bC1nZngNCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCklu
+dGVsLWdmeCBtYWlsaW5nIGxpc3QKSW50ZWwtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRw
+czovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2ludGVsLWdmeA==
