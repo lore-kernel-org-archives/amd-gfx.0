@@ -1,36 +1,75 @@
-From: Christoph Hellwig <hch@lst.de>
-Subject: Re: [PATCH 04/15] mm: remove the pgmap field from struct
- hmm_vma_walk
-Date: Fri, 16 Aug 2019 06:44:48 +0200
-Message-ID: <20190816044448.GB4093@lst.de>
-References: <20190814132746.GE13756@mellanox.com> <CAPcyv4g8usp8prJ+1bMtyV1xuedp5FKErBp-N8+KzR=rJ-v0QQ@mail.gmail.com> <20190815180325.GA4920@redhat.com> <CAPcyv4g4hzcEA=TPYVTiqpbtOoS30ahogRUttCvQAvXQbQjfnw@mail.gmail.com> <20190815194339.GC9253@redhat.com> <CAPcyv4jid8_=-8hBpn_Qm=c4S8BapL9B9RGT7e9uu303yH=Yqw@mail.gmail.com> <20190815203306.GB25517@redhat.com> <20190815204128.GI22970@mellanox.com> <20190815205132.GC25517@redhat.com> <20190816004303.GC9929@mellanox.com>
+From: Evan Quan <evan.quan-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH 1/4] drm/amd/powerplay: update Arcturus smc fw and driver
+ interface header
+Date: Fri, 16 Aug 2019 14:08:04 +0800
+Message-ID: <20190816060807.11922-1-evan.quan@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Content-Disposition: inline
-In-Reply-To: <20190816004303.GC9929@mellanox.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Jason Gunthorpe <jgg@mellanox.com>
-Cc: Jerome Glisse <jglisse@redhat.com>, Dan Williams <dan.j.williams@intel.com>, Christoph Hellwig <hch@lst.de>, Ben Skeggs <bskeggs@redhat.com>, Felix Kuehling <Felix.Kuehling@amd.com>, Ralph Campbell <rcampbell@nvidia.com>, "linux-mm@kvack.org" <linux-mm@kvack.org>, "nouveau@lists.freedesktop.org" <nouveau@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Evan Quan <evan.quan-5C7GfCeVMHo@public.gmane.org>
 
-On Fri, Aug 16, 2019 at 12:43:07AM +0000, Jason Gunthorpe wrote:
-> On Thu, Aug 15, 2019 at 04:51:33PM -0400, Jerome Glisse wrote:
-> 
-> > struct page. In this case any way we can update the
-> > nouveau_dmem_page() to check that page page->pgmap == the
-> > expected pgmap.
-> 
-> I was also wondering if that is a problem.. just blindly doing a
-> container_of on the page->pgmap does seem like it assumes that only
-> this driver is using DEVICE_PRIVATE.
-> 
-> It seems like something missing in hmm_range_fault, it should be told
-> what DEVICE_PRIVATE is acceptable to trigger HMM_PFN_DEVICE_PRIVATE
-> and fault all others?
-
-The whole device private handling in hmm and migrate_vma seems pretty
-broken as far as I can tell, and I have some WIP patches.  Basically we
-should not touch (or possibly eventually call migrate to ram eventually
-in the future) device private pages not owned by the caller, where I
-try to defined the caller by the dev_pagemap_ops instance.  
+VXBkYXRlIHNtYyBmdyBhbmQgZHJpdmVyIGludGVyZmFjZSBoZWFkZXIuCgpDaGFuZ2UtSWQ6IElm
+NGFjMDljNDFiMTMwOWY3NDZiNzU3Zjc4ODgwZmZmYjQ5MWQ1MGY4ClNpZ25lZC1vZmYtYnk6IEV2
+YW4gUXVhbiA8ZXZhbi5xdWFuQGFtZC5jb20+Ci0tLQogLi4uL3Bvd2VycGxheS9pbmMvc211MTFf
+ZHJpdmVyX2lmX2FyY3R1cnVzLmggICAgfCAxNyArKysrKysrKysrKy0tLS0tLQogZHJpdmVycy9n
+cHUvZHJtL2FtZC9wb3dlcnBsYXkvaW5jL3NtdV92MTFfMC5oICAgfCAgMiArLQogMiBmaWxlcyBj
+aGFuZ2VkLCAxMiBpbnNlcnRpb25zKCspLCA3IGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2Ry
+aXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2luYy9zbXUxMV9kcml2ZXJfaWZfYXJjdHVydXMu
+aCBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2luYy9zbXUxMV9kcml2ZXJfaWZfYXJj
+dHVydXMuaAppbmRleCBiOTllOThjNDA3MjAuLmUwMjk1MGI1MDVmYSAxMDA2NDQKLS0tIGEvZHJp
+dmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaW5jL3NtdTExX2RyaXZlcl9pZl9hcmN0dXJ1cy5o
+CisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2luYy9zbXUxMV9kcml2ZXJfaWZf
+YXJjdHVydXMuaApAQCAtMjcsNyArMjcsNyBAQAogLy8gKioqIElNUE9SVEFOVCAqKioKIC8vIFNN
+VSBURUFNOiBBbHdheXMgaW5jcmVtZW50IHRoZSBpbnRlcmZhY2UgdmVyc2lvbiBpZgogLy8gYW55
+IHN0cnVjdHVyZSBpcyBjaGFuZ2VkIGluIHRoaXMgZmlsZQotLy8jZGVmaW5lIFNNVTExX0RSSVZF
+Ul9JRl9WRVJTSU9OIDB4MDgKKy8vI2RlZmluZSBTTVUxMV9EUklWRVJfSUZfVkVSU0lPTiAweDA5
+CiAKICNkZWZpbmUgUFBUQUJMRV9BUkNUVVJVU19TTVVfVkVSU0lPTiA0CiAKQEAgLTY5MSw3ICs2
+OTEsMTIgQEAgdHlwZWRlZiBzdHJ1Y3QgewogICB1aW50MTZfdCAgICAgICAgICBYZ21pRmNsa0Zy
+ZXEgICAgW05VTV9YR01JX1BTVEFURV9MRVZFTFNdOwogICB1aW50MTZfdCAgICAgICAgICBYZ21p
+U29jVm9sdGFnZSAgW05VTV9YR01JX1BTVEFURV9MRVZFTFNdOwogCi0gIHVpbnQzMl90ICAgICBC
+b2FyZFJlc2VydmVkWzEwXTsKKyAgLy8gR1BJTyBwaW5zIGZvciBJMkMgY29tbXVuaWNhdGlvbnMg
+d2l0aCAybmQgY29udHJvbGxlciBmb3IgSW5wdXQgVGVsZW1ldHJ5IFNlcXVlbmNlCisgIHVpbnQ4
+X3QgICAgICBHcGlvSTJjU2NsOyAgICAgICAgICAvLyBTZXJpYWwgQ2xvY2sKKyAgdWludDhfdCAg
+ICAgIEdwaW9JMmNTZGE7ICAgICAgICAgIC8vIFNlcmlhbCBEYXRhCisgIHVpbnQxNl90ICAgICBH
+cGlvUGFkZGluZzsKKworICB1aW50MzJfdCAgICAgQm9hcmRSZXNlcnZlZFs5XTsKIAogICAvLyBQ
+YWRkaW5nIGZvciBNTUhVQiAtIGRvIG5vdCBtb2RpZnkgdGhpcwogICB1aW50MzJfdCAgICAgTW1I
+dWJQYWRkaW5nWzhdOyAvLyBTTVUgaW50ZXJuYWwgdXNlCkBAIC03MzgsNyArNzQzLDcgQEAgdHlw
+ZWRlZiBzdHJ1Y3QgewogICB1aW50MzJfdCBQYWRkaW5nWzRdOwogCiAgIC8vIFBhZGRpbmcgLSBp
+Z25vcmUKLSAgdWludDMyX3QgICAgIE1tSHViUGFkZGluZ1s3XTsgLy8gU01VIGludGVybmFsIHVz
+ZQorICB1aW50MzJfdCAgICAgTW1IdWJQYWRkaW5nWzhdOyAvLyBTTVUgaW50ZXJuYWwgdXNlCiB9
+IFNtdU1ldHJpY3NfdDsKIAogCkBAIC03NDgsNyArNzUzLDcgQEAgdHlwZWRlZiBzdHJ1Y3Qgewog
+ICBmbG9hdCAgICBhdmdQc21Wb2x0YWdlWzc1XTsKICAgZmxvYXQgICAgbWluUHNtVm9sdGFnZVs3
+NV07CiAKLSAgdWludDMyX3QgTW1IdWJQYWRkaW5nWzNdOyAvLyBTTVUgaW50ZXJuYWwgdXNlCisg
+IHVpbnQzMl90IE1tSHViUGFkZGluZ1s4XTsgLy8gU01VIGludGVybmFsIHVzZQogfSBBdmZzRGVi
+dWdUYWJsZV90OwogCiB0eXBlZGVmIHN0cnVjdCB7CkBAIC03OTcsOSArODAyLDkgQEAgdHlwZWRl
+ZiBzdHJ1Y3QgewogCiAgIHVpbnQzMl90IFAyVkNoYXJ6RnJlcVtBVkZTX1ZPTFRBR0VfQ09VTlRd
+OyAvLyBpbiAxMEtIeiB1bml0cwogCi0gIHVpbnQzMl90IEVuYWJsZWRBdmZzTW9kdWxlczsKKyAg
+dWludDMyX3QgRW5hYmxlZEF2ZnNNb2R1bGVzWzJdOwogCi0gIHVpbnQzMl90IE1tSHViUGFkZGlu
+Z1s3XTsgLy8gU01VIGludGVybmFsIHVzZQorICB1aW50MzJfdCBNbUh1YlBhZGRpbmdbOF07IC8v
+IFNNVSBpbnRlcm5hbCB1c2UKIH0gQXZmc0Z1c2VPdmVycmlkZV90OwogCiAvKiBOT1QgQ1VSUkVO
+VExZIFVTRUQKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2luYy9z
+bXVfdjExXzAuaCBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2luYy9zbXVfdjExXzAu
+aAppbmRleCA1ZmJmMDgyYmUwOTEuLjBhMjJmYTQ4ZmY1YSAxMDA2NDQKLS0tIGEvZHJpdmVycy9n
+cHUvZHJtL2FtZC9wb3dlcnBsYXkvaW5jL3NtdV92MTFfMC5oCisrKyBiL2RyaXZlcnMvZ3B1L2Ry
+bS9hbWQvcG93ZXJwbGF5L2luYy9zbXVfdjExXzAuaApAQCAtMjcsNyArMjcsNyBAQAogCiAjZGVm
+aW5lIFNNVTExX0RSSVZFUl9JRl9WRVJTSU9OX0lOViAweEZGRkZGRkZGCiAjZGVmaW5lIFNNVTEx
+X0RSSVZFUl9JRl9WRVJTSU9OX1ZHMjAgMHgxMwotI2RlZmluZSBTTVUxMV9EUklWRVJfSUZfVkVS
+U0lPTl9BUkNUIDB4MDgKKyNkZWZpbmUgU01VMTFfRFJJVkVSX0lGX1ZFUlNJT05fQVJDVCAweDA5
+CiAjZGVmaW5lIFNNVTExX0RSSVZFUl9JRl9WRVJTSU9OX05WMTAgMHgzMwogI2RlZmluZSBTTVUx
+MV9EUklWRVJfSUZfVkVSU0lPTl9OVjEyIDB4MzMKICNkZWZpbmUgU01VMTFfRFJJVkVSX0lGX1ZF
+UlNJT05fTlYxNCAweDMzCi0tIAoyLjIyLjAKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJl
+ZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGlu
+Zm8vYW1kLWdmeA==
