@@ -1,50 +1,55 @@
-From: Colin King <colin.king@canonical.com>
-Subject: [PATCH][drm-next] drm/amd/display: fix a potential null pointer dereference
-Date: Fri, 16 Aug 2019 23:10:11 +0100
-Message-ID: <20190816221011.10750-1-colin.king@canonical.com>
+From: Dan Carpenter <dan.carpenter-QHcLZuEGTsvQT0dZR+AlfA@public.gmane.org>
+Subject: Re: [PATCH][drm-next] drm/amd/display: fix a potential null pointer
+ dereference
+Date: Sat, 17 Aug 2019 09:51:46 +0300
+Message-ID: <20190817065146.GA4451@kadam>
+References: <20190816221011.10750-1-colin.king@canonical.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, David Zhou <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Disposition: inline
+In-Reply-To: <20190816221011.10750-1-colin.king-Z7WLFzj8eWMS+FvcfC7Uqw@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Colin King <colin.king-Z7WLFzj8eWMS+FvcfC7Uqw@public.gmane.org>
+Cc: David Zhou <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, Leo Li <sunpeng.li-5C7GfCeVMHo@public.gmane.org>, kernel-janitors-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, David Airlie <airlied-cv59FeDIM0c@public.gmane.org>, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>, Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>, Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
 
-From: Colin Ian King <colin.king@canonical.com>
-
-Currently the pointer init_data is dereferenced on the assignment
-of fw_info before init_data is sanity checked to see if it is null.
-Fix te potential null pointer dereference on init_data by only
-performing dereference after it is null checked.
-
-Addresses-Coverity: ("Dereference before null check")
-Fixes: 9adc8050bf3c ("drm/amd/display: make firmware info only load once during dc_bios create")
-Signed-off-by: Colin Ian King <colin.king@canonical.com>
----
- drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c b/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c
-index bee81bf288be..926954c804a6 100644
---- a/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c
-+++ b/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c
-@@ -1235,7 +1235,7 @@ static bool calc_pll_max_vco_construct(
- 			struct calc_pll_clock_source_init_data *init_data)
- {
- 	uint32_t i;
--	struct dc_firmware_info *fw_info = &init_data->bp->fw_info;
-+	struct dc_firmware_info *fw_info;
- 	if (calc_pll_cs == NULL ||
- 			init_data == NULL ||
- 			init_data->bp == NULL)
-@@ -1244,6 +1244,7 @@ static bool calc_pll_max_vco_construct(
- 	if (init_data->bp->fw_info_valid)
- 		return false;
- 
-+	fw_info = &init_data->bp->fw_info;
- 	calc_pll_cs->ctx = init_data->ctx;
- 	calc_pll_cs->ref_freq_khz = fw_info->pll_info.crystal_frequency;
- 	calc_pll_cs->min_vco_khz =
--- 
-2.20.1
+T24gRnJpLCBBdWcgMTYsIDIwMTkgYXQgMTE6MTA6MTFQTSArMDEwMCwgQ29saW4gS2luZyB3cm90
+ZToKPiBGcm9tOiBDb2xpbiBJYW4gS2luZyA8Y29saW4ua2luZ0BjYW5vbmljYWwuY29tPgo+IAo+
+IEN1cnJlbnRseSB0aGUgcG9pbnRlciBpbml0X2RhdGEgaXMgZGVyZWZlcmVuY2VkIG9uIHRoZSBh
+c3NpZ25tZW50Cj4gb2YgZndfaW5mbyBiZWZvcmUgaW5pdF9kYXRhIGlzIHNhbml0eSBjaGVja2Vk
+IHRvIHNlZSBpZiBpdCBpcyBudWxsLgo+IEZpeCB0ZSBwb3RlbnRpYWwgbnVsbCBwb2ludGVyIGRl
+cmVmZXJlbmNlIG9uIGluaXRfZGF0YSBieSBvbmx5Cj4gcGVyZm9ybWluZyBkZXJlZmVyZW5jZSBh
+ZnRlciBpdCBpcyBudWxsIGNoZWNrZWQuCj4gCj4gQWRkcmVzc2VzLUNvdmVyaXR5OiAoIkRlcmVm
+ZXJlbmNlIGJlZm9yZSBudWxsIGNoZWNrIikKPiBGaXhlczogOWFkYzgwNTBiZjNjICgiZHJtL2Ft
+ZC9kaXNwbGF5OiBtYWtlIGZpcm13YXJlIGluZm8gb25seSBsb2FkIG9uY2UgZHVyaW5nIGRjX2Jp
+b3MgY3JlYXRlIikKPiBTaWduZWQtb2ZmLWJ5OiBDb2xpbiBJYW4gS2luZyA8Y29saW4ua2luZ0Bj
+YW5vbmljYWwuY29tPgo+IC0tLQo+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvZGNl
+L2RjZV9jbG9ja19zb3VyY2UuYyB8IDMgKystCj4gIDEgZmlsZSBjaGFuZ2VkLCAyIGluc2VydGlv
+bnMoKyksIDEgZGVsZXRpb24oLSkKPiAKPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2Ft
+ZC9kaXNwbGF5L2RjL2RjZS9kY2VfY2xvY2tfc291cmNlLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1k
+L2Rpc3BsYXkvZGMvZGNlL2RjZV9jbG9ja19zb3VyY2UuYwo+IGluZGV4IGJlZTgxYmYyODhiZS4u
+OTI2OTU0YzgwNGE2IDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9k
+Yy9kY2UvZGNlX2Nsb2NrX3NvdXJjZS5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNw
+bGF5L2RjL2RjZS9kY2VfY2xvY2tfc291cmNlLmMKPiBAQCAtMTIzNSw3ICsxMjM1LDcgQEAgc3Rh
+dGljIGJvb2wgY2FsY19wbGxfbWF4X3Zjb19jb25zdHJ1Y3QoCj4gIAkJCXN0cnVjdCBjYWxjX3Bs
+bF9jbG9ja19zb3VyY2VfaW5pdF9kYXRhICppbml0X2RhdGEpCj4gIHsKPiAgCXVpbnQzMl90IGk7
+Cj4gLQlzdHJ1Y3QgZGNfZmlybXdhcmVfaW5mbyAqZndfaW5mbyA9ICZpbml0X2RhdGEtPmJwLT5m
+d19pbmZvOwo+ICsJc3RydWN0IGRjX2Zpcm13YXJlX2luZm8gKmZ3X2luZm87Cj4gIAlpZiAoY2Fs
+Y19wbGxfY3MgPT0gTlVMTCB8fAo+ICAJCQlpbml0X2RhdGEgPT0gTlVMTCB8fAo+ICAJCQlpbml0
+X2RhdGEtPmJwID09IE5VTEwpCgppbml0X2RhdGEgY2FuJ3QgYmUgTlVMTC4gIEknbSBtb3N0bHkg
+cG9pbnRpbmcgdGhpcyBvdXQgYmVjYXVzZSB0aGF0IE5VTEwKY2hlY2sgaXMgd3JpdHRlbiBzbyBo
+aWdnbGVkeS1waWdnbGVkeS4gIEF0IGZpcnN0IEkgdGhvdWdodCB0aGlzIHdhcwpzdGFnaW5nIGNv
+ZGUgc28gSSB3YXMgcGxhbm5pbmcgdG8gaWdub3JlIHRoZSBwYXRjaC4gIDpQCgpyZWdhcmRzLApk
+YW4gY2FycGVudGVyCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpo
+dHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
