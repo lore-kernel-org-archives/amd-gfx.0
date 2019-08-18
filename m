@@ -1,55 +1,37 @@
-From: Dan Carpenter <dan.carpenter-QHcLZuEGTsvQT0dZR+AlfA@public.gmane.org>
-Subject: Re: [PATCH][drm-next] drm/amd/display: fix a potential null pointer
- dereference
-Date: Sat, 17 Aug 2019 09:51:46 +0300
-Message-ID: <20190817065146.GA4451@kadam>
-References: <20190816221011.10750-1-colin.king@canonical.com>
+From: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+Subject: [PATCH] drm/amdgpu: Fix a typo in the include header guard of 'navi12_ip_offset.h'
+Date: Sun, 18 Aug 2019 17:59:57 +0200
+Message-ID: <20190818155957.4029-1-christophe.jaillet@wanadoo.fr>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Content-Disposition: inline
-In-Reply-To: <20190816221011.10750-1-colin.king-Z7WLFzj8eWMS+FvcfC7Uqw@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Colin King <colin.king-Z7WLFzj8eWMS+FvcfC7Uqw@public.gmane.org>
-Cc: David Zhou <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, Leo Li <sunpeng.li-5C7GfCeVMHo@public.gmane.org>, kernel-janitors-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, David Airlie <airlied-cv59FeDIM0c@public.gmane.org>, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>, Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>, Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: alexander.deucher@amd.com, christian.koenig@amd.com, David1.Zhou@amd.com, airlied@linux.ie, daniel@ffwll.ch, xiaojie.yuan@amd.com, Hawking.Zhang@amd.com, Jack.Xiao@amd.com
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, kernel-janitors@vger.kernel.org, Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gRnJpLCBBdWcgMTYsIDIwMTkgYXQgMTE6MTA6MTFQTSArMDEwMCwgQ29saW4gS2luZyB3cm90
-ZToKPiBGcm9tOiBDb2xpbiBJYW4gS2luZyA8Y29saW4ua2luZ0BjYW5vbmljYWwuY29tPgo+IAo+
-IEN1cnJlbnRseSB0aGUgcG9pbnRlciBpbml0X2RhdGEgaXMgZGVyZWZlcmVuY2VkIG9uIHRoZSBh
-c3NpZ25tZW50Cj4gb2YgZndfaW5mbyBiZWZvcmUgaW5pdF9kYXRhIGlzIHNhbml0eSBjaGVja2Vk
-IHRvIHNlZSBpZiBpdCBpcyBudWxsLgo+IEZpeCB0ZSBwb3RlbnRpYWwgbnVsbCBwb2ludGVyIGRl
-cmVmZXJlbmNlIG9uIGluaXRfZGF0YSBieSBvbmx5Cj4gcGVyZm9ybWluZyBkZXJlZmVyZW5jZSBh
-ZnRlciBpdCBpcyBudWxsIGNoZWNrZWQuCj4gCj4gQWRkcmVzc2VzLUNvdmVyaXR5OiAoIkRlcmVm
-ZXJlbmNlIGJlZm9yZSBudWxsIGNoZWNrIikKPiBGaXhlczogOWFkYzgwNTBiZjNjICgiZHJtL2Ft
-ZC9kaXNwbGF5OiBtYWtlIGZpcm13YXJlIGluZm8gb25seSBsb2FkIG9uY2UgZHVyaW5nIGRjX2Jp
-b3MgY3JlYXRlIikKPiBTaWduZWQtb2ZmLWJ5OiBDb2xpbiBJYW4gS2luZyA8Y29saW4ua2luZ0Bj
-YW5vbmljYWwuY29tPgo+IC0tLQo+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvZGNl
-L2RjZV9jbG9ja19zb3VyY2UuYyB8IDMgKystCj4gIDEgZmlsZSBjaGFuZ2VkLCAyIGluc2VydGlv
-bnMoKyksIDEgZGVsZXRpb24oLSkKPiAKPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9kaXNwbGF5L2RjL2RjZS9kY2VfY2xvY2tfc291cmNlLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1k
-L2Rpc3BsYXkvZGMvZGNlL2RjZV9jbG9ja19zb3VyY2UuYwo+IGluZGV4IGJlZTgxYmYyODhiZS4u
-OTI2OTU0YzgwNGE2IDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9k
-Yy9kY2UvZGNlX2Nsb2NrX3NvdXJjZS5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNw
-bGF5L2RjL2RjZS9kY2VfY2xvY2tfc291cmNlLmMKPiBAQCAtMTIzNSw3ICsxMjM1LDcgQEAgc3Rh
-dGljIGJvb2wgY2FsY19wbGxfbWF4X3Zjb19jb25zdHJ1Y3QoCj4gIAkJCXN0cnVjdCBjYWxjX3Bs
-bF9jbG9ja19zb3VyY2VfaW5pdF9kYXRhICppbml0X2RhdGEpCj4gIHsKPiAgCXVpbnQzMl90IGk7
-Cj4gLQlzdHJ1Y3QgZGNfZmlybXdhcmVfaW5mbyAqZndfaW5mbyA9ICZpbml0X2RhdGEtPmJwLT5m
-d19pbmZvOwo+ICsJc3RydWN0IGRjX2Zpcm13YXJlX2luZm8gKmZ3X2luZm87Cj4gIAlpZiAoY2Fs
-Y19wbGxfY3MgPT0gTlVMTCB8fAo+ICAJCQlpbml0X2RhdGEgPT0gTlVMTCB8fAo+ICAJCQlpbml0
-X2RhdGEtPmJwID09IE5VTEwpCgppbml0X2RhdGEgY2FuJ3QgYmUgTlVMTC4gIEknbSBtb3N0bHkg
-cG9pbnRpbmcgdGhpcyBvdXQgYmVjYXVzZSB0aGF0IE5VTEwKY2hlY2sgaXMgd3JpdHRlbiBzbyBo
-aWdnbGVkeS1waWdnbGVkeS4gIEF0IGZpcnN0IEkgdGhvdWdodCB0aGlzIHdhcwpzdGFnaW5nIGNv
-ZGUgc28gSSB3YXMgcGxhbm5pbmcgdG8gaWdub3JlIHRoZSBwYXRjaC4gIDpQCgpyZWdhcmRzLApk
-YW4gY2FycGVudGVyCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpo
-dHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
+'_navi10_ip_offset_HEADER' is already used in 'navi10_ip_offset.h', so use
+'_navi12_ip_offset_HEADER' instead here.
+
+Signed-off-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+---
+ drivers/gpu/drm/amd/include/navi12_ip_offset.h | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/include/navi12_ip_offset.h b/drivers/gpu/drm/amd/include/navi12_ip_offset.h
+index 229e8fddfcc1..6c2cc6296c06 100644
+--- a/drivers/gpu/drm/amd/include/navi12_ip_offset.h
++++ b/drivers/gpu/drm/amd/include/navi12_ip_offset.h
+@@ -18,8 +18,8 @@
+  * AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+  */
+-#ifndef _navi10_ip_offset_HEADER
+-#define _navi10_ip_offset_HEADER
++#ifndef _navi12_ip_offset_HEADER
++#define _navi12_ip_offset_HEADER
+ 
+ #define MAX_INSTANCE                                       7
+ #define MAX_SEGMENT                                        5
+-- 
+2.20.1
