@@ -1,42 +1,50 @@
-From: Dan Carpenter <dan.carpenter-QHcLZuEGTsvQT0dZR+AlfA@public.gmane.org>
-Subject: [bug report] drm/amd/display: add set and get clock for testing
- purposes
-Date: Mon, 19 Aug 2019 14:51:06 +0300
-Message-ID: <20190819115106.GA24792@mwanda>
+From: Hans Verkuil <hverkuil-cisco@xs4all.nl>
+Subject: Re: [PATCH v7 0/9] drm: cec: convert DRM drivers to the new notifier
+ API
+Date: Mon, 19 Aug 2019 14:00:54 +0200
+Message-ID: <04c7dcb9-d5b1-804f-959e-d953dec9f937@xs4all.nl>
+References: <20190814104520.6001-1-darekm@google.com>
+ <42c7ef3c-b7e5-8c63-c7c2-bfc6c56100c6@xs4all.nl>
+ <CALFZZQHu1C_8idxkwjBdxpW=y9gKmDnLOeTHZ9iAkNo7YubZHg@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Content-Disposition: inline
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: charlene.liu-5C7GfCeVMHo@public.gmane.org
-Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <CALFZZQHu1C_8idxkwjBdxpW=y9gKmDnLOeTHZ9iAkNo7YubZHg@mail.gmail.com>
+Content-Language: en-US
+Sender: linux-kernel-owner@vger.kernel.org
+To: Dariusz Marcinkiewicz <darekm@google.com>
+Cc: dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org, Kate Stewart <kstewart@linuxfoundation.org>, Neil Armstrong <narmstrong@baylibre.com>, Daniel Vetter <daniel.vetter@ffwll.ch>, Hans Verkuil <hverkuil@xs4all.nl>, Dhinakaran Pandiyan <dhinakaran.pandiyan@intel.com>, Sam Ravnborg <sam@ravnborg.org>, linux-samsung-soc@vger.kernel.org, David Francis <David.Francis@amd.com>, amd-gfx@lists.freedesktop.org, Leo Li <sunpeng.li@amd.com>, "Jerry (Fangzhi) Zuo" <Jerry.Zuo@amd.com>, linux-arm-kernel@lists.infradead.org, nouveau@lists.freedesktop.org, Jonas Karlman <jonas@kwiboo.se>, Jani Nikula <jani.nikula@intel.com>, intel-gfx@lists.freedesktop.org, Russell King <rmk+kernel@armlinux.org.uk>, Sean Paul <seanpaul@chromium.org>, Rodrigo Vivi <rodrigo.v>
+List-Id: amd-gfx.lists.freedesktop.org
 
-SGVsbG8gQ2hhcmxlbmUgTGl1LAoKVGhpcyBpcyBhIHNlbWktYXV0b21hdGljIGVtYWlsIGFib3V0
-IG5ldyBzdGF0aWMgY2hlY2tlciB3YXJuaW5ncy4KClRoZSBwYXRjaCA5MjVmNTY2Y2I3YWU6ICJk
-cm0vYW1kL2Rpc3BsYXk6IGFkZCBzZXQgYW5kIGdldCBjbG9jayBmb3IKdGVzdGluZyBwdXJwb3Nl
-cyIgZnJvbSBKdW4gMjcsIDIwMTksIGxlYWRzIHRvIHRoZSBmb2xsb3dpbmcgU21hdGNoCmNvbXBs
-YWludDoKCiAgICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS8uLi9kaXNwbGF5L2RjL2RjbjEw
-L2RjbjEwX2h3X3NlcXVlbmNlci5jOjMyMzAgZGNuMTBfc2V0X2Nsb2NrKCkKICAgIGVycm9yOiB3
-ZSBwcmV2aW91c2x5IGFzc3VtZWQgJ2RjLT5jbGtfbWdyJyBjb3VsZCBiZSBudWxsIChzZWUgbGlu
-ZSAzMjI2KQoKZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvLi4vZGlzcGxheS9kYy9kY24xMC9k
-Y24xMF9od19zZXF1ZW5jZXIuYwogIDMyMjUJCiAgMzIyNgkJaWYgKGRjLT5jbGtfbWdyICYmIGRj
-LT5jbGtfbWdyLT5mdW5jcy0+Z2V0X2Nsb2NrKQogICAgICAgICAgICAgICAgICAgIF5eXl5eXl5e
-Xl4KQ2hlY2sgZm9yIE5VTEwKCiAgMzIyNwkJCQkJZGMtPmNsa19tZ3ItPmZ1bmNzLT5nZXRfY2xv
-Y2soZGMtPmNsa19tZ3IsCiAgMzIyOAkJCQkJCQljb250ZXh0LCBjbG9ja190eXBlLCAmY2xvY2tf
-Y2ZnKTsKClRoaXMgaXMgaW5kZW50ZWQgYSBiaXQgdG9vIGZhci4KCiAgMzIyOQkKICAzMjMwCQlp
-ZiAoIWRjLT5jbGtfbWdyLT5mdW5jcy0+Z2V0X2Nsb2NrKQogICAgICAgICAgICAgICAgICAgICBe
-Xl5eXl5eXl5eXl5eClRoaXMgd2lsbCBvb3BzIGlmIC0+Y2xrX21nciBpcyBOVUxMCgogIDMyMzEJ
-CQlyZXR1cm4gRENfRkFJTF9VTlNVUFBPUlRFRF8xOwogIDMyMzIJCgpyZWdhcmRzLApkYW4gY2Fy
-cGVudGVyCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFt
-ZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8v
-bGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
+On 8/19/19 1:28 PM, Dariusz Marcinkiewicz wrote:
+> On Mon, Aug 19, 2019 at 11:38 AM Hans Verkuil <hverkuil-cisco@xs4all.nl> wrote:
+>>
+>> Hi all,
+>>
+> Hi Hans.
+>> The patches in this series can be applied independently from each other.
+>>
+>> If you maintain one of these drivers and you want to merge it for v5.4
+>> yourself, then please do so and let me know. If you prefer I commit it
+>> to drm-misc, then please review and (hopefully) Ack the patch.
+>>
+>> I would really like to get this in for v5.4 so I can get the userspace
+>> bits in for v5.4 as well through the media subsystem.
+>>
+>> Dariusz, can you post a v7.1 for patch 5/9 fixing the typo?
+>>
+> Done.
+> 
+> I think it would be good to test v7 changes to dw-hdmi and tda998x on
+> a real hardware. Hans, do you think you would be able to test those?
+> 
+> Thank you.
+> 
+
+I'll try to do this for dw-hdmi today, but the tda998x testing will have to wait
+until next week.
+
+Regards,
+
+	Hans
