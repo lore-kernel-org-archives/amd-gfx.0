@@ -1,50 +1,73 @@
-From: Hans Verkuil <hverkuil-cisco@xs4all.nl>
-Subject: Re: [PATCH v7 0/9] drm: cec: convert DRM drivers to the new notifier
- API
-Date: Mon, 19 Aug 2019 14:00:54 +0200
-Message-ID: <04c7dcb9-d5b1-804f-959e-d953dec9f937@xs4all.nl>
-References: <20190814104520.6001-1-darekm@google.com>
- <42c7ef3c-b7e5-8c63-c7c2-bfc6c56100c6@xs4all.nl>
- <CALFZZQHu1C_8idxkwjBdxpW=y9gKmDnLOeTHZ9iAkNo7YubZHg@mail.gmail.com>
+From: Dan Carpenter <dan.carpenter-QHcLZuEGTsvQT0dZR+AlfA@public.gmane.org>
+Subject: [bug report] drm/amd/powerplay: implement smc firmware v2.1 for smu11
+Date: Mon, 19 Aug 2019 16:03:58 +0300
+Message-ID: <20190819130357.GA1615@mwanda>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <CALFZZQHu1C_8idxkwjBdxpW=y9gKmDnLOeTHZ9iAkNo7YubZHg@mail.gmail.com>
-Content-Language: en-US
-Sender: linux-kernel-owner@vger.kernel.org
-To: Dariusz Marcinkiewicz <darekm@google.com>
-Cc: dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org, Kate Stewart <kstewart@linuxfoundation.org>, Neil Armstrong <narmstrong@baylibre.com>, Daniel Vetter <daniel.vetter@ffwll.ch>, Hans Verkuil <hverkuil@xs4all.nl>, Dhinakaran Pandiyan <dhinakaran.pandiyan@intel.com>, Sam Ravnborg <sam@ravnborg.org>, linux-samsung-soc@vger.kernel.org, David Francis <David.Francis@amd.com>, amd-gfx@lists.freedesktop.org, Leo Li <sunpeng.li@amd.com>, "Jerry (Fangzhi) Zuo" <Jerry.Zuo@amd.com>, linux-arm-kernel@lists.infradead.org, nouveau@lists.freedesktop.org, Jonas Karlman <jonas@kwiboo.se>, Jani Nikula <jani.nikula@intel.com>, intel-gfx@lists.freedesktop.org, Russell King <rmk+kernel@armlinux.org.uk>, Sean Paul <seanpaul@chromium.org>, Rodrigo Vivi <rodrigo.v>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Disposition: inline
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: kevin1.wang-5C7GfCeVMHo@public.gmane.org
+Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-On 8/19/19 1:28 PM, Dariusz Marcinkiewicz wrote:
-> On Mon, Aug 19, 2019 at 11:38 AM Hans Verkuil <hverkuil-cisco@xs4all.nl> wrote:
->>
->> Hi all,
->>
-> Hi Hans.
->> The patches in this series can be applied independently from each other.
->>
->> If you maintain one of these drivers and you want to merge it for v5.4
->> yourself, then please do so and let me know. If you prefer I commit it
->> to drm-misc, then please review and (hopefully) Ack the patch.
->>
->> I would really like to get this in for v5.4 so I can get the userspace
->> bits in for v5.4 as well through the media subsystem.
->>
->> Dariusz, can you post a v7.1 for patch 5/9 fixing the typo?
->>
-> Done.
-> 
-> I think it would be good to test v7 changes to dw-hdmi and tda998x on
-> a real hardware. Hans, do you think you would be able to test those?
-> 
-> Thank you.
-> 
-
-I'll try to do this for dw-hdmi today, but the tda998x testing will have to wait
-until next week.
-
-Regards,
-
-	Hans
+SGVsbG8gS2V2aW4gV2FuZywKClRoZSBwYXRjaCBiNTVjODNhNzQzOGQ6ICJkcm0vYW1kL3Bvd2Vy
+cGxheTogaW1wbGVtZW50IHNtYyBmaXJtd2FyZQp2Mi4xIGZvciBzbXUxMSIgZnJvbSBKdW4gMjEs
+IDIwMTksIGxlYWRzIHRvIHRoZSBmb2xsb3dpbmcgc3RhdGljCmNoZWNrZXIgd2FybmluZzoKCglk
+cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS8uLi9wb3dlcnBsYXkvc211X3YxMV8wLmM6MzkwIHNt
+dV92MTFfMF9zZXR1cF9wcHRhYmxlKCkKCXdhcm46IHBhc3NpbmcgY2FzdGVkIHBvaW50ZXIgJyZz
+aXplJyB0byAnc211X2dldF9hdG9tX2RhdGFfdGFibGUoKScgMzIgdnMgMTYuCgpkcml2ZXJzL2dw
+dS9kcm0vYW1kL2FtZGdwdS8uLi9wb3dlcnBsYXkvc211X3YxMV8wLmMKICAgMzU3ICBzdGF0aWMg
+aW50IHNtdV92MTFfMF9zZXR1cF9wcHRhYmxlKHN0cnVjdCBzbXVfY29udGV4dCAqc211KQogICAz
+NTggIHsKICAgMzU5ICAgICAgICAgIHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2ID0gc211LT5h
+ZGV2OwogICAzNjAgICAgICAgICAgY29uc3Qgc3RydWN0IHNtY19maXJtd2FyZV9oZWFkZXJfdjFf
+MCAqaGRyOwogICAzNjEgICAgICAgICAgaW50IHJldCwgaW5kZXg7CiAgIDM2MiAgICAgICAgICB1
+aW50MzJfdCBzaXplOwogICAgICAgICAgICAgICAgXl5eXl5eXl5eXl5eXgoKICAgMzYzICAgICAg
+ICAgIHVpbnQ4X3QgZnJldiwgY3JldjsKICAgMzY0ICAgICAgICAgIHZvaWQgKnRhYmxlOwogICAz
+NjUgICAgICAgICAgdWludDE2X3QgdmVyc2lvbl9tYWpvciwgdmVyc2lvbl9taW5vcjsKICAgMzY2
+ICAKICAgMzY3ICAgICAgICAgIGhkciA9IChjb25zdCBzdHJ1Y3Qgc21jX2Zpcm13YXJlX2hlYWRl
+cl92MV8wICopIGFkZXYtPnBtLmZ3LT5kYXRhOwogICAzNjggICAgICAgICAgdmVyc2lvbl9tYWpv
+ciA9IGxlMTZfdG9fY3B1KGhkci0+aGVhZGVyLmhlYWRlcl92ZXJzaW9uX21ham9yKTsKICAgMzY5
+ICAgICAgICAgIHZlcnNpb25fbWlub3IgPSBsZTE2X3RvX2NwdShoZHItPmhlYWRlci5oZWFkZXJf
+dmVyc2lvbl9taW5vcik7CiAgIDM3MCAgICAgICAgICBpZiAodmVyc2lvbl9tYWpvciA9PSAyICYm
+IHNtdS0+c211X3RhYmxlLmJvb3RfdmFsdWVzLnBwX3RhYmxlX2lkID4gMCkgewogICAzNzEgICAg
+ICAgICAgICAgICAgICBzd2l0Y2ggKHZlcnNpb25fbWlub3IpIHsKICAgMzcyICAgICAgICAgICAg
+ICAgICAgY2FzZSAwOgogICAzNzMgICAgICAgICAgICAgICAgICAgICAgICAgIHJldCA9IHNtdV92
+MTFfMF9zZXRfcHB0YWJsZV92Ml8wKHNtdSwgJnRhYmxlLCAmc2l6ZSk7CiAgIDM3NCAgICAgICAg
+ICAgICAgICAgICAgICAgICAgYnJlYWs7CiAgIDM3NSAgICAgICAgICAgICAgICAgIGNhc2UgMToK
+ICAgMzc2ICAgICAgICAgICAgICAgICAgICAgICAgICByZXQgPSBzbXVfdjExXzBfc2V0X3BwdGFi
+bGVfdjJfMShzbXUsICZ0YWJsZSwgJnNpemUsCiAgIDM3NyAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgc211LT5zbXVfdGFibGUuYm9vdF92
+YWx1ZXMucHBfdGFibGVfaWQpOwogICAzNzggICAgICAgICAgICAgICAgICAgICAgICAgIGJyZWFr
+OwogICAzNzkgICAgICAgICAgICAgICAgICBkZWZhdWx0OgogICAzODAgICAgICAgICAgICAgICAg
+ICAgICAgICAgIHJldCA9IC1FSU5WQUw7CiAgIDM4MSAgICAgICAgICAgICAgICAgICAgICAgICAg
+YnJlYWs7CiAgIDM4MiAgICAgICAgICAgICAgICAgIH0KICAgMzgzICAgICAgICAgICAgICAgICAg
+aWYgKHJldCkKICAgMzg0ICAgICAgICAgICAgICAgICAgICAgICAgICByZXR1cm4gcmV0OwogICAz
+ODUgIAogICAzODYgICAgICAgICAgfSBlbHNlIHsKICAgMzg3ICAgICAgICAgICAgICAgICAgaW5k
+ZXggPSBnZXRfaW5kZXhfaW50b19tYXN0ZXJfdGFibGUoYXRvbV9tYXN0ZXJfbGlzdF9vZl9kYXRh
+X3RhYmxlc192Ml8xLAogICAzODggICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICBwb3dlcnBsYXlpbmZvKTsKICAgMzg5ICAKICAgMzkwICAgICAgICAg
+ICAgICAgICAgcmV0ID0gc211X2dldF9hdG9tX2RhdGFfdGFibGUoc211LCBpbmRleCwgKHVpbnQx
+Nl90ICopJnNpemUsICZmcmV2LCAmY3JldiwKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgXl5eXl5eXl5eXl5eXl5eXl4KVGhp
+cyBvbmx5IGluaXRpYWxpemVzIHRoZSBoaWdoZXN0IDE2IGJpdHMuCgogICAzOTEgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAodWludDhfdCAqKikmdGFibGUp
+OwogICAzOTIgICAgICAgICAgICAgICAgICBpZiAocmV0KQogICAzOTMgICAgICAgICAgICAgICAg
+ICAgICAgICAgIHJldHVybiByZXQ7CiAgIDM5NCAgICAgICAgICB9CiAgIDM5NSAgCiAgIDM5NiAg
+ICAgICAgICBpZiAoIXNtdS0+c211X3RhYmxlLnBvd2VyX3BsYXlfdGFibGUpCiAgIDM5NyAgICAg
+ICAgICAgICAgICAgIHNtdS0+c211X3RhYmxlLnBvd2VyX3BsYXlfdGFibGUgPSB0YWJsZTsKICAg
+Mzk4ICAgICAgICAgIGlmICghc211LT5zbXVfdGFibGUucG93ZXJfcGxheV90YWJsZV9zaXplKQog
+ICAzOTkgICAgICAgICAgICAgICAgICBzbXUtPnNtdV90YWJsZS5wb3dlcl9wbGF5X3RhYmxlX3Np
+emUgPSBzaXplOwogICA0MDAgIAogICA0MDEgICAgICAgICAgcmV0dXJuIDA7CgpyZWdhcmRzLApk
+YW4gY2FycGVudGVyCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0
+dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
