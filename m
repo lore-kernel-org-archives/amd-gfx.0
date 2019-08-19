@@ -1,13 +1,16 @@
-From: "Yin, Tianci (Rico)" <Tianci.Yin-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu/psp: move TMR to cpu invisible vram region
-Date: Mon, 19 Aug 2019 07:44:58 +0000
-Message-ID: <MN2PR12MB29745B6EEA52C71B59EBD47C95A80@MN2PR12MB2974.namprd12.prod.outlook.com>
-References: <1566200092-17283-1-git-send-email-tianci.yin@amd.com>,
- <8f923347-6255-c663-03fd-fe77aa4e3eff@gmail.com>
+From: "Chen, Guchun" <Guchun.Chen-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: [PATCH libdrm] amdgpu: add mmhub ras inject unit test
+Date: Mon, 19 Aug 2019 07:48:00 +0000
+Message-ID: <BYAPR12MB2806E142EFAE7C395A7F60D1F1A80@BYAPR12MB2806.namprd12.prod.outlook.com>
+References: <20190816110401.11069-1-guchun.chen@amd.com>
+ <b6cde318-e453-8a89-095c-69708f0981ef@gmail.com>
+ <BYAPR12MB280662C3A47CA31DC1790A3AF1A80@BYAPR12MB2806.namprd12.prod.outlook.com>
+ <59701e8a-cc27-95d7-97f3-2d5867d0bc40@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0874955065=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <8f923347-6255-c663-03fd-fe77aa4e3eff-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+In-Reply-To: <59701e8a-cc27-95d7-97f3-2d5867d0bc40-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -19,271 +22,86 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Koenig,
- Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
-Cc: "Xiao, Jack" <Jack.Xiao-5C7GfCeVMHo@public.gmane.org>, "Zhang, Hawking" <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>, "Yuan, Xiaojie" <Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org>
+To: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Zhang,
+ Hawking" <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>, "Li, Dennis" <Dennis.Li-5C7GfCeVMHo@public.gmane.org>, "Cui,
+ Flora" <Flora.Cui-5C7GfCeVMHo@public.gmane.org>, "Zhou1, Tao" <Tao.Zhou1-5C7GfCeVMHo@public.gmane.org>
+Cc: "Li, Candice" <Candice.Li-5C7GfCeVMHo@public.gmane.org>
 
---===============0874955065==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_MN2PR12MB29745B6EEA52C71B59EBD47C95A80MN2PR12MB2974namp_"
-
---_000_MN2PR12MB29745B6EEA52C71B59EBD47C95A80MN2PR12MB2974namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-Thanks Christian, I'll improve the coding style.
-________________________________
-From: Christian K?nig <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Sent: Monday, August 19, 2019 15:39
-To: Yin, Tianci (Rico) <Tianci.Yin-5C7GfCeVMHo@public.gmane.org>; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org =
-<amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: Xiao, Jack <Jack.Xiao-5C7GfCeVMHo@public.gmane.org>; Yuan, Xiaojie <Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org>; Z=
-hang, Hawking <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu/psp: move TMR to cpu invisible vram region
-
-Am 19.08.19 um 09:34 schrieb Tianci Yin:
-> From: "Tianci.Yin" <tianci.yin-5C7GfCeVMHo@public.gmane.org>
->
-> so that more visible vram can be available for ocl applications.
->
-> Signed-off-by: Tianci.Yin <tianci.yin-5C7GfCeVMHo@public.gmane.org>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 5 +++--
->   drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c    | 4 ++--
->   drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h    | 1 -
->   3 files changed, 5 insertions(+), 5 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm=
-/amd/amdgpu/amdgpu_object.c
-> index 1059771..ca35869 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-> @@ -246,8 +246,9 @@ int amdgpu_bo_create_reserved(struct amdgpu_device *a=
-dev,
->        bp.size =3D size;
->        bp.byte_align =3D align;
->        bp.domain =3D domain;
-> -     bp.flags =3D AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED |
-> -             AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS;
-> +     bp.flags =3D (cpu_addr)?AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED
-> +             :AMDGPU_GEM_CREATE_NO_CPU_ACCESS;
-
-Coding style: You can drop the "()",  but there should be spaces before
-and after the "?" and ":".
-
-And please double check that this change doesn't affect any other user
-of amdgpu_bo_create_kernel()/amdgpu_bo_create_reserved().
-
-Apart from that looks good to me and is a nice improvement,
-Christian.
-
-> +     bp.flags |=3D AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS;
->        bp.type =3D ttm_bo_type_kernel;
->        bp.resv =3D NULL;
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_psp.c
-> index 7715c0d..5e7fbbe 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-> @@ -264,7 +264,7 @@ static int psp_tmr_init(struct psp_context *psp)
->
->        ret =3D amdgpu_bo_create_kernel(psp->adev, tmr_size, PSP_TMR_SIZE,
->                                      AMDGPU_GEM_DOMAIN_VRAM,
-> -                                   &psp->tmr_bo, &psp->tmr_mc_addr, &psp=
-->tmr_buf);
-> +                                   &psp->tmr_bo, &psp->tmr_mc_addr, NULL=
-);
->
->        return ret;
->   }
-> @@ -1215,7 +1215,7 @@ static int psp_hw_fini(void *handle)
->
->        psp_ring_destroy(psp, PSP_RING_TYPE__KM);
->
-> -     amdgpu_bo_free_kernel(&psp->tmr_bo, &psp->tmr_mc_addr, &psp->tmr_bu=
-f);
-> +     amdgpu_bo_free_kernel(&psp->tmr_bo, &psp->tmr_mc_addr, NULL);
->        amdgpu_bo_free_kernel(&psp->fw_pri_bo,
->                              &psp->fw_pri_mc_addr, &psp->fw_pri_buf);
->        amdgpu_bo_free_kernel(&psp->fence_buf_bo,
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_psp.h
-> index 0029fa2..48b057d 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
-> @@ -172,7 +172,6 @@ struct psp_context
->        /* tmr buffer */
->        struct amdgpu_bo                *tmr_bo;
->        uint64_t                        tmr_mc_addr;
-> -     void                            *tmr_buf;
->
->        /* asd firmware and buffer */
->        const struct firmware           *asd_fw;
-
-
---_000_MN2PR12MB29745B6EEA52C71B59EBD47C95A80MN2PR12MB2974namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Thanks Christian, I'll improve the coding style.<br>
-</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Christian K&ouml;nig =
-&lt;ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;<br>
-<b>Sent:</b> Monday, August 19, 2019 15:39<br>
-<b>To:</b> Yin, Tianci (Rico) &lt;Tianci.Yin-5C7GfCeVMHo@public.gmane.org&gt;; amd-gfx-PD4FTy7X32mzQB+pC5nmwQ@public.gmane.org=
-edesktop.org &lt;amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt;<br>
-<b>Cc:</b> Xiao, Jack &lt;Jack.Xiao-5C7GfCeVMHo@public.gmane.org&gt;; Yuan, Xiaojie &lt;Xiaojie.=
-Yuan-5C7GfCeVMHo@public.gmane.org&gt;; Zhang, Hawking &lt;Hawking.Zhang-5C7GfCeVMHo@public.gmane.org&gt;<br>
-<b>Subject:</b> Re: [PATCH] drm/amdgpu/psp: move TMR to cpu invisible vram =
-region</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">Am 19.08.19 um 09:34 schrieb Tianci Yin:<br>
-&gt; From: &quot;Tianci.Yin&quot; &lt;tianci.yin-5C7GfCeVMHo@public.gmane.org&gt;<br>
-&gt;<br>
-&gt; so that more visible vram can be available for ocl applications.<br>
-&gt;<br>
-&gt; Signed-off-by: Tianci.Yin &lt;tianci.yin-5C7GfCeVMHo@public.gmane.org&gt;<br>
-&gt; ---<br>
-&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 5 &#43;&#43;&=
-#43;--<br>
-&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c&nbsp;&nbsp;&nbsp; =
-| 4 &#43;&#43;--<br>
-&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h&nbsp;&nbsp;&nbsp; =
-| 1 -<br>
-&gt;&nbsp;&nbsp; 3 files changed, 5 insertions(&#43;), 5 deletions(-)<br>
-&gt;<br>
-&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/=
-drm/amd/amdgpu/amdgpu_object.c<br>
-&gt; index 1059771..ca35869 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c<br>
-&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c<br>
-&gt; @@ -246,8 &#43;246,9 @@ int amdgpu_bo_create_reserved(struct amdgpu_de=
-vice *adev,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bp.size =3D size;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bp.byte_align =3D align;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bp.domain =3D domain;<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; bp.flags =3D AMDGPU_GEM_CREATE_CPU_ACCESS_RE=
-QUIRED |<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; bp.flags =3D (cpu_addr)?AMDGPU_GEM_CREAT=
-E_CPU_ACCESS_REQUIRED<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; :AMDGPU_GEM_CREATE_NO_CPU_ACCESS;<br>
-<br>
-Coding style: You can drop the &quot;()&quot;,&nbsp; but there should be sp=
-aces before <br>
-and after the &quot;?&quot; and &quot;:&quot;.<br>
-<br>
-And please double check that this change doesn't affect any other user <br>
-of amdgpu_bo_create_kernel()/amdgpu_bo_create_reserved().<br>
-<br>
-Apart from that looks good to me and is a nice improvement,<br>
-Christian.<br>
-<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; bp.flags |=3D AMDGPU_GEM_CREATE_VRAM_CON=
-TIGUOUS;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bp.type =3D ttm_bo_type_kern=
-el;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bp.resv =3D NULL;<br>
-&gt;&nbsp;&nbsp; <br>
-&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm=
-/amd/amdgpu/amdgpu_psp.c<br>
-&gt; index 7715c0d..5e7fbbe 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c<br>
-&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c<br>
-&gt; @@ -264,7 &#43;264,7 @@ static int psp_tmr_init(struct psp_context *ps=
-p)<br>
-&gt;&nbsp;&nbsp; <br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D amdgpu_bo_create_ker=
-nel(psp-&gt;adev, tmr_size, PSP_TMR_SIZE,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-; AMDGPU_GEM_DOMAIN_VRAM,<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &amp;psp-&gt;t=
-mr_bo, &amp;psp-&gt;tmr_mc_addr, &amp;psp-&gt;tmr_buf);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &amp;psp-&=
-gt;tmr_bo, &amp;psp-&gt;tmr_mc_addr, NULL);<br>
-&gt;&nbsp;&nbsp; <br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret;<br>
-&gt;&nbsp;&nbsp; }<br>
-&gt; @@ -1215,7 &#43;1215,7 @@ static int psp_hw_fini(void *handle)<br>
-&gt;&nbsp;&nbsp; <br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; psp_ring_destroy(psp, PSP_RI=
-NG_TYPE__KM);<br>
-&gt;&nbsp;&nbsp; <br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_bo_free_kernel(&amp;psp-&gt;tmr_bo, &=
-amp;psp-&gt;tmr_mc_addr, &amp;psp-&gt;tmr_buf);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_bo_free_kernel(&amp;psp-&gt;tmr_b=
-o, &amp;psp-&gt;tmr_mc_addr, NULL);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_bo_free_kernel(&amp;p=
-sp-&gt;fw_pri_bo,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp; &amp;psp-&gt;fw_pri_mc_addr, &amp;psp-&gt;fw_p=
-ri_buf);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_bo_free_kernel(&amp;p=
-sp-&gt;fence_buf_bo,<br>
-&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h b/drivers/gpu/drm=
-/amd/amdgpu/amdgpu_psp.h<br>
-&gt; index 0029fa2..48b057d 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h<br>
-&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h<br>
-&gt; @@ -172,7 &#43;172,6 @@ struct psp_context<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* tmr buffer */<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_bo&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; *tmr_bo;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint64_t&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmr_mc_addr;<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; void&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *tmr_buf;<br>
-&gt;&nbsp;&nbsp; <br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* asd firmware and buffer *=
-/<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; const struct firmware&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *asd_fw;<br>
-<br>
-</div>
-</span></font></div>
-</body>
-</html>
-
---_000_MN2PR12MB29745B6EEA52C71B59EBD47C95A80MN2PR12MB2974namp_--
-
---===============0874955065==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
-
---===============0874955065==--
+SGkgQ2hyaXN0aWFuLA0KDQpUaGFua3MgZm9yIHlvdXIgc3VnZ2VzdGlvbi4NClJlZ2FyZGluZyB0
+aGUgY29uZmlndXJhdGlvbiBmaWxlIG1vdmluZyB0byB0ZXN0L2FtZGdwdSwgSSBhbSBmaW5lIHdp
+dGggdGhpcy4NCg0KQnV0IHJlZyBwdXR0aW5nIGFsbCB0aGUgdGVzdHMgaW4gQyBjb2RlLCB0aG91
+Z2ggaXQgbG9va3MgbGlrZSB0aGUgdW5pdCB0ZXN0IGNhbiBzdGF5IHNlbGYgY29udGFpbmluZywg
+YnV0IHdpdGhvdXQgb25lIGluZGVwZW5kZW50IGNvbmZpZ3VyYXRpb24gZmlsZSwgdXNlciB3aWxs
+IGZpbmQgaXQncyBpbmNvbnZlbmllbnQgd2hlbiBwZXJmb3JtaW5nIHRoZSB0ZXN0cy4NCkZvciBl
+eGFtcGxlLCBpZiB3ZSBtb3ZlIGFsbCBSQVMgaW5qZWN0IHRlc3RzIGludG8gQyBjb2RlLCBob3dl
+dmVyLCBpZiB0aGUgdXNlciBvbmx5IGNhcmVzIHRoZSBSQVMgdW5pdCB0ZXN0IGluIGNlcnRhaW4g
+bW9kdWxlL3N1Ym1vZHVsZSB0ZXN0LCBoZS9zaGUgd291bGQgbm90IGxpa2UgdG8gc2VlIGluamVj
+dCB0ZXN0cyBpbiBhbGwgbW9kdWxlcyBydW4gYWZ0ZXIgbGF1bmNoaW5nIGFtZGdwdV90ZXN0LCBz
+byBpdCdzIG5vdCBmcmllbmRseSB0byB1c2VyLg0KQW55d2F5LCB5b3VyIHN1Z2dlc3Rpb24gc3Rp
+bGwgbWFrZXMgc2Vuc2UsIGFzIGFtZGdwdV90ZXN0IHNob3VsZCBnZXQgcmlkIG9mIG90aGVyIGV4
+dGVybmFsIHBhY2thZ2VzIGV4Y2VwdCBDVW5pdCBmcmFtZXdvcmsuDQoNClNvIHdlIHN0aWxsIHRo
+ZSBiYWxhbmNlIGJldHdlZW4gYWJvdmUgdHdvIGNhc2VzOg0KMS4gTWFrZSBhbWRncHVfdGVzdCBz
+ZWxmIGNvbnRhaW5pbmcgd2l0aG91dCBkZXBlbmRlbmN5IG9uIG90aGVyIGV4dGVybmFsIHBhY2th
+Z2VzLg0KMi4gQWxsb3cgdXNlciBjYW4gY29uZmlndXJlIHRoZSB0ZXN0cyB3aGVuIHJ1bm5pbmcg
+YW1kZ3B1X3Rlc3QuDQoNClRoZW4gdGhlIHBvc3NpYmxlIHNvbHV0aW9ucyBJIGNhbiBpbGx1c3Ry
+YXRlIGFyZToNCjEuIFN0aWxsIGtlZXAgb25lIGNvbmZpZ3VyYXRpb24gZmlsZSwgYnV0IG5vdCBp
+biBqc29uIGZvcm1hdC4gSXTigJlzIGEgbm9ybWFsIGNvbmZpZ3VyYXRpb24gZmlsZSwgd2Ugd2ls
+bCBhZGQgY29kZSBpbiBhbWRncHVfdGVzdCB0byBwYXJzZSB0aGUgY29uZmlndXJhdGlvbiBmaWxl
+LCBhbmQgcmVtb3ZlIGFsbCBqc29uIEFQSXMuDQoyLiBQdXQgYWxsIHRlc3RzIGluIGMgY29kZSwg
+YW5kIGV4dGVuZCB0aGUgYXJncyB3aGVuIHJ1bm5pbmcgYW1kZ3B1X3Rlc3QsIHdoaWNoIHdpbGwg
+YWxsb3cgdXNlciBjYW4gcnVuIHNwZWNpYWwgUkFTIHRlc3QuDQoNCkkgYW0gb3BlbmVkIHRvIGFi
+b3ZlIHR3byBzb2x1dGlvbnMgb3Igb3RoZXIgbWlzc2VkIG9uZXMuDQoNClJlZ2FyZHMsDQpHdWNo
+dW4NCg0KLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCkZyb206IEtvZW5pZywgQ2hyaXN0aWFu
+IDxDaHJpc3RpYW4uS29lbmlnQGFtZC5jb20+IA0KU2VudDogTW9uZGF5LCBBdWd1c3QgMTksIDIw
+MTkgMzoxNCBQTQ0KVG86IENoZW4sIEd1Y2h1biA8R3VjaHVuLkNoZW5AYW1kLmNvbT47IGFtZC1n
+ZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnOyBaaGFuZywgSGF3a2luZyA8SGF3a2luZy5aaGFuZ0Bh
+bWQuY29tPjsgTGksIERlbm5pcyA8RGVubmlzLkxpQGFtZC5jb20+OyBDdWksIEZsb3JhIDxGbG9y
+YS5DdWlAYW1kLmNvbT47IFpob3UxLCBUYW8gPFRhby5aaG91MUBhbWQuY29tPg0KQ2M6IExpLCBD
+YW5kaWNlIDxDYW5kaWNlLkxpQGFtZC5jb20+DQpTdWJqZWN0OiBSZTogW1BBVENIIGxpYmRybV0g
+YW1kZ3B1OiBhZGQgbW1odWIgcmFzIGluamVjdCB1bml0IHRlc3QNCg0KSGkgR3VjaHVuLA0KDQpp
+biB0aGlzIGNhc2UgdGhpcyBpcyBhIGJpdCBhd2t3YXJkIGltcGxlbWVudGVkLg0KDQpTZWUgdGhl
+IGZpbGVzIGluIHRoZSBkYXRhIGRpcmVjdG9yeSBhcmUgZm9yIGluc3RhbGxhdGlvbiB0b2dldGhl
+ciB3aXRoIHRoZSBsaWJkcm0gbGlicmFyeSBhbmQgTk9UIGZvciB0aGUgdW5pdCB0ZXN0cy4gUGxl
+YXNlIG1vdmUgdGhlIGZpbGUgdG8gdGVzdHMvYW1kZ3B1IGluc3RlYWQuDQoNCkkgd291bGQgYWxz
+byByZS1jb25zaWRlciB0aGlzIGFwcHJvYWNoIHNpbmNlIHdlIGludGVudGlvbmFsbHkgdXNlIHRo
+ZSBDVW5pdCBmcmFtZXdvcmsgdG8gYXZvaWQgZGVwZW5kZW5jaWVzIG9uIGV4dGVybmFsIGxpYnJh
+cmllcyBsaWtlIGpzb24gYW5kIGV4dGVybmFsIGZpbGVzLg0KDQpXZSBzaG91bGQgcHJvYmFibHkg
+YmV0dGVyIGNvbmZpZ3VyZSB0aGUgdGVzdHMgZGlyZWN0bHkgaW4gdGhlIEMgY29kZSBzbyB0aGF0
+IHRoZSB1bml0IHRlc3Qgc3RheXMgc2VsZiBjb250YWluaW5nLg0KDQpSZWdhcmRzLA0KQ2hyaXN0
+aWFuLg0KDQpBbSAxOS4wOC4xOSB1bSAwNToxNiBzY2hyaWViIENoZW4sIEd1Y2h1bjoNCj4gSGkg
+Q2hyaXN0aWFuLA0KPg0KPiBZZXMsIHdlIGFkZGVkIG9uZSBjb25maWd1cmF0aW9uIGZpbGUgbmFt
+ZWQgImFtZGdwdV9yYXMuanNvbiIgZm9yIFJBUyBpbmplY3QgdW5pdCB0ZXN0IHRvIGRybSBtYXN0
+ZXIgYnJhbmNoLg0KPiBUaGlzIHVuaXQgdGVzdCB3aWxsIGJlIG1haW50YWluZWQgdG8gaWxsdXN0
+cmF0ZSBhbGwgdGhlIFJBUyB0ZXN0cyB3ZSBhYnNvbHV0ZWx5IHN1cHBvcnQgaW4gSVAgbW9kdWxl
+cy9zdWJtb2R1bGVzLg0KPg0KPiBSZWdhcmRzLA0KPiBHdWNodW4NCj4NCj4gLS0tLS1PcmlnaW5h
+bCBNZXNzYWdlLS0tLS0NCj4gRnJvbTogQ2hyaXN0aWFuIEvDtm5pZyA8Y2tvZW5pZy5sZWljaHR6
+dW1lcmtlbkBnbWFpbC5jb20+DQo+IFNlbnQ6IEZyaWRheSwgQXVndXN0IDE2LCAyMDE5IDc6MTIg
+UE0NCj4gVG86IENoZW4sIEd1Y2h1biA8R3VjaHVuLkNoZW5AYW1kLmNvbT47IGFtZC1nZnhAbGlz
+dHMuZnJlZWRlc2t0b3Aub3JnOyANCj4gWmhhbmcsIEhhd2tpbmcgPEhhd2tpbmcuWmhhbmdAYW1k
+LmNvbT47IExpLCBEZW5uaXMgDQo+IDxEZW5uaXMuTGlAYW1kLmNvbT47IEN1aSwgRmxvcmEgPEZs
+b3JhLkN1aUBhbWQuY29tPjsgWmhvdTEsIFRhbyANCj4gPFRhby5aaG91MUBhbWQuY29tPg0KPiBD
+YzogTGksIENhbmRpY2UgPENhbmRpY2UuTGlAYW1kLmNvbT4NCj4gU3ViamVjdDogUmU6IFtQQVRD
+SCBsaWJkcm1dIGFtZGdwdTogYWRkIG1taHViIHJhcyBpbmplY3QgdW5pdCB0ZXN0DQo+DQo+IFdl
+bGwgdGhpcyBkb2Vzbid0IGxvb2sgbGlrZSBDIHRvIG1lLiBEaWQgd2UgYWRkZWQgYSBjb25maWd1
+cmF0aW9uIGZpbGUgZm9yIHRoZSByYXMgdW5pdCB0ZXN0cyBvciBzb21ldGhpbmcgbGlrZSB0aGF0
+Pw0KPg0KPiBDaHJpc3RpYW4uDQo+DQo+IEFtIDE2LjA4LjE5IHVtIDEzOjA0IHNjaHJpZWIgR3Vj
+aHVuIENoZW46DQo+PiBDaGFuZ2UtSWQ6IElhNzZiOTUxNjJmNWY2ZjQxOWY3MGI1M2VmNDQzYmNl
+YWYyZTA5MmUwDQo+PiBTaWduZWQtb2ZmLWJ5OiBHdWNodW4gQ2hlbiA8Z3VjaHVuLmNoZW5AYW1k
+LmNvbT4NCj4+IC0tLQ0KPj4gICAgZGF0YS9hbWRncHVfcmFzLmpzb24gfCAxMCArKysrKysrKysr
+DQo+PiAgICAxIGZpbGUgY2hhbmdlZCwgMTAgaW5zZXJ0aW9ucygrKQ0KPj4NCj4+IGRpZmYgLS1n
+aXQgYS9kYXRhL2FtZGdwdV9yYXMuanNvbiBiL2RhdGEvYW1kZ3B1X3Jhcy5qc29uIGluZGV4DQo+
+PiAyNmZkOTQ2NS4uNDg0ZjEyZjIgMTAwNjQ0DQo+PiAtLS0gYS9kYXRhL2FtZGdwdV9yYXMuanNv
+bg0KPj4gKysrIGIvZGF0YS9hbWRncHVfcmFzLmpzb24NCj4+IEBAIC0xMjEsNiArMTIxLDkgQEAN
+Cj4+ICAgICAgICAgICAgICAgICAgICAidXRjX2F0Y2wyX2NhY2hlXzRrX2JhbmsiOiAxMTENCj4+
+ICAgICAgICAgICAgICAgIH0NCj4+ICAgICAgICAgICAgfSwNCj4+ICsgICAgICAgICJtbWh1YiI6
+IHsNCj4+ICsgICAgICAgICAgICAiaW5kZXgiOiAzDQo+PiArICAgICAgICB9LA0KPj4gICAgICAg
+IH0sDQo+PiAgICAgICAgInR5cGUiOiB7DQo+PiAgICAgICAgICAgICJwYXJpdHkiOiAxLA0KPj4g
+QEAgLTI2Myw1ICsyNjYsMTIgQEANCj4+ICAgICAgICAgICAgICAgICJhZGRyZXNzIjogMCwNCj4+
+ICAgICAgICAgICAgICAgICJ2YWx1ZSI6IDANCj4+ICAgICAgICAgICAgfSwNCj4+ICsgICAgICAg
+IHsNCj4+ICsgICAgICAgICAgICAibmFtZSI6ICJyYXNfbW1odWIuMS4wIiwNCj4+ICsgICAgICAg
+ICAgICAiYmxvY2siOiAibW1odWIiLA0KPj4gKyAgICAgICAgICAgICJ0eXBlIjogInNpbmdsZV9j
+b3JyZWN0YWJsZSIsDQo+PiArICAgICAgICAgICAgImFkZHJlc3MiOiAwLA0KPj4gKyAgICAgICAg
+ICAgICJ2YWx1ZSI6IDANCj4+ICsgICAgICAgIH0sDQo+PiAgICAgICAgXQ0KPj4gICAgfQ0KDQpf
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1h
+aWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZy
+ZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
