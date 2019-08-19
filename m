@@ -1,89 +1,163 @@
-From: Hans Verkuil <hverkuil-cisco@xs4all.nl>
-Subject: Re: [PATCH v7 0/9] drm: cec: convert DRM drivers to the new notifier
- API
-Date: Mon, 19 Aug 2019 11:38:44 +0200
-Message-ID: <42c7ef3c-b7e5-8c63-c7c2-bfc6c56100c6@xs4all.nl>
-References: <20190814104520.6001-1-darekm@google.com>
+From: "Min, Frank" <Frank.Min-5C7GfCeVMHo@public.gmane.org>
+Subject: =?utf-8?B?562U5aSNOiDnrZTlpI06IFtQQVRDSCAzLzNdIGFtZC9hbWRncHU6IHNlcGVy?=
+ =?utf-8?Q?ate_sriov_fb_aperture_setting?=
+Date: Mon, 19 Aug 2019 10:24:14 +0000
+Message-ID: <CH2PR12MB371854F14AE263D8BB8047C0E9A80@CH2PR12MB3718.namprd12.prod.outlook.com>
+References: <1565945960-21236-1-git-send-email-Frank.Min@amd.com>
+ <1565945960-21236-3-git-send-email-Frank.Min@amd.com>
+ <4c7208b2-f693-b283-16fb-cd44e88833cd@gmail.com>
+ <CH2PR12MB371826055B2DB3CB600787E2E9A80@CH2PR12MB3718.namprd12.prod.outlook.com>
+ <ff9df09f-f193-5c77-126e-9e0fa8cd158f@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20190814104520.6001-1-darekm@google.com>
-Content-Language: en-US
-Sender: linux-kernel-owner@vger.kernel.org
-To: Dariusz Marcinkiewicz <darekm@google.com>, dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org
-Cc: Kate Stewart <kstewart@linuxfoundation.org>, Neil Armstrong <narmstrong@baylibre.com>, Daniel Vetter <daniel.vetter@ffwll.ch>, Hans Verkuil <hverkuil@xs4all.nl>, Dhinakaran Pandiyan <dhinakaran.pandiyan@intel.com>, Sam Ravnborg <sam@ravnborg.org>, linux-samsung-soc@vger.kernel.org, David Francis <David.Francis@amd.com>, amd-gfx@lists.freedesktop.org, Leo Li <sunpeng.li@amd.com>, "Jerry (Fangzhi) Zuo" <Jerry.Zuo@amd.com>, linux-arm-kernel@lists.infradead.org, nouveau@lists.freedesktop.org, Jonas Karlman <jonas@kwiboo.se>, Jani Nikula <jani.nikula@intel.com>, intel-gfx@lists.freedesktop.org, Russell King <rmk+kernel@armlinux.org.uk>, Sean Paul <seanpaul@chromium.org>, Rodrigo Vivi <rodrigo.vivi@intel.com>, linux-tegra@vger.kernel.org
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <ff9df09f-f193-5c77-126e-9e0fa8cd158f-5C7GfCeVMHo@public.gmane.org>
+Content-Language: zh-CN
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-Hi all,
-
-The patches in this series can be applied independently from each other.
-
-If you maintain one of these drivers and you want to merge it for v5.4
-yourself, then please do so and let me know. If you prefer I commit it
-to drm-misc, then please review and (hopefully) Ack the patch.
-
-I would really like to get this in for v5.4 so I can get the userspace
-bits in for v5.4 as well through the media subsystem.
-
-Dariusz, can you post a v7.1 for patch 5/9 fixing the typo?
-
-Thanks!
-
-	Hans
-
-On 8/14/19 12:44 PM, Dariusz Marcinkiewicz wrote:
-> This series updates DRM drivers to use new CEC notifier API.
-> 
-> Changes since v6:
-> 	Made CEC notifiers' registration and de-registration symmetric
-> 	in tda998x and dw-hdmi drivers. Also, accidentally dropped one
-> 	patch in v6 (change to drm_dp_cec), brought it back now.
-> Changes since v5:
->         Fixed a warning about a missing comment for a new member of
-> 	drm_dp_aux_cec struct. Sending to a wider audience,
-> 	including maintainers of respective drivers.
-> Changes since v4:
-> 	Addressing review comments.
-> Changes since v3:
->         Updated adapter flags in dw-hdmi-cec.
-> Changes since v2:
-> 	Include all DRM patches from "cec: improve notifier support,
-> 	add connector info connector info" series.
-> Changes since v1:
-> 	Those patches delay creation of notifiers until respective
-> 	connectors are constructed. It seems that those patches, for a
-> 	couple of drivers, by adding the delay, introduce a race between
-> 	notifiers' creation and the IRQs handling threads - at least I
-> 	don't see anything obvious in there that would explicitly forbid
-> 	such races to occur. v2 adds a write barrier to make sure IRQ
-> 	threads see the notifier once it is created (replacing the
-> 	WRITE_ONCE I put in v1). The best thing to do here, I believe,
-> 	would be not to have any synchronization and make sure that an IRQ
-> 	only gets enabled after the notifier is created.
-> Dariusz Marcinkiewicz (9):
->   drm_dp_cec: add connector info support.
->   drm/i915/intel_hdmi: use cec_notifier_conn_(un)register
->   dw-hdmi-cec: use cec_notifier_cec_adap_(un)register
->   tda9950: use cec_notifier_cec_adap_(un)register
->   drm: tda998x: use cec_notifier_conn_(un)register
->   drm: sti: use cec_notifier_conn_(un)register
->   drm: tegra: use cec_notifier_conn_(un)register
->   drm: dw-hdmi: use cec_notifier_conn_(un)register
->   drm: exynos: exynos_hdmi: use cec_notifier_conn_(un)register
-> 
->  .../display/amdgpu_dm/amdgpu_dm_mst_types.c   |  2 +-
->  drivers/gpu/drm/bridge/synopsys/dw-hdmi-cec.c | 13 +++---
->  drivers/gpu/drm/bridge/synopsys/dw-hdmi.c     | 46 +++++++++++++------
->  drivers/gpu/drm/drm_dp_cec.c                  | 25 ++++++----
->  drivers/gpu/drm/exynos/exynos_hdmi.c          | 31 +++++++------
->  drivers/gpu/drm/i2c/tda9950.c                 | 12 ++---
->  drivers/gpu/drm/i2c/tda998x_drv.c             | 36 ++++++++++-----
->  drivers/gpu/drm/i915/display/intel_dp.c       |  4 +-
->  drivers/gpu/drm/i915/display/intel_hdmi.c     | 13 ++++--
->  drivers/gpu/drm/nouveau/nouveau_connector.c   |  3 +-
->  drivers/gpu/drm/sti/sti_hdmi.c                | 19 +++++---
->  drivers/gpu/drm/tegra/output.c                | 28 ++++++++---
->  include/drm/drm_dp_helper.h                   | 17 ++++---
->  13 files changed, 155 insertions(+), 94 deletions(-)
-> 
+SGkgQ2hyaXN0aWFuLA0KQXMgSSBwb2ludCBvdXQuIEZvciBTUklPViwgYW1kZ3B1X2dtY19hZ3Bf
+bG9jYXRpb24oKSB3b3VsZCBub3QgYmUgY2FsbGVkLCBzbyB0aGUgdmFsdWUgY2FsY3VsYXRpb24g
+d291bGQgbm90IGJlIHZhbGlkLiBXb3VsZCB5b3UgcGxlYXNlIGdpdmUgbW9yZSBpbmZvIHdoeSB3
+ZSBuZWVkIHRoZSBBR1AgZXhjZXB0IGZvciB0aGUgemZiPw0KDQpGb3IgYW5vdGhlciwgd2hldGhl
+ciB5b3UgcmV2aWV3IHRoZSBvdGhlciBwYXRjaGVzPw0KDQpCZXN0IFJlZ2FyZHMsDQpGcmFuaw0K
+DQotLS0tLemCruS7tuWOn+S7ti0tLS0tDQrlj5Hku7bkuro6IEtvZW5pZywgQ2hyaXN0aWFuIDxD
+aHJpc3RpYW4uS29lbmlnQGFtZC5jb20+IA0K5Y+R6YCB5pe26Ze0OiAyMDE55bm0OOaciDE55pel
+IDE1OjIxDQrmlLbku7bkuro6IE1pbiwgRnJhbmsgPEZyYW5rLk1pbkBhbWQuY29tPjsgYW1kLWdm
+eEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCuS4u+mimDogUmU6IOetlOWkjTogW1BBVENIIDMvM10g
+YW1kL2FtZGdwdTogc2VwZXJhdGUgc3Jpb3YgZmIgYXBlcnR1cmUgc2V0dGluZw0KDQpZZWFoLCBJ
+IHRob3VnaHQgc28uDQoNCkluIHRoaXMgY2FzZSB3ZSBkb24ndCBuZWVkIHRoaXMgcGF0Y2ggb3Ig
+aXMgdGhlcmUgYW55dGhpbmcgSSdtIHN0aWxsIG1pc3Npbmc/DQoNClRoZSB1c2Ugb2YgbWluL21h
+eCBoZXJlIGlzIGV4YWN0bHkgdG8gYXZvaWQgaGF2aW5nIGEgU1JJT1YgZGVwZW5kZW5jeSBoZXJl
+Lg0KDQpSZWdhcmRzLA0KQ2hyaXN0aWFuLg0KDQpBbSAxOS4wOC4xOSB1bSAwOToxNyBzY2hyaWVi
+IE1pbiwgRnJhbms6DQo+IEhpIENocmlzdGlhbiwNCj4gVGhhbmtzIGZvciB5b3VyIHJldmlldy4N
+Cj4gRm9yIFNSSU9WLCBhbWRncHVfZ21jX2FncF9sb2NhdGlvbigpIHdvdWxkIG5vdCBiZSBjYWxs
+ZWQsIHNpbmNlIGl0IGRvIG5vdCB1c2UgQUdQLiBBbHNvIHRoZXJlIGlzIG5vIG5lZWQgdG8gdXNl
+IHRoZSBtaW4gYW5kIG1heCB0byBqdWRnZSB3aGljaCByYW5nZSBpcyBjb3JyZWN0IGZvciB1c2lu
+Zy4NCj4NCj4gQmVzdCBSZWdhcmRzLA0KPiBGcmFuaw0KPg0KPiAtLS0tLemCruS7tuWOn+S7ti0t
+LS0tDQo+IOWPkeS7tuS6ujogQ2hyaXN0aWFuIEvDtm5pZyA8Y2tvZW5pZy5sZWljaHR6dW1lcmtl
+bkBnbWFpbC5jb20+DQo+IOWPkemAgeaXtumXtDogMjAxOeW5tDjmnIgxOeaXpSAxNTowNw0KPiDm
+lLbku7bkuro6IE1pbiwgRnJhbmsgPEZyYW5rLk1pbkBhbWQuY29tPjsgYW1kLWdmeEBsaXN0cy5m
+cmVlZGVza3RvcC5vcmcNCj4g5Li76aKYOiBSZTogW1BBVENIIDMvM10gYW1kL2FtZGdwdTogc2Vw
+ZXJhdGUgc3Jpb3YgZmIgYXBlcnR1cmUgc2V0dGluZw0KPg0KPiBBbSAxNi4wOC4xOSB1bSAxMDo1
+OSBzY2hyaWViIEZyYW5rLk1pbjoNCj4+IHNyaW92IHdvdWxkIG5vdCB1c2UgYWdwLCBzbyBzZXBl
+cmF0ZSB0aGUgZmIgYXBlcnR1cmUgc2V0dGluZy4NCj4gVGhhdCB3b24ndCB3b3JrIGNvcnJlY3Rs
+eS4gVGhpcyB3YXkgd2UgZG9uJ3QgcHJvZ3JhbSB0aGUgQUdQIHNwYWNlIGludG8gdGhlIGhhcmR3
+YXJlIGFueSBtb3JlLCBidXQgd291bGQgc3RpbGwgdHJ5IHRvIHVzZSBpdC4NCj4NCj4gV2UgcmF0
+aGVyIG5lZWQgdG8gYWRqdXN0IHRoZSBhbWRncHVfZ21jX2FncF9sb2NhdGlvbigpIGZ1bmN0aW9u
+IG9yIGl0J3MgY2FsbGVyIHRvIG5vdCBhc3NpZ24gYW4gQUdQIHNwYWNlIGluIHRoZSBmaXJzdCBw
+bGFjZS4NCj4NCj4gQ2hyaXN0aWFuLg0KPg0KPj4gQ2hhbmdlLUlkOiBJMTM3MmNkMzU1MzI2NzMx
+YTMxMzYxYmZmMTNkNzllMTIxMjFiODY1MQ0KPj4gU2lnbmVkLW9mZi1ieTogRnJhbmsuTWluIDxG
+cmFuay5NaW5AYW1kLmNvbT4NCj4+IC0tLQ0KPj4gICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
+cHUvZ2Z4aHViX3YxXzAuYyB8IDM5ICsrKysrKysrKysrKysrKysrKysrLS0tLS0tLS0tLS0tDQo+
+PiAgICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNfdjlfMC5jICAgIHwgMTIgKysrKyst
+LS0tLQ0KPj4gICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvbW1odWJfdjlfNC5jICB8IDI3
+ICsrKysrKysrKysrKysrKy0tLS0tLS0NCj4+ICAgIDMgZmlsZXMgY2hhbmdlZCwgNDkgaW5zZXJ0
+aW9ucygrKSwgMjkgZGVsZXRpb25zKC0pDQo+Pg0KPj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1
+L2RybS9hbWQvYW1kZ3B1L2dmeGh1Yl92MV8wLmMNCj4+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9h
+bWRncHUvZ2Z4aHViX3YxXzAuYw0KPj4gaW5kZXggNmNlMzdjZS4uZWM3OGM4YiAxMDA2NDQNCj4+
+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeGh1Yl92MV8wLmMNCj4+ICsrKyBi
+L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeGh1Yl92MV8wLmMNCj4+IEBAIC03NSwyMyAr
+NzUsMzIgQEAgc3RhdGljIHZvaWQgZ2Z4aHViX3YxXzBfaW5pdF9zeXN0ZW1fYXBlcnR1cmVfcmVn
+cyhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikNCj4+ICAgIAlXUkVHMzJfU09DMTVfUkxDKEdD
+LCAwLCBtbU1DX1ZNX0FHUF9CT1QsIGFkZXYtPmdtYy5hZ3Bfc3RhcnQgPj4gMjQpOw0KPj4gICAg
+CVdSRUczMl9TT0MxNV9STEMoR0MsIDAsIG1tTUNfVk1fQUdQX1RPUCwgYWRldi0+Z21jLmFncF9l
+bmQgPj4gDQo+PiAyNCk7DQo+PiAgICANCj4+IC0JLyogUHJvZ3JhbSB0aGUgc3lzdGVtIGFwZXJ0
+dXJlIGxvdyBsb2dpY2FsIHBhZ2UgbnVtYmVyLiAqLw0KPj4gLQlXUkVHMzJfU09DMTVfUkxDKEdD
+LCAwLCBtbU1DX1ZNX1NZU1RFTV9BUEVSVFVSRV9MT1dfQUREUiwNCj4+IC0JCSAgICAgbWluKGFk
+ZXYtPmdtYy5mYl9zdGFydCwgYWRldi0+Z21jLmFncF9zdGFydCkgPj4gMTgpOw0KPj4gKwlpZiAo
+YW1kZ3B1X3NyaW92X3ZmKGFkZXYpKSB7DQo+PiArCQkvKiBQcm9ncmFtIHRoZSBzeXN0ZW0gYXBl
+cnR1cmUgbG93IGxvZ2ljYWwgcGFnZSBudW1iZXIuICovDQo+PiArCQlXUkVHMzJfU09DMTVfUkxD
+KEdDLCAwLCBtbU1DX1ZNX1NZU1RFTV9BUEVSVFVSRV9MT1dfQUREUiwNCj4+ICsJCQkJIGFkZXYt
+PmdtYy5mYl9zdGFydCA+PiAxOCk7DQo+PiAgICANCj4+IC0JaWYgKGFkZXYtPmFzaWNfdHlwZSA9
+PSBDSElQX1JBVkVOICYmIGFkZXYtPnJldl9pZCA+PSAweDgpDQo+PiAtCQkvKg0KPj4gLQkJICog
+UmF2ZW4yIGhhcyBhIEhXIGlzc3VlIHRoYXQgaXQgaXMgdW5hYmxlIHRvIHVzZSB0aGUgdnJhbSB3
+aGljaA0KPj4gLQkJICogaXMgb3V0IG9mIE1DX1ZNX1NZU1RFTV9BUEVSVFVSRV9ISUdIX0FERFIu
+IFNvIGhlcmUgaXMgdGhlDQo+PiAtCQkgKiB3b3JrYXJvdW5kIHRoYXQgaW5jcmVhc2Ugc3lzdGVt
+IGFwZXJ0dXJlIGhpZ2ggYWRkcmVzcyAoYWRkIDEpDQo+PiAtCQkgKiB0byBnZXQgcmlkIG9mIHRo
+ZSBWTSBmYXVsdCBhbmQgaGFyZHdhcmUgaGFuZy4NCj4+IC0JCSAqLw0KPj4gICAgCQlXUkVHMzJf
+U09DMTVfUkxDKEdDLCAwLCBtbU1DX1ZNX1NZU1RFTV9BUEVSVFVSRV9ISUdIX0FERFIsDQo+PiAt
+CQkJICAgICBtYXgoKGFkZXYtPmdtYy5mYl9lbmQgPj4gMTgpICsgMHgxLA0KPj4gLQkJCQkgYWRl
+di0+Z21jLmFncF9lbmQgPj4gMTgpKTsNCj4+IC0JZWxzZQ0KPj4gLQkJV1JFRzMyX1NPQzE1X1JM
+QyhHQywgMCwgbW1NQ19WTV9TWVNURU1fQVBFUlRVUkVfSElHSF9BRERSLA0KPj4gLQkJCSAgICAg
+bWF4KGFkZXYtPmdtYy5mYl9lbmQsIGFkZXYtPmdtYy5hZ3BfZW5kKSA+PiAxOCk7DQo+PiArCQkJ
+CSBhZGV2LT5nbWMuZmJfZW5kID4+IDE4KTsNCj4+ICsJfSBlbHNlIHsNCj4+ICsJCS8qIFByb2dy
+YW0gdGhlIHN5c3RlbSBhcGVydHVyZSBsb3cgbG9naWNhbCBwYWdlIG51bWJlci4gKi8NCj4+ICsJ
+CVdSRUczMl9TT0MxNV9STEMoR0MsIDAsIG1tTUNfVk1fU1lTVEVNX0FQRVJUVVJFX0xPV19BRERS
+LA0KPj4gKwkJCSAgICAgbWluKGFkZXYtPmdtYy5mYl9zdGFydCwgYWRldi0+Z21jLmFncF9zdGFy
+dCkgPj4gMTgpOw0KPj4gKw0KPj4gKwkJaWYgKGFkZXYtPmFzaWNfdHlwZSA9PSBDSElQX1JBVkVO
+ICYmIGFkZXYtPnJldl9pZCA+PSAweDgpDQo+PiArCQkJLyoNCj4+ICsJCQkgKiBSYXZlbjIgaGFz
+IGEgSFcgaXNzdWUgdGhhdCBpdCBpcyB1bmFibGUgdG8gdXNlIHRoZSB2cmFtIHdoaWNoDQo+PiAr
+CQkJICogaXMgb3V0IG9mIE1DX1ZNX1NZU1RFTV9BUEVSVFVSRV9ISUdIX0FERFIuIFNvIGhlcmUg
+aXMgdGhlDQo+PiArCQkJICogd29ya2Fyb3VuZCB0aGF0IGluY3JlYXNlIHN5c3RlbSBhcGVydHVy
+ZSBoaWdoIGFkZHJlc3MgKGFkZCAxKQ0KPj4gKwkJCSAqIHRvIGdldCByaWQgb2YgdGhlIFZNIGZh
+dWx0IGFuZCBoYXJkd2FyZSBoYW5nLg0KPj4gKwkJCSAqLw0KPj4gKwkJCVdSRUczMl9TT0MxNV9S
+TEMoR0MsIDAsIG1tTUNfVk1fU1lTVEVNX0FQRVJUVVJFX0hJR0hfQUREUiwNCj4+ICsJCQkJICAg
+ICBtYXgoKGFkZXYtPmdtYy5mYl9lbmQgPj4gMTgpICsgMHgxLA0KPj4gKwkJCQkJIGFkZXYtPmdt
+Yy5hZ3BfZW5kID4+IDE4KSk7DQo+PiArCQllbHNlDQo+PiArCQkJV1JFRzMyX1NPQzE1X1JMQyhH
+QywgMCwgbW1NQ19WTV9TWVNURU1fQVBFUlRVUkVfSElHSF9BRERSLA0KPj4gKwkJCQkgICAgIG1h
+eChhZGV2LT5nbWMuZmJfZW5kLCBhZGV2LT5nbWMuYWdwX2VuZCkgPj4gMTgpOw0KPj4gKwl9DQo+
+PiAgICANCj4+ICAgIAkvKiBTZXQgZGVmYXVsdCBwYWdlIGFkZHJlc3MuICovDQo+PiAgICAJdmFs
+dWUgPSBhZGV2LT52cmFtX3NjcmF0Y2guZ3B1X2FkZHIgLSBhZGV2LT5nbWMudnJhbV9zdGFydCBk
+aWZmIA0KPj4gLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNfdjlfMC5jDQo+
+PiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192OV8wLmMNCj4+IGluZGV4IDZkZTE3
+MjYuLjFmOGJkZmEgMTAwNjQ0DQo+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9n
+bWNfdjlfMC5jDQo+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNfdjlfMC5j
+DQo+PiBAQCAtOTIwLDEyICs5MjAsMTIgQEAgc3RhdGljIHZvaWQgZ21jX3Y5XzBfdnJhbV9ndHRf
+bG9jYXRpb24oc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsDQo+PiAgICAJCQkJCXN0cnVjdCBh
+bWRncHVfZ21jICptYykNCj4+ICAgIHsNCj4+ICAgIAl1NjQgYmFzZSA9IDA7DQo+PiAtCWlmICgh
+YW1kZ3B1X3NyaW92X3ZmKGFkZXYpKSB7DQo+PiAtCQlpZiAoYWRldi0+YXNpY190eXBlID09IENI
+SVBfQVJDVFVSVVMpDQo+PiAtCQkJYmFzZSA9IG1taHViX3Y5XzRfZ2V0X2ZiX2xvY2F0aW9uKGFk
+ZXYpOw0KPj4gLQkJZWxzZQ0KPj4gLQkJCWJhc2UgPSBtbWh1Yl92MV8wX2dldF9mYl9sb2NhdGlv
+bihhZGV2KTsNCj4+IC0JfQ0KPj4gKw0KPj4gKwlpZiAoYWRldi0+YXNpY190eXBlID09IENISVBf
+QVJDVFVSVVMpDQo+PiArCQliYXNlID0gbW1odWJfdjlfNF9nZXRfZmJfbG9jYXRpb24oYWRldik7
+DQo+PiArCWVsc2UNCj4+ICsJCWJhc2UgPSBtbWh1Yl92MV8wX2dldF9mYl9sb2NhdGlvbihhZGV2
+KTsNCj4+ICsNCj4+ICAgIAkvKiBhZGQgdGhlIHhnbWkgb2Zmc2V0IG9mIHRoZSBwaHlzaWNhbCBu
+b2RlICovDQo+PiAgICAJYmFzZSArPSBhZGV2LT5nbWMueGdtaS5waHlzaWNhbF9ub2RlX2lkICog
+YWRldi0+Z21jLnhnbWkubm9kZV9zZWdtZW50X3NpemU7DQo+PiAgICAJYW1kZ3B1X2dtY192cmFt
+X2xvY2F0aW9uKGFkZXYsIG1jLCBiYXNlKTsgZGlmZiAtLWdpdCANCj4+IGEvZHJpdmVycy9ncHUv
+ZHJtL2FtZC9hbWRncHUvbW1odWJfdjlfNC5jDQo+PiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
+Z3B1L21taHViX3Y5XzQuYw0KPj4gaW5kZXggMGNmN2VmNC4uZWEzMzU5ZiAxMDA2NDQNCj4+IC0t
+LSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L21taHViX3Y5XzQuYw0KPj4gKysrIGIvZHJp
+dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvbW1odWJfdjlfNC5jDQo+PiBAQCAtMTE4LDE0ICsxMTgs
+MjUgQEAgc3RhdGljIHZvaWQgbW1odWJfdjlfNF9pbml0X3N5c3RlbV9hcGVydHVyZV9yZWdzKHN0
+cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LA0KPj4gICAgCQkJICAgIGFkZXYtPmdtYy5hZ3Bfc3Rh
+cnQgPj4gMjQpOw0KPj4gICAgDQo+PiAgICAJLyogUHJvZ3JhbSB0aGUgc3lzdGVtIGFwZXJ0dXJl
+IGxvdyBsb2dpY2FsIHBhZ2UgbnVtYmVyLiAqLw0KPj4gLQlXUkVHMzJfU09DMTVfT0ZGU0VUKE1N
+SFVCLCAwLA0KPj4gLQkJCSAgICBtbVZNU0hBUkVEVkMwX01DX1ZNX1NZU1RFTV9BUEVSVFVSRV9M
+T1dfQUREUiwNCj4+IC0JCQkgICAgaHViaWQgKiBNTUhVQl9JTlNUQU5DRV9SRUdJU1RFUl9PRkZT
+RVQsDQo+PiAtCQkJICAgIG1pbihhZGV2LT5nbWMuZmJfc3RhcnQsIGFkZXYtPmdtYy5hZ3Bfc3Rh
+cnQpID4+IDE4KTsNCj4+IC0JV1JFRzMyX1NPQzE1X09GRlNFVChNTUhVQiwgMCwNCj4+IC0JCQkg
+ICAgbW1WTVNIQVJFRFZDMF9NQ19WTV9TWVNURU1fQVBFUlRVUkVfSElHSF9BRERSLA0KPj4gLQkJ
+CSAgICBodWJpZCAqIE1NSFVCX0lOU1RBTkNFX1JFR0lTVEVSX09GRlNFVCwNCj4+IC0JCQkgICAg
+bWF4KGFkZXYtPmdtYy5mYl9lbmQsIGFkZXYtPmdtYy5hZ3BfZW5kKSA+PiAxOCk7DQo+PiArCWlm
+IChhbWRncHVfc3Jpb3ZfdmYoYWRldikpIHsNCj4+ICsJCVdSRUczMl9TT0MxNV9PRkZTRVQoTU1I
+VUIsIDAsDQo+PiArCQkJCQltbVZNU0hBUkVEVkMwX01DX1ZNX1NZU1RFTV9BUEVSVFVSRV9MT1df
+QUREUiwNCj4+ICsJCQkJCWh1YmlkICogTU1IVUJfSU5TVEFOQ0VfUkVHSVNURVJfT0ZGU0VULA0K
+Pj4gKwkJCQkJYWRldi0+Z21jLmZiX3N0YXJ0ID4+IDE4KTsNCj4+ICsJCVdSRUczMl9TT0MxNV9P
+RkZTRVQoTU1IVUIsIDAsDQo+PiArCQkJCQltbVZNU0hBUkVEVkMwX01DX1ZNX1NZU1RFTV9BUEVS
+VFVSRV9ISUdIX0FERFIsDQo+PiArCQkJCQlodWJpZCAqIE1NSFVCX0lOU1RBTkNFX1JFR0lTVEVS
+X09GRlNFVCwNCj4+ICsJCQkJCWFkZXYtPmdtYy5mYl9lbmQgPj4gMTgpOw0KPj4gKwl9IGVsc2Ug
+ew0KPj4gKwkJV1JFRzMyX1NPQzE1X09GRlNFVChNTUhVQiwgMCwNCj4+ICsJCQkJICAgIG1tVk1T
+SEFSRURWQzBfTUNfVk1fU1lTVEVNX0FQRVJUVVJFX0xPV19BRERSLA0KPj4gKwkJCQkgICAgaHVi
+aWQgKiBNTUhVQl9JTlNUQU5DRV9SRUdJU1RFUl9PRkZTRVQsDQo+PiArCQkJCSAgICBtaW4oYWRl
+di0+Z21jLmZiX3N0YXJ0LCBhZGV2LT5nbWMuYWdwX3N0YXJ0KSA+PiAxOCk7DQo+PiArCQlXUkVH
+MzJfU09DMTVfT0ZGU0VUKE1NSFVCLCAwLA0KPj4gKwkJCQkgICAgbW1WTVNIQVJFRFZDMF9NQ19W
+TV9TWVNURU1fQVBFUlRVUkVfSElHSF9BRERSLA0KPj4gKwkJCQkgICAgaHViaWQgKiBNTUhVQl9J
+TlNUQU5DRV9SRUdJU1RFUl9PRkZTRVQsDQo+PiArCQkJCSAgICBtYXgoYWRldi0+Z21jLmZiX2Vu
+ZCwgYWRldi0+Z21jLmFncF9lbmQpID4+IDE4KTsNCj4+ICsJfQ0KPj4gICAgDQo+PiAgICAJLyog
+U2V0IGRlZmF1bHQgcGFnZSBhZGRyZXNzLiAqLw0KPj4gICAgCXZhbHVlID0gYWRldi0+dnJhbV9z
+Y3JhdGNoLmdwdV9hZGRyIC0gYWRldi0+Z21jLnZyYW1fc3RhcnQgKw0KDQpfX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAph
+bWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9y
+Zy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
