@@ -1,73 +1,56 @@
-From: Dan Carpenter <dan.carpenter-QHcLZuEGTsvQT0dZR+AlfA@public.gmane.org>
-Subject: [bug report] drm/amd/powerplay: implement smc firmware v2.1 for smu11
-Date: Mon, 19 Aug 2019 16:03:58 +0300
-Message-ID: <20190819130357.GA1615@mwanda>
+From: Alex Deucher <alexdeucher@gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: Fix a typo in the include header guard of 'navi12_ip_offset.h'
+Date: Mon, 19 Aug 2019 09:08:43 -0400
+Message-ID: <CADnq5_OsELJss5pyMmcHJnvVr7FpA0COJE+SmxM7ZQpfvQShYA@mail.gmail.com>
+References: <20190818155957.4029-1-christophe.jaillet@wanadoo.fr> <81BEC287-3D11-4B5B-BF32-3E29F3266453@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Content-Disposition: inline
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: kevin1.wang-5C7GfCeVMHo@public.gmane.org
-Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Content-Type: text/plain; charset="UTF-8"
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <81BEC287-3D11-4B5B-BF32-3E29F3266453@amd.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: "Yuan, Xiaojie" <Xiaojie.Yuan@amd.com>
+Cc: Christophe JAILLET <christophe.jaillet@wanadoo.fr>, "Xiao, Jack" <Jack.Xiao@amd.com>, "airlied@linux.ie" <airlied@linux.ie>, "kernel-janitors@vger.kernel.org" <kernel-janitors@vger.kernel.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Koenig, Christian" <Christian.Koenig@amd.com>, "Zhang, Hawking" <Hawking.Zhang@amd.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
-SGVsbG8gS2V2aW4gV2FuZywKClRoZSBwYXRjaCBiNTVjODNhNzQzOGQ6ICJkcm0vYW1kL3Bvd2Vy
-cGxheTogaW1wbGVtZW50IHNtYyBmaXJtd2FyZQp2Mi4xIGZvciBzbXUxMSIgZnJvbSBKdW4gMjEs
-IDIwMTksIGxlYWRzIHRvIHRoZSBmb2xsb3dpbmcgc3RhdGljCmNoZWNrZXIgd2FybmluZzoKCglk
-cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS8uLi9wb3dlcnBsYXkvc211X3YxMV8wLmM6MzkwIHNt
-dV92MTFfMF9zZXR1cF9wcHRhYmxlKCkKCXdhcm46IHBhc3NpbmcgY2FzdGVkIHBvaW50ZXIgJyZz
-aXplJyB0byAnc211X2dldF9hdG9tX2RhdGFfdGFibGUoKScgMzIgdnMgMTYuCgpkcml2ZXJzL2dw
-dS9kcm0vYW1kL2FtZGdwdS8uLi9wb3dlcnBsYXkvc211X3YxMV8wLmMKICAgMzU3ICBzdGF0aWMg
-aW50IHNtdV92MTFfMF9zZXR1cF9wcHRhYmxlKHN0cnVjdCBzbXVfY29udGV4dCAqc211KQogICAz
-NTggIHsKICAgMzU5ICAgICAgICAgIHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2ID0gc211LT5h
-ZGV2OwogICAzNjAgICAgICAgICAgY29uc3Qgc3RydWN0IHNtY19maXJtd2FyZV9oZWFkZXJfdjFf
-MCAqaGRyOwogICAzNjEgICAgICAgICAgaW50IHJldCwgaW5kZXg7CiAgIDM2MiAgICAgICAgICB1
-aW50MzJfdCBzaXplOwogICAgICAgICAgICAgICAgXl5eXl5eXl5eXl5eXgoKICAgMzYzICAgICAg
-ICAgIHVpbnQ4X3QgZnJldiwgY3JldjsKICAgMzY0ICAgICAgICAgIHZvaWQgKnRhYmxlOwogICAz
-NjUgICAgICAgICAgdWludDE2X3QgdmVyc2lvbl9tYWpvciwgdmVyc2lvbl9taW5vcjsKICAgMzY2
-ICAKICAgMzY3ICAgICAgICAgIGhkciA9IChjb25zdCBzdHJ1Y3Qgc21jX2Zpcm13YXJlX2hlYWRl
-cl92MV8wICopIGFkZXYtPnBtLmZ3LT5kYXRhOwogICAzNjggICAgICAgICAgdmVyc2lvbl9tYWpv
-ciA9IGxlMTZfdG9fY3B1KGhkci0+aGVhZGVyLmhlYWRlcl92ZXJzaW9uX21ham9yKTsKICAgMzY5
-ICAgICAgICAgIHZlcnNpb25fbWlub3IgPSBsZTE2X3RvX2NwdShoZHItPmhlYWRlci5oZWFkZXJf
-dmVyc2lvbl9taW5vcik7CiAgIDM3MCAgICAgICAgICBpZiAodmVyc2lvbl9tYWpvciA9PSAyICYm
-IHNtdS0+c211X3RhYmxlLmJvb3RfdmFsdWVzLnBwX3RhYmxlX2lkID4gMCkgewogICAzNzEgICAg
-ICAgICAgICAgICAgICBzd2l0Y2ggKHZlcnNpb25fbWlub3IpIHsKICAgMzcyICAgICAgICAgICAg
-ICAgICAgY2FzZSAwOgogICAzNzMgICAgICAgICAgICAgICAgICAgICAgICAgIHJldCA9IHNtdV92
-MTFfMF9zZXRfcHB0YWJsZV92Ml8wKHNtdSwgJnRhYmxlLCAmc2l6ZSk7CiAgIDM3NCAgICAgICAg
-ICAgICAgICAgICAgICAgICAgYnJlYWs7CiAgIDM3NSAgICAgICAgICAgICAgICAgIGNhc2UgMToK
-ICAgMzc2ICAgICAgICAgICAgICAgICAgICAgICAgICByZXQgPSBzbXVfdjExXzBfc2V0X3BwdGFi
-bGVfdjJfMShzbXUsICZ0YWJsZSwgJnNpemUsCiAgIDM3NyAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgc211LT5zbXVfdGFibGUuYm9vdF92
-YWx1ZXMucHBfdGFibGVfaWQpOwogICAzNzggICAgICAgICAgICAgICAgICAgICAgICAgIGJyZWFr
-OwogICAzNzkgICAgICAgICAgICAgICAgICBkZWZhdWx0OgogICAzODAgICAgICAgICAgICAgICAg
-ICAgICAgICAgIHJldCA9IC1FSU5WQUw7CiAgIDM4MSAgICAgICAgICAgICAgICAgICAgICAgICAg
-YnJlYWs7CiAgIDM4MiAgICAgICAgICAgICAgICAgIH0KICAgMzgzICAgICAgICAgICAgICAgICAg
-aWYgKHJldCkKICAgMzg0ICAgICAgICAgICAgICAgICAgICAgICAgICByZXR1cm4gcmV0OwogICAz
-ODUgIAogICAzODYgICAgICAgICAgfSBlbHNlIHsKICAgMzg3ICAgICAgICAgICAgICAgICAgaW5k
-ZXggPSBnZXRfaW5kZXhfaW50b19tYXN0ZXJfdGFibGUoYXRvbV9tYXN0ZXJfbGlzdF9vZl9kYXRh
-X3RhYmxlc192Ml8xLAogICAzODggICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICBwb3dlcnBsYXlpbmZvKTsKICAgMzg5ICAKICAgMzkwICAgICAgICAg
-ICAgICAgICAgcmV0ID0gc211X2dldF9hdG9tX2RhdGFfdGFibGUoc211LCBpbmRleCwgKHVpbnQx
-Nl90ICopJnNpemUsICZmcmV2LCAmY3JldiwKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgXl5eXl5eXl5eXl5eXl5eXl4KVGhp
-cyBvbmx5IGluaXRpYWxpemVzIHRoZSBoaWdoZXN0IDE2IGJpdHMuCgogICAzOTEgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAodWludDhfdCAqKikmdGFibGUp
-OwogICAzOTIgICAgICAgICAgICAgICAgICBpZiAocmV0KQogICAzOTMgICAgICAgICAgICAgICAg
-ICAgICAgICAgIHJldHVybiByZXQ7CiAgIDM5NCAgICAgICAgICB9CiAgIDM5NSAgCiAgIDM5NiAg
-ICAgICAgICBpZiAoIXNtdS0+c211X3RhYmxlLnBvd2VyX3BsYXlfdGFibGUpCiAgIDM5NyAgICAg
-ICAgICAgICAgICAgIHNtdS0+c211X3RhYmxlLnBvd2VyX3BsYXlfdGFibGUgPSB0YWJsZTsKICAg
-Mzk4ICAgICAgICAgIGlmICghc211LT5zbXVfdGFibGUucG93ZXJfcGxheV90YWJsZV9zaXplKQog
-ICAzOTkgICAgICAgICAgICAgICAgICBzbXUtPnNtdV90YWJsZS5wb3dlcl9wbGF5X3RhYmxlX3Np
-emUgPSBzaXplOwogICA0MDAgIAogICA0MDEgICAgICAgICAgcmV0dXJuIDA7CgpyZWdhcmRzLApk
-YW4gY2FycGVudGVyCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0
-dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
+Applied.  thanks!
+
+Alex
+
+On Sun, Aug 18, 2019 at 9:33 PM Yuan, Xiaojie <Xiaojie.Yuan@amd.com> wrote:
+>
+> Reviewed-by: Xiaojie Yuan <xiaojie.yuan@amd.com>
+>
+> Xiaojie
+>
+> > On Aug 19, 2019, at 12:00 AM, Christophe JAILLET <christophe.jaillet@wanadoo.fr> wrote:
+> >
+> > '_navi10_ip_offset_HEADER' is already used in 'navi10_ip_offset.h', so use
+> > '_navi12_ip_offset_HEADER' instead here.
+> >
+> > Signed-off-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+> > ---
+> > drivers/gpu/drm/amd/include/navi12_ip_offset.h | 4 ++--
+> > 1 file changed, 2 insertions(+), 2 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/include/navi12_ip_offset.h b/drivers/gpu/drm/amd/include/navi12_ip_offset.h
+> > index 229e8fddfcc1..6c2cc6296c06 100644
+> > --- a/drivers/gpu/drm/amd/include/navi12_ip_offset.h
+> > +++ b/drivers/gpu/drm/amd/include/navi12_ip_offset.h
+> > @@ -18,8 +18,8 @@
+> >  * AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+> >  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+> >  */
+> > -#ifndef _navi10_ip_offset_HEADER
+> > -#define _navi10_ip_offset_HEADER
+> > +#ifndef _navi12_ip_offset_HEADER
+> > +#define _navi12_ip_offset_HEADER
+> >
+> > #define MAX_INSTANCE                                       7
+> > #define MAX_SEGMENT                                        5
+> > --
+> > 2.20.1
+> >
+> _______________________________________________
+> dri-devel mailing list
+> dri-devel@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/dri-devel
