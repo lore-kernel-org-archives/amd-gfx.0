@@ -1,14 +1,15 @@
-From: "Feng, Kenneth" <Kenneth.Feng-5C7GfCeVMHo@public.gmane.org>
+From: "Quan, Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>
 Subject: RE: [PATCH] drm/amd/powerplay: correct SW smu11 thermal range settings
-Date: Mon, 19 Aug 2019 05:11:39 +0000
-Message-ID: <MN2PR12MB35981C5C1B0A12B8C8C1CD468EA80@MN2PR12MB3598.namprd12.prod.outlook.com>
+Date: Mon, 19 Aug 2019 05:26:49 +0000
+Message-ID: <MN2PR12MB334468A94B93D7D848596611E4A80@MN2PR12MB3344.namprd12.prod.outlook.com>
 References: <20190816093144.21892-1-evan.quan@amd.com>
  <MN2PR12MB3296E3E1C79504DD56058410A2AF0@MN2PR12MB3296.namprd12.prod.outlook.com>
  <MN2PR12MB3344E88B19DF4DA83279BBF2E4A80@MN2PR12MB3344.namprd12.prod.outlook.com>
+ <MN2PR12MB35981C5C1B0A12B8C8C1CD468EA80@MN2PR12MB3598.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1952200750=="
+Content-Type: multipart/mixed; boundary="===============0751370153=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <MN2PR12MB3344E88B19DF4DA83279BBF2E4A80-rweVpJHSKToDMgCC8P//OwdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
+In-Reply-To: <MN2PR12MB35981C5C1B0A12B8C8C1CD468EA80-rweVpJHSKTohWwLleUddgQdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -20,16 +21,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Quan, Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>, "Wang, Kevin(Yang)" <Kevin1.Wang-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Feng, Kenneth" <Kenneth.Feng-5C7GfCeVMHo@public.gmane.org>, "Wang, Kevin(Yang)" <Kevin1.Wang-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============1952200750==
+--===============0751370153==
 Content-Language: en-US
 Content-Type: multipart/alternative;
-	boundary="_000_MN2PR12MB35981C5C1B0A12B8C8C1CD468EA80MN2PR12MB3598namp_"
+	boundary="_000_MN2PR12MB334468A94B93D7D848596611E4A80MN2PR12MB3344namp_"
 
---_000_MN2PR12MB35981C5C1B0A12B8C8C1CD468EA80MN2PR12MB3598namp_
+--_000_MN2PR12MB334468A94B93D7D848596611E4A80MN2PR12MB3344namp_
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
+
+Yes, the lowest settings for thermal controller is 0.
+
+Regards
+Evan
+From: Feng, Kenneth <Kenneth.Feng-5C7GfCeVMHo@public.gmane.org>
+Sent: Monday, August 19, 2019 1:12 PM
+To: Quan, Evan <Evan.Quan-5C7GfCeVMHo@public.gmane.org>; Wang, Kevin(Yang) <Kevin1.Wang-5C7GfCeVMHo@public.gmane.org>=
+; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Subject: RE: [PATCH] drm/amd/powerplay: correct SW smu11 thermal range sett=
+ings
 
 Hi Evan,
 So due to the below code, we don't get a chance to set -273.15, right?
@@ -38,11 +50,11 @@ So due to the below code, we don't get a chance to set -273.15, right?
 +       high =3D min(SMU_THERMAL_MAXIMUM_ALERT_TEMP,
 +                       range.max / SMU_TEMPERATURE_UNITS_PER_CENTIGRADES);
 
-
 From: amd-gfx [mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org] On Behalf Of Q=
 uan, Evan
 Sent: Monday, August 19, 2019 10:16 AM
-To: Wang, Kevin(Yang) <Kevin1.Wang-5C7GfCeVMHo@public.gmane.org>; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: Wang, Kevin(Yang) <Kevin1.Wang-5C7GfCeVMHo@public.gmane.org<mailto:Kevin1.Wang-5C7GfCeVMHo@public.gmane.org>>; am=
+d-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 Subject: RE: [PATCH] drm/amd/powerplay: correct SW smu11 thermal range sett=
 ings
 
@@ -342,7 +354,7 @@ amd-gfx mailing list
 amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 
---_000_MN2PR12MB35981C5C1B0A12B8C8C1CD468EA80MN2PR12MB3598namp_
+--_000_MN2PR12MB334468A94B93D7D848596611E4A80MN2PR12MB3344namp_
 Content-Type: text/html; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
@@ -397,9 +409,13 @@ span.EmailStyle18
 	font-family:"Calibri",sans-serif;
 	color:windowtext;}
 span.EmailStyle19
-	{mso-style-type:personal-reply;
+	{mso-style-type:personal;
 	font-family:"Calibri",sans-serif;
 	color:#1F497D;}
+span.EmailStyle21
+	{mso-style-type:personal-reply;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
 .MsoChpDefault
 	{mso-style-type:export-only;
 	font-size:10.0pt;}
@@ -417,13 +433,33 @@ div.WordSection1
 </head>
 <body lang=3D"EN-US" link=3D"blue" vlink=3D"purple">
 <div class=3D"WordSection1">
+<p class=3D"MsoNormal">Yes, the lowest settings for thermal controller is 0=
+.<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Regards<o:p></o:p></p>
+<p class=3D"MsoNormal">Evan<o:p></o:p></p>
+<div style=3D"border:none;border-left:solid blue 1.5pt;padding:0in 0in 0in =
+4.0pt">
+<div>
+<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
+0in 0in">
+<p class=3D"MsoNormal"><b>From:</b> Feng, Kenneth &lt;Kenneth.Feng-5C7GfCeVMHo@public.gmane.org&=
+gt; <br>
+<b>Sent:</b> Monday, August 19, 2019 1:12 PM<br>
+<b>To:</b> Quan, Evan &lt;Evan.Quan-5C7GfCeVMHo@public.gmane.org&gt;; Wang, Kevin(Yang) &lt;Kevi=
+n1.Wang-5C7GfCeVMHo@public.gmane.org&gt;; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>Subject:</b> RE: [PATCH] drm/amd/powerplay: correct SW smu11 thermal ran=
+ge settings<o:p></o:p></p>
+</div>
+</div>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
 <p class=3D"MsoNormal"><span style=3D"color:#1F497D">Hi Evan,<o:p></o:p></s=
 pan></p>
 <p class=3D"MsoNormal"><span style=3D"color:#1F497D">So due to the below co=
 de, we don&#8217;t get a chance to set -273.15, right?<o:p></o:p></span></p=
 >
-<p class=3D"MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; low =3D ma=
-x(SMU_THERMAL_MINIMUM_ALERT_TEMP,<br>
+<p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt">&#43;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp; low =3D max(SMU_THERMAL_MINIMUM_ALERT_TEMP,<br>
 &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
 p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; range.min / =
 SMU_TEMPERATURE_UNITS_PER_CENTIGRADES);<br>
@@ -431,20 +467,22 @@ SMU_TEMPERATURE_UNITS_PER_CENTIGRADES);<br>
 ALERT_TEMP,<br>
 &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
 p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; range.max / =
-SMU_TEMPERATURE_UNITS_PER_CENTIGRADES);<br>
-<br>
-<span style=3D"color:#1F497D"><o:p></o:p></span></p>
+SMU_TEMPERATURE_UNITS_PER_CENTIGRADES);<span style=3D"color:#1F497D"><o:p><=
+/o:p></span></p>
 <p class=3D"MsoNormal"><span style=3D"color:#1F497D"><o:p>&nbsp;</o:p></spa=
 n></p>
 <div>
 <div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
 0in 0in">
-<p class=3D"MsoNormal"><b>From:</b> amd-gfx [mailto:amd-gfx-bounces@lists.f=
-reedesktop.org]
+<p class=3D"MsoNormal"><b>From:</b> amd-gfx [<a href=3D"mailto:amd-gfx-boun=
+ces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>=
+]
 <b>On Behalf Of </b>Quan, Evan<br>
 <b>Sent:</b> Monday, August 19, 2019 10:16 AM<br>
-<b>To:</b> Wang, Kevin(Yang) &lt;Kevin1.Wang-5C7GfCeVMHo@public.gmane.org&gt;; amd-gfx-PD4FTy7X32mzQB+pC5nmwQ@public.gmane.org=
-edesktop.org<br>
+<b>To:</b> Wang, Kevin(Yang) &lt;<a href=3D"mailto:Kevin1.Wang-5C7GfCeVMHo@public.gmane.org">Kev=
+in1.Wang-5C7GfCeVMHo@public.gmane.org</a>&gt;;
+<a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9/rsn8yoX9R0@public.gmane.org=
+org</a><br>
 <b>Subject:</b> RE: [PATCH] drm/amd/powerplay: correct SW smu11 thermal ran=
 ge settings<o:p></o:p></p>
 </div>
@@ -915,12 +953,13 @@ lists.freedesktop.org/mailman/listinfo/amd-gfx</a><o:p></o:p></p>
 </div>
 </div>
 </div>
+</div>
 </body>
 </html>
 
---_000_MN2PR12MB35981C5C1B0A12B8C8C1CD468EA80MN2PR12MB3598namp_--
+--_000_MN2PR12MB334468A94B93D7D848596611E4A80MN2PR12MB3344namp_--
 
---===============1952200750==
+--===============0751370153==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -930,4 +969,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
 
---===============1952200750==--
+--===============0751370153==--
