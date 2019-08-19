@@ -1,108 +1,26 @@
-From: Hans Verkuil <hverkuil-cisco@xs4all.nl>
-Subject: Re: [PATCH v7 0/9] drm: cec: convert DRM drivers to the new notifier
- API
-Date: Mon, 19 Aug 2019 16:55:28 +0200
-Message-ID: <6ef361f6-2f56-32ea-c7da-52799990cac7@xs4all.nl>
-References: <20190814104520.6001-1-darekm@google.com>
- <42c7ef3c-b7e5-8c63-c7c2-bfc6c56100c6@xs4all.nl>
- <ad2a4af0-aeff-a81e-7885-7e9fc3c5cf90@baylibre.com>
+From: Will Deacon <will@kernel.org>
+Subject: Re: [PATCH ARM] selftests, arm64: fix uninitialized symbol in
+ tags_test.c
+Date: Mon, 19 Aug 2019 16:03:43 +0100
+Message-ID: <20190819150342.sxk3zzxvrxhkpp6j@willie-the-truck>
+References: <00eb8ba84205c59cac01b1b47615116a461c302c.1566220355.git.andreyknvl@google.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
 Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <ad2a4af0-aeff-a81e-7885-7e9fc3c5cf90@baylibre.com>
-Content-Language: en-US
+Content-Disposition: inline
+In-Reply-To: <00eb8ba84205c59cac01b1b47615116a461c302c.1566220355.git.andreyknvl@google.com>
 Sender: linux-kernel-owner@vger.kernel.org
-To: Neil Armstrong <narmstrong@baylibre.com>, Dariusz Marcinkiewicz <darekm@google.com>, dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org
-Cc: Kate Stewart <kstewart@linuxfoundation.org>, Daniel Vetter <daniel.vetter@ffwll.ch>, Hans Verkuil <hverkuil@xs4all.nl>, Dhinakaran Pandiyan <dhinakaran.pandiyan@intel.com>, Sam Ravnborg <sam@ravnborg.org>, linux-samsung-soc@vger.kernel.org, David Francis <David.Francis@amd.com>, amd-gfx@lists.freedesktop.org, Leo Li <sunpeng.li@amd.com>, "Jerry (Fangzhi) Zuo" <Jerry.Zuo@amd.com>, linux-arm-kernel@lists.infradead.org, nouveau@lists.freedesktop.org, Jonas Karlman <jonas@kwiboo.se>, Jani Nikula <jani.nikula@intel.com>, intel-gfx@lists.freedesktop.org, Russell King <rmk+kernel@armlinux.org.uk>, Sean Paul <seanpaul@chromium.org>, Rodrigo Vivi <rodrigo.vivi@intel.com>, linux-tegra@vger.kernel.org, Thomas Gleixner <tglx@linutronix.de>, Allison Randal <allis>
+To: Andrey Konovalov <andreyknvl@google.com>
+Cc: linux-arm-kernel@lists.infradead.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-rdma@vger.kernel.org, linux-media@vger.kernel.org, kvm@vger.kernel.org, linux-kselftest@vger.kernel.org, Will Deacon <will.deacon@arm.com>, Mark Rutland <mark.rutland@arm.com>, Szabolcs Nagy <Szabolcs.Nagy@arm.com>, Catalin Marinas <catalin.marinas@arm.com>, Kostya Serebryany <kcc@google.com>, Khalid Aziz <khalid.aziz@oracle.com>, Felix Kuehling <Felix.Kuehling@amd.com>, Vincenzo Frascino <vincenzo.frascino@arm.com>, Jacob Bramley <Jacob.Bramley@arm.com>, Leon Romanovsky <leon@kernel.org>, Christoph Hellwig <hch@infradead.org>, Jason Gunthorpe <jgg@ziepe.ca>, Dave Martin <Dave.Martin@arm.com>, E
 List-Id: amd-gfx.lists.freedesktop.org
 
-On 8/19/19 4:48 PM, Neil Armstrong wrote:
-> Hi Dariusz, Hans,
+On Mon, Aug 19, 2019 at 03:14:42PM +0200, Andrey Konovalov wrote:
+> Fix tagged_ptr not being initialized when TBI is not enabled.
 > 
-> I can apply the dw-hdmi patches if necessary.
+> Dan Carpenter <dan.carpenter@oracle.com>
 
-I'd appreciate it if you can do that.
+Guessing this was Reported-by, or has Dan introduced his own tag now? ;)
 
-Thanks,
+Got a link to the report?
 
-	Hans
-
-> 
-> Neil
-> 
-> On 19/08/2019 11:38, Hans Verkuil wrote:
->> Hi all,
->>
->> The patches in this series can be applied independently from each other.
->>
->> If you maintain one of these drivers and you want to merge it for v5.4
->> yourself, then please do so and let me know. If you prefer I commit it
->> to drm-misc, then please review and (hopefully) Ack the patch.
->>
->> I would really like to get this in for v5.4 so I can get the userspace
->> bits in for v5.4 as well through the media subsystem.
->>
->> Dariusz, can you post a v7.1 for patch 5/9 fixing the typo?
->>
->> Thanks!
->>
->> 	Hans
->>
->> On 8/14/19 12:44 PM, Dariusz Marcinkiewicz wrote:
->>> This series updates DRM drivers to use new CEC notifier API.
->>>
->>> Changes since v6:
->>> 	Made CEC notifiers' registration and de-registration symmetric
->>> 	in tda998x and dw-hdmi drivers. Also, accidentally dropped one
->>> 	patch in v6 (change to drm_dp_cec), brought it back now.
->>> Changes since v5:
->>>         Fixed a warning about a missing comment for a new member of
->>> 	drm_dp_aux_cec struct. Sending to a wider audience,
->>> 	including maintainers of respective drivers.
->>> Changes since v4:
->>> 	Addressing review comments.
->>> Changes since v3:
->>>         Updated adapter flags in dw-hdmi-cec.
->>> Changes since v2:
->>> 	Include all DRM patches from "cec: improve notifier support,
->>> 	add connector info connector info" series.
->>> Changes since v1:
->>> 	Those patches delay creation of notifiers until respective
->>> 	connectors are constructed. It seems that those patches, for a
->>> 	couple of drivers, by adding the delay, introduce a race between
->>> 	notifiers' creation and the IRQs handling threads - at least I
->>> 	don't see anything obvious in there that would explicitly forbid
->>> 	such races to occur. v2 adds a write barrier to make sure IRQ
->>> 	threads see the notifier once it is created (replacing the
->>> 	WRITE_ONCE I put in v1). The best thing to do here, I believe,
->>> 	would be not to have any synchronization and make sure that an IRQ
->>> 	only gets enabled after the notifier is created.
->>> Dariusz Marcinkiewicz (9):
->>>   drm_dp_cec: add connector info support.
->>>   drm/i915/intel_hdmi: use cec_notifier_conn_(un)register
->>>   dw-hdmi-cec: use cec_notifier_cec_adap_(un)register
->>>   tda9950: use cec_notifier_cec_adap_(un)register
->>>   drm: tda998x: use cec_notifier_conn_(un)register
->>>   drm: sti: use cec_notifier_conn_(un)register
->>>   drm: tegra: use cec_notifier_conn_(un)register
->>>   drm: dw-hdmi: use cec_notifier_conn_(un)register
->>>   drm: exynos: exynos_hdmi: use cec_notifier_conn_(un)register
->>>
->>>  .../display/amdgpu_dm/amdgpu_dm_mst_types.c   |  2 +-
->>>  drivers/gpu/drm/bridge/synopsys/dw-hdmi-cec.c | 13 +++---
->>>  drivers/gpu/drm/bridge/synopsys/dw-hdmi.c     | 46 +++++++++++++------
->>>  drivers/gpu/drm/drm_dp_cec.c                  | 25 ++++++----
->>>  drivers/gpu/drm/exynos/exynos_hdmi.c          | 31 +++++++------
->>>  drivers/gpu/drm/i2c/tda9950.c                 | 12 ++---
->>>  drivers/gpu/drm/i2c/tda998x_drv.c             | 36 ++++++++++-----
->>>  drivers/gpu/drm/i915/display/intel_dp.c       |  4 +-
->>>  drivers/gpu/drm/i915/display/intel_hdmi.c     | 13 ++++--
->>>  drivers/gpu/drm/nouveau/nouveau_connector.c   |  3 +-
->>>  drivers/gpu/drm/sti/sti_hdmi.c                | 19 +++++---
->>>  drivers/gpu/drm/tegra/output.c                | 28 ++++++++---
->>>  include/drm/drm_dp_helper.h                   | 17 ++++---
->>>  13 files changed, 155 insertions(+), 94 deletions(-)
->>>
->>
-> 
+Will
