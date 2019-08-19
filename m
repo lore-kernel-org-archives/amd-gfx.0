@@ -1,171 +1,89 @@
-From: "Chen, Guchun" <Guchun.Chen-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH libdrm] amdgpu: add mmhub ras inject unit test
-Date: Mon, 19 Aug 2019 08:50:59 +0000
-Message-ID: <BYAPR12MB280698423BDC2994FF2E6581F1A80@BYAPR12MB2806.namprd12.prod.outlook.com>
-References: <20190816110401.11069-1-guchun.chen@amd.com>
- <b6cde318-e453-8a89-095c-69708f0981ef@gmail.com>
- <BYAPR12MB280662C3A47CA31DC1790A3AF1A80@BYAPR12MB2806.namprd12.prod.outlook.com>
- <59701e8a-cc27-95d7-97f3-2d5867d0bc40@amd.com>
- <BYAPR12MB2806E142EFAE7C395A7F60D1F1A80@BYAPR12MB2806.namprd12.prod.outlook.com>
- <ec1684a8-c64c-6df5-aa87-9f376d7234ae@amd.com>
- <BYAPR12MB28065A4A109340A7158ED85AF1A80@BYAPR12MB2806.namprd12.prod.outlook.com>
- <b7c98312-0602-e9c6-6dbd-c061ba09eaa6@amd.com>
+From: Hans Verkuil <hverkuil-cisco@xs4all.nl>
+Subject: Re: [PATCH v7 0/9] drm: cec: convert DRM drivers to the new notifier
+ API
+Date: Mon, 19 Aug 2019 11:38:44 +0200
+Message-ID: <42c7ef3c-b7e5-8c63-c7c2-bfc6c56100c6@xs4all.nl>
+References: <20190814104520.6001-1-darekm@google.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <b7c98312-0602-e9c6-6dbd-c061ba09eaa6-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20190814104520.6001-1-darekm@google.com>
 Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Zhang,
- Hawking" <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>, "Li, Dennis" <Dennis.Li-5C7GfCeVMHo@public.gmane.org>, "Cui,
- Flora" <Flora.Cui-5C7GfCeVMHo@public.gmane.org>, "Zhou1, Tao" <Tao.Zhou1-5C7GfCeVMHo@public.gmane.org>
-Cc: "Li, Candice" <Candice.Li-5C7GfCeVMHo@public.gmane.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Dariusz Marcinkiewicz <darekm@google.com>, dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org
+Cc: Kate Stewart <kstewart@linuxfoundation.org>, Neil Armstrong <narmstrong@baylibre.com>, Daniel Vetter <daniel.vetter@ffwll.ch>, Hans Verkuil <hverkuil@xs4all.nl>, Dhinakaran Pandiyan <dhinakaran.pandiyan@intel.com>, Sam Ravnborg <sam@ravnborg.org>, linux-samsung-soc@vger.kernel.org, David Francis <David.Francis@amd.com>, amd-gfx@lists.freedesktop.org, Leo Li <sunpeng.li@amd.com>, "Jerry (Fangzhi) Zuo" <Jerry.Zuo@amd.com>, linux-arm-kernel@lists.infradead.org, nouveau@lists.freedesktop.org, Jonas Karlman <jonas@kwiboo.se>, Jani Nikula <jani.nikula@intel.com>, intel-gfx@lists.freedesktop.org, Russell King <rmk+kernel@armlinux.org.uk>, Sean Paul <seanpaul@chromium.org>, Rodrigo Vivi <rodrigo.vivi@intel.com>, linux-tegra@vger.kernel.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-SGkgQ2hyaXN0aWFuLA0KDQpBcHByZWNpYXRlIHlvdXIgY29uY2VybiBhbmQgc3VnZ2VzdGlvbiEN
-CkkgYW0gZmluZSB0byByZW1vdmUgdGhlIGV4dGVybmFsIGZpbGUgYW5kIG1vdmUgYWxsIHRlc3Qg
-Y29uZmlndXJhdGlvbnMgaW50byBDIGNvZGUuDQpJIHdpbGwgcHJlcGFyZSBwYXRjaGVzIHRvIGFk
-ZHJlc3MgdGhpcyBsYXRlci4NCg0KUmVnYXJkcywNCkd1Y2h1bg0KDQotLS0tLU9yaWdpbmFsIE1l
-c3NhZ2UtLS0tLQ0KRnJvbTogS29lbmlnLCBDaHJpc3RpYW4gPENocmlzdGlhbi5Lb2VuaWdAYW1k
-LmNvbT4gDQpTZW50OiBNb25kYXksIEF1Z3VzdCAxOSwgMjAxOSA0OjQyIFBNDQpUbzogQ2hlbiwg
-R3VjaHVuIDxHdWNodW4uQ2hlbkBhbWQuY29tPjsgYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5v
-cmc7IFpoYW5nLCBIYXdraW5nIDxIYXdraW5nLlpoYW5nQGFtZC5jb20+OyBMaSwgRGVubmlzIDxE
-ZW5uaXMuTGlAYW1kLmNvbT47IEN1aSwgRmxvcmEgPEZsb3JhLkN1aUBhbWQuY29tPjsgWmhvdTEs
-IFRhbyA8VGFvLlpob3UxQGFtZC5jb20+DQpDYzogTGksIENhbmRpY2UgPENhbmRpY2UuTGlAYW1k
-LmNvbT4NClN1YmplY3Q6IFJlOiBbUEFUQ0ggbGliZHJtXSBhbWRncHU6IGFkZCBtbWh1YiByYXMg
-aW5qZWN0IHVuaXQgdGVzdA0KDQpIaSBHdWNodW4sDQoNCnllYWgsIEkgbWVhbiB0aGUgcmVxdWly
-ZW1lbnQgaXMgcGVyZmVjdGx5IHZhbGlkIGFuZCB5ZXMgSSBhZ3JlZSB0aGF0IHdlIHNob3VsZCBw
-cm9iYWJseSBleHRlbmQgdGhlIGNvbW1hbmQgbGluZSBwYXJhbWV0ZXJzIGluIHRoaXMgY2FzZS4N
-Cg0KVGhlIG1haW4gcHJvYmxlbSBpcyBub3QgdGhlIGFkZGl0aW9uYWwgZXh0ZXJuYWwgbGlicmFy
-eSByZXF1aXJlbWVudCwgYnV0IHJhdGhlciB0aGF0IHdlIG5lZWQgYW4gZXh0ZXJuYWwgZmlsZSBh
-ZGRpdGlvbmFsIHRvIGFtZGdwdV90ZXN0Lg0KDQpTZWUgdGhlIHRlc3QgYmluYXJ5IHNob3VsZCBi
-ZSBzZWxmIGNvbnRhaW5pbmcgaW4gdGhlIHNlbnNlIHRoYXQgeW91IG9ubHkgbmVlZCB0aGUgYmlu
-YXJ5IGFuZCBub3RoaW5nIGVsc2Ugc28gdGhhdCB3ZSBjYW4gZ2l2ZSBpdCBRQSBvciBvdGhlciB0
-ZXN0ZXJzLg0KDQpSZWdhcmRzLA0KQ2hyaXN0aWFuLg0KDQpBbSAxOS4wOC4xOSB1bSAxMDowOSBz
-Y2hyaWViIENoZW4sIEd1Y2h1bjoNCj4gSGkgQ2hyaXN0aWFuLA0KPg0KPiBZZXMsIHdlIGFscmVh
-ZHkgaGF2ZSBmdW5jdGlvbmFsaXR5IHRvIHNlbGVjdCBvbmUgc3BlY2lmaWMgdGVzdCBmcm9tIHRo
-ZSBjb21tYW5kIGxpbmUsIGJ1dCB0aGF0IGNvbW1hbmQgbGluZSBpcyBsaW1pdGVkLg0KPg0KPiBJ
-dCBvbmx5IGFsbG93cyB1c2VyIHRvIHNlbGVjdCBvbmUgZ2VuZXJhbCB0ZXN0LCBsaWtlIHJhcyB0
-ZXN0LCBidXQgaW5zaWRlIHJhcyB0ZXN0LCBpdCBoYXMgdGhlIGVuYWJsZS9kaXNhYmxlL2Vycm9y
-IGluamVjdCB0ZXN0IHJlc3BlY3RpdmVseS4gTm93IHdoYXQgd2UgYXJlIHRhbGtpbmcgYWJvdXQg
-aXMgZXhhY3RseSB0aGUgaW5qZWN0IHRlc3QuIFdlIHN1cHBvcnQgcGxlbnR5IG9mIHJhcyBpbmpl
-Y3QgdGVzdCBpbiBzdWJtb2R1bGVzIGxpa2UgR0ZYLCBVTUMsIE1NSFVCLiBTbyB3aXRob3V0IGEg
-Y29tbWFuZCBleHRlbnNpb24sIHdoZW4gd2UgcnVuIFJBUyBlcnJvciBpbmplY3QgdGVzdCwgd2Ug
-d2lsbCBzZWUgYWxsIGluamVjdCB0ZXN0cyBpbiBkaWZmZXJlbnQgc3ViIElQIGJsb2NrcyBhcmUg
-cGVyZm9ybWVkLiBNeSBwcmV2aW91cyBjb25jZXJuIGlzIHRoZSBleHBlcmllbmNlIGlzIG5vdCBn
-b29kIGlmIHVzZXIgd2FudHMgdG8gcnVuIG9uZSBzcGVjaWFsIHJhcyBpbmplY3QgdGVzdCBpbiBz
-dWIgYmxvY2sgbGlrZSBVTUMuIEhvd2V2ZXIsIEkgaGFkIG9uZSBvZmZsaW5lIGRpc2N1c3Npb24g
-d2l0aCBIYXdraW5nIGp1c3Qgbm93LiBXZSBhcmUgbm93IGZpbmUgdG8gbWFpbnRhaW4gdGhlIHRl
-c3QgY29uZmlndXJhdGlvbiBpbiBDIGNvZGUgZm9yIHVwc3RyZWFtLiBUaGlzIHdpbGwga2VlcCBh
-bWRncHVfdGVzdCBub3QgZGVwZW5kaW5nIG9uIG90aGVyIGV4dGVybmFsIGxpYnJhcmllcy4NCj4N
-Cj4gUmVnYXJkcywNCj4gR3VjaHVuDQo+DQo+IC0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQo+
-IEZyb206IEtvZW5pZywgQ2hyaXN0aWFuIDxDaHJpc3RpYW4uS29lbmlnQGFtZC5jb20+DQo+IFNl
-bnQ6IE1vbmRheSwgQXVndXN0IDE5LCAyMDE5IDM6NTMgUE0NCj4gVG86IENoZW4sIEd1Y2h1biA8
-R3VjaHVuLkNoZW5AYW1kLmNvbT47IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnOyANCj4g
-WmhhbmcsIEhhd2tpbmcgPEhhd2tpbmcuWmhhbmdAYW1kLmNvbT47IExpLCBEZW5uaXMgDQo+IDxE
-ZW5uaXMuTGlAYW1kLmNvbT47IEN1aSwgRmxvcmEgPEZsb3JhLkN1aUBhbWQuY29tPjsgWmhvdTEs
-IFRhbyANCj4gPFRhby5aaG91MUBhbWQuY29tPg0KPiBDYzogTGksIENhbmRpY2UgPENhbmRpY2Uu
-TGlAYW1kLmNvbT4NCj4gU3ViamVjdDogUmU6IFtQQVRDSCBsaWJkcm1dIGFtZGdwdTogYWRkIG1t
-aHViIHJhcyBpbmplY3QgdW5pdCB0ZXN0DQo+DQo+IEhpIEd1Y2h1biwNCj4NCj4+IFB1dCBhbGwg
-dGVzdHMgaW4gYyBjb2RlLCBhbmQgZXh0ZW5kIHRoZSBhcmdzIHdoZW4gcnVubmluZyBhbWRncHVf
-dGVzdCwgd2hpY2ggd2lsbCBhbGxvdyB1c2VyIGNhbiBydW4gc3BlY2lhbCBSQVMgdGVzdC4NCj4g
-QWghIFNvdW5kcyBsaWtlIHdlIGhhdmUganVzdCBhIG1pc3VuZGVyc3RhbmRpbmcgaGVyZS4gQXMg
-ZmFyIGFzIEkga25vdyB3ZSBhbHJlYWR5IGhhdmUgdGhlIGZ1bmN0aW9uYWxpdHkgdG8gc2VsZWN0
-IG9ubHkgc3BlY2lmaWMgdGVzdHMgdG8gcnVuIGZyb20gdGhlIGNvbW1hbmQgbGluZSBvZiBhbWRn
-cHVfdGVzdC4NCj4NCj4gVGhhdCdzIGFjdHVhbGx5IHRoZSBiYWNrZ3JvdW5kIHJlYXNvbiB3aHkg
-d2UgdXNlIHRoZSBDVW5pdCBmcmFtZXdvcmsuDQo+DQo+IEkgaGF2ZW4ndCB1c2VkIHRoYXQgZnVu
-Y3Rpb25hbGl0eSBpbiBhIGxvbmcgdGltZSwgY291bGQgYmUgdGhhdCBpdCBpcyBicm9rZW4gb3Ig
-c29tZXRoaW5nLiBCdXQgYXQgbGVhc3QgaW4gdGhlb3J5IGl0IHNob3VsZCBiZSB0aGVyZS4NCj4N
-Cj4gUmVnYXJkcywNCj4gQ2hyaXN0aWFuLg0KPg0KPiBBbSAxOS4wOC4xOSB1bSAwOTo0OCBzY2hy
-aWViIENoZW4sIEd1Y2h1bjoNCj4+IEhpIENocmlzdGlhbiwNCj4+DQo+PiBUaGFua3MgZm9yIHlv
-dXIgc3VnZ2VzdGlvbi4NCj4+IFJlZ2FyZGluZyB0aGUgY29uZmlndXJhdGlvbiBmaWxlIG1vdmlu
-ZyB0byB0ZXN0L2FtZGdwdSwgSSBhbSBmaW5lIHdpdGggdGhpcy4NCj4+DQo+PiBCdXQgcmVnIHB1
-dHRpbmcgYWxsIHRoZSB0ZXN0cyBpbiBDIGNvZGUsIHRob3VnaCBpdCBsb29rcyBsaWtlIHRoZSB1
-bml0IHRlc3QgY2FuIHN0YXkgc2VsZiBjb250YWluaW5nLCBidXQgd2l0aG91dCBvbmUgaW5kZXBl
-bmRlbnQgY29uZmlndXJhdGlvbiBmaWxlLCB1c2VyIHdpbGwgZmluZCBpdCdzIGluY29udmVuaWVu
-dCB3aGVuIHBlcmZvcm1pbmcgdGhlIHRlc3RzLg0KPj4gRm9yIGV4YW1wbGUsIGlmIHdlIG1vdmUg
-YWxsIFJBUyBpbmplY3QgdGVzdHMgaW50byBDIGNvZGUsIGhvd2V2ZXIsIGlmIHRoZSB1c2VyIG9u
-bHkgY2FyZXMgdGhlIFJBUyB1bml0IHRlc3QgaW4gY2VydGFpbiBtb2R1bGUvc3VibW9kdWxlIHRl
-c3QsIGhlL3NoZSB3b3VsZCBub3QgbGlrZSB0byBzZWUgaW5qZWN0IHRlc3RzIGluIGFsbCBtb2R1
-bGVzIHJ1biBhZnRlciBsYXVuY2hpbmcgYW1kZ3B1X3Rlc3QsIHNvIGl0J3Mgbm90IGZyaWVuZGx5
-IHRvIHVzZXIuDQo+PiBBbnl3YXksIHlvdXIgc3VnZ2VzdGlvbiBzdGlsbCBtYWtlcyBzZW5zZSwg
-YXMgYW1kZ3B1X3Rlc3Qgc2hvdWxkIGdldCByaWQgb2Ygb3RoZXIgZXh0ZXJuYWwgcGFja2FnZXMg
-ZXhjZXB0IENVbml0IGZyYW1ld29yay4NCj4+DQo+PiBTbyB3ZSBzdGlsbCB0aGUgYmFsYW5jZSBi
-ZXR3ZWVuIGFib3ZlIHR3byBjYXNlczoNCj4+IDEuIE1ha2UgYW1kZ3B1X3Rlc3Qgc2VsZiBjb250
-YWluaW5nIHdpdGhvdXQgZGVwZW5kZW5jeSBvbiBvdGhlciBleHRlcm5hbCBwYWNrYWdlcy4NCj4+
-IDIuIEFsbG93IHVzZXIgY2FuIGNvbmZpZ3VyZSB0aGUgdGVzdHMgd2hlbiBydW5uaW5nIGFtZGdw
-dV90ZXN0Lg0KPj4NCj4+IFRoZW4gdGhlIHBvc3NpYmxlIHNvbHV0aW9ucyBJIGNhbiBpbGx1c3Ry
-YXRlIGFyZToNCj4+IDEuIFN0aWxsIGtlZXAgb25lIGNvbmZpZ3VyYXRpb24gZmlsZSwgYnV0IG5v
-dCBpbiBqc29uIGZvcm1hdC4gSXTigJlzIGEgbm9ybWFsIGNvbmZpZ3VyYXRpb24gZmlsZSwgd2Ug
-d2lsbCBhZGQgY29kZSBpbiBhbWRncHVfdGVzdCB0byBwYXJzZSB0aGUgY29uZmlndXJhdGlvbiBm
-aWxlLCBhbmQgcmVtb3ZlIGFsbCBqc29uIEFQSXMuDQo+PiAyLiBQdXQgYWxsIHRlc3RzIGluIGMg
-Y29kZSwgYW5kIGV4dGVuZCB0aGUgYXJncyB3aGVuIHJ1bm5pbmcgYW1kZ3B1X3Rlc3QsIHdoaWNo
-IHdpbGwgYWxsb3cgdXNlciBjYW4gcnVuIHNwZWNpYWwgUkFTIHRlc3QuDQo+Pg0KPj4gSSBhbSBv
-cGVuZWQgdG8gYWJvdmUgdHdvIHNvbHV0aW9ucyBvciBvdGhlciBtaXNzZWQgb25lcy4NCj4+DQo+
-PiBSZWdhcmRzLA0KPj4gR3VjaHVuDQo+Pg0KPj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0N
-Cj4+IEZyb206IEtvZW5pZywgQ2hyaXN0aWFuIDxDaHJpc3RpYW4uS29lbmlnQGFtZC5jb20+DQo+
-PiBTZW50OiBNb25kYXksIEF1Z3VzdCAxOSwgMjAxOSAzOjE0IFBNDQo+PiBUbzogQ2hlbiwgR3Vj
-aHVuIDxHdWNodW4uQ2hlbkBhbWQuY29tPjsgDQo+PiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9w
-Lm9yZzsgWmhhbmcsIEhhd2tpbmcgDQo+PiA8SGF3a2luZy5aaGFuZ0BhbWQuY29tPjsgTGksIERl
-bm5pcyA8RGVubmlzLkxpQGFtZC5jb20+OyBDdWksIEZsb3JhIA0KPj4gPEZsb3JhLkN1aUBhbWQu
-Y29tPjsgWmhvdTEsIFRhbyA8VGFvLlpob3UxQGFtZC5jb20+DQo+PiBDYzogTGksIENhbmRpY2Ug
-PENhbmRpY2UuTGlAYW1kLmNvbT4NCj4+IFN1YmplY3Q6IFJlOiBbUEFUQ0ggbGliZHJtXSBhbWRn
-cHU6IGFkZCBtbWh1YiByYXMgaW5qZWN0IHVuaXQgdGVzdA0KPj4NCj4+IEhpIEd1Y2h1biwNCj4+
-DQo+PiBpbiB0aGlzIGNhc2UgdGhpcyBpcyBhIGJpdCBhd2t3YXJkIGltcGxlbWVudGVkLg0KPj4N
-Cj4+IFNlZSB0aGUgZmlsZXMgaW4gdGhlIGRhdGEgZGlyZWN0b3J5IGFyZSBmb3IgaW5zdGFsbGF0
-aW9uIHRvZ2V0aGVyIHdpdGggdGhlIGxpYmRybSBsaWJyYXJ5IGFuZCBOT1QgZm9yIHRoZSB1bml0
-IHRlc3RzLiBQbGVhc2UgbW92ZSB0aGUgZmlsZSB0byB0ZXN0cy9hbWRncHUgaW5zdGVhZC4NCj4+
-DQo+PiBJIHdvdWxkIGFsc28gcmUtY29uc2lkZXIgdGhpcyBhcHByb2FjaCBzaW5jZSB3ZSBpbnRl
-bnRpb25hbGx5IHVzZSB0aGUgQ1VuaXQgZnJhbWV3b3JrIHRvIGF2b2lkIGRlcGVuZGVuY2llcyBv
-biBleHRlcm5hbCBsaWJyYXJpZXMgbGlrZSBqc29uIGFuZCBleHRlcm5hbCBmaWxlcy4NCj4+DQo+
-PiBXZSBzaG91bGQgcHJvYmFibHkgYmV0dGVyIGNvbmZpZ3VyZSB0aGUgdGVzdHMgZGlyZWN0bHkg
-aW4gdGhlIEMgY29kZSBzbyB0aGF0IHRoZSB1bml0IHRlc3Qgc3RheXMgc2VsZiBjb250YWluaW5n
-Lg0KPj4NCj4+IFJlZ2FyZHMsDQo+PiBDaHJpc3RpYW4uDQo+Pg0KPj4gQW0gMTkuMDguMTkgdW0g
-MDU6MTYgc2NocmllYiBDaGVuLCBHdWNodW46DQo+Pj4gSGkgQ2hyaXN0aWFuLA0KPj4+DQo+Pj4g
-WWVzLCB3ZSBhZGRlZCBvbmUgY29uZmlndXJhdGlvbiBmaWxlIG5hbWVkICJhbWRncHVfcmFzLmpz
-b24iIGZvciBSQVMgaW5qZWN0IHVuaXQgdGVzdCB0byBkcm0gbWFzdGVyIGJyYW5jaC4NCj4+PiBU
-aGlzIHVuaXQgdGVzdCB3aWxsIGJlIG1haW50YWluZWQgdG8gaWxsdXN0cmF0ZSBhbGwgdGhlIFJB
-UyB0ZXN0cyB3ZSBhYnNvbHV0ZWx5IHN1cHBvcnQgaW4gSVAgbW9kdWxlcy9zdWJtb2R1bGVzLg0K
-Pj4+DQo+Pj4gUmVnYXJkcywNCj4+PiBHdWNodW4NCj4+Pg0KPj4+IC0tLS0tT3JpZ2luYWwgTWVz
-c2FnZS0tLS0tDQo+Pj4gRnJvbTogQ2hyaXN0aWFuIEvDtm5pZyA8Y2tvZW5pZy5sZWljaHR6dW1l
-cmtlbkBnbWFpbC5jb20+DQo+Pj4gU2VudDogRnJpZGF5LCBBdWd1c3QgMTYsIDIwMTkgNzoxMiBQ
-TQ0KPj4+IFRvOiBDaGVuLCBHdWNodW4gPEd1Y2h1bi5DaGVuQGFtZC5jb20+OyANCj4+PiBhbWQt
-Z2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZzsgWmhhbmcsIEhhd2tpbmcgDQo+Pj4gPEhhd2tpbmcu
-WmhhbmdAYW1kLmNvbT47IExpLCBEZW5uaXMgPERlbm5pcy5MaUBhbWQuY29tPjsgQ3VpLCBGbG9y
-YSANCj4+PiA8RmxvcmEuQ3VpQGFtZC5jb20+OyBaaG91MSwgVGFvIDxUYW8uWmhvdTFAYW1kLmNv
-bT4NCj4+PiBDYzogTGksIENhbmRpY2UgPENhbmRpY2UuTGlAYW1kLmNvbT4NCj4+PiBTdWJqZWN0
-OiBSZTogW1BBVENIIGxpYmRybV0gYW1kZ3B1OiBhZGQgbW1odWIgcmFzIGluamVjdCB1bml0IHRl
-c3QNCj4+Pg0KPj4+IFdlbGwgdGhpcyBkb2Vzbid0IGxvb2sgbGlrZSBDIHRvIG1lLiBEaWQgd2Ug
-YWRkZWQgYSBjb25maWd1cmF0aW9uIGZpbGUgZm9yIHRoZSByYXMgdW5pdCB0ZXN0cyBvciBzb21l
-dGhpbmcgbGlrZSB0aGF0Pw0KPj4+DQo+Pj4gQ2hyaXN0aWFuLg0KPj4+DQo+Pj4gQW0gMTYuMDgu
-MTkgdW0gMTM6MDQgc2NocmllYiBHdWNodW4gQ2hlbjoNCj4+Pj4gQ2hhbmdlLUlkOiBJYTc2Yjk1
-MTYyZjVmNmY0MTlmNzBiNTNlZjQ0M2JjZWFmMmUwOTJlMA0KPj4+PiBTaWduZWQtb2ZmLWJ5OiBH
-dWNodW4gQ2hlbiA8Z3VjaHVuLmNoZW5AYW1kLmNvbT4NCj4+Pj4gLS0tDQo+Pj4+ICAgICAgZGF0
-YS9hbWRncHVfcmFzLmpzb24gfCAxMCArKysrKysrKysrDQo+Pj4+ICAgICAgMSBmaWxlIGNoYW5n
-ZWQsIDEwIGluc2VydGlvbnMoKykNCj4+Pj4NCj4+Pj4gZGlmZiAtLWdpdCBhL2RhdGEvYW1kZ3B1
-X3Jhcy5qc29uIGIvZGF0YS9hbWRncHVfcmFzLmpzb24gaW5kZXgNCj4+Pj4gMjZmZDk0NjUuLjQ4
-NGYxMmYyIDEwMDY0NA0KPj4+PiAtLS0gYS9kYXRhL2FtZGdwdV9yYXMuanNvbg0KPj4+PiArKysg
-Yi9kYXRhL2FtZGdwdV9yYXMuanNvbg0KPj4+PiBAQCAtMTIxLDYgKzEyMSw5IEBADQo+Pj4+ICAg
-ICAgICAgICAgICAgICAgICAgICJ1dGNfYXRjbDJfY2FjaGVfNGtfYmFuayI6IDExMQ0KPj4+PiAg
-ICAgICAgICAgICAgICAgIH0NCj4+Pj4gICAgICAgICAgICAgIH0sDQo+Pj4+ICsgICAgICAgICJt
-bWh1YiI6IHsNCj4+Pj4gKyAgICAgICAgICAgICJpbmRleCI6IDMNCj4+Pj4gKyAgICAgICAgfSwN
-Cj4+Pj4gICAgICAgICAgfSwNCj4+Pj4gICAgICAgICAgInR5cGUiOiB7DQo+Pj4+ICAgICAgICAg
-ICAgICAicGFyaXR5IjogMSwNCj4+Pj4gQEAgLTI2Myw1ICsyNjYsMTIgQEANCj4+Pj4gICAgICAg
-ICAgICAgICAgICAiYWRkcmVzcyI6IDAsDQo+Pj4+ICAgICAgICAgICAgICAgICAgInZhbHVlIjog
-MA0KPj4+PiAgICAgICAgICAgICAgfSwNCj4+Pj4gKyAgICAgICAgew0KPj4+PiArICAgICAgICAg
-ICAgIm5hbWUiOiAicmFzX21taHViLjEuMCIsDQo+Pj4+ICsgICAgICAgICAgICAiYmxvY2siOiAi
-bW1odWIiLA0KPj4+PiArICAgICAgICAgICAgInR5cGUiOiAic2luZ2xlX2NvcnJlY3RhYmxlIiwN
-Cj4+Pj4gKyAgICAgICAgICAgICJhZGRyZXNzIjogMCwNCj4+Pj4gKyAgICAgICAgICAgICJ2YWx1
-ZSI6IDANCj4+Pj4gKyAgICAgICAgfSwNCj4+Pj4gICAgICAgICAgXQ0KPj4+PiAgICAgIH0NCg0K
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+Hi all,
+
+The patches in this series can be applied independently from each other.
+
+If you maintain one of these drivers and you want to merge it for v5.4
+yourself, then please do so and let me know. If you prefer I commit it
+to drm-misc, then please review and (hopefully) Ack the patch.
+
+I would really like to get this in for v5.4 so I can get the userspace
+bits in for v5.4 as well through the media subsystem.
+
+Dariusz, can you post a v7.1 for patch 5/9 fixing the typo?
+
+Thanks!
+
+	Hans
+
+On 8/14/19 12:44 PM, Dariusz Marcinkiewicz wrote:
+> This series updates DRM drivers to use new CEC notifier API.
+> 
+> Changes since v6:
+> 	Made CEC notifiers' registration and de-registration symmetric
+> 	in tda998x and dw-hdmi drivers. Also, accidentally dropped one
+> 	patch in v6 (change to drm_dp_cec), brought it back now.
+> Changes since v5:
+>         Fixed a warning about a missing comment for a new member of
+> 	drm_dp_aux_cec struct. Sending to a wider audience,
+> 	including maintainers of respective drivers.
+> Changes since v4:
+> 	Addressing review comments.
+> Changes since v3:
+>         Updated adapter flags in dw-hdmi-cec.
+> Changes since v2:
+> 	Include all DRM patches from "cec: improve notifier support,
+> 	add connector info connector info" series.
+> Changes since v1:
+> 	Those patches delay creation of notifiers until respective
+> 	connectors are constructed. It seems that those patches, for a
+> 	couple of drivers, by adding the delay, introduce a race between
+> 	notifiers' creation and the IRQs handling threads - at least I
+> 	don't see anything obvious in there that would explicitly forbid
+> 	such races to occur. v2 adds a write barrier to make sure IRQ
+> 	threads see the notifier once it is created (replacing the
+> 	WRITE_ONCE I put in v1). The best thing to do here, I believe,
+> 	would be not to have any synchronization and make sure that an IRQ
+> 	only gets enabled after the notifier is created.
+> Dariusz Marcinkiewicz (9):
+>   drm_dp_cec: add connector info support.
+>   drm/i915/intel_hdmi: use cec_notifier_conn_(un)register
+>   dw-hdmi-cec: use cec_notifier_cec_adap_(un)register
+>   tda9950: use cec_notifier_cec_adap_(un)register
+>   drm: tda998x: use cec_notifier_conn_(un)register
+>   drm: sti: use cec_notifier_conn_(un)register
+>   drm: tegra: use cec_notifier_conn_(un)register
+>   drm: dw-hdmi: use cec_notifier_conn_(un)register
+>   drm: exynos: exynos_hdmi: use cec_notifier_conn_(un)register
+> 
+>  .../display/amdgpu_dm/amdgpu_dm_mst_types.c   |  2 +-
+>  drivers/gpu/drm/bridge/synopsys/dw-hdmi-cec.c | 13 +++---
+>  drivers/gpu/drm/bridge/synopsys/dw-hdmi.c     | 46 +++++++++++++------
+>  drivers/gpu/drm/drm_dp_cec.c                  | 25 ++++++----
+>  drivers/gpu/drm/exynos/exynos_hdmi.c          | 31 +++++++------
+>  drivers/gpu/drm/i2c/tda9950.c                 | 12 ++---
+>  drivers/gpu/drm/i2c/tda998x_drv.c             | 36 ++++++++++-----
+>  drivers/gpu/drm/i915/display/intel_dp.c       |  4 +-
+>  drivers/gpu/drm/i915/display/intel_hdmi.c     | 13 ++++--
+>  drivers/gpu/drm/nouveau/nouveau_connector.c   |  3 +-
+>  drivers/gpu/drm/sti/sti_hdmi.c                | 19 +++++---
+>  drivers/gpu/drm/tegra/output.c                | 28 ++++++++---
+>  include/drm/drm_dp_helper.h                   | 17 ++++---
+>  13 files changed, 155 insertions(+), 94 deletions(-)
+> 
