@@ -1,74 +1,70 @@
-From: Stephen Rothwell <sfr@canb.auug.org.au>
-Subject: Re: linux-next: Tree for Aug 19 (amdgpu)
-Date: Tue, 20 Aug 2019 11:45:54 +1000
-Message-ID: <20190820114554.0e522651@canb.auug.org.au>
-References: <20190819191832.03f1a579@canb.auug.org.au>
-        <ba3cde82-6163-12e5-2e77-36834454113a@infradead.org>
+From: "Quan, Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: [PATCH] drm/amd/powerplay: fix variable type errors in
+ smu_v11_0_setup_pptable
+Date: Tue, 20 Aug 2019 01:47:11 +0000
+Message-ID: <MN2PR12MB3344F8CDC3052AA0DC872E1CE4AB0@MN2PR12MB3344.namprd12.prod.outlook.com>
+References: <20190819154701.17647-1-kevin1.wang@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/signed; boundary="Sig_/ST4OoFXdpAP+5=cX8fhr9hW";
- protocol="application/pgp-signature"; micalg=pgp-sha256
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <ba3cde82-6163-12e5-2e77-36834454113a@infradead.org>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Jason Gunthorpe <jgg@mellanox.com>
-Cc: Randy Dunlap <rdunlap@infradead.org>, Linux Next Mailing List <linux-next@vger.kernel.org>, Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, amd-gfx@lists.freedesktop.org, dri-devel <dri-devel@lists.freedesktop.org>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20190819154701.17647-1-kevin1.wang-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Wang, Kevin(Yang)" <Kevin1.Wang-5C7GfCeVMHo@public.gmane.org>, "dan.carpenter-QHcLZuEGTsvQT0dZR+AlfA@public.gmane.org" <dan.carpenter-QHcLZuEGTsvQT0dZR+AlfA@public.gmane.org>
 
---Sig_/ST4OoFXdpAP+5=cX8fhr9hW
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-
-Hi all,
-
-On Mon, 19 Aug 2019 18:34:41 -0700 Randy Dunlap <rdunlap@infradead.org> wro=
-te:
->
-> On 8/19/19 2:18 AM, Stephen Rothwell wrote:
-> > Hi all,
-> >=20
-> > Changes since 20190816:
-> >  =20
->=20
-> on x86_64:
->=20
-> ../drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c: In function =E2=80=98amdgpu_e=
-xit=E2=80=99:
-> ../drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c:1471:2: error: implicit declar=
-ation of function =E2=80=98mmu_notifier_synchronize=E2=80=99; did you mean =
-=E2=80=98__sync_synchronize=E2=80=99? [-Werror=3Dimplicit-function-declarat=
-ion]
->   mmu_notifier_synchronize();
->   ^~~~~~~~~~~~~~~~~~~~~~~~
->   __sync_synchronize
->=20
->=20
-> Full randconfig file is attached.
-
-Caused by commit
-
-  6832c9dc8358 ("hmm: use mmu_notifier_get/put for 'struct hmm'")
-
-from the hmm tree.
-
-drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c need to include linux/mmu_notifier.h
---=20
-Cheers,
-Stephen Rothwell
-
---Sig_/ST4OoFXdpAP+5=cX8fhr9hW
-Content-Type: application/pgp-signature
-Content-Description: OpenPGP digital signature
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEENIC96giZ81tWdLgKAVBC80lX0GwFAl1bUNIACgkQAVBC80lX
-0GxdzAf/dKMAj82tHRTzFb6SoJlnbnbHSbq1KtBSskLed0d9JATgMuYVT21kYmhx
-uCbRHbfdCHWJrnNqX8+tjhLpWLoj2csw9XwdUz3mU2t0KHFDJmjuu1uA4QO2+MIi
-Lmis+ayt5TNsMd/O40ihMr7k+0fY2EQBIS2VR+KPkPvCSRiAUquEt7OWzAKUSckF
-dA5q9F1vO2emerssEYLN3IFlNCVzwj6pPFaoh5S3Mx3dMt9VuWZD0ERVmdfDHpB9
-KVsSJ43+zI5lA+MgC0ly3XHz9Iud5TIz6o9Lg4EnpzCbqJKmksUMxN4D0vzW8uB+
-9mDrLAJAgyhNcEsfSNG+DcEJspx6cA==
-=Xru4
------END PGP SIGNATURE-----
-
---Sig_/ST4OoFXdpAP+5=cX8fhr9hW--
+UGxlYXNlIGFkZCB0aGUgZm9sbG93aW5ncyB0byB0aGUgZGVzY3JpcHRpb24gcGFydC4gV2l0aCB0
+aGF0IGFkZGVkLCB0aGUgcGF0Y2ggaXMgUmV2aWV3ZWQtYnk6IEV2YW4gUXVhbiA8ZXZhbi5xdWFu
+QGFtZC5jb20+DQoiDQpUaGlzIGZpeGVzIHRoZSBmb2xsb3dpbmcgc3RhdGljIGNoZWNrZXIgd2Fy
+bmluZy4NCiAgICAgICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvLi4vcG93ZXJwbGF5L3Nt
+dV92MTFfMC5jOjM5MCBzbXVfdjExXzBfc2V0dXBfcHB0YWJsZSgpDQogICAgICAgIHdhcm46IHBh
+c3NpbmcgY2FzdGVkIHBvaW50ZXIgJyZzaXplJyB0byAnc211X2dldF9hdG9tX2RhdGFfdGFibGUo
+KScgMzIgdnMgMTYuDQoiDQoNCj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4gRnJvbTog
+YW1kLWdmeCA8YW1kLWdmeC1ib3VuY2VzQGxpc3RzLmZyZWVkZXNrdG9wLm9yZz4gT24gQmVoYWxm
+IE9mDQo+IFdhbmcsIEtldmluKFlhbmcpDQo+IFNlbnQ6IE1vbmRheSwgQXVndXN0IDE5LCAyMDE5
+IDExOjQ3IFBNDQo+IFRvOiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0KPiBDYzogV2Fu
+ZywgS2V2aW4oWWFuZykgPEtldmluMS5XYW5nQGFtZC5jb20+Ow0KPiBkYW4uY2FycGVudGVyQG9y
+YWNsZS5jb20NCj4gU3ViamVjdDogW1BBVENIXSBkcm0vYW1kL3Bvd2VycGxheTogZml4IHZhcmlh
+YmxlIHR5cGUgZXJyb3JzIGluDQo+IHNtdV92MTFfMF9zZXR1cF9wcHRhYmxlDQo+IA0KPiBmaXgg
+c2l6ZSB0eXBlIGVycm9ycywgZnJvbSB1aW50MzJfdCB0byB1aW50MTZfdC4NCj4gaXQgd2lsbCBj
+YXVzZSBvbmx5IGluaXRpYWxpemVzIHRoZSBoaWdoZXN0IDE2IGJpdHMgaW4NCj4gc211X2dldF9h
+dG9tX2RhdGFfdGFibGUgZnVuY3Rpb24uDQo+IA0KPiBTaWduZWQtb2ZmLWJ5OiBLZXZpbiBXYW5n
+IDxrZXZpbjEud2FuZ0BhbWQuY29tPg0KPiBSZXBvcnRlZC1ieTogRGFuIENhcnBlbnRlciA8ZGFu
+LmNhcnBlbnRlckBvcmFjbGUuY29tPg0KPiAtLS0NCj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvcG93
+ZXJwbGF5L3NtdV92MTFfMC5jIHwgNCArKystDQo+ICAxIGZpbGUgY2hhbmdlZCwgMyBpbnNlcnRp
+b25zKCspLCAxIGRlbGV0aW9uKC0pDQo+IA0KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJt
+L2FtZC9wb3dlcnBsYXkvc211X3YxMV8wLmMNCj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2Vy
+cGxheS9zbXVfdjExXzAuYw0KPiBpbmRleCBiNjk2MzJmZTg1NmIuLmU5YTAyMjQ0N2FjMSAxMDA2
+NDQNCj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvc211X3YxMV8wLmMNCj4g
+KysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvc211X3YxMV8wLmMNCj4gQEAgLTM2
+OCw2ICszNjgsNyBAQCBzdGF0aWMgaW50IHNtdV92MTFfMF9zZXR1cF9wcHRhYmxlKHN0cnVjdA0K
+PiBzbXVfY29udGV4dCAqc211KQ0KPiAgCWNvbnN0IHN0cnVjdCBzbWNfZmlybXdhcmVfaGVhZGVy
+X3YxXzAgKmhkcjsNCj4gIAlpbnQgcmV0LCBpbmRleDsNCj4gIAl1aW50MzJfdCBzaXplOw0KPiAr
+CXVpbnQxNl90IGF0b21fdGFibGVfc2l6ZTsNCj4gIAl1aW50OF90IGZyZXYsIGNyZXY7DQo+ICAJ
+dm9pZCAqdGFibGU7DQo+ICAJdWludDE2X3QgdmVyc2lvbl9tYWpvciwgdmVyc2lvbl9taW5vcjsN
+Cj4gQEAgLTM5NSwxMCArMzk2LDExIEBAIHN0YXRpYyBpbnQgc211X3YxMV8wX3NldHVwX3BwdGFi
+bGUoc3RydWN0DQo+IHNtdV9jb250ZXh0ICpzbXUpDQo+ICAJCWluZGV4ID0NCj4gZ2V0X2luZGV4
+X2ludG9fbWFzdGVyX3RhYmxlKGF0b21fbWFzdGVyX2xpc3Rfb2ZfZGF0YV90YWJsZXNfdjJfMSwN
+Cj4gIAkJCQkJCSAgICBwb3dlcnBsYXlpbmZvKTsNCj4gDQo+IC0JCXJldCA9IHNtdV9nZXRfYXRv
+bV9kYXRhX3RhYmxlKHNtdSwgaW5kZXgsICh1aW50MTZfdA0KPiAqKSZzaXplLCAmZnJldiwgJmNy
+ZXYsDQo+ICsJCXJldCA9IHNtdV9nZXRfYXRvbV9kYXRhX3RhYmxlKHNtdSwgaW5kZXgsDQo+ICZh
+dG9tX3RhYmxlX3NpemUsICZmcmV2LCAmY3JldiwNCj4gIAkJCQkJICAgICAgKHVpbnQ4X3QgKiop
+JnRhYmxlKTsNCj4gIAkJaWYgKHJldCkNCj4gIAkJCXJldHVybiByZXQ7DQo+ICsJCXNpemUgPSBh
+dG9tX3RhYmxlX3NpemU7DQo+ICAJfQ0KPiANCj4gIAlpZiAoIXNtdS0+c211X3RhYmxlLnBvd2Vy
+X3BsYXlfdGFibGUpDQo+IC0tDQo+IDIuMjIuMA0KPiANCj4gX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX18NCj4gYW1kLWdmeCBtYWlsaW5nIGxpc3QNCj4gYW1k
+LWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5v
+cmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4DQpfX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZy
+ZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3Rp
+bmZvL2FtZC1nZng=
