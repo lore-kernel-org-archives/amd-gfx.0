@@ -1,79 +1,54 @@
-From: "Li, Sun peng (Leo)" <Sunpeng.Li-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH v2 09/14] drm/dp-mst: Export symbols for dpcd read/write
-Date: Tue, 20 Aug 2019 21:35:13 +0000
-Message-ID: <e7bc8662-0fcd-394d-7970-aab658206238@amd.com>
-References: <20190820191203.25807-1-David.Francis@amd.com>
- <20190820191203.25807-10-David.Francis@amd.com>
- <773c80494087854b72ffb85938f0ea54bd89c121.camel@redhat.com>
+From: Nathan Chancellor <natechancellor@gmail.com>
+Subject: [PATCH] drm/amd/display: Fix 32-bit divide error in wait_for_alt_mode
+Date: Tue, 20 Aug 2019 16:57:13 -0700
+Message-ID: <20190820235713.3429-1-natechancellor@gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <773c80494087854b72ffb85938f0ea54bd89c121.camel-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>
-Content-Language: en-US
-Content-ID: <5112E0335118BB4197992A8ABE6C16CE-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Lyude Paul <lyude-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>, "Francis, David" <David.Francis-5C7GfCeVMHo@public.gmane.org>, "dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, Nathan Chancellor <natechancellor@gmail.com>, Randy Dunlap <rdunlap@infradead.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-DQoNCg0KT24gMjAxOS0wOC0yMCA1OjAyIHAubS4sIEx5dWRlIFBhdWwgd3JvdGU6DQo+IFtBZGRl
-ZCBMZW8gTGkgaGVyZSwgc2luY2UgdGhleSBkaWQgdGhlIGF1eGRldiB3b3JrIHRoYXQgaW50cm9k
-dWNlZCB0aGVzZQ0KPiBmdW5jdGlvbnNdDQo+IA0KPiBTaW5jZSBpdCBzZWVtcyB3ZSdsbCBhY3R1
-YWxseSBiZSBkb2luZyByZW1vdGUgRFBDRCByZWFkL3dyaXRlcyBpbiBEUk0gZHJpdmVycw0KPiBh
-bmQgbm90IGp1c3QgZnJvbSBhdXhkZXYsIG1heWJlIHdlIHNob3VsZCBjb21iaW5lIGRybV9kcF9k
-cGNkX3JlYWQoKSB3aXRoDQo+IGRybV9kcF9tc3RfZHBjZF9yZWFkKCkgYW5kIGRvIHRoZSBzYW1l
-IHdpdGggdGhlIF93cml0ZSgpIHZhcmlhbnRzPyBCYXNlZCBvbg0KPiBwcmV2aW91cyBkaXNjdXNz
-aW9ucyB3aXRoIExlbyBMaSBJIHJlbWVtYmVyIHRoYXQgd2UgY2FuJ3QganVzdCBjb21iaW5lIHRo
-ZQ0KPiBkcF9hdXhfZGV2LT50cmFuc2ZlcigpIGNhbGxiYWNrcyBpbiBzdHJ1Y3QgZHJtX2RwX2F1
-eF9kZXYsIGJ1dCBJIGRvbid0IHNlZSBhDQo+IHJlYXNvbiB3ZSBjYW4ndCBqdXN0IHRlYWNoIGRy
-bV9kcF9kcGNkX3JlYWQvd3JpdGUoKSB0byB3b3JrIHdpdGggTVNUIGF1eCBzbw0KPiB0aGF0IHdl
-IGRvbid0IG5lZWQgdHdvIHNlcGVyYXRlIGZ1bmN0aW9ucy4gVGhpcyBzaG91bGQgYmUgcHJldHR5
-IGVhc3kgdG8gZG8sDQo+IGp1c3Q6DQo+IA0KPiAvKiBBZGQgYSBjaGVjayBsaWtlIHRoaXMgYXQg
-dGhlIHN0YXJ0IG9mIGRybV9kcF9kcGNkX3JlYWQoKTogKi8NCj4gc3NpemVfdCBkcm1fZHBfZHBj
-ZF9yZWFkKC4uLikgew0KPiAJaWYgKGF1eC0+aXNfcmVtb3RlKQ0KPiAJCXJldHVybiBkcm1fZHBf
-bXN0X2RwY2RfcmVhZCguLi4pOw0KPiANCj4gCS8qIC4uLiAqLw0KPiB9DQo+IA0KPiAvKiBBbmQg
-aW4gZHJtX2RwX2RwY2Rfd3JpdGUoKTogKi8NCj4gc3NpemVfdCBkcm1fZHBfZHBjZF93cml0ZSgu
-Li4pIHsNCj4gCWlmIChhdXgtPmlzX3JlbW90ZSkNCj4gCQlyZXR1cm4gZHJtX2RwX21zdF9kcGNk
-X3dyaXRlKC4uLik7DQo+IA0KPiAJLyogLi4uICovDQo+IH0NCj4gDQo+IFRoZW4ganVzdCByZXBs
-YWNlIHRoZSBtYW51YWwgY2FsbHMgdG8gZHJtX2RwX21zdF9kcGNkX3dyaXRlKCkgaW4NCj4gZHJp
-dmVycy9ncHUvZHJtL2RybV9kcF9hdXhfZGV2LmMgd2l0aCBub3JtYWwNCj4gZHJtX2RwX2RwY2Rf
-cmVhZCgpL2RybV9kcF9kcGNkX3dyaXRlKCkgY2FsbHMuIFRob3VnaHRzPw0KDQpJIHRoaW5rIHRo
-aXMgd291bGQgd29yayB3ZWxsLg0KDQpkcm1fZHBfbXN0X2RwY2RfcmVhZC93cml0ZSB3aWxsIGV2
-ZW50dWFsbHkgY2FsbCBkcm1fZHBfZHBjZF93cml0ZSwgc28NCmRvaW5nIHNvIHdvdWxkIGNhdXNl
-IGEgcmVjdXJzaXZlIGNhbGwuIFRoYXQgc2hvdWxkIGJlIHNhZmUgdGhvdWdoLiBUaGUNCm1zdCBt
-YW5hZ2VyJ3MgYXV4IHdpbGwgYmUgdXNlZCwgYW5kIHRoYXQgc2hvdWxkIGFsd2F5cyBiZSBhIHJl
-YWwNCihpc19yZW1vdGUgPT0gZmFsc2UpIGF1eCwgZndpY3QuDQoNCkVzc2VudGlhbGx5LCBpdCdz
-IGp1c3QgbW92aW5nIHRoYXQgY29uZGl0aW9uYWwgZnJvbQ0KYXV4ZGV2X3JlYWQvd3JpdGVfaXRl
-ciB0byBkcm1fZHBfZHBjZF9yZWFkL3dyaXRlLg0KDQpMZW8NCg0KPiANCj4gT24gVHVlLCAyMDE5
-LTA4LTIwIGF0IDE1OjExIC0wNDAwLCBEYXZpZCBGcmFuY2lzIHdyb3RlOg0KPj4gVG8gdXNlIHRo
-ZXNlIGZ1bmN0aW9ucyBpbiBkcm0gZHJpdmVyIGRpcmVjdG9yaWVzLCB0aGV5IG11c3QgYmUNCj4+
-IGV4cG9ydGVkDQo+Pg0KPj4gU2lnbmVkLW9mZi1ieTogRGF2aWQgRnJhbmNpcyA8RGF2aWQuRnJh
-bmNpc0BhbWQuY29tPg0KPj4gLS0tDQo+PiAgZHJpdmVycy9ncHUvZHJtL2RybV9kcF9tc3RfdG9w
-b2xvZ3kuYyB8IDIgKysNCj4+ICAxIGZpbGUgY2hhbmdlZCwgMiBpbnNlcnRpb25zKCspDQo+Pg0K
-Pj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9kcm1fZHBfbXN0X3RvcG9sb2d5LmMNCj4+
-IGIvZHJpdmVycy9ncHUvZHJtL2RybV9kcF9tc3RfdG9wb2xvZ3kuYw0KPj4gaW5kZXggYjQwZDk3
-NWFlYzc2Li41ZDViZDQyZGExN2MgMTAwNjQ0DQo+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vZHJt
-X2RwX21zdF90b3BvbG9neS5jDQo+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vZHJtX2RwX21zdF90
-b3BvbG9neS5jDQo+PiBAQCAtMTUxMiw2ICsxNTEyLDcgQEAgc3NpemVfdCBkcm1fZHBfbXN0X2Rw
-Y2RfcmVhZChzdHJ1Y3QgZHJtX2RwX2F1eCAqYXV4LA0KPj4gIAlyZXR1cm4gZHJtX2RwX3NlbmRf
-ZHBjZF9yZWFkKHBvcnQtPm1nciwgcG9ydCwNCj4+ICAJCQkJICAgICBvZmZzZXQsIHNpemUsIGJ1
-ZmZlcik7DQo+PiAgfQ0KPj4gK0VYUE9SVF9TWU1CT0woZHJtX2RwX21zdF9kcGNkX3JlYWQpOw0K
-Pj4gIA0KPj4gIC8qKg0KPj4gICAqIGRybV9kcF9tc3RfZHBjZF93cml0ZSgpIC0gd3JpdGUgYSBz
-ZXJpZXMgb2YgYnl0ZXMgdG8gdGhlIERQQ0QgdmlhDQo+PiBzaWRlYmFuZA0KPj4gQEAgLTE1MzUs
-NiArMTUzNiw3IEBAIHNzaXplX3QgZHJtX2RwX21zdF9kcGNkX3dyaXRlKHN0cnVjdCBkcm1fZHBf
-YXV4ICphdXgsDQo+PiAgCXJldHVybiBkcm1fZHBfc2VuZF9kcGNkX3dyaXRlKHBvcnQtPm1nciwg
-cG9ydCwNCj4+ICAJCQkJICAgICAgb2Zmc2V0LCBzaXplLCBidWZmZXIpOw0KPj4gIH0NCj4+ICtF
-WFBPUlRfU1lNQk9MKGRybV9kcF9tc3RfZHBjZF93cml0ZSk7DQo+PiAgDQo+PiAgc3RhdGljIHZv
-aWQgZHJtX2RwX2NoZWNrX21zdGJfZ3VpZChzdHJ1Y3QgZHJtX2RwX21zdF9icmFuY2ggKm1zdGIs
-IHU4DQo+PiAqZ3VpZCkNCj4+ICB7DQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNr
-dG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2Ft
-ZC1nZng=
+When building arm32 allyesconfig:
+
+ld.lld: error: undefined symbol: __aeabi_uldivmod
+>>> referenced by dc_link.c
+>>> gpu/drm/amd/display/dc/core/dc_link.o:(wait_for_alt_mode) in archive drivers/built-in.a
+>>> referenced by dc_link.c
+>>> gpu/drm/amd/display/dc/core/dc_link.o:(wait_for_alt_mode) in archive drivers/built-in.a
+
+time_taken_in_ns is of type unsigned long long so we need to use div_u64
+to avoid this error.
+
+Fixes: b5b1f4554904 ("drm/amd/display: Enable type C hotplug")
+Reported-by: Randy Dunlap <rdunlap@infradead.org>
+Signed-off-by: Nathan Chancellor <natechancellor@gmail.com>
+---
+ drivers/gpu/drm/amd/display/dc/core/dc_link.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link.c b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
+index f2d78d7b089e..8634923b4444 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_link.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
+@@ -721,7 +721,7 @@ bool wait_for_alt_mode(struct dc_link *link)
+ 			time_taken_in_ns = dm_get_elapse_time_in_ns(
+ 				link->ctx, finish_timestamp, enter_timestamp);
+ 			DC_LOG_WARNING("Alt mode entered finished after %llu ms\n",
+-				       time_taken_in_ns / 1000000);
++				       div_u64(time_taken_in_ns, 1000000));
+ 			return true;
+ 		}
+ 
+@@ -730,7 +730,7 @@ bool wait_for_alt_mode(struct dc_link *link)
+ 	time_taken_in_ns = dm_get_elapse_time_in_ns(link->ctx, finish_timestamp,
+ 						    enter_timestamp);
+ 	DC_LOG_WARNING("Alt mode has timed out after %llu ms\n",
+-			time_taken_in_ns / 1000000);
++			div_u64(time_taken_in_ns, 1000000));
+ 	return false;
+ }
+ 
+-- 
+2.23.0
