@@ -1,15 +1,16 @@
 From: "Quan, Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH 3/4] drm/amd/powerplay: get bootup fclk value
-Date: Tue, 20 Aug 2019 02:09:03 +0000
-Message-ID: <MN2PR12MB33443B0D70F900195F611CD5E4AB0@MN2PR12MB3344.namprd12.prod.outlook.com>
-References: <20190816060807.11922-1-evan.quan@amd.com>,
- <20190816060807.11922-3-evan.quan@amd.com>
- <MN2PR12MB3296E1EFA5B50EBA18CE1841A2AF0@MN2PR12MB3296.namprd12.prod.outlook.com>
- <MN2PR12MB3344896B119B12D504E130C8E4AF0@MN2PR12MB3344.namprd12.prod.outlook.com>
+Subject: RE: [PATCH] drm/amd/powerplay: correct SW smu11 thermal range settings
+Date: Tue, 20 Aug 2019 02:09:47 +0000
+Message-ID: <MN2PR12MB334407D4ABFF5E4F1CC02518E4AB0@MN2PR12MB3344.namprd12.prod.outlook.com>
+References: <20190816093144.21892-1-evan.quan@amd.com>
+ <MN2PR12MB3296E3E1C79504DD56058410A2AF0@MN2PR12MB3296.namprd12.prod.outlook.com>
+ <MN2PR12MB3344E88B19DF4DA83279BBF2E4A80@MN2PR12MB3344.namprd12.prod.outlook.com>
+ <MN2PR12MB35981C5C1B0A12B8C8C1CD468EA80@MN2PR12MB3598.namprd12.prod.outlook.com>
+ <MN2PR12MB334468A94B93D7D848596611E4A80@MN2PR12MB3344.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1214619296=="
+Content-Type: multipart/mixed; boundary="===============1129162297=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <MN2PR12MB3344896B119B12D504E130C8E4AF0-rweVpJHSKToDMgCC8P//OwdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
+In-Reply-To: <MN2PR12MB334468A94B93D7D848596611E4A80-rweVpJHSKToDMgCC8P//OwdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -22,47 +23,78 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Wang, Kevin(Yang)" <Kevin1.Wang-5C7GfCeVMHo@public.gmane.org>
+Cc: "Wang, Kevin(Yang)" <Kevin1.Wang-5C7GfCeVMHo@public.gmane.org>, "Feng,
+ Kenneth" <Kenneth.Feng-5C7GfCeVMHo@public.gmane.org>
 
---===============1214619296==
+--===============1129162297==
 Content-Language: en-US
 Content-Type: multipart/alternative;
-	boundary="_000_MN2PR12MB33443B0D70F900195F611CD5E4AB0MN2PR12MB3344namp_"
+	boundary="_000_MN2PR12MB334407D4ABFF5E4F1CC02518E4AB0MN2PR12MB3344namp_"
 
---_000_MN2PR12MB33443B0D70F900195F611CD5E4AB0MN2PR12MB3344namp_
+--_000_MN2PR12MB334407D4ABFF5E4F1CC02518E4AB0MN2PR12MB3344namp_
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
 Ping..
 
 From: Quan, Evan
-Sent: Friday, August 16, 2019 4:00 PM
-To: Wang, Kevin(Yang) <Kevin1.Wang-5C7GfCeVMHo@public.gmane.org>; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Subject: RE: [PATCH 3/4] drm/amd/powerplay: get bootup fclk value
+Sent: Monday, August 19, 2019 1:27 PM
+To: Feng, Kenneth <Kenneth.Feng-5C7GfCeVMHo@public.gmane.org>; Wang, Kevin(Yang) <Kevin1.Wang@am=
+d.com>; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Subject: RE: [PATCH] drm/amd/powerplay: correct SW smu11 thermal range sett=
+ings
 
-Since smu_get_atom_data_table() was already used in smu_v11_0_get_vbios_boo=
-tup_values(). We should get all our needed information at once.
-Also, what smu_get_atom_data_table() does is to get the data table from vbi=
-os. It's a time and resource cost job.
-I do not think it's a good idea to call it again just to get some informati=
-on we should already know.
+Yes, the lowest settings for thermal controller is 0.
 
-Regards,
+Regards
 Evan
+From: Feng, Kenneth <Kenneth.Feng-5C7GfCeVMHo@public.gmane.org<mailto:Kenneth.Feng-5C7GfCeVMHo@public.gmane.org>>
+Sent: Monday, August 19, 2019 1:12 PM
+To: Quan, Evan <Evan.Quan-5C7GfCeVMHo@public.gmane.org<mailto:Evan.Quan-5C7GfCeVMHo@public.gmane.org>>; Wang, Kevin(Y=
+ang) <Kevin1.Wang-5C7GfCeVMHo@public.gmane.org<mailto:Kevin1.Wang-5C7GfCeVMHo@public.gmane.org>>; amd-gfx-PD4FTy7X32mMSPqsTGOZug@public.gmane.org=
+esktop.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Subject: RE: [PATCH] drm/amd/powerplay: correct SW smu11 thermal range sett=
+ings
+
+Hi Evan,
+So due to the below code, we don't get a chance to set -273.15, right?
++       low =3D max(SMU_THERMAL_MINIMUM_ALERT_TEMP,
++                       range.min / SMU_TEMPERATURE_UNITS_PER_CENTIGRADES);
++       high =3D min(SMU_THERMAL_MAXIMUM_ALERT_TEMP,
++                       range.max / SMU_TEMPERATURE_UNITS_PER_CENTIGRADES);
+
+From: amd-gfx [mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org] On Behalf Of Q=
+uan, Evan
+Sent: Monday, August 19, 2019 10:16 AM
+To: Wang, Kevin(Yang) <Kevin1.Wang-5C7GfCeVMHo@public.gmane.org<mailto:Kevin1.Wang-5C7GfCeVMHo@public.gmane.org>>; am=
+d-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Subject: RE: [PATCH] drm/amd/powerplay: correct SW smu11 thermal range sett=
+ings
+
+[CAUTION: External Email]
+Comment inline
+
 From: Wang, Kevin(Yang) <Kevin1.Wang-5C7GfCeVMHo@public.gmane.org<mailto:Kevin1.Wang-5C7GfCeVMHo@public.gmane.org>>
-Sent: Friday, August 16, 2019 3:10 PM
+Sent: Friday, August 16, 2019 7:04 PM
 To: Quan, Evan <Evan.Quan-5C7GfCeVMHo@public.gmane.org<mailto:Evan.Quan-5C7GfCeVMHo@public.gmane.org>>; amd-gfx@lists=
 .freedesktop.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Subject: Re: [PATCH 3/4] drm/amd/powerplay: get bootup fclk value
+Subject: Re: [PATCH] drm/amd/powerplay: correct SW smu11 thermal range sett=
+ings
 
-i think we can use a function to retrieve this information without storing =
-it separately.
-likes:  ret =3D smu_get_atom_data_table(smu, index, &size, &frev, &crev,
-                                      (uint8_t **)&header);
-because these information is a generic information from atom_common_table_h=
-eader.
-and other function don't care it except in smu_v11_0_get_clk_info_from_vbio=
-s.
+Hi Evan,
+
+the temperature min value should be 0, not -273 on smu11.
+you can refrence window driver code or register spec.
+        output_ptr->operating_temperature_min_Limit =3D 0;
+        output_ptr->operating_temperature_max_Limit =3D ppt_info->software_=
+shutdown_temp;
+[Quan, Evan] There was a discussion over the min value(0 or -273.15) and we=
+ decided to use the later considering the OD case.
+All the existing and coming ASICs should  follow this design.
+and in smu11, the thermal control has a 8bit register to set min and max va=
+lue, and the unit is temperature.
+[Quan, Evan] That is still honored, no violation here.
+so there is something wrong with this patch.
 
 Best Regards,
 Kevin
@@ -70,87 +102,263 @@ ________________________________
 From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-bounces=
 @lists.freedesktop.org>> on behalf of Evan Quan <evan.quan-5C7GfCeVMHo@public.gmane.org<mailto:e=
 van.quan-5C7GfCeVMHo@public.gmane.org>>
-Sent: Friday, August 16, 2019 2:08 PM
+Sent: Friday, August 16, 2019 5:31 PM
 To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> <am=
 d-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>>
 Cc: Quan, Evan <Evan.Quan-5C7GfCeVMHo@public.gmane.org<mailto:Evan.Quan-5C7GfCeVMHo@public.gmane.org>>
-Subject: [PATCH 3/4] drm/amd/powerplay: get bootup fclk value
+Subject: [PATCH] drm/amd/powerplay: correct SW smu11 thermal range settings
 
-This is available with firmwareinfo table v3.2 or later.
+Problems with current settings:
+1. The min value was overrided to 0 on Vega20 & Navi10. While
+   the expected should be -273.15 C.
+2. The thermal min/max threshold was output in wrong unit on
+   Navi10 & Arcturus. As TEMP_RANGE_MIN/MAX is already in
+   millicelsius. And "*1000" in smu_v11_0_start_thermal_control
+   makes the output wrongly.
 
-Change-Id: I223edf3c616b9e3e2527c752214fef5ab53d1cea
+Change-Id: I2f1866edd1baf264f521310343f492eaede26c33
 Signed-off-by: Evan Quan <evan.quan-5C7GfCeVMHo@public.gmane.org<mailto:evan.quan-5C7GfCeVMHo@public.gmane.org>>
 ---
- .../gpu/drm/amd/powerplay/inc/amdgpu_smu.h    |  3 +++
- drivers/gpu/drm/amd/powerplay/smu_v11_0.c     | 21 +++++++++++++++++++
- 2 files changed, 24 insertions(+)
+ drivers/gpu/drm/amd/powerplay/arcturus_ppt.c  | 10 ----
+ drivers/gpu/drm/amd/powerplay/inc/smu_v11_0.h |  6 +++
+ drivers/gpu/drm/amd/powerplay/navi10_ppt.c    |  5 +-
+ drivers/gpu/drm/amd/powerplay/smu_v11_0.c     | 51 +++++++------------
+ drivers/gpu/drm/amd/powerplay/vega20_ppt.c    | 20 +++++---
+ 5 files changed, 38 insertions(+), 54 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h b/drivers/gpu/d=
-rm/amd/powerplay/inc/amdgpu_smu.h
-index ca9b9ec39de8..2c16eb412954 100644
---- a/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h
-+++ b/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h
-@@ -222,6 +222,9 @@ struct smu_bios_boot_up_values
-         uint16_t                        vdd_gfx;
-         uint8_t                         cooling_id;
-         uint32_t                        pp_table_id;
-+       uint32_t                        format_revision;
-+       uint32_t                        content_revision;
-+       uint32_t                        fclk;
- };
+diff --git a/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c b/drivers/gpu/drm=
+/amd/powerplay/arcturus_ppt.c
+index 4060607fbb35..1a1f64a9e1e0 100644
+--- a/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c
++++ b/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c
+@@ -880,23 +880,14 @@ static int arcturus_force_clk_levels(struct smu_conte=
+xt *smu,
+         return ret;
+ }
 
- enum smu_table_id
+-static const struct smu_temperature_range arcturus_thermal_policy[] =3D
+-{
+-       {-273150,  99000, 99000, -273150, 99000, 99000, -273150, 99000, 990=
+00},
+-       { 120000, 120000, 120000, 120000, 120000, 120000, 120000, 120000, 1=
+20000},
+-};
+-
+ static int arcturus_get_thermal_temperature_range(struct smu_context *smu,
+                                                 struct smu_temperature_ran=
+ge *range)
+ {
+-
+         PPTable_t *pptable =3D smu->smu_table.driver_pptable;
+
+         if (!range)
+                 return -EINVAL;
+
+-       memcpy(range, &arcturus_thermal_policy[0], sizeof(struct smu_temper=
+ature_range));
+-
+         range->max =3D pptable->TedgeLimit *
+                 SMU_TEMPERATURE_UNITS_PER_CENTIGRADES;
+         range->edge_emergency_max =3D (pptable->TedgeLimit + CTF_OFFSET_ED=
+GE) *
+@@ -910,7 +901,6 @@ static int arcturus_get_thermal_temperature_range(struc=
+t smu_context *smu,
+         range->mem_emergency_max =3D (pptable->TmemLimit + CTF_OFFSET_HBM)=
+*
+                 SMU_TEMPERATURE_UNITS_PER_CENTIGRADES;
+
+-
+         return 0;
+ }
+
+diff --git a/drivers/gpu/drm/amd/powerplay/inc/smu_v11_0.h b/drivers/gpu/dr=
+m/amd/powerplay/inc/smu_v11_0.h
+index 0a22fa48ff5a..59b2045e37e4 100644
+--- a/drivers/gpu/drm/amd/powerplay/inc/smu_v11_0.h
++++ b/drivers/gpu/drm/amd/powerplay/inc/smu_v11_0.h
+@@ -64,6 +64,12 @@
+ #define WORKLOAD_MAP(profile, workload) \
+         [profile] =3D {1, (workload)}
+
++static const struct smu_temperature_range smu11_thermal_policy[] =3D
++{
++       {-273150,  99000, 99000, -273150, 99000, 99000, -273150, 99000, 990=
+00},
++       { 120000, 120000, 120000, 120000, 120000, 120000, 120000, 120000, 1=
+20000},
++};
++
+ struct smu_11_0_cmn2aisc_mapping {
+         int     valid_mapping;
+         int     map_to;
+diff --git a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c b/drivers/gpu/drm/a=
+md/powerplay/navi10_ppt.c
+index d7d4186b762f..e804d18f61d0 100644
+--- a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
++++ b/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
+@@ -1505,9 +1505,8 @@ static int navi10_get_thermal_temperature_range(struc=
+t smu_context *smu,
+         if (!range || !powerplay_table)
+                 return -EINVAL;
+
+-       /* The unit is temperature */
+-       range->min =3D 0;
+-       range->max =3D powerplay_table->software_shutdown_temp;
++       range->max =3D powerplay_table->software_shutdown_temp *
++               SMU_TEMPERATURE_UNITS_PER_CENTIGRADES;
+
+         return 0;
+ }
 diff --git a/drivers/gpu/drm/amd/powerplay/smu_v11_0.c b/drivers/gpu/drm/am=
 d/powerplay/smu_v11_0.c
-index 4a51de4ff162..df7b65360ac7 100644
+index df7b65360ac7..5f5fd3a88e48 100644
 --- a/drivers/gpu/drm/amd/powerplay/smu_v11_0.c
 +++ b/drivers/gpu/drm/amd/powerplay/smu_v11_0.c
-@@ -568,6 +568,9 @@ int smu_v11_0_get_vbios_bootup_values(struct smu_contex=
-t *smu)
-                 smu->smu_table.boot_values.pp_table_id =3D v_3_3->pplib_pp=
-table_id;
+@@ -1125,23 +1125,17 @@ static int smu_v11_0_get_current_clk_freq(struct sm=
+u_context *smu,
+ }
+
+ static int smu_v11_0_set_thermal_range(struct smu_context *smu,
+-                                      struct smu_temperature_range *range)
++                                      struct smu_temperature_range range)
+ {
+         struct amdgpu_device *adev =3D smu->adev;
+         int low =3D SMU_THERMAL_MINIMUM_ALERT_TEMP;
+         int high =3D SMU_THERMAL_MAXIMUM_ALERT_TEMP;
+         uint32_t val;
+
+-       if (!range)
+-               return -EINVAL;
+-
+-       if (low < range->min)
+-               low =3D range->min;
+-       if (high > range->max)
+-               high =3D range->max;
+-
+-       low =3D max(SMU_THERMAL_MINIMUM_ALERT_TEMP, range->min);
+-       high =3D min(SMU_THERMAL_MAXIMUM_ALERT_TEMP, range->max);
++       low =3D max(SMU_THERMAL_MINIMUM_ALERT_TEMP,
++                       range.min / SMU_TEMPERATURE_UNITS_PER_CENTIGRADES);
++       high =3D min(SMU_THERMAL_MAXIMUM_ALERT_TEMP,
++                       range.max / SMU_TEMPERATURE_UNITS_PER_CENTIGRADES);
+
+         if (low > high)
+                 return -EINVAL;
+@@ -1177,27 +1171,20 @@ static int smu_v11_0_enable_thermal_alert(struct sm=
+u_context *smu)
+ static int smu_v11_0_start_thermal_control(struct smu_context *smu)
+ {
+         int ret =3D 0;
+-       struct smu_temperature_range range =3D {
+-               TEMP_RANGE_MIN,
+-               TEMP_RANGE_MAX,
+-               TEMP_RANGE_MAX,
+-               TEMP_RANGE_MIN,
+-               TEMP_RANGE_MAX,
+-               TEMP_RANGE_MAX,
+-               TEMP_RANGE_MIN,
+-               TEMP_RANGE_MAX,
+-               TEMP_RANGE_MAX};
++       struct smu_temperature_range range;
+         struct amdgpu_device *adev =3D smu->adev;
+
+         if (!smu->pm_enabled)
+                 return ret;
+
++       memcpy(&range, &smu11_thermal_policy[0], sizeof(struct smu_temperat=
+ure_range));
++
+         ret =3D smu_get_thermal_temperature_range(smu, &range);
+         if (ret)
+                 return ret;
+
+         if (smu->smu_table.thermal_controller_type) {
+-               ret =3D smu_v11_0_set_thermal_range(smu, &range);
++               ret =3D smu_v11_0_set_thermal_range(smu, range);
+                 if (ret)
+                         return ret;
+
+@@ -1210,17 +1197,15 @@ static int smu_v11_0_start_thermal_control(struct s=
+mu_context *smu)
+                         return ret;
          }
 
-+       smu->smu_table.boot_values.format_revision =3D header->format_revis=
-ion;
-+       smu->smu_table.boot_values.content_revision =3D header->content_rev=
-ision;
-+
-         return 0;
+-       adev->pm.dpm.thermal.min_temp =3D range.min * SMU_TEMPERATURE_UNITS=
+_PER_CENTIGRADES;
+-       adev->pm.dpm.thermal.max_temp =3D range.max * SMU_TEMPERATURE_UNITS=
+_PER_CENTIGRADES;
+-       adev->pm.dpm.thermal.max_edge_emergency_temp =3D range.edge_emergen=
+cy_max * SMU_TEMPERATURE_UNITS_PER_CENTIGRADES;
+-       adev->pm.dpm.thermal.min_hotspot_temp =3D range.hotspot_min * SMU_T=
+EMPERATURE_UNITS_PER_CENTIGRADES;
+-       adev->pm.dpm.thermal.max_hotspot_crit_temp =3D range.hotspot_crit_m=
+ax * SMU_TEMPERATURE_UNITS_PER_CENTIGRADES;
+-       adev->pm.dpm.thermal.max_hotspot_emergency_temp =3D range.hotspot_e=
+mergency_max * SMU_TEMPERATURE_UNITS_PER_CENTIGRADES;
+-       adev->pm.dpm.thermal.min_mem_temp =3D range.mem_min * SMU_TEMPERATU=
+RE_UNITS_PER_CENTIGRADES;
+-       adev->pm.dpm.thermal.max_mem_crit_temp =3D range.mem_crit_max * SMU=
+_TEMPERATURE_UNITS_PER_CENTIGRADES;
+-       adev->pm.dpm.thermal.max_mem_emergency_temp =3D range.mem_emergency=
+_max * SMU_TEMPERATURE_UNITS_PER_CENTIGRADES;
+-       adev->pm.dpm.thermal.min_temp =3D range.min * SMU_TEMPERATURE_UNITS=
+_PER_CENTIGRADES;
+-       adev->pm.dpm.thermal.max_temp =3D range.max * SMU_TEMPERATURE_UNITS=
+_PER_CENTIGRADES;
++       adev->pm.dpm.thermal.min_temp =3D range.min;
++       adev->pm.dpm.thermal.max_temp =3D range.max;
++       adev->pm.dpm.thermal.max_edge_emergency_temp =3D range.edge_emergen=
+cy_max;
++       adev->pm.dpm.thermal.min_hotspot_temp =3D range.hotspot_min;
++       adev->pm.dpm.thermal.max_hotspot_crit_temp =3D range.hotspot_crit_m=
+ax;
++       adev->pm.dpm.thermal.max_hotspot_emergency_temp =3D range.hotspot_e=
+mergency_max;
++       adev->pm.dpm.thermal.min_mem_temp =3D range.mem_min;
++       adev->pm.dpm.thermal.max_mem_crit_temp =3D range.mem_crit_max;
++       adev->pm.dpm.thermal.max_mem_emergency_temp =3D range.mem_emergency=
+_max;
+
+         return ret;
  }
+diff --git a/drivers/gpu/drm/amd/powerplay/vega20_ppt.c b/drivers/gpu/drm/a=
+md/powerplay/vega20_ppt.c
+index acf075393c13..e14363182691 100644
+--- a/drivers/gpu/drm/amd/powerplay/vega20_ppt.c
++++ b/drivers/gpu/drm/amd/powerplay/vega20_ppt.c
+@@ -3113,14 +3113,18 @@ static int vega20_get_thermal_temperature_range(str=
+uct smu_context *smu,
+         if (!range || !powerplay_table)
+                 return -EINVAL;
 
-@@ -647,6 +650,24 @@ static int smu_v11_0_get_clk_info_from_vbios(struct sm=
-u_context *smu)
-         output =3D (struct atom_get_smu_clock_info_output_parameters_v3_1 =
-*)&input;
-         smu->smu_table.boot_values.dclk =3D le32_to_cpu(output->atom_smu_o=
-utputclkfreq.smu_clock_freq_hz) / 10000;
+-       /* The unit is temperature */
+-       range->min =3D 0;
+-       range->max =3D powerplay_table->usSoftwareShutdownTemp;
+-       range->edge_emergency_max =3D (pptable->TedgeLimit + CTF_OFFSET_EDG=
+E);
+-       range->hotspot_crit_max =3D pptable->ThotspotLimit;
+-       range->hotspot_emergency_max =3D (pptable->ThotspotLimit + CTF_OFFS=
+ET_HOTSPOT);
+-       range->mem_crit_max =3D pptable->ThbmLimit;
+-       range->mem_emergency_max =3D (pptable->ThbmLimit + CTF_OFFSET_HBM);
++       range->max =3D powerplay_table->usSoftwareShutdownTemp *
++               SMU_TEMPERATURE_UNITS_PER_CENTIGRADES;
++       range->edge_emergency_max =3D (pptable->TedgeLimit + CTF_OFFSET_EDG=
+E) *
++               SMU_TEMPERATURE_UNITS_PER_CENTIGRADES;
++       range->hotspot_crit_max =3D pptable->ThotspotLimit *
++               SMU_TEMPERATURE_UNITS_PER_CENTIGRADES;
++       range->hotspot_emergency_max =3D (pptable->ThotspotLimit + CTF_OFFS=
+ET_HOTSPOT) *
++               SMU_TEMPERATURE_UNITS_PER_CENTIGRADES;
++       range->mem_crit_max =3D pptable->ThbmLimit *
++               SMU_TEMPERATURE_UNITS_PER_CENTIGRADES;
++       range->mem_emergency_max =3D (pptable->ThbmLimit + CTF_OFFSET_HBM) =
+*
++               SMU_TEMPERATURE_UNITS_PER_CENTIGRADES;
 
-+       if ((smu->smu_table.boot_values.format_revision =3D=3D 3) &&
-+           (smu->smu_table.boot_values.content_revision >=3D 2)) {
-+               memset(&input, 0, sizeof(input));
-+               input.clk_id =3D SMU11_SYSPLL1_0_FCLK_ID;
-+               input.syspll_id =3D SMU11_SYSPLL1_2_ID;
-+               input.command =3D GET_SMU_CLOCK_INFO_V3_1_GET_CLOCK_FREQ;
-+               index =3D get_index_into_master_table(atom_master_list_of_c=
-ommand_functions_v2_1,
-+                                                   getsmuclockinfo);
-+
-+               ret =3D amdgpu_atom_execute_table(adev->mode_info.atom_cont=
-ext, index,
-+                                               (uint32_t *)&input);
-+               if (ret)
-+                       return -EINVAL;
-+
-+               output =3D (struct atom_get_smu_clock_info_output_parameter=
-s_v3_1 *)&input;
-+               smu->smu_table.boot_values.fclk =3D le32_to_cpu(output->ato=
-m_smu_outputclkfreq.smu_clock_freq_hz) / 10000;
-+       }
-+
+
          return 0;
- }
-
 --
 2.22.0
 
@@ -159,7 +367,7 @@ amd-gfx mailing list
 amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 
---_000_MN2PR12MB33443B0D70F900195F611CD5E4AB0MN2PR12MB3344namp_
+--_000_MN2PR12MB334407D4ABFF5E4F1CC02518E4AB0MN2PR12MB3344namp_
 Content-Type: text/html; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
@@ -213,7 +421,15 @@ span.EmailStyle18
 	{mso-style-type:personal;
 	font-family:"Calibri",sans-serif;
 	color:windowtext;}
+span.EmailStyle19
+	{mso-style-type:personal;
+	font-family:"Calibri",sans-serif;
+	color:#1F497D;}
 span.EmailStyle20
+	{mso-style-type:personal;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
+span.EmailStyle22
 	{mso-style-type:personal-reply;
 	font-family:"Calibri",sans-serif;
 	color:windowtext;}
@@ -242,25 +458,79 @@ div.WordSection1
 <div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
 0in 0in">
 <p class=3D"MsoNormal"><b>From:</b> Quan, Evan <br>
-<b>Sent:</b> Friday, August 16, 2019 4:00 PM<br>
-<b>To:</b> Wang, Kevin(Yang) &lt;Kevin1.Wang-5C7GfCeVMHo@public.gmane.org&gt;; amd-gfx-PD4FTy7X32mzQB+pC5nmwQ@public.gmane.org=
-edesktop.org<br>
-<b>Subject:</b> RE: [PATCH 3/4] drm/amd/powerplay: get bootup fclk value<o:=
-p></o:p></p>
+<b>Sent:</b> Monday, August 19, 2019 1:27 PM<br>
+<b>To:</b> Feng, Kenneth &lt;Kenneth.Feng-5C7GfCeVMHo@public.gmane.org&gt;; Wang, Kevin(Yang) &l=
+t;Kevin1.Wang-5C7GfCeVMHo@public.gmane.org&gt;; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>Subject:</b> RE: [PATCH] drm/amd/powerplay: correct SW smu11 thermal ran=
+ge settings<o:p></o:p></p>
 </div>
 </div>
 <p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">Since smu_get_atom_data_table() was already used in =
-smu_v11_0_get_vbios_bootup_values(). We should get all our needed informati=
-on at once.<o:p></o:p></p>
-<p class=3D"MsoNormal">Also, what smu_get_atom_data_table() does is to get =
-the data table from vbios. It&#8217;s a time and resource cost job.<o:p></o=
-:p></p>
-<p class=3D"MsoNormal">I do not think it&#8217;s a good idea to call it aga=
-in just to get some information we should already know.<o:p></o:p></p>
+<p class=3D"MsoNormal">Yes, the lowest settings for thermal controller is 0=
+.<o:p></o:p></p>
 <p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">Regards,<o:p></o:p></p>
+<p class=3D"MsoNormal">Regards<o:p></o:p></p>
 <p class=3D"MsoNormal">Evan<o:p></o:p></p>
+<div style=3D"border:none;border-left:solid blue 1.5pt;padding:0in 0in 0in =
+4.0pt">
+<div>
+<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
+0in 0in">
+<p class=3D"MsoNormal"><b>From:</b> Feng, Kenneth &lt;<a href=3D"mailto:Ken=
+neth.Feng-5C7GfCeVMHo@public.gmane.org">Kenneth.Feng-5C7GfCeVMHo@public.gmane.org</a>&gt;
+<br>
+<b>Sent:</b> Monday, August 19, 2019 1:12 PM<br>
+<b>To:</b> Quan, Evan &lt;<a href=3D"mailto:Evan.Quan-5C7GfCeVMHo@public.gmane.org">Evan.Quan@am=
+d.com</a>&gt;; Wang, Kevin(Yang) &lt;<a href=3D"mailto:Kevin1.Wang-5C7GfCeVMHo@public.gmane.org"=
+>Kevin1.Wang-5C7GfCeVMHo@public.gmane.org</a>&gt;;
+<a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9/rsn8yoX9R0@public.gmane.org=
+org</a><br>
+<b>Subject:</b> RE: [PATCH] drm/amd/powerplay: correct SW smu11 thermal ran=
+ge settings<o:p></o:p></p>
+</div>
+</div>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal"><span style=3D"color:#1F497D">Hi Evan,<o:p></o:p></s=
+pan></p>
+<p class=3D"MsoNormal"><span style=3D"color:#1F497D">So due to the below co=
+de, we don&#8217;t get a chance to set -273.15, right?<o:p></o:p></span></p=
+>
+<p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt">&#43;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp; low =3D max(SMU_THERMAL_MINIMUM_ALERT_TEMP,<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; range.min / =
+SMU_TEMPERATURE_UNITS_PER_CENTIGRADES);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; high =3D min(SMU_THERMAL_MAXIMUM_=
+ALERT_TEMP,<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; range.max / =
+SMU_TEMPERATURE_UNITS_PER_CENTIGRADES);<span style=3D"color:#1F497D"><o:p><=
+/o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"color:#1F497D"><o:p>&nbsp;</o:p></spa=
+n></p>
+<div>
+<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
+0in 0in">
+<p class=3D"MsoNormal"><b>From:</b> amd-gfx [<a href=3D"mailto:amd-gfx-boun=
+ces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>=
+]
+<b>On Behalf Of </b>Quan, Evan<br>
+<b>Sent:</b> Monday, August 19, 2019 10:16 AM<br>
+<b>To:</b> Wang, Kevin(Yang) &lt;<a href=3D"mailto:Kevin1.Wang-5C7GfCeVMHo@public.gmane.org">Kev=
+in1.Wang-5C7GfCeVMHo@public.gmane.org</a>&gt;;
+<a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9/rsn8yoX9R0@public.gmane.org=
+org</a><br>
+<b>Subject:</b> RE: [PATCH] drm/amd/powerplay: correct SW smu11 thermal ran=
+ge settings<o:p></o:p></p>
+</div>
+</div>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;font-family:&quot;Ti=
+mes New Roman&quot;,serif">[CAUTION: External Email]
+<o:p></o:p></span></p>
+<div>
+<p class=3D"MsoNormal">Comment inline<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
 <div style=3D"border:none;border-left:solid blue 1.5pt;padding:0in 0in 0in =
 4.0pt">
 <div>
@@ -269,43 +539,61 @@ in just to get some information we should already know.<o:p></o:p></p>
 <p class=3D"MsoNormal"><b>From:</b> Wang, Kevin(Yang) &lt;<a href=3D"mailto=
 :Kevin1.Wang-5C7GfCeVMHo@public.gmane.org">Kevin1.Wang-5C7GfCeVMHo@public.gmane.org</a>&gt;
 <br>
-<b>Sent:</b> Friday, August 16, 2019 3:10 PM<br>
+<b>Sent:</b> Friday, August 16, 2019 7:04 PM<br>
 <b>To:</b> Quan, Evan &lt;<a href=3D"mailto:Evan.Quan-5C7GfCeVMHo@public.gmane.org">Evan.Quan@am=
 d.com</a>&gt;;
 <a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9/rsn8yoX9R0@public.gmane.org=
 org</a><br>
-<b>Subject:</b> Re: [PATCH 3/4] drm/amd/powerplay: get bootup fclk value<o:=
-p></o:p></p>
+<b>Subject:</b> Re: [PATCH] drm/amd/powerplay: correct SW smu11 thermal ran=
+ge settings<o:p></o:p></p>
 </div>
 </div>
 <p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
 <div>
-<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">i think=
- we can use a function to retrieve this information without storing it sepa=
-rately.<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">Hi Evan=
+,<o:p></o:p></span></p>
 </div>
 <div>
-<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">likes:&=
-nbsp;<i>&nbsp;ret =3D smu_get_atom_data_table(smu, index, &amp;size, &amp;f=
-rev, &amp;crev,&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbs=
-p; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &n=
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black"><o:p>&n=
+bsp;</o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">the tem=
+perature min value should be 0, not -273 on smu11.<o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">you can=
+ refrence window driver code or register spec.<o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><i><span style=3D"font-size:12.0pt;color:black">&nbs=
+p; &nbsp; &nbsp; &nbsp; output_ptr-&gt;operating_temperature_min_Limit =3D =
+0; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &n=
 bsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =
 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp=
 ; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nb=
-sp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;<br>
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp=
-; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; (uint8_t **)&amp;=
-header);&nbsp;&nbsp;</i><o:p></o:p></span></p>
+sp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &=
+nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;=
+ &nbsp; &nbsp; &nbsp;
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; output_ptr-&gt;operating_temperature_max_Limit =
+=3D ppt_info-&gt;software_shutdown_temp;<o:p></o:p></span></i></p>
+<p class=3D"MsoNormal"><b><i>[Quan, Evan] There was a discussion over the m=
+in value(0 or -273.15) and we decided to use the later considering the OD c=
+ase.<o:p></o:p></i></b></p>
+<p class=3D"MsoNormal"><b><i>All the existing and coming ASICs should &nbsp=
+;follow this design.</i></b><o:p></o:p></p>
 </div>
 <div>
-<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">because=
- these information is a generic information from atom_common_table_header.<=
-o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">and in =
+smu11, the thermal control has a 8bit register to set min and max value, an=
+d the unit is temperature.<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><b><i>[Quan, Evan] That is still honored, no violati=
+on here.</i></b><o:p></o:p></p>
 </div>
 <div>
-<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">and oth=
-er function don't care it except in&nbsp;smu_v11_0_get_clk_info_from_vbios.=
-<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">so ther=
+e is something wrong with this patch.<o:p></o:p></span></p>
 </div>
 <div>
 <div>
@@ -327,137 +615,367 @@ Kevin<o:p></o:p></span></p>
 .freedesktop.org">amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>&gt; on behalf o=
 f Evan Quan &lt;<a href=3D"mailto:evan.quan-5C7GfCeVMHo@public.gmane.org">evan.quan-5C7GfCeVMHo@public.gmane.org</a>&=
 gt;<br>
-<b>Sent:</b> Friday, August 16, 2019 2:08 PM<br>
+<b>Sent:</b> Friday, August 16, 2019 5:31 PM<br>
 <b>To:</b> <a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx@lists.f=
 reedesktop.org</a> &lt;<a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd=
 -gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>&gt;<br>
 <b>Cc:</b> Quan, Evan &lt;<a href=3D"mailto:Evan.Quan-5C7GfCeVMHo@public.gmane.org">Evan.Quan@am=
 d.com</a>&gt;<br>
-<b>Subject:</b> [PATCH 3/4] drm/amd/powerplay: get bootup fclk value</span>=
- <o:p>
-</o:p></p>
+<b>Subject:</b> [PATCH] drm/amd/powerplay: correct SW smu11 thermal range s=
+ettings</span>
+<o:p></o:p></p>
 <div>
 <p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
 </div>
 </div>
 <div>
 <div>
-<p class=3D"MsoNormal">This is available with firmwareinfo table v3.2 or la=
-ter.<br>
+<p class=3D"MsoNormal">Problems with current settings:<br>
+1. The min value was overrided to 0 on Vega20 &amp; Navi10. While<br>
+&nbsp;&nbsp; the expected should be -273.15 C.<br>
+2. The thermal min/max threshold was output in wrong unit on<br>
+&nbsp;&nbsp; Navi10 &amp; Arcturus. As TEMP_RANGE_MIN/MAX is already in<br>
+&nbsp;&nbsp; millicelsius. And &quot;*1000&quot; in smu_v11_0_start_thermal=
+_control<br>
+&nbsp;&nbsp; makes the output wrongly.<br>
 <br>
-Change-Id: I223edf3c616b9e3e2527c752214fef5ab53d1cea<br>
+Change-Id: I2f1866edd1baf264f521310343f492eaede26c33<br>
 Signed-off-by: Evan Quan &lt;<a href=3D"mailto:evan.quan-5C7GfCeVMHo@public.gmane.org">evan.quan=
 @amd.com</a>&gt;<br>
 ---<br>
-&nbsp;.../gpu/drm/amd/powerplay/inc/amdgpu_smu.h&nbsp;&nbsp;&nbsp; |&nbsp; =
-3 &#43;&#43;&#43;<br>
-&nbsp;drivers/gpu/drm/amd/powerplay/smu_v11_0.c&nbsp;&nbsp;&nbsp;&nbsp; | 2=
-1 &#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#4=
-3;&#43;&#43;&#43;&#43;<br>
-&nbsp;2 files changed, 24 insertions(&#43;)<br>
+&nbsp;drivers/gpu/drm/amd/powerplay/arcturus_ppt.c&nbsp; | 10 ----<br>
+&nbsp;drivers/gpu/drm/amd/powerplay/inc/smu_v11_0.h |&nbsp; 6 &#43;&#43;&#4=
+3;<br>
+&nbsp;drivers/gpu/drm/amd/powerplay/navi10_ppt.c&nbsp;&nbsp;&nbsp; |&nbsp; =
+5 &#43;-<br>
+&nbsp;drivers/gpu/drm/amd/powerplay/smu_v11_0.c&nbsp;&nbsp;&nbsp;&nbsp; | 5=
+1 &#43;&#43;&#43;&#43;&#43;&#43;&#43;------------<br>
+&nbsp;drivers/gpu/drm/amd/powerplay/vega20_ppt.c&nbsp;&nbsp;&nbsp; | 20 &#4=
+3;&#43;&#43;&#43;&#43;---<br>
+&nbsp;5 files changed, 38 insertions(&#43;), 54 deletions(-)<br>
 <br>
-diff --git a/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h b/drivers/gpu/d=
-rm/amd/powerplay/inc/amdgpu_smu.h<br>
-index ca9b9ec39de8..2c16eb412954 100644<br>
---- a/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h<br>
-@@ -222,6 &#43;222,9 @@ struct smu_bios_boot_up_values<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint16_t&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; vdd_gfx;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint8_t&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; cooling_id;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pp_table_id;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; format_revision;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; content_revision;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; fclk;<br>
-&nbsp;};<br>
+diff --git a/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c b/drivers/gpu/drm=
+/amd/powerplay/arcturus_ppt.c<br>
+index 4060607fbb35..1a1f64a9e1e0 100644<br>
+--- a/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c<br>
+@@ -880,23 &#43;880,14 @@ static int arcturus_force_clk_levels(struct smu_c=
+ontext *smu,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret;<br>
+&nbsp;}<br>
 &nbsp;<br>
-&nbsp;enum smu_table_id<br>
+-static const struct smu_temperature_range arcturus_thermal_policy[] =3D<br=
+>
+-{<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {-273150,&nbsp; 99000, 99000, -273150=
+, 99000, 99000, -273150, 99000, 99000},<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; { 120000, 120000, 120000, 120000, 120=
+000, 120000, 120000, 120000, 120000},<br>
+-};<br>
+-<br>
+&nbsp;static int arcturus_get_thermal_temperature_range(struct smu_context =
+*smu,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct smu_=
+temperature_range *range)<br>
+&nbsp;{<br>
+-<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PPTable_t *pptable =3D smu=
+-&gt;smu_table.driver_pptable;<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!range)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; return -EINVAL;<br>
+&nbsp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; memcpy(range, &amp;arcturus_thermal_p=
+olicy[0], sizeof(struct smu_temperature_range));<br>
+-<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; range-&gt;max =3D pptable-=
+&gt;TedgeLimit *<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; SMU_TEMPERATURE_UNITS_PER_CENTIGRADES;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; range-&gt;edge_emergency_m=
+ax =3D (pptable-&gt;TedgeLimit &#43; CTF_OFFSET_EDGE) *<br>
+@@ -910,7 &#43;901,6 @@ static int arcturus_get_thermal_temperature_range(s=
+truct smu_context *smu,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; range-&gt;mem_emergency_ma=
+x =3D (pptable-&gt;TmemLimit &#43; CTF_OFFSET_HBM)*<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; SMU_TEMPERATURE_UNITS_PER_CENTIGRADES;<br>
+&nbsp;<br>
+-<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+&nbsp;}<br>
+&nbsp;<br>
+diff --git a/drivers/gpu/drm/amd/powerplay/inc/smu_v11_0.h b/drivers/gpu/dr=
+m/amd/powerplay/inc/smu_v11_0.h<br>
+index 0a22fa48ff5a..59b2045e37e4 100644<br>
+--- a/drivers/gpu/drm/amd/powerplay/inc/smu_v11_0.h<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/inc/smu_v11_0.h<br>
+@@ -64,6 &#43;64,12 @@<br>
+&nbsp;#define WORKLOAD_MAP(profile, workload) \<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [profile] =3D {1, (workloa=
+d)}<br>
+&nbsp;<br>
+&#43;static const struct smu_temperature_range smu11_thermal_policy[] =3D<b=
+r>
+&#43;{<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {-273150,&nbsp; 99000, 99000, -27=
+3150, 99000, 99000, -273150, 99000, 99000},<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; { 120000, 120000, 120000, 120000,=
+ 120000, 120000, 120000, 120000, 120000},<br>
+&#43;};<br>
+&#43;<br>
+&nbsp;struct smu_11_0_cmn2aisc_mapping {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int&nbsp;&nbsp;&nbsp;&nbsp=
+; valid_mapping;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int&nbsp;&nbsp;&nbsp;&nbsp=
+; map_to;<br>
+diff --git a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c b/drivers/gpu/drm/a=
+md/powerplay/navi10_ppt.c<br>
+index d7d4186b762f..e804d18f61d0 100644<br>
+--- a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/navi10_ppt.c<br>
+@@ -1505,9 &#43;1505,8 @@ static int navi10_get_thermal_temperature_range(s=
+truct smu_context *smu,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!range || !powerplay_t=
+able)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; return -EINVAL;<br>
+&nbsp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* The unit is temperature */<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; range-&gt;min =3D 0;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; range-&gt;max =3D powerplay_table-&gt=
+;software_shutdown_temp;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; range-&gt;max =3D powerplay_table=
+-&gt;software_shutdown_temp *<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; SMU_TEMPERATURE_UNITS_PER_CENTIGRADES;<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+&nbsp;}<br>
 diff --git a/drivers/gpu/drm/amd/powerplay/smu_v11_0.c b/drivers/gpu/drm/am=
 d/powerplay/smu_v11_0.c<br>
-index 4a51de4ff162..df7b65360ac7 100644<br>
+index df7b65360ac7..5f5fd3a88e48 100644<br>
 --- a/drivers/gpu/drm/amd/powerplay/smu_v11_0.c<br>
 &#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/smu_v11_0.c<br>
-@@ -568,6 &#43;568,9 @@ int smu_v11_0_get_vbios_bootup_values(struct smu_co=
-ntext *smu)<br>
+@@ -1125,23 &#43;1125,17 @@ static int smu_v11_0_get_current_clk_freq(struc=
+t smu_context *smu,<br>
+&nbsp;}<br>
+&nbsp;<br>
+&nbsp;static int smu_v11_0_set_thermal_range(struct smu_context *smu,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; s=
+truct smu_temperature_range *range)<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p; struct smu_temperature_range range)<br>
+&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev=
+ =3D smu-&gt;adev;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int low =3D SMU_THERMAL_MI=
+NIMUM_ALERT_TEMP;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int high =3D SMU_THERMAL_M=
+AXIMUM_ALERT_TEMP;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t val;<br>
+&nbsp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!range)<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; return -EINVAL;<br>
+-<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (low &lt; range-&gt;min)<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; low =3D range-&gt;min;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (high &gt; range-&gt;max)<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; high =3D range-&gt;max;<br>
+-<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; low =3D max(SMU_THERMAL_MINIMUM_ALERT=
+_TEMP, range-&gt;min);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; high =3D min(SMU_THERMAL_MAXIMUM_ALER=
+T_TEMP, range-&gt;max);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; low =3D max(SMU_THERMAL_MINIMUM_A=
+LERT_TEMP,<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; range.min / =
+SMU_TEMPERATURE_UNITS_PER_CENTIGRADES);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; high =3D min(SMU_THERMAL_MAXIMUM_=
+ALERT_TEMP,<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; range.max / =
+SMU_TEMPERATURE_UNITS_PER_CENTIGRADES);<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (low &gt; high)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; smu-&gt;smu_table.boot_values.pp_table_id =3D v_3_3-&=
-gt;pplib_pptable_id;<br>
+sp;&nbsp;&nbsp;&nbsp; return -EINVAL;<br>
+@@ -1177,27 &#43;1171,20 @@ static int smu_v11_0_enable_thermal_alert(struc=
+t smu_context *smu)<br>
+&nbsp;static int smu_v11_0_start_thermal_control(struct smu_context *smu)<b=
+r>
+&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int ret =3D 0;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct smu_temperature_range range =
+=3D {<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; TEMP_RANGE_MIN,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; TEMP_RANGE_MAX,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; TEMP_RANGE_MAX,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; TEMP_RANGE_MIN,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; TEMP_RANGE_MAX,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; TEMP_RANGE_MAX,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; TEMP_RANGE_MIN,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; TEMP_RANGE_MAX,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; TEMP_RANGE_MAX};<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct smu_temperature_range rang=
+e;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev=
+ =3D smu-&gt;adev;<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!smu-&gt;pm_enabled)<b=
+r>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; return ret;<br>
+&nbsp;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; memcpy(&amp;range, &amp;smu11_the=
+rmal_policy[0], sizeof(struct smu_temperature_range));<br>
+&#43;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D smu_get_thermal_te=
+mperature_range(smu, &amp;range);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ret)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; return ret;<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (smu-&gt;smu_table.ther=
+mal_controller_type) {<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; ret =3D smu_v11_0_set_thermal_range(smu, &amp;range);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; ret =3D smu_v11_0_set_thermal_range(smu, range);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; if (ret)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; retur=
+n ret;<br>
+&nbsp;<br>
+@@ -1210,17 &#43;1197,15 @@ static int smu_v11_0_start_thermal_control(stru=
+ct smu_context *smu)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; retur=
+n ret;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
 &nbsp;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; smu-&gt;smu_table.boot_values.for=
-mat_revision =3D header-&gt;format_revision;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; smu-&gt;smu_table.boot_values.con=
-tent_revision =3D header-&gt;content_revision;<br>
-&#43;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;pm.dpm.thermal.min_temp =3D =
+range.min * SMU_TEMPERATURE_UNITS_PER_CENTIGRADES;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;pm.dpm.thermal.max_temp =3D =
+range.max * SMU_TEMPERATURE_UNITS_PER_CENTIGRADES;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;pm.dpm.thermal.max_edge_emer=
+gency_temp =3D range.edge_emergency_max * SMU_TEMPERATURE_UNITS_PER_CENTIGR=
+ADES;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;pm.dpm.thermal.min_hotspot_t=
+emp =3D range.hotspot_min * SMU_TEMPERATURE_UNITS_PER_CENTIGRADES;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;pm.dpm.thermal.max_hotspot_c=
+rit_temp =3D range.hotspot_crit_max * SMU_TEMPERATURE_UNITS_PER_CENTIGRADES=
+;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;pm.dpm.thermal.max_hotspot_e=
+mergency_temp =3D range.hotspot_emergency_max * SMU_TEMPERATURE_UNITS_PER_C=
+ENTIGRADES;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;pm.dpm.thermal.min_mem_temp =
+=3D range.mem_min * SMU_TEMPERATURE_UNITS_PER_CENTIGRADES;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;pm.dpm.thermal.max_mem_crit_=
+temp =3D range.mem_crit_max * SMU_TEMPERATURE_UNITS_PER_CENTIGRADES;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;pm.dpm.thermal.max_mem_emerg=
+ency_temp =3D range.mem_emergency_max * SMU_TEMPERATURE_UNITS_PER_CENTIGRAD=
+ES;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;pm.dpm.thermal.min_temp =3D =
+range.min * SMU_TEMPERATURE_UNITS_PER_CENTIGRADES;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;pm.dpm.thermal.max_temp =3D =
+range.max * SMU_TEMPERATURE_UNITS_PER_CENTIGRADES;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;pm.dpm.thermal.min_temp =
+=3D range.min;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;pm.dpm.thermal.max_temp =
+=3D range.max;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;pm.dpm.thermal.max_edge_=
+emergency_temp =3D range.edge_emergency_max;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;pm.dpm.thermal.min_hotsp=
+ot_temp =3D range.hotspot_min;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;pm.dpm.thermal.max_hotsp=
+ot_crit_temp =3D range.hotspot_crit_max;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;pm.dpm.thermal.max_hotsp=
+ot_emergency_temp =3D range.hotspot_emergency_max;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;pm.dpm.thermal.min_mem_t=
+emp =3D range.mem_min;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;pm.dpm.thermal.max_mem_c=
+rit_temp =3D range.mem_crit_max;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;pm.dpm.thermal.max_mem_e=
+mergency_temp =3D range.mem_emergency_max;<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret;<br>
 &nbsp;}<br>
+diff --git a/drivers/gpu/drm/amd/powerplay/vega20_ppt.c b/drivers/gpu/drm/a=
+md/powerplay/vega20_ppt.c<br>
+index acf075393c13..e14363182691 100644<br>
+--- a/drivers/gpu/drm/amd/powerplay/vega20_ppt.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/vega20_ppt.c<br>
+@@ -3113,14 &#43;3113,18 @@ static int vega20_get_thermal_temperature_range=
+(struct smu_context *smu,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!range || !powerplay_t=
+able)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; return -EINVAL;<br>
 &nbsp;<br>
-@@ -647,6 &#43;650,24 @@ static int smu_v11_0_get_clk_info_from_vbios(struc=
-t smu_context *smu)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; output =3D (struct atom_ge=
-t_smu_clock_info_output_parameters_v3_1 *)&amp;input;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; smu-&gt;smu_table.boot_val=
-ues.dclk =3D le32_to_cpu(output-&gt;atom_smu_outputclkfreq.smu_clock_freq_h=
-z) / 10000;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* The unit is temperature */<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; range-&gt;min =3D 0;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; range-&gt;max =3D powerplay_table-&gt=
+;usSoftwareShutdownTemp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; range-&gt;edge_emergency_max =3D (ppt=
+able-&gt;TedgeLimit &#43; CTF_OFFSET_EDGE);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; range-&gt;hotspot_crit_max =3D pptabl=
+e-&gt;ThotspotLimit;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; range-&gt;hotspot_emergency_max =3D (=
+pptable-&gt;ThotspotLimit &#43; CTF_OFFSET_HOTSPOT);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; range-&gt;mem_crit_max =3D pptable-&g=
+t;ThbmLimit;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; range-&gt;mem_emergency_max =3D (ppta=
+ble-&gt;ThbmLimit &#43; CTF_OFFSET_HBM);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; range-&gt;max =3D powerplay_table=
+-&gt;usSoftwareShutdownTemp *<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; SMU_TEMPERATURE_UNITS_PER_CENTIGRADES;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; range-&gt;edge_emergency_max =3D =
+(pptable-&gt;TedgeLimit &#43; CTF_OFFSET_EDGE) *<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; SMU_TEMPERATURE_UNITS_PER_CENTIGRADES;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; range-&gt;hotspot_crit_max =3D pp=
+table-&gt;ThotspotLimit *<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; SMU_TEMPERATURE_UNITS_PER_CENTIGRADES;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; range-&gt;hotspot_emergency_max =
+=3D (pptable-&gt;ThotspotLimit &#43; CTF_OFFSET_HOTSPOT) *<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; SMU_TEMPERATURE_UNITS_PER_CENTIGRADES;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; range-&gt;mem_crit_max =3D pptabl=
+e-&gt;ThbmLimit *<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; SMU_TEMPERATURE_UNITS_PER_CENTIGRADES;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; range-&gt;mem_emergency_max =3D (=
+pptable-&gt;ThbmLimit &#43; CTF_OFFSET_HBM) *<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; SMU_TEMPERATURE_UNITS_PER_CENTIGRADES;<br>
 &nbsp;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if ((smu-&gt;smu_table.boot_value=
-s.format_revision =3D=3D 3) &amp;&amp;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (smu-&gt;=
-smu_table.boot_values.content_revision &gt;=3D 2)) {<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; memset(&amp;input, 0, sizeof(input));<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; input.clk_id =3D SMU11_SYSPLL1_0_FCLK_ID;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; input.syspll_id =3D SMU11_SYSPLL1_2_ID;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; input.command =3D GET_SMU_CLOCK_INFO_V3_1_GET_CLOCK_FREQ;<br=
->
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; index =3D get_index_into_master_table(atom_master_list_of_co=
-mmand_functions_v2_1,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp; getsmuclockinfo);<br>
-&#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; ret =3D amdgpu_atom_execute_table(adev-&gt;mode_info.atom_co=
-ntext, index,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (uint32_t *)&amp;i=
-nput);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; if (ret)<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return -EINV=
-AL;<br>
-&#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; output =3D (struct atom_get_smu_clock_info_output_parameters=
-_v3_1 *)&amp;input;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; smu-&gt;smu_table.boot_values.fclk =3D le32_to_cpu(output-&g=
-t;atom_smu_outputclkfreq.smu_clock_freq_hz) / 10000;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&#43;<br>
+&nbsp;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
-&nbsp;}<br>
-&nbsp;<br>
 -- <br>
 2.22.0<br>
 <br>
@@ -472,12 +990,14 @@ lists.freedesktop.org/mailman/listinfo/amd-gfx</a><o:p></o:p></p>
 </div>
 </div>
 </div>
+</div>
+</div>
 </body>
 </html>
 
---_000_MN2PR12MB33443B0D70F900195F611CD5E4AB0MN2PR12MB3344namp_--
+--_000_MN2PR12MB334407D4ABFF5E4F1CC02518E4AB0MN2PR12MB3344namp_--
 
---===============1214619296==
+--===============1129162297==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -487,4 +1007,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
 
---===============1214619296==--
+--===============1129162297==--
