@@ -1,12 +1,12 @@
 From: "Wang, Kevin(Yang)" <Kevin1.Wang-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amd/powerplay: correct typo
-Date: Tue, 20 Aug 2019 04:39:16 +0000
-Message-ID: <MN2PR12MB3296851C1C7B795BFBFC1B2AA2AB0@MN2PR12MB3296.namprd12.prod.outlook.com>
-References: <20190820042350.2697-1-evan.quan@amd.com>
+Subject: [PATCH] drm/amd/powerplay: remove duplicate macro
+ smu_get_uclk_dpm_states in amdgpu_smu.h
+Date: Tue, 20 Aug 2019 05:35:32 +0000
+Message-ID: <20190820053503.2486-1-kevin1.wang@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1713809790=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190820042350.2697-1-evan.quan-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -18,166 +18,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Quan, Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Huang, Ray" <Ray.Huang-5C7GfCeVMHo@public.gmane.org>, "Wang,
+ Kevin(Yang)" <Kevin1.Wang-5C7GfCeVMHo@public.gmane.org>
 
---===============1713809790==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_MN2PR12MB3296851C1C7B795BFBFC1B2AA2AB0MN2PR12MB3296namp_"
-
---_000_MN2PR12MB3296851C1C7B795BFBFC1B2AA2AB0MN2PR12MB3296namp_
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-Reviewed-by: Kevin Wang <kevin1.wang-5C7GfCeVMHo@public.gmane.org>
-
-Best Regards,
-Kevin
-
-________________________________
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Evan Qua=
-n <evan.quan-5C7GfCeVMHo@public.gmane.org>
-Sent: Tuesday, August 20, 2019 12:23 PM
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: Quan, Evan <Evan.Quan-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH] drm/amd/powerplay: correct typo
-
-"COMPUTE" was wrongly spelled as "CUSTOM".
-
-Change-Id: I11693c0e55c2ce5c889d57bb7411fdf9795a8739
-Signed-off-by: Evan Quan <evan.quan-5C7GfCeVMHo@public.gmane.org>
----
- drivers/gpu/drm/amd/powerplay/arcturus_ppt.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c b/drivers/gpu/drm=
-/amd/powerplay/arcturus_ppt.c
-index b3d4cdc387c8..6f9dab1db2c2 100644
---- a/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c
-+++ b/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c
-@@ -181,7 +181,7 @@ static struct smu_11_0_cmn2aisc_mapping arcturus_worklo=
-ad_map[PP_SMC_POWER_PROFI
-         WORKLOAD_MAP(PP_SMC_POWER_PROFILE_BOOTUP_DEFAULT,       WORKLOAD_P=
-PLIB_DEFAULT_BIT),
-         WORKLOAD_MAP(PP_SMC_POWER_PROFILE_POWERSAVING,          WORKLOAD_P=
-PLIB_POWER_SAVING_BIT),
-         WORKLOAD_MAP(PP_SMC_POWER_PROFILE_VIDEO,                WORKLOAD_P=
-PLIB_VIDEO_BIT),
--       WORKLOAD_MAP(PP_SMC_POWER_PROFILE_COMPUTE,              WORKLOAD_PP=
-LIB_CUSTOM_BIT),
-+       WORKLOAD_MAP(PP_SMC_POWER_PROFILE_COMPUTE,              WORKLOAD_PP=
-LIB_COMPUTE_BIT),
-         WORKLOAD_MAP(PP_SMC_POWER_PROFILE_CUSTOM,               WORKLOAD_P=
-PLIB_CUSTOM_BIT),
- };
-
---
-2.22.0
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---_000_MN2PR12MB3296851C1C7B795BFBFC1B2AA2AB0MN2PR12MB3296namp_
-Content-Type: text/html; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Reviewed-by: Kevin Wang &lt;kevin1.wang-5C7GfCeVMHo@public.gmane.org&gt;</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Best Regards,<br>
-Kevin</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" co=
-lor=3D"#000000" style=3D"font-size:11pt"><b>From:</b> amd-gfx &lt;amd-gfx-b=
-ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Evan Quan &lt;evan.quan@amd.c=
-om&gt;<br>
-<b>Sent:</b> Tuesday, August 20, 2019 12:23 PM<br>
-<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org &lt;amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&=
-gt;<br>
-<b>Cc:</b> Quan, Evan &lt;Evan.Quan-5C7GfCeVMHo@public.gmane.org&gt;<br>
-<b>Subject:</b> [PATCH] drm/amd/powerplay: correct typo</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt"=
->
-<div class=3D"PlainText">&quot;COMPUTE&quot; was wrongly spelled as &quot;C=
-USTOM&quot;.<br>
-<br>
-Change-Id: I11693c0e55c2ce5c889d57bb7411fdf9795a8739<br>
-Signed-off-by: Evan Quan &lt;evan.quan-5C7GfCeVMHo@public.gmane.org&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/powerplay/arcturus_ppt.c | 2 &#43;-<br>
-&nbsp;1 file changed, 1 insertion(&#43;), 1 deletion(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c b/drivers/gpu/drm=
-/amd/powerplay/arcturus_ppt.c<br>
-index b3d4cdc387c8..6f9dab1db2c2 100644<br>
---- a/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c<br>
-@@ -181,7 &#43;181,7 @@ static struct smu_11_0_cmn2aisc_mapping arcturus_wo=
-rkload_map[PP_SMC_POWER_PROFI<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WORKLOAD_MAP(PP_SMC_POWER_=
-PROFILE_BOOTUP_DEFAULT,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WORKLOAD_PPLIB_=
-DEFAULT_BIT),<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WORKLOAD_MAP(PP_SMC_POWER_=
-PROFILE_POWERSAVING,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =
-WORKLOAD_PPLIB_POWER_SAVING_BIT),<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WORKLOAD_MAP(PP_SMC_POWER_=
-PROFILE_VIDEO,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WORKLOAD_PPLIB_VIDEO_BIT),<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WORKLOAD_MAP(PP_SMC_POWER_PROFILE_COM=
-PUTE,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp; WORKLOAD_PPLIB_CUSTOM_BIT),<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WORKLOAD_MAP(PP_SMC_POWER_PROFILE=
-_COMPUTE,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp; WORKLOAD_PPLIB_COMPUTE_BIT),<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WORKLOAD_MAP(PP_SMC_POWER_=
-PROFILE_CUSTOM,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp; WORKLOAD_PPLIB_CUSTOM_BIT),<br>
-&nbsp;};<br>
-&nbsp;<br>
--- <br>
-2.22.0<br>
-<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
-lists.freedesktop.org/mailman/listinfo/amd-gfx</a></div>
-</span></font></div>
-</body>
-</html>
-
---_000_MN2PR12MB3296851C1C7B795BFBFC1B2AA2AB0MN2PR12MB3296namp_--
-
---===============1713809790==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
-
---===============1713809790==--
+cmVtb3ZlIGR1cGxpY2F0ZSBtYWNybyBzbXVfZ2V0X3VjbGtfZHBtX3N0YXRlcyBpbiBhbWRncHVf
+c211LmgKCiIKICNkZWZpbmUgc211X2dldF91Y2xrX2RwbV9zdGF0ZXMoc211LCBjbG9ja3NfaW5f
+a2h6LCBudW1fc3RhdGVzKSBcCiAgICAgICAgICgoc211KS0+cHB0X2Z1bmNzLT5nZXRfdWNsa19k
+cG1fc3RhdGVzID8gKHNtdSktPnBwdF9mdW5jcy0+Z2V0X3VjbGtfZHBtX3N0YXRlcygoc211KSwg
+KGNsb2Nrc19pbl9raHopLCAobnVtX3N0YXRlcykpIDogMCkKICNkZWZpbmUgc211X2dldF9tYXhf
+c3VzdGFpbmFibGVfY2xvY2tzX2J5X2RjKHNtdSwgbWF4X2Nsb2NrcykgXAogICAgICAgICAoKHNt
+dSktPmZ1bmNzLT5nZXRfbWF4X3N1c3RhaW5hYmxlX2Nsb2Nrc19ieV9kYyA/IChzbXUpLT5mdW5j
+cy0+Z2V0X21heF9zdXN0YWluYWJsZV9jbG9ja3NfYnlfZGMoKHNtdSksIChtYXhfY2xvY2tzKSkg
+OiAwKQogI2RlZmluZSBzbXVfZ2V0X3VjbGtfZHBtX3N0YXRlcyhzbXUsIGNsb2Nrc19pbl9raHos
+IG51bV9zdGF0ZXMpIFwKICAgICAgICAgKChzbXUpLT5wcHRfZnVuY3MtPmdldF91Y2xrX2RwbV9z
+dGF0ZXMgPyAoc211KS0+cHB0X2Z1bmNzLT5nZXRfdWNsa19kcG1fc3RhdGVzKChzbXUpLCAoY2xv
+Y2tzX2luX2toeiksIChudW1fc3RhdGVzKSkgOiAwKQoiCgpTaWduZWQtb2ZmLWJ5OiBLZXZpbiBX
+YW5nIDxrZXZpbjEud2FuZ0BhbWQuY29tPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJw
+bGF5L2luYy9hbWRncHVfc211LmggfCAyIC0tCiAxIGZpbGUgY2hhbmdlZCwgMiBkZWxldGlvbnMo
+LSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9pbmMvYW1kZ3B1
+X3NtdS5oIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaW5jL2FtZGdwdV9zbXUuaApp
+bmRleCBjYTliOWVjMzlkZTguLmZjNTlkOTY4NmU2MSAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUv
+ZHJtL2FtZC9wb3dlcnBsYXkvaW5jL2FtZGdwdV9zbXUuaAorKysgYi9kcml2ZXJzL2dwdS9kcm0v
+YW1kL3Bvd2VycGxheS9pbmMvYW1kZ3B1X3NtdS5oCkBAIC03MzAsOCArNzMwLDYgQEAgc3RydWN0
+IHNtdV9mdW5jcwogCSgoc211KS0+ZnVuY3MtPnJlZ2lzdGVyX2lycV9oYW5kbGVyID8gKHNtdSkt
+PmZ1bmNzLT5yZWdpc3Rlcl9pcnFfaGFuZGxlcihzbXUpIDogMCkKICNkZWZpbmUgc211X3NldF9h
+emFsaWFfZDNfcG1lKHNtdSkgXAogCSgoc211KS0+ZnVuY3MtPnNldF9hemFsaWFfZDNfcG1lID8g
+KHNtdSktPmZ1bmNzLT5zZXRfYXphbGlhX2QzX3BtZSgoc211KSkgOiAwKQotI2RlZmluZSBzbXVf
+Z2V0X3VjbGtfZHBtX3N0YXRlcyhzbXUsIGNsb2Nrc19pbl9raHosIG51bV9zdGF0ZXMpIFwKLQko
+KHNtdSktPnBwdF9mdW5jcy0+Z2V0X3VjbGtfZHBtX3N0YXRlcyA/IChzbXUpLT5wcHRfZnVuY3Mt
+PmdldF91Y2xrX2RwbV9zdGF0ZXMoKHNtdSksIChjbG9ja3NfaW5fa2h6KSwgKG51bV9zdGF0ZXMp
+KSA6IDApCiAjZGVmaW5lIHNtdV9nZXRfbWF4X3N1c3RhaW5hYmxlX2Nsb2Nrc19ieV9kYyhzbXUs
+IG1heF9jbG9ja3MpIFwKIAkoKHNtdSktPmZ1bmNzLT5nZXRfbWF4X3N1c3RhaW5hYmxlX2Nsb2Nr
+c19ieV9kYyA/IChzbXUpLT5mdW5jcy0+Z2V0X21heF9zdXN0YWluYWJsZV9jbG9ja3NfYnlfZGMo
+KHNtdSksIChtYXhfY2xvY2tzKSkgOiAwKQogI2RlZmluZSBzbXVfZ2V0X3VjbGtfZHBtX3N0YXRl
+cyhzbXUsIGNsb2Nrc19pbl9raHosIG51bV9zdGF0ZXMpIFwKLS0gCjIuMjIuMAoKX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxp
+c3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3Rv
+cC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
