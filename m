@@ -1,45 +1,41 @@
-From: "Wang, Kevin(Yang)" <Kevin1.Wang-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH] drm/amd/powerpaly: fix navi series custom peak level value
- error
-Date: Wed, 21 Aug 2019 05:47:59 +0000
-Message-ID: <20190821054739.27092-1-kevin1.wang@amd.com>
+From: Ben Skeggs <skeggsb@gmail.com>
+Subject: Re: [Nouveau] [Intel-gfx] [PATCH v6 08/17] drm/ttm: use gem vma_node
+Date: Wed, 21 Aug 2019 16:33:58 +1000
+Message-ID: <CACAvsv5Rar9F=Wf-9HBpndY4QaQZcGCx05j0esvV9pitM=JoGg@mail.gmail.com>
+References: <20190805140119.7337-1-kraxel@redhat.com> <20190805140119.7337-9-kraxel@redhat.com>
+ <20190813151115.GA29955@ulmo> <20190814055827.6hrxj6daovxxnnvw@sirius.home.kraxel.org>
+ <20190814093524.GA31345@ulmo> <20190814101411.lj3p6zjzbjvnnjf4@sirius.home.kraxel.org>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Xu, Feifei" <Feifei.Xu-5C7GfCeVMHo@public.gmane.org>, "Wang,
- Kevin(Yang)" <Kevin1.Wang-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset="UTF-8"
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20190814101411.lj3p6zjzbjvnnjf4@sirius.home.kraxel.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Gerd Hoffmann <kraxel@redhat.com>
+Cc: Thierry Reding <thierry.reding@gmail.com>, ML dri-devel <dri-devel@lists.freedesktop.org>, ML nouveau <nouveau@lists.freedesktop.org>, intel-gfx <intel-gfx@lists.freedesktop.org>, linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, linux-graphics-maintainer@vmware.com, Ben Skeggs <bskeggs@redhat.com>, spice-devel@lists.freedesktop.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-Zml4IG90aGVyIG5hdmkgYXNpYyBzZXQgcGVhayBwZXJmb3JtYW5jZSBsZXZlbCBlcnJvci4KYmVj
-YXVzZSB0aGUgbmF2aTEwX3BwdC5jIHdpbGwgaGFuZGxlIG5hdmkxMiAxNCBhc2ljLAppdCB3aWxs
-IHVzZSBuYXZpMTAgcGVhayB2YWx1ZSB0byBzZXQgb3RoZXIgYXNpYywgaXQgaXMgbm90IGNvcnJl
-Y3QuCgphZnRlciBwYXRjaDoKb25seSBuYXZpMTAgdXNlIGN1c3RvbSBwZWFrIHZhbHVlLCBvdGhl
-ciBhc2ljIHdpbGwgdXNlZCBkZWZhdWx0IHZhbHVlLgoKU2lnbmVkLW9mZi1ieTogS2V2aW4gV2Fu
-ZyA8a2V2aW4xLndhbmdAYW1kLmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxh
-eS9uYXZpMTBfcHB0LmMgfCA0ICsrKysKIDEgZmlsZSBjaGFuZ2VkLCA0IGluc2VydGlvbnMoKykK
-CmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9uYXZpMTBfcHB0LmMg
-Yi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9uYXZpMTBfcHB0LmMKaW5kZXggMDk1NWZl
-ODE0NWI5Li5lYjhhZGYzYjBhNWMgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93
-ZXJwbGF5L25hdmkxMF9wcHQuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9u
-YXZpMTBfcHB0LmMKQEAgLTE0MjIsNiArMTQyMiwxMCBAQCBzdGF0aWMgaW50IG5hdmkxMF9zZXRf
-cGVha19jbG9ja19ieV9kZXZpY2Uoc3RydWN0IHNtdV9jb250ZXh0ICpzbXUpCiBzdGF0aWMgaW50
-IG5hdmkxMF9zZXRfcGVyZm9ybWFuY2VfbGV2ZWwoc3RydWN0IHNtdV9jb250ZXh0ICpzbXUsIGVu
-dW0gYW1kX2RwbV9mb3JjZWRfbGV2ZWwgbGV2ZWwpCiB7CiAJaW50IHJldCA9IDA7CisJc3RydWN0
-IGFtZGdwdV9kZXZpY2UgKmFkZXYgPSBzbXUtPmFkZXY7CisKKwlpZiAoYWRldi0+YXNpY190eXBl
-ICE9IENISVBfTkFWSTEwKQorCQlyZXR1cm4gLUVJTlZBTDsKIAogCXN3aXRjaCAobGV2ZWwpIHsK
-IAljYXNlIEFNRF9EUE1fRk9SQ0VEX0xFVkVMX1BST0ZJTEVfUEVBSzoKLS0gCjIuMjIuMAoKX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWls
-aW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVl
-ZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+On Wed, 14 Aug 2019 at 20:14, Gerd Hoffmann <kraxel@redhat.com> wrote:
+>
+>   Hi,
+>
+> > > Changing the order doesn't look hard.  Patch attached (untested, have no
+> > > test hardware).  But maybe I missed some detail ...
+> >
+> > I came up with something very similar by splitting up nouveau_bo_new()
+> > into allocation and initialization steps, so that when necessary the GEM
+> > object can be initialized in between. I think that's slightly more
+> > flexible and easier to understand than a boolean flag.
+>
+> Yes, that should work too.
+>
+> Acked-by: Gerd Hoffmann <kraxel@redhat.com>
+Acked-by: Ben Skeggs <bskeggs@redhat.com>
+
+>
+> cheers,
+>   Gerd
+>
+> _______________________________________________
+> Nouveau mailing list
+> Nouveau@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/nouveau
