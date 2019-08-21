@@ -1,15 +1,13 @@
-From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 2/2] drm/radeon: use WAIT_REG_MEM special op for CP HDP
- flush
-Date: Wed, 21 Aug 2019 22:23:33 +0000
-Message-ID: <BN6PR12MB1809DC90F9DBB4F86DCA278CF7AA0@BN6PR12MB1809.namprd12.prod.outlook.com>
-References: <20190821222034.13387-1-alexander.deucher@amd.com>,
- <20190821222034.13387-5-alexander.deucher@amd.com>
+From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: [PATCH 01/37] drm/amdgpu/powerplay: Add smu_v12_0_ppsmc.h (v2)
+Date: Wed, 21 Aug 2019 17:23:23 -0500
+Message-ID: <20190821222359.13578-2-alexander.deucher@amd.com>
+References: <20190821222359.13578-1-alexander.deucher@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1524886053=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190821222034.13387-5-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
+In-Reply-To: <20190821222359.13578-1-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -20,397 +18,113 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
 
---===============1524886053==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_BN6PR12MB1809DC90F9DBB4F86DCA278CF7AA0BN6PR12MB1809namp_"
-
---_000_BN6PR12MB1809DC90F9DBB4F86DCA278CF7AA0BN6PR12MB1809namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-Ignore those.  wrong directory.
-
-Alex
-________________________________
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Sent: Wednesday, August 21, 2019 6:20 PM
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: Deucher, Alexander <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH 2/2] drm/radeon: use WAIT_REG_MEM special op for CP HDP flu=
-sh
-
-Flush via the ring works differently on CIK and requires a
-special sequence.
-
-Signed-off-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
----
- drivers/gpu/drm/radeon/cik.c | 73 +++++++++++++++++++++++++++-------------=
-----
- 1 file changed, 45 insertions(+), 28 deletions(-)
-
-diff --git a/drivers/gpu/drm/radeon/cik.c b/drivers/gpu/drm/radeon/cik.c
-index 0847367..03dd075 100644
---- a/drivers/gpu/drm/radeon/cik.c
-+++ b/drivers/gpu/drm/radeon/cik.c
-@@ -3485,6 +3485,48 @@ int cik_ring_test(struct radeon_device *rdev, struct=
- radeon_ring *ring)
-         return r;
- }
-
-+static void cik_gfx_hdp_flush(struct radeon_device *rdev,
-+                             int ridx)
-+{
-+       struct radeon_ring *ring =3D &rdev->ring[ridx];
-+       u32 ref_and_mask;
-+
-+       switch (ring->idx) {
-+       case CAYMAN_RING_TYPE_CP1_INDEX:
-+       case CAYMAN_RING_TYPE_CP2_INDEX:
-+               switch (ring->me) {
-+               case 0:
-+                       ref_and_mask =3D CP2 << ring->pipe;
-+                       break;
-+               case 1:
-+                       ref_and_mask =3D CP6 << ring->pipe;
-+                       break;
-+               default:
-+                       return;
-+               }
-+               break;
-+       case RADEON_RING_TYPE_GFX_INDEX:
-+               ref_and_mask =3D CP0;
-+               break;
-+       default:
-+               return;
-+       }
-+
-+       radeon_ring_write(ring, PACKET3(PACKET3_SET_UCONFIG_REG, 1));
-+       radeon_ring_write(ring, ((CP_WAIT_REG_MEM_TIMEOUT -
-+                                 PACKET3_SET_UCONFIG_REG_START) >> 2));
-+       radeon_ring_write(ring, 0xfff);
-+
-+       radeon_ring_write(ring, PACKET3(PACKET3_WAIT_REG_MEM, 5));
-+       radeon_ring_write(ring, (WAIT_REG_MEM_OPERATION(1) | /* special op =
-*/
-+                                WAIT_REG_MEM_FUNCTION(3))); /* =3D=3D */
-+       radeon_ring_write(ring, GPU_HDP_FLUSH_REQ >> 2);
-+       radeon_ring_write(ring, GPU_HDP_FLUSH_DONE >> 2);
-+       radeon_ring_write(ring, ref_and_mask);
-+       radeon_ring_write(ring, ref_and_mask);
-+       radeon_ring_write(ring, 0xa); /* poll interval */
-+}
-+
- /**
-  * cik_fence_gfx_ring_emit - emit a fence on the gfx ring
-  *
-@@ -3511,15 +3553,7 @@ void cik_fence_gfx_ring_emit(struct radeon_device *r=
-dev,
-         radeon_ring_write(ring, fence->seq);
-         radeon_ring_write(ring, 0);
-         /* HDP flush */
--       /* We should be using the new WAIT_REG_MEM special op packet here
--        * but it causes the CP to hang
--        */
--       radeon_ring_write(ring, PACKET3(PACKET3_WRITE_DATA, 3));
--       radeon_ring_write(ring, (WRITE_DATA_ENGINE_SEL(0) |
--                                WRITE_DATA_DST_SEL(0)));
--       radeon_ring_write(ring, HDP_MEM_COHERENCY_FLUSH_CNTL >> 2);
--       radeon_ring_write(ring, 0);
--       radeon_ring_write(ring, 0);
-+       cik_gfx_hdp_flush(rdev, fence->ring);
- }
-
- /**
-@@ -3549,15 +3583,7 @@ void cik_fence_compute_ring_emit(struct radeon_devic=
-e *rdev,
-         radeon_ring_write(ring, fence->seq);
-         radeon_ring_write(ring, 0);
-         /* HDP flush */
--       /* We should be using the new WAIT_REG_MEM special op packet here
--        * but it causes the CP to hang
--        */
--       radeon_ring_write(ring, PACKET3(PACKET3_WRITE_DATA, 3));
--       radeon_ring_write(ring, (WRITE_DATA_ENGINE_SEL(0) |
--                                WRITE_DATA_DST_SEL(0)));
--       radeon_ring_write(ring, HDP_MEM_COHERENCY_FLUSH_CNTL >> 2);
--       radeon_ring_write(ring, 0);
--       radeon_ring_write(ring, 0);
-+       cik_gfx_hdp_flush(rdev, fence->ring);
- }
-
- bool cik_semaphore_ring_emit(struct radeon_device *rdev,
-@@ -5369,16 +5395,7 @@ void cik_vm_flush(struct radeon_device *rdev, int ri=
-dx, struct radeon_vm *vm)
-         radeon_ring_write(ring, VMID(0));
-
-         /* HDP flush */
--       /* We should be using the WAIT_REG_MEM packet here like in
--        * cik_fence_ring_emit(), but it causes the CP to hang in this
--        * context...
--        */
--       radeon_ring_write(ring, PACKET3(PACKET3_WRITE_DATA, 3));
--       radeon_ring_write(ring, (WRITE_DATA_ENGINE_SEL(0) |
--                                WRITE_DATA_DST_SEL(0)));
--       radeon_ring_write(ring, HDP_MEM_COHERENCY_FLUSH_CNTL >> 2);
--       radeon_ring_write(ring, 0);
--       radeon_ring_write(ring, 0);
-+       cik_gfx_hdp_flush(rdev, ridx);
-
-         /* bits 0-15 are the VM contexts0-15 */
-         radeon_ring_write(ring, PACKET3(PACKET3_WRITE_DATA, 3));
---
-1.8.3.1
-
-
---_000_BN6PR12MB1809DC90F9DBB4F86DCA278CF7AA0BN6PR12MB1809namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Ignore those.&nbsp; wrong directory.</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Alex<br>
-</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Alex Deucher &lt;alex=
-deucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;<br>
-<b>Sent:</b> Wednesday, August 21, 2019 6:20 PM<br>
-<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org &lt;amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&=
-gt;<br>
-<b>Cc:</b> Deucher, Alexander &lt;Alexander.Deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
-<b>Subject:</b> [PATCH 2/2] drm/radeon: use WAIT_REG_MEM special op for CP =
-HDP flush</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">Flush via the ring works differently on CIK and re=
-quires a<br>
-special sequence.<br>
-<br>
-Signed-off-by: Alex Deucher &lt;alexander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/radeon/cik.c | 73 &#43;&#43;&#43;&#43;&#43;&#43;&#43;=
-&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;=
-&#43;&#43;&#43;&#43;&#43;-----------------<br>
-&nbsp;1 file changed, 45 insertions(&#43;), 28 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/radeon/cik.c b/drivers/gpu/drm/radeon/cik.c<br=
->
-index 0847367..03dd075 100644<br>
---- a/drivers/gpu/drm/radeon/cik.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/radeon/cik.c<br>
-@@ -3485,6 &#43;3485,48 @@ int cik_ring_test(struct radeon_device *rdev, st=
-ruct radeon_ring *ring)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return r;<br>
-&nbsp;}<br>
-&nbsp;<br>
-&#43;static void cik_gfx_hdp_flush(struct radeon_device *rdev,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp; int ridx)<br>
-&#43;{<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct radeon_ring *ring =3D &amp=
-;rdev-&gt;ring[ridx];<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u32 ref_and_mask;<br>
-&#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; switch (ring-&gt;idx) {<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CAYMAN_RING_TYPE_CP1_INDEX:<=
-br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CAYMAN_RING_TYPE_CP2_INDEX:<=
-br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; switch (ring-&gt;me) {<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; case 0:<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ref_and_mask=
- =3D CP2 &lt;&lt; ring-&gt;pipe;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; break;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; case 1:<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ref_and_mask=
- =3D CP6 &lt;&lt; ring-&gt;pipe;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; break;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; default:<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; }<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; break;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case RADEON_RING_TYPE_GFX_INDEX:<=
-br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; ref_and_mask =3D CP0;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; break;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; default:<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; return;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; radeon_ring_write(ring, PACKET3(P=
-ACKET3_SET_UCONFIG_REG, 1));<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; radeon_ring_write(ring, ((CP_WAIT=
-_REG_MEM_TIMEOUT -<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PACKET3_SET_UCONFIG_REG_STA=
-RT) &gt;&gt; 2));<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; radeon_ring_write(ring, 0xfff);<b=
-r>
-&#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; radeon_ring_write(ring, PACKET3(P=
-ACKET3_WAIT_REG_MEM, 5));<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; radeon_ring_write(ring, (WAIT_REG=
-_MEM_OPERATION(1) | /* special op */<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WAIT_REG_MEM_FUNCTION(3))); /* =
-=3D=3D */<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; radeon_ring_write(ring, GPU_HDP_F=
-LUSH_REQ &gt;&gt; 2);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; radeon_ring_write(ring, GPU_HDP_F=
-LUSH_DONE &gt;&gt; 2);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; radeon_ring_write(ring, ref_and_m=
-ask);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; radeon_ring_write(ring, ref_and_m=
-ask);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; radeon_ring_write(ring, 0xa); /* =
-poll interval */<br>
-&#43;}<br>
-&#43;<br>
-&nbsp;/**<br>
-&nbsp; * cik_fence_gfx_ring_emit - emit a fence on the gfx ring<br>
-&nbsp; *<br>
-@@ -3511,15 &#43;3553,7 @@ void cik_fence_gfx_ring_emit(struct radeon_devic=
-e *rdev,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; radeon_ring_write(ring, fe=
-nce-&gt;seq);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; radeon_ring_write(ring, 0)=
-;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* HDP flush */<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* We should be using the new WAIT_RE=
-G_MEM special op packet here<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * but it causes the CP to hang<=
-br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; radeon_ring_write(ring, PACKET3(PACKE=
-T3_WRITE_DATA, 3));<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; radeon_ring_write(ring, (WRITE_DATA_E=
-NGINE_SEL(0) |<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WRITE_DATA_DST_SEL(0)));<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; radeon_ring_write(ring, HDP_MEM_COHER=
-ENCY_FLUSH_CNTL &gt;&gt; 2);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; radeon_ring_write(ring, 0);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; radeon_ring_write(ring, 0);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; cik_gfx_hdp_flush(rdev, fence-&gt=
-;ring);<br>
-&nbsp;}<br>
-&nbsp;<br>
-&nbsp;/**<br>
-@@ -3549,15 &#43;3583,7 @@ void cik_fence_compute_ring_emit(struct radeon_d=
-evice *rdev,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; radeon_ring_write(ring, fe=
-nce-&gt;seq);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; radeon_ring_write(ring, 0)=
-;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* HDP flush */<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* We should be using the new WAIT_RE=
-G_MEM special op packet here<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * but it causes the CP to hang<=
-br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; radeon_ring_write(ring, PACKET3(PACKE=
-T3_WRITE_DATA, 3));<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; radeon_ring_write(ring, (WRITE_DATA_E=
-NGINE_SEL(0) |<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WRITE_DATA_DST_SEL(0)));<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; radeon_ring_write(ring, HDP_MEM_COHER=
-ENCY_FLUSH_CNTL &gt;&gt; 2);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; radeon_ring_write(ring, 0);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; radeon_ring_write(ring, 0);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; cik_gfx_hdp_flush(rdev, fence-&gt=
-;ring);<br>
-&nbsp;}<br>
-&nbsp;<br>
-&nbsp;bool cik_semaphore_ring_emit(struct radeon_device *rdev,<br>
-@@ -5369,16 &#43;5395,7 @@ void cik_vm_flush(struct radeon_device *rdev, in=
-t ridx, struct radeon_vm *vm)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; radeon_ring_write(ring, VM=
-ID(0));<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* HDP flush */<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* We should be using the WAIT_REG_ME=
-M packet here like in<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * cik_fence_ring_emit(), but it=
- causes the CP to hang in this<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * context...<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; radeon_ring_write(ring, PACKET3(PACKE=
-T3_WRITE_DATA, 3));<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; radeon_ring_write(ring, (WRITE_DATA_E=
-NGINE_SEL(0) |<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WRITE_DATA_DST_SEL(0)));<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; radeon_ring_write(ring, HDP_MEM_COHER=
-ENCY_FLUSH_CNTL &gt;&gt; 2);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; radeon_ring_write(ring, 0);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; radeon_ring_write(ring, 0);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; cik_gfx_hdp_flush(rdev, ridx);<br=
->
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* bits 0-15 are the VM co=
-ntexts0-15 */<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; radeon_ring_write(ring, PA=
-CKET3(PACKET3_WRITE_DATA, 3));<br>
--- <br>
-1.8.3.1<br>
-<br>
-</div>
-</span></font></div>
-</body>
-</html>
-
---_000_BN6PR12MB1809DC90F9DBB4F86DCA278CF7AA0BN6PR12MB1809namp_--
-
---===============1524886053==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
-
---===============1524886053==--
+VGhpcyBpcyB0aGUgU01VIHYxMiBkcml2ZXIgbWVzc2FnZSBpbnRlcmZhY2UuCgp2Mjogc3F1YXNo
+IGluIHVwZGF0ZXMKClNpZ25lZC1vZmYtYnk6IEFsZXggRGV1Y2hlciA8YWxleGFuZGVyLmRldWNo
+ZXJAYW1kLmNvbT4KLS0tCiAuLi4vZHJtL2FtZC9wb3dlcnBsYXkvaW5jL3NtdV92MTJfMF9wcHNt
+Yy5oICAgfCAxMDYgKysrKysrKysrKysrKysrKysrCiAxIGZpbGUgY2hhbmdlZCwgMTA2IGluc2Vy
+dGlvbnMoKykKIGNyZWF0ZSBtb2RlIDEwMDY0NCBkcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxh
+eS9pbmMvc211X3YxMl8wX3Bwc21jLmgKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1k
+L3Bvd2VycGxheS9pbmMvc211X3YxMl8wX3Bwc21jLmggYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bv
+d2VycGxheS9pbmMvc211X3YxMl8wX3Bwc21jLmgKbmV3IGZpbGUgbW9kZSAxMDA2NDQKaW5kZXgg
+MDAwMDAwMDAwMDAwLi45YWM5ZjNiZDM2NjQKLS0tIC9kZXYvbnVsbAorKysgYi9kcml2ZXJzL2dw
+dS9kcm0vYW1kL3Bvd2VycGxheS9pbmMvc211X3YxMl8wX3Bwc21jLmgKQEAgLTAsMCArMSwxMDYg
+QEAKKy8qCisgKiBDb3B5cmlnaHQgMjAxOSBBZHZhbmNlZCBNaWNybyBEZXZpY2VzLCBJbmMuCisg
+KgorICogUGVybWlzc2lvbiBpcyBoZXJlYnkgZ3JhbnRlZCwgZnJlZSBvZiBjaGFyZ2UsIHRvIGFu
+eSBwZXJzb24gb2J0YWluaW5nIGEKKyAqIGNvcHkgb2YgdGhpcyBzb2Z0d2FyZSBhbmQgYXNzb2Np
+YXRlZCBkb2N1bWVudGF0aW9uIGZpbGVzICh0aGUgIlNvZnR3YXJlIiksCisgKiB0byBkZWFsIGlu
+IHRoZSBTb2Z0d2FyZSB3aXRob3V0IHJlc3RyaWN0aW9uLCBpbmNsdWRpbmcgd2l0aG91dCBsaW1p
+dGF0aW9uCisgKiB0aGUgcmlnaHRzIHRvIHVzZSwgY29weSwgbW9kaWZ5LCBtZXJnZSwgcHVibGlz
+aCwgZGlzdHJpYnV0ZSwgc3VibGljZW5zZSwKKyAqIGFuZC9vciBzZWxsIGNvcGllcyBvZiB0aGUg
+U29mdHdhcmUsIGFuZCB0byBwZXJtaXQgcGVyc29ucyB0byB3aG9tIHRoZQorICogU29mdHdhcmUg
+aXMgZnVybmlzaGVkIHRvIGRvIHNvLCBzdWJqZWN0IHRvIHRoZSBmb2xsb3dpbmcgY29uZGl0aW9u
+czoKKyAqCisgKiBUaGUgYWJvdmUgY29weXJpZ2h0IG5vdGljZSBhbmQgdGhpcyBwZXJtaXNzaW9u
+IG5vdGljZSBzaGFsbCBiZSBpbmNsdWRlZCBpbgorICogYWxsIGNvcGllcyBvciBzdWJzdGFudGlh
+bCBwb3J0aW9ucyBvZiB0aGUgU29mdHdhcmUuCisgKgorICogVEhFIFNPRlRXQVJFIElTIFBST1ZJ
+REVEICJBUyBJUyIsIFdJVEhPVVQgV0FSUkFOVFkgT0YgQU5ZIEtJTkQsIEVYUFJFU1MgT1IKKyAq
+IElNUExJRUQsIElOQ0xVRElORyBCVVQgTk9UIExJTUlURUQgVE8gVEhFIFdBUlJBTlRJRVMgT0Yg
+TUVSQ0hBTlRBQklMSVRZLAorICogRklUTkVTUyBGT1IgQSBQQVJUSUNVTEFSIFBVUlBPU0UgQU5E
+IE5PTklORlJJTkdFTUVOVC4gIElOIE5PIEVWRU5UIFNIQUxMCisgKiBUSEUgQ09QWVJJR0hUIEhP
+TERFUihTKSBPUiBBVVRIT1IoUykgQkUgTElBQkxFIEZPUiBBTlkgQ0xBSU0sIERBTUFHRVMgT1IK
+KyAqIE9USEVSIExJQUJJTElUWSwgV0hFVEhFUiBJTiBBTiBBQ1RJT04gT0YgQ09OVFJBQ1QsIFRP
+UlQgT1IgT1RIRVJXSVNFLAorICogQVJJU0lORyBGUk9NLCBPVVQgT0YgT1IgSU4gQ09OTkVDVElP
+TiBXSVRIIFRIRSBTT0ZUV0FSRSBPUiBUSEUgVVNFIE9SCisgKiBPVEhFUiBERUFMSU5HUyBJTiBU
+SEUgU09GVFdBUkUuCisgKgorICovCisKKyNpZm5kZWYgU01VXzEyXzBfUFBTTUNfSAorI2RlZmlu
+ZSBTTVVfMTJfMF9QUFNNQ19ICisKKy8vIFNNVSBSZXNwb25zZSBDb2RlczoKKyNkZWZpbmUgUFBT
+TUNfUmVzdWx0X09LICAgICAgICAgICAgICAgICAgICAweDEKKyNkZWZpbmUgUFBTTUNfUmVzdWx0
+X0ZhaWxlZCAgICAgICAgICAgICAgICAweEZGCisjZGVmaW5lIFBQU01DX1Jlc3VsdF9Vbmtub3du
+Q21kICAgICAgICAgICAgMHhGRQorI2RlZmluZSBQUFNNQ19SZXN1bHRfQ21kUmVqZWN0ZWRQcmVy
+ZXEgICAgIDB4RkQKKyNkZWZpbmUgUFBTTUNfUmVzdWx0X0NtZFJlamVjdGVkQnVzeSAgICAgICAw
+eEZDCisKKworLy8gTWVzc2FnZSBEZWZpbml0aW9uczoKKyNkZWZpbmUgUFBTTUNfTVNHX1Rlc3RN
+ZXNzYWdlICAgICAgICAgICAgICAgICAgIDB4MQorI2RlZmluZSBQUFNNQ19NU0dfR2V0U211VmVy
+c2lvbiAgICAgICAgICAgICAgICAgMHgyCisjZGVmaW5lIFBQU01DX01TR19HZXREcml2ZXJJZlZl
+cnNpb24gICAgICAgICAgICAweDMKKyNkZWZpbmUgUFBTTUNfTVNHX1Bvd2VyVXBHZnggICAgICAg
+ICAgICAgICAgICAgIDB4NgorI2RlZmluZSBQUFNNQ19NU0dfRW5hYmxlR2Z4T2ZmICAgICAgICAg
+ICAgICAgICAgMHg3CisjZGVmaW5lIFBQU01DX01TR19EaXNhYmxlR2Z4T2ZmICAgICAgICAgICAg
+ICAgICAweDgKKyNkZWZpbmUgUFBTTUNfTVNHX1Bvd2VyRG93bklzcEJ5VGlsZSAgICAgICAgICAg
+IDB4OSAvLyBJU1AgaXMgcG93ZXIgZ2F0ZWQgYnkgZGVmYXVsdAorI2RlZmluZSBQUFNNQ19NU0df
+UG93ZXJVcElzcEJ5VGlsZSAgICAgICAgICAgICAgMHhBCisjZGVmaW5lIFBQU01DX01TR19Qb3dl
+ckRvd25WY24gICAgICAgICAgICAgICAgICAweEIgLy8gVkNOIGlzIHBvd2VyIGdhdGVkIGJ5IGRl
+ZmF1bHQKKyNkZWZpbmUgUFBTTUNfTVNHX1Bvd2VyVXBWY24gICAgICAgICAgICAgICAgICAgIDB4
+QworI2RlZmluZSBQUFNNQ19NU0dfUG93ZXJEb3duU2RtYSAgICAgICAgICAgICAgICAgMHhEIC8v
+IFNETUEgaXMgcG93ZXIgZ2F0ZWQgYnkgZGVmYXVsdAorI2RlZmluZSBQUFNNQ19NU0dfUG93ZXJV
+cFNkbWEgICAgICAgICAgICAgICAgICAgMHhFCisjZGVmaW5lIFBQU01DX01TR19TZXRIYXJkTWlu
+SXNwY2xrQnlGcmVxICAgICAgICAweEYKKyNkZWZpbmUgUFBTTUNfTVNHX1NldEhhcmRNaW5WY24g
+ICAgICAgICAgICAgICAgIDB4MTAgLy8gRm9yIHdpcmVsZXNzIGRpc3BsYXkKKyNkZWZpbmUgUFBT
+TUNfTVNHX3NwYXJlMSAgICAgICAgICAgICAgICAgICAgICAgIDB4MTEKKyNkZWZpbmUgUFBTTUNf
+TVNHX3NwYXJlMiAgICAgICAgICAgICAgICAgICAgICAgIDB4MTIKKyNkZWZpbmUgUFBTTUNfTVNH
+X1NldEFsbG93RmNsa1N3aXRjaCAgICAgICAgICAgIDB4MTMKKyNkZWZpbmUgUFBTTUNfTVNHX1Nl
+dE1pblZpZGVvR2Z4Y2xrRnJlcSAgICAgICAgIDB4MTQKKyNkZWZpbmUgUFBTTUNfTVNHX0FjdGl2
+ZVByb2Nlc3NOb3RpZnkgICAgICAgICAgIDB4MTUKKyNkZWZpbmUgUFBTTUNfTVNHX1NldEN1c3Rv
+bVBvbGljeSAgICAgICAgICAgICAgIDB4MTYKKyNkZWZpbmUgUFBTTUNfTVNHX1NldFZpZGVvRnBz
+ICAgICAgICAgICAgICAgICAgIDB4MTcKKyNkZWZpbmUgUFBTTUNfTVNHX1NldERpc3BsYXlDb3Vu
+dCAgICAgICAgICAgICAgIDB4MTggLy8gTW92ZWQgdG8gVkJJT1MKKyNkZWZpbmUgUFBTTUNfTVNH
+X1F1ZXJ5UG93ZXJMaW1pdCAgICAgICAgICAgICAgIDB4MTkgLy9Ecml2ZXIgdG8gbG9vayB1cCBz
+dXN0YWluYWJsZSBjbG9ja3MgZm9yIFZRCisjZGVmaW5lIFBQU01DX01TR19TZXREcml2ZXJEcmFt
+QWRkckhpZ2ggICAgICAgICAweDFBCisjZGVmaW5lIFBQU01DX01TR19TZXREcml2ZXJEcmFtQWRk
+ckxvdyAgICAgICAgICAweDFCCisjZGVmaW5lIFBQU01DX01TR19UcmFuc2ZlclRhYmxlU211MkRy
+YW0gICAgICAgICAweDFDCisjZGVmaW5lIFBQU01DX01TR19UcmFuc2ZlclRhYmxlRHJhbTJTbXUg
+ICAgICAgICAweDFECisjZGVmaW5lIFBQU01DX01TR19HZnhEZXZpY2VEcml2ZXJSZXNldCAgICAg
+ICAgICAweDFFCisjZGVmaW5lIFBQU01DX01TR19TZXRHZnhjbGtPdmVyZHJpdmVCeUZyZXFWaWQg
+ICAweDFGCisjZGVmaW5lIFBQU01DX01TR19TZXRIYXJkTWluRGNmY2xrQnlGcmVxICAgICAgICAw
+eDIwIC8vIE1vdmVkIHRvIFZCSU9TCisjZGVmaW5lIFBQU01DX01TR19TZXRIYXJkTWluU29jY2xr
+QnlGcmVxICAgICAgICAweDIxCisjZGVmaW5lIFBQU01DX01TR19Db250cm9sSWdwdUFUUyAgICAg
+ICAgICAgICAgICAweDIyCisjZGVmaW5lIFBQU01DX01TR19TZXRNaW5WaWRlb0ZjbGtGcmVxICAg
+ICAgICAgICAweDIzCisjZGVmaW5lIFBQU01DX01TR19TZXRNaW5EZWVwU2xlZXBEY2ZjbGsgICAg
+ICAgICAweDI0IC8vIE1vdmVkIHRvIFZCSU9TCisjZGVmaW5lIFBQU01DX01TR19Gb3JjZVBvd2Vy
+RG93bkdmeCAgICAgICAgICAgICAweDI1CisjZGVmaW5lIFBQU01DX01TR19TZXRQaHljbGtWb2x0
+YWdlQnlGcmVxICAgICAgICAweDI2IC8vIE1vdmVkIHRvIFZCSU9TCisjZGVmaW5lIFBQU01DX01T
+R19TZXREcHBjbGtWb2x0YWdlQnlGcmVxICAgICAgICAweDI3IC8vIE1vdmVkIHRvIFZCSU9TIGFu
+ZCBpcyBTZXREcHBjbGtGcmVxCisjZGVmaW5lIFBQU01DX01TR19TZXRTb2Z0TWluVmNuICAgICAg
+ICAgICAgICAgICAweDI4CisjZGVmaW5lIFBQU01DX01TR19FbmFibGVQb3N0Q29kZSAgICAgICAg
+ICAgICAgICAweDI5CisjZGVmaW5lIFBQU01DX01TR19HZXRHZnhjbGtGcmVxdWVuY3kgICAgICAg
+ICAgICAweDJBCisjZGVmaW5lIFBQU01DX01TR19HZXRGY2xrRnJlcXVlbmN5ICAgICAgICAgICAg
+ICAweDJCCisjZGVmaW5lIFBQU01DX01TR19HZXRNaW5HZnhjbGtGcmVxdWVuY3kgICAgICAgICAw
+eDJDCisjZGVmaW5lIFBQU01DX01TR19HZXRNYXhHZnhjbGtGcmVxdWVuY3kgICAgICAgICAweDJE
+CisjZGVmaW5lIFBQU01DX01TR19Tb2Z0UmVzZXQgICAgICAgICAgICAgICAgICAgICAweDJFIC8v
+IE5vdCBzdXBwb3J0ZWQKKyNkZWZpbmUgUFBTTUNfTVNHX1NldEdmeENHUEcgICAgICAgICAgICAg
+ICAgICAgIDB4MkYKKyNkZWZpbmUgUFBTTUNfTVNHX1NldFNvZnRNYXhHZnhDbGsgICAgICAgICAg
+ICAgIDB4MzAKKyNkZWZpbmUgUFBTTUNfTVNHX1NldEhhcmRNaW5HZnhDbGsgICAgICAgICAgICAg
+IDB4MzEKKyNkZWZpbmUgUFBTTUNfTVNHX1NldFNvZnRNYXhTb2NjbGtCeUZyZXEgICAgICAgIDB4
+MzIKKyNkZWZpbmUgUFBTTUNfTVNHX1NldFNvZnRNYXhGY2xrQnlGcmVxICAgICAgICAgIDB4MzMK
+KyNkZWZpbmUgUFBTTUNfTVNHX1NldFNvZnRNYXhWY24gICAgICAgICAgICAgICAgIDB4MzQKKyNk
+ZWZpbmUgUFBTTUNfTVNHX1Bvd2VyR2F0ZU1tSHViICAgICAgICAgICAgICAgIDB4MzUKKyNkZWZp
+bmUgUFBTTUNfTVNHX1VwZGF0ZVBtZVJlc3RvcmUgICAgICAgICAgICAgIDB4MzYgLy8gTW92ZWQg
+dG8gVkJJT1MKKyNkZWZpbmUgUFBTTUNfTVNHX0dwdUNoYW5nZVN0YXRlICAgICAgICAgICAgICAg
+IDB4MzcKKyNkZWZpbmUgUFBTTUNfTVNHX1NldFBvd2VyTGltaXRQZXJjZW50YWdlICAgICAgIDB4
+MzgKKyNkZWZpbmUgUFBTTUNfTVNHX0ZvcmNlR2Z4Q29udGVudFNhdmUgICAgICAgICAgIDB4MzkK
+KyNkZWZpbmUgUFBTTUNfTVNHX0VuYWJsZVRtZHA0OE1IelJlZmNsa1B3ckRvd24gIDB4M0EgLy8g
+TW92ZWQgdG8gVkJJT1MKKyNkZWZpbmUgUFBTTUNfTVNHX1Bvd2VyRG93bkpwZWcgICAgICAgICAg
+ICAgICAgIDB4M0IKKyNkZWZpbmUgUFBTTUNfTVNHX1Bvd2VyVXBKcGVnICAgICAgICAgICAgICAg
+ICAgIDB4M0MKKyNkZWZpbmUgUFBTTUNfTVNHX1Bvd2VyR2F0ZUF0SHViICAgICAgICAgICAgICAg
+IDB4M0QKKyNkZWZpbmUgUFBTTUNfTVNHX1NldFNvZnRNaW5KcGVnICAgICAgICAgICAgICAgIDB4
+M0UKKyNkZWZpbmUgUFBTTUNfTVNHX1NldEhhcmRNaW5GY2xrQnlGcmVxICAgICAgICAgIDB4M0YK
+KyNkZWZpbmUgUFBTTUNfTWVzc2FnZV9Db3VudCAgICAgICAgICAgICAgICAgICAgIDB4NDAKKwor
+CisvL0FyZ3VtZW50IGZvciAgUFBTTUNfTVNHX0dwdUNoYW5nZVN0YXRlCitlbnVtIHsKKyAgZUdw
+dUNoYW5nZVN0YXRlX0QwRW50cnkgPSAxLAorICBlR3B1Q2hhbmdlU3RhdGVfRDNFbnRyeSwKK307
+CisKKyNlbmRpZgotLSAKMi4yMC4xCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNr
+dG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2Ft
+ZC1nZng=
