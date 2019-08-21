@@ -1,14 +1,17 @@
-From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu/sdma5: fix number of sdma5 trap irq types for
- navi1x
-Date: Wed, 21 Aug 2019 17:43:19 +0000
-Message-ID: <BN6PR12MB18092E70EEF7E6DEB2A2C3CEF7AA0@BN6PR12MB1809.namprd12.prod.outlook.com>
-References: <20190821135226.16967-1-xiaojie.yuan@amd.com>
+From: "Kazlauskas, Nicholas" <Nicholas.Kazlauskas-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH v2 11/14] drm/amd/display: Validate DSC caps on MST
+ endpoints
+Date: Wed, 21 Aug 2019 18:14:40 +0000
+Message-ID: <c34b863a-8f36-7ee3-ed54-99989958d9bc@amd.com>
+References: <20190820191203.25807-1-David.Francis@amd.com>
+ <20190820191203.25807-12-David.Francis@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0685397713=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190821135226.16967-1-xiaojie.yuan-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <20190820191203.25807-12-David.Francis-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
+Content-ID: <850FF1159BB6C34C81EEBEFB68068DD1-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -19,177 +22,172 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Yuan, Xiaojie" <Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org" <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "Xiao,
- Jack" <Jack.Xiao-5C7GfCeVMHo@public.gmane.org>, "Zhang, Hawking" <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>
+To: "Francis, David" <David.Francis-5C7GfCeVMHo@public.gmane.org>, "dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Liu, Wenjing" <Wenjing.Liu-5C7GfCeVMHo@public.gmane.org>, "Cornij,
+ Nikola" <Nikola.Cornij-5C7GfCeVMHo@public.gmane.org>
 
---===============0685397713==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_BN6PR12MB18092E70EEF7E6DEB2A2C3CEF7AA0BN6PR12MB1809namp_"
-
---_000_BN6PR12MB18092E70EEF7E6DEB2A2C3CEF7AA0BN6PR12MB1809namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-Reviewed-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-________________________________
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Yuan, Xi=
-aojie <Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org>
-Sent: Wednesday, August 21, 2019 9:52 AM
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>; Xiao, Jack <Jack.Xiao@am=
-d.com>; Yuan, Xiaojie <Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org>; Zhang, Hawking <Hawking.Zhang=
-@amd.com>
-Subject: [PATCH] drm/amdgpu/sdma5: fix number of sdma5 trap irq types for n=
-avi1x
-
-v2: set num_types based on num_instances
-
-navi1x has 2 sdma engines but commit
-"e7b58d03b678 drm/amdgpu: reorganize sdma v4 code to support more instances=
-"
-changes the max number of sdma irq types (AMDGPU_SDMA_IRQ_LAST) from 2 to 8
-which causes amdgpu_irq_gpu_reset_resume_helper() to recover irq of sdma
-engines with following logic:
-
-(enable irq for sdma0) * 1 time
-(enable irq for sdma1) * 1 time
-(disable irq for sdma1) * 6 times
-
-as a result, after gpu reset, interrupt for sdma1 is lost.
-
-Signed-off-by: Xiaojie Yuan <xiaojie.yuan-5C7GfCeVMHo@public.gmane.org>
----
- drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c b/drivers/gpu/drm/amd/a=
-mdgpu/sdma_v5_0.c
-index 41932d8b88c3..89174e778d2f 100644
---- a/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
-@@ -1625,7 +1625,8 @@ static const struct amdgpu_irq_src_funcs sdma_v5_0_il=
-legal_inst_irq_funcs =3D {
-
- static void sdma_v5_0_set_irq_funcs(struct amdgpu_device *adev)
- {
--       adev->sdma.trap_irq.num_types =3D AMDGPU_SDMA_IRQ_LAST;
-+       adev->sdma.trap_irq.num_types =3D AMDGPU_SDMA_IRQ_INSTANCE0 +
-+                                       adev->sdma.num_instances;
-         adev->sdma.trap_irq.funcs =3D &sdma_v5_0_trap_irq_funcs;
-         adev->sdma.illegal_inst_irq.funcs =3D &sdma_v5_0_illegal_inst_irq_=
-funcs;
- }
---
-2.20.1
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---_000_BN6PR12MB18092E70EEF7E6DEB2A2C3CEF7AA0BN6PR12MB1809namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Reviewed-by: Alex Deucher &lt;alexander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
-</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
-ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Yuan, Xiaojie &lt;Xiaojie.Yua=
-n@amd.com&gt;<br>
-<b>Sent:</b> Wednesday, August 21, 2019 9:52 AM<br>
-<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org &lt;amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&=
-gt;<br>
-<b>Cc:</b> alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org &lt;alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;; Xiao, Jack =
-&lt;Jack.Xiao-5C7GfCeVMHo@public.gmane.org&gt;; Yuan, Xiaojie &lt;Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org&gt;; Zhan=
-g, Hawking &lt;Hawking.Zhang-5C7GfCeVMHo@public.gmane.org&gt;<br>
-<b>Subject:</b> [PATCH] drm/amdgpu/sdma5: fix number of sdma5 trap irq type=
-s for navi1x</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">v2: set num_types based on num_instances<br>
-<br>
-navi1x has 2 sdma engines but commit<br>
-&quot;e7b58d03b678 drm/amdgpu: reorganize sdma v4 code to support more inst=
-ances&quot;<br>
-changes the max number of sdma irq types (AMDGPU_SDMA_IRQ_LAST) from 2 to 8=
-<br>
-which causes amdgpu_irq_gpu_reset_resume_helper() to recover irq of sdma<br=
->
-engines with following logic:<br>
-<br>
-(enable irq for sdma0) * 1 time<br>
-(enable irq for sdma1) * 1 time<br>
-(disable irq for sdma1) * 6 times<br>
-<br>
-as a result, after gpu reset, interrupt for sdma1 is lost.<br>
-<br>
-Signed-off-by: Xiaojie Yuan &lt;xiaojie.yuan-5C7GfCeVMHo@public.gmane.org&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c | 3 &#43;&#43;-<br>
-&nbsp;1 file changed, 2 insertions(&#43;), 1 deletion(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c b/drivers/gpu/drm/amd/a=
-mdgpu/sdma_v5_0.c<br>
-index 41932d8b88c3..89174e778d2f 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c<br>
-@@ -1625,7 &#43;1625,8 @@ static const struct amdgpu_irq_src_funcs sdma_v5_=
-0_illegal_inst_irq_funcs =3D {<br>
-&nbsp;<br>
-&nbsp;static void sdma_v5_0_set_irq_funcs(struct amdgpu_device *adev)<br>
-&nbsp;{<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;sdma.trap_irq.num_types =3D =
-AMDGPU_SDMA_IRQ_LAST;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;sdma.trap_irq.num_types =
-=3D AMDGPU_SDMA_IRQ_INSTANCE0 &#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp; adev-&gt;sdma.num_instances;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;sdma.trap_irq.fun=
-cs =3D &amp;sdma_v5_0_trap_irq_funcs;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;sdma.illegal_inst=
-_irq.funcs =3D &amp;sdma_v5_0_illegal_inst_irq_funcs;<br>
-&nbsp;}<br>
--- <br>
-2.20.1<br>
-<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
-lists.freedesktop.org/mailman/listinfo/amd-gfx</a></div>
-</span></font></div>
-</body>
-</html>
-
---_000_BN6PR12MB18092E70EEF7E6DEB2A2C3CEF7AA0BN6PR12MB1809namp_--
-
---===============0685397713==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
-
---===============0685397713==--
+T24gOC8yMC8xOSAzOjEyIFBNLCBEYXZpZCBGcmFuY2lzIHdyb3RlOg0KPiBUaGUgZmlyc3Qgc3Rl
+cCBpbiBNU1QgRFNDIGlzIGNoZWNraW5nIE1TVCBlbmRwb2ludHMNCj4gdG8gc2VlIGhvdyBEU0Mg
+Y2FuIGJlIGVuYWJsZWQNCj4gDQo+IENhc2UgMTogRFAtdG8tRFAgcGVlciBkZXZpY2UNCj4gaWYg
+dGhlIGJyYW5jaCBpbW1lZGlhdGVseSB1cHN0cmVhbSBoYXMNCj4gICAtIFBEVCA9IERQX1BFRVJf
+REVWSUNFX0RQX01TVF9CUkFOQ0hJTkcgKDIpDQo+ICAgLSBEUENEIHJldi4gPj0gRFAgMS40DQo+
+ICAgLSBFeGFjdGx5IG9uZSBpbnB1dCBhbmQgb25lIG91dHB1dA0KPiAgIC0gVGhlIG91dHB1dCBo
+YXMgUERUID0gRFBfUEVFUl9ERVZJQ0VfU1NUX1NJTksgKDMpDQo+IA0KPiBJbiB0aGlzIGNhc2Us
+IERTQyBjb3VsZCBiZSBwb3NzaWJsZSBlaXRoZXIgb24gdGhlIGVuZHBvaW50DQo+IG9yIHRoZSBw
+ZWVyIGRldmljZS4gUHJlZmVyIHRoZSBlbmRwb2ludCwgd2hpY2ggaXMgcG9zc2libGUgaWYNCj4g
+ICAtIFRoZSBlbmRwb2ludCBoYXMgRFBfRFNDX0RFQ09NUFJFU1NJT05fSVNfU1VQUE9SVEVEIGJp
+dCBzZXQNCj4gICAtIFRoZSBlbmRwb2ludCBoYXMgRFBfRkVDX0NBUEFCTEUgYml0IHNldA0KPiAg
+IC0gVGhlIHBlZXIgZGV2aWNlIGhhcyBEU0NfUEFTU1RIUk9VR0hfQ0FQQUJJTElUWSBiaXQgc2V0
+IChmcm9tIERQIHYyLjApDQo+IA0KPiBPdGhlcndpc2UsIHVzZSB0aGUgcGVlciBkZXZpY2UNCj4g
+DQo+IENhc2UgMjogRFAtdG8tSERNSSBwZWVyIGRldmljZQ0KPiBJZiB0aGUgb3V0cHV0IHBvcnQg
+aGFzDQo+ICAgLSBQRFQgPSBEUF9QRUVSX0RFVklDRV9EUF9MRUdBQ1lfQ09OViAoNCkNCj4gICAt
+IERQQ0QgcmV2LiA+PSBEUCAxLjQNCj4gICAtIExEUFMgPSB0cnVlDQo+ICAgLSBNQ1MgPSBmYWxz
+ZQ0KPiANCj4gSW4gdGhpcyBjYXNlLCBEU0MgY2FuIG9ubHkgYmUgYXR0ZW1wdGVkIG9uIHRoZSBw
+ZWVyIGRldmljZQ0KPiAodGhlIG91dHB1dCBwb3J0KQ0KPiANCj4gQ2FzZSAzOiBWaXJ0dWFsIERQ
+IFNpbmsgKEludGVybmFsIERpc3BsYXkgUGFuZWwpDQo+IElmIHRoZSBvdXRwdXQgcG9ydCBoYXMN
+Cj4gICAtIERQQ0QgcmV2LiA+PSBEUCAxLjQNCj4gICAtIHBvcnRfbnVtID49IDgNCj4gDQo+IElu
+IHRoaXMgY2FzZSwgRFNDIGNhbiBvbmx5IGJlIGF0dGVtcHRlZCBvbiB0aGUgcGVlciBkZXZpY2UN
+Cj4gKHRoZSBvdXRwdXQgcG9ydCkNCj4gDQo+IENhc2UgNDogU3luYXB0aXggV29ya2Fyb3VuZA0K
+PiBJZiB0aGUgb3V0cHV0IGhhcw0KPiAgIC0gbGluayBEUENEIHJldi4gPj0gRFAgMS40DQo+ICAg
+LSBsaW5rIGJyYW5jaF9kZXZfaWQgPSAweDkwQ0MyNCAoU3luYXB0aXgpDQo+ICAgLSBUaGVyZSBp
+cyBleGFjdGx5IG9uZSBicmFuY2ggZGV2aWNlIGJldHdlZW4gdGhlIGxpbmsgYW5kIG91dHB1dA0K
+PiANCj4gSW4gdGhpcyBjYXNlLCBEU0MgY2FuIGJlIGF0dGVtcHRlZCwgYnV0IG9ubHkgdXNpbmcg
+dGhlICpsaW5rKg0KPiBhdXggZGV2aWNlJ3MgY2Fwcy4gVGhpcyBpcyBhIHF1aXJrLg0KPiANCj4g
+VGVzdCBmb3IgdGhlc2UgY2FzZXMgYXMgbW9kZXMgYXJlIGVudW1lcmF0ZWQgZm9yIGFuIE1TVCBl
+bmRwb2ludC4NCj4gV2UgY2Fubm90IGRvIHRoaXMgZHVyaW5nIGxpbmsgYXR0YWNoIGJlY2F1c2Ug
+dGhlIGRjX3Npbmsgb2JqZWN0DQo+IHdpbGwgbm90IGhhdmUgYmVlbiBjcmVhdGVkIHlldA0KPiAN
+Cj4gSWYgbm8gRFNDIGlzIGF0dGVtcHRlZCwgemVybyB0aGUgRFNDIGNhcHMNCj4gDQo+IENjOiBX
+ZW5qaW5nIExpdSA8V2VuamluZy5MaXVAYW1kLmNvbT4NCj4gQ2M6IE5pa29sYSBDb3JuaWogPE5p
+a29sYS5Db3JuaWpAYW1kLmNvbT4NCj4gU2lnbmVkLW9mZi1ieTogRGF2aWQgRnJhbmNpcyA8RGF2
+aWQuRnJhbmNpc0BhbWQuY29tPg0KDQpRdWVzdGlvbnMgYW5kIGNvbW1lbnRzIGJlbG93Li4uDQoN
+Cj4gLS0tDQo+ICAgLi4uL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbV9tc3RfdHlwZXMuYyAg
+IHwgMTIzICsrKysrKysrKysrKysrKysrLQ0KPiAgIC4uLi9kaXNwbGF5L2FtZGdwdV9kbS9hbWRn
+cHVfZG1fbXN0X3R5cGVzLmggICB8ICAgMyArDQo+ICAgMiBmaWxlcyBjaGFuZ2VkLCAxMjUgaW5z
+ZXJ0aW9ucygrKSwgMSBkZWxldGlvbigtKQ0KPiANCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1
+L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtX21zdF90eXBlcy5jIGIvZHJpdmVy
+cy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG1fbXN0X3R5cGVzLmMNCj4g
+aW5kZXggMTYyMThhMjAyYjU5Li41ODU3MTg0NGY2ZDUgMTAwNjQ0DQo+IC0tLSBhL2RyaXZlcnMv
+Z3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtX21zdF90eXBlcy5jDQo+ICsr
+KyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtX21zdF90
+eXBlcy5jDQo+IEBAIC0yNSw2ICsyNSw3IEBADQo+ICAgDQo+ICAgI2luY2x1ZGUgPGxpbnV4L3Zl
+cnNpb24uaD4NCj4gICAjaW5jbHVkZSA8ZHJtL2RybV9hdG9taWNfaGVscGVyLmg+DQo+ICsjaW5j
+bHVkZSA8ZHJtL2RybV9kcF9tc3RfaGVscGVyLmg+DQo+ICAgI2luY2x1ZGUgImRtX3NlcnZpY2Vz
+LmgiDQo+ICAgI2luY2x1ZGUgImFtZGdwdS5oIg0KPiAgICNpbmNsdWRlICJhbWRncHVfZG0uaCIN
+Cj4gQEAgLTE4OSw2ICsxOTAsMTIwIEBAIHN0YXRpYyBjb25zdCBzdHJ1Y3QgZHJtX2Nvbm5lY3Rv
+cl9mdW5jcyBkbV9kcF9tc3RfY29ubmVjdG9yX2Z1bmNzID0gew0KPiAgIAkuZWFybHlfdW5yZWdp
+c3RlciA9IGFtZGdwdV9kbV9tc3RfY29ubmVjdG9yX2Vhcmx5X3VucmVnaXN0ZXIsDQo+ICAgfTsN
+Cj4gICANCj4gK2Jvb2wgaXNfdmlydHVhbF9kcGNkKHN0cnVjdCBkcm1fZHBfbXN0X3BvcnQgKnBv
+cnQpDQo+ICt7DQo+ICsJc3RydWN0IGRybV9kcF9tc3RfcG9ydCAqZG93bnN0cmVhbV9wb3J0Ow0K
+PiArDQo+ICsJaWYgKCFwb3J0KQ0KPiArCQlyZXR1cm4gZmFsc2U7DQo+ICsNCj4gKwlpZiAocG9y
+dC0+cG9ydF9udW0gPj0gOCAmJg0KPiArCQlwb3J0LT5kcGNkX3JldiA+PSBEUF9EUENEX1JFVl8x
+NCkgew0KDQpBbGwgdGhlc2UgaWYgc3RhdGVtZW50cyBzaG91bGQgYmUgYWxpZ25lZCBpZiBwb3Nz
+aWJsZS4gVGhhdCdzIGp1c3QgDQpmb3JtYXR0aW5nIG5pdHBpY2tzIHRob3VnaC4NCg0KPiArCQkv
+KiBWaXJ0dWFsIERQIFNpbmsgKEludGVybmFsIERpc3BsYXkgUGFuZWwpICovDQo+ICsJCXJldHVy
+biB0cnVlOw0KPiArCX0gZWxzZSBpZiAocG9ydC0+cGR0ID09IERQX1BFRVJfREVWSUNFX0RQX0xF
+R0FDWV9DT05WICYmDQo+ICsJCQkhcG9ydC0+bWNzICYmDQo+ICsJCQlwb3J0LT5sZHBzICYmDQo+
+ICsJCQlwb3J0LT5kcGNkX3JldiA+PSBEUF9EUENEX1JFVl8xNCkgew0KPiArCQkvKiBEUC10by1I
+RE1JIFByb3RvY29sIENvbnZlcnRlciAqLw0KPiArCQlyZXR1cm4gdHJ1ZTsNCj4gKwl9IGVsc2Ug
+aWYgKHBvcnQtPnBkdCA9PSBEUF9QRUVSX0RFVklDRV9NU1RfQlJBTkNISU5HICYmDQo+ICsJCQlw
+b3J0LT5tc3RiICYmDQo+ICsJCQlwb3J0LT5kcGNkX3JldiA+PSBEUF9EUENEX1JFVl8xNCkgew0K
+PiArCQkvKiBEUC10by1EUCAqLw0KPiArCQlpZiAocG9ydC0+bXN0Yi0+bnVtX3BvcnRzID09IDIp
+IHsNCg0KQ2FuIHByb2JhYmx5IG1lcmdlIHRoaXMgaWYgY29uZGl0aW9uIGludG8gdGhlIGVsc2Ug
+aWYgYWJvdmUuIFdpbGwgaGVscCANCmN1dCBkb3duIG9uIGxpbmUgbGVuZ3RoIGJlbG93Lg0KDQo+
+ICsJCQlsaXN0X2Zvcl9lYWNoX2VudHJ5KGRvd25zdHJlYW1fcG9ydCwgJnBvcnQtPm1zdGItPnBv
+cnRzLCBuZXh0KSB7DQo+ICsJCQkJaWYgKCFkb3duc3RyZWFtX3BvcnQtPmlucHV0ICYmDQo+ICsJ
+CQkJCQlkb3duc3RyZWFtX3BvcnQtPnBkdCA9PSBEUF9QRUVSX0RFVklDRV9TU1RfU0lOSykNCj4g
+KwkJCQkJcmV0dXJuIHRydWU7DQo+ICsJCQl9DQo+ICsJCX0NCj4gKwl9DQo+ICsJcmV0dXJuIGZh
+bHNlOw0KPiArfSA+ICsNCj4gK2Jvb2wgc3luYXB0aXhfd29ya2Fyb3VuZChzdHJ1Y3QgYW1kZ3B1
+X2RtX2Nvbm5lY3RvciAqYWNvbm5lY3RvcikNCg0KVGhpcyBwcm9iYWJseSBuZWVkcyBhIGJldHRl
+ciBuYW1lLiBUaGlzIGlzbid0IGFwcGx5aW5nIGEgd29ya2Fyb3VuZCBmb3IgDQphIHNwZWNpZmlj
+IGRldmljZSBidXQgcmV0dXJuaW5nIHRydWUgaWYgaXQgaXMgYSBzcGVjaWZpYyBkZXZpY2UuDQoN
+Cj4gK3sNCj4gKwlzdHJ1Y3QgZHJtX2RwX21zdF9wb3J0ICpwb3J0ID0gYWNvbm5lY3Rvci0+cG9y
+dDsNCj4gKwlzdHJ1Y3QgZGNfbGluayAqbGluayA9IGFjb25uZWN0b3ItPmRjX3NpbmstPmxpbms7
+DQo+ICsJdTggZG93bl9zdHJlYW1fcG9ydF9kYXRhOw0KPiArDQo+ICsJaWYgKHBvcnQtPm1nci0+
+bXN0X3ByaW1hcnkgPT0gcG9ydC0+cGFyZW50ICYmDQo+ICsJCQlsaW5rLT5kcGNkX2NhcHMuYnJh
+bmNoX2Rldl9pZCA9PSAweDkwQ0MyNCAmJg0KPiArCQkJbGluay0+ZHBjZF9jYXBzLmRwY2RfcmV2
+LnJhdyA+PSBEUF9EUENEX1JFVl8xNCkgew0KPiArCQlkcm1fZHBfbXN0X2RwY2RfcmVhZCgmcG9y
+dC0+YXV4LCBEUF9ET1dOU1RSRUFNUE9SVF9QUkVTRU5ULCAmZG93bl9zdHJlYW1fcG9ydF9kYXRh
+LCAxKTsNCj4gKwkJaWYgKChkb3duX3N0cmVhbV9wb3J0X2RhdGEgJiA3KSAhPSAzKQ0KPiArCQkJ
+cmV0dXJuIHRydWU7DQo+ICsJfQ0KPiArCXJldHVybiBmYWxzZTsNCj4gK30NCj4gKw0KPiArI2lm
+ZGVmIENPTkZJR19EUk1fQU1EX0RDX0RTQ19TVVBQT1JUDQo+ICtzdGF0aWMgYm9vbCB2YWxpZGF0
+ZV9kc2NfY2Fwc19vbl9jb25uZWN0b3Ioc3RydWN0IGFtZGdwdV9kbV9jb25uZWN0b3IgKmFjb25u
+ZWN0b3IpDQo+ICt7DQo+ICsJdTggdXBzdHJlYW1fZHNjX2NhcHNbMTZdID0geyAwIH07DQo+ICsJ
+dTggZW5kcG9pbnRfZHNjX2NhcHNbMTZdID0geyAwIH07DQo+ICsJdTggZW5kcG9pbnRfZmVjX2Nh
+cHMgPSAwOw0KPiArCXN0cnVjdCBkY19zaW5rICpkY19zaW5rID0gYWNvbm5lY3Rvci0+ZGNfc2lu
+azsNCj4gKwlzdHJ1Y3QgZHJtX2RwX21zdF9wb3J0ICpvdXRwdXRfcG9ydCA9IGFjb25uZWN0b3It
+PnBvcnQ7DQo+ICsJc3RydWN0IGRybV9kcF9tc3RfcG9ydCAqaW1tZWRpYXRlX3Vwc3RyZWFtX3Bv
+cnQ7DQo+ICsJc3RydWN0IGRybV9kcF9tc3RfcG9ydCAqZmVjX3BvcnQ7DQo+ICsNCj4gKwlpZiAo
+YWNvbm5lY3Rvci0+cG9ydCAmJiBhY29ubmVjdG9yLT5wb3J0LT5wYXJlbnQpDQo+ICsJCWltbWVk
+aWF0ZV91cHN0cmVhbV9wb3J0ID0gYWNvbm5lY3Rvci0+cG9ydC0+cGFyZW50LT5wb3J0X3BhcmVu
+dDsNCj4gKwllbHNlDQo+ICsJCWltbWVkaWF0ZV91cHN0cmVhbV9wb3J0ID0gTlVMTDsNCj4gKw0K
+PiArCWZlY19wb3J0ID0gaW1tZWRpYXRlX3Vwc3RyZWFtX3BvcnQ7DQo+ICsJd2hpbGUgKGZlY19w
+b3J0KSB7DQo+ICsJCWlmICghZmVjX3BvcnQtPmZlY19jYXBhYmxlKQ0KPiArCQkJcmV0dXJuIGZh
+bHNlOw0KPiArDQo+ICsJCWZlY19wb3J0ID0gZmVjX3BvcnQtPnBhcmVudC0+cG9ydF9wYXJlbnQ7
+DQo+ICsJfQ0KPiArDQo+ICsJaWYgKGltbWVkaWF0ZV91cHN0cmVhbV9wb3J0KQ0KPiArCQlkcm1f
+ZHBfbXN0X2RwY2RfcmVhZCgmaW1tZWRpYXRlX3Vwc3RyZWFtX3BvcnQtPmF1eCwgRFBfRFNDX1NV
+UFBPUlQsIHVwc3RyZWFtX2RzY19jYXBzLCAxNik7DQo+ICsJZHJtX2RwX21zdF9kcGNkX3JlYWQo
+Jm91dHB1dF9wb3J0LT5hdXgsIERQX0RTQ19TVVBQT1JULCBlbmRwb2ludF9kc2NfY2FwcywgMTYp
+Ow0KPiArCWRybV9kcF9tc3RfZHBjZF9yZWFkKCZvdXRwdXRfcG9ydC0+YXV4LCBEUF9GRUNfQ0FQ
+QUJJTElUWSwgJmVuZHBvaW50X2ZlY19jYXBzLCAxKTsNCj4gKw0KPiArCWlmIChpc192aXJ0dWFs
+X2RwY2QoaW1tZWRpYXRlX3Vwc3RyZWFtX3BvcnQpDQo+ICsJCQkmJiAodXBzdHJlYW1fZHNjX2Nh
+cHNbMF0gJiAweDIpIC8qIERTQyBwYXNzdGhyb3VnaCBjYXBhYmlsaXR5ICovDQo+ICsJCQkmJiAo
+ZW5kcG9pbnRfZmVjX2NhcHMgJiBEUF9GRUNfQ0FQQUJMRSkNCj4gKwkJCSYmIChlbmRwb2ludF9k
+c2NfY2Fwc1swXSAmIERQX0RTQ19ERUNPTVBSRVNTSU9OX0lTX1NVUFBPUlRFRCkpIHsNCj4gKwkJ
+LyogRW5wb2ludCBkZWNvbXByZXNzaW9uIHdpdGggRFAtdG8tRFAgcGVlciBkZXZpY2UgKi8NCj4g
+KwkJaWYgKCFkY19kc2NfcGFyc2VfZHNjX2RwY2QoZW5kcG9pbnRfZHNjX2NhcHMsIE5VTEwsICZk
+Y19zaW5rLT5zaW5rX2RzY19jYXBzLmRzY19kZWNfY2FwcykpDQo+ICsJCQlyZXR1cm4gZmFsc2U7
+DQo+ICsNCj4gKwkJZGNfc2luay0+c2lua19kc2NfY2Fwcy5pc192aXJ0dWFsX2RwY2RfZHNjID0g
+ZmFsc2U7DQo+ICsJfSBlbHNlIGlmIChpc192aXJ0dWFsX2RwY2QoaW1tZWRpYXRlX3Vwc3RyZWFt
+X3BvcnQpKSB7DQo+ICsJCS8qIFZpcnR1YWwgRFBDRCBkZWNvbXByZXNzaW9uIHdpdGggRFAtdG8t
+RFAgcGVlciBkZXZpY2UgKi8NCj4gKwkJaWYgKCFkY19kc2NfcGFyc2VfZHNjX2RwY2QodXBzdHJl
+YW1fZHNjX2NhcHMsIE5VTEwsICZkY19zaW5rLT5zaW5rX2RzY19jYXBzLmRzY19kZWNfY2Fwcykp
+DQo+ICsJCQlyZXR1cm4gZmFsc2U7DQo+ICsNCj4gKwkJZGNfc2luay0+c2lua19kc2NfY2Fwcy5p
+c192aXJ0dWFsX2RwY2RfZHNjID0gdHJ1ZTsNCj4gKwl9IGVsc2UgaWYgKGlzX3ZpcnR1YWxfZHBj
+ZChvdXRwdXRfcG9ydCkpIHsNCj4gKwkJLyogVmlydHVhbCBEUENEIGRlY29tcHJlc3Npb24gd2l0
+aCBEUC10by1IRE1JIG9yIFZpcnR1YWwgRFAgU2luayAqLw0KPiArCQlpZiAoIWRjX2RzY19wYXJz
+ZV9kc2NfZHBjZChlbmRwb2ludF9kc2NfY2FwcywgTlVMTCwgJmRjX3NpbmstPnNpbmtfZHNjX2Nh
+cHMuZHNjX2RlY19jYXBzKSkNCj4gKwkJCXJldHVybiBmYWxzZTsNCj4gKw0KPiArCQlkY19zaW5r
+LT5zaW5rX2RzY19jYXBzLmlzX3ZpcnR1YWxfZHBjZF9kc2MgPSB0cnVlOw0KPiArCX0gZWxzZSBp
+ZiAoc3luYXB0aXhfd29ya2Fyb3VuZChhY29ubmVjdG9yKSkgew0KPiArCQkvKiBTeW5hcHRpeCB3
+b3JrYXJvdW5kICovDQo+ICsJCWFjb25uZWN0b3IgPSBkY19zaW5rLT5saW5rLT5wcml2Ow0KPiAr
+CQlkcm1fZHBfZHBjZF9yZWFkKCZhY29ubmVjdG9yLT5kbV9kcF9hdXguYXV4LCBEUF9EU0NfU1VQ
+UE9SVCwgdXBzdHJlYW1fZHNjX2NhcHMsIDE2KTsNCj4gKwkJaWYgKCFkY19kc2NfcGFyc2VfZHNj
+X2RwY2QodXBzdHJlYW1fZHNjX2NhcHMsIE5VTEwsICZkY19zaW5rLT5zaW5rX2RzY19jYXBzLmRz
+Y19kZWNfY2FwcykpDQo+ICsJCQlyZXR1cm4gZmFsc2U7DQo+ICsNCj4gKwkJZGNfc2luay0+c2lu
+a19kc2NfY2Fwcy5pc192aXJ0dWFsX2RwY2RfZHNjID0gdHJ1ZTsNCj4gKwl9IGVsc2Ugew0KPiAr
+CQlyZXR1cm4gZmFsc2U7DQo+ICsJfQ0KPiArDQo+ICsJcmV0dXJuIHRydWU7DQo+ICt9DQo+ICsj
+ZW5kaWYNCg0KU2hvdWxkIHRoaXMgYmUgY29tbW9uIGNvZGUgaW5zdGVhZCBhcyBhIGRwIG1zdCBo
+ZWxwZXIgZm9yIGRldGVybWluaW5nIA0KY2Fwcz8gT3RoZXIgdGhhbiBzZXR0aW5nIHRoZSBkYyBz
+aW5rIHN0dWZmIHRoZSByZXN0IGxvb2tzIGxpa2UgaXQgY291bGQgDQpiZSBjb21tb24gYnV0IEkn
+bSBub3Qgb3Zlcmx5IGZhbWlsaWFyIHdpdGggdGhlIGFyY2hpdGVjdHVyZS4NCg0KPiArDQo+ICAg
+c3RhdGljIGludCBkbV9kcF9tc3RfZ2V0X21vZGVzKHN0cnVjdCBkcm1fY29ubmVjdG9yICpjb25u
+ZWN0b3IpDQo+ICAgew0KPiAgIAlzdHJ1Y3QgYW1kZ3B1X2RtX2Nvbm5lY3RvciAqYWNvbm5lY3Rv
+ciA9IHRvX2FtZGdwdV9kbV9jb25uZWN0b3IoY29ubmVjdG9yKTsNCj4gQEAgLTIzMSwxMCArMzQ2
+LDE2IEBAIHN0YXRpYyBpbnQgZG1fZHBfbXN0X2dldF9tb2RlcyhzdHJ1Y3QgZHJtX2Nvbm5lY3Rv
+ciAqY29ubmVjdG9yKQ0KPiAgIAkJLyogZGNfbGlua19hZGRfcmVtb3RlX3NpbmsgcmV0dXJucyBh
+IG5ldyByZWZlcmVuY2UgKi8NCj4gICAJCWFjb25uZWN0b3ItPmRjX3NpbmsgPSBkY19zaW5rOw0K
+PiAgIA0KPiAtCQlpZiAoYWNvbm5lY3Rvci0+ZGNfc2luaykNCj4gKwkJaWYgKGFjb25uZWN0b3It
+PmRjX3NpbmspIHsNCj4gICAJCQlhbWRncHVfZG1fdXBkYXRlX2ZyZWVzeW5jX2NhcHMoDQo+ICAg
+CQkJCQljb25uZWN0b3IsIGFjb25uZWN0b3ItPmVkaWQpOw0KPiAgIA0KPiArI2lmZGVmIENPTkZJ
+R19EUk1fQU1EX0RDX0RTQ19TVVBQT1JUDQo+ICsJCQlpZiAoIXZhbGlkYXRlX2RzY19jYXBzX29u
+X2Nvbm5lY3RvcihhY29ubmVjdG9yKSkNCj4gKwkJCQltZW1zZXQoJmFjb25uZWN0b3ItPmRjX3Np
+bmstPnNpbmtfZHNjX2NhcHMsDQo+ICsJCQkJICAgICAgIDAsIHNpemVvZihhY29ubmVjdG9yLT5k
+Y19zaW5rLT5zaW5rX2RzY19jYXBzKSk7DQo+ICsjZW5kaWYNCj4gKwkJfQ0KPiAgIAl9DQo+ICAg
+DQo+ICAgCWRybV9jb25uZWN0b3JfdXBkYXRlX2VkaWRfcHJvcGVydHkoDQo+IGRpZmYgLS1naXQg
+YS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbV9tc3RfdHlw
+ZXMuaCBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtX21z
+dF90eXBlcy5oDQo+IGluZGV4IDJkYTg1MWI0MDA0Mi4uOGRlM2Q4YzMwZjhkIDEwMDY0NA0KPiAt
+LS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbV9tc3Rf
+dHlwZXMuaA0KPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2Ft
+ZGdwdV9kbV9tc3RfdHlwZXMuaA0KPiBAQCAtMzIsNCArMzIsNyBAQCBzdHJ1Y3QgYW1kZ3B1X2Rt
+X2Nvbm5lY3RvcjsNCj4gICB2b2lkIGFtZGdwdV9kbV9pbml0aWFsaXplX2RwX2Nvbm5lY3Rvcihz
+dHJ1Y3QgYW1kZ3B1X2Rpc3BsYXlfbWFuYWdlciAqZG0sDQo+ICAgCQkJCSAgICAgICBzdHJ1Y3Qg
+YW1kZ3B1X2RtX2Nvbm5lY3RvciAqYWNvbm5lY3Rvcik7DQo+ICAgDQo+ICtib29sIGlzX3ZpcnR1
+YWxfZHBjZChzdHJ1Y3QgZHJtX2RwX21zdF9wb3J0ICpwb3J0KTsNCj4gK2Jvb2wgc3luYXB0aXhf
+d29ya2Fyb3VuZChzdHJ1Y3QgYW1kZ3B1X2RtX2Nvbm5lY3RvciAqYWNvbm5lY3Rvcik7DQoNClRo
+ZXNlIHNob3VsZG4ndCBiZSBkZWZpbmVkIGluIHRoZSBoZWFkZXIgaWYgdGhleSdyZSBvbmx5IGdv
+aW5nIHRvIGJlIA0KdXNlZCBoZXJlLCB0aGV5IHNob3VsZCBqdXN0IGJlIHN0YXRpYy4NCg0KPiAr
+DQo+ICAgI2VuZGlmDQo+IA0KDQpOaWNob2xhcyBLYXpsYXVza2FzDQpfX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQt
+Z2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9t
+YWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
