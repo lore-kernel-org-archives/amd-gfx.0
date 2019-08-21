@@ -1,15 +1,18 @@
-From: Kevin Wang <kevwa-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amd/powerplay: update cached feature enablement status
-Date: Wed, 21 Aug 2019 11:44:34 +0000
-Message-ID: <861ead73-5ce2-ea37-746d-bc82b79d9b88@amd.com>
-References: <20190821092413.27155-1-evan.quan@amd.com>
+From: Thierry Reding <thierry.reding-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [Nouveau] [Intel-gfx] [PATCH v6 08/17] drm/ttm: use gem vma_node
+Date: Wed, 21 Aug 2019 13:55:23 +0200
+Message-ID: <20190821115523.GA21839@ulmo>
+References: <20190805140119.7337-1-kraxel@redhat.com>
+ <20190805140119.7337-9-kraxel@redhat.com>
+ <20190813151115.GA29955@ulmo>
+ <20190814055827.6hrxj6daovxxnnvw@sirius.home.kraxel.org>
+ <20190814093524.GA31345@ulmo>
+ <20190814101411.lj3p6zjzbjvnnjf4@sirius.home.kraxel.org>
+ <CACAvsv5Rar9F=Wf-9HBpndY4QaQZcGCx05j0esvV9pitM=JoGg@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0753479191=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190821092413.27155-1-evan.quan-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-Content-ID: <734B7E329C868E468C3A69A8CB7E96C6-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
+In-Reply-To: <CACAvsv5Rar9F=Wf-9HBpndY4QaQZcGCx05j0esvV9pitM=JoGg-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -20,49 +23,72 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Ben Skeggs <skeggsb-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Cc: ML dri-devel <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, ML nouveau <nouveau-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, intel-gfx <intel-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, linux-graphics-maintainer-pghWNbHTmq7QT0dZR+AlfA@public.gmane.org, Gerd Hoffmann <kraxel-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>, spice-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Ben Skeggs <bskeggs-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>
 
-SGkgRXZhbiwNCg0KdGhpcyBpcyBrbm93IGlzc3VlIGZvciBtZS4NCmkgdGhpbmsgd2Ugc2hvdWxk
-IGFkZCB1cGRhdGUgZmVhdHVyZSBtYXNrIGNhY2hlZCBvcGVyYXRpb24gaW50byANCnNtdV9mZWF0
-dXJlX3VwZGF0ZV9lbmFibGVfc3RhdGUgZnVuY3Rpb24uDQoNCkJlc3QgUmVnYXJkcywNCktldmlu
-DQoNCk9uIDgvMjEvMTkgNToyNCBQTSwgRXZhbiBRdWFuIHdyb3RlOg0KPiBOZWVkIHRvIHVwZGF0
-ZSBpbiBjYWNoZSBmZWF0dXJlIGVuYWJsZW1lbnQgc3RhdHVzIGFmdGVyIHBwX2ZlYXR1cmUNCj4g
-c2V0dGluZ3MuIEFub3RoZXIgZml4IGZvciB0aGUgY29tbWl0IGJlbG93Og0KPiBkcm0vYW1kL3Bv
-d2VycGxheTogaW1wbG1lbnQgc3lzZnMgZmVhdHVyZSBzdGF0dXMgZnVuY3Rpb24gaW4gc211DQo+
-DQo+IENoYW5nZS1JZDogSTkwZTI5YjBkODM5ZGYyNjgyNWQ1OTkzMjEyZjYwOTdjN2FkNGJlYmYN
-Cj4gU2lnbmVkLW9mZi1ieTogRXZhbiBRdWFuIDxldmFuLnF1YW5AYW1kLmNvbT4NCj4gLS0tDQo+
-ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvYW1kZ3B1X3NtdS5jIHwgMTYgKysrKysr
-KysrKysrKysrKw0KPiAgIDEgZmlsZSBjaGFuZ2VkLCAxNiBpbnNlcnRpb25zKCspDQo+DQo+IGRp
-ZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9hbWRncHVfc211LmMgYi9k
-cml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9hbWRncHVfc211LmMNCj4gaW5kZXggYzY2M2Qy
-NWRiNWFiLi4wNDg2N2NhZmIzMjIgMTAwNjQ0DQo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-cG93ZXJwbGF5L2FtZGdwdV9zbXUuYw0KPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2Vy
-cGxheS9hbWRncHVfc211LmMNCj4gQEAgLTk2LDExICs5NiwxMyBAQCBzaXplX3Qgc211X3N5c19n
-ZXRfcHBfZmVhdHVyZV9tYXNrKHN0cnVjdCBzbXVfY29udGV4dCAqc211LCBjaGFyICpidWYpDQo+
-ICAgDQo+ICAgaW50IHNtdV9zeXNfc2V0X3BwX2ZlYXR1cmVfbWFzayhzdHJ1Y3Qgc211X2NvbnRl
-eHQgKnNtdSwgdWludDY0X3QgbmV3X21hc2spDQo+ICAgew0KPiArCXN0cnVjdCBzbXVfZmVhdHVy
-ZSAqZmVhdHVyZSA9ICZzbXUtPnNtdV9mZWF0dXJlOw0KPiAgIAlpbnQgcmV0ID0gMDsNCj4gICAJ
-dWludDMyX3QgZmVhdHVyZV9tYXNrWzJdID0geyAwIH07DQo+ICAgCXVpbnQ2NF90IGZlYXR1cmVf
-Ml9lbmFibGVkID0gMDsNCj4gICAJdWludDY0X3QgZmVhdHVyZV8yX2Rpc2FibGVkID0gMDsNCj4g
-ICAJdWludDY0X3QgZmVhdHVyZV9lbmFibGVzID0gMDsNCj4gKwl1aW50NjRfdCBmZWF0dXJlX2lk
-Ow0KPiAgIA0KPiAgIAlyZXQgPSBzbXVfZmVhdHVyZV9nZXRfZW5hYmxlZF9tYXNrKHNtdSwgZmVh
-dHVyZV9tYXNrLCAyKTsNCj4gICAJaWYgKHJldCkNCj4gQEAgLTExNSwxMSArMTE3LDI1IEBAIGlu
-dCBzbXVfc3lzX3NldF9wcF9mZWF0dXJlX21hc2soc3RydWN0IHNtdV9jb250ZXh0ICpzbXUsIHVp
-bnQ2NF90IG5ld19tYXNrKQ0KPiAgIAkJcmV0ID0gc211X2ZlYXR1cmVfdXBkYXRlX2VuYWJsZV9z
-dGF0ZShzbXUsIGZlYXR1cmVfMl9lbmFibGVkLCB0cnVlKTsNCj4gICAJCWlmIChyZXQpDQo+ICAg
-CQkJcmV0dXJuIHJldDsNCj4gKw0KPiArCQltdXRleF9sb2NrKCZmZWF0dXJlLT5tdXRleCk7DQo+
-ICsJCWZvciAoZmVhdHVyZV9pZCA9IDA7IGZlYXR1cmVfaWQgPCA2NDsgZmVhdHVyZV9pZCsrKSB7
-DQo+ICsJCQlpZiAoZmVhdHVyZV8yX2VuYWJsZWQgJiAoMVVMTCA8PCBmZWF0dXJlX2lkKSkNCj4g
-KwkJCQl0ZXN0X2FuZF9zZXRfYml0KGZlYXR1cmVfaWQsIGZlYXR1cmUtPmVuYWJsZWQpOw0KPiAr
-CQl9DQo+ICsJCW11dGV4X3VubG9jaygmZmVhdHVyZS0+bXV0ZXgpOw0KPiAgIAl9DQo+ICAgCWlm
-IChmZWF0dXJlXzJfZGlzYWJsZWQpIHsNCj4gICAJCXJldCA9IHNtdV9mZWF0dXJlX3VwZGF0ZV9l
-bmFibGVfc3RhdGUoc211LCBmZWF0dXJlXzJfZGlzYWJsZWQsIGZhbHNlKTsNCj4gICAJCWlmIChy
-ZXQpDQo+ICAgCQkJcmV0dXJuIHJldDsNCj4gKw0KPiArCQltdXRleF9sb2NrKCZmZWF0dXJlLT5t
-dXRleCk7DQo+ICsJCWZvciAoZmVhdHVyZV9pZCA9IDA7IGZlYXR1cmVfaWQgPCA2NDsgZmVhdHVy
-ZV9pZCsrKSB7DQo+ICsJCQlpZiAoZmVhdHVyZV8yX2Rpc2FibGVkICYgKDFVTEwgPDwgZmVhdHVy
-ZV9pZCkpDQo+ICsJCQkJdGVzdF9hbmRfY2xlYXJfYml0KGZlYXR1cmVfaWQsIGZlYXR1cmUtPmVu
-YWJsZWQpOw0KPiArCQl9DQo+ICsJCW11dGV4X3VubG9jaygmZmVhdHVyZS0+bXV0ZXgpOw0KPiAg
-IAl9DQo+ICAgDQo+ICAgCXJldHVybiByZXQ7DQpfX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZy
-ZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3Rp
-bmZvL2FtZC1nZng=
+
+--===============0753479191==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="lrZ03NoBR/3+SXJZ"
+Content-Disposition: inline
+
+
+--lrZ03NoBR/3+SXJZ
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+
+On Wed, Aug 21, 2019 at 04:33:58PM +1000, Ben Skeggs wrote:
+> On Wed, 14 Aug 2019 at 20:14, Gerd Hoffmann <kraxel-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org> wrote:
+> >
+> >   Hi,
+> >
+> > > > Changing the order doesn't look hard.  Patch attached (untested, have no
+> > > > test hardware).  But maybe I missed some detail ...
+> > >
+> > > I came up with something very similar by splitting up nouveau_bo_new()
+> > > into allocation and initialization steps, so that when necessary the GEM
+> > > object can be initialized in between. I think that's slightly more
+> > > flexible and easier to understand than a boolean flag.
+> >
+> > Yes, that should work too.
+> >
+> > Acked-by: Gerd Hoffmann <kraxel-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>
+> Acked-by: Ben Skeggs <bskeggs-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>
+
+Thanks guys, applied to drm-misc-next.
+
+Thierry
+
+--lrZ03NoBR/3+SXJZ
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCAAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAl1dMSYACgkQ3SOs138+
+s6H8fQ/9F4UBF0EhVBpcsMNo5HI1kJ8KEkbiNqUWwZEh/kPLyWXoFWSWvA5FG+rP
+521CfufMmyezTHxOkPww6VEUsgaV9yEl00jqIhclgA43sBeDziR4XGzGmA/hpdpc
+ky8L49+C8mfoICLHeBjOSbSHoPhv7EqS1w8CtZkCZkf1nApk/R71bbYk6iz8zCCY
+dhZo6PGTJMpOoEQtryLjL2NJxvJe57zzsltRKxl9uEnjeDF0LRzqHYZ1Lt/mvRMn
+hXMXC1H+jOtP4p7OtP8zE6oM7desaJ2h4jXF1v1/AZHNUxQYtRohHNrYXBDqfQF5
+stLLdOjynZ8rcjhObmi3GeLbVeD2wEQJ7Qp7OgTwqbHnE4wXmAYD4KuKboJrQI8t
+0Hd25epBD/CHDgn7Kqoj8DRy5NArmeCGRDHVuFYF45utaectO7IzaxRD5zLRs6Q5
+vAA0fiy8JVs6ppQ6B9GtlQcXEKbmywLhBAzHb/Q7hukhppOhS+BxZO0FASdPmPnH
+0kjoVG0oz9oH8X/ciqubGIAUkrq+SP+OnPVvg1zGfAkxLSUTDKMZ4ZmP2vlrRzaf
+KFbFX02Gu+VDe/o7Pcf9F8pDlWS+jQL6KN+PFo2tkGP8HvouRsIagyzY/AJD0xuP
+Bb3DKPgm8W5/ggiLoiTbXz+CUWR25Hm2vBU/CZ9Uv9KBPgv95bA=
+=lGaC
+-----END PGP SIGNATURE-----
+
+--lrZ03NoBR/3+SXJZ--
+
+--===============0753479191==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+
+--===============0753479191==--
