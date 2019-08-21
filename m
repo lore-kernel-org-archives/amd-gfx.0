@@ -1,7 +1,7 @@
 From: Frank.Min <Frank.Min-5C7GfCeVMHo@public.gmane.org>
 Subject: [PATCH 1/2] drm/amdgpu: unity mc base address for arcturus
-Date: Wed, 21 Aug 2019 17:48:26 +0800
-Message-ID: <1566380907-5799-1-git-send-email-Frank.Min@amd.com>
+Date: Wed, 21 Aug 2019 18:00:34 +0800
+Message-ID: <1566381635-6484-1-git-send-email-Frank.Min@amd.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
