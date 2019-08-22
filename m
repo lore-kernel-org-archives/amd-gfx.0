@@ -1,51 +1,64 @@
-From: Alex Deucher <alexdeucher@gmail.com>
-Subject: Re: [PATCH] drm/amd/display: remove duplicated include from dc_link.c
-Date: Wed, 21 Aug 2019 22:42:21 -0400
-Message-ID: <CADnq5_PNA5L=O2=r22JGZ=HU4V5F_D6LMeo85mW+3KvvY1=QeQ@mail.gmail.com>
-References: <20190726075131.14688-1-yuehaibing@huawei.com>
+From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH] drm/amdkfd: remove set but not used variable 'pdd'
+Date: Wed, 21 Aug 2019 22:43:31 -0400
+Message-ID: <CADnq5_PcbKZDsqmoL2wK061sL=KfCedmEafn_hpbFZ9tNGrNdA@mail.gmail.com>
+References: <20190726140054.31388-1-yuehaibing@huawei.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20190726075131.14688-1-yuehaibing@huawei.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: YueHaibing <yuehaibing@huawei.com>
-Cc: "Wentland, Harry" <harry.wentland@amd.com>, "Leo (Sunpeng) Li" <sunpeng.li@amd.com>, "Deucher, Alexander" <alexander.deucher@amd.com>, Christian Koenig <christian.koenig@amd.com>, Chunming Zhou <David1.Zhou@amd.com>, Dave Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>, amd-gfx list <amd-gfx@lists.freedesktop.org>, LKML <linux-kernel@vger.kernel.org>, Maling list - DRI developers <dri-devel@lists.freedesktop.org>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20190726140054.31388-1-yuehaibing-hv44wF8Li93QT0dZR+AlfA@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: YueHaibing <yuehaibing-hv44wF8Li93QT0dZR+AlfA@public.gmane.org>
+Cc: Oded Gabbay <oded.gabbay-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, Chunming Zhou <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, Dave Airlie <airlied-cv59FeDIM0c@public.gmane.org>, LKML <linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, Maling list - DRI developers <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>, "Deucher, Alexander" <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, Christian Koenig <christian.koenig-5C7GfCeVMHo@public.gmane.org>
 
-Applied. thanks!
-
-Alex
-
-On Fri, Jul 26, 2019 at 5:42 AM YueHaibing <yuehaibing@huawei.com> wrote:
->
-> Remove duplicated include.
->
-> Reported-by: Hulk Robot <hulkci@huawei.com>
-> Signed-off-by: YueHaibing <yuehaibing@huawei.com>
-> ---
->  drivers/gpu/drm/amd/display/dc/core/dc_link.c | 4 ----
->  1 file changed, 4 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link.c b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-> index 193d6f1..a14785d 100644
-> --- a/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-> +++ b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-> @@ -45,10 +45,6 @@
->  #include "dpcd_defs.h"
->  #include "dmcu.h"
->  #include "hw/clk_mgr.h"
-> -#if defined(CONFIG_DRM_AMD_DC_DCN2_0)
-> -#include "resource.h"
-> -#endif
-> -#include "hw/clk_mgr.h"
->
->  #define DC_LOGGER_INIT(logger)
->
-> --
-> 2.7.4
->
->
-> _______________________________________________
-> dri-devel mailing list
-> dri-devel@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/dri-devel
+QXBwbGllZC4gIHRoYW5rcyEKCkFsZXgKCk9uIEZyaSwgSnVsIDI2LCAyMDE5IGF0IDExOjU4IEFN
+IFl1ZUhhaWJpbmcgPHl1ZWhhaWJpbmdAaHVhd2VpLmNvbT4gd3JvdGU6Cj4KPiBGaXhlcyBnY2Mg
+Jy1XdW51c2VkLWJ1dC1zZXQtdmFyaWFibGUnIHdhcm5pbmc6Cj4KPiBkcml2ZXJzL2dwdS9kcm0v
+YW1kL2FtZGdwdS8uLi9hbWRrZmQva2ZkX3Byb2Nlc3MuYzogSW4gZnVuY3Rpb24gcmVzdG9yZV9w
+cm9jZXNzX3dvcmtlcjoKPiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS8uLi9hbWRrZmQva2Zk
+X3Byb2Nlc3MuYzo5NDk6Mjk6IHdhcm5pbmc6Cj4gIHZhcmlhYmxlIHBkZCBzZXQgYnV0IG5vdCB1
+c2VkIFstV3VudXNlZC1idXQtc2V0LXZhcmlhYmxlXQo+Cj4gSXQgaXMgbm90IHVzZWQgc2luY2UK
+PiBjb21taXQgNWI4NzI0NWZhZjU3ICgiZHJtL2FtZGtmZDogU2ltcGxpZnkga2ZkMmtnZCBpbnRl
+cmZhY2UiKQo+Cj4gUmVwb3J0ZWQtYnk6IEh1bGsgUm9ib3QgPGh1bGtjaUBodWF3ZWkuY29tPgo+
+IFNpZ25lZC1vZmYtYnk6IFl1ZUhhaWJpbmcgPHl1ZWhhaWJpbmdAaHVhd2VpLmNvbT4KPiAtLS0K
+PiAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX3Byb2Nlc3MuYyB8IDExIC0tLS0tLS0t
+LS0tCj4gIDEgZmlsZSBjaGFuZ2VkLCAxMSBkZWxldGlvbnMoLSkKPgo+IGRpZmYgLS1naXQgYS9k
+cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfcHJvY2Vzcy5jIGIvZHJpdmVycy9ncHUvZHJt
+L2FtZC9hbWRrZmQva2ZkX3Byb2Nlc3MuYwo+IGluZGV4IDhmMTA3NmMuLjI0MGJmNjggMTAwNjQ0
+Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX3Byb2Nlc3MuYwo+ICsrKyBi
+L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9wcm9jZXNzLmMKPiBAQCAtMTA0Miw3ICsx
+MDQyLDYgQEAgc3RhdGljIHZvaWQgcmVzdG9yZV9wcm9jZXNzX3dvcmtlcihzdHJ1Y3Qgd29ya19z
+dHJ1Y3QgKndvcmspCj4gIHsKPiAgICAgICAgIHN0cnVjdCBkZWxheWVkX3dvcmsgKmR3b3JrOwo+
+ICAgICAgICAgc3RydWN0IGtmZF9wcm9jZXNzICpwOwo+IC0gICAgICAgc3RydWN0IGtmZF9wcm9j
+ZXNzX2RldmljZSAqcGRkOwo+ICAgICAgICAgaW50IHJldCA9IDA7Cj4KPiAgICAgICAgIGR3b3Jr
+ID0gdG9fZGVsYXllZF93b3JrKHdvcmspOwo+IEBAIC0xMDUxLDE2ICsxMDUwLDYgQEAgc3RhdGlj
+IHZvaWQgcmVzdG9yZV9wcm9jZXNzX3dvcmtlcihzdHJ1Y3Qgd29ya19zdHJ1Y3QgKndvcmspCj4g
+ICAgICAgICAgKiBsaWZldGltZSBvZiB0aGlzIHRocmVhZCwga2ZkX3Byb2Nlc3MgcCB3aWxsIGJl
+IHZhbGlkCj4gICAgICAgICAgKi8KPiAgICAgICAgIHAgPSBjb250YWluZXJfb2YoZHdvcmssIHN0
+cnVjdCBrZmRfcHJvY2VzcywgcmVzdG9yZV93b3JrKTsKPiAtCj4gLSAgICAgICAvKiBDYWxsIHJl
+c3RvcmVfcHJvY2Vzc19ib3Mgb24gdGhlIGZpcnN0IEtHRCBkZXZpY2UuIFRoaXMgZnVuY3Rpb24K
+PiAtICAgICAgICAqIHRha2VzIGNhcmUgb2YgcmVzdG9yaW5nIHRoZSB3aG9sZSBwcm9jZXNzIGlu
+Y2x1ZGluZyBvdGhlciBkZXZpY2VzLgo+IC0gICAgICAgICogUmVzdG9yZSBjYW4gZmFpbCBpZiBl
+bm91Z2ggbWVtb3J5IGlzIG5vdCBhdmFpbGFibGUuIElmIHNvLAo+IC0gICAgICAgICogcmVzY2hl
+ZHVsZSBhZ2Fpbi4KPiAtICAgICAgICAqLwo+IC0gICAgICAgcGRkID0gbGlzdF9maXJzdF9lbnRy
+eSgmcC0+cGVyX2RldmljZV9kYXRhLAo+IC0gICAgICAgICAgICAgICAgICAgICAgICAgICAgICBz
+dHJ1Y3Qga2ZkX3Byb2Nlc3NfZGV2aWNlLAo+IC0gICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICBwZXJfZGV2aWNlX2xpc3QpOwo+IC0KPiAgICAgICAgIHByX2RlYnVnKCJTdGFydGVkIHJlc3Rv
+cmluZyBwYXNpZCAlZFxuIiwgcC0+cGFzaWQpOwo+Cj4gICAgICAgICAvKiBTZXR0aW5nIGxhc3Rf
+cmVzdG9yZV90aW1lc3RhbXAgYmVmb3JlIHN1Y2Nlc3NmdWwgcmVzdG9yYXRpb24uCj4gLS0KPiAy
+LjcuNAo+Cj4KPiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+Xwo+IGFtZC1nZnggbWFpbGluZyBsaXN0Cj4gYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcK
+PiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
