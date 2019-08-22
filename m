@@ -1,144 +1,102 @@
-From: Gerd Hoffmann <kraxel@redhat.com>
-Subject: [PATCH 2/3] drm: drop resource_id parameter from drm_fb_helper_remove_conflicting_pci_framebuffers
-Date: Thu, 22 Aug 2019 11:06:44 +0200
-Message-ID: <20190822090645.25410-3-kraxel@redhat.com>
-References: <20190822090645.25410-1-kraxel@redhat.com>
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20190822090645.25410-1-kraxel@redhat.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: dri-devel@lists.freedesktop.org
-Cc: Gerd Hoffmann <kraxel@redhat.com>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, Dave Airlie <airlied@redhat.com>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <maxime.ripard@bootlin.com>, Sean Paul <sean@poorly.run>, "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>, open list <linux-kernel@vger.kernel.org>, "open list:DRM DRIVER FOR
-        BOCHS VIRTUAL GPU" <virtualization@lists.linux-foundation.org>, "open list:DRM DRIVER FOR QXL VIRTUAL
-        GPU" <spice-devel@lists.freedesktop.org>
-List-Id: amd-gfx.lists.freedesktop.org
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH 2/2] drm/radeon: use WAIT_REG_MEM special op for CP HDP
+ flush
+Date: Thu, 22 Aug 2019 11:32:11 +0200
+Message-ID: <217a929a-543f-7aa4-4494-3569f9998a97@gmail.com>
+References: <20190821222034.13387-1-alexander.deucher@amd.com>
+ <20190821222034.13387-5-alexander.deucher@amd.com>
+Reply-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
+Mime-Version: 1.0
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20190821222034.13387-5-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
 
-Not needed any more for remove_conflicting_pci_framebuffers calls.
-
-Signed-off-by: Gerd Hoffmann <kraxel@redhat.com>
----
- include/drm/drm_fb_helper.h             | 4 +---
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 2 +-
- drivers/gpu/drm/bochs/bochs_drv.c       | 2 +-
- drivers/gpu/drm/cirrus/cirrus.c         | 2 +-
- drivers/gpu/drm/mgag200/mgag200_drv.c   | 2 +-
- drivers/gpu/drm/qxl/qxl_drv.c           | 2 +-
- drivers/gpu/drm/radeon/radeon_drv.c     | 2 +-
- drivers/gpu/drm/virtio/virtgpu_drv.c    | 1 -
- 8 files changed, 7 insertions(+), 10 deletions(-)
-
-diff --git a/include/drm/drm_fb_helper.h b/include/drm/drm_fb_helper.h
-index 5a5f4b1d8241..8dcc012ccbc8 100644
---- a/include/drm/drm_fb_helper.h
-+++ b/include/drm/drm_fb_helper.h
-@@ -539,18 +539,16 @@ drm_fb_helper_remove_conflicting_framebuffers(struct apertures_struct *a,
- /**
-  * drm_fb_helper_remove_conflicting_pci_framebuffers - remove firmware-configured framebuffers for PCI devices
-  * @pdev: PCI device
-- * @resource_id: index of PCI BAR configuring framebuffer memory
-  * @name: requesting driver name
-  *
-  * This function removes framebuffer devices (eg. initialized by firmware)
-- * using memory range configured for @pdev's BAR @resource_id.
-+ * using memory range configured for any of @pdev's memory bars.
-  *
-  * The function assumes that PCI device with shadowed ROM drives a primary
-  * display and so kicks out vga16fb.
-  */
- static inline int
- drm_fb_helper_remove_conflicting_pci_framebuffers(struct pci_dev *pdev,
--						  int resource_id,
- 						  const char *name)
- {
- 	int ret = 0;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-index 98df55534a6d..6b96a5738e57 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-@@ -1031,7 +1031,7 @@ static int amdgpu_pci_probe(struct pci_dev *pdev,
- 	}
- 
- 	/* Get rid of things like offb */
--	ret = drm_fb_helper_remove_conflicting_pci_framebuffers(pdev, 0, "amdgpudrmfb");
-+	ret = drm_fb_helper_remove_conflicting_pci_framebuffers(pdev, "amdgpudrmfb");
- 	if (ret)
- 		return ret;
- 
-diff --git a/drivers/gpu/drm/bochs/bochs_drv.c b/drivers/gpu/drm/bochs/bochs_drv.c
-index 770e1625d05e..3b9b0d9bbc14 100644
---- a/drivers/gpu/drm/bochs/bochs_drv.c
-+++ b/drivers/gpu/drm/bochs/bochs_drv.c
-@@ -114,7 +114,7 @@ static int bochs_pci_probe(struct pci_dev *pdev,
- 		return -ENOMEM;
- 	}
- 
--	ret = drm_fb_helper_remove_conflicting_pci_framebuffers(pdev, 0, "bochsdrmfb");
-+	ret = drm_fb_helper_remove_conflicting_pci_framebuffers(pdev, "bochsdrmfb");
- 	if (ret)
- 		return ret;
- 
-diff --git a/drivers/gpu/drm/cirrus/cirrus.c b/drivers/gpu/drm/cirrus/cirrus.c
-index 36a69aec8a4b..89d9e6fdeb8c 100644
---- a/drivers/gpu/drm/cirrus/cirrus.c
-+++ b/drivers/gpu/drm/cirrus/cirrus.c
-@@ -532,7 +532,7 @@ static int cirrus_pci_probe(struct pci_dev *pdev,
- 	struct cirrus_device *cirrus;
- 	int ret;
- 
--	ret = drm_fb_helper_remove_conflicting_pci_framebuffers(pdev, 0, "cirrusdrmfb");
-+	ret = drm_fb_helper_remove_conflicting_pci_framebuffers(pdev, "cirrusdrmfb");
- 	if (ret)
- 		return ret;
- 
-diff --git a/drivers/gpu/drm/mgag200/mgag200_drv.c b/drivers/gpu/drm/mgag200/mgag200_drv.c
-index afd9119b6cf1..4f9df3b93598 100644
---- a/drivers/gpu/drm/mgag200/mgag200_drv.c
-+++ b/drivers/gpu/drm/mgag200/mgag200_drv.c
-@@ -46,7 +46,7 @@ MODULE_DEVICE_TABLE(pci, pciidlist);
- 
- static int mga_pci_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
- {
--	drm_fb_helper_remove_conflicting_pci_framebuffers(pdev, 0, "mgag200drmfb");
-+	drm_fb_helper_remove_conflicting_pci_framebuffers(pdev, "mgag200drmfb");
- 
- 	return drm_get_pci_dev(pdev, ent, &driver);
- }
-diff --git a/drivers/gpu/drm/qxl/qxl_drv.c b/drivers/gpu/drm/qxl/qxl_drv.c
-index c1802e01d9f6..2b726a51a302 100644
---- a/drivers/gpu/drm/qxl/qxl_drv.c
-+++ b/drivers/gpu/drm/qxl/qxl_drv.c
-@@ -83,7 +83,7 @@ qxl_pci_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
- 	if (ret)
- 		goto free_dev;
- 
--	ret = drm_fb_helper_remove_conflicting_pci_framebuffers(pdev, 0, "qxl");
-+	ret = drm_fb_helper_remove_conflicting_pci_framebuffers(pdev, "qxl");
- 	if (ret)
- 		goto disable_pci;
- 
-diff --git a/drivers/gpu/drm/radeon/radeon_drv.c b/drivers/gpu/drm/radeon/radeon_drv.c
-index a4a78dfdef37..624aa580d418 100644
---- a/drivers/gpu/drm/radeon/radeon_drv.c
-+++ b/drivers/gpu/drm/radeon/radeon_drv.c
-@@ -329,7 +329,7 @@ static int radeon_pci_probe(struct pci_dev *pdev,
- 		return -EPROBE_DEFER;
- 
- 	/* Get rid of things like offb */
--	ret = drm_fb_helper_remove_conflicting_pci_framebuffers(pdev, 0, "radeondrmfb");
-+	ret = drm_fb_helper_remove_conflicting_pci_framebuffers(pdev, "radeondrmfb");
- 	if (ret)
- 		return ret;
- 
-diff --git a/drivers/gpu/drm/virtio/virtgpu_drv.c b/drivers/gpu/drm/virtio/virtgpu_drv.c
-index 0fc32fa0b3c0..3d24181636e1 100644
---- a/drivers/gpu/drm/virtio/virtgpu_drv.c
-+++ b/drivers/gpu/drm/virtio/virtgpu_drv.c
-@@ -56,7 +56,6 @@ static int virtio_gpu_pci_quirk(struct drm_device *dev, struct virtio_device *vd
- 	dev->pdev = pdev;
- 	if (vga)
- 		drm_fb_helper_remove_conflicting_pci_framebuffers(pdev,
--								  0,
- 								  "virtiodrmfb");
- 
- 	/*
--- 
-2.18.1
+RXZlcnkgdGltZSB3ZSBhY3R1YWxseSB0cmllZCB0aGlzIGl0IGp1c3QgZW5kZWQgaW4gdXNlcnMg
+cmVwb3J0aW5nIENQIGhhbmdzLgoKQ2hyaXN0aWFuLgoKQW0gMjIuMDguMTkgdW0gMDA6MjAgc2No
+cmllYiBBbGV4IERldWNoZXI6Cj4gRmx1c2ggdmlhIHRoZSByaW5nIHdvcmtzIGRpZmZlcmVudGx5
+IG9uIENJSyBhbmQgcmVxdWlyZXMgYQo+IHNwZWNpYWwgc2VxdWVuY2UuCj4KPiBTaWduZWQtb2Zm
+LWJ5OiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+Cj4gLS0tCj4gICBk
+cml2ZXJzL2dwdS9kcm0vcmFkZW9uL2Npay5jIHwgNzMgKysrKysrKysrKysrKysrKysrKysrKysr
+KysrLS0tLS0tLS0tLS0tLS0tLS0KPiAgIDEgZmlsZSBjaGFuZ2VkLCA0NSBpbnNlcnRpb25zKCsp
+LCAyOCBkZWxldGlvbnMoLSkKPgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vcmFkZW9u
+L2Npay5jIGIvZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9jaWsuYwo+IGluZGV4IDA4NDczNjcuLjAz
+ZGQwNzUgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9jaWsuYwo+ICsrKyBi
+L2RyaXZlcnMvZ3B1L2RybS9yYWRlb24vY2lrLmMKPiBAQCAtMzQ4NSw2ICszNDg1LDQ4IEBAIGlu
+dCBjaWtfcmluZ190ZXN0KHN0cnVjdCByYWRlb25fZGV2aWNlICpyZGV2LCBzdHJ1Y3QgcmFkZW9u
+X3JpbmcgKnJpbmcpCj4gICAJcmV0dXJuIHI7Cj4gICB9Cj4gICAKPiArc3RhdGljIHZvaWQgY2lr
+X2dmeF9oZHBfZmx1c2goc3RydWN0IHJhZGVvbl9kZXZpY2UgKnJkZXYsCj4gKwkJCSAgICAgIGlu
+dCByaWR4KQo+ICt7Cj4gKwlzdHJ1Y3QgcmFkZW9uX3JpbmcgKnJpbmcgPSAmcmRldi0+cmluZ1ty
+aWR4XTsKPiArCXUzMiByZWZfYW5kX21hc2s7Cj4gKwo+ICsJc3dpdGNoIChyaW5nLT5pZHgpIHsK
+PiArCWNhc2UgQ0FZTUFOX1JJTkdfVFlQRV9DUDFfSU5ERVg6Cj4gKwljYXNlIENBWU1BTl9SSU5H
+X1RZUEVfQ1AyX0lOREVYOgo+ICsJCXN3aXRjaCAocmluZy0+bWUpIHsKPiArCQljYXNlIDA6Cj4g
+KwkJCXJlZl9hbmRfbWFzayA9IENQMiA8PCByaW5nLT5waXBlOwo+ICsJCQlicmVhazsKPiArCQlj
+YXNlIDE6Cj4gKwkJCXJlZl9hbmRfbWFzayA9IENQNiA8PCByaW5nLT5waXBlOwo+ICsJCQlicmVh
+azsKPiArCQlkZWZhdWx0Ogo+ICsJCQlyZXR1cm47Cj4gKwkJfQo+ICsJCWJyZWFrOwo+ICsJY2Fz
+ZSBSQURFT05fUklOR19UWVBFX0dGWF9JTkRFWDoKPiArCQlyZWZfYW5kX21hc2sgPSBDUDA7Cj4g
+KwkJYnJlYWs7Cj4gKwlkZWZhdWx0Ogo+ICsJCXJldHVybjsKPiArCX0KPiArCj4gKwlyYWRlb25f
+cmluZ193cml0ZShyaW5nLCBQQUNLRVQzKFBBQ0tFVDNfU0VUX1VDT05GSUdfUkVHLCAxKSk7Cj4g
+KwlyYWRlb25fcmluZ193cml0ZShyaW5nLCAoKENQX1dBSVRfUkVHX01FTV9USU1FT1VUIC0KPiAr
+CQkJCSAgUEFDS0VUM19TRVRfVUNPTkZJR19SRUdfU1RBUlQpID4+IDIpKTsKPiArCXJhZGVvbl9y
+aW5nX3dyaXRlKHJpbmcsIDB4ZmZmKTsKPiArCj4gKwlyYWRlb25fcmluZ193cml0ZShyaW5nLCBQ
+QUNLRVQzKFBBQ0tFVDNfV0FJVF9SRUdfTUVNLCA1KSk7Cj4gKwlyYWRlb25fcmluZ193cml0ZShy
+aW5nLCAoV0FJVF9SRUdfTUVNX09QRVJBVElPTigxKSB8IC8qIHNwZWNpYWwgb3AgKi8KPiArCQkJ
+CSBXQUlUX1JFR19NRU1fRlVOQ1RJT04oMykpKTsgLyogPT0gKi8KPiArCXJhZGVvbl9yaW5nX3dy
+aXRlKHJpbmcsIEdQVV9IRFBfRkxVU0hfUkVRID4+IDIpOwo+ICsJcmFkZW9uX3Jpbmdfd3JpdGUo
+cmluZywgR1BVX0hEUF9GTFVTSF9ET05FID4+IDIpOwo+ICsJcmFkZW9uX3Jpbmdfd3JpdGUocmlu
+ZywgcmVmX2FuZF9tYXNrKTsKPiArCXJhZGVvbl9yaW5nX3dyaXRlKHJpbmcsIHJlZl9hbmRfbWFz
+ayk7Cj4gKwlyYWRlb25fcmluZ193cml0ZShyaW5nLCAweGEpOyAvKiBwb2xsIGludGVydmFsICov
+Cj4gK30KPiArCj4gICAvKioKPiAgICAqIGNpa19mZW5jZV9nZnhfcmluZ19lbWl0IC0gZW1pdCBh
+IGZlbmNlIG9uIHRoZSBnZnggcmluZwo+ICAgICoKPiBAQCAtMzUxMSwxNSArMzU1Myw3IEBAIHZv
+aWQgY2lrX2ZlbmNlX2dmeF9yaW5nX2VtaXQoc3RydWN0IHJhZGVvbl9kZXZpY2UgKnJkZXYsCj4g
+ICAJcmFkZW9uX3Jpbmdfd3JpdGUocmluZywgZmVuY2UtPnNlcSk7Cj4gICAJcmFkZW9uX3Jpbmdf
+d3JpdGUocmluZywgMCk7Cj4gICAJLyogSERQIGZsdXNoICovCj4gLQkvKiBXZSBzaG91bGQgYmUg
+dXNpbmcgdGhlIG5ldyBXQUlUX1JFR19NRU0gc3BlY2lhbCBvcCBwYWNrZXQgaGVyZQo+IC0JICog
+YnV0IGl0IGNhdXNlcyB0aGUgQ1AgdG8gaGFuZwo+IC0JICovCj4gLQlyYWRlb25fcmluZ193cml0
+ZShyaW5nLCBQQUNLRVQzKFBBQ0tFVDNfV1JJVEVfREFUQSwgMykpOwo+IC0JcmFkZW9uX3Jpbmdf
+d3JpdGUocmluZywgKFdSSVRFX0RBVEFfRU5HSU5FX1NFTCgwKSB8Cj4gLQkJCQkgV1JJVEVfREFU
+QV9EU1RfU0VMKDApKSk7Cj4gLQlyYWRlb25fcmluZ193cml0ZShyaW5nLCBIRFBfTUVNX0NPSEVS
+RU5DWV9GTFVTSF9DTlRMID4+IDIpOwo+IC0JcmFkZW9uX3Jpbmdfd3JpdGUocmluZywgMCk7Cj4g
+LQlyYWRlb25fcmluZ193cml0ZShyaW5nLCAwKTsKPiArCWNpa19nZnhfaGRwX2ZsdXNoKHJkZXYs
+IGZlbmNlLT5yaW5nKTsKPiAgIH0KPiAgIAo+ICAgLyoqCj4gQEAgLTM1NDksMTUgKzM1ODMsNyBA
+QCB2b2lkIGNpa19mZW5jZV9jb21wdXRlX3JpbmdfZW1pdChzdHJ1Y3QgcmFkZW9uX2RldmljZSAq
+cmRldiwKPiAgIAlyYWRlb25fcmluZ193cml0ZShyaW5nLCBmZW5jZS0+c2VxKTsKPiAgIAlyYWRl
+b25fcmluZ193cml0ZShyaW5nLCAwKTsKPiAgIAkvKiBIRFAgZmx1c2ggKi8KPiAtCS8qIFdlIHNo
+b3VsZCBiZSB1c2luZyB0aGUgbmV3IFdBSVRfUkVHX01FTSBzcGVjaWFsIG9wIHBhY2tldCBoZXJl
+Cj4gLQkgKiBidXQgaXQgY2F1c2VzIHRoZSBDUCB0byBoYW5nCj4gLQkgKi8KPiAtCXJhZGVvbl9y
+aW5nX3dyaXRlKHJpbmcsIFBBQ0tFVDMoUEFDS0VUM19XUklURV9EQVRBLCAzKSk7Cj4gLQlyYWRl
+b25fcmluZ193cml0ZShyaW5nLCAoV1JJVEVfREFUQV9FTkdJTkVfU0VMKDApIHwKPiAtCQkJCSBX
+UklURV9EQVRBX0RTVF9TRUwoMCkpKTsKPiAtCXJhZGVvbl9yaW5nX3dyaXRlKHJpbmcsIEhEUF9N
+RU1fQ09IRVJFTkNZX0ZMVVNIX0NOVEwgPj4gMik7Cj4gLQlyYWRlb25fcmluZ193cml0ZShyaW5n
+LCAwKTsKPiAtCXJhZGVvbl9yaW5nX3dyaXRlKHJpbmcsIDApOwo+ICsJY2lrX2dmeF9oZHBfZmx1
+c2gocmRldiwgZmVuY2UtPnJpbmcpOwo+ICAgfQo+ICAgCj4gICBib29sIGNpa19zZW1hcGhvcmVf
+cmluZ19lbWl0KHN0cnVjdCByYWRlb25fZGV2aWNlICpyZGV2LAo+IEBAIC01MzY5LDE2ICs1Mzk1
+LDcgQEAgdm9pZCBjaWtfdm1fZmx1c2goc3RydWN0IHJhZGVvbl9kZXZpY2UgKnJkZXYsIGludCBy
+aWR4LCBzdHJ1Y3QgcmFkZW9uX3ZtICp2bSkKPiAgIAlyYWRlb25fcmluZ193cml0ZShyaW5nLCBW
+TUlEKDApKTsKPiAgIAo+ICAgCS8qIEhEUCBmbHVzaCAqLwo+IC0JLyogV2Ugc2hvdWxkIGJlIHVz
+aW5nIHRoZSBXQUlUX1JFR19NRU0gcGFja2V0IGhlcmUgbGlrZSBpbgo+IC0JICogY2lrX2ZlbmNl
+X3JpbmdfZW1pdCgpLCBidXQgaXQgY2F1c2VzIHRoZSBDUCB0byBoYW5nIGluIHRoaXMKPiAtCSAq
+IGNvbnRleHQuLi4KPiAtCSAqLwo+IC0JcmFkZW9uX3Jpbmdfd3JpdGUocmluZywgUEFDS0VUMyhQ
+QUNLRVQzX1dSSVRFX0RBVEEsIDMpKTsKPiAtCXJhZGVvbl9yaW5nX3dyaXRlKHJpbmcsIChXUklU
+RV9EQVRBX0VOR0lORV9TRUwoMCkgfAo+IC0JCQkJIFdSSVRFX0RBVEFfRFNUX1NFTCgwKSkpOwo+
+IC0JcmFkZW9uX3Jpbmdfd3JpdGUocmluZywgSERQX01FTV9DT0hFUkVOQ1lfRkxVU0hfQ05UTCA+
+PiAyKTsKPiAtCXJhZGVvbl9yaW5nX3dyaXRlKHJpbmcsIDApOwo+IC0JcmFkZW9uX3Jpbmdfd3Jp
+dGUocmluZywgMCk7Cj4gKwljaWtfZ2Z4X2hkcF9mbHVzaChyZGV2LCByaWR4KTsKPiAgIAo+ICAg
+CS8qIGJpdHMgMC0xNSBhcmUgdGhlIFZNIGNvbnRleHRzMC0xNSAqLwo+ICAgCXJhZGVvbl9yaW5n
+X3dyaXRlKHJpbmcsIFBBQ0tFVDMoUEFDS0VUM19XUklURV9EQVRBLCAzKSk7CgpfX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlz
+dAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9w
+Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
