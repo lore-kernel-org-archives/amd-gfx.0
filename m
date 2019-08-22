@@ -1,15 +1,13 @@
 From: "Wang, Kevin(Yang)" <Kevin1.Wang-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 2/2] drm/amd/powerplay: correct the pp_feature output on
- Arcturus
-Date: Thu, 22 Aug 2019 11:42:03 +0000
-Message-ID: <MN2PR12MB32963C565726A29BCFCB126BA2A50@MN2PR12MB3296.namprd12.prod.outlook.com>
-References: <20190821084143.25713-1-evan.quan@amd.com>
- <20190821084143.25713-2-evan.quan@amd.com>,
- <MN2PR12MB3344D88565FD9A38CF442F7EE4A50@MN2PR12MB3344.namprd12.prod.outlook.com>
+Subject: Re: [PATCH] drm/amd/powerplay: update cached feature enablement
+ status V2
+Date: Thu, 22 Aug 2019 12:00:25 +0000
+Message-ID: <MN2PR12MB32964130A7A33074F69384EEA2A50@MN2PR12MB3296.namprd12.prod.outlook.com>
+References: <20190822101806.11651-1-evan.quan@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0549601324=="
+Content-Type: multipart/mixed; boundary="===============1793132929=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <MN2PR12MB3344D88565FD9A38CF442F7EE4A50-rweVpJHSKToDMgCC8P//OwdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
+In-Reply-To: <20190822101806.11651-1-evan.quan-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -22,212 +20,620 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 To: "Quan, Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
 
---===============0549601324==
+--===============1793132929==
 Content-Language: en-US
 Content-Type: multipart/alternative;
-	boundary="_000_MN2PR12MB32963C565726A29BCFCB126BA2A50MN2PR12MB3296namp_"
+	boundary="_000_MN2PR12MB32964130A7A33074F69384EEA2A50MN2PR12MB3296namp_"
 
---_000_MN2PR12MB32963C565726A29BCFCB126BA2A50MN2PR12MB3296namp_
-Content-Type: text/plain; charset="us-ascii"
+--_000_MN2PR12MB32964130A7A33074F69384EEA2A50MN2PR12MB3296namp_
+Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
 
-Reviewed-by: Kevin Wang <kevin1.wang-5C7GfCeVMHo@public.gmane.org>
-
-Best Regards,
-Kevin
+comment inline.
 ________________________________
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Quan, Ev=
-an <Evan.Quan-5C7GfCeVMHo@public.gmane.org>
-Sent: Thursday, August 22, 2019 6:20 PM
-To: Quan, Evan <Evan.Quan-5C7GfCeVMHo@public.gmane.org>; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org <amd-gfx@=
-lists.freedesktop.org>
-Cc: Deucher, Alexander <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH 2/2] drm/amd/powerplay: correct the pp_feature output o=
-n Arcturus
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Evan Qua=
+n <evan.quan-5C7GfCeVMHo@public.gmane.org>
+Sent: Thursday, August 22, 2019 6:18 PM
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: Quan, Evan <Evan.Quan-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH] drm/amd/powerplay: update cached feature enablement status=
+ V2
 
-Ping..
+Need to update in cache feature enablement status after pp_feature
+settings. Another fix for the commit below:
+drm/amd/powerplay: implment sysfs feature status function in smu
 
-> -----Original Message-----
-> From: Evan Quan <evan.quan-5C7GfCeVMHo@public.gmane.org>
-> Sent: Wednesday, August 21, 2019 4:42 PM
-> To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-> Cc: Quan, Evan <Evan.Quan-5C7GfCeVMHo@public.gmane.org>
-> Subject: [PATCH 2/2] drm/amd/powerplay: correct the pp_feature output on
-> Arcturus
->
-> Fix for the commit below:
-> drm/amd/powerplay: implment sysfs feature status function in smu
->
-> Change-Id: Id9a373f8d8866b97450be0aef0ba19d0835d40d8
-> Signed-off-by: Evan Quan <evan.quan-5C7GfCeVMHo@public.gmane.org>
-> ---
->  drivers/gpu/drm/amd/powerplay/arcturus_ppt.c  | 2 ++
-> drivers/gpu/drm/amd/powerplay/inc/smu_types.h | 1 +
->  2 files changed, 3 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c
-> b/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c
-> index dd6563358e8e..f1f072012fac 100644
-> --- a/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c
-> +++ b/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c
-> @@ -141,6 +141,7 @@ static struct smu_11_0_cmn2aisc_mapping
-> arcturus_feature_mask_map[SMU_FEATURE_CO
->        FEA_MAP(DPM_SOCCLK),
->        FEA_MAP(DPM_FCLK),
->        FEA_MAP(DPM_MP0CLK),
-> +     ARCTURUS_FEA_MAP(SMU_FEATURE_XGMI_BIT,
-> FEATURE_DPM_XGMI_BIT),
->        FEA_MAP(DS_GFXCLK),
->        FEA_MAP(DS_SOCCLK),
->        FEA_MAP(DS_LCLK),
-> @@ -149,6 +150,7 @@ static struct smu_11_0_cmn2aisc_mapping
-> arcturus_feature_mask_map[SMU_FEATURE_CO
->        FEA_MAP(GFX_ULV),
->        ARCTURUS_FEA_MAP(SMU_FEATURE_VCN_PG_BIT,
-> FEATURE_DPM_VCN_BIT),
->        FEA_MAP(RSMU_SMN_CG),
-> +     FEA_MAP(WAFL_CG),
->        FEA_MAP(PPT),
->        FEA_MAP(TDC),
->        FEA_MAP(APCC_PLUS),
-> diff --git a/drivers/gpu/drm/amd/powerplay/inc/smu_types.h
-> b/drivers/gpu/drm/amd/powerplay/inc/smu_types.h
-> index 72962e842d69..c3c74098f614 100644
-> --- a/drivers/gpu/drm/amd/powerplay/inc/smu_types.h
-> +++ b/drivers/gpu/drm/amd/powerplay/inc/smu_types.h
-> @@ -207,6 +207,7 @@ enum smu_clk_type {
->         __SMU_DUMMY_MAP(TEMP_DEPENDENT_VMIN),                  \
->         __SMU_DUMMY_MAP(MMHUB_PG),                             \
->         __SMU_DUMMY_MAP(ATHUB_PG),                             \
-> +       __SMU_DUMMY_MAP(WAFL_CG),
->
->  #undef __SMU_DUMMY_MAP
->  #define __SMU_DUMMY_MAP(feature)
->        SMU_FEATURE_##feature##_BIT
-> --
-> 2.23.0
+V2: update smu_feature_update_enable_state() and relates
+
+Change-Id: I90e29b0d839df26825d5993212f6097c7ad4bebf
+[kevin]: this information is not neccessary for public, please remove it.
+git config gerrit.createchangeid=3Dfalse
+Signed-off-by: Evan Quan <evan.quan-5C7GfCeVMHo@public.gmane.org>
+---
+ drivers/gpu/drm/amd/powerplay/amdgpu_smu.c    | 104 +++++++++---------
+ .../gpu/drm/amd/powerplay/inc/amdgpu_smu.h    |   1 -
+ 2 files changed, 52 insertions(+), 53 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c b/drivers/gpu/drm/a=
+md/powerplay/amdgpu_smu.c
+index 4df7fb6eaf3c..3e1cd5d9c29e 100644
+--- a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
++++ b/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
+@@ -94,6 +94,55 @@ size_t smu_sys_get_pp_feature_mask(struct smu_context *s=
+mu, char *buf)
+         return size;
+ }
+
++static int smu_feature_update_enable_state(struct smu_context *smu,
++                                          uint64_t feature_mask,
++                                          bool enabled)
++{
++       struct smu_feature *feature =3D &smu->smu_feature;
++       uint32_t feature_low =3D 0, feature_high =3D 0;
++       uint64_t feature_id;
++       int ret =3D 0;
++
++       if (!smu->pm_enabled)
++               return ret;
++
++       feature_low =3D (feature_mask >> 0 ) & 0xffffffff;
++       feature_high =3D (feature_mask >> 32) & 0xffffffff;
++
++       if (enabled) {
++               ret =3D smu_send_smc_msg_with_param(smu, SMU_MSG_EnableSmuF=
+eaturesLow,
++                                                 feature_low);
++               if (ret)
++                       return ret;
++               ret =3D smu_send_smc_msg_with_param(smu, SMU_MSG_EnableSmuF=
+eaturesHigh,
++                                                 feature_high);
++               if (ret)
++                       return ret;
++       } else {
++               ret =3D smu_send_smc_msg_with_param(smu, SMU_MSG_DisableSmu=
+FeaturesLow,
++                                                 feature_low);
++               if (ret)
++                       return ret;
++               ret =3D smu_send_smc_msg_with_param(smu, SMU_MSG_DisableSmu=
+FeaturesHigh,
++                                                 feature_high);
++               if (ret)
++                       return ret;
++       }
++
++       mutex_lock(&feature->mutex);
++       for (feature_id =3D 0; feature_id < 64; feature_id++) {
++               if (feature_mask & (1ULL << feature_id)) {
++                       if (enabled)
++                               test_and_set_bit(feature_id, feature->enabl=
+ed);
++                       else
++                               test_and_clear_bit(feature_id, feature->ena=
+bled);
++               }
++       }
+
+//[kevin]: the code logic is a little redundant.
+could you use bellow macro to replace that?
+header : linux/bitmap.h
+ *  bitmap_and(dst, src1, src2, nbits)          *dst =3D *src1 & *src2
+ *  bitmap_or(dst, src1, src2, nbits)           *dst =3D *src1 | *src2
+ *  bitmap_xor(dst, src1, src2, nbits)          *dst =3D *src1 ^ *src2
+ *  bitmap_andnot(dst, src1, src2, nbits)       *dst =3D *src1 & ~(*src2)
+
++       mutex_unlock(&feature->mutex);
++
++       return ret;
++}
++
+
+ int smu_sys_set_pp_feature_mask(struct smu_context *smu, uint64_t new_mask=
+)
+ {
+         int ret =3D 0;
+@@ -591,41 +640,7 @@ int smu_feature_init_dpm(struct smu_context *smu)
+
+         return ret;
+ }
+
+[kevin]:
+in this patch, i know you only want to fix not cached feature cache issue,
+but in v2 patch,
+the patch adjust the order of code functions, it seems that this is a brand=
+ new function,
+I don't think it is necessary,
+could you just reflect the modified content in the patch, which can facilit=
+ate us to trace problems and review.
+thanks.
+
+-int smu_feature_update_enable_state(struct smu_context *smu, uint64_t feat=
+ure_mask, bool enabled)
+-{
+-       uint32_t feature_low =3D 0, feature_high =3D 0;
+-       int ret =3D 0;
+
+-       if (!smu->pm_enabled)
+-               return ret;
+-
+-       feature_low =3D (feature_mask >> 0 ) & 0xffffffff;
+-       feature_high =3D (feature_mask >> 32) & 0xffffffff;
+-
+-       if (enabled) {
+-               ret =3D smu_send_smc_msg_with_param(smu, SMU_MSG_EnableSmuF=
+eaturesLow,
+-                                                 feature_low);
+-               if (ret)
+-                       return ret;
+-               ret =3D smu_send_smc_msg_with_param(smu, SMU_MSG_EnableSmuF=
+eaturesHigh,
+-                                                 feature_high);
+-               if (ret)
+-                       return ret;
+-
+-       } else {
+-               ret =3D smu_send_smc_msg_with_param(smu, SMU_MSG_DisableSmu=
+FeaturesLow,
+-                                                 feature_low);
+-               if (ret)
+-                       return ret;
+-               ret =3D smu_send_smc_msg_with_param(smu, SMU_MSG_DisableSmu=
+FeaturesHigh,
+-                                                 feature_high);
+-               if (ret)
+-                       return ret;
+-
+-       }
+-
+-       return ret;
+-}
+
+ int smu_feature_is_enabled(struct smu_context *smu, enum smu_feature_mask =
+mask)
+ {
+@@ -651,8 +666,6 @@ int smu_feature_set_enabled(struct smu_context *smu, en=
+um smu_feature_mask mask,
+ {
+         struct smu_feature *feature =3D &smu->smu_feature;
+         int feature_id;
+-       uint64_t feature_mask =3D 0;
+-       int ret =3D 0;
+
+         feature_id =3D smu_feature_get_index(smu, mask);
+         if (feature_id < 0)
+@@ -660,22 +673,9 @@ int smu_feature_set_enabled(struct smu_context *smu, e=
+num smu_feature_mask mask,
+
+         WARN_ON(feature_id > feature->feature_num);
+
+-       feature_mask =3D 1ULL << feature_id;
+-
+-       mutex_lock(&feature->mutex);
+-       ret =3D smu_feature_update_enable_state(smu, feature_mask, enable);
+-       if (ret)
+-               goto failed;
+-
+-       if (enable)
+-               test_and_set_bit(feature_id, feature->enabled);
+-       else
+-               test_and_clear_bit(feature_id, feature->enabled);
+-
+-failed:
+-       mutex_unlock(&feature->mutex);
+-
+-       return ret;
++       return smu_feature_update_enable_state(smu,
++                                              1ULL << feature_id,
++                                              enable);
+ }
+
+ int smu_feature_is_supported(struct smu_context *smu, enum smu_feature_mas=
+k mask)
+diff --git a/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h b/drivers/gpu/d=
+rm/amd/powerplay/inc/amdgpu_smu.h
+index e80c81552d29..fbf68fd42b93 100644
+--- a/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h
++++ b/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h
+@@ -807,7 +807,6 @@ enum amd_dpm_forced_level smu_get_performance_level(str=
+uct smu_context *smu);
+ int smu_force_performance_level(struct smu_context *smu, enum amd_dpm_forc=
+ed_level level);
+ int smu_set_display_count(struct smu_context *smu, uint32_t count);
+ bool smu_clk_dpm_is_enabled(struct smu_context *smu, enum smu_clk_type clk=
+_type);
+-int smu_feature_update_enable_state(struct smu_context *smu, uint64_t feat=
+ure_mask, bool enabled);
+ const char *smu_get_message_name(struct smu_context *smu, enum smu_message=
+_type type);
+ const char *smu_get_feature_name(struct smu_context *smu, enum smu_feature=
+_mask feature);
+ size_t smu_sys_get_pp_feature_mask(struct smu_context *smu, char *buf);
+--
+2.23.0
 
 _______________________________________________
 amd-gfx mailing list
 amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 
---_000_MN2PR12MB32963C565726A29BCFCB126BA2A50MN2PR12MB3296namp_
-Content-Type: text/html; charset="us-ascii"
+--_000_MN2PR12MB32964130A7A33074F69384EEA2A50MN2PR12MB3296namp_
+Content-Type: text/html; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
 
 <html>
 <head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
 <style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
 ttom:0;} </style>
 </head>
 <body dir=3D"ltr">
 <div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
 : 12pt; color: rgb(0, 0, 0);">
-Reviewed-by: Kevin Wang &lt;kevin1.wang-5C7GfCeVMHo@public.gmane.org&gt;</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Best Regards,<br>
-Kevin</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
-ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Quan, Evan &lt;Evan.Quan@amd.=
-com&gt;<br>
-<b>Sent:</b> Thursday, August 22, 2019 6:20 PM<br>
-<b>To:</b> Quan, Evan &lt;Evan.Quan-5C7GfCeVMHo@public.gmane.org&gt;; amd-gfx-PD4FTy7X32lNgt0PjOBp9/rsn8yoX9R0@public.gmane.org=
-org &lt;amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt;<br>
-<b>Cc:</b> Deucher, Alexander &lt;Alexander.Deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
-<b>Subject:</b> RE: [PATCH 2/2] drm/amd/powerplay: correct the pp_feature o=
-utput on Arcturus</font>
+comment inline.</div>
+<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" co=
+lor=3D"#000000" style=3D"font-size:11pt"><b>From:</b> amd-gfx &lt;amd-gfx-b=
+ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Evan Quan &lt;evan.quan@amd.c=
+om&gt;<br>
+<b>Sent:</b> Thursday, August 22, 2019 6:18 PM<br>
+<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org &lt;amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&=
+gt;<br>
+<b>Cc:</b> Quan, Evan &lt;Evan.Quan-5C7GfCeVMHo@public.gmane.org&gt;<br>
+<b>Subject:</b> [PATCH] drm/amd/powerplay: update cached feature enablement=
+ status V2</font>
 <div>&nbsp;</div>
 </div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">Ping..<br>
-<br>
-&gt; -----Original Message-----<br>
-&gt; From: Evan Quan &lt;evan.quan-5C7GfCeVMHo@public.gmane.org&gt;<br>
-&gt; Sent: Wednesday, August 21, 2019 4:42 PM<br>
-&gt; To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-&gt; Cc: Quan, Evan &lt;Evan.Quan-5C7GfCeVMHo@public.gmane.org&gt;<br>
-&gt; Subject: [PATCH 2/2] drm/amd/powerplay: correct the pp_feature output =
-on<br>
-&gt; Arcturus<br>
-&gt; <br>
-&gt; Fix for the commit below:<br>
-&gt; drm/amd/powerplay: implment sysfs feature status function in smu<br>
-&gt; <br>
-&gt; Change-Id: Id9a373f8d8866b97450be0aef0ba19d0835d40d8<br>
-&gt; Signed-off-by: Evan Quan &lt;evan.quan-5C7GfCeVMHo@public.gmane.org&gt;<br>
-&gt; ---<br>
-&gt;&nbsp; drivers/gpu/drm/amd/powerplay/arcturus_ppt.c&nbsp; | 2 &#43;&#43=
-;<br>
-&gt; drivers/gpu/drm/amd/powerplay/inc/smu_types.h | 1 &#43;<br>
-&gt;&nbsp; 2 files changed, 3 insertions(&#43;)<br>
-&gt; <br>
-&gt; diff --git a/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c<br>
-&gt; b/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c<br>
-&gt; index dd6563358e8e..f1f072012fac 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c<br>
-&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c<br>
-&gt; @@ -141,6 &#43;141,7 @@ static struct smu_11_0_cmn2aisc_mapping<br>
-&gt; arcturus_feature_mask_map[SMU_FEATURE_CO<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FEA_MAP(DPM_SOCCLK),<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FEA_MAP(DPM_FCLK),<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FEA_MAP(DPM_MP0CLK),<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; ARCTURUS_FEA_MAP(SMU_FEATURE_XGMI_BIT,<b=
-r>
-&gt; FEATURE_DPM_XGMI_BIT),<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FEA_MAP(DS_GFXCLK),<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FEA_MAP(DS_SOCCLK),<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FEA_MAP(DS_LCLK),<br>
-&gt; @@ -149,6 &#43;150,7 @@ static struct smu_11_0_cmn2aisc_mapping<br>
-&gt; arcturus_feature_mask_map[SMU_FEATURE_CO<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FEA_MAP(GFX_ULV),<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ARCTURUS_FEA_MAP(SMU_FEATURE=
-_VCN_PG_BIT,<br>
-&gt; FEATURE_DPM_VCN_BIT),<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FEA_MAP(RSMU_SMN_CG),<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; FEA_MAP(WAFL_CG),<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FEA_MAP(PPT),<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FEA_MAP(TDC),<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FEA_MAP(APCC_PLUS),<br>
-&gt; diff --git a/drivers/gpu/drm/amd/powerplay/inc/smu_types.h<br>
-&gt; b/drivers/gpu/drm/amd/powerplay/inc/smu_types.h<br>
-&gt; index 72962e842d69..c3c74098f614 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/powerplay/inc/smu_types.h<br>
-&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/inc/smu_types.h<br>
-&gt; @@ -207,6 &#43;207,7 @@ enum smu_clk_type {<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; __SMU_DUMMY_MAP(TEMP_D=
-EPENDENT_VMIN),&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; __SMU_DUMMY_MAP(MMHUB_=
-PG),&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp; \<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; __SMU_DUMMY_MAP(ATHUB_=
-PG),&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp; \<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; __SMU_DUMMY_MAP(WAFL_CG),<br=
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt"=
 >
-&gt; <br>
-&gt;&nbsp; #undef __SMU_DUMMY_MAP<br>
-&gt;&nbsp; #define __SMU_DUMMY_MAP(feature)<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SMU_FEATURE_##feature##_BIT<=
+<div class=3D"PlainText">Need to update in cache feature enablement status =
+after pp_feature<br>
+settings. Another fix for the commit below:<br>
+drm/amd/powerplay: implment sysfs feature status function in smu<br>
+<br>
+V2: update smu_feature_update_enable_state() and relates<br>
+<br>
+<b>Change-Id: I90e29b0d839df26825d5993212f6097c7ad4bebf&nbsp;</b></div>
+<div class=3D"PlainText"><b>[kevin]: this information is not neccessary for=
+ public, please remove it.</b></div>
+<div class=3D"PlainText"><b>git config gerrit.createchangeid=3Dfalse<br>
+</b>Signed-off-by: Evan Quan &lt;evan.quan-5C7GfCeVMHo@public.gmane.org&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/powerplay/amdgpu_smu.c&nbsp;&nbsp;&nbsp; | 104 &#=
+43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;---------<br>
+&nbsp;.../gpu/drm/amd/powerplay/inc/amdgpu_smu.h&nbsp;&nbsp;&nbsp; |&nbsp;&=
+nbsp; 1 -<br>
+&nbsp;2 files changed, 52 insertions(&#43;), 53 deletions(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c b/drivers/gpu/drm/a=
+md/powerplay/amdgpu_smu.c<br>
+index 4df7fb6eaf3c..3e1cd5d9c29e 100644<br>
+--- a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c<br>
+@@ -94,6 &#43;94,55 @@ size_t smu_sys_get_pp_feature_mask(struct smu_contex=
+t *smu, char *buf)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return size;<br>
+&nbsp;}<br>
+&nbsp;<br>
+&#43;static int smu_feature_update_enable_state(struct smu_context *smu,<br=
+>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp; uint64_t feature_mask,<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp; bool enabled)<br>
+&#43;{<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct smu_feature *feature =3D &=
+amp;smu-&gt;smu_feature;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t feature_low =3D 0, featu=
+re_high =3D 0;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint64_t feature_id;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int ret =3D 0;<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!smu-&gt;pm_enabled)<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; return ret;<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; feature_low =3D (feature_mask &gt=
+;&gt; 0 ) &amp; 0xffffffff;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; feature_high =3D (feature_mask &g=
+t;&gt; 32) &amp; 0xffffffff;<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (enabled) {<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; ret =3D smu_send_smc_msg_with_param(smu, SMU_MSG_EnableSmuFe=
+aturesLow,<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; featur=
+e_low);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; if (ret)<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret;<=
 br>
-&gt; --<br>
-&gt; 2.23.0<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; ret =3D smu_send_smc_msg_with_param(smu, SMU_MSG_EnableSmuFe=
+aturesHigh,<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; featur=
+e_high);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; if (ret)<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret;<=
+br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else {<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; ret =3D smu_send_smc_msg_with_param(smu, SMU_MSG_DisableSmuF=
+eaturesLow,<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; featur=
+e_low);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; if (ret)<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret;<=
+br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; ret =3D smu_send_smc_msg_with_param(smu, SMU_MSG_DisableSmuF=
+eaturesHigh,<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; featur=
+e_high);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; if (ret)<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret;<=
+br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_lock(&amp;feature-&gt;mutex=
+);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (feature_id =3D 0; feature_id=
+ &lt; 64; feature_id&#43;&#43;) {<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; if (feature_mask &amp; (1ULL &lt;&lt; feature_id)) {<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (enabled)=
+<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; test_and_set_bit(feature_id, feature-&g=
+t;enabled);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; test_and_clear_bit(feature_id, feature-=
+&gt;enabled);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; }<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }</div>
+<div class=3D"PlainText"><br>
+</div>
+<div class=3D"PlainText">//[kevin]: t<span>he code logic is a little redund=
+ant.</span></div>
+<div class=3D"PlainText"><span>could you use bellow macro to replace that?<=
+/span></div>
+<div class=3D"PlainText">header :&nbsp;<span style=3D"font-family: &quot;Se=
+goe UI&quot;, &quot;Segoe UI Web (West European)&quot;, &quot;Segoe UI&quot=
+;, -apple-system, BlinkMacSystemFont, Roboto, &quot;Helvetica Neue&quot;, s=
+ans-serif; background-color: rgb(255, 255, 255); display: inline !important=
+">linux/bitmap.h</span></div>
+<div class=3D"PlainText">&nbsp;* &nbsp;bitmap_and(dst, src1, src2, nbits) &=
+nbsp; &nbsp; &nbsp; &nbsp; &nbsp;*dst =3D *src1 &amp; *src2<br>
+<div>&nbsp;* &nbsp;<b>bitmap_or</b>(dst, src1, src2, nbits) &nbsp; &nbsp; &=
+nbsp; &nbsp; &nbsp; *dst =3D *src1 | *src2<br>
+</div>
+<div>&nbsp;* &nbsp;bitmap_xor(dst, src1, src2, nbits) &nbsp; &nbsp; &nbsp; =
+&nbsp; &nbsp;*dst =3D *src1 ^ *src2<br>
+</div>
+&nbsp;* &nbsp;<b>bitmap_andnot</b>(dst, src1, src2, nbits) &nbsp; &nbsp; &n=
+bsp; *dst =3D *src1 &amp; ~(*src2)</div>
+<div class=3D"PlainText"><br>
+</div>
+<div class=3D"PlainText">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_un=
+lock(&amp;feature-&gt;mutex);<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret;<br>
+&#43;}<br>
+&#43;</div>
+<div class=3D"PlainText"><br>
+&nbsp;int smu_sys_set_pp_feature_mask(struct smu_context *smu, uint64_t new=
+_mask)<br>
+&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int ret =3D 0;<br>
+@@ -591,41 &#43;640,7 @@ int smu_feature_init_dpm(struct smu_context *smu)<=
+br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret;<br>
+&nbsp;}</div>
+<div class=3D"PlainText"><br>
+</div>
+<div class=3D"PlainText">[kevin]:</div>
+<div class=3D"PlainText">in this patch, i know you only want to fix not cac=
+hed feature cache issue,</div>
+<div class=3D"PlainText">but in v2 patch,</div>
+<div class=3D"PlainText"><span>the patch adjust the order of code functions=
+, it seems that this is a brand new function,</span></div>
+<div class=3D"PlainText"><span>I don't think it is necessary,</span></div>
+<div class=3D"PlainText">could you just reflect the <b>modified content</b>=
+ in the patch, which can facilitate us to trace
+<b>problems </b>and <b>review</b>.</div>
+<div class=3D"PlainText"><span>thanks.<br>
+</span>
+<div><br>
+</div>
+-int smu_feature_update_enable_state(struct smu_context *smu, uint64_t feat=
+ure_mask, bool enabled)<br>
+-{<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t feature_low =3D 0, feature_h=
+igh =3D 0;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int ret =3D 0;<br>
+&nbsp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!smu-&gt;pm_enabled)<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; return ret;<br>
+-<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; feature_low =3D (feature_mask &gt;&gt=
+; 0 ) &amp; 0xffffffff;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; feature_high =3D (feature_mask &gt;&g=
+t; 32) &amp; 0xffffffff;<br>
+-<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (enabled) {<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; ret =3D smu_send_smc_msg_with_param(smu, SMU_MSG_EnableSmuFeatur=
+esLow,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; feature_lo=
+w);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; if (ret)<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; ret =3D smu_send_smc_msg_with_param(smu, SMU_MSG_EnableSmuFeatur=
+esHigh,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; feature_hi=
+gh);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; if (ret)<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret;<br>
+-<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else {<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; ret =3D smu_send_smc_msg_with_param(smu, SMU_MSG_DisableSmuFeatu=
+resLow,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; feature_lo=
+w);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; if (ret)<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; ret =3D smu_send_smc_msg_with_param(smu, SMU_MSG_DisableSmuFeatu=
+resHigh,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; feature_hi=
+gh);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; if (ret)<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret;<br>
+-<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+-<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret;<br>
+-}<br>
+&nbsp;<br>
+&nbsp;int smu_feature_is_enabled(struct smu_context *smu, enum smu_feature_=
+mask mask)<br>
+&nbsp;{<br>
+@@ -651,8 &#43;666,6 @@ int smu_feature_set_enabled(struct smu_context *smu=
+, enum smu_feature_mask mask,<br>
+&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct smu_feature *featur=
+e =3D &amp;smu-&gt;smu_feature;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int feature_id;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint64_t feature_mask =3D 0;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int ret =3D 0;<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; feature_id =3D smu_feature=
+_get_index(smu, mask);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (<span style=3D"font-fa=
+mily: Arial, Helvetica, sans-serif;">feature_id </span>
+&lt; 0)<br>
+@@ -660,22 &#43;673,9 @@ int smu_feature_set_enabled(struct smu_context *sm=
+u, enum smu_feature_mask mask,<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WARN_ON(feature_id &gt; fe=
+ature-&gt;feature_num);<br>
+&nbsp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; feature_mask =3D 1ULL &lt;&lt; featur=
+e_id;<br>
+-<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_lock(&amp;feature-&gt;mutex);<b=
+r>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D smu_feature_update_enable_sta=
+te(smu, feature_mask, enable);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ret)<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; goto failed;<br>
+-<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (enable)<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; test_and_set_bit(feature_id, feature-&gt;enabled);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; test_and_clear_bit(feature_id, feature-&gt;enabled);<br>
+-<br>
+-failed:<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_unlock(&amp;feature-&gt;mutex);=
+<br>
+-<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return smu_feature_update_enable_=
+state(smu,<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1ULL &lt;&lt; feature_id=
+,<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; enable);<br>
+&nbsp;}<br>
+&nbsp;<br>
+&nbsp;int smu_feature_is_supported(struct smu_context *smu, enum smu_featur=
+e_mask mask)<br>
+diff --git a/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h b/drivers/gpu/d=
+rm/amd/powerplay/inc/amdgpu_smu.h<br>
+index e80c81552d29..fbf68fd42b93 100644<br>
+--- a/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h<br>
+@@ -807,7 &#43;807,6 @@ enum amd_dpm_forced_level smu_get_performance_level=
+(struct smu_context *smu);<br>
+&nbsp;int smu_force_performance_level(struct smu_context *smu, enum amd_dpm=
+_forced_level level);<br>
+&nbsp;int smu_set_display_count(struct smu_context *smu, uint32_t count);<b=
+r>
+&nbsp;bool smu_clk_dpm_is_enabled(struct smu_context *smu, enum smu_clk_typ=
+e clk_type);<br>
+-int smu_feature_update_enable_state(struct smu_context *smu, uint64_t feat=
+ure_mask, bool enabled);<br>
+&nbsp;const char *smu_get_message_name(struct smu_context *smu, enum smu_me=
+ssage_type type);<br>
+&nbsp;const char *smu_get_feature_name(struct smu_context *smu, enum smu_fe=
+ature_mask feature);<br>
+&nbsp;size_t smu_sys_get_pp_feature_mask(struct smu_context *smu, char *buf=
+);<br>
+-- <br>
+2.23.0<br>
 <br>
 _______________________________________________<br>
 amd-gfx mailing list<br>
@@ -238,9 +644,9 @@ lists.freedesktop.org/mailman/listinfo/amd-gfx</a></div>
 </body>
 </html>
 
---_000_MN2PR12MB32963C565726A29BCFCB126BA2A50MN2PR12MB3296namp_--
+--_000_MN2PR12MB32964130A7A33074F69384EEA2A50MN2PR12MB3296namp_--
 
---===============0549601324==
+--===============1793132929==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -250,4 +656,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
 
---===============0549601324==--
+--===============1793132929==--
