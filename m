@@ -1,15 +1,14 @@
 From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 2/2] drm/radeon: use WAIT_REG_MEM special op for CP HDP
- flush
-Date: Thu, 22 Aug 2019 12:47:51 +0000
-Message-ID: <BN6PR12MB1809C8AD78F826E8D3CD30F4F7A50@BN6PR12MB1809.namprd12.prod.outlook.com>
-References: <20190821222034.13387-1-alexander.deucher@amd.com>
- <20190821222034.13387-5-alexander.deucher@amd.com>,
- <217a929a-543f-7aa4-4494-3569f9998a97@gmail.com>
+Subject: Re: [PATCH 1/2] drm/amd/powerplay: correct Vega20 dpm level related
+ settings
+Date: Thu, 22 Aug 2019 12:49:11 +0000
+Message-ID: <BN6PR12MB1809F9E59D061C18B1093ACEF7A50@BN6PR12MB1809.namprd12.prod.outlook.com>
+References: <20190821084143.25713-1-evan.quan@amd.com>,
+ <MN2PR12MB3344CC59152485D92985287BE4A50@MN2PR12MB3344.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1592280231=="
+Content-Type: multipart/mixed; boundary="===============1513642333=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <217a929a-543f-7aa4-4494-3569f9998a97-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+In-Reply-To: <MN2PR12MB3344CC59152485D92985287BE4A50-rweVpJHSKToDMgCC8P//OwdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -21,157 +20,184 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
+To: "Quan, Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============1592280231==
+--===============1513642333==
 Content-Language: en-US
 Content-Type: multipart/alternative;
-	boundary="_000_BN6PR12MB1809C8AD78F826E8D3CD30F4F7A50BN6PR12MB1809namp_"
+	boundary="_000_BN6PR12MB1809F9E59D061C18B1093ACEF7A50BN6PR12MB1809namp_"
 
---_000_BN6PR12MB1809C8AD78F826E8D3CD30F4F7A50BN6PR12MB1809namp_
+--_000_BN6PR12MB1809F9E59D061C18B1093ACEF7A50BN6PR12MB1809namp_
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
-This was an old patch I accidentally sent out.  Please ignore.
-
-Alex
+Acked-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
 ________________________________
-From: Christian K?nig <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Sent: Thursday, August 22, 2019 5:32 AM
-To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org <am=
-d-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+From: Quan, Evan <Evan.Quan-5C7GfCeVMHo@public.gmane.org>
+Sent: Thursday, August 22, 2019 6:21 AM
+To: Quan, Evan <Evan.Quan-5C7GfCeVMHo@public.gmane.org>; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org <amd-gfx@=
+lists.freedesktop.org>
 Cc: Deucher, Alexander <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 2/2] drm/radeon: use WAIT_REG_MEM special op for CP HDP=
- flush
+Subject: RE: [PATCH 1/2] drm/amd/powerplay: correct Vega20 dpm level relate=
+d settings
 
-Every time we actually tried this it just ended in users reporting CP hangs=
-.
+Ping..
 
-Christian.
-
-Am 22.08.19 um 00:20 schrieb Alex Deucher:
-> Flush via the ring works differently on CIK and requires a
-> special sequence.
+> -----Original Message-----
+> From: Evan Quan <evan.quan-5C7GfCeVMHo@public.gmane.org>
+> Sent: Wednesday, August 21, 2019 4:42 PM
+> To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> Cc: Quan, Evan <Evan.Quan-5C7GfCeVMHo@public.gmane.org>
+> Subject: [PATCH 1/2] drm/amd/powerplay: correct Vega20 dpm level related
+> settings
 >
-> Signed-off-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+> Correct the settings for auto mode and skip the unnecessary settings for
+> dcefclk and fclk.
+>
+> Change-Id: I7e6ca75ce86b4d5cd44920a9fbc71b6f36ea3c49
+> Signed-off-by: Evan Quan <evan.quan-5C7GfCeVMHo@public.gmane.org>
 > ---
->   drivers/gpu/drm/radeon/cik.c | 73 +++++++++++++++++++++++++++----------=
--------
->   1 file changed, 45 insertions(+), 28 deletions(-)
+>  .../drm/amd/powerplay/hwmgr/vega20_hwmgr.c    | 60
+> +++++++++++++++++--
+>  1 file changed, 54 insertions(+), 6 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/radeon/cik.c b/drivers/gpu/drm/radeon/cik.c
-> index 0847367..03dd075 100644
-> --- a/drivers/gpu/drm/radeon/cik.c
-> +++ b/drivers/gpu/drm/radeon/cik.c
-> @@ -3485,6 +3485,48 @@ int cik_ring_test(struct radeon_device *rdev, stru=
-ct radeon_ring *ring)
->        return r;
->   }
+> diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c
+> b/drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c
+> index 0516c294b377..cc52d5c8ccf9 100644
+> --- a/drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c
+> +++ b/drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c
+> @@ -2349,12 +2349,16 @@ static int vega20_force_dpm_highest(struct
+> pp_hwmgr *hwmgr)
+>                data->dpm_table.soc_table.dpm_state.soft_max_level =3D
+>                data->dpm_table.soc_table.dpm_levels[soft_level].value;
 >
-> +static void cik_gfx_hdp_flush(struct radeon_device *rdev,
-> +                           int ridx)
-> +{
-> +     struct radeon_ring *ring =3D &rdev->ring[ridx];
-> +     u32 ref_and_mask;
+> -     ret =3D vega20_upload_dpm_min_level(hwmgr, 0xFFFFFFFF);
+> +     ret =3D vega20_upload_dpm_min_level(hwmgr,
+> FEATURE_DPM_GFXCLK_MASK |
+> +                                              FEATURE_DPM_UCLK_MASK
+> |
 > +
-> +     switch (ring->idx) {
-> +     case CAYMAN_RING_TYPE_CP1_INDEX:
-> +     case CAYMAN_RING_TYPE_CP2_INDEX:
-> +             switch (ring->me) {
-> +             case 0:
-> +                     ref_and_mask =3D CP2 << ring->pipe;
-> +                     break;
-> +             case 1:
-> +                     ref_and_mask =3D CP6 << ring->pipe;
-> +                     break;
-> +             default:
-> +                     return;
-> +             }
-> +             break;
-> +     case RADEON_RING_TYPE_GFX_INDEX:
-> +             ref_and_mask =3D CP0;
-> +             break;
-> +     default:
-> +             return;
-> +     }
+> FEATURE_DPM_SOCCLK_MASK);
+>        PP_ASSERT_WITH_CODE(!ret,
+>                        "Failed to upload boot level to highest!",
+>                        return ret);
+>
+> -     ret =3D vega20_upload_dpm_max_level(hwmgr, 0xFFFFFFFF);
+> +     ret =3D vega20_upload_dpm_max_level(hwmgr,
+> FEATURE_DPM_GFXCLK_MASK |
+> +                                              FEATURE_DPM_UCLK_MASK
+> |
 > +
-> +     radeon_ring_write(ring, PACKET3(PACKET3_SET_UCONFIG_REG, 1));
-> +     radeon_ring_write(ring, ((CP_WAIT_REG_MEM_TIMEOUT -
-> +                               PACKET3_SET_UCONFIG_REG_START) >> 2));
-> +     radeon_ring_write(ring, 0xfff);
+> FEATURE_DPM_SOCCLK_MASK);
+>        PP_ASSERT_WITH_CODE(!ret,
+>                        "Failed to upload dpm max level to highest!",
+>                        return ret);
+> @@ -2387,12 +2391,16 @@ static int vega20_force_dpm_lowest(struct
+> pp_hwmgr *hwmgr)
+>                data->dpm_table.soc_table.dpm_state.soft_max_level =3D
+>                data->dpm_table.soc_table.dpm_levels[soft_level].value;
+>
+> -     ret =3D vega20_upload_dpm_min_level(hwmgr, 0xFFFFFFFF);
+> +     ret =3D vega20_upload_dpm_min_level(hwmgr,
+> FEATURE_DPM_GFXCLK_MASK |
+> +                                              FEATURE_DPM_UCLK_MASK
+> |
 > +
-> +     radeon_ring_write(ring, PACKET3(PACKET3_WAIT_REG_MEM, 5));
-> +     radeon_ring_write(ring, (WAIT_REG_MEM_OPERATION(1) | /* special op =
-*/
-> +                              WAIT_REG_MEM_FUNCTION(3))); /* =3D=3D */
-> +     radeon_ring_write(ring, GPU_HDP_FLUSH_REQ >> 2);
-> +     radeon_ring_write(ring, GPU_HDP_FLUSH_DONE >> 2);
-> +     radeon_ring_write(ring, ref_and_mask);
-> +     radeon_ring_write(ring, ref_and_mask);
-> +     radeon_ring_write(ring, 0xa); /* poll interval */
-> +}
+> FEATURE_DPM_SOCCLK_MASK);
+>        PP_ASSERT_WITH_CODE(!ret,
+>                        "Failed to upload boot level to highest!",
+>                        return ret);
+>
+> -     ret =3D vega20_upload_dpm_max_level(hwmgr, 0xFFFFFFFF);
+> +     ret =3D vega20_upload_dpm_max_level(hwmgr,
+> FEATURE_DPM_GFXCLK_MASK |
+> +                                              FEATURE_DPM_UCLK_MASK
+> |
 > +
->   /**
->    * cik_fence_gfx_ring_emit - emit a fence on the gfx ring
->    *
-> @@ -3511,15 +3553,7 @@ void cik_fence_gfx_ring_emit(struct radeon_device =
-*rdev,
->        radeon_ring_write(ring, fence->seq);
->        radeon_ring_write(ring, 0);
->        /* HDP flush */
-> -     /* We should be using the new WAIT_REG_MEM special op packet here
-> -      * but it causes the CP to hang
-> -      */
-> -     radeon_ring_write(ring, PACKET3(PACKET3_WRITE_DATA, 3));
-> -     radeon_ring_write(ring, (WRITE_DATA_ENGINE_SEL(0) |
-> -                              WRITE_DATA_DST_SEL(0)));
-> -     radeon_ring_write(ring, HDP_MEM_COHERENCY_FLUSH_CNTL >> 2);
-> -     radeon_ring_write(ring, 0);
-> -     radeon_ring_write(ring, 0);
-> +     cik_gfx_hdp_flush(rdev, fence->ring);
->   }
+> FEATURE_DPM_SOCCLK_MASK);
+>        PP_ASSERT_WITH_CODE(!ret,
+>                        "Failed to upload dpm max level to highest!",
+>                        return ret);
+> @@ -2403,14 +2411,54 @@ static int vega20_force_dpm_lowest(struct
+> pp_hwmgr *hwmgr)
 >
->   /**
-> @@ -3549,15 +3583,7 @@ void cik_fence_compute_ring_emit(struct radeon_dev=
-ice *rdev,
->        radeon_ring_write(ring, fence->seq);
->        radeon_ring_write(ring, 0);
->        /* HDP flush */
-> -     /* We should be using the new WAIT_REG_MEM special op packet here
-> -      * but it causes the CP to hang
-> -      */
-> -     radeon_ring_write(ring, PACKET3(PACKET3_WRITE_DATA, 3));
-> -     radeon_ring_write(ring, (WRITE_DATA_ENGINE_SEL(0) |
-> -                              WRITE_DATA_DST_SEL(0)));
-> -     radeon_ring_write(ring, HDP_MEM_COHERENCY_FLUSH_CNTL >> 2);
-> -     radeon_ring_write(ring, 0);
-> -     radeon_ring_write(ring, 0);
-> +     cik_gfx_hdp_flush(rdev, fence->ring);
->   }
+>  static int vega20_unforce_dpm_levels(struct pp_hwmgr *hwmgr)  {
+> +     struct vega20_hwmgr *data =3D
+> +                     (struct vega20_hwmgr *)(hwmgr->backend);
+> +     uint32_t soft_min_level, soft_max_level;
+>        int ret =3D 0;
 >
->   bool cik_semaphore_ring_emit(struct radeon_device *rdev,
-> @@ -5369,16 +5395,7 @@ void cik_vm_flush(struct radeon_device *rdev, int =
-ridx, struct radeon_vm *vm)
->        radeon_ring_write(ring, VMID(0));
+> -     ret =3D vega20_upload_dpm_min_level(hwmgr, 0xFFFFFFFF);
+> +     /* gfxclk soft min/max settings */
+> +     soft_min_level =3D
+> +             vega20_find_lowest_dpm_level(&(data-
+> >dpm_table.gfx_table));
+> +     soft_max_level =3D
+> +             vega20_find_highest_dpm_level(&(data-
+> >dpm_table.gfx_table));
+> +
+> +     data->dpm_table.gfx_table.dpm_state.soft_min_level =3D
+> +             data-
+> >dpm_table.gfx_table.dpm_levels[soft_min_level].value;
+> +     data->dpm_table.gfx_table.dpm_state.soft_max_level =3D
+> +             data-
+> >dpm_table.gfx_table.dpm_levels[soft_max_level].value;
+> +
+> +     /* uclk soft min/max settings */
+> +     soft_min_level =3D
+> +             vega20_find_lowest_dpm_level(&(data-
+> >dpm_table.mem_table));
+> +     soft_max_level =3D
+> +             vega20_find_highest_dpm_level(&(data-
+> >dpm_table.mem_table));
+> +
+> +     data->dpm_table.mem_table.dpm_state.soft_min_level =3D
+> +             data-
+> >dpm_table.mem_table.dpm_levels[soft_min_level].value;
+> +     data->dpm_table.mem_table.dpm_state.soft_max_level =3D
+> +             data-
+> >dpm_table.mem_table.dpm_levels[soft_max_level].value;
+> +
+> +     /* socclk soft min/max settings */
+> +     soft_min_level =3D
+> +             vega20_find_lowest_dpm_level(&(data-
+> >dpm_table.soc_table));
+> +     soft_max_level =3D
+> +             vega20_find_highest_dpm_level(&(data-
+> >dpm_table.soc_table));
+> +
+> +     data->dpm_table.soc_table.dpm_state.soft_min_level =3D
+> +             data-
+> >dpm_table.soc_table.dpm_levels[soft_min_level].value;
+> +     data->dpm_table.soc_table.dpm_state.soft_max_level =3D
+> +             data-
+> >dpm_table.soc_table.dpm_levels[soft_max_level].value;
+> +
+> +     ret =3D vega20_upload_dpm_min_level(hwmgr,
+> FEATURE_DPM_GFXCLK_MASK |
+> +                                              FEATURE_DPM_UCLK_MASK
+> |
+> +
+> FEATURE_DPM_SOCCLK_MASK);
+>        PP_ASSERT_WITH_CODE(!ret,
+>                        "Failed to upload DPM Bootup Levels!",
+>                        return ret);
 >
->        /* HDP flush */
-> -     /* We should be using the WAIT_REG_MEM packet here like in
-> -      * cik_fence_ring_emit(), but it causes the CP to hang in this
-> -      * context...
-> -      */
-> -     radeon_ring_write(ring, PACKET3(PACKET3_WRITE_DATA, 3));
-> -     radeon_ring_write(ring, (WRITE_DATA_ENGINE_SEL(0) |
-> -                              WRITE_DATA_DST_SEL(0)));
-> -     radeon_ring_write(ring, HDP_MEM_COHERENCY_FLUSH_CNTL >> 2);
-> -     radeon_ring_write(ring, 0);
-> -     radeon_ring_write(ring, 0);
-> +     cik_gfx_hdp_flush(rdev, ridx);
->
->        /* bits 0-15 are the VM contexts0-15 */
->        radeon_ring_write(ring, PACKET3(PACKET3_WRITE_DATA, 3));
+> -     ret =3D vega20_upload_dpm_max_level(hwmgr, 0xFFFFFFFF);
+> +     ret =3D vega20_upload_dpm_max_level(hwmgr,
+> FEATURE_DPM_GFXCLK_MASK |
+> +                                              FEATURE_DPM_UCLK_MASK
+> |
+> +
+> FEATURE_DPM_SOCCLK_MASK);
+>        PP_ASSERT_WITH_CODE(!ret,
+>                        "Failed to upload DPM Max Levels!",
+>                        return ret);
+> --
+> 2.23.0
 
 
---_000_BN6PR12MB1809C8AD78F826E8D3CD30F4F7A50BN6PR12MB1809namp_
+--_000_BN6PR12MB1809F9E59D061C18B1093ACEF7A50BN6PR12MB1809namp_
 Content-Type: text/html; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
@@ -185,229 +211,290 @@ ttom:0;} </style>
 <body dir=3D"ltr">
 <div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
 : 12pt; color: rgb(0, 0, 0);">
-This was an old patch I accidentally sent out.&nbsp; Please ignore.</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Alex<br>
+Acked-by: Alex Deucher &lt;alexander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
 </div>
 <div id=3D"appendonsend"></div>
 <hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
 <div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Christian K&ouml;nig =
-&lt;ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;<br>
-<b>Sent:</b> Thursday, August 22, 2019 5:32 AM<br>
-<b>To:</b> Alex Deucher &lt;alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;; amd-gfx-PD4FTy7X32lMiVNPc3mojA@public.gmane.org=
-sktop.org &lt;amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt;<br>
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Quan, Evan &lt;Evan.Q=
+uan-5C7GfCeVMHo@public.gmane.org&gt;<br>
+<b>Sent:</b> Thursday, August 22, 2019 6:21 AM<br>
+<b>To:</b> Quan, Evan &lt;Evan.Quan-5C7GfCeVMHo@public.gmane.org&gt;; amd-gfx-PD4FTy7X32lNgt0PjOBp9/rsn8yoX9R0@public.gmane.org=
+org &lt;amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt;<br>
 <b>Cc:</b> Deucher, Alexander &lt;Alexander.Deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
-<b>Subject:</b> Re: [PATCH 2/2] drm/radeon: use WAIT_REG_MEM special op for=
- CP HDP flush</font>
+<b>Subject:</b> RE: [PATCH 1/2] drm/amd/powerplay: correct Vega20 dpm level=
+ related settings</font>
 <div>&nbsp;</div>
 </div>
 <div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
 ">
-<div class=3D"PlainText">Every time we actually tried this it just ended in=
- users reporting CP hangs.<br>
+<div class=3D"PlainText">Ping..<br>
 <br>
-Christian.<br>
-<br>
-Am 22.08.19 um 00:20 schrieb Alex Deucher:<br>
-&gt; Flush via the ring works differently on CIK and requires a<br>
-&gt; special sequence.<br>
-&gt;<br>
-&gt; Signed-off-by: Alex Deucher &lt;alexander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
+&gt; -----Original Message-----<br>
+&gt; From: Evan Quan &lt;evan.quan-5C7GfCeVMHo@public.gmane.org&gt;<br>
+&gt; Sent: Wednesday, August 21, 2019 4:42 PM<br>
+&gt; To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+&gt; Cc: Quan, Evan &lt;Evan.Quan-5C7GfCeVMHo@public.gmane.org&gt;<br>
+&gt; Subject: [PATCH 1/2] drm/amd/powerplay: correct Vega20 dpm level relat=
+ed<br>
+&gt; settings<br>
+&gt; <br>
+&gt; Correct the settings for auto mode and skip the unnecessary settings f=
+or<br>
+&gt; dcefclk and fclk.<br>
+&gt; <br>
+&gt; Change-Id: I7e6ca75ce86b4d5cd44920a9fbc71b6f36ea3c49<br>
+&gt; Signed-off-by: Evan Quan &lt;evan.quan-5C7GfCeVMHo@public.gmane.org&gt;<br>
 &gt; ---<br>
-&gt;&nbsp;&nbsp; drivers/gpu/drm/radeon/cik.c | 73 &#43;&#43;&#43;&#43;&#43=
-;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43=
-;&#43;&#43;&#43;&#43;&#43;&#43;&#43;-----------------<br>
-&gt;&nbsp;&nbsp; 1 file changed, 45 insertions(&#43;), 28 deletions(-)<br>
-&gt;<br>
-&gt; diff --git a/drivers/gpu/drm/radeon/cik.c b/drivers/gpu/drm/radeon/cik=
-.c<br>
-&gt; index 0847367..03dd075 100644<br>
-&gt; --- a/drivers/gpu/drm/radeon/cik.c<br>
-&gt; &#43;&#43;&#43; b/drivers/gpu/drm/radeon/cik.c<br>
-&gt; @@ -3485,6 &#43;3485,48 @@ int cik_ring_test(struct radeon_device *rde=
-v, struct radeon_ring *ring)<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return r;<br>
-&gt;&nbsp;&nbsp; }<br>
-&gt;&nbsp;&nbsp; <br>
-&gt; &#43;static void cik_gfx_hdp_flush(struct radeon_device *rdev,<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp; int ridx)<br>
-&gt; &#43;{<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; struct radeon_ring *ring =3D &amp;rdev-&=
-gt;ring[ridx];<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; u32 ref_and_mask;<br>
-&gt; &#43;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; switch (ring-&gt;idx) {<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; case CAYMAN_RING_TYPE_CP1_INDEX:<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; case CAYMAN_RING_TYPE_CP2_INDEX:<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; switch (ring-&gt;me) {<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; case 0:<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ref_and_mask =3D CP=
-2 &lt;&lt; ring-&gt;pipe;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; break;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; case 1:<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ref_and_mask =3D CP=
-6 &lt;&lt; ring-&gt;pipe;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; break;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; default:<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; }<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; break;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; case RADEON_RING_TYPE_GFX_INDEX:<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; ref_and_mask =3D CP0;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; break;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; default:<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; return;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&gt; &#43;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; radeon_ring_write(ring, PACKET3(PACKET3_=
-SET_UCONFIG_REG, 1));<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; radeon_ring_write(ring, ((CP_WAIT_REG_ME=
-M_TIMEOUT -<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PACKET3_SET_UCONFIG_REG_START) &gt=
-;&gt; 2));<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; radeon_ring_write(ring, 0xfff);<br>
-&gt; &#43;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; radeon_ring_write(ring, PACKET3(PACKET3_=
-WAIT_REG_MEM, 5));<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; radeon_ring_write(ring, (WAIT_REG_MEM_OP=
-ERATION(1) | /* special op */<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WAIT_REG_MEM_FUNCTION(3))); /* =3D=3D */=
+&gt;&nbsp; .../drm/amd/powerplay/hwmgr/vega20_hwmgr.c&nbsp;&nbsp;&nbsp; | 6=
+0<br>
+&gt; &#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;=
+&#43;&#43;&#43;--<br>
+&gt;&nbsp; 1 file changed, 54 insertions(&#43;), 6 deletions(-)<br>
+&gt; <br>
+&gt; diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c<br>
+&gt; b/drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c<br>
+&gt; index 0516c294b377..cc52d5c8ccf9 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c<br>
+&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c<b=
+r>
+&gt; @@ -2349,12 &#43;2349,16 @@ static int vega20_force_dpm_highest(struct=
 <br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; radeon_ring_write(ring, GPU_HDP_FLUSH_RE=
-Q &gt;&gt; 2);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; radeon_ring_write(ring, GPU_HDP_FLUSH_DO=
-NE &gt;&gt; 2);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; radeon_ring_write(ring, ref_and_mask);<b=
-r>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; radeon_ring_write(ring, ref_and_mask);<b=
-r>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; radeon_ring_write(ring, 0xa); /* poll in=
-terval */<br>
-&gt; &#43;}<br>
+&gt; pp_hwmgr *hwmgr)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; data-&gt;dpm_table.soc_table.dpm_state.soft_max_level =
+=3D<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; data-&gt;dpm_table.soc_table.dpm_levels[soft_level].val=
+ue;<br>
+&gt; <br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; ret =3D vega20_upload_dpm_min_level(hwmgr, 0=
+xFFFFFFFF);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D vega20_upload_dpm_min_level(hwmg=
+r,<br>
+&gt; FEATURE_DPM_GFXCLK_MASK |<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FEATURE_DPM_UCLK_MA=
+SK<br>
+&gt; |<br>
 &gt; &#43;<br>
-&gt;&nbsp;&nbsp; /**<br>
-&gt;&nbsp;&nbsp;&nbsp; * cik_fence_gfx_ring_emit - emit a fence on the gfx =
-ring<br>
-&gt;&nbsp;&nbsp;&nbsp; *<br>
-&gt; @@ -3511,15 &#43;3553,7 @@ void cik_fence_gfx_ring_emit(struct radeon_=
-device *rdev,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; radeon_ring_write(ring, fenc=
-e-&gt;seq);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; radeon_ring_write(ring, 0);<=
+&gt; FEATURE_DPM_SOCCLK_MASK);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PP_ASSERT_WITH_CODE(!ret,<br=
+>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;F=
+ailed to upload boot level to highest!&quot;,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return =
+ret);<br>
+&gt; <br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; ret =3D vega20_upload_dpm_max_level(hwmgr, 0=
+xFFFFFFFF);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D vega20_upload_dpm_max_level(hwmg=
+r,<br>
+&gt; FEATURE_DPM_GFXCLK_MASK |<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FEATURE_DPM_UCLK_MA=
+SK<br>
+&gt; |<br>
+&gt; &#43;<br>
+&gt; FEATURE_DPM_SOCCLK_MASK);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PP_ASSERT_WITH_CODE(!ret,<br=
+>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;F=
+ailed to upload dpm max level to highest!&quot;,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return =
+ret);<br>
+&gt; @@ -2387,12 &#43;2391,16 @@ static int vega20_force_dpm_lowest(struct<=
 br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* HDP flush */<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; /* We should be using the new WAIT_REG_MEM s=
-pecial op packet here<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * but it causes the CP to hang<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; radeon_ring_write(ring, PACKET3(PACKET3_WRIT=
-E_DATA, 3));<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; radeon_ring_write(ring, (WRITE_DATA_ENGINE_S=
-EL(0) |<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WRITE_DATA_DST_SEL(0)));<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; radeon_ring_write(ring, HDP_MEM_COHERENCY_FL=
-USH_CNTL &gt;&gt; 2);<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; radeon_ring_write(ring, 0);<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; radeon_ring_write(ring, 0);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; cik_gfx_hdp_flush(rdev, fence-&gt;ring);=
-<br>
-&gt;&nbsp;&nbsp; }<br>
-&gt;&nbsp;&nbsp; <br>
-&gt;&nbsp;&nbsp; /**<br>
-&gt; @@ -3549,15 &#43;3583,7 @@ void cik_fence_compute_ring_emit(struct rad=
-eon_device *rdev,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; radeon_ring_write(ring, fenc=
-e-&gt;seq);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; radeon_ring_write(ring, 0);<=
+&gt; pp_hwmgr *hwmgr)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; data-&gt;dpm_table.soc_table.dpm_state.soft_max_level =
+=3D<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; data-&gt;dpm_table.soc_table.dpm_levels[soft_level].val=
+ue;<br>
+&gt; <br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; ret =3D vega20_upload_dpm_min_level(hwmgr, 0=
+xFFFFFFFF);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D vega20_upload_dpm_min_level(hwmg=
+r,<br>
+&gt; FEATURE_DPM_GFXCLK_MASK |<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FEATURE_DPM_UCLK_MA=
+SK<br>
+&gt; |<br>
+&gt; &#43;<br>
+&gt; FEATURE_DPM_SOCCLK_MASK);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PP_ASSERT_WITH_CODE(!ret,<br=
+>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;F=
+ailed to upload boot level to highest!&quot;,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return =
+ret);<br>
+&gt; <br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; ret =3D vega20_upload_dpm_max_level(hwmgr, 0=
+xFFFFFFFF);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D vega20_upload_dpm_max_level(hwmg=
+r,<br>
+&gt; FEATURE_DPM_GFXCLK_MASK |<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FEATURE_DPM_UCLK_MA=
+SK<br>
+&gt; |<br>
+&gt; &#43;<br>
+&gt; FEATURE_DPM_SOCCLK_MASK);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PP_ASSERT_WITH_CODE(!ret,<br=
+>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;F=
+ailed to upload dpm max level to highest!&quot;,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return =
+ret);<br>
+&gt; @@ -2403,14 &#43;2411,54 @@ static int vega20_force_dpm_lowest(struct<=
 br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* HDP flush */<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; /* We should be using the new WAIT_REG_MEM s=
-pecial op packet here<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * but it causes the CP to hang<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; radeon_ring_write(ring, PACKET3(PACKET3_WRIT=
-E_DATA, 3));<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; radeon_ring_write(ring, (WRITE_DATA_ENGINE_S=
-EL(0) |<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WRITE_DATA_DST_SEL(0)));<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; radeon_ring_write(ring, HDP_MEM_COHERENCY_FL=
-USH_CNTL &gt;&gt; 2);<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; radeon_ring_write(ring, 0);<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; radeon_ring_write(ring, 0);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; cik_gfx_hdp_flush(rdev, fence-&gt;ring);=
+&gt; pp_hwmgr *hwmgr)<br>
+&gt; <br>
+&gt;&nbsp; static int vega20_unforce_dpm_levels(struct pp_hwmgr *hwmgr)&nbs=
+p; {<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; struct vega20_hwmgr *data =3D<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (struct vega20_hwmg=
+r *)(hwmgr-&gt;backend);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t soft_min_level, soft_max_level;=
 <br>
-&gt;&nbsp;&nbsp; }<br>
-&gt;&nbsp;&nbsp; <br>
-&gt;&nbsp;&nbsp; bool cik_semaphore_ring_emit(struct radeon_device *rdev,<b=
-r>
-&gt; @@ -5369,16 &#43;5395,7 @@ void cik_vm_flush(struct radeon_device *rde=
-v, int ridx, struct radeon_vm *vm)<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; radeon_ring_write(ring, VMID=
-(0));<br>
-&gt;&nbsp;&nbsp; <br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* HDP flush */<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; /* We should be using the WAIT_REG_MEM packe=
-t here like in<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * cik_fence_ring_emit(), but it causes=
- the CP to hang in this<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * context...<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; radeon_ring_write(ring, PACKET3(PACKET3_WRIT=
-E_DATA, 3));<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; radeon_ring_write(ring, (WRITE_DATA_ENGINE_S=
-EL(0) |<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WRITE_DATA_DST_SEL(0)));<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; radeon_ring_write(ring, HDP_MEM_COHERENCY_FL=
-USH_CNTL &gt;&gt; 2);<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; radeon_ring_write(ring, 0);<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; radeon_ring_write(ring, 0);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; cik_gfx_hdp_flush(rdev, ridx);<br>
-&gt;&nbsp;&nbsp; <br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* bits 0-15 are the VM cont=
-exts0-15 */<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; radeon_ring_write(ring, PACK=
-ET3(PACKET3_WRITE_DATA, 3));<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int ret =3D 0;<br>
+&gt; <br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; ret =3D vega20_upload_dpm_min_level(hwmgr, 0=
+xFFFFFFFF);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; /* gfxclk soft min/max settings */<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; soft_min_level =3D<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; vega20_find_lowest_dpm_level(&amp;(data-<br>
+&gt; &gt;dpm_table.gfx_table));<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; soft_max_level =3D<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; vega20_find_highest_dpm_level(&amp;(data-<br>
+&gt; &gt;dpm_table.gfx_table));<br>
+&gt; &#43;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; data-&gt;dpm_table.gfx_table.dpm_state.s=
+oft_min_level =3D<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; data-<br>
+&gt; &gt;dpm_table.gfx_table.dpm_levels[soft_min_level].value;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; data-&gt;dpm_table.gfx_table.dpm_state.s=
+oft_max_level =3D<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; data-<br>
+&gt; &gt;dpm_table.gfx_table.dpm_levels[soft_max_level].value;<br>
+&gt; &#43;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; /* uclk soft min/max settings */<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; soft_min_level =3D<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; vega20_find_lowest_dpm_level(&amp;(data-<br>
+&gt; &gt;dpm_table.mem_table));<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; soft_max_level =3D<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; vega20_find_highest_dpm_level(&amp;(data-<br>
+&gt; &gt;dpm_table.mem_table));<br>
+&gt; &#43;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; data-&gt;dpm_table.mem_table.dpm_state.s=
+oft_min_level =3D<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; data-<br>
+&gt; &gt;dpm_table.mem_table.dpm_levels[soft_min_level].value;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; data-&gt;dpm_table.mem_table.dpm_state.s=
+oft_max_level =3D<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; data-<br>
+&gt; &gt;dpm_table.mem_table.dpm_levels[soft_max_level].value;<br>
+&gt; &#43;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; /* socclk soft min/max settings */<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; soft_min_level =3D<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; vega20_find_lowest_dpm_level(&amp;(data-<br>
+&gt; &gt;dpm_table.soc_table));<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; soft_max_level =3D<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; vega20_find_highest_dpm_level(&amp;(data-<br>
+&gt; &gt;dpm_table.soc_table));<br>
+&gt; &#43;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; data-&gt;dpm_table.soc_table.dpm_state.s=
+oft_min_level =3D<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; data-<br>
+&gt; &gt;dpm_table.soc_table.dpm_levels[soft_min_level].value;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; data-&gt;dpm_table.soc_table.dpm_state.s=
+oft_max_level =3D<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; data-<br>
+&gt; &gt;dpm_table.soc_table.dpm_levels[soft_max_level].value;<br>
+&gt; &#43;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D vega20_upload_dpm_min_level(hwmg=
+r,<br>
+&gt; FEATURE_DPM_GFXCLK_MASK |<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FEATURE_DPM_UCLK_MA=
+SK<br>
+&gt; |<br>
+&gt; &#43;<br>
+&gt; FEATURE_DPM_SOCCLK_MASK);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PP_ASSERT_WITH_CODE(!ret,<br=
+>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;F=
+ailed to upload DPM Bootup Levels!&quot;,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return =
+ret);<br>
+&gt; <br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; ret =3D vega20_upload_dpm_max_level(hwmgr, 0=
+xFFFFFFFF);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D vega20_upload_dpm_max_level(hwmg=
+r,<br>
+&gt; FEATURE_DPM_GFXCLK_MASK |<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FEATURE_DPM_UCLK_MA=
+SK<br>
+&gt; |<br>
+&gt; &#43;<br>
+&gt; FEATURE_DPM_SOCCLK_MASK);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PP_ASSERT_WITH_CODE(!ret,<br=
+>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;F=
+ailed to upload DPM Max Levels!&quot;,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return =
+ret);<br>
+&gt; --<br>
+&gt; 2.23.0<br>
 <br>
 </div>
 </span></font></div>
 </body>
 </html>
 
---_000_BN6PR12MB1809C8AD78F826E8D3CD30F4F7A50BN6PR12MB1809namp_--
+--_000_BN6PR12MB1809F9E59D061C18B1093ACEF7A50BN6PR12MB1809namp_--
 
---===============1592280231==
+--===============1513642333==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -417,4 +504,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
 
---===============1592280231==--
+--===============1513642333==--
