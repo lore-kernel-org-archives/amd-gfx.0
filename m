@@ -1,39 +1,83 @@
-From: Colin King <colin.king@canonical.com>
-Subject: [PATCH] drm/amdgpu/powerplay: remove redundant assignment to variable baco_state
-Date: Thu, 22 Aug 2019 14:09:48 +0100
-Message-ID: <20190822130948.32195-1-colin.king@canonical.com>
+From: "Francis, David" <David.Francis@amd.com>
+Subject: Re: [PATCH v3 13/16] drm/amd/display: Validate DSC caps on MST
+ endpoints
+Date: Thu, 22 Aug 2019 13:26:55 +0000
+Message-ID: <BN8PR12MB3217E79658514D777D0CFB1BEFA50@BN8PR12MB3217.namprd12.prod.outlook.com>
+References: <20190821200129.11575-1-David.Francis@amd.com>,
+ <20190821200129.11575-14-David.Francis@amd.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Rex Zhu <rex.zhu@amd.com>, Evan Quan <evan.quan@amd.com>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, David Zhou <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Transfer-Encoding: base64
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+In-Reply-To: <20190821200129.11575-14-David.Francis@amd.com>
+Content-Language: en-CA
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Cc: "Liu, Wenjing" <Wenjing.Liu@amd.com>, "Cornij,
+ Nikola" <Nikola.Cornij@amd.com>
 List-Id: amd-gfx.lists.freedesktop.org
 
-From: Colin Ian King <colin.king@canonical.com>
-
-Variable baco_state is initialized to a value that is never read and it is
-re-assigned later. The initialization is redundant and can be removed.
-
-Addresses-Coverity: ("Unused Value")
-Signed-off-by: Colin Ian King <colin.king@canonical.com>
----
- drivers/gpu/drm/amd/powerplay/smu_v11_0.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/powerplay/smu_v11_0.c b/drivers/gpu/drm/amd/powerplay/smu_v11_0.c
-index 89749b1d2019..a4aba8576900 100644
---- a/drivers/gpu/drm/amd/powerplay/smu_v11_0.c
-+++ b/drivers/gpu/drm/amd/powerplay/smu_v11_0.c
-@@ -1656,7 +1656,7 @@ static bool smu_v11_0_baco_is_support(struct smu_context *smu)
- static enum smu_baco_state smu_v11_0_baco_get_state(struct smu_context *smu)
- {
- 	struct smu_baco_context *smu_baco = &smu->smu_baco;
--	enum smu_baco_state baco_state = SMU_BACO_STATE_EXIT;
-+	enum smu_baco_state baco_state;
- 
- 	mutex_lock(&smu_baco->mutex);
- 	baco_state = smu_baco->state;
--- 
-2.20.1
+V2hvb3BzLCBsZWZ0IGluIGEgdGVzdCBwcmludC4gIElnbm9yZSB0aGlzIHBhdGNoCgpfX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkZyb206IERhdmlkIEZyYW5jaXMgPERh
+dmlkLkZyYW5jaXNAYW1kLmNvbT4KU2VudDogQXVndXN0IDIxLCAyMDE5IDQ6MDEgUE0KVG86IGRy
+aS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmc7IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Au
+b3JnCkNjOiBGcmFuY2lzLCBEYXZpZDsgTGl1LCBXZW5qaW5nOyBDb3JuaWosIE5pa29sYQpTdWJq
+ZWN0OiBbUEFUQ0ggdjMgMTMvMTZdIGRybS9hbWQvZGlzcGxheTogVmFsaWRhdGUgRFNDIGNhcHMg
+b24gTVNUIGVuZHBvaW50cwoKRHVyaW5nIE1TVCBtb2RlIGVudW1lcmF0aW9uLCBpZiBhIG5ldyBk
+Y19zaW5rIGlzIGNyZWF0ZWQsCnBvcHVsYXRlIGl0IHdpdGggZHNjIGNhcHMgYXMgYXBwcm9wcmlh
+dGUuCgpVc2UgZHJtX2RwX21zdF9kc2NfY2Fwc19mb3JfcG9ydCB0byBnZXQgdGhlIHJhdyBjYXBz
+LAp0aGVuIHBhcnNlIHRoZW0gb250byBkY19zaW5rIHdpdGggZGNfZHNjX3BhcnNlX2RzY19kcGNk
+LgoKQ2M6IFdlbmppbmcgTGl1IDxXZW5qaW5nLkxpdUBhbWQuY29tPgpDYzogTmlrb2xhIENvcm5p
+aiA8Tmlrb2xhLkNvcm5pakBhbWQuY29tPgpTaWduZWQtb2ZmLWJ5OiBEYXZpZCBGcmFuY2lzIDxE
+YXZpZC5GcmFuY2lzQGFtZC5jb20+Ci0tLQogLi4uL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9k
+bV9tc3RfdHlwZXMuYyAgIHwgMjcgKysrKysrKysrKysrKysrKysrLQogMSBmaWxlIGNoYW5nZWQs
+IDI2IGluc2VydGlvbnMoKyksIDEgZGVsZXRpb24oLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dw
+dS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbV9tc3RfdHlwZXMuYyBiL2RyaXZl
+cnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtX21zdF90eXBlcy5jCmlu
+ZGV4IDE2MjE4YTIwMmI1OS4uOTk3OGMxYTAxZWI3IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9k
+cm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbV9tc3RfdHlwZXMuYworKysgYi9kcml2
+ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbV9tc3RfdHlwZXMuYwpA
+QCAtMjUsNiArMjUsNyBAQAoKICNpbmNsdWRlIDxsaW51eC92ZXJzaW9uLmg+CiAjaW5jbHVkZSA8
+ZHJtL2RybV9hdG9taWNfaGVscGVyLmg+CisjaW5jbHVkZSA8ZHJtL2RybV9kcF9tc3RfaGVscGVy
+Lmg+CiAjaW5jbHVkZSAiZG1fc2VydmljZXMuaCIKICNpbmNsdWRlICJhbWRncHUuaCIKICNpbmNs
+dWRlICJhbWRncHVfZG0uaCIKQEAgLTE4OSw2ICsxOTAsMjQgQEAgc3RhdGljIGNvbnN0IHN0cnVj
+dCBkcm1fY29ubmVjdG9yX2Z1bmNzIGRtX2RwX21zdF9jb25uZWN0b3JfZnVuY3MgPSB7CiAgICAg
+ICAgLmVhcmx5X3VucmVnaXN0ZXIgPSBhbWRncHVfZG1fbXN0X2Nvbm5lY3Rvcl9lYXJseV91bnJl
+Z2lzdGVyLAogfTsKCisjaWZkZWYgQ09ORklHX0RSTV9BTURfRENfRFNDX1NVUFBPUlQKK3N0YXRp
+YyBib29sIHZhbGlkYXRlX2RzY19jYXBzX29uX2Nvbm5lY3RvcihzdHJ1Y3QgYW1kZ3B1X2RtX2Nv
+bm5lY3RvciAqYWNvbm5lY3RvcikKK3sKKyAgICAgICBzdHJ1Y3QgZGNfc2luayAqZGNfc2luayA9
+IGFjb25uZWN0b3ItPmRjX3Npbms7CisgICAgICAgc3RydWN0IGRybV9kcF9tc3RfcG9ydCAqcG9y
+dCA9IGFjb25uZWN0b3ItPnBvcnQ7CisgICAgICAgdTggZHNjX2NhcHNbMTZdID0geyAwIH07CisK
+KyAgICAgICBpZiAoZHJtX2RwX21zdF9kc2NfY2Fwc19mb3JfcG9ydChwb3J0LCBkc2NfY2Fwcykg
+PCAwKQorICAgICAgICAgICAgICAgcmV0dXJuIGZhbHNlOworCisgICAgICAgcHJpbnRrKCJWYWxp
+ZGF0ZWQgRFNDIGNhcHMgMHgleCIsIGRzY19jYXBzWzBdKTsKKyAgICAgICBpZiAoIWRjX2RzY19w
+YXJzZV9kc2NfZHBjZChkc2NfY2FwcywgTlVMTCwgJmRjX3NpbmstPnNpbmtfZHNjX2NhcHMuZHNj
+X2RlY19jYXBzKSkKKyAgICAgICAgICAgICAgIHJldHVybiBmYWxzZTsKKworICAgICAgIHJldHVy
+biB0cnVlOworfQorI2VuZGlmCisKIHN0YXRpYyBpbnQgZG1fZHBfbXN0X2dldF9tb2RlcyhzdHJ1
+Y3QgZHJtX2Nvbm5lY3RvciAqY29ubmVjdG9yKQogewogICAgICAgIHN0cnVjdCBhbWRncHVfZG1f
+Y29ubmVjdG9yICphY29ubmVjdG9yID0gdG9fYW1kZ3B1X2RtX2Nvbm5lY3Rvcihjb25uZWN0b3Ip
+OwpAQCAtMjMxLDEwICsyNTAsMTYgQEAgc3RhdGljIGludCBkbV9kcF9tc3RfZ2V0X21vZGVzKHN0
+cnVjdCBkcm1fY29ubmVjdG9yICpjb25uZWN0b3IpCiAgICAgICAgICAgICAgICAvKiBkY19saW5r
+X2FkZF9yZW1vdGVfc2luayByZXR1cm5zIGEgbmV3IHJlZmVyZW5jZSAqLwogICAgICAgICAgICAg
+ICAgYWNvbm5lY3Rvci0+ZGNfc2luayA9IGRjX3Npbms7CgotICAgICAgICAgICAgICAgaWYgKGFj
+b25uZWN0b3ItPmRjX3NpbmspCisgICAgICAgICAgICAgICBpZiAoYWNvbm5lY3Rvci0+ZGNfc2lu
+aykgewogICAgICAgICAgICAgICAgICAgICAgICBhbWRncHVfZG1fdXBkYXRlX2ZyZWVzeW5jX2Nh
+cHMoCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBjb25uZWN0b3IsIGFj
+b25uZWN0b3ItPmVkaWQpOwoKKyNpZmRlZiBDT05GSUdfRFJNX0FNRF9EQ19EU0NfU1VQUE9SVAor
+ICAgICAgICAgICAgICAgICAgICAgICBpZiAoIXZhbGlkYXRlX2RzY19jYXBzX29uX2Nvbm5lY3Rv
+cihhY29ubmVjdG9yKSkKKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBtZW1zZXQoJmFj
+b25uZWN0b3ItPmRjX3NpbmstPnNpbmtfZHNjX2NhcHMsCisgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgIDAsIHNpemVvZihhY29ubmVjdG9yLT5kY19zaW5rLT5zaW5rX2RzY19j
+YXBzKSk7CisjZW5kaWYKKyAgICAgICAgICAgICAgIH0KICAgICAgICB9CgogICAgICAgIGRybV9j
+b25uZWN0b3JfdXBkYXRlX2VkaWRfcHJvcGVydHkoCi0tCjIuMTcuMQoKX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KZHJpLWRldmVsIG1haWxpbmcgbGlzdApk
+cmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Au
+b3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVs
