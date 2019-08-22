@@ -1,56 +1,71 @@
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: [pull] amdgpu drm-fixes-5.3
-Date: Wed, 21 Aug 2019 21:10:22 -0500
-Message-ID: <20190822021022.3356-1-alexander.deucher@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Subject: Re: [PATCH] drm/amd/display: Fix 32-bit divide error in wait_for_alt_mode
+Date: Wed, 21 Aug 2019 22:12:50 -0400
+Message-ID: <CADnq5_PH6gA2kMi5+sT4N=AQdfJkEg4ZhoZtYduLTDAyUT7cBA@mail.gmail.com>
+References: <20190820235713.3429-1-natechancellor@gmail.com> <f594d746-9eaf-76fe-d380-bb033cce06f8@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, airlied-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org, daniel.vetter-/w4YWyX8dFk@public.gmane.org
-Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset="UTF-8"
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <f594d746-9eaf-76fe-d380-bb033cce06f8@amd.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Harry Wentland <hwentlan@amd.com>
+Cc: Nathan Chancellor <natechancellor@gmail.com>, "Wentland, Harry" <Harry.Wentland@amd.com>, "Li, Sun peng (Leo)" <Sunpeng.Li@amd.com>, "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Koenig, Christian" <Christian.Koenig@amd.com>, "Zhou, David(ChunMing)" <David1.Zhou@amd.com>, Randy Dunlap <rdunlap@infradead.org>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-SGkgRGF2ZSwgRGFuaWVsLAoKQSBmZXcgZml4ZXMgZm9yIDUuMy4gIE5vdGhpbmcgbWFqb3IuCgpU
-aGUgZm9sbG93aW5nIGNoYW5nZXMgc2luY2UgY29tbWl0IDJmNjJjNWQ2ZWQwYWJhZThlNzBiZDgz
-ZjRkNDFiOWQ2M2FjZGU0NWE6CgogIE1lcmdlIHRhZyAnZHJtLWZpeGVzLTUuMy0yMDE5LTA4LTE0
-JyBvZiBnaXQ6Ly9wZW9wbGUuZnJlZWRlc2t0b3Aub3JnL35hZ2Q1Zi9saW51eCBpbnRvIGRybS1m
-aXhlcyAoMjAxOS0wOC0xNSAxMzoyOToxOCArMTAwMCkKCmFyZSBhdmFpbGFibGUgaW4gdGhlIEdp
-dCByZXBvc2l0b3J5IGF0OgoKICBnaXQ6Ly9wZW9wbGUuZnJlZWRlc2t0b3Aub3JnL35hZ2Q1Zi9s
-aW51eCB0YWdzL2RybS1maXhlcy01LjMtMjAxOS0wOC0yMQoKZm9yIHlvdSB0byBmZXRjaCBjaGFu
-Z2VzIHVwIHRvIGVjNmU0OTEzNTNiOTAyNGQ0YjFhNjVjNDhiMjFlM2JjMGZhZWFlNGU6CgogIGRy
-bS9hbWQvZGlzcGxheTogQ2FsY3VsYXRlIGJwYyBiYXNlZCBvbiBtYXhfcmVxdWVzdGVkX2JwYyAo
-MjAxOS0wOC0yMSAxNzozMzozMiAtMDUwMCkKCi0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0KZHJtLWZpeGVzLTUuMy0yMDE5LTA4
-LTIxOgoKYW1kZ3B1OgotIEZpeCBnZnhvZmYgbG9naWMgb24gUlYKLSBQb3dlcnBsYXkgZml4ZXMK
-LSBGaXggYSBwb3NzaWJsZSBtZW1vcnkgbGVhayBpbiBDUyBpb2N0bAotIGJwYyBmaXggZm9yIGRp
-c3BsYXkKCi0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0KQWxleCBEZXVjaGVyICgxKToKICAgICAgZHJtL2FtZGdwdS9nZng5OiB1
-cGRhdGUgcGdfZmxhZ3MgYWZ0ZXIgZGV0ZXJtaW5pbmcgaWYgZ2Z4IG9mZiBpcyBwb3NzaWJsZQoK
-S2VubmV0aCBGZW5nICgxKToKICAgICAgZHJtL2FtZC9hbWRncHU6IGRpc2FibGUgTU1IVUIgUEcg
-Zm9yIG5hdmkxMAoKS2V2aW4gV2FuZyAoMik6CiAgICAgIGRybS9hbWQvcG93ZXJwbGF5OiBmaXgg
-dmFyaWFibGUgdHlwZSBlcnJvcnMgaW4gc211X3YxMV8wX3NldHVwX3BwdGFibGUKICAgICAgZHJt
-L2FtZC9wb3dlcnBsYXk6IHJlbW92ZSBkdXBsaWNhdGUgbWFjcm8gc211X2dldF91Y2xrX2RwbV9z
-dGF0ZXMgaW4gYW1kZ3B1X3NtdS5oCgpOaWNob2xhcyBLYXpsYXVza2FzICgxKToKICAgICAgZHJt
-L2FtZC9kaXNwbGF5OiBDYWxjdWxhdGUgYnBjIGJhc2VkIG9uIG1heF9yZXF1ZXN0ZWRfYnBjCgpO
-aWNvbGFpIEjDpGhubGUgKDEpOgogICAgICBkcm0vYW1kZ3B1OiBwcmV2ZW50IG1lbW9yeSBsZWFr
-cyBpbiBBTURHUFVfQ1MgaW9jdGwKCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
-Y3MuYyAgICAgICAgICAgIHwgIDkgKysrKysrKy0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
-dS9nZnhfdjlfMC5jICAgICAgICAgICAgIHwgIDQgKysrKwogZHJpdmVycy9ncHUvZHJtL2FtZC9h
-bWRncHUvbnYuYyAgICAgICAgICAgICAgICAgICB8ICAxIC0KIGRyaXZlcnMvZ3B1L2RybS9hbWQv
-YW1kZ3B1L3NvYzE1LmMgICAgICAgICAgICAgICAgfCAgNSAtLS0tLQogZHJpdmVycy9ncHUvZHJt
-L2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG0uYyB8IDE2ICsrKysrKysrKysrKysrLS0K
-IGRyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2luYy9hbWRncHVfc211LmggICAgfCAgMiAt
-LQogZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvc211X3YxMV8wLmMgICAgICAgICB8ICA0
-ICsrKy0KIDcgZmlsZXMgY2hhbmdlZCwgMjggaW5zZXJ0aW9ucygrKSwgMTMgZGVsZXRpb25zKC0p
-Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZngg
-bWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMu
-ZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
+Applied.  thanks!
+
+Alex
+
+On Wed, Aug 21, 2019 at 12:40 PM Harry Wentland <hwentlan@amd.com> wrote:
+>
+> On 2019-08-20 7:57 p.m., Nathan Chancellor wrote:
+> > When building arm32 allyesconfig:
+> >
+> > ld.lld: error: undefined symbol: __aeabi_uldivmod
+> >>>> referenced by dc_link.c
+> >>>> gpu/drm/amd/display/dc/core/dc_link.o:(wait_for_alt_mode) in archive drivers/built-in.a
+> >>>> referenced by dc_link.c
+> >>>> gpu/drm/amd/display/dc/core/dc_link.o:(wait_for_alt_mode) in archive drivers/built-in.a
+> >
+> > time_taken_in_ns is of type unsigned long long so we need to use div_u64
+> > to avoid this error.
+> >
+> > Fixes: b5b1f4554904 ("drm/amd/display: Enable type C hotplug")
+> > Reported-by: Randy Dunlap <rdunlap@infradead.org>
+> > Signed-off-by: Nathan Chancellor <natechancellor@gmail.com>
+>
+> Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+>
+> Harry
+>
+> > ---
+> >  drivers/gpu/drm/amd/display/dc/core/dc_link.c | 4 ++--
+> >  1 file changed, 2 insertions(+), 2 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link.c b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
+> > index f2d78d7b089e..8634923b4444 100644
+> > --- a/drivers/gpu/drm/amd/display/dc/core/dc_link.c
+> > +++ b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
+> > @@ -721,7 +721,7 @@ bool wait_for_alt_mode(struct dc_link *link)
+> >                       time_taken_in_ns = dm_get_elapse_time_in_ns(
+> >                               link->ctx, finish_timestamp, enter_timestamp);
+> >                       DC_LOG_WARNING("Alt mode entered finished after %llu ms\n",
+> > -                                    time_taken_in_ns / 1000000);
+> > +                                    div_u64(time_taken_in_ns, 1000000));
+> >                       return true;
+> >               }
+> >
+> > @@ -730,7 +730,7 @@ bool wait_for_alt_mode(struct dc_link *link)
+> >       time_taken_in_ns = dm_get_elapse_time_in_ns(link->ctx, finish_timestamp,
+> >                                                   enter_timestamp);
+> >       DC_LOG_WARNING("Alt mode has timed out after %llu ms\n",
+> > -                     time_taken_in_ns / 1000000);
+> > +                     div_u64(time_taken_in_ns, 1000000));
+> >       return false;
+> >  }
+> >
+> >
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
