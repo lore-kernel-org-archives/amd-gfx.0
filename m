@@ -1,14 +1,15 @@
-From: "Quan, Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH 1/2] drm/amd/powerplay: correct Vega20 dpm level related
- settings
-Date: Thu, 22 Aug 2019 10:21:11 +0000
-Message-ID: <MN2PR12MB3344CC59152485D92985287BE4A50@MN2PR12MB3344.namprd12.prod.outlook.com>
+From: "Wang, Kevin(Yang)" <Kevin1.Wang-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 2/2] drm/amd/powerplay: correct the pp_feature output on
+ Arcturus
+Date: Thu, 22 Aug 2019 11:42:03 +0000
+Message-ID: <MN2PR12MB32963C565726A29BCFCB126BA2A50@MN2PR12MB3296.namprd12.prod.outlook.com>
 References: <20190821084143.25713-1-evan.quan@amd.com>
+ <20190821084143.25713-2-evan.quan@amd.com>,
+ <MN2PR12MB3344D88565FD9A38CF442F7EE4A50@MN2PR12MB3344.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0549601324=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190821084143.25713-1-evan.quan-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <MN2PR12MB3344D88565FD9A38CF442F7EE4A50-rweVpJHSKToDMgCC8P//OwdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -23,91 +24,230 @@ Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane
 To: "Quan, Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
 
-UGluZy4uCgo+IC0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tCj4gRnJvbTogRXZhbiBRdWFuIDxl
-dmFuLnF1YW5AYW1kLmNvbT4KPiBTZW50OiBXZWRuZXNkYXksIEF1Z3VzdCAyMSwgMjAxOSA0OjQy
-IFBNCj4gVG86IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4gQ2M6IFF1YW4sIEV2YW4g
-PEV2YW4uUXVhbkBhbWQuY29tPgo+IFN1YmplY3Q6IFtQQVRDSCAxLzJdIGRybS9hbWQvcG93ZXJw
-bGF5OiBjb3JyZWN0IFZlZ2EyMCBkcG0gbGV2ZWwgcmVsYXRlZAo+IHNldHRpbmdzCj4gCj4gQ29y
-cmVjdCB0aGUgc2V0dGluZ3MgZm9yIGF1dG8gbW9kZSBhbmQgc2tpcCB0aGUgdW5uZWNlc3Nhcnkg
-c2V0dGluZ3MgZm9yCj4gZGNlZmNsayBhbmQgZmNsay4KPiAKPiBDaGFuZ2UtSWQ6IEk3ZTZjYTc1
-Y2U4NmI0ZDVjZDQ0OTIwYTlmYmM3MWI2ZjM2ZWEzYzQ5Cj4gU2lnbmVkLW9mZi1ieTogRXZhbiBR
-dWFuIDxldmFuLnF1YW5AYW1kLmNvbT4KPiAtLS0KPiAgLi4uL2RybS9hbWQvcG93ZXJwbGF5L2h3
-bWdyL3ZlZ2EyMF9od21nci5jICAgIHwgNjAKPiArKysrKysrKysrKysrKysrKy0tCj4gIDEgZmls
-ZSBjaGFuZ2VkLCA1NCBpbnNlcnRpb25zKCspLCA2IGRlbGV0aW9ucygtKQo+IAo+IGRpZmYgLS1n
-aXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci92ZWdhMjBfaHdtZ3IuYwo+
-IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3IvdmVnYTIwX2h3bWdyLmMKPiBp
-bmRleCAwNTE2YzI5NGIzNzcuLmNjNTJkNWM4Y2NmOSAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dw
-dS9kcm0vYW1kL3Bvd2VycGxheS9od21nci92ZWdhMjBfaHdtZ3IuYwo+ICsrKyBiL2RyaXZlcnMv
-Z3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL3ZlZ2EyMF9od21nci5jCj4gQEAgLTIzNDksMTIg
-KzIzNDksMTYgQEAgc3RhdGljIGludCB2ZWdhMjBfZm9yY2VfZHBtX2hpZ2hlc3Qoc3RydWN0Cj4g
-cHBfaHdtZ3IgKmh3bWdyKQo+ICAJCWRhdGEtPmRwbV90YWJsZS5zb2NfdGFibGUuZHBtX3N0YXRl
-LnNvZnRfbWF4X2xldmVsID0KPiAgCQlkYXRhLT5kcG1fdGFibGUuc29jX3RhYmxlLmRwbV9sZXZl
-bHNbc29mdF9sZXZlbF0udmFsdWU7Cj4gCj4gLQlyZXQgPSB2ZWdhMjBfdXBsb2FkX2RwbV9taW5f
-bGV2ZWwoaHdtZ3IsIDB4RkZGRkZGRkYpOwo+ICsJcmV0ID0gdmVnYTIwX3VwbG9hZF9kcG1fbWlu
-X2xldmVsKGh3bWdyLAo+IEZFQVRVUkVfRFBNX0dGWENMS19NQVNLIHwKPiArCQkJCQkJIEZFQVRV
-UkVfRFBNX1VDTEtfTUFTSwo+IHwKPiArCj4gRkVBVFVSRV9EUE1fU09DQ0xLX01BU0spOwo+ICAJ
-UFBfQVNTRVJUX1dJVEhfQ09ERSghcmV0LAo+ICAJCQkiRmFpbGVkIHRvIHVwbG9hZCBib290IGxl
-dmVsIHRvIGhpZ2hlc3QhIiwKPiAgCQkJcmV0dXJuIHJldCk7Cj4gCj4gLQlyZXQgPSB2ZWdhMjBf
-dXBsb2FkX2RwbV9tYXhfbGV2ZWwoaHdtZ3IsIDB4RkZGRkZGRkYpOwo+ICsJcmV0ID0gdmVnYTIw
-X3VwbG9hZF9kcG1fbWF4X2xldmVsKGh3bWdyLAo+IEZFQVRVUkVfRFBNX0dGWENMS19NQVNLIHwK
-PiArCQkJCQkJIEZFQVRVUkVfRFBNX1VDTEtfTUFTSwo+IHwKPiArCj4gRkVBVFVSRV9EUE1fU09D
-Q0xLX01BU0spOwo+ICAJUFBfQVNTRVJUX1dJVEhfQ09ERSghcmV0LAo+ICAJCQkiRmFpbGVkIHRv
-IHVwbG9hZCBkcG0gbWF4IGxldmVsIHRvIGhpZ2hlc3QhIiwKPiAgCQkJcmV0dXJuIHJldCk7Cj4g
-QEAgLTIzODcsMTIgKzIzOTEsMTYgQEAgc3RhdGljIGludCB2ZWdhMjBfZm9yY2VfZHBtX2xvd2Vz
-dChzdHJ1Y3QKPiBwcF9od21nciAqaHdtZ3IpCj4gIAkJZGF0YS0+ZHBtX3RhYmxlLnNvY190YWJs
-ZS5kcG1fc3RhdGUuc29mdF9tYXhfbGV2ZWwgPQo+ICAJCWRhdGEtPmRwbV90YWJsZS5zb2NfdGFi
-bGUuZHBtX2xldmVsc1tzb2Z0X2xldmVsXS52YWx1ZTsKPiAKPiAtCXJldCA9IHZlZ2EyMF91cGxv
-YWRfZHBtX21pbl9sZXZlbChod21nciwgMHhGRkZGRkZGRik7Cj4gKwlyZXQgPSB2ZWdhMjBfdXBs
-b2FkX2RwbV9taW5fbGV2ZWwoaHdtZ3IsCj4gRkVBVFVSRV9EUE1fR0ZYQ0xLX01BU0sgfAo+ICsJ
-CQkJCQkgRkVBVFVSRV9EUE1fVUNMS19NQVNLCj4gfAo+ICsKPiBGRUFUVVJFX0RQTV9TT0NDTEtf
-TUFTSyk7Cj4gIAlQUF9BU1NFUlRfV0lUSF9DT0RFKCFyZXQsCj4gIAkJCSJGYWlsZWQgdG8gdXBs
-b2FkIGJvb3QgbGV2ZWwgdG8gaGlnaGVzdCEiLAo+ICAJCQlyZXR1cm4gcmV0KTsKPiAKPiAtCXJl
-dCA9IHZlZ2EyMF91cGxvYWRfZHBtX21heF9sZXZlbChod21nciwgMHhGRkZGRkZGRik7Cj4gKwly
-ZXQgPSB2ZWdhMjBfdXBsb2FkX2RwbV9tYXhfbGV2ZWwoaHdtZ3IsCj4gRkVBVFVSRV9EUE1fR0ZY
-Q0xLX01BU0sgfAo+ICsJCQkJCQkgRkVBVFVSRV9EUE1fVUNMS19NQVNLCj4gfAo+ICsKPiBGRUFU
-VVJFX0RQTV9TT0NDTEtfTUFTSyk7Cj4gIAlQUF9BU1NFUlRfV0lUSF9DT0RFKCFyZXQsCj4gIAkJ
-CSJGYWlsZWQgdG8gdXBsb2FkIGRwbSBtYXggbGV2ZWwgdG8gaGlnaGVzdCEiLAo+ICAJCQlyZXR1
-cm4gcmV0KTsKPiBAQCAtMjQwMywxNCArMjQxMSw1NCBAQCBzdGF0aWMgaW50IHZlZ2EyMF9mb3Jj
-ZV9kcG1fbG93ZXN0KHN0cnVjdAo+IHBwX2h3bWdyICpod21ncikKPiAKPiAgc3RhdGljIGludCB2
-ZWdhMjBfdW5mb3JjZV9kcG1fbGV2ZWxzKHN0cnVjdCBwcF9od21nciAqaHdtZ3IpICB7Cj4gKwlz
-dHJ1Y3QgdmVnYTIwX2h3bWdyICpkYXRhID0KPiArCQkJKHN0cnVjdCB2ZWdhMjBfaHdtZ3IgKiko
-aHdtZ3ItPmJhY2tlbmQpOwo+ICsJdWludDMyX3Qgc29mdF9taW5fbGV2ZWwsIHNvZnRfbWF4X2xl
-dmVsOwo+ICAJaW50IHJldCA9IDA7Cj4gCj4gLQlyZXQgPSB2ZWdhMjBfdXBsb2FkX2RwbV9taW5f
-bGV2ZWwoaHdtZ3IsIDB4RkZGRkZGRkYpOwo+ICsJLyogZ2Z4Y2xrIHNvZnQgbWluL21heCBzZXR0
-aW5ncyAqLwo+ICsJc29mdF9taW5fbGV2ZWwgPQo+ICsJCXZlZ2EyMF9maW5kX2xvd2VzdF9kcG1f
-bGV2ZWwoJihkYXRhLQo+ID5kcG1fdGFibGUuZ2Z4X3RhYmxlKSk7Cj4gKwlzb2Z0X21heF9sZXZl
-bCA9Cj4gKwkJdmVnYTIwX2ZpbmRfaGlnaGVzdF9kcG1fbGV2ZWwoJihkYXRhLQo+ID5kcG1fdGFi
-bGUuZ2Z4X3RhYmxlKSk7Cj4gKwo+ICsJZGF0YS0+ZHBtX3RhYmxlLmdmeF90YWJsZS5kcG1fc3Rh
-dGUuc29mdF9taW5fbGV2ZWwgPQo+ICsJCWRhdGEtCj4gPmRwbV90YWJsZS5nZnhfdGFibGUuZHBt
-X2xldmVsc1tzb2Z0X21pbl9sZXZlbF0udmFsdWU7Cj4gKwlkYXRhLT5kcG1fdGFibGUuZ2Z4X3Rh
-YmxlLmRwbV9zdGF0ZS5zb2Z0X21heF9sZXZlbCA9Cj4gKwkJZGF0YS0KPiA+ZHBtX3RhYmxlLmdm
-eF90YWJsZS5kcG1fbGV2ZWxzW3NvZnRfbWF4X2xldmVsXS52YWx1ZTsKPiArCj4gKwkvKiB1Y2xr
-IHNvZnQgbWluL21heCBzZXR0aW5ncyAqLwo+ICsJc29mdF9taW5fbGV2ZWwgPQo+ICsJCXZlZ2Ey
-MF9maW5kX2xvd2VzdF9kcG1fbGV2ZWwoJihkYXRhLQo+ID5kcG1fdGFibGUubWVtX3RhYmxlKSk7
-Cj4gKwlzb2Z0X21heF9sZXZlbCA9Cj4gKwkJdmVnYTIwX2ZpbmRfaGlnaGVzdF9kcG1fbGV2ZWwo
-JihkYXRhLQo+ID5kcG1fdGFibGUubWVtX3RhYmxlKSk7Cj4gKwo+ICsJZGF0YS0+ZHBtX3RhYmxl
-Lm1lbV90YWJsZS5kcG1fc3RhdGUuc29mdF9taW5fbGV2ZWwgPQo+ICsJCWRhdGEtCj4gPmRwbV90
-YWJsZS5tZW1fdGFibGUuZHBtX2xldmVsc1tzb2Z0X21pbl9sZXZlbF0udmFsdWU7Cj4gKwlkYXRh
-LT5kcG1fdGFibGUubWVtX3RhYmxlLmRwbV9zdGF0ZS5zb2Z0X21heF9sZXZlbCA9Cj4gKwkJZGF0
-YS0KPiA+ZHBtX3RhYmxlLm1lbV90YWJsZS5kcG1fbGV2ZWxzW3NvZnRfbWF4X2xldmVsXS52YWx1
-ZTsKPiArCj4gKwkvKiBzb2NjbGsgc29mdCBtaW4vbWF4IHNldHRpbmdzICovCj4gKwlzb2Z0X21p
-bl9sZXZlbCA9Cj4gKwkJdmVnYTIwX2ZpbmRfbG93ZXN0X2RwbV9sZXZlbCgmKGRhdGEtCj4gPmRw
-bV90YWJsZS5zb2NfdGFibGUpKTsKPiArCXNvZnRfbWF4X2xldmVsID0KPiArCQl2ZWdhMjBfZmlu
-ZF9oaWdoZXN0X2RwbV9sZXZlbCgmKGRhdGEtCj4gPmRwbV90YWJsZS5zb2NfdGFibGUpKTsKPiAr
-Cj4gKwlkYXRhLT5kcG1fdGFibGUuc29jX3RhYmxlLmRwbV9zdGF0ZS5zb2Z0X21pbl9sZXZlbCA9
-Cj4gKwkJZGF0YS0KPiA+ZHBtX3RhYmxlLnNvY190YWJsZS5kcG1fbGV2ZWxzW3NvZnRfbWluX2xl
-dmVsXS52YWx1ZTsKPiArCWRhdGEtPmRwbV90YWJsZS5zb2NfdGFibGUuZHBtX3N0YXRlLnNvZnRf
-bWF4X2xldmVsID0KPiArCQlkYXRhLQo+ID5kcG1fdGFibGUuc29jX3RhYmxlLmRwbV9sZXZlbHNb
-c29mdF9tYXhfbGV2ZWxdLnZhbHVlOwo+ICsKPiArCXJldCA9IHZlZ2EyMF91cGxvYWRfZHBtX21p
-bl9sZXZlbChod21nciwKPiBGRUFUVVJFX0RQTV9HRlhDTEtfTUFTSyB8Cj4gKwkJCQkJCSBGRUFU
-VVJFX0RQTV9VQ0xLX01BU0sKPiB8Cj4gKwo+IEZFQVRVUkVfRFBNX1NPQ0NMS19NQVNLKTsKPiAg
-CVBQX0FTU0VSVF9XSVRIX0NPREUoIXJldCwKPiAgCQkJIkZhaWxlZCB0byB1cGxvYWQgRFBNIEJv
-b3R1cCBMZXZlbHMhIiwKPiAgCQkJcmV0dXJuIHJldCk7Cj4gCj4gLQlyZXQgPSB2ZWdhMjBfdXBs
-b2FkX2RwbV9tYXhfbGV2ZWwoaHdtZ3IsIDB4RkZGRkZGRkYpOwo+ICsJcmV0ID0gdmVnYTIwX3Vw
-bG9hZF9kcG1fbWF4X2xldmVsKGh3bWdyLAo+IEZFQVRVUkVfRFBNX0dGWENMS19NQVNLIHwKPiAr
-CQkJCQkJIEZFQVRVUkVfRFBNX1VDTEtfTUFTSwo+IHwKPiArCj4gRkVBVFVSRV9EUE1fU09DQ0xL
-X01BU0spOwo+ICAJUFBfQVNTRVJUX1dJVEhfQ09ERSghcmV0LAo+ICAJCQkiRmFpbGVkIHRvIHVw
-bG9hZCBEUE0gTWF4IExldmVscyEiLAo+ICAJCQlyZXR1cm4gcmV0KTsKPiAtLQo+IDIuMjMuMAoK
+--===============0549601324==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_MN2PR12MB32963C565726A29BCFCB126BA2A50MN2PR12MB3296namp_"
+
+--_000_MN2PR12MB32963C565726A29BCFCB126BA2A50MN2PR12MB3296namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+Reviewed-by: Kevin Wang <kevin1.wang-5C7GfCeVMHo@public.gmane.org>
+
+Best Regards,
+Kevin
+________________________________
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Quan, Ev=
+an <Evan.Quan-5C7GfCeVMHo@public.gmane.org>
+Sent: Thursday, August 22, 2019 6:20 PM
+To: Quan, Evan <Evan.Quan-5C7GfCeVMHo@public.gmane.org>; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org <amd-gfx@=
+lists.freedesktop.org>
+Cc: Deucher, Alexander <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: [PATCH 2/2] drm/amd/powerplay: correct the pp_feature output o=
+n Arcturus
+
+Ping..
+
+> -----Original Message-----
+> From: Evan Quan <evan.quan-5C7GfCeVMHo@public.gmane.org>
+> Sent: Wednesday, August 21, 2019 4:42 PM
+> To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> Cc: Quan, Evan <Evan.Quan-5C7GfCeVMHo@public.gmane.org>
+> Subject: [PATCH 2/2] drm/amd/powerplay: correct the pp_feature output on
+> Arcturus
+>
+> Fix for the commit below:
+> drm/amd/powerplay: implment sysfs feature status function in smu
+>
+> Change-Id: Id9a373f8d8866b97450be0aef0ba19d0835d40d8
+> Signed-off-by: Evan Quan <evan.quan-5C7GfCeVMHo@public.gmane.org>
+> ---
+>  drivers/gpu/drm/amd/powerplay/arcturus_ppt.c  | 2 ++
+> drivers/gpu/drm/amd/powerplay/inc/smu_types.h | 1 +
+>  2 files changed, 3 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c
+> b/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c
+> index dd6563358e8e..f1f072012fac 100644
+> --- a/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c
+> +++ b/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c
+> @@ -141,6 +141,7 @@ static struct smu_11_0_cmn2aisc_mapping
+> arcturus_feature_mask_map[SMU_FEATURE_CO
+>        FEA_MAP(DPM_SOCCLK),
+>        FEA_MAP(DPM_FCLK),
+>        FEA_MAP(DPM_MP0CLK),
+> +     ARCTURUS_FEA_MAP(SMU_FEATURE_XGMI_BIT,
+> FEATURE_DPM_XGMI_BIT),
+>        FEA_MAP(DS_GFXCLK),
+>        FEA_MAP(DS_SOCCLK),
+>        FEA_MAP(DS_LCLK),
+> @@ -149,6 +150,7 @@ static struct smu_11_0_cmn2aisc_mapping
+> arcturus_feature_mask_map[SMU_FEATURE_CO
+>        FEA_MAP(GFX_ULV),
+>        ARCTURUS_FEA_MAP(SMU_FEATURE_VCN_PG_BIT,
+> FEATURE_DPM_VCN_BIT),
+>        FEA_MAP(RSMU_SMN_CG),
+> +     FEA_MAP(WAFL_CG),
+>        FEA_MAP(PPT),
+>        FEA_MAP(TDC),
+>        FEA_MAP(APCC_PLUS),
+> diff --git a/drivers/gpu/drm/amd/powerplay/inc/smu_types.h
+> b/drivers/gpu/drm/amd/powerplay/inc/smu_types.h
+> index 72962e842d69..c3c74098f614 100644
+> --- a/drivers/gpu/drm/amd/powerplay/inc/smu_types.h
+> +++ b/drivers/gpu/drm/amd/powerplay/inc/smu_types.h
+> @@ -207,6 +207,7 @@ enum smu_clk_type {
+>         __SMU_DUMMY_MAP(TEMP_DEPENDENT_VMIN),                  \
+>         __SMU_DUMMY_MAP(MMHUB_PG),                             \
+>         __SMU_DUMMY_MAP(ATHUB_PG),                             \
+> +       __SMU_DUMMY_MAP(WAFL_CG),
+>
+>  #undef __SMU_DUMMY_MAP
+>  #define __SMU_DUMMY_MAP(feature)
+>        SMU_FEATURE_##feature##_BIT
+> --
+> 2.23.0
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--_000_MN2PR12MB32963C565726A29BCFCB126BA2A50MN2PR12MB3296namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Reviewed-by: Kevin Wang &lt;kevin1.wang-5C7GfCeVMHo@public.gmane.org&gt;</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Best Regards,<br>
+Kevin</div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
+ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Quan, Evan &lt;Evan.Quan@amd.=
+com&gt;<br>
+<b>Sent:</b> Thursday, August 22, 2019 6:20 PM<br>
+<b>To:</b> Quan, Evan &lt;Evan.Quan-5C7GfCeVMHo@public.gmane.org&gt;; amd-gfx-PD4FTy7X32lNgt0PjOBp9/rsn8yoX9R0@public.gmane.org=
+org &lt;amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt;<br>
+<b>Cc:</b> Deucher, Alexander &lt;Alexander.Deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
+<b>Subject:</b> RE: [PATCH 2/2] drm/amd/powerplay: correct the pp_feature o=
+utput on Arcturus</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">Ping..<br>
+<br>
+&gt; -----Original Message-----<br>
+&gt; From: Evan Quan &lt;evan.quan-5C7GfCeVMHo@public.gmane.org&gt;<br>
+&gt; Sent: Wednesday, August 21, 2019 4:42 PM<br>
+&gt; To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+&gt; Cc: Quan, Evan &lt;Evan.Quan-5C7GfCeVMHo@public.gmane.org&gt;<br>
+&gt; Subject: [PATCH 2/2] drm/amd/powerplay: correct the pp_feature output =
+on<br>
+&gt; Arcturus<br>
+&gt; <br>
+&gt; Fix for the commit below:<br>
+&gt; drm/amd/powerplay: implment sysfs feature status function in smu<br>
+&gt; <br>
+&gt; Change-Id: Id9a373f8d8866b97450be0aef0ba19d0835d40d8<br>
+&gt; Signed-off-by: Evan Quan &lt;evan.quan-5C7GfCeVMHo@public.gmane.org&gt;<br>
+&gt; ---<br>
+&gt;&nbsp; drivers/gpu/drm/amd/powerplay/arcturus_ppt.c&nbsp; | 2 &#43;&#43=
+;<br>
+&gt; drivers/gpu/drm/amd/powerplay/inc/smu_types.h | 1 &#43;<br>
+&gt;&nbsp; 2 files changed, 3 insertions(&#43;)<br>
+&gt; <br>
+&gt; diff --git a/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c<br>
+&gt; b/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c<br>
+&gt; index dd6563358e8e..f1f072012fac 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c<br>
+&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c<br>
+&gt; @@ -141,6 &#43;141,7 @@ static struct smu_11_0_cmn2aisc_mapping<br>
+&gt; arcturus_feature_mask_map[SMU_FEATURE_CO<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FEA_MAP(DPM_SOCCLK),<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FEA_MAP(DPM_FCLK),<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FEA_MAP(DPM_MP0CLK),<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; ARCTURUS_FEA_MAP(SMU_FEATURE_XGMI_BIT,<b=
+r>
+&gt; FEATURE_DPM_XGMI_BIT),<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FEA_MAP(DS_GFXCLK),<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FEA_MAP(DS_SOCCLK),<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FEA_MAP(DS_LCLK),<br>
+&gt; @@ -149,6 &#43;150,7 @@ static struct smu_11_0_cmn2aisc_mapping<br>
+&gt; arcturus_feature_mask_map[SMU_FEATURE_CO<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FEA_MAP(GFX_ULV),<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ARCTURUS_FEA_MAP(SMU_FEATURE=
+_VCN_PG_BIT,<br>
+&gt; FEATURE_DPM_VCN_BIT),<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FEA_MAP(RSMU_SMN_CG),<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; FEA_MAP(WAFL_CG),<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FEA_MAP(PPT),<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FEA_MAP(TDC),<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FEA_MAP(APCC_PLUS),<br>
+&gt; diff --git a/drivers/gpu/drm/amd/powerplay/inc/smu_types.h<br>
+&gt; b/drivers/gpu/drm/amd/powerplay/inc/smu_types.h<br>
+&gt; index 72962e842d69..c3c74098f614 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/powerplay/inc/smu_types.h<br>
+&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/inc/smu_types.h<br>
+&gt; @@ -207,6 &#43;207,7 @@ enum smu_clk_type {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; __SMU_DUMMY_MAP(TEMP_D=
+EPENDENT_VMIN),&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; __SMU_DUMMY_MAP(MMHUB_=
+PG),&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp; \<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; __SMU_DUMMY_MAP(ATHUB_=
+PG),&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp; \<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; __SMU_DUMMY_MAP(WAFL_CG),<br=
+>
+&gt; <br>
+&gt;&nbsp; #undef __SMU_DUMMY_MAP<br>
+&gt;&nbsp; #define __SMU_DUMMY_MAP(feature)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SMU_FEATURE_##feature##_BIT<=
+br>
+&gt; --<br>
+&gt; 2.23.0<br>
+<br>
+_______________________________________________<br>
+amd-gfx mailing list<br>
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
+lists.freedesktop.org/mailman/listinfo/amd-gfx</a></div>
+</span></font></div>
+</body>
+</html>
+
+--_000_MN2PR12MB32963C565726A29BCFCB126BA2A50MN2PR12MB3296namp_--
+
+--===============0549601324==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
 X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+
+--===============0549601324==--
