@@ -1,7 +1,7 @@
 From: "Quan, Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>
 Subject: RE: [PATCH] drm/amd/powerplay: update cached feature enablement status
-Date: Thu, 22 Aug 2019 10:18:27 +0000
-Message-ID: <MN2PR12MB3344F3BD398EFDD21B914D2AE4A50@MN2PR12MB3344.namprd12.prod.outlook.com>
+Date: Thu, 22 Aug 2019 10:20:40 +0000
+Message-ID: <MN2PR12MB3344188028981DA0FA321A39E4A50@MN2PR12MB3344.namprd12.prod.outlook.com>
 References: <20190821092413.27155-1-evan.quan@amd.com>
  <861ead73-5ce2-ea37-746d-bc82b79d9b88@amd.com>
 Mime-Version: 1.0
