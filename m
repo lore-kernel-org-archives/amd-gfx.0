@@ -1,198 +1,813 @@
-From: Cristian Marussi <cristian.marussi@arm.com>
-Subject: Re: [PATCH v18 15/15] selftests, arm64: add a selftest for passing
- tagged pointers to kernel
-Date: Fri, 23 Aug 2019 14:56:11 +0100
-Message-ID: <6af3f619-4356-2f67-ed76-92beceb1e0a0@arm.com>
-References: <cover.1561386715.git.andreyknvl@google.com>
- <0999c80cd639b78ae27c0674069d552833227564.1561386715.git.andreyknvl@google.com>
+From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu: introduce vram lost paramter for reset
+ function
+Date: Fri, 23 Aug 2019 14:34:11 +0000
+Message-ID: <BN6PR12MB1809D6CB333C3A473C71F2FCF7A40@BN6PR12MB1809.namprd12.prod.outlook.com>
+References: <1566531249-1396-1-git-send-email-Monk.Liu@amd.com>
+ <15d22497-cf4d-0d15-236c-5bc2b65eb656@gmail.com>
+ <MN2PR12MB393366D270445A63B053DA3184A40@MN2PR12MB3933.namprd12.prod.outlook.com>
+ <82e98a1b-a624-1e54-aae7-1a6ff9dda7f2@amd.com>
+ <MN2PR12MB393324F969E3F29F76A0DA8384A40@MN2PR12MB3933.namprd12.prod.outlook.com>,
+ <3920ef0e-857a-44ff-085e-e121c39e0420@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <0999c80cd639b78ae27c0674069d552833227564.1561386715.git.andreyknvl@google.com>
+Content-Type: multipart/mixed; boundary="===============1514681795=="
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <3920ef0e-857a-44ff-085e-e121c39e0420-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
-Sender: linux-kernel-owner@vger.kernel.org
-To: Andrey Konovalov <andreyknvl@google.com>, linux-arm-kernel@lists.infradead.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-rdma@vger.kernel.org, linux-media@vger.kernel.org, kvm@vger.kernel.org, linux-kselftest@vger.kernel.org
-Cc: Catalin Marinas <catalin.marinas@arm.com>, Vincenzo Frascino <vincenzo.frascino@arm.com>, Will Deacon <will.deacon@arm.com>, Mark Rutland <mark.rutland@arm.com>, Andrew Morton <akpm@linux-foundation.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Kees Cook <keescook@chromium.org>, Yishai Hadas <yishaih@mellanox.com>, Felix Kuehling <Felix.Kuehling@amd.com>, Alexander Deucher <Alexander.Deucher@amd.com>, Christian Koenig <Christian.Koenig@amd.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Jens Wiklander <jens.wiklander@linaro.org>, Alex Williamson <alex.williamson@redhat.com>, Leon Romanovsky <leon@kernel.org>, Luc Van Oostenryck <luc.vanoostenryck@gmail.com>, Dave Martin <Dave.Martin@arm.com>, Khalid Aziz <khalid.aziz@oracle.com>, enh <enh@>
-List-Id: amd-gfx.lists.freedesktop.org
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "Liu, Monk" <Monk.Liu-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-Hi Andrey
+--===============1514681795==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_BN6PR12MB1809D6CB333C3A473C71F2FCF7A40BN6PR12MB1809namp_"
 
-On 24/06/2019 15:33, Andrey Konovalov wrote:
-> This patch is a part of a series that extends kernel ABI to allow to pass
-> tagged user pointers (with the top byte set to something else other than
-> 0x00) as syscall arguments.
-> 
-> This patch adds a simple test, that calls the uname syscall with a
-> tagged user pointer as an argument. Without the kernel accepting tagged
-> user pointers the test fails with EFAULT.
-> 
-> Signed-off-by: Andrey Konovalov <andreyknvl@google.com>
-> ---
->  tools/testing/selftests/arm64/.gitignore      |  1 +
->  tools/testing/selftests/arm64/Makefile        | 11 +++++++
->  .../testing/selftests/arm64/run_tags_test.sh  | 12 ++++++++
->  tools/testing/selftests/arm64/tags_test.c     | 29 +++++++++++++++++++
->  4 files changed, 53 insertions(+)
->  create mode 100644 tools/testing/selftests/arm64/.gitignore
->  create mode 100644 tools/testing/selftests/arm64/Makefile
->  create mode 100755 tools/testing/selftests/arm64/run_tags_test.sh
->  create mode 100644 tools/testing/selftests/arm64/tags_test.c
+--_000_BN6PR12MB1809D6CB333C3A473C71F2FCF7A40BN6PR12MB1809namp_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 
-After building a fresh Kernel from arm64/for-next-core from scratch at:
+for mode1 and BACO, I think we can assume vram is lost because the UMC gets=
+ reset in that case.  Some of the data may still look valid, but it's not n=
+ecessarily reliable.  For mode2, vram should be fine because the UMC doesn'=
+t get reset.
 
-commit 239ab658bea3b387424501e7c416640d6752dc0c 
-Merge: 6bfa3134bd3a 42d038c4fb00 1243cb6a676f d55c5f28afaf d06fa5a118f1 34b5560db40d
-Author: Will Deacon <will@kernel.org>
-Date:   Thu Aug 22 18:23:53 2019 +0100
+Alex
 
-    Merge branches 'for-next/error-injection', 'for-next/tbi', 'for-next/psci-cpuidle', 'for-next/cpu-topology' and 'for-next/52-bit-kva' into for-next/core
+________________________________
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Koenig, =
+Christian <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
+Sent: Friday, August 23, 2019 8:47 AM
+To: Liu, Monk <Monk.Liu-5C7GfCeVMHo@public.gmane.org>; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org <amd-gfx@li=
+sts.freedesktop.org>
+Subject: Re: [PATCH] drm/amdgpu: introduce vram lost paramter for reset fun=
+ction
 
+Am 23.08.19 um 10:57 schrieb Liu, Monk:
+>>> vram_lost =3D amdgpu_device_check_vram_lost(tmp_adev);
+>>>                              if (vram_lost) {
+>>>                                      DRM_INFO("VRAM is lost due to GPU =
+reset!\n");
+>>>                                      atomic_inc(&tmp_adev->vram_lost_co=
+unter);
+> Above is the original logic, if we increment the counter in BACO reset ro=
+utine, we would potentially
+> Have another counter increasement if by coincidence the "amdgpu_device_ch=
+eck_vram_lost" successfully detected the vram lost (although right now it d=
+idn't ..)
 
-KSFT arm64 tests build is broken for me, both setting or not KBUILD_OUTPUT=
+Yeah, but would increment it twice be a problem? I don't think so.
 
-13:30 $ make TARGETS=arm64 kselftest-clean                       
-make[1]: Entering directory '/home/crimar01/ARM/dev/src/pdsw/out_linux'
-rm -f -r /home/crimar01/ARM/dev/src/pdsw/out_linux//kselftest/arm64/tags_test
-make[1]: Leaving directory '/home/crimar01/ARM/dev/src/pdsw/out_linux'
+> Do you mean we remove the amdgpu_device_check_vram_lost(tmp_adev) in devi=
+ce_recovery() routine ?
 
-✔ ~/ARM/dev/src/pdsw/linux [arm64_for_next_core|…8⚑ 23]
+Please no, that thing certainly proved to be useful. Maybe we could
+investigate why it failed to auto detect the lost VRAM.
 
-13:30 $ make TARGETS=arm64 kselftest                  
-make[1]: Entering directory '/home/crimar01/ARM/dev/src/pdsw/out_linux'
-arch/arm64/Makefile:56: CROSS_COMPILE_COMPAT not defined or empty, the compat vDSO will not be built
-make --no-builtin-rules INSTALL_HDR_PATH=$BUILD/usr \
-        ARCH=arm64 -C ../../.. headers_install             
-  HOSTCC  scripts/basic/fixdep                     
-  HOSTCC  scripts/unifdef                         
-...
-...
-  HDRINST usr/include/asm/msgbuf.h
-  HDRINST usr/include/asm/shmbuf.h
-  INSTALL /home/crimar01/ARM/dev/src/pdsw/out_linux//kselftest/usr/include
-/opt/toolchains/gcc-arm-8.3-2019.03-x86_64-aarch64-linux-gnu/bin/aarch64-linux-gnu-gcc     tags_test.c  -o /home/crimar01/ARM/dev/src/pdsw/out_linux//kselftest/arm64/tags_test
-tags_test.c: In function ‘main’:
-tags_test.c:21:12: error: ‘PR_SET_TAGGED_ADDR_CTRL’ undeclared (first use in this function); did you mean ‘PR_GET_TID_ADDRESS’?
-  if (prctl(PR_SET_TAGGED_ADDR_CTRL, PR_TAGGED_ADDR_ENABLE, 0, 0, 0) == 0)
-            ^~~~~~~~~~~~~~~~~~~~~~~
-            PR_GET_TID_ADDRESS
-tags_test.c:21:12: note: each undeclared identifier is reported only once for each function it appears in
-tags_test.c:21:37: error: ‘PR_TAGGED_ADDR_ENABLE’ undeclared (first use in this function); did you mean ‘PR_GET_DUMPABLE’?
-  if (prctl(PR_SET_TAGGED_ADDR_CTRL, PR_TAGGED_ADDR_ENABLE, 0, 0, 0) == 0)
-                                     ^~~~~~~~~~~~~~~~~~~~~
-                                     PR_GET_DUMPABLE
-../lib.mk:138: recipe for target '/home/crimar01/ARM/dev/src/pdsw/out_linux//kselftest/arm64/tags_test' failed
-make[3]: *** [/home/crimar01/ARM/dev/src/pdsw/out_linux//kselftest/arm64/tags_test] Error 1
-Makefile:136: recipe for target 'all' failed
-make[2]: *** [all] Error 2
-/home/crimar01/ARM/dev/src/pdsw/linux/Makefile:1237: recipe for target 'kselftest' failed
-make[1]: *** [kselftest] Error 2
-make[1]: Leaving directory '/home/crimar01/ARM/dev/src/pdsw/out_linux'
-Makefile:179: recipe for target 'sub-make' failed
-make: *** [sub-make] Error 2
+Christian.
 
-Despite seeing KSFT installing Kernel Headers, they cannot be found.
+> _____________________________________
+> Monk Liu|GPU Virtualization Team |AMD
+>
+>
+> -----Original Message-----
+> From: Koenig, Christian <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
+> Sent: Friday, August 23, 2019 4:34 PM
+> To: Liu, Monk <Monk.Liu-5C7GfCeVMHo@public.gmane.org>; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> Subject: Re: [PATCH] drm/amdgpu: introduce vram lost paramter for reset f=
+unction
+>
+> I thought in the BACO reset function.
+>
+> The top level reset function doesn't do much more than increment the vram=
+_lost_counter either.
+>
+> Christian.
+>
+> Am 23.08.19 um 10:32 schrieb Liu, Monk:
+>>>> On the other hand wouldn't it be simpler to just increment vram_lost_c=
+ounter?
+>> In where ? if you mean in amdgpu_device_recover routine I won't do that =
+since the reset() can do any kind of reset like:
+>> 1) PF FLR
+>> 2) mode1/2 reset
+>> 3) magic reset through config space
+>> 4) BACO reset
+>>
+>> PF FLR won't cause VRAM lost, mode_1/2 is not clear to me, only BACO
+>> reset is definitely a vram lost reset
+>>
+>> If you increase the counter in general function that will be not
+>> accurate _____________________________________
+>> Monk Liu|GPU Virtualization Team |AMD
+>>
+>>
+>> -----Original Message-----
+>> From: Christian K=F6nig <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+>> Sent: Friday, August 23, 2019 4:27 PM
+>> To: Liu, Monk <Monk.Liu-5C7GfCeVMHo@public.gmane.org>; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+>> Subject: Re: [PATCH] drm/amdgpu: introduce vram lost paramter for
+>> reset function
+>>
+>> Am 23.08.19 um 05:34 schrieb Monk Liu:
+>>> for SOC15/vega10 the BACO reset would introduce vram lost in the high
+>>> end address range and current kmd's vram lost checking cannot catch
+>>> it since it only check visible frame buffer
+>>>
+>>> TODO:
+>>> to confirm if mode1/2 reset would introduce vram lost
+>> Looks good in general, but I would make the value mandatory or maybe use=
+ a special return code instead.
+>>
+>> On the other hand wouldn't it be simpler to just increment vram_lost_cou=
+nter?
+>>
+>> Christian.
+>>
+>>> Signed-off-by: Monk Liu <Monk.Liu-5C7GfCeVMHo@public.gmane.org>
+>>> ---
+>>>     drivers/gpu/drm/amd/amdgpu/amdgpu.h        |  4 ++--
+>>>     drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 12 +++++++-----
+>>>     drivers/gpu/drm/amd/amdgpu/cik.c           |  2 +-
+>>>     drivers/gpu/drm/amd/amdgpu/nv.c            | 10 +++++++---
+>>>     drivers/gpu/drm/amd/amdgpu/si.c            |  2 +-
+>>>     drivers/gpu/drm/amd/amdgpu/soc15.c         |  4 +++-
+>>>     drivers/gpu/drm/amd/amdgpu/vi.c            |  2 +-
+>>>     7 files changed, 22 insertions(+), 14 deletions(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+>>> index f6ae565..1fe3756 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+>>> @@ -552,7 +552,7 @@ struct amdgpu_asic_funcs {
+>>>      int (*read_register)(struct amdgpu_device *adev, u32 se_num,
+>>>                           u32 sh_num, u32 reg_offset, u32 *value);
+>>>      void (*set_vga_state)(struct amdgpu_device *adev, bool state);
+>>> -   int (*reset)(struct amdgpu_device *adev);
+>>> +   int (*reset)(struct amdgpu_device *adev, bool *lost);
+>>>      enum amd_reset_method (*reset_method)(struct amdgpu_device *adev);
+>>>      /* get the reference clock */
+>>>      u32 (*get_xclk)(struct amdgpu_device *adev); @@ -1136,7 +1136,7
+>>> @@ int emu_soc_asic_init(struct amdgpu_device *adev);
+>>>      * ASICs macro.
+>>>      */
+>>>     #define amdgpu_asic_set_vga_state(adev, state)
+>>> (adev)->asic_funcs->set_vga_state((adev), (state)) -#define
+>>> amdgpu_asic_reset(adev) (adev)->asic_funcs->reset((adev))
+>>> +#define amdgpu_asic_reset(adev, lost)
+>>> +(adev)->asic_funcs->reset((adev), (lost))
+>>>     #define amdgpu_asic_reset_method(adev) (adev)->asic_funcs->reset_me=
+thod((adev))
+>>>     #define amdgpu_asic_get_xclk(adev) (adev)->asic_funcs->get_xclk((ad=
+ev))
+>>>     #define amdgpu_asic_set_uvd_clocks(adev, v, d)
+>>> (adev)->asic_funcs->set_uvd_clocks((adev), (v), (d)) diff --git
+>>> a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>>> index 02b3e7d..8668cb8 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>>> @@ -2546,7 +2546,7 @@ static void amdgpu_device_xgmi_reset_func(struct =
+work_struct *__work)
+>>>      struct amdgpu_device *adev =3D
+>>>              container_of(__work, struct amdgpu_device, xgmi_reset_work=
+);
+>>>
+>>> -   adev->asic_reset_res =3D  amdgpu_asic_reset(adev);
+>>> +   adev->asic_reset_res =3D  amdgpu_asic_reset(adev, NULL);
+>>>      if (adev->asic_reset_res)
+>>>              DRM_WARN("ASIC reset failed with error, %d for drm dev, %s=
+",
+>>>                       adev->asic_reset_res, adev->ddev->unique); @@ -27=
+51,7 +2751,7
+>>> @@ int amdgpu_device_init(struct amdgpu_device *adev,
+>>>       *  E.g., driver was not cleanly unloaded previously, etc.
+>>>       */
+>>>      if (!amdgpu_sriov_vf(adev) && amdgpu_asic_need_reset_on_init(adev)=
+) {
+>>> -           r =3D amdgpu_asic_reset(adev);
+>>> +           r =3D amdgpu_asic_reset(adev, NULL);
+>>>              if (r) {
+>>>                      dev_err(adev->dev, "asic reset on init failed\n");
+>>>                      goto failed;
+>>> @@ -3084,7 +3084,7 @@ int amdgpu_device_suspend(struct drm_device *dev,=
+ bool suspend, bool fbcon)
+>>>              pci_disable_device(dev->pdev);
+>>>              pci_set_power_state(dev->pdev, PCI_D3hot);
+>>>      } else {
+>>> -           r =3D amdgpu_asic_reset(adev);
+>>> +           r =3D amdgpu_asic_reset(adev, NULL);
+>>>              if (r)
+>>>                      DRM_ERROR("amdgpu asic reset failed\n");
+>>>      }
+>>> @@ -3604,7 +3604,7 @@ static int amdgpu_do_asic_reset(struct amdgpu_hiv=
+e_info *hive,
+>>>                              if (!queue_work(system_highpri_wq, &tmp_ad=
+ev->xgmi_reset_work))
+>>>                                      r =3D -EALREADY;
+>>>                      } else
+>>> -                           r =3D amdgpu_asic_reset(tmp_adev);
+>>> +                           r =3D amdgpu_asic_reset(tmp_adev, &vram_los=
+t);
+>>>
+>>>                      if (r) {
+>>>                              DRM_ERROR("ASIC reset failed with error, %=
+d for drm dev, %s",
+>>> @@
+>>> -3645,7 +3645,9 @@ static int amdgpu_do_asic_reset(struct amdgpu_hive_i=
+nfo *hive,
+>>>                              if (r)
+>>>                                      goto out;
+>>>
+>>> -                           vram_lost =3D amdgpu_device_check_vram_lost=
+(tmp_adev);
+>>> +                           if (!vram_lost)
+>>> +                                   vram_lost =3D amdgpu_device_check_v=
+ram_lost(tmp_adev);
+>>> +
+>>>                              if (vram_lost) {
+>>>                                      DRM_INFO("VRAM is lost due to GPU =
+reset!\n");
+>>>                                      atomic_inc(&tmp_adev->vram_lost_co=
+unter);
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/cik.c
+>>> b/drivers/gpu/drm/amd/amdgpu/cik.c
+>>> index 7b63d7a..0f25b82 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/cik.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/cik.c
+>>> @@ -1277,7 +1277,7 @@ static int cik_gpu_pci_config_reset(struct amdgpu=
+_device *adev)
+>>>      * to reset them.
+>>>      * Returns 0 for success.
+>>>      */
+>>> -static int cik_asic_reset(struct amdgpu_device *adev)
+>>> +static int cik_asic_reset(struct amdgpu_device *adev, bool
+>>> +*vramlost)
+>>>     {
+>>>      int r;
+>>>
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/nv.c
+>>> b/drivers/gpu/drm/amd/amdgpu/nv.c index a3d99f2..53de7a6 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/nv.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/nv.c
+>>> @@ -301,7 +301,7 @@ nv_asic_reset_method(struct amdgpu_device *adev)
+>>>              return AMD_RESET_METHOD_MODE1;
+>>>     }
+>>>
+>>> -static int nv_asic_reset(struct amdgpu_device *adev)
+>>> +static int nv_asic_reset(struct amdgpu_device *adev, bool *vramlost)
+>>>     {
+>>>
+>>>      /* FIXME: it doesn't work since vega10 */ @@ -315,10 +315,14 @@
+>>> static int nv_asic_reset(struct amdgpu_device *adev)
+>>>      int ret =3D 0;
+>>>      struct smu_context *smu =3D &adev->smu;
+>>>
+>>> -   if (nv_asic_reset_method(adev) =3D=3D AMD_RESET_METHOD_BACO)
+>>> +   if (nv_asic_reset_method(adev) =3D=3D AMD_RESET_METHOD_BACO) {
+>>> +           if (vramlost)
+>>> +                   *vramlost =3D true;
+>>>              ret =3D smu_baco_reset(smu);
+>>> -   else
+>>> +   }
+>>> +   else {
+>>>              ret =3D nv_asic_mode1_reset(adev);
+>>> +   }
+>>>
+>>>      return ret;
+>>>     }
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/si.c
+>>> b/drivers/gpu/drm/amd/amdgpu/si.c index 9043614..f324099 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/si.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/si.c
+>>> @@ -1180,7 +1180,7 @@ static bool si_read_bios_from_rom(struct amdgpu_d=
+evice *adev,
+>>>     }
+>>>
+>>>     //xxx: not implemented
+>>> -static int si_asic_reset(struct amdgpu_device *adev)
+>>> +static int si_asic_reset(struct amdgpu_device *adev, bool *vramlost)
+>>>     {
+>>>      return 0;
+>>>     }
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c
+>>> b/drivers/gpu/drm/amd/amdgpu/soc15.c
+>>> index fe2212df..12b2966 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/soc15.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/soc15.c
+>>> @@ -553,10 +553,12 @@ soc15_asic_reset_method(struct amdgpu_device *ade=
+v)
+>>>              return AMD_RESET_METHOD_MODE1;
+>>>     }
+>>>
+>>> -static int soc15_asic_reset(struct amdgpu_device *adev)
+>>> +static int soc15_asic_reset(struct amdgpu_device *adev, bool
+>>> +*vramlost)
+>>>     {
+>>>      switch (soc15_asic_reset_method(adev)) {
+>>>              case AMD_RESET_METHOD_BACO:
+>>> +                   if (vramlost)
+>>> +                           *vramlost =3D true;
+>>>                      return soc15_asic_baco_reset(adev);
+>>>              case AMD_RESET_METHOD_MODE2:
+>>>                      return soc15_mode2_reset(adev); diff --git
+>>> a/drivers/gpu/drm/amd/amdgpu/vi.c b/drivers/gpu/drm/amd/amdgpu/vi.c
+>>> index 56c882b..8eceb00 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/vi.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/vi.c
+>>> @@ -696,7 +696,7 @@ static int vi_gpu_pci_config_reset(struct amdgpu_de=
+vice *adev)
+>>>      * to reset them.
+>>>      * Returns 0 for success.
+>>>      */
+>>> -static int vi_asic_reset(struct amdgpu_device *adev)
+>>> +static int vi_asic_reset(struct amdgpu_device *adev, bool *vramlost)
+>>>     {
+>>>      int r;
+>>>
 
-Fixing this patch like this make it work for me:
+_______________________________________________
+amd-gfx mailing list
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 
-diff --git a/tools/testing/selftests/arm64/Makefile b/tools/testing/selftests/arm64/Makefile                                                                                        
-index a61b2e743e99..f9f79fb272f0 100644                             
---- a/tools/testing/selftests/arm64/Makefile   
-+++ b/tools/testing/selftests/arm64/Makefile                                                     
-@@ -4,6 +4,7 @@                                                                       
- ARCH ?= $(shell uname -m 2>/dev/null || echo not)                                              
-                                                       
- ifneq (,$(filter $(ARCH),aarch64 arm64))                                            
-+CFLAGS += -I../../../../usr/include/                                                               
- TEST_GEN_PROGS := tags_test                                  
- TEST_PROGS := run_tags_test.sh                                    
- endif                                                             
+--_000_BN6PR12MB1809D6CB333C3A473C71F2FCF7A40BN6PR12MB1809namp_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 
-but is not really a proper fix since it does NOT account for case in which you have
-installed the Kernel Headers in a non standard location like when you use KBUILD_OUTPUT.
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+for mode1 and BACO, I think we can assume vram is lost because the UMC gets=
+ reset in that case.&nbsp; Some of the data may still look valid, but it's =
+not necessarily reliable.&nbsp; For mode2, vram should be fine because the =
+UMC doesn't get reset.</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Alex<br>
+</div>
+<div id=3D"appendonsend"></div>
+<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
+t; color:rgb(0,0,0)">
+<br>
+</div>
+<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font style=3D"font-size:11pt" face=
+=3D"Calibri, sans-serif" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx=
+-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Koenig, Christian &lt;Chris=
+tian.Koenig-5C7GfCeVMHo@public.gmane.org&gt;<br>
+<b>Sent:</b> Friday, August 23, 2019 8:47 AM<br>
+<b>To:</b> Liu, Monk &lt;Monk.Liu-5C7GfCeVMHo@public.gmane.org&gt;; amd-gfx-PD4FTy7X32lNgt0PjOBp9/EVdHwE84te@public.gmane.org=
+g &lt;amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt;<br>
+<b>Subject:</b> Re: [PATCH] drm/amdgpu: introduce vram lost paramter for re=
+set function</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt"=
+>
+<div class=3D"PlainText">Am 23.08.19 um 10:57 schrieb Liu, Monk:<br>
+&gt;&gt;&gt; vram_lost =3D amdgpu_device_check_vram_lost(tmp_adev);<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (vram_lost) {<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp; DRM_INFO(&quot;VRAM is lost due to GPU reset!\n&quot;);<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp; atomic_inc(&amp;tmp_adev-&gt;vram_lost_counter);<br>
+&gt; Above is the original logic, if we increment the counter in BACO reset=
+ routine, we would potentially<br>
+&gt; Have another counter increasement if by coincidence the &quot;amdgpu_d=
+evice_check_vram_lost&quot; successfully detected the vram lost (although r=
+ight now it didn't ..)<br>
+<br>
+Yeah, but would increment it twice be a problem? I don't think so.<br>
+<br>
+&gt; Do you mean we remove the amdgpu_device_check_vram_lost(tmp_adev) in d=
+evice_recovery() routine ?<br>
+<br>
+Please no, that thing certainly proved to be useful. Maybe we could <br>
+investigate why it failed to auto detect the lost VRAM.<br>
+<br>
+Christian.<br>
+<br>
+&gt; _____________________________________<br>
+&gt; Monk Liu|GPU Virtualization Team |AMD<br>
+&gt;<br>
+&gt;<br>
+&gt; -----Original Message-----<br>
+&gt; From: Koenig, Christian &lt;Christian.Koenig-5C7GfCeVMHo@public.gmane.org&gt;<br>
+&gt; Sent: Friday, August 23, 2019 4:34 PM<br>
+&gt; To: Liu, Monk &lt;Monk.Liu-5C7GfCeVMHo@public.gmane.org&gt;; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<=
+br>
+&gt; Subject: Re: [PATCH] drm/amdgpu: introduce vram lost paramter for rese=
+t function<br>
+&gt;<br>
+&gt; I thought in the BACO reset function.<br>
+&gt;<br>
+&gt; The top level reset function doesn't do much more than increment the v=
+ram_lost_counter either.<br>
+&gt;<br>
+&gt; Christian.<br>
+&gt;<br>
+&gt; Am 23.08.19 um 10:32 schrieb Liu, Monk:<br>
+&gt;&gt;&gt;&gt; On the other hand wouldn't it be simpler to just increment=
+ vram_lost_counter?<br>
+&gt;&gt; In where ? if you mean in amdgpu_device_recover routine I won't do=
+ that since the reset() can do any kind of reset like:<br>
+&gt;&gt; 1) PF FLR<br>
+&gt;&gt; 2) mode1/2 reset<br>
+&gt;&gt; 3) magic reset through config space<br>
+&gt;&gt; 4) BACO reset<br>
+&gt;&gt;<br>
+&gt;&gt; PF FLR won't cause VRAM lost, mode_1/2 is not clear to me, only BA=
+CO<br>
+&gt;&gt; reset is definitely a vram lost reset<br>
+&gt;&gt;<br>
+&gt;&gt; If you increase the counter in general function that will be not<b=
+r>
+&gt;&gt; accurate _____________________________________<br>
+&gt;&gt; Monk Liu|GPU Virtualization Team |AMD<br>
+&gt;&gt;<br>
+&gt;&gt;<br>
+&gt;&gt; -----Original Message-----<br>
+&gt;&gt; From: Christian K=F6nig &lt;ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;<b=
+r>
+&gt;&gt; Sent: Friday, August 23, 2019 4:27 PM<br>
+&gt;&gt; To: Liu, Monk &lt;Monk.Liu-5C7GfCeVMHo@public.gmane.org&gt;; amd-gfx-PD4FTy7X32lNgt0PjOBp9/rsn8yoX9R0@public.gmane.org=
+org<br>
+&gt;&gt; Subject: Re: [PATCH] drm/amdgpu: introduce vram lost paramter for<=
+br>
+&gt;&gt; reset function<br>
+&gt;&gt;<br>
+&gt;&gt; Am 23.08.19 um 05:34 schrieb Monk Liu:<br>
+&gt;&gt;&gt; for SOC15/vega10 the BACO reset would introduce vram lost in t=
+he high<br>
+&gt;&gt;&gt; end address range and current kmd's vram lost checking cannot =
+catch<br>
+&gt;&gt;&gt; it since it only check visible frame buffer<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt; TODO:<br>
+&gt;&gt;&gt; to confirm if mode1/2 reset would introduce vram lost<br>
+&gt;&gt; Looks good in general, but I would make the value mandatory or may=
+be use a special return code instead.<br>
+&gt;&gt;<br>
+&gt;&gt; On the other hand wouldn't it be simpler to just increment vram_lo=
+st_counter?<br>
+&gt;&gt;<br>
+&gt;&gt; Christian.<br>
+&gt;&gt;<br>
+&gt;&gt;&gt; Signed-off-by: Monk Liu &lt;Monk.Liu-5C7GfCeVMHo@public.gmane.org&gt;<br>
+&gt;&gt;&gt; ---<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu.h&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp; 4 &#43;&#43;--<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_devi=
+ce.c | 12 &#43;&#43;&#43;&#43;&#43;&#43;&#43;-----<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/cik.c&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp; 2 &#43;-<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/nv.c&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | 10 &#43;&#43;=
+&#43;&#43;&#43;&#43;&#43;---<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/si.c&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp; 2 &#43;=
+-<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/soc15.c&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp; 4 &#43;&#43;&#43;-<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/vi.c&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp; 2 &#43;=
+-<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; 7 files changed, 22 insertions(&#43;),=
+ 14 deletions(-)<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h<br>
+&gt;&gt;&gt; b/drivers/gpu/drm/amd/amdgpu/amdgpu.h<br>
+&gt;&gt;&gt; index f6ae565..1fe3756 100644<br>
+&gt;&gt;&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h<br>
+&gt;&gt;&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu.h<br>
+&gt;&gt;&gt; @@ -552,7 &#43;552,7 @@ struct amdgpu_asic_funcs {<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int (*read_register)(struct amdg=
+pu_device *adev, u32 se_num,<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp; u32 sh_num, u32 reg_offset, u32 *value);<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; void (*set_vga_state)(struct amd=
+gpu_device *adev, bool state);<br>
+&gt;&gt;&gt; -&nbsp;&nbsp; int (*reset)(struct amdgpu_device *adev);<br>
+&gt;&gt;&gt; &#43;&nbsp;&nbsp; int (*reset)(struct amdgpu_device *adev, boo=
+l *lost);<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; enum amd_reset_method (*reset_me=
+thod)(struct amdgpu_device *adev);<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* get the reference clock */<br=
+>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u32 (*get_xclk)(struct amdgpu_de=
+vice *adev); @@ -1136,7 &#43;1136,7<br>
+&gt;&gt;&gt; @@ int emu_soc_asic_init(struct amdgpu_device *adev);<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * ASICs macro.<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; #define amdgpu_asic_set_vga_state(adev=
+, state)<br>
+&gt;&gt;&gt; (adev)-&gt;asic_funcs-&gt;set_vga_state((adev), (state)) -#def=
+ine<br>
+&gt;&gt;&gt; amdgpu_asic_reset(adev) (adev)-&gt;asic_funcs-&gt;reset((adev)=
+)<br>
+&gt;&gt;&gt; &#43;#define amdgpu_asic_reset(adev, lost)<br>
+&gt;&gt;&gt; &#43;(adev)-&gt;asic_funcs-&gt;reset((adev), (lost))<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; #define amdgpu_asic_reset_method(adev)=
+ (adev)-&gt;asic_funcs-&gt;reset_method((adev))<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; #define amdgpu_asic_get_xclk(adev) (ad=
+ev)-&gt;asic_funcs-&gt;get_xclk((adev))<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; #define amdgpu_asic_set_uvd_clocks(ade=
+v, v, d)<br>
+&gt;&gt;&gt; (adev)-&gt;asic_funcs-&gt;set_uvd_clocks((adev), (v), (d)) dif=
+f --git<br>
+&gt;&gt;&gt; a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
+&gt;&gt;&gt; b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
+&gt;&gt;&gt; index 02b3e7d..8668cb8 100644<br>
+&gt;&gt;&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
+&gt;&gt;&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<b=
+r>
+&gt;&gt;&gt; @@ -2546,7 &#43;2546,7 @@ static void amdgpu_device_xgmi_reset=
+_func(struct work_struct *__work)<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev =3D<b=
+r>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; container_of(__work, struct amdgpu_device, xgmi_reset_work)=
+;<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+&gt;&gt;&gt; -&nbsp;&nbsp; adev-&gt;asic_reset_res =3D&nbsp; amdgpu_asic_re=
+set(adev);<br>
+&gt;&gt;&gt; &#43;&nbsp;&nbsp; adev-&gt;asic_reset_res =3D&nbsp; amdgpu_asi=
+c_reset(adev, NULL);<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;asic_reset_res)<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; DRM_WARN(&quot;ASIC reset failed with error, %d for drm dev=
+, %s&quot;,<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-=
+&gt;asic_reset_res, adev-&gt;ddev-&gt;unique); @@ -2751,7 &#43;2751,7<br>
+&gt;&gt;&gt; @@ int amdgpu_device_init(struct amdgpu_device *adev,<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *&nbsp; E.g., driver was n=
+ot cleanly unloaded previously, etc.<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!amdgpu_sriov_vf(adev) &amp;=
+&amp; amdgpu_asic_need_reset_on_init(adev)) {<br>
+&gt;&gt;&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =
+r =3D amdgpu_asic_reset(adev);<br>
+&gt;&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; r =3D amdgpu_asic_reset(adev, NULL);<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; if (r) {<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dev_err(ade=
+v-&gt;dev, &quot;asic reset on init failed\n&quot;);<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; goto failed=
+;<br>
+&gt;&gt;&gt; @@ -3084,7 &#43;3084,7 @@ int amdgpu_device_suspend(struct drm=
+_device *dev, bool suspend, bool fbcon)<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; pci_disable_device(dev-&gt;pdev);<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; pci_set_power_state(dev-&gt;pdev, PCI_D3hot);<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else {<br>
+&gt;&gt;&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =
+r =3D amdgpu_asic_reset(adev);<br>
+&gt;&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; r =3D amdgpu_asic_reset(adev, NULL);<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; if (r)<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DRM_ERROR(&=
+quot;amdgpu asic reset failed\n&quot;);<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt;&gt;&gt; @@ -3604,7 &#43;3604,7 @@ static int amdgpu_do_asic_reset(stru=
+ct amdgpu_hive_info *hive,<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!queue_work(system_highpri_wq, &am=
+p;tmp_adev-&gt;xgmi_reset_work))<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp; r =3D -EALREADY;<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else<br>
+&gt;&gt;&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp; r =3D amdgpu_asic_reset(tmp_adev);<br>
+&gt;&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_asic_reset(tmp_adev, &amp;vram_lost);=
+<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r) {<br=
+>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DRM_ERROR(&quot;ASIC reset failed with=
+ error, %d for drm dev, %s&quot;,<br>
+&gt;&gt;&gt; @@<br>
+&gt;&gt;&gt; -3645,7 &#43;3645,9 @@ static int amdgpu_do_asic_reset(struct =
+amdgpu_hive_info *hive,<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r)<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp; goto out;<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+&gt;&gt;&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp; vram_lost =3D amdgpu_device_check_vram_lost(tmp_adev);=
+<br>
+&gt;&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp; if (!vram_lost)<br>
+&gt;&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; vr=
+am_lost =3D amdgpu_device_check_vram_lost(tmp_adev);<br>
+&gt;&gt;&gt; &#43;<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (vram_lost) {<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp; DRM_INFO(&quot;VRAM is lost due to GPU reset!\n&quot;);<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp; atomic_inc(&amp;tmp_adev-&gt;vram_lost_counter);<br>
+&gt;&gt;&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/cik.c<br>
+&gt;&gt;&gt; b/drivers/gpu/drm/amd/amdgpu/cik.c<br>
+&gt;&gt;&gt; index 7b63d7a..0f25b82 100644<br>
+&gt;&gt;&gt; --- a/drivers/gpu/drm/amd/amdgpu/cik.c<br>
+&gt;&gt;&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/cik.c<br>
+&gt;&gt;&gt; @@ -1277,7 &#43;1277,7 @@ static int cik_gpu_pci_config_reset(=
+struct amdgpu_device *adev)<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * to reset them.<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * Returns 0 for success.<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
+&gt;&gt;&gt; -static int cik_asic_reset(struct amdgpu_device *adev)<br>
+&gt;&gt;&gt; &#43;static int cik_asic_reset(struct amdgpu_device *adev, boo=
+l<br>
+&gt;&gt;&gt; &#43;*vramlost)<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; {<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int r;<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+&gt;&gt;&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/nv.c<br>
+&gt;&gt;&gt; b/drivers/gpu/drm/amd/amdgpu/nv.c index a3d99f2..53de7a6 10064=
+4<br>
+&gt;&gt;&gt; --- a/drivers/gpu/drm/amd/amdgpu/nv.c<br>
+&gt;&gt;&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/nv.c<br>
+&gt;&gt;&gt; @@ -301,7 &#43;301,7 @@ nv_asic_reset_method(struct amdgpu_dev=
+ice *adev)<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; return AMD_RESET_METHOD_MODE1;<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+&gt;&gt;&gt; -static int nv_asic_reset(struct amdgpu_device *adev)<br>
+&gt;&gt;&gt; &#43;static int nv_asic_reset(struct amdgpu_device *adev, bool=
+ *vramlost)<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; {<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* FIXME: it doesn't work since =
+vega10 */ @@ -315,10 &#43;315,14 @@<br>
+&gt;&gt;&gt; static int nv_asic_reset(struct amdgpu_device *adev)<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int ret =3D 0;<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct smu_context *smu =3D &amp=
+;adev-&gt;smu;<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+&gt;&gt;&gt; -&nbsp;&nbsp; if (nv_asic_reset_method(adev) =3D=3D AMD_RESET_=
+METHOD_BACO)<br>
+&gt;&gt;&gt; &#43;&nbsp;&nbsp; if (nv_asic_reset_method(adev) =3D=3D AMD_RE=
+SET_METHOD_BACO) {<br>
+&gt;&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; if (vramlost)<br>
+&gt;&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *vramlost =3D true;<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; ret =3D smu_baco_reset(smu);<br>
+&gt;&gt;&gt; -&nbsp;&nbsp; else<br>
+&gt;&gt;&gt; &#43;&nbsp;&nbsp; }<br>
+&gt;&gt;&gt; &#43;&nbsp;&nbsp; else {<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; ret =3D nv_asic_mode1_reset(adev);<br>
+&gt;&gt;&gt; &#43;&nbsp;&nbsp; }<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret;<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt;&gt;&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/si.c<br>
+&gt;&gt;&gt; b/drivers/gpu/drm/amd/amdgpu/si.c index 9043614..f324099 10064=
+4<br>
+&gt;&gt;&gt; --- a/drivers/gpu/drm/amd/amdgpu/si.c<br>
+&gt;&gt;&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/si.c<br>
+&gt;&gt;&gt; @@ -1180,7 &#43;1180,7 @@ static bool si_read_bios_from_rom(st=
+ruct amdgpu_device *adev,<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; //xxx: not implemented<br>
+&gt;&gt;&gt; -static int si_asic_reset(struct amdgpu_device *adev)<br>
+&gt;&gt;&gt; &#43;static int si_asic_reset(struct amdgpu_device *adev, bool=
+ *vramlost)<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; {<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt;&gt;&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c<br>
+&gt;&gt;&gt; b/drivers/gpu/drm/amd/amdgpu/soc15.c<br>
+&gt;&gt;&gt; index fe2212df..12b2966 100644<br>
+&gt;&gt;&gt; --- a/drivers/gpu/drm/amd/amdgpu/soc15.c<br>
+&gt;&gt;&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/soc15.c<br>
+&gt;&gt;&gt; @@ -553,10 &#43;553,12 @@ soc15_asic_reset_method(struct amdgp=
+u_device *adev)<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; return AMD_RESET_METHOD_MODE1;<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+&gt;&gt;&gt; -static int soc15_asic_reset(struct amdgpu_device *adev)<br>
+&gt;&gt;&gt; &#43;static int soc15_asic_reset(struct amdgpu_device *adev, b=
+ool<br>
+&gt;&gt;&gt; &#43;*vramlost)<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; {<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; switch (soc15_asic_reset_method(=
+adev)) {<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; case AMD_RESET_METHOD_BACO:<br>
+&gt;&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (vramlost)<br>
+&gt;&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp; *vramlost =3D true;<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return soc1=
+5_asic_baco_reset(adev);<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; case AMD_RESET_METHOD_MODE2:<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return soc1=
+5_mode2_reset(adev); diff --git<br>
+&gt;&gt;&gt; a/drivers/gpu/drm/amd/amdgpu/vi.c b/drivers/gpu/drm/amd/amdgpu=
+/vi.c<br>
+&gt;&gt;&gt; index 56c882b..8eceb00 100644<br>
+&gt;&gt;&gt; --- a/drivers/gpu/drm/amd/amdgpu/vi.c<br>
+&gt;&gt;&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/vi.c<br>
+&gt;&gt;&gt; @@ -696,7 &#43;696,7 @@ static int vi_gpu_pci_config_reset(str=
+uct amdgpu_device *adev)<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * to reset them.<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * Returns 0 for success.<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
+&gt;&gt;&gt; -static int vi_asic_reset(struct amdgpu_device *adev)<br>
+&gt;&gt;&gt; &#43;static int vi_asic_reset(struct amdgpu_device *adev, bool=
+ *vramlost)<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; {<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int r;<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+<br>
+_______________________________________________<br>
+amd-gfx mailing list<br>
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
+lists.freedesktop.org/mailman/listinfo/amd-gfx</a></div>
+</span></font></div>
+</body>
+</html>
 
-Am I missing something ?
+--_000_BN6PR12MB1809D6CB333C3A473C71F2FCF7A40BN6PR12MB1809namp_--
 
-Thanks
+--===============1514681795==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
 
-Cristian
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
 
-> 
-> diff --git a/tools/testing/selftests/arm64/.gitignore b/tools/testing/selftests/arm64/.gitignore
-> new file mode 100644
-> index 000000000000..e8fae8d61ed6
-> --- /dev/null
-> +++ b/tools/testing/selftests/arm64/.gitignore
-> @@ -0,0 +1 @@
-> +tags_test
-> diff --git a/tools/testing/selftests/arm64/Makefile b/tools/testing/selftests/arm64/Makefile
-> new file mode 100644
-> index 000000000000..a61b2e743e99
-> --- /dev/null
-> +++ b/tools/testing/selftests/arm64/Makefile
-> @@ -0,0 +1,11 @@
-> +# SPDX-License-Identifier: GPL-2.0
-> +
-> +# ARCH can be overridden by the user for cross compiling
-> +ARCH ?= $(shell uname -m 2>/dev/null || echo not)
-> +
-> +ifneq (,$(filter $(ARCH),aarch64 arm64))
-> +TEST_GEN_PROGS := tags_test
-> +TEST_PROGS := run_tags_test.sh
-> +endif
-> +
-> +include ../lib.mk
-> diff --git a/tools/testing/selftests/arm64/run_tags_test.sh b/tools/testing/selftests/arm64/run_tags_test.sh
-> new file mode 100755
-> index 000000000000..745f11379930
-> --- /dev/null
-> +++ b/tools/testing/selftests/arm64/run_tags_test.sh
-> @@ -0,0 +1,12 @@
-> +#!/bin/sh
-> +# SPDX-License-Identifier: GPL-2.0
-> +
-> +echo "--------------------"
-> +echo "running tags test"
-> +echo "--------------------"
-> +./tags_test
-> +if [ $? -ne 0 ]; then
-> +	echo "[FAIL]"
-> +else
-> +	echo "[PASS]"
-> +fi
-> diff --git a/tools/testing/selftests/arm64/tags_test.c b/tools/testing/selftests/arm64/tags_test.c
-> new file mode 100644
-> index 000000000000..22a1b266e373
-> --- /dev/null
-> +++ b/tools/testing/selftests/arm64/tags_test.c
-> @@ -0,0 +1,29 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +
-> +#include <stdio.h>
-> +#include <stdlib.h>
-> +#include <unistd.h>
-> +#include <stdint.h>
-> +#include <sys/prctl.h>
-> +#include <sys/utsname.h>
-> +
-> +#define SHIFT_TAG(tag)		((uint64_t)(tag) << 56)
-> +#define SET_TAG(ptr, tag)	(((uint64_t)(ptr) & ~SHIFT_TAG(0xff)) | \
-> +					SHIFT_TAG(tag))
-> +
-> +int main(void)
-> +{
-> +	static int tbi_enabled = 0;
-> +	struct utsname *ptr, *tagged_ptr;
-> +	int err;
-> +
-> +	if (prctl(PR_SET_TAGGED_ADDR_CTRL, PR_TAGGED_ADDR_ENABLE, 0, 0, 0) == 0)
-> +		tbi_enabled = 1;
-> +	ptr = (struct utsname *)malloc(sizeof(*ptr));
-> +	if (tbi_enabled)
-> +		tagged_ptr = (struct utsname *)SET_TAG(ptr, 0x42);
-> +	err = uname(tagged_ptr);
-> +	free(ptr);
-> +
-> +	return err;
-> +}
-> 
+--===============1514681795==--
