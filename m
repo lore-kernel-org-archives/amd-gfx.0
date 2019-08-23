@@ -1,286 +1,57 @@
-From: Cristian Marussi <cristian.marussi@arm.com>
-Subject: Re: [PATCH v18 15/15] selftests, arm64: add a selftest for passing
- tagged pointers to kernel
-Date: Fri, 23 Aug 2019 18:49:43 +0100
-Message-ID: <d6bc5c4b-68b5-0a58-0f52-8bce20986dcf@arm.com>
-References: <cover.1561386715.git.andreyknvl@google.com>
- <0999c80cd639b78ae27c0674069d552833227564.1561386715.git.andreyknvl@google.com>
- <6af3f619-4356-2f67-ed76-92beceb1e0a0@arm.com>
- <CAAeHK+yhbUcuLhoetjGUbqM4j9fX84hbwmxzNPF+e1zXj6nKNw@mail.gmail.com>
+From: Jason Gunthorpe <jgg-VPRAkNaXOzVWk0Htik3J/w@public.gmane.org>
+Subject: Re: [PATCH] mm/hmm: hmm_range_fault handle pages swapped out
+Date: Fri, 23 Aug 2019 13:39:53 +0000
+Message-ID: <20190823133943.GF12847@mellanox.com>
+References: <20190815205227.7949-1-Philip.Yang@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <CAAeHK+yhbUcuLhoetjGUbqM4j9fX84hbwmxzNPF+e1zXj6nKNw@mail.gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20190815205227.7949-1-Philip.Yang-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
-Sender: linux-kernel-owner@vger.kernel.org
-To: Andrey Konovalov <andreyknvl@google.com>
-Cc: Linux ARM <linux-arm-kernel@lists.infradead.org>, Linux Memory Management List <linux-mm@kvack.org>, LKML <linux-kernel@vger.kernel.org>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-rdma@vger.kernel.org, linux-media@vger.kernel.org, kvm@vger.kernel.org, "open list:KERNEL SELFTEST FRAMEWORK" <linux-kselftest@vger.kernel.org>, Catalin Marinas <catalin.marinas@arm.com>, Vincenzo Frascino <vincenzo.frascino@arm.com>, Will Deacon <will.deacon@arm.com>, Mark Rutland <mark.rutland@arm.com>, Andrew Morton <akpm@linux-foundation.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Kees Cook <keescook@chromium.org>, Yishai Hadas <yishaih@mellanox.com>, Felix Kuehling <Felix.Kuehling@amd.com>, Alexander Deucher <Alexander.Deucher@am>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-ID: <32DE2572A8F1254E94CE64D5F6FF937A-wNKe6lTLrGecE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Yang, Philip" <Philip.Yang-5C7GfCeVMHo@public.gmane.org>
+Cc: "alex.deucher-5C7GfCeVMHo@public.gmane.org" <alex.deucher-5C7GfCeVMHo@public.gmane.org>, "Kuehling,
+ Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>, "dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "linux-mm-Bw31MaZKKs3YtjvyW6yDsg@public.gmane.org" <linux-mm-Bw31MaZKKs3YtjvyW6yDsg@public.gmane.org>, "jglisse-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org" <jglisse-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-
-Hi
-
-On 23/08/2019 18:16, Andrey Konovalov wrote:
-> On Fri, Aug 23, 2019 at 3:56 PM Cristian Marussi
-> <cristian.marussi@arm.com> wrote:
->>
->> Hi Andrey
->>
->> On 24/06/2019 15:33, Andrey Konovalov wrote:
->>> This patch is a part of a series that extends kernel ABI to allow to pass
->>> tagged user pointers (with the top byte set to something else other than
->>> 0x00) as syscall arguments.
->>>
->>> This patch adds a simple test, that calls the uname syscall with a
->>> tagged user pointer as an argument. Without the kernel accepting tagged
->>> user pointers the test fails with EFAULT.
->>>
->>> Signed-off-by: Andrey Konovalov <andreyknvl@google.com>
->>> ---
->>>  tools/testing/selftests/arm64/.gitignore      |  1 +
->>>  tools/testing/selftests/arm64/Makefile        | 11 +++++++
->>>  .../testing/selftests/arm64/run_tags_test.sh  | 12 ++++++++
->>>  tools/testing/selftests/arm64/tags_test.c     | 29 +++++++++++++++++++
->>>  4 files changed, 53 insertions(+)
->>>  create mode 100644 tools/testing/selftests/arm64/.gitignore
->>>  create mode 100644 tools/testing/selftests/arm64/Makefile
->>>  create mode 100755 tools/testing/selftests/arm64/run_tags_test.sh
->>>  create mode 100644 tools/testing/selftests/arm64/tags_test.c
->>
->> After building a fresh Kernel from arm64/for-next-core from scratch at:
->>
->> commit 239ab658bea3b387424501e7c416640d6752dc0c
->> Merge: 6bfa3134bd3a 42d038c4fb00 1243cb6a676f d55c5f28afaf d06fa5a118f1 34b5560db40d
->> Author: Will Deacon <will@kernel.org>
->> Date:   Thu Aug 22 18:23:53 2019 +0100
->>
->>     Merge branches 'for-next/error-injection', 'for-next/tbi', 'for-next/psci-cpuidle', 'for-next/cpu-topology' and 'for-next/52-bit-kva' into for-next/core
->>
->>
->> KSFT arm64 tests build is broken for me, both setting or not KBUILD_OUTPUT=
->>
->> 13:30 $ make TARGETS=arm64 kselftest-clean
->> make[1]: Entering directory '/home/crimar01/ARM/dev/src/pdsw/out_linux'
->> rm -f -r /home/crimar01/ARM/dev/src/pdsw/out_linux//kselftest/arm64/tags_test
->> make[1]: Leaving directory '/home/crimar01/ARM/dev/src/pdsw/out_linux'
->>
->> ✔ ~/ARM/dev/src/pdsw/linux [arm64_for_next_core|…8⚑ 23]
->>
->> 13:30 $ make TARGETS=arm64 kselftest
->> make[1]: Entering directory '/home/crimar01/ARM/dev/src/pdsw/out_linux'
->> arch/arm64/Makefile:56: CROSS_COMPILE_COMPAT not defined or empty, the compat vDSO will not be built
->> make --no-builtin-rules INSTALL_HDR_PATH=$BUILD/usr \
->>         ARCH=arm64 -C ../../.. headers_install
->>   HOSTCC  scripts/basic/fixdep
->>   HOSTCC  scripts/unifdef
->> ...
->> ...
->>   HDRINST usr/include/asm/msgbuf.h
->>   HDRINST usr/include/asm/shmbuf.h
->>   INSTALL /home/crimar01/ARM/dev/src/pdsw/out_linux//kselftest/usr/include
->> /opt/toolchains/gcc-arm-8.3-2019.03-x86_64-aarch64-linux-gnu/bin/aarch64-linux-gnu-gcc     tags_test.c  -o /home/crimar01/ARM/dev/src/pdsw/out_linux//kselftest/arm64/tags_test
->> tags_test.c: In function ‘main’:
->> tags_test.c:21:12: error: ‘PR_SET_TAGGED_ADDR_CTRL’ undeclared (first use in this function); did you mean ‘PR_GET_TID_ADDRESS’?
->>   if (prctl(PR_SET_TAGGED_ADDR_CTRL, PR_TAGGED_ADDR_ENABLE, 0, 0, 0) == 0)
->>             ^~~~~~~~~~~~~~~~~~~~~~~
->>             PR_GET_TID_ADDRESS
->> tags_test.c:21:12: note: each undeclared identifier is reported only once for each function it appears in
->> tags_test.c:21:37: error: ‘PR_TAGGED_ADDR_ENABLE’ undeclared (first use in this function); did you mean ‘PR_GET_DUMPABLE’?
->>   if (prctl(PR_SET_TAGGED_ADDR_CTRL, PR_TAGGED_ADDR_ENABLE, 0, 0, 0) == 0)
->>                                      ^~~~~~~~~~~~~~~~~~~~~
->>                                      PR_GET_DUMPABLE
->> ../lib.mk:138: recipe for target '/home/crimar01/ARM/dev/src/pdsw/out_linux//kselftest/arm64/tags_test' failed
->> make[3]: *** [/home/crimar01/ARM/dev/src/pdsw/out_linux//kselftest/arm64/tags_test] Error 1
->> Makefile:136: recipe for target 'all' failed
->> make[2]: *** [all] Error 2
->> /home/crimar01/ARM/dev/src/pdsw/linux/Makefile:1237: recipe for target 'kselftest' failed
->> make[1]: *** [kselftest] Error 2
->> make[1]: Leaving directory '/home/crimar01/ARM/dev/src/pdsw/out_linux'
->> Makefile:179: recipe for target 'sub-make' failed
->> make: *** [sub-make] Error 2
->>
->> Despite seeing KSFT installing Kernel Headers, they cannot be found.
->>
->> Fixing this patch like this make it work for me:
->>
->> diff --git a/tools/testing/selftests/arm64/Makefile b/tools/testing/selftests/arm64/Makefile
->> index a61b2e743e99..f9f79fb272f0 100644
->> --- a/tools/testing/selftests/arm64/Makefile
->> +++ b/tools/testing/selftests/arm64/Makefile
->> @@ -4,6 +4,7 @@
->>  ARCH ?= $(shell uname -m 2>/dev/null || echo not)
->>
->>  ifneq (,$(filter $(ARCH),aarch64 arm64))
->> +CFLAGS += -I../../../../usr/include/
->>  TEST_GEN_PROGS := tags_test
->>  TEST_PROGS := run_tags_test.sh
->>  endif
->>
->> but is not really a proper fix since it does NOT account for case in which you have
->> installed the Kernel Headers in a non standard location like when you use KBUILD_OUTPUT.
->>
->> Am I missing something ?
-> 
-> Hm, PR_SET_TAGGED_ADDR_CTRL is defined in include/uapi/linux/prctl.h,
-> and the test has #include <sys/prctl.h> so as long as you've updated
-> your kernel headers this should work.
-> 
-> (I'm OOO next week, I'll see if I can reproduce this once I'm back).
-
-Ok. Thanks for the reply.
-
-I think I've got it in my local tree having cloned arm64/for-next-core:
-
-18:32 $ egrep -A 10 PR_SET_TAG ./include/uapi/linux/prctl.h
-#define PR_SET_TAGGED_ADDR_CTRL         55
-#define PR_GET_TAGGED_ADDR_CTRL         56
-# define PR_TAGGED_ADDR_ENABLE          (1UL << 0)
-
-#endif /* _LINUX_PRCTL_H */
-
-and Kernel header are locally installed in my kernel src dir (by KSFT indeed)
-
-18:34 $ egrep -RA 10 PR_SET_TAG usr/include/
-usr/include/linux/prctl.h:#define PR_SET_TAGGED_ADDR_CTRL               55
-usr/include/linux/prctl.h-#define PR_GET_TAGGED_ADDR_CTRL               56
-usr/include/linux/prctl.h-# define PR_TAGGED_ADDR_ENABLE                (1UL << 0)
-usr/include/linux/prctl.h-
-usr/include/linux/prctl.h-#endif /* _LINUX_PRCTL_H */
-
-but how are they supposed to be found if nor the test Makefile
-neither the KSFT Makefile who installs them pass any -I options to the
-compiler ?
-I suppose <sys/prctl.h> tries to include arch specific headers from the regular system path,
-but when you are cross-compiling ?
-
-18:34 $ make TARGETS=arm64 kselftest
-make[1]: Entering directory '/home/crimar01/ARM/dev/src/pdsw/out_linux'
-arch/arm64/Makefile:56: CROSS_COMPILE_COMPAT not defined or empty, the compat vDSO will not be built
-make --no-builtin-rules INSTALL_HDR_PATH=$BUILD/usr \
-        ARCH=arm64 -C ../../.. headers_install
-  INSTALL /home/crimar01/ARM/dev/src/pdsw/out_linux/kselftest/usr/include
-/opt/toolchains/gcc-arm-8.3-2019.03-x86_64-aarch64-linux-gnu/bin/aarch64-linux-gnu-gcc -Wall -O2 -g    tags_test.c  -o /home/crimar01/ARM/dev/src/pdsw/out_linux/kselftest/arm64/tags/tags_test
-tags_test.c: In function ‘main’:
-tags_test.c:20:12: error: ‘PR_SET_TAGGED_ADDR_CTRL’ undeclared (first use in this function); did you mean ‘PR_GET_TID_ADDRESS’?
-  if (prctl(PR_SET_TAGGED_ADDR_CTRL, PR_TAGGED_ADDR_ENABLE, 0, 0, 0) == 0)
-            ^~~~~~~~~~~~~~~~~~~~~~~
-            PR_GET_TID_ADDRESS
-tags_test.c:20:12: note: each undeclared identifier is reported only once for each function it appears in
-tags_test.c:20:37: error: ‘PR_TAGGED_ADDR_ENABLE’ undeclared (first use in this function); did you mean ‘PR_GET_DUMPABLE’?
-  if (prctl(PR_SET_TAGGED_ADDR_CTRL, PR_TAGGED_ADDR_ENABLE, 0, 0, 0) == 0)
-                                     ^~~~~~~~~~~~~~~~~~~~~
-                                     PR_GET_DUMPABLE
-../../lib.mk:138: recipe for target '/home/crimar01/ARM/dev/src/pdsw/out_linux/kselftest/arm64/tags/tags_test' failed
-make[4]: *** [/home/crimar01/ARM/dev/src/pdsw/out_linux/kselftest/arm64/tags/tags_test] Error 1
-Makefile:19: recipe for target 'all' failed
-make[3]: *** [all] Error 2
-Makefile:137: recipe for target 'all' failed
-make[2]: *** [all] Error 2
-/home/crimar01/ARM/dev/src/pdsw/linux/Makefile:1236: recipe for target 'kselftest' failed
-make[1]: *** [kselftest] Error 2
-make[1]: Leaving directory '/home/crimar01/ARM/dev/src/pdsw/out_linux'
-Makefile:179: recipe for target 'sub-make' failed
-make: *** [sub-make] Error 2
-
-
-In fact many KSFT testcases seems to brutally add default headers path:
-
-tools/testing/selftests/memfd/Makefile:CFLAGS += -I../../../../include/uapi/
-tools/testing/selftests/memfd/Makefile:CFLAGS += -I../../../../include/
-tools/testing/selftests/memfd/Makefile:CFLAGS += -I../../../../usr/include/
-tools/testing/selftests/net/Makefile:CFLAGS += -I../../../../usr/include/
-tools/testing/selftests/membarrier/Makefile:CFLAGS += -g -I../../../../usr/include/ 
-...
-
-Cheers
-
-Cristian
-> 
-> 
-> 
->>
->> Thanks
->>
->> Cristian
->>
->>>
->>> diff --git a/tools/testing/selftests/arm64/.gitignore b/tools/testing/selftests/arm64/.gitignore
->>> new file mode 100644
->>> index 000000000000..e8fae8d61ed6
->>> --- /dev/null
->>> +++ b/tools/testing/selftests/arm64/.gitignore
->>> @@ -0,0 +1 @@
->>> +tags_test
->>> diff --git a/tools/testing/selftests/arm64/Makefile b/tools/testing/selftests/arm64/Makefile
->>> new file mode 100644
->>> index 000000000000..a61b2e743e99
->>> --- /dev/null
->>> +++ b/tools/testing/selftests/arm64/Makefile
->>> @@ -0,0 +1,11 @@
->>> +# SPDX-License-Identifier: GPL-2.0
->>> +
->>> +# ARCH can be overridden by the user for cross compiling
->>> +ARCH ?= $(shell uname -m 2>/dev/null || echo not)
->>> +
->>> +ifneq (,$(filter $(ARCH),aarch64 arm64))
->>> +TEST_GEN_PROGS := tags_test
->>> +TEST_PROGS := run_tags_test.sh
->>> +endif
->>> +
->>> +include ../lib.mk
->>> diff --git a/tools/testing/selftests/arm64/run_tags_test.sh b/tools/testing/selftests/arm64/run_tags_test.sh
->>> new file mode 100755
->>> index 000000000000..745f11379930
->>> --- /dev/null
->>> +++ b/tools/testing/selftests/arm64/run_tags_test.sh
->>> @@ -0,0 +1,12 @@
->>> +#!/bin/sh
->>> +# SPDX-License-Identifier: GPL-2.0
->>> +
->>> +echo "--------------------"
->>> +echo "running tags test"
->>> +echo "--------------------"
->>> +./tags_test
->>> +if [ $? -ne 0 ]; then
->>> +     echo "[FAIL]"
->>> +else
->>> +     echo "[PASS]"
->>> +fi
->>> diff --git a/tools/testing/selftests/arm64/tags_test.c b/tools/testing/selftests/arm64/tags_test.c
->>> new file mode 100644
->>> index 000000000000..22a1b266e373
->>> --- /dev/null
->>> +++ b/tools/testing/selftests/arm64/tags_test.c
->>> @@ -0,0 +1,29 @@
->>> +// SPDX-License-Identifier: GPL-2.0
->>> +
->>> +#include <stdio.h>
->>> +#include <stdlib.h>
->>> +#include <unistd.h>
->>> +#include <stdint.h>
->>> +#include <sys/prctl.h>
->>> +#include <sys/utsname.h>
->>> +
->>> +#define SHIFT_TAG(tag)               ((uint64_t)(tag) << 56)
->>> +#define SET_TAG(ptr, tag)    (((uint64_t)(ptr) & ~SHIFT_TAG(0xff)) | \
->>> +                                     SHIFT_TAG(tag))
->>> +
->>> +int main(void)
->>> +{
->>> +     static int tbi_enabled = 0;
->>> +     struct utsname *ptr, *tagged_ptr;
->>> +     int err;
->>> +
->>> +     if (prctl(PR_SET_TAGGED_ADDR_CTRL, PR_TAGGED_ADDR_ENABLE, 0, 0, 0) == 0)
->>> +             tbi_enabled = 1;
->>> +     ptr = (struct utsname *)malloc(sizeof(*ptr));
->>> +     if (tbi_enabled)
->>> +             tagged_ptr = (struct utsname *)SET_TAG(ptr, 0x42);
->>> +     err = uname(tagged_ptr);
->>> +     free(ptr);
->>> +
->>> +     return err;
->>> +}
->>>
->>
+T24gVGh1LCBBdWcgMTUsIDIwMTkgYXQgMDg6NTI6NTZQTSArMDAwMCwgWWFuZywgUGhpbGlwIHdy
+b3RlOg0KPiBobW1fcmFuZ2VfZmF1bHQgbWF5IHJldHVybiBOVUxMIHBhZ2VzIGJlY2F1c2Ugc29t
+ZSBvZiBwZm5zIGFyZSBlcXVhbCB0bw0KPiBITU1fUEZOX05PTkUuIFRoaXMgaGFwcGVucyByYW5k
+b21seSB1bmRlciBtZW1vcnkgcHJlc3N1cmUuIFRoZSByZWFzb24gaXMNCj4gZm9yIHN3YXBwZWQg
+b3V0IHBhZ2UgcHRlIHBhdGgsIGhtbV92bWFfaGFuZGxlX3B0ZSBkb2Vzbid0IHVwZGF0ZSBmYXVs
+dA0KPiB2YXJpYWJsZSBmcm9tIGNwdV9mbGFncywgc28gaXQgZmFpbGVkIHRvIGNhbGwgaG1tX3Zh
+bV9kb19mYXVsdCB0byBzd2FwDQo+IHRoZSBwYWdlIGluLg0KPiANCj4gVGhlIGZpeCBpcyB0byBj
+YWxsIGhtbV9wdGVfbmVlZF9mYXVsdCB0byB1cGRhdGUgZmF1bHQgdmFyaWFibGUuDQo+IA0KPiBD
+aGFuZ2UtSWQ6IEkyZTg2MTE0ODU1NjNkMTFkOTM4ODgxYzE4Yjc5MzVmYTFlN2M5MWVlDQo+IFNp
+Z25lZC1vZmYtYnk6IFBoaWxpcCBZYW5nIDxQaGlsaXAuWWFuZ0BhbWQuY29tPg0KPiAgbW0vaG1t
+LmMgfCAzICsrKw0KPiAgMSBmaWxlIGNoYW5nZWQsIDMgaW5zZXJ0aW9ucygrKQ0KDQpBcHBsaWVk
+IHRvIGhtbS5naXQsIHRoYW5rcw0KDQpJIGZpeGVkIHRoZSBjb21taXQgbWVzc2FnZToNCg0KQXV0
+aG9yOiBZYW5nLCBQaGlsaXAgPFBoaWxpcC5ZYW5nQGFtZC5jb20+DQpEYXRlOiAgIFRodSBBdWcg
+MTUgMjA6NTI6NTYgMjAxOSArMDAwMA0KDQogICAgbW0vaG1tOiBmaXggaG1tX3JhbmdlX2ZhdWx0
+KCkncyBoYW5kbGluZyBvZiBzd2FwcGVkIG91dCBwYWdlcw0KICAgIA0KICAgIGhtbV9yYW5nZV9m
+YXVsdCgpIG1heSByZXR1cm4gTlVMTCBwYWdlcyBiZWNhdXNlIHNvbWUgb2YgdGhlIHBmbnMgYXJl
+IGVxdWFsDQogICAgdG8gSE1NX1BGTl9OT05FLiBUaGlzIGhhcHBlbnMgcmFuZG9tbHkgdW5kZXIg
+bWVtb3J5IHByZXNzdXJlLiBUaGUgcmVhc29uDQogICAgaXMgZHVyaW5nIHRoZSBzd2FwcGVkIG91
+dCBwYWdlIHB0ZSBwYXRoLCBobW1fdm1hX2hhbmRsZV9wdGUoKSBkb2Vzbid0DQogICAgdXBkYXRl
+IHRoZSBmYXVsdCB2YXJpYWJsZSBmcm9tIGNwdV9mbGFncywgc28gaXQgZmFpbGVkIHRvIGNhbGwN
+CiAgICBobW1fdmFtX2RvX2ZhdWx0KCkgdG8gc3dhcCB0aGUgcGFnZSBpbi4NCiAgICANCiAgICBU
+aGUgZml4IGlzIHRvIGNhbGwgaG1tX3B0ZV9uZWVkX2ZhdWx0KCkgdG8gdXBkYXRlIGZhdWx0IHZh
+cmlhYmxlLg0KICAgIA0KICAgIEZpeGVzOiA3NGVlZTE4MGI5MzUgKCJtbS9obW0vbWlycm9yOiBk
+ZXZpY2UgcGFnZSBmYXVsdCBoYW5kbGVyIikNCiAgICBMaW5rOiBodHRwczovL2xvcmUua2VybmVs
+Lm9yZy9yLzIwMTkwODE1MjA1MjI3Ljc5NDktMS1QaGlsaXAuWWFuZ0BhbWQuY29tDQogICAgU2ln
+bmVkLW9mZi1ieTogUGhpbGlwIFlhbmcgPFBoaWxpcC5ZYW5nQGFtZC5jb20+DQogICAgUmV2aWV3
+ZWQtYnk6ICJKw6lyw7RtZSBHbGlzc2UiIDxqZ2xpc3NlQHJlZGhhdC5jb20+DQogICAgU2lnbmVk
+LW9mZi1ieTogSmFzb24gR3VudGhvcnBlIDxqZ2dAbWVsbGFub3guY29tPg0KX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QK
+YW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5v
+cmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
