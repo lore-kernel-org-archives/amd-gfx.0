@@ -1,19 +1,19 @@
 From: "Liu, Monk" <Monk.Liu-5C7GfCeVMHo@public.gmane.org>
 Subject: RE: [PATCH] drm/amdgpu: introduce vram lost paramter for reset
  function
-Date: Fri, 23 Aug 2019 14:35:38 +0000
-Message-ID: <MN2PR12MB3933AC07ADDAEE39DD64608A84A40@MN2PR12MB3933.namprd12.prod.outlook.com>
+Date: Fri, 23 Aug 2019 14:36:47 +0000
+Message-ID: <MN2PR12MB3933CEA5C6F3445AE9B7A28B84A40@MN2PR12MB3933.namprd12.prod.outlook.com>
 References: <1566531249-1396-1-git-send-email-Monk.Liu@amd.com>
  <15d22497-cf4d-0d15-236c-5bc2b65eb656@gmail.com>
  <MN2PR12MB393366D270445A63B053DA3184A40@MN2PR12MB3933.namprd12.prod.outlook.com>
  <82e98a1b-a624-1e54-aae7-1a6ff9dda7f2@amd.com>
- <MN2PR12MB393324F969E3F29F76A0DA8384A40@MN2PR12MB3933.namprd12.prod.outlook.com>
+ <MN2PR12MB393324F969E3F29F76A0DA8384A40@MN2PR12MB3933.namprd12.prod.outlook.com>,
  <3920ef0e-857a-44ff-085e-e121c39e0420@amd.com>
+ <BN6PR12MB1809D6CB333C3A473C71F2FCF7A40@BN6PR12MB1809.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1572350496=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <3920ef0e-857a-44ff-085e-e121c39e0420-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <BN6PR12MB1809D6CB333C3A473C71F2FCF7A40-/b2+HYfkarSEx6ez0IUAagdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -25,212 +25,1144 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-Pj4gUGxlYXNlIG5vLCB0aGF0IHRoaW5nIGNlcnRhaW5seSBwcm92ZWQgdG8gYmUgdXNlZnVsLiBN
-YXliZSB3ZSBjb3VsZCBpbnZlc3RpZ2F0ZSB3aHkgaXQgZmFpbGVkIHRvIGF1dG8gZGV0ZWN0IHRo
-ZSBsb3N0IFZSQU0uDQoNClRoZSByZWFzb24gaXMgd2l0aCBCQUNPIHJlc2V0IEkgZm91bmQgVlJB
-TSBsb3N0IGluIGhpZ2ggYWRkcmVzcyBlLmcuIDE1fjE2IEcgKGZvciAxNiBHIHZlZ2ExMCksICBh
-bWRncHVfZGV2aWNlX2NoZWNrX3ZyYW1fbG9zdCBvbmx5IGNoZWNrcyB0aGUgdmVyeSBhaGVhZCB2
-aXNpYmxlIHBhcnQgIA0KDQo+PiBZZWFoLCBidXQgd291bGQgaW5jcmVtZW50IGl0IHR3aWNlIGJl
-IGEgcHJvYmxlbT8gSSBkb24ndCB0aGluayBzby4NCg0KU28geW91ciBzdWdnZXN0aW9uIGlzIHdl
-IGluY3JlYXNlIHRoZSBjb3VudGVyIGluIEJBQ08gcmVzZXQgLCBhbmQgbm8gbmVlZCB0byBpbnRy
-b2R1Y2UgdGhlIG5ldyAiYm9vbCAqIiBwYXJhbWV0ZXIsIHJpZ2h0ID8NCl9fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX18NCk1vbmsgTGl1fEdQVSBWaXJ0dWFsaXphdGlvbiBUZWFt
-IHxBTUQNCg0KDQotLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KRnJvbTogS29lbmlnLCBDaHJp
-c3RpYW4gPENocmlzdGlhbi5Lb2VuaWdAYW1kLmNvbT4gDQpTZW50OiBGcmlkYXksIEF1Z3VzdCAy
-MywgMjAxOSA4OjQ3IFBNDQpUbzogTGl1LCBNb25rIDxNb25rLkxpdUBhbWQuY29tPjsgYW1kLWdm
-eEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNClN1YmplY3Q6IFJlOiBbUEFUQ0hdIGRybS9hbWRncHU6
-IGludHJvZHVjZSB2cmFtIGxvc3QgcGFyYW10ZXIgZm9yIHJlc2V0IGZ1bmN0aW9uDQoNCkFtIDIz
-LjA4LjE5IHVtIDEwOjU3IHNjaHJpZWIgTGl1LCBNb25rOg0KPj4+IHZyYW1fbG9zdCA9IGFtZGdw
-dV9kZXZpY2VfY2hlY2tfdnJhbV9sb3N0KHRtcF9hZGV2KTsNCj4+PiAgICAgCQkJCWlmICh2cmFt
-X2xvc3QpIHsNCj4+PiAgICAgCQkJCQlEUk1fSU5GTygiVlJBTSBpcyBsb3N0IGR1ZSB0byBHUFUg
-cmVzZXQhXG4iKTsNCj4+PiAgICAgCQkJCQlhdG9taWNfaW5jKCZ0bXBfYWRldi0+dnJhbV9sb3N0
-X2NvdW50ZXIpOw0KPiBBYm92ZSBpcyB0aGUgb3JpZ2luYWwgbG9naWMsIGlmIHdlIGluY3JlbWVu
-dCB0aGUgY291bnRlciBpbiBCQUNPIHJlc2V0IA0KPiByb3V0aW5lLCB3ZSB3b3VsZCBwb3RlbnRp
-YWxseSBIYXZlIGFub3RoZXIgY291bnRlciBpbmNyZWFzZW1lbnQgaWYgYnkgDQo+IGNvaW5jaWRl
-bmNlIHRoZSAiYW1kZ3B1X2RldmljZV9jaGVja192cmFtX2xvc3QiIHN1Y2Nlc3NmdWxseSBkZXRl
-Y3RlZCANCj4gdGhlIHZyYW0gbG9zdCAoYWx0aG91Z2ggcmlnaHQgbm93IGl0IGRpZG4ndCAuLikN
-Cg0KWWVhaCwgYnV0IHdvdWxkIGluY3JlbWVudCBpdCB0d2ljZSBiZSBhIHByb2JsZW0/IEkgZG9u
-J3QgdGhpbmsgc28uDQoNCj4gRG8geW91IG1lYW4gd2UgcmVtb3ZlIHRoZSBhbWRncHVfZGV2aWNl
-X2NoZWNrX3ZyYW1fbG9zdCh0bXBfYWRldikgaW4gZGV2aWNlX3JlY292ZXJ5KCkgcm91dGluZSA/
-DQoNClBsZWFzZSBubywgdGhhdCB0aGluZyBjZXJ0YWlubHkgcHJvdmVkIHRvIGJlIHVzZWZ1bC4g
-TWF5YmUgd2UgY291bGQgaW52ZXN0aWdhdGUgd2h5IGl0IGZhaWxlZCB0byBhdXRvIGRldGVjdCB0
-aGUgbG9zdCBWUkFNLg0KDQpDaHJpc3RpYW4uDQoNCj4gX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fXw0KPiBNb25rIExpdXxHUFUgVmlydHVhbGl6YXRpb24gVGVhbSB8QU1EDQo+
-DQo+DQo+IC0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQo+IEZyb206IEtvZW5pZywgQ2hyaXN0
-aWFuIDxDaHJpc3RpYW4uS29lbmlnQGFtZC5jb20+DQo+IFNlbnQ6IEZyaWRheSwgQXVndXN0IDIz
-LCAyMDE5IDQ6MzQgUE0NCj4gVG86IExpdSwgTW9uayA8TW9uay5MaXVAYW1kLmNvbT47IGFtZC1n
-ZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnDQo+IFN1YmplY3Q6IFJlOiBbUEFUQ0hdIGRybS9hbWRn
-cHU6IGludHJvZHVjZSB2cmFtIGxvc3QgcGFyYW10ZXIgZm9yIA0KPiByZXNldCBmdW5jdGlvbg0K
-Pg0KPiBJIHRob3VnaHQgaW4gdGhlIEJBQ08gcmVzZXQgZnVuY3Rpb24uDQo+DQo+IFRoZSB0b3Ag
-bGV2ZWwgcmVzZXQgZnVuY3Rpb24gZG9lc24ndCBkbyBtdWNoIG1vcmUgdGhhbiBpbmNyZW1lbnQg
-dGhlIHZyYW1fbG9zdF9jb3VudGVyIGVpdGhlci4NCj4NCj4gQ2hyaXN0aWFuLg0KPg0KPiBBbSAy
-My4wOC4xOSB1bSAxMDozMiBzY2hyaWViIExpdSwgTW9uazoNCj4+Pj4gT24gdGhlIG90aGVyIGhh
-bmQgd291bGRuJ3QgaXQgYmUgc2ltcGxlciB0byBqdXN0IGluY3JlbWVudCB2cmFtX2xvc3RfY291
-bnRlcj8NCj4+IEluIHdoZXJlID8gaWYgeW91IG1lYW4gaW4gYW1kZ3B1X2RldmljZV9yZWNvdmVy
-IHJvdXRpbmUgSSB3b24ndCBkbyB0aGF0IHNpbmNlIHRoZSByZXNldCgpIGNhbiBkbyBhbnkga2lu
-ZCBvZiByZXNldCBsaWtlOg0KPj4gMSkgUEYgRkxSDQo+PiAyKSBtb2RlMS8yIHJlc2V0DQo+PiAz
-KSBtYWdpYyByZXNldCB0aHJvdWdoIGNvbmZpZyBzcGFjZQ0KPj4gNCkgQkFDTyByZXNldA0KPj4N
-Cj4+IFBGIEZMUiB3b24ndCBjYXVzZSBWUkFNIGxvc3QsIG1vZGVfMS8yIGlzIG5vdCBjbGVhciB0
-byBtZSwgb25seSBCQUNPIA0KPj4gcmVzZXQgaXMgZGVmaW5pdGVseSBhIHZyYW0gbG9zdCByZXNl
-dA0KPj4NCj4+IElmIHlvdSBpbmNyZWFzZSB0aGUgY291bnRlciBpbiBnZW5lcmFsIGZ1bmN0aW9u
-IHRoYXQgd2lsbCBiZSBub3QgDQo+PiBhY2N1cmF0ZSBfX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fDQo+PiBNb25rIExpdXxHUFUgVmlydHVhbGl6YXRpb24gVGVhbSB8QU1EDQo+
-Pg0KPj4NCj4+IC0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQo+PiBGcm9tOiBDaHJpc3RpYW4g
-S8O2bmlnIDxja29lbmlnLmxlaWNodHp1bWVya2VuQGdtYWlsLmNvbT4NCj4+IFNlbnQ6IEZyaWRh
-eSwgQXVndXN0IDIzLCAyMDE5IDQ6MjcgUE0NCj4+IFRvOiBMaXUsIE1vbmsgPE1vbmsuTGl1QGFt
-ZC5jb20+OyBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0KPj4gU3ViamVjdDogUmU6IFtQ
-QVRDSF0gZHJtL2FtZGdwdTogaW50cm9kdWNlIHZyYW0gbG9zdCBwYXJhbXRlciBmb3IgDQo+PiBy
-ZXNldCBmdW5jdGlvbg0KPj4NCj4+IEFtIDIzLjA4LjE5IHVtIDA1OjM0IHNjaHJpZWIgTW9uayBM
-aXU6DQo+Pj4gZm9yIFNPQzE1L3ZlZ2ExMCB0aGUgQkFDTyByZXNldCB3b3VsZCBpbnRyb2R1Y2Ug
-dnJhbSBsb3N0IGluIHRoZSANCj4+PiBoaWdoIGVuZCBhZGRyZXNzIHJhbmdlIGFuZCBjdXJyZW50
-IGttZCdzIHZyYW0gbG9zdCBjaGVja2luZyBjYW5ub3QgDQo+Pj4gY2F0Y2ggaXQgc2luY2UgaXQg
-b25seSBjaGVjayB2aXNpYmxlIGZyYW1lIGJ1ZmZlcg0KPj4+DQo+Pj4gVE9ETzoNCj4+PiB0byBj
-b25maXJtIGlmIG1vZGUxLzIgcmVzZXQgd291bGQgaW50cm9kdWNlIHZyYW0gbG9zdA0KPj4gTG9v
-a3MgZ29vZCBpbiBnZW5lcmFsLCBidXQgSSB3b3VsZCBtYWtlIHRoZSB2YWx1ZSBtYW5kYXRvcnkg
-b3IgbWF5YmUgdXNlIGEgc3BlY2lhbCByZXR1cm4gY29kZSBpbnN0ZWFkLg0KPj4NCj4+IE9uIHRo
-ZSBvdGhlciBoYW5kIHdvdWxkbid0IGl0IGJlIHNpbXBsZXIgdG8ganVzdCBpbmNyZW1lbnQgdnJh
-bV9sb3N0X2NvdW50ZXI/DQo+Pg0KPj4gQ2hyaXN0aWFuLg0KPj4NCj4+PiBTaWduZWQtb2ZmLWJ5
-OiBNb25rIExpdSA8TW9uay5MaXVAYW1kLmNvbT4NCj4+PiAtLS0NCj4+PiAgICAgZHJpdmVycy9n
-cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1LmggICAgICAgIHwgIDQgKystLQ0KPj4+ICAgICBkcml2
-ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMgfCAxMiArKysrKysrLS0tLS0N
-Cj4+PiAgICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvY2lrLmMgICAgICAgICAgIHwgIDIg
-Ky0NCj4+PiAgICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvbnYuYyAgICAgICAgICAgIHwg
-MTAgKysrKysrKy0tLQ0KPj4+ICAgICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9zaS5jICAg
-ICAgICAgICAgfCAgMiArLQ0KPj4+ICAgICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9zb2Mx
-NS5jICAgICAgICAgfCAgNCArKystDQo+Pj4gICAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
-L3ZpLmMgICAgICAgICAgICB8ICAyICstDQo+Pj4gICAgIDcgZmlsZXMgY2hhbmdlZCwgMjIgaW5z
-ZXJ0aW9ucygrKSwgMTQgZGVsZXRpb25zKC0pDQo+Pj4NCj4+PiBkaWZmIC0tZ2l0IGEvZHJpdmVy
-cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1LmgNCj4+PiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-YW1kZ3B1L2FtZGdwdS5oDQo+Pj4gaW5kZXggZjZhZTU2NS4uMWZlMzc1NiAxMDA2NDQNCj4+PiAt
-LS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHUuaA0KPj4+ICsrKyBiL2RyaXZl
-cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5oDQo+Pj4gQEAgLTU1Miw3ICs1NTIsNyBAQCBz
-dHJ1Y3QgYW1kZ3B1X2FzaWNfZnVuY3Mgew0KPj4+ICAgICAJaW50ICgqcmVhZF9yZWdpc3Rlciko
-c3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsIHUzMiBzZV9udW0sDQo+Pj4gICAgIAkJCSAgICAg
-dTMyIHNoX251bSwgdTMyIHJlZ19vZmZzZXQsIHUzMiAqdmFsdWUpOw0KPj4+ICAgICAJdm9pZCAo
-KnNldF92Z2Ffc3RhdGUpKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LCBib29sIHN0YXRlKTsN
-Cj4+PiAtCWludCAoKnJlc2V0KShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldik7DQo+Pj4gKwlp
-bnQgKCpyZXNldCkoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsIGJvb2wgKmxvc3QpOw0KPj4+
-ICAgICAJZW51bSBhbWRfcmVzZXRfbWV0aG9kICgqcmVzZXRfbWV0aG9kKShzdHJ1Y3QgYW1kZ3B1
-X2RldmljZSAqYWRldik7DQo+Pj4gICAgIAkvKiBnZXQgdGhlIHJlZmVyZW5jZSBjbG9jayAqLw0K
-Pj4+ICAgICAJdTMyICgqZ2V0X3hjbGspKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KTsgQEAg
-LTExMzYsNyArMTEzNiw3IA0KPj4+IEBAIGludCBlbXVfc29jX2FzaWNfaW5pdChzdHJ1Y3QgYW1k
-Z3B1X2RldmljZSAqYWRldik7DQo+Pj4gICAgICAqIEFTSUNzIG1hY3JvLg0KPj4+ICAgICAgKi8N
-Cj4+PiAgICAgI2RlZmluZSBhbWRncHVfYXNpY19zZXRfdmdhX3N0YXRlKGFkZXYsIHN0YXRlKSAN
-Cj4+PiAoYWRldiktPmFzaWNfZnVuY3MtPnNldF92Z2Ffc3RhdGUoKGFkZXYpLCAoc3RhdGUpKSAt
-I2RlZmluZQ0KPj4+IGFtZGdwdV9hc2ljX3Jlc2V0KGFkZXYpIChhZGV2KS0+YXNpY19mdW5jcy0+
-cmVzZXQoKGFkZXYpKQ0KPj4+ICsjZGVmaW5lIGFtZGdwdV9hc2ljX3Jlc2V0KGFkZXYsIGxvc3Qp
-IA0KPj4+ICsoYWRldiktPmFzaWNfZnVuY3MtPnJlc2V0KChhZGV2KSwgKGxvc3QpKQ0KPj4+ICAg
-ICAjZGVmaW5lIGFtZGdwdV9hc2ljX3Jlc2V0X21ldGhvZChhZGV2KSAoYWRldiktPmFzaWNfZnVu
-Y3MtPnJlc2V0X21ldGhvZCgoYWRldikpDQo+Pj4gICAgICNkZWZpbmUgYW1kZ3B1X2FzaWNfZ2V0
-X3hjbGsoYWRldikgKGFkZXYpLT5hc2ljX2Z1bmNzLT5nZXRfeGNsaygoYWRldikpDQo+Pj4gICAg
-ICNkZWZpbmUgYW1kZ3B1X2FzaWNfc2V0X3V2ZF9jbG9ja3MoYWRldiwgdiwgZCkgDQo+Pj4gKGFk
-ZXYpLT5hc2ljX2Z1bmNzLT5zZXRfdXZkX2Nsb2NrcygoYWRldiksICh2KSwgKGQpKSBkaWZmIC0t
-Z2l0IA0KPj4+IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jDQo+
-Pj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMNCj4+PiBpbmRl
-eCAwMmIzZTdkLi44NjY4Y2I4IDEwMDY0NA0KPj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-YW1kZ3B1L2FtZGdwdV9kZXZpY2UuYw0KPj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
-Z3B1L2FtZGdwdV9kZXZpY2UuYw0KPj4+IEBAIC0yNTQ2LDcgKzI1NDYsNyBAQCBzdGF0aWMgdm9p
-ZCBhbWRncHVfZGV2aWNlX3hnbWlfcmVzZXRfZnVuYyhzdHJ1Y3Qgd29ya19zdHJ1Y3QgKl9fd29y
-aykNCj4+PiAgICAgCXN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2ID0NCj4+PiAgICAgCQljb250
-YWluZXJfb2YoX193b3JrLCBzdHJ1Y3QgYW1kZ3B1X2RldmljZSwgeGdtaV9yZXNldF93b3JrKTsN
-Cj4+PiAgICAgDQo+Pj4gLQlhZGV2LT5hc2ljX3Jlc2V0X3JlcyA9ICBhbWRncHVfYXNpY19yZXNl
-dChhZGV2KTsNCj4+PiArCWFkZXYtPmFzaWNfcmVzZXRfcmVzID0gIGFtZGdwdV9hc2ljX3Jlc2V0
-KGFkZXYsIE5VTEwpOw0KPj4+ICAgICAJaWYgKGFkZXYtPmFzaWNfcmVzZXRfcmVzKQ0KPj4+ICAg
-ICAJCURSTV9XQVJOKCJBU0lDIHJlc2V0IGZhaWxlZCB3aXRoIGVycm9yLCAlZCBmb3IgZHJtIGRl
-diwgJXMiLA0KPj4+ICAgICAJCQkgYWRldi0+YXNpY19yZXNldF9yZXMsIGFkZXYtPmRkZXYtPnVu
-aXF1ZSk7IEBAIC0yNzUxLDcgDQo+Pj4gKzI3NTEsNyBAQCBpbnQgYW1kZ3B1X2RldmljZV9pbml0
-KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LA0KPj4+ICAgICAJICogIEUuZy4sIGRyaXZlciB3
-YXMgbm90IGNsZWFubHkgdW5sb2FkZWQgcHJldmlvdXNseSwgZXRjLg0KPj4+ICAgICAJICovDQo+
-Pj4gICAgIAlpZiAoIWFtZGdwdV9zcmlvdl92ZihhZGV2KSAmJiBhbWRncHVfYXNpY19uZWVkX3Jl
-c2V0X29uX2luaXQoYWRldikpIHsNCj4+PiAtCQlyID0gYW1kZ3B1X2FzaWNfcmVzZXQoYWRldik7
-DQo+Pj4gKwkJciA9IGFtZGdwdV9hc2ljX3Jlc2V0KGFkZXYsIE5VTEwpOw0KPj4+ICAgICAJCWlm
-IChyKSB7DQo+Pj4gICAgIAkJCWRldl9lcnIoYWRldi0+ZGV2LCAiYXNpYyByZXNldCBvbiBpbml0
-IGZhaWxlZFxuIik7DQo+Pj4gICAgIAkJCWdvdG8gZmFpbGVkOw0KPj4+IEBAIC0zMDg0LDcgKzMw
-ODQsNyBAQCBpbnQgYW1kZ3B1X2RldmljZV9zdXNwZW5kKHN0cnVjdCBkcm1fZGV2aWNlICpkZXYs
-IGJvb2wgc3VzcGVuZCwgYm9vbCBmYmNvbikNCj4+PiAgICAgCQlwY2lfZGlzYWJsZV9kZXZpY2Uo
-ZGV2LT5wZGV2KTsNCj4+PiAgICAgCQlwY2lfc2V0X3Bvd2VyX3N0YXRlKGRldi0+cGRldiwgUENJ
-X0QzaG90KTsNCj4+PiAgICAgCX0gZWxzZSB7DQo+Pj4gLQkJciA9IGFtZGdwdV9hc2ljX3Jlc2V0
-KGFkZXYpOw0KPj4+ICsJCXIgPSBhbWRncHVfYXNpY19yZXNldChhZGV2LCBOVUxMKTsNCj4+PiAg
-ICAgCQlpZiAocikNCj4+PiAgICAgCQkJRFJNX0VSUk9SKCJhbWRncHUgYXNpYyByZXNldCBmYWls
-ZWRcbiIpOw0KPj4+ICAgICAJfQ0KPj4+IEBAIC0zNjA0LDcgKzM2MDQsNyBAQCBzdGF0aWMgaW50
-IGFtZGdwdV9kb19hc2ljX3Jlc2V0KHN0cnVjdCBhbWRncHVfaGl2ZV9pbmZvICpoaXZlLA0KPj4+
-ICAgICAJCQkJaWYgKCFxdWV1ZV93b3JrKHN5c3RlbV9oaWdocHJpX3dxLCAmdG1wX2FkZXYtPnhn
-bWlfcmVzZXRfd29yaykpDQo+Pj4gICAgIAkJCQkJciA9IC1FQUxSRUFEWTsNCj4+PiAgICAgCQkJ
-fSBlbHNlDQo+Pj4gLQkJCQlyID0gYW1kZ3B1X2FzaWNfcmVzZXQodG1wX2FkZXYpOw0KPj4+ICsJ
-CQkJciA9IGFtZGdwdV9hc2ljX3Jlc2V0KHRtcF9hZGV2LCAmdnJhbV9sb3N0KTsNCj4+PiAgICAg
-DQo+Pj4gICAgIAkJCWlmIChyKSB7DQo+Pj4gICAgIAkJCQlEUk1fRVJST1IoIkFTSUMgcmVzZXQg
-ZmFpbGVkIHdpdGggZXJyb3IsICVkIGZvciBkcm0gZGV2LCANCj4+PiAlcyIsIEBADQo+Pj4gLTM2
-NDUsNyArMzY0NSw5IEBAIHN0YXRpYyBpbnQgYW1kZ3B1X2RvX2FzaWNfcmVzZXQoc3RydWN0IGFt
-ZGdwdV9oaXZlX2luZm8gKmhpdmUsDQo+Pj4gICAgIAkJCQlpZiAocikNCj4+PiAgICAgCQkJCQln
-b3RvIG91dDsNCj4+PiAgICAgDQo+Pj4gLQkJCQl2cmFtX2xvc3QgPSBhbWRncHVfZGV2aWNlX2No
-ZWNrX3ZyYW1fbG9zdCh0bXBfYWRldik7DQo+Pj4gKwkJCQlpZiAoIXZyYW1fbG9zdCkNCj4+PiAr
-CQkJCQl2cmFtX2xvc3QgPSBhbWRncHVfZGV2aWNlX2NoZWNrX3ZyYW1fbG9zdCh0bXBfYWRldik7
-DQo+Pj4gKw0KPj4+ICAgICAJCQkJaWYgKHZyYW1fbG9zdCkgew0KPj4+ICAgICAJCQkJCURSTV9J
-TkZPKCJWUkFNIGlzIGxvc3QgZHVlIHRvIEdQVSByZXNldCFcbiIpOw0KPj4+ICAgICAJCQkJCWF0
-b21pY19pbmMoJnRtcF9hZGV2LT52cmFtX2xvc3RfY291bnRlcik7DQo+Pj4gZGlmZiAtLWdpdCBh
-L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Npay5jDQo+Pj4gYi9kcml2ZXJzL2dwdS9kcm0v
-YW1kL2FtZGdwdS9jaWsuYw0KPj4+IGluZGV4IDdiNjNkN2EuLjBmMjViODIgMTAwNjQ0DQo+Pj4g
-LS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvY2lrLmMNCj4+PiArKysgYi9kcml2ZXJz
-L2dwdS9kcm0vYW1kL2FtZGdwdS9jaWsuYw0KPj4+IEBAIC0xMjc3LDcgKzEyNzcsNyBAQCBzdGF0
-aWMgaW50IGNpa19ncHVfcGNpX2NvbmZpZ19yZXNldChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRl
-dikNCj4+PiAgICAgICogdG8gcmVzZXQgdGhlbS4NCj4+PiAgICAgICogUmV0dXJucyAwIGZvciBz
-dWNjZXNzLg0KPj4+ICAgICAgKi8NCj4+PiAtc3RhdGljIGludCBjaWtfYXNpY19yZXNldChzdHJ1
-Y3QgYW1kZ3B1X2RldmljZSAqYWRldikNCj4+PiArc3RhdGljIGludCBjaWtfYXNpY19yZXNldChz
-dHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwgYm9vbA0KPj4+ICsqdnJhbWxvc3QpDQo+Pj4gICAg
-IHsNCj4+PiAgICAgCWludCByOw0KPj4+ICAgICANCj4+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9n
-cHUvZHJtL2FtZC9hbWRncHUvbnYuYyANCj4+PiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
-L252LmMgaW5kZXggYTNkOTlmMi4uNTNkZTdhNiAxMDA2NDQNCj4+PiAtLS0gYS9kcml2ZXJzL2dw
-dS9kcm0vYW1kL2FtZGdwdS9udi5jDQo+Pj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
-cHUvbnYuYw0KPj4+IEBAIC0zMDEsNyArMzAxLDcgQEAgbnZfYXNpY19yZXNldF9tZXRob2Qoc3Ry
-dWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpDQo+Pj4gICAgIAkJcmV0dXJuIEFNRF9SRVNFVF9NRVRI
-T0RfTU9ERTE7DQo+Pj4gICAgIH0NCj4+PiAgICAgDQo+Pj4gLXN0YXRpYyBpbnQgbnZfYXNpY19y
-ZXNldChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikNCj4+PiArc3RhdGljIGludCBudl9hc2lj
-X3Jlc2V0KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LCBib29sIA0KPj4+ICsqdnJhbWxvc3Qp
-DQo+Pj4gICAgIHsNCj4+PiAgICAgDQo+Pj4gICAgIAkvKiBGSVhNRTogaXQgZG9lc24ndCB3b3Jr
-IHNpbmNlIHZlZ2ExMCAqLyBAQCAtMzE1LDEwICszMTUsMTQgQEAgDQo+Pj4gc3RhdGljIGludCBu
-dl9hc2ljX3Jlc2V0KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQ0KPj4+ICAgICAJaW50IHJl
-dCA9IDA7DQo+Pj4gICAgIAlzdHJ1Y3Qgc211X2NvbnRleHQgKnNtdSA9ICZhZGV2LT5zbXU7DQo+
-Pj4gICAgIA0KPj4+IC0JaWYgKG52X2FzaWNfcmVzZXRfbWV0aG9kKGFkZXYpID09IEFNRF9SRVNF
-VF9NRVRIT0RfQkFDTykNCj4+PiArCWlmIChudl9hc2ljX3Jlc2V0X21ldGhvZChhZGV2KSA9PSBB
-TURfUkVTRVRfTUVUSE9EX0JBQ08pIHsNCj4+PiArCQlpZiAodnJhbWxvc3QpDQo+Pj4gKwkJCSp2
-cmFtbG9zdCA9IHRydWU7DQo+Pj4gICAgIAkJcmV0ID0gc211X2JhY29fcmVzZXQoc211KTsNCj4+
-PiAtCWVsc2UNCj4+PiArCX0NCj4+PiArCWVsc2Ugew0KPj4+ICAgICAJCXJldCA9IG52X2FzaWNf
-bW9kZTFfcmVzZXQoYWRldik7DQo+Pj4gKwl9DQo+Pj4gICAgIA0KPj4+ICAgICAJcmV0dXJuIHJl
-dDsNCj4+PiAgICAgfQ0KPj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
-dS9zaS5jIA0KPj4+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvc2kuYyBpbmRleCA5MDQz
-NjE0Li5mMzI0MDk5IDEwMDY0NA0KPj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
-L3NpLmMNCj4+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9zaS5jDQo+Pj4gQEAg
-LTExODAsNyArMTE4MCw3IEBAIHN0YXRpYyBib29sIHNpX3JlYWRfYmlvc19mcm9tX3JvbShzdHJ1
-Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwNCj4+PiAgICAgfQ0KPj4+ICAgICANCj4+PiAgICAgLy94
-eHg6IG5vdCBpbXBsZW1lbnRlZA0KPj4+IC1zdGF0aWMgaW50IHNpX2FzaWNfcmVzZXQoc3RydWN0
-IGFtZGdwdV9kZXZpY2UgKmFkZXYpDQo+Pj4gK3N0YXRpYyBpbnQgc2lfYXNpY19yZXNldChzdHJ1
-Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwgYm9vbCANCj4+PiArKnZyYW1sb3N0KQ0KPj4+ICAgICB7
-DQo+Pj4gICAgIAlyZXR1cm4gMDsNCj4+PiAgICAgfQ0KPj4+IGRpZmYgLS1naXQgYS9kcml2ZXJz
-L2dwdS9kcm0vYW1kL2FtZGdwdS9zb2MxNS5jDQo+Pj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
-ZGdwdS9zb2MxNS5jDQo+Pj4gaW5kZXggZmUyMjEyZGYuLjEyYjI5NjYgMTAwNjQ0DQo+Pj4gLS0t
-IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvc29jMTUuYw0KPj4+ICsrKyBiL2RyaXZlcnMv
-Z3B1L2RybS9hbWQvYW1kZ3B1L3NvYzE1LmMNCj4+PiBAQCAtNTUzLDEwICs1NTMsMTIgQEAgc29j
-MTVfYXNpY19yZXNldF9tZXRob2Qoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpDQo+Pj4gICAg
-IAkJcmV0dXJuIEFNRF9SRVNFVF9NRVRIT0RfTU9ERTE7DQo+Pj4gICAgIH0NCj4+PiAgICAgDQo+
-Pj4gLXN0YXRpYyBpbnQgc29jMTVfYXNpY19yZXNldChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRl
-dikNCj4+PiArc3RhdGljIGludCBzb2MxNV9hc2ljX3Jlc2V0KHN0cnVjdCBhbWRncHVfZGV2aWNl
-ICphZGV2LCBib29sDQo+Pj4gKyp2cmFtbG9zdCkNCj4+PiAgICAgew0KPj4+ICAgICAJc3dpdGNo
-IChzb2MxNV9hc2ljX3Jlc2V0X21ldGhvZChhZGV2KSkgew0KPj4+ICAgICAJCWNhc2UgQU1EX1JF
-U0VUX01FVEhPRF9CQUNPOg0KPj4+ICsJCQlpZiAodnJhbWxvc3QpDQo+Pj4gKwkJCQkqdnJhbWxv
-c3QgPSB0cnVlOw0KPj4+ICAgICAJCQlyZXR1cm4gc29jMTVfYXNpY19iYWNvX3Jlc2V0KGFkZXYp
-Ow0KPj4+ICAgICAJCWNhc2UgQU1EX1JFU0VUX01FVEhPRF9NT0RFMjoNCj4+PiAgICAgCQkJcmV0
-dXJuIHNvYzE1X21vZGUyX3Jlc2V0KGFkZXYpOyBkaWZmIC0tZ2l0IA0KPj4+IGEvZHJpdmVycy9n
-cHUvZHJtL2FtZC9hbWRncHUvdmkuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3ZpLmMg
-DQo+Pj4gaW5kZXggNTZjODgyYi4uOGVjZWIwMCAxMDA2NDQNCj4+PiAtLS0gYS9kcml2ZXJzL2dw
-dS9kcm0vYW1kL2FtZGdwdS92aS5jDQo+Pj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
-cHUvdmkuYw0KPj4+IEBAIC02OTYsNyArNjk2LDcgQEAgc3RhdGljIGludCB2aV9ncHVfcGNpX2Nv
-bmZpZ19yZXNldChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikNCj4+PiAgICAgICogdG8gcmVz
-ZXQgdGhlbS4NCj4+PiAgICAgICogUmV0dXJucyAwIGZvciBzdWNjZXNzLg0KPj4+ICAgICAgKi8N
-Cj4+PiAtc3RhdGljIGludCB2aV9hc2ljX3Jlc2V0KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2
-KQ0KPj4+ICtzdGF0aWMgaW50IHZpX2FzaWNfcmVzZXQoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFk
-ZXYsIGJvb2wgDQo+Pj4gKyp2cmFtbG9zdCkNCj4+PiAgICAgew0KPj4+ICAgICAJaW50IHI7DQo+
-Pj4gICAgIA0KDQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-XwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRw
-czovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
+--===============1572350496==
+Content-Language: en-US
+Content-Type: multipart/related;
+	boundary="_004_MN2PR12MB3933CEA5C6F3445AE9B7A28B84A40MN2PR12MB3933namp_";
+	type="multipart/alternative"
+
+--_004_MN2PR12MB3933CEA5C6F3445AE9B7A28B84A40MN2PR12MB3933namp_
+Content-Type: multipart/alternative;
+	boundary="_000_MN2PR12MB3933CEA5C6F3445AE9B7A28B84A40MN2PR12MB3933namp_"
+
+--_000_MN2PR12MB3933CEA5C6F3445AE9B7A28B84A40MN2PR12MB3933namp_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+Thanks Alex
+
+That sounds correct to me, mode1 rest once do clear the vram data on vega10
+
+_____________________________________
+Monk Liu|GPU Virtualization Team |AMD
+[sig-cloud-gpu]
+
+From: Deucher, Alexander <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Sent: Friday, August 23, 2019 10:34 PM
+To: Koenig, Christian <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>; Liu, Monk <Monk.Liu@amd.c=
+om>; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Subject: Re: [PATCH] drm/amdgpu: introduce vram lost paramter for reset fun=
+ction
+
+for mode1 and BACO, I think we can assume vram is lost because the UMC gets=
+ reset in that case.  Some of the data may still look valid, but it's not n=
+ecessarily reliable.  For mode2, vram should be fine because the UMC doesn'=
+t get reset.
+
+Alex
+
+________________________________
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-bounces=
+@lists.freedesktop.org>> on behalf of Koenig, Christian <Christian.Koenig@a=
+md.com<mailto:Christian.Koenig-5C7GfCeVMHo@public.gmane.org>>
+Sent: Friday, August 23, 2019 8:47 AM
+To: Liu, Monk <Monk.Liu-5C7GfCeVMHo@public.gmane.org<mailto:Monk.Liu-5C7GfCeVMHo@public.gmane.org>>; amd-gfx-PD4FTy7X32k@public.gmane.org=
+eedesktop.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> <amd-gfx-PD4FTy7X32lzq7FAFJ/aeQ@public.gmane.org=
+top.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>>
+Subject: Re: [PATCH] drm/amdgpu: introduce vram lost paramter for reset fun=
+ction
+
+Am 23.08.19 um 10:57 schrieb Liu, Monk:
+>>> vram_lost =3D amdgpu_device_check_vram_lost(tmp_adev);
+>>>                              if (vram_lost) {
+>>>                                      DRM_INFO("VRAM is lost due to GPU =
+reset!\n");
+>>>                                      atomic_inc(&tmp_adev->vram_lost_co=
+unter);
+> Above is the original logic, if we increment the counter in BACO reset ro=
+utine, we would potentially
+> Have another counter increasement if by coincidence the "amdgpu_device_ch=
+eck_vram_lost" successfully detected the vram lost (although right now it d=
+idn't ..)
+
+Yeah, but would increment it twice be a problem? I don't think so.
+
+> Do you mean we remove the amdgpu_device_check_vram_lost(tmp_adev) in devi=
+ce_recovery() routine ?
+
+Please no, that thing certainly proved to be useful. Maybe we could
+investigate why it failed to auto detect the lost VRAM.
+
+Christian.
+
+> _____________________________________
+> Monk Liu|GPU Virtualization Team |AMD
+>
+>
+> -----Original Message-----
+> From: Koenig, Christian <Christian.Koenig-5C7GfCeVMHo@public.gmane.org<mailto:Christian.Koenig=
+@amd.com>>
+> Sent: Friday, August 23, 2019 4:34 PM
+> To: Liu, Monk <Monk.Liu-5C7GfCeVMHo@public.gmane.org<mailto:Monk.Liu-5C7GfCeVMHo@public.gmane.org>>; amd-gfx@lists.=
+freedesktop.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+> Subject: Re: [PATCH] drm/amdgpu: introduce vram lost paramter for reset f=
+unction
+>
+> I thought in the BACO reset function.
+>
+> The top level reset function doesn't do much more than increment the vram=
+_lost_counter either.
+>
+> Christian.
+>
+> Am 23.08.19 um 10:32 schrieb Liu, Monk:
+>>>> On the other hand wouldn't it be simpler to just increment vram_lost_c=
+ounter?
+>> In where ? if you mean in amdgpu_device_recover routine I won't do that =
+since the reset() can do any kind of reset like:
+>> 1) PF FLR
+>> 2) mode1/2 reset
+>> 3) magic reset through config space
+>> 4) BACO reset
+>>
+>> PF FLR won't cause VRAM lost, mode_1/2 is not clear to me, only BACO
+>> reset is definitely a vram lost reset
+>>
+>> If you increase the counter in general function that will be not
+>> accurate _____________________________________
+>> Monk Liu|GPU Virtualization Team |AMD
+>>
+>>
+>> -----Original Message-----
+>> From: Christian K=F6nig <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org<mailto:ckoenig=
+.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>>
+>> Sent: Friday, August 23, 2019 4:27 PM
+>> To: Liu, Monk <Monk.Liu-5C7GfCeVMHo@public.gmane.org<mailto:Monk.Liu-5C7GfCeVMHo@public.gmane.org>>; amd-gfx@lists=
+.freedesktop.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+>> Subject: Re: [PATCH] drm/amdgpu: introduce vram lost paramter for
+>> reset function
+>>
+>> Am 23.08.19 um 05:34 schrieb Monk Liu:
+>>> for SOC15/vega10 the BACO reset would introduce vram lost in the high
+>>> end address range and current kmd's vram lost checking cannot catch
+>>> it since it only check visible frame buffer
+>>>
+>>> TODO:
+>>> to confirm if mode1/2 reset would introduce vram lost
+>> Looks good in general, but I would make the value mandatory or maybe use=
+ a special return code instead.
+>>
+>> On the other hand wouldn't it be simpler to just increment vram_lost_cou=
+nter?
+>>
+>> Christian.
+>>
+>>> Signed-off-by: Monk Liu <Monk.Liu-5C7GfCeVMHo@public.gmane.org<mailto:Monk.Liu-5C7GfCeVMHo@public.gmane.org>>
+>>> ---
+>>>     drivers/gpu/drm/amd/amdgpu/amdgpu.h        |  4 ++--
+>>>     drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 12 +++++++-----
+>>>     drivers/gpu/drm/amd/amdgpu/cik.c           |  2 +-
+>>>     drivers/gpu/drm/amd/amdgpu/nv.c            | 10 +++++++---
+>>>     drivers/gpu/drm/amd/amdgpu/si.c            |  2 +-
+>>>     drivers/gpu/drm/amd/amdgpu/soc15.c         |  4 +++-
+>>>     drivers/gpu/drm/amd/amdgpu/vi.c            |  2 +-
+>>>     7 files changed, 22 insertions(+), 14 deletions(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+>>> index f6ae565..1fe3756 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+>>> @@ -552,7 +552,7 @@ struct amdgpu_asic_funcs {
+>>>      int (*read_register)(struct amdgpu_device *adev, u32 se_num,
+>>>                           u32 sh_num, u32 reg_offset, u32 *value);
+>>>      void (*set_vga_state)(struct amdgpu_device *adev, bool state);
+>>> -   int (*reset)(struct amdgpu_device *adev);
+>>> +   int (*reset)(struct amdgpu_device *adev, bool *lost);
+>>>      enum amd_reset_method (*reset_method)(struct amdgpu_device *adev);
+>>>      /* get the reference clock */
+>>>      u32 (*get_xclk)(struct amdgpu_device *adev); @@ -1136,7 +1136,7
+>>> @@ int emu_soc_asic_init(struct amdgpu_device *adev);
+>>>      * ASICs macro.
+>>>      */
+>>>     #define amdgpu_asic_set_vga_state(adev, state)
+>>> (adev)->asic_funcs->set_vga_state((adev), (state)) -#define
+>>> amdgpu_asic_reset(adev) (adev)->asic_funcs->reset((adev))
+>>> +#define amdgpu_asic_reset(adev, lost)
+>>> +(adev)->asic_funcs->reset((adev), (lost))
+>>>     #define amdgpu_asic_reset_method(adev) (adev)->asic_funcs->reset_me=
+thod((adev))
+>>>     #define amdgpu_asic_get_xclk(adev) (adev)->asic_funcs->get_xclk((ad=
+ev))
+>>>     #define amdgpu_asic_set_uvd_clocks(adev, v, d)
+>>> (adev)->asic_funcs->set_uvd_clocks((adev), (v), (d)) diff --git
+>>> a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>>> index 02b3e7d..8668cb8 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>>> @@ -2546,7 +2546,7 @@ static void amdgpu_device_xgmi_reset_func(struct =
+work_struct *__work)
+>>>      struct amdgpu_device *adev =3D
+>>>              container_of(__work, struct amdgpu_device, xgmi_reset_work=
+);
+>>>
+>>> -   adev->asic_reset_res =3D  amdgpu_asic_reset(adev);
+>>> +   adev->asic_reset_res =3D  amdgpu_asic_reset(adev, NULL);
+>>>      if (adev->asic_reset_res)
+>>>              DRM_WARN("ASIC reset failed with error, %d for drm dev, %s=
+",
+>>>                       adev->asic_reset_res, adev->ddev->unique); @@ -27=
+51,7 +2751,7
+>>> @@ int amdgpu_device_init(struct amdgpu_device *adev,
+>>>       *  E.g., driver was not cleanly unloaded previously, etc.
+>>>       */
+>>>      if (!amdgpu_sriov_vf(adev) && amdgpu_asic_need_reset_on_init(adev)=
+) {
+>>> -           r =3D amdgpu_asic_reset(adev);
+>>> +           r =3D amdgpu_asic_reset(adev, NULL);
+>>>              if (r) {
+>>>                      dev_err(adev->dev, "asic reset on init failed\n");
+>>>                      goto failed;
+>>> @@ -3084,7 +3084,7 @@ int amdgpu_device_suspend(struct drm_device *dev,=
+ bool suspend, bool fbcon)
+>>>              pci_disable_device(dev->pdev);
+>>>              pci_set_power_state(dev->pdev, PCI_D3hot);
+>>>      } else {
+>>> -           r =3D amdgpu_asic_reset(adev);
+>>> +           r =3D amdgpu_asic_reset(adev, NULL);
+>>>              if (r)
+>>>                      DRM_ERROR("amdgpu asic reset failed\n");
+>>>      }
+>>> @@ -3604,7 +3604,7 @@ static int amdgpu_do_asic_reset(struct amdgpu_hiv=
+e_info *hive,
+>>>                              if (!queue_work(system_highpri_wq, &tmp_ad=
+ev->xgmi_reset_work))
+>>>                                      r =3D -EALREADY;
+>>>                      } else
+>>> -                           r =3D amdgpu_asic_reset(tmp_adev);
+>>> +                           r =3D amdgpu_asic_reset(tmp_adev, &vram_los=
+t);
+>>>
+>>>                      if (r) {
+>>>                              DRM_ERROR("ASIC reset failed with error, %=
+d for drm dev, %s",
+>>> @@
+>>> -3645,7 +3645,9 @@ static int amdgpu_do_asic_reset(struct amdgpu_hive_i=
+nfo *hive,
+>>>                              if (r)
+>>>                                      goto out;
+>>>
+>>> -                           vram_lost =3D amdgpu_device_check_vram_lost=
+(tmp_adev);
+>>> +                           if (!vram_lost)
+>>> +                                   vram_lost =3D amdgpu_device_check_v=
+ram_lost(tmp_adev);
+>>> +
+>>>                              if (vram_lost) {
+>>>                                      DRM_INFO("VRAM is lost due to GPU =
+reset!\n");
+>>>                                      atomic_inc(&tmp_adev->vram_lost_co=
+unter);
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/cik.c
+>>> b/drivers/gpu/drm/amd/amdgpu/cik.c
+>>> index 7b63d7a..0f25b82 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/cik.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/cik.c
+>>> @@ -1277,7 +1277,7 @@ static int cik_gpu_pci_config_reset(struct amdgpu=
+_device *adev)
+>>>      * to reset them.
+>>>      * Returns 0 for success.
+>>>      */
+>>> -static int cik_asic_reset(struct amdgpu_device *adev)
+>>> +static int cik_asic_reset(struct amdgpu_device *adev, bool
+>>> +*vramlost)
+>>>     {
+>>>      int r;
+>>>
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/nv.c
+>>> b/drivers/gpu/drm/amd/amdgpu/nv.c index a3d99f2..53de7a6 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/nv.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/nv.c
+>>> @@ -301,7 +301,7 @@ nv_asic_reset_method(struct amdgpu_device *adev)
+>>>              return AMD_RESET_METHOD_MODE1;
+>>>     }
+>>>
+>>> -static int nv_asic_reset(struct amdgpu_device *adev)
+>>> +static int nv_asic_reset(struct amdgpu_device *adev, bool *vramlost)
+>>>     {
+>>>
+>>>      /* FIXME: it doesn't work since vega10 */ @@ -315,10 +315,14 @@
+>>> static int nv_asic_reset(struct amdgpu_device *adev)
+>>>      int ret =3D 0;
+>>>      struct smu_context *smu =3D &adev->smu;
+>>>
+>>> -   if (nv_asic_reset_method(adev) =3D=3D AMD_RESET_METHOD_BACO)
+>>> +   if (nv_asic_reset_method(adev) =3D=3D AMD_RESET_METHOD_BACO) {
+>>> +           if (vramlost)
+>>> +                   *vramlost =3D true;
+>>>              ret =3D smu_baco_reset(smu);
+>>> -   else
+>>> +   }
+>>> +   else {
+>>>              ret =3D nv_asic_mode1_reset(adev);
+>>> +   }
+>>>
+>>>      return ret;
+>>>     }
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/si.c
+>>> b/drivers/gpu/drm/amd/amdgpu/si.c index 9043614..f324099 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/si.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/si.c
+>>> @@ -1180,7 +1180,7 @@ static bool si_read_bios_from_rom(struct amdgpu_d=
+evice *adev,
+>>>     }
+>>>
+>>>     //xxx: not implemented
+>>> -static int si_asic_reset(struct amdgpu_device *adev)
+>>> +static int si_asic_reset(struct amdgpu_device *adev, bool *vramlost)
+>>>     {
+>>>      return 0;
+>>>     }
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c
+>>> b/drivers/gpu/drm/amd/amdgpu/soc15.c
+>>> index fe2212df..12b2966 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/soc15.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/soc15.c
+>>> @@ -553,10 +553,12 @@ soc15_asic_reset_method(struct amdgpu_device *ade=
+v)
+>>>              return AMD_RESET_METHOD_MODE1;
+>>>     }
+>>>
+>>> -static int soc15_asic_reset(struct amdgpu_device *adev)
+>>> +static int soc15_asic_reset(struct amdgpu_device *adev, bool
+>>> +*vramlost)
+>>>     {
+>>>      switch (soc15_asic_reset_method(adev)) {
+>>>              case AMD_RESET_METHOD_BACO:
+>>> +                   if (vramlost)
+>>> +                           *vramlost =3D true;
+>>>                      return soc15_asic_baco_reset(adev);
+>>>              case AMD_RESET_METHOD_MODE2:
+>>>                      return soc15_mode2_reset(adev); diff --git
+>>> a/drivers/gpu/drm/amd/amdgpu/vi.c b/drivers/gpu/drm/amd/amdgpu/vi.c
+>>> index 56c882b..8eceb00 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/vi.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/vi.c
+>>> @@ -696,7 +696,7 @@ static int vi_gpu_pci_config_reset(struct amdgpu_de=
+vice *adev)
+>>>      * to reset them.
+>>>      * Returns 0 for success.
+>>>      */
+>>> -static int vi_asic_reset(struct amdgpu_device *adev)
+>>> +static int vi_asic_reset(struct amdgpu_device *adev, bool *vramlost)
+>>>     {
+>>>      int r;
+>>>
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--_000_MN2PR12MB3933CEA5C6F3445AE9B7A28B84A40MN2PR12MB3933namp_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
+<!--[if !mso]><style>v\:* {behavior:url(#default#VML);}
+o\:* {behavior:url(#default#VML);}
+w\:* {behavior:url(#default#VML);}
+.shape {behavior:url(#default#VML);}
+</style><![endif]--><style><!--
+/* Font Definitions */
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:DengXian;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:DengXian;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:blue;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{mso-style-priority:99;
+	color:purple;
+	text-decoration:underline;}
+p.msonormal0, li.msonormal0, div.msonormal0
+	{mso-style-name:msonormal;
+	margin:0in;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+span.EmailStyle20
+	{mso-style-type:personal-reply;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-size:10.0pt;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.25in 1.0in 1.25in;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
+</head>
+<body lang=3D"EN-US" link=3D"blue" vlink=3D"purple">
+<div class=3D"WordSection1">
+<p class=3D"MsoNormal">Thanks Alex<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">That sounds correct to me, mode1 rest once do clear =
+the vram data on vega10<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<div>
+<p class=3D"MsoNormal">_____________________________________<o:p></o:p></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black;backgrou=
+nd:white">Monk Liu|GPU Virtualization Team |</span><span style=3D"font-size=
+:12.0pt;color:#C82613;border:none windowtext 1.0pt;padding:0in;background:w=
+hite">AMD<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><img width=3D"80" height=3D"80" style=3D"width:.8333=
+in;height:.8333in" id=3D"Picture_x0020_1" src=3D"cid:image001.png@01D55A03.=
+3C1887E0" alt=3D"sig-cloud-gpu"><o:p></o:p></p>
+</div>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<div>
+<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
+0in 0in">
+<p class=3D"MsoNormal"><b>From:</b> Deucher, Alexander &lt;Alexander.Deuche=
+r@amd.com&gt; <br>
+<b>Sent:</b> Friday, August 23, 2019 10:34 PM<br>
+<b>To:</b> Koenig, Christian &lt;Christian.Koenig-5C7GfCeVMHo@public.gmane.org&gt;; Liu, Monk &l=
+t;Monk.Liu-5C7GfCeVMHo@public.gmane.org&gt;; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>Subject:</b> Re: [PATCH] drm/amdgpu: introduce vram lost paramter for re=
+set function<o:p></o:p></p>
+</div>
+</div>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">for mod=
+e1 and BACO, I think we can assume vram is lost because the UMC gets reset =
+in that case.&nbsp; Some of the data may still look valid, but it's not nec=
+essarily reliable.&nbsp; For mode2, vram should
+ be fine because the UMC doesn't get reset.<o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black"><o:p>&n=
+bsp;</o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">Alex<o:=
+p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black"><o:p>&n=
+bsp;</o:p></span></p>
+</div>
+<div class=3D"MsoNormal" align=3D"center" style=3D"text-align:center">
+<hr size=3D"3" width=3D"98%" align=3D"center">
+</div>
+<div id=3D"divRplyFwdMsg">
+<p class=3D"MsoNormal"><b><span style=3D"color:black">From:</span></b><span=
+ style=3D"color:black"> amd-gfx &lt;<a href=3D"mailto:amd-gfx-bounces@lists=
+.freedesktop.org">amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>&gt; on behalf o=
+f Koenig, Christian &lt;<a href=3D"mailto:Christian.Koenig-5C7GfCeVMHo@public.gmane.org">Christi=
+an.Koenig-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
+<b>Sent:</b> Friday, August 23, 2019 8:47 AM<br>
+<b>To:</b> Liu, Monk &lt;<a href=3D"mailto:Monk.Liu-5C7GfCeVMHo@public.gmane.org">Monk.Liu@amd.c=
+om</a>&gt;; <a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a> &lt;<a href=3D"mailto:amd-gfx-PD4FTy7X32mMSPqsTGOZug@public.gmane.org=
+esktop.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>&gt;<br>
+<b>Subject:</b> Re: [PATCH] drm/amdgpu: introduce vram lost paramter for re=
+set function</span>
+<o:p></o:p></p>
+<div>
+<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal">Am 23.08.19 um 10:57 schrieb Liu, Monk:<br>
+&gt;&gt;&gt; vram_lost =3D amdgpu_device_check_vram_lost(tmp_adev);<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (vram_lost) {<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp; DRM_INFO(&quot;VRAM is lost due to GPU reset!\n&quot;);<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp; atomic_inc(&amp;tmp_adev-&gt;vram_lost_counter);<br>
+&gt; Above is the original logic, if we increment the counter in BACO reset=
+ routine, we would potentially<br>
+&gt; Have another counter increasement if by coincidence the &quot;amdgpu_d=
+evice_check_vram_lost&quot; successfully detected the vram lost (although r=
+ight now it didn't ..)<br>
+<br>
+Yeah, but would increment it twice be a problem? I don't think so.<br>
+<br>
+&gt; Do you mean we remove the amdgpu_device_check_vram_lost(tmp_adev) in d=
+evice_recovery() routine ?<br>
+<br>
+Please no, that thing certainly proved to be useful. Maybe we could <br>
+investigate why it failed to auto detect the lost VRAM.<br>
+<br>
+Christian.<br>
+<br>
+&gt; _____________________________________<br>
+&gt; Monk Liu|GPU Virtualization Team |AMD<br>
+&gt;<br>
+&gt;<br>
+&gt; -----Original Message-----<br>
+&gt; From: Koenig, Christian &lt;<a href=3D"mailto:Christian.Koenig-5C7GfCeVMHo@public.gmane.org=
+">Christian.Koenig-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
+&gt; Sent: Friday, August 23, 2019 4:34 PM<br>
+&gt; To: Liu, Monk &lt;<a href=3D"mailto:Monk.Liu-5C7GfCeVMHo@public.gmane.org">Monk.Liu-5C7GfCeVMHo@public.gmane.org=
+</a>&gt;; <a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
+&gt; Subject: Re: [PATCH] drm/amdgpu: introduce vram lost paramter for rese=
+t function<br>
+&gt;<br>
+&gt; I thought in the BACO reset function.<br>
+&gt;<br>
+&gt; The top level reset function doesn't do much more than increment the v=
+ram_lost_counter either.<br>
+&gt;<br>
+&gt; Christian.<br>
+&gt;<br>
+&gt; Am 23.08.19 um 10:32 schrieb Liu, Monk:<br>
+&gt;&gt;&gt;&gt; On the other hand wouldn't it be simpler to just increment=
+ vram_lost_counter?<br>
+&gt;&gt; In where ? if you mean in amdgpu_device_recover routine I won't do=
+ that since the reset() can do any kind of reset like:<br>
+&gt;&gt; 1) PF FLR<br>
+&gt;&gt; 2) mode1/2 reset<br>
+&gt;&gt; 3) magic reset through config space<br>
+&gt;&gt; 4) BACO reset<br>
+&gt;&gt;<br>
+&gt;&gt; PF FLR won't cause VRAM lost, mode_1/2 is not clear to me, only BA=
+CO<br>
+&gt;&gt; reset is definitely a vram lost reset<br>
+&gt;&gt;<br>
+&gt;&gt; If you increase the counter in general function that will be not<b=
+r>
+&gt;&gt; accurate _____________________________________<br>
+&gt;&gt; Monk Liu|GPU Virtualization Team |AMD<br>
+&gt;&gt;<br>
+&gt;&gt;<br>
+&gt;&gt; -----Original Message-----<br>
+&gt;&gt; From: Christian K=F6nig &lt;<a href=3D"mailto:ckoenig.leichtzumerk=
+en-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org">ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt;<br>
+&gt;&gt; Sent: Friday, August 23, 2019 4:27 PM<br>
+&gt;&gt; To: Liu, Monk &lt;<a href=3D"mailto:Monk.Liu-5C7GfCeVMHo@public.gmane.org">Monk.Liu@amd=
+.com</a>&gt;; <a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
+&gt;&gt; Subject: Re: [PATCH] drm/amdgpu: introduce vram lost paramter for<=
+br>
+&gt;&gt; reset function<br>
+&gt;&gt;<br>
+&gt;&gt; Am 23.08.19 um 05:34 schrieb Monk Liu:<br>
+&gt;&gt;&gt; for SOC15/vega10 the BACO reset would introduce vram lost in t=
+he high<br>
+&gt;&gt;&gt; end address range and current kmd's vram lost checking cannot =
+catch<br>
+&gt;&gt;&gt; it since it only check visible frame buffer<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt; TODO:<br>
+&gt;&gt;&gt; to confirm if mode1/2 reset would introduce vram lost<br>
+&gt;&gt; Looks good in general, but I would make the value mandatory or may=
+be use a special return code instead.<br>
+&gt;&gt;<br>
+&gt;&gt; On the other hand wouldn't it be simpler to just increment vram_lo=
+st_counter?<br>
+&gt;&gt;<br>
+&gt;&gt; Christian.<br>
+&gt;&gt;<br>
+&gt;&gt;&gt; Signed-off-by: Monk Liu &lt;<a href=3D"mailto:Monk.Liu-5C7GfCeVMHo@public.gmane.org=
+">Monk.Liu-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
+&gt;&gt;&gt; ---<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu.h&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp; 4 &#43;&#43;--<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_devi=
+ce.c | 12 &#43;&#43;&#43;&#43;&#43;&#43;&#43;-----<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/cik.c&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp; 2 &#43;-<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/nv.c&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | 10 &#43;&#43;=
+&#43;&#43;&#43;&#43;&#43;---<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/si.c&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp; 2 &#43;=
+-<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/soc15.c&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp; 4 &#43;&#43;&#43;-<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/vi.c&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp; 2 &#43;=
+-<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; 7 files changed, 22 insertions(&#43;),=
+ 14 deletions(-)<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h<br>
+&gt;&gt;&gt; b/drivers/gpu/drm/amd/amdgpu/amdgpu.h<br>
+&gt;&gt;&gt; index f6ae565..1fe3756 100644<br>
+&gt;&gt;&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h<br>
+&gt;&gt;&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu.h<br>
+&gt;&gt;&gt; @@ -552,7 &#43;552,7 @@ struct amdgpu_asic_funcs {<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int (*read_register)(struct amdg=
+pu_device *adev, u32 se_num,<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp; u32 sh_num, u32 reg_offset, u32 *value);<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; void (*set_vga_state)(struct amd=
+gpu_device *adev, bool state);<br>
+&gt;&gt;&gt; -&nbsp;&nbsp; int (*reset)(struct amdgpu_device *adev);<br>
+&gt;&gt;&gt; &#43;&nbsp;&nbsp; int (*reset)(struct amdgpu_device *adev, boo=
+l *lost);<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; enum amd_reset_method (*reset_me=
+thod)(struct amdgpu_device *adev);<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* get the reference clock */<br=
+>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u32 (*get_xclk)(struct amdgpu_de=
+vice *adev); @@ -1136,7 &#43;1136,7<br>
+&gt;&gt;&gt; @@ int emu_soc_asic_init(struct amdgpu_device *adev);<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * ASICs macro.<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; #define amdgpu_asic_set_vga_state(adev=
+, state)<br>
+&gt;&gt;&gt; (adev)-&gt;asic_funcs-&gt;set_vga_state((adev), (state)) -#def=
+ine<br>
+&gt;&gt;&gt; amdgpu_asic_reset(adev) (adev)-&gt;asic_funcs-&gt;reset((adev)=
+)<br>
+&gt;&gt;&gt; &#43;#define amdgpu_asic_reset(adev, lost)<br>
+&gt;&gt;&gt; &#43;(adev)-&gt;asic_funcs-&gt;reset((adev), (lost))<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; #define amdgpu_asic_reset_method(adev)=
+ (adev)-&gt;asic_funcs-&gt;reset_method((adev))<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; #define amdgpu_asic_get_xclk(adev) (ad=
+ev)-&gt;asic_funcs-&gt;get_xclk((adev))<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; #define amdgpu_asic_set_uvd_clocks(ade=
+v, v, d)<br>
+&gt;&gt;&gt; (adev)-&gt;asic_funcs-&gt;set_uvd_clocks((adev), (v), (d)) dif=
+f --git<br>
+&gt;&gt;&gt; a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
+&gt;&gt;&gt; b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
+&gt;&gt;&gt; index 02b3e7d..8668cb8 100644<br>
+&gt;&gt;&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
+&gt;&gt;&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<b=
+r>
+&gt;&gt;&gt; @@ -2546,7 &#43;2546,7 @@ static void amdgpu_device_xgmi_reset=
+_func(struct work_struct *__work)<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev =3D<b=
+r>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; container_of(__work, struct amdgpu_device, xgmi_reset_work)=
+;<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+&gt;&gt;&gt; -&nbsp;&nbsp; adev-&gt;asic_reset_res =3D&nbsp; amdgpu_asic_re=
+set(adev);<br>
+&gt;&gt;&gt; &#43;&nbsp;&nbsp; adev-&gt;asic_reset_res =3D&nbsp; amdgpu_asi=
+c_reset(adev, NULL);<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;asic_reset_res)<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; DRM_WARN(&quot;ASIC reset failed with error, %d for drm dev=
+, %s&quot;,<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-=
+&gt;asic_reset_res, adev-&gt;ddev-&gt;unique); @@ -2751,7 &#43;2751,7<br>
+&gt;&gt;&gt; @@ int amdgpu_device_init(struct amdgpu_device *adev,<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *&nbsp; E.g., driver was n=
+ot cleanly unloaded previously, etc.<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!amdgpu_sriov_vf(adev) &amp;=
+&amp; amdgpu_asic_need_reset_on_init(adev)) {<br>
+&gt;&gt;&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =
+r =3D amdgpu_asic_reset(adev);<br>
+&gt;&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; r =3D amdgpu_asic_reset(adev, NULL);<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; if (r) {<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dev_err(ade=
+v-&gt;dev, &quot;asic reset on init failed\n&quot;);<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; goto failed=
+;<br>
+&gt;&gt;&gt; @@ -3084,7 &#43;3084,7 @@ int amdgpu_device_suspend(struct drm=
+_device *dev, bool suspend, bool fbcon)<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; pci_disable_device(dev-&gt;pdev);<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; pci_set_power_state(dev-&gt;pdev, PCI_D3hot);<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else {<br>
+&gt;&gt;&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =
+r =3D amdgpu_asic_reset(adev);<br>
+&gt;&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; r =3D amdgpu_asic_reset(adev, NULL);<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; if (r)<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DRM_ERROR(&=
+quot;amdgpu asic reset failed\n&quot;);<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt;&gt;&gt; @@ -3604,7 &#43;3604,7 @@ static int amdgpu_do_asic_reset(stru=
+ct amdgpu_hive_info *hive,<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!queue_work(system_highpri_wq, &am=
+p;tmp_adev-&gt;xgmi_reset_work))<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp; r =3D -EALREADY;<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else<br>
+&gt;&gt;&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp; r =3D amdgpu_asic_reset(tmp_adev);<br>
+&gt;&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_asic_reset(tmp_adev, &amp;vram_lost);=
+<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r) {<br=
+>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DRM_ERROR(&quot;ASIC reset failed with=
+ error, %d for drm dev, %s&quot;,<br>
+&gt;&gt;&gt; @@<br>
+&gt;&gt;&gt; -3645,7 &#43;3645,9 @@ static int amdgpu_do_asic_reset(struct =
+amdgpu_hive_info *hive,<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r)<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp; goto out;<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+&gt;&gt;&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp; vram_lost =3D amdgpu_device_check_vram_lost(tmp_adev);=
+<br>
+&gt;&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp; if (!vram_lost)<br>
+&gt;&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; vr=
+am_lost =3D amdgpu_device_check_vram_lost(tmp_adev);<br>
+&gt;&gt;&gt; &#43;<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (vram_lost) {<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp; DRM_INFO(&quot;VRAM is lost due to GPU reset!\n&quot;);<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp; atomic_inc(&amp;tmp_adev-&gt;vram_lost_counter);<br>
+&gt;&gt;&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/cik.c<br>
+&gt;&gt;&gt; b/drivers/gpu/drm/amd/amdgpu/cik.c<br>
+&gt;&gt;&gt; index 7b63d7a..0f25b82 100644<br>
+&gt;&gt;&gt; --- a/drivers/gpu/drm/amd/amdgpu/cik.c<br>
+&gt;&gt;&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/cik.c<br>
+&gt;&gt;&gt; @@ -1277,7 &#43;1277,7 @@ static int cik_gpu_pci_config_reset(=
+struct amdgpu_device *adev)<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * to reset them.<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * Returns 0 for success.<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
+&gt;&gt;&gt; -static int cik_asic_reset(struct amdgpu_device *adev)<br>
+&gt;&gt;&gt; &#43;static int cik_asic_reset(struct amdgpu_device *adev, boo=
+l<br>
+&gt;&gt;&gt; &#43;*vramlost)<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; {<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int r;<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+&gt;&gt;&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/nv.c<br>
+&gt;&gt;&gt; b/drivers/gpu/drm/amd/amdgpu/nv.c index a3d99f2..53de7a6 10064=
+4<br>
+&gt;&gt;&gt; --- a/drivers/gpu/drm/amd/amdgpu/nv.c<br>
+&gt;&gt;&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/nv.c<br>
+&gt;&gt;&gt; @@ -301,7 &#43;301,7 @@ nv_asic_reset_method(struct amdgpu_dev=
+ice *adev)<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; return AMD_RESET_METHOD_MODE1;<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+&gt;&gt;&gt; -static int nv_asic_reset(struct amdgpu_device *adev)<br>
+&gt;&gt;&gt; &#43;static int nv_asic_reset(struct amdgpu_device *adev, bool=
+ *vramlost)<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; {<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* FIXME: it doesn't work since =
+vega10 */ @@ -315,10 &#43;315,14 @@<br>
+&gt;&gt;&gt; static int nv_asic_reset(struct amdgpu_device *adev)<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int ret =3D 0;<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct smu_context *smu =3D &amp=
+;adev-&gt;smu;<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+&gt;&gt;&gt; -&nbsp;&nbsp; if (nv_asic_reset_method(adev) =3D=3D AMD_RESET_=
+METHOD_BACO)<br>
+&gt;&gt;&gt; &#43;&nbsp;&nbsp; if (nv_asic_reset_method(adev) =3D=3D AMD_RE=
+SET_METHOD_BACO) {<br>
+&gt;&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; if (vramlost)<br>
+&gt;&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *vramlost =3D true;<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; ret =3D smu_baco_reset(smu);<br>
+&gt;&gt;&gt; -&nbsp;&nbsp; else<br>
+&gt;&gt;&gt; &#43;&nbsp;&nbsp; }<br>
+&gt;&gt;&gt; &#43;&nbsp;&nbsp; else {<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; ret =3D nv_asic_mode1_reset(adev);<br>
+&gt;&gt;&gt; &#43;&nbsp;&nbsp; }<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret;<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt;&gt;&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/si.c<br>
+&gt;&gt;&gt; b/drivers/gpu/drm/amd/amdgpu/si.c index 9043614..f324099 10064=
+4<br>
+&gt;&gt;&gt; --- a/drivers/gpu/drm/amd/amdgpu/si.c<br>
+&gt;&gt;&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/si.c<br>
+&gt;&gt;&gt; @@ -1180,7 &#43;1180,7 @@ static bool si_read_bios_from_rom(st=
+ruct amdgpu_device *adev,<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; //xxx: not implemented<br>
+&gt;&gt;&gt; -static int si_asic_reset(struct amdgpu_device *adev)<br>
+&gt;&gt;&gt; &#43;static int si_asic_reset(struct amdgpu_device *adev, bool=
+ *vramlost)<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; {<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt;&gt;&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c<br>
+&gt;&gt;&gt; b/drivers/gpu/drm/amd/amdgpu/soc15.c<br>
+&gt;&gt;&gt; index fe2212df..12b2966 100644<br>
+&gt;&gt;&gt; --- a/drivers/gpu/drm/amd/amdgpu/soc15.c<br>
+&gt;&gt;&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/soc15.c<br>
+&gt;&gt;&gt; @@ -553,10 &#43;553,12 @@ soc15_asic_reset_method(struct amdgp=
+u_device *adev)<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; return AMD_RESET_METHOD_MODE1;<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+&gt;&gt;&gt; -static int soc15_asic_reset(struct amdgpu_device *adev)<br>
+&gt;&gt;&gt; &#43;static int soc15_asic_reset(struct amdgpu_device *adev, b=
+ool<br>
+&gt;&gt;&gt; &#43;*vramlost)<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; {<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; switch (soc15_asic_reset_method(=
+adev)) {<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; case AMD_RESET_METHOD_BACO:<br>
+&gt;&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (vramlost)<br>
+&gt;&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp; *vramlost =3D true;<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return soc1=
+5_asic_baco_reset(adev);<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; case AMD_RESET_METHOD_MODE2:<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return soc1=
+5_mode2_reset(adev); diff --git<br>
+&gt;&gt;&gt; a/drivers/gpu/drm/amd/amdgpu/vi.c b/drivers/gpu/drm/amd/amdgpu=
+/vi.c<br>
+&gt;&gt;&gt; index 56c882b..8eceb00 100644<br>
+&gt;&gt;&gt; --- a/drivers/gpu/drm/amd/amdgpu/vi.c<br>
+&gt;&gt;&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/vi.c<br>
+&gt;&gt;&gt; @@ -696,7 &#43;696,7 @@ static int vi_gpu_pci_config_reset(str=
+uct amdgpu_device *adev)<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * to reset them.<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * Returns 0 for success.<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
+&gt;&gt;&gt; -static int vi_asic_reset(struct amdgpu_device *adev)<br>
+&gt;&gt;&gt; &#43;static int vi_asic_reset(struct amdgpu_device *adev, bool=
+ *vramlost)<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; {<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int r;<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+<br>
+_______________________________________________<br>
+amd-gfx mailing list<br>
+<a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9/rsn8yoX9R0@public.gmane.org=
+org</a><br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
+lists.freedesktop.org/mailman/listinfo/amd-gfx</a><o:p></o:p></p>
+</div>
+</div>
+</div>
+</body>
+</html>
+
+--_000_MN2PR12MB3933CEA5C6F3445AE9B7A28B84A40MN2PR12MB3933namp_--
+
+--_004_MN2PR12MB3933CEA5C6F3445AE9B7A28B84A40MN2PR12MB3933namp_
+Content-Type: image/png; name="image001.png"
+Content-Description: image001.png
+Content-Disposition: inline; filename="image001.png"; size=12243;
+	creation-date="Fri, 23 Aug 2019 14:36:46 GMT";
+	modification-date="Fri, 23 Aug 2019 14:36:46 GMT"
+Content-ID: <image001.png-RxuZk49IqSXgOogKF4SbrzRmByFHzeGd@public.gmane.org>
+Content-Transfer-Encoding: base64
+
+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
+
+--_004_MN2PR12MB3933CEA5C6F3445AE9B7A28B84A40MN2PR12MB3933namp_--
+
+--===============1572350496==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+
+--===============1572350496==--
