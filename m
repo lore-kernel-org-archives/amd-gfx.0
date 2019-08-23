@@ -1,156 +1,240 @@
-From: Harry Wentland <hwentlan-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm: Add LTTPR defines for DP 1.4
-Date: Fri, 23 Aug 2019 15:57:59 +0000
-Message-ID: <8105f436-91af-3c63-7ada-a5800df43a52@amd.com>
-References: <20190822224607.m73g3a2a23zww644@outlook.office365.com>
+From: Andrey Konovalov <andreyknvl@google.com>
+Subject: Re: [PATCH v18 15/15] selftests, arm64: add a selftest for passing
+ tagged pointers to kernel
+Date: Fri, 23 Aug 2019 19:16:15 +0200
+Message-ID: <CAAeHK+yhbUcuLhoetjGUbqM4j9fX84hbwmxzNPF+e1zXj6nKNw@mail.gmail.com>
+References: <cover.1561386715.git.andreyknvl@google.com> <0999c80cd639b78ae27c0674069d552833227564.1561386715.git.andreyknvl@google.com>
+ <6af3f619-4356-2f67-ed76-92beceb1e0a0@arm.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0184477755=="
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190822224607.m73g3a2a23zww644-1ViLX0X+lBJGNQ1M2rI3KwRV3xvJKrda@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Siqueira, Rodrigo" <Rodrigo.Siqueira-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Li, Sun peng (Leo)" <Sunpeng.Li-5C7GfCeVMHo@public.gmane.org>, "Berthe,
- Abdoulaye" <Abdoulaye.Berthe-5C7GfCeVMHo@public.gmane.org>, "Wentland,
- Harry" <Harry.Wentland-5C7GfCeVMHo@public.gmane.org>
-
---===============0184477755==
-Content-Language: en-US
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="yhEycHOY5GvvroNbpg8nf0NFlrv4yNEqK"
-
---yhEycHOY5GvvroNbpg8nf0NFlrv4yNEqK
-Content-Type: multipart/mixed; boundary="X0vQyaYXkRLW2m8P3gBnXegyFSiafsUNP";
- protected-headers="v1"
-From: Harry Wentland <hwentlan-5C7GfCeVMHo@public.gmane.org>
-To: "Siqueira, Rodrigo" <Rodrigo.Siqueira-5C7GfCeVMHo@public.gmane.org>,
- "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>,
- "dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Berthe, Abdoulaye" <Abdoulaye.Berthe-5C7GfCeVMHo@public.gmane.org>,
- "Wentland, Harry" <Harry.Wentland-5C7GfCeVMHo@public.gmane.org>,
- "Li, Sun peng (Leo)" <Sunpeng.Li-5C7GfCeVMHo@public.gmane.org>
-Message-ID: <8105f436-91af-3c63-7ada-a5800df43a52-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm: Add LTTPR defines for DP 1.4
-References: <20190822224607.m73g3a2a23zww644-1ViLX0X+lBJGNQ1M2rI3KwRV3xvJKrda@public.gmane.org>
-In-Reply-To: <20190822224607.m73g3a2a23zww644-1ViLX0X+lBJGNQ1M2rI3KwRV3xvJKrda@public.gmane.org>
-
---X0vQyaYXkRLW2m8P3gBnXegyFSiafsUNP
-Content-Type: text/plain; charset=windows-1252
-Content-Language: en-US
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <6af3f619-4356-2f67-ed76-92beceb1e0a0@arm.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Cristian Marussi <cristian.marussi@arm.com>
+Cc: Linux ARM <linux-arm-kernel@lists.infradead.org>, Linux Memory Management List <linux-mm@kvack.org>, LKML <linux-kernel@vger.kernel.org>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-rdma@vger.kernel.org, linux-media@vger.kernel.org, kvm@vger.kernel.org, "open list:KERNEL SELFTEST FRAMEWORK" <linux-kselftest@vger.kernel.org>, Catalin Marinas <catalin.marinas@arm.com>, Vincenzo Frascino <vincenzo.frascino@arm.com>, Will Deacon <will.deacon@arm.com>, Mark Rutland <mark.rutland@arm.com>, Andrew Morton <akpm@linux-foundation.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Kees Cook <keescook@chromium.org>, Yishai Hadas <yishaih@mellanox.com>, Felix Kuehling <Felix.Kuehling@amd.com>, Alexander Deucher <Alexander.Deucher@am>
+List-Id: amd-gfx.lists.freedesktop.org
 
-On 2019-08-22 6:46 p.m., Siqueira, Rodrigo wrote:
-> DP 1.4 specification defines Link Training Tunable PHY Repeater (LTTPR)=
+On Fri, Aug 23, 2019 at 3:56 PM Cristian Marussi
+<cristian.marussi@arm.com> wrote:
+>
+> Hi Andrey
+>
+> On 24/06/2019 15:33, Andrey Konovalov wrote:
+> > This patch is a part of a series that extends kernel ABI to allow to pa=
+ss
+> > tagged user pointers (with the top byte set to something else other tha=
+n
+> > 0x00) as syscall arguments.
+> >
+> > This patch adds a simple test, that calls the uname syscall with a
+> > tagged user pointer as an argument. Without the kernel accepting tagged
+> > user pointers the test fails with EFAULT.
+> >
+> > Signed-off-by: Andrey Konovalov <andreyknvl@google.com>
+> > ---
+> >  tools/testing/selftests/arm64/.gitignore      |  1 +
+> >  tools/testing/selftests/arm64/Makefile        | 11 +++++++
+> >  .../testing/selftests/arm64/run_tags_test.sh  | 12 ++++++++
+> >  tools/testing/selftests/arm64/tags_test.c     | 29 +++++++++++++++++++
+> >  4 files changed, 53 insertions(+)
+> >  create mode 100644 tools/testing/selftests/arm64/.gitignore
+> >  create mode 100644 tools/testing/selftests/arm64/Makefile
+> >  create mode 100755 tools/testing/selftests/arm64/run_tags_test.sh
+> >  create mode 100644 tools/testing/selftests/arm64/tags_test.c
+>
+> After building a fresh Kernel from arm64/for-next-core from scratch at:
+>
+> commit 239ab658bea3b387424501e7c416640d6752dc0c
+> Merge: 6bfa3134bd3a 42d038c4fb00 1243cb6a676f d55c5f28afaf d06fa5a118f1 3=
+4b5560db40d
+> Author: Will Deacon <will@kernel.org>
+> Date:   Thu Aug 22 18:23:53 2019 +0100
+>
+>     Merge branches 'for-next/error-injection', 'for-next/tbi', 'for-next/=
+psci-cpuidle', 'for-next/cpu-topology' and 'for-next/52-bit-kva' into for-n=
+ext/core
+>
+>
+> KSFT arm64 tests build is broken for me, both setting or not KBUILD_OUTPU=
+T=3D
+>
+> 13:30 $ make TARGETS=3Darm64 kselftest-clean
+> make[1]: Entering directory '/home/crimar01/ARM/dev/src/pdsw/out_linux'
+> rm -f -r /home/crimar01/ARM/dev/src/pdsw/out_linux//kselftest/arm64/tags_=
+test
+> make[1]: Leaving directory '/home/crimar01/ARM/dev/src/pdsw/out_linux'
+>
+> =E2=9C=94 ~/ARM/dev/src/pdsw/linux [arm64_for_next_core|=E2=80=A68=E2=9A=
+=91 23]
+>
+> 13:30 $ make TARGETS=3Darm64 kselftest
+> make[1]: Entering directory '/home/crimar01/ARM/dev/src/pdsw/out_linux'
+> arch/arm64/Makefile:56: CROSS_COMPILE_COMPAT not defined or empty, the co=
+mpat vDSO will not be built
+> make --no-builtin-rules INSTALL_HDR_PATH=3D$BUILD/usr \
+>         ARCH=3Darm64 -C ../../.. headers_install
+>   HOSTCC  scripts/basic/fixdep
+>   HOSTCC  scripts/unifdef
+> ...
+> ...
+>   HDRINST usr/include/asm/msgbuf.h
+>   HDRINST usr/include/asm/shmbuf.h
+>   INSTALL /home/crimar01/ARM/dev/src/pdsw/out_linux//kselftest/usr/includ=
+e
+> /opt/toolchains/gcc-arm-8.3-2019.03-x86_64-aarch64-linux-gnu/bin/aarch64-=
+linux-gnu-gcc     tags_test.c  -o /home/crimar01/ARM/dev/src/pdsw/out_linux=
+//kselftest/arm64/tags_test
+> tags_test.c: In function =E2=80=98main=E2=80=99:
+> tags_test.c:21:12: error: =E2=80=98PR_SET_TAGGED_ADDR_CTRL=E2=80=99 undec=
+lared (first use in this function); did you mean =E2=80=98PR_GET_TID_ADDRES=
+S=E2=80=99?
+>   if (prctl(PR_SET_TAGGED_ADDR_CTRL, PR_TAGGED_ADDR_ENABLE, 0, 0, 0) =3D=
+=3D 0)
+>             ^~~~~~~~~~~~~~~~~~~~~~~
+>             PR_GET_TID_ADDRESS
+> tags_test.c:21:12: note: each undeclared identifier is reported only once=
+ for each function it appears in
+> tags_test.c:21:37: error: =E2=80=98PR_TAGGED_ADDR_ENABLE=E2=80=99 undecla=
+red (first use in this function); did you mean =E2=80=98PR_GET_DUMPABLE=E2=
+=80=99?
+>   if (prctl(PR_SET_TAGGED_ADDR_CTRL, PR_TAGGED_ADDR_ENABLE, 0, 0, 0) =3D=
+=3D 0)
+>                                      ^~~~~~~~~~~~~~~~~~~~~
+>                                      PR_GET_DUMPABLE
+> ../lib.mk:138: recipe for target '/home/crimar01/ARM/dev/src/pdsw/out_lin=
+ux//kselftest/arm64/tags_test' failed
+> make[3]: *** [/home/crimar01/ARM/dev/src/pdsw/out_linux//kselftest/arm64/=
+tags_test] Error 1
+> Makefile:136: recipe for target 'all' failed
+> make[2]: *** [all] Error 2
+> /home/crimar01/ARM/dev/src/pdsw/linux/Makefile:1237: recipe for target 'k=
+selftest' failed
+> make[1]: *** [kselftest] Error 2
+> make[1]: Leaving directory '/home/crimar01/ARM/dev/src/pdsw/out_linux'
+> Makefile:179: recipe for target 'sub-make' failed
+> make: *** [sub-make] Error 2
+>
+> Despite seeing KSFT installing Kernel Headers, they cannot be found.
+>
+> Fixing this patch like this make it work for me:
+>
+> diff --git a/tools/testing/selftests/arm64/Makefile b/tools/testing/selft=
+ests/arm64/Makefile
+> index a61b2e743e99..f9f79fb272f0 100644
+> --- a/tools/testing/selftests/arm64/Makefile
+> +++ b/tools/testing/selftests/arm64/Makefile
+> @@ -4,6 +4,7 @@
+>  ARCH ?=3D $(shell uname -m 2>/dev/null || echo not)
+>
+>  ifneq (,$(filter $(ARCH),aarch64 arm64))
+> +CFLAGS +=3D -I../../../../usr/include/
+>  TEST_GEN_PROGS :=3D tags_test
+>  TEST_PROGS :=3D run_tags_test.sh
+>  endif
+>
+> but is not really a proper fix since it does NOT account for case in whic=
+h you have
+> installed the Kernel Headers in a non standard location like when you use=
+ KBUILD_OUTPUT.
+>
+> Am I missing something ?
 
-> which is required to add support for systems with Thunderbolt or other
-> repeater devices.
->=20
-> Cc: Abdoulaye Berthe <Abdoulaye.Berthe-5C7GfCeVMHo@public.gmane.org>
-> Cc: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>
-> Cc: Leo Li <sunpeng.li-5C7GfCeVMHo@public.gmane.org>
-> Signed-off-by: Rodrigo Siqueira <Rodrigo.Siqueira-5C7GfCeVMHo@public.gmane.org>
-> Signed-off-by: Abdoulaye Berthe <Abdoulaye.Berthe-5C7GfCeVMHo@public.gmane.org>
-> ---
->  include/drm/drm_dp_helper.h | 26 ++++++++++++++++++++++++++
->  1 file changed, 26 insertions(+)
->=20
-> diff --git a/include/drm/drm_dp_helper.h b/include/drm/drm_dp_helper.h
-> index 8364502f92cf..8336d960da7f 100644
-> --- a/include/drm/drm_dp_helper.h
-> +++ b/include/drm/drm_dp_helper.h
-> @@ -134,6 +134,32 @@
->  #define DP_SUPPORTED_LINK_RATES		    0x010 /* eDP 1.4 */
->  # define DP_MAX_SUPPORTED_RATES		     8	    /* 16-bit little-endian */=
+Hm, PR_SET_TAGGED_ADDR_CTRL is defined in include/uapi/linux/prctl.h,
+and the test has #include <sys/prctl.h> so as long as you've updated
+your kernel headers this should work.
 
-> =20
-> +/** Link Training (LT)-tunable Physical Repeaters - DP 1.4 **/
-> +#define DP_LTTPR_REV                                  0xf0000
-> +#define DP_LTTPR_MAX_LINK_RATE                        0xf0001
-> +#define DP_LTTPR_REPEATER_CNT                         0xf0002
-> +#define DP_LTTPR_REPEATER_MODE                        0xf0003
-> +#define DP_LTTPR_MAX_LANE_CNT                         0xf0004
-> +#define DP_LTTPR_EXTENDED_WAIT_TIMEOUT                0xf0005
-> +#define DP_LTTPR_TRAINING_PATTERN_SET_REPEATER1       0xf0010
-> +#define DP_LTTPR_TRAINING_LANE0_SET_REPEATER1         0xf0011
-> +#define DP_LTTPR_TRAINING_LANE1_SET_REPEATER1         0xf0012
-> +#define DP_LTTPR_TRAINING_LANE2_SET_REPEATER1         0xf0013
-> +#define DP_LTTPR_TRAINING_LANE3_SET_REPEATER1         0xf0014
-
-Can we align the register naming with the spec and to align with the
-rest of this file?
-
-The seem to take the form of DP_<name-from-spec>
-
-E.g. call this one DP_TRAINING_LANE3_SET_PHY_REPEATER1
-
-Same for all other registers.
-
-Keeping the naming consistent makes it easier to search.
-
-> +#define DP_LTTPR_TRAINING_AUX_RD_INTERVAL_REPEATER1   0xf0020
-> +#define DP_LTTPR_TRANSMITTER_CAPABILITY_REPEATER1     0xf0021
-> +#define DP_LTTPR_LANE0_1_STATUS_REPEATER1             0xf0030
-> +#define DP_LTTPR_LANE2_3_STATUS_REPEATER1             0xf0031
-> +#define DP_LTTPR_LANE_ALIGN_STATUS_UPDATED_REPEATER1  0xf0032
-> +#define DP_LTTPR_ADJUST_REQUEST_LANE0_1_REPEATER1     0xf0033
-> +#define DP_LTTPR_ADJUST_REQUEST_LANE2_3_REPEATER1     0xf0034
-> +#define DP_LTTPR_SYMBOL_ERROR_COUNT_LANE0_REPEATER1   0xf0035
-> +#define DP_LTTPR_SYMBOL_ERROR_COUNT_LANE1_REPEATER1   0xf0037
-> +#define DP_LTTPR_SYMBOL_ERROR_COUNT_LANE2_REPEATER1   0xf0039
-> +#define DP_LTTPR_SYMBOL_ERROR_COUNT_LANE3_REPEATER1   0xf003b
-> +#define DP_REPEATER_CONFIGURATION_AND_STATUS_OFFSET   0x50
-
-With a cursory search I can't seem to find this in the spec. Where is
-this coming from?
-
-Harry
-
-> +#define DP_LTTPR_FEC_STATUS_REPEATER1                 0xf0290> +
->  /* Multiple stream transport */
->  #define DP_FAUX_CAP			    0x020   /* 1.2 */
->  # define DP_FAUX_CAP_1			    (1 << 0)
->=20
+(I'm OOO next week, I'll see if I can reproduce this once I'm back).
 
 
---X0vQyaYXkRLW2m8P3gBnXegyFSiafsUNP--
 
---yhEycHOY5GvvroNbpg8nf0NFlrv4yNEqK
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEkiEcMSFhcOGNLtE6LVgVyYwUtuMFAl1gDQUACgkQLVgVyYwU
-tuOqCQgAxuWo0QQCxMTKj0TSQagvX9ulxdI4GmKWgTGntzj0Ng1NvYlxzudOWrZH
-Am47T4DTDLc7Miv5ZmMNUglzrwSfSm+8Hbx6koqlSnpqwgNiikLE7pexl7XwPQvx
-tlc+3K2ftK789eSoBdfOBaTAgdQ3i4ZVCn9bRauxoY9fhFPvdApFYsvDo5Y6hXGC
-HQXxgRg/Qcs4dwh+PO1sWqXiVuZEF5xHdLOFK+2Es/adMz/sM/SL4B+34BVPipuk
-N48TheM7dPLiy/YxrU1WRt3PXnNYbx032bPL6wmflTlhhRLSvpdRZAGxr9pwGOFY
-2vNQDt0ldC9fuksLCCJ4Li95w5RYWA==
-=PVXp
------END PGP SIGNATURE-----
-
---yhEycHOY5GvvroNbpg8nf0NFlrv4yNEqK--
-
---===============0184477755==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
-
---===============0184477755==--
+>
+> Thanks
+>
+> Cristian
+>
+> >
+> > diff --git a/tools/testing/selftests/arm64/.gitignore b/tools/testing/s=
+elftests/arm64/.gitignore
+> > new file mode 100644
+> > index 000000000000..e8fae8d61ed6
+> > --- /dev/null
+> > +++ b/tools/testing/selftests/arm64/.gitignore
+> > @@ -0,0 +1 @@
+> > +tags_test
+> > diff --git a/tools/testing/selftests/arm64/Makefile b/tools/testing/sel=
+ftests/arm64/Makefile
+> > new file mode 100644
+> > index 000000000000..a61b2e743e99
+> > --- /dev/null
+> > +++ b/tools/testing/selftests/arm64/Makefile
+> > @@ -0,0 +1,11 @@
+> > +# SPDX-License-Identifier: GPL-2.0
+> > +
+> > +# ARCH can be overridden by the user for cross compiling
+> > +ARCH ?=3D $(shell uname -m 2>/dev/null || echo not)
+> > +
+> > +ifneq (,$(filter $(ARCH),aarch64 arm64))
+> > +TEST_GEN_PROGS :=3D tags_test
+> > +TEST_PROGS :=3D run_tags_test.sh
+> > +endif
+> > +
+> > +include ../lib.mk
+> > diff --git a/tools/testing/selftests/arm64/run_tags_test.sh b/tools/tes=
+ting/selftests/arm64/run_tags_test.sh
+> > new file mode 100755
+> > index 000000000000..745f11379930
+> > --- /dev/null
+> > +++ b/tools/testing/selftests/arm64/run_tags_test.sh
+> > @@ -0,0 +1,12 @@
+> > +#!/bin/sh
+> > +# SPDX-License-Identifier: GPL-2.0
+> > +
+> > +echo "--------------------"
+> > +echo "running tags test"
+> > +echo "--------------------"
+> > +./tags_test
+> > +if [ $? -ne 0 ]; then
+> > +     echo "[FAIL]"
+> > +else
+> > +     echo "[PASS]"
+> > +fi
+> > diff --git a/tools/testing/selftests/arm64/tags_test.c b/tools/testing/=
+selftests/arm64/tags_test.c
+> > new file mode 100644
+> > index 000000000000..22a1b266e373
+> > --- /dev/null
+> > +++ b/tools/testing/selftests/arm64/tags_test.c
+> > @@ -0,0 +1,29 @@
+> > +// SPDX-License-Identifier: GPL-2.0
+> > +
+> > +#include <stdio.h>
+> > +#include <stdlib.h>
+> > +#include <unistd.h>
+> > +#include <stdint.h>
+> > +#include <sys/prctl.h>
+> > +#include <sys/utsname.h>
+> > +
+> > +#define SHIFT_TAG(tag)               ((uint64_t)(tag) << 56)
+> > +#define SET_TAG(ptr, tag)    (((uint64_t)(ptr) & ~SHIFT_TAG(0xff)) | \
+> > +                                     SHIFT_TAG(tag))
+> > +
+> > +int main(void)
+> > +{
+> > +     static int tbi_enabled =3D 0;
+> > +     struct utsname *ptr, *tagged_ptr;
+> > +     int err;
+> > +
+> > +     if (prctl(PR_SET_TAGGED_ADDR_CTRL, PR_TAGGED_ADDR_ENABLE, 0, 0, 0=
+) =3D=3D 0)
+> > +             tbi_enabled =3D 1;
+> > +     ptr =3D (struct utsname *)malloc(sizeof(*ptr));
+> > +     if (tbi_enabled)
+> > +             tagged_ptr =3D (struct utsname *)SET_TAG(ptr, 0x42);
+> > +     err =3D uname(tagged_ptr);
+> > +     free(ptr);
+> > +
+> > +     return err;
+> > +}
+> >
+>
