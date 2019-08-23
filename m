@@ -1,58 +1,198 @@
-From: "Russell, Kent" <Kent.Russell-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH] drm/powerplay: Fix Vega20 power reading again
-Date: Fri, 23 Aug 2019 13:37:09 +0000
-Message-ID: <20190823133652.31774-1-kent.russell@amd.com>
+From: Cristian Marussi <cristian.marussi@arm.com>
+Subject: Re: [PATCH v18 15/15] selftests, arm64: add a selftest for passing
+ tagged pointers to kernel
+Date: Fri, 23 Aug 2019 14:56:11 +0100
+Message-ID: <6af3f619-4356-2f67-ed76-92beceb1e0a0@arm.com>
+References: <cover.1561386715.git.andreyknvl@google.com>
+ <0999c80cd639b78ae27c0674069d552833227564.1561386715.git.andreyknvl@google.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <0999c80cd639b78ae27c0674069d552833227564.1561386715.git.andreyknvl@google.com>
 Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Russell, Kent" <Kent.Russell-5C7GfCeVMHo@public.gmane.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Andrey Konovalov <andreyknvl@google.com>, linux-arm-kernel@lists.infradead.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-rdma@vger.kernel.org, linux-media@vger.kernel.org, kvm@vger.kernel.org, linux-kselftest@vger.kernel.org
+Cc: Catalin Marinas <catalin.marinas@arm.com>, Vincenzo Frascino <vincenzo.frascino@arm.com>, Will Deacon <will.deacon@arm.com>, Mark Rutland <mark.rutland@arm.com>, Andrew Morton <akpm@linux-foundation.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Kees Cook <keescook@chromium.org>, Yishai Hadas <yishaih@mellanox.com>, Felix Kuehling <Felix.Kuehling@amd.com>, Alexander Deucher <Alexander.Deucher@amd.com>, Christian Koenig <Christian.Koenig@amd.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Jens Wiklander <jens.wiklander@linaro.org>, Alex Williamson <alex.williamson@redhat.com>, Leon Romanovsky <leon@kernel.org>, Luc Van Oostenryck <luc.vanoostenryck@gmail.com>, Dave Martin <Dave.Martin@arm.com>, Khalid Aziz <khalid.aziz@oracle.com>, enh <enh@>
+List-Id: amd-gfx.lists.freedesktop.org
 
-Rm9yIHRoZSA0MC40NiBTTVUgcmVsZWFzZSwgdGhleSBjaGFuZ2VkIEN1cnJTb2NrZXRQb3dlciB0
-bwpBdmVyYWdlU29ja2V0UG93ZXIsIGJ1dCB0aGlzIHdhcyBjaGFuZ2VkIGJhY2sgaW4gNDAuNDcg
-c28ganVzdCBjaGVjayBpZgppdCdzIDQwLjQ2IGFuZCBtYWtlIHRoZSBhcHByb3ByaWF0ZSBjaGFu
-Z2UKClRlc3RlZCB3aXRoIDQwLjQ1LCA0MC40NiBhbmQgNDAuNDcgc3VjY2Vzc2Z1bGx5CgpDaGFu
-Z2UtSWQ6IEljYmJlNmZkMzM4MWI4YWQ2Mjk4YzJkMDg1MmE3MjZmZmFjOThmOTNhClNpZ25lZC1v
-ZmYtYnk6IEtlbnQgUnVzc2VsbCA8a2VudC5ydXNzZWxsQGFtZC5jb20+Ci0tLQogZHJpdmVycy9n
-cHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3IvdmVnYTIwX2h3bWdyLmMgfCA3ICsrKystLS0KIGRy
-aXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L3ZlZ2EyMF9wcHQuYyAgICAgICAgIHwgNyArKysr
-LS0tCiAyIGZpbGVzIGNoYW5nZWQsIDggaW5zZXJ0aW9ucygrKSwgNiBkZWxldGlvbnMoLSkKCmRp
-ZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci92ZWdhMjBfaHdt
-Z3IuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL3ZlZ2EyMF9od21nci5j
-CmluZGV4IDlmNTBhMTJmNWMwMy4uOThhNmY1MzA1OTc0IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dw
-dS9kcm0vYW1kL3Bvd2VycGxheS9od21nci92ZWdhMjBfaHdtZ3IuYworKysgYi9kcml2ZXJzL2dw
-dS9kcm0vYW1kL3Bvd2VycGxheS9od21nci92ZWdhMjBfaHdtZ3IuYwpAQCAtMjEwMSwxMCArMjEw
-MSwxMSBAQCBzdGF0aWMgaW50IHZlZ2EyMF9nZXRfZ3B1X3Bvd2VyKHN0cnVjdCBwcF9od21nciAq
-aHdtZ3IsCiAJaWYgKHJldCkKIAkJcmV0dXJuIHJldDsKIAotCWlmIChod21nci0+c211X3ZlcnNp
-b24gPCAweDI4MmUwMCkKLQkJKnF1ZXJ5ID0gbWV0cmljc190YWJsZS5DdXJyU29ja2V0UG93ZXIg
-PDwgODsKLQllbHNlCisJLyogRm9yIHRoZSA0MC40NiByZWxlYXNlLCB0aGV5IGNoYW5nZWQgdGhl
-IHZhbHVlIG5hbWUgKi8KKwlpZiAoaHdtZ3ItPnNtdV92ZXJzaW9uID09IDB4MjgyZTAwKQogCQkq
-cXVlcnkgPSBtZXRyaWNzX3RhYmxlLkF2ZXJhZ2VTb2NrZXRQb3dlciA8PCA4OworCWVsc2UKKwkJ
-KnF1ZXJ5ID0gbWV0cmljc190YWJsZS5DdXJyU29ja2V0UG93ZXIgPDwgODsKIAogCXJldHVybiBy
-ZXQ7CiB9CmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS92ZWdhMjBf
-cHB0LmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS92ZWdhMjBfcHB0LmMKaW5kZXgg
-MGZhYzgyNDQ5MGQ3Li44OTliZjk2YjIzZTEgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9h
-bWQvcG93ZXJwbGF5L3ZlZ2EyMF9wcHQuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2Vy
-cGxheS92ZWdhMjBfcHB0LmMKQEAgLTI5MzIsMTAgKzI5MzIsMTEgQEAgc3RhdGljIGludCB2ZWdh
-MjBfZ2V0X2dwdV9wb3dlcihzdHJ1Y3Qgc211X2NvbnRleHQgKnNtdSwgdWludDMyX3QgKnZhbHVl
-KQogCWlmIChyZXQpCiAJCXJldHVybiByZXQ7CiAKLQlpZiAoc211X3ZlcnNpb24gPCAweDI4MmUw
-MCkKLQkJKnZhbHVlID0gbWV0cmljcy5DdXJyU29ja2V0UG93ZXIgPDwgODsKLQllbHNlCisJLyog
-Rm9yIHRoZSA0MC40NiByZWxlYXNlLCB0aGV5IGNoYW5nZWQgdGhlIHZhbHVlIG5hbWUgKi8KKwlp
-ZiAoc211X3ZlcnNpb24gPT0gMHgyODJlMDApCiAJCSp2YWx1ZSA9IG1ldHJpY3MuQXZlcmFnZVNv
-Y2tldFBvd2VyIDw8IDg7CisJZWxzZQorCQkqdmFsdWUgPSBtZXRyaWNzLkN1cnJTb2NrZXRQb3dl
-ciA8PCA4OwogCiAJcmV0dXJuIDA7CiB9Ci0tIAoyLjE3LjEKCl9fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhA
-bGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxt
-YW4vbGlzdGluZm8vYW1kLWdmeA==
+Hi Andrey
+
+On 24/06/2019 15:33, Andrey Konovalov wrote:
+> This patch is a part of a series that extends kernel ABI to allow to pass
+> tagged user pointers (with the top byte set to something else other than
+> 0x00) as syscall arguments.
+> 
+> This patch adds a simple test, that calls the uname syscall with a
+> tagged user pointer as an argument. Without the kernel accepting tagged
+> user pointers the test fails with EFAULT.
+> 
+> Signed-off-by: Andrey Konovalov <andreyknvl@google.com>
+> ---
+>  tools/testing/selftests/arm64/.gitignore      |  1 +
+>  tools/testing/selftests/arm64/Makefile        | 11 +++++++
+>  .../testing/selftests/arm64/run_tags_test.sh  | 12 ++++++++
+>  tools/testing/selftests/arm64/tags_test.c     | 29 +++++++++++++++++++
+>  4 files changed, 53 insertions(+)
+>  create mode 100644 tools/testing/selftests/arm64/.gitignore
+>  create mode 100644 tools/testing/selftests/arm64/Makefile
+>  create mode 100755 tools/testing/selftests/arm64/run_tags_test.sh
+>  create mode 100644 tools/testing/selftests/arm64/tags_test.c
+
+After building a fresh Kernel from arm64/for-next-core from scratch at:
+
+commit 239ab658bea3b387424501e7c416640d6752dc0c 
+Merge: 6bfa3134bd3a 42d038c4fb00 1243cb6a676f d55c5f28afaf d06fa5a118f1 34b5560db40d
+Author: Will Deacon <will@kernel.org>
+Date:   Thu Aug 22 18:23:53 2019 +0100
+
+    Merge branches 'for-next/error-injection', 'for-next/tbi', 'for-next/psci-cpuidle', 'for-next/cpu-topology' and 'for-next/52-bit-kva' into for-next/core
+
+
+KSFT arm64 tests build is broken for me, both setting or not KBUILD_OUTPUT=
+
+13:30 $ make TARGETS=arm64 kselftest-clean                       
+make[1]: Entering directory '/home/crimar01/ARM/dev/src/pdsw/out_linux'
+rm -f -r /home/crimar01/ARM/dev/src/pdsw/out_linux//kselftest/arm64/tags_test
+make[1]: Leaving directory '/home/crimar01/ARM/dev/src/pdsw/out_linux'
+
+✔ ~/ARM/dev/src/pdsw/linux [arm64_for_next_core|…8⚑ 23]
+
+13:30 $ make TARGETS=arm64 kselftest                  
+make[1]: Entering directory '/home/crimar01/ARM/dev/src/pdsw/out_linux'
+arch/arm64/Makefile:56: CROSS_COMPILE_COMPAT not defined or empty, the compat vDSO will not be built
+make --no-builtin-rules INSTALL_HDR_PATH=$BUILD/usr \
+        ARCH=arm64 -C ../../.. headers_install             
+  HOSTCC  scripts/basic/fixdep                     
+  HOSTCC  scripts/unifdef                         
+...
+...
+  HDRINST usr/include/asm/msgbuf.h
+  HDRINST usr/include/asm/shmbuf.h
+  INSTALL /home/crimar01/ARM/dev/src/pdsw/out_linux//kselftest/usr/include
+/opt/toolchains/gcc-arm-8.3-2019.03-x86_64-aarch64-linux-gnu/bin/aarch64-linux-gnu-gcc     tags_test.c  -o /home/crimar01/ARM/dev/src/pdsw/out_linux//kselftest/arm64/tags_test
+tags_test.c: In function ‘main’:
+tags_test.c:21:12: error: ‘PR_SET_TAGGED_ADDR_CTRL’ undeclared (first use in this function); did you mean ‘PR_GET_TID_ADDRESS’?
+  if (prctl(PR_SET_TAGGED_ADDR_CTRL, PR_TAGGED_ADDR_ENABLE, 0, 0, 0) == 0)
+            ^~~~~~~~~~~~~~~~~~~~~~~
+            PR_GET_TID_ADDRESS
+tags_test.c:21:12: note: each undeclared identifier is reported only once for each function it appears in
+tags_test.c:21:37: error: ‘PR_TAGGED_ADDR_ENABLE’ undeclared (first use in this function); did you mean ‘PR_GET_DUMPABLE’?
+  if (prctl(PR_SET_TAGGED_ADDR_CTRL, PR_TAGGED_ADDR_ENABLE, 0, 0, 0) == 0)
+                                     ^~~~~~~~~~~~~~~~~~~~~
+                                     PR_GET_DUMPABLE
+../lib.mk:138: recipe for target '/home/crimar01/ARM/dev/src/pdsw/out_linux//kselftest/arm64/tags_test' failed
+make[3]: *** [/home/crimar01/ARM/dev/src/pdsw/out_linux//kselftest/arm64/tags_test] Error 1
+Makefile:136: recipe for target 'all' failed
+make[2]: *** [all] Error 2
+/home/crimar01/ARM/dev/src/pdsw/linux/Makefile:1237: recipe for target 'kselftest' failed
+make[1]: *** [kselftest] Error 2
+make[1]: Leaving directory '/home/crimar01/ARM/dev/src/pdsw/out_linux'
+Makefile:179: recipe for target 'sub-make' failed
+make: *** [sub-make] Error 2
+
+Despite seeing KSFT installing Kernel Headers, they cannot be found.
+
+Fixing this patch like this make it work for me:
+
+diff --git a/tools/testing/selftests/arm64/Makefile b/tools/testing/selftests/arm64/Makefile                                                                                        
+index a61b2e743e99..f9f79fb272f0 100644                             
+--- a/tools/testing/selftests/arm64/Makefile   
++++ b/tools/testing/selftests/arm64/Makefile                                                     
+@@ -4,6 +4,7 @@                                                                       
+ ARCH ?= $(shell uname -m 2>/dev/null || echo not)                                              
+                                                       
+ ifneq (,$(filter $(ARCH),aarch64 arm64))                                            
++CFLAGS += -I../../../../usr/include/                                                               
+ TEST_GEN_PROGS := tags_test                                  
+ TEST_PROGS := run_tags_test.sh                                    
+ endif                                                             
+
+but is not really a proper fix since it does NOT account for case in which you have
+installed the Kernel Headers in a non standard location like when you use KBUILD_OUTPUT.
+
+Am I missing something ?
+
+Thanks
+
+Cristian
+
+> 
+> diff --git a/tools/testing/selftests/arm64/.gitignore b/tools/testing/selftests/arm64/.gitignore
+> new file mode 100644
+> index 000000000000..e8fae8d61ed6
+> --- /dev/null
+> +++ b/tools/testing/selftests/arm64/.gitignore
+> @@ -0,0 +1 @@
+> +tags_test
+> diff --git a/tools/testing/selftests/arm64/Makefile b/tools/testing/selftests/arm64/Makefile
+> new file mode 100644
+> index 000000000000..a61b2e743e99
+> --- /dev/null
+> +++ b/tools/testing/selftests/arm64/Makefile
+> @@ -0,0 +1,11 @@
+> +# SPDX-License-Identifier: GPL-2.0
+> +
+> +# ARCH can be overridden by the user for cross compiling
+> +ARCH ?= $(shell uname -m 2>/dev/null || echo not)
+> +
+> +ifneq (,$(filter $(ARCH),aarch64 arm64))
+> +TEST_GEN_PROGS := tags_test
+> +TEST_PROGS := run_tags_test.sh
+> +endif
+> +
+> +include ../lib.mk
+> diff --git a/tools/testing/selftests/arm64/run_tags_test.sh b/tools/testing/selftests/arm64/run_tags_test.sh
+> new file mode 100755
+> index 000000000000..745f11379930
+> --- /dev/null
+> +++ b/tools/testing/selftests/arm64/run_tags_test.sh
+> @@ -0,0 +1,12 @@
+> +#!/bin/sh
+> +# SPDX-License-Identifier: GPL-2.0
+> +
+> +echo "--------------------"
+> +echo "running tags test"
+> +echo "--------------------"
+> +./tags_test
+> +if [ $? -ne 0 ]; then
+> +	echo "[FAIL]"
+> +else
+> +	echo "[PASS]"
+> +fi
+> diff --git a/tools/testing/selftests/arm64/tags_test.c b/tools/testing/selftests/arm64/tags_test.c
+> new file mode 100644
+> index 000000000000..22a1b266e373
+> --- /dev/null
+> +++ b/tools/testing/selftests/arm64/tags_test.c
+> @@ -0,0 +1,29 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +
+> +#include <stdio.h>
+> +#include <stdlib.h>
+> +#include <unistd.h>
+> +#include <stdint.h>
+> +#include <sys/prctl.h>
+> +#include <sys/utsname.h>
+> +
+> +#define SHIFT_TAG(tag)		((uint64_t)(tag) << 56)
+> +#define SET_TAG(ptr, tag)	(((uint64_t)(ptr) & ~SHIFT_TAG(0xff)) | \
+> +					SHIFT_TAG(tag))
+> +
+> +int main(void)
+> +{
+> +	static int tbi_enabled = 0;
+> +	struct utsname *ptr, *tagged_ptr;
+> +	int err;
+> +
+> +	if (prctl(PR_SET_TAGGED_ADDR_CTRL, PR_TAGGED_ADDR_ENABLE, 0, 0, 0) == 0)
+> +		tbi_enabled = 1;
+> +	ptr = (struct utsname *)malloc(sizeof(*ptr));
+> +	if (tbi_enabled)
+> +		tagged_ptr = (struct utsname *)SET_TAG(ptr, 0x42);
+> +	err = uname(tagged_ptr);
+> +	free(ptr);
+> +
+> +	return err;
+> +}
+> 
