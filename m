@@ -1,110 +1,73 @@
-From: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH 4/4] drm/amdgpu: Determing PTE flags separately for each
- mapping
-Date: Fri, 23 Aug 2019 21:33:47 +0000
-Message-ID: <20190823213249.10749-5-Felix.Kuehling@amd.com>
-References: <20190823213249.10749-1-Felix.Kuehling@amd.com>
+From: Ralph Campbell <rcampbell@nvidia.com>
+Subject: [PATCH 1/2] mm/hmm: hmm_range_fault() NULL pointer bug
+Date: Fri, 23 Aug 2019 15:17:52 -0700
+Message-ID: <20190823221753.2514-2-rcampbell@nvidia.com>
+References: <20190823221753.2514-1-rcampbell@nvidia.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190823213249.10749-1-Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Zeng, Oak" <Oak.Zeng-5C7GfCeVMHo@public.gmane.org>, "Koenig,
- Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain
+Content-Transfer-Encoding: quoted-printable
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20190823221753.2514-1-rcampbell@nvidia.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: linux-mm@kvack.org
+Cc: linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, =?UTF-8?q?J=C3=A9r=C3=B4me=20Glisse?= <jglisse@redhat.com>, Jason Gunthorpe <jgg@mellanox.com>, Andrew Morton <akpm@linux-foundation.org>, Christoph Hellwig <hch@lst.de>, Ralph Campbell <rcampbell@nvidia.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
-VGhlIHNhbWUgQk8gY2FuIGJlIG1hcHBlZCB3aXRoIGRpZmZlcmVudCBQVEUgZmxhZ3MgYnkgZGlm
-ZmVyZW50IEdQVXMuClRoZXJlZm9yZSBkZXRlcm1pbmUgdGhlIFBURSBmbGFncyBzZXBhcmF0ZWx5
-IGZvciBlYWNoIG1hcHBpbmcgaW5zdGVhZApvZiBzdG9yaW5nIHRoZW0gaW4gdGhlIGJ1ZmZlciBv
-YmplY3QuCgpBZGQgYSBoZWxwZXIgZnVuY3Rpb24gdG8gZGV0ZXJtaW5lIHRoZSBQVEUgZmxhZ3Mg
-d2l0aCBzcGVjaWFsIGxvZ2ljCmZvciBBcmN0dXJ1cyB0aGF0IHRha2VzIGFkdmFudGFnZXMgb2Yg
-dGhlIG5ldyBNVFlQRV9SVyBhbmQgdGhlIGFiaWxpdHkKdG8gcHJvYmUtaW52YWxpZGF0ZSByZW1v
-dGUgY2FjaGVzIG92ZXIgWEdNSS4KClNpZ25lZC1vZmYtYnk6IEZlbGl4IEt1ZWhsaW5nIDxGZWxp
-eC5LdWVobGluZ0BhbWQuY29tPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdw
-dV9hbWRrZmQuaCAgICB8ICAyICstCiAuLi4vZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9hbWRr
-ZmRfZ3B1dm0uYyAgfCA2MCArKysrKysrKysrKysrKy0tLS0tCiAyIGZpbGVzIGNoYW5nZWQsIDQ1
-IGluc2VydGlvbnMoKyksIDE3IGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9hbWRrZmQuaCBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
-Z3B1L2FtZGdwdV9hbWRrZmQuaAppbmRleCBlNTE5ZGYzZmQyYjYuLjFhZjhmODNmN2UwMiAxMDA2
-NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2FtZGtmZC5oCisrKyBi
-L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9hbWRrZmQuaApAQCAtNTcsNyArNTcs
-NyBAQCBzdHJ1Y3Qga2dkX21lbSB7CiAJdW5zaWduZWQgaW50IG1hcHBlZF90b19ncHVfbWVtb3J5
-OwogCXVpbnQ2NF90IHZhOwogCi0JdWludDMyX3QgbWFwcGluZ19mbGFnczsKKwl1aW50MzJfdCBh
-bGxvY19mbGFnczsKIAogCWF0b21pY190IGludmFsaWQ7CiAJc3RydWN0IGFtZGtmZF9wcm9jZXNz
-X2luZm8gKnByb2Nlc3NfaW5mbzsKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
-Z3B1L2FtZGdwdV9hbWRrZmRfZ3B1dm0uYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
-ZGdwdV9hbWRrZmRfZ3B1dm0uYwppbmRleCA0NGE1MmIwOWNjNTguLmRkMjRkOTUxN2RlMiAxMDA2
-NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2FtZGtmZF9ncHV2bS5j
-CisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9hbWRrZmRfZ3B1dm0uYwpA
-QCAtMzEsNiArMzEsNyBAQAogI2luY2x1ZGUgImFtZGdwdV92bS5oIgogI2luY2x1ZGUgImFtZGdw
-dV9hbWRrZmQuaCIKICNpbmNsdWRlICJhbWRncHVfZG1hX2J1Zi5oIgorI2luY2x1ZGUgImFtZGdw
-dV94Z21pLmgiCiAKIC8qIFNwZWNpYWwgVk0gYW5kIEdBUlQgYWRkcmVzcyBhbGlnbm1lbnQgbmVl
-ZGVkIGZvciBWSSBwcmUtRmlqaSBkdWUgdG8KICAqIGEgSFcgYnVnLgpAQCAtMzU1LDYgKzM1Niw0
-MyBAQCBzdGF0aWMgaW50IHZtX3VwZGF0ZV9wZHMoc3RydWN0IGFtZGdwdV92bSAqdm0sIHN0cnVj
-dCBhbWRncHVfc3luYyAqc3luYykKIAlyZXR1cm4gYW1kZ3B1X3N5bmNfZmVuY2UoTlVMTCwgc3lu
-Yywgdm0tPmxhc3RfdXBkYXRlLCBmYWxzZSk7CiB9CiAKK3N0YXRpYyB1aW50MzJfdCBnZXRfcHRl
-X2ZsYWdzKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LCBzdHJ1Y3Qga2dkX21lbSAqbWVtKQor
-eworCXN0cnVjdCBhbWRncHVfZGV2aWNlICpib19hZGV2ID0gYW1kZ3B1X3R0bV9hZGV2KG1lbS0+
-Ym8tPnRiby5iZGV2KTsKKwlib29sIGNvaGVyZW50ID0gbWVtLT5hbGxvY19mbGFncyAmIEFMTE9D
-X01FTV9GTEFHU19DT0hFUkVOVDsKKwl1aW50MzJfdCBtYXBwaW5nX2ZsYWdzOworCisJbWFwcGlu
-Z19mbGFncyA9IEFNREdQVV9WTV9QQUdFX1JFQURBQkxFOworCWlmIChtZW0tPmFsbG9jX2ZsYWdz
-ICYgQUxMT0NfTUVNX0ZMQUdTX1dSSVRBQkxFKQorCQltYXBwaW5nX2ZsYWdzIHw9IEFNREdQVV9W
-TV9QQUdFX1dSSVRFQUJMRTsKKwlpZiAobWVtLT5hbGxvY19mbGFncyAmIEFMTE9DX01FTV9GTEFH
-U19FWEVDVVRBQkxFKQorCQltYXBwaW5nX2ZsYWdzIHw9IEFNREdQVV9WTV9QQUdFX0VYRUNVVEFC
-TEU7CisKKwlzd2l0Y2ggKGFkZXYtPmFzaWNfdHlwZSkgeworCWNhc2UgQ0hJUF9BUkNUVVJVUzoK
-KwkJaWYgKG1lbS0+YWxsb2NfZmxhZ3MgJiBBTExPQ19NRU1fRkxBR1NfVlJBTSkgeworCQkJaWYg
-KGJvX2FkZXYgPT0gYWRldikgeworCQkJCW1hcHBpbmdfZmxhZ3MgfD0gY29oZXJlbnQgPworCQkJ
-CQlBTURHUFVfVk1fTVRZUEVfQ0MgOiBBTURHUFVfVk1fTVRZUEVfUlc7CisJCQl9IGVsc2Ugewor
-CQkJCW1hcHBpbmdfZmxhZ3MgfD0gQU1ER1BVX1ZNX01UWVBFX1VDOworCQkJCWlmIChhbWRncHVf
-eGdtaV9zYW1lX2hpdmUoYWRldiwgYm9fYWRldikpCisJCQkJCW1hcHBpbmdfZmxhZ3MgfD0KKwkJ
-CQkJCUFNREdQVV9WTV9QQUdFX0lOVkFMSURBVEVfUFJPQkU7CisJCQl9CisJCX0gZWxzZSB7CisJ
-CQltYXBwaW5nX2ZsYWdzIHw9IGNvaGVyZW50ID8KKwkJCQlBTURHUFVfVk1fTVRZUEVfVUMgOiBB
-TURHUFVfVk1fTVRZUEVfTkM7CisJCX0KKwkJYnJlYWs7CisJZGVmYXVsdDoKKwkJbWFwcGluZ19m
-bGFncyB8PSBjb2hlcmVudCA/CisJCQlBTURHUFVfVk1fTVRZUEVfVUMgOiBBTURHUFVfVk1fTVRZ
-UEVfTkM7CisJfQorCisJcmV0dXJuIGFtZGdwdV9nbWNfZ2V0X3B0ZV9mbGFncyhhZGV2LCBtYXBw
-aW5nX2ZsYWdzKTsKK30KKwogLyogYWRkX2JvX3RvX3ZtIC0gQWRkIGEgQk8gdG8gYSBWTQogICoK
-ICAqIEV2ZXJ5dGhpbmcgdGhhdCBuZWVkcyB0byBibyBkb25lIG9ubHkgb25jZSB3aGVuIGEgQk8g
-aXMgZmlyc3QgYWRkZWQKQEAgLTQwMyw4ICs0NDEsNyBAQCBzdGF0aWMgaW50IGFkZF9ib190b192
-bShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwgc3RydWN0IGtnZF9tZW0gKm1lbSwKIAl9CiAK
-IAlib192YV9lbnRyeS0+dmEgPSB2YTsKLQlib192YV9lbnRyeS0+cHRlX2ZsYWdzID0gYW1kZ3B1
-X2dtY19nZXRfcHRlX2ZsYWdzKGFkZXYsCi0JCQkJCQkJIG1lbS0+bWFwcGluZ19mbGFncyk7CisJ
-Ym9fdmFfZW50cnktPnB0ZV9mbGFncyA9IGdldF9wdGVfZmxhZ3MoYWRldiwgbWVtKTsKIAlib192
-YV9lbnRyeS0+a2dkX2RldiA9ICh2b2lkICopYWRldjsKIAlsaXN0X2FkZCgmYm9fdmFfZW50cnkt
-PmJvX2xpc3QsIGxpc3RfYm9fdmEpOwogCkBAIC0xMDgxLDcgKzExMTgsNiBAQCBpbnQgYW1kZ3B1
-X2FtZGtmZF9ncHV2bV9hbGxvY19tZW1vcnlfb2ZfZ3B1KAogCWludCBieXRlX2FsaWduOwogCXUz
-MiBkb21haW4sIGFsbG9jX2RvbWFpbjsKIAl1NjQgYWxsb2NfZmxhZ3M7Ci0JdWludDMyX3QgbWFw
-cGluZ19mbGFnczsKIAlpbnQgcmV0OwogCiAJLyoKQEAgLTExNDMsMTYgKzExNzksNyBAQCBpbnQg
-YW1kZ3B1X2FtZGtmZF9ncHV2bV9hbGxvY19tZW1vcnlfb2ZfZ3B1KAogCQkJYWRldi0+YXNpY190
-eXBlICE9IENISVBfVkVHQU0pID8KIAkJCVZJX0JPX1NJWkVfQUxJR04gOiAxOwogCi0JbWFwcGlu
-Z19mbGFncyA9IEFNREdQVV9WTV9QQUdFX1JFQURBQkxFOwotCWlmIChmbGFncyAmIEFMTE9DX01F
-TV9GTEFHU19XUklUQUJMRSkKLQkJbWFwcGluZ19mbGFncyB8PSBBTURHUFVfVk1fUEFHRV9XUklU
-RUFCTEU7Ci0JaWYgKGZsYWdzICYgQUxMT0NfTUVNX0ZMQUdTX0VYRUNVVEFCTEUpCi0JCW1hcHBp
-bmdfZmxhZ3MgfD0gQU1ER1BVX1ZNX1BBR0VfRVhFQ1VUQUJMRTsKLQlpZiAoZmxhZ3MgJiBBTExP
-Q19NRU1fRkxBR1NfQ09IRVJFTlQpCi0JCW1hcHBpbmdfZmxhZ3MgfD0gQU1ER1BVX1ZNX01UWVBF
-X1VDOwotCWVsc2UKLQkJbWFwcGluZ19mbGFncyB8PSBBTURHUFVfVk1fTVRZUEVfTkM7Ci0JKCpt
-ZW0pLT5tYXBwaW5nX2ZsYWdzID0gbWFwcGluZ19mbGFnczsKKwkoKm1lbSktPmFsbG9jX2ZsYWdz
-ID0gZmxhZ3M7CiAKIAlhbWRncHVfc3luY19jcmVhdGUoJigqbWVtKS0+c3luYyk7CiAKQEAgLTE2
-MjUsOSArMTY1MiwxMCBAQCBpbnQgYW1kZ3B1X2FtZGtmZF9ncHV2bV9pbXBvcnRfZG1hYnVmKHN0
-cnVjdCBrZ2RfZGV2ICprZ2QsCiAKIAlJTklUX0xJU1RfSEVBRCgmKCptZW0pLT5ib192YV9saXN0
-KTsKIAltdXRleF9pbml0KCYoKm1lbSktPmxvY2spOwotCSgqbWVtKS0+bWFwcGluZ19mbGFncyA9
-Ci0JCUFNREdQVV9WTV9QQUdFX1JFQURBQkxFIHwgQU1ER1BVX1ZNX1BBR0VfV1JJVEVBQkxFIHwK
-LQkJQU1ER1BVX1ZNX1BBR0VfRVhFQ1VUQUJMRSB8IEFNREdQVV9WTV9NVFlQRV9OQzsKKwkoKm1l
-bSktPmFsbG9jX2ZsYWdzID0KKwkJKChiby0+cHJlZmVycmVkX2RvbWFpbnMgJiBBTURHUFVfR0VN
-X0RPTUFJTl9WUkFNKSA/CisJCSBBTExPQ19NRU1fRkxBR1NfVlJBTSA6IEFMTE9DX01FTV9GTEFH
-U19HVFQpIHwKKwkJQUxMT0NfTUVNX0ZMQUdTX1dSSVRBQkxFIHwgQUxMT0NfTUVNX0ZMQUdTX0VY
-RUNVVEFCTEU7CiAKIAkoKm1lbSktPmJvID0gYW1kZ3B1X2JvX3JlZihibyk7CiAJKCptZW0pLT52
-YSA9IHZhOwotLSAKMi4xNy4xCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9w
-Lm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1n
-Zng=
+Although hmm_range_fault() calls find_vma() to make sure that a vma exists
+before calling walk_page_range(), hmm_vma_walk_hole() can still be called
+with walk->vma =3D=3D NULL if the start and end address are not contained
+within the vma range.
+
+ hmm_range_fault() /* calls find_vma() but no range check */
+  walk_page_range() /* calls find_vma(), sets walk->vma =3D NULL */
+   __walk_page_range()
+    walk_pgd_range()
+     walk_p4d_range()
+      walk_pud_range()
+       hmm_vma_walk_hole()
+        hmm_vma_walk_hole_()
+         hmm_vma_do_fault()
+          handle_mm_fault(vma=3D0)
+
+Signed-off-by: Ralph Campbell <rcampbell@nvidia.com>
+---
+ mm/hmm.c | 13 +++++++++----
+ 1 file changed, 9 insertions(+), 4 deletions(-)
+
+diff --git a/mm/hmm.c b/mm/hmm.c
+index fc05c8fe78b4..29371485fe94 100644
+--- a/mm/hmm.c
++++ b/mm/hmm.c
+@@ -229,6 +229,9 @@ static int hmm_vma_do_fault(struct mm_walk *walk, unsig=
+ned long addr,
+ 	struct vm_area_struct *vma =3D walk->vma;
+ 	vm_fault_t ret;
+=20
++	if (!vma)
++		goto err;
++
+ 	if (hmm_vma_walk->flags & HMM_FAULT_ALLOW_RETRY)
+ 		flags |=3D FAULT_FLAG_ALLOW_RETRY;
+ 	if (write_fault)
+@@ -239,12 +242,14 @@ static int hmm_vma_do_fault(struct mm_walk *walk, uns=
+igned long addr,
+ 		/* Note, handle_mm_fault did up_read(&mm->mmap_sem)) */
+ 		return -EAGAIN;
+ 	}
+-	if (ret & VM_FAULT_ERROR) {
+-		*pfn =3D range->values[HMM_PFN_ERROR];
+-		return -EFAULT;
+-	}
++	if (ret & VM_FAULT_ERROR)
++		goto err;
+=20
+ 	return -EBUSY;
++
++err:
++	*pfn =3D range->values[HMM_PFN_ERROR];
++	return -EFAULT;
+ }
+=20
+ static int hmm_pfns_bad(unsigned long addr,
+--=20
+2.20.1
