@@ -1,14 +1,11 @@
-From: "Quan, Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH] drm/amd/powerplay: update cached feature enablement
+From: "Wang, Kevin(Yang)" <Kevin1.Wang-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amd/powerplay: update cached feature enablement
  status V2
-Date: Fri, 23 Aug 2019 04:50:49 +0000
-Message-ID: <MN2PR12MB33449FC7151536C90957FE64E4A40@MN2PR12MB3344.namprd12.prod.outlook.com>
-References: <20190822101806.11651-1-evan.quan@amd.com>
- <MN2PR12MB32964130A7A33074F69384EEA2A50@MN2PR12MB3296.namprd12.prod.outlook.com>
+Date: Fri, 23 Aug 2019 05:29:51 +0000
+Message-ID: <MN2PR12MB32969ABC3F90939200C01E64A2A40@MN2PR12MB3296.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0164750990=="
+Content-Type: multipart/mixed; boundary="===============1001391833=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <MN2PR12MB32964130A7A33074F69384EEA2A50-rweVpJHSKTqAm9ToKNQgFgdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -20,18 +17,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Wang, Kevin(Yang)" <Kevin1.Wang-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Quan, Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============0164750990==
+--===============1001391833==
 Content-Language: en-US
 Content-Type: multipart/alternative;
-	boundary="_000_MN2PR12MB33449FC7151536C90957FE64E4A40MN2PR12MB3344namp_"
+	boundary="_000_MN2PR12MB32969ABC3F90939200C01E64A2A40MN2PR12MB3296namp_"
 
---_000_MN2PR12MB33449FC7151536C90957FE64E4A40MN2PR12MB3344namp_
-Content-Type: text/plain; charset="us-ascii"
+--_000_MN2PR12MB32969ABC3F90939200C01E64A2A40MN2PR12MB3296namp_
+Content-Type: text/plain; charset="Windows-1252"
 Content-Transfer-Encoding: quoted-printable
 
+comment inline
+________________________________
+From: Quan, Evan <Evan.Quan-5C7GfCeVMHo@public.gmane.org>
+Sent: Friday, August 23, 2019 12:50 PM
+To: Wang, Kevin(Yang) <Kevin1.Wang-5C7GfCeVMHo@public.gmane.org>; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org =
+<amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Subject: RE: [PATCH] drm/amd/powerplay: update cached feature enablement st=
+atus V2
+
+
 Comment inline
+
+
 
 From: Wang, Kevin(Yang) <Kevin1.Wang-5C7GfCeVMHo@public.gmane.org>
 Sent: Thursday, August 22, 2019 8:00 PM
@@ -39,8 +48,12 @@ To: Quan, Evan <Evan.Quan-5C7GfCeVMHo@public.gmane.org>; amd-gfx-PD4FTy7X32lNgt0
 Subject: Re: [PATCH] drm/amd/powerplay: update cached feature enablement st=
 atus V2
 
+
+
 comment inline.
+
 ________________________________
+
 From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-bounces=
 @lists.freedesktop.org>> on behalf of Evan Quan <evan.quan-5C7GfCeVMHo@public.gmane.org<mailto:e=
 van.quan-5C7GfCeVMHo@public.gmane.org>>
@@ -51,6 +64,8 @@ Cc: Quan, Evan <Evan.Quan-5C7GfCeVMHo@public.gmane.org<mailto:Evan.Quan-5C7GfCeV
 Subject: [PATCH] drm/amd/powerplay: update cached feature enablement status=
  V2
 
+
+
 Need to update in cache feature enablement status after pp_feature
 settings. Another fix for the commit below:
 drm/amd/powerplay: implment sysfs feature status function in smu
@@ -58,7 +73,9 @@ drm/amd/powerplay: implment sysfs feature status function in smu
 V2: update smu_feature_update_enable_state() and relates
 
 Change-Id: I90e29b0d839df26825d5993212f6097c7ad4bebf
+
 [kevin]: this information is not neccessary for public, please remove it.
+
 git config gerrit.createchangeid=3Dfalse
 Signed-off-by: Evan Quan <evan.quan-5C7GfCeVMHo@public.gmane.org<mailto:evan.quan-5C7GfCeVMHo@public.gmane.org>>
 ---
@@ -127,19 +144,31 @@ bled);
 +               }
 +       }
 
+
+
 //[kevin]: the code logic is a little redundant.
+
 could you use bellow macro to replace that?
+
 header : linux/bitmap.h
+
  *  bitmap_and(dst, src1, src2, nbits)          *dst =3D *src1 & *src2
+
  *  bitmap_or(dst, src1, src2, nbits)           *dst =3D *src1 | *src2
+
  *  bitmap_xor(dst, src1, src2, nbits)          *dst =3D *src1 ^ *src2
+
  *  bitmap_andnot(dst, src1, src2, nbits)       *dst =3D *src1 & ~(*src2)
+
+
 
 +       mutex_unlock(&feature->mutex);
 +
 +       return ret;
 +}
 +
+
+
 
 [Quan, Evan] updated in v3.
 
@@ -152,17 +181,46 @@ header : linux/bitmap.h
          return ret;
  }
 
+
+
 [kevin]:
+
 in this patch, i know you only want to fix not cached feature cache issue,
+
 but in v2 patch,
+
 the patch adjust the order of code functions, it seems that this is a brand=
  new function,
+
 I don't think it is necessary,
+
 could you just reflect the modified content in the patch, which can facilit=
 ate us to trace problems and review.
+
 thanks.
 
-[Quan, Evan] Move the API before the place it's called. No problem here.
+
+
+[Quan, Evan] Move the API before the place it=92s called. No problem here.
+
+
+[kevin]: in this patch, you don't need to adjust function order in this fil=
+e,
+
+because the driver is already export this function in amdgpu_smu.h.
+
+int smu_feature_update_enable_state(struct smu_context *smu, uint64_t featu=
+re_mask, bool enabled);
+
+and in this patch, it make it is static function, but the declaration secti=
+on remains in the amdgpu_smu.h file.
+
+so i don't want to you adjust the function order and make it is static funt=
+ion in this patch.
+
+except you have other reason for it.
+
+
 -int smu_feature_update_enable_state(struct smu_context *smu, uint64_t feat=
 ure_mask, bool enabled)
 -{
@@ -272,110 +330,77 @@ amd-gfx mailing list
 amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 
---_000_MN2PR12MB33449FC7151536C90957FE64E4A40MN2PR12MB3344namp_
-Content-Type: text/html; charset="us-ascii"
+--_000_MN2PR12MB32969ABC3F90939200C01E64A2A40MN2PR12MB3296namp_
+Content-Type: text/html; charset="Windows-1252"
 Content-Transfer-Encoding: quoted-printable
 
-<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
-osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
-xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
-//www.w3.org/TR/REC-html40">
+<html>
 <head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
-<!--[if !mso]><style>v\:* {behavior:url(#default#VML);}
-o\:* {behavior:url(#default#VML);}
-w\:* {behavior:url(#default#VML);}
-.shape {behavior:url(#default#VML);}
-</style><![endif]--><style><!--
-/* Font Definitions */
-@font-face
-	{font-family:SimSun;
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-@font-face
-	{font-family:"Cambria Math";
-	panose-1:2 4 5 3 5 4 6 3 2 4;}
-@font-face
-	{font-family:Calibri;
-	panose-1:2 15 5 2 2 2 4 3 2 4;}
-@font-face
-	{font-family:"Segoe UI";
-	panose-1:2 11 5 2 4 2 4 2 2 3;}
-@font-face
-	{font-family:SimSun;
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-/* Style Definitions */
-p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin:0in;
-	margin-bottom:.0001pt;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif;}
-a:link, span.MsoHyperlink
-	{mso-style-priority:99;
-	color:blue;
-	text-decoration:underline;}
-a:visited, span.MsoHyperlinkFollowed
-	{mso-style-priority:99;
-	color:purple;
-	text-decoration:underline;}
-p.msonormal0, li.msonormal0, div.msonormal0
-	{mso-style-name:msonormal;
-	margin:0in;
-	margin-bottom:.0001pt;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif;}
-span.EmailStyle20
-	{mso-style-type:personal-reply;
-	font-family:"Calibri",sans-serif;
-	color:windowtext;}
-.MsoChpDefault
-	{mso-style-type:export-only;
-	font-size:10.0pt;}
-@page WordSection1
-	{size:8.5in 11.0in;
-	margin:1.0in 1.25in 1.0in 1.25in;}
-div.WordSection1
-	{page:WordSection1;}
---></style><!--[if gte mso 9]><xml>
-<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
-</xml><![endif]--><!--[if gte mso 9]><xml>
-<o:shapelayout v:ext=3D"edit">
-<o:idmap v:ext=3D"edit" data=3D"1" />
-</o:shapelayout></xml><![endif]-->
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3DWindows-1=
+252">
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
 </head>
-<body lang=3D"EN-US" link=3D"blue" vlink=3D"purple">
-<div class=3D"WordSection1">
-<p class=3D"MsoNormal">Comment inline<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<div style=3D"border:none;border-left:solid blue 1.5pt;padding:0in 0in 0in =
-4.0pt">
+<body dir=3D"ltr">
+<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
+t; color:rgb(0,0,0)">
+comment inline</div>
+<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
+t; color:rgb(0,0,0)">
+</div>
+<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" co=
+lor=3D"#000000" style=3D"font-size:11pt"><b>From:</b> Quan, Evan &lt;Evan.Q=
+uan-5C7GfCeVMHo@public.gmane.org&gt;<br>
+<b>Sent:</b> Friday, August 23, 2019 12:50 PM<br>
+<b>To:</b> Wang, Kevin(Yang) &lt;Kevin1.Wang-5C7GfCeVMHo@public.gmane.org&gt;; amd-gfx-PD4FTy7X32mzQB+pC5nmwQ@public.gmane.org=
+edesktop.org &lt;amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt;<br>
+<b>Subject:</b> RE: [PATCH] drm/amd/powerplay: update cached feature enable=
+ment status V2</font>
+<div>&nbsp;</div>
+</div>
+<div lang=3D"EN-US">
+<div class=3D"x_WordSection1">
+<p class=3D"x_MsoNormal" style=3D"margin: 0in 0in 0.0001pt; font-size: 11pt=
+; font-family: Calibri, sans-serif;">
+Comment inline</p>
+<p class=3D"x_MsoNormal" style=3D"margin: 0in 0in 0.0001pt; font-size: 11pt=
+; font-family: Calibri, sans-serif;">
+&nbsp;</p>
+<div style=3D"border:none; border-left:solid blue 1.5pt; padding:0in 0in 0i=
+n 4.0pt">
 <div>
-<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
-0in 0in">
-<p class=3D"MsoNormal"><b>From:</b> Wang, Kevin(Yang) &lt;Kevin1.Wang@amd.c=
-om&gt; <br>
+<div style=3D"border:none; border-top:solid #E1E1E1 1.0pt; padding:3.0pt 0i=
+n 0in 0in">
+<p class=3D"x_MsoNormal" style=3D"margin: 0in 0in 0.0001pt; font-size: 11pt=
+; font-family: Calibri, sans-serif;">
+<b>From:</b> Wang, Kevin(Yang) &lt;Kevin1.Wang-5C7GfCeVMHo@public.gmane.org&gt; <br>
 <b>Sent:</b> Thursday, August 22, 2019 8:00 PM<br>
 <b>To:</b> Quan, Evan &lt;Evan.Quan-5C7GfCeVMHo@public.gmane.org&gt;; amd-gfx-PD4FTy7X32lNgt0PjOBp9/rsn8yoX9R0@public.gmane.org=
 org<br>
 <b>Subject:</b> Re: [PATCH] drm/amd/powerplay: update cached feature enable=
-ment status V2<o:p></o:p></p>
+ment status V2</p>
 </div>
 </div>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"x_MsoNormal" style=3D"margin: 0in 0in 0.0001pt; font-size: 11pt=
+; font-family: Calibri, sans-serif;">
+&nbsp;</p>
 <div>
-<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">comment=
- inline.<o:p></o:p></span></p>
+<p class=3D"x_MsoNormal" style=3D"margin: 0in 0in 0.0001pt; font-size: 11pt=
+; font-family: Calibri, sans-serif;">
+<span style=3D"font-size:12.0pt; color:black">comment inline.</span></p>
 </div>
-<div class=3D"MsoNormal" align=3D"center" style=3D"text-align:center">
+<div class=3D"x_MsoNormal" align=3D"center" style=3D"margin: 0in 0in 0.0001=
+pt; font-size: 11pt; font-family: Calibri, sans-serif;text-align:center">
 <hr size=3D"2" width=3D"98%" align=3D"center">
 </div>
-<div id=3D"divRplyFwdMsg">
-<p class=3D"MsoNormal"><b><span style=3D"color:black">From:</span></b><span=
- style=3D"color:black"> amd-gfx &lt;<a href=3D"mailto:amd-gfx-bounces@lists=
-.freedesktop.org">amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>&gt; on behalf o=
-f Evan Quan &lt;<a href=3D"mailto:evan.quan-5C7GfCeVMHo@public.gmane.org">evan.quan-5C7GfCeVMHo@public.gmane.org</a>&=
-gt;<br>
+<div id=3D"x_divRplyFwdMsg">
+<p class=3D"x_MsoNormal" style=3D"margin: 0in 0in 0.0001pt; font-size: 11pt=
+; font-family: Calibri, sans-serif;">
+<b><span style=3D"color:black">From:</span></b><span style=3D"color:black">=
+ amd-gfx &lt;<a href=3D"mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-g=
+fx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>&gt; on behalf of Evan Quan &lt;<a href=
+=3D"mailto:evan.quan-5C7GfCeVMHo@public.gmane.org">evan.quan-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
 <b>Sent:</b> Thursday, August 22, 2019 6:18 PM<br>
 <b>To:</b> <a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx@lists.f=
 reedesktop.org</a> &lt;<a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd=
@@ -384,29 +409,35 @@ reedesktop.org</a> &lt;<a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHr
 d.com</a>&gt;<br>
 <b>Subject:</b> [PATCH] drm/amd/powerplay: update cached feature enablement=
  status V2</span>
-<o:p></o:p></p>
+</p>
 <div>
-<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
+<p class=3D"x_MsoNormal" style=3D"margin: 0in 0in 0.0001pt; font-size: 11pt=
+; font-family: Calibri, sans-serif;">
+&nbsp;</p>
 </div>
 </div>
 <div>
 <div>
-<p class=3D"MsoNormal">Need to update in cache feature enablement status af=
-ter pp_feature<br>
+<p class=3D"x_MsoNormal" style=3D"margin: 0in 0in 0.0001pt; font-size: 11pt=
+; font-family: Calibri, sans-serif;">
+Need to update in cache feature enablement status after pp_feature<br>
 settings. Another fix for the commit below:<br>
 drm/amd/powerplay: implment sysfs feature status function in smu<br>
 <br>
 V2: update smu_feature_update_enable_state() and relates<br>
 <br>
-<b>Change-Id: I90e29b0d839df26825d5993212f6097c7ad4bebf&nbsp;</b><o:p></o:p=
-></p>
+<b>Change-Id: I90e29b0d839df26825d5993212f6097c7ad4bebf&nbsp;</b></p>
 </div>
 <div>
-<p class=3D"MsoNormal"><b>[kevin]: this information is not neccessary for p=
-ublic, please remove it.</b><o:p></o:p></p>
+<p class=3D"x_MsoNormal" style=3D"margin: 0in 0in 0.0001pt; font-size: 11pt=
+; font-family: Calibri, sans-serif;">
+<b>[kevin]: this information is not neccessary for public, please remove it=
+.</b></p>
 </div>
 <div>
-<p class=3D"MsoNormal"><b>git config gerrit.createchangeid=3Dfalse<br>
+<p class=3D"x_MsoNormal" style=3D"margin: 0in 0in 0.0001pt; font-size: 11pt=
+; font-family: Calibri, sans-serif;">
+<b>git config gerrit.createchangeid=3Dfalse<br>
 </b>Signed-off-by: Evan Quan &lt;<a href=3D"mailto:evan.quan-5C7GfCeVMHo@public.gmane.org">evan.=
 quan-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
 ---<br>
@@ -426,8 +457,8 @@ t *smu, char *buf)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return size;<br>
 &nbsp;}<br>
 &nbsp;<br>
-&#43;static int smu_feature_update_enable_state(struct smu_context *smu,<br=
->
+&#43;<b>static</b> int smu_feature_update_enable_state(struct smu_context *=
+smu,<br>
 &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
 p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
 nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
@@ -530,54 +561,76 @@ nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; test_and_clear_bit(feature_id, feature-=
 &gt;enabled);<br>
 &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
 p;&nbsp;&nbsp; }<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<o:p></o:p></p>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }</p>
 </div>
 <div>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"x_MsoNormal" style=3D"margin: 0in 0in 0.0001pt; font-size: 11pt=
+; font-family: Calibri, sans-serif;">
+&nbsp;</p>
 </div>
 <div>
-<p class=3D"MsoNormal">//[kevin]: the code logic is a little redundant.<o:p=
-></o:p></p>
+<p class=3D"x_MsoNormal" style=3D"margin: 0in 0in 0.0001pt; font-size: 11pt=
+; font-family: Calibri, sans-serif;">
+//[kevin]: the code logic is a little redundant.</p>
 </div>
 <div>
-<p class=3D"MsoNormal">could you use bellow macro to replace that?<o:p></o:=
-p></p>
+<p class=3D"x_MsoNormal" style=3D"margin: 0in 0in 0.0001pt; font-size: 11pt=
+; font-family: Calibri, sans-serif;">
+could you use bellow macro to replace that?</p>
 </div>
 <div>
-<p class=3D"MsoNormal">header :&nbsp;<span style=3D"font-family:&quot;Segoe=
- UI&quot;,sans-serif;color:black;background:white">linux/bitmap.h</span><o:=
-p></o:p></p>
+<p class=3D"x_MsoNormal" style=3D"margin: 0in 0in 0.0001pt; font-size: 11pt=
+; font-family: Calibri, sans-serif;">
+header :&nbsp;<span style=3D"font-family:&quot;Segoe UI&quot;,sans-serif; c=
+olor:black; background:white">linux/bitmap.h</span></p>
 </div>
 <div>
-<p class=3D"MsoNormal">&nbsp;* &nbsp;bitmap_and(dst, src1, src2, nbits) &nb=
-sp; &nbsp; &nbsp; &nbsp; &nbsp;*dst =3D *src1 &amp; *src2<o:p></o:p></p>
+<p class=3D"x_MsoNormal" style=3D"margin: 0in 0in 0.0001pt; font-size: 11pt=
+; font-family: Calibri, sans-serif;">
+&nbsp;* &nbsp;bitmap_and(dst, src1, src2, nbits) &nbsp; &nbsp; &nbsp; &nbsp=
+; &nbsp;*dst =3D *src1 &amp; *src2</p>
 <div>
-<p class=3D"MsoNormal">&nbsp;* &nbsp;<b>bitmap_or</b>(dst, src1, src2, nbit=
-s) &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; *dst =3D *src1 | *src2<o:p></o:p></p>
+<p class=3D"x_MsoNormal" style=3D"margin: 0in 0in 0.0001pt; font-size: 11pt=
+; font-family: Calibri, sans-serif;">
+&nbsp;* &nbsp;<b>bitmap_or</b>(dst, src1, src2, nbits) &nbsp; &nbsp; &nbsp;=
+ &nbsp; &nbsp; *dst =3D *src1 | *src2</p>
 </div>
 <div>
-<p class=3D"MsoNormal">&nbsp;* &nbsp;bitmap_xor(dst, src1, src2, nbits) &nb=
-sp; &nbsp; &nbsp; &nbsp; &nbsp;*dst =3D *src1 ^ *src2<o:p></o:p></p>
+<p class=3D"x_MsoNormal" style=3D"margin: 0in 0in 0.0001pt; font-size: 11pt=
+; font-family: Calibri, sans-serif;">
+&nbsp;* &nbsp;bitmap_xor(dst, src1, src2, nbits) &nbsp; &nbsp; &nbsp; &nbsp=
+; &nbsp;*dst =3D *src1 ^ *src2</p>
 </div>
-<p class=3D"MsoNormal">&nbsp;* &nbsp;<b>bitmap_andnot</b>(dst, src1, src2, =
-nbits) &nbsp; &nbsp; &nbsp; *dst =3D *src1 &amp; ~(*src2)<o:p></o:p></p>
+<p class=3D"x_MsoNormal" style=3D"margin: 0in 0in 0.0001pt; font-size: 11pt=
+; font-family: Calibri, sans-serif;">
+&nbsp;* &nbsp;<b>bitmap_andnot</b>(dst, src1, src2, nbits) &nbsp; &nbsp; &n=
+bsp; *dst =3D *src1 &amp; ~(*src2)</p>
 </div>
 <div>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"x_MsoNormal" style=3D"margin: 0in 0in 0.0001pt; font-size: 11pt=
+; font-family: Calibri, sans-serif;">
+&nbsp;</p>
 </div>
 <div>
-<p class=3D"MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_unlo=
-ck(&amp;feature-&gt;mutex);<br>
+<p class=3D"x_MsoNormal" style=3D"margin: 0in 0in 0.0001pt; font-size: 11pt=
+; font-family: Calibri, sans-serif;">
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_unlock(&amp;feature-&gt;mut=
+ex);<br>
 &#43;<br>
 &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret;<br>
 &#43;}<br>
-&#43;<o:p></o:p></p>
+&#43;</p>
 </div>
 <div>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal"><b><i>[Quan, Evan] updated in v3.<o:p></o:p></i></b>=
-</p>
-<p class=3D"MsoNormal"><br>
+<p class=3D"x_MsoNormal" style=3D"margin: 0in 0in 0.0001pt; font-size: 11pt=
+; font-family: Calibri, sans-serif;">
+&nbsp;</p>
+<p class=3D"x_MsoNormal" style=3D"margin: 0in 0in 0.0001pt; font-size: 11pt=
+; font-family: Calibri, sans-serif;">
+<b><i>[Quan, Evan] updated in v3.</i></b></p>
+<p class=3D"x_MsoNormal" style=3D"margin: 0in 0in 0.0001pt; font-size: 11pt=
+; font-family: Calibri, sans-serif;">
+<br>
 &nbsp;int smu_sys_set_pp_feature_mask(struct smu_context *smu, uint64_t new=
 _mask)<br>
 &nbsp;{<br>
@@ -586,42 +639,97 @@ _mask)<br>
 br>
 &nbsp;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret;<br>
-&nbsp;}<o:p></o:p></p>
+&nbsp;}</p>
 </div>
 <div>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"x_MsoNormal" style=3D"margin: 0in 0in 0.0001pt; font-size: 11pt=
+; font-family: Calibri, sans-serif;">
+&nbsp;</p>
 </div>
 <div>
-<p class=3D"MsoNormal">[kevin]:<o:p></o:p></p>
+<p class=3D"x_MsoNormal" style=3D"margin: 0in 0in 0.0001pt; font-size: 11pt=
+; font-family: Calibri, sans-serif;">
+[kevin]:</p>
 </div>
 <div>
-<p class=3D"MsoNormal">in this patch, i know you only want to fix not cache=
-d feature cache issue,<o:p></o:p></p>
+<p class=3D"x_MsoNormal" style=3D"margin: 0in 0in 0.0001pt; font-size: 11pt=
+; font-family: Calibri, sans-serif;">
+in this patch, i know you only want to fix not cached feature cache issue,<=
+/p>
 </div>
 <div>
-<p class=3D"MsoNormal">but in v2 patch,<o:p></o:p></p>
+<p class=3D"x_MsoNormal" style=3D"margin: 0in 0in 0.0001pt; font-size: 11pt=
+; font-family: Calibri, sans-serif;">
+but in v2 patch,</p>
 </div>
 <div>
-<p class=3D"MsoNormal">the patch adjust the order of code functions, it see=
-ms that this is a brand new function,<o:p></o:p></p>
+<p class=3D"x_MsoNormal" style=3D"margin: 0in 0in 0.0001pt; font-size: 11pt=
+; font-family: Calibri, sans-serif;">
+the patch adjust the order of code functions, it seems that this is a brand=
+ new function,</p>
 </div>
 <div>
-<p class=3D"MsoNormal">I don't think it is necessary,<o:p></o:p></p>
+<p class=3D"x_MsoNormal" style=3D"margin: 0in 0in 0.0001pt; font-size: 11pt=
+; font-family: Calibri, sans-serif;">
+I don't think it is necessary,</p>
 </div>
 <div>
-<p class=3D"MsoNormal">could you just reflect the <b>modified content</b> i=
-n the patch, which can facilitate us to trace
-<b>problems </b>and <b>review</b>.<o:p></o:p></p>
+<p class=3D"x_MsoNormal" style=3D"margin: 0in 0in 0.0001pt; font-size: 11pt=
+; font-family: Calibri, sans-serif;">
+could you just reflect the <b>modified content</b> in the patch, which can =
+facilitate us to trace
+<b>problems </b>and <b>review</b>.</p>
 </div>
 <div>
-<p class=3D"MsoNormal">thanks.<o:p></o:p></p>
+<p class=3D"x_MsoNormal" style=3D"margin: 0in 0in 0.0001pt; font-size: 11pt=
+; font-family: Calibri, sans-serif;">
+thanks.</p>
 <div>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal"><b><i>[Quan, Evan] Move the API before the place it&=
-#8217;s called. No problem here.</i></b><o:p></o:p></p>
+<p class=3D"x_MsoNormal" style=3D"margin: 0in 0in 0.0001pt; font-size: 11pt=
+; font-family: Calibri, sans-serif;">
+&nbsp;</p>
+<p class=3D"x_MsoNormal" style=3D"margin: 0in 0in 0.0001pt; font-size: 11pt=
+; font-family: Calibri, sans-serif;">
+<b><i>[Quan, Evan] Move the API before the place it=92s called. No problem =
+here.</i></b></p>
+<p class=3D"x_MsoNormal" style=3D"margin: 0in 0in 0.0001pt; font-size: 11pt=
+; font-family: Calibri, sans-serif;">
+<b><i><br>
+</i></b></p>
+<p class=3D"x_MsoNormal" style=3D"margin: 0in 0in 0.0001pt; font-size: 11pt=
+; font-family: Calibri, sans-serif;">
+<b><i>[kevin]: in this patch, you don't need to adjust function order in th=
+is file,</i></b></p>
+<p class=3D"x_MsoNormal" style=3D"margin: 0in 0in 0.0001pt; font-size: 11pt=
+; font-family: Calibri, sans-serif;">
+<b><i>because the driver is already export this function in amdgpu_smu.h.</=
+i></b></p>
+<p class=3D"x_MsoNormal" style=3D"margin: 0in 0in 0.0001pt; font-size: 11pt=
+; font-family: Calibri, sans-serif;">
+<b><i>int smu_feature_update_enable_state(struct smu_context *smu, uint64_t=
+ feature_mask, bool enabled);<br>
+</i></b></p>
+<p class=3D"x_MsoNormal" style=3D"margin: 0in 0in 0.0001pt; font-size: 11pt=
+; font-family: Calibri, sans-serif;">
+<b><i>and in this patch, it make it is static function, but&nbsp;<span>the =
+declaration section remains in the amdgpu_smu.h file.</span></i></b></p>
+<p class=3D"x_MsoNormal" style=3D"margin: 0in 0in 0.0001pt; font-size: 11pt=
+; font-family: Calibri, sans-serif;">
+<b><i><span>so i don't want to you adjust the function order and make it is=
+ static funtion in this patch.</span></i></b></p>
+<p class=3D"x_MsoNormal" style=3D"margin: 0in 0in 0.0001pt; font-size: 11pt=
+; font-family: Calibri, sans-serif;">
+<b><i><span>except you have other reason for it.<br>
+</span></p>
+<div><br>
 </div>
-<p class=3D"MsoNormal">-int smu_feature_update_enable_state(struct smu_cont=
-ext *smu, uint64_t feature_mask, bool enabled)<br>
+<span></span></i></b>
+<p></p>
+</div>
+<p class=3D"x_MsoNormal" style=3D"margin: 0in 0in 0.0001pt; font-size: 11pt=
+; font-family: Calibri, sans-serif;">
+-int smu_feature_update_enable_state(struct smu_context *smu, uint64_t feat=
+ure_mask, bool enabled)<br>
 -{<br>
 -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t feature_low =3D 0, feature_h=
 igh =3D 0;<br>
@@ -782,7 +890,8 @@ amd-gfx mailing list<br>
 <a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9/rsn8yoX9R0@public.gmane.org=
 org</a><br>
 <a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
-lists.freedesktop.org/mailman/listinfo/amd-gfx</a><o:p></o:p></p>
+lists.freedesktop.org/mailman/listinfo/amd-gfx</a></p>
+</div>
 </div>
 </div>
 </div>
@@ -790,9 +899,9 @@ lists.freedesktop.org/mailman/listinfo/amd-gfx</a><o:p></o:p></p>
 </body>
 </html>
 
---_000_MN2PR12MB33449FC7151536C90957FE64E4A40MN2PR12MB3344namp_--
+--_000_MN2PR12MB32969ABC3F90939200C01E64A2A40MN2PR12MB3296namp_--
 
---===============0164750990==
+--===============1001391833==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -802,4 +911,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
 
---===============0164750990==--
+--===============1001391833==--
