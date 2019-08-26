@@ -1,77 +1,48 @@
-From: "Zhang, Hawking" <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH 7/8] drm/amdgpu: enable/disable ras_controller_irq and
- err_event_athub_irq
-Date: Mon, 26 Aug 2019 06:28:11 +0000
-Message-ID: <DM5PR12MB1418D1AF796EEB1323B24511FCA10@DM5PR12MB1418.namprd12.prod.outlook.com>
-References: <1566791700-1912-1-git-send-email-Hawking.Zhang@amd.com>
- <1566791700-1912-8-git-send-email-Hawking.Zhang@amd.com>
- <MN2PR12MB3054689EC075D8A9BDFF3432B0A10@MN2PR12MB3054.namprd12.prod.outlook.com>
+From: YueHaibing <yuehaibing@huawei.com>
+Subject: [PATCH -next] drm/amdgpu/display: fix build error without CONFIG_DRM_AMD_DC_DSC_SUPPORT
+Date: Mon, 26 Aug 2019 16:57:07 +0800
+Message-ID: <20190826085707.12504-1-yuehaibing@huawei.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <MN2PR12MB3054689EC075D8A9BDFF3432B0A10-rweVpJHSKTqnT25eLM+iUQdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Zhou1, Tao" <Tao.Zhou1-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: harry.wentland@amd.com, sunpeng.li@amd.com, alexander.deucher@amd.com, christian.koenig@amd.com, David1.Zhou@amd.com, airlied@linux.ie, daniel@ffwll.ch, Jun.Lei@amd.com, Dmytro.Laktyushkin@amd.com, Bhawanpreet.Lakha@amd.com, joshua.aberback@amd.com, Wenjing.Liu@amd.com, charlene.liu@amd.com, martin.leung@amd.com
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, YueHaibing <yuehaibing@huawei.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
-VGhhbmtzLiBMZXQgbWUgZmluZCBhIG1vcmUgcmVhc29uYWJsZSBwbGFjZSB0byBkbyBiaWZfZWNj
-X2xhdGVfaW5pdC4gVGhlIGNvZGUgaXMgZHJhbWF0aWNhbGx5IGNoYW5nZWQgc2luY2UgdGhlIGZp
-cnN0IHRpbWUgSSB3b3JrZWQgb3V0IHRoZSBzZXJpZXMuDQoNClJlZ2FyZHMsDQpIYXdraW5nDQoN
-Ci0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQpGcm9tOiBaaG91MSwgVGFvIDxUYW8uWmhvdTFA
-YW1kLmNvbT4gDQpTZW50OiAyMDE55bm0OOaciDI25pelIDE0OjA1DQpUbzogWmhhbmcsIEhhd2tp
-bmcgPEhhd2tpbmcuWmhhbmdAYW1kLmNvbT47IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
-OyBEZXVjaGVyLCBBbGV4YW5kZXIgPEFsZXhhbmRlci5EZXVjaGVyQGFtZC5jb20+DQpDYzogWmhh
-bmcsIEhhd2tpbmcgPEhhd2tpbmcuWmhhbmdAYW1kLmNvbT4NClN1YmplY3Q6IFJFOiBbUEFUQ0gg
-Ny84XSBkcm0vYW1kZ3B1OiBlbmFibGUvZGlzYWJsZSByYXNfY29udHJvbGxlcl9pcnEgYW5kIGVy
-cl9ldmVudF9hdGh1Yl9pcnENCg0KDQoNCj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4g
-RnJvbTogYW1kLWdmeCA8YW1kLWdmeC1ib3VuY2VzQGxpc3RzLmZyZWVkZXNrdG9wLm9yZz4gT24g
-QmVoYWxmIE9mIA0KPiBIYXdraW5nIFpoYW5nDQo+IFNlbnQ6IDIwMTnlubQ45pyIMjbml6UgMTE6
-NTUNCj4gVG86IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnOyBEZXVjaGVyLCBBbGV4YW5k
-ZXIgDQo+IDxBbGV4YW5kZXIuRGV1Y2hlckBhbWQuY29tPg0KPiBDYzogWmhhbmcsIEhhd2tpbmcg
-PEhhd2tpbmcuWmhhbmdAYW1kLmNvbT4NCj4gU3ViamVjdDogW1BBVENIIDcvOF0gZHJtL2FtZGdw
-dTogZW5hYmxlL2Rpc2FibGUgcmFzX2NvbnRyb2xsZXJfaXJxIGFuZCANCj4gZXJyX2V2ZW50X2F0
-aHViX2lycQ0KPiANCltUYW9dIG5lZWQgYSBjb21taXQgZGVzY3JpcHRpb24NCg0KPiBTaWduZWQt
-b2ZmLWJ5OiBIYXdraW5nIFpoYW5nIDxIYXdraW5nLlpoYW5nQGFtZC5jb20+DQo+IFJldmlld2Vk
-LWJ5OiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+DQo+IC0tLQ0KPiAg
-ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ21jX3Y5XzAuYyB8IDE2ICsrKysrKysrKysrKysr
-KysNCj4gIDEgZmlsZSBjaGFuZ2VkLCAxNiBpbnNlcnRpb25zKCspDQo+IA0KPiBkaWZmIC0tZ2l0
-IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ21jX3Y5XzAuYw0KPiBiL2RyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1kZ3B1L2dtY192OV8wLmMNCj4gaW5kZXggNTVkYTZmNS4uOGI0YTU2OCAxMDA2
-NDQNCj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ21jX3Y5XzAuYw0KPiArKysg
-Yi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNfdjlfMC5jDQo+IEBAIC04MjIsNiArODIy
-LDE4IEBAIHN0YXRpYyBpbnQgZ21jX3Y5XzBfZWNjX3Jhc19ibG9ja19sYXRlX2luaXQodm9pZA0K
-PiAqaGFuZGxlLA0KPiAgCQkJZ290byBpcnE7DQo+ICAJfQ0KPiANCj4gKwlpZiAoYWRldi0+bmJp
-by5mdW5jcy0+aW5pdF9yYXNfY29udHJvbGxlcl9pbnRlcnJ1cHQpIHsNCj4gKwkJciA9IGFtZGdw
-dV9pcnFfZ2V0KGFkZXYsICZhZGV2LT5uYmlvLnJhc19jb250cm9sbGVyX2lycSwgMCk7DQo+ICsJ
-CWlmIChyKQ0KPiArCQkJZ290byBpcnE7DQo+ICsJfQ0KPiArDQo+ICsJaWYgKGFkZXYtPm5iaW8u
-ZnVuY3MtPmluaXRfcmFzX2Vycl9ldmVudF9hdGh1Yl9pbnRlcnJ1cHQpIHsNCj4gKwkJciA9IGFt
-ZGdwdV9pcnFfZ2V0KGFkZXYsICZhZGV2LQ0KPiA+bmJpby5yYXNfZXJyX2V2ZW50X2F0aHViX2ly
-cSwgMCk7DQo+ICsJCWlmIChyKQ0KPiArCQkJZ290byBpcnE7DQo+ICsJfQ0KW1Rhb10gQm90aCB1
-bWMgYW5kIG1taHViIHJhcyBpbml0IHdpbGwgY2FsbCBpdCwgSSB0aGluayBpdCdzIGJldHRlciB0
-byBwdXQgdGhlc2UgdHdvIGlycV9nZXQgaW4gdGhlIHBhdGggb2YgdW1jIGJsb2NrLg0KDQo+ICsN
-Cj4gIAlyZXR1cm4gMDsNCj4gIGlycToNCj4gIAlhbWRncHVfcmFzX3N5c2ZzX3JlbW92ZShhZGV2
-LCAqcmFzX2lmKTsgQEAgLTE0MjcsNiArMTQzOSwxMCBAQCANCj4gc3RhdGljIGludCBnbWNfdjlf
-MF9od19maW5pKHZvaWQgKmhhbmRsZSkNCj4gDQo+ICAJYW1kZ3B1X2lycV9wdXQoYWRldiwgJmFk
-ZXYtPmdtYy5lY2NfaXJxLCAwKTsNCj4gIAlhbWRncHVfaXJxX3B1dChhZGV2LCAmYWRldi0+Z21j
-LnZtX2ZhdWx0LCAwKTsNCj4gKwlpZiAoYWRldi0+bmJpby5mdW5jcy0+aW5pdF9yYXNfY29udHJv
-bGxlcl9pbnRlcnJ1cHQpDQo+ICsJCWFtZGdwdV9pcnFfcHV0KGFkZXYsICZhZGV2LT5uYmlvLnJh
-c19jb250cm9sbGVyX2lycSwgMCk7DQo+ICsJaWYgKGFkZXYtPm5iaW8uZnVuY3MtPmluaXRfcmFz
-X2Vycl9ldmVudF9hdGh1Yl9pbnRlcnJ1cHQpDQo+ICsJCWFtZGdwdV9pcnFfcHV0KGFkZXYsICZh
-ZGV2LQ0KPiA+bmJpby5yYXNfZXJyX2V2ZW50X2F0aHViX2lycSwgMCk7DQo+ICAJZ21jX3Y5XzBf
-Z2FydF9kaXNhYmxlKGFkZXYpOw0KPiANCj4gIAlyZXR1cm4gMDsNCj4gLS0NCj4gMi43LjQNCj4g
-DQo+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fDQo+IGFt
-ZC1nZnggbWFpbGluZyBsaXN0DQo+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnDQo+IGh0
-dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA0KX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWls
-aW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVl
-ZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+If CONFIG_DRM_AMD_DC_DSC_SUPPORT is not set, build fails:
+
+drivers/gpu/drm/amd/amdgpu/../display/dc/dcn20/dcn20_hwseq.c: In function dcn20_hw_sequencer_construct:
+drivers/gpu/drm/amd/amdgpu/../display/dc/dcn20/dcn20_hwseq.c:2099:28:
+ error: dcn20_dsc_pg_control undeclared (first use in this function); did you mean dcn20_dpp_pg_control?
+  dc->hwss.dsc_pg_control = dcn20_dsc_pg_control;
+                            ^~~~~~~~~~~~~~~~~~~~
+                            dcn20_dpp_pg_control
+
+Use CONFIG_DRM_AMD_DC_DSC_SUPPORT to guard this.
+
+Reported-by: Hulk Robot <hulkci@huawei.com>
+Fixes: 8a31820b1218 ("drm/amd/display: Make init_hw and init_pipes generic for seamless boot")
+Signed-off-by: YueHaibing <yuehaibing@huawei.com>
+---
+ drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
+index e146d1d..54d67f6 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
+@@ -2092,7 +2092,11 @@ void dcn20_hw_sequencer_construct(struct dc *dc)
+ 	dc->hwss.enable_power_gating_plane = dcn20_enable_power_gating_plane;
+ 	dc->hwss.dpp_pg_control = dcn20_dpp_pg_control;
+ 	dc->hwss.hubp_pg_control = dcn20_hubp_pg_control;
++#ifdef CONFIG_DRM_AMD_DC_DSC_SUPPORT
+ 	dc->hwss.dsc_pg_control = dcn20_dsc_pg_control;
++#else
++	dc->hwss.dsc_pg_control = NULL;
++#endif
+ 	dc->hwss.disable_vga = dcn20_disable_vga;
+ 
+ 	if (IS_FPGA_MAXIMUS_DC(dc->ctx->dce_environment)) {
+-- 
+2.7.4
