@@ -1,71 +1,50 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH] Revert "drm/amdgpu: free up the first paging queue v2"
-Date: Mon, 26 Aug 2019 16:58:30 +0200
-Message-ID: <534a0417-f3ac-a6d8-021e-d1fe202819f7@gmail.com>
-References: <1566830720-20121-1-git-send-email-gaba@amd.com>
-Reply-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
+From: Alex Deucher <alexdeucher@gmail.com>
+Subject: Re: [PATCH] drm/amd/powerplay: Fix an off by one in navi10_get_smu_msg_index()
+Date: Mon, 26 Aug 2019 11:16:55 -0400
+Message-ID: <CADnq5_PEFyHP7cOxZOYroGx+Hf1qSuSg+7DUiAakZMc1GcWbsQ@mail.gmail.com>
+References: <20190826132012.GB6840@mwanda>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1566830720-20121-1-git-send-email-gaba-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Gang Ba <gaba-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Ba, Gang" <Gang.Ba-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset="UTF-8"
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20190826132012.GB6840@mwanda>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Dan Carpenter <dan.carpenter@oracle.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Kevin Wang <kevin1.wang@amd.com>, kernel-janitors@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>, amd-gfx list <amd-gfx@lists.freedesktop.org>, Huang Rui <ray.huang@amd.com>, Daniel Vetter <daniel@ffwll.ch>, Evan Quan <evan.quan@amd.com>, Kenneth Feng <kenneth.feng@amd.com>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
-QW0gMjYuMDguMTkgdW0gMTY6NDUgc2NocmllYiBHYW5nIEJhOgo+IFRoaXMgcmV2ZXJ0cyBjb21t
-aXQgNGY4YmM3MmZiZjEwZjJkYzhiY2E3NGQ1ZGEwOGIzYTk4MWIyZTVjZC4KPgo+IEl0IHR1cm5l
-ZCBvdXQgdGhhdCBhIHNpbmdsZSByZXNlcnZlZCBxdWV1ZSB3b3VsZG4ndCBiZQo+IHN1ZmZpY2ll
-bnQgZm9yIHBhZ2UgZmF1bHQgaGFuZGxpbmcuCj4KPiBDaGFuZ2UtSWQ6IEk1NzdiYTIzNmUwNTcx
-ZDExNDAwYTUxZjlkOTU4NDAyMzRhZWY2NzhhCj4gU2lnbmVkLW9mZi1ieTogR2FuZyBCYSA8Z2Fi
-YUBhbWQuY29tPgoKUmV2aWV3ZWQtYnk6IENocmlzdGlhbiBLw7ZuaWcgPGNocmlzdGlhbi5rb2Vu
-aWdAYW1kLmNvbT4KCj4gLS0tCj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9zZG1hX3Y0
-XzAuYyB8IDIzICsrKysrKysrLS0tLS0tLS0tLS0tLS0tCj4gICAxIGZpbGUgY2hhbmdlZCwgOCBp
-bnNlcnRpb25zKCspLCAxNSBkZWxldGlvbnMoLSkKPgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dw
-dS9kcm0vYW1kL2FtZGdwdS9zZG1hX3Y0XzAuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
-L3NkbWFfdjRfMC5jCj4gaW5kZXggYjNiMmMyMS4uNzc1MGIzNyAxMDA2NDQKPiAtLS0gYS9kcml2
-ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9zZG1hX3Y0XzAuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2Ry
-bS9hbWQvYW1kZ3B1L3NkbWFfdjRfMC5jCj4gQEAgLTI1MDAsOCArMjUwMCw4IEBAIHN0YXRpYyBj
-b25zdCBzdHJ1Y3QgYW1kZ3B1X2J1ZmZlcl9mdW5jcyBzZG1hX3Y0XzBfYnVmZmVyX2Z1bmNzID0g
-ewo+ICAgc3RhdGljIHZvaWQgc2RtYV92NF8wX3NldF9idWZmZXJfZnVuY3Moc3RydWN0IGFtZGdw
-dV9kZXZpY2UgKmFkZXYpCj4gICB7Cj4gICAJYWRldi0+bW1hbi5idWZmZXJfZnVuY3MgPSAmc2Rt
-YV92NF8wX2J1ZmZlcl9mdW5jczsKPiAtCWlmIChhZGV2LT5zZG1hLmhhc19wYWdlX3F1ZXVlICYm
-IGFkZXYtPnNkbWEubnVtX2luc3RhbmNlcyA+IDEpCj4gLQkJYWRldi0+bW1hbi5idWZmZXJfZnVu
-Y3NfcmluZyA9ICZhZGV2LT5zZG1hLmluc3RhbmNlWzFdLnBhZ2U7Cj4gKwlpZiAoYWRldi0+c2Rt
-YS5oYXNfcGFnZV9xdWV1ZSkKPiArCQlhZGV2LT5tbWFuLmJ1ZmZlcl9mdW5jc19yaW5nID0gJmFk
-ZXYtPnNkbWEuaW5zdGFuY2VbMF0ucGFnZTsKPiAgIAllbHNlCj4gICAJCWFkZXYtPm1tYW4uYnVm
-ZmVyX2Z1bmNzX3JpbmcgPSAmYWRldi0+c2RtYS5pbnN0YW5jZVswXS5yaW5nOwo+ICAgfQo+IEBA
-IC0yNTIwLDIyICsyNTIwLDE1IEBAIHN0YXRpYyB2b2lkIHNkbWFfdjRfMF9zZXRfdm1fcHRlX2Z1
-bmNzKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQo+ICAgCXVuc2lnbmVkIGk7Cj4gICAKPiAg
-IAlhZGV2LT52bV9tYW5hZ2VyLnZtX3B0ZV9mdW5jcyA9ICZzZG1hX3Y0XzBfdm1fcHRlX2Z1bmNz
-Owo+IC0JaWYgKGFkZXYtPnNkbWEuaGFzX3BhZ2VfcXVldWUgJiYgYWRldi0+c2RtYS5udW1faW5z
-dGFuY2VzID4gMSkgewo+IC0JCWZvciAoaSA9IDE7IGkgPCBhZGV2LT5zZG1hLm51bV9pbnN0YW5j
-ZXM7IGkrKykgewo+ICsJZm9yIChpID0gMDsgaSA8IGFkZXYtPnNkbWEubnVtX2luc3RhbmNlczsg
-aSsrKSB7Cj4gKwkJaWYgKGFkZXYtPnNkbWEuaGFzX3BhZ2VfcXVldWUpCj4gICAJCQlzY2hlZCA9
-ICZhZGV2LT5zZG1hLmluc3RhbmNlW2ldLnBhZ2Uuc2NoZWQ7Cj4gLQkJCWFkZXYtPnZtX21hbmFn
-ZXIudm1fcHRlX3Jxc1tpIC0gMV0gPQo+IC0JCQkJJnNjaGVkLT5zY2hlZF9ycVtEUk1fU0NIRURf
-UFJJT1JJVFlfS0VSTkVMXTsKPiAtCQl9Cj4gLQkJYWRldi0+dm1fbWFuYWdlci52bV9wdGVfbnVt
-X3JxcyA9IGFkZXYtPnNkbWEubnVtX2luc3RhbmNlcyAtIDE7Cj4gLQkJYWRldi0+dm1fbWFuYWdl
-ci5wYWdlX2ZhdWx0ID0gJmFkZXYtPnNkbWEuaW5zdGFuY2VbMF0ucGFnZTsKPiAtCX0gZWxzZSB7
-Cj4gLQkJZm9yIChpID0gMDsgaSA8IGFkZXYtPnNkbWEubnVtX2luc3RhbmNlczsgaSsrKSB7Cj4g
-KwkJZWxzZQo+ICAgCQkJc2NoZWQgPSAmYWRldi0+c2RtYS5pbnN0YW5jZVtpXS5yaW5nLnNjaGVk
-Owo+IC0JCQlhZGV2LT52bV9tYW5hZ2VyLnZtX3B0ZV9ycXNbaV0gPQo+IC0JCQkJJnNjaGVkLT5z
-Y2hlZF9ycVtEUk1fU0NIRURfUFJJT1JJVFlfS0VSTkVMXTsKPiAtCQl9Cj4gLQkJYWRldi0+dm1f
-bWFuYWdlci52bV9wdGVfbnVtX3JxcyA9IGFkZXYtPnNkbWEubnVtX2luc3RhbmNlczsKPiArCQlh
-ZGV2LT52bV9tYW5hZ2VyLnZtX3B0ZV9ycXNbaV0gPQo+ICsJCQkmc2NoZWQtPnNjaGVkX3JxW0RS
-TV9TQ0hFRF9QUklPUklUWV9LRVJORUxdOwo+ICAgCX0KPiArCWFkZXYtPnZtX21hbmFnZXIudm1f
-cHRlX251bV9ycXMgPSBhZGV2LT5zZG1hLm51bV9pbnN0YW5jZXM7Cj4gICB9Cj4gICAKPiAgIGNv
-bnN0IHN0cnVjdCBhbWRncHVfaXBfYmxvY2tfdmVyc2lvbiBzZG1hX3Y0XzBfaXBfYmxvY2sgPSB7
-CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4
-IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3Rz
-LmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
+On Mon, Aug 26, 2019 at 9:20 AM Dan Carpenter <dan.carpenter@oracle.com> wrote:
+>
+> The navi10_message_map[] array has SMU_MSG_MAX_COUNT elements so the ">"
+> has to be changed to ">=" to prevent reading one element beyond the end
+> of the array.
+>
+> Signed-off-by: Dan Carpenter <dan.carpenter@oracle.com>
+
+Applied.  thanks!
+
+Alex
+
+> ---
+>  drivers/gpu/drm/amd/powerplay/navi10_ppt.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c b/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
+> index d7e25f5113f1..fbecd25f150f 100644
+> --- a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
+> +++ b/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
+> @@ -213,7 +213,7 @@ static int navi10_get_smu_msg_index(struct smu_context *smc, uint32_t index)
+>  {
+>         struct smu_11_0_cmn2aisc_mapping mapping;
+>
+> -       if (index > SMU_MSG_MAX_COUNT)
+> +       if (index >= SMU_MSG_MAX_COUNT)
+>                 return -EINVAL;
+>
+>         mapping = navi10_message_map[index];
+> --
+> 2.20.1
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
