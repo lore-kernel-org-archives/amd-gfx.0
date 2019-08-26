@@ -1,13 +1,19 @@
-From: Harry Wentland <hwentlan-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH V2] drm: Add LTTPR defines for DP 1.4a
-Date: Mon, 26 Aug 2019 15:44:21 +0000
-Message-ID: <d6ff9470-baea-b235-c8d0-9e1d9462e64e@amd.com>
-References: <20190826152925.4x7mwhzxit353yww@outlook.office365.com>
+From: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 3/4] drm/amdgpu: Support snooped PTE flag
+Date: Mon, 26 Aug 2019 15:45:50 +0000
+Message-ID: <4b48fc1a-6ee2-bb60-0518-ea9c6346b8d6@amd.com>
+References: <20190823213249.10749-1-Felix.Kuehling@amd.com>
+ <20190823213249.10749-4-Felix.Kuehling@amd.com>
+ <f09e6893-347b-4ade-76e5-ad37d8e4e782@gmail.com>
+ <a7f9ad48-2e46-5415-e2a8-1738a101d716@amd.com>
+ <96b6ac1d-de87-3fdb-a531-af4b0a42f1d5@gmail.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1620362158=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190826152925.4x7mwhzxit353yww-1ViLX0X+lBJGNQ1M2rI3KwRV3xvJKrda@public.gmane.org>
+In-Reply-To: <96b6ac1d-de87-3fdb-a531-af4b0a42f1d5-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 Content-Language: en-US
+Content-ID: <9CFCA08910A0C04F98116407392F7F0C-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,135 +24,77 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Siqueira, Rodrigo" <Rodrigo.Siqueira-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Li, Sun peng (Leo)" <Sunpeng.Li-5C7GfCeVMHo@public.gmane.org>, "Berthe,
- Abdoulaye" <Abdoulaye.Berthe-5C7GfCeVMHo@public.gmane.org>, "Navare,
- Manasi D" <manasi.d.navare-ral2JQCrhuEAvxtiuMwx3w@public.gmane.org>, "Wentland,
- Harry" <Harry.Wentland-5C7GfCeVMHo@public.gmane.org>
+To: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Zeng, Oak" <Oak.Zeng-5C7GfCeVMHo@public.gmane.org>
 
---===============1620362158==
-Content-Language: en-US
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="Y6T2VYDe1Zxm2yfBEqBO97zyr8MvyhOmR"
-
---Y6T2VYDe1Zxm2yfBEqBO97zyr8MvyhOmR
-Content-Type: multipart/mixed; boundary="GPAOQqXlrNXVmhE8tP5byj9m3sUwc5SVz";
- protected-headers="v1"
-From: Harry Wentland <hwentlan-5C7GfCeVMHo@public.gmane.org>
-To: "Siqueira, Rodrigo" <Rodrigo.Siqueira-5C7GfCeVMHo@public.gmane.org>,
- "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>,
- "dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Berthe, Abdoulaye" <Abdoulaye.Berthe-5C7GfCeVMHo@public.gmane.org>,
- "Wentland, Harry" <Harry.Wentland-5C7GfCeVMHo@public.gmane.org>,
- "Li, Sun peng (Leo)" <Sunpeng.Li-5C7GfCeVMHo@public.gmane.org>,
- "Navare, Manasi D" <manasi.d.navare-ral2JQCrhuEAvxtiuMwx3w@public.gmane.org>
-Message-ID: <d6ff9470-baea-b235-c8d0-9e1d9462e64e-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH V2] drm: Add LTTPR defines for DP 1.4a
-References: <20190826152925.4x7mwhzxit353yww-1ViLX0X+lBJGNQ1M2rI3KwRV3xvJKrda@public.gmane.org>
-In-Reply-To: <20190826152925.4x7mwhzxit353yww-1ViLX0X+lBJGNQ1M2rI3KwRV3xvJKrda@public.gmane.org>
-
---GPAOQqXlrNXVmhE8tP5byj9m3sUwc5SVz
-Content-Type: text/plain; charset=windows-1252
-Content-Language: en-US
-Content-Transfer-Encoding: quoted-printable
-
-+Cc Manasi, FYI
-
-On 2019-08-26 11:29 a.m., Siqueira, Rodrigo wrote:
-> DP 1.4a specification defines Link Training Tunable PHY Repeater (LTTPR=
-)
-> which is required to add support for systems with Thunderbolt or other
-> repeater devices.
->=20
-> Changes since V1:
-> - Adjusts registers names to be aligned with spec and the rest of the
->   file
-> - Update spec comment from 1.4 to 1.4a
->=20
-> Cc: Abdoulaye Berthe <Abdoulaye.Berthe-5C7GfCeVMHo@public.gmane.org>
-> Cc: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>
-> Cc: Leo Li <sunpeng.li-5C7GfCeVMHo@public.gmane.org>
-> Signed-off-by: Rodrigo Siqueira <Rodrigo.Siqueira-5C7GfCeVMHo@public.gmane.org>
-> Signed-off-by: Abdoulaye Berthe <Abdoulaye.Berthe-5C7GfCeVMHo@public.gmane.org>
-
-Reviewed-by: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>
-
-Harry
-
-> ---
->  include/drm/drm_dp_helper.h | 25 +++++++++++++++++++++++++
->  1 file changed, 25 insertions(+)
->=20
-> diff --git a/include/drm/drm_dp_helper.h b/include/drm/drm_dp_helper.h
-> index 8364502f92cf..e8beb4e7e5da 100644
-> --- a/include/drm/drm_dp_helper.h
-> +++ b/include/drm/drm_dp_helper.h
-> @@ -134,6 +134,31 @@
->  #define DP_SUPPORTED_LINK_RATES		    0x010 /* eDP 1.4 */
->  # define DP_MAX_SUPPORTED_RATES		     8	    /* 16-bit little-endian */=
-
-> =20
-> +/** Link Training (LT)-tunable Physical Repeaters - DP 1.4a **/
-> +#define DP_LT_TUNABLE_PHY_REPEATER_FIELD_DATA_STRUCTURE_REV 0xf0000
-> +#define DP_MAX_LINK_RATE_PHY_REPEATER                       0xf0001
-> +#define DP_PHY_REPEATER_CNT                                 0xf0002
-> +#define DP_PHY_REPEATER_MODE                                0xf0003
-> +#define DP_MAX_LANE_COUNT_PHY_REPEATER                      0xf0004
-> +#define DP_PHY_REPEATER_EXTENDED_WAIT_TIMEOUT               0xf0005
-> +#define DP_TRAINING_PATTERN_SET_PHY_REPEATER1               0xf0010
-> +#define DP_TRAINING_LANE0_SET_PHY_REPEATER1                 0xf0011
-> +#define DP_TRAINING_LANE1_SET_PHY_REPEATER1                 0xf0012
-> +#define DP_TRAINING_LANE2_SET_PHY_REPEATER1                 0xf0013
-> +#define DP_TRAINING_LANE3_SET_PHY_REPEATER1                 0xf0014
-> +#define DP_TRAINING_AUX_RD_INTERVAL_PHY_REPEATER1           0xf0020
-> +#define DP_TRANSMITTER_CAPABILITY_PHY_REPEATER1             0xf0021
-> +#define DP_LANE0_1_STATUS_PHY_REPEATER1                     0xf0030
-> +#define DP_LANE2_3_STATUS_PHY_REPEATER1                     0xf0031
-> +#define DP_LANE_ALIGN_STATUS_UPDATED_PHY_REPEATER1          0xf0032
-> +#define DP_ADJUST_REQUEST_LANE0_1_PHY_REPEATER1             0xf0033
-> +#define DP_ADJUST_REQUEST_LANE2_3_PHY_REPEATER1             0xf0034
-> +#define DP_SYMBOL_ERROR_COUNT_LANE0_PHY_REPEATER1           0xf0035
-> +#define DP_SYMBOL_ERROR_COUNT_LANE1_PHY_REPEATER1           0xf0037
-> +#define DP_SYMBOL_ERROR_COUNT_LANE2_PHY_REPEATER1           0xf0039
-> +#define DP_SYMBOL_ERROR_COUNT_LANE3_PHY_REPEATER1           0xf003b
-> +#define DP_FEC_STATUS_PHY_REPEATER1                         0xf0290
-> +
->  /* Multiple stream transport */
->  #define DP_FAUX_CAP			    0x020   /* 1.2 */
->  # define DP_FAUX_CAP_1			    (1 << 0)
->=20
-
-
---GPAOQqXlrNXVmhE8tP5byj9m3sUwc5SVz--
-
---Y6T2VYDe1Zxm2yfBEqBO97zyr8MvyhOmR
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEkiEcMSFhcOGNLtE6LVgVyYwUtuMFAl1j/lMACgkQLVgVyYwU
-tuObcQgAqaPd92wRVMd0cJUDGdqrSb4DLrQHnhHQbtfWgbwIl96eFqCcAxCK/DsA
-w2n2ddQR3ZcmbOFzle6cGA5erySwjqUr55ouzwP6pjzQ2B6TdewFbuq/5q3maqj0
-qZx92ytUjXv1wto5+AF7uO0G2nSyymkU5m8KgCdttEgbbVTOaGpBv0f4mkiL5TBB
-jlKBz/VX1eFBD1m5BFTn105rEy3ErBQnDgo+gUzV05VRlvMqAr2rm9nFiqxEXiAi
-zzh+u1fePGPx0AUqMsZ4mjuLce8K0u423HO5ffx5zfXX6YnNR1FSNm4fHQtgUwOl
-wxC9qMLiKsddve/lfoa0vif+3aePtQ==
-=5kj2
------END PGP SIGNATURE-----
-
---Y6T2VYDe1Zxm2yfBEqBO97zyr8MvyhOmR--
-
---===============1620362158==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
-
---===============1620362158==--
+T24gMjAxOS0wOC0yNCAyOjU5IHAubS4sIENocmlzdGlhbiBLw7ZuaWcgd3JvdGU6DQo+IEFtIDI0
+LjA4LjE5IHVtIDE4OjI0IHNjaHJpZWIgS3VlaGxpbmcsIEZlbGl4Og0KPj4gT24gMjAxOS0wOC0y
+NCA3OjEzLCBDaHJpc3RpYW4gS8O2bmlnIHdyb3RlOg0KPj4+IEFtIDIzLjA4LjE5IHVtIDIzOjMz
+IHNjaHJpZWIgS3VlaGxpbmcsIEZlbGl4Og0KPj4+PiBGcm9tOiBPYWsgWmVuZyA8T2FrLlplbmdA
+YW1kLmNvbT4NCj4+Pj4NCj4+Pj4gU2V0IHNub29wZWQgUFRFIGZsYWcgYWNjb3JkaW5nIHRvIG1h
+cHBpbmcgZmxhZy4gV3JpdGUgcmVxdWVzdCB0byBhDQo+Pj4+IHBhZ2Ugd2l0aCBzbm9vcGVkIGJp
+dCBzZXQsIHdpbGwgc2VuZCBvdXQgaW52YWxpZGF0ZSBwcm9iZSByZXF1ZXN0DQo+Pj4+IHRvIFRD
+QyBvZiB0aGUgcmVtb3RlIEdQVSB3aGVyZSB0aGUgdnJhbSBwYWdlIHJlc2lkZXMuDQo+Pj4+DQo+
+Pj4+IENoYW5nZS1JZDogSTc5OWY2OGVjN2E1YTFhYmYzMjA3NWY1ZWYzMTA1MTY0MWEwYjM3MzYN
+Cj4+Pj4gU2lnbmVkLW9mZi1ieTogT2FrIFplbmcgPE9hay5aZW5nQGFtZC5jb20+DQo+Pj4+IC0t
+LQ0KPj4+PiDCoMKgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192OV8wLmMgfCAzICsr
+Kw0KPj4+PiDCoMKgIDEgZmlsZSBjaGFuZ2VkLCAzIGluc2VydGlvbnMoKykNCj4+Pj4NCj4+Pj4g
+ZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192OV8wLmMNCj4+Pj4g
+Yi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNfdjlfMC5jDQo+Pj4+IGluZGV4IDlhYWZj
+ZGE2YzQ4OC4uOGE3YzRlYzY5YWU4IDEwMDY0NA0KPj4+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0v
+YW1kL2FtZGdwdS9nbWNfdjlfMC5jDQo+Pj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
+Z3B1L2dtY192OV8wLmMNCj4+Pj4gQEAgLTYwNCw2ICs2MDQsOSBAQCBzdGF0aWMgdWludDY0X3Qg
+Z21jX3Y5XzBfZ2V0X3ZtX3B0ZV9mbGFncyhzdHJ1Y3QNCj4+Pj4gYW1kZ3B1X2RldmljZSAqYWRl
+diwNCj4+Pj4gwqDCoMKgwqDCoMKgIGlmIChmbGFncyAmIEFNREdQVV9WTV9QQUdFX1BSVCkNCj4+
+Pj4gwqDCoMKgwqDCoMKgwqDCoMKgwqAgcHRlX2ZsYWcgfD0gQU1ER1BVX1BURV9QUlQ7DQo+Pj4+
+IMKgwqAgK8KgwqDCoCBpZiAoZmxhZ3MgJiBBTURHUFVfVk1fUEFHRV9JTlZBTElEQVRFX1BST0JF
+KQ0KPj4+PiArwqDCoMKgwqDCoMKgwqAgcHRlX2ZsYWcgfD0gQU1ER1BVX1BURV9TTk9PUEVEOw0K
+Pj4+PiArDQo+Pj4gVGhhdCBpcyBzdGlsbCBhIE5BSyB3aXRob3V0IGZ1cnRoZXIgY2hlY2tzLiBX
+ZSBuZWVkIHRvIG1ha2UgYWJzb2x1dGVseQ0KPj4+IHN1cmUgdGhhdCB3ZSBkb24ndCBzZXQgdGhp
+cyB3aGVuIFBDSWUgcm91dGluZyBpcyBpbiB1c2UuDQo+PiBUaGUgb25seSBwbGFjZSB3aGVyZSBB
+TURHUFVfVk1fLi4uIGZsYWdzIGFyZSBhY2NlcHRlZCBmcm9tIHVzZXIgbW9kZQ0KPj4gc2VlbXMg
+dG8gYmUgYW1kZ3B1X2dlbV92YV9pb2N0bC4gSXQgaGFzIGFuIGV4cGxpY2l0IHNldCBvZiB2YWxp
+ZF9mbGFncw0KPj4gaXQgYWNjZXB0cy4gVGhlIG5ldyBJTlZBTElEQVRFX1BST0JFIGZsYWcgaXMg
+bm90IHBhcnQgb2YgaXQuIFRoYXQgbWVhbnMNCj4+IHVzZXIgbW9kZSB3aWxswqAgbm90IGJlIGFi
+bGUgdG8gc2V0IGl0IGRpcmVjdGx5LiBJZiB3ZSBhZGRlZCBpdCB0byB0aGUNCj4+IHNldCBvZiB2
+YWxpZF9mbGFncyBpbiBhbWRncHVfZ2VtX3ZhX2lvY3RsLCB3ZSdkIG5lZWQgdG8gYWRkIGFwcHJv
+cHJpYXRlDQo+PiBjaGVja3MgYXQgdGhlIHNhbWUgdGltZS4NCj4+DQo+PiBLRkQgZG9lcyBub3Qg
+ZXhwb3NlIEFNREdQVV9WTV8uLi4gZmxhZ3MgZGlyZWN0bHkgdG8gdXNlciBtb2RlLiBJdCBvbmx5
+DQo+PiBzZXRzIHRoZSBJTlZBTElEQVRFX1BST0JFIGZsYWcgaW4ga2VybmVsIG1vZGUgZm9yIG1h
+cHBpbmdzIGluIHRoZSBzYW1lDQo+PiBYR01JIGhpdmUgb24gQXJ0dXJ1cyAoaW4gcGF0Y2ggNCku
+DQo+Pg0KPj4gSWYgdGhlcmUgaXMgc29tZXRoaW5nIEknbSBtaXNzaW5nLCBwbGVhc2UgcG9pbnQg
+aXQgb3V0LiBCdXQgQUZBSUNUIHRoZQ0KPj4gY2hlY2tpbmcgdGhhdCBpcyBjdXJyZW50bHkgZG9u
+ZSBzaG91bGQgc2F0aXNmeSB5b3VyIHJlcXVpcmVtZW50cy4NCj4NCj4gVGhlIGhhcmR3YXJlIGJl
+aGF2aW9yIGRlcGVuZHMgb24gdGhlIHBsYWNlbWVudCBvZiB0aGUgYnVmZmVyLCBzbyBhdCANCj4g
+YmFyZSBtaW5pbXVtIHdlIG5lZWQgdG8gY2hlY2sgaWYgaXQncyBwb2ludGluZyB0byBQQ0llIG9y
+IGxvY2FsIChjaGVjayANCj4gdGhlIHN5c3RlbSBiaXQpLg0KPg0KPiBCdXQgZXZlbiBpZiBpdCdz
+IGxvY2FsIHdoYXQgaXMgdGhlIGJlaGF2aW9yIGZvciBsb2NhbCBtZW1vcnk/IEUuZy4gbm90IA0K
+PiBhY2Nlc3NlZCB0aHJvdWdoIFhHTUk/DQo+DQo+IEFzIGZhciBhcyBJIGNhbiBzZWUgd2hhdCB3
+ZSBuZWVkIHRvIGNoZWNrIGhlcmUgaXMgdGhhdCB0aGlzIGlzIGEgDQo+IHJlbW90ZSBhY2Nlc3Mg
+b3ZlciBYR01JIGFuZCB0aGVuIChhbmQgb25seSB0aGVuISkgd2UgYXJlIGFsbG93ZWQgdG8gDQo+
+IHNldCB0aGUgc25vb3AgYml0IG9uIHRoZSBQVEUuDQoNCk15IHBvaW50IGlzLCB0aGUgb25seSBw
+bGFjZSB3aGVyZSB0aGlzIGJpdCBjYW4gZ2V0IHNldCByaWdodCBub3cgaXMgaW4gDQprZXJuZWwg
+bW9kZSBpbiBhbWRncHVfYW1ka2ZkX2dwdXZtLmMuIFNlZSBwYXRjaCA0IG9mIG15IHNlcmllcy4g
+VGhhdCANCmNvZGUgYWxyZWFkeSBoYXMgYWxsIHRoZSByaWdodCBjb25kaXRpb25zIHRvIG1ha2Ug
+c3VyZSB0aGUgDQpJTlZBTElEQVRFX1BST0JFIGJpdCBpcyBvbmx5IHNldCBpbiB0aGUgY29ycmVj
+dCBjaXJjdW1zdGFuY2VzIChyZW1vdGUgDQpYR01JIG1hcHBpbmdzIGluIHRoZSBzYW1lIGhpdmUp
+Og0KDQo+ICsJc3dpdGNoIChhZGV2LT5hc2ljX3R5cGUpIHsNCj4gKwljYXNlIENISVBfQVJDVFVS
+VVM6DQo+ICsJCWlmIChtZW0tPmFsbG9jX2ZsYWdzICYgQUxMT0NfTUVNX0ZMQUdTX1ZSQU0pIHsN
+Cj4gKwkJCWlmIChib19hZGV2ID09IGFkZXYpIHsNCj4gKwkJCQkuLi4NCj4gKwkJCX0gZWxzZSB7
+DQo+ICsJCQkJLi4uDQo+ICsJCQkJaWYgKGFtZGdwdV94Z21pX3NhbWVfaGl2ZShhZGV2LCBib19h
+ZGV2KSkNCj4gKwkJCQkJbWFwcGluZ19mbGFncyB8PQ0KPiArCQkJCQkJQU1ER1BVX1ZNX1BBR0Vf
+SU5WQUxJREFURV9QUk9CRTsNCj4gKwkJCX0NCj4gKwkJfSBlbHNlIHsNCkkgdGhpbmsgeW91J3Jl
+IGFza2luZyBtZSB0byBhZGQgYW4gZXh0cmEgY2hlY2sgZm9yIHRoZSBzYW1lIGNvbmRpdGlvbnMg
+DQppbiB0aGUgR01DIGNvZGU/IExpa2UgR01DIGRvZXNuJ3QgdHJ1c3QgYW1kZ3B1X2FtZGtmZC4g
+SXQgc2VlbXMgDQpjb21wbGV0ZWx5IHJlZHVuZGFudCBhbmQgYSBiaXQgcGFyYW5vaWQgdG8gbWUu
+IGdtY192OV8wX2dldF92bV9wdGVfZmxhZ3MgDQpkb2Vzbid0IGV2ZW4gaGF2ZSBhbGwgdGhlIGlu
+Zm9ybWF0aW9uIGl0IG5lZWRzIHRvIG1ha2UgdGhhdCBkZXRlcm1pbmF0aW9uLg0KDQpSZWdhcmRz
+LA0KIMKgIEZlbGl4DQoNCg0KPg0KPiBSZWdhcmRzLA0KPiBDaHJpc3RpYW4uDQo+DQo+Pg0KPj4g
+UmVnYXJkcywNCj4+IMKgIMKgIEZlbGl4DQo+Pg0KPj4+IENocmlzdGlhbi4NCj4+Pg0KPj4+PiDC
+oMKgwqDCoMKgwqAgcmV0dXJuIHB0ZV9mbGFnOw0KPj4+PiDCoMKgIH0NCj4+IF9fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fDQo+PiBhbWQtZ2Z4IG1haWxpbmcg
+bGlzdA0KPj4gYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCj4+IGh0dHBzOi8vbGlzdHMu
+ZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA0KPg0KX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QK
+YW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5v
+cmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
