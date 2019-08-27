@@ -1,43 +1,32 @@
-From: Hawking Zhang <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH] drm/amdgpu: correct in_suspend setting for navi series
-Date: Tue, 27 Aug 2019 17:19:53 +0800
-Message-ID: <1566897593-2630-1-git-send-email-Hawking.Zhang@amd.com>
-Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Hawking Zhang <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>
+From: Kai-Heng Feng <kai.heng.feng@canonical.com>
+Subject: [PATCH] drm/amdgpu: Add APTX quirk for Dell Latitude 5495
+Date: Tue, 27 Aug 2019 17:33:32 +0800
+Message-ID: <20190827093332.18096-1-kai.heng.feng@canonical.com>
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: alexander.deucher@amd.com, christian.koenig@amd.com, David1.Zhou@amd.com
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, Kai-Heng Feng <kai.heng.feng@canonical.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
-aW5fc3VzcGVuZCBmbGFnIHNob3VsZCBiZSBzZXQgaW4gYW1kZ3B1X2RldmljZV9zdXNwZW5kL3Jl
-c3VtZSBpbiBwYWlycywKaW5zdGVhZCBvZiBnZngxMCBpcCBzdXNwZW5kL3Jlc3VtZSBmdW5jdGlv
-bi4KClNpZ25lZC1vZmYtYnk6IEhhd2tpbmcgWmhhbmcgPEhhd2tpbmcuWmhhbmdAYW1kLmNvbT4K
-LS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjEwXzAuYyB8IDEyICsrLS0tLS0t
-LS0tLQogMSBmaWxlIGNoYW5nZWQsIDIgaW5zZXJ0aW9ucygrKSwgMTAgZGVsZXRpb25zKC0pCgpk
-aWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3YxMF8wLmMgYi9kcml2
-ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjEwXzAuYwppbmRleCBmNzA4OTEyLi5hMmY0ZmYx
-IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjEwXzAuYworKysg
-Yi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjEwXzAuYwpAQCAtMzc2OCwyMCArMzc2
-OCwxMiBAQCBzdGF0aWMgaW50IGdmeF92MTBfMF9od19maW5pKHZvaWQgKmhhbmRsZSkKIAogc3Rh
-dGljIGludCBnZnhfdjEwXzBfc3VzcGVuZCh2b2lkICpoYW5kbGUpCiB7Ci0Jc3RydWN0IGFtZGdw
-dV9kZXZpY2UgKmFkZXYgPSAoc3RydWN0IGFtZGdwdV9kZXZpY2UgKiloYW5kbGU7Ci0KLQlhZGV2
-LT5pbl9zdXNwZW5kID0gdHJ1ZTsKLQlyZXR1cm4gZ2Z4X3YxMF8wX2h3X2ZpbmkoYWRldik7CisJ
-cmV0dXJuIGdmeF92MTBfMF9od19maW5pKGhhbmRsZSk7CiB9CiAKIHN0YXRpYyBpbnQgZ2Z4X3Yx
-MF8wX3Jlc3VtZSh2b2lkICpoYW5kbGUpCiB7Ci0Jc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYg
-PSAoc3RydWN0IGFtZGdwdV9kZXZpY2UgKiloYW5kbGU7Ci0JaW50IHI7Ci0KLQlyID0gZ2Z4X3Yx
-MF8wX2h3X2luaXQoYWRldik7Ci0JYWRldi0+aW5fc3VzcGVuZCA9IGZhbHNlOwotCXJldHVybiBy
-OworCXJldHVybiBnZnhfdjEwXzBfaHdfaW5pdChoYW5kbGUpOwogfQogCiBzdGF0aWMgYm9vbCBn
-ZnhfdjEwXzBfaXNfaWRsZSh2b2lkICpoYW5kbGUpCi0tIAoyLjcuNAoKX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1k
-LWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcv
-bWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+Needs ATPX rather than _PR3 to really turn off the dGPU. This can save
+~5W when dGPU is runtime-suspended.
+
+Signed-off-by: Kai-Heng Feng <kai.heng.feng@canonical.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_atpx_handler.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_atpx_handler.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_atpx_handler.c
+index 92b11de19581..354c8b6106dc 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_atpx_handler.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_atpx_handler.c
+@@ -575,6 +575,7 @@ static const struct amdgpu_px_quirk amdgpu_px_quirk_list[] = {
+ 	{ 0x1002, 0x6900, 0x1002, 0x0124, AMDGPU_PX_QUIRK_FORCE_ATPX },
+ 	{ 0x1002, 0x6900, 0x1028, 0x0812, AMDGPU_PX_QUIRK_FORCE_ATPX },
+ 	{ 0x1002, 0x6900, 0x1028, 0x0813, AMDGPU_PX_QUIRK_FORCE_ATPX },
++	{ 0x1002, 0x699f, 0x1028, 0x0814, AMDGPU_PX_QUIRK_FORCE_ATPX },
+ 	{ 0x1002, 0x6900, 0x1025, 0x125A, AMDGPU_PX_QUIRK_FORCE_ATPX },
+ 	{ 0x1002, 0x6900, 0x17AA, 0x3806, AMDGPU_PX_QUIRK_FORCE_ATPX },
+ 	{ 0, 0, 0, 0, 0 },
+-- 
+2.17.1
