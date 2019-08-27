@@ -1,64 +1,39 @@
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: fix commit 4ef9d7d
-Date: Tue, 27 Aug 2019 11:42:19 -0400
-Message-ID: <CADnq5_PY15wyhuDSnMM7EY=7NsOkuPOuaRAvrG8pgEobyrynOw@mail.gmail.com>
-References: <1566920009-8378-1-git-send-email-aaron.liu@amd.com>
+From: Raul E Rangel <rrangel@chromium.org>
+Subject: [PATCH] drm/amd/display: fix struct init in update_bounding_box
+Date: Tue, 27 Aug 2019 10:29:24 -0600
+Message-ID: <20190827162924.88524-1-rrangel@chromium.org>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1566920009-8378-1-git-send-email-aaron.liu-5C7GfCeVMHo@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Aaron Liu <aaron.liu-5C7GfCeVMHo@public.gmane.org>
-Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: amd-gfx@lists.freedesktop.org
+Cc: Raul E Rangel <rrangel@chromium.org>, Leo Li <sunpeng.li@amd.com>, David Airlie <airlied@linux.ie>, Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, hersen wu <hersenxs.wu@amd.com>, linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, Nikola Cornij <nikola.cornij@amd.com>, Alex Deucher <alexander.deucher@amd.com>, Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>, Harry Wentland <harry.wentland@amd.com>, Charlene Liu <charlene.liu@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, Jun Lei <Jun.Lei@amd.com>, Daniel Vetter <daniel@ffwll.ch>
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gVHVlLCBBdWcgMjcsIDIwMTkgYXQgMTE6MzQgQU0gQWFyb24gTGl1IDxhYXJvbi5saXVAYW1k
-LmNvbT4gd3JvdGU6Cj4KPiBGb3IgcGljYXNzbyhhZGV2LT5wZGV2LT5kZXZpY2UgPT0gMHgxNWQ4
-KSZyYXZlbjIoYWRldi0+cmV2X2lkID49IDB4OCksCj4gZmlybXdhcmUgaXMgc3VmZmljaWVudCB0
-byBzdXBwb3J0IGdmeG9mZi4KPiBJbiBjb21taXQgNGVmOWQ3ZGMyZGIxNjZjYmU4M2ZlNDYyMTM4
-NWYwMzRjOTM0N2ZkMiwgZm9yIHBpY2Fzc28mcmF2ZW4yLAo+IHJldHVybiBkaXJlY3RseSBhbmQg
-Y2F1c2UgZ2Z4b2ZmIGRpc2FibGVkLgo+Cj4gU2lnbmVkLW9mZi1ieTogQWFyb24gTGl1IDxhYXJv
-bi5saXVAYW1kLmNvbT4KClJldmlld2VkLWJ5OiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVj
-aGVyQGFtZC5jb20+Cgo+IC0tLQo+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjlf
-MC5jIHwgMTQgKysrKysrKy0tLS0tLS0KPiAgMSBmaWxlIGNoYW5nZWQsIDcgaW5zZXJ0aW9ucygr
-KSwgNyBkZWxldGlvbnMoLSkKPgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
-ZGdwdS9nZnhfdjlfMC5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y5XzAuYwo+
-IGluZGV4IDI3NjJhZTQuLmZkNzk0N2UgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9hbWRncHUvZ2Z4X3Y5XzAuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dm
-eF92OV8wLmMKPiBAQCAtMTAyNywxNCArMTAyNywxNCBAQCBzdGF0aWMgdm9pZCBnZnhfdjlfMF9j
-aGVja19pZl9uZWVkX2dmeG9mZihzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikKPiAgICAgICAg
-IGNhc2UgQ0hJUF9WRUdBMjA6Cj4gICAgICAgICAgICAgICAgIGJyZWFrOwo+ICAgICAgICAgY2Fz
-ZSBDSElQX1JBVkVOOgo+IC0gICAgICAgICAgICAgICBpZiAoYWRldi0+cmV2X2lkID49IDB4OCB8
-fCBhZGV2LT5wZGV2LT5kZXZpY2UgPT0gMHgxNWQ4KQo+IC0gICAgICAgICAgICAgICAgICAgICAg
-IGJyZWFrOwo+IC0gICAgICAgICAgICAgICBpZiAoKGFkZXYtPmdmeC5ybGNfZndfdmVyc2lvbiAh
-PSAxMDYgJiYKPiAtICAgICAgICAgICAgICAgICAgICBhZGV2LT5nZngucmxjX2Z3X3ZlcnNpb24g
-PCA1MzEpIHx8Cj4gLSAgICAgICAgICAgICAgICAgICAoYWRldi0+Z2Z4LnJsY19md192ZXJzaW9u
-ID09IDUzODE1KSB8fAo+IC0gICAgICAgICAgICAgICAgICAgKGFkZXYtPmdmeC5ybGNfZmVhdHVy
-ZV92ZXJzaW9uIDwgMSkgfHwKPiAtICAgICAgICAgICAgICAgICAgICFhZGV2LT5nZngucmxjLmlz
-X3JsY192Ml8xKQo+ICsgICAgICAgICAgICAgICBpZiAoIShhZGV2LT5yZXZfaWQgPj0gMHg4IHx8
-IGFkZXYtPnBkZXYtPmRldmljZSA9PSAweDE1ZDgpCj4gKyAgICAgICAgICAgICAgICAgICAgICAg
-JiYoKGFkZXYtPmdmeC5ybGNfZndfdmVyc2lvbiAhPSAxMDYgJiYKPiArICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgIGFkZXYtPmdmeC5ybGNfZndfdmVyc2lvbiA8IDUzMSkgfHwKPiArICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgKGFkZXYtPmdmeC5ybGNfZndfdmVyc2lvbiA9PSA1MzgxNSkg
-fHwKPiArICAgICAgICAgICAgICAgICAgICAgICAgICAgKGFkZXYtPmdmeC5ybGNfZmVhdHVyZV92
-ZXJzaW9uIDwgMSkgfHwKPiArICAgICAgICAgICAgICAgICAgICAgICAgICAgIWFkZXYtPmdmeC5y
-bGMuaXNfcmxjX3YyXzEpKQo+ICAgICAgICAgICAgICAgICAgICAgICAgIGFkZXYtPnBtLnBwX2Zl
-YXR1cmUgJj0gflBQX0dGWE9GRl9NQVNLOwo+ICsKPiAgICAgICAgICAgICAgICAgaWYgKGFkZXYt
-PnBtLnBwX2ZlYXR1cmUgJiBQUF9HRlhPRkZfTUFTSykKPiAgICAgICAgICAgICAgICAgICAgICAg
-ICBhZGV2LT5wZ19mbGFncyB8PSBBTURfUEdfU1VQUE9SVF9HRlhfUEcgfAo+ICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgQU1EX1BHX1NVUFBPUlRfQ1AgfAo+IC0tCj4gMi43LjQKPgo+
-IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCj4gYW1kLWdm
-eCBtYWlsaW5nIGxpc3QKPiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+IGh0dHBzOi8v
-bGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeApfX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlz
-dAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9w
-Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
+dcn20_resource.c:2636:9: error: missing braces around initializer [-Werror=missing-braces]
+  struct _vcs_dpi_voltage_scaling_st calculated_states[MAX_CLOCK_LIMIT_STATES] = {0};
+         ^
+
+Fixes: 7ed4e6352c16f ("drm/amd/display: Add DCN2 HW Sequencer and Resource")
+
+Signed-off-by: Raul E Rangel <rrangel@chromium.org>
+---
+
+ drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
+index b949e202d6cb..d8dd99bfa275 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
+@@ -2633,7 +2633,7 @@ static void cap_soc_clocks(
+ static void update_bounding_box(struct dc *dc, struct _vcs_dpi_soc_bounding_box_st *bb,
+ 		struct pp_smu_nv_clock_table *max_clocks, unsigned int *uclk_states, unsigned int num_states)
+ {
+-	struct _vcs_dpi_voltage_scaling_st calculated_states[MAX_CLOCK_LIMIT_STATES] = {0};
++	struct _vcs_dpi_voltage_scaling_st calculated_states[MAX_CLOCK_LIMIT_STATES] = {};
+ 	int i;
+ 	int num_calculated_states = 0;
+ 	int min_dcfclk = 0;
+-- 
+2.23.0.187.g17f5b7556c-goog
