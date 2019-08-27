@@ -1,51 +1,64 @@
-From: Alex Deucher <alexdeucher@gmail.com>
-Subject: Re: linux-next: Tree for Aug 27 (amdgpu)
-Date: Tue, 27 Aug 2019 11:41:41 -0400
-Message-ID: <CADnq5_NBnovQGuhsoEsw+S-LBDU-CbWXKm=mJ3Oy6PcgUeiOQw@mail.gmail.com>
-References: <20190827190526.6f27e763@canb.auug.org.au> <3b5936f1-e471-846a-d133-0e17d290d2f3@infradead.org>
+From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu: fix commit 4ef9d7d
+Date: Tue, 27 Aug 2019 11:42:19 -0400
+Message-ID: <CADnq5_PY15wyhuDSnMM7EY=7NsOkuPOuaRAvrG8pgEobyrynOw@mail.gmail.com>
+References: <1566920009-8378-1-git-send-email-aaron.liu@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <3b5936f1-e471-846a-d133-0e17d290d2f3@infradead.org>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Randy Dunlap <rdunlap@infradead.org>
-Cc: Stephen Rothwell <sfr@canb.auug.org.au>, Linux Next Mailing List <linux-next@vger.kernel.org>, amd-gfx list <amd-gfx@lists.freedesktop.org>, Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, dri-devel <dri-devel@lists.freedesktop.org>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <1566920009-8378-1-git-send-email-aaron.liu-5C7GfCeVMHo@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Aaron Liu <aaron.liu-5C7GfCeVMHo@public.gmane.org>
+Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-On Tue, Aug 27, 2019 at 11:31 AM Randy Dunlap <rdunlap@infradead.org> wrote=
-:
->
-> On 8/27/19 2:05 AM, Stephen Rothwell wrote:
-> > Hi all,
-> >
-> > Changes since 20190826:
-> >
->
-> on i386:
->
-> ../drivers/gpu/drm/amd/amdgpu/../display/dc/dcn20/dcn20_hwseq.c: In funct=
-ion =E2=80=98dcn20_hw_sequencer_construct=E2=80=99:
-> ../drivers/gpu/drm/amd/amdgpu/../display/dc/dcn20/dcn20_hwseq.c:2127:28: =
-error: =E2=80=98dcn20_dsc_pg_control=E2=80=99 undeclared (first use in this=
- function); did you mean =E2=80=98dcn20_dpp_pg_control=E2=80=99?
->   dc->hwss.dsc_pg_control =3D dcn20_dsc_pg_control;
->                             ^~~~~~~~~~~~~~~~~~~~
->                             dcn20_dpp_pg_control
->
->
-> Full randconfig file is attached.
-
-Fixed:
-https://cgit.freedesktop.org/~agd5f/linux/commit/?h=3Ddrm-next&id=3Dda26ded=
-3b2fff646d28559004195abe353bce49b
-
-Alex
-
->
-> --
-> ~Randy
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+T24gVHVlLCBBdWcgMjcsIDIwMTkgYXQgMTE6MzQgQU0gQWFyb24gTGl1IDxhYXJvbi5saXVAYW1k
+LmNvbT4gd3JvdGU6Cj4KPiBGb3IgcGljYXNzbyhhZGV2LT5wZGV2LT5kZXZpY2UgPT0gMHgxNWQ4
+KSZyYXZlbjIoYWRldi0+cmV2X2lkID49IDB4OCksCj4gZmlybXdhcmUgaXMgc3VmZmljaWVudCB0
+byBzdXBwb3J0IGdmeG9mZi4KPiBJbiBjb21taXQgNGVmOWQ3ZGMyZGIxNjZjYmU4M2ZlNDYyMTM4
+NWYwMzRjOTM0N2ZkMiwgZm9yIHBpY2Fzc28mcmF2ZW4yLAo+IHJldHVybiBkaXJlY3RseSBhbmQg
+Y2F1c2UgZ2Z4b2ZmIGRpc2FibGVkLgo+Cj4gU2lnbmVkLW9mZi1ieTogQWFyb24gTGl1IDxhYXJv
+bi5saXVAYW1kLmNvbT4KClJldmlld2VkLWJ5OiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVj
+aGVyQGFtZC5jb20+Cgo+IC0tLQo+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjlf
+MC5jIHwgMTQgKysrKysrKy0tLS0tLS0KPiAgMSBmaWxlIGNoYW5nZWQsIDcgaW5zZXJ0aW9ucygr
+KSwgNyBkZWxldGlvbnMoLSkKPgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
+ZGdwdS9nZnhfdjlfMC5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y5XzAuYwo+
+IGluZGV4IDI3NjJhZTQuLmZkNzk0N2UgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2Ft
+ZC9hbWRncHUvZ2Z4X3Y5XzAuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dm
+eF92OV8wLmMKPiBAQCAtMTAyNywxNCArMTAyNywxNCBAQCBzdGF0aWMgdm9pZCBnZnhfdjlfMF9j
+aGVja19pZl9uZWVkX2dmeG9mZihzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikKPiAgICAgICAg
+IGNhc2UgQ0hJUF9WRUdBMjA6Cj4gICAgICAgICAgICAgICAgIGJyZWFrOwo+ICAgICAgICAgY2Fz
+ZSBDSElQX1JBVkVOOgo+IC0gICAgICAgICAgICAgICBpZiAoYWRldi0+cmV2X2lkID49IDB4OCB8
+fCBhZGV2LT5wZGV2LT5kZXZpY2UgPT0gMHgxNWQ4KQo+IC0gICAgICAgICAgICAgICAgICAgICAg
+IGJyZWFrOwo+IC0gICAgICAgICAgICAgICBpZiAoKGFkZXYtPmdmeC5ybGNfZndfdmVyc2lvbiAh
+PSAxMDYgJiYKPiAtICAgICAgICAgICAgICAgICAgICBhZGV2LT5nZngucmxjX2Z3X3ZlcnNpb24g
+PCA1MzEpIHx8Cj4gLSAgICAgICAgICAgICAgICAgICAoYWRldi0+Z2Z4LnJsY19md192ZXJzaW9u
+ID09IDUzODE1KSB8fAo+IC0gICAgICAgICAgICAgICAgICAgKGFkZXYtPmdmeC5ybGNfZmVhdHVy
+ZV92ZXJzaW9uIDwgMSkgfHwKPiAtICAgICAgICAgICAgICAgICAgICFhZGV2LT5nZngucmxjLmlz
+X3JsY192Ml8xKQo+ICsgICAgICAgICAgICAgICBpZiAoIShhZGV2LT5yZXZfaWQgPj0gMHg4IHx8
+IGFkZXYtPnBkZXYtPmRldmljZSA9PSAweDE1ZDgpCj4gKyAgICAgICAgICAgICAgICAgICAgICAg
+JiYoKGFkZXYtPmdmeC5ybGNfZndfdmVyc2lvbiAhPSAxMDYgJiYKPiArICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgIGFkZXYtPmdmeC5ybGNfZndfdmVyc2lvbiA8IDUzMSkgfHwKPiArICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgKGFkZXYtPmdmeC5ybGNfZndfdmVyc2lvbiA9PSA1MzgxNSkg
+fHwKPiArICAgICAgICAgICAgICAgICAgICAgICAgICAgKGFkZXYtPmdmeC5ybGNfZmVhdHVyZV92
+ZXJzaW9uIDwgMSkgfHwKPiArICAgICAgICAgICAgICAgICAgICAgICAgICAgIWFkZXYtPmdmeC5y
+bGMuaXNfcmxjX3YyXzEpKQo+ICAgICAgICAgICAgICAgICAgICAgICAgIGFkZXYtPnBtLnBwX2Zl
+YXR1cmUgJj0gflBQX0dGWE9GRl9NQVNLOwo+ICsKPiAgICAgICAgICAgICAgICAgaWYgKGFkZXYt
+PnBtLnBwX2ZlYXR1cmUgJiBQUF9HRlhPRkZfTUFTSykKPiAgICAgICAgICAgICAgICAgICAgICAg
+ICBhZGV2LT5wZ19mbGFncyB8PSBBTURfUEdfU1VQUE9SVF9HRlhfUEcgfAo+ICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgQU1EX1BHX1NVUFBPUlRfQ1AgfAo+IC0tCj4gMi43LjQKPgo+
+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCj4gYW1kLWdm
+eCBtYWlsaW5nIGxpc3QKPiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+IGh0dHBzOi8v
+bGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeApfX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlz
+dAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9w
+Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
