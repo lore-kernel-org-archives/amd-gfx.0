@@ -1,39 +1,62 @@
-From: Raul E Rangel <rrangel@chromium.org>
-Subject: [PATCH] drm/amd/display: fix struct init in update_bounding_box
-Date: Tue, 27 Aug 2019 10:29:24 -0600
-Message-ID: <20190827162924.88524-1-rrangel@chromium.org>
+From: "Huang, Ray" <Ray.Huang-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: [PATCH] drm/amdgpu: fix commit 4ef9d7d
+Date: Tue, 27 Aug 2019 17:53:58 +0000
+Message-ID: <MN2PR12MB3309B0EA6F55CF3EABAF93CEECA00@MN2PR12MB3309.namprd12.prod.outlook.com>
+References: <1566920009-8378-1-git-send-email-aaron.liu@amd.com>
 Mime-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Sender: linux-kernel-owner@vger.kernel.org
-To: amd-gfx@lists.freedesktop.org
-Cc: Raul E Rangel <rrangel@chromium.org>, Leo Li <sunpeng.li@amd.com>, David Airlie <airlied@linux.ie>, Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, hersen wu <hersenxs.wu@amd.com>, linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, Nikola Cornij <nikola.cornij@amd.com>, Alex Deucher <alexander.deucher@amd.com>, Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>, Harry Wentland <harry.wentland@amd.com>, Charlene Liu <charlene.liu@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, Jun Lei <Jun.Lei@amd.com>, Daniel Vetter <daniel@ffwll.ch>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <1566920009-8378-1-git-send-email-aaron.liu-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Liu, Aaron" <Aaron.Liu-5C7GfCeVMHo@public.gmane.org>
 
-dcn20_resource.c:2636:9: error: missing braces around initializer [-Werror=missing-braces]
-  struct _vcs_dpi_voltage_scaling_st calculated_states[MAX_CLOCK_LIMIT_STATES] = {0};
-         ^
-
-Fixes: 7ed4e6352c16f ("drm/amd/display: Add DCN2 HW Sequencer and Resource")
-
-Signed-off-by: Raul E Rangel <rrangel@chromium.org>
----
-
- drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
-index b949e202d6cb..d8dd99bfa275 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
-@@ -2633,7 +2633,7 @@ static void cap_soc_clocks(
- static void update_bounding_box(struct dc *dc, struct _vcs_dpi_soc_bounding_box_st *bb,
- 		struct pp_smu_nv_clock_table *max_clocks, unsigned int *uclk_states, unsigned int num_states)
- {
--	struct _vcs_dpi_voltage_scaling_st calculated_states[MAX_CLOCK_LIMIT_STATES] = {0};
-+	struct _vcs_dpi_voltage_scaling_st calculated_states[MAX_CLOCK_LIMIT_STATES] = {};
- 	int i;
- 	int num_calculated_states = 0;
- 	int min_dcfclk = 0;
--- 
-2.23.0.187.g17f5b7556c-goog
+UmV2aWV3ZWQtYnk6IEh1YW5nIFJ1aSA8cmF5Lmh1YW5nQGFtZC5jb20+DQoNCi0tLS0tT3JpZ2lu
+YWwgTWVzc2FnZS0tLS0tDQpGcm9tOiBhbWQtZ2Z4IDxhbWQtZ2Z4LWJvdW5jZXNAbGlzdHMuZnJl
+ZWRlc2t0b3Aub3JnPiBPbiBCZWhhbGYgT2YgQWFyb24gTGl1DQpTZW50OiBUdWVzZGF5LCBBdWd1
+c3QgMjcsIDIwMTkgMTI6MzMgUE0NClRvOiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0K
+Q2M6IExpdSwgQWFyb24gPEFhcm9uLkxpdUBhbWQuY29tPg0KU3ViamVjdDogW1BBVENIXSBkcm0v
+YW1kZ3B1OiBmaXggY29tbWl0IDRlZjlkN2QNCg0KRm9yIHBpY2Fzc28oYWRldi0+cGRldi0+ZGV2
+aWNlID09IDB4MTVkOCkmcmF2ZW4yKGFkZXYtPnJldl9pZCA+PSAweDgpLCBmaXJtd2FyZSBpcyBz
+dWZmaWNpZW50IHRvIHN1cHBvcnQgZ2Z4b2ZmLg0KSW4gY29tbWl0IDRlZjlkN2RjMmRiMTY2Y2Jl
+ODNmZTQ2MjEzODVmMDM0YzkzNDdmZDIsIGZvciBwaWNhc3NvJnJhdmVuMiwgcmV0dXJuIGRpcmVj
+dGx5IGFuZCBjYXVzZSBnZnhvZmYgZGlzYWJsZWQuDQoNClNpZ25lZC1vZmYtYnk6IEFhcm9uIExp
+dSA8YWFyb24ubGl1QGFtZC5jb20+DQotLS0NCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9n
+ZnhfdjlfMC5jIHwgMTQgKysrKysrKy0tLS0tLS0NCiAxIGZpbGUgY2hhbmdlZCwgNyBpbnNlcnRp
+b25zKCspLCA3IGRlbGV0aW9ucygtKQ0KDQpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2Ft
+ZC9hbWRncHUvZ2Z4X3Y5XzAuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92OV8w
+LmMNCmluZGV4IDI3NjJhZTQuLmZkNzk0N2UgMTAwNjQ0DQotLS0gYS9kcml2ZXJzL2dwdS9kcm0v
+YW1kL2FtZGdwdS9nZnhfdjlfMC5jDQorKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9n
+ZnhfdjlfMC5jDQpAQCAtMTAyNywxNCArMTAyNywxNCBAQCBzdGF0aWMgdm9pZCBnZnhfdjlfMF9j
+aGVja19pZl9uZWVkX2dmeG9mZihzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikNCiAJY2FzZSBD
+SElQX1ZFR0EyMDoNCiAJCWJyZWFrOw0KIAljYXNlIENISVBfUkFWRU46DQotCQlpZiAoYWRldi0+
+cmV2X2lkID49IDB4OCB8fCBhZGV2LT5wZGV2LT5kZXZpY2UgPT0gMHgxNWQ4KQ0KLQkJCWJyZWFr
+Ow0KLQkJaWYgKChhZGV2LT5nZngucmxjX2Z3X3ZlcnNpb24gIT0gMTA2ICYmDQotCQkgICAgIGFk
+ZXYtPmdmeC5ybGNfZndfdmVyc2lvbiA8IDUzMSkgfHwNCi0JCSAgICAoYWRldi0+Z2Z4LnJsY19m
+d192ZXJzaW9uID09IDUzODE1KSB8fA0KLQkJICAgIChhZGV2LT5nZngucmxjX2ZlYXR1cmVfdmVy
+c2lvbiA8IDEpIHx8DQotCQkgICAgIWFkZXYtPmdmeC5ybGMuaXNfcmxjX3YyXzEpDQorCQlpZiAo
+IShhZGV2LT5yZXZfaWQgPj0gMHg4IHx8IGFkZXYtPnBkZXYtPmRldmljZSA9PSAweDE1ZDgpDQor
+CQkJJiYoKGFkZXYtPmdmeC5ybGNfZndfdmVyc2lvbiAhPSAxMDYgJiYNCisJCQkgICAgIGFkZXYt
+PmdmeC5ybGNfZndfdmVyc2lvbiA8IDUzMSkgfHwNCisJCQkgICAgKGFkZXYtPmdmeC5ybGNfZndf
+dmVyc2lvbiA9PSA1MzgxNSkgfHwNCisJCQkgICAgKGFkZXYtPmdmeC5ybGNfZmVhdHVyZV92ZXJz
+aW9uIDwgMSkgfHwNCisJCQkgICAgIWFkZXYtPmdmeC5ybGMuaXNfcmxjX3YyXzEpKQ0KIAkJCWFk
+ZXYtPnBtLnBwX2ZlYXR1cmUgJj0gflBQX0dGWE9GRl9NQVNLOw0KKw0KIAkJaWYgKGFkZXYtPnBt
+LnBwX2ZlYXR1cmUgJiBQUF9HRlhPRkZfTUFTSykNCiAJCQlhZGV2LT5wZ19mbGFncyB8PSBBTURf
+UEdfU1VQUE9SVF9HRlhfUEcgfA0KIAkJCQlBTURfUEdfU1VQUE9SVF9DUCB8DQotLQ0KMi43LjQN
+Cg0KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18NCmFtZC1n
+ZnggbWFpbGluZyBsaXN0DQphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0KaHR0cHM6Ly9s
+aXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4DQpfX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlz
+dAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9w
+Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
