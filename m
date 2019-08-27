@@ -1,34 +1,53 @@
-From: Masahiro Yamada <yamada.masahiro@socionext.com>
-Subject: [PATCH] drm/amd: remove meaningless descending into amd/amdkfd/
-Date: Tue, 27 Aug 2019 15:44:25 +0900
-Message-ID: <20190827064425.19627-1-yamada.masahiro@socionext.com>
+From: YueHaibing <yuehaibing@huawei.com>
+Subject: [PATCH 2/3] drm/amd/display: remove unused function setFieldWithMask
+Date: Tue, 27 Aug 2019 15:09:25 +0800
+Message-ID: <20190827070925.16080-1-yuehaibing@huawei.com>
+Mime-Version: 1.0
+Content-Type: text/plain
 Return-path: <linux-kernel-owner@vger.kernel.org>
 Sender: linux-kernel-owner@vger.kernel.org
-To: Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=8F=AB=D3nig?= <christian.koenig@amd.com>, David Zhou <David1.Zhou@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org, Masahiro Yamada <yamada.masahiro@socionext.com>, Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@linux.ie>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <maxime.ripard@bootlin.com>, Sean Paul <sean@poorly.run>, linux-kernel@vger.kernel.org
+To: harry.wentland@amd.com, sunpeng.li@amd.com, alexander.deucher@amd.com, christian.koenig@amd.com, David1.Zhou@amd.com, airlied@linux.ie, daniel@ffwll.ch, Bhawanpreet.Lakha@amd.com, Anthony.Koo@amd.com, ahmad.othman@amd.com, eric.bernstein@amd.com, yuehaibing@huawei.com, aric.cyr@amd.com, alvin.lee3@amd.com, Harmanprit.Tatla@amd.com
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
 List-Id: amd-gfx.lists.freedesktop.org
 
-Since commit 04d5e2765802 ("drm/amdgpu: Merge amdkfd into amdgpu"),
-drivers/gpu/drm/amd/amdkfd/Makefile does not contain any syntax that
-is understood by the build system.
+After commit a9f54ce3c603 ("drm/amd/display: Refactoring VTEM"),
+there is no caller in tree.
 
-Signed-off-by: Masahiro Yamada <yamada.masahiro@socionext.com>
+Reported-by: Hulk Robot <hulkci@huawei.com>
+Signed-off-by: YueHaibing <yuehaibing@huawei.com>
 ---
+ .../drm/amd/display/modules/info_packet/info_packet.c | 19 -------------------
+ 1 file changed, 19 deletions(-)
 
- drivers/gpu/drm/Makefile | 1 -
- 1 file changed, 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/Makefile b/drivers/gpu/drm/Makefile
-index 9f0d2ee35794..3f9195b7ad13 100644
---- a/drivers/gpu/drm/Makefile
-+++ b/drivers/gpu/drm/Makefile
-@@ -62,7 +62,6 @@ obj-$(CONFIG_DRM_TTM)	+= ttm/
- obj-$(CONFIG_DRM_SCHED)	+= scheduler/
- obj-$(CONFIG_DRM_TDFX)	+= tdfx/
- obj-$(CONFIG_DRM_R128)	+= r128/
--obj-$(CONFIG_HSA_AMD) += amd/amdkfd/
- obj-$(CONFIG_DRM_RADEON)+= radeon/
- obj-$(CONFIG_DRM_AMDGPU)+= amd/amdgpu/
- obj-$(CONFIG_DRM_MGA)	+= mga/
+diff --git a/drivers/gpu/drm/amd/display/modules/info_packet/info_packet.c b/drivers/gpu/drm/amd/display/modules/info_packet/info_packet.c
+index 5f4b98d..d885d64 100644
+--- a/drivers/gpu/drm/amd/display/modules/info_packet/info_packet.c
++++ b/drivers/gpu/drm/amd/display/modules/info_packet/info_packet.c
+@@ -114,25 +114,6 @@ enum ColorimetryYCCDP {
+ 	ColorimetryYCC_DP_ITU2020YCbCr  = 7,
+ };
+ 
+-void setFieldWithMask(unsigned char *dest, unsigned int mask, unsigned int value)
+-{
+-	unsigned int shift = 0;
+-
+-	if (!mask || !dest)
+-		return;
+-
+-	while (!((mask >> shift) & 1))
+-		shift++;
+-
+-	//reset
+-	*dest = *dest & ~mask;
+-	//set
+-	//dont let value span past mask
+-	value = value & (mask >> shift);
+-	//insert value
+-	*dest = *dest | (value << shift);
+-}
+-
+ void mod_build_vsc_infopacket(const struct dc_stream_state *stream,
+ 		struct dc_info_packet *info_packet)
+ {
 -- 
-2.17.1
+2.7.4
