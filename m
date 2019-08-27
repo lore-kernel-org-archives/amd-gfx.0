@@ -1,54 +1,53 @@
-From: Alex Deucher <alexdeucher@gmail.com>
-Subject: Re: [PATCH] drm/amd/display: fix struct init in update_bounding_box
-Date: Tue, 27 Aug 2019 14:02:18 -0400
-Message-ID: <CADnq5_ME=erztEhDhW5Z2RYr7kpMT_OOHm2xyJDPGd8a2d3LuA@mail.gmail.com>
-References: <20190827162924.88524-1-rrangel@chromium.org>
+From: Andrey Grodzovsky <andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH] drm/amdgpu: Handle job is NULL use case in
+ amdgpu_device_gpu_recover
+Date: Tue, 27 Aug 2019 14:17:03 -0400
+Message-ID: <1566929823-17398-1-git-send-email-andrey.grodzovsky@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20190827162924.88524-1-rrangel@chromium.org>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Raul E Rangel <rrangel@chromium.org>
-Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, Charlene Liu <charlene.liu@amd.com>, Leo Li <sunpeng.li@amd.com>, Harry Wentland <harry.wentland@amd.com>, David Airlie <airlied@linux.ie>, LKML <linux-kernel@vger.kernel.org>, Maling list - DRI developers <dri-devel@lists.freedesktop.org>, Nikola Cornij <nikola.cornij@amd.com>, Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>, hersen wu <hersenxs.wu@amd.com>, Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>, Jun Lei <Jun.Lei@amd.com>, Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Andrey Grodzovsky <andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>
 
-On Tue, Aug 27, 2019 at 1:33 PM Raul E Rangel <rrangel@chromium.org> wrote:
->
-> dcn20_resource.c:2636:9: error: missing braces around initializer [-Werror=missing-braces]
->   struct _vcs_dpi_voltage_scaling_st calculated_states[MAX_CLOCK_LIMIT_STATES] = {0};
->          ^
->
-> Fixes: 7ed4e6352c16f ("drm/amd/display: Add DCN2 HW Sequencer and Resource")
->
-> Signed-off-by: Raul E Rangel <rrangel@chromium.org>
-> ---
->
->  drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
-> index b949e202d6cb..d8dd99bfa275 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
-> +++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
-> @@ -2633,7 +2633,7 @@ static void cap_soc_clocks(
->  static void update_bounding_box(struct dc *dc, struct _vcs_dpi_soc_bounding_box_st *bb,
->                 struct pp_smu_nv_clock_table *max_clocks, unsigned int *uclk_states, unsigned int num_states)
->  {
-> -       struct _vcs_dpi_voltage_scaling_st calculated_states[MAX_CLOCK_LIMIT_STATES] = {0};
-> +       struct _vcs_dpi_voltage_scaling_st calculated_states[MAX_CLOCK_LIMIT_STATES] = {};
-
-I think it would be better to just use a memset.  Different compilers
-seems to do the wrong thing with these sort of initializations.
-
-Alex
-
->         int i;
->         int num_calculated_states = 0;
->         int min_dcfclk = 0;
-> --
-> 2.23.0.187.g17f5b7556c-goog
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+VGhpcyBzaG91bGQgYmUgY2hlY2tlZCBhdCBhbGwgcGxhY2VzIGpvYiBpcyBhY2Nlc3NlZC4KClNp
+Z25lZC1vZmYtYnk6IEFuZHJleSBHcm9kem92c2t5IDxhbmRyZXkuZ3JvZHpvdnNreUBhbWQuY29t
+PgotLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYyB8IDggKysr
+Ky0tLS0KIDEgZmlsZSBjaGFuZ2VkLCA0IGluc2VydGlvbnMoKyksIDQgZGVsZXRpb25zKC0pCgpk
+aWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jIGIv
+ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jCmluZGV4IDAyYjNlN2Qu
+LjE5MGQ5YTMgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9k
+ZXZpY2UuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMK
+QEAgLTM3OTAsMTQgKzM3OTAsMTQgQEAgaW50IGFtZGdwdV9kZXZpY2VfZ3B1X3JlY292ZXIoc3Ry
+dWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsCiAKIAlpZiAoaGl2ZSAmJiAhbXV0ZXhfdHJ5bG9jaygm
+aGl2ZS0+cmVzZXRfbG9jaykpIHsKIAkJRFJNX0lORk8oIkJhaWxpbmcgb24gVERSIGZvciBzX2pv
+YjolbGx4LCBoaXZlOiAlbGx4IGFzIGFub3RoZXIgYWxyZWFkeSBpbiBwcm9ncmVzcyIsCi0JCQkg
+am9iLT5iYXNlLmlkLCBoaXZlLT5oaXZlX2lkKTsKKwkJCSAgam9iID8gam9iLT5iYXNlLmlkIDog
+LTEsIGhpdmUtPmhpdmVfaWQpOwogCQlyZXR1cm4gMDsKIAl9CiAKIAkvKiBTdGFydCB3aXRoIGFk
+ZXYgcHJlIGFzaWMgcmVzZXQgZmlyc3QgZm9yIHNvZnQgcmVzZXQgY2hlY2suKi8KIAlpZiAoIWFt
+ZGdwdV9kZXZpY2VfbG9ja19hZGV2KGFkZXYsICFoaXZlKSkgewogCQlEUk1fSU5GTygiQmFpbGlu
+ZyBvbiBURFIgZm9yIHNfam9iOiVsbHgsIGFzIGFub3RoZXIgYWxyZWFkeSBpbiBwcm9ncmVzcyIs
+Ci0JCQkJCSBqb2ItPmJhc2UuaWQpOworCQkJICBqb2IgPyBqb2ItPmJhc2UuaWQgOiAtMSk7CiAJ
+CXJldHVybiAwOwogCX0KIApAQCAtMzgzOCw3ICszODM4LDcgQEAgaW50IGFtZGdwdV9kZXZpY2Vf
+Z3B1X3JlY292ZXIoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsCiAJCQlpZiAoIXJpbmcgfHwg
+IXJpbmctPnNjaGVkLnRocmVhZCkKIAkJCQljb250aW51ZTsKIAotCQkJZHJtX3NjaGVkX3N0b3Ao
+JnJpbmctPnNjaGVkLCAmam9iLT5iYXNlKTsKKwkJCWRybV9zY2hlZF9zdG9wKCZyaW5nLT5zY2hl
+ZCwgam9iID8gJmpvYi0+YmFzZSA6IE5VTEwpOwogCQl9CiAJfQogCkBAIC0zODY0LDcgKzM4NjQs
+NyBAQCBpbnQgYW1kZ3B1X2RldmljZV9ncHVfcmVjb3ZlcihzdHJ1Y3QgYW1kZ3B1X2RldmljZSAq
+YWRldiwKIAogCS8qIEd1aWx0eSBqb2Igd2lsbCBiZSBmcmVlZCBhZnRlciB0aGlzKi8KIAlyID0g
+YW1kZ3B1X2RldmljZV9wcmVfYXNpY19yZXNldChhZGV2LAotCQkJCQkgam9iLAorCQkJCQkgam9i
+ID8gam9iIDogTlVMTCwKIAkJCQkJICZuZWVkX2Z1bGxfcmVzZXQpOwogCWlmIChyKSB7CiAJCS8q
+VE9ETyBTaG91bGQgd2Ugc3RvcCA/Ki8KLS0gCjIuNy40CgpfX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxp
+c3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFu
+L2xpc3RpbmZvL2FtZC1nZng=
