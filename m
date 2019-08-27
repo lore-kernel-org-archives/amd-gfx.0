@@ -1,96 +1,34 @@
-From: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH 3/4] drm/amdgpu: Determing PTE flags separately for each
- mapping (v2)
-Date: Mon, 26 Aug 2019 23:07:13 +0000
-Message-ID: <20190826230355.25007-3-Felix.Kuehling@amd.com>
-References: <20190826230355.25007-1-Felix.Kuehling@amd.com>
-Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190826230355.25007-1-Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Zeng, Oak" <Oak.Zeng-5C7GfCeVMHo@public.gmane.org>, "Koenig,
- Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
+From: Masahiro Yamada <yamada.masahiro@socionext.com>
+Subject: [PATCH] drm/amd: remove meaningless descending into amd/amdkfd/
+Date: Tue, 27 Aug 2019 15:44:25 +0900
+Message-ID: <20190827064425.19627-1-yamada.masahiro@socionext.com>
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=8F=AB=D3nig?= <christian.koenig@amd.com>, David Zhou <David1.Zhou@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org, Masahiro Yamada <yamada.masahiro@socionext.com>, Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@linux.ie>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <maxime.ripard@bootlin.com>, Sean Paul <sean@poorly.run>, linux-kernel@vger.kernel.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-VGhlIHNhbWUgQk8gY2FuIGJlIG1hcHBlZCB3aXRoIGRpZmZlcmVudCBQVEUgZmxhZ3MgYnkgZGlm
-ZmVyZW50IEdQVXMuClRoZXJlZm9yZSBkZXRlcm1pbmUgdGhlIFBURSBmbGFncyBzZXBhcmF0ZWx5
-IGZvciBlYWNoIG1hcHBpbmcgaW5zdGVhZApvZiBzdG9yaW5nIHRoZW0gaW4gdGhlIEtGRCBidWZm
-ZXIgb2JqZWN0LgoKQWRkIGEgaGVscGVyIGZ1bmN0aW9uIHRvIGRldGVybWluZSB0aGUgUFRFIGZs
-YWdzIHRvIGJlIGV4dGVuZGVkIHdpdGgKQVNJQyBhbmQgbWVtb3J5LXR5cGUtc3BlY2lmaWMgbG9n
-aWMgaW4gc3Vic2VxdWVudCBjb21taXRzLgoKdjI6IFNwbGl0IEFyY3R1cnVzLXNwZWNpZmljIE1U
-WVBFIGNoYW5nZXMgaW50byBzZXBhcmF0ZSBjb21taXQKClNpZ25lZC1vZmYtYnk6IEZlbGl4IEt1
-ZWhsaW5nIDxGZWxpeC5LdWVobGluZ0BhbWQuY29tPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQv
-YW1kZ3B1L2FtZGdwdV9hbWRrZmQuaCAgICB8ICAyICstCiAuLi4vZ3B1L2RybS9hbWQvYW1kZ3B1
-L2FtZGdwdV9hbWRrZmRfZ3B1dm0uYyAgfCAzOSArKysrKysrKysrKy0tLS0tLS0tCiAyIGZpbGVz
-IGNoYW5nZWQsIDI0IGluc2VydGlvbnMoKyksIDE3IGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBh
-L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9hbWRrZmQuaCBiL2RyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9hbWRrZmQuaAppbmRleCBlNTE5ZGYzZmQyYjYuLjFhZjhm
-ODNmN2UwMiAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Ft
-ZGtmZC5oCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9hbWRrZmQuaApA
-QCAtNTcsNyArNTcsNyBAQCBzdHJ1Y3Qga2dkX21lbSB7CiAJdW5zaWduZWQgaW50IG1hcHBlZF90
-b19ncHVfbWVtb3J5OwogCXVpbnQ2NF90IHZhOwogCi0JdWludDMyX3QgbWFwcGluZ19mbGFnczsK
-Kwl1aW50MzJfdCBhbGxvY19mbGFnczsKIAogCWF0b21pY190IGludmFsaWQ7CiAJc3RydWN0IGFt
-ZGtmZF9wcm9jZXNzX2luZm8gKnByb2Nlc3NfaW5mbzsKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9hbWRrZmRfZ3B1dm0uYyBiL2RyaXZlcnMvZ3B1L2RybS9h
-bWQvYW1kZ3B1L2FtZGdwdV9hbWRrZmRfZ3B1dm0uYwppbmRleCA0NGE1MmIwOWNjNTguLjFiNzM0
-MGExOGY2NyAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Ft
-ZGtmZF9ncHV2bS5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9hbWRr
-ZmRfZ3B1dm0uYwpAQCAtMzU1LDYgKzM1NSwyMyBAQCBzdGF0aWMgaW50IHZtX3VwZGF0ZV9wZHMo
-c3RydWN0IGFtZGdwdV92bSAqdm0sIHN0cnVjdCBhbWRncHVfc3luYyAqc3luYykKIAlyZXR1cm4g
-YW1kZ3B1X3N5bmNfZmVuY2UoTlVMTCwgc3luYywgdm0tPmxhc3RfdXBkYXRlLCBmYWxzZSk7CiB9
-CiAKK3N0YXRpYyB1aW50MzJfdCBnZXRfcHRlX2ZsYWdzKHN0cnVjdCBhbWRncHVfZGV2aWNlICph
-ZGV2LCBzdHJ1Y3Qga2dkX21lbSAqbWVtKQoreworCWJvb2wgY29oZXJlbnQgPSBtZW0tPmFsbG9j
-X2ZsYWdzICYgQUxMT0NfTUVNX0ZMQUdTX0NPSEVSRU5UOworCXVpbnQzMl90IG1hcHBpbmdfZmxh
-Z3M7CisKKwltYXBwaW5nX2ZsYWdzID0gQU1ER1BVX1ZNX1BBR0VfUkVBREFCTEU7CisJaWYgKG1l
-bS0+YWxsb2NfZmxhZ3MgJiBBTExPQ19NRU1fRkxBR1NfV1JJVEFCTEUpCisJCW1hcHBpbmdfZmxh
-Z3MgfD0gQU1ER1BVX1ZNX1BBR0VfV1JJVEVBQkxFOworCWlmIChtZW0tPmFsbG9jX2ZsYWdzICYg
-QUxMT0NfTUVNX0ZMQUdTX0VYRUNVVEFCTEUpCisJCW1hcHBpbmdfZmxhZ3MgfD0gQU1ER1BVX1ZN
-X1BBR0VfRVhFQ1VUQUJMRTsKKworCW1hcHBpbmdfZmxhZ3MgfD0gY29oZXJlbnQgPworCQlBTURH
-UFVfVk1fTVRZUEVfVUMgOiBBTURHUFVfVk1fTVRZUEVfTkM7CisKKwlyZXR1cm4gYW1kZ3B1X2dt
-Y19nZXRfcHRlX2ZsYWdzKGFkZXYsIG1hcHBpbmdfZmxhZ3MpOworfQorCiAvKiBhZGRfYm9fdG9f
-dm0gLSBBZGQgYSBCTyB0byBhIFZNCiAgKgogICogRXZlcnl0aGluZyB0aGF0IG5lZWRzIHRvIGJv
-IGRvbmUgb25seSBvbmNlIHdoZW4gYSBCTyBpcyBmaXJzdCBhZGRlZApAQCAtNDAzLDggKzQyMCw3
-IEBAIHN0YXRpYyBpbnQgYWRkX2JvX3RvX3ZtKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LCBz
-dHJ1Y3Qga2dkX21lbSAqbWVtLAogCX0KIAogCWJvX3ZhX2VudHJ5LT52YSA9IHZhOwotCWJvX3Zh
-X2VudHJ5LT5wdGVfZmxhZ3MgPSBhbWRncHVfZ21jX2dldF9wdGVfZmxhZ3MoYWRldiwKLQkJCQkJ
-CQkgbWVtLT5tYXBwaW5nX2ZsYWdzKTsKKwlib192YV9lbnRyeS0+cHRlX2ZsYWdzID0gZ2V0X3B0
-ZV9mbGFncyhhZGV2LCBtZW0pOwogCWJvX3ZhX2VudHJ5LT5rZ2RfZGV2ID0gKHZvaWQgKilhZGV2
-OwogCWxpc3RfYWRkKCZib192YV9lbnRyeS0+Ym9fbGlzdCwgbGlzdF9ib192YSk7CiAKQEAgLTEw
-ODEsNyArMTA5Nyw2IEBAIGludCBhbWRncHVfYW1ka2ZkX2dwdXZtX2FsbG9jX21lbW9yeV9vZl9n
-cHUoCiAJaW50IGJ5dGVfYWxpZ247CiAJdTMyIGRvbWFpbiwgYWxsb2NfZG9tYWluOwogCXU2NCBh
-bGxvY19mbGFnczsKLQl1aW50MzJfdCBtYXBwaW5nX2ZsYWdzOwogCWludCByZXQ7CiAKIAkvKgpA
-QCAtMTE0MywxNiArMTE1OCw3IEBAIGludCBhbWRncHVfYW1ka2ZkX2dwdXZtX2FsbG9jX21lbW9y
-eV9vZl9ncHUoCiAJCQlhZGV2LT5hc2ljX3R5cGUgIT0gQ0hJUF9WRUdBTSkgPwogCQkJVklfQk9f
-U0laRV9BTElHTiA6IDE7CiAKLQltYXBwaW5nX2ZsYWdzID0gQU1ER1BVX1ZNX1BBR0VfUkVBREFC
-TEU7Ci0JaWYgKGZsYWdzICYgQUxMT0NfTUVNX0ZMQUdTX1dSSVRBQkxFKQotCQltYXBwaW5nX2Zs
-YWdzIHw9IEFNREdQVV9WTV9QQUdFX1dSSVRFQUJMRTsKLQlpZiAoZmxhZ3MgJiBBTExPQ19NRU1f
-RkxBR1NfRVhFQ1VUQUJMRSkKLQkJbWFwcGluZ19mbGFncyB8PSBBTURHUFVfVk1fUEFHRV9FWEVD
-VVRBQkxFOwotCWlmIChmbGFncyAmIEFMTE9DX01FTV9GTEFHU19DT0hFUkVOVCkKLQkJbWFwcGlu
-Z19mbGFncyB8PSBBTURHUFVfVk1fTVRZUEVfVUM7Ci0JZWxzZQotCQltYXBwaW5nX2ZsYWdzIHw9
-IEFNREdQVV9WTV9NVFlQRV9OQzsKLQkoKm1lbSktPm1hcHBpbmdfZmxhZ3MgPSBtYXBwaW5nX2Zs
-YWdzOworCSgqbWVtKS0+YWxsb2NfZmxhZ3MgPSBmbGFnczsKIAogCWFtZGdwdV9zeW5jX2NyZWF0
-ZSgmKCptZW0pLT5zeW5jKTsKIApAQCAtMTYyNSw5ICsxNjMxLDEwIEBAIGludCBhbWRncHVfYW1k
-a2ZkX2dwdXZtX2ltcG9ydF9kbWFidWYoc3RydWN0IGtnZF9kZXYgKmtnZCwKIAogCUlOSVRfTElT
-VF9IRUFEKCYoKm1lbSktPmJvX3ZhX2xpc3QpOwogCW11dGV4X2luaXQoJigqbWVtKS0+bG9jayk7
-Ci0JKCptZW0pLT5tYXBwaW5nX2ZsYWdzID0KLQkJQU1ER1BVX1ZNX1BBR0VfUkVBREFCTEUgfCBB
-TURHUFVfVk1fUEFHRV9XUklURUFCTEUgfAotCQlBTURHUFVfVk1fUEFHRV9FWEVDVVRBQkxFIHwg
-QU1ER1BVX1ZNX01UWVBFX05DOworCSgqbWVtKS0+YWxsb2NfZmxhZ3MgPQorCQkoKGJvLT5wcmVm
-ZXJyZWRfZG9tYWlucyAmIEFNREdQVV9HRU1fRE9NQUlOX1ZSQU0pID8KKwkJIEFMTE9DX01FTV9G
-TEFHU19WUkFNIDogQUxMT0NfTUVNX0ZMQUdTX0dUVCkgfAorCQlBTExPQ19NRU1fRkxBR1NfV1JJ
-VEFCTEUgfCBBTExPQ19NRU1fRkxBR1NfRVhFQ1VUQUJMRTsKIAogCSgqbWVtKS0+Ym8gPSBhbWRn
-cHVfYm9fcmVmKGJvKTsKIAkoKm1lbSktPnZhID0gdmE7Ci0tIAoyLjE3LjEKCl9fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0
-CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Au
-b3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
+Since commit 04d5e2765802 ("drm/amdgpu: Merge amdkfd into amdgpu"),
+drivers/gpu/drm/amd/amdkfd/Makefile does not contain any syntax that
+is understood by the build system.
+
+Signed-off-by: Masahiro Yamada <yamada.masahiro@socionext.com>
+---
+
+ drivers/gpu/drm/Makefile | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/Makefile b/drivers/gpu/drm/Makefile
+index 9f0d2ee35794..3f9195b7ad13 100644
+--- a/drivers/gpu/drm/Makefile
++++ b/drivers/gpu/drm/Makefile
+@@ -62,7 +62,6 @@ obj-$(CONFIG_DRM_TTM)	+= ttm/
+ obj-$(CONFIG_DRM_SCHED)	+= scheduler/
+ obj-$(CONFIG_DRM_TDFX)	+= tdfx/
+ obj-$(CONFIG_DRM_R128)	+= r128/
+-obj-$(CONFIG_HSA_AMD) += amd/amdkfd/
+ obj-$(CONFIG_DRM_RADEON)+= radeon/
+ obj-$(CONFIG_DRM_AMDGPU)+= amd/amdgpu/
+ obj-$(CONFIG_DRM_MGA)	+= mga/
+-- 
+2.17.1
