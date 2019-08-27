@@ -1,13 +1,16 @@
-From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: correct in_suspend setting for navi series
-Date: Tue, 27 Aug 2019 12:50:47 +0000
-Message-ID: <BN6PR12MB18094180CE418090E95AF864F7A00@BN6PR12MB1809.namprd12.prod.outlook.com>
-References: <1566897593-2630-1-git-send-email-Hawking.Zhang@amd.com>
+From: Harry Wentland <hwentlan-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 2/3] drm/amd/display: remove unused function
+ setFieldWithMask
+Date: Tue, 27 Aug 2019 14:01:24 +0000
+Message-ID: <fb49a1d9-8405-4f88-6f9a-af863bd0f657@amd.com>
+References: <20190827070925.16080-1-yuehaibing@huawei.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0676882736=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1566897593-2630-1-git-send-email-Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <20190827070925.16080-1-yuehaibing-hv44wF8Li93QT0dZR+AlfA@public.gmane.org>
 Content-Language: en-US
+Content-ID: <8B18C0D47B26414C958DE53BABAACDFA-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,165 +21,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Zhang, Hawking" <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: YueHaibing <yuehaibing-hv44wF8Li93QT0dZR+AlfA@public.gmane.org>, "Wentland, Harry" <Harry.Wentland-5C7GfCeVMHo@public.gmane.org>, "Li, Sun peng (Leo)" <Sunpeng.Li-5C7GfCeVMHo@public.gmane.org>, "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "Zhou, David(ChunMing)" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, "airlied-cv59FeDIM0c@public.gmane.org" <airlied-cv59FeDIM0c@public.gmane.org>, "daniel-/w4YWyX8dFk@public.gmane.org" <daniel-/w4YWyX8dFk@public.gmane.org>, "Lakha, Bhawanpreet" <Bhawanpreet.Lakha-5C7GfCeVMHo@public.gmane.org>, "Koo, Anthony" <Anthony.Koo-5C7GfCeVMHo@public.gmane.org>, "Othman, Ahmad" <Ahmad.Othman-5C7GfCeVMHo@public.gmane.org>, "Bernstein,
+ Eric" <Eric.Bernstein-5C7GfCeVMHo@public.gmane.org>, "Cyr, Aric" <Aric.Cyr-5C7GfCeVMHo@public.gmane.org>, "alvin.lee3-5C7GfCeVMHo@public.gmane.org" <alvin.lee3-5C7GfCeVMHo@public.gmane.org>, "Tatla, Harmanprit" <Harmanprit.Tatla-5C7GfCeVMHo@public.gmane.org>
+Cc: "dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org" <linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>
 
---===============0676882736==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_BN6PR12MB18094180CE418090E95AF864F7A00BN6PR12MB1809namp_"
-
---_000_BN6PR12MB18094180CE418090E95AF864F7A00BN6PR12MB1809namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-Reviewed-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-________________________________
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Hawking =
-Zhang <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>
-Sent: Tuesday, August 27, 2019 5:19 AM
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: Zhang, Hawking <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH] drm/amdgpu: correct in_suspend setting for navi series
-
-in_suspend flag should be set in amdgpu_device_suspend/resume in pairs,
-instead of gfx10 ip suspend/resume function.
-
-Signed-off-by: Hawking Zhang <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>
----
- drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c | 12 ++----------
- 1 file changed, 2 insertions(+), 10 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/a=
-mdgpu/gfx_v10_0.c
-index f708912..a2f4ff1 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-@@ -3768,20 +3768,12 @@ static int gfx_v10_0_hw_fini(void *handle)
-
- static int gfx_v10_0_suspend(void *handle)
- {
--       struct amdgpu_device *adev =3D (struct amdgpu_device *)handle;
--
--       adev->in_suspend =3D true;
--       return gfx_v10_0_hw_fini(adev);
-+       return gfx_v10_0_hw_fini(handle);
- }
-
- static int gfx_v10_0_resume(void *handle)
- {
--       struct amdgpu_device *adev =3D (struct amdgpu_device *)handle;
--       int r;
--
--       r =3D gfx_v10_0_hw_init(adev);
--       adev->in_suspend =3D false;
--       return r;
-+       return gfx_v10_0_hw_init(handle);
- }
-
- static bool gfx_v10_0_is_idle(void *handle)
---
-2.7.4
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---_000_BN6PR12MB18094180CE418090E95AF864F7A00BN6PR12MB1809namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Reviewed-by: Alex Deucher &lt;alexander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
-</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
-ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Hawking Zhang &lt;Hawking.Zha=
-ng-5C7GfCeVMHo@public.gmane.org&gt;<br>
-<b>Sent:</b> Tuesday, August 27, 2019 5:19 AM<br>
-<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org &lt;amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&=
-gt;<br>
-<b>Cc:</b> Zhang, Hawking &lt;Hawking.Zhang-5C7GfCeVMHo@public.gmane.org&gt;<br>
-<b>Subject:</b> [PATCH] drm/amdgpu: correct in_suspend setting for navi ser=
-ies</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">in_suspend flag should be set in amdgpu_device_sus=
-pend/resume in pairs,<br>
-instead of gfx10 ip suspend/resume function.<br>
-<br>
-Signed-off-by: Hawking Zhang &lt;Hawking.Zhang-5C7GfCeVMHo@public.gmane.org&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c | 12 &#43;&#43;----------<br>
-&nbsp;1 file changed, 2 insertions(&#43;), 10 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/a=
-mdgpu/gfx_v10_0.c<br>
-index f708912..a2f4ff1 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c<br>
-@@ -3768,20 &#43;3768,12 @@ static int gfx_v10_0_hw_fini(void *handle)<br>
-&nbsp;<br>
-&nbsp;static int gfx_v10_0_suspend(void *handle)<br>
-&nbsp;{<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev =3D (struc=
-t amdgpu_device *)handle;<br>
--<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;in_suspend =3D true;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return gfx_v10_0_hw_fini(adev);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return gfx_v10_0_hw_fini(handle);=
-<br>
-&nbsp;}<br>
-&nbsp;<br>
-&nbsp;static int gfx_v10_0_resume(void *handle)<br>
-&nbsp;{<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev =3D (struc=
-t amdgpu_device *)handle;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int r;<br>
--<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D gfx_v10_0_hw_init(adev);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;in_suspend =3D false;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return r;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return gfx_v10_0_hw_init(handle);=
-<br>
-&nbsp;}<br>
-&nbsp;<br>
-&nbsp;static bool gfx_v10_0_is_idle(void *handle)<br>
--- <br>
-2.7.4<br>
-<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
-lists.freedesktop.org/mailman/listinfo/amd-gfx</a></div>
-</span></font></div>
-</body>
-</html>
-
---_000_BN6PR12MB18094180CE418090E95AF864F7A00BN6PR12MB1809namp_--
-
---===============0676882736==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
-
---===============0676882736==--
+T24gMjAxOS0wOC0yNyAzOjA5IGEubS4sIFl1ZUhhaWJpbmcgd3JvdGU6DQo+IEFmdGVyIGNvbW1p
+dCBhOWY1NGNlM2M2MDMgKCJkcm0vYW1kL2Rpc3BsYXk6IFJlZmFjdG9yaW5nIFZURU0iKSwNCj4g
+dGhlcmUgaXMgbm8gY2FsbGVyIGluIHRyZWUuDQo+IA0KPiBSZXBvcnRlZC1ieTogSHVsayBSb2Jv
+dCA8aHVsa2NpQGh1YXdlaS5jb20+IFNpZ25lZC1vZmYtYnk6IFl1ZUhhaWJpbmcgPHl1ZWhhaWJp
+bmdAaHVhd2VpLmNvbT4NCg0KUmV2aWV3ZWQtYnk6IEhhcnJ5IFdlbnRsYW5kIDxoYXJyeS53ZW50
+bGFuZEBhbWQuY29tPg0KDQpIYXJyeQ0KDQo+IC0tLQ0KPiAgLi4uL2RybS9hbWQvZGlzcGxheS9t
+b2R1bGVzL2luZm9fcGFja2V0L2luZm9fcGFja2V0LmMgfCAxOSAtLS0tLS0tLS0tLS0tLS0tLS0t
+DQo+ICAxIGZpbGUgY2hhbmdlZCwgMTkgZGVsZXRpb25zKC0pDQo+IA0KPiBkaWZmIC0tZ2l0IGEv
+ZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L21vZHVsZXMvaW5mb19wYWNrZXQvaW5mb19wYWNr
+ZXQuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9tb2R1bGVzL2luZm9fcGFja2V0L2lu
+Zm9fcGFja2V0LmMNCj4gaW5kZXggNWY0Yjk4ZC4uZDg4NWQ2NCAxMDA2NDQNCj4gLS0tIGEvZHJp
+dmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L21vZHVsZXMvaW5mb19wYWNrZXQvaW5mb19wYWNrZXQu
+Yw0KPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvbW9kdWxlcy9pbmZvX3BhY2tl
+dC9pbmZvX3BhY2tldC5jDQo+IEBAIC0xMTQsMjUgKzExNCw2IEBAIGVudW0gQ29sb3JpbWV0cnlZ
+Q0NEUCB7DQo+ICAJQ29sb3JpbWV0cnlZQ0NfRFBfSVRVMjAyMFlDYkNyICA9IDcsDQo+ICB9Ow0K
+PiAgDQo+IC12b2lkIHNldEZpZWxkV2l0aE1hc2sodW5zaWduZWQgY2hhciAqZGVzdCwgdW5zaWdu
+ZWQgaW50IG1hc2ssIHVuc2lnbmVkIGludCB2YWx1ZSkNCj4gLXsNCj4gLQl1bnNpZ25lZCBpbnQg
+c2hpZnQgPSAwOw0KPiAtDQo+IC0JaWYgKCFtYXNrIHx8ICFkZXN0KQ0KPiAtCQlyZXR1cm47DQo+
+IC0NCj4gLQl3aGlsZSAoISgobWFzayA+PiBzaGlmdCkgJiAxKSkNCj4gLQkJc2hpZnQrKzsNCj4g
+LQ0KPiAtCS8vcmVzZXQNCj4gLQkqZGVzdCA9ICpkZXN0ICYgfm1hc2s7DQo+IC0JLy9zZXQNCj4g
+LQkvL2RvbnQgbGV0IHZhbHVlIHNwYW4gcGFzdCBtYXNrDQo+IC0JdmFsdWUgPSB2YWx1ZSAmICht
+YXNrID4+IHNoaWZ0KTsNCj4gLQkvL2luc2VydCB2YWx1ZQ0KPiAtCSpkZXN0ID0gKmRlc3QgfCAo
+dmFsdWUgPDwgc2hpZnQpOw0KPiAtfQ0KPiAtDQo+ICB2b2lkIG1vZF9idWlsZF92c2NfaW5mb3Bh
+Y2tldChjb25zdCBzdHJ1Y3QgZGNfc3RyZWFtX3N0YXRlICpzdHJlYW0sDQo+ICAJCXN0cnVjdCBk
+Y19pbmZvX3BhY2tldCAqaW5mb19wYWNrZXQpDQo+ICB7DQo+IA0KX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdm
+eEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFp
+bG1hbi9saXN0aW5mby9hbWQtZ2Z4
