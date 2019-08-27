@@ -1,50 +1,51 @@
-From: Aaron Liu <aaron.liu-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH] drm/amdgpu: fix commit 4ef9d7d
-Date: Tue, 27 Aug 2019 23:33:29 +0800
-Message-ID: <1566920009-8378-1-git-send-email-aaron.liu@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Subject: Re: linux-next: Tree for Aug 27 (amdgpu)
+Date: Tue, 27 Aug 2019 11:41:41 -0400
+Message-ID: <CADnq5_NBnovQGuhsoEsw+S-LBDU-CbWXKm=mJ3Oy6PcgUeiOQw@mail.gmail.com>
+References: <20190827190526.6f27e763@canb.auug.org.au> <3b5936f1-e471-846a-d133-0e17d290d2f3@infradead.org>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Aaron Liu <aaron.liu-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <3b5936f1-e471-846a-d133-0e17d290d2f3@infradead.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Randy Dunlap <rdunlap@infradead.org>
+Cc: Stephen Rothwell <sfr@canb.auug.org.au>, Linux Next Mailing List <linux-next@vger.kernel.org>, amd-gfx list <amd-gfx@lists.freedesktop.org>, Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, dri-devel <dri-devel@lists.freedesktop.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-Rm9yIHBpY2Fzc28oYWRldi0+cGRldi0+ZGV2aWNlID09IDB4MTVkOCkmcmF2ZW4yKGFkZXYtPnJl
-dl9pZCA+PSAweDgpLApmaXJtd2FyZSBpcyBzdWZmaWNpZW50IHRvIHN1cHBvcnQgZ2Z4b2ZmLgpJ
-biBjb21taXQgNGVmOWQ3ZGMyZGIxNjZjYmU4M2ZlNDYyMTM4NWYwMzRjOTM0N2ZkMiwgZm9yIHBp
-Y2Fzc28mcmF2ZW4yLApyZXR1cm4gZGlyZWN0bHkgYW5kIGNhdXNlIGdmeG9mZiBkaXNhYmxlZC4K
-ClNpZ25lZC1vZmYtYnk6IEFhcm9uIExpdSA8YWFyb24ubGl1QGFtZC5jb20+Ci0tLQogZHJpdmVy
-cy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y5XzAuYyB8IDE0ICsrKysrKystLS0tLS0tCiAxIGZp
-bGUgY2hhbmdlZCwgNyBpbnNlcnRpb25zKCspLCA3IGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBh
-L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92OV8wLmMgYi9kcml2ZXJzL2dwdS9kcm0v
-YW1kL2FtZGdwdS9nZnhfdjlfMC5jCmluZGV4IDI3NjJhZTQuLmZkNzk0N2UgMTAwNjQ0Ci0tLSBh
-L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92OV8wLmMKKysrIGIvZHJpdmVycy9ncHUv
-ZHJtL2FtZC9hbWRncHUvZ2Z4X3Y5XzAuYwpAQCAtMTAyNywxNCArMTAyNywxNCBAQCBzdGF0aWMg
-dm9pZCBnZnhfdjlfMF9jaGVja19pZl9uZWVkX2dmeG9mZihzdHJ1Y3QgYW1kZ3B1X2RldmljZSAq
-YWRldikKIAljYXNlIENISVBfVkVHQTIwOgogCQlicmVhazsKIAljYXNlIENISVBfUkFWRU46Ci0J
-CWlmIChhZGV2LT5yZXZfaWQgPj0gMHg4IHx8IGFkZXYtPnBkZXYtPmRldmljZSA9PSAweDE1ZDgp
-Ci0JCQlicmVhazsKLQkJaWYgKChhZGV2LT5nZngucmxjX2Z3X3ZlcnNpb24gIT0gMTA2ICYmCi0J
-CSAgICAgYWRldi0+Z2Z4LnJsY19md192ZXJzaW9uIDwgNTMxKSB8fAotCQkgICAgKGFkZXYtPmdm
-eC5ybGNfZndfdmVyc2lvbiA9PSA1MzgxNSkgfHwKLQkJICAgIChhZGV2LT5nZngucmxjX2ZlYXR1
-cmVfdmVyc2lvbiA8IDEpIHx8Ci0JCSAgICAhYWRldi0+Z2Z4LnJsYy5pc19ybGNfdjJfMSkKKwkJ
-aWYgKCEoYWRldi0+cmV2X2lkID49IDB4OCB8fCBhZGV2LT5wZGV2LT5kZXZpY2UgPT0gMHgxNWQ4
-KQorCQkJJiYoKGFkZXYtPmdmeC5ybGNfZndfdmVyc2lvbiAhPSAxMDYgJiYKKwkJCSAgICAgYWRl
-di0+Z2Z4LnJsY19md192ZXJzaW9uIDwgNTMxKSB8fAorCQkJICAgIChhZGV2LT5nZngucmxjX2Z3
-X3ZlcnNpb24gPT0gNTM4MTUpIHx8CisJCQkgICAgKGFkZXYtPmdmeC5ybGNfZmVhdHVyZV92ZXJz
-aW9uIDwgMSkgfHwKKwkJCSAgICAhYWRldi0+Z2Z4LnJsYy5pc19ybGNfdjJfMSkpCiAJCQlhZGV2
-LT5wbS5wcF9mZWF0dXJlICY9IH5QUF9HRlhPRkZfTUFTSzsKKwogCQlpZiAoYWRldi0+cG0ucHBf
-ZmVhdHVyZSAmIFBQX0dGWE9GRl9NQVNLKQogCQkJYWRldi0+cGdfZmxhZ3MgfD0gQU1EX1BHX1NV
-UFBPUlRfR0ZYX1BHIHwKIAkJCQlBTURfUEdfU1VQUE9SVF9DUCB8Ci0tIAoyLjcuNAoKX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5n
-IGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVz
-a3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+On Tue, Aug 27, 2019 at 11:31 AM Randy Dunlap <rdunlap@infradead.org> wrote=
+:
+>
+> On 8/27/19 2:05 AM, Stephen Rothwell wrote:
+> > Hi all,
+> >
+> > Changes since 20190826:
+> >
+>
+> on i386:
+>
+> ../drivers/gpu/drm/amd/amdgpu/../display/dc/dcn20/dcn20_hwseq.c: In funct=
+ion =E2=80=98dcn20_hw_sequencer_construct=E2=80=99:
+> ../drivers/gpu/drm/amd/amdgpu/../display/dc/dcn20/dcn20_hwseq.c:2127:28: =
+error: =E2=80=98dcn20_dsc_pg_control=E2=80=99 undeclared (first use in this=
+ function); did you mean =E2=80=98dcn20_dpp_pg_control=E2=80=99?
+>   dc->hwss.dsc_pg_control =3D dcn20_dsc_pg_control;
+>                             ^~~~~~~~~~~~~~~~~~~~
+>                             dcn20_dpp_pg_control
+>
+>
+> Full randconfig file is attached.
+
+Fixed:
+https://cgit.freedesktop.org/~agd5f/linux/commit/?h=3Ddrm-next&id=3Dda26ded=
+3b2fff646d28559004195abe353bce49b
+
+Alex
+
+>
+> --
+> ~Randy
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
