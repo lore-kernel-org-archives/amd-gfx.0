@@ -1,51 +1,87 @@
-From: Alex Deucher <alexdeucher@gmail.com>
-Subject: Re: [PATCH] drm/amd: remove meaningless descending into amd/amdkfd/
-Date: Tue, 27 Aug 2019 11:09:38 -0400
-Message-ID: <CADnq5_OUC_Wtwe2+w-DRtEUoBEmNa6GkoQ10_qD8=28xF32jBg@mail.gmail.com>
-References: <20190827064425.19627-1-yamada.masahiro@socionext.com>
+From: "Othman, Ahmad" <Ahmad.Othman-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: [PATCH 2/3] drm/amd/display: remove unused function
+ setFieldWithMask
+Date: Tue, 27 Aug 2019 15:09:42 +0000
+Message-ID: <DM6PR12MB26177A7D6E572D31FC46F09E83A00@DM6PR12MB2617.namprd12.prod.outlook.com>
+References: <20190827070925.16080-1-yuehaibing@huawei.com>
+ <fb49a1d9-8405-4f88-6f9a-af863bd0f657@amd.com>
+ <CADnq5_Pe-qnTWZrDxmC=xqHJBQ_SkaBv8go9mVWWp7MciC4NHA@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20190827064425.19627-1-yamada.masahiro@socionext.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Masahiro Yamada <yamada.masahiro@socionext.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?B?Q2hyaXN0aWFuIEvvv73vv73Dk25pZw==?= <christian.koenig@amd.com>, David Zhou <David1.Zhou@amd.com>, amd-gfx list <amd-gfx@lists.freedesktop.org>, Maxime Ripard <maxime.ripard@bootlin.com>, David Airlie <airlied@linux.ie>, LKML <linux-kernel@vger.kernel.org>, Maling list - DRI developers <dri-devel@lists.freedesktop.org>, Sean Paul <sean@poorly.run>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <CADnq5_Pe-qnTWZrDxmC=xqHJBQ_SkaBv8go9mVWWp7MciC4NHA-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Cc: "Zhou, David(ChunMing)" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, "Cyr,
+ Aric" <Aric.Cyr-5C7GfCeVMHo@public.gmane.org>, "Tatla,
+ Harmanprit" <Harmanprit.Tatla-5C7GfCeVMHo@public.gmane.org>, "Li,
+ Sun peng (Leo)" <Sunpeng.Li-5C7GfCeVMHo@public.gmane.org>, "Lakha,
+ Bhawanpreet" <Bhawanpreet.Lakha-5C7GfCeVMHo@public.gmane.org>, YueHaibing <yuehaibing-hv44wF8Li93QT0dZR+AlfA@public.gmane.org>, "linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org" <linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, "dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "alvin.lee3-5C7GfCeVMHo@public.gmane.org" <alvin.lee3-5C7GfCeVMHo@public.gmane.org>, "airlied-cv59FeDIM0c@public.gmane.org" <airlied-cv59FeDIM0c@public.gmane.org>, "Bernstein,
+ Eric" <Eric.Bernstein-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "daniel-/w4YWyX8dFk@public.gmane.org" <daniel-/w4YWyX8dFk@public.gmane.org>, "Deucher,
+ Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Wentland,
+ Harry" <Harry.Wentland-5C7GfCeVMHo@public.gmane.org>, "Koenig,
+ Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "Koo, Anthony" <Anthony.Koo-5C7GfCeVMHo@public.gmane.org>
 
-On Tue, Aug 27, 2019 at 3:29 AM Masahiro Yamada
-<yamada.masahiro@socionext.com> wrote:
->
-> Since commit 04d5e2765802 ("drm/amdgpu: Merge amdkfd into amdgpu"),
-> drivers/gpu/drm/amd/amdkfd/Makefile does not contain any syntax that
-> is understood by the build system.
->
-> Signed-off-by: Masahiro Yamada <yamada.masahiro@socionext.com>
-
-Applied.  thanks!
-
-Alex
-
-> ---
->
->  drivers/gpu/drm/Makefile | 1 -
->  1 file changed, 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/Makefile b/drivers/gpu/drm/Makefile
-> index 9f0d2ee35794..3f9195b7ad13 100644
-> --- a/drivers/gpu/drm/Makefile
-> +++ b/drivers/gpu/drm/Makefile
-> @@ -62,7 +62,6 @@ obj-$(CONFIG_DRM_TTM) += ttm/
->  obj-$(CONFIG_DRM_SCHED)        += scheduler/
->  obj-$(CONFIG_DRM_TDFX) += tdfx/
->  obj-$(CONFIG_DRM_R128) += r128/
-> -obj-$(CONFIG_HSA_AMD) += amd/amdkfd/
->  obj-$(CONFIG_DRM_RADEON)+= radeon/
->  obj-$(CONFIG_DRM_AMDGPU)+= amd/amdgpu/
->  obj-$(CONFIG_DRM_MGA)  += mga/
-> --
-> 2.17.1
->
-> _______________________________________________
-> dri-devel mailing list
-> dri-devel@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/dri-devel
+SGkgQWxleCwNCg0KVGhlcmUgYXJlIGNhbGxlcnMgaW4gdGhlIHNhbWUgZmlsZSAiaW5mb19wYWNr
+ZXQuYyIgDQoNCi0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQpGcm9tOiBBbGV4IERldWNoZXIg
+PGFsZXhkZXVjaGVyQGdtYWlsLmNvbT4gDQpTZW50OiBBdWd1c3QgMjcsIDIwMTkgMTA6MjANClRv
+OiBXZW50bGFuZCwgSGFycnkgPEhhcnJ5LldlbnRsYW5kQGFtZC5jb20+DQpDYzogWXVlSGFpYmlu
+ZyA8eXVlaGFpYmluZ0BodWF3ZWkuY29tPjsgV2VudGxhbmQsIEhhcnJ5IDxIYXJyeS5XZW50bGFu
+ZEBhbWQuY29tPjsgTGksIFN1biBwZW5nIChMZW8pIDxTdW5wZW5nLkxpQGFtZC5jb20+OyBEZXVj
+aGVyLCBBbGV4YW5kZXIgPEFsZXhhbmRlci5EZXVjaGVyQGFtZC5jb20+OyBLb2VuaWcsIENocmlz
+dGlhbiA8Q2hyaXN0aWFuLktvZW5pZ0BhbWQuY29tPjsgWmhvdSwgRGF2aWQoQ2h1bk1pbmcpIDxE
+YXZpZDEuWmhvdUBhbWQuY29tPjsgYWlybGllZEBsaW51eC5pZTsgZGFuaWVsQGZmd2xsLmNoOyBM
+YWtoYSwgQmhhd2FucHJlZXQgPEJoYXdhbnByZWV0Lkxha2hhQGFtZC5jb20+OyBLb28sIEFudGhv
+bnkgPEFudGhvbnkuS29vQGFtZC5jb20+OyBPdGhtYW4sIEFobWFkIDxBaG1hZC5PdGhtYW5AYW1k
+LmNvbT47IEJlcm5zdGVpbiwgRXJpYyA8RXJpYy5CZXJuc3RlaW5AYW1kLmNvbT47IEN5ciwgQXJp
+YyA8QXJpYy5DeXJAYW1kLmNvbT47IGFsdmluLmxlZTNAYW1kLmNvbTsgVGF0bGEsIEhhcm1hbnBy
+aXQgPEhhcm1hbnByaXQuVGF0bGFAYW1kLmNvbT47IGRyaS1kZXZlbEBsaXN0cy5mcmVlZGVza3Rv
+cC5vcmc7IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnOyBsaW51eC1rZXJuZWxAdmdlci5r
+ZXJuZWwub3JnDQpTdWJqZWN0OiBSZTogW1BBVENIIDIvM10gZHJtL2FtZC9kaXNwbGF5OiByZW1v
+dmUgdW51c2VkIGZ1bmN0aW9uIHNldEZpZWxkV2l0aE1hc2sNCg0KT24gVHVlLCBBdWcgMjcsIDIw
+MTkgYXQgMTA6MDEgQU0gSGFycnkgV2VudGxhbmQgPGh3ZW50bGFuQGFtZC5jb20+IHdyb3RlOg0K
+Pg0KPiBPbiAyMDE5LTA4LTI3IDM6MDkgYS5tLiwgWXVlSGFpYmluZyB3cm90ZToNCj4gPiBBZnRl
+ciBjb21taXQgYTlmNTRjZTNjNjAzICgiZHJtL2FtZC9kaXNwbGF5OiBSZWZhY3RvcmluZyBWVEVN
+IiksIA0KPiA+IHRoZXJlIGlzIG5vIGNhbGxlciBpbiB0cmVlLg0KPiA+DQo+ID4gUmVwb3J0ZWQt
+Ynk6IEh1bGsgUm9ib3QgPGh1bGtjaUBodWF3ZWkuY29tPiBTaWduZWQtb2ZmLWJ5OiANCj4gPiBZ
+dWVIYWliaW5nIDx5dWVoYWliaW5nQGh1YXdlaS5jb20+DQo+DQo+IFJldmlld2VkLWJ5OiBIYXJy
+eSBXZW50bGFuZCA8aGFycnkud2VudGxhbmRAYW1kLmNvbT4NCj4NCg0KQXBwbGllZC4gIFRoYW5r
+cyENCg0KQWxleA0KDQo+IEhhcnJ5DQo+DQo+ID4gLS0tDQo+ID4gIC4uLi9kcm0vYW1kL2Rpc3Bs
+YXkvbW9kdWxlcy9pbmZvX3BhY2tldC9pbmZvX3BhY2tldC5jIHwgMTkgDQo+ID4gLS0tLS0tLS0t
+LS0tLS0tLS0tLQ0KPiA+ICAxIGZpbGUgY2hhbmdlZCwgMTkgZGVsZXRpb25zKC0pDQo+ID4NCj4g
+PiBkaWZmIC0tZ2l0IA0KPiA+IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L21vZHVsZXMv
+aW5mb19wYWNrZXQvaW5mb19wYWNrZXQuYyANCj4gPiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlz
+cGxheS9tb2R1bGVzL2luZm9fcGFja2V0L2luZm9fcGFja2V0LmMNCj4gPiBpbmRleCA1ZjRiOThk
+Li5kODg1ZDY0IDEwMDY0NA0KPiA+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9t
+b2R1bGVzL2luZm9fcGFja2V0L2luZm9fcGFja2V0LmMNCj4gPiArKysgYi9kcml2ZXJzL2dwdS9k
+cm0vYW1kL2Rpc3BsYXkvbW9kdWxlcy9pbmZvX3BhY2tldC9pbmZvX3BhY2tldC5jDQo+ID4gQEAg
+LTExNCwyNSArMTE0LDYgQEAgZW51bSBDb2xvcmltZXRyeVlDQ0RQIHsNCj4gPiAgICAgICBDb2xv
+cmltZXRyeVlDQ19EUF9JVFUyMDIwWUNiQ3IgID0gNywgIH07DQo+ID4NCj4gPiAtdm9pZCBzZXRG
+aWVsZFdpdGhNYXNrKHVuc2lnbmVkIGNoYXIgKmRlc3QsIHVuc2lnbmVkIGludCBtYXNrLCANCj4g
+PiB1bnNpZ25lZCBpbnQgdmFsdWUpIC17DQo+ID4gLSAgICAgdW5zaWduZWQgaW50IHNoaWZ0ID0g
+MDsNCj4gPiAtDQo+ID4gLSAgICAgaWYgKCFtYXNrIHx8ICFkZXN0KQ0KPiA+IC0gICAgICAgICAg
+ICAgcmV0dXJuOw0KPiA+IC0NCj4gPiAtICAgICB3aGlsZSAoISgobWFzayA+PiBzaGlmdCkgJiAx
+KSkNCj4gPiAtICAgICAgICAgICAgIHNoaWZ0Kys7DQo+ID4gLQ0KPiA+IC0gICAgIC8vcmVzZXQN
+Cj4gPiAtICAgICAqZGVzdCA9ICpkZXN0ICYgfm1hc2s7DQo+ID4gLSAgICAgLy9zZXQNCj4gPiAt
+ICAgICAvL2RvbnQgbGV0IHZhbHVlIHNwYW4gcGFzdCBtYXNrDQo+ID4gLSAgICAgdmFsdWUgPSB2
+YWx1ZSAmIChtYXNrID4+IHNoaWZ0KTsNCj4gPiAtICAgICAvL2luc2VydCB2YWx1ZQ0KPiA+IC0g
+ICAgICpkZXN0ID0gKmRlc3QgfCAodmFsdWUgPDwgc2hpZnQpOw0KPiA+IC19DQo+ID4gLQ0KPiA+
+ICB2b2lkIG1vZF9idWlsZF92c2NfaW5mb3BhY2tldChjb25zdCBzdHJ1Y3QgZGNfc3RyZWFtX3N0
+YXRlICpzdHJlYW0sDQo+ID4gICAgICAgICAgICAgICBzdHJ1Y3QgZGNfaW5mb19wYWNrZXQgKmlu
+Zm9fcGFja2V0KSAgew0KPiA+DQo+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fDQo+IGFtZC1nZnggbWFpbGluZyBsaXN0DQo+IGFtZC1nZnhAbGlzdHMuZnJl
+ZWRlc2t0b3Aub3JnDQo+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlz
+dGluZm8vYW1kLWdmeA0KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcK
+aHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
