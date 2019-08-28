@@ -1,15 +1,11 @@
-From: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu/psp: keep TMR in visible vram region for SRIOV
-Date: Wed, 28 Aug 2019 11:08:45 +0000
-Message-ID: <85324125-c6dd-4f93-807f-04ff0ee7c815@email.android.com>
-References: <1566984335-14830-1-git-send-email-tianci.yin@amd.com>,
- <45fe6586-a53a-6f02-0e5f-b6224b159e12@gmail.com>,
- <DM5PR12MB2535E067922B65112BEECCFA95A30@DM5PR12MB2535.namprd12.prod.outlook.com>
+From: Tianci Yin <tianci.yin-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH 1/2] drm/amdgpu/psp: keep TMR in visible vram region for SRIOV
+Date: Wed, 28 Aug 2019 19:40:20 +0800
+Message-ID: <1566992421-30581-1-git-send-email-tianci.yin@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1195708386=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <DM5PR12MB2535E067922B65112BEECCFA95A30-2J9CzHegvk+FJzKNz6G7XAdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
-Content-Language: de-DE
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -20,333 +16,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Yin, Tianci (Rico)" <Tianci.Yin-5C7GfCeVMHo@public.gmane.org>
-Cc: "Xu, Feifei" <Feifei.Xu-5C7GfCeVMHo@public.gmane.org>, "Xiao, Jack" <Jack.Xiao-5C7GfCeVMHo@public.gmane.org>, "Zhang,
- Hawking" <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Ma,
- Le" <Le.Ma-5C7GfCeVMHo@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Feifei Xu <Feifei.Xu-5C7GfCeVMHo@public.gmane.org>, "Le
+ . Ma" <Le.Ma-5C7GfCeVMHo@public.gmane.org>, Jack Xiao <Jack.Xiao-5C7GfCeVMHo@public.gmane.org>, Tianci Yin <tianci.yin-5C7GfCeVMHo@public.gmane.org>, Hawking Zhang <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>
 
---===============1195708386==
-Content-Language: de-DE
-Content-Type: multipart/alternative;
-	boundary="_000_85324125c6dd4f93807f04ff0ee7c815emailandroidcom_"
-
---_000_85324125c6dd4f93807f04ff0ee7c815emailandroidcom_
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-That's irrelevant in this case. CPU mapping's are destroyed automatically w=
-hen the BO is freed.
-
-Giving the CPU pointer to the free function is only for extra checking that=
- we can't access it anymore.
-
-Christian.
-
-Am 28.08.2019 13:05 schrieb "Yin, Tianci (Rico)" <Tianci.Yin-5C7GfCeVMHo@public.gmane.org>:
-Might be better to use a local variable for the CPU pointer instead of
-duplicating the calling parameters.
-
-Local variable can't be used in cleaner.
-
-
-
-________________________________
-From: Christian K=F6nig <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Sent: Wednesday, August 28, 2019 17:57
-To: Yin, Tianci (Rico) <Tianci.Yin-5C7GfCeVMHo@public.gmane.org>; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org =
-<amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: Xu, Feifei <Feifei.Xu-5C7GfCeVMHo@public.gmane.org>; Ma, Le <Le.Ma-5C7GfCeVMHo@public.gmane.org>; Xiao, Jack <Jac=
-k.Xiao-5C7GfCeVMHo@public.gmane.org>; Zhang, Hawking <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu/psp: keep TMR in visible vram region for SR=
-IOV
-
-Am 28.08.19 um 11:25 schrieb Tianci Yin:
-> From: "Tianci.Yin" <tianci.yin-5C7GfCeVMHo@public.gmane.org>
->
-> Fix compute ring test failure in sriov scenario.
->
-> Signed-off-by: Tianci.Yin <tianci.yin-5C7GfCeVMHo@public.gmane.org>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c | 14 ++++++++++----
->   drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h |  1 +
->   2 files changed, 11 insertions(+), 4 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_psp.c
-> index 9f7cc5b..92c68c9 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-> @@ -261,9 +261,15 @@ static int psp_tmr_init(struct psp_context *psp)
->                }
->        }
->
-> -     ret =3D amdgpu_bo_create_kernel(psp->adev, tmr_size, PSP_TMR_SIZE,
-> -                                   AMDGPU_GEM_DOMAIN_VRAM,
-> -                                   &psp->tmr_bo, &psp->tmr_mc_addr, NULL=
-);
-> +     psp->tmr_buf =3D NULL;
-> +     if (!amdgpu_sriov_vf(psp->adev))
-> +             ret =3D amdgpu_bo_create_kernel(psp->adev, tmr_size, PSP_TM=
-R_SIZE,
-> +                                           AMDGPU_GEM_DOMAIN_VRAM,
-> +                                           &psp->tmr_bo, &psp->tmr_mc_ad=
-dr, NULL);
-> +     else
-> +             ret =3D amdgpu_bo_create_kernel(psp->adev, tmr_size, PSP_TM=
-R_SIZE,
-> +                                           AMDGPU_GEM_DOMAIN_VRAM,
-> +                                           &psp->tmr_bo, &psp->tmr_mc_ad=
-dr, &psp->tmr_buf);
-
-Might be better to use a local variable for the CPU pointer instead of
-duplicating the calling parameters.
-
-BTW: How did you solved the stolen_vga_memory problem I pointed out in
-the original patch set?
-
-Christian.
-
->
->        return ret;
->   }
-> @@ -1216,7 +1222,7 @@ static int psp_hw_fini(void *handle)
->
->        psp_ring_destroy(psp, PSP_RING_TYPE__KM);
->
-> -     amdgpu_bo_free_kernel(&psp->tmr_bo, &psp->tmr_mc_addr, NULL);
-> +     amdgpu_bo_free_kernel(&psp->tmr_bo, &psp->tmr_mc_addr, &psp->tmr_bu=
-f);
->        amdgpu_bo_free_kernel(&psp->fw_pri_bo,
->                              &psp->fw_pri_mc_addr, &psp->fw_pri_buf);
->        amdgpu_bo_free_kernel(&psp->fence_buf_bo,
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_psp.h
-> index bc0947f..b73d4aa 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
-> @@ -171,6 +171,7 @@ struct psp_context
->        /* tmr buffer */
->        struct amdgpu_bo                *tmr_bo;
->        uint64_t                        tmr_mc_addr;
-> +     void                            *tmr_buf;
->
->        /* asd firmware and buffer */
->        const struct firmware           *asd_fw;
-
-
---_000_85324125c6dd4f93807f04ff0ee7c815emailandroidcom_
-Content-Type: text/html; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<meta content=3D"text/html; charset=3Dus-ascii">
-<style type=3D"text/css" style=3D"display:none">
-<!--
-p
-	{margin-top:0;
-	margin-bottom:0}
--->
-</style>
-</head>
-<body dir=3D"ltr">
-<div dir=3D"auto">That's irrelevant in this case. CPU mapping's are destroy=
-ed automatically when the BO is freed.
-<div dir=3D"auto"><br>
-</div>
-<div dir=3D"auto">Giving the CPU pointer to the free function is only for e=
-xtra checking that we can't access it anymore.</div>
-<div dir=3D"auto"><br>
-</div>
-<div dir=3D"auto">Christian.</div>
-</div>
-<div class=3D"gmail_extra"><br>
-<div class=3D"gmail_quote">Am 28.08.2019 13:05 schrieb &quot;Yin, Tianci (R=
-ico)&quot; &lt;Tianci.Yin-5C7GfCeVMHo@public.gmane.org&gt;:<br type=3D"attribution">
-</div>
-</div>
-<div>
-<blockquote style=3D"border-color:rgb(200,200,200); border-left:3px solid r=
-gb(200,200,200); padding-left:1ex; margin-left:0.8ex; color:rgb(102,102,102=
-)">
-<div dir=3D"ltr" style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; f=
-ont-size:12pt; color:rgb(0,0,0); text-align:left">
-<font size=3D"2"><span style=3D"font-size:11pt">Might be better to use a lo=
-cal variable for the CPU pointer instead of
-<br>
-</span></font></div>
-<div dir=3D"ltr" style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; f=
-ont-size:12pt; color:rgb(0,0,0); text-align:left">
-<font size=3D"2"><span style=3D"font-size:11pt">duplicating the calling par=
-ameters.</span></font></div>
-<div dir=3D"ltr" style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; f=
-ont-size:12pt; color:rgb(0,0,0); text-align:left">
-<br>
-</div>
-</blockquote>
-<div dir=3D"ltr" style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; f=
-ont-size:12pt; color:rgb(0,0,0); text-align:left">
-Local variable can't be used in cleaner.<br>
-</div>
-<div dir=3D"ltr" style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; f=
-ont-size:12pt; color:rgb(0,0,0); text-align:left">
-<br>
-</div>
-<div dir=3D"ltr" style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; f=
-ont-size:12pt; color:rgb(0,0,0); text-align:left">
-<br>
-</div>
-<div dir=3D"ltr" style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; f=
-ont-size:12pt; color:rgb(0,0,0); text-align:left">
-<br>
-</div>
-<div id=3D"appendonsend"></div>
-<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" co=
-lor=3D"#000000" style=3D"font-size:11pt"><b>From:</b> Christian K=F6nig &lt=
-;ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;<br>
-<b>Sent:</b> Wednesday, August 28, 2019 17:57<br>
-<b>To:</b> Yin, Tianci (Rico) &lt;Tianci.Yin-5C7GfCeVMHo@public.gmane.org&gt;; amd-gfx-PD4FTy7X32mzQB+pC5nmwQ@public.gmane.org=
-edesktop.org &lt;amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt;<br>
-<b>Cc:</b> Xu, Feifei &lt;Feifei.Xu-5C7GfCeVMHo@public.gmane.org&gt;; Ma, Le &lt;Le.Ma-5C7GfCeVMHo@public.gmane.org&g=
-t;; Xiao, Jack &lt;Jack.Xiao-5C7GfCeVMHo@public.gmane.org&gt;; Zhang, Hawking &lt;Hawking.Zhang@=
-amd.com&gt;<br>
-<b>Subject:</b> Re: [PATCH] drm/amdgpu/psp: keep TMR in visible vram region=
- for SRIOV</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt"=
->
-<div class=3D"PlainText">Am 28.08.19 um 11:25 schrieb Tianci Yin:<br>
-&gt; From: &quot;Tianci.Yin&quot; &lt;tianci.yin-5C7GfCeVMHo@public.gmane.org&gt;<br>
-&gt;<br>
-&gt; Fix compute ring test failure in sriov scenario.<br>
-&gt;<br>
-&gt; Signed-off-by: Tianci.Yin &lt;tianci.yin-5C7GfCeVMHo@public.gmane.org&gt;<br>
-&gt; ---<br>
-&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c | 14 &#43;&#43;&#4=
-3;&#43;&#43;&#43;&#43;&#43;&#43;&#43;----<br>
-&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h |&nbsp; 1 &#43;<br=
->
-&gt;&nbsp;&nbsp; 2 files changed, 11 insertions(&#43;), 4 deletions(-)<br>
-&gt;<br>
-&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm=
-/amd/amdgpu/amdgpu_psp.c<br>
-&gt; index 9f7cc5b..92c68c9 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c<br>
-&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c<br>
-&gt; @@ -261,9 &#43;261,15 @@ static int psp_tmr_init(struct psp_context *p=
-sp)<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; }<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&gt;&nbsp;&nbsp; <br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; ret =3D amdgpu_bo_create_kernel(psp-&gt;adev=
-, tmr_size, PSP_TMR_SIZE,<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMDGPU_GEM_DOM=
-AIN_VRAM,<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &amp;psp-&gt;t=
-mr_bo, &amp;psp-&gt;tmr_mc_addr, NULL);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; psp-&gt;tmr_buf =3D NULL;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; if (!amdgpu_sriov_vf(psp-&gt;adev))<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; ret =3D amdgpu_bo_create_kernel(psp-&gt;adev, tmr_size, PSP_TMR_SIZ=
-E,<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMDGPU_GEM_DOMAIN_VRAM,<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &amp;psp-&gt;tmr_bo, &amp;psp-&gt;tmr=
-_mc_addr, NULL);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; else<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; ret =3D amdgpu_bo_create_kernel(psp-&gt;adev, tmr_size, PSP_TMR_SIZ=
-E,<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMDGPU_GEM_DOMAIN_VRAM,<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &amp;psp-&gt;tmr_bo, &amp;psp-&gt;tmr=
-_mc_addr, &amp;psp-&gt;tmr_buf);<br>
-<br>
-Might be better to use a local variable for the CPU pointer instead of <br>
-duplicating the calling parameters.<br>
-<br>
-BTW: How did you solved the stolen_vga_memory problem I pointed out in <br>
-the original patch set?<br>
-<br>
-Christian.<br>
-<br>
-&gt;&nbsp;&nbsp; <br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret;<br>
-&gt;&nbsp;&nbsp; }<br>
-&gt; @@ -1216,7 &#43;1222,7 @@ static int psp_hw_fini(void *handle)<br>
-&gt;&nbsp;&nbsp; <br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; psp_ring_destroy(psp, PSP_RI=
-NG_TYPE__KM);<br>
-&gt;&nbsp;&nbsp; <br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_bo_free_kernel(&amp;psp-&gt;tmr_bo, &=
-amp;psp-&gt;tmr_mc_addr, NULL);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_bo_free_kernel(&amp;psp-&gt;tmr_b=
-o, &amp;psp-&gt;tmr_mc_addr, &amp;psp-&gt;tmr_buf);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_bo_free_kernel(&amp;p=
-sp-&gt;fw_pri_bo,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp; &amp;psp-&gt;fw_pri_mc_addr, &amp;psp-&gt;fw_p=
-ri_buf);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_bo_free_kernel(&amp;p=
-sp-&gt;fence_buf_bo,<br>
-&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h b/drivers/gpu/drm=
-/amd/amdgpu/amdgpu_psp.h<br>
-&gt; index bc0947f..b73d4aa 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h<br>
-&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h<br>
-&gt; @@ -171,6 &#43;171,7 @@ struct psp_context<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* tmr buffer */<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_bo&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; *tmr_bo;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint64_t&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmr_mc_addr;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; void&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *tmr_buf;<br>
-&gt;&nbsp;&nbsp; <br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* asd firmware and buffer *=
-/<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; const struct firmware&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *asd_fw;<br>
-<br>
-</div>
-</span></font></div>
-</div>
-</body>
-</html>
-
---_000_85324125c6dd4f93807f04ff0ee7c815emailandroidcom_--
-
---===============1195708386==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
-
---===============1195708386==--
+RnJvbTogIlRpYW5jaS5ZaW4iIDx0aWFuY2kueWluQGFtZC5jb20+CgpGaXggY29tcHV0ZSByaW5n
+IHRlc3QgZmFpbHVyZSBpbiBzcmlvdiBzY2VuYXJpby4KCkNoYW5nZS1JZDogSTE0MWQzZDA5NGUy
+Y2JhOWJjZjJmNmM5NmY0ZDhjNGVmNDNjNDIxYzMKU2lnbmVkLW9mZi1ieTogVGlhbmNpLllpbiA8
+dGlhbmNpLnlpbkBhbWQuY29tPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdw
+dV9wc3AuYyB8IDE1ICsrKysrKysrKysrLS0tLQogMSBmaWxlIGNoYW5nZWQsIDExIGluc2VydGlv
+bnMoKyksIDQgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9h
+bWRncHUvYW1kZ3B1X3BzcC5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Bz
+cC5jCmluZGV4IDlmN2NjNWIuLjQzZmE4YjcgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9h
+bWQvYW1kZ3B1L2FtZGdwdV9wc3AuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
+bWRncHVfcHNwLmMKQEAgLTIzOSw2ICsyMzksNyBAQCBzdGF0aWMgaW50IHBzcF90bXJfaW5pdChz
+dHJ1Y3QgcHNwX2NvbnRleHQgKnBzcCkKIHsKIAlpbnQgcmV0OwogCWludCB0bXJfc2l6ZTsKKwl2
+b2lkICp0bXJfYnVmOwogCiAJLyoKIAkgKiBBY2NvcmRpbmcgdG8gSFcgZW5naW5lZXIsIHRoZXkg
+cHJlZmVyIHRoZSBUTVIgYWRkcmVzcyBiZSAibmF0dXJhbGx5CkBAIC0yNjEsOSArMjYyLDE0IEBA
+IHN0YXRpYyBpbnQgcHNwX3Rtcl9pbml0KHN0cnVjdCBwc3BfY29udGV4dCAqcHNwKQogCQl9CiAJ
+fQogCi0JcmV0ID0gYW1kZ3B1X2JvX2NyZWF0ZV9rZXJuZWwocHNwLT5hZGV2LCB0bXJfc2l6ZSwg
+UFNQX1RNUl9TSVpFLAotCQkJCSAgICAgIEFNREdQVV9HRU1fRE9NQUlOX1ZSQU0sCi0JCQkJICAg
+ICAgJnBzcC0+dG1yX2JvLCAmcHNwLT50bXJfbWNfYWRkciwgTlVMTCk7CisJaWYgKCFhbWRncHVf
+c3Jpb3ZfdmYocHNwLT5hZGV2KSkKKwkJcmV0ID0gYW1kZ3B1X2JvX2NyZWF0ZV9rZXJuZWwocHNw
+LT5hZGV2LCB0bXJfc2l6ZSwgUFNQX1RNUl9TSVpFLAorCQkJCQkgICAgICBBTURHUFVfR0VNX0RP
+TUFJTl9WUkFNLAorCQkJCQkgICAgICAmcHNwLT50bXJfYm8sICZwc3AtPnRtcl9tY19hZGRyLCBO
+VUxMKTsKKwllbHNlCisJCXJldCA9IGFtZGdwdV9ib19jcmVhdGVfa2VybmVsKHBzcC0+YWRldiwg
+dG1yX3NpemUsIFBTUF9UTVJfU0laRSwKKwkJCQkJICAgICAgQU1ER1BVX0dFTV9ET01BSU5fVlJB
+TSwKKwkJCQkJICAgICAgJnBzcC0+dG1yX2JvLCAmcHNwLT50bXJfbWNfYWRkciwgJnRtcl9idWYp
+OwogCiAJcmV0dXJuIHJldDsKIH0KQEAgLTEyMDYsNiArMTIxMiw3IEBAIHN0YXRpYyBpbnQgcHNw
+X2h3X2Zpbmkodm9pZCAqaGFuZGxlKQogewogCXN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2ID0g
+KHN0cnVjdCBhbWRncHVfZGV2aWNlICopaGFuZGxlOwogCXN0cnVjdCBwc3BfY29udGV4dCAqcHNw
+ID0gJmFkZXYtPnBzcDsKKwl2b2lkICp0bXJfYnVmOwogCiAJaWYgKGFkZXYtPmdtYy54Z21pLm51
+bV9waHlzaWNhbF9ub2RlcyA+IDEgJiYKIAkgICAgcHNwLT54Z21pX2NvbnRleHQuaW5pdGlhbGl6
+ZWQgPT0gMSkKQEAgLTEyMTYsNyArMTIyMyw3IEBAIHN0YXRpYyBpbnQgcHNwX2h3X2Zpbmkodm9p
+ZCAqaGFuZGxlKQogCiAJcHNwX3JpbmdfZGVzdHJveShwc3AsIFBTUF9SSU5HX1RZUEVfX0tNKTsK
+IAotCWFtZGdwdV9ib19mcmVlX2tlcm5lbCgmcHNwLT50bXJfYm8sICZwc3AtPnRtcl9tY19hZGRy
+LCBOVUxMKTsKKwlhbWRncHVfYm9fZnJlZV9rZXJuZWwoJnBzcC0+dG1yX2JvLCAmcHNwLT50bXJf
+bWNfYWRkciwgJnRtcl9idWYpOwogCWFtZGdwdV9ib19mcmVlX2tlcm5lbCgmcHNwLT5md19wcmlf
+Ym8sCiAJCQkgICAgICAmcHNwLT5md19wcmlfbWNfYWRkciwgJnBzcC0+ZndfcHJpX2J1Zik7CiAJ
+YW1kZ3B1X2JvX2ZyZWVfa2VybmVsKCZwc3AtPmZlbmNlX2J1Zl9ibywKLS0gCjIuNy40CgpfX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxp
+bmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVk
+ZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
