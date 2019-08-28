@@ -1,13 +1,16 @@
-From: Tianci Yin <tianci.yin-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH 2/2] drm/amdgpu: keep the stolen memory in visible vram region
-Date: Wed, 28 Aug 2019 19:40:21 +0800
-Message-ID: <1566992421-30581-2-git-send-email-tianci.yin@amd.com>
-References: <1566992421-30581-1-git-send-email-tianci.yin@amd.com>
+From: "Yin, Tianci (Rico)" <Tianci.Yin-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu/psp: keep TMR in visible vram region for SRIOV
+Date: Wed, 28 Aug 2019 11:44:08 +0000
+Message-ID: <DM5PR12MB25358B6465DBA39388482A1995A30@DM5PR12MB2535.namprd12.prod.outlook.com>
+References: <1566984335-14830-1-git-send-email-tianci.yin@amd.com>,
+ <45fe6586-a53a-6f02-0e5f-b6224b159e12@gmail.com>,
+ <DM5PR12MB2535E067922B65112BEECCFA95A30@DM5PR12MB2535.namprd12.prod.outlook.com>,
+ <85324125-c6dd-4f93-807f-04ff0ee7c815@email.android.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1943334759=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1566992421-30581-1-git-send-email-tianci.yin-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <85324125-c6dd-4f93-807f-04ff0ee7c815-2ueSQiBKiTY7tOexoI0I+QC/G2K4zDHf@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,51 +21,379 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Feifei Xu <Feifei.Xu-5C7GfCeVMHo@public.gmane.org>, "Le
- . Ma" <Le.Ma-5C7GfCeVMHo@public.gmane.org>, Jack Xiao <Jack.Xiao-5C7GfCeVMHo@public.gmane.org>, Tianci Yin <tianci.yin-5C7GfCeVMHo@public.gmane.org>, Hawking Zhang <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>
+To: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
+Cc: "Xu, Feifei" <Feifei.Xu-5C7GfCeVMHo@public.gmane.org>, "Xiao, Jack" <Jack.Xiao-5C7GfCeVMHo@public.gmane.org>, "Zhang,
+ Hawking" <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Ma,
+ Le" <Le.Ma-5C7GfCeVMHo@public.gmane.org>
 
-RnJvbTogIlRpYW5jaS5ZaW4iIDx0aWFuY2kueWluQGFtZC5jb20+CgpzdG9sZW4gbWVtb3J5IHNo
-b3VsZCBiZSBmaXhlZCBpbiB2aXNpYmxlIHJlZ2lvbi4KCkNoYW5nZS1JZDogSWNiYmJkMzlmZDEx
-M2U5MzQyM2FhZDhkMjU1NWY0MDczYzA4MDIwZTUKU2lnbmVkLW9mZi1ieTogVGlhbmNpLllpbiA8
-dGlhbmNpLnlpbkBhbWQuY29tPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdw
-dV90dG0uYyB8IDYgKysrKy0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNfdjlfMC5j
-ICAgfCAzICsrLQogMiBmaWxlcyBjaGFuZ2VkLCA2IGluc2VydGlvbnMoKyksIDMgZGVsZXRpb25z
-KC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3R0bS5j
-IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3R0bS5jCmluZGV4IDgwMWY5MTIu
-LmRjZDMyZDAgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV90
-dG0uYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdHRtLmMKQEAgLTE3
-MzMsNiArMTczMyw3IEBAIGludCBhbWRncHVfdHRtX2luaXQoc3RydWN0IGFtZGdwdV9kZXZpY2Ug
-KmFkZXYpCiAJdWludDY0X3QgZ3R0X3NpemU7CiAJaW50IHI7CiAJdTY0IHZpc192cmFtX2xpbWl0
-OworCXZvaWQgKnN0b2xlbl92Z2FfYnVmOwogCiAJbXV0ZXhfaW5pdCgmYWRldi0+bW1hbi5ndHRf
-d2luZG93X2xvY2spOwogCkBAIC0xNzg3LDcgKzE3ODgsNyBAQCBpbnQgYW1kZ3B1X3R0bV9pbml0
-KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQogCXIgPSBhbWRncHVfYm9fY3JlYXRlX2tlcm5l
-bChhZGV2LCBhZGV2LT5nbWMuc3RvbGVuX3NpemUsIFBBR0VfU0laRSwKIAkJCQkgICAgQU1ER1BV
-X0dFTV9ET01BSU5fVlJBTSwKIAkJCQkgICAgJmFkZXYtPnN0b2xlbl92Z2FfbWVtb3J5LAotCQkJ
-CSAgICBOVUxMLCBOVUxMKTsKKwkJCQkgICAgTlVMTCwgJnN0b2xlbl92Z2FfYnVmKTsKIAlpZiAo
-cikKIAkJcmV0dXJuIHI7CiAJRFJNX0lORk8oImFtZGdwdTogJXVNIG9mIFZSQU0gbWVtb3J5IHJl
-YWR5XG4iLApAQCAtMTg1MSw4ICsxODUyLDkgQEAgaW50IGFtZGdwdV90dG1faW5pdChzdHJ1Y3Qg
-YW1kZ3B1X2RldmljZSAqYWRldikKICAqLwogdm9pZCBhbWRncHVfdHRtX2xhdGVfaW5pdChzdHJ1
-Y3QgYW1kZ3B1X2RldmljZSAqYWRldikKIHsKKwl2b2lkICpzdG9sZW5fdmdhX2J1ZjsKIAkvKiBy
-ZXR1cm4gdGhlIFZHQSBzdG9sZW4gbWVtb3J5IChpZiBhbnkpIGJhY2sgdG8gVlJBTSAqLwotCWFt
-ZGdwdV9ib19mcmVlX2tlcm5lbCgmYWRldi0+c3RvbGVuX3ZnYV9tZW1vcnksIE5VTEwsIE5VTEwp
-OworCWFtZGdwdV9ib19mcmVlX2tlcm5lbCgmYWRldi0+c3RvbGVuX3ZnYV9tZW1vcnksIE5VTEws
-ICZzdG9sZW5fdmdhX2J1Zik7CiB9CiAKIC8qKgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJt
-L2FtZC9hbWRncHUvZ21jX3Y5XzAuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192
-OV8wLmMKaW5kZXggZjc3MTM4Yi4uYWI0M2FlMiAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJt
-L2FtZC9hbWRncHUvZ21jX3Y5XzAuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9n
-bWNfdjlfMC5jCkBAIC0xMjQ4LDYgKzEyNDgsNyBAQCBzdGF0aWMgaW50IGdtY192OV8wX3N3X2lu
-aXQodm9pZCAqaGFuZGxlKQogc3RhdGljIGludCBnbWNfdjlfMF9zd19maW5pKHZvaWQgKmhhbmRs
-ZSkKIHsKIAlzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiA9IChzdHJ1Y3QgYW1kZ3B1X2Rldmlj
-ZSAqKWhhbmRsZTsKKwl2b2lkICpzdG9sZW5fdmdhX2J1ZjsKIAogCWlmIChhbWRncHVfcmFzX2lz
-X3N1cHBvcnRlZChhZGV2LCBBTURHUFVfUkFTX0JMT0NLX19VTUMpICYmCiAJCQlhZGV2LT5nbWMu
-dW1jX3Jhc19pZikgewpAQCAtMTI4MCw3ICsxMjgxLDcgQEAgc3RhdGljIGludCBnbWNfdjlfMF9z
-d19maW5pKHZvaWQgKmhhbmRsZSkKIAlhbWRncHVfdm1fbWFuYWdlcl9maW5pKGFkZXYpOwogCiAJ
-aWYgKGdtY192OV8wX2tlZXBfc3RvbGVuX21lbW9yeShhZGV2KSkKLQkJYW1kZ3B1X2JvX2ZyZWVf
-a2VybmVsKCZhZGV2LT5zdG9sZW5fdmdhX21lbW9yeSwgTlVMTCwgTlVMTCk7CisJCWFtZGdwdV9i
-b19mcmVlX2tlcm5lbCgmYWRldi0+c3RvbGVuX3ZnYV9tZW1vcnksIE5VTEwsICZzdG9sZW5fdmdh
-X2J1Zik7CiAKIAlhbWRncHVfZ2FydF90YWJsZV92cmFtX2ZyZWUoYWRldik7CiAJYW1kZ3B1X2Jv
-X2ZpbmkoYWRldik7Ci0tIAoyLjcuNAoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVz
-a3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9h
-bWQtZ2Z4
+--===============1943334759==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_DM5PR12MB25358B6465DBA39388482A1995A30DM5PR12MB2535namp_"
+
+--_000_DM5PR12MB25358B6465DBA39388482A1995A30DM5PR12MB2535namp_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+I checked the code, cpu pointer indeed only used for checking.
+
+Thanks for your suggestions!
+
+________________________________
+From: Koenig, Christian <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
+Sent: Wednesday, August 28, 2019 19:08
+To: Yin, Tianci (Rico) <Tianci.Yin-5C7GfCeVMHo@public.gmane.org>
+Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>; Xu, Feif=
+ei <Feifei.Xu-5C7GfCeVMHo@public.gmane.org>; Ma, Le <Le.Ma-5C7GfCeVMHo@public.gmane.org>; Xiao, Jack <Jack.Xiao@amd.c=
+om>; Zhang, Hawking <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu/psp: keep TMR in visible vram region for SR=
+IOV
+
+That's irrelevant in this case. CPU mapping's are destroyed automatically w=
+hen the BO is freed.
+
+Giving the CPU pointer to the free function is only for extra checking that=
+ we can't access it anymore.
+
+Christian.
+
+Am 28.08.2019 13:05 schrieb "Yin, Tianci (Rico)" <Tianci.Yin-5C7GfCeVMHo@public.gmane.org>:
+Might be better to use a local variable for the CPU pointer instead of
+duplicating the calling parameters.
+
+Local variable can't be used in cleaner.
+
+
+
+________________________________
+From: Christian K=F6nig <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Sent: Wednesday, August 28, 2019 17:57
+To: Yin, Tianci (Rico) <Tianci.Yin-5C7GfCeVMHo@public.gmane.org>; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org =
+<amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: Xu, Feifei <Feifei.Xu-5C7GfCeVMHo@public.gmane.org>; Ma, Le <Le.Ma-5C7GfCeVMHo@public.gmane.org>; Xiao, Jack <Jac=
+k.Xiao-5C7GfCeVMHo@public.gmane.org>; Zhang, Hawking <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu/psp: keep TMR in visible vram region for SR=
+IOV
+
+Am 28.08.19 um 11:25 schrieb Tianci Yin:
+> From: "Tianci.Yin" <tianci.yin-5C7GfCeVMHo@public.gmane.org>
+>
+> Fix compute ring test failure in sriov scenario.
+>
+> Signed-off-by: Tianci.Yin <tianci.yin-5C7GfCeVMHo@public.gmane.org>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c | 14 ++++++++++----
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h |  1 +
+>   2 files changed, 11 insertions(+), 4 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_psp.c
+> index 9f7cc5b..92c68c9 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+> @@ -261,9 +261,15 @@ static int psp_tmr_init(struct psp_context *psp)
+>                }
+>        }
+>
+> -     ret =3D amdgpu_bo_create_kernel(psp->adev, tmr_size, PSP_TMR_SIZE,
+> -                                   AMDGPU_GEM_DOMAIN_VRAM,
+> -                                   &psp->tmr_bo, &psp->tmr_mc_addr, NULL=
+);
+> +     psp->tmr_buf =3D NULL;
+> +     if (!amdgpu_sriov_vf(psp->adev))
+> +             ret =3D amdgpu_bo_create_kernel(psp->adev, tmr_size, PSP_TM=
+R_SIZE,
+> +                                           AMDGPU_GEM_DOMAIN_VRAM,
+> +                                           &psp->tmr_bo, &psp->tmr_mc_ad=
+dr, NULL);
+> +     else
+> +             ret =3D amdgpu_bo_create_kernel(psp->adev, tmr_size, PSP_TM=
+R_SIZE,
+> +                                           AMDGPU_GEM_DOMAIN_VRAM,
+> +                                           &psp->tmr_bo, &psp->tmr_mc_ad=
+dr, &psp->tmr_buf);
+
+Might be better to use a local variable for the CPU pointer instead of
+duplicating the calling parameters.
+
+BTW: How did you solved the stolen_vga_memory problem I pointed out in
+the original patch set?
+
+Christian.
+
+>
+>        return ret;
+>   }
+> @@ -1216,7 +1222,7 @@ static int psp_hw_fini(void *handle)
+>
+>        psp_ring_destroy(psp, PSP_RING_TYPE__KM);
+>
+> -     amdgpu_bo_free_kernel(&psp->tmr_bo, &psp->tmr_mc_addr, NULL);
+> +     amdgpu_bo_free_kernel(&psp->tmr_bo, &psp->tmr_mc_addr, &psp->tmr_bu=
+f);
+>        amdgpu_bo_free_kernel(&psp->fw_pri_bo,
+>                              &psp->fw_pri_mc_addr, &psp->fw_pri_buf);
+>        amdgpu_bo_free_kernel(&psp->fence_buf_bo,
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_psp.h
+> index bc0947f..b73d4aa 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
+> @@ -171,6 +171,7 @@ struct psp_context
+>        /* tmr buffer */
+>        struct amdgpu_bo                *tmr_bo;
+>        uint64_t                        tmr_mc_addr;
+> +     void                            *tmr_buf;
+>
+>        /* asd firmware and buffer */
+>        const struct firmware           *asd_fw;
+
+
+--_000_DM5PR12MB25358B6465DBA39388482A1995A30DM5PR12MB2535namp_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+I checked the code, cpu pointer indeed only used for checking.</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Thanks for your suggestions!</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Koenig, Christian &lt=
+;Christian.Koenig-5C7GfCeVMHo@public.gmane.org&gt;<br>
+<b>Sent:</b> Wednesday, August 28, 2019 19:08<br>
+<b>To:</b> Yin, Tianci (Rico) &lt;Tianci.Yin-5C7GfCeVMHo@public.gmane.org&gt;<br>
+<b>Cc:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org &lt;amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&=
+gt;; Xu, Feifei &lt;Feifei.Xu-5C7GfCeVMHo@public.gmane.org&gt;; Ma, Le &lt;Le.Ma-5C7GfCeVMHo@public.gmane.org&gt;; Xi=
+ao, Jack &lt;Jack.Xiao-5C7GfCeVMHo@public.gmane.org&gt;; Zhang, Hawking &lt;Hawking.Zhang-urvtwAKJhsc@public.gmane.org=
+m&gt;<br>
+<b>Subject:</b> Re: [PATCH] drm/amdgpu/psp: keep TMR in visible vram region=
+ for SRIOV</font>
+<div>&nbsp;</div>
+</div>
+<style type=3D"text/css" style=3D"display:none">
+<!--
+p
+	{margin-top:0;
+	margin-bottom:0}
+-->
+</style>
+<div dir=3D"ltr">
+<div dir=3D"auto">That's irrelevant in this case. CPU mapping's are destroy=
+ed automatically when the BO is freed.
+<div dir=3D"auto"><br>
+</div>
+<div dir=3D"auto">Giving the CPU pointer to the free function is only for e=
+xtra checking that we can't access it anymore.</div>
+<div dir=3D"auto"><br>
+</div>
+<div dir=3D"auto">Christian.</div>
+</div>
+<div class=3D"x_gmail_extra"><br>
+<div class=3D"x_gmail_quote">Am 28.08.2019 13:05 schrieb &quot;Yin, Tianci =
+(Rico)&quot; &lt;Tianci.Yin-5C7GfCeVMHo@public.gmane.org&gt;:<br type=3D"attribution">
+</div>
+</div>
+<div>
+<blockquote style=3D"border-color:rgb(200,200,200); border-left:3px solid r=
+gb(200,200,200); padding-left:1ex; margin-left:0.8ex; color:rgb(102,102,102=
+)">
+<div dir=3D"ltr" style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; f=
+ont-size:12pt; color:rgb(0,0,0); text-align:left">
+<font size=3D"2"><span style=3D"font-size:11pt">Might be better to use a lo=
+cal variable for the CPU pointer instead of
+<br>
+</span></font></div>
+<div dir=3D"ltr" style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; f=
+ont-size:12pt; color:rgb(0,0,0); text-align:left">
+<font size=3D"2"><span style=3D"font-size:11pt">duplicating the calling par=
+ameters.</span></font></div>
+<div dir=3D"ltr" style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; f=
+ont-size:12pt; color:rgb(0,0,0); text-align:left">
+<br>
+</div>
+</blockquote>
+<div dir=3D"ltr" style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; f=
+ont-size:12pt; color:rgb(0,0,0); text-align:left">
+Local variable can't be used in cleaner.<br>
+</div>
+<div dir=3D"ltr" style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; f=
+ont-size:12pt; color:rgb(0,0,0); text-align:left">
+<br>
+</div>
+<div dir=3D"ltr" style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; f=
+ont-size:12pt; color:rgb(0,0,0); text-align:left">
+<br>
+</div>
+<div dir=3D"ltr" style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; f=
+ont-size:12pt; color:rgb(0,0,0); text-align:left">
+<br>
+</div>
+<div id=3D"x_appendonsend"></div>
+<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
+<div id=3D"x_divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" =
+color=3D"#000000" style=3D"font-size:11pt"><b>From:</b> Christian K=F6nig &=
+lt;ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;<br>
+<b>Sent:</b> Wednesday, August 28, 2019 17:57<br>
+<b>To:</b> Yin, Tianci (Rico) &lt;Tianci.Yin-5C7GfCeVMHo@public.gmane.org&gt;; amd-gfx-PD4FTy7X32mzQB+pC5nmwQ@public.gmane.org=
+edesktop.org &lt;amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt;<br>
+<b>Cc:</b> Xu, Feifei &lt;Feifei.Xu-5C7GfCeVMHo@public.gmane.org&gt;; Ma, Le &lt;Le.Ma-5C7GfCeVMHo@public.gmane.org&g=
+t;; Xiao, Jack &lt;Jack.Xiao-5C7GfCeVMHo@public.gmane.org&gt;; Zhang, Hawking &lt;Hawking.Zhang@=
+amd.com&gt;<br>
+<b>Subject:</b> Re: [PATCH] drm/amdgpu/psp: keep TMR in visible vram region=
+ for SRIOV</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"x_BodyFragment"><font size=3D"2"><span style=3D"font-size:11p=
+t">
+<div class=3D"x_PlainText">Am 28.08.19 um 11:25 schrieb Tianci Yin:<br>
+&gt; From: &quot;Tianci.Yin&quot; &lt;tianci.yin-5C7GfCeVMHo@public.gmane.org&gt;<br>
+&gt;<br>
+&gt; Fix compute ring test failure in sriov scenario.<br>
+&gt;<br>
+&gt; Signed-off-by: Tianci.Yin &lt;tianci.yin-5C7GfCeVMHo@public.gmane.org&gt;<br>
+&gt; ---<br>
+&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c | 14 &#43;&#43;&#4=
+3;&#43;&#43;&#43;&#43;&#43;&#43;&#43;----<br>
+&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h |&nbsp; 1 &#43;<br=
+>
+&gt;&nbsp;&nbsp; 2 files changed, 11 insertions(&#43;), 4 deletions(-)<br>
+&gt;<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm=
+/amd/amdgpu/amdgpu_psp.c<br>
+&gt; index 9f7cc5b..92c68c9 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c<br>
+&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c<br>
+&gt; @@ -261,9 &#43;261,15 @@ static int psp_tmr_init(struct psp_context *p=
+sp)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; }<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt;&nbsp;&nbsp; <br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; ret =3D amdgpu_bo_create_kernel(psp-&gt;adev=
+, tmr_size, PSP_TMR_SIZE,<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMDGPU_GEM_DOM=
+AIN_VRAM,<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &amp;psp-&gt;t=
+mr_bo, &amp;psp-&gt;tmr_mc_addr, NULL);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; psp-&gt;tmr_buf =3D NULL;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; if (!amdgpu_sriov_vf(psp-&gt;adev))<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; ret =3D amdgpu_bo_create_kernel(psp-&gt;adev, tmr_size, PSP_TMR_SIZ=
+E,<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMDGPU_GEM_DOMAIN_VRAM,<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &amp;psp-&gt;tmr_bo, &amp;psp-&gt;tmr=
+_mc_addr, NULL);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; else<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; ret =3D amdgpu_bo_create_kernel(psp-&gt;adev, tmr_size, PSP_TMR_SIZ=
+E,<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMDGPU_GEM_DOMAIN_VRAM,<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &amp;psp-&gt;tmr_bo, &amp;psp-&gt;tmr=
+_mc_addr, &amp;psp-&gt;tmr_buf);<br>
+<br>
+Might be better to use a local variable for the CPU pointer instead of <br>
+duplicating the calling parameters.<br>
+<br>
+BTW: How did you solved the stolen_vga_memory problem I pointed out in <br>
+the original patch set?<br>
+<br>
+Christian.<br>
+<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret;<br>
+&gt;&nbsp;&nbsp; }<br>
+&gt; @@ -1216,7 &#43;1222,7 @@ static int psp_hw_fini(void *handle)<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; psp_ring_destroy(psp, PSP_RI=
+NG_TYPE__KM);<br>
+&gt;&nbsp;&nbsp; <br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_bo_free_kernel(&amp;psp-&gt;tmr_bo, &=
+amp;psp-&gt;tmr_mc_addr, NULL);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_bo_free_kernel(&amp;psp-&gt;tmr_b=
+o, &amp;psp-&gt;tmr_mc_addr, &amp;psp-&gt;tmr_buf);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_bo_free_kernel(&amp;p=
+sp-&gt;fw_pri_bo,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp; &amp;psp-&gt;fw_pri_mc_addr, &amp;psp-&gt;fw_p=
+ri_buf);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_bo_free_kernel(&amp;p=
+sp-&gt;fence_buf_bo,<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h b/drivers/gpu/drm=
+/amd/amdgpu/amdgpu_psp.h<br>
+&gt; index bc0947f..b73d4aa 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h<br>
+&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h<br>
+&gt; @@ -171,6 &#43;171,7 @@ struct psp_context<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* tmr buffer */<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_bo&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; *tmr_bo;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint64_t&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmr_mc_addr;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; void&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *tmr_buf;<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* asd firmware and buffer *=
+/<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; const struct firmware&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *asd_fw;<br>
+<br>
+</div>
+</span></font></div>
+</div>
+</div>
+</body>
+</html>
+
+--_000_DM5PR12MB25358B6465DBA39388482A1995A30DM5PR12MB2535namp_--
+
+--===============1943334759==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+
+--===============1943334759==--
