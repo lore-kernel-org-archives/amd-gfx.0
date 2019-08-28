@@ -1,11 +1,11 @@
-From: "Siqueira, Rodrigo" <Rodrigo.Siqueira-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH V3] drm: Add LTTPR defines for DP 1.4a
-Date: Wed, 28 Aug 2019 19:52:37 +0000
-Message-ID: <20190828195243.w6mq7gdv22ggums7@outlook.office365.com>
+From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: [PATCH 00/23] Add DC support for Renoir
+Date: Wed, 28 Aug 2019 14:56:00 -0500
+Message-ID: <20190828195622.28941-1-alexander.deucher@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0395218578=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -16,112 +16,130 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Li, Sun peng (Leo)" <Sunpeng.Li-5C7GfCeVMHo@public.gmane.org>, "Berthe,
- Abdoulaye" <Abdoulaye.Berthe-5C7GfCeVMHo@public.gmane.org>, "Wentland,
- Harry" <Harry.Wentland-5C7GfCeVMHo@public.gmane.org>, Jani Nikula <jani.nikula-VuQAYsv1563Yd54FQh9/CA@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
 
---===============0395218578==
-Content-Language: en-US
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="ro3nrwqvskbcp3f7"
-
---ro3nrwqvskbcp3f7
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-DP 1.4a specification defines Link Training Tunable PHY Repeater (LTTPR)
-which is required to add support for systems with Thunderbolt or other
-repeater devices.
-
-Changes since V2:
-- Drop the kernel-doc comment
-- Reorder LTTPR according to register offset
-Changes since V1:
-- Adjusts registers names to be aligned with spec and the rest of the
-  file
-- Update spec comment from 1.4 to 1.4a
-
-Cc: Abdoulaye Berthe <Abdoulaye.Berthe-5C7GfCeVMHo@public.gmane.org>
-Cc: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>
-Cc: Leo Li <sunpeng.li-5C7GfCeVMHo@public.gmane.org>
-Cc: Jani Nikula <jani.nikula-VuQAYsv1563Yd54FQh9/CA@public.gmane.org>
-Signed-off-by: Rodrigo Siqueira <Rodrigo.Siqueira-5C7GfCeVMHo@public.gmane.org>
-Signed-off-by: Abdoulaye Berthe <Abdoulaye.Berthe-5C7GfCeVMHo@public.gmane.org>
----
- include/drm/drm_dp_helper.h | 25 +++++++++++++++++++++++++
- 1 file changed, 25 insertions(+)
-
-diff --git a/include/drm/drm_dp_helper.h b/include/drm/drm_dp_helper.h
-index 8364502f92cf..67f9121d781d 100644
---- a/include/drm/drm_dp_helper.h
-+++ b/include/drm/drm_dp_helper.h
-@@ -989,6 +989,31 @@
- #define HDCP_2_2_DP_RXSTATUS_REAUTH_REQ(x)	((x) & BIT(3))
- #define HDCP_2_2_DP_RXSTATUS_LINK_FAILED(x)	((x) & BIT(4))
-=20
-+/* Link Training (LT)-tunable Physical Repeaters - DP 1.4a */
-+#define DP_LT_TUNABLE_PHY_REPEATER_FIELD_DATA_STRUCTURE_REV 0xf0000
-+#define DP_MAX_LINK_RATE_PHY_REPEATER                       0xf0001
-+#define DP_PHY_REPEATER_CNT                                 0xf0002
-+#define DP_PHY_REPEATER_MODE                                0xf0003
-+#define DP_MAX_LANE_COUNT_PHY_REPEATER                      0xf0004
-+#define DP_PHY_REPEATER_EXTENDED_WAIT_TIMEOUT               0xf0005
-+#define DP_TRAINING_PATTERN_SET_PHY_REPEATER1               0xf0010
-+#define DP_TRAINING_LANE0_SET_PHY_REPEATER1                 0xf0011
-+#define DP_TRAINING_LANE1_SET_PHY_REPEATER1                 0xf0012
-+#define DP_TRAINING_LANE2_SET_PHY_REPEATER1                 0xf0013
-+#define DP_TRAINING_LANE3_SET_PHY_REPEATER1                 0xf0014
-+#define DP_TRAINING_AUX_RD_INTERVAL_PHY_REPEATER1           0xf0020
-+#define DP_TRANSMITTER_CAPABILITY_PHY_REPEATER1             0xf0021
-+#define DP_LANE0_1_STATUS_PHY_REPEATER1                     0xf0030
-+#define DP_LANE2_3_STATUS_PHY_REPEATER1                     0xf0031
-+#define DP_LANE_ALIGN_STATUS_UPDATED_PHY_REPEATER1          0xf0032
-+#define DP_ADJUST_REQUEST_LANE0_1_PHY_REPEATER1             0xf0033
-+#define DP_ADJUST_REQUEST_LANE2_3_PHY_REPEATER1             0xf0034
-+#define DP_SYMBOL_ERROR_COUNT_LANE0_PHY_REPEATER1           0xf0035
-+#define DP_SYMBOL_ERROR_COUNT_LANE1_PHY_REPEATER1           0xf0037
-+#define DP_SYMBOL_ERROR_COUNT_LANE2_PHY_REPEATER1           0xf0039
-+#define DP_SYMBOL_ERROR_COUNT_LANE3_PHY_REPEATER1           0xf003b
-+#define DP_FEC_STATUS_PHY_REPEATER1                         0xf0290
-+
- /* DP 1.2 Sideband message defines */
- /* peer device type - DP 1.2a Table 2-92 */
- #define DP_PEER_DEVICE_NONE		0x0
---=20
-2.23.0
-
---ro3nrwqvskbcp3f7
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCgAdFiEE4tZ+ii1mjMCMQbfkWJzP/comvP8FAl1m24sACgkQWJzP/com
-vP/aoA/+LGE7FyxEQduYBR2iPb2SJJr315jEKVeI3GMmMAVpxlMAQnKGIoy4Ygsb
-IDi8k2rlq1TSmAhvNKpU4OOTli9CsW+UVjKXJPYMko5bE3CHSoAh3RI5gocQrDnU
-pRvKBCw6wtkhS3v8qooIChLLjRXPAMpBRfym5m92wOFyGOQMruW/rMzA+ydRAE7H
-AzkfjykWDQsRfGI304t1TI4TF0x9o8EeV8xogwMEVSMvC08GhwGau2I/Z5PSBKoP
-FThyQZwkADnHP3IxmEgKGWo+SkPouqcm2ZZPFAAmIa+7S8lFkvZRetfbVzf2pcLJ
-K2sp8XexE9YVNXw7Fp00r/mM3Fa928Tils5I2fsTQJGz06Bo6TIiNV7l2Gc65/SX
-BKrZxffyKRhGEMYrG3S3Y8uW1UA2wWgwTm6ehfs72S0vAam9dGfSLdMg36/ha2nh
-ZMd8sie3++832LpuGWQ/1E4etsqNVFwIRaZMRp51HfQIqbw4PsmnC1DSCEpqvr6U
-VVx7eD0aGhhnITZnLbLQ4XK3OTE+p1xf8HTdNS6lwXw9x4SC0PU8oQ/pPM/LbJU5
-cviU8YtY10PTCI3GTHcXpzbiOsDR69FKrIHZQCOYyu4rzXP0ZbG/Mqt4bTRP/hoO
-0GBtBuTZiRwDmH0aVnkh3fASTb2K0nWTWOrorvqMNt+Kh06K13A=
-=JOmb
------END PGP SIGNATURE-----
-
---ro3nrwqvskbcp3f7--
-
---===============0395218578==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
-
---===============0395218578==--
+VGhpcyBwYXRjaCBzZXQgYWRkcyBpbml0aWFsIERDIGRpc3BsYXkgc3VwcG9ydCBmb3IKUmVub2ly
+LiAgUmVub2lyIGlzIGEgbmV3IEFQVS4KCkkgaGF2ZSBvbWl0dGVkIHRoZSByZWdpc3RlciBwYXRj
+aCBkdWUgdG8gc2l6ZS4gIFRoZQpmdWxsIHRyZWUgaXMgYXZhaWxhYmxlIGhlcmU6Cmh0dHBzOi8v
+Y2dpdC5mcmVlZGVza3RvcC5vcmcvfmFnZDVmL2xpbnV4L2xvZy8/aD1hbWQtc3RhZ2luZy1kcm0t
+bmV4dC1yZW5vaXItZGMKCgpCaGF3YW5wcmVldCBMYWtoYSAoMjApOgogIGRybS9hbWQvZGlzcGxh
+eTogQWRkIFJlbm9pciByZWdpc3RlcnMgKHYzKQogIGRybS9hbWQvZGlzcGxheTogQWRkIFJlbm9p
+ciBjbG9jayByZWdpc3RlcnMgbGlzdAogIGRybS9hbWQvZGlzcGxheTogQWRkIFJlbm9pciBod19z
+ZXEgcmVnaXN0ZXIgbGlzdAogIGRybS9hbWQvZGlzcGxheTogQWRkIHBwX3NtdSBmdW5jdGlvbnMg
+Zm9yIFJlbm9pcgogIGRybS9hbWQvZGlzcGxheTogQWRkIFJlbm9pciBpcnFfc2VydmljZXMKICBk
+cm0vYW1kL2Rpc3BsYXk6IEFkZCBodWJwIGJsb2NrIGZvciBSZW5vaXIgKHYyKQogIGRybS9hbWQv
+ZGlzcGxheTogQWRkIFJlbm9pciBodWJidWIgcmVnaXN0ZXJzIGxpc3QKICBkcm0vYW1kL2Rpc3Bs
+YXk6IEFkZCBSZW5vaXIgSHViYnViICh2MikKICBkcm0vYW1kL2Rpc3BsYXk6IEFkZCBSZW5vaXIg
+Y2xvY2sgbWFuYWdlcgogIGRybS9hbWQvZGlzcGxheTogQWRkIFJlbm9pciByZXNvdXJjZSAodjIp
+CiAgZHJtL2FtZC9kaXNwbGF5OiBBZGQgUmVub2lyIEdQSU8KICBkcm0vYW1kL2Rpc3BsYXk6IEFk
+ZCBSZW5vaXIgRE1MCiAgZHJtL2FtZC9kaXNwbGF5OiBGaXggcmVnaXN0ZXIgbmFtZXMKICBkcm0v
+YW1kL2Rpc3BsYXk6IEhhbmRsZSBSZW5vaXIgaW4gREMKICBkcm0vYW1kL2Rpc3BsYXk6IEhhbmRs
+ZSBSZW5vaXIgaW4gYW1kZ3B1X2RtICh2MikKICBkcm0vYW1kL2Rpc3BsYXk6IGNhbGwgdXBkYXRl
+X2J3X2JvdW5kaW5nX2JveAogIGRybS9hbWQvZGlzcGxheTogYWRkIGRhbF9hc2ljX2lkIGZvciBy
+ZW5vaXIKICBkcm0vYW1kL2Rpc3BsYXk6IGFkZCBkY24yMSBjb3JlIERDIGNoYW5nZXMKICBkcm0v
+YW1kL2Rpc3BsYXk6IGJ1aWxkIGRjbjIxIGJsb2NrcwogIGRybS9hbWQvZGlzcGxheTogYWRkIFJl
+bm9pciB0byBrY29uZmlnCgpSb21hbiBMaSAoMyk6CiAgZHJtL2FtZC9kaXNwbGF5OiBDb3JyZWN0
+IG9yZGVyIG9mIFJWIGZhbWlseSBjbGsgbWFuYWdlcnMgZm9yIFJlbm9pcgogIGRybS9hbWQvZGlz
+cGxheTogQWRkIERDTjIuMSBjaGFuZ2VzIHRvIERNTAogIGRybS9hbWRncHU6IEVuYWJsZSBEQyBv
+biBSZW5vaXIKCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMgICAg
+fCAgICAgMyArCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9zb2MxNS5jICAgICAgICAgICAg
+fCAgICAgNiArCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvS2NvbmZpZyAgICAgICAgICAg
+fCAgICAgOCArCiAuLi4vZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtLmMg
+fCAgICAxNCArCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvTWFrZWZpbGUgICAgICAg
+fCAgICAgMyArCiAuLi4vZGlzcGxheS9kYy9iaW9zL2NvbW1hbmRfdGFibGVfaGVscGVyMi5jICAg
+fCAgICAgNSArCiAuLi4vZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9jbGtfbWdyL01ha2VmaWxlICAg
+fCAgICAxMCArCiAuLi4vZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9jbGtfbWdyL2Nsa19tZ3IuYyAg
+fCAgICAgOSArCiAuLi4vYW1kL2Rpc3BsYXkvZGMvY2xrX21nci9kY24yMS9ybl9jbGtfbWdyLmMg
+fCAgIDU5MCArCiAuLi4vYW1kL2Rpc3BsYXkvZGMvY2xrX21nci9kY24yMS9ybl9jbGtfbWdyLmgg
+fCAgICAzOSArCiAuLi4vZGMvY2xrX21nci9kY24yMS9ybl9jbGtfbWdyX3ZiaW9zX3NtdS5jICAg
+fCAgIDIwMCArCiAuLi4vZGMvY2xrX21nci9kY24yMS9ybl9jbGtfbWdyX3ZiaW9zX3NtdS5oICAg
+fCAgICA0MCArCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvY29yZS9kYy5jICAgICAg
+fCAgICAgNSArCiAuLi4vZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9jb3JlL2RjX3Jlc291cmNlLmMg
+fCAgICAxMiArCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvZGMuaCAgICAgICAgICAg
+fCAgICAgMyArCiAuLi4vZHJtL2FtZC9kaXNwbGF5L2RjL2RjZS9kY2VfY2xvY2tfc291cmNlLmgg
+fCAgICAxNyArCiAuLi4vZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9kY2UvZGNlX2h3c2VxLmggICAg
+fCAgICA5NyArCiAuLi4vZHJtL2FtZC9kaXNwbGF5L2RjL2RjbjEwL2RjbjEwX2h1YmJ1Yi5oICAg
+fCAgICA3MyArCiAuLi4vZHJtL2FtZC9kaXNwbGF5L2RjL2RjbjIwL2RjbjIwX2h1YmJ1Yi5oICAg
+fCAgICAxMCArCiAuLi4vZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9kY24yMC9kY24yMF9odWJwLmgg
+fCAgICAzNSArCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvZGNuMjEvTWFrZWZpbGUg
+fCAgICAxMCArCiAuLi4vZHJtL2FtZC9kaXNwbGF5L2RjL2RjbjIxL2RjbjIxX2h1YmJ1Yi5jICAg
+fCAgIDU5NSArCiAuLi4vZHJtL2FtZC9kaXNwbGF5L2RjL2RjbjIxL2RjbjIxX2h1YmJ1Yi5oICAg
+fCAgIDEzMiArCiAuLi4vZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9kY24yMS9kY24yMV9odWJwLmMg
+fCAgIDI0NCArCiAuLi4vZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9kY24yMS9kY24yMV9odWJwLmgg
+fCAgIDEzMyArCiAuLi4vZHJtL2FtZC9kaXNwbGF5L2RjL2RjbjIxL2RjbjIxX3Jlc291cmNlLmMg
+fCAgMTY4MCArCiAuLi4vZHJtL2FtZC9kaXNwbGF5L2RjL2RjbjIxL2RjbjIxX3Jlc291cmNlLmgg
+fCAgICA0NSArCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvZG1fcHBfc211LmggICAg
+fCAgICA0NyArCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvZG1sL01ha2VmaWxlICAg
+fCAgICAgOCArCiAuLi4vZGMvZG1sL2RjbjIxL2Rpc3BsYXlfbW9kZV92YmFfMjEuYyAgICAgICAg
+fCAgNjEyMyArKwogLi4uL2RjL2RtbC9kY24yMS9kaXNwbGF5X21vZGVfdmJhXzIxLmggICAgICAg
+IHwgICAgMzIgKwogLi4uL2RjL2RtbC9kY24yMS9kaXNwbGF5X3JxX2RsZ19jYWxjXzIxLmMgICAg
+IHwgIDE4MjMgKwogLi4uL2RjL2RtbC9kY24yMS9kaXNwbGF5X3JxX2RsZ19jYWxjXzIxLmggICAg
+IHwgICAgNzMgKwogLi4uL2RybS9hbWQvZGlzcGxheS9kYy9kbWwvZGlzcGxheV9tb2RlX2xpYi5j
+IHwgICAgMTkgKwogLi4uL2RybS9hbWQvZGlzcGxheS9kYy9kbWwvZGlzcGxheV9tb2RlX2xpYi5o
+IHwgICAgIDMgKwogZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2dwaW8vTWFrZWZpbGUg
+IHwgICAgIDcgKwogLi4uL2Rpc3BsYXkvZGMvZ3Bpby9kY24yMS9od19mYWN0b3J5X2RjbjIxLmMg
+IHwgICAyMTAgKwogLi4uL2Rpc3BsYXkvZGMvZ3Bpby9kY24yMS9od19mYWN0b3J5X2RjbjIxLmgg
+IHwgICAgMzMgKwogLi4uL2RjL2dwaW8vZGNuMjEvaHdfdHJhbnNsYXRlX2RjbjIxLmMgICAgICAg
+IHwgICAzODYgKwogLi4uL2RjL2dwaW8vZGNuMjEvaHdfdHJhbnNsYXRlX2RjbjIxLmggICAgICAg
+IHwgICAgMzUgKwogLi4uL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvZ3Bpby9od19mYWN0b3J5LmMg
+IHwgICAgIDggKwogLi4uL2RybS9hbWQvZGlzcGxheS9kYy9ncGlvL2h3X3RyYW5zbGF0ZS5jICAg
+IHwgICAgIDggKwogLi4uL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvaW5jL2NvcmVfdHlwZXMuaCAg
+IHwgICAgIDggKwogLi4uL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvaW5jL2h3L2Nsa19tZ3IuaCAg
+IHwgICAxMjUgKwogLi4uL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvaW5jL2h3L21lbV9pbnB1dC5o
+IHwgICAgIDQgKwogLi4uL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvaW5jL2h3X3NlcXVlbmNlci5o
+IHwgICAgIDEgKwogZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2lycS9NYWtlZmlsZSAg
+IHwgICAgMTAgKwogLi4uL2Rpc3BsYXkvZGMvaXJxL2RjbjIxL2lycV9zZXJ2aWNlX2RjbjIxLmMg
+IHwgICAzNzIgKwogLi4uL2Rpc3BsYXkvZGMvaXJxL2RjbjIxL2lycV9zZXJ2aWNlX2RjbjIxLmgg
+IHwgICAgMzQgKwogLi4uL2dwdS9kcm0vYW1kL2Rpc3BsYXkvaW5jbHVkZS9kYWxfYXNpY19pZC5o
+IHwgICAgIDUgKwogLi4uL2dwdS9kcm0vYW1kL2Rpc3BsYXkvaW5jbHVkZS9kYWxfdHlwZXMuaCAg
+IHwgICAgIDMgKwogLi4uL2luY2x1ZGUvYXNpY19yZWcvY2xrL2Nsa18xMF8wXzJfb2Zmc2V0Lmgg
+IHwgICAgNTYgKwogLi4uL2luY2x1ZGUvYXNpY19yZWcvY2xrL2Nsa18xMF8wXzJfc2hfbWFzay5o
+IHwgICAgNzMgKwogLi4uL2luY2x1ZGUvYXNpY19yZWcvZGNuL2Rjbl8yXzFfMF9vZmZzZXQuaCAg
+IHwgMTM4NjIgKysrKwogLi4uL2luY2x1ZGUvYXNpY19yZWcvZGNuL2Rjbl8yXzFfMF9zaF9tYXNr
+LmggIHwgNTY2MzggKysrKysrKysrKysrKysrKwogLi4uL2luY2x1ZGUvYXNpY19yZWcvZGNuL2Rw
+Y3NfMl8xXzBfb2Zmc2V0LmggIHwgICA1NjUgKwogLi4uL2luY2x1ZGUvYXNpY19yZWcvZGNuL2Rw
+Y3NfMl8xXzBfc2hfbWFzay5oIHwgIDM0MzAgKwogLi4uL2dwdS9kcm0vYW1kL2luY2x1ZGUvcmVu
+b2lyX2lwX29mZnNldC5oICAgIHwgIDEzNjQgKwogNTggZmlsZXMgY2hhbmdlZCwgODkzODMgaW5z
+ZXJ0aW9ucygrKQogY3JlYXRlIG1vZGUgMTAwNjQ0IGRyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxh
+eS9kYy9jbGtfbWdyL2RjbjIxL3JuX2Nsa19tZ3IuYwogY3JlYXRlIG1vZGUgMTAwNjQ0IGRyaXZl
+cnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9jbGtfbWdyL2RjbjIxL3JuX2Nsa19tZ3IuaAogY3Jl
+YXRlIG1vZGUgMTAwNjQ0IGRyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9jbGtfbWdyL2Rj
+bjIxL3JuX2Nsa19tZ3JfdmJpb3Nfc211LmMKIGNyZWF0ZSBtb2RlIDEwMDY0NCBkcml2ZXJzL2dw
+dS9kcm0vYW1kL2Rpc3BsYXkvZGMvY2xrX21nci9kY24yMS9ybl9jbGtfbWdyX3ZiaW9zX3NtdS5o
+CiBjcmVhdGUgbW9kZSAxMDA2NDQgZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2RjbjIx
+L01ha2VmaWxlCiBjcmVhdGUgbW9kZSAxMDA2NDQgZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5
+L2RjL2RjbjIxL2RjbjIxX2h1YmJ1Yi5jCiBjcmVhdGUgbW9kZSAxMDA2NDQgZHJpdmVycy9ncHUv
+ZHJtL2FtZC9kaXNwbGF5L2RjL2RjbjIxL2RjbjIxX2h1YmJ1Yi5oCiBjcmVhdGUgbW9kZSAxMDA2
+NDQgZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2RjbjIxL2RjbjIxX2h1YnAuYwogY3Jl
+YXRlIG1vZGUgMTAwNjQ0IGRyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9kY24yMS9kY24y
+MV9odWJwLmgKIGNyZWF0ZSBtb2RlIDEwMDY0NCBkcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkv
+ZGMvZGNuMjEvZGNuMjFfcmVzb3VyY2UuYwogY3JlYXRlIG1vZGUgMTAwNjQ0IGRyaXZlcnMvZ3B1
+L2RybS9hbWQvZGlzcGxheS9kYy9kY24yMS9kY24yMV9yZXNvdXJjZS5oCiBjcmVhdGUgbW9kZSAx
+MDA2NDQgZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2RtbC9kY24yMS9kaXNwbGF5X21v
+ZGVfdmJhXzIxLmMKIGNyZWF0ZSBtb2RlIDEwMDY0NCBkcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3Bs
+YXkvZGMvZG1sL2RjbjIxL2Rpc3BsYXlfbW9kZV92YmFfMjEuaAogY3JlYXRlIG1vZGUgMTAwNjQ0
+IGRyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9kbWwvZGNuMjEvZGlzcGxheV9ycV9kbGdf
+Y2FsY18yMS5jCiBjcmVhdGUgbW9kZSAxMDA2NDQgZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5
+L2RjL2RtbC9kY24yMS9kaXNwbGF5X3JxX2RsZ19jYWxjXzIxLmgKIGNyZWF0ZSBtb2RlIDEwMDY0
+NCBkcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvZ3Bpby9kY24yMS9od19mYWN0b3J5X2Rj
+bjIxLmMKIGNyZWF0ZSBtb2RlIDEwMDY0NCBkcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMv
+Z3Bpby9kY24yMS9od19mYWN0b3J5X2RjbjIxLmgKIGNyZWF0ZSBtb2RlIDEwMDY0NCBkcml2ZXJz
+L2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvZ3Bpby9kY24yMS9od190cmFuc2xhdGVfZGNuMjEuYwog
+Y3JlYXRlIG1vZGUgMTAwNjQ0IGRyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9ncGlvL2Rj
+bjIxL2h3X3RyYW5zbGF0ZV9kY24yMS5oCiBjcmVhdGUgbW9kZSAxMDA2NDQgZHJpdmVycy9ncHUv
+ZHJtL2FtZC9kaXNwbGF5L2RjL2lycS9kY24yMS9pcnFfc2VydmljZV9kY24yMS5jCiBjcmVhdGUg
+bW9kZSAxMDA2NDQgZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2lycS9kY24yMS9pcnFf
+c2VydmljZV9kY24yMS5oCiBjcmVhdGUgbW9kZSAxMDA2NDQgZHJpdmVycy9ncHUvZHJtL2FtZC9p
+bmNsdWRlL2FzaWNfcmVnL2Nsay9jbGtfMTBfMF8yX29mZnNldC5oCiBjcmVhdGUgbW9kZSAxMDA2
+NDQgZHJpdmVycy9ncHUvZHJtL2FtZC9pbmNsdWRlL2FzaWNfcmVnL2Nsay9jbGtfMTBfMF8yX3No
+X21hc2suaAogY3JlYXRlIG1vZGUgMTAwNjQ0IGRyaXZlcnMvZ3B1L2RybS9hbWQvaW5jbHVkZS9h
+c2ljX3JlZy9kY24vZGNuXzJfMV8wX29mZnNldC5oCiBjcmVhdGUgbW9kZSAxMDA2NDQgZHJpdmVy
+cy9ncHUvZHJtL2FtZC9pbmNsdWRlL2FzaWNfcmVnL2Rjbi9kY25fMl8xXzBfc2hfbWFzay5oCiBj
+cmVhdGUgbW9kZSAxMDA2NDQgZHJpdmVycy9ncHUvZHJtL2FtZC9pbmNsdWRlL2FzaWNfcmVnL2Rj
+bi9kcGNzXzJfMV8wX29mZnNldC5oCiBjcmVhdGUgbW9kZSAxMDA2NDQgZHJpdmVycy9ncHUvZHJt
+L2FtZC9pbmNsdWRlL2FzaWNfcmVnL2Rjbi9kcGNzXzJfMV8wX3NoX21hc2suaAogY3JlYXRlIG1v
+ZGUgMTAwNjQ0IGRyaXZlcnMvZ3B1L2RybS9hbWQvaW5jbHVkZS9yZW5vaXJfaXBfb2Zmc2V0LmgK
+Ci0tIAoyLjIwLjEKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0
+dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
