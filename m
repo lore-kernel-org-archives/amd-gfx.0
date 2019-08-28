@@ -1,68 +1,150 @@
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: [PATCH 22/23] drm/amd/display: Add DCN2.1 changes to DML
-Date: Wed, 28 Aug 2019 14:56:21 -0500
-Message-ID: <20190828195622.28941-22-alexander.deucher@amd.com>
-References: <20190828195622.28941-1-alexander.deucher@amd.com>
+From: "Siqueira, Rodrigo" <Rodrigo.Siqueira@amd.com>
+Subject: Re: [PATCH V2] drm: Add LTTPR defines for DP 1.4a
+Date: Wed, 28 Aug 2019 19:58:57 +0000
+Message-ID: <20190828195904.u4lqjwi4naclkh4r@outlook.office365.com>
+References: <20190826152925.4x7mwhzxit353yww@outlook.office365.com>
+ <87zhjv81lx.fsf@intel.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190828195622.28941-1-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, Roman Li <Roman.Li-5C7GfCeVMHo@public.gmane.org>
+Content-Type: multipart/mixed; boundary="===============2067205127=="
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+In-Reply-To: <87zhjv81lx.fsf@intel.com>
+Content-Language: en-US
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: Jani Nikula <jani.nikula@linux.intel.com>
+Cc: "Li, Sun peng (Leo)" <Sunpeng.Li@amd.com>, "Berthe,
+ Abdoulaye" <Abdoulaye.Berthe@amd.com>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-RnJvbTogUm9tYW4gTGkgPFJvbWFuLkxpQGFtZC5jb20+CgpIb29rIHVwIHRoZSBETUwgY2hhbmdl
-cyBmb3IgcmVub2lyLgoKU2lnbmVkLW9mZi1ieTogUm9tYW4gTGkgPFJvbWFuLkxpQGFtZC5jb20+
-ClNpZ25lZC1vZmYtYnk6IEFsZXggRGV1Y2hlciA8YWxleGFuZGVyLmRldWNoZXJAYW1kLmNvbT4K
-LS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvZG1sL01ha2VmaWxlICAgfCAgNCAr
-KysrCiAuLi4vZHJtL2FtZC9kaXNwbGF5L2RjL2RtbC9kaXNwbGF5X21vZGVfbGliLmMgfCAxOSAr
-KysrKysrKysrKysrKysrKysrCiAyIGZpbGVzIGNoYW5nZWQsIDIzIGluc2VydGlvbnMoKykKCmRp
-ZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvZG1sL01ha2VmaWxlIGIv
-ZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2RtbC9NYWtlZmlsZQppbmRleCBiMjY3YzBm
-YzY0ZTcuLmFmMmE4NjRhNmRhMCAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNw
-bGF5L2RjL2RtbC9NYWtlZmlsZQorKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMv
-ZG1sL01ha2VmaWxlCkBAIC02Myw2ICs2MywxMCBAQCBpZmRlZiBDT05GSUdfRFJNX0FNRF9EQ19E
-Q04yXzAKIERNTCArPSBkaXNwbGF5X21vZGVfdmJhLm8gZGNuMjAvZGlzcGxheV9ycV9kbGdfY2Fs
-Y18yMC5vIGRjbjIwL2Rpc3BsYXlfbW9kZV92YmFfMjAubwogRE1MICs9IGRjbjIwL2Rpc3BsYXlf
-cnFfZGxnX2NhbGNfMjB2Mi5vIGRjbjIwL2Rpc3BsYXlfbW9kZV92YmFfMjB2Mi5vCiBlbmRpZgor
-aWZkZWYgQ09ORklHX0RSTV9BTURfRENfRENOMl8xCitETUwgKz0gZGNuMjEvZGlzcGxheV9ycV9k
-bGdfY2FsY18yMS5vIGRjbjIxL2Rpc3BsYXlfbW9kZV92YmFfMjEubworZW5kaWYKKwogCiBBTURf
-REFMX0RNTCA9ICQoYWRkcHJlZml4ICQoQU1EREFMUEFUSCkvZGMvZG1sLywkKERNTCkpCiAKZGlm
-ZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9kbWwvZGlzcGxheV9tb2Rl
-X2xpYi5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2RtbC9kaXNwbGF5X21vZGVf
-bGliLmMKaW5kZXggOTZkZmNkOGMzNmJjLi43MDRlZmVmZGNiYTggMTAwNjQ0Ci0tLSBhL2RyaXZl
-cnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9kbWwvZGlzcGxheV9tb2RlX2xpYi5jCisrKyBiL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9kbWwvZGlzcGxheV9tb2RlX2xpYi5jCkBAIC0z
-MSw2ICszMSwxMCBAQAogI2luY2x1ZGUgImRjbjIwL2Rpc3BsYXlfbW9kZV92YmFfMjB2Mi5oIgog
-I2luY2x1ZGUgImRjbjIwL2Rpc3BsYXlfcnFfZGxnX2NhbGNfMjB2Mi5oIgogI2VuZGlmCisjaWZk
-ZWYgQ09ORklHX0RSTV9BTURfRENfRENOMl8xCisjaW5jbHVkZSAiZGNuMjEvZGlzcGxheV9tb2Rl
-X3ZiYV8yMS5oIgorI2luY2x1ZGUgImRjbjIxL2Rpc3BsYXlfcnFfZGxnX2NhbGNfMjEuaCIKKyNl
-bmRpZgogCiAjaWYgZGVmaW5lZChDT05GSUdfRFJNX0FNRF9EQ19EQ04yXzApCiBjb25zdCBzdHJ1
-Y3QgZG1sX2Z1bmNzIGRtbDIwX2Z1bmNzID0gewpAQCAtNDgsNiArNTIsMTUgQEAgY29uc3Qgc3Ry
-dWN0IGRtbF9mdW5jcyBkbWwyMHYyX2Z1bmNzID0gewogfTsKICNlbmRpZgogCisjaWZkZWYgQ09O
-RklHX0RSTV9BTURfRENfRENOMl8xCitjb25zdCBzdHJ1Y3QgZG1sX2Z1bmNzIGRtbDIxX2Z1bmNz
-ID0geworICAgICAgICAudmFsaWRhdGUgPSBkbWwyMV9Nb2RlU3VwcG9ydEFuZFN5c3RlbUNvbmZp
-Z3VyYXRpb25GdWxsLAorICAgICAgICAucmVjYWxjdWxhdGUgPSBkbWwyMV9yZWNhbGN1bGF0ZSwK
-KyAgICAgICAgLnJxX2RsZ19nZXRfZGxnX3JlZyA9IGRtbDIxX3JxX2RsZ19nZXRfZGxnX3JlZywK
-KyAgICAgICAgLnJxX2RsZ19nZXRfcnFfcmVnID0gZG1sMjFfcnFfZGxnX2dldF9ycV9yZWcKK307
-CisjZW5kaWYKKwogdm9pZCBkbWxfaW5pdF9pbnN0YW5jZShzdHJ1Y3QgZGlzcGxheV9tb2RlX2xp
-YiAqbGliLAogCQljb25zdCBzdHJ1Y3QgX3Zjc19kcGlfc29jX2JvdW5kaW5nX2JveF9zdCAqc29j
-X2JiLAogCQljb25zdCBzdHJ1Y3QgX3Zjc19kcGlfaXBfcGFyYW1zX3N0ICppcF9wYXJhbXMsCkBA
-IC02NSw2ICs3OCwxMiBAQCB2b2lkIGRtbF9pbml0X2luc3RhbmNlKHN0cnVjdCBkaXNwbGF5X21v
-ZGVfbGliICpsaWIsCiAJCWxpYi0+ZnVuY3MgPSBkbWwyMHYyX2Z1bmNzOwogCQlicmVhazsKICNl
-bmRpZgorI2lmZGVmIENPTkZJR19EUk1fQU1EX0RDX0RDTjJfMQorICAgICAgICBjYXNlIERNTF9Q
-Uk9KRUNUX0RDTjIxOgorICAgICAgICAgICAgICAgIGxpYi0+ZnVuY3MgPSBkbWwyMV9mdW5jczsK
-KyAgICAgICAgICAgICAgICBicmVhazsKKyNlbmRpZgorCiAJZGVmYXVsdDoKIAkJYnJlYWs7CiAJ
-fQotLSAKMi4yMC4xCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpo
-dHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
+--===============2067205127==
+Content-Language: en-US
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="g77yriyayozscbdx"
+
+--g77yriyayozscbdx
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On 08/27, Jani Nikula wrote:
+> On Mon, 26 Aug 2019, "Siqueira, Rodrigo" <Rodrigo.Siqueira@amd.com> wrote:
+> > DP 1.4a specification defines Link Training Tunable PHY Repeater (LTTPR)
+> > which is required to add support for systems with Thunderbolt or other
+> > repeater devices.
+> >
+> > Changes since V1:
+> > - Adjusts registers names to be aligned with spec and the rest of the
+> >   file
+> > - Update spec comment from 1.4 to 1.4a
+> >
+> > Cc: Abdoulaye Berthe <Abdoulaye.Berthe@amd.com>
+> > Cc: Harry Wentland <harry.wentland@amd.com>
+> > Cc: Leo Li <sunpeng.li@amd.com>
+> > Signed-off-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+> > Signed-off-by: Abdoulaye Berthe <Abdoulaye.Berthe@amd.com>
+> > ---
+> >  include/drm/drm_dp_helper.h | 25 +++++++++++++++++++++++++
+> >  1 file changed, 25 insertions(+)
+> >
+> > diff --git a/include/drm/drm_dp_helper.h b/include/drm/drm_dp_helper.h
+> > index 8364502f92cf..e8beb4e7e5da 100644
+> > --- a/include/drm/drm_dp_helper.h
+> > +++ b/include/drm/drm_dp_helper.h
+> > @@ -134,6 +134,31 @@
+> >  #define DP_SUPPORTED_LINK_RATES		    0x010 /* eDP 1.4 */
+> >  # define DP_MAX_SUPPORTED_RATES		     8	    /* 16-bit little-endian */
+> > =20
+> > +/** Link Training (LT)-tunable Physical Repeaters - DP 1.4a **/
+>=20
+> This is not a kernel-doc comment, so please drop the double ** and use
+> regular comments.
+>=20
+> All the DPCD register definitions are ordered according to register
+> offset. Why add 0xf0000 and friends between 0x10 and 0x20...?
+
+Hi Jani,
+
+Thank you for the feedback. I already sent a V3 patch based on your
+comments; please let me know if you have any other suggestion.
+
+Best Regards
+
+> BR,
+> Jani.
+>=20
+> > +#define DP_LT_TUNABLE_PHY_REPEATER_FIELD_DATA_STRUCTURE_REV 0xf0000
+> > +#define DP_MAX_LINK_RATE_PHY_REPEATER                       0xf0001
+> > +#define DP_PHY_REPEATER_CNT                                 0xf0002
+> > +#define DP_PHY_REPEATER_MODE                                0xf0003
+> > +#define DP_MAX_LANE_COUNT_PHY_REPEATER                      0xf0004
+> > +#define DP_PHY_REPEATER_EXTENDED_WAIT_TIMEOUT               0xf0005
+> > +#define DP_TRAINING_PATTERN_SET_PHY_REPEATER1               0xf0010
+> > +#define DP_TRAINING_LANE0_SET_PHY_REPEATER1                 0xf0011
+> > +#define DP_TRAINING_LANE1_SET_PHY_REPEATER1                 0xf0012
+> > +#define DP_TRAINING_LANE2_SET_PHY_REPEATER1                 0xf0013
+> > +#define DP_TRAINING_LANE3_SET_PHY_REPEATER1                 0xf0014
+> > +#define DP_TRAINING_AUX_RD_INTERVAL_PHY_REPEATER1           0xf0020
+> > +#define DP_TRANSMITTER_CAPABILITY_PHY_REPEATER1             0xf0021
+> > +#define DP_LANE0_1_STATUS_PHY_REPEATER1                     0xf0030
+> > +#define DP_LANE2_3_STATUS_PHY_REPEATER1                     0xf0031
+> > +#define DP_LANE_ALIGN_STATUS_UPDATED_PHY_REPEATER1          0xf0032
+> > +#define DP_ADJUST_REQUEST_LANE0_1_PHY_REPEATER1             0xf0033
+> > +#define DP_ADJUST_REQUEST_LANE2_3_PHY_REPEATER1             0xf0034
+> > +#define DP_SYMBOL_ERROR_COUNT_LANE0_PHY_REPEATER1           0xf0035
+> > +#define DP_SYMBOL_ERROR_COUNT_LANE1_PHY_REPEATER1           0xf0037
+> > +#define DP_SYMBOL_ERROR_COUNT_LANE2_PHY_REPEATER1           0xf0039
+> > +#define DP_SYMBOL_ERROR_COUNT_LANE3_PHY_REPEATER1           0xf003b
+> > +#define DP_FEC_STATUS_PHY_REPEATER1                         0xf0290
+> > +
+> >  /* Multiple stream transport */
+> >  #define DP_FAUX_CAP			    0x020   /* 1.2 */
+> >  # define DP_FAUX_CAP_1			    (1 << 0)
+>=20
+> --=20
+> Jani Nikula, Intel Open Source Graphics Center
+
+--=20
+Rodrigo Siqueira
+Software Engineer, Advanced Micro Devices (AMD)
+https://siqueira.tech
+
+--g77yriyayozscbdx
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCgAdFiEE4tZ+ii1mjMCMQbfkWJzP/comvP8FAl1m3QgACgkQWJzP/com
+vP+NMw/+MsgYUVfI4L4iH6c7sGo0x8hLxxRGAZ25MaIMtCfa+oaguXI3nx0cWddU
+I5zvcGVU5X+s2dFOXyG4qOlmUV6x+uJMnqTB7RcRybjpjzv8OamB6hhSV7Gt/cRb
+dEYX8ugtDhSQWHoZT4LzARuFUIOnIJO9N12oLe8B98QXmZpsAQl+X6ZyWAHzEVzo
+FA9iyuCRKGPO/+Y1xn7NkD36WcZDNwRRC/ivE4AOh2yu2EFOdnMyykuDRTQvXyXr
+2cPOjayOafmyPw6CNscHkmcWNYSkrKnbH3I2RfT867CNpXdLW5ed/XAio2s213H6
+j2H/f4NboQ7kFi/SoHtqKvubMBTPb82zLUnoMyL21hof8XkuN2ZMFO8MnAMRBPgi
+uCaJKHGZrq7QeXu6ClD50gRZ5Grv7gM9ZyQ8GotAcu/T534YsRYPmiajhmvsoxI6
+//BC/Mu37IfrXA2y3jwbgPRMX1PGccEGdLzV9fY8gysiKCULzMfYMyQTBtE3Tw0L
+FeJZcJiULr4jLZQCtG+Ia/KLZXFaRRnav4721Ai9HTfpOf8ZDDvpAnkCABgfhlTk
+v9nSyVJcn++IUjV2pe4tmcemb36RY4WXQPQNWSqP8Yd+B6Ci5+2w3pxnecabiH/Z
+qJ7yTVHAriLg8FoardjzGnjYL5PX4q3EZqwgfBwjYZDp52ySJXY=
+=vZf3
+-----END PGP SIGNATURE-----
+
+--g77yriyayozscbdx--
+
+--===============2067205127==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KZHJpLWRldmVs
+IG1haWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
+dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVs
+
+--===============2067205127==--
