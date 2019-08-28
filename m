@@ -1,13 +1,14 @@
-From: "Yin, Tianci (Rico)" <Tianci.Yin-5C7GfCeVMHo@public.gmane.org>
+From: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
 Subject: Re: [PATCH] drm/amdgpu/psp: keep TMR in visible vram region for SRIOV
-Date: Wed, 28 Aug 2019 10:21:59 +0000
-Message-ID: <DM5PR12MB253547988B61E7D401C6FADC95A30@DM5PR12MB2535.namprd12.prod.outlook.com>
-References: <1566984335-14830-1-git-send-email-tianci.yin@amd.com>,
+Date: Wed, 28 Aug 2019 10:25:56 +0000
+Message-ID: <fa875b9d-4bd6-8f6e-110e-19fa6115b254@amd.com>
+References: <1566984335-14830-1-git-send-email-tianci.yin@amd.com>
  <45fe6586-a53a-6f02-0e5f-b6224b159e12@gmail.com>
+ <DM5PR12MB253547988B61E7D401C6FADC95A30@DM5PR12MB2535.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0853497536=="
+Content-Type: multipart/mixed; boundary="===============2111175742=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <45fe6586-a53a-6f02-0e5f-b6224b159e12-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+In-Reply-To: <DM5PR12MB253547988B61E7D401C6FADC95A30-2J9CzHegvk+FJzKNz6G7XAdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -19,308 +20,285 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Koenig,
- Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
+To: "Yin, Tianci (Rico)" <Tianci.Yin-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 Cc: "Xu, Feifei" <Feifei.Xu-5C7GfCeVMHo@public.gmane.org>, "Xiao, Jack" <Jack.Xiao-5C7GfCeVMHo@public.gmane.org>, "Zhang,
  Hawking" <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>, "Ma, Le" <Le.Ma-5C7GfCeVMHo@public.gmane.org>
 
---===============0853497536==
+--===============2111175742==
 Content-Language: en-US
 Content-Type: multipart/alternative;
-	boundary="_000_DM5PR12MB253547988B61E7D401C6FADC95A30DM5PR12MB2535namp_"
+	boundary="_000_fa875b9d4bd68f6e110e19fa6115b254amdcom_"
 
---_000_DM5PR12MB253547988B61E7D401C6FADC95A30DM5PR12MB2535namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+--_000_fa875b9d4bd68f6e110e19fa6115b254amdcom_
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-Hi Christian,
+SXQgc2VlbXMgd2UgaGF2ZSB0byBhZGQgYSBuZXcgcGFyYW1ldGVyIGZvciBhbWRncHVfYm9fY3Jl
+YXRlX2tlcm5lbCgpIHRvIHBhc3MgdGhlIHByZWZlciByZWdpb24uDQoNCllvdSBjYW4gYWxzbyBq
+dXN0IHBhc3MgYSBjcHUgcG9pbnRlciB0byB0aGUgZnVuY3Rpb24gYWxsb2NhdGluZyB0aGUgc3Rv
+bGVuX3ZnYV9tZW1vcnkuDQoNClRoYXQncyBwcm9iYWJseSBsZXNzIHdvcmsgdG8gY2hhbmdlIGFs
+bCBjYWxsZXJzIGFuZCBjbGVhbmVyIGluIGdlbmVyYWwuDQoNCkNocmlzdGlhbi4NCg0KQW0gMjgu
+MDguMTkgdW0gMTI6MjEgc2NocmllYiBZaW4sIFRpYW5jaSAoUmljbyk6DQpIaSBDaHJpc3RpYW4s
+DQoNCkkgaGF2ZSBqdXN0IHJlYWxpemVkIHRoZSBzdG9sZW5fdmdhX21lbW9yeSBwcm9ibGVtLA0K
+SSBoYXZlIGV2ZXIgdGhvdWdodCB0aGF0IG5vIG9uZSByZWFsbHkgdXNlIHRoZSBzdG9sZW5fdmdh
+X21lbW9yeSBCTyBpbiBLTUQgY29kZSwgc28gaXQgc2hvdWxkIGJlIHNhZmUuDQoNCkl0IHNlZW1z
+IHdlIGhhdmUgdG8gYWRkIGEgbmV3IHBhcmFtZXRlciBmb3IgYW1kZ3B1X2JvX2NyZWF0ZV9rZXJu
+ZWwoKSB0byBwYXNzIHRoZSBwcmVmZXIgcmVnaW9uLg0KDQpUaGFua3MhDQoNClJpY28NCl9fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fDQpGcm9tOiBDaHJpc3RpYW4gS8O2bmlnIDxja29l
+bmlnLmxlaWNodHp1bWVya2VuQGdtYWlsLmNvbT48bWFpbHRvOmNrb2VuaWcubGVpY2h0enVtZXJr
+ZW5AZ21haWwuY29tPg0KU2VudDogV2VkbmVzZGF5LCBBdWd1c3QgMjgsIDIwMTkgMTc6NTcNClRv
+OiBZaW4sIFRpYW5jaSAoUmljbykgPFRpYW5jaS5ZaW5AYW1kLmNvbT48bWFpbHRvOlRpYW5jaS5Z
+aW5AYW1kLmNvbT47IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnPG1haWx0bzphbWQtZ2Z4
+QGxpc3RzLmZyZWVkZXNrdG9wLm9yZz4gPGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnPjxt
+YWlsdG86YW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmc+DQpDYzogWHUsIEZlaWZlaSA8RmVp
+ZmVpLlh1QGFtZC5jb20+PG1haWx0bzpGZWlmZWkuWHVAYW1kLmNvbT47IE1hLCBMZSA8TGUuTWFA
+YW1kLmNvbT48bWFpbHRvOkxlLk1hQGFtZC5jb20+OyBYaWFvLCBKYWNrIDxKYWNrLlhpYW9AYW1k
+LmNvbT48bWFpbHRvOkphY2suWGlhb0BhbWQuY29tPjsgWmhhbmcsIEhhd2tpbmcgPEhhd2tpbmcu
+WmhhbmdAYW1kLmNvbT48bWFpbHRvOkhhd2tpbmcuWmhhbmdAYW1kLmNvbT4NClN1YmplY3Q6IFJl
+OiBbUEFUQ0hdIGRybS9hbWRncHUvcHNwOiBrZWVwIFRNUiBpbiB2aXNpYmxlIHZyYW0gcmVnaW9u
+IGZvciBTUklPVg0KDQpBbSAyOC4wOC4xOSB1bSAxMToyNSBzY2hyaWViIFRpYW5jaSBZaW46DQo+
+IEZyb206ICJUaWFuY2kuWWluIiA8dGlhbmNpLnlpbkBhbWQuY29tPjxtYWlsdG86dGlhbmNpLnlp
+bkBhbWQuY29tPg0KPg0KPiBGaXggY29tcHV0ZSByaW5nIHRlc3QgZmFpbHVyZSBpbiBzcmlvdiBz
+Y2VuYXJpby4NCj4NCj4gU2lnbmVkLW9mZi1ieTogVGlhbmNpLllpbiA8dGlhbmNpLnlpbkBhbWQu
+Y29tPjxtYWlsdG86dGlhbmNpLnlpbkBhbWQuY29tPg0KPiAtLS0NCj4gICBkcml2ZXJzL2dwdS9k
+cm0vYW1kL2FtZGdwdS9hbWRncHVfcHNwLmMgfCAxNCArKysrKysrKysrLS0tLQ0KPiAgIGRyaXZl
+cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9wc3AuaCB8ICAxICsNCj4gICAyIGZpbGVzIGNo
+YW5nZWQsIDExIGluc2VydGlvbnMoKyksIDQgZGVsZXRpb25zKC0pDQo+DQo+IGRpZmYgLS1naXQg
+YS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcHNwLmMgYi9kcml2ZXJzL2dwdS9k
+cm0vYW1kL2FtZGdwdS9hbWRncHVfcHNwLmMNCj4gaW5kZXggOWY3Y2M1Yi4uOTJjNjhjOSAxMDA2
+NDQNCj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3BzcC5jDQo+ICsr
+KyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9wc3AuYw0KPiBAQCAtMjYxLDkg
+KzI2MSwxNSBAQCBzdGF0aWMgaW50IHBzcF90bXJfaW5pdChzdHJ1Y3QgcHNwX2NvbnRleHQgKnBz
+cCkNCj4gICAgICAgICAgICAgICAgfQ0KPiAgICAgICAgfQ0KPg0KPiAtICAgICByZXQgPSBhbWRn
+cHVfYm9fY3JlYXRlX2tlcm5lbChwc3AtPmFkZXYsIHRtcl9zaXplLCBQU1BfVE1SX1NJWkUsDQo+
+IC0gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIEFNREdQVV9HRU1fRE9NQUlOX1ZS
+QU0sDQo+IC0gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICZwc3AtPnRtcl9ibywg
+JnBzcC0+dG1yX21jX2FkZHIsIE5VTEwpOw0KPiArICAgICBwc3AtPnRtcl9idWYgPSBOVUxMOw0K
+PiArICAgICBpZiAoIWFtZGdwdV9zcmlvdl92Zihwc3AtPmFkZXYpKQ0KPiArICAgICAgICAgICAg
+IHJldCA9IGFtZGdwdV9ib19jcmVhdGVfa2VybmVsKHBzcC0+YWRldiwgdG1yX3NpemUsIFBTUF9U
+TVJfU0laRSwNCj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBB
+TURHUFVfR0VNX0RPTUFJTl9WUkFNLA0KPiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICZwc3AtPnRtcl9ibywgJnBzcC0+dG1yX21jX2FkZHIsIE5VTEwpOw0KPiAr
+ICAgICBlbHNlDQo+ICsgICAgICAgICAgICAgcmV0ID0gYW1kZ3B1X2JvX2NyZWF0ZV9rZXJuZWwo
+cHNwLT5hZGV2LCB0bXJfc2l6ZSwgUFNQX1RNUl9TSVpFLA0KPiArICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgIEFNREdQVV9HRU1fRE9NQUlOX1ZSQU0sDQo+ICsgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgJnBzcC0+dG1yX2JvLCAmcHNw
+LT50bXJfbWNfYWRkciwgJnBzcC0+dG1yX2J1Zik7DQoNCk1pZ2h0IGJlIGJldHRlciB0byB1c2Ug
+YSBsb2NhbCB2YXJpYWJsZSBmb3IgdGhlIENQVSBwb2ludGVyIGluc3RlYWQgb2YNCmR1cGxpY2F0
+aW5nIHRoZSBjYWxsaW5nIHBhcmFtZXRlcnMuDQoNCkJUVzogSG93IGRpZCB5b3Ugc29sdmVkIHRo
+ZSBzdG9sZW5fdmdhX21lbW9yeSBwcm9ibGVtIEkgcG9pbnRlZCBvdXQgaW4NCnRoZSBvcmlnaW5h
+bCBwYXRjaCBzZXQ/DQoNCkNocmlzdGlhbi4NCg0KPg0KPiAgICAgICAgcmV0dXJuIHJldDsNCj4g
+ICB9DQo+IEBAIC0xMjE2LDcgKzEyMjIsNyBAQCBzdGF0aWMgaW50IHBzcF9od19maW5pKHZvaWQg
+KmhhbmRsZSkNCj4NCj4gICAgICAgIHBzcF9yaW5nX2Rlc3Ryb3kocHNwLCBQU1BfUklOR19UWVBF
+X19LTSk7DQo+DQo+IC0gICAgIGFtZGdwdV9ib19mcmVlX2tlcm5lbCgmcHNwLT50bXJfYm8sICZw
+c3AtPnRtcl9tY19hZGRyLCBOVUxMKTsNCj4gKyAgICAgYW1kZ3B1X2JvX2ZyZWVfa2VybmVsKCZw
+c3AtPnRtcl9ibywgJnBzcC0+dG1yX21jX2FkZHIsICZwc3AtPnRtcl9idWYpOw0KPiAgICAgICAg
+YW1kZ3B1X2JvX2ZyZWVfa2VybmVsKCZwc3AtPmZ3X3ByaV9ibywNCj4gICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAmcHNwLT5md19wcmlfbWNfYWRkciwgJnBzcC0+ZndfcHJpX2J1Zik7DQo+
+ICAgICAgICBhbWRncHVfYm9fZnJlZV9rZXJuZWwoJnBzcC0+ZmVuY2VfYnVmX2JvLA0KPiBkaWZm
+IC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3BzcC5oIGIvZHJpdmVy
+cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3BzcC5oDQo+IGluZGV4IGJjMDk0N2YuLmI3M2Q0
+YWEgMTAwNjQ0DQo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9wc3Au
+aA0KPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcHNwLmgNCj4gQEAg
+LTE3MSw2ICsxNzEsNyBAQCBzdHJ1Y3QgcHNwX2NvbnRleHQNCj4gICAgICAgIC8qIHRtciBidWZm
+ZXIgKi8NCj4gICAgICAgIHN0cnVjdCBhbWRncHVfYm8gICAgICAgICAgICAgICAgKnRtcl9ibzsN
+Cj4gICAgICAgIHVpbnQ2NF90ICAgICAgICAgICAgICAgICAgICAgICAgdG1yX21jX2FkZHI7DQo+
+ICsgICAgIHZvaWQgICAgICAgICAgICAgICAgICAgICAgICAgICAgKnRtcl9idWY7DQo+DQo+ICAg
+ICAgICAvKiBhc2QgZmlybXdhcmUgYW5kIGJ1ZmZlciAqLw0KPiAgICAgICAgY29uc3Qgc3RydWN0
+IGZpcm13YXJlICAgICAgICAgICAqYXNkX2Z3Ow0KDQoNCg==
 
-I have just realized the stolen_vga_memory problem,
-I have ever thought that no one really use the stolen_vga_memory BO in KMD =
-code, so it should be safe.
+--_000_fa875b9d4bd68f6e110e19fa6115b254amdcom_
+Content-Type: text/html; charset="utf-8"
+Content-ID: <EC7C76171EC4194B85875B8B069F21B8-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
+Content-Transfer-Encoding: base64
 
-It seems we have to add a new parameter for amdgpu_bo_create_kernel() to pa=
-ss the prefer region.
+PGh0bWw+DQo8aGVhZD4NCjxtZXRhIGh0dHAtZXF1aXY9IkNvbnRlbnQtVHlwZSIgY29udGVudD0i
+dGV4dC9odG1sOyBjaGFyc2V0PXV0Zi04Ij4NCjwvaGVhZD4NCjxib2R5IHRleHQ9IiMwMDAwMDAi
+IGJnY29sb3I9IiNGRkZGRkYiPg0KPGRpdiBjbGFzcz0ibW96LWNpdGUtcHJlZml4Ij4NCjxibG9j
+a3F1b3RlIHR5cGU9ImNpdGUiPg0KPGRpdiBzdHlsZT0iZm9udC1mYW1pbHk6IENhbGlicmksIEFy
+aWFsLCBIZWx2ZXRpY2EsIHNhbnMtc2VyaWY7DQogICAgICAgICAgZm9udC1zaXplOiAxMnB0OyBj
+b2xvcjogcmdiKDAsIDAsIDApOyI+DQo8Zm9udCBzaXplPSIyIj48c3BhbiBzdHlsZT0iZm9udC1z
+aXplOjExcHQiPjxzcGFuPkl0IHNlZW1zIHdlIGhhdmUgdG8gYWRkIGEgbmV3IHBhcmFtZXRlciBm
+b3IgYW1kZ3B1X2JvX2NyZWF0ZV9rZXJuZWw8L3NwYW4+PC9zcGFuPjwvZm9udD4oKSB0byBwYXNz
+IHRoZSBwcmVmZXIgcmVnaW9uLjxicj4NCjwvZGl2Pg0KPC9ibG9ja3F1b3RlPg0KPGJyPg0KWW91
+IGNhbiBhbHNvIGp1c3QgcGFzcyBhIGNwdSBwb2ludGVyIHRvIHRoZSBmdW5jdGlvbiBhbGxvY2F0
+aW5nIHRoZSBzdG9sZW5fdmdhX21lbW9yeS48YnI+DQo8YnI+DQpUaGF0J3MgcHJvYmFibHkgbGVz
+cyB3b3JrIHRvIGNoYW5nZSBhbGwgY2FsbGVycyBhbmQgY2xlYW5lciBpbiBnZW5lcmFsLjxicj4N
+Cjxicj4NCkNocmlzdGlhbi48YnI+DQo8YnI+DQpBbSAyOC4wOC4xOSB1bSAxMjoyMSBzY2hyaWVi
+IFlpbiwgVGlhbmNpIChSaWNvKTo8YnI+DQo8L2Rpdj4NCjxibG9ja3F1b3RlIHR5cGU9ImNpdGUi
+IGNpdGU9Im1pZDpETTVQUjEyTUIyNTM1NDc5ODhCNjFFN0Q0MDFDNkZBREM5NUEzMEBETTVQUjEy
+TUIyNTM1Lm5hbXByZDEyLnByb2Qub3V0bG9vay5jb20iPg0KPHN0eWxlIHR5cGU9InRleHQvY3Nz
+IiBzdHlsZT0iZGlzcGxheTpub25lOyI+IFAge21hcmdpbi10b3A6MDttYXJnaW4tYm90dG9tOjA7
+fSA8L3N0eWxlPg0KPGRpdiBzdHlsZT0iZm9udC1mYW1pbHk6IENhbGlicmksIEFyaWFsLCBIZWx2
+ZXRpY2EsIHNhbnMtc2VyaWY7DQogICAgICAgIGZvbnQtc2l6ZTogMTJwdDsgY29sb3I6IHJnYigw
+LCAwLCAwKTsiPg0KSGkgQ2hyaXN0aWFuLDwvZGl2Pg0KPGRpdiBzdHlsZT0iZm9udC1mYW1pbHk6
+IENhbGlicmksIEFyaWFsLCBIZWx2ZXRpY2EsIHNhbnMtc2VyaWY7DQogICAgICAgIGZvbnQtc2l6
+ZTogMTJwdDsgY29sb3I6IHJnYigwLCAwLCAwKTsiPg0KPGJyPg0KPC9kaXY+DQo8ZGl2IHN0eWxl
+PSJmb250LWZhbWlseTogQ2FsaWJyaSwgQXJpYWwsIEhlbHZldGljYSwgc2Fucy1zZXJpZjsNCiAg
+ICAgICAgZm9udC1zaXplOiAxMnB0OyBjb2xvcjogcmdiKDAsIDAsIDApOyI+DQpJIGhhdmUganVz
+dCByZWFsaXplZCB0aGUgPGZvbnQgc2l6ZT0iMiI+PHNwYW4gc3R5bGU9ImZvbnQtc2l6ZToxMXB0
+Ij48c3Bhbj5zdG9sZW5fdmdhX21lbW9yeTwvc3Bhbj48L3NwYW4+PC9mb250PiBwcm9ibGVtLA0K
+PGJyPg0KPC9kaXY+DQo8ZGl2IHN0eWxlPSJmb250LWZhbWlseTogQ2FsaWJyaSwgQXJpYWwsIEhl
+bHZldGljYSwgc2Fucy1zZXJpZjsNCiAgICAgICAgZm9udC1zaXplOiAxMnB0OyBjb2xvcjogcmdi
+KDAsIDAsIDApOyI+DQpJIGhhdmUgZXZlciB0aG91Z2h0IHRoYXQgbm8gb25lIHJlYWxseSB1c2Ug
+dGhlIDxmb250IHNpemU9IjIiPjxzcGFuIHN0eWxlPSJmb250LXNpemU6MTFwdCI+PHNwYW4+c3Rv
+bGVuX3ZnYV9tZW1vcnkgQk8gaW4gS01EIGNvZGUsIHNvIGl0IHNob3VsZCBiZSBzYWZlLjwvc3Bh
+bj48L3NwYW4+PC9mb250PjwvZGl2Pg0KPGRpdiBzdHlsZT0iZm9udC1mYW1pbHk6IENhbGlicmks
+IEFyaWFsLCBIZWx2ZXRpY2EsIHNhbnMtc2VyaWY7DQogICAgICAgIGZvbnQtc2l6ZTogMTJwdDsg
+Y29sb3I6IHJnYigwLCAwLCAwKTsiPg0KPGZvbnQgc2l6ZT0iMiI+PHNwYW4gc3R5bGU9ImZvbnQt
+c2l6ZToxMXB0Ij48c3Bhbj48YnI+DQo8L3NwYW4+PC9zcGFuPjwvZm9udD48L2Rpdj4NCjxkaXYg
+c3R5bGU9ImZvbnQtZmFtaWx5OiBDYWxpYnJpLCBBcmlhbCwgSGVsdmV0aWNhLCBzYW5zLXNlcmlm
+Ow0KICAgICAgICBmb250LXNpemU6IDEycHQ7IGNvbG9yOiByZ2IoMCwgMCwgMCk7Ij4NCjxmb250
+IHNpemU9IjIiPjxzcGFuIHN0eWxlPSJmb250LXNpemU6MTFwdCI+PHNwYW4+SXQgc2VlbXMgd2Ug
+aGF2ZSB0byBhZGQgYSBuZXcgcGFyYW1ldGVyIGZvciBhbWRncHVfYm9fY3JlYXRlX2tlcm5lbDwv
+c3Bhbj48L3NwYW4+PC9mb250PigpIHRvIHBhc3MgdGhlIHByZWZlciByZWdpb24uPGJyPg0KPC9k
+aXY+DQo8ZGl2IHN0eWxlPSJmb250LWZhbWlseTogQ2FsaWJyaSwgQXJpYWwsIEhlbHZldGljYSwg
+c2Fucy1zZXJpZjsNCiAgICAgICAgZm9udC1zaXplOiAxMnB0OyBjb2xvcjogcmdiKDAsIDAsIDAp
+OyI+DQo8YnI+DQo8L2Rpdj4NCjxkaXYgc3R5bGU9ImZvbnQtZmFtaWx5OiBDYWxpYnJpLCBBcmlh
+bCwgSGVsdmV0aWNhLCBzYW5zLXNlcmlmOw0KICAgICAgICBmb250LXNpemU6IDEycHQ7IGNvbG9y
+OiByZ2IoMCwgMCwgMCk7Ij4NClRoYW5rcyE8L2Rpdj4NCjxkaXYgc3R5bGU9ImZvbnQtZmFtaWx5
+OiBDYWxpYnJpLCBBcmlhbCwgSGVsdmV0aWNhLCBzYW5zLXNlcmlmOw0KICAgICAgICBmb250LXNp
+emU6IDEycHQ7IGNvbG9yOiByZ2IoMCwgMCwgMCk7Ij4NCjxicj4NCjwvZGl2Pg0KPGRpdiBzdHls
+ZT0iZm9udC1mYW1pbHk6IENhbGlicmksIEFyaWFsLCBIZWx2ZXRpY2EsIHNhbnMtc2VyaWY7DQog
+ICAgICAgIGZvbnQtc2l6ZTogMTJwdDsgY29sb3I6IHJnYigwLCAwLCAwKTsiPg0KUmljbzxicj4N
+CjwvZGl2Pg0KPGhyIHN0eWxlPSJkaXNwbGF5OmlubGluZS1ibG9jazt3aWR0aDo5OCUiIHRhYmlu
+ZGV4PSItMSI+DQo8ZGl2IGlkPSJkaXZScGx5RndkTXNnIiBkaXI9Imx0ciI+PGZvbnQgc3R5bGU9
+ImZvbnQtc2l6ZToxMXB0IiBmYWNlPSJDYWxpYnJpLCBzYW5zLXNlcmlmIiBjb2xvcj0iIzAwMDAw
+MCI+PGI+RnJvbTo8L2I+IENocmlzdGlhbiBLw7ZuaWcNCjxhIGNsYXNzPSJtb3otdHh0LWxpbmst
+cmZjMjM5NkUiIGhyZWY9Im1haWx0bzpja29lbmlnLmxlaWNodHp1bWVya2VuQGdtYWlsLmNvbSI+
+Jmx0O2Nrb2VuaWcubGVpY2h0enVtZXJrZW5AZ21haWwuY29tJmd0OzwvYT48YnI+DQo8Yj5TZW50
+OjwvYj4gV2VkbmVzZGF5LCBBdWd1c3QgMjgsIDIwMTkgMTc6NTc8YnI+DQo8Yj5Ubzo8L2I+IFlp
+biwgVGlhbmNpIChSaWNvKSA8YSBjbGFzcz0ibW96LXR4dC1saW5rLXJmYzIzOTZFIiBocmVmPSJt
+YWlsdG86VGlhbmNpLllpbkBhbWQuY29tIj4NCiZsdDtUaWFuY2kuWWluQGFtZC5jb20mZ3Q7PC9h
+PjsgPGEgY2xhc3M9Im1vei10eHQtbGluay1hYmJyZXZpYXRlZCIgaHJlZj0ibWFpbHRvOmFtZC1n
+ZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnIj4NCmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
+PC9hPiA8YSBjbGFzcz0ibW96LXR4dC1saW5rLXJmYzIzOTZFIiBocmVmPSJtYWlsdG86YW1kLWdm
+eEBsaXN0cy5mcmVlZGVza3RvcC5vcmciPg0KJmx0O2FtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Au
+b3JnJmd0OzwvYT48YnI+DQo8Yj5DYzo8L2I+IFh1LCBGZWlmZWkgPGEgY2xhc3M9Im1vei10eHQt
+bGluay1yZmMyMzk2RSIgaHJlZj0ibWFpbHRvOkZlaWZlaS5YdUBhbWQuY29tIj4NCiZsdDtGZWlm
+ZWkuWHVAYW1kLmNvbSZndDs8L2E+OyBNYSwgTGUgPGEgY2xhc3M9Im1vei10eHQtbGluay1yZmMy
+Mzk2RSIgaHJlZj0ibWFpbHRvOkxlLk1hQGFtZC5jb20iPg0KJmx0O0xlLk1hQGFtZC5jb20mZ3Q7
+PC9hPjsgWGlhbywgSmFjayA8YSBjbGFzcz0ibW96LXR4dC1saW5rLXJmYzIzOTZFIiBocmVmPSJt
+YWlsdG86SmFjay5YaWFvQGFtZC5jb20iPg0KJmx0O0phY2suWGlhb0BhbWQuY29tJmd0OzwvYT47
+IFpoYW5nLCBIYXdraW5nIDxhIGNsYXNzPSJtb3otdHh0LWxpbmstcmZjMjM5NkUiIGhyZWY9Im1h
+aWx0bzpIYXdraW5nLlpoYW5nQGFtZC5jb20iPg0KJmx0O0hhd2tpbmcuWmhhbmdAYW1kLmNvbSZn
+dDs8L2E+PGJyPg0KPGI+U3ViamVjdDo8L2I+IFJlOiBbUEFUQ0hdIGRybS9hbWRncHUvcHNwOiBr
+ZWVwIFRNUiBpbiB2aXNpYmxlIHZyYW0gcmVnaW9uIGZvciBTUklPVjwvZm9udD4NCjxkaXY+Jm5i
+c3A7PC9kaXY+DQo8L2Rpdj4NCjxkaXYgY2xhc3M9IkJvZHlGcmFnbWVudCI+PGZvbnQgc2l6ZT0i
+MiI+PHNwYW4gc3R5bGU9ImZvbnQtc2l6ZToxMXB0OyI+DQo8ZGl2IGNsYXNzPSJQbGFpblRleHQi
+PkFtIDI4LjA4LjE5IHVtIDExOjI1IHNjaHJpZWIgVGlhbmNpIFlpbjo8YnI+DQomZ3Q7IEZyb206
+ICZxdW90O1RpYW5jaS5ZaW4mcXVvdDsgPGEgY2xhc3M9Im1vei10eHQtbGluay1yZmMyMzk2RSIg
+aHJlZj0ibWFpbHRvOnRpYW5jaS55aW5AYW1kLmNvbSI+DQombHQ7dGlhbmNpLnlpbkBhbWQuY29t
+Jmd0OzwvYT48YnI+DQomZ3Q7PGJyPg0KJmd0OyBGaXggY29tcHV0ZSByaW5nIHRlc3QgZmFpbHVy
+ZSBpbiBzcmlvdiBzY2VuYXJpby48YnI+DQomZ3Q7PGJyPg0KJmd0OyBTaWduZWQtb2ZmLWJ5OiBU
+aWFuY2kuWWluIDxhIGNsYXNzPSJtb3otdHh0LWxpbmstcmZjMjM5NkUiIGhyZWY9Im1haWx0bzp0
+aWFuY2kueWluQGFtZC5jb20iPg0KJmx0O3RpYW5jaS55aW5AYW1kLmNvbSZndDs8L2E+PGJyPg0K
+Jmd0OyAtLS08YnI+DQomZ3Q7Jm5ic3A7Jm5ic3A7IGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
+L2FtZGdwdV9wc3AuYyB8IDE0ICYjNDM7JiM0MzsmIzQzOyYjNDM7JiM0MzsmIzQzOyYjNDM7JiM0
+MzsmIzQzOyYjNDM7LS0tLTxicj4NCiZndDsmbmJzcDsmbmJzcDsgZHJpdmVycy9ncHUvZHJtL2Ft
+ZC9hbWRncHUvYW1kZ3B1X3BzcC5oIHwmbmJzcDsgMSAmIzQzOzxicj4NCiZndDsmbmJzcDsmbmJz
+cDsgMiBmaWxlcyBjaGFuZ2VkLCAxMSBpbnNlcnRpb25zKCYjNDM7KSwgNCBkZWxldGlvbnMoLSk8
+YnI+DQomZ3Q7PGJyPg0KJmd0OyBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
+cHUvYW1kZ3B1X3BzcC5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3BzcC5j
+PGJyPg0KJmd0OyBpbmRleCA5ZjdjYzViLi45MmM2OGM5IDEwMDY0NDxicj4NCiZndDsgLS0tIGEv
+ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3BzcC5jPGJyPg0KJmd0OyAmIzQzOyYj
+NDM7JiM0MzsgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcHNwLmM8YnI+DQom
+Z3Q7IEBAIC0yNjEsOSAmIzQzOzI2MSwxNSBAQCBzdGF0aWMgaW50IHBzcF90bXJfaW5pdChzdHJ1
+Y3QgcHNwX2NvbnRleHQgKnBzcCk8YnI+DQomZ3Q7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5i
+c3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7
+Jm5ic3A7IH08YnI+DQomZ3Q7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5i
+c3A7IH08YnI+DQomZ3Q7Jm5ic3A7Jm5ic3A7IDxicj4NCiZndDsgLSZuYnNwOyZuYnNwOyZuYnNw
+OyZuYnNwOyByZXQgPSBhbWRncHVfYm9fY3JlYXRlX2tlcm5lbChwc3AtJmd0O2FkZXYsIHRtcl9z
+aXplLCBQU1BfVE1SX1NJWkUsPGJyPg0KJmd0OyAtJm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5i
+c3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7
+Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5i
+c3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7
+Jm5ic3A7IEFNREdQVV9HRU1fRE9NQUlOX1ZSQU0sPGJyPg0KJmd0OyAtJm5ic3A7Jm5ic3A7Jm5i
+c3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7
+Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5i
+c3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7
+Jm5ic3A7Jm5ic3A7Jm5ic3A7ICZhbXA7cHNwLSZndDt0bXJfYm8sICZhbXA7cHNwLSZndDt0bXJf
+bWNfYWRkciwgTlVMTCk7PGJyPg0KJmd0OyAmIzQzOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyBw
+c3AtJmd0O3Rtcl9idWYgPSBOVUxMOzxicj4NCiZndDsgJiM0MzsmbmJzcDsmbmJzcDsmbmJzcDsm
+bmJzcDsgaWYgKCFhbWRncHVfc3Jpb3ZfdmYocHNwLSZndDthZGV2KSk8YnI+DQomZ3Q7ICYjNDM7
+Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5i
+c3A7Jm5ic3A7Jm5ic3A7IHJldCA9IGFtZGdwdV9ib19jcmVhdGVfa2VybmVsKHBzcC0mZ3Q7YWRl
+diwgdG1yX3NpemUsIFBTUF9UTVJfU0laRSw8YnI+DQomZ3Q7ICYjNDM7Jm5ic3A7Jm5ic3A7Jm5i
+c3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7
+Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5i
+c3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7
+Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5i
+c3A7Jm5ic3A7IEFNREdQVV9HRU1fRE9NQUlOX1ZSQU0sPGJyPg0KJmd0OyAmIzQzOyZuYnNwOyZu
+YnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNw
+OyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZu
+YnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNw
+OyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZu
+YnNwOyZuYnNwOyZuYnNwOyAmYW1wO3BzcC0mZ3Q7dG1yX2JvLCAmYW1wO3BzcC0mZ3Q7dG1yX21j
+X2FkZHIsIE5VTEwpOzxicj4NCiZndDsgJiM0MzsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsgZWxz
+ZTxicj4NCiZndDsgJiM0MzsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJz
+cDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsgcmV0ID0gYW1kZ3B1X2JvX2NyZWF0ZV9r
+ZXJuZWwocHNwLSZndDthZGV2LCB0bXJfc2l6ZSwgUFNQX1RNUl9TSVpFLDxicj4NCiZndDsgJiM0
+MzsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsm
+bmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJz
+cDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsm
+bmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJz
+cDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsgQU1ER1BVX0dFTV9ET01BSU5fVlJBTSw8YnI+DQom
+Z3Q7ICYjNDM7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7
+Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5i
+c3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7
+Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5i
+c3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7ICZhbXA7cHNwLSZndDt0bXJfYm8sICZh
+bXA7cHNwLSZndDt0bXJfbWNfYWRkciwgJmFtcDtwc3AtJmd0O3Rtcl9idWYpOzxicj4NCjxicj4N
+Ck1pZ2h0IGJlIGJldHRlciB0byB1c2UgYSBsb2NhbCB2YXJpYWJsZSBmb3IgdGhlIENQVSBwb2lu
+dGVyIGluc3RlYWQgb2YgPGJyPg0KZHVwbGljYXRpbmcgdGhlIGNhbGxpbmcgcGFyYW1ldGVycy48
+YnI+DQo8YnI+DQpCVFc6IEhvdyBkaWQgeW91IHNvbHZlZCB0aGUgc3RvbGVuX3ZnYV9tZW1vcnkg
+cHJvYmxlbSBJIHBvaW50ZWQgb3V0IGluIDxicj4NCnRoZSBvcmlnaW5hbCBwYXRjaCBzZXQ/PGJy
+Pg0KPGJyPg0KQ2hyaXN0aWFuLjxicj4NCjxicj4NCiZndDsmbmJzcDsmbmJzcDsgPGJyPg0KJmd0
+OyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyByZXR1cm4gcmV0Ozxi
+cj4NCiZndDsmbmJzcDsmbmJzcDsgfTxicj4NCiZndDsgQEAgLTEyMTYsNyAmIzQzOzEyMjIsNyBA
+QCBzdGF0aWMgaW50IHBzcF9od19maW5pKHZvaWQgKmhhbmRsZSk8YnI+DQomZ3Q7Jm5ic3A7Jm5i
+c3A7IDxicj4NCiZndDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsg
+cHNwX3JpbmdfZGVzdHJveShwc3AsIFBTUF9SSU5HX1RZUEVfX0tNKTs8YnI+DQomZ3Q7Jm5ic3A7
+Jm5ic3A7IDxicj4NCiZndDsgLSZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyBhbWRncHVfYm9fZnJl
+ZV9rZXJuZWwoJmFtcDtwc3AtJmd0O3Rtcl9ibywgJmFtcDtwc3AtJmd0O3Rtcl9tY19hZGRyLCBO
+VUxMKTs8YnI+DQomZ3Q7ICYjNDM7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7IGFtZGdwdV9ib19m
+cmVlX2tlcm5lbCgmYW1wO3BzcC0mZ3Q7dG1yX2JvLCAmYW1wO3BzcC0mZ3Q7dG1yX21jX2FkZHIs
+ICZhbXA7cHNwLSZndDt0bXJfYnVmKTs8YnI+DQomZ3Q7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7
+Jm5ic3A7Jm5ic3A7Jm5ic3A7IGFtZGdwdV9ib19mcmVlX2tlcm5lbCgmYW1wO3BzcC0mZ3Q7Zndf
+cHJpX2JvLDxicj4NCiZndDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJz
+cDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsm
+bmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJz
+cDsmbmJzcDsmbmJzcDsmbmJzcDsgJmFtcDtwc3AtJmd0O2Z3X3ByaV9tY19hZGRyLCAmYW1wO3Bz
+cC0mZ3Q7ZndfcHJpX2J1Zik7PGJyPg0KJmd0OyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNw
+OyZuYnNwOyZuYnNwOyBhbWRncHVfYm9fZnJlZV9rZXJuZWwoJmFtcDtwc3AtJmd0O2ZlbmNlX2J1
+Zl9ibyw8YnI+DQomZ3Q7IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
+bWRncHVfcHNwLmggYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcHNwLmg8YnI+
+DQomZ3Q7IGluZGV4IGJjMDk0N2YuLmI3M2Q0YWEgMTAwNjQ0PGJyPg0KJmd0OyAtLS0gYS9kcml2
+ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcHNwLmg8YnI+DQomZ3Q7ICYjNDM7JiM0Mzsm
+IzQzOyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9wc3AuaDxicj4NCiZndDsg
+QEAgLTE3MSw2ICYjNDM7MTcxLDcgQEAgc3RydWN0IHBzcF9jb250ZXh0PGJyPg0KJmd0OyZuYnNw
+OyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyAvKiB0bXIgYnVmZmVyICovPGJy
+Pg0KJmd0OyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyBzdHJ1Y3Qg
+YW1kZ3B1X2JvJm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7
+Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7ICp0bXJfYm87PGJyPg0K
+Jmd0OyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyB1aW50NjRfdCZu
+YnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNw
+OyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZu
+YnNwOyZuYnNwOyZuYnNwOyZuYnNwOyB0bXJfbWNfYWRkcjs8YnI+DQomZ3Q7ICYjNDM7Jm5ic3A7
+Jm5ic3A7Jm5ic3A7Jm5ic3A7IHZvaWQmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJz
+cDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsm
+bmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJz
+cDsmbmJzcDsmbmJzcDsgKnRtcl9idWY7PGJyPg0KJmd0OyZuYnNwOyZuYnNwOyA8YnI+DQomZ3Q7
+Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7IC8qIGFzZCBmaXJtd2Fy
+ZSBhbmQgYnVmZmVyICovPGJyPg0KJmd0OyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZu
+YnNwOyZuYnNwOyBjb25zdCBzdHJ1Y3QgZmlybXdhcmUmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsm
+bmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsgKmFzZF9mdzs8YnI+DQo8YnI+DQo8
+L2Rpdj4NCjwvc3Bhbj48L2ZvbnQ+PC9kaXY+DQo8L2Jsb2NrcXVvdGU+DQo8YnI+DQo8L2JvZHk+
+DQo8L2h0bWw+DQo=
 
-Thanks!
+--_000_fa875b9d4bd68f6e110e19fa6115b254amdcom_--
 
-Rico
-________________________________
-From: Christian K?nig <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Sent: Wednesday, August 28, 2019 17:57
-To: Yin, Tianci (Rico) <Tianci.Yin-5C7GfCeVMHo@public.gmane.org>; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org =
-<amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: Xu, Feifei <Feifei.Xu-5C7GfCeVMHo@public.gmane.org>; Ma, Le <Le.Ma-5C7GfCeVMHo@public.gmane.org>; Xiao, Jack <Jac=
-k.Xiao-5C7GfCeVMHo@public.gmane.org>; Zhang, Hawking <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu/psp: keep TMR in visible vram region for SR=
-IOV
-
-Am 28.08.19 um 11:25 schrieb Tianci Yin:
-> From: "Tianci.Yin" <tianci.yin-5C7GfCeVMHo@public.gmane.org>
->
-> Fix compute ring test failure in sriov scenario.
->
-> Signed-off-by: Tianci.Yin <tianci.yin-5C7GfCeVMHo@public.gmane.org>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c | 14 ++++++++++----
->   drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h |  1 +
->   2 files changed, 11 insertions(+), 4 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_psp.c
-> index 9f7cc5b..92c68c9 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-> @@ -261,9 +261,15 @@ static int psp_tmr_init(struct psp_context *psp)
->                }
->        }
->
-> -     ret =3D amdgpu_bo_create_kernel(psp->adev, tmr_size, PSP_TMR_SIZE,
-> -                                   AMDGPU_GEM_DOMAIN_VRAM,
-> -                                   &psp->tmr_bo, &psp->tmr_mc_addr, NULL=
-);
-> +     psp->tmr_buf =3D NULL;
-> +     if (!amdgpu_sriov_vf(psp->adev))
-> +             ret =3D amdgpu_bo_create_kernel(psp->adev, tmr_size, PSP_TM=
-R_SIZE,
-> +                                           AMDGPU_GEM_DOMAIN_VRAM,
-> +                                           &psp->tmr_bo, &psp->tmr_mc_ad=
-dr, NULL);
-> +     else
-> +             ret =3D amdgpu_bo_create_kernel(psp->adev, tmr_size, PSP_TM=
-R_SIZE,
-> +                                           AMDGPU_GEM_DOMAIN_VRAM,
-> +                                           &psp->tmr_bo, &psp->tmr_mc_ad=
-dr, &psp->tmr_buf);
-
-Might be better to use a local variable for the CPU pointer instead of
-duplicating the calling parameters.
-
-BTW: How did you solved the stolen_vga_memory problem I pointed out in
-the original patch set?
-
-Christian.
-
->
->        return ret;
->   }
-> @@ -1216,7 +1222,7 @@ static int psp_hw_fini(void *handle)
->
->        psp_ring_destroy(psp, PSP_RING_TYPE__KM);
->
-> -     amdgpu_bo_free_kernel(&psp->tmr_bo, &psp->tmr_mc_addr, NULL);
-> +     amdgpu_bo_free_kernel(&psp->tmr_bo, &psp->tmr_mc_addr, &psp->tmr_bu=
-f);
->        amdgpu_bo_free_kernel(&psp->fw_pri_bo,
->                              &psp->fw_pri_mc_addr, &psp->fw_pri_buf);
->        amdgpu_bo_free_kernel(&psp->fence_buf_bo,
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_psp.h
-> index bc0947f..b73d4aa 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
-> @@ -171,6 +171,7 @@ struct psp_context
->        /* tmr buffer */
->        struct amdgpu_bo                *tmr_bo;
->        uint64_t                        tmr_mc_addr;
-> +     void                            *tmr_buf;
->
->        /* asd firmware and buffer */
->        const struct firmware           *asd_fw;
-
-
---_000_DM5PR12MB253547988B61E7D401C6FADC95A30DM5PR12MB2535namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Hi Christian,</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-I have just realized the <font size=3D"2"><span style=3D"font-size:11pt"><s=
-pan>stolen_vga_memory</span></span></font> problem,
-<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-I have ever thought that no one really use the <font size=3D"2"><span style=
-=3D"font-size:11pt"><span>stolen_vga_memory BO in KMD code, so it should be=
- safe.</span></span></font></div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<font size=3D"2"><span style=3D"font-size:11pt"><span><br>
-</span></span></font></div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<font size=3D"2"><span style=3D"font-size:11pt"><span>It seems we have to a=
-dd a new parameter for amdgpu_bo_create_kernel</span></span></font>() to pa=
-ss the prefer region.<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Thanks!</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Rico<br>
-</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Christian K&ouml;nig =
-&lt;ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;<br>
-<b>Sent:</b> Wednesday, August 28, 2019 17:57<br>
-<b>To:</b> Yin, Tianci (Rico) &lt;Tianci.Yin-5C7GfCeVMHo@public.gmane.org&gt;; amd-gfx-PD4FTy7X32mzQB+pC5nmwQ@public.gmane.org=
-edesktop.org &lt;amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt;<br>
-<b>Cc:</b> Xu, Feifei &lt;Feifei.Xu-5C7GfCeVMHo@public.gmane.org&gt;; Ma, Le &lt;Le.Ma-5C7GfCeVMHo@public.gmane.org&g=
-t;; Xiao, Jack &lt;Jack.Xiao-5C7GfCeVMHo@public.gmane.org&gt;; Zhang, Hawking &lt;Hawking.Zhang@=
-amd.com&gt;<br>
-<b>Subject:</b> Re: [PATCH] drm/amdgpu/psp: keep TMR in visible vram region=
- for SRIOV</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">Am 28.08.19 um 11:25 schrieb Tianci Yin:<br>
-&gt; From: &quot;Tianci.Yin&quot; &lt;tianci.yin-5C7GfCeVMHo@public.gmane.org&gt;<br>
-&gt;<br>
-&gt; Fix compute ring test failure in sriov scenario.<br>
-&gt;<br>
-&gt; Signed-off-by: Tianci.Yin &lt;tianci.yin-5C7GfCeVMHo@public.gmane.org&gt;<br>
-&gt; ---<br>
-&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c | 14 &#43;&#43;&#4=
-3;&#43;&#43;&#43;&#43;&#43;&#43;&#43;----<br>
-&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h |&nbsp; 1 &#43;<br=
->
-&gt;&nbsp;&nbsp; 2 files changed, 11 insertions(&#43;), 4 deletions(-)<br>
-&gt;<br>
-&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm=
-/amd/amdgpu/amdgpu_psp.c<br>
-&gt; index 9f7cc5b..92c68c9 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c<br>
-&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c<br>
-&gt; @@ -261,9 &#43;261,15 @@ static int psp_tmr_init(struct psp_context *p=
-sp)<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; }<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&gt;&nbsp;&nbsp; <br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; ret =3D amdgpu_bo_create_kernel(psp-&gt;adev=
-, tmr_size, PSP_TMR_SIZE,<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMDGPU_GEM_DOM=
-AIN_VRAM,<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &amp;psp-&gt;t=
-mr_bo, &amp;psp-&gt;tmr_mc_addr, NULL);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; psp-&gt;tmr_buf =3D NULL;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; if (!amdgpu_sriov_vf(psp-&gt;adev))<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; ret =3D amdgpu_bo_create_kernel(psp-&gt;adev, tmr_size, PSP_TMR_SIZ=
-E,<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMDGPU_GEM_DOMAIN_VRAM,<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &amp;psp-&gt;tmr_bo, &amp;psp-&gt;tmr=
-_mc_addr, NULL);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; else<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; ret =3D amdgpu_bo_create_kernel(psp-&gt;adev, tmr_size, PSP_TMR_SIZ=
-E,<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMDGPU_GEM_DOMAIN_VRAM,<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &amp;psp-&gt;tmr_bo, &amp;psp-&gt;tmr=
-_mc_addr, &amp;psp-&gt;tmr_buf);<br>
-<br>
-Might be better to use a local variable for the CPU pointer instead of <br>
-duplicating the calling parameters.<br>
-<br>
-BTW: How did you solved the stolen_vga_memory problem I pointed out in <br>
-the original patch set?<br>
-<br>
-Christian.<br>
-<br>
-&gt;&nbsp;&nbsp; <br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret;<br>
-&gt;&nbsp;&nbsp; }<br>
-&gt; @@ -1216,7 &#43;1222,7 @@ static int psp_hw_fini(void *handle)<br>
-&gt;&nbsp;&nbsp; <br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; psp_ring_destroy(psp, PSP_RI=
-NG_TYPE__KM);<br>
-&gt;&nbsp;&nbsp; <br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_bo_free_kernel(&amp;psp-&gt;tmr_bo, &=
-amp;psp-&gt;tmr_mc_addr, NULL);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_bo_free_kernel(&amp;psp-&gt;tmr_b=
-o, &amp;psp-&gt;tmr_mc_addr, &amp;psp-&gt;tmr_buf);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_bo_free_kernel(&amp;p=
-sp-&gt;fw_pri_bo,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp; &amp;psp-&gt;fw_pri_mc_addr, &amp;psp-&gt;fw_p=
-ri_buf);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_bo_free_kernel(&amp;p=
-sp-&gt;fence_buf_bo,<br>
-&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h b/drivers/gpu/drm=
-/amd/amdgpu/amdgpu_psp.h<br>
-&gt; index bc0947f..b73d4aa 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h<br>
-&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h<br>
-&gt; @@ -171,6 &#43;171,7 @@ struct psp_context<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* tmr buffer */<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_bo&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; *tmr_bo;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint64_t&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmr_mc_addr;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; void&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *tmr_buf;<br>
-&gt;&nbsp;&nbsp; <br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* asd firmware and buffer *=
-/<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; const struct firmware&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *asd_fw;<br>
-<br>
-</div>
-</span></font></div>
-</body>
-</html>
-
---_000_DM5PR12MB253547988B61E7D401C6FADC95A30DM5PR12MB2535namp_--
-
---===============0853497536==
+--===============2111175742==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -330,4 +308,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
 
---===============0853497536==--
+--===============2111175742==--
