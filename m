@@ -1,150 +1,85 @@
-From: "Siqueira, Rodrigo" <Rodrigo.Siqueira@amd.com>
-Subject: Re: [PATCH V2] drm: Add LTTPR defines for DP 1.4a
-Date: Wed, 28 Aug 2019 19:58:57 +0000
-Message-ID: <20190828195904.u4lqjwi4naclkh4r@outlook.office365.com>
-References: <20190826152925.4x7mwhzxit353yww@outlook.office365.com>
- <87zhjv81lx.fsf@intel.com>
+From: Andrey Grodzovsky <andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH 2/2] dmr/amdgpu: Add system auto reboot to RAS.
+Date: Wed, 28 Aug 2019 16:00:26 -0400
+Message-ID: <1567022426-6612-2-git-send-email-andrey.grodzovsky@amd.com>
+References: <1567022426-6612-1-git-send-email-andrey.grodzovsky@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============2067205127=="
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-In-Reply-To: <87zhjv81lx.fsf@intel.com>
-Content-Language: en-US
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: Jani Nikula <jani.nikula@linux.intel.com>
-Cc: "Li, Sun peng (Leo)" <Sunpeng.Li@amd.com>, "Berthe,
- Abdoulaye" <Abdoulaye.Berthe@amd.com>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-List-Id: amd-gfx.lists.freedesktop.org
-
---===============2067205127==
-Content-Language: en-US
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="g77yriyayozscbdx"
-
---g77yriyayozscbdx
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On 08/27, Jani Nikula wrote:
-> On Mon, 26 Aug 2019, "Siqueira, Rodrigo" <Rodrigo.Siqueira@amd.com> wrote:
-> > DP 1.4a specification defines Link Training Tunable PHY Repeater (LTTPR)
-> > which is required to add support for systems with Thunderbolt or other
-> > repeater devices.
-> >
-> > Changes since V1:
-> > - Adjusts registers names to be aligned with spec and the rest of the
-> >   file
-> > - Update spec comment from 1.4 to 1.4a
-> >
-> > Cc: Abdoulaye Berthe <Abdoulaye.Berthe@amd.com>
-> > Cc: Harry Wentland <harry.wentland@amd.com>
-> > Cc: Leo Li <sunpeng.li@amd.com>
-> > Signed-off-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-> > Signed-off-by: Abdoulaye Berthe <Abdoulaye.Berthe@amd.com>
-> > ---
-> >  include/drm/drm_dp_helper.h | 25 +++++++++++++++++++++++++
-> >  1 file changed, 25 insertions(+)
-> >
-> > diff --git a/include/drm/drm_dp_helper.h b/include/drm/drm_dp_helper.h
-> > index 8364502f92cf..e8beb4e7e5da 100644
-> > --- a/include/drm/drm_dp_helper.h
-> > +++ b/include/drm/drm_dp_helper.h
-> > @@ -134,6 +134,31 @@
-> >  #define DP_SUPPORTED_LINK_RATES		    0x010 /* eDP 1.4 */
-> >  # define DP_MAX_SUPPORTED_RATES		     8	    /* 16-bit little-endian */
-> > =20
-> > +/** Link Training (LT)-tunable Physical Repeaters - DP 1.4a **/
->=20
-> This is not a kernel-doc comment, so please drop the double ** and use
-> regular comments.
->=20
-> All the DPCD register definitions are ordered according to register
-> offset. Why add 0xf0000 and friends between 0x10 and 0x20...?
-
-Hi Jani,
-
-Thank you for the feedback. I already sent a V3 patch based on your
-comments; please let me know if you have any other suggestion.
-
-Best Regards
-
-> BR,
-> Jani.
->=20
-> > +#define DP_LT_TUNABLE_PHY_REPEATER_FIELD_DATA_STRUCTURE_REV 0xf0000
-> > +#define DP_MAX_LINK_RATE_PHY_REPEATER                       0xf0001
-> > +#define DP_PHY_REPEATER_CNT                                 0xf0002
-> > +#define DP_PHY_REPEATER_MODE                                0xf0003
-> > +#define DP_MAX_LANE_COUNT_PHY_REPEATER                      0xf0004
-> > +#define DP_PHY_REPEATER_EXTENDED_WAIT_TIMEOUT               0xf0005
-> > +#define DP_TRAINING_PATTERN_SET_PHY_REPEATER1               0xf0010
-> > +#define DP_TRAINING_LANE0_SET_PHY_REPEATER1                 0xf0011
-> > +#define DP_TRAINING_LANE1_SET_PHY_REPEATER1                 0xf0012
-> > +#define DP_TRAINING_LANE2_SET_PHY_REPEATER1                 0xf0013
-> > +#define DP_TRAINING_LANE3_SET_PHY_REPEATER1                 0xf0014
-> > +#define DP_TRAINING_AUX_RD_INTERVAL_PHY_REPEATER1           0xf0020
-> > +#define DP_TRANSMITTER_CAPABILITY_PHY_REPEATER1             0xf0021
-> > +#define DP_LANE0_1_STATUS_PHY_REPEATER1                     0xf0030
-> > +#define DP_LANE2_3_STATUS_PHY_REPEATER1                     0xf0031
-> > +#define DP_LANE_ALIGN_STATUS_UPDATED_PHY_REPEATER1          0xf0032
-> > +#define DP_ADJUST_REQUEST_LANE0_1_PHY_REPEATER1             0xf0033
-> > +#define DP_ADJUST_REQUEST_LANE2_3_PHY_REPEATER1             0xf0034
-> > +#define DP_SYMBOL_ERROR_COUNT_LANE0_PHY_REPEATER1           0xf0035
-> > +#define DP_SYMBOL_ERROR_COUNT_LANE1_PHY_REPEATER1           0xf0037
-> > +#define DP_SYMBOL_ERROR_COUNT_LANE2_PHY_REPEATER1           0xf0039
-> > +#define DP_SYMBOL_ERROR_COUNT_LANE3_PHY_REPEATER1           0xf003b
-> > +#define DP_FEC_STATUS_PHY_REPEATER1                         0xf0290
-> > +
-> >  /* Multiple stream transport */
-> >  #define DP_FAUX_CAP			    0x020   /* 1.2 */
-> >  # define DP_FAUX_CAP_1			    (1 << 0)
->=20
-> --=20
-> Jani Nikula, Intel Open Source Graphics Center
-
---=20
-Rodrigo Siqueira
-Software Engineer, Advanced Micro Devices (AMD)
-https://siqueira.tech
-
---g77yriyayozscbdx
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCgAdFiEE4tZ+ii1mjMCMQbfkWJzP/comvP8FAl1m3QgACgkQWJzP/com
-vP+NMw/+MsgYUVfI4L4iH6c7sGo0x8hLxxRGAZ25MaIMtCfa+oaguXI3nx0cWddU
-I5zvcGVU5X+s2dFOXyG4qOlmUV6x+uJMnqTB7RcRybjpjzv8OamB6hhSV7Gt/cRb
-dEYX8ugtDhSQWHoZT4LzARuFUIOnIJO9N12oLe8B98QXmZpsAQl+X6ZyWAHzEVzo
-FA9iyuCRKGPO/+Y1xn7NkD36WcZDNwRRC/ivE4AOh2yu2EFOdnMyykuDRTQvXyXr
-2cPOjayOafmyPw6CNscHkmcWNYSkrKnbH3I2RfT867CNpXdLW5ed/XAio2s213H6
-j2H/f4NboQ7kFi/SoHtqKvubMBTPb82zLUnoMyL21hof8XkuN2ZMFO8MnAMRBPgi
-uCaJKHGZrq7QeXu6ClD50gRZ5Grv7gM9ZyQ8GotAcu/T534YsRYPmiajhmvsoxI6
-//BC/Mu37IfrXA2y3jwbgPRMX1PGccEGdLzV9fY8gysiKCULzMfYMyQTBtE3Tw0L
-FeJZcJiULr4jLZQCtG+Ia/KLZXFaRRnav4721Ai9HTfpOf8ZDDvpAnkCABgfhlTk
-v9nSyVJcn++IUjV2pe4tmcemb36RY4WXQPQNWSqP8Yd+B6Ci5+2w3pxnecabiH/Z
-qJ7yTVHAriLg8FoardjzGnjYL5PX4q3EZqwgfBwjYZDp52ySJXY=
-=vZf3
------END PGP SIGNATURE-----
-
---g77yriyayozscbdx--
-
---===============2067205127==
 Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
 Content-Transfer-Encoding: base64
-Content-Disposition: inline
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <1567022426-6612-1-git-send-email-andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org, ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org, Andrey Grodzovsky <andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>, Hawking.Zhang-5C7GfCeVMHo@public.gmane.org
 
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KZHJpLWRldmVs
-IG1haWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
-dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVs
-
---===============2067205127==--
+SW4gY2FzZSBvZiBSQVMgZXJyb3IgYWxsb3cgdXNlciBjb25maWd1cmUgYXV0byBzeXN0ZW0KcmVi
+b290IHRocm91Z2ggcmFzX2N0cmwuClRoaXMgaXMgYWxzbyBwYXJ0IG9mIHRoZSB0ZW1wcm9yYXkg
+d29yayBhcm91bmQgZm9yIHRoZSBSQVMKaGFuZyBwcm9ibGVtLgoKU2lnbmVkLW9mZi1ieTogQW5k
+cmV5IEdyb2R6b3Zza3kgPGFuZHJleS5ncm9kem92c2t5QGFtZC5jb20+Ci0tLQogZHJpdmVycy9n
+cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jIHwgMTggKysrKysrKysrKysrKysrKysr
+CiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcmFzLmMgICAgfCAxMCArKysrKysr
+KystCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcmFzLmggICAgfCAgMSArCiAz
+IGZpbGVzIGNoYW5nZWQsIDI4IGluc2VydGlvbnMoKyksIDEgZGVsZXRpb24oLSkKCmRpZmYgLS1n
+aXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMgYi9kcml2ZXJz
+L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMKaW5kZXggM2VjZWUxMC4uZjFjZmY0
+NyAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5j
+CisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYwpAQCAtMzgw
+NSw2ICszODA1LDI0IEBAIGludCBhbWRncHVfZGV2aWNlX2dwdV9yZWNvdmVyKHN0cnVjdCBhbWRn
+cHVfZGV2aWNlICphZGV2LAogCWludCBpLCByID0gMDsKIAlib29sIGluX3Jhc19pbnRyID0gYW1k
+Z3B1X3Jhc19pbnRyX3RyaWdnZXJlZCgpOwogCisJLyoKKwkgKiBGbHVzaCBSQU0gdG8gZGlzayBz
+byB0aGF0IGFmdGVyIHJlYm9vdAorCSAqIHRoZSB1c2VyIGNhbiByZWFkIGxvZyBhbmQgc2VlIHdo
+eSB0aGUgc3lzdGVtIHJlYm9vdGVkLgorCSAqCisJICogVXNpbmcgdXNlciBtb2RlIGFwcCBjYWxs
+IGluc3RlYWQgb2Yga2VybmVsIEFQSXMgc3VjaCBhcworCSAqIGtzeXNfc3luY19oZWxwZXIgZm9y
+IGJhY2t3YXJkIGNvbXBhcmFiaWxpdHkgd2l0aCBlYXJsaWVyCisJICoga2VybmVscyBpbnRvIHdo
+aWNoIHRoaXMgaXMgYWxzbyBpbnRlbmRlZC4KKwkgKi8KKwlpZiAoaW5fcmFzX2ludHIgJiYgYW1k
+Z3B1X3Jhc19nZXRfY29udGV4dChhZGV2KS0+cmVib290KSB7CisJCWNoYXIgKmVudnBbXSA9IHsg
+IkhPTUU9LyIsIE5VTEwgfTsKKwkJY2hhciAqYXJndltdID0geyAiL2Jpbi9zeW5jIiwgTlVMTCB9
+OworCisJCURSTV9XQVJOKCJFbWVyZ2VuY3kgcmVib290LiIpOworCisJCWNhbGxfdXNlcm1vZGVo
+ZWxwZXIoYXJndlswXSwgYXJndiwgZW52cCwgVU1IX1dBSVRfUFJPQyk7CisJCWVtZXJnZW5jeV9y
+ZXN0YXJ0KCk7CisJfQorCiAJbmVlZF9mdWxsX3Jlc2V0ID0gam9iX3NpZ25hbGVkID0gZmFsc2U7
+CiAJSU5JVF9MSVNUX0hFQUQoJmRldmljZV9saXN0KTsKIApkaWZmIC0tZ2l0IGEvZHJpdmVycy9n
+cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Jhcy5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
+cHUvYW1kZ3B1X3Jhcy5jCmluZGV4IDA4NmU2ZGYuLjQyM2ExYmEgMTAwNjQ0Ci0tLSBhL2RyaXZl
+cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9yYXMuYworKysgYi9kcml2ZXJzL2dwdS9kcm0v
+YW1kL2FtZGdwdS9hbWRncHVfcmFzLmMKQEAgLTMwLDYgKzMwLDcgQEAKICNpbmNsdWRlICJhbWRn
+cHVfcmFzLmgiCiAjaW5jbHVkZSAiYW1kZ3B1X2F0b21maXJtd2FyZS5oIgogI2luY2x1ZGUgIml2
+c3JjaWQvbmJpby9pcnFzcmNzX25iaWZfN180LmgiCisjaW5jbHVkZSA8bGludXgva21vZC5oPgog
+CiBjb25zdCBjaGFyICpyYXNfZXJyb3Jfc3RyaW5nW10gPSB7CiAJIm5vbmUiLApAQCAtMTU0LDYg
+KzE1NSw4IEBAIHN0YXRpYyBpbnQgYW1kZ3B1X3Jhc19kZWJ1Z2ZzX2N0cmxfcGFyc2VfZGF0YShz
+dHJ1Y3QgZmlsZSAqZiwKIAkJb3AgPSAxOwogCWVsc2UgaWYgKHNzY2FuZihzdHIsICJpbmplY3Qg
+JTMycyAlOHMiLCBibG9ja19uYW1lLCBlcnIpID09IDIpCiAJCW9wID0gMjsKKwllbHNlIGlmIChz
+c2NhbmYoc3RyLCAicmVib290ICUzMnMiLCBibG9ja19uYW1lKSA9PSAxKQorCQlvcCA9IDM7CiAJ
+ZWxzZSBpZiAoc3RyWzBdICYmIHN0clsxXSAmJiBzdHJbMl0gJiYgc3RyWzNdKQogCQkvKiBhc2Np
+aSBzdHJpbmcsIGJ1dCBjb21tYW5kcyBhcmUgbm90IG1hdGNoZWQuICovCiAJCXJldHVybiAtRUlO
+VkFMOwpAQCAtMjg3LDYgKzI5MCw5IEBAIHN0YXRpYyBzc2l6ZV90IGFtZGdwdV9yYXNfZGVidWdm
+c19jdHJsX3dyaXRlKHN0cnVjdCBmaWxlICpmLCBjb25zdCBjaGFyIF9fdXNlciAqCiAJCS8qIGRh
+dGEuaW5qZWN0LmFkZHJlc3MgaXMgb2Zmc2V0IGluc3RlYWQgb2YgYWJzb2x1dGUgZ3B1IGFkZHJl
+c3MgKi8KIAkJcmV0ID0gYW1kZ3B1X3Jhc19lcnJvcl9pbmplY3QoYWRldiwgJmRhdGEuaW5qZWN0
+KTsKIAkJYnJlYWs7CisJY2FzZSAzOgorCQlhbWRncHVfcmFzX2dldF9jb250ZXh0KGFkZXYpLT5y
+ZWJvb3QgPSB0cnVlOworCQlicmVhazsKIAlkZWZhdWx0OgogCQlyZXQgPSAtRUlOVkFMOwogCQli
+cmVhazsKQEAgLTE3MzMsNiArMTczOSw4IEBAIGludCBhbWRncHVfcmFzX2Zpbmkoc3RydWN0IGFt
+ZGdwdV9kZXZpY2UgKmFkZXYpCiB2b2lkIGFtZGdwdV9yYXNfZ2xvYmFsX3Jhc19pc3Ioc3RydWN0
+IGFtZGdwdV9kZXZpY2UgKmFkZXYpCiB7CiAJaWYgKGF0b21pY19jbXB4Y2hnKCZhbWRncHVfcmFz
+X2luX2ludHIsIDAsIDEpID09IDApIHsKLQkJRFJNX1dBUk4oIlJBUyBldmVudCBvZiB0eXBlIEVS
+UkVWRU5UX0FUSFVCX0lOVEVSUlVQVCBkZXRlY3RlZCEgU3RvcHBpbmcgYWxsIEdQVSBqb2JzLlxu
+Iik7CisJCURSTV9XQVJOKCJSQVMgZXZlbnQgb2YgdHlwZSBFUlJFVkVOVF9BVEhVQl9JTlRFUlJV
+UFQgZGV0ZWN0ZWQhXG4iKTsKKworCQlhbWRncHVfcmFzX3Jlc2V0X2dwdShhZGV2LCBmYWxzZSk7
+CiAJfQogfQpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Jh
+cy5oIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Jhcy5oCmluZGV4IGMwZTIy
+YWYuLmUzZjA3NjQgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdw
+dV9yYXMuaAorKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcmFzLmgKQEAg
+LTMzMyw2ICszMzMsNyBAQCBzdHJ1Y3QgYW1kZ3B1X3JhcyB7CiAJc3RydWN0IG11dGV4IHJlY292
+ZXJ5X2xvY2s7CiAKIAl1aW50MzJfdCBmbGFnczsKKwlib29sIHJlYm9vdDsKIH07CiAKIHN0cnVj
+dCByYXNfZnNfZGF0YSB7Ci0tIAoyLjcuNAoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVl
+ZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5m
+by9hbWQtZ2Z4
