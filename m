@@ -1,38 +1,67 @@
-From: Colin King <colin.king@canonical.com>
-Subject: [PATCH][drm-next] drm/amdgpu: fix spelling mistake "jumpimng" -> "jumping"
-Date: Thu, 29 Aug 2019 01:51:56 +0100
-Message-ID: <20190829005156.26354-1-colin.king@canonical.com>
+From: "Chen, Guchun" <Guchun.Chen-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: [PATCH 7/7] drm/amdgpu: switch to ras_late_init callback for nbio
+ v7_4
+Date: Thu, 29 Aug 2019 01:25:04 +0000
+Message-ID: <BYAPR12MB2806FE6895D90CD1AC1076D7F1A20@BYAPR12MB2806.namprd12.prod.outlook.com>
+References: <1566997395-7185-1-git-send-email-Hawking.Zhang@amd.com>
+ <1566997395-7185-7-git-send-email-Hawking.Zhang@amd.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, David Zhou <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <1566997395-7185-7-git-send-email-Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Zhou1, Tao" <Tao.Zhou1-5C7GfCeVMHo@public.gmane.org>, "Deucher,
+ Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Cc: "Zhang, Hawking" <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>
 
-From: Colin Ian King <colin.king@canonical.com>
-
-There is a spelling mistake in a DRM_DEBUG_DRIVER debug message.
-Fix it.
-
-Signed-off-by: Colin Ian King <colin.king@canonical.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
-index 86110e6095cc..8a32b5c93778 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
-@@ -257,7 +257,7 @@ static uint32_t __correct_eeprom_dest_address(uint32_t curr_address)
- 	 * https://www.st.com/resource/en/datasheet/m24m02-dr.pdf sec. 5.1.2
- 	 */
- 	if ((curr_address & EEPROM_ADDR_MSB_MASK) != (next_address & EEPROM_ADDR_MSB_MASK)) {
--		DRM_DEBUG_DRIVER("Reached end of EEPROM memory page, jumpimng to next: %lx",
-+		DRM_DEBUG_DRIVER("Reached end of EEPROM memory page, jumping to next: %lx",
- 				(next_address & EEPROM_ADDR_MSB_MASK));
- 
- 		return  (next_address & EEPROM_ADDR_MSB_MASK);
--- 
-2.20.1
+DQpSZWdhcmRzLA0KR3VjaHVuDQoNCi0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQpGcm9tOiBh
+bWQtZ2Z4IDxhbWQtZ2Z4LWJvdW5jZXNAbGlzdHMuZnJlZWRlc2t0b3Aub3JnPiBPbiBCZWhhbGYg
+T2YgSGF3a2luZyBaaGFuZw0KU2VudDogV2VkbmVzZGF5LCBBdWd1c3QgMjgsIDIwMTkgOTowMyBQ
+TQ0KVG86IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnOyBaaG91MSwgVGFvIDxUYW8uWmhv
+dTFAYW1kLmNvbT47IERldWNoZXIsIEFsZXhhbmRlciA8QWxleGFuZGVyLkRldWNoZXJAYW1kLmNv
+bT4NCkNjOiBaaGFuZywgSGF3a2luZyA8SGF3a2luZy5aaGFuZ0BhbWQuY29tPg0KU3ViamVjdDog
+W1BBVENIIDcvN10gZHJtL2FtZGdwdTogc3dpdGNoIHRvIHJhc19sYXRlX2luaXQgY2FsbGJhY2sg
+Zm9yIG5iaW8gdjdfNA0KDQppbnZva2UgbmJpbyByYXNfbGF0ZV9pbml0IGNhbGxiYWNrIGZ1bmN0
+aW9uIHRvIGRvIG5iaW8gcmFzIGluaXQNCg0KU2lnbmVkLW9mZi1ieTogSGF3a2luZyBaaGFuZyA8
+SGF3a2luZy5aaGFuZ0BhbWQuY29tPg0KLS0tDQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
+c29jMTUuYyB8IDEzICsrKysrKysrKysrKy0NCiAxIGZpbGUgY2hhbmdlZCwgMTIgaW5zZXJ0aW9u
+cygrKSwgMSBkZWxldGlvbigtKQ0KDQpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9h
+bWRncHUvc29jMTUuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3NvYzE1LmMNCmluZGV4
+IGU3ZjI1MzkuLmY1M2JkNTkgMTAwNjQ0DQotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
+dS9zb2MxNS5jDQorKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9zb2MxNS5jDQpAQCAt
+MTIwNiwxMSArMTIwNiwxNSBAQCBzdGF0aWMgaW50IHNvYzE1X2NvbW1vbl9lYXJseV9pbml0KHZv
+aWQgKmhhbmRsZSkgIHN0YXRpYyBpbnQgc29jMTVfY29tbW9uX2xhdGVfaW5pdCh2b2lkICpoYW5k
+bGUpICB7DQogCXN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2ID0gKHN0cnVjdCBhbWRncHVfZGV2
+aWNlICopaGFuZGxlOw0KKwlpbnQgcjsNCiANCiAJaWYgKGFtZGdwdV9zcmlvdl92ZihhZGV2KSkN
+CiAJCXhncHVfYWlfbWFpbGJveF9nZXRfaXJxKGFkZXYpOw0KIA0KLQlyZXR1cm4gMDsNCisJaWYg
+KGFkZXYtPm5iaW8uZnVuY3MtPnJhc19sYXRlX2luaXQpDQorCQlyID0gYWRldi0+bmJpby5mdW5j
+cy0+cmFzX2xhdGVfaW5pdChhZGV2KTsNCisNCisJcmV0dXJuIHI7DQpbR3VjaHVuXVdlJ2QgYmV0
+dGVyIGluaXRpYWxpemUgdGhlIHJldHVybiB2YWx1ZSAiciIgZmlyc3QuIElmIGFkZXYtPm5iaW8u
+ZnVuY3MtPnJhc19sYXRlX2luaXQgaXMgTlVMTCwgdGhlbiB3ZSB3aWxsIHJldHVybiBvbmUgdmFs
+dWUgbm90IGluaXRpYWxpemVkPw0KIH0NCiANCiBzdGF0aWMgaW50IHNvYzE1X2NvbW1vbl9zd19p
+bml0KHZvaWQgKmhhbmRsZSkgQEAgLTEyODcsNiArMTI5MSwxMyBAQCBzdGF0aWMgaW50IHNvYzE1
+X2NvbW1vbl9od19maW5pKHZvaWQgKmhhbmRsZSkNCiAJaWYgKGFtZGdwdV9zcmlvdl92ZihhZGV2
+KSkNCiAJCXhncHVfYWlfbWFpbGJveF9wdXRfaXJxKGFkZXYpOw0KIA0KKwlpZiAoYW1kZ3B1X3Jh
+c19pc19zdXBwb3J0ZWQoYWRldiwgYWRldi0+bmJpby5yYXNfaWYtPmJsb2NrKSkgew0KKwkJaWYg
+KGFkZXYtPm5iaW8uZnVuY3MtPmluaXRfcmFzX2NvbnRyb2xsZXJfaW50ZXJydXB0KQ0KKwkJCWFt
+ZGdwdV9pcnFfcHV0KGFkZXYsICZhZGV2LT5uYmlvLnJhc19jb250cm9sbGVyX2lycSwgMCk7DQor
+CQlpZiAoYWRldi0+bmJpby5mdW5jcy0+aW5pdF9yYXNfZXJyX2V2ZW50X2F0aHViX2ludGVycnVw
+dCkNCisJCQlhbWRncHVfaXJxX3B1dChhZGV2LCAmYWRldi0+bmJpby5yYXNfZXJyX2V2ZW50X2F0
+aHViX2lycSwgMCk7DQorCX0NCisNCiAJcmV0dXJuIDA7DQogfQ0KIA0KLS0NCjIuNy40DQoNCl9f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fDQphbWQtZ2Z4IG1h
+aWxpbmcgbGlzdA0KYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCmh0dHBzOi8vbGlzdHMu
+ZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA0KX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1k
+LWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcv
+bWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
