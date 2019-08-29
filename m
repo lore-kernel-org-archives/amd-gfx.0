@@ -1,13 +1,19 @@
-From: Harry Wentland <hwentlan-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH V3] drm: Add LTTPR defines for DP 1.4a
-Date: Thu, 29 Aug 2019 15:18:13 +0000
-Message-ID: <31113782-7302-2ff4-21ba-7e3c64105b3b@amd.com>
-References: <20190828195243.w6mq7gdv22ggums7@outlook.office365.com>
+From: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 1/2] dmr/amdgpu: Avoid HW GPU reset for RAS.
+Date: Thu, 29 Aug 2019 16:18:13 +0000
+Message-ID: <3a39a720-ae2d-0019-aecc-422f0e3f27bb@amd.com>
+References: <1567022426-6612-1-git-send-email-andrey.grodzovsky@amd.com>
+ <85798da5-a4f1-28d3-c80f-9f262743cac9@gmail.com>
+ <9a46188b-b528-0d1f-8c3f-b6ce5b73649f@amd.com>
+ <8c2b0bf3-47ff-ea3b-a682-7ec76240be4d@amd.com>
+ <1444ae5f-0997-d1ce-3e1e-23fea8822c88@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============2037837042=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190828195243.w6mq7gdv22ggums7-1ViLX0X+lBJGNQ1M2rI3KwRV3xvJKrda@public.gmane.org>
+In-Reply-To: <1444ae5f-0997-d1ce-3e1e-23fea8822c88-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
+Content-ID: <3AE7E444C0782243A98360C4EB515655-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,135 +24,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Siqueira, Rodrigo" <Rodrigo.Siqueira-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Li, Sun peng (Leo)" <Sunpeng.Li-5C7GfCeVMHo@public.gmane.org>, "Berthe,
- Abdoulaye" <Abdoulaye.Berthe-5C7GfCeVMHo@public.gmane.org>, "Wentland,
- Harry" <Harry.Wentland-5C7GfCeVMHo@public.gmane.org>, Jani Nikula <jani.nikula-VuQAYsv1563Yd54FQh9/CA@public.gmane.org>
+To: "Grodzovsky, Andrey" <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>, "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org" <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "Zhang,
+ Hawking" <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>
 
---===============2037837042==
-Content-Language: en-US
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="A12RtjfXdtjHE8pdHhgp76XeTZvC0ffBd"
-
---A12RtjfXdtjHE8pdHhgp76XeTZvC0ffBd
-Content-Type: multipart/mixed; boundary="Qc4Hj7GMrj4BcB42TciGwvMRhpgVJPR1u";
- protected-headers="v1"
-From: Harry Wentland <hwentlan-5C7GfCeVMHo@public.gmane.org>
-To: "Siqueira, Rodrigo" <Rodrigo.Siqueira-5C7GfCeVMHo@public.gmane.org>,
- "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>,
- "dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Berthe, Abdoulaye" <Abdoulaye.Berthe-5C7GfCeVMHo@public.gmane.org>,
- "Wentland, Harry" <Harry.Wentland-5C7GfCeVMHo@public.gmane.org>,
- "Li, Sun peng (Leo)" <Sunpeng.Li-5C7GfCeVMHo@public.gmane.org>,
- Jani Nikula <jani.nikula-VuQAYsv1563Yd54FQh9/CA@public.gmane.org>
-Message-ID: <31113782-7302-2ff4-21ba-7e3c64105b3b-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH V3] drm: Add LTTPR defines for DP 1.4a
-References: <20190828195243.w6mq7gdv22ggums7-1ViLX0X+lBJGNQ1M2rI3KwRV3xvJKrda@public.gmane.org>
-In-Reply-To: <20190828195243.w6mq7gdv22ggums7-1ViLX0X+lBJGNQ1M2rI3KwRV3xvJKrda@public.gmane.org>
-
---Qc4Hj7GMrj4BcB42TciGwvMRhpgVJPR1u
-Content-Type: text/plain; charset=windows-1252
-Content-Language: en-US
-Content-Transfer-Encoding: quoted-printable
-
-On 2019-08-28 3:52 p.m., Siqueira, Rodrigo wrote:
-> DP 1.4a specification defines Link Training Tunable PHY Repeater (LTTPR=
-)
-> which is required to add support for systems with Thunderbolt or other
-> repeater devices.
->=20
-> Changes since V2:
-> - Drop the kernel-doc comment
-> - Reorder LTTPR according to register offset
-> Changes since V1:
-> - Adjusts registers names to be aligned with spec and the rest of the
->   file
-> - Update spec comment from 1.4 to 1.4a
->=20
-> Cc: Abdoulaye Berthe <Abdoulaye.Berthe-5C7GfCeVMHo@public.gmane.org>
-> Cc: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>
-> Cc: Leo Li <sunpeng.li-5C7GfCeVMHo@public.gmane.org>
-> Cc: Jani Nikula <jani.nikula-VuQAYsv1563Yd54FQh9/CA@public.gmane.org>
-> Signed-off-by: Rodrigo Siqueira <Rodrigo.Siqueira-5C7GfCeVMHo@public.gmane.org>
-> Signed-off-by: Abdoulaye Berthe <Abdoulaye.Berthe-5C7GfCeVMHo@public.gmane.org>
-
-Reviewed-by: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>
-
-Harry
-
-> ---
->  include/drm/drm_dp_helper.h | 25 +++++++++++++++++++++++++
->  1 file changed, 25 insertions(+)
->=20
-> diff --git a/include/drm/drm_dp_helper.h b/include/drm/drm_dp_helper.h
-> index 8364502f92cf..67f9121d781d 100644
-> --- a/include/drm/drm_dp_helper.h
-> +++ b/include/drm/drm_dp_helper.h
-> @@ -989,6 +989,31 @@
->  #define HDCP_2_2_DP_RXSTATUS_REAUTH_REQ(x)	((x) & BIT(3))
->  #define HDCP_2_2_DP_RXSTATUS_LINK_FAILED(x)	((x) & BIT(4))
-> =20
-> +/* Link Training (LT)-tunable Physical Repeaters - DP 1.4a */
-> +#define DP_LT_TUNABLE_PHY_REPEATER_FIELD_DATA_STRUCTURE_REV 0xf0000
-> +#define DP_MAX_LINK_RATE_PHY_REPEATER                       0xf0001
-> +#define DP_PHY_REPEATER_CNT                                 0xf0002
-> +#define DP_PHY_REPEATER_MODE                                0xf0003
-> +#define DP_MAX_LANE_COUNT_PHY_REPEATER                      0xf0004
-> +#define DP_PHY_REPEATER_EXTENDED_WAIT_TIMEOUT               0xf0005
-> +#define DP_TRAINING_PATTERN_SET_PHY_REPEATER1               0xf0010
-> +#define DP_TRAINING_LANE0_SET_PHY_REPEATER1                 0xf0011
-> +#define DP_TRAINING_LANE1_SET_PHY_REPEATER1                 0xf0012
-> +#define DP_TRAINING_LANE2_SET_PHY_REPEATER1                 0xf0013
-> +#define DP_TRAINING_LANE3_SET_PHY_REPEATER1                 0xf0014
-> +#define DP_TRAINING_AUX_RD_INTERVAL_PHY_REPEATER1           0xf0020
-> +#define DP_TRANSMITTER_CAPABILITY_PHY_REPEATER1             0xf0021
-> +#define DP_LANE0_1_STATUS_PHY_REPEATER1                     0xf0030
-> +#define DP_LANE2_3_STATUS_PHY_REPEATER1                     0xf0031
-> +#define DP_LANE_ALIGN_STATUS_UPDATED_PHY_REPEATER1          0xf0032
-> +#define DP_ADJUST_REQUEST_LANE0_1_PHY_REPEATER1             0xf0033
-> +#define DP_ADJUST_REQUEST_LANE2_3_PHY_REPEATER1             0xf0034
-> +#define DP_SYMBOL_ERROR_COUNT_LANE0_PHY_REPEATER1           0xf0035
-> +#define DP_SYMBOL_ERROR_COUNT_LANE1_PHY_REPEATER1           0xf0037
-> +#define DP_SYMBOL_ERROR_COUNT_LANE2_PHY_REPEATER1           0xf0039
-> +#define DP_SYMBOL_ERROR_COUNT_LANE3_PHY_REPEATER1           0xf003b
-> +#define DP_FEC_STATUS_PHY_REPEATER1                         0xf0290
-> +
->  /* DP 1.2 Sideband message defines */
->  /* peer device type - DP 1.2a Table 2-92 */
->  #define DP_PEER_DEVICE_NONE		0x0
->=20
-
-
---Qc4Hj7GMrj4BcB42TciGwvMRhpgVJPR1u--
-
---A12RtjfXdtjHE8pdHhgp76XeTZvC0ffBd
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEkiEcMSFhcOGNLtE6LVgVyYwUtuMFAl1n7LMACgkQLVgVyYwU
-tuPnWwgAiHoXl+2IZquOWeIZZCShLIgq8aL9RUl0VGvHuFsoq9rFkbdPk95f3xmy
-fMpfcPj1d+WKGW+LXnZoXuXnUgwv+O0foT008sjilMpPxmmjW7deb4sAaLeQJbiq
-EQkXdzhqGKd/l7COlOQwWl7xFsorx9pYZUJqOmNL+n9HqmhmySkFfwrgTamAJEfb
-tPA3cJwly02xAuSSPG+5Nja8x8kIsMhEf6j6MvginoOT5RdiwG5pbSwf+oU2HDno
-eT0Iqv+WDyy1ZzPHmfeqCcvDm4aV/iqL5/0TPrnEfJa4nL6QQGDiiEVJY3NCNN8E
-EWhxYRJHhuewTjsjMA4nEpl9Z//rLg==
-=pOTW
------END PGP SIGNATURE-----
-
---A12RtjfXdtjHE8pdHhgp76XeTZvC0ffBd--
-
---===============2037837042==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
-
---===============2037837042==--
+T24gMjAxOS0wOC0yOSAxMDowOCBhLm0uLCBHcm9kem92c2t5LCBBbmRyZXkgd3JvdGU6DQo+DQo+
+IEFncmVlLCB0aGUgcGxhY2VtZW50IG9mIGFtZGdwdV9hbWRrZmRfcHJlL3Bvc3QgX3Jlc2V0IGlu
+IA0KPiBhbWRncHVfZGV2aWNlX2xvY2svdW5sb2NrX2FkZXYgaXMgYSBiaXQgd2llcmQuDQo+DQph
+bWRncHVfZGV2aWNlX3Jlc2V0X3NyaW92IGFscmVhZHkgY2FsbHMgYW1kZ3B1X2FtZGtmZF9wcmUv
+cG9zdF9yZXNldCANCml0c2VsZiB3aGlsZSBpdCBoYXMgZXhjbHVzaXZlIGFjY2VzcyB0byB0aGUg
+R1BVLiBJdCB3b3VsZCBtYWtlIHNlbnNlIHRvIA0KbW92ZSB0aGUgc2FtZSBjYWxscyBpbnRvIGFt
+ZGdwdV9kb19hc2ljX3Jlc2V0IGZvciB0aGUgYmFyZS1tZXRhbCBjYXNlLg0KDQpSZWdhcmRzLA0K
+IMKgIEZlbGl4DQoNCg0KPiBBbmRyZXkNCj4NCj4gT24gOC8yOS8xOSAxMDowNiBBTSwgS29lbmln
+LCBDaHJpc3RpYW4gd3JvdGU6DQo+Pj4gRmVsaXggYWR2aXNlZCB0aGF0IHRoZSB3YXkgdG8gc3Rv
+cCBhbGwgS0ZEIGFjdGl2aXR5IGlzIHNpbXBseSB0byBOT1QNCj4+PiBjYWxsIGFtZGdwdV9hbWRr
+ZmRfcG9zdF9yZXNldCBzbyB0aGF0IHdoeSBJIGFkZGVkIHRoaXMuIERvIHlvdSBtZWFuIHlvdQ0K
+Pj4+IHByZWZlciBhbWRncHVfYW1ka2ZkX3Bvc3RfcmVzZXQgdG8gYmUgb3V0c2lkZSBvZiBhbWRn
+cHVfZGV2aWNlX3VubG9ja19hZGV2ID8NCj4+IFllcywgZXhhY3RseS4gSXQgZG9lc24ndCBzZWVt
+cyB0byBiZSByZWxhdGVkIHRvIHRoZSB1bmxvY2sgb3BlcmF0aW9uIGluDQo+PiB0aGUgZmlyc3Qg
+cGxhY2UsIGJ1dCByYXRoZXIgb25seSBzaWduYWxzIHRoZSBLRkQgdGhhdCB0aGUgcmVzZXQgaXMN
+Cj4+IGNvbXBsZXRlZC4NCj4+DQo+PiBDaHJpc3RpYW4uDQo+Pg0KPg0KPiBfX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXw0KPiBhbWQtZ2Z4IG1haWxpbmcgbGlz
+dA0KPiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0KPiBodHRwczovL2xpc3RzLmZyZWVk
+ZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngNCl9fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhA
+bGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxt
+YW4vbGlzdGluZm8vYW1kLWdmeA==
