@@ -1,76 +1,74 @@
-From: "Grodzovsky, Andrey" <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: Handle job is NULL use case in
- amdgpu_device_gpu_recover
-Date: Thu, 29 Aug 2019 20:43:29 +0000
-Message-ID: <5fe410b4-591d-4c1e-b89e-89e9c9454844@amd.com>
-References: <1566929823-17398-1-git-send-email-andrey.grodzovsky@amd.com>
- <CAD=4a=XNfU9sAoNBQ8-Ou_nXR19F1jorvd9XpM_f1U9HLS3VTQ@mail.gmail.com>
+From: mikhail.v.gavrilov@gmail.com
+Subject: Re: gnome-shell stuck because of amdgpu driver [5.3 RC5]
+Date: Fri, 30 Aug 2019 03:03:58 +0500
+Message-ID: <a07be36905f145f2fb07beee73f9d3805c285022.camel@gmail.com>
+References: <20190825141305.13984-1-hdanton@sina.com>
+         <20190826092408.GA2112@phenom.ffwll.local>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CAD=4a=XNfU9sAoNBQ8-Ou_nXR19F1jorvd9XpM_f1U9HLS3VTQ-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
-Content-Language: en-US
-Content-ID: <56CB20E0133C9A4BA49F04D3A4AE57B3-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?utf-8?B?RXJuc3QgU2rDtnN0cmFuZA==?= <ernstp-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: amd-gfx mailing list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20190826092408.GA2112@phenom.ffwll.local>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Daniel Vetter <daniel@ffwll.ch>, Hillf Danton <hdanton@sina.com>
+Cc: dri-devel <dri-devel@lists.freedesktop.org>, amd-gfx list <amd-gfx@lists.freedesktop.org>, Linux List Kernel Mailing <linux-kernel@vger.kernel.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-DQpPbiA4LzI4LzE5IDQ6NTggQU0sIEVybnN0IFNqw7ZzdHJhbmQgd3JvdGU6DQo+IERlbiB0aXMg
-MjcgYXVnLiAyMDE5IGtsIDIwOjE3IHNrcmV2IEFuZHJleSBHcm9kem92c2t5DQo+IDxhbmRyZXku
-Z3JvZHpvdnNreUBhbWQuY29tPjoNCj4+IFRoaXMgc2hvdWxkIGJlIGNoZWNrZWQgYXQgYWxsIHBs
-YWNlcyBqb2IgaXMgYWNjZXNzZWQuDQo+Pg0KPj4gU2lnbmVkLW9mZi1ieTogQW5kcmV5IEdyb2R6
-b3Zza3kgPGFuZHJleS5ncm9kem92c2t5QGFtZC5jb20+DQo+PiAtLS0NCj4+ICAgZHJpdmVycy9n
-cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jIHwgOCArKysrLS0tLQ0KPj4gICAxIGZp
-bGUgY2hhbmdlZCwgNCBpbnNlcnRpb25zKCspLCA0IGRlbGV0aW9ucygtKQ0KPj4NCj4+IGRpZmYg
-LS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMgYi9kcml2
-ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMNCj4+IGluZGV4IDAyYjNlN2Qu
-LjE5MGQ5YTMgMTAwNjQ0DQo+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
-cHVfZGV2aWNlLmMNCj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9k
-ZXZpY2UuYw0KPj4gQEAgLTM3OTAsMTQgKzM3OTAsMTQgQEAgaW50IGFtZGdwdV9kZXZpY2VfZ3B1
-X3JlY292ZXIoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsDQo+Pg0KPj4gICAgICAgICAgaWYg
-KGhpdmUgJiYgIW11dGV4X3RyeWxvY2soJmhpdmUtPnJlc2V0X2xvY2spKSB7DQo+PiAgICAgICAg
-ICAgICAgICAgIERSTV9JTkZPKCJCYWlsaW5nIG9uIFREUiBmb3Igc19qb2I6JWxseCwgaGl2ZTog
-JWxseCBhcyBhbm90aGVyIGFscmVhZHkgaW4gcHJvZ3Jlc3MiLA0KPj4gLSAgICAgICAgICAgICAg
-ICAgICAgICAgIGpvYi0+YmFzZS5pZCwgaGl2ZS0+aGl2ZV9pZCk7DQo+PiArICAgICAgICAgICAg
-ICAgICAgICAgICAgIGpvYiA/IGpvYi0+YmFzZS5pZCA6IC0xLCBoaXZlLT5oaXZlX2lkKTsNCj4+
-ICAgICAgICAgICAgICAgICAgcmV0dXJuIDA7DQo+PiAgICAgICAgICB9DQo+Pg0KPj4gICAgICAg
-ICAgLyogU3RhcnQgd2l0aCBhZGV2IHByZSBhc2ljIHJlc2V0IGZpcnN0IGZvciBzb2Z0IHJlc2V0
-IGNoZWNrLiovDQo+PiAgICAgICAgICBpZiAoIWFtZGdwdV9kZXZpY2VfbG9ja19hZGV2KGFkZXYs
-ICFoaXZlKSkgew0KPj4gICAgICAgICAgICAgICAgICBEUk1fSU5GTygiQmFpbGluZyBvbiBURFIg
-Zm9yIHNfam9iOiVsbHgsIGFzIGFub3RoZXIgYWxyZWFkeSBpbiBwcm9ncmVzcyIsDQo+PiAtICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGpvYi0+YmFzZS5pZCk7DQo+PiAr
-ICAgICAgICAgICAgICAgICAgICAgICAgIGpvYiA/IGpvYi0+YmFzZS5pZCA6IC0xKTsNCj4+ICAg
-ICAgICAgICAgICAgICAgcmV0dXJuIDA7DQo+PiAgICAgICAgICB9DQo+Pg0KPj4gQEAgLTM4Mzgs
-NyArMzgzOCw3IEBAIGludCBhbWRncHVfZGV2aWNlX2dwdV9yZWNvdmVyKHN0cnVjdCBhbWRncHVf
-ZGV2aWNlICphZGV2LA0KPj4gICAgICAgICAgICAgICAgICAgICAgICAgIGlmICghcmluZyB8fCAh
-cmluZy0+c2NoZWQudGhyZWFkKQ0KPj4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-Y29udGludWU7DQo+Pg0KPj4gLSAgICAgICAgICAgICAgICAgICAgICAgZHJtX3NjaGVkX3N0b3Ao
-JnJpbmctPnNjaGVkLCAmam9iLT5iYXNlKTsNCj4+ICsgICAgICAgICAgICAgICAgICAgICAgIGRy
-bV9zY2hlZF9zdG9wKCZyaW5nLT5zY2hlZCwgam9iID8gJmpvYi0+YmFzZSA6IE5VTEwpOw0KPj4g
-ICAgICAgICAgICAgICAgICB9DQo+PiAgICAgICAgICB9DQo+Pg0KPj4gQEAgLTM4NjQsNyArMzg2
-NCw3IEBAIGludCBhbWRncHVfZGV2aWNlX2dwdV9yZWNvdmVyKHN0cnVjdCBhbWRncHVfZGV2aWNl
-ICphZGV2LA0KPj4NCj4+ICAgICAgICAgIC8qIEd1aWx0eSBqb2Igd2lsbCBiZSBmcmVlZCBhZnRl
-ciB0aGlzKi8NCj4+ICAgICAgICAgIHIgPSBhbWRncHVfZGV2aWNlX3ByZV9hc2ljX3Jlc2V0KGFk
-ZXYsDQo+PiAtICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGpvYiwNCj4+
-ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgam9iID8gam9iIDogTlVM
-TCwNCj4gVGhpcyBjaGVjayBsb29rcyByZWR1bmRhbnQuDQoNCg0KQWdyZWUuIFdpbGwgcmVtb3Zl
-Lg0KDQpBbmRyZXkNCg0KDQo+DQo+PiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAmbmVlZF9mdWxsX3Jlc2V0KTsNCj4+ICAgICAgICAgIGlmIChyKSB7DQo+PiAgICAg
-ICAgICAgICAgICAgIC8qVE9ETyBTaG91bGQgd2Ugc3RvcCA/Ki8NCj4+IC0tDQo+PiAyLjcuNA0K
-Pj4NCj4+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fDQo+
-PiBhbWQtZ2Z4IG1haWxpbmcgbGlzdA0KPj4gYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcN
-Cj4+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdm
-eA0KPiBSZWdhcmRzDQo+IC8vRXJuc3QNCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRl
-c2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8v
-YW1kLWdmeA==
+On Sun, Aug 25, 2019 at 10:13:05PM +0800, Hillf Danton wrote:
+> Can we try to add the fallback timer manually?
+> 
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
+> @@ -322,6 +322,10 @@ int amdgpu_fence_wait_empty(struct amdgp
+>         }
+>         rcu_read_unlock();
+>  
+> +       if (!timer_pending(&ring->fence_drv.fallback_timer))
+> +               mod_timer(&ring->fence_drv.fallback_timer,
+> +                       jiffies + (AMDGPU_FENCE_JIFFIES_TIMEOUT <<
+> 1));
+> +
+>         r = dma_fence_wait(fence, false);
+>         dma_fence_put(fence);
+>         return r;
+> --
+> 
+> Or simply wait with an ear on signal and timeout if adding timer
+> seems to go a bit too far?
+> 
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
+> @@ -322,7 +322,12 @@ int amdgpu_fence_wait_empty(struct amdgp
+>         }
+>         rcu_read_unlock();
+>  
+> -       r = dma_fence_wait(fence, false);
+> +       if (0 < dma_fence_wait_timeout(fence, true,
+> +                               AMDGPU_FENCE_JIFFIES_TIMEOUT +
+> +                               (AMDGPU_FENCE_JIFFIES_TIMEOUT >> 3)))
+> +               r = 0;
+> +       else
+> +               r = -EINVAL;
+>         dma_fence_put(fence);
+>         return r;
+>  }
+
+I tested both patches on top of 5.3 RC6. Each patch I was tested more
+than 24 hours and I don't seen any regressions or problems with them.
+
+
+On Mon, 2019-08-26 at 11:24 +0200, Daniel Vetter wrote:
+> 
+> This will paper over the issue, but won't fix it. dma_fences have to
+> complete, at least for normal operations, otherwise your desktop will
+> start feeling like the gpu hangs all the time.
+> 
+> I think would be much more interesting to dump which fence isn't
+> completing here in time, i.e. not just the timeout, but lots of debug
+> printks.
+> -Daniel
+
+As I am understood none of these patches couldn't be merged because
+they do not fix the root cause they eliminate only the consequences?
+Eliminating consequences has any negative effects? And we will never
+know the root cause because not having enough debugging information.
