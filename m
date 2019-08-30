@@ -1,55 +1,97 @@
-From: "Quan, Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH V2] drm/amd/powerplay: SMU_MSG_OverridePcieParameters is
- unsupport for APU
-Date: Fri, 30 Aug 2019 02:11:54 +0000
-Message-ID: <MN2PR12MB334467454DF871D12B7A4E5AE4BD0@MN2PR12MB3344.namprd12.prod.outlook.com>
-References: <1567131024-7241-1-git-send-email-aaron.liu@amd.com>
+From: John Hubbard <jhubbard@nvidia.com>
+Subject: Re: [PATCH v3 00/39] put_user_pages(): miscellaneous call sites
+Date: Thu, 29 Aug 2019 19:21:03 -0700
+Message-ID: <d453f865-2224-ed53-a2f4-f43d574c130a@nvidia.com>
+References: <20190807013340.9706-1-jhubbard@nvidia.com>
+ <912eb2bd-4102-05c1-5571-c261617ad30b@nvidia.com>
+ <CAOg9mSQKGDywcMde2DE42diUS7J8m74Hdv+xp_PJhC39EXZQuw@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1567131024-7241-1-git-send-email-aaron.liu-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Transfer-Encoding: 7bit
+Return-path: <driverdev-devel-bounces@linuxdriverproject.org>
+In-Reply-To: <CAOg9mSQKGDywcMde2DE42diUS7J8m74Hdv+xp_PJhC39EXZQuw@mail.gmail.com>
 Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Huang,
- Ray" <Ray.Huang-5C7GfCeVMHo@public.gmane.org>, "Liu, Aaron" <Aaron.Liu-5C7GfCeVMHo@public.gmane.org>
+List-Unsubscribe: <http://driverdev.linuxdriverproject.org/mailman/options/driverdev-devel>,
+ <mailto:driverdev-devel-request@linuxdriverproject.org?subject=unsubscribe>
+List-Archive: <http://driverdev.linuxdriverproject.org/pipermail/driverdev-devel/>
+List-Post: <mailto:driverdev-devel@linuxdriverproject.org>
+List-Help: <mailto:driverdev-devel-request@linuxdriverproject.org?subject=help>
+List-Subscribe: <http://driverdev.linuxdriverproject.org/mailman/listinfo/driverdev-devel>,
+ <mailto:driverdev-devel-request@linuxdriverproject.org?subject=subscribe>
+Errors-To: driverdev-devel-bounces@linuxdriverproject.org
+Sender: "devel" <driverdev-devel-bounces@linuxdriverproject.org>
+To: Mike Marshall <hubcap@omnibond.com>
+Cc: linux-fbdev@vger.kernel.org, Jan Kara <jack@suse.cz>, kvm@vger.kernel.org, Dave Hansen <dave.hansen@linux.intel.com>, Dave Chinner <david@fromorbit.com>, dri-devel@lists.freedesktop.org, linux-mm <linux-mm@kvack.org>, sparclinux@vger.kernel.org, Dan Williams <dan.j.williams@intel.com>, devel@driverdev.osuosl.org, rds-devel@oss.oracle.com, linux-rdma@vger.kernel.org, x86@kernel.org, amd-gfx@lists.freedesktop.org, Christoph Hellwig <hch@infradead.org>, Jason Gunthorpe <jgg@ziepe.ca>, xen-devel@lists.xenproject.org, devel@lists.orangefs.org, linux-media@vger.kernel.org, intel-gfx@lists.freedesktop.org, john.hubbard@gmail.com, linux-block@vger.kernel.org, =?UTF-8?B?SsOpcsO0bWUgR2xpc3Nl?= <jglisse@redhat.com>, linux-rpi-kernel@lists.infradead.org, ceph-devel <ceph-devel@vger.kernel.org>, linux-arm-kernel@lists.infradead.org, Linux NFS Mailing List <linux-nfs@vger.kernel.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-UmV2aWV3ZWQtYnk6IEV2YW4gUXVhbiA8ZXZhbi5xdWFuQGFtZC5jb20+DQoNCi0tLS0tT3JpZ2lu
-YWwgTWVzc2FnZS0tLS0tDQpGcm9tOiBhbWQtZ2Z4IDxhbWQtZ2Z4LWJvdW5jZXNAbGlzdHMuZnJl
-ZWRlc2t0b3Aub3JnPiBPbiBCZWhhbGYgT2YgQWFyb24gTGl1DQpTZW50OiBGcmlkYXksIEF1Z3Vz
-dCAzMCwgMjAxOSAxMDoxMCBBTQ0KVG86IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnDQpD
-YzogRGV1Y2hlciwgQWxleGFuZGVyIDxBbGV4YW5kZXIuRGV1Y2hlckBhbWQuY29tPjsgSHVhbmcs
-IFJheSA8UmF5Lkh1YW5nQGFtZC5jb20+OyBMaXUsIEFhcm9uIDxBYXJvbi5MaXVAYW1kLmNvbT4N
-ClN1YmplY3Q6IFtQQVRDSCBWMl0gZHJtL2FtZC9wb3dlcnBsYXk6IFNNVV9NU0dfT3ZlcnJpZGVQ
-Y2llUGFyYW1ldGVycyBpcyB1bnN1cHBvcnQgZm9yIEFQVQ0KDQpGb3IgYXB1LCBTTVVfTVNHX092
-ZXJyaWRlUGNpZVBhcmFtZXRlcnMgaXMgdW5zdXBwb3J0Lg0KU28gcmV0dXJuIGRpcmVjdGx5IGlu
-IHNtdV9vdmVycmlkZV9wY2llX3BhcmFtZXRlcnMgZnVuY3Rpb24uDQoNClNpZ25lZC1vZmYtYnk6
-IEFhcm9uIExpdSA8YWFyb24ubGl1QGFtZC5jb20+DQotLS0NCiBkcml2ZXJzL2dwdS9kcm0vYW1k
-L3Bvd2VycGxheS9hbWRncHVfc211LmMgfCAzICsrKw0KIDEgZmlsZSBjaGFuZ2VkLCAzIGluc2Vy
-dGlvbnMoKykNCg0KZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2Ft
-ZGdwdV9zbXUuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2FtZGdwdV9zbXUuYw0K
-aW5kZXggOGM2MTc3OC4uYjcyNjU2NSAxMDA2NDQNCi0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-cG93ZXJwbGF5L2FtZGdwdV9zbXUuYw0KKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBs
-YXkvYW1kZ3B1X3NtdS5jDQpAQCAtMTAwMSw2ICsxMDAxLDkgQEAgc3RhdGljIGludCBzbXVfb3Zl
-cnJpZGVfcGNpZV9wYXJhbWV0ZXJzKHN0cnVjdCBzbXVfY29udGV4dCAqc211KQ0KIAl1aW50MzJf
-dCBwY2llX2dlbiA9IDAsIHBjaWVfd2lkdGggPSAwLCBzbXVfcGNpZV9hcmc7DQogCWludCByZXQ7
-DQogDQorCWlmIChhZGV2LT5mbGFncyAmIEFNRF9JU19BUFUpDQorCQlyZXR1cm4gMDsNCisNCiAJ
-aWYgKGFkZXYtPnBtLnBjaWVfZ2VuX21hc2sgJiBDQUlMX1BDSUVfTElOS19TUEVFRF9TVVBQT1JU
-X0dFTjQpDQogCQlwY2llX2dlbiA9IDM7DQogCWVsc2UgaWYgKGFkZXYtPnBtLnBjaWVfZ2VuX21h
-c2sgJiBDQUlMX1BDSUVfTElOS19TUEVFRF9TVVBQT1JUX0dFTjMpDQotLSANCjIuNy40DQoNCl9f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fDQphbWQtZ2Z4IG1h
-aWxpbmcgbGlzdA0KYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCmh0dHBzOi8vbGlzdHMu
-ZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA0KX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1k
-LWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcv
-bWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+On 8/29/2019 6:29 PM, Mike Marshall wrote:
+> Hi John...
+> 
+> I added this patch series on top of Linux 5.3rc6 and ran
+> xfstests with no regressions...
+> 
+> Acked-by: Mike Marshall <hubcap@omnibond.com>
+> 
+
+Hi Mike (and I hope Ira and others are reading as well, because
+I'm making a bunch of claims further down),
+
+That's great news, thanks for running that test suite and for
+the report and the ACK.
+
+There is an interesting pause right now, due to the fact that
+we've made some tentative decisions about gup pinning, that affect
+the call sites. A key decision is that only pages that were
+requested via FOLL_PIN, will require put_user_page*() to release
+them. There are 4 main cases, which were first explained by Jan
+Kara and Vlastimil Babka, and are now written up in my FOLL_PIN
+patch [1].
+
+So, what that means for this series is that:
+
+1. Some call sites (mlock.c for example, and a lot of the mm/ files
+in fact, and more) will not be converted: some of these patches will
+get dropped, especially in mm/.
+
+2. Call sites that do DirectIO or RDMA will need to set FOLL_PIN, and
+will also need to call put_user_page().
+
+3. Call sites that do RDMA will need to set FOLL_LONGTERM *and* FOLL_PIN,
+
+    3.a. ...and will at least in some cases need to provide a link to a
+    vaddr_pin object, and thus back to a struct file*...maybe. Still
+    under discussion.
+
+4. It's desirable to keep FOLL_* flags (or at least FOLL_PIN) internal
+to the gup() calls. That implies using a wrapper call such as Ira's
+vaddr_pin_[user]_pages(), instead of gup(), and vaddr_unpin_[user]_pages()
+instead of put_user_page*().
+
+5. We don't want to churn the call sites unnecessarily.
+
+With that in mind, I've taken another pass through all these patches
+and narrowed it down to:
+
+     a) 12 call sites that I'd like to convert soon, but even those
+        really look cleaner with a full conversion to a wrapper call
+        similar to (identical to?) vaddr_pin_[user]_pages(), probably
+        just the FOLL_PIN only variant (not FOLL_LONGTERM). That
+        wrapper call is not ready yet, though.
+
+     b) Some more call sites that require both FOLL_PIN and FOLL_LONGTERM.
+        Definitely will wait to use the wrapper calls for these, because
+        they may also require hooking up to a struct file*.
+
+     c) A few more that were already applied, which is fine, because they
+        show where to convert, and simplify a few sites anyway. But they'll
+        need follow-on changes to, one way or another, set FOLL_PIN.
+
+     d) And of course a few sites whose patches get dropped, as mentioned
+        above.
+
+[1] https://lore.kernel.org/r/20190821040727.19650-3-jhubbard@nvidia.com
+
+thanks,
+-- 
+John Hubbard
+NVIDIA
