@@ -1,14 +1,11 @@
-From: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH 2/2] drm/amdgpu: Disable page faults while reading user wptrs
-Date: Fri, 30 Aug 2019 05:15:02 +0000
-Message-ID: <20190830051443.3906-2-Felix.Kuehling@amd.com>
-References: <20190830051443.3906-1-Felix.Kuehling@amd.com>
+From: Aaron Liu <aaron.liu-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH 1/2] drm/amdgpu: update IH_CHICKEN in oss 4.0 IP header for
+ VG/RV series
+Date: Fri, 30 Aug 2019 13:33:14 +0800
+Message-ID: <1567143195-22090-1-git-send-email-aaron.liu@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="------------2.7.4"
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190830051443.3906-1-Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -19,38 +16,58 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, Ray.Huang-5C7GfCeVMHo@public.gmane.org, Aaron Liu <aaron.liu-5C7GfCeVMHo@public.gmane.org>
 
-VGhlc2Ugd3B0cnMgbXVzdCBiZSBwaW5uZWQgYW5kIEdQVSBhY2Nlc3NpYmxlIHdoZW4gdGhpcyBp
-cyBjYWxsZWQKZnJvbSBocWRfbG9hZCBmdW5jdGlvbnMuIFNvIHRoZXkgc2hvdWxkIG5ldmVyIGZh
-dWx0LiBUaGlzIHJlc29sdmVzCmEgY2lyY3VsYXIgbG9jayBkZXBlbmRlbmN5IGlzc3VlIGludm9s
-dmluZyBmb3VyIGxvY2tzIGluY2x1ZGluZyB0aGUKRFFNIGxvY2sgYW5kIG1tYXBfc2VtLgoKU2ln
-bmVkLW9mZi1ieTogRmVsaXggS3VlaGxpbmcgPEZlbGl4Lkt1ZWhsaW5nQGFtZC5jb20+Ci0tLQog
-ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2FtZGtmZC5oIHwgOCArKysrKysrKwog
-MSBmaWxlIGNoYW5nZWQsIDggaW5zZXJ0aW9ucygrKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9hbWRrZmQuaCBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
-Z3B1L2FtZGdwdV9hbWRrZmQuaAppbmRleCAxYWY4ZjgzZjdlMDIuLmMwMDNkOTI3NTgzNyAxMDA2
-NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2FtZGtmZC5oCisrKyBi
-L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9hbWRrZmQuaApAQCAtMTc5LDEwICsx
-NzksMTcgQEAgdWludDY0X3QgYW1kZ3B1X2FtZGtmZF9nZXRfbW1pb19yZW1hcF9waHlzX2FkZHIo
-c3RydWN0IGtnZF9kZXYgKmtnZCk7CiB1aW50MzJfdCBhbWRncHVfYW1ka2ZkX2dldF9udW1fZ3dz
-KHN0cnVjdCBrZ2RfZGV2ICprZ2QpOwogdWludDhfdCBhbWRncHVfYW1ka2ZkX2dldF94Z21pX2hv
-cHNfY291bnQoc3RydWN0IGtnZF9kZXYgKmRzdCwgc3RydWN0IGtnZF9kZXYgKnNyYyk7CiAKKy8q
-IFJlYWQgdXNlciB3cHRyIGZyb20gYSBzcGVjaWZpZWQgdXNlciBhZGRyZXNzIHNwYWNlIHdpdGgg
-cGFnZSBmYXVsdAorICogZGlzYWJsZWQuIFRoZSBtZW1vcnkgbXVzdCBiZSBwaW5uZWQgYW5kIG1h
-cHBlZCB0byB0aGUgaGFyZHdhcmUgd2hlbgorICogdGhpcyBpcyBjYWxsZWQgaW4gaHFkX2xvYWQg
-ZnVuY3Rpb25zLCBzbyBpdCBzaG91bGQgbmV2ZXIgZmF1bHQgaW4KKyAqIHRoZSBmaXJzdCBwbGFj
-ZS4gVGhpcyByZXNvbHZlcyBhIGNpcmN1bGFyIGxvY2sgZGVwZW5kZW5jeSBpbnZvbHZpbmcKKyAq
-IGZvdXIgbG9ja3MsIGluY2x1ZGluZyB0aGUgRFFNIGxvY2sgYW5kIG1tYXBfc2VtLgorICovCiAj
-ZGVmaW5lIHJlYWRfdXNlcl93cHRyKG1tcHRyLCB3cHRyLCBkc3QpCQkJCVwKIAkoewkJCQkJCQkJ
-XAogCQlib29sIHZhbGlkID0gZmFsc2U7CQkJCQlcCiAJCWlmICgobW1wdHIpICYmICh3cHRyKSkg
-ewkJCQlcCisJCQlwYWdlZmF1bHRfZGlzYWJsZSgpOwkJCQlcCiAJCQlpZiAoKG1tcHRyKSA9PSBj
-dXJyZW50LT5tbSkgewkJCVwKIAkJCQl2YWxpZCA9ICFnZXRfdXNlcigoZHN0KSwgKHdwdHIpKTsJ
-XAogCQkJfSBlbHNlIGlmIChjdXJyZW50LT5tbSA9PSBOVUxMKSB7CQlcCkBAIC0xOTAsNiArMTk3
-LDcgQEAgdWludDhfdCBhbWRncHVfYW1ka2ZkX2dldF94Z21pX2hvcHNfY291bnQoc3RydWN0IGtn
-ZF9kZXYgKmRzdCwgc3RydWN0IGtnZF9kZXYgKnMKIAkJCQl2YWxpZCA9ICFnZXRfdXNlcigoZHN0
-KSwgKHdwdHIpKTsJXAogCQkJCXVudXNlX21tKG1tcHRyKTsJCQlcCiAJCQl9CQkJCQkJXAorCQkJ
-cGFnZWZhdWx0X2VuYWJsZSgpOwkJCQlcCiAJCX0JCQkJCQkJXAogCQl2YWxpZDsJCQkJCQkJXAog
-CX0pCi0tIAoyLjE3LjEKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
-Cmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
+--------------2.7.4
+Content-Type: text/plain; charset="UTF-8"; format=fixed
+Content-Transfer-Encoding: 8bit
+
+
+In Renoir's emulator, those chicken bits need to be programmed.
+
+Signed-off-by: Aaron Liu <aaron.liu-5C7GfCeVMHo@public.gmane.org>
+Reviewed-by: Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org>
+Reviewed-by: Hawking Zhang <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>
+Acked-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+Signed-off-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+---
+ drivers/gpu/drm/amd/include/asic_reg/oss/osssys_4_0_sh_mask.h | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+
+--------------2.7.4
+Content-Type: text/x-patch;
+	name="0001-drm-amdgpu-update-IH_CHICKEN-in-oss-4.0-IP-header-fo.patch"
+Content-Transfer-Encoding: 8bit
+Content-Disposition: attachment;
+	filename="0001-drm-amdgpu-update-IH_CHICKEN-in-oss-4.0-IP-header-fo.patch"
+
+diff --git a/drivers/gpu/drm/amd/include/asic_reg/oss/osssys_4_0_sh_mask.h b/drivers/gpu/drm/amd/include/asic_reg/oss/osssys_4_0_sh_mask.h
+index 1ee3a23..dc9895a 100644
+--- a/drivers/gpu/drm/amd/include/asic_reg/oss/osssys_4_0_sh_mask.h
++++ b/drivers/gpu/drm/amd/include/asic_reg/oss/osssys_4_0_sh_mask.h
+@@ -1109,7 +1109,11 @@
+ #define IH_CID_REMAP_DATA__CLIENT_ID_REMAP_MASK                                                               0x00FF0000L
+ //IH_CHICKEN
+ #define IH_CHICKEN__ACTIVE_FCN_ID_PROT_ENABLE__SHIFT                                                          0x0
++#define IH_CHICKEN__MC_SPACE_FBPA_ENABLE__SHIFT                                                               0x3
++#define IH_CHICKEN__MC_SPACE_GPA_ENABLE__SHIFT                                                                0x4
+ #define IH_CHICKEN__ACTIVE_FCN_ID_PROT_ENABLE_MASK                                                            0x00000001L
++#define IH_CHICKEN__MC_SPACE_FBPA_ENABLE_MASK                                                                 0x00000008L
++#define IH_CHICKEN__MC_SPACE_GPA_ENABLE_MASK                                                                  0x00000010L
+ //IH_MMHUB_CNTL
+ #define IH_MMHUB_CNTL__UNITID__SHIFT                                                                          0x0
+ #define IH_MMHUB_CNTL__IV_TLVL__SHIFT                                                                         0x8
+
+--------------2.7.4
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+
+--------------2.7.4--
