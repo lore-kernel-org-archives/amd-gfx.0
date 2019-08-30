@@ -1,11 +1,12 @@
 From: Aaron Liu <aaron.liu-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH 1/2] drm/amdgpu: update IH_CHICKEN in oss 4.0 IP header for
- VG/RV series
-Date: Fri, 30 Aug 2019 13:33:14 +0800
-Message-ID: <1567143195-22090-1-git-send-email-aaron.liu@amd.com>
+Subject: [PATCH 2/2] drm/amdgpu: fix no interrupt issue for renoir emu (v2)
+Date: Fri, 30 Aug 2019 13:33:15 +0800
+Message-ID: <1567143195-22090-2-git-send-email-aaron.liu@amd.com>
+References: <1567143195-22090-1-git-send-email-aaron.liu@amd.com>
 Mime-Version: 1.0
 Content-Type: multipart/mixed; boundary="------------2.7.4"
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <1567143195-22090-1-git-send-email-aaron.liu-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -24,7 +25,9 @@ Content-Type: text/plain; charset="UTF-8"; format=fixed
 Content-Transfer-Encoding: 8bit
 
 
-In Renoir's emulator, those chicken bits need to be programmed.
+In renoir's vega10_ih model, there's a security change in mmIH_CHICKEN
+register, that limits IH to use physical address (FBPA, GPA) directly.
+Those chicken bits need to be programmed first.
 
 Signed-off-by: Aaron Liu <aaron.liu-5C7GfCeVMHo@public.gmane.org>
 Reviewed-by: Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org>
@@ -32,33 +35,54 @@ Reviewed-by: Hawking Zhang <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>
 Acked-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
 Signed-off-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
 ---
- drivers/gpu/drm/amd/include/asic_reg/oss/osssys_4_0_sh_mask.h | 4 ++++
- 1 file changed, 4 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/vega10_ih.c | 18 ++++++++++--------
+ 1 file changed, 10 insertions(+), 8 deletions(-)
 
 
 --------------2.7.4
 Content-Type: text/x-patch;
-	name="0001-drm-amdgpu-update-IH_CHICKEN-in-oss-4.0-IP-header-fo.patch"
+	name="0002-drm-amdgpu-fix-no-interrupt-issue-for-renoir-emu-v2.patch"
 Content-Transfer-Encoding: 8bit
 Content-Disposition: attachment;
-	filename="0001-drm-amdgpu-update-IH_CHICKEN-in-oss-4.0-IP-header-fo.patch"
+	filename="0002-drm-amdgpu-fix-no-interrupt-issue-for-renoir-emu-v2.patch"
 
-diff --git a/drivers/gpu/drm/amd/include/asic_reg/oss/osssys_4_0_sh_mask.h b/drivers/gpu/drm/amd/include/asic_reg/oss/osssys_4_0_sh_mask.h
-index 1ee3a23..dc9895a 100644
---- a/drivers/gpu/drm/amd/include/asic_reg/oss/osssys_4_0_sh_mask.h
-+++ b/drivers/gpu/drm/amd/include/asic_reg/oss/osssys_4_0_sh_mask.h
-@@ -1109,7 +1109,11 @@
- #define IH_CID_REMAP_DATA__CLIENT_ID_REMAP_MASK                                                               0x00FF0000L
- //IH_CHICKEN
- #define IH_CHICKEN__ACTIVE_FCN_ID_PROT_ENABLE__SHIFT                                                          0x0
-+#define IH_CHICKEN__MC_SPACE_FBPA_ENABLE__SHIFT                                                               0x3
-+#define IH_CHICKEN__MC_SPACE_GPA_ENABLE__SHIFT                                                                0x4
- #define IH_CHICKEN__ACTIVE_FCN_ID_PROT_ENABLE_MASK                                                            0x00000001L
-+#define IH_CHICKEN__MC_SPACE_FBPA_ENABLE_MASK                                                                 0x00000008L
-+#define IH_CHICKEN__MC_SPACE_GPA_ENABLE_MASK                                                                  0x00000010L
- //IH_MMHUB_CNTL
- #define IH_MMHUB_CNTL__UNITID__SHIFT                                                                          0x0
- #define IH_MMHUB_CNTL__IV_TLVL__SHIFT                                                                         0x8
+diff --git a/drivers/gpu/drm/amd/amdgpu/vega10_ih.c b/drivers/gpu/drm/amd/amdgpu/vega10_ih.c
+index f19268a..b273eb8 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vega10_ih.c
++++ b/drivers/gpu/drm/amd/amdgpu/vega10_ih.c
+@@ -232,7 +232,13 @@ static int vega10_ih_irq_init(struct amdgpu_device *adev)
+ 	WREG32_SOC15(OSSSYS, 0, mmIH_RB_BASE_HI, (ih->gpu_addr >> 40) & 0xff);
+ 
+ 	ih_rb_cntl = RREG32_SOC15(OSSSYS, 0, mmIH_RB_CNTL);
++	ih_chicken = RREG32_SOC15(OSSSYS, 0, mmIH_CHICKEN);
+ 	ih_rb_cntl = vega10_ih_rb_cntl(ih, ih_rb_cntl);
++	if (adev->irq.ih.use_bus_addr) {
++		ih_chicken = REG_SET_FIELD(ih_chicken, IH_CHICKEN, MC_SPACE_GPA_ENABLE, 1);
++	} else {
++		ih_chicken = REG_SET_FIELD(ih_chicken, IH_CHICKEN, MC_SPACE_FBPA_ENABLE, 1);
++	}
+ 	ih_rb_cntl = REG_SET_FIELD(ih_rb_cntl, IH_RB_CNTL, RPTR_REARM,
+ 				   !!adev->irq.msi_enabled);
+ 
+@@ -245,14 +251,10 @@ static int vega10_ih_irq_init(struct amdgpu_device *adev)
+ 		WREG32_SOC15(OSSSYS, 0, mmIH_RB_CNTL, ih_rb_cntl);
+ 	}
+ 
+-	if ((adev->asic_type == CHIP_ARCTURUS || adev->asic_type == CHIP_RENOIR) &&
+-		adev->firmware.load_type == AMDGPU_FW_LOAD_DIRECT) {
+-		if (adev->irq.ih.use_bus_addr) {
+-			ih_chicken = RREG32_SOC15(OSSSYS, 0, mmIH_CHICKEN);
+-			ih_chicken |= 0x00000010;
+-			WREG32_SOC15(OSSSYS, 0, mmIH_CHICKEN, ih_chicken);
+-		}
+-	}
++	if ((adev->asic_type == CHIP_ARCTURUS
++		&& adev->firmware.load_type == AMDGPU_FW_LOAD_DIRECT)
++		|| adev->asic_type == CHIP_RENOIR)
++		WREG32_SOC15(OSSSYS, 0, mmIH_CHICKEN, ih_chicken);
+ 
+ 	/* set the writeback address whether it's enabled or not */
+ 	WREG32_SOC15(OSSSYS, 0, mmIH_RB_WPTR_ADDR_LO,
 
 --------------2.7.4
 Content-Type: text/plain; charset="utf-8"
