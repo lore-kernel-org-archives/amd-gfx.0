@@ -1,97 +1,110 @@
-From: John Hubbard <jhubbard@nvidia.com>
-Subject: Re: [PATCH v3 00/39] put_user_pages(): miscellaneous call sites
-Date: Thu, 29 Aug 2019 19:21:03 -0700
-Message-ID: <d453f865-2224-ed53-a2f4-f43d574c130a@nvidia.com>
-References: <20190807013340.9706-1-jhubbard@nvidia.com>
- <912eb2bd-4102-05c1-5571-c261617ad30b@nvidia.com>
- <CAOg9mSQKGDywcMde2DE42diUS7J8m74Hdv+xp_PJhC39EXZQuw@mail.gmail.com>
+From: "Zhou1, Tao" <Tao.Zhou1-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: [PATCH 1/7] drm/amdgpu: add helper function to do common
+ ras_late_init/fini (v3)
+Date: Fri, 30 Aug 2019 02:26:05 +0000
+Message-ID: <MN2PR12MB3054D78502910A57F2FE6B39B0BD0@MN2PR12MB3054.namprd12.prod.outlook.com>
+References: <1567085432-27452-1-git-send-email-Hawking.Zhang@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
-Content-Transfer-Encoding: 7bit
-Return-path: <driverdev-devel-bounces@linuxdriverproject.org>
-In-Reply-To: <CAOg9mSQKGDywcMde2DE42diUS7J8m74Hdv+xp_PJhC39EXZQuw@mail.gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <1567085432-27452-1-git-send-email-Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
-List-Unsubscribe: <http://driverdev.linuxdriverproject.org/mailman/options/driverdev-devel>,
- <mailto:driverdev-devel-request@linuxdriverproject.org?subject=unsubscribe>
-List-Archive: <http://driverdev.linuxdriverproject.org/pipermail/driverdev-devel/>
-List-Post: <mailto:driverdev-devel@linuxdriverproject.org>
-List-Help: <mailto:driverdev-devel-request@linuxdriverproject.org?subject=help>
-List-Subscribe: <http://driverdev.linuxdriverproject.org/mailman/listinfo/driverdev-devel>,
- <mailto:driverdev-devel-request@linuxdriverproject.org?subject=subscribe>
-Errors-To: driverdev-devel-bounces@linuxdriverproject.org
-Sender: "devel" <driverdev-devel-bounces@linuxdriverproject.org>
-To: Mike Marshall <hubcap@omnibond.com>
-Cc: linux-fbdev@vger.kernel.org, Jan Kara <jack@suse.cz>, kvm@vger.kernel.org, Dave Hansen <dave.hansen@linux.intel.com>, Dave Chinner <david@fromorbit.com>, dri-devel@lists.freedesktop.org, linux-mm <linux-mm@kvack.org>, sparclinux@vger.kernel.org, Dan Williams <dan.j.williams@intel.com>, devel@driverdev.osuosl.org, rds-devel@oss.oracle.com, linux-rdma@vger.kernel.org, x86@kernel.org, amd-gfx@lists.freedesktop.org, Christoph Hellwig <hch@infradead.org>, Jason Gunthorpe <jgg@ziepe.ca>, xen-devel@lists.xenproject.org, devel@lists.orangefs.org, linux-media@vger.kernel.org, intel-gfx@lists.freedesktop.org, john.hubbard@gmail.com, linux-block@vger.kernel.org, =?UTF-8?B?SsOpcsO0bWUgR2xpc3Nl?= <jglisse@redhat.com>, linux-rpi-kernel@lists.infradead.org, ceph-devel <ceph-devel@vger.kernel.org>, linux-arm-kernel@lists.infradead.org, Linux NFS Mailing List <linux-nfs@vger.kernel.org>
-List-Id: amd-gfx.lists.freedesktop.org
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Chen, Guchun" <Guchun.Chen-5C7GfCeVMHo@public.gmane.org>
+Cc: "Zhang, Hawking" <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>
 
-On 8/29/2019 6:29 PM, Mike Marshall wrote:
-> Hi John...
-> 
-> I added this patch series on top of Linux 5.3rc6 and ran
-> xfstests with no regressions...
-> 
-> Acked-by: Mike Marshall <hubcap@omnibond.com>
-> 
-
-Hi Mike (and I hope Ira and others are reading as well, because
-I'm making a bunch of claims further down),
-
-That's great news, thanks for running that test suite and for
-the report and the ACK.
-
-There is an interesting pause right now, due to the fact that
-we've made some tentative decisions about gup pinning, that affect
-the call sites. A key decision is that only pages that were
-requested via FOLL_PIN, will require put_user_page*() to release
-them. There are 4 main cases, which were first explained by Jan
-Kara and Vlastimil Babka, and are now written up in my FOLL_PIN
-patch [1].
-
-So, what that means for this series is that:
-
-1. Some call sites (mlock.c for example, and a lot of the mm/ files
-in fact, and more) will not be converted: some of these patches will
-get dropped, especially in mm/.
-
-2. Call sites that do DirectIO or RDMA will need to set FOLL_PIN, and
-will also need to call put_user_page().
-
-3. Call sites that do RDMA will need to set FOLL_LONGTERM *and* FOLL_PIN,
-
-    3.a. ...and will at least in some cases need to provide a link to a
-    vaddr_pin object, and thus back to a struct file*...maybe. Still
-    under discussion.
-
-4. It's desirable to keep FOLL_* flags (or at least FOLL_PIN) internal
-to the gup() calls. That implies using a wrapper call such as Ira's
-vaddr_pin_[user]_pages(), instead of gup(), and vaddr_unpin_[user]_pages()
-instead of put_user_page*().
-
-5. We don't want to churn the call sites unnecessarily.
-
-With that in mind, I've taken another pass through all these patches
-and narrowed it down to:
-
-     a) 12 call sites that I'd like to convert soon, but even those
-        really look cleaner with a full conversion to a wrapper call
-        similar to (identical to?) vaddr_pin_[user]_pages(), probably
-        just the FOLL_PIN only variant (not FOLL_LONGTERM). That
-        wrapper call is not ready yet, though.
-
-     b) Some more call sites that require both FOLL_PIN and FOLL_LONGTERM.
-        Definitely will wait to use the wrapper calls for these, because
-        they may also require hooking up to a struct file*.
-
-     c) A few more that were already applied, which is fine, because they
-        show where to convert, and simplify a few sites anyway. But they'll
-        need follow-on changes to, one way or another, set FOLL_PIN.
-
-     d) And of course a few sites whose patches get dropped, as mentioned
-        above.
-
-[1] https://lore.kernel.org/r/20190821040727.19650-3-jhubbard@nvidia.com
-
-thanks,
--- 
-John Hubbard
-NVIDIA
+DQoNCj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4gRnJvbTogSGF3a2luZyBaaGFuZyA8
+SGF3a2luZy5aaGFuZ0BhbWQuY29tPg0KPiBTZW50OiAyMDE55bm0OOaciDI55pelIDIxOjMwDQo+
+IFRvOiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZzsgRGV1Y2hlciwgQWxleGFuZGVyDQo+
+IDxBbGV4YW5kZXIuRGV1Y2hlckBhbWQuY29tPjsgWmhvdTEsIFRhbyA8VGFvLlpob3UxQGFtZC5j
+b20+OyBDaGVuLA0KPiBHdWNodW4gPEd1Y2h1bi5DaGVuQGFtZC5jb20+DQo+IENjOiBaaGFuZywg
+SGF3a2luZyA8SGF3a2luZy5aaGFuZ0BhbWQuY29tPg0KPiBTdWJqZWN0OiBbUEFUQ0ggMS83XSBk
+cm0vYW1kZ3B1OiBhZGQgaGVscGVyIGZ1bmN0aW9uIHRvIGRvIGNvbW1vbg0KPiByYXNfbGF0ZV9p
+bml0L2ZpbmkgKHYzKQ0KPiANCj4gSW4gbGF0ZV9pbml0IGZvciByYXMsIHRoZSBoZWxwZXIgZnVu
+Y3Rpb24gd2lsbCBiZSB1c2VkIHRvIDEpLiBkaXNhYmxlIHJhcyBmZWF0dXJlDQo+IGlmIHRoZSBJ
+UCBibG9jayBpcyBtYXNrZWQgYXMgZGlzYWJsZWQgMikuIHNlbmQgZW5hYmxlIGZlYXR1cmUgY29t
+bWFuZCBpZiB0aGUNCj4gaXAgYmxvY2sgd2FzIG1hc2tlZCBhcyBlbmFibGVkIDMpLiBjcmVhdGUg
+ZGVidWdmcy9zeXNmcyBub2RlIHBlciBJUCBibG9jayA0KS4NCj4gcmVnaXN0ZXIgaW50ZXJydXB0
+IGhhbmRsZXINCj4gDQo+IHYyOiBjaGVjayBpaF9pbmZvLmNiIHRvIGRlY2lkZSBhZGQgaW50ZXJy
+dXB0IGhhbmRsZXIgb3Igbm90DQo+IA0KPiB2MzogYWRkIHJhc19sYXRlX2ZpbmkgZm9yIGNsZWFu
+dXAgYWxsIHRoZSByYXMgZnMgbm9kZSBhbmQgcmVtb3ZlIGludGVycnVwdA0KPiBoYW5kbGVyDQo+
+IA0KPiBTaWduZWQtb2ZmLWJ5OiBIYXdraW5nIFpoYW5nIDxIYXdraW5nLlpoYW5nQGFtZC5jb20+
+DQo+IC0tLQ0KPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Jhcy5jIHwgNzIN
+Cj4gKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrDQo+IGRyaXZlcnMvZ3B1L2RybS9h
+bWQvYW1kZ3B1L2FtZGdwdV9yYXMuaCB8ICA3ICsrKysNCj4gIDIgZmlsZXMgY2hhbmdlZCwgNzkg
+aW5zZXJ0aW9ucygrKQ0KPiANCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
+Z3B1L2FtZGdwdV9yYXMuYw0KPiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9y
+YXMuYw0KPiBpbmRleCAyMzBmN2U2Li4yYjkzMGZhIDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJzL2dw
+dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcmFzLmMNCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2Ft
+ZC9hbWRncHUvYW1kZ3B1X3Jhcy5jDQo+IEBAIC0xNTY0LDYgKzE1NjQsNzggQEAgaW50IGFtZGdw
+dV9yYXNfaW5pdChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikNCj4gIAlyZXR1cm4gLUVJTlZB
+TDsNCj4gIH0NCj4gDQo+ICsvKiBoZWxwZXIgZnVuY3Rpb24gdG8gaGFuZGxlIGNvbW1vbiBzdHVm
+ZiBpbiBpcCBsYXRlIGluaXQgcGhhc2UgKi8gaW50DQo+ICthbWRncHVfcmFzX2xhdGVfaW5pdChz
+dHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwNCj4gKwkJCSBzdHJ1Y3QgcmFzX2NvbW1vbl9pZiAq
+cmFzX2Jsb2NrLA0KPiArCQkJIHN0cnVjdCByYXNfZnNfaWYgKmZzX2luZm8sDQo+ICsJCQkgc3Ry
+dWN0IHJhc19paF9pZiAqaWhfaW5mbykNCj4gK3sNCj4gKwlpbnQgcjsNCj4gKw0KPiArCS8qIGRp
+c2FibGUgUkFTIGZlYXR1cmUgcGVyIElQIGJsb2NrIGlmIGl0IGlzIG5vdCBzdXBwb3J0ZWQgKi8N
+Cj4gKwlpZiAoIWFtZGdwdV9yYXNfaXNfc3VwcG9ydGVkKGFkZXYsIHJhc19ibG9jay0+YmxvY2sp
+KSB7DQo+ICsJCWFtZGdwdV9yYXNfZmVhdHVyZV9lbmFibGVfb25fYm9vdChhZGV2LCByYXNfYmxv
+Y2ssIDApOw0KPiArCQlyZXR1cm4gMDsNCj4gKwl9DQo+ICsNCj4gKwlyID0gYW1kZ3B1X3Jhc19m
+ZWF0dXJlX2VuYWJsZV9vbl9ib290KGFkZXYsIHJhc19ibG9jaywgMSk7DQo+ICsJaWYgKHIpIHsN
+Cj4gKwkJaWYgKHIgPT0gLUVBR0FJTikgew0KPiArCQkJLyogcmVxdWVzdCBncHUgcmVzZXQuIHdp
+bGwgcnVuIGFnYWluICovDQo+ICsJCQlhbWRncHVfcmFzX3JlcXVlc3RfcmVzZXRfb25fYm9vdChh
+ZGV2LA0KPiArCQkJCQlyYXNfYmxvY2stPmJsb2NrKTsNCj4gKwkJCXJldHVybiAwOw0KPiArCQl9
+IGVsc2UgaWYgKGFkZXYtPmluX3N1c3BlbmQgfHwgYWRldi0+aW5fZ3B1X3Jlc2V0KSB7DQo+ICsJ
+CQkvKiBpbiByZXN1bWUgcGhhc2UsIGlmIGZhaWwgdG8gZW5hYmxlIHJhcywNCj4gKwkJCSAqIGNs
+ZWFuIHVwIGFsbCByYXMgZnMgbm9kZXMsIGFuZCBkaXNhYmxlIHJhcyAqLw0KPiArCQkJZ290byBj
+bGVhbnVwOw0KPiArCQl9IGVsc2UNCj4gKwkJCXJldHVybiByOw0KPiArCX0NCj4gKw0KPiArCS8q
+IGluIHJlc3VtZSBwaGFzZSwgbm8gbmVlZCB0byBjcmVhdGUgcmFzIGZzIG5vZGUgKi8NCj4gKwlp
+ZiAoYWRldi0+aW5fc3VzcGVuZCB8fCBhZGV2LT5pbl9ncHVfcmVzZXQpDQo+ICsJCXJldHVybiAw
+Ow0KPiArDQo+ICsJaWYoaWhfaW5mby0+Y2IpIHsNCltUYW9dIG5lZWQgYSBzcGFjZSBiZXR3ZWVu
+ICJpZiIgYW5kICIoIg0KDQo+ICsJCXIgPSBhbWRncHVfcmFzX2ludGVycnVwdF9hZGRfaGFuZGxl
+cihhZGV2LCBpaF9pbmZvKTsNCj4gKwkJaWYgKHIpDQo+ICsJCQlnb3RvIGludGVycnVwdDsNCj4g
+Kwl9DQo+ICsNCj4gKwlhbWRncHVfcmFzX2RlYnVnZnNfY3JlYXRlKGFkZXYsIGZzX2luZm8pOw0K
+PiArDQo+ICsJciA9IGFtZGdwdV9yYXNfc3lzZnNfY3JlYXRlKGFkZXYsIGZzX2luZm8pOw0KPiAr
+CWlmIChyKQ0KPiArCQlnb3RvIHN5c2ZzOw0KPiArDQo+ICsJcmV0dXJuIDA7DQo+ICtjbGVhbnVw
+Og0KPiArCWFtZGdwdV9yYXNfc3lzZnNfcmVtb3ZlKGFkZXYsIHJhc19ibG9jayk7DQo+ICtzeXNm
+czoNCj4gKwlhbWRncHVfcmFzX2RlYnVnZnNfcmVtb3ZlKGFkZXYsIHJhc19ibG9jayk7DQo+ICsJ
+aWYgKGloX2luZm8tPmNiKQ0KPiArCQlhbWRncHVfcmFzX2ludGVycnVwdF9yZW1vdmVfaGFuZGxl
+cihhZGV2LCBpaF9pbmZvKTsNCj4gK2ludGVycnVwdDoNCj4gKwlhbWRncHVfcmFzX2ZlYXR1cmVf
+ZW5hYmxlKGFkZXYsIHJhc19ibG9jaywgMCk7DQo+ICsJcmV0dXJuIHI7DQo+ICt9DQo+ICsNCj4g
+Ky8qIGhlbHBlciBmdW5jdGlvbiB0byByZW1vdmUgcmFzIGZzIG5vZGUgYW5kIGludGVycnVwdCBo
+YW5kbGVyICovIHZvaWQNCj4gK2FtZGdwdV9yYXNfbGF0ZV9maW5pKHN0cnVjdCBhbWRncHVfZGV2
+aWNlICphZGV2LA0KPiArCQkJICBzdHJ1Y3QgcmFzX2NvbW1vbl9pZiAqcmFzX2Jsb2NrLA0KPiAr
+CQkJICBzdHJ1Y3QgcmFzX2loX2lmICppaF9pbmZvKQ0KPiArew0KPiArCWlmICghcmFzX2Jsb2Nr
+IHx8ICFpaF9pbmZvKQ0KPiArCQlyZXR1cm47DQo+ICsNCj4gKwlhbWRncHVfcmFzX3N5c2ZzX3Jl
+bW92ZShhZGV2LCByYXNfYmxvY2spOw0KPiArCWFtZGdwdV9yYXNfZGVidWdmc19yZW1vdmUoYWRl
+diwgcmFzX2Jsb2NrKTsNCj4gKwlpZiAoaWhfaW5mby0+Y2IpDQo+ICsgICAgICAgICAgICAgICAg
+YW1kZ3B1X3Jhc19pbnRlcnJ1cHRfcmVtb3ZlX2hhbmRsZXIoYWRldiwgaWhfaW5mbyk7DQo+ICsJ
+YW1kZ3B1X3Jhc19mZWF0dXJlX2VuYWJsZShhZGV2LCByYXNfYmxvY2ssIDApOyB9DQo+ICsNCj4g
+IC8qIGRvIHNvbWUgaW5pdCB3b3JrIGFmdGVyIElQIGxhdGUgaW5pdCBhcyBkZXBlbmRlbmNlLg0K
+PiAgICogYW5kIGl0IHJ1bnMgaW4gcmVzdW1lL2dwdSByZXNldC9ib290aW5nIHVwIGNhc2VzLg0K
+PiAgICovDQo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
+cmFzLmgNCj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcmFzLmgNCj4gaW5k
+ZXggNmM3NmJiMi4uNjZiNzE1MiAxMDA2NDQNCj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9h
+bWRncHUvYW1kZ3B1X3Jhcy5oDQo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
+ZGdwdV9yYXMuaA0KPiBAQCAtNTY2LDYgKzU2NiwxMyBAQCBhbWRncHVfcmFzX2Vycm9yX3RvX3Rh
+KGVudW0NCj4gYW1kZ3B1X3Jhc19lcnJvcl90eXBlIGVycm9yKSB7ICBpbnQgYW1kZ3B1X3Jhc19p
+bml0KHN0cnVjdCBhbWRncHVfZGV2aWNlDQo+ICphZGV2KTsgIGludCBhbWRncHVfcmFzX2Zpbmko
+c3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpOyAgaW50DQo+IGFtZGdwdV9yYXNfcHJlX2Zpbmko
+c3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpOw0KPiAraW50IGFtZGdwdV9yYXNfbGF0ZV9pbml0
+KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LA0KPiArCQkJIHN0cnVjdCByYXNfY29tbW9uX2lm
+ICpyYXNfYmxvY2ssDQo+ICsJCQkgc3RydWN0IHJhc19mc19pZiAqZnNfaW5mbywNCj4gKwkJCSBz
+dHJ1Y3QgcmFzX2loX2lmICppaF9pbmZvKTsNCj4gK3ZvaWQgYW1kZ3B1X3Jhc19sYXRlX2Zpbmko
+c3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsDQo+ICsJCQkgIHN0cnVjdCByYXNfY29tbW9uX2lm
+ICpyYXNfYmxvY2ssDQo+ICsJCQkgIHN0cnVjdCByYXNfaWhfaWYgKmloX2luZm8pOw0KPiANCj4g
+IGludCBhbWRncHVfcmFzX2ZlYXR1cmVfZW5hYmxlKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2
+LA0KPiAgCQlzdHJ1Y3QgcmFzX2NvbW1vbl9pZiAqaGVhZCwgYm9vbCBlbmFibGUpOw0KPiAtLQ0K
+PiAyLjcuNA0KDQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+XwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRw
+czovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
