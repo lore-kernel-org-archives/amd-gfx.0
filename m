@@ -1,64 +1,50 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH 1/2] drm/amdgpu: Remove unnecessary TLB workaround
-Date: Fri, 30 Aug 2019 09:09:35 +0200
-Message-ID: <41d07a88-24d3-2744-55cb-b920880f618c@gmail.com>
-References: <20190830051443.3906-1-Felix.Kuehling@amd.com>
-Reply-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
+From: Austin Kim <austindh.kim@gmail.com>
+Subject: [PATCH] drm/amdgpu: Move null pointer dereference check
+Date: Fri, 30 Aug 2019 17:07:04 +0900
+Message-ID: <20190830080704.GA29599@LGEARND20B15>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190830051443.3906-1-Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Type: text/plain; charset=us-ascii
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Content-Disposition: inline
+Sender: linux-kernel-owner@vger.kernel.org
+To: rex.zhu@amd.com, evan.quan@amd.com
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-QW0gMzAuMDguMTkgdW0gMDc6MTQgc2NocmllYiBLdWVobGluZywgRmVsaXg6Cj4gVGhpcyB3b3Jr
-YXJvdW5kIGlzIGJldHRlciBoYW5kbGVkIGluIHVzZXIgbW9kZSBpbiBhIHdheSB0aGF0IGRvZXNu
-J3QKPiByZXF1aXJlIGFsbG9jYXRpbmcgZXh0cmEgbWVtb3J5IGFuZCBicmVha2luZyB1c2VycHRy
-IEJPcy4KPgo+IFRoZSBUTEIgYnVnIGlzIGEgcGVyZm9ybWFuY2UgYnVnLCBub3QgYSBmdW5jdGlv
-bmFsIG9yIHNlY3VyaXR5IGJ1Zy4KPiBIZW5jZSBpdCBpcyBzYWZlIHRvIHJlbW92ZSB0aGlzIGtl
-cm5lbCBwYXJ0IG9mIHRoZSB3b3JrYXJvdW5kIHRvCj4gYWxsb3cgYSBiZXR0ZXIgd29ya2Fyb3Vu
-ZCB1c2luZyBvbmx5IHZpcnR1YWwgYWRkcmVzcyBhbGlnbm1lbnRzIGluCj4gdXNlciBtb2RlLgo+
-Cj4gU2lnbmVkLW9mZi1ieTogRmVsaXggS3VlaGxpbmcgPEZlbGl4Lkt1ZWhsaW5nQGFtZC5jb20+
-CgpNYXliZSB0aGUgVklfQk9fU0laRV9BTElHTiBkZWZpbmUgY2FuIG5vdyBiZSByZW1vdmVkIGFz
-IHdlbGw/CgpBcGFydCBmcm9tIHRoYXQgdGhpcyBwYXRjaCBpcyBSZXZpZXdlZC1ieTogQ2hyaXN0
-aWFuIEvDtm5pZyAKPGNocmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4uCgo+IC0tLQo+ICAgZHJpdmVy
-cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2FtZGtmZF9ncHV2bS5jIHwgMTIgKy0tLS0tLS0t
-LS0tCj4gICAxIGZpbGUgY2hhbmdlZCwgMSBpbnNlcnRpb24oKyksIDExIGRlbGV0aW9ucygtKQo+
-Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9hbWRrZmRf
-Z3B1dm0uYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9hbWRrZmRfZ3B1dm0u
-Ywo+IGluZGV4IDQyZDIwOWY1ZmQxOC4uMmM3M2VhN2M0MjVjIDEwMDY0NAo+IC0tLSBhL2RyaXZl
-cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9hbWRrZmRfZ3B1dm0uYwo+ICsrKyBiL2RyaXZl
-cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9hbWRrZmRfZ3B1dm0uYwo+IEBAIC0xMTEwLDcg
-KzExMTAsNiBAQCBpbnQgYW1kZ3B1X2FtZGtmZF9ncHV2bV9hbGxvY19tZW1vcnlfb2ZfZ3B1KAo+
-ICAgCXVpbnQ2NF90IHVzZXJfYWRkciA9IDA7Cj4gICAJc3RydWN0IGFtZGdwdV9ibyAqYm87Cj4g
-ICAJc3RydWN0IGFtZGdwdV9ib19wYXJhbSBicDsKPiAtCWludCBieXRlX2FsaWduOwo+ICAgCXUz
-MiBkb21haW4sIGFsbG9jX2RvbWFpbjsKPiAgIAl1NjQgYWxsb2NfZmxhZ3M7Cj4gICAJaW50IHJl
-dDsKPiBAQCAtMTE2NSwxNSArMTE2NCw2IEBAIGludCBhbWRncHVfYW1ka2ZkX2dwdXZtX2FsbG9j
-X21lbW9yeV9vZl9ncHUoCj4gICAJaWYgKCgqbWVtKS0+YXFsX3F1ZXVlKQo+ICAgCQlzaXplID0g
-c2l6ZSA+PiAxOwo+ICAgCj4gLQkvKiBXb3JrYXJvdW5kIGZvciBUTEIgYnVnIG9uIG9sZGVyIFZJ
-IGNoaXBzICovCj4gLQlieXRlX2FsaWduID0gKGFkZXYtPmZhbWlseSA9PSBBTURHUFVfRkFNSUxZ
-X1ZJICYmCj4gLQkJCWFkZXYtPmFzaWNfdHlwZSAhPSBDSElQX0ZJSkkgJiYKPiAtCQkJYWRldi0+
-YXNpY190eXBlICE9IENISVBfUE9MQVJJUzEwICYmCj4gLQkJCWFkZXYtPmFzaWNfdHlwZSAhPSBD
-SElQX1BPTEFSSVMxMSAmJgo+IC0JCQlhZGV2LT5hc2ljX3R5cGUgIT0gQ0hJUF9QT0xBUklTMTIg
-JiYKPiAtCQkJYWRldi0+YXNpY190eXBlICE9IENISVBfVkVHQU0pID8KPiAtCQkJVklfQk9fU0la
-RV9BTElHTiA6IDE7Cj4gLQo+ICAgCSgqbWVtKS0+YWxsb2NfZmxhZ3MgPSBmbGFnczsKPiAgIAo+
-ICAgCWFtZGdwdV9zeW5jX2NyZWF0ZSgmKCptZW0pLT5zeW5jKTsKPiBAQCAtMTE4OSw3ICsxMTc5
-LDcgQEAgaW50IGFtZGdwdV9hbWRrZmRfZ3B1dm1fYWxsb2NfbWVtb3J5X29mX2dwdSgKPiAgIAo+
-ICAgCW1lbXNldCgmYnAsIDAsIHNpemVvZihicCkpOwo+ICAgCWJwLnNpemUgPSBzaXplOwo+IC0J
-YnAuYnl0ZV9hbGlnbiA9IGJ5dGVfYWxpZ247Cj4gKwlicC5ieXRlX2FsaWduID0gMTsKPiAgIAli
-cC5kb21haW4gPSBhbGxvY19kb21haW47Cj4gICAJYnAuZmxhZ3MgPSBhbGxvY19mbGFnczsKPiAg
-IAlicC50eXBlID0gYm9fdHlwZTsKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0
-b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1k
-LWdmeA==
+Null pointer dereference check should have been checked,
+ahead of below routine.
+	struct amdgpu_device *adev = hwmgr->adev;
+
+With this commit, it could avoid potential NULL dereference.
+
+Signed-off-by: Austin Kim <austindh.kim@gmail.com>
+---
+ drivers/gpu/drm/amd/powerplay/smumgr/smu8_smumgr.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/powerplay/smumgr/smu8_smumgr.c b/drivers/gpu/drm/amd/powerplay/smumgr/smu8_smumgr.c
+index 8189fe4..4728aa2 100644
+--- a/drivers/gpu/drm/amd/powerplay/smumgr/smu8_smumgr.c
++++ b/drivers/gpu/drm/amd/powerplay/smumgr/smu8_smumgr.c
+@@ -722,16 +722,17 @@ static int smu8_request_smu_load_fw(struct pp_hwmgr *hwmgr)
+ 
+ static int smu8_start_smu(struct pp_hwmgr *hwmgr)
+ {
+-	struct amdgpu_device *adev = hwmgr->adev;
++	struct amdgpu_device *adev;
+ 
+ 	uint32_t index = SMN_MP1_SRAM_START_ADDR +
+ 			 SMU8_FIRMWARE_HEADER_LOCATION +
+ 			 offsetof(struct SMU8_Firmware_Header, Version);
+ 
+-
+ 	if (hwmgr == NULL || hwmgr->device == NULL)
+ 		return -EINVAL;
+ 
++	adev = hwmgr->adev;
++
+ 	cgs_write_register(hwmgr->device, mmMP0PUB_IND_INDEX, index);
+ 	hwmgr->smu_version = cgs_read_register(hwmgr->device, mmMP0PUB_IND_DATA);
+ 	pr_info("smu version %02d.%02d.%02d\n",
+-- 
+2.6.2
