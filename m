@@ -1,74 +1,101 @@
-From: mikhail.v.gavrilov@gmail.com
-Subject: Re: gnome-shell stuck because of amdgpu driver [5.3 RC5]
-Date: Fri, 30 Aug 2019 03:03:58 +0500
-Message-ID: <a07be36905f145f2fb07beee73f9d3805c285022.camel@gmail.com>
-References: <20190825141305.13984-1-hdanton@sina.com>
-         <20190826092408.GA2112@phenom.ffwll.local>
+From: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH 3/4] drm/amdgpu: Determing PTE flags separately for each
+ mapping (v3)
+Date: Fri, 30 Aug 2019 00:51:35 +0000
+Message-ID: <20190830005124.15610-1-Felix.Kuehling@amd.com>
+References: <0bf604b8-0091-9cc7-fbac-44cb0485729e@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20190826092408.GA2112@phenom.ffwll.local>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Daniel Vetter <daniel@ffwll.ch>, Hillf Danton <hdanton@sina.com>
-Cc: dri-devel <dri-devel@lists.freedesktop.org>, amd-gfx list <amd-gfx@lists.freedesktop.org>, Linux List Kernel Mailing <linux-kernel@vger.kernel.org>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <0bf604b8-0091-9cc7-fbac-44cb0485729e-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
+Content-ID: <5E5D204889DE8140B9DB2A9621E61C96-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Zeng, Oak" <Oak.Zeng-5C7GfCeVMHo@public.gmane.org>, "Koenig,
+ Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
 
-On Sun, Aug 25, 2019 at 10:13:05PM +0800, Hillf Danton wrote:
-> Can we try to add the fallback timer manually?
-> 
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
-> @@ -322,6 +322,10 @@ int amdgpu_fence_wait_empty(struct amdgp
->         }
->         rcu_read_unlock();
->  
-> +       if (!timer_pending(&ring->fence_drv.fallback_timer))
-> +               mod_timer(&ring->fence_drv.fallback_timer,
-> +                       jiffies + (AMDGPU_FENCE_JIFFIES_TIMEOUT <<
-> 1));
-> +
->         r = dma_fence_wait(fence, false);
->         dma_fence_put(fence);
->         return r;
-> --
-> 
-> Or simply wait with an ear on signal and timeout if adding timer
-> seems to go a bit too far?
-> 
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
-> @@ -322,7 +322,12 @@ int amdgpu_fence_wait_empty(struct amdgp
->         }
->         rcu_read_unlock();
->  
-> -       r = dma_fence_wait(fence, false);
-> +       if (0 < dma_fence_wait_timeout(fence, true,
-> +                               AMDGPU_FENCE_JIFFIES_TIMEOUT +
-> +                               (AMDGPU_FENCE_JIFFIES_TIMEOUT >> 3)))
-> +               r = 0;
-> +       else
-> +               r = -EINVAL;
->         dma_fence_put(fence);
->         return r;
->  }
-
-I tested both patches on top of 5.3 RC6. Each patch I was tested more
-than 24 hours and I don't seen any regressions or problems with them.
-
-
-On Mon, 2019-08-26 at 11:24 +0200, Daniel Vetter wrote:
-> 
-> This will paper over the issue, but won't fix it. dma_fences have to
-> complete, at least for normal operations, otherwise your desktop will
-> start feeling like the gpu hangs all the time.
-> 
-> I think would be much more interesting to dump which fence isn't
-> completing here in time, i.e. not just the timeout, but lots of debug
-> printks.
-> -Daniel
-
-As I am understood none of these patches couldn't be merged because
-they do not fix the root cause they eliminate only the consequences?
-Eliminating consequences has any negative effects? And we will never
-know the root cause because not having enough debugging information.
+VGhlIHNhbWUgQk8gY2FuIGJlIG1hcHBlZCB3aXRoIGRpZmZlcmVudCBQVEUgZmxhZ3MgYnkgZGlm
+ZmVyZW50IEdQVXMuDQpUaGVyZWZvcmUgZGV0ZXJtaW5lIHRoZSBQVEUgZmxhZ3Mgc2VwYXJhdGVs
+eSBmb3IgZWFjaCBtYXBwaW5nIGluc3RlYWQNCm9mIHN0b3JpbmcgdGhlbSBpbiB0aGUgS0ZEIGJ1
+ZmZlciBvYmplY3QuDQoNCkFkZCBhIGhlbHBlciBmdW5jdGlvbiB0byBkZXRlcm1pbmUgdGhlIFBU
+RSBmbGFncyB0byBiZSBleHRlbmRlZCB3aXRoDQpBU0lDIGFuZCBtZW1vcnktdHlwZS1zcGVjaWZp
+YyBsb2dpYyBpbiBzdWJzZXF1ZW50IGNvbW1pdHMuDQoNCnYyOiBTcGxpdCBBcmN0dXJ1cy1zcGVj
+aWZpYyBNVFlQRSBjaGFuZ2VzIGludG8gc2VwYXJhdGUgY29tbWl0DQp2MzogRml4IHJldHVybiB0
+eXBlIG9mIGdldF9wdGVfZmxhZ3MgdG8gdWludDY0X3QNCg0KU2lnbmVkLW9mZi1ieTogRmVsaXgg
+S3VlaGxpbmcgPEZlbGl4Lkt1ZWhsaW5nQGFtZC5jb20+DQpBY2tlZC1ieTogQ2hyaXN0aWFuIEvD
+tm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPg0KLS0tDQogZHJpdmVycy9ncHUvZHJtL2Ft
+ZC9hbWRncHUvYW1kZ3B1X2FtZGtmZC5oICAgIHwgIDIgKy0NCiAuLi4vZ3B1L2RybS9hbWQvYW1k
+Z3B1L2FtZGdwdV9hbWRrZmRfZ3B1dm0uYyAgfCAzOSArKysrKysrKysrKy0tLS0tLS0tDQogMiBm
+aWxlcyBjaGFuZ2VkLCAyNCBpbnNlcnRpb25zKCspLCAxNyBkZWxldGlvbnMoLSkNCg0KZGlmZiAt
+LWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9hbWRrZmQuaCBiL2RyaXZl
+cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9hbWRrZmQuaA0KaW5kZXggZTUxOWRmM2ZkMmI2
+Li4xYWY4ZjgzZjdlMDIgMTAwNjQ0DQotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
+bWRncHVfYW1ka2ZkLmgNCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9h
+bWRrZmQuaA0KQEAgLTU3LDcgKzU3LDcgQEAgc3RydWN0IGtnZF9tZW0gew0KIAl1bnNpZ25lZCBp
+bnQgbWFwcGVkX3RvX2dwdV9tZW1vcnk7DQogCXVpbnQ2NF90IHZhOw0KIA0KLQl1aW50MzJfdCBt
+YXBwaW5nX2ZsYWdzOw0KKwl1aW50MzJfdCBhbGxvY19mbGFnczsNCiANCiAJYXRvbWljX3QgaW52
+YWxpZDsNCiAJc3RydWN0IGFtZGtmZF9wcm9jZXNzX2luZm8gKnByb2Nlc3NfaW5mbzsNCmRpZmYg
+LS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfYW1ka2ZkX2dwdXZtLmMg
+Yi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfYW1ka2ZkX2dwdXZtLmMNCmluZGV4
+IDQ0YTUyYjA5Y2M1OC4uYWFlMTlkMjIxZjQyIDEwMDY0NA0KLS0tIGEvZHJpdmVycy9ncHUvZHJt
+L2FtZC9hbWRncHUvYW1kZ3B1X2FtZGtmZF9ncHV2bS5jDQorKysgYi9kcml2ZXJzL2dwdS9kcm0v
+YW1kL2FtZGdwdS9hbWRncHVfYW1ka2ZkX2dwdXZtLmMNCkBAIC0zNTUsNiArMzU1LDIzIEBAIHN0
+YXRpYyBpbnQgdm1fdXBkYXRlX3BkcyhzdHJ1Y3QgYW1kZ3B1X3ZtICp2bSwgc3RydWN0IGFtZGdw
+dV9zeW5jICpzeW5jKQ0KIAlyZXR1cm4gYW1kZ3B1X3N5bmNfZmVuY2UoTlVMTCwgc3luYywgdm0t
+Pmxhc3RfdXBkYXRlLCBmYWxzZSk7DQogfQ0KIA0KK3N0YXRpYyB1aW50NjRfdCBnZXRfcHRlX2Zs
+YWdzKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LCBzdHJ1Y3Qga2dkX21lbSAqbWVtKQ0KK3sN
+CisJYm9vbCBjb2hlcmVudCA9IG1lbS0+YWxsb2NfZmxhZ3MgJiBBTExPQ19NRU1fRkxBR1NfQ09I
+RVJFTlQ7DQorCXVpbnQzMl90IG1hcHBpbmdfZmxhZ3M7DQorDQorCW1hcHBpbmdfZmxhZ3MgPSBB
+TURHUFVfVk1fUEFHRV9SRUFEQUJMRTsNCisJaWYgKG1lbS0+YWxsb2NfZmxhZ3MgJiBBTExPQ19N
+RU1fRkxBR1NfV1JJVEFCTEUpDQorCQltYXBwaW5nX2ZsYWdzIHw9IEFNREdQVV9WTV9QQUdFX1dS
+SVRFQUJMRTsNCisJaWYgKG1lbS0+YWxsb2NfZmxhZ3MgJiBBTExPQ19NRU1fRkxBR1NfRVhFQ1VU
+QUJMRSkNCisJCW1hcHBpbmdfZmxhZ3MgfD0gQU1ER1BVX1ZNX1BBR0VfRVhFQ1VUQUJMRTsNCisN
+CisJbWFwcGluZ19mbGFncyB8PSBjb2hlcmVudCA/DQorCQlBTURHUFVfVk1fTVRZUEVfVUMgOiBB
+TURHUFVfVk1fTVRZUEVfTkM7DQorDQorCXJldHVybiBhbWRncHVfZ21jX2dldF9wdGVfZmxhZ3Mo
+YWRldiwgbWFwcGluZ19mbGFncyk7DQorfQ0KKw0KIC8qIGFkZF9ib190b192bSAtIEFkZCBhIEJP
+IHRvIGEgVk0NCiAgKg0KICAqIEV2ZXJ5dGhpbmcgdGhhdCBuZWVkcyB0byBibyBkb25lIG9ubHkg
+b25jZSB3aGVuIGEgQk8gaXMgZmlyc3QgYWRkZWQNCkBAIC00MDMsOCArNDIwLDcgQEAgc3RhdGlj
+IGludCBhZGRfYm9fdG9fdm0oc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsIHN0cnVjdCBrZ2Rf
+bWVtICptZW0sDQogCX0NCiANCiAJYm9fdmFfZW50cnktPnZhID0gdmE7DQotCWJvX3ZhX2VudHJ5
+LT5wdGVfZmxhZ3MgPSBhbWRncHVfZ21jX2dldF9wdGVfZmxhZ3MoYWRldiwNCi0JCQkJCQkJIG1l
+bS0+bWFwcGluZ19mbGFncyk7DQorCWJvX3ZhX2VudHJ5LT5wdGVfZmxhZ3MgPSBnZXRfcHRlX2Zs
+YWdzKGFkZXYsIG1lbSk7DQogCWJvX3ZhX2VudHJ5LT5rZ2RfZGV2ID0gKHZvaWQgKilhZGV2Ow0K
+IAlsaXN0X2FkZCgmYm9fdmFfZW50cnktPmJvX2xpc3QsIGxpc3RfYm9fdmEpOw0KIA0KQEAgLTEw
+ODEsNyArMTA5Nyw2IEBAIGludCBhbWRncHVfYW1ka2ZkX2dwdXZtX2FsbG9jX21lbW9yeV9vZl9n
+cHUoDQogCWludCBieXRlX2FsaWduOw0KIAl1MzIgZG9tYWluLCBhbGxvY19kb21haW47DQogCXU2
+NCBhbGxvY19mbGFnczsNCi0JdWludDMyX3QgbWFwcGluZ19mbGFnczsNCiAJaW50IHJldDsNCiAN
+CiAJLyoNCkBAIC0xMTQzLDE2ICsxMTU4LDcgQEAgaW50IGFtZGdwdV9hbWRrZmRfZ3B1dm1fYWxs
+b2NfbWVtb3J5X29mX2dwdSgNCiAJCQlhZGV2LT5hc2ljX3R5cGUgIT0gQ0hJUF9WRUdBTSkgPw0K
+IAkJCVZJX0JPX1NJWkVfQUxJR04gOiAxOw0KIA0KLQltYXBwaW5nX2ZsYWdzID0gQU1ER1BVX1ZN
+X1BBR0VfUkVBREFCTEU7DQotCWlmIChmbGFncyAmIEFMTE9DX01FTV9GTEFHU19XUklUQUJMRSkN
+Ci0JCW1hcHBpbmdfZmxhZ3MgfD0gQU1ER1BVX1ZNX1BBR0VfV1JJVEVBQkxFOw0KLQlpZiAoZmxh
+Z3MgJiBBTExPQ19NRU1fRkxBR1NfRVhFQ1VUQUJMRSkNCi0JCW1hcHBpbmdfZmxhZ3MgfD0gQU1E
+R1BVX1ZNX1BBR0VfRVhFQ1VUQUJMRTsNCi0JaWYgKGZsYWdzICYgQUxMT0NfTUVNX0ZMQUdTX0NP
+SEVSRU5UKQ0KLQkJbWFwcGluZ19mbGFncyB8PSBBTURHUFVfVk1fTVRZUEVfVUM7DQotCWVsc2UN
+Ci0JCW1hcHBpbmdfZmxhZ3MgfD0gQU1ER1BVX1ZNX01UWVBFX05DOw0KLQkoKm1lbSktPm1hcHBp
+bmdfZmxhZ3MgPSBtYXBwaW5nX2ZsYWdzOw0KKwkoKm1lbSktPmFsbG9jX2ZsYWdzID0gZmxhZ3M7
+DQogDQogCWFtZGdwdV9zeW5jX2NyZWF0ZSgmKCptZW0pLT5zeW5jKTsNCiANCkBAIC0xNjI1LDkg
+KzE2MzEsMTAgQEAgaW50IGFtZGdwdV9hbWRrZmRfZ3B1dm1faW1wb3J0X2RtYWJ1ZihzdHJ1Y3Qg
+a2dkX2RldiAqa2dkLA0KIA0KIAlJTklUX0xJU1RfSEVBRCgmKCptZW0pLT5ib192YV9saXN0KTsN
+CiAJbXV0ZXhfaW5pdCgmKCptZW0pLT5sb2NrKTsNCi0JKCptZW0pLT5tYXBwaW5nX2ZsYWdzID0N
+Ci0JCUFNREdQVV9WTV9QQUdFX1JFQURBQkxFIHwgQU1ER1BVX1ZNX1BBR0VfV1JJVEVBQkxFIHwN
+Ci0JCUFNREdQVV9WTV9QQUdFX0VYRUNVVEFCTEUgfCBBTURHUFVfVk1fTVRZUEVfTkM7DQorCSgq
+bWVtKS0+YWxsb2NfZmxhZ3MgPQ0KKwkJKChiby0+cHJlZmVycmVkX2RvbWFpbnMgJiBBTURHUFVf
+R0VNX0RPTUFJTl9WUkFNKSA/DQorCQkgQUxMT0NfTUVNX0ZMQUdTX1ZSQU0gOiBBTExPQ19NRU1f
+RkxBR1NfR1RUKSB8DQorCQlBTExPQ19NRU1fRkxBR1NfV1JJVEFCTEUgfCBBTExPQ19NRU1fRkxB
+R1NfRVhFQ1VUQUJMRTsNCiANCiAJKCptZW0pLT5ibyA9IGFtZGdwdV9ib19yZWYoYm8pOw0KIAko
+Km1lbSktPnZhID0gdmE7DQotLSANCjIuMTcuMQ0KDQpfX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3Rz
+LmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xp
+c3RpbmZvL2FtZC1nZng=
