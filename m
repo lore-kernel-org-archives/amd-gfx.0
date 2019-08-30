@@ -1,34 +1,55 @@
-From: Yizhuo <yzhai003@ucr.edu>
-Subject: [PATCH] drm/amd/powerplay: Variable ps could be NULL when it get dereferenced
-Date: Thu, 29 Aug 2019 21:35:04 -0700
-Message-ID: <20190830043504.23760-1-yzhai003@ucr.edu>
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Sender: linux-kernel-owner@vger.kernel.org
-Cc: csong@cs.ucr.edu, zhiyunq@cs.ucr.edu, Yizhuo <yzhai003@ucr.edu>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, David Airlie <airlied@linux.ie>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-List-Id: amd-gfx.lists.freedesktop.org
+From: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH 1/2] drm/amdgpu: Remove unnecessary TLB workaround
+Date: Fri, 30 Aug 2019 05:14:59 +0000
+Message-ID: <20190830051443.3906-1-Felix.Kuehling@amd.com>
+Mime-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-Inside function cz_get_performance_level(), pointer ps could be NULL via
-cast_const_PhwCzPowerState(). However, this pointer is dereferenced
-without any check, which is potentially unsafe.
-
-Signed-off-by: Yizhuo <yzhai003@ucr.edu>
----
- drivers/gpu/drm/amd/powerplay/hwmgr/cz_hwmgr.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/cz_hwmgr.c b/drivers/gpu/drm/amd/powerplay/hwmgr/cz_hwmgr.c
-index bc839ff0bdd0..d2628e7b612d 100644
---- a/drivers/gpu/drm/amd/powerplay/hwmgr/cz_hwmgr.c
-+++ b/drivers/gpu/drm/amd/powerplay/hwmgr/cz_hwmgr.c
-@@ -1799,6 +1799,9 @@ static int cz_get_performance_level(struct pp_hwmgr *hwmgr, const struct pp_hw_p
- 	data = (struct cz_hwmgr *)(hwmgr->backend);
- 	ps = cast_const_PhwCzPowerState(state);
- 
-+	if (!ps)
-+		return -EINVAL;
-+
- 	level_index = index > ps->level - 1 ? ps->level - 1 : index;
- 	level->coreClock = ps->levels[level_index].engineClock;
- 
--- 
-2.17.1
+VGhpcyB3b3JrYXJvdW5kIGlzIGJldHRlciBoYW5kbGVkIGluIHVzZXIgbW9kZSBpbiBhIHdheSB0
+aGF0IGRvZXNuJ3QKcmVxdWlyZSBhbGxvY2F0aW5nIGV4dHJhIG1lbW9yeSBhbmQgYnJlYWtpbmcg
+dXNlcnB0ciBCT3MuCgpUaGUgVExCIGJ1ZyBpcyBhIHBlcmZvcm1hbmNlIGJ1Zywgbm90IGEgZnVu
+Y3Rpb25hbCBvciBzZWN1cml0eSBidWcuCkhlbmNlIGl0IGlzIHNhZmUgdG8gcmVtb3ZlIHRoaXMg
+a2VybmVsIHBhcnQgb2YgdGhlIHdvcmthcm91bmQgdG8KYWxsb3cgYSBiZXR0ZXIgd29ya2Fyb3Vu
+ZCB1c2luZyBvbmx5IHZpcnR1YWwgYWRkcmVzcyBhbGlnbm1lbnRzIGluCnVzZXIgbW9kZS4KClNp
+Z25lZC1vZmYtYnk6IEZlbGl4IEt1ZWhsaW5nIDxGZWxpeC5LdWVobGluZ0BhbWQuY29tPgotLS0K
+IGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9hbWRrZmRfZ3B1dm0uYyB8IDEyICst
+LS0tLS0tLS0tLQogMSBmaWxlIGNoYW5nZWQsIDEgaW5zZXJ0aW9uKCspLCAxMSBkZWxldGlvbnMo
+LSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfYW1ka2Zk
+X2dwdXZtLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfYW1ka2ZkX2dwdXZt
+LmMKaW5kZXggNDJkMjA5ZjVmZDE4Li4yYzczZWE3YzQyNWMgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMv
+Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9hbWRrZmRfZ3B1dm0uYworKysgYi9kcml2ZXJzL2dw
+dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfYW1ka2ZkX2dwdXZtLmMKQEAgLTExMTAsNyArMTExMCw2
+IEBAIGludCBhbWRncHVfYW1ka2ZkX2dwdXZtX2FsbG9jX21lbW9yeV9vZl9ncHUoCiAJdWludDY0
+X3QgdXNlcl9hZGRyID0gMDsKIAlzdHJ1Y3QgYW1kZ3B1X2JvICpibzsKIAlzdHJ1Y3QgYW1kZ3B1
+X2JvX3BhcmFtIGJwOwotCWludCBieXRlX2FsaWduOwogCXUzMiBkb21haW4sIGFsbG9jX2RvbWFp
+bjsKIAl1NjQgYWxsb2NfZmxhZ3M7CiAJaW50IHJldDsKQEAgLTExNjUsMTUgKzExNjQsNiBAQCBp
+bnQgYW1kZ3B1X2FtZGtmZF9ncHV2bV9hbGxvY19tZW1vcnlfb2ZfZ3B1KAogCWlmICgoKm1lbSkt
+PmFxbF9xdWV1ZSkKIAkJc2l6ZSA9IHNpemUgPj4gMTsKIAotCS8qIFdvcmthcm91bmQgZm9yIFRM
+QiBidWcgb24gb2xkZXIgVkkgY2hpcHMgKi8KLQlieXRlX2FsaWduID0gKGFkZXYtPmZhbWlseSA9
+PSBBTURHUFVfRkFNSUxZX1ZJICYmCi0JCQlhZGV2LT5hc2ljX3R5cGUgIT0gQ0hJUF9GSUpJICYm
+Ci0JCQlhZGV2LT5hc2ljX3R5cGUgIT0gQ0hJUF9QT0xBUklTMTAgJiYKLQkJCWFkZXYtPmFzaWNf
+dHlwZSAhPSBDSElQX1BPTEFSSVMxMSAmJgotCQkJYWRldi0+YXNpY190eXBlICE9IENISVBfUE9M
+QVJJUzEyICYmCi0JCQlhZGV2LT5hc2ljX3R5cGUgIT0gQ0hJUF9WRUdBTSkgPwotCQkJVklfQk9f
+U0laRV9BTElHTiA6IDE7Ci0KIAkoKm1lbSktPmFsbG9jX2ZsYWdzID0gZmxhZ3M7CiAKIAlhbWRn
+cHVfc3luY19jcmVhdGUoJigqbWVtKS0+c3luYyk7CkBAIC0xMTg5LDcgKzExNzksNyBAQCBpbnQg
+YW1kZ3B1X2FtZGtmZF9ncHV2bV9hbGxvY19tZW1vcnlfb2ZfZ3B1KAogCiAJbWVtc2V0KCZicCwg
+MCwgc2l6ZW9mKGJwKSk7CiAJYnAuc2l6ZSA9IHNpemU7Ci0JYnAuYnl0ZV9hbGlnbiA9IGJ5dGVf
+YWxpZ247CisJYnAuYnl0ZV9hbGlnbiA9IDE7CiAJYnAuZG9tYWluID0gYWxsb2NfZG9tYWluOwog
+CWJwLmZsYWdzID0gYWxsb2NfZmxhZ3M7CiAJYnAudHlwZSA9IGJvX3R5cGU7Ci0tIAoyLjE3LjEK
+Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZngg
+bWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMu
+ZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
