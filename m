@@ -1,21 +1,12 @@
-From: =?UTF-8?B?THXDrXMgTWVuZGVz?= <luis.p.mendes-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: =?UTF-8?Q?Re=3A_=E7=AD=94=E5=A4=8D=3A_Regression_with_kernel_4=2E18_=2D_AMD_RX_550?=
- =?UTF-8?Q?_fails_IB_ring_test_on_power=2Dup?=
-Date: Sun, 1 Sep 2019 13:29:15 +0100
-Message-ID: <CAEzXK1qTi-tsud0VZmqo8kGwLQaOorJ9jyqW2ar+hmDREREaWw@mail.gmail.com>
-References: <CAEzXK1ofHUGNcZXM+Ys4xU9g0cSrdr63fxMVTCSq2-X4jwKfNw@mail.gmail.com>
- <CAEzXK1oftbBGeuzJEsn7bEJUmuiviq5h6cmmP0hP2+U77otZKA@mail.gmail.com>
- <DM3PR12MB0873E055CAF457DE917EC238995A0@DM3PR12MB0873.namprd12.prod.outlook.com>
- <CAEzXK1pnvjJfe2Q0WVeGToyZNDH_GQD1eMJnf3R=GNQTbK8pjw@mail.gmail.com>
- <a0bbadba-18bb-12dd-a577-305c5178ddb8@amd.com>
- <CAEzXK1q5OdOaYzLRw9YWmAeOUQxGjb2R8jTEjQX1SPNhTGsS_w@mail.gmail.com>
- <45e7a84e-941a-fd7b-e08e-c9444ea1d77c@amd.com>
- <CAEzXK1rZfDL6JOZ08oES5Cpq+OxR+cj9Y_WYvT904m-xR2n3jQ@mail.gmail.com>
- <CAEzXK1p+Y16+6rcBXMywF3q+QDNpdZoHDsbkZD_T3J3rivhQPA@mail.gmail.com>
+From: Przemek Socha <soprwa-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Kenel Ooops with: "drm/amdgpu: poll ras_controller_irq and
+ err_event_athub_irq status" [bisected].
+Date: Sun, 01 Sep 2019 17:44:00 +0200
+Message-ID: <2628603.F1qxjxke30@eclipse>
+Reply-To: soprwa-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1158338339=="
+Content-Type: multipart/mixed; boundary="===============0029593620=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CAEzXK1p+Y16+6rcBXMywF3q+QDNpdZoHDsbkZD_T3J3rivhQPA-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -26,688 +17,303 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: jimqu <jimqu-5C7GfCeVMHo@public.gmane.org>
-Cc: "Qu, Jim" <Jim.Qu-5C7GfCeVMHo@public.gmane.org>, =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, =?UTF-8?Q?Christian_K=C3=B6nig?= <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Hawking Zhang <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>, Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
 
---===============1158338339==
-Content-Type: multipart/alternative; boundary="0000000000008b46a705917d019c"
+--===============0029593620==
+Content-Type: multipart/signed; boundary="nextPart5067964.hPAX7RBNM5"; micalg="pgp-sha256"; protocol="application/pgp-signature"
 
---0000000000008b46a705917d019c
+--nextPart5067964.hPAX7RBNM5
+Content-Transfer-Encoding: 7Bit
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-Good News!! I've re-tested this with Linux Kernel 5.3.0-rc6 with Ubuntu
-19.4 and Mesa 19.0.2 and Mesa 19.0.8 with the same Polaris RX460 and the
-same TYAN S7002 and TYAN S7025 and now it is working properly, being able
-to enter the desktop and running glmark2 as well as OpenCL.
+Hello everyone,
+
+after today sync with amd-staging-drm-next repo my machine was hit by Ooops 
+bug.
+Maybe my google-foo is weak, but I could not find any fix on patchwork for this 
+that will/was implemented or planned.
+
+Machine is a Lenovo netbook with a6-6310 APU, R4 (CIK).
+
+I have done bisection and here are the results:
+
+
+1.  dmesg output from pstore after kernel panic:
+
+<6>[   13.133880] [drm] amdgpu kernel modesetting enabled.
+<6>[   13.133923] amdgpu 0000:00:01.0: remove_conflicting_pci_framebuffers: bar 
+0: 0xe0000000 -> 0xefffffff
+<6>[   13.133927] amdgpu 0000:00:01.0: remove_conflicting_pci_framebuffers: bar 
+2: 0xf0000000 -> 0xf07fffff
+<6>[   13.133930] amdgpu 0000:00:01.0: remove_conflicting_pci_framebuffers: bar 
+5: 0xf0c00000 -> 0xf0c3ffff
+<7>[   13.133933] checking generic (e0000000 420000) vs hw (e0000000 10000000)
+<6>[   13.133935] fb0: switching to amdgpudrmfb from EFI VGA
+<6>[   13.133999] Console: switching to colour dummy device 80x25
+<6>[   13.136463] [drm] initializing kernel modesetting (MULLINS 0x1002:0x9851 
+0x17AA:0x3801 0x00).
+<6>[   13.136826] [drm] register mmio base: 0xF0C00000
+<6>[   13.136827] [drm] register mmio size: 262144
+<6>[   13.136837] [drm] add ip block number 0 <cik_common>
+<6>[   13.136839] [drm] add ip block number 1 <gmc_v7_0>
+<6>[   13.136840] [drm] add ip block number 2 <cik_ih>
+<6>[   13.136842] [drm] add ip block number 3 <gfx_v7_0>
+<6>[   13.136844] [drm] add ip block number 4 <cik_sdma>
+<6>[   13.136845] [drm] add ip block number 5 <kv_dpm>
+<6>[   13.136847] [drm] add ip block number 6 <dm>
+<6>[   13.136849] [drm] add ip block number 7 <uvd_v4_2>
+<6>[   13.136850] [drm] add ip block number 8 <vce_v2_0>
+<6>[   13.136857] amdgpu 0000:00:01.0: kfd not supported on this ASIC
+<6>[   13.136916] ATOM BIOS: BR45787.ts5
+<6>[   13.137031] [drm] vm size is 64 GB, 2 levels, block size is 10-bit, 
+fragment size is 9-bit
+<6>[   13.137042] amdgpu 0000:00:01.0: VRAM: 1024M 0x000000F400000000 - 
+0x000000F43FFFFFFF (1024M used)
+<6>[   13.137046] amdgpu 0000:00:01.0: GART: 1024M 0x000000FF00000000 - 
+0x000000FF3FFFFFFF
+<6>[   13.137056] [drm] Detected VRAM RAM=1024M, BAR=1024M
+<6>[   13.137057] [drm] RAM width 64bits UNKNOWN
+<6>[   13.138102] sdhci: Secure Digital Host Controller Interface driver
+<6>[   13.138105] sdhci: Copyright(c) Pierre Ossman
+<6>[   13.138741] [TTM] Zone  kernel: Available graphics memory: 3541568 KiB
+<6>[   13.138744] [TTM] Zone   dma32: Available graphics memory: 2097152 KiB
+<6>[   13.138745] [TTM] Initializing pool allocator
+<6>[   13.138754] [TTM] Initializing DMA pool allocator
+<6>[   13.138882] [drm] amdgpu: 1024M of VRAM memory ready
+<6>[   13.138891] [drm] amdgpu: 3072M of GTT memory ready.
+<6>[   13.138932] [drm] GART: num cpu pages 262144, num gpu pages 262144
+<6>[   13.138970] [drm] PCIE GART of 1024M enabled (table at 
+0x000000F400401000).
+<6>[   13.176861] [drm] Internal thermal controller without fan control
+<6>[   13.176865] [drm] amdgpu: dpm initialized
+<6>[   13.176872] [drm] Found UVD firmware Version: 1.64 Family ID: 9
+<6>[   13.178133] sdhci-pci 0000:00:14.7: SDHCI controller found [1022:7813] 
+(rev 1)
+<6>[   13.180552] [drm] Found VCE firmware Version: 50.10 Binary ID: 2
+<6>[   13.186202] kvm: Nested Virtualization enabled
+<6>[   13.186205] kvm: Nested Paging enabled
+<6>[   13.191378] mmc0: SDHCI controller on PCI [0000:00:14.7] using ADMA
+<3>[   13.196258] [drm:dm_pp_get_static_clocks [amdgpu]] *ERROR* DM_PPLIB: 
+invalid powerlevel state: 0!
+<4>[   13.196308] [drm] Unsupported Connector type:5!
+<6>[   13.213496] [drm] Display Core initialized with v3.2.48!
+<6>[   13.221850] [drm] SADs count is: -2, don't need to read it
+<6>[   13.230392] ath: phy0: WB335 2-ANT card detected
+<6>[   13.230395] ath: phy0: Set BT/WLAN RX diversity capability
+<6>[   13.247472] ath: phy0: Enable LNA combining
+<6>[   13.248570] ath: phy0: ASPM enabled: 0x43
+<7>[   13.248574] ath: EEPROM regdomain: 0x6a
+<7>[   13.248575] ath: EEPROM indicates we should expect a direct regpair map
+<7>[   13.248579] ath: Country alpha2 being used: 00
+<7>[   13.248580] ath: Regpair used: 0x6a
+<7>[   13.261552] ieee80211 phy0: Selected rate control algorithm 
+'minstrel_ht'
+<6>[   13.261857] ieee80211 phy0: Atheros AR9565 Rev:1 mem=0xffffa9f1c0400000, 
+irq=43
+<6>[   13.296215] ath9k 0000:01:00.0 wlp1s0: renamed from wlan0
+<6>[   13.304323] [drm] Supports vblank timestamp caching Rev 2 (21.10.2013).
+<6>[   13.304325] [drm] Driver supports precise vblank timestamp query.
+<6>[   13.321092] [drm] UVD initialized successfully.
+<6>[   13.373473] usb 1-1: new high-speed USB device number 2 using ehci-pci
+<6>[   13.386794] usb 4-1: new high-speed USB device number 2 using ehci-pci
+<6>[   13.442287] [drm] VCE initialized successfully.
+<1>[   13.444174] BUG: kernel NULL pointer dereference, address: 
+00000000000000a8
+<1>[   13.444191] #PF: supervisor read access in kernel mode
+<1>[   13.444197] #PF: error_code(0x0000) - not-present page
+<6>[   13.444202] PGD 0 P4D 0 
+<4>[   13.444210] Oops: 0000 [#1] PREEMPT SMP
+<4>[   13.444218] CPU: 1 PID: 3311 Comm: laptop_mode Not tainted 5.2.0-rc1+ 
+#94
+<4>[   13.444224] Hardware name: LENOVO 80E3/Lancer 5B2, BIOS A2CN45WW(V2.13) 
+08/04/2016
+<4>[   13.444392] RIP: 0010:amdgpu_irq_handler+0x28/0x78 [amdgpu]
+<4>[   13.444401] Code: 00 00 41 54 55 53 48 8b 6e 28 48 89 f3 48 89 ef 48 8d 
+b5 88 5f 00 00 e8 0e 0a 00 00 41 89 c4 ff c8 74 3e 48 8b 85 d0 70 00 00 <48> 8b 
+90 a8 00 00 00 48 85 d2 74 0f 48 89 ef e8 1c 75 f7 cb 48 8b
+<4>[   13.444414] RSP: 0000:ffffa9f1c00ecf00 EFLAGS: 00010012
+<4>[   13.444420] RAX: 0000000000000000 RBX: ffff947b96a700b0 RCX: 
+0000000000000018
+<4>[   13.444427] RDX: 00000000008e7d30 RSI: 001a351391f4b553 RDI: 
+ffffffff8ca17720
+<4>[   13.444433] RBP: ffff947b8fb80000 R08: ffffffff8c6077e0 R09: ffff947b97ba4af8
+<4>[   13.444440] R10: ffff947b969cd2b8 R11: ffff947b969cd2a8 R12: 
+0000000000000001
+<4>[   13.444446] R13: 0000000000000000 R14: ffffa9f1c00ecf64 R15: 
+0000000000000000
+<4>[   13.444453] FS:  00007f40b84aa740(0000) GS:ffff947b97a80000(0000) knlGS:
+0000000000000000
+<4>[   13.444461] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+<4>[   13.444466] CR2: 00000000000000a8 CR3: 000000020e627000 CR4: 
+00000000000406e0
+<4>[   13.444472] Call Trace:
+<4>[   13.444481]  <IRQ>
+<4>[   13.444492]  __handle_irq_event_percpu+0x3d/0x1a0
+<4>[   13.444501]  handle_irq_event_percpu+0x2c/0x78
+<4>[   13.444508]  handle_irq_event+0x2f/0x4c
+<4>[   13.444515]  handle_edge_irq+0x95/0x1c0
+<4>[   13.444523]  handle_irq+0x17/0x20
+<4>[   13.444531]  do_IRQ+0x4a/0xe0
+<4>[   13.444539]  common_interrupt+0xf/0xf
+<4>[   13.444545]  </IRQ>
+<4>[   13.444550] RIP: 0033:0x56277e2c6830
+<4>[   13.444556] Code: 68 7d 00 00 00 e9 10 f8 ff ff ff 25 22 52 0d 00 68 7e 00 
+00 00 e9 00 f8 ff ff ff 25 1a 52 0d 00 68 7f 00 00 00 e9 f0 f7 ff ff <ff> 25 12 52 
+0d 00 68 80 00 00 00 e9 e0 f7 ff ff ff 25 0a 52 0d 00
+<4>[   13.444568] RSP: 002b:00007ffddc457328 EFLAGS: 00000246 ORIG_RAX: 
+ffffffffffffffda
+<4>[   13.444576] RAX: 0000562780370044 RBX: 0000000000000056 RCX: 
+0000000000000045
+<4>[   13.444582] RDX: 0000000000000001 RSI: 000056278037f670 RDI: 
+00005627804390c0
+<4>[   13.444588] RBP: 0000562780443150 R08: 0000000000000000 R09: 
+0000000000003cff
+<4>[   13.444595] R10: 0000000000100000 R11: 0000000000000098 R12: 
+00005627804390c0
+<4>[   13.444601] R13: 0000562780440044 R14: 0000562780457a00 R15: 
+00000000000000bc
+<4>[   13.444609] Modules linked in: ath9k ath9k_common ath9k_hw kvm_amd 
+sdhci_pci iosf_mbi mac80211 cqhci kvm sdhci irqbypass crc32_pclmul 
+ghash_clmulni_intel serio_raw mmc_core ath amdgpu(+) cfg80211 gpu_sched 
+mfd_core ttm xhci_pci ehci_pci xhci_hcd sp5100_tco ehci_hcd
+<4>[   13.444645] CR2: 00000000000000a8
+<4>[   13.444654] ---[ end trace cd97c823583992aa ]---
+<6>[   13.446294] [drm] fb mappable at 0xA07ED000
+<6>[   13.446305] [drm] vram apper at 0xA0000000
+<6>[   13.446310] [drm] size 5767168
+<6>[   13.446315] [drm] fb depth is 24
+<6>[   13.446319] [drm]    pitch is 5632
+<6>[   13.446480] fbcon: amdgpudrmfb (fb0) is primary device
+<4>[   13.486378] hpet1: lost 1 rtc interrupts
+<4>[   13.531123] hpet1: lost 1 rtc interrupts
+<4>[   13.572920] hpet1: lost 1 rtc interrupts
+<6>[   13.573579] usb 1-1: New USB device found, idVendor=0438, 
+idProduct=7900, bcdDevice= 0.18
+<6>[   13.573583] usb 1-1: New USB device strings: Mfr=0, Product=0, 
+SerialNumber=0
+<6>[   13.573689] usb 4-1: New USB device found, idVendor=0438, 
+idProduct=7900, bcdDevice= 0.18
+<6>[   13.573692] usb 4-1: New USB device strings: Mfr=0, Product=0, 
+SerialNumber=0
+<6>[   13.573994] hub 4-1:1.0: USB hub found
+<6>[   13.574107] hub 1-1:1.0: USB hub found
+<6>[   13.574120] hub 4-1:1.0: 4 ports detected
+<6>[   13.574182] hub 1-1:1.0: 4 ports detected
+<4>[   13.612313] hpet1: lost 1 rtc interrupts
+<4>[   13.651976] hpet1: lost 1 rtc interrupts
+<4>[   13.690645] hpet1: lost 1 rtc interrupts
+<4>[   13.732985] hpet1: lost 1 rtc interrupts
+<4>[   13.773804] hpet1: lost 1 rtc interrupts
+<4>[   13.815399] hpet1: lost 1 rtc interrupts
+<4>[   13.857053] hpet1: lost 1 rtc interrupts
+<6>[   13.943198] usb 4-1.2: new high-speed USB device number 3 using ehci-pci
+<6>[   13.943227] usb 1-1.3: new high-speed USB device number 3 using ehci-pci
+<4>[   14.017533] RIP: 0010:amdgpu_irq_handler+0x28/0x78 [amdgpu]
+<4>[   14.017538] Code: 00 00 41 54 55 53 48 8b 6e 28 48 89 f3 48 89 ef 48 8d 
+b5 88 5f 00 00 e8 0e 0a 00 00 41 89 c4 ff c8 74 3e 48 8b 85 d0 70 00 00 <48> 8b 
+90 a8 00 00 00 48 85 d2 74 0f 48 89 ef e8 1c 75 f7 cb 48 8b
+<4>[   14.017540] RSP: 0000:ffffa9f1c00ecf00 EFLAGS: 00010012
+<4>[   14.017544] RAX: 0000000000000000 RBX: ffff947b96a700b0 RCX: 
+0000000000000018
+<4>[   14.017546] RDX: 00000000008e7d30 RSI: 001a351391f4b553 RDI: 
+ffffffff8ca17720
+<4>[   14.017547] RBP: ffff947b8fb80000 R08: ffffffff8c6077e0 R09: ffff947b97ba4af8
+<4>[   14.017549] R10: ffff947b969cd2b8 R11: ffff947b969cd2a8 R12: 
+0000000000000001
+<4>[   14.017551] R13: 0000000000000000 R14: ffffa9f1c00ecf64 R15: 
+0000000000000000
+<4>[   14.017553] FS:  00007f40b84aa740(0000) GS:ffff947b97a80000(0000) knlGS:
+0000000000000000
+<4>[   14.017555] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+<4>[   14.017557] CR2: 00000000000000a8 CR3: 000000020e627000 CR4: 
+00000000000406e0
+<0>[   14.017559] Kernel panic - not syncing: Fatal exception in interrupt
+<0>[   14.017575] Kernel Offset: 0xa800000 from 0xffffffff81000000 (relocation 
+range: 0xffffffff80000000-0xffffffffbfffffff)
+
+
+2. full git bisect log:
+
+
+git bisect start
+# good: [f1f7ad1b3b98a22229e71d51a1b983049e8bae6b] drm/amd/display: fix 
+calc_pll_max_vco_construct
+git bisect good f1f7ad1b3b98a22229e71d51a1b983049e8bae6b
+# bad: [3913cc8cdcf3e27d5ffd31b70779f189e61e6c71] drm/amdgpu: Move null pointer 
+dereference check
+git bisect bad 3913cc8cdcf3e27d5ffd31b70779f189e61e6c71
+# good: [f7ffd234bc4acc41612fd6aac83408a1aceffceb] drm/amd/display: Add hubp 
+block for Renoir (v2)
+git bisect good f7ffd234bc4acc41612fd6aac83408a1aceffceb
+# good: [0460fba0adac1c0e6211ec5308cfb58941cf26b8] drm/amdgpu: Handle job is 
+NULL use case in amdgpu_device_gpu_recover
+git bisect good 0460fba0adac1c0e6211ec5308cfb58941cf26b8
+# bad: [62c64055ab6d618b1afb28dd4b119cfc1e5d59cb] drm/amdgpu: switch to 
+amdgpu_ras_late_init for gfx v9 block (v2)
+git bisect bad 62c64055ab6d618b1afb28dd4b119cfc1e5d59cb
+# good: [1b64dd1871d952c3f999aac8176ba2afbd5ff661] drm/amdgpu: add nbif v7_4 
+irq source header for vega20
+git bisect good 1b64dd1871d952c3f999aac8176ba2afbd5ff661
+# good: [82e6cc2843fc844e5164c0618e6ec133f405a25f] drm/amdgpu: add 
+ras_controller and err_event_athub interrupt support
+git bisect good 82e6cc2843fc844e5164c0618e6ec133f405a25f
+# bad: [598de6e65a1c1cbd36decb09d190071c99f100f8] drm/amdgpu: add helper 
+function to do common ras_late_init/fini (v3)
+git bisect bad 598de6e65a1c1cbd36decb09d190071c99f100f8
+# bad: [ab2d6f7463d1f6eaf0529c163754feadc353469b] drm/amdgpu: poll 
+ras_controller_irq and err_event_athub_irq status
+git bisect bad ab2d6f7463d1f6eaf0529c163754feadc353469b
+# first bad commit: [ab2d6f7463d1f6eaf0529c163754feadc353469b] drm/amdgpu: poll 
+ras_controller_irq and err_event_athub_irq status
+
+
+
+commit ab2d6f7463d1f6eaf0529c163754feadc353469b
+Author: Hawking Zhang <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>
+Date:   Wed Jun 5 14:40:57 2019 +0800
+
+    drm/amdgpu: poll ras_controller_irq and err_event_athub_irq status
+    
+    For the hardware that can not enable BIF ring for IH cookies for both
+    ras_controller_irq and err_event_athub_irq, the driver has to poll the
+    status register in irq handling and ack the hardware properly when there
+    is interrupt triggered
+    
+    Signed-off-by: Hawking Zhang <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>
+    Reviewed-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+
+Any help is appreciated.
+
+Thanks,
+Przemek.
+--nextPart5067964.hPAX7RBNM5
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part.
+Content-Transfer-Encoding: 7Bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCAAdFiEE2zcce+zboy/je1pmPMstj1lsVJMFAl1r50AACgkQPMstj1ls
+VJPkVBAAsxRBbNybaqvrKYN8kPlPChqP4Y7CCspHrFBvSy5HohZMKmXf8nthpPBa
+GnEPm7MgvqlCMVzvoxIMwwpp9ZlKQvnFaZos+NDsch+xkwqNhKlazuvwYuDKXr53
+EZks4Y2QmyKTYLOsJknA1XOeitF9mzEJWI1dQ62UP7nVTza0q/yYCowTcZZcRSPk
+tc6HFbrkh6g9b1yDKMZSo/aOif9x3+MTPXqqoxJWF5jRkYPEJLqPxOz9HZOdeLo3
+KP7Up2ngtUBl0q0Ggw8UkNzS7GaBuEY7a2akdZFCM3QtYEWtk3Q3sIDrdXdxJbvh
+m8Ju8LS7t35ADcR8v8rEV7N4ASEdERWmN00rivxk+soryhoZxGuURTqBl40qrnnW
+Ls29wB9wcD9PBdckAZ0V4kWp9ZV+URVheVXg/fUPduQ+qUGcxV75etm+FfdQCRHQ
+1IeSd2elWic/wqLE+a/ZsCxNiATcXJWC9Ja5LeeXMn0FhkyZZq1NTbabDXdoabtq
+sV+zV7LE8lJVXl8I3KFoDLF9YfIFLlNOwEAvr0UoATi3NabPryJ/aSMN/FS05JLl
+ifMs1xuYEvSZtEvXPh64D/2z4F54wl0Wjzm2KmhDQ1ZjkEU1CjfPa+sOdS4vHSYQ
+ri9ioPWgyG+aESCX+TwqlTsjVBNbWpDU7R5uVs0N7KnVoAVYLSI=
+=PMR+
+-----END PGP SIGNATURE-----
+
+--nextPart5067964.hPAX7RBNM5--
 
 
 
 
-On Sat, Oct 20, 2018 at 6:58 PM Lu=C3=ADs Mendes <luis.p.mendes-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org> =
-wrote:
-
-> The problems remains with Linux 4.18 and Linux 4.19 kernels. I am unable
-> to use AMD RX 460 and AMD RX 550 on my x64 Linux platforms.
->
-> I've installed Windows 10 in the same machine along with
-> win10-64bit-radeon-software-adrenalin-edition-18.10.1-oct18.exe and under
-> Windows the same RX 460 card *works fine* and I am able to run OpenCL
-> applications.
->
-> The driver is hanging since kernel 4.15, I am getting:
-> [   33.504100] [drm:drm_atomic_helper_wait_for_flip_done [drm_kms_helper]=
-]
-> *ERROR* [CRTC:42:crtc-0] flip_done timed out
-> [   43.744094] [drm:drm_atomic_helper_wait_for_dependencies
-> [drm_kms_helper]] *ERROR* [CRTC:42:crtc-0] flip_done timed
-> out
-> [   53.984089] [drm:drm_atomic_helper_wait_for_dependencies
-> [drm_kms_helper]] *ERROR* [CONNECTOR:54:HDMI-A-1] flip_done timed
-> out
-> [   64.224036] [drm:drm_atomic_helper_wait_for_dependencies
-> [drm_kms_helper]] *ERROR* [PLANE:40:plane-4] flip_done timed
-> out
-> [   64.224141] [drm:amdgpu_dm_atomic_commit_tail [amdgpu]] *ERROR*
-> amdgpu_dm_commit_planes: acrtc 0, already busy
->
-> And after commit: drm/amdgpu: defer test IBs on the rings at boot (V3)
->
-> 2c773de2ecb8c327f2448bd1eecad224e9227087
-> <https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commi=
-t/?h=3Dv4.18-rc4&id=3D2c773de2ecb8c327f2448bd1eecad224e9227087>
-> I get with kernels 4.18 and 4.19 as well as Ubuntu 18.10 stock kernel
-> (can't even install Ubuntu 18.10 because it hangs with amdgpu):
-> [drm:gfx_v8_0_ring_test_ib [amdgpu]] *ERROR* amdgpu: IB test timed out.
-> [drm_amdgpu_ib_ring_tests [amdgpu]] *ERROR* amdgpu: failed testing IB on
-> GFX ring (-110).
-> [drm:amdgpu_device_ip_late_init_func_handler [amdgpu]] *ERROR* ib ring
-> test failed (-110).
-> [drm:amdgpu_job_timedout [amdgpu]] *ERROR* ring sdma1 timeout, last
-> signalled seq=3D0, last emitted seq=3D1
-> and the kernel blocks indefinitely:
-> task plymouthd:449 blocked for more than 120 seconds.
->
-> Is there any hope on getting this fixed?
->
->
-> On Thu, Jul 12, 2018 at 2:56 PM Lu=C3=ADs Mendes <luis.p.mendes-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org=
->
-> wrote:
->
->> Hi Jim,
->>
->> Replies in between.
->>
->> Regards,
->> Lu=C3=ADs
->>
->> On Thu, Jul 12, 2018 at 3:16 AM, jimqu <jimqu-5C7GfCeVMHo@public.gmane.org> wrote:
->>
->>>
->>>
->>> On 2018=E5=B9=B407=E6=9C=8812=E6=97=A5 05:27, Lu=C3=ADs Mendes wrote:
->>>
->>> Hi Jim,
->>>
->>> I followed your suggestion and was able to bisect the kernel patches.
->>> The offending patch is: drm/amdgpu: defer test IBs on the rings at boot
->>> (V3)
->>> commit:
->>>
->>> 2c773de2ecb8c327f2448bd1eecad224e9227087
->>> <https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/com=
-mit/?h=3Dv4.18-rc4&id=3D2c773de2ecb8c327f2448bd1eecad224e9227087>
->>>
->>> After reverting this patch the IB test succeeded with kernel v4.18-rc4
->>> on both systems and the amdgpu driver was correctly loaded both on SAPP=
-HIRE
->>> RX550 4GB and on SAPPHIRE RX460 2GB.
->>>
->>>
->>> Alex, Christian, What do you think about the patch?
->>>
->>> The GPU hang remains, however.
->>>  I will try to configure a remote IPMI connection to see what is
->>> happening with the kernel boot or setup a serial console for the Kernel=
-.
->>>
->>>
->>> *You can set up remote connection by ssh, and also you can add amdgpu t=
-o
->>> blacklist first, and manually modprobe amdgpu.*
->>>
->> R: I was able to setup a remote serial console with console=3DttyS0,1152=
-0n8
->> kernel parameter.
->> Boot log follows attached as file kernel_bisected_v4.18-rc4_log.txt.
->> First noticeable issue seems to be:
->> [    6.131989] amdgpu: [powerplay]
->> [    6.131989]  last message was failed ret is 65535
->> ...
->> and later hangs with:
->> [   33.504100] [drm:drm_atomic_helper_wait_for_flip_done
->> [drm_kms_helper]] *ERROR* [CRTC:42:crtc-0] flip_done timed out
->> [   43.744094] [drm:drm_atomic_helper_wait_for_dependencies
->> [drm_kms_helper]] *ERROR* [CRTC:42:crtc-0] flip_done timed
->> out
->> [   53.984089] [drm:drm_atomic_helper_wait_for_dependencies
->> [drm_kms_helper]] *ERROR* [CONNECTOR:54:HDMI-A-1] flip_done timed
->> out
->> [   64.224036] [drm:drm_atomic_helper_wait_for_dependencies
->> [drm_kms_helper]] *ERROR* [PLANE:40:plane-4] flip_done timed
->> out
->> [   64.224141] [drm:amdgpu_dm_atomic_commit_tail [amdgpu]] *ERROR*
->> amdgpu_dm_commit_planes: acrtc 0, already
->> busy
->>
->>
->>
->>> *What's about xinit? What is MESA driver version on your platform?*
->>>
->> R: I am running Ubuntu 18.04 with bisected kernel 4.18-rc4 using
->> libdrm-2.4.92 and mesa-18.1.0.
->> xinit output follows attached as xinit_log.txt
->>
->>
->>>
->>> Thanks & Regards,
->>> Lu=C3=ADs
->>>
->>> On Wed, Jul 11, 2018 at 10:56 AM, jimqu <jimqu-5C7GfCeVMHo@public.gmane.org> wrote:
->>>
->>>> HI Luis,
->>>>
->>>>
->>>> Let us trace the issue one by one.
->>>>
->>>>
->>>> IB test fail:
->>>>
->>>> This should be regression issue on 4.18, you can bisect the kernel
->>>> patches.
->>>>
->>>> GPU hang:
->>>>
->>>> Fix IB test fail first.
->>>>
->>>>
->>>> Thanks
->>>>
->>>> JimQu
->>>>
->>>>
->>>>
->>>> On 2018=E5=B9=B407=E6=9C=8811=E6=97=A5 17:34, Lu=C3=ADs Mendes wrote:
->>>>
->>>> Hi Jim,
->>>>
->>>> Thanks for your interest in this issue. Actually this is a multiple
->>>> issue... not only the IB ring test is failing... as I am having quite =
-some
->>>> trouble getting the cards SAPPHIRE RX 550 4GB on a Tyan S7025 and SAPP=
-HIRE
->>>> RX 460 2GB on a TYAN S7002 to work, both systems using same Ubuntu 18.=
-04
->>>> with vanilla kernel.
->>>>
->>>> *1. May you also test earlier kernel? v4.17 or v4.16.*
->>>> I've tested kernels v4.17.5 and v4.16.6 with same system and both are
->>>> able to pass the IB ring test and system boots into X using NVIDIA as =
-the
->>>> display connected card.
->>>> dmesg log attached for kernel 4.17.5, file
->>>> TYAN_S7025_kernelv4.17.5_amdgpu_IB_ring_test_OK.txt.
->>>>
->>>> *2. May you test the issue only with amdgpu?*
->>>> - I've tested on a TYAN S7002 system with a single SAPPHIRE RX 460 2GB=
-,
->>>> on-board VGA enabled and used as primary display.
->>>> Kernel v4.18-rc4 fails the IB ring test, system is able to enter X
->>>> through the on-board VGA.
->>>> dmesg log attached for kernel 4.18-rc4, file
->>>> TYAN_S7002_kernel_v4.18-rc4_IB_ring_test_fail.txt.
->>>>
->>>> - Same TYAN S7002 system, but now with on-board VGA disabled and using
->>>> RX 460 as display connected card.
->>>> Kernels v4.17.5 and v4.16.6 are able to pass the IB ring test, but GPU
->>>> hangs before entering X. Don't have logs for these yet.
->>>>
->>>> Regards,
->>>> Lu=C3=ADs Mendes
->>>> Aparapi contributor and MSc Researcher
->>>>
->>>>
->>>>
->>>>
->>>>
->>>> On Wed, Jul 11, 2018 at 3:49 AM, Qu, Jim <Jim.Qu-5C7GfCeVMHo@public.gmane.org> wrote:
->>>>
->>>>> Hi Luis,
->>>>>
->>>>> 1. May you also test earlier kernel? v4.17 or v4.16.
->>>>> 2. May you test the issue only with amdgpu?
->>>>>
->>>>> Thanks
->>>>> JimQu
->>>>>
->>>>> ________________________________________
->>>>> =E5=8F=91=E4=BB=B6=E4=BA=BA: amd-gfx <amd-gfx-bounces-PD4FTy7X32nrcLQh/DF6ew@public.gmane.org=
-op.org> =E4=BB=A3=E8=A1=A8 Lu=C3=ADs Mendes <
->>>>> luis.p.mendes-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
->>>>> =E5=8F=91=E9=80=81=E6=97=B6=E9=97=B4: 2018=E5=B9=B47=E6=9C=8811=E6=97=
-=A5 6:04:00
->>>>> =E6=94=B6=E4=BB=B6=E4=BA=BA: Michel D=C3=A4nzer; Koenig, Christian; a=
-md-gfx list
->>>>> =E4=B8=BB=E9=A2=98: Re: Regression with kernel 4.18 - AMD RX 550 fail=
-s IB ring test on
->>>>> power-up
->>>>>
->>>>> Hi,
->>>>>
->>>>> Issue remains in kernel 4.18-rc4 using SAPPHIRE RX 550 4GB.
->>>>>
->>>>> Logs follow attached.
->>>>>
->>>>> Regards,
->>>>> Luis
->>>>>
->>>>> On Tue, Jun 26, 2018 at 10:08 AM, Lu=C3=ADs Mendes <luis.p.mendes@gma=
-il.com
->>>>> <mailto:luis.p.mendes-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>> wrote:
->>>>> Hi,
->>>>>
->>>>> I've tried kernel 4.18-rc2 on a system with a NVIDIA GTX 1050 Ti and
->>>>> an AMD RX 550 4GB and the RX 550 card is failing the IB ring test.
->>>>>
->>>>> [    5.033217] [drm:gfx_v8_0_ring_test_ib [amdgpu]] *ERROR* amdgpu: i=
-b
->>>>> test failed (scratch(0xC040)=3D0xFFFFFFFF)
->>>>> [    5.033264] [drm:amdgpu_ib_ring_tests [amdgpu]] *ERROR* amdgpu:
->>>>> failed testing IB on ring 6 (-22).
->>>>>
->>>>> Please see the attached log.
->>>>>
->>>>> Regards,
->>>>> Lu=C3=ADs
->>>>>
->>>>>
->>>>
->>>>
->>>
->>>
->>
-
---0000000000008b46a705917d019c
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div>Good News!! I&#39;ve re-tested this with Linux Kernel=
- 5.3.0-rc6 with Ubuntu 19.4 and Mesa 19.0.2 and Mesa 19.0.8 with the same P=
-olaris RX460 and the same TYAN S7002 and TYAN S7025 and now it is working p=
-roperly, being able to enter the desktop and running glmark2 as well as Ope=
-nCL.</div><div><br></div><div><br></div><div><br></div></div><br><div class=
-=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr">On Sat, Oct 20, 2018=
- at 6:58 PM Lu=C3=ADs Mendes &lt;<a href=3D"mailto:luis.p.mendes-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org"=
->luis.p.mendes-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt; wrote:<br></div><blockquote class=3D"gmail=
-_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204=
-,204);padding-left:1ex"><div dir=3D"ltr"><div dir=3D"ltr"><div>The problems=
- remains with Linux 4.18 and Linux 4.19 kernels. I am unable to use AMD RX =
-460 and AMD RX 550 on my x64 Linux platforms.</div><div><br></div><div>I&#3=
-9;ve installed Windows 10 in the same machine along with win10-64bit-radeon=
--software-adrenalin-edition-18.10.1-oct18.exe and under Windows the same RX=
- 460 card *works fine* and I am able to run OpenCL applications.<br></div><=
-div><br></div><div>The driver is hanging since kernel 4.15, I am getting:</=
-div><div>[=C2=A0=C2=A0 33.504100] [drm:drm_atomic_helper_wait_for_flip_done=
- [drm_kms_helper]] *ERROR* [CRTC:42:crtc-0] flip_done timed out<br>[=C2=A0=
-=C2=A0 43.744094] [drm:drm_atomic_helper_wait_for_dependencies [drm_kms_hel=
-per]] *ERROR* [CRTC:42:crtc-0] flip_done timed out=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 <br>[=
-=C2=A0=C2=A0 53.984089] [drm:drm_atomic_helper_wait_for_dependencies [drm_k=
-ms_helper]] *ERROR* [CONNECTOR:54:HDMI-A-1] flip_done timed out=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 <br>[=C2=A0=C2=A0 64.224036] [drm:d=
-rm_atomic_helper_wait_for_dependencies [drm_kms_helper]] *ERROR* [PLANE:40:=
-plane-4] flip_done timed out=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 <br>[=C2=A0=C2=A0 64.224141] [drm:amdg=
-pu_dm_atomic_commit_tail [amdgpu]] *ERROR* amdgpu_dm_commit_planes: acrtc 0=
-, already busy=C2=A0=C2=A0=C2=A0 <br></div><div><br></div><div>And after co=
-mmit: drm/amdgpu: defer test IBs on the
-          rings at boot (V3)<span class=3D"gmail-m_5675118224661845000gmail=
--im"><span class=3D"gmail-m_5675118224661845000gmail-m_-1883418404528318335=
-gmail-"></span></span><br><span class=3D"gmail-m_5675118224661845000gmail-i=
-m"><span class=3D"gmail-m_5675118224661845000gmail-m_-1883418404528318335gm=
-ail-"><div><table summary=3D"commit info" class=3D"gmail-m_5675118224661845=
-000gmail-m_-1883418404528318335gmail-m_3173675840618728897gmail-commit-info=
-">
-            <tbody>
-              <tr>
-                <th><br>
-                </th>
-                <td colspan=3D"2" class=3D"gmail-m_5675118224661845000gmail=
--m_-1883418404528318335gmail-m_3173675840618728897gmail-sha1"><a href=3D"ht=
-tps://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?h=
-=3Dv4.18-rc4&amp;id=3D2c773de2ecb8c327f2448bd1eecad224e9227087" target=3D"_=
-blank">2c773de2ecb8c327f2448bd1eecad224e9227087</a></td></tr></tbody></tabl=
-e></div><div>I get with kernels 4.18 and 4.19 as well as Ubuntu 18.10 stock=
- kernel (can&#39;t even install Ubuntu 18.10 because it hangs with amdgpu):=
-<br></div><div><div>[drm:gfx_v8_0_ring_test_ib [amdgpu]] *ERROR* amdgpu: IB=
- test timed out.</div><div>[drm_amdgpu_ib_ring_tests [amdgpu]] *ERROR* amdg=
-pu: failed testing IB on GFX ring (-110).</div><div>[drm:amdgpu_device_ip_l=
-ate_init_func_handler [amdgpu]] *ERROR* ib ring test failed (-110).</div><d=
-iv>[drm:amdgpu_job_timedout [amdgpu]] *ERROR* ring sdma1 timeout, last sign=
-alled seq=3D0, last emitted seq=3D1</div><div>and the kernel blocks indefin=
-itely:</div><div>task plymouthd:449 blocked for more than 120 seconds.</div=
-><div><br></div><div>Is there any hope on getting this fixed?<br></div></di=
-v></span></span></div><br></div></div><br><div class=3D"gmail_quote"><div d=
-ir=3D"ltr">On Thu, Jul 12, 2018 at 2:56 PM Lu=C3=ADs Mendes &lt;<a href=3D"=
-mailto:luis.p.mendes-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org" target=3D"_blank">luis.p.mendes-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</=
-a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0p=
-x 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex"><d=
-iv dir=3D"ltr"><div>Hi Jim,</div><div><br></div><div>Replies in between.</d=
-iv><div class=3D"gmail_extra"><br></div><div class=3D"gmail_extra">Regards,=
-</div><div class=3D"gmail_extra">Lu=C3=ADs<br></div><div class=3D"gmail_ext=
-ra"><br><div class=3D"gmail_quote">On Thu, Jul 12, 2018 at 3:16 AM, jimqu <=
-span dir=3D"ltr">&lt;<a href=3D"mailto:jimqu-5C7GfCeVMHo@public.gmane.org" target=3D"_blank">jim=
-qu-5C7GfCeVMHo@public.gmane.org</a>&gt;</span> wrote:<br><blockquote class=3D"gmail_quote" style=
-=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding=
--left:1ex">
- =20
-   =20
- =20
-  <div bgcolor=3D"#FFFFFF"><span class=3D"gmail-m_5675118224661845000m_-188=
-3418404528318335gmail-">
-    <p><br>
-    </p>
-    <br>
-    <div class=3D"gmail-m_5675118224661845000m_-1883418404528318335gmail-m_=
-3173675840618728897moz-cite-prefix">On 2018=E5=B9=B407=E6=9C=8812=E6=97=A5 =
-05:27, Lu=C3=ADs Mendes
-      wrote:<br>
-    </div>
-    </span><blockquote type=3D"cite">
-     =20
-      <div dir=3D"ltr">
-        <div>Hi Jim,</div>
-        <div><br>
-        </div><span class=3D"gmail-m_5675118224661845000m_-1883418404528318=
-335gmail-">
-        <div>I followed your suggestion and was able to bisect the
-          kernel patches.</div>
-        <div>The offending patch is: drm/amdgpu: defer test IBs on the
-          rings at boot (V3)<br>
-        </div>
-        <div>commit:
-          <table summary=3D"commit info" class=3D"gmail-m_56751182246618450=
-00m_-1883418404528318335gmail-m_3173675840618728897gmail-commit-info">
-            <tbody>
-              <tr>
-                <th><br>
-                </th>
-                <td colspan=3D"2" class=3D"gmail-m_5675118224661845000m_-18=
-83418404528318335gmail-m_3173675840618728897gmail-sha1"><a href=3D"https://=
-git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?h=3Dv4.1=
-8-rc4&amp;id=3D2c773de2ecb8c327f2448bd1eecad224e9227087" target=3D"_blank">=
-2c773de2ecb8c327f2448bd1eecad224e9227087</a></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <div><br>
-        </div>
-        <div>After reverting this patch the IB test succeeded with
-          kernel v4.18-rc4 on both systems and the amdgpu driver was
-          correctly loaded both on SAPPHIRE RX550 4GB and on SAPPHIRE
-          RX460 2GB.</div>
-        <div><br>
-        </div>
-      </span></div>
-    </blockquote>
-    <br>
-    Alex, Christian, What do you think about the patch?<span class=3D"gmail=
--m_5675118224661845000m_-1883418404528318335gmail-"><br>
-    <br>
-    <blockquote type=3D"cite">
-      <div dir=3D"ltr">
-        <div>The GPU hang remains, however.<br>
-        </div>
-        <div>=C2=A0I will try to configure a remote IPMI connection to see
-          what is happening with the kernel boot or setup a serial
-          console for the Kernel.</div>
-        <div><br>
-        </div>
-      </div>
-    </blockquote>
-    <br></span>
-    <b>You can set up remote connection by ssh, and also you can add amdgpu
-    to blacklist first, and manually modprobe amdgpu.</b><br></div></blockq=
-uote><div>R: I was able to setup a remote serial console with console=3Dtty=
-S0,11520n8 kernel parameter. <br></div><div>Boot log follows attached as fi=
-le kernel_bisected_v4.18-rc4_log.txt. <br></div><div>First noticeable issue=
- seems to be:</div><div>[=C2=A0=C2=A0=C2=A0 6.131989] amdgpu: [powerplay] <=
-br>[=C2=A0=C2=A0=C2=A0 6.131989]=C2=A0 last message was failed ret is 65535=
-<br>...</div><div>and later hangs with:</div><div>[=C2=A0=C2=A0 33.504100] =
-[drm:drm_atomic_helper_wait_for_flip_done [drm_kms_helper]] *ERROR* [CRTC:4=
-2:crtc-0] flip_done timed out<br>[=C2=A0=C2=A0 43.744094] [drm:drm_atomic_h=
-elper_wait_for_dependencies [drm_kms_helper]] *ERROR* [CRTC:42:crtc-0] flip=
-_done timed out=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 <br>[=C2=A0=C2=A0 53.984089] [drm:drm_ato=
-mic_helper_wait_for_dependencies [drm_kms_helper]] *ERROR* [CONNECTOR:54:HD=
-MI-A-1] flip_done timed out=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0 <br>[=C2=A0=C2=A0 64.224036] [drm:drm_atomic_helper_wait_for_dependenci=
-es [drm_kms_helper]] *ERROR* [PLANE:40:plane-4] flip_done timed out=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
- <br>[=C2=A0=C2=A0 64.224141] [drm:amdgpu_dm_atomic_commit_tail [amdgpu]] *=
-ERROR* amdgpu_dm_commit_planes: acrtc 0, already busy=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 <br><br></div><div>=C2=
-=A0</div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8e=
-x;border-left:1px solid rgb(204,204,204);padding-left:1ex"><div bgcolor=3D"=
-#FFFFFF">
-    <b>What&#39;s about xinit? What is MESA driver version on your platform=
-?</b></div></blockquote><div>R: I am running Ubuntu 18.04 with bisected ker=
-nel 4.18-rc4 using libdrm-2.4.92 and mesa-18.1.0.</div><div>xinit output fo=
-llows attached as xinit_log.txt<br></div><div><br></div><blockquote class=
-=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rg=
-b(204,204,204);padding-left:1ex"><div bgcolor=3D"#FFFFFF"><div><div class=
-=3D"gmail-m_5675118224661845000m_-1883418404528318335gmail-h5"><br>
-    <br>
-    <blockquote type=3D"cite">
-      <div dir=3D"ltr">
-        <div>Thanks &amp; Regards,</div>
-        <div>Lu=C3=ADs<br>
-        </div>
-      </div>
-      <div class=3D"gmail_extra"><br>
-        <div class=3D"gmail_quote">On Wed, Jul 11, 2018 at 10:56 AM, jimqu
-          <span dir=3D"ltr">&lt;<a href=3D"mailto:jimqu-5C7GfCeVMHo@public.gmane.org" target=3D"=
-_blank">jimqu-5C7GfCeVMHo@public.gmane.org</a>&gt;</span>
-          wrote:<br>
-          <blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8=
-ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">
-            <div bgcolor=3D"#FFFFFF">
-              <p>HI Luis,</p>
-              <p><br>
-              </p>
-              <p>Let us trace the issue one by one.</p>
-              <p><br>
-              </p>
-              <p>IB test fail:</p>
-              <p>This should be regression issue on 4.18, you can bisect
-                the kernel patches.</p>
-              <p>GPU hang:</p>
-              <p>Fix IB test fail first.</p>
-              <p><br>
-              </p>
-              <p>Thanks</p>
-              <span class=3D"gmail-m_5675118224661845000m_-1883418404528318=
-335gmail-m_3173675840618728897HOEnZb"><font color=3D"#888888">
-                  <p>JimQu<br>
-                  </p>
-                </font></span>
-              <div>
-                <div class=3D"gmail-m_5675118224661845000m_-188341840452831=
-8335gmail-m_3173675840618728897h5">
-                  <p><br>
-                  </p>
-                  <br>
-                  <div class=3D"gmail-m_5675118224661845000m_-1883418404528=
-318335gmail-m_3173675840618728897m_-5542977703135971300moz-cite-prefix">On
-                    2018=E5=B9=B407=E6=9C=8811=E6=97=A5 17:34, Lu=C3=ADs Me=
-ndes wrote:<br>
-                  </div>
-                  <blockquote type=3D"cite">
-                    <div dir=3D"ltr">
-                      <div>Hi Jim,</div>
-                      <div><br>
-                      </div>
-                      <div>Thanks for your interest in this issue.
-                        Actually this is a multiple issue... not only
-                        the IB ring test is failing... as I am having
-                        quite some trouble getting the cards SAPPHIRE RX
-                        550 4GB on a Tyan S7025 and SAPPHIRE RX 460 2GB
-                        on a TYAN S7002 to work, both systems using same
-                        Ubuntu 18.04 with vanilla kernel.<br>
-                      </div>
-                      <div><br>
-                      </div>
-                      <div><b>1. May you also test earlier kernel? v4.17
-                          or v4.16.</b><br>
-                      </div>
-                      <div>I&#39;ve tested kernels v4.17.5 and v4.16.6 with
-                        same system and both are able to pass the IB
-                        ring test and system boots into X using NVIDIA
-                        as the display connected card.</div>
-                      <div>dmesg log attached for kernel 4.17.5, file
-                        TYAN_S7025_kernelv4.17.5_amdgpu_IB_ring_test_OK.txt=
-.<br>
-                      </div>
-                      <div><br>
-                      </div>
-                      <div><b>2. May you test the issue only with
-                          amdgpu?</b></div>
-                      <div>
-                        <div>- I&#39;ve tested on a TYAN S7002 system with =
-a
-                          single SAPPHIRE RX 460 2GB, on-board VGA
-                          enabled and used as primary display.</div>
-                        <div>Kernel v4.18-rc4 fails the IB ring test,
-                          system is able to enter X through the on-board
-                          VGA. <br>
-                        </div>
-                        <div>dmesg log attached for kernel 4.18-rc4,
-                          file TYAN_S7002_kernel_v4.18-rc4_IB_ring_test_fai=
-l.txt.</div>
-                        <div><br>
-                        </div>
-                        <div>- Same TYAN S7002 system, but now with
-                          on-board VGA disabled and using RX 460 as
-                          display connected card.<br>
-                        </div>
-                        <div>
-                          <div>Kernels v4.17.5 and v4.16.6 are able to
-                            pass the IB ring test, but GPU hangs before
-                            entering X. Don&#39;t have logs for these yet.<=
-br>
-                          </div>
-                          <br>
-                          <div>Regards,</div>
-                          <div>Lu=C3=ADs Mendes</div>
-                          <div>Aparapi contributor and MSc Researcher<br>
-                          </div>
-                          <div><br>
-                          </div>
-                          <div><br>
-                          </div>
-                          <br>
-                        </div>
-                        <br>
-                      </div>
-                    </div>
-                    <div class=3D"gmail_extra"><br>
-                      <div class=3D"gmail_quote">On Wed, Jul 11, 2018 at
-                        3:49 AM, Qu, Jim <span dir=3D"ltr">&lt;<a href=3D"m=
-ailto:Jim.Qu-5C7GfCeVMHo@public.gmane.org" target=3D"_blank">Jim.Qu-5C7GfCeVMHo@public.gmane.org</a>&gt;</span>
-                        wrote:<br>
-                        <blockquote class=3D"gmail_quote" style=3D"margin:0=
-px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">H=
-i Luis,<br>
-                          <br>
-                          1. May you also test earlier kernel? v4.17 or
-                          v4.16.<br>
-                          2. May you test the issue only with amdgpu?<br>
-                          <br>
-                          Thanks<br>
-                          JimQu<br>
-                          <br>
-                          ________________________________________<br>
-                          =E5=8F=91=E4=BB=B6=E4=BA=BA: amd-gfx &lt;<a href=
-=3D"mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" target=3D"_blank">amd-gfx=
--bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>&gt;
-                          =E4=BB=A3=E8=A1=A8 Lu=C3=ADs Mendes &lt;<a href=
-=3D"mailto:luis.p.mendes-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org" target=3D"_blank">luis.p.mendes@gmail.c=
-om</a>&gt;<br>
-                          =E5=8F=91=E9=80=81=E6=97=B6=E9=97=B4: 2018=E5=B9=
-=B47=E6=9C=8811=E6=97=A5 6:04:00<br>
-                          =E6=94=B6=E4=BB=B6=E4=BA=BA: Michel D=C3=A4nzer; =
-Koenig, Christian; amd-gfx
-                          list<br>
-                          =E4=B8=BB=E9=A2=98: Re: Regression with kernel 4.=
-18 - AMD RX
-                          550 fails IB ring test on power-up<br>
-                          <span class=3D"gmail-m_5675118224661845000m_-1883=
-418404528318335gmail-m_3173675840618728897m_-5542977703135971300im gmail-m_=
-5675118224661845000m_-1883418404528318335gmail-m_3173675840618728897m_-5542=
-977703135971300HOEnZb"><br>
-                            Hi,<br>
-                            <br>
-                            Issue remains in kernel 4.18-rc4 using
-                            SAPPHIRE RX 550 4GB.<br>
-                            <br>
-                            Logs follow attached.<br>
-                            <br>
-                            Regards,<br>
-                            Luis<br>
-                            <br>
-                          </span>
-                          <div class=3D"gmail-m_5675118224661845000m_-18834=
-18404528318335gmail-m_3173675840618728897m_-5542977703135971300HOEnZb">
-                            <div class=3D"gmail-m_5675118224661845000m_-188=
-3418404528318335gmail-m_3173675840618728897m_-5542977703135971300h5">On
-                              Tue, Jun 26, 2018 at 10:08 AM, Lu=C3=ADs Mend=
-es
-                              &lt;<a href=3D"mailto:luis.p.mendes-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org=
-" target=3D"_blank">luis.p.mendes-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&lt;mailto:<a href=3D"mailto=
-:luis.p.mendes-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org" target=3D"_blank">luis.p.mendes-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt;=
-&gt;
-                              wrote:<br>
-                              Hi,<br>
-                              <br>
-                              I&#39;ve tried kernel 4.18-rc2 on a system
-                              with a NVIDIA GTX 1050 Ti and an AMD RX
-                              550 4GB and the RX 550 card is failing the
-                              IB ring test.<br>
-                              <br>
-                              [=C2=A0 =C2=A0 5.033217] [drm:gfx_v8_0_ring_t=
-est_ib
-                              [amdgpu]] *ERROR* amdgpu: ib test failed
-                              (scratch(0xC040)=3D0xFFFFFFFF)<br>
-                              [=C2=A0 =C2=A0 5.033264] [drm:amdgpu_ib_ring_=
-tests
-                              [amdgpu]] *ERROR* amdgpu: failed testing
-                              IB on ring 6 (-22).<br>
-                              <br>
-                              Please see the attached log.<br>
-                              <br>
-                              Regards,<br>
-                              Lu=C3=ADs<br>
-                              <br>
-                            </div>
-                          </div>
-                        </blockquote>
-                      </div>
-                      <br>
-                    </div>
-                  </blockquote>
-                  <br>
-                </div>
-              </div>
-            </div>
-          </blockquote>
-        </div>
-        <br>
-      </div>
-    </blockquote>
-    <br>
-  </div></div></div>
-
-</blockquote></div><br></div></div>
-</blockquote></div>
-</blockquote></div>
-
---0000000000008b46a705917d019c--
-
---===============1158338339==
+--===============0029593620==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -717,4 +323,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
 
---===============1158338339==--
+--===============0029593620==--
