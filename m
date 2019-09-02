@@ -1,42 +1,62 @@
-From: Kai-Heng Feng <kai.heng.feng@canonical.com>
-Subject: [PATCH] drm/amd/display: Restore backlight brightness after system resume
-Date: Mon,  2 Sep 2019 16:33:42 +0800
-Message-ID: <20190902083342.27393-1-kai.heng.feng@canonical.com>
-Return-path: <stable-owner@vger.kernel.org>
-Sender: stable-owner@vger.kernel.org
-To: harry.wentland@amd.com, sunpeng.li@amd.com, alexander.deucher@amd.com, christian.koenig@amd.com, David1.Zhou@amd.com
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, Kai-Heng Feng <kai.heng.feng@canonical.com>, stable@vger.kernel.org
-List-Id: amd-gfx.lists.freedesktop.org
+From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: [PATCH 2/3] drm/amdgpu: reserve at least 4MB of VRAM for page tables
+Date: Mon,  2 Sep 2019 12:52:18 +0200
+Message-ID: <20190902105219.2813-2-christian.koenig@amd.com>
+References: <20190902105219.2813-1-christian.koenig@amd.com>
+Mime-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20190902105219.2813-1-christian.koenig-5C7GfCeVMHo@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-Laptops with AMD APU doesn't restore display backlight brightness after
-system resume.
-
-This issue started when DC was introduced.
-
-Let's use BL_CORE_SUSPENDRESUME so the backlight core calls
-update_status callback after system resume to restore the backlight
-level.
-
-Tested on Dell Inspiron 3180 (Stoney Ridge) and Dell Latitude 5495
-(Raven Ridge).
-
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Kai-Heng Feng <kai.heng.feng@canonical.com>
----
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 1b0949dd7808..183ef18ac6f3 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -2111,6 +2111,7 @@ static int amdgpu_dm_backlight_get_brightness(struct backlight_device *bd)
- }
- 
- static const struct backlight_ops amdgpu_dm_backlight_ops = {
-+	.options = BL_CORE_SUSPENDRESUME,
- 	.get_brightness = amdgpu_dm_backlight_get_brightness,
- 	.update_status	= amdgpu_dm_backlight_update_status,
- };
--- 
-2.17.1
+VGhpcyBob3BlZnVsbHkgaGVscHMgcmVkdWNlIHRoZSBjb250ZW50aW9uIGZvciBwYWdlIHRhYmxl
+cy4KClNpZ25lZC1vZmYtYnk6IENocmlzdGlhbiBLw7ZuaWcgPGNocmlzdGlhbi5rb2VuaWdAYW1k
+LmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uaCAgICAgICB8
+IDMgKysrCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdnJhbV9tZ3IuYyB8IDkg
+KysrKysrKy0tCiAyIGZpbGVzIGNoYW5nZWQsIDEwIGluc2VydGlvbnMoKyksIDIgZGVsZXRpb25z
+KC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmgg
+Yi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uaAppbmRleCAyZWRhM2E4YzMz
+MGQuLjMzNTJhODdiODIyZSAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
+YW1kZ3B1X3ZtLmgKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmgK
+QEAgLTk5LDYgKzk5LDkgQEAgc3RydWN0IGFtZGdwdV9ib19saXN0X2VudHJ5OwogI2RlZmluZSBB
+TURHUFVfVk1fRkFVTFRfU1RPUF9GSVJTVAkxCiAjZGVmaW5lIEFNREdQVV9WTV9GQVVMVF9TVE9Q
+X0FMV0FZUwkyCiAKKy8qIFJlc2VydmUgNE1CIFZSQU0gZm9yIHBhZ2UgdGFibGVzICovCisjZGVm
+aW5lIEFNREdQVV9WTV9SRVNFUlZFRF9WUkFNCQkoNFVMTCA8PCAyMCkKKwogLyogbWF4IG51bWJl
+ciBvZiBWTUhVQiAqLwogI2RlZmluZSBBTURHUFVfTUFYX1ZNSFVCUwkJCTMKICNkZWZpbmUgQU1E
+R1BVX0dGWEhVQl8wCQkJCTAKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
+L2FtZGdwdV92cmFtX21nci5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Zy
+YW1fbWdyLmMKaW5kZXggMTE1MGUzNGJjMjhmLi41OTQ0MGY3MWQzMDQgMTAwNjQ0Ci0tLSBhL2Ry
+aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92cmFtX21nci5jCisrKyBiL2RyaXZlcnMv
+Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92cmFtX21nci5jCkBAIC0yNCw2ICsyNCw3IEBACiAK
+ICNpbmNsdWRlIDxkcm0vZHJtUC5oPgogI2luY2x1ZGUgImFtZGdwdS5oIgorI2luY2x1ZGUgImFt
+ZGdwdV92bS5oIgogCiBzdHJ1Y3QgYW1kZ3B1X3ZyYW1fbWdyIHsKIAlzdHJ1Y3QgZHJtX21tIG1t
+OwpAQCAtMjc2LDcgKzI3Nyw3IEBAIHN0YXRpYyBpbnQgYW1kZ3B1X3ZyYW1fbWdyX25ldyhzdHJ1
+Y3QgdHRtX21lbV90eXBlX21hbmFnZXIgKm1hbiwKIAlzdHJ1Y3QgZHJtX21tX25vZGUgKm5vZGVz
+OwogCWVudW0gZHJtX21tX2luc2VydF9tb2RlIG1vZGU7CiAJdW5zaWduZWQgbG9uZyBscGZuLCBu
+dW1fbm9kZXMsIHBhZ2VzX3Blcl9ub2RlLCBwYWdlc19sZWZ0OwotCXVpbnQ2NF90IHZpc191c2Fn
+ZSA9IDAsIG1lbV9ieXRlczsKKwl1aW50NjRfdCB2aXNfdXNhZ2UgPSAwLCBtZW1fYnl0ZXMsIG1h
+eF9ieXRlczsKIAl1bnNpZ25lZCBpOwogCWludCByOwogCkBAIC0yODQsOSArMjg1LDEzIEBAIHN0
+YXRpYyBpbnQgYW1kZ3B1X3ZyYW1fbWdyX25ldyhzdHJ1Y3QgdHRtX21lbV90eXBlX21hbmFnZXIg
+Km1hbiwKIAlpZiAoIWxwZm4pCiAJCWxwZm4gPSBtYW4tPnNpemU7CiAKKwltYXhfYnl0ZXMgPSBh
+ZGV2LT5nbWMubWNfdnJhbV9zaXplOworCWlmICh0Ym8tPnR5cGUgIT0gdHRtX2JvX3R5cGVfa2Vy
+bmVsKQorCQltYXhfYnl0ZXMgLT0gQU1ER1BVX1ZNX1JFU0VSVkVEX1ZSQU07CisKIAkvKiBiYWls
+IG91dCBxdWlja2x5IGlmIHRoZXJlJ3MgbGlrZWx5IG5vdCBlbm91Z2ggVlJBTSBmb3IgdGhpcyBC
+TyAqLwogCW1lbV9ieXRlcyA9ICh1NjQpbWVtLT5udW1fcGFnZXMgPDwgUEFHRV9TSElGVDsKLQlp
+ZiAoYXRvbWljNjRfYWRkX3JldHVybihtZW1fYnl0ZXMsICZtZ3ItPnVzYWdlKSA+IGFkZXYtPmdt
+Yy5tY192cmFtX3NpemUpIHsKKwlpZiAoYXRvbWljNjRfYWRkX3JldHVybihtZW1fYnl0ZXMsICZt
+Z3ItPnVzYWdlKSA+IG1heF9ieXRlcykgewogCQlhdG9taWM2NF9zdWIobWVtX2J5dGVzLCAmbWdy
+LT51c2FnZSk7CiAJCW1lbS0+bW1fbm9kZSA9IE5VTEw7CiAJCXJldHVybiAwOwotLSAKMi4xNy4x
+CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4
+IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3Rz
+LmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
