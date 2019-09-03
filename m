@@ -1,47 +1,40 @@
-From: zhong jiang <zhongjiang@huawei.com>
-Subject: [PATCH] drm/amdgpu: remove the redundant null check
-Date: Tue, 3 Sep 2019 14:15:05 +0800
-Message-ID: <1567491305-18320-1-git-send-email-zhongjiang@huawei.com>
+From: Dave Airlie <airlied-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [pull] amdgpu drm-next-5.4
+Date: Tue, 3 Sep 2019 16:37:01 +1000
+Message-ID: <CAPM=9tw3xmLCnmckvkG3SzAO82rwj2KMfP2yYw=2-WPWLg7fJQ@mail.gmail.com>
+References: <20190830212650.5055-1-alexander.deucher@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Sender: linux-kernel-owner@vger.kernel.org
-To: airlied@linux.ie, daniel@ffwll.ch
-Cc: alexander.deucher@amd.com, christian.koenig@amd.com, David1.Zhou@amd.com, amd-gfx@lists.freedesktop.org, zhongjiang@huawei.com, linux-kernel@vger.kernel.org
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20190830212650.5055-1-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, Daniel Vetter <daniel.vetter-/w4YWyX8dFk@public.gmane.org>, dri-devel <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, amd-gfx mailing list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-debugfs_remove and kfree has taken the null check in account.
-hence it is unnecessary to check it. Just remove the condition.
-No functional change.
-
-Signed-off-by: zhong jiang <zhongjiang@huawei.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c | 6 ++----
- 1 file changed, 2 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-index 5652cc7..cb94627 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-@@ -1077,8 +1077,7 @@ static int amdgpu_debugfs_ib_preempt(void *data, u64 val)
- 
- 	ttm_bo_unlock_delayed_workqueue(&adev->mman.bdev, resched);
- 
--	if (fences)
--		kfree(fences);
-+	kfree(fences);
- 
- 	return 0;
- }
-@@ -1103,8 +1102,7 @@ int amdgpu_debugfs_init(struct amdgpu_device *adev)
- 
- void amdgpu_debugfs_preempt_cleanup(struct amdgpu_device *adev)
- {
--	if (adev->debugfs_preempt)
--		debugfs_remove(adev->debugfs_preempt);
-+	debugfs_remove(adev->debugfs_preempt);
- }
- 
- #else
--- 
-1.7.12.4
+T24gU2F0LCAzMSBBdWcgMjAxOSBhdCAwNzoyNywgQWxleCBEZXVjaGVyIDxhbGV4ZGV1Y2hlckBn
+bWFpbC5jb20+IHdyb3RlOgo+Cj4gSGkgRGF2ZSwgRGFuaWVsLAo+Cj4gTW9zdGx5IGJ1ZyBmaXhl
+cy4gIFRoZSBiaWcgYWRkaXRpb24gaXMgZGlzcGxheSBzdXBwb3J0IGZvciByZW5vaXIKPiB3aGlj
+aCBpcyBuZXcgZm9yIDUuNC4gIEkgcmVhbGl6ZSBpdCdzIGEgYml0IGxhdGUgdG8gYWRkIGl0IGJ1
+dCB0aGUKPiByZXN0IG9mIHRoZSBjb2RlIGZvciByZW5vaXIgaXMgYWxyZWFkeSBpbiBzbyBpdCB3
+b3VsZCBiZSBuaWNlIHRvCj4gZ2V0IHRoZSBkaXNwbGF5IHBhcnQgaW4gYXMgd2VsbC4gIElmIG5v
+dCwgbGV0IG1lIGtub3csIGFuZCBJJ2xsCj4gcmVzcGluIHdpdGhvdXQgaXQuICBUaGFua3MhCgpk
+aW06IGMwNzJiMGMyNGU2YiAoImRybS9hbWRncHU6IGZpeCBHRlhPRkYgb24gUGljYXNzbyBhbmQg
+UmF2ZW4yIik6CkZpeGVzOiBTSEExIGluIG5vdCBwb2ludGluZyBhdCBhbiBhbmNlc3RvcjoKZGlt
+OiAgICAgOThmNThhZGEyZDM3ICgiZHJtL2FtZGdwdS9nZng5OiB1cGRhdGUgcGdfZmxhZ3MgYWZ0
+ZXIKZGV0ZXJtaW5pbmcgaWYgZ2Z4IG9mZiBpcyBwb3NzaWJsZSIpCmRpbTogRVJST1I6IGlzc3Vl
+cyBpbiBjb21taXRzIGRldGVjdGVkLCBhYm9ydGluZwoKYjA1ZjY1ZDc3MjBiMTcyYjZmZGUzYWJm
+YTQ5ZWQ2NjgzNzA3MWQ0NQogc2VlbXMgdG8gYmUgdGhlIGNvcnJlY3QgYW5jZXN0b3IgaW4gbXkg
+dHJlZS4KCk5vIHByb2JsZW1zIG9uIHRoZSByZW5vaXIgY29kZS4KCkRhdmUuCl9fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0
+CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Au
+b3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
