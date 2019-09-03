@@ -1,156 +1,50 @@
-From: Lyude Paul <lyude@redhat.com>
-Subject: [PATCH v2 13/27] drm/dp_mst: Refactor drm_dp_mst_handle_down_rep()
-Date: Tue,  3 Sep 2019 16:45:51 -0400
-Message-ID: <20190903204645.25487-14-lyude@redhat.com>
+From: Lyude Paul <lyude-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>
+Subject: [PATCH v2 11/27] drm/dp_mst: Constify guid in
+ drm_dp_get_mst_branch_by_guid()
+Date: Tue,  3 Sep 2019 16:45:49 -0400
+Message-ID: <20190903204645.25487-12-lyude@redhat.com>
 References: <20190903204645.25487-1-lyude@redhat.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20190903204645.25487-1-lyude@redhat.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-Cc: Juston Li <juston.li@intel.com>, Imre Deak <imre.deak@intel.com>, =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>, Harry Wentland <hwentlan@amd.com>, Daniel Vetter <daniel.vetter@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, Sean Paul <sean@poorly.run>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <nouveau-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20190903204645.25487-1-lyude-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/nouveau>,
+ <mailto:nouveau-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/nouveau>
+List-Post: <mailto:nouveau-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:nouveau-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/nouveau>,
+ <mailto:nouveau-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: nouveau-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "Nouveau" <nouveau-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, nouveau-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Sean Paul <sean-p7yTbzM4H96eqtR555YLDQ@public.gmane.org>, David Airlie <airlied-cv59FeDIM0c@public.gmane.org>, Imre Deak <imre.deak-ral2JQCrhuEAvxtiuMwx3w@public.gmane.org>, Maarten Lankhorst <maarten.lankhorst-VuQAYsv1563Yd54FQh9/CA@public.gmane.org>, linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, Maxime Ripard <mripard-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org>, Juston Li <juston.li-ral2JQCrhuEAvxtiuMwx3w@public.gmane.org>, Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>, Harry Wentland <hwentlan-5C7GfCeVMHo@public.gmane.org>, =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala-VuQAYsv1563Yd54FQh9/CA@public.gmane.org>
 List-Id: amd-gfx.lists.freedesktop.org
 
-* Remove the big ugly have_eomt conditional
-* Store &mgr->down_rep_recv.initial_hdr in a var to make line wrapping
-  easier
-* Remove duplicate memset() calls
-* Actually wrap lines
-
-Cc: Juston Li <juston.li@intel.com>
-Cc: Imre Deak <imre.deak@intel.com>
-Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
-Cc: Harry Wentland <hwentlan@amd.com>
-Reviewed-by: Daniel Vetter <daniel.vetter@ffwll.ch>
-Signed-off-by: Lyude Paul <lyude@redhat.com>
----
- drivers/gpu/drm/drm_dp_mst_topology.c | 102 +++++++++++++-------------
- 1 file changed, 50 insertions(+), 52 deletions(-)
-
-diff --git a/drivers/gpu/drm/drm_dp_mst_topology.c b/drivers/gpu/drm/drm_dp_mst_topology.c
-index 64487098158a..74161f442584 100644
---- a/drivers/gpu/drm/drm_dp_mst_topology.c
-+++ b/drivers/gpu/drm/drm_dp_mst_topology.c
-@@ -3179,68 +3179,66 @@ static bool drm_dp_get_one_sb_msg(struct drm_dp_mst_topology_mgr *mgr, bool up)
- 
- static int drm_dp_mst_handle_down_rep(struct drm_dp_mst_topology_mgr *mgr)
- {
--	int ret = 0;
-+	struct drm_dp_sideband_msg_tx *txmsg;
-+	struct drm_dp_mst_branch *mstb;
-+	struct drm_dp_sideband_msg_hdr *hdr = &mgr->down_rep_recv.initial_hdr;
-+	int slot = -1;
-+
-+	if (!drm_dp_get_one_sb_msg(mgr, false))
-+		goto clear_down_rep_recv;
- 
--	if (!drm_dp_get_one_sb_msg(mgr, false)) {
--		memset(&mgr->down_rep_recv, 0,
--		       sizeof(struct drm_dp_sideband_msg_rx));
-+	if (!mgr->down_rep_recv.have_eomt)
- 		return 0;
-+
-+	mstb = drm_dp_get_mst_branch_device(mgr, hdr->lct, hdr->rad);
-+	if (!mstb) {
-+		DRM_DEBUG_KMS("Got MST reply from unknown device %d\n",
-+			      hdr->lct);
-+		goto clear_down_rep_recv;
- 	}
- 
--	if (mgr->down_rep_recv.have_eomt) {
--		struct drm_dp_sideband_msg_tx *txmsg;
--		struct drm_dp_mst_branch *mstb;
--		int slot = -1;
--		mstb = drm_dp_get_mst_branch_device(mgr,
--						    mgr->down_rep_recv.initial_hdr.lct,
--						    mgr->down_rep_recv.initial_hdr.rad);
-+	/* find the message */
-+	slot = hdr->seqno;
-+	mutex_lock(&mgr->qlock);
-+	txmsg = mstb->tx_slots[slot];
-+	/* remove from slots */
-+	mutex_unlock(&mgr->qlock);
- 
--		if (!mstb) {
--			DRM_DEBUG_KMS("Got MST reply from unknown device %d\n", mgr->down_rep_recv.initial_hdr.lct);
--			memset(&mgr->down_rep_recv, 0, sizeof(struct drm_dp_sideband_msg_rx));
--			return 0;
--		}
-+	if (!txmsg) {
-+		DRM_DEBUG_KMS("Got MST reply with no msg %p %d %d %02x %02x\n",
-+			      mstb, hdr->seqno, hdr->lct, hdr->rad[0],
-+			      mgr->down_rep_recv.msg[0]);
-+		goto no_msg;
-+	}
- 
--		/* find the message */
--		slot = mgr->down_rep_recv.initial_hdr.seqno;
--		mutex_lock(&mgr->qlock);
--		txmsg = mstb->tx_slots[slot];
--		/* remove from slots */
--		mutex_unlock(&mgr->qlock);
--
--		if (!txmsg) {
--			DRM_DEBUG_KMS("Got MST reply with no msg %p %d %d %02x %02x\n",
--			       mstb,
--			       mgr->down_rep_recv.initial_hdr.seqno,
--			       mgr->down_rep_recv.initial_hdr.lct,
--				      mgr->down_rep_recv.initial_hdr.rad[0],
--				      mgr->down_rep_recv.msg[0]);
--			drm_dp_mst_topology_put_mstb(mstb);
--			memset(&mgr->down_rep_recv, 0, sizeof(struct drm_dp_sideband_msg_rx));
--			return 0;
--		}
-+	drm_dp_sideband_parse_reply(&mgr->down_rep_recv, &txmsg->reply);
- 
--		drm_dp_sideband_parse_reply(&mgr->down_rep_recv, &txmsg->reply);
-+	if (txmsg->reply.reply_type == DP_SIDEBAND_REPLY_NAK)
-+		DRM_DEBUG_KMS("Got NAK reply: req 0x%02x (%s), reason 0x%02x (%s), nak data 0x%02x\n",
-+			      txmsg->reply.req_type,
-+			      drm_dp_mst_req_type_str(txmsg->reply.req_type),
-+			      txmsg->reply.u.nak.reason,
-+			      drm_dp_mst_nak_reason_str(txmsg->reply.u.nak.reason),
-+			      txmsg->reply.u.nak.nak_data);
- 
--		if (txmsg->reply.reply_type == DP_SIDEBAND_REPLY_NAK)
--			DRM_DEBUG_KMS("Got NAK reply: req 0x%02x (%s), reason 0x%02x (%s), nak data 0x%02x\n",
--				      txmsg->reply.req_type,
--				      drm_dp_mst_req_type_str(txmsg->reply.req_type),
--				      txmsg->reply.u.nak.reason,
--				      drm_dp_mst_nak_reason_str(txmsg->reply.u.nak.reason),
--				      txmsg->reply.u.nak.nak_data);
--
--		memset(&mgr->down_rep_recv, 0, sizeof(struct drm_dp_sideband_msg_rx));
--		drm_dp_mst_topology_put_mstb(mstb);
-+	memset(&mgr->down_rep_recv, 0, sizeof(struct drm_dp_sideband_msg_rx));
-+	drm_dp_mst_topology_put_mstb(mstb);
- 
--		mutex_lock(&mgr->qlock);
--		txmsg->state = DRM_DP_SIDEBAND_TX_RX;
--		mstb->tx_slots[slot] = NULL;
--		mutex_unlock(&mgr->qlock);
-+	mutex_lock(&mgr->qlock);
-+	txmsg->state = DRM_DP_SIDEBAND_TX_RX;
-+	mstb->tx_slots[slot] = NULL;
-+	mutex_unlock(&mgr->qlock);
- 
--		wake_up_all(&mgr->tx_waitq);
--	}
--	return ret;
-+	wake_up_all(&mgr->tx_waitq);
-+
-+	return 0;
-+
-+no_msg:
-+	drm_dp_mst_topology_put_mstb(mstb);
-+clear_down_rep_recv:
-+	memset(&mgr->down_rep_recv, 0, sizeof(struct drm_dp_sideband_msg_rx));
-+
-+	return 0;
- }
- 
- static int drm_dp_mst_handle_up_req(struct drm_dp_mst_topology_mgr *mgr)
--- 
-2.21.0
+QW5kIGl0J3MgaGVscGVyLCB3ZSdsbCBiZSB1c2luZyB0aGlzIGluIGp1c3QgYSBtb21lbnQuCgpD
+YzogSnVzdG9uIExpIDxqdXN0b24ubGlAaW50ZWwuY29tPgpDYzogSW1yZSBEZWFrIDxpbXJlLmRl
+YWtAaW50ZWwuY29tPgpDYzogVmlsbGUgU3lyasOkbMOkIDx2aWxsZS5zeXJqYWxhQGxpbnV4Lmlu
+dGVsLmNvbT4KQ2M6IEhhcnJ5IFdlbnRsYW5kIDxod2VudGxhbkBhbWQuY29tPgpDYzogRGFuaWVs
+IFZldHRlciA8ZGFuaWVsLnZldHRlckBmZndsbC5jaD4KU2lnbmVkLW9mZi1ieTogTHl1ZGUgUGF1
+bCA8bHl1ZGVAcmVkaGF0LmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vZHJtX2RwX21zdF90b3Bv
+bG9neS5jIHwgNCArKy0tCiAxIGZpbGUgY2hhbmdlZCwgMiBpbnNlcnRpb25zKCspLCAyIGRlbGV0
+aW9ucygtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9kcm1fZHBfbXN0X3RvcG9sb2d5
+LmMgYi9kcml2ZXJzL2dwdS9kcm0vZHJtX2RwX21zdF90b3BvbG9neS5jCmluZGV4IDQzNDUyODcy
+ZWZhZC4uYjQ0ZDM2OTZjMDlhIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vZHJtX2RwX21z
+dF90b3BvbG9neS5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9kcm1fZHBfbXN0X3RvcG9sb2d5LmMK
+QEAgLTIwNjAsNyArMjA2MCw3IEBAIHN0YXRpYyBzdHJ1Y3QgZHJtX2RwX21zdF9icmFuY2ggKmRy
+bV9kcF9nZXRfbXN0X2JyYW5jaF9kZXZpY2Uoc3RydWN0IGRybV9kcF9tc3RfCiAKIHN0YXRpYyBz
+dHJ1Y3QgZHJtX2RwX21zdF9icmFuY2ggKmdldF9tc3RfYnJhbmNoX2RldmljZV9ieV9ndWlkX2hl
+bHBlcigKIAlzdHJ1Y3QgZHJtX2RwX21zdF9icmFuY2ggKm1zdGIsCi0JdWludDhfdCAqZ3VpZCkK
+Kwljb25zdCB1aW50OF90ICpndWlkKQogewogCXN0cnVjdCBkcm1fZHBfbXN0X2JyYW5jaCAqZm91
+bmRfbXN0YjsKIAlzdHJ1Y3QgZHJtX2RwX21zdF9wb3J0ICpwb3J0OwpAQCAtMjA4NCw3ICsyMDg0
+LDcgQEAgc3RhdGljIHN0cnVjdCBkcm1fZHBfbXN0X2JyYW5jaCAqZ2V0X21zdF9icmFuY2hfZGV2
+aWNlX2J5X2d1aWRfaGVscGVyKAogCiBzdGF0aWMgc3RydWN0IGRybV9kcF9tc3RfYnJhbmNoICoK
+IGRybV9kcF9nZXRfbXN0X2JyYW5jaF9kZXZpY2VfYnlfZ3VpZChzdHJ1Y3QgZHJtX2RwX21zdF90
+b3BvbG9neV9tZ3IgKm1nciwKLQkJCQkgICAgIHVpbnQ4X3QgKmd1aWQpCisJCQkJICAgICBjb25z
+dCB1aW50OF90ICpndWlkKQogewogCXN0cnVjdCBkcm1fZHBfbXN0X2JyYW5jaCAqbXN0YjsKIAlp
+bnQgcmV0OwotLSAKMi4yMS4wCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fXwpOb3V2ZWF1IG1haWxpbmcgbGlzdApOb3V2ZWF1QGxpc3RzLmZyZWVkZXNrdG9w
+Lm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL25vdXZl
+YXU=
