@@ -1,122 +1,156 @@
-From: Lyude Paul <lyude-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>
-Subject: [PATCH v2 10/27] drm/dp_mst: Remove huge conditional in
- drm_dp_mst_handle_up_req()
-Date: Tue,  3 Sep 2019 16:45:48 -0400
-Message-ID: <20190903204645.25487-11-lyude@redhat.com>
+From: Lyude Paul <lyude@redhat.com>
+Subject: [PATCH v2 13/27] drm/dp_mst: Refactor drm_dp_mst_handle_down_rep()
+Date: Tue,  3 Sep 2019 16:45:51 -0400
+Message-ID: <20190903204645.25487-14-lyude@redhat.com>
 References: <20190903204645.25487-1-lyude@redhat.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190903204645.25487-1-lyude-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, nouveau-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Sean Paul <sean-p7yTbzM4H96eqtR555YLDQ@public.gmane.org>, David Airlie <airlied-cv59FeDIM0c@public.gmane.org>, Daniel Vetter <daniel.vetter-/w4YWyX8dFk@public.gmane.org>, Imre Deak <imre.deak-ral2JQCrhuEAvxtiuMwx3w@public.gmane.org>, Maarten Lankhorst <maarten.lankhorst-VuQAYsv1563Yd54FQh9/CA@public.gmane.org>, linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, Maxime Ripard <mripard-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org>, Juston Li <juston.li-ral2JQCrhuEAvxtiuMwx3w@public.gmane.org>, Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>, Harry Wentland <hwentlan-5C7GfCeVMHo@public.gmane.org>, =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala-VuQAYsv1563Yd54FQh9/CA@public.gmane.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20190903204645.25487-1-lyude@redhat.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+Cc: Juston Li <juston.li@intel.com>, Imre Deak <imre.deak@intel.com>, =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>, Harry Wentland <hwentlan@amd.com>, Daniel Vetter <daniel.vetter@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, Sean Paul <sean@poorly.run>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, linux-kernel@vger.kernel.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-V2hpY2ggcmVkdWNlcyBpbmRlbnRhdGlvbiBhbmQgbWFrZXMgdGhpcyBmdW5jdGlvbiBtb3JlIGxl
-Z2libGUuCgpDYzogSnVzdG9uIExpIDxqdXN0b24ubGlAaW50ZWwuY29tPgpDYzogSW1yZSBEZWFr
-IDxpbXJlLmRlYWtAaW50ZWwuY29tPgpDYzogVmlsbGUgU3lyasOkbMOkIDx2aWxsZS5zeXJqYWxh
-QGxpbnV4LmludGVsLmNvbT4KQ2M6IEhhcnJ5IFdlbnRsYW5kIDxod2VudGxhbkBhbWQuY29tPgpD
-YzogRGFuaWVsIFZldHRlciA8ZGFuaWVsLnZldHRlckBmZndsbC5jaD4KU2lnbmVkLW9mZi1ieTog
-THl1ZGUgUGF1bCA8bHl1ZGVAcmVkaGF0LmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vZHJtX2Rw
-X21zdF90b3BvbG9neS5jIHwgOTAgKysrKysrKysrKysrKy0tLS0tLS0tLS0tLS0tCiAxIGZpbGUg
-Y2hhbmdlZCwgNDUgaW5zZXJ0aW9ucygrKSwgNDUgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEv
-ZHJpdmVycy9ncHUvZHJtL2RybV9kcF9tc3RfdG9wb2xvZ3kuYyBiL2RyaXZlcnMvZ3B1L2RybS9k
-cm1fZHBfbXN0X3RvcG9sb2d5LmMKaW5kZXggMjQxYzY2Zjc1YmVkLi40MzQ1Mjg3MmVmYWQgMTAw
-NjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9kcm1fZHBfbXN0X3RvcG9sb2d5LmMKKysrIGIvZHJp
-dmVycy9ncHUvZHJtL2RybV9kcF9tc3RfdG9wb2xvZ3kuYwpAQCAtMzI0NSw3ICszMjQ1LDkgQEAg
-c3RhdGljIGludCBkcm1fZHBfbXN0X2hhbmRsZV9kb3duX3JlcChzdHJ1Y3QgZHJtX2RwX21zdF90
-b3BvbG9neV9tZ3IgKm1ncikKIAogc3RhdGljIGludCBkcm1fZHBfbXN0X2hhbmRsZV91cF9yZXEo
-c3RydWN0IGRybV9kcF9tc3RfdG9wb2xvZ3lfbWdyICptZ3IpCiB7Ci0JaW50IHJldCA9IDA7CisJ
-c3RydWN0IGRybV9kcF9zaWRlYmFuZF9tc2dfcmVxX2JvZHkgbXNnOworCXN0cnVjdCBkcm1fZHBf
-bXN0X2JyYW5jaCAqbXN0YiA9IE5VTEw7CisJYm9vbCBzZXFubzsKIAogCWlmICghZHJtX2RwX2dl
-dF9vbmVfc2JfbXNnKG1nciwgdHJ1ZSkpIHsKIAkJbWVtc2V0KCZtZ3ItPnVwX3JlcV9yZWN2LCAw
-LApAQCAtMzI1Myw2MiArMzI1NSw2MCBAQCBzdGF0aWMgaW50IGRybV9kcF9tc3RfaGFuZGxlX3Vw
-X3JlcShzdHJ1Y3QgZHJtX2RwX21zdF90b3BvbG9neV9tZ3IgKm1ncikKIAkJcmV0dXJuIDA7CiAJ
-fQogCi0JaWYgKG1nci0+dXBfcmVxX3JlY3YuaGF2ZV9lb210KSB7Ci0JCXN0cnVjdCBkcm1fZHBf
-c2lkZWJhbmRfbXNnX3JlcV9ib2R5IG1zZzsKLQkJc3RydWN0IGRybV9kcF9tc3RfYnJhbmNoICpt
-c3RiID0gTlVMTDsKLQkJYm9vbCBzZXFubzsKLQotCQlpZiAoIW1nci0+dXBfcmVxX3JlY3YuaW5p
-dGlhbF9oZHIuYnJvYWRjYXN0KSB7Ci0JCQltc3RiID0gZHJtX2RwX2dldF9tc3RfYnJhbmNoX2Rl
-dmljZShtZ3IsCi0JCQkJCQkJICAgIG1nci0+dXBfcmVxX3JlY3YuaW5pdGlhbF9oZHIubGN0LAot
-CQkJCQkJCSAgICBtZ3ItPnVwX3JlcV9yZWN2LmluaXRpYWxfaGRyLnJhZCk7Ci0JCQlpZiAoIW1z
-dGIpIHsKLQkJCQlEUk1fREVCVUdfS01TKCJHb3QgTVNUIHJlcGx5IGZyb20gdW5rbm93biBkZXZp
-Y2UgJWRcbiIsIG1nci0+dXBfcmVxX3JlY3YuaW5pdGlhbF9oZHIubGN0KTsKLQkJCQltZW1zZXQo
-Jm1nci0+dXBfcmVxX3JlY3YsIDAsIHNpemVvZihzdHJ1Y3QgZHJtX2RwX3NpZGViYW5kX21zZ19y
-eCkpOwotCQkJCXJldHVybiAwOwotCQkJfQorCWlmICghbWdyLT51cF9yZXFfcmVjdi5oYXZlX2Vv
-bXQpCisJCXJldHVybiAwOworCisJaWYgKCFtZ3ItPnVwX3JlcV9yZWN2LmluaXRpYWxfaGRyLmJy
-b2FkY2FzdCkgeworCQltc3RiID0gZHJtX2RwX2dldF9tc3RfYnJhbmNoX2RldmljZShtZ3IsCisJ
-CQkJCQkgICAgbWdyLT51cF9yZXFfcmVjdi5pbml0aWFsX2hkci5sY3QsCisJCQkJCQkgICAgbWdy
-LT51cF9yZXFfcmVjdi5pbml0aWFsX2hkci5yYWQpOworCQlpZiAoIW1zdGIpIHsKKwkJCURSTV9E
-RUJVR19LTVMoIkdvdCBNU1QgcmVwbHkgZnJvbSB1bmtub3duIGRldmljZSAlZFxuIiwgbWdyLT51
-cF9yZXFfcmVjdi5pbml0aWFsX2hkci5sY3QpOworCQkJbWVtc2V0KCZtZ3ItPnVwX3JlcV9yZWN2
-LCAwLCBzaXplb2Yoc3RydWN0IGRybV9kcF9zaWRlYmFuZF9tc2dfcngpKTsKKwkJCXJldHVybiAw
-OwogCQl9CisJfQogCi0JCXNlcW5vID0gbWdyLT51cF9yZXFfcmVjdi5pbml0aWFsX2hkci5zZXFu
-bzsKLQkJZHJtX2RwX3NpZGViYW5kX3BhcnNlX3JlcSgmbWdyLT51cF9yZXFfcmVjdiwgJm1zZyk7
-CisJc2Vxbm8gPSBtZ3ItPnVwX3JlcV9yZWN2LmluaXRpYWxfaGRyLnNlcW5vOworCWRybV9kcF9z
-aWRlYmFuZF9wYXJzZV9yZXEoJm1nci0+dXBfcmVxX3JlY3YsICZtc2cpOwogCi0JCWlmIChtc2cu
-cmVxX3R5cGUgPT0gRFBfQ09OTkVDVElPTl9TVEFUVVNfTk9USUZZKSB7Ci0JCQlkcm1fZHBfc2Vu
-ZF91cF9hY2tfcmVwbHkobWdyLCBtZ3ItPm1zdF9wcmltYXJ5LCBtc2cucmVxX3R5cGUsIHNlcW5v
-LCBmYWxzZSk7CisJaWYgKG1zZy5yZXFfdHlwZSA9PSBEUF9DT05ORUNUSU9OX1NUQVRVU19OT1RJ
-RlkpIHsKKwkJZHJtX2RwX3NlbmRfdXBfYWNrX3JlcGx5KG1nciwgbWdyLT5tc3RfcHJpbWFyeSwg
-bXNnLnJlcV90eXBlLCBzZXFubywgZmFsc2UpOwogCi0JCQlpZiAoIW1zdGIpCi0JCQkJbXN0YiA9
-IGRybV9kcF9nZXRfbXN0X2JyYW5jaF9kZXZpY2VfYnlfZ3VpZChtZ3IsIG1zZy51LmNvbm5fc3Rh
-dC5ndWlkKTsKKwkJaWYgKCFtc3RiKQorCQkJbXN0YiA9IGRybV9kcF9nZXRfbXN0X2JyYW5jaF9k
-ZXZpY2VfYnlfZ3VpZChtZ3IsIG1zZy51LmNvbm5fc3RhdC5ndWlkKTsKIAotCQkJaWYgKCFtc3Ri
-KSB7Ci0JCQkJRFJNX0RFQlVHX0tNUygiR290IE1TVCByZXBseSBmcm9tIHVua25vd24gZGV2aWNl
-ICVkXG4iLCBtZ3ItPnVwX3JlcV9yZWN2LmluaXRpYWxfaGRyLmxjdCk7Ci0JCQkJbWVtc2V0KCZt
-Z3ItPnVwX3JlcV9yZWN2LCAwLCBzaXplb2Yoc3RydWN0IGRybV9kcF9zaWRlYmFuZF9tc2dfcngp
-KTsKLQkJCQlyZXR1cm4gMDsKLQkJCX0KKwkJaWYgKCFtc3RiKSB7CisJCQlEUk1fREVCVUdfS01T
-KCJHb3QgTVNUIHJlcGx5IGZyb20gdW5rbm93biBkZXZpY2UgJWRcbiIsIG1nci0+dXBfcmVxX3Jl
-Y3YuaW5pdGlhbF9oZHIubGN0KTsKKwkJCW1lbXNldCgmbWdyLT51cF9yZXFfcmVjdiwgMCwgc2l6
-ZW9mKHN0cnVjdCBkcm1fZHBfc2lkZWJhbmRfbXNnX3J4KSk7CisJCQlyZXR1cm4gMDsKKwkJfQog
-Ci0JCQlkcm1fZHBfdXBkYXRlX3BvcnQobXN0YiwgJm1zZy51LmNvbm5fc3RhdCk7CisJCWRybV9k
-cF91cGRhdGVfcG9ydChtc3RiLCAmbXNnLnUuY29ubl9zdGF0KTsKIAotCQkJRFJNX0RFQlVHX0tN
-UygiR290IENTTjogcG46ICVkIGxkcHM6JWQgZGRwczogJWQgbWNzOiAlZCBpcDogJWQgcGR0OiAl
-ZFxuIiwgbXNnLnUuY29ubl9zdGF0LnBvcnRfbnVtYmVyLCBtc2cudS5jb25uX3N0YXQubGVnYWN5
-X2RldmljZV9wbHVnX3N0YXR1cywgbXNnLnUuY29ubl9zdGF0LmRpc3BsYXlwb3J0X2RldmljZV9w
-bHVnX3N0YXR1cywgbXNnLnUuY29ubl9zdGF0Lm1lc3NhZ2VfY2FwYWJpbGl0eV9zdGF0dXMsIG1z
-Zy51LmNvbm5fc3RhdC5pbnB1dF9wb3J0LCBtc2cudS5jb25uX3N0YXQucGVlcl9kZXZpY2VfdHlw
-ZSk7Ci0JCQlkcm1fa21zX2hlbHBlcl9ob3RwbHVnX2V2ZW50KG1nci0+ZGV2KTsKLQotCQl9IGVs
-c2UgaWYgKG1zZy5yZXFfdHlwZSA9PSBEUF9SRVNPVVJDRV9TVEFUVVNfTk9USUZZKSB7Ci0JCQlk
-cm1fZHBfc2VuZF91cF9hY2tfcmVwbHkobWdyLCBtZ3ItPm1zdF9wcmltYXJ5LCBtc2cucmVxX3R5
-cGUsIHNlcW5vLCBmYWxzZSk7Ci0JCQlpZiAoIW1zdGIpCi0JCQkJbXN0YiA9IGRybV9kcF9nZXRf
-bXN0X2JyYW5jaF9kZXZpY2VfYnlfZ3VpZChtZ3IsIG1zZy51LnJlc291cmNlX3N0YXQuZ3VpZCk7
-CisJCURSTV9ERUJVR19LTVMoIkdvdCBDU046IHBuOiAlZCBsZHBzOiVkIGRkcHM6ICVkIG1jczog
-JWQgaXA6ICVkIHBkdDogJWRcbiIsIG1zZy51LmNvbm5fc3RhdC5wb3J0X251bWJlciwgbXNnLnUu
-Y29ubl9zdGF0LmxlZ2FjeV9kZXZpY2VfcGx1Z19zdGF0dXMsIG1zZy51LmNvbm5fc3RhdC5kaXNw
-bGF5cG9ydF9kZXZpY2VfcGx1Z19zdGF0dXMsIG1zZy51LmNvbm5fc3RhdC5tZXNzYWdlX2NhcGFi
-aWxpdHlfc3RhdHVzLCBtc2cudS5jb25uX3N0YXQuaW5wdXRfcG9ydCwgbXNnLnUuY29ubl9zdGF0
-LnBlZXJfZGV2aWNlX3R5cGUpOworCQlkcm1fa21zX2hlbHBlcl9ob3RwbHVnX2V2ZW50KG1nci0+
-ZGV2KTsKIAotCQkJaWYgKCFtc3RiKSB7Ci0JCQkJRFJNX0RFQlVHX0tNUygiR290IE1TVCByZXBs
-eSBmcm9tIHVua25vd24gZGV2aWNlICVkXG4iLCBtZ3ItPnVwX3JlcV9yZWN2LmluaXRpYWxfaGRy
-LmxjdCk7Ci0JCQkJbWVtc2V0KCZtZ3ItPnVwX3JlcV9yZWN2LCAwLCBzaXplb2Yoc3RydWN0IGRy
-bV9kcF9zaWRlYmFuZF9tc2dfcngpKTsKLQkJCQlyZXR1cm4gMDsKLQkJCX0KKwl9IGVsc2UgaWYg
-KG1zZy5yZXFfdHlwZSA9PSBEUF9SRVNPVVJDRV9TVEFUVVNfTk9USUZZKSB7CisJCWRybV9kcF9z
-ZW5kX3VwX2Fja19yZXBseShtZ3IsIG1nci0+bXN0X3ByaW1hcnksIG1zZy5yZXFfdHlwZSwgc2Vx
-bm8sIGZhbHNlKTsKKwkJaWYgKCFtc3RiKQorCQkJbXN0YiA9IGRybV9kcF9nZXRfbXN0X2JyYW5j
-aF9kZXZpY2VfYnlfZ3VpZChtZ3IsIG1zZy51LnJlc291cmNlX3N0YXQuZ3VpZCk7CiAKLQkJCURS
-TV9ERUJVR19LTVMoIkdvdCBSU046IHBuOiAlZCBhdmFpbF9wYm4gJWRcbiIsIG1zZy51LnJlc291
-cmNlX3N0YXQucG9ydF9udW1iZXIsIG1zZy51LnJlc291cmNlX3N0YXQuYXZhaWxhYmxlX3Bibik7
-CisJCWlmICghbXN0YikgeworCQkJRFJNX0RFQlVHX0tNUygiR290IE1TVCByZXBseSBmcm9tIHVu
-a25vd24gZGV2aWNlICVkXG4iLCBtZ3ItPnVwX3JlcV9yZWN2LmluaXRpYWxfaGRyLmxjdCk7CisJ
-CQltZW1zZXQoJm1nci0+dXBfcmVxX3JlY3YsIDAsIHNpemVvZihzdHJ1Y3QgZHJtX2RwX3NpZGVi
-YW5kX21zZ19yeCkpOworCQkJcmV0dXJuIDA7CiAJCX0KIAotCQlpZiAobXN0YikKLQkJCWRybV9k
-cF9tc3RfdG9wb2xvZ3lfcHV0X21zdGIobXN0Yik7Ci0KLQkJbWVtc2V0KCZtZ3ItPnVwX3JlcV9y
-ZWN2LCAwLCBzaXplb2Yoc3RydWN0IGRybV9kcF9zaWRlYmFuZF9tc2dfcngpKTsKKwkJRFJNX0RF
-QlVHX0tNUygiR290IFJTTjogcG46ICVkIGF2YWlsX3BibiAlZFxuIiwgbXNnLnUucmVzb3VyY2Vf
-c3RhdC5wb3J0X251bWJlciwgbXNnLnUucmVzb3VyY2Vfc3RhdC5hdmFpbGFibGVfcGJuKTsKIAl9
-Ci0JcmV0dXJuIHJldDsKKworCWlmIChtc3RiKQorCQlkcm1fZHBfbXN0X3RvcG9sb2d5X3B1dF9t
-c3RiKG1zdGIpOworCisJbWVtc2V0KCZtZ3ItPnVwX3JlcV9yZWN2LCAwLCBzaXplb2Yoc3RydWN0
-IGRybV9kcF9zaWRlYmFuZF9tc2dfcngpKTsKKworCXJldHVybiAwOwogfQogCiAvKioKLS0gCjIu
-MjEuMAoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1k
-LWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9s
-aXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+* Remove the big ugly have_eomt conditional
+* Store &mgr->down_rep_recv.initial_hdr in a var to make line wrapping
+  easier
+* Remove duplicate memset() calls
+* Actually wrap lines
+
+Cc: Juston Li <juston.li@intel.com>
+Cc: Imre Deak <imre.deak@intel.com>
+Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
+Cc: Harry Wentland <hwentlan@amd.com>
+Reviewed-by: Daniel Vetter <daniel.vetter@ffwll.ch>
+Signed-off-by: Lyude Paul <lyude@redhat.com>
+---
+ drivers/gpu/drm/drm_dp_mst_topology.c | 102 +++++++++++++-------------
+ 1 file changed, 50 insertions(+), 52 deletions(-)
+
+diff --git a/drivers/gpu/drm/drm_dp_mst_topology.c b/drivers/gpu/drm/drm_dp_mst_topology.c
+index 64487098158a..74161f442584 100644
+--- a/drivers/gpu/drm/drm_dp_mst_topology.c
++++ b/drivers/gpu/drm/drm_dp_mst_topology.c
+@@ -3179,68 +3179,66 @@ static bool drm_dp_get_one_sb_msg(struct drm_dp_mst_topology_mgr *mgr, bool up)
+ 
+ static int drm_dp_mst_handle_down_rep(struct drm_dp_mst_topology_mgr *mgr)
+ {
+-	int ret = 0;
++	struct drm_dp_sideband_msg_tx *txmsg;
++	struct drm_dp_mst_branch *mstb;
++	struct drm_dp_sideband_msg_hdr *hdr = &mgr->down_rep_recv.initial_hdr;
++	int slot = -1;
++
++	if (!drm_dp_get_one_sb_msg(mgr, false))
++		goto clear_down_rep_recv;
+ 
+-	if (!drm_dp_get_one_sb_msg(mgr, false)) {
+-		memset(&mgr->down_rep_recv, 0,
+-		       sizeof(struct drm_dp_sideband_msg_rx));
++	if (!mgr->down_rep_recv.have_eomt)
+ 		return 0;
++
++	mstb = drm_dp_get_mst_branch_device(mgr, hdr->lct, hdr->rad);
++	if (!mstb) {
++		DRM_DEBUG_KMS("Got MST reply from unknown device %d\n",
++			      hdr->lct);
++		goto clear_down_rep_recv;
+ 	}
+ 
+-	if (mgr->down_rep_recv.have_eomt) {
+-		struct drm_dp_sideband_msg_tx *txmsg;
+-		struct drm_dp_mst_branch *mstb;
+-		int slot = -1;
+-		mstb = drm_dp_get_mst_branch_device(mgr,
+-						    mgr->down_rep_recv.initial_hdr.lct,
+-						    mgr->down_rep_recv.initial_hdr.rad);
++	/* find the message */
++	slot = hdr->seqno;
++	mutex_lock(&mgr->qlock);
++	txmsg = mstb->tx_slots[slot];
++	/* remove from slots */
++	mutex_unlock(&mgr->qlock);
+ 
+-		if (!mstb) {
+-			DRM_DEBUG_KMS("Got MST reply from unknown device %d\n", mgr->down_rep_recv.initial_hdr.lct);
+-			memset(&mgr->down_rep_recv, 0, sizeof(struct drm_dp_sideband_msg_rx));
+-			return 0;
+-		}
++	if (!txmsg) {
++		DRM_DEBUG_KMS("Got MST reply with no msg %p %d %d %02x %02x\n",
++			      mstb, hdr->seqno, hdr->lct, hdr->rad[0],
++			      mgr->down_rep_recv.msg[0]);
++		goto no_msg;
++	}
+ 
+-		/* find the message */
+-		slot = mgr->down_rep_recv.initial_hdr.seqno;
+-		mutex_lock(&mgr->qlock);
+-		txmsg = mstb->tx_slots[slot];
+-		/* remove from slots */
+-		mutex_unlock(&mgr->qlock);
+-
+-		if (!txmsg) {
+-			DRM_DEBUG_KMS("Got MST reply with no msg %p %d %d %02x %02x\n",
+-			       mstb,
+-			       mgr->down_rep_recv.initial_hdr.seqno,
+-			       mgr->down_rep_recv.initial_hdr.lct,
+-				      mgr->down_rep_recv.initial_hdr.rad[0],
+-				      mgr->down_rep_recv.msg[0]);
+-			drm_dp_mst_topology_put_mstb(mstb);
+-			memset(&mgr->down_rep_recv, 0, sizeof(struct drm_dp_sideband_msg_rx));
+-			return 0;
+-		}
++	drm_dp_sideband_parse_reply(&mgr->down_rep_recv, &txmsg->reply);
+ 
+-		drm_dp_sideband_parse_reply(&mgr->down_rep_recv, &txmsg->reply);
++	if (txmsg->reply.reply_type == DP_SIDEBAND_REPLY_NAK)
++		DRM_DEBUG_KMS("Got NAK reply: req 0x%02x (%s), reason 0x%02x (%s), nak data 0x%02x\n",
++			      txmsg->reply.req_type,
++			      drm_dp_mst_req_type_str(txmsg->reply.req_type),
++			      txmsg->reply.u.nak.reason,
++			      drm_dp_mst_nak_reason_str(txmsg->reply.u.nak.reason),
++			      txmsg->reply.u.nak.nak_data);
+ 
+-		if (txmsg->reply.reply_type == DP_SIDEBAND_REPLY_NAK)
+-			DRM_DEBUG_KMS("Got NAK reply: req 0x%02x (%s), reason 0x%02x (%s), nak data 0x%02x\n",
+-				      txmsg->reply.req_type,
+-				      drm_dp_mst_req_type_str(txmsg->reply.req_type),
+-				      txmsg->reply.u.nak.reason,
+-				      drm_dp_mst_nak_reason_str(txmsg->reply.u.nak.reason),
+-				      txmsg->reply.u.nak.nak_data);
+-
+-		memset(&mgr->down_rep_recv, 0, sizeof(struct drm_dp_sideband_msg_rx));
+-		drm_dp_mst_topology_put_mstb(mstb);
++	memset(&mgr->down_rep_recv, 0, sizeof(struct drm_dp_sideband_msg_rx));
++	drm_dp_mst_topology_put_mstb(mstb);
+ 
+-		mutex_lock(&mgr->qlock);
+-		txmsg->state = DRM_DP_SIDEBAND_TX_RX;
+-		mstb->tx_slots[slot] = NULL;
+-		mutex_unlock(&mgr->qlock);
++	mutex_lock(&mgr->qlock);
++	txmsg->state = DRM_DP_SIDEBAND_TX_RX;
++	mstb->tx_slots[slot] = NULL;
++	mutex_unlock(&mgr->qlock);
+ 
+-		wake_up_all(&mgr->tx_waitq);
+-	}
+-	return ret;
++	wake_up_all(&mgr->tx_waitq);
++
++	return 0;
++
++no_msg:
++	drm_dp_mst_topology_put_mstb(mstb);
++clear_down_rep_recv:
++	memset(&mgr->down_rep_recv, 0, sizeof(struct drm_dp_sideband_msg_rx));
++
++	return 0;
+ }
+ 
+ static int drm_dp_mst_handle_up_req(struct drm_dp_mst_topology_mgr *mgr)
+-- 
+2.21.0
