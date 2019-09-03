@@ -1,16 +1,16 @@
-From: Chunming Zhou <zhoucm1-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 3/3] drm/amdgpu: remove amdgpu_cs_try_evict
-Date: Tue, 3 Sep 2019 12:29:19 +0000
-Message-ID: <77c7463d-1ff7-1985-48c6-b48138676164@amd.com>
-References: <20190903090904.30747-1-christian.koenig@amd.com>
- <20190903090904.30747-3-christian.koenig@amd.com>
+From: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
+Subject: =?GB18030?B?UmU6ILvYuLSjuiBCdWc6IGFtZGdwdSBkcm0gZHJpdmVyIGNhdXNlIHByb2Nl?=
+ =?GB18030?B?c3MgaW50byBEaXNrIHNsZWVwIHN0YXRl?=
+Date: Tue, 3 Sep 2019 13:07:27 +0000
+Message-ID: <2162676e-dbfa-a67d-248c-98e9eb2099c2@amd.com>
+References: <tencent_4DEABBEB3BB4C6A6D84CA9F0DB225FBF5809@qq.com>
+ <f761fec0-c0cc-426c-6bcb-c3fd23808888@amd.com>
+ <tencent_7DC9F5195A4D538FA626F85991875FC5F508@qq.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1386558522=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190903090904.30747-3-christian.koenig-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <tencent_7DC9F5195A4D538FA626F85991875FC5F508-9uewiaClKEY@public.gmane.org>
 Content-Language: en-US
-Content-ID: <7E2C38C3F74FA143B197F1E8ACDA6B22-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -21,84 +21,290 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?utf-8?B?Q2hyaXN0aWFuIEvDtm5pZw==?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: 78666679 <78666679-9uewiaClKEY@public.gmane.org>, amd-gfx <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
 
-UmV2aWV3ZWQtYnk6IENodW5taW5nIFpob3UgPGRhdmlkMS56aG91QGFtZC5jb20+IGZvciBzZXJp
-ZXMuDQoNCi1EYXZpZA0KDQrlnKggMjAxOS85LzMgMTc6MDksIENocmlzdGlhbiBLw7ZuaWcg5YaZ
-6YGTOg0KPiBUcnlpbmcgdG8gZXZpY3QgdGhpbmdzIGZyb20gdGhlIGN1cnJlbnQgd29ya2luZyBz
-ZXQgZG9lc24ndCB3b3JrIHRoYXQNCj4gd2VsbCBhbnltb3JlIGJlY2F1c2Ugb2YgcGVyIFZNIEJP
-cy4NCj4NCj4gUmVseSBvbiByZXNlcnZpbmcgVlJBTSBmb3IgcGFnZSB0YWJsZXMgdG8gYXZvaWQg
-Y29udGVudGlvbi4NCj4NCj4gU2lnbmVkLW9mZi1ieTogQ2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0
-aWFuLmtvZW5pZ0BhbWQuY29tPg0KPiAtLS0NCj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
-dS9hbWRncHUuaCAgICB8ICAxIC0NCj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
-cHVfY3MuYyB8IDcxICstLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tDQo+ICAgMiBmaWxlcyBjaGFu
-Z2VkLCAxIGluc2VydGlvbigrKSwgNzEgZGVsZXRpb25zKC0pDQo+DQo+IGRpZmYgLS1naXQgYS9k
-cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHUuaCBiL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-YW1kZ3B1L2FtZGdwdS5oDQo+IGluZGV4IGEyMzYyMTNmOGU4ZS4uZDE5OTUxNTY3MzNlIDEwMDY0
-NA0KPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHUuaA0KPiArKysgYi9k
-cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHUuaA0KPiBAQCAtNDc4LDcgKzQ3OCw2IEBA
-IHN0cnVjdCBhbWRncHVfY3NfcGFyc2VyIHsNCj4gICAJdWludDY0X3QJCQlieXRlc19tb3ZlZF92
-aXNfdGhyZXNob2xkOw0KPiAgIAl1aW50NjRfdAkJCWJ5dGVzX21vdmVkOw0KPiAgIAl1aW50NjRf
-dAkJCWJ5dGVzX21vdmVkX3ZpczsNCj4gLQlzdHJ1Y3QgYW1kZ3B1X2JvX2xpc3RfZW50cnkJKmV2
-aWN0YWJsZTsNCj4gICANCj4gICAJLyogdXNlciBmZW5jZSAqLw0KPiAgIAlzdHJ1Y3QgYW1kZ3B1
-X2JvX2xpc3RfZW50cnkJdWZfZW50cnk7DQo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0v
-YW1kL2FtZGdwdS9hbWRncHVfY3MuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdw
-dV9jcy5jDQo+IGluZGV4IGZkOTViNTg2YjU5MC4uMDMxODJkOTY4ZDNkIDEwMDY0NA0KPiAtLS0g
-YS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfY3MuYw0KPiArKysgYi9kcml2ZXJz
-L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfY3MuYw0KPiBAQCAtNDQ3LDc1ICs0NDcsMTIgQEAg
-c3RhdGljIGludCBhbWRncHVfY3NfYm9fdmFsaWRhdGUoc3RydWN0IGFtZGdwdV9jc19wYXJzZXIg
-KnAsDQo+ICAgCXJldHVybiByOw0KPiAgIH0NCj4gICANCj4gLS8qIExhc3QgcmVzb3J0LCB0cnkg
-dG8gZXZpY3Qgc29tZXRoaW5nIGZyb20gdGhlIGN1cnJlbnQgd29ya2luZyBzZXQgKi8NCj4gLXN0
-YXRpYyBib29sIGFtZGdwdV9jc190cnlfZXZpY3Qoc3RydWN0IGFtZGdwdV9jc19wYXJzZXIgKnAs
-DQo+IC0JCQkJc3RydWN0IGFtZGdwdV9ibyAqdmFsaWRhdGVkKQ0KPiAtew0KPiAtCXVpbnQzMl90
-IGRvbWFpbiA9IHZhbGlkYXRlZC0+YWxsb3dlZF9kb21haW5zOw0KPiAtCXN0cnVjdCB0dG1fb3Bl
-cmF0aW9uX2N0eCBjdHggPSB7IHRydWUsIGZhbHNlIH07DQo+IC0JaW50IHI7DQo+IC0NCj4gLQlp
-ZiAoIXAtPmV2aWN0YWJsZSkNCj4gLQkJcmV0dXJuIGZhbHNlOw0KPiAtDQo+IC0JZm9yICg7JnAt
-PmV2aWN0YWJsZS0+dHYuaGVhZCAhPSAmcC0+dmFsaWRhdGVkOw0KPiAtCSAgICAgcC0+ZXZpY3Rh
-YmxlID0gbGlzdF9wcmV2X2VudHJ5KHAtPmV2aWN0YWJsZSwgdHYuaGVhZCkpIHsNCj4gLQ0KPiAt
-CQlzdHJ1Y3QgYW1kZ3B1X2JvX2xpc3RfZW50cnkgKmNhbmRpZGF0ZSA9IHAtPmV2aWN0YWJsZTsN
-Cj4gLQkJc3RydWN0IGFtZGdwdV9ibyAqYm8gPSB0dG1fdG9fYW1kZ3B1X2JvKGNhbmRpZGF0ZS0+
-dHYuYm8pOw0KPiAtCQlzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiA9IGFtZGdwdV90dG1fYWRl
-dihiby0+dGJvLmJkZXYpOw0KPiAtCQlib29sIHVwZGF0ZV9ieXRlc19tb3ZlZF92aXM7DQo+IC0J
-CXVpbnQzMl90IG90aGVyOw0KPiAtDQo+IC0JCS8qIElmIHdlIHJlYWNoZWQgb3VyIGN1cnJlbnQg
-Qk8gd2UgY2FuIGZvcmdldCBpdCAqLw0KPiAtCQlpZiAoYm8gPT0gdmFsaWRhdGVkKQ0KPiAtCQkJ
-YnJlYWs7DQo+IC0NCj4gLQkJLyogV2UgY2FuJ3QgbW92ZSBwaW5uZWQgQk9zIGhlcmUgKi8NCj4g
-LQkJaWYgKGJvLT5waW5fY291bnQpDQo+IC0JCQljb250aW51ZTsNCj4gLQ0KPiAtCQlvdGhlciA9
-IGFtZGdwdV9tZW1fdHlwZV90b19kb21haW4oYm8tPnRiby5tZW0ubWVtX3R5cGUpOw0KPiAtDQo+
-IC0JCS8qIENoZWNrIGlmIHRoaXMgQk8gaXMgaW4gb25lIG9mIHRoZSBkb21haW5zIHdlIG5lZWQg
-c3BhY2UgZm9yICovDQo+IC0JCWlmICghKG90aGVyICYgZG9tYWluKSkNCj4gLQkJCWNvbnRpbnVl
-Ow0KPiAtDQo+IC0JCS8qIENoZWNrIGlmIHdlIGNhbiBtb3ZlIHRoaXMgQk8gc29tZXdoZXJlIGVs
-c2UgKi8NCj4gLQkJb3RoZXIgPSBiby0+YWxsb3dlZF9kb21haW5zICYgfmRvbWFpbjsNCj4gLQkJ
-aWYgKCFvdGhlcikNCj4gLQkJCWNvbnRpbnVlOw0KPiAtDQo+IC0JCS8qIEdvb2Qgd2UgY2FuIHRy
-eSB0byBtb3ZlIHRoaXMgQk8gc29tZXdoZXJlIGVsc2UgKi8NCj4gLQkJdXBkYXRlX2J5dGVzX21v
-dmVkX3ZpcyA9DQo+IC0JCQkJIWFtZGdwdV9nbWNfdnJhbV9mdWxsX3Zpc2libGUoJmFkZXYtPmdt
-YykgJiYNCj4gLQkJCQlhbWRncHVfYm9faW5fY3B1X3Zpc2libGVfdnJhbShibyk7DQo+IC0JCWFt
-ZGdwdV9ib19wbGFjZW1lbnRfZnJvbV9kb21haW4oYm8sIG90aGVyKTsNCj4gLQkJciA9IHR0bV9i
-b192YWxpZGF0ZSgmYm8tPnRibywgJmJvLT5wbGFjZW1lbnQsICZjdHgpOw0KPiAtCQlwLT5ieXRl
-c19tb3ZlZCArPSBjdHguYnl0ZXNfbW92ZWQ7DQo+IC0JCWlmICh1cGRhdGVfYnl0ZXNfbW92ZWRf
-dmlzKQ0KPiAtCQkJcC0+Ynl0ZXNfbW92ZWRfdmlzICs9IGN0eC5ieXRlc19tb3ZlZDsNCj4gLQ0K
-PiAtCQlpZiAodW5saWtlbHkocikpDQo+IC0JCQlicmVhazsNCj4gLQ0KPiAtCQlwLT5ldmljdGFi
-bGUgPSBsaXN0X3ByZXZfZW50cnkocC0+ZXZpY3RhYmxlLCB0di5oZWFkKTsNCj4gLQkJbGlzdF9t
-b3ZlKCZjYW5kaWRhdGUtPnR2LmhlYWQsICZwLT52YWxpZGF0ZWQpOw0KPiAtDQo+IC0JCXJldHVy
-biB0cnVlOw0KPiAtCX0NCj4gLQ0KPiAtCXJldHVybiBmYWxzZTsNCj4gLX0NCj4gLQ0KPiAgIHN0
-YXRpYyBpbnQgYW1kZ3B1X2NzX3ZhbGlkYXRlKHZvaWQgKnBhcmFtLCBzdHJ1Y3QgYW1kZ3B1X2Jv
-ICpibykNCj4gICB7DQo+ICAgCXN0cnVjdCBhbWRncHVfY3NfcGFyc2VyICpwID0gcGFyYW07DQo+
-ICAgCWludCByOw0KPiAgIA0KPiAtCWRvIHsNCj4gLQkJciA9IGFtZGdwdV9jc19ib192YWxpZGF0
-ZShwLCBibyk7DQo+IC0JfSB3aGlsZSAociA9PSAtRU5PTUVNICYmIGFtZGdwdV9jc190cnlfZXZp
-Y3QocCwgYm8pKTsNCj4gKwlyID0gYW1kZ3B1X2NzX2JvX3ZhbGlkYXRlKHAsIGJvKTsNCj4gICAJ
-aWYgKHIpDQo+ICAgCQlyZXR1cm4gcjsNCj4gICANCj4gQEAgLTU1NCw5ICs0OTEsNiBAQCBzdGF0
-aWMgaW50IGFtZGdwdV9jc19saXN0X3ZhbGlkYXRlKHN0cnVjdCBhbWRncHVfY3NfcGFyc2VyICpw
-LA0KPiAgIAkJCWJpbmRpbmdfdXNlcnB0ciA9IHRydWU7DQo+ICAgCQl9DQo+ICAgDQo+IC0JCWlm
-IChwLT5ldmljdGFibGUgPT0gbG9iaikNCj4gLQkJCXAtPmV2aWN0YWJsZSA9IE5VTEw7DQo+IC0N
-Cj4gICAJCXIgPSBhbWRncHVfY3NfdmFsaWRhdGUocCwgYm8pOw0KPiAgIAkJaWYgKHIpDQo+ICAg
-CQkJcmV0dXJuIHI7DQo+IEBAIC02NTksOSArNTkzLDYgQEAgc3RhdGljIGludCBhbWRncHVfY3Nf
-cGFyc2VyX2JvcyhzdHJ1Y3QgYW1kZ3B1X2NzX3BhcnNlciAqcCwNCj4gICAJCQkJCSAgJnAtPmJ5
-dGVzX21vdmVkX3Zpc190aHJlc2hvbGQpOw0KPiAgIAlwLT5ieXRlc19tb3ZlZCA9IDA7DQo+ICAg
-CXAtPmJ5dGVzX21vdmVkX3ZpcyA9IDA7DQo+IC0JcC0+ZXZpY3RhYmxlID0gbGlzdF9sYXN0X2Vu
-dHJ5KCZwLT52YWxpZGF0ZWQsDQo+IC0JCQkJICAgICAgIHN0cnVjdCBhbWRncHVfYm9fbGlzdF9l
-bnRyeSwNCj4gLQkJCQkgICAgICAgdHYuaGVhZCk7DQo+ICAgDQo+ICAgCXIgPSBhbWRncHVfdm1f
-dmFsaWRhdGVfcHRfYm9zKHAtPmFkZXYsICZmcHJpdi0+dm0sDQo+ICAgCQkJCSAgICAgIGFtZGdw
-dV9jc192YWxpZGF0ZSwgcCk7DQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9w
-Lm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1n
-Zng=
+--===============1386558522==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_2162676edbfaa67d248c98e9eb2099c2amdcom_"
+
+--_000_2162676edbfaa67d248c98e9eb2099c2amdcom_
+Content-Type: text/plain; charset="GB18030"
+Content-Transfer-Encoding: quoted-printable
+
+Well that looks like the hardware got stuck.
+
+Do you get something in the locks about a timeout on the SDMA ring?
+
+Regards,
+Christian.
+
+Am 03.09.19 um 14:50 schrieb 78666679:
+Hi Christian,
+       Sometimes the thread blocked  disk sleeping in call to amdgpu_sa_bo_=
+new. following is the stack trace.  it seems the sa bo is used up ,  so  th=
+e caller blocked waiting someone to free sa resources.
+
+D 206833 227656 [surfaceflinger] <defunct> Binder:45_5
+cat /proc/206833/task/227656/stack
+
+[<0>] __switch_to+0x94/0xe8
+[<0>] dma_fence_wait_any_timeout+0x234/0x2d0
+[<0>] amdgpu_sa_bo_new+0x468/0x540 [amdgpu]
+[<0>] amdgpu_ib_get+0x60/0xc8 [amdgpu]
+[<0>] amdgpu_job_alloc_with_ib+0x70/0xb0 [amdgpu]
+[<0>] amdgpu_vm_bo_update_mapping+0x2e0/0x3d8 [amdgpu]
+[<0>] amdgpu_vm_bo_update+0x2a0/0x710 [amdgpu]
+[<0>] amdgpu_gem_va_ioctl+0x46c/0x4c8 [amdgpu]
+[<0>] drm_ioctl_kernel+0x94/0x118 [drm]
+[<0>] drm_ioctl+0x1f0/0x438 [drm]
+[<0>] amdgpu_drm_ioctl+0x58/0x90 [amdgpu]
+[<0>] do_vfs_ioctl+0xc4/0x8c0
+[<0>] ksys_ioctl+0x8c/0xa0
+[<0>] __arm64_sys_ioctl+0x28/0x38
+[<0>] el0_svc_common+0xa0/0x180
+[<0>] el0_svc_handler+0x38/0x78
+[<0>] el0_svc+0x8/0xc
+[<0>] 0xffffffffffffffff
+
+
+--------------------
+YanHua
+
+------------------ =D4=AD=CA=BC=D3=CA=BC=FE ------------------
+=B7=A2=BC=FE=C8=CB: "Koenig, Christian"<Christian.Koenig-5C7GfCeVMHo@public.gmane.org><mailto:Ch=
+ristian.Koenig-5C7GfCeVMHo@public.gmane.org>;
+=B7=A2=CB=CD=CA=B1=BC=E4: 2019=C4=EA9=D4=C23=C8=D5(=D0=C7=C6=DA=B6=FE) =CF=
+=C2=CE=E74:21
+=CA=D5=BC=FE=C8=CB: ""<78666679-9uewiaClKEY@public.gmane.org><mailto:78666679-9uewiaClKEY@public.gmane.org>;"amd-gfx"<a=
+md-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org><mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>;
+=B3=AD=CB=CD: "Deucher, Alexander"<Alexander.Deucher-5C7GfCeVMHo@public.gmane.org><mailto:Alexan=
+der.Deucher-5C7GfCeVMHo@public.gmane.org>;
+=D6=F7=CC=E2: Re: Bug: amdgpu drm driver cause process into Disk sleep stat=
+e
+
+Hi Yanhua,
+
+please update your kernel first, cause that looks like a known issue
+which was recently fixed by patch "drm/scheduler: use job count instead
+of peek".
+
+Probably best to try the latest bleeding edge kernel and if that doesn't
+help please open up a bug report on https://bugs.freedesktop.org/.
+
+Regards,
+Christian.
+
+Am 03.09.19 um 09:35 schrieb 78666679:
+> Hi, Sirs:
+>         I have a wx5100 amdgpu card, It randomly come into failure.  some=
+times, it will cause processes into uninterruptible wait state.
+>
+>
+> cps-new-ondemand-0587:~ # ps aux|grep -w D
+> root      11268  0.0  0.0 260628  3516 ?        Ssl  8=D4=C226   0:00 /us=
+r/sbin/gssproxy -D
+> root     136482  0.0  0.0 212500   572 pts/0    S+   15:25   0:00 grep --=
+color=3Dauto -w D
+> root     370684  0.0  0.0  17972  7428 ?        Ss   9=D4=C202   0:04 /us=
+r/sbin/sshd -D
+> 10066    432951  0.0  0.0      0     0 ?        D    9=D4=C202   0:00 [Fa=
+keFinalizerDa]
+> root     496774  0.0  0.0      0     0 ?        D    9=D4=C202   0:17 [kw=
+orker/8:1+eve]
+> cps-new-ondemand-0587:~ # cat /proc/496774/stack
+> [<0>] __switch_to+0x94/0xe8
+> [<0>] drm_sched_entity_flush+0xf8/0x248 [gpu_sched]
+> [<0>] amdgpu_ctx_mgr_entity_flush+0xac/0x148 [amdgpu]
+> [<0>] amdgpu_flush+0x2c/0x50 [amdgpu]
+> [<0>] filp_close+0x40/0xa0
+> [<0>] put_files_struct+0x118/0x120
+> [<0>] put_files_struct+0x30/0x68 [binder_linux]
+> [<0>] binder_deferred_func+0x4d4/0x658 [binder_linux]
+> [<0>] process_one_work+0x1b4/0x3f8
+> [<0>] worker_thread+0x54/0x470
+> [<0>] kthread+0x134/0x138
+> [<0>] ret_from_fork+0x10/0x18
+> [<0>] 0xffffffffffffffff
+>
+>
+>
+> This issue troubled me a long time.  looking eagerly to get help from you=
+!
+>
+>
+> -----
+> Yanhua
+
+
+
+--_000_2162676edbfaa67d248c98e9eb2099c2amdcom_
+Content-Type: text/html; charset="GB18030"
+Content-ID: <C3646AD8AADB734C9852A11123ED6993-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3DGB18030">
+</head>
+<body text=3D"#000000" bgcolor=3D"#FFFFFF">
+<div class=3D"moz-cite-prefix">Well that looks like the hardware got stuck.=
+<br>
+<br>
+Do you get something in the locks about a timeout on the SDMA ring?<br>
+<br>
+Regards,<br>
+Christian.<br>
+<br>
+Am 03.09.19 um 14:50 schrieb 78666679:<br>
+</div>
+<blockquote type=3D"cite" cite=3D"mid:tencent_7DC9F5195A4D538FA626F85991875=
+FC5F508-9uewiaClKEY@public.gmane.org">
+<div>Hi Christian,</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Sometimes the thread blocked&nbsp=
+; disk sleeping in call to amdgpu_sa_bo_new. following is the stack trace.&=
+nbsp; it seems the sa bo is used up ,&nbsp; so&nbsp; the caller blocked wai=
+ting someone to free sa resources.
+<br>
+</div>
+<div><br>
+</div>
+<div>D 206833 227656 [surfaceflinger] &lt;defunct&gt; Binder:45_5</div>
+<div>cat /proc/206833/task/227656/stack</div>
+<div><br>
+</div>
+<div>[&lt;0&gt;] __switch_to&#43;0x94/0xe8<br>
+[&lt;0&gt;] dma_fence_wait_any_timeout&#43;0x234/0x2d0<br>
+[&lt;0&gt;] amdgpu_sa_bo_new&#43;0x468/0x540 [amdgpu]<br>
+[&lt;0&gt;] amdgpu_ib_get&#43;0x60/0xc8 [amdgpu]<br>
+[&lt;0&gt;] amdgpu_job_alloc_with_ib&#43;0x70/0xb0 [amdgpu]<br>
+[&lt;0&gt;] amdgpu_vm_bo_update_mapping&#43;0x2e0/0x3d8 [amdgpu]<br>
+[&lt;0&gt;] amdgpu_vm_bo_update&#43;0x2a0/0x710 [amdgpu]<br>
+[&lt;0&gt;] amdgpu_gem_va_ioctl&#43;0x46c/0x4c8 [amdgpu]<br>
+[&lt;0&gt;] drm_ioctl_kernel&#43;0x94/0x118 [drm]<br>
+[&lt;0&gt;] drm_ioctl&#43;0x1f0/0x438 [drm]<br>
+[&lt;0&gt;] amdgpu_drm_ioctl&#43;0x58/0x90 [amdgpu]<br>
+[&lt;0&gt;] do_vfs_ioctl&#43;0xc4/0x8c0<br>
+[&lt;0&gt;] ksys_ioctl&#43;0x8c/0xa0<br>
+[&lt;0&gt;] __arm64_sys_ioctl&#43;0x28/0x38<br>
+[&lt;0&gt;] el0_svc_common&#43;0xa0/0x180<br>
+[&lt;0&gt;] el0_svc_handler&#43;0x38/0x78<br>
+[&lt;0&gt;] el0_svc&#43;0x8/0xc<br>
+[&lt;0&gt;] 0xffffffffffffffff<br>
+<br>
+</div>
+<div><br>
+</div>
+<div>
+<div>--------------------</div>
+<div>YanHua<br>
+</div>
+<div><br>
+</div>
+<div style=3D"font-size: 12px;font-family: Arial
+          Narrow;padding:2px 0 2px 0;">
+------------------&nbsp;=D4=AD=CA=BC=D3=CA=BC=FE&nbsp;------------------</d=
+iv>
+<div style=3D"font-size: 12px;background:#efefef;padding:8px;">
+<div><b>=B7=A2=BC=FE=C8=CB:</b>&nbsp;&quot;Koenig, Christian&quot;<a class=
+=3D"moz-txt-link-rfc2396E" href=3D"mailto:Christian.Koenig-5C7GfCeVMHo@public.gmane.org">&lt;Chr=
+istian.Koenig-5C7GfCeVMHo@public.gmane.org&gt;</a>;</div>
+<div><b>=B7=A2=CB=CD=CA=B1=BC=E4:</b>&nbsp;2019=C4=EA9=D4=C23=C8=D5(=D0=C7=
+=C6=DA=B6=FE) =CF=C2=CE=E74:21</div>
+<div><b>=CA=D5=BC=FE=C8=CB:</b>&nbsp;&quot;&quot;<a class=3D"moz-txt-link-r=
+fc2396E" href=3D"mailto:78666679-9uewiaClKEY@public.gmane.org">&lt;78666679-9uewiaClKEY@public.gmane.org&gt;</a>;&quot;=
+amd-gfx&quot;<a class=3D"moz-txt-link-rfc2396E" href=3D"mailto:amd-gfx@list=
+s.freedesktop.org">&lt;amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt;</a>;<wbr></div>
+<div><b>=B3=AD=CB=CD:</b>&nbsp;&quot;Deucher, Alexander&quot;<a class=3D"mo=
+z-txt-link-rfc2396E" href=3D"mailto:Alexander.Deucher-5C7GfCeVMHo@public.gmane.org">&lt;Alexande=
+r.Deucher-5C7GfCeVMHo@public.gmane.org&gt;</a>;<wbr></div>
+<div><b>=D6=F7=CC=E2:</b>&nbsp;Re: Bug: amdgpu drm driver cause process int=
+o Disk sleep state</div>
+</div>
+<div><br>
+</div>
+Hi Yanhua,<br>
+<br>
+please update your kernel first, cause that looks like a known issue <br>
+which was recently fixed by patch &quot;drm/scheduler: use job count instea=
+d <br>
+of peek&quot;.<br>
+<br>
+Probably best to try the latest bleeding edge kernel and if that doesn't <b=
+r>
+help please open up a bug report on <a class=3D"moz-txt-link-freetext" href=
+=3D"https://bugs.freedesktop.org/">
+https://bugs.freedesktop.org/</a>.<br>
+<br>
+Regards,<br>
+Christian.<br>
+<br>
+Am 03.09.19 um 09:35 schrieb 78666679:<br>
+&gt; Hi, Sirs:<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; I have a wx5100 amdgpu=
+ card, It randomly come into failure.&nbsp; sometimes, it will cause proces=
+ses into uninterruptible wait state.<br>
+&gt;<br>
+&gt;<br>
+&gt; cps-new-ondemand-0587:~ # ps aux|grep -w D<br>
+&gt; root&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 11268&nbsp; 0.0&nbsp; 0.0 260628&nb=
+sp; 3516 ?&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Ssl&nbsp; 8=D4=C226&nb=
+sp;&nbsp; 0:00 /usr/sbin/gssproxy -D<br>
+&gt; root&nbsp;&nbsp;&nbsp;&nbsp; 136482&nbsp; 0.0&nbsp; 0.0 212500&nbsp;&n=
+bsp; 572 pts/0&nbsp;&nbsp;&nbsp; S&#43;&nbsp;&nbsp; 15:25&nbsp;&nbsp; 0:00 =
+grep --color=3Dauto -w D<br>
+&gt; root&nbsp;&nbsp;&nbsp;&nbsp; 370684&nbsp; 0.0&nbsp; 0.0&nbsp; 17972&nb=
+sp; 7428 ?&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Ss&nbsp;&nbsp; 9=D4=C2=
+02&nbsp;&nbsp; 0:04 /usr/sbin/sshd -D<br>
+&gt; 10066&nbsp;&nbsp;&nbsp; 432951&nbsp; 0.0&nbsp; 0.0&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp; 0 ?&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; D&nbsp;&nbsp;&nbsp; 9=D4=C202&nbsp;&nbsp; 0:00 [FakeFinalizerDa]<br=
+>
+&gt; root&nbsp;&nbsp;&nbsp;&nbsp; 496774&nbsp; 0.0&nbsp; 0.0&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp; 0 ?&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp; D&nbsp;&nbsp;&nbsp; 9=D4=C202&nbsp;&nbsp; 0:17 [kworker/8:1&#4=
+3;eve]<br>
+&gt; cps-new-ondemand-0587:~ # cat /proc/496774/stack<br>
+&gt; [&lt;0&gt;] __switch_to&#43;0x94/0xe8<br>
+&gt; [&lt;0&gt;] drm_sched_entity_flush&#43;0xf8/0x248 [gpu_sched]<br>
+&gt; [&lt;0&gt;] amdgpu_ctx_mgr_entity_flush&#43;0xac/0x148 [amdgpu]<br>
+&gt; [&lt;0&gt;] amdgpu_flush&#43;0x2c/0x50 [amdgpu]<br>
+&gt; [&lt;0&gt;] filp_close&#43;0x40/0xa0<br>
+&gt; [&lt;0&gt;] put_files_struct&#43;0x118/0x120<br>
+&gt; [&lt;0&gt;] put_files_struct&#43;0x30/0x68 [binder_linux]<br>
+&gt; [&lt;0&gt;] binder_deferred_func&#43;0x4d4/0x658 [binder_linux]<br>
+&gt; [&lt;0&gt;] process_one_work&#43;0x1b4/0x3f8<br>
+&gt; [&lt;0&gt;] worker_thread&#43;0x54/0x470<br>
+&gt; [&lt;0&gt;] kthread&#43;0x134/0x138<br>
+&gt; [&lt;0&gt;] ret_from_fork&#43;0x10/0x18<br>
+&gt; [&lt;0&gt;] 0xffffffffffffffff<br>
+&gt;<br>
+&gt;<br>
+&gt;<br>
+&gt; This issue troubled me a long time.&nbsp; looking eagerly to get help =
+from you!<br>
+&gt;<br>
+&gt;<br>
+&gt; -----<br>
+&gt; Yanhua<br>
+<br>
+</div>
+</blockquote>
+<br>
+</body>
+</html>
+
+--_000_2162676edbfaa67d248c98e9eb2099c2amdcom_--
+
+--===============1386558522==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+
+--===============1386558522==--
