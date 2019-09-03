@@ -1,15 +1,17 @@
 From: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
-Subject: =?GB18030?B?UmU6ILvYuLSjuiBCdWc6IGFtZGdwdSBkcm0gZHJpdmVyIGNhdXNlIHByb2Nl?=
- =?GB18030?B?c3MgaW50byBEaXNrIHNsZWVwIHN0YXRl?=
-Date: Tue, 3 Sep 2019 13:07:27 +0000
-Message-ID: <2162676e-dbfa-a67d-248c-98e9eb2099c2@amd.com>
+Subject: =?GB18030?B?UmU6ILvYuLSjuiC72Li0o7ogQnVnOiBhbWRncHUgZHJtIGRyaXZlciBjYXVz?=
+ =?GB18030?B?ZSBwcm9jZXNzIGludG8gRGlzayBzbGVlcCBzdGF0ZQ==?=
+Date: Tue, 3 Sep 2019 13:19:47 +0000
+Message-ID: <88a08dcc-2e95-9379-693f-2d3fd928aa11@amd.com>
 References: <tencent_4DEABBEB3BB4C6A6D84CA9F0DB225FBF5809@qq.com>
  <f761fec0-c0cc-426c-6bcb-c3fd23808888@amd.com>
  <tencent_7DC9F5195A4D538FA626F85991875FC5F508@qq.com>
+ <2162676e-dbfa-a67d-248c-98e9eb2099c2@amd.com>
+ <tencent_DFCD5A0853FDA639F81F91375F8DF55AF508@qq.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1386558522=="
+Content-Type: multipart/mixed; boundary="===============1538350944=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <tencent_7DC9F5195A4D538FA626F85991875FC5F508-9uewiaClKEY@public.gmane.org>
+In-Reply-To: <tencent_DFCD5A0853FDA639F81F91375F8DF55AF508-9uewiaClKEY@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -24,14 +26,39 @@ Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane
 To: 78666679 <78666679-9uewiaClKEY@public.gmane.org>, amd-gfx <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
 
---===============1386558522==
+--===============1538350944==
 Content-Language: en-US
 Content-Type: multipart/alternative;
-	boundary="_000_2162676edbfaa67d248c98e9eb2099c2amdcom_"
+	boundary="_000_88a08dcc2e959379693f2d3fd928aa11amdcom_"
 
---_000_2162676edbfaa67d248c98e9eb2099c2amdcom_
+--_000_88a08dcc2e959379693f2d3fd928aa11amdcom_
 Content-Type: text/plain; charset="GB18030"
 Content-Transfer-Encoding: quoted-printable
+
+This is just a GPU lock, please open up a bug report on freedesktop.org and=
+ attach the full dmesg and which version of Mesa you are using.
+
+Regards,
+Christian.
+
+Am 03.09.19 um 15:16 schrieb 78666679:
+Yes, with dmesg|grep drm ,  I get following.
+
+348571.880718] [drm:amdgpu_job_timedout [amdgpu]] *ERROR* ring sdma1 timeou=
+t, signaled seq=3D24423862, emitted seq=3D24423865
+
+
+------------------ =D4=AD=CA=BC=D3=CA=BC=FE ------------------
+=B7=A2=BC=FE=C8=CB: "Koenig, Christian"<Christian.Koenig-5C7GfCeVMHo@public.gmane.org><mailto:Ch=
+ristian.Koenig-5C7GfCeVMHo@public.gmane.org>;
+=B7=A2=CB=CD=CA=B1=BC=E4: 2019=C4=EA9=D4=C23=C8=D5(=D0=C7=C6=DA=B6=FE) =CD=
+=ED=C9=CF9:07
+=CA=D5=BC=FE=C8=CB: ""<78666679-9uewiaClKEY@public.gmane.org><mailto:78666679-9uewiaClKEY@public.gmane.org>;"amd-gfx"<a=
+md-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org><mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>;
+=B3=AD=CB=CD: "Deucher, Alexander"<Alexander.Deucher-5C7GfCeVMHo@public.gmane.org><mailto:Alexan=
+der.Deucher-5C7GfCeVMHo@public.gmane.org>;
+=D6=F7=CC=E2: Re: =BB=D8=B8=B4=A3=BA Bug: amdgpu drm driver cause process i=
+nto Disk sleep state
 
 Well that looks like the hardware got stuck.
 
@@ -139,9 +166,10 @@ orker/8:1+eve]
 
 
 
---_000_2162676edbfaa67d248c98e9eb2099c2amdcom_
+
+--_000_88a08dcc2e959379693f2d3fd928aa11amdcom_
 Content-Type: text/html; charset="GB18030"
-Content-ID: <C3646AD8AADB734C9852A11123ED6993-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
+Content-ID: <DC824461C7FF174FA1A0A52AB86F45B2-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
 Content-Transfer-Encoding: quoted-printable
 
 <html>
@@ -149,6 +177,49 @@ Content-Transfer-Encoding: quoted-printable
 <meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3DGB18030">
 </head>
 <body text=3D"#000000" bgcolor=3D"#FFFFFF">
+<div class=3D"moz-cite-prefix">This is just a GPU lock, please open up a bu=
+g report on freedesktop.org and attach the full dmesg and which version of =
+Mesa you are using.<br>
+<br>
+Regards,<br>
+Christian.<br>
+<br>
+Am 03.09.19 um 15:16 schrieb 78666679:<br>
+</div>
+<blockquote type=3D"cite" cite=3D"mid:tencent_DFCD5A0853FDA639F81F91375F8DF=
+55AF508-9uewiaClKEY@public.gmane.org">
+<div>Yes, with dmesg|grep drm ,&nbsp; I get following.</div>
+<div><br>
+</div>
+<div>348571.880718] [drm:amdgpu_job_timedout [amdgpu]] *ERROR* ring sdma1 t=
+imeout, signaled seq=3D24423862, emitted seq=3D24423865</div>
+<div>
+<div><br>
+</div>
+<div><br>
+</div>
+<div style=3D"font-size: 12px;font-family: Arial
+          Narrow;padding:2px 0 2px 0;">
+------------------&nbsp;=D4=AD=CA=BC=D3=CA=BC=FE&nbsp;------------------</d=
+iv>
+<div style=3D"font-size: 12px;background:#efefef;padding:8px;">
+<div><b>=B7=A2=BC=FE=C8=CB:</b>&nbsp;&quot;Koenig, Christian&quot;<a class=
+=3D"moz-txt-link-rfc2396E" href=3D"mailto:Christian.Koenig-5C7GfCeVMHo@public.gmane.org">&lt;Chr=
+istian.Koenig-5C7GfCeVMHo@public.gmane.org&gt;</a>;</div>
+<div><b>=B7=A2=CB=CD=CA=B1=BC=E4:</b>&nbsp;2019=C4=EA9=D4=C23=C8=D5(=D0=C7=
+=C6=DA=B6=FE) =CD=ED=C9=CF9:07</div>
+<div><b>=CA=D5=BC=FE=C8=CB:</b>&nbsp;&quot;&quot;<a class=3D"moz-txt-link-r=
+fc2396E" href=3D"mailto:78666679-9uewiaClKEY@public.gmane.org">&lt;78666679-9uewiaClKEY@public.gmane.org&gt;</a>;&quot;=
+amd-gfx&quot;<a class=3D"moz-txt-link-rfc2396E" href=3D"mailto:amd-gfx@list=
+s.freedesktop.org">&lt;amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt;</a>;<wbr></div>
+<div><b>=B3=AD=CB=CD:</b>&nbsp;&quot;Deucher, Alexander&quot;<a class=3D"mo=
+z-txt-link-rfc2396E" href=3D"mailto:Alexander.Deucher-5C7GfCeVMHo@public.gmane.org">&lt;Alexande=
+r.Deucher-5C7GfCeVMHo@public.gmane.org&gt;</a>;<wbr></div>
+<div><b>=D6=F7=CC=E2:</b>&nbsp;Re: =BB=D8=B8=B4=A3=BA Bug: amdgpu drm drive=
+r cause process into Disk sleep state</div>
+</div>
+<div><br>
+</div>
 <div class=3D"moz-cite-prefix">Well that looks like the hardware got stuck.=
 <br>
 <br>
@@ -162,10 +233,10 @@ Am 03.09.19 um 14:50 schrieb 78666679:<br>
 <blockquote type=3D"cite" cite=3D"mid:tencent_7DC9F5195A4D538FA626F85991875=
 FC5F508-9uewiaClKEY@public.gmane.org">
 <div>Hi Christian,</div>
-<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Sometimes the thread blocked&nbsp=
-; disk sleeping in call to amdgpu_sa_bo_new. following is the stack trace.&=
-nbsp; it seems the sa bo is used up ,&nbsp; so&nbsp; the caller blocked wai=
-ting someone to free sa resources.
+<div>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; Sometimes the thread blocked&nbsp; dis=
+k sleeping in call to amdgpu_sa_bo_new. following is the stack trace.&nbsp;=
+ it seems the sa bo is used up ,&nbsp; so&nbsp; the caller blocked waiting =
+someone to free sa resources.
 <br>
 </div>
 <div><br>
@@ -203,22 +274,22 @@ ting someone to free sa resources.
 <div><br>
 </div>
 <div style=3D"font-size: 12px;font-family: Arial
-          Narrow;padding:2px 0 2px 0;">
-------------------&nbsp;=D4=AD=CA=BC=D3=CA=BC=FE&nbsp;------------------</d=
-iv>
+              Narrow;padding:2px 0 2px 0;">
+------------------ =D4=AD=CA=BC=D3=CA=BC=FE ------------------</div>
 <div style=3D"font-size: 12px;background:#efefef;padding:8px;">
 <div><b>=B7=A2=BC=FE=C8=CB:</b>&nbsp;&quot;Koenig, Christian&quot;<a class=
-=3D"moz-txt-link-rfc2396E" href=3D"mailto:Christian.Koenig-5C7GfCeVMHo@public.gmane.org">&lt;Chr=
-istian.Koenig-5C7GfCeVMHo@public.gmane.org&gt;</a>;</div>
+=3D"moz-txt-link-rfc2396E" href=3D"mailto:Christian.Koenig-5C7GfCeVMHo@public.gmane.org" moz-do-=
+not-send=3D"true">&lt;Christian.Koenig-5C7GfCeVMHo@public.gmane.org&gt;</a>;</div>
 <div><b>=B7=A2=CB=CD=CA=B1=BC=E4:</b>&nbsp;2019=C4=EA9=D4=C23=C8=D5(=D0=C7=
 =C6=DA=B6=FE) =CF=C2=CE=E74:21</div>
 <div><b>=CA=D5=BC=FE=C8=CB:</b>&nbsp;&quot;&quot;<a class=3D"moz-txt-link-r=
-fc2396E" href=3D"mailto:78666679-9uewiaClKEY@public.gmane.org">&lt;78666679-9uewiaClKEY@public.gmane.org&gt;</a>;&quot;=
-amd-gfx&quot;<a class=3D"moz-txt-link-rfc2396E" href=3D"mailto:amd-gfx@list=
-s.freedesktop.org">&lt;amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt;</a>;<wbr></div>
+fc2396E" href=3D"mailto:78666679-9uewiaClKEY@public.gmane.org" moz-do-not-send=3D"true">&lt;78666=
+679-9uewiaClKEY@public.gmane.org&gt;</a>;&quot;amd-gfx&quot;<a class=3D"moz-txt-link-rfc2396E" hr=
+ef=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" moz-do-not-send=3D"true">&lt;am=
+d-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt;</a>;<wbr></div>
 <div><b>=B3=AD=CB=CD:</b>&nbsp;&quot;Deucher, Alexander&quot;<a class=3D"mo=
-z-txt-link-rfc2396E" href=3D"mailto:Alexander.Deucher-5C7GfCeVMHo@public.gmane.org">&lt;Alexande=
-r.Deucher-5C7GfCeVMHo@public.gmane.org&gt;</a>;<wbr></div>
+z-txt-link-rfc2396E" href=3D"mailto:Alexander.Deucher-5C7GfCeVMHo@public.gmane.org" moz-do-not-s=
+end=3D"true">&lt;Alexander.Deucher-5C7GfCeVMHo@public.gmane.org&gt;</a>;<wbr></div>
 <div><b>=D6=F7=CC=E2:</b>&nbsp;Re: Bug: amdgpu drm driver cause process int=
 o Disk sleep state</div>
 </div>
@@ -234,7 +305,7 @@ of peek&quot;.<br>
 Probably best to try the latest bleeding edge kernel and if that doesn't <b=
 r>
 help please open up a bug report on <a class=3D"moz-txt-link-freetext" href=
-=3D"https://bugs.freedesktop.org/">
+=3D"https://bugs.freedesktop.org/" moz-do-not-send=3D"true">
 https://bugs.freedesktop.org/</a>.<br>
 <br>
 Regards,<br>
@@ -242,29 +313,27 @@ Christian.<br>
 <br>
 Am 03.09.19 um 09:35 schrieb 78666679:<br>
 &gt; Hi, Sirs:<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; I have a wx5100 amdgpu=
- card, It randomly come into failure.&nbsp; sometimes, it will cause proces=
-ses into uninterruptible wait state.<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; I have a wx5100 amdgpu card=
+, It randomly come into failure.&nbsp; sometimes, it will cause processes i=
+nto uninterruptible wait state.<br>
 &gt;<br>
 &gt;<br>
 &gt; cps-new-ondemand-0587:~ # ps aux|grep -w D<br>
-&gt; root&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 11268&nbsp; 0.0&nbsp; 0.0 260628&nb=
-sp; 3516 ?&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Ssl&nbsp; 8=D4=C226&nb=
-sp;&nbsp; 0:00 /usr/sbin/gssproxy -D<br>
-&gt; root&nbsp;&nbsp;&nbsp;&nbsp; 136482&nbsp; 0.0&nbsp; 0.0 212500&nbsp;&n=
-bsp; 572 pts/0&nbsp;&nbsp;&nbsp; S&#43;&nbsp;&nbsp; 15:25&nbsp;&nbsp; 0:00 =
-grep --color=3Dauto -w D<br>
-&gt; root&nbsp;&nbsp;&nbsp;&nbsp; 370684&nbsp; 0.0&nbsp; 0.0&nbsp; 17972&nb=
-sp; 7428 ?&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Ss&nbsp;&nbsp; 9=D4=C2=
-02&nbsp;&nbsp; 0:04 /usr/sbin/sshd -D<br>
-&gt; 10066&nbsp;&nbsp;&nbsp; 432951&nbsp; 0.0&nbsp; 0.0&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp; 0 ?&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; D&nbsp;&nbsp;&nbsp; 9=D4=C202&nbsp;&nbsp; 0:00 [FakeFinalizerDa]<br=
->
-&gt; root&nbsp;&nbsp;&nbsp;&nbsp; 496774&nbsp; 0.0&nbsp; 0.0&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp; 0 ?&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp; D&nbsp;&nbsp;&nbsp; 9=D4=C202&nbsp;&nbsp; 0:17 [kworker/8:1&#4=
-3;eve]<br>
+&gt; root&nbsp;&nbsp;&nbsp; &nbsp; 11268&nbsp; 0.0&nbsp; 0.0 260628&nbsp; 3=
+516 ?&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; Ssl&nbsp; 8=D4=C226 &nbsp; 0:00 =
+/usr/sbin/gssproxy -D<br>
+&gt; root&nbsp;&nbsp; &nbsp; 136482&nbsp; 0.0&nbsp; 0.0 212500 &nbsp; 572 p=
+ts/0&nbsp; &nbsp; S&#43; &nbsp; 15:25 &nbsp; 0:00 grep --color=3Dauto -w D<=
+br>
+&gt; root&nbsp;&nbsp; &nbsp; 370684&nbsp; 0.0&nbsp; 0.0&nbsp; 17972&nbsp; 7=
+428 ?&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; Ss &nbsp; 9=D4=C202 &nbsp; 0:04 =
+/usr/sbin/sshd -D<br>
+&gt; 10066&nbsp; &nbsp; 432951&nbsp; 0.0&nbsp; 0.0&nbsp;&nbsp;&nbsp; &nbsp;=
+ 0&nbsp;&nbsp; &nbsp; 0 ?&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; D&nbsp; &nbs=
+p; 9=D4=C202 &nbsp; 0:00 [FakeFinalizerDa]<br>
+&gt; root&nbsp;&nbsp; &nbsp; 496774&nbsp; 0.0&nbsp; 0.0&nbsp;&nbsp;&nbsp; &=
+nbsp; 0&nbsp;&nbsp; &nbsp; 0 ?&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; D&nbsp;=
+ &nbsp; 9=D4=C202 &nbsp; 0:17 [kworker/8:1&#43;eve]<br>
 &gt; cps-new-ondemand-0587:~ # cat /proc/496774/stack<br>
 &gt; [&lt;0&gt;] __switch_to&#43;0x94/0xe8<br>
 &gt; [&lt;0&gt;] drm_sched_entity_flush&#43;0xf8/0x248 [gpu_sched]<br>
@@ -292,12 +361,15 @@ from you!<br>
 </div>
 </blockquote>
 <br>
+</div>
+</blockquote>
+<br>
 </body>
 </html>
 
---_000_2162676edbfaa67d248c98e9eb2099c2amdcom_--
+--_000_88a08dcc2e959379693f2d3fd928aa11amdcom_--
 
---===============1386558522==
+--===============1538350944==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -307,4 +379,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
 
---===============1386558522==--
+--===============1538350944==--
