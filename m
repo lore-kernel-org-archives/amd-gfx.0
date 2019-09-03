@@ -1,134 +1,82 @@
-From: Kenny Ho <y2kenny-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH RFC v4 01/16] drm: Add drm_minor_for_each
-Date: Tue, 3 Sep 2019 16:43:45 -0400
-Message-ID: <CAOWid-eUVztW4hNVpznnJRcwHcjCirGL2aS75p4OY8XoGuJqUg@mail.gmail.com>
-References: <20190829060533.32315-1-Kenny.Ho@amd.com>
- <20190829060533.32315-2-Kenny.Ho@amd.com>
- <20190903075719.GK2112@phenom.ffwll.local>
- <CAOWid-dxxDhyxP2+0R0oKAk29rR-1TbMyhshR1+gbcpGJCAW6g@mail.gmail.com>
- <CAKMK7uEofjdVURu+meonh_YdV5eX8vfNALkW3A_+kLapCV8j+w@mail.gmail.com>
+From: Lyude Paul <lyude@redhat.com>
+Subject: [PATCH v2 01/27] drm/dp_mst: Move link address dumping into a function
+Date: Tue,  3 Sep 2019 16:45:39 -0400
+Message-ID: <20190903204645.25487-2-lyude@redhat.com>
+References: <20190903204645.25487-1-lyude@redhat.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CAKMK7uEofjdVURu+meonh_YdV5eX8vfNALkW3A_+kLapCV8j+w-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>
-Cc: Kenny Ho <Kenny.Ho-5C7GfCeVMHo@public.gmane.org>, "Kuehling, Felix" <felix.kuehling-5C7GfCeVMHo@public.gmane.org>, jsparks-WVYJKLFxKCc@public.gmane.org, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, lkaplan-WVYJKLFxKCc@public.gmane.org, Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, dri-devel <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Greathouse,
- Joseph" <joseph.greathouse-5C7GfCeVMHo@public.gmane.org>, Tejun Heo <tj-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org>, cgroups-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20190903204645.25487-1-lyude@redhat.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+Cc: Juston Li <juston.li@intel.com>, Imre Deak <imre.deak@intel.com>, =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>, Harry Wentland <hwentlan@amd.com>, Daniel Vetter <daniel@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, Sean Paul <sean@poorly.run>, David Airlie <airlied@linux.ie>, linux-kernel@vger.kernel.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gVHVlLCBTZXAgMywgMjAxOSBhdCA0OjEyIFBNIERhbmllbCBWZXR0ZXIgPGRhbmllbEBmZnds
-bC5jaD4gd3JvdGU6Cj4gT24gVHVlLCBTZXAgMywgMjAxOSBhdCA5OjQ1IFBNIEtlbm55IEhvIDx5
-Mmtlbm55QGdtYWlsLmNvbT4gd3JvdGU6Cj4gPiBPbiBUdWUsIFNlcCAzLCAyMDE5IGF0IDM6NTcg
-QU0gRGFuaWVsIFZldHRlciA8ZGFuaWVsQGZmd2xsLmNoPiB3cm90ZToKPiA+ID4gSXRlcmF0aW5n
-IG92ZXIgbWlub3JzIGZvciBjZ3JvdXBzIHNvdW5kcyB2ZXJ5LCB2ZXJ5IHdyb25nLiBXaHkgZG8g
-d2UgY2FyZQo+ID4gPiB3aGV0aGVyIGEgYnVmZmVyIHdhcyBhbGxvY2F0ZWQgdGhyb3VnaCBrbXMg
-ZHVtYiB2cyByZW5kZXIgbm9kZXM/Cj4gPiA+Cj4gPiA+IEknZCBleHBlY3QgYWxsIHRoZSBjZ3Jv
-dXAgc3R1ZmYgdG8gb25seSB3b3JrIG9uIGRybV9kZXZpY2UsIGlmIGl0IGRvZXMKPiA+ID4gY2Fy
-ZSBhYm91dCBkZXZpY2VzLgo+ID4gPgo+ID4gPiAoSSBkaWRuJ3QgbG9vayB0aHJvdWdoIHRoZSBw
-YXRjaCBzZXJpZXMgdG8gZmluZCBvdXQgd2hlcmUgZXhhY3RseSB5b3UncmUKPiA+ID4gdXNpbmcg
-dGhpcywgc28gbWF5YmUgSSdtIG9mZiB0aGUgcmFpbHMgaGVyZSkuCj4gPgo+ID4gSSBhbSBleHBv
-c2luZyB0aGlzIHRvIHJlbW92ZSB0aGUgbmVlZCB0byBrZWVwIHRyYWNrIG9mIGEgc2VwYXJhdGUg
-bGlzdAo+ID4gb2YgYXZhaWxhYmxlIGRybV9kZXZpY2UgaW4gdGhlIHN5c3RlbSAodG8gcmVtb3Zl
-IHRoZSByZWdpc3RlcmluZyBhbmQKPiA+IHVucmVnaXN0ZXJpbmcgb2YgZHJtX2RldmljZSB0byB0
-aGUgY2dyb3VwIHN1YnN5c3RlbSBhbmQganVzdCB1c2UKPiA+IGRybV9taW5vciBhcyB0aGUgc2lu
-Z2xlIHNvdXJjZSBvZiB0cnV0aC4pICBJIGFtIG9ubHkgZmlsdGVyaW5nIG91dCB0aGUKPiA+IHJl
-bmRlciBub2RlcyBtaW5vciBiZWNhdXNlIHRoZXkgcG9pbnQgdG8gdGhlIHNhbWUgZHJtX2Rldmlj
-ZSBhbmQgaXMKPiA+IGNvbmZ1c2luZy4KPiA+Cj4gPiBQZXJoYXBzIEkgbWlzc2VkIGFuIG9idmlv
-dXMgd2F5IHRvIGxpc3QgdGhlIGRybSBkZXZpY2VzIHdpdGhvdXQKPiA+IGl0ZXJhdGluZyB0aHJv
-dWdoIHRoZSBkcm1fbWlub3JzPyAgKEkgcHJvYmFibHkganVtcGVkIHRvIHRoZSBtaW5vcnMKPiA+
-IGJlY2F1c2UgJG1ham9yOiRtaW5vciBpcyB0aGUgY29udmVudGlvbiB0byBhZGRyZXNzIGRldmlj
-ZXMgaW4gY2dyb3VwLikKPgo+IENyZWF0ZSB5b3VyIG93biBpZiB0aGVyZSdzIG5vdGhpbmcsIGJl
-Y2F1c2UgeW91IG5lZWQgdG8gYW55d2F5Ogo+IC0gWW91IG5lZWQgc3BlY2lhbCBsb2NraW5nIGFu
-eXdheSwgd2UgY2FuJ3QganVzdCBibG9jayBvbiB0aGUgaWRyIGxvY2sKPiBmb3IgZXZlcnl0aGlu
-Zy4KPiAtIFRoaXMgbmVlZHMgdG8gcmVmY291bnQgZHJtX2RldmljZSwgbm8gdGhlIG1pbm9ycy4K
-Pgo+IEl0ZXJhdGluZyBvdmVyIHN0dWZmIHN0aWxsIGZlZWxzIGtpbmRhIHdyb25nIHN0aWxsLCBi
-ZWNhdXNlIG5vcm1hbGx5Cj4gdGhlIHdheSB3ZSByZWdpc3Rlci91bnJlZ2lzdGVyIHVzZXJzcGFj
-ZSBhcGkgKGFuZCBjZ3JvdXBzIGlzbid0Cj4gYW55dGhpbmcgZWxzZSBmcm9tIGEgZHJtIGRyaXZl
-ciBwb3YpIGlzIGJ5IGFkZGluZyBtb3JlIGNhbGxzIHRvCj4gZHJtX2Rldl9yZWdpc3Rlci91bnJl
-Z2lzdGVyLiBJZiB5b3UgcHV0IGEgZHJtX2NnX3JlZ2lzdGVyL3VucmVnaXN0ZXIKPiBjYWxsIGlu
-IHRoZXJlIHdlIGhhdmUgYSBjbGVhbiBzZXBhcmF0aW9uLCBhbmQgeW91IGNhbiB0cmFjayBhbGwg
-dGhlCj4gY3VycmVudGx5IGFjdGl2ZSBkZXZpY2VzIGhvd2V2ZXIgeW91IHdhbnQuIEl0ZXJhdGlu
-ZyBvdmVyIG9iamVjdHMgdGhhdAo+IGNhbiBiZSBob3R1bnBsdWdnZWQgYW55IHRpbWUgdGVuZHMg
-dG8gZ2V0IHJlYWxseSBjb21wbGljYXRlZCByZWFsbHkKPiBxdWlja2x5LgoKVW0uLi4gSSB0aG91
-Z2h0IHRoaXMgaXMgd2hhdCBJIGhhZCBwcmV2aW91c2x5LiAgRGlkIEkgbWlzdW5kZXJzdG9vZAp5
-b3VyIGZlZWRiYWNrIGZyb20gdjM/ICBEb2Vzbid0IGRybV9taW5vciBhbHJlYWR5IGluY2x1ZGUg
-YWxsIHRoZXNlCmZhY2lsaXRpZXMgc28gaXNuJ3QgY3JlYXRpbmcgbXkgb3duIGtpbmQgb2YgcmVp
-bnZlbnRpbmcgdGhlIHdoZWVsPwooYXMgSSBkaWQgcHJldmlvdXNseT8pICBkcm1fbWlub3JfcmVn
-aXN0ZXIgaXMgY2FsbGVkIGluc2lkZQpkcm1fZGV2X3JlZ2lzdGVyIHNvIGlzbid0IGxldmVyYWdp
-bmcgZXhpc3RpbmcgZHJtX21pbm9yIGZhY2lsaXRpZXMKbXVjaCBiZXR0ZXIgc29sdXRpb24/CgpL
-ZW5ueQoKPgo+Cj4gPgo+ID4gS2VubnkKPiA+Cj4gPiA+IC1EYW5pZWwKPiA+ID4KPiA+ID4gPiAt
-LS0KPiA+ID4gPiAgZHJpdmVycy9ncHUvZHJtL2RybV9kcnYuYyAgICAgIHwgMTkgKysrKysrKysr
-KysrKysrKysrKwo+ID4gPiA+ICBkcml2ZXJzL2dwdS9kcm0vZHJtX2ludGVybmFsLmggfCAgNCAt
-LS0tCj4gPiA+ID4gIGluY2x1ZGUvZHJtL2RybV9kcnYuaCAgICAgICAgICB8ICA0ICsrKysKPiA+
-ID4gPiAgMyBmaWxlcyBjaGFuZ2VkLCAyMyBpbnNlcnRpb25zKCspLCA0IGRlbGV0aW9ucygtKQo+
-ID4gPiA+Cj4gPiA+ID4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9kcm1fZHJ2LmMgYi9k
-cml2ZXJzL2dwdS9kcm0vZHJtX2Rydi5jCj4gPiA+ID4gaW5kZXggODYyNjIxNDk0YTkzLi4wMDBj
-ZGRhYmQ5NzAgMTAwNjQ0Cj4gPiA+ID4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2RybV9kcnYuYwo+
-ID4gPiA+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9kcm1fZHJ2LmMKPiA+ID4gPiBAQCAtMjU0LDEx
-ICsyNTQsMTMgQEAgc3RydWN0IGRybV9taW5vciAqZHJtX21pbm9yX2FjcXVpcmUodW5zaWduZWQg
-aW50IG1pbm9yX2lkKQo+ID4gPiA+Cj4gPiA+ID4gICAgICAgcmV0dXJuIG1pbm9yOwo+ID4gPiA+
-ICB9Cj4gPiA+ID4gK0VYUE9SVF9TWU1CT0woZHJtX21pbm9yX2FjcXVpcmUpOwo+ID4gPiA+Cj4g
-PiA+ID4gIHZvaWQgZHJtX21pbm9yX3JlbGVhc2Uoc3RydWN0IGRybV9taW5vciAqbWlub3IpCj4g
-PiA+ID4gIHsKPiA+ID4gPiAgICAgICBkcm1fZGV2X3B1dChtaW5vci0+ZGV2KTsKPiA+ID4gPiAg
-fQo+ID4gPiA+ICtFWFBPUlRfU1lNQk9MKGRybV9taW5vcl9yZWxlYXNlKTsKPiA+ID4gPgo+ID4g
-PiA+ICAvKioKPiA+ID4gPiAgICogRE9DOiBkcml2ZXIgaW5zdGFuY2Ugb3ZlcnZpZXcKPiA+ID4g
-PiBAQCAtMTA3OCw2ICsxMDgwLDIzIEBAIGludCBkcm1fZGV2X3NldF91bmlxdWUoc3RydWN0IGRy
-bV9kZXZpY2UgKmRldiwgY29uc3QgY2hhciAqbmFtZSkKPiA+ID4gPiAgfQo+ID4gPiA+ICBFWFBP
-UlRfU1lNQk9MKGRybV9kZXZfc2V0X3VuaXF1ZSk7Cj4gPiA+ID4KPiA+ID4gPiArLyoqCj4gPiA+
-ID4gKyAqIGRybV9taW5vcl9mb3JfZWFjaCAtIEl0ZXJhdGUgdGhyb3VnaCBhbGwgc3RvcmVkIERS
-TSBtaW5vcnMKPiA+ID4gPiArICogQGZuOiBGdW5jdGlvbiB0byBiZSBjYWxsZWQgZm9yIGVhY2gg
-cG9pbnRlci4KPiA+ID4gPiArICogQGRhdGE6IERhdGEgcGFzc2VkIHRvIGNhbGxiYWNrIGZ1bmN0
-aW9uLgo+ID4gPiA+ICsgKgo+ID4gPiA+ICsgKiBUaGUgY2FsbGJhY2sgZnVuY3Rpb24gd2lsbCBi
-ZSBjYWxsZWQgZm9yIGVhY2ggQGRybV9taW5vciBlbnRyeSwgcGFzc2luZwo+ID4gPiA+ICsgKiB0
-aGUgbWlub3IsIHRoZSBlbnRyeSBhbmQgQGRhdGEuCj4gPiA+ID4gKyAqCj4gPiA+ID4gKyAqIElm
-IEBmbiByZXR1cm5zIGFueXRoaW5nIG90aGVyIHRoYW4gJTAsIHRoZSBpdGVyYXRpb24gc3RvcHMg
-YW5kIHRoYXQKPiA+ID4gPiArICogdmFsdWUgaXMgcmV0dXJuZWQgZnJvbSB0aGlzIGZ1bmN0aW9u
-Lgo+ID4gPiA+ICsgKi8KPiA+ID4gPiAraW50IGRybV9taW5vcl9mb3JfZWFjaChpbnQgKCpmbiko
-aW50IGlkLCB2b2lkICpwLCB2b2lkICpkYXRhKSwgdm9pZCAqZGF0YSkKPiA+ID4gPiArewo+ID4g
-PiA+ICsgICAgIHJldHVybiBpZHJfZm9yX2VhY2goJmRybV9taW5vcnNfaWRyLCBmbiwgZGF0YSk7
-Cj4gPiA+ID4gK30KPiA+ID4gPiArRVhQT1JUX1NZTUJPTChkcm1fbWlub3JfZm9yX2VhY2gpOwo+
-ID4gPiA+ICsKPiA+ID4gPiAgLyoKPiA+ID4gPiAgICogRFJNIENvcmUKPiA+ID4gPiAgICogVGhl
-IERSTSBjb3JlIG1vZHVsZSBpbml0aWFsaXplcyBhbGwgZ2xvYmFsIERSTSBvYmplY3RzIGFuZCBt
-YWtlcyB0aGVtCj4gPiA+ID4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9kcm1faW50ZXJu
-YWwuaCBiL2RyaXZlcnMvZ3B1L2RybS9kcm1faW50ZXJuYWwuaAo+ID4gPiA+IGluZGV4IGUxOWFj
-N2NhNjAyZC4uNmJmYWQ3NmY4ZTc4IDEwMDY0NAo+ID4gPiA+IC0tLSBhL2RyaXZlcnMvZ3B1L2Ry
-bS9kcm1faW50ZXJuYWwuaAo+ID4gPiA+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9kcm1faW50ZXJu
-YWwuaAo+ID4gPiA+IEBAIC01NCwxMCArNTQsNiBAQCB2b2lkIGRybV9wcmltZV9kZXN0cm95X2Zp
-bGVfcHJpdmF0ZShzdHJ1Y3QgZHJtX3ByaW1lX2ZpbGVfcHJpdmF0ZSAqcHJpbWVfZnByaXYpOwo+
-ID4gPiA+ICB2b2lkIGRybV9wcmltZV9yZW1vdmVfYnVmX2hhbmRsZV9sb2NrZWQoc3RydWN0IGRy
-bV9wcmltZV9maWxlX3ByaXZhdGUgKnByaW1lX2Zwcml2LAo+ID4gPiA+ICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgc3RydWN0IGRtYV9idWYgKmRtYV9idWYpOwo+ID4gPiA+
-Cj4gPiA+ID4gLS8qIGRybV9kcnYuYyAqLwo+ID4gPiA+IC1zdHJ1Y3QgZHJtX21pbm9yICpkcm1f
-bWlub3JfYWNxdWlyZSh1bnNpZ25lZCBpbnQgbWlub3JfaWQpOwo+ID4gPiA+IC12b2lkIGRybV9t
-aW5vcl9yZWxlYXNlKHN0cnVjdCBkcm1fbWlub3IgKm1pbm9yKTsKPiA+ID4gPiAtCj4gPiA+ID4g
-IC8qIGRybV92YmxhbmsuYyAqLwo+ID4gPiA+ICB2b2lkIGRybV92YmxhbmtfZGlzYWJsZV9hbmRf
-c2F2ZShzdHJ1Y3QgZHJtX2RldmljZSAqZGV2LCB1bnNpZ25lZCBpbnQgcGlwZSk7Cj4gPiA+ID4g
-IHZvaWQgZHJtX3ZibGFua19jbGVhbnVwKHN0cnVjdCBkcm1fZGV2aWNlICpkZXYpOwo+ID4gPiA+
-IGRpZmYgLS1naXQgYS9pbmNsdWRlL2RybS9kcm1fZHJ2LmggYi9pbmNsdWRlL2RybS9kcm1fZHJ2
-LmgKPiA+ID4gPiBpbmRleCA2OGNhNzM2YzU0OGQuLjI0ZjhkMDU0YzU3MCAxMDA2NDQKPiA+ID4g
-PiAtLS0gYS9pbmNsdWRlL2RybS9kcm1fZHJ2LmgKPiA+ID4gPiArKysgYi9pbmNsdWRlL2RybS9k
-cm1fZHJ2LmgKPiA+ID4gPiBAQCAtNzk5LDUgKzc5OSw5IEBAIHN0YXRpYyBpbmxpbmUgYm9vbCBk
-cm1fZHJ2X3VzZXNfYXRvbWljX21vZGVzZXQoc3RydWN0IGRybV9kZXZpY2UgKmRldikKPiA+ID4g
-Pgo+ID4gPiA+ICBpbnQgZHJtX2Rldl9zZXRfdW5pcXVlKHN0cnVjdCBkcm1fZGV2aWNlICpkZXYs
-IGNvbnN0IGNoYXIgKm5hbWUpOwo+ID4gPiA+Cj4gPiA+ID4gK2ludCBkcm1fbWlub3JfZm9yX2Vh
-Y2goaW50ICgqZm4pKGludCBpZCwgdm9pZCAqcCwgdm9pZCAqZGF0YSksIHZvaWQgKmRhdGEpOwo+
-ID4gPiA+ICsKPiA+ID4gPiArc3RydWN0IGRybV9taW5vciAqZHJtX21pbm9yX2FjcXVpcmUodW5z
-aWduZWQgaW50IG1pbm9yX2lkKTsKPiA+ID4gPiArdm9pZCBkcm1fbWlub3JfcmVsZWFzZShzdHJ1
-Y3QgZHJtX21pbm9yICptaW5vcik7Cj4gPiA+ID4KPiA+ID4gPiAgI2VuZGlmCj4gPiA+ID4gLS0K
-PiA+ID4gPiAyLjIyLjAKPiA+ID4gPgo+ID4gPgo+ID4gPiAtLQo+ID4gPiBEYW5pZWwgVmV0dGVy
-Cj4gPiA+IFNvZnR3YXJlIEVuZ2luZWVyLCBJbnRlbCBDb3Jwb3JhdGlvbgo+ID4gPiBodHRwOi8v
-YmxvZy5mZndsbC5jaAo+Cj4KPgo+IC0tCj4gRGFuaWVsIFZldHRlcgo+IFNvZnR3YXJlIEVuZ2lu
-ZWVyLCBJbnRlbCBDb3Jwb3JhdGlvbgo+ICs0MSAoMCkgNzkgMzY1IDU3IDQ4IC0gaHR0cDovL2Js
-b2cuZmZ3bGwuY2gKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0
-cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+Makes things easier to read.
+
+Cc: Juston Li <juston.li@intel.com>
+Cc: Imre Deak <imre.deak@intel.com>
+Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
+Cc: Harry Wentland <hwentlan@amd.com>
+Reviewed-by: Daniel Vetter <daniel@ffwll.ch>
+Signed-off-by: Lyude Paul <lyude@redhat.com>
+---
+ drivers/gpu/drm/drm_dp_mst_topology.c | 35 ++++++++++++++++++---------
+ 1 file changed, 23 insertions(+), 12 deletions(-)
+
+diff --git a/drivers/gpu/drm/drm_dp_mst_topology.c b/drivers/gpu/drm/drm_dp_mst_topology.c
+index 82add736e17d..36db66a0ddb1 100644
+--- a/drivers/gpu/drm/drm_dp_mst_topology.c
++++ b/drivers/gpu/drm/drm_dp_mst_topology.c
+@@ -2103,6 +2103,28 @@ static void drm_dp_queue_down_tx(struct drm_dp_mst_topology_mgr *mgr,
+ 	mutex_unlock(&mgr->qlock);
+ }
+ 
++static void
++drm_dp_dump_link_address(struct drm_dp_link_address_ack_reply *reply)
++{
++	struct drm_dp_link_addr_reply_port *port_reply;
++	int i;
++
++	for (i = 0; i < reply->nports; i++) {
++		port_reply = &reply->ports[i];
++		DRM_DEBUG_KMS("port %d: input %d, pdt: %d, pn: %d, dpcd_rev: %02x, mcs: %d, ddps: %d, ldps %d, sdp %d/%d\n",
++			      i,
++			      port_reply->input_port,
++			      port_reply->peer_device_type,
++			      port_reply->port_number,
++			      port_reply->dpcd_revision,
++			      port_reply->mcs,
++			      port_reply->ddps,
++			      port_reply->legacy_device_plug_status,
++			      port_reply->num_sdp_streams,
++			      port_reply->num_sdp_stream_sinks);
++	}
++}
++
+ static void drm_dp_send_link_address(struct drm_dp_mst_topology_mgr *mgr,
+ 				     struct drm_dp_mst_branch *mstb)
+ {
+@@ -2128,18 +2150,7 @@ static void drm_dp_send_link_address(struct drm_dp_mst_topology_mgr *mgr,
+ 			DRM_DEBUG_KMS("link address nak received\n");
+ 		} else {
+ 			DRM_DEBUG_KMS("link address reply: %d\n", txmsg->reply.u.link_addr.nports);
+-			for (i = 0; i < txmsg->reply.u.link_addr.nports; i++) {
+-				DRM_DEBUG_KMS("port %d: input %d, pdt: %d, pn: %d, dpcd_rev: %02x, mcs: %d, ddps: %d, ldps %d, sdp %d/%d\n", i,
+-				       txmsg->reply.u.link_addr.ports[i].input_port,
+-				       txmsg->reply.u.link_addr.ports[i].peer_device_type,
+-				       txmsg->reply.u.link_addr.ports[i].port_number,
+-				       txmsg->reply.u.link_addr.ports[i].dpcd_revision,
+-				       txmsg->reply.u.link_addr.ports[i].mcs,
+-				       txmsg->reply.u.link_addr.ports[i].ddps,
+-				       txmsg->reply.u.link_addr.ports[i].legacy_device_plug_status,
+-				       txmsg->reply.u.link_addr.ports[i].num_sdp_streams,
+-				       txmsg->reply.u.link_addr.ports[i].num_sdp_stream_sinks);
+-			}
++			drm_dp_dump_link_address(&txmsg->reply.u.link_addr);
+ 
+ 			drm_dp_check_mstb_guid(mstb, txmsg->reply.u.link_addr.guid);
+ 
+-- 
+2.21.0
