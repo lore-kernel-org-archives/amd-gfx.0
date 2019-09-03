@@ -1,17 +1,13 @@
-From: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
-Subject: =?GB18030?B?UmU6ILvYuLSjuiC72Li0o7ogQnVnOiBhbWRncHUgZHJtIGRyaXZlciBjYXVz?=
- =?GB18030?B?ZSBwcm9jZXNzIGludG8gRGlzayBzbGVlcCBzdGF0ZQ==?=
-Date: Tue, 3 Sep 2019 13:19:47 +0000
-Message-ID: <88a08dcc-2e95-9379-693f-2d3fd928aa11@amd.com>
-References: <tencent_4DEABBEB3BB4C6A6D84CA9F0DB225FBF5809@qq.com>
- <f761fec0-c0cc-426c-6bcb-c3fd23808888@amd.com>
- <tencent_7DC9F5195A4D538FA626F85991875FC5F508@qq.com>
- <2162676e-dbfa-a67d-248c-98e9eb2099c2@amd.com>
- <tencent_DFCD5A0853FDA639F81F91375F8DF55AF508@qq.com>
+From: "Zeng, Oak" <Oak.Zeng-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: [PATCH 1/2] drm/amdgpu: cleanup mtype mapping
+Date: Tue, 3 Sep 2019 14:26:44 +0000
+Message-ID: <BL0PR12MB258057BA1BE1AE4CCB85943E80B90@BL0PR12MB2580.namprd12.prod.outlook.com>
+References: <20190902145732.2567-1-christian.koenig@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1538350944=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <tencent_DFCD5A0853FDA639F81F91375F8DF55AF508-9uewiaClKEY@public.gmane.org>
+In-Reply-To: <20190902145732.2567-1-christian.koenig-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -23,360 +19,275 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: 78666679 <78666679-9uewiaClKEY@public.gmane.org>, amd-gfx <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+To: =?utf-8?B?Q2hyaXN0aWFuIEvDtm5pZw==?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============1538350944==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_88a08dcc2e959379693f2d3fd928aa11amdcom_"
-
---_000_88a08dcc2e959379693f2d3fd928aa11amdcom_
-Content-Type: text/plain; charset="GB18030"
-Content-Transfer-Encoding: quoted-printable
-
-This is just a GPU lock, please open up a bug report on freedesktop.org and=
- attach the full dmesg and which version of Mesa you are using.
-
-Regards,
-Christian.
-
-Am 03.09.19 um 15:16 schrieb 78666679:
-Yes, with dmesg|grep drm ,  I get following.
-
-348571.880718] [drm:amdgpu_job_timedout [amdgpu]] *ERROR* ring sdma1 timeou=
-t, signaled seq=3D24423862, emitted seq=3D24423865
-
-
------------------- =D4=AD=CA=BC=D3=CA=BC=FE ------------------
-=B7=A2=BC=FE=C8=CB: "Koenig, Christian"<Christian.Koenig-5C7GfCeVMHo@public.gmane.org><mailto:Ch=
-ristian.Koenig-5C7GfCeVMHo@public.gmane.org>;
-=B7=A2=CB=CD=CA=B1=BC=E4: 2019=C4=EA9=D4=C23=C8=D5(=D0=C7=C6=DA=B6=FE) =CD=
-=ED=C9=CF9:07
-=CA=D5=BC=FE=C8=CB: ""<78666679-9uewiaClKEY@public.gmane.org><mailto:78666679-9uewiaClKEY@public.gmane.org>;"amd-gfx"<a=
-md-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org><mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>;
-=B3=AD=CB=CD: "Deucher, Alexander"<Alexander.Deucher-5C7GfCeVMHo@public.gmane.org><mailto:Alexan=
-der.Deucher-5C7GfCeVMHo@public.gmane.org>;
-=D6=F7=CC=E2: Re: =BB=D8=B8=B4=A3=BA Bug: amdgpu drm driver cause process i=
-nto Disk sleep state
-
-Well that looks like the hardware got stuck.
-
-Do you get something in the locks about a timeout on the SDMA ring?
-
-Regards,
-Christian.
-
-Am 03.09.19 um 14:50 schrieb 78666679:
-Hi Christian,
-       Sometimes the thread blocked  disk sleeping in call to amdgpu_sa_bo_=
-new. following is the stack trace.  it seems the sa bo is used up ,  so  th=
-e caller blocked waiting someone to free sa resources.
-
-D 206833 227656 [surfaceflinger] <defunct> Binder:45_5
-cat /proc/206833/task/227656/stack
-
-[<0>] __switch_to+0x94/0xe8
-[<0>] dma_fence_wait_any_timeout+0x234/0x2d0
-[<0>] amdgpu_sa_bo_new+0x468/0x540 [amdgpu]
-[<0>] amdgpu_ib_get+0x60/0xc8 [amdgpu]
-[<0>] amdgpu_job_alloc_with_ib+0x70/0xb0 [amdgpu]
-[<0>] amdgpu_vm_bo_update_mapping+0x2e0/0x3d8 [amdgpu]
-[<0>] amdgpu_vm_bo_update+0x2a0/0x710 [amdgpu]
-[<0>] amdgpu_gem_va_ioctl+0x46c/0x4c8 [amdgpu]
-[<0>] drm_ioctl_kernel+0x94/0x118 [drm]
-[<0>] drm_ioctl+0x1f0/0x438 [drm]
-[<0>] amdgpu_drm_ioctl+0x58/0x90 [amdgpu]
-[<0>] do_vfs_ioctl+0xc4/0x8c0
-[<0>] ksys_ioctl+0x8c/0xa0
-[<0>] __arm64_sys_ioctl+0x28/0x38
-[<0>] el0_svc_common+0xa0/0x180
-[<0>] el0_svc_handler+0x38/0x78
-[<0>] el0_svc+0x8/0xc
-[<0>] 0xffffffffffffffff
-
-
---------------------
-YanHua
-
------------------- =D4=AD=CA=BC=D3=CA=BC=FE ------------------
-=B7=A2=BC=FE=C8=CB: "Koenig, Christian"<Christian.Koenig-5C7GfCeVMHo@public.gmane.org><mailto:Ch=
-ristian.Koenig-5C7GfCeVMHo@public.gmane.org>;
-=B7=A2=CB=CD=CA=B1=BC=E4: 2019=C4=EA9=D4=C23=C8=D5(=D0=C7=C6=DA=B6=FE) =CF=
-=C2=CE=E74:21
-=CA=D5=BC=FE=C8=CB: ""<78666679-9uewiaClKEY@public.gmane.org><mailto:78666679-9uewiaClKEY@public.gmane.org>;"amd-gfx"<a=
-md-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org><mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>;
-=B3=AD=CB=CD: "Deucher, Alexander"<Alexander.Deucher-5C7GfCeVMHo@public.gmane.org><mailto:Alexan=
-der.Deucher-5C7GfCeVMHo@public.gmane.org>;
-=D6=F7=CC=E2: Re: Bug: amdgpu drm driver cause process into Disk sleep stat=
-e
-
-Hi Yanhua,
-
-please update your kernel first, cause that looks like a known issue
-which was recently fixed by patch "drm/scheduler: use job count instead
-of peek".
-
-Probably best to try the latest bleeding edge kernel and if that doesn't
-help please open up a bug report on https://bugs.freedesktop.org/.
-
-Regards,
-Christian.
-
-Am 03.09.19 um 09:35 schrieb 78666679:
-> Hi, Sirs:
->         I have a wx5100 amdgpu card, It randomly come into failure.  some=
-times, it will cause processes into uninterruptible wait state.
->
->
-> cps-new-ondemand-0587:~ # ps aux|grep -w D
-> root      11268  0.0  0.0 260628  3516 ?        Ssl  8=D4=C226   0:00 /us=
-r/sbin/gssproxy -D
-> root     136482  0.0  0.0 212500   572 pts/0    S+   15:25   0:00 grep --=
-color=3Dauto -w D
-> root     370684  0.0  0.0  17972  7428 ?        Ss   9=D4=C202   0:04 /us=
-r/sbin/sshd -D
-> 10066    432951  0.0  0.0      0     0 ?        D    9=D4=C202   0:00 [Fa=
-keFinalizerDa]
-> root     496774  0.0  0.0      0     0 ?        D    9=D4=C202   0:17 [kw=
-orker/8:1+eve]
-> cps-new-ondemand-0587:~ # cat /proc/496774/stack
-> [<0>] __switch_to+0x94/0xe8
-> [<0>] drm_sched_entity_flush+0xf8/0x248 [gpu_sched]
-> [<0>] amdgpu_ctx_mgr_entity_flush+0xac/0x148 [amdgpu]
-> [<0>] amdgpu_flush+0x2c/0x50 [amdgpu]
-> [<0>] filp_close+0x40/0xa0
-> [<0>] put_files_struct+0x118/0x120
-> [<0>] put_files_struct+0x30/0x68 [binder_linux]
-> [<0>] binder_deferred_func+0x4d4/0x658 [binder_linux]
-> [<0>] process_one_work+0x1b4/0x3f8
-> [<0>] worker_thread+0x54/0x470
-> [<0>] kthread+0x134/0x138
-> [<0>] ret_from_fork+0x10/0x18
-> [<0>] 0xffffffffffffffff
->
->
->
-> This issue troubled me a long time.  looking eagerly to get help from you=
-!
->
->
-> -----
-> Yanhua
-
-
-
-
---_000_88a08dcc2e959379693f2d3fd928aa11amdcom_
-Content-Type: text/html; charset="GB18030"
-Content-ID: <DC824461C7FF174FA1A0A52AB86F45B2-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3DGB18030">
-</head>
-<body text=3D"#000000" bgcolor=3D"#FFFFFF">
-<div class=3D"moz-cite-prefix">This is just a GPU lock, please open up a bu=
-g report on freedesktop.org and attach the full dmesg and which version of =
-Mesa you are using.<br>
-<br>
-Regards,<br>
-Christian.<br>
-<br>
-Am 03.09.19 um 15:16 schrieb 78666679:<br>
-</div>
-<blockquote type=3D"cite" cite=3D"mid:tencent_DFCD5A0853FDA639F81F91375F8DF=
-55AF508-9uewiaClKEY@public.gmane.org">
-<div>Yes, with dmesg|grep drm ,&nbsp; I get following.</div>
-<div><br>
-</div>
-<div>348571.880718] [drm:amdgpu_job_timedout [amdgpu]] *ERROR* ring sdma1 t=
-imeout, signaled seq=3D24423862, emitted seq=3D24423865</div>
-<div>
-<div><br>
-</div>
-<div><br>
-</div>
-<div style=3D"font-size: 12px;font-family: Arial
-          Narrow;padding:2px 0 2px 0;">
-------------------&nbsp;=D4=AD=CA=BC=D3=CA=BC=FE&nbsp;------------------</d=
-iv>
-<div style=3D"font-size: 12px;background:#efefef;padding:8px;">
-<div><b>=B7=A2=BC=FE=C8=CB:</b>&nbsp;&quot;Koenig, Christian&quot;<a class=
-=3D"moz-txt-link-rfc2396E" href=3D"mailto:Christian.Koenig-5C7GfCeVMHo@public.gmane.org">&lt;Chr=
-istian.Koenig-5C7GfCeVMHo@public.gmane.org&gt;</a>;</div>
-<div><b>=B7=A2=CB=CD=CA=B1=BC=E4:</b>&nbsp;2019=C4=EA9=D4=C23=C8=D5(=D0=C7=
-=C6=DA=B6=FE) =CD=ED=C9=CF9:07</div>
-<div><b>=CA=D5=BC=FE=C8=CB:</b>&nbsp;&quot;&quot;<a class=3D"moz-txt-link-r=
-fc2396E" href=3D"mailto:78666679-9uewiaClKEY@public.gmane.org">&lt;78666679-9uewiaClKEY@public.gmane.org&gt;</a>;&quot;=
-amd-gfx&quot;<a class=3D"moz-txt-link-rfc2396E" href=3D"mailto:amd-gfx@list=
-s.freedesktop.org">&lt;amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt;</a>;<wbr></div>
-<div><b>=B3=AD=CB=CD:</b>&nbsp;&quot;Deucher, Alexander&quot;<a class=3D"mo=
-z-txt-link-rfc2396E" href=3D"mailto:Alexander.Deucher-5C7GfCeVMHo@public.gmane.org">&lt;Alexande=
-r.Deucher-5C7GfCeVMHo@public.gmane.org&gt;</a>;<wbr></div>
-<div><b>=D6=F7=CC=E2:</b>&nbsp;Re: =BB=D8=B8=B4=A3=BA Bug: amdgpu drm drive=
-r cause process into Disk sleep state</div>
-</div>
-<div><br>
-</div>
-<div class=3D"moz-cite-prefix">Well that looks like the hardware got stuck.=
-<br>
-<br>
-Do you get something in the locks about a timeout on the SDMA ring?<br>
-<br>
-Regards,<br>
-Christian.<br>
-<br>
-Am 03.09.19 um 14:50 schrieb 78666679:<br>
-</div>
-<blockquote type=3D"cite" cite=3D"mid:tencent_7DC9F5195A4D538FA626F85991875=
-FC5F508-9uewiaClKEY@public.gmane.org">
-<div>Hi Christian,</div>
-<div>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; Sometimes the thread blocked&nbsp; dis=
-k sleeping in call to amdgpu_sa_bo_new. following is the stack trace.&nbsp;=
- it seems the sa bo is used up ,&nbsp; so&nbsp; the caller blocked waiting =
-someone to free sa resources.
-<br>
-</div>
-<div><br>
-</div>
-<div>D 206833 227656 [surfaceflinger] &lt;defunct&gt; Binder:45_5</div>
-<div>cat /proc/206833/task/227656/stack</div>
-<div><br>
-</div>
-<div>[&lt;0&gt;] __switch_to&#43;0x94/0xe8<br>
-[&lt;0&gt;] dma_fence_wait_any_timeout&#43;0x234/0x2d0<br>
-[&lt;0&gt;] amdgpu_sa_bo_new&#43;0x468/0x540 [amdgpu]<br>
-[&lt;0&gt;] amdgpu_ib_get&#43;0x60/0xc8 [amdgpu]<br>
-[&lt;0&gt;] amdgpu_job_alloc_with_ib&#43;0x70/0xb0 [amdgpu]<br>
-[&lt;0&gt;] amdgpu_vm_bo_update_mapping&#43;0x2e0/0x3d8 [amdgpu]<br>
-[&lt;0&gt;] amdgpu_vm_bo_update&#43;0x2a0/0x710 [amdgpu]<br>
-[&lt;0&gt;] amdgpu_gem_va_ioctl&#43;0x46c/0x4c8 [amdgpu]<br>
-[&lt;0&gt;] drm_ioctl_kernel&#43;0x94/0x118 [drm]<br>
-[&lt;0&gt;] drm_ioctl&#43;0x1f0/0x438 [drm]<br>
-[&lt;0&gt;] amdgpu_drm_ioctl&#43;0x58/0x90 [amdgpu]<br>
-[&lt;0&gt;] do_vfs_ioctl&#43;0xc4/0x8c0<br>
-[&lt;0&gt;] ksys_ioctl&#43;0x8c/0xa0<br>
-[&lt;0&gt;] __arm64_sys_ioctl&#43;0x28/0x38<br>
-[&lt;0&gt;] el0_svc_common&#43;0xa0/0x180<br>
-[&lt;0&gt;] el0_svc_handler&#43;0x38/0x78<br>
-[&lt;0&gt;] el0_svc&#43;0x8/0xc<br>
-[&lt;0&gt;] 0xffffffffffffffff<br>
-<br>
-</div>
-<div><br>
-</div>
-<div>
-<div>--------------------</div>
-<div>YanHua<br>
-</div>
-<div><br>
-</div>
-<div style=3D"font-size: 12px;font-family: Arial
-              Narrow;padding:2px 0 2px 0;">
------------------- =D4=AD=CA=BC=D3=CA=BC=FE ------------------</div>
-<div style=3D"font-size: 12px;background:#efefef;padding:8px;">
-<div><b>=B7=A2=BC=FE=C8=CB:</b>&nbsp;&quot;Koenig, Christian&quot;<a class=
-=3D"moz-txt-link-rfc2396E" href=3D"mailto:Christian.Koenig-5C7GfCeVMHo@public.gmane.org" moz-do-=
-not-send=3D"true">&lt;Christian.Koenig-5C7GfCeVMHo@public.gmane.org&gt;</a>;</div>
-<div><b>=B7=A2=CB=CD=CA=B1=BC=E4:</b>&nbsp;2019=C4=EA9=D4=C23=C8=D5(=D0=C7=
-=C6=DA=B6=FE) =CF=C2=CE=E74:21</div>
-<div><b>=CA=D5=BC=FE=C8=CB:</b>&nbsp;&quot;&quot;<a class=3D"moz-txt-link-r=
-fc2396E" href=3D"mailto:78666679-9uewiaClKEY@public.gmane.org" moz-do-not-send=3D"true">&lt;78666=
-679-9uewiaClKEY@public.gmane.org&gt;</a>;&quot;amd-gfx&quot;<a class=3D"moz-txt-link-rfc2396E" hr=
-ef=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" moz-do-not-send=3D"true">&lt;am=
-d-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt;</a>;<wbr></div>
-<div><b>=B3=AD=CB=CD:</b>&nbsp;&quot;Deucher, Alexander&quot;<a class=3D"mo=
-z-txt-link-rfc2396E" href=3D"mailto:Alexander.Deucher-5C7GfCeVMHo@public.gmane.org" moz-do-not-s=
-end=3D"true">&lt;Alexander.Deucher-5C7GfCeVMHo@public.gmane.org&gt;</a>;<wbr></div>
-<div><b>=D6=F7=CC=E2:</b>&nbsp;Re: Bug: amdgpu drm driver cause process int=
-o Disk sleep state</div>
-</div>
-<div><br>
-</div>
-Hi Yanhua,<br>
-<br>
-please update your kernel first, cause that looks like a known issue <br>
-which was recently fixed by patch &quot;drm/scheduler: use job count instea=
-d <br>
-of peek&quot;.<br>
-<br>
-Probably best to try the latest bleeding edge kernel and if that doesn't <b=
-r>
-help please open up a bug report on <a class=3D"moz-txt-link-freetext" href=
-=3D"https://bugs.freedesktop.org/" moz-do-not-send=3D"true">
-https://bugs.freedesktop.org/</a>.<br>
-<br>
-Regards,<br>
-Christian.<br>
-<br>
-Am 03.09.19 um 09:35 schrieb 78666679:<br>
-&gt; Hi, Sirs:<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; I have a wx5100 amdgpu card=
-, It randomly come into failure.&nbsp; sometimes, it will cause processes i=
-nto uninterruptible wait state.<br>
-&gt;<br>
-&gt;<br>
-&gt; cps-new-ondemand-0587:~ # ps aux|grep -w D<br>
-&gt; root&nbsp;&nbsp;&nbsp; &nbsp; 11268&nbsp; 0.0&nbsp; 0.0 260628&nbsp; 3=
-516 ?&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; Ssl&nbsp; 8=D4=C226 &nbsp; 0:00 =
-/usr/sbin/gssproxy -D<br>
-&gt; root&nbsp;&nbsp; &nbsp; 136482&nbsp; 0.0&nbsp; 0.0 212500 &nbsp; 572 p=
-ts/0&nbsp; &nbsp; S&#43; &nbsp; 15:25 &nbsp; 0:00 grep --color=3Dauto -w D<=
-br>
-&gt; root&nbsp;&nbsp; &nbsp; 370684&nbsp; 0.0&nbsp; 0.0&nbsp; 17972&nbsp; 7=
-428 ?&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; Ss &nbsp; 9=D4=C202 &nbsp; 0:04 =
-/usr/sbin/sshd -D<br>
-&gt; 10066&nbsp; &nbsp; 432951&nbsp; 0.0&nbsp; 0.0&nbsp;&nbsp;&nbsp; &nbsp;=
- 0&nbsp;&nbsp; &nbsp; 0 ?&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; D&nbsp; &nbs=
-p; 9=D4=C202 &nbsp; 0:00 [FakeFinalizerDa]<br>
-&gt; root&nbsp;&nbsp; &nbsp; 496774&nbsp; 0.0&nbsp; 0.0&nbsp;&nbsp;&nbsp; &=
-nbsp; 0&nbsp;&nbsp; &nbsp; 0 ?&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; D&nbsp;=
- &nbsp; 9=D4=C202 &nbsp; 0:17 [kworker/8:1&#43;eve]<br>
-&gt; cps-new-ondemand-0587:~ # cat /proc/496774/stack<br>
-&gt; [&lt;0&gt;] __switch_to&#43;0x94/0xe8<br>
-&gt; [&lt;0&gt;] drm_sched_entity_flush&#43;0xf8/0x248 [gpu_sched]<br>
-&gt; [&lt;0&gt;] amdgpu_ctx_mgr_entity_flush&#43;0xac/0x148 [amdgpu]<br>
-&gt; [&lt;0&gt;] amdgpu_flush&#43;0x2c/0x50 [amdgpu]<br>
-&gt; [&lt;0&gt;] filp_close&#43;0x40/0xa0<br>
-&gt; [&lt;0&gt;] put_files_struct&#43;0x118/0x120<br>
-&gt; [&lt;0&gt;] put_files_struct&#43;0x30/0x68 [binder_linux]<br>
-&gt; [&lt;0&gt;] binder_deferred_func&#43;0x4d4/0x658 [binder_linux]<br>
-&gt; [&lt;0&gt;] process_one_work&#43;0x1b4/0x3f8<br>
-&gt; [&lt;0&gt;] worker_thread&#43;0x54/0x470<br>
-&gt; [&lt;0&gt;] kthread&#43;0x134/0x138<br>
-&gt; [&lt;0&gt;] ret_from_fork&#43;0x10/0x18<br>
-&gt; [&lt;0&gt;] 0xffffffffffffffff<br>
-&gt;<br>
-&gt;<br>
-&gt;<br>
-&gt; This issue troubled me a long time.&nbsp; looking eagerly to get help =
-from you!<br>
-&gt;<br>
-&gt;<br>
-&gt; -----<br>
-&gt; Yanhua<br>
-<br>
-</div>
-</blockquote>
-<br>
-</div>
-</blockquote>
-<br>
-</body>
-</html>
-
---_000_88a08dcc2e959379693f2d3fd928aa11amdcom_--
-
---===============1538350944==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
-
---===============1538350944==--
+VGhpcyBpcyBuaWNlIGNsZWFuIHVwLiBBY2tlZC1ieTogT2FrIFplbmcgPE9hay5aZW5nQGFtZC5j
+b20+DQoNClJlZ2FyZHMsDQpPYWsNCg0KLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCkZyb206
+IGFtZC1nZnggPGFtZC1nZngtYm91bmNlc0BsaXN0cy5mcmVlZGVza3RvcC5vcmc+IE9uIEJlaGFs
+ZiBPZiBDaHJpc3RpYW4gS8O2bmlnDQpTZW50OiBNb25kYXksIFNlcHRlbWJlciAyLCAyMDE5IDEw
+OjU4IEFNDQpUbzogYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNClN1YmplY3Q6IFtQQVRD
+SCAxLzJdIGRybS9hbWRncHU6IGNsZWFudXAgbXR5cGUgbWFwcGluZw0KDQpVbmlmeSBob3cgd2Ug
+bWFwIHRoZSBVQVBJIGZsYWdzIHRvIHRoZSBQVEUgaGFyZHdhcmUgZmxhZ3MgZm9yIGEgbWFwcGlu
+Zy4NCg0KT25seSB0aGUgTVRZUEUgaXMgYWN0dWFsbHkgQVNJQyBkZXBlbmRlbnQsIGFsbCBvdGhl
+ciBmbGFncyBzaG91bGQgYmUgY29waWVkIG92ZXIgMSB0byAxIGFuZCBBU0lDIGRpZmZlcmVuY2Vz
+IGFyZSBoYW5kbGVkIGxhdGVyIG9uLg0KDQpTaWduZWQtb2ZmLWJ5OiBDaHJpc3RpYW4gS8O2bmln
+IDxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+DQotLS0NCiAuLi4vZ3B1L2RybS9hbWQvYW1kZ3B1
+L2FtZGdwdV9hbWRrZmRfZ3B1dm0uYyAgfCAgMiArLQ0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
+Z3B1L2FtZGdwdV9nZW0uYyAgICAgICB8IDMyICsrKysrKysrKysrKystDQogZHJpdmVycy9ncHUv
+ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2dlbS5oICAgICAgIHwgIDEgKw0KIGRyaXZlcnMvZ3B1L2Ry
+bS9hbWQvYW1kZ3B1L2FtZGdwdV9nbWMuaCAgICAgICB8ICA3ICsrLS0NCiBkcml2ZXJzL2dwdS9k
+cm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uYyAgICAgICAgfCAgNiArKy0NCiBkcml2ZXJzL2dwdS9k
+cm0vYW1kL2FtZGdwdS9nbWNfdjEwXzAuYyAgICAgICAgfCA0MCArKysrKy0tLS0tLS0tLS0tLS0N
+CiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNfdjZfMC5jICAgICAgICAgfCAxNiAtLS0t
+LS0tDQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ21jX3Y3XzAuYyAgICAgICAgIHwgMTYg
+LS0tLS0tLQ0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192OF8wLmMgICAgICAgICB8
+IDE4IC0tLS0tLS0tDQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ21jX3Y5XzAuYyAgICAg
+ICAgIHwgNDIgKysrKystLS0tLS0tLS0tLS0tLQ0KIDEwIGZpbGVzIGNoYW5nZWQsIDU5IGluc2Vy
+dGlvbnMoKyksIDEyMSBkZWxldGlvbnMoLSkNCg0KZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2Ry
+bS9hbWQvYW1kZ3B1L2FtZGdwdV9hbWRrZmRfZ3B1dm0uYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQv
+YW1kZ3B1L2FtZGdwdV9hbWRrZmRfZ3B1dm0uYw0KaW5kZXggYjBmMGUwNjBkZWQ2Li5kOTBiNjQ3
+OTg1ZDcgMTAwNjQ0DQotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfYW1k
+a2ZkX2dwdXZtLmMNCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9hbWRr
+ZmRfZ3B1dm0uYw0KQEAgLTM4MCw3ICszODAsNyBAQCBzdGF0aWMgdWludDY0X3QgZ2V0X3B0ZV9m
+bGFncyhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwgc3RydWN0IGtnZF9tZW0gKm1lbSkNCiAJ
+CQlBTURHUFVfVk1fTVRZUEVfVUMgOiBBTURHUFVfVk1fTVRZUEVfTkM7DQogCX0NCiANCi0JcmV0
+dXJuIGFtZGdwdV9nbWNfZ2V0X3B0ZV9mbGFncyhhZGV2LCBtYXBwaW5nX2ZsYWdzKTsNCisJcmV0
+dXJuIGFtZGdwdV9nZW1fdmFfbWFwX2ZsYWdzKGFkZXYsIG1hcHBpbmdfZmxhZ3MpOw0KIH0NCiAN
+CiAvKiBhZGRfYm9fdG9fdm0gLSBBZGQgYSBCTyB0byBhIFZNDQpkaWZmIC0tZ2l0IGEvZHJpdmVy
+cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2dlbS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9h
+bWRncHUvYW1kZ3B1X2dlbS5jDQppbmRleCBlN2FmMzVjNzA4MGQuLjIyZWFiNzRkOTk5OCAxMDA2
+NDQNCi0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9nZW0uYw0KKysrIGIv
+ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2dlbS5jDQpAQCAtNTI4LDYgKzUyOCwz
+NCBAQCBzdGF0aWMgdm9pZCBhbWRncHVfZ2VtX3ZhX3VwZGF0ZV92bShzdHJ1Y3QgYW1kZ3B1X2Rl
+dmljZSAqYWRldiwNCiAJCURSTV9FUlJPUigiQ291bGRuJ3QgdXBkYXRlIEJPX1ZBICglZClcbiIs
+IHIpOyAgfQ0KIA0KKy8qKg0KKyAqIGFtZGdwdV9nZW1fdmFfbWFwX2ZsYWdzIC0gbWFwIEdFTSBV
+QVBJIGZsYWdzIGludG8gaGFyZHdhcmUgZmxhZ3MNCisgKg0KKyAqIEBhZGV2OiBhbWRncHVfZGV2
+aWNlIHBvaW50ZXINCisgKiBAZmxhZ3M6IEdFTSBVQVBJIGZsYWdzDQorICoNCisgKiBSZXR1cm5z
+IHRoZSBHRU0gVUFQSSBmbGFncyBtYXBwZWQgaW50byBoYXJkd2FyZSBmb3IgdGhlIEFTSUMuDQor
+ICovDQordWludDY0X3QgYW1kZ3B1X2dlbV92YV9tYXBfZmxhZ3Moc3RydWN0IGFtZGdwdV9kZXZp
+Y2UgKmFkZXYsIHVpbnQzMl90IA0KK2ZsYWdzKSB7DQorCXVpbnQ2NF90IHB0ZV9mbGFnID0gMDsN
+CisNCisJaWYgKGZsYWdzICYgQU1ER1BVX1ZNX1BBR0VfRVhFQ1VUQUJMRSkNCisJCXB0ZV9mbGFn
+IHw9IEFNREdQVV9QVEVfRVhFQ1VUQUJMRTsNCisJaWYgKGZsYWdzICYgQU1ER1BVX1ZNX1BBR0Vf
+UkVBREFCTEUpDQorCQlwdGVfZmxhZyB8PSBBTURHUFVfUFRFX1JFQURBQkxFOw0KKwlpZiAoZmxh
+Z3MgJiBBTURHUFVfVk1fUEFHRV9XUklURUFCTEUpDQorCQlwdGVfZmxhZyB8PSBBTURHUFVfUFRF
+X1dSSVRFQUJMRTsNCisJaWYgKGZsYWdzICYgQU1ER1BVX1ZNX1BBR0VfUFJUKQ0KKwkJcHRlX2Zs
+YWcgfD0gQU1ER1BVX1BURV9QUlQ7DQorDQorCWlmIChhZGV2LT5nbWMuZ21jX2Z1bmNzLT5tYXBf
+bXR5cGUpDQorCQlwdGVfZmxhZyB8PSBhbWRncHVfZ21jX21hcF9tdHlwZShhZGV2LA0KKwkJCQkJ
+CSBmbGFncyAmIEFNREdQVV9WTV9NVFlQRV9NQVNLKTsNCisNCisJcmV0dXJuIHB0ZV9mbGFnOw0K
+K30NCisNCiBpbnQgYW1kZ3B1X2dlbV92YV9pb2N0bChzdHJ1Y3QgZHJtX2RldmljZSAqZGV2LCB2
+b2lkICpkYXRhLA0KIAkJCSAgc3RydWN0IGRybV9maWxlICpmaWxwKQ0KIHsNCkBAIC02MjUsNyAr
+NjUzLDcgQEAgaW50IGFtZGdwdV9nZW1fdmFfaW9jdGwoc3RydWN0IGRybV9kZXZpY2UgKmRldiwg
+dm9pZCAqZGF0YSwNCiANCiAJc3dpdGNoIChhcmdzLT5vcGVyYXRpb24pIHsNCiAJY2FzZSBBTURH
+UFVfVkFfT1BfTUFQOg0KLQkJdmFfZmxhZ3MgPSBhbWRncHVfZ21jX2dldF9wdGVfZmxhZ3MoYWRl
+diwgYXJncy0+ZmxhZ3MpOw0KKwkJdmFfZmxhZ3MgPSBhbWRncHVfZ2VtX3ZhX21hcF9mbGFncyhh
+ZGV2LCBhcmdzLT5mbGFncyk7DQogCQlyID0gYW1kZ3B1X3ZtX2JvX21hcChhZGV2LCBib192YSwg
+YXJncy0+dmFfYWRkcmVzcywNCiAJCQkJICAgICBhcmdzLT5vZmZzZXRfaW5fYm8sIGFyZ3MtPm1h
+cF9zaXplLA0KIAkJCQkgICAgIHZhX2ZsYWdzKTsNCkBAIC02NDAsNyArNjY4LDcgQEAgaW50IGFt
+ZGdwdV9nZW1fdmFfaW9jdGwoc3RydWN0IGRybV9kZXZpY2UgKmRldiwgdm9pZCAqZGF0YSwNCiAJ
+CQkJCQlhcmdzLT5tYXBfc2l6ZSk7DQogCQlicmVhazsNCiAJY2FzZSBBTURHUFVfVkFfT1BfUkVQ
+TEFDRToNCi0JCXZhX2ZsYWdzID0gYW1kZ3B1X2dtY19nZXRfcHRlX2ZsYWdzKGFkZXYsIGFyZ3Mt
+PmZsYWdzKTsNCisJCXZhX2ZsYWdzID0gYW1kZ3B1X2dlbV92YV9tYXBfZmxhZ3MoYWRldiwgYXJn
+cy0+ZmxhZ3MpOw0KIAkJciA9IGFtZGdwdV92bV9ib19yZXBsYWNlX21hcChhZGV2LCBib192YSwg
+YXJncy0+dmFfYWRkcmVzcywNCiAJCQkJCSAgICAgYXJncy0+b2Zmc2V0X2luX2JvLCBhcmdzLT5t
+YXBfc2l6ZSwNCiAJCQkJCSAgICAgdmFfZmxhZ3MpOw0KZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1
+L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9nZW0uaCBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
+L2FtZGdwdV9nZW0uaA0KaW5kZXggYjhiYTZlMjdjNjFmLi5lNmFjYmE2NTc2M2IgMTAwNjQ0DQot
+LS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZ2VtLmgNCisrKyBiL2RyaXZl
+cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9nZW0uaA0KQEAgLTY3LDYgKzY3LDcgQEAgaW50
+IGFtZGdwdV9nZW1fbW1hcF9pb2N0bChzdHJ1Y3QgZHJtX2RldmljZSAqZGV2LCB2b2lkICpkYXRh
+LA0KIAkJCSAgc3RydWN0IGRybV9maWxlICpmaWxwKTsNCiBpbnQgYW1kZ3B1X2dlbV93YWl0X2lk
+bGVfaW9jdGwoc3RydWN0IGRybV9kZXZpY2UgKmRldiwgdm9pZCAqZGF0YSwNCiAJCQkgICAgICBz
+dHJ1Y3QgZHJtX2ZpbGUgKmZpbHApOw0KK3VpbnQ2NF90IGFtZGdwdV9nZW1fdmFfbWFwX2ZsYWdz
+KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LCB1aW50MzJfdCANCitmbGFncyk7DQogaW50IGFt
+ZGdwdV9nZW1fdmFfaW9jdGwoc3RydWN0IGRybV9kZXZpY2UgKmRldiwgdm9pZCAqZGF0YSwNCiAJ
+CQkgIHN0cnVjdCBkcm1fZmlsZSAqZmlscCk7DQogaW50IGFtZGdwdV9nZW1fb3BfaW9jdGwoc3Ry
+dWN0IGRybV9kZXZpY2UgKmRldiwgdm9pZCAqZGF0YSwgZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1
+L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9nbWMuaCBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
+L2FtZGdwdV9nbWMuaA0KaW5kZXggYjZlMWQ5OGVmMDFlLi5kNWU0NTc0YWZiYzIgMTAwNjQ0DQot
+LS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZ21jLmgNCisrKyBiL2RyaXZl
+cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9nbWMuaA0KQEAgLTk5LDkgKzk5LDggQEAgc3Ry
+dWN0IGFtZGdwdV9nbWNfZnVuY3Mgew0KIAkJCQkgICB1bnNpZ25lZCBwYXNpZCk7DQogCS8qIGVu
+YWJsZS9kaXNhYmxlIFBSVCBzdXBwb3J0ICovDQogCXZvaWQgKCpzZXRfcHJ0KShzdHJ1Y3QgYW1k
+Z3B1X2RldmljZSAqYWRldiwgYm9vbCBlbmFibGUpOw0KLQkvKiBzZXQgcHRlIGZsYWdzIGJhc2Vk
+IHBlciBhc2ljICovDQotCXVpbnQ2NF90ICgqZ2V0X3ZtX3B0ZV9mbGFncykoc3RydWN0IGFtZGdw
+dV9kZXZpY2UgKmFkZXYsDQotCQkJCSAgICAgdWludDMyX3QgZmxhZ3MpOw0KKwkvKiBtYXAgbXR5
+cGUgdG8gaGFyZHdhcmUgZmxhZ3MgKi8NCisJdWludDY0X3QgKCptYXBfbXR5cGUpKHN0cnVjdCBh
+bWRncHVfZGV2aWNlICphZGV2LCB1aW50MzJfdCBmbGFncyk7DQogCS8qIGdldCB0aGUgcGRlIGZv
+ciBhIGdpdmVuIG1jIGFkZHIgKi8NCiAJdm9pZCAoKmdldF92bV9wZGUpKHN0cnVjdCBhbWRncHVf
+ZGV2aWNlICphZGV2LCBpbnQgbGV2ZWwsDQogCQkJICAgdTY0ICpkc3QsIHU2NCAqZmxhZ3MpOw0K
+QEAgLTE4NCw4ICsxODMsOCBAQCBzdHJ1Y3QgYW1kZ3B1X2dtYyB7DQogI2RlZmluZSBhbWRncHVf
+Z21jX2ZsdXNoX2dwdV90bGIoYWRldiwgdm1pZCwgdm1odWIsIHR5cGUpICgoYWRldiktPmdtYy5n
+bWNfZnVuY3MtPmZsdXNoX2dwdV90bGIoKGFkZXYpLCAodm1pZCksICh2bWh1YiksICh0eXBlKSkp
+ICAjZGVmaW5lIGFtZGdwdV9nbWNfZW1pdF9mbHVzaF9ncHVfdGxiKHIsIHZtaWQsIGFkZHIpIChy
+KS0+YWRldi0+Z21jLmdtY19mdW5jcy0+ZW1pdF9mbHVzaF9ncHVfdGxiKChyKSwgKHZtaWQpLCAo
+YWRkcikpICAjZGVmaW5lIGFtZGdwdV9nbWNfZW1pdF9wYXNpZF9tYXBwaW5nKHIsIHZtaWQsIHBh
+c2lkKSAociktPmFkZXYtPmdtYy5nbWNfZnVuY3MtPmVtaXRfcGFzaWRfbWFwcGluZygociksICh2
+bWlkKSwgKHBhc2lkKSkNCisjZGVmaW5lIGFtZGdwdV9nbWNfbWFwX210eXBlKGFkZXYsIGZsYWdz
+KSANCisoYWRldiktPmdtYy5nbWNfZnVuY3MtPm1hcF9tdHlwZSgoYWRldiksKGZsYWdzKSkNCiAj
+ZGVmaW5lIGFtZGdwdV9nbWNfZ2V0X3ZtX3BkZShhZGV2LCBsZXZlbCwgZHN0LCBmbGFncykgKGFk
+ZXYpLT5nbWMuZ21jX2Z1bmNzLT5nZXRfdm1fcGRlKChhZGV2KSwgKGxldmVsKSwgKGRzdCksIChm
+bGFncykpIC0jZGVmaW5lIGFtZGdwdV9nbWNfZ2V0X3B0ZV9mbGFncyhhZGV2LCBmbGFncykgKGFk
+ZXYpLT5nbWMuZ21jX2Z1bmNzLT5nZXRfdm1fcHRlX2ZsYWdzKChhZGV2KSwoZmxhZ3MpKQ0KIA0K
+IC8qKg0KICAqIGFtZGdwdV9nbWNfdnJhbV9mdWxsX3Zpc2libGUgLSBDaGVjayBpZiBmdWxsIFZS
+QU0gaXMgdmlzaWJsZSB0aHJvdWdoIHRoZSBCQVIgZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2Ry
+bS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
+Z3B1X3ZtLmMNCmluZGV4IDUwMWUxMzQyMDc4Ni4uMmNiODJiMjI5ODAyIDEwMDY0NA0KLS0tIGEv
+ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMNCisrKyBiL2RyaXZlcnMvZ3B1
+L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5jDQpAQCAtMTU3MSw4ICsxNTcxLDEwIEBAIHN0YXRp
+YyBpbnQgYW1kZ3B1X3ZtX2JvX3NwbGl0X21hcHBpbmcoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFk
+ZXYsDQogCWlmICghKG1hcHBpbmctPmZsYWdzICYgQU1ER1BVX1BURV9XUklURUFCTEUpKQ0KIAkJ
+ZmxhZ3MgJj0gfkFNREdQVV9QVEVfV1JJVEVBQkxFOw0KIA0KLQlmbGFncyAmPSB+QU1ER1BVX1BU
+RV9FWEVDVVRBQkxFOw0KLQlmbGFncyB8PSBtYXBwaW5nLT5mbGFncyAmIEFNREdQVV9QVEVfRVhF
+Q1VUQUJMRTsNCisJaWYgKGFkZXYtPmFzaWNfdHlwZSA+PSBDSElQX1RPTkdBKSB7DQorCQlmbGFn
+cyAmPSB+QU1ER1BVX1BURV9FWEVDVVRBQkxFOw0KKwkJZmxhZ3MgfD0gbWFwcGluZy0+ZmxhZ3Mg
+JiBBTURHUFVfUFRFX0VYRUNVVEFCTEU7DQorCX0NCiANCiAJaWYgKGFkZXYtPmFzaWNfdHlwZSA+
+PSBDSElQX05BVkkxMCkgew0KIAkJZmxhZ3MgJj0gfkFNREdQVV9QVEVfTVRZUEVfTlYxMF9NQVNL
+OyBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ21jX3YxMF8wLmMgYi9k
+cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNfdjEwXzAuYw0KaW5kZXggNDZlZmQ0ZDE3YTM0
+Li43ZWIwYmE4N2ZlZjkgMTAwNjQ0DQotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9n
+bWNfdjEwXzAuYw0KKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ21jX3YxMF8wLmMN
+CkBAIC0zOTcsNDMgKzM5NywyMyBAQCBzdGF0aWMgdm9pZCBnbWNfdjEwXzBfZW1pdF9wYXNpZF9t
+YXBwaW5nKHN0cnVjdCBhbWRncHVfcmluZyAqcmluZywgdW5zaWduZWQgdm1pZA0KICAqIDEgc3lz
+dGVtDQogICogMCB2YWxpZA0KICAqLw0KLXN0YXRpYyB1aW50NjRfdCBnbWNfdjEwXzBfZ2V0X3Zt
+X3B0ZV9mbGFncyhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwNCi0JCQkJCSAgIHVpbnQzMl90
+IGZsYWdzKQ0KLXsNCi0JdWludDY0X3QgcHRlX2ZsYWcgPSAwOw0KLQ0KLQlpZiAoZmxhZ3MgJiBB
+TURHUFVfVk1fUEFHRV9FWEVDVVRBQkxFKQ0KLQkJcHRlX2ZsYWcgfD0gQU1ER1BVX1BURV9FWEVD
+VVRBQkxFOw0KLQlpZiAoZmxhZ3MgJiBBTURHUFVfVk1fUEFHRV9SRUFEQUJMRSkNCi0JCXB0ZV9m
+bGFnIHw9IEFNREdQVV9QVEVfUkVBREFCTEU7DQotCWlmIChmbGFncyAmIEFNREdQVV9WTV9QQUdF
+X1dSSVRFQUJMRSkNCi0JCXB0ZV9mbGFnIHw9IEFNREdQVV9QVEVfV1JJVEVBQkxFOw0KIA0KLQlz
+d2l0Y2ggKGZsYWdzICYgQU1ER1BVX1ZNX01UWVBFX01BU0spIHsNCitzdGF0aWMgdWludDY0X3Qg
+Z21jX3YxMF8wX21hcF9tdHlwZShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwgDQordWludDMy
+X3QgZmxhZ3MpIHsNCisJc3dpdGNoIChmbGFncykgew0KIAljYXNlIEFNREdQVV9WTV9NVFlQRV9E
+RUZBVUxUOg0KLQkJcHRlX2ZsYWcgfD0gQU1ER1BVX1BURV9NVFlQRV9OVjEwKE1UWVBFX05DKTsN
+Ci0JCWJyZWFrOw0KKwkJcmV0dXJuIEFNREdQVV9QVEVfTVRZUEVfTlYxMChNVFlQRV9OQyk7DQog
+CWNhc2UgQU1ER1BVX1ZNX01UWVBFX05DOg0KLQkJcHRlX2ZsYWcgfD0gQU1ER1BVX1BURV9NVFlQ
+RV9OVjEwKE1UWVBFX05DKTsNCi0JCWJyZWFrOw0KKwkJcmV0dXJuIEFNREdQVV9QVEVfTVRZUEVf
+TlYxMChNVFlQRV9OQyk7DQogCWNhc2UgQU1ER1BVX1ZNX01UWVBFX1dDOg0KLQkJcHRlX2ZsYWcg
+fD0gQU1ER1BVX1BURV9NVFlQRV9OVjEwKE1UWVBFX1dDKTsNCi0JCWJyZWFrOw0KKwkJcmV0dXJu
+IEFNREdQVV9QVEVfTVRZUEVfTlYxMChNVFlQRV9XQyk7DQogCWNhc2UgQU1ER1BVX1ZNX01UWVBF
+X0NDOg0KLQkJcHRlX2ZsYWcgfD0gQU1ER1BVX1BURV9NVFlQRV9OVjEwKE1UWVBFX0NDKTsNCi0J
+CWJyZWFrOw0KKwkJcmV0dXJuIEFNREdQVV9QVEVfTVRZUEVfTlYxMChNVFlQRV9DQyk7DQogCWNh
+c2UgQU1ER1BVX1ZNX01UWVBFX1VDOg0KLQkJcHRlX2ZsYWcgfD0gQU1ER1BVX1BURV9NVFlQRV9O
+VjEwKE1UWVBFX1VDKTsNCi0JCWJyZWFrOw0KKwkJcmV0dXJuIEFNREdQVV9QVEVfTVRZUEVfTlYx
+MChNVFlQRV9VQyk7DQogCWRlZmF1bHQ6DQotCQlwdGVfZmxhZyB8PSBBTURHUFVfUFRFX01UWVBF
+X05WMTAoTVRZUEVfTkMpOw0KLQkJYnJlYWs7DQorCQlyZXR1cm4gQU1ER1BVX1BURV9NVFlQRV9O
+VjEwKE1UWVBFX05DKTsNCiAJfQ0KLQ0KLQlpZiAoZmxhZ3MgJiBBTURHUFVfVk1fUEFHRV9QUlQp
+DQotCQlwdGVfZmxhZyB8PSBBTURHUFVfUFRFX1BSVDsNCi0NCi0JcmV0dXJuIHB0ZV9mbGFnOw0K
+IH0NCiANCiBzdGF0aWMgdm9pZCBnbWNfdjEwXzBfZ2V0X3ZtX3BkZShzdHJ1Y3QgYW1kZ3B1X2Rl
+dmljZSAqYWRldiwgaW50IGxldmVsLCBAQCAtNDY0LDcgKzQ0NCw3IEBAIHN0YXRpYyBjb25zdCBz
+dHJ1Y3QgYW1kZ3B1X2dtY19mdW5jcyBnbWNfdjEwXzBfZ21jX2Z1bmNzID0gew0KIAkuZmx1c2hf
+Z3B1X3RsYiA9IGdtY192MTBfMF9mbHVzaF9ncHVfdGxiLA0KIAkuZW1pdF9mbHVzaF9ncHVfdGxi
+ID0gZ21jX3YxMF8wX2VtaXRfZmx1c2hfZ3B1X3RsYiwNCiAJLmVtaXRfcGFzaWRfbWFwcGluZyA9
+IGdtY192MTBfMF9lbWl0X3Bhc2lkX21hcHBpbmcsDQotCS5nZXRfdm1fcHRlX2ZsYWdzID0gZ21j
+X3YxMF8wX2dldF92bV9wdGVfZmxhZ3MsDQorCS5tYXBfbXR5cGUgPSBnbWNfdjEwXzBfbWFwX210
+eXBlLA0KIAkuZ2V0X3ZtX3BkZSA9IGdtY192MTBfMF9nZXRfdm1fcGRlDQogfTsNCiANCmRpZmYg
+LS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNfdjZfMC5jIGIvZHJpdmVycy9n
+cHUvZHJtL2FtZC9hbWRncHUvZ21jX3Y2XzAuYw0KaW5kZXggMzI2NDU0OGUzNzVjLi4yZTMwNWIy
+MWRiNjkgMTAwNjQ0DQotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNfdjZfMC5j
+DQorKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNfdjZfMC5jDQpAQCAtMzgzLDIx
+ICszODMsNiBAQCBzdGF0aWMgdWludDY0X3QgZ21jX3Y2XzBfZW1pdF9mbHVzaF9ncHVfdGxiKHN0
+cnVjdCBhbWRncHVfcmluZyAqcmluZywNCiAJcmV0dXJuIHBkX2FkZHI7DQogfQ0KIA0KLXN0YXRp
+YyB1aW50NjRfdCBnbWNfdjZfMF9nZXRfdm1fcHRlX2ZsYWdzKHN0cnVjdCBhbWRncHVfZGV2aWNl
+ICphZGV2LA0KLQkJCQkJICB1aW50MzJfdCBmbGFncykNCi17DQotCXVpbnQ2NF90IHB0ZV9mbGFn
+ID0gMDsNCi0NCi0JaWYgKGZsYWdzICYgQU1ER1BVX1ZNX1BBR0VfUkVBREFCTEUpDQotCQlwdGVf
+ZmxhZyB8PSBBTURHUFVfUFRFX1JFQURBQkxFOw0KLQlpZiAoZmxhZ3MgJiBBTURHUFVfVk1fUEFH
+RV9XUklURUFCTEUpDQotCQlwdGVfZmxhZyB8PSBBTURHUFVfUFRFX1dSSVRFQUJMRTsNCi0JaWYg
+KGZsYWdzICYgQU1ER1BVX1ZNX1BBR0VfUFJUKQ0KLQkJcHRlX2ZsYWcgfD0gQU1ER1BVX1BURV9Q
+UlQ7DQotDQotCXJldHVybiBwdGVfZmxhZzsNCi19DQotDQogc3RhdGljIHZvaWQgZ21jX3Y2XzBf
+Z2V0X3ZtX3BkZShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwgaW50IGxldmVsLA0KIAkJCQl1
+aW50NjRfdCAqYWRkciwgdWludDY0X3QgKmZsYWdzKQ0KIHsNCkBAIC0xMTU5LDcgKzExNDQsNiBA
+QCBzdGF0aWMgY29uc3Qgc3RydWN0IGFtZGdwdV9nbWNfZnVuY3MgZ21jX3Y2XzBfZ21jX2Z1bmNz
+ID0gew0KIAkuZW1pdF9mbHVzaF9ncHVfdGxiID0gZ21jX3Y2XzBfZW1pdF9mbHVzaF9ncHVfdGxi
+LA0KIAkuc2V0X3BydCA9IGdtY192Nl8wX3NldF9wcnQsDQogCS5nZXRfdm1fcGRlID0gZ21jX3Y2
+XzBfZ2V0X3ZtX3BkZSwNCi0JLmdldF92bV9wdGVfZmxhZ3MgPSBnbWNfdjZfMF9nZXRfdm1fcHRl
+X2ZsYWdzDQogfTsNCiANCiBzdGF0aWMgY29uc3Qgc3RydWN0IGFtZGdwdV9pcnFfc3JjX2Z1bmNz
+IGdtY192Nl8wX2lycV9mdW5jcyA9IHsgZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQv
+YW1kZ3B1L2dtY192N18wLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNfdjdfMC5j
+DQppbmRleCBjYzBhYTE3OGViMmQuLjNiNzc0MjEyMzRhNyAxMDA2NDQNCi0tLSBhL2RyaXZlcnMv
+Z3B1L2RybS9hbWQvYW1kZ3B1L2dtY192N18wLmMNCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQv
+YW1kZ3B1L2dtY192N18wLmMNCkBAIC00NjAsMjEgKzQ2MCw2IEBAIHN0YXRpYyB2b2lkIGdtY192
+N18wX2VtaXRfcGFzaWRfbWFwcGluZyhzdHJ1Y3QgYW1kZ3B1X3JpbmcgKnJpbmcsIHVuc2lnbmVk
+IHZtaWQsDQogCWFtZGdwdV9yaW5nX2VtaXRfd3JlZyhyaW5nLCBtbUlIX1ZNSURfMF9MVVQgKyB2
+bWlkLCBwYXNpZCk7ICB9DQogDQotc3RhdGljIHVpbnQ2NF90IGdtY192N18wX2dldF92bV9wdGVf
+ZmxhZ3Moc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsDQotCQkJCQkgIHVpbnQzMl90IGZsYWdz
+KQ0KLXsNCi0JdWludDY0X3QgcHRlX2ZsYWcgPSAwOw0KLQ0KLQlpZiAoZmxhZ3MgJiBBTURHUFVf
+Vk1fUEFHRV9SRUFEQUJMRSkNCi0JCXB0ZV9mbGFnIHw9IEFNREdQVV9QVEVfUkVBREFCTEU7DQot
+CWlmIChmbGFncyAmIEFNREdQVV9WTV9QQUdFX1dSSVRFQUJMRSkNCi0JCXB0ZV9mbGFnIHw9IEFN
+REdQVV9QVEVfV1JJVEVBQkxFOw0KLQlpZiAoZmxhZ3MgJiBBTURHUFVfVk1fUEFHRV9QUlQpDQot
+CQlwdGVfZmxhZyB8PSBBTURHUFVfUFRFX1BSVDsNCi0NCi0JcmV0dXJuIHB0ZV9mbGFnOw0KLX0N
+Ci0NCiBzdGF0aWMgdm9pZCBnbWNfdjdfMF9nZXRfdm1fcGRlKHN0cnVjdCBhbWRncHVfZGV2aWNl
+ICphZGV2LCBpbnQgbGV2ZWwsDQogCQkJCXVpbnQ2NF90ICphZGRyLCB1aW50NjRfdCAqZmxhZ3Mp
+DQogew0KQEAgLTEzNTQsNyArMTMzOSw2IEBAIHN0YXRpYyBjb25zdCBzdHJ1Y3QgYW1kZ3B1X2dt
+Y19mdW5jcyBnbWNfdjdfMF9nbWNfZnVuY3MgPSB7DQogCS5lbWl0X2ZsdXNoX2dwdV90bGIgPSBn
+bWNfdjdfMF9lbWl0X2ZsdXNoX2dwdV90bGIsDQogCS5lbWl0X3Bhc2lkX21hcHBpbmcgPSBnbWNf
+djdfMF9lbWl0X3Bhc2lkX21hcHBpbmcsDQogCS5zZXRfcHJ0ID0gZ21jX3Y3XzBfc2V0X3BydCwN
+Ci0JLmdldF92bV9wdGVfZmxhZ3MgPSBnbWNfdjdfMF9nZXRfdm1fcHRlX2ZsYWdzLA0KIAkuZ2V0
+X3ZtX3BkZSA9IGdtY192N18wX2dldF92bV9wZGUNCiB9Ow0KIA0KZGlmZiAtLWdpdCBhL2RyaXZl
+cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192OF8wLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
+ZGdwdS9nbWNfdjhfMC5jDQppbmRleCA4OGYzYTE3MTQ1MmYuLjU4NDQ0YWEwYWYwNSAxMDA2NDQN
+Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192OF8wLmMNCisrKyBiL2RyaXZl
+cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192OF8wLmMNCkBAIC02ODMsMjMgKzY4Myw2IEBAIHN0
+YXRpYyB2b2lkIGdtY192OF8wX2VtaXRfcGFzaWRfbWFwcGluZyhzdHJ1Y3QgYW1kZ3B1X3Jpbmcg
+KnJpbmcsIHVuc2lnbmVkIHZtaWQsDQogICogMCB2YWxpZA0KICAqLw0KIA0KLXN0YXRpYyB1aW50
+NjRfdCBnbWNfdjhfMF9nZXRfdm1fcHRlX2ZsYWdzKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2
+LA0KLQkJCQkJICB1aW50MzJfdCBmbGFncykNCi17DQotCXVpbnQ2NF90IHB0ZV9mbGFnID0gMDsN
+Ci0NCi0JaWYgKGZsYWdzICYgQU1ER1BVX1ZNX1BBR0VfRVhFQ1VUQUJMRSkNCi0JCXB0ZV9mbGFn
+IHw9IEFNREdQVV9QVEVfRVhFQ1VUQUJMRTsNCi0JaWYgKGZsYWdzICYgQU1ER1BVX1ZNX1BBR0Vf
+UkVBREFCTEUpDQotCQlwdGVfZmxhZyB8PSBBTURHUFVfUFRFX1JFQURBQkxFOw0KLQlpZiAoZmxh
+Z3MgJiBBTURHUFVfVk1fUEFHRV9XUklURUFCTEUpDQotCQlwdGVfZmxhZyB8PSBBTURHUFVfUFRF
+X1dSSVRFQUJMRTsNCi0JaWYgKGZsYWdzICYgQU1ER1BVX1ZNX1BBR0VfUFJUKQ0KLQkJcHRlX2Zs
+YWcgfD0gQU1ER1BVX1BURV9QUlQ7DQotDQotCXJldHVybiBwdGVfZmxhZzsNCi19DQotDQogc3Rh
+dGljIHZvaWQgZ21jX3Y4XzBfZ2V0X3ZtX3BkZShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwg
+aW50IGxldmVsLA0KIAkJCQl1aW50NjRfdCAqYWRkciwgdWludDY0X3QgKmZsYWdzKQ0KIHsNCkBA
+IC0xNzIyLDcgKzE3MDUsNiBAQCBzdGF0aWMgY29uc3Qgc3RydWN0IGFtZGdwdV9nbWNfZnVuY3Mg
+Z21jX3Y4XzBfZ21jX2Z1bmNzID0gew0KIAkuZW1pdF9mbHVzaF9ncHVfdGxiID0gZ21jX3Y4XzBf
+ZW1pdF9mbHVzaF9ncHVfdGxiLA0KIAkuZW1pdF9wYXNpZF9tYXBwaW5nID0gZ21jX3Y4XzBfZW1p
+dF9wYXNpZF9tYXBwaW5nLA0KIAkuc2V0X3BydCA9IGdtY192OF8wX3NldF9wcnQsDQotCS5nZXRf
+dm1fcHRlX2ZsYWdzID0gZ21jX3Y4XzBfZ2V0X3ZtX3B0ZV9mbGFncywNCiAJLmdldF92bV9wZGUg
+PSBnbWNfdjhfMF9nZXRfdm1fcGRlDQogfTsNCiANCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9k
+cm0vYW1kL2FtZGdwdS9nbWNfdjlfMC5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ21j
+X3Y5XzAuYw0KaW5kZXggYWYwNjlhNDgzN2ZhLi4yMjY2MGUxMDA1ZGIgMTAwNjQ0DQotLS0gYS9k
+cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNfdjlfMC5jDQorKysgYi9kcml2ZXJzL2dwdS9k
+cm0vYW1kL2FtZGdwdS9nbWNfdjlfMC5jDQpAQCAtNTgwLDQ3ICs1ODAsMjUgQEAgc3RhdGljIHZv
+aWQgZ21jX3Y5XzBfZW1pdF9wYXNpZF9tYXBwaW5nKHN0cnVjdCBhbWRncHVfcmluZyAqcmluZywg
+dW5zaWduZWQgdm1pZCwNCiAgKiAwIHZhbGlkDQogICovDQogDQotc3RhdGljIHVpbnQ2NF90IGdt
+Y192OV8wX2dldF92bV9wdGVfZmxhZ3Moc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsDQotCQkJ
+CQkJdWludDMyX3QgZmxhZ3MpDQorc3RhdGljIHVpbnQ2NF90IGdtY192OV8wX21hcF9tdHlwZShz
+dHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwgdWludDMyX3QgDQorZmxhZ3MpDQogDQogew0KLQl1
+aW50NjRfdCBwdGVfZmxhZyA9IDA7DQotDQotCWlmIChmbGFncyAmIEFNREdQVV9WTV9QQUdFX0VY
+RUNVVEFCTEUpDQotCQlwdGVfZmxhZyB8PSBBTURHUFVfUFRFX0VYRUNVVEFCTEU7DQotCWlmIChm
+bGFncyAmIEFNREdQVV9WTV9QQUdFX1JFQURBQkxFKQ0KLQkJcHRlX2ZsYWcgfD0gQU1ER1BVX1BU
+RV9SRUFEQUJMRTsNCi0JaWYgKGZsYWdzICYgQU1ER1BVX1ZNX1BBR0VfV1JJVEVBQkxFKQ0KLQkJ
+cHRlX2ZsYWcgfD0gQU1ER1BVX1BURV9XUklURUFCTEU7DQotDQotCXN3aXRjaCAoZmxhZ3MgJiBB
+TURHUFVfVk1fTVRZUEVfTUFTSykgew0KKwlzd2l0Y2ggKGZsYWdzKSB7DQogCWNhc2UgQU1ER1BV
+X1ZNX01UWVBFX0RFRkFVTFQ6DQotCQlwdGVfZmxhZyB8PSBBTURHUFVfUFRFX01UWVBFX1ZHMTAo
+TVRZUEVfTkMpOw0KLQkJYnJlYWs7DQorCQlyZXR1cm4gQU1ER1BVX1BURV9NVFlQRV9WRzEwKE1U
+WVBFX05DKTsNCiAJY2FzZSBBTURHUFVfVk1fTVRZUEVfTkM6DQotCQlwdGVfZmxhZyB8PSBBTURH
+UFVfUFRFX01UWVBFX1ZHMTAoTVRZUEVfTkMpOw0KLQkJYnJlYWs7DQorCQlyZXR1cm4gQU1ER1BV
+X1BURV9NVFlQRV9WRzEwKE1UWVBFX05DKTsNCiAJY2FzZSBBTURHUFVfVk1fTVRZUEVfV0M6DQot
+CQlwdGVfZmxhZyB8PSBBTURHUFVfUFRFX01UWVBFX1ZHMTAoTVRZUEVfV0MpOw0KLQkJYnJlYWs7
+DQorCQlyZXR1cm4gQU1ER1BVX1BURV9NVFlQRV9WRzEwKE1UWVBFX1dDKTsNCiAJY2FzZSBBTURH
+UFVfVk1fTVRZUEVfUlc6DQotCQlwdGVfZmxhZyB8PSBBTURHUFVfUFRFX01UWVBFX1ZHMTAoTVRZ
+UEVfUlcpOw0KLQkJYnJlYWs7DQorCQlyZXR1cm4gQU1ER1BVX1BURV9NVFlQRV9WRzEwKE1UWVBF
+X1JXKTsNCiAJY2FzZSBBTURHUFVfVk1fTVRZUEVfQ0M6DQotCQlwdGVfZmxhZyB8PSBBTURHUFVf
+UFRFX01UWVBFX1ZHMTAoTVRZUEVfQ0MpOw0KLQkJYnJlYWs7DQorCQlyZXR1cm4gQU1ER1BVX1BU
+RV9NVFlQRV9WRzEwKE1UWVBFX0NDKTsNCiAJY2FzZSBBTURHUFVfVk1fTVRZUEVfVUM6DQotCQlw
+dGVfZmxhZyB8PSBBTURHUFVfUFRFX01UWVBFX1ZHMTAoTVRZUEVfVUMpOw0KLQkJYnJlYWs7DQor
+CQlyZXR1cm4gQU1ER1BVX1BURV9NVFlQRV9WRzEwKE1UWVBFX1VDKTsNCiAJZGVmYXVsdDoNCi0J
+CXB0ZV9mbGFnIHw9IEFNREdQVV9QVEVfTVRZUEVfVkcxMChNVFlQRV9OQyk7DQotCQlicmVhazsN
+CisJCXJldHVybiBBTURHUFVfUFRFX01UWVBFX1ZHMTAoTVRZUEVfTkMpOw0KIAl9DQotDQotCWlm
+IChmbGFncyAmIEFNREdQVV9WTV9QQUdFX1BSVCkNCi0JCXB0ZV9mbGFnIHw9IEFNREdQVV9QVEVf
+UFJUOw0KLQ0KLQlyZXR1cm4gcHRlX2ZsYWc7DQogfQ0KIA0KIHN0YXRpYyB2b2lkIGdtY192OV8w
+X2dldF92bV9wZGUoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsIGludCBsZXZlbCwgQEAgLTY1
+MSw3ICs2MjksNyBAQCBzdGF0aWMgY29uc3Qgc3RydWN0IGFtZGdwdV9nbWNfZnVuY3MgZ21jX3Y5
+XzBfZ21jX2Z1bmNzID0gew0KIAkuZmx1c2hfZ3B1X3RsYiA9IGdtY192OV8wX2ZsdXNoX2dwdV90
+bGIsDQogCS5lbWl0X2ZsdXNoX2dwdV90bGIgPSBnbWNfdjlfMF9lbWl0X2ZsdXNoX2dwdV90bGIs
+DQogCS5lbWl0X3Bhc2lkX21hcHBpbmcgPSBnbWNfdjlfMF9lbWl0X3Bhc2lkX21hcHBpbmcsDQot
+CS5nZXRfdm1fcHRlX2ZsYWdzID0gZ21jX3Y5XzBfZ2V0X3ZtX3B0ZV9mbGFncywNCisJLm1hcF9t
+dHlwZSA9IGdtY192OV8wX21hcF9tdHlwZSwNCiAJLmdldF92bV9wZGUgPSBnbWNfdjlfMF9nZXRf
+dm1fcGRlDQogfTsNCiANCi0tDQoyLjE3LjENCg0KX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX18NCmFtZC1nZnggbWFpbGluZyBsaXN0DQphbWQtZ2Z4QGxpc3Rz
+LmZyZWVkZXNrdG9wLm9yZw0KaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9s
+aXN0aW5mby9hbWQtZ2Z4DQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9y
+ZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
