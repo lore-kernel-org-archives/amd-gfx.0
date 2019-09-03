@@ -1,66 +1,57 @@
-From: Lyude Paul <lyude-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>
-Subject: [PATCH v2 05/27] drm/print: Add drm_err_printer()
-Date: Tue,  3 Sep 2019 16:45:43 -0400
-Message-ID: <20190903204645.25487-6-lyude@redhat.com>
+From: Lyude Paul <lyude@redhat.com>
+Subject: [PATCH v2 06/27] drm/dp_mst: Combine redundant cases in drm_dp_encode_sideband_req()
+Date: Tue,  3 Sep 2019 16:45:44 -0400
+Message-ID: <20190903204645.25487-7-lyude@redhat.com>
 References: <20190903204645.25487-1-lyude@redhat.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190903204645.25487-1-lyude-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, nouveau-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Sean Paul <sean-p7yTbzM4H96eqtR555YLDQ@public.gmane.org>, David Airlie <airlied-cv59FeDIM0c@public.gmane.org>, Daniel Vetter <daniel.vetter-/w4YWyX8dFk@public.gmane.org>, Imre Deak <imre.deak-ral2JQCrhuEAvxtiuMwx3w@public.gmane.org>, Maarten Lankhorst <maarten.lankhorst-VuQAYsv1563Yd54FQh9/CA@public.gmane.org>, linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, Maxime Ripard <mripard-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org>, Juston Li <juston.li-ral2JQCrhuEAvxtiuMwx3w@public.gmane.org>, Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>, Harry Wentland <hwentlan-5C7GfCeVMHo@public.gmane.org>, =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala-VuQAYsv1563Yd54FQh9/CA@public.gmane.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20190903204645.25487-1-lyude@redhat.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+Cc: Daniel Vetter <daniel.vetter@ffwll.ch>, Juston Li <juston.li@intel.com>, Imre Deak <imre.deak@intel.com>, =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>, Harry Wentland <hwentlan@amd.com>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, Sean Paul <sean@poorly.run>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, linux-kernel@vger.kernel.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-QSBzaW1wbGUgY29udmllbmVuY2UgZnVuY3Rpb24gdGhhdCByZXR1cm5zIGEgZHJtX3ByaW50ZXIg
-d2hpY2ggcHJpbnRzCnVzaW5nIHByX2VycigpCgpDaGFuZ2VzIHNpbmNlIHYxOgoqIE1ha2UgX19k
-cm1fcHJpbnRmbl9lcnIoKSBtb3JlIGNvbnNpc3RlbnQgd2l0aCBEUk1fRVJST1IoKSAtIGRhbnZl
-dAoKQ2M6IEp1c3RvbiBMaSA8anVzdG9uLmxpQGludGVsLmNvbT4KQ2M6IEltcmUgRGVhayA8aW1y
-ZS5kZWFrQGludGVsLmNvbT4KQ2M6IFZpbGxlIFN5cmrDpGzDpCA8dmlsbGUuc3lyamFsYUBsaW51
-eC5pbnRlbC5jb20+CkNjOiBIYXJyeSBXZW50bGFuZCA8aHdlbnRsYW5AYW1kLmNvbT4KUmV2aWV3
-ZWQtYnk6IERhbmllbCBWZXR0ZXIgPGRhbmllbC52ZXR0ZXJAZmZ3bGwuY2g+ClNpZ25lZC1vZmYt
-Ynk6IEx5dWRlIFBhdWwgPGx5dWRlQHJlZGhhdC5jb20+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2Ry
-bV9wcmludC5jIHwgIDYgKysrKysrCiBpbmNsdWRlL2RybS9kcm1fcHJpbnQuaCAgICAgfCAxNyAr
-KysrKysrKysrKysrKysrKwogMiBmaWxlcyBjaGFuZ2VkLCAyMyBpbnNlcnRpb25zKCspCgpkaWZm
-IC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2RybV9wcmludC5jIGIvZHJpdmVycy9ncHUvZHJtL2Ry
-bV9wcmludC5jCmluZGV4IGExN2M4YTE0ZGJhNC4uYWQzMDJkNzFlZWVlIDEwMDY0NAotLS0gYS9k
-cml2ZXJzL2dwdS9kcm0vZHJtX3ByaW50LmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2RybV9wcmlu
-dC5jCkBAIC0xNDcsNiArMTQ3LDEyIEBAIHZvaWQgX19kcm1fcHJpbnRmbl9kZWJ1ZyhzdHJ1Y3Qg
-ZHJtX3ByaW50ZXIgKnAsIHN0cnVjdCB2YV9mb3JtYXQgKnZhZikKIH0KIEVYUE9SVF9TWU1CT0wo
-X19kcm1fcHJpbnRmbl9kZWJ1Zyk7CiAKK3ZvaWQgX19kcm1fcHJpbnRmbl9lcnIoc3RydWN0IGRy
-bV9wcmludGVyICpwLCBzdHJ1Y3QgdmFfZm9ybWF0ICp2YWYpCit7CisJcHJfZXJyKCIqRVJST1Iq
-ICVzICVwViIsIHAtPnByZWZpeCwgdmFmKTsKK30KK0VYUE9SVF9TWU1CT0woX19kcm1fcHJpbnRm
-bl9lcnIpOworCiAvKioKICAqIGRybV9wdXRzIC0gcHJpbnQgYSBjb25zdCBzdHJpbmcgdG8gYSAm
-ZHJtX3ByaW50ZXIgc3RyZWFtCiAgKiBAcDogdGhlICZkcm0gcHJpbnRlcgpkaWZmIC0tZ2l0IGEv
-aW5jbHVkZS9kcm0vZHJtX3ByaW50LmggYi9pbmNsdWRlL2RybS9kcm1fcHJpbnQuaAppbmRleCBh
-NWQ2ZjJmM2U0MzAuLjExMjE2NWQzMTk1ZCAxMDA2NDQKLS0tIGEvaW5jbHVkZS9kcm0vZHJtX3By
-aW50LmgKKysrIGIvaW5jbHVkZS9kcm0vZHJtX3ByaW50LmgKQEAgLTgzLDYgKzgzLDcgQEAgdm9p
-ZCBfX2RybV9wcmludGZuX3NlcV9maWxlKHN0cnVjdCBkcm1fcHJpbnRlciAqcCwgc3RydWN0IHZh
-X2Zvcm1hdCAqdmFmKTsKIHZvaWQgX19kcm1fcHV0c19zZXFfZmlsZShzdHJ1Y3QgZHJtX3ByaW50
-ZXIgKnAsIGNvbnN0IGNoYXIgKnN0cik7CiB2b2lkIF9fZHJtX3ByaW50Zm5faW5mbyhzdHJ1Y3Qg
-ZHJtX3ByaW50ZXIgKnAsIHN0cnVjdCB2YV9mb3JtYXQgKnZhZik7CiB2b2lkIF9fZHJtX3ByaW50
-Zm5fZGVidWcoc3RydWN0IGRybV9wcmludGVyICpwLCBzdHJ1Y3QgdmFfZm9ybWF0ICp2YWYpOwor
-dm9pZCBfX2RybV9wcmludGZuX2VycihzdHJ1Y3QgZHJtX3ByaW50ZXIgKnAsIHN0cnVjdCB2YV9m
-b3JtYXQgKnZhZik7CiAKIF9fcHJpbnRmKDIsIDMpCiB2b2lkIGRybV9wcmludGYoc3RydWN0IGRy
-bV9wcmludGVyICpwLCBjb25zdCBjaGFyICpmLCAuLi4pOwpAQCAtMjI3LDYgKzIyOCwyMiBAQCBz
-dGF0aWMgaW5saW5lIHN0cnVjdCBkcm1fcHJpbnRlciBkcm1fZGVidWdfcHJpbnRlcihjb25zdCBj
-aGFyICpwcmVmaXgpCiAJcmV0dXJuIHA7CiB9CiAKKy8qKgorICogZHJtX2Vycl9wcmludGVyIC0g
-Y29uc3RydWN0IGEgJmRybV9wcmludGVyIHRoYXQgb3V0cHV0cyB0byBwcl9lcnIoKQorICogQHBy
-ZWZpeDogZGVidWcgb3V0cHV0IHByZWZpeAorICoKKyAqIFJFVFVSTlM6CisgKiBUaGUgJmRybV9w
-cmludGVyIG9iamVjdAorICovCitzdGF0aWMgaW5saW5lIHN0cnVjdCBkcm1fcHJpbnRlciBkcm1f
-ZXJyX3ByaW50ZXIoY29uc3QgY2hhciAqcHJlZml4KQoreworCXN0cnVjdCBkcm1fcHJpbnRlciBw
-ID0geworCQkucHJpbnRmbiA9IF9fZHJtX3ByaW50Zm5fZXJyLAorCQkucHJlZml4ID0gcHJlZml4
-CisJfTsKKwlyZXR1cm4gcDsKK30KKwogLyoKICAqIFRoZSBmb2xsb3dpbmcgY2F0ZWdvcmllcyBh
-cmUgZGVmaW5lZDoKICAqCi0tIAoyLjIxLjAKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJl
-ZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGlu
-Zm8vYW1kLWdmeA==
+Noticed this while working on adding a drm_dp_decode_sideband_req().
+DP_POWER_DOWN_PHY/DP_POWER_UP_PHY both use the same struct, so we can
+just combine their cases.
+
+Signed-off-by: Lyude Paul <lyude@redhat.com>
+Cc: Daniel Vetter <daniel.vetter@ffwll.ch>
+Cc: Juston Li <juston.li@intel.com>
+Cc: Imre Deak <imre.deak@intel.com>
+Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
+Cc: Harry Wentland <hwentlan@amd.com>
+---
+ drivers/gpu/drm/drm_dp_mst_topology.c | 8 ++------
+ 1 file changed, 2 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/gpu/drm/drm_dp_mst_topology.c b/drivers/gpu/drm/drm_dp_mst_topology.c
+index 6f7f449ca12b..1c862749cb63 100644
+--- a/drivers/gpu/drm/drm_dp_mst_topology.c
++++ b/drivers/gpu/drm/drm_dp_mst_topology.c
+@@ -271,6 +271,8 @@ static void drm_dp_encode_sideband_req(struct drm_dp_sideband_msg_req_body *req,
+ 
+ 	switch (req->req_type) {
+ 	case DP_ENUM_PATH_RESOURCES:
++	case DP_POWER_DOWN_PHY:
++	case DP_POWER_UP_PHY:
+ 		buf[idx] = (req->u.port_num.port_number & 0xf) << 4;
+ 		idx++;
+ 		break;
+@@ -358,12 +360,6 @@ static void drm_dp_encode_sideband_req(struct drm_dp_sideband_msg_req_body *req,
+ 		memcpy(&buf[idx], req->u.i2c_write.bytes, req->u.i2c_write.num_bytes);
+ 		idx += req->u.i2c_write.num_bytes;
+ 		break;
+-
+-	case DP_POWER_DOWN_PHY:
+-	case DP_POWER_UP_PHY:
+-		buf[idx] = (req->u.port_num.port_number & 0xf) << 4;
+-		idx++;
+-		break;
+ 	}
+ 	raw->cur_len = idx;
+ }
+-- 
+2.21.0
