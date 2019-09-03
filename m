@@ -1,77 +1,94 @@
-From: Lyude Paul <lyude-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>
-Subject: [PATCH v2 15/27] drm/dp_mst: Cleanup drm_dp_send_link_address() a bit
-Date: Tue,  3 Sep 2019 16:45:53 -0400
-Message-ID: <20190903204645.25487-16-lyude@redhat.com>
+From: Lyude Paul <lyude@redhat.com>
+Subject: [PATCH v2 22/27] drm/nouveau: Don't grab runtime PM refs for HPD IRQs
+Date: Tue,  3 Sep 2019 16:46:00 -0400
+Message-ID: <20190903204645.25487-23-lyude@redhat.com>
 References: <20190903204645.25487-1-lyude@redhat.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190903204645.25487-1-lyude-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, nouveau-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Sean Paul <sean-p7yTbzM4H96eqtR555YLDQ@public.gmane.org>, David Airlie <airlied-cv59FeDIM0c@public.gmane.org>, Daniel Vetter <daniel.vetter-/w4YWyX8dFk@public.gmane.org>, Imre Deak <imre.deak-ral2JQCrhuEAvxtiuMwx3w@public.gmane.org>, Maarten Lankhorst <maarten.lankhorst-VuQAYsv1563Yd54FQh9/CA@public.gmane.org>, linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, Maxime Ripard <mripard-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org>, Juston Li <juston.li-ral2JQCrhuEAvxtiuMwx3w@public.gmane.org>, Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>, Harry Wentland <hwentlan-5C7GfCeVMHo@public.gmane.org>, =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala-VuQAYsv1563Yd54FQh9/CA@public.gmane.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20190903204645.25487-1-lyude@redhat.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+Cc: Juston Li <juston.li@intel.com>, Imre Deak <imre.deak@intel.com>, =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>, Harry Wentland <hwentlan@amd.com>, Daniel Vetter <daniel.vetter@ffwll.ch>, Ben Skeggs <bskeggs@redhat.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, linux-kernel@vger.kernel.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-RGVjbGFyZSBsb2NhbCBwb2ludGVyIHRvIHRoZSBkcm1fZHBfbGlua19hZGRyZXNzX2Fja19yZXBs
-eSBzdHJ1Y3QKaW5zdGVhZCBvZiBjb25zdGFudGx5IGRlcmVmZXJlbmNpbmcgaXQgdGhyb3VnaCB0
-aGUgdW5pb24gaW4KdHhtc2ctPnJlcGx5LiBUaGVuLCBpbnZlcnQgdGhlIG9yZGVyIG9mIGNvbmRp
-dGlvbmFscyBzbyB3ZSBkb24ndCBoYXZlIHRvCmRvIHRoZSBidWxrIG9mIHRoZSB3b3JrIGluc2lk
-ZSB0aGVtLCBhbmQgY2FuIHdyYXAgbGluZXMgZXZlbiBsZXNzLiBUaGVuCmZpbmFsbHksIHJlYXJy
-YW5nZSB2YXJpYWJsZSBkZWNsYXJhdGlvbnMgYSBiaXQuCgpDYzogSnVzdG9uIExpIDxqdXN0b24u
-bGlAaW50ZWwuY29tPgpDYzogSW1yZSBEZWFrIDxpbXJlLmRlYWtAaW50ZWwuY29tPgpDYzogVmls
-bGUgU3lyasOkbMOkIDx2aWxsZS5zeXJqYWxhQGxpbnV4LmludGVsLmNvbT4KQ2M6IEhhcnJ5IFdl
-bnRsYW5kIDxod2VudGxhbkBhbWQuY29tPgpDYzogRGFuaWVsIFZldHRlciA8ZGFuaWVsLnZldHRl
-ckBmZndsbC5jaD4KU2lnbmVkLW9mZi1ieTogTHl1ZGUgUGF1bCA8bHl1ZGVAcmVkaGF0LmNvbT4K
-LS0tCiBkcml2ZXJzL2dwdS9kcm0vZHJtX2RwX21zdF90b3BvbG9neS5jIHwgNDIgKysrKysrKysr
-KysrKysrLS0tLS0tLS0tLS0tCiAxIGZpbGUgY2hhbmdlZCwgMjMgaW5zZXJ0aW9ucygrKSwgMTkg
-ZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2RybV9kcF9tc3RfdG9w
-b2xvZ3kuYyBiL2RyaXZlcnMvZ3B1L2RybS9kcm1fZHBfbXN0X3RvcG9sb2d5LmMKaW5kZXggMmY4
-OGNjMTczNTAwLi5kMTYxMDQzNGEwY2IgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9kcm1f
-ZHBfbXN0X3RvcG9sb2d5LmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2RybV9kcF9tc3RfdG9wb2xv
-Z3kuYwpAQCAtMjM5OCw5ICsyMzk4LDkgQEAgZHJtX2RwX2R1bXBfbGlua19hZGRyZXNzKHN0cnVj
-dCBkcm1fZHBfbGlua19hZGRyZXNzX2Fja19yZXBseSAqcmVwbHkpCiBzdGF0aWMgdm9pZCBkcm1f
-ZHBfc2VuZF9saW5rX2FkZHJlc3Moc3RydWN0IGRybV9kcF9tc3RfdG9wb2xvZ3lfbWdyICptZ3Is
-CiAJCQkJICAgICBzdHJ1Y3QgZHJtX2RwX21zdF9icmFuY2ggKm1zdGIpCiB7Ci0JaW50IGxlbjsK
-IAlzdHJ1Y3QgZHJtX2RwX3NpZGViYW5kX21zZ190eCAqdHhtc2c7Ci0JaW50IHJldDsKKwlzdHJ1
-Y3QgZHJtX2RwX2xpbmtfYWRkcmVzc19hY2tfcmVwbHkgKnJlcGx5OworCWludCBpLCBsZW4sIHJl
-dDsKIAogCXR4bXNnID0ga3phbGxvYyhzaXplb2YoKnR4bXNnKSwgR0ZQX0tFUk5FTCk7CiAJaWYg
-KCF0eG1zZykKQEAgLTI0MTIsMjggKzI0MTIsMzIgQEAgc3RhdGljIHZvaWQgZHJtX2RwX3NlbmRf
-bGlua19hZGRyZXNzKHN0cnVjdCBkcm1fZHBfbXN0X3RvcG9sb2d5X21nciAqbWdyLAogCW1zdGIt
-PmxpbmtfYWRkcmVzc19zZW50ID0gdHJ1ZTsKIAlkcm1fZHBfcXVldWVfZG93bl90eChtZ3IsIHR4
-bXNnKTsKIAorCS8qIEZJWE1FOiBBY3R1YWxseSBkbyBzb21lIHJlYWwgZXJyb3IgaGFuZGxpbmcg
-aGVyZSAqLwogCXJldCA9IGRybV9kcF9tc3Rfd2FpdF90eF9yZXBseShtc3RiLCB0eG1zZyk7Ci0J
-aWYgKHJldCA+IDApIHsKLQkJaW50IGk7CisJaWYgKHJldCA8PSAwKSB7CisJCURSTV9FUlJPUigi
-U2VuZGluZyBsaW5rIGFkZHJlc3MgZmFpbGVkIHdpdGggJWRcbiIsIHJldCk7CisJCWdvdG8gb3V0
-OworCX0KKwlpZiAodHhtc2ctPnJlcGx5LnJlcGx5X3R5cGUgPT0gRFBfU0lERUJBTkRfUkVQTFlf
-TkFLKSB7CisJCURSTV9FUlJPUigibGluayBhZGRyZXNzIE5BSyByZWNlaXZlZFxuIik7CisJCXJl
-dCA9IC1FSU87CisJCWdvdG8gb3V0OworCX0KIAotCQlpZiAodHhtc2ctPnJlcGx5LnJlcGx5X3R5
-cGUgPT0gRFBfU0lERUJBTkRfUkVQTFlfTkFLKSB7Ci0JCQlEUk1fREVCVUdfS01TKCJsaW5rIGFk
-ZHJlc3MgbmFrIHJlY2VpdmVkXG4iKTsKLQkJfSBlbHNlIHsKLQkJCURSTV9ERUJVR19LTVMoImxp
-bmsgYWRkcmVzcyByZXBseTogJWRcbiIsIHR4bXNnLT5yZXBseS51LmxpbmtfYWRkci5ucG9ydHMp
-OwotCQkJZHJtX2RwX2R1bXBfbGlua19hZGRyZXNzKCZ0eG1zZy0+cmVwbHkudS5saW5rX2FkZHIp
-OworCXJlcGx5ID0gJnR4bXNnLT5yZXBseS51LmxpbmtfYWRkcjsKKwlEUk1fREVCVUdfS01TKCJs
-aW5rIGFkZHJlc3MgcmVwbHk6ICVkXG4iLCByZXBseS0+bnBvcnRzKTsKKwlkcm1fZHBfZHVtcF9s
-aW5rX2FkZHJlc3MocmVwbHkpOwogCi0JCQlkcm1fZHBfY2hlY2tfbXN0Yl9ndWlkKG1zdGIsIHR4
-bXNnLT5yZXBseS51LmxpbmtfYWRkci5ndWlkKTsKKwlkcm1fZHBfY2hlY2tfbXN0Yl9ndWlkKG1z
-dGIsIHJlcGx5LT5ndWlkKTsKIAotCQkJZm9yIChpID0gMDsgaSA8IHR4bXNnLT5yZXBseS51Lmxp
-bmtfYWRkci5ucG9ydHM7IGkrKykgewotCQkJCWRybV9kcF9hZGRfcG9ydChtc3RiLCBtZ3ItPmRl
-diwgJnR4bXNnLT5yZXBseS51LmxpbmtfYWRkci5wb3J0c1tpXSk7Ci0JCQl9Ci0JCQlkcm1fa21z
-X2hlbHBlcl9ob3RwbHVnX2V2ZW50KG1nci0+ZGV2KTsKLQkJfQotCX0gZWxzZSB7Ci0JCW1zdGIt
-PmxpbmtfYWRkcmVzc19zZW50ID0gZmFsc2U7Ci0JCURSTV9ERUJVR19LTVMoImxpbmsgYWRkcmVz
-cyBmYWlsZWQgJWRcbiIsIHJldCk7Ci0JfQorCWZvciAoaSA9IDA7IGkgPCByZXBseS0+bnBvcnRz
-OyBpKyspCisJCWRybV9kcF9hZGRfcG9ydChtc3RiLCBtZ3ItPmRldiwgJnJlcGx5LT5wb3J0c1tp
-XSk7CisKKwlkcm1fa21zX2hlbHBlcl9ob3RwbHVnX2V2ZW50KG1nci0+ZGV2KTsKIAorb3V0Ogor
-CWlmIChyZXQgPD0gMCkKKwkJbXN0Yi0+bGlua19hZGRyZXNzX3NlbnQgPSBmYWxzZTsKIAlrZnJl
-ZSh0eG1zZyk7CiB9CiAKLS0gCjIuMjEuMAoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVl
-ZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5m
-by9hbWQtZ2Z4
+In order for suspend/resume reprobing to work, we need to be able to
+perform sideband communications during suspend/resume, along with
+runtime PM suspend/resume. In order to do so, we also need to make sure
+that nouveau doesn't bother grabbing a runtime PM reference to do so,
+since otherwise we'll start deadlocking runtime PM again.
+
+Note that we weren't able to do this before, because of the DP MST
+helpers processing UP requests from topologies in the same context as
+drm_dp_mst_hpd_irq() which would have caused us to open ourselves up to
+receiving hotplug events and deadlocking with runtime suspend/resume.
+Now that those requests are handled asynchronously, this change should
+be completely safe.
+
+Cc: Juston Li <juston.li@intel.com>
+Cc: Imre Deak <imre.deak@intel.com>
+Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
+Cc: Harry Wentland <hwentlan@amd.com>
+Cc: Daniel Vetter <daniel.vetter@ffwll.ch>
+Signed-off-by: Lyude Paul <lyude@redhat.com>
+---
+ drivers/gpu/drm/nouveau/nouveau_connector.c | 33 +++++++++++----------
+ 1 file changed, 17 insertions(+), 16 deletions(-)
+
+diff --git a/drivers/gpu/drm/nouveau/nouveau_connector.c b/drivers/gpu/drm/nouveau/nouveau_connector.c
+index 56871d34e3fb..f276918d3f3b 100644
+--- a/drivers/gpu/drm/nouveau/nouveau_connector.c
++++ b/drivers/gpu/drm/nouveau/nouveau_connector.c
+@@ -1131,6 +1131,16 @@ nouveau_connector_hotplug(struct nvif_notify *notify)
+ 	const char *name = connector->name;
+ 	struct nouveau_encoder *nv_encoder;
+ 	int ret;
++	bool plugged = (rep->mask != NVIF_NOTIFY_CONN_V0_UNPLUG);
++
++	if (rep->mask & NVIF_NOTIFY_CONN_V0_IRQ) {
++		NV_DEBUG(drm, "service %s\n", name);
++		drm_dp_cec_irq(&nv_connector->aux);
++		if ((nv_encoder = find_encoder(connector, DCB_OUTPUT_DP)))
++			nv50_mstm_service(nv_encoder->dp.mstm);
++
++		return NVIF_NOTIFY_KEEP;
++	}
+ 
+ 	ret = pm_runtime_get(drm->dev->dev);
+ 	if (ret == 0) {
+@@ -1151,25 +1161,16 @@ nouveau_connector_hotplug(struct nvif_notify *notify)
+ 		return NVIF_NOTIFY_DROP;
+ 	}
+ 
+-	if (rep->mask & NVIF_NOTIFY_CONN_V0_IRQ) {
+-		NV_DEBUG(drm, "service %s\n", name);
+-		drm_dp_cec_irq(&nv_connector->aux);
+-		if ((nv_encoder = find_encoder(connector, DCB_OUTPUT_DP)))
+-			nv50_mstm_service(nv_encoder->dp.mstm);
+-	} else {
+-		bool plugged = (rep->mask != NVIF_NOTIFY_CONN_V0_UNPLUG);
+-
++	if (!plugged)
++		drm_dp_cec_unset_edid(&nv_connector->aux);
++	NV_DEBUG(drm, "%splugged %s\n", plugged ? "" : "un", name);
++	if ((nv_encoder = find_encoder(connector, DCB_OUTPUT_DP))) {
+ 		if (!plugged)
+-			drm_dp_cec_unset_edid(&nv_connector->aux);
+-		NV_DEBUG(drm, "%splugged %s\n", plugged ? "" : "un", name);
+-		if ((nv_encoder = find_encoder(connector, DCB_OUTPUT_DP))) {
+-			if (!plugged)
+-				nv50_mstm_remove(nv_encoder->dp.mstm);
+-		}
+-
+-		drm_helper_hpd_irq_event(connector->dev);
++			nv50_mstm_remove(nv_encoder->dp.mstm);
+ 	}
+ 
++	drm_helper_hpd_irq_event(connector->dev);
++
+ 	pm_runtime_mark_last_busy(drm->dev->dev);
+ 	pm_runtime_put_autosuspend(drm->dev->dev);
+ 	return NVIF_NOTIFY_KEEP;
+-- 
+2.21.0
