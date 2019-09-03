@@ -1,322 +1,124 @@
-From: Lyude Paul <lyude@redhat.com>
-Subject: [PATCH v2 03/27] drm/dp_mst: Destroy MSTBs asynchronously
-Date: Tue,  3 Sep 2019 16:45:41 -0400
-Message-ID: <20190903204645.25487-4-lyude@redhat.com>
+From: Lyude Paul <lyude-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>
+Subject: [PATCH v2 04/27] drm/dp_mst: Move test_calc_pbn_mode() into an actual
+ selftest
+Date: Tue,  3 Sep 2019 16:45:42 -0400
+Message-ID: <20190903204645.25487-5-lyude@redhat.com>
 References: <20190903204645.25487-1-lyude@redhat.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20190903204645.25487-1-lyude@redhat.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-Cc: Juston Li <juston.li@intel.com>, Imre Deak <imre.deak@intel.com>, =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>, Harry Wentland <hwentlan@amd.com>, Daniel Vetter <daniel@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, Sean Paul <sean@poorly.run>, David Airlie <airlied@linux.ie>, linux-kernel@vger.kernel.org
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20190903204645.25487-1-lyude-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, nouveau-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Sean Paul <sean-p7yTbzM4H96eqtR555YLDQ@public.gmane.org>, Thomas Hellstrom <thellstrom-pghWNbHTmq7QT0dZR+AlfA@public.gmane.org>, David Airlie <airlied-cv59FeDIM0c@public.gmane.org>, Daniel Vetter <daniel.vetter-/w4YWyX8dFk@public.gmane.org>, Imre Deak <imre.deak-ral2JQCrhuEAvxtiuMwx3w@public.gmane.org>, Alexandru Gheorghe <alexandru-cosmin.gheorghe-5wv7dgnIgG8@public.gmane.org>, Maarten Lankhorst <maarten.lankhorst-VuQAYsv1563Yd54FQh9/CA@public.gmane.org>, linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, Maxime Ripard <mripard-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org>, Juston Li <juston.li-ral2JQCrhuEAvxtiuMwx3w@public.gmane.org>, Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>, Thomas Gleixner <tglx-hfZtesqFncYOwBW4kG4KsQ@public.gmane.org>, Deepak Rawat <drawat-pghWNbHTmq7QT0dZR+AlfA@public.gmane.org>, Harry Wentland <hwentlan-5C7GfCeVMHo@public.gmane.org>, =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala-VuQAYsv1563Yd54FQh9/CA@public.gmane.org>
 
-When reprobing an MST topology during resume, we have to account for the
-fact that while we were suspended it's possible that mstbs may have been
-removed from any ports in the topology. Since iterating downwards in the
-topology requires that we hold &mgr->lock, destroying MSTBs from this
-context would result in attempting to lock &mgr->lock a second time and
-deadlocking.
-
-So, fix this by first moving destruction of MSTBs into
-destroy_connector_work, then rename destroy_connector_work and friends
-to reflect that they now destroy both ports and mstbs.
-
-Changes since v1:
-* s/destroy_connector_list/destroy_port_list/
-  s/connector_destroy_lock/delayed_destroy_lock/
-  s/connector_destroy_work/delayed_destroy_work/
-  s/drm_dp_finish_destroy_branch_device/drm_dp_delayed_destroy_mstb/
-  s/drm_dp_finish_destroy_port/drm_dp_delayed_destroy_port/
-  - danvet
-* Use two loops in drm_dp_delayed_destroy_work() - danvet
-* Better explain why we need to do this - danvet
-* Use cancel_work_sync() instead of flush_work() - flush_work() doesn't
-  account for work requeing
-
-Cc: Juston Li <juston.li@intel.com>
-Cc: Imre Deak <imre.deak@intel.com>
-Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
-Cc: Harry Wentland <hwentlan@amd.com>
-Cc: Daniel Vetter <daniel@ffwll.ch>
-Signed-off-by: Lyude Paul <lyude@redhat.com>
----
- drivers/gpu/drm/drm_dp_mst_topology.c | 162 +++++++++++++++++---------
- include/drm/drm_dp_mst_helper.h       |  26 +++--
- 2 files changed, 127 insertions(+), 61 deletions(-)
-
-diff --git a/drivers/gpu/drm/drm_dp_mst_topology.c b/drivers/gpu/drm/drm_dp_mst_topology.c
-index 3054ec622506..738f260d4b15 100644
---- a/drivers/gpu/drm/drm_dp_mst_topology.c
-+++ b/drivers/gpu/drm/drm_dp_mst_topology.c
-@@ -1113,34 +1113,17 @@ static void drm_dp_destroy_mst_branch_device(struct kref *kref)
- 	struct drm_dp_mst_branch *mstb =
- 		container_of(kref, struct drm_dp_mst_branch, topology_kref);
- 	struct drm_dp_mst_topology_mgr *mgr = mstb->mgr;
--	struct drm_dp_mst_port *port, *tmp;
--	bool wake_tx = false;
- 
--	mutex_lock(&mgr->lock);
--	list_for_each_entry_safe(port, tmp, &mstb->ports, next) {
--		list_del(&port->next);
--		drm_dp_mst_topology_put_port(port);
--	}
--	mutex_unlock(&mgr->lock);
--
--	/* drop any tx slots msg */
--	mutex_lock(&mstb->mgr->qlock);
--	if (mstb->tx_slots[0]) {
--		mstb->tx_slots[0]->state = DRM_DP_SIDEBAND_TX_TIMEOUT;
--		mstb->tx_slots[0] = NULL;
--		wake_tx = true;
--	}
--	if (mstb->tx_slots[1]) {
--		mstb->tx_slots[1]->state = DRM_DP_SIDEBAND_TX_TIMEOUT;
--		mstb->tx_slots[1] = NULL;
--		wake_tx = true;
--	}
--	mutex_unlock(&mstb->mgr->qlock);
-+	INIT_LIST_HEAD(&mstb->destroy_next);
- 
--	if (wake_tx)
--		wake_up_all(&mstb->mgr->tx_waitq);
--
--	drm_dp_mst_put_mstb_malloc(mstb);
-+	/*
-+	 * This can get called under mgr->mutex, so we need to perform the
-+	 * actual destruction of the mstb in another worker
-+	 */
-+	mutex_lock(&mgr->delayed_destroy_lock);
-+	list_add(&mstb->destroy_next, &mgr->destroy_branch_device_list);
-+	mutex_unlock(&mgr->delayed_destroy_lock);
-+	schedule_work(&mgr->delayed_destroy_work);
- }
- 
- /**
-@@ -1255,10 +1238,10 @@ static void drm_dp_destroy_port(struct kref *kref)
- 			 * we might be holding the mode_config.mutex
- 			 * from an EDID retrieval */
- 
--			mutex_lock(&mgr->destroy_connector_lock);
--			list_add(&port->next, &mgr->destroy_connector_list);
--			mutex_unlock(&mgr->destroy_connector_lock);
--			schedule_work(&mgr->destroy_connector_work);
-+			mutex_lock(&mgr->delayed_destroy_lock);
-+			list_add(&port->next, &mgr->destroy_port_list);
-+			mutex_unlock(&mgr->delayed_destroy_lock);
-+			schedule_work(&mgr->delayed_destroy_work);
- 			return;
- 		}
- 		/* no need to clean up vcpi
-@@ -2792,7 +2775,7 @@ void drm_dp_mst_topology_mgr_suspend(struct drm_dp_mst_topology_mgr *mgr)
- 			   DP_MST_EN | DP_UPSTREAM_IS_SRC);
- 	mutex_unlock(&mgr->lock);
- 	flush_work(&mgr->work);
--	flush_work(&mgr->destroy_connector_work);
-+	flush_work(&mgr->delayed_destroy_work);
- }
- EXPORT_SYMBOL(drm_dp_mst_topology_mgr_suspend);
- 
-@@ -3740,34 +3723,104 @@ static void drm_dp_tx_work(struct work_struct *work)
- 	mutex_unlock(&mgr->qlock);
- }
- 
--static void drm_dp_destroy_connector_work(struct work_struct *work)
-+static inline void
-+drm_dp_delayed_destroy_port(struct drm_dp_mst_port *port)
- {
--	struct drm_dp_mst_topology_mgr *mgr = container_of(work, struct drm_dp_mst_topology_mgr, destroy_connector_work);
--	struct drm_dp_mst_port *port;
--	bool send_hotplug = false;
-+	port->mgr->cbs->destroy_connector(port->mgr, port->connector);
-+
-+	drm_dp_port_teardown_pdt(port, port->pdt);
-+	port->pdt = DP_PEER_DEVICE_NONE;
-+
-+	drm_dp_mst_put_port_malloc(port);
-+}
-+
-+static inline void
-+drm_dp_delayed_destroy_mstb(struct drm_dp_mst_branch *mstb)
-+{
-+	struct drm_dp_mst_topology_mgr *mgr = mstb->mgr;
-+	struct drm_dp_mst_port *port, *tmp;
-+	bool wake_tx = false;
-+
-+	mutex_lock(&mgr->lock);
-+	list_for_each_entry_safe(port, tmp, &mstb->ports, next) {
-+		list_del(&port->next);
-+		drm_dp_mst_topology_put_port(port);
-+	}
-+	mutex_unlock(&mgr->lock);
-+
-+	/* drop any tx slots msg */
-+	mutex_lock(&mstb->mgr->qlock);
-+	if (mstb->tx_slots[0]) {
-+		mstb->tx_slots[0]->state = DRM_DP_SIDEBAND_TX_TIMEOUT;
-+		mstb->tx_slots[0] = NULL;
-+		wake_tx = true;
-+	}
-+	if (mstb->tx_slots[1]) {
-+		mstb->tx_slots[1]->state = DRM_DP_SIDEBAND_TX_TIMEOUT;
-+		mstb->tx_slots[1] = NULL;
-+		wake_tx = true;
-+	}
-+	mutex_unlock(&mstb->mgr->qlock);
-+
-+	if (wake_tx)
-+		wake_up_all(&mstb->mgr->tx_waitq);
-+
-+	drm_dp_mst_put_mstb_malloc(mstb);
-+}
-+
-+static void drm_dp_delayed_destroy_work(struct work_struct *work)
-+{
-+	struct drm_dp_mst_topology_mgr *mgr =
-+		container_of(work, struct drm_dp_mst_topology_mgr,
-+			     delayed_destroy_work);
-+	bool send_hotplug = false, go_again;
-+
- 	/*
- 	 * Not a regular list traverse as we have to drop the destroy
--	 * connector lock before destroying the connector, to avoid AB->BA
-+	 * connector lock before destroying the mstb/port, to avoid AB->BA
- 	 * ordering between this lock and the config mutex.
- 	 */
--	for (;;) {
--		mutex_lock(&mgr->destroy_connector_lock);
--		port = list_first_entry_or_null(&mgr->destroy_connector_list, struct drm_dp_mst_port, next);
--		if (!port) {
--			mutex_unlock(&mgr->destroy_connector_lock);
--			break;
-+	do {
-+		go_again = false;
-+
-+		for (;;) {
-+			struct drm_dp_mst_branch *mstb;
-+
-+			mutex_lock(&mgr->delayed_destroy_lock);
-+			mstb = list_first_entry_or_null(&mgr->destroy_branch_device_list,
-+							struct drm_dp_mst_branch,
-+							destroy_next);
-+			if (mstb)
-+				list_del(&mstb->destroy_next);
-+			mutex_unlock(&mgr->delayed_destroy_lock);
-+
-+			if (!mstb)
-+				break;
-+
-+			drm_dp_delayed_destroy_mstb(mstb);
-+			go_again = true;
- 		}
--		list_del(&port->next);
--		mutex_unlock(&mgr->destroy_connector_lock);
- 
--		mgr->cbs->destroy_connector(mgr, port->connector);
-+		for (;;) {
-+			struct drm_dp_mst_port *port;
- 
--		drm_dp_port_teardown_pdt(port, port->pdt);
--		port->pdt = DP_PEER_DEVICE_NONE;
-+			mutex_lock(&mgr->delayed_destroy_lock);
-+			port = list_first_entry_or_null(&mgr->destroy_port_list,
-+							struct drm_dp_mst_port,
-+							next);
-+			if (port)
-+				list_del(&port->next);
-+			mutex_unlock(&mgr->delayed_destroy_lock);
-+
-+			if (!port)
-+				break;
-+
-+			drm_dp_delayed_destroy_port(port);
-+			send_hotplug = true;
-+			go_again = true;
-+		}
-+	} while (go_again);
- 
--		drm_dp_mst_put_port_malloc(port);
--		send_hotplug = true;
--	}
- 	if (send_hotplug)
- 		drm_kms_helper_hotplug_event(mgr->dev);
- }
-@@ -3957,12 +4010,13 @@ int drm_dp_mst_topology_mgr_init(struct drm_dp_mst_topology_mgr *mgr,
- 	mutex_init(&mgr->lock);
- 	mutex_init(&mgr->qlock);
- 	mutex_init(&mgr->payload_lock);
--	mutex_init(&mgr->destroy_connector_lock);
-+	mutex_init(&mgr->delayed_destroy_lock);
- 	INIT_LIST_HEAD(&mgr->tx_msg_downq);
--	INIT_LIST_HEAD(&mgr->destroy_connector_list);
-+	INIT_LIST_HEAD(&mgr->destroy_port_list);
-+	INIT_LIST_HEAD(&mgr->destroy_branch_device_list);
- 	INIT_WORK(&mgr->work, drm_dp_mst_link_probe_work);
- 	INIT_WORK(&mgr->tx_work, drm_dp_tx_work);
--	INIT_WORK(&mgr->destroy_connector_work, drm_dp_destroy_connector_work);
-+	INIT_WORK(&mgr->delayed_destroy_work, drm_dp_delayed_destroy_work);
- 	init_waitqueue_head(&mgr->tx_waitq);
- 	mgr->dev = dev;
- 	mgr->aux = aux;
-@@ -4005,7 +4059,7 @@ void drm_dp_mst_topology_mgr_destroy(struct drm_dp_mst_topology_mgr *mgr)
- {
- 	drm_dp_mst_topology_mgr_set_mst(mgr, false);
- 	flush_work(&mgr->work);
--	flush_work(&mgr->destroy_connector_work);
-+	cancel_work_sync(&mgr->delayed_destroy_work);
- 	mutex_lock(&mgr->payload_lock);
- 	kfree(mgr->payloads);
- 	mgr->payloads = NULL;
-diff --git a/include/drm/drm_dp_mst_helper.h b/include/drm/drm_dp_mst_helper.h
-index fc349204a71b..4a4507fe928d 100644
---- a/include/drm/drm_dp_mst_helper.h
-+++ b/include/drm/drm_dp_mst_helper.h
-@@ -143,6 +143,12 @@ struct drm_dp_mst_branch {
- 	 */
- 	struct kref malloc_kref;
- 
-+	/**
-+	 * @destroy_next: linked-list entry used by
-+	 * drm_dp_delayed_destroy_work()
-+	 */
-+	struct list_head destroy_next;
-+
- 	u8 rad[8];
- 	u8 lct;
- 	int num_ports;
-@@ -575,18 +581,24 @@ struct drm_dp_mst_topology_mgr {
- 	struct work_struct tx_work;
- 
- 	/**
--	 * @destroy_connector_list: List of to be destroyed connectors.
-+	 * @destroy_port_list: List of to be destroyed connectors.
-+	 */
-+	struct list_head destroy_port_list;
-+	/**
-+	 * @destroy_branch_device_list: List of to be destroyed branch
-+	 * devices.
- 	 */
--	struct list_head destroy_connector_list;
-+	struct list_head destroy_branch_device_list;
- 	/**
--	 * @destroy_connector_lock: Protects @connector_list.
-+	 * @delayed_destroy_lock: Protects @destroy_port_list and
-+	 * @destroy_branch_device_list.
- 	 */
--	struct mutex destroy_connector_lock;
-+	struct mutex delayed_destroy_lock;
- 	/**
--	 * @destroy_connector_work: Work item to destroy connectors. Needed to
--	 * avoid locking inversion.
-+	 * @delayed_destroy_work: Work item to destroy MST port and branch
-+	 * devices, needed to avoid locking inversion.
- 	 */
--	struct work_struct destroy_connector_work;
-+	struct work_struct delayed_destroy_work;
- };
- 
- int drm_dp_mst_topology_mgr_init(struct drm_dp_mst_topology_mgr *mgr,
--- 
-2.21.0
+WWVzLCBhcHBhcmVudGx5IHdlJ3ZlIGJlZW4gdGVzdGluZyB0aGlzIGZvciBldmVyeSBzaW5nbGUg
+ZHJpdmVyIGxvYWQgZm9yCnF1aXRlIGEgbG9uZyB0aW1lIG5vdy4gQXQgbGVhc3QgdGhhdCBtZWFu
+cyBvdXIgUEJOIGNhbGN1bGF0aW9uIGlzIHNvbGlkIQoKQW55d2F5LCBpbnRyb2R1Y2Ugc2VsZiB0
+ZXN0cyBmb3IgTVNUIGFuZCBtb3ZlIHRoaXMgaW50byB0aGVyZS4KCkNjOiBKdXN0b24gTGkgPGp1
+c3Rvbi5saUBpbnRlbC5jb20+CkNjOiBJbXJlIERlYWsgPGltcmUuZGVha0BpbnRlbC5jb20+CkNj
+OiBWaWxsZSBTeXJqw6Rsw6QgPHZpbGxlLnN5cmphbGFAbGludXguaW50ZWwuY29tPgpDYzogSGFy
+cnkgV2VudGxhbmQgPGh3ZW50bGFuQGFtZC5jb20+ClJldmlld2VkLWJ5OiBEYW5pZWwgVmV0dGVy
+IDxkYW5pZWwudmV0dGVyQGZmd2xsLmNoPgpTaWduZWQtb2ZmLWJ5OiBMeXVkZSBQYXVsIDxseXVk
+ZUByZWRoYXQuY29tPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9kcm1fZHBfbXN0X3RvcG9sb2d5LmMg
+ICAgICAgICB8IDI3IC0tLS0tLS0tLS0tLS0tLQogZHJpdmVycy9ncHUvZHJtL3NlbGZ0ZXN0cy9N
+YWtlZmlsZSAgICAgICAgICAgIHwgIDIgKy0KIC4uLi9ncHUvZHJtL3NlbGZ0ZXN0cy9kcm1fbW9k
+ZXNldF9zZWxmdGVzdHMuaCB8ICAxICsKIC4uLi9kcm0vc2VsZnRlc3RzL3Rlc3QtZHJtX2RwX21z
+dF9oZWxwZXIuYyAgICB8IDM0ICsrKysrKysrKysrKysrKysrKysKIC4uLi9kcm0vc2VsZnRlc3Rz
+L3Rlc3QtZHJtX21vZGVzZXRfY29tbW9uLmggICB8ICAxICsKIDUgZmlsZXMgY2hhbmdlZCwgMzcg
+aW5zZXJ0aW9ucygrKSwgMjggZGVsZXRpb25zKC0pCiBjcmVhdGUgbW9kZSAxMDA2NDQgZHJpdmVy
+cy9ncHUvZHJtL3NlbGZ0ZXN0cy90ZXN0LWRybV9kcF9tc3RfaGVscGVyLmMKCmRpZmYgLS1naXQg
+YS9kcml2ZXJzL2dwdS9kcm0vZHJtX2RwX21zdF90b3BvbG9neS5jIGIvZHJpdmVycy9ncHUvZHJt
+L2RybV9kcF9tc3RfdG9wb2xvZ3kuYwppbmRleCA3MzhmMjYwZDRiMTUuLjZmN2Y0NDljYTEyYiAx
+MDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2RybV9kcF9tc3RfdG9wb2xvZ3kuYworKysgYi9k
+cml2ZXJzL2dwdS9kcm0vZHJtX2RwX21zdF90b3BvbG9neS5jCkBAIC00Nyw3ICs0Nyw2IEBACiAg
+Ki8KIHN0YXRpYyBib29sIGR1bXBfZHBfcGF5bG9hZF90YWJsZShzdHJ1Y3QgZHJtX2RwX21zdF90
+b3BvbG9neV9tZ3IgKm1nciwKIAkJCQkgIGNoYXIgKmJ1Zik7Ci1zdGF0aWMgaW50IHRlc3RfY2Fs
+Y19wYm5fbW9kZSh2b2lkKTsKIAogc3RhdGljIHZvaWQgZHJtX2RwX21zdF90b3BvbG9neV9wdXRf
+cG9ydChzdHJ1Y3QgZHJtX2RwX21zdF9wb3J0ICpwb3J0KTsKIApAQCAtMzU2MSwzMCArMzU2MCw2
+IEBAIGludCBkcm1fZHBfY2FsY19wYm5fbW9kZShpbnQgY2xvY2ssIGludCBicHApCiB9CiBFWFBP
+UlRfU1lNQk9MKGRybV9kcF9jYWxjX3Bibl9tb2RlKTsKIAotc3RhdGljIGludCB0ZXN0X2NhbGNf
+cGJuX21vZGUodm9pZCkKLXsKLQlpbnQgcmV0OwotCXJldCA9IGRybV9kcF9jYWxjX3Bibl9tb2Rl
+KDE1NDAwMCwgMzApOwotCWlmIChyZXQgIT0gNjg5KSB7Ci0JCURSTV9FUlJPUigiUEJOIGNhbGN1
+bGF0aW9uIHRlc3QgZmFpbGVkIC0gY2xvY2sgJWQsIGJwcCAlZCwgZXhwZWN0ZWQgUEJOICVkLCBh
+Y3R1YWwgUEJOICVkLlxuIiwKLQkJCQkxNTQwMDAsIDMwLCA2ODksIHJldCk7Ci0JCXJldHVybiAt
+RUlOVkFMOwotCX0KLQlyZXQgPSBkcm1fZHBfY2FsY19wYm5fbW9kZSgyMzQwMDAsIDMwKTsKLQlp
+ZiAocmV0ICE9IDEwNDcpIHsKLQkJRFJNX0VSUk9SKCJQQk4gY2FsY3VsYXRpb24gdGVzdCBmYWls
+ZWQgLSBjbG9jayAlZCwgYnBwICVkLCBleHBlY3RlZCBQQk4gJWQsIGFjdHVhbCBQQk4gJWQuXG4i
+LAotCQkJCTIzNDAwMCwgMzAsIDEwNDcsIHJldCk7Ci0JCXJldHVybiAtRUlOVkFMOwotCX0KLQly
+ZXQgPSBkcm1fZHBfY2FsY19wYm5fbW9kZSgyOTcwMDAsIDI0KTsKLQlpZiAocmV0ICE9IDEwNjMp
+IHsKLQkJRFJNX0VSUk9SKCJQQk4gY2FsY3VsYXRpb24gdGVzdCBmYWlsZWQgLSBjbG9jayAlZCwg
+YnBwICVkLCBleHBlY3RlZCBQQk4gJWQsIGFjdHVhbCBQQk4gJWQuXG4iLAotCQkJCTI5NzAwMCwg
+MjQsIDEwNjMsIHJldCk7Ci0JCXJldHVybiAtRUlOVkFMOwotCX0KLQlyZXR1cm4gMDsKLX0KLQog
+Lyogd2Ugd2FudCB0byBraWNrIHRoZSBUWCBhZnRlciB3ZSd2ZSBhY2sgdGhlIHVwL2Rvd24gSVJR
+cy4gKi8KIHN0YXRpYyB2b2lkIGRybV9kcF9tc3Rfa2lja190eChzdHJ1Y3QgZHJtX2RwX21zdF90
+b3BvbG9neV9tZ3IgKm1ncikKIHsKQEAgLTQwMzMsOCArNDAwOCw2IEBAIGludCBkcm1fZHBfbXN0
+X3RvcG9sb2d5X21ncl9pbml0KHN0cnVjdCBkcm1fZHBfbXN0X3RvcG9sb2d5X21nciAqbWdyLAog
+CWlmICghbWdyLT5wcm9wb3NlZF92Y3BpcykKIAkJcmV0dXJuIC1FTk9NRU07CiAJc2V0X2JpdCgw
+LCAmbWdyLT5wYXlsb2FkX21hc2spOwotCWlmICh0ZXN0X2NhbGNfcGJuX21vZGUoKSA8IDApCi0J
+CURSTV9FUlJPUigiTVNUIFBCTiBzZWxmLXRlc3QgZmFpbGVkXG4iKTsKIAogCW1zdF9zdGF0ZSA9
+IGt6YWxsb2Moc2l6ZW9mKCptc3Rfc3RhdGUpLCBHRlBfS0VSTkVMKTsKIAlpZiAobXN0X3N0YXRl
+ID09IE5VTEwpCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vc2VsZnRlc3RzL01ha2VmaWxl
+IGIvZHJpdmVycy9ncHUvZHJtL3NlbGZ0ZXN0cy9NYWtlZmlsZQppbmRleCBhYWU4OGY4YTAxNmMu
+LmQyMTM3MzQyYjM3MSAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL3NlbGZ0ZXN0cy9NYWtl
+ZmlsZQorKysgYi9kcml2ZXJzL2dwdS9kcm0vc2VsZnRlc3RzL01ha2VmaWxlCkBAIC0xLDYgKzEs
+NiBAQAogIyBTUERYLUxpY2Vuc2UtSWRlbnRpZmllcjogR1BMLTIuMC1vbmx5CiB0ZXN0LWRybV9t
+b2Rlc2V0LXkgOj0gdGVzdC1kcm1fbW9kZXNldF9jb21tb24ubyB0ZXN0LWRybV9wbGFuZV9oZWxw
+ZXIubyBcCiAgICAgICAgICAgICAgICAgICAgICAgdGVzdC1kcm1fZm9ybWF0Lm8gdGVzdC1kcm1f
+ZnJhbWVidWZmZXIubyBcCi0JCSAgICAgIHRlc3QtZHJtX2RhbWFnZV9oZWxwZXIubworCQkgICAg
+ICB0ZXN0LWRybV9kYW1hZ2VfaGVscGVyLm8gdGVzdC1kcm1fZHBfbXN0X2hlbHBlci5vCiAKIG9i
+ai0kKENPTkZJR19EUk1fREVCVUdfU0VMRlRFU1QpICs9IHRlc3QtZHJtX21tLm8gdGVzdC1kcm1f
+bW9kZXNldC5vIHRlc3QtZHJtX2NtZGxpbmVfcGFyc2VyLm8KZGlmZiAtLWdpdCBhL2RyaXZlcnMv
+Z3B1L2RybS9zZWxmdGVzdHMvZHJtX21vZGVzZXRfc2VsZnRlc3RzLmggYi9kcml2ZXJzL2dwdS9k
+cm0vc2VsZnRlc3RzL2RybV9tb2Rlc2V0X3NlbGZ0ZXN0cy5oCmluZGV4IDQ2NDc1Mzc0NjAxMy4u
+ZGVjM2VlM2VjOTZmIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vc2VsZnRlc3RzL2RybV9t
+b2Rlc2V0X3NlbGZ0ZXN0cy5oCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9zZWxmdGVzdHMvZHJtX21v
+ZGVzZXRfc2VsZnRlc3RzLmgKQEAgLTMyLDMgKzMyLDQgQEAgc2VsZnRlc3QoZGFtYWdlX2l0ZXJf
+ZGFtYWdlX29uZV9pbnRlcnNlY3QsIGlndF9kYW1hZ2VfaXRlcl9kYW1hZ2Vfb25lX2ludGVyc2Vj
+dCkKIHNlbGZ0ZXN0KGRhbWFnZV9pdGVyX2RhbWFnZV9vbmVfb3V0c2lkZSwgaWd0X2RhbWFnZV9p
+dGVyX2RhbWFnZV9vbmVfb3V0c2lkZSkKIHNlbGZ0ZXN0KGRhbWFnZV9pdGVyX2RhbWFnZV9zcmNf
+bW92ZWQsIGlndF9kYW1hZ2VfaXRlcl9kYW1hZ2Vfc3JjX21vdmVkKQogc2VsZnRlc3QoZGFtYWdl
+X2l0ZXJfZGFtYWdlX25vdF92aXNpYmxlLCBpZ3RfZGFtYWdlX2l0ZXJfZGFtYWdlX25vdF92aXNp
+YmxlKQorc2VsZnRlc3QoZHBfbXN0X2NhbGNfcGJuX21vZGUsIGlndF9kcF9tc3RfY2FsY19wYm5f
+bW9kZSkKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9zZWxmdGVzdHMvdGVzdC1kcm1fZHBf
+bXN0X2hlbHBlci5jIGIvZHJpdmVycy9ncHUvZHJtL3NlbGZ0ZXN0cy90ZXN0LWRybV9kcF9tc3Rf
+aGVscGVyLmMKbmV3IGZpbGUgbW9kZSAxMDA2NDQKaW5kZXggMDAwMDAwMDAwMDAwLi45YmFhNTE3
+MTk4OGQKLS0tIC9kZXYvbnVsbAorKysgYi9kcml2ZXJzL2dwdS9kcm0vc2VsZnRlc3RzL3Rlc3Qt
+ZHJtX2RwX21zdF9oZWxwZXIuYwpAQCAtMCwwICsxLDM0IEBACisvLyBTUERYLUxpY2Vuc2UtSWRl
+bnRpZmllcjogR1BMLTIuMC1vbmx5CisvKgorICogVGVzdCBjYXNlcyBmb3IgZm9yIHRoZSBEUk0g
+RFAgTVNUIGhlbHBlcnMKKyAqLworCisjaW5jbHVkZSA8ZHJtL2RybV9kcF9tc3RfaGVscGVyLmg+
+CisjaW5jbHVkZSA8ZHJtL2RybV9wcmludC5oPgorCisjaW5jbHVkZSAidGVzdC1kcm1fbW9kZXNl
+dF9jb21tb24uaCIKKworaW50IGlndF9kcF9tc3RfY2FsY19wYm5fbW9kZSh2b2lkICppZ25vcmVk
+KQoreworCWludCBwYm4sIGk7CisJY29uc3Qgc3RydWN0IHsKKwkJaW50IHJhdGU7CisJCWludCBi
+cHA7CisJCWludCBleHBlY3RlZDsKKwl9IHRlc3RfcGFyYW1zW10gPSB7CisJCXsgMTU0MDAwLCAz
+MCwgNjg5IH0sCisJCXsgMjM0MDAwLCAzMCwgMTA0NyB9LAorCQl7IDI5NzAwMCwgMjQsIDEwNjMg
+fSwKKwl9OworCisJZm9yIChpID0gMDsgaSA8IEFSUkFZX1NJWkUodGVzdF9wYXJhbXMpOyBpKysp
+IHsKKwkJcGJuID0gZHJtX2RwX2NhbGNfcGJuX21vZGUodGVzdF9wYXJhbXNbaV0ucmF0ZSwKKwkJ
+CQkJICAgdGVzdF9wYXJhbXNbaV0uYnBwKTsKKwkJRkFJTChwYm4gIT0gdGVzdF9wYXJhbXNbaV0u
+ZXhwZWN0ZWQsCisJCSAgICAgIkV4cGVjdGVkIFBCTiAlZCBmb3IgY2xvY2sgJWQgYnBwICVkLCBn
+b3QgJWRcbiIsCisJCSAgICAgdGVzdF9wYXJhbXNbaV0uZXhwZWN0ZWQsIHRlc3RfcGFyYW1zW2ld
+LnJhdGUsCisJCSAgICAgdGVzdF9wYXJhbXNbaV0uYnBwLCBwYm4pOworCX0KKworCXJldHVybiAw
+OworfQpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL3NlbGZ0ZXN0cy90ZXN0LWRybV9tb2Rl
+c2V0X2NvbW1vbi5oIGIvZHJpdmVycy9ncHUvZHJtL3NlbGZ0ZXN0cy90ZXN0LWRybV9tb2Rlc2V0
+X2NvbW1vbi5oCmluZGV4IDhjNzZmMDljMTJkMS4uNTkwYmRhMzVhNjgzIDEwMDY0NAotLS0gYS9k
+cml2ZXJzL2dwdS9kcm0vc2VsZnRlc3RzL3Rlc3QtZHJtX21vZGVzZXRfY29tbW9uLmgKKysrIGIv
+ZHJpdmVycy9ncHUvZHJtL3NlbGZ0ZXN0cy90ZXN0LWRybV9tb2Rlc2V0X2NvbW1vbi5oCkBAIC0z
+OSw1ICszOSw2IEBAIGludCBpZ3RfZGFtYWdlX2l0ZXJfZGFtYWdlX29uZV9pbnRlcnNlY3Qodm9p
+ZCAqaWdub3JlZCk7CiBpbnQgaWd0X2RhbWFnZV9pdGVyX2RhbWFnZV9vbmVfb3V0c2lkZSh2b2lk
+ICppZ25vcmVkKTsKIGludCBpZ3RfZGFtYWdlX2l0ZXJfZGFtYWdlX3NyY19tb3ZlZCh2b2lkICpp
+Z25vcmVkKTsKIGludCBpZ3RfZGFtYWdlX2l0ZXJfZGFtYWdlX25vdF92aXNpYmxlKHZvaWQgKmln
+bm9yZWQpOworaW50IGlndF9kcF9tc3RfY2FsY19wYm5fbW9kZSh2b2lkICppZ25vcmVkKTsKIAog
+I2VuZGlmCi0tIAoyLjIxLjAKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Au
+b3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdm
+eA==
