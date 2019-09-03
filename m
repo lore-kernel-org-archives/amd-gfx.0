@@ -1,132 +1,75 @@
-From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
-Subject: Re: gnome-shell stuck because of amdgpu driver [5.3 RC5]
-Date: Tue, 3 Sep 2019 11:48:12 +0500
-Message-ID: <CABXGCsNywbo90+wgiZ64Srm-KexypTbjiviwTW_BsO9Pm11GKQ@mail.gmail.com>
-References: <20190830032948.13516-1-hdanton@sina.com>
+From: "Zhou, David(ChunMing)" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: [PATCH 2/3] drm/amdgpu: reserve at least 4MB of VRAM for page
+ tables
+Date: Tue, 3 Sep 2019 06:52:05 +0000
+Message-ID: <MN2PR12MB29104DDA4EBB320F67988981B4B90@MN2PR12MB2910.namprd12.prod.outlook.com>
+References: <20190902105219.2813-1-christian.koenig@amd.com>
+ <20190902105219.2813-2-christian.koenig@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20190830032948.13516-1-hdanton@sina.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Hillf Danton <hdanton@sina.com>
-Cc: Daniel Vetter <daniel@ffwll.ch>, dri-devel <dri-devel@lists.freedesktop.org>, amd-gfx list <amd-gfx@lists.freedesktop.org>, Linux kernel <linux-kernel@vger.kernel.org>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20190902105219.2813-2-christian.koenig-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: =?utf-8?B?Q2hyaXN0aWFuIEvDtm5pZw==?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-On Fri, 30 Aug 2019 at 08:30, Hillf Danton <hdanton@sina.com> wrote:
->
-> Add a warning to show if it makes sense in field: neither regression nor
-> problem will have been observed with the warning printed.
->
-
-I caught the problem.
-
-[21793.094289] ------------[ cut here ]------------
-[21793.094296] gnome shell stuck warning
-[21793.094391] WARNING: CPU: 14 PID: 1768 at
-drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c:332
-amdgpu_fence_wait_empty+0x1c2/0x230 [amdgpu]
-[21793.094394] Modules linked in: rfcomm fuse xt_CHECKSUM
-xt_MASQUERADE nf_nat_tftp nf_conntrack_tftp tun bridge stp llc
-nf_conntrack_netbios_ns nf_conntrack_broadcast xt_CT ip6t_REJECT
-nf_reject_ipv6 ip6t_rpfilter ipt_REJECT nf_reject_ipv4 xt_conntrack
-ebtable_nat ip6table_nat ip6table_mangle ip6table_raw
-ip6table_security iptable_nat nf_nat iptable_mangle iptable_raw
-iptable_security nf_conntrack nf_defrag_ipv6 nf_defrag_ipv4 libcrc32c
-ip_set nfnetlink ebtable_filter ebtables ip6table_filter ip6_tables
-iptable_filter cmac bnep sunrpc vfat fat edac_mce_amd kvm_amd
-snd_hda_codec_realtek rtwpci rtw88 snd_hda_codec_generic snd_usb_audio
-kvm ledtrig_audio snd_hda_codec_hdmi snd_hda_intel mac80211
-snd_hda_codec snd_usbmidi_lib irqbypass uvcvideo snd_rawmidi
-snd_hda_core videobuf2_vmalloc videobuf2_memops crct10dif_pclmul btusb
-videobuf2_v4l2 snd_hwdep crc32_pclmul btrtl videobuf2_common snd_seq
-eeepc_wmi btbcm xpad asus_wmi btintel snd_seq_device
-ghash_clmulni_intel cfg80211 sparse_keymap
-[21793.094426]  ff_memless joydev bluetooth videodev video snd_pcm
-wmi_bmof mc ecdh_generic snd_timer ecc snd ccp rfkill libarc4
-soundcore sp5100_tco k10temp i2c_piix4 gpio_amdpt gpio_generic
-acpi_cpufreq binfmt_misc ip_tables hid_logitech_hidpp hid_logitech_dj
-amdgpu amd_iommu_v2 gpu_sched ttm drm_kms_helper igb drm nvme dca
-crc32c_intel i2c_algo_bit nvme_core wmi pinctrl_amd
-[21793.094449] CPU: 14 PID: 1768 Comm: Xorg Tainted: G        W
- 5.3.0-0.rc6.git2.1b.fc32.x86_64 #1
-[21793.094452] Hardware name: System manufacturer System Product
-Name/ROG STRIX X470-I GAMING, BIOS 2406 06/21/2019
-[21793.094499] RIP: 0010:amdgpu_fence_wait_empty+0x1c2/0x230 [amdgpu]
-[21793.094502] Code: b5 f4 e9 c1 fe ff ff 31 c0 c3 48 89 ef e8 36 69
-f8 f4 84 c0 74 08 48 89 ef e8 8a e9 15 f5 48 c7 c7 2c d6 91 c0 e8 86
-f8 ad f4 <0f> 0b b8 ea ff ff ff 5d c3 e8 f0 97 b7 f4 84 c0 0f 85 73 ff
-ff ff
-[21793.094505] RSP: 0018:ffffae13418c3798 EFLAGS: 00010282
-[21793.094508] RAX: 0000000000000000 RBX: ffff8aa065f85a80 RCX: 0000000000000006
-[21793.094511] RDX: 0000000000000007 RSI: ffff8a9fe32ec070 RDI: ffff8aa07bdd9e00
-[21793.094513] RBP: ffff8aa069469d00 R08: 000013d219a4ead6 R09: 0000000000000000
-[21793.094516] R10: 0000000000000000 R11: 0000000000000000 R12: ffff8aa065f80000
-[21793.094518] R13: 0000000000000000 R14: 0000000000000000 R15: ffff8aa065fb0000
-[21793.094521] FS:  00007f586201cf00(0000) GS:ffff8aa07bc00000(0000)
-knlGS:0000000000000000
-[21793.094524] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-[21793.094526] CR2: 00007f57fc5b5000 CR3: 0000000763340000 CR4: 00000000003406e0
-[21793.094528] Call Trace:
-[21793.094580]  amdgpu_pm_compute_clocks+0x70/0x5f0 [amdgpu]
-[21793.094655]  dm_pp_apply_display_requirements+0x1a8/0x1c0 [amdgpu]
-[21793.094728]  dce12_update_clocks+0xd8/0x110 [amdgpu]
-[21793.094799]  dc_commit_state+0x414/0x590 [amdgpu]
-[21793.094807]  ? find_held_lock+0x32/0x90
-[21793.094880]  amdgpu_dm_atomic_commit_tail+0xd18/0x1cf0 [amdgpu]
-[21793.094888]  ? reacquire_held_locks+0xed/0x210
-[21793.094898]  ? ttm_eu_backoff_reservation+0xa5/0x160 [ttm]
-[21793.094903]  ? find_held_lock+0x32/0x90
-[21793.094906]  ? find_held_lock+0x32/0x90
-[21793.094912]  ? __lock_acquire+0x247/0x1910
-[21793.094920]  ? find_held_lock+0x32/0x90
-[21793.094925]  ? mark_held_locks+0x50/0x80
-[21793.094929]  ? _raw_spin_unlock_irq+0x29/0x40
-[21793.094933]  ? lockdep_hardirqs_on+0xf0/0x180
-[21793.094937]  ? _raw_spin_unlock_irq+0x29/0x40
-[21793.094941]  ? wait_for_completion_timeout+0x75/0x190
-[21793.094954]  ? commit_tail+0x3c/0x70 [drm_kms_helper]
-[21793.094962]  commit_tail+0x3c/0x70 [drm_kms_helper]
-[21793.094971]  drm_atomic_helper_commit+0xe3/0x150 [drm_kms_helper]
-[21793.094986]  drm_mode_atomic_ioctl+0x793/0x9b0 [drm]
-[21793.094994]  ? __lock_acquire+0x247/0x1910
-[21793.095013]  ? drm_atomic_set_property+0xa50/0xa50 [drm]
-[21793.095025]  drm_ioctl_kernel+0xaa/0xf0 [drm]
-[21793.095039]  drm_ioctl+0x208/0x390 [drm]
-[21793.095053]  ? drm_atomic_set_property+0xa50/0xa50 [drm]
-[21793.095060]  ? lockdep_hardirqs_on+0xf0/0x180
-[21793.095108]  amdgpu_drm_ioctl+0x49/0x80 [amdgpu]
-[21793.095114]  do_vfs_ioctl+0x411/0x750
-[21793.095121]  ksys_ioctl+0x5e/0x90
-[21793.095126]  __x64_sys_ioctl+0x16/0x20
-[21793.095130]  do_syscall_64+0x5c/0xb0
-[21793.095135]  entry_SYSCALL_64_after_hwframe+0x49/0xbe
-[21793.095138] RIP: 0033:0x7f586249300b
-[21793.095142] Code: 0f 1e fa 48 8b 05 7d 9e 0c 00 64 c7 00 26 00 00
-00 48 c7 c0 ff ff ff ff c3 66 0f 1f 44 00 00 f3 0f 1e fa b8 10 00 00
-00 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 8b 0d 4d 9e 0c 00 f7 d8 64 89
-01 48
-[21793.095144] RSP: 002b:00007ffcfa7f6c08 EFLAGS: 00000246 ORIG_RAX:
-0000000000000010
-[21793.095147] RAX: ffffffffffffffda RBX: 00007ffcfa7f6c50 RCX: 00007f586249300b
-[21793.095149] RDX: 00007ffcfa7f6c50 RSI: 00000000c03864bc RDI: 000000000000000e
-[21793.095152] RBP: 00000000c03864bc R08: 00005647f11aab00 R09: 0000000000000001
-[21793.095154] R10: 0000000000000001 R11: 0000000000000246 R12: 00005647f05870e0
-[21793.095156] R13: 000000000000000e R14: 00005647f08df6a0 R15: 00005647f09d7940
-[21793.095166] irq event stamp: 822588868
-[21793.095170] hardirqs last  enabled at (822588867):
-[<ffffffffb5170beb>] console_unlock+0x46b/0x5d0
-[21793.095173] hardirqs last disabled at (822588868):
-[<ffffffffb50038da>] trace_hardirqs_off_thunk+0x1a/0x20
-[21793.095177] softirqs last  enabled at (822588724):
-[<ffffffffb5e0035d>] __do_softirq+0x35d/0x45d
-[21793.095181] softirqs last disabled at (822588717):
-[<ffffffffb50f1e57>] irq_exit+0xf7/0x100
-[21793.095183] ---[ end trace 67af5f8c4c325f95 ]---
-
-
-Full dmesg log here https://pastebin.com/2Nab7AC3
-Any idea how completely to fix it ?
-
---
-Best Regards,
-Mike Gavrilov.
+RG8geW91IG5lZWQgdXBkYXRlIHRoZSB2cmFtIHNpemUgcmVwb3J0ZWQgdG8gVU1EID8NCg0KLURh
+dmlkDQoNCi0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQpGcm9tOiBhbWQtZ2Z4IDxhbWQtZ2Z4
+LWJvdW5jZXNAbGlzdHMuZnJlZWRlc2t0b3Aub3JnPiBPbiBCZWhhbGYgT2YgQ2hyaXN0aWFuIEvD
+tm5pZw0KU2VudDogTW9uZGF5LCBTZXB0ZW1iZXIgMiwgMjAxOSA2OjUyIFBNDQpUbzogYW1kLWdm
+eEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNClN1YmplY3Q6IFtQQVRDSCAyLzNdIGRybS9hbWRncHU6
+IHJlc2VydmUgYXQgbGVhc3QgNE1CIG9mIFZSQU0gZm9yIHBhZ2UgdGFibGVzDQoNClRoaXMgaG9w
+ZWZ1bGx5IGhlbHBzIHJlZHVjZSB0aGUgY29udGVudGlvbiBmb3IgcGFnZSB0YWJsZXMuDQoNClNp
+Z25lZC1vZmYtYnk6IENocmlzdGlhbiBLw7ZuaWcgPGNocmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4N
+Ci0tLQ0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5oICAgICAgIHwgMyAr
+KysNCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdnJhbV9tZ3IuYyB8IDkgKysr
+KysrKy0tDQogMiBmaWxlcyBjaGFuZ2VkLCAxMCBpbnNlcnRpb25zKCspLCAyIGRlbGV0aW9ucygt
+KQ0KDQpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmgg
+Yi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uaA0KaW5kZXggMmVkYTNhOGMz
+MzBkLi4zMzUyYTg3YjgyMmUgMTAwNjQ0DQotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
+dS9hbWRncHVfdm0uaA0KKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Zt
+LmgNCkBAIC05OSw2ICs5OSw5IEBAIHN0cnVjdCBhbWRncHVfYm9fbGlzdF9lbnRyeTsNCiAjZGVm
+aW5lIEFNREdQVV9WTV9GQVVMVF9TVE9QX0ZJUlNUCTENCiAjZGVmaW5lIEFNREdQVV9WTV9GQVVM
+VF9TVE9QX0FMV0FZUwkyDQogDQorLyogUmVzZXJ2ZSA0TUIgVlJBTSBmb3IgcGFnZSB0YWJsZXMg
+Ki8NCisjZGVmaW5lIEFNREdQVV9WTV9SRVNFUlZFRF9WUkFNCQkoNFVMTCA8PCAyMCkNCisNCiAv
+KiBtYXggbnVtYmVyIG9mIFZNSFVCICovDQogI2RlZmluZSBBTURHUFVfTUFYX1ZNSFVCUwkJCTMN
+CiAjZGVmaW5lIEFNREdQVV9HRlhIVUJfMAkJCQkwDQpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUv
+ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZyYW1fbWdyLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
+ZGdwdS9hbWRncHVfdnJhbV9tZ3IuYw0KaW5kZXggMTE1MGUzNGJjMjhmLi41OTQ0MGY3MWQzMDQg
+MTAwNjQ0DQotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdnJhbV9tZ3Iu
+Yw0KKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZyYW1fbWdyLmMNCkBA
+IC0yNCw2ICsyNCw3IEBADQogDQogI2luY2x1ZGUgPGRybS9kcm1QLmg+DQogI2luY2x1ZGUgImFt
+ZGdwdS5oIg0KKyNpbmNsdWRlICJhbWRncHVfdm0uaCINCiANCiBzdHJ1Y3QgYW1kZ3B1X3ZyYW1f
+bWdyIHsNCiAJc3RydWN0IGRybV9tbSBtbTsNCkBAIC0yNzYsNyArMjc3LDcgQEAgc3RhdGljIGlu
+dCBhbWRncHVfdnJhbV9tZ3JfbmV3KHN0cnVjdCB0dG1fbWVtX3R5cGVfbWFuYWdlciAqbWFuLA0K
+IAlzdHJ1Y3QgZHJtX21tX25vZGUgKm5vZGVzOw0KIAllbnVtIGRybV9tbV9pbnNlcnRfbW9kZSBt
+b2RlOw0KIAl1bnNpZ25lZCBsb25nIGxwZm4sIG51bV9ub2RlcywgcGFnZXNfcGVyX25vZGUsIHBh
+Z2VzX2xlZnQ7DQotCXVpbnQ2NF90IHZpc191c2FnZSA9IDAsIG1lbV9ieXRlczsNCisJdWludDY0
+X3QgdmlzX3VzYWdlID0gMCwgbWVtX2J5dGVzLCBtYXhfYnl0ZXM7DQogCXVuc2lnbmVkIGk7DQog
+CWludCByOw0KIA0KQEAgLTI4NCw5ICsyODUsMTMgQEAgc3RhdGljIGludCBhbWRncHVfdnJhbV9t
+Z3JfbmV3KHN0cnVjdCB0dG1fbWVtX3R5cGVfbWFuYWdlciAqbWFuLA0KIAlpZiAoIWxwZm4pDQog
+CQlscGZuID0gbWFuLT5zaXplOw0KIA0KKwltYXhfYnl0ZXMgPSBhZGV2LT5nbWMubWNfdnJhbV9z
+aXplOw0KKwlpZiAodGJvLT50eXBlICE9IHR0bV9ib190eXBlX2tlcm5lbCkNCisJCW1heF9ieXRl
+cyAtPSBBTURHUFVfVk1fUkVTRVJWRURfVlJBTTsNCisNCiAJLyogYmFpbCBvdXQgcXVpY2tseSBp
+ZiB0aGVyZSdzIGxpa2VseSBub3QgZW5vdWdoIFZSQU0gZm9yIHRoaXMgQk8gKi8NCiAJbWVtX2J5
+dGVzID0gKHU2NCltZW0tPm51bV9wYWdlcyA8PCBQQUdFX1NISUZUOw0KLQlpZiAoYXRvbWljNjRf
+YWRkX3JldHVybihtZW1fYnl0ZXMsICZtZ3ItPnVzYWdlKSA+IGFkZXYtPmdtYy5tY192cmFtX3Np
+emUpIHsNCisJaWYgKGF0b21pYzY0X2FkZF9yZXR1cm4obWVtX2J5dGVzLCAmbWdyLT51c2FnZSkg
+PiBtYXhfYnl0ZXMpIHsNCiAJCWF0b21pYzY0X3N1YihtZW1fYnl0ZXMsICZtZ3ItPnVzYWdlKTsN
+CiAJCW1lbS0+bW1fbm9kZSA9IE5VTEw7DQogCQlyZXR1cm4gMDsNCi0tIA0KMi4xNy4xDQoNCl9f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fDQphbWQtZ2Z4IG1h
+aWxpbmcgbGlzdA0KYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCmh0dHBzOi8vbGlzdHMu
+ZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA0KX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1k
+LWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcv
+bWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
