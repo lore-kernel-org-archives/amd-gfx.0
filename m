@@ -1,86 +1,125 @@
-From: Lyude Paul <lyude-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>
-Subject: [PATCH v2 17/27] drm/dp_mst: Rename drm_dp_add_port and
- drm_dp_update_port
-Date: Tue,  3 Sep 2019 16:45:55 -0400
-Message-ID: <20190903204645.25487-18-lyude@redhat.com>
+From: Lyude Paul <lyude@redhat.com>
+Subject: [PATCH v2 21/27] drm/dp_mst: Don't forget to update port->input in drm_dp_mst_handle_conn_stat()
+Date: Tue,  3 Sep 2019 16:45:59 -0400
+Message-ID: <20190903204645.25487-22-lyude@redhat.com>
 References: <20190903204645.25487-1-lyude@redhat.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <nouveau-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190903204645.25487-1-lyude-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/nouveau>,
- <mailto:nouveau-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/nouveau>
-List-Post: <mailto:nouveau-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:nouveau-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/nouveau>,
- <mailto:nouveau-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: nouveau-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "Nouveau" <nouveau-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, nouveau-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Sean Paul <sean-p7yTbzM4H96eqtR555YLDQ@public.gmane.org>, David Airlie <airlied-cv59FeDIM0c@public.gmane.org>, Imre Deak <imre.deak-ral2JQCrhuEAvxtiuMwx3w@public.gmane.org>, Maarten Lankhorst <maarten.lankhorst-VuQAYsv1563Yd54FQh9/CA@public.gmane.org>, linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, Maxime Ripard <mripard-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org>, Juston Li <juston.li-ral2JQCrhuEAvxtiuMwx3w@public.gmane.org>, Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>, Harry Wentland <hwentlan-5C7GfCeVMHo@public.gmane.org>, =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala-VuQAYsv1563Yd54FQh9/CA@public.gmane.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20190903204645.25487-1-lyude@redhat.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+Cc: Juston Li <juston.li@intel.com>, Imre Deak <imre.deak@intel.com>, =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>, Harry Wentland <hwentlan@amd.com>, Daniel Vetter <daniel.vetter@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, Sean Paul <sean@poorly.run>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, linux-kernel@vger.kernel.org
 List-Id: amd-gfx.lists.freedesktop.org
 
-VGhlIG5hbWVzIGZvciB0aGVzZSBmdW5jdGlvbnMgYXJlIHJhdGhlciBjb25mdXNpbmcuIGRybV9k
-cF9hZGRfcG9ydCgpCnNvdW5kcyBsaWtlIGEgZnVuY3Rpb24gdGhhdCB3b3VsZCBzaW1wbHkgY3Jl
-YXRlIGEgcG9ydCBhbmQgYWRkIGl0IHRvIGEKdG9wb2xvZ3ksIGFuZCBkbyBub3RoaW5nIG1vcmUu
-IFNpbWlsYXJseSwgZHJtX2RwX3VwZGF0ZV9wb3J0KCkgd291bGQgYmUKYXNzdW1lZCB0byBiZSB0
-aGUgZnVuY3Rpb24gdGhhdCBzaG91bGQgYmUgdXNlZCB0byB1cGRhdGUgcG9ydAppbmZvcm1hdGlv
-biBhZnRlciBpbml0aWFsIGNyZWF0aW9uLgoKV2hpbGUgdGhvc2UgYXNzdW1wdGlvbnMgYXJlIGN1
-cnJlbnRseSBjb3JyZWN0IGluIGhvdyB0aGVzZSBmdW5jdGlvbnMgYXJlCnVzZWQsIGEgcXVpY2sg
-Z2xhbmNlIGF0IGRybV9kcF9hZGRfcG9ydCgpIHJldmVhbHMgdGhhdCBkcm1fZHBfYWRkX3BvcnQo
-KQpjYW4gYWxzbyB1cGRhdGUgdGhlIGluZm9ybWF0aW9uIG9uIGEgcG9ydCwgYW5kIHNlZW1zIGV4
-cGxpY2l0bHkgZGVzaWduZWQKdG8gZG8gc28uIFRoaXMgY2FuIGJlIGV4cGxhaW5lZCBwcmV0dHkg
-c2ltcGx5IGJ5IHRoZSBmYWN0IHRoYXQgdGhlcmUncwptb3JlIHNpdHVhdGlvbnMgdGhhdCB3b3Vs
-ZCBpbnZvbHZlIHVwZGF0aW5nIHRoZSBwb3J0IGluZm9ybWF0aW9uIGJhc2VkCm9uIGEgbGluayBh
-ZGRyZXNzIHJlc3BvbnNlIGFzIG9wcG9zZWQgdG8gYSBjb25uZWN0aW9uIHN0YXR1cwpub3RpZmlj
-YXRpb24gdGhhbiB0aGUgZHJpdmVyJ3MgaW5pdGlhbCB0b3BvbG9neSBwcm9iZS4gQ2FzZSBpbiBw
-b2ludDoKcmVwcm9iaW5nIGxpbmsgYWRkcmVzc2VzIGFmdGVyIHN1c3BlbmQvcmVzdW1lLgoKU2lu
-Y2Ugd2UncmUgYWJvdXQgdG8gc3RhcnQgdXNpbmcgZHJtX2RwX2FkZF9wb3J0KCkgZGlmZmVyZW50
-bHkgZm9yCnN1c3BlbmQvcmVzdW1lIHJlcHJvYmluZywgbGV0J3MgcmVuYW1lIGJvdGggZnVuY3Rp
-b25zIHRvIGNsYXJpZnkgd2hhdAp0aGV5IGFjdHVhbGx5IGRvLgoKQ2M6IEp1c3RvbiBMaSA8anVz
-dG9uLmxpQGludGVsLmNvbT4KQ2M6IEltcmUgRGVhayA8aW1yZS5kZWFrQGludGVsLmNvbT4KQ2M6
-IFZpbGxlIFN5cmrDpGzDpCA8dmlsbGUuc3lyamFsYUBsaW51eC5pbnRlbC5jb20+CkNjOiBIYXJy
-eSBXZW50bGFuZCA8aHdlbnRsYW5AYW1kLmNvbT4KQ2M6IERhbmllbCBWZXR0ZXIgPGRhbmllbC52
-ZXR0ZXJAZmZ3bGwuY2g+ClNpZ25lZC1vZmYtYnk6IEx5dWRlIFBhdWwgPGx5dWRlQHJlZGhhdC5j
-b20+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2RybV9kcF9tc3RfdG9wb2xvZ3kuYyB8IDE3ICsrKysr
-KysrKystLS0tLS0tCiAxIGZpbGUgY2hhbmdlZCwgMTAgaW5zZXJ0aW9ucygrKSwgNyBkZWxldGlv
-bnMoLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vZHJtX2RwX21zdF90b3BvbG9neS5j
-IGIvZHJpdmVycy9ncHUvZHJtL2RybV9kcF9tc3RfdG9wb2xvZ3kuYwppbmRleCA5OTQ0ZWYyY2U4
-ODUuLmNmYWY5ZWI3YWNlOSAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2RybV9kcF9tc3Rf
-dG9wb2xvZ3kuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vZHJtX2RwX21zdF90b3BvbG9neS5jCkBA
-IC0xOTAwLDkgKzE5MDAsMTAgQEAgdm9pZCBkcm1fZHBfbXN0X2Nvbm5lY3Rvcl9lYXJseV91bnJl
-Z2lzdGVyKHN0cnVjdCBkcm1fY29ubmVjdG9yICpjb25uZWN0b3IsCiB9CiBFWFBPUlRfU1lNQk9M
-KGRybV9kcF9tc3RfY29ubmVjdG9yX2Vhcmx5X3VucmVnaXN0ZXIpOwogCi1zdGF0aWMgdm9pZCBk
-cm1fZHBfYWRkX3BvcnQoc3RydWN0IGRybV9kcF9tc3RfYnJhbmNoICptc3RiLAotCQkJICAgIHN0
-cnVjdCBkcm1fZGV2aWNlICpkZXYsCi0JCQkgICAgc3RydWN0IGRybV9kcF9saW5rX2FkZHJfcmVw
-bHlfcG9ydCAqcG9ydF9tc2cpCitzdGF0aWMgdm9pZAorZHJtX2RwX21zdF9oYW5kbGVfbGlua19h
-ZGRyZXNzX3BvcnQoc3RydWN0IGRybV9kcF9tc3RfYnJhbmNoICptc3RiLAorCQkJCSAgICBzdHJ1
-Y3QgZHJtX2RldmljZSAqZGV2LAorCQkJCSAgICBzdHJ1Y3QgZHJtX2RwX2xpbmtfYWRkcl9yZXBs
-eV9wb3J0ICpwb3J0X21zZykKIHsKIAlzdHJ1Y3QgZHJtX2RwX21zdF90b3BvbG9neV9tZ3IgKm1n
-ciA9IG1zdGItPm1ncjsKIAlzdHJ1Y3QgZHJtX2RwX21zdF9wb3J0ICpwb3J0OwpAQCAtMjAxMSw4
-ICsyMDEyLDkgQEAgc3RhdGljIHZvaWQgZHJtX2RwX2FkZF9wb3J0KHN0cnVjdCBkcm1fZHBfbXN0
-X2JyYW5jaCAqbXN0YiwKIAlkcm1fZHBfbXN0X3RvcG9sb2d5X3B1dF9wb3J0KHBvcnQpOwogfQog
-Ci1zdGF0aWMgdm9pZCBkcm1fZHBfdXBkYXRlX3BvcnQoc3RydWN0IGRybV9kcF9tc3RfYnJhbmNo
-ICptc3RiLAotCQkJICAgICAgIHN0cnVjdCBkcm1fZHBfY29ubmVjdGlvbl9zdGF0dXNfbm90aWZ5
-ICpjb25uX3N0YXQpCitzdGF0aWMgdm9pZAorZHJtX2RwX21zdF9oYW5kbGVfY29ubl9zdGF0KHN0
-cnVjdCBkcm1fZHBfbXN0X2JyYW5jaCAqbXN0YiwKKwkJCSAgICBzdHJ1Y3QgZHJtX2RwX2Nvbm5l
-Y3Rpb25fc3RhdHVzX25vdGlmeSAqY29ubl9zdGF0KQogewogCXN0cnVjdCBkcm1fZHBfbXN0X3Bv
-cnQgKnBvcnQ7CiAJaW50IG9sZF9kZHBzOwpAQCAtMjQ2NCw3ICsyNDY2LDggQEAgc3RhdGljIHZv
-aWQgZHJtX2RwX3NlbmRfbGlua19hZGRyZXNzKHN0cnVjdCBkcm1fZHBfbXN0X3RvcG9sb2d5X21n
-ciAqbWdyLAogCWRybV9kcF9jaGVja19tc3RiX2d1aWQobXN0YiwgcmVwbHktPmd1aWQpOwogCiAJ
-Zm9yIChpID0gMDsgaSA8IHJlcGx5LT5ucG9ydHM7IGkrKykKLQkJZHJtX2RwX2FkZF9wb3J0KG1z
-dGIsIG1nci0+ZGV2LCAmcmVwbHktPnBvcnRzW2ldKTsKKwkJZHJtX2RwX21zdF9oYW5kbGVfbGlu
-a19hZGRyZXNzX3BvcnQobXN0YiwgbWdyLT5kZXYsCisJCQkJCQkgICAgJnJlcGx5LT5wb3J0c1tp
-XSk7CiAKIAlkcm1fa21zX2hlbHBlcl9ob3RwbHVnX2V2ZW50KG1nci0+ZGV2KTsKIApAQCAtMzMy
-NCw3ICszMzI3LDcgQEAgc3RhdGljIGludCBkcm1fZHBfbXN0X2hhbmRsZV91cF9yZXEoc3RydWN0
-IGRybV9kcF9tc3RfdG9wb2xvZ3lfbWdyICptZ3IpCiAJfQogCiAJaWYgKG1zZy5yZXFfdHlwZSA9
-PSBEUF9DT05ORUNUSU9OX1NUQVRVU19OT1RJRlkpIHsKLQkJZHJtX2RwX3VwZGF0ZV9wb3J0KG1z
-dGIsICZtc2cudS5jb25uX3N0YXQpOworCQlkcm1fZHBfbXN0X2hhbmRsZV9jb25uX3N0YXQobXN0
-YiwgJm1zZy51LmNvbm5fc3RhdCk7CiAKIAkJRFJNX0RFQlVHX0tNUygiR290IENTTjogcG46ICVk
-IGxkcHM6JWQgZGRwczogJWQgbWNzOiAlZCBpcDogJWQgcGR0OiAlZFxuIiwKIAkJCSAgICAgIG1z
-Zy51LmNvbm5fc3RhdC5wb3J0X251bWJlciwKLS0gCjIuMjEuMAoKX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTm91dmVhdSBtYWlsaW5nIGxpc3QKTm91dmVh
-dUBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFp
-bG1hbi9saXN0aW5mby9ub3V2ZWF1
+This probably hasn't caused any problems up until now since it's
+probably nearly impossible to encounter this in the wild, however if we
+were to receive a connection status notification from the MST hub after
+resume while we're in the middle of reprobing the link addresses for a
+topology then there's a much larger chance that a port could have
+changed from being an output port to input port (or vice versa). If we
+forget to update this bit of information, we'll potentially ignore a
+valid PDT change on a downstream port because we think it's an input
+port.
+
+So, make sure we read the input_port field in connection status
+notifications in drm_dp_mst_handle_conn_stat() to prevent this from
+happening once we've implemented suspend/resume reprobing.
+
+Cc: Juston Li <juston.li@intel.com>
+Cc: Imre Deak <imre.deak@intel.com>
+Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
+Cc: Harry Wentland <hwentlan@amd.com>
+Cc: Daniel Vetter <daniel.vetter@ffwll.ch>
+Signed-off-by: Lyude Paul <lyude@redhat.com>
+---
+ drivers/gpu/drm/drm_dp_mst_topology.c | 51 +++++++++++++++++++--------
+ 1 file changed, 37 insertions(+), 14 deletions(-)
+
+diff --git a/drivers/gpu/drm/drm_dp_mst_topology.c b/drivers/gpu/drm/drm_dp_mst_topology.c
+index 259634c5d6dc..e407aba1fbd2 100644
+--- a/drivers/gpu/drm/drm_dp_mst_topology.c
++++ b/drivers/gpu/drm/drm_dp_mst_topology.c
+@@ -2078,18 +2078,23 @@ static void
+ drm_dp_mst_handle_conn_stat(struct drm_dp_mst_branch *mstb,
+ 			    struct drm_dp_connection_status_notify *conn_stat)
+ {
+-	struct drm_device *dev = mstb->mgr->dev;
++	struct drm_dp_mst_topology_mgr *mgr = mstb->mgr;
++	struct drm_device *dev = mgr->dev;
+ 	struct drm_dp_mst_port *port;
+-	int old_ddps;
+-	bool dowork = false;
++	struct drm_connector *connector_to_destroy = NULL;
++	int old_ddps, ret;
++	u8 new_pdt;
++	bool dowork = false, create_connector = false;
+ 
+ 	port = drm_dp_get_port(mstb, conn_stat->port_number);
+ 	if (!port)
+ 		return;
+ 
++	mutex_lock(&port->lock);
+ 	drm_modeset_lock(&dev->mode_config.connection_mutex, NULL);
+ 
+ 	old_ddps = port->ddps;
++	port->input = conn_stat->input_port;
+ 	port->mcs = conn_stat->message_capability_status;
+ 	port->ldps = conn_stat->legacy_device_plug_status;
+ 	port->ddps = conn_stat->displayport_device_plug_status;
+@@ -2102,23 +2107,41 @@ drm_dp_mst_handle_conn_stat(struct drm_dp_mst_branch *mstb,
+ 		}
+ 	}
+ 
+-	if (!port->input) {
+-		int ret = drm_dp_port_set_pdt(port,
+-					      conn_stat->peer_device_type);
+-		if (ret == 1) {
+-			dowork = true;
+-		} else if (ret < 0) {
+-			DRM_ERROR("Failed to change PDT for port %p: %d\n",
+-				  port, ret);
+-			dowork = false;
+-		}
++	new_pdt = port->input ? DP_PEER_DEVICE_NONE : conn_stat->peer_device_type;
++
++	ret = drm_dp_port_set_pdt(port, new_pdt);
++	if (ret == 1) {
++		dowork = true;
++	} else if (ret < 0) {
++		DRM_ERROR("Failed to change PDT for port %p: %d\n",
++			  port, ret);
++		dowork = false;
++	}
++
++	/*
++	 * We unset port->connector before dropping connection_mutex so that
++	 * there's no chance any of the atomic MST helpers can accidentally
++	 * associate a to-be-destroyed connector with a port.
++	 */
++	if (port->connector && port->input) {
++		connector_to_destroy = port->connector;
++		port->connector = NULL;
++	} else if (!port->connector && !port->input) {
++		create_connector = true;
+ 	}
+ 
+ 	drm_modeset_unlock(&dev->mode_config.connection_mutex);
++
++	if (connector_to_destroy)
++		mgr->cbs->destroy_connector(mgr, connector_to_destroy);
++	else if (create_connector)
++		drm_dp_mst_port_add_connector(mstb, port);
++
++	mutex_unlock(&port->lock);
++
+ 	drm_dp_mst_topology_put_port(port);
+ 	if (dowork)
+ 		queue_work(system_long_wq, &mstb->mgr->work);
+-
+ }
+ 
+ static struct drm_dp_mst_branch *drm_dp_get_mst_branch_device(struct drm_dp_mst_topology_mgr *mgr,
+-- 
+2.21.0
