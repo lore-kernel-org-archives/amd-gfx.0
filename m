@@ -1,55 +1,112 @@
-From: Lyude Paul <lyude@redhat.com>
-Subject: [PATCH v2 24/27] drm/amdgpu/dm: Resume short HPD IRQs before resuming MST topology
-Date: Tue,  3 Sep 2019 16:46:02 -0400
-Message-ID: <20190903204645.25487-25-lyude@redhat.com>
+From: Lyude Paul <lyude-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>
+Subject: [PATCH v2 26/27] drm/dp_mst: Also print unhashed pointers
+ for malloc/topology references
+Date: Tue,  3 Sep 2019 16:46:04 -0400
+Message-ID: <20190903204645.25487-27-lyude@redhat.com>
 References: <20190903204645.25487-1-lyude@redhat.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20190903204645.25487-1-lyude@redhat.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-Cc: Juston Li <juston.li@intel.com>, Imre Deak <imre.deak@intel.com>, =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>, Harry Wentland <hwentlan@amd.com>, Daniel Vetter <daniel.vetter@ffwll.ch>, Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>, David Francis <David.Francis@amd.com>, Mario Kleiner <mario.kleiner.de@gmail.com>, Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <nouveau-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20190903204645.25487-1-lyude-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/nouveau>,
+ <mailto:nouveau-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/nouveau>
+List-Post: <mailto:nouveau-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:nouveau-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/nouveau>,
+ <mailto:nouveau-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: nouveau-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "Nouveau" <nouveau-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, nouveau-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Sean Paul <sean-p7yTbzM4H96eqtR555YLDQ@public.gmane.org>, David Airlie <airlied-cv59FeDIM0c@public.gmane.org>, Imre Deak <imre.deak-ral2JQCrhuEAvxtiuMwx3w@public.gmane.org>, Maarten Lankhorst <maarten.lankhorst-VuQAYsv1563Yd54FQh9/CA@public.gmane.org>, linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, Maxime Ripard <mripard-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org>, Juston Li <juston.li-ral2JQCrhuEAvxtiuMwx3w@public.gmane.org>, Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>, Harry Wentland <hwentlan-5C7GfCeVMHo@public.gmane.org>, =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala-VuQAYsv1563Yd54FQh9/CA@public.gmane.org>
 List-Id: amd-gfx.lists.freedesktop.org
 
-Since we're going to be reprobing the entire topology state on resume
-now using sideband transactions, we need to ensure that we actually have
-short HPD irqs enabled before calling drm_dp_mst_topology_mgr_resume().
-So, do that.
-
-Cc: Juston Li <juston.li@intel.com>
-Cc: Imre Deak <imre.deak@intel.com>
-Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
-Cc: Harry Wentland <hwentlan@amd.com>
-Cc: Daniel Vetter <daniel.vetter@ffwll.ch>
-Signed-off-by: Lyude Paul <lyude@redhat.com>
----
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 73630e2940d4..4d3c8bff77da 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -1185,15 +1185,15 @@ static int dm_resume(void *handle)
- 	/* program HPD filter */
- 	dc_resume(dm->dc);
- 
--	/* On resume we need to  rewrite the MSTM control bits to enamble MST*/
--	s3_handle_mst(ddev, false);
--
- 	/*
- 	 * early enable HPD Rx IRQ, should be done before set mode as short
- 	 * pulse interrupts are used for MST
- 	 */
- 	amdgpu_dm_irq_resume_early(adev);
- 
-+	/* On resume we need to  rewrite the MSTM control bits to enamble MST*/
-+	s3_handle_mst(ddev, false);
-+
- 	/* Do detection*/
- 	drm_connector_list_iter_begin(ddev, &iter);
- 	drm_for_each_connector_iter(connector, &iter) {
--- 
-2.21.0
+Q3VycmVudGx5IHdlIG9ubHkgcHJpbnQgbXN0Yi9wb3J0IHBvaW50ZXIgYWRkcmVzc2VzIGluIG91
+ciBtYWxsb2MgYW5kCnRvcG9sb2d5IHJlZmNvdW50IGZ1bmN0aW9ucyB1c2luZyB0aGUgaGFzaGVk
+LWJ5LWRlZmF1bHQgJXAsIGJ1dAp1bmZvcnR1bmF0ZWx5IGlmIHlvdSdyZSB0cnlpbmcgdG8gZGVi
+dWcgYSB1c2UtYWZ0ZXItZnJlZSBlcnJvciBjYXVzZWQgYnkKYSByZWZjb3VudGluZyBlcnJvciB0
+aGVuIHRoaXMgcmVhbGx5IGlzbid0IHRlcnJpYmx5IHVzZWZ1bC4gT24gdGhlIG90aGVyCmhhbmQg
+dGhvdWdoLCBldmVyeXRoaW5nIGluIHRoZSByZXN0IG9mIHRoZSBEUCBNU1QgaGVscGVycyB1c2Vz
+IGhhc2hlZApwb2ludGVyIHZhbHVlcyBhcyB3ZWxsIGFuZCBwcm9iYWJseSBpc24ndCB1c2VmdWwg
+dG8gY29udmVydCB0byB1bmhhc2hlZC4KU28sIGxldCdzIGp1c3QgZ2V0IHRoZSBiZXN0IG9mIGJv
+dGggd29ybGRzIGFuZCBwcmludCBib3RoIHRoZSBoYXNoZWQgYW5kCnVuaGFzaGVkIHBvaW50ZXIg
+aW4gb3VyIG1hbGxvYy90b3BvbG9neSByZWZjb3VudCBkZWJ1Z2dpbmcgb3V0cHV0LiBUaGlzCndp
+bGwgaG9wZWZ1bGx5IG1ha2UgaXQgYSBsb3QgZWFzaWVyIHRvIGZpZ3VyZSBvdXQgd2hpY2ggcG9y
+dC9tc3RiIGlzCmNhdXNpbmcgS0FTQU4gdG8gZ2V0IHVwc2V0LgoKQ2M6IEp1c3RvbiBMaSA8anVz
+dG9uLmxpQGludGVsLmNvbT4KQ2M6IEltcmUgRGVhayA8aW1yZS5kZWFrQGludGVsLmNvbT4KQ2M6
+IFZpbGxlIFN5cmrDpGzDpCA8dmlsbGUuc3lyamFsYUBsaW51eC5pbnRlbC5jb20+CkNjOiBIYXJy
+eSBXZW50bGFuZCA8aHdlbnRsYW5AYW1kLmNvbT4KQ2M6IERhbmllbCBWZXR0ZXIgPGRhbmllbC52
+ZXR0ZXJAZmZ3bGwuY2g+ClNpZ25lZC1vZmYtYnk6IEx5dWRlIFBhdWwgPGx5dWRlQHJlZGhhdC5j
+b20+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2RybV9kcF9tc3RfdG9wb2xvZ3kuYyB8IDM0ICsrKysr
+KysrKysrKysrKystLS0tLS0tLS0tLQogMSBmaWxlIGNoYW5nZWQsIDIwIGluc2VydGlvbnMoKyks
+IDE0IGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9kcm1fZHBfbXN0
+X3RvcG9sb2d5LmMgYi9kcml2ZXJzL2dwdS9kcm0vZHJtX2RwX21zdF90b3BvbG9neS5jCmluZGV4
+IDJmZTI0ZTM2NjkyNS4uNWI1YzBiM2IzYzBlIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0v
+ZHJtX2RwX21zdF90b3BvbG9neS5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9kcm1fZHBfbXN0X3Rv
+cG9sb2d5LmMKQEAgLTEzMjcsNyArMTMyNyw4IEBAIHN0YXRpYyB2b2lkCiBkcm1fZHBfbXN0X2dl
+dF9tc3RiX21hbGxvYyhzdHJ1Y3QgZHJtX2RwX21zdF9icmFuY2ggKm1zdGIpCiB7CiAJa3JlZl9n
+ZXQoJm1zdGItPm1hbGxvY19rcmVmKTsKLQlEUk1fREVCVUcoIm1zdGIgJXAgKCVkKVxuIiwgbXN0
+Yiwga3JlZl9yZWFkKCZtc3RiLT5tYWxsb2Nfa3JlZikpOworCURSTV9ERUJVRygibXN0YiAlcC8l
+cHggKCVkKVxuIiwKKwkJICBtc3RiLCBtc3RiLCBrcmVmX3JlYWQoJm1zdGItPm1hbGxvY19rcmVm
+KSk7CiB9CiAKIC8qKgpAQCAtMTM0NCw3ICsxMzQ1LDggQEAgZHJtX2RwX21zdF9nZXRfbXN0Yl9t
+YWxsb2Moc3RydWN0IGRybV9kcF9tc3RfYnJhbmNoICptc3RiKQogc3RhdGljIHZvaWQKIGRybV9k
+cF9tc3RfcHV0X21zdGJfbWFsbG9jKHN0cnVjdCBkcm1fZHBfbXN0X2JyYW5jaCAqbXN0YikKIHsK
+LQlEUk1fREVCVUcoIm1zdGIgJXAgKCVkKVxuIiwgbXN0Yiwga3JlZl9yZWFkKCZtc3RiLT5tYWxs
+b2Nfa3JlZikgLSAxKTsKKwlEUk1fREVCVUcoIm1zdGIgJXAvJXB4ICglZClcbiIsCisJCSAgbXN0
+YiwgbXN0Yiwga3JlZl9yZWFkKCZtc3RiLT5tYWxsb2Nfa3JlZikgLSAxKTsKIAlrcmVmX3B1dCgm
+bXN0Yi0+bWFsbG9jX2tyZWYsIGRybV9kcF9mcmVlX21zdF9icmFuY2hfZGV2aWNlKTsKIH0KIApA
+QCAtMTM3OSw3ICsxMzgxLDggQEAgdm9pZAogZHJtX2RwX21zdF9nZXRfcG9ydF9tYWxsb2Moc3Ry
+dWN0IGRybV9kcF9tc3RfcG9ydCAqcG9ydCkKIHsKIAlrcmVmX2dldCgmcG9ydC0+bWFsbG9jX2ty
+ZWYpOwotCURSTV9ERUJVRygicG9ydCAlcCAoJWQpXG4iLCBwb3J0LCBrcmVmX3JlYWQoJnBvcnQt
+Pm1hbGxvY19rcmVmKSk7CisJRFJNX0RFQlVHKCJwb3J0ICVwLyVweCAoJWQpXG4iLAorCQkgIHBv
+cnQsIHBvcnQsIGtyZWZfcmVhZCgmcG9ydC0+bWFsbG9jX2tyZWYpKTsKIH0KIEVYUE9SVF9TWU1C
+T0woZHJtX2RwX21zdF9nZXRfcG9ydF9tYWxsb2MpOwogCkBAIC0xMzk2LDcgKzEzOTksOCBAQCBF
+WFBPUlRfU1lNQk9MKGRybV9kcF9tc3RfZ2V0X3BvcnRfbWFsbG9jKTsKIHZvaWQKIGRybV9kcF9t
+c3RfcHV0X3BvcnRfbWFsbG9jKHN0cnVjdCBkcm1fZHBfbXN0X3BvcnQgKnBvcnQpCiB7Ci0JRFJN
+X0RFQlVHKCJwb3J0ICVwICglZClcbiIsIHBvcnQsIGtyZWZfcmVhZCgmcG9ydC0+bWFsbG9jX2ty
+ZWYpIC0gMSk7CisJRFJNX0RFQlVHKCJwb3J0ICVwLyVweCAoJWQpXG4iLAorCQkgIHBvcnQsIHBv
+cnQsIGtyZWZfcmVhZCgmcG9ydC0+bWFsbG9jX2tyZWYpIC0gMSk7CiAJa3JlZl9wdXQoJnBvcnQt
+Pm1hbGxvY19rcmVmLCBkcm1fZHBfZnJlZV9tc3RfcG9ydCk7CiB9CiBFWFBPUlRfU1lNQk9MKGRy
+bV9kcF9tc3RfcHV0X3BvcnRfbWFsbG9jKTsKQEAgLTE0NDcsOCArMTQ1MSw4IEBAIGRybV9kcF9t
+c3RfdG9wb2xvZ3lfdHJ5X2dldF9tc3RiKHN0cnVjdCBkcm1fZHBfbXN0X2JyYW5jaCAqbXN0YikK
+IAlpbnQgcmV0ID0ga3JlZl9nZXRfdW5sZXNzX3plcm8oJm1zdGItPnRvcG9sb2d5X2tyZWYpOwog
+CiAJaWYgKHJldCkKLQkJRFJNX0RFQlVHKCJtc3RiICVwICglZClcbiIsIG1zdGIsCi0JCQkgIGty
+ZWZfcmVhZCgmbXN0Yi0+dG9wb2xvZ3lfa3JlZikpOworCQlEUk1fREVCVUcoIm1zdGIgJXAvJXB4
+ICglZClcbiIsCisJCQkgIG1zdGIsIG1zdGIsIGtyZWZfcmVhZCgmbXN0Yi0+dG9wb2xvZ3lfa3Jl
+ZikpOwogCiAJcmV0dXJuIHJldDsKIH0KQEAgLTE0NzEsNyArMTQ3NSw4IEBAIHN0YXRpYyB2b2lk
+IGRybV9kcF9tc3RfdG9wb2xvZ3lfZ2V0X21zdGIoc3RydWN0IGRybV9kcF9tc3RfYnJhbmNoICpt
+c3RiKQogewogCVdBUk5fT04oa3JlZl9yZWFkKCZtc3RiLT50b3BvbG9neV9rcmVmKSA9PSAwKTsK
+IAlrcmVmX2dldCgmbXN0Yi0+dG9wb2xvZ3lfa3JlZik7Ci0JRFJNX0RFQlVHKCJtc3RiICVwICgl
+ZClcbiIsIG1zdGIsIGtyZWZfcmVhZCgmbXN0Yi0+dG9wb2xvZ3lfa3JlZikpOworCURSTV9ERUJV
+RygibXN0YiAlcC8lcHggKCVkKVxuIiwKKwkJICBtc3RiLCBtc3RiLCBrcmVmX3JlYWQoJm1zdGIt
+PnRvcG9sb2d5X2tyZWYpKTsKIH0KIAogLyoqCkBAIC0xNDg5LDggKzE0OTQsOCBAQCBzdGF0aWMg
+dm9pZCBkcm1fZHBfbXN0X3RvcG9sb2d5X2dldF9tc3RiKHN0cnVjdCBkcm1fZHBfbXN0X2JyYW5j
+aCAqbXN0YikKIHN0YXRpYyB2b2lkCiBkcm1fZHBfbXN0X3RvcG9sb2d5X3B1dF9tc3RiKHN0cnVj
+dCBkcm1fZHBfbXN0X2JyYW5jaCAqbXN0YikKIHsKLQlEUk1fREVCVUcoIm1zdGIgJXAgKCVkKVxu
+IiwKLQkJICBtc3RiLCBrcmVmX3JlYWQoJm1zdGItPnRvcG9sb2d5X2tyZWYpIC0gMSk7CisJRFJN
+X0RFQlVHKCJtc3RiICVwLyVweCAoJWQpXG4iLAorCQkgIG1zdGIsIG1zdGIsIGtyZWZfcmVhZCgm
+bXN0Yi0+dG9wb2xvZ3lfa3JlZikgLSAxKTsKIAlrcmVmX3B1dCgmbXN0Yi0+dG9wb2xvZ3lfa3Jl
+ZiwgZHJtX2RwX2Rlc3Ryb3lfbXN0X2JyYW5jaF9kZXZpY2UpOwogfQogCkBAIC0xNTQ2LDggKzE1
+NTEsOCBAQCBkcm1fZHBfbXN0X3RvcG9sb2d5X3RyeV9nZXRfcG9ydChzdHJ1Y3QgZHJtX2RwX21z
+dF9wb3J0ICpwb3J0KQogCWludCByZXQgPSBrcmVmX2dldF91bmxlc3NfemVybygmcG9ydC0+dG9w
+b2xvZ3lfa3JlZik7CiAKIAlpZiAocmV0KQotCQlEUk1fREVCVUcoInBvcnQgJXAgKCVkKVxuIiwg
+cG9ydCwKLQkJCSAga3JlZl9yZWFkKCZwb3J0LT50b3BvbG9neV9rcmVmKSk7CisJCURSTV9ERUJV
+RygicG9ydCAlcC8lcHggKCVkKVxuIiwKKwkJCSAgcG9ydCwgcG9ydCwga3JlZl9yZWFkKCZwb3J0
+LT50b3BvbG9neV9rcmVmKSk7CiAKIAlyZXR1cm4gcmV0OwogfQpAQCAtMTU2OSw3ICsxNTc0LDgg
+QEAgc3RhdGljIHZvaWQgZHJtX2RwX21zdF90b3BvbG9neV9nZXRfcG9ydChzdHJ1Y3QgZHJtX2Rw
+X21zdF9wb3J0ICpwb3J0KQogewogCVdBUk5fT04oa3JlZl9yZWFkKCZwb3J0LT50b3BvbG9neV9r
+cmVmKSA9PSAwKTsKIAlrcmVmX2dldCgmcG9ydC0+dG9wb2xvZ3lfa3JlZik7Ci0JRFJNX0RFQlVH
+KCJwb3J0ICVwICglZClcbiIsIHBvcnQsIGtyZWZfcmVhZCgmcG9ydC0+dG9wb2xvZ3lfa3JlZikp
+OworCURSTV9ERUJVRygicG9ydCAlcC8lcHggKCVkKVxuIiwKKwkJICBwb3J0LCBwb3J0LCBrcmVm
+X3JlYWQoJnBvcnQtPnRvcG9sb2d5X2tyZWYpKTsKIH0KIAogLyoqCkBAIC0xNTg1LDggKzE1OTEs
+OCBAQCBzdGF0aWMgdm9pZCBkcm1fZHBfbXN0X3RvcG9sb2d5X2dldF9wb3J0KHN0cnVjdCBkcm1f
+ZHBfbXN0X3BvcnQgKnBvcnQpCiAgKi8KIHN0YXRpYyB2b2lkIGRybV9kcF9tc3RfdG9wb2xvZ3lf
+cHV0X3BvcnQoc3RydWN0IGRybV9kcF9tc3RfcG9ydCAqcG9ydCkKIHsKLQlEUk1fREVCVUcoInBv
+cnQgJXAgKCVkKVxuIiwKLQkJICBwb3J0LCBrcmVmX3JlYWQoJnBvcnQtPnRvcG9sb2d5X2tyZWYp
+IC0gMSk7CisJRFJNX0RFQlVHKCJwb3J0ICVwLyVweCAoJWQpXG4iLAorCQkgIHBvcnQsIHBvcnQs
+IGtyZWZfcmVhZCgmcG9ydC0+dG9wb2xvZ3lfa3JlZikgLSAxKTsKIAlrcmVmX3B1dCgmcG9ydC0+
+dG9wb2xvZ3lfa3JlZiwgZHJtX2RwX2Rlc3Ryb3lfcG9ydCk7CiB9CiAKLS0gCjIuMjEuMAoKX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTm91dmVhdSBtYWls
+aW5nIGxpc3QKTm91dmVhdUBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVl
+ZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9ub3V2ZWF1
