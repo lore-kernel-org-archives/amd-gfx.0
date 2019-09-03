@@ -1,100 +1,47 @@
-From: "Gui, Jack" <Jack.Gui-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH] drm/amd/powerplay: do proper cleanups on hw_fini
-Date: Tue, 3 Sep 2019 05:16:37 +0000
-Message-ID: <DM5PR12MB2583BF7FB6A6C26295003C518BB90@DM5PR12MB2583.namprd12.prod.outlook.com>
-References: <20190903034336.16005-1-evan.quan@amd.com>
+From: zhong jiang <zhongjiang@huawei.com>
+Subject: [PATCH] drm/amdgpu: remove the redundant null check
+Date: Tue, 3 Sep 2019 14:15:05 +0800
+Message-ID: <1567491305-18320-1-git-send-email-zhongjiang@huawei.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190903034336.16005-1-evan.quan-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Quan, Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Li, Candice" <Candice.Li-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: airlied@linux.ie, daniel@ffwll.ch
+Cc: alexander.deucher@amd.com, christian.koenig@amd.com, David1.Zhou@amd.com, amd-gfx@lists.freedesktop.org, zhongjiang@huawei.com, linux-kernel@vger.kernel.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-UmV2aWV3ZWQtYnk6IEphY2sgR3VpIDxKYWNrLkd1aUBhbWQuY29tPgoKLS0tLS1PcmlnaW5hbCBN
-ZXNzYWdlLS0tLS0KRnJvbTogUXVhbiwgRXZhbiA8RXZhbi5RdWFuQGFtZC5jb20+IApTZW50OiBU
-dWVzZGF5LCBTZXB0ZW1iZXIgMywgMjAxOSAxMTo0NCBBTQpUbzogYW1kLWdmeEBsaXN0cy5mcmVl
-ZGVza3RvcC5vcmcKQ2M6IExpLCBDYW5kaWNlIDxDYW5kaWNlLkxpQGFtZC5jb20+OyBHdWksIEph
-Y2sgPEphY2suR3VpQGFtZC5jb20+OyBRdWFuLCBFdmFuIDxFdmFuLlF1YW5AYW1kLmNvbT4KU3Vi
-amVjdDogW1BBVENIXSBkcm0vYW1kL3Bvd2VycGxheTogZG8gcHJvcGVyIGNsZWFudXBzIG9uIGh3
-X2ZpbmkKClRoZXNlIGFyZSBuZWVkZWQgZm9yIHNtdV9yZXNldCBzdXBwb3J0LgoKQ2hhbmdlLUlk
-OiBJZjI5ZWRlNGI5OTc1OGFkYjA4ZmQ0ZTE2NjY1ZjQ0ZmQ4OTNlYzk5YgpTaWduZWQtb2ZmLWJ5
-OiBFdmFuIFF1YW4gPGV2YW4ucXVhbkBhbWQuY29tPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQv
-cG93ZXJwbGF5L2FtZGdwdV9zbXUuYyAgICAgfCAxNyArKysrKysrKysrKysrKysrKwogZHJpdmVy
-cy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaW5jL2FtZGdwdV9zbXUuaCB8ICAzICsrKwogZHJpdmVy
-cy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvc211X3YxMV8wLmMgICAgICB8IDEwICsrKysrKysrKysK
-IDMgZmlsZXMgY2hhbmdlZCwgMzAgaW5zZXJ0aW9ucygrKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMv
-Z3B1L2RybS9hbWQvcG93ZXJwbGF5L2FtZGdwdV9zbXUuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-cG93ZXJwbGF5L2FtZGdwdV9zbXUuYwppbmRleCBkNWVlMTNhNzhlYjcuLjNjZjhkOTQ0Zjg5MCAx
-MDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvYW1kZ3B1X3NtdS5jCisr
-KyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2FtZGdwdV9zbXUuYwpAQCAtMTI4Niw2
-ICsxMjg2LDExIEBAIHN0YXRpYyBpbnQgc211X2h3X2luaXQodm9pZCAqaGFuZGxlKQogCXJldHVy
-biByZXQ7CiB9CiAKK3N0YXRpYyBpbnQgc211X3N0b3BfZHBtcyhzdHJ1Y3Qgc211X2NvbnRleHQg
-KnNtdSkgeworCXJldHVybiBzbXVfc2VuZF9zbWNfbXNnKHNtdSwgU01VX01TR19EaXNhYmxlQWxs
-U211RmVhdHVyZXMpOyB9CisKIHN0YXRpYyBpbnQgc211X2h3X2Zpbmkodm9pZCAqaGFuZGxlKQog
-ewogCXN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2ID0gKHN0cnVjdCBhbWRncHVfZGV2aWNlICop
-aGFuZGxlOyBAQCAtMTI5OCw2ICsxMzAzLDE4IEBAIHN0YXRpYyBpbnQgc211X2h3X2Zpbmkodm9p
-ZCAqaGFuZGxlKQogCQlzbXVfcG93ZXJnYXRlX3ZjbigmYWRldi0+c211LCB0cnVlKTsKIAl9CiAK
-KwlyZXQgPSBzbXVfc3RvcF90aGVybWFsX2NvbnRyb2woc211KTsKKwlpZiAocmV0KSB7CisJCXBy
-X3dhcm4oIkZhaWwgdG8gc3RvcCB0aGVybWFsIGNvbnRyb2whXG4iKTsKKwkJcmV0dXJuIHJldDsK
-Kwl9CisKKwlyZXQgPSBzbXVfc3RvcF9kcG1zKHNtdSk7CisJaWYgKHJldCkgeworCQlwcl93YXJu
-KCJGYWlsIHRvIHN0b3AgRHBtcyFcbiIpOworCQlyZXR1cm4gcmV0OworCX0KKwogCWtmcmVlKHRh
-YmxlX2NvbnRleHQtPmRyaXZlcl9wcHRhYmxlKTsKIAl0YWJsZV9jb250ZXh0LT5kcml2ZXJfcHB0
-YWJsZSA9IE5VTEw7CiAKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5
-L2luYy9hbWRncHVfc211LmggYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9pbmMvYW1k
-Z3B1X3NtdS5oCmluZGV4IGIxOTIyNGNiNmQ2ZC4uOGU0YjBhZDI0NzEyIDEwMDY0NAotLS0gYS9k
-cml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9pbmMvYW1kZ3B1X3NtdS5oCisrKyBiL2RyaXZl
-cnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2luYy9hbWRncHVfc211LmgKQEAgLTQ5OCw2ICs0OTgs
-NyBAQCBzdHJ1Y3Qgc211X2Z1bmNzCiAJaW50ICgqZ2V0X2N1cnJlbnRfY2xrX2ZyZXEpKHN0cnVj
-dCBzbXVfY29udGV4dCAqc211LCBlbnVtIHNtdV9jbGtfdHlwZSBjbGtfaWQsIHVpbnQzMl90ICp2
-YWx1ZSk7CiAJaW50ICgqaW5pdF9tYXhfc3VzdGFpbmFibGVfY2xvY2tzKShzdHJ1Y3Qgc211X2Nv
-bnRleHQgKnNtdSk7CiAJaW50ICgqc3RhcnRfdGhlcm1hbF9jb250cm9sKShzdHJ1Y3Qgc211X2Nv
-bnRleHQgKnNtdSk7CisJaW50ICgqc3RvcF90aGVybWFsX2NvbnRyb2wpKHN0cnVjdCBzbXVfY29u
-dGV4dCAqc211KTsKIAlpbnQgKCpyZWFkX3NlbnNvcikoc3RydWN0IHNtdV9jb250ZXh0ICpzbXUs
-IGVudW0gYW1kX3BwX3NlbnNvcnMgc2Vuc29yLAogCQkJICAgdm9pZCAqZGF0YSwgdWludDMyX3Qg
-KnNpemUpOwogCWludCAoKnNldF9kZWVwX3NsZWVwX2RjZWZjbGspKHN0cnVjdCBzbXVfY29udGV4
-dCAqc211LCB1aW50MzJfdCBjbGspOyBAQCAtNjQ3LDYgKzY0OCw4IEBAIHN0cnVjdCBzbXVfZnVu
-Y3MKIAkoKHNtdSktPnBwdF9mdW5jcy0+c2V0X3RoZXJtYWxfZmFuX3RhYmxlID8gKHNtdSktPnBw
-dF9mdW5jcy0+c2V0X3RoZXJtYWxfZmFuX3RhYmxlKChzbXUpKSA6IDApICAjZGVmaW5lIHNtdV9z
-dGFydF90aGVybWFsX2NvbnRyb2woc211KSBcCiAJKChzbXUpLT5mdW5jcy0+c3RhcnRfdGhlcm1h
-bF9jb250cm9sPyAoc211KS0+ZnVuY3MtPnN0YXJ0X3RoZXJtYWxfY29udHJvbCgoc211KSkgOiAw
-KQorI2RlZmluZSBzbXVfc3RvcF90aGVybWFsX2NvbnRyb2woc211KSBcCisJKChzbXUpLT5mdW5j
-cy0+c3RvcF90aGVybWFsX2NvbnRyb2w/IAorKHNtdSktPmZ1bmNzLT5zdG9wX3RoZXJtYWxfY29u
-dHJvbCgoc211KSkgOiAwKQogI2RlZmluZSBzbXVfcmVhZF9zZW5zb3Ioc211LCBzZW5zb3IsIGRh
-dGEsIHNpemUpIFwKIAkoKHNtdSktPnBwdF9mdW5jcy0+cmVhZF9zZW5zb3I/IChzbXUpLT5wcHRf
-ZnVuY3MtPnJlYWRfc2Vuc29yKChzbXUpLCAoc2Vuc29yKSwgKGRhdGEpLCAoc2l6ZSkpIDogMCkg
-ICNkZWZpbmUgc211X3NtY19yZWFkX3NlbnNvcihzbXUsIHNlbnNvciwgZGF0YSwgc2l6ZSkgXCBk
-aWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvc211X3YxMV8wLmMgYi9k
-cml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9zbXVfdjExXzAuYwppbmRleCBkYjVlOTRjZTU0
-YWYuLjFhMzhhZjg0Mzk0ZSAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBs
-YXkvc211X3YxMV8wLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvc211X3Yx
-MV8wLmMKQEAgLTEyMDksNiArMTIwOSwxNSBAQCBzdGF0aWMgaW50IHNtdV92MTFfMF9zdGFydF90
-aGVybWFsX2NvbnRyb2woc3RydWN0IHNtdV9jb250ZXh0ICpzbXUpCiAJcmV0dXJuIHJldDsKIH0K
-IAorc3RhdGljIGludCBzbXVfdjExXzBfc3RvcF90aGVybWFsX2NvbnRyb2woc3RydWN0IHNtdV9j
-b250ZXh0ICpzbXUpIHsKKwlzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiA9IHNtdS0+YWRldjsK
-KworCVdSRUczMl9TT0MxNShUSE0sIDAsIG1tVEhNX1RIRVJNQUxfSU5UX0VOQSwgMCk7CisKKwly
-ZXR1cm4gMDsKK30KKwogc3RhdGljIHVpbnQxNl90IGNvbnZlcnRfdG9fdmRkYyh1aW50OF90IHZp
-ZCkgIHsKIAlyZXR1cm4gKHVpbnQxNl90KSAoKDYyMDAgLSAodmlkICogMjUpKSAvIFNNVTExX1ZP
-TFRBR0VfU0NBTEUpOyBAQCAtMTc4Myw2ICsxNzkyLDcgQEAgc3RhdGljIGNvbnN0IHN0cnVjdCBz
-bXVfZnVuY3Mgc211X3YxMV8wX2Z1bmNzID0gewogCS5nZXRfY3VycmVudF9jbGtfZnJlcSA9IHNt
-dV92MTFfMF9nZXRfY3VycmVudF9jbGtfZnJlcSwKIAkuaW5pdF9tYXhfc3VzdGFpbmFibGVfY2xv
-Y2tzID0gc211X3YxMV8wX2luaXRfbWF4X3N1c3RhaW5hYmxlX2Nsb2NrcywKIAkuc3RhcnRfdGhl
-cm1hbF9jb250cm9sID0gc211X3YxMV8wX3N0YXJ0X3RoZXJtYWxfY29udHJvbCwKKwkuc3RvcF90
-aGVybWFsX2NvbnRyb2wgPSBzbXVfdjExXzBfc3RvcF90aGVybWFsX2NvbnRyb2wsCiAJLnJlYWRf
-c2Vuc29yID0gc211X3YxMV8wX3JlYWRfc2Vuc29yLAogCS5zZXRfZGVlcF9zbGVlcF9kY2VmY2xr
-ID0gc211X3YxMV8wX3NldF9kZWVwX3NsZWVwX2RjZWZjbGssCiAJLmRpc3BsYXlfY2xvY2tfdm9s
-dGFnZV9yZXF1ZXN0ID0gc211X3YxMV8wX2Rpc3BsYXlfY2xvY2tfdm9sdGFnZV9yZXF1ZXN0LAot
-LQoyLjIzLjAKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-CmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBz
-Oi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
+debugfs_remove and kfree has taken the null check in account.
+hence it is unnecessary to check it. Just remove the condition.
+No functional change.
+
+Signed-off-by: zhong jiang <zhongjiang@huawei.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+index 5652cc7..cb94627 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+@@ -1077,8 +1077,7 @@ static int amdgpu_debugfs_ib_preempt(void *data, u64 val)
+ 
+ 	ttm_bo_unlock_delayed_workqueue(&adev->mman.bdev, resched);
+ 
+-	if (fences)
+-		kfree(fences);
++	kfree(fences);
+ 
+ 	return 0;
+ }
+@@ -1103,8 +1102,7 @@ int amdgpu_debugfs_init(struct amdgpu_device *adev)
+ 
+ void amdgpu_debugfs_preempt_cleanup(struct amdgpu_device *adev)
+ {
+-	if (adev->debugfs_preempt)
+-		debugfs_remove(adev->debugfs_preempt);
++	debugfs_remove(adev->debugfs_preempt);
+ }
+ 
+ #else
+-- 
+1.7.12.4
