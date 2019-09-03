@@ -1,240 +1,493 @@
 From: Lyude Paul <lyude@redhat.com>
-Subject: [PATCH v2 25/27] drm/dp_mst: Add basic topology
- reprobing when resuming
-Date: Tue,  3 Sep 2019 16:46:03 -0400
-Message-ID: <20190903204645.25487-26-lyude@redhat.com>
+Subject: [PATCH v2 27/27] drm/dp_mst: Add topology ref history tracking for debugging
+Date: Tue,  3 Sep 2019 16:46:05 -0400
+Message-ID: <20190903204645.25487-28-lyude@redhat.com>
 References: <20190903204645.25487-1-lyude@redhat.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <intel-gfx-bounces@lists.freedesktop.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
 In-Reply-To: <20190903204645.25487-1-lyude@redhat.com>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/intel-gfx>,
- <mailto:intel-gfx-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/intel-gfx>
-List-Post: <mailto:intel-gfx@lists.freedesktop.org>
-List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
- <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: intel-gfx-bounces@lists.freedesktop.org
-Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
+Sender: linux-kernel-owner@vger.kernel.org
 To: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-Cc: David Airlie <airlied@linux.ie>, Daniel Vetter <daniel.vetter@ffwll.ch>, Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>, Dhinakaran Pandiyan <dhinakaran.pandiyan@intel.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, Harry Wentland <hwentlan@amd.com>, David Francis <David.Francis@amd.com>, Ben Skeggs <bskeggs@redhat.com>, Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>, Karol Herbst <karolherbst@gmail.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, Ilia Mirkin <imirkin@alum.mit.edu>, Alex Deucher <alexander.deucher@amd.com>, Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Cc: Juston Li <juston.li@intel.com>, Imre Deak <imre.deak@intel.com>, =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>, Harry Wentland <hwentlan@amd.com>, Daniel Vetter <daniel.vetter@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, Sean Paul <sean@poorly.run>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, linux-kernel@vger.kernel.org
 List-Id: amd-gfx.lists.freedesktop.org
 
-RmluYWxseSEgRm9yIGEgdmVyeSBsb25nIHRpbWUsIG91ciBNU1QgaGVscGVycyBoYXZlIGhhZCBv
-bmUgdmVyeQphbm5veWluZyBpc3N1ZTogVGhleSBkb24ndCBrbm93IGhvdyB0byByZXByb2JlIHRo
-ZSB0b3BvbG9neSBzdGF0ZSB3aGVuCmNvbWluZyBvdXQgb2Ygc3VzcGVuZC4gVGhpcyBtZWFucyB0
-aGF0IGlmIGEgdXNlciBoYXMgYSBtYWNoaW5lIGNvbm5lY3RlZAp0byBhbiBNU1QgdG9wb2xvZ3kg
-YW5kIGRlY2lkZXMgdG8gc3VzcGVuZCB0aGVpciBtYWNoaW5lLCB3ZSBsb3NlIGFsbAp0b3BvbG9n
-eSBjaGFuZ2VzIHRoYXQgaGFwcGVuZWQgZHVyaW5nIHRoYXQgcGVyaW9kLiBUaGF0IGNhbiBiZSBh
-IGJpZwpwcm9ibGVtIGlmIHRoZSBtYWNoaW5lIHdhcyBjb25uZWN0ZWQgdG8gYSBkaWZmZXJlbnQg
-dG9wb2xvZ3kgb24gdGhlIHNhbWUKcG9ydCBiZWZvcmUgcmVzdW1pbmcsIGFzIHdlIHdvbid0IGJv
-dGhlciByZXByb2JpbmcgYW55IG9mIHRoZSBwb3J0cyBhbmQKbGlrZWx5IGNhdXNlIHRoZSB1c2Vy
-J3MgbW9uaXRvcnMgbm90IHRvIGNvbWUgYmFjayB1cCBhcyBleHBlY3RlZC4KClNvLCB3ZSBzdGFy
-dCBmaXhpbmcgdGhpcyBieSB0ZWFjaGluZyBvdXIgTVNUIGhlbHBlcnMgaG93IHRvIHJlcHJvYmUg
-dGhlCmxpbmsgYWRkcmVzc2VzIG9mIGVhY2ggY29ubmVjdGVkIHRvcG9sb2d5IHdoZW4gcmVzdW1p
-bmcuIEFzIGl0IHR1cm5zCm91dCwgdGhlIGJlaGF2aW9yIHRoYXQgd2Ugd2FudCBoZXJlIGlzIGlk
-ZW50aWNhbCB0byB0aGUgYmVoYXZpb3Igd2Ugd2FudAp3aGVuIGluaXRpYWxseSBwcm9iaW5nIGEg
-bmV3bHkgY29ubmVjdGVkIE1TVCB0b3BvbG9neSwgd2l0aCBhIGNvdXBsZSBvZgppbXBvcnRhbnQg
-ZGlmZmVyZW5jZXM6CgotIFdlIG5lZWQgdG8gYmUgbW9yZSBjYXJlZnVsIGFib3V0IGhhbmRsaW5n
-IHRoZSBwb3RlbnRpYWwgcmFjZXMgYmV0d2VlbgogIGV2ZW50cyBmcm9tIHRoZSBNU1QgaHViIHRo
-YXQgY291bGQgY2hhbmdlIHRoZSB0b3BvbG9neSBzdGF0ZSBhcyB3ZSdyZQogIHBlcmZvcm1pbmcg
-dGhlIGxpbmsgYWRkcmVzcyByZXByb2JlCi0gV2UgbmVlZCB0byBiZSBtb3JlIGNhcmVmdWwgYWJv
-dXQgaGFuZGxpbmcgdW5saWtlbHkgc3RhdGUgY2hhbmdlcyBvbgogIHBvcnRzIC0gc3VjaCBhcyBh
-biBpbnB1dCBwb3J0IHR1cm5pbmcgaW50byBhbiBvdXRwdXQgcG9ydCwgc29tZXRoaW5nCiAgdGhh
-dCB3b3VsZCBiZSBmYXIgbW9yZSBsaWtlbHkgdG8gaGFwcGVuIGluIHNpdHVhdGlvbnMgbGlrZSB0
-aGUgTVNUIGh1YgogIHdlJ3JlIGNvbm5lY3RlZCB0byBiZWluZyBjaGFuZ2VkIHdoaWxlIHdlJ3Jl
-IHN1c3BlbmQKCkJvdGggb2Ygd2hpY2ggaGF2ZSBiZWVuIHNvbHZlZCBieSBwcmV2aW91cyBjb21t
-aXRzLiBUaGF0IGxlYXZlcyBvbmUKcmVxdWlyZW1lbnQ6CgotIFdlIG5lZWQgdG8gcHJ1bmUgYW55
-IE1TVCBwb3J0cyBpbiBvdXIgaW4tbWVtb3J5IHRvcG9sb2d5IHN0YXRlIHRoYXQKICB3ZXJlIHBy
-ZXNlbnQgd2hlbiBzdXNwZW5kaW5nLCBidXQgaGF2ZSBub3QgYXBwZWFyZWQgaW4gdGhlIHBvc3Qt
-cmVzdW1lCiAgbGluayBhZGRyZXNzIHJlc3BvbnNlIGZyb20gdGhlaXIgcGFyZW50IGJyYW5jaCBk
-ZXZpY2UKCldoaWNoIHdlIGNhbiBub3cgaGFuZGxlIGluIHRoaXMgY29tbWl0IGJ5IG1vZGlmeWlu
-Zwpkcm1fZHBfc2VuZF9saW5rX2FkZHJlc3MoKS4gV2UgdGhlbiBpbnRyb2R1Y2Ugc3VzcGVuZC9y
-ZXN1bWUgcmVwcm9iaW5nCmJ5IGludHJvZHVjaW5nIGRybV9kcF9tc3RfdG9wb2xvZ3lfbWdyX2lu
-dmFsaWRhdGVfbXN0YigpLCB3aGljaCB3ZSBjYWxsCmluIGRybV9kcF9tc3RfdG9wb2xvZ3lfbWdy
-X3N1c3BlbmQoKSB0byB0cmF2ZXJzZSB0aGUgaW4tbWVtb3J5IHRvcG9sb2d5CnN0YXRlIHRvIGlu
-ZGljYXRlIHRoYXQgZWFjaCBtc3RiIG5lZWRzIGl0J3MgbGluayBhZGRyZXNzIHJlc2VudCBhbmQg
-UEJOCnJlc291cmNlcyByZXByb2JlZC4KCk9uIHJlc3VtZSwgd2Ugc3RhcnQgYmFjayB1cCAmbWdy
-LT53b3JrIGFuZCBoYXZlIGl0IHJlcHJvYmUgdGhlIHRvcG9sb2d5CmluIHRoZSBzYW1lIHdheSB3
-ZSB3b3VsZCBvbiBhIGhvdHBsdWcsIHJlbW92aW5nIGFueSBsZWZ0b3ZlciBwb3J0cyB0aGF0Cm5v
-IGxvbmdlciBhcHBlYXIgaW4gdGhlIHRvcG9sb2d5IHN0YXRlLgoKQ2M6IEp1c3RvbiBMaSA8anVz
-dG9uLmxpQGludGVsLmNvbT4KQ2M6IEltcmUgRGVhayA8aW1yZS5kZWFrQGludGVsLmNvbT4KQ2M6
-IFZpbGxlIFN5cmrDpGzDpCA8dmlsbGUuc3lyamFsYUBsaW51eC5pbnRlbC5jb20+CkNjOiBIYXJy
-eSBXZW50bGFuZCA8aHdlbnRsYW5AYW1kLmNvbT4KQ2M6IERhbmllbCBWZXR0ZXIgPGRhbmllbC52
-ZXR0ZXJAZmZ3bGwuY2g+ClNpZ25lZC1vZmYtYnk6IEx5dWRlIFBhdWwgPGx5dWRlQHJlZGhhdC5j
-b20+Ci0tLQogLi4uL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5jIHwg
-ICAyICstCiBkcml2ZXJzL2dwdS9kcm0vZHJtX2RwX21zdF90b3BvbG9neS5jICAgICAgICAgfCAx
-MzggKysrKysrKysrKysrKy0tLS0tCiBkcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVs
-X2RwLmMgICAgICAgfCAgIDMgKy0KIGRyaXZlcnMvZ3B1L2RybS9ub3V2ZWF1L2Rpc3BudjUwL2Rp
-c3AuYyAgICAgICB8ICAgNiArLQogaW5jbHVkZS9kcm0vZHJtX2RwX21zdF9oZWxwZXIuaCAgICAg
-ICAgICAgICAgIHwgICAzICstCiA1IGZpbGVzIGNoYW5nZWQsIDExMiBpbnNlcnRpb25zKCspLCA0
-MCBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkv
-YW1kZ3B1X2RtL2FtZGdwdV9kbS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdw
-dV9kbS9hbWRncHVfZG0uYwppbmRleCA0ZDNjOGJmZjc3ZGEuLjI3ZWUzZTA0NWI4NiAxMDA2NDQK
-LS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG0uYwor
-KysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5jCkBA
-IC05NzMsNyArOTczLDcgQEAgc3RhdGljIHZvaWQgczNfaGFuZGxlX21zdChzdHJ1Y3QgZHJtX2Rl
-dmljZSAqZGV2LCBib29sIHN1c3BlbmQpCiAJCWlmIChzdXNwZW5kKSB7CiAJCQlkcm1fZHBfbXN0
-X3RvcG9sb2d5X21ncl9zdXNwZW5kKG1ncik7CiAJCX0gZWxzZSB7Ci0JCQlyZXQgPSBkcm1fZHBf
-bXN0X3RvcG9sb2d5X21ncl9yZXN1bWUobWdyKTsKKwkJCXJldCA9IGRybV9kcF9tc3RfdG9wb2xv
-Z3lfbWdyX3Jlc3VtZShtZ3IsIHRydWUpOwogCQkJaWYgKHJldCA8IDApIHsKIAkJCQlkcm1fZHBf
-bXN0X3RvcG9sb2d5X21ncl9zZXRfbXN0KG1nciwgZmFsc2UpOwogCQkJCW5lZWRfaG90cGx1ZyA9
-IHRydWU7CmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vZHJtX2RwX21zdF90b3BvbG9neS5j
-IGIvZHJpdmVycy9ncHUvZHJtL2RybV9kcF9tc3RfdG9wb2xvZ3kuYwppbmRleCBlNDA3YWJhMWZi
-ZDIuLjJmZTI0ZTM2NjkyNSAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2RybV9kcF9tc3Rf
-dG9wb2xvZ3kuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vZHJtX2RwX21zdF90b3BvbG9neS5jCkBA
-IC0yMDIwLDYgKzIwMjAsMTQgQEAgZHJtX2RwX21zdF9oYW5kbGVfbGlua19hZGRyZXNzX3BvcnQo
-c3RydWN0IGRybV9kcF9tc3RfYnJhbmNoICptc3RiLAogCQlnb3RvIGZhaWxfdW5sb2NrOwogCX0K
-IAorCS8qCisJICogSWYgdGhpcyBwb3J0IHdhc24ndCBqdXN0IGNyZWF0ZWQsIHRoZW4gd2UncmUg
-cmVwcm9iaW5nIGJlY2F1c2UKKwkgKiB3ZSdyZSBjb21pbmcgb3V0IG9mIHN1c3BlbmQuIEluIHRo
-aXMgY2FzZSwgYWx3YXlzIHJlc2VuZCB0aGUgbGluaworCSAqIGFkZHJlc3MgaWYgdGhlcmUncyBh
-biBNU1RCIG9uIHRoaXMgcG9ydAorCSAqLworCWlmICghY3JlYXRlZCAmJiBwb3J0LT5wZHQgPT0g
-RFBfUEVFUl9ERVZJQ0VfTVNUX0JSQU5DSElORykKKwkJc2VuZF9saW5rX2FkZHIgPSB0cnVlOwor
-CiAJaWYgKHNlbmRfbGlua19hZGRyKSB7CiAJCW11dGV4X2xvY2soJm1nci0+bG9jayk7CiAJCWlm
-IChwb3J0LT5tc3RiKSB7CkBAIC0yNTMwLDcgKzI1MzgsOCBAQCBzdGF0aWMgdm9pZCBkcm1fZHBf
-c2VuZF9saW5rX2FkZHJlc3Moc3RydWN0IGRybV9kcF9tc3RfdG9wb2xvZ3lfbWdyICptZ3IsCiB7
-CiAJc3RydWN0IGRybV9kcF9zaWRlYmFuZF9tc2dfdHggKnR4bXNnOwogCXN0cnVjdCBkcm1fZHBf
-bGlua19hZGRyZXNzX2Fja19yZXBseSAqcmVwbHk7Ci0JaW50IGksIGxlbiwgcmV0OworCXN0cnVj
-dCBkcm1fZHBfbXN0X3BvcnQgKnBvcnQsICp0bXA7CisJaW50IGksIGxlbiwgcmV0LCBwb3J0X21h
-c2sgPSAwOwogCiAJdHhtc2cgPSBremFsbG9jKHNpemVvZigqdHhtc2cpLCBHRlBfS0VSTkVMKTsK
-IAlpZiAoIXR4bXNnKQpAQCAtMjU2MCw5ICsyNTY5LDI4IEBAIHN0YXRpYyB2b2lkIGRybV9kcF9z
-ZW5kX2xpbmtfYWRkcmVzcyhzdHJ1Y3QgZHJtX2RwX21zdF90b3BvbG9neV9tZ3IgKm1nciwKIAog
-CWRybV9kcF9jaGVja19tc3RiX2d1aWQobXN0YiwgcmVwbHktPmd1aWQpOwogCi0JZm9yIChpID0g
-MDsgaSA8IHJlcGx5LT5ucG9ydHM7IGkrKykKKwlmb3IgKGkgPSAwOyBpIDwgcmVwbHktPm5wb3J0
-czsgaSsrKSB7CisJCXBvcnRfbWFzayB8PSBCSVQocmVwbHktPnBvcnRzW2ldLnBvcnRfbnVtYmVy
-KTsKIAkJZHJtX2RwX21zdF9oYW5kbGVfbGlua19hZGRyZXNzX3BvcnQobXN0YiwgbWdyLT5kZXYs
-CiAJCQkJCQkgICAgJnJlcGx5LT5wb3J0c1tpXSk7CisJfQorCisJLyogUHJ1bmUgYW55IHBvcnRz
-IHRoYXQgYXJlIGN1cnJlbnRseSBhIHBhcnQgb2YgbXN0YiBpbiBvdXIgaW4tbWVtb3J5CisJICog
-dG9wb2xvZ3ksIGJ1dCB3ZXJlIG5vdCBzZWVuIGluIHRoaXMgbGluayBhZGRyZXNzLiBVc3VhbGx5
-IHRoaXMKKwkgKiBtZWFucyB0aGF0IHRoZXkgd2VyZSByZW1vdmVkIHdoaWxlIHRoZSB0b3BvbG9n
-eSB3YXMgb3V0IG9mIHN5bmMsCisJICogZS5nLiBkdXJpbmcgc3VzcGVuZC9yZXN1bWUKKwkgKi8K
-KwltdXRleF9sb2NrKCZtZ3ItPmxvY2spOworCWxpc3RfZm9yX2VhY2hfZW50cnlfc2FmZShwb3J0
-LCB0bXAsICZtc3RiLT5wb3J0cywgbmV4dCkgeworCQlpZiAocG9ydF9tYXNrICYgQklUKHBvcnQt
-PnBvcnRfbnVtKSkKKwkJCWNvbnRpbnVlOworCisJCURSTV9ERUJVR19LTVMoInBvcnQgJWQgd2Fz
-IG5vdCBpbiBsaW5rIGFkZHJlc3MsIHJlbW92aW5nXG4iLAorCQkJICAgICAgcG9ydC0+cG9ydF9u
-dW0pOworCQlsaXN0X2RlbCgmcG9ydC0+bmV4dCk7CisJCWRybV9kcF9tc3RfdG9wb2xvZ3lfcHV0
-X3BvcnQocG9ydCk7CisJfQorCW11dGV4X3VubG9jaygmbWdyLT5sb2NrKTsKIAogCWRybV9rbXNf
-aGVscGVyX2hvdHBsdWdfZXZlbnQobWdyLT5kZXYpOwogCkBAIC0zMTkxLDYgKzMyMTksMjMgQEAg
-aW50IGRybV9kcF9tc3RfdG9wb2xvZ3lfbWdyX3NldF9tc3Qoc3RydWN0IGRybV9kcF9tc3RfdG9w
-b2xvZ3lfbWdyICptZ3IsIGJvb2wgbXMKIH0KIEVYUE9SVF9TWU1CT0woZHJtX2RwX21zdF90b3Bv
-bG9neV9tZ3Jfc2V0X21zdCk7CiAKK3N0YXRpYyB2b2lkCitkcm1fZHBfbXN0X3RvcG9sb2d5X21n
-cl9pbnZhbGlkYXRlX21zdGIoc3RydWN0IGRybV9kcF9tc3RfYnJhbmNoICptc3RiKQoreworCXN0
-cnVjdCBkcm1fZHBfbXN0X3BvcnQgKnBvcnQ7CisKKwkvKiBUaGUgbGluayBhZGRyZXNzIHdpbGwg
-bmVlZCB0byBiZSByZS1zZW50IG9uIHJlc3VtZSAqLworCW1zdGItPmxpbmtfYWRkcmVzc19zZW50
-ID0gZmFsc2U7CisKKwlsaXN0X2Zvcl9lYWNoX2VudHJ5KHBvcnQsICZtc3RiLT5wb3J0cywgbmV4
-dCkgeworCQkvKiBUaGUgUEJOIGZvciBlYWNoIHBvcnQgd2lsbCBhbHNvIG5lZWQgdG8gYmUgcmUt
-cHJvYmVkICovCisJCXBvcnQtPmF2YWlsYWJsZV9wYm4gPSAwOworCisJCWlmIChwb3J0LT5tc3Ri
-KQorCQkJZHJtX2RwX21zdF90b3BvbG9neV9tZ3JfaW52YWxpZGF0ZV9tc3RiKHBvcnQtPm1zdGIp
-OworCX0KK30KKwogLyoqCiAgKiBkcm1fZHBfbXN0X3RvcG9sb2d5X21ncl9zdXNwZW5kKCkgLSBz
-dXNwZW5kIHRoZSBNU1QgbWFuYWdlcgogICogQG1ncjogbWFuYWdlciB0byBzdXNwZW5kCkBAIC0z
-MjA3LDYwICszMjUyLDg1IEBAIHZvaWQgZHJtX2RwX21zdF90b3BvbG9neV9tZ3Jfc3VzcGVuZChz
-dHJ1Y3QgZHJtX2RwX21zdF90b3BvbG9neV9tZ3IgKm1ncikKIAlmbHVzaF93b3JrKCZtZ3ItPnVw
-X3JlcV93b3JrKTsKIAlmbHVzaF93b3JrKCZtZ3ItPndvcmspOwogCWZsdXNoX3dvcmsoJm1nci0+
-ZGVsYXllZF9kZXN0cm95X3dvcmspOworCisJbXV0ZXhfbG9jaygmbWdyLT5sb2NrKTsKKwlpZiAo
-bWdyLT5tc3Rfc3RhdGUgJiYgbWdyLT5tc3RfcHJpbWFyeSkKKwkJZHJtX2RwX21zdF90b3BvbG9n
-eV9tZ3JfaW52YWxpZGF0ZV9tc3RiKG1nci0+bXN0X3ByaW1hcnkpOworCW11dGV4X3VubG9jaygm
-bWdyLT5sb2NrKTsKIH0KIEVYUE9SVF9TWU1CT0woZHJtX2RwX21zdF90b3BvbG9neV9tZ3Jfc3Vz
-cGVuZCk7CiAKIC8qKgogICogZHJtX2RwX21zdF90b3BvbG9neV9tZ3JfcmVzdW1lKCkgLSByZXN1
-bWUgdGhlIE1TVCBtYW5hZ2VyCiAgKiBAbWdyOiBtYW5hZ2VyIHRvIHJlc3VtZQorICogQHN5bmM6
-IHdoZXRoZXIgb3Igbm90IHRvIHBlcmZvcm0gdG9wb2xvZ3kgcmVwcm9iaW5nIHN5bmNocm9ub3Vz
-bHkKICAqCiAgKiBUaGlzIHdpbGwgZmV0Y2ggRFBDRCBhbmQgc2VlIGlmIHRoZSBkZXZpY2UgaXMg
-c3RpbGwgdGhlcmUsCiAgKiBpZiBpdCBpcywgaXQgd2lsbCByZXdyaXRlIHRoZSBNU1RNIGNvbnRy
-b2wgYml0cywgYW5kIHJldHVybi4KICAqCi0gKiBpZiB0aGUgZGV2aWNlIGZhaWxzIHRoaXMgcmV0
-dXJucyAtMSwgYW5kIHRoZSBkcml2ZXIgc2hvdWxkIGRvCisgKiBJZiB0aGUgZGV2aWNlIGZhaWxz
-IHRoaXMgcmV0dXJucyAtMSwgYW5kIHRoZSBkcml2ZXIgc2hvdWxkIGRvCiAgKiBhIGZ1bGwgTVNU
-IHJlcHJvYmUsIGluIGNhc2Ugd2Ugd2VyZSB1bmRvY2tlZC4KKyAqCisgKiBEdXJpbmcgc3lzdGVt
-IHJlc3VtZSAod2hlcmUgaXQgaXMgYXNzdW1lZCB0aGF0IHRoZSBkcml2ZXIgd2lsbCBiZSBjYWxs
-aW5nCisgKiBkcm1fYXRvbWljX2hlbHBlcl9yZXN1bWUoKSkgdGhpcyBmdW5jdGlvbiBzaG91bGQg
-YmUgY2FsbGVkIGJlZm9yZWhhbmQgd2l0aAorICogQHN5bmMgc2V0IHRvIHRydWUuIEluIGNvbnRl
-eHRzIGxpa2UgcnVudGltZSByZXN1bWUgd2hlcmUgdGhlIGRyaXZlciBpcyBub3QKKyAqIGV4cGVj
-dGVkIHRvIGJlIGNhbGxpbmcgZHJtX2F0b21pY19oZWxwZXJfcmVzdW1lKCksIHRoaXMgZnVuY3Rp
-b24gc2hvdWxkIGJlCisgKiBjYWxsZWQgd2l0aCBAc3luYyBzZXQgdG8gZmFsc2UgaW4gb3JkZXIg
-dG8gYXZvaWQgZGVhZGxvY2tpbmcuCisgKgorICogUmV0dXJuczogLTEgaWYgdGhlIE1TVCB0b3Bv
-bG9neSB3YXMgcmVtb3ZlZCB3aGlsZSB3ZSB3ZXJlIHN1c3BlbmRlZCwgMAorICogb3RoZXJ3aXNl
-LgogICovCi1pbnQgZHJtX2RwX21zdF90b3BvbG9neV9tZ3JfcmVzdW1lKHN0cnVjdCBkcm1fZHBf
-bXN0X3RvcG9sb2d5X21nciAqbWdyKQoraW50IGRybV9kcF9tc3RfdG9wb2xvZ3lfbWdyX3Jlc3Vt
-ZShzdHJ1Y3QgZHJtX2RwX21zdF90b3BvbG9neV9tZ3IgKm1nciwKKwkJCQkgICBib29sIHN5bmMp
-CiB7Ci0JaW50IHJldCA9IDA7CisJaW50IHJldDsKKwl1OCBndWlkWzE2XTsKIAogCW11dGV4X2xv
-Y2soJm1nci0+bG9jayk7CisJaWYgKCFtZ3ItPm1zdF9wcmltYXJ5KQorCQlnb3RvIG91dF9mYWls
-OwogCi0JaWYgKG1nci0+bXN0X3ByaW1hcnkpIHsKLQkJaW50IHNyZXQ7Ci0JCXU4IGd1aWRbMTZd
-OworCXJldCA9IGRybV9kcF9kcGNkX3JlYWQobWdyLT5hdXgsIERQX0RQQ0RfUkVWLCBtZ3ItPmRw
-Y2QsCisJCQkgICAgICAgRFBfUkVDRUlWRVJfQ0FQX1NJWkUpOworCWlmIChyZXQgIT0gRFBfUkVD
-RUlWRVJfQ0FQX1NJWkUpIHsKKwkJRFJNX0RFQlVHX0tNUygiZHBjZCByZWFkIGZhaWxlZCAtIHVu
-ZG9ja2VkIGR1cmluZyBzdXNwZW5kP1xuIik7CisJCWdvdG8gb3V0X2ZhaWw7CisJfQogCi0JCXNy
-ZXQgPSBkcm1fZHBfZHBjZF9yZWFkKG1nci0+YXV4LCBEUF9EUENEX1JFViwgbWdyLT5kcGNkLCBE
-UF9SRUNFSVZFUl9DQVBfU0laRSk7Ci0JCWlmIChzcmV0ICE9IERQX1JFQ0VJVkVSX0NBUF9TSVpF
-KSB7Ci0JCQlEUk1fREVCVUdfS01TKCJkcGNkIHJlYWQgZmFpbGVkIC0gdW5kb2NrZWQgZHVyaW5n
-IHN1c3BlbmQ/XG4iKTsKLQkJCXJldCA9IC0xOwotCQkJZ290byBvdXRfdW5sb2NrOwotCQl9CisJ
-cmV0ID0gZHJtX2RwX2RwY2Rfd3JpdGViKG1nci0+YXV4LCBEUF9NU1RNX0NUUkwsCisJCQkJIERQ
-X01TVF9FTiB8CisJCQkJIERQX1VQX1JFUV9FTiB8CisJCQkJIERQX1VQU1RSRUFNX0lTX1NSQyk7
-CisJaWYgKHJldCA8IDApIHsKKwkJRFJNX0RFQlVHX0tNUygibXN0IHdyaXRlIGZhaWxlZCAtIHVu
-ZG9ja2VkIGR1cmluZyBzdXNwZW5kP1xuIik7CisJCWdvdG8gb3V0X2ZhaWw7CisJfQogCi0JCXJl
-dCA9IGRybV9kcF9kcGNkX3dyaXRlYihtZ3ItPmF1eCwgRFBfTVNUTV9DVFJMLAotCQkJCQkgRFBf
-TVNUX0VOIHwgRFBfVVBfUkVRX0VOIHwgRFBfVVBTVFJFQU1fSVNfU1JDKTsKLQkJaWYgKHJldCA8
-IDApIHsKLQkJCURSTV9ERUJVR19LTVMoIm1zdCB3cml0ZSBmYWlsZWQgLSB1bmRvY2tlZCBkdXJp
-bmcgc3VzcGVuZD9cbiIpOwotCQkJcmV0ID0gLTE7Ci0JCQlnb3RvIG91dF91bmxvY2s7Ci0JCX0K
-KwkvKiBTb21lIGh1YnMgZm9yZ2V0IHRoZWlyIGd1aWRzIGFmdGVyIHRoZXkgcmVzdW1lICovCisJ
-cmV0ID0gZHJtX2RwX2RwY2RfcmVhZChtZ3ItPmF1eCwgRFBfR1VJRCwgZ3VpZCwgMTYpOworCWlm
-IChyZXQgIT0gMTYpIHsKKwkJRFJNX0RFQlVHX0tNUygiZHBjZCByZWFkIGZhaWxlZCAtIHVuZG9j
-a2VkIGR1cmluZyBzdXNwZW5kP1xuIik7CisJCWdvdG8gb3V0X2ZhaWw7CisJfQorCWRybV9kcF9j
-aGVja19tc3RiX2d1aWQobWdyLT5tc3RfcHJpbWFyeSwgZ3VpZCk7CiAKLQkJLyogU29tZSBodWJz
-IGZvcmdldCB0aGVpciBndWlkcyBhZnRlciB0aGV5IHJlc3VtZSAqLwotCQlzcmV0ID0gZHJtX2Rw
-X2RwY2RfcmVhZChtZ3ItPmF1eCwgRFBfR1VJRCwgZ3VpZCwgMTYpOwotCQlpZiAoc3JldCAhPSAx
-NikgewotCQkJRFJNX0RFQlVHX0tNUygiZHBjZCByZWFkIGZhaWxlZCAtIHVuZG9ja2VkIGR1cmlu
-ZyBzdXNwZW5kP1xuIik7Ci0JCQlyZXQgPSAtMTsKLQkJCWdvdG8gb3V0X3VubG9jazsKLQkJfQot
-CQlkcm1fZHBfY2hlY2tfbXN0Yl9ndWlkKG1nci0+bXN0X3ByaW1hcnksIGd1aWQpOworCS8qIEZv
-ciB0aGUgZmluYWwgc3RlcCBvZiByZXN1bWluZyB0aGUgdG9wb2xvZ3ksIHdlIG5lZWQgdG8gYnJp
-bmcgdGhlCisJICogc3RhdGUgb2Ygb3VyIGluLW1lbW9yeSB0b3BvbG9neSBiYWNrIGludG8gc3lu
-YyB3aXRoIHJlYWxpdHkuIFNvLAorCSAqIHJlc3RhcnQgdGhlIHByb2JpbmcgcHJvY2VzcyBhcyBp
-ZiB3ZSdyZSBwcm9iaW5nIGEgbmV3IGh1YgorCSAqLworCXF1ZXVlX3dvcmsoc3lzdGVtX2xvbmdf
-d3EsICZtZ3ItPndvcmspOworCW11dGV4X3VubG9jaygmbWdyLT5sb2NrKTsKIAotCQlyZXQgPSAw
-OwotCX0gZWxzZQotCQlyZXQgPSAtMTsKKwlpZiAoc3luYykgeworCQlEUk1fREVCVUdfS01TKCJX
-YWl0aW5nIGZvciBsaW5rIHByb2JlIHdvcmsgdG8gZmluaXNoIHJlLXN5bmNpbmcgdG9wb2xvZ3ku
-Li5cbiIpOworCQlmbHVzaF93b3JrKCZtZ3ItPndvcmspOworCX0KIAotb3V0X3VubG9jazoKKwly
-ZXR1cm4gMDsKKworb3V0X2ZhaWw6CiAJbXV0ZXhfdW5sb2NrKCZtZ3ItPmxvY2spOwotCXJldHVy
-biByZXQ7CisJcmV0dXJuIC0xOwogfQogRVhQT1JUX1NZTUJPTChkcm1fZHBfbXN0X3RvcG9sb2d5
-X21ncl9yZXN1bWUpOwogCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5
-L2ludGVsX2RwLmMgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2RwLmMKaW5k
-ZXggNTY3M2VkNzVlNDI4Li5iNzgzNjRkY2RlZjkgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2Ry
-bS9pOTE1L2Rpc3BsYXkvaW50ZWxfZHAuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNw
-bGF5L2ludGVsX2RwLmMKQEAgLTc0MDAsNyArNzQwMCw4IEBAIHZvaWQgaW50ZWxfZHBfbXN0X3Jl
-c3VtZShzdHJ1Y3QgZHJtX2k5MTVfcHJpdmF0ZSAqZGV2X3ByaXYpCiAJCWlmICghaW50ZWxfZHAt
-PmNhbl9tc3QpCiAJCQljb250aW51ZTsKIAotCQlyZXQgPSBkcm1fZHBfbXN0X3RvcG9sb2d5X21n
-cl9yZXN1bWUoJmludGVsX2RwLT5tc3RfbWdyKTsKKwkJcmV0ID0gZHJtX2RwX21zdF90b3BvbG9n
-eV9tZ3JfcmVzdW1lKCZpbnRlbF9kcC0+bXN0X21nciwKKwkJCQkJCSAgICAgdHJ1ZSk7CiAJCWlm
-IChyZXQpIHsKIAkJCWludGVsX2RwLT5pc19tc3QgPSBmYWxzZTsKIAkJCWRybV9kcF9tc3RfdG9w
-b2xvZ3lfbWdyX3NldF9tc3QoJmludGVsX2RwLT5tc3RfbWdyLApkaWZmIC0tZ2l0IGEvZHJpdmVy
-cy9ncHUvZHJtL25vdXZlYXUvZGlzcG52NTAvZGlzcC5jIGIvZHJpdmVycy9ncHUvZHJtL25vdXZl
-YXUvZGlzcG52NTAvZGlzcC5jCmluZGV4IDMwNzU4NDEwN2Q3Ny4uZTQ1OWUyYTc5ZDc4IDEwMDY0
-NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vbm91dmVhdS9kaXNwbnY1MC9kaXNwLmMKKysrIGIvZHJp
-dmVycy9ncHUvZHJtL25vdXZlYXUvZGlzcG52NTAvZGlzcC5jCkBAIC0xMzA5LDE0ICsxMzA5LDE0
-IEBAIG52NTBfbXN0bV9maW5pKHN0cnVjdCBudjUwX21zdG0gKm1zdG0pCiB9CiAKIHN0YXRpYyB2
-b2lkCi1udjUwX21zdG1faW5pdChzdHJ1Y3QgbnY1MF9tc3RtICptc3RtKQorbnY1MF9tc3RtX2lu
-aXQoc3RydWN0IG52NTBfbXN0bSAqbXN0bSwgYm9vbCBydW50aW1lKQogewogCWludCByZXQ7CiAK
-IAlpZiAoIW1zdG0gfHwgIW1zdG0tPm1nci5tc3Rfc3RhdGUpCiAJCXJldHVybjsKIAotCXJldCA9
-IGRybV9kcF9tc3RfdG9wb2xvZ3lfbWdyX3Jlc3VtZSgmbXN0bS0+bWdyKTsKKwlyZXQgPSBkcm1f
-ZHBfbXN0X3RvcG9sb2d5X21ncl9yZXN1bWUoJm1zdG0tPm1nciwgIXJ1bnRpbWUpOwogCWlmIChy
-ZXQgPT0gLTEpIHsKIAkJZHJtX2RwX21zdF90b3BvbG9neV9tZ3Jfc2V0X21zdCgmbXN0bS0+bWdy
-LCBmYWxzZSk7CiAJCWRybV9rbXNfaGVscGVyX2hvdHBsdWdfZXZlbnQobXN0bS0+bWdyLmRldik7
-CkBAIC0yMjYyLDcgKzIyNjIsNyBAQCBudjUwX2Rpc3BsYXlfaW5pdChzdHJ1Y3QgZHJtX2Rldmlj
-ZSAqZGV2LCBib29sIHJlc3VtZSwgYm9vbCBydW50aW1lKQogCQlpZiAoZW5jb2Rlci0+ZW5jb2Rl
-cl90eXBlICE9IERSTV9NT0RFX0VOQ09ERVJfRFBNU1QpIHsKIAkJCXN0cnVjdCBub3V2ZWF1X2Vu
-Y29kZXIgKm52X2VuY29kZXIgPQogCQkJCW5vdXZlYXVfZW5jb2RlcihlbmNvZGVyKTsKLQkJCW52
-NTBfbXN0bV9pbml0KG52X2VuY29kZXItPmRwLm1zdG0pOworCQkJbnY1MF9tc3RtX2luaXQobnZf
-ZW5jb2Rlci0+ZHAubXN0bSwgcnVudGltZSk7CiAJCX0KIAl9CiAKZGlmZiAtLWdpdCBhL2luY2x1
-ZGUvZHJtL2RybV9kcF9tc3RfaGVscGVyLmggYi9pbmNsdWRlL2RybS9kcm1fZHBfbXN0X2hlbHBl
-ci5oCmluZGV4IDFlZmJiMDg2ZjdhYy4uMWJkZWU1ZWU2ZGNkIDEwMDY0NAotLS0gYS9pbmNsdWRl
-L2RybS9kcm1fZHBfbXN0X2hlbHBlci5oCisrKyBiL2luY2x1ZGUvZHJtL2RybV9kcF9tc3RfaGVs
-cGVyLmgKQEAgLTY4NSw3ICs2ODUsOCBAQCB2b2lkIGRybV9kcF9tc3RfZHVtcF90b3BvbG9neShz
-dHJ1Y3Qgc2VxX2ZpbGUgKm0sCiAKIHZvaWQgZHJtX2RwX21zdF90b3BvbG9neV9tZ3Jfc3VzcGVu
-ZChzdHJ1Y3QgZHJtX2RwX21zdF90b3BvbG9neV9tZ3IgKm1ncik7CiBpbnQgX19tdXN0X2NoZWNr
-Ci1kcm1fZHBfbXN0X3RvcG9sb2d5X21ncl9yZXN1bWUoc3RydWN0IGRybV9kcF9tc3RfdG9wb2xv
-Z3lfbWdyICptZ3IpOworZHJtX2RwX21zdF90b3BvbG9neV9tZ3JfcmVzdW1lKHN0cnVjdCBkcm1f
-ZHBfbXN0X3RvcG9sb2d5X21nciAqbWdyLAorCQkJICAgICAgIGJvb2wgc3luYyk7CiAKIHNzaXpl
-X3QgZHJtX2RwX21zdF9kcGNkX3JlYWQoc3RydWN0IGRybV9kcF9hdXggKmF1eCwKIAkJCSAgICAg
-dW5zaWduZWQgaW50IG9mZnNldCwgdm9pZCAqYnVmZmVyLCBzaXplX3Qgc2l6ZSk7Ci0tIAoyLjIx
-LjAKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkludGVs
-LWdmeCBtYWlsaW5nIGxpc3QKSW50ZWwtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczov
-L2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2ludGVsLWdmeA==
+For very subtle mistakes with topology refs, it can be rather difficult
+to trace them down with the debugging info that we already have. I had
+one such issue recently while trying to implement suspend/resume
+reprobing for MST, and ended up coming up with this.
+
+Inspired by Chris Wilson's wakeref tracking for i915, this adds a very
+similar feature to the DP MST helpers, which allows for partial tracking
+of topology refs for both ports and branch devices. This is a lot less
+advanced then wakeref tracking: we merely keep a count of all of the
+spots where a topology ref has been grabbed or dropped, then dump out
+that history in chronological order when a port or branch device's
+topology refcount reaches 0. So far, I've found this incredibly useful
+for debugging topology refcount errors.
+
+Since this has the potential to be somewhat slow and loud, we add an
+expert kernel config option to enable or disable this feature,
+CONFIG_DRM_DEBUG_DP_MST_TOPOLOGY_REFS.
+
+Changes since v1:
+* Don't forget to destroy topology_ref_history_lock
+
+Cc: Juston Li <juston.li@intel.com>
+Cc: Imre Deak <imre.deak@intel.com>
+Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
+Cc: Harry Wentland <hwentlan@amd.com>
+Cc: Daniel Vetter <daniel.vetter@ffwll.ch>
+Signed-off-by: Lyude Paul <lyude@redhat.com>
+---
+ drivers/gpu/drm/Kconfig               |  14 ++
+ drivers/gpu/drm/drm_dp_mst_topology.c | 233 +++++++++++++++++++++++++-
+ include/drm/drm_dp_mst_helper.h       |  45 +++++
+ 3 files changed, 288 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/gpu/drm/Kconfig b/drivers/gpu/drm/Kconfig
+index e67c194c2aca..44fc2c2a6e2c 100644
+--- a/drivers/gpu/drm/Kconfig
++++ b/drivers/gpu/drm/Kconfig
+@@ -93,6 +93,20 @@ config DRM_KMS_FB_HELPER
+ 	help
+ 	  FBDEV helpers for KMS drivers.
+ 
++config DRM_DEBUG_DP_MST_TOPOLOGY_REFS
++        bool "Enable refcount backtrace history in the DP MST helpers"
++        select STACKDEPOT
++        depends on DRM_KMS_HELPER
++        depends on DEBUG_KERNEL
++        depends on EXPERT
++        help
++          Enables debug tracing for topology refs in DRM's DP MST helpers. A
++          history of each topology reference/dereference will be printed to the
++          kernel log once a port or branch device's topology refcount reaches 0.
++
++          This has the potential to use a lot of memory and print some very
++          large kernel messages. If in doubt, say "N".
++
+ config DRM_FBDEV_EMULATION
+ 	bool "Enable legacy fbdev support for your modesetting driver"
+ 	depends on DRM
+diff --git a/drivers/gpu/drm/drm_dp_mst_topology.c b/drivers/gpu/drm/drm_dp_mst_topology.c
+index 5b5c0b3b3c0e..18f9a02927d9 100644
+--- a/drivers/gpu/drm/drm_dp_mst_topology.c
++++ b/drivers/gpu/drm/drm_dp_mst_topology.c
+@@ -28,6 +28,13 @@
+ #include <linux/sched.h>
+ #include <linux/seq_file.h>
+ 
++#if IS_ENABLED(CONFIG_DRM_DEBUG_DP_MST_TOPOLOGY_REFS)
++#include <linux/stackdepot.h>
++#include <linux/sort.h>
++#include <linux/timekeeping.h>
++#include <linux/math64.h>
++#endif
++
+ #include <drm/drm_atomic.h>
+ #include <drm/drm_atomic_helper.h>
+ #include <drm/drm_dp_mst_helper.h>
+@@ -1405,12 +1412,189 @@ drm_dp_mst_put_port_malloc(struct drm_dp_mst_port *port)
+ }
+ EXPORT_SYMBOL(drm_dp_mst_put_port_malloc);
+ 
++#if IS_ENABLED(CONFIG_DRM_DEBUG_DP_MST_TOPOLOGY_REFS)
++
++#define STACK_DEPTH 8
++
++static noinline void
++__topology_ref_save(struct drm_dp_mst_topology_mgr *mgr,
++		    struct drm_dp_mst_topology_ref_history *history,
++		    enum drm_dp_mst_topology_ref_type type)
++{
++	struct drm_dp_mst_topology_ref_entry *entry = NULL;
++	depot_stack_handle_t backtrace;
++	ulong stack_entries[STACK_DEPTH];
++	uint n;
++	int i;
++
++	n = stack_trace_save(stack_entries, ARRAY_SIZE(stack_entries), 1);
++	backtrace = stack_depot_save(stack_entries, n, GFP_KERNEL);
++	if (!backtrace)
++		goto fail_alloc;
++
++	/* Try to find an existing entry for this backtrace */
++	for (i = 0; i < history->len; i++) {
++		if (history->entries[i].backtrace == backtrace) {
++			entry = &history->entries[i];
++			break;
++		}
++	}
++
++	/* Otherwise add one */
++	if (!entry) {
++		struct drm_dp_mst_topology_ref_entry *new;
++		int new_len = history->len + 1;
++
++		new = krealloc(history->entries, sizeof(*new) * new_len,
++			       GFP_KERNEL);
++		if (!new)
++			goto fail_alloc;
++
++		entry = &new[history->len];
++		history->len = new_len;
++		history->entries = new;
++
++		entry->backtrace = backtrace;
++		entry->type = type;
++		entry->count = 0;
++	}
++	entry->count++;
++	entry->ts_nsec = ktime_get_ns();
++
++	return;
++fail_alloc:
++	DRM_WARN_ONCE("Failed to allocate memory for topology refcount backtrace\n");
++}
++
++static int
++topology_ref_history_cmp(const void *a, const void *b)
++{
++	const struct drm_dp_mst_topology_ref_entry *entry_a = a, *entry_b = b;
++
++	if (entry_a->ts_nsec > entry_b->ts_nsec)
++		return 1;
++	else if (entry_a->ts_nsec < entry_b->ts_nsec)
++		return -1;
++	else
++		return 0;
++}
++
++static inline const char *
++topology_ref_type_to_str(enum drm_dp_mst_topology_ref_type type)
++{
++	if (type == DRM_DP_MST_TOPOLOGY_REF_GET)
++		return "get";
++	else
++		return "put";
++}
++
++static void
++__dump_topology_ref_history(struct drm_dp_mst_topology_ref_history *history,
++			    void *ptr, const char *type_str)
++{
++	struct drm_printer p = drm_debug_printer(DBG_PREFIX);
++	char *buf = kzalloc(PAGE_SIZE, GFP_KERNEL);
++	int i;
++
++	if (!buf)
++		return;
++
++	if (!history->len)
++		goto out;
++
++	/* First, sort the list so that it goes from oldest to newest
++	 * reference entry
++	 */
++	sort(history->entries, history->len, sizeof(*history->entries),
++	     topology_ref_history_cmp, NULL);
++
++	drm_printf(&p,
++		   "%s (%p/%px) topology count reached 0, dumping history:\n",
++		   type_str, ptr, ptr);
++
++	for (i = 0; i < history->len; i++) {
++		const struct drm_dp_mst_topology_ref_entry *entry =
++			&history->entries[i];
++		ulong *entries;
++		uint nr_entries;
++		u64 ts_nsec = entry->ts_nsec;
++		u64 rem_nsec = do_div(ts_nsec, 1000000000);
++
++		nr_entries = stack_depot_fetch(entry->backtrace, &entries);
++		stack_trace_snprint(buf, PAGE_SIZE, entries, nr_entries, 4);
++
++		drm_printf(&p, "  %d %ss (last at %5llu.%06llu):\n%s",
++			   entry->count,
++			   topology_ref_type_to_str(entry->type),
++			   ts_nsec, rem_nsec / 1000, buf);
++	}
++
++	/* Now free the history, since this is the only time we expose it */
++	kfree(history->entries);
++out:
++	kfree(buf);
++}
++
++static __always_inline void
++drm_dp_mst_dump_mstb_topology_history(struct drm_dp_mst_branch *mstb)
++{
++	__dump_topology_ref_history(&mstb->topology_ref_history, mstb,
++				    "MSTB");
++}
++
++static __always_inline void
++drm_dp_mst_dump_port_topology_history(struct drm_dp_mst_port *port)
++{
++	__dump_topology_ref_history(&port->topology_ref_history, port,
++				    "Port");
++}
++
++static __always_inline void
++save_mstb_topology_ref(struct drm_dp_mst_branch *mstb,
++		       enum drm_dp_mst_topology_ref_type type)
++{
++	__topology_ref_save(mstb->mgr, &mstb->topology_ref_history, type);
++}
++
++static __always_inline void
++save_port_topology_ref(struct drm_dp_mst_port *port,
++		       enum drm_dp_mst_topology_ref_type type)
++{
++	__topology_ref_save(port->mgr, &port->topology_ref_history, type);
++}
++
++static inline void
++topology_ref_history_lock(struct drm_dp_mst_topology_mgr *mgr)
++{
++	mutex_lock(&mgr->topology_ref_history_lock);
++}
++
++static inline void
++topology_ref_history_unlock(struct drm_dp_mst_topology_mgr *mgr)
++{
++	mutex_unlock(&mgr->topology_ref_history_lock);
++}
++#else
++static inline void
++topology_ref_history_lock(struct drm_dp_mst_topology_mgr *mgr) {}
++static inline void
++topology_ref_history_unlock(struct drm_dp_mst_topology_mgr *mgr) {}
++static inline void
++drm_dp_mst_dump_mstb_topology_history(struct drm_dp_mst_branch *mstb) {}
++static inline void
++drm_dp_mst_dump_port_topology_history(struct drm_dp_mst_port *port) {}
++#define save_mstb_topology_ref(mstb, type)
++#define save_port_topology_ref(port, type)
++#endif
++
+ static void drm_dp_destroy_mst_branch_device(struct kref *kref)
+ {
+ 	struct drm_dp_mst_branch *mstb =
+ 		container_of(kref, struct drm_dp_mst_branch, topology_kref);
+ 	struct drm_dp_mst_topology_mgr *mgr = mstb->mgr;
+ 
++	drm_dp_mst_dump_mstb_topology_history(mstb);
++
+ 	INIT_LIST_HEAD(&mstb->destroy_next);
+ 
+ 	/*
+@@ -1448,11 +1632,18 @@ static void drm_dp_destroy_mst_branch_device(struct kref *kref)
+ static int __must_check
+ drm_dp_mst_topology_try_get_mstb(struct drm_dp_mst_branch *mstb)
+ {
+-	int ret = kref_get_unless_zero(&mstb->topology_kref);
++	int ret;
+ 
+-	if (ret)
++	topology_ref_history_lock(mstb->mgr);
++	ret = kref_get_unless_zero(&mstb->topology_kref);
++
++	if (ret) {
+ 		DRM_DEBUG("mstb %p/%px (%d)\n",
+ 			  mstb, mstb, kref_read(&mstb->topology_kref));
++		save_mstb_topology_ref(mstb, DRM_DP_MST_TOPOLOGY_REF_GET);
++	}
++
++	topology_ref_history_unlock(mstb->mgr);
+ 
+ 	return ret;
+ }
+@@ -1473,10 +1664,15 @@ drm_dp_mst_topology_try_get_mstb(struct drm_dp_mst_branch *mstb)
+  */
+ static void drm_dp_mst_topology_get_mstb(struct drm_dp_mst_branch *mstb)
+ {
++	topology_ref_history_lock(mstb->mgr);
++
++	save_mstb_topology_ref(mstb, DRM_DP_MST_TOPOLOGY_REF_GET);
+ 	WARN_ON(kref_read(&mstb->topology_kref) == 0);
+ 	kref_get(&mstb->topology_kref);
+ 	DRM_DEBUG("mstb %p/%px (%d)\n",
+ 		  mstb, mstb, kref_read(&mstb->topology_kref));
++
++	topology_ref_history_unlock(mstb->mgr);
+ }
+ 
+ /**
+@@ -1494,9 +1690,14 @@ static void drm_dp_mst_topology_get_mstb(struct drm_dp_mst_branch *mstb)
+ static void
+ drm_dp_mst_topology_put_mstb(struct drm_dp_mst_branch *mstb)
+ {
++	topology_ref_history_lock(mstb->mgr);
++
+ 	DRM_DEBUG("mstb %p/%px (%d)\n",
+ 		  mstb, mstb, kref_read(&mstb->topology_kref) - 1);
++	save_mstb_topology_ref(mstb, DRM_DP_MST_TOPOLOGY_REF_PUT);
+ 	kref_put(&mstb->topology_kref, drm_dp_destroy_mst_branch_device);
++
++	topology_ref_history_unlock(mstb->mgr);
+ }
+ 
+ static void drm_dp_destroy_port(struct kref *kref)
+@@ -1505,6 +1706,8 @@ static void drm_dp_destroy_port(struct kref *kref)
+ 		container_of(kref, struct drm_dp_mst_port, topology_kref);
+ 	struct drm_dp_mst_topology_mgr *mgr = port->mgr;
+ 
++	drm_dp_mst_dump_port_topology_history(port);
++
+ 	/* There's nothing that needs locking to destroy an input port yet */
+ 	if (port->input) {
+ 		drm_dp_mst_put_port_malloc(port);
+@@ -1548,12 +1751,18 @@ static void drm_dp_destroy_port(struct kref *kref)
+ static int __must_check
+ drm_dp_mst_topology_try_get_port(struct drm_dp_mst_port *port)
+ {
+-	int ret = kref_get_unless_zero(&port->topology_kref);
++	int ret;
++
++	topology_ref_history_lock(port->mgr);
++	ret = kref_get_unless_zero(&port->topology_kref);
+ 
+-	if (ret)
++	if (ret) {
+ 		DRM_DEBUG("port %p/%px (%d)\n",
+ 			  port, port, kref_read(&port->topology_kref));
++		save_port_topology_ref(port, DRM_DP_MST_TOPOLOGY_REF_GET);
++	}
+ 
++	topology_ref_history_unlock(port->mgr);
+ 	return ret;
+ }
+ 
+@@ -1572,10 +1781,15 @@ drm_dp_mst_topology_try_get_port(struct drm_dp_mst_port *port)
+  */
+ static void drm_dp_mst_topology_get_port(struct drm_dp_mst_port *port)
+ {
++	topology_ref_history_lock(port->mgr);
++
+ 	WARN_ON(kref_read(&port->topology_kref) == 0);
+ 	kref_get(&port->topology_kref);
+ 	DRM_DEBUG("port %p/%px (%d)\n",
+ 		  port, port, kref_read(&port->topology_kref));
++	save_port_topology_ref(port, DRM_DP_MST_TOPOLOGY_REF_GET);
++
++	topology_ref_history_unlock(port->mgr);
+ }
+ 
+ /**
+@@ -1591,9 +1805,14 @@ static void drm_dp_mst_topology_get_port(struct drm_dp_mst_port *port)
+  */
+ static void drm_dp_mst_topology_put_port(struct drm_dp_mst_port *port)
+ {
++	topology_ref_history_lock(port->mgr);
++
+ 	DRM_DEBUG("port %p/%px (%d)\n",
+ 		  port, port, kref_read(&port->topology_kref) - 1);
++	save_port_topology_ref(port, DRM_DP_MST_TOPOLOGY_REF_PUT);
+ 	kref_put(&port->topology_kref, drm_dp_destroy_port);
++
++	topology_ref_history_unlock(port->mgr);
+ }
+ 
+ static struct drm_dp_mst_branch *
+@@ -4548,6 +4767,9 @@ int drm_dp_mst_topology_mgr_init(struct drm_dp_mst_topology_mgr *mgr,
+ 	mutex_init(&mgr->payload_lock);
+ 	mutex_init(&mgr->delayed_destroy_lock);
+ 	mutex_init(&mgr->up_req_lock);
++#if IS_ENABLED(CONFIG_DRM_DEBUG_DP_MST_TOPOLOGY_REFS)
++	mutex_init(&mgr->topology_ref_history_lock);
++#endif
+ 	INIT_LIST_HEAD(&mgr->tx_msg_downq);
+ 	INIT_LIST_HEAD(&mgr->destroy_port_list);
+ 	INIT_LIST_HEAD(&mgr->destroy_branch_device_list);
+@@ -4613,6 +4835,9 @@ void drm_dp_mst_topology_mgr_destroy(struct drm_dp_mst_topology_mgr *mgr)
+ 	mutex_destroy(&mgr->qlock);
+ 	mutex_destroy(&mgr->lock);
+ 	mutex_destroy(&mgr->up_req_lock);
++#if IS_ENABLED(CONFIG_DRM_DEBUG_DP_MST_TOPOLOGY_REFS)
++	mutex_destroy(&mgr->topology_ref_history_lock);
++#endif
+ }
+ EXPORT_SYMBOL(drm_dp_mst_topology_mgr_destroy);
+ 
+diff --git a/include/drm/drm_dp_mst_helper.h b/include/drm/drm_dp_mst_helper.h
+index 1bdee5ee6dcd..75b8fba6f399 100644
+--- a/include/drm/drm_dp_mst_helper.h
++++ b/include/drm/drm_dp_mst_helper.h
+@@ -26,6 +26,26 @@
+ #include <drm/drm_dp_helper.h>
+ #include <drm/drm_atomic.h>
+ 
++#if IS_ENABLED(CONFIG_DRM_DEBUG_DP_MST_TOPOLOGY_REFS)
++#include <linux/stackdepot.h>
++#include <linux/timekeeping.h>
++
++enum drm_dp_mst_topology_ref_type {
++	DRM_DP_MST_TOPOLOGY_REF_GET,
++	DRM_DP_MST_TOPOLOGY_REF_PUT,
++};
++
++struct drm_dp_mst_topology_ref_history {
++	struct drm_dp_mst_topology_ref_entry {
++		enum drm_dp_mst_topology_ref_type type;
++		int count;
++		ktime_t ts_nsec;
++		depot_stack_handle_t backtrace;
++	} *entries;
++	int len;
++};
++#endif /* IS_ENABLED(CONFIG_DRM_DEBUG_DP_MST_TOPOLOGY_REFS) */
++
+ struct drm_dp_mst_branch;
+ 
+ /**
+@@ -92,6 +112,14 @@ struct drm_dp_mst_port {
+ 	 */
+ 	struct kref malloc_kref;
+ 
++#if IS_ENABLED(CONFIG_DRM_DEBUG_DP_MST_TOPOLOGY_REFS)
++	/**
++	 * @topology_ref_history: A history of each topology
++	 * reference/dereference. See CONFIG_DRM_DEBUG_DP_MST_TOPOLOGY_REFS.
++	 */
++	struct drm_dp_mst_topology_ref_history topology_ref_history;
++#endif
++
+ 	u8 port_num;
+ 	bool input;
+ 	bool mcs;
+@@ -162,6 +190,14 @@ struct drm_dp_mst_branch {
+ 	 */
+ 	struct kref malloc_kref;
+ 
++#if IS_ENABLED(CONFIG_DRM_DEBUG_DP_MST_TOPOLOGY_REFS)
++	/**
++	 * @topology_ref_history: A history of each topology
++	 * reference/dereference. See CONFIG_DRM_DEBUG_DP_MST_TOPOLOGY_REFS.
++	 */
++	struct drm_dp_mst_topology_ref_history topology_ref_history;
++#endif
++
+ 	/**
+ 	 * @destroy_next: linked-list entry used by
+ 	 * drm_dp_delayed_destroy_work()
+@@ -630,6 +666,15 @@ struct drm_dp_mst_topology_mgr {
+ 	 * transmissions.
+ 	 */
+ 	struct work_struct up_req_work;
++
++#if IS_ENABLED(CONFIG_DRM_DEBUG_DP_MST_TOPOLOGY_REFS)
++	/**
++	 * @topology_ref_history_lock: protects
++	 * &drm_dp_mst_port.topology_ref_history and
++	 * &drm_dp_mst_branch.topology_ref_history.
++	 */
++	struct mutex topology_ref_history_lock;
++#endif
+ };
+ 
+ int drm_dp_mst_topology_mgr_init(struct drm_dp_mst_topology_mgr *mgr,
+-- 
+2.21.0
