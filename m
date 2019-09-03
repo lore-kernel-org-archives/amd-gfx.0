@@ -1,493 +1,130 @@
-From: Lyude Paul <lyude@redhat.com>
-Subject: [PATCH v2 27/27] drm/dp_mst: Add topology ref history tracking for debugging
-Date: Tue,  3 Sep 2019 16:46:05 -0400
-Message-ID: <20190903204645.25487-28-lyude@redhat.com>
-References: <20190903204645.25487-1-lyude@redhat.com>
+From: "Huang, Ray" <Ray.Huang-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: [PATCH] drm/amd/powerplay: replace smu->table_count with
+ SMU_TABLE_COUNT in smu
+Date: Tue, 3 Sep 2019 20:51:54 +0000
+Message-ID: <MN2PR12MB3309868373C289D9B18EB882ECB90@MN2PR12MB3309.namprd12.prod.outlook.com>
+References: <20190903081702.24937-1-kevin1.wang@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20190903204645.25487-1-lyude@redhat.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-Cc: Juston Li <juston.li@intel.com>, Imre Deak <imre.deak@intel.com>, =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>, Harry Wentland <hwentlan@amd.com>, Daniel Vetter <daniel.vetter@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, Sean Paul <sean@poorly.run>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, linux-kernel@vger.kernel.org
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20190903081702.24937-1-kevin1.wang-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Wang, Kevin(Yang)" <Kevin1.Wang-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-For very subtle mistakes with topology refs, it can be rather difficult
-to trace them down with the debugging info that we already have. I had
-one such issue recently while trying to implement suspend/resume
-reprobing for MST, and ended up coming up with this.
-
-Inspired by Chris Wilson's wakeref tracking for i915, this adds a very
-similar feature to the DP MST helpers, which allows for partial tracking
-of topology refs for both ports and branch devices. This is a lot less
-advanced then wakeref tracking: we merely keep a count of all of the
-spots where a topology ref has been grabbed or dropped, then dump out
-that history in chronological order when a port or branch device's
-topology refcount reaches 0. So far, I've found this incredibly useful
-for debugging topology refcount errors.
-
-Since this has the potential to be somewhat slow and loud, we add an
-expert kernel config option to enable or disable this feature,
-CONFIG_DRM_DEBUG_DP_MST_TOPOLOGY_REFS.
-
-Changes since v1:
-* Don't forget to destroy topology_ref_history_lock
-
-Cc: Juston Li <juston.li@intel.com>
-Cc: Imre Deak <imre.deak@intel.com>
-Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
-Cc: Harry Wentland <hwentlan@amd.com>
-Cc: Daniel Vetter <daniel.vetter@ffwll.ch>
-Signed-off-by: Lyude Paul <lyude@redhat.com>
----
- drivers/gpu/drm/Kconfig               |  14 ++
- drivers/gpu/drm/drm_dp_mst_topology.c | 233 +++++++++++++++++++++++++-
- include/drm/drm_dp_mst_helper.h       |  45 +++++
- 3 files changed, 288 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/gpu/drm/Kconfig b/drivers/gpu/drm/Kconfig
-index e67c194c2aca..44fc2c2a6e2c 100644
---- a/drivers/gpu/drm/Kconfig
-+++ b/drivers/gpu/drm/Kconfig
-@@ -93,6 +93,20 @@ config DRM_KMS_FB_HELPER
- 	help
- 	  FBDEV helpers for KMS drivers.
- 
-+config DRM_DEBUG_DP_MST_TOPOLOGY_REFS
-+        bool "Enable refcount backtrace history in the DP MST helpers"
-+        select STACKDEPOT
-+        depends on DRM_KMS_HELPER
-+        depends on DEBUG_KERNEL
-+        depends on EXPERT
-+        help
-+          Enables debug tracing for topology refs in DRM's DP MST helpers. A
-+          history of each topology reference/dereference will be printed to the
-+          kernel log once a port or branch device's topology refcount reaches 0.
-+
-+          This has the potential to use a lot of memory and print some very
-+          large kernel messages. If in doubt, say "N".
-+
- config DRM_FBDEV_EMULATION
- 	bool "Enable legacy fbdev support for your modesetting driver"
- 	depends on DRM
-diff --git a/drivers/gpu/drm/drm_dp_mst_topology.c b/drivers/gpu/drm/drm_dp_mst_topology.c
-index 5b5c0b3b3c0e..18f9a02927d9 100644
---- a/drivers/gpu/drm/drm_dp_mst_topology.c
-+++ b/drivers/gpu/drm/drm_dp_mst_topology.c
-@@ -28,6 +28,13 @@
- #include <linux/sched.h>
- #include <linux/seq_file.h>
- 
-+#if IS_ENABLED(CONFIG_DRM_DEBUG_DP_MST_TOPOLOGY_REFS)
-+#include <linux/stackdepot.h>
-+#include <linux/sort.h>
-+#include <linux/timekeeping.h>
-+#include <linux/math64.h>
-+#endif
-+
- #include <drm/drm_atomic.h>
- #include <drm/drm_atomic_helper.h>
- #include <drm/drm_dp_mst_helper.h>
-@@ -1405,12 +1412,189 @@ drm_dp_mst_put_port_malloc(struct drm_dp_mst_port *port)
- }
- EXPORT_SYMBOL(drm_dp_mst_put_port_malloc);
- 
-+#if IS_ENABLED(CONFIG_DRM_DEBUG_DP_MST_TOPOLOGY_REFS)
-+
-+#define STACK_DEPTH 8
-+
-+static noinline void
-+__topology_ref_save(struct drm_dp_mst_topology_mgr *mgr,
-+		    struct drm_dp_mst_topology_ref_history *history,
-+		    enum drm_dp_mst_topology_ref_type type)
-+{
-+	struct drm_dp_mst_topology_ref_entry *entry = NULL;
-+	depot_stack_handle_t backtrace;
-+	ulong stack_entries[STACK_DEPTH];
-+	uint n;
-+	int i;
-+
-+	n = stack_trace_save(stack_entries, ARRAY_SIZE(stack_entries), 1);
-+	backtrace = stack_depot_save(stack_entries, n, GFP_KERNEL);
-+	if (!backtrace)
-+		goto fail_alloc;
-+
-+	/* Try to find an existing entry for this backtrace */
-+	for (i = 0; i < history->len; i++) {
-+		if (history->entries[i].backtrace == backtrace) {
-+			entry = &history->entries[i];
-+			break;
-+		}
-+	}
-+
-+	/* Otherwise add one */
-+	if (!entry) {
-+		struct drm_dp_mst_topology_ref_entry *new;
-+		int new_len = history->len + 1;
-+
-+		new = krealloc(history->entries, sizeof(*new) * new_len,
-+			       GFP_KERNEL);
-+		if (!new)
-+			goto fail_alloc;
-+
-+		entry = &new[history->len];
-+		history->len = new_len;
-+		history->entries = new;
-+
-+		entry->backtrace = backtrace;
-+		entry->type = type;
-+		entry->count = 0;
-+	}
-+	entry->count++;
-+	entry->ts_nsec = ktime_get_ns();
-+
-+	return;
-+fail_alloc:
-+	DRM_WARN_ONCE("Failed to allocate memory for topology refcount backtrace\n");
-+}
-+
-+static int
-+topology_ref_history_cmp(const void *a, const void *b)
-+{
-+	const struct drm_dp_mst_topology_ref_entry *entry_a = a, *entry_b = b;
-+
-+	if (entry_a->ts_nsec > entry_b->ts_nsec)
-+		return 1;
-+	else if (entry_a->ts_nsec < entry_b->ts_nsec)
-+		return -1;
-+	else
-+		return 0;
-+}
-+
-+static inline const char *
-+topology_ref_type_to_str(enum drm_dp_mst_topology_ref_type type)
-+{
-+	if (type == DRM_DP_MST_TOPOLOGY_REF_GET)
-+		return "get";
-+	else
-+		return "put";
-+}
-+
-+static void
-+__dump_topology_ref_history(struct drm_dp_mst_topology_ref_history *history,
-+			    void *ptr, const char *type_str)
-+{
-+	struct drm_printer p = drm_debug_printer(DBG_PREFIX);
-+	char *buf = kzalloc(PAGE_SIZE, GFP_KERNEL);
-+	int i;
-+
-+	if (!buf)
-+		return;
-+
-+	if (!history->len)
-+		goto out;
-+
-+	/* First, sort the list so that it goes from oldest to newest
-+	 * reference entry
-+	 */
-+	sort(history->entries, history->len, sizeof(*history->entries),
-+	     topology_ref_history_cmp, NULL);
-+
-+	drm_printf(&p,
-+		   "%s (%p/%px) topology count reached 0, dumping history:\n",
-+		   type_str, ptr, ptr);
-+
-+	for (i = 0; i < history->len; i++) {
-+		const struct drm_dp_mst_topology_ref_entry *entry =
-+			&history->entries[i];
-+		ulong *entries;
-+		uint nr_entries;
-+		u64 ts_nsec = entry->ts_nsec;
-+		u64 rem_nsec = do_div(ts_nsec, 1000000000);
-+
-+		nr_entries = stack_depot_fetch(entry->backtrace, &entries);
-+		stack_trace_snprint(buf, PAGE_SIZE, entries, nr_entries, 4);
-+
-+		drm_printf(&p, "  %d %ss (last at %5llu.%06llu):\n%s",
-+			   entry->count,
-+			   topology_ref_type_to_str(entry->type),
-+			   ts_nsec, rem_nsec / 1000, buf);
-+	}
-+
-+	/* Now free the history, since this is the only time we expose it */
-+	kfree(history->entries);
-+out:
-+	kfree(buf);
-+}
-+
-+static __always_inline void
-+drm_dp_mst_dump_mstb_topology_history(struct drm_dp_mst_branch *mstb)
-+{
-+	__dump_topology_ref_history(&mstb->topology_ref_history, mstb,
-+				    "MSTB");
-+}
-+
-+static __always_inline void
-+drm_dp_mst_dump_port_topology_history(struct drm_dp_mst_port *port)
-+{
-+	__dump_topology_ref_history(&port->topology_ref_history, port,
-+				    "Port");
-+}
-+
-+static __always_inline void
-+save_mstb_topology_ref(struct drm_dp_mst_branch *mstb,
-+		       enum drm_dp_mst_topology_ref_type type)
-+{
-+	__topology_ref_save(mstb->mgr, &mstb->topology_ref_history, type);
-+}
-+
-+static __always_inline void
-+save_port_topology_ref(struct drm_dp_mst_port *port,
-+		       enum drm_dp_mst_topology_ref_type type)
-+{
-+	__topology_ref_save(port->mgr, &port->topology_ref_history, type);
-+}
-+
-+static inline void
-+topology_ref_history_lock(struct drm_dp_mst_topology_mgr *mgr)
-+{
-+	mutex_lock(&mgr->topology_ref_history_lock);
-+}
-+
-+static inline void
-+topology_ref_history_unlock(struct drm_dp_mst_topology_mgr *mgr)
-+{
-+	mutex_unlock(&mgr->topology_ref_history_lock);
-+}
-+#else
-+static inline void
-+topology_ref_history_lock(struct drm_dp_mst_topology_mgr *mgr) {}
-+static inline void
-+topology_ref_history_unlock(struct drm_dp_mst_topology_mgr *mgr) {}
-+static inline void
-+drm_dp_mst_dump_mstb_topology_history(struct drm_dp_mst_branch *mstb) {}
-+static inline void
-+drm_dp_mst_dump_port_topology_history(struct drm_dp_mst_port *port) {}
-+#define save_mstb_topology_ref(mstb, type)
-+#define save_port_topology_ref(port, type)
-+#endif
-+
- static void drm_dp_destroy_mst_branch_device(struct kref *kref)
- {
- 	struct drm_dp_mst_branch *mstb =
- 		container_of(kref, struct drm_dp_mst_branch, topology_kref);
- 	struct drm_dp_mst_topology_mgr *mgr = mstb->mgr;
- 
-+	drm_dp_mst_dump_mstb_topology_history(mstb);
-+
- 	INIT_LIST_HEAD(&mstb->destroy_next);
- 
- 	/*
-@@ -1448,11 +1632,18 @@ static void drm_dp_destroy_mst_branch_device(struct kref *kref)
- static int __must_check
- drm_dp_mst_topology_try_get_mstb(struct drm_dp_mst_branch *mstb)
- {
--	int ret = kref_get_unless_zero(&mstb->topology_kref);
-+	int ret;
- 
--	if (ret)
-+	topology_ref_history_lock(mstb->mgr);
-+	ret = kref_get_unless_zero(&mstb->topology_kref);
-+
-+	if (ret) {
- 		DRM_DEBUG("mstb %p/%px (%d)\n",
- 			  mstb, mstb, kref_read(&mstb->topology_kref));
-+		save_mstb_topology_ref(mstb, DRM_DP_MST_TOPOLOGY_REF_GET);
-+	}
-+
-+	topology_ref_history_unlock(mstb->mgr);
- 
- 	return ret;
- }
-@@ -1473,10 +1664,15 @@ drm_dp_mst_topology_try_get_mstb(struct drm_dp_mst_branch *mstb)
-  */
- static void drm_dp_mst_topology_get_mstb(struct drm_dp_mst_branch *mstb)
- {
-+	topology_ref_history_lock(mstb->mgr);
-+
-+	save_mstb_topology_ref(mstb, DRM_DP_MST_TOPOLOGY_REF_GET);
- 	WARN_ON(kref_read(&mstb->topology_kref) == 0);
- 	kref_get(&mstb->topology_kref);
- 	DRM_DEBUG("mstb %p/%px (%d)\n",
- 		  mstb, mstb, kref_read(&mstb->topology_kref));
-+
-+	topology_ref_history_unlock(mstb->mgr);
- }
- 
- /**
-@@ -1494,9 +1690,14 @@ static void drm_dp_mst_topology_get_mstb(struct drm_dp_mst_branch *mstb)
- static void
- drm_dp_mst_topology_put_mstb(struct drm_dp_mst_branch *mstb)
- {
-+	topology_ref_history_lock(mstb->mgr);
-+
- 	DRM_DEBUG("mstb %p/%px (%d)\n",
- 		  mstb, mstb, kref_read(&mstb->topology_kref) - 1);
-+	save_mstb_topology_ref(mstb, DRM_DP_MST_TOPOLOGY_REF_PUT);
- 	kref_put(&mstb->topology_kref, drm_dp_destroy_mst_branch_device);
-+
-+	topology_ref_history_unlock(mstb->mgr);
- }
- 
- static void drm_dp_destroy_port(struct kref *kref)
-@@ -1505,6 +1706,8 @@ static void drm_dp_destroy_port(struct kref *kref)
- 		container_of(kref, struct drm_dp_mst_port, topology_kref);
- 	struct drm_dp_mst_topology_mgr *mgr = port->mgr;
- 
-+	drm_dp_mst_dump_port_topology_history(port);
-+
- 	/* There's nothing that needs locking to destroy an input port yet */
- 	if (port->input) {
- 		drm_dp_mst_put_port_malloc(port);
-@@ -1548,12 +1751,18 @@ static void drm_dp_destroy_port(struct kref *kref)
- static int __must_check
- drm_dp_mst_topology_try_get_port(struct drm_dp_mst_port *port)
- {
--	int ret = kref_get_unless_zero(&port->topology_kref);
-+	int ret;
-+
-+	topology_ref_history_lock(port->mgr);
-+	ret = kref_get_unless_zero(&port->topology_kref);
- 
--	if (ret)
-+	if (ret) {
- 		DRM_DEBUG("port %p/%px (%d)\n",
- 			  port, port, kref_read(&port->topology_kref));
-+		save_port_topology_ref(port, DRM_DP_MST_TOPOLOGY_REF_GET);
-+	}
- 
-+	topology_ref_history_unlock(port->mgr);
- 	return ret;
- }
- 
-@@ -1572,10 +1781,15 @@ drm_dp_mst_topology_try_get_port(struct drm_dp_mst_port *port)
-  */
- static void drm_dp_mst_topology_get_port(struct drm_dp_mst_port *port)
- {
-+	topology_ref_history_lock(port->mgr);
-+
- 	WARN_ON(kref_read(&port->topology_kref) == 0);
- 	kref_get(&port->topology_kref);
- 	DRM_DEBUG("port %p/%px (%d)\n",
- 		  port, port, kref_read(&port->topology_kref));
-+	save_port_topology_ref(port, DRM_DP_MST_TOPOLOGY_REF_GET);
-+
-+	topology_ref_history_unlock(port->mgr);
- }
- 
- /**
-@@ -1591,9 +1805,14 @@ static void drm_dp_mst_topology_get_port(struct drm_dp_mst_port *port)
-  */
- static void drm_dp_mst_topology_put_port(struct drm_dp_mst_port *port)
- {
-+	topology_ref_history_lock(port->mgr);
-+
- 	DRM_DEBUG("port %p/%px (%d)\n",
- 		  port, port, kref_read(&port->topology_kref) - 1);
-+	save_port_topology_ref(port, DRM_DP_MST_TOPOLOGY_REF_PUT);
- 	kref_put(&port->topology_kref, drm_dp_destroy_port);
-+
-+	topology_ref_history_unlock(port->mgr);
- }
- 
- static struct drm_dp_mst_branch *
-@@ -4548,6 +4767,9 @@ int drm_dp_mst_topology_mgr_init(struct drm_dp_mst_topology_mgr *mgr,
- 	mutex_init(&mgr->payload_lock);
- 	mutex_init(&mgr->delayed_destroy_lock);
- 	mutex_init(&mgr->up_req_lock);
-+#if IS_ENABLED(CONFIG_DRM_DEBUG_DP_MST_TOPOLOGY_REFS)
-+	mutex_init(&mgr->topology_ref_history_lock);
-+#endif
- 	INIT_LIST_HEAD(&mgr->tx_msg_downq);
- 	INIT_LIST_HEAD(&mgr->destroy_port_list);
- 	INIT_LIST_HEAD(&mgr->destroy_branch_device_list);
-@@ -4613,6 +4835,9 @@ void drm_dp_mst_topology_mgr_destroy(struct drm_dp_mst_topology_mgr *mgr)
- 	mutex_destroy(&mgr->qlock);
- 	mutex_destroy(&mgr->lock);
- 	mutex_destroy(&mgr->up_req_lock);
-+#if IS_ENABLED(CONFIG_DRM_DEBUG_DP_MST_TOPOLOGY_REFS)
-+	mutex_destroy(&mgr->topology_ref_history_lock);
-+#endif
- }
- EXPORT_SYMBOL(drm_dp_mst_topology_mgr_destroy);
- 
-diff --git a/include/drm/drm_dp_mst_helper.h b/include/drm/drm_dp_mst_helper.h
-index 1bdee5ee6dcd..75b8fba6f399 100644
---- a/include/drm/drm_dp_mst_helper.h
-+++ b/include/drm/drm_dp_mst_helper.h
-@@ -26,6 +26,26 @@
- #include <drm/drm_dp_helper.h>
- #include <drm/drm_atomic.h>
- 
-+#if IS_ENABLED(CONFIG_DRM_DEBUG_DP_MST_TOPOLOGY_REFS)
-+#include <linux/stackdepot.h>
-+#include <linux/timekeeping.h>
-+
-+enum drm_dp_mst_topology_ref_type {
-+	DRM_DP_MST_TOPOLOGY_REF_GET,
-+	DRM_DP_MST_TOPOLOGY_REF_PUT,
-+};
-+
-+struct drm_dp_mst_topology_ref_history {
-+	struct drm_dp_mst_topology_ref_entry {
-+		enum drm_dp_mst_topology_ref_type type;
-+		int count;
-+		ktime_t ts_nsec;
-+		depot_stack_handle_t backtrace;
-+	} *entries;
-+	int len;
-+};
-+#endif /* IS_ENABLED(CONFIG_DRM_DEBUG_DP_MST_TOPOLOGY_REFS) */
-+
- struct drm_dp_mst_branch;
- 
- /**
-@@ -92,6 +112,14 @@ struct drm_dp_mst_port {
- 	 */
- 	struct kref malloc_kref;
- 
-+#if IS_ENABLED(CONFIG_DRM_DEBUG_DP_MST_TOPOLOGY_REFS)
-+	/**
-+	 * @topology_ref_history: A history of each topology
-+	 * reference/dereference. See CONFIG_DRM_DEBUG_DP_MST_TOPOLOGY_REFS.
-+	 */
-+	struct drm_dp_mst_topology_ref_history topology_ref_history;
-+#endif
-+
- 	u8 port_num;
- 	bool input;
- 	bool mcs;
-@@ -162,6 +190,14 @@ struct drm_dp_mst_branch {
- 	 */
- 	struct kref malloc_kref;
- 
-+#if IS_ENABLED(CONFIG_DRM_DEBUG_DP_MST_TOPOLOGY_REFS)
-+	/**
-+	 * @topology_ref_history: A history of each topology
-+	 * reference/dereference. See CONFIG_DRM_DEBUG_DP_MST_TOPOLOGY_REFS.
-+	 */
-+	struct drm_dp_mst_topology_ref_history topology_ref_history;
-+#endif
-+
- 	/**
- 	 * @destroy_next: linked-list entry used by
- 	 * drm_dp_delayed_destroy_work()
-@@ -630,6 +666,15 @@ struct drm_dp_mst_topology_mgr {
- 	 * transmissions.
- 	 */
- 	struct work_struct up_req_work;
-+
-+#if IS_ENABLED(CONFIG_DRM_DEBUG_DP_MST_TOPOLOGY_REFS)
-+	/**
-+	 * @topology_ref_history_lock: protects
-+	 * &drm_dp_mst_port.topology_ref_history and
-+	 * &drm_dp_mst_branch.topology_ref_history.
-+	 */
-+	struct mutex topology_ref_history_lock;
-+#endif
- };
- 
- int drm_dp_mst_topology_mgr_init(struct drm_dp_mst_topology_mgr *mgr,
--- 
-2.21.0
+QWNrZWQtYnk6IEh1YW5nIFJ1aSA8cmF5Lmh1YW5nQGFtZC5jb20+CgotLS0tLU9yaWdpbmFsIE1l
+c3NhZ2UtLS0tLQpGcm9tOiBXYW5nLCBLZXZpbihZYW5nKSA8S2V2aW4xLldhbmdAYW1kLmNvbT4g
+ClNlbnQ6IFR1ZXNkYXksIFNlcHRlbWJlciAzLCAyMDE5IDQ6MTcgQU0KVG86IGFtZC1nZnhAbGlz
+dHMuZnJlZWRlc2t0b3Aub3JnOyBIdWFuZywgUmF5IDxSYXkuSHVhbmdAYW1kLmNvbT4KQ2M6IFdh
+bmcsIEtldmluKFlhbmcpIDxLZXZpbjEuV2FuZ0BhbWQuY29tPgpTdWJqZWN0OiBbUEFUQ0hdIGRy
+bS9hbWQvcG93ZXJwbGF5OiByZXBsYWNlIHNtdS0+dGFibGVfY291bnQgd2l0aCBTTVVfVEFCTEVf
+Q09VTlQgaW4gc211CgpmaXggYmVsbG93IHBhdGNoIGlzc3VlOgpkcm0vYW1kL3Bvd2VycGxheTog
+aW50cm9kdWNlIHNtdSB0YWJsZSBpZCB0eXBlIHRvIGhhbmRsZSB0aGUgc211IHRhYmxlIGZvciBl
+YWNoIGFzaWMKLS0tLQoiVGhpcyBwYXRjaCBpbnRyb2R1Y2VzIG5ldyBzbXUgdGFibGUgdHlwZSwg
+aXQncyB0byBoYW5kbGUgdGhlICBkaWZmZXJlbnQgc211IHRhYmxlICBkZWZpbmVzIGZvciBlYWNo
+IGFzaWMgd2l0aCB0aGUgc2FtZSBzbXUgaXAuIgoKYmVmb3JlOgp1c2Ugc211LT50YWJsZV9jb3Vu
+dCB0byByZXByZXNlbnQgdGhlIGFjdHVhbCB0YWJsZSBjb3VudCBpbiBzbWMgZmlybXdhcmUgdXNl
+IGFjdHVhbCB0YWJsZSBjb3VudCB0byBjaGVjayBzbXUgZnVuY3Rpb24gcGFyYW1ldGVyIGFib3V0
+IHNtdSB0YWJsZQphZnRlcjoKdXNlIGxvZ2ljIHRhYmxlIGNvdW50ICJTTVVfVEFCTEVfQ09VTlQi
+IHRvIGNoZWNrIGZ1bmN0aW9uIHBhcmFtZXRlciBiZWNhdXNlIHRhYmxlIGlkIGFscmVhZHkgbWFw
+cGVkIGluIHNtdSBkcml2ZXIsIGFuZCBzbXUgZnVuY3Rpb24gd2lsbCB1c2UgbG9naWMgdGFibGUg
+aWQgbm90IGFjdHVhbCB0YWJsZSBpZCB0byBjaGVjayBmdW5jIHBhcmFtZXRlci4KClNpZ25lZC1v
+ZmYtYnk6IEtldmluIFdhbmcgPGtldmluMS53YW5nQGFtZC5jb20+Ci0tLQogZHJpdmVycy9ncHUv
+ZHJtL2FtZC9wb3dlcnBsYXkvYW1kZ3B1X3NtdS5jICAgfCAxMyArKysrLS0tLS0tLS0tCiBkcml2
+ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9hcmN0dXJ1c19wcHQuYyB8ICAxIC0KIGRyaXZlcnMv
+Z3B1L2RybS9hbWQvcG93ZXJwbGF5L25hdmkxMF9wcHQuYyAgIHwgIDEgLQogZHJpdmVycy9ncHUv
+ZHJtL2FtZC9wb3dlcnBsYXkvcmVub2lyX3BwdC5jICAgfCAgMSAtCiBkcml2ZXJzL2dwdS9kcm0v
+YW1kL3Bvd2VycGxheS9zbXVfdjExXzAuYyAgICB8ICA1ICsrLS0tCiBkcml2ZXJzL2dwdS9kcm0v
+YW1kL3Bvd2VycGxheS92ZWdhMjBfcHB0LmMgICB8ICAxIC0KIDYgZmlsZXMgY2hhbmdlZCwgNiBp
+bnNlcnRpb25zKCspLCAxNiBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9k
+cm0vYW1kL3Bvd2VycGxheS9hbWRncHVfc211LmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2Vy
+cGxheS9hbWRncHVfc211LmMKaW5kZXggNmY0MzVkNjBmZTg2Li5jNzFhODJhNmE3ODUgMTAwNjQ0
+Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2FtZGdwdV9zbXUuYworKysgYi9k
+cml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9hbWRncHVfc211LmMKQEAgLTQ2Miw3ICs0NjIs
+NyBAQCBpbnQgc211X3VwZGF0ZV90YWJsZShzdHJ1Y3Qgc211X2NvbnRleHQgKnNtdSwgZW51bSBz
+bXVfdGFibGVfaWQgdGFibGVfaW5kZXgsIGludAogCWludCByZXQgPSAwOwogCWludCB0YWJsZV9p
+ZCA9IHNtdV90YWJsZV9nZXRfaW5kZXgoc211LCB0YWJsZV9pbmRleCk7CiAKLQlpZiAoIXRhYmxl
+X2RhdGEgfHwgdGFibGVfaWQgPj0gc211X3RhYmxlLT50YWJsZV9jb3VudCB8fCB0YWJsZV9pZCA8
+IDApCisJaWYgKCF0YWJsZV9kYXRhIHx8IHRhYmxlX2lkID49IFNNVV9UQUJMRV9DT1VOVCB8fCB0
+YWJsZV9pZCA8IDApCiAJCXJldHVybiAtRUlOVkFMOwogCiAJdGFibGUgPSAmc211X3RhYmxlLT50
+YWJsZXNbdGFibGVfaW5kZXhdOyBAQCAtOTQwLDE0ICs5NDAsMTAgQEAgc3RhdGljIGludCBzbXVf
+aW5pdF9mYl9hbGxvY2F0aW9ucyhzdHJ1Y3Qgc211X2NvbnRleHQgKnNtdSkKIAlzdHJ1Y3QgYW1k
+Z3B1X2RldmljZSAqYWRldiA9IHNtdS0+YWRldjsKIAlzdHJ1Y3Qgc211X3RhYmxlX2NvbnRleHQg
+KnNtdV90YWJsZSA9ICZzbXUtPnNtdV90YWJsZTsKIAlzdHJ1Y3Qgc211X3RhYmxlICp0YWJsZXMg
+PSBzbXVfdGFibGUtPnRhYmxlczsKLQl1aW50MzJfdCB0YWJsZV9jb3VudCA9IHNtdV90YWJsZS0+
+dGFibGVfY291bnQ7CiAJdWludDMyX3QgaSA9IDA7CiAJaW50MzJfdCByZXQgPSAwOwogCi0JaWYg
+KHRhYmxlX2NvdW50IDw9IDApCi0JCXJldHVybiAtRUlOVkFMOwotCi0JZm9yIChpID0gMCA7IGkg
+PCB0YWJsZV9jb3VudDsgaSsrKSB7CisJZm9yIChpID0gMDsgaSA8IFNNVV9UQUJMRV9DT1VOVDsg
+aSsrKSB7CiAJCWlmICh0YWJsZXNbaV0uc2l6ZSA9PSAwKQogCQkJY29udGludWU7CiAJCXJldCA9
+IGFtZGdwdV9ib19jcmVhdGVfa2VybmVsKGFkZXYsCkBAIC05NzgsMTMgKzk3NCwxMiBAQCBzdGF0
+aWMgaW50IHNtdV9maW5pX2ZiX2FsbG9jYXRpb25zKHN0cnVjdCBzbXVfY29udGV4dCAqc211KSAg
+ewogCXN0cnVjdCBzbXVfdGFibGVfY29udGV4dCAqc211X3RhYmxlID0gJnNtdS0+c211X3RhYmxl
+OwogCXN0cnVjdCBzbXVfdGFibGUgKnRhYmxlcyA9IHNtdV90YWJsZS0+dGFibGVzOwotCXVpbnQz
+Ml90IHRhYmxlX2NvdW50ID0gc211X3RhYmxlLT50YWJsZV9jb3VudDsKIAl1aW50MzJfdCBpID0g
+MDsKIAotCWlmICh0YWJsZV9jb3VudCA9PSAwIHx8IHRhYmxlcyA9PSBOVUxMKQorCWlmICghdGFi
+bGVzKQogCQlyZXR1cm4gMDsKIAotCWZvciAoaSA9IDAgOyBpIDwgdGFibGVfY291bnQ7IGkrKykg
+eworCWZvciAoaSA9IDA7IGkgPCBTTVVfVEFCTEVfQ09VTlQ7IGkrKykgewogCQlpZiAodGFibGVz
+W2ldLnNpemUgPT0gMCkKIAkJCWNvbnRpbnVlOwogCQlhbWRncHVfYm9fZnJlZV9rZXJuZWwoJnRh
+Ymxlc1tpXS5ibywKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2Fy
+Y3R1cnVzX3BwdC5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvYXJjdHVydXNfcHB0
+LmMKaW5kZXggZjFmMDcyMDEyZmFjLi42ZThlYjBmOTRjOGIgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMv
+Z3B1L2RybS9hbWQvcG93ZXJwbGF5L2FyY3R1cnVzX3BwdC5jCisrKyBiL2RyaXZlcnMvZ3B1L2Ry
+bS9hbWQvcG93ZXJwbGF5L2FyY3R1cnVzX3BwdC5jCkBAIC0xOTM0LDUgKzE5MzQsNCBAQCB2b2lk
+IGFyY3R1cnVzX3NldF9wcHRfZnVuY3Moc3RydWN0IHNtdV9jb250ZXh0ICpzbXUpCiAJc3RydWN0
+IHNtdV90YWJsZV9jb250ZXh0ICpzbXVfdGFibGUgPSAmc211LT5zbXVfdGFibGU7CiAKIAlzbXUt
+PnBwdF9mdW5jcyA9ICZhcmN0dXJ1c19wcHRfZnVuY3M7Ci0Jc211X3RhYmxlLT50YWJsZV9jb3Vu
+dCA9IFRBQkxFX0NPVU5UOwogfQpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dl
+cnBsYXkvbmF2aTEwX3BwdC5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvbmF2aTEw
+X3BwdC5jCmluZGV4IDc0NGI3NTAxYzM0ZC4uZTNhZGQ4YjU5MjkxIDEwMDY0NAotLS0gYS9kcml2
+ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9uYXZpMTBfcHB0LmMKKysrIGIvZHJpdmVycy9ncHUv
+ZHJtL2FtZC9wb3dlcnBsYXkvbmF2aTEwX3BwdC5jCkBAIC0xNjMzLDUgKzE2MzMsNCBAQCB2b2lk
+IG5hdmkxMF9zZXRfcHB0X2Z1bmNzKHN0cnVjdCBzbXVfY29udGV4dCAqc211KQogCXN0cnVjdCBz
+bXVfdGFibGVfY29udGV4dCAqc211X3RhYmxlID0gJnNtdS0+c211X3RhYmxlOwogCiAJc211LT5w
+cHRfZnVuY3MgPSAmbmF2aTEwX3BwdF9mdW5jczsKLQlzbXVfdGFibGUtPnRhYmxlX2NvdW50ID0g
+VEFCTEVfQ09VTlQ7CiB9CmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxh
+eS9yZW5vaXJfcHB0LmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9yZW5vaXJfcHB0
+LmMKaW5kZXggZGU0MzE1OTU2NGE1Li4yYjk1M2Y3NDMxYjYgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMv
+Z3B1L2RybS9hbWQvcG93ZXJwbGF5L3Jlbm9pcl9wcHQuYworKysgYi9kcml2ZXJzL2dwdS9kcm0v
+YW1kL3Bvd2VycGxheS9yZW5vaXJfcHB0LmMKQEAgLTE2OSw1ICsxNjksNCBAQCB2b2lkIHJlbm9p
+cl9zZXRfcHB0X2Z1bmNzKHN0cnVjdCBzbXVfY29udGV4dCAqc211KQogCiAJc211LT5wcHRfZnVu
+Y3MgPSAmcmVub2lyX3BwdF9mdW5jczsKIAlzbXUtPnNtY19pZl92ZXJzaW9uID0gU01VMTJfRFJJ
+VkVSX0lGX1ZFUlNJT047Ci0Jc211X3RhYmxlLT50YWJsZV9jb3VudCA9IFRBQkxFX0NPVU5UOwog
+fQpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvc211X3YxMV8wLmMg
+Yi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9zbXVfdjExXzAuYwppbmRleCBkZWNhOWY4
+NTc2NGMuLjM3MDllNGQ3NzMzOCAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dl
+cnBsYXkvc211X3YxMV8wLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvc211
+X3YxMV8wLmMKQEAgLTQzOSw3ICs0MzksNyBAQCBzdGF0aWMgaW50IHNtdV92MTFfMF9pbml0X3Nt
+Y190YWJsZXMoc3RydWN0IHNtdV9jb250ZXh0ICpzbXUpCiAJc3RydWN0IHNtdV90YWJsZSAqdGFi
+bGVzID0gTlVMTDsKIAlpbnQgcmV0ID0gMDsKIAotCWlmIChzbXVfdGFibGUtPnRhYmxlcyB8fCBz
+bXVfdGFibGUtPnRhYmxlX2NvdW50ID09IDApCisJaWYgKHNtdV90YWJsZS0+dGFibGVzKQogCQly
+ZXR1cm4gLUVJTlZBTDsKIAogCXRhYmxlcyA9IGtjYWxsb2MoU01VX1RBQkxFX0NPVU5ULCBzaXpl
+b2Yoc3RydWN0IHNtdV90YWJsZSksIEBAIC00NjUsMTMgKzQ2NSwxMiBAQCBzdGF0aWMgaW50IHNt
+dV92MTFfMF9maW5pX3NtY190YWJsZXMoc3RydWN0IHNtdV9jb250ZXh0ICpzbXUpCiAJc3RydWN0
+IHNtdV90YWJsZV9jb250ZXh0ICpzbXVfdGFibGUgPSAmc211LT5zbXVfdGFibGU7CiAJaW50IHJl
+dCA9IDA7CiAKLQlpZiAoIXNtdV90YWJsZS0+dGFibGVzIHx8IHNtdV90YWJsZS0+dGFibGVfY291
+bnQgPT0gMCkKKwlpZiAoIXNtdV90YWJsZS0+dGFibGVzKQogCQlyZXR1cm4gLUVJTlZBTDsKIAog
+CWtmcmVlKHNtdV90YWJsZS0+dGFibGVzKTsKIAlrZnJlZShzbXVfdGFibGUtPm1ldHJpY3NfdGFi
+bGUpOwogCXNtdV90YWJsZS0+dGFibGVzID0gTlVMTDsKLQlzbXVfdGFibGUtPnRhYmxlX2NvdW50
+ID0gMDsKIAlzbXVfdGFibGUtPm1ldHJpY3NfdGFibGUgPSBOVUxMOwogCXNtdV90YWJsZS0+bWV0
+cmljc190aW1lID0gMDsKIApkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBs
+YXkvdmVnYTIwX3BwdC5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvdmVnYTIwX3Bw
+dC5jCmluZGV4IDg5OWJmOTZiMjNlMS4uNjg1NDhiYTliNmVhIDEwMDY0NAotLS0gYS9kcml2ZXJz
+L2dwdS9kcm0vYW1kL3Bvd2VycGxheS92ZWdhMjBfcHB0LmMKKysrIGIvZHJpdmVycy9ncHUvZHJt
+L2FtZC9wb3dlcnBsYXkvdmVnYTIwX3BwdC5jCkBAIC0zMTg5LDUgKzMxODksNCBAQCB2b2lkIHZl
+Z2EyMF9zZXRfcHB0X2Z1bmNzKHN0cnVjdCBzbXVfY29udGV4dCAqc211KQogCXN0cnVjdCBzbXVf
+dGFibGVfY29udGV4dCAqc211X3RhYmxlID0gJnNtdS0+c211X3RhYmxlOwogCiAJc211LT5wcHRf
+ZnVuY3MgPSAmdmVnYTIwX3BwdF9mdW5jczsKLQlzbXVfdGFibGUtPnRhYmxlX2NvdW50ID0gVEFC
+TEVfQ09VTlQ7CiB9Ci0tCjIuMjIuMAoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVz
+a3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9h
+bWQtZ2Z4
