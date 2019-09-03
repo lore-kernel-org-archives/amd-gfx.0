@@ -1,48 +1,87 @@
-From: Sasha Levin <sashal@kernel.org>
-Subject: [PATCH AUTOSEL 4.19 022/167] powerplay: Respect units on max dcfclk watermark
-Date: Tue,  3 Sep 2019 12:22:54 -0400
-Message-ID: <20190903162519.7136-22-sashal@kernel.org>
+From: Sasha Levin <sashal-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org>
+Subject: [PATCH AUTOSEL 4.19 023/167] drm/amd/pp: Fix truncated clock value
+ when set watermark
+Date: Tue,  3 Sep 2019 12:22:55 -0400
+Message-ID: <20190903162519.7136-23-sashal@kernel.org>
 References: <20190903162519.7136-1-sashal@kernel.org>
 Mime-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Return-path: <stable-owner@vger.kernel.org>
-In-Reply-To: <20190903162519.7136-1-sashal@kernel.org>
-Sender: stable-owner@vger.kernel.org
-To: linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Cc: David Francis <David.Francis@amd.com>, Harry Wentland <harry.wentland@amd.com>, Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20190903162519.7136-1-sashal-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, stable-u79uwXL29TY76Z2rM5mHXA@public.gmane.org
+Cc: Sasha Levin <sashal-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org>, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Hersen Wu <hersenxs.wu-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
 
-From: David Francis <David.Francis@amd.com>
-
-[ Upstream commit f191415b24a3ad3fa22088af7cd7fc328a2f469f ]
-
-In a refactor, the watermark clock inputs to
-powerplay from DC were changed from units of 10kHz to
-kHz clocks.
-
-One division by 100 was not converted into a division
-by 1000.
-
-Signed-off-by: David Francis <David.Francis@amd.com>
-Reviewed-by: Harry Wentland <harry.wentland@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/gpu/drm/amd/powerplay/hwmgr/smu_helper.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/smu_helper.c b/drivers/gpu/drm/amd/powerplay/hwmgr/smu_helper.c
-index 2aab1b4759459..a321c465b7dce 100644
---- a/drivers/gpu/drm/amd/powerplay/hwmgr/smu_helper.c
-+++ b/drivers/gpu/drm/amd/powerplay/hwmgr/smu_helper.c
-@@ -674,7 +674,7 @@ int smu_set_watermarks_for_clocks_ranges(void *wt_table,
- 		table->WatermarkRow[1][i].MaxClock =
- 			cpu_to_le16((uint16_t)
- 			(wm_with_clock_ranges->wm_dmif_clocks_ranges[i].wm_max_dcfclk_clk_in_khz) /
--			100);
-+			1000);
- 		table->WatermarkRow[1][i].MinUclk =
- 			cpu_to_le16((uint16_t)
- 			(wm_with_clock_ranges->wm_dmif_clocks_ranges[i].wm_min_mem_clk_in_khz) /
--- 
-2.20.1
+RnJvbTogUmV4IFpodSA8UmV4LlpodUBhbWQuY29tPgoKWyBVcHN0cmVhbSBjb21taXQgNGQ0NTRl
+OWZmZGIxZWY1YTUxZWJjMTQ3YjUzODljOTYwNDhkYjY4MyBdCgp0aGUgY2xrIHZhbHVlIHNob3Vs
+ZCBiZSB0cmFuZmVycmVkIHRvIE1IeiBmaXJzdCBhbmQKdGhlbiB0cmFuc2ZlciB0byB1aW50MTYu
+IG90aGVyd2lzZSwgdGhlIGNsb2NrIHZhbHVlCndpbGwgYmUgdHJ1bmNhdGVkLgoKUmV2aWV3ZWQt
+Ynk6IEFsZXggRGV1Y2hlciA8YWxleGFuZGVyLmRldWNoZXJAYW1kLmNvbT4KUmVwb3J0ZWQtYnk6
+IEhlcnNlbiBXdSA8aGVyc2VueHMud3VAYW1kLmNvbT4KU2lnbmVkLW9mZi1ieTogUmV4IFpodSA8
+UmV4LlpodUBhbWQuY29tPgpTaWduZWQtb2ZmLWJ5OiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5k
+ZXVjaGVyQGFtZC5jb20+CkNjOiBzdGFibGVAdmdlci5rZXJuZWwub3JnClNpZ25lZC1vZmYtYnk6
+IFNhc2hhIExldmluIDxzYXNoYWxAa2VybmVsLm9yZz4KLS0tCiAuLi4vZ3B1L2RybS9hbWQvcG93
+ZXJwbGF5L2h3bWdyL3NtdV9oZWxwZXIuYyAgfCAzMiArKysrKysrKystLS0tLS0tLS0tCiAxIGZp
+bGUgY2hhbmdlZCwgMTYgaW5zZXJ0aW9ucygrKSwgMTYgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0
+IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3Ivc211X2hlbHBlci5jIGIvZHJp
+dmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3Ivc211X2hlbHBlci5jCmluZGV4IGEzMjFj
+NDY1YjdkY2UuLmNlZGU3OGNkZjI4ZGIgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQv
+cG93ZXJwbGF5L2h3bWdyL3NtdV9oZWxwZXIuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bv
+d2VycGxheS9od21nci9zbXVfaGVscGVyLmMKQEAgLTY2OSwyMCArNjY5LDIwIEBAIGludCBzbXVf
+c2V0X3dhdGVybWFya3NfZm9yX2Nsb2Nrc19yYW5nZXModm9pZCAqd3RfdGFibGUsCiAJZm9yIChp
+ID0gMDsgaSA8IHdtX3dpdGhfY2xvY2tfcmFuZ2VzLT5udW1fd21fZG1pZl9zZXRzOyBpKyspIHsK
+IAkJdGFibGUtPldhdGVybWFya1Jvd1sxXVtpXS5NaW5DbG9jayA9CiAJCQljcHVfdG9fbGUxNigo
+dWludDE2X3QpCi0JCQkod21fd2l0aF9jbG9ja19yYW5nZXMtPndtX2RtaWZfY2xvY2tzX3Jhbmdl
+c1tpXS53bV9taW5fZGNmY2xrX2Nsa19pbl9raHopIC8KLQkJCTEwMDApOworCQkJKHdtX3dpdGhf
+Y2xvY2tfcmFuZ2VzLT53bV9kbWlmX2Nsb2Nrc19yYW5nZXNbaV0ud21fbWluX2RjZmNsa19jbGtf
+aW5fa2h6IC8KKwkJCTEwMDApKTsKIAkJdGFibGUtPldhdGVybWFya1Jvd1sxXVtpXS5NYXhDbG9j
+ayA9CiAJCQljcHVfdG9fbGUxNigodWludDE2X3QpCi0JCQkod21fd2l0aF9jbG9ja19yYW5nZXMt
+PndtX2RtaWZfY2xvY2tzX3Jhbmdlc1tpXS53bV9tYXhfZGNmY2xrX2Nsa19pbl9raHopIC8KLQkJ
+CTEwMDApOworCQkJKHdtX3dpdGhfY2xvY2tfcmFuZ2VzLT53bV9kbWlmX2Nsb2Nrc19yYW5nZXNb
+aV0ud21fbWF4X2RjZmNsa19jbGtfaW5fa2h6IC8KKwkJCTEwMDApKTsKIAkJdGFibGUtPldhdGVy
+bWFya1Jvd1sxXVtpXS5NaW5VY2xrID0KIAkJCWNwdV90b19sZTE2KCh1aW50MTZfdCkKLQkJCSh3
+bV93aXRoX2Nsb2NrX3Jhbmdlcy0+d21fZG1pZl9jbG9ja3NfcmFuZ2VzW2ldLndtX21pbl9tZW1f
+Y2xrX2luX2toeikgLwotCQkJMTAwMCk7CisJCQkod21fd2l0aF9jbG9ja19yYW5nZXMtPndtX2Rt
+aWZfY2xvY2tzX3Jhbmdlc1tpXS53bV9taW5fbWVtX2Nsa19pbl9raHogLworCQkJMTAwMCkpOwog
+CQl0YWJsZS0+V2F0ZXJtYXJrUm93WzFdW2ldLk1heFVjbGsgPQogCQkJY3B1X3RvX2xlMTYoKHVp
+bnQxNl90KQotCQkJKHdtX3dpdGhfY2xvY2tfcmFuZ2VzLT53bV9kbWlmX2Nsb2Nrc19yYW5nZXNb
+aV0ud21fbWF4X21lbV9jbGtfaW5fa2h6KSAvCi0JCQkxMDAwKTsKKwkJCSh3bV93aXRoX2Nsb2Nr
+X3Jhbmdlcy0+d21fZG1pZl9jbG9ja3NfcmFuZ2VzW2ldLndtX21heF9tZW1fY2xrX2luX2toeiAv
+CisJCQkxMDAwKSk7CiAJCXRhYmxlLT5XYXRlcm1hcmtSb3dbMV1baV0uV21TZXR0aW5nID0gKHVp
+bnQ4X3QpCiAJCQkJd21fd2l0aF9jbG9ja19yYW5nZXMtPndtX2RtaWZfY2xvY2tzX3Jhbmdlc1tp
+XS53bV9zZXRfaWQ7CiAJfQpAQCAtNjkwLDIwICs2OTAsMjAgQEAgaW50IHNtdV9zZXRfd2F0ZXJt
+YXJrc19mb3JfY2xvY2tzX3Jhbmdlcyh2b2lkICp3dF90YWJsZSwKIAlmb3IgKGkgPSAwOyBpIDwg
+d21fd2l0aF9jbG9ja19yYW5nZXMtPm51bV93bV9tY2lmX3NldHM7IGkrKykgewogCQl0YWJsZS0+
+V2F0ZXJtYXJrUm93WzBdW2ldLk1pbkNsb2NrID0KIAkJCWNwdV90b19sZTE2KCh1aW50MTZfdCkK
+LQkJCSh3bV93aXRoX2Nsb2NrX3Jhbmdlcy0+d21fbWNpZl9jbG9ja3NfcmFuZ2VzW2ldLndtX21p
+bl9zb2NjbGtfY2xrX2luX2toeikgLwotCQkJMTAwMCk7CisJCQkod21fd2l0aF9jbG9ja19yYW5n
+ZXMtPndtX21jaWZfY2xvY2tzX3Jhbmdlc1tpXS53bV9taW5fc29jY2xrX2Nsa19pbl9raHogLwor
+CQkJMTAwMCkpOwogCQl0YWJsZS0+V2F0ZXJtYXJrUm93WzBdW2ldLk1heENsb2NrID0KIAkJCWNw
+dV90b19sZTE2KCh1aW50MTZfdCkKLQkJCSh3bV93aXRoX2Nsb2NrX3Jhbmdlcy0+d21fbWNpZl9j
+bG9ja3NfcmFuZ2VzW2ldLndtX21heF9zb2NjbGtfY2xrX2luX2toeikgLwotCQkJMTAwMCk7CisJ
+CQkod21fd2l0aF9jbG9ja19yYW5nZXMtPndtX21jaWZfY2xvY2tzX3Jhbmdlc1tpXS53bV9tYXhf
+c29jY2xrX2Nsa19pbl9raHogLworCQkJMTAwMCkpOwogCQl0YWJsZS0+V2F0ZXJtYXJrUm93WzBd
+W2ldLk1pblVjbGsgPQogCQkJY3B1X3RvX2xlMTYoKHVpbnQxNl90KQotCQkJKHdtX3dpdGhfY2xv
+Y2tfcmFuZ2VzLT53bV9tY2lmX2Nsb2Nrc19yYW5nZXNbaV0ud21fbWluX21lbV9jbGtfaW5fa2h6
+KSAvCi0JCQkxMDAwKTsKKwkJCSh3bV93aXRoX2Nsb2NrX3Jhbmdlcy0+d21fbWNpZl9jbG9ja3Nf
+cmFuZ2VzW2ldLndtX21pbl9tZW1fY2xrX2luX2toeiAvCisJCQkxMDAwKSk7CiAJCXRhYmxlLT5X
+YXRlcm1hcmtSb3dbMF1baV0uTWF4VWNsayA9CiAJCQljcHVfdG9fbGUxNigodWludDE2X3QpCi0J
+CQkod21fd2l0aF9jbG9ja19yYW5nZXMtPndtX21jaWZfY2xvY2tzX3Jhbmdlc1tpXS53bV9tYXhf
+bWVtX2Nsa19pbl9raHopIC8KLQkJCTEwMDApOworCQkJKHdtX3dpdGhfY2xvY2tfcmFuZ2VzLT53
+bV9tY2lmX2Nsb2Nrc19yYW5nZXNbaV0ud21fbWF4X21lbV9jbGtfaW5fa2h6IC8KKwkJCTEwMDAp
+KTsKIAkJdGFibGUtPldhdGVybWFya1Jvd1swXVtpXS5XbVNldHRpbmcgPSAodWludDhfdCkKIAkJ
+CQl3bV93aXRoX2Nsb2NrX3Jhbmdlcy0+d21fbWNpZl9jbG9ja3NfcmFuZ2VzW2ldLndtX3NldF9p
+ZDsKIAl9Ci0tIAoyLjIwLjEKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Au
+b3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdm
+eA==
