@@ -1,16 +1,17 @@
-From: Hillf Danton <hdanton-k+cT0dCbe1g@public.gmane.org>
-Subject: Re: gnome-shell stuck because of amdgpu driver [5.3 RC5]
-Date: Wed, 4 Sep 2019 09:17:16 +0800
-Message-ID: <20190904071704.F315489B4D@gabe.freedesktop.org>
-References: <20190830032948.13516-1-hdanton@sina.com>
- <CABXGCsNywbo90+wgiZ64Srm-KexypTbjiviwTW_BsO9Pm11GKQ@mail.gmail.com>
- <5d6e2298.1c69fb81.b5532.8395SMTPIN_ADDED_MISSING@mx.google.com>
- <CABXGCsMG2YrybO4_5jHaFQQxy2ywB53pY63qRfXK=ZKx5qc2Bw@mail.gmail.com>
- <CAKMK7uH9q09XadTV5Ezm=9aODErD=w_+8feujviVnF5LO_fggA@mail.gmail.com>
+From: "=?gb18030?B?Nzg2NjY2Nzk=?=" <78666679-9uewiaClKEY@public.gmane.org>
+Subject: =?gb18030?B?u9i4tKO6ILvYuLSjuiBCdWc6IGFtZGdwdSBkcm0g?=
+ =?gb18030?B?ZHJpdmVyIGNhdXNlIHByb2Nlc3MgaW50byBEaXNr?=
+ =?gb18030?B?IHNsZWVwIHN0YXRl?=
+Date: Tue, 3 Sep 2019 21:16:53 +0800
+Message-ID: <tencent_DFCD5A0853FDA639F81F91375F8DF55AF508@qq.com>
+References: <tencent_4DEABBEB3BB4C6A6D84CA9F0DB225FBF5809@qq.com>
+ <f761fec0-c0cc-426c-6bcb-c3fd23808888@amd.com>
+ <tencent_7DC9F5195A4D538FA626F85991875FC5F508@qq.com>
+ <2162676e-dbfa-a67d-248c-98e9eb2099c2@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0602678665=="
+Content-Type: multipart/mixed; boundary="===============2042642826=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CAKMK7uH9q09XadTV5Ezm=9aODErD=w_+8feujviVnF5LO_fggA-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
+In-Reply-To: <2162676e-dbfa-a67d-248c-98e9eb2099c2-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -21,119 +22,223 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>, Mikhail Gavrilov <mikhail.v.gavrilov-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, dri-devel <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Linux kernel <linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>
+To: =?gb18030?B?S29lbmlnLCBDaHJpc3RpYW4=?= <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, =?gb18030?B?YW1kLWdmeA==?= <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: =?gb18030?B?RGV1Y2hlciwgQWxleGFuZGVy?= <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
 
+This is a multi-part message in MIME format.
 
---===============0602678665==
+--===============2042642826==
 Content-Type: multipart/alternative;
-	boundary="_FEA7D873-6F97-49AA-B05D-696E54FDDE7C_"
+	boundary="----=_NextPart_5D6E67C5_0E06D7A0_3D68556B"
+Content-Transfer-Encoding: 8Bit
+
+This is a multi-part message in MIME format.
+
+------=_NextPart_5D6E67C5_0E06D7A0_3D68556B
+Content-Type: text/plain;
+	charset="gb18030"
+Content-Transfer-Encoding: base64
+
+WWVzLCB3aXRoIGRtZXNnfGdyZXAgZHJtICwgIEkgZ2V0IGZvbGxvd2luZy4NCg0KDQozNDg1
+NzEuODgwNzE4XSBbZHJtOmFtZGdwdV9qb2JfdGltZWRvdXQgW2FtZGdwdV1dICpFUlJPUiog
+cmluZyBzZG1hMSB0aW1lb3V0LCBzaWduYWxlZCBzZXE9MjQ0MjM4NjIsIGVtaXR0ZWQgc2Vx
+PTI0NDIzODY1DQoNCg0KDQoNCi0tLS0tLS0tLS0tLS0tLS0tLSDUrcq808q8/iAtLS0tLS0t
+LS0tLS0tLS0tLS0NCreivP7IyzogIktvZW5pZywgQ2hyaXN0aWFuIjxDaHJpc3RpYW4uS29l
+bmlnQGFtZC5jb20+Ow0Kt6LLzcqxvOQ6IDIwMTnE6jnUwjPI1SjQx8batv4pIM3tyc85OjA3
+DQrK1bz+yMs6ICIiPDc4NjY2Njc5QHFxLmNvbT47ImFtZC1nZngiPGFtZC1nZnhAbGlzdHMu
+ZnJlZWRlc2t0b3Aub3JnPjsNCrOty806ICJEZXVjaGVyLCBBbGV4YW5kZXIiPEFsZXhhbmRl
+ci5EZXVjaGVyQGFtZC5jb20+Ow0K1vfM4jogUmU6ILvYuLSjuiBCdWc6IGFtZGdwdSBkcm0g
+ZHJpdmVyIGNhdXNlIHByb2Nlc3MgaW50byBEaXNrIHNsZWVwIHN0YXRlDQoNCg0KDQogV2Vs
+bCB0aGF0IGxvb2tzIGxpa2UgdGhlIGhhcmR3YXJlIGdvdCBzdHVjay4NCiANCiBEbyB5b3Ug
+Z2V0IHNvbWV0aGluZyBpbiB0aGUgbG9ja3MgYWJvdXQgYSB0aW1lb3V0IG9uIHRoZSBTRE1B
+IHJpbmc/DQogDQogUmVnYXJkcywNCiBDaHJpc3RpYW4uDQogDQogQW0gMDMuMDkuMTkgdW0g
+MTQ6NTAgc2NocmllYiA3ODY2NjY3OToNCiANCiAgSGkgQ2hyaXN0aWFuLA0KICAgICAgICBT
+b21ldGltZXMgdGhlIHRocmVhZCBibG9ja2VkICBkaXNrIHNsZWVwaW5nIGluIGNhbGwgdG8g
+YW1kZ3B1X3NhX2JvX25ldy4gZm9sbG93aW5nIGlzIHRoZSBzdGFjayB0cmFjZS4gIGl0IHNl
+ZW1zIHRoZSBzYSBibyBpcyB1c2VkIHVwICwgIHNvICB0aGUgY2FsbGVyIGJsb2NrZWQgd2Fp
+dGluZyBzb21lb25lIHRvIGZyZWUgc2EgcmVzb3VyY2VzLiANCiANCiANCiANCiBEIDIwNjgz
+MyAyMjc2NTYgW3N1cmZhY2VmbGluZ2VyXSA8ZGVmdW5jdD4gQmluZGVyOjQ1XzUNCiBjYXQg
+L3Byb2MvMjA2ODMzL3Rhc2svMjI3NjU2L3N0YWNrDQogDQogDQogWzwwPl0gX19zd2l0Y2hf
+dG8rMHg5NC8weGU4DQogWzwwPl0gZG1hX2ZlbmNlX3dhaXRfYW55X3RpbWVvdXQrMHgyMzQv
+MHgyZDANCiBbPDA+XSBhbWRncHVfc2FfYm9fbmV3KzB4NDY4LzB4NTQwIFthbWRncHVdDQog
+WzwwPl0gYW1kZ3B1X2liX2dldCsweDYwLzB4YzggW2FtZGdwdV0NCiBbPDA+XSBhbWRncHVf
+am9iX2FsbG9jX3dpdGhfaWIrMHg3MC8weGIwIFthbWRncHVdDQogWzwwPl0gYW1kZ3B1X3Zt
+X2JvX3VwZGF0ZV9tYXBwaW5nKzB4MmUwLzB4M2Q4IFthbWRncHVdDQogWzwwPl0gYW1kZ3B1
+X3ZtX2JvX3VwZGF0ZSsweDJhMC8weDcxMCBbYW1kZ3B1XQ0KIFs8MD5dIGFtZGdwdV9nZW1f
+dmFfaW9jdGwrMHg0NmMvMHg0YzggW2FtZGdwdV0NCiBbPDA+XSBkcm1faW9jdGxfa2VybmVs
+KzB4OTQvMHgxMTggW2RybV0NCiBbPDA+XSBkcm1faW9jdGwrMHgxZjAvMHg0MzggW2RybV0N
+CiBbPDA+XSBhbWRncHVfZHJtX2lvY3RsKzB4NTgvMHg5MCBbYW1kZ3B1XQ0KIFs8MD5dIGRv
+X3Zmc19pb2N0bCsweGM0LzB4OGMwDQogWzwwPl0ga3N5c19pb2N0bCsweDhjLzB4YTANCiBb
+PDA+XSBfX2FybTY0X3N5c19pb2N0bCsweDI4LzB4MzgNCiBbPDA+XSBlbDBfc3ZjX2NvbW1v
+bisweGEwLzB4MTgwDQogWzwwPl0gZWwwX3N2Y19oYW5kbGVyKzB4MzgvMHg3OA0KIFs8MD5d
+IGVsMF9zdmMrMHg4LzB4Yw0KIFs8MD5dIDB4ZmZmZmZmZmZmZmZmZmZmZg0KIA0KIA0KIA0K
+IA0KICAtLS0tLS0tLS0tLS0tLS0tLS0tLQ0KIFlhbkh1YQ0KIA0KIA0KIA0KICAtLS0tLS0t
+LS0tLS0tLS0tLS0g1K3KvNPKvP4gLS0tLS0tLS0tLS0tLS0tLS0tDQogILeivP7IyzogIktv
+ZW5pZywgQ2hyaXN0aWFuIjxDaHJpc3RpYW4uS29lbmlnQGFtZC5jb20+Ow0KILeiy83Ksbzk
+OiAyMDE5xOo51MIzyNUo0MfG2rb+KSDPws7nNDoyMQ0KIMrVvP7IyzogIiI8Nzg2NjY2NzlA
+cXEuY29tPjsiYW1kLWdmeCI8YW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmc+Ow0KILOt
+y806ICJEZXVjaGVyLCBBbGV4YW5kZXIiPEFsZXhhbmRlci5EZXVjaGVyQGFtZC5jb20+Ow0K
+INb3zOI6IFJlOiBCdWc6IGFtZGdwdSBkcm0gZHJpdmVyIGNhdXNlIHByb2Nlc3MgaW50byBE
+aXNrIHNsZWVwIHN0YXRlDQogDQogDQogDQogSGkgWWFuaHVhLA0KIA0KIHBsZWFzZSB1cGRh
+dGUgeW91ciBrZXJuZWwgZmlyc3QsIGNhdXNlIHRoYXQgbG9va3MgbGlrZSBhIGtub3duIGlz
+c3VlIA0KIHdoaWNoIHdhcyByZWNlbnRseSBmaXhlZCBieSBwYXRjaCAiZHJtL3NjaGVkdWxl
+cjogdXNlIGpvYiBjb3VudCBpbnN0ZWFkIA0KIG9mIHBlZWsiLg0KIA0KIFByb2JhYmx5IGJl
+c3QgdG8gdHJ5IHRoZSBsYXRlc3QgYmxlZWRpbmcgZWRnZSBrZXJuZWwgYW5kIGlmIHRoYXQg
+ZG9lc24ndCANCiBoZWxwIHBsZWFzZSBvcGVuIHVwIGEgYnVnIHJlcG9ydCBvbiAgaHR0cHM6
+Ly9idWdzLmZyZWVkZXNrdG9wLm9yZy8uDQogDQogUmVnYXJkcywNCiBDaHJpc3RpYW4uDQog
+DQogQW0gMDMuMDkuMTkgdW0gMDk6MzUgc2NocmllYiA3ODY2NjY3OToNCiA+IEhpLCBTaXJz
+Og0KID4gICAgICAgICBJIGhhdmUgYSB3eDUxMDAgYW1kZ3B1IGNhcmQsIEl0IHJhbmRvbWx5
+IGNvbWUgaW50byBmYWlsdXJlLiAgc29tZXRpbWVzLCBpdCB3aWxsIGNhdXNlIHByb2Nlc3Nl
+cyBpbnRvIHVuaW50ZXJydXB0aWJsZSB3YWl0IHN0YXRlLg0KID4NCiA+DQogPiBjcHMtbmV3
+LW9uZGVtYW5kLTA1ODc6fiAjIHBzIGF1eHxncmVwIC13IEQNCiA+IHJvb3QgICAgICAxMTI2
+OCAgMC4wICAwLjAgMjYwNjI4ICAzNTE2ID8gICAgICAgIFNzbCAgONTCMjYgICAwOjAwIC91
+c3Ivc2Jpbi9nc3Nwcm94eSAtRA0KID4gcm9vdCAgICAgMTM2NDgyICAwLjAgIDAuMCAyMTI1
+MDAgICA1NzIgcHRzLzAgICAgUysgICAxNToyNSAgIDA6MDAgZ3JlcCAtLWNvbG9yPWF1dG8g
+LXcgRA0KID4gcm9vdCAgICAgMzcwNjg0ICAwLjAgIDAuMCAgMTc5NzIgIDc0MjggPyAgICAg
+ICAgU3MgICA51MIwMiAgIDA6MDQgL3Vzci9zYmluL3NzaGQgLUQNCiA+IDEwMDY2ICAgIDQz
+Mjk1MSAgMC4wICAwLjAgICAgICAwICAgICAwID8gICAgICAgIEQgICAgOdTCMDIgICAwOjAw
+IFtGYWtlRmluYWxpemVyRGFdDQogPiByb290ICAgICA0OTY3NzQgIDAuMCAgMC4wICAgICAg
+MCAgICAgMCA/ICAgICAgICBEICAgIDnUwjAyICAgMDoxNyBba3dvcmtlci84OjErZXZlXQ0K
+ID4gY3BzLW5ldy1vbmRlbWFuZC0wNTg3On4gIyBjYXQgL3Byb2MvNDk2Nzc0L3N0YWNrDQog
+PiBbPDA+XSBfX3N3aXRjaF90bysweDk0LzB4ZTgNCiA+IFs8MD5dIGRybV9zY2hlZF9lbnRp
+dHlfZmx1c2grMHhmOC8weDI0OCBbZ3B1X3NjaGVkXQ0KID4gWzwwPl0gYW1kZ3B1X2N0eF9t
+Z3JfZW50aXR5X2ZsdXNoKzB4YWMvMHgxNDggW2FtZGdwdV0NCiA+IFs8MD5dIGFtZGdwdV9m
+bHVzaCsweDJjLzB4NTAgW2FtZGdwdV0NCiA+IFs8MD5dIGZpbHBfY2xvc2UrMHg0MC8weGEw
+DQogPiBbPDA+XSBwdXRfZmlsZXNfc3RydWN0KzB4MTE4LzB4MTIwDQogPiBbPDA+XSBwdXRf
+ZmlsZXNfc3RydWN0KzB4MzAvMHg2OCBbYmluZGVyX2xpbnV4XQ0KID4gWzwwPl0gYmluZGVy
+X2RlZmVycmVkX2Z1bmMrMHg0ZDQvMHg2NTggW2JpbmRlcl9saW51eF0NCiA+IFs8MD5dIHBy
+b2Nlc3Nfb25lX3dvcmsrMHgxYjQvMHgzZjgNCiA+IFs8MD5dIHdvcmtlcl90aHJlYWQrMHg1
+NC8weDQ3MA0KID4gWzwwPl0ga3RocmVhZCsweDEzNC8weDEzOA0KID4gWzwwPl0gcmV0X2Zy
+b21fZm9yaysweDEwLzB4MTgNCiA+IFs8MD5dIDB4ZmZmZmZmZmZmZmZmZmZmZg0KID4NCiA+
+DQogPg0KID4gVGhpcyBpc3N1ZSB0cm91YmxlZCBtZSBhIGxvbmcgdGltZS4gIGxvb2tpbmcg
+ZWFnZXJseSB0byBnZXQgaGVscCBmcm9tIHlvdSENCiA+DQogPg0KID4gLS0tLS0NCiA+IFlh
+bmh1YQ==
+
+------=_NextPart_5D6E67C5_0E06D7A0_3D68556B
+Content-Type: text/html;
+	charset="gb18030"
+Content-Transfer-Encoding: base64
+
+PGRpdj5ZZXMsIHdpdGggZG1lc2d8Z3JlcCBkcm0gLCZuYnNwOyBJIGdldCBmb2xsb3dpbmcu
+PC9kaXY+PGRpdj48YnI+PC9kaXY+PGRpdj4zNDg1NzEuODgwNzE4XSBbZHJtOmFtZGdwdV9q
+b2JfdGltZWRvdXQgW2FtZGdwdV1dICpFUlJPUiogcmluZyBzZG1hMSB0aW1lb3V0LCBzaWdu
+YWxlZCBzZXE9MjQ0MjM4NjIsIGVtaXR0ZWQgc2VxPTI0NDIzODY1PC9kaXY+PGRpdj48ZGl2
+Pjxicj48L2Rpdj48ZGl2Pjxicj48L2Rpdj48ZGl2IHN0eWxlPSJmb250LXNpemU6IDEycHg7
+Zm9udC1mYW1pbHk6IEFyaWFsIE5hcnJvdztwYWRkaW5nOjJweCAwIDJweCAwOyI+LS0tLS0t
+LS0tLS0tLS0tLS0tJm5ic3A71K3KvNPKvP4mbmJzcDstLS0tLS0tLS0tLS0tLS0tLS08L2Rp
+dj48ZGl2IHN0eWxlPSJmb250LXNpemU6IDEycHg7YmFja2dyb3VuZDojZWZlZmVmO3BhZGRp
+bmc6OHB4OyI+PGRpdj48Yj63orz+yMs6PC9iPiZuYnNwOyJLb2VuaWcsIENocmlzdGlhbiIm
+bHQ7Q2hyaXN0aWFuLktvZW5pZ0BhbWQuY29tJmd0Ozs8L2Rpdj48ZGl2PjxiPreiy83Ksbzk
+OjwvYj4mbmJzcDsyMDE5xOo51MIzyNUo0MfG2rb+KSDN7cnPOTowNzwvZGl2PjxkaXY+PGI+
+ytW8/sjLOjwvYj4mbmJzcDsiIiZsdDs3ODY2NjY3OUBxcS5jb20mZ3Q7OyJhbWQtZ2Z4IiZs
+dDthbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZyZndDs7PHdicj48L2Rpdj48ZGl2Pjxi
+PrOty806PC9iPiZuYnNwOyJEZXVjaGVyLCBBbGV4YW5kZXIiJmx0O0FsZXhhbmRlci5EZXVj
+aGVyQGFtZC5jb20mZ3Q7Ozx3YnI+PC9kaXY+PGRpdj48Yj7W98ziOjwvYj4mbmJzcDtSZTog
+u9i4tKO6IEJ1ZzogYW1kZ3B1IGRybSBkcml2ZXIgY2F1c2UgcHJvY2VzcyBpbnRvIERpc2sg
+c2xlZXAgc3RhdGU8L2Rpdj48L2Rpdj48ZGl2Pjxicj48L2Rpdj4KCgoKCjxkaXYgY2xhc3M9
+Im1vei1jaXRlLXByZWZpeCI+V2VsbCB0aGF0IGxvb2tzIGxpa2UgdGhlIGhhcmR3YXJlIGdv
+dCBzdHVjay48YnI+Cjxicj4KRG8geW91IGdldCBzb21ldGhpbmcgaW4gdGhlIGxvY2tzIGFi
+b3V0IGEgdGltZW91dCBvbiB0aGUgU0RNQSByaW5nPzxicj4KPGJyPgpSZWdhcmRzLDxicj4K
+Q2hyaXN0aWFuLjxicj4KPGJyPgpBbSAwMy4wOS4xOSB1bSAxNDo1MCBzY2hyaWViIDc4NjY2
+Njc5Ojxicj4KPC9kaXY+CjxibG9ja3F1b3RlIHR5cGU9ImNpdGUiIGNpdGU9Im1pZDp0ZW5j
+ZW50XzdEQzlGNTE5NUE0RDUzOEZBNjI2Rjg1OTkxODc1RkM1RjUwOEBxcS5jb20iPgo8ZGl2
+PkhpIENocmlzdGlhbiw8L2Rpdj4KPGRpdj4mbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsgJm5i
+c3A7IFNvbWV0aW1lcyB0aGUgdGhyZWFkIGJsb2NrZWQmbmJzcDsgZGlzayBzbGVlcGluZyBp
+biBjYWxsIHRvIGFtZGdwdV9zYV9ib19uZXcuIGZvbGxvd2luZyBpcyB0aGUgc3RhY2sgdHJh
+Y2UuJm5ic3A7IGl0IHNlZW1zIHRoZSBzYSBibyBpcyB1c2VkIHVwICwmbmJzcDsgc28mbmJz
+cDsgdGhlIGNhbGxlciBibG9ja2VkIHdhaXRpbmcgc29tZW9uZSB0byBmcmVlIHNhIHJlc291
+cmNlcy4KPGJyPgo8L2Rpdj4KPGRpdj48YnI+CjwvZGl2Pgo8ZGl2PkQgMjA2ODMzIDIyNzY1
+NiBbc3VyZmFjZWZsaW5nZXJdICZsdDtkZWZ1bmN0Jmd0OyBCaW5kZXI6NDVfNTwvZGl2Pgo8
+ZGl2PmNhdCAvcHJvYy8yMDY4MzMvdGFzay8yMjc2NTYvc3RhY2s8L2Rpdj4KPGRpdj48YnI+
+CjwvZGl2Pgo8ZGl2PlsmbHQ7MCZndDtdIF9fc3dpdGNoX3RvKzB4OTQvMHhlODxicj4KWyZs
+dDswJmd0O10gZG1hX2ZlbmNlX3dhaXRfYW55X3RpbWVvdXQrMHgyMzQvMHgyZDA8YnI+Clsm
+bHQ7MCZndDtdIGFtZGdwdV9zYV9ib19uZXcrMHg0NjgvMHg1NDAgW2FtZGdwdV08YnI+Clsm
+bHQ7MCZndDtdIGFtZGdwdV9pYl9nZXQrMHg2MC8weGM4IFthbWRncHVdPGJyPgpbJmx0OzAm
+Z3Q7XSBhbWRncHVfam9iX2FsbG9jX3dpdGhfaWIrMHg3MC8weGIwIFthbWRncHVdPGJyPgpb
+Jmx0OzAmZ3Q7XSBhbWRncHVfdm1fYm9fdXBkYXRlX21hcHBpbmcrMHgyZTAvMHgzZDggW2Ft
+ZGdwdV08YnI+ClsmbHQ7MCZndDtdIGFtZGdwdV92bV9ib191cGRhdGUrMHgyYTAvMHg3MTAg
+W2FtZGdwdV08YnI+ClsmbHQ7MCZndDtdIGFtZGdwdV9nZW1fdmFfaW9jdGwrMHg0NmMvMHg0
+YzggW2FtZGdwdV08YnI+ClsmbHQ7MCZndDtdIGRybV9pb2N0bF9rZXJuZWwrMHg5NC8weDEx
+OCBbZHJtXTxicj4KWyZsdDswJmd0O10gZHJtX2lvY3RsKzB4MWYwLzB4NDM4IFtkcm1dPGJy
+PgpbJmx0OzAmZ3Q7XSBhbWRncHVfZHJtX2lvY3RsKzB4NTgvMHg5MCBbYW1kZ3B1XTxicj4K
+WyZsdDswJmd0O10gZG9fdmZzX2lvY3RsKzB4YzQvMHg4YzA8YnI+ClsmbHQ7MCZndDtdIGtz
+eXNfaW9jdGwrMHg4Yy8weGEwPGJyPgpbJmx0OzAmZ3Q7XSBfX2FybTY0X3N5c19pb2N0bCsw
+eDI4LzB4Mzg8YnI+ClsmbHQ7MCZndDtdIGVsMF9zdmNfY29tbW9uKzB4YTAvMHgxODA8YnI+
+ClsmbHQ7MCZndDtdIGVsMF9zdmNfaGFuZGxlcisweDM4LzB4Nzg8YnI+ClsmbHQ7MCZndDtd
+IGVsMF9zdmMrMHg4LzB4Yzxicj4KWyZsdDswJmd0O10gMHhmZmZmZmZmZmZmZmZmZmZmPGJy
+Pgo8YnI+CjwvZGl2Pgo8ZGl2Pjxicj4KPC9kaXY+CjxkaXY+CjxkaXY+LS0tLS0tLS0tLS0t
+LS0tLS0tLS08L2Rpdj4KPGRpdj5ZYW5IdWE8YnI+CjwvZGl2Pgo8ZGl2Pjxicj4KPC9kaXY+
+CjxkaXYgc3R5bGU9ImZvbnQtc2l6ZTogMTJweDtmb250LWZhbWlseTogQXJpYWwKICAgICAg
+ICAgIE5hcnJvdztwYWRkaW5nOjJweCAwIDJweCAwOyI+Ci0tLS0tLS0tLS0tLS0tLS0tLSDU
+rcq808q8/iAtLS0tLS0tLS0tLS0tLS0tLS08L2Rpdj4KPGRpdiBzdHlsZT0iZm9udC1zaXpl
+OiAxMnB4O2JhY2tncm91bmQ6I2VmZWZlZjtwYWRkaW5nOjhweDsiPgo8ZGl2PjxiPreivP7I
+yzo8L2I+Jm5ic3A7IktvZW5pZywgQ2hyaXN0aWFuIjxhIGNsYXNzPSJtb3otdHh0LWxpbmst
+cmZjMjM5NkUiIGhyZWY9Im1haWx0bzpDaHJpc3RpYW4uS29lbmlnQGFtZC5jb20iPiZsdDtD
+aHJpc3RpYW4uS29lbmlnQGFtZC5jb20mZ3Q7PC9hPjs8L2Rpdj4KPGRpdj48Yj63osvNyrG8
+5Do8L2I+Jm5ic3A7MjAxOcTqOdTCM8jVKNDHxtq2/ikgz8LO5zQ6MjE8L2Rpdj4KPGRpdj48
+Yj7K1bz+yMs6PC9iPiZuYnNwOyIiPGEgY2xhc3M9Im1vei10eHQtbGluay1yZmMyMzk2RSIg
+aHJlZj0ibWFpbHRvOjc4NjY2Njc5QHFxLmNvbSI+Jmx0Ozc4NjY2Njc5QHFxLmNvbSZndDs8
+L2E+OyJhbWQtZ2Z4IjxhIGNsYXNzPSJtb3otdHh0LWxpbmstcmZjMjM5NkUiIGhyZWY9Im1h
+aWx0bzphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZyI+Jmx0O2FtZC1nZnhAbGlzdHMu
+ZnJlZWRlc2t0b3Aub3JnJmd0OzwvYT47PHdicj48L2Rpdj4KPGRpdj48Yj6zrcvNOjwvYj4m
+bmJzcDsiRGV1Y2hlciwgQWxleGFuZGVyIjxhIGNsYXNzPSJtb3otdHh0LWxpbmstcmZjMjM5
+NkUiIGhyZWY9Im1haWx0bzpBbGV4YW5kZXIuRGV1Y2hlckBhbWQuY29tIj4mbHQ7QWxleGFu
+ZGVyLkRldWNoZXJAYW1kLmNvbSZndDs8L2E+Ozx3YnI+PC9kaXY+CjxkaXY+PGI+1vfM4jo8
+L2I+Jm5ic3A7UmU6IEJ1ZzogYW1kZ3B1IGRybSBkcml2ZXIgY2F1c2UgcHJvY2VzcyBpbnRv
+IERpc2sgc2xlZXAgc3RhdGU8L2Rpdj4KPC9kaXY+CjxkaXY+PGJyPgo8L2Rpdj4KSGkgWWFu
+aHVhLDxicj4KPGJyPgpwbGVhc2UgdXBkYXRlIHlvdXIga2VybmVsIGZpcnN0LCBjYXVzZSB0
+aGF0IGxvb2tzIGxpa2UgYSBrbm93biBpc3N1ZSA8YnI+CndoaWNoIHdhcyByZWNlbnRseSBm
+aXhlZCBieSBwYXRjaCAiZHJtL3NjaGVkdWxlcjogdXNlIGpvYiBjb3VudCBpbnN0ZWFkIDxi
+cj4Kb2YgcGVlayIuPGJyPgo8YnI+ClByb2JhYmx5IGJlc3QgdG8gdHJ5IHRoZSBsYXRlc3Qg
+YmxlZWRpbmcgZWRnZSBrZXJuZWwgYW5kIGlmIHRoYXQgZG9lc24ndCA8YnI+CmhlbHAgcGxl
+YXNlIG9wZW4gdXAgYSBidWcgcmVwb3J0IG9uIDxhIGNsYXNzPSJtb3otdHh0LWxpbmstZnJl
+ZXRleHQiIGhyZWY9Imh0dHBzOi8vYnVncy5mcmVlZGVza3RvcC5vcmcvIj4KaHR0cHM6Ly9i
+dWdzLmZyZWVkZXNrdG9wLm9yZy88L2E+Ljxicj4KPGJyPgpSZWdhcmRzLDxicj4KQ2hyaXN0
+aWFuLjxicj4KPGJyPgpBbSAwMy4wOS4xOSB1bSAwOTozNSBzY2hyaWViIDc4NjY2Njc5Ojxi
+cj4KJmd0OyBIaSwgU2lyczo8YnI+CiZndDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJz
+cDsmbmJzcDsgJm5ic3A7IEkgaGF2ZSBhIHd4NTEwMCBhbWRncHUgY2FyZCwgSXQgcmFuZG9t
+bHkgY29tZSBpbnRvIGZhaWx1cmUuJm5ic3A7IHNvbWV0aW1lcywgaXQgd2lsbCBjYXVzZSBw
+cm9jZXNzZXMgaW50byB1bmludGVycnVwdGlibGUgd2FpdCBzdGF0ZS48YnI+CiZndDs8YnI+
+CiZndDs8YnI+CiZndDsgY3BzLW5ldy1vbmRlbWFuZC0wNTg3On4gIyBwcyBhdXh8Z3JlcCAt
+dyBEPGJyPgomZ3Q7IHJvb3QmbmJzcDsmbmJzcDsmbmJzcDsgJm5ic3A7IDExMjY4Jm5ic3A7
+IDAuMCZuYnNwOyAwLjAgMjYwNjI4Jm5ic3A7IDM1MTYgPyZuYnNwOyZuYnNwOyZuYnNwOyZu
+YnNwOyZuYnNwOyAmbmJzcDsgU3NsJm5ic3A7IDjUwjI2ICZuYnNwOyAwOjAwIC91c3Ivc2Jp
+bi9nc3Nwcm94eSAtRDxicj4KJmd0OyByb290Jm5ic3A7Jm5ic3A7ICZuYnNwOyAxMzY0ODIm
+bmJzcDsgMC4wJm5ic3A7IDAuMCAyMTI1MDAgJm5ic3A7IDU3MiBwdHMvMCZuYnNwOyAmbmJz
+cDsgUysgJm5ic3A7IDE1OjI1ICZuYnNwOyAwOjAwIGdyZXAgLS1jb2xvcj1hdXRvIC13IEQ8
+YnI+CiZndDsgcm9vdCZuYnNwOyZuYnNwOyAmbmJzcDsgMzcwNjg0Jm5ic3A7IDAuMCZuYnNw
+OyAwLjAmbmJzcDsgMTc5NzImbmJzcDsgNzQyOCA/Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7
+Jm5ic3A7ICZuYnNwOyBTcyAmbmJzcDsgOdTCMDIgJm5ic3A7IDA6MDQgL3Vzci9zYmluL3Nz
+aGQgLUQ8YnI+CiZndDsgMTAwNjYmbmJzcDsgJm5ic3A7IDQzMjk1MSZuYnNwOyAwLjAmbmJz
+cDsgMC4wJm5ic3A7Jm5ic3A7Jm5ic3A7ICZuYnNwOyAwJm5ic3A7Jm5ic3A7ICZuYnNwOyAw
+ID8mbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsgJm5ic3A7IEQmbmJzcDsgJm5ic3A7
+IDnUwjAyICZuYnNwOyAwOjAwIFtGYWtlRmluYWxpemVyRGFdPGJyPgomZ3Q7IHJvb3QmbmJz
+cDsmbmJzcDsgJm5ic3A7IDQ5Njc3NCZuYnNwOyAwLjAmbmJzcDsgMC4wJm5ic3A7Jm5ic3A7
+Jm5ic3A7ICZuYnNwOyAwJm5ic3A7Jm5ic3A7ICZuYnNwOyAwID8mbmJzcDsmbmJzcDsmbmJz
+cDsmbmJzcDsmbmJzcDsgJm5ic3A7IEQmbmJzcDsgJm5ic3A7IDnUwjAyICZuYnNwOyAwOjE3
+IFtrd29ya2VyLzg6MStldmVdPGJyPgomZ3Q7IGNwcy1uZXctb25kZW1hbmQtMDU4Nzp+ICMg
+Y2F0IC9wcm9jLzQ5Njc3NC9zdGFjazxicj4KJmd0OyBbJmx0OzAmZ3Q7XSBfX3N3aXRjaF90
+bysweDk0LzB4ZTg8YnI+CiZndDsgWyZsdDswJmd0O10gZHJtX3NjaGVkX2VudGl0eV9mbHVz
+aCsweGY4LzB4MjQ4IFtncHVfc2NoZWRdPGJyPgomZ3Q7IFsmbHQ7MCZndDtdIGFtZGdwdV9j
+dHhfbWdyX2VudGl0eV9mbHVzaCsweGFjLzB4MTQ4IFthbWRncHVdPGJyPgomZ3Q7IFsmbHQ7
+MCZndDtdIGFtZGdwdV9mbHVzaCsweDJjLzB4NTAgW2FtZGdwdV08YnI+CiZndDsgWyZsdDsw
+Jmd0O10gZmlscF9jbG9zZSsweDQwLzB4YTA8YnI+CiZndDsgWyZsdDswJmd0O10gcHV0X2Zp
+bGVzX3N0cnVjdCsweDExOC8weDEyMDxicj4KJmd0OyBbJmx0OzAmZ3Q7XSBwdXRfZmlsZXNf
+c3RydWN0KzB4MzAvMHg2OCBbYmluZGVyX2xpbnV4XTxicj4KJmd0OyBbJmx0OzAmZ3Q7XSBi
+aW5kZXJfZGVmZXJyZWRfZnVuYysweDRkNC8weDY1OCBbYmluZGVyX2xpbnV4XTxicj4KJmd0
+OyBbJmx0OzAmZ3Q7XSBwcm9jZXNzX29uZV93b3JrKzB4MWI0LzB4M2Y4PGJyPgomZ3Q7IFsm
+bHQ7MCZndDtdIHdvcmtlcl90aHJlYWQrMHg1NC8weDQ3MDxicj4KJmd0OyBbJmx0OzAmZ3Q7
+XSBrdGhyZWFkKzB4MTM0LzB4MTM4PGJyPgomZ3Q7IFsmbHQ7MCZndDtdIHJldF9mcm9tX2Zv
+cmsrMHgxMC8weDE4PGJyPgomZ3Q7IFsmbHQ7MCZndDtdIDB4ZmZmZmZmZmZmZmZmZmZmZjxi
+cj4KJmd0Ozxicj4KJmd0Ozxicj4KJmd0Ozxicj4KJmd0OyBUaGlzIGlzc3VlIHRyb3VibGVk
+IG1lIGEgbG9uZyB0aW1lLiZuYnNwOyBsb29raW5nIGVhZ2VybHkgdG8gZ2V0IGhlbHAgZnJv
+bSB5b3UhPGJyPgomZ3Q7PGJyPgomZ3Q7PGJyPgomZ3Q7IC0tLS0tPGJyPgomZ3Q7IFlhbmh1
+YTxicj4KPGJyPgo8L2Rpdj4KPC9ibG9ja3F1b3RlPgo8YnI+PC9kaXY+
+
+------=_NextPart_5D6E67C5_0E06D7A0_3D68556B--
 
 
---_FEA7D873-6F97-49AA-B05D-696E54FDDE7C_
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
-
-Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>
->>
->> Now 11:01pm and "gnome shell stuck warning" not appear since 19:17. So
->> looks like issue happens only when computer blocked and monitor in
->> power save mode.
->
-> I'd bet on runtime pm or some other power saving feature in amdgpu
-> shutting the interrupt handling down before we've handled all the
-> interrupts. That would then result in a stuck fence.
->
-> Do we already know which fence is stuck?
-
-It is welcomed to shed a thread of light on how to collect/print that info.
-Say line:xxx-yyy in path/to/amdgpu/zzz.c
-
-Thanks
-Hillf
-
-
---_FEA7D873-6F97-49AA-B05D-696E54FDDE7C_
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/html; charset="utf-8"
-
-<html xmlns:o=3D"urn:schemas-microsoft-com:office:office" xmlns:w=3D"urn:sc=
-hemas-microsoft-com:office:word" xmlns:m=3D"http://schemas.microsoft.com/of=
-fice/2004/12/omml" xmlns=3D"http://www.w3.org/TR/REC-html40"><head><meta ht=
-tp-equiv=3DContent-Type content=3D"text/html; charset=3Dutf-8"><meta name=
-=3DGenerator content=3D"Microsoft Word 15 (filtered medium)"><style><!--
-/* Font Definitions */
-@font-face
-	{font-family:"Cambria Math";
-	panose-1:2 4 5 3 5 4 6 3 2 4;}
-@font-face
-	{font-family:DengXian;
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-@font-face
-	{font-family:DengXian;
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-/* Style Definitions */
-p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin:0cm;
-	margin-bottom:.0001pt;
-	text-align:justify;
-	text-justify:inter-ideograph;
-	font-size:10.5pt;
-	font-family:DengXian;}
-a:link, span.MsoHyperlink
-	{mso-style-priority:99;
-	color:blue;
-	text-decoration:underline;}
-a:visited, span.MsoHyperlinkFollowed
-	{mso-style-priority:99;
-	color:#954F72;
-	text-decoration:underline;}
-span.DefaultFontHxMailStyle
-	{mso-style-name:"Default Font HxMail Style";
-	font-family:DengXian;
-	color:windowtext;
-	font-weight:normal;
-	font-style:normal;
-	text-decoration:none none;}
-.MsoChpDefault
-	{mso-style-type:export-only;}
-/* Page Definitions */
-@page WordSection1
-	{size:612.0pt 792.0pt;
-	margin:72.0pt 90.0pt 72.0pt 90.0pt;}
-div.WordSection1
-	{page:WordSection1;}
---></style></head><body lang=3DZH-CN link=3Dblue vlink=3D"#954F72"><div cla=
-ss=3DWordSection1><p class=3DMsoNormal><span class=3DDefaultFontHxMailStyle=
-><span lang=3DEN-US>Daniel Vetter &lt;daniel-/w4YWyX8dFk@public.gmane.org&gt;<o:p></o:p></span>=
-</span></p><p class=3DMsoNormal><span lang=3DEN-US>&gt;&gt;<o:p>&nbsp;</o:p=
-></span></p><p class=3DMsoNormal><span lang=3DEN-US>&gt;&gt; Now 11:01pm an=
-d &quot;gnome shell stuck warning&quot; not appear since 19:17. So</span></=
-p><p class=3DMsoNormal><span lang=3DEN-US>&gt;&gt; looks like issue happens=
- only when computer blocked and monitor in</span></p><p class=3DMsoNormal><=
-span lang=3DEN-US>&gt;&gt; power save mode.</span></p><p class=3DMsoNormal>=
-<span lang=3DEN-US>&gt;<o:p>&nbsp;</o:p></span></p><p class=3DMsoNormal><sp=
-an lang=3DEN-US>&gt; I'd bet on runtime pm or some other power saving featu=
-re in amdgpu</span></p><p class=3DMsoNormal><span lang=3DEN-US>&gt; shuttin=
-g the interrupt handling down before we've handled all the</span></p><p cla=
-ss=3DMsoNormal><span lang=3DEN-US>&gt; interrupts. That would then result i=
-n a stuck fence.</span></p><p class=3DMsoNormal><span lang=3DEN-US>&gt;<o:p=
->&nbsp;</o:p></span></p><p class=3DMsoNormal><span lang=3DEN-US>&gt; Do we =
-already know which fence is stuck?</span></p><p class=3DMsoNormal><span lan=
-g=3DEN-US><o:p>&nbsp;</o:p></span></p><p class=3DMsoNormal><span lang=3DEN-=
-US>It is welcomed to shed a thread of light on how to collect/print that in=
-fo.</span></p><p class=3DMsoNormal><span lang=3DEN-US>Say line:xxx-yyy in p=
-ath/to/amdgpu/zzz.c</span></p><p class=3DMsoNormal><span lang=3DEN-US><o:p>=
-&nbsp;</o:p></span></p><p class=3DMsoNormal><span lang=3DEN-US>Thanks</span=
-></p><p class=3DMsoNormal><span lang=3DEN-US>Hillf</span></p><p class=3DMso=
-Normal><span class=3DDefaultFontHxMailStyle><span lang=3DEN-US><o:p>&nbsp;<=
-/o:p></span></span></p></div></body></html>=
-
---_FEA7D873-6F97-49AA-B05D-696E54FDDE7C_--
-
-
-
---===============0602678665==
+--===============2042642826==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -143,4 +248,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
 
---===============0602678665==--
+--===============2042642826==--
