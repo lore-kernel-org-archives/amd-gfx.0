@@ -1,28 +1,28 @@
-From: Hillf Danton <hdanton@sina.com>
+From: Hillf Danton <hdanton-k+cT0dCbe1g@public.gmane.org>
 Subject: Re: gnome-shell stuck because of amdgpu driver [5.3 RC5]
 Date: Tue, 3 Sep 2019 16:21:42 +0800
-Message-ID: <20190904071442.233D989349@gabe.freedesktop.org>
+Message-ID: <20190904071657.C338B89307@gabe.freedesktop.org>
 References: <20190830032948.13516-1-hdanton@sina.com>
  <CABXGCsNywbo90+wgiZ64Srm-KexypTbjiviwTW_BsO9Pm11GKQ@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1406955865=="
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-In-Reply-To: <CABXGCsNywbo90+wgiZ64Srm-KexypTbjiviwTW_BsO9Pm11GKQ@mail.gmail.com>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
-Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>, dri-devel <dri-devel@lists.freedesktop.org>, Linux kernel <linux-kernel@vger.kernel.org>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: multipart/mixed; boundary="===============0156928893=="
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <CABXGCsNywbo90+wgiZ64Srm-KexypTbjiviwTW_BsO9Pm11GKQ-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Mikhail Gavrilov <mikhail.v.gavrilov-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, dri-devel <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>, Linux kernel <linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>
 
 
---===============1406955865==
+--===============0156928893==
 Content-Type: multipart/alternative;
 	boundary="_32C85ED2-0338-4B2A-A8C8-E35FD2FB74F0_"
 
@@ -32,8 +32,8 @@ Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset="utf-8"
 
 On Tue, 3 Sep 2019 11:48:12 +0500 From:   Mikhail Gavrilov <mikhail.v.gavri=
-lov@gmail.com>
-> On Fri, 30 Aug 2019 at 08:30, Hillf Danton <hdanton@sina.com> wrote:
+lov-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+> On Fri, 30 Aug 2019 at 08:30, Hillf Danton <hdanton-k+cT0dCbe1g@public.gmane.org> wrote:
 > >
 > > Add a warning to show if it makes sense in field: neither regression no=
 r
@@ -108,9 +108,9 @@ div.WordSection1
 --></style></head><body lang=3DZH-CN link=3Dblue vlink=3D"#954F72"><div cla=
 ss=3DWordSection1><p class=3DMsoNormal><span class=3DDefaultFontHxMailStyle=
 ><span lang=3DEN-US>On Tue, 3 Sep 2019 11:48:12 +0500 From:=C2=A0=C2=A0 Mik=
-hail Gavrilov &lt;mikhail.v.gavrilov@gmail.com&gt;<o:p></o:p></span></span>=
+hail Gavrilov &lt;mikhail.v.gavrilov-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;<o:p></o:p></span></span>=
 </p><p class=3DMsoNormal><span lang=3DEN-US>&gt; On Fri, 30 Aug 2019 at 08:=
-30, Hillf Danton &lt;hdanton@sina.com&gt; wrote:</span></p><p class=3DMsoNo=
+30, Hillf Danton &lt;hdanton-k+cT0dCbe1g@public.gmane.org&gt; wrote:</span></p><p class=3DMsoNo=
 rmal><span lang=3DEN-US>&gt; &gt;</span></p><p class=3DMsoNormal><span lang=
 =3DEN-US>&gt; &gt; Add a warning to show if it makes sense in field: neithe=
 r regression nor</span></p><p class=3DMsoNormal><span lang=3DEN-US>&gt; &gt=
@@ -142,14 +142,14 @@ ilStyle><span lang=3DEN-US>Hillf<o:p></o:p></span></span></p></div></body><=
 
 
 
---===============1406955865==
+--===============0156928893==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
 Content-Disposition: inline
 
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KZHJpLWRldmVs
-IG1haWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
-dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVs
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
 
---===============1406955865==--
+--===============0156928893==--
