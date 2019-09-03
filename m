@@ -1,58 +1,31 @@
-From: Dave Airlie <airlied-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH v2 11/27] drm/dp_mst: Constify guid in
- drm_dp_get_mst_branch_by_guid()
-Date: Wed, 4 Sep 2019 07:41:07 +1000
-Message-ID: <CAPM=9tz0fdZpfFAfQ0aCQ4D+0XQGm=zqeFKDHPFNwVEUeM1f5g@mail.gmail.com>
-References: <20190903204645.25487-1-lyude@redhat.com>
- <20190903204645.25487-12-lyude@redhat.com>
+From: Dave Airlie <airlied@gmail.com>
+Subject: Re: [PATCH v2 15/27] drm/dp_mst: Cleanup drm_dp_send_link_address() a bit
+Date: Wed, 4 Sep 2019 07:42:16 +1000
+Message-ID: <CAPM=9ty-264nFotVRy7VwMw_BQPo-=7su7y3J2MjC9Sdkxcu+A@mail.gmail.com>
+References: <20190903204645.25487-1-lyude@redhat.com> <20190903204645.25487-16-lyude@redhat.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190903204645.25487-12-lyude-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Lyude Paul <lyude-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>
-Cc: Maxime Ripard <mripard-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org>, David Airlie <airlied-cv59FeDIM0c@public.gmane.org>, nouveau <nouveau-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Imre Deak <imre.deak-ral2JQCrhuEAvxtiuMwx3w@public.gmane.org>, Maarten Lankhorst <maarten.lankhorst-VuQAYsv1563Yd54FQh9/CA@public.gmane.org>, LKML <linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, amd-gfx mailing list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Harry Wentland <hwentlan-5C7GfCeVMHo@public.gmane.org>, =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala-VuQAYsv1563Yd54FQh9/CA@public.gmane.org>, dri-devel <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>, Daniel Vetter <daniel.vetter-/w4YWyX8dFk@public.gmane.org>, Sean Paul <sean-p7yTbzM4H96eqtR555YLDQ@public.gmane.org>, Juston Li <juston.li-ral2JQCrhuEAvxtiuMwx3w@public.gmane.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20190903204645.25487-16-lyude@redhat.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Lyude Paul <lyude@redhat.com>
+Cc: dri-devel <dri-devel@lists.freedesktop.org>, nouveau <nouveau@lists.freedesktop.org>, amd-gfx mailing list <amd-gfx@lists.freedesktop.org>, Sean Paul <sean@poorly.run>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel.vetter@ffwll.ch>, Imre Deak <imre.deak@intel.com>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, LKML <linux-kernel@vger.kernel.org>, Maxime Ripard <mripard@kernel.org>, Juston Li <juston.li@intel.com>, Daniel Vetter <daniel@ffwll.ch>, Harry Wentland <hwentlan@amd.com>, =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gV2VkLCA0IFNlcCAyMDE5IGF0IDA2OjQ4LCBMeXVkZSBQYXVsIDxseXVkZUByZWRoYXQuY29t
-PiB3cm90ZToKPgo+IEFuZCBpdCdzIGhlbHBlciwgd2UnbGwgYmUgdXNpbmcgdGhpcyBpbiBqdXN0
-IGEgbW9tZW50Lgo+CgpSZXZpZXdlZC1ieTogRGF2ZSBBaXJsaWUgPGFpcmxpZWRAcmVkaGF0LmNv
-bT4KCj4gQ2M6IEp1c3RvbiBMaSA8anVzdG9uLmxpQGludGVsLmNvbT4KPiBDYzogSW1yZSBEZWFr
-IDxpbXJlLmRlYWtAaW50ZWwuY29tPgo+IENjOiBWaWxsZSBTeXJqw6Rsw6QgPHZpbGxlLnN5cmph
-bGFAbGludXguaW50ZWwuY29tPgo+IENjOiBIYXJyeSBXZW50bGFuZCA8aHdlbnRsYW5AYW1kLmNv
-bT4KPiBDYzogRGFuaWVsIFZldHRlciA8ZGFuaWVsLnZldHRlckBmZndsbC5jaD4KPiBTaWduZWQt
-b2ZmLWJ5OiBMeXVkZSBQYXVsIDxseXVkZUByZWRoYXQuY29tPgo+IC0tLQo+ICBkcml2ZXJzL2dw
-dS9kcm0vZHJtX2RwX21zdF90b3BvbG9neS5jIHwgNCArKy0tCj4gIDEgZmlsZSBjaGFuZ2VkLCAy
-IGluc2VydGlvbnMoKyksIDIgZGVsZXRpb25zKC0pCj4KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9n
-cHUvZHJtL2RybV9kcF9tc3RfdG9wb2xvZ3kuYyBiL2RyaXZlcnMvZ3B1L2RybS9kcm1fZHBfbXN0
-X3RvcG9sb2d5LmMKPiBpbmRleCA0MzQ1Mjg3MmVmYWQuLmI0NGQzNjk2YzA5YSAxMDA2NDQKPiAt
-LS0gYS9kcml2ZXJzL2dwdS9kcm0vZHJtX2RwX21zdF90b3BvbG9neS5jCj4gKysrIGIvZHJpdmVy
-cy9ncHUvZHJtL2RybV9kcF9tc3RfdG9wb2xvZ3kuYwo+IEBAIC0yMDYwLDcgKzIwNjAsNyBAQCBz
-dGF0aWMgc3RydWN0IGRybV9kcF9tc3RfYnJhbmNoICpkcm1fZHBfZ2V0X21zdF9icmFuY2hfZGV2
-aWNlKHN0cnVjdCBkcm1fZHBfbXN0Xwo+Cj4gIHN0YXRpYyBzdHJ1Y3QgZHJtX2RwX21zdF9icmFu
-Y2ggKmdldF9tc3RfYnJhbmNoX2RldmljZV9ieV9ndWlkX2hlbHBlcigKPiAgICAgICAgIHN0cnVj
-dCBkcm1fZHBfbXN0X2JyYW5jaCAqbXN0YiwKPiAtICAgICAgIHVpbnQ4X3QgKmd1aWQpCj4gKyAg
-ICAgICBjb25zdCB1aW50OF90ICpndWlkKQo+ICB7Cj4gICAgICAgICBzdHJ1Y3QgZHJtX2RwX21z
-dF9icmFuY2ggKmZvdW5kX21zdGI7Cj4gICAgICAgICBzdHJ1Y3QgZHJtX2RwX21zdF9wb3J0ICpw
-b3J0Owo+IEBAIC0yMDg0LDcgKzIwODQsNyBAQCBzdGF0aWMgc3RydWN0IGRybV9kcF9tc3RfYnJh
-bmNoICpnZXRfbXN0X2JyYW5jaF9kZXZpY2VfYnlfZ3VpZF9oZWxwZXIoCj4KPiAgc3RhdGljIHN0
-cnVjdCBkcm1fZHBfbXN0X2JyYW5jaCAqCj4gIGRybV9kcF9nZXRfbXN0X2JyYW5jaF9kZXZpY2Vf
-YnlfZ3VpZChzdHJ1Y3QgZHJtX2RwX21zdF90b3BvbG9neV9tZ3IgKm1nciwKPiAtICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgdWludDhfdCAqZ3VpZCkKPiArICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgY29uc3QgdWludDhfdCAqZ3VpZCkKPiAgewo+ICAgICAg
-ICAgc3RydWN0IGRybV9kcF9tc3RfYnJhbmNoICptc3RiOwo+ICAgICAgICAgaW50IHJldDsKPiAt
-LQo+IDIuMjEuMAo+Cj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX18KPiBhbWQtZ2Z4IG1haWxpbmcgbGlzdAo+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Au
-b3JnCj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQt
-Z2Z4Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1n
-ZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
-dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
+On Wed, 4 Sep 2019 at 06:48, Lyude Paul <lyude@redhat.com> wrote:
+>
+> Declare local pointer to the drm_dp_link_address_ack_reply struct
+> instead of constantly dereferencing it through the union in
+> txmsg->reply. Then, invert the order of conditionals so we don't have to
+> do the bulk of the work inside them, and can wrap lines even less. Then
+> finally, rearrange variable declarations a bit.
+>
+> Cc: Juston Li <juston.li@intel.com>
+> Cc: Imre Deak <imre.deak@intel.com>
+> Cc: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
+> Cc: Harry Wentland <hwentlan@amd.com>
+> Cc: Daniel Vetter <daniel.vetter@ffwll.ch>
+> Signed-off-by: Lyude Paul <lyude@redhat.com>
+
+Reviewed-by: Dave Airlie <airlied@redhat.com>
