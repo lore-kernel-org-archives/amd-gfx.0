@@ -1,59 +1,130 @@
-From: Sasha Levin <sashal@kernel.org>
-Subject: Re: [PATCH AUTOSEL 4.19 044/167] drm/amdgpu: validate user pitch
- alignment
-Date: Tue, 3 Sep 2019 16:01:39 -0400
-Message-ID: <20190903200139.GJ5281@sasha-vm>
-References: <20190903162519.7136-1-sashal@kernel.org>
- <20190903162519.7136-44-sashal@kernel.org>
- <7957107d-634f-4771-327e-99fdd5e6474e@daenzer.net>
- <20190903170347.GA24357@kroah.com>
+From: Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>
+Subject: Re: [PATCH RFC v4 01/16] drm: Add drm_minor_for_each
+Date: Tue, 3 Sep 2019 22:12:18 +0200
+Message-ID: <CAKMK7uEofjdVURu+meonh_YdV5eX8vfNALkW3A_+kLapCV8j+w@mail.gmail.com>
+References: <20190829060533.32315-1-Kenny.Ho@amd.com>
+ <20190829060533.32315-2-Kenny.Ho@amd.com>
+ <20190903075719.GK2112@phenom.ffwll.local>
+ <CAOWid-dxxDhyxP2+0R0oKAk29rR-1TbMyhshR1+gbcpGJCAW6g@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1; format=flowed
-Content-Transfer-Encoding: 8bit
-Return-path: <stable-owner@vger.kernel.org>
-Content-Disposition: inline
-In-Reply-To: <20190903170347.GA24357@kroah.com>
-Sender: stable-owner@vger.kernel.org
-To: Greg KH <gregkh@linuxfoundation.org>
-Cc: Michel =?iso-8859-1?Q?D=E4nzer?= <michel@daenzer.net>, linux-kernel@vger.kernel.org, stable@vger.kernel.org, Yu Zhao <yuzhao@google.com>, dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <CAOWid-dxxDhyxP2+0R0oKAk29rR-1TbMyhshR1+gbcpGJCAW6g-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Kenny Ho <y2kenny-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Cc: Kenny Ho <Kenny.Ho-5C7GfCeVMHo@public.gmane.org>, "Kuehling, Felix" <felix.kuehling-5C7GfCeVMHo@public.gmane.org>, jsparks-WVYJKLFxKCc@public.gmane.org, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, lkaplan-WVYJKLFxKCc@public.gmane.org, Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, dri-devel <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Greathouse,
+ Joseph" <joseph.greathouse-5C7GfCeVMHo@public.gmane.org>, Tejun Heo <tj-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org>, cgroups-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
 
-On Tue, Sep 03, 2019 at 07:03:47PM +0200, Greg KH wrote:
->On Tue, Sep 03, 2019 at 06:40:43PM +0200, Michel Dänzer wrote:
->> On 2019-09-03 6:23 p.m., Sasha Levin wrote:
->> > From: Yu Zhao <yuzhao@google.com>
->> >
->> > [ Upstream commit 89f23b6efef554766177bf51aa754bce14c3e7da ]
->>
->> Hold your horses!
->>
->> This commit and c4a32b266da7bb702e60381ca0c35eaddbc89a6c had to be
->> reverted, as they caused regressions. See commits
->> 25ec429e86bb790e40387a550f0501d0ac55a47c &
->> 92b0730eaf2d549fdfb10ecc8b71f34b9f472c12 .
->>
->>
->> This isn't bolstering confidence in how these patches are selected...
->
->The patch _itself_ said to be backported to the stable trees from 4.2
->and newer.  Why wouldn't we be confident in doing this?
->
->If the patch doesn't want to be backported, then do not add the cc:
->stable line to it...
-
-This patch was picked because it has a stable tag, which you presumably
-saw as your Reviewed-by tag is in the patch. This is why it was
-backported; it doesn't take AI to backport patches tagged for stable...
-
-The revert of this patch, however:
-
- 1. Didn't have a stable tag.
- 2. Didn't have a "Fixes:" tag.
- 3. Didn't have the usual "the reverts commit ..." string added by git
- when one does a revert.
-
-Which is why we still kick patches for review, even though they had a
-stable tag, just so people could take a look and confirm we're not
-missing anything - like we did here.
-
-I'm not sure what you expected me to do differently here.
+T24gVHVlLCBTZXAgMywgMjAxOSBhdCA5OjQ1IFBNIEtlbm55IEhvIDx5Mmtlbm55QGdtYWlsLmNv
+bT4gd3JvdGU6Cj4KPiBPbiBUdWUsIFNlcCAzLCAyMDE5IGF0IDM6NTcgQU0gRGFuaWVsIFZldHRl
+ciA8ZGFuaWVsQGZmd2xsLmNoPiB3cm90ZToKPiA+Cj4gPiBPbiBUaHUsIEF1ZyAyOSwgMjAxOSBh
+dCAwMjowNToxOEFNIC0wNDAwLCBLZW5ueSBIbyB3cm90ZToKPiA+ID4gVG8gYWxsb3cgb3RoZXIg
+c3Vic3lzdGVtcyB0byBpdGVyYXRlIHRocm91Z2ggYWxsIHN0b3JlZCBEUk0gbWlub3JzIGFuZAo+
+ID4gPiBhY3QgdXBvbiB0aGVtLgo+ID4gPgo+ID4gPiBBbHNvIGV4cG9zZXMgZHJtX21pbm9yX2Fj
+cXVpcmUgYW5kIGRybV9taW5vcl9yZWxlYXNlIGZvciBvdGhlciBzdWJzeXN0ZW0KPiA+ID4gdG8g
+aGFuZGxlIGRybV9taW5vci4gIERSTSBjZ3JvdXAgY29udHJvbGxlciBpcyB0aGUgaW5pdGlhbCBj
+b25zdW1lciBvZgo+ID4gPiB0aGlzIG5ldyBmZWF0dXJlcy4KPiA+ID4KPiA+ID4gQ2hhbmdlLUlk
+OiBJN2M0YjY3Y2U2YjMxZjA2ZDEwMzdiMDM0MzUzODZmZjViODE0NGNhNQo+ID4gPiBTaWduZWQt
+b2ZmLWJ5OiBLZW5ueSBIbyA8S2VubnkuSG9AYW1kLmNvbT4KPiA+Cj4gPiBJdGVyYXRpbmcgb3Zl
+ciBtaW5vcnMgZm9yIGNncm91cHMgc291bmRzIHZlcnksIHZlcnkgd3JvbmcuIFdoeSBkbyB3ZSBj
+YXJlCj4gPiB3aGV0aGVyIGEgYnVmZmVyIHdhcyBhbGxvY2F0ZWQgdGhyb3VnaCBrbXMgZHVtYiB2
+cyByZW5kZXIgbm9kZXM/Cj4gPgo+ID4gSSdkIGV4cGVjdCBhbGwgdGhlIGNncm91cCBzdHVmZiB0
+byBvbmx5IHdvcmsgb24gZHJtX2RldmljZSwgaWYgaXQgZG9lcwo+ID4gY2FyZSBhYm91dCBkZXZp
+Y2VzLgo+ID4KPiA+IChJIGRpZG4ndCBsb29rIHRocm91Z2ggdGhlIHBhdGNoIHNlcmllcyB0byBm
+aW5kIG91dCB3aGVyZSBleGFjdGx5IHlvdSdyZQo+ID4gdXNpbmcgdGhpcywgc28gbWF5YmUgSSdt
+IG9mZiB0aGUgcmFpbHMgaGVyZSkuCj4KPiBJIGFtIGV4cG9zaW5nIHRoaXMgdG8gcmVtb3ZlIHRo
+ZSBuZWVkIHRvIGtlZXAgdHJhY2sgb2YgYSBzZXBhcmF0ZSBsaXN0Cj4gb2YgYXZhaWxhYmxlIGRy
+bV9kZXZpY2UgaW4gdGhlIHN5c3RlbSAodG8gcmVtb3ZlIHRoZSByZWdpc3RlcmluZyBhbmQKPiB1
+bnJlZ2lzdGVyaW5nIG9mIGRybV9kZXZpY2UgdG8gdGhlIGNncm91cCBzdWJzeXN0ZW0gYW5kIGp1
+c3QgdXNlCj4gZHJtX21pbm9yIGFzIHRoZSBzaW5nbGUgc291cmNlIG9mIHRydXRoLikgIEkgYW0g
+b25seSBmaWx0ZXJpbmcgb3V0IHRoZQo+IHJlbmRlciBub2RlcyBtaW5vciBiZWNhdXNlIHRoZXkg
+cG9pbnQgdG8gdGhlIHNhbWUgZHJtX2RldmljZSBhbmQgaXMKPiBjb25mdXNpbmcuCj4KPiBQZXJo
+YXBzIEkgbWlzc2VkIGFuIG9idmlvdXMgd2F5IHRvIGxpc3QgdGhlIGRybSBkZXZpY2VzIHdpdGhv
+dXQKPiBpdGVyYXRpbmcgdGhyb3VnaCB0aGUgZHJtX21pbm9ycz8gIChJIHByb2JhYmx5IGp1bXBl
+ZCB0byB0aGUgbWlub3JzCj4gYmVjYXVzZSAkbWFqb3I6JG1pbm9yIGlzIHRoZSBjb252ZW50aW9u
+IHRvIGFkZHJlc3MgZGV2aWNlcyBpbiBjZ3JvdXAuKQoKQ3JlYXRlIHlvdXIgb3duIGlmIHRoZXJl
+J3Mgbm90aGluZywgYmVjYXVzZSB5b3UgbmVlZCB0byBhbnl3YXk6Ci0gWW91IG5lZWQgc3BlY2lh
+bCBsb2NraW5nIGFueXdheSwgd2UgY2FuJ3QganVzdCBibG9jayBvbiB0aGUgaWRyIGxvY2sKZm9y
+IGV2ZXJ5dGhpbmcuCi0gVGhpcyBuZWVkcyB0byByZWZjb3VudCBkcm1fZGV2aWNlLCBubyB0aGUg
+bWlub3JzLgoKSXRlcmF0aW5nIG92ZXIgc3R1ZmYgc3RpbGwgZmVlbHMga2luZGEgd3Jvbmcgc3Rp
+bGwsIGJlY2F1c2Ugbm9ybWFsbHkKdGhlIHdheSB3ZSByZWdpc3Rlci91bnJlZ2lzdGVyIHVzZXJz
+cGFjZSBhcGkgKGFuZCBjZ3JvdXBzIGlzbid0CmFueXRoaW5nIGVsc2UgZnJvbSBhIGRybSBkcml2
+ZXIgcG92KSBpcyBieSBhZGRpbmcgbW9yZSBjYWxscyB0bwpkcm1fZGV2X3JlZ2lzdGVyL3VucmVn
+aXN0ZXIuIElmIHlvdSBwdXQgYSBkcm1fY2dfcmVnaXN0ZXIvdW5yZWdpc3RlcgpjYWxsIGluIHRo
+ZXJlIHdlIGhhdmUgYSBjbGVhbiBzZXBhcmF0aW9uLCBhbmQgeW91IGNhbiB0cmFjayBhbGwgdGhl
+CmN1cnJlbnRseSBhY3RpdmUgZGV2aWNlcyBob3dldmVyIHlvdSB3YW50LiBJdGVyYXRpbmcgb3Zl
+ciBvYmplY3RzIHRoYXQKY2FuIGJlIGhvdHVucGx1Z2dlZCBhbnkgdGltZSB0ZW5kcyB0byBnZXQg
+cmVhbGx5IGNvbXBsaWNhdGVkIHJlYWxseQpxdWlja2x5LgotRGFuaWVsCgoKPgo+IEtlbm55Cj4K
+PiA+IC1EYW5pZWwKPiA+Cj4gPiA+IC0tLQo+ID4gPiAgZHJpdmVycy9ncHUvZHJtL2RybV9kcnYu
+YyAgICAgIHwgMTkgKysrKysrKysrKysrKysrKysrKwo+ID4gPiAgZHJpdmVycy9ncHUvZHJtL2Ry
+bV9pbnRlcm5hbC5oIHwgIDQgLS0tLQo+ID4gPiAgaW5jbHVkZS9kcm0vZHJtX2Rydi5oICAgICAg
+ICAgIHwgIDQgKysrKwo+ID4gPiAgMyBmaWxlcyBjaGFuZ2VkLCAyMyBpbnNlcnRpb25zKCspLCA0
+IGRlbGV0aW9ucygtKQo+ID4gPgo+ID4gPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2Ry
+bV9kcnYuYyBiL2RyaXZlcnMvZ3B1L2RybS9kcm1fZHJ2LmMKPiA+ID4gaW5kZXggODYyNjIxNDk0
+YTkzLi4wMDBjZGRhYmQ5NzAgMTAwNjQ0Cj4gPiA+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9kcm1f
+ZHJ2LmMKPiA+ID4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2RybV9kcnYuYwo+ID4gPiBAQCAtMjU0
+LDExICsyNTQsMTMgQEAgc3RydWN0IGRybV9taW5vciAqZHJtX21pbm9yX2FjcXVpcmUodW5zaWdu
+ZWQgaW50IG1pbm9yX2lkKQo+ID4gPgo+ID4gPiAgICAgICByZXR1cm4gbWlub3I7Cj4gPiA+ICB9
+Cj4gPiA+ICtFWFBPUlRfU1lNQk9MKGRybV9taW5vcl9hY3F1aXJlKTsKPiA+ID4KPiA+ID4gIHZv
+aWQgZHJtX21pbm9yX3JlbGVhc2Uoc3RydWN0IGRybV9taW5vciAqbWlub3IpCj4gPiA+ICB7Cj4g
+PiA+ICAgICAgIGRybV9kZXZfcHV0KG1pbm9yLT5kZXYpOwo+ID4gPiAgfQo+ID4gPiArRVhQT1JU
+X1NZTUJPTChkcm1fbWlub3JfcmVsZWFzZSk7Cj4gPiA+Cj4gPiA+ICAvKioKPiA+ID4gICAqIERP
+QzogZHJpdmVyIGluc3RhbmNlIG92ZXJ2aWV3Cj4gPiA+IEBAIC0xMDc4LDYgKzEwODAsMjMgQEAg
+aW50IGRybV9kZXZfc2V0X3VuaXF1ZShzdHJ1Y3QgZHJtX2RldmljZSAqZGV2LCBjb25zdCBjaGFy
+ICpuYW1lKQo+ID4gPiAgfQo+ID4gPiAgRVhQT1JUX1NZTUJPTChkcm1fZGV2X3NldF91bmlxdWUp
+Owo+ID4gPgo+ID4gPiArLyoqCj4gPiA+ICsgKiBkcm1fbWlub3JfZm9yX2VhY2ggLSBJdGVyYXRl
+IHRocm91Z2ggYWxsIHN0b3JlZCBEUk0gbWlub3JzCj4gPiA+ICsgKiBAZm46IEZ1bmN0aW9uIHRv
+IGJlIGNhbGxlZCBmb3IgZWFjaCBwb2ludGVyLgo+ID4gPiArICogQGRhdGE6IERhdGEgcGFzc2Vk
+IHRvIGNhbGxiYWNrIGZ1bmN0aW9uLgo+ID4gPiArICoKPiA+ID4gKyAqIFRoZSBjYWxsYmFjayBm
+dW5jdGlvbiB3aWxsIGJlIGNhbGxlZCBmb3IgZWFjaCBAZHJtX21pbm9yIGVudHJ5LCBwYXNzaW5n
+Cj4gPiA+ICsgKiB0aGUgbWlub3IsIHRoZSBlbnRyeSBhbmQgQGRhdGEuCj4gPiA+ICsgKgo+ID4g
+PiArICogSWYgQGZuIHJldHVybnMgYW55dGhpbmcgb3RoZXIgdGhhbiAlMCwgdGhlIGl0ZXJhdGlv
+biBzdG9wcyBhbmQgdGhhdAo+ID4gPiArICogdmFsdWUgaXMgcmV0dXJuZWQgZnJvbSB0aGlzIGZ1
+bmN0aW9uLgo+ID4gPiArICovCj4gPiA+ICtpbnQgZHJtX21pbm9yX2Zvcl9lYWNoKGludCAoKmZu
+KShpbnQgaWQsIHZvaWQgKnAsIHZvaWQgKmRhdGEpLCB2b2lkICpkYXRhKQo+ID4gPiArewo+ID4g
+PiArICAgICByZXR1cm4gaWRyX2Zvcl9lYWNoKCZkcm1fbWlub3JzX2lkciwgZm4sIGRhdGEpOwo+
+ID4gPiArfQo+ID4gPiArRVhQT1JUX1NZTUJPTChkcm1fbWlub3JfZm9yX2VhY2gpOwo+ID4gPiAr
+Cj4gPiA+ICAvKgo+ID4gPiAgICogRFJNIENvcmUKPiA+ID4gICAqIFRoZSBEUk0gY29yZSBtb2R1
+bGUgaW5pdGlhbGl6ZXMgYWxsIGdsb2JhbCBEUk0gb2JqZWN0cyBhbmQgbWFrZXMgdGhlbQo+ID4g
+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2RybV9pbnRlcm5hbC5oIGIvZHJpdmVycy9n
+cHUvZHJtL2RybV9pbnRlcm5hbC5oCj4gPiA+IGluZGV4IGUxOWFjN2NhNjAyZC4uNmJmYWQ3NmY4
+ZTc4IDEwMDY0NAo+ID4gPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vZHJtX2ludGVybmFsLmgKPiA+
+ID4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2RybV9pbnRlcm5hbC5oCj4gPiA+IEBAIC01NCwxMCAr
+NTQsNiBAQCB2b2lkIGRybV9wcmltZV9kZXN0cm95X2ZpbGVfcHJpdmF0ZShzdHJ1Y3QgZHJtX3By
+aW1lX2ZpbGVfcHJpdmF0ZSAqcHJpbWVfZnByaXYpOwo+ID4gPiAgdm9pZCBkcm1fcHJpbWVfcmVt
+b3ZlX2J1Zl9oYW5kbGVfbG9ja2VkKHN0cnVjdCBkcm1fcHJpbWVfZmlsZV9wcml2YXRlICpwcmlt
+ZV9mcHJpdiwKPiA+ID4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBzdHJ1
+Y3QgZG1hX2J1ZiAqZG1hX2J1Zik7Cj4gPiA+Cj4gPiA+IC0vKiBkcm1fZHJ2LmMgKi8KPiA+ID4g
+LXN0cnVjdCBkcm1fbWlub3IgKmRybV9taW5vcl9hY3F1aXJlKHVuc2lnbmVkIGludCBtaW5vcl9p
+ZCk7Cj4gPiA+IC12b2lkIGRybV9taW5vcl9yZWxlYXNlKHN0cnVjdCBkcm1fbWlub3IgKm1pbm9y
+KTsKPiA+ID4gLQo+ID4gPiAgLyogZHJtX3ZibGFuay5jICovCj4gPiA+ICB2b2lkIGRybV92Ymxh
+bmtfZGlzYWJsZV9hbmRfc2F2ZShzdHJ1Y3QgZHJtX2RldmljZSAqZGV2LCB1bnNpZ25lZCBpbnQg
+cGlwZSk7Cj4gPiA+ICB2b2lkIGRybV92YmxhbmtfY2xlYW51cChzdHJ1Y3QgZHJtX2RldmljZSAq
+ZGV2KTsKPiA+ID4gZGlmZiAtLWdpdCBhL2luY2x1ZGUvZHJtL2RybV9kcnYuaCBiL2luY2x1ZGUv
+ZHJtL2RybV9kcnYuaAo+ID4gPiBpbmRleCA2OGNhNzM2YzU0OGQuLjI0ZjhkMDU0YzU3MCAxMDA2
+NDQKPiA+ID4gLS0tIGEvaW5jbHVkZS9kcm0vZHJtX2Rydi5oCj4gPiA+ICsrKyBiL2luY2x1ZGUv
+ZHJtL2RybV9kcnYuaAo+ID4gPiBAQCAtNzk5LDUgKzc5OSw5IEBAIHN0YXRpYyBpbmxpbmUgYm9v
+bCBkcm1fZHJ2X3VzZXNfYXRvbWljX21vZGVzZXQoc3RydWN0IGRybV9kZXZpY2UgKmRldikKPiA+
+ID4KPiA+ID4gIGludCBkcm1fZGV2X3NldF91bmlxdWUoc3RydWN0IGRybV9kZXZpY2UgKmRldiwg
+Y29uc3QgY2hhciAqbmFtZSk7Cj4gPiA+Cj4gPiA+ICtpbnQgZHJtX21pbm9yX2Zvcl9lYWNoKGlu
+dCAoKmZuKShpbnQgaWQsIHZvaWQgKnAsIHZvaWQgKmRhdGEpLCB2b2lkICpkYXRhKTsKPiA+ID4g
+Kwo+ID4gPiArc3RydWN0IGRybV9taW5vciAqZHJtX21pbm9yX2FjcXVpcmUodW5zaWduZWQgaW50
+IG1pbm9yX2lkKTsKPiA+ID4gK3ZvaWQgZHJtX21pbm9yX3JlbGVhc2Uoc3RydWN0IGRybV9taW5v
+ciAqbWlub3IpOwo+ID4gPgo+ID4gPiAgI2VuZGlmCj4gPiA+IC0tCj4gPiA+IDIuMjIuMAo+ID4g
+Pgo+ID4KPiA+IC0tCj4gPiBEYW5pZWwgVmV0dGVyCj4gPiBTb2Z0d2FyZSBFbmdpbmVlciwgSW50
+ZWwgQ29ycG9yYXRpb24KPiA+IGh0dHA6Ly9ibG9nLmZmd2xsLmNoCgoKCi0tIApEYW5pZWwgVmV0
+dGVyClNvZnR3YXJlIEVuZ2luZWVyLCBJbnRlbCBDb3Jwb3JhdGlvbgorNDEgKDApIDc5IDM2NSA1
+NyA0OCAtIGh0dHA6Ly9ibG9nLmZmd2xsLmNoCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJl
+ZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGlu
+Zm8vYW1kLWdmeA==
