@@ -1,26 +1,83 @@
-From: Dave Airlie <airlied@gmail.com>
-Subject: Re: [PATCH v2 06/27] drm/dp_mst: Combine redundant cases in drm_dp_encode_sideband_req()
-Date: Wed, 4 Sep 2019 07:35:59 +1000
-Message-ID: <CAPM=9tx1vQMEsw4VjDVCbDYFUiaeHNCfP09aiSxnPnucQuB1JQ@mail.gmail.com>
-References: <20190903204645.25487-1-lyude@redhat.com> <20190903204645.25487-7-lyude@redhat.com>
+From: "Jiang, Sonny" <Sonny.Jiang-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH] drm: add drm device name
+Date: Tue, 3 Sep 2019 21:41:10 +0000
+Message-ID: <20190903214040.2386-1-sonny.jiang@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20190903204645.25487-7-lyude@redhat.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Lyude Paul <lyude@redhat.com>
-Cc: dri-devel <dri-devel@lists.freedesktop.org>, nouveau <nouveau@lists.freedesktop.org>, amd-gfx mailing list <amd-gfx@lists.freedesktop.org>, Sean Paul <sean@poorly.run>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel.vetter@ffwll.ch>, Imre Deak <imre.deak@intel.com>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, LKML <linux-kernel@vger.kernel.org>, Maxime Ripard <mripard@kernel.org>, Juston Li <juston.li@intel.com>, Daniel Vetter <daniel@ffwll.ch>, Harry Wentland <hwentlan@amd.com>, =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Jiang, Sonny" <Sonny.Jiang-5C7GfCeVMHo@public.gmane.org>
 
-On Wed, 4 Sep 2019 at 06:48, Lyude Paul <lyude@redhat.com> wrote:
->
-> Noticed this while working on adding a drm_dp_decode_sideband_req().
-> DP_POWER_DOWN_PHY/DP_POWER_UP_PHY both use the same struct, so we can
-> just combine their cases.
-
-both use the same struct as enum path resources?
-
-Since otherwise the patch doesn't make sense.
-
-With that fixed:
-Reviewed-by: Dave Airlie <airlied@redhat.com>
+QWRkIERSTSBkZXZpY2UgbmFtZSBhbmQgdXNlIERSTV9JT0NUTF9WRVJTSU9OIGlvY3RsIGRybVZl
+cnNpb246OmRlc2MgcGFzc2luZyBpdCB0byB1c2VyIHNwYWNlCmluc3RlYWQgb2YgdW51c2VkIERS
+TSBkcml2ZXIgbmFtZSBkZXNjcmlwdG9yLgoKQ2hhbmdlLUlkOiBJODA5ZjZkM2UwNTcxMTE0MTdl
+ZmJlOGZhN2NhYjhmMDExM2JhNGIyMQpTaWduZWQtb2ZmLWJ5OiBTb25ueSBKaWFuZyA8c29ubnku
+amlhbmdAYW1kLmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2
+aWNlLmMgfCAgMiArKwogZHJpdmVycy9ncHUvZHJtL2RybV9kcnYuYyAgICAgICAgICAgICAgICAg
+IHwgMTcgKysrKysrKysrKysrKysrKysKIGRyaXZlcnMvZ3B1L2RybS9kcm1faW9jdGwuYyAgICAg
+ICAgICAgICAgICB8ICAyICstCiBpbmNsdWRlL2RybS9kcm1fZGV2aWNlLmggICAgICAgICAgICAg
+ICAgICAgfCAgMyArKysKIGluY2x1ZGUvZHJtL2RybV9kcnYuaCAgICAgICAgICAgICAgICAgICAg
+ICB8ICAxICsKIDUgZmlsZXMgY2hhbmdlZCwgMjQgaW5zZXJ0aW9ucygrKSwgMSBkZWxldGlvbigt
+KQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2Uu
+YyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYwppbmRleCA2N2Iw
+OWNiMmE5ZTIuLjhmMDk3MWNlYTM2MyAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9h
+bWRncHUvYW1kZ3B1X2RldmljZS5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
+ZGdwdV9kZXZpY2UuYwpAQCAtMjgwOSw2ICsyODA5LDggQEAgaW50IGFtZGdwdV9kZXZpY2VfaW5p
+dChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwKIAkvKiBpbml0IHRoZSBtb2RlIGNvbmZpZyAq
+LwogCWRybV9tb2RlX2NvbmZpZ19pbml0KGFkZXYtPmRkZXYpOwogCisJZHJtX2Rldl9zZXRfbmFt
+ZShhZGV2LT5kZGV2LCBhbWRncHVfYXNpY19uYW1lW2FkZXYtPmFzaWNfdHlwZV0pOworCiAJciA9
+IGFtZGdwdV9kZXZpY2VfaXBfaW5pdChhZGV2KTsKIAlpZiAocikgewogCQkvKiBmYWlsZWQgaW4g
+ZXhjbHVzaXZlIG1vZGUgZHVlIHRvIHRpbWVvdXQgKi8KZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1
+L2RybS9kcm1fZHJ2LmMgYi9kcml2ZXJzL2dwdS9kcm0vZHJtX2Rydi5jCmluZGV4IDg2MjYyMTQ5
+NGE5My4uNmMzMzg3OWJiNTM4IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vZHJtX2Rydi5j
+CisrKyBiL2RyaXZlcnMvZ3B1L2RybS9kcm1fZHJ2LmMKQEAgLTgwMiw2ICs4MDIsNyBAQCB2b2lk
+IGRybV9kZXZfZmluaShzdHJ1Y3QgZHJtX2RldmljZSAqZGV2KQogCW11dGV4X2Rlc3Ryb3koJmRl
+di0+c3RydWN0X211dGV4KTsKIAlkcm1fbGVnYWN5X2Rlc3Ryb3lfbWVtYmVycyhkZXYpOwogCWtm
+cmVlKGRldi0+dW5pcXVlKTsKKwlrZnJlZShkZXYtPm5hbWUpOwogfQogRVhQT1JUX1NZTUJPTChk
+cm1fZGV2X2ZpbmkpOwogCkBAIC0xMDc4LDYgKzEwNzksMjIgQEAgaW50IGRybV9kZXZfc2V0X3Vu
+aXF1ZShzdHJ1Y3QgZHJtX2RldmljZSAqZGV2LCBjb25zdCBjaGFyICpuYW1lKQogfQogRVhQT1JU
+X1NZTUJPTChkcm1fZGV2X3NldF91bmlxdWUpOwogCisvKioKKyAqIGRybV9kZXZfc2V0X25hbWUg
+LSBTZXQgdGhlIG5hbWUgb2YgYSBEUk0gZGV2aWNlCisgKiBAZGV2OiBkZXZpY2Ugb2Ygd2hpY2gg
+dG8gc2V0IHRoZSBuYW1lCisgKiBAbmFtZTogbmFtZSB0byBiZSBzZXQKKyAqCisgKiBSZXR1cm46
+IDAgb24gc3VjY2VzcyBvciBhIG5lZ2F0aXZlIGVycm9yIGNvZGUgb24gZmFpbHVyZS4KKyAqLwor
+aW50IGRybV9kZXZfc2V0X25hbWUoc3RydWN0IGRybV9kZXZpY2UgKmRldiwgY29uc3QgY2hhciAq
+bmFtZSkKK3sKKwlrZnJlZShkZXYtPm5hbWUpOworCWRldi0+bmFtZSA9IGtzdHJkdXAobmFtZSwg
+R0ZQX0tFUk5FTCk7CisKKwlyZXR1cm4gZGV2LT5uYW1lID8gMCA6IC1FTk9NRU07Cit9CitFWFBP
+UlRfU1lNQk9MKGRybV9kZXZfc2V0X25hbWUpOworCiAvKgogICogRFJNIENvcmUKICAqIFRoZSBE
+Uk0gY29yZSBtb2R1bGUgaW5pdGlhbGl6ZXMgYWxsIGdsb2JhbCBEUk0gb2JqZWN0cyBhbmQgbWFr
+ZXMgdGhlbQpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2RybV9pb2N0bC5jIGIvZHJpdmVy
+cy9ncHUvZHJtL2RybV9pb2N0bC5jCmluZGV4IDIyNjNlM2RkZDgyMi4uNjFmMDI5NjUxMDZiIDEw
+MDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vZHJtX2lvY3RsLmMKKysrIGIvZHJpdmVycy9ncHUv
+ZHJtL2RybV9pb2N0bC5jCkBAIC01MDYsNyArNTA2LDcgQEAgaW50IGRybV92ZXJzaW9uKHN0cnVj
+dCBkcm1fZGV2aWNlICpkZXYsIHZvaWQgKmRhdGEsCiAJCQkJZGV2LT5kcml2ZXItPmRhdGUpOwog
+CWlmICghZXJyKQogCQllcnIgPSBkcm1fY29weV9maWVsZCh2ZXJzaW9uLT5kZXNjLCAmdmVyc2lv
+bi0+ZGVzY19sZW4sCi0JCQkJZGV2LT5kcml2ZXItPmRlc2MpOworCQkJCWRldi0+bmFtZSk7CiAK
+IAlyZXR1cm4gZXJyOwogfQpkaWZmIC0tZ2l0IGEvaW5jbHVkZS9kcm0vZHJtX2RldmljZS5oIGIv
+aW5jbHVkZS9kcm0vZHJtX2RldmljZS5oCmluZGV4IDdmOWVmNzA5YjJiNi4uZTI5OTEyYzQ4NGU0
+IDEwMDY0NAotLS0gYS9pbmNsdWRlL2RybS9kcm1fZGV2aWNlLmgKKysrIGIvaW5jbHVkZS9kcm0v
+ZHJtX2RldmljZS5oCkBAIC0xMjMsNiArMTIzLDkgQEAgc3RydWN0IGRybV9kZXZpY2UgewogCS8q
+KiBAdW5pcXVlOiBVbmlxdWUgbmFtZSBvZiB0aGUgZGV2aWNlICovCiAJY2hhciAqdW5pcXVlOwog
+CisJLyoqIEBuYW1lOiBkZXZpY2UgbmFtZSAqLworCWNoYXIgKm5hbWU7CisKIAkvKioKIAkgKiBA
+c3RydWN0X211dGV4OgogCSAqCmRpZmYgLS1naXQgYS9pbmNsdWRlL2RybS9kcm1fZHJ2LmggYi9p
+bmNsdWRlL2RybS9kcm1fZHJ2LmgKaW5kZXggNjhjYTczNmM1NDhkLi5mNzQyZTJiZGU0NjcgMTAw
+NjQ0Ci0tLSBhL2luY2x1ZGUvZHJtL2RybV9kcnYuaAorKysgYi9pbmNsdWRlL2RybS9kcm1fZHJ2
+LmgKQEAgLTc5OCw2ICs3OTgsNyBAQCBzdGF0aWMgaW5saW5lIGJvb2wgZHJtX2Rydl91c2VzX2F0
+b21pY19tb2Rlc2V0KHN0cnVjdCBkcm1fZGV2aWNlICpkZXYpCiAKIAogaW50IGRybV9kZXZfc2V0
+X3VuaXF1ZShzdHJ1Y3QgZHJtX2RldmljZSAqZGV2LCBjb25zdCBjaGFyICpuYW1lKTsKK2ludCBk
+cm1fZGV2X3NldF9uYW1lKHN0cnVjdCBkcm1fZGV2aWNlICpkZXYsIGNvbnN0IGNoYXIgKm5hbWUp
+OwogCiAKICNlbmRpZgotLSAKMi4xNy4xCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVk
+ZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZv
+L2FtZC1nZng=
