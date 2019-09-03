@@ -1,50 +1,56 @@
-From: Sasha Levin <sashal-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org>
-Subject: [PATCH AUTOSEL 4.19 024/167] drm/amd/dm: Understand why attaching
- path/tile properties are needed
-Date: Tue,  3 Sep 2019 12:22:56 -0400
-Message-ID: <20190903162519.7136-24-sashal@kernel.org>
+From: Sasha Levin <sashal@kernel.org>
+Subject: [PATCH AUTOSEL 4.19 044/167] drm/amdgpu: validate user pitch alignment
+Date: Tue,  3 Sep 2019 12:23:16 -0400
+Message-ID: <20190903162519.7136-44-sashal@kernel.org>
 References: <20190903162519.7136-1-sashal@kernel.org>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190903162519.7136-1-sashal-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, stable-u79uwXL29TY76Z2rM5mHXA@public.gmane.org
-Cc: Sasha Levin <sashal-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org>, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Jerry Zuo <Jerry.Zuo-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Return-path: <stable-owner@vger.kernel.org>
+In-Reply-To: <20190903162519.7136-1-sashal@kernel.org>
+Sender: stable-owner@vger.kernel.org
+To: linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Cc: Yu Zhao <yuzhao@google.com>, =?UTF-8?q?Michel=20D=C3=A4nzer?= <michel.daenzer@amd.com>, Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-RnJvbTogTHl1ZGUgUGF1bCA8bHl1ZGVAcmVkaGF0LmNvbT4KClsgVXBzdHJlYW0gY29tbWl0IDA0
-YWM0YjBlZDQxMmY2NTIzMGI0NTZmY2Q5YWEwN2UxM2JlZmZmODkgXQoKUGF0aCBwcm9wZXJ0eSBp
-cyB1c2VkIGZvciB1c2Vyc3BhY2UgdG8ga25vdyB3aGF0IE1TVCBjb25uZWN0b3IgZ29lcyB0byB3
-aGF0IGFjdHVhbCBEUk0gRGlzcGxheVBvcnQgY29ubmVjdG9yLCB0aGUgdGlsaW5nIHByb3BlcnR5
-IGlzIGZvciB0aWxpbmcgY29uZmlndXJhdGlvbnMuIE5vdCBzdXJlIHdoYXQgZWxzZSB0aGVyZSBp
-cyB0byBmaWd1cmUgb3V0LgoKU2lnbmVkLW9mZi1ieTogTHl1ZGUgUGF1bCA8bHl1ZGVAcmVkaGF0
-LmNvbT4KUmV2aWV3ZWQtYnk6IEplcnJ5IChGYW5nemhpKSBadW8gPEplcnJ5Llp1b0BhbWQuY29t
-PgpDYzogU3RhYmxlIDxzdGFibGVAdmdlci5rZXJuZWwub3JnPgpTaWduZWQtb2ZmLWJ5OiBBbGV4
-IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+ClNpZ25lZC1vZmYtYnk6IFNhc2hh
-IExldmluIDxzYXNoYWxAa2VybmVsLm9yZz4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3Bs
-YXkvYW1kZ3B1X2RtL2FtZGdwdV9kbV9tc3RfdHlwZXMuYyB8IDMgLS0tCiAxIGZpbGUgY2hhbmdl
-ZCwgMyBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3Bs
-YXkvYW1kZ3B1X2RtL2FtZGdwdV9kbV9tc3RfdHlwZXMuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-ZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtX21zdF90eXBlcy5jCmluZGV4IDU5NDQ1YzgzZjAy
-MzguLmM4NWJlYTcwZDk2NTIgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxh
-eS9hbWRncHVfZG0vYW1kZ3B1X2RtX21zdF90eXBlcy5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9h
-bWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtX21zdF90eXBlcy5jCkBAIC0zNzcsOSArMzc3
-LDYgQEAgZG1fZHBfYWRkX21zdF9jb25uZWN0b3Ioc3RydWN0IGRybV9kcF9tc3RfdG9wb2xvZ3lf
-bWdyICptZ3IsCiAJZHJtX2Nvbm5lY3Rvcl9hdHRhY2hfZW5jb2RlcigmYWNvbm5lY3Rvci0+YmFz
-ZSwKIAkJCQkgICAgICZhY29ubmVjdG9yLT5tc3RfZW5jb2Rlci0+YmFzZSk7CiAKLQkvKgotCSAq
-IFRPRE86IHVuZGVyc3RhbmQgd2h5IHRoaXMgb25lIGlzIG5lZWRlZAotCSAqLwogCWRybV9vYmpl
-Y3RfYXR0YWNoX3Byb3BlcnR5KAogCQkmY29ubmVjdG9yLT5iYXNlLAogCQlkZXYtPm1vZGVfY29u
-ZmlnLnBhdGhfcHJvcGVydHksCi0tIAoyLjIwLjEKCl9fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMu
-ZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlz
-dGluZm8vYW1kLWdmeA==
+From: Yu Zhao <yuzhao@google.com>
+
+[ Upstream commit 89f23b6efef554766177bf51aa754bce14c3e7da ]
+
+Userspace may request pitch alignment that is not supported by GPU.
+Some requests 32, but GPU ignores it and uses default 64 when cpp is
+4. If GEM object is allocated based on the smaller alignment, GPU
+DMA will go out of bound.
+
+Cc: stable@vger.kernel.org # v4.2+
+Reviewed-by: Michel Dänzer <michel.daenzer@amd.com>
+Signed-off-by: Yu Zhao <yuzhao@google.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_display.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
+index 686a26de50f91..6e67814d33e29 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
+@@ -527,6 +527,16 @@ amdgpu_display_user_framebuffer_create(struct drm_device *dev,
+ 	struct drm_gem_object *obj;
+ 	struct amdgpu_framebuffer *amdgpu_fb;
+ 	int ret;
++	struct amdgpu_device *adev = dev->dev_private;
++	int cpp = drm_format_plane_cpp(mode_cmd->pixel_format, 0);
++	int pitch = mode_cmd->pitches[0] / cpp;
++
++	pitch = amdgpu_align_pitch(adev, pitch, cpp, false);
++	if (mode_cmd->pitches[0] != pitch) {
++		DRM_DEBUG_KMS("Invalid pitch: expecting %d but got %d\n",
++			      pitch, mode_cmd->pitches[0]);
++		return ERR_PTR(-EINVAL);
++	}
+ 
+ 	obj = drm_gem_object_lookup(file_priv, mode_cmd->handles[0]);
+ 	if (obj ==  NULL) {
+-- 
+2.20.1
