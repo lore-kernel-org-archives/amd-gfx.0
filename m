@@ -1,106 +1,325 @@
-From: Sasha Levin <sashal@kernel.org>
-Subject: [PATCH AUTOSEL 5.2 58/94] drm/amd/powerplay: correct Vega20 dpm level
- related settings
-Date: Wed,  4 Sep 2019 11:57:03 -0400
-Message-ID: <20190904155739.2816-58-sashal@kernel.org>
-References: <20190904155739.2816-1-sashal@kernel.org>
+From: Cristian Marussi <cristian.marussi@arm.com>
+Subject: Re: [PATCH v18 15/15] selftests, arm64: add a selftest for passing
+ tagged pointers to kernel
+Date: Wed, 4 Sep 2019 17:22:06 +0100
+Message-ID: <92ca7fd1-2aa7-3bec-384d-52033b6496c1@arm.com>
+References: <cover.1561386715.git.andreyknvl@google.com>
+ <0999c80cd639b78ae27c0674069d552833227564.1561386715.git.andreyknvl@google.com>
+ <6af3f619-4356-2f67-ed76-92beceb1e0a0@arm.com>
+ <CAAeHK+yhbUcuLhoetjGUbqM4j9fX84hbwmxzNPF+e1zXj6nKNw@mail.gmail.com>
+ <d6bc5c4b-68b5-0a58-0f52-8bce20986dcf@arm.com>
+ <CAAeHK+xXN_oHt0rAcWdTs0XhkYRhWqf3iv-n+dYmY075xosJnw@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-In-Reply-To: <20190904155739.2816-1-sashal@kernel.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Cc: Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>, Evan Quan <evan.quan@amd.com>, dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <CAAeHK+xXN_oHt0rAcWdTs0XhkYRhWqf3iv-n+dYmY075xosJnw@mail.gmail.com>
+Content-Language: en-US
+Sender: linux-kernel-owner@vger.kernel.org
+To: Andrey Konovalov <andreyknvl@google.com>
+Cc: Linux ARM <linux-arm-kernel@lists.infradead.org>, Linux Memory Management List <linux-mm@kvack.org>, LKML <linux-kernel@vger.kernel.org>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-rdma@vger.kernel.org, linux-media@vger.kernel.org, kvm@vger.kernel.org, "open list:KERNEL SELFTEST FRAMEWORK" <linux-kselftest@vger.kernel.org>, Catalin Marinas <catalin.marinas@arm.com>, Vincenzo Frascino <vincenzo.frascino@arm.com>, Will Deacon <will.deacon@arm.com>, Mark Rutland <mark.rutland@arm.com>, Andrew Morton <akpm@linux-foundation.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Kees Cook <keescook@chromium.org>, Yishai Hadas <yishaih@mellanox.com>, Felix Kuehling <Felix.Kuehling@amd.com>, Alexander Deucher <Alexander.Deucher@am>
 List-Id: amd-gfx.lists.freedesktop.org
 
-RnJvbTogRXZhbiBRdWFuIDxldmFuLnF1YW5AYW1kLmNvbT4KClsgVXBzdHJlYW0gY29tbWl0IDgz
-ZTA5ZDViZGRiZWU3NDlmYzgzMDYzODkwMjQ0Mzk3ODk2YTE5NzEgXQoKQ29ycmVjdCB0aGUgc2V0
-dGluZ3MgZm9yIGF1dG8gbW9kZSBhbmQgc2tpcCB0aGUgdW5uZWNlc3NhcnkKc2V0dGluZ3MgZm9y
-IGRjZWZjbGsgYW5kIGZjbGsuCgpTaWduZWQtb2ZmLWJ5OiBFdmFuIFF1YW4gPGV2YW4ucXVhbkBh
-bWQuY29tPgpBY2tlZC1ieTogQWxleCBEZXVjaGVyIDxhbGV4YW5kZXIuZGV1Y2hlckBhbWQuY29t
-PgpTaWduZWQtb2ZmLWJ5OiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+
-ClNpZ25lZC1vZmYtYnk6IFNhc2hhIExldmluIDxzYXNoYWxAa2VybmVsLm9yZz4KLS0tCiAuLi4v
-ZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3IvdmVnYTIwX2h3bWdyLmMgICAgfCA2MCArKysrKysrKysr
-KysrKysrKy0tCiAxIGZpbGUgY2hhbmdlZCwgNTQgaW5zZXJ0aW9ucygrKSwgNiBkZWxldGlvbnMo
-LSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci92ZWdh
-MjBfaHdtZ3IuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL3ZlZ2EyMF9o
-d21nci5jCmluZGV4IDliOWY4N2I4NDkxMGMuLmQ5OGZlNDgxY2QzNjUgMTAwNjQ0Ci0tLSBhL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL3ZlZ2EyMF9od21nci5jCisrKyBiL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL3ZlZ2EyMF9od21nci5jCkBAIC0yMjg4
-LDEyICsyMjg4LDE2IEBAIHN0YXRpYyBpbnQgdmVnYTIwX2ZvcmNlX2RwbV9oaWdoZXN0KHN0cnVj
-dCBwcF9od21nciAqaHdtZ3IpCiAJCWRhdGEtPmRwbV90YWJsZS5zb2NfdGFibGUuZHBtX3N0YXRl
-LnNvZnRfbWF4X2xldmVsID0KIAkJZGF0YS0+ZHBtX3RhYmxlLnNvY190YWJsZS5kcG1fbGV2ZWxz
-W3NvZnRfbGV2ZWxdLnZhbHVlOwogCi0JcmV0ID0gdmVnYTIwX3VwbG9hZF9kcG1fbWluX2xldmVs
-KGh3bWdyLCAweEZGRkZGRkZGKTsKKwlyZXQgPSB2ZWdhMjBfdXBsb2FkX2RwbV9taW5fbGV2ZWwo
-aHdtZ3IsIEZFQVRVUkVfRFBNX0dGWENMS19NQVNLIHwKKwkJCQkJCSBGRUFUVVJFX0RQTV9VQ0xL
-X01BU0sgfAorCQkJCQkJIEZFQVRVUkVfRFBNX1NPQ0NMS19NQVNLKTsKIAlQUF9BU1NFUlRfV0lU
-SF9DT0RFKCFyZXQsCiAJCQkiRmFpbGVkIHRvIHVwbG9hZCBib290IGxldmVsIHRvIGhpZ2hlc3Qh
-IiwKIAkJCXJldHVybiByZXQpOwogCi0JcmV0ID0gdmVnYTIwX3VwbG9hZF9kcG1fbWF4X2xldmVs
-KGh3bWdyLCAweEZGRkZGRkZGKTsKKwlyZXQgPSB2ZWdhMjBfdXBsb2FkX2RwbV9tYXhfbGV2ZWwo
-aHdtZ3IsIEZFQVRVUkVfRFBNX0dGWENMS19NQVNLIHwKKwkJCQkJCSBGRUFUVVJFX0RQTV9VQ0xL
-X01BU0sgfAorCQkJCQkJIEZFQVRVUkVfRFBNX1NPQ0NMS19NQVNLKTsKIAlQUF9BU1NFUlRfV0lU
-SF9DT0RFKCFyZXQsCiAJCQkiRmFpbGVkIHRvIHVwbG9hZCBkcG0gbWF4IGxldmVsIHRvIGhpZ2hl
-c3QhIiwKIAkJCXJldHVybiByZXQpOwpAQCAtMjMyNiwxMiArMjMzMCwxNiBAQCBzdGF0aWMgaW50
-IHZlZ2EyMF9mb3JjZV9kcG1fbG93ZXN0KHN0cnVjdCBwcF9od21nciAqaHdtZ3IpCiAJCWRhdGEt
-PmRwbV90YWJsZS5zb2NfdGFibGUuZHBtX3N0YXRlLnNvZnRfbWF4X2xldmVsID0KIAkJZGF0YS0+
-ZHBtX3RhYmxlLnNvY190YWJsZS5kcG1fbGV2ZWxzW3NvZnRfbGV2ZWxdLnZhbHVlOwogCi0JcmV0
-ID0gdmVnYTIwX3VwbG9hZF9kcG1fbWluX2xldmVsKGh3bWdyLCAweEZGRkZGRkZGKTsKKwlyZXQg
-PSB2ZWdhMjBfdXBsb2FkX2RwbV9taW5fbGV2ZWwoaHdtZ3IsIEZFQVRVUkVfRFBNX0dGWENMS19N
-QVNLIHwKKwkJCQkJCSBGRUFUVVJFX0RQTV9VQ0xLX01BU0sgfAorCQkJCQkJIEZFQVRVUkVfRFBN
-X1NPQ0NMS19NQVNLKTsKIAlQUF9BU1NFUlRfV0lUSF9DT0RFKCFyZXQsCiAJCQkiRmFpbGVkIHRv
-IHVwbG9hZCBib290IGxldmVsIHRvIGhpZ2hlc3QhIiwKIAkJCXJldHVybiByZXQpOwogCi0JcmV0
-ID0gdmVnYTIwX3VwbG9hZF9kcG1fbWF4X2xldmVsKGh3bWdyLCAweEZGRkZGRkZGKTsKKwlyZXQg
-PSB2ZWdhMjBfdXBsb2FkX2RwbV9tYXhfbGV2ZWwoaHdtZ3IsIEZFQVRVUkVfRFBNX0dGWENMS19N
-QVNLIHwKKwkJCQkJCSBGRUFUVVJFX0RQTV9VQ0xLX01BU0sgfAorCQkJCQkJIEZFQVRVUkVfRFBN
-X1NPQ0NMS19NQVNLKTsKIAlQUF9BU1NFUlRfV0lUSF9DT0RFKCFyZXQsCiAJCQkiRmFpbGVkIHRv
-IHVwbG9hZCBkcG0gbWF4IGxldmVsIHRvIGhpZ2hlc3QhIiwKIAkJCXJldHVybiByZXQpOwpAQCAt
-MjM0MiwxNCArMjM1MCw1NCBAQCBzdGF0aWMgaW50IHZlZ2EyMF9mb3JjZV9kcG1fbG93ZXN0KHN0
-cnVjdCBwcF9od21nciAqaHdtZ3IpCiAKIHN0YXRpYyBpbnQgdmVnYTIwX3VuZm9yY2VfZHBtX2xl
-dmVscyhzdHJ1Y3QgcHBfaHdtZ3IgKmh3bWdyKQogeworCXN0cnVjdCB2ZWdhMjBfaHdtZ3IgKmRh
-dGEgPQorCQkJKHN0cnVjdCB2ZWdhMjBfaHdtZ3IgKikoaHdtZ3ItPmJhY2tlbmQpOworCXVpbnQz
-Ml90IHNvZnRfbWluX2xldmVsLCBzb2Z0X21heF9sZXZlbDsKIAlpbnQgcmV0ID0gMDsKIAotCXJl
-dCA9IHZlZ2EyMF91cGxvYWRfZHBtX21pbl9sZXZlbChod21nciwgMHhGRkZGRkZGRik7CisJLyog
-Z2Z4Y2xrIHNvZnQgbWluL21heCBzZXR0aW5ncyAqLworCXNvZnRfbWluX2xldmVsID0KKwkJdmVn
-YTIwX2ZpbmRfbG93ZXN0X2RwbV9sZXZlbCgmKGRhdGEtPmRwbV90YWJsZS5nZnhfdGFibGUpKTsK
-Kwlzb2Z0X21heF9sZXZlbCA9CisJCXZlZ2EyMF9maW5kX2hpZ2hlc3RfZHBtX2xldmVsKCYoZGF0
-YS0+ZHBtX3RhYmxlLmdmeF90YWJsZSkpOworCisJZGF0YS0+ZHBtX3RhYmxlLmdmeF90YWJsZS5k
-cG1fc3RhdGUuc29mdF9taW5fbGV2ZWwgPQorCQlkYXRhLT5kcG1fdGFibGUuZ2Z4X3RhYmxlLmRw
-bV9sZXZlbHNbc29mdF9taW5fbGV2ZWxdLnZhbHVlOworCWRhdGEtPmRwbV90YWJsZS5nZnhfdGFi
-bGUuZHBtX3N0YXRlLnNvZnRfbWF4X2xldmVsID0KKwkJZGF0YS0+ZHBtX3RhYmxlLmdmeF90YWJs
-ZS5kcG1fbGV2ZWxzW3NvZnRfbWF4X2xldmVsXS52YWx1ZTsKKworCS8qIHVjbGsgc29mdCBtaW4v
-bWF4IHNldHRpbmdzICovCisJc29mdF9taW5fbGV2ZWwgPQorCQl2ZWdhMjBfZmluZF9sb3dlc3Rf
-ZHBtX2xldmVsKCYoZGF0YS0+ZHBtX3RhYmxlLm1lbV90YWJsZSkpOworCXNvZnRfbWF4X2xldmVs
-ID0KKwkJdmVnYTIwX2ZpbmRfaGlnaGVzdF9kcG1fbGV2ZWwoJihkYXRhLT5kcG1fdGFibGUubWVt
-X3RhYmxlKSk7CisKKwlkYXRhLT5kcG1fdGFibGUubWVtX3RhYmxlLmRwbV9zdGF0ZS5zb2Z0X21p
-bl9sZXZlbCA9CisJCWRhdGEtPmRwbV90YWJsZS5tZW1fdGFibGUuZHBtX2xldmVsc1tzb2Z0X21p
-bl9sZXZlbF0udmFsdWU7CisJZGF0YS0+ZHBtX3RhYmxlLm1lbV90YWJsZS5kcG1fc3RhdGUuc29m
-dF9tYXhfbGV2ZWwgPQorCQlkYXRhLT5kcG1fdGFibGUubWVtX3RhYmxlLmRwbV9sZXZlbHNbc29m
-dF9tYXhfbGV2ZWxdLnZhbHVlOworCisJLyogc29jY2xrIHNvZnQgbWluL21heCBzZXR0aW5ncyAq
-LworCXNvZnRfbWluX2xldmVsID0KKwkJdmVnYTIwX2ZpbmRfbG93ZXN0X2RwbV9sZXZlbCgmKGRh
-dGEtPmRwbV90YWJsZS5zb2NfdGFibGUpKTsKKwlzb2Z0X21heF9sZXZlbCA9CisJCXZlZ2EyMF9m
-aW5kX2hpZ2hlc3RfZHBtX2xldmVsKCYoZGF0YS0+ZHBtX3RhYmxlLnNvY190YWJsZSkpOworCisJ
-ZGF0YS0+ZHBtX3RhYmxlLnNvY190YWJsZS5kcG1fc3RhdGUuc29mdF9taW5fbGV2ZWwgPQorCQlk
-YXRhLT5kcG1fdGFibGUuc29jX3RhYmxlLmRwbV9sZXZlbHNbc29mdF9taW5fbGV2ZWxdLnZhbHVl
-OworCWRhdGEtPmRwbV90YWJsZS5zb2NfdGFibGUuZHBtX3N0YXRlLnNvZnRfbWF4X2xldmVsID0K
-KwkJZGF0YS0+ZHBtX3RhYmxlLnNvY190YWJsZS5kcG1fbGV2ZWxzW3NvZnRfbWF4X2xldmVsXS52
-YWx1ZTsKKworCXJldCA9IHZlZ2EyMF91cGxvYWRfZHBtX21pbl9sZXZlbChod21nciwgRkVBVFVS
-RV9EUE1fR0ZYQ0xLX01BU0sgfAorCQkJCQkJIEZFQVRVUkVfRFBNX1VDTEtfTUFTSyB8CisJCQkJ
-CQkgRkVBVFVSRV9EUE1fU09DQ0xLX01BU0spOwogCVBQX0FTU0VSVF9XSVRIX0NPREUoIXJldCwK
-IAkJCSJGYWlsZWQgdG8gdXBsb2FkIERQTSBCb290dXAgTGV2ZWxzISIsCiAJCQlyZXR1cm4gcmV0
-KTsKIAotCXJldCA9IHZlZ2EyMF91cGxvYWRfZHBtX21heF9sZXZlbChod21nciwgMHhGRkZGRkZG
-Rik7CisJcmV0ID0gdmVnYTIwX3VwbG9hZF9kcG1fbWF4X2xldmVsKGh3bWdyLCBGRUFUVVJFX0RQ
-TV9HRlhDTEtfTUFTSyB8CisJCQkJCQkgRkVBVFVSRV9EUE1fVUNMS19NQVNLIHwKKwkJCQkJCSBG
-RUFUVVJFX0RQTV9TT0NDTEtfTUFTSyk7CiAJUFBfQVNTRVJUX1dJVEhfQ09ERSghcmV0LAogCQkJ
-IkZhaWxlZCB0byB1cGxvYWQgRFBNIE1heCBMZXZlbHMhIiwKIAkJCXJldHVybiByZXQpOwotLSAK
-Mi4yMC4xCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpk
-cmktZGV2ZWwgbWFpbGluZyBsaXN0CmRyaS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0
-cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9kcmktZGV2ZWw=
+Hi Andrey !
+
+On 04/09/2019 15:52, Andrey Konovalov wrote:
+> On Fri, Aug 23, 2019 at 7:49 PM Cristian Marussi
+> <cristian.marussi@arm.com> wrote:
+>>
+>>
+>> Hi
+>>
+>> On 23/08/2019 18:16, Andrey Konovalov wrote:
+>>> On Fri, Aug 23, 2019 at 3:56 PM Cristian Marussi
+>>> <cristian.marussi@arm.com> wrote:
+>>>>
+>>>> Hi Andrey
+>>>>
+>>>> On 24/06/2019 15:33, Andrey Konovalov wrote:
+>>>>> This patch is a part of a series that extends kernel ABI to allow to pass
+>>>>> tagged user pointers (with the top byte set to something else other than
+>>>>> 0x00) as syscall arguments.
+>>>>>
+>>>>> This patch adds a simple test, that calls the uname syscall with a
+>>>>> tagged user pointer as an argument. Without the kernel accepting tagged
+>>>>> user pointers the test fails with EFAULT.
+>>>>>
+>>>>> Signed-off-by: Andrey Konovalov <andreyknvl@google.com>
+>>>>> ---
+>>>>>  tools/testing/selftests/arm64/.gitignore      |  1 +
+>>>>>  tools/testing/selftests/arm64/Makefile        | 11 +++++++
+>>>>>  .../testing/selftests/arm64/run_tags_test.sh  | 12 ++++++++
+>>>>>  tools/testing/selftests/arm64/tags_test.c     | 29 +++++++++++++++++++
+>>>>>  4 files changed, 53 insertions(+)
+>>>>>  create mode 100644 tools/testing/selftests/arm64/.gitignore
+>>>>>  create mode 100644 tools/testing/selftests/arm64/Makefile
+>>>>>  create mode 100755 tools/testing/selftests/arm64/run_tags_test.sh
+>>>>>  create mode 100644 tools/testing/selftests/arm64/tags_test.c
+>>>>
+>>>> After building a fresh Kernel from arm64/for-next-core from scratch at:
+>>>>
+>>>> commit 239ab658bea3b387424501e7c416640d6752dc0c
+>>>> Merge: 6bfa3134bd3a 42d038c4fb00 1243cb6a676f d55c5f28afaf d06fa5a118f1 34b5560db40d
+>>>> Author: Will Deacon <will@kernel.org>
+>>>> Date:   Thu Aug 22 18:23:53 2019 +0100
+>>>>
+>>>>     Merge branches 'for-next/error-injection', 'for-next/tbi', 'for-next/psci-cpuidle', 'for-next/cpu-topology' and 'for-next/52-bit-kva' into for-next/core
+>>>>
+>>>>
+>>>> KSFT arm64 tests build is broken for me, both setting or not KBUILD_OUTPUT=
+>>>>
+>>>> 13:30 $ make TARGETS=arm64 kselftest-clean
+>>>> make[1]: Entering directory '/home/crimar01/ARM/dev/src/pdsw/out_linux'
+>>>> rm -f -r /home/crimar01/ARM/dev/src/pdsw/out_linux//kselftest/arm64/tags_test
+>>>> make[1]: Leaving directory '/home/crimar01/ARM/dev/src/pdsw/out_linux'
+>>>>
+>>>> ✔ ~/ARM/dev/src/pdsw/linux [arm64_for_next_core|…8⚑ 23]
+>>>>
+>>>> 13:30 $ make TARGETS=arm64 kselftest
+>>>> make[1]: Entering directory '/home/crimar01/ARM/dev/src/pdsw/out_linux'
+>>>> arch/arm64/Makefile:56: CROSS_COMPILE_COMPAT not defined or empty, the compat vDSO will not be built
+>>>> make --no-builtin-rules INSTALL_HDR_PATH=$BUILD/usr \
+>>>>         ARCH=arm64 -C ../../.. headers_install
+>>>>   HOSTCC  scripts/basic/fixdep
+>>>>   HOSTCC  scripts/unifdef
+>>>> ...
+>>>> ...
+>>>>   HDRINST usr/include/asm/msgbuf.h
+>>>>   HDRINST usr/include/asm/shmbuf.h
+>>>>   INSTALL /home/crimar01/ARM/dev/src/pdsw/out_linux//kselftest/usr/include
+>>>> /opt/toolchains/gcc-arm-8.3-2019.03-x86_64-aarch64-linux-gnu/bin/aarch64-linux-gnu-gcc     tags_test.c  -o /home/crimar01/ARM/dev/src/pdsw/out_linux//kselftest/arm64/tags_test
+>>>> tags_test.c: In function ‘main’:
+>>>> tags_test.c:21:12: error: ‘PR_SET_TAGGED_ADDR_CTRL’ undeclared (first use in this function); did you mean ‘PR_GET_TID_ADDRESS’?
+>>>>   if (prctl(PR_SET_TAGGED_ADDR_CTRL, PR_TAGGED_ADDR_ENABLE, 0, 0, 0) == 0)
+>>>>             ^~~~~~~~~~~~~~~~~~~~~~~
+>>>>             PR_GET_TID_ADDRESS
+>>>> tags_test.c:21:12: note: each undeclared identifier is reported only once for each function it appears in
+>>>> tags_test.c:21:37: error: ‘PR_TAGGED_ADDR_ENABLE’ undeclared (first use in this function); did you mean ‘PR_GET_DUMPABLE’?
+>>>>   if (prctl(PR_SET_TAGGED_ADDR_CTRL, PR_TAGGED_ADDR_ENABLE, 0, 0, 0) == 0)
+>>>>                                      ^~~~~~~~~~~~~~~~~~~~~
+>>>>                                      PR_GET_DUMPABLE
+>>>> ../lib.mk:138: recipe for target '/home/crimar01/ARM/dev/src/pdsw/out_linux//kselftest/arm64/tags_test' failed
+>>>> make[3]: *** [/home/crimar01/ARM/dev/src/pdsw/out_linux//kselftest/arm64/tags_test] Error 1
+>>>> Makefile:136: recipe for target 'all' failed
+>>>> make[2]: *** [all] Error 2
+>>>> /home/crimar01/ARM/dev/src/pdsw/linux/Makefile:1237: recipe for target 'kselftest' failed
+>>>> make[1]: *** [kselftest] Error 2
+>>>> make[1]: Leaving directory '/home/crimar01/ARM/dev/src/pdsw/out_linux'
+>>>> Makefile:179: recipe for target 'sub-make' failed
+>>>> make: *** [sub-make] Error 2
+>>>>
+>>>> Despite seeing KSFT installing Kernel Headers, they cannot be found.
+>>>>
+>>>> Fixing this patch like this make it work for me:
+>>>>
+>>>> diff --git a/tools/testing/selftests/arm64/Makefile b/tools/testing/selftests/arm64/Makefile
+>>>> index a61b2e743e99..f9f79fb272f0 100644
+>>>> --- a/tools/testing/selftests/arm64/Makefile
+>>>> +++ b/tools/testing/selftests/arm64/Makefile
+>>>> @@ -4,6 +4,7 @@
+>>>>  ARCH ?= $(shell uname -m 2>/dev/null || echo not)
+>>>>
+>>>>  ifneq (,$(filter $(ARCH),aarch64 arm64))
+>>>> +CFLAGS += -I../../../../usr/include/
+>>>>  TEST_GEN_PROGS := tags_test
+>>>>  TEST_PROGS := run_tags_test.sh
+>>>>  endif
+>>>>
+>>>> but is not really a proper fix since it does NOT account for case in which you have
+>>>> installed the Kernel Headers in a non standard location like when you use KBUILD_OUTPUT.
+>>>>
+>>>> Am I missing something ?
+>>>
+>>> Hm, PR_SET_TAGGED_ADDR_CTRL is defined in include/uapi/linux/prctl.h,
+>>> and the test has #include <sys/prctl.h> so as long as you've updated
+>>> your kernel headers this should work.
+>>>
+>>> (I'm OOO next week, I'll see if I can reproduce this once I'm back).
+>>
+>> Ok. Thanks for the reply.
+>>
+>> I think I've got it in my local tree having cloned arm64/for-next-core:
+>>
+>> 18:32 $ egrep -A 10 PR_SET_TAG ./include/uapi/linux/prctl.h
+>> #define PR_SET_TAGGED_ADDR_CTRL         55
+>> #define PR_GET_TAGGED_ADDR_CTRL         56
+>> # define PR_TAGGED_ADDR_ENABLE          (1UL << 0)
+>>
+>> #endif /* _LINUX_PRCTL_H */
+>>
+>> and Kernel header are locally installed in my kernel src dir (by KSFT indeed)
+>>
+>> 18:34 $ egrep -RA 10 PR_SET_TAG usr/include/
+>> usr/include/linux/prctl.h:#define PR_SET_TAGGED_ADDR_CTRL               55
+>> usr/include/linux/prctl.h-#define PR_GET_TAGGED_ADDR_CTRL               56
+>> usr/include/linux/prctl.h-# define PR_TAGGED_ADDR_ENABLE                (1UL << 0)
+>> usr/include/linux/prctl.h-
+>> usr/include/linux/prctl.h-#endif /* _LINUX_PRCTL_H */
+>>
+>> but how are they supposed to be found if nor the test Makefile
+>> neither the KSFT Makefile who installs them pass any -I options to the
+>> compiler ?
+>> I suppose <sys/prctl.h> tries to include arch specific headers from the regular system path,
+>> but when you are cross-compiling ?
+>>
+>> 18:34 $ make TARGETS=arm64 kselftest
+>> make[1]: Entering directory '/home/crimar01/ARM/dev/src/pdsw/out_linux'
+>> arch/arm64/Makefile:56: CROSS_COMPILE_COMPAT not defined or empty, the compat vDSO will not be built
+>> make --no-builtin-rules INSTALL_HDR_PATH=$BUILD/usr \
+>>         ARCH=arm64 -C ../../.. headers_install
+>>   INSTALL /home/crimar01/ARM/dev/src/pdsw/out_linux/kselftest/usr/include
+>> /opt/toolchains/gcc-arm-8.3-2019.03-x86_64-aarch64-linux-gnu/bin/aarch64-linux-gnu-gcc -Wall -O2 -g    tags_test.c  -o /home/crimar01/ARM/dev/src/pdsw/out_linux/kselftest/arm64/tags/tags_test
+>> tags_test.c: In function ‘main’:
+>> tags_test.c:20:12: error: ‘PR_SET_TAGGED_ADDR_CTRL’ undeclared (first use in this function); did you mean ‘PR_GET_TID_ADDRESS’?
+>>   if (prctl(PR_SET_TAGGED_ADDR_CTRL, PR_TAGGED_ADDR_ENABLE, 0, 0, 0) == 0)
+>>             ^~~~~~~~~~~~~~~~~~~~~~~
+>>             PR_GET_TID_ADDRESS
+>> tags_test.c:20:12: note: each undeclared identifier is reported only once for each function it appears in
+>> tags_test.c:20:37: error: ‘PR_TAGGED_ADDR_ENABLE’ undeclared (first use in this function); did you mean ‘PR_GET_DUMPABLE’?
+>>   if (prctl(PR_SET_TAGGED_ADDR_CTRL, PR_TAGGED_ADDR_ENABLE, 0, 0, 0) == 0)
+>>                                      ^~~~~~~~~~~~~~~~~~~~~
+>>                                      PR_GET_DUMPABLE
+>> ../../lib.mk:138: recipe for target '/home/crimar01/ARM/dev/src/pdsw/out_linux/kselftest/arm64/tags/tags_test' failed
+>> make[4]: *** [/home/crimar01/ARM/dev/src/pdsw/out_linux/kselftest/arm64/tags/tags_test] Error 1
+>> Makefile:19: recipe for target 'all' failed
+>> make[3]: *** [all] Error 2
+>> Makefile:137: recipe for target 'all' failed
+>> make[2]: *** [all] Error 2
+>> /home/crimar01/ARM/dev/src/pdsw/linux/Makefile:1236: recipe for target 'kselftest' failed
+>> make[1]: *** [kselftest] Error 2
+>> make[1]: Leaving directory '/home/crimar01/ARM/dev/src/pdsw/out_linux'
+>> Makefile:179: recipe for target 'sub-make' failed
+>> make: *** [sub-make] Error 2
+>>
+>>
+>> In fact many KSFT testcases seems to brutally add default headers path:
+>>
+>> tools/testing/selftests/memfd/Makefile:CFLAGS += -I../../../../include/uapi/
+>> tools/testing/selftests/memfd/Makefile:CFLAGS += -I../../../../include/
+>> tools/testing/selftests/memfd/Makefile:CFLAGS += -I../../../../usr/include/
+>> tools/testing/selftests/net/Makefile:CFLAGS += -I../../../../usr/include/
+>> tools/testing/selftests/membarrier/Makefile:CFLAGS += -g -I../../../../usr/include/
+>> ...
+> 
+> Hi Cristian!
+> 
+> Indeed, I can reproduce the issue. I don't know what's the proper way
+> to resolve this. Adding "CFLAGS += -I../../../../usr/include/" looks
+> good to me. AFAICS your series resolves this issue in a similar way,
+> but I think we should fix this before the current rc is released. Do
+> you want to submit a patch that adds this simple fix or should I do
+> that?
+> 
+
+Please feel free to post the single line patch above to quickly fix this before
+release, so we don't have a broken build straight away. (our CI is already beating me...:D)
+
+On my side (01/11) in the meantime I'll fix the top level KSFT arm64 makefile so as to calculate 
+and propagate once for all the headers search path down to all KSFT arm64/ in one go,
+trying to guess where they are; this is needed because the above fix works fine as long
+as you don't have KBUILD_OUTPUT set, once you set it, KSFT installs kheaders in a different
+place and the  above -I fix is fooled again....but this is a general problem also in other
+KSFT tests as I can see now so I think this fix is good enough for now
+(and the fix on my side, even if trivial, is not going to go into this release for sure)
+
+Thanks !
+
+Cheers
+
+Cristian
+
+> Thanks!
+> 
+>>
+>> Cheers
+>>
+>> Cristian
+>>>
+>>>
+>>>
+>>>>
+>>>> Thanks
+>>>>
+>>>> Cristian
+>>>>
+>>>>>
+>>>>> diff --git a/tools/testing/selftests/arm64/.gitignore b/tools/testing/selftests/arm64/.gitignore
+>>>>> new file mode 100644
+>>>>> index 000000000000..e8fae8d61ed6
+>>>>> --- /dev/null
+>>>>> +++ b/tools/testing/selftests/arm64/.gitignore
+>>>>> @@ -0,0 +1 @@
+>>>>> +tags_test
+>>>>> diff --git a/tools/testing/selftests/arm64/Makefile b/tools/testing/selftests/arm64/Makefile
+>>>>> new file mode 100644
+>>>>> index 000000000000..a61b2e743e99
+>>>>> --- /dev/null
+>>>>> +++ b/tools/testing/selftests/arm64/Makefile
+>>>>> @@ -0,0 +1,11 @@
+>>>>> +# SPDX-License-Identifier: GPL-2.0
+>>>>> +
+>>>>> +# ARCH can be overridden by the user for cross compiling
+>>>>> +ARCH ?= $(shell uname -m 2>/dev/null || echo not)
+>>>>> +
+>>>>> +ifneq (,$(filter $(ARCH),aarch64 arm64))
+>>>>> +TEST_GEN_PROGS := tags_test
+>>>>> +TEST_PROGS := run_tags_test.sh
+>>>>> +endif
+>>>>> +
+>>>>> +include ../lib.mk
+>>>>> diff --git a/tools/testing/selftests/arm64/run_tags_test.sh b/tools/testing/selftests/arm64/run_tags_test.sh
+>>>>> new file mode 100755
+>>>>> index 000000000000..745f11379930
+>>>>> --- /dev/null
+>>>>> +++ b/tools/testing/selftests/arm64/run_tags_test.sh
+>>>>> @@ -0,0 +1,12 @@
+>>>>> +#!/bin/sh
+>>>>> +# SPDX-License-Identifier: GPL-2.0
+>>>>> +
+>>>>> +echo "--------------------"
+>>>>> +echo "running tags test"
+>>>>> +echo "--------------------"
+>>>>> +./tags_test
+>>>>> +if [ $? -ne 0 ]; then
+>>>>> +     echo "[FAIL]"
+>>>>> +else
+>>>>> +     echo "[PASS]"
+>>>>> +fi
+>>>>> diff --git a/tools/testing/selftests/arm64/tags_test.c b/tools/testing/selftests/arm64/tags_test.c
+>>>>> new file mode 100644
+>>>>> index 000000000000..22a1b266e373
+>>>>> --- /dev/null
+>>>>> +++ b/tools/testing/selftests/arm64/tags_test.c
+>>>>> @@ -0,0 +1,29 @@
+>>>>> +// SPDX-License-Identifier: GPL-2.0
+>>>>> +
+>>>>> +#include <stdio.h>
+>>>>> +#include <stdlib.h>
+>>>>> +#include <unistd.h>
+>>>>> +#include <stdint.h>
+>>>>> +#include <sys/prctl.h>
+>>>>> +#include <sys/utsname.h>
+>>>>> +
+>>>>> +#define SHIFT_TAG(tag)               ((uint64_t)(tag) << 56)
+>>>>> +#define SET_TAG(ptr, tag)    (((uint64_t)(ptr) & ~SHIFT_TAG(0xff)) | \
+>>>>> +                                     SHIFT_TAG(tag))
+>>>>> +
+>>>>> +int main(void)
+>>>>> +{
+>>>>> +     static int tbi_enabled = 0;
+>>>>> +     struct utsname *ptr, *tagged_ptr;
+>>>>> +     int err;
+>>>>> +
+>>>>> +     if (prctl(PR_SET_TAGGED_ADDR_CTRL, PR_TAGGED_ADDR_ENABLE, 0, 0, 0) == 0)
+>>>>> +             tbi_enabled = 1;
+>>>>> +     ptr = (struct utsname *)malloc(sizeof(*ptr));
+>>>>> +     if (tbi_enabled)
+>>>>> +             tagged_ptr = (struct utsname *)SET_TAG(ptr, 0x42);
+>>>>> +     err = uname(tagged_ptr);
+>>>>> +     free(ptr);
+>>>>> +
+>>>>> +     return err;
+>>>>> +}
+>>>>>
+>>>>
+>>
