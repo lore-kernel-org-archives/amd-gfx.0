@@ -1,33 +1,81 @@
-From: Randy Dunlap <rdunlap@infradead.org>
-Subject: Re: linux-next: Tree for Sep 4 (amd/display/)
-Date: Wed, 4 Sep 2019 13:58:24 -0700
-Message-ID: <6b70fdfd-1f18-1e55-2574-7be5997cfb2a@infradead.org>
-References: <20190904233443.3f73c46b@canb.auug.org.au>
+From: <Roman.Li-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH] drm/amd/display: Add stereo mux and dig programming calls for
+ dcn21
+Date: Wed, 4 Sep 2019 17:43:12 -0400
+Message-ID: <1567633392-26602-1-git-send-email-Roman.Li@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=windows-1252
-Content-Transfer-Encoding: 8bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20190904233443.3f73c46b@canb.auug.org.au>
-Content-Language: en-US
-Sender: linux-kernel-owner@vger.kernel.org
-To: Stephen Rothwell <sfr@canb.auug.org.au>, Linux Next Mailing List <linux-next@vger.kernel.org>
-Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, dri-devel <dri-devel@lists.freedesktop.org>, amd-gfx@lists.freedesktop.org, Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: harry.wentland-5C7GfCeVMHo@public.gmane.org, Aaron.Liu-5C7GfCeVMHo@public.gmane.org, Roman Li <Roman.Li-5C7GfCeVMHo@public.gmane.org>, Ray.Huang-5C7GfCeVMHo@public.gmane.org, Alexander.Deucher-5C7GfCeVMHo@public.gmane.org, Bhawanpreet.Lakha-5C7GfCeVMHo@public.gmane.org
 
-On 9/4/19 6:34 AM, Stephen Rothwell wrote:
-> Hi all,
-> 
-> News: this will be the last linux-next I will release until Sept 30.
-> 
-> Changes since 20190903:
-> 
-
-on x86_64:
-
-In file included from ../drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn20/display_rq_dlg_calc_20v2.c:77:0:
-../drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn20/../dml_inline_defs.h: In function ‘dml_min’:
-../drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn20/../dml_inline_defs.h:34:1: error: SSE register return with SSE disabled
-
-
--- 
-~Randy
+RnJvbTogUm9tYW4gTGkgPFJvbWFuLkxpQGFtZC5jb20+CgpbV2h5XQpUaGUgZWFybGllciBwYXRj
+aCAiSG9vayB1cCBjYWxscyB0byBkbyBzdGVyZW8gbXV4IGFuZCBkaWcgcHJvZ3JhbW1pbmcuLi4i
+CmRvZXNuJ3QgaW5jbHVkZSB1cGRhdGUgZm9yIGRjbjIxLgoKW0hvd10KQWxpZ24gZGNuMjEgZ3Bp
+byBzZXR0aW5ncyB3aXRoIHVwZGF0ZWQgc3RlcmVvIGNvbnRyb2wgaW50ZXJmYWNlLgoKU2lnbmVk
+LW9mZi1ieTogUm9tYW4gTGkgPFJvbWFuLkxpQGFtZC5jb20+Ci0tLQogLi4uL2FtZC9kaXNwbGF5
+L2RjL2dwaW8vZGNuMjEvaHdfZmFjdG9yeV9kY24yMS5jICAgfCAzOCArKysrKysrKysrKysrKysr
+KysrKy0tCiAuLi4vYW1kL2Rpc3BsYXkvZGMvZ3Bpby9kY24yMS9od190cmFuc2xhdGVfZGNuMjEu
+YyB8ICAzICstCiAyIGZpbGVzIGNoYW5nZWQsIDM2IGluc2VydGlvbnMoKyksIDUgZGVsZXRpb25z
+KC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2dwaW8vZGNu
+MjEvaHdfZmFjdG9yeV9kY24yMS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2dw
+aW8vZGNuMjEvaHdfZmFjdG9yeV9kY24yMS5jCmluZGV4IDM0NDg1ZDkuLjg1NzI2NzggMTAwNjQ0
+Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9ncGlvL2RjbjIxL2h3X2ZhY3Rv
+cnlfZGNuMjEuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvZ3Bpby9kY24y
+MS9od19mYWN0b3J5X2RjbjIxLmMKQEAgLTM1LDEyICszNSwxMCBAQAogCiAjaW5jbHVkZSAiaHdf
+ZmFjdG9yeV9kY24yMS5oIgogCi0KICNpbmNsdWRlICJkY24vZGNuXzJfMV8wX29mZnNldC5oIgog
+I2luY2x1ZGUgImRjbi9kY25fMl8xXzBfc2hfbWFzay5oIgogI2luY2x1ZGUgInJlbm9pcl9pcF9v
+ZmZzZXQuaCIKIAotCiAjaW5jbHVkZSAicmVnX2hlbHBlci5oIgogI2luY2x1ZGUgIi4uL2hwZF9y
+ZWdzLmgiCiAvKiBiZWdpbiAqKioqKioqKioqKioqKioqKioqKioKQEAgLTEzNiw2ICsxMzQsMzkg
+QEAgc3RhdGljIGNvbnN0IHN0cnVjdCBkZGNfc2hfbWFzayBkZGNfbWFza1tdID0gewogCUREQ19N
+QVNLX1NIX0xJU1RfRENOMihfTUFTSywgNikKIH07CiAKKyNpbmNsdWRlICIuLi9nZW5lcmljX3Jl
+Z3MuaCIKKworLyogc2V0IGZpZWxkIG5hbWUgKi8KKyNkZWZpbmUgU0ZfR0VORVJJQyhyZWdfbmFt
+ZSwgZmllbGRfbmFtZSwgcG9zdF9maXgpXAorCS5maWVsZF9uYW1lID0gcmVnX25hbWUgIyMgX18g
+IyMgZmllbGRfbmFtZSAjIyBwb3N0X2ZpeAorCisjZGVmaW5lIGdlbmVyaWNfcmVncyhpZCkgXAor
+e1wKKwlHRU5FUklDX1JFR19MSVNUKGlkKVwKK30KKworc3RhdGljIGNvbnN0IHN0cnVjdCBnZW5l
+cmljX3JlZ2lzdGVycyBnZW5lcmljX3JlZ3NbXSA9IHsKKwlnZW5lcmljX3JlZ3MoQSksCit9Owor
+CitzdGF0aWMgY29uc3Qgc3RydWN0IGdlbmVyaWNfc2hfbWFzayBnZW5lcmljX3NoaWZ0W10gPSB7
+CisJR0VORVJJQ19NQVNLX1NIX0xJU1QoX19TSElGVCwgQSksCit9OworCitzdGF0aWMgY29uc3Qg
+c3RydWN0IGdlbmVyaWNfc2hfbWFzayBnZW5lcmljX21hc2tbXSA9IHsKKwlHRU5FUklDX01BU0tf
+U0hfTElTVChfTUFTSywgQSksCit9OworCitzdGF0aWMgdm9pZCBkZWZpbmVfZ2VuZXJpY19yZWdp
+c3RlcnMoc3RydWN0IGh3X2dwaW9fcGluICpwaW4sIHVpbnQzMl90IGVuKQoreworCXN0cnVjdCBo
+d19nZW5lcmljICpnZW5lcmljID0gSFdfR0VORVJJQ19GUk9NX0JBU0UocGluKTsKKworCWdlbmVy
+aWMtPnJlZ3MgPSAmZ2VuZXJpY19yZWdzW2VuXTsKKwlnZW5lcmljLT5zaGlmdHMgPSAmZ2VuZXJp
+Y19zaGlmdFtlbl07CisJZ2VuZXJpYy0+bWFza3MgPSAmZ2VuZXJpY19tYXNrW2VuXTsKKwlnZW5l
+cmljLT5iYXNlLnJlZ3MgPSAmZ2VuZXJpY19yZWdzW2VuXS5ncGlvOworfQorCiBzdGF0aWMgdm9p
+ZCBkZWZpbmVfZGRjX3JlZ2lzdGVycygKIAkJc3RydWN0IGh3X2dwaW9fcGluICpwaW4sCiAJCXVp
+bnQzMl90IGVuKQpAQCAtMTgxLDcgKzIxMiw4IEBAIHN0YXRpYyBjb25zdCBzdHJ1Y3QgaHdfZmFj
+dG9yeV9mdW5jcyBmdW5jcyA9IHsKIAkuZ2V0X2hwZF9waW4gPSBkYWxfaHdfaHBkX2dldF9waW4s
+CiAJLmdldF9nZW5lcmljX3BpbiA9IGRhbF9od19nZW5lcmljX2dldF9waW4sCiAJLmRlZmluZV9o
+cGRfcmVnaXN0ZXJzID0gZGVmaW5lX2hwZF9yZWdpc3RlcnMsCi0JLmRlZmluZV9kZGNfcmVnaXN0
+ZXJzID0gZGVmaW5lX2RkY19yZWdpc3RlcnMKKwkuZGVmaW5lX2RkY19yZWdpc3RlcnMgPSBkZWZp
+bmVfZGRjX3JlZ2lzdGVycywKKwkuZGVmaW5lX2dlbmVyaWNfcmVnaXN0ZXJzID0gZGVmaW5lX2dl
+bmVyaWNfcmVnaXN0ZXJzCiB9OwogLyoKICAqIGRhbF9od19mYWN0b3J5X2RjbjEwX2luaXQKZGlm
+ZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9ncGlvL2RjbjIxL2h3X3Ry
+YW5zbGF0ZV9kY24yMS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2dwaW8vZGNu
+MjEvaHdfdHJhbnNsYXRlX2RjbjIxLmMKaW5kZXggYWQ3YzQzNy4uZmJiNThmYiAxMDA2NDQKLS0t
+IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2dwaW8vZGNuMjEvaHdfdHJhbnNsYXRl
+X2RjbjIxLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2dwaW8vZGNuMjEv
+aHdfdHJhbnNsYXRlX2RjbjIxLmMKQEAgLTU4LDcgKzU4LDYgQEAKICNkZWZpbmUgU0ZfSFBEKHJl
+Z19uYW1lLCBmaWVsZF9uYW1lLCBwb3N0X2ZpeClcCiAJLmZpZWxkX25hbWUgPSByZWdfbmFtZSAj
+IyBfXyAjIyBmaWVsZF9uYW1lICMjIHBvc3RfZml4CiAKLQogLyogbWFjcm9zIHRvIGV4cGVuZCBy
+ZWdpc3RlciBsaXN0IG1hY3JvIGRlZmluZWQgaW4gSFcgb2JqZWN0IGhlYWRlciBmaWxlCiAgKiBl
+bmQgKioqKioqKioqKioqKioqKioqKioqLwogCkBAIC03MSw3ICs3MCw3IEBAIHN0YXRpYyBib29s
+IG9mZnNldF90b19pZCgKIHsKIAlzd2l0Y2ggKG9mZnNldCkgewogCS8qIEdFTkVSSUMgKi8KLQlj
+YXNlIFJFRyhEQ19HRU5FUklDQSk6CisJY2FzZSBSRUcoRENfR1BJT19HRU5FUklDX0EpOgogCQkq
+aWQgPSBHUElPX0lEX0dFTkVSSUM7CiAJCXN3aXRjaCAobWFzaykgewogCQljYXNlIERDX0dQSU9f
+R0VORVJJQ19BX19EQ19HUElPX0dFTkVSSUNBX0FfTUFTSzoKLS0gCjIuNy40CgpfX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlz
+dAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9w
+Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
