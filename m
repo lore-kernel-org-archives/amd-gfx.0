@@ -1,21 +1,15 @@
-From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Subject: Re: [PATCH AUTOSEL 4.19 044/167] drm/amdgpu: validate user pitch
- alignment
-Date: Wed, 4 Sep 2019 17:05:33 +0200
-Message-ID: <e8152226-63e1-3ff8-0079-b6dde93bfada@daenzer.net>
-References: <20190903162519.7136-1-sashal@kernel.org>
- <20190903162519.7136-44-sashal@kernel.org>
- <7957107d-634f-4771-327e-99fdd5e6474e@daenzer.net>
- <20190903170347.GA24357@kroah.com> <20190903200139.GJ5281@sasha-vm>
- <CAKMK7uFpBnkF4xABdkDMZ8TYhL4jg6ZuGyHGyVeBxc9rkyUtXQ@mail.gmail.com>
- <829c5912-cf80-81d0-7400-d01d286861fc@daenzer.net>
- <20190904120823.GW5281@sasha-vm>
+From: "Li, Roman" <Roman.Li-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: [PATCH 2/2] drm/amd/display: update renoir_ip_offset.h
+Date: Wed, 4 Sep 2019 15:09:01 +0000
+Message-ID: <BL0PR12MB2820408DB471DCE9BB92B7A989B80@BL0PR12MB2820.namprd12.prod.outlook.com>
+References: <1567577166-18064-1-git-send-email-aaron.liu@amd.com>
+ <1567577166-18064-2-git-send-email-aaron.liu@amd.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190904120823.GW5281@sasha-vm>
-Content-Language: en-CA
+In-Reply-To: <1567577166-18064-2-git-send-email-aaron.liu-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -26,18 +20,38 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Sasha Levin <sashal-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org>
-Cc: Yu Zhao <yuzhao-hpIqsD4AKlfQT0dZR+AlfA@public.gmane.org>, Dave Airlie <airlied-cv59FeDIM0c@public.gmane.org>, Greg KH <gregkh-hQyY1W1yCW8ekmWlsbkhG0B+6BGkLq7r@public.gmane.org>, Linux Kernel Mailing List <linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, dri-devel <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, stable <stable-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>
+To: "Liu, Aaron" <Aaron.Liu-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Huang,
+ Ray" <Ray.Huang-5C7GfCeVMHo@public.gmane.org>
 
-T24gMjAxOS0wOS0wNCAyOjA4IHAubS4sIFNhc2hhIExldmluIHdyb3RlOgo+IAo+IEZXSVcsIEkn
-dmUgYWRkZWQgYW5vdGhlciB0ZXN0IHRvIG15IHNjcmlwdHMgdG8gdHJ5IGFuZCBjYXRjaCB0aGVz
-ZSBjYXNlcwo+IChSZXZlcnQgIiVzIikuIEl0J2xsIHNsb3cgZG93biB0aGUgc2NyaXB0cyBhIGJp
-dCBidXQgaXQncyBiZXR0ZXIgdG8gZ2V0Cj4gaXQgcmlnaHQgcmF0aGVyIHRoYW4gdG8gYmUgZG9u
-ZSBxdWlja2x5IDopCgpJbmRlZWQsIHRoYW5rcyEgQW5kIGFnYWluIHNvcnJ5IGZvciB0aGUgYnJv
-dWhhaGEsIEkganVzdCBob25lc3RseSBkaWRuJ3QKcmVhbGl6ZSBiZWZvcmUgaG93IHRyaWNreSB0
-aGlzIGNhc2Ugd2FzIGZvciB0aGUgc2NyaXB0cy4KCgotLSAKRWFydGhsaW5nIE1pY2hlbCBEw6Ru
-emVyICAgICAgICAgICAgICAgfCAgICAgICAgICAgICAgIGh0dHBzOi8vcmVkaGF0LmNvbQpMaWJy
-ZSBzb2Z0d2FyZSBlbnRodXNpYXN0ICAgICAgICAgICAgIHwgICAgICAgICAgICAgTWVzYSBhbmQg
-WCBkZXZlbG9wZXIKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0
-cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+QWNrZWQtYnk6IFJvbWFuIExpIDxyb21hbi5saUBhbWQuY29tPgoKLS0tLS1PcmlnaW5hbCBNZXNz
+YWdlLS0tLS0KRnJvbTogTGl1LCBBYXJvbiA8QWFyb24uTGl1QGFtZC5jb20+IApTZW50OiBXZWRu
+ZXNkYXksIFNlcHRlbWJlciA0LCAyMDE5IDI6MDcgQU0KVG86IGFtZC1nZnhAbGlzdHMuZnJlZWRl
+c2t0b3Aub3JnCkNjOiBEZXVjaGVyLCBBbGV4YW5kZXIgPEFsZXhhbmRlci5EZXVjaGVyQGFtZC5j
+b20+OyBIdWFuZywgUmF5IDxSYXkuSHVhbmdAYW1kLmNvbT47IExpLCBSb21hbiA8Um9tYW4uTGlA
+YW1kLmNvbT47IExpdSwgQWFyb24gPEFhcm9uLkxpdUBhbWQuY29tPgpTdWJqZWN0OiBbUEFUQ0gg
+Mi8yXSBkcm0vYW1kL2Rpc3BsYXk6IHVwZGF0ZSByZW5vaXJfaXBfb2Zmc2V0LmgKClRoaXMgcGF0
+Y2ggdXBkYXRlcyBNUDFfQkFTRSBpbiByZW5vaXJfaXBfb2Zmc2V0LmgKClNpZ25lZC1vZmYtYnk6
+IEFhcm9uIExpdSA8YWFyb24ubGl1QGFtZC5jb20+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9p
+bmNsdWRlL3Jlbm9pcl9pcF9vZmZzZXQuaCB8IDIgKy0KIDEgZmlsZSBjaGFuZ2VkLCAxIGluc2Vy
+dGlvbigrKSwgMSBkZWxldGlvbigtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQv
+aW5jbHVkZS9yZW5vaXJfaXBfb2Zmc2V0LmggYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2luY2x1ZGUv
+cmVub2lyX2lwX29mZnNldC5oCmluZGV4IDU1NDcxNGMuLjA5NDY0OGMgMTAwNjQ0Ci0tLSBhL2Ry
+aXZlcnMvZ3B1L2RybS9hbWQvaW5jbHVkZS9yZW5vaXJfaXBfb2Zmc2V0LmgKKysrIGIvZHJpdmVy
+cy9ncHUvZHJtL2FtZC9pbmNsdWRlL3Jlbm9pcl9pcF9vZmZzZXQuaApAQCAtMTU1LDcgKzE1NSw3
+IEBAIHN0YXRpYyBjb25zdCBzdHJ1Y3QgSVBfQkFTRSBNUDBfQkFTRSA9eyB7IHsgeyAweDAwMDE2
+MDAwLCAweDAyNDNGQzAwLCAweDAwREMwMDAwCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgeyB7IDAsIDAsIDAsIDAsIDAgfSB9LAogICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgIHsgeyAwLCAwLCAwLCAwLCAwIH0gfSwKICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICB7IHsgMCwgMCwgMCwgMCwgMCB9IH0gfSB9OyAtc3Rh
+dGljIGNvbnN0IHN0cnVjdCBJUF9CQVNFIE1QMV9CQVNFID17IHsgeyB7IDB4MDAwMTYyMDAsIDB4
+MDI0MDA0MDAsIDB4MDBFODAwMDAsIDB4MDBFQzAwMDAsIDB4MDBGMDAwMDAgfSB9LAorc3RhdGlj
+IGNvbnN0IHN0cnVjdCBJUF9CQVNFIE1QMV9CQVNFID17IHsgeyB7IDB4MDAwMTYwMDAsIDB4MDI0
+MDA0MDAsIAorMHgwMEU4MDAwMCwgMHgwMEVDMDAwMCwgMHgwMEYwMDAwMCB9IH0sCiAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgeyB7IDAsIDAsIDAsIDAsIDAgfSB9LAog
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHsgeyAwLCAwLCAwLCAwLCAw
+IH0gfSwKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB7IHsgMCwgMCwg
+MCwgMCwgMCB9IH0sCi0tCjIuNy40CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNr
+dG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2Ft
+ZC1nZng=
