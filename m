@@ -1,14 +1,17 @@
-From: "Wang, Kevin(Yang)" <Kevin1.Wang-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amd/powerplay: replace smu->table_count with
- SMU_TABLE_COUNT in smu
-Date: Wed, 4 Sep 2019 02:11:47 +0000
-Message-ID: <MN2PR12MB3296F888862316BBEB874AC2A2B80@MN2PR12MB3296.namprd12.prod.outlook.com>
-References: <20190903081702.24937-1-kevin1.wang@amd.com>,
- <MN2PR12MB3344CB5D45A7FE830BDC4E34E4B80@MN2PR12MB3344.namprd12.prod.outlook.com>
+From: "Chen, Guchun" <Guchun.Chen-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: libdrm patch merge request
+Date: Wed, 4 Sep 2019 05:54:01 +0000
+Message-ID: <SN6PR12MB281342D5EF34889DC1D73698F1B80@SN6PR12MB2813.namprd12.prod.outlook.com>
+References: <BYAPR12MB27097A9CC4333FD798966B30F1D70@BYAPR12MB2709.namprd12.prod.outlook.com>
+ <CADnq5_N5TrBKCH_S+=eDXxQQ-VwEvONn1aGyicSrL3B38BJhSA@mail.gmail.com>
+ <DM6PR12MB27141A339F87664639DB5F9BF1D60@DM6PR12MB2714.namprd12.prod.outlook.com>
+ <2d11b7f4-c9f5-cdc4-9e23-e54ca470f0eb@daenzer.net>
+ <BYAPR12MB270902B9061E9B34F7A810A5F1D30@BYAPR12MB2709.namprd12.prod.outlook.com>
+ <SN6PR12MB2813C0FF86ADF3F2AAF85EFBF1BD0@SN6PR12MB2813.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1783607258=="
+Content-Type: multipart/mixed; boundary="===============2098486322=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <MN2PR12MB3344CB5D45A7FE830BDC4E34E4B80-rweVpJHSKToDMgCC8P//OwdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
+In-Reply-To: <SN6PR12MB2813C0FF86ADF3F2AAF85EFBF1BD0-kxOKjb6HO/Hw8A9fYknAbAdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -20,490 +23,390 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Quan, Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Huang, Ray" <Ray.Huang-5C7GfCeVMHo@public.gmane.org>
+To: =?utf-8?B?TWljaGVsIETDpG56ZXI=?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Cc: "Zhou1, Tao" <Tao.Zhou1-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Li,
+ Candice" <Candice.Li-5C7GfCeVMHo@public.gmane.org>, "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "Li, Dennis" <Dennis.Li-5C7GfCeVMHo@public.gmane.org>, "Zhang, Hawking" <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>
 
---===============1783607258==
+--===============2098486322==
 Content-Language: en-US
 Content-Type: multipart/alternative;
-	boundary="_000_MN2PR12MB3296F888862316BBEB874AC2A2B80MN2PR12MB3296namp_"
+	boundary="_000_SN6PR12MB281342D5EF34889DC1D73698F1B80SN6PR12MB2813namp_"
 
---_000_MN2PR12MB3296F888862316BBEB874AC2A2B80MN2PR12MB3296namp_
-Content-Type: text/plain; charset="iso-2022-jp"
-Content-Transfer-Encoding: quoted-printable
+--_000_SN6PR12MB281342D5EF34889DC1D73698F1B80SN6PR12MB2813namp_
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
+UmVzZW5kIGluIGNhc2Ugb2YgbWlzc2luZy4NCg0KSGkgQWxleCwNCg0KSSBuZWVkIHlvdXIgaGVs
+cCB0byBtZXJnZSBsaWJkcm0gcGF0Y2hlcyBmcm9tIG15IHBlcnNvbmFsIHJlcG9zaXRvcnkgYmVs
+b3cgdG8gZHJtIG1hc3RlciBicmFuY2guDQpUaGFua3MuDQoNClJlZ2FyZHMsDQpHdWNodW4NCg0K
+RnJvbTogQ2hlbiwgR3VjaHVuDQpTZW50OiBGcmlkYXksIEF1Z3VzdCAzMCwgMjAxOSAyOjE5IFBN
+DQpUbzogJ01pY2hlbCBEw6RuemVyJyA8bWljaGVsQGRhZW56ZXIubmV0PjsgJ0FsZXggRGV1Y2hl
+cicgPGFsZXhkZXVjaGVyQGdtYWlsLmNvbT4NCkNjOiBaaG91MSwgVGFvIDxUYW8uWmhvdTFAYW1k
+LmNvbT47ICdhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZycgPGFtZC1nZnhAbGlzdHMuZnJl
+ZWRlc2t0b3Aub3JnPjsgRGV1Y2hlciwgQWxleGFuZGVyIDxBbGV4YW5kZXIuRGV1Y2hlckBhbWQu
+Y29tPjsgTGksIENhbmRpY2UgPENhbmRpY2UuTGlAYW1kLmNvbT47IExpLCBEZW5uaXMgPERlbm5p
+cy5MaUBhbWQuY29tPjsgWmhhbmcsIEhhd2tpbmcgPEhhd2tpbmcuWmhhbmdAYW1kLmNvbT47IEtv
+ZW5pZywgQ2hyaXN0aWFuIDxDaHJpc3RpYW4uS29lbmlnQGFtZC5jb20+DQpTdWJqZWN0OiBSRTog
+bGliZHJtIHBhdGNoIG1lcmdlIHJlcXVlc3QNCg0KDQpIaSBBbGV4LA0KDQoNCg0KUGxlYXNlIGhl
+bHAgYXBwbHkgYmVsb3cgNCBwYXRjaGVzIGZyb20gbXkgcGVyc29uYWwgZ2l0bGFiIHJlcG9zaXRv
+cnkgdG8gZHJtIG1hc3RlciBicmFuY2guIENJIHBpcGVsaW5lIHBhc3NlcyB3aXRoIHRoZXNlIDQg
+Y2hhbmdlcy4NCg0KVGhlc2UgcGF0Y2hlcyBhcmU6DQoNCjEpIHRvIHJlbW92ZSBleHRlcm5hbCBs
+aWJqc29uLWMgZGVwZW5kZW5jZSB0byBrZWVwIGFtZGdwdV90ZXN0IHNlbGYtY29udGFpbmluZywg
+YW5kIHRvIGZpeCB0aGUgYnVpbGQgcHJvYmxlbSBtZW50aW9uZWQgYmVsb3cgYnkgTWljaGVsIGFz
+IHdlbGwuDQoNCjIpIHRvIG1vdmUgYWxsIHVuaXQgdGVzdCBjb25maWd1cmF0aW9ucyB0byBDIGNv
+ZGUuDQoNCg0KDQpodHRwczovL2dpdGxhYi5mcmVlZGVza3RvcC5vcmcvZ3VjaHVuY2hlbi9kcm0N
+Cg0KDQoNClBhdGNoIDE6IGFtZGdwdTogcmVtb3ZlIGpzb24gcGFja2FnZSBkZXBlbmRlbmNlPGh0
+dHBzOi8vZ2l0bGFiLmZyZWVkZXNrdG9wLm9yZy9ndWNodW5jaGVuL2RybS9jb21taXQvYTc4Yzcx
+ZjEzMzZiNzg5MTI2N2RjMmJjNDRhOGRmYzM0Y2U3NjM1Nz4NClBhdGNoIDI6IGFtZGdwdTogZGVs
+ZXRlIHRlc3QgY29uZmlndXJhdGlvbiBmaWxlPGh0dHBzOi8vZ2l0bGFiLmZyZWVkZXNrdG9wLm9y
+Zy9ndWNodW5jaGVuL2RybS9jb21taXQvY2NkMjYzNTExNTI2ZDgzNmEyNzgyMDkwYTVkZjNkMTU4
+NzBmMmNiYz4NClBhdGNoIDM6IGFtZGdwdTogYWRkIHJhcyBpbmplY3QgdW5pdCB0ZXN0PGh0dHBz
+Oi8vZ2l0bGFiLmZyZWVkZXNrdG9wLm9yZy9ndWNodW5jaGVuL2RybS9jb21taXQvNzU2MjYxMTEy
+MmVhNjRmMGI1OTAzNjE5NjNiMzhmNmEzM2IzMzg5ZD4NClBhdGNoIDQ6IGFtZGdwdTogYWRkIHJh
+cyBmZWF0dXJlIGNhcGFiaWxpdHkgY2hlY2sgaW4gaW5qZWN0IHRlc3Q8aHR0cHM6Ly9naXRsYWIu
+ZnJlZWRlc2t0b3Aub3JnL2d1Y2h1bmNoZW4vZHJtL2NvbW1pdC8wNDA1YmMyZjkxMzhmZTFiODYz
+MTYwYmI1YzQyZDIwMTYzMWY2ZTE1Pg0KDQoNCg0KUmVnYXJkcywNCg0KR3VjaHVuDQoNCg0KDQot
+LS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KDQpGcm9tOiBDaGVuLCBHdWNodW4NCg0KU2VudDog
+TW9uZGF5LCBBdWd1c3QgMTIsIDIwMTkgMTE6MjIgQU0NCg0KVG86ICdNaWNoZWwgRMOkbnplcicg
+PG1pY2hlbEBkYWVuemVyLm5ldDxtYWlsdG86bWljaGVsQGRhZW56ZXIubmV0Pj47IEFsZXggRGV1
+Y2hlciA8YWxleGRldWNoZXJAZ21haWwuY29tPG1haWx0bzphbGV4ZGV1Y2hlckBnbWFpbC5jb20+
+Pg0KDQpDYzogWmhvdTEsIFRhbyA8VGFvLlpob3UxQGFtZC5jb208bWFpbHRvOlRhby5aaG91MUBh
+bWQuY29tPj47IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnPG1haWx0bzphbWQtZ2Z4QGxp
+c3RzLmZyZWVkZXNrdG9wLm9yZz47IERldWNoZXIsIEFsZXhhbmRlciA8QWxleGFuZGVyLkRldWNo
+ZXJAYW1kLmNvbTxtYWlsdG86QWxleGFuZGVyLkRldWNoZXJAYW1kLmNvbT4+OyBMaSwgQ2FuZGlj
+ZSA8Q2FuZGljZS5MaUBhbWQuY29tPG1haWx0bzpDYW5kaWNlLkxpQGFtZC5jb20+PjsgTGksIERl
+bm5pcyA8RGVubmlzLkxpQGFtZC5jb208bWFpbHRvOkRlbm5pcy5MaUBhbWQuY29tPj47IFpoYW5n
+LCBIYXdraW5nIDxIYXdraW5nLlpoYW5nQGFtZC5jb208bWFpbHRvOkhhd2tpbmcuWmhhbmdAYW1k
+LmNvbT4+DQoNClN1YmplY3Q6IFJFOiBsaWJkcm0gcGF0Y2ggbWVyZ2UgcmVxdWVzdA0KDQoNCg0K
+SGkgTWljaGVsLA0KDQoNCg0KTXkgYmFkLiBTb3JyeSBmb3IgdGhhdC4NCg0KTXkgc29sdXRpb24g
+aXMgdG8gdGFrZSB0aGUgZmlyc3Qgc3VnZ2VzdGlvbiBmcm9tIHlvdSwgd2lsbCBwcmVwYXJlIG9u
+ZSBwYXRjaCBzb29uIGZvciB0aGlzLg0KDQoNCg0KUmVnYXJkcywNCg0KR3VjaHVuDQoNCg0KDQot
+LS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KDQpGcm9tOiBNaWNoZWwgRMOkbnplciA8bWFpbHRv
+Om1pY2hlbEBkYWVuemVyLm5ldD4NCg0KU2VudDogRnJpZGF5LCBBdWd1c3QgOSwgMjAxOSAxMDox
+MyBQTQ0KDQpUbzogQ2hlbiwgR3VjaHVuIDxtYWlsdG86R3VjaHVuLkNoZW5AYW1kLmNvbT47IEFs
+ZXggRGV1Y2hlciA8bWFpbHRvOmFsZXhkZXVjaGVyQGdtYWlsLmNvbT4NCg0KQ2M6IFpob3UxLCBU
+YW8gPG1haWx0bzpUYW8uWmhvdTFAYW1kLmNvbT47IG1haWx0bzphbWQtZ2Z4QGxpc3RzLmZyZWVk
+ZXNrdG9wLm9yZzsgRGV1Y2hlciwgQWxleGFuZGVyIDxtYWlsdG86QWxleGFuZGVyLkRldWNoZXJA
+YW1kLmNvbT47IExpLCBDYW5kaWNlIDxtYWlsdG86Q2FuZGljZS5MaUBhbWQuY29tPjsgTGksIERl
+bm5pcyA8bWFpbHRvOkRlbm5pcy5MaUBhbWQuY29tPjsgWmhhbmcsIEhhd2tpbmcgPG1haWx0bzpI
+YXdraW5nLlpoYW5nQGFtZC5jb20+DQoNClN1YmplY3Q6IFJlOiBsaWJkcm0gcGF0Y2ggbWVyZ2Ug
+cmVxdWVzdA0KDQoNCg0KDQoNClRoaXMgYnJva2UgdGhlIENJIHBpcGVsaW5lOg0KDQpodHRwczov
+L2dpdGxhYi5mcmVlZGVza3RvcC5vcmcvbWVzYS9kcm0vcGlwZWxpbmVzLzU0OTAzDQoNCg0KDQpM
+b29rcyBsaWtlIHRoZSBwcm9ibGVtIGlzIHRoYXQgdGhlIGF1dG90b29scyBidWlsZCBkb2Vzbid0
+IHByb3Blcmx5IGRpc2FibGUgdGhlIGFtZGdwdSB0ZXN0cyB3aGVuIHRoZSBqc29uLWMgbGlicmFy
+eSBpcyBtaXNzaW5nLiBJIHN1Z2dlc3QgdGhlIGZvbGxvd2luZzoNCg0KDQoNCjEuIEFkZCBhIEhB
+VkVfSlNPTkMgZ3VhcmQgaW4gdGVzdHMvTWFrZWZpbGUuYW0gMi4gQWRkIGxpYmpzb24tYy1kZXYg
+dG8gdGhlIHBhY2thZ2VzIGluc3RhbGxlZCBieSB0aGUgb2xkZXN0LWF1dG90b29scw0KDQogICBq
+b2IgaW4gLmdpdGxhYi1jaS55bWwNCg0KDQoNCg0KDQpVbnRpbCBsaWJkcm0gdXNlcyBHaXRMYWIg
+bWVyZ2UgcmVxdWVzdHMgdG8gY2F0Y2ggdGhpcyBraW5kIG9mIGlzc3VlIGJlZm9yZSBpdCBoaXRz
+IG1hc3RlciwgcGxlYXNlIHB1c2ggY2hhbmdlcyB0byBhIGJyYW5jaCBpbiBhIGZvcmtlZCBwZXJz
+b25hbCByZXBvc2l0b3J5IGFuZCBtYWtlIHN1cmUgdGhlIENJIHBpcGVsaW5lIGNvbWVzIGJhY2sg
+Z3JlZW4gYmVmb3JlIGFza2luZyBmb3IgdGhlbSB0byBiZSBwdXNoZWQgdG8gbWFzdGVyLg0KDQoN
+Cg0KDQoNClRoYW5rcywNCg0KDQoNCg0KDQpPbiAyMDE5LTA4LTA5IDM6MjUgYS5tLiwgQ2hlbiwg
+R3VjaHVuIHdyb3RlOg0KDQo+IFRoYW5rcywgQWxleC4NCg0KPg0KDQo+IFJlZ2FyZHMsDQoNCj4g
+R3VjaHVuDQoNCj4NCg0KPiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KDQo+IEZyb206IEFs
+ZXggRGV1Y2hlciA8bWFpbHRvOmFsZXhkZXVjaGVyQGdtYWlsLmNvbT4NCg0KPiBTZW50OiBGcmlk
+YXksIEF1Z3VzdCA5LCAyMDE5IDE6MjQgQU0NCg0KPiBUbzogQ2hlbiwgR3VjaHVuIDxtYWlsdG86
+R3VjaHVuLkNoZW5AYW1kLmNvbT4NCg0KPiBDYzogRGV1Y2hlciwgQWxleGFuZGVyIDxtYWlsdG86
+QWxleGFuZGVyLkRldWNoZXJAYW1kLmNvbT47DQoNCj4gbWFpbHRvOmFtZC1nZnhAbGlzdHMuZnJl
+ZWRlc2t0b3Aub3JnOyBaaG91MSwgVGFvIDxtYWlsdG86VGFvLlpob3UxQGFtZC5jb20+OyBMaSwN
+Cg0KPiBDYW5kaWNlIDxtYWlsdG86Q2FuZGljZS5MaUBhbWQuY29tPjsgTGksIERlbm5pcyA8bWFp
+bHRvOkRlbm5pcy5MaUBhbWQuY29tPjsgWmhhbmcsDQoNCj4gSGF3a2luZyA8bWFpbHRvOkhhd2tp
+bmcuWmhhbmdAYW1kLmNvbT4NCg0KPiBTdWJqZWN0OiBSZTogbGliZHJtIHBhdGNoIG1lcmdlIHJl
+cXVlc3QNCg0KPg0KDQo+IERvbmUhDQoNCj4NCg0KPiBBbGV4DQoNCj4NCg0KPiBPbiBUaHUsIEF1
+ZyA4LCAyMDE5IGF0IDU6MTggQU0gQ2hlbiwgR3VjaHVuIDxtYWlsdG86R3VjaHVuLkNoZW5AYW1k
+LmNvbT4gd3JvdGU6DQoNCj4+DQoNCj4+IEhpIEFsZXgsDQoNCj4+DQoNCj4+DQoNCj4+DQoNCj4+
+IFdvdWxkIHlvdSBtaW5kIG1lcmdpbmcgYXR0YWNoZWQgMyBwYXRjaGVzIHRvIGxpYmRybSBtYXN0
+ZXIgYnJhbmNoPw0KDQo+Pg0KDQo+PiBUaGVzZSBjaGFuZ2VzIGFyZSBpbXBsZW1lbnRlZCBmb3Ig
+Z2Z4IGFuZCB1bWMgcmFzIGluamVjdCB1bml0IHRlc3QgYnkgYW1kZ3B1X3Rlc3QuDQoNCj4+DQoN
+Cj4+IFRoYW5rcyBhIGxvdC4NCg0KPj4NCg0KPj4NCg0KPj4NCg0KPj4gUmVnYXJkcywNCg0KPj4N
+Cg0KPj4gR3VjaHVuDQoNCj4+DQoNCj4+DQoNCj4+DQoNCj4+IF9fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fDQoNCj4+IGFtZC1nZnggbWFpbGluZyBsaXN0DQoN
+Cj4+IG1haWx0bzphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0KDQo+PiBodHRwczovL2xp
+c3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngNCg0KPiBfX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXw0KDQo+IGFtZC1nZnggbWFp
+bGluZyBsaXN0DQoNCj4gbWFpbHRvOmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnDQoNCj4g
+aHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4DQoN
+Cj4NCg0KDQoNCg0KDQotLQ0KDQpFYXJ0aGxpbmcgTWljaGVsIETDpG56ZXIgICAgICAgICAgICAg
+ICB8ICAgICAgICAgICAgICBodHRwczovL3d3dy5hbWQuY29tDQoNCkxpYnJlIHNvZnR3YXJlIGVu
+dGh1c2lhc3QgICAgICAgICAgICAgfCAgICAgICAgICAgICBNZXNhIGFuZCBYIGRldmVsb3Blcg0K
 
-________________________________
-From: Quan, Evan <Evan.Quan-5C7GfCeVMHo@public.gmane.org>
-Sent: Wednesday, September 4, 2019 9:17 AM
-To: Wang, Kevin(Yang) <Kevin1.Wang-5C7GfCeVMHo@public.gmane.org>; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org =
-<amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>; Huang, Ray <Ray.Huang-5C7GfCeVMHo@public.gmane.org>
-Cc: Wang, Kevin(Yang) <Kevin1.Wang-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH] drm/amd/powerplay: replace smu->table_count with SMU_T=
-ABLE_COUNT in smu
+--_000_SN6PR12MB281342D5EF34889DC1D73698F1B80SN6PR12MB2813namp_
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-Please drop the table_count member from the smu_table structure as it's tot=
-ally unused.
-With that fixed, the patch is reviewed-by: Evan Quan <evan.quan-5C7GfCeVMHo@public.gmane.org>
+PGh0bWwgeG1sbnM6dj0idXJuOnNjaGVtYXMtbWljcm9zb2Z0LWNvbTp2bWwiIHhtbG5zOm89InVy
+bjpzY2hlbWFzLW1pY3Jvc29mdC1jb206b2ZmaWNlOm9mZmljZSIgeG1sbnM6dz0idXJuOnNjaGVt
+YXMtbWljcm9zb2Z0LWNvbTpvZmZpY2U6d29yZCIgeG1sbnM6bT0iaHR0cDovL3NjaGVtYXMubWlj
+cm9zb2Z0LmNvbS9vZmZpY2UvMjAwNC8xMi9vbW1sIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcv
+VFIvUkVDLWh0bWw0MCI+DQo8aGVhZD4NCjxtZXRhIGh0dHAtZXF1aXY9IkNvbnRlbnQtVHlwZSIg
+Y29udGVudD0idGV4dC9odG1sOyBjaGFyc2V0PXV0Zi04Ij4NCjxtZXRhIG5hbWU9IkdlbmVyYXRv
+ciIgY29udGVudD0iTWljcm9zb2Z0IFdvcmQgMTUgKGZpbHRlcmVkIG1lZGl1bSkiPg0KPHN0eWxl
+PjwhLS0NCi8qIEZvbnQgRGVmaW5pdGlvbnMgKi8NCkBmb250LWZhY2UNCgl7Zm9udC1mYW1pbHk6
+IkNhbWJyaWEgTWF0aCI7DQoJcGFub3NlLTE6MiA0IDUgMyA1IDQgNiAzIDIgNDt9DQpAZm9udC1m
+YWNlDQoJe2ZvbnQtZmFtaWx5OkRlbmdYaWFuOw0KCXBhbm9zZS0xOjIgMSA2IDAgMyAxIDEgMSAx
+IDE7fQ0KQGZvbnQtZmFjZQ0KCXtmb250LWZhbWlseTpDYWxpYnJpOw0KCXBhbm9zZS0xOjIgMTUg
+NSAyIDIgMiA0IDMgMiA0O30NCkBmb250LWZhY2UNCgl7Zm9udC1mYW1pbHk6IlxARGVuZ1hpYW4i
+Ow0KCXBhbm9zZS0xOjIgMSA2IDAgMyAxIDEgMSAxIDE7fQ0KLyogU3R5bGUgRGVmaW5pdGlvbnMg
+Ki8NCnAuTXNvTm9ybWFsLCBsaS5Nc29Ob3JtYWwsIGRpdi5Nc29Ob3JtYWwNCgl7bWFyZ2luOjBp
+bjsNCgltYXJnaW4tYm90dG9tOi4wMDAxcHQ7DQoJZm9udC1zaXplOjExLjBwdDsNCglmb250LWZh
+bWlseToiQ2FsaWJyaSIsc2Fucy1zZXJpZjt9DQpoMw0KCXttc28tc3R5bGUtcHJpb3JpdHk6OTsN
+Cgltc28tc3R5bGUtbGluazoiSGVhZGluZyAzIENoYXIiOw0KCW1zby1tYXJnaW4tdG9wLWFsdDph
+dXRvOw0KCW1hcmdpbi1yaWdodDowaW47DQoJbXNvLW1hcmdpbi1ib3R0b20tYWx0OmF1dG87DQoJ
+bWFyZ2luLWxlZnQ6MGluOw0KCWZvbnQtc2l6ZToxMy41cHQ7DQoJZm9udC1mYW1pbHk6IkNhbGli
+cmkiLHNhbnMtc2VyaWY7fQ0KYTpsaW5rLCBzcGFuLk1zb0h5cGVybGluaw0KCXttc28tc3R5bGUt
+cHJpb3JpdHk6OTk7DQoJY29sb3I6IzA1NjNDMTsNCgl0ZXh0LWRlY29yYXRpb246dW5kZXJsaW5l
+O30NCmE6dmlzaXRlZCwgc3Bhbi5Nc29IeXBlcmxpbmtGb2xsb3dlZA0KCXttc28tc3R5bGUtcHJp
+b3JpdHk6OTk7DQoJY29sb3I6Izk1NEY3MjsNCgl0ZXh0LWRlY29yYXRpb246dW5kZXJsaW5lO30N
+CnAuTXNvUGxhaW5UZXh0LCBsaS5Nc29QbGFpblRleHQsIGRpdi5Nc29QbGFpblRleHQNCgl7bXNv
+LXN0eWxlLXByaW9yaXR5Ojk5Ow0KCW1zby1zdHlsZS1saW5rOiJQbGFpbiBUZXh0IENoYXIiOw0K
+CW1hcmdpbjowaW47DQoJbWFyZ2luLWJvdHRvbTouMDAwMXB0Ow0KCWZvbnQtc2l6ZToxMS4wcHQ7
+DQoJZm9udC1mYW1pbHk6IkNhbGlicmkiLHNhbnMtc2VyaWY7fQ0Kc3Bhbi5IZWFkaW5nM0NoYXIN
+Cgl7bXNvLXN0eWxlLW5hbWU6IkhlYWRpbmcgMyBDaGFyIjsNCgltc28tc3R5bGUtcHJpb3JpdHk6
+OTsNCgltc28tc3R5bGUtbGluazoiSGVhZGluZyAzIjsNCglmb250LWZhbWlseToiQ2FsaWJyaSIs
+c2Fucy1zZXJpZjsNCglmb250LXdlaWdodDpib2xkO30NCnAubXNvbm9ybWFsMCwgbGkubXNvbm9y
+bWFsMCwgZGl2Lm1zb25vcm1hbDANCgl7bXNvLXN0eWxlLW5hbWU6bXNvbm9ybWFsOw0KCW1zby1t
+YXJnaW4tdG9wLWFsdDphdXRvOw0KCW1hcmdpbi1yaWdodDowaW47DQoJbXNvLW1hcmdpbi1ib3R0
+b20tYWx0OmF1dG87DQoJbWFyZ2luLWxlZnQ6MGluOw0KCWZvbnQtc2l6ZToxMS4wcHQ7DQoJZm9u
+dC1mYW1pbHk6IkNhbGlicmkiLHNhbnMtc2VyaWY7fQ0Kc3Bhbi5QbGFpblRleHRDaGFyDQoJe21z
+by1zdHlsZS1uYW1lOiJQbGFpbiBUZXh0IENoYXIiOw0KCW1zby1zdHlsZS1wcmlvcml0eTo5OTsN
+Cgltc28tc3R5bGUtbGluazoiUGxhaW4gVGV4dCI7DQoJZm9udC1mYW1pbHk6IkNhbGlicmkiLHNh
+bnMtc2VyaWY7fQ0Kc3Bhbi5FbWFpbFN0eWxlMjINCgl7bXNvLXN0eWxlLXR5cGU6cGVyc29uYWwt
+cmVwbHk7DQoJZm9udC1mYW1pbHk6IkNhbGlicmkiLHNhbnMtc2VyaWY7DQoJY29sb3I6d2luZG93
+dGV4dDt9DQouTXNvQ2hwRGVmYXVsdA0KCXttc28tc3R5bGUtdHlwZTpleHBvcnQtb25seTsNCglm
+b250LXNpemU6MTAuMHB0O30NCkBwYWdlIFdvcmRTZWN0aW9uMQ0KCXtzaXplOjguNWluIDExLjBp
+bjsNCgltYXJnaW46MS4waW4gMS4waW4gMS4waW4gMS4waW47fQ0KZGl2LldvcmRTZWN0aW9uMQ0K
+CXtwYWdlOldvcmRTZWN0aW9uMTt9DQotLT48L3N0eWxlPjwhLS1baWYgZ3RlIG1zbyA5XT48eG1s
+Pg0KPG86c2hhcGVkZWZhdWx0cyB2OmV4dD0iZWRpdCIgc3BpZG1heD0iMTAyNiIgLz4NCjwveG1s
+PjwhW2VuZGlmXS0tPjwhLS1baWYgZ3RlIG1zbyA5XT48eG1sPg0KPG86c2hhcGVsYXlvdXQgdjpl
+eHQ9ImVkaXQiPg0KPG86aWRtYXAgdjpleHQ9ImVkaXQiIGRhdGE9IjEiIC8+DQo8L286c2hhcGVs
+YXlvdXQ+PC94bWw+PCFbZW5kaWZdLS0+DQo8L2hlYWQ+DQo8Ym9keSBsYW5nPSJFTi1VUyIgbGlu
+az0iIzA1NjNDMSIgdmxpbms9IiM5NTRGNzIiPg0KPGRpdiBjbGFzcz0iV29yZFNlY3Rpb24xIj4N
+CjxwIGNsYXNzPSJNc29Ob3JtYWwiPlJlc2VuZCBpbiBjYXNlIG9mIG1pc3NpbmcuPG86cD48L286
+cD48L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48bzpwPiZuYnNwOzwvbzpwPjwvcD4NCjxwIGNs
+YXNzPSJNc29Ob3JtYWwiPjxiPkhpIEFsZXgsPG86cD48L286cD48L2I+PC9wPg0KPHAgY2xhc3M9
+Ik1zb05vcm1hbCI+PG86cD4mbmJzcDs8L286cD48L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj5J
+IG5lZWQgeW91ciBoZWxwIHRvIG1lcmdlIGxpYmRybSBwYXRjaGVzIGZyb20gbXkgcGVyc29uYWwg
+cmVwb3NpdG9yeSBiZWxvdyB0byBkcm0gbWFzdGVyIGJyYW5jaC48bzpwPjwvbzpwPjwvcD4NCjxw
+IGNsYXNzPSJNc29Ob3JtYWwiPlRoYW5rcy48bzpwPjwvbzpwPjwvcD4NCjxkaXY+DQo8cCBjbGFz
+cz0iTXNvTm9ybWFsIj48bzpwPiZuYnNwOzwvbzpwPjwvcD4NCjxwIGNsYXNzPSJNc29Ob3JtYWwi
+PlJlZ2FyZHMsPG86cD48L286cD48L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj5HdWNodW48bzpw
+PjwvbzpwPjwvcD4NCjwvZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PG86cD4mbmJzcDs8L286
+cD48L3A+DQo8ZGl2Pg0KPGRpdiBzdHlsZT0iYm9yZGVyOm5vbmU7Ym9yZGVyLXRvcDpzb2xpZCAj
+RTFFMUUxIDEuMHB0O3BhZGRpbmc6My4wcHQgMGluIDBpbiAwaW4iPg0KPHAgY2xhc3M9Ik1zb05v
+cm1hbCI+PGI+RnJvbTo8L2I+IENoZW4sIEd1Y2h1biA8YnI+DQo8Yj5TZW50OjwvYj4gRnJpZGF5
+LCBBdWd1c3QgMzAsIDIwMTkgMjoxOSBQTTxicj4NCjxiPlRvOjwvYj4gJ01pY2hlbCBEw6RuemVy
+JyAmbHQ7bWljaGVsQGRhZW56ZXIubmV0Jmd0OzsgJ0FsZXggRGV1Y2hlcicgJmx0O2FsZXhkZXVj
+aGVyQGdtYWlsLmNvbSZndDs8YnI+DQo8Yj5DYzo8L2I+IFpob3UxLCBUYW8gJmx0O1Rhby5aaG91
+MUBhbWQuY29tJmd0OzsgJ2FtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnJyAmbHQ7YW1kLWdm
+eEBsaXN0cy5mcmVlZGVza3RvcC5vcmcmZ3Q7OyBEZXVjaGVyLCBBbGV4YW5kZXIgJmx0O0FsZXhh
+bmRlci5EZXVjaGVyQGFtZC5jb20mZ3Q7OyBMaSwgQ2FuZGljZSAmbHQ7Q2FuZGljZS5MaUBhbWQu
+Y29tJmd0OzsgTGksIERlbm5pcyAmbHQ7RGVubmlzLkxpQGFtZC5jb20mZ3Q7OyBaaGFuZywgSGF3
+a2luZyAmbHQ7SGF3a2luZy5aaGFuZ0BhbWQuY29tJmd0OzsNCiBLb2VuaWcsIENocmlzdGlhbiAm
+bHQ7Q2hyaXN0aWFuLktvZW5pZ0BhbWQuY29tJmd0Ozxicj4NCjxiPlN1YmplY3Q6PC9iPiBSRTog
+bGliZHJtIHBhdGNoIG1lcmdlIHJlcXVlc3Q8bzpwPjwvbzpwPjwvcD4NCjwvZGl2Pg0KPC9kaXY+
+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48bzpwPiZuYnNwOzwvbzpwPjwvcD4NCjxwIGNsYXNzPSJN
+c29QbGFpblRleHQiPkhpIEFsZXgsPG86cD48L286cD48L3A+DQo8cCBjbGFzcz0iTXNvUGxhaW5U
+ZXh0Ij48bzpwPiZuYnNwOzwvbzpwPjwvcD4NCjxwIGNsYXNzPSJNc29QbGFpblRleHQiPlBsZWFz
+ZSBoZWxwIGFwcGx5IGJlbG93IDQgcGF0Y2hlcyBmcm9tIG15IHBlcnNvbmFsIGdpdGxhYiByZXBv
+c2l0b3J5IHRvIGRybSBtYXN0ZXIgYnJhbmNoLiBDSSBwaXBlbGluZSBwYXNzZXMgd2l0aCB0aGVz
+ZSA0IGNoYW5nZXMuPG86cD48L286cD48L3A+DQo8cCBjbGFzcz0iTXNvUGxhaW5UZXh0Ij5UaGVz
+ZSBwYXRjaGVzIGFyZTo8bzpwPjwvbzpwPjwvcD4NCjxwIGNsYXNzPSJNc29QbGFpblRleHQiPjEp
+IHRvIHJlbW92ZSBleHRlcm5hbCBsaWJqc29uLWMgZGVwZW5kZW5jZSB0byBrZWVwIGFtZGdwdV90
+ZXN0IHNlbGYtY29udGFpbmluZywgYW5kIHRvIGZpeCB0aGUgYnVpbGQgcHJvYmxlbSBtZW50aW9u
+ZWQgYmVsb3cgYnkgTWljaGVsIGFzIHdlbGwuPG86cD48L286cD48L3A+DQo8cCBjbGFzcz0iTXNv
+UGxhaW5UZXh0Ij4yKSB0byBtb3ZlIGFsbCB1bml0IHRlc3QgY29uZmlndXJhdGlvbnMgdG8gQyBj
+b2RlLjxvOnA+PC9vOnA+PC9wPg0KPHAgY2xhc3M9Ik1zb1BsYWluVGV4dCI+PG86cD4mbmJzcDs8
+L286cD48L3A+DQo8cCBjbGFzcz0iTXNvUGxhaW5UZXh0Ij48YSBocmVmPSJodHRwczovL2dpdGxh
+Yi5mcmVlZGVza3RvcC5vcmcvZ3VjaHVuY2hlbi9kcm0iPmh0dHBzOi8vZ2l0bGFiLmZyZWVkZXNr
+dG9wLm9yZy9ndWNodW5jaGVuL2RybTwvYT48bzpwPjwvbzpwPjwvcD4NCjxwIGNsYXNzPSJNc29Q
+bGFpblRleHQiPjxvOnA+Jm5ic3A7PC9vOnA+PC9wPg0KPHAgY2xhc3M9Ik1zb1BsYWluVGV4dCI+
+UGF0Y2ggMTogPGEgaHJlZj0iaHR0cHM6Ly9naXRsYWIuZnJlZWRlc2t0b3Aub3JnL2d1Y2h1bmNo
+ZW4vZHJtL2NvbW1pdC9hNzhjNzFmMTMzNmI3ODkxMjY3ZGMyYmM0NGE4ZGZjMzRjZTc2MzU3Ij4N
+CmFtZGdwdTogcmVtb3ZlIGpzb24gcGFja2FnZSBkZXBlbmRlbmNlPC9hPjxvOnA+PC9vOnA+PC9w
+Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCIgc3R5bGU9ImJhY2tncm91bmQ6d2hpdGUiPjxzcGFuIHN0
+eWxlPSJjb2xvcjojMkUyRTJFIj5QYXRjaCAyOg0KPGEgaHJlZj0iaHR0cHM6Ly9naXRsYWIuZnJl
+ZWRlc2t0b3Aub3JnL2d1Y2h1bmNoZW4vZHJtL2NvbW1pdC9jY2QyNjM1MTE1MjZkODM2YTI3ODIw
+OTBhNWRmM2QxNTg3MGYyY2JjIj4NCmFtZGdwdTogZGVsZXRlIHRlc3QgY29uZmlndXJhdGlvbiBm
+aWxlPC9hPjxvOnA+PC9vOnA+PC9zcGFuPjwvcD4NCjxoMyBzdHlsZT0ibWFyZ2luOjBpbjttYXJn
+aW4tYm90dG9tOi4wMDAxcHQ7YmFja2dyb3VuZDp3aGl0ZSI+PHNwYW4gc3R5bGU9ImZvbnQtc2l6
+ZToxMS4wcHQ7Y29sb3I6IzJFMkUyRTtmb250LXdlaWdodDpub3JtYWwiPlBhdGNoIDM6DQo8YSBo
+cmVmPSJodHRwczovL2dpdGxhYi5mcmVlZGVza3RvcC5vcmcvZ3VjaHVuY2hlbi9kcm0vY29tbWl0
+Lzc1NjI2MTExMjJlYTY0ZjBiNTkwMzYxOTYzYjM4ZjZhMzNiMzM4OWQiPg0KYW1kZ3B1OiBhZGQg
+cmFzIGluamVjdCB1bml0IHRlc3Q8L2E+PG86cD48L286cD48L3NwYW4+PC9oMz4NCjxoMyBzdHls
+ZT0ibWFyZ2luOjBpbjttYXJnaW4tYm90dG9tOi4wMDAxcHQ7YmFja2dyb3VuZDp3aGl0ZSI+PHNw
+YW4gc3R5bGU9ImZvbnQtc2l6ZToxMS4wcHQ7Y29sb3I6IzJFMkUyRTtmb250LXdlaWdodDpub3Jt
+YWwiPlBhdGNoIDQ6DQo8YSBocmVmPSJodHRwczovL2dpdGxhYi5mcmVlZGVza3RvcC5vcmcvZ3Vj
+aHVuY2hlbi9kcm0vY29tbWl0LzA0MDViYzJmOTEzOGZlMWI4NjMxNjBiYjVjNDJkMjAxNjMxZjZl
+MTUiPg0KYW1kZ3B1OiBhZGQgcmFzIGZlYXR1cmUgY2FwYWJpbGl0eSBjaGVjayBpbiBpbmplY3Qg
+dGVzdDwvYT48bzpwPjwvbzpwPjwvc3Bhbj48L2gzPg0KPHAgY2xhc3M9Ik1zb1BsYWluVGV4dCI+
+PG86cD4mbmJzcDs8L286cD48L3A+DQo8cCBjbGFzcz0iTXNvUGxhaW5UZXh0Ij5SZWdhcmRzLDxv
+OnA+PC9vOnA+PC9wPg0KPHAgY2xhc3M9Ik1zb1BsYWluVGV4dCI+R3VjaHVuPG86cD48L286cD48
+L3A+DQo8cCBjbGFzcz0iTXNvUGxhaW5UZXh0Ij48bzpwPiZuYnNwOzwvbzpwPjwvcD4NCjxwIGNs
+YXNzPSJNc29QbGFpblRleHQiPi0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tPG86cD48L286cD48
+L3A+DQo8cCBjbGFzcz0iTXNvUGxhaW5UZXh0Ij5Gcm9tOiBDaGVuLCBHdWNodW4gPG86cD48L286
+cD48L3A+DQo8cCBjbGFzcz0iTXNvUGxhaW5UZXh0Ij5TZW50OiBNb25kYXksIEF1Z3VzdCAxMiwg
+MjAxOSAxMToyMiBBTTxvOnA+PC9vOnA+PC9wPg0KPHAgY2xhc3M9Ik1zb1BsYWluVGV4dCI+VG86
+ICdNaWNoZWwgRMOkbnplcicgJmx0OzxhIGhyZWY9Im1haWx0bzptaWNoZWxAZGFlbnplci5uZXQi
+Pm1pY2hlbEBkYWVuemVyLm5ldDwvYT4mZ3Q7OyBBbGV4IERldWNoZXIgJmx0OzxhIGhyZWY9Im1h
+aWx0bzphbGV4ZGV1Y2hlckBnbWFpbC5jb20iPmFsZXhkZXVjaGVyQGdtYWlsLmNvbTwvYT4mZ3Q7
+PG86cD48L286cD48L3A+DQo8cCBjbGFzcz0iTXNvUGxhaW5UZXh0Ij5DYzogWmhvdTEsIFRhbyAm
+bHQ7PGEgaHJlZj0ibWFpbHRvOlRhby5aaG91MUBhbWQuY29tIj5UYW8uWmhvdTFAYW1kLmNvbTwv
+YT4mZ3Q7Ow0KPGEgaHJlZj0ibWFpbHRvOmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnIj5h
+bWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZzwvYT47IERldWNoZXIsIEFsZXhhbmRlciAmbHQ7
+PGEgaHJlZj0ibWFpbHRvOkFsZXhhbmRlci5EZXVjaGVyQGFtZC5jb20iPkFsZXhhbmRlci5EZXVj
+aGVyQGFtZC5jb208L2E+Jmd0OzsgTGksIENhbmRpY2UgJmx0OzxhIGhyZWY9Im1haWx0bzpDYW5k
+aWNlLkxpQGFtZC5jb20iPkNhbmRpY2UuTGlAYW1kLmNvbTwvYT4mZ3Q7OyBMaSwgRGVubmlzDQog
+Jmx0OzxhIGhyZWY9Im1haWx0bzpEZW5uaXMuTGlAYW1kLmNvbSI+RGVubmlzLkxpQGFtZC5jb208
+L2E+Jmd0OzsgWmhhbmcsIEhhd2tpbmcgJmx0OzxhIGhyZWY9Im1haWx0bzpIYXdraW5nLlpoYW5n
+QGFtZC5jb20iPkhhd2tpbmcuWmhhbmdAYW1kLmNvbTwvYT4mZ3Q7PG86cD48L286cD48L3A+DQo8
+cCBjbGFzcz0iTXNvUGxhaW5UZXh0Ij5TdWJqZWN0OiBSRTogbGliZHJtIHBhdGNoIG1lcmdlIHJl
+cXVlc3Q8bzpwPjwvbzpwPjwvcD4NCjxwIGNsYXNzPSJNc29QbGFpblRleHQiPjxvOnA+Jm5ic3A7
+PC9vOnA+PC9wPg0KPHAgY2xhc3M9Ik1zb1BsYWluVGV4dCI+SGkgTWljaGVsLDxvOnA+PC9vOnA+
+PC9wPg0KPHAgY2xhc3M9Ik1zb1BsYWluVGV4dCI+PG86cD4mbmJzcDs8L286cD48L3A+DQo8cCBj
+bGFzcz0iTXNvUGxhaW5UZXh0Ij5NeSBiYWQuIFNvcnJ5IGZvciB0aGF0LjxvOnA+PC9vOnA+PC9w
+Pg0KPHAgY2xhc3M9Ik1zb1BsYWluVGV4dCI+TXkgc29sdXRpb24gaXMgdG8gdGFrZSB0aGUgZmly
+c3Qgc3VnZ2VzdGlvbiBmcm9tIHlvdSwgd2lsbCBwcmVwYXJlIG9uZSBwYXRjaCBzb29uIGZvciB0
+aGlzLjxvOnA+PC9vOnA+PC9wPg0KPHAgY2xhc3M9Ik1zb1BsYWluVGV4dCI+PG86cD4mbmJzcDs8
+L286cD48L3A+DQo8cCBjbGFzcz0iTXNvUGxhaW5UZXh0Ij5SZWdhcmRzLDxvOnA+PC9vOnA+PC9w
+Pg0KPHAgY2xhc3M9Ik1zb1BsYWluVGV4dCI+R3VjaHVuPG86cD48L286cD48L3A+DQo8cCBjbGFz
+cz0iTXNvUGxhaW5UZXh0Ij48bzpwPiZuYnNwOzwvbzpwPjwvcD4NCjxwIGNsYXNzPSJNc29QbGFp
+blRleHQiPi0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tPG86cD48L286cD48L3A+DQo8cCBjbGFz
+cz0iTXNvUGxhaW5UZXh0Ij5Gcm9tOiBNaWNoZWwgRMOkbnplciAmbHQ7PGEgaHJlZj0ibWFpbHRv
+Om1pY2hlbEBkYWVuemVyLm5ldCI+bWFpbHRvOm1pY2hlbEBkYWVuemVyLm5ldDwvYT4mZ3Q7DQo8
+bzpwPjwvbzpwPjwvcD4NCjxwIGNsYXNzPSJNc29QbGFpblRleHQiPlNlbnQ6IEZyaWRheSwgQXVn
+dXN0IDksIDIwMTkgMTA6MTMgUE08bzpwPjwvbzpwPjwvcD4NCjxwIGNsYXNzPSJNc29QbGFpblRl
+eHQiPlRvOiBDaGVuLCBHdWNodW4gJmx0OzxhIGhyZWY9Im1haWx0bzpHdWNodW4uQ2hlbkBhbWQu
+Y29tIj5tYWlsdG86R3VjaHVuLkNoZW5AYW1kLmNvbTwvYT4mZ3Q7OyBBbGV4IERldWNoZXIgJmx0
+OzxhIGhyZWY9Im1haWx0bzphbGV4ZGV1Y2hlckBnbWFpbC5jb20iPm1haWx0bzphbGV4ZGV1Y2hl
+ckBnbWFpbC5jb208L2E+Jmd0OzxvOnA+PC9vOnA+PC9wPg0KPHAgY2xhc3M9Ik1zb1BsYWluVGV4
+dCI+Q2M6IFpob3UxLCBUYW8gJmx0OzxhIGhyZWY9Im1haWx0bzpUYW8uWmhvdTFAYW1kLmNvbSI+
+bWFpbHRvOlRhby5aaG91MUBhbWQuY29tPC9hPiZndDs7DQo8YSBocmVmPSJtYWlsdG86YW1kLWdm
+eEBsaXN0cy5mcmVlZGVza3RvcC5vcmciPm1haWx0bzphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9w
+Lm9yZzwvYT47IERldWNoZXIsIEFsZXhhbmRlciAmbHQ7PGEgaHJlZj0ibWFpbHRvOkFsZXhhbmRl
+ci5EZXVjaGVyQGFtZC5jb20iPm1haWx0bzpBbGV4YW5kZXIuRGV1Y2hlckBhbWQuY29tPC9hPiZn
+dDs7IExpLCBDYW5kaWNlICZsdDs8YSBocmVmPSJtYWlsdG86Q2FuZGljZS5MaUBhbWQuY29tIj5t
+YWlsdG86Q2FuZGljZS5MaUBhbWQuY29tPC9hPiZndDs7DQogTGksIERlbm5pcyAmbHQ7PGEgaHJl
+Zj0ibWFpbHRvOkRlbm5pcy5MaUBhbWQuY29tIj5tYWlsdG86RGVubmlzLkxpQGFtZC5jb208L2E+
+Jmd0OzsgWmhhbmcsIEhhd2tpbmcgJmx0OzxhIGhyZWY9Im1haWx0bzpIYXdraW5nLlpoYW5nQGFt
+ZC5jb20iPm1haWx0bzpIYXdraW5nLlpoYW5nQGFtZC5jb208L2E+Jmd0OzxvOnA+PC9vOnA+PC9w
+Pg0KPHAgY2xhc3M9Ik1zb1BsYWluVGV4dCI+U3ViamVjdDogUmU6IGxpYmRybSBwYXRjaCBtZXJn
+ZSByZXF1ZXN0PG86cD48L286cD48L3A+DQo8cCBjbGFzcz0iTXNvUGxhaW5UZXh0Ij48bzpwPiZu
+YnNwOzwvbzpwPjwvcD4NCjxwIGNsYXNzPSJNc29QbGFpblRleHQiPjxvOnA+Jm5ic3A7PC9vOnA+
+PC9wPg0KPHAgY2xhc3M9Ik1zb1BsYWluVGV4dCI+VGhpcyBicm9rZSB0aGUgQ0kgcGlwZWxpbmU6
+PG86cD48L286cD48L3A+DQo8cCBjbGFzcz0iTXNvUGxhaW5UZXh0Ij48YSBocmVmPSJodHRwczov
+L2dpdGxhYi5mcmVlZGVza3RvcC5vcmcvbWVzYS9kcm0vcGlwZWxpbmVzLzU0OTAzIj5odHRwczov
+L2dpdGxhYi5mcmVlZGVza3RvcC5vcmcvbWVzYS9kcm0vcGlwZWxpbmVzLzU0OTAzPC9hPjxvOnA+
+PC9vOnA+PC9wPg0KPHAgY2xhc3M9Ik1zb1BsYWluVGV4dCI+PG86cD4mbmJzcDs8L286cD48L3A+
+DQo8cCBjbGFzcz0iTXNvUGxhaW5UZXh0Ij5Mb29rcyBsaWtlIHRoZSBwcm9ibGVtIGlzIHRoYXQg
+dGhlIGF1dG90b29scyBidWlsZCBkb2Vzbid0IHByb3Blcmx5IGRpc2FibGUgdGhlIGFtZGdwdSB0
+ZXN0cyB3aGVuIHRoZSBqc29uLWMgbGlicmFyeSBpcyBtaXNzaW5nLiBJIHN1Z2dlc3QgdGhlIGZv
+bGxvd2luZzo8bzpwPjwvbzpwPjwvcD4NCjxwIGNsYXNzPSJNc29QbGFpblRleHQiPjxvOnA+Jm5i
+c3A7PC9vOnA+PC9wPg0KPHAgY2xhc3M9Ik1zb1BsYWluVGV4dCI+MS4gQWRkIGEgSEFWRV9KU09O
+QyBndWFyZCBpbiB0ZXN0cy9NYWtlZmlsZS5hbSAyLiBBZGQgbGlianNvbi1jLWRldiB0byB0aGUg
+cGFja2FnZXMgaW5zdGFsbGVkIGJ5IHRoZSBvbGRlc3QtYXV0b3Rvb2xzPG86cD48L286cD48L3A+
+DQo8cCBjbGFzcz0iTXNvUGxhaW5UZXh0Ij4mbmJzcDsmbmJzcDsgam9iIGluIC5naXRsYWItY2ku
+eW1sPG86cD48L286cD48L3A+DQo8cCBjbGFzcz0iTXNvUGxhaW5UZXh0Ij48bzpwPiZuYnNwOzwv
+bzpwPjwvcD4NCjxwIGNsYXNzPSJNc29QbGFpblRleHQiPjxvOnA+Jm5ic3A7PC9vOnA+PC9wPg0K
+PHAgY2xhc3M9Ik1zb1BsYWluVGV4dCI+VW50aWwgbGliZHJtIHVzZXMgR2l0TGFiIG1lcmdlIHJl
+cXVlc3RzIHRvIGNhdGNoIHRoaXMga2luZCBvZiBpc3N1ZSBiZWZvcmUgaXQgaGl0cyBtYXN0ZXIs
+IHBsZWFzZSBwdXNoIGNoYW5nZXMgdG8gYSBicmFuY2ggaW4gYSBmb3JrZWQgcGVyc29uYWwgcmVw
+b3NpdG9yeSBhbmQgbWFrZSBzdXJlIHRoZSBDSSBwaXBlbGluZSBjb21lcyBiYWNrIGdyZWVuIGJl
+Zm9yZSBhc2tpbmcgZm9yIHRoZW0gdG8gYmUgcHVzaGVkDQogdG8gbWFzdGVyLjxvOnA+PC9vOnA+
+PC9wPg0KPHAgY2xhc3M9Ik1zb1BsYWluVGV4dCI+PG86cD4mbmJzcDs8L286cD48L3A+DQo8cCBj
+bGFzcz0iTXNvUGxhaW5UZXh0Ij48bzpwPiZuYnNwOzwvbzpwPjwvcD4NCjxwIGNsYXNzPSJNc29Q
+bGFpblRleHQiPlRoYW5rcyw8bzpwPjwvbzpwPjwvcD4NCjxwIGNsYXNzPSJNc29QbGFpblRleHQi
+PjxvOnA+Jm5ic3A7PC9vOnA+PC9wPg0KPHAgY2xhc3M9Ik1zb1BsYWluVGV4dCI+PG86cD4mbmJz
+cDs8L286cD48L3A+DQo8cCBjbGFzcz0iTXNvUGxhaW5UZXh0Ij5PbiAyMDE5LTA4LTA5IDM6MjUg
+YS5tLiwgQ2hlbiwgR3VjaHVuIHdyb3RlOjxvOnA+PC9vOnA+PC9wPg0KPHAgY2xhc3M9Ik1zb1Bs
+YWluVGV4dCI+Jmd0OyBUaGFua3MsIEFsZXguPG86cD48L286cD48L3A+DQo8cCBjbGFzcz0iTXNv
+UGxhaW5UZXh0Ij4mZ3Q7IDxvOnA+PC9vOnA+PC9wPg0KPHAgY2xhc3M9Ik1zb1BsYWluVGV4dCI+
+Jmd0OyBSZWdhcmRzLDxvOnA+PC9vOnA+PC9wPg0KPHAgY2xhc3M9Ik1zb1BsYWluVGV4dCI+Jmd0
+OyBHdWNodW48bzpwPjwvbzpwPjwvcD4NCjxwIGNsYXNzPSJNc29QbGFpblRleHQiPiZndDsgPG86
+cD48L286cD48L3A+DQo8cCBjbGFzcz0iTXNvUGxhaW5UZXh0Ij4mZ3Q7IC0tLS0tT3JpZ2luYWwg
+TWVzc2FnZS0tLS0tPG86cD48L286cD48L3A+DQo8cCBjbGFzcz0iTXNvUGxhaW5UZXh0Ij4mZ3Q7
+IEZyb206IEFsZXggRGV1Y2hlciAmbHQ7PGEgaHJlZj0ibWFpbHRvOmFsZXhkZXVjaGVyQGdtYWls
+LmNvbSI+bWFpbHRvOmFsZXhkZXVjaGVyQGdtYWlsLmNvbTwvYT4mZ3Q7PG86cD48L286cD48L3A+
+DQo8cCBjbGFzcz0iTXNvUGxhaW5UZXh0Ij4mZ3Q7IFNlbnQ6IEZyaWRheSwgQXVndXN0IDksIDIw
+MTkgMToyNCBBTTxvOnA+PC9vOnA+PC9wPg0KPHAgY2xhc3M9Ik1zb1BsYWluVGV4dCI+Jmd0OyBU
+bzogQ2hlbiwgR3VjaHVuICZsdDs8YSBocmVmPSJtYWlsdG86R3VjaHVuLkNoZW5AYW1kLmNvbSI+
+bWFpbHRvOkd1Y2h1bi5DaGVuQGFtZC5jb208L2E+Jmd0OzxvOnA+PC9vOnA+PC9wPg0KPHAgY2xh
+c3M9Ik1zb1BsYWluVGV4dCI+Jmd0OyBDYzogRGV1Y2hlciwgQWxleGFuZGVyICZsdDs8YSBocmVm
+PSJtYWlsdG86QWxleGFuZGVyLkRldWNoZXJAYW1kLmNvbSI+bWFpbHRvOkFsZXhhbmRlci5EZXVj
+aGVyQGFtZC5jb208L2E+Jmd0OzsNCjxvOnA+PC9vOnA+PC9wPg0KPHAgY2xhc3M9Ik1zb1BsYWlu
+VGV4dCI+Jmd0OyA8YSBocmVmPSJtYWlsdG86YW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmci
+Pm1haWx0bzphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZzwvYT47IFpob3UxLCBUYW8gJmx0
+OzxhIGhyZWY9Im1haWx0bzpUYW8uWmhvdTFAYW1kLmNvbSI+bWFpbHRvOlRhby5aaG91MUBhbWQu
+Y29tPC9hPiZndDs7IExpLA0KPG86cD48L286cD48L3A+DQo8cCBjbGFzcz0iTXNvUGxhaW5UZXh0
+Ij4mZ3Q7IENhbmRpY2UgJmx0OzxhIGhyZWY9Im1haWx0bzpDYW5kaWNlLkxpQGFtZC5jb20iPm1h
+aWx0bzpDYW5kaWNlLkxpQGFtZC5jb208L2E+Jmd0OzsgTGksIERlbm5pcyAmbHQ7PGEgaHJlZj0i
+bWFpbHRvOkRlbm5pcy5MaUBhbWQuY29tIj5tYWlsdG86RGVubmlzLkxpQGFtZC5jb208L2E+Jmd0
+OzsgWmhhbmcsDQo8bzpwPjwvbzpwPjwvcD4NCjxwIGNsYXNzPSJNc29QbGFpblRleHQiPiZndDsg
+SGF3a2luZyAmbHQ7PGEgaHJlZj0ibWFpbHRvOkhhd2tpbmcuWmhhbmdAYW1kLmNvbSI+bWFpbHRv
+Okhhd2tpbmcuWmhhbmdAYW1kLmNvbTwvYT4mZ3Q7PG86cD48L286cD48L3A+DQo8cCBjbGFzcz0i
+TXNvUGxhaW5UZXh0Ij4mZ3Q7IFN1YmplY3Q6IFJlOiBsaWJkcm0gcGF0Y2ggbWVyZ2UgcmVxdWVz
+dDxvOnA+PC9vOnA+PC9wPg0KPHAgY2xhc3M9Ik1zb1BsYWluVGV4dCI+Jmd0OyA8bzpwPjwvbzpw
+PjwvcD4NCjxwIGNsYXNzPSJNc29QbGFpblRleHQiPiZndDsgRG9uZSE8bzpwPjwvbzpwPjwvcD4N
+CjxwIGNsYXNzPSJNc29QbGFpblRleHQiPiZndDsgPG86cD48L286cD48L3A+DQo8cCBjbGFzcz0i
+TXNvUGxhaW5UZXh0Ij4mZ3Q7IEFsZXg8bzpwPjwvbzpwPjwvcD4NCjxwIGNsYXNzPSJNc29QbGFp
+blRleHQiPiZndDsgPG86cD48L286cD48L3A+DQo8cCBjbGFzcz0iTXNvUGxhaW5UZXh0Ij4mZ3Q7
+IE9uIFRodSwgQXVnIDgsIDIwMTkgYXQgNToxOCBBTSBDaGVuLCBHdWNodW4gJmx0OzxhIGhyZWY9
+Im1haWx0bzpHdWNodW4uQ2hlbkBhbWQuY29tIj5tYWlsdG86R3VjaHVuLkNoZW5AYW1kLmNvbTwv
+YT4mZ3Q7IHdyb3RlOjxvOnA+PC9vOnA+PC9wPg0KPHAgY2xhc3M9Ik1zb1BsYWluVGV4dCI+Jmd0
+OyZndDs8bzpwPiZuYnNwOzwvbzpwPjwvcD4NCjxwIGNsYXNzPSJNc29QbGFpblRleHQiPiZndDsm
+Z3Q7IEhpIEFsZXgsPG86cD48L286cD48L3A+DQo8cCBjbGFzcz0iTXNvUGxhaW5UZXh0Ij4mZ3Q7
+Jmd0OzxvOnA+Jm5ic3A7PC9vOnA+PC9wPg0KPHAgY2xhc3M9Ik1zb1BsYWluVGV4dCI+Jmd0OyZn
+dDs8bzpwPiZuYnNwOzwvbzpwPjwvcD4NCjxwIGNsYXNzPSJNc29QbGFpblRleHQiPiZndDsmZ3Q7
+PG86cD4mbmJzcDs8L286cD48L3A+DQo8cCBjbGFzcz0iTXNvUGxhaW5UZXh0Ij4mZ3Q7Jmd0OyBX
+b3VsZCB5b3UgbWluZCBtZXJnaW5nIGF0dGFjaGVkIDMgcGF0Y2hlcyB0byBsaWJkcm0gbWFzdGVy
+IGJyYW5jaD88bzpwPjwvbzpwPjwvcD4NCjxwIGNsYXNzPSJNc29QbGFpblRleHQiPiZndDsmZ3Q7
+PG86cD4mbmJzcDs8L286cD48L3A+DQo8cCBjbGFzcz0iTXNvUGxhaW5UZXh0Ij4mZ3Q7Jmd0OyBU
+aGVzZSBjaGFuZ2VzIGFyZSBpbXBsZW1lbnRlZCBmb3IgZ2Z4IGFuZCB1bWMgcmFzIGluamVjdCB1
+bml0IHRlc3QgYnkgYW1kZ3B1X3Rlc3QuPG86cD48L286cD48L3A+DQo8cCBjbGFzcz0iTXNvUGxh
+aW5UZXh0Ij4mZ3Q7Jmd0OzxvOnA+Jm5ic3A7PC9vOnA+PC9wPg0KPHAgY2xhc3M9Ik1zb1BsYWlu
+VGV4dCI+Jmd0OyZndDsgVGhhbmtzIGEgbG90LjxvOnA+PC9vOnA+PC9wPg0KPHAgY2xhc3M9Ik1z
+b1BsYWluVGV4dCI+Jmd0OyZndDs8bzpwPiZuYnNwOzwvbzpwPjwvcD4NCjxwIGNsYXNzPSJNc29Q
+bGFpblRleHQiPiZndDsmZ3Q7PG86cD4mbmJzcDs8L286cD48L3A+DQo8cCBjbGFzcz0iTXNvUGxh
+aW5UZXh0Ij4mZ3Q7Jmd0OzxvOnA+Jm5ic3A7PC9vOnA+PC9wPg0KPHAgY2xhc3M9Ik1zb1BsYWlu
+VGV4dCI+Jmd0OyZndDsgUmVnYXJkcyw8bzpwPjwvbzpwPjwvcD4NCjxwIGNsYXNzPSJNc29QbGFp
+blRleHQiPiZndDsmZ3Q7PG86cD4mbmJzcDs8L286cD48L3A+DQo8cCBjbGFzcz0iTXNvUGxhaW5U
+ZXh0Ij4mZ3Q7Jmd0OyBHdWNodW48bzpwPjwvbzpwPjwvcD4NCjxwIGNsYXNzPSJNc29QbGFpblRl
+eHQiPiZndDsmZ3Q7PG86cD4mbmJzcDs8L286cD48L3A+DQo8cCBjbGFzcz0iTXNvUGxhaW5UZXh0
+Ij4mZ3Q7Jmd0OzxvOnA+Jm5ic3A7PC9vOnA+PC9wPg0KPHAgY2xhc3M9Ik1zb1BsYWluVGV4dCI+
+Jmd0OyZndDs8bzpwPiZuYnNwOzwvbzpwPjwvcD4NCjxwIGNsYXNzPSJNc29QbGFpblRleHQiPiZn
+dDsmZ3Q7IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fPG86
+cD48L286cD48L3A+DQo8cCBjbGFzcz0iTXNvUGxhaW5UZXh0Ij4mZ3Q7Jmd0OyBhbWQtZ2Z4IG1h
+aWxpbmcgbGlzdDxvOnA+PC9vOnA+PC9wPg0KPHAgY2xhc3M9Ik1zb1BsYWluVGV4dCI+Jmd0OyZn
+dDsgPGEgaHJlZj0ibWFpbHRvOmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnIj5tYWlsdG86
+YW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmc8L2E+PG86cD48L286cD48L3A+DQo8cCBjbGFz
+cz0iTXNvUGxhaW5UZXh0Ij4mZ3Q7Jmd0OyA8YSBocmVmPSJodHRwczovL2xpc3RzLmZyZWVkZXNr
+dG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngiPg0KaHR0cHM6Ly9saXN0cy5mcmVlZGVz
+a3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4PC9hPjxvOnA+PC9vOnA+PC9wPg0KPHAg
+Y2xhc3M9Ik1zb1BsYWluVGV4dCI+Jmd0OyBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fXzxvOnA+PC9vOnA+PC9wPg0KPHAgY2xhc3M9Ik1zb1BsYWluVGV4dCI+
+Jmd0OyBhbWQtZ2Z4IG1haWxpbmcgbGlzdDxvOnA+PC9vOnA+PC9wPg0KPHAgY2xhc3M9Ik1zb1Bs
+YWluVGV4dCI+Jmd0OyA8YSBocmVmPSJtYWlsdG86YW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5v
+cmciPm1haWx0bzphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZzwvYT48bzpwPjwvbzpwPjwv
+cD4NCjxwIGNsYXNzPSJNc29QbGFpblRleHQiPiZndDsgPGEgaHJlZj0iaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Ij4NCmh0dHBzOi8vbGlzdHMu
+ZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeDwvYT48bzpwPjwvbzpwPjwv
+cD4NCjxwIGNsYXNzPSJNc29QbGFpblRleHQiPiZndDsgPG86cD48L286cD48L3A+DQo8cCBjbGFz
+cz0iTXNvUGxhaW5UZXh0Ij48bzpwPiZuYnNwOzwvbzpwPjwvcD4NCjxwIGNsYXNzPSJNc29QbGFp
+blRleHQiPjxvOnA+Jm5ic3A7PC9vOnA+PC9wPg0KPHAgY2xhc3M9Ik1zb1BsYWluVGV4dCI+LS0g
+PG86cD48L286cD48L3A+DQo8cCBjbGFzcz0iTXNvUGxhaW5UZXh0Ij5FYXJ0aGxpbmcgTWljaGVs
+IETDpG56ZXImbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsm
+bmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsgfCZuYnNwOyZuYnNwOyZuYnNwOyZu
+YnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNw
+OyA8YSBocmVmPSJodHRwczovL3d3dy5hbWQuY29tIj4NCmh0dHBzOi8vd3d3LmFtZC5jb208L2E+
+PG86cD48L286cD48L3A+DQo8cCBjbGFzcz0iTXNvUGxhaW5UZXh0Ij5MaWJyZSBzb2Z0d2FyZSBl
+bnRodXNpYXN0Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7
+Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7IHwmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsm
+bmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsgTWVzYSBhbmQgWCBkZXZl
+bG9wZXI8bzpwPjwvbzpwPjwvcD4NCjwvZGl2Pg0KPC9ib2R5Pg0KPC9odG1sPg0K
 
-[Kevin]:
-sure, it should be removed in this patch.
+--_000_SN6PR12MB281342D5EF34889DC1D73698F1B80SN6PR12MB2813namp_--
 
-> -----Original Message-----
-> From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> On Behalf Of
-> Wang, Kevin(Yang)
-> Sent: 2019=1B$BG/=1B(B9=1B$B7n=1B(B3=1B$BF|=1B(B 16:17
-> To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; Huang, Ray <Ray.Huang-5C7GfCeVMHo@public.gmane.org>
-> Cc: Wang, Kevin(Yang) <Kevin1.Wang-5C7GfCeVMHo@public.gmane.org>
-> Subject: [PATCH] drm/amd/powerplay: replace smu->table_count with
-> SMU_TABLE_COUNT in smu
->
-> fix bellow patch issue:
-> drm/amd/powerplay: introduce smu table id type to handle the smu table
-> for each asic
-> ----
-> "This patch introduces new smu table type, it's to handle the  different =
-smu
-> table  defines for each asic with the same smu ip."
->
-> before:
-> use smu->table_count to represent the actual table count in smc firmware
-> use actual table count to check smu function parameter about smu table
-> after:
-> use logic table count "SMU_TABLE_COUNT" to check function parameter
-> because table id already mapped in smu driver, and smu function will use
-> logic table id not actual table id to check func parameter.
->
-> Signed-off-by: Kevin Wang <kevin1.wang-5C7GfCeVMHo@public.gmane.org>
-> ---
->  drivers/gpu/drm/amd/powerplay/amdgpu_smu.c   | 13 ++++---------
->  drivers/gpu/drm/amd/powerplay/arcturus_ppt.c |  1 -
->  drivers/gpu/drm/amd/powerplay/navi10_ppt.c   |  1 -
->  drivers/gpu/drm/amd/powerplay/renoir_ppt.c   |  1 -
->  drivers/gpu/drm/amd/powerplay/smu_v11_0.c    |  5 ++---
->  drivers/gpu/drm/amd/powerplay/vega20_ppt.c   |  1 -
->  6 files changed, 6 insertions(+), 16 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
-> b/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
-> index 6f435d60fe86..c71a82a6a785 100644
-> --- a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
-> +++ b/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
-> @@ -462,7 +462,7 @@ int smu_update_table(struct smu_context *smu,
-> enum smu_table_id table_index, int
->        int ret =3D 0;
->        int table_id =3D smu_table_get_index(smu, table_index);
->
-> -     if (!table_data || table_id >=3D smu_table->table_count || table_id=
- < 0)
-> +     if (!table_data || table_id >=3D SMU_TABLE_COUNT || table_id < 0)
->                return -EINVAL;
->
->        table =3D &smu_table->tables[table_index]; @@ -940,14 +940,10 @@
-> static int smu_init_fb_allocations(struct smu_context *smu)
->        struct amdgpu_device *adev =3D smu->adev;
->        struct smu_table_context *smu_table =3D &smu->smu_table;
->        struct smu_table *tables =3D smu_table->tables;
-> -     uint32_t table_count =3D smu_table->table_count;
->        uint32_t i =3D 0;
->        int32_t ret =3D 0;
->
-> -     if (table_count <=3D 0)
-> -             return -EINVAL;
-> -
-> -     for (i =3D 0 ; i < table_count; i++) {
-> +     for (i =3D 0; i < SMU_TABLE_COUNT; i++) {
->                if (tables[i].size =3D=3D 0)
->                        continue;
->                ret =3D amdgpu_bo_create_kernel(adev,
-> @@ -978,13 +974,12 @@ static int smu_fini_fb_allocations(struct
-> smu_context *smu)  {
->        struct smu_table_context *smu_table =3D &smu->smu_table;
->        struct smu_table *tables =3D smu_table->tables;
-> -     uint32_t table_count =3D smu_table->table_count;
->        uint32_t i =3D 0;
->
-> -     if (table_count =3D=3D 0 || tables =3D=3D NULL)
-> +     if (!tables)
->                return 0;
->
-> -     for (i =3D 0 ; i < table_count; i++) {
-> +     for (i =3D 0; i < SMU_TABLE_COUNT; i++) {
->                if (tables[i].size =3D=3D 0)
->                        continue;
->                amdgpu_bo_free_kernel(&tables[i].bo,
-> diff --git a/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c
-> b/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c
-> index f1f072012fac..6e8eb0f94c8b 100644
-> --- a/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c
-> +++ b/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c
-> @@ -1934,5 +1934,4 @@ void arcturus_set_ppt_funcs(struct smu_context
-> *smu)
->        struct smu_table_context *smu_table =3D &smu->smu_table;
->
->        smu->ppt_funcs =3D &arcturus_ppt_funcs;
-> -     smu_table->table_count =3D TABLE_COUNT;
->  }
-> diff --git a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
-> b/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
-> index 744b7501c34d..e3add8b59291 100644
-> --- a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
-> +++ b/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
-> @@ -1633,5 +1633,4 @@ void navi10_set_ppt_funcs(struct smu_context
-> *smu)
->        struct smu_table_context *smu_table =3D &smu->smu_table;
->
->        smu->ppt_funcs =3D &navi10_ppt_funcs;
-> -     smu_table->table_count =3D TABLE_COUNT;
->  }
-> diff --git a/drivers/gpu/drm/amd/powerplay/renoir_ppt.c
-> b/drivers/gpu/drm/amd/powerplay/renoir_ppt.c
-> index de43159564a5..2b953f7431b6 100644
-> --- a/drivers/gpu/drm/amd/powerplay/renoir_ppt.c
-> +++ b/drivers/gpu/drm/amd/powerplay/renoir_ppt.c
-> @@ -169,5 +169,4 @@ void renoir_set_ppt_funcs(struct smu_context *smu)
->
->        smu->ppt_funcs =3D &renoir_ppt_funcs;
->        smu->smc_if_version =3D SMU12_DRIVER_IF_VERSION;
-> -     smu_table->table_count =3D TABLE_COUNT;
->  }
-> diff --git a/drivers/gpu/drm/amd/powerplay/smu_v11_0.c
-> b/drivers/gpu/drm/amd/powerplay/smu_v11_0.c
-> index deca9f85764c..3709e4d77338 100644
-> --- a/drivers/gpu/drm/amd/powerplay/smu_v11_0.c
-> +++ b/drivers/gpu/drm/amd/powerplay/smu_v11_0.c
-> @@ -439,7 +439,7 @@ static int smu_v11_0_init_smc_tables(struct
-> smu_context *smu)
->        struct smu_table *tables =3D NULL;
->        int ret =3D 0;
->
-> -     if (smu_table->tables || smu_table->table_count =3D=3D 0)
-> +     if (smu_table->tables)
->                return -EINVAL;
->
->        tables =3D kcalloc(SMU_TABLE_COUNT, sizeof(struct smu_table), @@ -
-> 465,13 +465,12 @@ static int smu_v11_0_fini_smc_tables(struct
-> smu_context *smu)
->        struct smu_table_context *smu_table =3D &smu->smu_table;
->        int ret =3D 0;
->
-> -     if (!smu_table->tables || smu_table->table_count =3D=3D 0)
-> +     if (!smu_table->tables)
->                return -EINVAL;
->
->        kfree(smu_table->tables);
->        kfree(smu_table->metrics_table);
->        smu_table->tables =3D NULL;
-> -     smu_table->table_count =3D 0;
->        smu_table->metrics_table =3D NULL;
->        smu_table->metrics_time =3D 0;
->
-> diff --git a/drivers/gpu/drm/amd/powerplay/vega20_ppt.c
-> b/drivers/gpu/drm/amd/powerplay/vega20_ppt.c
-> index 899bf96b23e1..68548ba9b6ea 100644
-> --- a/drivers/gpu/drm/amd/powerplay/vega20_ppt.c
-> +++ b/drivers/gpu/drm/amd/powerplay/vega20_ppt.c
-> @@ -3189,5 +3189,4 @@ void vega20_set_ppt_funcs(struct smu_context
-> *smu)
->        struct smu_table_context *smu_table =3D &smu->smu_table;
->
->        smu->ppt_funcs =3D &vega20_ppt_funcs;
-> -     smu_table->table_count =3D TABLE_COUNT;
->  }
-> --
-> 2.22.0
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---_000_MN2PR12MB3296F888862316BBEB874AC2A2B80MN2PR12MB3296namp_
-Content-Type: text/html; charset="iso-2022-jp"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-2022-=
-jp">
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" co=
-lor=3D"#000000" style=3D"font-size:11pt"><b>From:</b> Quan, Evan &lt;Evan.Q=
-uan-5C7GfCeVMHo@public.gmane.org&gt;<br>
-<b>Sent:</b> Wednesday, September 4, 2019 9:17 AM<br>
-<b>To:</b> Wang, Kevin(Yang) &lt;Kevin1.Wang-5C7GfCeVMHo@public.gmane.org&gt;; amd-gfx-PD4FTy7X32mzQB+pC5nmwQ@public.gmane.org=
-edesktop.org &lt;amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt;; Huang, Ray &lt;Ray.Huan=
-g@amd.com&gt;<br>
-<b>Cc:</b> Wang, Kevin(Yang) &lt;Kevin1.Wang-5C7GfCeVMHo@public.gmane.org&gt;<br>
-<b>Subject:</b> RE: [PATCH] drm/amd/powerplay: replace smu-&gt;table_count =
-with SMU_TABLE_COUNT in smu</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt"=
->
-<div class=3D"PlainText">Please drop the table_count member from the smu_ta=
-ble structure as it's totally unused.<br>
-With that fixed, the patch is reviewed-by: Evan Quan &lt;evan.quan-5C7GfCeVMHo@public.gmane.org&=
-gt;</div>
-<div class=3D"PlainText"><br>
-</div>
-<div class=3D"PlainText">[Kevin]:</div>
-<div class=3D"PlainText">sure, it should be removed in this patch.<br>
-<br>
-&gt; -----Original Message-----<br>
-&gt; From: amd-gfx &lt;amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; On Behalf =
-Of<br>
-&gt; Wang, Kevin(Yang)<br>
-&gt; Sent: 2019=1B$BG/=1B(B9=1B$B7n=1B(B3=1B$BF|=1B(B 16:17<br>
-&gt; To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; Huang, Ray &lt;Ray.Huang-5C7GfCeVMHo@public.gmane.org&gt=
-;<br>
-&gt; Cc: Wang, Kevin(Yang) &lt;Kevin1.Wang-5C7GfCeVMHo@public.gmane.org&gt;<br>
-&gt; Subject: [PATCH] drm/amd/powerplay: replace smu-&gt;table_count with<b=
-r>
-&gt; SMU_TABLE_COUNT in smu<br>
-&gt; <br>
-&gt; fix bellow patch issue:<br>
-&gt; drm/amd/powerplay: introduce smu table id type to handle the smu table=
-<br>
-&gt; for each asic<br>
-&gt; ----<br>
-&gt; &quot;This patch introduces new smu table type, it's to handle the&nbs=
-p; different smu<br>
-&gt; table&nbsp; defines for each asic with the same smu ip.&quot;<br>
-&gt; <br>
-&gt; before:<br>
-&gt; use smu-&gt;table_count to represent the actual table count in smc fir=
-mware<br>
-&gt; use actual table count to check smu function parameter about smu table=
-<br>
-&gt; after:<br>
-&gt; use logic table count &quot;SMU_TABLE_COUNT&quot; to check function pa=
-rameter<br>
-&gt; because table id already mapped in smu driver, and smu function will u=
-se<br>
-&gt; logic table id not actual table id to check func parameter.<br>
-&gt; <br>
-&gt; Signed-off-by: Kevin Wang &lt;kevin1.wang-5C7GfCeVMHo@public.gmane.org&gt;<br>
-&gt; ---<br>
-&gt;&nbsp; drivers/gpu/drm/amd/powerplay/amdgpu_smu.c&nbsp;&nbsp; | 13 &#43=
-;&#43;&#43;&#43;---------<br>
-&gt;&nbsp; drivers/gpu/drm/amd/powerplay/arcturus_ppt.c |&nbsp; 1 -<br>
-&gt;&nbsp; drivers/gpu/drm/amd/powerplay/navi10_ppt.c&nbsp;&nbsp; |&nbsp; 1=
- -<br>
-&gt;&nbsp; drivers/gpu/drm/amd/powerplay/renoir_ppt.c&nbsp;&nbsp; |&nbsp; 1=
- -<br>
-&gt;&nbsp; drivers/gpu/drm/amd/powerplay/smu_v11_0.c&nbsp;&nbsp;&nbsp; |&nb=
-sp; 5 &#43;&#43;---<br>
-&gt;&nbsp; drivers/gpu/drm/amd/powerplay/vega20_ppt.c&nbsp;&nbsp; |&nbsp; 1=
- -<br>
-&gt;&nbsp; 6 files changed, 6 insertions(&#43;), 16 deletions(-)<br>
-&gt; <br>
-&gt; diff --git a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c<br>
-&gt; b/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c<br>
-&gt; index 6f435d60fe86..c71a82a6a785 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c<br>
-&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c<br>
-&gt; @@ -462,7 &#43;462,7 @@ int smu_update_table(struct smu_context *smu,<=
-br>
-&gt; enum smu_table_id table_index, int<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int ret =3D 0;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int table_id =3D smu_table_g=
-et_index(smu, table_index);<br>
-&gt; <br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; if (!table_data || table_id &gt;=3D smu_tabl=
-e-&gt;table_count || table_id &lt; 0)<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; if (!table_data || table_id &gt;=3D SMU_=
-TABLE_COUNT || table_id &lt; 0)<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; return -EINVAL;<br>
-&gt; <br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; table =3D &amp;smu_table-&gt=
-;tables[table_index]; @@ -940,14 &#43;940,10 @@<br>
-&gt; static int smu_init_fb_allocations(struct smu_context *smu)<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev =
-=3D smu-&gt;adev;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct smu_table_context *sm=
-u_table =3D &amp;smu-&gt;smu_table;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct smu_table *tables =3D=
- smu_table-&gt;tables;<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; uint32_t table_count =3D smu_table-&gt;table=
-_count;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t i =3D 0;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int32_t ret =3D 0;<br>
-&gt; <br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; if (table_count &lt;=3D 0)<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; return -EINVAL;<br>
-&gt; -<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; for (i =3D 0 ; i &lt; table_count; i&#43;&#4=
-3;) {<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; for (i =3D 0; i &lt; SMU_TABLE_COUNT; i&=
-#43;&#43;) {<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; if (tables[i].size =3D=3D 0)<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; continu=
-e;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; ret =3D amdgpu_bo_create_kernel(adev,<br>
-&gt; @@ -978,13 &#43;974,12 @@ static int smu_fini_fb_allocations(struct<br=
->
-&gt; smu_context *smu)&nbsp; {<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct smu_table_context *sm=
-u_table =3D &amp;smu-&gt;smu_table;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct smu_table *tables =3D=
- smu_table-&gt;tables;<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; uint32_t table_count =3D smu_table-&gt;table=
-_count;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t i =3D 0;<br>
-&gt; <br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; if (table_count =3D=3D 0 || tables =3D=3D NU=
-LL)<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; if (!tables)<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; return 0;<br>
-&gt; <br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; for (i =3D 0 ; i &lt; table_count; i&#43;&#4=
-3;) {<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; for (i =3D 0; i &lt; SMU_TABLE_COUNT; i&=
-#43;&#43;) {<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; if (tables[i].size =3D=3D 0)<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; continu=
-e;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; amdgpu_bo_free_kernel(&amp;tables[i].bo,<br>
-&gt; diff --git a/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c<br>
-&gt; b/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c<br>
-&gt; index f1f072012fac..6e8eb0f94c8b 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c<br>
-&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c<br>
-&gt; @@ -1934,5 &#43;1934,4 @@ void arcturus_set_ppt_funcs(struct smu_conte=
-xt<br>
-&gt; *smu)<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct smu_table_context *sm=
-u_table =3D &amp;smu-&gt;smu_table;<br>
-&gt; <br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; smu-&gt;ppt_funcs =3D &amp;a=
-rcturus_ppt_funcs;<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; smu_table-&gt;table_count =3D TABLE_COUNT;<b=
-r>
-&gt;&nbsp; }<br>
-&gt; diff --git a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c<br>
-&gt; b/drivers/gpu/drm/amd/powerplay/navi10_ppt.c<br>
-&gt; index 744b7501c34d..e3add8b59291 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c<br>
-&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/navi10_ppt.c<br>
-&gt; @@ -1633,5 &#43;1633,4 @@ void navi10_set_ppt_funcs(struct smu_context=
-<br>
-&gt; *smu)<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct smu_table_context *sm=
-u_table =3D &amp;smu-&gt;smu_table;<br>
-&gt; <br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; smu-&gt;ppt_funcs =3D &amp;n=
-avi10_ppt_funcs;<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; smu_table-&gt;table_count =3D TABLE_COUNT;<b=
-r>
-&gt;&nbsp; }<br>
-&gt; diff --git a/drivers/gpu/drm/amd/powerplay/renoir_ppt.c<br>
-&gt; b/drivers/gpu/drm/amd/powerplay/renoir_ppt.c<br>
-&gt; index de43159564a5..2b953f7431b6 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/powerplay/renoir_ppt.c<br>
-&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/renoir_ppt.c<br>
-&gt; @@ -169,5 &#43;169,4 @@ void renoir_set_ppt_funcs(struct smu_context *=
-smu)<br>
-&gt; <br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; smu-&gt;ppt_funcs =3D &amp;r=
-enoir_ppt_funcs;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; smu-&gt;smc_if_version =3D S=
-MU12_DRIVER_IF_VERSION;<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; smu_table-&gt;table_count =3D TABLE_COUNT;<b=
-r>
-&gt;&nbsp; }<br>
-&gt; diff --git a/drivers/gpu/drm/amd/powerplay/smu_v11_0.c<br>
-&gt; b/drivers/gpu/drm/amd/powerplay/smu_v11_0.c<br>
-&gt; index deca9f85764c..3709e4d77338 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/powerplay/smu_v11_0.c<br>
-&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/smu_v11_0.c<br>
-&gt; @@ -439,7 &#43;439,7 @@ static int smu_v11_0_init_smc_tables(struct<br=
->
-&gt; smu_context *smu)<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct smu_table *tables =3D=
- NULL;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int ret =3D 0;<br>
-&gt; <br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; if (smu_table-&gt;tables || smu_table-&gt;ta=
-ble_count =3D=3D 0)<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; if (smu_table-&gt;tables)<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; return -EINVAL;<br>
-&gt; <br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tables =3D kcalloc(SMU_TABLE=
-_COUNT, sizeof(struct smu_table), @@ -<br>
-&gt; 465,13 &#43;465,12 @@ static int smu_v11_0_fini_smc_tables(struct<br>
-&gt; smu_context *smu)<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct smu_table_context *sm=
-u_table =3D &amp;smu-&gt;smu_table;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int ret =3D 0;<br>
-&gt; <br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; if (!smu_table-&gt;tables || smu_table-&gt;t=
-able_count =3D=3D 0)<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; if (!smu_table-&gt;tables)<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; return -EINVAL;<br>
-&gt; <br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfree(smu_table-&gt;tables);=
-<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfree(smu_table-&gt;metrics_=
-table);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; smu_table-&gt;tables =3D NUL=
-L;<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; smu_table-&gt;table_count =3D 0;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; smu_table-&gt;metrics_table =
-=3D NULL;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; smu_table-&gt;metrics_time =
-=3D 0;<br>
-&gt; <br>
-&gt; diff --git a/drivers/gpu/drm/amd/powerplay/vega20_ppt.c<br>
-&gt; b/drivers/gpu/drm/amd/powerplay/vega20_ppt.c<br>
-&gt; index 899bf96b23e1..68548ba9b6ea 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/powerplay/vega20_ppt.c<br>
-&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/vega20_ppt.c<br>
-&gt; @@ -3189,5 &#43;3189,4 @@ void vega20_set_ppt_funcs(struct smu_context=
-<br>
-&gt; *smu)<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct smu_table_context *sm=
-u_table =3D &amp;smu-&gt;smu_table;<br>
-&gt; <br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; smu-&gt;ppt_funcs =3D &amp;v=
-ega20_ppt_funcs;<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; smu_table-&gt;table_count =3D TABLE_COUNT;<b=
-r>
-&gt;&nbsp; }<br>
-&gt; --<br>
-&gt; 2.22.0<br>
-&gt; <br>
-&gt; _______________________________________________<br>
-&gt; amd-gfx mailing list<br>
-&gt; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-&gt; <a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">htt=
-ps://lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
-</div>
-</span></font></div>
-</body>
-</html>
-
---_000_MN2PR12MB3296F888862316BBEB874AC2A2B80MN2PR12MB3296namp_--
-
---===============1783607258==
+--===============2098486322==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -513,4 +416,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
 
---===============1783607258==--
+--===============2098486322==--
