@@ -1,33 +1,41 @@
 From: Markus Elfring <Markus.Elfring@web.de>
-Subject: Re: drm/amdgpu: Delete an unnecessary check before two function calls
-Date: Wed, 4 Sep 2019 19:11:33 +0200
-Message-ID: <ef57fbc1-8c67-c6ae-42b8-0de76df7cea3@web.de>
-References: <a3739125-5fa8-cadb-d2b8-8a9f12e9bacd@web.de>
+Subject: Re: drm/amdgpu: remove the redundant null check
+Date: Wed, 4 Sep 2019 19:50:35 +0200
+Message-ID: <62b33279-9ca9-5970-5336-a8511ce54197@web.de>
+References: <1567491305-18320-1-git-send-email-zhongjiang@huawei.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <a3739125-5fa8-cadb-d2b8-8a9f12e9bacd@web.de>
+In-Reply-To: <1567491305-18320-1-git-send-email-zhongjiang@huawei.com>
 Content-Language: en-US
 Sender: linux-kernel-owner@vger.kernel.org
-To: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>, Chunming Zhou <David1.Zhou@amd.com>, Dan Carpenter <dan.carpenter@oracle.com>, Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@linux.ie>, Hawking Zhang <Hawking.Zhang@amd.com>, Jack Xiao <Jack.Xiao@amd.com>, Kevin Wang <Kevin1.Wang@amd.com>, Tom St Denis <tom.stdenis@amd.com>, Wang Xiayang <xywang.sjtu@sjtu.edu.cn>
-Cc: LKML <linux-kernel@vger.kernel.org>, kernel-janitors@vger.kernel.org
+To: zhong jiang <zhongjiang@huawei.com>, Chunming Zhou <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>, Daniel Vetter <daniel@ffwll.ch>, amd-gfx@lists.freedesktop.org
+Cc: linux-kernel@vger.kernel.org, kernel-janitors@vger.kernel.org
 List-Id: amd-gfx.lists.freedesktop.org
 
-> The functions =E2=80=9Cdebugfs_remove=E2=80=9D and =E2=80=9Ckfree=E2=80=
-=9D test whether their argument
-> is NULL and then return immediately.
-> Thus the tests around the shown calls are not needed.
->
-> This issue was detected by using the Coccinelle software.
+> debugfs_remove and kfree has taken the null check in account.
+> hence it is unnecessary to check it. Just remove the condition.
 
-I suggest to take another look at a similar patch.
+How do you think about a wording like the following?
 
-drm/amdgpu: remove the redundant null check
-https://lkml.org/lkml/2019/9/3/59
-https://lore.kernel.org/patchwork/patch/1123118/
-https://lore.kernel.org/r/1567491305-18320-1-git-send-email-zhongjiang@hua=
-wei.com/
+  The functions =E2=80=9Cdebugfs_remove=E2=80=9D and =E2=80=9Ckfree=E2=80=
+=9D tolerate the passing
+  of null pointers. Hence it is unnecessary to check such arguments
+  around the calls. Thus remove the extra condition check at two places.
+
+
+> No functional change.
+
+I find this information questionable while it is partly reasonable
+according to the shown software refactoring.
+
+Can a subject like =E2=80=9C[PATCH] drm/amdgpu: Remove two redundant
+null pointer checks=E2=80=9D be nicer here?
+
+
+Were any source code analysis tools involved for finding
+these update candidates?
 
 Regards,
 Markus
