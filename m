@@ -1,15 +1,16 @@
-From: "=?gb18030?B?Nzg2NjY2Nzk=?=" <78666679-9uewiaClKEY@public.gmane.org>
-Subject: =?gb18030?B?u9i4tKO6IEJ1ZzogYW1kZ3B1IGRybSBkcml2ZXIg?=
- =?gb18030?B?Y2F1c2UgcHJvY2VzcyBpbnRvIERpc2sgc2xlZXAg?=
- =?gb18030?B?c3RhdGU=?=
-Date: Tue, 3 Sep 2019 16:27:33 +0800
-Message-ID: <tencent_D6F0ED2383BF6AEA01EA5BB4F6A6A24D2D09@qq.com>
-References: <tencent_4DEABBEB3BB4C6A6D84CA9F0DB225FBF5809@qq.com>
- <f761fec0-c0cc-426c-6bcb-c3fd23808888@amd.com>
+From: Hillf Danton <hdanton-k+cT0dCbe1g@public.gmane.org>
+Subject: Re: gnome-shell stuck because of amdgpu driver [5.3 RC5]
+Date: Wed, 4 Sep 2019 09:17:16 +0800
+Message-ID: <20190904071704.F315489B4D@gabe.freedesktop.org>
+References: <20190830032948.13516-1-hdanton@sina.com>
+ <CABXGCsNywbo90+wgiZ64Srm-KexypTbjiviwTW_BsO9Pm11GKQ@mail.gmail.com>
+ <5d6e2298.1c69fb81.b5532.8395SMTPIN_ADDED_MISSING@mx.google.com>
+ <CABXGCsMG2YrybO4_5jHaFQQxy2ywB53pY63qRfXK=ZKx5qc2Bw@mail.gmail.com>
+ <CAKMK7uH9q09XadTV5Ezm=9aODErD=w_+8feujviVnF5LO_fggA@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0231442569=="
+Content-Type: multipart/mixed; boundary="===============0602678665=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <f761fec0-c0cc-426c-6bcb-c3fd23808888-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <CAKMK7uH9q09XadTV5Ezm=9aODErD=w_+8feujviVnF5LO_fggA-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -20,145 +21,119 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?gb18030?B?S29lbmlnLCBDaHJpc3RpYW4=?= <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, =?gb18030?B?YW1kLWdmeA==?= <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: =?gb18030?B?RGV1Y2hlciwgQWxleGFuZGVy?= <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+To: Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>, Mikhail Gavrilov <mikhail.v.gavrilov-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, dri-devel <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Linux kernel <linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>
 
-This is a multi-part message in MIME format.
 
---===============0231442569==
+--===============0602678665==
 Content-Type: multipart/alternative;
-	boundary="----=_NextPart_5D6E23F6_0A8134A8_6C64C0F2"
-Content-Transfer-Encoding: 8Bit
+	boundary="_FEA7D873-6F97-49AA-B05D-696E54FDDE7C_"
 
-This is a multi-part message in MIME format.
 
-------=_NextPart_5D6E23F6_0A8134A8_6C64C0F2
-Content-Type: text/plain;
-	charset="gb18030"
-Content-Transfer-Encoding: base64
+--_FEA7D873-6F97-49AA-B05D-696E54FDDE7C_
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 
-SGksIENocmlzdGlhbjoNCiAgICAgVGhhbmtzIHZlcnkgbXVjaCBmb3IgeW91IHNvIGZhc3Qg
-cmVwbHkuIEkgd2lsbCB0cnkgdGhpcyBjb21taXQgcGF0Y2ggZmlyc3QuIE15IGtlcm5lbCB2
-ZXJzaW9uIGlzIDQuMTkuMzYoZm9yIHNvbWUgcmVhc29ucywgIHRoaXMgdmVyc2lvbiBzaG91
-bGQgbm90IGJlIHVwZ3JhZGVkKS4NCg0KDQoNCg0KDQotLS0tDQp5YW5odWENCg0KLS0tLS0t
-LS0tLS0tLS0tLS0tINStyrzTyrz+IC0tLS0tLS0tLS0tLS0tLS0tLQ0Kt6K8/sjLOiAiS29l
-bmlnLCBDaHJpc3RpYW4iPENocmlzdGlhbi5Lb2VuaWdAYW1kLmNvbT47DQq3osvNyrG85Dog
-MjAxOcTqOdTCM8jVKNDHxtq2/ikgz8LO5zQ6MjENCsrVvP7IyzogIiI8Nzg2NjY2NzlAcXEu
-Y29tPjsiYW1kLWdmeCI8YW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmc+Ow0Ks63LzTog
-IkRldWNoZXIsIEFsZXhhbmRlciI8QWxleGFuZGVyLkRldWNoZXJAYW1kLmNvbT47DQrW98zi
-OiBSZTogQnVnOiBhbWRncHUgZHJtIGRyaXZlciBjYXVzZSBwcm9jZXNzIGludG8gRGlzayBz
-bGVlcCBzdGF0ZQ0KDQoNCg0KSGkgWWFuaHVhLA0KDQpwbGVhc2UgdXBkYXRlIHlvdXIga2Vy
-bmVsIGZpcnN0LCBjYXVzZSB0aGF0IGxvb2tzIGxpa2UgYSBrbm93biBpc3N1ZSANCndoaWNo
-IHdhcyByZWNlbnRseSBmaXhlZCBieSBwYXRjaCAiZHJtL3NjaGVkdWxlcjogdXNlIGpvYiBj
-b3VudCBpbnN0ZWFkIA0Kb2YgcGVlayIuDQoNClByb2JhYmx5IGJlc3QgdG8gdHJ5IHRoZSBs
-YXRlc3QgYmxlZWRpbmcgZWRnZSBrZXJuZWwgYW5kIGlmIHRoYXQgZG9lc24ndCANCmhlbHAg
-cGxlYXNlIG9wZW4gdXAgYSBidWcgcmVwb3J0IG9uIGh0dHBzOi8vYnVncy5mcmVlZGVza3Rv
-cC5vcmcvLg0KDQpSZWdhcmRzLA0KQ2hyaXN0aWFuLg0KDQpBbSAwMy4wOS4xOSB1bSAwOToz
-NSBzY2hyaWViIDc4NjY2Njc5Og0KPiBIaSwgU2lyczoNCj4gICAgICAgICBJIGhhdmUgYSB3
-eDUxMDAgYW1kZ3B1IGNhcmQsIEl0IHJhbmRvbWx5IGNvbWUgaW50byBmYWlsdXJlLiAgc29t
-ZXRpbWVzLCBpdCB3aWxsIGNhdXNlIHByb2Nlc3NlcyBpbnRvIHVuaW50ZXJydXB0aWJsZSB3
-YWl0IHN0YXRlLg0KPg0KPg0KPiBjcHMtbmV3LW9uZGVtYW5kLTA1ODc6fiAjIHBzIGF1eHxn
-cmVwIC13IEQNCj4gcm9vdCAgICAgIDExMjY4ICAwLjAgIDAuMCAyNjA2MjggIDM1MTYgPyAg
-ICAgICAgU3NsICA41MIyNiAgIDA6MDAgL3Vzci9zYmluL2dzc3Byb3h5IC1EDQo+IHJvb3Qg
-ICAgIDEzNjQ4MiAgMC4wICAwLjAgMjEyNTAwICAgNTcyIHB0cy8wICAgIFMrICAgMTU6MjUg
-ICAwOjAwIGdyZXAgLS1jb2xvcj1hdXRvIC13IEQNCj4gcm9vdCAgICAgMzcwNjg0ICAwLjAg
-IDAuMCAgMTc5NzIgIDc0MjggPyAgICAgICAgU3MgICA51MIwMiAgIDA6MDQgL3Vzci9zYmlu
-L3NzaGQgLUQNCj4gMTAwNjYgICAgNDMyOTUxICAwLjAgIDAuMCAgICAgIDAgICAgIDAgPyAg
-ICAgICAgRCAgICA51MIwMiAgIDA6MDAgW0Zha2VGaW5hbGl6ZXJEYV0NCj4gcm9vdCAgICAg
-NDk2Nzc0ICAwLjAgIDAuMCAgICAgIDAgICAgIDAgPyAgICAgICAgRCAgICA51MIwMiAgIDA6
-MTcgW2t3b3JrZXIvODoxK2V2ZV0NCj4gY3BzLW5ldy1vbmRlbWFuZC0wNTg3On4gIyBjYXQg
-L3Byb2MvNDk2Nzc0L3N0YWNrDQo+IFs8MD5dIF9fc3dpdGNoX3RvKzB4OTQvMHhlOA0KPiBb
-PDA+XSBkcm1fc2NoZWRfZW50aXR5X2ZsdXNoKzB4ZjgvMHgyNDggW2dwdV9zY2hlZF0NCj4g
-WzwwPl0gYW1kZ3B1X2N0eF9tZ3JfZW50aXR5X2ZsdXNoKzB4YWMvMHgxNDggW2FtZGdwdV0N
-Cj4gWzwwPl0gYW1kZ3B1X2ZsdXNoKzB4MmMvMHg1MCBbYW1kZ3B1XQ0KPiBbPDA+XSBmaWxw
-X2Nsb3NlKzB4NDAvMHhhMA0KPiBbPDA+XSBwdXRfZmlsZXNfc3RydWN0KzB4MTE4LzB4MTIw
-DQo+IFs8MD5dIHB1dF9maWxlc19zdHJ1Y3QrMHgzMC8weDY4IFtiaW5kZXJfbGludXhdDQo+
-IFs8MD5dIGJpbmRlcl9kZWZlcnJlZF9mdW5jKzB4NGQ0LzB4NjU4IFtiaW5kZXJfbGludXhd
-DQo+IFs8MD5dIHByb2Nlc3Nfb25lX3dvcmsrMHgxYjQvMHgzZjgNCj4gWzwwPl0gd29ya2Vy
-X3RocmVhZCsweDU0LzB4NDcwDQo+IFs8MD5dIGt0aHJlYWQrMHgxMzQvMHgxMzgNCj4gWzww
-Pl0gcmV0X2Zyb21fZm9yaysweDEwLzB4MTgNCj4gWzwwPl0gMHhmZmZmZmZmZmZmZmZmZmZm
-DQo+DQo+DQo+DQo+IFRoaXMgaXNzdWUgdHJvdWJsZWQgbWUgYSBsb25nIHRpbWUuICBsb29r
-aW5nIGVhZ2VybHkgdG8gZ2V0IGhlbHAgZnJvbSB5b3UhDQo+DQo+DQo+IC0tLS0tDQo+IFlh
-bmh1YQ==
+Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>
+>>
+>> Now 11:01pm and "gnome shell stuck warning" not appear since 19:17. So
+>> looks like issue happens only when computer blocked and monitor in
+>> power save mode.
+>
+> I'd bet on runtime pm or some other power saving feature in amdgpu
+> shutting the interrupt handling down before we've handled all the
+> interrupts. That would then result in a stuck fence.
+>
+> Do we already know which fence is stuck?
 
-------=_NextPart_5D6E23F6_0A8134A8_6C64C0F2
-Content-Type: text/html;
-	charset="gb18030"
-Content-Transfer-Encoding: base64
+It is welcomed to shed a thread of light on how to collect/print that info.
+Say line:xxx-yyy in path/to/amdgpu/zzz.c
 
-PGRpdj5IaSwgQ2hyaXN0aWFuOjwvZGl2PjxkaXY+Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7
-IFRoYW5rcyB2ZXJ5IG11Y2ggZm9yIHlvdSBzbyBmYXN0IHJlcGx5LiBJIHdpbGwgdHJ5IHRo
-aXMgY29tbWl0IHBhdGNoIGZpcnN0LiBNeSBrZXJuZWwgdmVyc2lvbiBpcyA0LjE5LjM2KGZv
-ciBzb21lIHJlYXNvbnMsJm5ic3A7IHRoaXMgdmVyc2lvbiBzaG91bGQgbm90IGJlIHVwZ3Jh
-ZGVkKS48YnI+PC9kaXY+PGRpdj48ZGl2Pjxicj48L2Rpdj48ZGl2Pjxicj48L2Rpdj48ZGl2
-Pi0tLS08L2Rpdj48ZGl2Pnlhbmh1YTxicj48L2Rpdj48ZGl2IHN0eWxlPSJmb250LXNpemU6
-IDEycHg7Zm9udC1mYW1pbHk6IEFyaWFsIE5hcnJvdztwYWRkaW5nOjJweCAwIDJweCAwOyI+
-LS0tLS0tLS0tLS0tLS0tLS0tJm5ic3A71K3KvNPKvP4mbmJzcDstLS0tLS0tLS0tLS0tLS0t
-LS08L2Rpdj48ZGl2IHN0eWxlPSJmb250LXNpemU6IDEycHg7YmFja2dyb3VuZDojZWZlZmVm
-O3BhZGRpbmc6OHB4OyI+PGRpdj48Yj63orz+yMs6PC9iPiZuYnNwOyJLb2VuaWcsIENocmlz
-dGlhbiImbHQ7Q2hyaXN0aWFuLktvZW5pZ0BhbWQuY29tJmd0Ozs8L2Rpdj48ZGl2PjxiPrei
-y83KsbzkOjwvYj4mbmJzcDsyMDE5xOo51MIzyNUo0MfG2rb+KSDPws7nNDoyMTwvZGl2Pjxk
-aXY+PGI+ytW8/sjLOjwvYj4mbmJzcDsiIiZsdDs3ODY2NjY3OUBxcS5jb20mZ3Q7OyJhbWQt
-Z2Z4IiZsdDthbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZyZndDs7PHdicj48L2Rpdj48
-ZGl2PjxiPrOty806PC9iPiZuYnNwOyJEZXVjaGVyLCBBbGV4YW5kZXIiJmx0O0FsZXhhbmRl
-ci5EZXVjaGVyQGFtZC5jb20mZ3Q7Ozx3YnI+PC9kaXY+PGRpdj48Yj7W98ziOjwvYj4mbmJz
-cDtSZTogQnVnOiBhbWRncHUgZHJtIGRyaXZlciBjYXVzZSBwcm9jZXNzIGludG8gRGlzayBz
-bGVlcCBzdGF0ZTwvZGl2PjwvZGl2PjxkaXY+PGJyPjwvZGl2PkhpIFlhbmh1YSw8YnI+PGJy
-PnBsZWFzZSB1cGRhdGUgeW91ciBrZXJuZWwgZmlyc3QsIGNhdXNlIHRoYXQgbG9va3MgbGlr
-ZSBhIGtub3duIGlzc3VlIDxicj53aGljaCB3YXMgcmVjZW50bHkgZml4ZWQgYnkgcGF0Y2gg
-ImRybS9zY2hlZHVsZXI6IHVzZSBqb2IgY291bnQgaW5zdGVhZCA8YnI+b2YgcGVlayIuPGJy
-Pjxicj5Qcm9iYWJseSBiZXN0IHRvIHRyeSB0aGUgbGF0ZXN0IGJsZWVkaW5nIGVkZ2Uga2Vy
-bmVsIGFuZCBpZiB0aGF0IGRvZXNuJ3QgPGJyPmhlbHAgcGxlYXNlIG9wZW4gdXAgYSBidWcg
-cmVwb3J0IG9uIGh0dHBzOi8vYnVncy5mcmVlZGVza3RvcC5vcmcvLjxicj48YnI+UmVnYXJk
-cyw8YnI+Q2hyaXN0aWFuLjxicj48YnI+QW0gMDMuMDkuMTkgdW0gMDk6MzUgc2NocmllYiA3
-ODY2NjY3OTo8YnI+Jmd0OyBIaSwgU2lyczo8YnI+Jmd0OyZuYnNwOyZuYnNwOyZuYnNwOyZu
-YnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyBJIGhhdmUgYSB3eDUxMDAgYW1kZ3B1IGNh
-cmQsIEl0IHJhbmRvbWx5IGNvbWUgaW50byBmYWlsdXJlLiZuYnNwOyBzb21ldGltZXMsIGl0
-IHdpbGwgY2F1c2UgcHJvY2Vzc2VzIGludG8gdW5pbnRlcnJ1cHRpYmxlIHdhaXQgc3RhdGUu
-PGJyPiZndDs8YnI+Jmd0Ozxicj4mZ3Q7IGNwcy1uZXctb25kZW1hbmQtMDU4Nzp+ICMgcHMg
-YXV4fGdyZXAgLXcgRDxicj4mZ3Q7IHJvb3QmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJz
-cDsgMTEyNjgmbmJzcDsgMC4wJm5ic3A7IDAuMCAyNjA2MjgmbmJzcDsgMzUxNiA/Jm5ic3A7
-Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7IFNzbCZuYnNwOyA41MIyNiZu
-YnNwOyZuYnNwOyAwOjAwIC91c3Ivc2Jpbi9nc3Nwcm94eSAtRDxicj4mZ3Q7IHJvb3QmbmJz
-cDsmbmJzcDsmbmJzcDsmbmJzcDsgMTM2NDgyJm5ic3A7IDAuMCZuYnNwOyAwLjAgMjEyNTAw
-Jm5ic3A7Jm5ic3A7IDU3MiBwdHMvMCZuYnNwOyZuYnNwOyZuYnNwOyBTKyZuYnNwOyZuYnNw
-OyAxNToyNSZuYnNwOyZuYnNwOyAwOjAwIGdyZXAgLS1jb2xvcj1hdXRvIC13IEQ8YnI+Jmd0
-OyByb290Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7IDM3MDY4NCZuYnNwOyAwLjAmbmJzcDsg
-MC4wJm5ic3A7IDE3OTcyJm5ic3A7IDc0MjggPyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZu
-YnNwOyZuYnNwOyZuYnNwOyBTcyZuYnNwOyZuYnNwOyA51MIwMiZuYnNwOyZuYnNwOyAwOjA0
-IC91c3Ivc2Jpbi9zc2hkIC1EPGJyPiZndDsgMTAwNjYmbmJzcDsmbmJzcDsmbmJzcDsgNDMy
-OTUxJm5ic3A7IDAuMCZuYnNwOyAwLjAmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsg
-MCZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyAwID8mbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsm
-bmJzcDsmbmJzcDsmbmJzcDsgRCZuYnNwOyZuYnNwOyZuYnNwOyA51MIwMiZuYnNwOyZuYnNw
-OyAwOjAwIFtGYWtlRmluYWxpemVyRGFdPGJyPiZndDsgcm9vdCZuYnNwOyZuYnNwOyZuYnNw
-OyZuYnNwOyA0OTY3NzQmbmJzcDsgMC4wJm5ic3A7IDAuMCZuYnNwOyZuYnNwOyZuYnNwOyZu
-YnNwOyZuYnNwOyAwJm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7IDAgPyZuYnNwOyZuYnNwOyZu
-YnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyBEJm5ic3A7Jm5ic3A7Jm5ic3A7IDnUwjAy
-Jm5ic3A7Jm5ic3A7IDA6MTcgW2t3b3JrZXIvODoxK2V2ZV08YnI+Jmd0OyBjcHMtbmV3LW9u
-ZGVtYW5kLTA1ODc6fiAjIGNhdCAvcHJvYy80OTY3NzQvc3RhY2s8YnI+Jmd0OyBbJmx0OzAm
-Z3Q7XSBfX3N3aXRjaF90bysweDk0LzB4ZTg8YnI+Jmd0OyBbJmx0OzAmZ3Q7XSBkcm1fc2No
-ZWRfZW50aXR5X2ZsdXNoKzB4ZjgvMHgyNDggW2dwdV9zY2hlZF08YnI+Jmd0OyBbJmx0OzAm
-Z3Q7XSBhbWRncHVfY3R4X21ncl9lbnRpdHlfZmx1c2grMHhhYy8weDE0OCBbYW1kZ3B1XTxi
-cj4mZ3Q7IFsmbHQ7MCZndDtdIGFtZGdwdV9mbHVzaCsweDJjLzB4NTAgW2FtZGdwdV08YnI+
-Jmd0OyBbJmx0OzAmZ3Q7XSBmaWxwX2Nsb3NlKzB4NDAvMHhhMDxicj4mZ3Q7IFsmbHQ7MCZn
-dDtdIHB1dF9maWxlc19zdHJ1Y3QrMHgxMTgvMHgxMjA8YnI+Jmd0OyBbJmx0OzAmZ3Q7XSBw
-dXRfZmlsZXNfc3RydWN0KzB4MzAvMHg2OCBbYmluZGVyX2xpbnV4XTxicj4mZ3Q7IFsmbHQ7
-MCZndDtdIGJpbmRlcl9kZWZlcnJlZF9mdW5jKzB4NGQ0LzB4NjU4IFtiaW5kZXJfbGludXhd
-PGJyPiZndDsgWyZsdDswJmd0O10gcHJvY2Vzc19vbmVfd29yaysweDFiNC8weDNmODxicj4m
-Z3Q7IFsmbHQ7MCZndDtdIHdvcmtlcl90aHJlYWQrMHg1NC8weDQ3MDxicj4mZ3Q7IFsmbHQ7
-MCZndDtdIGt0aHJlYWQrMHgxMzQvMHgxMzg8YnI+Jmd0OyBbJmx0OzAmZ3Q7XSByZXRfZnJv
-bV9mb3JrKzB4MTAvMHgxODxicj4mZ3Q7IFsmbHQ7MCZndDtdIDB4ZmZmZmZmZmZmZmZmZmZm
-Zjxicj4mZ3Q7PGJyPiZndDs8YnI+Jmd0Ozxicj4mZ3Q7IFRoaXMgaXNzdWUgdHJvdWJsZWQg
-bWUgYSBsb25nIHRpbWUuJm5ic3A7IGxvb2tpbmcgZWFnZXJseSB0byBnZXQgaGVscCBmcm9t
-IHlvdSE8YnI+Jmd0Ozxicj4mZ3Q7PGJyPiZndDsgLS0tLS08YnI+Jmd0OyBZYW5odWE8YnI+
-PGJyPjwvZGl2Pg==
+Thanks
+Hillf
 
-------=_NextPart_5D6E23F6_0A8134A8_6C64C0F2--
+
+--_FEA7D873-6F97-49AA-B05D-696E54FDDE7C_
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/html; charset="utf-8"
+
+<html xmlns:o=3D"urn:schemas-microsoft-com:office:office" xmlns:w=3D"urn:sc=
+hemas-microsoft-com:office:word" xmlns:m=3D"http://schemas.microsoft.com/of=
+fice/2004/12/omml" xmlns=3D"http://www.w3.org/TR/REC-html40"><head><meta ht=
+tp-equiv=3DContent-Type content=3D"text/html; charset=3Dutf-8"><meta name=
+=3DGenerator content=3D"Microsoft Word 15 (filtered medium)"><style><!--
+/* Font Definitions */
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:DengXian;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:DengXian;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0cm;
+	margin-bottom:.0001pt;
+	text-align:justify;
+	text-justify:inter-ideograph;
+	font-size:10.5pt;
+	font-family:DengXian;}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:blue;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{mso-style-priority:99;
+	color:#954F72;
+	text-decoration:underline;}
+span.DefaultFontHxMailStyle
+	{mso-style-name:"Default Font HxMail Style";
+	font-family:DengXian;
+	color:windowtext;
+	font-weight:normal;
+	font-style:normal;
+	text-decoration:none none;}
+.MsoChpDefault
+	{mso-style-type:export-only;}
+/* Page Definitions */
+@page WordSection1
+	{size:612.0pt 792.0pt;
+	margin:72.0pt 90.0pt 72.0pt 90.0pt;}
+div.WordSection1
+	{page:WordSection1;}
+--></style></head><body lang=3DZH-CN link=3Dblue vlink=3D"#954F72"><div cla=
+ss=3DWordSection1><p class=3DMsoNormal><span class=3DDefaultFontHxMailStyle=
+><span lang=3DEN-US>Daniel Vetter &lt;daniel-/w4YWyX8dFk@public.gmane.org&gt;<o:p></o:p></span>=
+</span></p><p class=3DMsoNormal><span lang=3DEN-US>&gt;&gt;<o:p>&nbsp;</o:p=
+></span></p><p class=3DMsoNormal><span lang=3DEN-US>&gt;&gt; Now 11:01pm an=
+d &quot;gnome shell stuck warning&quot; not appear since 19:17. So</span></=
+p><p class=3DMsoNormal><span lang=3DEN-US>&gt;&gt; looks like issue happens=
+ only when computer blocked and monitor in</span></p><p class=3DMsoNormal><=
+span lang=3DEN-US>&gt;&gt; power save mode.</span></p><p class=3DMsoNormal>=
+<span lang=3DEN-US>&gt;<o:p>&nbsp;</o:p></span></p><p class=3DMsoNormal><sp=
+an lang=3DEN-US>&gt; I'd bet on runtime pm or some other power saving featu=
+re in amdgpu</span></p><p class=3DMsoNormal><span lang=3DEN-US>&gt; shuttin=
+g the interrupt handling down before we've handled all the</span></p><p cla=
+ss=3DMsoNormal><span lang=3DEN-US>&gt; interrupts. That would then result i=
+n a stuck fence.</span></p><p class=3DMsoNormal><span lang=3DEN-US>&gt;<o:p=
+>&nbsp;</o:p></span></p><p class=3DMsoNormal><span lang=3DEN-US>&gt; Do we =
+already know which fence is stuck?</span></p><p class=3DMsoNormal><span lan=
+g=3DEN-US><o:p>&nbsp;</o:p></span></p><p class=3DMsoNormal><span lang=3DEN-=
+US>It is welcomed to shed a thread of light on how to collect/print that in=
+fo.</span></p><p class=3DMsoNormal><span lang=3DEN-US>Say line:xxx-yyy in p=
+ath/to/amdgpu/zzz.c</span></p><p class=3DMsoNormal><span lang=3DEN-US><o:p>=
+&nbsp;</o:p></span></p><p class=3DMsoNormal><span lang=3DEN-US>Thanks</span=
+></p><p class=3DMsoNormal><span lang=3DEN-US>Hillf</span></p><p class=3DMso=
+Normal><span class=3DDefaultFontHxMailStyle><span lang=3DEN-US><o:p>&nbsp;<=
+/o:p></span></span></p></div></body></html>=
+
+--_FEA7D873-6F97-49AA-B05D-696E54FDDE7C_--
 
 
 
-
---===============0231442569==
+--===============0602678665==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -168,4 +143,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
 
---===============0231442569==--
+--===============0602678665==--
