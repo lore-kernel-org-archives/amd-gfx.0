@@ -1,41 +1,60 @@
-From: "Liu, Aaron" <Aaron.Liu-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH] drm/amdgpu: disable stutter mode for renoir
-Date: Wed, 4 Sep 2019 09:18:13 +0000
-Message-ID: <1567588678-26926-1-git-send-email-aaron.liu@amd.com>
+From: Markus Elfring <Markus.Elfring@web.de>
+Subject: [PATCH] drm/amdgpu: Delete an unnecessary check before two function
+ calls
+Date: Wed, 4 Sep 2019 13:00:27 +0200
+Message-ID: <a3739125-5fa8-cadb-d2b8-8a9f12e9bacd@web.de>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Return-path: <linux-kernel-owner@vger.kernel.org>
 Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Huang,
- Ray" <Ray.Huang-5C7GfCeVMHo@public.gmane.org>, "Liu, Aaron" <Aaron.Liu-5C7GfCeVMHo@public.gmane.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>, Chunming Zhou <David1.Zhou@amd.com>, Dan Carpenter <dan.carpenter@oracle.com>, Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@linux.ie>, Hawking Zhang <Hawking.Zhang@amd.com>, Jack Xiao <Jack.Xiao@amd.com>, Kevin Wang <Kevin1.Wang@amd.com>, Tom St Denis <tom.stdenis@amd.com>, Wang Xiayang <xywang.sjtu@sjtu.edu.cn>
+Cc: LKML <linux-kernel@vger.kernel.org>, kernel-janitors@vger.kernel.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-V2l0aCBzdHV0dGVyIG1vZGUgZW5hYmxlZCwgTk1JIHByaW50cyBmcmVxdWVudGx5LgpEaXNhYmxl
-IHN0dXR0ZXIgbW9kZSBmb3IgcmVub2lyLgoKU2lnbmVkLW9mZi1ieTogQWFyb24gTGl1IDxhYXJv
-bi5saXVAYW1kLmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2Rt
-L2FtZGdwdV9kbS5jIHwgMiArKwogMSBmaWxlIGNoYW5nZWQsIDIgaW5zZXJ0aW9ucygrKQoKZGlm
-ZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2Rt
-LmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5jCmlu
-ZGV4IDcwOGQ1OTUuLjhlMmFmMmUgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlz
-cGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNw
-bGF5L2FtZGdwdV9kbS9hbWRncHVfZG0uYwpAQCAtMjUzOSw2ICsyNTM5LDggQEAgc3RhdGljIGlu
-dCBhbWRncHVfZG1faW5pdGlhbGl6ZV9kcm1fZGV2aWNlKHN0cnVjdCBhbWRncHVfZGV2aWNlICph
-ZGV2KQogCiAJaWYgKGFkZXYtPmFzaWNfdHlwZSAhPSBDSElQX0NBUlJJWk8gJiYgYWRldi0+YXNp
-Y190eXBlICE9IENISVBfU1RPTkVZKQogCQlkbS0+ZGMtPmRlYnVnLmRpc2FibGVfc3R1dHRlciA9
-IGFtZGdwdV9wcF9mZWF0dXJlX21hc2sgJiBQUF9TVFVUVEVSX01PREUgPyBmYWxzZSA6IHRydWU7
-CisJaWYgKGFkZXYtPmFzaWNfdHlwZSA9PSBDSElQX1JFTk9JUikKKwkJZG0tPmRjLT5kZWJ1Zy5k
-aXNhYmxlX3N0dXR0ZXIgPSB0cnVlOwogCiAJcmV0dXJuIDA7CiBmYWlsOgotLSAKMi43LjQKCl9f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFp
-bGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJl
-ZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
+From: Markus Elfring <elfring@users.sourceforge.net>
+Date: Wed, 4 Sep 2019 12:30:23 +0200
+
+The functions =E2=80=9Cdebugfs_remove=E2=80=9D and =E2=80=9Ckfree=E2=80=9D=
+ test whether their argument
+is NULL and then return immediately.
+Thus the tests around the shown calls are not needed.
+
+This issue was detected by using the Coccinelle software.
+
+Signed-off-by: Markus Elfring <elfring@users.sourceforge.net>
+=2D--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c | 8 ++------
+ 1 file changed, 2 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/drivers/gpu/drm=
+/amd/amdgpu/amdgpu_debugfs.c
+index 5652cc72ed3a..d321c72d63d1 100644
+=2D-- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+@@ -1076,10 +1076,7 @@ static int amdgpu_debugfs_ib_preempt(void *data, u6=
+4 val)
+ 	kthread_unpark(ring->sched.thread);
+
+ 	ttm_bo_unlock_delayed_workqueue(&adev->mman.bdev, resched);
+-
+-	if (fences)
+-		kfree(fences);
+-
++	kfree(fences);
+ 	return 0;
+ }
+
+@@ -1103,8 +1100,7 @@ int amdgpu_debugfs_init(struct amdgpu_device *adev)
+
+ void amdgpu_debugfs_preempt_cleanup(struct amdgpu_device *adev)
+ {
+-	if (adev->debugfs_preempt)
+-		debugfs_remove(adev->debugfs_preempt);
++	debugfs_remove(adev->debugfs_preempt);
+ }
+
+ #else
+=2D-
+2.23.0
