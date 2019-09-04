@@ -1,196 +1,358 @@
-From: "Huang, Ray" <Ray.Huang-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH 2/2] drm/amdgpu: cleanup PTE flag generation v2
-Date: Wed, 4 Sep 2019 14:00:06 +0000
-Message-ID: <MN2PR12MB3309765D0C8DEA4E5596E715ECB80@MN2PR12MB3309.namprd12.prod.outlook.com>
-References: <20190904121721.69054-1-christian.koenig@amd.com>
- <20190904121721.69054-2-christian.koenig@amd.com>
+From: Andrey Konovalov <andreyknvl@google.com>
+Subject: Re: [PATCH v18 15/15] selftests, arm64: add a selftest for passing
+ tagged pointers to kernel
+Date: Wed, 4 Sep 2019 16:52:34 +0200
+Message-ID: <CAAeHK+xXN_oHt0rAcWdTs0XhkYRhWqf3iv-n+dYmY075xosJnw@mail.gmail.com>
+References: <cover.1561386715.git.andreyknvl@google.com> <0999c80cd639b78ae27c0674069d552833227564.1561386715.git.andreyknvl@google.com>
+ <6af3f619-4356-2f67-ed76-92beceb1e0a0@arm.com> <CAAeHK+yhbUcuLhoetjGUbqM4j9fX84hbwmxzNPF+e1zXj6nKNw@mail.gmail.com>
+ <d6bc5c4b-68b5-0a58-0f52-8bce20986dcf@arm.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190904121721.69054-2-christian.koenig-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?utf-8?B?Q2hyaXN0aWFuIEvDtm5pZw==?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <d6bc5c4b-68b5-0a58-0f52-8bce20986dcf@arm.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Cristian Marussi <cristian.marussi@arm.com>
+Cc: Linux ARM <linux-arm-kernel@lists.infradead.org>, Linux Memory Management List <linux-mm@kvack.org>, LKML <linux-kernel@vger.kernel.org>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-rdma@vger.kernel.org, linux-media@vger.kernel.org, kvm@vger.kernel.org, "open list:KERNEL SELFTEST FRAMEWORK" <linux-kselftest@vger.kernel.org>, Catalin Marinas <catalin.marinas@arm.com>, Vincenzo Frascino <vincenzo.frascino@arm.com>, Will Deacon <will.deacon@arm.com>, Mark Rutland <mark.rutland@arm.com>, Andrew Morton <akpm@linux-foundation.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Kees Cook <keescook@chromium.org>, Yishai Hadas <yishaih@mellanox.com>, Felix Kuehling <Felix.Kuehling@amd.com>, Alexander Deucher <Alexander.Deucher@am>
+List-Id: amd-gfx.lists.freedesktop.org
 
-U2VyaWVzIGxvb2sgZ29vZCBmb3IgbWUuDQoNClJldmlld2VkLWJ5OiBIdWFuZyBSdWkgPHJheS5o
-dWFuZ0BhbWQuY29tPg0KDQotLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KRnJvbTogYW1kLWdm
-eCA8YW1kLWdmeC1ib3VuY2VzQGxpc3RzLmZyZWVkZXNrdG9wLm9yZz4gT24gQmVoYWxmIE9mIENo
-cmlzdGlhbiBLw7ZuaWcNClNlbnQ6IFdlZG5lc2RheSwgU2VwdGVtYmVyIDQsIDIwMTkgODoxNyBB
-TQ0KVG86IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnDQpTdWJqZWN0OiBbUEFUQ0ggMi8y
-XSBkcm0vYW1kZ3B1OiBjbGVhbnVwIFBURSBmbGFnIGdlbmVyYXRpb24gdjINCg0KTW92ZSB0aGUg
-QVNJQyBzcGVjaWZpYyBjb2RlIGludG8gYSBuZXcgY2FsbGJhY2sgZnVuY3Rpb24uDQoNCnYyOiBt
-YXNrIHRoZSBmbGFncyBmb3IgU0kgYW5kIENJSyBpbnN0ZWFkIG9mIGEgQlVHX09OKCkuDQoNClNp
-Z25lZC1vZmYtYnk6IENocmlzdGlhbiBLw7ZuaWcgPGNocmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4N
-Ci0tLQ0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9nbWMuaCB8ICA1ICsrKysr
-ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uYyAgfCAyOSArKy0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNfdjEwXzAuYyAg
-fCAyMiArKysrKysrKysrKysrKysrKystDQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ21j
-X3Y2XzAuYyAgIHwgIDkgKysrKysrKysNCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNf
-djdfMC5jICAgfCAxMSArKysrKysrKystDQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ21j
-X3Y4XzAuYyAgIHwgMTMgKysrKysrKysrKy0NCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9n
-bWNfdjlfMC5jICAgfCAyNCArKysrKysrKysrKysrKysrKysrLQ0KIDcgZmlsZXMgY2hhbmdlZCwg
-ODIgaW5zZXJ0aW9ucygrKSwgMzEgZGVsZXRpb25zKC0pDQoNCmRpZmYgLS1naXQgYS9kcml2ZXJz
-L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZ21jLmggYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
-ZGdwdS9hbWRncHVfZ21jLmgNCmluZGV4IDZhNzQwNTliNzc2Yy4uMjMyYThmZjU2NDJiIDEwMDY0
-NA0KLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2dtYy5oDQorKysgYi9k
-cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZ21jLmgNCkBAIC0xMDQsNiArMTA0LDEw
-IEBAIHN0cnVjdCBhbWRncHVfZ21jX2Z1bmNzIHsNCiAJLyogZ2V0IHRoZSBwZGUgZm9yIGEgZ2l2
-ZW4gbWMgYWRkciAqLw0KIAl2b2lkICgqZ2V0X3ZtX3BkZSkoc3RydWN0IGFtZGdwdV9kZXZpY2Ug
-KmFkZXYsIGludCBsZXZlbCwNCiAJCQkgICB1NjQgKmRzdCwgdTY0ICpmbGFncyk7DQorCS8qIGdl
-dCB0aGUgcHRlIGZsYWdzIHRvIHVzZSBmb3IgYSBCTyBWQSBtYXBwaW5nICovDQorCXZvaWQgKCpn
-ZXRfdm1fcHRlKShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwNCisJCQkgICBzdHJ1Y3QgYW1k
-Z3B1X2JvX3ZhX21hcHBpbmcgKm1hcHBpbmcsDQorCQkJICAgdWludDY0X3QgKmZsYWdzKTsNCiB9
-Ow0KIA0KIHN0cnVjdCBhbWRncHVfeGdtaSB7DQpAQCAtMTg1LDYgKzE4OSw3IEBAIHN0cnVjdCBh
-bWRncHVfZ21jIHsNCiAjZGVmaW5lIGFtZGdwdV9nbWNfZW1pdF9wYXNpZF9tYXBwaW5nKHIsIHZt
-aWQsIHBhc2lkKSAociktPmFkZXYtPmdtYy5nbWNfZnVuY3MtPmVtaXRfcGFzaWRfbWFwcGluZygo
-ciksICh2bWlkKSwgKHBhc2lkKSkgICNkZWZpbmUgYW1kZ3B1X2dtY19tYXBfbXR5cGUoYWRldiwg
-ZmxhZ3MpIChhZGV2KS0+Z21jLmdtY19mdW5jcy0+bWFwX210eXBlKChhZGV2KSwoZmxhZ3MpKQ0K
-ICNkZWZpbmUgYW1kZ3B1X2dtY19nZXRfdm1fcGRlKGFkZXYsIGxldmVsLCBkc3QsIGZsYWdzKSAo
-YWRldiktPmdtYy5nbWNfZnVuY3MtPmdldF92bV9wZGUoKGFkZXYpLCAobGV2ZWwpLCAoZHN0KSwg
-KGZsYWdzKSkNCisjZGVmaW5lIGFtZGdwdV9nbWNfZ2V0X3ZtX3B0ZShhZGV2LCBtYXBwaW5nLCBm
-bGFncykgDQorKGFkZXYpLT5nbWMuZ21jX2Z1bmNzLT5nZXRfdm1fcHRlKChhZGV2KSwgKG1hcHBp
-bmcpLCAoZmxhZ3MpKQ0KIA0KIC8qKg0KICAqIGFtZGdwdV9nbWNfdnJhbV9mdWxsX3Zpc2libGUg
-LSBDaGVjayBpZiBmdWxsIFZSQU0gaXMgdmlzaWJsZSB0aHJvdWdoIHRoZSBCQVIgZGlmZiAtLWdp
-dCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5jIGIvZHJpdmVycy9ncHUv
-ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMNCmluZGV4IDJjYjgyYjIyOTgwMi4uYjI4NWFiMjUx
-NDZkIDEwMDY0NA0KLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMN
-CisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5jDQpAQCAtMTU3MSwz
-MyArMTU3MSw4IEBAIHN0YXRpYyBpbnQgYW1kZ3B1X3ZtX2JvX3NwbGl0X21hcHBpbmcoc3RydWN0
-IGFtZGdwdV9kZXZpY2UgKmFkZXYsDQogCWlmICghKG1hcHBpbmctPmZsYWdzICYgQU1ER1BVX1BU
-RV9XUklURUFCTEUpKQ0KIAkJZmxhZ3MgJj0gfkFNREdQVV9QVEVfV1JJVEVBQkxFOw0KIA0KLQlp
-ZiAoYWRldi0+YXNpY190eXBlID49IENISVBfVE9OR0EpIHsNCi0JCWZsYWdzICY9IH5BTURHUFVf
-UFRFX0VYRUNVVEFCTEU7DQotCQlmbGFncyB8PSBtYXBwaW5nLT5mbGFncyAmIEFNREdQVV9QVEVf
-RVhFQ1VUQUJMRTsNCi0JfQ0KLQ0KLQlpZiAoYWRldi0+YXNpY190eXBlID49IENISVBfTkFWSTEw
-KSB7DQotCQlmbGFncyAmPSB+QU1ER1BVX1BURV9NVFlQRV9OVjEwX01BU0s7DQotCQlmbGFncyB8
-PSAobWFwcGluZy0+ZmxhZ3MgJiBBTURHUFVfUFRFX01UWVBFX05WMTBfTUFTSyk7DQotCX0gZWxz
-ZSB7DQotCQlmbGFncyAmPSB+QU1ER1BVX1BURV9NVFlQRV9WRzEwX01BU0s7DQotCQlmbGFncyB8
-PSAobWFwcGluZy0+ZmxhZ3MgJiBBTURHUFVfUFRFX01UWVBFX1ZHMTBfTUFTSyk7DQotCX0NCi0N
-Ci0JaWYgKChtYXBwaW5nLT5mbGFncyAmIEFNREdQVV9QVEVfUFJUKSAmJg0KLQkgICAgKGFkZXYt
-PmFzaWNfdHlwZSA+PSBDSElQX1ZFR0ExMCkpIHsNCi0JCWZsYWdzIHw9IEFNREdQVV9QVEVfUFJU
-Ow0KLQkJaWYgKGFkZXYtPmFzaWNfdHlwZSA+PSBDSElQX05BVkkxMCkgew0KLQkJCWZsYWdzIHw9
-IEFNREdQVV9QVEVfU05PT1BFRDsNCi0JCQlmbGFncyB8PSBBTURHUFVfUFRFX0xPRzsNCi0JCQlm
-bGFncyB8PSBBTURHUFVfUFRFX1NZU1RFTTsNCi0JCX0NCi0JCWZsYWdzICY9IH5BTURHUFVfUFRF
-X1ZBTElEOw0KLQl9DQotCWlmIChhZGV2LT5hc2ljX3R5cGUgPT0gQ0hJUF9BUkNUVVJVUyAmJg0K
-LQkgICAgIShmbGFncyAmIEFNREdQVV9QVEVfU1lTVEVNKSAmJg0KLQkgICAgbWFwcGluZy0+Ym9f
-dmEtPmlzX3hnbWkpDQotCQlmbGFncyB8PSBBTURHUFVfUFRFX1NOT09QRUQ7DQorCS8qIEFwcGx5
-IEFTSUMgc3BlY2lmaWMgbWFwcGluZyBmbGFncyAqLw0KKwlhbWRncHVfZ21jX2dldF92bV9wdGUo
-YWRldiwgbWFwcGluZywgJmZsYWdzKTsNCiANCiAJdHJhY2VfYW1kZ3B1X3ZtX2JvX3VwZGF0ZSht
-YXBwaW5nKTsNCiANCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNf
-djEwXzAuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192MTBfMC5jDQppbmRleCA3
-ZWIwYmE4N2ZlZjkuLjFhOGQ4ZjUyOGIwMSAxMDA2NDQNCi0tLSBhL2RyaXZlcnMvZ3B1L2RybS9h
-bWQvYW1kZ3B1L2dtY192MTBfMC5jDQorKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9n
-bWNfdjEwXzAuYw0KQEAgLTQ0MCwxMiArNDQwLDMyIEBAIHN0YXRpYyB2b2lkIGdtY192MTBfMF9n
-ZXRfdm1fcGRlKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LCBpbnQgbGV2ZWwsDQogCX0NCiB9
-DQogDQorc3RhdGljIHZvaWQgZ21jX3YxMF8wX2dldF92bV9wdGUoc3RydWN0IGFtZGdwdV9kZXZp
-Y2UgKmFkZXYsDQorCQkJCSBzdHJ1Y3QgYW1kZ3B1X2JvX3ZhX21hcHBpbmcgKm1hcHBpbmcsDQor
-CQkJCSB1aW50NjRfdCAqZmxhZ3MpDQorew0KKwkqZmxhZ3MgJj0gfkFNREdQVV9QVEVfRVhFQ1VU
-QUJMRTsNCisJKmZsYWdzIHw9IG1hcHBpbmctPmZsYWdzICYgQU1ER1BVX1BURV9FWEVDVVRBQkxF
-Ow0KKw0KKwkqZmxhZ3MgJj0gfkFNREdQVV9QVEVfTVRZUEVfTlYxMF9NQVNLOw0KKwkqZmxhZ3Mg
-fD0gKG1hcHBpbmctPmZsYWdzICYgQU1ER1BVX1BURV9NVFlQRV9OVjEwX01BU0spOw0KKw0KKwlp
-ZiAobWFwcGluZy0+ZmxhZ3MgJiBBTURHUFVfUFRFX1BSVCkgew0KKwkJKmZsYWdzIHw9IEFNREdQ
-VV9QVEVfUFJUOw0KKwkJKmZsYWdzIHw9IEFNREdQVV9QVEVfU05PT1BFRDsNCisJCSpmbGFncyB8
-PSBBTURHUFVfUFRFX0xPRzsNCisJCSpmbGFncyB8PSBBTURHUFVfUFRFX1NZU1RFTTsNCisJCSpm
-bGFncyAmPSB+QU1ER1BVX1BURV9WQUxJRDsNCisJfQ0KK30NCisNCiBzdGF0aWMgY29uc3Qgc3Ry
-dWN0IGFtZGdwdV9nbWNfZnVuY3MgZ21jX3YxMF8wX2dtY19mdW5jcyA9IHsNCiAJLmZsdXNoX2dw
-dV90bGIgPSBnbWNfdjEwXzBfZmx1c2hfZ3B1X3RsYiwNCiAJLmVtaXRfZmx1c2hfZ3B1X3RsYiA9
-IGdtY192MTBfMF9lbWl0X2ZsdXNoX2dwdV90bGIsDQogCS5lbWl0X3Bhc2lkX21hcHBpbmcgPSBn
-bWNfdjEwXzBfZW1pdF9wYXNpZF9tYXBwaW5nLA0KIAkubWFwX210eXBlID0gZ21jX3YxMF8wX21h
-cF9tdHlwZSwNCi0JLmdldF92bV9wZGUgPSBnbWNfdjEwXzBfZ2V0X3ZtX3BkZQ0KKwkuZ2V0X3Zt
-X3BkZSA9IGdtY192MTBfMF9nZXRfdm1fcGRlLA0KKwkuZ2V0X3ZtX3B0ZSA9IGdtY192MTBfMF9n
-ZXRfdm1fcHRlDQogfTsNCiANCiBzdGF0aWMgdm9pZCBnbWNfdjEwXzBfc2V0X2dtY19mdW5jcyhz
-dHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikgZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9h
-bWQvYW1kZ3B1L2dtY192Nl8wLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNfdjZf
-MC5jDQppbmRleCAyZTMwNWIyMWRiNjkuLjEwZDQ2NzU3YzA3OCAxMDA2NDQNCi0tLSBhL2RyaXZl
-cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192Nl8wLmMNCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9h
-bWQvYW1kZ3B1L2dtY192Nl8wLmMNCkBAIC0zODksNiArMzg5LDE0IEBAIHN0YXRpYyB2b2lkIGdt
-Y192Nl8wX2dldF92bV9wZGUoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsIGludCBsZXZlbCwN
-CiAJQlVHX09OKCphZGRyICYgMHhGRkZGRkYwMDAwMDAwRkZGVUxMKTsgIH0NCiANCitzdGF0aWMg
-dm9pZCBnbWNfdjZfMF9nZXRfdm1fcHRlKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LA0KKwkJ
-CQlzdHJ1Y3QgYW1kZ3B1X2JvX3ZhX21hcHBpbmcgKm1hcHBpbmcsDQorCQkJCXVpbnQ2NF90ICpm
-bGFncykNCit7DQorCSpmbGFncyAmPSB+QU1ER1BVX1BURV9FWEVDVVRBQkxFOw0KKwkqZmxhZ3Mg
-Jj0gfkFNREdQVV9QVEVfUFJUOw0KK30NCisNCiBzdGF0aWMgdm9pZCBnbWNfdjZfMF9zZXRfZmF1
-bHRfZW5hYmxlX2RlZmF1bHQoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsDQogCQkJCQkgICAg
-ICBib29sIHZhbHVlKQ0KIHsNCkBAIC0xMTQ0LDYgKzExNTIsNyBAQCBzdGF0aWMgY29uc3Qgc3Ry
-dWN0IGFtZGdwdV9nbWNfZnVuY3MgZ21jX3Y2XzBfZ21jX2Z1bmNzID0gew0KIAkuZW1pdF9mbHVz
-aF9ncHVfdGxiID0gZ21jX3Y2XzBfZW1pdF9mbHVzaF9ncHVfdGxiLA0KIAkuc2V0X3BydCA9IGdt
-Y192Nl8wX3NldF9wcnQsDQogCS5nZXRfdm1fcGRlID0gZ21jX3Y2XzBfZ2V0X3ZtX3BkZSwNCisJ
-LmdldF92bV9wdGUgPSBnbWNfdjZfMF9nZXRfdm1fcHRlLA0KIH07DQogDQogc3RhdGljIGNvbnN0
-IHN0cnVjdCBhbWRncHVfaXJxX3NyY19mdW5jcyBnbWNfdjZfMF9pcnFfZnVuY3MgPSB7IGRpZmYg
-LS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNfdjdfMC5jIGIvZHJpdmVycy9n
-cHUvZHJtL2FtZC9hbWRncHUvZ21jX3Y3XzAuYw0KaW5kZXggM2I3NzQyMTIzNGE3Li5mODZjMWYx
-NWY3YmYgMTAwNjQ0DQotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNfdjdfMC5j
-DQorKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNfdjdfMC5jDQpAQCAtNDY2LDYg
-KzQ2NiwxNCBAQCBzdGF0aWMgdm9pZCBnbWNfdjdfMF9nZXRfdm1fcGRlKHN0cnVjdCBhbWRncHVf
-ZGV2aWNlICphZGV2LCBpbnQgbGV2ZWwsDQogCUJVR19PTigqYWRkciAmIDB4RkZGRkZGMDAwMDAw
-MEZGRlVMTCk7ICB9DQogDQorc3RhdGljIHZvaWQgZ21jX3Y3XzBfZ2V0X3ZtX3B0ZShzdHJ1Y3Qg
-YW1kZ3B1X2RldmljZSAqYWRldiwNCisJCQkJc3RydWN0IGFtZGdwdV9ib192YV9tYXBwaW5nICpt
-YXBwaW5nLA0KKwkJCQl1aW50NjRfdCAqZmxhZ3MpDQorew0KKwkqZmxhZ3MgJj0gfkFNREdQVV9Q
-VEVfRVhFQ1VUQUJMRTsNCisJKmZsYWdzICY9IH5BTURHUFVfUFRFX1BSVDsNCit9DQorDQogLyoq
-DQogICogZ21jX3Y4XzBfc2V0X2ZhdWx0X2VuYWJsZV9kZWZhdWx0IC0gdXBkYXRlIFZNIGZhdWx0
-IGhhbmRsaW5nDQogICoNCkBAIC0xMzM5LDcgKzEzNDcsOCBAQCBzdGF0aWMgY29uc3Qgc3RydWN0
-IGFtZGdwdV9nbWNfZnVuY3MgZ21jX3Y3XzBfZ21jX2Z1bmNzID0gew0KIAkuZW1pdF9mbHVzaF9n
-cHVfdGxiID0gZ21jX3Y3XzBfZW1pdF9mbHVzaF9ncHVfdGxiLA0KIAkuZW1pdF9wYXNpZF9tYXBw
-aW5nID0gZ21jX3Y3XzBfZW1pdF9wYXNpZF9tYXBwaW5nLA0KIAkuc2V0X3BydCA9IGdtY192N18w
-X3NldF9wcnQsDQotCS5nZXRfdm1fcGRlID0gZ21jX3Y3XzBfZ2V0X3ZtX3BkZQ0KKwkuZ2V0X3Zt
-X3BkZSA9IGdtY192N18wX2dldF92bV9wZGUsDQorCS5nZXRfdm1fcHRlID0gZ21jX3Y3XzBfZ2V0
-X3ZtX3B0ZQ0KIH07DQogDQogc3RhdGljIGNvbnN0IHN0cnVjdCBhbWRncHVfaXJxX3NyY19mdW5j
-cyBnbWNfdjdfMF9pcnFfZnVuY3MgPSB7IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1k
-L2FtZGdwdS9nbWNfdjhfMC5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ21jX3Y4XzAu
-Yw0KaW5kZXggNTg0NDRhYTBhZjA1Li4yNTZkMWZhYWNhZGEgMTAwNjQ0DQotLS0gYS9kcml2ZXJz
-L2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNfdjhfMC5jDQorKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1k
-L2FtZGdwdS9nbWNfdjhfMC5jDQpAQCAtNjg5LDYgKzY4OSwxNiBAQCBzdGF0aWMgdm9pZCBnbWNf
-djhfMF9nZXRfdm1fcGRlKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LCBpbnQgbGV2ZWwsDQog
-CUJVR19PTigqYWRkciAmIDB4RkZGRkZGMDAwMDAwMEZGRlVMTCk7ICB9DQogDQorc3RhdGljIHZv
-aWQgZ21jX3Y4XzBfZ2V0X3ZtX3B0ZShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwNCisJCQkJ
-c3RydWN0IGFtZGdwdV9ib192YV9tYXBwaW5nICptYXBwaW5nLA0KKwkJCQl1aW50NjRfdCAqZmxh
-Z3MpDQorew0KKwlCVUdfT04oKmZsYWdzICYgQU1ER1BVX1BURV9QUlQpOw0KKw0KKwkqZmxhZ3Mg
-Jj0gfkFNREdQVV9QVEVfRVhFQ1VUQUJMRTsNCisJKmZsYWdzIHw9IG1hcHBpbmctPmZsYWdzICYg
-QU1ER1BVX1BURV9FWEVDVVRBQkxFOyB9DQorDQogLyoqDQogICogZ21jX3Y4XzBfc2V0X2ZhdWx0
-X2VuYWJsZV9kZWZhdWx0IC0gdXBkYXRlIFZNIGZhdWx0IGhhbmRsaW5nDQogICoNCkBAIC0xNzA1
-LDcgKzE3MTUsOCBAQCBzdGF0aWMgY29uc3Qgc3RydWN0IGFtZGdwdV9nbWNfZnVuY3MgZ21jX3Y4
-XzBfZ21jX2Z1bmNzID0gew0KIAkuZW1pdF9mbHVzaF9ncHVfdGxiID0gZ21jX3Y4XzBfZW1pdF9m
-bHVzaF9ncHVfdGxiLA0KIAkuZW1pdF9wYXNpZF9tYXBwaW5nID0gZ21jX3Y4XzBfZW1pdF9wYXNp
-ZF9tYXBwaW5nLA0KIAkuc2V0X3BydCA9IGdtY192OF8wX3NldF9wcnQsDQotCS5nZXRfdm1fcGRl
-ID0gZ21jX3Y4XzBfZ2V0X3ZtX3BkZQ0KKwkuZ2V0X3ZtX3BkZSA9IGdtY192OF8wX2dldF92bV9w
-ZGUsDQorCS5nZXRfdm1fcHRlID0gZ21jX3Y4XzBfZ2V0X3ZtX3B0ZQ0KIH07DQogDQogc3RhdGlj
-IGNvbnN0IHN0cnVjdCBhbWRncHVfaXJxX3NyY19mdW5jcyBnbWNfdjhfMF9pcnFfZnVuY3MgPSB7
-IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNfdjlfMC5jIGIvZHJp
-dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ21jX3Y5XzAuYw0KaW5kZXggOGVlMGY2NDk4YTg2Li4x
-YTE0NGFkM2EyYjEgMTAwNjQ0DQotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNf
-djlfMC5jDQorKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNfdjlfMC5jDQpAQCAt
-NjI3LDEyICs2MjcsMzQgQEAgc3RhdGljIHZvaWQgZ21jX3Y5XzBfZ2V0X3ZtX3BkZShzdHJ1Y3Qg
-YW1kZ3B1X2RldmljZSAqYWRldiwgaW50IGxldmVsLA0KIAl9DQogfQ0KIA0KK3N0YXRpYyB2b2lk
-IGdtY192OV8wX2dldF92bV9wdGUoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsDQorCQkJCXN0
-cnVjdCBhbWRncHVfYm9fdmFfbWFwcGluZyAqbWFwcGluZywNCisJCQkJdWludDY0X3QgKmZsYWdz
-KQ0KK3sNCisJKmZsYWdzICY9IH5BTURHUFVfUFRFX0VYRUNVVEFCTEU7DQorCSpmbGFncyB8PSBt
-YXBwaW5nLT5mbGFncyAmIEFNREdQVV9QVEVfRVhFQ1VUQUJMRTsNCisNCisJKmZsYWdzICY9IH5B
-TURHUFVfUFRFX01UWVBFX1ZHMTBfTUFTSzsNCisJKmZsYWdzIHw9IG1hcHBpbmctPmZsYWdzICYg
-QU1ER1BVX1BURV9NVFlQRV9WRzEwX01BU0s7DQorDQorCWlmIChtYXBwaW5nLT5mbGFncyAmIEFN
-REdQVV9QVEVfUFJUKSB7DQorCQkqZmxhZ3MgfD0gQU1ER1BVX1BURV9QUlQ7DQorCQkqZmxhZ3Mg
-Jj0gfkFNREdQVV9QVEVfVkFMSUQ7DQorCX0NCisNCisJaWYgKGFkZXYtPmFzaWNfdHlwZSA9PSBD
-SElQX0FSQ1RVUlVTICYmDQorCSAgICAhKCpmbGFncyAmIEFNREdQVV9QVEVfU1lTVEVNKSAmJg0K
-KwkgICAgbWFwcGluZy0+Ym9fdmEtPmlzX3hnbWkpDQorCQkqZmxhZ3MgfD0gQU1ER1BVX1BURV9T
-Tk9PUEVEOw0KK30NCisNCiBzdGF0aWMgY29uc3Qgc3RydWN0IGFtZGdwdV9nbWNfZnVuY3MgZ21j
-X3Y5XzBfZ21jX2Z1bmNzID0gew0KIAkuZmx1c2hfZ3B1X3RsYiA9IGdtY192OV8wX2ZsdXNoX2dw
-dV90bGIsDQogCS5lbWl0X2ZsdXNoX2dwdV90bGIgPSBnbWNfdjlfMF9lbWl0X2ZsdXNoX2dwdV90
-bGIsDQogCS5lbWl0X3Bhc2lkX21hcHBpbmcgPSBnbWNfdjlfMF9lbWl0X3Bhc2lkX21hcHBpbmcs
-DQogCS5tYXBfbXR5cGUgPSBnbWNfdjlfMF9tYXBfbXR5cGUsDQotCS5nZXRfdm1fcGRlID0gZ21j
-X3Y5XzBfZ2V0X3ZtX3BkZQ0KKwkuZ2V0X3ZtX3BkZSA9IGdtY192OV8wX2dldF92bV9wZGUsDQor
-CS5nZXRfdm1fcHRlID0gZ21jX3Y5XzBfZ2V0X3ZtX3B0ZQ0KIH07DQogDQogc3RhdGljIHZvaWQg
-Z21jX3Y5XzBfc2V0X2dtY19mdW5jcyhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikNCi0tDQoy
-LjE3LjENCg0KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18N
-CmFtZC1nZnggbWFpbGluZyBsaXN0DQphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0KaHR0
-cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4DQpfX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxp
-bmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVk
-ZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
+On Fri, Aug 23, 2019 at 7:49 PM Cristian Marussi
+<cristian.marussi@arm.com> wrote:
+>
+>
+> Hi
+>
+> On 23/08/2019 18:16, Andrey Konovalov wrote:
+> > On Fri, Aug 23, 2019 at 3:56 PM Cristian Marussi
+> > <cristian.marussi@arm.com> wrote:
+> >>
+> >> Hi Andrey
+> >>
+> >> On 24/06/2019 15:33, Andrey Konovalov wrote:
+> >>> This patch is a part of a series that extends kernel ABI to allow to =
+pass
+> >>> tagged user pointers (with the top byte set to something else other t=
+han
+> >>> 0x00) as syscall arguments.
+> >>>
+> >>> This patch adds a simple test, that calls the uname syscall with a
+> >>> tagged user pointer as an argument. Without the kernel accepting tagg=
+ed
+> >>> user pointers the test fails with EFAULT.
+> >>>
+> >>> Signed-off-by: Andrey Konovalov <andreyknvl@google.com>
+> >>> ---
+> >>>  tools/testing/selftests/arm64/.gitignore      |  1 +
+> >>>  tools/testing/selftests/arm64/Makefile        | 11 +++++++
+> >>>  .../testing/selftests/arm64/run_tags_test.sh  | 12 ++++++++
+> >>>  tools/testing/selftests/arm64/tags_test.c     | 29 +++++++++++++++++=
+++
+> >>>  4 files changed, 53 insertions(+)
+> >>>  create mode 100644 tools/testing/selftests/arm64/.gitignore
+> >>>  create mode 100644 tools/testing/selftests/arm64/Makefile
+> >>>  create mode 100755 tools/testing/selftests/arm64/run_tags_test.sh
+> >>>  create mode 100644 tools/testing/selftests/arm64/tags_test.c
+> >>
+> >> After building a fresh Kernel from arm64/for-next-core from scratch at=
+:
+> >>
+> >> commit 239ab658bea3b387424501e7c416640d6752dc0c
+> >> Merge: 6bfa3134bd3a 42d038c4fb00 1243cb6a676f d55c5f28afaf d06fa5a118f=
+1 34b5560db40d
+> >> Author: Will Deacon <will@kernel.org>
+> >> Date:   Thu Aug 22 18:23:53 2019 +0100
+> >>
+> >>     Merge branches 'for-next/error-injection', 'for-next/tbi', 'for-ne=
+xt/psci-cpuidle', 'for-next/cpu-topology' and 'for-next/52-bit-kva' into fo=
+r-next/core
+> >>
+> >>
+> >> KSFT arm64 tests build is broken for me, both setting or not KBUILD_OU=
+TPUT=3D
+> >>
+> >> 13:30 $ make TARGETS=3Darm64 kselftest-clean
+> >> make[1]: Entering directory '/home/crimar01/ARM/dev/src/pdsw/out_linux=
+'
+> >> rm -f -r /home/crimar01/ARM/dev/src/pdsw/out_linux//kselftest/arm64/ta=
+gs_test
+> >> make[1]: Leaving directory '/home/crimar01/ARM/dev/src/pdsw/out_linux'
+> >>
+> >> =E2=9C=94 ~/ARM/dev/src/pdsw/linux [arm64_for_next_core|=E2=80=A68=E2=
+=9A=91 23]
+> >>
+> >> 13:30 $ make TARGETS=3Darm64 kselftest
+> >> make[1]: Entering directory '/home/crimar01/ARM/dev/src/pdsw/out_linux=
+'
+> >> arch/arm64/Makefile:56: CROSS_COMPILE_COMPAT not defined or empty, the=
+ compat vDSO will not be built
+> >> make --no-builtin-rules INSTALL_HDR_PATH=3D$BUILD/usr \
+> >>         ARCH=3Darm64 -C ../../.. headers_install
+> >>   HOSTCC  scripts/basic/fixdep
+> >>   HOSTCC  scripts/unifdef
+> >> ...
+> >> ...
+> >>   HDRINST usr/include/asm/msgbuf.h
+> >>   HDRINST usr/include/asm/shmbuf.h
+> >>   INSTALL /home/crimar01/ARM/dev/src/pdsw/out_linux//kselftest/usr/inc=
+lude
+> >> /opt/toolchains/gcc-arm-8.3-2019.03-x86_64-aarch64-linux-gnu/bin/aarch=
+64-linux-gnu-gcc     tags_test.c  -o /home/crimar01/ARM/dev/src/pdsw/out_li=
+nux//kselftest/arm64/tags_test
+> >> tags_test.c: In function =E2=80=98main=E2=80=99:
+> >> tags_test.c:21:12: error: =E2=80=98PR_SET_TAGGED_ADDR_CTRL=E2=80=99 un=
+declared (first use in this function); did you mean =E2=80=98PR_GET_TID_ADD=
+RESS=E2=80=99?
+> >>   if (prctl(PR_SET_TAGGED_ADDR_CTRL, PR_TAGGED_ADDR_ENABLE, 0, 0, 0) =
+=3D=3D 0)
+> >>             ^~~~~~~~~~~~~~~~~~~~~~~
+> >>             PR_GET_TID_ADDRESS
+> >> tags_test.c:21:12: note: each undeclared identifier is reported only o=
+nce for each function it appears in
+> >> tags_test.c:21:37: error: =E2=80=98PR_TAGGED_ADDR_ENABLE=E2=80=99 unde=
+clared (first use in this function); did you mean =E2=80=98PR_GET_DUMPABLE=
+=E2=80=99?
+> >>   if (prctl(PR_SET_TAGGED_ADDR_CTRL, PR_TAGGED_ADDR_ENABLE, 0, 0, 0) =
+=3D=3D 0)
+> >>                                      ^~~~~~~~~~~~~~~~~~~~~
+> >>                                      PR_GET_DUMPABLE
+> >> ../lib.mk:138: recipe for target '/home/crimar01/ARM/dev/src/pdsw/out_=
+linux//kselftest/arm64/tags_test' failed
+> >> make[3]: *** [/home/crimar01/ARM/dev/src/pdsw/out_linux//kselftest/arm=
+64/tags_test] Error 1
+> >> Makefile:136: recipe for target 'all' failed
+> >> make[2]: *** [all] Error 2
+> >> /home/crimar01/ARM/dev/src/pdsw/linux/Makefile:1237: recipe for target=
+ 'kselftest' failed
+> >> make[1]: *** [kselftest] Error 2
+> >> make[1]: Leaving directory '/home/crimar01/ARM/dev/src/pdsw/out_linux'
+> >> Makefile:179: recipe for target 'sub-make' failed
+> >> make: *** [sub-make] Error 2
+> >>
+> >> Despite seeing KSFT installing Kernel Headers, they cannot be found.
+> >>
+> >> Fixing this patch like this make it work for me:
+> >>
+> >> diff --git a/tools/testing/selftests/arm64/Makefile b/tools/testing/se=
+lftests/arm64/Makefile
+> >> index a61b2e743e99..f9f79fb272f0 100644
+> >> --- a/tools/testing/selftests/arm64/Makefile
+> >> +++ b/tools/testing/selftests/arm64/Makefile
+> >> @@ -4,6 +4,7 @@
+> >>  ARCH ?=3D $(shell uname -m 2>/dev/null || echo not)
+> >>
+> >>  ifneq (,$(filter $(ARCH),aarch64 arm64))
+> >> +CFLAGS +=3D -I../../../../usr/include/
+> >>  TEST_GEN_PROGS :=3D tags_test
+> >>  TEST_PROGS :=3D run_tags_test.sh
+> >>  endif
+> >>
+> >> but is not really a proper fix since it does NOT account for case in w=
+hich you have
+> >> installed the Kernel Headers in a non standard location like when you =
+use KBUILD_OUTPUT.
+> >>
+> >> Am I missing something ?
+> >
+> > Hm, PR_SET_TAGGED_ADDR_CTRL is defined in include/uapi/linux/prctl.h,
+> > and the test has #include <sys/prctl.h> so as long as you've updated
+> > your kernel headers this should work.
+> >
+> > (I'm OOO next week, I'll see if I can reproduce this once I'm back).
+>
+> Ok. Thanks for the reply.
+>
+> I think I've got it in my local tree having cloned arm64/for-next-core:
+>
+> 18:32 $ egrep -A 10 PR_SET_TAG ./include/uapi/linux/prctl.h
+> #define PR_SET_TAGGED_ADDR_CTRL         55
+> #define PR_GET_TAGGED_ADDR_CTRL         56
+> # define PR_TAGGED_ADDR_ENABLE          (1UL << 0)
+>
+> #endif /* _LINUX_PRCTL_H */
+>
+> and Kernel header are locally installed in my kernel src dir (by KSFT ind=
+eed)
+>
+> 18:34 $ egrep -RA 10 PR_SET_TAG usr/include/
+> usr/include/linux/prctl.h:#define PR_SET_TAGGED_ADDR_CTRL               5=
+5
+> usr/include/linux/prctl.h-#define PR_GET_TAGGED_ADDR_CTRL               5=
+6
+> usr/include/linux/prctl.h-# define PR_TAGGED_ADDR_ENABLE                (=
+1UL << 0)
+> usr/include/linux/prctl.h-
+> usr/include/linux/prctl.h-#endif /* _LINUX_PRCTL_H */
+>
+> but how are they supposed to be found if nor the test Makefile
+> neither the KSFT Makefile who installs them pass any -I options to the
+> compiler ?
+> I suppose <sys/prctl.h> tries to include arch specific headers from the r=
+egular system path,
+> but when you are cross-compiling ?
+>
+> 18:34 $ make TARGETS=3Darm64 kselftest
+> make[1]: Entering directory '/home/crimar01/ARM/dev/src/pdsw/out_linux'
+> arch/arm64/Makefile:56: CROSS_COMPILE_COMPAT not defined or empty, the co=
+mpat vDSO will not be built
+> make --no-builtin-rules INSTALL_HDR_PATH=3D$BUILD/usr \
+>         ARCH=3Darm64 -C ../../.. headers_install
+>   INSTALL /home/crimar01/ARM/dev/src/pdsw/out_linux/kselftest/usr/include
+> /opt/toolchains/gcc-arm-8.3-2019.03-x86_64-aarch64-linux-gnu/bin/aarch64-=
+linux-gnu-gcc -Wall -O2 -g    tags_test.c  -o /home/crimar01/ARM/dev/src/pd=
+sw/out_linux/kselftest/arm64/tags/tags_test
+> tags_test.c: In function =E2=80=98main=E2=80=99:
+> tags_test.c:20:12: error: =E2=80=98PR_SET_TAGGED_ADDR_CTRL=E2=80=99 undec=
+lared (first use in this function); did you mean =E2=80=98PR_GET_TID_ADDRES=
+S=E2=80=99?
+>   if (prctl(PR_SET_TAGGED_ADDR_CTRL, PR_TAGGED_ADDR_ENABLE, 0, 0, 0) =3D=
+=3D 0)
+>             ^~~~~~~~~~~~~~~~~~~~~~~
+>             PR_GET_TID_ADDRESS
+> tags_test.c:20:12: note: each undeclared identifier is reported only once=
+ for each function it appears in
+> tags_test.c:20:37: error: =E2=80=98PR_TAGGED_ADDR_ENABLE=E2=80=99 undecla=
+red (first use in this function); did you mean =E2=80=98PR_GET_DUMPABLE=E2=
+=80=99?
+>   if (prctl(PR_SET_TAGGED_ADDR_CTRL, PR_TAGGED_ADDR_ENABLE, 0, 0, 0) =3D=
+=3D 0)
+>                                      ^~~~~~~~~~~~~~~~~~~~~
+>                                      PR_GET_DUMPABLE
+> ../../lib.mk:138: recipe for target '/home/crimar01/ARM/dev/src/pdsw/out_=
+linux/kselftest/arm64/tags/tags_test' failed
+> make[4]: *** [/home/crimar01/ARM/dev/src/pdsw/out_linux/kselftest/arm64/t=
+ags/tags_test] Error 1
+> Makefile:19: recipe for target 'all' failed
+> make[3]: *** [all] Error 2
+> Makefile:137: recipe for target 'all' failed
+> make[2]: *** [all] Error 2
+> /home/crimar01/ARM/dev/src/pdsw/linux/Makefile:1236: recipe for target 'k=
+selftest' failed
+> make[1]: *** [kselftest] Error 2
+> make[1]: Leaving directory '/home/crimar01/ARM/dev/src/pdsw/out_linux'
+> Makefile:179: recipe for target 'sub-make' failed
+> make: *** [sub-make] Error 2
+>
+>
+> In fact many KSFT testcases seems to brutally add default headers path:
+>
+> tools/testing/selftests/memfd/Makefile:CFLAGS +=3D -I../../../../include/=
+uapi/
+> tools/testing/selftests/memfd/Makefile:CFLAGS +=3D -I../../../../include/
+> tools/testing/selftests/memfd/Makefile:CFLAGS +=3D -I../../../../usr/incl=
+ude/
+> tools/testing/selftests/net/Makefile:CFLAGS +=3D -I../../../../usr/includ=
+e/
+> tools/testing/selftests/membarrier/Makefile:CFLAGS +=3D -g -I../../../../=
+usr/include/
+> ...
+
+Hi Cristian!
+
+Indeed, I can reproduce the issue. I don't know what's the proper way
+to resolve this. Adding "CFLAGS +=3D -I../../../../usr/include/" looks
+good to me. AFAICS your series resolves this issue in a similar way,
+but I think we should fix this before the current rc is released. Do
+you want to submit a patch that adds this simple fix or should I do
+that?
+
+Thanks!
+
+>
+> Cheers
+>
+> Cristian
+> >
+> >
+> >
+> >>
+> >> Thanks
+> >>
+> >> Cristian
+> >>
+> >>>
+> >>> diff --git a/tools/testing/selftests/arm64/.gitignore b/tools/testing=
+/selftests/arm64/.gitignore
+> >>> new file mode 100644
+> >>> index 000000000000..e8fae8d61ed6
+> >>> --- /dev/null
+> >>> +++ b/tools/testing/selftests/arm64/.gitignore
+> >>> @@ -0,0 +1 @@
+> >>> +tags_test
+> >>> diff --git a/tools/testing/selftests/arm64/Makefile b/tools/testing/s=
+elftests/arm64/Makefile
+> >>> new file mode 100644
+> >>> index 000000000000..a61b2e743e99
+> >>> --- /dev/null
+> >>> +++ b/tools/testing/selftests/arm64/Makefile
+> >>> @@ -0,0 +1,11 @@
+> >>> +# SPDX-License-Identifier: GPL-2.0
+> >>> +
+> >>> +# ARCH can be overridden by the user for cross compiling
+> >>> +ARCH ?=3D $(shell uname -m 2>/dev/null || echo not)
+> >>> +
+> >>> +ifneq (,$(filter $(ARCH),aarch64 arm64))
+> >>> +TEST_GEN_PROGS :=3D tags_test
+> >>> +TEST_PROGS :=3D run_tags_test.sh
+> >>> +endif
+> >>> +
+> >>> +include ../lib.mk
+> >>> diff --git a/tools/testing/selftests/arm64/run_tags_test.sh b/tools/t=
+esting/selftests/arm64/run_tags_test.sh
+> >>> new file mode 100755
+> >>> index 000000000000..745f11379930
+> >>> --- /dev/null
+> >>> +++ b/tools/testing/selftests/arm64/run_tags_test.sh
+> >>> @@ -0,0 +1,12 @@
+> >>> +#!/bin/sh
+> >>> +# SPDX-License-Identifier: GPL-2.0
+> >>> +
+> >>> +echo "--------------------"
+> >>> +echo "running tags test"
+> >>> +echo "--------------------"
+> >>> +./tags_test
+> >>> +if [ $? -ne 0 ]; then
+> >>> +     echo "[FAIL]"
+> >>> +else
+> >>> +     echo "[PASS]"
+> >>> +fi
+> >>> diff --git a/tools/testing/selftests/arm64/tags_test.c b/tools/testin=
+g/selftests/arm64/tags_test.c
+> >>> new file mode 100644
+> >>> index 000000000000..22a1b266e373
+> >>> --- /dev/null
+> >>> +++ b/tools/testing/selftests/arm64/tags_test.c
+> >>> @@ -0,0 +1,29 @@
+> >>> +// SPDX-License-Identifier: GPL-2.0
+> >>> +
+> >>> +#include <stdio.h>
+> >>> +#include <stdlib.h>
+> >>> +#include <unistd.h>
+> >>> +#include <stdint.h>
+> >>> +#include <sys/prctl.h>
+> >>> +#include <sys/utsname.h>
+> >>> +
+> >>> +#define SHIFT_TAG(tag)               ((uint64_t)(tag) << 56)
+> >>> +#define SET_TAG(ptr, tag)    (((uint64_t)(ptr) & ~SHIFT_TAG(0xff)) |=
+ \
+> >>> +                                     SHIFT_TAG(tag))
+> >>> +
+> >>> +int main(void)
+> >>> +{
+> >>> +     static int tbi_enabled =3D 0;
+> >>> +     struct utsname *ptr, *tagged_ptr;
+> >>> +     int err;
+> >>> +
+> >>> +     if (prctl(PR_SET_TAGGED_ADDR_CTRL, PR_TAGGED_ADDR_ENABLE, 0, 0,=
+ 0) =3D=3D 0)
+> >>> +             tbi_enabled =3D 1;
+> >>> +     ptr =3D (struct utsname *)malloc(sizeof(*ptr));
+> >>> +     if (tbi_enabled)
+> >>> +             tagged_ptr =3D (struct utsname *)SET_TAG(ptr, 0x42);
+> >>> +     err =3D uname(tagged_ptr);
+> >>> +     free(ptr);
+> >>> +
+> >>> +     return err;
+> >>> +}
+> >>>
+> >>
+>
