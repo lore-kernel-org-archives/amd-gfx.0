@@ -1,33 +1,66 @@
-From: zhong jiang <zhongjiang@huawei.com>
-Subject: Re: drm/amdgpu: remove the redundant null check
-Date: Thu, 5 Sep 2019 16:46:50 +0800
-Message-ID: <5D70CB7A.8040307@huawei.com>
-References: <1567491305-18320-1-git-send-email-zhongjiang@huawei.com> <62b33279-9ca9-5970-5336-a8511ce54197@web.de> <5D70A196.3020106@huawei.com> <dd351754-cb3a-b19a-64e1-f2f583c2a23a@web.de>
+From: "Yuan, Xiaojie" <Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH] drm/amd/powerplay: fix 'unusedd variable' compile warning
+Date: Thu, 5 Sep 2019 09:25:45 +0000
+Message-ID: <20190905092526.5962-1-xiaojie.yuan@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <dd351754-cb3a-b19a-64e1-f2f583c2a23a@web.de>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Markus Elfring <Markus.Elfring@web.de>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, LKML <linux-kernel@vger.kernel.org>, kernel-janitors@vger.kernel.org
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Quan, Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>, "Feng, Kenneth" <Kenneth.Feng-5C7GfCeVMHo@public.gmane.org>, "Wang, Kevin(Yang)" <Kevin1.Wang-5C7GfCeVMHo@public.gmane.org>, "Yuan,
+ Xiaojie" <Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org>
 
-On 2019/9/5 16:38, Markus Elfring wrote:
->>> Were any source code analysis tools involved for finding
->>> these update candidates?
->> With the help of Coccinelle. You can find out some example in scripts/coccinelle/.
-> Thanks for such background information.
-> Was the script “ifnullfree.cocci” applied here?
-Yep
-> Will it be helpful to add attribution for such tools
-> to any more descriptions in your patches?
-Sometimes, I will add the description in my patches. Not always.
-
-Thanks,
-zhong jiang
-> Regards,
-> Markus
->
-> .
->
+U2lnbmVkLW9mZi1ieTogWGlhb2ppZSBZdWFuIDx4aWFvamllLnl1YW5AYW1kLmNvbT4KLS0tCiBk
+cml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9hcmN0dXJ1c19wcHQuYyB8IDIgLS0KIGRyaXZl
+cnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L25hdmkxMF9wcHQuYyAgIHwgMiAtLQogZHJpdmVycy9n
+cHUvZHJtL2FtZC9wb3dlcnBsYXkvcmVub2lyX3BwdC5jICAgfCAyIC0tCiBkcml2ZXJzL2dwdS9k
+cm0vYW1kL3Bvd2VycGxheS92ZWdhMjBfcHB0LmMgICB8IDIgLS0KIDQgZmlsZXMgY2hhbmdlZCwg
+OCBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxh
+eS9hcmN0dXJ1c19wcHQuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2FyY3R1cnVz
+X3BwdC5jCmluZGV4IDZlOGViMGY5NGM4Yi4uMWM2NzMyODQ3MTg1IDEwMDY0NAotLS0gYS9kcml2
+ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9hcmN0dXJ1c19wcHQuYworKysgYi9kcml2ZXJzL2dw
+dS9kcm0vYW1kL3Bvd2VycGxheS9hcmN0dXJ1c19wcHQuYwpAQCAtMTkzMSw3ICsxOTMxLDUgQEAg
+c3RhdGljIGNvbnN0IHN0cnVjdCBwcHRhYmxlX2Z1bmNzIGFyY3R1cnVzX3BwdF9mdW5jcyA9IHsK
+IAogdm9pZCBhcmN0dXJ1c19zZXRfcHB0X2Z1bmNzKHN0cnVjdCBzbXVfY29udGV4dCAqc211KQog
+ewotCXN0cnVjdCBzbXVfdGFibGVfY29udGV4dCAqc211X3RhYmxlID0gJnNtdS0+c211X3RhYmxl
+OwotCiAJc211LT5wcHRfZnVuY3MgPSAmYXJjdHVydXNfcHB0X2Z1bmNzOwogfQpkaWZmIC0tZ2l0
+IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvbmF2aTEwX3BwdC5jIGIvZHJpdmVycy9n
+cHUvZHJtL2FtZC9wb3dlcnBsYXkvbmF2aTEwX3BwdC5jCmluZGV4IGUzYWRkOGI1OTI5MS4uMTY2
+MzRlNjU3NTg5IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9uYXZp
+MTBfcHB0LmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvbmF2aTEwX3BwdC5j
+CkBAIC0xNjMwLDcgKzE2MzAsNSBAQCBzdGF0aWMgY29uc3Qgc3RydWN0IHBwdGFibGVfZnVuY3Mg
+bmF2aTEwX3BwdF9mdW5jcyA9IHsKIAogdm9pZCBuYXZpMTBfc2V0X3BwdF9mdW5jcyhzdHJ1Y3Qg
+c211X2NvbnRleHQgKnNtdSkKIHsKLQlzdHJ1Y3Qgc211X3RhYmxlX2NvbnRleHQgKnNtdV90YWJs
+ZSA9ICZzbXUtPnNtdV90YWJsZTsKLQogCXNtdS0+cHB0X2Z1bmNzID0gJm5hdmkxMF9wcHRfZnVu
+Y3M7CiB9CmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9yZW5vaXJf
+cHB0LmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9yZW5vaXJfcHB0LmMKaW5kZXgg
+YjdmYThiMTU4ZmYyLi5hNWNmODQ2YjUwZDQgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9h
+bWQvcG93ZXJwbGF5L3Jlbm9pcl9wcHQuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2Vy
+cGxheS9yZW5vaXJfcHB0LmMKQEAgLTI1Nyw4ICsyNTcsNiBAQCBzdGF0aWMgY29uc3Qgc3RydWN0
+IHBwdGFibGVfZnVuY3MgcmVub2lyX3BwdF9mdW5jcyA9IHsKIAogdm9pZCByZW5vaXJfc2V0X3Bw
+dF9mdW5jcyhzdHJ1Y3Qgc211X2NvbnRleHQgKnNtdSkKIHsKLQlzdHJ1Y3Qgc211X3RhYmxlX2Nv
+bnRleHQgKnNtdV90YWJsZSA9ICZzbXUtPnNtdV90YWJsZTsKLQogCXNtdS0+cHB0X2Z1bmNzID0g
+JnJlbm9pcl9wcHRfZnVuY3M7CiAJc211LT5zbWNfaWZfdmVyc2lvbiA9IFNNVTEyX0RSSVZFUl9J
+Rl9WRVJTSU9OOwogfQpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkv
+dmVnYTIwX3BwdC5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvdmVnYTIwX3BwdC5j
+CmluZGV4IDE4ZDFiNDMyZjcxOS4uOTI5ZjYxODkxZGZhIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dw
+dS9kcm0vYW1kL3Bvd2VycGxheS92ZWdhMjBfcHB0LmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2Ft
+ZC9wb3dlcnBsYXkvdmVnYTIwX3BwdC5jCkBAIC0zMTgwLDcgKzMxODAsNSBAQCBzdGF0aWMgY29u
+c3Qgc3RydWN0IHBwdGFibGVfZnVuY3MgdmVnYTIwX3BwdF9mdW5jcyA9IHsKIAogdm9pZCB2ZWdh
+MjBfc2V0X3BwdF9mdW5jcyhzdHJ1Y3Qgc211X2NvbnRleHQgKnNtdSkKIHsKLQlzdHJ1Y3Qgc211
+X3RhYmxlX2NvbnRleHQgKnNtdV90YWJsZSA9ICZzbXUtPnNtdV90YWJsZTsKLQogCXNtdS0+cHB0
+X2Z1bmNzID0gJnZlZ2EyMF9wcHRfZnVuY3M7CiB9Ci0tIAoyLjIwLjEKCl9fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFt
+ZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
+L21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
