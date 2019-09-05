@@ -1,97 +1,47 @@
-From: "Kazlauskas, Nicholas" <Nicholas.Kazlauskas-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amd/display: Add stereo mux and dig programming calls
- for dcn21
-Date: Thu, 5 Sep 2019 12:45:54 +0000
-Message-ID: <384b634b-6650-d4d0-6e86-9ef9af6385ff@amd.com>
-References: <1567633392-26602-1-git-send-email-Roman.Li@amd.com>
+From: Harry Wentland <hwentlan@amd.com>
+Subject: Re: linux-next: Tree for Sep 4 (amd/display/)
+Date: Thu, 5 Sep 2019 13:17:14 +0000
+Message-ID: <752f74d6-f6ff-6013-25ad-a8fdce934d17@amd.com>
+References: <20190904233443.3f73c46b@canb.auug.org.au>
+ <6b70fdfd-1f18-1e55-2574-7be5997cfb2a@infradead.org>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1567633392-26602-1-git-send-email-Roman.Li-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset="Windows-1252"
+Content-Transfer-Encoding: quoted-printable
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <6b70fdfd-1f18-1e55-2574-7be5997cfb2a@infradead.org>
 Content-Language: en-US
-Content-ID: <47973C2678A1A84B833597A525F902A5-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Li, Roman" <Roman.Li-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Lakha,
- Bhawanpreet" <Bhawanpreet.Lakha-5C7GfCeVMHo@public.gmane.org>, "Huang, Ray" <Ray.Huang-5C7GfCeVMHo@public.gmane.org>, "Wentland, Harry" <Harry.Wentland-5C7GfCeVMHo@public.gmane.org>, "Liu, Aaron" <Aaron.Liu-5C7GfCeVMHo@public.gmane.org>
+Content-ID: <C2E148370D9A45438625E22C870190C8@namprd12.prod.outlook.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Randy Dunlap <rdunlap@infradead.org>, Stephen Rothwell <sfr@canb.auug.org.au>, Linux Next Mailing List <linux-next@vger.kernel.org>
+Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, dri-devel <dri-devel@lists.freedesktop.org>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Wentland, Harry" <Harry.Wentland@amd.com>, "Li, Sun peng (Leo)" <Sunpeng.Li@amd.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gMjAxOS0wOS0wNCA1OjQzIHAubS4sIFJvbWFuLkxpQGFtZC5jb20gd3JvdGU6DQo+IEZyb206
-IFJvbWFuIExpIDxSb21hbi5MaUBhbWQuY29tPg0KPiANCj4gW1doeV0NCj4gVGhlIGVhcmxpZXIg
-cGF0Y2ggIkhvb2sgdXAgY2FsbHMgdG8gZG8gc3RlcmVvIG11eCBhbmQgZGlnIHByb2dyYW1taW5n
-Li4uIg0KPiBkb2Vzbid0IGluY2x1ZGUgdXBkYXRlIGZvciBkY24yMS4NCj4gDQo+IFtIb3ddDQo+
-IEFsaWduIGRjbjIxIGdwaW8gc2V0dGluZ3Mgd2l0aCB1cGRhdGVkIHN0ZXJlbyBjb250cm9sIGlu
-dGVyZmFjZS4NCj4gDQo+IFNpZ25lZC1vZmYtYnk6IFJvbWFuIExpIDxSb21hbi5MaUBhbWQuY29t
-Pg0KDQpUaGUgcGF0Y2ggaXRzZWxmIGxvb2tzIGdvb2QgYnV0IHRoZSBjb21taXQgZGVzY3JpcHRp
-b24gZG9lc24ndCBhY3R1YWxseSANCmRlc2NyaWJlIHdoYXQncyBiZWluZyBkb25lIGhlcmUgLSB0
-aGlzIGRvZXNuJ3QgaG9vayB1cCBwcm9ncmFtbWluZyANCmNhbGxzLCBpdCBqdXN0IGZpbGxzIHRo
-ZSBkY24yMSBncGlvIGdlbmVyaWMgcmVnaXN0ZXJzIHRoYXQgd2VyZSANCnByZXZpb3VzbHkgbWlz
-c2luZy4NCg0KTmljaG9sYXMgS2F6bGF1c2thcw0KDQo+IC0tLQ0KPiAgIC4uLi9hbWQvZGlzcGxh
-eS9kYy9ncGlvL2RjbjIxL2h3X2ZhY3RvcnlfZGNuMjEuYyAgIHwgMzggKysrKysrKysrKysrKysr
-KysrKystLQ0KPiAgIC4uLi9hbWQvZGlzcGxheS9kYy9ncGlvL2RjbjIxL2h3X3RyYW5zbGF0ZV9k
-Y24yMS5jIHwgIDMgKy0NCj4gICAyIGZpbGVzIGNoYW5nZWQsIDM2IGluc2VydGlvbnMoKyksIDUg
-ZGVsZXRpb25zKC0pDQo+IA0KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNw
-bGF5L2RjL2dwaW8vZGNuMjEvaHdfZmFjdG9yeV9kY24yMS5jIGIvZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9kaXNwbGF5L2RjL2dwaW8vZGNuMjEvaHdfZmFjdG9yeV9kY24yMS5jDQo+IGluZGV4IDM0NDg1
-ZDkuLjg1NzI2NzggMTAwNjQ0DQo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9k
-Yy9ncGlvL2RjbjIxL2h3X2ZhY3RvcnlfZGNuMjEuYw0KPiArKysgYi9kcml2ZXJzL2dwdS9kcm0v
-YW1kL2Rpc3BsYXkvZGMvZ3Bpby9kY24yMS9od19mYWN0b3J5X2RjbjIxLmMNCj4gQEAgLTM1LDEy
-ICszNSwxMCBAQA0KPiAgIA0KPiAgICNpbmNsdWRlICJod19mYWN0b3J5X2RjbjIxLmgiDQo+ICAg
-DQo+IC0NCj4gICAjaW5jbHVkZSAiZGNuL2Rjbl8yXzFfMF9vZmZzZXQuaCINCj4gICAjaW5jbHVk
-ZSAiZGNuL2Rjbl8yXzFfMF9zaF9tYXNrLmgiDQo+ICAgI2luY2x1ZGUgInJlbm9pcl9pcF9vZmZz
-ZXQuaCINCj4gICANCj4gLQ0KPiAgICNpbmNsdWRlICJyZWdfaGVscGVyLmgiDQo+ICAgI2luY2x1
-ZGUgIi4uL2hwZF9yZWdzLmgiDQo+ICAgLyogYmVnaW4gKioqKioqKioqKioqKioqKioqKioqDQo+
-IEBAIC0xMzYsNiArMTM0LDM5IEBAIHN0YXRpYyBjb25zdCBzdHJ1Y3QgZGRjX3NoX21hc2sgZGRj
-X21hc2tbXSA9IHsNCj4gICAJRERDX01BU0tfU0hfTElTVF9EQ04yKF9NQVNLLCA2KQ0KPiAgIH07
-DQo+ICAgDQo+ICsjaW5jbHVkZSAiLi4vZ2VuZXJpY19yZWdzLmgiDQo+ICsNCj4gKy8qIHNldCBm
-aWVsZCBuYW1lICovDQo+ICsjZGVmaW5lIFNGX0dFTkVSSUMocmVnX25hbWUsIGZpZWxkX25hbWUs
-IHBvc3RfZml4KVwNCj4gKwkuZmllbGRfbmFtZSA9IHJlZ19uYW1lICMjIF9fICMjIGZpZWxkX25h
-bWUgIyMgcG9zdF9maXgNCj4gKw0KPiArI2RlZmluZSBnZW5lcmljX3JlZ3MoaWQpIFwNCj4gK3tc
-DQo+ICsJR0VORVJJQ19SRUdfTElTVChpZClcDQo+ICt9DQo+ICsNCj4gK3N0YXRpYyBjb25zdCBz
-dHJ1Y3QgZ2VuZXJpY19yZWdpc3RlcnMgZ2VuZXJpY19yZWdzW10gPSB7DQo+ICsJZ2VuZXJpY19y
-ZWdzKEEpLA0KPiArfTsNCj4gKw0KPiArc3RhdGljIGNvbnN0IHN0cnVjdCBnZW5lcmljX3NoX21h
-c2sgZ2VuZXJpY19zaGlmdFtdID0gew0KPiArCUdFTkVSSUNfTUFTS19TSF9MSVNUKF9fU0hJRlQs
-IEEpLA0KPiArfTsNCj4gKw0KPiArc3RhdGljIGNvbnN0IHN0cnVjdCBnZW5lcmljX3NoX21hc2sg
-Z2VuZXJpY19tYXNrW10gPSB7DQo+ICsJR0VORVJJQ19NQVNLX1NIX0xJU1QoX01BU0ssIEEpLA0K
-PiArfTsNCj4gKw0KPiArc3RhdGljIHZvaWQgZGVmaW5lX2dlbmVyaWNfcmVnaXN0ZXJzKHN0cnVj
-dCBod19ncGlvX3BpbiAqcGluLCB1aW50MzJfdCBlbikNCj4gK3sNCj4gKwlzdHJ1Y3QgaHdfZ2Vu
-ZXJpYyAqZ2VuZXJpYyA9IEhXX0dFTkVSSUNfRlJPTV9CQVNFKHBpbik7DQo+ICsNCj4gKwlnZW5l
-cmljLT5yZWdzID0gJmdlbmVyaWNfcmVnc1tlbl07DQo+ICsJZ2VuZXJpYy0+c2hpZnRzID0gJmdl
-bmVyaWNfc2hpZnRbZW5dOw0KPiArCWdlbmVyaWMtPm1hc2tzID0gJmdlbmVyaWNfbWFza1tlbl07
-DQo+ICsJZ2VuZXJpYy0+YmFzZS5yZWdzID0gJmdlbmVyaWNfcmVnc1tlbl0uZ3BpbzsNCj4gK30N
-Cj4gKw0KPiAgIHN0YXRpYyB2b2lkIGRlZmluZV9kZGNfcmVnaXN0ZXJzKA0KPiAgIAkJc3RydWN0
-IGh3X2dwaW9fcGluICpwaW4sDQo+ICAgCQl1aW50MzJfdCBlbikNCj4gQEAgLTE4MSw3ICsyMTIs
-OCBAQCBzdGF0aWMgY29uc3Qgc3RydWN0IGh3X2ZhY3RvcnlfZnVuY3MgZnVuY3MgPSB7DQo+ICAg
-CS5nZXRfaHBkX3BpbiA9IGRhbF9od19ocGRfZ2V0X3BpbiwNCj4gICAJLmdldF9nZW5lcmljX3Bp
-biA9IGRhbF9od19nZW5lcmljX2dldF9waW4sDQo+ICAgCS5kZWZpbmVfaHBkX3JlZ2lzdGVycyA9
-IGRlZmluZV9ocGRfcmVnaXN0ZXJzLA0KPiAtCS5kZWZpbmVfZGRjX3JlZ2lzdGVycyA9IGRlZmlu
-ZV9kZGNfcmVnaXN0ZXJzDQo+ICsJLmRlZmluZV9kZGNfcmVnaXN0ZXJzID0gZGVmaW5lX2RkY19y
-ZWdpc3RlcnMsDQo+ICsJLmRlZmluZV9nZW5lcmljX3JlZ2lzdGVycyA9IGRlZmluZV9nZW5lcmlj
-X3JlZ2lzdGVycw0KPiAgIH07DQo+ICAgLyoNCj4gICAgKiBkYWxfaHdfZmFjdG9yeV9kY24xMF9p
-bml0DQo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvZ3Bpby9k
-Y24yMS9od190cmFuc2xhdGVfZGNuMjEuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9k
-Yy9ncGlvL2RjbjIxL2h3X3RyYW5zbGF0ZV9kY24yMS5jDQo+IGluZGV4IGFkN2M0MzcuLmZiYjU4
-ZmIgMTAwNjQ0DQo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9ncGlvL2Rj
-bjIxL2h3X3RyYW5zbGF0ZV9kY24yMS5jDQo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlz
-cGxheS9kYy9ncGlvL2RjbjIxL2h3X3RyYW5zbGF0ZV9kY24yMS5jDQo+IEBAIC01OCw3ICs1OCw2
-IEBADQo+ICAgI2RlZmluZSBTRl9IUEQocmVnX25hbWUsIGZpZWxkX25hbWUsIHBvc3RfZml4KVwN
-Cj4gICAJLmZpZWxkX25hbWUgPSByZWdfbmFtZSAjIyBfXyAjIyBmaWVsZF9uYW1lICMjIHBvc3Rf
-Zml4DQo+ICAgDQo+IC0NCj4gICAvKiBtYWNyb3MgdG8gZXhwZW5kIHJlZ2lzdGVyIGxpc3QgbWFj
-cm8gZGVmaW5lZCBpbiBIVyBvYmplY3QgaGVhZGVyIGZpbGUNCj4gICAgKiBlbmQgKioqKioqKioq
-KioqKioqKioqKioqLw0KPiAgIA0KPiBAQCAtNzEsNyArNzAsNyBAQCBzdGF0aWMgYm9vbCBvZmZz
-ZXRfdG9faWQoDQo+ICAgew0KPiAgIAlzd2l0Y2ggKG9mZnNldCkgew0KPiAgIAkvKiBHRU5FUklD
-ICovDQo+IC0JY2FzZSBSRUcoRENfR0VORVJJQ0EpOg0KPiArCWNhc2UgUkVHKERDX0dQSU9fR0VO
-RVJJQ19BKToNCj4gICAJCSppZCA9IEdQSU9fSURfR0VORVJJQzsNCj4gICAJCXN3aXRjaCAobWFz
-aykgew0KPiAgIAkJY2FzZSBEQ19HUElPX0dFTkVSSUNfQV9fRENfR1BJT19HRU5FUklDQV9BX01B
-U0s6DQo+IA0KDQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-XwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRw
-czovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
+
+
+On 2019-09-04 4:58 p.m., Randy Dunlap wrote:
+> On 9/4/19 6:34 AM, Stephen Rothwell wrote:
+>> Hi all,
+>>
+>> News: this will be the last linux-next I will release until Sept 30.
+>>
+>> Changes since 20190903:
+>>
+>=20
+> on x86_64:
+>=20
+> In file included from ../drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn=
+20/display_rq_dlg_calc_20v2.c:77:0:
+> ../drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn20/../dml_inline_defs.=
+h: In function =91dml_min=92:
+> ../drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn20/../dml_inline_defs.=
+h:34:1: error: SSE register return with SSE disabled
+>=20
+
+Is that fixed by Stephen's fixup here?
+
+https://lists.freedesktop.org/archives/dri-devel/2019-September/234292.html
+
+Thanks,
+Harry
+
+>=20
