@@ -1,10 +1,10 @@
-From: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH 1/1] drm/amdgpu: Fix KFD-related kernel oops on Hawaii
-Date: Thu, 5 Sep 2019 23:29:27 +0000
-Message-ID: <20190905232915.5537-1-Felix.Kuehling@amd.com>
+From: "Yin, Tianci (Rico)" <Tianci.Yin-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH] drm/amdgpu: add navi14 PCI ID for work station SKU
+Date: Fri, 6 Sep 2019 07:36:46 +0000
+Message-ID: <DM5PR12MB25355C78839E9472D67F354995BA0@DM5PR12MB2535.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed;
+ boundary="_004_DM5PR12MB25355C78839E9472D67F354995BA0DM5PR12MB2535namp_"
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
@@ -18,23 +18,80 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Xu, Feifei" <Feifei.Xu-5C7GfCeVMHo@public.gmane.org>, "Xiao, Jack" <Jack.Xiao-5C7GfCeVMHo@public.gmane.org>, "Yuan,
+ Xiaojie" <Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org>, "Long, Gang" <Gang.Long-5C7GfCeVMHo@public.gmane.org>, "Zhang,
+ Hawking" <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>
 
-SGF3YWlpIG5lZWRzIHRvIGZsdXNoIGNhY2hlcyBleHBsaWNpdGx5LCBzdWJtaXR0aW5nIGFuIElC
-IGluIGEgdXNlcgpWTUlEIGZyb20ga2VybmVsIG1vZGUuIFRoZXJlIGlzIG5vIHNfZmVuY2UgaW4g
-dGhpcyBjYXNlLgoKRml4ZXM6IGViMzk2MWE1NzQyNCAoImRybS9hbWRncHU6IHJlbW92ZSBmZW5j
-ZSBjb250ZXh0IGZyb20gdGhlIGpvYiIpClNpZ25lZC1vZmYtYnk6IEZlbGl4IEt1ZWhsaW5nIDxG
-ZWxpeC5LdWVobGluZ0BhbWQuY29tPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
-ZGdwdV9pYi5jIHwgMyArKy0KIDEgZmlsZSBjaGFuZ2VkLCAyIGluc2VydGlvbnMoKyksIDEgZGVs
-ZXRpb24oLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
-aWIuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9pYi5jCmluZGV4IDY4ODJl
-ZWI5M2I0ZS4uZDgxZTE0MWEzM2ZhIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
-ZGdwdS9hbWRncHVfaWIuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
-aWIuYwpAQCAtMTQxLDcgKzE0MSw4IEBAIGludCBhbWRncHVfaWJfc2NoZWR1bGUoc3RydWN0IGFt
-ZGdwdV9yaW5nICpyaW5nLCB1bnNpZ25lZCBudW1faWJzLAogCS8qIHJpbmcgdGVzdHMgZG9uJ3Qg
-dXNlIGEgam9iICovCiAJaWYgKGpvYikgewogCQl2bSA9IGpvYi0+dm07Ci0JCWZlbmNlX2N0eCA9
-IGpvYi0+YmFzZS5zX2ZlbmNlLT5zY2hlZHVsZWQuY29udGV4dDsKKwkJZmVuY2VfY3R4ID0gam9i
-LT5iYXNlLnNfZmVuY2UgPworCQkJam9iLT5iYXNlLnNfZmVuY2UtPnNjaGVkdWxlZC5jb250ZXh0
-IDogMDsKIAl9IGVsc2UgewogCQl2bSA9IE5VTEw7CiAJCWZlbmNlX2N0eCA9IDA7Ci0tIAoyLjE3
-LjEKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1n
-ZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
-dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
+--_004_DM5PR12MB25355C78839E9472D67F354995BA0DM5PR12MB2535namp_
+Content-Type: multipart/alternative;
+	boundary="_000_DM5PR12MB25355C78839E9472D67F354995BA0DM5PR12MB2535namp_"
+
+--_000_DM5PR12MB25355C78839E9472D67F354995BA0DM5PR12MB2535namp_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+
+
+--_000_DM5PR12MB25355C78839E9472D67F354995BA0DM5PR12MB2535namp_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+</body>
+</html>
+
+--_000_DM5PR12MB25355C78839E9472D67F354995BA0DM5PR12MB2535namp_--
+
+--_004_DM5PR12MB25355C78839E9472D67F354995BA0DM5PR12MB2535namp_
+Content-Type: text/x-patch;
+	name="0001-drm-amdgpu-add-navi14-PCI-ID-for-work-station-SKU.patch"
+Content-Description: 0001-drm-amdgpu-add-navi14-PCI-ID-for-work-station-SKU.patch
+Content-Disposition: attachment;
+	filename="0001-drm-amdgpu-add-navi14-PCI-ID-for-work-station-SKU.patch";
+	size=1092; creation-date="Fri, 06 Sep 2019 07:35:03 GMT";
+	modification-date="Fri, 06 Sep 2019 07:35:03 GMT"
+Content-Transfer-Encoding: base64
+
+RnJvbSA2ZGEyNDUxYjEzOTE5MzljZjQ5NTE4ZDgyZDQyYzRkNTdiMzJhNTcxIE1vbiBTZXAgMTcg
+MDA6MDA6MDAgMjAwMQpGcm9tOiAiVGlhbmNpLllpbiIgPHRpYW5jaS55aW5AYW1kLmNvbT4KRGF0
+ZTogVGh1LCA1IFNlcCAyMDE5IDE1OjI4OjU3ICswODAwClN1YmplY3Q6IFtQQVRDSF0gZHJtL2Ft
+ZGdwdTogYWRkIG5hdmkxNCBQQ0kgSUQgZm9yIHdvcmsgc3RhdGlvbiBTS1UKCkFkZCB0aGUgbmF2
+aTE0IFBDSSBkZXZpY2UgaWQuCgpDaGFuZ2UtSWQ6IEk5NmE4Yzg5MmJlY2FhOGRjYzdhZDU5ZGM4
+MGQwNDdkM2Y3NTU3NzVmClNpZ25lZC1vZmYtYnk6IFRpYW5jaS5ZaW4gPHRpYW5jaS55aW5AYW1k
+LmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZHJ2LmMgfCAyICsr
+CiAxIGZpbGUgY2hhbmdlZCwgMiBpbnNlcnRpb25zKCspCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9n
+cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rydi5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
+cHUvYW1kZ3B1X2Rydi5jCmluZGV4IDVhN2Y5MjkuLjY5NzhkMTcgMTAwNjQ0Ci0tLSBhL2RyaXZl
+cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kcnYuYworKysgYi9kcml2ZXJzL2dwdS9kcm0v
+YW1kL2FtZGdwdS9hbWRncHVfZHJ2LmMKQEAgLTEwMjMsNiArMTAyMyw4IEBAIHN0YXRpYyBjb25z
+dCBzdHJ1Y3QgcGNpX2RldmljZV9pZCBwY2lpZGxpc3RbXSA9IHsKIAl7MHgxMDAyLCAweDczMUYs
+IFBDSV9BTllfSUQsIFBDSV9BTllfSUQsIDAsIDAsIENISVBfTkFWSTEwfSwKIAkvKiBOYXZpMTQg
+Ki8KIAl7MHgxMDAyLCAweDczNDAsIFBDSV9BTllfSUQsIFBDSV9BTllfSUQsIDAsIDAsIENISVBf
+TkFWSTE0fSwKKwl7MHgxMDAyLCAweDczNDEsIFBDSV9BTllfSUQsIFBDSV9BTllfSUQsIDAsIDAs
+IENISVBfTkFWSTE0fSwKKwl7MHgxMDAyLCAweDczNDcsIFBDSV9BTllfSUQsIFBDSV9BTllfSUQs
+IDAsIDAsIENISVBfTkFWSTE0fSwKIAogCS8qIFJlbm9pciAqLwogCXsweDEwMDIsIDB4MTYzNiwg
+UENJX0FOWV9JRCwgUENJX0FOWV9JRCwgMCwgMCwgQ0hJUF9SRU5PSVJ8QU1EX0lTX0FQVX0sCi0t
+IAoyLjcuNAoK
+
+--_004_DM5PR12MB25355C78839E9472D67F354995BA0DM5PR12MB2535namp_
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+
+--_004_DM5PR12MB25355C78839E9472D67F354995BA0DM5PR12MB2535namp_--
