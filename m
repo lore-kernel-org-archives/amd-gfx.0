@@ -1,14 +1,12 @@
-From: "Zhang, Hawking" <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH] drm/amdgpu: check if nbio->ras_if exist
-Date: Fri, 6 Sep 2019 19:01:28 +0000
-Message-ID: <DM5PR12MB1418ED07F67473A480EF3ECBFCBA0@DM5PR12MB1418.namprd12.prod.outlook.com>
-References: <20190906173153.8232-1-Philip.Yang@amd.com>
+From: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH] drm: add drm device name
+Date: Fri, 6 Sep 2019 18:15:41 -0400
+Message-ID: <CAAxE2A45N4gMYrcETDpznGKyxLztuwenFasL19a81QQmBkYiww@mail.gmail.com>
+References: <20190903214040.2386-1-sonny.jiang@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1697656043=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190906173153.8232-1-Philip.Yang-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
+In-Reply-To: <20190903214040.2386-1-sonny.jiang-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -19,125 +17,278 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Yang, Philip" <Philip.Yang-5C7GfCeVMHo@public.gmane.org>
+To: dri-devel <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Jiang, Sonny" <Sonny.Jiang-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-VGhhbmtzISBSZXZpZXdlZC1ieTogSGF3a2luZyBaaGFuZyA8SGF3a2luZy5aaGFuZ0BhbWQuY29t
-Pg0KDQpSZWdhcmRzLA0KSGF3a2luZw0KLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCkZyb206
-IGFtZC1nZnggPGFtZC1nZngtYm91bmNlc0BsaXN0cy5mcmVlZGVza3RvcC5vcmc+IE9uIEJlaGFs
-ZiBPZiBZYW5nLCBQaGlsaXANClNlbnQ6IDIwMTnlubQ55pyIN+aXpSAxOjMyDQpUbzogYW1kLWdm
-eEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCkNjOiBZYW5nLCBQaGlsaXAgPFBoaWxpcC5ZYW5nQGFt
-ZC5jb20+DQpTdWJqZWN0OiBbUEFUQ0hdIGRybS9hbWRncHU6IGNoZWNrIGlmIG5iaW8tPnJhc19p
-ZiBleGlzdA0KDQpUbyBhdm9pZCBOVUxMIGZ1bmN0aW9uIHBvaW50ZXIgYWNjZXNzLiBUaGlzIGhh
-cHBlbnMgb24gVkcxMCwgcmVib290IGNvbW1hbmQgaGFuZ3MgYW5kIGhhdmUgdG8gcG93ZXIgb2Zm
-L29uIHRvIHJlYm9vdCB0aGUgbWFjaGluZS4gVGhpcyBpcyBzZXJpYWwgY29uc29sZSBsb2c6DQoN
-ClsgIE9LICBdIFJlYWNoZWQgdGFyZ2V0IFVubW91bnQgQWxsIEZpbGVzeXN0ZW1zLg0KWyAgT0sg
-IF0gUmVhY2hlZCB0YXJnZXQgRmluYWwgU3RlcC4NCiAgICAgICAgIFN0YXJ0aW5nIFJlYm9vdC4u
-Lg0KWyAgMzA1LjY5NjI3MV0gc3lzdGVtZC1zaHV0ZG93blsxXTogU3luY2luZyBmaWxlc3lzdGVt
-cyBhbmQgYmxvY2sgZGV2aWNlcy4NClsgIDMwNi45NDczMjhdIHN5c3RlbWQtc2h1dGRvd25bMV06
-IFNlbmRpbmcgU0lHVEVSTSB0byByZW1haW5pbmcgcHJvY2Vzc2VzLi4uDQpbICAzMDYuOTYzOTIw
-XSBzeXN0ZW1kLWpvdXJuYWxkWzE3MjJdOiBSZWNlaXZlZCBTSUdURVJNIGZyb20gUElEIDEgKHN5
-c3RlbWQtc2h1dGRvdykuDQpbICAzMDcuMzIyNzE3XSBzeXN0ZW1kLXNodXRkb3duWzFdOiBTZW5k
-aW5nIFNJR0tJTEwgdG8gcmVtYWluaW5nIHByb2Nlc3Nlcy4uLg0KWyAgMzA3LjMzNjQ3Ml0gc3lz
-dGVtZC1zaHV0ZG93blsxXTogVW5tb3VudGluZyBmaWxlIHN5c3RlbXMuDQpbICAzMDcuNDU0MjAy
-XSBFWFQ0LWZzIChzZGEyKTogcmUtbW91bnRlZC4gT3B0czogZXJyb3JzPXJlbW91bnQtcm8gWyAg
-MzA3LjQ4MDUyM10gc3lzdGVtZC1zaHV0ZG93blsxXTogQWxsIGZpbGVzeXN0ZW1zIHVubW91bnRl
-ZC4NClsgIDMwNy40ODY1MzddIHN5c3RlbWQtc2h1dGRvd25bMV06IERlYWN0aXZhdGluZyBzd2Fw
-cy4NClsgIDMwNy40OTE5NjJdIHN5c3RlbWQtc2h1dGRvd25bMV06IEFsbCBzd2FwcyBkZWFjdGl2
-YXRlZC4NClsgIDMwNy40OTc2MjRdIHN5c3RlbWQtc2h1dGRvd25bMV06IERldGFjaGluZyBsb29w
-IGRldmljZXMuDQpbICAzMDcuNTA0NDE4XSBzeXN0ZW1kLXNodXRkb3duWzFdOiBBbGwgbG9vcCBk
-ZXZpY2VzIGRldGFjaGVkLg0KWyAgMzA3LjUxMDQxOF0gc3lzdGVtZC1zaHV0ZG93blsxXTogRGV0
-YWNoaW5nIERNIGRldmljZXMuDQpbICAzMDcuNTY1OTA3XSBzZCAyOjA6MDowOiBbc2RhXSBTeW5j
-aHJvbml6aW5nIFNDU0kgY2FjaGUgWyAgMzA3LjczMTMxM10gQlVHOiBrZXJuZWwgTlVMTCBwb2lu
-dGVyIGRlcmVmZXJlbmNlLCBhZGRyZXNzOg0KMDAwMDAwMDAwMDAwMDAwMA0KWyAgMzA3LjczODgw
-Ml0gI1BGOiBzdXBlcnZpc29yIHJlYWQgYWNjZXNzIGluIGtlcm5lbCBtb2RlIFsgIDMwNy43NDQz
-MjZdICNQRjogZXJyb3JfY29kZSgweDAwMDApIC0gbm90LXByZXNlbnQgcGFnZSBbICAzMDcuNzQ5
-ODUwXSBQR0QgMCBQNEQgMCBbICAzMDcuNzUyNTY4XSBPb3BzOiAwMDAwIFsjMV0gU01QIFBUSSBb
-ICAzMDcuNzU2MzE0XSBDUFU6IDMgUElEOiAxIENvbW06IHN5c3RlbWQtc2h1dGRvdyBOb3QgdGFp
-bnRlZCA1LjIuMC1yYzEta2ZkLXlhbmdwICM0NTMgWyAgMzA3Ljc2NDY0NF0gSGFyZHdhcmUgbmFt
-ZTogQVNVUyBBbGwgU2VyaWVzL1o5Ny1QUk8oV2ktRmkgYWMpL1VTQiAzLjEsIEJJT1MgOTAwMSAw
-My8wNy8yMDE2IFsgIDMwNy43NzM1ODBdIFJJUDogMDAxMDpzb2MxNV9jb21tb25faHdfZmluaSsw
-eDMzLzB4YzAgW2FtZGdwdV0gWyAgMzA3Ljc3OTc2MF0gQ29kZTogODkgZmIgZTggNjAgZjUgZmYg
-ZmYgZjYgODMgNTAgZGYgMDEgMDAgMDQgNzUgM2QgNDggOGIgYjMgOTAgN2QgMDAgMDAgNDggYzcg
-YzcgMTcgYjggNTMwIFsgIDMwNy43OTk5NjddIFJTUDogMDAxODpmZmZmYWM5NDgzMTUzZDQwIEVG
-TEFHUzogMDAwMTAyODYgWyAgMzA3LjgwNTU4NV0gUkFYOiAwMDAwMDAwMDAwMDAwMDAwIFJCWDog
-ZmZmZjllYjI5OWRhMDAwMCBSQ1g6DQowMDAwMDAwMDAwMDAwMDA2DQpbICAzMDcuODEzMjYxXSBS
-RFg6IDAwMDAwMDAwMDAwMDAwMDAgUlNJOiBmZmZmOWViMjllMzUwOGEwIFJESToNCmZmZmY5ZWIy
-OWUzNTAwMDANClsgIDMwNy44MjA5MzVdIFJCUDogZmZmZjllYjI5OWRhMDAwMCBSMDg6IDAwMDAw
-MDAwMDAwMDAwMDAgUjA5Og0KMDAwMDAwMDAwMDAwMDAwMA0KWyAgMzA3LjgyODYwOV0gUjEwOiAw
-MDAwMDAwMDAwMDAwMDAwIFIxMTogMDAwMDAwMDAwMDAwMDAwMCBSMTI6DQpmZmZmOWViMjk5ZGJk
-MWY4DQpbICAzMDcuODM2Mjg0XSBSMTM6IGZmZmZmZmZmYzA0ZjgzNjggUjE0OiBmZmZmOWViMjlj
-ZWJkMTMwIFIxNToNCjAwMDAwMDAwMDAwMDAwMDANClsgIDMwNy44NDM5NTldIEZTOiAgMDAwMDdm
-MDY3MjFjOTk0MCgwMDAwKSBHUzpmZmZmOWViMmExOGMwMDAwKDAwMDApDQprbmxHUzowMDAwMDAw
-MDAwMDAwMDAwDQpbICAzMDcuODUyNjYzXSBDUzogIDAwMTAgRFM6IDAwMDAgRVM6IDAwMDAgQ1Iw
-OiAwMDAwMDAwMDgwMDUwMDMzIFsgIDMwNy44NTg4NDJdIENSMjogMDAwMDAwMDAwMDAwMDAwMCBD
-UjM6IDAwMDAwMDA4MWQ3OTgwMDUgQ1I0Og0KMDAwMDAwMDAwMDE2MDZlMA0KWyAgMzA3Ljg2NjUx
-Nl0gQ2FsbCBUcmFjZToNClsgIDMwNy44NjkxNjldICBhbWRncHVfZGV2aWNlX2lwX3N1c3BlbmRf
-cGhhc2UyKzB4ODAvMHgxMTAgW2FtZGdwdV0gWyAgMzA3Ljg3NTY1NF0gID8gYW1kZ3B1X2Rldmlj
-ZV9pcF9zdXNwZW5kX3BoYXNlMSsweDRkLzB4ZDAgW2FtZGdwdV0gWyAgMzA3Ljg4MjIzMF0gIGFt
-ZGdwdV9kZXZpY2VfaXBfc3VzcGVuZCsweDJlLzB4NjAgW2FtZGdwdV0gWyAgMzA3Ljg4Nzk2Nl0g
-IGFtZGdwdV9wY2lfc2h1dGRvd24rMHgyZi8weDQwIFthbWRncHVdIFsgIDMwNy44OTMyMTFdICBw
-Y2lfZGV2aWNlX3NodXRkb3duKzB4MzEvMHg2MCBbICAzMDcuODk3NjEzXSAgZGV2aWNlX3NodXRk
-b3duKzB4MTRjLzB4MWYwIFsgIDMwNy45MDE4MjldICBrZXJuZWxfcmVzdGFydCsweGUvMHg1MCBb
-ICAzMDcuOTA1NjY5XSAgX19kb19zeXNfcmVib290KzB4MWRmLzB4MjEwIFsgIDMwNy45MDk4ODRd
-ICA/IHRhc2tfd29ya19ydW4rMHg3My8weGIwIFsgIDMwNy45MTM5MTRdICA/IHRyYWNlX2hhcmRp
-cnFzX29mZl90aHVuaysweDFhLzB4MWMNClsgIDMwNy45MTg5NzBdICBkb19zeXNjYWxsXzY0KzB4
-NGEvMHgxYzAgWyAgMzA3LjkyMjkwNF0gIGVudHJ5X1NZU0NBTExfNjRfYWZ0ZXJfaHdmcmFtZSsw
-eDQ5LzB4YmUNClsgIDMwNy45MjgzMzZdIFJJUDogMDAzMzoweDdmMDY3MWNmODM3Mw0KWyAgMzA3
-LjkzMjE3Nl0gQ29kZTogNjQgODkgMDEgNDggODMgYzggZmYgYzMgNjYgMmUgMGYgMWYgODQgMDAg
-MDAgMDAgMDANCjAwIDBmIDFmIDQ0IDAwIDAwIDg5IGZhIGJlIDY5IDE5IDEyOA0KWyAgMzA3Ljk1
-MjM4NF0gUlNQOiAwMDJiOjAwMDA3ZmZkZDE3MjNkNjggRUZMQUdTOiAwMDAwMDIwMiBPUklHX1JB
-WDoNCjAwMDAwMDAwMDAwMDAwYTkNClsgIDMwNy45NjA1MjddIFJBWDogZmZmZmZmZmZmZmZmZmZk
-YSBSQlg6IDAwMDAwMDAwMDEyMzQ1NjcgUkNYOg0KMDAwMDdmMDY3MWNmODM3Mw0KWyAgMzA3Ljk2
-ODIwMV0gUkRYOiAwMDAwMDAwMDAxMjM0NTY3IFJTSTogMDAwMDAwMDAyODEyMTk2OSBSREk6DQow
-MDAwMDAwMGZlZTFkZWFkDQpbICAzMDcuOTc1ODc1XSBSQlA6IDAwMDA3ZmZkZDE3MjNkZDAgUjA4
-OiAwMDAwMDAwMDAwMDAwMDAwIFIwOToNCjAwMDAwMDAwMDAwMDAwMDANClsgIDMwNy45ODM1NTBd
-IFIxMDogMDAwMDAwMDAwMDAwMDAwMiBSMTE6IDAwMDAwMDAwMDAwMDAyMDIgUjEyOg0KMDAwMDdm
-ZmRkMTcyM2RkOA0KWyAgMzA3Ljk5MTIyNF0gUjEzOiAwMDAwMDAwMDAwMDAwMDAwIFIxNDogMDAw
-MDAwMWIwMDAwMDAwNCBSMTU6DQowMDAwN2ZmZGQxNzI0MGM4DQpbICAzMDcuOTk4OTAxXSBNb2R1
-bGVzIGxpbmtlZCBpbjogeHRfTUFTUVVFUkFERSBuZm5ldGxpbmsgaXB0YWJsZV9uYXQgeHRfYWRk
-cnR5cGUgeHRfY29ubnRyYWNrIG5mX25hdCBuZl9jb3MgWyAgMzA4LjAyNjUwNV0gQ1IyOiAwMDAw
-MDAwMDAwMDAwMDAwIFsgIDMwOC4wMzk5OThdIFJJUDogMDAxMDpzb2MxNV9jb21tb25faHdfZmlu
-aSsweDMzLzB4YzAgW2FtZGdwdV0gWyAgMzA4LjA0NjE4MF0gQ29kZTogODkgZmIgZTggNjAgZjUg
-ZmYgZmYgZjYgODMgNTAgZGYgMDEgMDAgMDQgNzUgM2QgNDggOGIgYjMgOTAgN2QgMDAgMDAgNDgg
-YzcgYzcgMTcgYjggNTMwIFsgIDMwOC4wNjYzOTJdIFJTUDogMDAxODpmZmZmYWM5NDgzMTUzZDQw
-IEVGTEFHUzogMDAwMTAyODYgWyAgMzA4LjA3MjAxM10gUkFYOiAwMDAwMDAwMDAwMDAwMDAwIFJC
-WDogZmZmZjllYjI5OWRhMDAwMCBSQ1g6DQowMDAwMDAwMDAwMDAwMDA2DQpbICAzMDguMDc5Njg5
-XSBSRFg6IDAwMDAwMDAwMDAwMDAwMDAgUlNJOiBmZmZmOWViMjllMzUwOGEwIFJESToNCmZmZmY5
-ZWIyOWUzNTAwMDANClsgIDMwOC4wODczNjZdIFJCUDogZmZmZjllYjI5OWRhMDAwMCBSMDg6IDAw
-MDAwMDAwMDAwMDAwMDAgUjA5Og0KMDAwMDAwMDAwMDAwMDAwMA0KWyAgMzA4LjA5NTA0Ml0gUjEw
-OiAwMDAwMDAwMDAwMDAwMDAwIFIxMTogMDAwMDAwMDAwMDAwMDAwMCBSMTI6DQpmZmZmOWViMjk5
-ZGJkMWY4DQpbICAzMDguMTAyNzE3XSBSMTM6IGZmZmZmZmZmYzA0ZjgzNjggUjE0OiBmZmZmOWVi
-MjljZWJkMTMwIFIxNToNCjAwMDAwMDAwMDAwMDAwMDANClsgIDMwOC4xMTAzOTRdIEZTOiAgMDAw
-MDdmMDY3MjFjOTk0MCgwMDAwKSBHUzpmZmZmOWViMmExOGMwMDAwKDAwMDApDQprbmxHUzowMDAw
-MDAwMDAwMDAwMDAwDQpbICAzMDguMTE5MDk5XSBDUzogIDAwMTAgRFM6IDAwMDAgRVM6IDAwMDAg
-Q1IwOiAwMDAwMDAwMDgwMDUwMDMzIFsgIDMwOC4xMjUyODBdIENSMjogMDAwMDAwMDAwMDAwMDAw
-MCBDUjM6IDAwMDAwMDA4MWQ3OTgwMDUgQ1I0Og0KMDAwMDAwMDAwMDE2MDZlMA0KWyAgMzA4LjEz
-NTMwNF0gcHJpbnRrOiBzeXN0ZW1kLXNodXRkb3c6IDMgb3V0cHV0IGxpbmVzIHN1cHByZXNzZWQg
-ZHVlIHRvIHJhdGVsaW1pdGluZyBbICAzMDguMTQzNTE4XSBLZXJuZWwgcGFuaWMgLSBub3Qgc3lu
-Y2luZzogQXR0ZW1wdGVkIHRvIGtpbGwgaW5pdCENCmV4aXRjb2RlPTB4MDAwMDAwMDkNClsgIDMw
-OC4xNTE3OThdIEtlcm5lbCBPZmZzZXQ6IDB4MTUwMDAwMDAgZnJvbSAweGZmZmZmZmZmODEwMDAw
-MDAgKHJlbG9jYXRpb24gcmFuZ2U6IDB4ZmZmZmZmZmY4MDAwMDAwMC0weGZmKSBbICAzMDguMTcx
-Nzc1XSAtLS1bIGVuZCBLZXJuZWwgcGFuaWMgLSBub3Qgc3luY2luZzogQXR0ZW1wdGVkIHRvIGtp
-bGwgaW5pdCEgZXhpdGNvZGU9MHgwMDAwMDAwOSBdLS0tDQoNClNpZ25lZC1vZmYtYnk6IFBoaWxp
-cCBZYW5nIDxQaGlsaXAuWWFuZ0BhbWQuY29tPg0KLS0tDQogZHJpdmVycy9ncHUvZHJtL2FtZC9h
-bWRncHUvc29jMTUuYyB8IDMgKystDQogMSBmaWxlIGNoYW5nZWQsIDIgaW5zZXJ0aW9ucygrKSwg
-MSBkZWxldGlvbigtKQ0KDQpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
-c29jMTUuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3NvYzE1LmMNCmluZGV4IGNiMjI5
-NzBjMDg1My4uN2M3ZTlmNTUwYzAyIDEwMDY0NA0KLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9h
-bWRncHUvc29jMTUuYw0KKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvc29jMTUuYw0K
-QEAgLTEzMDIsNyArMTMwMiw4IEBAIHN0YXRpYyBpbnQgc29jMTVfY29tbW9uX2h3X2Zpbmkodm9p
-ZCAqaGFuZGxlKQ0KIAlpZiAoYW1kZ3B1X3NyaW92X3ZmKGFkZXYpKQ0KIAkJeGdwdV9haV9tYWls
-Ym94X3B1dF9pcnEoYWRldik7DQogDQotCWlmIChhbWRncHVfcmFzX2lzX3N1cHBvcnRlZChhZGV2
-LCBhZGV2LT5uYmlvLnJhc19pZi0+YmxvY2spKSB7DQorCWlmIChhZGV2LT5uYmlvLnJhc19pZiAm
-Jg0KKwkgICAgYW1kZ3B1X3Jhc19pc19zdXBwb3J0ZWQoYWRldiwgYWRldi0+bmJpby5yYXNfaWYt
-PmJsb2NrKSkgew0KIAkJaWYgKGFkZXYtPm5iaW8uZnVuY3MtPmluaXRfcmFzX2NvbnRyb2xsZXJf
-aW50ZXJydXB0KQ0KIAkJCWFtZGdwdV9pcnFfcHV0KGFkZXYsICZhZGV2LT5uYmlvLnJhc19jb250
-cm9sbGVyX2lycSwgMCk7DQogCQlpZiAoYWRldi0+bmJpby5mdW5jcy0+aW5pdF9yYXNfZXJyX2V2
-ZW50X2F0aHViX2ludGVycnVwdCkNCi0tDQoyLjE3LjENCg0KX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX18NCmFtZC1nZnggbWFpbGluZyBsaXN0DQphbWQtZ2Z4
-QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0KaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFp
-bG1hbi9saXN0aW5mby9hbWQtZ2Z4DQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNr
-dG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2Ft
-ZC1nZng=
+--===============1697656043==
+Content-Type: multipart/alternative; boundary="0000000000008d9f850591e9c93b"
+
+--0000000000008d9f850591e9c93b
+Content-Type: text/plain; charset="UTF-8"
+
++ dri-devel
+
+On Tue, Sep 3, 2019 at 5:41 PM Jiang, Sonny <Sonny.Jiang-5C7GfCeVMHo@public.gmane.org> wrote:
+
+> Add DRM device name and use DRM_IOCTL_VERSION ioctl drmVersion::desc
+> passing it to user space
+> instead of unused DRM driver name descriptor.
+>
+> Change-Id: I809f6d3e057111417efbe8fa7cab8f0113ba4b21
+> Signed-off-by: Sonny Jiang <sonny.jiang-5C7GfCeVMHo@public.gmane.org>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  2 ++
+>  drivers/gpu/drm/drm_drv.c                  | 17 +++++++++++++++++
+>  drivers/gpu/drm/drm_ioctl.c                |  2 +-
+>  include/drm/drm_device.h                   |  3 +++
+>  include/drm/drm_drv.h                      |  1 +
+>  5 files changed, 24 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> index 67b09cb2a9e2..8f0971cea363 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> @@ -2809,6 +2809,8 @@ int amdgpu_device_init(struct amdgpu_device *adev,
+>         /* init the mode config */
+>         drm_mode_config_init(adev->ddev);
+>
+> +       drm_dev_set_name(adev->ddev, amdgpu_asic_name[adev->asic_type]);
+> +
+>         r = amdgpu_device_ip_init(adev);
+>         if (r) {
+>                 /* failed in exclusive mode due to timeout */
+> diff --git a/drivers/gpu/drm/drm_drv.c b/drivers/gpu/drm/drm_drv.c
+> index 862621494a93..6c33879bb538 100644
+> --- a/drivers/gpu/drm/drm_drv.c
+> +++ b/drivers/gpu/drm/drm_drv.c
+> @@ -802,6 +802,7 @@ void drm_dev_fini(struct drm_device *dev)
+>         mutex_destroy(&dev->struct_mutex);
+>         drm_legacy_destroy_members(dev);
+>         kfree(dev->unique);
+> +       kfree(dev->name);
+>  }
+>  EXPORT_SYMBOL(drm_dev_fini);
+>
+> @@ -1078,6 +1079,22 @@ int drm_dev_set_unique(struct drm_device *dev,
+> const char *name)
+>  }
+>  EXPORT_SYMBOL(drm_dev_set_unique);
+>
+> +/**
+> + * drm_dev_set_name - Set the name of a DRM device
+> + * @dev: device of which to set the name
+> + * @name: name to be set
+> + *
+> + * Return: 0 on success or a negative error code on failure.
+> + */
+> +int drm_dev_set_name(struct drm_device *dev, const char *name)
+> +{
+> +       kfree(dev->name);
+> +       dev->name = kstrdup(name, GFP_KERNEL);
+> +
+> +       return dev->name ? 0 : -ENOMEM;
+> +}
+> +EXPORT_SYMBOL(drm_dev_set_name);
+> +
+>  /*
+>   * DRM Core
+>   * The DRM core module initializes all global DRM objects and makes them
+> diff --git a/drivers/gpu/drm/drm_ioctl.c b/drivers/gpu/drm/drm_ioctl.c
+> index 2263e3ddd822..61f02965106b 100644
+> --- a/drivers/gpu/drm/drm_ioctl.c
+> +++ b/drivers/gpu/drm/drm_ioctl.c
+> @@ -506,7 +506,7 @@ int drm_version(struct drm_device *dev, void *data,
+>                                 dev->driver->date);
+>         if (!err)
+>                 err = drm_copy_field(version->desc, &version->desc_len,
+> -                               dev->driver->desc);
+> +                               dev->name);
+>
+>         return err;
+>  }
+> diff --git a/include/drm/drm_device.h b/include/drm/drm_device.h
+> index 7f9ef709b2b6..e29912c484e4 100644
+> --- a/include/drm/drm_device.h
+> +++ b/include/drm/drm_device.h
+> @@ -123,6 +123,9 @@ struct drm_device {
+>         /** @unique: Unique name of the device */
+>         char *unique;
+>
+> +       /** @name: device name */
+> +       char *name;
+> +
+>         /**
+>          * @struct_mutex:
+>          *
+> diff --git a/include/drm/drm_drv.h b/include/drm/drm_drv.h
+> index 68ca736c548d..f742e2bde467 100644
+> --- a/include/drm/drm_drv.h
+> +++ b/include/drm/drm_drv.h
+> @@ -798,6 +798,7 @@ static inline bool drm_drv_uses_atomic_modeset(struct
+> drm_device *dev)
+>
+>
+>  int drm_dev_set_unique(struct drm_device *dev, const char *name);
+> +int drm_dev_set_name(struct drm_device *dev, const char *name);
+>
+>
+>  #endif
+> --
+> 2.17.1
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--0000000000008d9f850591e9c93b
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">+ dri-devel<br></div><br><div class=3D"gmail_quote"><div d=
+ir=3D"ltr" class=3D"gmail_attr">On Tue, Sep 3, 2019 at 5:41 PM Jiang, Sonny=
+ &lt;<a href=3D"mailto:Sonny.Jiang-5C7GfCeVMHo@public.gmane.org">Sonny.Jiang-5C7GfCeVMHo@public.gmane.org</a>&gt; wro=
+te:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px =
+0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">Add DRM devi=
+ce name and use DRM_IOCTL_VERSION ioctl drmVersion::desc passing it to user=
+ space<br>
+instead of unused DRM driver name descriptor.<br>
+<br>
+Change-Id: I809f6d3e057111417efbe8fa7cab8f0113ba4b21<br>
+Signed-off-by: Sonny Jiang &lt;<a href=3D"mailto:sonny.jiang-5C7GfCeVMHo@public.gmane.org" targe=
+t=3D"_blank">sonny.jiang-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
+---<br>
+=C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |=C2=A0 2 ++<br>
+=C2=A0drivers/gpu/drm/drm_drv.c=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 | 17 +++++++++++++++++<br>
+=C2=A0drivers/gpu/drm/drm_ioctl.c=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 |=C2=A0 2 +-<br>
+=C2=A0include/drm/drm_device.h=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0|=C2=A0 3 +++<br>
+=C2=A0include/drm/drm_drv.h=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 |=C2=A0 1 +<br>
+=C2=A05 files changed, 24 insertions(+), 1 deletion(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_device.c<br>
+index 67b09cb2a9e2..8f0971cea363 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
+@@ -2809,6 +2809,8 @@ int amdgpu_device_init(struct amdgpu_device *adev,<br=
+>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 /* init the mode config */<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 drm_mode_config_init(adev-&gt;ddev);<br>
+<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0drm_dev_set_name(adev-&gt;ddev, amdgpu_asic_nam=
+e[adev-&gt;asic_type]);<br>
++<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 r =3D amdgpu_device_ip_init(adev);<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 if (r) {<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 /* failed in exclus=
+ive mode due to timeout */<br>
+diff --git a/drivers/gpu/drm/drm_drv.c b/drivers/gpu/drm/drm_drv.c<br>
+index 862621494a93..6c33879bb538 100644<br>
+--- a/drivers/gpu/drm/drm_drv.c<br>
++++ b/drivers/gpu/drm/drm_drv.c<br>
+@@ -802,6 +802,7 @@ void drm_dev_fini(struct drm_device *dev)<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 mutex_destroy(&amp;dev-&gt;struct_mutex);<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 drm_legacy_destroy_members(dev);<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 kfree(dev-&gt;unique);<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0kfree(dev-&gt;name);<br>
+=C2=A0}<br>
+=C2=A0EXPORT_SYMBOL(drm_dev_fini);<br>
+<br>
+@@ -1078,6 +1079,22 @@ int drm_dev_set_unique(struct drm_device *dev, const=
+ char *name)<br>
+=C2=A0}<br>
+=C2=A0EXPORT_SYMBOL(drm_dev_set_unique);<br>
+<br>
++/**<br>
++ * drm_dev_set_name - Set the name of a DRM device<br>
++ * @dev: device of which to set the name<br>
++ * @name: name to be set<br>
++ *<br>
++ * Return: 0 on success or a negative error code on failure.<br>
++ */<br>
++int drm_dev_set_name(struct drm_device *dev, const char *name)<br>
++{<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0kfree(dev-&gt;name);<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0dev-&gt;name =3D kstrdup(name, GFP_KERNEL);<br>
++<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0return dev-&gt;name ? 0 : -ENOMEM;<br>
++}<br>
++EXPORT_SYMBOL(drm_dev_set_name);<br>
++<br>
+=C2=A0/*<br>
+=C2=A0 * DRM Core<br>
+=C2=A0 * The DRM core module initializes all global DRM objects and makes t=
+hem<br>
+diff --git a/drivers/gpu/drm/drm_ioctl.c b/drivers/gpu/drm/drm_ioctl.c<br>
+index 2263e3ddd822..61f02965106b 100644<br>
+--- a/drivers/gpu/drm/drm_ioctl.c<br>
++++ b/drivers/gpu/drm/drm_ioctl.c<br>
+@@ -506,7 +506,7 @@ int drm_version(struct drm_device *dev, void *data,<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 dev-&gt;driver-&gt;date);<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 if (!err)<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 err =3D drm_copy_fi=
+eld(version-&gt;desc, &amp;version-&gt;desc_len,<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0dev-&gt;driver-&gt;desc);<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0dev-&gt;name);<br>
+<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 return err;<br>
+=C2=A0}<br>
+diff --git a/include/drm/drm_device.h b/include/drm/drm_device.h<br>
+index 7f9ef709b2b6..e29912c484e4 100644<br>
+--- a/include/drm/drm_device.h<br>
++++ b/include/drm/drm_device.h<br>
+@@ -123,6 +123,9 @@ struct drm_device {<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 /** @unique: Unique name of the device */<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 char *unique;<br>
+<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0/** @name: device name */<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0char *name;<br>
++<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 /**<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0* @struct_mutex:<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0*<br>
+diff --git a/include/drm/drm_drv.h b/include/drm/drm_drv.h<br>
+index 68ca736c548d..f742e2bde467 100644<br>
+--- a/include/drm/drm_drv.h<br>
++++ b/include/drm/drm_drv.h<br>
+@@ -798,6 +798,7 @@ static inline bool drm_drv_uses_atomic_modeset(struct d=
+rm_device *dev)<br>
+<br>
+<br>
+=C2=A0int drm_dev_set_unique(struct drm_device *dev, const char *name);<br>
++int drm_dev_set_name(struct drm_device *dev, const char *name);<br>
+<br>
+<br>
+=C2=A0#endif<br>
+-- <br>
+2.17.1<br>
+<br>
+_______________________________________________<br>
+amd-gfx mailing list<br>
+<a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" target=3D"_blank">amd-gfx@=
+lists.freedesktop.org</a><br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" rel=3D"n=
+oreferrer" target=3D"_blank">https://lists.freedesktop.org/mailman/listinfo=
+/amd-gfx</a></blockquote></div>
+
+--0000000000008d9f850591e9c93b--
+
+--===============1697656043==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+
+--===============1697656043==--
