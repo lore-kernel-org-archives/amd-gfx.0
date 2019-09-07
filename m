@@ -1,86 +1,94 @@
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: Allow to reset to EERPOM table.
-Date: Sat, 7 Sep 2019 09:42:47 -0400
-Message-ID: <CADnq5_Op_OnBdKrLpKD4_WZYd_+Jxd9NBcGfpmD8+4-qr6S8kw@mail.gmail.com>
-References: <1567782810-22378-1-git-send-email-andrey.grodzovsky@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Subject: Re: [PATCH AUTOSEL 4.19 044/167] drm/amdgpu: validate user pitch alignment
+Date: Sat, 7 Sep 2019 10:58:03 -0400
+Message-ID: <CADnq5_Mfee4xmzMJ-Hmw251QCMfabWPKd8PX+o70D97qdCDJ8g@mail.gmail.com>
+References: <20190903162519.7136-1-sashal@kernel.org> <20190903162519.7136-44-sashal@kernel.org>
+ <7957107d-634f-4771-327e-99fdd5e6474e@daenzer.net> <20190903170347.GA24357@kroah.com>
+ <20190903200139.GJ5281@sasha-vm> <CAKMK7uFpBnkF4xABdkDMZ8TYhL4jg6ZuGyHGyVeBxc9rkyUtXQ@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1567782810-22378-1-git-send-email-andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Andrey Grodzovsky <andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>
-Cc: Tao Zhou <Tao.Zhou1-5C7GfCeVMHo@public.gmane.org>, "Chen, Guchun" <Guchun.Chen-5C7GfCeVMHo@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Return-path: <stable-owner@vger.kernel.org>
+In-Reply-To: <CAKMK7uFpBnkF4xABdkDMZ8TYhL4jg6ZuGyHGyVeBxc9rkyUtXQ@mail.gmail.com>
+Sender: stable-owner@vger.kernel.org
+To: Daniel Vetter <daniel@ffwll.ch>
+Cc: Sasha Levin <sashal@kernel.org>, Dave Airlie <airlied@linux.ie>, Yu Zhao <yuzhao@google.com>, Greg KH <gregkh@linuxfoundation.org>, =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel@daenzer.net>, Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, amd-gfx list <amd-gfx@lists.freedesktop.org>, dri-devel <dri-devel@lists.freedesktop.org>, Alex Deucher <alexander.deucher@amd.com>, stable <stable@vger.kernel.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gRnJpLCBTZXAgNiwgMjAxOSBhdCAxMToxMyBBTSBBbmRyZXkgR3JvZHpvdnNreQo8YW5kcmV5
-Lmdyb2R6b3Zza3lAYW1kLmNvbT4gd3JvdGU6Cj4KPiBUaGUgdGFibGUgZ3Jvd3MgcXVpY2tseSBk
-dXJpbmcgZGVidWcvZGV2ZWxvcG1lbnQgZWZmb3J0IHdoZW4KPiBtdWx0aXBsZSBSQVMgZXJyb3Jz
-IGFyZSBpbmplY3RlZC4gQWxsb3cgdG8gYXZvaWQgdGhpcyBieSBzZXR0aW5nCj4gdGFibGUgaGVh
-ZGVyIGJhY2sgdG8gZW1wdHkgaWYgbmVlZGVkLgo+CgpQbGVhc2UgbWFrZSB0aGlzIGEgZGVidWdm
-cyBmaWxlIHJhdGhlciB0aGFuIGEgbW9kdWxlIHBhcmFtZXRlciBzbyB0aGF0Cml0IGFuIGJlIHVw
-ZGF0ZWQgYXQgcnVudGltZSBhbmQgbW9yZSBlYXNpbHkgaGFuZGxlZCBvbiBhIHBlciBjYXJkCmJh
-c2lzLgoKQWxleAoKPiBTaWduZWQtb2ZmLWJ5OiBBbmRyZXkgR3JvZHpvdnNreSA8YW5kcmV5Lmdy
-b2R6b3Zza3lAYW1kLmNvbT4KPiAtLS0KPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
-Z3B1LmggICAgICAgICAgICB8IDEgKwo+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
-cHVfZHJ2LmMgICAgICAgIHwgOCArKysrKysrKwo+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
-dS9hbWRncHVfcmFzX2VlcHJvbS5jIHwgMyArKy0KPiAgMyBmaWxlcyBjaGFuZ2VkLCAxMSBpbnNl
-cnRpb25zKCspLCAxIGRlbGV0aW9uKC0pCj4KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJt
-L2FtZC9hbWRncHUvYW1kZ3B1LmggYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHUu
-aAo+IGluZGV4IDBkMTFhYTguLjQwNWM1NWEgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJt
-L2FtZC9hbWRncHUvYW1kZ3B1LmgKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
-bWRncHUuaAo+IEBAIC0xNjksNiArMTY5LDcgQEAgZXh0ZXJuIGludCBhbWRncHVfZGlzY292ZXJ5
-Owo+ICBleHRlcm4gaW50IGFtZGdwdV9tZXM7Cj4gIGV4dGVybiBpbnQgYW1kZ3B1X25vcmV0cnk7
-Cj4gIGV4dGVybiBpbnQgYW1kZ3B1X2ZvcmNlX2FzaWNfdHlwZTsKPiArZXh0ZXJuIGludCBhbWRn
-cHVfcmFzX2VlcHJvbV9yZXNldDsKPgo+ICAjaWZkZWYgQ09ORklHX0RSTV9BTURHUFVfU0kKPiAg
-ZXh0ZXJuIGludCBhbWRncHVfc2lfc3VwcG9ydDsKPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUv
-ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rydi5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
-YW1kZ3B1X2Rydi5jCj4gaW5kZXggNWE3ZjkyOS4uNmUxMDFhNSAxMDA2NDQKPiAtLS0gYS9kcml2
-ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZHJ2LmMKPiArKysgYi9kcml2ZXJzL2dwdS9k
-cm0vYW1kL2FtZGdwdS9hbWRncHVfZHJ2LmMKPiBAQCAtMTQ1LDYgKzE0NSw3IEBAIGludCBhbWRn
-cHVfZGlzY292ZXJ5ID0gLTE7Cj4gIGludCBhbWRncHVfbWVzID0gMDsKPiAgaW50IGFtZGdwdV9u
-b3JldHJ5ID0gMTsKPiAgaW50IGFtZGdwdV9mb3JjZV9hc2ljX3R5cGUgPSAtMTsKPiAraW50IGFt
-ZGdwdV9yYXNfZWVwcm9tX3Jlc2V0ID0gLTE7Cj4KPiAgc3RydWN0IGFtZGdwdV9tZ3B1X2luZm8g
-bWdwdV9pbmZvID0gewo+ICAgICAgICAgLm11dGV4ID0gX19NVVRFWF9JTklUSUFMSVpFUihtZ3B1
-X2luZm8ubXV0ZXgpLAo+IEBAIC01MzAsNiArNTMxLDEzIEBAIE1PRFVMRV9QQVJNX0RFU0MocmFz
-X21hc2ssICJNYXNrIG9mIFJBUyBmZWF0dXJlcyB0byBlbmFibGUgKGRlZmF1bHQgMHhmZmZmZmZm
-ZiksCj4gIG1vZHVsZV9wYXJhbV9uYW1lZChyYXNfbWFzaywgYW1kZ3B1X3Jhc19tYXNrLCB1aW50
-LCAwNDQ0KTsKPgo+ICAvKioKPiArICogRE9DOiByYXNfZWVwcm9tX3Jlc2V0IChpbnQpCj4gKyAq
-IFJlc2V0IEVFUFJPTSB0YWJsZSB0byB6ZXJybyBlbnRyaWVzLgo+ICsgKi8KPiArTU9EVUxFX1BB
-Uk1fREVTQyhyYXNfZWVwcm9tX3Jlc2V0LCAiUmVzZXQgUkFTIEVFUFJPTSB0YWJsZSB0byB6ZXJy
-byBlbnRyaWVzICgxID0gcmVzZXQsIC0xID0gYXV0byAoZGVmYXVsdCAtIGRvbid0IHJlc2V0KSIp
-Owo+ICttb2R1bGVfcGFyYW1fbmFtZWQocmFzX2VlcHJvbV9yZXNldCwgYW1kZ3B1X3Jhc19lZXBy
-b21fcmVzZXQsIGludCwgMDQ0NCk7Cj4gKwo+ICsvKioKPiAgICogRE9DOiBzaV9zdXBwb3J0IChp
-bnQpCj4gICAqIFNldCBTSSBzdXBwb3J0IGRyaXZlci4gVGhpcyBwYXJhbWV0ZXIgd29ya3MgYWZ0
-ZXIgc2V0IGNvbmZpZyBDT05GSUdfRFJNX0FNREdQVV9TSS4gRm9yIFNJIGFzaWMsIHdoZW4gcmFk
-ZW9uIGRyaXZlciBpcyBlbmFibGVkLAo+ICAgKiBzZXQgdmFsdWUgMCB0byB1c2UgcmFkZW9uIGRy
-aXZlciwgd2hpbGUgc2V0IHZhbHVlIDEgdG8gdXNlIGFtZGdwdSBkcml2ZXIuIFRoZSBkZWZhdWx0
-IGlzIHVzaW5nIHJhZGVvbiBkcml2ZXIgd2hlbiBpdCBhdmFpbGFibGUsCj4gZGlmZiAtLWdpdCBh
-L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9yYXNfZWVwcm9tLmMgYi9kcml2ZXJz
-L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcmFzX2VlcHJvbS5jCj4gaW5kZXggNDNkZDRhYi4u
-NzVjNmZjMCAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
-cmFzX2VlcHJvbS5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Jh
-c19lZXByb20uYwo+IEBAIC0xNDAsNyArMTQwLDggQEAgaW50IGFtZGdwdV9yYXNfZWVwcm9tX2lu
-aXQoc3RydWN0IGFtZGdwdV9yYXNfZWVwcm9tX2NvbnRyb2wgKmNvbnRyb2wpCj4KPiAgICAgICAg
-IF9fZGVjb2RlX3RhYmxlX2hlYWRlcl9mcm9tX2J1ZmYoaGRyLCAmYnVmZlsyXSk7Cj4KPiAtICAg
-ICAgIGlmIChoZHItPmhlYWRlciA9PSBFRVBST01fVEFCTEVfSERSX1ZBTCkgewo+ICsgICAgICAg
-aWYgKGFtZGdwdV9yYXNfZWVwcm9tX3Jlc2V0ICE9IDEgJiYKPiArICAgICAgICAgICBoZHItPmhl
-YWRlciA9PSBFRVBST01fVEFCTEVfSERSX1ZBTCkgewo+ICAgICAgICAgICAgICAgICBjb250cm9s
-LT5udW1fcmVjcyA9IChoZHItPnRibF9zaXplIC0gRUVQUk9NX1RBQkxFX0hFQURFUl9TSVpFKSAv
-Cj4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgRUVQUk9NX1RBQkxFX1JFQ09S
-RF9TSVpFOwo+ICAgICAgICAgICAgICAgICBEUk1fREVCVUdfRFJJVkVSKCJGb3VuZCBleGlzdGlu
-ZyBFRVBST00gdGFibGUgd2l0aCAlZCByZWNvcmRzIiwKPiAtLQo+IDIuNy40Cj4KPiBfX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwo+IGFtZC1nZnggbWFpbGlu
-ZyBsaXN0Cj4gYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPiBodHRwczovL2xpc3RzLmZy
-ZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngKX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdm
-eEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFp
-bG1hbi9saXN0aW5mby9hbWQtZ2Z4
+On Tue, Sep 3, 2019 at 4:16 PM Daniel Vetter <daniel@ffwll.ch> wrote:
+>
+> On Tue, Sep 3, 2019 at 10:01 PM Sasha Levin <sashal@kernel.org> wrote:
+> >
+> > On Tue, Sep 03, 2019 at 07:03:47PM +0200, Greg KH wrote:
+> > >On Tue, Sep 03, 2019 at 06:40:43PM +0200, Michel D=C3=A4nzer wrote:
+> > >> On 2019-09-03 6:23 p.m., Sasha Levin wrote:
+> > >> > From: Yu Zhao <yuzhao@google.com>
+> > >> >
+> > >> > [ Upstream commit 89f23b6efef554766177bf51aa754bce14c3e7da ]
+> > >>
+> > >> Hold your horses!
+> > >>
+> > >> This commit and c4a32b266da7bb702e60381ca0c35eaddbc89a6c had to be
+> > >> reverted, as they caused regressions. See commits
+> > >> 25ec429e86bb790e40387a550f0501d0ac55a47c &
+> > >> 92b0730eaf2d549fdfb10ecc8b71f34b9f472c12 .
+> > >>
+> > >>
+> > >> This isn't bolstering confidence in how these patches are selected..=
+.
+> > >
+> > >The patch _itself_ said to be backported to the stable trees from 4.2
+> > >and newer.  Why wouldn't we be confident in doing this?
+> > >
+> > >If the patch doesn't want to be backported, then do not add the cc:
+> > >stable line to it...
+> >
+> > This patch was picked because it has a stable tag, which you presumably
+> > saw as your Reviewed-by tag is in the patch. This is why it was
+> > backported; it doesn't take AI to backport patches tagged for stable...
+> >
+> > The revert of this patch, however:
+> >
+> >  1. Didn't have a stable tag.
+> >  2. Didn't have a "Fixes:" tag.
+> >  3. Didn't have the usual "the reverts commit ..." string added by git
+> >  when one does a revert.
+> >
+> > Which is why we still kick patches for review, even though they had a
+> > stable tag, just so people could take a look and confirm we're not
+> > missing anything - like we did here.
+> >
+> > I'm not sure what you expected me to do differently here.
+>
+> Yeah this looks like fail on the revert side, they need to reference
+> the reverted commit somehow ...
+>
+> Alex, why got this dropped? Is this more fallout from the back&forth
+> shuffling you're doing between your internal branches behind the
+> firewall, and the public history?
+
+The behind the firewall comments are not really helpful.  There aren't
+any "behind the firewall" trees.  Everything is mirrored in public.
+Yes it is annoying that we don't have a direct committer tree, but the
+only shuffling is between public trees.  The problem is 90% of our
+customers want packaged out of tree drivers rather than in tree
+drivers because they are using an old distro or a custom distro or
+something else so we have to do this dance.  I realize there are other
+dances we could do to solve this problem, but they all have their own
+set of costs and this is what we have now.  The patch shuffling
+doesn't help, but regardless, the same thing could happen even with a
+direct committer tree if someone missed the tag when committing.
+
+Alex
+
+>
+> Also adding Dave Airlie.
+> -Daniel
+> --
+> Daniel Vetter
+> Software Engineer, Intel Corporation
+> +41 (0) 79 365 57 48 - http://blog.ffwll.ch
+> _______________________________________________
+> dri-devel mailing list
+> dri-devel@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/dri-devel
