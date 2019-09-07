@@ -1,10 +1,11 @@
-From: =?UTF-8?Q?Nils_Wallm=C3=A9nius?= <nils.wallmenius-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 Subject: Re: [PATCH] drm/amdgpu: Allow to reset to EERPOM table.
-Date: Sat, 7 Sep 2019 10:53:05 +0200
-Message-ID: <CA+nq7DtM7uSx3n_pMp==SqxjcBc0TGKcYQnidi7hvY47wkOfWQ@mail.gmail.com>
+Date: Sat, 7 Sep 2019 09:42:47 -0400
+Message-ID: <CADnq5_Op_OnBdKrLpKD4_WZYd_+Jxd9NBcGfpmD8+4-qr6S8kw@mail.gmail.com>
 References: <1567782810-22378-1-git-send-email-andrey.grodzovsky@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1255588425=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 In-Reply-To: <1567782810-22378-1-git-send-email-andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
@@ -18,228 +19,68 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 To: Andrey Grodzovsky <andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>
-Cc: Tao.Zhou1-5C7GfCeVMHo@public.gmane.org, Guchun.Chen-5C7GfCeVMHo@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Tao Zhou <Tao.Zhou1-5C7GfCeVMHo@public.gmane.org>, "Chen, Guchun" <Guchun.Chen-5C7GfCeVMHo@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============1255588425==
-Content-Type: multipart/alternative; boundary="000000000000a13dff0591f2af71"
-
---000000000000a13dff0591f2af71
-Content-Type: text/plain; charset="UTF-8"
-
-Hi Andrey, spotted a typo below, also typo in the title s/EERPOM/EEPROM/
-
-Regards
-Nils
-
-Den fre 6 sep. 2019 17:13Andrey Grodzovsky <andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>
-skrev:
-
-> The table grows quickly during debug/development effort when
-> multiple RAS errors are injected. Allow to avoid this by setting
-> table header back to empty if needed.
->
-> Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu.h            | 1 +
->  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c        | 8 ++++++++
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c | 3 ++-
->  3 files changed, 11 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> index 0d11aa8..405c55a 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> @@ -169,6 +169,7 @@ extern int amdgpu_discovery;
->  extern int amdgpu_mes;
->  extern int amdgpu_noretry;
->  extern int amdgpu_force_asic_type;
-> +extern int amdgpu_ras_eeprom_reset;
->
->  #ifdef CONFIG_DRM_AMDGPU_SI
->  extern int amdgpu_si_support;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> index 5a7f929..6e101a5 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> @@ -145,6 +145,7 @@ int amdgpu_discovery = -1;
->  int amdgpu_mes = 0;
->  int amdgpu_noretry = 1;
->  int amdgpu_force_asic_type = -1;
-> +int amdgpu_ras_eeprom_reset = -1;
->
->  struct amdgpu_mgpu_info mgpu_info = {
->         .mutex = __MUTEX_INITIALIZER(mgpu_info.mutex),
-> @@ -530,6 +531,13 @@ MODULE_PARM_DESC(ras_mask, "Mask of RAS features to
-> enable (default 0xffffffff),
->  module_param_named(ras_mask, amdgpu_ras_mask, uint, 0444);
->
->  /**
-> + * DOC: ras_eeprom_reset (int)
-> + * Reset EEPROM table to zerro entries.
-> + */
-> +MODULE_PARM_DESC(ras_eeprom_reset, "Reset RAS EEPROM table to zerro
-> entries (1 = reset, -1 = auto (default - don't reset)");
->
-
-s/zerro/zero/ in two places
-
-+module_param_named(ras_eeprom_reset, amdgpu_ras_eeprom_reset, int, 0444);
-> +
-> +/**
->   * DOC: si_support (int)
->   * Set SI support driver. This parameter works after set config
-> CONFIG_DRM_AMDGPU_SI. For SI asic, when radeon driver is enabled,
->   * set value 0 to use radeon driver, while set value 1 to use amdgpu
-> driver. The default is using radeon driver when it available,
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
-> index 43dd4ab..75c6fc0 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
-> @@ -140,7 +140,8 @@ int amdgpu_ras_eeprom_init(struct
-> amdgpu_ras_eeprom_control *control)
->
->         __decode_table_header_from_buff(hdr, &buff[2]);
->
-> -       if (hdr->header == EEPROM_TABLE_HDR_VAL) {
-> +       if (amdgpu_ras_eeprom_reset != 1 &&
-> +           hdr->header == EEPROM_TABLE_HDR_VAL) {
->                 control->num_recs = (hdr->tbl_size -
-> EEPROM_TABLE_HEADER_SIZE) /
->                                     EEPROM_TABLE_RECORD_SIZE;
->                 DRM_DEBUG_DRIVER("Found existing EEPROM table with %d
-> records",
-> --
-> 2.7.4
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---000000000000a13dff0591f2af71
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"auto"><div>Hi Andrey, spotted a typo below, also typo in the ti=
-tle s/EERPOM/EEPROM/</div><div dir=3D"auto"><br></div><div dir=3D"auto">Reg=
-ards</div><div dir=3D"auto">Nils<br><br><div class=3D"gmail_quote" dir=3D"a=
-uto"><div dir=3D"ltr" class=3D"gmail_attr">Den fre 6 sep. 2019 17:13Andrey =
-Grodzovsky &lt;<a href=3D"mailto:andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org">andrey.grodzovs=
-ky-5C7GfCeVMHo@public.gmane.org</a>&gt; skrev:<br></div><blockquote class=3D"gmail_quote" style=
-=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">The tabl=
-e grows quickly during debug/development effort when<br>
-multiple RAS errors are injected. Allow to avoid this by setting<br>
-table header back to empty if needed.<br>
-<br>
-Signed-off-by: Andrey Grodzovsky &lt;<a href=3D"mailto:andrey.grodzovsky@am=
-d.com" target=3D"_blank" rel=3D"noreferrer">andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org</a>&g=
-t;<br>
----<br>
-=C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu.h=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 | 1 +<br>
-=C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c=C2=A0 =C2=A0 =C2=A0 =C2=A0 | =
-8 ++++++++<br>
-=C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c | 3 ++-<br>
-=C2=A03 files changed, 11 insertions(+), 1 deletion(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdg=
-pu/amdgpu.h<br>
-index 0d11aa8..405c55a 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h<br>
-@@ -169,6 +169,7 @@ extern int amdgpu_discovery;<br>
-=C2=A0extern int amdgpu_mes;<br>
-=C2=A0extern int amdgpu_noretry;<br>
-=C2=A0extern int amdgpu_force_asic_type;<br>
-+extern int amdgpu_ras_eeprom_reset;<br>
-<br>
-=C2=A0#ifdef CONFIG_DRM_AMDGPU_SI<br>
-=C2=A0extern int amdgpu_si_support;<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_drv.c<br>
-index 5a7f929..6e101a5 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c<br>
-@@ -145,6 +145,7 @@ int amdgpu_discovery =3D -1;<br>
-=C2=A0int amdgpu_mes =3D 0;<br>
-=C2=A0int amdgpu_noretry =3D 1;<br>
-=C2=A0int amdgpu_force_asic_type =3D -1;<br>
-+int amdgpu_ras_eeprom_reset =3D -1;<br>
-<br>
-=C2=A0struct amdgpu_mgpu_info mgpu_info =3D {<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 .mutex =3D __MUTEX_INITIALIZER(mgpu_info.mutex)=
-,<br>
-@@ -530,6 +531,13 @@ MODULE_PARM_DESC(ras_mask, &quot;Mask of RAS features =
-to enable (default 0xffffffff),<br>
-=C2=A0module_param_named(ras_mask, amdgpu_ras_mask, uint, 0444);<br>
-<br>
-=C2=A0/**<br>
-+ * DOC: ras_eeprom_reset (int)<br>
-+ * Reset EEPROM table to zerro entries.<br>
-+ */<br>
-+MODULE_PARM_DESC(ras_eeprom_reset, &quot;Reset RAS EEPROM table to zerro e=
-ntries (1 =3D reset, -1 =3D auto (default - don&#39;t reset)&quot;);<br></b=
-lockquote></div></div><div dir=3D"auto"><br></div><div dir=3D"auto">s/zerro=
-/zero/ in two places</div><div dir=3D"auto"><br></div><div dir=3D"auto"><di=
-v class=3D"gmail_quote"><blockquote class=3D"gmail_quote" style=3D"margin:0=
- 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">
-+module_param_named(ras_eeprom_reset, amdgpu_ras_eeprom_reset, int, 0444);<=
-br>
-+<br>
-+/**<br>
-=C2=A0 * DOC: si_support (int)<br>
-=C2=A0 * Set SI support driver. This parameter works after set config CONFI=
-G_DRM_AMDGPU_SI. For SI asic, when radeon driver is enabled,<br>
-=C2=A0 * set value 0 to use radeon driver, while set value 1 to use amdgpu =
-driver. The default is using radeon driver when it available,<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c b/drivers/gpu/d=
-rm/amd/amdgpu/amdgpu_ras_eeprom.c<br>
-index 43dd4ab..75c6fc0 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c<br>
-@@ -140,7 +140,8 @@ int amdgpu_ras_eeprom_init(struct amdgpu_ras_eeprom_con=
-trol *control)<br>
-<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 __decode_table_header_from_buff(hdr, &amp;buff[=
-2]);<br>
-<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0if (hdr-&gt;header =3D=3D EEPROM_TABLE_HDR_VAL)=
- {<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0if (amdgpu_ras_eeprom_reset !=3D 1 &amp;&amp;<b=
-r>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0hdr-&gt;header =3D=3D EEPROM_TABL=
-E_HDR_VAL) {<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 control-&gt;num_rec=
-s =3D (hdr-&gt;tbl_size - EEPROM_TABLE_HEADER_SIZE) /<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 EEPROM_TABLE_RECORD_SI=
-ZE;<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 DRM_DEBUG_DRIVER(&q=
-uot;Found existing EEPROM table with %d records&quot;,<br>
--- <br>
-2.7.4<br>
-<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-<a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" target=3D"_blank" rel=3D"n=
-oreferrer">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" rel=3D"n=
-oreferrer noreferrer" target=3D"_blank">https://lists.freedesktop.org/mailm=
-an/listinfo/amd-gfx</a></blockquote></div></div></div>
-
---000000000000a13dff0591f2af71--
-
---===============1255588425==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
-
---===============1255588425==--
+T24gRnJpLCBTZXAgNiwgMjAxOSBhdCAxMToxMyBBTSBBbmRyZXkgR3JvZHpvdnNreQo8YW5kcmV5
+Lmdyb2R6b3Zza3lAYW1kLmNvbT4gd3JvdGU6Cj4KPiBUaGUgdGFibGUgZ3Jvd3MgcXVpY2tseSBk
+dXJpbmcgZGVidWcvZGV2ZWxvcG1lbnQgZWZmb3J0IHdoZW4KPiBtdWx0aXBsZSBSQVMgZXJyb3Jz
+IGFyZSBpbmplY3RlZC4gQWxsb3cgdG8gYXZvaWQgdGhpcyBieSBzZXR0aW5nCj4gdGFibGUgaGVh
+ZGVyIGJhY2sgdG8gZW1wdHkgaWYgbmVlZGVkLgo+CgpQbGVhc2UgbWFrZSB0aGlzIGEgZGVidWdm
+cyBmaWxlIHJhdGhlciB0aGFuIGEgbW9kdWxlIHBhcmFtZXRlciBzbyB0aGF0Cml0IGFuIGJlIHVw
+ZGF0ZWQgYXQgcnVudGltZSBhbmQgbW9yZSBlYXNpbHkgaGFuZGxlZCBvbiBhIHBlciBjYXJkCmJh
+c2lzLgoKQWxleAoKPiBTaWduZWQtb2ZmLWJ5OiBBbmRyZXkgR3JvZHpvdnNreSA8YW5kcmV5Lmdy
+b2R6b3Zza3lAYW1kLmNvbT4KPiAtLS0KPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
+Z3B1LmggICAgICAgICAgICB8IDEgKwo+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
+cHVfZHJ2LmMgICAgICAgIHwgOCArKysrKysrKwo+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
+dS9hbWRncHVfcmFzX2VlcHJvbS5jIHwgMyArKy0KPiAgMyBmaWxlcyBjaGFuZ2VkLCAxMSBpbnNl
+cnRpb25zKCspLCAxIGRlbGV0aW9uKC0pCj4KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJt
+L2FtZC9hbWRncHUvYW1kZ3B1LmggYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHUu
+aAo+IGluZGV4IDBkMTFhYTguLjQwNWM1NWEgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJt
+L2FtZC9hbWRncHUvYW1kZ3B1LmgKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
+bWRncHUuaAo+IEBAIC0xNjksNiArMTY5LDcgQEAgZXh0ZXJuIGludCBhbWRncHVfZGlzY292ZXJ5
+Owo+ICBleHRlcm4gaW50IGFtZGdwdV9tZXM7Cj4gIGV4dGVybiBpbnQgYW1kZ3B1X25vcmV0cnk7
+Cj4gIGV4dGVybiBpbnQgYW1kZ3B1X2ZvcmNlX2FzaWNfdHlwZTsKPiArZXh0ZXJuIGludCBhbWRn
+cHVfcmFzX2VlcHJvbV9yZXNldDsKPgo+ICAjaWZkZWYgQ09ORklHX0RSTV9BTURHUFVfU0kKPiAg
+ZXh0ZXJuIGludCBhbWRncHVfc2lfc3VwcG9ydDsKPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUv
+ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rydi5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
+YW1kZ3B1X2Rydi5jCj4gaW5kZXggNWE3ZjkyOS4uNmUxMDFhNSAxMDA2NDQKPiAtLS0gYS9kcml2
+ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZHJ2LmMKPiArKysgYi9kcml2ZXJzL2dwdS9k
+cm0vYW1kL2FtZGdwdS9hbWRncHVfZHJ2LmMKPiBAQCAtMTQ1LDYgKzE0NSw3IEBAIGludCBhbWRn
+cHVfZGlzY292ZXJ5ID0gLTE7Cj4gIGludCBhbWRncHVfbWVzID0gMDsKPiAgaW50IGFtZGdwdV9u
+b3JldHJ5ID0gMTsKPiAgaW50IGFtZGdwdV9mb3JjZV9hc2ljX3R5cGUgPSAtMTsKPiAraW50IGFt
+ZGdwdV9yYXNfZWVwcm9tX3Jlc2V0ID0gLTE7Cj4KPiAgc3RydWN0IGFtZGdwdV9tZ3B1X2luZm8g
+bWdwdV9pbmZvID0gewo+ICAgICAgICAgLm11dGV4ID0gX19NVVRFWF9JTklUSUFMSVpFUihtZ3B1
+X2luZm8ubXV0ZXgpLAo+IEBAIC01MzAsNiArNTMxLDEzIEBAIE1PRFVMRV9QQVJNX0RFU0MocmFz
+X21hc2ssICJNYXNrIG9mIFJBUyBmZWF0dXJlcyB0byBlbmFibGUgKGRlZmF1bHQgMHhmZmZmZmZm
+ZiksCj4gIG1vZHVsZV9wYXJhbV9uYW1lZChyYXNfbWFzaywgYW1kZ3B1X3Jhc19tYXNrLCB1aW50
+LCAwNDQ0KTsKPgo+ICAvKioKPiArICogRE9DOiByYXNfZWVwcm9tX3Jlc2V0IChpbnQpCj4gKyAq
+IFJlc2V0IEVFUFJPTSB0YWJsZSB0byB6ZXJybyBlbnRyaWVzLgo+ICsgKi8KPiArTU9EVUxFX1BB
+Uk1fREVTQyhyYXNfZWVwcm9tX3Jlc2V0LCAiUmVzZXQgUkFTIEVFUFJPTSB0YWJsZSB0byB6ZXJy
+byBlbnRyaWVzICgxID0gcmVzZXQsIC0xID0gYXV0byAoZGVmYXVsdCAtIGRvbid0IHJlc2V0KSIp
+Owo+ICttb2R1bGVfcGFyYW1fbmFtZWQocmFzX2VlcHJvbV9yZXNldCwgYW1kZ3B1X3Jhc19lZXBy
+b21fcmVzZXQsIGludCwgMDQ0NCk7Cj4gKwo+ICsvKioKPiAgICogRE9DOiBzaV9zdXBwb3J0IChp
+bnQpCj4gICAqIFNldCBTSSBzdXBwb3J0IGRyaXZlci4gVGhpcyBwYXJhbWV0ZXIgd29ya3MgYWZ0
+ZXIgc2V0IGNvbmZpZyBDT05GSUdfRFJNX0FNREdQVV9TSS4gRm9yIFNJIGFzaWMsIHdoZW4gcmFk
+ZW9uIGRyaXZlciBpcyBlbmFibGVkLAo+ICAgKiBzZXQgdmFsdWUgMCB0byB1c2UgcmFkZW9uIGRy
+aXZlciwgd2hpbGUgc2V0IHZhbHVlIDEgdG8gdXNlIGFtZGdwdSBkcml2ZXIuIFRoZSBkZWZhdWx0
+IGlzIHVzaW5nIHJhZGVvbiBkcml2ZXIgd2hlbiBpdCBhdmFpbGFibGUsCj4gZGlmZiAtLWdpdCBh
+L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9yYXNfZWVwcm9tLmMgYi9kcml2ZXJz
+L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcmFzX2VlcHJvbS5jCj4gaW5kZXggNDNkZDRhYi4u
+NzVjNmZjMCAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
+cmFzX2VlcHJvbS5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Jh
+c19lZXByb20uYwo+IEBAIC0xNDAsNyArMTQwLDggQEAgaW50IGFtZGdwdV9yYXNfZWVwcm9tX2lu
+aXQoc3RydWN0IGFtZGdwdV9yYXNfZWVwcm9tX2NvbnRyb2wgKmNvbnRyb2wpCj4KPiAgICAgICAg
+IF9fZGVjb2RlX3RhYmxlX2hlYWRlcl9mcm9tX2J1ZmYoaGRyLCAmYnVmZlsyXSk7Cj4KPiAtICAg
+ICAgIGlmIChoZHItPmhlYWRlciA9PSBFRVBST01fVEFCTEVfSERSX1ZBTCkgewo+ICsgICAgICAg
+aWYgKGFtZGdwdV9yYXNfZWVwcm9tX3Jlc2V0ICE9IDEgJiYKPiArICAgICAgICAgICBoZHItPmhl
+YWRlciA9PSBFRVBST01fVEFCTEVfSERSX1ZBTCkgewo+ICAgICAgICAgICAgICAgICBjb250cm9s
+LT5udW1fcmVjcyA9IChoZHItPnRibF9zaXplIC0gRUVQUk9NX1RBQkxFX0hFQURFUl9TSVpFKSAv
+Cj4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgRUVQUk9NX1RBQkxFX1JFQ09S
+RF9TSVpFOwo+ICAgICAgICAgICAgICAgICBEUk1fREVCVUdfRFJJVkVSKCJGb3VuZCBleGlzdGlu
+ZyBFRVBST00gdGFibGUgd2l0aCAlZCByZWNvcmRzIiwKPiAtLQo+IDIuNy40Cj4KPiBfX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwo+IGFtZC1nZnggbWFpbGlu
+ZyBsaXN0Cj4gYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPiBodHRwczovL2xpc3RzLmZy
+ZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngKX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdm
+eEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFp
+bG1hbi9saXN0aW5mby9hbWQtZ2Z4
