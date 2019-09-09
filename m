@@ -1,12 +1,14 @@
-From: "Wang, Kevin(Yang)" <Kevin1.Wang-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amd/powerplay: Remove unnecessary comparison statement
-Date: Mon, 9 Sep 2019 07:30:46 +0000
-Message-ID: <MN2PR12MB3296741B0679058F6021D26DA2B70@MN2PR12MB3296.namprd12.prod.outlook.com>
-References: <20190909043148.GA112744@LGEARND20B15>
+From: "Quan, Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: [PATCH] drm/amd/powerplay: Add the interface for geting dpm
+ current power state
+Date: Mon, 9 Sep 2019 08:31:04 +0000
+Message-ID: <MN2PR12MB3344C78FF82CFB5166571091E4B70@MN2PR12MB3344.namprd12.prod.outlook.com>
+References: <1568006521-7471-1-git-send-email-Prike.Liang@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1805571916=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190909043148.GA112744@LGEARND20B15>
+In-Reply-To: <1568006521-7471-1-git-send-email-Prike.Liang-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -18,179 +20,55 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Austin Kim <austindh.kim-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "airlied-cv59FeDIM0c@public.gmane.org" <airlied-cv59FeDIM0c@public.gmane.org>, "daniel-/w4YWyX8dFk@public.gmane.org" <daniel-/w4YWyX8dFk@public.gmane.org>
-Cc: "Zhou, David(ChunMing)" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, "dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org" <linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Koenig,
- Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
+To: "Liang, Prike" <Prike.Liang-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Huang, Ray" <Ray.Huang-5C7GfCeVMHo@public.gmane.org>, "Feng, Kenneth" <Kenneth.Feng-5C7GfCeVMHo@public.gmane.org>, "Liu, Aaron" <Aaron.Liu-5C7GfCeVMHo@public.gmane.org>
 
---===============1805571916==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_MN2PR12MB3296741B0679058F6021D26DA2B70MN2PR12MB3296namp_"
-
---_000_MN2PR12MB3296741B0679058F6021D26DA2B70MN2PR12MB3296namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-Reviewed-by: Kevin Wang <kevin1.wang-5C7GfCeVMHo@public.gmane.org>
-
-Best Regards,
-Kevin
-________________________________
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Austin K=
-im <austindh.kim-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Sent: Monday, September 9, 2019 12:31 PM
-To: Deucher, Alexander <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>; airlied-cv59FeDIM0c@public.gmane.org <airli=
-ed-cv59FeDIM0c@public.gmane.org>; daniel-/w4YWyX8dFk@public.gmane.org <daniel-/w4YWyX8dFk@public.gmane.org>
-Cc: Zhou, David(ChunMing) <David1.Zhou-5C7GfCeVMHo@public.gmane.org>; amd-gfx-PD4FTy7X32lNgt0PjOBp9/rsn8yoX9R0@public.gmane.org=
-org <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>; linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org <linux-ke=
-rnel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>; dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org <dri-devel-PD4FTy7X32mzQB+pC5nmwQ@public.gmane.org=
-edesktop.org>; Koenig, Christian <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH] drm/amd/powerplay: Remove unnecessary comparison statement
-
-size contain non-negative value since it is declared as uint32_t.
-So below statement is always false.
-        if (size < 0)
-
-Remove unnecessary comparison.
-
-Signed-off-by: Austin Kim <austindh.kim-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
----
- drivers/gpu/drm/amd/powerplay/navi10_ppt.c | 3 ---
- 1 file changed, 3 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c b/drivers/gpu/drm/a=
-md/powerplay/navi10_ppt.c
-index 12c0e46..3c7c68e 100644
---- a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
-+++ b/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
-@@ -1134,9 +1134,6 @@ static int navi10_set_power_profile_mode(struct smu_c=
-ontext *smu, long *input, u
-         }
-
-         if (smu->power_profile_mode =3D=3D PP_SMC_POWER_PROFILE_CUSTOM) {
--               if (size < 0)
--                       return -EINVAL;
--
-                 ret =3D smu_update_table(smu,
-                                        SMU_TABLE_ACTIVITY_MONITOR_COEFF, W=
-ORKLOAD_PPLIB_CUSTOM_BIT,
-                                        (void *)(&activity_monitor), false)=
-;
---
-2.6.2
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---_000_MN2PR12MB3296741B0679058F6021D26DA2B70MN2PR12MB3296namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Reviewed-by: Kevin Wang &lt;kevin1.wang-5C7GfCeVMHo@public.gmane.org&gt;</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Best Regards,</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Kevin</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
-ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Austin Kim &lt;austindh.kim@g=
-mail.com&gt;<br>
-<b>Sent:</b> Monday, September 9, 2019 12:31 PM<br>
-<b>To:</b> Deucher, Alexander &lt;Alexander.Deucher-5C7GfCeVMHo@public.gmane.org&gt;; airlied@li=
-nux.ie &lt;airlied-cv59FeDIM0c@public.gmane.org&gt;; daniel-/w4YWyX8dFk@public.gmane.org &lt;daniel-/w4YWyX8dFk@public.gmane.org&gt;<br=
->
-<b>Cc:</b> Zhou, David(ChunMing) &lt;David1.Zhou-5C7GfCeVMHo@public.gmane.org&gt;; amd-gfx@lists=
-.freedesktop.org &lt;amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt;; linux-kernel@vger.k=
-ernel.org &lt;linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org&gt;; dri-devel-PD4FTy7X32lNgt0PjOBp93gSJqDPrsil@public.gmane.org=
-.org &lt;dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt;; Koenig, Christian
- &lt;Christian.Koenig-5C7GfCeVMHo@public.gmane.org&gt;<br>
-<b>Subject:</b> [PATCH] drm/amd/powerplay: Remove unnecessary comparison st=
-atement</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">size contain non-negative value since it is declar=
-ed as uint32_t.<br>
-So below statement is always false.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (size &lt; 0)<br>
-<br>
-Remove unnecessary comparison.<br>
-<br>
-Signed-off-by: Austin Kim &lt;austindh.kim-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/powerplay/navi10_ppt.c | 3 ---<br>
-&nbsp;1 file changed, 3 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c b/drivers/gpu/drm/a=
-md/powerplay/navi10_ppt.c<br>
-index 12c0e46..3c7c68e 100644<br>
---- a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/navi10_ppt.c<br>
-@@ -1134,9 &#43;1134,6 @@ static int navi10_set_power_profile_mode(struct s=
-mu_context *smu, long *input, u<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (smu-&gt;power_profile_=
-mode =3D=3D PP_SMC_POWER_PROFILE_CUSTOM) {<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; if (size &lt; 0)<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return -EINVAL;<=
-br>
--<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; ret =3D smu_update_table(smu,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp; SMU_TABLE_ACTIVITY_MONITOR_COEFF, WORKLOAD_PPLIB_CUSTOM_BIT,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp; (void *)(&amp;activity_monitor), false);<br>
--- <br>
-2.6.2<br>
-<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
-lists.freedesktop.org/mailman/listinfo/amd-gfx</a></div>
-</span></font></div>
-</body>
-</html>
-
---_000_MN2PR12MB3296741B0679058F6021D26DA2B70MN2PR12MB3296namp_--
-
---===============1805571916==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
-
---===============1805571916==--
+UmV2aWV3ZWQtYnk6IEV2YW4gUXVhbiA8ZXZhbi5xdWFuQGFtZC5jb20+DQoNCj4gLS0tLS1Pcmln
+aW5hbCBNZXNzYWdlLS0tLS0NCj4gRnJvbTogTGlhbmcsIFByaWtlIDxQcmlrZS5MaWFuZ0BhbWQu
+Y29tPg0KPiBTZW50OiAyMDE55bm0OeaciDnml6UgMTM6MjINCj4gVG86IGFtZC1nZnhAbGlzdHMu
+ZnJlZWRlc2t0b3Aub3JnDQo+IENjOiBRdWFuLCBFdmFuIDxFdmFuLlF1YW5AYW1kLmNvbT47IEZl
+bmcsIEtlbm5ldGgNCj4gPEtlbm5ldGguRmVuZ0BhbWQuY29tPjsgSHVhbmcsIFJheSA8UmF5Lkh1
+YW5nQGFtZC5jb20+OyBMaXUsIEFhcm9uDQo+IDxBYXJvbi5MaXVAYW1kLmNvbT47IExpYW5nLCBQ
+cmlrZSA8UHJpa2UuTGlhbmdAYW1kLmNvbT4NCj4gU3ViamVjdDogW1BBVENIXSBkcm0vYW1kL3Bv
+d2VycGxheTogQWRkIHRoZSBpbnRlcmZhY2UgZm9yIGdldGluZyBkcG0NCj4gY3VycmVudCBwb3dl
+ciBzdGF0ZQ0KPiANCj4gaW1wbGVtZW50IHRoZSBzeXNmcyBwb3dlcl9kcG1fc3RhdGUNCj4gDQo+
+IFNpZ25lZC1vZmYtYnk6IFByaWtlIExpYW5nIDxQcmlrZS5MaWFuZ0BhbWQuY29tPg0KPiAtLS0N
+Cj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L3Jlbm9pcl9wcHQuYyB8IDM0DQo+ICsr
+KysrKysrKysrKysrKysrKysrKysrKysrKysrKw0KPiAgMSBmaWxlIGNoYW5nZWQsIDM0IGluc2Vy
+dGlvbnMoKykNCj4gDQo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxh
+eS9yZW5vaXJfcHB0LmMNCj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9yZW5vaXJf
+cHB0LmMNCj4gaW5kZXggYTVjZjg0Ni4uMmMyMmJhNCAxMDA2NDQNCj4gLS0tIGEvZHJpdmVycy9n
+cHUvZHJtL2FtZC9wb3dlcnBsYXkvcmVub2lyX3BwdC5jDQo+ICsrKyBiL2RyaXZlcnMvZ3B1L2Ry
+bS9hbWQvcG93ZXJwbGF5L3Jlbm9pcl9wcHQuYw0KPiBAQCAtMjQ2LDYgKzI0NiwzOCBAQCBzdGF0
+aWMgaW50IHJlbm9pcl9wcmludF9jbGtfbGV2ZWxzKHN0cnVjdCBzbXVfY29udGV4dA0KPiAqc211
+LA0KPiAgCXJldHVybiBzaXplOw0KPiAgfQ0KPiANCj4gK3N0YXRpYyBlbnVtIGFtZF9wbV9zdGF0
+ZV90eXBlIHJlbm9pcl9nZXRfY3VycmVudF9wb3dlcl9zdGF0ZShzdHJ1Y3QNCj4gK3NtdV9jb250
+ZXh0ICpzbXUpIHsNCj4gKwllbnVtIGFtZF9wbV9zdGF0ZV90eXBlIHBtX3R5cGU7DQo+ICsJc3Ry
+dWN0IHNtdV9kcG1fY29udGV4dCAqc211X2RwbV9jdHggPSAmKHNtdS0+c211X2RwbSk7DQo+ICsN
+Cj4gKwlpZiAoIXNtdV9kcG1fY3R4LT5kcG1fY29udGV4dCB8fA0KPiArCSAgICAhc211X2RwbV9j
+dHgtPmRwbV9jdXJyZW50X3Bvd2VyX3N0YXRlKQ0KPiArCQlyZXR1cm4gLUVJTlZBTDsNCj4gKw0K
+PiArCW11dGV4X2xvY2soJihzbXUtPm11dGV4KSk7DQo+ICsJc3dpdGNoIChzbXVfZHBtX2N0eC0+
+ZHBtX2N1cnJlbnRfcG93ZXJfc3RhdGUtDQo+ID5jbGFzc2lmaWNhdGlvbi51aV9sYWJlbCkgew0K
+PiArCWNhc2UgU01VX1NUQVRFX1VJX0xBQkVMX0JBVFRFUlk6DQo+ICsJCXBtX3R5cGUgPSBQT1dF
+Ul9TVEFURV9UWVBFX0JBVFRFUlk7DQo+ICsJCWJyZWFrOw0KPiArCWNhc2UgU01VX1NUQVRFX1VJ
+X0xBQkVMX0JBTExBTkNFRDoNCj4gKwkJcG1fdHlwZSA9IFBPV0VSX1NUQVRFX1RZUEVfQkFMQU5D
+RUQ7DQo+ICsJCWJyZWFrOw0KPiArCWNhc2UgU01VX1NUQVRFX1VJX0xBQkVMX1BFUkZPUk1BTkNF
+Og0KPiArCQlwbV90eXBlID0gUE9XRVJfU1RBVEVfVFlQRV9QRVJGT1JNQU5DRTsNCj4gKwkJYnJl
+YWs7DQo+ICsJZGVmYXVsdDoNCj4gKwkJaWYgKHNtdV9kcG1fY3R4LT5kcG1fY3VycmVudF9wb3dl
+cl9zdGF0ZS0NCj4gPmNsYXNzaWZpY2F0aW9uLmZsYWdzICYgU01VX1NUQVRFX0NMQVNTSUZJQ0FU
+SU9OX0ZMQUdfQk9PVCkNCj4gKwkJCXBtX3R5cGUgPSBQT1dFUl9TVEFURV9UWVBFX0lOVEVSTkFM
+X0JPT1Q7DQo+ICsJCWVsc2UNCj4gKwkJCXBtX3R5cGUgPSBQT1dFUl9TVEFURV9UWVBFX0RFRkFV
+TFQ7DQo+ICsJCWJyZWFrOw0KPiArCX0NCj4gKwltdXRleF91bmxvY2soJihzbXUtPm11dGV4KSk7
+DQo+ICsNCj4gKwlyZXR1cm4gcG1fdHlwZTsNCj4gK30NCj4gKw0KPiAgc3RhdGljIGNvbnN0IHN0
+cnVjdCBwcHRhYmxlX2Z1bmNzIHJlbm9pcl9wcHRfZnVuY3MgPSB7DQo+ICAJLmdldF9zbXVfbXNn
+X2luZGV4ID0gcmVub2lyX2dldF9zbXVfbXNnX2luZGV4LA0KPiAgCS5nZXRfc211X3RhYmxlX2lu
+ZGV4ID0gcmVub2lyX2dldF9zbXVfdGFibGVfaW5kZXgsIEBAIC0yNTMsNg0KPiArMjg1LDggQEAg
+c3RhdGljIGNvbnN0IHN0cnVjdCBwcHRhYmxlX2Z1bmNzIHJlbm9pcl9wcHRfZnVuY3MgPSB7DQo+
+ICAJLnNldF9wb3dlcl9zdGF0ZSA9IE5VTEwsDQo+ICAJLmdldF9kcG1fdWNsa19saW1pdGVkID0g
+cmVub2lyX2dldF9kcG1fdWNsa19saW1pdGVkLA0KPiAgCS5wcmludF9jbGtfbGV2ZWxzID0gcmVu
+b2lyX3ByaW50X2Nsa19sZXZlbHMsDQo+ICsJLmdldF9jdXJyZW50X3Bvd2VyX3N0YXRlID0gcmVu
+b2lyX2dldF9jdXJyZW50X3Bvd2VyX3N0YXRlLA0KPiArDQo+ICB9Ow0KPiANCj4gIHZvaWQgcmVu
+b2lyX3NldF9wcHRfZnVuY3Moc3RydWN0IHNtdV9jb250ZXh0ICpzbXUpDQo+IC0tDQo+IDIuNy40
+DQoNCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1n
+ZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
+dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
