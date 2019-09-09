@@ -1,13 +1,14 @@
-From: "Yin, Tianci (Rico)" <Tianci.Yin-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: add navi14 PCI ID for work station SKU
-Date: Mon, 9 Sep 2019 10:43:41 +0000
-Message-ID: <DM5PR12MB2535F7DCBF9285FDE5571FDA95B70@DM5PR12MB2535.namprd12.prod.outlook.com>
-References: <DM5PR12MB25355C78839E9472D67F354995BA0@DM5PR12MB2535.namprd12.prod.outlook.com>,
- <CH2PR12MB3767862582DB359BF4A64799FEB70@CH2PR12MB3767.namprd12.prod.outlook.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH 1/1] drm/amdgpu: Disable retry faults in VMID0
+Date: Mon, 9 Sep 2019 13:13:46 +0200
+Message-ID: <bb1fd5a1-c205-9c82-7b7f-a81d07b48a51@gmail.com>
+References: <20190904233053.9767-1-Felix.Kuehling@amd.com>
+Reply-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0598037862=="
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CH2PR12MB3767862582DB359BF4A64799FEB70-rV3HgkLYx2Vb0rI3ZRjBIAdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
+In-Reply-To: <20190904233053.9767-1-Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -19,161 +20,81 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Xu, Feifei" <Feifei.Xu-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Long, Gang" <Gang.Long-5C7GfCeVMHo@public.gmane.org>, "Xiao, Jack" <Jack.Xiao-5C7GfCeVMHo@public.gmane.org>, "Yuan,
- Xiaojie" <Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org>, "Zhang, Hawking" <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>
+To: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Huang, Ray" <Ray.Huang-5C7GfCeVMHo@public.gmane.org>
 
---===============0598037862==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_DM5PR12MB2535F7DCBF9285FDE5571FDA95B70DM5PR12MB2535namp_"
-
---_000_DM5PR12MB2535F7DCBF9285FDE5571FDA95B70DM5PR12MB2535namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-Thanks Feifei!
-________________________________
-From: Xu, Feifei <Feifei.Xu-5C7GfCeVMHo@public.gmane.org>
-Sent: Monday, September 9, 2019 18:43
-To: Yin, Tianci (Rico) <Tianci.Yin-5C7GfCeVMHo@public.gmane.org>; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org =
-<amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: Zhang, Hawking <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>; Xiao, Jack <Jack.Xiao-5C7GfCeVMHo@public.gmane.org>;=
- Yuan, Xiaojie <Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org>; Long, Gang <Gang.Long-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH] drm/amdgpu: add navi14 PCI ID for work station SKU
-
-
-
-
-
-
-Reviewed-by: Feifei Xu <Feifei.Xu-5C7GfCeVMHo@public.gmane.org>
-
-
-
-From: Yin, Tianci (Rico) <Tianci.Yin-5C7GfCeVMHo@public.gmane.org>
-Sent: Friday, September 6, 2019 3:37 PM
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Xu, Feifei <Feifei.Xu-5C7GfCeVMHo@public.gmane.org>; Zhang, Hawking <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>;=
- Xiao, Jack <Jack.Xiao-5C7GfCeVMHo@public.gmane.org>; Yuan, Xiaojie <Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org>; Long=
-, Gang <Gang.Long-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH] drm/amdgpu: add navi14 PCI ID for work station SKU
-
-
-
-
-
---_000_DM5PR12MB2535F7DCBF9285FDE5571FDA95B70DM5PR12MB2535namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Thanks Feifei!<br>
-</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Xu, Feifei &lt;Feifei=
-.Xu-5C7GfCeVMHo@public.gmane.org&gt;<br>
-<b>Sent:</b> Monday, September 9, 2019 18:43<br>
-<b>To:</b> Yin, Tianci (Rico) &lt;Tianci.Yin-5C7GfCeVMHo@public.gmane.org&gt;; amd-gfx-PD4FTy7X32mzQB+pC5nmwQ@public.gmane.org=
-edesktop.org &lt;amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt;<br>
-<b>Cc:</b> Zhang, Hawking &lt;Hawking.Zhang-5C7GfCeVMHo@public.gmane.org&gt;; Xiao, Jack &lt;Jac=
-k.Xiao-5C7GfCeVMHo@public.gmane.org&gt;; Yuan, Xiaojie &lt;Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org&gt;; Long, Gang =
-&lt;Gang.Long-5C7GfCeVMHo@public.gmane.org&gt;<br>
-<b>Subject:</b> RE: [PATCH] drm/amdgpu: add navi14 PCI ID for work station =
-SKU</font>
-<div>&nbsp;</div>
-</div>
-<style>
-<!--
-@font-face
-	{font-family:"Cambria Math"}
-@font-face
-	{font-family:DengXian}
-@font-face
-	{font-family:Calibri}
-@font-face
-	{}
-p.x_MsoNormal, li.x_MsoNormal, div.x_MsoNormal
-	{margin:0in;
-	margin-bottom:.0001pt;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif}
-a:link, span.x_MsoHyperlink
-	{color:#0563C1;
-	text-decoration:underline}
-a:visited, span.x_MsoHyperlinkFollowed
-	{color:#954F72;
-	text-decoration:underline}
-p.x_msonormal0, li.x_msonormal0, div.x_msonormal0
-	{margin:0in;
-	margin-bottom:.0001pt;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif}
-span.x_EmailStyle19
-	{font-family:"Calibri",sans-serif;
-	color:windowtext}
-.x_MsoChpDefault
-	{font-size:10.0pt}
-@page WordSection1
-	{margin:1.0in 1.0in 1.0in 1.0in}
-div.x_WordSection1
-	{}
--->
-</style>
-<div lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72">
-<div class=3D"x_WordSection1">
-<p class=3D"x_MsoNormal">&nbsp;</p>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-<div>
-<p class=3D"x_MsoNormal">Reviewed-by: Feifei Xu &lt;Feifei.Xu-5C7GfCeVMHo@public.gmane.org&gt;</=
-p>
-</div>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-<div>
-<div style=3D"border:none; border-top:solid #E1E1E1 1.0pt; padding:3.0pt 0i=
-n 0in 0in">
-<p class=3D"x_MsoNormal"><b>From:</b> Yin, Tianci (Rico) &lt;Tianci.Yin@amd=
-.com&gt; <br>
-<b>Sent:</b> Friday, September 6, 2019 3:37 PM<br>
-<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Cc:</b> Xu, Feifei &lt;Feifei.Xu-5C7GfCeVMHo@public.gmane.org&gt;; Zhang, Hawking &lt;Hawking=
-.Zhang-5C7GfCeVMHo@public.gmane.org&gt;; Xiao, Jack &lt;Jack.Xiao-5C7GfCeVMHo@public.gmane.org&gt;; Yuan, Xiaojie &lt=
-;Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org&gt;; Long, Gang &lt;Gang.Long-5C7GfCeVMHo@public.gmane.org&gt;<br>
-<b>Subject:</b> [PATCH] drm/amdgpu: add navi14 PCI ID for work station SKU<=
-/p>
-</div>
-</div>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-<div>
-<p class=3D"x_MsoNormal"><span style=3D"font-size:12.0pt; color:black">&nbs=
-p;</span></p>
-</div>
-</div>
-</div>
-</body>
-</html>
-
---_000_DM5PR12MB2535F7DCBF9285FDE5571FDA95B70DM5PR12MB2535namp_--
-
---===============0598037862==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
-
---===============0598037862==--
+QW0gMDUuMDkuMTkgdW0gMDE6MzEgc2NocmllYiBLdWVobGluZywgRmVsaXg6Cj4gVGhlcmUgaXMg
+bm8gcG9pbnQgcmV0cnlpbmcgcGFnZSBmYXVsdHMgaW4gVk1JRDAuIFRob3NlIGZhdWx0cyBhcmUK
+PiBhbHdheXMgZmF0YWwuCj4KPiBTaWduZWQtb2ZmLWJ5OiBGZWxpeCBLdWVobGluZyA8RmVsaXgu
+S3VlaGxpbmdAYW1kLmNvbT4KClJldmlld2VkLWJ5OiBDaHJpc3RpYW4gS8O2bmlnIDxjaHJpc3Rp
+YW4ua29lbmlnQGFtZC5jb20+Cgo+IC0tLQo+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
+Z2Z4aHViX3YxXzAuYyB8IDIgKysKPiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeGh1
+Yl92Ml8wLmMgfCAyICsrCj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9tbWh1Yl92MV8w
+LmMgIHwgMiArKwo+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvbW1odWJfdjJfMC5jICB8
+IDIgKysKPiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L21taHViX3Y5XzQuYyAgfCAyICsr
+Cj4gICA1IGZpbGVzIGNoYW5nZWQsIDEwIGluc2VydGlvbnMoKykKPgo+IGRpZmYgLS1naXQgYS9k
+cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhodWJfdjFfMC5jIGIvZHJpdmVycy9ncHUvZHJt
+L2FtZC9hbWRncHUvZ2Z4aHViX3YxXzAuYwo+IGluZGV4IDZjZTM3Y2U3N2QxNC4uOWVjNDI5N2U2
+MWU1IDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeGh1Yl92MV8w
+LmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhodWJfdjFfMC5jCj4gQEAg
+LTE3OCw2ICsxNzgsOCBAQCBzdGF0aWMgdm9pZCBnZnhodWJfdjFfMF9lbmFibGVfc3lzdGVtX2Rv
+bWFpbihzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikKPiAgIAl0bXAgPSBSUkVHMzJfU09DMTUo
+R0MsIDAsIG1tVk1fQ09OVEVYVDBfQ05UTCk7Cj4gICAJdG1wID0gUkVHX1NFVF9GSUVMRCh0bXAs
+IFZNX0NPTlRFWFQwX0NOVEwsIEVOQUJMRV9DT05URVhULCAxKTsKPiAgIAl0bXAgPSBSRUdfU0VU
+X0ZJRUxEKHRtcCwgVk1fQ09OVEVYVDBfQ05UTCwgUEFHRV9UQUJMRV9ERVBUSCwgMCk7Cj4gKwl0
+bXAgPSBSRUdfU0VUX0ZJRUxEKHRtcCwgVk1fQ09OVEVYVDBfQ05UTCwKPiArCQkJICAgIFJFVFJZ
+X1BFUk1JU1NJT05fT1JfSU5WQUxJRF9QQUdFX0ZBVUxULCAwKTsKPiAgIAlXUkVHMzJfU09DMTUo
+R0MsIDAsIG1tVk1fQ09OVEVYVDBfQ05UTCwgdG1wKTsKPiAgIH0KPiAgIAo+IGRpZmYgLS1naXQg
+YS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhodWJfdjJfMC5jIGIvZHJpdmVycy9ncHUv
+ZHJtL2FtZC9hbWRncHUvZ2Z4aHViX3YyXzAuYwo+IGluZGV4IDhiNzg5Zjc1MGI3Mi4uYTkyMzg3
+MzVkMzYxIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeGh1Yl92
+Ml8wLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhodWJfdjJfMC5jCj4g
+QEAgLTE2Niw2ICsxNjYsOCBAQCBzdGF0aWMgdm9pZCBnZnhodWJfdjJfMF9lbmFibGVfc3lzdGVt
+X2RvbWFpbihzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikKPiAgIAl0bXAgPSBSUkVHMzJfU09D
+MTUoR0MsIDAsIG1tR0NWTV9DT05URVhUMF9DTlRMKTsKPiAgIAl0bXAgPSBSRUdfU0VUX0ZJRUxE
+KHRtcCwgR0NWTV9DT05URVhUMF9DTlRMLCBFTkFCTEVfQ09OVEVYVCwgMSk7Cj4gICAJdG1wID0g
+UkVHX1NFVF9GSUVMRCh0bXAsIEdDVk1fQ09OVEVYVDBfQ05UTCwgUEFHRV9UQUJMRV9ERVBUSCwg
+MCk7Cj4gKwl0bXAgPSBSRUdfU0VUX0ZJRUxEKHRtcCwgR0NWTV9DT05URVhUMF9DTlRMLAo+ICsJ
+CQkgICAgUkVUUllfUEVSTUlTU0lPTl9PUl9JTlZBTElEX1BBR0VfRkFVTFQsIDApOwo+ICAgCVdS
+RUczMl9TT0MxNShHQywgMCwgbW1HQ1ZNX0NPTlRFWFQwX0NOVEwsIHRtcCk7Cj4gICB9Cj4gICAK
+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvbW1odWJfdjFfMC5jIGIv
+ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvbW1odWJfdjFfMC5jCj4gaW5kZXggYjlkNmMwYmZh
+NTk0Li40YzdlOGM2NGE5NGUgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
+cHUvbW1odWJfdjFfMC5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvbW1odWJf
+djFfMC5jCj4gQEAgLTIwNyw2ICsyMDcsOCBAQCBzdGF0aWMgdm9pZCBtbWh1Yl92MV8wX2VuYWJs
+ZV9zeXN0ZW1fZG9tYWluKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQo+ICAgCXRtcCA9IFJS
+RUczMl9TT0MxNShNTUhVQiwgMCwgbW1WTV9DT05URVhUMF9DTlRMKTsKPiAgIAl0bXAgPSBSRUdf
+U0VUX0ZJRUxEKHRtcCwgVk1fQ09OVEVYVDBfQ05UTCwgRU5BQkxFX0NPTlRFWFQsIDEpOwo+ICAg
+CXRtcCA9IFJFR19TRVRfRklFTEQodG1wLCBWTV9DT05URVhUMF9DTlRMLCBQQUdFX1RBQkxFX0RF
+UFRILCAwKTsKPiArCXRtcCA9IFJFR19TRVRfRklFTEQodG1wLCBWTV9DT05URVhUMF9DTlRMLAo+
+ICsJCQkgICAgUkVUUllfUEVSTUlTU0lPTl9PUl9JTlZBTElEX1BBR0VfRkFVTFQsIDApOwo+ICAg
+CVdSRUczMl9TT0MxNShNTUhVQiwgMCwgbW1WTV9DT05URVhUMF9DTlRMLCB0bXApOwo+ICAgfQo+
+ICAgCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L21taHViX3YyXzAu
+YyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L21taHViX3YyXzAuYwo+IGluZGV4IDM1NDJj
+MjAzYzNjOC4uODZlZDhjYjkxNWE4IDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQv
+YW1kZ3B1L21taHViX3YyXzAuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L21t
+aHViX3YyXzAuYwo+IEBAIC0xNTIsNiArMTUyLDggQEAgc3RhdGljIHZvaWQgbW1odWJfdjJfMF9l
+bmFibGVfc3lzdGVtX2RvbWFpbihzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikKPiAgIAl0bXAg
+PSBSUkVHMzJfU09DMTUoTU1IVUIsIDAsIG1tTU1WTV9DT05URVhUMF9DTlRMKTsKPiAgIAl0bXAg
+PSBSRUdfU0VUX0ZJRUxEKHRtcCwgTU1WTV9DT05URVhUMF9DTlRMLCBFTkFCTEVfQ09OVEVYVCwg
+MSk7Cj4gICAJdG1wID0gUkVHX1NFVF9GSUVMRCh0bXAsIE1NVk1fQ09OVEVYVDBfQ05UTCwgUEFH
+RV9UQUJMRV9ERVBUSCwgMCk7Cj4gKwl0bXAgPSBSRUdfU0VUX0ZJRUxEKHRtcCwgTU1WTV9DT05U
+RVhUMF9DTlRMLAo+ICsJCQkgICAgUkVUUllfUEVSTUlTU0lPTl9PUl9JTlZBTElEX1BBR0VfRkFV
+TFQsIDApOwo+ICAgCVdSRUczMl9TT0MxNShNTUhVQiwgMCwgbW1NTVZNX0NPTlRFWFQwX0NOVEws
+IHRtcCk7Cj4gICB9Cj4gICAKPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
+cHUvbW1odWJfdjlfNC5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvbW1odWJfdjlfNC5j
+Cj4gaW5kZXggMGNmN2VmNDRiNGI1Li42NTc5NzBmOWViZmIgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVy
+cy9ncHUvZHJtL2FtZC9hbWRncHUvbW1odWJfdjlfNC5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJt
+L2FtZC9hbWRncHUvbW1odWJfdjlfNC5jCj4gQEAgLTI0MCw2ICsyNDAsOCBAQCBzdGF0aWMgdm9p
+ZCBtbWh1Yl92OV80X2VuYWJsZV9zeXN0ZW1fZG9tYWluKHN0cnVjdCBhbWRncHVfZGV2aWNlICph
+ZGV2LAo+ICAgCQkJCSAgaHViaWQgKiBNTUhVQl9JTlNUQU5DRV9SRUdJU1RFUl9PRkZTRVQpOwo+
+ICAgCXRtcCA9IFJFR19TRVRfRklFTEQodG1wLCBWTUwyVkMwX1ZNX0NPTlRFWFQwX0NOVEwsIEVO
+QUJMRV9DT05URVhULCAxKTsKPiAgIAl0bXAgPSBSRUdfU0VUX0ZJRUxEKHRtcCwgVk1MMlZDMF9W
+TV9DT05URVhUMF9DTlRMLCBQQUdFX1RBQkxFX0RFUFRILCAwKTsKPiArCXRtcCA9IFJFR19TRVRf
+RklFTEQodG1wLCBWTUwyVkMwX1ZNX0NPTlRFWFQwX0NOVEwsCj4gKwkJCSAgICBSRVRSWV9QRVJN
+SVNTSU9OX09SX0lOVkFMSURfUEFHRV9GQVVMVCwgMCk7Cj4gICAJV1JFRzMyX1NPQzE1X09GRlNF
+VChNTUhVQiwgMCwgbW1WTUwyVkMwX1ZNX0NPTlRFWFQwX0NOVEwsCj4gICAJCQkgICAgaHViaWQg
+KiBNTUhVQl9JTlNUQU5DRV9SRUdJU1RFUl9PRkZTRVQsIHRtcCk7Cj4gICB9CgpfX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlz
+dAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9w
+Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
