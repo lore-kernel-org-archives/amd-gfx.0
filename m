@@ -1,40 +1,63 @@
-From: Austin Kim <austindh.kim@gmail.com>
-Subject: [PATCH] drm/amd/powerplay: Remove unnecessary comparison statement
-Date: Mon, 9 Sep 2019 13:31:48 +0900
-Message-ID: <20190909043148.GA112744@LGEARND20B15>
+From: "Liang, Prike" <Prike.Liang-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH] drm/amd/powerplay: Add the interface for geting dpm current
+ power state
+Date: Mon, 9 Sep 2019 05:22:16 +0000
+Message-ID: <1568006521-7471-1-git-send-email-Prike.Liang@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Content-Disposition: inline
-Sender: linux-kernel-owner@vger.kernel.org
-To: alexander.deucher@amd.com, airlied@linux.ie, daniel@ffwll.ch
-Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, christian.koenig@amd.com, David1.Zhou@amd.com
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Huang, Ray" <Ray.Huang-5C7GfCeVMHo@public.gmane.org>, "Liang,
+ Prike" <Prike.Liang-5C7GfCeVMHo@public.gmane.org>, "Quan, Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>, "Feng,
+ Kenneth" <Kenneth.Feng-5C7GfCeVMHo@public.gmane.org>, "Liu, Aaron" <Aaron.Liu-5C7GfCeVMHo@public.gmane.org>
 
-size contain non-negative value since it is declared as uint32_t.
-So below statement is always false.
-	if (size < 0)
-
-Remove unnecessary comparison.
-
-Signed-off-by: Austin Kim <austindh.kim@gmail.com>
----
- drivers/gpu/drm/amd/powerplay/navi10_ppt.c | 3 ---
- 1 file changed, 3 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c b/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
-index 12c0e46..3c7c68e 100644
---- a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
-+++ b/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
-@@ -1134,9 +1134,6 @@ static int navi10_set_power_profile_mode(struct smu_context *smu, long *input, u
- 	}
- 
- 	if (smu->power_profile_mode == PP_SMC_POWER_PROFILE_CUSTOM) {
--		if (size < 0)
--			return -EINVAL;
--
- 		ret = smu_update_table(smu,
- 				       SMU_TABLE_ACTIVITY_MONITOR_COEFF, WORKLOAD_PPLIB_CUSTOM_BIT,
- 				       (void *)(&activity_monitor), false);
--- 
-2.6.2
+aW1wbGVtZW50IHRoZSBzeXNmcyBwb3dlcl9kcG1fc3RhdGUKClNpZ25lZC1vZmYtYnk6IFByaWtl
+IExpYW5nIDxQcmlrZS5MaWFuZ0BhbWQuY29tPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvcG93
+ZXJwbGF5L3Jlbm9pcl9wcHQuYyB8IDM0ICsrKysrKysrKysrKysrKysrKysrKysrKysrKysrKwog
+MSBmaWxlIGNoYW5nZWQsIDM0IGluc2VydGlvbnMoKykKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dw
+dS9kcm0vYW1kL3Bvd2VycGxheS9yZW5vaXJfcHB0LmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bv
+d2VycGxheS9yZW5vaXJfcHB0LmMKaW5kZXggYTVjZjg0Ni4uMmMyMmJhNCAxMDA2NDQKLS0tIGEv
+ZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvcmVub2lyX3BwdC5jCisrKyBiL2RyaXZlcnMv
+Z3B1L2RybS9hbWQvcG93ZXJwbGF5L3Jlbm9pcl9wcHQuYwpAQCAtMjQ2LDYgKzI0NiwzOCBAQCBz
+dGF0aWMgaW50IHJlbm9pcl9wcmludF9jbGtfbGV2ZWxzKHN0cnVjdCBzbXVfY29udGV4dCAqc211
+LAogCXJldHVybiBzaXplOwogfQogCitzdGF0aWMgZW51bSBhbWRfcG1fc3RhdGVfdHlwZSByZW5v
+aXJfZ2V0X2N1cnJlbnRfcG93ZXJfc3RhdGUoc3RydWN0IHNtdV9jb250ZXh0ICpzbXUpCit7CisJ
+ZW51bSBhbWRfcG1fc3RhdGVfdHlwZSBwbV90eXBlOworCXN0cnVjdCBzbXVfZHBtX2NvbnRleHQg
+KnNtdV9kcG1fY3R4ID0gJihzbXUtPnNtdV9kcG0pOworCisJaWYgKCFzbXVfZHBtX2N0eC0+ZHBt
+X2NvbnRleHQgfHwKKwkgICAgIXNtdV9kcG1fY3R4LT5kcG1fY3VycmVudF9wb3dlcl9zdGF0ZSkK
+KwkJcmV0dXJuIC1FSU5WQUw7CisKKwltdXRleF9sb2NrKCYoc211LT5tdXRleCkpOworCXN3aXRj
+aCAoc211X2RwbV9jdHgtPmRwbV9jdXJyZW50X3Bvd2VyX3N0YXRlLT5jbGFzc2lmaWNhdGlvbi51
+aV9sYWJlbCkgeworCWNhc2UgU01VX1NUQVRFX1VJX0xBQkVMX0JBVFRFUlk6CisJCXBtX3R5cGUg
+PSBQT1dFUl9TVEFURV9UWVBFX0JBVFRFUlk7CisJCWJyZWFrOworCWNhc2UgU01VX1NUQVRFX1VJ
+X0xBQkVMX0JBTExBTkNFRDoKKwkJcG1fdHlwZSA9IFBPV0VSX1NUQVRFX1RZUEVfQkFMQU5DRUQ7
+CisJCWJyZWFrOworCWNhc2UgU01VX1NUQVRFX1VJX0xBQkVMX1BFUkZPUk1BTkNFOgorCQlwbV90
+eXBlID0gUE9XRVJfU1RBVEVfVFlQRV9QRVJGT1JNQU5DRTsKKwkJYnJlYWs7CisJZGVmYXVsdDoK
+KwkJaWYgKHNtdV9kcG1fY3R4LT5kcG1fY3VycmVudF9wb3dlcl9zdGF0ZS0+Y2xhc3NpZmljYXRp
+b24uZmxhZ3MgJiBTTVVfU1RBVEVfQ0xBU1NJRklDQVRJT05fRkxBR19CT09UKQorCQkJcG1fdHlw
+ZSA9IFBPV0VSX1NUQVRFX1RZUEVfSU5URVJOQUxfQk9PVDsKKwkJZWxzZQorCQkJcG1fdHlwZSA9
+IFBPV0VSX1NUQVRFX1RZUEVfREVGQVVMVDsKKwkJYnJlYWs7CisJfQorCW11dGV4X3VubG9jaygm
+KHNtdS0+bXV0ZXgpKTsKKworCXJldHVybiBwbV90eXBlOworfQorCiBzdGF0aWMgY29uc3Qgc3Ry
+dWN0IHBwdGFibGVfZnVuY3MgcmVub2lyX3BwdF9mdW5jcyA9IHsKIAkuZ2V0X3NtdV9tc2dfaW5k
+ZXggPSByZW5vaXJfZ2V0X3NtdV9tc2dfaW5kZXgsCiAJLmdldF9zbXVfdGFibGVfaW5kZXggPSBy
+ZW5vaXJfZ2V0X3NtdV90YWJsZV9pbmRleCwKQEAgLTI1Myw2ICsyODUsOCBAQCBzdGF0aWMgY29u
+c3Qgc3RydWN0IHBwdGFibGVfZnVuY3MgcmVub2lyX3BwdF9mdW5jcyA9IHsKIAkuc2V0X3Bvd2Vy
+X3N0YXRlID0gTlVMTCwKIAkuZ2V0X2RwbV91Y2xrX2xpbWl0ZWQgPSByZW5vaXJfZ2V0X2RwbV91
+Y2xrX2xpbWl0ZWQsCiAJLnByaW50X2Nsa19sZXZlbHMgPSByZW5vaXJfcHJpbnRfY2xrX2xldmVs
+cywKKwkuZ2V0X2N1cnJlbnRfcG93ZXJfc3RhdGUgPSByZW5vaXJfZ2V0X2N1cnJlbnRfcG93ZXJf
+c3RhdGUsCisKIH07CiAKIHZvaWQgcmVub2lyX3NldF9wcHRfZnVuY3Moc3RydWN0IHNtdV9jb250
+ZXh0ICpzbXUpCi0tIAoyLjcuNAoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3Rv
+cC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQt
+Z2Z4
