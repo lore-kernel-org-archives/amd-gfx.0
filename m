@@ -1,15 +1,18 @@
-From: "Wang, Kevin(Yang)" <Kevin1.Wang-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amd/powerplay: Add the interface for geting dpm
- current power state
-Date: Mon, 9 Sep 2019 13:20:41 +0000
-Message-ID: <MN2PR12MB3296DEA8597993E2B2CBDD63A2B70@MN2PR12MB3296.namprd12.prod.outlook.com>
-References: <1568006521-7471-1-git-send-email-Prike.Liang@amd.com>,
- <MN2PR12MB3344C78FF82CFB5166571091E4B70@MN2PR12MB3344.namprd12.prod.outlook.com>
+From: "Yang, Philip" <Philip.Yang-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 9/9] drm/amdgpu: add graceful VM fault handling v2
+Date: Mon, 9 Sep 2019 13:58:03 +0000
+Message-ID: <4ebc27be-a403-0a0b-e9ff-4e5e18c5417c@amd.com>
+References: <20190904150230.13885-1-christian.koenig@amd.com>
+ <20190904150230.13885-10-christian.koenig@amd.com>
+ <844c2c90-8be4-df05-9df9-c9c9cde9b186@amd.com>
+ <db73b357-b7e4-f818-e57c-234a45f7c5cb@gmail.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1888218740=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <MN2PR12MB3344C78FF82CFB5166571091E4B70-rweVpJHSKToDMgCC8P//OwdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
+In-Reply-To: <db73b357-b7e4-f818-e57c-234a45f7c5cb-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 Content-Language: en-US
+Content-ID: <2420625777A3A54AB69637F5CA4F9AE0-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -20,290 +23,119 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Quan, Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>, "Liang, Prike" <Prike.Liang-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Huang, Ray" <Ray.Huang-5C7GfCeVMHo@public.gmane.org>, "Feng, Kenneth" <Kenneth.Feng-5C7GfCeVMHo@public.gmane.org>, "Liu, Aaron" <Aaron.Liu-5C7GfCeVMHo@public.gmane.org>
+To: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============1888218740==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_MN2PR12MB3296DEA8597993E2B2CBDD63A2B70MN2PR12MB3296namp_"
-
---_000_MN2PR12MB3296DEA8597993E2B2CBDD63A2B70MN2PR12MB3296namp_
-Content-Type: text/plain; charset="iso-2022-jp"
-Content-Transfer-Encoding: quoted-printable
-
-comment inline.
-________________________________
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Quan, Ev=
-an <Evan.Quan-5C7GfCeVMHo@public.gmane.org>
-Sent: Monday, September 9, 2019 4:31 PM
-To: Liang, Prike <Prike.Liang-5C7GfCeVMHo@public.gmane.org>; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org <amd-=
-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: Huang, Ray <Ray.Huang-5C7GfCeVMHo@public.gmane.org>; Feng, Kenneth <Kenneth.Feng-5C7GfCeVMHo@public.gmane.org>; L=
-iu, Aaron <Aaron.Liu-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH] drm/amd/powerplay: Add the interface for geting dpm cu=
-rrent power state
-
-Reviewed-by: Evan Quan <evan.quan-5C7GfCeVMHo@public.gmane.org>
-
-> -----Original Message-----
-> From: Liang, Prike <Prike.Liang-5C7GfCeVMHo@public.gmane.org>
-> Sent: 2019=1B$BG/=1B(B9=1B$B7n=1B(B9=1B$BF|=1B(B 13:22
-> To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-> Cc: Quan, Evan <Evan.Quan-5C7GfCeVMHo@public.gmane.org>; Feng, Kenneth
-> <Kenneth.Feng-5C7GfCeVMHo@public.gmane.org>; Huang, Ray <Ray.Huang-5C7GfCeVMHo@public.gmane.org>; Liu, Aaron
-> <Aaron.Liu-5C7GfCeVMHo@public.gmane.org>; Liang, Prike <Prike.Liang-5C7GfCeVMHo@public.gmane.org>
-> Subject: [PATCH] drm/amd/powerplay: Add the interface for geting dpm
-> current power state
->
-> implement the sysfs power_dpm_state
->
-> Signed-off-by: Prike Liang <Prike.Liang-5C7GfCeVMHo@public.gmane.org>
-> ---
->  drivers/gpu/drm/amd/powerplay/renoir_ppt.c | 34
-> ++++++++++++++++++++++++++++++
->  1 file changed, 34 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/powerplay/renoir_ppt.c
-> b/drivers/gpu/drm/amd/powerplay/renoir_ppt.c
-> index a5cf846..2c22ba4 100644
-> --- a/drivers/gpu/drm/amd/powerplay/renoir_ppt.c
-> +++ b/drivers/gpu/drm/amd/powerplay/renoir_ppt.c
-> @@ -246,6 +246,38 @@ static int renoir_print_clk_levels(struct smu_contex=
-t
-> *smu,
->        return size;
->  }
->
-> +static enum amd_pm_state_type renoir_get_current_power_state(struct
-> +smu_context *smu) {
-> +     enum amd_pm_state_type pm_type;
-> +     struct smu_dpm_context *smu_dpm_ctx =3D &(smu->smu_dpm);
-> +
-> +     if (!smu_dpm_ctx->dpm_context ||
-> +         !smu_dpm_ctx->dpm_current_power_state)
-> +             return -EINVAL;
-> +
-> +     mutex_lock(&(smu->mutex));
-> +     switch (smu_dpm_ctx->dpm_current_power_state-
-> >classification.ui_label) {
-> +     case SMU_STATE_UI_LABEL_BATTERY:
-> +             pm_type =3D POWER_STATE_TYPE_BATTERY;
-> +             break;
-> +     case SMU_STATE_UI_LABEL_BALLANCED:
-> +             pm_type =3D POWER_STATE_TYPE_BALANCED;
-> +             break;
-> +     case SMU_STATE_UI_LABEL_PERFORMANCE:
-> +             pm_type =3D POWER_STATE_TYPE_PERFORMANCE;
-> +             break;
-> +     default:
-> +             if (smu_dpm_ctx->dpm_current_power_state-
-> >classification.flags & SMU_STATE_CLASSIFICATION_FLAG_BOOT)
-> +                     pm_type =3D POWER_STATE_TYPE_INTERNAL_BOOT;
-> +             else
-> +                     pm_type =3D POWER_STATE_TYPE_DEFAULT;
-> +             break;
-> +     }
-> +     mutex_unlock(&(smu->mutex));
-> +
-> +     return pm_type;
-> +}
-> +
->  static const struct pptable_funcs renoir_ppt_funcs =3D {
->        .get_smu_msg_index =3D renoir_get_smu_msg_index,
->        .get_smu_table_index =3D renoir_get_smu_table_index, @@ -253,6
-> +285,8 @@ static const struct pptable_funcs renoir_ppt_funcs =3D {
->        .set_power_state =3D NULL,
->        .get_dpm_uclk_limited =3D renoir_get_dpm_uclk_limited,
->        .print_clk_levels =3D renoir_print_clk_levels,
-> +     .get_current_power_state =3D renoir_get_current_power_state,
-> +
-[kevin]:
-please remove this blank line.
-after fixed:
-Reviewed-by: Kevin wang <kevin1.wang-5C7GfCeVMHo@public.gmane.org>
->  };
->
->  void renoir_set_ppt_funcs(struct smu_context *smu)
-> --
-> 2.7.4
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---_000_MN2PR12MB3296DEA8597993E2B2CBDD63A2B70MN2PR12MB3296namp_
-Content-Type: text/html; charset="iso-2022-jp"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-2022-=
-jp">
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-comment inline.</div>
-<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" co=
-lor=3D"#000000" style=3D"font-size:11pt"><b>From:</b> amd-gfx &lt;amd-gfx-b=
-ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Quan, Evan &lt;Evan.Quan@amd.=
-com&gt;<br>
-<b>Sent:</b> Monday, September 9, 2019 4:31 PM<br>
-<b>To:</b> Liang, Prike &lt;Prike.Liang-5C7GfCeVMHo@public.gmane.org&gt;; amd-gfx-PD4FTy7X32lzq7FAFJ/aeQ@public.gmane.org=
-top.org &lt;amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt;<br>
-<b>Cc:</b> Huang, Ray &lt;Ray.Huang-5C7GfCeVMHo@public.gmane.org&gt;; Feng, Kenneth &lt;Kenneth.=
-Feng-5C7GfCeVMHo@public.gmane.org&gt;; Liu, Aaron &lt;Aaron.Liu-5C7GfCeVMHo@public.gmane.org&gt;<br>
-<b>Subject:</b> RE: [PATCH] drm/amd/powerplay: Add the interface for geting=
- dpm current power state</font>
-<div>
-<div style=3D"margin: 0px; font-size: 12pt; font-family: Calibri, Arial, He=
-lvetica, sans-serif; color: rgb(0, 0, 0)">
-<br>
-</div>
-</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt"=
->
-<div class=3D"PlainText">Reviewed-by: Evan Quan &lt;evan.quan-5C7GfCeVMHo@public.gmane.org&gt;<b=
-r>
-<br>
-&gt; -----Original Message-----<br>
-&gt; From: Liang, Prike &lt;Prike.Liang-5C7GfCeVMHo@public.gmane.org&gt;<br>
-&gt; Sent: 2019=1B$BG/=1B(B9=1B$B7n=1B(B9=1B$BF|=1B(B 13:22<br>
-&gt; To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-&gt; Cc: Quan, Evan &lt;Evan.Quan-5C7GfCeVMHo@public.gmane.org&gt;; Feng, Kenneth<br>
-&gt; &lt;Kenneth.Feng-5C7GfCeVMHo@public.gmane.org&gt;; Huang, Ray &lt;Ray.Huang-5C7GfCeVMHo@public.gmane.org&gt;; Li=
-u, Aaron<br>
-&gt; &lt;Aaron.Liu-5C7GfCeVMHo@public.gmane.org&gt;; Liang, Prike &lt;Prike.Liang-5C7GfCeVMHo@public.gmane.org&gt;<br=
->
-&gt; Subject: [PATCH] drm/amd/powerplay: Add the interface for geting dpm<b=
-r>
-&gt; current power state<br>
-&gt; <br>
-&gt; implement the sysfs power_dpm_state<br>
-&gt; <br>
-&gt; Signed-off-by: Prike Liang &lt;Prike.Liang-5C7GfCeVMHo@public.gmane.org&gt;<br>
-&gt; ---<br>
-&gt;&nbsp; drivers/gpu/drm/amd/powerplay/renoir_ppt.c | 34<br>
-&gt; &#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;=
-&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;=
-&#43;<br>
-&gt;&nbsp; 1 file changed, 34 insertions(&#43;)<br>
-&gt; <br>
-&gt; diff --git a/drivers/gpu/drm/amd/powerplay/renoir_ppt.c<br>
-&gt; b/drivers/gpu/drm/amd/powerplay/renoir_ppt.c<br>
-&gt; index a5cf846..2c22ba4 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/powerplay/renoir_ppt.c<br>
-&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/renoir_ppt.c<br>
-&gt; @@ -246,6 &#43;246,38 @@ static int renoir_print_clk_levels(struct smu=
-_context<br>
-&gt; *smu,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return size;<br>
-&gt;&nbsp; }<br>
-&gt; <br>
-&gt; &#43;static enum amd_pm_state_type renoir_get_current_power_state(stru=
-ct<br>
-&gt; &#43;smu_context *smu) {<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; enum amd_pm_state_type pm_type;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; struct smu_dpm_context *smu_dpm_ctx =3D =
-&amp;(smu-&gt;smu_dpm);<br>
-&gt; &#43;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; if (!smu_dpm_ctx-&gt;dpm_context ||<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; !smu_dpm_ctx-&gt=
-;dpm_current_power_state)<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; return -EINVAL;<br>
-&gt; &#43;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; mutex_lock(&amp;(smu-&gt;mutex));<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; switch (smu_dpm_ctx-&gt;dpm_current_powe=
-r_state-<br>
-&gt; &gt;classification.ui_label) {<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; case SMU_STATE_UI_LABEL_BATTERY:<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; pm_type =3D POWER_STATE_TYPE_BATTERY;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; break;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; case SMU_STATE_UI_LABEL_BALLANCED:<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; pm_type =3D POWER_STATE_TYPE_BALANCED;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; break;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; case SMU_STATE_UI_LABEL_PERFORMANCE:<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; pm_type =3D POWER_STATE_TYPE_PERFORMANCE;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; break;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; default:<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; if (smu_dpm_ctx-&gt;dpm_current_power_state-<br>
-&gt; &gt;classification.flags &amp; SMU_STATE_CLASSIFICATION_FLAG_BOOT)<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pm_type =3D POWER_S=
-TATE_TYPE_INTERNAL_BOOT;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; else<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pm_type =3D POWER_S=
-TATE_TYPE_DEFAULT;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; break;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; mutex_unlock(&amp;(smu-&gt;mutex));<br>
-&gt; &#43;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; return pm_type;<br>
-&gt; &#43;}<br>
-&gt; &#43;<br>
-&gt;&nbsp; static const struct pptable_funcs renoir_ppt_funcs =3D {<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .get_smu_msg_index =3D renoi=
-r_get_smu_msg_index,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .get_smu_table_index =3D ren=
-oir_get_smu_table_index, @@ -253,6<br>
-&gt; &#43;285,8 @@ static const struct pptable_funcs renoir_ppt_funcs =3D {=
-<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .set_power_state =3D NULL,<b=
-r>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .get_dpm_uclk_limited =3D re=
-noir_get_dpm_uclk_limited,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .print_clk_levels =3D renoir=
-_print_clk_levels,<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; .get_current_power_state =3D renoir_get_=
-current_power_state,<br>
-&gt; &#43;</div>
-<div class=3D"PlainText"><b>[kevin]:</b></div>
-<div class=3D"PlainText"><b>please remove this&nbsp;blank line.</b></div>
-<div class=3D"PlainText"><b>after fixed:</b></div>
-<div class=3D"PlainText"><b>Reviewed-by: Kevin wang &lt;kevin1.wang-5C7GfCeVMHo@public.gmane.org=
-&gt;</b></div>
-<div class=3D"PlainText">&gt;&nbsp; };<br>
-&gt; <br>
-&gt;&nbsp; void renoir_set_ppt_funcs(struct smu_context *smu)<br>
-&gt; --<br>
-&gt; 2.7.4<br>
-<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
-lists.freedesktop.org/mailman/listinfo/amd-gfx</a></div>
-</span></font></div>
-</body>
-</html>
-
---_000_MN2PR12MB3296DEA8597993E2B2CBDD63A2B70MN2PR12MB3296namp_--
-
---===============1888218740==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
-
---===============1888218740==--
+DQoNCk9uIDIwMTktMDktMDkgODowMyBhLm0uLCBDaHJpc3RpYW4gS8O2bmlnIHdyb3RlOg0KPiBB
+bSAwNC4wOS4xOSB1bSAyMjoxMiBzY2hyaWViIFlhbmcsIFBoaWxpcDoNCj4+IFRoaXMgc2VyaWVz
+IGxvb2tzIG5pY2UgYW5kIGNsZWFyIGZvciBtZSwgdHdvIHF1ZXN0aW9ucyBlbWJlZGRlZCBiZWxv
+dy4NCj4+DQo+PiBBcmUgd2UgZ29pbmcgdG8gdXNlIGRlZGljYXRlZCBzZG1hIHBhZ2UgcXVldWUg
+Zm9yIGRpcmVjdCBWTSB1cGRhdGUgcGF0aA0KPj4gZHVyaW5nIGEgZmF1bHQ/DQo+Pg0KPj4gVGhh
+bmtzLA0KPj4gUGhpbGlwDQo+Pg0KPj4gT24gMjAxOS0wOS0wNCAxMTowMiBhLm0uLCBDaHJpc3Rp
+YW4gS8O2bmlnIHdyb3RlOg0KPj4+IE5leHQgc3RlcCB0b3dhcmRzIEhNTSBzdXBwb3J0LiBGb3Ig
+bm93IGp1c3Qgc2lsZW5jZSB0aGUgcmV0cnkgZmF1bHQgYW5kDQo+Pj4gb3B0aW9uYWxseSByZWRp
+cmVjdCB0aGUgcmVxdWVzdCB0byB0aGUgZHVtbXkgcGFnZS4NCj4+Pg0KPj4+IHYyOiBtYWtlIHN1
+cmUgdGhlIFZNIGlzIG5vdCBkZXN0cm95ZWQgd2hpbGUgd2UgaGFuZGxlIHRoZSBmYXVsdC4NCj4+
+Pg0KPj4+IFNpZ25lZC1vZmYtYnk6IENocmlzdGlhbiBLw7ZuaWcgPGNocmlzdGlhbi5rb2VuaWdA
+YW1kLmNvbT4NCj4+PiAtLS0NCj4+PiDCoMKgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
+ZGdwdV92bS5jIHwgNzQgDQo+Pj4gKysrKysrKysrKysrKysrKysrKysrKysrKysNCj4+PiDCoMKg
+IGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5oIHzCoCAyICsNCj4+PiDCoMKg
+IGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192OV8wLmPCoCB8wqAgNCArKw0KPj4+IMKg
+wqAgMyBmaWxlcyBjaGFuZ2VkLCA4MCBpbnNlcnRpb25zKCspDQo+Pj4NCj4+PiBkaWZmIC0tZ2l0
+IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMgDQo+Pj4gYi9kcml2ZXJz
+L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uYw0KPj4+IGluZGV4IDk1MTYwOGZjMTkyNS4u
+NDEwZDg5OTY2YTY2IDEwMDY0NA0KPj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
+L2FtZGdwdV92bS5jDQo+Pj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
+X3ZtLmMNCj4+PiBAQCAtMzE0MiwzICszMTQyLDc3IEBAIHZvaWQgYW1kZ3B1X3ZtX3NldF90YXNr
+X2luZm8oc3RydWN0IGFtZGdwdV92bSANCj4+PiAqdm0pDQo+Pj4gwqDCoMKgwqDCoMKgwqDCoMKg
+wqAgfQ0KPj4+IMKgwqDCoMKgwqDCoCB9DQo+Pj4gwqDCoCB9DQo+Pj4gKw0KPj4+ICsvKioNCj4+
+PiArICogYW1kZ3B1X3ZtX2hhbmRsZV9mYXVsdCAtIGdyYWNlZnVsIGhhbmRsaW5nIG9mIFZNIGZh
+dWx0cy4NCj4+PiArICogQGFkZXY6IGFtZGdwdSBkZXZpY2UgcG9pbnRlcg0KPj4+ICsgKiBAcGFz
+aWQ6IFBBU0lEIG9mIHRoZSBWTQ0KPj4+ICsgKiBAYWRkcjogQWRkcmVzcyBvZiB0aGUgZmF1bHQN
+Cj4+PiArICoNCj4+PiArICogVHJ5IHRvIGdyYWNlZnVsbHkgaGFuZGxlIGEgVk0gZmF1bHQuIFJl
+dHVybiB0cnVlIGlmIHRoZSBmYXVsdCB3YXMgDQo+Pj4gaGFuZGxlZCBhbmQNCj4+PiArICogc2hv
+dWxkbid0IGJlIHJlcG9ydGVkIGFueSBtb3JlLg0KPj4+ICsgKi8NCj4+PiArYm9vbCBhbWRncHVf
+dm1faGFuZGxlX2ZhdWx0KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LCB1bnNpZ25lZCBpbnQg
+DQo+Pj4gcGFzaWQsDQo+Pj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB1aW50NjRf
+dCBhZGRyKQ0KPj4+ICt7DQo+Pj4gK8KgwqDCoCBzdHJ1Y3QgYW1kZ3B1X3JpbmcgKnJpbmcgPSAm
+YWRldi0+c2RtYS5pbnN0YW5jZVswXS5wYWdlOw0KPj4+ICvCoMKgwqAgc3RydWN0IGFtZGdwdV9i
+byAqcm9vdDsNCj4+PiArwqDCoMKgIHVpbnQ2NF90IHZhbHVlLCBmbGFnczsNCj4+PiArwqDCoMKg
+IHN0cnVjdCBhbWRncHVfdm0gKnZtOw0KPj4+ICvCoMKgwqAgbG9uZyByOw0KPj4+ICsNCj4+PiAr
+wqDCoMKgIGlmICghcmluZy0+c2NoZWQucmVhZHkpDQo+Pj4gK8KgwqDCoMKgwqDCoMKgIHJldHVy
+biBmYWxzZTsNCj4+PiArDQo+Pj4gK8KgwqDCoCBzcGluX2xvY2soJmFkZXYtPnZtX21hbmFnZXIu
+cGFzaWRfbG9jayk7DQo+Pj4gK8KgwqDCoCB2bSA9IGlkcl9maW5kKCZhZGV2LT52bV9tYW5hZ2Vy
+LnBhc2lkX2lkciwgcGFzaWQpOw0KPj4+ICvCoMKgwqAgaWYgKHZtKQ0KPj4+ICvCoMKgwqDCoMKg
+wqDCoCByb290ID0gYW1kZ3B1X2JvX3JlZih2bS0+cm9vdC5iYXNlLmJvKTsNCj4+PiArwqDCoMKg
+IGVsc2UNCj4+PiArwqDCoMKgwqDCoMKgwqAgcm9vdCA9IE5VTEw7DQo+Pj4gK8KgwqDCoCBzcGlu
+X3VubG9jaygmYWRldi0+dm1fbWFuYWdlci5wYXNpZF9sb2NrKTsNCj4+PiArDQo+Pj4gK8KgwqDC
+oCBpZiAoIXJvb3QpDQo+Pj4gK8KgwqDCoMKgwqDCoMKgIHJldHVybiBmYWxzZTsNCj4+PiArDQo+
+Pj4gK8KgwqDCoCByID0gYW1kZ3B1X2JvX3Jlc2VydmUocm9vdCwgdHJ1ZSk7DQo+Pj4gK8KgwqDC
+oCBpZiAocikNCj4+PiArwqDCoMKgwqDCoMKgwqAgZ290byBlcnJvcl91bnJlZjsNCj4+PiArDQo+
+Pj4gK8KgwqDCoCBzcGluX2xvY2soJmFkZXYtPnZtX21hbmFnZXIucGFzaWRfbG9jayk7DQo+Pj4g
+K8KgwqDCoCB2bSA9IGlkcl9maW5kKCZhZGV2LT52bV9tYW5hZ2VyLnBhc2lkX2lkciwgcGFzaWQp
+Ow0KPj4+ICvCoMKgwqAgc3Bpbl91bmxvY2soJmFkZXYtPnZtX21hbmFnZXIucGFzaWRfbG9jayk7
+DQo+Pj4gKw0KPj4gSGVyZSBnZXQgdm0gZnJvbSBwYXNpZCBzZWNvbmQgdGltZSwgYW5kIGNoZWNr
+IGlmIFBEIGJvIGlzIGNoYW5nZWQsIGlzDQo+PiB0aGlzIHRvIGhhbmRsZSB2bSBmYXVsdCByYWNl
+IHdpdGggdm0gZGVzdG9yeT8NCj4gDQo+IFllcywgZXhhY3RseS4NCj4gDQo+Pg0KPj4+ICvCoMKg
+wqAgaWYgKCF2bSB8fCB2bS0+cm9vdC5iYXNlLmJvICE9IHJvb3QpDQo+Pj4gK8KgwqDCoMKgwqDC
+oMKgIGdvdG8gZXJyb3JfdW5sb2NrOw0KPj4+ICsNCj4+PiArwqDCoMKgIGFkZHIgLz0gQU1ER1BV
+X0dQVV9QQUdFX1NJWkU7DQo+Pj4gK8KgwqDCoCBmbGFncyA9IEFNREdQVV9QVEVfVkFMSUQgfCBB
+TURHUFVfUFRFX1NOT09QRUQgfA0KPj4+ICvCoMKgwqDCoMKgwqDCoCBBTURHUFVfUFRFX1NZU1RF
+TTsNCj4+PiArDQo+Pj4gK8KgwqDCoCBpZiAoYW1kZ3B1X3ZtX2ZhdWx0X3N0b3AgPT0gQU1ER1BV
+X1ZNX0ZBVUxUX1NUT1BfTkVWRVIpIHsNCj4+PiArwqDCoMKgwqDCoMKgwqAgLyogUmVkaXJlY3Qg
+dGhlIGFjY2VzcyB0byB0aGUgZHVtbXkgcGFnZSAqLw0KPj4+ICvCoMKgwqDCoMKgwqDCoCB2YWx1
+ZSA9IGFkZXYtPmR1bW15X3BhZ2VfYWRkcjsNCj4+PiArwqDCoMKgwqDCoMKgwqAgZmxhZ3MgfD0g
+QU1ER1BVX1BURV9FWEVDVVRBQkxFIHwgQU1ER1BVX1BURV9SRUFEQUJMRSB8DQo+Pj4gK8KgwqDC
+oMKgwqDCoMKgwqDCoMKgwqAgQU1ER1BVX1BURV9XUklURUFCTEU7DQo+Pj4gK8KgwqDCoCB9IGVs
+c2Ugew0KPj4+ICvCoMKgwqDCoMKgwqDCoCB2YWx1ZSA9IDA7DQo+Pj4gK8KgwqDCoCB9DQo+Pj4g
+Kw0KPj4+ICvCoMKgwqAgciA9IGFtZGdwdV92bV9ib191cGRhdGVfbWFwcGluZyhhZGV2LCB2bSwg
+dHJ1ZSwgTlVMTCwgYWRkciwgYWRkciANCj4+PiArIDEsDQo+Pj4gK8KgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgIGZsYWdzLCB2YWx1ZSwgTlVMTCwgTlVMTCk7DQo+Pj4gK8Kg
+wqDCoCBpZiAocikNCj4+PiArwqDCoMKgwqDCoMKgwqAgZ290byBlcnJvcl91bmxvY2s7DQo+Pj4g
+Kw0KPj4gQWZ0ZXIgZmF1bHQgYWRkcmVzcyByZWRpcmVjdCB0byBkdW1teSBwYWdlLCB3aWxsIHRo
+ZSBmYXVsdCByZWNvdmVyIGFuZA0KPj4gcmV0cnkgY29udGludWUgdG8gZXhlY3V0ZT8NCj4gDQo+
+IFllcywgdGhlIHJlYWQvd3JpdGUgb3BlcmF0aW9uIHdpbGwganVzdCByZXRyeSBhbmQgdXNlIHRo
+ZSB2YWx1ZSBmcm9tIHRoZSANCj4gZHVtbXkgcGFnZSBpbnN0ZWFkLg0KPiANCj4+IElzIHRoaXMg
+ZGFuZ2Vyb3VzIHRvIHVwZGF0ZSBQVEUgdG8gdXNlIHN5c3RlbQ0KPj4gbWVtb3J5IGFkZHJlc3Mg
+MD8NCj4gDQo+IFdoYXQgYXJlIHlvdSB0YWxraW5nIGFib3V0PyBUaGUgZHVtbXkgcGFnZSBpcyBh
+IHBhZ2UgYWxsb2NhdGUgYnkgVFRNIA0KPiB3aGVyZSB3ZSByZWRpcmVjdCBmYXVsdHkgYWNjZXNz
+ZXMgdG8uDQo+IA0KRm9yIGFtZGdwdV92bV9mYXVsdF9zdG9wIGVxdWFscyB0byBBTURHUFVfVk1f
+RkFVTFRfU1RPUF9GSVJTVC9BTFdBWVMgDQpjYXNlLCB2YWx1ZSBpcyAwLCB0aGlzIHdpbGwgcmVk
+aXJlY3QgdG8gc3lzdGVtIG1lbW9yeSAwLiBNYXliZSByZWRpcmVjdCANCmlzIG9ubHkgbmVlZGVk
+IGZvciBBTURHUFVfVk1fRkFVTFRfU1RPUF9ORVZFUj8NCg0KUmVnYXJkcywNClBoaWxpcA0KDQo+
+IFJlZ2FyZHMsDQo+IENocmlzdGlhbi4NCj4gDQo+Pg0KPj4+ICvCoMKgwqAgciA9IGFtZGdwdV92
+bV91cGRhdGVfcGRlcyhhZGV2LCB2bSwgdHJ1ZSk7DQo+Pj4gKw0KPj4+ICtlcnJvcl91bmxvY2s6
+DQo+Pj4gK8KgwqDCoCBhbWRncHVfYm9fdW5yZXNlcnZlKHJvb3QpOw0KPj4+ICvCoMKgwqAgaWYg
+KHIgPCAwKQ0KPj4+ICvCoMKgwqDCoMKgwqDCoCBEUk1fRVJST1IoIkNhbid0IGhhbmRsZSBwYWdl
+IGZhdWx0ICglbGQpXG4iLCByKTsNCj4+PiArDQo+Pj4gK2Vycm9yX3VucmVmOg0KPj4+ICvCoMKg
+wqAgYW1kZ3B1X2JvX3VucmVmKCZyb290KTsNCj4+PiArDQo+Pj4gK8KgwqDCoCByZXR1cm4gZmFs
+c2U7DQo+Pj4gK30NCj4+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
+YW1kZ3B1X3ZtLmggDQo+Pj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0u
+aA0KPj4+IGluZGV4IDBhOTdkYzgzOWYzYi4uNGRiYmUxYjZiNDEzIDEwMDY0NA0KPj4+IC0tLSBh
+L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5oDQo+Pj4gKysrIGIvZHJpdmVy
+cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmgNCj4+PiBAQCAtNDEzLDYgKzQxMyw4IEBA
+IHZvaWQgYW1kZ3B1X3ZtX2NoZWNrX2NvbXB1dGVfYnVnKHN0cnVjdCANCj4+PiBhbWRncHVfZGV2
+aWNlICphZGV2KTsNCj4+PiDCoMKgIHZvaWQgYW1kZ3B1X3ZtX2dldF90YXNrX2luZm8oc3RydWN0
+IGFtZGdwdV9kZXZpY2UgKmFkZXYsIHVuc2lnbmVkIA0KPj4+IGludCBwYXNpZCwNCj4+PiDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBzdHJ1Y3QgYW1kZ3B1X3Rhc2tfaW5m
+byAqdGFza19pbmZvKTsNCj4+PiArYm9vbCBhbWRncHVfdm1faGFuZGxlX2ZhdWx0KHN0cnVjdCBh
+bWRncHVfZGV2aWNlICphZGV2LCB1bnNpZ25lZCBpbnQgDQo+Pj4gcGFzaWQsDQo+Pj4gK8KgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB1aW50NjRfdCBhZGRyKTsNCj4+PiDCoMKgIHZvaWQg
+YW1kZ3B1X3ZtX3NldF90YXNrX2luZm8oc3RydWN0IGFtZGdwdV92bSAqdm0pOw0KPj4+IGRpZmYg
+LS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNfdjlfMC5jIA0KPj4+IGIvZHJp
+dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ21jX3Y5XzAuYw0KPj4+IGluZGV4IDlkMTU2NzlkZjZl
+MC4uMTVhMWNlNTFiZWZhIDEwMDY0NA0KPj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
+Z3B1L2dtY192OV8wLmMNCj4+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNf
+djlfMC5jDQo+Pj4gQEAgLTM1Myw2ICszNTMsMTAgQEAgc3RhdGljIGludCBnbWNfdjlfMF9wcm9j
+ZXNzX2ludGVycnVwdChzdHJ1Y3QgDQo+Pj4gYW1kZ3B1X2RldmljZSAqYWRldiwNCj4+PiDCoMKg
+wqDCoMKgwqAgfQ0KPj4+IMKgwqDCoMKgwqDCoCAvKiBJZiBpdCdzIHRoZSBmaXJzdCBmYXVsdCBm
+b3IgdGhpcyBhZGRyZXNzLCBwcm9jZXNzIGl0IA0KPj4+IG5vcm1hbGx5ICovDQo+Pj4gK8KgwqDC
+oCBpZiAocmV0cnlfZmF1bHQgJiYgIWluX2ludGVycnVwdCgpICYmDQo+Pj4gK8KgwqDCoMKgwqDC
+oMKgIGFtZGdwdV92bV9oYW5kbGVfZmF1bHQoYWRldiwgZW50cnktPnBhc2lkLCBhZGRyKSkNCj4+
+PiArwqDCoMKgwqDCoMKgwqAgcmV0dXJuIDE7IC8qIFRoaXMgYWxzbyBwcmV2ZW50cyBzZW5kaW5n
+IGl0IHRvIEtGRCAqLw0KPj4+ICsNCj4+PiDCoMKgwqDCoMKgwqAgaWYgKCFhbWRncHVfc3Jpb3Zf
+dmYoYWRldikpIHsNCj4+PiDCoMKgwqDCoMKgwqDCoMKgwqDCoCAvKg0KPj4+IMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqAgKiBJc3N1ZSBhIGR1bW15IHJlYWQgdG8gd2FpdCBmb3IgdGhlIHN0YXR1cyBy
+ZWdpc3RlciB0bw0KPj4+DQo+IA0KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3Rv
+cC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQt
+Z2Z4
