@@ -1,12 +1,12 @@
-From: "Zhou1, Tao" <Tao.Zhou1-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [Patch] drm/amdgpu: fix CPDMA hang in PRT mode for VEGA10
-Date: Tue, 10 Sep 2019 10:24:49 +0000
-Message-ID: <MN2PR12MB30544FD3CC5E6B46216E6EF4B0B60@MN2PR12MB3054.namprd12.prod.outlook.com>
-References: <DM5PR12MB2535E7983EAD797B4349F96995B60@DM5PR12MB2535.namprd12.prod.outlook.com>
+From: "Huang, Ray" <Ray.Huang-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH] drm/amdkfd: fix the missed asic name while inited
+ renoir_device_info
+Date: Tue, 10 Sep 2019 11:17:27 +0000
+Message-ID: <1568114232-28889-1-git-send-email-ray.huang@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1083068883=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <DM5PR12MB2535E7983EAD797B4349F96995B60-2J9CzHegvk+FJzKNz6G7XAdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -18,147 +18,51 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Yin, Tianci (Rico)" <Tianci.Yin-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Xu, Feifei" <Feifei.Xu-5C7GfCeVMHo@public.gmane.org>, "Long, Gang" <Gang.Long-5C7GfCeVMHo@public.gmane.org>, "Zhang,
- Hawking" <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>
+To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>, "Huang,
+ Ray" <Ray.Huang-5C7GfCeVMHo@public.gmane.org>, "Liu, Aaron" <Aaron.Liu-5C7GfCeVMHo@public.gmane.org>
 
---===============1083068883==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_MN2PR12MB30544FD3CC5E6B46216E6EF4B0B60MN2PR12MB3054namp_"
-
---_000_MN2PR12MB30544FD3CC5E6B46216E6EF4B0B60MN2PR12MB3054namp_
-Content-Type: text/plain; charset="gb2312"
-Content-Transfer-Encoding: base64
-
-UmV2aWV3ZWQtYnk6IFRhbyBaaG91IDx0YW8uemhvdTFAYW1kLmNvbTxtYWlsdG86dGFvLnpob3Ux
-QGFtZC5jb20+Pg0KDQpGcm9tOiBZaW4sIFRpYW5jaSAoUmljbykgPFRpYW5jaS5ZaW5AYW1kLmNv
-bT4NClNlbnQ6IDIwMTnE6jnUwjEwyNUgMTY6NTkNClRvOiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNr
-dG9wLm9yZw0KQ2M6IFpoYW5nLCBIYXdraW5nIDxIYXdraW5nLlpoYW5nQGFtZC5jb20+OyBaaG91
-MSwgVGFvIDxUYW8uWmhvdTFAYW1kLmNvbT47IFh1LCBGZWlmZWkgPEZlaWZlaS5YdUBhbWQuY29t
-PjsgTG9uZywgR2FuZyA8R2FuZy5Mb25nQGFtZC5jb20+DQpTdWJqZWN0OiBbUGF0Y2hdIGRybS9h
-bWRncHU6IGZpeCBDUERNQSBoYW5nIGluIFBSVCBtb2RlIGZvciBWRUdBMTANCg0KDQo=
-
---_000_MN2PR12MB30544FD3CC5E6B46216E6EF4B0B60MN2PR12MB3054namp_
-Content-Type: text/html; charset="gb2312"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dgb2312">
-<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
-<style><!--
-/* Font Definitions */
-@font-face
-	{font-family:"Cambria Math";
-	panose-1:2 4 5 3 5 4 6 3 2 4;}
-@font-face
-	{font-family:DengXian;
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-@font-face
-	{font-family:Calibri;
-	panose-1:2 15 5 2 2 2 4 3 2 4;}
-@font-face
-	{font-family:"Microsoft YaHei";
-	panose-1:2 11 5 3 2 2 4 2 2 4;}
-@font-face
-	{font-family:"Microsoft YaHei";}
-@font-face
-	{font-family:DengXian;
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-/* Style Definitions */
-p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin:0cm;
-	margin-bottom:.0001pt;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif;}
-a:link, span.MsoHyperlink
-	{mso-style-priority:99;
-	color:#0563C1;
-	text-decoration:underline;}
-a:visited, span.MsoHyperlinkFollowed
-	{mso-style-priority:99;
-	color:#954F72;
-	text-decoration:underline;}
-p.MsoPlainText, li.MsoPlainText, div.MsoPlainText
-	{mso-style-priority:99;
-	mso-style-link:"Plain Text Char";
-	margin:0cm;
-	margin-bottom:.0001pt;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif;}
-p.msonormal0, li.msonormal0, div.msonormal0
-	{mso-style-name:msonormal;
-	margin:0cm;
-	margin-bottom:.0001pt;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif;}
-span.EmailStyle19
-	{mso-style-type:personal-reply;
-	font-family:"Calibri",sans-serif;
-	color:windowtext;}
-span.PlainTextChar
-	{mso-style-name:"Plain Text Char";
-	mso-style-priority:99;
-	mso-style-link:"Plain Text";
-	font-family:"Calibri",sans-serif;}
-.MsoChpDefault
-	{mso-style-type:export-only;
-	font-size:10.0pt;}
-@page WordSection1
-	{size:612.0pt 792.0pt;
-	margin:72.0pt 90.0pt 72.0pt 90.0pt;}
-div.WordSection1
-	{page:WordSection1;}
---></style><!--[if gte mso 9]><xml>
-<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
-</xml><![endif]--><!--[if gte mso 9]><xml>
-<o:shapelayout v:ext=3D"edit">
-<o:idmap v:ext=3D"edit" data=3D"1" />
-</o:shapelayout></xml><![endif]-->
-</head>
-<body lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72">
-<div class=3D"WordSection1">
-<p class=3D"MsoPlainText">Reviewed-by: Tao Zhou &lt;<a href=3D"mailto:tao.z=
-hou1-5C7GfCeVMHo@public.gmane.org">tao.zhou1-5C7GfCeVMHo@public.gmane.org</a>&gt;<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<div style=3D"border:none;border-left:solid blue 1.5pt;padding:0cm 0cm 0cm =
-4.0pt">
-<div>
-<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0cm =
-0cm 0cm">
-<p class=3D"MsoNormal"><b>From:</b> Yin, Tianci (Rico) &lt;Tianci.Yin@amd.c=
-om&gt; <br>
-<b>Sent:</b> 2019<span lang=3D"ZH-CN" style=3D"font-family:&quot;=CE=A2=C8=
-=ED=D1=C5=BA=DA&quot;,sans-serif">=C4=EA</span>9<span lang=3D"ZH-CN" style=
-=3D"font-family:&quot;=CE=A2=C8=ED=D1=C5=BA=DA&quot;,sans-serif">=D4=C2</sp=
-an>10<span lang=3D"ZH-CN" style=3D"font-family:&quot;=CE=A2=C8=ED=D1=C5=BA=
-=DA&quot;,sans-serif">=C8=D5</span> 16:59<br>
-<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Cc:</b> Zhang, Hawking &lt;Hawking.Zhang-5C7GfCeVMHo@public.gmane.org&gt;; Zhou1, Tao &lt;Tao=
-.Zhou1-5C7GfCeVMHo@public.gmane.org&gt;; Xu, Feifei &lt;Feifei.Xu-5C7GfCeVMHo@public.gmane.org&gt;; Long, Gang &lt;Ga=
-ng.Long-5C7GfCeVMHo@public.gmane.org&gt;<br>
-<b>Subject:</b> [Patch] drm/amdgpu: fix CPDMA hang in PRT mode for VEGA10<o=
-:p></o:p></p>
-</div>
-</div>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-</div>
-</div>
-</body>
-</html>
-
---_000_MN2PR12MB30544FD3CC5E6B46216E6EF4B0B60MN2PR12MB3054namp_--
-
---===============1083068883==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
-
---===============1083068883==--
+VGhpcyBwYXRjaCBmaXhlcyBudWxsIHBvaW50ZXIgaXNzdWUgYmVsb3csIEkgbWlzc2VkIHRvIGlu
+aXQgdGhlIGFzaWMgcmVuaW9yIG5hbWUKd2hpbGUgSSByZWJhc2UgdGhlIHBhdGNoZXMuCgpbICAx
+MDYuMDA0MjUwXSBCVUc6IGtlcm5lbCBOVUxMIHBvaW50ZXIgZGVyZWZlcmVuY2UsIGFkZHJlc3M6
+IDAwMDAwMDAwMDAwMDAwMDAKWyAgMTA2LjAwNDI1NF0gI1BGOiBzdXBlcnZpc29yIHJlYWQgYWNj
+ZXNzIGluIGtlcm5lbCBtb2RlClsgIDEwNi4wMDQyNTZdICNQRjogZXJyb3JfY29kZSgweDAwMDAp
+IC0gbm90LXByZXNlbnQgcGFnZQpbICAxMDYuMDA0MjU3XSBQR0QgMCBQNEQgMApbICAxMDYuMDA0
+MjYxXSBPb3BzOiAwMDAwIFsjMV0gU01QIE5PUFRJClsgIDEwNi4wMDQyNjRdIENQVTogMyBQSUQ6
+IDE0MjIgQ29tbTogbW9kcHJvYmUgTm90IHRhaW50ZWQgNS4yLjAtcmMxLWN1c3RvbSAjMQpbICAx
+MDYuMDA0MjY2XSBIYXJkd2FyZSBuYW1lOiBBTUQgQ2VsYWRvbi1STi9DZWxhZG9uLVJOLCBCSU9T
+CldDRDk4MTROX1dlZWtseV8xOV8wOF8xIDA4LzE0LzIwMTkKWyAgMTA2LjAwNDI3Ml0gUklQOiAw
+MDEwOnN0cm5jcHkrMHgxMi8weDMwClsgIDEwNi4wMDQyNzRdIENvZGU6IGMxIGMwIDExIDQ4IGMx
+IGM2IDE1IDQ4IDMxIGQwIDQ4IGMxIGMyIDIwIDMxIGMyIDg5IGQwIDMxIGYwCjQxIDVjIDVkIGMz
+IDU1IDQ4IDg1IGQyIDQ4IDg5IGY4IDQ4IDg5IGU1IDc0IDFlIDQ4IDAxIGZhIDQ4IDg5IGY5IDw0
+ND4gMGYgYjYgMDYKNDEgODAgZjggMDEgNDQgODggMDEgNDggODMgZGUgZmYgNDggODMgYzEgMDEg
+NDggMzkgZDEKWyAgMTA2LjAwNDI3OF0gUlNQOiAwMDE4OmZmZmZjMDkyYzFmZDM3YTggRUZMQUdT
+OiAwMDAxMDI4NgpbICAxMDYuMDA0MjgxXSBSQVg6IGZmZmY5ZTk0MzQ2NmEyOGMgUkJYOiAwMDAw
+MDAwMDAwMDAzNmVkIFJDWDogZmZmZjllOTQzNDY2YTI4YwpbICAxMDYuMDA0MjgzXSBSRFg6IGZm
+ZmY5ZTk0MzQ2NmEyYWMgUlNJOiAwMDAwMDAwMDAwMDAwMDAwIFJESTogZmZmZjllOTQzNDY2YTI4
+YwpbICAxMDYuMDA0Mjg1XSBSQlA6IGZmZmZjMDkyYzFmZDM3YTggUjA4OiBmZmZmOWU5NDNkMTAw
+MDAwIFIwOTogMDAwMDAwMDAwMDAwMDIyOApbICAxMDYuMDA0Mjg3XSBSMTA6IGZmZmY5ZTk0NDE4
+ZGM1YTggUjExOiBmZmZmOWU5NDQ3NDZjMGQwIFIxMjogMDAwMDAwMDAwMDAwMDAwMApbICAxMDYu
+MDA0Mjg5XSBSMTM6IGZmZmY5ZTk0M2ZhMWVjMDAgUjE0OiBmZmZmOWU5NDM0NjZhMjAwIFIxNTog
+ZmZmZjllOTQzNDY2YTIwMApbICAxMDYuMDA0MjkxXSBGUzogIDAwMDA3ZjdhMDIyYzU1NDAoMDAw
+MCkgR1M6ZmZmZjllOTQ0N2FjMDAwMCgwMDAwKQprbmxHUzowMDAwMDAwMDAwMDAwMDAwClsgIDEw
+Ni4wMDQyOTRdIENTOiAgMDAxMCBEUzogMDAwMCBFUzogMDAwMCBDUjA6IDAwMDAwMDAwODAwNTAw
+MzMKWyAgMTA2LjAwNDI5Nl0gQ1IyOiAwMDAwMDAwMDAwMDAwMDAwIENSMzogMDAwMDAwMDFmZjBi
+MDAwMCBDUjQ6IDAwMDAwMDAwMDAzNDBlZTAKWyAgMTA2LjAwNDI5OF0gQ2FsbCBUcmFjZToKWyAg
+MTA2LjAwNDM4Ml0gIGtmZF90b3BvbG9neV9hZGRfZGV2aWNlKzB4MTUwLzB4NjEwIFthbWRncHVd
+ClsgIDEwNi4wMDQ0NDVdICBrZ2Qya2ZkX2RldmljZV9pbml0KzB4MmUwLzB4NGYwIFthbWRncHVd
+ClsgIDEwNi4wMDQ1MDldICBhbWRncHVfYW1ka2ZkX2RldmljZV9pbml0KzB4MTRjLzB4MWIwIFth
+bWRncHVdCgpTaWduZWQtb2ZmLWJ5OiBIdWFuZyBSdWkgPHJheS5odWFuZ0BhbWQuY29tPgotLS0K
+IGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9kZXZpY2UuYyB8IDEgKwogMSBmaWxlIGNo
+YW5nZWQsIDEgaW5zZXJ0aW9uKCspCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9h
+bWRrZmQva2ZkX2RldmljZS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX2Rldmlj
+ZS5jCmluZGV4IGEyZmUwY2IuLmYzMjliODIgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9h
+bWQvYW1ka2ZkL2tmZF9kZXZpY2UuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9r
+ZmRfZGV2aWNlLmMKQEAgLTM1Myw2ICszNTMsNyBAQCBzdGF0aWMgY29uc3Qgc3RydWN0IGtmZF9k
+ZXZpY2VfaW5mbyBhcmN0dXJ1c19kZXZpY2VfaW5mbyA9IHsKIAogc3RhdGljIGNvbnN0IHN0cnVj
+dCBrZmRfZGV2aWNlX2luZm8gcmVub2lyX2RldmljZV9pbmZvID0gewogCS5hc2ljX2ZhbWlseSA9
+IENISVBfUkVOT0lSLAorCS5hc2ljX25hbWUgPSAicmVub2lyIiwKIAkubWF4X3Bhc2lkX2JpdHMg
+PSAxNiwKIAkubWF4X25vX29mX2hxZCAgPSAyNCwKIAkuZG9vcmJlbGxfc2l6ZSAgPSA4LAotLSAK
+Mi43LjQKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFt
+ZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8v
+bGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
