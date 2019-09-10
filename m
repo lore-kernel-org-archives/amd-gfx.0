@@ -1,10 +1,10 @@
 From: "Yin, Tianci (Rico)" <Tianci.Yin-5C7GfCeVMHo@public.gmane.org>
-Subject: [Patch] drm/amdgpu: add navi14 PCI ID for WKS SKU Pro-XLM
-Date: Tue, 10 Sep 2019 05:48:01 +0000
-Message-ID: <DM5PR12MB253551C08B1537C501DDF2C495B60@DM5PR12MB2535.namprd12.prod.outlook.com>
+Subject: Recall: [Patch] drm/amdgpu: add navi14 PCI ID for WKS SKU Pro-XLM
+Date: Tue, 10 Sep 2019 06:02:54 +0000
+Message-ID: <DM5PR12MB253592332BD5FCBC5177F22395B60@DM5PR12MB2535.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed;
- boundary="_004_DM5PR12MB253551C08B1537C501DDF2C495B60DM5PR12MB2535namp_"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
@@ -21,76 +21,8 @@ To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7
 Cc: "Xu, Feifei" <Feifei.Xu-5C7GfCeVMHo@public.gmane.org>, "Xiao, Jack" <Jack.Xiao-5C7GfCeVMHo@public.gmane.org>, "Long,
  Gang" <Gang.Long-5C7GfCeVMHo@public.gmane.org>, "Zhang, Hawking" <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>
 
---_004_DM5PR12MB253551C08B1537C501DDF2C495B60DM5PR12MB2535namp_
-Content-Type: multipart/alternative;
-	boundary="_000_DM5PR12MB253551C08B1537C501DDF2C495B60DM5PR12MB2535namp_"
-
---_000_DM5PR12MB253551C08B1537C501DDF2C495B60DM5PR12MB2535namp_
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-
-
---_000_DM5PR12MB253551C08B1537C501DDF2C495B60DM5PR12MB2535namp_
-Content-Type: text/html; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-</body>
-</html>
-
---_000_DM5PR12MB253551C08B1537C501DDF2C495B60DM5PR12MB2535namp_--
-
---_004_DM5PR12MB253551C08B1537C501DDF2C495B60DM5PR12MB2535namp_
-Content-Type: text/x-patch;
-	name="0001-drm-amdgpu-add-navi14-PCI-ID-for-WKS-SKU-Pro-XLM.patch"
-Content-Description: 0001-drm-amdgpu-add-navi14-PCI-ID-for-WKS-SKU-Pro-XLM.patch
-Content-Disposition: attachment;
-	filename="0001-drm-amdgpu-add-navi14-PCI-ID-for-WKS-SKU-Pro-XLM.patch";
-	size=1092; creation-date="Tue, 10 Sep 2019 05:47:37 GMT";
-	modification-date="Tue, 10 Sep 2019 05:47:37 GMT"
-Content-Transfer-Encoding: base64
-
-RnJvbSA0MThlNmEwMjY1MGI1ZThkODlkOTFiM2RjZGUzZDUwNTY3MTMzMjYwIE1vbiBTZXAgMTcg
-MDA6MDA6MDAgMjAwMQpGcm9tOiAiVGlhbmNpLllpbiIgPHRpYW5jaS55aW5AYW1kLmNvbT4KRGF0
-ZTogVHVlLCAxMCBTZXAgMjAxOSAxMzoyNDowNSArMDgwMApTdWJqZWN0OiBbUEFUQ0hdIGRybS9h
-bWRncHU6IGFkZCBuYXZpMTQgUENJIElEIGZvciBXS1MgU0tVIFByby1YTE0KCmFkZCBuYXZpMTQg
-UENJIElEIGZvciB3b3JrIHN0YXRpb24gU0tVIFByby1YTE0KCkNoYW5nZS1JZDogSTI4ODNmYzU1
-YTAzYTU5OGEyYjNmODlhNWMxZmE0NDBkMGM1NTNkZWQKU2lnbmVkLW9mZi1ieTogVGlhbmNpLllp
-biA8dGlhbmNpLnlpbkBhbWQuY29tPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
-ZGdwdV9kcnYuYyB8IDEgKwogMSBmaWxlIGNoYW5nZWQsIDEgaW5zZXJ0aW9uKCspCgpkaWZmIC0t
-Z2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rydi5jIGIvZHJpdmVycy9n
-cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rydi5jCmluZGV4IDY5NzhkMTcuLmI0NWE1ZGMgMTAw
-NjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kcnYuYworKysgYi9k
-cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZHJ2LmMKQEAgLTEwMjUsNiArMTAyNSw3
-IEBAIHN0YXRpYyBjb25zdCBzdHJ1Y3QgcGNpX2RldmljZV9pZCBwY2lpZGxpc3RbXSA9IHsKIAl7
-MHgxMDAyLCAweDczNDAsIFBDSV9BTllfSUQsIFBDSV9BTllfSUQsIDAsIDAsIENISVBfTkFWSTE0
-fSwKIAl7MHgxMDAyLCAweDczNDEsIFBDSV9BTllfSUQsIFBDSV9BTllfSUQsIDAsIDAsIENISVBf
-TkFWSTE0fSwKIAl7MHgxMDAyLCAweDczNDcsIFBDSV9BTllfSUQsIFBDSV9BTllfSUQsIDAsIDAs
-IENISVBfTkFWSTE0fSwKKwl7MHgxMDAyLCAweDczNEYsIFBDSV9BTllfSUQsIFBDSV9BTllfSUQs
-IDAsIDAsIENISVBfTkFWSTE0fSwKIAogCS8qIFJlbm9pciAqLwogCXsweDEwMDIsIDB4MTYzNiwg
-UENJX0FOWV9JRCwgUENJX0FOWV9JRCwgMCwgMCwgQ0hJUF9SRU5PSVJ8QU1EX0lTX0FQVX0sCi0t
-IAoyLjcuNAoK
-
---_004_DM5PR12MB253551C08B1537C501DDF2C495B60DM5PR12MB2535namp_
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
+WWluLCBUaWFuY2kgKFJpY28pIHdvdWxkIGxpa2UgdG8gcmVjYWxsIHRoZSBtZXNzYWdlLCAiW1Bh
+dGNoXSBkcm0vYW1kZ3B1OiBhZGQgbmF2aTE0IFBDSSBJRCBmb3IgV0tTIFNLVSBQcm8tWExNIi4K
 X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
-
---_004_DM5PR12MB253551C08B1537C501DDF2C495B60DM5PR12MB2535namp_--
