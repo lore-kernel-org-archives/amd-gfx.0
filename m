@@ -1,7 +1,7 @@
 From: Ralph Campbell <rcampbell@nvidia.com>
-Subject: [PATCH 2/4] mm/hmm: allow snapshot of the special zero page
-Date: Wed, 11 Sep 2019 15:28:27 -0700
-Message-ID: <20190911222829.28874-3-rcampbell@nvidia.com>
+Subject: [PATCH 3/4] mm/hmm: allow hmm_range_fault() of mmap(PROT_NONE)
+Date: Wed, 11 Sep 2019 15:28:28 -0700
+Message-ID: <20190911222829.28874-4-rcampbell@nvidia.com>
 References: <20190911222829.28874-1-rcampbell@nvidia.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="UTF-8"
@@ -13,32 +13,36 @@ To: linux-mm@kvack.org
 Cc: linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, =?UTF-8?q?J=C3=A9r=C3=B4me=20Glisse?= <jglisse@redhat.com>, Jason Gunthorpe <jgg@mellanox.com>, Andrew Morton <akpm@linux-foundation.org>, Christoph Hellwig <hch@lst.de>, Ralph Campbell <rcampbell@nvidia.com>
 List-Id: amd-gfx.lists.freedesktop.org
 
-Allow hmm_range_fault() to return success (0) when the CPU pagetable
-entry points to the special shared zero page.
-The caller can then handle the zero page by possibly clearing device
-private memory instead of DMAing a zero page.
+Allow hmm_range_fault() to return success (0) when the range has no access
+(!(vma->vm_flags & VM_READ)). The range->pfns[] array will be filled with
+range->values[HMM_PFN_NONE] in this case.
+This allows the caller to get a snapshot of a range without having to
+lookup the vma before calling hmm_range_fault().
+If the call to hmm_range_fault() is not a snapshot, the caller can still
+check that pfns have the desired access permissions.
 
 Signed-off-by: Ralph Campbell <rcampbell@nvidia.com>
 Cc: "J=C3=A9r=C3=B4me Glisse" <jglisse@redhat.com>
 Cc: Jason Gunthorpe <jgg@mellanox.com>
 Cc: Christoph Hellwig <hch@lst.de>
 ---
- mm/hmm.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ mm/hmm.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
 diff --git a/mm/hmm.c b/mm/hmm.c
-index 06041d4399ff..7217912bef13 100644
+index 7217912bef13..16c834e5d1c0 100644
 --- a/mm/hmm.c
 +++ b/mm/hmm.c
-@@ -532,7 +532,7 @@ static int hmm_vma_handle_pte(struct mm_walk *walk, uns=
-igned long addr,
- 			return -EBUSY;
- 	} else if (IS_ENABLED(CONFIG_ARCH_HAS_PTE_SPECIAL) && pte_special(pte)) {
- 		*pfn =3D range->values[HMM_PFN_SPECIAL];
--		return -EFAULT;
-+		return is_zero_pfn(pte_pfn(pte)) ? 0 : -EFAULT;
+@@ -795,7 +795,9 @@ static int hmm_vma_walk_test(unsigned long start,
+ 	 */
+ 	if (!(vma->vm_flags & VM_READ)) {
+ 		(void) hmm_pfns_fill(start, end, range, HMM_PFN_NONE);
+-		return -EPERM;
++
++		/* Skip this vma and continue processing the next vma. */
++		return 1;
  	}
 =20
- 	*pfn =3D hmm_device_entry_from_pfn(range, pte_pfn(pte)) | cpu_flags;
+ 	return 0;
 --=20
 2.20.1
