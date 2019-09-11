@@ -1,51 +1,49 @@
-From: Gabriel C <nix.or.die@gmail.com>
-Subject: [Regression] 5.3-rc8 suspending from X broken with amdgpu
-Date: Wed, 11 Sep 2019 20:31:37 +0200
-Message-ID: <CAEJqkghRENck2NNCoxFccdph6EwAhMsBAszjkx2cj6Krrkoi8g@mail.gmail.com>
+From: Ralph Campbell <rcampbell@nvidia.com>
+Subject: [PATCH 0/4] HMM tests and minor fixes
+Date: Wed, 11 Sep 2019 15:28:25 -0700
+Message-ID: <20190911222829.28874-1-rcampbell@nvidia.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 Return-path: <linux-kernel-owner@vger.kernel.org>
 Sender: linux-kernel-owner@vger.kernel.org
-To: LKML <linux-kernel@vger.kernel.org>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+To: linux-mm@kvack.org
+Cc: linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, =?UTF-8?q?J=C3=A9r=C3=B4me=20Glisse?= <jglisse@redhat.com>, Jason Gunthorpe <jgg@mellanox.com>, Andrew Morton <akpm@linux-foundation.org>, Christoph Hellwig <hch@lst.de>, Ralph Campbell <rcampbell@nvidia.com>
 List-Id: amd-gfx.lists.freedesktop.org
 
-Hello,
+These changes are based on Jason's latest hmm branch.
+Patch 1 was previously posted here [1] but was dropped from the orginal
+series. Hopefully, the tests will reduce concerns about edge conditions.
+I'm sure more tests could be usefully added but I thought this was a good
+starting point.
 
-I am testing latest rc8/Linus git tree on my new
-Acer Nitro 5 (AN515-43-R8BF) Laptop.
+[1] https://lore.kernel.org/linux-mm/20190726005650.2566-6-rcampbell@nvidia=
+.com/
 
-The box has an Ryzen7 3750H APU+RX 560x hybrid GPU(s).
+Ralph Campbell (4):
+  mm/hmm: make full use of walk_page_range()
+  mm/hmm: allow snapshot of the special zero page
+  mm/hmm: allow hmm_range_fault() of mmap(PROT_NONE)
+  mm/hmm/test: add self tests for HMM
 
-Suspending ( closing the Lid ) from tty without X up
-is working fine, however with X running doing the same
-does not work. The display remains black.
+ MAINTAINERS                            |    3 +
+ drivers/char/Kconfig                   |   11 +
+ drivers/char/Makefile                  |    1 +
+ drivers/char/hmm_dmirror.c             | 1504 ++++++++++++++++++++++++
+ include/Kbuild                         |    1 +
+ include/uapi/linux/hmm_dmirror.h       |   74 ++
+ mm/hmm.c                               |  117 +-
+ tools/testing/selftests/vm/.gitignore  |    1 +
+ tools/testing/selftests/vm/Makefile    |    3 +
+ tools/testing/selftests/vm/config      |    3 +
+ tools/testing/selftests/vm/hmm-tests.c | 1304 ++++++++++++++++++++
+ tools/testing/selftests/vm/run_vmtests |   16 +
+ tools/testing/selftests/vm/test_hmm.sh |  105 ++
+ 13 files changed, 3079 insertions(+), 64 deletions(-)
+ create mode 100644 drivers/char/hmm_dmirror.c
+ create mode 100644 include/uapi/linux/hmm_dmirror.h
+ create mode 100644 tools/testing/selftests/vm/hmm-tests.c
+ create mode 100755 tools/testing/selftests/vm/test_hmm.sh
 
-It seems to be triggered from
-
- .. dcn10_hw_sequencer.c:932
-dcn10_verify_allow_pstate_change_high.cold+0xc/0x229 [amdgpu]
-
-The dmesg is way to big to post there so I uploaded it:
-
-dmesg:
- http://crazy.dev.frugalware.org/Nitro5/dmesg.one.txt
-lspci:
- http://crazy.dev.frugalware.org/Nitro5/lspci.nnvv.txt
- http://crazy.dev.frugalware.org/Nitro5/lspci.txt
-config:
- http://crazy.dev.frugalware.org/Nitro5/config.nitro5-5.3-r8git
-
-I didn't tested any other rcX kernels so I cannot tell if all are affected,
-but 5.2.x kernels are working fine on this box.
-
-
-The dirty state of the build is because this patch, which fixes the
-NVME device on that box:
- https://lkml.org/lkml/2019/9/11/569
-
-If you need more infos please let me know.
-Also I can test any kind patches.
-
-Best Regards,
-
-Gabriel C
+--=20
+2.20.1
