@@ -1,3205 +1,371 @@
-From: Ralph Campbell <rcampbell@nvidia.com>
-Subject: [PATCH 4/4] mm/hmm/test: add self tests for HMM
-Date: Wed, 11 Sep 2019 15:28:29 -0700
-Message-ID: <20190911222829.28874-5-rcampbell@nvidia.com>
-References: <20190911222829.28874-1-rcampbell@nvidia.com>
+From: =?UTF-8?q?Jos=C3=A9=20Roberto=20de=20Souza?= <jose.souza-ral2JQCrhuEAvxtiuMwx3w@public.gmane.org>
+Subject: [PATCH 2/2] drm/connector: Allow max possible encoders to attach to a
+ connector
+Date: Wed, 11 Sep 2019 10:56:03 -0700
+Message-ID: <20190911175603.30356-2-jose.souza@intel.com>
+References: <20190911175603.30356-1-jose.souza@intel.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20190911222829.28874-1-rcampbell@nvidia.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: linux-mm@kvack.org
-Cc: linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, =?UTF-8?q?J=C3=A9r=C3=B4me=20Glisse?= <jglisse@redhat.com>, Jason Gunthorpe <jgg@mellanox.com>, Andrew Morton <akpm@linux-foundation.org>, Christoph Hellwig <hch@lst.de>, Ralph Campbell <rcampbell@nvidia.com>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20190911175603.30356-1-jose.souza-ral2JQCrhuEAvxtiuMwx3w@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: intel-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: nouveau-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, =?UTF-8?q?Jos=C3=A9=20Roberto=20de=20Souza?= <jose.souza-ral2JQCrhuEAvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala-VuQAYsv1563Yd54FQh9/CA@public.gmane.org>, Dhinakaran Pandiyan <dhinakaran.pandiyan-ral2JQCrhuEAvxtiuMwx3w@public.gmane.org>
 
-Add self tests for HMM.
-
-Signed-off-by: Ralph Campbell <rcampbell@nvidia.com>
----
- MAINTAINERS                            |    3 +
- drivers/char/Kconfig                   |   11 +
- drivers/char/Makefile                  |    1 +
- drivers/char/hmm_dmirror.c             | 1504 ++++++++++++++++++++++++
- include/Kbuild                         |    1 +
- include/uapi/linux/hmm_dmirror.h       |   74 ++
- tools/testing/selftests/vm/.gitignore  |    1 +
- tools/testing/selftests/vm/Makefile    |    3 +
- tools/testing/selftests/vm/config      |    3 +
- tools/testing/selftests/vm/hmm-tests.c | 1304 ++++++++++++++++++++
- tools/testing/selftests/vm/run_vmtests |   16 +
- tools/testing/selftests/vm/test_hmm.sh |  105 ++
- 12 files changed, 3026 insertions(+)
- create mode 100644 drivers/char/hmm_dmirror.c
- create mode 100644 include/uapi/linux/hmm_dmirror.h
- create mode 100644 tools/testing/selftests/vm/hmm-tests.c
- create mode 100755 tools/testing/selftests/vm/test_hmm.sh
-
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 43604d6ab96c..8ab242d91876 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -7318,8 +7318,11 @@ M:	J=C3=A9r=C3=B4me Glisse <jglisse@redhat.com>
- L:	linux-mm@kvack.org
- S:	Maintained
- F:	mm/hmm*
-+F:	drivers/char/hmm*
- F:	include/linux/hmm*
-+F:	include/uapi/linux/hmm*
- F:	Documentation/vm/hmm.rst
-+F:	tools/testing/selftests/vm/*hmm*
-=20
- HOST AP DRIVER
- M:	Jouni Malinen <j@w1.fi>
-diff --git a/drivers/char/Kconfig b/drivers/char/Kconfig
-index 3e866885a405..b4ad868ead63 100644
---- a/drivers/char/Kconfig
-+++ b/drivers/char/Kconfig
-@@ -557,6 +557,17 @@ config ADI
- 	  and SSM (Silicon Secured Memory).  Intended consumers of this
- 	  driver include crash and makedumpfile.
-=20
-+config HMM_DMIRROR
-+	tristate "HMM driver for testing Heterogeneous Memory Management"
-+	depends on HMM_MIRROR
-+	depends on DEVICE_PRIVATE
-+	help
-+	  This is a pseudo device driver solely for testing HMM.
-+	  Say Y here if you want to build the HMM test driver.
-+	  Doing so will allow you to run tools/testing/selftest/vm/hmm-tests.
-+
-+	  If in doubt, say "N".
-+
- endmenu
-=20
- config RANDOM_TRUST_CPU
-diff --git a/drivers/char/Makefile b/drivers/char/Makefile
-index fbea7dd12932..c9ddd8e550c5 100644
---- a/drivers/char/Makefile
-+++ b/drivers/char/Makefile
-@@ -54,3 +54,4 @@ js-rtc-y =3D rtc.o
- obj-$(CONFIG_XILLYBUS)		+=3D xillybus/
- obj-$(CONFIG_POWERNV_OP_PANEL)	+=3D powernv-op-panel.o
- obj-$(CONFIG_ADI)		+=3D adi.o
-+obj-$(CONFIG_HMM_DMIRROR)	+=3D hmm_dmirror.o
-diff --git a/drivers/char/hmm_dmirror.c b/drivers/char/hmm_dmirror.c
-new file mode 100644
-index 000000000000..ccb4e03a03b5
---- /dev/null
-+++ b/drivers/char/hmm_dmirror.c
-@@ -0,0 +1,1504 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Copyright 2013 Red Hat Inc.
-+ *
-+ * This program is free software; you can redistribute it and/or
-+ * modify it under the terms of the GNU General Public License as
-+ * published by the Free Software Foundation; either version 2 of
-+ * the License, or (at your option) any later version.
-+ *
-+ * This program is distributed in the hope that it will be useful,
-+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
-+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-+ * GNU General Public License for more details.
-+ *
-+ * Authors: J=C3=A9r=C3=B4me Glisse <jglisse@redhat.com>
-+ */
-+/*
-+ * This is a driver to exercice the HMM (heterogeneous memory management)
-+ * mirror and zone device private memory migration APIs of the kernel.
-+ * Userspace programs can register with the driver to mirror their own add=
-ress
-+ * space and can use the device to read/write any valid virtual address.
-+ *
-+ * In some ways it can also serve as an example driver for people wanting =
-to use
-+ * HMM inside their own device driver.
-+ */
-+#include <linux/init.h>
-+#include <linux/fs.h>
-+#include <linux/mm.h>
-+#include <linux/module.h>
-+#include <linux/kernel.h>
-+#include <linux/cdev.h>
-+#include <linux/device.h>
-+#include <linux/mutex.h>
-+#include <linux/rwsem.h>
-+#include <linux/sched.h>
-+#include <linux/slab.h>
-+#include <linux/highmem.h>
-+#include <linux/delay.h>
-+#include <linux/pagemap.h>
-+#include <linux/hmm.h>
-+#include <linux/vmalloc.h>
-+#include <linux/swap.h>
-+#include <linux/swapops.h>
-+#include <linux/sched/mm.h>
-+#include <linux/platform_device.h>
-+
-+#include <uapi/linux/hmm_dmirror.h>
-+
-+#define DMIRROR_NDEVICES		2
-+#define DMIRROR_RANGE_FAULT_TIMEOUT	1000
-+#define DEVMEM_CHUNK_SIZE		(256 * 1024 * 1024U)
-+#define DEVMEM_CHUNKS_RESERVE		16
-+
-+static const struct dev_pagemap_ops dmirror_devmem_ops;
-+static dev_t dmirror_dev;
-+static struct platform_device *dmirror_platform_devices[DMIRROR_NDEVICES];
-+static struct page *dmirror_zero_page;
-+
-+struct dmirror_device;
-+
-+struct dmirror_bounce {
-+	void			*ptr;
-+	unsigned long		size;
-+	unsigned long		addr;
-+	unsigned long		cpages;
-+};
-+
-+#define DPT_SHIFT PAGE_SHIFT
-+#define DPT_VALID (1UL << 0)
-+#define DPT_WRITE (1UL << 1)
-+#define DPT_DPAGE (1UL << 2)
-+#define DPT_ZPAGE 0x20UL
-+
-+const uint64_t dmirror_hmm_flags[HMM_PFN_FLAG_MAX] =3D {
-+	[HMM_PFN_VALID] =3D DPT_VALID,
-+	[HMM_PFN_WRITE] =3D DPT_WRITE,
-+	[HMM_PFN_DEVICE_PRIVATE] =3D DPT_DPAGE,
-+};
-+
-+static const uint64_t dmirror_hmm_values[HMM_PFN_VALUE_MAX] =3D {
-+	[HMM_PFN_NONE]    =3D 0,
-+	[HMM_PFN_ERROR]   =3D 0x10,
-+	[HMM_PFN_SPECIAL] =3D 0x20,	/* actually, read-only zero page */
-+};
-+
-+struct dmirror_pt {
-+	atomic64_t		pgd[PTRS_PER_PGD];
-+	struct rw_semaphore	lock;
-+};
-+
-+/*
-+ * Data attached to the open device file.
-+ * Note that it might be shared after a fork().
-+ */
-+struct dmirror {
-+	struct dmirror_device	*mdevice;
-+	struct hmm_mirror	mirror;
-+	struct dmirror_pt	pt;
-+};
-+
-+/*
-+ * ZONE_DEVICE pages for migration and simulating device memory.
-+ */
-+struct dmirror_chunk {
-+	struct dev_pagemap	pagemap;
-+	struct dmirror_device	*mdevice;
-+};
-+
-+/*
-+ * Per device data.
-+ */
-+struct dmirror_device {
-+	struct cdev		cdevice;
-+	struct hmm_devmem	*devmem;
-+	struct platform_device	*pdevice;
-+
-+	unsigned int		devmem_capacity;
-+	unsigned int		devmem_count;
-+	struct dmirror_chunk	**devmem_chunks;
-+	struct mutex		devmem_lock;	/* protects the above */
-+
-+	unsigned long		calloc;
-+	unsigned long		cfree;
-+	struct page		*free_pages;
-+	spinlock_t		lock;		/* protects the above */
-+};
-+
-+static inline unsigned long dmirror_pt_pgd(unsigned long addr)
-+{
-+	return (addr >> PGDIR_SHIFT) & (PTRS_PER_PGD - 1);
-+}
-+
-+static inline unsigned long dmirror_pt_pud(unsigned long addr)
-+{
-+	return (addr >> PUD_SHIFT) & (PTRS_PER_PUD - 1);
-+}
-+
-+static inline unsigned long dmirror_pt_pmd(unsigned long addr)
-+{
-+	return (addr >> PMD_SHIFT) & (PTRS_PER_PMD - 1);
-+}
-+
-+static inline unsigned long dmirror_pt_pte(unsigned long addr)
-+{
-+	return (addr >> PAGE_SHIFT) & (PTRS_PER_PTE - 1);
-+}
-+
-+static inline struct page *dmirror_pt_page(atomic64_t *dptep)
-+{
-+	s64 dpte =3D atomic64_read(dptep);
-+
-+	if (dpte =3D=3D DPT_ZPAGE)
-+		return dmirror_zero_page;
-+	if (!(dpte & DPT_VALID))
-+		return NULL;
-+	return pfn_to_page((u64)dpte >> DPT_SHIFT);
-+}
-+
-+static inline struct page *dmirror_pt_page_write(atomic64_t *dptep)
-+{
-+	s64 dpte =3D atomic64_read(dptep);
-+
-+	if (!(dpte & DPT_VALID) || !(dpte & DPT_WRITE))
-+		return NULL;
-+	return pfn_to_page((u64)dpte >> DPT_SHIFT);
-+}
-+
-+static inline s64 dmirror_pt_from_page(struct page *page)
-+{
-+	if (!page)
-+		return 0;
-+	return (page_to_pfn(page) << DPT_SHIFT) | DPT_VALID;
-+}
-+
-+static struct page *populate_pt(atomic64_t *dptep)
-+{
-+	struct page *page;
-+	s64 new_dpte;
-+	s64 old_dpte;
-+
-+	page =3D alloc_page(GFP_HIGHUSER | __GFP_ZERO);
-+	if (page) {
-+		new_dpte =3D dmirror_pt_from_page(page);
-+		old_dpte =3D atomic64_cmpxchg(dptep, 0, new_dpte);
-+		if (old_dpte) {
-+			__free_page(page);
-+			page =3D pfn_to_page((u64)old_dpte >> DPT_SHIFT);
-+		}
-+	}
-+	return page;
-+}
-+
-+static inline unsigned long dmirror_pt_pud_end(unsigned long addr)
-+{
-+	return (addr & PGDIR_MASK) + ((unsigned long)PTRS_PER_PUD << PUD_SHIFT);
-+}
-+
-+static inline unsigned long dmirror_pt_pmd_end(unsigned long addr)
-+{
-+	return (addr & PUD_MASK) + ((unsigned long)PTRS_PER_PMD << PMD_SHIFT);
-+}
-+
-+static inline unsigned long dmirror_pt_pte_end(unsigned long addr)
-+{
-+	return (addr & PMD_MASK) + ((unsigned long)PTRS_PER_PTE << PAGE_SHIFT);
-+}
-+
-+typedef int (*dmirror_walk_cb_t)(struct dmirror *dmirror,
-+				 unsigned long start,
-+				 unsigned long end,
-+				 atomic64_t *dptep,
-+				 void *private);
-+
-+static int dmirror_pt_walk(struct dmirror *dmirror,
-+			   dmirror_walk_cb_t cb,
-+			   unsigned long start,
-+			   unsigned long end,
-+			   void *private,
-+			   bool populate)
-+{
-+	atomic64_t *dpgdp =3D &dmirror->pt.pgd[dmirror_pt_pgd(start)];
-+	unsigned long addr;
-+
-+	for (addr =3D start; addr < end; dpgdp++) {
-+		atomic64_t *dpudp;
-+		unsigned long pud_end;
-+		struct page *pud_page;
-+
-+		pud_end =3D min(end, dmirror_pt_pud_end(addr));
-+		pud_page =3D dmirror_pt_page(dpgdp);
-+		if (!pud_page) {
-+			if (!populate) {
-+				addr =3D pud_end;
-+				continue;
-+			}
-+			pud_page =3D populate_pt(dpgdp);
-+			if (!pud_page)
-+				return -ENOMEM;
-+		}
-+		dpudp =3D kmap(pud_page);
-+		dpudp +=3D dmirror_pt_pud(addr);
-+		for (; addr !=3D pud_end; dpudp++) {
-+			atomic64_t *dpmdp;
-+			unsigned long pmd_end;
-+			struct page *pmd_page;
-+
-+			pmd_end =3D min(end, dmirror_pt_pmd_end(addr));
-+			pmd_page =3D dmirror_pt_page(dpudp);
-+			if (!pmd_page) {
-+				if (!populate) {
-+					addr =3D pmd_end;
-+					continue;
-+				}
-+				pmd_page =3D populate_pt(dpudp);
-+				if (!pmd_page) {
-+					kunmap(pud_page);
-+					return -ENOMEM;
-+				}
-+			}
-+			dpmdp =3D kmap(pmd_page);
-+			dpmdp +=3D dmirror_pt_pmd(addr);
-+			for (; addr !=3D pmd_end; dpmdp++) {
-+				atomic64_t *dptep;
-+				unsigned long pte_end;
-+				struct page *pte_page;
-+				int ret;
-+
-+				pte_end =3D min(end, dmirror_pt_pte_end(addr));
-+				pte_page =3D dmirror_pt_page(dpmdp);
-+				if (!pte_page) {
-+					if (!populate) {
-+						addr =3D pte_end;
-+						continue;
-+					}
-+					pte_page =3D populate_pt(dpmdp);
-+					if (!pte_page) {
-+						kunmap(pmd_page);
-+						kunmap(pud_page);
-+						return -ENOMEM;
-+					}
-+				}
-+				dptep =3D kmap(pte_page);
-+				dptep +=3D dmirror_pt_pte(addr);
-+				ret =3D cb(dmirror, addr, pte_end, dptep,
-+					 private);
-+				kunmap(pte_page);
-+				addr =3D pte_end;
-+				if (ret) {
-+					kunmap(pmd_page);
-+					kunmap(pud_page);
-+					return ret;
-+				}
-+			}
-+			kunmap(pmd_page);
-+			addr =3D pmd_end;
-+		}
-+		kunmap(pud_page);
-+		addr =3D pud_end;
-+	}
-+
-+	return 0;
-+}
-+
-+static void dmirror_pt_free(struct dmirror *dmirror)
-+{
-+	atomic64_t *dpgdp =3D dmirror->pt.pgd;
-+
-+	for (; dpgdp !=3D dmirror->pt.pgd + PTRS_PER_PGD; dpgdp++) {
-+		atomic64_t *dpudp;
-+		atomic64_t *dpudp_end;
-+		struct page *pud_page;
-+
-+		pud_page =3D dmirror_pt_page(dpgdp);
-+		if (!pud_page)
-+			continue;
-+
-+		dpudp =3D kmap(pud_page);
-+		dpudp_end =3D dpudp + PTRS_PER_PUD;
-+		for (; dpudp !=3D dpudp_end; dpudp++) {
-+			atomic64_t *dpmdp;
-+			atomic64_t *dpmdp_end;
-+			struct page *pmd_page;
-+
-+			pmd_page =3D dmirror_pt_page(dpudp);
-+			if (!pmd_page)
-+				continue;
-+
-+			dpmdp =3D kmap(pmd_page);
-+			dpmdp_end =3D dpmdp + PTRS_PER_PMD;
-+			for (; dpmdp !=3D dpmdp_end; dpmdp++) {
-+				struct page *pte_page;
-+
-+				pte_page =3D dmirror_pt_page(dpmdp);
-+				if (!pte_page)
-+					continue;
-+
-+				atomic64_set(dpmdp, 0);
-+				__free_page(pte_page);
-+			}
-+			kunmap(pmd_page);
-+			atomic64_set(dpudp, 0);
-+			__free_page(pmd_page);
-+		}
-+		kunmap(pud_page);
-+		atomic64_set(dpgdp, 0);
-+		__free_page(pud_page);
-+	}
-+}
-+
-+static int dmirror_bounce_init(struct dmirror_bounce *bounce,
-+			       unsigned long addr,
-+			       unsigned long size)
-+{
-+	bounce->addr =3D addr;
-+	bounce->size =3D size;
-+	bounce->cpages =3D 0;
-+	bounce->ptr =3D vmalloc(size);
-+	if (!bounce->ptr)
-+		return -ENOMEM;
-+	return 0;
-+}
-+
-+static int dmirror_bounce_copy_from(struct dmirror_bounce *bounce,
-+				    unsigned long addr)
-+{
-+	unsigned long end =3D addr + bounce->size;
-+	char __user *uptr =3D (void __user *)addr;
-+	void *ptr =3D bounce->ptr;
-+
-+	for (; addr < end; addr +=3D PAGE_SIZE, ptr +=3D PAGE_SIZE,
-+					      uptr +=3D PAGE_SIZE) {
-+		int ret;
-+
-+		ret =3D copy_from_user(ptr, uptr, PAGE_SIZE);
-+		if (ret)
-+			return ret;
-+	}
-+
-+	return 0;
-+}
-+
-+static int dmirror_bounce_copy_to(struct dmirror_bounce *bounce,
-+				  unsigned long addr)
-+{
-+	unsigned long end =3D addr + bounce->size;
-+	char __user *uptr =3D (void __user *)addr;
-+	void *ptr =3D bounce->ptr;
-+
-+	for (; addr < end; addr +=3D PAGE_SIZE, ptr +=3D PAGE_SIZE,
-+					      uptr +=3D PAGE_SIZE) {
-+		int ret;
-+
-+		ret =3D copy_to_user(uptr, ptr, PAGE_SIZE);
-+		if (ret)
-+			return ret;
-+	}
-+
-+	return 0;
-+}
-+
-+static void dmirror_bounce_fini(struct dmirror_bounce *bounce)
-+{
-+	vfree(bounce->ptr);
-+}
-+
-+static int dmirror_do_update(struct dmirror *dmirror,
-+			     unsigned long addr,
-+			     unsigned long end,
-+			     atomic64_t *dptep,
-+			     void *private)
-+{
-+	for (; addr < end; addr +=3D PAGE_SIZE, ++dptep) {
-+		/* Clear pte */
-+		atomic64_set(dptep, 0);
-+	}
-+
-+	return 0;
-+}
-+
-+static int dmirror_update(struct hmm_mirror *mirror,
-+			  const struct mmu_notifier_range *update)
-+{
-+	struct dmirror *dmirror =3D container_of(mirror, struct dmirror, mirror);
-+
-+	(void) dmirror_pt_walk(dmirror, dmirror_do_update, update->start,
-+				update->end, NULL, false);
-+	return 0;
-+}
-+
-+static const struct hmm_mirror_ops dmirror_ops =3D {
-+	.sync_cpu_device_pagetables	=3D &dmirror_update,
-+};
-+
-+/*
-+ * dmirror_new() - allocate and initialize dmirror struct.
-+ *
-+ * @mdevice: The device this mirror is associated with.
-+ * @filp: The active device file descriptor this mirror is associated with=
-.
-+ */
-+static struct dmirror *dmirror_new(struct dmirror_device *mdevice)
-+{
-+	struct mm_struct *mm =3D get_task_mm(current);
-+	struct dmirror *dmirror;
-+	int ret;
-+
-+	if (!mm)
-+		goto err;
-+
-+	/* Mirror this process address space */
-+	dmirror =3D kzalloc(sizeof(*dmirror), GFP_KERNEL);
-+	if (dmirror =3D=3D NULL)
-+		goto err_mmput;
-+
-+	dmirror->mdevice =3D mdevice;
-+	dmirror->mirror.ops =3D &dmirror_ops;
-+	down_write(&mm->mmap_sem);
-+	ret =3D hmm_mirror_register(&dmirror->mirror, mm);
-+	up_write(&mm->mmap_sem);
-+	if (ret)
-+		goto err_free;
-+
-+	mmput(mm);
-+	return dmirror;
-+
-+err_free:
-+	kfree(dmirror);
-+err_mmput:
-+	mmput(mm);
-+err:
-+	return NULL;
-+}
-+
-+static void dmirror_del(struct dmirror *dmirror)
-+{
-+	hmm_mirror_unregister(&dmirror->mirror);
-+	dmirror_pt_free(dmirror);
-+	kfree(dmirror);
-+}
-+
-+/*
-+ * Below are the file operation for the dmirror device file. Only ioctl ma=
-tters.
-+ *
-+ * Note this is highly specific to the dmirror device driver and should no=
-t be
-+ * construed as an example on how to design the API a real device driver w=
-ould
-+ * expose to userspace.
-+ */
-+static ssize_t dmirror_fops_read(struct file *filp,
-+			       char __user *buf,
-+			       size_t count,
-+			       loff_t *ppos)
-+{
-+	return -EINVAL;
-+}
-+
-+static ssize_t dmirror_fops_write(struct file *filp,
-+				const char __user *buf,
-+				size_t count,
-+				loff_t *ppos)
-+{
-+	return -EINVAL;
-+}
-+
-+static int dmirror_fops_mmap(struct file *filp, struct vm_area_struct *vma=
-)
-+{
-+	/* Forbid mmap of the dmirror device file. */
-+	return -EINVAL;
-+}
-+
-+static int dmirror_fops_open(struct inode *inode, struct file *filp)
-+{
-+	struct cdev *cdev =3D inode->i_cdev;
-+	struct dmirror_device *mdevice;
-+	struct dmirror *dmirror;
-+
-+	/* No exclusive opens. */
-+	if (filp->f_flags & O_EXCL)
-+		return -EINVAL;
-+
-+	mdevice =3D container_of(cdev, struct dmirror_device, cdevice);
-+	dmirror =3D dmirror_new(mdevice);
-+	filp->private_data =3D dmirror;
-+
-+	return dmirror ? 0 : -ENOMEM;
-+}
-+
-+static int dmirror_fops_release(struct inode *inode, struct file *filp)
-+{
-+	struct dmirror *dmirror =3D filp->private_data;
-+
-+	if (!dmirror)
-+		return 0;
-+
-+	dmirror_del(dmirror);
-+	filp->private_data =3D NULL;
-+
-+	return 0;
-+}
-+
-+static int dmirror_do_fault(struct dmirror *dmirror,
-+			    unsigned long addr,
-+			    unsigned long end,
-+			    atomic64_t *dptep,
-+			    void *private)
-+{
-+	struct hmm_range *range =3D private;
-+	unsigned long idx =3D (addr - range->start) >> PAGE_SHIFT;
-+	uint64_t *pfns =3D range->pfns;
-+
-+	for (; addr < end; addr +=3D PAGE_SIZE, ++dptep, ++idx) {
-+		struct page *page;
-+		s64 dpte;
-+
-+		/*
-+		 * HMM_PFN_ERROR is returned if it is accessing invalid memory
-+		 * either because of memory error (hardware detected memory
-+		 * corruption) or more likely because of truncate on mmap
-+		 * file.
-+		 */
-+		if (pfns[idx] =3D=3D range->values[HMM_PFN_ERROR])
-+			return -EFAULT;
-+		/*
-+		 * The only special PFN HMM returns is the read-only zero page
-+		 * which doesn't have a matching struct page.
-+		 */
-+		if (pfns[idx] =3D=3D range->values[HMM_PFN_SPECIAL]) {
-+			atomic64_set(dptep, DPT_ZPAGE);
-+			continue;
-+		}
-+		if (!(pfns[idx] & range->flags[HMM_PFN_VALID]))
-+			return -EFAULT;
-+		page =3D hmm_device_entry_to_page(range, pfns[idx]);
-+		dpte =3D dmirror_pt_from_page(page);
-+		if (pfns[idx] & range->flags[HMM_PFN_WRITE])
-+			dpte |=3D DPT_WRITE;
-+		else if (range->default_flags & range->flags[HMM_PFN_WRITE])
-+			return -EFAULT;
-+		atomic64_set(dptep, dpte);
-+	}
-+
-+	return 0;
-+}
-+
-+static int dmirror_fault(struct dmirror *dmirror,
-+			 unsigned long start,
-+			 unsigned long end,
-+			 bool write)
-+{
-+	struct mm_struct *mm =3D dmirror->mirror.hmm->mmu_notifier.mm;
-+	unsigned long addr;
-+	unsigned long next;
-+	uint64_t pfns[64];
-+	struct hmm_range range;
-+	int ret =3D 0;
-+
-+	range.pfns =3D pfns;
-+	range.flags =3D dmirror_hmm_flags;
-+	range.values =3D dmirror_hmm_values;
-+	range.pfn_shift =3D DPT_SHIFT;
-+	range.pfn_flags_mask =3D ~(range.flags[HMM_PFN_VALID] |
-+				 range.flags[HMM_PFN_WRITE]);
-+	range.default_flags =3D range.flags[HMM_PFN_VALID];
-+	if (write)
-+		range.default_flags |=3D range.flags[HMM_PFN_WRITE];
-+
-+	for (addr =3D start; addr < end; ) {
-+		long count;
-+
-+		next =3D min(addr + (ARRAY_SIZE(pfns) << PAGE_SHIFT), end);
-+		range.start =3D addr;
-+		range.end =3D next;
-+
-+		down_read(&mm->mmap_sem);
-+
-+		ret =3D hmm_range_register(&range, &dmirror->mirror);
-+		if (ret) {
-+			up_read(&mm->mmap_sem);
-+			break;
-+		}
-+
-+		if (!hmm_range_wait_until_valid(&range,
-+						DMIRROR_RANGE_FAULT_TIMEOUT)) {
-+			hmm_range_unregister(&range);
-+			up_read(&mm->mmap_sem);
-+			continue;
-+		}
-+
-+		count =3D hmm_range_fault(&range, 0);
-+		if (count < 0) {
-+			ret =3D count;
-+			hmm_range_unregister(&range);
-+			up_read(&mm->mmap_sem);
-+			break;
-+		}
-+
-+		if (!hmm_range_valid(&range)) {
-+			hmm_range_unregister(&range);
-+			up_read(&mm->mmap_sem);
-+			continue;
-+		}
-+		ret =3D dmirror_pt_walk(dmirror, dmirror_do_fault,
-+				      addr, next, &range, true);
-+		hmm_range_unregister(&range);
-+		up_read(&mm->mmap_sem);
-+		if (ret)
-+			break;
-+
-+		addr =3D next;
-+	}
-+
-+	return ret;
-+}
-+
-+static inline struct dmirror_device *dmirror_page_to_device(struct page *p=
-age)
-+
-+{
-+	struct dmirror_chunk *devmem;
-+
-+	devmem =3D container_of(page->pgmap, struct dmirror_chunk, pagemap);
-+	return devmem->mdevice;
-+}
-+
-+static bool dmirror_device_is_mine(struct dmirror_device *mdevice,
-+				   struct page *page)
-+{
-+	if (!is_zone_device_page(page))
-+		return false;
-+	return page->pgmap->ops =3D=3D &dmirror_devmem_ops &&
-+		dmirror_page_to_device(page) =3D=3D mdevice;
-+}
-+
-+static int dmirror_do_read(struct dmirror *dmirror,
-+			   unsigned long addr,
-+			   unsigned long end,
-+			   atomic64_t *dptep,
-+			   void *private)
-+{
-+	struct dmirror_bounce *bounce =3D private;
-+	void *ptr;
-+
-+	ptr =3D bounce->ptr + ((addr - bounce->addr) & PAGE_MASK);
-+
-+	for (; addr < end; addr +=3D PAGE_SIZE, ++dptep) {
-+		struct page *page;
-+		void *tmp;
-+
-+		page =3D dmirror_pt_page(dptep);
-+		if (!page)
-+			return -ENOENT;
-+		if (is_zone_device_page(page)) {
-+			if (!dmirror_device_is_mine(dmirror->mdevice, page))
-+				return -ENOENT;
-+			page =3D page->zone_device_data;
-+		}
-+
-+		tmp =3D kmap(page);
-+		memcpy(ptr, tmp, PAGE_SIZE);
-+		kunmap(page);
-+
-+		ptr +=3D PAGE_SIZE;
-+		bounce->cpages++;
-+	}
-+
-+	return 0;
-+}
-+
-+static int dmirror_read(struct dmirror *dmirror,
-+			struct hmm_dmirror_cmd *cmd)
-+{
-+	struct dmirror_bounce bounce;
-+	unsigned long start, end;
-+	unsigned long size =3D cmd->npages << PAGE_SHIFT;
-+	int ret;
-+
-+	start =3D cmd->addr;
-+	end =3D start + size;
-+
-+	ret =3D dmirror_bounce_init(&bounce, start, size);
-+	if (ret)
-+		return ret;
-+
-+again:
-+	ret =3D dmirror_pt_walk(dmirror, dmirror_do_read,
-+			      start, end, &bounce, true);
-+	if (ret =3D=3D 0)
-+		ret =3D dmirror_bounce_copy_to(&bounce, cmd->ptr);
-+	else if (ret =3D=3D -ENOENT) {
-+		start =3D cmd->addr + (bounce.cpages << PAGE_SHIFT);
-+		ret =3D dmirror_fault(dmirror, start, end, false);
-+		if (ret =3D=3D 0) {
-+			cmd->faults++;
-+			goto again;
-+		}
-+	}
-+
-+	cmd->cpages =3D bounce.cpages;
-+	dmirror_bounce_fini(&bounce);
-+	return ret;
-+}
-+
-+static int dmirror_do_write(struct dmirror *dmirror,
-+			    unsigned long addr,
-+			    unsigned long end,
-+			    atomic64_t *dptep,
-+			    void *private)
-+{
-+	struct dmirror_bounce *bounce =3D private;
-+	void *ptr;
-+
-+	ptr =3D bounce->ptr + ((addr - bounce->addr) & PAGE_MASK);
-+
-+	for (; addr < end; addr +=3D PAGE_SIZE, ++dptep) {
-+		struct page *page;
-+		void *tmp;
-+
-+		page =3D dmirror_pt_page_write(dptep);
-+		if (!page)
-+			return -ENOENT;
-+		if (is_zone_device_page(page)) {
-+			if (!dmirror_device_is_mine(dmirror->mdevice, page))
-+				return -ENOENT;
-+			page =3D page->zone_device_data;
-+		}
-+
-+		tmp =3D kmap(page);
-+		memcpy(tmp, ptr, PAGE_SIZE);
-+		kunmap(page);
-+
-+		ptr +=3D PAGE_SIZE;
-+		bounce->cpages++;
-+	}
-+
-+	return 0;
-+}
-+
-+static int dmirror_write(struct dmirror *dmirror,
-+			 struct hmm_dmirror_cmd *cmd)
-+{
-+	struct dmirror_bounce bounce;
-+	unsigned long start, end;
-+	unsigned long size =3D cmd->npages << PAGE_SHIFT;
-+	int ret;
-+
-+	start =3D cmd->addr;
-+	end =3D start + size;
-+
-+	ret =3D dmirror_bounce_init(&bounce, start, size);
-+	if (ret)
-+		return ret;
-+	ret =3D dmirror_bounce_copy_from(&bounce, cmd->ptr);
-+	if (ret)
-+		return ret;
-+
-+again:
-+	ret =3D dmirror_pt_walk(dmirror, dmirror_do_write,
-+			      start, end, &bounce, true);
-+	if (ret =3D=3D -ENOENT) {
-+		start =3D cmd->addr + (bounce.cpages << PAGE_SHIFT);
-+		ret =3D dmirror_fault(dmirror, start, end, true);
-+		if (ret =3D=3D 0) {
-+			cmd->faults++;
-+			goto again;
-+		}
-+	}
-+
-+	cmd->cpages =3D bounce.cpages;
-+	dmirror_bounce_fini(&bounce);
-+	return ret;
-+}
-+
-+static bool dmirror_allocate_chunk(struct dmirror_device *mdevice,
-+				   struct page **ppage)
-+{
-+	struct dmirror_chunk *devmem;
-+	struct resource *res;
-+	unsigned long pfn;
-+	unsigned long pfn_first;
-+	unsigned long pfn_last;
-+	void *ptr;
-+
-+	mutex_lock(&mdevice->devmem_lock);
-+
-+	if (mdevice->devmem_count =3D=3D mdevice->devmem_capacity) {
-+		struct dmirror_chunk **new_chunks;
-+		unsigned int new_capacity;
-+
-+		new_capacity =3D mdevice->devmem_capacity +
-+				DEVMEM_CHUNKS_RESERVE;
-+		new_chunks =3D krealloc(mdevice->devmem_chunks,
-+				sizeof(new_chunks[0]) * new_capacity,
-+				GFP_KERNEL);
-+		if (!new_chunks)
-+			goto err;
-+		mdevice->devmem_capacity =3D new_capacity;
-+		mdevice->devmem_chunks =3D new_chunks;
-+	}
-+
-+	res =3D devm_request_free_mem_region(&mdevice->pdevice->dev,
-+					&iomem_resource, DEVMEM_CHUNK_SIZE);
-+	if (IS_ERR(res))
-+		goto err;
-+
-+	devmem =3D kzalloc(sizeof(*devmem), GFP_KERNEL);
-+	if (!devmem)
-+		goto err;
-+
-+	devmem->pagemap.type =3D MEMORY_DEVICE_PRIVATE;
-+	devmem->pagemap.res =3D *res;
-+	devmem->pagemap.ops =3D &dmirror_devmem_ops;
-+	ptr =3D devm_memremap_pages(&mdevice->pdevice->dev, &devmem->pagemap);
-+	if (IS_ERR(ptr))
-+		goto err_free;
-+
-+	devmem->mdevice =3D mdevice;
-+	pfn_first =3D devmem->pagemap.res.start >> PAGE_SHIFT;
-+	pfn_last =3D pfn_first +
-+		(resource_size(&devmem->pagemap.res) >> PAGE_SHIFT);
-+	mdevice->devmem_chunks[mdevice->devmem_count++] =3D devmem;
-+
-+	mutex_unlock(&mdevice->devmem_lock);
-+
-+	pr_info("added new %u MB chunk (total %u chunks, %u MB) PFNs [0x%lx 0x%lx=
-)\n",
-+		DEVMEM_CHUNK_SIZE / (1024 * 1024),
-+		mdevice->devmem_count,
-+		mdevice->devmem_count * (DEVMEM_CHUNK_SIZE / (1024 * 1024)),
-+		pfn_first, pfn_last);
-+
-+	spin_lock(&mdevice->lock);
-+	for (pfn =3D pfn_first; pfn < pfn_last; pfn++) {
-+		struct page *page =3D pfn_to_page(pfn);
-+
-+		page->zone_device_data =3D mdevice->free_pages;
-+		mdevice->free_pages =3D page;
-+	}
-+	if (ppage) {
-+		*ppage =3D mdevice->free_pages;
-+		mdevice->free_pages =3D (*ppage)->zone_device_data;
-+		mdevice->calloc++;
-+	}
-+	spin_unlock(&mdevice->lock);
-+
-+	return true;
-+
-+err_free:
-+	kfree(devmem);
-+err:
-+	mutex_unlock(&mdevice->devmem_lock);
-+	return false;
-+}
-+
-+static struct page *dmirror_devmem_alloc_page(struct dmirror_device *mdevi=
-ce)
-+{
-+	struct page *dpage =3D NULL;
-+	struct page *rpage;
-+
-+	/*
-+	 * This is a fake device so we alloc real system memory to fake
-+	 * our device memory.
-+	 */
-+	rpage =3D alloc_page(GFP_HIGHUSER | __GFP_ZERO);
-+	if (!rpage)
-+		return NULL;
-+
-+	spin_lock(&mdevice->lock);
-+
-+	if (mdevice->free_pages) {
-+		dpage =3D mdevice->free_pages;
-+		mdevice->free_pages =3D dpage->zone_device_data;
-+		mdevice->calloc++;
-+		spin_unlock(&mdevice->lock);
-+	} else {
-+		spin_unlock(&mdevice->lock);
-+		if (!dmirror_allocate_chunk(mdevice, &dpage))
-+			goto error;
-+	}
-+
-+	dpage->zone_device_data =3D rpage;
-+	get_page(dpage);
-+	lock_page(dpage);
-+	return dpage;
-+
-+error:
-+	spin_unlock(&mdevice->lock);
-+	__free_page(rpage);
-+	return NULL;
-+}
-+
-+static void dmirror_migrate_alloc_and_copy(struct migrate_vma *args,
-+					   struct dmirror *dmirror)
-+{
-+	struct dmirror_device *mdevice =3D dmirror->mdevice;
-+	const unsigned long *src_pfns =3D args->src;
-+	unsigned long *dst_pfns =3D args->dst;
-+	unsigned long addr;
-+
-+	for (addr =3D args->start; addr < args->end; addr +=3D PAGE_SIZE,
-+						   src_pfns++, dst_pfns++) {
-+		struct page *spage;
-+		struct page *dpage;
-+		struct page *rpage;
-+
-+		if (!(*src_pfns & MIGRATE_PFN_MIGRATE))
-+			continue;
-+
-+		/*
-+		 * Note that spage might be NULL which is OK since it is an
-+		 * unallocated pte_none() or read-only zero page.
-+		 */
-+		spage =3D migrate_pfn_to_page(*src_pfns);
-+		if (spage && is_zone_device_page(spage)) {
-+			if (!dmirror_device_is_mine(mdevice, spage))
-+				continue;
-+			spage =3D spage->zone_device_data;
-+		}
-+
-+		dpage =3D dmirror_devmem_alloc_page(mdevice);
-+		if (!dpage)
-+			continue;
-+
-+		rpage =3D dpage->zone_device_data;
-+		if (spage)
-+			copy_highpage(rpage, spage);
-+		else
-+			clear_highpage(rpage);
-+
-+		/*
-+		 * Normally, a device would use the page->zone_device_data to
-+		 * point to the mirror but here we use it to hold the page for
-+		 * the simulated device memory and that page holds the pointer
-+		 * to the mirror.
-+		 */
-+		rpage->zone_device_data =3D dmirror;
-+
-+		*dst_pfns =3D migrate_pfn(page_to_pfn(dpage)) |
-+			    MIGRATE_PFN_LOCKED;
-+		if ((*src_pfns & MIGRATE_PFN_WRITE) ||
-+		    (!spage && args->vma->vm_flags & VM_WRITE))
-+			*dst_pfns |=3D MIGRATE_PFN_WRITE;
-+	}
-+}
-+
-+struct dmirror_migrate {
-+	struct hmm_dmirror_cmd		*cmd;
-+	const unsigned long		*mpfns;
-+	unsigned long			start;
-+};
-+
-+static int dmirror_do_migrate(struct dmirror *dmirror,
-+			      unsigned long addr,
-+			      unsigned long end,
-+			      atomic64_t *dptep,
-+			      void *private)
-+{
-+	struct dmirror_migrate *migrate =3D private;
-+	const unsigned long *mpfns =3D migrate->mpfns;
-+	unsigned long idx =3D (addr - migrate->start) >> PAGE_SHIFT;
-+
-+	for (; addr < end; addr +=3D PAGE_SIZE, ++dptep, ++idx) {
-+		unsigned long mpfn =3D mpfns[idx];
-+		struct page *page;
-+		s64 dpte;
-+
-+		page =3D migrate_pfn_to_page(mpfn);
-+		if (!page)
-+			continue;
-+
-+		dpte =3D dmirror_pt_from_page(page) | DPT_DPAGE;
-+		if (mpfn & MIGRATE_PFN_WRITE)
-+			dpte |=3D DPT_WRITE;
-+		atomic64_set(dptep, dpte);
-+	}
-+
-+	return 0;
-+}
-+
-+static void dmirror_migrate_finalize_and_map(struct migrate_vma *args,
-+					     struct dmirror *dmirror,
-+					     struct hmm_dmirror_cmd *cmd)
-+{
-+	struct dmirror_migrate migrate;
-+
-+	migrate.cmd =3D cmd;
-+	migrate.mpfns =3D args->dst;
-+	migrate.start =3D args->start;
-+
-+	/* Map the migrated pages into the device's page tables. */
-+	(void) dmirror_pt_walk(dmirror, dmirror_do_migrate, args->start,
-+				args->end, &migrate, true);
-+}
-+
-+static int dmirror_migrate(struct dmirror *dmirror,
-+			   struct hmm_dmirror_cmd *cmd)
-+{
-+	unsigned long addr =3D cmd->addr;
-+	unsigned long end =3D addr + (cmd->npages << PAGE_SHIFT);
-+	struct mm_struct *mm =3D dmirror->mirror.hmm->mmu_notifier.mm;
-+	struct vm_area_struct *vma;
-+	unsigned long src_pfns[64];
-+	unsigned long dst_pfns[64];
-+	struct dmirror_bounce bounce;
-+	struct migrate_vma args;
-+	unsigned long next;
-+	int ret;
-+
-+	down_read(&mm->mmap_sem);
-+	for (; addr < end; addr =3D next) {
-+		next =3D min(end, addr + (ARRAY_SIZE(src_pfns) << PAGE_SHIFT));
-+
-+		vma =3D find_vma(mm, addr);
-+		if (!vma || addr < vma->vm_start) {
-+			ret =3D -EINVAL;
-+			goto out;
-+		}
-+		if (next > vma->vm_end)
-+			next =3D vma->vm_end;
-+
-+		args.vma =3D vma;
-+		args.src =3D src_pfns;
-+		args.dst =3D dst_pfns;
-+		args.start =3D addr;
-+		args.end =3D next;
-+		ret =3D migrate_vma_setup(&args);
-+		if (ret)
-+			goto out;
-+
-+		dmirror_migrate_alloc_and_copy(&args, dmirror);
-+		migrate_vma_pages(&args);
-+		dmirror_migrate_finalize_and_map(&args, dmirror, cmd);
-+		migrate_vma_finalize(&args);
-+	}
-+	up_read(&mm->mmap_sem);
-+
-+	/* Return the migrated data for verification. */
-+	ret =3D dmirror_bounce_init(&bounce, cmd->addr, end - cmd->addr);
-+	if (ret)
-+		return ret;
-+	ret =3D dmirror_pt_walk(dmirror, dmirror_do_read,
-+			      cmd->addr, end, &bounce, true);
-+	if (ret =3D=3D 0)
-+		ret =3D dmirror_bounce_copy_to(&bounce, cmd->ptr);
-+	cmd->cpages =3D bounce.cpages;
-+	dmirror_bounce_fini(&bounce);
-+	return ret;
-+
-+out:
-+	up_read(&mm->mmap_sem);
-+	return ret;
-+}
-+
-+static void dmirror_mkentry(struct dmirror *dmirror,
-+			    struct hmm_range *range,
-+			    unsigned char *perm,
-+			    uint64_t entry)
-+{
-+	struct page *page;
-+
-+	if (entry =3D=3D range->values[HMM_PFN_ERROR]) {
-+		*perm =3D HMM_DMIRROR_PROT_ERROR;
-+		return;
-+	}
-+	if (entry =3D=3D range->values[HMM_PFN_NONE]) {
-+		*perm =3D HMM_DMIRROR_PROT_NONE;
-+		return;
-+	}
-+	if (entry =3D=3D range->values[HMM_PFN_SPECIAL]) {
-+		*perm =3D HMM_DMIRROR_PROT_ZERO;
-+		return;
-+	}
-+	if (!(entry & range->flags[HMM_PFN_VALID])) {
-+		*perm =3D HMM_DMIRROR_PROT_NONE;
-+		return;
-+	}
-+	page =3D hmm_device_entry_to_page(range, entry);
-+	if (!page)
-+		*perm =3D HMM_DMIRROR_PROT_ZERO;
-+	else if (entry & range->flags[HMM_PFN_DEVICE_PRIVATE]) {
-+		/* Is the page migrated to this device or some other? */
-+		if (dmirror->mdevice =3D=3D dmirror_page_to_device(page))
-+			*perm =3D HMM_DMIRROR_PROT_DEV_PRIVATE_LOCAL;
-+		else
-+			*perm =3D HMM_DMIRROR_PROT_DEV_PRIVATE_REMOTE;
-+	} else
-+		*perm =3D HMM_DMIRROR_PROT_NONE;
-+	if (entry & range->flags[HMM_PFN_WRITE])
-+		*perm |=3D HMM_DMIRROR_PROT_WRITE;
-+	else
-+		*perm |=3D HMM_DMIRROR_PROT_READ;
-+}
-+
-+static int dmirror_snapshot(struct dmirror *dmirror,
-+			    struct hmm_dmirror_cmd *cmd)
-+{
-+	struct mm_struct *mm =3D dmirror->mirror.hmm->mmu_notifier.mm;
-+	unsigned long start, end;
-+	unsigned long size =3D cmd->npages << PAGE_SHIFT;
-+	unsigned long addr;
-+	unsigned long next;
-+	uint64_t pfns[64];
-+	unsigned char perm[64];
-+	char __user *uptr;
-+	struct hmm_range range;
-+	int ret =3D 0;
-+
-+	start =3D cmd->addr;
-+	end =3D start + size;
-+	uptr =3D (void __user *)cmd->ptr;
-+
-+	range.pfns =3D pfns;
-+	range.flags =3D dmirror_hmm_flags;
-+	range.values =3D dmirror_hmm_values;
-+	range.pfn_shift =3D DPT_SHIFT;
-+	range.pfn_flags_mask =3D ~0ULL;
-+	range.default_flags =3D 0;
-+
-+	for (addr =3D start; addr < end; ) {
-+		long count;
-+		unsigned long i;
-+		unsigned long n;
-+
-+		next =3D min(addr + (ARRAY_SIZE(pfns) << PAGE_SHIFT), end);
-+		range.start =3D addr;
-+		range.end =3D next;
-+
-+		down_read(&mm->mmap_sem);
-+
-+		ret =3D hmm_range_register(&range, &dmirror->mirror);
-+		if (ret) {
-+			up_read(&mm->mmap_sem);
-+			break;
-+		}
-+
-+		if (!hmm_range_wait_until_valid(&range,
-+						DMIRROR_RANGE_FAULT_TIMEOUT)) {
-+			hmm_range_unregister(&range);
-+			up_read(&mm->mmap_sem);
-+			continue;
-+		}
-+
-+		count =3D hmm_range_fault(&range, HMM_FAULT_SNAPSHOT);
-+		if (count < 0) {
-+			ret =3D count;
-+			hmm_range_unregister(&range);
-+			up_read(&mm->mmap_sem);
-+			if (ret =3D=3D -EBUSY)
-+				continue;
-+			break;
-+		}
-+
-+		if (!hmm_range_valid(&range)) {
-+			hmm_range_unregister(&range);
-+			up_read(&mm->mmap_sem);
-+			continue;
-+		}
-+
-+		n =3D (next - addr) >> PAGE_SHIFT;
-+		for (i =3D 0; i < n; i++)
-+			dmirror_mkentry(dmirror, &range, perm + i, pfns[i]);
-+		hmm_range_unregister(&range);
-+		up_read(&mm->mmap_sem);
-+
-+		ret =3D copy_to_user(uptr, perm, n);
-+		if (ret)
-+			break;
-+
-+		cmd->cpages +=3D n;
-+		uptr +=3D n;
-+		addr =3D next;
-+	}
-+
-+	return ret;
-+}
-+
-+static long dmirror_fops_unlocked_ioctl(struct file *filp,
-+					unsigned int command,
-+					unsigned long arg)
-+{
-+	void __user *uarg =3D (void __user *)arg;
-+	struct hmm_dmirror_cmd cmd;
-+	struct dmirror *dmirror;
-+	int ret;
-+
-+	dmirror =3D filp->private_data;
-+	if (!dmirror)
-+		return -EINVAL;
-+
-+	ret =3D copy_from_user(&cmd, uarg, sizeof(cmd));
-+	if (ret)
-+		return ret;
-+
-+	if (cmd.addr & ~PAGE_MASK)
-+		return -EINVAL;
-+	if (cmd.addr >=3D (cmd.addr + (cmd.npages << PAGE_SHIFT)))
-+		return -EINVAL;
-+
-+	cmd.cpages =3D 0;
-+	cmd.faults =3D 0;
-+
-+	switch (command) {
-+	case HMM_DMIRROR_READ:
-+		ret =3D dmirror_read(dmirror, &cmd);
-+		break;
-+
-+	case HMM_DMIRROR_WRITE:
-+		ret =3D dmirror_write(dmirror, &cmd);
-+		break;
-+
-+	case HMM_DMIRROR_MIGRATE:
-+		ret =3D dmirror_migrate(dmirror, &cmd);
-+		break;
-+
-+	case HMM_DMIRROR_SNAPSHOT:
-+		ret =3D dmirror_snapshot(dmirror, &cmd);
-+		break;
-+
-+	default:
-+		return -EINVAL;
-+	}
-+	if (ret)
-+		return ret;
-+
-+	return copy_to_user(uarg, &cmd, sizeof(cmd));
-+}
-+
-+static const struct file_operations dmirror_fops =3D {
-+	.read		=3D dmirror_fops_read,
-+	.write		=3D dmirror_fops_write,
-+	.mmap		=3D dmirror_fops_mmap,
-+	.open		=3D dmirror_fops_open,
-+	.release	=3D dmirror_fops_release,
-+	.unlocked_ioctl =3D dmirror_fops_unlocked_ioctl,
-+	.llseek		=3D default_llseek,
-+	.owner		=3D THIS_MODULE,
-+};
-+
-+static void dmirror_devmem_free(struct page *page)
-+{
-+	struct page *rpage =3D page->zone_device_data;
-+	struct dmirror_device *mdevice;
-+
-+	if (rpage)
-+		__free_page(rpage);
-+
-+	mdevice =3D dmirror_page_to_device(page);
-+
-+	spin_lock(&mdevice->lock);
-+	mdevice->cfree++;
-+	page->zone_device_data =3D mdevice->free_pages;
-+	mdevice->free_pages =3D page;
-+	spin_unlock(&mdevice->lock);
-+}
-+
-+static vm_fault_t dmirror_devmem_fault_alloc_and_copy(struct migrate_vma *=
-args,
-+						struct dmirror_device *mdevice)
-+{
-+	struct vm_area_struct *vma =3D args->vma;
-+	const unsigned long *src_pfns =3D args->src;
-+	unsigned long *dst_pfns =3D args->dst;
-+	unsigned long start =3D args->start;
-+	unsigned long end =3D args->end;
-+	unsigned long addr;
-+
-+	for (addr =3D start; addr < end; addr +=3D PAGE_SIZE,
-+				       src_pfns++, dst_pfns++) {
-+		struct page *dpage, *spage;
-+
-+		spage =3D migrate_pfn_to_page(*src_pfns);
-+		if (!spage || !(*src_pfns & MIGRATE_PFN_MIGRATE))
-+			continue;
-+		if (!dmirror_device_is_mine(mdevice, spage))
-+			continue;
-+		spage =3D spage->zone_device_data;
-+
-+		dpage =3D alloc_page_vma(GFP_HIGHUSER_MOVABLE, vma, addr);
-+		if (!dpage)
-+			continue;
-+
-+		lock_page(dpage);
-+		copy_highpage(dpage, spage);
-+		*dst_pfns =3D migrate_pfn(page_to_pfn(dpage)) |
-+			    MIGRATE_PFN_LOCKED;
-+		if (*src_pfns & MIGRATE_PFN_WRITE)
-+			*dst_pfns |=3D MIGRATE_PFN_WRITE;
-+	}
-+	return 0;
-+}
-+
-+static void dmirror_devmem_fault_finalize_and_map(struct migrate_vma *args=
-,
-+						  struct dmirror *dmirror)
-+{
-+	/* Invalidate the device's page table mapping. */
-+	(void) dmirror_pt_walk(dmirror, dmirror_do_update, args->start,
-+			       args->end, NULL, false);
-+}
-+
-+static vm_fault_t dmirror_devmem_fault(struct vm_fault *vmf)
-+{
-+	struct migrate_vma args;
-+	unsigned long src_pfns;
-+	unsigned long dst_pfns;
-+	struct page *rpage;
-+	struct dmirror *dmirror;
-+	vm_fault_t ret;
-+
-+	/* FIXME demonstrate how we can adjust migrate range */
-+	args.vma =3D vmf->vma;
-+	args.start =3D vmf->address;
-+	args.end =3D args.start + PAGE_SIZE;
-+	args.src =3D &src_pfns;
-+	args.dst =3D &dst_pfns;
-+
-+	if (migrate_vma_setup(&args))
-+		return VM_FAULT_SIGBUS;
-+
-+	/*
-+	 * Normally, a device would use the page->zone_device_data to point to
-+	 * the mirror but here we use it to hold the page for the simulated
-+	 * device memory and that page holds the pointer to the mirror.
-+	 */
-+	rpage =3D vmf->page->zone_device_data;
-+	dmirror =3D rpage->zone_device_data;
-+
-+	ret =3D dmirror_devmem_fault_alloc_and_copy(&args, dmirror->mdevice);
-+	if (ret)
-+		return ret;
-+	migrate_vma_pages(&args);
-+	dmirror_devmem_fault_finalize_and_map(&args, dmirror);
-+	migrate_vma_finalize(&args);
-+	return 0;
-+}
-+
-+static const struct dev_pagemap_ops dmirror_devmem_ops =3D {
-+	.page_free	=3D dmirror_devmem_free,
-+	.migrate_to_ram	=3D dmirror_devmem_fault,
-+};
-+
-+static void dmirror_pdev_del(void *arg)
-+{
-+	struct dmirror_device *mdevice =3D arg;
-+	unsigned int i;
-+
-+	if (mdevice->devmem_chunks) {
-+		for (i =3D 0; i < mdevice->devmem_count; i++)
-+			kfree(mdevice->devmem_chunks[i]);
-+		kfree(mdevice->devmem_chunks);
-+	}
-+
-+	cdev_del(&mdevice->cdevice);
-+	kfree(mdevice);
-+}
-+
-+static int dmirror_probe(struct platform_device *pdev)
-+{
-+	struct dmirror_device *mdevice;
-+	int ret;
-+
-+	mdevice =3D kzalloc(sizeof(*mdevice), GFP_KERNEL);
-+	if (!mdevice)
-+		return -ENOMEM;
-+
-+	mdevice->pdevice =3D pdev;
-+	mutex_init(&mdevice->devmem_lock);
-+	spin_lock_init(&mdevice->lock);
-+
-+	cdev_init(&mdevice->cdevice, &dmirror_fops);
-+	ret =3D cdev_add(&mdevice->cdevice, pdev->dev.devt, 1);
-+	if (ret) {
-+		kfree(mdevice);
-+		return ret;
-+	}
-+
-+	platform_set_drvdata(pdev, mdevice);
-+	ret =3D devm_add_action_or_reset(&pdev->dev, dmirror_pdev_del, mdevice);
-+	if (ret)
-+		return ret;
-+
-+	/* Build list of free struct page */
-+	dmirror_allocate_chunk(mdevice, NULL);
-+
-+	return 0;
-+}
-+
-+static int dmirror_remove(struct platform_device *pdev)
-+{
-+	/* all probe actions are unwound by devm */
-+	return 0;
-+}
-+
-+static struct platform_driver dmirror_device_driver =3D {
-+	.probe		=3D dmirror_probe,
-+	.remove		=3D dmirror_remove,
-+	.driver		=3D {
-+		.name	=3D "HMM_DMIRROR",
-+	},
-+};
-+
-+static int __init hmm_dmirror_init(void)
-+{
-+	int ret;
-+	int id;
-+
-+	ret =3D platform_driver_register(&dmirror_device_driver);
-+	if (ret)
-+		return ret;
-+
-+	ret =3D alloc_chrdev_region(&dmirror_dev, 0, DMIRROR_NDEVICES,
-+				  "HMM_DMIRROR");
-+	if (ret)
-+		goto err_unreg;
-+
-+	for (id =3D 0; id < DMIRROR_NDEVICES; id++) {
-+		struct platform_device *pd;
-+
-+		pd =3D platform_device_alloc("HMM_DMIRROR", id);
-+		if (!pd) {
-+			ret =3D -ENOMEM;
-+			goto err_chrdev;
-+		}
-+		pd->dev.devt =3D MKDEV(MAJOR(dmirror_dev), id);
-+		ret =3D platform_device_add(pd);
-+		if (ret) {
-+			platform_device_put(pd);
-+			goto err_chrdev;
-+		}
-+		dmirror_platform_devices[id] =3D pd;
-+	}
-+
-+	/*
-+	 * Allocate a zero page to simulate a reserved page of device private
-+	 * memory which is always zero. The zero_pfn page isn't used just to
-+	 * make the code here simpler (i.e., we need a struct page for it).
-+	 */
-+	dmirror_zero_page =3D alloc_page(GFP_HIGHUSER | __GFP_ZERO);
-+	if (!dmirror_zero_page)
-+		goto err_chrdev;
-+
-+	pr_info("hmm_dmirror loaded. This is only for testing HMM.\n");
-+	return 0;
-+
-+err_chrdev:
-+	while (--id >=3D 0) {
-+		platform_device_unregister(dmirror_platform_devices[id]);
-+		dmirror_platform_devices[id] =3D NULL;
-+	}
-+	unregister_chrdev_region(dmirror_dev, 1);
-+err_unreg:
-+	platform_driver_unregister(&dmirror_device_driver);
-+	return ret;
-+}
-+
-+static void __exit hmm_dmirror_exit(void)
-+{
-+	int id;
-+
-+	if (dmirror_zero_page)
-+		__free_page(dmirror_zero_page);
-+	for (id =3D 0; id < DMIRROR_NDEVICES; id++)
-+		platform_device_unregister(dmirror_platform_devices[id]);
-+	unregister_chrdev_region(dmirror_dev, DMIRROR_NDEVICES);
-+	platform_driver_unregister(&dmirror_device_driver);
-+	mmu_notifier_synchronize();
-+}
-+
-+module_init(hmm_dmirror_init);
-+module_exit(hmm_dmirror_exit);
-+MODULE_LICENSE("GPL");
-diff --git a/include/Kbuild b/include/Kbuild
-index c38f0d46b267..972c168629cd 100644
---- a/include/Kbuild
-+++ b/include/Kbuild
-@@ -1134,6 +1134,7 @@ header-test-			+=3D uapi/linux/coda_psdev.h
- header-test-			+=3D uapi/linux/errqueue.h
- header-test-			+=3D uapi/linux/eventpoll.h
- header-test-			+=3D uapi/linux/hdlc/ioctl.h
-+header-test-			+=3D uapi/linux/hmm_dmirror.h
- header-test-			+=3D uapi/linux/input.h
- header-test-			+=3D uapi/linux/kvm.h
- header-test-			+=3D uapi/linux/kvm_para.h
-diff --git a/include/uapi/linux/hmm_dmirror.h b/include/uapi/linux/hmm_dmir=
-ror.h
-new file mode 100644
-index 000000000000..b886210142ad
---- /dev/null
-+++ b/include/uapi/linux/hmm_dmirror.h
-@@ -0,0 +1,74 @@
-+/* SPDX-License-Identifier: GPL-2.0 WITH Linux-syscall-note */
-+/*
-+ * Copyright 2013 Red Hat Inc.
-+ *
-+ * This program is free software; you can redistribute it and/or
-+ * modify it under the terms of the GNU General Public License as
-+ * published by the Free Software Foundation; either version 2 of
-+ * the License, or (at your option) any later version.
-+ *
-+ * This program is distributed in the hope that it will be useful,
-+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
-+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-+ * GNU General Public License for more details.
-+ *
-+ * Authors: J=C3=A9r=C3=B4me Glisse <jglisse@redhat.com>
-+ */
-+/*
-+ * This is a dummy driver to exercise the HMM (heterogeneous memory manage=
-ment)
-+ * API of the kernel. It allows a userspace program to expose its entire a=
-ddress
-+ * space through the HMM dummy driver file.
-+ */
-+#ifndef _UAPI_LINUX_HMM_DMIRROR_H
-+#define _UAPI_LINUX_HMM_DMIRROR_H
-+
-+#include <linux/types.h>
-+#include <linux/ioctl.h>
-+
-+/*
-+ * Structure to pass to the HMM test driver to mimic a device accessing
-+ * system memory and ZONE_DEVICE private memory through device page tables=
-.
-+ *
-+ * @addr: (in) user address the device will read/write
-+ * @ptr: (in) user address where device data is copied to/from
-+ * @npages: (in) number of pages to read/write
-+ * @cpages: (out) number of pages copied
-+ * @faults: (out) number of device page faults seen
-+ */
-+struct hmm_dmirror_cmd {
-+	__u64		addr;
-+	__u64		ptr;
-+	__u64		npages;
-+	__u64		cpages;
-+	__u64		faults;
-+};
-+
-+/* Expose the address space of the calling process through hmm dummy dev f=
-ile */
-+#define HMM_DMIRROR_READ		_IOWR('H', 0x00, struct hmm_dmirror_cmd)
-+#define HMM_DMIRROR_WRITE		_IOWR('H', 0x01, struct hmm_dmirror_cmd)
-+#define HMM_DMIRROR_MIGRATE		_IOWR('H', 0x02, struct hmm_dmirror_cmd)
-+#define HMM_DMIRROR_SNAPSHOT		_IOWR('H', 0x03, struct hmm_dmirror_cmd)
-+
-+/*
-+ * Values returned in hmm_dmirror_cmd.ptr for HMM_DMIRROR_SNAPSHOT.
-+ * HMM_DMIRROR_PROT_ERROR: no valid mirror PTE for this page
-+ * HMM_DMIRROR_PROT_NONE: unpopulated PTE or PTE with no access
-+ * HMM_DMIRROR_PROT_READ: read-only PTE
-+ * HMM_DMIRROR_PROT_WRITE: read/write PTE
-+ * HMM_DMIRROR_PROT_ZERO: special read-only zero page
-+ * HMM_DMIRROR_PROT_DEV_PRIVATE_LOCAL: Migrated device private page on the
-+ *					device the ioctl() is made
-+ * HMM_DMIRROR_PROT_DEV_PRIVATE_REMOTE: Migrated device private page on so=
-me
-+ *					other device
-+ */
-+enum {
-+	HMM_DMIRROR_PROT_ERROR			=3D 0xFF,
-+	HMM_DMIRROR_PROT_NONE			=3D 0x00,
-+	HMM_DMIRROR_PROT_READ			=3D 0x01,
-+	HMM_DMIRROR_PROT_WRITE			=3D 0x02,
-+	HMM_DMIRROR_PROT_ZERO			=3D 0x10,
-+	HMM_DMIRROR_PROT_DEV_PRIVATE_LOCAL      =3D 0x20,
-+	HMM_DMIRROR_PROT_DEV_PRIVATE_REMOTE     =3D 0x30,
-+};
-+
-+#endif /* _UAPI_LINUX_HMM_DMIRROR_H */
-diff --git a/tools/testing/selftests/vm/.gitignore b/tools/testing/selftest=
-s/vm/.gitignore
-index 31b3c98b6d34..3054565b3f07 100644
---- a/tools/testing/selftests/vm/.gitignore
-+++ b/tools/testing/selftests/vm/.gitignore
-@@ -14,3 +14,4 @@ virtual_address_range
- gup_benchmark
- va_128TBswitch
- map_fixed_noreplace
-+hmm-tests
-diff --git a/tools/testing/selftests/vm/Makefile b/tools/testing/selftests/=
-vm/Makefile
-index 9534dc2bc929..5643cfb5e3d6 100644
---- a/tools/testing/selftests/vm/Makefile
-+++ b/tools/testing/selftests/vm/Makefile
-@@ -5,6 +5,7 @@ CFLAGS =3D -Wall -I ../../../../usr/include $(EXTRA_CFLAGS)
- LDLIBS =3D -lrt
- TEST_GEN_FILES =3D compaction_test
- TEST_GEN_FILES +=3D gup_benchmark
-+TEST_GEN_FILES +=3D hmm-tests
- TEST_GEN_FILES +=3D hugepage-mmap
- TEST_GEN_FILES +=3D hugepage-shm
- TEST_GEN_FILES +=3D map_hugetlb
-@@ -26,6 +27,8 @@ TEST_FILES :=3D test_vmalloc.sh
- KSFT_KHDR_INSTALL :=3D 1
- include ../lib.mk
-=20
-+$(OUTPUT)/hmm-tests: LDLIBS +=3D -lhugetlbfs -lpthread
-+
- $(OUTPUT)/userfaultfd: LDLIBS +=3D -lpthread
-=20
- $(OUTPUT)/mlock-random-test: LDLIBS +=3D -lcap
-diff --git a/tools/testing/selftests/vm/config b/tools/testing/selftests/vm=
-/config
-index 1c0d76cb5adf..34cfab18e737 100644
---- a/tools/testing/selftests/vm/config
-+++ b/tools/testing/selftests/vm/config
-@@ -1,2 +1,5 @@
- CONFIG_SYSVIPC=3Dy
- CONFIG_USERFAULTFD=3Dy
-+CONFIG_HMM_MIRROR=3Dy
-+CONFIG_DEVICE_PRIVATE=3Dy
-+CONFIG_HMM_DMIRROR=3Dm
-diff --git a/tools/testing/selftests/vm/hmm-tests.c b/tools/testing/selftes=
-ts/vm/hmm-tests.c
-new file mode 100644
-index 000000000000..78756e72e5c2
---- /dev/null
-+++ b/tools/testing/selftests/vm/hmm-tests.c
-@@ -0,0 +1,1304 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Copyright 2013 Red Hat Inc.
-+ *
-+ * This program is free software; you can redistribute it and/or
-+ * modify it under the terms of the GNU General Public License as
-+ * published by the Free Software Foundation; either version 2 of
-+ * the License, or (at your option) any later version.
-+ *
-+ * This program is distributed in the hope that it will be useful,
-+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
-+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-+ * GNU General Public License for more details.
-+ *
-+ * Authors: J=C3=A9r=C3=B4me Glisse <jglisse@redhat.com>
-+ */
-+
-+/*
-+ * HMM stands for Heterogeneous Memory Management, it is a helper layer in=
-side
-+ * the linux kernel to help device drivers mirror a process address space =
-in
-+ * the device. This allows the device to use the same address space which
-+ * makes communication and data exchange a lot easier.
-+ *
-+ * This framework's sole purpose is to exercise various code paths inside
-+ * the kernel to make sure that HMM performs as expected and to flush out =
-any
-+ * bugs.
-+ */
-+
-+#include "../kselftest_harness.h"
-+
-+#include <errno.h>
-+#include <fcntl.h>
-+#include <stdio.h>
-+#include <stdlib.h>
-+#include <stdint.h>
-+#include <unistd.h>
-+#include <strings.h>
-+#include <time.h>
-+#include <pthread.h>
-+#include <hugetlbfs.h>
-+#include <sys/types.h>
-+#include <sys/stat.h>
-+#include <sys/mman.h>
-+#include <sys/ioctl.h>
-+#include <linux/hmm_dmirror.h>
-+
-+struct hmm_buffer {
-+	void		*ptr;
-+	void		*mirror;
-+	unsigned long	size;
-+	int		fd;
-+	uint64_t	cpages;
-+	uint64_t	faults;
-+};
-+
-+#define TWOMEG		(1 << 21)
-+#define HMM_BUFFER_SIZE (1024 << 12)
-+#define HMM_PATH_MAX    64
-+#define NTIMES		256
-+
-+#define ALIGN(x, a) (((x) + (a - 1)) & (~((a) - 1)))
-+
-+FIXTURE(hmm)
-+{
-+	int		fd;
-+	unsigned int	page_size;
-+	unsigned int	page_shift;
-+};
-+
-+FIXTURE(hmm2)
-+{
-+	int		fd0;
-+	int		fd1;
-+	unsigned int	page_size;
-+	unsigned int	page_shift;
-+};
-+
-+static int hmm_open(int unit)
-+{
-+	char pathname[HMM_PATH_MAX];
-+	int fd;
-+
-+	snprintf(pathname, sizeof(pathname), "/dev/hmm_dmirror%d", unit);
-+	fd =3D open(pathname, O_RDWR, 0);
-+	if (fd < 0)
-+		fprintf(stderr, "could not open hmm dmirror driver (%s)\n",
-+			pathname);
-+	return fd;
-+}
-+
-+FIXTURE_SETUP(hmm)
-+{
-+	self->page_size =3D sysconf(_SC_PAGE_SIZE);
-+	self->page_shift =3D ffs(self->page_size) - 1;
-+
-+	self->fd =3D hmm_open(0);
-+	ASSERT_GE(self->fd, 0);
-+}
-+
-+FIXTURE_SETUP(hmm2)
-+{
-+	self->page_size =3D sysconf(_SC_PAGE_SIZE);
-+	self->page_shift =3D ffs(self->page_size) - 1;
-+
-+	self->fd0 =3D hmm_open(0);
-+	ASSERT_GE(self->fd0, 0);
-+	self->fd1 =3D hmm_open(1);
-+	ASSERT_GE(self->fd1, 0);
-+}
-+
-+FIXTURE_TEARDOWN(hmm)
-+{
-+	int ret =3D close(self->fd);
-+
-+	ASSERT_EQ(ret, 0);
-+	self->fd =3D -1;
-+}
-+
-+FIXTURE_TEARDOWN(hmm2)
-+{
-+	int ret =3D close(self->fd0);
-+
-+	ASSERT_EQ(ret, 0);
-+	self->fd0 =3D -1;
-+
-+	ret =3D close(self->fd1);
-+	ASSERT_EQ(ret, 0);
-+	self->fd1 =3D -1;
-+}
-+
-+static int hmm_dmirror_cmd(int fd,
-+			   unsigned long request,
-+			   struct hmm_buffer *buffer,
-+			   unsigned long npages)
-+{
-+	struct hmm_dmirror_cmd cmd;
-+	int ret;
-+
-+	/* Simulate a device reading system memory. */
-+	cmd.addr =3D (__u64)buffer->ptr;
-+	cmd.ptr =3D (__u64)buffer->mirror;
-+	cmd.npages =3D npages;
-+
-+	for (;;) {
-+		ret =3D ioctl(fd, request, &cmd);
-+		if (ret =3D=3D 0)
-+			break;
-+		if (errno =3D=3D EINTR)
-+			continue;
-+		return -errno;
-+	}
-+	buffer->cpages =3D cmd.cpages;
-+	buffer->faults =3D cmd.faults;
-+
-+	return 0;
-+}
-+
-+static void hmm_buffer_free(struct hmm_buffer *buffer)
-+{
-+	if (buffer =3D=3D NULL)
-+		return;
-+
-+	if (buffer->ptr)
-+		munmap(buffer->ptr, buffer->size);
-+	free(buffer->mirror);
-+	free(buffer);
-+}
-+
-+/*
-+ * Create a temporary file that will be deleted on close.
-+ */
-+static int hmm_create_file(unsigned long size)
-+{
-+	char path[HMM_PATH_MAX];
-+	int fd;
-+
-+	strcpy(path, "/tmp");
-+	fd =3D open(path, O_TMPFILE | O_EXCL | O_RDWR, 0600);
-+	if (fd >=3D 0) {
-+		int r;
-+
-+		do {
-+			r =3D ftruncate(fd, size);
-+		} while (r =3D=3D -1 && errno =3D=3D EINTR);
-+		if (!r)
-+			return fd;
-+		close(fd);
-+	}
-+	return -1;
-+}
-+
-+/*
-+ * Return a random unsigned number.
-+ */
-+static unsigned int hmm_random(void)
-+{
-+	static int fd =3D -1;
-+	unsigned int r;
-+
-+	if (fd < 0) {
-+		fd =3D open("/dev/urandom", O_RDONLY);
-+		if (fd < 0) {
-+			fprintf(stderr, "%s:%d failed to open /dev/urandom\n",
-+					__FILE__, __LINE__);
-+			return ~0U;
-+		}
-+	}
-+	read(fd, &r, sizeof(r));
-+	return r;
-+}
-+
-+static void hmm_nanosleep(unsigned int n)
-+{
-+	struct timespec t;
-+
-+	t.tv_sec =3D 0;
-+	t.tv_nsec =3D n;
-+	nanosleep(&t, NULL);
-+}
-+
-+/*
-+ * Read private anonymous memory.
-+ */
-+TEST_F(hmm, anon_read)
-+{
-+	struct hmm_buffer *buffer;
-+	unsigned long npages;
-+	unsigned long size;
-+	unsigned long i;
-+	int *ptr;
-+	int ret;
-+	int val;
-+
-+	npages =3D ALIGN(HMM_BUFFER_SIZE, self->page_size) >> self->page_shift;
-+	ASSERT_NE(npages, 0);
-+	size =3D npages << self->page_shift;
-+
-+	buffer =3D malloc(sizeof(*buffer));
-+	ASSERT_NE(buffer, NULL);
-+
-+	buffer->fd =3D -1;
-+	buffer->size =3D size;
-+	buffer->mirror =3D malloc(size);
-+	ASSERT_NE(buffer->mirror, NULL);
-+
-+	buffer->ptr =3D mmap(NULL, size,
-+			   PROT_READ | PROT_WRITE,
-+			   MAP_PRIVATE | MAP_ANONYMOUS,
-+			   buffer->fd, 0);
-+	ASSERT_NE(buffer->ptr, MAP_FAILED);
-+
-+	/*
-+	 * Initialize buffer in system memory but leave the first two pages
-+	 * zero (pte_none and pfn_zero).
-+	 */
-+	i =3D 2 * self->page_size / sizeof(*ptr);
-+	for (ptr =3D buffer->ptr; i < size / sizeof(*ptr); ++i)
-+		ptr[i] =3D i;
-+
-+	/* Set buffer permission to read-only. */
-+	ret =3D mprotect(buffer->ptr, size, PROT_READ);
-+	ASSERT_EQ(ret, 0);
-+
-+	/* Populate the CPU page table with a special zero page. */
-+	val =3D *(int *)(buffer->ptr + self->page_size);
-+	ASSERT_EQ(val, 0);
-+
-+	/* Simulate a device reading system memory. */
-+	ret =3D hmm_dmirror_cmd(self->fd, HMM_DMIRROR_READ, buffer, npages);
-+	ASSERT_EQ(ret, 0);
-+	ASSERT_EQ(buffer->cpages, npages);
-+	ASSERT_EQ(buffer->faults, 1);
-+
-+	/* Check what the device read. */
-+	ptr =3D buffer->mirror;
-+	for (i =3D 0; i < 2 * self->page_size / sizeof(*ptr); ++i)
-+		ASSERT_EQ(ptr[i], 0);
-+	for (; i < size / sizeof(*ptr); ++i)
-+		ASSERT_EQ(ptr[i], i);
-+
-+	hmm_buffer_free(buffer);
-+}
-+
-+/*
-+ * Read private anonymous memory which has been protected with
-+ * mprotect() PROT_NONE.
-+ */
-+TEST_F(hmm, anon_read_prot)
-+{
-+	struct hmm_buffer *buffer;
-+	unsigned long npages;
-+	unsigned long size;
-+	unsigned long i;
-+	int *ptr;
-+	int ret;
-+
-+	npages =3D ALIGN(HMM_BUFFER_SIZE, self->page_size) >> self->page_shift;
-+	ASSERT_NE(npages, 0);
-+	size =3D npages << self->page_shift;
-+
-+	buffer =3D malloc(sizeof(*buffer));
-+	ASSERT_NE(buffer, NULL);
-+
-+	buffer->fd =3D -1;
-+	buffer->size =3D size;
-+	buffer->mirror =3D malloc(size);
-+	ASSERT_NE(buffer->mirror, NULL);
-+
-+	buffer->ptr =3D mmap(NULL, size,
-+			   PROT_READ | PROT_WRITE,
-+			   MAP_PRIVATE | MAP_ANONYMOUS,
-+			   buffer->fd, 0);
-+	ASSERT_NE(buffer->ptr, MAP_FAILED);
-+
-+	/* Initialize buffer in system memory. */
-+	for (i =3D 0, ptr =3D buffer->ptr; i < size / sizeof(*ptr); ++i)
-+		ptr[i] =3D i;
-+
-+	/* Initialize mirror buffer so we can verify it isn't written. */
-+	for (i =3D 0, ptr =3D buffer->mirror; i < size / sizeof(*ptr); ++i)
-+		ptr[i] =3D -i;
-+
-+	/* Protect buffer from reading. */
-+	ret =3D mprotect(buffer->ptr, size, PROT_NONE);
-+	ASSERT_EQ(ret, 0);
-+
-+	/* Simulate a device reading system memory. */
-+	ret =3D hmm_dmirror_cmd(self->fd, HMM_DMIRROR_READ, buffer, npages);
-+	ASSERT_EQ(ret, -EFAULT);
-+
-+	/* Allow CPU to read the buffer so we can check it. */
-+	ret =3D mprotect(buffer->ptr, size, PROT_READ);
-+	ASSERT_EQ(ret, 0);
-+	for (i =3D 0, ptr =3D buffer->ptr; i < size / sizeof(*ptr); ++i)
-+		ASSERT_EQ(ptr[i], i);
-+
-+	/* Check what the device read. */
-+	for (i =3D 0, ptr =3D buffer->mirror; i < size / sizeof(*ptr); ++i)
-+		ASSERT_EQ(ptr[i], -i);
-+
-+	hmm_buffer_free(buffer);
-+}
-+
-+/*
-+ * Write private anonymous memory.
-+ */
-+TEST_F(hmm, anon_write)
-+{
-+	struct hmm_buffer *buffer;
-+	unsigned long npages;
-+	unsigned long size;
-+	unsigned long i;
-+	int *ptr;
-+	int ret;
-+
-+	npages =3D ALIGN(HMM_BUFFER_SIZE, self->page_size) >> self->page_shift;
-+	ASSERT_NE(npages, 0);
-+	size =3D npages << self->page_shift;
-+
-+	buffer =3D malloc(sizeof(*buffer));
-+	ASSERT_NE(buffer, NULL);
-+
-+	buffer->fd =3D -1;
-+	buffer->size =3D size;
-+	buffer->mirror =3D malloc(size);
-+	ASSERT_NE(buffer->mirror, NULL);
-+
-+	buffer->ptr =3D mmap(NULL, size,
-+			   PROT_READ | PROT_WRITE,
-+			   MAP_PRIVATE | MAP_ANONYMOUS,
-+			   buffer->fd, 0);
-+	ASSERT_NE(buffer->ptr, MAP_FAILED);
-+
-+	/* Initialize data that the device will write to buffer->ptr. */
-+	for (i =3D 0, ptr =3D buffer->mirror; i < size / sizeof(*ptr); ++i)
-+		ptr[i] =3D i;
-+
-+	/* Simulate a device writing system memory. */
-+	ret =3D hmm_dmirror_cmd(self->fd, HMM_DMIRROR_WRITE, buffer, npages);
-+	ASSERT_EQ(ret, 0);
-+	ASSERT_EQ(buffer->cpages, npages);
-+	ASSERT_EQ(buffer->faults, 1);
-+
-+	/* Check what the device wrote. */
-+	for (i =3D 0, ptr =3D buffer->ptr; i < size / sizeof(*ptr); ++i)
-+		ASSERT_EQ(ptr[i], i);
-+
-+	hmm_buffer_free(buffer);
-+}
-+
-+/*
-+ * Write private anonymous memory which has been protected with
-+ * mprotect() PROT_READ.
-+ */
-+TEST_F(hmm, anon_write_prot)
-+{
-+	struct hmm_buffer *buffer;
-+	unsigned long npages;
-+	unsigned long size;
-+	unsigned long i;
-+	int *ptr;
-+	int ret;
-+
-+	npages =3D ALIGN(HMM_BUFFER_SIZE, self->page_size) >> self->page_shift;
-+	ASSERT_NE(npages, 0);
-+	size =3D npages << self->page_shift;
-+
-+	buffer =3D malloc(sizeof(*buffer));
-+	ASSERT_NE(buffer, NULL);
-+
-+	buffer->fd =3D -1;
-+	buffer->size =3D size;
-+	buffer->mirror =3D malloc(size);
-+	ASSERT_NE(buffer->mirror, NULL);
-+
-+	buffer->ptr =3D mmap(NULL, size,
-+			   PROT_READ,
-+			   MAP_PRIVATE | MAP_ANONYMOUS,
-+			   buffer->fd, 0);
-+	ASSERT_NE(buffer->ptr, MAP_FAILED);
-+
-+	/* Simulate a device reading a zero page of memory. */
-+	ret =3D hmm_dmirror_cmd(self->fd, HMM_DMIRROR_READ, buffer, 1);
-+	ASSERT_EQ(ret, 0);
-+	ASSERT_EQ(buffer->cpages, 1);
-+	ASSERT_EQ(buffer->faults, 1);
-+
-+	/* Initialize data that the device will write to buffer->ptr. */
-+	for (i =3D 0, ptr =3D buffer->mirror; i < size / sizeof(*ptr); ++i)
-+		ptr[i] =3D i;
-+
-+	/* Simulate a device writing system memory. */
-+	ret =3D hmm_dmirror_cmd(self->fd, HMM_DMIRROR_WRITE, buffer, npages);
-+	ASSERT_EQ(ret, -EPERM);
-+
-+	/* Check what the device wrote. */
-+	for (i =3D 0, ptr =3D buffer->ptr; i < size / sizeof(*ptr); ++i)
-+		ASSERT_EQ(ptr[i], 0);
-+
-+	/* Now allow writing and see that the zero page is replaced. */
-+	ret =3D mprotect(buffer->ptr, size, PROT_WRITE | PROT_READ);
-+	ASSERT_EQ(ret, 0);
-+
-+	/* Simulate a device writing system memory. */
-+	ret =3D hmm_dmirror_cmd(self->fd, HMM_DMIRROR_WRITE, buffer, npages);
-+	ASSERT_EQ(ret, 0);
-+	ASSERT_EQ(buffer->cpages, npages);
-+	ASSERT_EQ(buffer->faults, 1);
-+
-+	/* Check what the device wrote. */
-+	for (i =3D 0, ptr =3D buffer->ptr; i < size / sizeof(*ptr); ++i)
-+		ASSERT_EQ(ptr[i], i);
-+
-+	hmm_buffer_free(buffer);
-+}
-+
-+/*
-+ * Check that a device writing an anonymous private mapping
-+ * will copy-on-write if a child process inherits the mapping.
-+ */
-+TEST_F(hmm, anon_write_child)
-+{
-+	struct hmm_buffer *buffer;
-+	unsigned long npages;
-+	unsigned long size;
-+	unsigned long i;
-+	int *ptr;
-+	pid_t pid;
-+	int child_fd;
-+	int ret;
-+
-+	npages =3D ALIGN(HMM_BUFFER_SIZE, self->page_size) >> self->page_shift;
-+	ASSERT_NE(npages, 0);
-+	size =3D npages << self->page_shift;
-+
-+	buffer =3D malloc(sizeof(*buffer));
-+	ASSERT_NE(buffer, NULL);
-+
-+	buffer->fd =3D -1;
-+	buffer->size =3D size;
-+	buffer->mirror =3D malloc(size);
-+	ASSERT_NE(buffer->mirror, NULL);
-+
-+	buffer->ptr =3D mmap(NULL, size,
-+			   PROT_READ | PROT_WRITE,
-+			   MAP_PRIVATE | MAP_ANONYMOUS,
-+			   buffer->fd, 0);
-+	ASSERT_NE(buffer->ptr, MAP_FAILED);
-+
-+	/* Initialize buffer->ptr so we can tell if it is written. */
-+	for (i =3D 0, ptr =3D buffer->ptr; i < size / sizeof(*ptr); ++i)
-+		ptr[i] =3D i;
-+
-+	/* Initialize data that the device will write to buffer->ptr. */
-+	for (i =3D 0, ptr =3D buffer->mirror; i < size / sizeof(*ptr); ++i)
-+		ptr[i] =3D -i;
-+
-+	pid =3D fork();
-+	if (pid =3D=3D -1)
-+		ASSERT_EQ(pid, 0);
-+	if (pid !=3D 0) {
-+		waitpid(pid, &ret, 0);
-+		ASSERT_EQ(WIFEXITED(ret), 1);
-+
-+		/* Check that the parent's buffer did not change. */
-+		for (i =3D 0, ptr =3D buffer->ptr; i < size / sizeof(*ptr); ++i)
-+			ASSERT_EQ(ptr[i], i);
-+		return;
-+	}
-+
-+	/* Check that we see the parent's values. */
-+	for (i =3D 0, ptr =3D buffer->ptr; i < size / sizeof(*ptr); ++i)
-+		ASSERT_EQ(ptr[i], i);
-+	for (i =3D 0, ptr =3D buffer->mirror; i < size / sizeof(*ptr); ++i)
-+		ASSERT_EQ(ptr[i], -i);
-+
-+	/* The child process needs its own mirror to its own mm. */
-+	child_fd =3D hmm_open(0);
-+	ASSERT_GE(child_fd, 0);
-+
-+	/* Simulate a device writing system memory. */
-+	ret =3D hmm_dmirror_cmd(child_fd, HMM_DMIRROR_WRITE, buffer, npages);
-+	ASSERT_EQ(ret, 0);
-+	ASSERT_EQ(buffer->cpages, npages);
-+	ASSERT_EQ(buffer->faults, 1);
-+
-+	/* Check what the device wrote. */
-+	for (i =3D 0, ptr =3D buffer->ptr; i < size / sizeof(*ptr); ++i)
-+		ASSERT_EQ(ptr[i], -i);
-+
-+	close(child_fd);
-+	exit(0);
-+}
-+
-+/*
-+ * Check that a device writing an anonymous shared mapping
-+ * will not copy-on-write if a child process inherits the mapping.
-+ */
-+TEST_F(hmm, anon_write_child_shared)
-+{
-+	struct hmm_buffer *buffer;
-+	unsigned long npages;
-+	unsigned long size;
-+	unsigned long i;
-+	int *ptr;
-+	pid_t pid;
-+	int child_fd;
-+	int ret;
-+
-+	npages =3D ALIGN(HMM_BUFFER_SIZE, self->page_size) >> self->page_shift;
-+	ASSERT_NE(npages, 0);
-+	size =3D npages << self->page_shift;
-+
-+	buffer =3D malloc(sizeof(*buffer));
-+	ASSERT_NE(buffer, NULL);
-+
-+	buffer->fd =3D -1;
-+	buffer->size =3D size;
-+	buffer->mirror =3D malloc(size);
-+	ASSERT_NE(buffer->mirror, NULL);
-+
-+	buffer->ptr =3D mmap(NULL, size,
-+			   PROT_READ | PROT_WRITE,
-+			   MAP_SHARED | MAP_ANONYMOUS,
-+			   buffer->fd, 0);
-+	ASSERT_NE(buffer->ptr, MAP_FAILED);
-+
-+	/* Initialize buffer->ptr so we can tell if it is written. */
-+	for (i =3D 0, ptr =3D buffer->ptr; i < size / sizeof(*ptr); ++i)
-+		ptr[i] =3D i;
-+
-+	/* Initialize data that the device will write to buffer->ptr. */
-+	for (i =3D 0, ptr =3D buffer->mirror; i < size / sizeof(*ptr); ++i)
-+		ptr[i] =3D -i;
-+
-+	pid =3D fork();
-+	if (pid =3D=3D -1)
-+		ASSERT_EQ(pid, 0);
-+	if (pid !=3D 0) {
-+		waitpid(pid, &ret, 0);
-+		ASSERT_EQ(WIFEXITED(ret), 1);
-+
-+		/* Check that the parent's buffer did change. */
-+		for (i =3D 0, ptr =3D buffer->ptr; i < size / sizeof(*ptr); ++i)
-+			ASSERT_EQ(ptr[i], -i);
-+		return;
-+	}
-+
-+	/* Check that we see the parent's values. */
-+	for (i =3D 0, ptr =3D buffer->ptr; i < size / sizeof(*ptr); ++i)
-+		ASSERT_EQ(ptr[i], i);
-+	for (i =3D 0, ptr =3D buffer->mirror; i < size / sizeof(*ptr); ++i)
-+		ASSERT_EQ(ptr[i], -i);
-+
-+	/* The child process needs its own mirror to its own mm. */
-+	child_fd =3D hmm_open(0);
-+	ASSERT_GE(child_fd, 0);
-+
-+	/* Simulate a device writing system memory. */
-+	ret =3D hmm_dmirror_cmd(child_fd, HMM_DMIRROR_WRITE, buffer, npages);
-+	ASSERT_EQ(ret, 0);
-+	ASSERT_EQ(buffer->cpages, npages);
-+	ASSERT_EQ(buffer->faults, 1);
-+
-+	/* Check what the device wrote. */
-+	for (i =3D 0, ptr =3D buffer->ptr; i < size / sizeof(*ptr); ++i)
-+		ASSERT_EQ(ptr[i], -i);
-+
-+	close(child_fd);
-+	exit(0);
-+}
-+
-+/*
-+ * Write private anonymous huge page.
-+ */
-+TEST_F(hmm, anon_write_huge)
-+{
-+	struct hmm_buffer *buffer;
-+	unsigned long npages;
-+	unsigned long size;
-+	unsigned long i;
-+	void *old_ptr;
-+	void *map;
-+	int *ptr;
-+	int ret;
-+
-+	size =3D 2 * TWOMEG;
-+
-+	buffer =3D malloc(sizeof(*buffer));
-+	ASSERT_NE(buffer, NULL);
-+
-+	buffer->fd =3D -1;
-+	buffer->size =3D size;
-+	buffer->mirror =3D malloc(size);
-+	ASSERT_NE(buffer->mirror, NULL);
-+
-+	buffer->ptr =3D mmap(NULL, size,
-+			   PROT_READ | PROT_WRITE,
-+			   MAP_PRIVATE | MAP_ANONYMOUS,
-+			   buffer->fd, 0);
-+	ASSERT_NE(buffer->ptr, MAP_FAILED);
-+
-+	size =3D TWOMEG;
-+	npages =3D size >> self->page_shift;
-+	map =3D (void *)ALIGN((uintptr_t)buffer->ptr, size);
-+	ret =3D madvise(map, size, MADV_HUGEPAGE);
-+	ASSERT_EQ(ret, 0);
-+	old_ptr =3D buffer->ptr;
-+	buffer->ptr =3D map;
-+
-+	/* Initialize data that the device will write to buffer->ptr. */
-+	for (i =3D 0, ptr =3D buffer->mirror; i < size / sizeof(*ptr); ++i)
-+		ptr[i] =3D i;
-+
-+	/* Simulate a device writing system memory. */
-+	ret =3D hmm_dmirror_cmd(self->fd, HMM_DMIRROR_WRITE, buffer, npages);
-+	ASSERT_EQ(ret, 0);
-+	ASSERT_EQ(buffer->cpages, npages);
-+	ASSERT_EQ(buffer->faults, 1);
-+
-+	/* Check what the device wrote. */
-+	for (i =3D 0, ptr =3D buffer->ptr; i < size / sizeof(*ptr); ++i)
-+		ASSERT_EQ(ptr[i], i);
-+
-+	buffer->ptr =3D old_ptr;
-+	hmm_buffer_free(buffer);
-+}
-+
-+/*
-+ * Write huge TLBFS page.
-+ */
-+TEST_F(hmm, anon_write_hugetlbfs)
-+{
-+	struct hmm_buffer *buffer;
-+	unsigned long npages;
-+	unsigned long size;
-+	unsigned long i;
-+	int *ptr;
-+	int ret;
-+	long pagesizes[4];
-+	int n, idx;
-+
-+	/* Skip test if we can't allocate a hugetlbfs page. */
-+
-+	n =3D gethugepagesizes(pagesizes, 4);
-+	if (n <=3D 0)
-+		return;
-+	for (idx =3D 0; --n > 0; ) {
-+		if (pagesizes[n] < pagesizes[idx])
-+			idx =3D n;
-+	}
-+	size =3D ALIGN(TWOMEG, pagesizes[idx]);
-+	npages =3D size >> self->page_shift;
-+
-+	buffer =3D malloc(sizeof(*buffer));
-+	ASSERT_NE(buffer, NULL);
-+
-+	buffer->ptr =3D get_hugepage_region(size, GHR_STRICT);
-+	if (buffer->ptr =3D=3D NULL) {
-+		free(buffer);
-+		return;
-+	}
-+
-+	buffer->fd =3D -1;
-+	buffer->size =3D size;
-+	buffer->mirror =3D malloc(size);
-+	ASSERT_NE(buffer->mirror, NULL);
-+
-+	/* Initialize data that the device will write to buffer->ptr. */
-+	for (i =3D 0, ptr =3D buffer->mirror; i < size / sizeof(*ptr); ++i)
-+		ptr[i] =3D i;
-+
-+	/* Simulate a device writing system memory. */
-+	ret =3D hmm_dmirror_cmd(self->fd, HMM_DMIRROR_WRITE, buffer, npages);
-+	ASSERT_EQ(ret, 0);
-+	ASSERT_EQ(buffer->cpages, npages);
-+	ASSERT_EQ(buffer->faults, 1);
-+
-+	/* Check what the device wrote. */
-+	for (i =3D 0, ptr =3D buffer->ptr; i < size / sizeof(*ptr); ++i)
-+		ASSERT_EQ(ptr[i], i);
-+
-+	free_hugepage_region(buffer->ptr);
-+	buffer->ptr =3D NULL;
-+	hmm_buffer_free(buffer);
-+}
-+
-+/*
-+ * Read mmap'ed file memory.
-+ */
-+TEST_F(hmm, file_read)
-+{
-+	struct hmm_buffer *buffer;
-+	unsigned long npages;
-+	unsigned long size;
-+	unsigned long i;
-+	int *ptr;
-+	int ret;
-+	int fd;
-+	off_t off;
-+	ssize_t len;
-+
-+	npages =3D ALIGN(HMM_BUFFER_SIZE, self->page_size) >> self->page_shift;
-+	ASSERT_NE(npages, 0);
-+	size =3D npages << self->page_shift;
-+
-+	fd =3D hmm_create_file(size);
-+	ASSERT_GE(fd, 0);
-+
-+	buffer =3D malloc(sizeof(*buffer));
-+	ASSERT_NE(buffer, NULL);
-+
-+	buffer->fd =3D fd;
-+	buffer->size =3D size;
-+	buffer->mirror =3D malloc(size);
-+	ASSERT_NE(buffer->mirror, NULL);
-+
-+	/* Write initial contents of the file. */
-+	for (i =3D 0, ptr =3D buffer->mirror; i < size / sizeof(*ptr); ++i)
-+		ptr[i] =3D i;
-+	off =3D lseek(fd, 0, SEEK_SET);
-+	ASSERT_EQ(off, 0);
-+	len =3D write(fd, buffer->mirror, size);
-+	ASSERT_EQ(len, size);
-+	memset(buffer->mirror, 0, size);
-+
-+	buffer->ptr =3D mmap(NULL, size,
-+			   PROT_READ,
-+			   MAP_SHARED,
-+			   buffer->fd, 0);
-+	ASSERT_NE(buffer->ptr, MAP_FAILED);
-+
-+	/* Simulate a device reading system memory. */
-+	ret =3D hmm_dmirror_cmd(self->fd, HMM_DMIRROR_READ, buffer, npages);
-+	ASSERT_EQ(ret, 0);
-+	ASSERT_EQ(buffer->cpages, npages);
-+	ASSERT_EQ(buffer->faults, 1);
-+
-+	/* Check what the device read. */
-+	for (i =3D 0, ptr =3D buffer->mirror; i < size / sizeof(*ptr); ++i)
-+		ASSERT_EQ(ptr[i], i);
-+
-+	hmm_buffer_free(buffer);
-+}
-+
-+/*
-+ * Write mmap'ed file memory.
-+ */
-+TEST_F(hmm, file_write)
-+{
-+	struct hmm_buffer *buffer;
-+	unsigned long npages;
-+	unsigned long size;
-+	unsigned long i;
-+	int *ptr;
-+	int ret;
-+	int fd;
-+	off_t off;
-+	ssize_t len;
-+
-+	npages =3D ALIGN(HMM_BUFFER_SIZE, self->page_size) >> self->page_shift;
-+	ASSERT_NE(npages, 0);
-+	size =3D npages << self->page_shift;
-+
-+	fd =3D hmm_create_file(size);
-+	ASSERT_GE(fd, 0);
-+
-+	buffer =3D malloc(sizeof(*buffer));
-+	ASSERT_NE(buffer, NULL);
-+
-+	buffer->fd =3D fd;
-+	buffer->size =3D size;
-+	buffer->mirror =3D malloc(size);
-+	ASSERT_NE(buffer->mirror, NULL);
-+
-+	buffer->ptr =3D mmap(NULL, size,
-+			   PROT_READ | PROT_WRITE,
-+			   MAP_SHARED,
-+			   buffer->fd, 0);
-+	ASSERT_NE(buffer->ptr, MAP_FAILED);
-+
-+	/* Initialize data that the device will write to buffer->ptr. */
-+	for (i =3D 0, ptr =3D buffer->mirror; i < size / sizeof(*ptr); ++i)
-+		ptr[i] =3D i;
-+
-+	/* Simulate a device writing system memory. */
-+	ret =3D hmm_dmirror_cmd(self->fd, HMM_DMIRROR_WRITE, buffer, npages);
-+	ASSERT_EQ(ret, 0);
-+	ASSERT_EQ(buffer->cpages, npages);
-+	ASSERT_EQ(buffer->faults, 1);
-+
-+	/* Check what the device wrote. */
-+	for (i =3D 0, ptr =3D buffer->ptr; i < size / sizeof(*ptr); ++i)
-+		ASSERT_EQ(ptr[i], i);
-+
-+	/* Check that the device also wrote the file. */
-+	off =3D lseek(fd, 0, SEEK_SET);
-+	ASSERT_EQ(off, 0);
-+	len =3D read(fd, buffer->mirror, size);
-+	ASSERT_EQ(len, size);
-+	for (i =3D 0, ptr =3D buffer->mirror; i < size / sizeof(*ptr); ++i)
-+		ASSERT_EQ(ptr[i], i);
-+
-+	hmm_buffer_free(buffer);
-+}
-+
-+/*
-+ * Migrate anonymous memory to device private memory.
-+ */
-+TEST_F(hmm, migrate)
-+{
-+	struct hmm_buffer *buffer;
-+	unsigned long npages;
-+	unsigned long size;
-+	unsigned long i;
-+	int *ptr;
-+	int ret;
-+
-+	npages =3D ALIGN(HMM_BUFFER_SIZE, self->page_size) >> self->page_shift;
-+	ASSERT_NE(npages, 0);
-+	size =3D npages << self->page_shift;
-+
-+	buffer =3D malloc(sizeof(*buffer));
-+	ASSERT_NE(buffer, NULL);
-+
-+	buffer->fd =3D -1;
-+	buffer->size =3D size;
-+	buffer->mirror =3D malloc(size);
-+	ASSERT_NE(buffer->mirror, NULL);
-+
-+	buffer->ptr =3D mmap(NULL, size,
-+			   PROT_READ | PROT_WRITE,
-+			   MAP_PRIVATE | MAP_ANONYMOUS,
-+			   buffer->fd, 0);
-+	ASSERT_NE(buffer->ptr, MAP_FAILED);
-+
-+	/* Initialize buffer in system memory. */
-+	for (i =3D 0, ptr =3D buffer->ptr; i < size / sizeof(*ptr); ++i)
-+		ptr[i] =3D i;
-+
-+	/* Migrate memory to device. */
-+	ret =3D hmm_dmirror_cmd(self->fd, HMM_DMIRROR_MIGRATE, buffer, npages);
-+	ASSERT_EQ(ret, 0);
-+	ASSERT_EQ(buffer->cpages, npages);
-+
-+	/* Check what the device read. */
-+	for (i =3D 0, ptr =3D buffer->mirror; i < size / sizeof(*ptr); ++i)
-+		ASSERT_EQ(ptr[i], i);
-+
-+	hmm_buffer_free(buffer);
-+}
-+
-+/*
-+ * Migrate anonymous memory to device private memory and fault it back to =
-system
-+ * memory.
-+ */
-+TEST_F(hmm, migrate_fault)
-+{
-+	struct hmm_buffer *buffer;
-+	unsigned long npages;
-+	unsigned long size;
-+	unsigned long i;
-+	int *ptr;
-+	int ret;
-+
-+	npages =3D ALIGN(HMM_BUFFER_SIZE, self->page_size) >> self->page_shift;
-+	ASSERT_NE(npages, 0);
-+	size =3D npages << self->page_shift;
-+
-+	buffer =3D malloc(sizeof(*buffer));
-+	ASSERT_NE(buffer, NULL);
-+
-+	buffer->fd =3D -1;
-+	buffer->size =3D size;
-+	buffer->mirror =3D malloc(size);
-+	ASSERT_NE(buffer->mirror, NULL);
-+
-+	buffer->ptr =3D mmap(NULL, size,
-+			   PROT_READ | PROT_WRITE,
-+			   MAP_PRIVATE | MAP_ANONYMOUS,
-+			   buffer->fd, 0);
-+	ASSERT_NE(buffer->ptr, MAP_FAILED);
-+
-+	/* Initialize buffer in system memory. */
-+	for (i =3D 0, ptr =3D buffer->ptr; i < size / sizeof(*ptr); ++i)
-+		ptr[i] =3D i;
-+
-+	/* Migrate memory to device. */
-+	ret =3D hmm_dmirror_cmd(self->fd, HMM_DMIRROR_MIGRATE, buffer, npages);
-+	ASSERT_EQ(ret, 0);
-+	ASSERT_EQ(buffer->cpages, npages);
-+
-+	/* Check what the device read. */
-+	for (i =3D 0, ptr =3D buffer->mirror; i < size / sizeof(*ptr); ++i)
-+		ASSERT_EQ(ptr[i], i);
-+
-+	/* Fault pages back to system memory and check them. */
-+	for (i =3D 0, ptr =3D buffer->ptr; i < size / sizeof(*ptr); ++i)
-+		ASSERT_EQ(ptr[i], i);
-+
-+	hmm_buffer_free(buffer);
-+}
-+
-+/*
-+ * Try to migrate various memory types to device private memory.
-+ */
-+TEST_F(hmm2, migrate_mixed)
-+{
-+	struct hmm_buffer *buffer;
-+	unsigned long npages;
-+	unsigned long size;
-+	int *ptr;
-+	unsigned char *p;
-+	int ret;
-+	int val;
-+
-+	npages =3D 6;
-+	size =3D npages << self->page_shift;
-+
-+	buffer =3D malloc(sizeof(*buffer));
-+	ASSERT_NE(buffer, NULL);
-+
-+	buffer->fd =3D -1;
-+	buffer->size =3D size;
-+	buffer->mirror =3D malloc(size);
-+	ASSERT_NE(buffer->mirror, NULL);
-+
-+	/* Reserve a range of addresses. */
-+	buffer->ptr =3D mmap(NULL, size,
-+			   PROT_NONE,
-+			   MAP_PRIVATE | MAP_ANONYMOUS,
-+			   buffer->fd, 0);
-+	ASSERT_NE(buffer->ptr, MAP_FAILED);
-+	p =3D buffer->ptr;
-+
-+	/* Now try to migrate everything to device 1. */
-+	ret =3D hmm_dmirror_cmd(self->fd1, HMM_DMIRROR_MIGRATE, buffer, npages);
-+	ASSERT_EQ(ret, 0);
-+	ASSERT_EQ(buffer->cpages, 6);
-+
-+	/* Punch a hole after the first page address. */
-+	ret =3D munmap(buffer->ptr + self->page_size, self->page_size);
-+	ASSERT_EQ(ret, 0);
-+
-+	/* We expect an error if the vma doesn't cover the range. */
-+	ret =3D hmm_dmirror_cmd(self->fd1, HMM_DMIRROR_MIGRATE, buffer, 3);
-+	ASSERT_EQ(ret, -EINVAL);
-+
-+	/* Page 2 will be a read-only zero page. */
-+	ret =3D mprotect(buffer->ptr + 2 * self->page_size, self->page_size,
-+				PROT_READ);
-+	ASSERT_EQ(ret, 0);
-+	ptr =3D (int *)(buffer->ptr + 2 * self->page_size);
-+	val =3D *ptr + 3;
-+	ASSERT_EQ(val, 3);
-+
-+	/* Page 3 will be read-only. */
-+	ret =3D mprotect(buffer->ptr + 3 * self->page_size, self->page_size,
-+				PROT_READ | PROT_WRITE);
-+	ASSERT_EQ(ret, 0);
-+	ptr =3D (int *)(buffer->ptr + 3 * self->page_size);
-+	*ptr =3D val;
-+	ret =3D mprotect(buffer->ptr + 3 * self->page_size, self->page_size,
-+				PROT_READ);
-+	ASSERT_EQ(ret, 0);
-+
-+	/* Page 4 will be read-write. */
-+	ret =3D mprotect(buffer->ptr + 4 * self->page_size, self->page_size,
-+				PROT_READ | PROT_WRITE);
-+	ASSERT_EQ(ret, 0);
-+	ptr =3D (int *)(buffer->ptr + 4 * self->page_size);
-+	*ptr =3D val;
-+
-+	/* Page 5 won't be migrated to device 0 because it's on device 1. */
-+	buffer->ptr =3D p + 5 * self->page_size;
-+	ret =3D hmm_dmirror_cmd(self->fd0, HMM_DMIRROR_MIGRATE, buffer, 1);
-+	ASSERT_EQ(ret, -ENOENT);
-+	buffer->ptr =3D p;
-+
-+	/* Now try to migrate pages 2-3 to device 1. */
-+	buffer->ptr =3D p + 2 * self->page_size;
-+	ret =3D hmm_dmirror_cmd(self->fd1, HMM_DMIRROR_MIGRATE, buffer, 2);
-+	ASSERT_EQ(ret, 0);
-+	ASSERT_EQ(buffer->cpages, 2);
-+	buffer->ptr =3D p;
-+
-+	hmm_buffer_free(buffer);
-+}
-+
-+/*
-+ * Migrate anonymous memory to device private memory and fault it back to =
-system
-+ * memory multiple times.
-+ */
-+TEST_F(hmm, migrate_multiple)
-+{
-+	struct hmm_buffer *buffer;
-+	unsigned long npages;
-+	unsigned long size;
-+	unsigned long i;
-+	unsigned long c;
-+	int *ptr;
-+	int ret;
-+
-+	npages =3D ALIGN(HMM_BUFFER_SIZE, self->page_size) >> self->page_shift;
-+	ASSERT_NE(npages, 0);
-+	size =3D npages << self->page_shift;
-+
-+	for (c =3D 0; c < NTIMES; c++) {
-+		buffer =3D malloc(sizeof(*buffer));
-+		ASSERT_NE(buffer, NULL);
-+
-+		buffer->fd =3D -1;
-+		buffer->size =3D size;
-+		buffer->mirror =3D malloc(size);
-+		ASSERT_NE(buffer->mirror, NULL);
-+
-+		buffer->ptr =3D mmap(NULL, size,
-+				   PROT_READ | PROT_WRITE,
-+				   MAP_PRIVATE | MAP_ANONYMOUS,
-+				   buffer->fd, 0);
-+		ASSERT_NE(buffer->ptr, MAP_FAILED);
-+
-+		/* Initialize buffer in system memory. */
-+		for (i =3D 0, ptr =3D buffer->ptr; i < size / sizeof(*ptr); ++i)
-+			ptr[i] =3D i;
-+
-+		/* Migrate memory to device. */
-+		ret =3D hmm_dmirror_cmd(self->fd, HMM_DMIRROR_MIGRATE, buffer,
-+				      npages);
-+		ASSERT_EQ(ret, 0);
-+		ASSERT_EQ(buffer->cpages, npages);
-+
-+		/* Check what the device read. */
-+		for (i =3D 0, ptr =3D buffer->mirror; i < size / sizeof(*ptr); ++i)
-+			ASSERT_EQ(ptr[i], i);
-+
-+		/* Fault pages back to system memory and check them. */
-+		for (i =3D 0, ptr =3D buffer->ptr; i < size / sizeof(*ptr); ++i)
-+			ASSERT_EQ(ptr[i], i);
-+
-+		hmm_buffer_free(buffer);
-+	}
-+}
-+
-+/*
-+ * Read anonymous memory multiple times.
-+ */
-+TEST_F(hmm, anon_read_multiple)
-+{
-+	struct hmm_buffer *buffer;
-+	unsigned long npages;
-+	unsigned long size;
-+	unsigned long i;
-+	unsigned long c;
-+	int *ptr;
-+	int ret;
-+
-+	npages =3D ALIGN(HMM_BUFFER_SIZE, self->page_size) >> self->page_shift;
-+	ASSERT_NE(npages, 0);
-+	size =3D npages << self->page_shift;
-+
-+	for (c =3D 0; c < NTIMES; c++) {
-+		buffer =3D malloc(sizeof(*buffer));
-+		ASSERT_NE(buffer, NULL);
-+
-+		buffer->fd =3D -1;
-+		buffer->size =3D size;
-+		buffer->mirror =3D malloc(size);
-+		ASSERT_NE(buffer->mirror, NULL);
-+
-+		buffer->ptr =3D mmap(NULL, size,
-+				   PROT_READ | PROT_WRITE,
-+				   MAP_PRIVATE | MAP_ANONYMOUS,
-+				   buffer->fd, 0);
-+		ASSERT_NE(buffer->ptr, MAP_FAILED);
-+
-+		/* Initialize buffer in system memory. */
-+		for (i =3D 0, ptr =3D buffer->ptr; i < size / sizeof(*ptr); ++i)
-+			ptr[i] =3D i + c;
-+
-+		/* Simulate a device reading system memory. */
-+		ret =3D hmm_dmirror_cmd(self->fd, HMM_DMIRROR_READ, buffer,
-+				      npages);
-+		ASSERT_EQ(ret, 0);
-+		ASSERT_EQ(buffer->cpages, npages);
-+		ASSERT_EQ(buffer->faults, 1);
-+
-+		/* Check what the device read. */
-+		for (i =3D 0, ptr =3D buffer->mirror; i < size / sizeof(*ptr); ++i)
-+			ASSERT_EQ(ptr[i], i + c);
-+
-+		hmm_buffer_free(buffer);
-+	}
-+}
-+
-+void *unmap_buffer(void *p)
-+{
-+	struct hmm_buffer *buffer =3D p;
-+
-+	/* Delay for a bit and then unmap buffer while it is being read. */
-+	hmm_nanosleep(hmm_random() % 32000);
-+	munmap(buffer->ptr + buffer->size / 2, buffer->size / 2);
-+	buffer->ptr =3D NULL;
-+
-+	return NULL;
-+}
-+
-+/*
-+ * Try reading anonymous memory while it is being unmapped.
-+ */
-+TEST_F(hmm, anon_teardown)
-+{
-+	unsigned long npages;
-+	unsigned long size;
-+	unsigned long c;
-+	void *ret;
-+
-+	npages =3D ALIGN(HMM_BUFFER_SIZE, self->page_size) >> self->page_shift;
-+	ASSERT_NE(npages, 0);
-+	size =3D npages << self->page_shift;
-+
-+	for (c =3D 0; c < NTIMES; ++c) {
-+		pthread_t thread;
-+		struct hmm_buffer *buffer;
-+		unsigned long i;
-+		int *ptr;
-+		int rc;
-+
-+		buffer =3D malloc(sizeof(*buffer));
-+		ASSERT_NE(buffer, NULL);
-+
-+		buffer->fd =3D -1;
-+		buffer->size =3D size;
-+		buffer->mirror =3D malloc(size);
-+		ASSERT_NE(buffer->mirror, NULL);
-+
-+		buffer->ptr =3D mmap(NULL, size,
-+				   PROT_READ | PROT_WRITE,
-+				   MAP_PRIVATE | MAP_ANONYMOUS,
-+				   buffer->fd, 0);
-+		ASSERT_NE(buffer->ptr, MAP_FAILED);
-+
-+		/* Initialize buffer in system memory. */
-+		for (i =3D 0, ptr =3D buffer->ptr; i < size / sizeof(*ptr); ++i)
-+			ptr[i] =3D i + c;
-+
-+		rc =3D pthread_create(&thread, NULL, unmap_buffer, buffer);
-+		ASSERT_EQ(rc, 0);
-+
-+		/* Simulate a device reading system memory. */
-+		rc =3D hmm_dmirror_cmd(self->fd, HMM_DMIRROR_READ, buffer,
-+				     npages);
-+		if (rc =3D=3D 0) {
-+			ASSERT_EQ(buffer->cpages, npages);
-+			ASSERT_EQ(buffer->faults, 1);
-+
-+			/* Check what the device read. */
-+			for (i =3D 0, ptr =3D buffer->mirror;
-+			     i < size / sizeof(*ptr);
-+			     ++i)
-+				ASSERT_EQ(ptr[i], i + c);
-+		}
-+
-+		pthread_join(thread, &ret);
-+		hmm_buffer_free(buffer);
-+	}
-+}
-+
-+/*
-+ * Test memory snapshot without faulting in pages accessed by the device.
-+ */
-+TEST_F(hmm2, snapshot)
-+{
-+	struct hmm_buffer *buffer;
-+	unsigned long npages;
-+	unsigned long size;
-+	int *ptr;
-+	unsigned char *p;
-+	unsigned char *m;
-+	int ret;
-+	int val;
-+
-+	npages =3D 7;
-+	size =3D npages << self->page_shift;
-+
-+	buffer =3D malloc(sizeof(*buffer));
-+	ASSERT_NE(buffer, NULL);
-+
-+	buffer->fd =3D -1;
-+	buffer->size =3D size;
-+	buffer->mirror =3D malloc(npages);
-+	ASSERT_NE(buffer->mirror, NULL);
-+
-+	/* Reserve a range of addresses. */
-+	buffer->ptr =3D mmap(NULL, size,
-+			   PROT_NONE,
-+			   MAP_PRIVATE | MAP_ANONYMOUS,
-+			   buffer->fd, 0);
-+	ASSERT_NE(buffer->ptr, MAP_FAILED);
-+	p =3D buffer->ptr;
-+
-+	/* Punch a hole after the first page address. */
-+	ret =3D munmap(buffer->ptr + self->page_size, self->page_size);
-+	ASSERT_EQ(ret, 0);
-+
-+	/* Page 2 will be read-only zero page. */
-+	ret =3D mprotect(buffer->ptr + 2 * self->page_size, self->page_size,
-+				PROT_READ);
-+	ASSERT_EQ(ret, 0);
-+	ptr =3D (int *)(buffer->ptr + 2 * self->page_size);
-+	val =3D *ptr + 3;
-+	ASSERT_EQ(val, 3);
-+
-+	/* Page 3 will be read-only. */
-+	ret =3D mprotect(buffer->ptr + 3 * self->page_size, self->page_size,
-+				PROT_READ | PROT_WRITE);
-+	ASSERT_EQ(ret, 0);
-+	ptr =3D (int *)(buffer->ptr + 3 * self->page_size);
-+	*ptr =3D val;
-+	ret =3D mprotect(buffer->ptr + 3 * self->page_size, self->page_size,
-+				PROT_READ);
-+	ASSERT_EQ(ret, 0);
-+
-+	/* Page 4-6 will be read-write. */
-+	ret =3D mprotect(buffer->ptr + 4 * self->page_size, 3 * self->page_size,
-+				PROT_READ | PROT_WRITE);
-+	ASSERT_EQ(ret, 0);
-+	ptr =3D (int *)(buffer->ptr + 4 * self->page_size);
-+	*ptr =3D val;
-+
-+	/* Page 5 will be migrated to device 0. */
-+	buffer->ptr =3D p + 5 * self->page_size;
-+	ret =3D hmm_dmirror_cmd(self->fd0, HMM_DMIRROR_MIGRATE, buffer, 1);
-+	ASSERT_EQ(ret, 0);
-+	ASSERT_EQ(buffer->cpages, 1);
-+
-+	/* Page 6 will be migrated to device 1. */
-+	buffer->ptr =3D p + 6 * self->page_size;
-+	ret =3D hmm_dmirror_cmd(self->fd1, HMM_DMIRROR_MIGRATE, buffer, 1);
-+	ASSERT_EQ(ret, 0);
-+	ASSERT_EQ(buffer->cpages, 1);
-+
-+	/* Simulate a device snapshotting CPU pagetables. */
-+	buffer->ptr =3D p;
-+	ret =3D hmm_dmirror_cmd(self->fd0, HMM_DMIRROR_SNAPSHOT, buffer, npages);
-+	ASSERT_EQ(ret, 0);
-+	ASSERT_EQ(buffer->cpages, npages);
-+
-+	/* Check what the device saw. */
-+	m =3D buffer->mirror;
-+	ASSERT_EQ(m[0], HMM_DMIRROR_PROT_NONE);
-+	ASSERT_EQ(m[1], HMM_DMIRROR_PROT_NONE);
-+	ASSERT_EQ(m[2], HMM_DMIRROR_PROT_ZERO);
-+	ASSERT_EQ(m[3], HMM_DMIRROR_PROT_READ);
-+	ASSERT_EQ(m[4], HMM_DMIRROR_PROT_WRITE);
-+	ASSERT_EQ(m[5], HMM_DMIRROR_PROT_DEV_PRIVATE_LOCAL |
-+			HMM_DMIRROR_PROT_WRITE);
-+	ASSERT_EQ(m[6], HMM_DMIRROR_PROT_DEV_PRIVATE_REMOTE |
-+			HMM_DMIRROR_PROT_WRITE);
-+
-+	hmm_buffer_free(buffer);
-+}
-+
-+TEST_HARNESS_MAIN
-diff --git a/tools/testing/selftests/vm/run_vmtests b/tools/testing/selftes=
-ts/vm/run_vmtests
-index 951c507a27f7..634cfefdaffd 100755
---- a/tools/testing/selftests/vm/run_vmtests
-+++ b/tools/testing/selftests/vm/run_vmtests
-@@ -227,4 +227,20 @@ else
- 	exitcode=3D1
- fi
-=20
-+echo "------------------------------------"
-+echo "running HMM smoke test"
-+echo "------------------------------------"
-+./test_hmm.sh smoke
-+ret_val=3D$?
-+
-+if [ $ret_val -eq 0 ]; then
-+	echo "[PASS]"
-+elif [ $ret_val -eq $ksft_skip ]; then
-+	echo "[SKIP]"
-+	exitcode=3D$ksft_skip
-+else
-+	echo "[FAIL]"
-+	exitcode=3D1
-+fi
-+
- exit $exitcode
-diff --git a/tools/testing/selftests/vm/test_hmm.sh b/tools/testing/selftes=
-ts/vm/test_hmm.sh
-new file mode 100755
-index 000000000000..069a39f85876
---- /dev/null
-+++ b/tools/testing/selftests/vm/test_hmm.sh
-@@ -0,0 +1,105 @@
-+#!/bin/bash
-+# SPDX-License-Identifier: GPL-2.0
-+#
-+# Copyright (C) 2018 Uladzislau Rezki (Sony) <urezki@gmail.com>
-+#
-+# This is a test script for the kernel test driver to analyse vmalloc
-+# allocator. Therefore it is just a kernel module loader. You can specify
-+# and pass different parameters in order to:
-+#     a) analyse performance of vmalloc allocations;
-+#     b) stressing and stability check of vmalloc subsystem.
-+
-+TEST_NAME=3D"test_hmm"
-+DRIVER=3D"hmm_dmirror"
-+
-+# 1 if fails
-+exitcode=3D1
-+
-+# Kselftest framework requirement - SKIP code is 4.
-+ksft_skip=3D4
-+
-+#
-+# Static templates for performance, stressing and smoke tests.
-+# Also it is possible to pass any supported parameters manualy.
-+#
-+PERF_PARAM=3D"single_cpu_test=3D1 sequential_test_order=3D1 test_repeat_co=
-unt=3D3"
-+SMOKE_PARAM=3D"single_cpu_test=3D1 test_loop_count=3D10000 test_repeat_cou=
-nt=3D10"
-+STRESS_PARAM=3D"test_repeat_count=3D20"
-+
-+check_test_requirements()
-+{
-+	uid=3D$(id -u)
-+	if [ $uid -ne 0 ]; then
-+		echo "$0: Must be run as root"
-+		exit $ksft_skip
-+	fi
-+
-+	if ! which modprobe > /dev/null 2>&1; then
-+		echo "$0: You need modprobe installed"
-+		exit $ksft_skip
-+	fi
-+
-+	if ! modinfo $DRIVER > /dev/null 2>&1; then
-+		echo "$0: You must have the following enabled in your kernel:"
-+		echo "CONFIG_HMM_DMIRROR=3Dm"
-+		exit $ksft_skip
-+	fi
-+}
-+
-+load_driver()
-+{
-+	modprobe $DRIVER > /dev/null 2>&1
-+	if [ $? =3D=3D 0 ]; then
-+		major=3D$(awk "\$2=3D=3D\"HMM_DMIRROR\" {print \$1}" /proc/devices)
-+		mknod /dev/hmm_dmirror0 c $major 0
-+		mknod /dev/hmm_dmirror1 c $major 1
-+	fi
-+}
-+
-+unload_driver()
-+{
-+	modprobe -r $DRIVER > /dev/null 2>&1
-+	rm -f /dev/hmm_dmirror?
-+}
-+
-+run_smoke()
-+{
-+	echo "Running smoke test. Note, this test provides basic coverage."
-+
-+	load_driver
-+	./hmm-tests
-+	unload_driver
-+}
-+
-+usage()
-+{
-+	echo -n "Usage: $0"
-+	echo
-+	echo "Example usage:"
-+	echo
-+	echo "# Shows help message"
-+	echo "./${TEST_NAME}.sh"
-+	echo
-+	echo "# Smoke testing"
-+	echo "./${TEST_NAME}.sh smoke"
-+	echo
-+	exit 0
-+}
-+
-+function run_test()
-+{
-+	if [ $# -eq 0 ]; then
-+		usage
-+	else
-+		if [ "$1" =3D "smoke" ]; then
-+			run_smoke
-+		else
-+			usage
-+		fi
-+	fi
-+}
-+
-+check_test_requirements
-+run_test $@
-+
-+exit 0
---=20
-2.20.1
+RnJvbTogRGhpbmFrYXJhbiBQYW5kaXlhbiA8ZGhpbmFrYXJhbi5wYW5kaXlhbkBpbnRlbC5jb20+
+CgpDdXJyZW50bHkgd2UgcmVzdHJpY3QgdGhlIG51bWJlciBvZiBlbmNvZGVycyB0aGF0IGNhbiBi
+ZSBsaW5rZWQgdG8KYSBjb25uZWN0b3IgdG8gMywgaW5jcmVhc2UgaXQgdG8gbWF0Y2ggdGhlIG1h
+eGltdW0gbnVtYmVyIG9mIGVuY29kZXJzCnRoYXQgY2FuIGJlIGluaXRpYWxpemVkKDMyKS4KClRv
+IG1vcmUgZWZmaWVudGx5IGRvIHRoYXQgbGV0cyBzd2l0Y2ggZnJvbSBhbiBhcnJheSBvZiBlbmNv
+ZGVyIGlkcyB0bwpiaXRtYXNrLgoKdjI6IEZpeGluZyBtaXNzZWQgcmV0dXJuIG9uIGFtZGdwdV9k
+bV9jb25uZWN0b3JfdG9fZW5jb2RlcigpCgpTdWdnZXN0ZWQtYnk6IFZpbGxlIFN5cmrDpGzDpCA8
+dmlsbGUuc3lyamFsYUBsaW51eC5pbnRlbC5jb20+CkNjOiBWaWxsZSBTeXJqw6Rsw6QgPHZpbGxl
+LnN5cmphbGFAbGludXguaW50ZWwuY29tPgpDYzogQWxleCBEZXVjaGVyIDxhbGV4YW5kZXIuZGV1
+Y2hlckBhbWQuY29tPgpDYzogZHJpLWRldmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpDYzogaW50
+ZWwtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpDYzogbm91dmVhdUBsaXN0cy5mcmVlZGVza3Rv
+cC5vcmcKQ2M6IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnClJldmlld2VkLWJ5OiBWaWxs
+ZSBTeXJqw6Rsw6QgPHZpbGxlLnN5cmphbGFAbGludXguaW50ZWwuY29tPgpTaWduZWQtb2ZmLWJ5
+OiBEaGluYWthcmFuIFBhbmRpeWFuIDxkaGluYWthcmFuLnBhbmRpeWFuQGludGVsLmNvbT4KU2ln
+bmVkLW9mZi1ieTogSm9zw6kgUm9iZXJ0byBkZSBTb3V6YSA8am9zZS5zb3V6YUBpbnRlbC5jb20+
+Ci0tLQogLi4uL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfY29ubmVjdG9ycy5jICAgIHwgMjMg
+KysrKy0tLS0tLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2RjZV92aXJ0dWFsLmMgICAg
+ICB8ICA1ICstLQogLi4uL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5j
+IHwgIDggKysrLQogZHJpdmVycy9ncHUvZHJtL2RybV9jbGllbnRfbW9kZXNldC5jICAgICAgICAg
+IHwgIDMgKy0KIGRyaXZlcnMvZ3B1L2RybS9kcm1fY29ubmVjdG9yLmMgICAgICAgICAgICAgICB8
+IDQwICsrKysrKystLS0tLS0tLS0tLS0KIGRyaXZlcnMvZ3B1L2RybS9kcm1fcHJvYmVfaGVscGVy
+LmMgICAgICAgICAgICB8ICAzICstCiBkcml2ZXJzL2dwdS9kcm0vbm91dmVhdS9kaXNwbnYwNC9k
+aXNwLmMgICAgICAgfCAgMiArLQogZHJpdmVycy9ncHUvZHJtL25vdXZlYXUvZGlzcG52NTAvZGlz
+cC5jICAgICAgIHwgIDIgKy0KIGRyaXZlcnMvZ3B1L2RybS9ub3V2ZWF1L25vdXZlYXVfY29ubmVj
+dG9yLmMgICB8ICA3ICsrLS0KIGRyaXZlcnMvZ3B1L2RybS9yYWRlb24vcmFkZW9uX2Nvbm5lY3Rv
+cnMuYyAgICB8IDI3ICsrKysrLS0tLS0tLS0KIGluY2x1ZGUvZHJtL2RybV9jb25uZWN0b3IuaCAg
+ICAgICAgICAgICAgICAgICB8IDE4ICsrKystLS0tLQogMTEgZmlsZXMgY2hhbmdlZCwgNTUgaW5z
+ZXJ0aW9ucygrKSwgODMgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJt
+L2FtZC9hbWRncHUvYW1kZ3B1X2Nvbm5lY3RvcnMuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
+Z3B1L2FtZGdwdV9jb25uZWN0b3JzLmMKaW5kZXggZWNlNTVjOGZhNjczLi5kODcyOTI4NWY3MzEg
+MTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9jb25uZWN0b3Jz
+LmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Nvbm5lY3RvcnMuYwpA
+QCAtMjE3LDExICsyMTcsMTAgQEAgYW1kZ3B1X2Nvbm5lY3Rvcl91cGRhdGVfc2NyYXRjaF9yZWdz
+KHN0cnVjdCBkcm1fY29ubmVjdG9yICpjb25uZWN0b3IsCiAJc3RydWN0IGRybV9lbmNvZGVyICpl
+bmNvZGVyOwogCWNvbnN0IHN0cnVjdCBkcm1fY29ubmVjdG9yX2hlbHBlcl9mdW5jcyAqY29ubmVj
+dG9yX2Z1bmNzID0gY29ubmVjdG9yLT5oZWxwZXJfcHJpdmF0ZTsKIAlib29sIGNvbm5lY3RlZDsK
+LQlpbnQgaTsKIAogCWJlc3RfZW5jb2RlciA9IGNvbm5lY3Rvcl9mdW5jcy0+YmVzdF9lbmNvZGVy
+KGNvbm5lY3Rvcik7CiAKLQlkcm1fY29ubmVjdG9yX2Zvcl9lYWNoX3Bvc3NpYmxlX2VuY29kZXIo
+Y29ubmVjdG9yLCBlbmNvZGVyLCBpKSB7CisJZHJtX2Nvbm5lY3Rvcl9mb3JfZWFjaF9wb3NzaWJs
+ZV9lbmNvZGVyKGNvbm5lY3RvciwgZW5jb2RlcikgewogCQlpZiAoKGVuY29kZXIgPT0gYmVzdF9l
+bmNvZGVyKSAmJiAoc3RhdHVzID09IGNvbm5lY3Rvcl9zdGF0dXNfY29ubmVjdGVkKSkKIAkJCWNv
+bm5lY3RlZCA9IHRydWU7CiAJCWVsc2UKQEAgLTIzNiw5ICsyMzUsOCBAQCBhbWRncHVfY29ubmVj
+dG9yX2ZpbmRfZW5jb2RlcihzdHJ1Y3QgZHJtX2Nvbm5lY3RvciAqY29ubmVjdG9yLAogCQkJICAg
+ICAgIGludCBlbmNvZGVyX3R5cGUpCiB7CiAJc3RydWN0IGRybV9lbmNvZGVyICplbmNvZGVyOwot
+CWludCBpOwogCi0JZHJtX2Nvbm5lY3Rvcl9mb3JfZWFjaF9wb3NzaWJsZV9lbmNvZGVyKGNvbm5l
+Y3RvciwgZW5jb2RlciwgaSkgeworCWRybV9jb25uZWN0b3JfZm9yX2VhY2hfcG9zc2libGVfZW5j
+b2Rlcihjb25uZWN0b3IsIGVuY29kZXIpIHsKIAkJaWYgKGVuY29kZXItPmVuY29kZXJfdHlwZSA9
+PSBlbmNvZGVyX3R5cGUpCiAJCQlyZXR1cm4gZW5jb2RlcjsKIAl9CkBAIC0zNDcsMTAgKzM0NSw5
+IEBAIHN0YXRpYyBzdHJ1Y3QgZHJtX2VuY29kZXIgKgogYW1kZ3B1X2Nvbm5lY3Rvcl9iZXN0X3Np
+bmdsZV9lbmNvZGVyKHN0cnVjdCBkcm1fY29ubmVjdG9yICpjb25uZWN0b3IpCiB7CiAJc3RydWN0
+IGRybV9lbmNvZGVyICplbmNvZGVyOwotCWludCBpOwogCiAJLyogcGljayB0aGUgZmlyc3Qgb25l
+ICovCi0JZHJtX2Nvbm5lY3Rvcl9mb3JfZWFjaF9wb3NzaWJsZV9lbmNvZGVyKGNvbm5lY3Rvciwg
+ZW5jb2RlciwgaSkKKwlkcm1fY29ubmVjdG9yX2Zvcl9lYWNoX3Bvc3NpYmxlX2VuY29kZXIoY29u
+bmVjdG9yLCBlbmNvZGVyKQogCQlyZXR1cm4gZW5jb2RlcjsKIAogCXJldHVybiBOVUxMOwpAQCAt
+MTA2NSw5ICsxMDYyLDggQEAgYW1kZ3B1X2Nvbm5lY3Rvcl9kdmlfZGV0ZWN0KHN0cnVjdCBkcm1f
+Y29ubmVjdG9yICpjb25uZWN0b3IsIGJvb2wgZm9yY2UpCiAJLyogZmluZCBhbmFsb2cgZW5jb2Rl
+ciAqLwogCWlmIChhbWRncHVfY29ubmVjdG9yLT5kYWNfbG9hZF9kZXRlY3QpIHsKIAkJc3RydWN0
+IGRybV9lbmNvZGVyICplbmNvZGVyOwotCQlpbnQgaTsKIAotCQlkcm1fY29ubmVjdG9yX2Zvcl9l
+YWNoX3Bvc3NpYmxlX2VuY29kZXIoY29ubmVjdG9yLCBlbmNvZGVyLCBpKSB7CisJCWRybV9jb25u
+ZWN0b3JfZm9yX2VhY2hfcG9zc2libGVfZW5jb2Rlcihjb25uZWN0b3IsIGVuY29kZXIpIHsKIAkJ
+CWlmIChlbmNvZGVyLT5lbmNvZGVyX3R5cGUgIT0gRFJNX01PREVfRU5DT0RFUl9EQUMgJiYKIAkJ
+CSAgICBlbmNvZGVyLT5lbmNvZGVyX3R5cGUgIT0gRFJNX01PREVfRU5DT0RFUl9UVkRBQykKIAkJ
+CQljb250aW51ZTsKQEAgLTExMTcsOSArMTExMyw4IEBAIGFtZGdwdV9jb25uZWN0b3JfZHZpX2Vu
+Y29kZXIoc3RydWN0IGRybV9jb25uZWN0b3IgKmNvbm5lY3RvcikKIHsKIAlzdHJ1Y3QgYW1kZ3B1
+X2Nvbm5lY3RvciAqYW1kZ3B1X2Nvbm5lY3RvciA9IHRvX2FtZGdwdV9jb25uZWN0b3IoY29ubmVj
+dG9yKTsKIAlzdHJ1Y3QgZHJtX2VuY29kZXIgKmVuY29kZXI7Ci0JaW50IGk7CiAKLQlkcm1fY29u
+bmVjdG9yX2Zvcl9lYWNoX3Bvc3NpYmxlX2VuY29kZXIoY29ubmVjdG9yLCBlbmNvZGVyLCBpKSB7
+CisJZHJtX2Nvbm5lY3Rvcl9mb3JfZWFjaF9wb3NzaWJsZV9lbmNvZGVyKGNvbm5lY3RvciwgZW5j
+b2RlcikgewogCQlpZiAoYW1kZ3B1X2Nvbm5lY3Rvci0+dXNlX2RpZ2l0YWwgPT0gdHJ1ZSkgewog
+CQkJaWYgKGVuY29kZXItPmVuY29kZXJfdHlwZSA9PSBEUk1fTU9ERV9FTkNPREVSX1RNRFMpCiAJ
+CQkJcmV0dXJuIGVuY29kZXI7CkBAIC0xMTM0LDcgKzExMjksNyBAQCBhbWRncHVfY29ubmVjdG9y
+X2R2aV9lbmNvZGVyKHN0cnVjdCBkcm1fY29ubmVjdG9yICpjb25uZWN0b3IpCiAKIAkvKiB0aGVu
+IGNoZWNrIHVzZSBkaWdpdGlhbCAqLwogCS8qIHBpY2sgdGhlIGZpcnN0IG9uZSAqLwotCWRybV9j
+b25uZWN0b3JfZm9yX2VhY2hfcG9zc2libGVfZW5jb2Rlcihjb25uZWN0b3IsIGVuY29kZXIsIGkp
+CisJZHJtX2Nvbm5lY3Rvcl9mb3JfZWFjaF9wb3NzaWJsZV9lbmNvZGVyKGNvbm5lY3RvciwgZW5j
+b2RlcikKIAkJcmV0dXJuIGVuY29kZXI7CiAKIAlyZXR1cm4gTlVMTDsKQEAgLTEyNzEsOSArMTI2
+Niw4IEBAIHUxNiBhbWRncHVfY29ubmVjdG9yX2VuY29kZXJfZ2V0X2RwX2JyaWRnZV9lbmNvZGVy
+X2lkKHN0cnVjdCBkcm1fY29ubmVjdG9yICpjb25uCiB7CiAJc3RydWN0IGRybV9lbmNvZGVyICpl
+bmNvZGVyOwogCXN0cnVjdCBhbWRncHVfZW5jb2RlciAqYW1kZ3B1X2VuY29kZXI7Ci0JaW50IGk7
+CiAKLQlkcm1fY29ubmVjdG9yX2Zvcl9lYWNoX3Bvc3NpYmxlX2VuY29kZXIoY29ubmVjdG9yLCBl
+bmNvZGVyLCBpKSB7CisJZHJtX2Nvbm5lY3Rvcl9mb3JfZWFjaF9wb3NzaWJsZV9lbmNvZGVyKGNv
+bm5lY3RvciwgZW5jb2RlcikgewogCQlhbWRncHVfZW5jb2RlciA9IHRvX2FtZGdwdV9lbmNvZGVy
+KGVuY29kZXIpOwogCiAJCXN3aXRjaCAoYW1kZ3B1X2VuY29kZXItPmVuY29kZXJfaWQpIHsKQEAg
+LTEyOTIsMTAgKzEyODYsOSBAQCBzdGF0aWMgYm9vbCBhbWRncHVfY29ubmVjdG9yX2VuY29kZXJf
+aXNfaGJyMihzdHJ1Y3QgZHJtX2Nvbm5lY3RvciAqY29ubmVjdG9yKQogewogCXN0cnVjdCBkcm1f
+ZW5jb2RlciAqZW5jb2RlcjsKIAlzdHJ1Y3QgYW1kZ3B1X2VuY29kZXIgKmFtZGdwdV9lbmNvZGVy
+OwotCWludCBpOwogCWJvb2wgZm91bmQgPSBmYWxzZTsKIAotCWRybV9jb25uZWN0b3JfZm9yX2Vh
+Y2hfcG9zc2libGVfZW5jb2Rlcihjb25uZWN0b3IsIGVuY29kZXIsIGkpIHsKKwlkcm1fY29ubmVj
+dG9yX2Zvcl9lYWNoX3Bvc3NpYmxlX2VuY29kZXIoY29ubmVjdG9yLCBlbmNvZGVyKSB7CiAJCWFt
+ZGdwdV9lbmNvZGVyID0gdG9fYW1kZ3B1X2VuY29kZXIoZW5jb2Rlcik7CiAJCWlmIChhbWRncHVf
+ZW5jb2Rlci0+Y2FwcyAmIEFUT01fRU5DT0RFUl9DQVBfUkVDT1JEX0hCUjIpCiAJCQlmb3VuZCA9
+IHRydWU7CmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9kY2VfdmlydHVh
+bC5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZGNlX3ZpcnR1YWwuYwppbmRleCBjOTYw
+OGFlODY0M2IuLmU0Zjk0ODYzMzMyYyAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9h
+bWRncHUvZGNlX3ZpcnR1YWwuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9kY2Vf
+dmlydHVhbC5jCkBAIC0yNjAsMTUgKzI2MCwxNCBAQCBzdGF0aWMgc3RydWN0IGRybV9lbmNvZGVy
+ICoKIGRjZV92aXJ0dWFsX2VuY29kZXIoc3RydWN0IGRybV9jb25uZWN0b3IgKmNvbm5lY3RvcikK
+IHsKIAlzdHJ1Y3QgZHJtX2VuY29kZXIgKmVuY29kZXI7Ci0JaW50IGk7CiAKLQlkcm1fY29ubmVj
+dG9yX2Zvcl9lYWNoX3Bvc3NpYmxlX2VuY29kZXIoY29ubmVjdG9yLCBlbmNvZGVyLCBpKSB7CisJ
+ZHJtX2Nvbm5lY3Rvcl9mb3JfZWFjaF9wb3NzaWJsZV9lbmNvZGVyKGNvbm5lY3RvciwgZW5jb2Rl
+cikgewogCQlpZiAoZW5jb2Rlci0+ZW5jb2Rlcl90eXBlID09IERSTV9NT0RFX0VOQ09ERVJfVklS
+VFVBTCkKIAkJCXJldHVybiBlbmNvZGVyOwogCX0KIAogCS8qIHBpY2sgdGhlIGZpcnN0IG9uZSAq
+LwotCWRybV9jb25uZWN0b3JfZm9yX2VhY2hfcG9zc2libGVfZW5jb2Rlcihjb25uZWN0b3IsIGVu
+Y29kZXIsIGkpCisJZHJtX2Nvbm5lY3Rvcl9mb3JfZWFjaF9wb3NzaWJsZV9lbmNvZGVyKGNvbm5l
+Y3RvciwgZW5jb2RlcikKIAkJcmV0dXJuIGVuY29kZXI7CiAKIAlyZXR1cm4gTlVMTDsKZGlmZiAt
+LWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtLmMg
+Yi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5jCmluZGV4
+IGUxYjA5YmI0MzJiZC4uODYwYzI5YzQ4OWMyIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0v
+YW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9h
+bWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtLmMKQEAgLTQ4MzYsNyArNDgzNiwxMyBAQCBz
+dGF0aWMgaW50IHRvX2RybV9jb25uZWN0b3JfdHlwZShlbnVtIHNpZ25hbF90eXBlIHN0KQogCiBz
+dGF0aWMgc3RydWN0IGRybV9lbmNvZGVyICphbWRncHVfZG1fY29ubmVjdG9yX3RvX2VuY29kZXIo
+c3RydWN0IGRybV9jb25uZWN0b3IgKmNvbm5lY3RvcikKIHsKLQlyZXR1cm4gZHJtX2VuY29kZXJf
+ZmluZChjb25uZWN0b3ItPmRldiwgTlVMTCwgY29ubmVjdG9yLT5lbmNvZGVyX2lkc1swXSk7CisJ
+c3RydWN0IGRybV9lbmNvZGVyICplbmNvZGVyOworCisJLyogVGhlcmUgaXMgb25seSBvbmUgZW5j
+b2RlciBwZXIgY29ubmVjdG9yICovCisJZHJtX2Nvbm5lY3Rvcl9mb3JfZWFjaF9wb3NzaWJsZV9l
+bmNvZGVyKGNvbm5lY3RvciwgZW5jb2RlcikKKwkJcmV0dXJuIGVuY29kZXI7CisKKwlyZXR1cm4g
+TlVMTDsKIH0KIAogc3RhdGljIHZvaWQgYW1kZ3B1X2RtX2dldF9uYXRpdmVfbW9kZShzdHJ1Y3Qg
+ZHJtX2Nvbm5lY3RvciAqY29ubmVjdG9yKQpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2Ry
+bV9jbGllbnRfbW9kZXNldC5jIGIvZHJpdmVycy9ncHUvZHJtL2RybV9jbGllbnRfbW9kZXNldC5j
+CmluZGV4IGM4OTIyYjdjYWMwOS4uODk1YjczZjIzMDc5IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dw
+dS9kcm0vZHJtX2NsaWVudF9tb2Rlc2V0LmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2RybV9jbGll
+bnRfbW9kZXNldC5jCkBAIC00MTUsOSArNDE1LDggQEAgc3RhdGljIGJvb2wgY29ubmVjdG9yX2hh
+c19wb3NzaWJsZV9jcnRjKHN0cnVjdCBkcm1fY29ubmVjdG9yICpjb25uZWN0b3IsCiAJCQkJCXN0
+cnVjdCBkcm1fY3J0YyAqY3J0YykKIHsKIAlzdHJ1Y3QgZHJtX2VuY29kZXIgKmVuY29kZXI7Ci0J
+aW50IGk7CiAKLQlkcm1fY29ubmVjdG9yX2Zvcl9lYWNoX3Bvc3NpYmxlX2VuY29kZXIoY29ubmVj
+dG9yLCBlbmNvZGVyLCBpKSB7CisJZHJtX2Nvbm5lY3Rvcl9mb3JfZWFjaF9wb3NzaWJsZV9lbmNv
+ZGVyKGNvbm5lY3RvciwgZW5jb2RlcikgewogCQlpZiAoZW5jb2Rlci0+cG9zc2libGVfY3J0Y3Mg
+JiBkcm1fY3J0Y19tYXNrKGNydGMpKQogCQkJcmV0dXJuIHRydWU7CiAJfQpkaWZmIC0tZ2l0IGEv
+ZHJpdmVycy9ncHUvZHJtL2RybV9jb25uZWN0b3IuYyBiL2RyaXZlcnMvZ3B1L2RybS9kcm1fY29u
+bmVjdG9yLmMKaW5kZXggM2UyYTYzMmNmODYxLi5hNmJiZjE2NmI0N2UgMTAwNjQ0Ci0tLSBhL2Ry
+aXZlcnMvZ3B1L2RybS9kcm1fY29ubmVjdG9yLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2RybV9j
+b25uZWN0b3IuYwpAQCAtMzY1LDggKzM2NSw2IEBAIEVYUE9SVF9TWU1CT0woZHJtX2Nvbm5lY3Rv
+cl9hdHRhY2hfZWRpZF9wcm9wZXJ0eSk7CiBpbnQgZHJtX2Nvbm5lY3Rvcl9hdHRhY2hfZW5jb2Rl
+cihzdHJ1Y3QgZHJtX2Nvbm5lY3RvciAqY29ubmVjdG9yLAogCQkJCSBzdHJ1Y3QgZHJtX2VuY29k
+ZXIgKmVuY29kZXIpCiB7Ci0JaW50IGk7Ci0KIAkvKgogCSAqIEluIHRoZSBwYXN0LCBkcml2ZXJz
+IGhhdmUgYXR0ZW1wdGVkIHRvIG1vZGVsIHRoZSBzdGF0aWMgYXNzb2NpYXRpb24KIAkgKiBvZiBj
+b25uZWN0b3IgdG8gZW5jb2RlciBpbiBzaW1wbGUgY29ubmVjdG9yL2VuY29kZXIgZGV2aWNlcyB1
+c2luZyBhCkBAIC0zODEsMTggKzM3OSwxNSBAQCBpbnQgZHJtX2Nvbm5lY3Rvcl9hdHRhY2hfZW5j
+b2RlcihzdHJ1Y3QgZHJtX2Nvbm5lY3RvciAqY29ubmVjdG9yLAogCWlmIChXQVJOX09OKGNvbm5l
+Y3Rvci0+ZW5jb2RlcikpCiAJCXJldHVybiAtRUlOVkFMOwogCi0JZm9yIChpID0gMDsgaSA8IEFS
+UkFZX1NJWkUoY29ubmVjdG9yLT5lbmNvZGVyX2lkcyk7IGkrKykgewotCQlpZiAoY29ubmVjdG9y
+LT5lbmNvZGVyX2lkc1tpXSA9PSAwKSB7Ci0JCQljb25uZWN0b3ItPmVuY29kZXJfaWRzW2ldID0g
+ZW5jb2Rlci0+YmFzZS5pZDsKLQkJCXJldHVybiAwOwotCQl9Ci0JfQotCXJldHVybiAtRU5PTUVN
+OworCWNvbm5lY3Rvci0+cG9zc2libGVfZW5jb2RlcnMgfD0gZHJtX2VuY29kZXJfbWFzayhlbmNv
+ZGVyKTsKKworCXJldHVybiAwOwogfQogRVhQT1JUX1NZTUJPTChkcm1fY29ubmVjdG9yX2F0dGFj
+aF9lbmNvZGVyKTsKIAogLyoqCi0gKiBkcm1fY29ubmVjdG9yX2hhc19wb3NzaWJsZV9lbmNvZGVy
+IC0gY2hlY2sgaWYgdGhlIGNvbm5lY3RvciBhbmQgZW5jb2RlciBhcmUgYXNzb3NpY2F0ZWQgd2l0
+aCBlYWNoIG90aGVyCisgKiBkcm1fY29ubmVjdG9yX2hhc19wb3NzaWJsZV9lbmNvZGVyIC0gY2hl
+Y2sgaWYgdGhlIGNvbm5lY3RvciBhbmQgZW5jb2RlciBhcmUKKyAqIGFzc29jaWF0ZWQgd2l0aCBl
+YWNoIG90aGVyCiAgKiBAY29ubmVjdG9yOiB0aGUgY29ubmVjdG9yCiAgKiBAZW5jb2RlcjogdGhl
+IGVuY29kZXIKICAqCkBAIC00MDIsMTUgKzM5Nyw3IEBAIEVYUE9SVF9TWU1CT0woZHJtX2Nvbm5l
+Y3Rvcl9hdHRhY2hfZW5jb2Rlcik7CiBib29sIGRybV9jb25uZWN0b3JfaGFzX3Bvc3NpYmxlX2Vu
+Y29kZXIoc3RydWN0IGRybV9jb25uZWN0b3IgKmNvbm5lY3RvciwKIAkJCQkJc3RydWN0IGRybV9l
+bmNvZGVyICplbmNvZGVyKQogewotCXN0cnVjdCBkcm1fZW5jb2RlciAqZW5jOwotCWludCBpOwot
+Ci0JZHJtX2Nvbm5lY3Rvcl9mb3JfZWFjaF9wb3NzaWJsZV9lbmNvZGVyKGNvbm5lY3RvciwgZW5j
+LCBpKSB7Ci0JCWlmIChlbmMgPT0gZW5jb2RlcikKLQkJCXJldHVybiB0cnVlOwotCX0KLQotCXJl
+dHVybiBmYWxzZTsKKwlyZXR1cm4gY29ubmVjdG9yLT5wb3NzaWJsZV9lbmNvZGVycyAmIGRybV9l
+bmNvZGVyX21hc2soZW5jb2Rlcik7CiB9CiBFWFBPUlRfU1lNQk9MKGRybV9jb25uZWN0b3JfaGFz
+X3Bvc3NpYmxlX2VuY29kZXIpOwogCkBAIC0yMTIxLDcgKzIxMDgsNiBAQCBpbnQgZHJtX21vZGVf
+Z2V0Y29ubmVjdG9yKHN0cnVjdCBkcm1fZGV2aWNlICpkZXYsIHZvaWQgKmRhdGEsCiAJaW50IGVu
+Y29kZXJzX2NvdW50ID0gMDsKIAlpbnQgcmV0ID0gMDsKIAlpbnQgY29waWVkID0gMDsKLQlpbnQg
+aTsKIAlzdHJ1Y3QgZHJtX21vZGVfbW9kZWluZm8gdV9tb2RlOwogCXN0cnVjdCBkcm1fbW9kZV9t
+b2RlaW5mbyBfX3VzZXIgKm1vZGVfcHRyOwogCXVpbnQzMl90IF9fdXNlciAqZW5jb2Rlcl9wdHI7
+CkBAIC0yMTM2LDE0ICsyMTIyLDEzIEBAIGludCBkcm1fbW9kZV9nZXRjb25uZWN0b3Ioc3RydWN0
+IGRybV9kZXZpY2UgKmRldiwgdm9pZCAqZGF0YSwKIAlpZiAoIWNvbm5lY3RvcikKIAkJcmV0dXJu
+IC1FTk9FTlQ7CiAKLQlkcm1fY29ubmVjdG9yX2Zvcl9lYWNoX3Bvc3NpYmxlX2VuY29kZXIoY29u
+bmVjdG9yLCBlbmNvZGVyLCBpKQotCQllbmNvZGVyc19jb3VudCsrOworCWVuY29kZXJzX2NvdW50
+ID0gaHdlaWdodDMyKGNvbm5lY3Rvci0+cG9zc2libGVfZW5jb2RlcnMpOwogCiAJaWYgKChvdXRf
+cmVzcC0+Y291bnRfZW5jb2RlcnMgPj0gZW5jb2RlcnNfY291bnQpICYmIGVuY29kZXJzX2NvdW50
+KSB7CiAJCWNvcGllZCA9IDA7CiAJCWVuY29kZXJfcHRyID0gKHVpbnQzMl90IF9fdXNlciAqKSh1
+bnNpZ25lZCBsb25nKShvdXRfcmVzcC0+ZW5jb2RlcnNfcHRyKTsKIAotCQlkcm1fY29ubmVjdG9y
+X2Zvcl9lYWNoX3Bvc3NpYmxlX2VuY29kZXIoY29ubmVjdG9yLCBlbmNvZGVyLCBpKSB7CisJCWRy
+bV9jb25uZWN0b3JfZm9yX2VhY2hfcG9zc2libGVfZW5jb2Rlcihjb25uZWN0b3IsIGVuY29kZXIp
+IHsKIAkJCWlmIChwdXRfdXNlcihlbmNvZGVyLT5iYXNlLmlkLCBlbmNvZGVyX3B0ciArIGNvcGll
+ZCkpIHsKIAkJCQlyZXQgPSAtRUZBVUxUOwogCQkJCWdvdG8gb3V0OwpAQCAtMjM0Miw2ICsyMzI3
+LDExIEBAIEVYUE9SVF9TWU1CT0woZHJtX21vZGVfY3JlYXRlX3RpbGVfZ3JvdXApOwogc3RydWN0
+IGRybV9lbmNvZGVyICoKIGRybV9jb25uZWN0b3JfZ2V0X3NpbmdsZV9lbmNvZGVyKHN0cnVjdCBk
+cm1fY29ubmVjdG9yICpjb25uZWN0b3IpCiB7Ci0JV0FSTl9PTihjb25uZWN0b3ItPmVuY29kZXJf
+aWRzWzFdKTsKLQlyZXR1cm4gZHJtX2VuY29kZXJfZmluZChjb25uZWN0b3ItPmRldiwgTlVMTCwg
+Y29ubmVjdG9yLT5lbmNvZGVyX2lkc1swXSk7CisJc3RydWN0IGRybV9lbmNvZGVyICplbmNvZGVy
+OworCisJV0FSTl9PTihod2VpZ2h0MzIoY29ubmVjdG9yLT5wb3NzaWJsZV9lbmNvZGVycykgPiAx
+KTsKKwlkcm1fY29ubmVjdG9yX2Zvcl9lYWNoX3Bvc3NpYmxlX2VuY29kZXIoY29ubmVjdG9yLCBl
+bmNvZGVyKQorCQlyZXR1cm4gZW5jb2RlcjsKKworCXJldHVybiBOVUxMOwogfQpkaWZmIC0tZ2l0
+IGEvZHJpdmVycy9ncHUvZHJtL2RybV9wcm9iZV9oZWxwZXIuYyBiL2RyaXZlcnMvZ3B1L2RybS9k
+cm1fcHJvYmVfaGVscGVyLmMKaW5kZXggMzUxY2JjNDBmMGY4Li5hN2M4N2FiZTg4ZDAgMTAwNjQ0
+Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9kcm1fcHJvYmVfaGVscGVyLmMKKysrIGIvZHJpdmVycy9n
+cHUvZHJtL2RybV9wcm9iZV9oZWxwZXIuYwpAQCAtOTMsNyArOTMsNiBAQCBkcm1fbW9kZV92YWxp
+ZGF0ZV9waXBlbGluZShzdHJ1Y3QgZHJtX2Rpc3BsYXlfbW9kZSAqbW9kZSwKIAlzdHJ1Y3QgZHJt
+X2RldmljZSAqZGV2ID0gY29ubmVjdG9yLT5kZXY7CiAJZW51bSBkcm1fbW9kZV9zdGF0dXMgcmV0
+ID0gTU9ERV9PSzsKIAlzdHJ1Y3QgZHJtX2VuY29kZXIgKmVuY29kZXI7Ci0JaW50IGk7CiAKIAkv
+KiBTdGVwIDE6IFZhbGlkYXRlIGFnYWluc3QgY29ubmVjdG9yICovCiAJcmV0ID0gZHJtX2Nvbm5l
+Y3Rvcl9tb2RlX3ZhbGlkKGNvbm5lY3RvciwgbW9kZSk7CkBAIC0xMDEsNyArMTAwLDcgQEAgZHJt
+X21vZGVfdmFsaWRhdGVfcGlwZWxpbmUoc3RydWN0IGRybV9kaXNwbGF5X21vZGUgKm1vZGUsCiAJ
+CXJldHVybiByZXQ7CiAKIAkvKiBTdGVwIDI6IFZhbGlkYXRlIGFnYWluc3QgZW5jb2RlcnMgYW5k
+IGNydGNzICovCi0JZHJtX2Nvbm5lY3Rvcl9mb3JfZWFjaF9wb3NzaWJsZV9lbmNvZGVyKGNvbm5l
+Y3RvciwgZW5jb2RlciwgaSkgeworCWRybV9jb25uZWN0b3JfZm9yX2VhY2hfcG9zc2libGVfZW5j
+b2Rlcihjb25uZWN0b3IsIGVuY29kZXIpIHsKIAkJc3RydWN0IGRybV9jcnRjICpjcnRjOwogCiAJ
+CXJldCA9IGRybV9lbmNvZGVyX21vZGVfdmFsaWQoZW5jb2RlciwgbW9kZSk7CmRpZmYgLS1naXQg
+YS9kcml2ZXJzL2dwdS9kcm0vbm91dmVhdS9kaXNwbnYwNC9kaXNwLmMgYi9kcml2ZXJzL2dwdS9k
+cm0vbm91dmVhdS9kaXNwbnYwNC9kaXNwLmMKaW5kZXggZGM2NDg2M2I1ZmQ4Li40NGVlODJkMGM5
+YjYgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9ub3V2ZWF1L2Rpc3BudjA0L2Rpc3AuYwor
+KysgYi9kcml2ZXJzL2dwdS9kcm0vbm91dmVhdS9kaXNwbnYwNC9kaXNwLmMKQEAgLTI1Niw3ICsy
+NTYsNyBAQCBudjA0X2Rpc3BsYXlfY3JlYXRlKHN0cnVjdCBkcm1fZGV2aWNlICpkZXYpCiAKIAls
+aXN0X2Zvcl9lYWNoX2VudHJ5X3NhZmUoY29ubmVjdG9yLCBjdCwKIAkJCQkgJmRldi0+bW9kZV9j
+b25maWcuY29ubmVjdG9yX2xpc3QsIGhlYWQpIHsKLQkJaWYgKCFjb25uZWN0b3ItPmVuY29kZXJf
+aWRzWzBdKSB7CisJCWlmICghY29ubmVjdG9yLT5wb3NzaWJsZV9lbmNvZGVycykgewogCQkJTlZf
+V0FSTihkcm0sICIlcyBoYXMgbm8gZW5jb2RlcnMsIHJlbW92aW5nXG4iLAogCQkJCWNvbm5lY3Rv
+ci0+bmFtZSk7CiAJCQljb25uZWN0b3ItPmZ1bmNzLT5kZXN0cm95KGNvbm5lY3Rvcik7CmRpZmYg
+LS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vbm91dmVhdS9kaXNwbnY1MC9kaXNwLmMgYi9kcml2ZXJz
+L2dwdS9kcm0vbm91dmVhdS9kaXNwbnY1MC9kaXNwLmMKaW5kZXggMzA3NTg0MTA3ZDc3Li45OGM4
+NzE5NWQ3MTEgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9ub3V2ZWF1L2Rpc3BudjUwL2Rp
+c3AuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vbm91dmVhdS9kaXNwbnY1MC9kaXNwLmMKQEAgLTIz
+OTEsNyArMjM5MSw3IEBAIG52NTBfZGlzcGxheV9jcmVhdGUoc3RydWN0IGRybV9kZXZpY2UgKmRl
+dikKIAogCS8qIGN1bGwgYW55IGNvbm5lY3RvcnMgd2UgY3JlYXRlZCB0aGF0IGRvbid0IGhhdmUg
+YW4gZW5jb2RlciAqLwogCWxpc3RfZm9yX2VhY2hfZW50cnlfc2FmZShjb25uZWN0b3IsIHRtcCwg
+JmRldi0+bW9kZV9jb25maWcuY29ubmVjdG9yX2xpc3QsIGhlYWQpIHsKLQkJaWYgKGNvbm5lY3Rv
+ci0+ZW5jb2Rlcl9pZHNbMF0pCisJCWlmIChjb25uZWN0b3ItPnBvc3NpYmxlX2VuY29kZXJzKQog
+CQkJY29udGludWU7CiAKIAkJTlZfV0FSTihkcm0sICIlcyBoYXMgbm8gZW5jb2RlcnMsIHJlbW92
+aW5nXG4iLApkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL25vdXZlYXUvbm91dmVhdV9jb25u
+ZWN0b3IuYyBiL2RyaXZlcnMvZ3B1L2RybS9ub3V2ZWF1L25vdXZlYXVfY29ubmVjdG9yLmMKaW5k
+ZXggNTY4NzFkMzRlM2ZiLi4zYTVkYjE3YmM1YzcgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2Ry
+bS9ub3V2ZWF1L25vdXZlYXVfY29ubmVjdG9yLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL25vdXZl
+YXUvbm91dmVhdV9jb25uZWN0b3IuYwpAQCAtMzY1LDkgKzM2NSw4IEBAIGZpbmRfZW5jb2Rlcihz
+dHJ1Y3QgZHJtX2Nvbm5lY3RvciAqY29ubmVjdG9yLCBpbnQgdHlwZSkKIHsKIAlzdHJ1Y3Qgbm91
+dmVhdV9lbmNvZGVyICpudl9lbmNvZGVyOwogCXN0cnVjdCBkcm1fZW5jb2RlciAqZW5jOwotCWlu
+dCBpOwogCi0JZHJtX2Nvbm5lY3Rvcl9mb3JfZWFjaF9wb3NzaWJsZV9lbmNvZGVyKGNvbm5lY3Rv
+ciwgZW5jLCBpKSB7CisJZHJtX2Nvbm5lY3Rvcl9mb3JfZWFjaF9wb3NzaWJsZV9lbmNvZGVyKGNv
+bm5lY3RvciwgZW5jKSB7CiAJCW52X2VuY29kZXIgPSBub3V2ZWF1X2VuY29kZXIoZW5jKTsKIAog
+CQlpZiAodHlwZSA9PSBEQ0JfT1VUUFVUX0FOWSB8fApAQCAtNDE0LDEwICs0MTMsMTAgQEAgbm91
+dmVhdV9jb25uZWN0b3JfZGRjX2RldGVjdChzdHJ1Y3QgZHJtX2Nvbm5lY3RvciAqY29ubmVjdG9y
+KQogCXN0cnVjdCBkcm1fZGV2aWNlICpkZXYgPSBjb25uZWN0b3ItPmRldjsKIAlzdHJ1Y3Qgbm91
+dmVhdV9lbmNvZGVyICpudl9lbmNvZGVyID0gTlVMTCwgKmZvdW5kID0gTlVMTDsKIAlzdHJ1Y3Qg
+ZHJtX2VuY29kZXIgKmVuY29kZXI7Ci0JaW50IGksIHJldDsKKwlpbnQgcmV0OwogCWJvb2wgc3dp
+dGNoZXJvb19kZGMgPSBmYWxzZTsKIAotCWRybV9jb25uZWN0b3JfZm9yX2VhY2hfcG9zc2libGVf
+ZW5jb2Rlcihjb25uZWN0b3IsIGVuY29kZXIsIGkpIHsKKwlkcm1fY29ubmVjdG9yX2Zvcl9lYWNo
+X3Bvc3NpYmxlX2VuY29kZXIoY29ubmVjdG9yLCBlbmNvZGVyKSB7CiAJCW52X2VuY29kZXIgPSBu
+b3V2ZWF1X2VuY29kZXIoZW5jb2Rlcik7CiAKIAkJc3dpdGNoIChudl9lbmNvZGVyLT5kY2ItPnR5
+cGUpIHsKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9yYWRlb24vcmFkZW9uX2Nvbm5lY3Rv
+cnMuYyBiL2RyaXZlcnMvZ3B1L2RybS9yYWRlb24vcmFkZW9uX2Nvbm5lY3RvcnMuYwppbmRleCBi
+Njg0Y2Q3MTk2MTIuLmMwNzQyN2QzYzE5OSAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL3Jh
+ZGVvbi9yYWRlb25fY29ubmVjdG9ycy5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9yYWRlb24vcmFk
+ZW9uX2Nvbm5lY3RvcnMuYwpAQCAtMjQ5LDExICsyNDksMTAgQEAgcmFkZW9uX2Nvbm5lY3Rvcl91
+cGRhdGVfc2NyYXRjaF9yZWdzKHN0cnVjdCBkcm1fY29ubmVjdG9yICpjb25uZWN0b3IsIGVudW0g
+ZHJtX2MKIAlzdHJ1Y3QgZHJtX2VuY29kZXIgKmVuY29kZXI7CiAJY29uc3Qgc3RydWN0IGRybV9j
+b25uZWN0b3JfaGVscGVyX2Z1bmNzICpjb25uZWN0b3JfZnVuY3MgPSBjb25uZWN0b3ItPmhlbHBl
+cl9wcml2YXRlOwogCWJvb2wgY29ubmVjdGVkOwotCWludCBpOwogCiAJYmVzdF9lbmNvZGVyID0g
+Y29ubmVjdG9yX2Z1bmNzLT5iZXN0X2VuY29kZXIoY29ubmVjdG9yKTsKIAotCWRybV9jb25uZWN0
+b3JfZm9yX2VhY2hfcG9zc2libGVfZW5jb2Rlcihjb25uZWN0b3IsIGVuY29kZXIsIGkpIHsKKwlk
+cm1fY29ubmVjdG9yX2Zvcl9lYWNoX3Bvc3NpYmxlX2VuY29kZXIoY29ubmVjdG9yLCBlbmNvZGVy
+KSB7CiAJCWlmICgoZW5jb2RlciA9PSBiZXN0X2VuY29kZXIpICYmIChzdGF0dXMgPT0gY29ubmVj
+dG9yX3N0YXR1c19jb25uZWN0ZWQpKQogCQkJY29ubmVjdGVkID0gdHJ1ZTsKIAkJZWxzZQpAQCAt
+MjY5LDkgKzI2OCw4IEBAIHJhZGVvbl9jb25uZWN0b3JfdXBkYXRlX3NjcmF0Y2hfcmVncyhzdHJ1
+Y3QgZHJtX2Nvbm5lY3RvciAqY29ubmVjdG9yLCBlbnVtIGRybV9jCiBzdGF0aWMgc3RydWN0IGRy
+bV9lbmNvZGVyICpyYWRlb25fZmluZF9lbmNvZGVyKHN0cnVjdCBkcm1fY29ubmVjdG9yICpjb25u
+ZWN0b3IsIGludCBlbmNvZGVyX3R5cGUpCiB7CiAJc3RydWN0IGRybV9lbmNvZGVyICplbmNvZGVy
+OwotCWludCBpOwogCi0JZHJtX2Nvbm5lY3Rvcl9mb3JfZWFjaF9wb3NzaWJsZV9lbmNvZGVyKGNv
+bm5lY3RvciwgZW5jb2RlciwgaSkgeworCWRybV9jb25uZWN0b3JfZm9yX2VhY2hfcG9zc2libGVf
+ZW5jb2Rlcihjb25uZWN0b3IsIGVuY29kZXIpIHsKIAkJaWYgKGVuY29kZXItPmVuY29kZXJfdHlw
+ZSA9PSBlbmNvZGVyX3R5cGUpCiAJCQlyZXR1cm4gZW5jb2RlcjsKIAl9CkBAIC0zODAsMTAgKzM3
+OCw5IEBAIHN0YXRpYyBpbnQgcmFkZW9uX2RkY19nZXRfbW9kZXMoc3RydWN0IGRybV9jb25uZWN0
+b3IgKmNvbm5lY3RvcikKIHN0YXRpYyBzdHJ1Y3QgZHJtX2VuY29kZXIgKnJhZGVvbl9iZXN0X3Np
+bmdsZV9lbmNvZGVyKHN0cnVjdCBkcm1fY29ubmVjdG9yICpjb25uZWN0b3IpCiB7CiAJc3RydWN0
+IGRybV9lbmNvZGVyICplbmNvZGVyOwotCWludCBpOwogCiAJLyogcGljayB0aGUgZmlyc3Qgb25l
+ICovCi0JZHJtX2Nvbm5lY3Rvcl9mb3JfZWFjaF9wb3NzaWJsZV9lbmNvZGVyKGNvbm5lY3Rvciwg
+ZW5jb2RlciwgaSkKKwlkcm1fY29ubmVjdG9yX2Zvcl9lYWNoX3Bvc3NpYmxlX2VuY29kZXIoY29u
+bmVjdG9yLCBlbmNvZGVyKQogCQlyZXR1cm4gZW5jb2RlcjsKIAogCXJldHVybiBOVUxMOwpAQCAt
+NDI4LDE0ICs0MjUsMTMgQEAgcmFkZW9uX2Nvbm5lY3Rvcl9hbmFsb2dfZW5jb2Rlcl9jb25mbGlj
+dF9zb2x2ZShzdHJ1Y3QgZHJtX2Nvbm5lY3RvciAqY29ubmVjdG9yLAogCiAJbGlzdF9mb3JfZWFj
+aF9lbnRyeShjb25mbGljdCwgJmRldi0+bW9kZV9jb25maWcuY29ubmVjdG9yX2xpc3QsIGhlYWQp
+IHsKIAkJc3RydWN0IGRybV9lbmNvZGVyICplbmM7Ci0JCWludCBpOwogCiAJCWlmIChjb25mbGlj
+dCA9PSBjb25uZWN0b3IpCiAJCQljb250aW51ZTsKIAogCQlyYWRlb25fY29uZmxpY3QgPSB0b19y
+YWRlb25fY29ubmVjdG9yKGNvbmZsaWN0KTsKIAotCQlkcm1fY29ubmVjdG9yX2Zvcl9lYWNoX3Bv
+c3NpYmxlX2VuY29kZXIoY29uZmxpY3QsIGVuYywgaSkgeworCQlkcm1fY29ubmVjdG9yX2Zvcl9l
+YWNoX3Bvc3NpYmxlX2VuY29kZXIoY29uZmxpY3QsIGVuYykgewogCQkJLyogaWYgdGhlIElEcyBt
+YXRjaCAqLwogCQkJaWYgKGVuYyA9PSBlbmNvZGVyKSB7CiAJCQkJaWYgKGNvbmZsaWN0LT5zdGF0
+dXMgIT0gY29ubmVjdG9yX3N0YXR1c19jb25uZWN0ZWQpCkBAIC0xMzYzLDkgKzEzNTksNyBAQCBy
+YWRlb25fZHZpX2RldGVjdChzdHJ1Y3QgZHJtX2Nvbm5lY3RvciAqY29ubmVjdG9yLCBib29sIGZv
+cmNlKQogCiAJLyogZmluZCBhbmFsb2cgZW5jb2RlciAqLwogCWlmIChyYWRlb25fY29ubmVjdG9y
+LT5kYWNfbG9hZF9kZXRlY3QpIHsKLQkJaW50IGk7Ci0KLQkJZHJtX2Nvbm5lY3Rvcl9mb3JfZWFj
+aF9wb3NzaWJsZV9lbmNvZGVyKGNvbm5lY3RvciwgZW5jb2RlciwgaSkgeworCQlkcm1fY29ubmVj
+dG9yX2Zvcl9lYWNoX3Bvc3NpYmxlX2VuY29kZXIoY29ubmVjdG9yLCBlbmNvZGVyKSB7CiAJCQlp
+ZiAoZW5jb2Rlci0+ZW5jb2Rlcl90eXBlICE9IERSTV9NT0RFX0VOQ09ERVJfREFDICYmCiAJCQkg
+ICAgZW5jb2Rlci0+ZW5jb2Rlcl90eXBlICE9IERSTV9NT0RFX0VOQ09ERVJfVFZEQUMpCiAJCQkJ
+Y29udGludWU7CkBAIC0xNDQzLDkgKzE0MzcsOCBAQCBzdGF0aWMgc3RydWN0IGRybV9lbmNvZGVy
+ICpyYWRlb25fZHZpX2VuY29kZXIoc3RydWN0IGRybV9jb25uZWN0b3IgKmNvbm5lY3RvcikKIHsK
+IAlzdHJ1Y3QgcmFkZW9uX2Nvbm5lY3RvciAqcmFkZW9uX2Nvbm5lY3RvciA9IHRvX3JhZGVvbl9j
+b25uZWN0b3IoY29ubmVjdG9yKTsKIAlzdHJ1Y3QgZHJtX2VuY29kZXIgKmVuY29kZXI7Ci0JaW50
+IGk7CiAKLQlkcm1fY29ubmVjdG9yX2Zvcl9lYWNoX3Bvc3NpYmxlX2VuY29kZXIoY29ubmVjdG9y
+LCBlbmNvZGVyLCBpKSB7CisJZHJtX2Nvbm5lY3Rvcl9mb3JfZWFjaF9wb3NzaWJsZV9lbmNvZGVy
+KGNvbm5lY3RvciwgZW5jb2RlcikgewogCQlpZiAocmFkZW9uX2Nvbm5lY3Rvci0+dXNlX2RpZ2l0
+YWwgPT0gdHJ1ZSkgewogCQkJaWYgKGVuY29kZXItPmVuY29kZXJfdHlwZSA9PSBEUk1fTU9ERV9F
+TkNPREVSX1RNRFMpCiAJCQkJcmV0dXJuIGVuY29kZXI7CkBAIC0xNDYwLDcgKzE0NTMsNyBAQCBz
+dGF0aWMgc3RydWN0IGRybV9lbmNvZGVyICpyYWRlb25fZHZpX2VuY29kZXIoc3RydWN0IGRybV9j
+b25uZWN0b3IgKmNvbm5lY3RvcikKIAogCS8qIHRoZW4gY2hlY2sgdXNlIGRpZ2l0aWFsICovCiAJ
+LyogcGljayB0aGUgZmlyc3Qgb25lICovCi0JZHJtX2Nvbm5lY3Rvcl9mb3JfZWFjaF9wb3NzaWJs
+ZV9lbmNvZGVyKGNvbm5lY3RvciwgZW5jb2RlciwgaSkKKwlkcm1fY29ubmVjdG9yX2Zvcl9lYWNo
+X3Bvc3NpYmxlX2VuY29kZXIoY29ubmVjdG9yLCBlbmNvZGVyKQogCQlyZXR1cm4gZW5jb2RlcjsK
+IAogCXJldHVybiBOVUxMOwpAQCAtMTYwMyw5ICsxNTk2LDggQEAgdTE2IHJhZGVvbl9jb25uZWN0
+b3JfZW5jb2Rlcl9nZXRfZHBfYnJpZGdlX2VuY29kZXJfaWQoc3RydWN0IGRybV9jb25uZWN0b3Ig
+KmNvbm4KIHsKIAlzdHJ1Y3QgZHJtX2VuY29kZXIgKmVuY29kZXI7CiAJc3RydWN0IHJhZGVvbl9l
+bmNvZGVyICpyYWRlb25fZW5jb2RlcjsKLQlpbnQgaTsKIAotCWRybV9jb25uZWN0b3JfZm9yX2Vh
+Y2hfcG9zc2libGVfZW5jb2Rlcihjb25uZWN0b3IsIGVuY29kZXIsIGkpIHsKKwlkcm1fY29ubmVj
+dG9yX2Zvcl9lYWNoX3Bvc3NpYmxlX2VuY29kZXIoY29ubmVjdG9yLCBlbmNvZGVyKSB7CiAJCXJh
+ZGVvbl9lbmNvZGVyID0gdG9fcmFkZW9uX2VuY29kZXIoZW5jb2Rlcik7CiAKIAkJc3dpdGNoIChy
+YWRlb25fZW5jb2Rlci0+ZW5jb2Rlcl9pZCkgewpAQCAtMTYyNCwxMCArMTYxNiw5IEBAIHN0YXRp
+YyBib29sIHJhZGVvbl9jb25uZWN0b3JfZW5jb2Rlcl9pc19oYnIyKHN0cnVjdCBkcm1fY29ubmVj
+dG9yICpjb25uZWN0b3IpCiB7CiAJc3RydWN0IGRybV9lbmNvZGVyICplbmNvZGVyOwogCXN0cnVj
+dCByYWRlb25fZW5jb2RlciAqcmFkZW9uX2VuY29kZXI7Ci0JaW50IGk7CiAJYm9vbCBmb3VuZCA9
+IGZhbHNlOwogCi0JZHJtX2Nvbm5lY3Rvcl9mb3JfZWFjaF9wb3NzaWJsZV9lbmNvZGVyKGNvbm5l
+Y3RvciwgZW5jb2RlciwgaSkgeworCWRybV9jb25uZWN0b3JfZm9yX2VhY2hfcG9zc2libGVfZW5j
+b2Rlcihjb25uZWN0b3IsIGVuY29kZXIpIHsKIAkJcmFkZW9uX2VuY29kZXIgPSB0b19yYWRlb25f
+ZW5jb2RlcihlbmNvZGVyKTsKIAkJaWYgKHJhZGVvbl9lbmNvZGVyLT5jYXBzICYgQVRPTV9FTkNP
+REVSX0NBUF9SRUNPUkRfSEJSMikKIAkJCWZvdW5kID0gdHJ1ZTsKZGlmZiAtLWdpdCBhL2luY2x1
+ZGUvZHJtL2RybV9jb25uZWN0b3IuaCBiL2luY2x1ZGUvZHJtL2RybV9jb25uZWN0b3IuaAppbmRl
+eCA2ODFjYjU5MGY5NTIuLmM2ZTk5M2U3OGRiZCAxMDA2NDQKLS0tIGEvaW5jbHVkZS9kcm0vZHJt
+X2Nvbm5lY3Rvci5oCisrKyBiL2luY2x1ZGUvZHJtL2RybV9jb25uZWN0b3IuaApAQCAtMTI4OCwx
+MiArMTI4OCwxMiBAQCBzdHJ1Y3QgZHJtX2Nvbm5lY3RvciB7CiAJLyoqIEBvdmVycmlkZV9lZGlk
+OiBoYXMgdGhlIEVESUQgYmVlbiBvdmVyd3JpdHRlbiB0aHJvdWdoIGRlYnVnZnMgZm9yIHRlc3Rp
+bmc/ICovCiAJYm9vbCBvdmVycmlkZV9lZGlkOwogCi0jZGVmaW5lIERSTV9DT05ORUNUT1JfTUFY
+X0VOQ09ERVIgMwogCS8qKgotCSAqIEBlbmNvZGVyX2lkczogVmFsaWQgZW5jb2RlcnMgZm9yIHRo
+aXMgY29ubmVjdG9yLiBQbGVhc2Ugb25seSB1c2UKLQkgKiBkcm1fY29ubmVjdG9yX2Zvcl9lYWNo
+X3Bvc3NpYmxlX2VuY29kZXIoKSB0byBlbnVtZXJhdGUgdGhlc2UuCisJICogQHBvc3NpYmxlX2Vu
+Y29kZXJzOiBCaXQgbWFzayBvZiBlbmNvZGVycyB0aGF0IGNhbiBkcml2ZSB0aGlzCisJICogY29u
+bmVjdG9yLCBkcm1fZW5jb2Rlcl9pbmRleCgpIGRldGVybWluZXMgdGhlIGluZGV4IGludG8gdGhl
+IGJpdGZpZWxkCisJICogYW5kIHRoZSBiaXRzIGFyZSBzZXQgd2l0aCBkcm1fY29ubmVjdG9yX2F0
+dGFjaF9lbmNvZGVyKCkuCiAJICovCi0JdWludDMyX3QgZW5jb2Rlcl9pZHNbRFJNX0NPTk5FQ1RP
+Ul9NQVhfRU5DT0RFUl07CisJdTMyIHBvc3NpYmxlX2VuY29kZXJzOwogCiAJLyoqCiAJICogQGVu
+Y29kZXI6IEN1cnJlbnRseSBib3VuZCBlbmNvZGVyIGRyaXZpbmcgdGhpcyBjb25uZWN0b3IsIGlm
+IGFueS4KQEAgLTE2MDgsMTMgKzE2MDgsOSBAQCBib29sIGRybV9jb25uZWN0b3JfaGFzX3Bvc3Np
+YmxlX2VuY29kZXIoc3RydWN0IGRybV9jb25uZWN0b3IgKmNvbm5lY3RvciwKICAqIGRybV9jb25u
+ZWN0b3JfZm9yX2VhY2hfcG9zc2libGVfZW5jb2RlciAtIGl0ZXJhdGUgY29ubmVjdG9yJ3MgcG9z
+c2libGUgZW5jb2RlcnMKICAqIEBjb25uZWN0b3I6ICZzdHJ1Y3QgZHJtX2Nvbm5lY3RvciBwb2lu
+dGVyCiAgKiBAZW5jb2RlcjogJnN0cnVjdCBkcm1fZW5jb2RlciBwb2ludGVyIHVzZWQgYXMgY3Vy
+c29yCi0gKiBAX19pOiBpbnQgaXRlcmF0aW9uIGN1cnNvciwgZm9yIG1hY3JvLWludGVybmFsIHVz
+ZQogICovCi0jZGVmaW5lIGRybV9jb25uZWN0b3JfZm9yX2VhY2hfcG9zc2libGVfZW5jb2Rlcihj
+b25uZWN0b3IsIGVuY29kZXIsIF9faSkgXAotCWZvciAoKF9faSkgPSAwOyAoX19pKSA8IEFSUkFZ
+X1NJWkUoKGNvbm5lY3RvciktPmVuY29kZXJfaWRzKSAmJiBcCi0JCSAgICAgKGNvbm5lY3Rvcikt
+PmVuY29kZXJfaWRzWyhfX2kpXSAhPSAwOyAoX19pKSsrKSBcCi0JCWZvcl9lYWNoX2lmKChlbmNv
+ZGVyKSA9IFwKLQkJCSAgICBkcm1fZW5jb2Rlcl9maW5kKChjb25uZWN0b3IpLT5kZXYsIE5VTEws
+IFwKLQkJCQkJICAgICAoY29ubmVjdG9yKS0+ZW5jb2Rlcl9pZHNbKF9faSldKSkgXAorI2RlZmlu
+ZSBkcm1fY29ubmVjdG9yX2Zvcl9lYWNoX3Bvc3NpYmxlX2VuY29kZXIoY29ubmVjdG9yLCBlbmNv
+ZGVyKSBcCisJZHJtX2Zvcl9lYWNoX2VuY29kZXJfbWFzayhlbmNvZGVyLCAoY29ubmVjdG9yKS0+
+ZGV2LCBcCisJCQkJICAoY29ubmVjdG9yKS0+cG9zc2libGVfZW5jb2RlcnMpCiAKICNlbmRpZgot
+LSAKMi4yMy4wCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+XwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRw
+czovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
