@@ -1,63 +1,54 @@
-From: "Kazlauskas, Nicholas" <Nicholas.Kazlauskas-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amd/display: Create plane rotation property
-Date: Thu, 12 Sep 2019 17:01:52 +0000
-Message-ID: <b781b06d-a52f-0291-b0df-d90b81a66c84@amd.com>
-References: <20190912164404.12725-1-pgriffais@valvesoftware.com>
+From: Ralph Campbell <rcampbell@nvidia.com>
+Subject: Re: [PATCH 2/4] mm/hmm: allow snapshot of the special zero page
+Date: Thu, 12 Sep 2019 10:08:28 -0700
+Message-ID: <6b124c6d-0fac-2a34-0542-7516de939b9e@nvidia.com>
+References: <20190911222829.28874-1-rcampbell@nvidia.com>
+ <20190911222829.28874-3-rcampbell@nvidia.com> <20190912082648.GB14368@lst.de>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190912164404.12725-1-pgriffais-38hxoXRICFZx67MzidHQgQC/G2K4zDHf@public.gmane.org>
+Content-Type: text/plain; charset="utf-8"; format=flowed
+Content-Transfer-Encoding: quoted-printable
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20190912082648.GB14368@lst.de>
 Content-Language: en-US
-Content-ID: <C0CB257BEACA4D42AD3D458EBE500160-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Pierre-Loup A. Griffais" <pgriffais-38hxoXRICFZx67MzidHQgQC/G2K4zDHf@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Wentland,
- Harry" <Harry.Wentland-5C7GfCeVMHo@public.gmane.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Christoph Hellwig <hch@lst.de>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, =?UTF-8?B?SsOpcsO0bWUgR2xpc3Nl?= <jglisse@redhat.com>, Jason Gunthorpe <jgg@mellanox.com>, Andrew Morton <akpm@linux-foundation.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gMjAxOS0wOS0xMiAxMjo0NCBwLm0uLCBQaWVycmUtTG91cCBBLiBHcmlmZmFpcyB3cm90ZToN
-Cj4gSXQncyBvdGhlcndpc2UgcHJvcGVybHkgc3VwcG9ydGVkLCBqdXN0IG5lZWRzIGV4cG9zaW5n
-IHRvIHVzZXJzcGFjZS4NCj4gDQo+IFNpZ25lZC1vZmYtYnk6IFBpZXJyZS1Mb3VwIEEuIEdyaWZm
-YWlzIDxwZ3JpZmZhaXNAdmFsdmVzb2Z0d2FyZS5jb20+DQpJIGtub3cgSUdUIGhhcyBzb21lIHRl
-c3RzIGZvciBwbGFuZSByb3RhdGlvbiwgZG8geW91IGhhcHBlbiB0byBrbm93IHdoYXQgDQp0ZXN0
-cyBwYXNzIG9yIGZhaWwgd2hlbiBleHBvc2luZyB0aGlzPw0KDQpJIHRoaW5rIERDTjEgKFJhdmVu
-KSBzaG91bGQgd29yayBhcyBleHBlY3RlZCBidXQgSSdkIGJlIGNvbmNlcm5lZCBhYm91dCANCkRD
-RSBvciBEQ04yLiBJIHRoaW5rIHdlIGhhdmUgaGFkIHNvbWUgY3Vyc29yIGJ1Z3MgaW4gdGhlIHBh
-c3Qgd2l0aCANCmN1cnNvciByb3RhdGlvbiBidXQgdGhleSBtaWdodCBvbmx5IGJlIGV4cG9zZWQg
-d2hlbiB1c2VkIGluIGNvbmp1bmN0aW9uIA0Kd2l0aCBvdmVybGF5IHBsYW5lcy4NCg0KSSdkIGp1
-c3QgbGlrZSB0byBtYWtlIHN1cmUgdGhlcmUncyBzdWl0YWJsZSB0ZXN0aW5nIGF0IGxlYXN0IGlm
-IHdlJ3JlIA0KZ29pbmcgdG8gZXhwb3NlIHRoaXMgdG8gdXNlcnNwYWNlLg0KDQpOaWNob2xhcyBL
-YXpsYXVza2FzDQoNCj4gLS0tDQo+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdw
-dV9kbS9hbWRncHVfZG0uYyB8IDggKysrKysrKysNCj4gICAxIGZpbGUgY2hhbmdlZCwgOCBpbnNl
-cnRpb25zKCspDQo+IA0KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5
-L2FtZGdwdV9kbS9hbWRncHVfZG0uYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRn
-cHVfZG0vYW1kZ3B1X2RtLmMNCj4gaW5kZXggNDViZTdhMjEzMmJiLi4zNzcyNzYzYzY0NDkgMTAw
-NjQ0DQo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1
-X2RtLmMNCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRn
-cHVfZG0uYw0KPiBAQCAtNDY4MCw2ICs0NjgwLDcgQEAgc3RhdGljIGludCBhbWRncHVfZG1fcGxh
-bmVfaW5pdChzdHJ1Y3QgYW1kZ3B1X2Rpc3BsYXlfbWFuYWdlciAqZG0sDQo+ICAgCXVpbnQzMl90
-IGZvcm1hdHNbMzJdOw0KPiAgIAlpbnQgbnVtX2Zvcm1hdHM7DQo+ICAgCWludCByZXMgPSAtRVBF
-Uk07DQo+ICsJdW5zaWduZWQgaW50IHN1cHBvcnRlZF9yb3RhdGlvbnM7DQo+ICAgDQo+ICAgCW51
-bV9mb3JtYXRzID0gZ2V0X3BsYW5lX2Zvcm1hdHMocGxhbmUsIHBsYW5lX2NhcCwgZm9ybWF0cywN
-Cj4gICAJCQkJCUFSUkFZX1NJWkUoZm9ybWF0cykpOw0KPiBAQCAtNDcxMSw2ICs0NzEyLDEzIEBA
-IHN0YXRpYyBpbnQgYW1kZ3B1X2RtX3BsYW5lX2luaXQoc3RydWN0IGFtZGdwdV9kaXNwbGF5X21h
-bmFnZXIgKmRtLA0KPiAgIAkJCURSTV9DT0xPUl9ZQ0JDUl9CVDcwOSwgRFJNX0NPTE9SX1lDQkNS
-X0xJTUlURURfUkFOR0UpOw0KPiAgIAl9DQo+ICAgDQo+ICsJc3VwcG9ydGVkX3JvdGF0aW9ucyA9
-DQo+ICsJCURSTV9NT0RFX1JPVEFURV8wIHwgRFJNX01PREVfUk9UQVRFXzkwIHwNCj4gKwkJRFJN
-X01PREVfUk9UQVRFXzE4MCB8IERSTV9NT0RFX1JPVEFURV8yNzA7DQo+ICsNCj4gKwlkcm1fcGxh
-bmVfY3JlYXRlX3JvdGF0aW9uX3Byb3BlcnR5KHBsYW5lLCBEUk1fTU9ERV9ST1RBVEVfMCwNCj4g
-KwkJCQkJICAgc3VwcG9ydGVkX3JvdGF0aW9ucyk7DQo+ICsNCj4gICAJZHJtX3BsYW5lX2hlbHBl
-cl9hZGQocGxhbmUsICZkbV9wbGFuZV9oZWxwZXJfZnVuY3MpOw0KPiAgIA0KPiAgIAkvKiBDcmVh
-dGUgKHJlc2V0KSB0aGUgcGxhbmUgc3RhdGUgKi8NCj4gDQoNCl9fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhA
-bGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxt
-YW4vbGlzdGluZm8vYW1kLWdmeA==
+
+On 9/12/19 1:26 AM, Christoph Hellwig wrote:
+> On Wed, Sep 11, 2019 at 03:28:27PM -0700, Ralph Campbell wrote:
+>> Allow hmm_range_fault() to return success (0) when the CPU pagetable
+>> entry points to the special shared zero page.
+>> The caller can then handle the zero page by possibly clearing device
+>> private memory instead of DMAing a zero page.
+>>
+>> Signed-off-by: Ralph Campbell <rcampbell@nvidia.com>
+>> Cc: "J=C3=A9r=C3=B4me Glisse" <jglisse@redhat.com>
+>> Cc: Jason Gunthorpe <jgg@mellanox.com>
+>> Cc: Christoph Hellwig <hch@lst.de>
+>> ---
+>>   mm/hmm.c | 2 +-
+>>   1 file changed, 1 insertion(+), 1 deletion(-)
+>>
+>> diff --git a/mm/hmm.c b/mm/hmm.c
+>> index 06041d4399ff..7217912bef13 100644
+>> --- a/mm/hmm.c
+>> +++ b/mm/hmm.c
+>> @@ -532,7 +532,7 @@ static int hmm_vma_handle_pte(struct mm_walk *walk, =
+unsigned long addr,
+>>   			return -EBUSY;
+>>   	} else if (IS_ENABLED(CONFIG_ARCH_HAS_PTE_SPECIAL) && pte_special(pte=
+)) {
+>>   		*pfn =3D range->values[HMM_PFN_SPECIAL];
+>> -		return -EFAULT;
+>> +		return is_zero_pfn(pte_pfn(pte)) ? 0 : -EFAULT;
+>=20
+> Any chance to just use a normal if here:
+>=20
+> 		if (!is_zero_pfn(pte_pfn(pte)))
+> 			return -EFAULT;
+> 		return 0;
+>=20
+
+Sure, no problem.
