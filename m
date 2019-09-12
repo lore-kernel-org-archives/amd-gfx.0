@@ -1,14 +1,14 @@
 From: Ralph Campbell <rcampbell@nvidia.com>
-Subject: Re: [PATCH 2/4] mm/hmm: allow snapshot of the special zero page
-Date: Thu, 12 Sep 2019 10:08:28 -0700
-Message-ID: <6b124c6d-0fac-2a34-0542-7516de939b9e@nvidia.com>
+Subject: Re: [PATCH 1/4] mm/hmm: make full use of walk_page_range()
+Date: Thu, 12 Sep 2019 10:16:51 -0700
+Message-ID: <973b7159-513f-0776-668d-8ba1adf87f1c@nvidia.com>
 References: <20190911222829.28874-1-rcampbell@nvidia.com>
- <20190911222829.28874-3-rcampbell@nvidia.com> <20190912082648.GB14368@lst.de>
+ <20190911222829.28874-2-rcampbell@nvidia.com> <20190912082613.GA14368@lst.de>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"; format=flowed
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 7bit
 Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20190912082648.GB14368@lst.de>
+In-Reply-To: <20190912082613.GA14368@lst.de>
 Content-Language: en-US
 Sender: linux-kernel-owner@vger.kernel.org
 To: Christoph Hellwig <hch@lst.de>
@@ -17,38 +17,27 @@ List-Id: amd-gfx.lists.freedesktop.org
 
 
 On 9/12/19 1:26 AM, Christoph Hellwig wrote:
-> On Wed, Sep 11, 2019 at 03:28:27PM -0700, Ralph Campbell wrote:
->> Allow hmm_range_fault() to return success (0) when the CPU pagetable
->> entry points to the special shared zero page.
->> The caller can then handle the zero page by possibly clearing device
->> private memory instead of DMAing a zero page.
->>
->> Signed-off-by: Ralph Campbell <rcampbell@nvidia.com>
->> Cc: "J=C3=A9r=C3=B4me Glisse" <jglisse@redhat.com>
->> Cc: Jason Gunthorpe <jgg@mellanox.com>
->> Cc: Christoph Hellwig <hch@lst.de>
->> ---
->>   mm/hmm.c | 2 +-
->>   1 file changed, 1 insertion(+), 1 deletion(-)
->>
->> diff --git a/mm/hmm.c b/mm/hmm.c
->> index 06041d4399ff..7217912bef13 100644
->> --- a/mm/hmm.c
->> +++ b/mm/hmm.c
->> @@ -532,7 +532,7 @@ static int hmm_vma_handle_pte(struct mm_walk *walk, =
-unsigned long addr,
->>   			return -EBUSY;
->>   	} else if (IS_ENABLED(CONFIG_ARCH_HAS_PTE_SPECIAL) && pte_special(pte=
-)) {
->>   		*pfn =3D range->values[HMM_PFN_SPECIAL];
->> -		return -EFAULT;
->> +		return is_zero_pfn(pte_pfn(pte)) ? 0 : -EFAULT;
->=20
-> Any chance to just use a normal if here:
->=20
-> 		if (!is_zero_pfn(pte_pfn(pte)))
-> 			return -EFAULT;
-> 		return 0;
->=20
+>> +static int hmm_pfns_fill(unsigned long addr,
+>> +			 unsigned long end,
+>> +			 struct hmm_range *range,
+>> +			 enum hmm_pfn_value_e value)
+> 
+> Nit: can we use the space a little more efficient, e.g.:
+> 
+> static int hmm_pfns_fill(unsigned long addr, unsigned long end,
+> 		struct hmm_range *range, enum hmm_pfn_value_e value)
+> 
+>> +static int hmm_vma_walk_test(unsigned long start,
+>> +			     unsigned long end,
+>> +			     struct mm_walk *walk)
+> 
+> Same here.
+> 
+>> +	if (!(vma->vm_flags & VM_READ)) {
+>> +		(void) hmm_pfns_fill(start, end, range, HMM_PFN_NONE);
+> 
+> There should be no need for the void cast here.
+> 
 
-Sure, no problem.
+OK. I'll post a v2 with the these changes.
+Thanks for the reviews.
