@@ -1,35 +1,48 @@
-From: Christoph Hellwig <hch@lst.de>
-Subject: Re: [PATCH 1/4] mm/hmm: make full use of walk_page_range()
-Date: Thu, 12 Sep 2019 10:26:13 +0200
-Message-ID: <20190912082613.GA14368@lst.de>
-References: <20190911222829.28874-1-rcampbell@nvidia.com> <20190911222829.28874-2-rcampbell@nvidia.com>
+From: Christoph Hellwig <hch-jcswGhMUV9g@public.gmane.org>
+Subject: Re: [PATCH 2/4] mm/hmm: allow snapshot of the special
+ zero page
+Date: Thu, 12 Sep 2019 10:26:48 +0200
+Message-ID: <20190912082648.GB14368@lst.de>
+References: <20190911222829.28874-1-rcampbell@nvidia.com>
+ <20190911222829.28874-3-rcampbell@nvidia.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Return-path: <linux-kernel-owner@vger.kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <nouveau-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 Content-Disposition: inline
-In-Reply-To: <20190911222829.28874-2-rcampbell@nvidia.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Ralph Campbell <rcampbell@nvidia.com>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, =?iso-8859-1?B?Suly9G1l?= Glisse <jglisse@redhat.com>, Jason Gunthorpe <jgg@mellanox.com>, Andrew Morton <akpm@linux-foundation.org>, Christoph Hellwig <hch@lst.de>
+In-Reply-To: <20190911222829.28874-3-rcampbell-DDmLM1+adcrQT0dZR+AlfA@public.gmane.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/nouveau>,
+ <mailto:nouveau-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/nouveau>
+List-Post: <mailto:nouveau-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:nouveau-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/nouveau>,
+ <mailto:nouveau-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: nouveau-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "Nouveau" <nouveau-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Ralph Campbell <rcampbell-DDmLM1+adcrQT0dZR+AlfA@public.gmane.org>
+Cc: nouveau-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, linux-mm-Bw31MaZKKs3YtjvyW6yDsg@public.gmane.org, Jason Gunthorpe <jgg-VPRAkNaXOzVWk0Htik3J/w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Andrew Morton <akpm-de/tnXTf+JLsfHDXvbKv3WD2FQJk+8+b@public.gmane.org>, Christoph Hellwig <hch-jcswGhMUV9g@public.gmane.org>
 List-Id: amd-gfx.lists.freedesktop.org
 
-> +static int hmm_pfns_fill(unsigned long addr,
-> +			 unsigned long end,
-> +			 struct hmm_range *range,
-> +			 enum hmm_pfn_value_e value)
-
-Nit: can we use the space a little more efficient, e.g.:
-
-static int hmm_pfns_fill(unsigned long addr, unsigned long end,
-		struct hmm_range *range, enum hmm_pfn_value_e value)
-
-> +static int hmm_vma_walk_test(unsigned long start,
-> +			     unsigned long end,
-> +			     struct mm_walk *walk)
-
-Same here.
-
-> +	if (!(vma->vm_flags & VM_READ)) {
-> +		(void) hmm_pfns_fill(start, end, range, HMM_PFN_NONE);
-
-There should be no need for the void cast here.
+T24gV2VkLCBTZXAgMTEsIDIwMTkgYXQgMDM6Mjg6MjdQTSAtMDcwMCwgUmFscGggQ2FtcGJlbGwg
+d3JvdGU6Cj4gQWxsb3cgaG1tX3JhbmdlX2ZhdWx0KCkgdG8gcmV0dXJuIHN1Y2Nlc3MgKDApIHdo
+ZW4gdGhlIENQVSBwYWdldGFibGUKPiBlbnRyeSBwb2ludHMgdG8gdGhlIHNwZWNpYWwgc2hhcmVk
+IHplcm8gcGFnZS4KPiBUaGUgY2FsbGVyIGNhbiB0aGVuIGhhbmRsZSB0aGUgemVybyBwYWdlIGJ5
+IHBvc3NpYmx5IGNsZWFyaW5nIGRldmljZQo+IHByaXZhdGUgbWVtb3J5IGluc3RlYWQgb2YgRE1B
+aW5nIGEgemVybyBwYWdlLgo+IAo+IFNpZ25lZC1vZmYtYnk6IFJhbHBoIENhbXBiZWxsIDxyY2Ft
+cGJlbGxAbnZpZGlhLmNvbT4KPiBDYzogIkrDqXLDtG1lIEdsaXNzZSIgPGpnbGlzc2VAcmVkaGF0
+LmNvbT4KPiBDYzogSmFzb24gR3VudGhvcnBlIDxqZ2dAbWVsbGFub3guY29tPgo+IENjOiBDaHJp
+c3RvcGggSGVsbHdpZyA8aGNoQGxzdC5kZT4KPiAtLS0KPiAgbW0vaG1tLmMgfCAyICstCj4gIDEg
+ZmlsZSBjaGFuZ2VkLCAxIGluc2VydGlvbigrKSwgMSBkZWxldGlvbigtKQo+IAo+IGRpZmYgLS1n
+aXQgYS9tbS9obW0uYyBiL21tL2htbS5jCj4gaW5kZXggMDYwNDFkNDM5OWZmLi43MjE3OTEyYmVm
+MTMgMTAwNjQ0Cj4gLS0tIGEvbW0vaG1tLmMKPiArKysgYi9tbS9obW0uYwo+IEBAIC01MzIsNyAr
+NTMyLDcgQEAgc3RhdGljIGludCBobW1fdm1hX2hhbmRsZV9wdGUoc3RydWN0IG1tX3dhbGsgKndh
+bGssIHVuc2lnbmVkIGxvbmcgYWRkciwKPiAgCQkJcmV0dXJuIC1FQlVTWTsKPiAgCX0gZWxzZSBp
+ZiAoSVNfRU5BQkxFRChDT05GSUdfQVJDSF9IQVNfUFRFX1NQRUNJQUwpICYmIHB0ZV9zcGVjaWFs
+KHB0ZSkpIHsKPiAgCQkqcGZuID0gcmFuZ2UtPnZhbHVlc1tITU1fUEZOX1NQRUNJQUxdOwo+IC0J
+CXJldHVybiAtRUZBVUxUOwo+ICsJCXJldHVybiBpc196ZXJvX3BmbihwdGVfcGZuKHB0ZSkpID8g
+MCA6IC1FRkFVTFQ7CgpBbnkgY2hhbmNlIHRvIGp1c3QgdXNlIGEgbm9ybWFsIGlmIGhlcmU6CgoJ
+CWlmICghaXNfemVyb19wZm4ocHRlX3BmbihwdGUpKSkKCQkJcmV0dXJuIC1FRkFVTFQ7CgkJcmV0
+dXJuIDA7Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCk5v
+dXZlYXUgbWFpbGluZyBsaXN0Ck5vdXZlYXVAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8v
+bGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vbm91dmVhdQ==
