@@ -1,80 +1,35 @@
-From: "Deng, Emily" <Emily.Deng-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH] drm/amdgpu: Navi10/12 VF doesn't support SMU
-Date: Thu, 12 Sep 2019 07:36:39 +0000
-Message-ID: <MN2PR12MB2975CA9ACF71F3FD9E5533318FB00@MN2PR12MB2975.namprd12.prod.outlook.com>
-References: <20190912034527.15762-1-jianzh@amd.com>
+From: Christoph Hellwig <hch@lst.de>
+Subject: Re: [PATCH 1/4] mm/hmm: make full use of walk_page_range()
+Date: Thu, 12 Sep 2019 10:26:13 +0200
+Message-ID: <20190912082613.GA14368@lst.de>
+References: <20190911222829.28874-1-rcampbell@nvidia.com> <20190911222829.28874-2-rcampbell@nvidia.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190912034527.15762-1-jianzh-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Zhao, Jiange" <Jiange.Zhao-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "Nieto,
- David M" <David.Nieto-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset=us-ascii
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Content-Disposition: inline
+In-Reply-To: <20190911222829.28874-2-rcampbell@nvidia.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Ralph Campbell <rcampbell@nvidia.com>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, =?iso-8859-1?B?Suly9G1l?= Glisse <jglisse@redhat.com>, Jason Gunthorpe <jgg@mellanox.com>, Andrew Morton <akpm@linux-foundation.org>, Christoph Hellwig <hch@lst.de>
+List-Id: amd-gfx.lists.freedesktop.org
 
-UmV2aWV3ZWQtYnk6IEVtaWx5IERlbmcgPEVtaWx5LkRlbmdAYW1kLmNvbT4KCkJlc3Qgd2lzaGVz
-CkVtaWx5IERlbmcKCgoKPi0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tCj5Gcm9tOiBaaGFvLCBK
-aWFuZ2UgPEppYW5nZS5aaGFvQGFtZC5jb20+Cj5TZW50OiBUaHVyc2RheSwgU2VwdGVtYmVyIDEy
-LCAyMDE5IDExOjQ2IEFNCj5UbzogYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPkNjOiBO
-aWV0bywgRGF2aWQgTSA8RGF2aWQuTmlldG9AYW1kLmNvbT47IERlbmcsIEVtaWx5Cj48RW1pbHku
-RGVuZ0BhbWQuY29tPjsgS29lbmlnLCBDaHJpc3RpYW4gPENocmlzdGlhbi5Lb2VuaWdAYW1kLmNv
-bT47Cj5aaGFvLCBKaWFuZ2UgPEppYW5nZS5aaGFvQGFtZC5jb20+Cj5TdWJqZWN0OiBbUEFUQ0hd
-IGRybS9hbWRncHU6IE5hdmkxMC8xMiBWRiBkb2Vzbid0IHN1cHBvcnQgU01VCj4KPkZyb206IEpp
-YW5nZSBaaGFvIDxKaWFuZ2UuWmhhb0BhbWQuY29tPgo+Cj5JbiBTUklPViBjYXNlLCBTTVUgYW5k
-IHBvd2VycGxheSBhcmUgaGFuZGxlZCBpbiBIVi4KPgo+VkYgc2hvdWxkbid0IGhhdmUgY29udHJv
-bCBvdmVyIFNNVSBhbmQgcG93ZXJwbGF5Lgo+Cj5TaWduZWQtb2ZmLWJ5OiBKaWFuZ2UgWmhhbyA8
-SmlhbmdlLlpoYW9AYW1kLmNvbT4KPi0tLQo+IGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L252
-LmMgfCA4ICsrKystLS0tCj4gMSBmaWxlIGNoYW5nZWQsIDQgaW5zZXJ0aW9ucygrKSwgNCBkZWxl
-dGlvbnMoLSkKPgo+ZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L252LmMK
-PmIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvbnYuYyBpbmRleCA0YzI0NjcyYmUxMmEuLmZi
-MDk3YWEwODlkYQo+MTAwNjQ0Cj4tLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9udi5j
-Cj4rKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9udi5jCj5AQCAtNDM4LDcgKzQzOCw3
-IEBAIGludCBudl9zZXRfaXBfYmxvY2tzKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQo+IAkJ
-YW1kZ3B1X2RldmljZV9pcF9ibG9ja19hZGQoYWRldiwgJm5hdmkxMF9paF9pcF9ibG9jayk7Cj4g
-CQlhbWRncHVfZGV2aWNlX2lwX2Jsb2NrX2FkZChhZGV2LCAmcHNwX3YxMV8wX2lwX2Jsb2NrKTsK
-PiAJCWlmIChhZGV2LT5maXJtd2FyZS5sb2FkX3R5cGUgPT0gQU1ER1BVX0ZXX0xPQURfUFNQICYm
-Cj4tCQkgICAgaXNfc3VwcG9ydF9zd19zbXUoYWRldikpCj4rCQkgICAgaXNfc3VwcG9ydF9zd19z
-bXUoYWRldikgJiYgIWFtZGdwdV9zcmlvdl92ZihhZGV2KSkKPiAJCQlhbWRncHVfZGV2aWNlX2lw
-X2Jsb2NrX2FkZChhZGV2LAo+JnNtdV92MTFfMF9pcF9ibG9jayk7Cj4gCQlpZiAoYWRldi0+ZW5h
-YmxlX3ZpcnR1YWxfZGlzcGxheSB8fCBhbWRncHVfc3Jpb3ZfdmYoYWRldikpCj4gCQkJYW1kZ3B1
-X2RldmljZV9pcF9ibG9ja19hZGQoYWRldiwKPiZkY2VfdmlydHVhbF9pcF9ibG9jayk7IEBAIC00
-NDksNyArNDQ5LDcgQEAgaW50IG52X3NldF9pcF9ibG9ja3Moc3RydWN0Cj5hbWRncHVfZGV2aWNl
-ICphZGV2KQo+IAkJYW1kZ3B1X2RldmljZV9pcF9ibG9ja19hZGQoYWRldiwgJmdmeF92MTBfMF9p
-cF9ibG9jayk7Cj4gCQlhbWRncHVfZGV2aWNlX2lwX2Jsb2NrX2FkZChhZGV2LCAmc2RtYV92NV8w
-X2lwX2Jsb2NrKTsKPiAJCWlmIChhZGV2LT5maXJtd2FyZS5sb2FkX3R5cGUgPT0gQU1ER1BVX0ZX
-X0xPQURfRElSRUNUCj4mJgo+LQkJICAgIGlzX3N1cHBvcnRfc3dfc211KGFkZXYpKQo+KwkJICAg
-IGlzX3N1cHBvcnRfc3dfc211KGFkZXYpICYmICFhbWRncHVfc3Jpb3ZfdmYoYWRldikpCj4gCQkJ
-YW1kZ3B1X2RldmljZV9pcF9ibG9ja19hZGQoYWRldiwKPiZzbXVfdjExXzBfaXBfYmxvY2spOwo+
-IAkJYW1kZ3B1X2RldmljZV9pcF9ibG9ja19hZGQoYWRldiwgJnZjbl92Ml8wX2lwX2Jsb2NrKTsK
-PiAJCWlmIChhZGV2LT5lbmFibGVfbWVzKQo+QEAgLTQ2MSw3ICs0NjEsNyBAQCBpbnQgbnZfc2V0
-X2lwX2Jsb2NrcyhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikKPiAJCWFtZGdwdV9kZXZpY2Vf
-aXBfYmxvY2tfYWRkKGFkZXYsICZuYXZpMTBfaWhfaXBfYmxvY2spOwo+IAkJYW1kZ3B1X2Rldmlj
-ZV9pcF9ibG9ja19hZGQoYWRldiwgJnBzcF92MTFfMF9pcF9ibG9jayk7Cj4gCQlpZiAoYWRldi0+
-ZmlybXdhcmUubG9hZF90eXBlID09IEFNREdQVV9GV19MT0FEX1BTUCAmJgo+LQkJICAgIGlzX3N1
-cHBvcnRfc3dfc211KGFkZXYpKQo+KwkJICAgIGlzX3N1cHBvcnRfc3dfc211KGFkZXYpICYmICFh
-bWRncHVfc3Jpb3ZfdmYoYWRldikpCj4gCQkJYW1kZ3B1X2RldmljZV9pcF9ibG9ja19hZGQoYWRl
-diwKPiZzbXVfdjExXzBfaXBfYmxvY2spOwo+IAkJaWYgKGFkZXYtPmVuYWJsZV92aXJ0dWFsX2Rp
-c3BsYXkgfHwgYW1kZ3B1X3NyaW92X3ZmKGFkZXYpKQo+IAkJCWFtZGdwdV9kZXZpY2VfaXBfYmxv
-Y2tfYWRkKGFkZXYsCj4mZGNlX3ZpcnR1YWxfaXBfYmxvY2spOyBAQCAtNDcyLDcgKzQ3Miw3IEBA
-IGludCBudl9zZXRfaXBfYmxvY2tzKHN0cnVjdAo+YW1kZ3B1X2RldmljZSAqYWRldikKPiAJCWFt
-ZGdwdV9kZXZpY2VfaXBfYmxvY2tfYWRkKGFkZXYsICZnZnhfdjEwXzBfaXBfYmxvY2spOwo+IAkJ
-YW1kZ3B1X2RldmljZV9pcF9ibG9ja19hZGQoYWRldiwgJnNkbWFfdjVfMF9pcF9ibG9jayk7Cj4g
-CQlpZiAoYWRldi0+ZmlybXdhcmUubG9hZF90eXBlID09IEFNREdQVV9GV19MT0FEX0RJUkVDVAo+
-JiYKPi0JCSAgICBpc19zdXBwb3J0X3N3X3NtdShhZGV2KSkKPisJCSAgICBpc19zdXBwb3J0X3N3
-X3NtdShhZGV2KSAmJiAhYW1kZ3B1X3NyaW92X3ZmKGFkZXYpKQo+IAkJCWFtZGdwdV9kZXZpY2Vf
-aXBfYmxvY2tfYWRkKGFkZXYsCj4mc211X3YxMV8wX2lwX2Jsb2NrKTsKPiAJCWFtZGdwdV9kZXZp
-Y2VfaXBfYmxvY2tfYWRkKGFkZXYsICZ2Y25fdjJfMF9pcF9ibG9jayk7Cj4gCQlicmVhazsKPi0t
-Cj4yLjIwLjEKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-CmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBz
-Oi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
+> +static int hmm_pfns_fill(unsigned long addr,
+> +			 unsigned long end,
+> +			 struct hmm_range *range,
+> +			 enum hmm_pfn_value_e value)
+
+Nit: can we use the space a little more efficient, e.g.:
+
+static int hmm_pfns_fill(unsigned long addr, unsigned long end,
+		struct hmm_range *range, enum hmm_pfn_value_e value)
+
+> +static int hmm_vma_walk_test(unsigned long start,
+> +			     unsigned long end,
+> +			     struct mm_walk *walk)
+
+Same here.
+
+> +	if (!(vma->vm_flags & VM_READ)) {
+> +		(void) hmm_pfns_fill(start, end, range, HMM_PFN_NONE);
+
+There should be no need for the void cast here.
