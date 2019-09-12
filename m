@@ -1,43 +1,71 @@
-From: Ralph Campbell <rcampbell@nvidia.com>
-Subject: Re: [PATCH 1/4] mm/hmm: make full use of walk_page_range()
-Date: Thu, 12 Sep 2019 10:16:51 -0700
-Message-ID: <973b7159-513f-0776-668d-8ba1adf87f1c@nvidia.com>
-References: <20190911222829.28874-1-rcampbell@nvidia.com>
- <20190911222829.28874-2-rcampbell@nvidia.com> <20190912082613.GA14368@lst.de>
+From: Harry Wentland <hwentlan-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amd/display: Create plane rotation property
+Date: Thu, 12 Sep 2019 17:22:33 +0000
+Message-ID: <907ff2ce-e273-1ea0-a17b-522745756164@amd.com>
+References: <20190912164404.12725-1-pgriffais@valvesoftware.com>
+ <b781b06d-a52f-0291-b0df-d90b81a66c84@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20190912082613.GA14368@lst.de>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <b781b06d-a52f-0291-b0df-d90b81a66c84-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
-Sender: linux-kernel-owner@vger.kernel.org
-To: Christoph Hellwig <hch@lst.de>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, =?UTF-8?B?SsOpcsO0bWUgR2xpc3Nl?= <jglisse@redhat.com>, Jason Gunthorpe <jgg@mellanox.com>, Andrew Morton <akpm@linux-foundation.org>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-ID: <8C2EDF978AE159449BC8619EA1DBB397-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Kazlauskas, Nicholas" <Nicholas.Kazlauskas-5C7GfCeVMHo@public.gmane.org>, "Pierre-Loup A.
+ Griffais" <pgriffais-38hxoXRICFZx67MzidHQgQC/G2K4zDHf@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Wentland,
+ Harry" <Harry.Wentland-5C7GfCeVMHo@public.gmane.org>
 
-
-On 9/12/19 1:26 AM, Christoph Hellwig wrote:
->> +static int hmm_pfns_fill(unsigned long addr,
->> +			 unsigned long end,
->> +			 struct hmm_range *range,
->> +			 enum hmm_pfn_value_e value)
-> 
-> Nit: can we use the space a little more efficient, e.g.:
-> 
-> static int hmm_pfns_fill(unsigned long addr, unsigned long end,
-> 		struct hmm_range *range, enum hmm_pfn_value_e value)
-> 
->> +static int hmm_vma_walk_test(unsigned long start,
->> +			     unsigned long end,
->> +			     struct mm_walk *walk)
-> 
-> Same here.
-> 
->> +	if (!(vma->vm_flags & VM_READ)) {
->> +		(void) hmm_pfns_fill(start, end, range, HMM_PFN_NONE);
-> 
-> There should be no need for the void cast here.
-> 
-
-OK. I'll post a v2 with the these changes.
-Thanks for the reviews.
+T24gMjAxOS0wOS0xMiAxOjAxIHAubS4sIEthemxhdXNrYXMsIE5pY2hvbGFzIHdyb3RlOg0KPiBP
+biAyMDE5LTA5LTEyIDEyOjQ0IHAubS4sIFBpZXJyZS1Mb3VwIEEuIEdyaWZmYWlzIHdyb3RlOg0K
+Pj4gSXQncyBvdGhlcndpc2UgcHJvcGVybHkgc3VwcG9ydGVkLCBqdXN0IG5lZWRzIGV4cG9zaW5n
+IHRvIHVzZXJzcGFjZS4NCj4+DQo+PiBTaWduZWQtb2ZmLWJ5OiBQaWVycmUtTG91cCBBLiBHcmlm
+ZmFpcyA8cGdyaWZmYWlzQHZhbHZlc29mdHdhcmUuY29tPg0KPiBJIGtub3cgSUdUIGhhcyBzb21l
+IHRlc3RzIGZvciBwbGFuZSByb3RhdGlvbiwgZG8geW91IGhhcHBlbiB0byBrbm93IHdoYXQgDQo+
+IHRlc3RzIHBhc3Mgb3IgZmFpbCB3aGVuIGV4cG9zaW5nIHRoaXM/DQo+IA0KPiBJIHRoaW5rIERD
+TjEgKFJhdmVuKSBzaG91bGQgd29yayBhcyBleHBlY3RlZCBidXQgSSdkIGJlIGNvbmNlcm5lZCBh
+Ym91dCANCj4gRENFIG9yIERDTjIuIEkgdGhpbmsgd2UgaGF2ZSBoYWQgc29tZSBjdXJzb3IgYnVn
+cyBpbiB0aGUgcGFzdCB3aXRoIA0KPiBjdXJzb3Igcm90YXRpb24gYnV0IHRoZXkgbWlnaHQgb25s
+eSBiZSBleHBvc2VkIHdoZW4gdXNlZCBpbiBjb25qdW5jdGlvbiANCj4gd2l0aCBvdmVybGF5IHBs
+YW5lcy4NCj4gDQoNCldpbmRvd3MgZ3V5cyBoYWQgYSBmaXggKGluIERDKSBmb3IgY3Vyc29yIHdp
+dGggSFcgcm90YXRpb24gb24gRENOIGEgZmV3DQp3ZWVrcyBhZ28uIFRoYXQgbWlnaHQgaGF2ZSBm
+aXhlZCB0aGVzZSBpc3N1ZXMuDQoNCldlIHNob3VsZCBzdGlsbCBtYWtlIHN1cmUgd2UgY2FuIHBh
+c3MgSUdUIHRlc3RzIHRoYXQgZG8gcm90YXRpb24uDQoNCkhvdyBkaWQgeW91IHRlc3Q/IFdlc3Rv
+bj8NCg0KSGFycnkNCg0KPiBJJ2QganVzdCBsaWtlIHRvIG1ha2Ugc3VyZSB0aGVyZSdzIHN1aXRh
+YmxlIHRlc3RpbmcgYXQgbGVhc3QgaWYgd2UncmUgDQo+IGdvaW5nIHRvIGV4cG9zZSB0aGlzIHRv
+IHVzZXJzcGFjZS4NCj4gDQo+IE5pY2hvbGFzIEthemxhdXNrYXMNCj4gDQo+PiAtLS0NCj4+ICAg
+ZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG0uYyB8IDggKysr
+KysrKysNCj4+ICAgMSBmaWxlIGNoYW5nZWQsIDggaW5zZXJ0aW9ucygrKQ0KPj4NCj4+IGRpZmYg
+LS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5j
+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG0uYw0KPj4g
+aW5kZXggNDViZTdhMjEzMmJiLi4zNzcyNzYzYzY0NDkgMTAwNjQ0DQo+PiAtLS0gYS9kcml2ZXJz
+L2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5jDQo+PiArKysgYi9kcml2
+ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5jDQo+PiBAQCAtNDY4
+MCw2ICs0NjgwLDcgQEAgc3RhdGljIGludCBhbWRncHVfZG1fcGxhbmVfaW5pdChzdHJ1Y3QgYW1k
+Z3B1X2Rpc3BsYXlfbWFuYWdlciAqZG0sDQo+PiAgIAl1aW50MzJfdCBmb3JtYXRzWzMyXTsNCj4+
+ICAgCWludCBudW1fZm9ybWF0czsNCj4+ICAgCWludCByZXMgPSAtRVBFUk07DQo+PiArCXVuc2ln
+bmVkIGludCBzdXBwb3J0ZWRfcm90YXRpb25zOw0KPj4gICANCj4+ICAgCW51bV9mb3JtYXRzID0g
+Z2V0X3BsYW5lX2Zvcm1hdHMocGxhbmUsIHBsYW5lX2NhcCwgZm9ybWF0cywNCj4+ICAgCQkJCQlB
+UlJBWV9TSVpFKGZvcm1hdHMpKTsNCj4+IEBAIC00NzExLDYgKzQ3MTIsMTMgQEAgc3RhdGljIGlu
+dCBhbWRncHVfZG1fcGxhbmVfaW5pdChzdHJ1Y3QgYW1kZ3B1X2Rpc3BsYXlfbWFuYWdlciAqZG0s
+DQo+PiAgIAkJCURSTV9DT0xPUl9ZQ0JDUl9CVDcwOSwgRFJNX0NPTE9SX1lDQkNSX0xJTUlURURf
+UkFOR0UpOw0KPj4gICAJfQ0KPj4gICANCj4+ICsJc3VwcG9ydGVkX3JvdGF0aW9ucyA9DQo+PiAr
+CQlEUk1fTU9ERV9ST1RBVEVfMCB8IERSTV9NT0RFX1JPVEFURV85MCB8DQo+PiArCQlEUk1fTU9E
+RV9ST1RBVEVfMTgwIHwgRFJNX01PREVfUk9UQVRFXzI3MDsNCj4+ICsNCj4+ICsJZHJtX3BsYW5l
+X2NyZWF0ZV9yb3RhdGlvbl9wcm9wZXJ0eShwbGFuZSwgRFJNX01PREVfUk9UQVRFXzAsDQo+PiAr
+CQkJCQkgICBzdXBwb3J0ZWRfcm90YXRpb25zKTsNCj4+ICsNCj4+ICAgCWRybV9wbGFuZV9oZWxw
+ZXJfYWRkKHBsYW5lLCAmZG1fcGxhbmVfaGVscGVyX2Z1bmNzKTsNCj4+ICAgDQo+PiAgIAkvKiBD
+cmVhdGUgKHJlc2V0KSB0aGUgcGxhbmUgc3RhdGUgKi8NCj4+DQo+IA0KX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1k
+LWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcv
+bWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
