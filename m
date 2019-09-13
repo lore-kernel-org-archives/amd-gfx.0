@@ -1,57 +1,74 @@
-From: Colin King <colin.king@canonical.com>
-Subject: [PATCH] drm/amd/display: rename variable eanble -> enable
-Date: Fri, 13 Sep 2019 09:02:48 +0100
-Message-ID: <20190913080248.28695-1-colin.king@canonical.com>
+From: Jani Nikula <jani.nikula@intel.com>
+Subject: [PATCH 0/9] drm/print: add and use drm_debug_enabled()
+Date: Fri, 13 Sep 2019 14:51:37 +0300
+Message-ID: <cover.1568375189.git.jani.nikula@intel.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, David Zhou <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Transfer-Encoding: base64
+Return-path: <intel-gfx-bounces@lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/intel-gfx>,
+ <mailto:intel-gfx-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/intel-gfx>
+List-Post: <mailto:intel-gfx@lists.freedesktop.org>
+List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
+ <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: intel-gfx-bounces@lists.freedesktop.org
+Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
+To: dri-devel@lists.freedesktop.org
+Cc: David Zhou <David1.Zhou@amd.com>, jani.nikula@intel.com, nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, Russell King <linux+etnaviv@armlinux.org.uk>, amd-gfx@lists.freedesktop.org, etnaviv@lists.freedesktop.org, Ben Skeggs <bskeggs@redhat.com>, linux-arm-msm@vger.kernel.org, Alex Deucher <alexander.deucher@amd.com>, freedreno@lists.freedesktop.org, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, Lucas Stach <l.stach@pengutronix.de>
 List-Id: amd-gfx.lists.freedesktop.org
 
-From: Colin Ian King <colin.king@canonical.com>
-
-There is a spelling mistake in the variable name eanble,
-rename it to enable.
-
-Signed-off-by: Colin Ian King <colin.king@canonical.com>
----
- drivers/gpu/drm/amd/display/dc/dce/dce_mem_input.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_mem_input.c b/drivers/gpu/drm/amd/display/dc/dce/dce_mem_input.c
-index 1488ffddf4e3..5944524faab9 100644
---- a/drivers/gpu/drm/amd/display/dc/dce/dce_mem_input.c
-+++ b/drivers/gpu/drm/amd/display/dc/dce/dce_mem_input.c
-@@ -606,11 +606,11 @@ static void dce_mi_allocate_dmif(
- 	}
- 
- 	if (dce_mi->wa.single_head_rdreq_dmif_limit) {
--		uint32_t eanble =  (total_stream_num > 1) ? 0 :
-+		uint32_t enable =  (total_stream_num > 1) ? 0 :
- 				dce_mi->wa.single_head_rdreq_dmif_limit;
- 
- 		REG_UPDATE(MC_HUB_RDREQ_DMIF_LIMIT,
--				ENABLE, eanble);
-+				ENABLE, enable);
- 	}
- }
- 
-@@ -636,11 +636,11 @@ static void dce_mi_free_dmif(
- 			10, 3500);
- 
- 	if (dce_mi->wa.single_head_rdreq_dmif_limit) {
--		uint32_t eanble =  (total_stream_num > 1) ? 0 :
-+		uint32_t enable =  (total_stream_num > 1) ? 0 :
- 				dce_mi->wa.single_head_rdreq_dmif_limit;
- 
- 		REG_UPDATE(MC_HUB_RDREQ_DMIF_LIMIT,
--				ENABLE, eanble);
-+				ENABLE, enable);
- 	}
- }
- 
--- 
-2.20.1
+SGkgYWxsLCBqdXN0IGEgbGl0dGxlIHJlZmFjdG9yaW5nIGFyb3VuZCBkcm1fZGVidWcgYWNjZXNz
+IHRvIGFic3RyYWN0IGl0CmJldHRlci4gVGhlcmUgc2hvdWxkbid0IGJlIGFueSBmdW5jdGlvbmFs
+IGNoYW5nZXMuCgpJJ2QgYXBwcmVjaWF0ZSBhY2tzIGZvciBtZXJnaW5nIHRoZSBsb3QgdmlhIGRy
+bS1taXNjLiBJZiB0aGVyZSBhcmUgYW55Cm9iamVjdGlvbnMgdG8gdGhhdCwgd2UnbGwgbmVlZCB0
+byBwb3N0cG9uZSB0aGUgbGFzdCBwYXRjaCB1bnRpbApldmVyeXRoaW5nIGhhcyBiZWVuIG1lcmdl
+ZCBhbmQgY29udmVydGVkIGluIGRybS1uZXh0LgoKQlIsCkphbmkuCgoKQ2M6IEFsZXggRGV1Y2hl
+ciA8YWxleGFuZGVyLmRldWNoZXJAYW1kLmNvbT4KQ2M6IENocmlzdGlhbiBLw7ZuaWcgPGNocmlz
+dGlhbi5rb2VuaWdAYW1kLmNvbT4KQ2M6IERhdmlkIChDaHVuTWluZykgWmhvdSA8RGF2aWQxLlpo
+b3VAYW1kLmNvbT4KQ2M6IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCkNjOiBCZW4gU2tl
+Z2dzIDxic2tlZ2dzQHJlZGhhdC5jb20+CkNjOiBub3V2ZWF1QGxpc3RzLmZyZWVkZXNrdG9wLm9y
+ZwpDYzogUm9iIENsYXJrIDxyb2JkY2xhcmtAZ21haWwuY29tPgpDYzogU2VhbiBQYXVsIDxzZWFu
+QHBvb3JseS5ydW4+CkNjOiBsaW51eC1hcm0tbXNtQHZnZXIua2VybmVsLm9yZwpDYzogZnJlZWRy
+ZW5vQGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpDYzogRnJhbmNpc2NvIEplcmV6IDxjdXJyb2plcmV6
+QHJpc2V1cC5uZXQ+CkNjOiBMdWNhcyBTdGFjaCA8bC5zdGFjaEBwZW5ndXRyb25peC5kZT4KQ2M6
+IFJ1c3NlbGwgS2luZyA8bGludXgrZXRuYXZpdkBhcm1saW51eC5vcmcudWs+CkNjOiBDaHJpc3Rp
+YW4gR21laW5lciA8Y2hyaXN0aWFuLmdtZWluZXJAZ21haWwuY29tPgpDYzogZXRuYXZpdkBsaXN0
+cy5mcmVlZGVza3RvcC5vcmcKCgpKYW5pIE5pa3VsYSAoOSk6CiAgZHJtL3ByaW50OiBtb3ZlIGRy
+bV9kZWJ1ZyB2YXJpYWJsZSB0byBkcm1fcHJpbnQuW2NoXQogIGRybS9wcmludDogYWRkIGRybV9k
+ZWJ1Z19lbmFibGVkKCkKICBkcm0vZXRuYXZpdjogdXNlIGRybV9kZWJ1Z19lbmFibGVkKCkgdG8g
+Y2hlY2sgZm9yIGRlYnVnIGNhdGVnb3JpZXMKICBkcm0vaTJjL3NpbDE2NDogdXNlIGRybV9kZWJ1
+Z19lbmFibGVkKCkgdG8gY2hlY2sgZm9yIGRlYnVnIGNhdGVnb3JpZXMKICBkcm0vaTkxNTogdXNl
+IGRybV9kZWJ1Z19lbmFibGVkKCkgdG8gY2hlY2sgZm9yIGRlYnVnIGNhdGVnb3JpZXMKICBkcm0v
+bXNtOiB1c2UgZHJtX2RlYnVnX2VuYWJsZWQoKSB0byBjaGVjayBmb3IgZGVidWcgY2F0ZWdvcmll
+cwogIGRybS9ub3V2ZWF1OiB1c2UgZHJtX2RlYnVnX2VuYWJsZWQoKSB0byBjaGVjayBmb3IgZGVi
+dWcgY2F0ZWdvcmllcwogIGRybS9hbWRncHU6IHVzZSBkcm1fZGVidWdfZW5hYmxlZCgpIHRvIGNo
+ZWNrIGZvciBkZWJ1ZyBjYXRlZ29yaWVzCiAgZHJtL3ByaW50OiByZW5hbWUgZHJtX2RlYnVnIHRv
+IF9fZHJtX2RlYnVnIHRvIGRpc2NvdXJhZ2UgdXNlCgogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
+cHUvc211X3YxMV8wX2kyYy5jICAgfCAgNCArKy0tCiBkcml2ZXJzL2dwdS9kcm0vZHJtX2F0b21p
+Y191YXBpLmMgICAgICAgICAgICB8ICAyICstCiBkcml2ZXJzL2dwdS9kcm0vZHJtX2RwX21zdF90
+b3BvbG9neS5jICAgICAgICB8ICA2ICsrLS0tCiBkcml2ZXJzL2dwdS9kcm0vZHJtX2Rydi5jICAg
+ICAgICAgICAgICAgICAgICB8IDE3IC0tLS0tLS0tLS0tLS0tLQogZHJpdmVycy9ncHUvZHJtL2Ry
+bV9lZGlkLmMgICAgICAgICAgICAgICAgICAgfCAgMiArLQogZHJpdmVycy9ncHUvZHJtL2RybV9l
+ZGlkX2xvYWQuYyAgICAgICAgICAgICAgfCAgMiArLQogZHJpdmVycy9ncHUvZHJtL2RybV9taXBp
+X2RiaS5jICAgICAgICAgICAgICAgfCAgNCArKy0tCiBkcml2ZXJzL2dwdS9kcm0vZHJtX3ByaW50
+LmMgICAgICAgICAgICAgICAgICB8IDIzICsrKysrKysrKysrKysrKysrKy0tCiBkcml2ZXJzL2dw
+dS9kcm0vZHJtX3ZibGFuay5jICAgICAgICAgICAgICAgICB8ICA2ICsrLS0tCiBkcml2ZXJzL2dw
+dS9kcm0vZXRuYXZpdi9ldG5hdml2X2J1ZmZlci5jICAgICB8ICA4ICsrKy0tLS0KIGRyaXZlcnMv
+Z3B1L2RybS9pMmMvc2lsMTY0X2Rydi5jICAgICAgICAgICAgIHwgIDIgKy0KIGRyaXZlcnMvZ3B1
+L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfZGlzcGxheS5jIHwgIDQgKystLQogZHJpdmVycy9ncHUv
+ZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9kcC5jICAgICAgfCAgMiArLQogZHJpdmVycy9ncHUvZHJt
+L2k5MTUvaTkxNV9kcnYuYyAgICAgICAgICAgICAgfCAgMiArLQogZHJpdmVycy9ncHUvZHJtL2k5
+MTUvaTkxNV9nZW0uaCAgICAgICAgICAgICAgfCAgMiArLQogZHJpdmVycy9ncHUvZHJtL2k5MTUv
+aTkxNV91dGlscy5jICAgICAgICAgICAgfCAgMiArLQogZHJpdmVycy9ncHUvZHJtL2k5MTUvaW50
+ZWxfcG0uYyAgICAgICAgICAgICAgfCAgMiArLQogZHJpdmVycy9ncHUvZHJtL21zbS9kaXNwL2Rw
+dTEvZHB1X2ttcy5oICAgICAgfCAgNCArKy0tCiBkcml2ZXJzL2dwdS9kcm0vbm91dmVhdS9kaXNw
+bnY1MC9kaXNwLmggICAgICB8ICA0ICsrLS0KIGRyaXZlcnMvZ3B1L2RybS9ub3V2ZWF1L25vdXZl
+YXVfZHJ2LmggICAgICAgIHwgIDQgKystLQogaW5jbHVkZS9kcm0vZHJtX2Rydi5oICAgICAgICAg
+ICAgICAgICAgICAgICAgfCAgMiAtLQogaW5jbHVkZS9kcm0vZHJtX3ByaW50LmggICAgICAgICAg
+ICAgICAgICAgICAgfCAgOCArKysrKysrCiAyMiBmaWxlcyBjaGFuZ2VkLCA2MCBpbnNlcnRpb25z
+KCspLCA1MiBkZWxldGlvbnMoLSkKCi0tIAoyLjIwLjEKCl9fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fCkludGVsLWdmeCBtYWlsaW5nIGxpc3QKSW50ZWwtZ2Z4
+QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWls
+bWFuL2xpc3RpbmZvL2ludGVsLWdmeA==
