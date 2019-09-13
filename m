@@ -1,59 +1,57 @@
-From: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: remove needless usage of #ifdef
-Date: Thu, 12 Sep 2019 21:10:26 +0000
-Message-ID: <51c26192-0c92-7ebe-5a44-1f06808c932a@amd.com>
-References: <1568270671-21346-1-git-send-email-shirish.s@amd.com>
+From: Colin King <colin.king@canonical.com>
+Subject: [PATCH] drm/amd/display: rename variable eanble -> enable
+Date: Fri, 13 Sep 2019 09:02:48 +0100
+Message-ID: <20190913080248.28695-1-colin.king@canonical.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1568270671-21346-1-git-send-email-shirish.s-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-Content-ID: <D93AD06C30E49147BE61730DEEFF2E91-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "S, Shirish" <Shirish.S-5C7GfCeVMHo@public.gmane.org>, "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "Huang, Ray" <Ray.Huang-5C7GfCeVMHo@public.gmane.org>
-Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, David Zhou <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gMjAxOS0wOS0xMiAyOjQ0IGEubS4sIFMsIFNoaXJpc2ggd3JvdGU6DQo+IGRlZmluZSBzY2hl
-ZF9wb2xpY3kgaW4gY2FzZSBDT05GSUdfSFNBX0FNRCBpcyBub3QNCj4gZW5hYmxlZCwgd2l0aCB0
-aGlzIHRoZXJlIGlzIG5vIG5lZWQgdG8gY2hlY2sgZm9yIENPTkZJR19IU0FfQU1EDQo+IGVsc2Ug
-d2hlcmUgaW4gZHJpdmVyIGNvZGUuDQo+DQo+IFN1Z2dlc3RlZC1ieTogRmVsaXggS3VlaGxpbmcg
-PEZlbGl4Lkt1ZWhsaW5nQGFtZC5jb20+DQo+IFNpZ25lZC1vZmYtYnk6IFNoaXJpc2ggUyA8c2hp
-cmlzaC5zQGFtZC5jb20+DQoNClJldmlld2VkLWJ5OiBGZWxpeCBLdWVobGluZyA8RmVsaXguS3Vl
-aGxpbmdAYW1kLmNvbT4NCg0KDQo+IC0tLQ0KPiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
-L2FtZGdwdS5oICAgICAgICB8IDIgKysNCj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
-bWRncHVfZGV2aWNlLmMgfCA2ICstLS0tLQ0KPiAgIDIgZmlsZXMgY2hhbmdlZCwgMyBpbnNlcnRp
-b25zKCspLCA1IGRlbGV0aW9ucygtKQ0KPg0KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJt
-L2FtZC9hbWRncHUvYW1kZ3B1LmggYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHUu
-aA0KPiBpbmRleCBhMTUxNmEzLi42ZmYwMmJiIDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJzL2dwdS9k
-cm0vYW1kL2FtZGdwdS9hbWRncHUuaA0KPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
-dS9hbWRncHUuaA0KPiBAQCAtMTcxLDYgKzE3MSw4IEBAIGV4dGVybiBpbnQgYW1kZ3B1X25vcmV0
-cnk7DQo+ICAgZXh0ZXJuIGludCBhbWRncHVfZm9yY2VfYXNpY190eXBlOw0KPiAgICNpZmRlZiBD
-T05GSUdfSFNBX0FNRA0KPiAgIGV4dGVybiBpbnQgc2NoZWRfcG9saWN5Ow0KPiArI2Vsc2UNCj4g
-K3N0YXRpYyBjb25zdCBpbnQgc2NoZWRfcG9saWN5ID0gS0ZEX1NDSEVEX1BPTElDWV9IV1M7DQo+
-ICAgI2VuZGlmDQo+ICAgDQo+ICAgI2lmZGVmIENPTkZJR19EUk1fQU1ER1BVX1NJDQo+IGRpZmYg
-LS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMgYi9kcml2
-ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMNCj4gaW5kZXggNzQwNjM4ZS4u
-M2I1MjgyYiAxMDA2NDQNCj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
-X2RldmljZS5jDQo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZp
-Y2UuYw0KPiBAQCAtMTYyMywxMSArMTYyMyw3IEBAIHN0YXRpYyBpbnQgYW1kZ3B1X2RldmljZV9p
-cF9lYXJseV9pbml0KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQ0KPiAgIAl9DQo+ICAgDQo+
-ICAgCWFkZXYtPnBtLnBwX2ZlYXR1cmUgPSBhbWRncHVfcHBfZmVhdHVyZV9tYXNrOw0KPiAtCWlm
-IChhbWRncHVfc3Jpb3ZfdmYoYWRldikNCj4gLQkgICAgI2lmZGVmIENPTkZJR19IU0FfQU1EDQo+
-IC0JICAgIHx8IHNjaGVkX3BvbGljeSA9PSBLRkRfU0NIRURfUE9MSUNZX05PX0hXUw0KPiAtCSAg
-ICAjZW5kaWYNCj4gLQkgICAgKQ0KPiArCWlmIChhbWRncHVfc3Jpb3ZfdmYoYWRldikgfHwgc2No
-ZWRfcG9saWN5ID09IEtGRF9TQ0hFRF9QT0xJQ1lfTk9fSFdTKQ0KPiAgIAkJYWRldi0+cG0ucHBf
-ZmVhdHVyZSAmPSB+UFBfR0ZYT0ZGX01BU0s7DQo+ICAgDQo+ICAgCWZvciAoaSA9IDA7IGkgPCBh
-ZGV2LT5udW1faXBfYmxvY2tzOyBpKyspIHsNCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJl
-ZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGlu
-Zm8vYW1kLWdmeA==
+From: Colin Ian King <colin.king@canonical.com>
+
+There is a spelling mistake in the variable name eanble,
+rename it to enable.
+
+Signed-off-by: Colin Ian King <colin.king@canonical.com>
+---
+ drivers/gpu/drm/amd/display/dc/dce/dce_mem_input.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_mem_input.c b/drivers/gpu/drm/amd/display/dc/dce/dce_mem_input.c
+index 1488ffddf4e3..5944524faab9 100644
+--- a/drivers/gpu/drm/amd/display/dc/dce/dce_mem_input.c
++++ b/drivers/gpu/drm/amd/display/dc/dce/dce_mem_input.c
+@@ -606,11 +606,11 @@ static void dce_mi_allocate_dmif(
+ 	}
+ 
+ 	if (dce_mi->wa.single_head_rdreq_dmif_limit) {
+-		uint32_t eanble =  (total_stream_num > 1) ? 0 :
++		uint32_t enable =  (total_stream_num > 1) ? 0 :
+ 				dce_mi->wa.single_head_rdreq_dmif_limit;
+ 
+ 		REG_UPDATE(MC_HUB_RDREQ_DMIF_LIMIT,
+-				ENABLE, eanble);
++				ENABLE, enable);
+ 	}
+ }
+ 
+@@ -636,11 +636,11 @@ static void dce_mi_free_dmif(
+ 			10, 3500);
+ 
+ 	if (dce_mi->wa.single_head_rdreq_dmif_limit) {
+-		uint32_t eanble =  (total_stream_num > 1) ? 0 :
++		uint32_t enable =  (total_stream_num > 1) ? 0 :
+ 				dce_mi->wa.single_head_rdreq_dmif_limit;
+ 
+ 		REG_UPDATE(MC_HUB_RDREQ_DMIF_LIMIT,
+-				ENABLE, eanble);
++				ENABLE, enable);
+ 	}
+ }
+ 
+-- 
+2.20.1
