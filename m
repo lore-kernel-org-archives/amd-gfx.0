@@ -1,79 +1,45 @@
-From: Masahiro Yamada <yamada.masahiro@socionext.com>
-Subject: Re: [PATCH] drm/amd/display: Fix compile error due to 'endif' missing
-Date: Tue, 17 Sep 2019 02:46:48 +0900
-Message-ID: <CAK7LNARZMr5ZKGufi63GZrZ45k60faAiXr4mBB_mU9h_QifjxQ@mail.gmail.com>
-References: <20190916044651.GA72121@LGEARND20B15>
+From: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amdkfd: Delete unused KFD_IS_* macro
+Date: Mon, 16 Sep 2019 17:48:30 +0000
+Message-ID: <a9b4c968-66f2-389b-15a0-85d65f33e7c1@amd.com>
+References: <20190916163252.23684-1-Yong.Zhao@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20190916044651.GA72121@LGEARND20B15>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Austin Kim <austindh.kim@gmail.com>, Stephen Rothwell <sfr@canb.auug.org.au>, Mark Brown <broonie@kernel.org>
-Cc: David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, Roman.Li@amd.com, amd-gfx@lists.freedesktop.org, dri-devel <dri-devel@lists.freedesktop.org>, Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20190916163252.23684-1-Yong.Zhao-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
+Content-ID: <B0CBEC3444A75947AF736EFFC98DD486-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Zhao, Yong" <Yong.Zhao-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-(+CC Stephen Rothwell, Mark Brown)
-
-On Mon, Sep 16, 2019 at 1:46 PM Austin Kim <austindh.kim@gmail.com> wrote:
->
-> gcc throws compile error with below message:
-
-GNU Make throws ...
-
-
-This is probably a merge mistake in linux-next.
-
-If so, this should be directly fixed in the linux-next.
-
-If it is not fixed in time,
-please inform Linus to *not* follow the linux-next.
-
-
-Thanks.
-
-
-
->
-> HDRINST usr/include/drm/i915_drm.h
-> drivers/gpu/drm/amd/amdgpu/../display/dc/dml/Makefile:70: *** missing 'endif'.  Stop.
-> scripts/Makefile.modbuiltin:55: recipe for target 'drivers/gpu/drm/amd/amdgpu' failed
-> make[3]: *** [drivers/gpu/drm/amd/amdgpu] Error 2
-> make[3]: *** Waiting for unfinished jobs....
->   HDRINST usr/include/drm/omap_drm.h
->   HDRINST usr/include/drm/tegra_drm.h
->   HDRINST usr/include/drm/drm_sarea.h
->   HDRINST usr/include/drm/panfrost_drm.h
->   HDRINST usr/include/drm/drm.h
-> scripts/Makefile.modbuiltin:55: recipe for target 'drivers/gpu/drm' failed
-> make[2]: *** [drivers/gpu/drm] Error 2
-> scripts/Makefile.modbuiltin:55: recipe for target 'drivers/gpu' failed
-> make[1]: *** [drivers/gpu] Error 2
-> make[1]: *** Waiting for unfinished jobs....
->
-> Add 'endif' to Makefile to stop compile error.
->
-> Signed-off-by: Austin Kim <austindh.kim@gmail.com>
-> ---
->  drivers/gpu/drm/amd/display/dc/dml/Makefile | 1 +
->  1 file changed, 1 insertion(+)
->
-> diff --git a/drivers/gpu/drm/amd/display/dc/dml/Makefile b/drivers/gpu/drm/amd/display/dc/dml/Makefile
-> index a2eb59e..5b2a65b 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dml/Makefile
-> +++ b/drivers/gpu/drm/amd/display/dc/dml/Makefile
-> @@ -44,6 +44,7 @@ CFLAGS_$(AMDDALPATH)/dc/dml/dcn20/display_mode_vba_20.o := $(dml_ccflags)
->  CFLAGS_$(AMDDALPATH)/dc/dml/dcn20/display_rq_dlg_calc_20.o := $(dml_ccflags)
->  CFLAGS_$(AMDDALPATH)/dc/dml/dcn20/display_mode_vba_20v2.o := $(dml_ccflags)
->  CFLAGS_$(AMDDALPATH)/dc/dml/dcn20/display_rq_dlg_calc_20v2.o := $(dml_ccflags)
-> +endif
->  ifdef CONFIG_DRM_AMD_DC_DCN2_1
->  CFLAGS_$(AMDDALPATH)/dc/dml/dcn21/display_mode_vba_21.o := $(dml_ccflags)
->  CFLAGS_$(AMDDALPATH)/dc/dml/dcn21/display_rq_dlg_calc_21.o := $(dml_ccflags)
-> --
-> 2.6.2
->
-
-
--- 
-Best Regards
-Masahiro Yamada
+T24gMjAxOS0wOS0xNiAxMjozMyBwLm0uLCBaaGFvLCBZb25nIHdyb3RlOg0KPiBUaGVzZSB3ZXJl
+IGRlbGV0ZWQgYmVmb3JlLCBidXQgc29tZWhvdyBzaG93ZWQgdXAgYWdhaW4uIERlbGV0ZSB0aGVt
+IGFnYWluLg0KPg0KPiBDaGFuZ2UtSWQ6IEkxOWIzMDYzOTMyMzgwY2I3NGEwMWQ1MDVlOGU5MmY4
+OTdhMmMyY2I3DQo+IFNpZ25lZC1vZmYtYnk6IFlvbmcgWmhhbyA8WW9uZy5aaGFvQGFtZC5jb20+
+DQoNClJldmlld2VkLWJ5OiBGZWxpeCBLdWVobGluZyA8RmVsaXguS3VlaGxpbmdAYW1kLmNvbT4N
+Cg0KDQo+IC0tLQ0KPiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9wcml2LmggfCA0
+IC0tLS0NCj4gICAxIGZpbGUgY2hhbmdlZCwgNCBkZWxldGlvbnMoLSkNCj4NCj4gZGlmZiAtLWdp
+dCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9wcml2LmggYi9kcml2ZXJzL2dwdS9k
+cm0vYW1kL2FtZGtmZC9rZmRfcHJpdi5oDQo+IGluZGV4IDA2YmIyZDdhOWIzOS4uMDc3M2RjNGRm
+NGZmIDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfcHJpdi5o
+DQo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9wcml2LmgNCj4gQEAgLTE3
+OSwxMCArMTc5LDYgQEAgZW51bSBjYWNoZV9wb2xpY3kgew0KPiAgIAljYWNoZV9wb2xpY3lfbm9u
+Y29oZXJlbnQNCj4gICB9Ow0KPiAgIA0KPiAtI2RlZmluZSBLRkRfSVNfVkkoY2hpcCkgKChjaGlw
+KSA+PSBDSElQX0NBUlJJWk8gJiYgKGNoaXApIDw9IENISVBfUE9MQVJJUzExKQ0KPiAtI2RlZmlu
+ZSBLRkRfSVNfREdQVShjaGlwKSAoKChjaGlwKSA+PSBDSElQX1RPTkdBICYmIFwNCj4gLQkJCSAg
+IChjaGlwKSA8PSBDSElQX05BVkkxMCkgfHwgXA0KPiAtCQkJICAgKGNoaXApID09IENISVBfSEFX
+QUlJKQ0KPiAgICNkZWZpbmUgS0ZEX0lTX1NPQzE1KGNoaXApICgoY2hpcCkgPj0gQ0hJUF9WRUdB
+MTApDQo+ICAgDQo+ICAgc3RydWN0IGtmZF9ldmVudF9pbnRlcnJ1cHRfY2xhc3Mgew0KX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5n
+IGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVz
+a3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
