@@ -1,52 +1,65 @@
-From: Austin Kim <austindh.kim@gmail.com>
-Subject: [PATCH] drm/amd/display: Fix compile error due to 'endif' missing
-Date: Mon, 16 Sep 2019 13:46:51 +0900
-Message-ID: <20190916044651.GA72121@LGEARND20B15>
+From: "Chen, Guchun" <Guchun.Chen-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH] drm/amdgpu: fix ras ctrl debugfs node leak
+Date: Mon, 16 Sep 2019 05:47:15 +0000
+Message-ID: <20190916054655.26380-1-guchun.chen@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Content-Disposition: inline
-Sender: linux-kernel-owner@vger.kernel.org
-To: airlied@linux.ie, daniel@ffwll.ch, Roman.Li@amd.com, yamada.masahiro@socionext.com
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, austindh.kim@gmail.com
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Zhang,
+ Hawking" <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>, "Li, Dennis" <Dennis.Li-5C7GfCeVMHo@public.gmane.org>, "Zhou1,
+ Tao" <Tao.Zhou1-5C7GfCeVMHo@public.gmane.org>, "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Grodzovsky, Andrey" <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>
+Cc: "Chen, Guchun" <Guchun.Chen-5C7GfCeVMHo@public.gmane.org>
 
-gcc throws compile error with below message:
-
-HDRINST usr/include/drm/i915_drm.h
-drivers/gpu/drm/amd/amdgpu/../display/dc/dml/Makefile:70: *** missing 'endif'.  Stop.
-scripts/Makefile.modbuiltin:55: recipe for target 'drivers/gpu/drm/amd/amdgpu' failed
-make[3]: *** [drivers/gpu/drm/amd/amdgpu] Error 2
-make[3]: *** Waiting for unfinished jobs....
-  HDRINST usr/include/drm/omap_drm.h
-  HDRINST usr/include/drm/tegra_drm.h
-  HDRINST usr/include/drm/drm_sarea.h
-  HDRINST usr/include/drm/panfrost_drm.h
-  HDRINST usr/include/drm/drm.h
-scripts/Makefile.modbuiltin:55: recipe for target 'drivers/gpu/drm' failed
-make[2]: *** [drivers/gpu/drm] Error 2
-scripts/Makefile.modbuiltin:55: recipe for target 'drivers/gpu' failed
-make[1]: *** [drivers/gpu] Error 2
-make[1]: *** Waiting for unfinished jobs....
-
-Add 'endif' to Makefile to stop compile error.
-
-Signed-off-by: Austin Kim <austindh.kim@gmail.com>
----
- drivers/gpu/drm/amd/display/dc/dml/Makefile | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/Makefile b/drivers/gpu/drm/amd/display/dc/dml/Makefile
-index a2eb59e..5b2a65b 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/Makefile
-+++ b/drivers/gpu/drm/amd/display/dc/dml/Makefile
-@@ -44,6 +44,7 @@ CFLAGS_$(AMDDALPATH)/dc/dml/dcn20/display_mode_vba_20.o := $(dml_ccflags)
- CFLAGS_$(AMDDALPATH)/dc/dml/dcn20/display_rq_dlg_calc_20.o := $(dml_ccflags)
- CFLAGS_$(AMDDALPATH)/dc/dml/dcn20/display_mode_vba_20v2.o := $(dml_ccflags)
- CFLAGS_$(AMDDALPATH)/dc/dml/dcn20/display_rq_dlg_calc_20v2.o := $(dml_ccflags)
-+endif
- ifdef CONFIG_DRM_AMD_DC_DCN2_1
- CFLAGS_$(AMDDALPATH)/dc/dml/dcn21/display_mode_vba_21.o := $(dml_ccflags)
- CFLAGS_$(AMDDALPATH)/dc/dml/dcn21/display_rq_dlg_calc_21.o := $(dml_ccflags)
--- 
-2.6.2
+VXNlIGRlYnVnZnNfcmVtb3ZlX3JlY3Vyc2l2ZSB0byByZW1vdmUgdGhlIHdob2xlIGRlYnVnZnMK
+ZGlyZWN0b3J5IGluc3RlYWQgb2YgcmVtb3ZpbmcgdGhlIG5vZGUgb25lIGJ5IG9uZS4KCkNoYW5n
+ZS1JZDogSTI3ZTllZGFiMjBkNTY4YjE2ZDAxNjNmOGM3YzNkODFmYjY4MzJhY2QKU2lnbmVkLW9m
+Zi1ieTogR3VjaHVuIENoZW4gPGd1Y2h1bi5jaGVuQGFtZC5jb20+Ci0tLQogZHJpdmVycy9ncHUv
+ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Jhcy5jIHwgMTIgKysrKystLS0tLS0tCiBkcml2ZXJzL2dw
+dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcmFzLmggfCAgMiAtLQogMiBmaWxlcyBjaGFuZ2VkLCA1
+IGluc2VydGlvbnMoKyksIDkgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUv
+ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Jhcy5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
+YW1kZ3B1X3Jhcy5jCmluZGV4IDVmMDZmMWU2NDVjNy4uMGE5MGU1Y2IzY2E0IDEwMDY0NAotLS0g
+YS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcmFzLmMKKysrIGIvZHJpdmVycy9n
+cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Jhcy5jCkBAIC05NzgsMTAgKzk3OCwxMCBAQCBzdGF0
+aWMgdm9pZCBhbWRncHVfcmFzX2RlYnVnZnNfY3JlYXRlX2N0cmxfbm9kZShzdHJ1Y3QgYW1kZ3B1
+X2RldmljZSAqYWRldikKIAlzdHJ1Y3QgZHJtX21pbm9yICptaW5vciA9IGFkZXYtPmRkZXYtPnBy
+aW1hcnk7CiAKIAljb24tPmRpciA9IGRlYnVnZnNfY3JlYXRlX2RpcigicmFzIiwgbWlub3ItPmRl
+YnVnZnNfcm9vdCk7Ci0JY29uLT5lbnQgPSBkZWJ1Z2ZzX2NyZWF0ZV9maWxlKCJyYXNfY3RybCIs
+IFNfSVdVR08gfCBTX0lSVUdPLCBjb24tPmRpciwKLQkJCQkgICAgICAgYWRldiwgJmFtZGdwdV9y
+YXNfZGVidWdmc19jdHJsX29wcyk7Ci0JY29uLT5lbnQgPSBkZWJ1Z2ZzX2NyZWF0ZV9maWxlKCJy
+YXNfZWVwcm9tX3Jlc2V0IiwgU19JV1VHTyB8IFNfSVJVR08sIGNvbi0+ZGlyLAotCQkJCQkgICAg
+ICAgYWRldiwgJmFtZGdwdV9yYXNfZGVidWdmc19lZXByb21fb3BzKTsKKwlkZWJ1Z2ZzX2NyZWF0
+ZV9maWxlKCJyYXNfY3RybCIsIFNfSVdVR08gfCBTX0lSVUdPLCBjb24tPmRpciwKKwkJCQlhZGV2
+LCAmYW1kZ3B1X3Jhc19kZWJ1Z2ZzX2N0cmxfb3BzKTsKKwlkZWJ1Z2ZzX2NyZWF0ZV9maWxlKCJy
+YXNfZWVwcm9tX3Jlc2V0IiwgU19JV1VHTyB8IFNfSVJVR08sIGNvbi0+ZGlyLAorCQkJCWFkZXYs
+ICZhbWRncHVfcmFzX2RlYnVnZnNfZWVwcm9tX29wcyk7CiB9CiAKIHZvaWQgYW1kZ3B1X3Jhc19k
+ZWJ1Z2ZzX2NyZWF0ZShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwKQEAgLTEwMjYsMTAgKzEw
+MjYsOCBAQCBzdGF0aWMgdm9pZCBhbWRncHVfcmFzX2RlYnVnZnNfcmVtb3ZlX2FsbChzdHJ1Y3Qg
+YW1kZ3B1X2RldmljZSAqYWRldikKIAkJYW1kZ3B1X3Jhc19kZWJ1Z2ZzX3JlbW92ZShhZGV2LCAm
+b2JqLT5oZWFkKTsKIAl9CiAKLQlkZWJ1Z2ZzX3JlbW92ZShjb24tPmVudCk7Ci0JZGVidWdmc19y
+ZW1vdmUoY29uLT5kaXIpOworCWRlYnVnZnNfcmVtb3ZlX3JlY3Vyc2l2ZShjb24tPmRpcik7CiAJ
+Y29uLT5kaXIgPSBOVUxMOwotCWNvbi0+ZW50ID0gTlVMTDsKIH0KIC8qIGRlYnVnZnMgZW5kICov
+CiAKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9yYXMuaCBi
+L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9yYXMuaAppbmRleCBkZDVkYTNjNjMy
+N2UuLmFlMzg2YzQ2NmMwZSAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
+YW1kZ3B1X3Jhcy5oCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9yYXMu
+aApAQCAtMzE3LDggKzMxNyw2IEBAIHN0cnVjdCBhbWRncHVfcmFzIHsKIAlzdHJ1Y3QgbGlzdF9o
+ZWFkIGhlYWQ7CiAJLyogZGVidWdmcyAqLwogCXN0cnVjdCBkZW50cnkgKmRpcjsKLQkvKiBkZWJ1
+Z2ZzIGN0cmwgKi8KLQlzdHJ1Y3QgZGVudHJ5ICplbnQ7CiAJLyogc3lzZnMgKi8KIAlzdHJ1Y3Qg
+ZGV2aWNlX2F0dHJpYnV0ZSBmZWF0dXJlc19hdHRyOwogCXN0cnVjdCBiaW5fYXR0cmlidXRlIGJh
+ZHBhZ2VzX2F0dHI7Ci0tIAoyLjE3LjEKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRl
+c2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8v
+YW1kLWdmeA==
