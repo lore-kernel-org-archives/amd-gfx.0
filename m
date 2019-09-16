@@ -1,12 +1,13 @@
-From: <jianzh-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH] drm/amdgpu/SRIOV: add navi12 pci id for SRIOV
-Date: Tue, 17 Sep 2019 07:12:49 +0000
-Message-ID: <20190917071222.6132-1-jianzh@amd.com>
+From: Nick Desaulniers <ndesaulniers-hpIqsD4AKlfQT0dZR+AlfA@public.gmane.org>
+Subject: Re: [PATCH] drm/amd/display: build failed for DCN2.1
+Date: Mon, 16 Sep 2019 13:51:15 -0700
+Message-ID: <CAKwvOdn8-T3Q=LhiGu6H7dCpwXXrNAjpKJA5z0d+N4qB8bOapQ@mail.gmail.com>
+References: <1568624607-19067-1-git-send-email-danielliu861@gmail.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Content-Language: en-US
+In-Reply-To: <1568624607-19067-1-git-send-email-danielliu861-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -17,22 +18,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Deng, Emily" <Emily.Deng-5C7GfCeVMHo@public.gmane.org>, "Zhao,
- Jiange" <Jiange.Zhao-5C7GfCeVMHo@public.gmane.org>, "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "Nieto, David M" <David.Nieto-5C7GfCeVMHo@public.gmane.org>
+To: Xinpeng Liu <danielliu861-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, Mark Brown <broonie-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org>
+Cc: "Zhou, David(ChunMing)" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, "Li,
+ Sun peng (Leo)" <sunpeng.li-5C7GfCeVMHo@public.gmane.org>, Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>, Roman.Li-5C7GfCeVMHo@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, David Airlie <airlied-cv59FeDIM0c@public.gmane.org>, Jun.Lei-5C7GfCeVMHo@public.gmane.org, Bhawanpreet.Lakha-5C7GfCeVMHo@public.gmane.org, "Koenig,
+ Christian" <christian.koenig-5C7GfCeVMHo@public.gmane.org>
 
-RnJvbTogSmlhbmdlIFpoYW8gPEppYW5nZS5aaGFvQGFtZC5jb20+CgpBZGQgTmF2aTEyIFBDSSBp
-ZCBzdXBwb3J0LgoKU2lnbmVkLW9mZi1ieTogSmlhbmdlIFpoYW8gPEppYW5nZS5aaGFvQGFtZC5j
-b20+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rydi5jIHwgMSArCiAx
-IGZpbGUgY2hhbmdlZCwgMSBpbnNlcnRpb24oKykKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9k
-cm0vYW1kL2FtZGdwdS9hbWRncHVfZHJ2LmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
-bWRncHVfZHJ2LmMKaW5kZXggNDIwODg4ZTk0MWRmLi5iNTJjNzI1NWU1ZTQgMTAwNjQ0Ci0tLSBh
-L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kcnYuYworKysgYi9kcml2ZXJzL2dw
-dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZHJ2LmMKQEAgLTEwMzQsNiArMTAzNCw3IEBAIHN0YXRp
-YyBjb25zdCBzdHJ1Y3QgcGNpX2RldmljZV9pZCBwY2lpZGxpc3RbXSA9IHsKIAogCS8qIE5hdmkx
-MiAqLwogCXsweDEwMDIsIDB4NzM2MCwgUENJX0FOWV9JRCwgUENJX0FOWV9JRCwgMCwgMCwgQ0hJ
-UF9OQVZJMTJ9LAorCXsweDEwMDIsIDB4NzM2MiwgUENJX0FOWV9JRCwgUENJX0FOWV9JRCwgMCwg
-MCwgQ0hJUF9OQVZJMTJ9LAogCiAJezAsIDAsIDB9CiB9OwotLSAKMi4yMC4xCgpfX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlz
-dAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9w
-Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
+T24gTW9uLCBTZXAgMTYsIDIwMTkgYXQgMjowMyBBTSBYaW5wZW5nIExpdSA8ZGFuaWVsbGl1ODYx
+QGdtYWlsLmNvbT4gd3JvdGU6Cj4KPiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS8uLi9kaXNw
+bGF5L2RjL2RtbC9NYWtlZmlsZTo3MDogKioqIG1pc3NpbmcKPiBgZW5kaWYnLiAgU3RvcC4KPiBt
+YWtlWzRdOiAqKiogW2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1XSBFcnJvciAyCj4KPiBTaWdu
+ZWQtb2ZmLWJ5OiBYaW5wZW5nIExpdSA8ZGFuaWVsbGl1ODYxQGdtYWlsLmNvbT4KClRlc3RlZC1i
+eTogTmljayBEZXNhdWxuaWVycyA8bmRlc2F1bG5pZXJzQGdvb2dsZS5jb20+CgorIE1hcmsKSSB0
+aGluayB0aGlzIHdhcyBhIHJlc3VsdCBvZiB0aGUgcmVzb2x2ZWQgbWVyZ2UgY29uZmxpY3QuICBT
+ZWUgdGhlCi1uZXh0IG9ubHkgY29tbWl0IHRpdGxlZDoKICAgIE1lcmdlIHJlbW90ZS10cmFja2lu
+ZyBicmFuY2ggJ2RybS9kcm0tbmV4dCcKCgo+IC0tLQo+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2Rp
+c3BsYXkvZGMvZG1sL01ha2VmaWxlIHwgMSArCj4gIDEgZmlsZSBjaGFuZ2VkLCAxIGluc2VydGlv
+bigrKQo+Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9kbWwv
+TWFrZWZpbGUgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvZG1sL01ha2VmaWxlCj4g
+aW5kZXggYTJlYjU5ZS4uNWIyYTY1YiAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1k
+L2Rpc3BsYXkvZGMvZG1sL01ha2VmaWxlCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNw
+bGF5L2RjL2RtbC9NYWtlZmlsZQo+IEBAIC00NCw2ICs0NCw3IEBAIENGTEFHU18kKEFNRERBTFBB
+VEgpL2RjL2RtbC9kY24yMC9kaXNwbGF5X21vZGVfdmJhXzIwLm8gOj0gJChkbWxfY2NmbGFncykK
+PiAgQ0ZMQUdTXyQoQU1EREFMUEFUSCkvZGMvZG1sL2RjbjIwL2Rpc3BsYXlfcnFfZGxnX2NhbGNf
+MjAubyA6PSAkKGRtbF9jY2ZsYWdzKQo+ICBDRkxBR1NfJChBTUREQUxQQVRIKS9kYy9kbWwvZGNu
+MjAvZGlzcGxheV9tb2RlX3ZiYV8yMHYyLm8gOj0gJChkbWxfY2NmbGFncykKPiAgQ0ZMQUdTXyQo
+QU1EREFMUEFUSCkvZGMvZG1sL2RjbjIwL2Rpc3BsYXlfcnFfZGxnX2NhbGNfMjB2Mi5vIDo9ICQo
+ZG1sX2NjZmxhZ3MpCj4gK2VuZGlmCj4gIGlmZGVmIENPTkZJR19EUk1fQU1EX0RDX0RDTjJfMQo+
+ICBDRkxBR1NfJChBTUREQUxQQVRIKS9kYy9kbWwvZGNuMjEvZGlzcGxheV9tb2RlX3ZiYV8yMS5v
+IDo9ICQoZG1sX2NjZmxhZ3MpCj4gIENGTEFHU18kKEFNRERBTFBBVEgpL2RjL2RtbC9kY24yMS9k
+aXNwbGF5X3JxX2RsZ19jYWxjXzIxLm8gOj0gJChkbWxfY2NmbGFncykKPiAtLQo+IDEuOC4zLjEK
+PgoKCi0tIApUaGFua3MsCn5OaWNrIERlc2F1bG5pZXJzCl9fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlz
+dHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4v
+bGlzdGluZm8vYW1kLWdmeA==
