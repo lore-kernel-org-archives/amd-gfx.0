@@ -1,49 +1,79 @@
-From: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdkfd: Delete unused KFD_IS_DGPU macro
-Date: Mon, 16 Sep 2019 17:41:15 +0000
-Message-ID: <6be8778c-bfc9-9f18-76a1-d8943adff7d8@amd.com>
-References: <20190916162622.23356-1-Yong.Zhao@amd.com>
+From: Masahiro Yamada <yamada.masahiro@socionext.com>
+Subject: Re: [PATCH] drm/amd/display: Fix compile error due to 'endif' missing
+Date: Tue, 17 Sep 2019 02:46:48 +0900
+Message-ID: <CAK7LNARZMr5ZKGufi63GZrZ45k60faAiXr4mBB_mU9h_QifjxQ@mail.gmail.com>
+References: <20190916044651.GA72121@LGEARND20B15>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190916162622.23356-1-Yong.Zhao-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-Content-ID: <841FEB8C4678BC4F873B0C515E557066-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Zhao, Yong" <Yong.Zhao-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Type: text/plain; charset="UTF-8"
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20190916044651.GA72121@LGEARND20B15>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Austin Kim <austindh.kim@gmail.com>, Stephen Rothwell <sfr@canb.auug.org.au>, Mark Brown <broonie@kernel.org>
+Cc: David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, Roman.Li@amd.com, amd-gfx@lists.freedesktop.org, dri-devel <dri-devel@lists.freedesktop.org>, Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gMjAxOS0wOS0xNiAxMjoyNiBwLm0uLCB3cm90ZToNCj4gVGhpcyB3YXMgZGVsZXRlZCBiZWZv
-cmUsIGJ1dCBzb21laG93IHNob3dlZCB1cCBhZ2Fpbi4gRGVsZXRlIGl0IGFnYWluLg0KPg0KPiBD
-aGFuZ2UtSWQ6IEkxOWIzMDYzOTMyMzgwY2I3NGEwMWQ1MDVlOGU5MmY4OTdhMmMyY2I3DQo+IFNp
-Z25lZC1vZmYtYnk6IFlvbmcgWmhhbyA8WW9uZy5aaGFvQGFtZC5jb20+DQo+IC0tLQ0KPiAgIGRy
-aXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9wcml2LmggfCAzIC0tLQ0KPiAgIDEgZmlsZSBj
-aGFuZ2VkLCAzIGRlbGV0aW9ucygtKQ0KPg0KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJt
-L2FtZC9hbWRrZmQva2ZkX3ByaXYuaCBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9w
-cml2LmgNCj4gaW5kZXggMDZiYjJkN2E5YjM5Li42ZWQzMWE3NmRmZGEgMTAwNjQ0DQo+IC0tLSBh
-L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9wcml2LmgNCj4gKysrIGIvZHJpdmVycy9n
-cHUvZHJtL2FtZC9hbWRrZmQva2ZkX3ByaXYuaA0KPiBAQCAtMTgwLDkgKzE4MCw2IEBAIGVudW0g
-Y2FjaGVfcG9saWN5IHsNCj4gICB9Ow0KPiAgIA0KPiAgICNkZWZpbmUgS0ZEX0lTX1ZJKGNoaXAp
-ICgoY2hpcCkgPj0gQ0hJUF9DQVJSSVpPICYmIChjaGlwKSA8PSBDSElQX1BPTEFSSVMxMSkNCj4g
-LSNkZWZpbmUgS0ZEX0lTX0RHUFUoY2hpcCkgKCgoY2hpcCkgPj0gQ0hJUF9UT05HQSAmJiBcDQo+
-IC0JCQkgICAoY2hpcCkgPD0gQ0hJUF9OQVZJMTApIHx8IFwNCj4gLQkJCSAgIChjaGlwKSA9PSBD
-SElQX0hBV0FJSSkNCg0KQXJlIHlvdSBmYW1pbGlhciB3aXRoICJnaXQgYmxhbWUiPyBJdCdzIHJl
-YWxseSB1c2VmdWwgdG8gdHJhY2sgZG93biANCndoaWNoIGNvbW1pdCBpbnRyb2R1Y2VkIGNvZGUu
-IEluIHRoaXMgY2FzZSBpdCBzaG93cyB0aGF0IGJvdGggSVNfREdQVSANCmFuZCBJU19WSSB3ZXJl
-IGFkZGVkIGJhY2sgYnkgUGhpbGlwIENveCBpbiBoaXMgTmF2aTEwIGNoYW5nZSwgcHJvYmFibHkg
-DQphY2NpZGVudGFsbHkgd2hpbGUgcmVzb2x2aW5nIGEgcmViYXNlIGNvbmZsaWN0LiBZb3UgY2Fu
-IHByb2JhYmx5IHJlbW92ZSANCklTX1ZJIGFzIHdlbGwuDQoNClJlZ2FyZHMsDQogwqAgRmVsaXgN
-Cg0KDQo+ICAgI2RlZmluZSBLRkRfSVNfU09DMTUoY2hpcCkgKChjaGlwKSA+PSBDSElQX1ZFR0Ex
-MCkNCj4gICANCj4gICBzdHJ1Y3Qga2ZkX2V2ZW50X2ludGVycnVwdF9jbGFzcyB7DQpfX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcg
-bGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNr
-dG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
+(+CC Stephen Rothwell, Mark Brown)
+
+On Mon, Sep 16, 2019 at 1:46 PM Austin Kim <austindh.kim@gmail.com> wrote:
+>
+> gcc throws compile error with below message:
+
+GNU Make throws ...
+
+
+This is probably a merge mistake in linux-next.
+
+If so, this should be directly fixed in the linux-next.
+
+If it is not fixed in time,
+please inform Linus to *not* follow the linux-next.
+
+
+Thanks.
+
+
+
+>
+> HDRINST usr/include/drm/i915_drm.h
+> drivers/gpu/drm/amd/amdgpu/../display/dc/dml/Makefile:70: *** missing 'endif'.  Stop.
+> scripts/Makefile.modbuiltin:55: recipe for target 'drivers/gpu/drm/amd/amdgpu' failed
+> make[3]: *** [drivers/gpu/drm/amd/amdgpu] Error 2
+> make[3]: *** Waiting for unfinished jobs....
+>   HDRINST usr/include/drm/omap_drm.h
+>   HDRINST usr/include/drm/tegra_drm.h
+>   HDRINST usr/include/drm/drm_sarea.h
+>   HDRINST usr/include/drm/panfrost_drm.h
+>   HDRINST usr/include/drm/drm.h
+> scripts/Makefile.modbuiltin:55: recipe for target 'drivers/gpu/drm' failed
+> make[2]: *** [drivers/gpu/drm] Error 2
+> scripts/Makefile.modbuiltin:55: recipe for target 'drivers/gpu' failed
+> make[1]: *** [drivers/gpu] Error 2
+> make[1]: *** Waiting for unfinished jobs....
+>
+> Add 'endif' to Makefile to stop compile error.
+>
+> Signed-off-by: Austin Kim <austindh.kim@gmail.com>
+> ---
+>  drivers/gpu/drm/amd/display/dc/dml/Makefile | 1 +
+>  1 file changed, 1 insertion(+)
+>
+> diff --git a/drivers/gpu/drm/amd/display/dc/dml/Makefile b/drivers/gpu/drm/amd/display/dc/dml/Makefile
+> index a2eb59e..5b2a65b 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dml/Makefile
+> +++ b/drivers/gpu/drm/amd/display/dc/dml/Makefile
+> @@ -44,6 +44,7 @@ CFLAGS_$(AMDDALPATH)/dc/dml/dcn20/display_mode_vba_20.o := $(dml_ccflags)
+>  CFLAGS_$(AMDDALPATH)/dc/dml/dcn20/display_rq_dlg_calc_20.o := $(dml_ccflags)
+>  CFLAGS_$(AMDDALPATH)/dc/dml/dcn20/display_mode_vba_20v2.o := $(dml_ccflags)
+>  CFLAGS_$(AMDDALPATH)/dc/dml/dcn20/display_rq_dlg_calc_20v2.o := $(dml_ccflags)
+> +endif
+>  ifdef CONFIG_DRM_AMD_DC_DCN2_1
+>  CFLAGS_$(AMDDALPATH)/dc/dml/dcn21/display_mode_vba_21.o := $(dml_ccflags)
+>  CFLAGS_$(AMDDALPATH)/dc/dml/dcn21/display_rq_dlg_calc_21.o := $(dml_ccflags)
+> --
+> 2.6.2
+>
+
+
+-- 
+Best Regards
+Masahiro Yamada
