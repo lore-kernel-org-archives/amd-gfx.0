@@ -1,14 +1,13 @@
-From: "Kasiviswanathan, Harish" <Harish.Kasiviswanathan-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH v2 4/4] drm/amdkfd: Check against device cgroup
-Date: Mon, 16 Sep 2019 18:05:57 +0000
-Message-ID: <20190916180523.27341-5-Harish.Kasiviswanathan@amd.com>
-References: <20190916180523.27341-1-Harish.Kasiviswanathan@amd.com>
+From: Mark Brown <broonie-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org>
+Subject: Re: [PATCH] drm/amd/display: Fix compile error due to 'endif' missing
+Date: Mon, 16 Sep 2019 19:08:16 +0100
+Message-ID: <20190916180815.GK4352@sirena.co.uk>
+References: <20190916044651.GA72121@LGEARND20B15>
+ <CAK7LNARZMr5ZKGufi63GZrZ45k60faAiXr4mBB_mU9h_QifjxQ@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1939559157=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190916180523.27341-1-Harish.Kasiviswanathan-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
+In-Reply-To: <CAK7LNARZMr5ZKGufi63GZrZ45k60faAiXr4mBB_mU9h_QifjxQ-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -19,105 +18,73 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "tj-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org" <tj-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org>, "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "airlied-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org" <airlied-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>
-Cc: "cgroups-u79uwXL29TY76Z2rM5mHXA@public.gmane.org" <cgroups-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, "Kasiviswanathan,
- Harish" <Harish.Kasiviswanathan-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Masahiro Yamada <yamada.masahiro-uWyLwvC0a2jby3iVrkZq2A@public.gmane.org>
+Cc: Stephen Rothwell <sfr-3FnU+UHB4dNDw9hX6IcOSA@public.gmane.org>, David Airlie <airlied-cv59FeDIM0c@public.gmane.org>, Austin Kim <austindh.kim-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, Roman.Li-5C7GfCeVMHo@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Linux Kernel Mailing List <linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, dri-devel <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>
 
-UGFydGljaXBhdGUgaW4gZGV2aWNlIGNncm91cC4gQWxsIGtmZCBkZXZpY2VzIGFyZSBleHBvc2Vk
-IHZpYSAvZGV2L2tmZC4KU28gdXNlIC9kZXYvZHJpL3JlbmRlck4gbm9kZS4KCkJlZm9yZSBleHBv
-c2luZyB0aGUgZGV2aWNlIHRvIGEgdGFzayBjaGVjayBpZiBpdCBoYXMgcGVybWlzc2lvbiB0bwph
-Y2Nlc3MgaXQuIElmIHRoZSB0YXNrIChiYXNlZCBvbiBpdHMgY2dyb3VwKSBjYW4gYWNjZXNzIC9k
-ZXYvZHJpL3JlbmRlck4KdGhlbiBleHBvc2UgdGhlIGRldmljZSB2aWEga2ZkIG5vZGUuCgpJZiB0
-aGUgdGFzayBjYW5ub3QgYWNjZXNzIC9kZXYvZHJpL3JlbmRlck4gdGhlbiBwcm9jZXNzIGRldmlj
-ZSBkYXRhCihwZGQpIGlzIG5vdCBjcmVhdGVkLiBUaGlzIHdpbGwgZW5zdXJlIHRoYXQgdGFzayBj
-YW5ub3QgdXNlIHRoZSBkZXZpY2UuCgpJbiBzeXNmcyB0b3BvbG9neSwgYWxsIGRldmljZSBub2Rl
-cyBhcmUgdmlzaWJsZSBpcnJlc3BlY3RpdmUgb2YgdGhlIHRhc2sKY2dyb3VwLiBUaGUgc3lzZnMg
-bm9kZSBkaXJlY3RvcmllcyBhcmUgY3JlYXRlZCBhdCBkcml2ZXIgbG9hZCB0aW1lIGFuZApjYW5u
-b3QgYmUgY2hhbmdlZCBkeW5hbWljYWxseS4gSG93ZXZlciwgYWNjZXNzIHRvIGluZm9ybWF0aW9u
-IGluc2lkZQpub2RlcyBpcyBjb250cm9sbGVkIGJhc2VkIG9uIHRoZSB0YXNrJ3MgY2dyb3VwIHBl
-cm1pc3Npb25zLgoKQ2hhbmdlLUlkOiBJYzc2ZDRkM2M0ZTEyZTI4ODAzM2I4ZDIyYjA4ZmZjNWEy
-ZDc4NGU1YwpTaWduZWQtb2ZmLWJ5OiBIYXJpc2ggS2FzaXZpc3dhbmF0aGFuIDxIYXJpc2guS2Fz
-aXZpc3dhbmF0aGFuQGFtZC5jb20+ClJldmlld2VkLWJ5OiBGZWxpeCBLdWVobGluZyA8RmVsaXgu
-S3VlaGxpbmdAYW1kLmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfZmxh
-dF9tZW1vcnkuYyB8ICA5ICsrKysrKystLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2Zk
-X3ByaXYuaCAgICAgICAgfCAxNyArKysrKysrKysrKysrKysrKwogZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9hbWRrZmQva2ZkX3RvcG9sb2d5LmMgICAgfCAxMiArKysrKysrKysrKysKIDMgZmlsZXMgY2hh
-bmdlZCwgMzYgaW5zZXJ0aW9ucygrKSwgMiBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9kcml2
-ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfZmxhdF9tZW1vcnkuYyBiL2RyaXZlcnMvZ3B1L2Ry
-bS9hbWQvYW1ka2ZkL2tmZF9mbGF0X21lbW9yeS5jCmluZGV4IDQ4MTY2MTQ5OWM5YS4uYWU5NTA2
-MzMyMjhjIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfZmxhdF9t
-ZW1vcnkuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfZmxhdF9tZW1vcnku
-YwpAQCAtMzY5LDggKzM2OSwxMyBAQCBpbnQga2ZkX2luaXRfYXBlcnR1cmVzKHN0cnVjdCBrZmRf
-cHJvY2VzcyAqcHJvY2VzcykKIAogCS8qSXRlcmF0aW5nIG92ZXIgYWxsIGRldmljZXMqLwogCXdo
-aWxlIChrZmRfdG9wb2xvZ3lfZW51bV9rZmRfZGV2aWNlcyhpZCwgJmRldikgPT0gMCkgewotCQlp
-ZiAoIWRldikgewotCQkJaWQrKzsgLyogU2tpcCBub24gR1BVIGRldmljZXMgKi8KKwkJaWYgKCFk
-ZXYgfHwga2ZkX2RldmNncm91cF9jaGVja19wZXJtaXNzaW9uKGRldikpIHsKKwkJCS8qIFNraXAg
-bm9uIEdQVSBkZXZpY2VzIGFuZCBkZXZpY2VzIHRvIHdoaWNoIHRoZQorCQkJICogY3VycmVudCBw
-cm9jZXNzIGhhdmUgbm8gYWNjZXNzIHRvLiBBY2Nlc3MgY2FuIGJlCisJCQkgKiBsaW1pdGVkIGJ5
-IHBsYWNpbmcgdGhlIHByb2Nlc3MgaW4gYSBzcGVjaWZpYworCQkJICogY2dyb3VwIGhpZXJhcmNo
-eQorCQkJICovCisJCQlpZCsrOwogCQkJY29udGludWU7CiAJCX0KIApkaWZmIC0tZ2l0IGEvZHJp
-dmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX3ByaXYuaCBiL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-YW1ka2ZkL2tmZF9wcml2LmgKaW5kZXggOWM1NmJhNmVjODI2Li5hMzAyM2Y5MzI1NTQgMTAwNjQ0
-Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9wcml2LmgKKysrIGIvZHJpdmVy
-cy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX3ByaXYuaApAQCAtMzYsNiArMzYsOCBAQAogI2luY2x1
-ZGUgPGxpbnV4L3NlcV9maWxlLmg+CiAjaW5jbHVkZSA8bGludXgva3JlZi5oPgogI2luY2x1ZGUg
-PGxpbnV4L3N5c2ZzLmg+CisjaW5jbHVkZSA8bGludXgvZGV2aWNlX2Nncm91cC5oPgorI2luY2x1
-ZGUgPGRybS9kcm1QLmg+CiAjaW5jbHVkZSA8a2dkX2tmZF9pbnRlcmZhY2UuaD4KIAogI2luY2x1
-ZGUgImFtZF9zaGFyZWQuaCIKQEAgLTEwNDgsNiArMTA1MCwyMSBAQCBib29sIGtmZF9pc19sb2Nr
-ZWQodm9pZCk7CiB2b2lkIGtmZF9pbmNfY29tcHV0ZV9hY3RpdmUoc3RydWN0IGtmZF9kZXYgKmRl
-dik7CiB2b2lkIGtmZF9kZWNfY29tcHV0ZV9hY3RpdmUoc3RydWN0IGtmZF9kZXYgKmRldik7CiAK
-Ky8qIENncm91cCBTdXBwb3J0ICovCisvKiBDaGVjayB3aXRoIGRldmljZSBjZ3JvdXAgaWYgQGtm
-ZCBkZXZpY2UgaXMgYWNjZXNzaWJsZSAqLworc3RhdGljIGlubGluZSBpbnQga2ZkX2RldmNncm91
-cF9jaGVja19wZXJtaXNzaW9uKHN0cnVjdCBrZmRfZGV2ICprZmQpCit7CisjaWYgZGVmaW5lZChD
-T05GSUdfQ0dST1VQX0RFVklDRSkKKwlzdHJ1Y3QgZHJtX2RldmljZSAqZGRldiA9IGtmZC0+ZGRl
-djsKKworCXJldHVybiBkZXZjZ3JvdXBfY2hlY2tfcGVybWlzc2lvbihERVZDR19ERVZfQ0hBUiwg
-ZGRldi0+ZHJpdmVyLT5tYWpvciwKKwkJCQkJICBkZGV2LT5yZW5kZXItPmluZGV4LAorCQkJCQkg
-IERFVkNHX0FDQ19XUklURSB8IERFVkNHX0FDQ19SRUFEKTsKKyNlbHNlCisJcmV0dXJuIDA7Cisj
-ZW5kaWYKK30KKwogLyogRGVidWdmcyAqLwogI2lmIGRlZmluZWQoQ09ORklHX0RFQlVHX0ZTKQog
-CmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfdG9wb2xvZ3kuYyBi
-L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF90b3BvbG9neS5jCmluZGV4IDhkMGNmZDM5
-MWQ2Ny4uOTJlNTg2N2FhOTkwIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtm
-ZC9rZmRfdG9wb2xvZ3kuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfdG9w
-b2xvZ3kuYwpAQCAtMjY5LDYgKzI2OSw4IEBAIHN0YXRpYyBzc2l6ZV90IGlvbGlua19zaG93KHN0
-cnVjdCBrb2JqZWN0ICprb2JqLCBzdHJ1Y3QgYXR0cmlidXRlICphdHRyLAogCWJ1ZmZlclswXSA9
-IDA7CiAKIAlpb2xpbmsgPSBjb250YWluZXJfb2YoYXR0ciwgc3RydWN0IGtmZF9pb2xpbmtfcHJv
-cGVydGllcywgYXR0cik7CisJaWYgKGlvbGluay0+Z3B1ICYmIGtmZF9kZXZjZ3JvdXBfY2hlY2tf
-cGVybWlzc2lvbihpb2xpbmstPmdwdSkpCisJCXJldHVybiAtRVBFUk07CiAJc3lzZnNfc2hvd18z
-MmJpdF9wcm9wKGJ1ZmZlciwgInR5cGUiLCBpb2xpbmstPmlvbGlua190eXBlKTsKIAlzeXNmc19z
-aG93XzMyYml0X3Byb3AoYnVmZmVyLCAidmVyc2lvbl9tYWpvciIsIGlvbGluay0+dmVyX21haik7
-CiAJc3lzZnNfc2hvd18zMmJpdF9wcm9wKGJ1ZmZlciwgInZlcnNpb25fbWlub3IiLCBpb2xpbmst
-PnZlcl9taW4pOwpAQCAtMzA1LDYgKzMwNyw4IEBAIHN0YXRpYyBzc2l6ZV90IG1lbV9zaG93KHN0
-cnVjdCBrb2JqZWN0ICprb2JqLCBzdHJ1Y3QgYXR0cmlidXRlICphdHRyLAogCWJ1ZmZlclswXSA9
-IDA7CiAKIAltZW0gPSBjb250YWluZXJfb2YoYXR0ciwgc3RydWN0IGtmZF9tZW1fcHJvcGVydGll
-cywgYXR0cik7CisJaWYgKG1lbS0+Z3B1ICYmIGtmZF9kZXZjZ3JvdXBfY2hlY2tfcGVybWlzc2lv
-bihtZW0tPmdwdSkpCisJCXJldHVybiAtRVBFUk07CiAJc3lzZnNfc2hvd18zMmJpdF9wcm9wKGJ1
-ZmZlciwgImhlYXBfdHlwZSIsIG1lbS0+aGVhcF90eXBlKTsKIAlzeXNmc19zaG93XzY0Yml0X3By
-b3AoYnVmZmVyLCAic2l6ZV9pbl9ieXRlcyIsIG1lbS0+c2l6ZV9pbl9ieXRlcyk7CiAJc3lzZnNf
-c2hvd18zMmJpdF9wcm9wKGJ1ZmZlciwgImZsYWdzIiwgbWVtLT5mbGFncyk7CkBAIC0zMzQsNiAr
-MzM4LDggQEAgc3RhdGljIHNzaXplX3Qga2ZkX2NhY2hlX3Nob3coc3RydWN0IGtvYmplY3QgKmtv
-YmosIHN0cnVjdCBhdHRyaWJ1dGUgKmF0dHIsCiAJYnVmZmVyWzBdID0gMDsKIAogCWNhY2hlID0g
-Y29udGFpbmVyX29mKGF0dHIsIHN0cnVjdCBrZmRfY2FjaGVfcHJvcGVydGllcywgYXR0cik7CisJ
-aWYgKGNhY2hlLT5ncHUgJiYga2ZkX2RldmNncm91cF9jaGVja19wZXJtaXNzaW9uKGNhY2hlLT5n
-cHUpKQorCQlyZXR1cm4gLUVQRVJNOwogCXN5c2ZzX3Nob3dfMzJiaXRfcHJvcChidWZmZXIsICJw
-cm9jZXNzb3JfaWRfbG93IiwKIAkJCWNhY2hlLT5wcm9jZXNzb3JfaWRfbG93KTsKIAlzeXNmc19z
-aG93XzMyYml0X3Byb3AoYnVmZmVyLCAibGV2ZWwiLCBjYWNoZS0+Y2FjaGVfbGV2ZWwpOwpAQCAt
-NDE0LDYgKzQyMCw4IEBAIHN0YXRpYyBzc2l6ZV90IG5vZGVfc2hvdyhzdHJ1Y3Qga29iamVjdCAq
-a29iaiwgc3RydWN0IGF0dHJpYnV0ZSAqYXR0ciwKIAlpZiAoc3RyY21wKGF0dHItPm5hbWUsICJn
-cHVfaWQiKSA9PSAwKSB7CiAJCWRldiA9IGNvbnRhaW5lcl9vZihhdHRyLCBzdHJ1Y3Qga2ZkX3Rv
-cG9sb2d5X2RldmljZSwKIAkJCQlhdHRyX2dwdWlkKTsKKwkJaWYgKGRldi0+Z3B1ICYmIGtmZF9k
-ZXZjZ3JvdXBfY2hlY2tfcGVybWlzc2lvbihkZXYtPmdwdSkpCisJCQlyZXR1cm4gLUVQRVJNOwog
-CQlyZXR1cm4gc3lzZnNfc2hvd18zMmJpdF92YWwoYnVmZmVyLCBkZXYtPmdwdV9pZCk7CiAJfQog
-CkBAIC00MjEsMTEgKzQyOSwxNSBAQCBzdGF0aWMgc3NpemVfdCBub2RlX3Nob3coc3RydWN0IGtv
-YmplY3QgKmtvYmosIHN0cnVjdCBhdHRyaWJ1dGUgKmF0dHIsCiAJCWRldiA9IGNvbnRhaW5lcl9v
-ZihhdHRyLCBzdHJ1Y3Qga2ZkX3RvcG9sb2d5X2RldmljZSwKIAkJCQlhdHRyX25hbWUpOwogCisJ
-CWlmIChkZXYtPmdwdSAmJiBrZmRfZGV2Y2dyb3VwX2NoZWNrX3Blcm1pc3Npb24oZGV2LT5ncHUp
-KQorCQkJcmV0dXJuIC1FUEVSTTsKIAkJcmV0dXJuIHN5c2ZzX3Nob3dfc3RyX3ZhbChidWZmZXIs
-IGRldi0+bm9kZV9wcm9wcy5uYW1lKTsKIAl9CiAKIAlkZXYgPSBjb250YWluZXJfb2YoYXR0ciwg
-c3RydWN0IGtmZF90b3BvbG9neV9kZXZpY2UsCiAJCQlhdHRyX3Byb3BzKTsKKwlpZiAoZGV2LT5n
-cHUgJiYga2ZkX2RldmNncm91cF9jaGVja19wZXJtaXNzaW9uKGRldi0+Z3B1KSkKKwkJcmV0dXJu
-IC1FUEVSTTsKIAlzeXNmc19zaG93XzMyYml0X3Byb3AoYnVmZmVyLCAiY3B1X2NvcmVzX2NvdW50
-IiwKIAkJCWRldi0+bm9kZV9wcm9wcy5jcHVfY29yZXNfY291bnQpOwogCXN5c2ZzX3Nob3dfMzJi
-aXRfcHJvcChidWZmZXIsICJzaW1kX2NvdW50IiwKLS0gCjIuMTcuMQoKX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1k
-LWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcv
-bWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+
+--===============1939559157==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="IKC1RK7+nRZ8SZaO"
+Content-Disposition: inline
+
+
+--IKC1RK7+nRZ8SZaO
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Tue, Sep 17, 2019 at 02:46:48AM +0900, Masahiro Yamada wrote:
+> (+CC Stephen Rothwell, Mark Brown)
+>=20
+> On Mon, Sep 16, 2019 at 1:46 PM Austin Kim <austindh.kim-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org> wrote:
+> >
+> > gcc throws compile error with below message:
+>=20
+> GNU Make throws ...
+>=20
+>=20
+
+I don't have the original patch so I don't know what the issue being
+reported is :/  Whatever it is it wasn't caught by any of the builds
+done during the process of building -next and nothing is jumping out at
+me on KernelCI.
+
+> This is probably a merge mistake in linux-next.
+
+> If so, this should be directly fixed in the linux-next.
+
+> If it is not fixed in time,
+> please inform Linus to *not* follow the linux-next.
+
+It's probably worth coordinating this merge with DRM, it's not *super*
+complex but clearly there's some potential for error here and it was
+definitely annoyingly fiddly.
+
+--IKC1RK7+nRZ8SZaO
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl1/z48ACgkQJNaLcl1U
+h9BEtAf8Cg6gsw4Wr7G6vas1AyCCbY8RUAsjUmUecWcXXaUrxAlhZINRy+3tV8pB
+1+uxPZZbpbrAtrb7GATiJZAEmCbazZP5PlHWivEgTfqSUQiHSDoX/5gvtaGdfQoq
+fEosO5kiJ1Z7uEjKLgqfdIotR0oGxYYBRAhMPs5Q+KDheHdNDVVkWjKkqfLGBMvc
+QxAbEbCfF3mk0MziIFmI4rmsREpvVE3YqWZFcp/u0dUbg/+hAf9/MKH2W1EK7qi4
+L45PCcnI9vR5hivC8iNYZnvFtg1IugOgX7kM/6Wp8g4jxvTPeZGqYG4LFfdRU2lx
+wMBC2pjSApPd0pdO0uUyA7Cjn9Tg/A==
+=cbJO
+-----END PGP SIGNATURE-----
+
+--IKC1RK7+nRZ8SZaO--
+
+--===============1939559157==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+
+--===============1939559157==--
