@@ -1,72 +1,59 @@
-From: Daniel Vetter <daniel@ffwll.ch>
-Subject: Re: [PATCH RFC v4 00/16] new cgroup controller for gpu/drm subsystem
-Date: Tue, 17 Sep 2019 14:21:40 +0200
-Message-ID: <20190917122140.GL3958@phenom.ffwll.local>
-References: <20190829060533.32315-1-Kenny.Ho@amd.com>
- <20190831042857.GD2263813@devbig004.ftw2.facebook.com>
- <20190903075550.GJ2112@phenom.ffwll.local>
- <20190903185013.GI2263813@devbig004.ftw2.facebook.com>
- <CAKMK7uE5Bj-3cJH895iqnLpwUV+GBDM1Y=n4Z4A3xervMdJKXg@mail.gmail.com>
- <20190906152320.GM2263813@devbig004.ftw2.facebook.com>
- <CAKMK7uEXP7XLFB2aFU6+E0TH_DepFRkfCoKoHwkXtjZRDyhHig@mail.gmail.com>
- <20190906154539.GP2263813@devbig004.ftw2.facebook.com>
- <20190910115448.GT2063@dhcp22.suse.cz>
+From: Alex Deucher <alexdeucher@gmail.com>
+Subject: Re: [PATCH] drm/amd/display: Restore backlight brightness after
+ system resume
+Date: Tue, 17 Sep 2019 08:32:23 -0400
+Message-ID: <CADnq5_NtPXA-87MU-nmnT4t4+cjgJfR7VbyRxYCpSH9YXE4RUA@mail.gmail.com>
+References: <20190902083342.27393-1-kai.heng.feng@canonical.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-Content-Disposition: inline
-In-Reply-To: <20190910115448.GT2063@dhcp22.suse.cz>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: Michal Hocko <mhocko@kernel.org>
-Cc: "Greathouse, Joseph" <joseph.greathouse@amd.com>, Kenny Ho <Kenny.Ho@amd.com>, "Kuehling, Felix" <felix.kuehling@amd.com>, jsparks@cray.com, dri-devel <dri-devel@lists.freedesktop.org>, lkaplan@cray.com, Alex Deucher <alexander.deucher@amd.com>, Kenny Ho <y2kenny@gmail.com>, amd-gfx list <amd-gfx@lists.freedesktop.org>, Tejun Heo <tj@kernel.org>, cgroups@vger.kernel.org, Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Return-path: <stable-owner@vger.kernel.org>
+In-Reply-To: <20190902083342.27393-1-kai.heng.feng@canonical.com>
+Sender: stable-owner@vger.kernel.org
+To: Kai-Heng Feng <kai.heng.feng@canonical.com>
+Cc: "Wentland, Harry" <harry.wentland@amd.com>, "Leo (Sunpeng) Li" <sunpeng.li@amd.com>, "Deucher, Alexander" <alexander.deucher@amd.com>, Christian Koenig <christian.koenig@amd.com>, Chunming Zhou <David1.Zhou@amd.com>, "for 3.8" <stable@vger.kernel.org>, Maling list - DRI developers <dri-devel@lists.freedesktop.org>, amd-gfx list <amd-gfx@lists.freedesktop.org>, LKML <linux-kernel@vger.kernel.org>
 List-Id: amd-gfx.lists.freedesktop.org
 
-T24gVHVlLCBTZXAgMTAsIDIwMTkgYXQgMDE6NTQ6NDhQTSArMDIwMCwgTWljaGFsIEhvY2tvIHdy
-b3RlOgo+IE9uIEZyaSAwNi0wOS0xOSAwODo0NTozOSwgVGVqdW4gSGVvIHdyb3RlOgo+ID4gSGVs
-bG8sIERhbmllbC4KPiA+IAo+ID4gT24gRnJpLCBTZXAgMDYsIDIwMTkgYXQgMDU6MzQ6MTZQTSAr
-MDIwMCwgRGFuaWVsIFZldHRlciB3cm90ZToKPiA+ID4gPiBIbW0uLi4gd2hhdCdkIGJlIHRoZSBm
-dW5kYW1lbnRhbCBkaWZmZXJlbmNlIGZyb20gc2xhYiBvciBzb2NrZXQgbWVtb3J5Cj4gPiA+ID4g
-d2hpY2ggYXJlIGhhbmRsZWQgdGhyb3VnaCBtZW1jZz8gIElzIHN5c3RlbSBtZW1vcnkgdXNlZCBi
-eSBHUFVzIGhhdmUKPiA+ID4gPiBmdXJ0aGVyIGdsb2JhbCByZXN0cmljdGlvbnMgaW4gYWRkaXRp
-b24gdG8gdGhlIGFtb3VudCBvZiBwaHlzaWNhbAo+ID4gPiA+IG1lbW9yeSB1c2VkPwo+ID4gPiAK
-PiA+ID4gU29tZXRpbWVzLCBidXQgdGhhdCB3b3VsZCBiZSBzcGVjaWZpYyByZXNvdXJjZXMgKGtp
-bmRhIGxpa2UgdnJhbSksCj4gPiA+IGUuZy4gQ01BIHJlZ2lvbnMgdXNlZCBieSBhIGdwdS4gQnV0
-IHByb2JhYmx5IG5vdCBzb21ldGhpbmcgeW91J2xsIHJ1bgo+ID4gPiBpbiBhIGRhdGFjZW50ZXIg
-YW5kIHdhbnQgY2dyb3VwcyBmb3IgLi4uCj4gPiA+IAo+ID4gPiBJIGd1ZXNzIHdlIGNvdWxkIHRy
-eSB0byBpbnRlZ3JhdGUgd2l0aCB0aGUgbWVtY2cgZ3JvdXAgY29udHJvbGxlci4gT25lCj4gPiA+
-IHRyb3VibGUgaXMgdGhhdCBhc2lkZSBmcm9tIGk5MTUgbW9zdCBncHUgZHJpdmVycyBkbyBub3Qg
-cmVhbGx5IGhhdmUgYQo+ID4gPiBmdWxsIHNocmlua2VyLCBzbyBub3Qgc3VyZSBob3cgdGhhdCB3
-b3VsZCBhbGwgaW50ZWdyYXRlLgo+ID4gCj4gPiBTbywgd2hpbGUgaXQnZCBncmVhdCB0byBoYXZl
-IHNocmlua2VycyBpbiB0aGUgbG9uZ2VyIHRlcm0sIGl0J3Mgbm90IGEKPiA+IHN0cmljdCByZXF1
-aXJlbWVudCB0byBiZSBhY2NvdW50ZWQgaW4gbWVtY2cuICBJdCBhbHJlYWR5IGFjY291bnRzIGEK
-PiA+IGxvdCBvZiBtZW1vcnkgd2hpY2ggaXNuJ3QgcmVjbGFpbWFibGUgKGEgbG90IG9mIHNsYWJz
-IGFuZCBzb2NrZXQKPiA+IGJ1ZmZlcikuCj4gCj4gWWVhaCwgaGF2aW5nIGEgc2hyaW5rZXIgaXMg
-cHJlZmVycmVkIGJ1dCB0aGUgbWVtb3J5IHNob3VsZCBiZXR0ZXIgYmUKPiByZWNsYWltYWJsZSBp
-biBzb21lIGZvcm0uIElmIG5vdCBieSBhbnkgb3RoZXIgbWVhbnMgdGhlbiBhdCBsZWFzdCBib3Vu
-ZAo+IHRvIGEgdXNlciBwcm9jZXNzIGNvbnRleHQgc28gdGhhdCBpdCBnb2VzIGF3YXkgd2l0aCBh
-IHRhc2sgYmVpbmcga2lsbGVkCj4gYnkgdGhlIE9PTSBraWxsZXIuIElmIHRoYXQgaXMgbm90IHRo
-ZSBjYXNlIHRoZW4gd2UgY2Fubm90IHJlYWxseSBjaGFyZ2UKPiBpdCBiZWNhdXNlIHRoZW4gdGhl
-IG1lbWNnIGNvbnRyb2xsZXIgaXMgb2Ygbm8gdXNlLiBXZSBjYW4gdG9sZXJhdGUgaXQgdG8KPiBz
-b21lIGRlZ3JlZSBpZiB0aGUgYW1vdW50IG9mIG1lbW9yeSBjaGFyZ2VkIGxpa2UgdGhhdCBpcyBu
-ZWdsaWdpYmxlIHRvCj4gdGhlIG92ZXJhbGwgc2l6ZS4gQnV0IGZyb20gdGhlIGRpc2N1c3Npb24g
-aXQgc2VlbXMgdGhhdCB0aGVzZSBidWZmZXJzCj4gYXJlIHJlYWxseSBsYXJnZS4KCkkgdGhpbmsg
-d2UgY2FuIGp1c3QgbWFrZSAibXVzdCBoYXZlIGEgc2hyaW5rZXIiIGFzIGEgcmVxdWlyZW1lbnQg
-Zm9yCnN5c3RlbSBtZW1vcnkgY2dyb3VwIHRoaW5nIGZvciBncHUgYnVmZmVycy4gVGhlcmUncyBt
-aWxkIGxvY2tpbmcgaW52ZXJzaW9uCmZ1biB0byBiZSBoYWQgd2hlbiB0eXBpbmcgb25lLCBidXQg
-SSB0aGluayB0aGUgcHJvYmxlbSBpcyB3ZWxsLXVuZGVyc3Rvb2QKZW5vdWdoIHRoYXQgdGhpcyBp
-c24ndCBhIGh1Z2UgaHVyZGxlIHRvIGNsaW1iIG92ZXIuIEFuZCBzaG91bGQgZ2l2ZSBhZG1pbnMK
-YW4gZWFzaWVyIHRvIG1hbmdlIHN5c3RlbSwgc2luY2UgaXQgd29ya3MgbW9yZSBsaWtlIHdoYXQg
-dGhleSBrbm93CmFscmVhZHkuCi1EYW5pZWwKLS0gCkRhbmllbCBWZXR0ZXIKU29mdHdhcmUgRW5n
-aW5lZXIsIEludGVsIENvcnBvcmF0aW9uCmh0dHA6Ly9ibG9nLmZmd2xsLmNoCl9fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmRyaS1kZXZlbCBtYWlsaW5nIGxp
-c3QKZHJpLWRldmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNr
-dG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2RyaS1kZXZlbA==
+Applied.  Thanks!
+
+Alex
+
+On Mon, Sep 2, 2019 at 4:16 PM Kai-Heng Feng
+<kai.heng.feng@canonical.com> wrote:
+>
+> Laptops with AMD APU doesn't restore display backlight brightness after
+> system resume.
+>
+> This issue started when DC was introduced.
+>
+> Let's use BL_CORE_SUSPENDRESUME so the backlight core calls
+> update_status callback after system resume to restore the backlight
+> level.
+>
+> Tested on Dell Inspiron 3180 (Stoney Ridge) and Dell Latitude 5495
+> (Raven Ridge).
+>
+> Cc: <stable@vger.kernel.org>
+> Signed-off-by: Kai-Heng Feng <kai.heng.feng@canonical.com>
+> ---
+>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 1 +
+>  1 file changed, 1 insertion(+)
+>
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index 1b0949dd7808..183ef18ac6f3 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -2111,6 +2111,7 @@ static int amdgpu_dm_backlight_get_brightness(struct backlight_device *bd)
+>  }
+>
+>  static const struct backlight_ops amdgpu_dm_backlight_ops = {
+> +       .options = BL_CORE_SUSPENDRESUME,
+>         .get_brightness = amdgpu_dm_backlight_get_brightness,
+>         .update_status  = amdgpu_dm_backlight_update_status,
+>  };
+> --
+> 2.17.1
+>
+> _______________________________________________
+> dri-devel mailing list
+> dri-devel@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/dri-devel
