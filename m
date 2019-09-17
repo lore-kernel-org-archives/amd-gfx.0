@@ -1,13 +1,11 @@
 From: "Zhou1, Tao" <Tao.Zhou1-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH 2/2] drm/amdgpu: fix size calc error in bo_create_kernel_at
-Date: Tue, 17 Sep 2019 06:17:01 +0000
-Message-ID: <20190917061643.29367-2-tao.zhou1@amd.com>
-References: <20190917061643.29367-1-tao.zhou1@amd.com>
+Subject: [PATCH 1/2] drm/amdgpu: initialize bo in ras_reserve_bad_pages
+Date: Tue, 17 Sep 2019 06:16:59 +0000
+Message-ID: <20190917061643.29367-1-tao.zhou1@amd.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190917061643.29367-1-tao.zhou1-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -23,18 +21,18 @@ To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7
  Guchun" <Guchun.Chen-5C7GfCeVMHo@public.gmane.org>, "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "Zhang, Hawking" <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>
 Cc: "Zhou1, Tao" <Tao.Zhou1-5C7GfCeVMHo@public.gmane.org>
 
-cmVwbGFjZSBvZmZzZXQgd2l0aCBzaXplCgpTaWduZWQtb2ZmLWJ5OiBUYW8gWmhvdSA8dGFvLnpo
-b3UxQGFtZC5jb20+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X29iamVj
-dC5jIHwgMiArLQogMSBmaWxlIGNoYW5nZWQsIDEgaW5zZXJ0aW9uKCspLCAxIGRlbGV0aW9uKC0p
-CgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X29iamVjdC5j
-IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X29iamVjdC5jCmluZGV4IGVjYWQ4
-NGUxYjRlMi4uMmZjZDJkMTRjYmYwIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
-ZGdwdS9hbWRncHVfb2JqZWN0LmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
-Z3B1X29iamVjdC5jCkBAIC0zNjYsNyArMzY2LDcgQEAgaW50IGFtZGdwdV9ib19jcmVhdGVfa2Vy
-bmVsX2F0KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LAogCWludCByOwogCiAJb2Zmc2V0ICY9
-IFBBR0VfTUFTSzsKLQlzaXplID0gQUxJR04ob2Zmc2V0LCBQQUdFX1NJWkUpOworCXNpemUgPSBB
-TElHTihzaXplLCBQQUdFX1NJWkUpOwogCiAJciA9IGFtZGdwdV9ib19jcmVhdGVfcmVzZXJ2ZWQo
-YWRldiwgc2l6ZSwgUEFHRV9TSVpFLCBkb21haW4sIGJvX3B0ciwKIAkJCQkgICAgICBOVUxMLCBO
-VUxMKTsKLS0gCjIuMTcuMQoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5v
-cmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+dGhlIGJvIHBvaW50ZXIgaXMgcmV1c2VkIGZvciBiYWQgcGFnZXMsIGluaXRpYWxpemUgaXQgaW4g
+ZWFjaCBsb29wCgpTaWduZWQtb2ZmLWJ5OiBUYW8gWmhvdSA8dGFvLnpob3UxQGFtZC5jb20+Ci0t
+LQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Jhcy5jIHwgMSArCiAxIGZpbGUg
+Y2hhbmdlZCwgMSBpbnNlcnRpb24oKykKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1k
+L2FtZGdwdS9hbWRncHVfcmFzLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
+cmFzLmMKaW5kZXggNWY2MjNkYWY1MDc4Li4wOTBkYWY1OTU0NjkgMTAwNjQ0Ci0tLSBhL2RyaXZl
+cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9yYXMuYworKysgYi9kcml2ZXJzL2dwdS9kcm0v
+YW1kL2FtZGdwdS9hbWRncHVfcmFzLmMKQEAgLTE0MjEsNiArMTQyMSw3IEBAIGludCBhbWRncHVf
+cmFzX3Jlc2VydmVfYmFkX3BhZ2VzKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQogCiAJCWRh
+dGEtPmJwc19ib1tpXSA9IGJvOwogCQlkYXRhLT5sYXN0X3Jlc2VydmVkID0gaSArIDE7CisJCWJv
+ID0gTlVMTDsKIAl9CiAKIAkvKiBjb250aW51ZSB0byBzYXZlIGJhZCBwYWdlcyB0byBlZXByb20g
+ZXZlbiByZWVzcnZlX3ZyYW0gZmFpbHMgKi8KLS0gCjIuMTcuMQoKX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdm
+eEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFp
+bG1hbi9saXN0aW5mby9hbWQtZ2Z4
