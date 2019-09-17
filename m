@@ -1,69 +1,111 @@
-From: "Quan, Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH] drm/amd/powerplay: implement VCN power gating control
- interface
-Date: Tue, 17 Sep 2019 03:06:14 +0000
-Message-ID: <MN2PR12MB33440426B959E159DBB0161AE48F0@MN2PR12MB3344.namprd12.prod.outlook.com>
-References: <1568688837-21350-1-git-send-email-Prike.Liang@amd.com>
-Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1568688837-21350-1-git-send-email-Prike.Liang-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Liang, Prike" <Prike.Liang-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Huang, Ray" <Ray.Huang-5C7GfCeVMHo@public.gmane.org>, "Feng, Kenneth" <Kenneth.Feng-5C7GfCeVMHo@public.gmane.org>, "Liu, Aaron" <Aaron.Liu-5C7GfCeVMHo@public.gmane.org>
+From: Navid Emamdoost <navid.emamdoost@gmail.com>
+Subject: [PATCH] drm/amd/display: memory leak
+Date: Mon, 16 Sep 2019 22:20:44 -0500
+Message-ID: <20190917032106.32342-1-navid.emamdoost@gmail.com>
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Sender: linux-kernel-owner@vger.kernel.org
+Cc: emamd001@umn.edu, smccaman@umn.edu, kjlu@umn.edu, Navid Emamdoost <navid.emamdoost@gmail.com>, Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>, Tony Cheng <Tony.Cheng@amd.com>, Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>, Eric Yang <Eric.Yang2@amd.com>, Jun Lei <Jun.Lei@amd.com>, David Francis <David.Francis@amd.com>, Wesley Chalmers <Wesley.Chalmers@amd.com>, Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>, Aidan Wood <Aidan.Wood@amd.com>, Ken Chalmers <ken.chalm>
+List-Id: amd-gfx.lists.freedesktop.org
 
-UmV2aWV3ZWQtYnk6IEV2YW4gUXVhbiA8ZXZhbi5xdWFuQGFtZC5jb20+CgotLS0tLU9yaWdpbmFs
-IE1lc3NhZ2UtLS0tLQpGcm9tOiBMaWFuZywgUHJpa2UgPFByaWtlLkxpYW5nQGFtZC5jb20+IApT
-ZW50OiBUdWVzZGF5LCBTZXB0ZW1iZXIgMTcsIDIwMTkgMTA6NTQgQU0KVG86IGFtZC1nZnhAbGlz
-dHMuZnJlZWRlc2t0b3Aub3JnCkNjOiBRdWFuLCBFdmFuIDxFdmFuLlF1YW5AYW1kLmNvbT47IEZl
-bmcsIEtlbm5ldGggPEtlbm5ldGguRmVuZ0BhbWQuY29tPjsgSHVhbmcsIFJheSA8UmF5Lkh1YW5n
-QGFtZC5jb20+OyBMaXUsIEFhcm9uIDxBYXJvbi5MaXVAYW1kLmNvbT47IExpYW5nLCBQcmlrZSA8
-UHJpa2UuTGlhbmdAYW1kLmNvbT4KU3ViamVjdDogW1BBVENIXSBkcm0vYW1kL3Bvd2VycGxheTog
-aW1wbGVtZW50IFZDTiBwb3dlciBnYXRpbmcgY29udHJvbCBpbnRlcmZhY2UKClZDTiBHYXQvVW5n
-YXQgYnkgcHJvY2Vzc2luZyB0aGUgU01VIHBvd2VyIHVwL2Rvd24gbWVzc2FnZSwgb3RoZXJ3aXNl
-ClMzIHdpbGwgcmVzdW1lIGZhaWxlZCBhcyBKUEVHIGFsd2F5cyBwb3dlciBvZmYgZHVyaW5nIHN0
-YXJ0IFZDTiBzdGFnZS4KClNpZ25lZC1vZmYtYnk6IFByaWtlIExpYW5nIDxQcmlrZS5MaWFuZ0Bh
-bWQuY29tPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L3Jlbm9pcl9wcHQuYyB8
-IDI4ICsrKysrKysrKysrKysrKysrKysrKysrKysrKy0KIDEgZmlsZSBjaGFuZ2VkLCAyNyBpbnNl
-cnRpb25zKCspLCAxIGRlbGV0aW9uKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9wb3dlcnBsYXkvcmVub2lyX3BwdC5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkv
-cmVub2lyX3BwdC5jCmluZGV4IDJjMjJiYTQuLjkzMTFiNmEgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMv
-Z3B1L2RybS9hbWQvcG93ZXJwbGF5L3Jlbm9pcl9wcHQuYworKysgYi9kcml2ZXJzL2dwdS9kcm0v
-YW1kL3Bvd2VycGxheS9yZW5vaXJfcHB0LmMKQEAgLTI3OCw2ICsyNzgsMzIgQEAgc3RhdGljIGVu
-dW0gYW1kX3BtX3N0YXRlX3R5cGUgcmVub2lyX2dldF9jdXJyZW50X3Bvd2VyX3N0YXRlKHN0cnVj
-dCBzbXVfY29udGV4dAogCXJldHVybiBwbV90eXBlOwogfQogCitzdGF0aWMgaW50IHJlbm9pcl9k
-cG1fc2V0X3V2ZF9lbmFibGUoc3RydWN0IHNtdV9jb250ZXh0ICpzbXUsIGJvb2wgZW5hYmxlKQor
-eworCXN0cnVjdCBzbXVfcG93ZXJfY29udGV4dCAqc211X3Bvd2VyID0gJnNtdS0+c211X3Bvd2Vy
-OworCXN0cnVjdCBzbXVfcG93ZXJfZ2F0ZSAqcG93ZXJfZ2F0ZSA9ICZzbXVfcG93ZXItPnBvd2Vy
-X2dhdGU7CisJaW50IHJldCA9IDA7CisKKwlpZiAoZW5hYmxlKSB7CisJCS8qIHZjbiBkcG0gb24g
-aXMgYSBwcmVyZXF1aXNpdGUgZm9yIHZjbiBwb3dlciBnYXRlIG1lc3NhZ2VzICovCisJCWlmIChz
-bXVfZmVhdHVyZV9pc19lbmFibGVkKHNtdSwgU01VX0ZFQVRVUkVfVkNOX1BHX0JJVCkpIHsKKwkJ
-CXJldCA9IHNtdV9zZW5kX3NtY19tc2dfd2l0aF9wYXJhbShzbXUsIFNNVV9NU0dfUG93ZXJVcFZj
-biwgMSk7CisJCQlpZiAocmV0KQorCQkJCXJldHVybiByZXQ7CisJCX0KKwkJcG93ZXJfZ2F0ZS0+
-dmNuX2dhdGVkID0gZmFsc2U7CisJfSBlbHNlIHsKKwkJaWYgKHNtdV9mZWF0dXJlX2lzX2VuYWJs
-ZWQoc211LCBTTVVfRkVBVFVSRV9WQ05fUEdfQklUKSkgeworCQkJcmV0ID0gc211X3NlbmRfc21j
-X21zZyhzbXUsIFNNVV9NU0dfUG93ZXJEb3duVmNuKTsKKwkJCWlmIChyZXQpCisJCQkJcmV0dXJu
-IHJldDsKKwkJfQorCQlwb3dlcl9nYXRlLT52Y25fZ2F0ZWQgPSB0cnVlOworCX0KKworCXJldHVy
-biByZXQ7Cit9CisKIHN0YXRpYyBjb25zdCBzdHJ1Y3QgcHB0YWJsZV9mdW5jcyByZW5vaXJfcHB0
-X2Z1bmNzID0gewogCS5nZXRfc211X21zZ19pbmRleCA9IHJlbm9pcl9nZXRfc211X21zZ19pbmRl
-eCwKIAkuZ2V0X3NtdV90YWJsZV9pbmRleCA9IHJlbm9pcl9nZXRfc211X3RhYmxlX2luZGV4LApA
-QCAtMjg2LDcgKzMxMiw3IEBAIHN0YXRpYyBjb25zdCBzdHJ1Y3QgcHB0YWJsZV9mdW5jcyByZW5v
-aXJfcHB0X2Z1bmNzID0gewogCS5nZXRfZHBtX3VjbGtfbGltaXRlZCA9IHJlbm9pcl9nZXRfZHBt
-X3VjbGtfbGltaXRlZCwKIAkucHJpbnRfY2xrX2xldmVscyA9IHJlbm9pcl9wcmludF9jbGtfbGV2
-ZWxzLAogCS5nZXRfY3VycmVudF9wb3dlcl9zdGF0ZSA9IHJlbm9pcl9nZXRfY3VycmVudF9wb3dl
-cl9zdGF0ZSwKLQorCS5kcG1fc2V0X3V2ZF9lbmFibGUgPSByZW5vaXJfZHBtX3NldF91dmRfZW5h
-YmxlLAogfTsKIAogdm9pZCByZW5vaXJfc2V0X3BwdF9mdW5jcyhzdHJ1Y3Qgc211X2NvbnRleHQg
-KnNtdSkKLS0gCjIuNy40CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9y
-ZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
+In dcn*_clock_source_create when dcn20_clk_src_construct fails allocated
+clk_src needs release.
+
+Signed-off-by: Navid Emamdoost <navid.emamdoost@gmail.com>
+---
+ drivers/gpu/drm/amd/display/dc/dce100/dce100_resource.c | 3 ++-
+ drivers/gpu/drm/amd/display/dc/dce110/dce110_resource.c | 1 +
+ drivers/gpu/drm/amd/display/dc/dce112/dce112_resource.c | 1 +
+ drivers/gpu/drm/amd/display/dc/dce120/dce120_resource.c | 1 +
+ drivers/gpu/drm/amd/display/dc/dce80/dce80_resource.c   | 1 +
+ drivers/gpu/drm/amd/display/dc/dcn10/dcn10_resource.c   | 1 +
+ drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c   | 1 +
+ 7 files changed, 8 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/display/dc/dce100/dce100_resource.c b/drivers/gpu/drm/amd/display/dc/dce100/dce100_resource.c
+index 6248c8455314..21de230b303a 100644
+--- a/drivers/gpu/drm/amd/display/dc/dce100/dce100_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/dce100/dce100_resource.c
+@@ -667,7 +667,8 @@ struct clock_source *dce100_clock_source_create(
+ 		clk_src->base.dp_clk_src = dp_clk_src;
+ 		return &clk_src->base;
+ 	}
+-
++
++	kfree(clk_src);
+ 	BREAK_TO_DEBUGGER();
+ 	return NULL;
+ }
+diff --git a/drivers/gpu/drm/amd/display/dc/dce110/dce110_resource.c b/drivers/gpu/drm/amd/display/dc/dce110/dce110_resource.c
+index 764329264c3b..0cb83b0e0e1e 100644
+--- a/drivers/gpu/drm/amd/display/dc/dce110/dce110_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/dce110/dce110_resource.c
+@@ -714,6 +714,7 @@ struct clock_source *dce110_clock_source_create(
+ 		return &clk_src->base;
+ 	}
+ 
++	kfree(clk_src);
+ 	BREAK_TO_DEBUGGER();
+ 	return NULL;
+ }
+diff --git a/drivers/gpu/drm/amd/display/dc/dce112/dce112_resource.c b/drivers/gpu/drm/amd/display/dc/dce112/dce112_resource.c
+index c6136e0ed1a4..147d77173e2b 100644
+--- a/drivers/gpu/drm/amd/display/dc/dce112/dce112_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/dce112/dce112_resource.c
+@@ -687,6 +687,7 @@ struct clock_source *dce112_clock_source_create(
+ 		return &clk_src->base;
+ 	}
+ 
++	kfree(clk_src);
+ 	BREAK_TO_DEBUGGER();
+ 	return NULL;
+ }
+diff --git a/drivers/gpu/drm/amd/display/dc/dce120/dce120_resource.c b/drivers/gpu/drm/amd/display/dc/dce120/dce120_resource.c
+index 4a6ba3173a5a..0b5eeff17d00 100644
+--- a/drivers/gpu/drm/amd/display/dc/dce120/dce120_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/dce120/dce120_resource.c
+@@ -500,6 +500,7 @@ static struct clock_source *dce120_clock_source_create(
+ 		return &clk_src->base;
+ 	}
+ 
++	kfree(clk_src);
+ 	BREAK_TO_DEBUGGER();
+ 	return NULL;
+ }
+diff --git a/drivers/gpu/drm/amd/display/dc/dce80/dce80_resource.c b/drivers/gpu/drm/amd/display/dc/dce80/dce80_resource.c
+index 860a524ebcfa..952440893fbb 100644
+--- a/drivers/gpu/drm/amd/display/dc/dce80/dce80_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/dce80/dce80_resource.c
+@@ -701,6 +701,7 @@ struct clock_source *dce80_clock_source_create(
+ 		return &clk_src->base;
+ 	}
+ 
++	kfree(clk_src);
+ 	BREAK_TO_DEBUGGER();
+ 	return NULL;
+ }
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_resource.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_resource.c
+index a12530a3ab9c..3f25e8da5396 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_resource.c
+@@ -786,6 +786,7 @@ struct clock_source *dcn10_clock_source_create(
+ 		return &clk_src->base;
+ 	}
+ 
++	kfree(clk_src);
+ 	BREAK_TO_DEBUGGER();
+ 	return NULL;
+ }
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
+index b949e202d6cb..418fdcf1f492 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
+@@ -955,6 +955,7 @@ struct clock_source *dcn20_clock_source_create(
+ 		return &clk_src->base;
+ 	}
+ 
++	kfree(clk_src)
+ 	BREAK_TO_DEBUGGER();
+ 	return NULL;
+ }
+-- 
+2.17.1
