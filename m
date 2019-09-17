@@ -1,15 +1,13 @@
-From: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH] drm: add drm device name
-Date: Mon, 16 Sep 2019 20:06:16 -0400
-Message-ID: <CAAxE2A6sESsKAi3K1etAZeCwAPgexn099G6g0aJQnavTkiH+mA@mail.gmail.com>
-References: <20190903214040.2386-1-sonny.jiang@amd.com>
- <CAAxE2A45N4gMYrcETDpznGKyxLztuwenFasL19a81QQmBkYiww@mail.gmail.com>
- <CAF6AEGvvUUOGujJC9P3t72N93AJuxiiVt0OAk8zf226Q8WmHvg@mail.gmail.com>
- <CAKMK7uHFNhdNY4Y9ZFMNuci7gssPWCT5f5y=e4npg8s5r_jBdQ@mail.gmail.com>
+From: "Liang, Prike" <Prike.Liang-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH] drm/amd/powerplay: implement VCN power gating control
+ interface
+Date: Tue, 17 Sep 2019 02:54:07 +0000
+Message-ID: <1568688837-21350-1-git-send-email-Prike.Liang@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0077951254=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CAKMK7uHFNhdNY4Y9ZFMNuci7gssPWCT5f5y=e4npg8s5r_jBdQ-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -20,441 +18,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>
-Cc: "Jiang, Sonny" <Sonny.Jiang-5C7GfCeVMHo@public.gmane.org>, Rob Clark <robdclark-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, dri-devel <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Huang, Ray" <Ray.Huang-5C7GfCeVMHo@public.gmane.org>, "Liang,
+ Prike" <Prike.Liang-5C7GfCeVMHo@public.gmane.org>, "Quan, Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>, "Feng,
+ Kenneth" <Kenneth.Feng-5C7GfCeVMHo@public.gmane.org>, "Liu, Aaron" <Aaron.Liu-5C7GfCeVMHo@public.gmane.org>
 
---===============0077951254==
-Content-Type: multipart/alternative; boundary="0000000000006aaa5f0592b47fe5"
-
---0000000000006aaa5f0592b47fe5
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-The purpose is to get rid of all PCI ID tables for all drivers in
-userspace. (or at least stop updating them)
-
-Mesa common code and modesetting will use this.
-
-Marek
-
-On Sat, Sep 7, 2019 at 3:48 PM Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org> wrote:
-
-> On Sat, Sep 7, 2019 at 3:18 AM Rob Clark <robdclark-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org> wrote:
-> >
-> > On Fri, Sep 6, 2019 at 3:16 PM Marek Ol=C5=A1=C3=A1k <maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>=
- wrote:
-> > >
-> > > + dri-devel
-> > >
-> > > On Tue, Sep 3, 2019 at 5:41 PM Jiang, Sonny <Sonny.Jiang-5C7GfCeVMHo@public.gmane.org>
-> wrote:
-> > >>
-> > >> Add DRM device name and use DRM_IOCTL_VERSION ioctl drmVersion::desc
-> passing it to user space
-> > >> instead of unused DRM driver name descriptor.
-> > >>
-> > >> Change-Id: I809f6d3e057111417efbe8fa7cab8f0113ba4b21
-> > >> Signed-off-by: Sonny Jiang <sonny.jiang-5C7GfCeVMHo@public.gmane.org>
-> > >> ---
-> > >>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  2 ++
-> > >>  drivers/gpu/drm/drm_drv.c                  | 17 +++++++++++++++++
-> > >>  drivers/gpu/drm/drm_ioctl.c                |  2 +-
-> > >>  include/drm/drm_device.h                   |  3 +++
-> > >>  include/drm/drm_drv.h                      |  1 +
-> > >>  5 files changed, 24 insertions(+), 1 deletion(-)
-> > >>
-> > >> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> > >> index 67b09cb2a9e2..8f0971cea363 100644
-> > >> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> > >> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> > >> @@ -2809,6 +2809,8 @@ int amdgpu_device_init(struct amdgpu_device
-> *adev,
-> > >>         /* init the mode config */
-> > >>         drm_mode_config_init(adev->ddev);
-> > >>
-> > >> +       drm_dev_set_name(adev->ddev,
-> amdgpu_asic_name[adev->asic_type]);
-> > >> +
-> > >>         r =3D amdgpu_device_ip_init(adev);
-> > >>         if (r) {
-> > >>                 /* failed in exclusive mode due to timeout */
-> > >> diff --git a/drivers/gpu/drm/drm_drv.c b/drivers/gpu/drm/drm_drv.c
-> > >> index 862621494a93..6c33879bb538 100644
-> > >> --- a/drivers/gpu/drm/drm_drv.c
-> > >> +++ b/drivers/gpu/drm/drm_drv.c
-> > >> @@ -802,6 +802,7 @@ void drm_dev_fini(struct drm_device *dev)
-> > >>         mutex_destroy(&dev->struct_mutex);
-> > >>         drm_legacy_destroy_members(dev);
-> > >>         kfree(dev->unique);
-> > >> +       kfree(dev->name);
-> > >>  }
-> > >>  EXPORT_SYMBOL(drm_dev_fini);
-> > >>
-> > >> @@ -1078,6 +1079,22 @@ int drm_dev_set_unique(struct drm_device *dev=
-,
-> const char *name)
-> > >>  }
-> > >>  EXPORT_SYMBOL(drm_dev_set_unique);
-> > >>
-> > >> +/**
-> > >> + * drm_dev_set_name - Set the name of a DRM device
-> > >> + * @dev: device of which to set the name
-> > >> + * @name: name to be set
-> > >> + *
-> > >> + * Return: 0 on success or a negative error code on failure.
-> > >> + */
-> > >> +int drm_dev_set_name(struct drm_device *dev, const char *name)
-> > >> +{
-> > >> +       kfree(dev->name);
-> > >> +       dev->name =3D kstrdup(name, GFP_KERNEL);
-> > >> +
-> > >> +       return dev->name ? 0 : -ENOMEM;
-> > >> +}
-> > >> +EXPORT_SYMBOL(drm_dev_set_name);
-> > >> +
-> > >>  /*
-> > >>   * DRM Core
-> > >>   * The DRM core module initializes all global DRM objects and makes
-> them
-> > >> diff --git a/drivers/gpu/drm/drm_ioctl.c b/drivers/gpu/drm/drm_ioctl=
-.c
-> > >> index 2263e3ddd822..61f02965106b 100644
-> > >> --- a/drivers/gpu/drm/drm_ioctl.c
-> > >> +++ b/drivers/gpu/drm/drm_ioctl.c
-> > >> @@ -506,7 +506,7 @@ int drm_version(struct drm_device *dev, void
-> *data,
-> > >>                                 dev->driver->date);
-> > >>         if (!err)
-> > >>                 err =3D drm_copy_field(version->desc,
-> &version->desc_len,
-> > >> -                               dev->driver->desc);
-> > >> +                               dev->name);
-> >
-> > I suspect this needs to be something like dev->name ? dev->name :
-> > dev->driver->desc
-> >
-> > Or somewhere something needs to arrange for dev->name to default to
-> > dev->driver->desc
-> >
-> > And maybe this should be dev->desc instead of dev->name.. that at
-> > least seems less confusing to me.
-> >
-> > other than that, I don't see a big problem
->
-> (recap from irc)
->
-> I thought we're using this as essentially an uapi identifier, so that
-> you know which kind of ioctl set a driver supports. Not so big deal on
-> pci, where we match against pci ids anyway, kinda bigger deal where
-> that's not around. Listing codenames and or something else that
-> changes all the time feels a bit silly for that. Imo if you just want
-> to expose this to userspace, stuff it into an amdgpu info/query ioctl.
->
-> So what do you need this for exactly, where's the userspace that needs
-> this?
-> -Daniel
->
-> >
-> > BR,
-> > -R
-> >
-> > >>
-> > >>         return err;
-> > >>  }
-> > >> diff --git a/include/drm/drm_device.h b/include/drm/drm_device.h
-> > >> index 7f9ef709b2b6..e29912c484e4 100644
-> > >> --- a/include/drm/drm_device.h
-> > >> +++ b/include/drm/drm_device.h
-> > >> @@ -123,6 +123,9 @@ struct drm_device {
-> > >>         /** @unique: Unique name of the device */
-> > >>         char *unique;
-> > >>
-> > >> +       /** @name: device name */
-> > >> +       char *name;
-> > >> +
-> > >>         /**
-> > >>          * @struct_mutex:
-> > >>          *
-> > >> diff --git a/include/drm/drm_drv.h b/include/drm/drm_drv.h
-> > >> index 68ca736c548d..f742e2bde467 100644
-> > >> --- a/include/drm/drm_drv.h
-> > >> +++ b/include/drm/drm_drv.h
-> > >> @@ -798,6 +798,7 @@ static inline bool
-> drm_drv_uses_atomic_modeset(struct drm_device *dev)
-> > >>
-> > >>
-> > >>  int drm_dev_set_unique(struct drm_device *dev, const char *name);
-> > >> +int drm_dev_set_name(struct drm_device *dev, const char *name);
-> > >>
-> > >>
-> > >>  #endif
-> > >> --
-> > >> 2.17.1
-> > >>
-> > >> _______________________________________________
-> > >> amd-gfx mailing list
-> > >> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-> > >> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-> > >
-> > > _______________________________________________
-> > > dri-devel mailing list
-> > > dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-> > > https://lists.freedesktop.org/mailman/listinfo/dri-devel
-> > _______________________________________________
-> > dri-devel mailing list
-> > dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-> > https://lists.freedesktop.org/mailman/listinfo/dri-devel
->
->
->
-> --
-> Daniel Vetter
-> Software Engineer, Intel Corporation
-> +41 (0) 79 365 57 48 - http://blog.ffwll.ch
->
-
---0000000000006aaa5f0592b47fe5
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div>The purpose is to get rid of all PCI ID tables for al=
-l drivers in userspace. (or at least stop updating them)<br></div><div><br>=
-</div><div>Mesa common code and modesetting will use this.<br></div><div><b=
-r></div><div>Marek<br></div><br><div class=3D"gmail_quote"><div dir=3D"ltr"=
- class=3D"gmail_attr">On Sat, Sep 7, 2019 at 3:48 PM Daniel Vetter &lt;<a h=
-ref=3D"mailto:daniel-/w4YWyX8dFk@public.gmane.org">daniel-/w4YWyX8dFk@public.gmane.org</a>&gt; wrote:<br></div><blo=
-ckquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left=
-:1px solid rgb(204,204,204);padding-left:1ex">On Sat, Sep 7, 2019 at 3:18 A=
-M Rob Clark &lt;<a href=3D"mailto:robdclark-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org" target=3D"_blank">ro=
-bdclark-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt; wrote:<br>
-&gt;<br>
-&gt; On Fri, Sep 6, 2019 at 3:16 PM Marek Ol=C5=A1=C3=A1k &lt;<a href=3D"ma=
-ilto:maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org" target=3D"_blank">maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt; wrote:<br=
->
-&gt; &gt;<br>
-&gt; &gt; + dri-devel<br>
-&gt; &gt;<br>
-&gt; &gt; On Tue, Sep 3, 2019 at 5:41 PM Jiang, Sonny &lt;<a href=3D"mailto=
-:Sonny.Jiang-5C7GfCeVMHo@public.gmane.org" target=3D"_blank">Sonny.Jiang-5C7GfCeVMHo@public.gmane.org</a>&gt; wrote:<=
-br>
-&gt; &gt;&gt;<br>
-&gt; &gt;&gt; Add DRM device name and use DRM_IOCTL_VERSION ioctl drmVersio=
-n::desc passing it to user space<br>
-&gt; &gt;&gt; instead of unused DRM driver name descriptor.<br>
-&gt; &gt;&gt;<br>
-&gt; &gt;&gt; Change-Id: I809f6d3e057111417efbe8fa7cab8f0113ba4b21<br>
-&gt; &gt;&gt; Signed-off-by: Sonny Jiang &lt;<a href=3D"mailto:sonny.jiang@=
-amd.com" target=3D"_blank">sonny.jiang-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
-&gt; &gt;&gt; ---<br>
-&gt; &gt;&gt;=C2=A0 drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |=C2=A0 2 ++=
-<br>
-&gt; &gt;&gt;=C2=A0 drivers/gpu/drm/drm_drv.c=C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 | 17 +++++++++++++++++<br>
-&gt; &gt;&gt;=C2=A0 drivers/gpu/drm/drm_ioctl.c=C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 |=C2=A0 2 +-<br>
-&gt; &gt;&gt;=C2=A0 include/drm/drm_device.h=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0|=C2=A0 3 +++<br>
-&gt; &gt;&gt;=C2=A0 include/drm/drm_drv.h=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 |=C2=A0 1 +<br>
-&gt; &gt;&gt;=C2=A0 5 files changed, 24 insertions(+), 1 deletion(-)<br>
-&gt; &gt;&gt;<br>
-&gt; &gt;&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/dri=
-vers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
-&gt; &gt;&gt; index 67b09cb2a9e2..8f0971cea363 100644<br>
-&gt; &gt;&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
-&gt; &gt;&gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
-&gt; &gt;&gt; @@ -2809,6 +2809,8 @@ int amdgpu_device_init(struct amdgpu_de=
-vice *adev,<br>
-&gt; &gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0/* init the mode config */<b=
-r>
-&gt; &gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0drm_mode_config_init(adev-&g=
-t;ddev);<br>
-&gt; &gt;&gt;<br>
-&gt; &gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0drm_dev_set_name(adev-&gt;ddev, a=
-mdgpu_asic_name[adev-&gt;asic_type]);<br>
-&gt; &gt;&gt; +<br>
-&gt; &gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0r =3D amdgpu_device_ip_init(=
-adev);<br>
-&gt; &gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (r) {<br>
-&gt; &gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
-/* failed in exclusive mode due to timeout */<br>
-&gt; &gt;&gt; diff --git a/drivers/gpu/drm/drm_drv.c b/drivers/gpu/drm/drm_=
-drv.c<br>
-&gt; &gt;&gt; index 862621494a93..6c33879bb538 100644<br>
-&gt; &gt;&gt; --- a/drivers/gpu/drm/drm_drv.c<br>
-&gt; &gt;&gt; +++ b/drivers/gpu/drm/drm_drv.c<br>
-&gt; &gt;&gt; @@ -802,6 +802,7 @@ void drm_dev_fini(struct drm_device *dev)=
-<br>
-&gt; &gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0mutex_destroy(&amp;dev-&gt;s=
-truct_mutex);<br>
-&gt; &gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0drm_legacy_destroy_members(d=
-ev);<br>
-&gt; &gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0kfree(dev-&gt;unique);<br>
-&gt; &gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0kfree(dev-&gt;name);<br>
-&gt; &gt;&gt;=C2=A0 }<br>
-&gt; &gt;&gt;=C2=A0 EXPORT_SYMBOL(drm_dev_fini);<br>
-&gt; &gt;&gt;<br>
-&gt; &gt;&gt; @@ -1078,6 +1079,22 @@ int drm_dev_set_unique(struct drm_devi=
-ce *dev, const char *name)<br>
-&gt; &gt;&gt;=C2=A0 }<br>
-&gt; &gt;&gt;=C2=A0 EXPORT_SYMBOL(drm_dev_set_unique);<br>
-&gt; &gt;&gt;<br>
-&gt; &gt;&gt; +/**<br>
-&gt; &gt;&gt; + * drm_dev_set_name - Set the name of a DRM device<br>
-&gt; &gt;&gt; + * @dev: device of which to set the name<br>
-&gt; &gt;&gt; + * @name: name to be set<br>
-&gt; &gt;&gt; + *<br>
-&gt; &gt;&gt; + * Return: 0 on success or a negative error code on failure.=
-<br>
-&gt; &gt;&gt; + */<br>
-&gt; &gt;&gt; +int drm_dev_set_name(struct drm_device *dev, const char *nam=
-e)<br>
-&gt; &gt;&gt; +{<br>
-&gt; &gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0kfree(dev-&gt;name);<br>
-&gt; &gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0dev-&gt;name =3D kstrdup(name, GF=
-P_KERNEL);<br>
-&gt; &gt;&gt; +<br>
-&gt; &gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0return dev-&gt;name ? 0 : -ENOMEM=
-;<br>
-&gt; &gt;&gt; +}<br>
-&gt; &gt;&gt; +EXPORT_SYMBOL(drm_dev_set_name);<br>
-&gt; &gt;&gt; +<br>
-&gt; &gt;&gt;=C2=A0 /*<br>
-&gt; &gt;&gt;=C2=A0 =C2=A0* DRM Core<br>
-&gt; &gt;&gt;=C2=A0 =C2=A0* The DRM core module initializes all global DRM =
-objects and makes them<br>
-&gt; &gt;&gt; diff --git a/drivers/gpu/drm/drm_ioctl.c b/drivers/gpu/drm/dr=
-m_ioctl.c<br>
-&gt; &gt;&gt; index 2263e3ddd822..61f02965106b 100644<br>
-&gt; &gt;&gt; --- a/drivers/gpu/drm/drm_ioctl.c<br>
-&gt; &gt;&gt; +++ b/drivers/gpu/drm/drm_ioctl.c<br>
-&gt; &gt;&gt; @@ -506,7 +506,7 @@ int drm_version(struct drm_device *dev, v=
-oid *data,<br>
-&gt; &gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0dev-&gt;driver-&gt;=
-date);<br>
-&gt; &gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (!err)<br>
-&gt; &gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
-err =3D drm_copy_field(version-&gt;desc, &amp;version-&gt;desc_len,<br>
-&gt; &gt;&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0dev-&gt;driver-&gt;desc=
-);<br>
-&gt; &gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0dev-&gt;name);<br>
-&gt;<br>
-&gt; I suspect this needs to be something like dev-&gt;name ? dev-&gt;name =
-:<br>
-&gt; dev-&gt;driver-&gt;desc<br>
-&gt;<br>
-&gt; Or somewhere something needs to arrange for dev-&gt;name to default to=
-<br>
-&gt; dev-&gt;driver-&gt;desc<br>
-&gt;<br>
-&gt; And maybe this should be dev-&gt;desc instead of dev-&gt;name.. that a=
-t<br>
-&gt; least seems less confusing to me.<br>
-&gt;<br>
-&gt; other than that, I don&#39;t see a big problem<br>
-<br>
-(recap from irc)<br>
-<br>
-I thought we&#39;re using this as essentially an uapi identifier, so that<b=
-r>
-you know which kind of ioctl set a driver supports. Not so big deal on<br>
-pci, where we match against pci ids anyway, kinda bigger deal where<br>
-that&#39;s not around. Listing codenames and or something else that<br>
-changes all the time feels a bit silly for that. Imo if you just want<br>
-to expose this to userspace, stuff it into an amdgpu info/query ioctl.<br>
-<br>
-So what do you need this for exactly, where&#39;s the userspace that needs =
-this?<br>
--Daniel<br>
-<br>
-&gt;<br>
-&gt; BR,<br>
-&gt; -R<br>
-&gt;<br>
-&gt; &gt;&gt;<br>
-&gt; &gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return err;<br>
-&gt; &gt;&gt;=C2=A0 }<br>
-&gt; &gt;&gt; diff --git a/include/drm/drm_device.h b/include/drm/drm_devic=
-e.h<br>
-&gt; &gt;&gt; index 7f9ef709b2b6..e29912c484e4 100644<br>
-&gt; &gt;&gt; --- a/include/drm/drm_device.h<br>
-&gt; &gt;&gt; +++ b/include/drm/drm_device.h<br>
-&gt; &gt;&gt; @@ -123,6 +123,9 @@ struct drm_device {<br>
-&gt; &gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0/** @unique: Unique name of =
-the device */<br>
-&gt; &gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0char *unique;<br>
-&gt; &gt;&gt;<br>
-&gt; &gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0/** @name: device name */<br>
-&gt; &gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0char *name;<br>
-&gt; &gt;&gt; +<br>
-&gt; &gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0/**<br>
-&gt; &gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 * @struct_mutex:<br>
-&gt; &gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 *<br>
-&gt; &gt;&gt; diff --git a/include/drm/drm_drv.h b/include/drm/drm_drv.h<br=
->
-&gt; &gt;&gt; index 68ca736c548d..f742e2bde467 100644<br>
-&gt; &gt;&gt; --- a/include/drm/drm_drv.h<br>
-&gt; &gt;&gt; +++ b/include/drm/drm_drv.h<br>
-&gt; &gt;&gt; @@ -798,6 +798,7 @@ static inline bool drm_drv_uses_atomic_mo=
-deset(struct drm_device *dev)<br>
-&gt; &gt;&gt;<br>
-&gt; &gt;&gt;<br>
-&gt; &gt;&gt;=C2=A0 int drm_dev_set_unique(struct drm_device *dev, const ch=
-ar *name);<br>
-&gt; &gt;&gt; +int drm_dev_set_name(struct drm_device *dev, const char *nam=
-e);<br>
-&gt; &gt;&gt;<br>
-&gt; &gt;&gt;<br>
-&gt; &gt;&gt;=C2=A0 #endif<br>
-&gt; &gt;&gt; --<br>
-&gt; &gt;&gt; 2.17.1<br>
-&gt; &gt;&gt;<br>
-&gt; &gt;&gt; _______________________________________________<br>
-&gt; &gt;&gt; amd-gfx mailing list<br>
-&gt; &gt;&gt; <a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" target=3D"_b=
-lank">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
-&gt; &gt;&gt; <a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd=
--gfx" rel=3D"noreferrer" target=3D"_blank">https://lists.freedesktop.org/ma=
-ilman/listinfo/amd-gfx</a><br>
-&gt; &gt;<br>
-&gt; &gt; _______________________________________________<br>
-&gt; &gt; dri-devel mailing list<br>
-&gt; &gt; <a href=3D"mailto:dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" target=3D"_bla=
-nk">dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
-&gt; &gt; <a href=3D"https://lists.freedesktop.org/mailman/listinfo/dri-dev=
-el" rel=3D"noreferrer" target=3D"_blank">https://lists.freedesktop.org/mail=
-man/listinfo/dri-devel</a><br>
-&gt; _______________________________________________<br>
-&gt; dri-devel mailing list<br>
-&gt; <a href=3D"mailto:dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" target=3D"_blank">d=
-ri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
-&gt; <a href=3D"https://lists.freedesktop.org/mailman/listinfo/dri-devel" r=
-el=3D"noreferrer" target=3D"_blank">https://lists.freedesktop.org/mailman/l=
-istinfo/dri-devel</a><br>
-<br>
-<br>
-<br>
--- <br>
-Daniel Vetter<br>
-Software Engineer, Intel Corporation<br>
-+41 (0) 79 365 57 48 - <a href=3D"http://blog.ffwll.ch" rel=3D"noreferrer" =
-target=3D"_blank">http://blog.ffwll.ch</a><br>
-</blockquote></div></div>
-
---0000000000006aaa5f0592b47fe5--
-
---===============0077951254==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
-
---===============0077951254==--
+VkNOIEdhdC9VbmdhdCBieSBwcm9jZXNzaW5nIHRoZSBTTVUgcG93ZXIgdXAvZG93biBtZXNzYWdl
+LCBvdGhlcndpc2UKUzMgd2lsbCByZXN1bWUgZmFpbGVkIGFzIEpQRUcgYWx3YXlzIHBvd2VyIG9m
+ZiBkdXJpbmcgc3RhcnQgVkNOIHN0YWdlLgoKU2lnbmVkLW9mZi1ieTogUHJpa2UgTGlhbmcgPFBy
+aWtlLkxpYW5nQGFtZC5jb20+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvcmVu
+b2lyX3BwdC5jIHwgMjggKysrKysrKysrKysrKysrKysrKysrKysrKysrLQogMSBmaWxlIGNoYW5n
+ZWQsIDI3IGluc2VydGlvbnMoKyksIDEgZGVsZXRpb24oLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJz
+L2dwdS9kcm0vYW1kL3Bvd2VycGxheS9yZW5vaXJfcHB0LmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1k
+L3Bvd2VycGxheS9yZW5vaXJfcHB0LmMKaW5kZXggMmMyMmJhNC4uOTMxMWI2YSAxMDA2NDQKLS0t
+IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvcmVub2lyX3BwdC5jCisrKyBiL2RyaXZl
+cnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L3Jlbm9pcl9wcHQuYwpAQCAtMjc4LDYgKzI3OCwzMiBA
+QCBzdGF0aWMgZW51bSBhbWRfcG1fc3RhdGVfdHlwZSByZW5vaXJfZ2V0X2N1cnJlbnRfcG93ZXJf
+c3RhdGUoc3RydWN0IHNtdV9jb250ZXh0CiAJcmV0dXJuIHBtX3R5cGU7CiB9CiAKK3N0YXRpYyBp
+bnQgcmVub2lyX2RwbV9zZXRfdXZkX2VuYWJsZShzdHJ1Y3Qgc211X2NvbnRleHQgKnNtdSwgYm9v
+bCBlbmFibGUpCit7CisJc3RydWN0IHNtdV9wb3dlcl9jb250ZXh0ICpzbXVfcG93ZXIgPSAmc211
+LT5zbXVfcG93ZXI7CisJc3RydWN0IHNtdV9wb3dlcl9nYXRlICpwb3dlcl9nYXRlID0gJnNtdV9w
+b3dlci0+cG93ZXJfZ2F0ZTsKKwlpbnQgcmV0ID0gMDsKKworCWlmIChlbmFibGUpIHsKKwkJLyog
+dmNuIGRwbSBvbiBpcyBhIHByZXJlcXVpc2l0ZSBmb3IgdmNuIHBvd2VyIGdhdGUgbWVzc2FnZXMg
+Ki8KKwkJaWYgKHNtdV9mZWF0dXJlX2lzX2VuYWJsZWQoc211LCBTTVVfRkVBVFVSRV9WQ05fUEdf
+QklUKSkgeworCQkJcmV0ID0gc211X3NlbmRfc21jX21zZ193aXRoX3BhcmFtKHNtdSwgU01VX01T
+R19Qb3dlclVwVmNuLCAxKTsKKwkJCWlmIChyZXQpCisJCQkJcmV0dXJuIHJldDsKKwkJfQorCQlw
+b3dlcl9nYXRlLT52Y25fZ2F0ZWQgPSBmYWxzZTsKKwl9IGVsc2UgeworCQlpZiAoc211X2ZlYXR1
+cmVfaXNfZW5hYmxlZChzbXUsIFNNVV9GRUFUVVJFX1ZDTl9QR19CSVQpKSB7CisJCQlyZXQgPSBz
+bXVfc2VuZF9zbWNfbXNnKHNtdSwgU01VX01TR19Qb3dlckRvd25WY24pOworCQkJaWYgKHJldCkK
+KwkJCQlyZXR1cm4gcmV0OworCQl9CisJCXBvd2VyX2dhdGUtPnZjbl9nYXRlZCA9IHRydWU7CisJ
+fQorCisJcmV0dXJuIHJldDsKK30KKwogc3RhdGljIGNvbnN0IHN0cnVjdCBwcHRhYmxlX2Z1bmNz
+IHJlbm9pcl9wcHRfZnVuY3MgPSB7CiAJLmdldF9zbXVfbXNnX2luZGV4ID0gcmVub2lyX2dldF9z
+bXVfbXNnX2luZGV4LAogCS5nZXRfc211X3RhYmxlX2luZGV4ID0gcmVub2lyX2dldF9zbXVfdGFi
+bGVfaW5kZXgsCkBAIC0yODYsNyArMzEyLDcgQEAgc3RhdGljIGNvbnN0IHN0cnVjdCBwcHRhYmxl
+X2Z1bmNzIHJlbm9pcl9wcHRfZnVuY3MgPSB7CiAJLmdldF9kcG1fdWNsa19saW1pdGVkID0gcmVu
+b2lyX2dldF9kcG1fdWNsa19saW1pdGVkLAogCS5wcmludF9jbGtfbGV2ZWxzID0gcmVub2lyX3By
+aW50X2Nsa19sZXZlbHMsCiAJLmdldF9jdXJyZW50X3Bvd2VyX3N0YXRlID0gcmVub2lyX2dldF9j
+dXJyZW50X3Bvd2VyX3N0YXRlLAotCisJLmRwbV9zZXRfdXZkX2VuYWJsZSA9IHJlbm9pcl9kcG1f
+c2V0X3V2ZF9lbmFibGUsCiB9OwogCiB2b2lkIHJlbm9pcl9zZXRfcHB0X2Z1bmNzKHN0cnVjdCBz
+bXVfY29udGV4dCAqc211KQotLSAKMi43LjQKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJl
+ZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGlu
+Zm8vYW1kLWdmeA==
