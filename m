@@ -1,13 +1,14 @@
-From: Nick Desaulniers <ndesaulniers-hpIqsD4AKlfQT0dZR+AlfA@public.gmane.org>
+From: Daniel Liu <danielliu861-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 Subject: Re: [PATCH] drm/amd/display: build failed for DCN2.1
-Date: Mon, 16 Sep 2019 13:51:15 -0700
-Message-ID: <CAKwvOdn8-T3Q=LhiGu6H7dCpwXXrNAjpKJA5z0d+N4qB8bOapQ@mail.gmail.com>
+Date: Tue, 17 Sep 2019 14:07:04 +0800
+Message-ID: <CAADsLEuwzqqoVyR+q_mnj+7H9Bkz-euWi7aCpWeHDypY-3zSzA@mail.gmail.com>
 References: <1568624607-19067-1-git-send-email-danielliu861@gmail.com>
+ <CAKwvOdn8-T3Q=LhiGu6H7dCpwXXrNAjpKJA5z0d+N4qB8bOapQ@mail.gmail.com>
+ <20190916221203.GM4352@sirena.co.uk> <20190916223615.GP4352@sirena.co.uk>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1918636147=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1568624607-19067-1-git-send-email-danielliu861-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+In-Reply-To: <20190916223615.GP4352-7j8lgAiuQgnQXOPxS62xeg@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,36 +19,80 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Xinpeng Liu <danielliu861-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, Mark Brown <broonie-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org>
+To: Mark Brown <broonie-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org>
 Cc: "Zhou, David(ChunMing)" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, "Li,
- Sun peng (Leo)" <sunpeng.li-5C7GfCeVMHo@public.gmane.org>, Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>, Roman.Li-5C7GfCeVMHo@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, David Airlie <airlied-cv59FeDIM0c@public.gmane.org>, Jun.Lei-5C7GfCeVMHo@public.gmane.org, Bhawanpreet.Lakha-5C7GfCeVMHo@public.gmane.org, "Koenig,
+ Sun peng (Leo)" <sunpeng.li-5C7GfCeVMHo@public.gmane.org>, Bhawanpreet.Lakha-5C7GfCeVMHo@public.gmane.org, Nick Desaulniers <ndesaulniers-hpIqsD4AKlfQT0dZR+AlfA@public.gmane.org>, Roman.Li-5C7GfCeVMHo@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, David Airlie <airlied-cv59FeDIM0c@public.gmane.org>, Jun.Lei-5C7GfCeVMHo@public.gmane.org, Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>, "Koenig,
  Christian" <christian.koenig-5C7GfCeVMHo@public.gmane.org>
 
-T24gTW9uLCBTZXAgMTYsIDIwMTkgYXQgMjowMyBBTSBYaW5wZW5nIExpdSA8ZGFuaWVsbGl1ODYx
-QGdtYWlsLmNvbT4gd3JvdGU6Cj4KPiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS8uLi9kaXNw
-bGF5L2RjL2RtbC9NYWtlZmlsZTo3MDogKioqIG1pc3NpbmcKPiBgZW5kaWYnLiAgU3RvcC4KPiBt
-YWtlWzRdOiAqKiogW2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1XSBFcnJvciAyCj4KPiBTaWdu
-ZWQtb2ZmLWJ5OiBYaW5wZW5nIExpdSA8ZGFuaWVsbGl1ODYxQGdtYWlsLmNvbT4KClRlc3RlZC1i
-eTogTmljayBEZXNhdWxuaWVycyA8bmRlc2F1bG5pZXJzQGdvb2dsZS5jb20+CgorIE1hcmsKSSB0
-aGluayB0aGlzIHdhcyBhIHJlc3VsdCBvZiB0aGUgcmVzb2x2ZWQgbWVyZ2UgY29uZmxpY3QuICBT
-ZWUgdGhlCi1uZXh0IG9ubHkgY29tbWl0IHRpdGxlZDoKICAgIE1lcmdlIHJlbW90ZS10cmFja2lu
-ZyBicmFuY2ggJ2RybS9kcm0tbmV4dCcKCgo+IC0tLQo+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2Rp
-c3BsYXkvZGMvZG1sL01ha2VmaWxlIHwgMSArCj4gIDEgZmlsZSBjaGFuZ2VkLCAxIGluc2VydGlv
-bigrKQo+Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9kbWwv
-TWFrZWZpbGUgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvZG1sL01ha2VmaWxlCj4g
-aW5kZXggYTJlYjU5ZS4uNWIyYTY1YiAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1k
-L2Rpc3BsYXkvZGMvZG1sL01ha2VmaWxlCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNw
-bGF5L2RjL2RtbC9NYWtlZmlsZQo+IEBAIC00NCw2ICs0NCw3IEBAIENGTEFHU18kKEFNRERBTFBB
-VEgpL2RjL2RtbC9kY24yMC9kaXNwbGF5X21vZGVfdmJhXzIwLm8gOj0gJChkbWxfY2NmbGFncykK
-PiAgQ0ZMQUdTXyQoQU1EREFMUEFUSCkvZGMvZG1sL2RjbjIwL2Rpc3BsYXlfcnFfZGxnX2NhbGNf
-MjAubyA6PSAkKGRtbF9jY2ZsYWdzKQo+ICBDRkxBR1NfJChBTUREQUxQQVRIKS9kYy9kbWwvZGNu
-MjAvZGlzcGxheV9tb2RlX3ZiYV8yMHYyLm8gOj0gJChkbWxfY2NmbGFncykKPiAgQ0ZMQUdTXyQo
-QU1EREFMUEFUSCkvZGMvZG1sL2RjbjIwL2Rpc3BsYXlfcnFfZGxnX2NhbGNfMjB2Mi5vIDo9ICQo
-ZG1sX2NjZmxhZ3MpCj4gK2VuZGlmCj4gIGlmZGVmIENPTkZJR19EUk1fQU1EX0RDX0RDTjJfMQo+
-ICBDRkxBR1NfJChBTUREQUxQQVRIKS9kYy9kbWwvZGNuMjEvZGlzcGxheV9tb2RlX3ZiYV8yMS5v
-IDo9ICQoZG1sX2NjZmxhZ3MpCj4gIENGTEFHU18kKEFNRERBTFBBVEgpL2RjL2RtbC9kY24yMS9k
-aXNwbGF5X3JxX2RsZ19jYWxjXzIxLm8gOj0gJChkbWxfY2NmbGFncykKPiAtLQo+IDEuOC4zLjEK
-PgoKCi0tIApUaGFua3MsCn5OaWNrIERlc2F1bG5pZXJzCl9fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlz
-dHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4v
-bGlzdGluZm8vYW1kLWdmeA==
+--===============1918636147==
+Content-Type: multipart/alternative; boundary="0000000000004623600592b98809"
+
+--0000000000004623600592b98809
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+Welcome^_^!
+
+Mark Brown <broonie-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org> =E4=BA=8E2019=E5=B9=B49=E6=9C=8817=E6=97=A5=
+=E5=91=A8=E4=BA=8C =E4=B8=8A=E5=8D=886:36=E5=86=99=E9=81=93=EF=BC=9A
+
+> On Mon, Sep 16, 2019 at 11:12:03PM +0100, Mark Brown wrote:
+> > On Mon, Sep 16, 2019 at 01:51:15PM -0700, Nick Desaulniers wrote:
+> >
+> > > + Mark
+> > > I think this was a result of the resolved merge conflict.  See the
+> > > -next only commit titled:
+> > >     Merge remote-tracking branch 'drm/drm-next'
+>
+> > Yes, the DRM and the Kbuild people really need to coordinate with each
+> > other here I fear, it's pretty bad that stuff like this has to be done
+> > in a merge at all :/ The fact that make doesn't detect a missing endif
+> > is also concerning.
+>
+> Applied now, thanks Xinpeng.
+>
+
+--0000000000004623600592b98809
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Welcome^_^!</div><br><div class=3D"gmail_quote"><div dir=
+=3D"ltr" class=3D"gmail_attr">Mark Brown &lt;<a href=3D"mailto:broonie@kern=
+el.org">broonie-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org</a>&gt; =E4=BA=8E2019=E5=B9=B49=E6=9C=8817=E6=97=
+=A5=E5=91=A8=E4=BA=8C =E4=B8=8A=E5=8D=886:36=E5=86=99=E9=81=93=EF=BC=9A<br>=
+</div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;b=
+order-left:1px solid rgb(204,204,204);padding-left:1ex">On Mon, Sep 16, 201=
+9 at 11:12:03PM +0100, Mark Brown wrote:<br>
+&gt; On Mon, Sep 16, 2019 at 01:51:15PM -0700, Nick Desaulniers wrote:<br>
+&gt; <br>
+&gt; &gt; + Mark<br>
+&gt; &gt; I think this was a result of the resolved merge conflict.=C2=A0 S=
+ee the<br>
+&gt; &gt; -next only commit titled:<br>
+&gt; &gt;=C2=A0 =C2=A0 =C2=A0Merge remote-tracking branch &#39;drm/drm-next=
+&#39;<br>
+<br>
+&gt; Yes, the DRM and the Kbuild people really need to coordinate with each=
+<br>
+&gt; other here I fear, it&#39;s pretty bad that stuff like this has to be =
+done<br>
+&gt; in a merge at all :/ The fact that make doesn&#39;t detect a missing e=
+ndif<br>
+&gt; is also concerning.<br>
+<br>
+Applied now, thanks Xinpeng.<br>
+</blockquote></div>
+
+--0000000000004623600592b98809--
+
+--===============1918636147==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+
+--===============1918636147==--
