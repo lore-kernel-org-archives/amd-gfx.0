@@ -1,112 +1,66 @@
-From: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>
-Subject: Re: [PATCH] drm: add drm device name
-Date: Wed, 18 Sep 2019 16:10:08 -0400
-Message-ID: <CAAxE2A5niHWs=VQZO8B6d4tBx6NmYSKb7U=9injNL9087Yi_Kg@mail.gmail.com>
-References: <20190903214040.2386-1-sonny.jiang@amd.com>
- <CAAxE2A45N4gMYrcETDpznGKyxLztuwenFasL19a81QQmBkYiww@mail.gmail.com>
- <CAF6AEGvvUUOGujJC9P3t72N93AJuxiiVt0OAk8zf226Q8WmHvg@mail.gmail.com>
- <CAKMK7uHFNhdNY4Y9ZFMNuci7gssPWCT5f5y=e4npg8s5r_jBdQ@mail.gmail.com>
- <CAAxE2A6sESsKAi3K1etAZeCwAPgexn099G6g0aJQnavTkiH+mA@mail.gmail.com>
- <87woe7eanv.fsf@intel.com> <03d31464-3968-6923-5323-f63060d70f1f@gmail.com>
- <CAKMK7uEj4FZ3YQqG-cCTa4EEaJoAk09Zaz398F9Hmo+mdXCKiw@mail.gmail.com>
- <7540df63-e623-19b0-dde5-b89ff2b7fb89@amd.com>
- <7535dcf4-413f-f06f-b3d1-dcffc86b43e0@daenzer.net>
- <5d0a8619-7073-fac2-cdd6-83b55221140b@daenzer.net>
- <b61ec704-894d-092a-253c-961ff2ea01a2@gmail.com>
- <4d255e1c-1d4a-a754-afe0-b18776a11a7e@daenzer.net>
- <CAAxE2A7RcsiEsWBtbsDE2Wp+Vx7n-vwM1qL6HX_qKt=KnHCd4g@mail.gmail.com>
- <8c49e2e3-1fa1-35db-7d25-574b4b64cca0@daenzer.net>
+From: <mikita.lipski-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH 00/15]  DSC MST support for AMDGPU
+Date: Wed, 18 Sep 2019 16:26:37 -0400
+Message-ID: <cover.1568833906.git.mikita.lipski@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============2145326935=="
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-In-Reply-To: <8c49e2e3-1fa1-35db-7d25-574b4b64cca0@daenzer.net>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel@daenzer.net>
-Cc: "Jiang, Sonny" <Sonny.Jiang@amd.com>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, dri-devel <dri-devel@lists.freedesktop.org>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-List-Id: amd-gfx.lists.freedesktop.org
-
---===============2145326935==
-Content-Type: multipart/alternative; boundary="000000000000979d7a0592d96eb0"
-
---000000000000979d7a0592d96eb0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-On Wed, Sep 18, 2019 at 10:03 AM Michel D=C3=A4nzer <michel@daenzer.net> wr=
-ote:
-
-> On 2019-09-18 1:41 a.m., Marek Ol=C5=A1=C3=A1k wrote:
-> > drmVersion::name =3D amdgpu, radeon, intel, etc.
-> > drmVersion::desc =3D vega10, vega12, vega20, ...
-> >
-> > The common Mesa code will use name and desc to select the driver.
->
-> Like the Xorg modesetting driver, that code doesn't need this kernel
-> functionality or new PCI IDs. It can just select the current driver for
-> all devices which aren't supported by older drivers (which is a fixed
-> set at this point).
->
->
-> > The AMD-specific Mesa code will use desc to identify the chip.
->
-> Doesn't libdrm_amdgpu's struct amdgpu_gpu_info::family_id provide the
-> same information?
->
-
-Not for the common code, though I guess common Mesa code could use the INFO
-ioctl. Is that what you mean?
-
-Marek
-
---000000000000979d7a0592d96eb0
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail=
-_attr">On Wed, Sep 18, 2019 at 10:03 AM Michel D=C3=A4nzer &lt;<a href=3D"m=
-ailto:michel@daenzer.net">michel@daenzer.net</a>&gt; wrote:<br></div><block=
-quote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1=
-px solid rgb(204,204,204);padding-left:1ex">On 2019-09-18 1:41 a.m., Marek =
-Ol=C5=A1=C3=A1k wrote:<br>
-&gt; drmVersion::name =3D amdgpu, radeon, intel, etc.<br>
-&gt; drmVersion::desc =3D vega10, vega12, vega20, ...<br>
-&gt; <br>
-&gt; The common Mesa code will use name and desc to select the driver.<br>
-<br>
-Like the Xorg modesetting driver, that code doesn&#39;t need this kernel<br=
->
-functionality or new PCI IDs. It can just select the current driver for<br>
-all devices which aren&#39;t supported by older drivers (which is a fixed<b=
-r>
-set at this point).<br>
-<br>
-<br>
-&gt; The AMD-specific Mesa code will use desc to identify the chip.<br>
-<br>
-Doesn&#39;t libdrm_amdgpu&#39;s struct amdgpu_gpu_info::family_id provide t=
-he<br>
-same information?<br></blockquote><div><br></div><div>Not for the common co=
-de, though I guess common Mesa code could use the INFO ioctl. Is that what =
-you mean?<br></div><div><br></div><div>Marek</div></div></div>
-
---000000000000979d7a0592d96eb0--
-
---===============2145326935==
 Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
 Content-Transfer-Encoding: base64
-Content-Disposition: inline
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Mikita Lipski <mikita.lipski-5C7GfCeVMHo@public.gmane.org>, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KZHJpLWRldmVs
-IG1haWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
-dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVs
-
---===============2145326935==--
+RnJvbTogTWlraXRhIExpcHNraSA8bWlraXRhLmxpcHNraUBhbWQuY29tPgoKVGhpcyBzZXQgb2Yg
+cGF0Y2hlcyBpcyBhIGNvbnRpbnVhdGlvbiBvZiBEU0MgZW5hYmxlbWVudApwYXRjaGVzIGZvciBB
+TURHUFUuIFRoaXMgc2V0IGVuYWJsZXMgRFNDIG9uIE1TVC4KCkZpcnN0IDMgcGF0Y2hlcyBhZGQg
+YXRvbWljIGNoZWNrIGZ1bmN0aW9uYWxpdHkgdG8KZW5jb2RlciBhbmQgY29ubmVjdG9yIHRvIGFs
+bG9jYXRlIGFuZCByZWxlYXNlIFZDUEkKc2xvdHMgb24gZWFjaCBzdGF0ZSBhdG9taWMgY2hlY2su
+IFRoZXNlIGNoYW5nZXMKdXRpbGl6ZSBuZXdseSBhZGRlZCBkcm1fbXN0X2hlbHBlciBmdW5jdGlv
+bnMgZm9yCmJldHRlciB0cmFja2luZyBvZiBWQ1BJIHNsb3RzLgoKT3RoZXIgMTIgcGF0Y2hlcyBo
+YXZlIGJlZW4gaW50cm9kdWNlZCBpbiBtdWx0aXBsZQppdGVyYXRpb25zIHRvIHRoZSBtYWlsaW5n
+IGxpc3QgYmVmb3JlLiBUaGVzZSBwYXRjaGVzIHdlcmUKZGV2ZWxvcGVkIGJ5IERhdmlkIEZyYW5j
+aXMgYXMgcGFydCBvZiBoaXMgd29yayBvbiBEU0MuCgpEYXZpZCBGcmFuY2lzICgxMik6CiAgZHJt
+L2RwX21zdDogQWRkIFBCTiBjYWxjdWxhdGlvbiBmb3IgRFNDIG1vZGVzCiAgZHJtL2RwX21zdDog
+UGFyc2UgRkVDIGNhcGFiaWxpdHkgb24gTVNUIHBvcnRzCiAgZHJtL2RwX21zdDogQWRkIE1TVCBz
+dXBwb3J0IHRvIERQIERQQ0QgUi9XIGZ1bmN0aW9ucwogIGRybS9kcF9tc3Q6IEZpbGwgYnJhbmNo
+LT5udW1fcG9ydHMKICBkcm0vZHBfbXN0OiBBZGQgaGVscGVycyBmb3IgTVNUIERTQyBhbmQgdmly
+dHVhbCBEUENEIGF1eAogIGRybS9kcF9tc3Q6IEFkZCBuZXcgcXVpcmsgZm9yIFN5bmFwdGljcyBN
+U1QgaHVicwogIGRybS9hbWQvZGlzcGxheTogVXNlIGNvcnJlY3QgaGVscGVycyB0byBjb21wdXRl
+IHRpbWVzbG90cwogIGRybS9hbWQvZGlzcGxheTogSW5pdGlhbGl6ZSBEU0MgUFBTIHZhcmlhYmxl
+cyB0byAwCiAgZHJtL2FtZC9kaXNwbGF5OiBWYWxpZGF0ZSBEU0MgY2FwcyBvbiBNU1QgZW5kcG9p
+bnRzCiAgZHJtL2FtZC9kaXNwbGF5OiBXcml0ZSBEU0MgZW5hYmxlIHRvIE1TVCBEUENECiAgZHJt
+L2FtZC9kaXNwbGF5OiBNU1QgRFNDIGNvbXB1dGUgZmFpciBzaGFyZQogIGRybS9hbWQvZGlzcGxh
+eTogVHJpZ2dlciBtb2Rlc2V0cyBvbiBNU1QgRFNDIGNvbm5lY3RvcnMKCk1pa2l0YSBMaXBza2kg
+KDMpOgogIGRybS9hbWRncHU6IEFkZCBlbmNvZGVyIGF0b21pYyBjaGVjawogIGRybS9hbWRncHU6
+IEFkZCBjb25uZWN0b3IgYXRvbWljIGNoZWNrCiAgZHJtL2FtZGdwdTogdmFsaWRhdGUgbXN0IHRv
+cG9sb2d5IGluIGF0b21pYyBjaGVjawoKIC4uLi9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9k
+bS9hbWRncHVfZG0uYyB8IDE1MyArKysrKysKIC4uLi9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdw
+dV9kbS9hbWRncHVfZG0uaCB8ICAgMyArCiAuLi4vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdw
+dV9kbV9oZWxwZXJzLmMgfCAgMzcgKy0KIC4uLi9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG1f
+bXN0X3R5cGVzLmMgICB8IDQ1MSArKysrKysrKysrKysrKysrKy0KIC4uLi9kaXNwbGF5L2FtZGdw
+dV9kbS9hbWRncHVfZG1fbXN0X3R5cGVzLmggICB8ICAgNCArCiAuLi4vZHJtL2FtZC9kaXNwbGF5
+L2RjL2NvcmUvZGNfbGlua19od3NzLmMgICAgfCAgIDMgKwogLi4uL2dwdS9kcm0vYW1kL2Rpc3Bs
+YXkvZGMvZGNuMjAvZGNuMjBfZHNjLmMgIHwgICAzICsKIC4uLi9kcm0vYW1kL2Rpc3BsYXkvZGMv
+ZGNuMjAvZGNuMjBfcmVzb3VyY2UuYyB8ICAgNyArLQogLi4uL2RybS9hbWQvZGlzcGxheS9kYy9k
+Y24yMC9kY24yMF9yZXNvdXJjZS5oIHwgICAxICsKIGRyaXZlcnMvZ3B1L2RybS9kcm1fZHBfYXV4
+X2Rldi5jICAgICAgICAgICAgICB8ICAxMiArLQogZHJpdmVycy9ncHUvZHJtL2RybV9kcF9oZWxw
+ZXIuYyAgICAgICAgICAgICAgIHwgIDM0ICstCiBkcml2ZXJzL2dwdS9kcm0vZHJtX2RwX21zdF90
+b3BvbG9neS5jICAgICAgICAgfCAxNzQgKysrKysrLQogZHJpdmVycy9ncHUvZHJtL2k5MTUvaW50
+ZWxfZHBfbXN0LmMgICAgICAgICAgIHwgICAzICstCiBkcml2ZXJzL2dwdS9kcm0vbm91dmVhdS9k
+aXNwbnY1MC9kaXNwLmMgICAgICAgfCAgIDMgKy0KIGRyaXZlcnMvZ3B1L2RybS9yYWRlb24vcmFk
+ZW9uX2RwX21zdC5jICAgICAgICB8ICAgMiArLQogaW5jbHVkZS9kcm0vZHJtX2RwX2hlbHBlci5o
+ICAgICAgICAgICAgICAgICAgIHwgICA3ICsKIGluY2x1ZGUvZHJtL2RybV9kcF9tc3RfaGVscGVy
+LmggICAgICAgICAgICAgICB8ICAgOCArLQogMTcgZmlsZXMgY2hhbmdlZCwgODY2IGluc2VydGlv
+bnMoKyksIDM5IGRlbGV0aW9ucygtKQoKLS0gCjIuMTcuMQoKX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBs
+aXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1h
+bi9saXN0aW5mby9hbWQtZ2Z4
