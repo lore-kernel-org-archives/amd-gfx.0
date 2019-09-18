@@ -1,26 +1,14 @@
-From: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>
-Subject: Re: [PATCH] drm: add drm device name
-Date: Wed, 18 Sep 2019 17:13:44 -0400
-Message-ID: <CAAxE2A5Bbs6-+CiA115TyDg=jVoKOHf_7oxZqP2K8GvdBm7d0g@mail.gmail.com>
-References: <20190903214040.2386-1-sonny.jiang@amd.com>
- <CAAxE2A45N4gMYrcETDpznGKyxLztuwenFasL19a81QQmBkYiww@mail.gmail.com>
- <CAF6AEGvvUUOGujJC9P3t72N93AJuxiiVt0OAk8zf226Q8WmHvg@mail.gmail.com>
- <CAKMK7uHFNhdNY4Y9ZFMNuci7gssPWCT5f5y=e4npg8s5r_jBdQ@mail.gmail.com>
- <CAAxE2A6sESsKAi3K1etAZeCwAPgexn099G6g0aJQnavTkiH+mA@mail.gmail.com>
- <87woe7eanv.fsf@intel.com> <03d31464-3968-6923-5323-f63060d70f1f@gmail.com>
- <CAKMK7uEj4FZ3YQqG-cCTa4EEaJoAk09Zaz398F9Hmo+mdXCKiw@mail.gmail.com>
- <7540df63-e623-19b0-dde5-b89ff2b7fb89@amd.com>
- <7535dcf4-413f-f06f-b3d1-dcffc86b43e0@daenzer.net>
- <5d0a8619-7073-fac2-cdd6-83b55221140b@daenzer.net>
- <b61ec704-894d-092a-253c-961ff2ea01a2@gmail.com>
- <4d255e1c-1d4a-a754-afe0-b18776a11a7e@daenzer.net>
- <CAAxE2A7RcsiEsWBtbsDE2Wp+Vx7n-vwM1qL6HX_qKt=KnHCd4g@mail.gmail.com>
- <8c49e2e3-1fa1-35db-7d25-574b4b64cca0@daenzer.net>
- <CAAxE2A5niHWs=VQZO8B6d4tBx6NmYSKb7U=9injNL9087Yi_Kg@mail.gmail.com>
+From: Lyude Paul <lyude@redhat.com>
+Subject: Re: [PATCH 01/15] drm/amdgpu: Add encoder atomic check
+Date: Wed, 18 Sep 2019 18:55:16 -0400
+Message-ID: <098b7e1d4d4491cc7735cb26b499fbc304dc4e24.camel@redhat.com>
+References: <cover.1568833906.git.mikita.lipski@amd.com>
+ <0dba0e8b72c146cc1d27c8895b1c732e719fc371.1568833906.git.mikita.lipski@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1393496153=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <dri-devel-bounces@lists.freedesktop.org>
-In-Reply-To: <CAAxE2A5niHWs=VQZO8B6d4tBx6NmYSKb7U=9injNL9087Yi_Kg@mail.gmail.com>
+In-Reply-To: <0dba0e8b72c146cc1d27c8895b1c732e719fc371.1568833906.git.mikita.lipski@amd.com>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
 List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
@@ -30,99 +18,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel@daenzer.net>
-Cc: "Jiang, Sonny" <Sonny.Jiang@amd.com>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, dri-devel <dri-devel@lists.freedesktop.org>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+To: mikita.lipski@amd.com, amd-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org
 List-Id: amd-gfx.lists.freedesktop.org
 
---===============1393496153==
-Content-Type: multipart/alternative; boundary="00000000000013a4570592da52cd"
-
---00000000000013a4570592da52cd
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-Let's drop this patch. Mesa will use family_id.
-
-Marek
-
-On Wed, Sep 18, 2019 at 4:10 PM Marek Ol=C5=A1=C3=A1k <maraeo@gmail.com> wr=
-ote:
-
-> On Wed, Sep 18, 2019 at 10:03 AM Michel D=C3=A4nzer <michel@daenzer.net> =
-wrote:
->
->> On 2019-09-18 1:41 a.m., Marek Ol=C5=A1=C3=A1k wrote:
->> > drmVersion::name =3D amdgpu, radeon, intel, etc.
->> > drmVersion::desc =3D vega10, vega12, vega20, ...
->> >
->> > The common Mesa code will use name and desc to select the driver.
->>
->> Like the Xorg modesetting driver, that code doesn't need this kernel
->> functionality or new PCI IDs. It can just select the current driver for
->> all devices which aren't supported by older drivers (which is a fixed
->> set at this point).
->>
->>
->> > The AMD-specific Mesa code will use desc to identify the chip.
->>
->> Doesn't libdrm_amdgpu's struct amdgpu_gpu_info::family_id provide the
->> same information?
->>
->
-> Not for the common code, though I guess common Mesa code could use the
-> INFO ioctl. Is that what you mean?
->
-> Marek
->
-
---00000000000013a4570592da52cd
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div>Let&#39;s drop this patch. Mesa will use family_id.<b=
-r></div><div><br></div><div>Marek<br></div><br><div class=3D"gmail_quote"><=
-div dir=3D"ltr" class=3D"gmail_attr">On Wed, Sep 18, 2019 at 4:10 PM Marek =
-Ol=C5=A1=C3=A1k &lt;<a href=3D"mailto:maraeo@gmail.com">maraeo@gmail.com</a=
->&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px=
- 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex"><di=
-v dir=3D"ltr"><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_at=
-tr">On Wed, Sep 18, 2019 at 10:03 AM Michel D=C3=A4nzer &lt;<a href=3D"mail=
-to:michel@daenzer.net" target=3D"_blank">michel@daenzer.net</a>&gt; wrote:<=
-br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8e=
-x;border-left:1px solid rgb(204,204,204);padding-left:1ex">On 2019-09-18 1:=
-41 a.m., Marek Ol=C5=A1=C3=A1k wrote:<br>
-&gt; drmVersion::name =3D amdgpu, radeon, intel, etc.<br>
-&gt; drmVersion::desc =3D vega10, vega12, vega20, ...<br>
-&gt; <br>
-&gt; The common Mesa code will use name and desc to select the driver.<br>
-<br>
-Like the Xorg modesetting driver, that code doesn&#39;t need this kernel<br=
->
-functionality or new PCI IDs. It can just select the current driver for<br>
-all devices which aren&#39;t supported by older drivers (which is a fixed<b=
-r>
-set at this point).<br>
-<br>
-<br>
-&gt; The AMD-specific Mesa code will use desc to identify the chip.<br>
-<br>
-Doesn&#39;t libdrm_amdgpu&#39;s struct amdgpu_gpu_info::family_id provide t=
-he<br>
-same information?<br></blockquote><div><br></div><div>Not for the common co=
-de, though I guess common Mesa code could use the INFO ioctl. Is that what =
-you mean?<br></div><div><br></div><div>Marek</div></div></div>
-</blockquote></div></div>
-
---00000000000013a4570592da52cd--
-
---===============1393496153==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KZHJpLWRldmVs
-IG1haWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
-dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVs
-
---===============1393496153==--
+SGF2ZW4ndCBsb29rZWQgYXQgdGhlc2UgcXVpdGUgeWV0LCBidXQgSSBqdXN0IHdhbnRlZCB0byBz
+YXkgYWhlYWQgb2YgdGltZSB0aGF0CmZyb20gYSBxdWljayBnbGFuY2UgdGhlc2UgbG9vayBsaWtl
+IGEgYmlnIHN0ZXAgaW4gdGhlIHJpZ2h0IGRpcmVjdGlvbiA6KS4KQXdlc29tZSB3b3JrIQoKSSB3
+aWxsIHJldmlldyB0aGlzIEFTQVAgCgpPbiBXZWQsIDIwMTktMDktMTggYXQgMTY6MjYgLTA0MDAs
+IG1pa2l0YS5saXBza2lAYW1kLmNvbSB3cm90ZToKPiBGcm9tOiBNaWtpdGEgTGlwc2tpIDxtaWtp
+dGEubGlwc2tpQGFtZC5jb20+Cj4gCj4gW3doeV0KPiBJbiBvcmRlciB0byBjb21wbHkgd2l0aCBu
+ZXcgTVNUIGF0b21pYyBjaGVjawo+IHdlIGhhdmUgdG8gZmluZCBhbmQgYWRkIFZDUEkgc2xvdHMg
+dG8gdGhlIHN0YXRlCj4gZHVyaW5nIGF0b21pYyBjaGVjayB3aGVuZXZlciB0aGVpciBpcyBhIGNo
+YW5nZSBvbgo+IG1vZGUgb3IgY29ubmVjdG9yLgo+IFtob3ddCj4gLSBWZXJpZnkgdGhhdCBpdCBp
+cyBhIE1TVCBjb25uZWN0aW9uCj4gLSBDb252ZXJ0IG5ldyBzdHJlYW0ncyBjbG9jayBhbmQgYnBw
+Cj4gLSBDYWxjdWxhdGUgUEJOIGJhc2VkIG9uIHN0cmVhbSBwYXJhbWV0ZXJzCj4gLSBGaW5kIGFu
+ZCBhZGQgVkNQSSBzbG90cyB0byB0aGUgc3RhdGUKPiAKPiBDYzogTHl1ZGUgUGF1bCA8bHl1ZGVA
+cmVkaGF0LmNvbT4KPiBTaWduZWQtb2ZmLWJ5OiBNaWtpdGEgTGlwc2tpIDxtaWtpdGEubGlwc2tp
+QGFtZC5jb20+Cj4gLS0tCj4gIC4uLi9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRn
+cHVfZG0uYyB8IDU5ICsrKysrKysrKysrKysrKysrKysKPiAgMSBmaWxlIGNoYW5nZWQsIDU5IGlu
+c2VydGlvbnMoKykKPiAKPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5
+L2FtZGdwdV9kbS9hbWRncHVfZG0uYwo+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2Ft
+ZGdwdV9kbS9hbWRncHVfZG0uYwo+IGluZGV4IDdiMGNhMmUxZWQ4Yi4uZDcwMGI5NjJkMzM4IDEw
+MDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1
+X2RtLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdw
+dV9kbS5jCj4gQEAgLTQ0MzIsNiArNDQzMiw2NSBAQCBzdGF0aWMgaW50IGRtX2VuY29kZXJfaGVs
+cGVyX2F0b21pY19jaGVjayhzdHJ1Y3QKPiBkcm1fZW5jb2RlciAqZW5jb2RlciwKPiAgCQkJCQkg
+IHN0cnVjdCBkcm1fY3J0Y19zdGF0ZSAqY3J0Y19zdGF0ZSwKPiAgCQkJCQkgIHN0cnVjdCBkcm1f
+Y29ubmVjdG9yX3N0YXRlCj4gKmNvbm5fc3RhdGUpCj4gIHsKPiArCXN0cnVjdCBkcm1fYXRvbWlj
+X3N0YXRlICpzdGF0ZSA9IGNydGNfc3RhdGUtPnN0YXRlOwo+ICsJc3RydWN0IGRybV9jb25uZWN0
+b3IgKmNvbm5lY3RvciA9IGNvbm5fc3RhdGUtPmNvbm5lY3RvcjsKPiArCXN0cnVjdCBhbWRncHVf
+ZG1fY29ubmVjdG9yICphY29ubmVjdG9yID0KPiB0b19hbWRncHVfZG1fY29ubmVjdG9yKGNvbm5l
+Y3Rvcik7Cj4gKwlzdHJ1Y3QgZG1fY3J0Y19zdGF0ZSAqZG1fbmV3X2NydGNfc3RhdGUgPQo+IHRv
+X2RtX2NydGNfc3RhdGUoY3J0Y19zdGF0ZSk7Cj4gKwljb25zdCBzdHJ1Y3QgZHJtX2Rpc3BsYXlf
+bW9kZSAqYWRqdXN0ZWRfbW9kZSA9ICZjcnRjX3N0YXRlLQo+ID5hZGp1c3RlZF9tb2RlOwo+ICsJ
+c3RydWN0IGRybV9kcF9tc3RfdG9wb2xvZ3lfbWdyICptc3RfbWdyOwo+ICsJc3RydWN0IGRybV9k
+cF9tc3RfcG9ydCAqbXN0X3BvcnQ7Cj4gKwlpbnQgcGJuLCBzbG90cyxjbG9jaywgYnBwID0gMDsK
+PiArCj4gKwlpZiAoIWRtX25ld19jcnRjX3N0YXRlKQo+ICsJCXJldHVybiAwOwo+ICsKPiArCWlm
+ICghYWNvbm5lY3RvciB8fCAhYWNvbm5lY3Rvci0+cG9ydCkKPiArCQlyZXR1cm4gMDsKPiArCj4g
+Kwltc3RfcG9ydCA9IGFjb25uZWN0b3ItPnBvcnQ7Cj4gKwltc3RfbWdyID0gJmFjb25uZWN0b3It
+Pm1zdF9wb3J0LT5tc3RfbWdyOwo+ICsKPiArCWlmICghbXN0X21nci0+bXN0X3N0YXRlKQo+ICsJ
+CXJldHVybiAwOwo+ICsKPiArCWlmICghY3J0Y19zdGF0ZS0+Y29ubmVjdG9yc19jaGFuZ2VkICYm
+ICFjcnRjX3N0YXRlLT5tb2RlX2NoYW5nZWQpCj4gKwkJcmV0dXJuIDA7Cj4gKwo+ICsJc3dpdGNo
+IChjb252ZXJ0X2NvbG9yX2RlcHRoX2Zyb21fZGlzcGxheV9pbmZvKGNvbm5lY3RvciwgY29ubl9z
+dGF0ZSkpCj4gewo+ICsJY2FzZSBDT0xPUl9ERVBUSF82NjY6Cj4gKwkJYnBwID0gNjsKPiArCQli
+cmVhazsKPiArCWNhc2UgQ09MT1JfREVQVEhfODg4Ogo+ICsJCWJwcCA9IDg7Cj4gKwkJYnJlYWs7
+Cj4gKwljYXNlIENPTE9SX0RFUFRIXzEwMTAxMDoKPiArCQlicHAgPSAxMDsKPiArCQlicmVhazsK
+PiArCWNhc2UgQ09MT1JfREVQVEhfMTIxMjEyOgo+ICsJCWJwcCA9IDEyOwo+ICsJCWJyZWFrOwo+
+ICsJY2FzZSBDT0xPUl9ERVBUSF8xNDE0MTQ6Cj4gKwkJYnBwID0gMTQ7Cj4gKwkJYnJlYWs7Cj4g
+KwljYXNlIENPTE9SX0RFUFRIXzE2MTYxNjoKPiArCQlicHAgPSAxNjsKPiArCQlicmVhazsKPiAr
+CWRlZmF1bHQ6Cj4gKwkJQVNTRVJUKGJwcCAhPSAwKTsKPiArCQlicmVhazsKPiArCX0KPiArCj4g
+KwlicHAgKj0gMzsKPiArCWNsb2NrID0gYWRqdXN0ZWRfbW9kZS0+Y2xvY2s7Cj4gKwlwYm4gPSBk
+cm1fZHBfY2FsY19wYm5fbW9kZShjbG9jaywgYnBwKTsKPiArCXNsb3RzID0gZHJtX2RwX2F0b21p
+Y19maW5kX3ZjcGlfc2xvdHMoc3RhdGUsCj4gKwkJCQkJCW1zdF9tZ3IsCj4gKwkJCQkJCW1zdF9w
+b3J0LAo+ICsJCQkJCQlwYm4pOwo+ICsJaWYgKHNsb3RzIDwgMCkgewo+ICsJCURSTV9ERUJVR19L
+TVMoImZhaWxlZCBmaW5kaW5nIHZjcGkgc2xvdHM6JWRcbiIsIHNsb3RzKTsKPiArCQlyZXR1cm4g
+c2xvdHM7Cj4gKwl9Cj4gIAlyZXR1cm4gMDsKPiAgfQo+ICAKLS0gCkNoZWVycywKCUx5dWRlIFBh
+dWwKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmRyaS1k
+ZXZlbCBtYWlsaW5nIGxpc3QKZHJpLWRldmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczov
+L2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2RyaS1kZXZlbA==
