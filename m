@@ -1,28 +1,41 @@
-From: Sven Van Asbroeck <thesven73@gmail.com>
-Subject: Re: [PATCH v2] drm/amdgpu: fix multiple memory leaks
-Date: Wed, 18 Sep 2019 15:45:32 -0400
-Message-ID: <CAGngYiUJYUGN9CA1smKvy3GF=HWEXtaSdCZHEK64A_63edqF6A@mail.gmail.com>
-References: <7bab24ff-ded7-9f76-ba25-efd07cdd30dd@amd.com> <20190918190529.17298-1-navid.emamdoost@gmail.com>
+From: Arnd Bergmann <arnd@arndb.de>
+Subject: [PATCH] drm/amd/display: hide an unused variable
+Date: Wed, 18 Sep 2019 21:53:58 +0200
+Message-ID: <20190918195418.2042610-1-arnd@arndb.de>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20190918190529.17298-1-navid.emamdoost@gmail.com>
 Sender: linux-kernel-owner@vger.kernel.org
-To: Navid Emamdoost <navid.emamdoost@gmail.com>
-Cc: Christian.Koenig@amd.com, emamd001@umn.edu, smccaman@umn.edu, kjlu@umn.edu, Alex Deucher <alexander.deucher@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, Rex Zhu <Rex.Zhu@amd.com>, Sam Ravnborg <sam@ravnborg.org>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
+To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>
+Cc: Arnd Bergmann <arnd@arndb.de>, Dingchen Zhang <dingchen.zhang@amd.com>, Harry Wentland <Harry.Wentland@amd.com>, Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>, David Francis <David.Francis@amd.com>, Mario Kleiner <mario.kleiner.de@gmail.com>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
 List-Id: amd-gfx.lists.freedesktop.org
 
-On Wed, Sep 18, 2019 at 3:09 PM Navid Emamdoost
-<navid.emamdoost@gmail.com> wrote:
->
->         i2s_pdata = kcalloc(3, sizeof(struct i2s_platform_data), GFP_KERNEL);
->         if (i2s_pdata == NULL) {
-> -               kfree(adev->acp.acp_res);
-> -               kfree(adev->acp.acp_cell);
-> -               return -ENOMEM;
-> +               ret = -ENOMEM;
-> +               goto out3;
->         }
+Without CONFIG_DEBUG_FS, we get a warning for an unused
+variable:
 
-I don't see a corresponding kfree() for i2s_pdata in acp_hw_fini().
-Could this be a memory leak?
+drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.c:6020:33: error: unused variable 'source' [-Werror,-Wunused-variable]
+
+Hide the variable in an #ifdef like its only users.
+
+Fixes: 14b2584636c6 ("drm/amd/display: add functionality to grab DPRX CRC entries.")
+Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+---
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index e1b09bb432bd..74252f57bafb 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -6017,7 +6017,9 @@ static void amdgpu_dm_enable_crtc_interrupts(struct drm_device *dev,
+ 	struct drm_crtc *crtc;
+ 	struct drm_crtc_state *old_crtc_state, *new_crtc_state;
+ 	int i;
++#ifdef CONFIG_DEBUG_FS
+ 	enum amdgpu_dm_pipe_crc_source source;
++#endif
+ 
+ 	for_each_oldnew_crtc_in_state(state, crtc, old_crtc_state,
+ 				      new_crtc_state, i) {
+-- 
+2.20.0
