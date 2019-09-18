@@ -1,35 +1,53 @@
-From: Allen Pais <allen.pais@oracle.com>
-Subject: [PATCH] drm/radeon: fix a potential NULL pointer dereference
-Date: Wed, 18 Sep 2019 22:01:22 +0530
-Message-ID: <1568824282-4081-1-git-send-email-allen.pais@oracle.com>
+From: "Koenig, Christian" <Christian.Koenig@amd.com>
+Subject: Re: [PATCH] drm/amdgpu: fix multiple memory leaks
+Date: Wed, 18 Sep 2019 17:31:49 +0000
+Message-ID: <7bab24ff-ded7-9f76-ba25-efd07cdd30dd@amd.com>
+References: <20190918160943.14105-1-navid.emamdoost@gmail.com>
+Mime-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20190918160943.14105-1-navid.emamdoost@gmail.com>
+Content-Language: en-US
+Content-ID: <A1D71F5F5C135646B97850C5FC00E050@namprd12.prod.outlook.com>
 Sender: linux-kernel-owner@vger.kernel.org
-To: dri-devel@lists.freedesktop.org
-Cc: airlied@linux.ie, linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, daniel@ffwll.ch
+To: Navid Emamdoost <navid.emamdoost@gmail.com>
+Cc: "emamd001@umn.edu" <emamd001@umn.edu>, "smccaman@umn.edu" <smccaman@umn.edu>, "kjlu@umn.edu" <kjlu@umn.edu>, "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Zhou, David(ChunMing)" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, Rex Zhu <Rex.Zhu@amd.com>, Sam Ravnborg <sam@ravnborg.org>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
 List-Id: amd-gfx.lists.freedesktop.org
 
-alloc_workqueue is not checked for errors and as a result,
-a potential NULL dereference could occur.
-
-Signed-off-by: Allen Pais <allen.pais@oracle.com>
----
- drivers/gpu/drm/radeon/radeon_display.c | 4 ++++
- 1 file changed, 4 insertions(+)
-
-diff --git a/drivers/gpu/drm/radeon/radeon_display.c b/drivers/gpu/drm/radeon/radeon_display.c
-index bd52f15..1a41764 100644
---- a/drivers/gpu/drm/radeon/radeon_display.c
-+++ b/drivers/gpu/drm/radeon/radeon_display.c
-@@ -683,6 +683,10 @@ static void radeon_crtc_init(struct drm_device *dev, int index)
- 	drm_mode_crtc_set_gamma_size(&radeon_crtc->base, 256);
- 	radeon_crtc->crtc_id = index;
- 	radeon_crtc->flip_queue = alloc_workqueue("radeon-crtc", WQ_HIGHPRI, 0);
-+	if (unlikely(!radeon_crtc->flip_queue)) {
-+		kfree(radeon_crtc);
-+		return;
-+	}
- 	rdev->mode_info.crtcs[index] = radeon_crtc;
- 
- 	if (rdev->family >= CHIP_BONAIRE) {
--- 
-1.9.1
+QW0gMTguMDkuMTkgdW0gMTg6MDkgc2NocmllYiBOYXZpZCBFbWFtZG9vc3Q6DQo+IEluIGFjcF9o
+d19pbml0IHRoZXJlIGFyZSBzb21lIGFsbG9jYXRpb25zIHRoYXQgbmVlZHMgdG8gYmUgcmVsZWFz
+ZWQgaW4NCj4gY2FzZSBvZiBmYWlsdXJlOg0KPg0KPiAxLSBhZGV2LT5hY3AuYWNwX2dlbnBkIHNo
+b3VsZCBiZSByZWxlYXNlZCBpZiBhbnkgYWxsb2NhdGlvbiBhdHRlbXAgZm9yDQo+IGFkZXYtPmFj
+cC5hY3BfY2VsbCwgYWRldi0+YWNwLmFjcF9yZXMgb3IgaTJzX3BkYXRhIGZhaWxzLg0KPiAyLSBh
+bGwgb2YgdGhvc2UgYWxsb2NhdGlvbnMgc2hvdWxkIGJlIHJlbGVhc2VkIGlmIHBtX2dlbnBkX2Fk
+ZF9kZXZpY2UNCj4gZmFpbHMuDQoNCkdvb2QgY2F0Y2gsIGJ1dCBwbGVhc2UgdXNlIGdvdG8gZXJy
+b3IgaGFuZGxpbmcgaW5zdGVhZCBvZiBhZGRpbmcgbW9yZSANCmFuZCBtb3JlIGtmcmVlIGNhbGxz
+Lg0KDQpSZWdhcmRzLA0KQ2hyaXN0aWFuLg0KDQo+DQo+IFNpZ25lZC1vZmYtYnk6IE5hdmlkIEVt
+YW1kb29zdCA8bmF2aWQuZW1hbWRvb3N0QGdtYWlsLmNvbT4NCj4gLS0tDQo+ICAgZHJpdmVycy9n
+cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2FjcC5jIHwgMTAgKysrKysrKysrLQ0KPiAgIDEgZmls
+ZSBjaGFuZ2VkLCA5IGluc2VydGlvbnMoKyksIDEgZGVsZXRpb24oLSkNCj4NCj4gZGlmZiAtLWdp
+dCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9hY3AuYyBiL2RyaXZlcnMvZ3B1
+L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9hY3AuYw0KPiBpbmRleCBlYmE0MmM3NTJiY2EuLmRkM2Zh
+ODViMTFjNSAxMDA2NDQNCj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
+X2FjcC5jDQo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9hY3AuYw0K
+PiBAQCAtMjMxLDE3ICsyMzEsMjEgQEAgc3RhdGljIGludCBhY3BfaHdfaW5pdCh2b2lkICpoYW5k
+bGUpDQo+ICAgCWFkZXYtPmFjcC5hY3BfY2VsbCA9IGtjYWxsb2MoQUNQX0RFVlMsIHNpemVvZihz
+dHJ1Y3QgbWZkX2NlbGwpLA0KPiAgIAkJCQkJCQlHRlBfS0VSTkVMKTsNCj4gICANCj4gLQlpZiAo
+YWRldi0+YWNwLmFjcF9jZWxsID09IE5VTEwpDQo+ICsJaWYgKGFkZXYtPmFjcC5hY3BfY2VsbCA9
+PSBOVUxMKSB7DQo+ICsJCWtmcmVlKGFkZXYtPmFjcC5hY3BfZ2VucGQpOw0KPiAgIAkJcmV0dXJu
+IC1FTk9NRU07DQo+ICsJfQ0KPiAgIA0KPiAgIAlhZGV2LT5hY3AuYWNwX3JlcyA9IGtjYWxsb2Mo
+NSwgc2l6ZW9mKHN0cnVjdCByZXNvdXJjZSksIEdGUF9LRVJORUwpOw0KPiAgIAlpZiAoYWRldi0+
+YWNwLmFjcF9yZXMgPT0gTlVMTCkgew0KPiArCQlrZnJlZShhZGV2LT5hY3AuYWNwX2dlbnBkKTsN
+Cj4gICAJCWtmcmVlKGFkZXYtPmFjcC5hY3BfY2VsbCk7DQo+ICAgCQlyZXR1cm4gLUVOT01FTTsN
+Cj4gICAJfQ0KPiAgIA0KPiAgIAlpMnNfcGRhdGEgPSBrY2FsbG9jKDMsIHNpemVvZihzdHJ1Y3Qg
+aTJzX3BsYXRmb3JtX2RhdGEpLCBHRlBfS0VSTkVMKTsNCj4gICAJaWYgKGkyc19wZGF0YSA9PSBO
+VUxMKSB7DQo+ICsJCWtmcmVlKGFkZXYtPmFjcC5hY3BfZ2VucGQpOw0KPiAgIAkJa2ZyZWUoYWRl
+di0+YWNwLmFjcF9yZXMpOw0KPiAgIAkJa2ZyZWUoYWRldi0+YWNwLmFjcF9jZWxsKTsNCj4gICAJ
+CXJldHVybiAtRU5PTUVNOw0KPiBAQCAtMzQ4LDYgKzM1MiwxMCBAQCBzdGF0aWMgaW50IGFjcF9o
+d19pbml0KHZvaWQgKmhhbmRsZSkNCj4gICAJCXIgPSBwbV9nZW5wZF9hZGRfZGV2aWNlKCZhZGV2
+LT5hY3AuYWNwX2dlbnBkLT5ncGQsIGRldik7DQo+ICAgCQlpZiAocikgew0KPiAgIAkJCWRldl9l
+cnIoZGV2LCAiRmFpbGVkIHRvIGFkZCBkZXYgdG8gZ2VucGRcbiIpOw0KPiArCQkJa2ZyZWUoYWRl
+di0+YWNwLmFjcF9nZW5wZCk7DQo+ICsJCQlrZnJlZShhZGV2LT5hY3AuYWNwX3Jlcyk7DQo+ICsJ
+CQlrZnJlZShhZGV2LT5hY3AuYWNwX2NlbGwpOw0KPiArCQkJa2ZyZWUoaTJzX3BkYXRhKTsNCj4g
+ICAJCQlyZXR1cm4gcjsNCj4gICAJCX0NCj4gICAJfQ0KDQo=
