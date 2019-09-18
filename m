@@ -1,7 +1,7 @@
 From: Allen Pais <allen.pais@oracle.com>
-Subject: [PATCH] drm/amdkfd: fix a potential NULL pointer dereference
-Date: Wed, 18 Sep 2019 22:00:31 +0530
-Message-ID: <1568824231-4007-1-git-send-email-allen.pais@oracle.com>
+Subject: [PATCH] drm/radeon: fix a potential NULL pointer dereference
+Date: Wed, 18 Sep 2019 22:01:22 +0530
+Message-ID: <1568824282-4081-1-git-send-email-allen.pais@oracle.com>
 Return-path: <linux-kernel-owner@vger.kernel.org>
 Sender: linux-kernel-owner@vger.kernel.org
 To: dri-devel@lists.freedesktop.org
@@ -13,24 +13,23 @@ a potential NULL dereference could occur.
 
 Signed-off-by: Allen Pais <allen.pais@oracle.com>
 ---
- drivers/gpu/drm/amd/amdkfd/kfd_interrupt.c | 5 +++++
- 1 file changed, 5 insertions(+)
+ drivers/gpu/drm/radeon/radeon_display.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_interrupt.c b/drivers/gpu/drm/amd/amdkfd/kfd_interrupt.c
-index c56ac47..caa82a8 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_interrupt.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_interrupt.c
-@@ -62,6 +62,11 @@ int kfd_interrupt_init(struct kfd_dev *kfd)
- 	}
- 
- 	kfd->ih_wq = alloc_workqueue("KFD IH", WQ_HIGHPRI, 1);
-+	if (unlikely(!kfd->ih_wq)) {
-+		fifo_free(&kfd->ih_fifo);
-+		dev_err(kfd_chardev(), "Failed to allocate KFD IH workqueue\n");
-+		return kfd->ih_wq;
+diff --git a/drivers/gpu/drm/radeon/radeon_display.c b/drivers/gpu/drm/radeon/radeon_display.c
+index bd52f15..1a41764 100644
+--- a/drivers/gpu/drm/radeon/radeon_display.c
++++ b/drivers/gpu/drm/radeon/radeon_display.c
+@@ -683,6 +683,10 @@ static void radeon_crtc_init(struct drm_device *dev, int index)
+ 	drm_mode_crtc_set_gamma_size(&radeon_crtc->base, 256);
+ 	radeon_crtc->crtc_id = index;
+ 	radeon_crtc->flip_queue = alloc_workqueue("radeon-crtc", WQ_HIGHPRI, 0);
++	if (unlikely(!radeon_crtc->flip_queue)) {
++		kfree(radeon_crtc);
++		return;
 +	}
- 	spin_lock_init(&kfd->interrupt_lock);
+ 	rdev->mode_info.crtcs[index] = radeon_crtc;
  
- 	INIT_WORK(&kfd->interrupt_work, interrupt_wq);
+ 	if (rdev->family >= CHIP_BONAIRE) {
 -- 
 1.9.1
