@@ -1,41 +1,112 @@
-From: Arnd Bergmann <arnd@arndb.de>
-Subject: [PATCH] drm/amd/display: hide an unused variable
-Date: Wed, 18 Sep 2019 21:53:58 +0200
-Message-ID: <20190918195418.2042610-1-arnd@arndb.de>
+From: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>
+Subject: Re: [PATCH] drm: add drm device name
+Date: Wed, 18 Sep 2019 16:10:08 -0400
+Message-ID: <CAAxE2A5niHWs=VQZO8B6d4tBx6NmYSKb7U=9injNL9087Yi_Kg@mail.gmail.com>
+References: <20190903214040.2386-1-sonny.jiang@amd.com>
+ <CAAxE2A45N4gMYrcETDpznGKyxLztuwenFasL19a81QQmBkYiww@mail.gmail.com>
+ <CAF6AEGvvUUOGujJC9P3t72N93AJuxiiVt0OAk8zf226Q8WmHvg@mail.gmail.com>
+ <CAKMK7uHFNhdNY4Y9ZFMNuci7gssPWCT5f5y=e4npg8s5r_jBdQ@mail.gmail.com>
+ <CAAxE2A6sESsKAi3K1etAZeCwAPgexn099G6g0aJQnavTkiH+mA@mail.gmail.com>
+ <87woe7eanv.fsf@intel.com> <03d31464-3968-6923-5323-f63060d70f1f@gmail.com>
+ <CAKMK7uEj4FZ3YQqG-cCTa4EEaJoAk09Zaz398F9Hmo+mdXCKiw@mail.gmail.com>
+ <7540df63-e623-19b0-dde5-b89ff2b7fb89@amd.com>
+ <7535dcf4-413f-f06f-b3d1-dcffc86b43e0@daenzer.net>
+ <5d0a8619-7073-fac2-cdd6-83b55221140b@daenzer.net>
+ <b61ec704-894d-092a-253c-961ff2ea01a2@gmail.com>
+ <4d255e1c-1d4a-a754-afe0-b18776a11a7e@daenzer.net>
+ <CAAxE2A7RcsiEsWBtbsDE2Wp+Vx7n-vwM1qL6HX_qKt=KnHCd4g@mail.gmail.com>
+ <8c49e2e3-1fa1-35db-7d25-574b4b64cca0@daenzer.net>
 Mime-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>
-Cc: Arnd Bergmann <arnd@arndb.de>, Dingchen Zhang <dingchen.zhang@amd.com>, Harry Wentland <Harry.Wentland@amd.com>, Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>, David Francis <David.Francis@amd.com>, Mario Kleiner <mario.kleiner.de@gmail.com>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Content-Type: multipart/mixed; boundary="===============2145326935=="
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+In-Reply-To: <8c49e2e3-1fa1-35db-7d25-574b4b64cca0@daenzer.net>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel@daenzer.net>
+Cc: "Jiang, Sonny" <Sonny.Jiang@amd.com>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, dri-devel <dri-devel@lists.freedesktop.org>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
 List-Id: amd-gfx.lists.freedesktop.org
 
-Without CONFIG_DEBUG_FS, we get a warning for an unused
-variable:
+--===============2145326935==
+Content-Type: multipart/alternative; boundary="000000000000979d7a0592d96eb0"
 
-drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.c:6020:33: error: unused variable 'source' [-Werror,-Wunused-variable]
+--000000000000979d7a0592d96eb0
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hide the variable in an #ifdef like its only users.
+On Wed, Sep 18, 2019 at 10:03 AM Michel D=C3=A4nzer <michel@daenzer.net> wr=
+ote:
 
-Fixes: 14b2584636c6 ("drm/amd/display: add functionality to grab DPRX CRC entries.")
-Signed-off-by: Arnd Bergmann <arnd@arndb.de>
----
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 2 ++
- 1 file changed, 2 insertions(+)
+> On 2019-09-18 1:41 a.m., Marek Ol=C5=A1=C3=A1k wrote:
+> > drmVersion::name =3D amdgpu, radeon, intel, etc.
+> > drmVersion::desc =3D vega10, vega12, vega20, ...
+> >
+> > The common Mesa code will use name and desc to select the driver.
+>
+> Like the Xorg modesetting driver, that code doesn't need this kernel
+> functionality or new PCI IDs. It can just select the current driver for
+> all devices which aren't supported by older drivers (which is a fixed
+> set at this point).
+>
+>
+> > The AMD-specific Mesa code will use desc to identify the chip.
+>
+> Doesn't libdrm_amdgpu's struct amdgpu_gpu_info::family_id provide the
+> same information?
+>
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index e1b09bb432bd..74252f57bafb 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -6017,7 +6017,9 @@ static void amdgpu_dm_enable_crtc_interrupts(struct drm_device *dev,
- 	struct drm_crtc *crtc;
- 	struct drm_crtc_state *old_crtc_state, *new_crtc_state;
- 	int i;
-+#ifdef CONFIG_DEBUG_FS
- 	enum amdgpu_dm_pipe_crc_source source;
-+#endif
- 
- 	for_each_oldnew_crtc_in_state(state, crtc, old_crtc_state,
- 				      new_crtc_state, i) {
--- 
-2.20.0
+Not for the common code, though I guess common Mesa code could use the INFO
+ioctl. Is that what you mean?
+
+Marek
+
+--000000000000979d7a0592d96eb0
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail=
+_attr">On Wed, Sep 18, 2019 at 10:03 AM Michel D=C3=A4nzer &lt;<a href=3D"m=
+ailto:michel@daenzer.net">michel@daenzer.net</a>&gt; wrote:<br></div><block=
+quote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1=
+px solid rgb(204,204,204);padding-left:1ex">On 2019-09-18 1:41 a.m., Marek =
+Ol=C5=A1=C3=A1k wrote:<br>
+&gt; drmVersion::name =3D amdgpu, radeon, intel, etc.<br>
+&gt; drmVersion::desc =3D vega10, vega12, vega20, ...<br>
+&gt; <br>
+&gt; The common Mesa code will use name and desc to select the driver.<br>
+<br>
+Like the Xorg modesetting driver, that code doesn&#39;t need this kernel<br=
+>
+functionality or new PCI IDs. It can just select the current driver for<br>
+all devices which aren&#39;t supported by older drivers (which is a fixed<b=
+r>
+set at this point).<br>
+<br>
+<br>
+&gt; The AMD-specific Mesa code will use desc to identify the chip.<br>
+<br>
+Doesn&#39;t libdrm_amdgpu&#39;s struct amdgpu_gpu_info::family_id provide t=
+he<br>
+same information?<br></blockquote><div><br></div><div>Not for the common co=
+de, though I guess common Mesa code could use the INFO ioctl. Is that what =
+you mean?<br></div><div><br></div><div>Marek</div></div></div>
+
+--000000000000979d7a0592d96eb0--
+
+--===============2145326935==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KZHJpLWRldmVs
+IG1haWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
+dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVs
+
+--===============2145326935==--
