@@ -1,55 +1,147 @@
-From: "Zhou1, Tao" <Tao.Zhou1-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH 1/2] drm/amdgpu: avoid null pointer dereference
-Date: Wed, 18 Sep 2019 06:00:03 +0000
-Message-ID: <MN2PR12MB3054F8BA6193829B9FFE34C2B08E0@MN2PR12MB3054.namprd12.prod.outlook.com>
-References: <20190918033721.19070-1-guchun.chen@amd.com>
+From: Pekka Paalanen <ppaalanen@gmail.com>
+Subject: Re: [PATCH] drm: add drm device name
+Date: Wed, 18 Sep 2019 09:57:39 +0300
+Message-ID: <20190918095739.727a9db4@eldfell.localdomain>
+References: <20190903214040.2386-1-sonny.jiang@amd.com>
+ <CAAxE2A45N4gMYrcETDpznGKyxLztuwenFasL19a81QQmBkYiww@mail.gmail.com>
+ <CAF6AEGvvUUOGujJC9P3t72N93AJuxiiVt0OAk8zf226Q8WmHvg@mail.gmail.com>
+ <CAKMK7uHFNhdNY4Y9ZFMNuci7gssPWCT5f5y=e4npg8s5r_jBdQ@mail.gmail.com>
+ <CAAxE2A6sESsKAi3K1etAZeCwAPgexn099G6g0aJQnavTkiH+mA@mail.gmail.com>
+ <87woe7eanv.fsf@intel.com>
+ <03d31464-3968-6923-5323-f63060d70f1f@gmail.com>
+ <CAKMK7uEj4FZ3YQqG-cCTa4EEaJoAk09Zaz398F9Hmo+mdXCKiw@mail.gmail.com>
+ <7540df63-e623-19b0-dde5-b89ff2b7fb89@amd.com>
+ <7535dcf4-413f-f06f-b3d1-dcffc86b43e0@daenzer.net>
+ <5d0a8619-7073-fac2-cdd6-83b55221140b@daenzer.net>
+ <CAKMK7uG54Fa__KR3ytM0h5FTesp=t-eo5Z+E9d5YnFJyjLGaPA@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190918033721.19070-1-guchun.chen-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Chen, Guchun" <Guchun.Chen-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Zhang, Hawking" <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>, "Grodzovsky, Andrey" <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>
+Content-Type: multipart/mixed; boundary="===============1942276745=="
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+In-Reply-To: <CAKMK7uG54Fa__KR3ytM0h5FTesp=t-eo5Z+E9d5YnFJyjLGaPA@mail.gmail.com>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: Daniel Vetter <daniel@ffwll.ch>
+Cc: "Jiang, Sonny" <Sonny.Jiang@amd.com>, Michel =?UTF-8?B?RMOkbnplcg==?= <michel@daenzer.net>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Koenig,
+ Christian" <Christian.Koenig@amd.com>, dri-devel <dri-devel@lists.freedesktop.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-ImNvbnRyb2wgPSAmY29uLT5lZXByb21fY29udHJvbCIgaXMgc3VnZ2VzdGVkLCBhcGFydCBmcm9t
-IHRoaXMsIHRoZSBzZXJpZXMgaXM6DQoNClJldmlld2VkLWJ5OiBUYW8gWmhvdSA8dGFvLnpob3Ux
-QGFtZC5jb20+DQoNCj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4gRnJvbTogQ2hlbiwg
-R3VjaHVuIDxHdWNodW4uQ2hlbkBhbWQuY29tPg0KPiBTZW50OiAyMDE55bm0OeaciDE45pelIDEx
-OjM4DQo+IFRvOiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZzsgWmhhbmcsIEhhd2tpbmcN
-Cj4gPEhhd2tpbmcuWmhhbmdAYW1kLmNvbT47IFpob3UxLCBUYW8gPFRhby5aaG91MUBhbWQuY29t
-PjsNCj4gR3JvZHpvdnNreSwgQW5kcmV5IDxBbmRyZXkuR3JvZHpvdnNreUBhbWQuY29tPg0KPiBD
-YzogQ2hlbiwgR3VjaHVuIDxHdWNodW4uQ2hlbkBhbWQuY29tPg0KPiBTdWJqZWN0OiBbUEFUQ0gg
-MS8yXSBkcm0vYW1kZ3B1OiBhdm9pZCBudWxsIHBvaW50ZXIgZGVyZWZlcmVuY2UNCj4gDQo+IG51
-bGwgcHRyIHNob3VsZCBiZSBjaGVja2VkIGZpcnN0IHRvIGF2b2lkIG51bGwgcHRyIGFjY2Vzcw0K
-PiANCj4gQ2hhbmdlLUlkOiBJODVjMGEwOTZlZWY3N2NhZDNhMzQyNjVjOTk1YjE4NDU0NTFlMDRk
-MA0KPiBTaWduZWQtb2ZmLWJ5OiBHdWNodW4gQ2hlbiA8Z3VjaHVuLmNoZW5AYW1kLmNvbT4NCj4g
-LS0tDQo+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcmFzLmMgfCA0ICsrLS0N
-Cj4gIDEgZmlsZSBjaGFuZ2VkLCAyIGluc2VydGlvbnMoKyksIDIgZGVsZXRpb25zKC0pDQo+IA0K
-PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Jhcy5jDQo+
-IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Jhcy5jDQo+IGluZGV4IDA5MGRh
-ZjU5NTQ2OS4uYzMwOTBmMGViNjA0IDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1k
-L2FtZGdwdS9hbWRncHVfcmFzLmMNCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
-YW1kZ3B1X3Jhcy5jDQo+IEBAIC0xMzM0LDEzICsxMzM0LDEzIEBAIHN0YXRpYyBpbnQgYW1kZ3B1
-X3Jhc19zYXZlX2JhZF9wYWdlcyhzdHJ1Y3QNCj4gYW1kZ3B1X2RldmljZSAqYWRldikgIHsNCj4g
-IAlzdHJ1Y3QgYW1kZ3B1X3JhcyAqY29uID0gYW1kZ3B1X3Jhc19nZXRfY29udGV4dChhZGV2KTsN
-Cj4gIAlzdHJ1Y3QgcmFzX2Vycl9oYW5kbGVyX2RhdGEgKmRhdGE7DQo+IC0Jc3RydWN0IGFtZGdw
-dV9yYXNfZWVwcm9tX2NvbnRyb2wgKmNvbnRyb2wgPQ0KPiAtCQkJCQkmYWRldi0+cHNwLnJhcy5y
-YXMtPmVlcHJvbV9jb250cm9sOw0KPiArCXN0cnVjdCBhbWRncHVfcmFzX2VlcHJvbV9jb250cm9s
-ICpjb250cm9sOw0KPiAgCWludCBzYXZlX2NvdW50Ow0KPiANCj4gIAlpZiAoIWNvbiB8fCAhY29u
-LT5laF9kYXRhKQ0KPiAgCQlyZXR1cm4gMDsNCj4gDQo+ICsJY29udHJvbCA9ICZhZGV2LT5wc3Au
-cmFzLnJhcy0+ZWVwcm9tX2NvbnRyb2w7DQo+ICAJZGF0YSA9IGNvbi0+ZWhfZGF0YTsNCj4gIAlz
-YXZlX2NvdW50ID0gZGF0YS0+Y291bnQgLSBjb250cm9sLT5udW1fcmVjczsNCj4gIAkvKiBvbmx5
-IG5ldyBlbnRyaWVzIGFyZSBzYXZlZCAqLw0KPiAtLQ0KPiAyLjE3LjENCg0KX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QK
-YW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5v
-cmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+--===============1942276745==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ boundary="Sig_/cS6.qu00aBr=DuDBDgIGueK"; protocol="application/pgp-signature"
+
+--Sig_/cS6.qu00aBr=DuDBDgIGueK
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+On Tue, 17 Sep 2019 13:32:05 +0200
+Daniel Vetter <daniel@ffwll.ch> wrote:
+
+> On Tue, Sep 17, 2019 at 11:27 AM Michel D=C3=A4nzer <michel@daenzer.net> =
+wrote:
+> >
+> > On 2019-09-17 11:23 a.m., Michel D=C3=A4nzer wrote: =20
+> > > On 2019-09-17 10:23 a.m., Koenig, Christian wrote: =20
+> > >> Am 17.09.19 um 10:17 schrieb Daniel Vetter: =20
+> > >>> On Tue, Sep 17, 2019 at 10:12 AM Christian K=C3=B6nig
+> > >>> <ckoenig.leichtzumerken@gmail.com> wrote: =20
+> > >>>> Am 17.09.19 um 07:47 schrieb Jani Nikula: =20
+> > >>>>> On Mon, 16 Sep 2019, Marek Ol=C5=A1=C3=A1k <maraeo@gmail.com> wro=
+te: =20
+> > >>>>>> The purpose is to get rid of all PCI ID tables for all drivers in
+> > >>>>>> userspace. (or at least stop updating them)
+> > >>>>>>
+> > >>>>>> Mesa common code and modesetting will use this. =20
+> > >>>>> I'd think this would warrant a high level description of what you=
+ want
+> > >>>>> to achieve in the commit message. =20
+> > >>>> And maybe explicitly call it uapi_name or even uapi_driver_name. =
+=20
+> > >>> If it's uapi_name, then why do we need a new one for every generati=
+on?
+> > >>> Userspace drivers tend to span a lot more than just 1 generation. A=
+nd
+> > >>> if you want to have per-generation data from the kernel to userspac=
+e,
+> > >>> then imo that's much better suited in some amdgpu ioctl, instead of
+> > >>> trying to encode that into the driver name. =20
+> > >>
+> > >> Well we already have an IOCTL for that, but I thought the intention =
+here
+> > >> was to get rid of the PCI-ID tables in userspace to figure out which
+> > >> driver to load. =20
+> > >
+> > > That's just unrealistic in general, I'm afraid. See e.g. the ongoing
+> > > transition from i965 to iris for recent Intel hardware. How is the
+> > > kernel supposed to know which driver is to be used?
+> > >
+> > >
+> > > For the Xorg modesetting driver, there's a simple solution, see
+> > > https://gitlab.freedesktop.org/xorg/xserver/merge_requests/278 .
+> > > Something similar can probably be done in Mesa as well. =20
+> >
+> > Another possibility might be for Xorg to use
+> > https://www.khronos.org/registry/EGL/extensions/MESA/EGL_MESA_query_dri=
+ver.txt
+> > to determine the driver name. Then only Mesa might need any HW specific
+> > code. =20
+>=20
+> How are other compositors solving this? I don't expect they have a
+> pciid table like modesetting copied to all of them ...
+
+Hi,
+
+other compositors have no driver-specific code at all, so they do not
+need to know what the driver in kernel or Mesa is, or what chip they
+are running. They may report chip name and stuff in logs for the users'
+amusement, but nothing more.
+
+Even the NVIDIA proprietary driver detection happens through EGL
+extension search: no-one else exposes EGLStreams.
+
+Unless maybe if someone needs to quirk around driver bugs.
+
+
+Thanks,
+pq
+
+--Sig_/cS6.qu00aBr=DuDBDgIGueK
+Content-Type: application/pgp-signature
+Content-Description: OpenPGP digital signature
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAl2B1WMACgkQI1/ltBGq
+qqe9sw/+PxcTpvv0BIYclDwWDRPEqHl1DKJCHJFRkRS7+hn/clw2KYmwAPfmmsDV
+Amr696lcOrYcaeGL1E8C4AFbYVD8Vw5d34IUtCkEN9VXnXEQonR4VSgCcMZR7k4p
+fLSZkT2Gr7DtthwdGUhqkvtbX5NarvW0icHKvLQBYwZKEwqElZ46xsaNIyXJKGT6
+MLzYNVL1yCuBN3pKA4fdtKJ75sJW1VLQzHaRpfZc2Cr7uAymPKKZmZeDntTmUUMT
+padHZDaopV95LCaKKQGLb9aBxSz60YJVRncVd0jg1yAB2qz0OUhb311D5eXxyD02
+N38vYEyFL+9joiRwD3bGfNiSDCyRtSNzHAIsgBNV67xFFU1aJQ5y180fdrkjsunq
+eSec3hDTiMZlKZFG6ITd9HREckWVUL+Jdmy5AOwlu8EXl2PcyxVR3FZoxJ5TxrqH
+wdIDpQZ1PYvUaVKkglPaqLWvA+gJOIqbJxMzUTKruFEvmIeylsTqqPiT5gqc0GZg
+RtshyWzzXqIItRprrLoNNevPhk+0x2t6kEUWFyCZ3O2NdDgoZpMWLH4X92aLvwqo
+Ehm+FBKIL1+3RGtK1y6xZX8ARC2+7rVHZ7ZC3R+5sHk+FApUAFBkPa1wvKL4UnB6
+DgaeV7hbVXzmAgMMtPTd3svP8pqmCbXpluGwITltfQNaMtX/5KY=
+=75T+
+-----END PGP SIGNATURE-----
+
+--Sig_/cS6.qu00aBr=DuDBDgIGueK--
+
+--===============1942276745==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KZHJpLWRldmVs
+IG1haWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
+dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVs
+
+--===============1942276745==--
