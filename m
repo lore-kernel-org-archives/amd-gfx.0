@@ -1,39 +1,98 @@
-From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: [PATCH] drm/amdgpu: fix error handling in amdgpu_bo_list_create
-Date: Wed, 18 Sep 2019 19:43:08 +0200
-Message-ID: <20190918174308.107845-1-christian.koenig@amd.com>
-Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+From: Navid Emamdoost <navid.emamdoost@gmail.com>
+Subject: [PATCH v2] drm/amdgpu: fix multiple memory leaks
+Date: Wed, 18 Sep 2019 14:05:26 -0500
+Message-ID: <20190918190529.17298-1-navid.emamdoost@gmail.com>
+References: <7bab24ff-ded7-9f76-ba25-efd07cdd30dd@amd.com>
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <7bab24ff-ded7-9f76-ba25-efd07cdd30dd@amd.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Christian.Koenig@amd.com
+Cc: emamd001@umn.edu, smccaman@umn.edu, kjlu@umn.edu, Navid Emamdoost <navid.emamdoost@gmail.com>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, Rex Zhu <Rex.Zhu@amd.com>, Sam Ravnborg <sam@ravnborg.org>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-V2UgbmVlZCB0byBkcm9wIG5vcm1hbCBhbmQgdXNlcnB0ciBCT3Mgc2VwYXJhdGVseS4KClNpZ25l
-ZC1vZmYtYnk6IENocmlzdGlhbiBLw7ZuaWcgPGNocmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4KLS0t
-CiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfYm9fbGlzdC5jIHwgNyArKysrKyst
-CiAxIGZpbGUgY2hhbmdlZCwgNiBpbnNlcnRpb25zKCspLCAxIGRlbGV0aW9uKC0pCgpkaWZmIC0t
-Z2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2JvX2xpc3QuYyBiL2RyaXZl
-cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9ib19saXN0LmMKaW5kZXggZDQ5NzQ2N2I3ZmM2
-Li45NDkwOGJmMjY5YTYgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
-ZGdwdV9ib19saXN0LmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Jv
-X2xpc3QuYwpAQCAtMTM5LDcgKzEzOSwxMiBAQCBpbnQgYW1kZ3B1X2JvX2xpc3RfY3JlYXRlKHN0
-cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LCBzdHJ1Y3QgZHJtX2ZpbGUgKmZpbHAsCiAJcmV0dXJu
-IDA7CiAKIGVycm9yX2ZyZWU6Ci0Jd2hpbGUgKGktLSkgeworCWZvciAoaSA9IDA7IGkgPCBsYXN0
-X2VudHJ5OyArK2kpIHsKKwkJc3RydWN0IGFtZGdwdV9ibyAqYm8gPSB0dG1fdG9fYW1kZ3B1X2Jv
-KGFycmF5W2ldLnR2LmJvKTsKKworCQlhbWRncHVfYm9fdW5yZWYoJmJvKTsKKwl9CisJZm9yIChp
-ID0gZmlyc3RfdXNlcnB0cjsgaSA8IG51bV9lbnRyaWVzOyArK2kpIHsKIAkJc3RydWN0IGFtZGdw
-dV9ibyAqYm8gPSB0dG1fdG9fYW1kZ3B1X2JvKGFycmF5W2ldLnR2LmJvKTsKIAogCQlhbWRncHVf
-Ym9fdW5yZWYoJmJvKTsKLS0gCjIuMTcuMQoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVl
-ZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5m
-by9hbWQtZ2Z4
+In acp_hw_init there are some allocations that needs to be released in
+case of failure:
+
+1- adev->acp.acp_genpd should be released if any allocation attemp for
+adev->acp.acp_cell, adev->acp.acp_res or i2s_pdata fails.
+2- all of those allocations should be released if pm_genpd_add_device
+fails.
+
+v2: moved the released into goto error handlings
+
+Signed-off-by: Navid Emamdoost <navid.emamdoost@gmail.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c | 30 +++++++++++++++++--------
+ 1 file changed, 21 insertions(+), 9 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c
+index eba42c752bca..c0db75b71859 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c
+@@ -184,7 +184,7 @@ static struct device *get_mfd_cell_dev(const char *device_name, int r)
+  */
+ static int acp_hw_init(void *handle)
+ {
+-	int r, i;
++	int r, i, ret;
+ 	uint64_t acp_base;
+ 	u32 val = 0;
+ 	u32 count = 0;
+@@ -231,20 +231,21 @@ static int acp_hw_init(void *handle)
+ 	adev->acp.acp_cell = kcalloc(ACP_DEVS, sizeof(struct mfd_cell),
+ 							GFP_KERNEL);
+ 
+-	if (adev->acp.acp_cell == NULL)
+-		return -ENOMEM;
++	if (adev->acp.acp_cell == NULL) {
++		ret = -ENOMEM;
++		goto out1;
++	}
+ 
+ 	adev->acp.acp_res = kcalloc(5, sizeof(struct resource), GFP_KERNEL);
+ 	if (adev->acp.acp_res == NULL) {
+-		kfree(adev->acp.acp_cell);
+-		return -ENOMEM;
++		ret = -ENOMEM;
++		goto out2;
+ 	}
+ 
+ 	i2s_pdata = kcalloc(3, sizeof(struct i2s_platform_data), GFP_KERNEL);
+ 	if (i2s_pdata == NULL) {
+-		kfree(adev->acp.acp_res);
+-		kfree(adev->acp.acp_cell);
+-		return -ENOMEM;
++		ret = -ENOMEM;
++		goto out3;
+ 	}
+ 
+ 	switch (adev->asic_type) {
+@@ -348,7 +349,8 @@ static int acp_hw_init(void *handle)
+ 		r = pm_genpd_add_device(&adev->acp.acp_genpd->gpd, dev);
+ 		if (r) {
+ 			dev_err(dev, "Failed to add dev to genpd\n");
+-			return r;
++			ret = r;
++			goto out4;
+ 		}
+ 	}
+ 
+@@ -393,6 +395,16 @@ static int acp_hw_init(void *handle)
+ 	val &= ~ACP_SOFT_RESET__SoftResetAud_MASK;
+ 	cgs_write_register(adev->acp.cgs_device, mmACP_SOFT_RESET, val);
+ 	return 0;
++
++out4:
++	kfree(i2s_pdata);
++out3:
++	kfree(adev->acp.acp_res);
++out2:
++	kfree(adev->acp.acp_cell);
++out1:
++	kfree(adev->acp.acp_genpd);
++	return ret;
+ }
+ 
+ /**
+-- 
+2.17.1
