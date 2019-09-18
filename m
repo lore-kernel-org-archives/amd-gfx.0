@@ -1,16 +1,12 @@
-From: "Deng, Emily" <Emily.Deng-5C7GfCeVMHo@public.gmane.org>
+From: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
 Subject: RE: [PATCH] drm/amdgpu/sriov: omit fbcon error under sriov or
  passthrough
-Date: Wed, 18 Sep 2019 08:08:13 +0000
-Message-ID: <MN2PR12MB2975F41EE42811399F0016C28F8E0@MN2PR12MB2975.namprd12.prod.outlook.com>
-References: <20190918072445.3559-1-Jack.Zhang1@amd.com>,
- <DM6PR12MB367564A4AAC093F841D88018BB8E0@DM6PR12MB3675.namprd12.prod.outlook.com>
- <2a7e5c50-7af0-4af1-a46d-834943ab810c@email.android.com>
+Date: Wed, 18 Sep 2019 08:44:05 +0000
+Message-ID: <49a9813a-4115-4d0c-966c-a2c46499bcad@email.android.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1057948386=="
+Content-Type: multipart/mixed; boundary="===============1336865504=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <2a7e5c50-7af0-4af1-a46d-834943ab810c-2ueSQiBKiTY7tOexoI0I+QC/G2K4zDHf@public.gmane.org>
-Content-Language: en-US
+Content-Language: de-DE
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -21,335 +17,204 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "Zhang, Jack (Jian)" <Jack.Zhang1-5C7GfCeVMHo@public.gmane.org>
-Cc: "Cui, Flora" <Flora.Cui-5C7GfCeVMHo@public.gmane.org>, "Teng, Rui" <Rui.Teng-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Deng, Emily" <Emily.Deng-5C7GfCeVMHo@public.gmane.org>
+Cc: "Zhang, Jack (Jian)" <Jack.Zhang1-5C7GfCeVMHo@public.gmane.org>, "Cui,
+ Flora" <Flora.Cui-5C7GfCeVMHo@public.gmane.org>, "Teng, Rui" <Rui.Teng-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============1057948386==
-Content-Language: en-US
+--===============1336865504==
+Content-Language: de-DE
 Content-Type: multipart/alternative;
-	boundary="_000_MN2PR12MB2975F41EE42811399F0016C28F8E0MN2PR12MB2975namp_"
+	boundary="_000_49a9813a41154d0c966ca2c46499bcademailandroidcom_"
 
---_000_MN2PR12MB2975F41EE42811399F0016C28F8E0MN2PR12MB2975namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+--_000_49a9813a41154d0c966ca2c46499bcademailandroidcom_
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-Hi Christian,
-     Before unloading driver, user must sure there is not any userspace to =
-use of amdgpu, if not, it will report driver is in use. And the unloading d=
-river is a feature about amdgpu driver which will be easier to replace driv=
-er without rebooting VM. Do you think it has any issue about driver unloadi=
-ng path?
+SGkgRW1pbHksDQoNClllYWgsIGV4YWN0bHkgdGhhdCdzIHRoZSBwcm9ibGVtOiBJbiBzb21lIGNh
+c2VzIHRoZSBkcml2ZXIgY2FuIGJlIHVubG9hZGVkIHdoaWxlIGl0IGlzIHN0aWxsIGluIHVzZSEN
+Cg0KU2VlIHdlIGFkZGVkIHRoaXMgZXJyb3IgbWVzc2FnZSBiZWNhdXNlIGVuZHVzZXJzIHRyaWVk
+IHRvIHVzZSBQQ0llIGhvdCBwbHVnIHRvIHVubG9hZCB0aGUgZHJpdmVyIHRvIHVzZSB0aGUgaGFy
+ZHdhcmUgZm9yIHBhdGh0aHJvdWdoLg0KDQpCdXQgdGhpcyB3aWxsIGNvbXBsZXRlbHkgbnVrZSB5
+b3VyIGRlc2t0b3AsIGV2ZW4gd2hlbiBhbWRncHUgaXMgb25seSBhIHNlY29uZGFyeSBkZXZpY2Ug
+bGlrZSBpbiB0aGUgcXhsIGNhc2UuDQoNCkphY2sgaXMgdXNpbmcgdGhlIGNvcnJlY3Qgd2F5IG9m
+IGRvaW5nIGl0LCBlLmcuIHVzaW5nICJtb2Rwcm9iZSAtciIgb3Igcm1tb2QuIEJvdGggY29tbWFu
+ZHMgY2hlY2sgdGhlIHVzZSBjb3VudCBiZWZvcmUgdW5sb2FkaW5nIHRoZSBkcml2ZXIgaW5zdGFu
+Y2VzLg0KDQpJIGRvbid0IHNlZSBhIHdheSB0byBkaXN0aW5ndCB0aGUgdHdvIGNhc2VzIGFuZCB3
+aGF0IEphY2sgaXMgZG9pbmcgaXMgdW5mb3J0dW5hdGUgbm90IHRoZSBjb21tb24gb25lLg0KDQpS
+ZWdhcmRzLA0KQ2hyaXN0aWFuLg0KDQoNCkFtIDE4LjA5LjIwMTkgMTA6MDggc2NocmllYiAiRGVu
+ZywgRW1pbHkiIDxFbWlseS5EZW5nQGFtZC5jb20+Og0KDQpIaSBDaHJpc3RpYW4sDQoNCiAgICAg
+QmVmb3JlIHVubG9hZGluZyBkcml2ZXIsIHVzZXIgbXVzdCBzdXJlIHRoZXJlIGlzIG5vdCBhbnkg
+dXNlcnNwYWNlIHRvIHVzZSBvZiBhbWRncHUsIGlmIG5vdCwgaXQgd2lsbCByZXBvcnQgZHJpdmVy
+IGlzIGluIHVzZS4gQW5kIHRoZSB1bmxvYWRpbmcgZHJpdmVyIGlzIGEgZmVhdHVyZSBhYm91dCBh
+bWRncHUgZHJpdmVyIHdoaWNoIHdpbGwgYmUgZWFzaWVyIHRvIHJlcGxhY2UgZHJpdmVyIHdpdGhv
+dXQgcmVib290aW5nIFZNLiBEbyB5b3UgdGhpbmsgaXQgaGFzIGFueSBpc3N1ZSBhYm91dCBkcml2
+ZXIgdW5sb2FkaW5nIHBhdGg/DQoNCg0KDQpCZXN0IHdpc2hlcw0KDQpFbWlseSBEZW5nDQoNCkZy
+b206IEtvZW5pZywgQ2hyaXN0aWFuIDxDaHJpc3RpYW4uS29lbmlnQGFtZC5jb20+DQpTZW50OiBX
+ZWRuZXNkYXksIFNlcHRlbWJlciAxOCwgMjAxOSAzOjU0IFBNDQpUbzogWmhhbmcsIEphY2sgKEpp
+YW4pIDxKYWNrLlpoYW5nMUBhbWQuY29tPg0KQ2M6IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Au
+b3JnOyBUZW5nLCBSdWkgPFJ1aS5UZW5nQGFtZC5jb20+OyBEZW5nLCBFbWlseSA8RW1pbHkuRGVu
+Z0BhbWQuY29tPjsgQ3VpLCBGbG9yYSA8RmxvcmEuQ3VpQGFtZC5jb20+DQpTdWJqZWN0OiBSRTog
+W1BBVENIXSBkcm0vYW1kZ3B1L3NyaW92OiBvbWl0IGZiY29uIGVycm9yIHVuZGVyIHNyaW92IG9y
+IHBhc3N0aHJvdWdoDQoNCg0KDQpIaSBKYWNrLA0KDQoNCg0KV2VsbCB0aGF0IGJlbGlldmUgaXMg
+dW5mb3J0dW5hdGVseSBjb21wbGV0ZWx5IHdyb25nLg0KDQoNCg0KVGhlIHBvaW50IGlzIHRoYXQg
+QU5ZIHVzZSBvZiBhbWRncHUgYnkgdXNlcnNwYWNlIHdpbGwgcHJldmVudCBjb3JyZWN0IGRyaXZl
+ciB1bmxvYWQsIHRoYXQgcXhsIGlzIHVzZWQgZm9yIHRoZSBmYmNvbiBkb2Vzbid0IGNoYW5nZSBh
+bnl0aGluZyBoZXJlLg0KDQoNCg0KU28gdGhlIHBhdGNoIGlzIGEgY2xlYXIgTkFLLiBEcml2ZXIg
+dW5sb2FkIGlzIG5vdCBzdXBwb3NlZCB0byB3b3JrIGV2ZW4gdW5kZXIgU1JJT1YuDQoNCg0KDQpS
+ZWdhcmRzLA0KDQpDaHJpc3RpYW4uDQoNCg0KDQoNCg0KDQoNCkFtIDE4LjA5LjIwMTkgMDk6MzIg
+c2NocmllYiAiWmhhbmcsIEphY2sgKEppYW4pIiA8SmFjay5aaGFuZzFAYW1kLmNvbTxtYWlsdG86
+SmFjay5aaGFuZzFAYW1kLmNvbT4+Og0KDQpIaSwgQ2hyaXN0aWFuIGFuZCBmb2xrcywNCg0KSW4g
+dmlydHVhbCBtYWNoaW5lcyhzdWNoIHZpcnQtbWFuYWdlciksIHRoZXJlJ3MgYWx3YXlzIGEgdmly
+dHVhbCBncmFwaGljcyBkZXZpY2UgZXhpc3RlZCBsaWtlICJxeGwiIGFzIHRoZSBkZWZhdWx0IGdm
+eCBkZXZpY2UuDQpTbyB1bmRlciBzdWNoIGNvbmRpdGlvbiwgd2UgYmVsaWV2ZSBpdCdzIHJlYXNv
+bmFibGUgdG8gdW5sb2FkIGFtZGdwdSBkcml2ZXIgYXMgaXQgaXMgbm90IHRyZWF0ZWQgYXMgdGhl
+IGRlZmF1bHQgZmJjb24gZGV2aWNlLg0KDQpXb3VsZCB5b3UgcGxlYXNlIGhlbHAgdG8gcmV2aWV3
+IHRoaXMgcGF0Y2g/DQoNCkJlc3Qgd2lzaGVzLA0KSmFjaw0KDQotLS0tLU9yaWdpbmFsIE1lc3Nh
+Z2UtLS0tLQ0KRnJvbTogSmFjayBaaGFuZyA8SmFjay5aaGFuZzFAYW1kLmNvbTxtYWlsdG86SmFj
+ay5aaGFuZzFAYW1kLmNvbT4+DQpTZW50OiBXZWRuZXNkYXksIFNlcHRlbWJlciAxOCwgMjAxOSAz
+OjI1IFBNDQpUbzogYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmc8bWFpbHRvOmFtZC1nZnhA
+bGlzdHMuZnJlZWRlc2t0b3Aub3JnPg0KQ2M6IFpoYW5nLCBKYWNrIChKaWFuKSA8SmFjay5aaGFu
+ZzFAYW1kLmNvbTxtYWlsdG86SmFjay5aaGFuZzFAYW1kLmNvbT4+DQpTdWJqZWN0OiBbUEFUQ0hd
+IGRybS9hbWRncHUvc3Jpb3Y6IG9taXQgZmJjb24gZXJyb3IgdW5kZXIgc3Jpb3Ygb3IgcGFzc3Ro
+cm91Z2gNCg0KSW4gdmlydHVhbCBtYWNoaW5lLCB0aGVyZSB3b3VsZCBiZSBhIHF4bCBvciBjaXJy
+dXMgZ3JhcGhpY3MgZGV2aWNlIGFzIHRoZSBkZWZhdWx0IG1hc3RlciBmYmNvbiBkZXZpY2UuDQoN
+ClNvIGZvciBQRihwYXNzdGhyb3VnaCBtb2RlKSBvciBTUklPViBWRiwgaXQgaXMgcmVhc29uYWJs
+ZSB0byB1bmxvYWQgYW1kZ3B1IGRyaXZlci4gQW1kZ3B1IGRvZXNuJ3QgaGF2ZSB0byBiZSB0aGUg
+b25seSBmYmNvbiBkZXZpY2UgdW5kZXIgdGhpcyBjb25kaXRpb24uDQoNClNpZ25lZC1vZmYtYnk6
+IEphY2sgWmhhbmcgPEphY2suWmhhbmcxQGFtZC5jb208bWFpbHRvOkphY2suWmhhbmcxQGFtZC5j
+b20+Pg0KLS0tDQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rydi5jIHwgNSAr
+KystLQ0KIDEgZmlsZSBjaGFuZ2VkLCAzIGluc2VydGlvbnMoKyksIDIgZGVsZXRpb25zKC0pDQoN
+CmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZHJ2LmMgYi9k
+cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZHJ2LmMNCmluZGV4IDQyMDg4OGUuLmFk
+YTJiMjUgMTAwNjQ0DQotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZHJ2
+LmMNCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kcnYuYw0KQEAgLTEx
+MDMsOCArMTEwMyw5IEBAIHN0YXRpYyB2b2lkDQogYW1kZ3B1X3BjaV9yZW1vdmUoc3RydWN0IHBj
+aV9kZXYgKnBkZXYpICB7DQogICAgICAgICBzdHJ1Y3QgZHJtX2RldmljZSAqZGV2ID0gcGNpX2dl
+dF9kcnZkYXRhKHBkZXYpOw0KLQ0KLSAgICAgICBEUk1fRVJST1IoIkRldmljZSByZW1vdmFsIGlz
+IGN1cnJlbnRseSBub3Qgc3VwcG9ydGVkIG91dHNpZGUgb2YgZmJjb25cbiIpOw0KKyAgICAgICBz
+dHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiA9IGRldi0+ZGV2X3ByaXZhdGU7DQorICAgICAgIGlm
+ICghYW1kZ3B1X3NyaW92X3ZmKGFkZXYpICYmICFhbWRncHVfcGFzc3Rocm91Z2goYWRldikpDQor
+ICAgICAgICAgICAgICAgRFJNX0VSUk9SKCJEZXZpY2UgcmVtb3ZhbCBpcyBjdXJyZW50bHkgbm90
+IHN1cHBvcnRlZCBvdXRzaWRlIG9mDQorZmJjb25cbiIpOw0KICAgICAgICAgZHJtX2Rldl91bnBs
+dWcoZGV2KTsNCiAgICAgICAgIGRybV9kZXZfcHV0KGRldik7DQogICAgICAgICBwY2lfZGlzYWJs
+ZV9kZXZpY2UocGRldik7DQotLQ0KMi43LjQNCg0K
 
-Best wishes
-Emily Deng
-From: Koenig, Christian <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
-Sent: Wednesday, September 18, 2019 3:54 PM
-To: Zhang, Jack (Jian) <Jack.Zhang1-5C7GfCeVMHo@public.gmane.org>
-Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; Teng, Rui <Rui.Teng-5C7GfCeVMHo@public.gmane.org>; Deng, Emil=
-y <Emily.Deng-5C7GfCeVMHo@public.gmane.org>; Cui, Flora <Flora.Cui-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH] drm/amdgpu/sriov: omit fbcon error under sriov or pass=
-through
+--_000_49a9813a41154d0c966ca2c46499bcademailandroidcom_
+Content-Type: text/html; charset="utf-8"
+Content-ID: <57F58A9A59003F4C915B947046BF27A3-t0aD9ArCiwdO0n7uQEQMm4CZgX+1HZI1@public.gmane.org>
+Content-Transfer-Encoding: base64
 
-Hi Jack,
+PGh0bWw+DQo8aGVhZD4NCjxtZXRhIGh0dHAtZXF1aXY9IkNvbnRlbnQtVHlwZSIgY29udGVudD0i
+dGV4dC9odG1sOyBjaGFyc2V0PXV0Zi04Ij4NCjwvaGVhZD4NCjxib2R5Pg0KPGRpdiBkaXI9ImF1
+dG8iPg0KPGRpdiBkaXI9ImF1dG8iPkhpIEVtaWx5LA0KPGRpdiBkaXI9ImF1dG8iPjxicj4NCjwv
+ZGl2Pg0KPGRpdiBkaXI9ImF1dG8iPlllYWgsIGV4YWN0bHkgdGhhdCdzIHRoZSBwcm9ibGVtOiBJ
+biBzb21lIGNhc2VzIHRoZSBkcml2ZXIgY2FuIGJlIHVubG9hZGVkIHdoaWxlIGl0IGlzIHN0aWxs
+IGluIHVzZSE8L2Rpdj4NCjxkaXYgZGlyPSJhdXRvIj48YnI+DQo8L2Rpdj4NCjxkaXYgZGlyPSJh
+dXRvIj5TZWUgd2UgYWRkZWQgdGhpcyBlcnJvciBtZXNzYWdlIGJlY2F1c2UgZW5kdXNlcnMgdHJp
+ZWQgdG8gdXNlIFBDSWUgaG90IHBsdWcgdG8gdW5sb2FkIHRoZSBkcml2ZXIgdG8gdXNlIHRoZSBo
+YXJkd2FyZSBmb3IgcGF0aHRocm91Z2guPC9kaXY+DQo8ZGl2IGRpcj0iYXV0byI+PGJyPg0KPC9k
+aXY+DQo8ZGl2IGRpcj0iYXV0byI+QnV0IHRoaXMgd2lsbCBjb21wbGV0ZWx5IG51a2UgeW91ciBk
+ZXNrdG9wLCBldmVuIHdoZW4gYW1kZ3B1IGlzIG9ubHkgYSBzZWNvbmRhcnkgZGV2aWNlIGxpa2Ug
+aW4gdGhlIHF4bCBjYXNlLjxicj4NCjwvZGl2Pg0KPGRpdiBkaXI9ImF1dG8iPjxicj4NCjwvZGl2
+Pg0KPGRpdiBkaXI9ImF1dG8iPkphY2sgaXMgdXNpbmcgdGhlIGNvcnJlY3Qgd2F5IG9mIGRvaW5n
+IGl0LCBlLmcuIHVzaW5nICZxdW90O21vZHByb2JlIC1yJnF1b3Q7IG9yIHJtbW9kLiBCb3RoIGNv
+bW1hbmRzIGNoZWNrIHRoZSB1c2UgY291bnQgYmVmb3JlIHVubG9hZGluZyB0aGUgZHJpdmVyIGlu
+c3RhbmNlcy48L2Rpdj4NCjxkaXYgZGlyPSJhdXRvIj48YnI+DQo8L2Rpdj4NCjxkaXYgZGlyPSJh
+dXRvIj5JIGRvbid0IHNlZSBhIHdheSB0byBkaXN0aW5ndCB0aGUgdHdvIGNhc2VzIGFuZCB3aGF0
+IEphY2sgaXMgZG9pbmcgaXMgdW5mb3J0dW5hdGUgbm90IHRoZSBjb21tb24gb25lLjwvZGl2Pg0K
+PGRpdiBkaXI9ImF1dG8iPjxicj4NCjwvZGl2Pg0KPGRpdiBkaXI9ImF1dG8iPlJlZ2FyZHMsPC9k
+aXY+DQo8ZGl2IGRpcj0iYXV0byI+Q2hyaXN0aWFuLjwvZGl2Pg0KPGRpdiBkaXI9ImF1dG8iPjxi
+cj4NCjwvZGl2Pg0KPC9kaXY+DQo8ZGl2Pjxicj4NCjxkaXYgY2xhc3M9ImVsaWRlZC10ZXh0Ij5B
+bSAxOC4wOS4yMDE5IDEwOjA4IHNjaHJpZWIgJnF1b3Q7RGVuZywgRW1pbHkmcXVvdDsgJmx0O0Vt
+aWx5LkRlbmdAYW1kLmNvbSZndDs6PGJyIHR5cGU9ImF0dHJpYnV0aW9uIj4NCjxibG9ja3F1b3Rl
+IHN0eWxlPSJtYXJnaW46MCAwIDAgMC44ZXg7Ym9yZGVyLWxlZnQ6MXB4ICNjY2Mgc29saWQ7cGFk
+ZGluZy1sZWZ0OjFleCI+DQo8ZGl2Pg0KPGRpdj4NCjxwPkhpIENocmlzdGlhbiw8L3A+DQo8cD4m
+bmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsgQmVmb3JlIHVubG9hZGluZyBkcml2ZXIsIHVzZXIgbXVz
+dCBzdXJlIHRoZXJlIGlzIG5vdCBhbnkgdXNlcnNwYWNlIHRvIHVzZSBvZiBhbWRncHUsIGlmIG5v
+dCwgaXQgd2lsbCByZXBvcnQgZHJpdmVyIGlzIGluIHVzZS4gQW5kIHRoZSB1bmxvYWRpbmcgZHJp
+dmVyIGlzIGEgZmVhdHVyZSBhYm91dCBhbWRncHUgZHJpdmVyIHdoaWNoIHdpbGwgYmUgZWFzaWVy
+IHRvIHJlcGxhY2UgZHJpdmVyIHdpdGhvdXQgcmVib290aW5nIFZNLiBEbyB5b3UNCiB0aGluayBp
+dCBoYXMgYW55IGlzc3VlIGFib3V0IGRyaXZlciB1bmxvYWRpbmcgcGF0aD88L3A+DQo8cD4mbmJz
+cDs8L3A+DQo8cD5CZXN0IHdpc2hlczwvcD4NCjxwPkVtaWx5IERlbmc8L3A+DQo8ZGl2IHN0eWxl
+PSJib3JkZXI6bm9uZTtib3JkZXItbGVmdDpzb2xpZCBibHVlIDEuNXB0O3BhZGRpbmc6MGluIDBp
+biAwaW4gNHB0Ij4NCjxkaXY+DQo8ZGl2IHN0eWxlPSJib3JkZXI6bm9uZTtib3JkZXItdG9wOnNv
+bGlkICNlMWUxZTEgMXB0O3BhZGRpbmc6M3B0IDBpbiAwaW4gMGluIj4NCjxwPjxiPkZyb206PC9i
+PiBLb2VuaWcsIENocmlzdGlhbiAmbHQ7Q2hyaXN0aWFuLktvZW5pZ0BhbWQuY29tJmd0OyA8YnI+
+DQo8Yj5TZW50OjwvYj4gV2VkbmVzZGF5LCBTZXB0ZW1iZXIgMTgsIDIwMTkgMzo1NCBQTTxicj4N
+CjxiPlRvOjwvYj4gWmhhbmcsIEphY2sgKEppYW4pICZsdDtKYWNrLlpoYW5nMUBhbWQuY29tJmd0
+Ozxicj4NCjxiPkNjOjwvYj4gYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmc7IFRlbmcsIFJ1
+aSAmbHQ7UnVpLlRlbmdAYW1kLmNvbSZndDs7IERlbmcsIEVtaWx5ICZsdDtFbWlseS5EZW5nQGFt
+ZC5jb20mZ3Q7OyBDdWksIEZsb3JhICZsdDtGbG9yYS5DdWlAYW1kLmNvbSZndDs8YnI+DQo8Yj5T
+dWJqZWN0OjwvYj4gUkU6IFtQQVRDSF0gZHJtL2FtZGdwdS9zcmlvdjogb21pdCBmYmNvbiBlcnJv
+ciB1bmRlciBzcmlvdiBvciBwYXNzdGhyb3VnaDwvcD4NCjwvZGl2Pg0KPC9kaXY+DQo8cD4mbmJz
+cDs8L3A+DQo8ZGl2Pg0KPGRpdj4NCjxwPkhpIEphY2ssPC9wPg0KPGRpdj4NCjxwPiZuYnNwOzwv
+cD4NCjwvZGl2Pg0KPGRpdj4NCjxwPldlbGwgdGhhdCBiZWxpZXZlIGlzIHVuZm9ydHVuYXRlbHkg
+Y29tcGxldGVseSB3cm9uZy48L3A+DQo8L2Rpdj4NCjxkaXY+DQo8cD4mbmJzcDs8L3A+DQo8L2Rp
+dj4NCjxkaXY+DQo8cD5UaGUgcG9pbnQgaXMgdGhhdCBBTlkgdXNlIG9mIGFtZGdwdSBieSB1c2Vy
+c3BhY2Ugd2lsbCBwcmV2ZW50IGNvcnJlY3QgZHJpdmVyIHVubG9hZCwgdGhhdCBxeGwgaXMgdXNl
+ZCBmb3IgdGhlIGZiY29uIGRvZXNuJ3QgY2hhbmdlIGFueXRoaW5nIGhlcmUuPC9wPg0KPC9kaXY+
+DQo8ZGl2Pg0KPHA+Jm5ic3A7PC9wPg0KPC9kaXY+DQo8ZGl2Pg0KPHA+U28gdGhlIHBhdGNoIGlz
+IGEgY2xlYXIgTkFLLiBEcml2ZXIgdW5sb2FkIGlzIG5vdCBzdXBwb3NlZCB0byB3b3JrIGV2ZW4g
+dW5kZXIgU1JJT1YuPC9wPg0KPC9kaXY+DQo8ZGl2Pg0KPHA+Jm5ic3A7PC9wPg0KPC9kaXY+DQo8
+ZGl2Pg0KPHA+UmVnYXJkcyw8L3A+DQo8L2Rpdj4NCjxkaXY+DQo8cD5DaHJpc3RpYW4uPC9wPg0K
+PC9kaXY+DQo8ZGl2Pg0KPHA+Jm5ic3A7PC9wPg0KPC9kaXY+DQo8ZGl2Pg0KPHA+Jm5ic3A7PC9w
+Pg0KPC9kaXY+DQo8L2Rpdj4NCjxkaXY+DQo8cD4mbmJzcDs8L3A+DQo8ZGl2Pg0KPHA+QW0gMTgu
+MDkuMjAxOSAwOTozMiBzY2hyaWViICZxdW90O1poYW5nLCBKYWNrIChKaWFuKSZxdW90OyAmbHQ7
+PGEgaHJlZj0ibWFpbHRvOkphY2suWmhhbmcxQGFtZC5jb20iPkphY2suWmhhbmcxQGFtZC5jb208
+L2E+Jmd0Ozo8L3A+DQo8L2Rpdj4NCjwvZGl2Pg0KPC9kaXY+DQo8ZGl2Pg0KPHAgc3R5bGU9Im1h
+cmdpbi1ib3R0b206MTJwdCI+SGksIENocmlzdGlhbiBhbmQgZm9sa3MsPGJyPg0KPGJyPg0KSW4g
+dmlydHVhbCBtYWNoaW5lcyhzdWNoIHZpcnQtbWFuYWdlciksIHRoZXJlJ3MgYWx3YXlzIGEgdmly
+dHVhbCBncmFwaGljcyBkZXZpY2UgZXhpc3RlZCBsaWtlICZxdW90O3F4bCZxdW90OyBhcyB0aGUg
+ZGVmYXVsdCBnZnggZGV2aWNlLjxicj4NClNvIHVuZGVyIHN1Y2ggY29uZGl0aW9uLCB3ZSBiZWxp
+ZXZlIGl0J3MgcmVhc29uYWJsZSB0byB1bmxvYWQgYW1kZ3B1IGRyaXZlciBhcyBpdCBpcyBub3Qg
+dHJlYXRlZCBhcyB0aGUgZGVmYXVsdCBmYmNvbiBkZXZpY2UuPGJyPg0KPGJyPg0KV291bGQgeW91
+IHBsZWFzZSBoZWxwIHRvIHJldmlldyB0aGlzIHBhdGNoPzxicj4NCjxicj4NCkJlc3Qgd2lzaGVz
+LDxicj4NCkphY2s8YnI+DQo8YnI+DQotLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLTxicj4NCkZy
+b206IEphY2sgWmhhbmcgJmx0OzxhIGhyZWY9Im1haWx0bzpKYWNrLlpoYW5nMUBhbWQuY29tIj5K
+YWNrLlpoYW5nMUBhbWQuY29tPC9hPiZndDsgPGJyPg0KU2VudDogV2VkbmVzZGF5LCBTZXB0ZW1i
+ZXIgMTgsIDIwMTkgMzoyNSBQTTxicj4NClRvOiA8YSBocmVmPSJtYWlsdG86YW1kLWdmeEBsaXN0
+cy5mcmVlZGVza3RvcC5vcmciPmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnPC9hPjxicj4N
+CkNjOiBaaGFuZywgSmFjayAoSmlhbikgJmx0OzxhIGhyZWY9Im1haWx0bzpKYWNrLlpoYW5nMUBh
+bWQuY29tIj5KYWNrLlpoYW5nMUBhbWQuY29tPC9hPiZndDs8YnI+DQpTdWJqZWN0OiBbUEFUQ0hd
+IGRybS9hbWRncHUvc3Jpb3Y6IG9taXQgZmJjb24gZXJyb3IgdW5kZXIgc3Jpb3Ygb3IgcGFzc3Ro
+cm91Z2g8YnI+DQo8YnI+DQpJbiB2aXJ0dWFsIG1hY2hpbmUsIHRoZXJlIHdvdWxkIGJlIGEgcXhs
+IG9yIGNpcnJ1cyBncmFwaGljcyBkZXZpY2UgYXMgdGhlIGRlZmF1bHQgbWFzdGVyIGZiY29uIGRl
+dmljZS48YnI+DQo8YnI+DQpTbyBmb3IgUEYocGFzc3Rocm91Z2ggbW9kZSkgb3IgU1JJT1YgVkYs
+IGl0IGlzIHJlYXNvbmFibGUgdG8gdW5sb2FkIGFtZGdwdSBkcml2ZXIuIEFtZGdwdSBkb2Vzbid0
+IGhhdmUgdG8gYmUgdGhlIG9ubHkgZmJjb24gZGV2aWNlIHVuZGVyIHRoaXMgY29uZGl0aW9uLjxi
+cj4NCjxicj4NClNpZ25lZC1vZmYtYnk6IEphY2sgWmhhbmcgJmx0OzxhIGhyZWY9Im1haWx0bzpK
+YWNrLlpoYW5nMUBhbWQuY29tIj5KYWNrLlpoYW5nMUBhbWQuY29tPC9hPiZndDs8YnI+DQotLS08
+YnI+DQombmJzcDtkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZHJ2LmMgfCA1ICYj
+NDM7JiM0MzsmIzQzOy0tPGJyPg0KJm5ic3A7MSBmaWxlIGNoYW5nZWQsIDMgaW5zZXJ0aW9ucygm
+IzQzOyksIDIgZGVsZXRpb25zKC0pPGJyPg0KPGJyPg0KZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1
+L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kcnYuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
+L2FtZGdwdV9kcnYuYzxicj4NCmluZGV4IDQyMDg4OGUuLmFkYTJiMjUgMTAwNjQ0PGJyPg0KLS0t
+IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rydi5jPGJyPg0KJiM0MzsmIzQz
+OyYjNDM7IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rydi5jPGJyPg0KQEAg
+LTExMDMsOCAmIzQzOzExMDMsOSBAQCBzdGF0aWMgdm9pZDxicj4NCiZuYnNwO2FtZGdwdV9wY2lf
+cmVtb3ZlKHN0cnVjdCBwY2lfZGV2ICpwZGV2KSZuYnNwOyB7PCEtLSAtLT48YnI+DQombmJzcDsm
+bmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsgc3RydWN0IGRybV9kZXZp
+Y2UgKmRldiA9IHBjaV9nZXRfZHJ2ZGF0YShwZGV2KTs8YnI+DQotPGJyPg0KLSZuYnNwOyZuYnNw
+OyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyBEUk1fRVJST1IoJnF1b3Q7RGV2aWNlIHJlbW92YWwg
+aXMgY3VycmVudGx5IG5vdCBzdXBwb3J0ZWQgb3V0c2lkZSBvZiBmYmNvblxuJnF1b3Q7KTs8YnI+
+DQomIzQzOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyBzdHJ1Y3QgYW1kZ3B1
+X2RldmljZSAqYWRldiA9IGRldi0mZ3Q7ZGV2X3ByaXZhdGU7PGJyPg0KJiM0MzsmbmJzcDsmbmJz
+cDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsgaWYgKCFhbWRncHVfc3Jpb3ZfdmYoYWRldikgJmFt
+cDsmYW1wOyAhYW1kZ3B1X3Bhc3N0aHJvdWdoKGFkZXYpKTxicj4NCiYjNDM7Jm5ic3A7Jm5ic3A7
+Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5i
+c3A7Jm5ic3A7Jm5ic3A7IERSTV9FUlJPUigmcXVvdDtEZXZpY2UgcmVtb3ZhbCBpcyBjdXJyZW50
+bHkgbm90IHN1cHBvcnRlZCBvdXRzaWRlIG9mIDxicj4NCiYjNDM7ZmJjb25cbiZxdW90Oyk7PGJy
+Pg0KJm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7IGRybV9k
+ZXZfdW5wbHVnKGRldik7PGJyPg0KJm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7
+Jm5ic3A7Jm5ic3A7IGRybV9kZXZfcHV0KGRldik7PGJyPg0KJm5ic3A7Jm5ic3A7Jm5ic3A7Jm5i
+c3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7IHBjaV9kaXNhYmxlX2RldmljZShwZGV2KTs8YnI+
+DQotLTxicj4NCjIuNy40PC9wPg0KPC9kaXY+DQo8L2Rpdj4NCjwvZGl2Pg0KPC9kaXY+DQo8L2Js
+b2NrcXVvdGU+DQo8L2Rpdj4NCjxicj4NCjwvZGl2Pg0KPC9kaXY+DQo8L2JvZHk+DQo8L2h0bWw+
+DQo=
 
-Well that believe is unfortunately completely wrong.
+--_000_49a9813a41154d0c966ca2c46499bcademailandroidcom_--
 
-The point is that ANY use of amdgpu by userspace will prevent correct drive=
-r unload, that qxl is used for the fbcon doesn't change anything here.
-
-So the patch is a clear NAK. Driver unload is not supposed to work even und=
-er SRIOV.
-
-Regards,
-Christian.
-
-
-
-Am 18.09.2019 09:32 schrieb "Zhang, Jack (Jian)" <Jack.Zhang1-5C7GfCeVMHo@public.gmane.org<mailt=
-o:Jack.Zhang1-5C7GfCeVMHo@public.gmane.org>>:
-Hi, Christian and folks,
-
-In virtual machines(such virt-manager), there's always a virtual graphics d=
-evice existed like "qxl" as the default gfx device.
-So under such condition, we believe it's reasonable to unload amdgpu driver=
- as it is not treated as the default fbcon device.
-
-Would you please help to review this patch?
-
-Best wishes,
-Jack
-
------Original Message-----
-From: Jack Zhang <Jack.Zhang1-5C7GfCeVMHo@public.gmane.org<mailto:Jack.Zhang1-5C7GfCeVMHo@public.gmane.org>>
-Sent: Wednesday, September 18, 2019 3:25 PM
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: Zhang, Jack (Jian) <Jack.Zhang1-5C7GfCeVMHo@public.gmane.org<mailto:Jack.Zhang1-5C7GfCeVMHo@public.gmane.org>>
-Subject: [PATCH] drm/amdgpu/sriov: omit fbcon error under sriov or passthro=
-ugh
-
-In virtual machine, there would be a qxl or cirrus graphics device as the d=
-efault master fbcon device.
-
-So for PF(passthrough mode) or SRIOV VF, it is reasonable to unload amdgpu =
-driver. Amdgpu doesn't have to be the only fbcon device under this conditio=
-n.
-
-Signed-off-by: Jack Zhang <Jack.Zhang1-5C7GfCeVMHo@public.gmane.org<mailto:Jack.Zhang1-5C7GfCeVMHo@public.gmane.org>>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_drv.c
-index 420888e..ada2b25 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-@@ -1103,8 +1103,9 @@ static void
- amdgpu_pci_remove(struct pci_dev *pdev)  {
-         struct drm_device *dev =3D pci_get_drvdata(pdev);
--
--       DRM_ERROR("Device removal is currently not supported outside of fbc=
-on\n");
-+       struct amdgpu_device *adev =3D dev->dev_private;
-+       if (!amdgpu_sriov_vf(adev) && !amdgpu_passthrough(adev))
-+               DRM_ERROR("Device removal is currently not supported outsid=
-e of
-+fbcon\n");
-         drm_dev_unplug(dev);
-         drm_dev_put(dev);
-         pci_disable_device(pdev);
---
-2.7.4
-
---_000_MN2PR12MB2975F41EE42811399F0016C28F8E0MN2PR12MB2975namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
-osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
-xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
-//www.w3.org/TR/REC-html40">
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
-<style><!--
-/* Font Definitions */
-@font-face
-	{font-family:"Cambria Math";
-	panose-1:2 4 5 3 5 4 6 3 2 4;}
-@font-face
-	{font-family:DengXian;
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-@font-face
-	{font-family:Calibri;
-	panose-1:2 15 5 2 2 2 4 3 2 4;}
-@font-face
-	{font-family:"\@DengXian";
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-/* Style Definitions */
-p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin:0in;
-	margin-bottom:.0001pt;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif;}
-a:link, span.MsoHyperlink
-	{mso-style-priority:99;
-	color:#0563C1;
-	text-decoration:underline;}
-a:visited, span.MsoHyperlinkFollowed
-	{mso-style-priority:99;
-	color:#954F72;
-	text-decoration:underline;}
-p.msonormal0, li.msonormal0, div.msonormal0
-	{mso-style-name:msonormal;
-	mso-margin-top-alt:auto;
-	margin-right:0in;
-	mso-margin-bottom-alt:auto;
-	margin-left:0in;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif;}
-p.emailquote, li.emailquote, div.emailquote
-	{mso-style-name:emailquote;
-	mso-margin-top-alt:auto;
-	margin-right:0in;
-	mso-margin-bottom-alt:auto;
-	margin-left:1.0pt;
-	border:none;
-	padding:0in;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif;}
-span.EmailStyle20
-	{mso-style-type:personal-reply;
-	font-family:"Calibri",sans-serif;
-	color:windowtext;}
-.MsoChpDefault
-	{mso-style-type:export-only;
-	font-size:10.0pt;}
-@page WordSection1
-	{size:8.5in 11.0in;
-	margin:1.0in 1.0in 1.0in 1.0in;}
-div.WordSection1
-	{page:WordSection1;}
---></style><!--[if gte mso 9]><xml>
-<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
-</xml><![endif]--><!--[if gte mso 9]><xml>
-<o:shapelayout v:ext=3D"edit">
-<o:idmap v:ext=3D"edit" data=3D"1" />
-</o:shapelayout></xml><![endif]-->
-</head>
-<body lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72">
-<div class=3D"WordSection1">
-<p class=3D"MsoNormal">Hi Christian,<o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp; Before unloading driver, us=
-er must sure there is not any userspace to use of amdgpu, if not, it will r=
-eport driver is in use. And the unloading driver is a feature about amdgpu =
-driver which will be easier to replace driver without
- rebooting VM. Do you think it has any issue about driver unloading path?<o=
-:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">Best wishes<o:p></o:p></p>
-<p class=3D"MsoNormal">Emily Deng<o:p></o:p></p>
-<div style=3D"border:none;border-left:solid blue 1.5pt;padding:0in 0in 0in =
-4.0pt">
-<div>
-<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
-0in 0in">
-<p class=3D"MsoNormal"><b>From:</b> Koenig, Christian &lt;Christian.Koenig@=
-amd.com&gt; <br>
-<b>Sent:</b> Wednesday, September 18, 2019 3:54 PM<br>
-<b>To:</b> Zhang, Jack (Jian) &lt;Jack.Zhang1-5C7GfCeVMHo@public.gmane.org&gt;<br>
-<b>Cc:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; Teng, Rui &lt;Rui.Teng-5C7GfCeVMHo@public.gmane.org&gt=
-;; Deng, Emily &lt;Emily.Deng-5C7GfCeVMHo@public.gmane.org&gt;; Cui, Flora &lt;Flora.Cui-5C7GfCeVMHo@public.gmane.org=
-&gt;<br>
-<b>Subject:</b> RE: [PATCH] drm/amdgpu/sriov: omit fbcon error under sriov =
-or passthrough<o:p></o:p></p>
-</div>
-</div>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<div>
-<div>
-<p class=3D"MsoNormal">Hi Jack,<o:p></o:p></p>
-<div>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-</div>
-<div>
-<p class=3D"MsoNormal">Well that believe is unfortunately completely wrong.=
-<o:p></o:p></p>
-</div>
-<div>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-</div>
-<div>
-<p class=3D"MsoNormal">The point is that ANY use of amdgpu by userspace wil=
-l prevent correct driver unload, that qxl is used for the fbcon doesn't cha=
-nge anything here.<o:p></o:p></p>
-</div>
-<div>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-</div>
-<div>
-<p class=3D"MsoNormal">So the patch is a clear NAK. Driver unload is not su=
-pposed to work even under SRIOV.<o:p></o:p></p>
-</div>
-<div>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-</div>
-<div>
-<p class=3D"MsoNormal">Regards,<o:p></o:p></p>
-</div>
-<div>
-<p class=3D"MsoNormal">Christian.<o:p></o:p></p>
-</div>
-<div>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-</div>
-<div>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-</div>
-</div>
-<div>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<div>
-<p class=3D"MsoNormal">Am 18.09.2019 09:32 schrieb &quot;Zhang, Jack (Jian)=
-&quot; &lt;<a href=3D"mailto:Jack.Zhang1-5C7GfCeVMHo@public.gmane.org">Jack.Zhang1-5C7GfCeVMHo@public.gmane.org</a>&g=
-t;:<o:p></o:p></p>
-</div>
-</div>
-</div>
-<div>
-<p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt">Hi, Christian and fol=
-ks,<br>
-<br>
-In virtual machines(such virt-manager), there's always a virtual graphics d=
-evice existed like &quot;qxl&quot; as the default gfx device.<br>
-So under such condition, we believe it's reasonable to unload amdgpu driver=
- as it is not treated as the default fbcon device.<br>
-<br>
-Would you please help to review this patch?<br>
-<br>
-Best wishes,<br>
-Jack<br>
-<br>
------Original Message-----<br>
-From: Jack Zhang &lt;<a href=3D"mailto:Jack.Zhang1-5C7GfCeVMHo@public.gmane.org">Jack.Zhang1@amd=
-.com</a>&gt; <br>
-Sent: Wednesday, September 18, 2019 3:25 PM<br>
-To: <a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lzq7FAFJ/aeQ@public.gmane.org=
-top.org</a><br>
-Cc: Zhang, Jack (Jian) &lt;<a href=3D"mailto:Jack.Zhang1-5C7GfCeVMHo@public.gmane.org">Jack.Zhan=
-g1-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
-Subject: [PATCH] drm/amdgpu/sriov: omit fbcon error under sriov or passthro=
-ugh<br>
-<br>
-In virtual machine, there would be a qxl or cirrus graphics device as the d=
-efault master fbcon device.<br>
-<br>
-So for PF(passthrough mode) or SRIOV VF, it is reasonable to unload amdgpu =
-driver. Amdgpu doesn't have to be the only fbcon device under this conditio=
-n.<br>
-<br>
-Signed-off-by: Jack Zhang &lt;<a href=3D"mailto:Jack.Zhang1-5C7GfCeVMHo@public.gmane.org">Jack.Z=
-hang1-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 5 &#43;&#43;&#43;--<br>
-&nbsp;1 file changed, 3 insertions(&#43;), 2 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_drv.c<br>
-index 420888e..ada2b25 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c<br>
-@@ -1103,8 &#43;1103,9 @@ static void<br>
-&nbsp;amdgpu_pci_remove(struct pci_dev *pdev)&nbsp; {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct drm_device *dev =3D=
- pci_get_drvdata(pdev);<br>
--<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DRM_ERROR(&quot;Device removal is cur=
-rently not supported outside of fbcon\n&quot;);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev =3D de=
-v-&gt;dev_private;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!amdgpu_sriov_vf(adev) &amp;&=
-amp; !amdgpu_passthrough(adev))<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; DRM_ERROR(&quot;Device removal is currently not supported ou=
-tside of <br>
-&#43;fbcon\n&quot;);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; drm_dev_unplug(dev);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; drm_dev_put(dev);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pci_disable_device(pdev);<=
-br>
---<br>
-2.7.4<o:p></o:p></p>
-</div>
-</div>
-</div>
-</body>
-</html>
-
---_000_MN2PR12MB2975F41EE42811399F0016C28F8E0MN2PR12MB2975namp_--
-
---===============1057948386==
+--===============1336865504==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -359,4 +224,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
 
---===============1057948386==--
+--===============1336865504==--
