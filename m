@@ -1,13 +1,13 @@
-From: "Xu, Feifei" <Feifei.Xu-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH] drm/amdgpu/gfx10: add support for wks firmware loading
-Date: Thu, 19 Sep 2019 06:05:47 +0000
-Message-ID: <CH2PR12MB37670D6362ADEBD444190252FE890@CH2PR12MB3767.namprd12.prod.outlook.com>
-References: <20190919053247.14172-1-tianci.yin@amd.com>
+From: "Yin, Tianci (Rico)" <Tianci.Yin-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu/gfx10: add support for wks firmware loading
+Date: Thu, 19 Sep 2019 06:12:15 +0000
+Message-ID: <DM5PR12MB253586B329B75BAC8D252CE595890@DM5PR12MB2535.namprd12.prod.outlook.com>
+References: <20190919053247.14172-1-tianci.yin@amd.com>,
+ <CH2PR12MB37670D6362ADEBD444190252FE890@CH2PR12MB3767.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0549686152=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190919053247.14172-1-tianci.yin-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <CH2PR12MB37670D6362ADEBD444190252FE890-rV3HgkLYx2Vb0rI3ZRjBIAdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -19,94 +19,392 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Yin,
- Tianci (Rico)" <Tianci.Yin-5C7GfCeVMHo@public.gmane.org>, "Zhang,
+To: "Xu, Feifei" <Feifei.Xu-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Zhang,
  Hawking" <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>
 
-DQoNClJldmlld2VkLWJ5OiBGZWlmZWkgWHUgPEZlaWZlaS5YdUBhbWQuY29tPg0KDQotLS0tLU9y
-aWdpbmFsIE1lc3NhZ2UtLS0tLQ0KRnJvbTogYW1kLWdmeCA8YW1kLWdmeC1ib3VuY2VzQGxpc3Rz
-LmZyZWVkZXNrdG9wLm9yZz4gT24gQmVoYWxmIE9mIFRpYW5jaSBZaW4NClNlbnQ6IFRodXJzZGF5
-LCBTZXB0ZW1iZXIgMTksIDIwMTkgMTozMyBQTQ0KVG86IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0
-b3Aub3JnDQpDYzogRGV1Y2hlciwgQWxleGFuZGVyIDxBbGV4YW5kZXIuRGV1Y2hlckBhbWQuY29t
-PjsgWWluLCBUaWFuY2kgKFJpY28pIDxUaWFuY2kuWWluQGFtZC5jb20+OyBaaGFuZywgSGF3a2lu
-ZyA8SGF3a2luZy5aaGFuZ0BhbWQuY29tPg0KU3ViamVjdDogW1BBVENIXSBkcm0vYW1kZ3B1L2dm
-eDEwOiBhZGQgc3VwcG9ydCBmb3Igd2tzIGZpcm13YXJlIGxvYWRpbmcNCg0KRnJvbTogIlRpYW5j
-aS5ZaW4iIDx0aWFuY2kueWluQGFtZC5jb20+DQoNCmxvYWQgZGlmZmVyZW50IGNwIGZpcm13YXJl
-IGFjY29yZGluZyB0byB0aGUgRElEIGFuZCBSSUQNCg0KU2lnbmVkLW9mZi1ieTogVGlhbmNpLllp
-biA8dGlhbmNpLnlpbkBhbWQuY29tPg0KLS0tDQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
-Z2Z4X3YxMF8wLmMgfCAyMiArKysrKysrKysrKysrKysrLS0tLS0tDQogMSBmaWxlIGNoYW5nZWQs
-IDE2IGluc2VydGlvbnMoKyksIDYgZGVsZXRpb25zKC0pDQoNCmRpZmYgLS1naXQgYS9kcml2ZXJz
-L2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjEwXzAuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
-Z3B1L2dmeF92MTBfMC5jDQppbmRleCAwODJhMGIzMjk4YTkuLjY1Y2FmNDA0ZTdkMSAxMDA2NDQN
-Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92MTBfMC5jDQorKysgYi9kcml2
-ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjEwXzAuYw0KQEAgLTY2LDYgKzY2LDExIEBAIE1P
-RFVMRV9GSVJNV0FSRSgiYW1kZ3B1L25hdmkxMF9tZWMuYmluIik7DQogTU9EVUxFX0ZJUk1XQVJF
-KCJhbWRncHUvbmF2aTEwX21lYzIuYmluIik7DQogTU9EVUxFX0ZJUk1XQVJFKCJhbWRncHUvbmF2
-aTEwX3JsYy5iaW4iKTsNCiANCitNT0RVTEVfRklSTVdBUkUoImFtZGdwdS9uYXZpMTRfY2Vfd2tz
-LmJpbiIpOw0KK01PRFVMRV9GSVJNV0FSRSgiYW1kZ3B1L25hdmkxNF9wZnBfd2tzLmJpbiIpOw0K
-K01PRFVMRV9GSVJNV0FSRSgiYW1kZ3B1L25hdmkxNF9tZV93a3MuYmluIik7DQorTU9EVUxFX0ZJ
-Uk1XQVJFKCJhbWRncHUvbmF2aTE0X21lY193a3MuYmluIik7DQorTU9EVUxFX0ZJUk1XQVJFKCJh
-bWRncHUvbmF2aTE0X21lYzJfd2tzLmJpbiIpOw0KIE1PRFVMRV9GSVJNV0FSRSgiYW1kZ3B1L25h
-dmkxNF9jZS5iaW4iKTsNCiBNT0RVTEVfRklSTVdBUkUoImFtZGdwdS9uYXZpMTRfcGZwLmJpbiIp
-Ow0KIE1PRFVMRV9GSVJNV0FSRSgiYW1kZ3B1L25hdmkxNF9tZS5iaW4iKTsNCkBAIC01OTEsNyAr
-NTk2LDggQEAgc3RhdGljIHZvaWQgZ2Z4X3YxMF8wX2NoZWNrX2dmeG9mZl9mbGFnKHN0cnVjdCBh
-bWRncHVfZGV2aWNlICphZGV2KSAgc3RhdGljIGludCBnZnhfdjEwXzBfaW5pdF9taWNyb2NvZGUo
-c3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpICB7DQogCWNvbnN0IGNoYXIgKmNoaXBfbmFtZTsN
-Ci0JY2hhciBmd19uYW1lWzMwXTsNCisJY2hhciBmd19uYW1lWzQwXTsNCisJY2hhciB3a3NbMTBd
-Ow0KIAlpbnQgZXJyOw0KIAlzdHJ1Y3QgYW1kZ3B1X2Zpcm13YXJlX2luZm8gKmluZm8gPSBOVUxM
-Ow0KIAljb25zdCBzdHJ1Y3QgY29tbW9uX2Zpcm13YXJlX2hlYWRlciAqaGVhZGVyID0gTlVMTDsg
-QEAgLTYwNCwxMiArNjEwLDE2IEBAIHN0YXRpYyBpbnQgZ2Z4X3YxMF8wX2luaXRfbWljcm9jb2Rl
-KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQ0KIA0KIAlEUk1fREVCVUcoIlxuIik7DQogDQor
-CW1lbXNldCh3a3MsIDAsIHNpemVvZih3a3MpKTsNCiAJc3dpdGNoIChhZGV2LT5hc2ljX3R5cGUp
-IHsNCiAJY2FzZSBDSElQX05BVkkxMDoNCiAJCWNoaXBfbmFtZSA9ICJuYXZpMTAiOw0KIAkJYnJl
-YWs7DQogCWNhc2UgQ0hJUF9OQVZJMTQ6DQogCQljaGlwX25hbWUgPSAibmF2aTE0IjsNCisJCWlm
-ICghKGFkZXYtPnBkZXYtPmRldmljZSA9PSAweDczNDAgJiYNCisJCSAgICAgIGFkZXYtPnBkZXYt
-PnJldmlzaW9uICE9IDB4MDApKQ0KKwkJCXNucHJpbnRmKHdrcywgc2l6ZW9mKHdrcyksICJfd2tz
-Iik7DQogCQlicmVhazsNCiAJY2FzZSBDSElQX05BVkkxMjoNCiAJCWNoaXBfbmFtZSA9ICJuYXZp
-MTIiOw0KQEAgLTYxOCw3ICs2MjgsNyBAQCBzdGF0aWMgaW50IGdmeF92MTBfMF9pbml0X21pY3Jv
-Y29kZShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikNCiAJCUJVRygpOw0KIAl9DQogDQotCXNu
-cHJpbnRmKGZ3X25hbWUsIHNpemVvZihmd19uYW1lKSwgImFtZGdwdS8lc19wZnAuYmluIiwgY2hp
-cF9uYW1lKTsNCisJc25wcmludGYoZndfbmFtZSwgc2l6ZW9mKGZ3X25hbWUpLCAiYW1kZ3B1LyVz
-X3BmcCVzLmJpbiIsIGNoaXBfbmFtZSwgDQord2tzKTsNCiAJZXJyID0gcmVxdWVzdF9maXJtd2Fy
-ZSgmYWRldi0+Z2Z4LnBmcF9mdywgZndfbmFtZSwgYWRldi0+ZGV2KTsNCiAJaWYgKGVycikNCiAJ
-CWdvdG8gb3V0Ow0KQEAgLTYyOSw3ICs2MzksNyBAQCBzdGF0aWMgaW50IGdmeF92MTBfMF9pbml0
-X21pY3JvY29kZShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikNCiAJYWRldi0+Z2Z4LnBmcF9m
-d192ZXJzaW9uID0gbGUzMl90b19jcHUoY3BfaGRyLT5oZWFkZXIudWNvZGVfdmVyc2lvbik7DQog
-CWFkZXYtPmdmeC5wZnBfZmVhdHVyZV92ZXJzaW9uID0gbGUzMl90b19jcHUoY3BfaGRyLT51Y29k
-ZV9mZWF0dXJlX3ZlcnNpb24pOw0KIA0KLQlzbnByaW50Zihmd19uYW1lLCBzaXplb2YoZndfbmFt
-ZSksICJhbWRncHUvJXNfbWUuYmluIiwgY2hpcF9uYW1lKTsNCisJc25wcmludGYoZndfbmFtZSwg
-c2l6ZW9mKGZ3X25hbWUpLCAiYW1kZ3B1LyVzX21lJXMuYmluIiwgY2hpcF9uYW1lLCANCit3a3Mp
-Ow0KIAllcnIgPSByZXF1ZXN0X2Zpcm13YXJlKCZhZGV2LT5nZngubWVfZncsIGZ3X25hbWUsIGFk
-ZXYtPmRldik7DQogCWlmIChlcnIpDQogCQlnb3RvIG91dDsNCkBAIC02NDAsNyArNjUwLDcgQEAg
-c3RhdGljIGludCBnZnhfdjEwXzBfaW5pdF9taWNyb2NvZGUoc3RydWN0IGFtZGdwdV9kZXZpY2Ug
-KmFkZXYpDQogCWFkZXYtPmdmeC5tZV9md192ZXJzaW9uID0gbGUzMl90b19jcHUoY3BfaGRyLT5o
-ZWFkZXIudWNvZGVfdmVyc2lvbik7DQogCWFkZXYtPmdmeC5tZV9mZWF0dXJlX3ZlcnNpb24gPSBs
-ZTMyX3RvX2NwdShjcF9oZHItPnVjb2RlX2ZlYXR1cmVfdmVyc2lvbik7DQogDQotCXNucHJpbnRm
-KGZ3X25hbWUsIHNpemVvZihmd19uYW1lKSwgImFtZGdwdS8lc19jZS5iaW4iLCBjaGlwX25hbWUp
-Ow0KKwlzbnByaW50Zihmd19uYW1lLCBzaXplb2YoZndfbmFtZSksICJhbWRncHUvJXNfY2Ulcy5i
-aW4iLCBjaGlwX25hbWUsIA0KK3drcyk7DQogCWVyciA9IHJlcXVlc3RfZmlybXdhcmUoJmFkZXYt
-PmdmeC5jZV9mdywgZndfbmFtZSwgYWRldi0+ZGV2KTsNCiAJaWYgKGVycikNCiAJCWdvdG8gb3V0
-Ow0KQEAgLTcwNSw3ICs3MTUsNyBAQCBzdGF0aWMgaW50IGdmeF92MTBfMF9pbml0X21pY3JvY29k
-ZShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikNCiAJaWYgKGFkZXYtPmdmeC5ybGMuaXNfcmxj
-X3YyXzEpDQogCQlnZnhfdjEwXzBfaW5pdF9ybGNfZXh0X21pY3JvY29kZShhZGV2KTsNCiANCi0J
-c25wcmludGYoZndfbmFtZSwgc2l6ZW9mKGZ3X25hbWUpLCAiYW1kZ3B1LyVzX21lYy5iaW4iLCBj
-aGlwX25hbWUpOw0KKwlzbnByaW50Zihmd19uYW1lLCBzaXplb2YoZndfbmFtZSksICJhbWRncHUv
-JXNfbWVjJXMuYmluIiwgY2hpcF9uYW1lLCANCit3a3MpOw0KIAllcnIgPSByZXF1ZXN0X2Zpcm13
-YXJlKCZhZGV2LT5nZngubWVjX2Z3LCBmd19uYW1lLCBhZGV2LT5kZXYpOw0KIAlpZiAoZXJyKQ0K
-IAkJZ290byBvdXQ7DQpAQCAtNzE2LDcgKzcyNiw3IEBAIHN0YXRpYyBpbnQgZ2Z4X3YxMF8wX2lu
-aXRfbWljcm9jb2RlKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQ0KIAlhZGV2LT5nZngubWVj
-X2Z3X3ZlcnNpb24gPSBsZTMyX3RvX2NwdShjcF9oZHItPmhlYWRlci51Y29kZV92ZXJzaW9uKTsN
-CiAJYWRldi0+Z2Z4Lm1lY19mZWF0dXJlX3ZlcnNpb24gPSBsZTMyX3RvX2NwdShjcF9oZHItPnVj
-b2RlX2ZlYXR1cmVfdmVyc2lvbik7DQogDQotCXNucHJpbnRmKGZ3X25hbWUsIHNpemVvZihmd19u
-YW1lKSwgImFtZGdwdS8lc19tZWMyLmJpbiIsIGNoaXBfbmFtZSk7DQorCXNucHJpbnRmKGZ3X25h
-bWUsIHNpemVvZihmd19uYW1lKSwgImFtZGdwdS8lc19tZWMyJXMuYmluIiwgY2hpcF9uYW1lLCAN
-Cit3a3MpOw0KIAllcnIgPSByZXF1ZXN0X2Zpcm13YXJlKCZhZGV2LT5nZngubWVjMl9mdywgZndf
-bmFtZSwgYWRldi0+ZGV2KTsNCiAJaWYgKCFlcnIpIHsNCiAJCWVyciA9IGFtZGdwdV91Y29kZV92
-YWxpZGF0ZShhZGV2LT5nZngubWVjMl9mdyk7DQotLQ0KMi4xNy4xDQoNCl9fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fDQphbWQtZ2Z4IG1haWxpbmcgbGlzdA0K
-YW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Au
-b3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA0KX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5m
-cmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0
-aW5mby9hbWQtZ2Z4
+--===============0549686152==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_DM5PR12MB253586B329B75BAC8D252CE595890DM5PR12MB2535namp_"
+
+--_000_DM5PR12MB253586B329B75BAC8D252CE595890DM5PR12MB2535namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+Thanks Feifei!
+________________________________
+From: Xu, Feifei <Feifei.Xu-5C7GfCeVMHo@public.gmane.org>
+Sent: Thursday, September 19, 2019 14:05
+To: Yin, Tianci (Rico) <Tianci.Yin-5C7GfCeVMHo@public.gmane.org>; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org =
+<amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: Deucher, Alexander <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>; Yin, Tianci (Rico) <Tia=
+nci.Yin-5C7GfCeVMHo@public.gmane.org>; Zhang, Hawking <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: [PATCH] drm/amdgpu/gfx10: add support for wks firmware loading
+
+
+
+Reviewed-by: Feifei Xu <Feifei.Xu-5C7GfCeVMHo@public.gmane.org>
+
+-----Original Message-----
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> On Behalf Of Tianci Y=
+in
+Sent: Thursday, September 19, 2019 1:33 PM
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Deucher, Alexander <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>; Yin, Tianci (Rico) <Tia=
+nci.Yin-5C7GfCeVMHo@public.gmane.org>; Zhang, Hawking <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH] drm/amdgpu/gfx10: add support for wks firmware loading
+
+From: "Tianci.Yin" <tianci.yin-5C7GfCeVMHo@public.gmane.org>
+
+load different cp firmware according to the DID and RID
+
+Signed-off-by: Tianci.Yin <tianci.yin-5C7GfCeVMHo@public.gmane.org>
+---
+ drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c | 22 ++++++++++++++++------
+ 1 file changed, 16 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/a=
+mdgpu/gfx_v10_0.c
+index 082a0b3298a9..65caf404e7d1 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+@@ -66,6 +66,11 @@ MODULE_FIRMWARE("amdgpu/navi10_mec.bin");
+ MODULE_FIRMWARE("amdgpu/navi10_mec2.bin");
+ MODULE_FIRMWARE("amdgpu/navi10_rlc.bin");
+
++MODULE_FIRMWARE("amdgpu/navi14_ce_wks.bin");
++MODULE_FIRMWARE("amdgpu/navi14_pfp_wks.bin");
++MODULE_FIRMWARE("amdgpu/navi14_me_wks.bin");
++MODULE_FIRMWARE("amdgpu/navi14_mec_wks.bin");
++MODULE_FIRMWARE("amdgpu/navi14_mec2_wks.bin");
+ MODULE_FIRMWARE("amdgpu/navi14_ce.bin");
+ MODULE_FIRMWARE("amdgpu/navi14_pfp.bin");
+ MODULE_FIRMWARE("amdgpu/navi14_me.bin");
+@@ -591,7 +596,8 @@ static void gfx_v10_0_check_gfxoff_flag(struct amdgpu_d=
+evice *adev)  static int gfx_v10_0_init_microcode(struct amdgpu_device *ade=
+v)  {
+         const char *chip_name;
+-       char fw_name[30];
++       char fw_name[40];
++       char wks[10];
+         int err;
+         struct amdgpu_firmware_info *info =3D NULL;
+         const struct common_firmware_header *header =3D NULL; @@ -604,12 +=
+610,16 @@ static int gfx_v10_0_init_microcode(struct amdgpu_device *adev)
+
+         DRM_DEBUG("\n");
+
++       memset(wks, 0, sizeof(wks));
+         switch (adev->asic_type) {
+         case CHIP_NAVI10:
+                 chip_name =3D "navi10";
+                 break;
+         case CHIP_NAVI14:
+                 chip_name =3D "navi14";
++               if (!(adev->pdev->device =3D=3D 0x7340 &&
++                     adev->pdev->revision !=3D 0x00))
++                       snprintf(wks, sizeof(wks), "_wks");
+                 break;
+         case CHIP_NAVI12:
+                 chip_name =3D "navi12";
+@@ -618,7 +628,7 @@ static int gfx_v10_0_init_microcode(struct amdgpu_devic=
+e *adev)
+                 BUG();
+         }
+
+-       snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_pfp.bin", chip_name);
++       snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_pfp%s.bin", chip_name=
+,
++wks);
+         err =3D request_firmware(&adev->gfx.pfp_fw, fw_name, adev->dev);
+         if (err)
+                 goto out;
+@@ -629,7 +639,7 @@ static int gfx_v10_0_init_microcode(struct amdgpu_devic=
+e *adev)
+         adev->gfx.pfp_fw_version =3D le32_to_cpu(cp_hdr->header.ucode_vers=
+ion);
+         adev->gfx.pfp_feature_version =3D le32_to_cpu(cp_hdr->ucode_featur=
+e_version);
+
+-       snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_me.bin", chip_name);
++       snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_me%s.bin", chip_name,
++wks);
+         err =3D request_firmware(&adev->gfx.me_fw, fw_name, adev->dev);
+         if (err)
+                 goto out;
+@@ -640,7 +650,7 @@ static int gfx_v10_0_init_microcode(struct amdgpu_devic=
+e *adev)
+         adev->gfx.me_fw_version =3D le32_to_cpu(cp_hdr->header.ucode_versi=
+on);
+         adev->gfx.me_feature_version =3D le32_to_cpu(cp_hdr->ucode_feature=
+_version);
+
+-       snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_ce.bin", chip_name);
++       snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_ce%s.bin", chip_name,
++wks);
+         err =3D request_firmware(&adev->gfx.ce_fw, fw_name, adev->dev);
+         if (err)
+                 goto out;
+@@ -705,7 +715,7 @@ static int gfx_v10_0_init_microcode(struct amdgpu_devic=
+e *adev)
+         if (adev->gfx.rlc.is_rlc_v2_1)
+                 gfx_v10_0_init_rlc_ext_microcode(adev);
+
+-       snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_mec.bin", chip_name);
++       snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_mec%s.bin", chip_name=
+,
++wks);
+         err =3D request_firmware(&adev->gfx.mec_fw, fw_name, adev->dev);
+         if (err)
+                 goto out;
+@@ -716,7 +726,7 @@ static int gfx_v10_0_init_microcode(struct amdgpu_devic=
+e *adev)
+         adev->gfx.mec_fw_version =3D le32_to_cpu(cp_hdr->header.ucode_vers=
+ion);
+         adev->gfx.mec_feature_version =3D le32_to_cpu(cp_hdr->ucode_featur=
+e_version);
+
+-       snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_mec2.bin", chip_name)=
+;
++       snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_mec2%s.bin", chip_nam=
+e,
++wks);
+         err =3D request_firmware(&adev->gfx.mec2_fw, fw_name, adev->dev);
+         if (!err) {
+                 err =3D amdgpu_ucode_validate(adev->gfx.mec2_fw);
+--
+2.17.1
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--_000_DM5PR12MB253586B329B75BAC8D252CE595890DM5PR12MB2535namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Thanks Feifei!<br>
+</div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Xu, Feifei &lt;Feifei=
+.Xu-5C7GfCeVMHo@public.gmane.org&gt;<br>
+<b>Sent:</b> Thursday, September 19, 2019 14:05<br>
+<b>To:</b> Yin, Tianci (Rico) &lt;Tianci.Yin-5C7GfCeVMHo@public.gmane.org&gt;; amd-gfx-PD4FTy7X32mzQB+pC5nmwQ@public.gmane.org=
+edesktop.org &lt;amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt;<br>
+<b>Cc:</b> Deucher, Alexander &lt;Alexander.Deucher-5C7GfCeVMHo@public.gmane.org&gt;; Yin, Tianc=
+i (Rico) &lt;Tianci.Yin-5C7GfCeVMHo@public.gmane.org&gt;; Zhang, Hawking &lt;Hawking.Zhang@amd.c=
+om&gt;<br>
+<b>Subject:</b> RE: [PATCH] drm/amdgpu/gfx10: add support for wks firmware =
+loading</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText"><br>
+<br>
+Reviewed-by: Feifei Xu &lt;Feifei.Xu-5C7GfCeVMHo@public.gmane.org&gt;<br>
+<br>
+-----Original Message-----<br>
+From: amd-gfx &lt;amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; On Behalf Of Ti=
+anci Yin<br>
+Sent: Thursday, September 19, 2019 1:33 PM<br>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+Cc: Deucher, Alexander &lt;Alexander.Deucher-5C7GfCeVMHo@public.gmane.org&gt;; Yin, Tianci (Rico=
+) &lt;Tianci.Yin-5C7GfCeVMHo@public.gmane.org&gt;; Zhang, Hawking &lt;Hawking.Zhang-5C7GfCeVMHo@public.gmane.org&gt;<=
+br>
+Subject: [PATCH] drm/amdgpu/gfx10: add support for wks firmware loading<br>
+<br>
+From: &quot;Tianci.Yin&quot; &lt;tianci.yin-5C7GfCeVMHo@public.gmane.org&gt;<br>
+<br>
+load different cp firmware according to the DID and RID<br>
+<br>
+Signed-off-by: Tianci.Yin &lt;tianci.yin-5C7GfCeVMHo@public.gmane.org&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c | 22 &#43;&#43;&#43;&#43;&#43;=
+&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;------<br>
+&nbsp;1 file changed, 16 insertions(&#43;), 6 deletions(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/a=
+mdgpu/gfx_v10_0.c<br>
+index 082a0b3298a9..65caf404e7d1 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c<br>
+@@ -66,6 &#43;66,11 @@ MODULE_FIRMWARE(&quot;amdgpu/navi10_mec.bin&quot;);<=
+br>
+&nbsp;MODULE_FIRMWARE(&quot;amdgpu/navi10_mec2.bin&quot;);<br>
+&nbsp;MODULE_FIRMWARE(&quot;amdgpu/navi10_rlc.bin&quot;);<br>
+&nbsp;<br>
+&#43;MODULE_FIRMWARE(&quot;amdgpu/navi14_ce_wks.bin&quot;);<br>
+&#43;MODULE_FIRMWARE(&quot;amdgpu/navi14_pfp_wks.bin&quot;);<br>
+&#43;MODULE_FIRMWARE(&quot;amdgpu/navi14_me_wks.bin&quot;);<br>
+&#43;MODULE_FIRMWARE(&quot;amdgpu/navi14_mec_wks.bin&quot;);<br>
+&#43;MODULE_FIRMWARE(&quot;amdgpu/navi14_mec2_wks.bin&quot;);<br>
+&nbsp;MODULE_FIRMWARE(&quot;amdgpu/navi14_ce.bin&quot;);<br>
+&nbsp;MODULE_FIRMWARE(&quot;amdgpu/navi14_pfp.bin&quot;);<br>
+&nbsp;MODULE_FIRMWARE(&quot;amdgpu/navi14_me.bin&quot;);<br>
+@@ -591,7 &#43;596,8 @@ static void gfx_v10_0_check_gfxoff_flag(struct amdg=
+pu_device *adev)&nbsp; static int gfx_v10_0_init_microcode(struct amdgpu_de=
+vice *adev)&nbsp; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; const char *chip_name;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; char fw_name[30];<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; char fw_name[40];<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; char wks[10];<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int err;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_firmware_inf=
+o *info =3D NULL;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; const struct common_firmwa=
+re_header *header =3D NULL; @@ -604,12 &#43;610,16 @@ static int gfx_v10_0_=
+init_microcode(struct amdgpu_device *adev)<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DRM_DEBUG(&quot;\n&quot;);=
+<br>
+&nbsp;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; memset(wks, 0, sizeof(wks));<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; switch (adev-&gt;asic_type=
+) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_NAVI10:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; chip_name =3D &quot;navi10&quot;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; break;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_NAVI14:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; chip_name =3D &quot;navi14&quot;;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; if (!(adev-&gt;pdev-&gt;device =3D=3D 0x7340 &amp;&amp;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;pdev-&gt;revisi=
+on !=3D 0x00))<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; snprintf(wks=
+, sizeof(wks), &quot;_wks&quot;);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; break;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_NAVI12:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; chip_name =3D &quot;navi12&quot;;<br>
+@@ -618,7 &#43;628,7 @@ static int gfx_v10_0_init_microcode(struct amdgpu_d=
+evice *adev)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; BUG();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; snprintf(fw_name, sizeof(fw_name), &q=
+uot;amdgpu/%s_pfp.bin&quot;, chip_name);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; snprintf(fw_name, sizeof(fw_name)=
+, &quot;amdgpu/%s_pfp%s.bin&quot;, chip_name, <br>
+&#43;wks);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; err =3D request_firmware(&=
+amp;adev-&gt;gfx.pfp_fw, fw_name, adev-&gt;dev);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (err)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; goto out;<br>
+@@ -629,7 &#43;639,7 @@ static int gfx_v10_0_init_microcode(struct amdgpu_d=
+evice *adev)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;gfx.pfp_fw_versio=
+n =3D le32_to_cpu(cp_hdr-&gt;header.ucode_version);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;gfx.pfp_feature_v=
+ersion =3D le32_to_cpu(cp_hdr-&gt;ucode_feature_version);<br>
+&nbsp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; snprintf(fw_name, sizeof(fw_name), &q=
+uot;amdgpu/%s_me.bin&quot;, chip_name);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; snprintf(fw_name, sizeof(fw_name)=
+, &quot;amdgpu/%s_me%s.bin&quot;, chip_name, <br>
+&#43;wks);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; err =3D request_firmware(&=
+amp;adev-&gt;gfx.me_fw, fw_name, adev-&gt;dev);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (err)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; goto out;<br>
+@@ -640,7 &#43;650,7 @@ static int gfx_v10_0_init_microcode(struct amdgpu_d=
+evice *adev)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;gfx.me_fw_version=
+ =3D le32_to_cpu(cp_hdr-&gt;header.ucode_version);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;gfx.me_feature_ve=
+rsion =3D le32_to_cpu(cp_hdr-&gt;ucode_feature_version);<br>
+&nbsp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; snprintf(fw_name, sizeof(fw_name), &q=
+uot;amdgpu/%s_ce.bin&quot;, chip_name);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; snprintf(fw_name, sizeof(fw_name)=
+, &quot;amdgpu/%s_ce%s.bin&quot;, chip_name, <br>
+&#43;wks);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; err =3D request_firmware(&=
+amp;adev-&gt;gfx.ce_fw, fw_name, adev-&gt;dev);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (err)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; goto out;<br>
+@@ -705,7 &#43;715,7 @@ static int gfx_v10_0_init_microcode(struct amdgpu_d=
+evice *adev)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;gfx.rlc.is_rl=
+c_v2_1)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; gfx_v10_0_init_rlc_ext_microcode(adev);<br>
+&nbsp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; snprintf(fw_name, sizeof(fw_name), &q=
+uot;amdgpu/%s_mec.bin&quot;, chip_name);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; snprintf(fw_name, sizeof(fw_name)=
+, &quot;amdgpu/%s_mec%s.bin&quot;, chip_name, <br>
+&#43;wks);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; err =3D request_firmware(&=
+amp;adev-&gt;gfx.mec_fw, fw_name, adev-&gt;dev);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (err)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; goto out;<br>
+@@ -716,7 &#43;726,7 @@ static int gfx_v10_0_init_microcode(struct amdgpu_d=
+evice *adev)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;gfx.mec_fw_versio=
+n =3D le32_to_cpu(cp_hdr-&gt;header.ucode_version);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;gfx.mec_feature_v=
+ersion =3D le32_to_cpu(cp_hdr-&gt;ucode_feature_version);<br>
+&nbsp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; snprintf(fw_name, sizeof(fw_name), &q=
+uot;amdgpu/%s_mec2.bin&quot;, chip_name);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; snprintf(fw_name, sizeof(fw_name)=
+, &quot;amdgpu/%s_mec2%s.bin&quot;, chip_name, <br>
+&#43;wks);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; err =3D request_firmware(&=
+amp;adev-&gt;gfx.mec2_fw, fw_name, adev-&gt;dev);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!err) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; err =3D amdgpu_ucode_validate(adev-&gt;gfx.mec2_fw);<=
+br>
+--<br>
+2.17.1<br>
+<br>
+_______________________________________________<br>
+amd-gfx mailing list<br>
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
+lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
+</div>
+</span></font></div>
+</body>
+</html>
+
+--_000_DM5PR12MB253586B329B75BAC8D252CE595890DM5PR12MB2535namp_--
+
+--===============0549686152==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+
+--===============0549686152==--
