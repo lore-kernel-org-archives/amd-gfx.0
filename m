@@ -1,77 +1,59 @@
-From: "Chen, Guchun" <Guchun.Chen-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH 00/21] RAS code refinements
-Date: Thu, 19 Sep 2019 14:19:11 +0000
-Message-ID: <BYAPR12MB2806DA87BD86F8ECBC8A0114F1890@BYAPR12MB2806.namprd12.prod.outlook.com>
-References: <20190919071115.16552-1-tao.zhou1@amd.com>
+From: Sven Van Asbroeck <thesven73@gmail.com>
+Subject: Re: [PATCH v2] drm/amdgpu: fix multiple memory leaks
+Date: Thu, 19 Sep 2019 10:28:22 -0400
+Message-ID: <CAGngYiWHe1mw0+Ay6HO7kG5y8HMriUX3BO8VUcTvGayEK-4JOw@mail.gmail.com>
+References: <7bab24ff-ded7-9f76-ba25-efd07cdd30dd@amd.com> <20190918190529.17298-1-navid.emamdoost@gmail.com>
+ <88fc639a-32ed-b6c6-f930-552083d5887d@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190919071115.16552-1-tao.zhou1-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Zhou1, Tao" <Tao.Zhou1-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Zhang, Hawking" <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset="UTF-8"
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <88fc639a-32ed-b6c6-f930-552083d5887d@amd.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: "Koenig, Christian" <Christian.Koenig@amd.com>
+Cc: Navid Emamdoost <navid.emamdoost@gmail.com>, "emamd001@umn.edu" <emamd001@umn.edu>, "smccaman@umn.edu" <smccaman@umn.edu>, "kjlu@umn.edu" <kjlu@umn.edu>, "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Zhou, David(ChunMing)" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, Rex Zhu <Rex.Zhu@amd.com>, Sam Ravnborg <sam@ravnborg.org>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-VHdvIGNvbW1lbnRzIGluIHBhdGNoIDUgYW5kIHBhdGNoIDExLiBBcGFydCBmcm9tIHRoYXQsIHRo
-ZSBzZXJpZXMgaXM6ClJldmlld2VkLWJ5OiBHdWNodW4gQ2hlbiA8Z3VjaHVuLmNoZW5AYW1kLmNv
-bT4KClJlZ2FyZHMsCkd1Y2h1bgoKLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0KRnJvbTogWmhv
-dTEsIFRhbyA8VGFvLlpob3UxQGFtZC5jb20+IApTZW50OiBUaHVyc2RheSwgU2VwdGVtYmVyIDE5
-LCAyMDE5IDM6MTIgUE0KVG86IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnOyBDaGVuLCBH
-dWNodW4gPEd1Y2h1bi5DaGVuQGFtZC5jb20+OyBaaGFuZywgSGF3a2luZyA8SGF3a2luZy5aaGFu
-Z0BhbWQuY29tPgpDYzogWmhvdTEsIFRhbyA8VGFvLlpob3UxQGFtZC5jb20+ClN1YmplY3Q6IFtQ
-QVRDSCAwMC8yMV0gUkFTIGNvZGUgcmVmaW5lbWVudHMKCnNvbWUgcmVmaW5lbWVudHMgZm9yIFJB
-Uywgbm8gZnVuY3Rpb25hbCBjaGFuZ2U6CgoxLiBtYWtlIG1vcmUgcmFzIGNvZGUgY2FuIGJlIHJl
-dXNhYmxlIGFtb25nIGRpZmZlcmVudCBnZW5lcmF0aW9ucyBvZiByYXMgYmxvY2s7IDIuIG1ha2Ug
-c29tZSByYXMgY29kZSBzaW1wbGVyOwoKVGFvIFpob3UgKDIxKToKICBkcm0vYW1kZ3B1OiB1cGRh
-dGUgcGFyYW1ldGVyIG9mIHJhc19paF9jYgogIGRybS9hbWRncHU6IG1vdmUgdW1jIHJhcyBpcnEg
-ZnVuY3Rpb25zIHRvIHVtYyBibG9jawogIGRybS9hbWRncHU6IG1vdmUgZ2Z4IGVjYyBmdW5jdGlv
-bnMgdG8gZ2VuZXJpYyBnZnggZmlsZQogIGRybS9hbWRncHU6IG1vdmUgc2RtYSBlY2MgZnVuY3Rp
-b25zIHRvIGdlbmVyaWMgc2RtYSBmaWxlCiAgZHJtL2FtZGdwdTogcmVmaW5lIHNkbWE0IHJhc19k
-YXRhX2NiCiAgZHJtL2FtZGdwdTogbW92ZSB1bWNfcmFzX2lmIGZyb20gZ21jIHRvIHVtYyBibG9j
-awogIGRybS9hbWRncHU6IGFkZCBjb21tb24gbW1odWIgbWVtYmVyIGZvciBhZGV2CiAgZHJtL2Ft
-ZGdwdTogcmVwbGFjZSBtbWh1Yl9mdW5jcyB3aXRoIG1taHViLmZ1bmNzCiAgZHJtL2FtZGdwdTog
-bW92ZSBtbWh1Yl9yYXNfaWYgZnJvbSBnbWMgdG8gbW1odWIgYmxvY2sKICBkcm0vYW1kZ3B1OiBh
-ZGQgY29tbW9uIGdtY19yYXNfZmluaSBmdW5jdGlvbgogIGRybS9hbWRncHU6IGFkZCBjb21tb24g
-Z2Z4X3Jhc19maW5pIGZ1bmN0aW9uCiAgZHJtL2FtZGdwdTogYWRkIGNvbW1vbiBzZG1hX3Jhc19m
-aW5pIGZ1bmN0aW9uCiAgZHJtL2FtZGdwdTogcmVtb3ZlIGloX2luZm8gcGFyYW1ldGVyIG9mIHVt
-Y19yYXNfbGF0ZV9pbml0CiAgZHJtL2FtZGdwdTogcmVtb3ZlIGloX2luZm8gcGFyYW1ldGVyIG9m
-IGdmeF9yYXNfbGF0ZV9pbml0CiAgZHJtL2FtZGdwdTogc2ltcGxpZnkgdGhlIGFjY2VzcyB0byBl
-ZXByb21fY29udHJvbCBzdHJ1Y3QKICBkcm0vYW1kZ3B1OiBhZGQgcmFzIGZpbmkgZm9yIG5iaW8K
-ICBkcm0vYW1kZ3B1OiBhZGQgcmFzIGZpbmkgZm9yIHhnbWkKICBkcm0vYW1kZ3B1OiBtb3ZlIHVt
-YyByYXMgZmluaSB0byB1bWMgYmxvY2sKICBkcm0vYW1kZ3B1OiBtb3ZlIG1taHViIHJhcyBmaW5p
-IHRvIG1taHViIGJsb2NrCiAgZHJtL2FtZGdwdTogbW92ZSB4Z21pIHJhcyBmaW5pIHRvIHhnbWkg
-YmxvY2sKICBkcm0vYW1kZ3B1OiBpbXBsZW1lbnQgY29tbW9uIGdtY19lY2NfbGF0ZV9pbml0Cgog
-ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1LmggICAgICAgfCAgIDQgKy0KIGRyaXZl
-cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9nZnguYyAgIHwgIDY0ICsrKysrKysrKystLQog
-ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2dmeC5oICAgfCAgMTAgKy0KIGRyaXZl
-cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9nbWMuYyAgIHwgIDI3ICsrKysrCiBkcml2ZXJz
-L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZ21jLmggICB8ICAgNCArLQogZHJpdmVycy9ncHUv
-ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X21taHViLmMgfCAgMzggKysrKy0tLQogZHJpdmVycy9ncHUv
-ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X21taHViLmggfCAgIDcgKy0KIGRyaXZlcnMvZ3B1L2RybS9h
-bWQvYW1kZ3B1L2FtZGdwdV9uYmlvLmMgIHwgIDE0ICsrKwogZHJpdmVycy9ncHUvZHJtL2FtZC9h
-bWRncHUvYW1kZ3B1X25iaW8uaCAgfCAgIDIgKy0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
-L2FtZGdwdV9yYXMuYyAgIHwgIDEwICstCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
-cHVfcmFzLmggICB8ICAgMiArLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Nk
-bWEuYyAgfCAgNDcgKysrKysrKysrCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
-c2RtYS5oICB8ICAgNyArKwogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3VtYy5j
-ICAgfCAxMTcgKysrKysrKysrKysrKysrKystLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
-dS9hbWRncHVfdW1jLmggICB8ICAxMiArKy0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
-ZGdwdV94Z21pLmMgIHwgIDE0ICsrKwogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
-X3hnbWkuaCAgfCAgIDEgKwogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y5XzAuYyAg
-ICAgfCAgNTggKy0tLS0tLS0tLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192OV8w
-LmMgICAgIHwgMTE5ICstLS0tLS0tLS0tLS0tLS0tLS0tLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQv
-YW1kZ3B1L3NkbWFfdjRfMC5jICAgIHwgIDc0ICsrKystLS0tLS0tLS0tCiBkcml2ZXJzL2dwdS9k
-cm0vYW1kL2FtZGdwdS9zb2MxNS5jICAgICAgICB8ICAgMSArCiAyMSBmaWxlcyBjaGFuZ2VkLCAz
-NTMgaW5zZXJ0aW9ucygrKSwgMjc5IGRlbGV0aW9ucygtKQoKLS0KMi4xNy4xCgpfX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlz
-dAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9w
-Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
+Hi Christian,
+
+On Thu, Sep 19, 2019 at 4:05 AM Koenig, Christian
+<Christian.Koenig@amd.com> wrote:
+>
+> > +out4:
+> > +     kfree(i2s_pdata);
+> > +out3:
+> > +     kfree(adev->acp.acp_res);
+> > +out2:
+> > +     kfree(adev->acp.acp_cell);
+> > +out1:
+> > +     kfree(adev->acp.acp_genpd);
+>
+> kfree on a NULL pointer is harmless, so a single error label should be
+> sufficient.
+
+That is true, but I notice that the adev structure comes from outside this
+driver:
+
+static int acp_hw_init(void *handle)
+{
+...
+struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+...
+}
+
+As far as I can tell, the init() does not explicitly set these to NULL:
+adev->acp.acp_res
+adev->acp.acp_cell
+adev->acp.acp_genpd
+
+I am assuming that core code sets these to NULL, before calling
+acp_hw_init(). But is that guaranteed or simply a happy accident?
+Ie. if they are NULL today, are they likely to remain NULL tomorrow?
+
+Because calling kfree() on a stale pointer would be, well
+not good. Especially not on an error path, which typically
+does not receive much testing, if any.
+
+My apologies if I have misinterpreted this, I am not familiar with
+this code base.
+
+Sven
