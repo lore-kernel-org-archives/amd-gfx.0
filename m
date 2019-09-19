@@ -1,103 +1,58 @@
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: [PATCH 6/6] drm/amdgpu/ras: fix and update the documentation for RAS
-Date: Thu, 19 Sep 2019 16:45:27 -0500
-Message-ID: <20190919214527.10803-6-alexander.deucher@amd.com>
-References: <20190919214527.10803-1-alexander.deucher@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Subject: Re: [PATCH v2] drm/amd/display: fix struct init in update_bounding_box
+Date: Thu, 19 Sep 2019 17:52:50 -0400
+Message-ID: <CADnq5_PX852kyFtBX_caTfZyfW6agt90qWQ1m-csW37o-uNL6g@mail.gmail.com>
+References: <20190828183758.11553-1-rrangel@chromium.org>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190919214527.10803-1-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset="UTF-8"
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20190828183758.11553-1-rrangel@chromium.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Raul E Rangel <rrangel@chromium.org>
+Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, Charlene Liu <charlene.liu@amd.com>, Leo Li <sunpeng.li@amd.com>, Harry Wentland <harry.wentland@amd.com>, David Airlie <airlied@linux.ie>, LKML <linux-kernel@vger.kernel.org>, Maling list - DRI developers <dri-devel@lists.freedesktop.org>, Nikola Cornij <nikola.cornij@amd.com>, Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>, hersen wu <hersenxs.wu@amd.com>, Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>, Jun Lei <Jun.Lei@amd.com>, Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
-QWRkIG5ldyBzZWN0aW9ucyB0byBhbWRncHUucnN0LCBmaXggdXAgZm9ybWF0dGluZyBpc3N1ZXMs
-CmFkZCBhZGRpdGlvbmFsIGRvY3VtZW50YXRpb24gdG8gZWFjaCBzZWN0aW9uLgoKU2lnbmVkLW9m
-Zi1ieTogQWxleCBEZXVjaGVyIDxhbGV4YW5kZXIuZGV1Y2hlckBhbWQuY29tPgotLS0KIERvY3Vt
-ZW50YXRpb24vZ3B1L2FtZGdwdS5yc3QgICAgICAgICAgICB8IDI0ICsrKysrKysrKystCiBkcml2
-ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcmFzLmMgfCA1MyArKysrKysrKysrKysrKysr
-KysrKystLS0tCiAyIGZpbGVzIGNoYW5nZWQsIDY4IGluc2VydGlvbnMoKyksIDkgZGVsZXRpb25z
-KC0pCgpkaWZmIC0tZ2l0IGEvRG9jdW1lbnRhdGlvbi9ncHUvYW1kZ3B1LnJzdCBiL0RvY3VtZW50
-YXRpb24vZ3B1L2FtZGdwdS5yc3QKaW5kZXggODBkYjVkODljZDQ5Li41YjllYWYyMzU1OGUgMTAw
-NjQ0Ci0tLSBhL0RvY3VtZW50YXRpb24vZ3B1L2FtZGdwdS5yc3QKKysrIGIvRG9jdW1lbnRhdGlv
-bi9ncHUvYW1kZ3B1LnJzdApAQCAtNzksMTIgKzc5LDMyIEBAIEFNREdQVSBYR01JIFN1cHBvcnQK
-IC4uIGtlcm5lbC1kb2M6OiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfeGdtaS5j
-CiAgICA6aW50ZXJuYWw6CiAKLUFNREdQVSBSQVMgZGVidWdmcyBjb250cm9sIGludGVyZmFjZQot
-PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09CitBTURHUFUgUkFTIFN1cHBvcnQK
-Kz09PT09PT09PT09PT09PT09PQorCitSQVMgZGVidWdmcy9zeXNmcyBDb250cm9sIGFuZCBFcnJv
-ciBJbmplY3Rpb24gSW50ZXJmYWNlcworLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0KIAogLi4ga2VybmVsLWRvYzo6IGRyaXZlcnMvZ3B1L2Ry
-bS9hbWQvYW1kZ3B1L2FtZGdwdV9yYXMuYwogICAgOmRvYzogQU1ER1BVIFJBUyBkZWJ1Z2ZzIGNv
-bnRyb2wgaW50ZXJmYWNlCiAKK1JBUyBFcnJvciBDb3VudCBzeXNmcyBJbnRlcmZhY2UKKy0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0KKworLi4ga2VybmVsLWRvYzo6IGRyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9yYXMuYworICAgOmRvYzogQU1ER1BVIFJBUyBzeXNmcyBF
-cnJvciBDb3VudCBJbnRlcmZhY2UKKworUkFTIEVFUFJPTSBkZWJ1Z2ZzIEludGVyZmFjZQorLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQorCisuLiBrZXJuZWwtZG9jOjogZHJpdmVycy9ncHUv
-ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Jhcy5jCisgICA6ZG9jOiBBTURHUFUgUkFTIGRlYnVnZnMg
-RUVQUk9NIHRhYmxlIHJlc2V0IGludGVyZmFjZQorCitSQVMgVlJBTSBCYWQgUGFnZXMgc3lzZnMg
-SW50ZXJmYWNlCistLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tCisKKy4uIGtlcm5l
-bC1kb2M6OiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcmFzLmMKKyAgIDpkb2M6
-IEFNREdQVSBSQVMgc3lzZnMgZ3B1X3ZyYW1fYmFkX3BhZ2VzIEludGVyZmFjZQogCiAuLiBrZXJu
-ZWwtZG9jOjogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Jhcy5jCiAgICA6aW50
-ZXJuYWw6CmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcmFz
-LmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcmFzLmMKaW5kZXggODNiNjgx
-YTE2ZTU2Li4xNGYzZjhkODMxZDggMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
-Z3B1L2FtZGdwdV9yYXMuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
-cmFzLmMKQEAgLTMxMCw3ICszMTAsMTggQEAgc3RhdGljIHNzaXplX3QgYW1kZ3B1X3Jhc19kZWJ1
-Z2ZzX2N0cmxfd3JpdGUoc3RydWN0IGZpbGUgKmYsIGNvbnN0IGNoYXIgX191c2VyICoKIC8qKgog
-ICogRE9DOiBBTURHUFUgUkFTIGRlYnVnZnMgRUVQUk9NIHRhYmxlIHJlc2V0IGludGVyZmFjZQog
-ICoKLSAqIFVzYWdlOiBlY2hvIDEgPiAuLi9yYXMvcmFzX2VlcHJvbV9yZXNldCB3aWxsIHJlc2V0
-IEVFUFJPTSB0YWJsZSB0byAwIGVudHJpZXMuCisgKiBTb21lIGJvYXJkcyBjb250YWluIGFuIEVF
-UFJPTSB3aGljaCBpcyB1c2VkIHRvIHBlcnNpc3RlbnRseSBzdG9yZSBhIGxpc3Qgb2YKKyAqIGJh
-ZCBwYWdlcyBjb250YWluaW5nIEVDQyBlcnJvcnMgZGV0ZWN0ZWQgaW4gdnJhbS4gIFRoaXMgaW50
-ZXJmYWNlIHByb3ZpZGVzCisgKiBhIHdheSB0byByZXNldCB0aGUgRUVQUk9NLCBlLmcuLCBhZnRl
-ciB0ZXN0aW5nIGVycm9yIGluamVjdGlvbi4KKyAqCisgKiBVc2FnZToKKyAqCisgKiAuLiBjb2Rl
-LWJsb2NrOjogYmFzaAorICoKKyAqCWVjaG8gMSA+IC4uL3Jhcy9yYXNfZWVwcm9tX3Jlc2V0Cisg
-KgorICogd2lsbCByZXNldCBFRVBST00gdGFibGUgdG8gMCBlbnRyaWVzLgorICoKICAqLwogc3Rh
-dGljIHNzaXplX3QgYW1kZ3B1X3Jhc19kZWJ1Z2ZzX2VlcHJvbV93cml0ZShzdHJ1Y3QgZmlsZSAq
-ZiwgY29uc3QgY2hhciBfX3VzZXIgKmJ1ZiwKIAkJc2l6ZV90IHNpemUsIGxvZmZfdCAqcG9zKQpA
-QCAtMzM3LDYgKzM0OCwyNyBAQCBzdGF0aWMgY29uc3Qgc3RydWN0IGZpbGVfb3BlcmF0aW9ucyBh
-bWRncHVfcmFzX2RlYnVnZnNfZWVwcm9tX29wcyA9IHsKIAkubGxzZWVrID0gZGVmYXVsdF9sbHNl
-ZWsKIH07CiAKKy8qKgorICogRE9DOiBBTURHUFUgUkFTIHN5c2ZzIEVycm9yIENvdW50IEludGVy
-ZmFjZQorICoKKyAqIEl0IGFsbG93cyB1c2VyIHRvIHJlYWQgdGhlIGVycm9yIGNvdW50IGZvciBl
-YWNoIElQIGJsb2NrIG9uIHRoZSBncHUgdGhyb3VnaAorICogL3N5cy9jbGFzcy9kcm0vY2FyZFsw
-LzEvMi4uLl0vZGV2aWNlL3Jhcy9bZ2Z4L3NkbWEvLi4uXV9lcnJfY291bnQKKyAqCisgKiBJdCBv
-dXRwdXRzIHRoZSBtdWx0aXBsZSBsaW5lcyB3aGljaCByZXBvcnQgdGhlIHVuY29ycmVjdGVkICh1
-ZSkgYW5kIGNvcnJlY3RlZAorICogKGNlKSBlcnJvciBjb3VudHMuCisgKgorICogVGhlIGZvcm1h
-dCBvZiBvbmUgbGluZSBpcyBiZWxvdywKKyAqCisgKiBbY2V8dWVdOiBjb3VudAorICoKKyAqIEV4
-YW1wbGU6CisgKgorICogLi4gY29kZS1ibG9jazo6IGJhc2gKKyAqCisgKgl1ZTogMAorICoJY2U6
-IDEKKyAqCisgKi8KIHN0YXRpYyBzc2l6ZV90IGFtZGdwdV9yYXNfc3lzZnNfcmVhZChzdHJ1Y3Qg
-ZGV2aWNlICpkZXYsCiAJCXN0cnVjdCBkZXZpY2VfYXR0cmlidXRlICphdHRyLCBjaGFyICpidWYp
-CiB7CkBAIC03ODEsOCArODEzLDggQEAgc3RhdGljIGNoYXIgKmFtZGdwdV9yYXNfYmFkcGFnZV9m
-bGFnc19zdHIodW5zaWduZWQgaW50IGZsYWdzKQogCX07CiB9CiAKLS8qCi0gKiBET0M6IHJhcyBz
-eXNmcyBncHVfdnJhbV9iYWRfcGFnZXMgaW50ZXJmYWNlCisvKioKKyAqIERPQzogQU1ER1BVIFJB
-UyBzeXNmcyBncHVfdnJhbV9iYWRfcGFnZXMgSW50ZXJmYWNlCiAgKgogICogSXQgYWxsb3dzIHVz
-ZXIgdG8gcmVhZCB0aGUgYmFkIHBhZ2VzIG9mIHZyYW0gb24gdGhlIGdwdSB0aHJvdWdoCiAgKiAv
-c3lzL2NsYXNzL2RybS9jYXJkWzAvMS8yLi4uXS9kZXZpY2UvcmFzL2dwdV92cmFtX2JhZF9wYWdl
-cwpAQCAtNzk0LDE0ICs4MjYsMjEgQEAgc3RhdGljIGNoYXIgKmFtZGdwdV9yYXNfYmFkcGFnZV9m
-bGFnc19zdHIodW5zaWduZWQgaW50IGZsYWdzKQogICoKICAqIGdwdSBwZm4gYW5kIGdwdSBwYWdl
-IHNpemUgYXJlIHByaW50ZWQgaW4gaGV4IGZvcm1hdC4KICAqIGZsYWdzIGNhbiBiZSBvbmUgb2Yg
-YmVsb3cgY2hhcmFjdGVyLAorICoKICAqIFI6IHJlc2VydmVkLCB0aGlzIGdwdSBwYWdlIGlzIHJl
-c2VydmVkIGFuZCBub3QgYWJsZSB0byB1c2UuCisgKgogICogUDogcGVuZGluZyBmb3IgcmVzZXJ2
-ZSwgdGhpcyBncHUgcGFnZSBpcyBtYXJrZWQgYXMgYmFkLCB3aWxsIGJlIHJlc2VydmVkCi0gKiAg
-ICBpbiBuZXh0IHdpbmRvdyBvZiBwYWdlX3Jlc2VydmUuCisgKiBpbiBuZXh0IHdpbmRvdyBvZiBw
-YWdlX3Jlc2VydmUuCisgKgogICogRjogdW5hYmxlIHRvIHJlc2VydmUuIHRoaXMgZ3B1IHBhZ2Ug
-Y2FuJ3QgYmUgcmVzZXJ2ZWQgZHVlIHRvIHNvbWUgcmVhc29ucy4KICAqCi0gKiBleGFtcGxlczoK
-LSAqIDB4MDAwMDAwMDEgOiAweDAwMDAxMDAwIDogUgotICogMHgwMDAwMDAwMiA6IDB4MDAwMDEw
-MDAgOiBQCisgKiBFeGFtcGxlczoKKyAqCisgKiAuLiBjb2RlLWJsb2NrOjogYmFzaAorICoKKyAq
-CTB4MDAwMDAwMDEgOiAweDAwMDAxMDAwIDogUgorICoJMHgwMDAwMDAwMiA6IDB4MDAwMDEwMDAg
-OiBQCisgKgogICovCiAKIHN0YXRpYyBzc2l6ZV90IGFtZGdwdV9yYXNfc3lzZnNfYmFkcGFnZXNf
-cmVhZChzdHJ1Y3QgZmlsZSAqZiwKLS0gCjIuMjAuMQoKX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0
-cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9s
-aXN0aW5mby9hbWQtZ2Z4
+On Wed, Aug 28, 2019 at 2:51 PM Raul E Rangel <rrangel@chromium.org> wrote:
+>
+> dcn20_resource.c:2636:9: error: missing braces around initializer [-Werror=missing-braces]
+>   struct _vcs_dpi_voltage_scaling_st calculated_states[MAX_CLOCK_LIMIT_STATES] = {0};
+>          ^
+> Fixes: 7ed4e6352c16f ("drm/amd/display: Add DCN2 HW Sequencer and Resource")
+>
+> Signed-off-by: Raul E Rangel <rrangel@chromium.org>
+> ---
+> So apparently `{}` is a gcc extension. The C standard requires at least
+> one expression. So {{0}} is correct. I got a lint error about {{0}}
+> needing a space, so i use `{ {0} }`.
+
+I think there were issues with {{}} as well.  How about just a memset?
+
+Alex
+
+>
+> Changes in v2:
+> - Use { {0} } instead of {}
+>
+>  drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
+> index b949e202d6cb..8e6433be2252 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
+> +++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
+> @@ -2633,7 +2633,7 @@ static void cap_soc_clocks(
+>  static void update_bounding_box(struct dc *dc, struct _vcs_dpi_soc_bounding_box_st *bb,
+>                 struct pp_smu_nv_clock_table *max_clocks, unsigned int *uclk_states, unsigned int num_states)
+>  {
+> -       struct _vcs_dpi_voltage_scaling_st calculated_states[MAX_CLOCK_LIMIT_STATES] = {0};
+> +       struct _vcs_dpi_voltage_scaling_st calculated_states[MAX_CLOCK_LIMIT_STATES] = { {0} };
+>         int i;
+>         int num_calculated_states = 0;
+>         int min_dcfclk = 0;
+> --
+> 2.23.0.187.g17f5b7556c-goog
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
