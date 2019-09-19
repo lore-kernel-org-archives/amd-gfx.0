@@ -1,59 +1,54 @@
-From: Sven Van Asbroeck <thesven73@gmail.com>
-Subject: Re: [PATCH v2] drm/amdgpu: fix multiple memory leaks
-Date: Thu, 19 Sep 2019 10:28:22 -0400
-Message-ID: <CAGngYiWHe1mw0+Ay6HO7kG5y8HMriUX3BO8VUcTvGayEK-4JOw@mail.gmail.com>
-References: <7bab24ff-ded7-9f76-ba25-efd07cdd30dd@amd.com> <20190918190529.17298-1-navid.emamdoost@gmail.com>
- <88fc639a-32ed-b6c6-f930-552083d5887d@amd.com>
+From: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu: fix potential VM faults
+Date: Thu, 19 Sep 2019 14:29:44 +0000
+Message-ID: <fd47f3c6-a336-5a02-6ff2-3c24ad81dcb9@amd.com>
+References: <20190919084136.82658-1-christian.koenig@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <88fc639a-32ed-b6c6-f930-552083d5887d@amd.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: "Koenig, Christian" <Christian.Koenig@amd.com>
-Cc: Navid Emamdoost <navid.emamdoost@gmail.com>, "emamd001@umn.edu" <emamd001@umn.edu>, "smccaman@umn.edu" <smccaman@umn.edu>, "kjlu@umn.edu" <kjlu@umn.edu>, "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Zhou, David(ChunMing)" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, Rex Zhu <Rex.Zhu@amd.com>, Sam Ravnborg <sam@ravnborg.org>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20190919084136.82658-1-christian.koenig-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
+Content-ID: <76BBFF323E949B448C83DDCFA8F23055-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: =?utf-8?B?Q2hyaXN0aWFuIEvDtm5pZw==?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-Hi Christian,
-
-On Thu, Sep 19, 2019 at 4:05 AM Koenig, Christian
-<Christian.Koenig@amd.com> wrote:
->
-> > +out4:
-> > +     kfree(i2s_pdata);
-> > +out3:
-> > +     kfree(adev->acp.acp_res);
-> > +out2:
-> > +     kfree(adev->acp.acp_cell);
-> > +out1:
-> > +     kfree(adev->acp.acp_genpd);
->
-> kfree on a NULL pointer is harmless, so a single error label should be
-> sufficient.
-
-That is true, but I notice that the adev structure comes from outside this
-driver:
-
-static int acp_hw_init(void *handle)
-{
-...
-struct amdgpu_device *adev = (struct amdgpu_device *)handle;
-...
-}
-
-As far as I can tell, the init() does not explicitly set these to NULL:
-adev->acp.acp_res
-adev->acp.acp_cell
-adev->acp.acp_genpd
-
-I am assuming that core code sets these to NULL, before calling
-acp_hw_init(). But is that guaranteed or simply a happy accident?
-Ie. if they are NULL today, are they likely to remain NULL tomorrow?
-
-Because calling kfree() on a stale pointer would be, well
-not good. Especially not on an error path, which typically
-does not receive much testing, if any.
-
-My apologies if I have misinterpreted this, I am not familiar with
-this code base.
-
-Sven
+SSdtIG5vdCBkaXNhZ3JlZWluZyB3aXRoIHRoZSBjaGFuZ2UuIEp1c3QgdHJ5aW5nIHRvIHVuZGVy
+c3RhbmQgaG93IHRoaXMgDQpjb3VsZCBoYXZlIGNhdXNlZCBhIFZNIGZhdWx0LiBJZiB0aGUgcGFn
+ZSB0YWJsZXMgYXJlIHJlc2VydmVkIG9yIGZlbmNlZCANCndoaWxlIHlvdSBhbGxvY2F0ZSBhIG5l
+dyBvbmUsIHRoZXkgd291bGQgbm90IGJlIGV2aWN0ZWQuIElmIHRoZXkgYXJlIG5vdCANCnJlc2Vy
+dmVkIG9yIGZlbmNlZCwgdGhlcmUgc2hvdWxkIGJlIG5vIGV4cGVjdGF0aW9uIHRoYXQgdGhleSBz
+dGF5IHJlc2lkZW50Lg0KDQpJcyB0aGlzIHJlbGF0ZWQgdG8gcmVjb3ZlcmFibGUgcGFnZSBmYXVs
+dCBoYW5kbGluZz8gRG8gd2UgbmVlZCBzb21lIG1vcmUgDQpnZW5lcmljIHdheSB0byBoYW5kbGUg
+ZXZpY3Rpb24gb2YgcGFnZSB0YWJsZXMgYW5kIHVwZGF0ZSB0aGUgcGFyZW50IHBhZ2UgDQpkaXJl
+Y3RvcnkgKGludmFsaWRhdGUgdGhlIGNvcnJlc3BvbmRpbmcgUERFKT8NCg0KUmVnYXJkcywNCiDC
+oCBGZWxpeA0KDQpPbiAyMDE5LTA5LTE5IDQ6NDEsIENocmlzdGlhbiBLw7ZuaWcgd3JvdGU6DQo+
+IFdoZW4gd2UgYWxsb2NhdGUgbmV3IHBhZ2UgdGFibGVzIHVuZGVyIG1lbW9yeQ0KPiBwcmVzc3Vy
+ZSB3ZSBzaG91bGQgbm90IGV2aWN0IG9sZCBvbmVzLg0KPg0KPiBTaWduZWQtb2ZmLWJ5OiBDaHJp
+c3RpYW4gS8O2bmlnIDxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+DQo+IC0tLQ0KPiAgIGRyaXZl
+cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9vYmplY3QuYyB8IDMgKystDQo+ICAgMSBmaWxl
+IGNoYW5nZWQsIDIgaW5zZXJ0aW9ucygrKSwgMSBkZWxldGlvbigtKQ0KPg0KPiBkaWZmIC0tZ2l0
+IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X29iamVjdC5jIGIvZHJpdmVycy9n
+cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X29iamVjdC5jDQo+IGluZGV4IDcwZDQ1ZDQ4OTA3YS4u
+OGU0NGVjYWFkYTM1IDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
+bWRncHVfb2JqZWN0LmMNCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
+X29iamVjdC5jDQo+IEBAIC01MTQsNyArNTE0LDggQEAgc3RhdGljIGludCBhbWRncHVfYm9fZG9f
+Y3JlYXRlKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LA0KPiAgIAkJLmludGVycnVwdGlibGUg
+PSAoYnAtPnR5cGUgIT0gdHRtX2JvX3R5cGVfa2VybmVsKSwNCj4gICAJCS5ub193YWl0X2dwdSA9
+IGJwLT5ub193YWl0X2dwdSwNCj4gICAJCS5yZXN2ID0gYnAtPnJlc3YsDQo+IC0JCS5mbGFncyA9
+IFRUTV9PUFRfRkxBR19BTExPV19SRVNfRVZJQ1QNCj4gKwkJLmZsYWdzID0gYnAtPnR5cGUgIT0g
+dHRtX2JvX3R5cGVfa2VybmVsID8NCj4gKwkJCVRUTV9PUFRfRkxBR19BTExPV19SRVNfRVZJQ1Qg
+OiAwDQo+ICAgCX07DQo+ICAgCXN0cnVjdCBhbWRncHVfYm8gKmJvOw0KPiAgIAl1bnNpZ25lZCBs
+b25nIHBhZ2VfYWxpZ24sIHNpemUgPSBicC0+c2l6ZTsNCl9fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlz
+dHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4v
+bGlzdGluZm8vYW1kLWdmeA==
