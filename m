@@ -1,86 +1,61 @@
-From: "Kazlauskas, Nicholas" <Nicholas.Kazlauskas-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amd/display; Fix kernel doc warnings
-Date: Thu, 19 Sep 2019 17:45:27 +0000
-Message-ID: <37bcfe0e-6ef8-cbbe-cdcc-b456a3a25353@amd.com>
-References: <20190919174244.30192-1-harry.wentland@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: remove excess function parameter description
+Date: Thu, 19 Sep 2019 13:48:06 -0400
+Message-ID: <CADnq5_MFLy3zFXu39BaUb-7Y4rYqqFQt2B=_fVMOozh87Z2X1g@mail.gmail.com>
+References: <1568902149-70787-1-git-send-email-yukuai3@huawei.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190919174244.30192-1-harry.wentland-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-Content-ID: <811DF3724761CA4A9C14FFA4C303F7F3-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Wentland, Harry" <Harry.Wentland-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "daniel-/w4YWyX8dFk@public.gmane.org" <daniel-/w4YWyX8dFk@public.gmane.org>
+Content-Type: text/plain; charset="UTF-8"
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <1568902149-70787-1-git-send-email-yukuai3@huawei.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: yu kuai <yukuai3@huawei.com>
+Cc: Dave Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, "Deucher, Alexander" <alexander.deucher@amd.com>, Christian Koenig <christian.koenig@amd.com>, Chunming Zhou <David1.Zhou@amd.com>, yi.zhang@huawei.com, LKML <linux-kernel@vger.kernel.org>, amd-gfx list <amd-gfx@lists.freedesktop.org>, zhengbin13@huawei.com, Maling list - DRI developers <dri-devel@lists.freedesktop.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gMjAxOS0wOS0xOSAxOjQyIHAubS4sIEhhcnJ5IFdlbnRsYW5kIHdyb3RlOg0KPiBXZSBoYWQg
-YSBjb3VwbGUgb2YgbWlzc2luZyBkZWZpbml0aW9ucyBhbmQgZm9ybWF0dGluZyBlcnJvcnMuDQo+
-IA0KPiBTaWduZWQtb2ZmLWJ5OiBIYXJyeSBXZW50bGFuZCA8aGFycnkud2VudGxhbmRAYW1kLmNv
-bT4NCj4gLS0tDQo+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRn
-cHVfZG0uYyB8IDE0ICsrKysrKysrKysrKysrDQo+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNw
-bGF5L2FtZGdwdV9kbS9hbWRncHVfZG0uaCB8IDEwICsrKysrKysrKy0NCj4gICAyIGZpbGVzIGNo
-YW5nZWQsIDIzIGluc2VydGlvbnMoKyksIDEgZGVsZXRpb24oLSkNCj4gDQo+IGRpZmYgLS1naXQg
-YS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5jIGIvZHJp
-dmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG0uYw0KPiBpbmRleCA3
-ZDYyYjRlODYzODYuLjkyOGE4N2Y4OWYzMSAxMDA2NDQNCj4gLS0tIGEvZHJpdmVycy9ncHUvZHJt
-L2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG0uYw0KPiArKysgYi9kcml2ZXJzL2dwdS9k
-cm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5jDQo+IEBAIC0yNjEsNiArMjYxLDEz
-IEBAIHN0YXRpYyBpbmxpbmUgYm9vbCBhbWRncHVfZG1fdnJyX2FjdGl2ZShzdHJ1Y3QgZG1fY3J0
-Y19zdGF0ZSAqZG1fc3RhdGUpDQo+ICAgCSAgICAgICBkbV9zdGF0ZS0+ZnJlZXN5bmNfY29uZmln
-LnN0YXRlID09IFZSUl9TVEFURV9BQ1RJVkVfRklYRUQ7DQo+ICAgfQ0KPiAgIA0KPiArLyoqDQo+
-ICsgKiBkbV9wZmxpcF9oaWdoX2lycSgpIC0gSGFuZGxlIHBhZ2VmbGlwIGludGVycnVwdA0KPiAr
-ICogQGludGVycnVwdF9wYXJhbXM6IGlnbm9yZWQNCj4gKyAqDQo+ICsgKiBIYW5kbGVzIHRoZSBw
-YWdlZmxpcCBpbnRlcnJ1cHQgYnkgbm90ZnlpbmcgYWxsIGludGVyZXN0ZWQgcGFydGllcw0KDQpT
-aG91bGQgYmUgIm5vdGlmeWluZyIuDQoNCldpdGggdGhhdCBmaXhlZCwNCg0KUmV2aWV3ZWQtYnk6
-IE5pY2hvbGFzIEthemxhdXNrYXMgPG5pY2hvbGFzLmthemxhdXNrYXNAYW1kLmNvbT4NCg0KPiAr
-ICogdGhhdCB0aGUgcGFnZWZsaXAgaGFzIGJlZW4gY29tcGxldGVkLg0KPiArICovDQo+ICAgc3Rh
-dGljIHZvaWQgZG1fcGZsaXBfaGlnaF9pcnEodm9pZCAqaW50ZXJydXB0X3BhcmFtcykNCj4gICB7
-DQo+ICAgCXN0cnVjdCBhbWRncHVfY3J0YyAqYW1kZ3B1X2NydGM7DQo+IEBAIC00MDUsNiArNDEy
-LDEzIEBAIHN0YXRpYyB2b2lkIGRtX3Z1cGRhdGVfaGlnaF9pcnEodm9pZCAqaW50ZXJydXB0X3Bh
-cmFtcykNCj4gICAJfQ0KPiAgIH0NCj4gICANCj4gKy8qKg0KPiArICogZG1fY3J0Y19oaWdoX2ly
-cSgpIC0gSGFuZGxlcyBDUlRDIGludGVycnVwdA0KPiArICogQGludGVycnVwdF9wYXJhbXM6IGln
-bm9yZWQNCj4gKyAqDQo+ICsgKiBIYW5kbGVzIHRoZSBDUlRDL1ZTWU5DIGludGVycnVwdCBieSBu
-b3RmeWluZyBEUk0ncyBWQkxBTksNCj4gKyAqIGV2ZW50IGhhbmRsZXIuDQo+ICsgKi8NCj4gICBz
-dGF0aWMgdm9pZCBkbV9jcnRjX2hpZ2hfaXJxKHZvaWQgKmludGVycnVwdF9wYXJhbXMpDQo+ICAg
-ew0KPiAgIAlzdHJ1Y3QgY29tbW9uX2lycV9wYXJhbXMgKmlycV9wYXJhbXMgPSBpbnRlcnJ1cHRf
-cGFyYW1zOw0KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdw
-dV9kbS9hbWRncHVfZG0uaCBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0v
-YW1kZ3B1X2RtLmgNCj4gaW5kZXggMTdhMzViNTA0NTUyLi5hZjIwMjVmM2FjMWEgMTAwNjQ0DQo+
-IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtLmgN
-Cj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG0u
-aA0KPiBAQCAtMTA1LDYgKzEwNSwxMiBAQCBzdHJ1Y3QgYW1kZ3B1X2RtX2JhY2tsaWdodF9jYXBz
-IHsNCj4gICAgKiBAZGlzcGxheV9pbmRleGVzX251bTogTWF4IG51bWJlciBvZiBkaXNwbGF5IHN0
-cmVhbXMgc3VwcG9ydGVkDQo+ICAgICogQGlycV9oYW5kbGVyX2xpc3RfdGFibGVfbG9jazogU3lu
-Y2hyb25pemVzIGFjY2VzcyB0byBJUlEgdGFibGVzDQo+ICAgICogQGJhY2tsaWdodF9kZXY6IEJh
-Y2tsaWdodCBjb250cm9sIGRldmljZQ0KPiArICogQGJhY2tsaWdodF9saW5rOiBMaW5rIG9uIHdo
-aWNoIHRvIGNvbnRyb2wgYmFja2xpZ2h0DQo+ICsgKiBAYmFja2xpZ2h0X2NhcHM6IENhcGFiaWxp
-dGllcyBvZiB0aGUgYmFja2xpZ2h0IGRldmljZQ0KPiArICogQGZyZWVzeW5jX21vZHVsZTogTW9k
-dWxlIGhhbmRsaW5nIGZyZWVzeW5jIGNhbGN1bGF0aW9ucw0KPiArICogQGZ3X2RtY3U6IFJlZmVy
-ZW5jZSB0byBETUNVIGZpcm13YXJlDQo+ICsgKiBAZG1jdV9md192ZXJzaW9uOiBWZXJzaW9uIG9m
-IHRoZSBETUNVIGZpcm13YXJlDQo+ICsgKiBAc29jX2JvdW5kaW5nX2JveDogU09DIGJvdW5kaW5n
-IGJveCB2YWx1ZXMgcHJvdmlkZWQgYnkgZ3B1X2luZm8gRlcNCj4gICAgKiBAY2FjaGVkX3N0YXRl
-OiBDYWNoZXMgZGV2aWNlIGF0b21pYyBzdGF0ZSBmb3Igc3VzcGVuZC9yZXN1bWUNCj4gICAgKiBA
-Y29tcHJlc3NvcjogRnJhbWUgYnVmZmVyIGNvbXByZXNzaW9uIGJ1ZmZlci4gU2VlICZzdHJ1Y3Qg
-ZG1fY29tcmVzc29yX2luZm8NCj4gICAgKi8NCj4gQEAgLTEyNSw3ICsxMzEsNyBAQCBzdHJ1Y3Qg
-YW1kZ3B1X2Rpc3BsYXlfbWFuYWdlciB7DQo+ICAgCXUxNiBkaXNwbGF5X2luZGV4ZXNfbnVtOw0K
-PiAgIA0KPiAgIAkvKioNCj4gLQkgKiBAYXRvbWljX29iag0KPiArCSAqIEBhdG9taWNfb2JqOg0K
-PiAgIAkgKg0KPiAgIAkgKiBJbiBjb21iaW5hdGlvbiB3aXRoICZkbV9hdG9taWNfc3RhdGUgaXQg
-aGVscHMgbWFuYWdlDQo+ICAgCSAqIGdsb2JhbCBhdG9taWMgc3RhdGUgdGhhdCBkb2Vzbid0IG1h
-cCBjbGVhbmx5IGludG8gZXhpc3RpbmcNCj4gQEAgLTIzMSw2ICsyMzcsOCBAQCBzdHJ1Y3QgYW1k
-Z3B1X2Rpc3BsYXlfbWFuYWdlciB7DQo+ICAgCXVpbnQzMl90IGRtY3VfZndfdmVyc2lvbjsNCj4g
-ICAjaWZkZWYgQ09ORklHX0RSTV9BTURfRENfRENOMl8wDQo+ICAgCS8qKg0KPiArCSAqIEBzb2Nf
-Ym91bmRpbmdfYm94Og0KPiArCSAqDQo+ICAgCSAqIGdwdV9pbmZvIEZXIHByb3ZpZGVkIHNvYyBi
-b3VuZGluZyBib3ggc3RydWN0IG9yIDAgaWYgbm90DQo+ICAgCSAqIGF2YWlsYWJsZSBpbiBGVw0K
-PiAgIAkgKi8NCj4gDQoNCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
-Cmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
+On Thu, Sep 19, 2019 at 10:03 AM yu kuai <yukuai3@huawei.com> wrote:
+>
+> Fixes gcc warning:
+>
+> drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c:431: warning: Excess function
+> parameter 'sw' description in 'vcn_v2_5_disable_clock_gating'
+> drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c:550: warning: Excess function
+> parameter 'sw' description in 'vcn_v2_5_enable_clock_gating'
+>
+> Fixes: cbead2bdfcf1 ("drm/amdgpu: add VCN2.5 VCPU start and stop")
+> Signed-off-by: yu kuai <yukuai3@huawei.com>
+
+Applied.  thanks!
+
+Alex
+
+> ---
+>  drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c | 2 --
+>  1 file changed, 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c b/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
+> index 395c225..9d778a0 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
+> @@ -423,7 +423,6 @@ static void vcn_v2_5_mc_resume(struct amdgpu_device *adev)
+>   * vcn_v2_5_disable_clock_gating - disable VCN clock gating
+>   *
+>   * @adev: amdgpu_device pointer
+> - * @sw: enable SW clock gating
+>   *
+>   * Disable clock gating for VCN block
+>   */
+> @@ -542,7 +541,6 @@ static void vcn_v2_5_disable_clock_gating(struct amdgpu_device *adev)
+>   * vcn_v2_5_enable_clock_gating - enable VCN clock gating
+>   *
+>   * @adev: amdgpu_device pointer
+> - * @sw: enable SW clock gating
+>   *
+>   * Enable clock gating for VCN block
+>   */
+> --
+> 2.7.4
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
