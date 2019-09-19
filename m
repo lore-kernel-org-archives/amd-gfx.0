@@ -1,61 +1,47 @@
-From: "Chen, Guchun" <Guchun.Chen-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH 05/21] drm/amdgpu: refine sdma4 ras_data_cb
-Date: Thu, 19 Sep 2019 13:59:01 +0000
-Message-ID: <BYAPR12MB280631BB2C0981BAFE4FE991F1890@BYAPR12MB2806.namprd12.prod.outlook.com>
-References: <20190919071115.16552-1-tao.zhou1@amd.com>
- <20190919071115.16552-6-tao.zhou1@amd.com>
+From: yu kuai <yukuai3@huawei.com>
+Subject: [PATCH] drm/amdgpu: remove excess function parameter description
+Date: Thu, 19 Sep 2019 22:09:09 +0800
+Message-ID: <1568902149-70787-1-git-send-email-yukuai3@huawei.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190919071115.16552-6-tao.zhou1-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Zhou1, Tao" <Tao.Zhou1-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Zhang, Hawking" <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: airlied@linux.ie, daniel@ffwll.ch, alexander.deucher@amd.com, christian.koenig@amd.com, David1.Zhou@amd.com
+Cc: yukuai3@huawei.com, zhengbin13@huawei.com, yi.zhang@huawei.com, linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-CgoKUmVnYXJkcywKR3VjaHVuCgotLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQpGcm9tOiBaaG91
-MSwgVGFvIDxUYW8uWmhvdTFAYW1kLmNvbT4gClNlbnQ6IFRodXJzZGF5LCBTZXB0ZW1iZXIgMTks
-IDIwMTkgMzoxMyBQTQpUbzogYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmc7IENoZW4sIEd1
-Y2h1biA8R3VjaHVuLkNoZW5AYW1kLmNvbT47IFpoYW5nLCBIYXdraW5nIDxIYXdraW5nLlpoYW5n
-QGFtZC5jb20+CkNjOiBaaG91MSwgVGFvIDxUYW8uWmhvdTFAYW1kLmNvbT4KU3ViamVjdDogW1BB
-VENIIDA1LzIxXSBkcm0vYW1kZ3B1OiByZWZpbmUgc2RtYTQgcmFzX2RhdGFfY2IKCnNpbXBsaWZ5
-IGNvZGUgbG9naWMgYW5kIHJlZmluZSByZXR1cm4gdmFsdWUKClNpZ25lZC1vZmYtYnk6IFRhbyBa
-aG91IDx0YW8uemhvdTFAYW1kLmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9z
-ZG1hX3Y0XzAuYyB8IDMyICsrKysrKysrKysrKysrLS0tLS0tLS0tLS0tCiAxIGZpbGUgY2hhbmdl
-ZCwgMTcgaW5zZXJ0aW9ucygrKSwgMTUgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVy
-cy9ncHUvZHJtL2FtZC9hbWRncHUvc2RtYV92NF8wLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
-ZGdwdS9zZG1hX3Y0XzAuYwppbmRleCBhOGU0YjdkODgwZmUuLmY2ODVhMjM3NzYxNSAxMDA2NDQK
-LS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvc2RtYV92NF8wLmMKKysrIGIvZHJpdmVy
-cy9ncHUvZHJtL2FtZC9hbWRncHUvc2RtYV92NF8wLmMKQEAgLTE5NDIsMjUgKzE5NDIsMjcgQEAg
-c3RhdGljIGludCBzZG1hX3Y0XzBfcHJvY2Vzc19yYXNfZGF0YV9jYihzdHJ1Y3QgYW1kZ3B1X2Rl
-dmljZSAqYWRldiwKIAl1aW50MzJfdCBlcnJfc291cmNlOwogCWludCBpbnN0YW5jZTsKIAotCWlm
-ICghYW1kZ3B1X3Jhc19pc19zdXBwb3J0ZWQoYWRldiwgQU1ER1BVX1JBU19CTE9DS19fR0ZYKSkg
-ewotCQlpbnN0YW5jZSA9IHNkbWFfdjRfMF9pcnFfaWRfdG9fc2VxKGVudHJ5LT5jbGllbnRfaWQp
-OwotCQlpZiAoaW5zdGFuY2UgPCAwKQotCQkJcmV0dXJuIDA7CisJaWYgKGFtZGdwdV9yYXNfaXNf
-c3VwcG9ydGVkKGFkZXYsIEFNREdQVV9SQVNfQkxPQ0tfX0dGWCkpCisJCWdvdG8gb3V0OwogCi0J
-CXN3aXRjaCAoZW50cnktPnNyY19pZCkgewotCQljYXNlIFNETUEwXzRfMF9fU1JDSURfX1NETUFf
-U1JBTV9FQ0M6Ci0JCQllcnJfc291cmNlID0gMDsKLQkJCWJyZWFrOwotCQljYXNlIFNETUEwXzRf
-MF9fU1JDSURfX1NETUFfRUNDOgotCQkJZXJyX3NvdXJjZSA9IDE7Ci0JCQlicmVhazsKLQkJZGVm
-YXVsdDoKLQkJCXJldHVybiAwOwotCQl9CisJaW5zdGFuY2UgPSBzZG1hX3Y0XzBfaXJxX2lkX3Rv
-X3NlcShlbnRyeS0+Y2xpZW50X2lkKTsKKwlpZiAoaW5zdGFuY2UgPCAwKQorCQlnb3RvIG91dDsK
-IAotCQlhbWRncHVfc2RtYV9wcm9jZXNzX3Jhc19kYXRhX2NiKGFkZXYsIGVycl9kYXRhLCBlbnRy
-eSk7CisJc3dpdGNoIChlbnRyeS0+c3JjX2lkKSB7CisJY2FzZSBTRE1BMF80XzBfX1NSQ0lEX19T
-RE1BX1NSQU1fRUNDOgorCQllcnJfc291cmNlID0gMDsKW0d1Y2h1bl1Mb29rcyBubyBvbmUgdXNl
-cyB0aGlzIHZhcmlhYmxlLiBDYW4gd2UgcmVtb3ZlIGl0IGRpcmVjdGx5PyBJIGFtIG5vdCBzdXJl
-IHdoeSB3ZSBhZGRlZCBvbmUgc3dpdGNoIGNhc2UgaGVyZS4KCisJCWJyZWFrOworCWNhc2UgU0RN
-QTBfNF8wX19TUkNJRF9fU0RNQV9FQ0M6CisJCWVycl9zb3VyY2UgPSAxOworCQlicmVhazsKKwlk
-ZWZhdWx0OgorCQlnb3RvIG91dDsKIAl9CiAKKwlhbWRncHVfc2RtYV9wcm9jZXNzX3Jhc19kYXRh
-X2NiKGFkZXYsIGVycl9kYXRhLCBlbnRyeSk7CisKK291dDoKIAlyZXR1cm4gQU1ER1BVX1JBU19T
-VUNDRVNTOwogfQogCi0tIAoyLjE3LjEKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRl
-c2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8v
-YW1kLWdmeA==
+Fixes gcc warning:
+
+drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c:431: warning: Excess function
+parameter 'sw' description in 'vcn_v2_5_disable_clock_gating'
+drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c:550: warning: Excess function
+parameter 'sw' description in 'vcn_v2_5_enable_clock_gating'
+
+Fixes: cbead2bdfcf1 ("drm/amdgpu: add VCN2.5 VCPU start and stop")
+Signed-off-by: yu kuai <yukuai3@huawei.com>
+---
+ drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c | 2 --
+ 1 file changed, 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c b/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
+index 395c225..9d778a0 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
+@@ -423,7 +423,6 @@ static void vcn_v2_5_mc_resume(struct amdgpu_device *adev)
+  * vcn_v2_5_disable_clock_gating - disable VCN clock gating
+  *
+  * @adev: amdgpu_device pointer
+- * @sw: enable SW clock gating
+  *
+  * Disable clock gating for VCN block
+  */
+@@ -542,7 +541,6 @@ static void vcn_v2_5_disable_clock_gating(struct amdgpu_device *adev)
+  * vcn_v2_5_enable_clock_gating - enable VCN clock gating
+  *
+  * @adev: amdgpu_device pointer
+- * @sw: enable SW clock gating
+  *
+  * Enable clock gating for VCN block
+  */
+-- 
+2.7.4
