@@ -1,13 +1,16 @@
-From: Thomas Zimmermann <tzimmermann-l3A5Bk7waGM@public.gmane.org>
-Subject: Re: [PATCH v3 07/11] drm/ttm: rename ttm_fbdev_mmap
-Date: Thu, 19 Sep 2019 13:25:39 +0200
-Message-ID: <a93f8308-3e77-59c8-548e-c0553b33e205@suse.de>
-References: <20190919100223.13309-1-kraxel@redhat.com>
- <20190919100223.13309-8-kraxel@redhat.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH v5] drm/amd/amdgpu:Fix compute ring unable to detect hang.
+Date: Thu, 19 Sep 2019 14:12:15 +0200
+Message-ID: <490fd2ab-7d83-04a0-f4ea-fe67727bc013@gmail.com>
+References: <1568880041-19830-1-git-send-email-zhexi.zhang@amd.com>
+ <1568887741-1029-1-git-send-email-zhexi.zhang@amd.com>
+Reply-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0455519710=="
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190919100223.13309-8-kraxel-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>
+In-Reply-To: <1568887741-1029-1-git-send-email-zhexi.zhang-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,176 +21,55 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Gerd Hoffmann <kraxel-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: "David (ChunMing) Zhou" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, David Airlie <airlied-cv59FeDIM0c@public.gmane.org>, Daniel Vetter <daniel.vetter-/w4YWyX8dFk@public.gmane.org>, open list <linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org>, Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>, Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+To: Jesse Zhang <zhexi.zhang-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---===============0455519710==
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="1Vl4XQmXHd78qivdStEU98KPXVJ7s4NIH"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---1Vl4XQmXHd78qivdStEU98KPXVJ7s4NIH
-Content-Type: multipart/mixed; boundary="TzvBT24JB85x8wBrIXcljxPE6A7tpUr9f";
- protected-headers="v1"
-From: Thomas Zimmermann <tzimmermann-l3A5Bk7waGM@public.gmane.org>
-To: Gerd Hoffmann <kraxel-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Daniel Vetter <daniel.vetter-/w4YWyX8dFk@public.gmane.org>,
- Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>,
- "David (ChunMing) Zhou" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>,
- David Airlie <airlied-cv59FeDIM0c@public.gmane.org>, Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>,
- Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org>,
- "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>,
- open list <linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>
-Message-ID: <a93f8308-3e77-59c8-548e-c0553b33e205-l3A5Bk7waGM@public.gmane.org>
-Subject: Re: [PATCH v3 07/11] drm/ttm: rename ttm_fbdev_mmap
-References: <20190919100223.13309-1-kraxel-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>
- <20190919100223.13309-8-kraxel-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>
-In-Reply-To: <20190919100223.13309-8-kraxel-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>
-
---TzvBT24JB85x8wBrIXcljxPE6A7tpUr9f
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: quoted-printable
-
-Hi
-
-Am 19.09.19 um 12:02 schrieb Gerd Hoffmann:
-> Rename ttm_fbdev_mmap to ttm_bo_mmap_obj.  Move the vm_pgoff sanity
-> check to amdgpu_bo_fbdev_mmap (only ttm_fbdev_mmap user in tree).
->=20
-> The ttm_bo_mmap_obj function can now be used to map any buffer object.
-> This allows to implement &drm_gem_object_funcs.mmap in gem ttm helpers.=
-
->=20
-> Signed-off-by: Gerd Hoffmann <kraxel-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>
-
-Thanks. I find this to be a much cleaner interface than before.
-
-Acked-by: Thomas Zimmermann <tzimmermann-l3A5Bk7waGM@public.gmane.org>
-
-Best regards
-Thomas
-
-> ---
->  include/drm/ttm/ttm_bo_api.h               | 10 ++++------
->  drivers/gpu/drm/amd/amdgpu/amdgpu_object.c |  5 ++++-
->  drivers/gpu/drm/ttm/ttm_bo_vm.c            |  8 ++------
->  3 files changed, 10 insertions(+), 13 deletions(-)
->=20
-> diff --git a/include/drm/ttm/ttm_bo_api.h b/include/drm/ttm/ttm_bo_api.=
-h
-> index 43c4929a2171..d2277e06316d 100644
-> --- a/include/drm/ttm/ttm_bo_api.h
-> +++ b/include/drm/ttm/ttm_bo_api.h
-> @@ -710,16 +710,14 @@ int ttm_bo_kmap(struct ttm_buffer_object *bo, uns=
-igned long start_page,
->  void ttm_bo_kunmap(struct ttm_bo_kmap_obj *map);
-> =20
->  /**
-> - * ttm_fbdev_mmap - mmap fbdev memory backed by a ttm buffer object.
-> + * ttm_bo_mmap_obj - mmap memory backed by a ttm buffer object.
->   *
->   * @vma:       vma as input from the fbdev mmap method.
-> - * @bo:        The bo backing the address space. The address space wil=
-l
-> - * have the same size as the bo, and start at offset 0.
-> + * @bo:        The bo backing the address space.
->   *
-> - * This function is intended to be called by the fbdev mmap method
-> - * if the fbdev address space is to be backed by a bo.
-> + * Maps a buffer object.
->   */
-> -int ttm_fbdev_mmap(struct vm_area_struct *vma, struct ttm_buffer_objec=
-t *bo);
-> +int ttm_bo_mmap_obj(struct vm_area_struct *vma, struct ttm_buffer_obje=
-ct *bo);
-> =20
->  /**
->   * ttm_bo_mmap - mmap out of the ttm device address space.
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/d=
-rm/amd/amdgpu/amdgpu_object.c
-> index 2f11ebd95528..e5447e0d8b88 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-> @@ -1051,7 +1051,10 @@ void amdgpu_bo_fini(struct amdgpu_device *adev)
->  int amdgpu_bo_fbdev_mmap(struct amdgpu_bo *bo,
->  			     struct vm_area_struct *vma)
->  {
-> -	return ttm_fbdev_mmap(vma, &bo->tbo);
-> +	if (vma->vm_pgoff !=3D 0)
-> +		return -EACCES;
-> +
-> +	return ttm_bo_mmap_obj(vma, &bo->tbo);
->  }
-> =20
->  /**
-> diff --git a/drivers/gpu/drm/ttm/ttm_bo_vm.c b/drivers/gpu/drm/ttm/ttm_=
-bo_vm.c
-> index b5314ef85a3d..6688d7893161 100644
-> --- a/drivers/gpu/drm/ttm/ttm_bo_vm.c
-> +++ b/drivers/gpu/drm/ttm/ttm_bo_vm.c
-> @@ -479,14 +479,10 @@ int ttm_bo_mmap(struct file *filp, struct vm_area=
-_struct *vma,
->  }
->  EXPORT_SYMBOL(ttm_bo_mmap);
-> =20
-> -int ttm_fbdev_mmap(struct vm_area_struct *vma, struct ttm_buffer_objec=
-t *bo)
-> +int ttm_bo_mmap_obj(struct vm_area_struct *vma, struct ttm_buffer_obje=
-ct *bo)
->  {
-> -	if (vma->vm_pgoff !=3D 0)
-> -		return -EACCES;
-> -
->  	ttm_bo_get(bo);
-> -
->  	ttm_bo_mmap_vma_setup(bo, vma);
->  	return 0;
->  }
-> -EXPORT_SYMBOL(ttm_fbdev_mmap);
-> +EXPORT_SYMBOL(ttm_bo_mmap_obj);
->=20
-
---=20
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Linux GmbH, Maxfeldstrasse 5, 90409 Nuernberg, Germany
-GF: Felix Imend=C3=B6rffer, Mary Higgins, Sri Rasiah
-HRB 21284 (AG N=C3=BCrnberg)
-
-
---TzvBT24JB85x8wBrIXcljxPE6A7tpUr9f--
-
---1Vl4XQmXHd78qivdStEU98KPXVJ7s4NIH
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEchf7rIzpz2NEoWjlaA3BHVMLeiMFAl2DZbMACgkQaA3BHVML
-eiNZ8QgAkTCp+uwT0g6oLhkmYEgwDPEmHEvdPKTjp6X+r7iztEI/zXi0i6XCQqB+
-k7Bv5MZtSEe6Yg5V1JSPKxZ0fW8W7Hib5g1hfOUpHrTvXtn+2YNPaEnSsn2+eMBG
-YrBHQRrHhvUtIDQxnOgoYA3vusPw4aNQoOmBjUllBn9aVjZ6RhNOkqLi+5zqv5L7
-NQAi05BaLdaC7M4YovLHhrsi3xIlLmY9+kqlKI8vycgN/2d1bwCGXTjCNic1Y/ub
-DhUZgK7Gh+t2pQ0HCWvF8zeVk00HnQ0o7WtePndP0jCBK45WCNAHOmAoL5elh34u
-KCmlXwrGEGOoybyCaVPbq+u0kT4nSg==
-=Zvov
------END PGP SIGNATURE-----
-
---1Vl4XQmXHd78qivdStEU98KPXVJ7s4NIH--
-
---===============0455519710==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
-
---===============0455519710==--
+QW0gMTkuMDkuMTkgdW0gMTI6MDkgc2NocmllYiBKZXNzZSBaaGFuZzoKPiBXaGVuIGNvbXB1dGUg
+ZmVuY2UgZGlkIHNpZ25hbCwgY29tcHV0ZSByaW5nIGNhbm5vdCBkZXRlY3QgaGFyZHdhcmUgaGFu
+Zwo+IGJlY2F1c2UgaXRzIHRpbWVvdXQgdmFsdWUgaXMgc2V0IHRvIGJlIGluZmluaXRlIGJ5IGRl
+ZmF1bHQuCj4KPiBJbiBTUi1JT1YgYW5kIHBhc3N0aHJvdWdoIG1vZGUsIGlmIHVzZXIgZG9lcyBu
+b3QgZGVjbGFyZSBjdXN0b21lIHRpbWVvdXQKPiB2YWx1ZSBmb3IgY29tcHV0ZSByaW5nLCB0aGVu
+IHVzZSBnZnggcmluZyB0aW1lb3V0IHZhbHVlIGFzIGRlZmF1bHQuIFNvCj4gdGhhdCB3aGVuIHRo
+ZXJlIGlzIGEgdHVyZSBoYXJkd2FyZSBoYW5nLCBjb21wdXRlIHJpbmcgY2FuIGRldGVjdCBpdC4K
+Pgo+IENoYW5nZS1JZDogSTc5NGVjMDg2OGM2YzBhYWQ0MDc3NDk0NTcyNjBlY2ZlZTA2MTdjMTAK
+PiBTaWduZWQtb2ZmLWJ5OiBKZXNzZSBaaGFuZyA8emhleGkuemhhbmdAYW1kLmNvbT4KPiAtLS0K
+PiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYyB8IDEyICsrKysr
+Ky0tLS0tLQo+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rydi5jICAgIHwg
+IDQgKysrLQo+ICAgMiBmaWxlcyBjaGFuZ2VkLCA5IGluc2VydGlvbnMoKyksIDcgZGVsZXRpb25z
+KC0pCj4KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rl
+dmljZS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jCj4gaW5k
+ZXggM2I1MjgyYi4uMDNhYzVhMWRhIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQv
+YW1kZ3B1L2FtZGdwdV9kZXZpY2UuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
+L2FtZGdwdV9kZXZpY2UuYwo+IEBAIC0xMDI0LDEyICsxMDI0LDYgQEAgc3RhdGljIGludCBhbWRn
+cHVfZGV2aWNlX2NoZWNrX2FyZ3VtZW50cyhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikKPiAg
+IAo+ICAgCWFtZGdwdV9kZXZpY2VfY2hlY2tfYmxvY2tfc2l6ZShhZGV2KTsKPiAgIAo+IC0JcmV0
+ID0gYW1kZ3B1X2RldmljZV9nZXRfam9iX3RpbWVvdXRfc2V0dGluZ3MoYWRldik7Cj4gLQlpZiAo
+cmV0KSB7Cj4gLQkJZGV2X2VycihhZGV2LT5kZXYsICJpbnZhbGlkIGxvY2t1cF90aW1lb3V0IHBh
+cmFtZXRlciBzeW50YXhcbiIpOwo+IC0JCXJldHVybiByZXQ7Cj4gLQl9Cj4gLQo+ICAgCWFkZXYt
+PmZpcm13YXJlLmxvYWRfdHlwZSA9IGFtZGdwdV91Y29kZV9nZXRfbG9hZF90eXBlKGFkZXYsIGFt
+ZGdwdV9md19sb2FkX3R5cGUpOwo+ICAgCj4gICAJcmV0dXJuIHJldDsKPiBAQCAtMjczMiw2ICsy
+NzI2LDEyIEBAIGludCBhbWRncHVfZGV2aWNlX2luaXQoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFk
+ZXYsCj4gICAJaWYgKHIpCj4gICAJCXJldHVybiByOwo+ICAgCj4gKwlyID0gYW1kZ3B1X2Rldmlj
+ZV9nZXRfam9iX3RpbWVvdXRfc2V0dGluZ3MoYWRldik7Cj4gKwlpZiAocikgewo+ICsJCWRldl9l
+cnIoYWRldi0+ZGV2LCAiaW52YWxpZCBsb2NrdXBfdGltZW91dCBwYXJhbWV0ZXIgc3ludGF4XG4i
+KTsKPiArCQlyZXR1cm4gcjsKPiArCX0KPiArCgpJIGFzc3VtZSB0aGF0IHlvdSBtb3ZlIHRoZSBj
+b2RlIGJlY2F1c2UgcHJldmlvdXNseSBTUklPVi9wYXNzdGhyb3VnaCAKc2V0dGluZyBpcyBub3Qg
+YXZhaWxhYmxlIHlldD8KCkJ1dCBldmVuIHdpdGggdGhpcyBoZXJlIHlvdSBjYW4gc3RpbGwgcmVt
+b3ZlIHRoZSBleHRyYSBTUklPViBjaGVjayBpbiAKYW1kZ3B1X2ZlbmNlLmMuCgpSZWdhcmRzLApD
+aHJpc3RpYW4uCgo+ICAgCS8qIGRvb3JiZWxsIGJhciBtYXBwaW5nIGFuZCBkb29yYmVsbCBpbmRl
+eCBpbml0Ki8KPiAgIAlhbWRncHVfZGV2aWNlX2Rvb3JiZWxsX2luaXQoYWRldik7Cj4gICAKPiBk
+aWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rydi5jIGIvZHJp
+dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rydi5jCj4gaW5kZXggNDIwODg4ZS4uMTIz
+NjI0NSAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZHJ2
+LmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZHJ2LmMKPiBAQCAt
+MTM3OCwxMCArMTM3OCwxMiBAQCBpbnQgYW1kZ3B1X2RldmljZV9nZXRfam9iX3RpbWVvdXRfc2V0
+dGluZ3Moc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpCj4gICAJCX0KPiAgIAkJLyoKPiAgIAkJ
+ICogVGhlcmUgaXMgb25seSBvbmUgdmFsdWUgc3BlY2lmaWVkIGFuZAo+IC0JCSAqIGl0IHNob3Vs
+ZCBhcHBseSB0byBhbGwgbm9uLWNvbXB1dGUgam9icy4KPiArCQkgKiBpdCBzaG91bGQgYXBwbHkg
+dG8gYWxsIGpvYnMuCj4gICAJCSAqLwo+ICAgCQlpZiAoaW5kZXggPT0gMSkKPiAgIAkJCWFkZXYt
+PnNkbWFfdGltZW91dCA9IGFkZXYtPnZpZGVvX3RpbWVvdXQgPSBhZGV2LT5nZnhfdGltZW91dDsK
+PiArCQkJaWYgKGFtZGdwdV9zcmlvdl92ZihhZGV2KSB8fCBhbWRncHVfcGFzc3Rocm91Z2goYWRl
+dikpCj4gKwkJCQlhZGV2LT5jb21wdXRlX3RpbWVvdXQgPSBhZGV2LT5nZnhfdGltZW91dDsKPiAg
+IAl9Cj4gICAKPiAgIAlyZXR1cm4gcmV0OwoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVl
+ZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5m
+by9hbWQtZ2Z4
