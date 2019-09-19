@@ -1,13 +1,11 @@
-From: Navid Emamdoost <navid.emamdoost-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: fix multiple memory leaks
-Date: Wed, 18 Sep 2019 14:04:52 -0500
-Message-ID: <CAEkB2ERC-mUq+SHkaZiiZnJTTcOvjUebRSnKACVUUckCC59a7Q@mail.gmail.com>
-References: <20190918160943.14105-1-navid.emamdoost@gmail.com>
- <7bab24ff-ded7-9f76-ba25-efd07cdd30dd@amd.com>
+From: Tianci Yin <tianci.yin-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH] drm/amdgpu/gfx10: add support for wks firmware loading
+Date: Thu, 19 Sep 2019 10:04:36 +0800
+Message-ID: <20190919020436.17540-1-tianci.yin@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1019409045=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <7bab24ff-ded7-9f76-ba25-efd07cdd30dd-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,201 +16,73 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
-Cc: "Zhou, David(ChunMing)" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, David Airlie <airlied-cv59FeDIM0c@public.gmane.org>, Sam Ravnborg <sam-uyr5N9Q2VtJg9hUCZPvPmw@public.gmane.org>, "kjlu-OJFnDUYgAso@public.gmane.org" <kjlu-OJFnDUYgAso@public.gmane.org>, "linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org" <linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "emamd001-OJFnDUYgAso@public.gmane.org" <emamd001-OJFnDUYgAso@public.gmane.org>, "dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>, "smccaman-OJFnDUYgAso@public.gmane.org" <smccaman-OJFnDUYgAso@public.gmane.org>, "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, Tianci Yin <tianci.yin-5C7GfCeVMHo@public.gmane.org>, Hawking Zhang <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>
 
---===============1019409045==
-Content-Type: multipart/alternative; boundary="000000000000b366e40592d8839f"
-
---000000000000b366e40592d8839f
-Content-Type: text/plain; charset="UTF-8"
-
-Thanks Christian for the feedback, I'll send a v2.
-
-
-
-On Wed, Sep 18, 2019 at 12:31 PM Koenig, Christian <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
-wrote:
-
-> Am 18.09.19 um 18:09 schrieb Navid Emamdoost:
-> > In acp_hw_init there are some allocations that needs to be released in
-> > case of failure:
-> >
-> > 1- adev->acp.acp_genpd should be released if any allocation attemp for
-> > adev->acp.acp_cell, adev->acp.acp_res or i2s_pdata fails.
-> > 2- all of those allocations should be released if pm_genpd_add_device
-> > fails.
->
-> Good catch, but please use goto error handling instead of adding more
-> and more kfree calls.
->
-> Regards,
-> Christian.
->
-> >
-> > Signed-off-by: Navid Emamdoost <navid.emamdoost-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-> > ---
-> >   drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c | 10 +++++++++-
-> >   1 file changed, 9 insertions(+), 1 deletion(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c
-> > index eba42c752bca..dd3fa85b11c5 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c
-> > @@ -231,17 +231,21 @@ static int acp_hw_init(void *handle)
-> >       adev->acp.acp_cell = kcalloc(ACP_DEVS, sizeof(struct mfd_cell),
-> >                                                       GFP_KERNEL);
-> >
-> > -     if (adev->acp.acp_cell == NULL)
-> > +     if (adev->acp.acp_cell == NULL) {
-> > +             kfree(adev->acp.acp_genpd);
-> >               return -ENOMEM;
-> > +     }
-> >
-> >       adev->acp.acp_res = kcalloc(5, sizeof(struct resource),
-> GFP_KERNEL);
-> >       if (adev->acp.acp_res == NULL) {
-> > +             kfree(adev->acp.acp_genpd);
-> >               kfree(adev->acp.acp_cell);
-> >               return -ENOMEM;
-> >       }
-> >
-> >       i2s_pdata = kcalloc(3, sizeof(struct i2s_platform_data),
-> GFP_KERNEL);
-> >       if (i2s_pdata == NULL) {
-> > +             kfree(adev->acp.acp_genpd);
-> >               kfree(adev->acp.acp_res);
-> >               kfree(adev->acp.acp_cell);
-> >               return -ENOMEM;
-> > @@ -348,6 +352,10 @@ static int acp_hw_init(void *handle)
-> >               r = pm_genpd_add_device(&adev->acp.acp_genpd->gpd, dev);
-> >               if (r) {
-> >                       dev_err(dev, "Failed to add dev to genpd\n");
-> > +                     kfree(adev->acp.acp_genpd);
-> > +                     kfree(adev->acp.acp_res);
-> > +                     kfree(adev->acp.acp_cell);
-> > +                     kfree(i2s_pdata);
-> >                       return r;
-> >               }
-> >       }
->
->
-
--- 
-Navid.
-
---000000000000b366e40592d8839f
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">Thanks=C2=A0Christian for the feedback, I&#39;ll send a v2=
-.<div><br></div><div><br></div></div><br><div class=3D"gmail_quote"><div di=
-r=3D"ltr" class=3D"gmail_attr">On Wed, Sep 18, 2019 at 12:31 PM Koenig, Chr=
-istian &lt;<a href=3D"mailto:Christian.Koenig-5C7GfCeVMHo@public.gmane.org">Christian.Koenig@amd=
-.com</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"mar=
-gin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1=
-ex">Am 18.09.19 um 18:09 schrieb Navid Emamdoost:<br>
-&gt; In acp_hw_init there are some allocations that needs to be released in=
-<br>
-&gt; case of failure:<br>
-&gt;<br>
-&gt; 1- adev-&gt;acp.acp_genpd should be released if any allocation attemp =
-for<br>
-&gt; adev-&gt;acp.acp_cell, adev-&gt;acp.acp_res or i2s_pdata fails.<br>
-&gt; 2- all of those allocations should be released if pm_genpd_add_device<=
-br>
-&gt; fails.<br>
-<br>
-Good catch, but please use goto error handling instead of adding more <br>
-and more kfree calls.<br>
-<br>
-Regards,<br>
-Christian.<br>
-<br>
-&gt;<br>
-&gt; Signed-off-by: Navid Emamdoost &lt;<a href=3D"mailto:navid.emamdoost@g=
-mail.com" target=3D"_blank">navid.emamdoost-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt;<br>
-&gt; ---<br>
-&gt;=C2=A0 =C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c | 10 +++++++++-<br=
->
-&gt;=C2=A0 =C2=A01 file changed, 9 insertions(+), 1 deletion(-)<br>
-&gt;<br>
-&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c b/drivers/gpu/drm=
-/amd/amdgpu/amdgpu_acp.c<br>
-&gt; index eba42c752bca..dd3fa85b11c5 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c<br>
-&gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c<br>
-&gt; @@ -231,17 +231,21 @@ static int acp_hw_init(void *handle)<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0adev-&gt;acp.acp_cell =3D kcalloc(ACP_DEVS, =
-sizeof(struct mfd_cell),<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0GFP_KERNEL);<br>
-&gt;=C2=A0 =C2=A0<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0if (adev-&gt;acp.acp_cell =3D=3D NULL)<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0if (adev-&gt;acp.acp_cell =3D=3D NULL) {<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0kfree(adev-&gt;acp.ac=
-p_genpd);<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return -ENOMEM;<=
-br>
-&gt; +=C2=A0 =C2=A0 =C2=A0}<br>
-&gt;=C2=A0 =C2=A0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0adev-&gt;acp.acp_res =3D kcalloc(5, sizeof(s=
-truct resource), GFP_KERNEL);<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0if (adev-&gt;acp.acp_res =3D=3D NULL) {<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0kfree(adev-&gt;acp.ac=
-p_genpd);<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0kfree(adev-&gt;a=
-cp.acp_cell);<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return -ENOMEM;<=
-br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
-&gt;=C2=A0 =C2=A0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0i2s_pdata =3D kcalloc(3, sizeof(struct i2s_p=
-latform_data), GFP_KERNEL);<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0if (i2s_pdata =3D=3D NULL) {<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0kfree(adev-&gt;acp.ac=
-p_genpd);<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0kfree(adev-&gt;a=
-cp.acp_res);<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0kfree(adev-&gt;a=
-cp.acp_cell);<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return -ENOMEM;<=
-br>
-&gt; @@ -348,6 +352,10 @@ static int acp_hw_init(void *handle)<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0r =3D pm_genpd_a=
-dd_device(&amp;adev-&gt;acp.acp_genpd-&gt;gpd, dev);<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (r) {<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0dev_err(dev, &quot;Failed to add dev to genpd\n&quot;);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0kfree(adev-&gt;acp.acp_genpd);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0kfree(adev-&gt;acp.acp_res);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0kfree(adev-&gt;acp.acp_cell);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0kfree(i2s_pdata);<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0return r;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
-<br>
-</blockquote></div><br clear=3D"all"><div><br></div>-- <br><div dir=3D"ltr"=
- class=3D"gmail_signature"><div dir=3D"ltr"><div><div dir=3D"ltr"><font col=
-or=3D"#666666">Navid.</font></div></div></div></div>
-
---000000000000b366e40592d8839f--
-
---===============1019409045==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
-
---===============1019409045==--
+RnJvbTogIlRpYW5jaS5ZaW4iIDx0aWFuY2kueWluQGFtZC5jb20+Cgpsb2FkIGRpZmZlcmVudCBj
+cCBmaXJtd2FyZSBhY2NvcmRpbmcgdG8gdGhlIERJRCBhbmQgUklECgpTaWduZWQtb2ZmLWJ5OiBU
+aWFuY2kuWWluIDx0aWFuY2kueWluQGFtZC5jb20+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9h
+bWRncHUvZ2Z4X3YxMF8wLmMgfCAyNCArKysrKysrKysrKysrKysrKystLS0tLS0KIDEgZmlsZSBj
+aGFuZ2VkLCAxOCBpbnNlcnRpb25zKCspLCA2IGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2Ry
+aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92MTBfMC5jIGIvZHJpdmVycy9ncHUvZHJtL2Ft
+ZC9hbWRncHUvZ2Z4X3YxMF8wLmMKaW5kZXggMDgyYTBiMzI5OGE5Li5iNWQzZTc1ZTdlODggMTAw
+NjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92MTBfMC5jCisrKyBiL2Ry
+aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92MTBfMC5jCkBAIC02Niw2ICs2NiwxMSBAQCBN
+T0RVTEVfRklSTVdBUkUoImFtZGdwdS9uYXZpMTBfbWVjLmJpbiIpOwogTU9EVUxFX0ZJUk1XQVJF
+KCJhbWRncHUvbmF2aTEwX21lYzIuYmluIik7CiBNT0RVTEVfRklSTVdBUkUoImFtZGdwdS9uYXZp
+MTBfcmxjLmJpbiIpOwogCitNT0RVTEVfRklSTVdBUkUoImFtZGdwdS9uYXZpMTRfY2Vfd2tzLmJp
+biIpOworTU9EVUxFX0ZJUk1XQVJFKCJhbWRncHUvbmF2aTE0X3BmcF93a3MuYmluIik7CitNT0RV
+TEVfRklSTVdBUkUoImFtZGdwdS9uYXZpMTRfbWVfd2tzLmJpbiIpOworTU9EVUxFX0ZJUk1XQVJF
+KCJhbWRncHUvbmF2aTE0X21lY193a3MuYmluIik7CitNT0RVTEVfRklSTVdBUkUoImFtZGdwdS9u
+YXZpMTRfbWVjMl93a3MuYmluIik7CiBNT0RVTEVfRklSTVdBUkUoImFtZGdwdS9uYXZpMTRfY2Uu
+YmluIik7CiBNT0RVTEVfRklSTVdBUkUoImFtZGdwdS9uYXZpMTRfcGZwLmJpbiIpOwogTU9EVUxF
+X0ZJUk1XQVJFKCJhbWRncHUvbmF2aTE0X21lLmJpbiIpOwpAQCAtNTkxLDcgKzU5Niw4IEBAIHN0
+YXRpYyB2b2lkIGdmeF92MTBfMF9jaGVja19nZnhvZmZfZmxhZyhzdHJ1Y3QgYW1kZ3B1X2Rldmlj
+ZSAqYWRldikKIHN0YXRpYyBpbnQgZ2Z4X3YxMF8wX2luaXRfbWljcm9jb2RlKHN0cnVjdCBhbWRn
+cHVfZGV2aWNlICphZGV2KQogewogCWNvbnN0IGNoYXIgKmNoaXBfbmFtZTsKLQljaGFyIGZ3X25h
+bWVbMzBdOworCWNvbnN0IGNoYXIgKndrczsKKwljaGFyIGZ3X25hbWVbNDBdOwogCWludCBlcnI7
+CiAJc3RydWN0IGFtZGdwdV9maXJtd2FyZV9pbmZvICppbmZvID0gTlVMTDsKIAljb25zdCBzdHJ1
+Y3QgY29tbW9uX2Zpcm13YXJlX2hlYWRlciAqaGVhZGVyID0gTlVMTDsKQEAgLTYxOCw3ICs2MjQs
+MTMgQEAgc3RhdGljIGludCBnZnhfdjEwXzBfaW5pdF9taWNyb2NvZGUoc3RydWN0IGFtZGdwdV9k
+ZXZpY2UgKmFkZXYpCiAJCUJVRygpOwogCX0KIAotCXNucHJpbnRmKGZ3X25hbWUsIHNpemVvZihm
+d19uYW1lKSwgImFtZGdwdS8lc19wZnAuYmluIiwgY2hpcF9uYW1lKTsKKwlpZihhZGV2LT5wZGV2
+LT5kZXZpY2UgPT0gMHg3MzQwICYmCisJICAgYWRldi0+cGRldi0+cmV2aXNpb24gIT0gMHgwMCkK
+KwkJd2tzID0gIiI7CisJZWxzZQorCQl3a3MgPSAiX3drcyI7CisKKwlzbnByaW50Zihmd19uYW1l
+LCBzaXplb2YoZndfbmFtZSksICJhbWRncHUvJXNfcGZwJXMuYmluIiwgY2hpcF9uYW1lLCB3a3Mp
+OwogCWVyciA9IHJlcXVlc3RfZmlybXdhcmUoJmFkZXYtPmdmeC5wZnBfZncsIGZ3X25hbWUsIGFk
+ZXYtPmRldik7CiAJaWYgKGVycikKIAkJZ290byBvdXQ7CkBAIC02MjksNyArNjQxLDcgQEAgc3Rh
+dGljIGludCBnZnhfdjEwXzBfaW5pdF9taWNyb2NvZGUoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFk
+ZXYpCiAJYWRldi0+Z2Z4LnBmcF9md192ZXJzaW9uID0gbGUzMl90b19jcHUoY3BfaGRyLT5oZWFk
+ZXIudWNvZGVfdmVyc2lvbik7CiAJYWRldi0+Z2Z4LnBmcF9mZWF0dXJlX3ZlcnNpb24gPSBsZTMy
+X3RvX2NwdShjcF9oZHItPnVjb2RlX2ZlYXR1cmVfdmVyc2lvbik7CiAKLQlzbnByaW50Zihmd19u
+YW1lLCBzaXplb2YoZndfbmFtZSksICJhbWRncHUvJXNfbWUuYmluIiwgY2hpcF9uYW1lKTsKKwlz
+bnByaW50Zihmd19uYW1lLCBzaXplb2YoZndfbmFtZSksICJhbWRncHUvJXNfbWUlcy5iaW4iLCBj
+aGlwX25hbWUsIHdrcyk7CiAJZXJyID0gcmVxdWVzdF9maXJtd2FyZSgmYWRldi0+Z2Z4Lm1lX2Z3
+LCBmd19uYW1lLCBhZGV2LT5kZXYpOwogCWlmIChlcnIpCiAJCWdvdG8gb3V0OwpAQCAtNjQwLDcg
+KzY1Miw3IEBAIHN0YXRpYyBpbnQgZ2Z4X3YxMF8wX2luaXRfbWljcm9jb2RlKHN0cnVjdCBhbWRn
+cHVfZGV2aWNlICphZGV2KQogCWFkZXYtPmdmeC5tZV9md192ZXJzaW9uID0gbGUzMl90b19jcHUo
+Y3BfaGRyLT5oZWFkZXIudWNvZGVfdmVyc2lvbik7CiAJYWRldi0+Z2Z4Lm1lX2ZlYXR1cmVfdmVy
+c2lvbiA9IGxlMzJfdG9fY3B1KGNwX2hkci0+dWNvZGVfZmVhdHVyZV92ZXJzaW9uKTsKIAotCXNu
+cHJpbnRmKGZ3X25hbWUsIHNpemVvZihmd19uYW1lKSwgImFtZGdwdS8lc19jZS5iaW4iLCBjaGlw
+X25hbWUpOworCXNucHJpbnRmKGZ3X25hbWUsIHNpemVvZihmd19uYW1lKSwgImFtZGdwdS8lc19j
+ZSVzLmJpbiIsIGNoaXBfbmFtZSwgd2tzKTsKIAllcnIgPSByZXF1ZXN0X2Zpcm13YXJlKCZhZGV2
+LT5nZnguY2VfZncsIGZ3X25hbWUsIGFkZXYtPmRldik7CiAJaWYgKGVycikKIAkJZ290byBvdXQ7
+CkBAIC03MDUsNyArNzE3LDcgQEAgc3RhdGljIGludCBnZnhfdjEwXzBfaW5pdF9taWNyb2NvZGUo
+c3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpCiAJaWYgKGFkZXYtPmdmeC5ybGMuaXNfcmxjX3Yy
+XzEpCiAJCWdmeF92MTBfMF9pbml0X3JsY19leHRfbWljcm9jb2RlKGFkZXYpOwogCi0Jc25wcmlu
+dGYoZndfbmFtZSwgc2l6ZW9mKGZ3X25hbWUpLCAiYW1kZ3B1LyVzX21lYy5iaW4iLCBjaGlwX25h
+bWUpOworCXNucHJpbnRmKGZ3X25hbWUsIHNpemVvZihmd19uYW1lKSwgImFtZGdwdS8lc19tZWMl
+cy5iaW4iLCBjaGlwX25hbWUsIHdrcyk7CiAJZXJyID0gcmVxdWVzdF9maXJtd2FyZSgmYWRldi0+
+Z2Z4Lm1lY19mdywgZndfbmFtZSwgYWRldi0+ZGV2KTsKIAlpZiAoZXJyKQogCQlnb3RvIG91dDsK
+QEAgLTcxNiw3ICs3MjgsNyBAQCBzdGF0aWMgaW50IGdmeF92MTBfMF9pbml0X21pY3JvY29kZShz
+dHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikKIAlhZGV2LT5nZngubWVjX2Z3X3ZlcnNpb24gPSBs
+ZTMyX3RvX2NwdShjcF9oZHItPmhlYWRlci51Y29kZV92ZXJzaW9uKTsKIAlhZGV2LT5nZngubWVj
+X2ZlYXR1cmVfdmVyc2lvbiA9IGxlMzJfdG9fY3B1KGNwX2hkci0+dWNvZGVfZmVhdHVyZV92ZXJz
+aW9uKTsKIAotCXNucHJpbnRmKGZ3X25hbWUsIHNpemVvZihmd19uYW1lKSwgImFtZGdwdS8lc19t
+ZWMyLmJpbiIsIGNoaXBfbmFtZSk7CisJc25wcmludGYoZndfbmFtZSwgc2l6ZW9mKGZ3X25hbWUp
+LCAiYW1kZ3B1LyVzX21lYzIlcy5iaW4iLCBjaGlwX25hbWUsIHdrcyk7CiAJZXJyID0gcmVxdWVz
+dF9maXJtd2FyZSgmYWRldi0+Z2Z4Lm1lYzJfZncsIGZ3X25hbWUsIGFkZXYtPmRldik7CiAJaWYg
+KCFlcnIpIHsKIAkJZXJyID0gYW1kZ3B1X3Vjb2RlX3ZhbGlkYXRlKGFkZXYtPmdmeC5tZWMyX2Z3
+KTsKLS0gCjIuMTcuMQoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcK
+aHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
