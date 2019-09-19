@@ -1,61 +1,79 @@
-From: Alex Deucher <alexdeucher@gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: remove excess function parameter description
-Date: Thu, 19 Sep 2019 13:48:06 -0400
-Message-ID: <CADnq5_MFLy3zFXu39BaUb-7Y4rYqqFQt2B=_fVMOozh87Z2X1g@mail.gmail.com>
-References: <1568902149-70787-1-git-send-email-yukuai3@huawei.com>
+From: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH] drm/amd/display; Fix kernel doc warnings
+Date: Thu, 19 Sep 2019 13:52:43 -0400
+Message-ID: <20190919175243.31592-1-harry.wentland@amd.com>
+References: <37bcfe0e-6ef8-cbbe-cdcc-b456a3a25353@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <1568902149-70787-1-git-send-email-yukuai3@huawei.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: yu kuai <yukuai3@huawei.com>
-Cc: Dave Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, "Deucher, Alexander" <alexander.deucher@amd.com>, Christian Koenig <christian.koenig@amd.com>, Chunming Zhou <David1.Zhou@amd.com>, yi.zhang@huawei.com, LKML <linux-kernel@vger.kernel.org>, amd-gfx list <amd-gfx@lists.freedesktop.org>, zhengbin13@huawei.com, Maling list - DRI developers <dri-devel@lists.freedesktop.org>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <37bcfe0e-6ef8-cbbe-cdcc-b456a3a25353-5C7GfCeVMHo@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>, Nicholas Kazlauskas <nicholas.kazlauskas-5C7GfCeVMHo@public.gmane.org>, daniel-/w4YWyX8dFk@public.gmane.org
 
-On Thu, Sep 19, 2019 at 10:03 AM yu kuai <yukuai3@huawei.com> wrote:
->
-> Fixes gcc warning:
->
-> drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c:431: warning: Excess function
-> parameter 'sw' description in 'vcn_v2_5_disable_clock_gating'
-> drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c:550: warning: Excess function
-> parameter 'sw' description in 'vcn_v2_5_enable_clock_gating'
->
-> Fixes: cbead2bdfcf1 ("drm/amdgpu: add VCN2.5 VCPU start and stop")
-> Signed-off-by: yu kuai <yukuai3@huawei.com>
-
-Applied.  thanks!
-
-Alex
-
-> ---
->  drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c | 2 --
->  1 file changed, 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c b/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
-> index 395c225..9d778a0 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
-> @@ -423,7 +423,6 @@ static void vcn_v2_5_mc_resume(struct amdgpu_device *adev)
->   * vcn_v2_5_disable_clock_gating - disable VCN clock gating
->   *
->   * @adev: amdgpu_device pointer
-> - * @sw: enable SW clock gating
->   *
->   * Disable clock gating for VCN block
->   */
-> @@ -542,7 +541,6 @@ static void vcn_v2_5_disable_clock_gating(struct amdgpu_device *adev)
->   * vcn_v2_5_enable_clock_gating - enable VCN clock gating
->   *
->   * @adev: amdgpu_device pointer
-> - * @sw: enable SW clock gating
->   *
->   * Enable clock gating for VCN block
->   */
-> --
-> 2.7.4
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+V2UgaGFkIGEgY291cGxlIG9mIG1pc3NpbmcgZGVmaW5pdGlvbnMgYW5kIGZvcm1hdHRpbmcgZXJy
+b3JzLgoKdjI6IEZpeCAnbm90aWZ5aW5nJyB0eXBlCgpTaWduZWQtb2ZmLWJ5OiBIYXJyeSBXZW50
+bGFuZCA8aGFycnkud2VudGxhbmRAYW1kLmNvbT4KUmV2aWV3ZWQtYnk6IE5pY2hvbGFzIEthemxh
+dXNrYXMgPG5pY2hvbGFzLmthemxhdXNrYXNAYW1kLmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0v
+YW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5jIHwgMTQgKysrKysrKysrKysrKysKIGRy
+aXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtLmggfCAxMCArKysr
+KysrKystCiAyIGZpbGVzIGNoYW5nZWQsIDIzIGluc2VydGlvbnMoKyksIDEgZGVsZXRpb24oLSkK
+CmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdw
+dV9kbS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG0u
+YwppbmRleCA3ZDYyYjRlODYzODYuLjFhMjNlZWJjMjRkYyAxMDA2NDQKLS0tIGEvZHJpdmVycy9n
+cHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG0uYworKysgYi9kcml2ZXJzL2dw
+dS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5jCkBAIC0yNjEsNiArMjYxLDEz
+IEBAIHN0YXRpYyBpbmxpbmUgYm9vbCBhbWRncHVfZG1fdnJyX2FjdGl2ZShzdHJ1Y3QgZG1fY3J0
+Y19zdGF0ZSAqZG1fc3RhdGUpCiAJICAgICAgIGRtX3N0YXRlLT5mcmVlc3luY19jb25maWcuc3Rh
+dGUgPT0gVlJSX1NUQVRFX0FDVElWRV9GSVhFRDsKIH0KIAorLyoqCisgKiBkbV9wZmxpcF9oaWdo
+X2lycSgpIC0gSGFuZGxlIHBhZ2VmbGlwIGludGVycnVwdAorICogQGludGVycnVwdF9wYXJhbXM6
+IGlnbm9yZWQKKyAqCisgKiBIYW5kbGVzIHRoZSBwYWdlZmxpcCBpbnRlcnJ1cHQgYnkgbm90aWZ5
+aW5nIGFsbCBpbnRlcmVzdGVkIHBhcnRpZXMKKyAqIHRoYXQgdGhlIHBhZ2VmbGlwIGhhcyBiZWVu
+IGNvbXBsZXRlZC4KKyAqLwogc3RhdGljIHZvaWQgZG1fcGZsaXBfaGlnaF9pcnEodm9pZCAqaW50
+ZXJydXB0X3BhcmFtcykKIHsKIAlzdHJ1Y3QgYW1kZ3B1X2NydGMgKmFtZGdwdV9jcnRjOwpAQCAt
+NDA1LDYgKzQxMiwxMyBAQCBzdGF0aWMgdm9pZCBkbV92dXBkYXRlX2hpZ2hfaXJxKHZvaWQgKmlu
+dGVycnVwdF9wYXJhbXMpCiAJfQogfQogCisvKioKKyAqIGRtX2NydGNfaGlnaF9pcnEoKSAtIEhh
+bmRsZXMgQ1JUQyBpbnRlcnJ1cHQKKyAqIEBpbnRlcnJ1cHRfcGFyYW1zOiBpZ25vcmVkCisgKgor
+ICogSGFuZGxlcyB0aGUgQ1JUQy9WU1lOQyBpbnRlcnJ1cHQgYnkgbm90ZnlpbmcgRFJNJ3MgVkJM
+QU5LCisgKiBldmVudCBoYW5kbGVyLgorICovCiBzdGF0aWMgdm9pZCBkbV9jcnRjX2hpZ2hfaXJx
+KHZvaWQgKmludGVycnVwdF9wYXJhbXMpCiB7CiAJc3RydWN0IGNvbW1vbl9pcnFfcGFyYW1zICpp
+cnFfcGFyYW1zID0gaW50ZXJydXB0X3BhcmFtczsKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2Ry
+bS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtLmggYi9kcml2ZXJzL2dwdS9kcm0vYW1k
+L2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5oCmluZGV4IDE3YTM1YjUwNDU1Mi4uYWYyMDI1
+ZjNhYzFhIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2Rt
+L2FtZGdwdV9kbS5oCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0v
+YW1kZ3B1X2RtLmgKQEAgLTEwNSw2ICsxMDUsMTIgQEAgc3RydWN0IGFtZGdwdV9kbV9iYWNrbGln
+aHRfY2FwcyB7CiAgKiBAZGlzcGxheV9pbmRleGVzX251bTogTWF4IG51bWJlciBvZiBkaXNwbGF5
+IHN0cmVhbXMgc3VwcG9ydGVkCiAgKiBAaXJxX2hhbmRsZXJfbGlzdF90YWJsZV9sb2NrOiBTeW5j
+aHJvbml6ZXMgYWNjZXNzIHRvIElSUSB0YWJsZXMKICAqIEBiYWNrbGlnaHRfZGV2OiBCYWNrbGln
+aHQgY29udHJvbCBkZXZpY2UKKyAqIEBiYWNrbGlnaHRfbGluazogTGluayBvbiB3aGljaCB0byBj
+b250cm9sIGJhY2tsaWdodAorICogQGJhY2tsaWdodF9jYXBzOiBDYXBhYmlsaXRpZXMgb2YgdGhl
+IGJhY2tsaWdodCBkZXZpY2UKKyAqIEBmcmVlc3luY19tb2R1bGU6IE1vZHVsZSBoYW5kbGluZyBm
+cmVlc3luYyBjYWxjdWxhdGlvbnMKKyAqIEBmd19kbWN1OiBSZWZlcmVuY2UgdG8gRE1DVSBmaXJt
+d2FyZQorICogQGRtY3VfZndfdmVyc2lvbjogVmVyc2lvbiBvZiB0aGUgRE1DVSBmaXJtd2FyZQor
+ICogQHNvY19ib3VuZGluZ19ib3g6IFNPQyBib3VuZGluZyBib3ggdmFsdWVzIHByb3ZpZGVkIGJ5
+IGdwdV9pbmZvIEZXCiAgKiBAY2FjaGVkX3N0YXRlOiBDYWNoZXMgZGV2aWNlIGF0b21pYyBzdGF0
+ZSBmb3Igc3VzcGVuZC9yZXN1bWUKICAqIEBjb21wcmVzc29yOiBGcmFtZSBidWZmZXIgY29tcHJl
+c3Npb24gYnVmZmVyLiBTZWUgJnN0cnVjdCBkbV9jb21yZXNzb3JfaW5mbwogICovCkBAIC0xMjUs
+NyArMTMxLDcgQEAgc3RydWN0IGFtZGdwdV9kaXNwbGF5X21hbmFnZXIgewogCXUxNiBkaXNwbGF5
+X2luZGV4ZXNfbnVtOwogCiAJLyoqCi0JICogQGF0b21pY19vYmoKKwkgKiBAYXRvbWljX29iajoK
+IAkgKgogCSAqIEluIGNvbWJpbmF0aW9uIHdpdGggJmRtX2F0b21pY19zdGF0ZSBpdCBoZWxwcyBt
+YW5hZ2UKIAkgKiBnbG9iYWwgYXRvbWljIHN0YXRlIHRoYXQgZG9lc24ndCBtYXAgY2xlYW5seSBp
+bnRvIGV4aXN0aW5nCkBAIC0yMzEsNiArMjM3LDggQEAgc3RydWN0IGFtZGdwdV9kaXNwbGF5X21h
+bmFnZXIgewogCXVpbnQzMl90IGRtY3VfZndfdmVyc2lvbjsKICNpZmRlZiBDT05GSUdfRFJNX0FN
+RF9EQ19EQ04yXzAKIAkvKioKKwkgKiBAc29jX2JvdW5kaW5nX2JveDoKKwkgKgogCSAqIGdwdV9p
+bmZvIEZXIHByb3ZpZGVkIHNvYyBib3VuZGluZyBib3ggc3RydWN0IG9yIDAgaWYgbm90CiAJICog
+YXZhaWxhYmxlIGluIEZXCiAJICovCi0tIAoyLjIzLjAKCl9fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlz
+dHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4v
+bGlzdGluZm8vYW1kLWdmeA==
