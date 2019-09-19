@@ -1,89 +1,66 @@
-From: Gerd Hoffmann <kraxel@redhat.com>
-Subject: [PATCH v3 07/11] drm/ttm: rename ttm_fbdev_mmap
-Date: Thu, 19 Sep 2019 12:02:19 +0200
-Message-ID: <20190919100223.13309-8-kraxel@redhat.com>
-References: <20190919100223.13309-1-kraxel@redhat.com>
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20190919100223.13309-1-kraxel@redhat.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: dri-devel@lists.freedesktop.org
-Cc: Thomas Zimmermann <tzimmermann@suse.de>, Daniel Vetter <daniel.vetter@ffwll.ch>, Gerd Hoffmann <kraxel@redhat.com>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, Huang Rui <ray.huang@amd.com>, "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>, open list <linux-kernel@vger.kernel.org>
-List-Id: amd-gfx.lists.freedesktop.org
+From: Jesse Zhang <zhexi.zhang-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH v5] drm/amd/amdgpu:Fix compute ring unable to detect hang.
+Date: Thu, 19 Sep 2019 18:09:01 +0800
+Message-ID: <1568887741-1029-1-git-send-email-zhexi.zhang@amd.com>
+References: <1568880041-19830-1-git-send-email-zhexi.zhang@amd.com>
+Mime-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <1568880041-19830-1-git-send-email-zhexi.zhang-5C7GfCeVMHo@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Jesse Zhang <zhexi.zhang-5C7GfCeVMHo@public.gmane.org>
 
-Rename ttm_fbdev_mmap to ttm_bo_mmap_obj.  Move the vm_pgoff sanity
-check to amdgpu_bo_fbdev_mmap (only ttm_fbdev_mmap user in tree).
-
-The ttm_bo_mmap_obj function can now be used to map any buffer object.
-This allows to implement &drm_gem_object_funcs.mmap in gem ttm helpers.
-
-Signed-off-by: Gerd Hoffmann <kraxel@redhat.com>
----
- include/drm/ttm/ttm_bo_api.h               | 10 ++++------
- drivers/gpu/drm/amd/amdgpu/amdgpu_object.c |  5 ++++-
- drivers/gpu/drm/ttm/ttm_bo_vm.c            |  8 ++------
- 3 files changed, 10 insertions(+), 13 deletions(-)
-
-diff --git a/include/drm/ttm/ttm_bo_api.h b/include/drm/ttm/ttm_bo_api.h
-index 43c4929a2171..d2277e06316d 100644
---- a/include/drm/ttm/ttm_bo_api.h
-+++ b/include/drm/ttm/ttm_bo_api.h
-@@ -710,16 +710,14 @@ int ttm_bo_kmap(struct ttm_buffer_object *bo, unsigned long start_page,
- void ttm_bo_kunmap(struct ttm_bo_kmap_obj *map);
- 
- /**
-- * ttm_fbdev_mmap - mmap fbdev memory backed by a ttm buffer object.
-+ * ttm_bo_mmap_obj - mmap memory backed by a ttm buffer object.
-  *
-  * @vma:       vma as input from the fbdev mmap method.
-- * @bo:        The bo backing the address space. The address space will
-- * have the same size as the bo, and start at offset 0.
-+ * @bo:        The bo backing the address space.
-  *
-- * This function is intended to be called by the fbdev mmap method
-- * if the fbdev address space is to be backed by a bo.
-+ * Maps a buffer object.
-  */
--int ttm_fbdev_mmap(struct vm_area_struct *vma, struct ttm_buffer_object *bo);
-+int ttm_bo_mmap_obj(struct vm_area_struct *vma, struct ttm_buffer_object *bo);
- 
- /**
-  * ttm_bo_mmap - mmap out of the ttm device address space.
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-index 2f11ebd95528..e5447e0d8b88 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-@@ -1051,7 +1051,10 @@ void amdgpu_bo_fini(struct amdgpu_device *adev)
- int amdgpu_bo_fbdev_mmap(struct amdgpu_bo *bo,
- 			     struct vm_area_struct *vma)
- {
--	return ttm_fbdev_mmap(vma, &bo->tbo);
-+	if (vma->vm_pgoff != 0)
-+		return -EACCES;
-+
-+	return ttm_bo_mmap_obj(vma, &bo->tbo);
- }
- 
- /**
-diff --git a/drivers/gpu/drm/ttm/ttm_bo_vm.c b/drivers/gpu/drm/ttm/ttm_bo_vm.c
-index b5314ef85a3d..6688d7893161 100644
---- a/drivers/gpu/drm/ttm/ttm_bo_vm.c
-+++ b/drivers/gpu/drm/ttm/ttm_bo_vm.c
-@@ -479,14 +479,10 @@ int ttm_bo_mmap(struct file *filp, struct vm_area_struct *vma,
- }
- EXPORT_SYMBOL(ttm_bo_mmap);
- 
--int ttm_fbdev_mmap(struct vm_area_struct *vma, struct ttm_buffer_object *bo)
-+int ttm_bo_mmap_obj(struct vm_area_struct *vma, struct ttm_buffer_object *bo)
- {
--	if (vma->vm_pgoff != 0)
--		return -EACCES;
--
- 	ttm_bo_get(bo);
--
- 	ttm_bo_mmap_vma_setup(bo, vma);
- 	return 0;
- }
--EXPORT_SYMBOL(ttm_fbdev_mmap);
-+EXPORT_SYMBOL(ttm_bo_mmap_obj);
--- 
-2.18.1
+V2hlbiBjb21wdXRlIGZlbmNlIGRpZCBzaWduYWwsIGNvbXB1dGUgcmluZyBjYW5ub3QgZGV0ZWN0
+IGhhcmR3YXJlIGhhbmcKYmVjYXVzZSBpdHMgdGltZW91dCB2YWx1ZSBpcyBzZXQgdG8gYmUgaW5m
+aW5pdGUgYnkgZGVmYXVsdC4KCkluIFNSLUlPViBhbmQgcGFzc3Rocm91Z2ggbW9kZSwgaWYgdXNl
+ciBkb2VzIG5vdCBkZWNsYXJlIGN1c3RvbWUgdGltZW91dAp2YWx1ZSBmb3IgY29tcHV0ZSByaW5n
+LCB0aGVuIHVzZSBnZnggcmluZyB0aW1lb3V0IHZhbHVlIGFzIGRlZmF1bHQuIFNvCnRoYXQgd2hl
+biB0aGVyZSBpcyBhIHR1cmUgaGFyZHdhcmUgaGFuZywgY29tcHV0ZSByaW5nIGNhbiBkZXRlY3Qg
+aXQuCgpDaGFuZ2UtSWQ6IEk3OTRlYzA4NjhjNmMwYWFkNDA3NzQ5NDU3MjYwZWNmZWUwNjE3YzEw
+ClNpZ25lZC1vZmYtYnk6IEplc3NlIFpoYW5nIDx6aGV4aS56aGFuZ0BhbWQuY29tPgotLS0KIGRy
+aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYyB8IDEyICsrKysrKy0tLS0t
+LQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rydi5jICAgIHwgIDQgKysrLQog
+MiBmaWxlcyBjaGFuZ2VkLCA5IGluc2VydGlvbnMoKyksIDcgZGVsZXRpb25zKC0pCgpkaWZmIC0t
+Z2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jIGIvZHJpdmVy
+cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jCmluZGV4IDNiNTI4MmIuLjAzYWM1
+YTFkYSAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rldmlj
+ZS5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYwpAQCAt
+MTAyNCwxMiArMTAyNCw2IEBAIHN0YXRpYyBpbnQgYW1kZ3B1X2RldmljZV9jaGVja19hcmd1bWVu
+dHMoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpCiAKIAlhbWRncHVfZGV2aWNlX2NoZWNrX2Js
+b2NrX3NpemUoYWRldik7CiAKLQlyZXQgPSBhbWRncHVfZGV2aWNlX2dldF9qb2JfdGltZW91dF9z
+ZXR0aW5ncyhhZGV2KTsKLQlpZiAocmV0KSB7Ci0JCWRldl9lcnIoYWRldi0+ZGV2LCAiaW52YWxp
+ZCBsb2NrdXBfdGltZW91dCBwYXJhbWV0ZXIgc3ludGF4XG4iKTsKLQkJcmV0dXJuIHJldDsKLQl9
+Ci0KIAlhZGV2LT5maXJtd2FyZS5sb2FkX3R5cGUgPSBhbWRncHVfdWNvZGVfZ2V0X2xvYWRfdHlw
+ZShhZGV2LCBhbWRncHVfZndfbG9hZF90eXBlKTsKIAogCXJldHVybiByZXQ7CkBAIC0yNzMyLDYg
+KzI3MjYsMTIgQEAgaW50IGFtZGdwdV9kZXZpY2VfaW5pdChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAq
+YWRldiwKIAlpZiAocikKIAkJcmV0dXJuIHI7CiAKKwlyID0gYW1kZ3B1X2RldmljZV9nZXRfam9i
+X3RpbWVvdXRfc2V0dGluZ3MoYWRldik7CisJaWYgKHIpIHsKKwkJZGV2X2VycihhZGV2LT5kZXYs
+ICJpbnZhbGlkIGxvY2t1cF90aW1lb3V0IHBhcmFtZXRlciBzeW50YXhcbiIpOworCQlyZXR1cm4g
+cjsKKwl9CisKIAkvKiBkb29yYmVsbCBiYXIgbWFwcGluZyBhbmQgZG9vcmJlbGwgaW5kZXggaW5p
+dCovCiAJYW1kZ3B1X2RldmljZV9kb29yYmVsbF9pbml0KGFkZXYpOwogCmRpZmYgLS1naXQgYS9k
+cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZHJ2LmMgYi9kcml2ZXJzL2dwdS9kcm0v
+YW1kL2FtZGdwdS9hbWRncHVfZHJ2LmMKaW5kZXggNDIwODg4ZS4uMTIzNjI0NSAxMDA2NDQKLS0t
+IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rydi5jCisrKyBiL2RyaXZlcnMv
+Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kcnYuYwpAQCAtMTM3OCwxMCArMTM3OCwxMiBAQCBp
+bnQgYW1kZ3B1X2RldmljZV9nZXRfam9iX3RpbWVvdXRfc2V0dGluZ3Moc3RydWN0IGFtZGdwdV9k
+ZXZpY2UgKmFkZXYpCiAJCX0KIAkJLyoKIAkJICogVGhlcmUgaXMgb25seSBvbmUgdmFsdWUgc3Bl
+Y2lmaWVkIGFuZAotCQkgKiBpdCBzaG91bGQgYXBwbHkgdG8gYWxsIG5vbi1jb21wdXRlIGpvYnMu
+CisJCSAqIGl0IHNob3VsZCBhcHBseSB0byBhbGwgam9icy4KIAkJICovCiAJCWlmIChpbmRleCA9
+PSAxKQogCQkJYWRldi0+c2RtYV90aW1lb3V0ID0gYWRldi0+dmlkZW9fdGltZW91dCA9IGFkZXYt
+PmdmeF90aW1lb3V0OworCQkJaWYgKGFtZGdwdV9zcmlvdl92ZihhZGV2KSB8fCBhbWRncHVfcGFz
+c3Rocm91Z2goYWRldikpCisJCQkJYWRldi0+Y29tcHV0ZV90aW1lb3V0ID0gYWRldi0+Z2Z4X3Rp
+bWVvdXQ7CiAJfQogCiAJcmV0dXJuIHJldDsKLS0gCjIuNy40CgpfX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4
+QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWls
+bWFuL2xpc3RpbmZvL2FtZC1nZng=
