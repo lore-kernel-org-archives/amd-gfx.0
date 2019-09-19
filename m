@@ -1,47 +1,79 @@
-From: yu kuai <yukuai3@huawei.com>
-Subject: [PATCH] drm/amdgpu: remove excess function parameter description
-Date: Thu, 19 Sep 2019 22:09:09 +0800
-Message-ID: <1568902149-70787-1-git-send-email-yukuai3@huawei.com>
+From: "Chen, Guchun" <Guchun.Chen-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: [PATCH 11/21] drm/amdgpu: add common gfx_ras_fini function
+Date: Thu, 19 Sep 2019 14:10:43 +0000
+Message-ID: <BYAPR12MB280656252D3E47587A1563B8F1890@BYAPR12MB2806.namprd12.prod.outlook.com>
+References: <20190919071115.16552-1-tao.zhou1@amd.com>
+ <20190919071115.16552-12-tao.zhou1@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Sender: linux-kernel-owner@vger.kernel.org
-To: airlied@linux.ie, daniel@ffwll.ch, alexander.deucher@amd.com, christian.koenig@amd.com, David1.Zhou@amd.com
-Cc: yukuai3@huawei.com, zhengbin13@huawei.com, yi.zhang@huawei.com, linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20190919071115.16552-12-tao.zhou1-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Zhou1, Tao" <Tao.Zhou1-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Zhang, Hawking" <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>
 
-Fixes gcc warning:
-
-drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c:431: warning: Excess function
-parameter 'sw' description in 'vcn_v2_5_disable_clock_gating'
-drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c:550: warning: Excess function
-parameter 'sw' description in 'vcn_v2_5_enable_clock_gating'
-
-Fixes: cbead2bdfcf1 ("drm/amdgpu: add VCN2.5 VCPU start and stop")
-Signed-off-by: yu kuai <yukuai3@huawei.com>
----
- drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c | 2 --
- 1 file changed, 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c b/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
-index 395c225..9d778a0 100644
---- a/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
-@@ -423,7 +423,6 @@ static void vcn_v2_5_mc_resume(struct amdgpu_device *adev)
-  * vcn_v2_5_disable_clock_gating - disable VCN clock gating
-  *
-  * @adev: amdgpu_device pointer
-- * @sw: enable SW clock gating
-  *
-  * Disable clock gating for VCN block
-  */
-@@ -542,7 +541,6 @@ static void vcn_v2_5_disable_clock_gating(struct amdgpu_device *adev)
-  * vcn_v2_5_enable_clock_gating - enable VCN clock gating
-  *
-  * @adev: amdgpu_device pointer
-- * @sw: enable SW clock gating
-  *
-  * Enable clock gating for VCN block
-  */
--- 
-2.7.4
+Ci0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tCkZyb206IFpob3UxLCBUYW8gPFRhby5aaG91MUBh
+bWQuY29tPiAKU2VudDogVGh1cnNkYXksIFNlcHRlbWJlciAxOSwgMjAxOSAzOjEzIFBNClRvOiBh
+bWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZzsgQ2hlbiwgR3VjaHVuIDxHdWNodW4uQ2hlbkBh
+bWQuY29tPjsgWmhhbmcsIEhhd2tpbmcgPEhhd2tpbmcuWmhhbmdAYW1kLmNvbT4KQ2M6IFpob3Ux
+LCBUYW8gPFRhby5aaG91MUBhbWQuY29tPgpTdWJqZWN0OiBbUEFUQ0ggMTEvMjFdIGRybS9hbWRn
+cHU6IGFkZCBjb21tb24gZ2Z4X3Jhc19maW5pIGZ1bmN0aW9uCgpnZnhfcmFzX2ZpbmkgY2FuIGJl
+IHNoYXJlZCBhbW9uZyBhbGwgZ2VuZXJhdGlvbnMgb2YgZ2Z4CgpTaWduZWQtb2ZmLWJ5OiBUYW8g
+WmhvdSA8dGFvLnpob3UxQGFtZC5jb20+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
+YW1kZ3B1X2dmeC5jIHwgMTUgKysrKysrKysrKysrKysrICBkcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
+ZGdwdS9hbWRncHVfZ2Z4LmggfCAgMSArCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhf
+djlfMC5jICAgfCAxNCArLS0tLS0tLS0tLS0tLQogMyBmaWxlcyBjaGFuZ2VkLCAxNyBpbnNlcnRp
+b25zKCspLCAxMyBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1k
+L2FtZGdwdS9hbWRncHVfZ2Z4LmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
+Z2Z4LmMKaW5kZXggZTdkODdmNzE3NzM3Li40ZjYzNWYyOGViMzQgMTAwNjQ0Ci0tLSBhL2RyaXZl
+cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9nZnguYworKysgYi9kcml2ZXJzL2dwdS9kcm0v
+YW1kL2FtZGdwdS9hbWRncHVfZ2Z4LmMKQEAgLTY1MSwzICs2NTEsMTggQEAgaW50IGFtZGdwdV9n
+ZnhfY3BfZWNjX2Vycm9yX2lycShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwKIAlhbWRncHVf
+cmFzX2ludGVycnVwdF9kaXNwYXRjaChhZGV2LCAmaWhfZGF0YSk7CiAJcmV0dXJuIDA7CiB9CisK
+K3ZvaWQgYW1kZ3B1X2dmeF9yYXNfZmluaShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikgewor
+CWlmIChhbWRncHVfcmFzX2lzX3N1cHBvcnRlZChhZGV2LCBBTURHUFVfUkFTX0JMT0NLX19HRlgp
+ICYmCisJCQlhZGV2LT5nZngucmFzX2lmKSB7CisJCXN0cnVjdCByYXNfY29tbW9uX2lmICpyYXNf
+aWYgPSBhZGV2LT5nZngucmFzX2lmOworCQlzdHJ1Y3QgcmFzX2loX2lmIGloX2luZm8gPSB7CisJ
+CQkuaGVhZCA9ICpyYXNfaWYsCisJCQkuY2IgPSBhbWRncHVfZ2Z4X3Byb2Nlc3NfcmFzX2RhdGFf
+Y2IsCltHdWNodW5dSSBiZWxpZXZlIGdmeCByYXMgY2IgaGFzIGJlZW4gc3BlY2lmaWVkIGluIGdm
+eCByYXMgaW5pdCBzZXF1ZW5jZS4gVGhlbiB0aGUgY2F1c2Ugc2V0IHR3aWNlIGhlcmUgaXMgdG8g
+ZW5zdXJlIHRoZSBpbnRlcnJ1cHQgcmVtb3ZhbCBjYW4gYmUgZG9uZSBjb3JyZWN0bD8KKwkJfTsK
+KworCQlhbWRncHVfcmFzX2xhdGVfZmluaShhZGV2LCByYXNfaWYsICZpaF9pbmZvKTsKKwkJa2Zy
+ZWUocmFzX2lmKTsKKwl9Cit9CmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
+dS9hbWRncHVfZ2Z4LmggYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZ2Z4LmgK
+aW5kZXggNjAwNTk5MTgxNjIwLi44ZjJkMTM3ZjRkMjAgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1
+L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9nZnguaAorKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
+ZGdwdS9hbWRncHVfZ2Z4LmgKQEAgLTM5MSw0ICszOTEsNSBAQCBpbnQgYW1kZ3B1X2dmeF9wcm9j
+ZXNzX3Jhc19kYXRhX2NiKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LCAgaW50IGFtZGdwdV9n
+ZnhfY3BfZWNjX2Vycm9yX2lycShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwKIAkJCQkgIHN0
+cnVjdCBhbWRncHVfaXJxX3NyYyAqc291cmNlLAogCQkJCSAgc3RydWN0IGFtZGdwdV9pdl9lbnRy
+eSAqZW50cnkpOwordm9pZCBhbWRncHVfZ2Z4X3Jhc19maW5pKHN0cnVjdCBhbWRncHVfZGV2aWNl
+ICphZGV2KTsKICNlbmRpZgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
+Z2Z4X3Y5XzAuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92OV8wLmMKaW5kZXgg
+MDhiODAxNTdkZjNhLi5hYmRiZDY5Mzk0ZTYgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9h
+bWQvYW1kZ3B1L2dmeF92OV8wLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4
+X3Y5XzAuYwpAQCAtMjMxNywxOSArMjMxNyw3IEBAIHN0YXRpYyBpbnQgZ2Z4X3Y5XzBfc3dfZmlu
+aSh2b2lkICpoYW5kbGUpCiAJaW50IGk7CiAJc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYgPSAo
+c3RydWN0IGFtZGdwdV9kZXZpY2UgKiloYW5kbGU7CiAKLQlpZiAoYW1kZ3B1X3Jhc19pc19zdXBw
+b3J0ZWQoYWRldiwgQU1ER1BVX1JBU19CTE9DS19fR0ZYKSAmJgotCQkJYWRldi0+Z2Z4LnJhc19p
+ZikgewotCQlzdHJ1Y3QgcmFzX2NvbW1vbl9pZiAqcmFzX2lmID0gYWRldi0+Z2Z4LnJhc19pZjsK
+LQkJc3RydWN0IHJhc19paF9pZiBpaF9pbmZvID0gewotCQkJLmhlYWQgPSAqcmFzX2lmLAotCQl9
+OwotCi0JCWFtZGdwdV9yYXNfZGVidWdmc19yZW1vdmUoYWRldiwgcmFzX2lmKTsKLQkJYW1kZ3B1
+X3Jhc19zeXNmc19yZW1vdmUoYWRldiwgcmFzX2lmKTsKLQkJYW1kZ3B1X3Jhc19pbnRlcnJ1cHRf
+cmVtb3ZlX2hhbmRsZXIoYWRldiwgICZpaF9pbmZvKTsKLQkJYW1kZ3B1X3Jhc19mZWF0dXJlX2Vu
+YWJsZShhZGV2LCByYXNfaWYsIDApOwotCQlrZnJlZShyYXNfaWYpOwotCX0KKwlhbWRncHVfZ2Z4
+X3Jhc19maW5pKGFkZXYpOwogCiAJZm9yIChpID0gMDsgaSA8IGFkZXYtPmdmeC5udW1fZ2Z4X3Jp
+bmdzOyBpKyspCiAJCWFtZGdwdV9yaW5nX2ZpbmkoJmFkZXYtPmdmeC5nZnhfcmluZ1tpXSk7Ci0t
+CjIuMTcuMQoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18K
+YW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6
+Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
