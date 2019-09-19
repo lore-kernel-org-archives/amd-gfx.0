@@ -1,28 +1,53 @@
-From: Randy Dunlap <rdunlap@infradead.org>
-Subject: Re: linux-next: Tree for Sep 19 (amdgpu)
-Date: Thu, 19 Sep 2019 12:28:26 -0700
-Message-ID: <0323499e-9fbd-a707-9713-cb40cc92b6fc@infradead.org>
-References: <20190919160641.GR3642@sirena.co.uk>
+From: "Kuehling, Felix" <Felix.Kuehling@amd.com>
+Subject: Re: [PATCH] drm/amdkfd: fix a potential NULL pointer dereference
+Date: Thu, 19 Sep 2019 20:38:36 +0000
+Message-ID: <62826857-8364-262f-cbf8-17b15dbe0b09@amd.com>
+References: <1568824231-4007-1-git-send-email-allen.pais@oracle.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=windows-1252
-Content-Transfer-Encoding: 7bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20190919160641.GR3642@sirena.co.uk>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+In-Reply-To: <1568824231-4007-1-git-send-email-allen.pais@oracle.com>
 Content-Language: en-US
-Sender: linux-kernel-owner@vger.kernel.org
-To: Mark Brown <broonie@kernel.org>, Linux Next Mailing List <linux-next@vger.kernel.org>
-Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, dri-devel <dri-devel@lists.freedesktop.org>
+Content-ID: <762A7A9288353343907D787C56AD1497@namprd12.prod.outlook.com>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: Allen Pais <allen.pais@oracle.com>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>
+Cc: "airlied@linux.ie" <airlied@linux.ie>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
 List-Id: amd-gfx.lists.freedesktop.org
 
-On 9/19/19 9:06 AM, Mark Brown wrote:
-> Hi all,
-> 
-> Changes since 20190918:
-> 
-
-
-../drivers/gpu/drm/amd/amdgpu/../display/dc/dml/Makefile:70: *** missing 'endif'.  Stop.
-
-
--- 
-~Randy
+T24gMjAxOS0wOS0xOCAxMjozMCBwLm0uLCBBbGxlbiBQYWlzIHdyb3RlOg0KPiBhbGxvY193b3Jr
+cXVldWUgaXMgbm90IGNoZWNrZWQgZm9yIGVycm9ycyBhbmQgYXMgYSByZXN1bHQsDQo+IGEgcG90
+ZW50aWFsIE5VTEwgZGVyZWZlcmVuY2UgY291bGQgb2NjdXIuDQo+DQo+IFNpZ25lZC1vZmYtYnk6
+IEFsbGVuIFBhaXMgPGFsbGVuLnBhaXNAb3JhY2xlLmNvbT4NCj4gLS0tDQo+ICAgZHJpdmVycy9n
+cHUvZHJtL2FtZC9hbWRrZmQva2ZkX2ludGVycnVwdC5jIHwgNSArKysrKw0KPiAgIDEgZmlsZSBj
+aGFuZ2VkLCA1IGluc2VydGlvbnMoKykNCj4NCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2Ry
+bS9hbWQvYW1ka2ZkL2tmZF9pbnRlcnJ1cHQuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2Zk
+L2tmZF9pbnRlcnJ1cHQuYw0KPiBpbmRleCBjNTZhYzQ3Li5jYWE4MmE4IDEwMDY0NA0KPiAtLS0g
+YS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfaW50ZXJydXB0LmMNCj4gKysrIGIvZHJp
+dmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX2ludGVycnVwdC5jDQo+IEBAIC02Miw2ICs2Miwx
+MSBAQCBpbnQga2ZkX2ludGVycnVwdF9pbml0KHN0cnVjdCBrZmRfZGV2ICprZmQpDQo+ICAgCX0N
+Cj4gICANCj4gICAJa2ZkLT5paF93cSA9IGFsbG9jX3dvcmtxdWV1ZSgiS0ZEIElIIiwgV1FfSElH
+SFBSSSwgMSk7DQo+ICsJaWYgKHVubGlrZWx5KCFrZmQtPmloX3dxKSkgew0KPiArCQlmaWZvX2Zy
+ZWUoJmtmZC0+aWhfZmlmbyk7DQoNClRoaXMgZG9lcyBub3QgY29tcGlsZS4gSSB0aGluayB0aGlz
+IHNob3VsZCBiZSBrZmlmb19mcmVlLg0KDQo+ICsJCWRldl9lcnIoa2ZkX2NoYXJkZXYoKSwgIkZh
+aWxlZCB0byBhbGxvY2F0ZSBLRkQgSUggd29ya3F1ZXVlXG4iKTsNCj4gKwkJcmV0dXJuIGtmZC0+
+aWhfd3E7DQoNClRoaXMgdGhyb3dzIGEgY29tcGlsZXIgd2FybmluZyAicmV0dXJuIG1ha2VzIGlu
+dGVnZXIgZnJvbSBwb2ludGVyIA0Kd2l0aG91dCBhIGNhc3QiLiBXaGF0J3Mgd29yc2UsIGtmZC0+
+aWhfd3EgaXMgTlVMTCBoZXJlIGFuZCANCmtmZF9pbnRlcnJ1cHRfaW5pdCByZXR1cm5zIDAgdG8g
+bWVhbiBzdWNjZXNzLCBzbyByZXR1cm5pbmcgYSBOVUxMIA0KcG9pbnRlciBpcyBkZWZpbml0ZWx5
+IG5vdCB3aGF0IHlvdSB3YW50IGhlcmUuIFRoaXMgZnVuY3Rpb24gc2hvdWxkIA0KcmV0dXJuIGEg
+bmVnYXRpdmUgZXJyb3IgY29kZSBvbiBmYWlsdXJlLiBJIHByb3Bvc2UgLUVOT01FTS4NCg0KSSdt
+IGdvaW5nIHRvIGFwcGx5IHlvdXIgcGF0Y2ggd2l0aCB0aG9zZSBmaXhlcy4NCg0KUmVnYXJkcywN
+CiDCoCBGZWxpeA0KDQoNCj4gKwl9DQo+ICAgCXNwaW5fbG9ja19pbml0KCZrZmQtPmludGVycnVw
+dF9sb2NrKTsNCj4gICANCj4gICAJSU5JVF9XT1JLKCZrZmQtPmludGVycnVwdF93b3JrLCBpbnRl
+cnJ1cHRfd3EpOw0KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X18KZHJpLWRldmVsIG1haWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
+Cmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVs
