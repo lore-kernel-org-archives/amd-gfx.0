@@ -1,58 +1,36 @@
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH xf86-video-ati] Don't set up black scanout buffer if
- LeaveVT is called from CloseScreen
-Date: Fri, 20 Sep 2019 14:52:48 -0400
-Message-ID: <CADnq5_OUnQWzYcYHj7BjiMUo2=-_v8g5MYfqgexb7yBUuwj1PA@mail.gmail.com>
-References: <20190920170059.5465-1-michel@daenzer.net>
+From: Randy Dunlap <rdunlap@infradead.org>
+Subject: Re: linux-next: Tree for Sep 20 (amd/display)
+Date: Fri, 20 Sep 2019 12:48:56 -0700
+Message-ID: <f7328ccb-0561-3917-47d2-5d101400a66a@infradead.org>
+References: <20190920163637.GI3822@sirena.co.uk>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190920170059.5465-1-michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Type: text/plain; charset=windows-1252
+Content-Transfer-Encoding: 7bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20190920163637.GI3822@sirena.co.uk>
+Content-Language: en-US
+Sender: linux-kernel-owner@vger.kernel.org
+To: Mark Brown <broonie@kernel.org>, Linux Next Mailing List <linux-next@vger.kernel.org>
+Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, dri-devel <dri-devel@lists.freedesktop.org>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gRnJpLCBTZXAgMjAsIDIwMTkgYXQgMTowMSBQTSBNaWNoZWwgRMOkbnplciA8bWljaGVsQGRh
-ZW56ZXIubmV0PiB3cm90ZToKPgo+IEZyb206IE1pY2hlbCBEw6RuemVyIDxtZGFlbnplckByZWRo
-YXQuY29tPgo+Cj4gQXZvaWRzIGEgY3Jhc2ggZGVzY3JpYmVkIGluCj4gaHR0cHM6Ly9naXRsYWIu
-ZnJlZWRlc2t0b3Aub3JnL3hvcmcvZHJpdmVyL3hmODYtdmlkZW8tYW1kZ3B1L21lcmdlX3JlcXVl
-c3RzLzQzI25vdGVfMjIzNzE4Cj4KPiAoUG9ydGVkIGZyb20gYW1kZ3B1IGNvbW1pdCA1YjhiYzlm
-YzUwNWM1NTFkY2Q5YjBlZDVhYjgzNWE0OWZhNGY5ZmRhKQo+Cj4gU2lnbmVkLW9mZi1ieTogTWlj
-aGVsIETDpG56ZXIgPG1kYWVuemVyQHJlZGhhdC5jb20+CgpSZXZpZXdlZC1ieTogQWxleCBEZXVj
-aGVyIDxhbGV4YW5kZXIuZGV1Y2hlckBhbWQuY29tPgoKPiAtLS0KPiAgc3JjL3JhZGVvbl9rbXMu
-YyB8IDEwICsrKysrKysrKy0KPiAgMSBmaWxlIGNoYW5nZWQsIDkgaW5zZXJ0aW9ucygrKSwgMSBk
-ZWxldGlvbigtKQo+Cj4gZGlmZiAtLWdpdCBhL3NyYy9yYWRlb25fa21zLmMgYi9zcmMvcmFkZW9u
-X2ttcy5jCj4gaW5kZXggNzc3ZmMxNGVlLi4xMDdjMWNlNzEgMTAwNjQ0Cj4gLS0tIGEvc3JjL3Jh
-ZGVvbl9rbXMuYwo+ICsrKyBiL3NyYy9yYWRlb25fa21zLmMKPiBAQCAtMjYyOSw2ICsyNjI5LDEy
-IEBAIHZvaWQgUkFERU9OTGVhdmVWVF9LTVMoU2NybkluZm9QdHIgcFNjcm4pCj4gICAgICAgICB1
-bnNpZ25lZCB3ID0gMCwgaCA9IDA7Cj4gICAgICAgICBpbnQgaTsKPgo+ICsgICAgICAgLyogSWYg
-d2UncmUgY2FsbGVkIGZyb20gQ2xvc2VTY3JlZW4sIHRyeWluZyB0byBjbGVhciB0aGUgYmxhY2sK
-PiArICAgICAgICAqIHNjYW5vdXQgQk8gd2lsbCBsaWtlbHkgY3Jhc2ggYW5kIGJ1cm4KPiArICAg
-ICAgICAqLwo+ICsgICAgICAgaWYgKCFwU2NyZWVuLT5HQ3BlckRlcHRoWzBdKQo+ICsgICAgICAg
-ICAgIGdvdG8gaGlkZV9jdXJzb3JzOwo+ICsKPiAgICAgICAgIC8qIENvbXB1dGUgbWF4aW11bSBz
-Y2Fub3V0IGRpbWVuc2lvbnMgb2YgYWN0aXZlIENSVENzICovCj4gICAgICAgICBmb3IgKGkgPSAw
-OyBpIDwgeGY4Nl9jb25maWctPm51bV9jcnRjOyBpKyspIHsKPiAgICAgICAgICAgICBjcnRjID0g
-eGY4Nl9jb25maWctPmNydGNbaV07Cj4gQEAgLTI3MDEsOCArMjcwNywxMCBAQCB2b2lkIFJBREVP
-TkxlYXZlVlRfS01TKFNjcm5JbmZvUHRyIHBTY3JuKQo+ICAgICAgICAgICAgICAgIHBTY3JuLT5k
-aXNwbGF5V2lkdGggKiBpbmZvLT5waXhlbF9ieXRlcyAqIHBTY3JuLT52aXJ0dWFsWSk7Cj4gICAg
-ICB9Cj4KPiAtICAgIFRpbWVyU2V0KE5VTEwsIDAsIDEwMDAsIGNsZWFudXBfYmxhY2tfZmIsIHBT
-Y3JlZW4pOwo+ICsgICAgaWYgKHBTY3JlZW4tPkdDcGVyRGVwdGhbMF0pCj4gKyAgICAgICBUaW1l
-clNldChOVUxMLCAwLCAxMDAwLCBjbGVhbnVwX2JsYWNrX2ZiLCBwU2NyZWVuKTsKPgo+ICsgaGlk
-ZV9jdXJzb3JzOgo+ICAgICAgeGY4Nl9oaWRlX2N1cnNvcnMgKHBTY3JuKTsKPgo+ICAgICAgcmFk
-ZW9uX2Ryb3BfZHJtX21hc3RlcihwU2Nybik7Cj4gLS0KPiAyLjIzLjAKPgo+IF9fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCj4gYW1kLWdmeCBtYWlsaW5nIGxp
-c3QKPiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+IGh0dHBzOi8vbGlzdHMuZnJlZWRl
-c2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeApfX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxp
-c3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFu
-L2xpc3RpbmZvL2FtZC1nZng=
+On 9/20/19 9:36 AM, Mark Brown wrote:
+> Hi all,
+> 
+> News: There will likely be no more -next builds until Stephen returns on
+> the 30th, I *may* do some next week but it's more likely that I won't
+> and it certainly won't be every day.
+> 
+> Changes since 20190919:
+> 
+
+
+on i386:
+
+ld: drivers/gpu/drm/amd/display/dc/clk_mgr/dce110/dce110_clk_mgr.o: in function `dce11_pplib_apply_display_requirements':
+dce110_clk_mgr.c:(.text+0x2f0): undefined reference to `__divdi3'
+ld: dce110_clk_mgr.c:(.text+0x304): undefined reference to `__divdi3'
+
+
+-- 
+~Randy
