@@ -1,51 +1,44 @@
-From: Harry Wentland <hwentlan-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu/display: fix 64 bit divide
-Date: Fri, 20 Sep 2019 20:49:38 +0000
-Message-ID: <88248f99-ab74-ab77-633d-be79a81f4f82@amd.com>
-References: <20190920201812.3763-1-alexander.deucher@amd.com>
+From: Randy Dunlap <rdunlap@infradead.org>
+Subject: Re: linux-next: Tree for Sep 20 (amdgpu-2)
+Date: Fri, 20 Sep 2019 15:35:56 -0700
+Message-ID: <797e0870-bab3-2716-119c-c06735354506@infradead.org>
+References: <20190920163637.GI3822@sirena.co.uk>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190920201812.3763-1-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset=windows-1252
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20190920163637.GI3822@sirena.co.uk>
 Content-Language: en-US
-Content-ID: <D82275D7D9EFCB4E8EA69E0EAECEDCE2-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Mark Brown <broonie@kernel.org>, Linux Next Mailing List <linux-next@vger.kernel.org>
+Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, dri-devel <dri-devel@lists.freedesktop.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-DQoNCk9uIDIwMTktMDktMjAgNDoxOCBwLm0uLCBBbGV4IERldWNoZXIgd3JvdGU6DQo+IFVzZSBw
-cm9wZXIgaGVscGVyIGZvciAzMiBiaXQuDQo+IA0KPiBTaWduZWQtb2ZmLWJ5OiBBbGV4IERldWNo
-ZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+DQoNClJldmlld2VkLWJ5OiBIYXJyeSBXZW50
-bGFuZCA8aGFycnkud2VudGxhbmRAYW1kLmNvbT4NCg0KSGFycnkNCg0KPiAtLS0NCj4gIC4uLi9n
-cHUvZHJtL2FtZC9kaXNwbGF5L2RjL2Nsa19tZ3IvZGNlMTEwL2RjZTExMF9jbGtfbWdyLmMgICAg
-fCA0ICsrKy0NCj4gIDEgZmlsZSBjaGFuZ2VkLCAzIGluc2VydGlvbnMoKyksIDEgZGVsZXRpb24o
-LSkNCj4gDQo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvY2xr
-X21nci9kY2UxMTAvZGNlMTEwX2Nsa19tZ3IuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxh
-eS9kYy9jbGtfbWdyL2RjZTExMC9kY2UxMTBfY2xrX21nci5jDQo+IGluZGV4IDM2Mjc3YmNhMDMy
-Ni4uYjFlNjU3ZTEzN2E5IDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3Bs
-YXkvZGMvY2xrX21nci9kY2UxMTAvZGNlMTEwX2Nsa19tZ3IuYw0KPiArKysgYi9kcml2ZXJzL2dw
-dS9kcm0vYW1kL2Rpc3BsYXkvZGMvY2xrX21nci9kY2UxMTAvZGNlMTEwX2Nsa19tZ3IuYw0KPiBA
-QCAtMTk3LDcgKzE5Nyw5IEBAIHZvaWQgZGNlMTFfcHBsaWJfYXBwbHlfZGlzcGxheV9yZXF1aXJl
-bWVudHMoDQo+ICAJICovDQo+ICAJaWYgKEFTSUNSRVZfSVNfVkVHQTIwX1AoZGMtPmN0eC0+YXNp
-Y19pZC5od19pbnRlcm5hbF9yZXYpICYmIChjb250ZXh0LT5zdHJlYW1fY291bnQgPj0gMikpIHsN
-Cj4gIAkJcHBfZGlzcGxheV9jZmctPm1pbl9tZW1vcnlfY2xvY2tfa2h6ID0gbWF4KHBwX2Rpc3Bs
-YXlfY2ZnLT5taW5fbWVtb3J5X2Nsb2NrX2toeiwNCj4gLQkJCSh1aW50MzJfdCkgKGRjLT5id192
-Ymlvcy0+aGlnaF95Y2xrLnZhbHVlIC8gbWVtb3J5X3R5cGVfbXVsdGlwbGllciAvIDEwMDAwKSk7
-DQo+ICsJCQkJCQkJICAgKHVpbnQzMl90KSBkaXY2NF9zNjQoDQo+ICsJCQkJCQkJCSAgIGRpdjY0
-X3M2NChkYy0+YndfdmJpb3MtPmhpZ2hfeWNsay52YWx1ZSwNCj4gKwkJCQkJCQkJCSAgICAgbWVt
-b3J5X3R5cGVfbXVsdGlwbGllciksIDEwMDAwKSk7DQo+ICAJfSBlbHNlIHsNCj4gIAkJcHBfZGlz
-cGxheV9jZmctPm1pbl9tZW1vcnlfY2xvY2tfa2h6ID0gY29udGV4dC0+YndfY3R4LmJ3LmRjZS55
-Y2xrX2toeg0KPiAgCQkJLyBtZW1vcnlfdHlwZV9tdWx0aXBsaWVyOw0KPiANCl9fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0
-CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Au
-b3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
+On 9/20/19 9:36 AM, Mark Brown wrote:
+> Hi all,
+> 
+> News: There will likely be no more -next builds until Stephen returns on
+> the 30th, I *may* do some next week but it's more likely that I won't
+> and it certainly won't be every day.
+> 
+> Changes since 20190919:
+> 
+
+on x86_64:
+
+(1) where is function get_wm_urgent() defined?  I cannot find it (i.e.,
+grep cannot find it).
+
+../drivers/gpu/drm/amd/amdgpu/../display/dc/dcn21/dcn21_resource.c: In function ‘calculate_wm_set_for_vlevel’:
+../drivers/gpu/drm/amd/amdgpu/../display/dc/dcn21/dcn21_resource.c:964:22: error: SSE register return with SSE disabled
+  wm_set->urgent_ns = get_wm_urgent(dml, pipes, pipe_cnt) * 1000;
+                      ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+(2) drivers/gpu/drm/amd/amdgpu/../display/dc/dcn21/dcn21_resource.c needs
+#include <linux/slab.h>
+for the kzalloc() and kfree() function calls.
+
+
+Thanks.
+-- 
+~Randy
