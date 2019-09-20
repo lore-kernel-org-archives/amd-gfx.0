@@ -1,36 +1,58 @@
-From: Randy Dunlap <rdunlap@infradead.org>
-Subject: Re: linux-next: Tree for Sep 20 (amd/display)
-Date: Fri, 20 Sep 2019 12:48:56 -0700
-Message-ID: <f7328ccb-0561-3917-47d2-5d101400a66a@infradead.org>
-References: <20190920163637.GI3822@sirena.co.uk>
+From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: [PATCH] drm/amdgpu/atomfirmware: use proper index for querying vram
+ type
+Date: Fri, 20 Sep 2019 14:49:01 -0500
+Message-ID: <20190920194901.15100-1-alexander.deucher@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=windows-1252
-Content-Transfer-Encoding: 7bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20190920163637.GI3822@sirena.co.uk>
-Content-Language: en-US
-Sender: linux-kernel-owner@vger.kernel.org
-To: Mark Brown <broonie@kernel.org>, Linux Next Mailing List <linux-next@vger.kernel.org>
-Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, dri-devel <dri-devel@lists.freedesktop.org>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
 
-On 9/20/19 9:36 AM, Mark Brown wrote:
-> Hi all,
-> 
-> News: There will likely be no more -next builds until Stephen returns on
-> the 30th, I *may* do some next week but it's more likely that I won't
-> and it certainly won't be every day.
-> 
-> Changes since 20190919:
-> 
-
-
-on i386:
-
-ld: drivers/gpu/drm/amd/display/dc/clk_mgr/dce110/dce110_clk_mgr.o: in function `dce11_pplib_apply_display_requirements':
-dce110_clk_mgr.c:(.text+0x2f0): undefined reference to `__divdi3'
-ld: dce110_clk_mgr.c:(.text+0x304): undefined reference to `__divdi3'
-
-
--- 
-~Randy
+VGhlIGluZGV4IGlzIHN0b3JlZCBpbiBzY3JhdGNoIHJlZ2lzdGVyIDQgYWZ0ZXIgYXNpYyBpbml0
+LiAgVXNlCnRoYXQgaW5kZXguICBObyBmdW5jdGlvbmFsIGNoYW5nZSBzaW5jZSBhbGwgYXNpY3Mg
+aW4gYSBmYW1pbHkKdXNlIHRoZSBzYW1lIHR5cGUgb2YgdnJhbSAoRzUsIEc2LCBIQk0pIGFuZCB0
+aGF0IGlzIGFsbCB3ZSB1c2UKYXQgdGhlIG1vbmVudCwgYnV0IGlmIHdlIGV2ZXIgbmVlZCB0byBx
+dWVyeSBvdGhlciBpbmZvLCB3ZSB3aWxsCm5vdyBoYXZlIHRoZSBwcm9wZXIgaW5kZXguCgpTaWdu
+ZWQtb2ZmLWJ5OiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+Ci0tLQog
+ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2F0b21maXJtd2FyZS5jIHwgMTAgKysr
+KysrKystLQogMSBmaWxlIGNoYW5nZWQsIDggaW5zZXJ0aW9ucygrKSwgMiBkZWxldGlvbnMoLSkK
+CmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfYXRvbWZpcm13
+YXJlLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfYXRvbWZpcm13YXJlLmMK
+aW5kZXggZGFmNjg3NDI4Y2RiLi5hYWQ5YjM0MGYzYWQgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1
+L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9hdG9tZmlybXdhcmUuYworKysgYi9kcml2ZXJzL2dwdS9k
+cm0vYW1kL2FtZGdwdS9hbWRncHVfYXRvbWZpcm13YXJlLmMKQEAgLTIzMiw2ICsyMzIsNyBAQCBp
+bnQgYW1kZ3B1X2F0b21maXJtd2FyZV9nZXRfdnJhbV90eXBlKHN0cnVjdCBhbWRncHVfZGV2aWNl
+ICphZGV2KQogCXVuaW9uIHZyYW1faW5mbyAqdnJhbV9pbmZvOwogCXU4IGZyZXYsIGNyZXY7CiAJ
+dTggbWVtX3R5cGU7CisJdTMyIHZyYW1faWR4OwogCiAJaWYgKGFkZXYtPmZsYWdzICYgQU1EX0lT
+X0FQVSkKIAkJaW5kZXggPSBnZXRfaW5kZXhfaW50b19tYXN0ZXJfdGFibGUoYXRvbV9tYXN0ZXJf
+bGlzdF9vZl9kYXRhX3RhYmxlc192Ml8xLApAQCAtMjU1LDEyICsyNTYsMTcgQEAgaW50IGFtZGdw
+dV9hdG9tZmlybXdhcmVfZ2V0X3ZyYW1fdHlwZShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikK
+IAkJfSBlbHNlIHsKIAkJCXZyYW1faW5mbyA9ICh1bmlvbiB2cmFtX2luZm8gKikKIAkJCQkobW9k
+ZV9pbmZvLT5hdG9tX2NvbnRleHQtPmJpb3MgKyBkYXRhX29mZnNldCk7CisJCQl2cmFtX2lkeCA9
+IChSUkVHMzIoYWRldi0+Ymlvc19zY3JhdGNoX3JlZ19vZmZzZXQgKyA0KSAmIDB4MDBmZjAwMDAp
+ID4+IDE2OwogCQkJc3dpdGNoIChjcmV2KSB7CiAJCQljYXNlIDM6Ci0JCQkJbWVtX3R5cGUgPSB2
+cmFtX2luZm8tPnYyMy52cmFtX21vZHVsZVswXS5tZW1vcnlfdHlwZTsKKwkJCQlpZiAodnJhbV9p
+ZHggPj0gdnJhbV9pbmZvLT52MjMudnJhbV9tb2R1bGVfbnVtKQorCQkJCQl2cmFtX2lkeCA9IDA7
+CisJCQkJbWVtX3R5cGUgPSB2cmFtX2luZm8tPnYyMy52cmFtX21vZHVsZVt2cmFtX2lkeF0ubWVt
+b3J5X3R5cGU7CiAJCQkJcmV0dXJuIGNvbnZlcnRfYXRvbV9tZW1fdHlwZV90b192cmFtX3R5cGUo
+YWRldiwgbWVtX3R5cGUpOwogCQkJY2FzZSA0OgotCQkJCW1lbV90eXBlID0gdnJhbV9pbmZvLT52
+MjQudnJhbV9tb2R1bGVbMF0ubWVtb3J5X3R5cGU7CisJCQkJaWYgKHZyYW1faWR4ID49IHZyYW1f
+aW5mby0+djI0LnZyYW1fbW9kdWxlX251bSkKKwkJCQkJdnJhbV9pZHggPSAwOworCQkJCW1lbV90
+eXBlID0gdnJhbV9pbmZvLT52MjQudnJhbV9tb2R1bGVbdnJhbV9pZHhdLm1lbW9yeV90eXBlOwog
+CQkJCXJldHVybiBjb252ZXJ0X2F0b21fbWVtX3R5cGVfdG9fdnJhbV90eXBlKGFkZXYsIG1lbV90
+eXBlKTsKIAkJCWRlZmF1bHQ6CiAJCQkJcmV0dXJuIDA7Ci0tIAoyLjIwLjEKCl9fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0
+CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Au
+b3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
