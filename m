@@ -1,342 +1,2299 @@
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Subject: [PATCH trivial] gpu: Fix Kconfig indentation
-Date: Mon, 23 Sep 2019 17:49:32 +0200
-Message-ID: <20190923154932.6807-1-krzk@kernel.org>
+From: "Zhao, Yong" <Yong.Zhao-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 2/2] drm/amdkfd: Use better name for sdma queue non HWS
+ path
+Date: Mon, 23 Sep 2019 17:37:53 +0000
+Message-ID: <DM6PR12MB27784ED82D2680435D20248FF0850@DM6PR12MB2778.namprd12.prod.outlook.com>
+References: <20190923035634.13152-1-Yong.Zhao@amd.com>
+ <20190923035634.13152-2-Yong.Zhao@amd.com>,
+ <e4c54eb2-0ee0-8b74-d1d5-5a2680f891e9@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, Sean Paul <sean@poorly.run>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, Jiri Kosina <trivial@kernel.org>, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, lima@lists.freedesktop.org, nouveau@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org
-Cc: Krzysztof Kozlowski <krzk@kernel.org>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: multipart/mixed; boundary="===============1082155872=="
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <e4c54eb2-0ee0-8b74-d1d5-5a2680f891e9-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Liu, Shaoyun" <Shaoyun.Liu-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-QWRqdXN0IGluZGVudGF0aW9uIGZyb20gc3BhY2VzIHRvIHRhYiAoK29wdGlvbmFsIHR3byBzcGFj
-ZXMpIGFzIGluCmNvZGluZyBzdHlsZSB3aXRoIGNvbW1hbmQgbGlrZToKICAgICQgc2VkIC1lICdz
-L14gICAgICAgIC9cdC8nIC1pICovS2NvbmZpZwoKU2lnbmVkLW9mZi1ieTogS3J6eXN6dG9mIEtv
-emxvd3NraSA8a3J6a0BrZXJuZWwub3JnPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9LY29uZmlnICAg
-ICAgICAgICAgICAgICAgfCAgMTAgKy0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9LY29u
-ZmlnICAgICAgfCAgMjAgKystLQogZHJpdmVycy9ncHUvZHJtL2JyaWRnZS9LY29uZmlnICAgICAg
-ICAgICB8ICAgOCArLQogZHJpdmVycy9ncHUvZHJtL2k5MTUvS2NvbmZpZyAgICAgICAgICAgICB8
-ICAxMiArLQogZHJpdmVycy9ncHUvZHJtL2k5MTUvS2NvbmZpZy5kZWJ1ZyAgICAgICB8IDE0NCAr
-KysrKysrKysrKy0tLS0tLS0tLS0tLQogZHJpdmVycy9ncHUvZHJtL2xpbWEvS2NvbmZpZyAgICAg
-ICAgICAgICB8ICAgMiArLQogZHJpdmVycy9ncHUvZHJtL21nYWcyMDAvS2NvbmZpZyAgICAgICAg
-ICB8ICAgOCArLQogZHJpdmVycy9ncHUvZHJtL25vdXZlYXUvS2NvbmZpZyAgICAgICAgICB8ICAg
-MiArLQogZHJpdmVycy9ncHUvZHJtL29tYXBkcm0vZGlzcGxheXMvS2NvbmZpZyB8ICAgNiArLQog
-ZHJpdmVycy9ncHUvZHJtL29tYXBkcm0vZHNzL0tjb25maWcgICAgICB8ICAxMiArLQogZHJpdmVy
-cy9ncHUvZHJtL3JvY2tjaGlwL0tjb25maWcgICAgICAgICB8ICAgOCArLQogZHJpdmVycy9ncHUv
-ZHJtL3VkbC9LY29uZmlnICAgICAgICAgICAgICB8ICAgMiArLQogZHJpdmVycy9ncHUvdmdhL0tj
-b25maWcgICAgICAgICAgICAgICAgICB8ICAgMiArLQogMTMgZmlsZXMgY2hhbmdlZCwgMTE4IGlu
-c2VydGlvbnMoKyksIDExOCBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9k
-cm0vS2NvbmZpZyBiL2RyaXZlcnMvZ3B1L2RybS9LY29uZmlnCmluZGV4IGU2N2MxOTRjMmFjYS4u
-N2NiNmU0ZWI5OWU4IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vS2NvbmZpZworKysgYi9k
-cml2ZXJzL2dwdS9kcm0vS2NvbmZpZwpAQCAtMjA3LDggKzIwNyw4IEBAIGNvbmZpZyBEUk1fUkFE
-RU9OCiAJdHJpc3RhdGUgIkFUSSBSYWRlb24iCiAJZGVwZW5kcyBvbiBEUk0gJiYgUENJICYmIE1N
-VQogCXNlbGVjdCBGV19MT0FERVIKLSAgICAgICAgc2VsZWN0IERSTV9LTVNfSEVMUEVSCi0gICAg
-ICAgIHNlbGVjdCBEUk1fVFRNCisJc2VsZWN0IERSTV9LTVNfSEVMUEVSCisJc2VsZWN0IERSTV9U
-VE0KIAlzZWxlY3QgUE9XRVJfU1VQUExZCiAJc2VsZWN0IEhXTU9OCiAJc2VsZWN0IEJBQ0tMSUdI
-VF9DTEFTU19ERVZJQ0UKQEAgLTIyNiw5ICsyMjYsOSBAQCBjb25maWcgRFJNX0FNREdQVQogCXRy
-aXN0YXRlICJBTUQgR1BVIgogCWRlcGVuZHMgb24gRFJNICYmIFBDSSAmJiBNTVUKIAlzZWxlY3Qg
-RldfTE9BREVSCi0gICAgICAgIHNlbGVjdCBEUk1fS01TX0hFTFBFUgorCXNlbGVjdCBEUk1fS01T
-X0hFTFBFUgogCXNlbGVjdCBEUk1fU0NIRUQKLSAgICAgICAgc2VsZWN0IERSTV9UVE0KKwlzZWxl
-Y3QgRFJNX1RUTQogCXNlbGVjdCBQT1dFUl9TVVBQTFkKIAlzZWxlY3QgSFdNT04KIAlzZWxlY3Qg
-QkFDS0xJR0hUX0NMQVNTX0RFVklDRQpAQCAtMjY2LDcgKzI2Niw3IEBAIGNvbmZpZyBEUk1fVktN
-UwogCSAgSWYgTSBpcyBzZWxlY3RlZCB0aGUgbW9kdWxlIHdpbGwgYmUgY2FsbGVkIHZrbXMuCiAK
-IGNvbmZpZyBEUk1fQVRJX1BDSUdBUlQKLSAgICAgICAgYm9vbAorCWJvb2wKIAogc291cmNlICJk
-cml2ZXJzL2dwdS9kcm0vZXh5bm9zL0tjb25maWciCiAKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1
-L2RybS9hbWQvZGlzcGxheS9LY29uZmlnIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L0tj
-b25maWcKaW5kZXggNzE5OTFhMjhhNzc1Li4wYTM1Y2I4ZTgwM2EgMTAwNjQ0Ci0tLSBhL2RyaXZl
-cnMvZ3B1L2RybS9hbWQvZGlzcGxheS9LY29uZmlnCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-ZGlzcGxheS9LY29uZmlnCkBAIC0yMywxNiArMjMsMTYgQEAgY29uZmlnIERSTV9BTURfRENfRENO
-Ml8wCiAJZGVwZW5kcyBvbiBEUk1fQU1EX0RDICYmIFg4NgogCWRlcGVuZHMgb24gRFJNX0FNRF9E
-Q19EQ04xXzAKIAloZWxwCi0JICAgIENob29zZSB0aGlzIG9wdGlvbiBpZiB5b3Ugd2FudCB0byBo
-YXZlCi0JICAgIE5hdmkgc3VwcG9ydCBmb3IgZGlzcGxheSBlbmdpbmUKKwkgIENob29zZSB0aGlz
-IG9wdGlvbiBpZiB5b3Ugd2FudCB0byBoYXZlCisJICBOYXZpIHN1cHBvcnQgZm9yIGRpc3BsYXkg
-ZW5naW5lCiAKIGNvbmZpZyBEUk1fQU1EX0RDX0RDTjJfMQotICAgICAgICBib29sICJEQ04gMi4x
-IGZhbWlseSIKLSAgICAgICAgZGVwZW5kcyBvbiBEUk1fQU1EX0RDICYmIFg4NgotICAgICAgICBk
-ZXBlbmRzIG9uIERSTV9BTURfRENfRENOMl8wCi0gICAgICAgIGhlbHAKLSAgICAgICAgICAgIENo
-b29zZSB0aGlzIG9wdGlvbiBpZiB5b3Ugd2FudCB0byBoYXZlCi0gICAgICAgICAgICBSZW5vaXIg
-c3VwcG9ydCBmb3IgZGlzcGxheSBlbmdpbmUKKwlib29sICJEQ04gMi4xIGZhbWlseSIKKwlkZXBl
-bmRzIG9uIERSTV9BTURfREMgJiYgWDg2CisJZGVwZW5kcyBvbiBEUk1fQU1EX0RDX0RDTjJfMAor
-CWhlbHAKKwkgIENob29zZSB0aGlzIG9wdGlvbiBpZiB5b3Ugd2FudCB0byBoYXZlCisJICBSZW5v
-aXIgc3VwcG9ydCBmb3IgZGlzcGxheSBlbmdpbmUKIAogY29uZmlnIERSTV9BTURfRENfRFNDX1NV
-UFBPUlQKIAlib29sICJEU0Mgc3VwcG9ydCIKQEAgLTQxLDggKzQxLDggQEAgY29uZmlnIERSTV9B
-TURfRENfRFNDX1NVUFBPUlQKIAlkZXBlbmRzIG9uIERSTV9BTURfRENfRENOMV8wCiAJZGVwZW5k
-cyBvbiBEUk1fQU1EX0RDX0RDTjJfMAogCWhlbHAKLQkgICAgQ2hvb3NlIHRoaXMgb3B0aW9uIGlm
-IHlvdSB3YW50IHRvIGhhdmUKLQkgICAgRHluYW1pYyBTdHJlYW0gQ29tcHJlc3Npb24gc3VwcG9y
-dAorCSAgQ2hvb3NlIHRoaXMgb3B0aW9uIGlmIHlvdSB3YW50IHRvIGhhdmUKKwkgIER5bmFtaWMg
-U3RyZWFtIENvbXByZXNzaW9uIHN1cHBvcnQKIAogY29uZmlnIERFQlVHX0tFUk5FTF9EQwogCWJv
-b2wgIkVuYWJsZSBrZ2RiIGJyZWFrIGluIERDIgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJt
-L2JyaWRnZS9LY29uZmlnIGIvZHJpdmVycy9ncHUvZHJtL2JyaWRnZS9LY29uZmlnCmluZGV4IDFj
-YzlmNTAyYzFmMi4uYTVhYTdlYzE2MDAwIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYnJp
-ZGdlL0tjb25maWcKKysrIGIvZHJpdmVycy9ncHUvZHJtL2JyaWRnZS9LY29uZmlnCkBAIC02MCwx
-MCArNjAsMTAgQEAgY29uZmlnIERSTV9NRUdBQ0hJUFNfU1REUFhYWFhfR0VfQjg1MFYzX0ZXCiAJ
-c2VsZWN0IERSTV9LTVNfSEVMUEVSCiAJc2VsZWN0IERSTV9QQU5FTAogCS0tLWhlbHAtLS0KLSAg
-ICAgICAgICBUaGlzIGlzIGEgZHJpdmVyIGZvciB0aGUgZGlzcGxheSBicmlkZ2VzIG9mCi0gICAg
-ICAgICAgR0UgQjg1MHYzIHRoYXQgY29udmVydCBkdWFsIGNoYW5uZWwgTFZEUwotICAgICAgICAg
-IHRvIERQKysuIFRoaXMgaXMgdXNlZCB3aXRoIHRoZSBpLk1YNiBpbXgtbGRiCi0gICAgICAgICAg
-ZHJpdmVyLiBZb3UgYXJlIGxpa2VseSB0byBzYXkgTiBoZXJlLgorCSAgVGhpcyBpcyBhIGRyaXZl
-ciBmb3IgdGhlIGRpc3BsYXkgYnJpZGdlcyBvZgorCSAgR0UgQjg1MHYzIHRoYXQgY29udmVydCBk
-dWFsIGNoYW5uZWwgTFZEUworCSAgdG8gRFArKy4gVGhpcyBpcyB1c2VkIHdpdGggdGhlIGkuTVg2
-IGlteC1sZGIKKwkgIGRyaXZlci4gWW91IGFyZSBsaWtlbHkgdG8gc2F5IE4gaGVyZS4KIAogY29u
-ZmlnIERSTV9OWFBfUFROMzQ2MAogCXRyaXN0YXRlICJOWFAgUFROMzQ2MCBEUC9MVkRTIGJyaWRn
-ZSIKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L0tjb25maWcgYi9kcml2ZXJzL2dw
-dS9kcm0vaTkxNS9LY29uZmlnCmluZGV4IDBkMjE0MDI5NDVhYi4uM2M2ZDU3ZGYyNjJkIDEwMDY0
-NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9LY29uZmlnCisrKyBiL2RyaXZlcnMvZ3B1L2Ry
-bS9pOTE1L0tjb25maWcKQEAgLTc2LDcgKzc2LDcgQEAgY29uZmlnIERSTV9JOTE1X0NBUFRVUkVf
-RVJST1IKIAkgIFRoaXMgb3B0aW9uIGVuYWJsZXMgY2FwdHVyaW5nIHRoZSBHUFUgc3RhdGUgd2hl
-biBhIGhhbmcgaXMgZGV0ZWN0ZWQuCiAJICBUaGlzIGluZm9ybWF0aW9uIGlzIHZpdGFsIGZvciB0
-cmlhZ2luZyBoYW5ncyBhbmQgYXNzaXN0cyBpbiBkZWJ1Z2dpbmcuCiAJICBQbGVhc2UgcmVwb3J0
-IGFueSBoYW5nIHRvCi0gICAgICAgICAgICBodHRwczovL2J1Z3MuZnJlZWRlc2t0b3Aub3JnL2Vu
-dGVyX2J1Zy5jZ2k/cHJvZHVjdD1EUkkKKwkgICAgaHR0cHM6Ly9idWdzLmZyZWVkZXNrdG9wLm9y
-Zy9lbnRlcl9idWcuY2dpP3Byb2R1Y3Q9RFJJCiAJICBmb3IgdHJpYWdpbmcuCiAKIAkgIElmIGlu
-IGRvdWJ0LCBzYXkgIlkiLgpAQCAtMTA1LDExICsxMDUsMTEgQEAgY29uZmlnIERSTV9JOTE1X1VT
-RVJQVFIKIAkgIElmIGluIGRvdWJ0LCBzYXkgIlkiLgogCiBjb25maWcgRFJNX0k5MTVfR1ZUCi0g
-ICAgICAgIGJvb2wgIkVuYWJsZSBJbnRlbCBHVlQtZyBncmFwaGljcyB2aXJ0dWFsaXphdGlvbiBo
-b3N0IHN1cHBvcnQiCi0gICAgICAgIGRlcGVuZHMgb24gRFJNX0k5MTUKLSAgICAgICAgZGVwZW5k
-cyBvbiA2NEJJVAotICAgICAgICBkZWZhdWx0IG4KLSAgICAgICAgaGVscAorCWJvb2wgIkVuYWJs
-ZSBJbnRlbCBHVlQtZyBncmFwaGljcyB2aXJ0dWFsaXphdGlvbiBob3N0IHN1cHBvcnQiCisJZGVw
-ZW5kcyBvbiBEUk1fSTkxNQorCWRlcGVuZHMgb24gNjRCSVQKKwlkZWZhdWx0IG4KKwloZWxwCiAJ
-ICBDaG9vc2UgdGhpcyBvcHRpb24gaWYgeW91IHdhbnQgdG8gZW5hYmxlIEludGVsIEdWVC1nIGdy
-YXBoaWNzCiAJICB2aXJ0dWFsaXphdGlvbiB0ZWNobm9sb2d5IGhvc3Qgc3VwcG9ydCB3aXRoIGlu
-dGVncmF0ZWQgZ3JhcGhpY3MuCiAJICBXaXRoIEdWVC1nLCBpdCdzIHBvc3NpYmxlIHRvIGhhdmUg
-b25lIGludGVncmF0ZWQgZ3JhcGhpY3MKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1
-L0tjb25maWcuZGVidWcgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9LY29uZmlnLmRlYnVnCmluZGV4
-IDAwNzg2YTE0MmZmMC4uZWVhNzkxMjViM2VhIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0v
-aTkxNS9LY29uZmlnLmRlYnVnCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L0tjb25maWcuZGVi
-dWcKQEAgLTEsMzQgKzEsMzQgQEAKICMgU1BEWC1MaWNlbnNlLUlkZW50aWZpZXI6IEdQTC0yLjAt
-b25seQogY29uZmlnIERSTV9JOTE1X1dFUlJPUgotICAgICAgICBib29sICJGb3JjZSBHQ0MgdG8g
-dGhyb3cgYW4gZXJyb3IgaW5zdGVhZCBvZiBhIHdhcm5pbmcgd2hlbiBjb21waWxpbmciCi0gICAg
-ICAgICMgQXMgdGhpcyBtYXkgaW5hZHZlcnRlbnRseSBicmVhayB0aGUgYnVpbGQsIG9ubHkgYWxs
-b3cgdGhlIHVzZXIKLSAgICAgICAgIyB0byBzaG9vdCBvbmVzZWxmIGluIHRoZSBmb290IGlmZiB0
-aGV5IGFpbSByZWFsbHkgaGFyZAotICAgICAgICBkZXBlbmRzIG9uIEVYUEVSVAotICAgICAgICAj
-IFdlIHVzZSB0aGUgZGVwZW5kZW5jeSBvbiAhQ09NUElMRV9URVNUIHRvIG5vdCBiZSBlbmFibGVk
-IGluCi0gICAgICAgICMgYWxsbW9kY29uZmlnIG9yIGFsbHllc2NvbmZpZyBjb25maWd1cmF0aW9u
-cwotICAgICAgICBkZXBlbmRzIG9uICFDT01QSUxFX1RFU1QKKwlib29sICJGb3JjZSBHQ0MgdG8g
-dGhyb3cgYW4gZXJyb3IgaW5zdGVhZCBvZiBhIHdhcm5pbmcgd2hlbiBjb21waWxpbmciCisJIyBB
-cyB0aGlzIG1heSBpbmFkdmVydGVudGx5IGJyZWFrIHRoZSBidWlsZCwgb25seSBhbGxvdyB0aGUg
-dXNlcgorCSMgdG8gc2hvb3Qgb25lc2VsZiBpbiB0aGUgZm9vdCBpZmYgdGhleSBhaW0gcmVhbGx5
-IGhhcmQKKwlkZXBlbmRzIG9uIEVYUEVSVAorCSMgV2UgdXNlIHRoZSBkZXBlbmRlbmN5IG9uICFD
-T01QSUxFX1RFU1QgdG8gbm90IGJlIGVuYWJsZWQgaW4KKwkjIGFsbG1vZGNvbmZpZyBvciBhbGx5
-ZXNjb25maWcgY29uZmlndXJhdGlvbnMKKwlkZXBlbmRzIG9uICFDT01QSUxFX1RFU1QKIAlzZWxl
-Y3QgSEVBREVSX1RFU1QKLSAgICAgICAgZGVmYXVsdCBuCi0gICAgICAgIGhlbHAKLSAgICAgICAg
-ICBBZGQgLVdlcnJvciB0byB0aGUgYnVpbGQgZmxhZ3MgZm9yIChhbmQgb25seSBmb3IpIGk5MTUu
-a28uCi0gICAgICAgICAgRG8gbm90IGVuYWJsZSB0aGlzIHVubGVzcyB5b3UgYXJlIHdyaXRpbmcg
-Y29kZSBmb3IgdGhlIGk5MTUua28gbW9kdWxlLgorCWRlZmF1bHQgbgorCWhlbHAKKwkgIEFkZCAt
-V2Vycm9yIHRvIHRoZSBidWlsZCBmbGFncyBmb3IgKGFuZCBvbmx5IGZvcikgaTkxNS5rby4KKwkg
-IERvIG5vdCBlbmFibGUgdGhpcyB1bmxlc3MgeW91IGFyZSB3cml0aW5nIGNvZGUgZm9yIHRoZSBp
-OTE1LmtvIG1vZHVsZS4KIAotICAgICAgICAgIFJlY29tbWVuZGVkIGZvciBkcml2ZXIgZGV2ZWxv
-cGVycyBvbmx5LgorCSAgUmVjb21tZW5kZWQgZm9yIGRyaXZlciBkZXZlbG9wZXJzIG9ubHkuCiAK
-LSAgICAgICAgICBJZiBpbiBkb3VidCwgc2F5ICJOIi4KKwkgIElmIGluIGRvdWJ0LCBzYXkgIk4i
-LgogCiBjb25maWcgRFJNX0k5MTVfREVCVUcKLSAgICAgICAgYm9vbCAiRW5hYmxlIGFkZGl0aW9u
-YWwgZHJpdmVyIGRlYnVnZ2luZyIKLSAgICAgICAgZGVwZW5kcyBvbiBEUk1fSTkxNQotICAgICAg
-ICBzZWxlY3QgREVCVUdfRlMKLSAgICAgICAgc2VsZWN0IFBSRUVNUFRfQ09VTlQKLSAgICAgICAg
-c2VsZWN0IFJFRkNPVU5UX0ZVTEwKLSAgICAgICAgc2VsZWN0IEkyQ19DSEFSREVWCi0gICAgICAg
-IHNlbGVjdCBTVEFDS0RFUE9UCi0gICAgICAgIHNlbGVjdCBEUk1fRFBfQVVYX0NIQVJERVYKLSAg
-ICAgICAgc2VsZWN0IFg4Nl9NU1IgIyB1c2VkIGJ5IGlndC9wbV9ycG0KLSAgICAgICAgc2VsZWN0
-IERSTV9WR0VNICMgdXNlZCBieSBpZ3QvcHJpbWVfdmdlbSAoZG1hYnVmIGludGVyb3AgY2hlY2tz
-KQotICAgICAgICBzZWxlY3QgRFJNX0RFQlVHX01NIGlmIERSTT15CisJYm9vbCAiRW5hYmxlIGFk
-ZGl0aW9uYWwgZHJpdmVyIGRlYnVnZ2luZyIKKwlkZXBlbmRzIG9uIERSTV9JOTE1CisJc2VsZWN0
-IERFQlVHX0ZTCisJc2VsZWN0IFBSRUVNUFRfQ09VTlQKKwlzZWxlY3QgUkVGQ09VTlRfRlVMTAor
-CXNlbGVjdCBJMkNfQ0hBUkRFVgorCXNlbGVjdCBTVEFDS0RFUE9UCisJc2VsZWN0IERSTV9EUF9B
-VVhfQ0hBUkRFVgorCXNlbGVjdCBYODZfTVNSICMgdXNlZCBieSBpZ3QvcG1fcnBtCisJc2VsZWN0
-IERSTV9WR0VNICMgdXNlZCBieSBpZ3QvcHJpbWVfdmdlbSAoZG1hYnVmIGludGVyb3AgY2hlY2tz
-KQorCXNlbGVjdCBEUk1fREVCVUdfTU0gaWYgRFJNPXkKIAlzZWxlY3QgRFJNX0RFQlVHX1NFTEZU
-RVNUCiAJc2VsZWN0IERNQUJVRl9TRUxGVEVTVFMKIAlzZWxlY3QgU1dfU1lOQyAjIHNpZ25hbGlu
-ZyB2YWxpZGF0aW9uIGZyYW1ld29yayAoaWd0L3N5bmNvYmoqKQpAQCAtMzYsMTQgKzM2LDE0IEBA
-IGNvbmZpZyBEUk1fSTkxNV9ERUJVRwogCXNlbGVjdCBEUk1fSTkxNV9TRUxGVEVTVAogCXNlbGVj
-dCBEUk1fSTkxNV9ERUJVR19SVU5USU1FX1BNCiAJc2VsZWN0IERSTV9JOTE1X0RFQlVHX01NSU8K
-LSAgICAgICAgZGVmYXVsdCBuCi0gICAgICAgIGhlbHAKLSAgICAgICAgICBDaG9vc2UgdGhpcyBv
-cHRpb24gdG8gdHVybiBvbiBleHRyYSBkcml2ZXIgZGVidWdnaW5nIHRoYXQgbWF5IGFmZmVjdAot
-ICAgICAgICAgIHBlcmZvcm1hbmNlIGJ1dCB3aWxsIGNhdGNoIHNvbWUgaW50ZXJuYWwgaXNzdWVz
-LgorCWRlZmF1bHQgbgorCWhlbHAKKwkgIENob29zZSB0aGlzIG9wdGlvbiB0byB0dXJuIG9uIGV4
-dHJhIGRyaXZlciBkZWJ1Z2dpbmcgdGhhdCBtYXkgYWZmZWN0CisJICBwZXJmb3JtYW5jZSBidXQg
-d2lsbCBjYXRjaCBzb21lIGludGVybmFsIGlzc3Vlcy4KIAotICAgICAgICAgIFJlY29tbWVuZGVk
-IGZvciBkcml2ZXIgZGV2ZWxvcGVycyBvbmx5LgorCSAgUmVjb21tZW5kZWQgZm9yIGRyaXZlciBk
-ZXZlbG9wZXJzIG9ubHkuCiAKLSAgICAgICAgICBJZiBpbiBkb3VidCwgc2F5ICJOIi4KKwkgIElm
-IGluIGRvdWJ0LCBzYXkgIk4iLgogCiBjb25maWcgRFJNX0k5MTVfREVCVUdfTU1JTwogCWJvb2wg
-IkFsd2F5cyBpbnNlcnQgZXh0cmEgY2hlY2tzIGFyb3VuZCBtbWlvIGFjY2VzcyBieSBkZWZhdWx0
-IgpAQCAtNTksMTYgKzU5LDE2IEBAIGNvbmZpZyBEUk1fSTkxNV9ERUJVR19NTUlPCiAJICBJZiBp
-biBkb3VidCwgc2F5ICJOIi4KIAogY29uZmlnIERSTV9JOTE1X0RFQlVHX0dFTQotICAgICAgICBi
-b29sICJJbnNlcnQgZXh0cmEgY2hlY2tzIGludG8gdGhlIEdFTSBpbnRlcm5hbHMiCi0gICAgICAg
-IGRlZmF1bHQgbgotICAgICAgICBkZXBlbmRzIG9uIERSTV9JOTE1X1dFUlJPUgotICAgICAgICBo
-ZWxwCi0gICAgICAgICAgRW5hYmxlIGV4dHJhIHNhbml0eSBjaGVja3MgKGluY2x1ZGluZyBCVUdz
-KSBhbG9uZyB0aGUgR0VNIGRyaXZlcgotICAgICAgICAgIHBhdGhzIHRoYXQgbWF5IHNsb3cgdGhl
-IHN5c3RlbSBkb3duIGFuZCBpZiBoaXQgaGFuZyB0aGUgbWFjaGluZS4KKwlib29sICJJbnNlcnQg
-ZXh0cmEgY2hlY2tzIGludG8gdGhlIEdFTSBpbnRlcm5hbHMiCisJZGVmYXVsdCBuCisJZGVwZW5k
-cyBvbiBEUk1fSTkxNV9XRVJST1IKKwloZWxwCisJICBFbmFibGUgZXh0cmEgc2FuaXR5IGNoZWNr
-cyAoaW5jbHVkaW5nIEJVR3MpIGFsb25nIHRoZSBHRU0gZHJpdmVyCisJICBwYXRocyB0aGF0IG1h
-eSBzbG93IHRoZSBzeXN0ZW0gZG93biBhbmQgaWYgaGl0IGhhbmcgdGhlIG1hY2hpbmUuCiAKLSAg
-ICAgICAgICBSZWNvbW1lbmRlZCBmb3IgZHJpdmVyIGRldmVsb3BlcnMgb25seS4KKwkgIFJlY29t
-bWVuZGVkIGZvciBkcml2ZXIgZGV2ZWxvcGVycyBvbmx5LgogCi0gICAgICAgICAgSWYgaW4gZG91
-YnQsIHNheSAiTiIuCisJICBJZiBpbiBkb3VidCwgc2F5ICJOIi4KIAogY29uZmlnIERSTV9JOTE1
-X0VSUkxPR19HRU0KIAlib29sICJJbnNlcnQgZXh0cmEgbG9nZ2luZyAodmVyeSB2ZXJib3NlKSBm
-b3IgY29tbW9uIEdFTSBlcnJvcnMiCkBAIC0xMTEsNDEgKzExMSw0MSBAQCBjb25maWcgRFJNX0k5
-MTVfVFJBQ0VfR1RUCiAJICBJZiBpbiBkb3VidCwgc2F5ICJOIi4KIAogY29uZmlnIERSTV9JOTE1
-X1NXX0ZFTkNFX0RFQlVHX09CSkVDVFMKLSAgICAgICAgYm9vbCAiRW5hYmxlIGFkZGl0aW9uYWwg
-ZHJpdmVyIGRlYnVnZ2luZyBmb3IgZmVuY2Ugb2JqZWN0cyIKLSAgICAgICAgZGVwZW5kcyBvbiBE
-Uk1fSTkxNQotICAgICAgICBzZWxlY3QgREVCVUdfT0JKRUNUUwotICAgICAgICBkZWZhdWx0IG4K
-LSAgICAgICAgaGVscAotICAgICAgICAgIENob29zZSB0aGlzIG9wdGlvbiB0byB0dXJuIG9uIGV4
-dHJhIGRyaXZlciBkZWJ1Z2dpbmcgdGhhdCBtYXkgYWZmZWN0Ci0gICAgICAgICAgcGVyZm9ybWFu
-Y2UgYnV0IHdpbGwgY2F0Y2ggc29tZSBpbnRlcm5hbCBpc3N1ZXMuCisJYm9vbCAiRW5hYmxlIGFk
-ZGl0aW9uYWwgZHJpdmVyIGRlYnVnZ2luZyBmb3IgZmVuY2Ugb2JqZWN0cyIKKwlkZXBlbmRzIG9u
-IERSTV9JOTE1CisJc2VsZWN0IERFQlVHX09CSkVDVFMKKwlkZWZhdWx0IG4KKwloZWxwCisJICBD
-aG9vc2UgdGhpcyBvcHRpb24gdG8gdHVybiBvbiBleHRyYSBkcml2ZXIgZGVidWdnaW5nIHRoYXQg
-bWF5IGFmZmVjdAorCSAgcGVyZm9ybWFuY2UgYnV0IHdpbGwgY2F0Y2ggc29tZSBpbnRlcm5hbCBp
-c3N1ZXMuCiAKLSAgICAgICAgICBSZWNvbW1lbmRlZCBmb3IgZHJpdmVyIGRldmVsb3BlcnMgb25s
-eS4KKwkgIFJlY29tbWVuZGVkIGZvciBkcml2ZXIgZGV2ZWxvcGVycyBvbmx5LgogCi0gICAgICAg
-ICAgSWYgaW4gZG91YnQsIHNheSAiTiIuCisJICBJZiBpbiBkb3VidCwgc2F5ICJOIi4KIAogY29u
-ZmlnIERSTV9JOTE1X1NXX0ZFTkNFX0NIRUNLX0RBRwotICAgICAgICBib29sICJFbmFibGUgYWRk
-aXRpb25hbCBkcml2ZXIgZGVidWdnaW5nIGZvciBkZXRlY3RpbmcgZGVwZW5kZW5jeSBjeWNsZXMi
-Ci0gICAgICAgIGRlcGVuZHMgb24gRFJNX0k5MTUKLSAgICAgICAgZGVmYXVsdCBuCi0gICAgICAg
-IGhlbHAKLSAgICAgICAgICBDaG9vc2UgdGhpcyBvcHRpb24gdG8gdHVybiBvbiBleHRyYSBkcml2
-ZXIgZGVidWdnaW5nIHRoYXQgbWF5IGFmZmVjdAotICAgICAgICAgIHBlcmZvcm1hbmNlIGJ1dCB3
-aWxsIGNhdGNoIHNvbWUgaW50ZXJuYWwgaXNzdWVzLgorCWJvb2wgIkVuYWJsZSBhZGRpdGlvbmFs
-IGRyaXZlciBkZWJ1Z2dpbmcgZm9yIGRldGVjdGluZyBkZXBlbmRlbmN5IGN5Y2xlcyIKKwlkZXBl
-bmRzIG9uIERSTV9JOTE1CisJZGVmYXVsdCBuCisJaGVscAorCSAgQ2hvb3NlIHRoaXMgb3B0aW9u
-IHRvIHR1cm4gb24gZXh0cmEgZHJpdmVyIGRlYnVnZ2luZyB0aGF0IG1heSBhZmZlY3QKKwkgIHBl
-cmZvcm1hbmNlIGJ1dCB3aWxsIGNhdGNoIHNvbWUgaW50ZXJuYWwgaXNzdWVzLgogCi0gICAgICAg
-ICAgUmVjb21tZW5kZWQgZm9yIGRyaXZlciBkZXZlbG9wZXJzIG9ubHkuCisJICBSZWNvbW1lbmRl
-ZCBmb3IgZHJpdmVyIGRldmVsb3BlcnMgb25seS4KIAotICAgICAgICAgIElmIGluIGRvdWJ0LCBz
-YXkgIk4iLgorCSAgSWYgaW4gZG91YnQsIHNheSAiTiIuCiAKIGNvbmZpZyBEUk1fSTkxNV9ERUJV
-R19HVUMKLSAgICAgICAgYm9vbCAiRW5hYmxlIGFkZGl0aW9uYWwgZHJpdmVyIGRlYnVnZ2luZyBm
-b3IgR3VDIgotICAgICAgICBkZXBlbmRzIG9uIERSTV9JOTE1Ci0gICAgICAgIGRlZmF1bHQgbgot
-ICAgICAgICBoZWxwCi0gICAgICAgICAgQ2hvb3NlIHRoaXMgb3B0aW9uIHRvIHR1cm4gb24gZXh0
-cmEgZHJpdmVyIGRlYnVnZ2luZyB0aGF0IG1heSBhZmZlY3QKLSAgICAgICAgICBwZXJmb3JtYW5j
-ZSBidXQgd2lsbCBoZWxwIHJlc29sdmUgR3VDIHJlbGF0ZWQgaXNzdWVzLgorCWJvb2wgIkVuYWJs
-ZSBhZGRpdGlvbmFsIGRyaXZlciBkZWJ1Z2dpbmcgZm9yIEd1QyIKKwlkZXBlbmRzIG9uIERSTV9J
-OTE1CisJZGVmYXVsdCBuCisJaGVscAorCSAgQ2hvb3NlIHRoaXMgb3B0aW9uIHRvIHR1cm4gb24g
-ZXh0cmEgZHJpdmVyIGRlYnVnZ2luZyB0aGF0IG1heSBhZmZlY3QKKwkgIHBlcmZvcm1hbmNlIGJ1
-dCB3aWxsIGhlbHAgcmVzb2x2ZSBHdUMgcmVsYXRlZCBpc3N1ZXMuCiAKLSAgICAgICAgICBSZWNv
-bW1lbmRlZCBmb3IgZHJpdmVyIGRldmVsb3BlcnMgb25seS4KKwkgIFJlY29tbWVuZGVkIGZvciBk
-cml2ZXIgZGV2ZWxvcGVycyBvbmx5LgogCi0gICAgICAgICAgSWYgaW4gZG91YnQsIHNheSAiTiIu
-CisJICBJZiBpbiBkb3VidCwgc2F5ICJOIi4KIAogY29uZmlnIERSTV9JOTE1X1NFTEZURVNUCiAJ
-Ym9vbCAiRW5hYmxlIHNlbGZ0ZXN0cyB1cG9uIGRyaXZlciBsb2FkIgpAQCAtMTc4LDE1ICsxNzgs
-MTUgQEAgY29uZmlnIERSTV9JOTE1X1NFTEZURVNUX0JST0tFTgogCSAgSWYgaW4gZG91YnQsIHNh
-eSAiTiIuCiAKIGNvbmZpZyBEUk1fSTkxNV9MT1dfTEVWRUxfVFJBQ0VQT0lOVFMKLSAgICAgICAg
-Ym9vbCAiRW5hYmxlIGxvdyBsZXZlbCByZXF1ZXN0IHRyYWNpbmcgZXZlbnRzIgotICAgICAgICBk
-ZXBlbmRzIG9uIERSTV9JOTE1Ci0gICAgICAgIGRlZmF1bHQgbgotICAgICAgICBoZWxwCi0gICAg
-ICAgICAgQ2hvb3NlIHRoaXMgb3B0aW9uIHRvIHR1cm4gb24gbG93IGxldmVsIHJlcXVlc3QgdHJh
-Y2luZyBldmVudHMuCi0gICAgICAgICAgVGhpcyBwcm92aWRlcyB0aGUgYWJpbGl0eSB0byBwcmVj
-aXNlbHkgbW9uaXRvciBlbmdpbmUgdXRpbGlzYXRpb24KLSAgICAgICAgICBhbmQgYWxzbyBhbmFs
-eXplIHRoZSByZXF1ZXN0IGRlcGVuZGVuY3kgcmVzb2x2aW5nIHRpbWVsaW5lLgotCi0gICAgICAg
-ICAgSWYgaW4gZG91YnQsIHNheSAiTiIuCisJYm9vbCAiRW5hYmxlIGxvdyBsZXZlbCByZXF1ZXN0
-IHRyYWNpbmcgZXZlbnRzIgorCWRlcGVuZHMgb24gRFJNX0k5MTUKKwlkZWZhdWx0IG4KKwloZWxw
-CisJICBDaG9vc2UgdGhpcyBvcHRpb24gdG8gdHVybiBvbiBsb3cgbGV2ZWwgcmVxdWVzdCB0cmFj
-aW5nIGV2ZW50cy4KKwkgIFRoaXMgcHJvdmlkZXMgdGhlIGFiaWxpdHkgdG8gcHJlY2lzZWx5IG1v
-bml0b3IgZW5naW5lIHV0aWxpc2F0aW9uCisJICBhbmQgYWxzbyBhbmFseXplIHRoZSByZXF1ZXN0
-IGRlcGVuZGVuY3kgcmVzb2x2aW5nIHRpbWVsaW5lLgorCisJICBJZiBpbiBkb3VidCwgc2F5ICJO
-Ii4KIAogY29uZmlnIERSTV9JOTE1X0RFQlVHX1ZCTEFOS19FVkFERQogCWJvb2wgIkVuYWJsZSBl
-eHRyYSBkZWJ1ZyB3YXJuaW5ncyBmb3IgdmJsYW5rIGV2YXNpb24iCmRpZmYgLS1naXQgYS9kcml2
-ZXJzL2dwdS9kcm0vbGltYS9LY29uZmlnIGIvZHJpdmVycy9ncHUvZHJtL2xpbWEvS2NvbmZpZwpp
-bmRleCBiYjRkZGM2YmIwYTYuLjY1MmFmN2Y1MGVhOSAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUv
-ZHJtL2xpbWEvS2NvbmZpZworKysgYi9kcml2ZXJzL2dwdS9kcm0vbGltYS9LY29uZmlnCkBAIC0x
-MCw0ICsxMCw0IEBAIGNvbmZpZyBEUk1fTElNQQogICAgICAgIGRlcGVuZHMgb24gT0YKICAgICAg
-ICBzZWxlY3QgRFJNX1NDSEVECiAgICAgICAgaGVscAotICAgICAgICAgRFJNIGRyaXZlciBmb3Ig
-QVJNIE1hbGkgNDAwLzQ1MCBHUFVzLgorCSBEUk0gZHJpdmVyIGZvciBBUk0gTWFsaSA0MDAvNDUw
-IEdQVXMuCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vbWdhZzIwMC9LY29uZmlnIGIvZHJp
-dmVycy9ncHUvZHJtL21nYWcyMDAvS2NvbmZpZwppbmRleCA3NmZlZTBmYmRjYWUuLjRiMzFlZjM3
-NmFiYyAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL21nYWcyMDAvS2NvbmZpZworKysgYi9k
-cml2ZXJzL2dwdS9kcm0vbWdhZzIwMC9LY29uZmlnCkBAIC02LDggKzYsOCBAQCBjb25maWcgRFJN
-X01HQUcyMDAKIAlzZWxlY3QgRFJNX1ZSQU1fSEVMUEVSCiAJaGVscAogCSBUaGlzIGlzIGEgS01T
-IGRyaXZlciBmb3IgdGhlIE1HQSBHMjAwIHNlcnZlciBjaGlwcywgaXQKLSAgICAgICAgIGRvZXMg
-bm90IHN1cHBvcnQgdGhlIG9yaWdpbmFsIE1HQSBHMjAwIG9yIGFueSBvZiB0aGUgZGVza3RvcAot
-ICAgICAgICAgY2hpcHMuIEl0IHJlcXVpcmVzIDAuMy4wIG9mIHRoZSBtb2Rlc2V0dGluZyB1c2Vy
-c3BhY2UgZHJpdmVyLAotICAgICAgICAgYW5kIGEgdmVyc2lvbiBvZiBtZ2EgZHJpdmVyIHRoYXQg
-d2lsbCBmYWlsIG9uIEtNUyBlbmFibGVkCi0gICAgICAgICBkZXZpY2VzLgorCSBkb2VzIG5vdCBz
-dXBwb3J0IHRoZSBvcmlnaW5hbCBNR0EgRzIwMCBvciBhbnkgb2YgdGhlIGRlc2t0b3AKKwkgY2hp
-cHMuIEl0IHJlcXVpcmVzIDAuMy4wIG9mIHRoZSBtb2Rlc2V0dGluZyB1c2Vyc3BhY2UgZHJpdmVy
-LAorCSBhbmQgYSB2ZXJzaW9uIG9mIG1nYSBkcml2ZXIgdGhhdCB3aWxsIGZhaWwgb24gS01TIGVu
-YWJsZWQKKwkgZGV2aWNlcy4KIApkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL25vdXZlYXUv
-S2NvbmZpZyBiL2RyaXZlcnMvZ3B1L2RybS9ub3V2ZWF1L0tjb25maWcKaW5kZXggMzU1OGRmMDQz
-NTkyLi45Yzk5MDI2NmU4NzYgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9ub3V2ZWF1L0tj
-b25maWcKKysrIGIvZHJpdmVycy9ncHUvZHJtL25vdXZlYXUvS2NvbmZpZwpAQCAtMiw3ICsyLDcg
-QEAKIGNvbmZpZyBEUk1fTk9VVkVBVQogCXRyaXN0YXRlICJOb3V2ZWF1IChOVklESUEpIGNhcmRz
-IgogCWRlcGVuZHMgb24gRFJNICYmIFBDSSAmJiBNTVUKLSAgICAgICAgc2VsZWN0IEZXX0xPQURF
-UgorCXNlbGVjdCBGV19MT0FERVIKIAlzZWxlY3QgRFJNX0tNU19IRUxQRVIKIAlzZWxlY3QgRFJN
-X1RUTQogCXNlbGVjdCBCQUNLTElHSFRfQ0xBU1NfREVWSUNFIGlmIERSTV9OT1VWRUFVX0JBQ0tM
-SUdIVApkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL29tYXBkcm0vZGlzcGxheXMvS2NvbmZp
-ZyBiL2RyaXZlcnMvZ3B1L2RybS9vbWFwZHJtL2Rpc3BsYXlzL0tjb25maWcKaW5kZXggMjQwZGRh
-MTAyODQ1Li5iNTYyYThjZDYxYmYgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9vbWFwZHJt
-L2Rpc3BsYXlzL0tjb25maWcKKysrIGIvZHJpdmVycy9ncHUvZHJtL29tYXBkcm0vZGlzcGxheXMv
-S2NvbmZpZwpAQCAtOCwxOCArOCwxOCBAQCBjb25maWcgRFJNX09NQVBfRU5DT0RFUl9PUEEzNjIK
-IAkgIHRocm91Z2ggYSBHUElPLgogCiBjb25maWcgRFJNX09NQVBfRU5DT0RFUl9UUEQxMlMwMTUK
-LSAgICAgICAgdHJpc3RhdGUgIlRQRDEyUzAxNSBIRE1JIEVTRCBwcm90ZWN0aW9uIGFuZCBsZXZl
-bCBzaGlmdGVyIgorCXRyaXN0YXRlICJUUEQxMlMwMTUgSERNSSBFU0QgcHJvdGVjdGlvbiBhbmQg
-bGV2ZWwgc2hpZnRlciIKIAloZWxwCiAJICBEcml2ZXIgZm9yIFRQRDEyUzAxNSwgd2hpY2ggb2Zm
-ZXJzIEhETUkgRVNEIHByb3RlY3Rpb24gYW5kIGxldmVsCiAJICBzaGlmdGluZy4KIAogY29uZmln
-IERSTV9PTUFQX0NPTk5FQ1RPUl9IRE1JCi0gICAgICAgIHRyaXN0YXRlICJIRE1JIENvbm5lY3Rv
-ciIKKwl0cmlzdGF0ZSAiSERNSSBDb25uZWN0b3IiCiAJaGVscAogCSAgRHJpdmVyIGZvciBhIGdl
-bmVyaWMgSERNSSBjb25uZWN0b3IuCiAKIGNvbmZpZyBEUk1fT01BUF9DT05ORUNUT1JfQU5BTE9H
-X1RWCi0gICAgICAgIHRyaXN0YXRlICJBbmFsb2cgVFYgQ29ubmVjdG9yIgorCXRyaXN0YXRlICJB
-bmFsb2cgVFYgQ29ubmVjdG9yIgogCWhlbHAKIAkgIERyaXZlciBmb3IgYSBnZW5lcmljIGFuYWxv
-ZyBUViBjb25uZWN0b3IuCiAKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9vbWFwZHJtL2Rz
-cy9LY29uZmlnIGIvZHJpdmVycy9ncHUvZHJtL29tYXBkcm0vZHNzL0tjb25maWcKaW5kZXggOTU2
-ZjIzZTE0NTJkLi43MmFlNzljMGM5YjQgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9vbWFw
-ZHJtL2Rzcy9LY29uZmlnCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9vbWFwZHJtL2Rzcy9LY29uZmln
-CkBAIC02LDEyICs2LDEyIEBAIGNvbmZpZyBPTUFQX0RTU19CQVNFCiAJdHJpc3RhdGUKIAogbWVu
-dWNvbmZpZyBPTUFQMl9EU1MKLSAgICAgICAgdHJpc3RhdGUgIk9NQVAyKyBEaXNwbGF5IFN1YnN5
-c3RlbSBzdXBwb3J0IgorCXRyaXN0YXRlICJPTUFQMisgRGlzcGxheSBTdWJzeXN0ZW0gc3VwcG9y
-dCIKIAlzZWxlY3QgT01BUF9EU1NfQkFTRQogCXNlbGVjdCBWSURFT01PREVfSEVMUEVSUwogCXNl
-bGVjdCBPTUFQMl9EU1NfSU5JVAogCXNlbGVjdCBIRE1JCi0gICAgICAgIGhlbHAKKwloZWxwCiAJ
-ICBPTUFQMisgRGlzcGxheSBTdWJzeXN0ZW0gc3VwcG9ydC4KIAogaWYgT01BUDJfRFNTCkBAIC01
-Miw3ICs1Miw3IEBAIGNvbmZpZyBPTUFQMl9EU1NfRFBJCiAKIGNvbmZpZyBPTUFQMl9EU1NfVkVO
-QwogCWJvb2wgIlZFTkMgc3VwcG9ydCIKLSAgICAgICAgZGVmYXVsdCB5CisJZGVmYXVsdCB5CiAJ
-aGVscAogCSAgT01BUCBWaWRlbyBFbmNvZGVyIHN1cHBvcnQgZm9yIFMtVmlkZW8gYW5kIGNvbXBv
-c2l0ZSBUVi1vdXQuCiAKQEAgLTYxLDcgKzYxLDcgQEAgY29uZmlnIE9NQVAyX0RTU19IRE1JX0NP
-TU1PTgogCiBjb25maWcgT01BUDRfRFNTX0hETUkKIAlib29sICJIRE1JIHN1cHBvcnQgZm9yIE9N
-QVA0IgotICAgICAgICBkZWZhdWx0IHkKKwlkZWZhdWx0IHkKIAlzZWxlY3QgT01BUDJfRFNTX0hE
-TUlfQ09NTU9OCiAJaGVscAogCSAgSERNSSBzdXBwb3J0IGZvciBPTUFQNCBiYXNlZCBTb0NzLgpA
-QCAtODUsNyArODUsNyBAQCBjb25maWcgT01BUDVfRFNTX0hETUkKIAogY29uZmlnIE9NQVAyX0RT
-U19TREkKIAlib29sICJTREkgc3VwcG9ydCIKLSAgICAgICAgZGVmYXVsdCBuCisJZGVmYXVsdCBu
-CiAJaGVscAogCSAgU0RJIChTZXJpYWwgRGlzcGxheSBJbnRlcmZhY2UpIHN1cHBvcnQuCiAKQEAg
-LTk0LDcgKzk0LDcgQEAgY29uZmlnIE9NQVAyX0RTU19TREkKIAogY29uZmlnIE9NQVAyX0RTU19E
-U0kKIAlib29sICJEU0kgc3VwcG9ydCIKLSAgICAgICAgZGVmYXVsdCBuCisJZGVmYXVsdCBuCiAJ
-aGVscAogCSAgTUlQSSBEU0kgKERpc3BsYXkgU2VyaWFsIEludGVyZmFjZSkgc3VwcG9ydC4KIApk
-aWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL3JvY2tjaGlwL0tjb25maWcgYi9kcml2ZXJzL2dw
-dS9kcm0vcm9ja2NoaXAvS2NvbmZpZwppbmRleCA2ZjQyMjJmOGJlZWIuLjE2NzBhNWNhZTNjNyAx
-MDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL3JvY2tjaGlwL0tjb25maWcKKysrIGIvZHJpdmVy
-cy9ncHUvZHJtL3JvY2tjaGlwL0tjb25maWcKQEAgLTI4LDE3ICsyOCwxNyBAQCBjb25maWcgUk9D
-S0NISVBfQU5BTE9HSVhfRFAKIAkgIG9uIFJLMzI4OCBvciBSSzMzOTkgYmFzZWQgU29DLCB5b3Ug
-c2hvdWxkIHNlbGVjdCB0aGlzIG9wdGlvbi4KIAogY29uZmlnIFJPQ0tDSElQX0NETl9EUAotICAg
-ICAgICBib29sICJSb2NrY2hpcCBjZG4gRFAiCisJYm9vbCAiUm9ja2NoaXAgY2RuIERQIgogCWRl
-cGVuZHMgb24gRVhUQ09OPXkgfHwgKEVYVENPTj1tICYmIERSTV9ST0NLQ0hJUD1tKQotICAgICAg
-ICBoZWxwCisJaGVscAogCSAgVGhpcyBzZWxlY3RzIHN1cHBvcnQgZm9yIFJvY2tjaGlwIFNvQyBz
-cGVjaWZpYyBleHRlbnNpb25zCiAJICBmb3IgdGhlIGNkbiBEUCBkcml2ZXIuIElmIHlvdSB3YW50
-IHRvIGVuYWJsZSBEcCBvbgogCSAgUkszMzk5IGJhc2VkIFNvQywgeW91IHNob3VsZCBzZWxlY3Qg
-dGhpcwogCSAgb3B0aW9uLgogCiBjb25maWcgUk9DS0NISVBfRFdfSERNSQotICAgICAgICBib29s
-ICJSb2NrY2hpcCBzcGVjaWZpYyBleHRlbnNpb25zIGZvciBTeW5vcHN5cyBEVyBIRE1JIgotICAg
-ICAgICBoZWxwCisJYm9vbCAiUm9ja2NoaXAgc3BlY2lmaWMgZXh0ZW5zaW9ucyBmb3IgU3lub3Bz
-eXMgRFcgSERNSSIKKwloZWxwCiAJICBUaGlzIHNlbGVjdHMgc3VwcG9ydCBmb3IgUm9ja2NoaXAg
-U29DIHNwZWNpZmljIGV4dGVuc2lvbnMKIAkgIGZvciB0aGUgU3lub3BzeXMgRGVzaWduV2FyZSBI
-RE1JIGRyaXZlci4gSWYgeW91IHdhbnQgdG8KIAkgIGVuYWJsZSBIRE1JIG9uIFJLMzI4OCBvciBS
-SzMzOTkgYmFzZWQgU29DLCB5b3Ugc2hvdWxkIHNlbGVjdApkaWZmIC0tZ2l0IGEvZHJpdmVycy9n
-cHUvZHJtL3VkbC9LY29uZmlnIGIvZHJpdmVycy9ncHUvZHJtL3VkbC9LY29uZmlnCmluZGV4IGI0
-ZDE3OWI4N2YwMS4uYjEzYWEzMzk5MGYzIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vdWRs
-L0tjb25maWcKKysrIGIvZHJpdmVycy9ncHUvZHJtL3VkbC9LY29uZmlnCkBAIC04LDQgKzgsNCBA
-QCBjb25maWcgRFJNX1VETAogCXNlbGVjdCBEUk1fS01TX0hFTFBFUgogCWhlbHAKIAkgIFRoaXMg
-aXMgYSBLTVMgZHJpdmVyIGZvciB0aGUgVVNCIGRpc3BsYXlsaW5rIHZpZGVvIGFkYXB0ZXJzLgot
-ICAgICAgICAgIFNheSBNL1kgdG8gYWRkIHN1cHBvcnQgZm9yIHRoZXNlIGRldmljZXMgdmlhIGRy
-bS9rbXMgaW50ZXJmYWNlcy4KKwkgIFNheSBNL1kgdG8gYWRkIHN1cHBvcnQgZm9yIHRoZXNlIGRl
-dmljZXMgdmlhIGRybS9rbXMgaW50ZXJmYWNlcy4KZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L3Zn
-YS9LY29uZmlnIGIvZHJpdmVycy9ncHUvdmdhL0tjb25maWcKaW5kZXggYzhjNzcwYjA1ZWQ5Li4x
-YWQ0YzRlZjBiNWUgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L3ZnYS9LY29uZmlnCisrKyBiL2Ry
-aXZlcnMvZ3B1L3ZnYS9LY29uZmlnCkBAIC0yOCw2ICsyOCw2IEBAIGNvbmZpZyBWR0FfU1dJVENI
-RVJPTwogCWhlbHAKIAkgIE1hbnkgbGFwdG9wcyByZWxlYXNlZCBpbiAyMDA4LzkvMTAgaGF2ZSB0
-d28gR1BVcyB3aXRoIGEgbXVsdGlwbGV4ZXIKIAkgIHRvIHN3aXRjaCBiZXR3ZWVuIHRoZW0uIFRo
-aXMgYWRkcyBzdXBwb3J0IGZvciBkeW5hbWljIHN3aXRjaGluZyB3aGVuCi0gICAgICAgICAgWCBp
-c24ndCBydW5uaW5nIGFuZCBkZWxheWVkIHN3aXRjaGluZyB1bnRpbCB0aGUgbmV4dCBsb2dvZmYu
-IFRoaXMKKwkgIFggaXNuJ3QgcnVubmluZyBhbmQgZGVsYXllZCBzd2l0Y2hpbmcgdW50aWwgdGhl
-IG5leHQgbG9nb2ZmLiBUaGlzCiAJICBmZWF0dXJlIGlzIGNhbGxlZCBoeWJyaWQgZ3JhcGhpY3Ms
-IEFUSSBQb3dlclhwcmVzcywgYW5kIE52aWRpYQogCSAgSHlicmlkUG93ZXIuCi0tIAoyLjE3LjEK
-Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmRyaS1kZXZl
-bCBtYWlsaW5nIGxpc3QKZHJpLWRldmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xp
-c3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2RyaS1kZXZlbA==
+--===============1082155872==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_DM6PR12MB27784ED82D2680435D20248FF0850DM6PR12MB2778namp_"
+
+--_000_DM6PR12MB27784ED82D2680435D20248FF0850DM6PR12MB2778namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+Okay, I will incorporate Shaoyun's input.
+
+Yong
+________________________________
+From: Liu, Shaoyun <Shaoyun.Liu-5C7GfCeVMHo@public.gmane.org>
+Sent: Monday, September 23, 2019 10:27 AM
+To: Zhao, Yong <Yong.Zhao-5C7GfCeVMHo@public.gmane.org>; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org <amd-gfx@=
+lists.freedesktop.org>
+Subject: Re: [PATCH 2/2] drm/amdkfd: Use better name for sdma queue non HWS=
+ path
+
+Probably rename to sdma_rlc to avoid the  confusion of  rlc used in
+other amdgpu driver .
+
+Regards
+
+shaoyun.liu
+
+On 2019-09-22 11:56 p.m., Zhao, Yong wrote:
+> The old name is prone to confusion. The register offset is for a RLC queu=
+e
+> rather than a SDMA engine. The value is not a base address, but a
+> register offset.
+>
+> Change-Id: I55fb835f2105392344b1c17323bb55c03f927836
+> Signed-off-by: Yong Zhao <Yong.Zhao-5C7GfCeVMHo@public.gmane.org>
+> ---
+>   .../drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c   | 85 +++++++++---------
+>   .../drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c    | 90 +++++++++----------
+>   .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v7.c | 10 +--
+>   .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v8.c | 10 +--
+>   .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c | 86 +++++++++---------
+>   5 files changed, 137 insertions(+), 144 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c b/driver=
+s/gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c
+> index c9ce1516956e..d2c0666c2798 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c
+> @@ -70,11 +70,11 @@ static inline struct v9_sdma_mqd *get_sdma_mqd(void *=
+mqd)
+>        return (struct v9_sdma_mqd *)mqd;
+>   }
+>
+> -static uint32_t get_sdma_base_addr(struct amdgpu_device *adev,
+> +static uint32_t get_rlc_reg_offset(struct amdgpu_device *adev,
+>                                unsigned int engine_id,
+>                                unsigned int queue_id)
+>   {
+> -     uint32_t base[8] =3D {
+> +     uint32_t sdma_engine_reg_base[8] =3D {
+>                SOC15_REG_OFFSET(SDMA0, 0,
+>                                 mmSDMA0_RLC0_RB_CNTL) - mmSDMA0_RLC0_RB_C=
+NTL,
+>                SOC15_REG_OFFSET(SDMA1, 0,
+> @@ -92,12 +92,11 @@ static uint32_t get_sdma_base_addr(struct amdgpu_devi=
+ce *adev,
+>                SOC15_REG_OFFSET(SDMA7, 0,
+>                                 mmSDMA7_RLC0_RB_CNTL) - mmSDMA7_RLC0_RB_C=
+NTL
+>        };
+> -     uint32_t retval;
+>
+> -     retval =3D base[engine_id] + queue_id * (mmSDMA0_RLC1_RB_CNTL -
+> -                                            mmSDMA0_RLC0_RB_CNTL);
+> +     uint32_t retval =3D sdma_engine_reg_base[engine_id]
+> +             + queue_id * (mmSDMA0_RLC1_RB_CNTL - mmSDMA0_RLC0_RB_CNTL);
+>
+> -     pr_debug("sdma base address: 0x%x\n", retval);
+> +     pr_debug("RLC register offset: 0x%x\n", retval);
+>
+>        return retval;
+>   }
+> @@ -107,22 +106,22 @@ static int kgd_hqd_sdma_load(struct kgd_dev *kgd, v=
+oid *mqd,
+>   {
+>        struct amdgpu_device *adev =3D get_amdgpu_device(kgd);
+>        struct v9_sdma_mqd *m;
+> -     uint32_t sdma_base_addr;
+> +     uint32_t rlc_reg_offset;
+>        unsigned long end_jiffies;
+>        uint32_t data;
+>        uint64_t data64;
+>        uint64_t __user *wptr64 =3D (uint64_t __user *)wptr;
+>
+>        m =3D get_sdma_mqd(mqd);
+> -     sdma_base_addr =3D get_sdma_base_addr(adev, m->sdma_engine_id,
+> +     rlc_reg_offset =3D get_rlc_reg_offset(adev, m->sdma_engine_id,
+>                                            m->sdma_queue_id);
+>
+> -     WREG32(sdma_base_addr + mmSDMA0_RLC0_RB_CNTL,
+> +     WREG32(rlc_reg_offset + mmSDMA0_RLC0_RB_CNTL,
+>                m->sdmax_rlcx_rb_cntl & (~SDMA0_RLC0_RB_CNTL__RB_ENABLE_MA=
+SK));
+>
+>        end_jiffies =3D msecs_to_jiffies(2000) + jiffies;
+>        while (true) {
+> -             data =3D RREG32(sdma_base_addr + mmSDMA0_RLC0_CONTEXT_STATU=
+S);
+> +             data =3D RREG32(rlc_reg_offset + mmSDMA0_RLC0_CONTEXT_STATU=
+S);
+>                if (data & SDMA0_RLC0_CONTEXT_STATUS__IDLE_MASK)
+>                        break;
+>                if (time_after(jiffies, end_jiffies))
+> @@ -130,41 +129,41 @@ static int kgd_hqd_sdma_load(struct kgd_dev *kgd, v=
+oid *mqd,
+>                usleep_range(500, 1000);
+>        }
+>
+> -     WREG32(sdma_base_addr + mmSDMA0_RLC0_DOORBELL_OFFSET,
+> +     WREG32(rlc_reg_offset + mmSDMA0_RLC0_DOORBELL_OFFSET,
+>               m->sdmax_rlcx_doorbell_offset);
+>
+>        data =3D REG_SET_FIELD(m->sdmax_rlcx_doorbell, SDMA0_RLC0_DOORBELL=
+,
+>                             ENABLE, 1);
+> -     WREG32(sdma_base_addr + mmSDMA0_RLC0_DOORBELL, data);
+> -     WREG32(sdma_base_addr + mmSDMA0_RLC0_RB_RPTR, m->sdmax_rlcx_rb_rptr=
+);
+> -     WREG32(sdma_base_addr + mmSDMA0_RLC0_RB_RPTR_HI,
+> +     WREG32(rlc_reg_offset + mmSDMA0_RLC0_DOORBELL, data);
+> +     WREG32(rlc_reg_offset + mmSDMA0_RLC0_RB_RPTR, m->sdmax_rlcx_rb_rptr=
+);
+> +     WREG32(rlc_reg_offset + mmSDMA0_RLC0_RB_RPTR_HI,
+>                                m->sdmax_rlcx_rb_rptr_hi);
+>
+> -     WREG32(sdma_base_addr + mmSDMA0_RLC0_MINOR_PTR_UPDATE, 1);
+> +     WREG32(rlc_reg_offset + mmSDMA0_RLC0_MINOR_PTR_UPDATE, 1);
+>        if (read_user_wptr(mm, wptr64, data64)) {
+> -             WREG32(sdma_base_addr + mmSDMA0_RLC0_RB_WPTR,
+> +             WREG32(rlc_reg_offset + mmSDMA0_RLC0_RB_WPTR,
+>                       lower_32_bits(data64));
+> -             WREG32(sdma_base_addr + mmSDMA0_RLC0_RB_WPTR_HI,
+> +             WREG32(rlc_reg_offset + mmSDMA0_RLC0_RB_WPTR_HI,
+>                       upper_32_bits(data64));
+>        } else {
+> -             WREG32(sdma_base_addr + mmSDMA0_RLC0_RB_WPTR,
+> +             WREG32(rlc_reg_offset + mmSDMA0_RLC0_RB_WPTR,
+>                       m->sdmax_rlcx_rb_rptr);
+> -             WREG32(sdma_base_addr + mmSDMA0_RLC0_RB_WPTR_HI,
+> +             WREG32(rlc_reg_offset + mmSDMA0_RLC0_RB_WPTR_HI,
+>                       m->sdmax_rlcx_rb_rptr_hi);
+>        }
+> -     WREG32(sdma_base_addr + mmSDMA0_RLC0_MINOR_PTR_UPDATE, 0);
+> +     WREG32(rlc_reg_offset + mmSDMA0_RLC0_MINOR_PTR_UPDATE, 0);
+>
+> -     WREG32(sdma_base_addr + mmSDMA0_RLC0_RB_BASE, m->sdmax_rlcx_rb_base=
+);
+> -     WREG32(sdma_base_addr + mmSDMA0_RLC0_RB_BASE_HI,
+> +     WREG32(rlc_reg_offset + mmSDMA0_RLC0_RB_BASE, m->sdmax_rlcx_rb_base=
+);
+> +     WREG32(rlc_reg_offset + mmSDMA0_RLC0_RB_BASE_HI,
+>                        m->sdmax_rlcx_rb_base_hi);
+> -     WREG32(sdma_base_addr + mmSDMA0_RLC0_RB_RPTR_ADDR_LO,
+> +     WREG32(rlc_reg_offset + mmSDMA0_RLC0_RB_RPTR_ADDR_LO,
+>                        m->sdmax_rlcx_rb_rptr_addr_lo);
+> -     WREG32(sdma_base_addr + mmSDMA0_RLC0_RB_RPTR_ADDR_HI,
+> +     WREG32(rlc_reg_offset + mmSDMA0_RLC0_RB_RPTR_ADDR_HI,
+>                        m->sdmax_rlcx_rb_rptr_addr_hi);
+>
+>        data =3D REG_SET_FIELD(m->sdmax_rlcx_rb_cntl, SDMA0_RLC0_RB_CNTL,
+>                             RB_ENABLE, 1);
+> -     WREG32(sdma_base_addr + mmSDMA0_RLC0_RB_CNTL, data);
+> +     WREG32(rlc_reg_offset + mmSDMA0_RLC0_RB_CNTL, data);
+>
+>        return 0;
+>   }
+> @@ -174,7 +173,7 @@ static int kgd_hqd_sdma_dump(struct kgd_dev *kgd,
+>                             uint32_t (**dump)[2], uint32_t *n_regs)
+>   {
+>        struct amdgpu_device *adev =3D get_amdgpu_device(kgd);
+> -     uint32_t sdma_base_addr =3D get_sdma_base_addr(adev, engine_id, que=
+ue_id);
+> +     uint32_t rlc_reg_offset =3D get_rlc_reg_offset(adev, engine_id, que=
+ue_id);
+>        uint32_t i =3D 0, reg;
+>   #undef HQD_N_REGS
+>   #define HQD_N_REGS (19+6+7+10)
+> @@ -184,15 +183,15 @@ static int kgd_hqd_sdma_dump(struct kgd_dev *kgd,
+>                return -ENOMEM;
+>
+>        for (reg =3D mmSDMA0_RLC0_RB_CNTL; reg <=3D mmSDMA0_RLC0_DOORBELL;=
+ reg++)
+> -             DUMP_REG(sdma_base_addr + reg);
+> +             DUMP_REG(rlc_reg_offset + reg);
+>        for (reg =3D mmSDMA0_RLC0_STATUS; reg <=3D mmSDMA0_RLC0_CSA_ADDR_H=
+I; reg++)
+> -             DUMP_REG(sdma_base_addr + reg);
+> +             DUMP_REG(rlc_reg_offset + reg);
+>        for (reg =3D mmSDMA0_RLC0_IB_SUB_REMAIN;
+>             reg <=3D mmSDMA0_RLC0_MINOR_PTR_UPDATE; reg++)
+> -             DUMP_REG(sdma_base_addr + reg);
+> +             DUMP_REG(rlc_reg_offset + reg);
+>        for (reg =3D mmSDMA0_RLC0_MIDCMD_DATA0;
+>             reg <=3D mmSDMA0_RLC0_MIDCMD_CNTL; reg++)
+> -             DUMP_REG(sdma_base_addr + reg);
+> +             DUMP_REG(rlc_reg_offset + reg);
+>
+>        WARN_ON_ONCE(i !=3D HQD_N_REGS);
+>        *n_regs =3D i;
+> @@ -204,14 +203,14 @@ static bool kgd_hqd_sdma_is_occupied(struct kgd_dev=
+ *kgd, void *mqd)
+>   {
+>        struct amdgpu_device *adev =3D get_amdgpu_device(kgd);
+>        struct v9_sdma_mqd *m;
+> -     uint32_t sdma_base_addr;
+> +     uint32_t rlc_reg_offset;
+>        uint32_t sdma_rlc_rb_cntl;
+>
+>        m =3D get_sdma_mqd(mqd);
+> -     sdma_base_addr =3D get_sdma_base_addr(adev, m->sdma_engine_id,
+> +     rlc_reg_offset =3D get_rlc_reg_offset(adev, m->sdma_engine_id,
+>                                            m->sdma_queue_id);
+>
+> -     sdma_rlc_rb_cntl =3D RREG32(sdma_base_addr + mmSDMA0_RLC0_RB_CNTL);
+> +     sdma_rlc_rb_cntl =3D RREG32(rlc_reg_offset + mmSDMA0_RLC0_RB_CNTL);
+>
+>        if (sdma_rlc_rb_cntl & SDMA0_RLC0_RB_CNTL__RB_ENABLE_MASK)
+>                return true;
+> @@ -224,20 +223,20 @@ static int kgd_hqd_sdma_destroy(struct kgd_dev *kgd=
+, void *mqd,
+>   {
+>        struct amdgpu_device *adev =3D get_amdgpu_device(kgd);
+>        struct v9_sdma_mqd *m;
+> -     uint32_t sdma_base_addr;
+> +     uint32_t rlc_reg_offset;
+>        uint32_t temp;
+>        unsigned long end_jiffies =3D (utimeout * HZ / 1000) + jiffies;
+>
+>        m =3D get_sdma_mqd(mqd);
+> -     sdma_base_addr =3D get_sdma_base_addr(adev, m->sdma_engine_id,
+> +     rlc_reg_offset =3D get_rlc_reg_offset(adev, m->sdma_engine_id,
+>                                            m->sdma_queue_id);
+>
+> -     temp =3D RREG32(sdma_base_addr + mmSDMA0_RLC0_RB_CNTL);
+> +     temp =3D RREG32(rlc_reg_offset + mmSDMA0_RLC0_RB_CNTL);
+>        temp =3D temp & ~SDMA0_RLC0_RB_CNTL__RB_ENABLE_MASK;
+> -     WREG32(sdma_base_addr + mmSDMA0_RLC0_RB_CNTL, temp);
+> +     WREG32(rlc_reg_offset + mmSDMA0_RLC0_RB_CNTL, temp);
+>
+>        while (true) {
+> -             temp =3D RREG32(sdma_base_addr + mmSDMA0_RLC0_CONTEXT_STATU=
+S);
+> +             temp =3D RREG32(rlc_reg_offset + mmSDMA0_RLC0_CONTEXT_STATU=
+S);
+>                if (temp & SDMA0_RLC0_CONTEXT_STATUS__IDLE_MASK)
+>                        break;
+>                if (time_after(jiffies, end_jiffies))
+> @@ -245,14 +244,14 @@ static int kgd_hqd_sdma_destroy(struct kgd_dev *kgd=
+, void *mqd,
+>                usleep_range(500, 1000);
+>        }
+>
+> -     WREG32(sdma_base_addr + mmSDMA0_RLC0_DOORBELL, 0);
+> -     WREG32(sdma_base_addr + mmSDMA0_RLC0_RB_CNTL,
+> -             RREG32(sdma_base_addr + mmSDMA0_RLC0_RB_CNTL) |
+> +     WREG32(rlc_reg_offset + mmSDMA0_RLC0_DOORBELL, 0);
+> +     WREG32(rlc_reg_offset + mmSDMA0_RLC0_RB_CNTL,
+> +             RREG32(rlc_reg_offset + mmSDMA0_RLC0_RB_CNTL) |
+>                SDMA0_RLC0_RB_CNTL__RB_ENABLE_MASK);
+>
+> -     m->sdmax_rlcx_rb_rptr =3D RREG32(sdma_base_addr + mmSDMA0_RLC0_RB_R=
+PTR);
+> +     m->sdmax_rlcx_rb_rptr =3D RREG32(rlc_reg_offset + mmSDMA0_RLC0_RB_R=
+PTR);
+>        m->sdmax_rlcx_rb_rptr_hi =3D
+> -             RREG32(sdma_base_addr + mmSDMA0_RLC0_RB_RPTR_HI);
+> +             RREG32(rlc_reg_offset + mmSDMA0_RLC0_RB_RPTR_HI);
+>
+>        return 0;
+>   }
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c b/drivers=
+/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c
+> index a4325db8d093..ee520ad90717 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c
+> @@ -307,11 +307,11 @@ static int kgd_init_interrupts(struct kgd_dev *kgd,=
+ uint32_t pipe_id)
+>        return 0;
+>   }
+>
+> -static uint32_t get_sdma_base_addr(struct amdgpu_device *adev,
+> +static uint32_t get_rlc_reg_offset(struct amdgpu_device *adev,
+>                                unsigned int engine_id,
+>                                unsigned int queue_id)
+>   {
+> -     uint32_t base[2] =3D {
+> +     uint32_t sdma_engine_reg_base[2] =3D {
+>                SOC15_REG_OFFSET(SDMA0, 0,
+>                                 mmSDMA0_RLC0_RB_CNTL) - mmSDMA0_RLC0_RB_C=
+NTL,
+>                /* On gfx10, mmSDMA1_xxx registers are defined NOT based
+> @@ -323,12 +323,11 @@ static uint32_t get_sdma_base_addr(struct amdgpu_de=
+vice *adev,
+>                SOC15_REG_OFFSET(SDMA1, 0,
+>                                 mmSDMA1_RLC0_RB_CNTL) - mmSDMA0_RLC0_RB_C=
+NTL
+>        };
+> -     uint32_t retval;
+>
+> -     retval =3D base[engine_id] + queue_id * (mmSDMA0_RLC1_RB_CNTL -
+> -                                            mmSDMA0_RLC0_RB_CNTL);
+> +     uint32_t retval =3D sdma_engine_reg_base[engine_id]
+> +             + queue_id * (mmSDMA0_RLC1_RB_CNTL - mmSDMA0_RLC0_RB_CNTL);
+>
+> -     pr_debug("sdma base address: 0x%x\n", retval);
+> +     pr_debug("RLC register offset: 0x%x\n", retval);
+>
+>        return retval;
+>   }
+> @@ -489,23 +488,23 @@ static int kgd_hqd_sdma_load(struct kgd_dev *kgd, v=
+oid *mqd,
+>   {
+>        struct amdgpu_device *adev =3D get_amdgpu_device(kgd);
+>        struct v10_sdma_mqd *m;
+> -     uint32_t sdma_base_addr;
+> +     uint32_t rlc_reg_offset;
+>        unsigned long end_jiffies;
+>        uint32_t data;
+>        uint64_t data64;
+>        uint64_t __user *wptr64 =3D (uint64_t __user *)wptr;
+>
+>        m =3D get_sdma_mqd(mqd);
+> -     sdma_base_addr =3D get_sdma_base_addr(adev, m->sdma_engine_id,
+> +     rlc_reg_offset =3D get_rlc_reg_offset(adev, m->sdma_engine_id,
+>                                            m->sdma_queue_id);
+> -     pr_debug("sdma load base addr %x for engine %d, queue %d\n", sdma_b=
+ase_addr, m->sdma_engine_id, m->sdma_queue_id);
+> +     pr_debug("sdma load base addr 0x%x for engine %d, queue %d\n", rlc_=
+reg_offset, m->sdma_engine_id, m->sdma_queue_id);
+>
+> -     WREG32(sdma_base_addr + mmSDMA0_RLC0_RB_CNTL,
+> +     WREG32(rlc_reg_offset + mmSDMA0_RLC0_RB_CNTL,
+>                m->sdmax_rlcx_rb_cntl & (~SDMA0_RLC0_RB_CNTL__RB_ENABLE_MA=
+SK));
+>
+>        end_jiffies =3D msecs_to_jiffies(2000) + jiffies;
+>        while (true) {
+> -             data =3D RREG32(sdma_base_addr + mmSDMA0_RLC0_CONTEXT_STATU=
+S);
+> +             data =3D RREG32(rlc_reg_offset + mmSDMA0_RLC0_CONTEXT_STATU=
+S);
+>                if (data & SDMA0_RLC0_CONTEXT_STATUS__IDLE_MASK)
+>                        break;
+>                if (time_after(jiffies, end_jiffies))
+> @@ -513,41 +512,41 @@ static int kgd_hqd_sdma_load(struct kgd_dev *kgd, v=
+oid *mqd,
+>                usleep_range(500, 1000);
+>        }
+>
+> -     WREG32(sdma_base_addr + mmSDMA0_RLC0_DOORBELL_OFFSET,
+> +     WREG32(rlc_reg_offset + mmSDMA0_RLC0_DOORBELL_OFFSET,
+>               m->sdmax_rlcx_doorbell_offset);
+>
+>        data =3D REG_SET_FIELD(m->sdmax_rlcx_doorbell, SDMA0_RLC0_DOORBELL=
+,
+>                             ENABLE, 1);
+> -     WREG32(sdma_base_addr + mmSDMA0_RLC0_DOORBELL, data);
+> -     WREG32(sdma_base_addr + mmSDMA0_RLC0_RB_RPTR, m->sdmax_rlcx_rb_rptr=
+);
+> -     WREG32(sdma_base_addr + mmSDMA0_RLC0_RB_RPTR_HI,
+> +     WREG32(rlc_reg_offset + mmSDMA0_RLC0_DOORBELL, data);
+> +     WREG32(rlc_reg_offset + mmSDMA0_RLC0_RB_RPTR, m->sdmax_rlcx_rb_rptr=
+);
+> +     WREG32(rlc_reg_offset + mmSDMA0_RLC0_RB_RPTR_HI,
+>                                m->sdmax_rlcx_rb_rptr_hi);
+>
+> -     WREG32(sdma_base_addr + mmSDMA0_RLC0_MINOR_PTR_UPDATE, 1);
+> +     WREG32(rlc_reg_offset + mmSDMA0_RLC0_MINOR_PTR_UPDATE, 1);
+>        if (read_user_wptr(mm, wptr64, data64)) {
+> -             WREG32(sdma_base_addr + mmSDMA0_RLC0_RB_WPTR,
+> +             WREG32(rlc_reg_offset + mmSDMA0_RLC0_RB_WPTR,
+>                       lower_32_bits(data64));
+> -             WREG32(sdma_base_addr + mmSDMA0_RLC0_RB_WPTR_HI,
+> +             WREG32(rlc_reg_offset + mmSDMA0_RLC0_RB_WPTR_HI,
+>                       upper_32_bits(data64));
+>        } else {
+> -             WREG32(sdma_base_addr + mmSDMA0_RLC0_RB_WPTR,
+> +             WREG32(rlc_reg_offset + mmSDMA0_RLC0_RB_WPTR,
+>                       m->sdmax_rlcx_rb_rptr);
+> -             WREG32(sdma_base_addr + mmSDMA0_RLC0_RB_WPTR_HI,
+> +             WREG32(rlc_reg_offset + mmSDMA0_RLC0_RB_WPTR_HI,
+>                       m->sdmax_rlcx_rb_rptr_hi);
+>        }
+> -     WREG32(sdma_base_addr + mmSDMA0_RLC0_MINOR_PTR_UPDATE, 0);
+> +     WREG32(rlc_reg_offset + mmSDMA0_RLC0_MINOR_PTR_UPDATE, 0);
+>
+> -     WREG32(sdma_base_addr + mmSDMA0_RLC0_RB_BASE, m->sdmax_rlcx_rb_base=
+);
+> -     WREG32(sdma_base_addr + mmSDMA0_RLC0_RB_BASE_HI,
+> +     WREG32(rlc_reg_offset + mmSDMA0_RLC0_RB_BASE, m->sdmax_rlcx_rb_base=
+);
+> +     WREG32(rlc_reg_offset + mmSDMA0_RLC0_RB_BASE_HI,
+>                        m->sdmax_rlcx_rb_base_hi);
+> -     WREG32(sdma_base_addr + mmSDMA0_RLC0_RB_RPTR_ADDR_LO,
+> +     WREG32(rlc_reg_offset + mmSDMA0_RLC0_RB_RPTR_ADDR_LO,
+>                        m->sdmax_rlcx_rb_rptr_addr_lo);
+> -     WREG32(sdma_base_addr + mmSDMA0_RLC0_RB_RPTR_ADDR_HI,
+> +     WREG32(rlc_reg_offset + mmSDMA0_RLC0_RB_RPTR_ADDR_HI,
+>                        m->sdmax_rlcx_rb_rptr_addr_hi);
+>
+>        data =3D REG_SET_FIELD(m->sdmax_rlcx_rb_cntl, SDMA0_RLC0_RB_CNTL,
+>                             RB_ENABLE, 1);
+> -     WREG32(sdma_base_addr + mmSDMA0_RLC0_RB_CNTL, data);
+> +     WREG32(rlc_reg_offset + mmSDMA0_RLC0_RB_CNTL, data);
+>
+>        return 0;
+>   }
+> @@ -557,28 +556,25 @@ static int kgd_hqd_sdma_dump(struct kgd_dev *kgd,
+>                             uint32_t (**dump)[2], uint32_t *n_regs)
+>   {
+>        struct amdgpu_device *adev =3D get_amdgpu_device(kgd);
+> -     uint32_t sdma_base_addr =3D get_sdma_base_addr(adev, engine_id, que=
+ue_id);
+> +     uint32_t rlc_reg_offset =3D get_rlc_reg_offset(adev, engine_id, que=
+ue_id);
+>        uint32_t i =3D 0, reg;
+>   #undef HQD_N_REGS
+>   #define HQD_N_REGS (19+6+7+10)
+>
+> -     pr_debug("sdma dump engine id %d queue_id %d\n", engine_id, queue_i=
+d);
+> -     pr_debug("sdma base addr %x\n", sdma_base_addr);
+> -
+>        *dump =3D kmalloc(HQD_N_REGS*2*sizeof(uint32_t), GFP_KERNEL);
+>        if (*dump =3D=3D NULL)
+>                return -ENOMEM;
+>
+>        for (reg =3D mmSDMA0_RLC0_RB_CNTL; reg <=3D mmSDMA0_RLC0_DOORBELL;=
+ reg++)
+> -             DUMP_REG(sdma_base_addr + reg);
+> +             DUMP_REG(rlc_reg_offset + reg);
+>        for (reg =3D mmSDMA0_RLC0_STATUS; reg <=3D mmSDMA0_RLC0_CSA_ADDR_H=
+I; reg++)
+> -             DUMP_REG(sdma_base_addr + reg);
+> +             DUMP_REG(rlc_reg_offset + reg);
+>        for (reg =3D mmSDMA0_RLC0_IB_SUB_REMAIN;
+>             reg <=3D mmSDMA0_RLC0_MINOR_PTR_UPDATE; reg++)
+> -             DUMP_REG(sdma_base_addr + reg);
+> +             DUMP_REG(rlc_reg_offset + reg);
+>        for (reg =3D mmSDMA0_RLC0_MIDCMD_DATA0;
+>             reg <=3D mmSDMA0_RLC0_MIDCMD_CNTL; reg++)
+> -             DUMP_REG(sdma_base_addr + reg);
+> +             DUMP_REG(rlc_reg_offset + reg);
+>
+>        WARN_ON_ONCE(i !=3D HQD_N_REGS);
+>        *n_regs =3D i;
+> @@ -612,14 +608,14 @@ static bool kgd_hqd_sdma_is_occupied(struct kgd_dev=
+ *kgd, void *mqd)
+>   {
+>        struct amdgpu_device *adev =3D get_amdgpu_device(kgd);
+>        struct v10_sdma_mqd *m;
+> -     uint32_t sdma_base_addr;
+> +     uint32_t rlc_reg_offset;
+>        uint32_t sdma_rlc_rb_cntl;
+>
+>        m =3D get_sdma_mqd(mqd);
+> -     sdma_base_addr =3D get_sdma_base_addr(adev, m->sdma_engine_id,
+> +     rlc_reg_offset =3D get_rlc_reg_offset(adev, m->sdma_engine_id,
+>                                            m->sdma_queue_id);
+>
+> -     sdma_rlc_rb_cntl =3D RREG32(sdma_base_addr + mmSDMA0_RLC0_RB_CNTL);
+> +     sdma_rlc_rb_cntl =3D RREG32(rlc_reg_offset + mmSDMA0_RLC0_RB_CNTL);
+>
+>        if (sdma_rlc_rb_cntl & SDMA0_RLC0_RB_CNTL__RB_ENABLE_MASK)
+>                return true;
+> @@ -740,20 +736,20 @@ static int kgd_hqd_sdma_destroy(struct kgd_dev *kgd=
+, void *mqd,
+>   {
+>        struct amdgpu_device *adev =3D get_amdgpu_device(kgd);
+>        struct v10_sdma_mqd *m;
+> -     uint32_t sdma_base_addr;
+> +     uint32_t rlc_reg_offset;
+>        uint32_t temp;
+>        unsigned long end_jiffies =3D (utimeout * HZ / 1000) + jiffies;
+>
+>        m =3D get_sdma_mqd(mqd);
+> -     sdma_base_addr =3D get_sdma_base_addr(adev, m->sdma_engine_id,
+> +     rlc_reg_offset =3D get_rlc_reg_offset(adev, m->sdma_engine_id,
+>                                            m->sdma_queue_id);
+>
+> -     temp =3D RREG32(sdma_base_addr + mmSDMA0_RLC0_RB_CNTL);
+> +     temp =3D RREG32(rlc_reg_offset + mmSDMA0_RLC0_RB_CNTL);
+>        temp =3D temp & ~SDMA0_RLC0_RB_CNTL__RB_ENABLE_MASK;
+> -     WREG32(sdma_base_addr + mmSDMA0_RLC0_RB_CNTL, temp);
+> +     WREG32(rlc_reg_offset + mmSDMA0_RLC0_RB_CNTL, temp);
+>
+>        while (true) {
+> -             temp =3D RREG32(sdma_base_addr + mmSDMA0_RLC0_CONTEXT_STATU=
+S);
+> +             temp =3D RREG32(rlc_reg_offset + mmSDMA0_RLC0_CONTEXT_STATU=
+S);
+>                if (temp & SDMA0_RLC0_CONTEXT_STATUS__IDLE_MASK)
+>                        break;
+>                if (time_after(jiffies, end_jiffies))
+> @@ -761,14 +757,14 @@ static int kgd_hqd_sdma_destroy(struct kgd_dev *kgd=
+, void *mqd,
+>                usleep_range(500, 1000);
+>        }
+>
+> -     WREG32(sdma_base_addr + mmSDMA0_RLC0_DOORBELL, 0);
+> -     WREG32(sdma_base_addr + mmSDMA0_RLC0_RB_CNTL,
+> -             RREG32(sdma_base_addr + mmSDMA0_RLC0_RB_CNTL) |
+> +     WREG32(rlc_reg_offset + mmSDMA0_RLC0_DOORBELL, 0);
+> +     WREG32(rlc_reg_offset + mmSDMA0_RLC0_RB_CNTL,
+> +             RREG32(rlc_reg_offset + mmSDMA0_RLC0_RB_CNTL) |
+>                SDMA0_RLC0_RB_CNTL__RB_ENABLE_MASK);
+>
+> -     m->sdmax_rlcx_rb_rptr =3D RREG32(sdma_base_addr + mmSDMA0_RLC0_RB_R=
+PTR);
+> +     m->sdmax_rlcx_rb_rptr =3D RREG32(rlc_reg_offset + mmSDMA0_RLC0_RB_R=
+PTR);
+>        m->sdmax_rlcx_rb_rptr_hi =3D
+> -             RREG32(sdma_base_addr + mmSDMA0_RLC0_RB_RPTR_HI);
+> +             RREG32(rlc_reg_offset + mmSDMA0_RLC0_RB_RPTR_HI);
+>
+>        return 0;
+>   }
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v7.c b/drivers/=
+gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v7.c
+> index c6abcf72e822..d0517b7ae089 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v7.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v7.c
+> @@ -303,14 +303,14 @@ static int kgd_init_interrupts(struct kgd_dev *kgd,=
+ uint32_t pipe_id)
+>        return 0;
+>   }
+>
+> -static inline uint32_t get_sdma_base_addr(struct cik_sdma_rlc_registers =
+*m)
+> +static inline uint32_t get_rlc_reg_offset(struct cik_sdma_rlc_registers =
+*m)
+>   {
+>        uint32_t retval;
+>
+>        retval =3D m->sdma_engine_id * SDMA1_REGISTER_OFFSET +
+>                        m->sdma_queue_id * KFD_CIK_SDMA_QUEUE_OFFSET;
+>
+> -     pr_debug("sdma base address: 0x%x\n", retval);
+> +     pr_debug("RLC register offset: 0x%x\n", retval);
+>
+>        return retval;
+>   }
+> @@ -417,7 +417,7 @@ static int kgd_hqd_sdma_load(struct kgd_dev *kgd, voi=
+d *mqd,
+>        uint32_t data;
+>
+>        m =3D get_sdma_mqd(mqd);
+> -     sdma_base_addr =3D get_sdma_base_addr(m);
+> +     sdma_base_addr =3D get_rlc_reg_offset(m);
+>
+>        WREG32(sdma_base_addr + mmSDMA0_RLC0_RB_CNTL,
+>                m->sdma_rlc_rb_cntl & (~SDMA0_RLC0_RB_CNTL__RB_ENABLE_MASK=
+));
+> @@ -528,7 +528,7 @@ static bool kgd_hqd_sdma_is_occupied(struct kgd_dev *=
+kgd, void *mqd)
+>        uint32_t sdma_rlc_rb_cntl;
+>
+>        m =3D get_sdma_mqd(mqd);
+> -     sdma_base_addr =3D get_sdma_base_addr(m);
+> +     sdma_base_addr =3D get_rlc_reg_offset(m);
+>
+>        sdma_rlc_rb_cntl =3D RREG32(sdma_base_addr + mmSDMA0_RLC0_RB_CNTL)=
+;
+>
+> @@ -650,7 +650,7 @@ static int kgd_hqd_sdma_destroy(struct kgd_dev *kgd, =
+void *mqd,
+>        unsigned long end_jiffies =3D (utimeout * HZ / 1000) + jiffies;
+>
+>        m =3D get_sdma_mqd(mqd);
+> -     sdma_base_addr =3D get_sdma_base_addr(m);
+> +     sdma_base_addr =3D get_rlc_reg_offset(m);
+>
+>        temp =3D RREG32(sdma_base_addr + mmSDMA0_RLC0_RB_CNTL);
+>        temp =3D temp & ~SDMA0_RLC0_RB_CNTL__RB_ENABLE_MASK;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v8.c b/drivers/=
+gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v8.c
+> index 4e8b4e949926..373501abdb6b 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v8.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v8.c
+> @@ -260,13 +260,13 @@ static int kgd_init_interrupts(struct kgd_dev *kgd,=
+ uint32_t pipe_id)
+>        return 0;
+>   }
+>
+> -static inline uint32_t get_sdma_base_addr(struct vi_sdma_mqd *m)
+> +static inline uint32_t get_rlc_reg_offset(struct vi_sdma_mqd *m)
+>   {
+>        uint32_t retval;
+>
+>        retval =3D m->sdma_engine_id * SDMA1_REGISTER_OFFSET +
+>                m->sdma_queue_id * KFD_VI_SDMA_QUEUE_OFFSET;
+> -     pr_debug("sdma base address: 0x%x\n", retval);
+> +     pr_debug("RLC register offset: 0x%x\n", retval);
+>
+>        return retval;
+>   }
+> @@ -402,7 +402,7 @@ static int kgd_hqd_sdma_load(struct kgd_dev *kgd, voi=
+d *mqd,
+>        uint32_t data;
+>
+>        m =3D get_sdma_mqd(mqd);
+> -     sdma_base_addr =3D get_sdma_base_addr(m);
+> +     sdma_base_addr =3D get_rlc_reg_offset(m);
+>        WREG32(sdma_base_addr + mmSDMA0_RLC0_RB_CNTL,
+>                m->sdmax_rlcx_rb_cntl & (~SDMA0_RLC0_RB_CNTL__RB_ENABLE_MA=
+SK));
+>
+> @@ -521,7 +521,7 @@ static bool kgd_hqd_sdma_is_occupied(struct kgd_dev *=
+kgd, void *mqd)
+>        uint32_t sdma_rlc_rb_cntl;
+>
+>        m =3D get_sdma_mqd(mqd);
+> -     sdma_base_addr =3D get_sdma_base_addr(m);
+> +     sdma_base_addr =3D get_rlc_reg_offset(m);
+>
+>        sdma_rlc_rb_cntl =3D RREG32(sdma_base_addr + mmSDMA0_RLC0_RB_CNTL)=
+;
+>
+> @@ -646,7 +646,7 @@ static int kgd_hqd_sdma_destroy(struct kgd_dev *kgd, =
+void *mqd,
+>        unsigned long end_jiffies =3D (utimeout * HZ / 1000) + jiffies;
+>
+>        m =3D get_sdma_mqd(mqd);
+> -     sdma_base_addr =3D get_sdma_base_addr(m);
+> +     sdma_base_addr =3D get_rlc_reg_offset(m);
+>
+>        temp =3D RREG32(sdma_base_addr + mmSDMA0_RLC0_RB_CNTL);
+>        temp =3D temp & ~SDMA0_RLC0_RB_CNTL__RB_ENABLE_MASK;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c b/drivers/=
+gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
+> index 55437f160a72..2dd5bc676029 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
+> @@ -226,22 +226,20 @@ int kgd_gfx_v9_init_interrupts(struct kgd_dev *kgd,=
+ uint32_t pipe_id)
+>        return 0;
+>   }
+>
+> -static uint32_t get_sdma_base_addr(struct amdgpu_device *adev,
+> +static uint32_t get_rlc_reg_offset(struct amdgpu_device *adev,
+>                                unsigned int engine_id,
+>                                unsigned int queue_id)
+>   {
+> -     uint32_t base[2] =3D {
+> +     uint32_t sdma_engine_reg_base[2] =3D {
+>                SOC15_REG_OFFSET(SDMA0, 0,
+>                                 mmSDMA0_RLC0_RB_CNTL) - mmSDMA0_RLC0_RB_C=
+NTL,
+>                SOC15_REG_OFFSET(SDMA1, 0,
+>                                 mmSDMA1_RLC0_RB_CNTL) - mmSDMA1_RLC0_RB_C=
+NTL
+>        };
+> -     uint32_t retval;
+> +     uint32_t retval =3D sdma_engine_reg_base[engine_id]
+> +             + queue_id * (mmSDMA0_RLC1_RB_CNTL - mmSDMA0_RLC0_RB_CNTL);
+>
+> -     retval =3D base[engine_id] + queue_id * (mmSDMA0_RLC1_RB_CNTL -
+> -                                            mmSDMA0_RLC0_RB_CNTL);
+> -
+> -     pr_debug("sdma base address: 0x%x\n", retval);
+> +     pr_debug("RLC register offset: 0x%x\n", retval);
+>
+>        return retval;
+>   }
+> @@ -388,22 +386,22 @@ static int kgd_hqd_sdma_load(struct kgd_dev *kgd, v=
+oid *mqd,
+>   {
+>        struct amdgpu_device *adev =3D get_amdgpu_device(kgd);
+>        struct v9_sdma_mqd *m;
+> -     uint32_t sdma_base_addr;
+> +     uint32_t rlc_reg_offset;
+>        unsigned long end_jiffies;
+>        uint32_t data;
+>        uint64_t data64;
+>        uint64_t __user *wptr64 =3D (uint64_t __user *)wptr;
+>
+>        m =3D get_sdma_mqd(mqd);
+> -     sdma_base_addr =3D get_sdma_base_addr(adev, m->sdma_engine_id,
+> +     rlc_reg_offset =3D get_rlc_reg_offset(adev, m->sdma_engine_id,
+>                                            m->sdma_queue_id);
+>
+> -     WREG32(sdma_base_addr + mmSDMA0_RLC0_RB_CNTL,
+> +     WREG32(rlc_reg_offset + mmSDMA0_RLC0_RB_CNTL,
+>                m->sdmax_rlcx_rb_cntl & (~SDMA0_RLC0_RB_CNTL__RB_ENABLE_MA=
+SK));
+>
+>        end_jiffies =3D msecs_to_jiffies(2000) + jiffies;
+>        while (true) {
+> -             data =3D RREG32(sdma_base_addr + mmSDMA0_RLC0_CONTEXT_STATU=
+S);
+> +             data =3D RREG32(rlc_reg_offset + mmSDMA0_RLC0_CONTEXT_STATU=
+S);
+>                if (data & SDMA0_RLC0_CONTEXT_STATUS__IDLE_MASK)
+>                        break;
+>                if (time_after(jiffies, end_jiffies))
+> @@ -411,41 +409,41 @@ static int kgd_hqd_sdma_load(struct kgd_dev *kgd, v=
+oid *mqd,
+>                usleep_range(500, 1000);
+>        }
+>
+> -     WREG32(sdma_base_addr + mmSDMA0_RLC0_DOORBELL_OFFSET,
+> +     WREG32(rlc_reg_offset + mmSDMA0_RLC0_DOORBELL_OFFSET,
+>               m->sdmax_rlcx_doorbell_offset);
+>
+>        data =3D REG_SET_FIELD(m->sdmax_rlcx_doorbell, SDMA0_RLC0_DOORBELL=
+,
+>                             ENABLE, 1);
+> -     WREG32(sdma_base_addr + mmSDMA0_RLC0_DOORBELL, data);
+> -     WREG32(sdma_base_addr + mmSDMA0_RLC0_RB_RPTR, m->sdmax_rlcx_rb_rptr=
+);
+> -     WREG32(sdma_base_addr + mmSDMA0_RLC0_RB_RPTR_HI,
+> +     WREG32(rlc_reg_offset + mmSDMA0_RLC0_DOORBELL, data);
+> +     WREG32(rlc_reg_offset + mmSDMA0_RLC0_RB_RPTR, m->sdmax_rlcx_rb_rptr=
+);
+> +     WREG32(rlc_reg_offset + mmSDMA0_RLC0_RB_RPTR_HI,
+>                                m->sdmax_rlcx_rb_rptr_hi);
+>
+> -     WREG32(sdma_base_addr + mmSDMA0_RLC0_MINOR_PTR_UPDATE, 1);
+> +     WREG32(rlc_reg_offset + mmSDMA0_RLC0_MINOR_PTR_UPDATE, 1);
+>        if (read_user_wptr(mm, wptr64, data64)) {
+> -             WREG32(sdma_base_addr + mmSDMA0_RLC0_RB_WPTR,
+> +             WREG32(rlc_reg_offset + mmSDMA0_RLC0_RB_WPTR,
+>                       lower_32_bits(data64));
+> -             WREG32(sdma_base_addr + mmSDMA0_RLC0_RB_WPTR_HI,
+> +             WREG32(rlc_reg_offset + mmSDMA0_RLC0_RB_WPTR_HI,
+>                       upper_32_bits(data64));
+>        } else {
+> -             WREG32(sdma_base_addr + mmSDMA0_RLC0_RB_WPTR,
+> +             WREG32(rlc_reg_offset + mmSDMA0_RLC0_RB_WPTR,
+>                       m->sdmax_rlcx_rb_rptr);
+> -             WREG32(sdma_base_addr + mmSDMA0_RLC0_RB_WPTR_HI,
+> +             WREG32(rlc_reg_offset + mmSDMA0_RLC0_RB_WPTR_HI,
+>                       m->sdmax_rlcx_rb_rptr_hi);
+>        }
+> -     WREG32(sdma_base_addr + mmSDMA0_RLC0_MINOR_PTR_UPDATE, 0);
+> +     WREG32(rlc_reg_offset + mmSDMA0_RLC0_MINOR_PTR_UPDATE, 0);
+>
+> -     WREG32(sdma_base_addr + mmSDMA0_RLC0_RB_BASE, m->sdmax_rlcx_rb_base=
+);
+> -     WREG32(sdma_base_addr + mmSDMA0_RLC0_RB_BASE_HI,
+> +     WREG32(rlc_reg_offset + mmSDMA0_RLC0_RB_BASE, m->sdmax_rlcx_rb_base=
+);
+> +     WREG32(rlc_reg_offset + mmSDMA0_RLC0_RB_BASE_HI,
+>                        m->sdmax_rlcx_rb_base_hi);
+> -     WREG32(sdma_base_addr + mmSDMA0_RLC0_RB_RPTR_ADDR_LO,
+> +     WREG32(rlc_reg_offset + mmSDMA0_RLC0_RB_RPTR_ADDR_LO,
+>                        m->sdmax_rlcx_rb_rptr_addr_lo);
+> -     WREG32(sdma_base_addr + mmSDMA0_RLC0_RB_RPTR_ADDR_HI,
+> +     WREG32(rlc_reg_offset + mmSDMA0_RLC0_RB_RPTR_ADDR_HI,
+>                        m->sdmax_rlcx_rb_rptr_addr_hi);
+>
+>        data =3D REG_SET_FIELD(m->sdmax_rlcx_rb_cntl, SDMA0_RLC0_RB_CNTL,
+>                             RB_ENABLE, 1);
+> -     WREG32(sdma_base_addr + mmSDMA0_RLC0_RB_CNTL, data);
+> +     WREG32(rlc_reg_offset + mmSDMA0_RLC0_RB_CNTL, data);
+>
+>        return 0;
+>   }
+> @@ -455,7 +453,7 @@ static int kgd_hqd_sdma_dump(struct kgd_dev *kgd,
+>                             uint32_t (**dump)[2], uint32_t *n_regs)
+>   {
+>        struct amdgpu_device *adev =3D get_amdgpu_device(kgd);
+> -     uint32_t sdma_base_addr =3D get_sdma_base_addr(adev, engine_id, que=
+ue_id);
+> +     uint32_t rlc_reg_offset =3D get_rlc_reg_offset(adev, engine_id, que=
+ue_id);
+>        uint32_t i =3D 0, reg;
+>   #undef HQD_N_REGS
+>   #define HQD_N_REGS (19+6+7+10)
+> @@ -465,15 +463,15 @@ static int kgd_hqd_sdma_dump(struct kgd_dev *kgd,
+>                return -ENOMEM;
+>
+>        for (reg =3D mmSDMA0_RLC0_RB_CNTL; reg <=3D mmSDMA0_RLC0_DOORBELL;=
+ reg++)
+> -             DUMP_REG(sdma_base_addr + reg);
+> +             DUMP_REG(rlc_reg_offset + reg);
+>        for (reg =3D mmSDMA0_RLC0_STATUS; reg <=3D mmSDMA0_RLC0_CSA_ADDR_H=
+I; reg++)
+> -             DUMP_REG(sdma_base_addr + reg);
+> +             DUMP_REG(rlc_reg_offset + reg);
+>        for (reg =3D mmSDMA0_RLC0_IB_SUB_REMAIN;
+>             reg <=3D mmSDMA0_RLC0_MINOR_PTR_UPDATE; reg++)
+> -             DUMP_REG(sdma_base_addr + reg);
+> +             DUMP_REG(rlc_reg_offset + reg);
+>        for (reg =3D mmSDMA0_RLC0_MIDCMD_DATA0;
+>             reg <=3D mmSDMA0_RLC0_MIDCMD_CNTL; reg++)
+> -             DUMP_REG(sdma_base_addr + reg);
+> +             DUMP_REG(rlc_reg_offset + reg);
+>
+>        WARN_ON_ONCE(i !=3D HQD_N_REGS);
+>        *n_regs =3D i;
+> @@ -507,14 +505,14 @@ static bool kgd_hqd_sdma_is_occupied(struct kgd_dev=
+ *kgd, void *mqd)
+>   {
+>        struct amdgpu_device *adev =3D get_amdgpu_device(kgd);
+>        struct v9_sdma_mqd *m;
+> -     uint32_t sdma_base_addr;
+> +     uint32_t rlc_reg_offset;
+>        uint32_t sdma_rlc_rb_cntl;
+>
+>        m =3D get_sdma_mqd(mqd);
+> -     sdma_base_addr =3D get_sdma_base_addr(adev, m->sdma_engine_id,
+> +     rlc_reg_offset =3D get_rlc_reg_offset(adev, m->sdma_engine_id,
+>                                            m->sdma_queue_id);
+>
+> -     sdma_rlc_rb_cntl =3D RREG32(sdma_base_addr + mmSDMA0_RLC0_RB_CNTL);
+> +     sdma_rlc_rb_cntl =3D RREG32(rlc_reg_offset + mmSDMA0_RLC0_RB_CNTL);
+>
+>        if (sdma_rlc_rb_cntl & SDMA0_RLC0_RB_CNTL__RB_ENABLE_MASK)
+>                return true;
+> @@ -577,20 +575,20 @@ static int kgd_hqd_sdma_destroy(struct kgd_dev *kgd=
+, void *mqd,
+>   {
+>        struct amdgpu_device *adev =3D get_amdgpu_device(kgd);
+>        struct v9_sdma_mqd *m;
+> -     uint32_t sdma_base_addr;
+> +     uint32_t rlc_reg_offset;
+>        uint32_t temp;
+>        unsigned long end_jiffies =3D (utimeout * HZ / 1000) + jiffies;
+>
+>        m =3D get_sdma_mqd(mqd);
+> -     sdma_base_addr =3D get_sdma_base_addr(adev, m->sdma_engine_id,
+> +     rlc_reg_offset =3D get_rlc_reg_offset(adev, m->sdma_engine_id,
+>                                            m->sdma_queue_id);
+>
+> -     temp =3D RREG32(sdma_base_addr + mmSDMA0_RLC0_RB_CNTL);
+> +     temp =3D RREG32(rlc_reg_offset + mmSDMA0_RLC0_RB_CNTL);
+>        temp =3D temp & ~SDMA0_RLC0_RB_CNTL__RB_ENABLE_MASK;
+> -     WREG32(sdma_base_addr + mmSDMA0_RLC0_RB_CNTL, temp);
+> +     WREG32(rlc_reg_offset + mmSDMA0_RLC0_RB_CNTL, temp);
+>
+>        while (true) {
+> -             temp =3D RREG32(sdma_base_addr + mmSDMA0_RLC0_CONTEXT_STATU=
+S);
+> +             temp =3D RREG32(rlc_reg_offset + mmSDMA0_RLC0_CONTEXT_STATU=
+S);
+>                if (temp & SDMA0_RLC0_CONTEXT_STATUS__IDLE_MASK)
+>                        break;
+>                if (time_after(jiffies, end_jiffies))
+> @@ -598,14 +596,14 @@ static int kgd_hqd_sdma_destroy(struct kgd_dev *kgd=
+, void *mqd,
+>                usleep_range(500, 1000);
+>        }
+>
+> -     WREG32(sdma_base_addr + mmSDMA0_RLC0_DOORBELL, 0);
+> -     WREG32(sdma_base_addr + mmSDMA0_RLC0_RB_CNTL,
+> -             RREG32(sdma_base_addr + mmSDMA0_RLC0_RB_CNTL) |
+> +     WREG32(rlc_reg_offset + mmSDMA0_RLC0_DOORBELL, 0);
+> +     WREG32(rlc_reg_offset + mmSDMA0_RLC0_RB_CNTL,
+> +             RREG32(rlc_reg_offset + mmSDMA0_RLC0_RB_CNTL) |
+>                SDMA0_RLC0_RB_CNTL__RB_ENABLE_MASK);
+>
+> -     m->sdmax_rlcx_rb_rptr =3D RREG32(sdma_base_addr + mmSDMA0_RLC0_RB_R=
+PTR);
+> +     m->sdmax_rlcx_rb_rptr =3D RREG32(rlc_reg_offset + mmSDMA0_RLC0_RB_R=
+PTR);
+>        m->sdmax_rlcx_rb_rptr_hi =3D
+> -             RREG32(sdma_base_addr + mmSDMA0_RLC0_RB_RPTR_HI);
+> +             RREG32(rlc_reg_offset + mmSDMA0_RLC0_RB_RPTR_HI);
+>
+>        return 0;
+>   }
+
+--_000_DM6PR12MB27784ED82D2680435D20248FF0850DM6PR12MB2778namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Okay, I will incorporate Shaoyun's input.&nbsp;</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Yong</div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Liu, Shaoyun &lt;Shao=
+yun.Liu-5C7GfCeVMHo@public.gmane.org&gt;<br>
+<b>Sent:</b> Monday, September 23, 2019 10:27 AM<br>
+<b>To:</b> Zhao, Yong &lt;Yong.Zhao-5C7GfCeVMHo@public.gmane.org&gt;; amd-gfx-PD4FTy7X32lNgt0PjOBp9/rsn8yoX9R0@public.gmane.org=
+org &lt;amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt;<br>
+<b>Subject:</b> Re: [PATCH 2/2] drm/amdkfd: Use better name for sdma queue =
+non HWS path</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">Probably rename to sdma_rlc to avoid the&nbsp; con=
+fusion of&nbsp; rlc used in
+<br>
+other amdgpu driver .<br>
+<br>
+Regards<br>
+<br>
+shaoyun.liu<br>
+<br>
+On 2019-09-22 11:56 p.m., Zhao, Yong wrote:<br>
+&gt; The old name is prone to confusion. The register offset is for a RLC q=
+ueue<br>
+&gt; rather than a SDMA engine. The value is not a base address, but a<br>
+&gt; register offset.<br>
+&gt;<br>
+&gt; Change-Id: I55fb835f2105392344b1c17323bb55c03f927836<br>
+&gt; Signed-off-by: Yong Zhao &lt;Yong.Zhao-5C7GfCeVMHo@public.gmane.org&gt;<br>
+&gt; ---<br>
+&gt;&nbsp;&nbsp; .../drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c&nbsp;&nbsp; | =
+85 &#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;---------<br>
+&gt;&nbsp;&nbsp; .../drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c&nbsp;&nbsp;&nbs=
+p; | 90 &#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;----------<br>
+&gt;&nbsp;&nbsp; .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v7.c | 10 &#43;--=
+<br>
+&gt;&nbsp;&nbsp; .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v8.c | 10 &#43;--=
+<br>
+&gt;&nbsp;&nbsp; .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c | 86 &#43;&#=
+43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;---------<br>
+&gt;&nbsp;&nbsp; 5 files changed, 137 insertions(&#43;), 144 deletions(-)<b=
+r>
+&gt;<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c b/dri=
+vers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c<br>
+&gt; index c9ce1516956e..d2c0666c2798 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c<br>
+&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c<=
+br>
+&gt; @@ -70,11 &#43;70,11 @@ static inline struct v9_sdma_mqd *get_sdma_mqd=
+(void *mqd)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return (struct v9_sdma_mqd *=
+)mqd;<br>
+&gt;&nbsp;&nbsp; }<br>
+&gt;&nbsp;&nbsp; <br>
+&gt; -static uint32_t get_sdma_base_addr(struct amdgpu_device *adev,<br>
+&gt; &#43;static uint32_t get_rlc_reg_offset(struct amdgpu_device *adev,<br=
+>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unsigned int engine_id,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unsigned int queue_id)<br>
+&gt;&nbsp;&nbsp; {<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; uint32_t base[8] =3D {<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t sdma_engine_reg_base[8] =3D {<b=
+r>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; SOC15_REG_OFFSET(SDMA0, 0,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mmSDMA0_RLC0_RB_CNTL) - mmSD=
+MA0_RLC0_RB_CNTL,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; SOC15_REG_OFFSET(SDMA1, 0,<br>
+&gt; @@ -92,12 &#43;92,11 @@ static uint32_t get_sdma_base_addr(struct amdg=
+pu_device *adev,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; SOC15_REG_OFFSET(SDMA7, 0,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mmSDMA7_RLC0_RB_CNTL) - mmSD=
+MA7_RLC0_RB_CNTL<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; };<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; uint32_t retval;<br>
+&gt;&nbsp;&nbsp; <br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; retval =3D base[engine_id] &#43; queue_id * =
+(mmSDMA0_RLC1_RB_CNTL -<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mmSDMA0_RLC0_RB_CNTL);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t retval =3D sdma_engine_reg_base=
+[engine_id]<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; &#43; queue_id * (mmSDMA0_RLC1_RB_CNTL - mmSDMA0_RLC0_RB_CNTL);<br>
+&gt;&nbsp;&nbsp; <br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; pr_debug(&quot;sdma base address: 0x%x\n&quo=
+t;, retval);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; pr_debug(&quot;RLC register offset: 0x%x=
+\n&quot;, retval);<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return retval;<br>
+&gt;&nbsp;&nbsp; }<br>
+&gt; @@ -107,22 &#43;106,22 @@ static int kgd_hqd_sdma_load(struct kgd_dev =
+*kgd, void *mqd,<br>
+&gt;&nbsp;&nbsp; {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev =
+=3D get_amdgpu_device(kgd);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct v9_sdma_mqd *m;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; uint32_t sdma_base_addr;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t rlc_reg_offset;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unsigned long end_jiffies;<b=
+r>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t data;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint64_t data64;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint64_t __user *wptr64 =3D =
+(uint64_t __user *)wptr;<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; m =3D get_sdma_mqd(mqd);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; sdma_base_addr =3D get_sdma_base_addr(adev, =
+m-&gt;sdma_engine_id,<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; rlc_reg_offset =3D get_rlc_reg_offset(ad=
+ev, m-&gt;sdma_engine_id,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; m-&gt;sdma_queue_id);<br>
+&gt;&nbsp;&nbsp; <br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; WREG32(sdma_base_addr &#43; mmSDMA0_RLC0_RB_=
+CNTL,<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; WREG32(rlc_reg_offset &#43; mmSDMA0_RLC0=
+_RB_CNTL,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; m-&gt;sdmax_rlcx_rb_cntl &amp; (~SDMA0_RLC0_RB_CNTL__RB=
+_ENABLE_MASK));<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; end_jiffies =3D msecs_to_jif=
+fies(2000) &#43; jiffies;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; while (true) {<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; data =3D RREG32(sdma_base_addr &#43; mmSDMA0_RLC0_CONTEXT_STATUS);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; data =3D RREG32(rlc_reg_offset &#43; mmSDMA0_RLC0_CONTEXT_STATUS);<=
+br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; if (data &amp; SDMA0_RLC0_CONTEXT_STATUS__IDLE_MASK)<br=
+>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; break;<=
+br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; if (time_after(jiffies, end_jiffies))<br>
+&gt; @@ -130,41 &#43;129,41 @@ static int kgd_hqd_sdma_load(struct kgd_dev =
+*kgd, void *mqd,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; usleep_range(500, 1000);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt;&nbsp;&nbsp; <br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; WREG32(sdma_base_addr &#43; mmSDMA0_RLC0_DOO=
+RBELL_OFFSET,<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; WREG32(rlc_reg_offset &#43; mmSDMA0_RLC0=
+_DOORBELL_OFFSET,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; m-&gt;sdmax_rlcx_doorbell_offset);<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; data =3D REG_SET_FIELD(m-&gt=
+;sdmax_rlcx_doorbell, SDMA0_RLC0_DOORBELL,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp; ENABLE, 1);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; WREG32(sdma_base_addr &#43; mmSDMA0_RLC0_DOO=
+RBELL, data);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; WREG32(sdma_base_addr &#43; mmSDMA0_RLC0_RB_=
+RPTR, m-&gt;sdmax_rlcx_rb_rptr);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; WREG32(sdma_base_addr &#43; mmSDMA0_RLC0_RB_=
+RPTR_HI,<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; WREG32(rlc_reg_offset &#43; mmSDMA0_RLC0=
+_DOORBELL, data);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; WREG32(rlc_reg_offset &#43; mmSDMA0_RLC0=
+_RB_RPTR, m-&gt;sdmax_rlcx_rb_rptr);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; WREG32(rlc_reg_offset &#43; mmSDMA0_RLC0=
+_RB_RPTR_HI,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; m-&gt;sdmax_rlcx_rb_rptr_hi);<br>
+&gt;&nbsp;&nbsp; <br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; WREG32(sdma_base_addr &#43; mmSDMA0_RLC0_MIN=
+OR_PTR_UPDATE, 1);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; WREG32(rlc_reg_offset &#43; mmSDMA0_RLC0=
+_MINOR_PTR_UPDATE, 1);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (read_user_wptr(mm, wptr6=
+4, data64)) {<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; WREG32(sdma_base_addr &#43; mmSDMA0_RLC0_RB_WPTR,<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; WREG32(rlc_reg_offset &#43; mmSDMA0_RLC0_RB_WPTR,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; lower_32_bits=
+(data64));<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; WREG32(sdma_base_addr &#43; mmSDMA0_RLC0_RB_WPTR_HI,<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; WREG32(rlc_reg_offset &#43; mmSDMA0_RLC0_RB_WPTR_HI,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; upper_32_bits=
+(data64));<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else {<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; WREG32(sdma_base_addr &#43; mmSDMA0_RLC0_RB_WPTR,<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; WREG32(rlc_reg_offset &#43; mmSDMA0_RLC0_RB_WPTR,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; m-&gt;sdmax_r=
+lcx_rb_rptr);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; WREG32(sdma_base_addr &#43; mmSDMA0_RLC0_RB_WPTR_HI,<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; WREG32(rlc_reg_offset &#43; mmSDMA0_RLC0_RB_WPTR_HI,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; m-&gt;sdmax_r=
+lcx_rb_rptr_hi);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; WREG32(sdma_base_addr &#43; mmSDMA0_RLC0_MIN=
+OR_PTR_UPDATE, 0);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; WREG32(rlc_reg_offset &#43; mmSDMA0_RLC0=
+_MINOR_PTR_UPDATE, 0);<br>
+&gt;&nbsp;&nbsp; <br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; WREG32(sdma_base_addr &#43; mmSDMA0_RLC0_RB_=
+BASE, m-&gt;sdmax_rlcx_rb_base);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; WREG32(sdma_base_addr &#43; mmSDMA0_RLC0_RB_=
+BASE_HI,<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; WREG32(rlc_reg_offset &#43; mmSDMA0_RLC0=
+_RB_BASE, m-&gt;sdmax_rlcx_rb_base);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; WREG32(rlc_reg_offset &#43; mmSDMA0_RLC0=
+_RB_BASE_HI,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; m-&gt;s=
+dmax_rlcx_rb_base_hi);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; WREG32(sdma_base_addr &#43; mmSDMA0_RLC0_RB_=
+RPTR_ADDR_LO,<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; WREG32(rlc_reg_offset &#43; mmSDMA0_RLC0=
+_RB_RPTR_ADDR_LO,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; m-&gt;s=
+dmax_rlcx_rb_rptr_addr_lo);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; WREG32(sdma_base_addr &#43; mmSDMA0_RLC0_RB_=
+RPTR_ADDR_HI,<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; WREG32(rlc_reg_offset &#43; mmSDMA0_RLC0=
+_RB_RPTR_ADDR_HI,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; m-&gt;s=
+dmax_rlcx_rb_rptr_addr_hi);<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; data =3D REG_SET_FIELD(m-&gt=
+;sdmax_rlcx_rb_cntl, SDMA0_RLC0_RB_CNTL,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp; RB_ENABLE, 1);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; WREG32(sdma_base_addr &#43; mmSDMA0_RLC0_RB_=
+CNTL, data);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; WREG32(rlc_reg_offset &#43; mmSDMA0_RLC0=
+_RB_CNTL, data);<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+&gt;&nbsp;&nbsp; }<br>
+&gt; @@ -174,7 &#43;173,7 @@ static int kgd_hqd_sdma_dump(struct kgd_dev *k=
+gd,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp; uint32_t (**dump)[2], uint32_t *n_regs)<br>
+&gt;&nbsp;&nbsp; {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev =
+=3D get_amdgpu_device(kgd);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; uint32_t sdma_base_addr =3D get_sdma_base_ad=
+dr(adev, engine_id, queue_id);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t rlc_reg_offset =3D get_rlc_reg_=
+offset(adev, engine_id, queue_id);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t i =3D 0, reg;<br>
+&gt;&nbsp;&nbsp; #undef HQD_N_REGS<br>
+&gt;&nbsp;&nbsp; #define HQD_N_REGS (19&#43;6&#43;7&#43;10)<br>
+&gt; @@ -184,15 &#43;183,15 @@ static int kgd_hqd_sdma_dump(struct kgd_dev =
+*kgd,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; return -ENOMEM;<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (reg =3D mmSDMA0_RLC0_RB=
+_CNTL; reg &lt;=3D mmSDMA0_RLC0_DOORBELL; reg&#43;&#43;)<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; DUMP_REG(sdma_base_addr &#43; reg);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; DUMP_REG(rlc_reg_offset &#43; reg);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (reg =3D mmSDMA0_RLC0_ST=
+ATUS; reg &lt;=3D mmSDMA0_RLC0_CSA_ADDR_HI; reg&#43;&#43;)<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; DUMP_REG(sdma_base_addr &#43; reg);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; DUMP_REG(rlc_reg_offset &#43; reg);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (reg =3D mmSDMA0_RLC0_IB=
+_SUB_REMAIN;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+; reg &lt;=3D mmSDMA0_RLC0_MINOR_PTR_UPDATE; reg&#43;&#43;)<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; DUMP_REG(sdma_base_addr &#43; reg);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; DUMP_REG(rlc_reg_offset &#43; reg);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (reg =3D mmSDMA0_RLC0_MI=
+DCMD_DATA0;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+; reg &lt;=3D mmSDMA0_RLC0_MIDCMD_CNTL; reg&#43;&#43;)<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; DUMP_REG(sdma_base_addr &#43; reg);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; DUMP_REG(rlc_reg_offset &#43; reg);<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WARN_ON_ONCE(i !=3D HQD_N_RE=
+GS);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *n_regs =3D i;<br>
+&gt; @@ -204,14 &#43;203,14 @@ static bool kgd_hqd_sdma_is_occupied(struct =
+kgd_dev *kgd, void *mqd)<br>
+&gt;&nbsp;&nbsp; {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev =
+=3D get_amdgpu_device(kgd);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct v9_sdma_mqd *m;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; uint32_t sdma_base_addr;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t rlc_reg_offset;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t sdma_rlc_rb_cntl;<b=
+r>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; m =3D get_sdma_mqd(mqd);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; sdma_base_addr =3D get_sdma_base_addr(adev, =
+m-&gt;sdma_engine_id,<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; rlc_reg_offset =3D get_rlc_reg_offset(ad=
+ev, m-&gt;sdma_engine_id,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; m-&gt;sdma_queue_id);<br>
+&gt;&nbsp;&nbsp; <br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; sdma_rlc_rb_cntl =3D RREG32(sdma_base_addr &=
+#43; mmSDMA0_RLC0_RB_CNTL);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; sdma_rlc_rb_cntl =3D RREG32(rlc_reg_offs=
+et &#43; mmSDMA0_RLC0_RB_CNTL);<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (sdma_rlc_rb_cntl &amp; S=
+DMA0_RLC0_RB_CNTL__RB_ENABLE_MASK)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; return true;<br>
+&gt; @@ -224,20 &#43;223,20 @@ static int kgd_hqd_sdma_destroy(struct kgd_d=
+ev *kgd, void *mqd,<br>
+&gt;&nbsp;&nbsp; {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev =
+=3D get_amdgpu_device(kgd);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct v9_sdma_mqd *m;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; uint32_t sdma_base_addr;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t rlc_reg_offset;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t temp;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unsigned long end_jiffies =
+=3D (utimeout * HZ / 1000) &#43; jiffies;<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; m =3D get_sdma_mqd(mqd);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; sdma_base_addr =3D get_sdma_base_addr(adev, =
+m-&gt;sdma_engine_id,<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; rlc_reg_offset =3D get_rlc_reg_offset(ad=
+ev, m-&gt;sdma_engine_id,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; m-&gt;sdma_queue_id);<br>
+&gt;&nbsp;&nbsp; <br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; temp =3D RREG32(sdma_base_addr &#43; mmSDMA0=
+_RLC0_RB_CNTL);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; temp =3D RREG32(rlc_reg_offset &#43; mmS=
+DMA0_RLC0_RB_CNTL);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; temp =3D temp &amp; ~SDMA0_R=
+LC0_RB_CNTL__RB_ENABLE_MASK;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; WREG32(sdma_base_addr &#43; mmSDMA0_RLC0_RB_=
+CNTL, temp);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; WREG32(rlc_reg_offset &#43; mmSDMA0_RLC0=
+_RB_CNTL, temp);<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; while (true) {<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; temp =3D RREG32(sdma_base_addr &#43; mmSDMA0_RLC0_CONTEXT_STATUS);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; temp =3D RREG32(rlc_reg_offset &#43; mmSDMA0_RLC0_CONTEXT_STATUS);<=
+br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; if (temp &amp; SDMA0_RLC0_CONTEXT_STATUS__IDLE_MASK)<br=
+>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; break;<=
+br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; if (time_after(jiffies, end_jiffies))<br>
+&gt; @@ -245,14 &#43;244,14 @@ static int kgd_hqd_sdma_destroy(struct kgd_d=
+ev *kgd, void *mqd,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; usleep_range(500, 1000);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt;&nbsp;&nbsp; <br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; WREG32(sdma_base_addr &#43; mmSDMA0_RLC0_DOO=
+RBELL, 0);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; WREG32(sdma_base_addr &#43; mmSDMA0_RLC0_RB_=
+CNTL,<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; RREG32(sdma_base_addr &#43; mmSDMA0_RLC0_RB_CNTL) |<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; WREG32(rlc_reg_offset &#43; mmSDMA0_RLC0=
+_DOORBELL, 0);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; WREG32(rlc_reg_offset &#43; mmSDMA0_RLC0=
+_RB_CNTL,<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; RREG32(rlc_reg_offset &#43; mmSDMA0_RLC0_RB_CNTL) |<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; SDMA0_RLC0_RB_CNTL__RB_ENABLE_MASK);<br>
+&gt;&nbsp;&nbsp; <br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; m-&gt;sdmax_rlcx_rb_rptr =3D RREG32(sdma_bas=
+e_addr &#43; mmSDMA0_RLC0_RB_RPTR);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; m-&gt;sdmax_rlcx_rb_rptr =3D RREG32(rlc_=
+reg_offset &#43; mmSDMA0_RLC0_RB_RPTR);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; m-&gt;sdmax_rlcx_rb_rptr_hi =
+=3D<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; RREG32(sdma_base_addr &#43; mmSDMA0_RLC0_RB_RPTR_HI);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; RREG32(rlc_reg_offset &#43; mmSDMA0_RLC0_RB_RPTR_HI);<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+&gt;&nbsp;&nbsp; }<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c b/driv=
+ers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c<br>
+&gt; index a4325db8d093..ee520ad90717 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c<br>
+&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c<b=
+r>
+&gt; @@ -307,11 &#43;307,11 @@ static int kgd_init_interrupts(struct kgd_de=
+v *kgd, uint32_t pipe_id)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+&gt;&nbsp;&nbsp; }<br>
+&gt;&nbsp;&nbsp; <br>
+&gt; -static uint32_t get_sdma_base_addr(struct amdgpu_device *adev,<br>
+&gt; &#43;static uint32_t get_rlc_reg_offset(struct amdgpu_device *adev,<br=
+>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unsigned int engine_id,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unsigned int queue_id)<br>
+&gt;&nbsp;&nbsp; {<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; uint32_t base[2] =3D {<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t sdma_engine_reg_base[2] =3D {<b=
+r>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; SOC15_REG_OFFSET(SDMA0, 0,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mmSDMA0_RLC0_RB_CNTL) - mmSD=
+MA0_RLC0_RB_CNTL,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; /* On gfx10, mmSDMA1_xxx registers are defined NOT base=
+d<br>
+&gt; @@ -323,12 &#43;323,11 @@ static uint32_t get_sdma_base_addr(struct am=
+dgpu_device *adev,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; SOC15_REG_OFFSET(SDMA1, 0,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mmSDMA1_RLC0_RB_CNTL) - mmSD=
+MA0_RLC0_RB_CNTL<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; };<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; uint32_t retval;<br>
+&gt;&nbsp;&nbsp; <br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; retval =3D base[engine_id] &#43; queue_id * =
+(mmSDMA0_RLC1_RB_CNTL -<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mmSDMA0_RLC0_RB_CNTL);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t retval =3D sdma_engine_reg_base=
+[engine_id]<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; &#43; queue_id * (mmSDMA0_RLC1_RB_CNTL - mmSDMA0_RLC0_RB_CNTL);<br>
+&gt;&nbsp;&nbsp; <br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; pr_debug(&quot;sdma base address: 0x%x\n&quo=
+t;, retval);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; pr_debug(&quot;RLC register offset: 0x%x=
+\n&quot;, retval);<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return retval;<br>
+&gt;&nbsp;&nbsp; }<br>
+&gt; @@ -489,23 &#43;488,23 @@ static int kgd_hqd_sdma_load(struct kgd_dev =
+*kgd, void *mqd,<br>
+&gt;&nbsp;&nbsp; {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev =
+=3D get_amdgpu_device(kgd);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct v10_sdma_mqd *m;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; uint32_t sdma_base_addr;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t rlc_reg_offset;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unsigned long end_jiffies;<b=
+r>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t data;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint64_t data64;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint64_t __user *wptr64 =3D =
+(uint64_t __user *)wptr;<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; m =3D get_sdma_mqd(mqd);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; sdma_base_addr =3D get_sdma_base_addr(adev, =
+m-&gt;sdma_engine_id,<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; rlc_reg_offset =3D get_rlc_reg_offset(ad=
+ev, m-&gt;sdma_engine_id,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; m-&gt;sdma_queue_id);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; pr_debug(&quot;sdma load base addr %x for en=
+gine %d, queue %d\n&quot;, sdma_base_addr, m-&gt;sdma_engine_id, m-&gt;sdma=
+_queue_id);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; pr_debug(&quot;sdma load base addr 0x%x =
+for engine %d, queue %d\n&quot;, rlc_reg_offset, m-&gt;sdma_engine_id, m-&g=
+t;sdma_queue_id);<br>
+&gt;&nbsp;&nbsp; <br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; WREG32(sdma_base_addr &#43; mmSDMA0_RLC0_RB_=
+CNTL,<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; WREG32(rlc_reg_offset &#43; mmSDMA0_RLC0=
+_RB_CNTL,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; m-&gt;sdmax_rlcx_rb_cntl &amp; (~SDMA0_RLC0_RB_CNTL__RB=
+_ENABLE_MASK));<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; end_jiffies =3D msecs_to_jif=
+fies(2000) &#43; jiffies;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; while (true) {<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; data =3D RREG32(sdma_base_addr &#43; mmSDMA0_RLC0_CONTEXT_STATUS);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; data =3D RREG32(rlc_reg_offset &#43; mmSDMA0_RLC0_CONTEXT_STATUS);<=
+br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; if (data &amp; SDMA0_RLC0_CONTEXT_STATUS__IDLE_MASK)<br=
+>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; break;<=
+br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; if (time_after(jiffies, end_jiffies))<br>
+&gt; @@ -513,41 &#43;512,41 @@ static int kgd_hqd_sdma_load(struct kgd_dev =
+*kgd, void *mqd,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; usleep_range(500, 1000);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt;&nbsp;&nbsp; <br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; WREG32(sdma_base_addr &#43; mmSDMA0_RLC0_DOO=
+RBELL_OFFSET,<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; WREG32(rlc_reg_offset &#43; mmSDMA0_RLC0=
+_DOORBELL_OFFSET,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; m-&gt;sdmax_rlcx_doorbell_offset);<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; data =3D REG_SET_FIELD(m-&gt=
+;sdmax_rlcx_doorbell, SDMA0_RLC0_DOORBELL,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp; ENABLE, 1);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; WREG32(sdma_base_addr &#43; mmSDMA0_RLC0_DOO=
+RBELL, data);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; WREG32(sdma_base_addr &#43; mmSDMA0_RLC0_RB_=
+RPTR, m-&gt;sdmax_rlcx_rb_rptr);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; WREG32(sdma_base_addr &#43; mmSDMA0_RLC0_RB_=
+RPTR_HI,<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; WREG32(rlc_reg_offset &#43; mmSDMA0_RLC0=
+_DOORBELL, data);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; WREG32(rlc_reg_offset &#43; mmSDMA0_RLC0=
+_RB_RPTR, m-&gt;sdmax_rlcx_rb_rptr);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; WREG32(rlc_reg_offset &#43; mmSDMA0_RLC0=
+_RB_RPTR_HI,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; m-&gt;sdmax_rlcx_rb_rptr_hi);<br>
+&gt;&nbsp;&nbsp; <br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; WREG32(sdma_base_addr &#43; mmSDMA0_RLC0_MIN=
+OR_PTR_UPDATE, 1);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; WREG32(rlc_reg_offset &#43; mmSDMA0_RLC0=
+_MINOR_PTR_UPDATE, 1);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (read_user_wptr(mm, wptr6=
+4, data64)) {<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; WREG32(sdma_base_addr &#43; mmSDMA0_RLC0_RB_WPTR,<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; WREG32(rlc_reg_offset &#43; mmSDMA0_RLC0_RB_WPTR,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; lower_32_bits=
+(data64));<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; WREG32(sdma_base_addr &#43; mmSDMA0_RLC0_RB_WPTR_HI,<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; WREG32(rlc_reg_offset &#43; mmSDMA0_RLC0_RB_WPTR_HI,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; upper_32_bits=
+(data64));<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else {<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; WREG32(sdma_base_addr &#43; mmSDMA0_RLC0_RB_WPTR,<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; WREG32(rlc_reg_offset &#43; mmSDMA0_RLC0_RB_WPTR,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; m-&gt;sdmax_r=
+lcx_rb_rptr);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; WREG32(sdma_base_addr &#43; mmSDMA0_RLC0_RB_WPTR_HI,<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; WREG32(rlc_reg_offset &#43; mmSDMA0_RLC0_RB_WPTR_HI,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; m-&gt;sdmax_r=
+lcx_rb_rptr_hi);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; WREG32(sdma_base_addr &#43; mmSDMA0_RLC0_MIN=
+OR_PTR_UPDATE, 0);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; WREG32(rlc_reg_offset &#43; mmSDMA0_RLC0=
+_MINOR_PTR_UPDATE, 0);<br>
+&gt;&nbsp;&nbsp; <br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; WREG32(sdma_base_addr &#43; mmSDMA0_RLC0_RB_=
+BASE, m-&gt;sdmax_rlcx_rb_base);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; WREG32(sdma_base_addr &#43; mmSDMA0_RLC0_RB_=
+BASE_HI,<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; WREG32(rlc_reg_offset &#43; mmSDMA0_RLC0=
+_RB_BASE, m-&gt;sdmax_rlcx_rb_base);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; WREG32(rlc_reg_offset &#43; mmSDMA0_RLC0=
+_RB_BASE_HI,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; m-&gt;s=
+dmax_rlcx_rb_base_hi);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; WREG32(sdma_base_addr &#43; mmSDMA0_RLC0_RB_=
+RPTR_ADDR_LO,<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; WREG32(rlc_reg_offset &#43; mmSDMA0_RLC0=
+_RB_RPTR_ADDR_LO,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; m-&gt;s=
+dmax_rlcx_rb_rptr_addr_lo);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; WREG32(sdma_base_addr &#43; mmSDMA0_RLC0_RB_=
+RPTR_ADDR_HI,<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; WREG32(rlc_reg_offset &#43; mmSDMA0_RLC0=
+_RB_RPTR_ADDR_HI,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; m-&gt;s=
+dmax_rlcx_rb_rptr_addr_hi);<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; data =3D REG_SET_FIELD(m-&gt=
+;sdmax_rlcx_rb_cntl, SDMA0_RLC0_RB_CNTL,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp; RB_ENABLE, 1);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; WREG32(sdma_base_addr &#43; mmSDMA0_RLC0_RB_=
+CNTL, data);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; WREG32(rlc_reg_offset &#43; mmSDMA0_RLC0=
+_RB_CNTL, data);<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+&gt;&nbsp;&nbsp; }<br>
+&gt; @@ -557,28 &#43;556,25 @@ static int kgd_hqd_sdma_dump(struct kgd_dev =
+*kgd,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp; uint32_t (**dump)[2], uint32_t *n_regs)<br>
+&gt;&nbsp;&nbsp; {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev =
+=3D get_amdgpu_device(kgd);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; uint32_t sdma_base_addr =3D get_sdma_base_ad=
+dr(adev, engine_id, queue_id);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t rlc_reg_offset =3D get_rlc_reg_=
+offset(adev, engine_id, queue_id);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t i =3D 0, reg;<br>
+&gt;&nbsp;&nbsp; #undef HQD_N_REGS<br>
+&gt;&nbsp;&nbsp; #define HQD_N_REGS (19&#43;6&#43;7&#43;10)<br>
+&gt;&nbsp;&nbsp; <br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; pr_debug(&quot;sdma dump engine id %d queue_=
+id %d\n&quot;, engine_id, queue_id);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; pr_debug(&quot;sdma base addr %x\n&quot;, sd=
+ma_base_addr);<br>
+&gt; -<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *dump =3D kmalloc(HQD_N_REGS=
+*2*sizeof(uint32_t), GFP_KERNEL);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (*dump =3D=3D NULL)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; return -ENOMEM;<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (reg =3D mmSDMA0_RLC0_RB=
+_CNTL; reg &lt;=3D mmSDMA0_RLC0_DOORBELL; reg&#43;&#43;)<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; DUMP_REG(sdma_base_addr &#43; reg);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; DUMP_REG(rlc_reg_offset &#43; reg);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (reg =3D mmSDMA0_RLC0_ST=
+ATUS; reg &lt;=3D mmSDMA0_RLC0_CSA_ADDR_HI; reg&#43;&#43;)<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; DUMP_REG(sdma_base_addr &#43; reg);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; DUMP_REG(rlc_reg_offset &#43; reg);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (reg =3D mmSDMA0_RLC0_IB=
+_SUB_REMAIN;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+; reg &lt;=3D mmSDMA0_RLC0_MINOR_PTR_UPDATE; reg&#43;&#43;)<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; DUMP_REG(sdma_base_addr &#43; reg);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; DUMP_REG(rlc_reg_offset &#43; reg);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (reg =3D mmSDMA0_RLC0_MI=
+DCMD_DATA0;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+; reg &lt;=3D mmSDMA0_RLC0_MIDCMD_CNTL; reg&#43;&#43;)<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; DUMP_REG(sdma_base_addr &#43; reg);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; DUMP_REG(rlc_reg_offset &#43; reg);<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WARN_ON_ONCE(i !=3D HQD_N_RE=
+GS);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *n_regs =3D i;<br>
+&gt; @@ -612,14 &#43;608,14 @@ static bool kgd_hqd_sdma_is_occupied(struct =
+kgd_dev *kgd, void *mqd)<br>
+&gt;&nbsp;&nbsp; {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev =
+=3D get_amdgpu_device(kgd);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct v10_sdma_mqd *m;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; uint32_t sdma_base_addr;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t rlc_reg_offset;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t sdma_rlc_rb_cntl;<b=
+r>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; m =3D get_sdma_mqd(mqd);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; sdma_base_addr =3D get_sdma_base_addr(adev, =
+m-&gt;sdma_engine_id,<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; rlc_reg_offset =3D get_rlc_reg_offset(ad=
+ev, m-&gt;sdma_engine_id,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; m-&gt;sdma_queue_id);<br>
+&gt;&nbsp;&nbsp; <br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; sdma_rlc_rb_cntl =3D RREG32(sdma_base_addr &=
+#43; mmSDMA0_RLC0_RB_CNTL);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; sdma_rlc_rb_cntl =3D RREG32(rlc_reg_offs=
+et &#43; mmSDMA0_RLC0_RB_CNTL);<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (sdma_rlc_rb_cntl &amp; S=
+DMA0_RLC0_RB_CNTL__RB_ENABLE_MASK)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; return true;<br>
+&gt; @@ -740,20 &#43;736,20 @@ static int kgd_hqd_sdma_destroy(struct kgd_d=
+ev *kgd, void *mqd,<br>
+&gt;&nbsp;&nbsp; {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev =
+=3D get_amdgpu_device(kgd);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct v10_sdma_mqd *m;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; uint32_t sdma_base_addr;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t rlc_reg_offset;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t temp;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unsigned long end_jiffies =
+=3D (utimeout * HZ / 1000) &#43; jiffies;<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; m =3D get_sdma_mqd(mqd);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; sdma_base_addr =3D get_sdma_base_addr(adev, =
+m-&gt;sdma_engine_id,<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; rlc_reg_offset =3D get_rlc_reg_offset(ad=
+ev, m-&gt;sdma_engine_id,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; m-&gt;sdma_queue_id);<br>
+&gt;&nbsp;&nbsp; <br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; temp =3D RREG32(sdma_base_addr &#43; mmSDMA0=
+_RLC0_RB_CNTL);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; temp =3D RREG32(rlc_reg_offset &#43; mmS=
+DMA0_RLC0_RB_CNTL);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; temp =3D temp &amp; ~SDMA0_R=
+LC0_RB_CNTL__RB_ENABLE_MASK;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; WREG32(sdma_base_addr &#43; mmSDMA0_RLC0_RB_=
+CNTL, temp);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; WREG32(rlc_reg_offset &#43; mmSDMA0_RLC0=
+_RB_CNTL, temp);<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; while (true) {<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; temp =3D RREG32(sdma_base_addr &#43; mmSDMA0_RLC0_CONTEXT_STATUS);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; temp =3D RREG32(rlc_reg_offset &#43; mmSDMA0_RLC0_CONTEXT_STATUS);<=
+br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; if (temp &amp; SDMA0_RLC0_CONTEXT_STATUS__IDLE_MASK)<br=
+>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; break;<=
+br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; if (time_after(jiffies, end_jiffies))<br>
+&gt; @@ -761,14 &#43;757,14 @@ static int kgd_hqd_sdma_destroy(struct kgd_d=
+ev *kgd, void *mqd,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; usleep_range(500, 1000);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt;&nbsp;&nbsp; <br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; WREG32(sdma_base_addr &#43; mmSDMA0_RLC0_DOO=
+RBELL, 0);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; WREG32(sdma_base_addr &#43; mmSDMA0_RLC0_RB_=
+CNTL,<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; RREG32(sdma_base_addr &#43; mmSDMA0_RLC0_RB_CNTL) |<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; WREG32(rlc_reg_offset &#43; mmSDMA0_RLC0=
+_DOORBELL, 0);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; WREG32(rlc_reg_offset &#43; mmSDMA0_RLC0=
+_RB_CNTL,<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; RREG32(rlc_reg_offset &#43; mmSDMA0_RLC0_RB_CNTL) |<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; SDMA0_RLC0_RB_CNTL__RB_ENABLE_MASK);<br>
+&gt;&nbsp;&nbsp; <br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; m-&gt;sdmax_rlcx_rb_rptr =3D RREG32(sdma_bas=
+e_addr &#43; mmSDMA0_RLC0_RB_RPTR);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; m-&gt;sdmax_rlcx_rb_rptr =3D RREG32(rlc_=
+reg_offset &#43; mmSDMA0_RLC0_RB_RPTR);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; m-&gt;sdmax_rlcx_rb_rptr_hi =
+=3D<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; RREG32(sdma_base_addr &#43; mmSDMA0_RLC0_RB_RPTR_HI);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; RREG32(rlc_reg_offset &#43; mmSDMA0_RLC0_RB_RPTR_HI);<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+&gt;&nbsp;&nbsp; }<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v7.c b/drive=
+rs/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v7.c<br>
+&gt; index c6abcf72e822..d0517b7ae089 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v7.c<br>
+&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v7.c<br=
+>
+&gt; @@ -303,14 &#43;303,14 @@ static int kgd_init_interrupts(struct kgd_de=
+v *kgd, uint32_t pipe_id)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+&gt;&nbsp;&nbsp; }<br>
+&gt;&nbsp;&nbsp; <br>
+&gt; -static inline uint32_t get_sdma_base_addr(struct cik_sdma_rlc_registe=
+rs *m)<br>
+&gt; &#43;static inline uint32_t get_rlc_reg_offset(struct cik_sdma_rlc_reg=
+isters *m)<br>
+&gt;&nbsp;&nbsp; {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t retval;<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; retval =3D m-&gt;sdma_engine=
+_id * SDMA1_REGISTER_OFFSET &#43;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; m-&gt;s=
+dma_queue_id * KFD_CIK_SDMA_QUEUE_OFFSET;<br>
+&gt;&nbsp;&nbsp; <br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; pr_debug(&quot;sdma base address: 0x%x\n&quo=
+t;, retval);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; pr_debug(&quot;RLC register offset: 0x%x=
+\n&quot;, retval);<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return retval;<br>
+&gt;&nbsp;&nbsp; }<br>
+&gt; @@ -417,7 &#43;417,7 @@ static int kgd_hqd_sdma_load(struct kgd_dev *k=
+gd, void *mqd,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t data;<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; m =3D get_sdma_mqd(mqd);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; sdma_base_addr =3D get_sdma_base_addr(m);<br=
+>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; sdma_base_addr =3D get_rlc_reg_offset(m)=
+;<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32(sdma_base_addr &#43; =
+mmSDMA0_RLC0_RB_CNTL,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; m-&gt;sdma_rlc_rb_cntl &amp; (~SDMA0_RLC0_RB_CNTL__RB_E=
+NABLE_MASK));<br>
+&gt; @@ -528,7 &#43;528,7 @@ static bool kgd_hqd_sdma_is_occupied(struct kg=
+d_dev *kgd, void *mqd)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t sdma_rlc_rb_cntl;<b=
+r>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; m =3D get_sdma_mqd(mqd);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; sdma_base_addr =3D get_sdma_base_addr(m);<br=
+>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; sdma_base_addr =3D get_rlc_reg_offset(m)=
+;<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; sdma_rlc_rb_cntl =3D RREG32(=
+sdma_base_addr &#43; mmSDMA0_RLC0_RB_CNTL);<br>
+&gt;&nbsp;&nbsp; <br>
+&gt; @@ -650,7 &#43;650,7 @@ static int kgd_hqd_sdma_destroy(struct kgd_dev=
+ *kgd, void *mqd,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unsigned long end_jiffies =
+=3D (utimeout * HZ / 1000) &#43; jiffies;<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; m =3D get_sdma_mqd(mqd);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; sdma_base_addr =3D get_sdma_base_addr(m);<br=
+>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; sdma_base_addr =3D get_rlc_reg_offset(m)=
+;<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; temp =3D RREG32(sdma_base_ad=
+dr &#43; mmSDMA0_RLC0_RB_CNTL);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; temp =3D temp &amp; ~SDMA0_R=
+LC0_RB_CNTL__RB_ENABLE_MASK;<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v8.c b/drive=
+rs/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v8.c<br>
+&gt; index 4e8b4e949926..373501abdb6b 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v8.c<br>
+&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v8.c<br=
+>
+&gt; @@ -260,13 &#43;260,13 @@ static int kgd_init_interrupts(struct kgd_de=
+v *kgd, uint32_t pipe_id)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+&gt;&nbsp;&nbsp; }<br>
+&gt;&nbsp;&nbsp; <br>
+&gt; -static inline uint32_t get_sdma_base_addr(struct vi_sdma_mqd *m)<br>
+&gt; &#43;static inline uint32_t get_rlc_reg_offset(struct vi_sdma_mqd *m)<=
+br>
+&gt;&nbsp;&nbsp; {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t retval;<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; retval =3D m-&gt;sdma_engine=
+_id * SDMA1_REGISTER_OFFSET &#43;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; m-&gt;sdma_queue_id * KFD_VI_SDMA_QUEUE_OFFSET;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; pr_debug(&quot;sdma base address: 0x%x\n&quo=
+t;, retval);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; pr_debug(&quot;RLC register offset: 0x%x=
+\n&quot;, retval);<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return retval;<br>
+&gt;&nbsp;&nbsp; }<br>
+&gt; @@ -402,7 &#43;402,7 @@ static int kgd_hqd_sdma_load(struct kgd_dev *k=
+gd, void *mqd,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t data;<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; m =3D get_sdma_mqd(mqd);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; sdma_base_addr =3D get_sdma_base_addr(m);<br=
+>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; sdma_base_addr =3D get_rlc_reg_offset(m)=
+;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32(sdma_base_addr &#43; =
+mmSDMA0_RLC0_RB_CNTL,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; m-&gt;sdmax_rlcx_rb_cntl &amp; (~SDMA0_RLC0_RB_CNTL__RB=
+_ENABLE_MASK));<br>
+&gt;&nbsp;&nbsp; <br>
+&gt; @@ -521,7 &#43;521,7 @@ static bool kgd_hqd_sdma_is_occupied(struct kg=
+d_dev *kgd, void *mqd)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t sdma_rlc_rb_cntl;<b=
+r>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; m =3D get_sdma_mqd(mqd);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; sdma_base_addr =3D get_sdma_base_addr(m);<br=
+>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; sdma_base_addr =3D get_rlc_reg_offset(m)=
+;<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; sdma_rlc_rb_cntl =3D RREG32(=
+sdma_base_addr &#43; mmSDMA0_RLC0_RB_CNTL);<br>
+&gt;&nbsp;&nbsp; <br>
+&gt; @@ -646,7 &#43;646,7 @@ static int kgd_hqd_sdma_destroy(struct kgd_dev=
+ *kgd, void *mqd,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unsigned long end_jiffies =
+=3D (utimeout * HZ / 1000) &#43; jiffies;<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; m =3D get_sdma_mqd(mqd);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; sdma_base_addr =3D get_sdma_base_addr(m);<br=
+>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; sdma_base_addr =3D get_rlc_reg_offset(m)=
+;<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; temp =3D RREG32(sdma_base_ad=
+dr &#43; mmSDMA0_RLC0_RB_CNTL);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; temp =3D temp &amp; ~SDMA0_R=
+LC0_RB_CNTL__RB_ENABLE_MASK;<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c b/drive=
+rs/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c<br>
+&gt; index 55437f160a72..2dd5bc676029 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c<br>
+&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c<br=
+>
+&gt; @@ -226,22 &#43;226,20 @@ int kgd_gfx_v9_init_interrupts(struct kgd_de=
+v *kgd, uint32_t pipe_id)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+&gt;&nbsp;&nbsp; }<br>
+&gt;&nbsp;&nbsp; <br>
+&gt; -static uint32_t get_sdma_base_addr(struct amdgpu_device *adev,<br>
+&gt; &#43;static uint32_t get_rlc_reg_offset(struct amdgpu_device *adev,<br=
+>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unsigned int engine_id,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unsigned int queue_id)<br>
+&gt;&nbsp;&nbsp; {<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; uint32_t base[2] =3D {<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t sdma_engine_reg_base[2] =3D {<b=
+r>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; SOC15_REG_OFFSET(SDMA0, 0,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mmSDMA0_RLC0_RB_CNTL) - mmSD=
+MA0_RLC0_RB_CNTL,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; SOC15_REG_OFFSET(SDMA1, 0,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mmSDMA1_RLC0_RB_CNTL) - mmSD=
+MA1_RLC0_RB_CNTL<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; };<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; uint32_t retval;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t retval =3D sdma_engine_reg_base=
+[engine_id]<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; &#43; queue_id * (mmSDMA0_RLC1_RB_CNTL - mmSDMA0_RLC0_RB_CNTL);<br>
+&gt;&nbsp;&nbsp; <br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; retval =3D base[engine_id] &#43; queue_id * =
+(mmSDMA0_RLC1_RB_CNTL -<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mmSDMA0_RLC0_RB_CNTL);<br>
+&gt; -<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; pr_debug(&quot;sdma base address: 0x%x\n&quo=
+t;, retval);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; pr_debug(&quot;RLC register offset: 0x%x=
+\n&quot;, retval);<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return retval;<br>
+&gt;&nbsp;&nbsp; }<br>
+&gt; @@ -388,22 &#43;386,22 @@ static int kgd_hqd_sdma_load(struct kgd_dev =
+*kgd, void *mqd,<br>
+&gt;&nbsp;&nbsp; {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev =
+=3D get_amdgpu_device(kgd);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct v9_sdma_mqd *m;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; uint32_t sdma_base_addr;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t rlc_reg_offset;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unsigned long end_jiffies;<b=
+r>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t data;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint64_t data64;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint64_t __user *wptr64 =3D =
+(uint64_t __user *)wptr;<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; m =3D get_sdma_mqd(mqd);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; sdma_base_addr =3D get_sdma_base_addr(adev, =
+m-&gt;sdma_engine_id,<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; rlc_reg_offset =3D get_rlc_reg_offset(ad=
+ev, m-&gt;sdma_engine_id,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; m-&gt;sdma_queue_id);<br>
+&gt;&nbsp;&nbsp; <br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; WREG32(sdma_base_addr &#43; mmSDMA0_RLC0_RB_=
+CNTL,<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; WREG32(rlc_reg_offset &#43; mmSDMA0_RLC0=
+_RB_CNTL,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; m-&gt;sdmax_rlcx_rb_cntl &amp; (~SDMA0_RLC0_RB_CNTL__RB=
+_ENABLE_MASK));<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; end_jiffies =3D msecs_to_jif=
+fies(2000) &#43; jiffies;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; while (true) {<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; data =3D RREG32(sdma_base_addr &#43; mmSDMA0_RLC0_CONTEXT_STATUS);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; data =3D RREG32(rlc_reg_offset &#43; mmSDMA0_RLC0_CONTEXT_STATUS);<=
+br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; if (data &amp; SDMA0_RLC0_CONTEXT_STATUS__IDLE_MASK)<br=
+>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; break;<=
+br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; if (time_after(jiffies, end_jiffies))<br>
+&gt; @@ -411,41 &#43;409,41 @@ static int kgd_hqd_sdma_load(struct kgd_dev =
+*kgd, void *mqd,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; usleep_range(500, 1000);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt;&nbsp;&nbsp; <br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; WREG32(sdma_base_addr &#43; mmSDMA0_RLC0_DOO=
+RBELL_OFFSET,<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; WREG32(rlc_reg_offset &#43; mmSDMA0_RLC0=
+_DOORBELL_OFFSET,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; m-&gt;sdmax_rlcx_doorbell_offset);<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; data =3D REG_SET_FIELD(m-&gt=
+;sdmax_rlcx_doorbell, SDMA0_RLC0_DOORBELL,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp; ENABLE, 1);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; WREG32(sdma_base_addr &#43; mmSDMA0_RLC0_DOO=
+RBELL, data);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; WREG32(sdma_base_addr &#43; mmSDMA0_RLC0_RB_=
+RPTR, m-&gt;sdmax_rlcx_rb_rptr);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; WREG32(sdma_base_addr &#43; mmSDMA0_RLC0_RB_=
+RPTR_HI,<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; WREG32(rlc_reg_offset &#43; mmSDMA0_RLC0=
+_DOORBELL, data);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; WREG32(rlc_reg_offset &#43; mmSDMA0_RLC0=
+_RB_RPTR, m-&gt;sdmax_rlcx_rb_rptr);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; WREG32(rlc_reg_offset &#43; mmSDMA0_RLC0=
+_RB_RPTR_HI,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; m-&gt;sdmax_rlcx_rb_rptr_hi);<br>
+&gt;&nbsp;&nbsp; <br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; WREG32(sdma_base_addr &#43; mmSDMA0_RLC0_MIN=
+OR_PTR_UPDATE, 1);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; WREG32(rlc_reg_offset &#43; mmSDMA0_RLC0=
+_MINOR_PTR_UPDATE, 1);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (read_user_wptr(mm, wptr6=
+4, data64)) {<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; WREG32(sdma_base_addr &#43; mmSDMA0_RLC0_RB_WPTR,<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; WREG32(rlc_reg_offset &#43; mmSDMA0_RLC0_RB_WPTR,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; lower_32_bits=
+(data64));<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; WREG32(sdma_base_addr &#43; mmSDMA0_RLC0_RB_WPTR_HI,<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; WREG32(rlc_reg_offset &#43; mmSDMA0_RLC0_RB_WPTR_HI,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; upper_32_bits=
+(data64));<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else {<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; WREG32(sdma_base_addr &#43; mmSDMA0_RLC0_RB_WPTR,<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; WREG32(rlc_reg_offset &#43; mmSDMA0_RLC0_RB_WPTR,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; m-&gt;sdmax_r=
+lcx_rb_rptr);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; WREG32(sdma_base_addr &#43; mmSDMA0_RLC0_RB_WPTR_HI,<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; WREG32(rlc_reg_offset &#43; mmSDMA0_RLC0_RB_WPTR_HI,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; m-&gt;sdmax_r=
+lcx_rb_rptr_hi);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; WREG32(sdma_base_addr &#43; mmSDMA0_RLC0_MIN=
+OR_PTR_UPDATE, 0);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; WREG32(rlc_reg_offset &#43; mmSDMA0_RLC0=
+_MINOR_PTR_UPDATE, 0);<br>
+&gt;&nbsp;&nbsp; <br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; WREG32(sdma_base_addr &#43; mmSDMA0_RLC0_RB_=
+BASE, m-&gt;sdmax_rlcx_rb_base);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; WREG32(sdma_base_addr &#43; mmSDMA0_RLC0_RB_=
+BASE_HI,<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; WREG32(rlc_reg_offset &#43; mmSDMA0_RLC0=
+_RB_BASE, m-&gt;sdmax_rlcx_rb_base);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; WREG32(rlc_reg_offset &#43; mmSDMA0_RLC0=
+_RB_BASE_HI,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; m-&gt;s=
+dmax_rlcx_rb_base_hi);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; WREG32(sdma_base_addr &#43; mmSDMA0_RLC0_RB_=
+RPTR_ADDR_LO,<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; WREG32(rlc_reg_offset &#43; mmSDMA0_RLC0=
+_RB_RPTR_ADDR_LO,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; m-&gt;s=
+dmax_rlcx_rb_rptr_addr_lo);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; WREG32(sdma_base_addr &#43; mmSDMA0_RLC0_RB_=
+RPTR_ADDR_HI,<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; WREG32(rlc_reg_offset &#43; mmSDMA0_RLC0=
+_RB_RPTR_ADDR_HI,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; m-&gt;s=
+dmax_rlcx_rb_rptr_addr_hi);<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; data =3D REG_SET_FIELD(m-&gt=
+;sdmax_rlcx_rb_cntl, SDMA0_RLC0_RB_CNTL,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp; RB_ENABLE, 1);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; WREG32(sdma_base_addr &#43; mmSDMA0_RLC0_RB_=
+CNTL, data);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; WREG32(rlc_reg_offset &#43; mmSDMA0_RLC0=
+_RB_CNTL, data);<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+&gt;&nbsp;&nbsp; }<br>
+&gt; @@ -455,7 &#43;453,7 @@ static int kgd_hqd_sdma_dump(struct kgd_dev *k=
+gd,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp; uint32_t (**dump)[2], uint32_t *n_regs)<br>
+&gt;&nbsp;&nbsp; {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev =
+=3D get_amdgpu_device(kgd);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; uint32_t sdma_base_addr =3D get_sdma_base_ad=
+dr(adev, engine_id, queue_id);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t rlc_reg_offset =3D get_rlc_reg_=
+offset(adev, engine_id, queue_id);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t i =3D 0, reg;<br>
+&gt;&nbsp;&nbsp; #undef HQD_N_REGS<br>
+&gt;&nbsp;&nbsp; #define HQD_N_REGS (19&#43;6&#43;7&#43;10)<br>
+&gt; @@ -465,15 &#43;463,15 @@ static int kgd_hqd_sdma_dump(struct kgd_dev =
+*kgd,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; return -ENOMEM;<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (reg =3D mmSDMA0_RLC0_RB=
+_CNTL; reg &lt;=3D mmSDMA0_RLC0_DOORBELL; reg&#43;&#43;)<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; DUMP_REG(sdma_base_addr &#43; reg);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; DUMP_REG(rlc_reg_offset &#43; reg);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (reg =3D mmSDMA0_RLC0_ST=
+ATUS; reg &lt;=3D mmSDMA0_RLC0_CSA_ADDR_HI; reg&#43;&#43;)<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; DUMP_REG(sdma_base_addr &#43; reg);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; DUMP_REG(rlc_reg_offset &#43; reg);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (reg =3D mmSDMA0_RLC0_IB=
+_SUB_REMAIN;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+; reg &lt;=3D mmSDMA0_RLC0_MINOR_PTR_UPDATE; reg&#43;&#43;)<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; DUMP_REG(sdma_base_addr &#43; reg);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; DUMP_REG(rlc_reg_offset &#43; reg);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (reg =3D mmSDMA0_RLC0_MI=
+DCMD_DATA0;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+; reg &lt;=3D mmSDMA0_RLC0_MIDCMD_CNTL; reg&#43;&#43;)<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; DUMP_REG(sdma_base_addr &#43; reg);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; DUMP_REG(rlc_reg_offset &#43; reg);<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WARN_ON_ONCE(i !=3D HQD_N_RE=
+GS);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *n_regs =3D i;<br>
+&gt; @@ -507,14 &#43;505,14 @@ static bool kgd_hqd_sdma_is_occupied(struct =
+kgd_dev *kgd, void *mqd)<br>
+&gt;&nbsp;&nbsp; {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev =
+=3D get_amdgpu_device(kgd);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct v9_sdma_mqd *m;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; uint32_t sdma_base_addr;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t rlc_reg_offset;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t sdma_rlc_rb_cntl;<b=
+r>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; m =3D get_sdma_mqd(mqd);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; sdma_base_addr =3D get_sdma_base_addr(adev, =
+m-&gt;sdma_engine_id,<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; rlc_reg_offset =3D get_rlc_reg_offset(ad=
+ev, m-&gt;sdma_engine_id,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; m-&gt;sdma_queue_id);<br>
+&gt;&nbsp;&nbsp; <br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; sdma_rlc_rb_cntl =3D RREG32(sdma_base_addr &=
+#43; mmSDMA0_RLC0_RB_CNTL);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; sdma_rlc_rb_cntl =3D RREG32(rlc_reg_offs=
+et &#43; mmSDMA0_RLC0_RB_CNTL);<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (sdma_rlc_rb_cntl &amp; S=
+DMA0_RLC0_RB_CNTL__RB_ENABLE_MASK)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; return true;<br>
+&gt; @@ -577,20 &#43;575,20 @@ static int kgd_hqd_sdma_destroy(struct kgd_d=
+ev *kgd, void *mqd,<br>
+&gt;&nbsp;&nbsp; {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev =
+=3D get_amdgpu_device(kgd);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct v9_sdma_mqd *m;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; uint32_t sdma_base_addr;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t rlc_reg_offset;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t temp;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unsigned long end_jiffies =
+=3D (utimeout * HZ / 1000) &#43; jiffies;<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; m =3D get_sdma_mqd(mqd);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; sdma_base_addr =3D get_sdma_base_addr(adev, =
+m-&gt;sdma_engine_id,<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; rlc_reg_offset =3D get_rlc_reg_offset(ad=
+ev, m-&gt;sdma_engine_id,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; m-&gt;sdma_queue_id);<br>
+&gt;&nbsp;&nbsp; <br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; temp =3D RREG32(sdma_base_addr &#43; mmSDMA0=
+_RLC0_RB_CNTL);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; temp =3D RREG32(rlc_reg_offset &#43; mmS=
+DMA0_RLC0_RB_CNTL);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; temp =3D temp &amp; ~SDMA0_R=
+LC0_RB_CNTL__RB_ENABLE_MASK;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; WREG32(sdma_base_addr &#43; mmSDMA0_RLC0_RB_=
+CNTL, temp);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; WREG32(rlc_reg_offset &#43; mmSDMA0_RLC0=
+_RB_CNTL, temp);<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; while (true) {<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; temp =3D RREG32(sdma_base_addr &#43; mmSDMA0_RLC0_CONTEXT_STATUS);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; temp =3D RREG32(rlc_reg_offset &#43; mmSDMA0_RLC0_CONTEXT_STATUS);<=
+br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; if (temp &amp; SDMA0_RLC0_CONTEXT_STATUS__IDLE_MASK)<br=
+>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; break;<=
+br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; if (time_after(jiffies, end_jiffies))<br>
+&gt; @@ -598,14 &#43;596,14 @@ static int kgd_hqd_sdma_destroy(struct kgd_d=
+ev *kgd, void *mqd,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; usleep_range(500, 1000);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt;&nbsp;&nbsp; <br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; WREG32(sdma_base_addr &#43; mmSDMA0_RLC0_DOO=
+RBELL, 0);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; WREG32(sdma_base_addr &#43; mmSDMA0_RLC0_RB_=
+CNTL,<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; RREG32(sdma_base_addr &#43; mmSDMA0_RLC0_RB_CNTL) |<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; WREG32(rlc_reg_offset &#43; mmSDMA0_RLC0=
+_DOORBELL, 0);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; WREG32(rlc_reg_offset &#43; mmSDMA0_RLC0=
+_RB_CNTL,<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; RREG32(rlc_reg_offset &#43; mmSDMA0_RLC0_RB_CNTL) |<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; SDMA0_RLC0_RB_CNTL__RB_ENABLE_MASK);<br>
+&gt;&nbsp;&nbsp; <br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; m-&gt;sdmax_rlcx_rb_rptr =3D RREG32(sdma_bas=
+e_addr &#43; mmSDMA0_RLC0_RB_RPTR);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; m-&gt;sdmax_rlcx_rb_rptr =3D RREG32(rlc_=
+reg_offset &#43; mmSDMA0_RLC0_RB_RPTR);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; m-&gt;sdmax_rlcx_rb_rptr_hi =
+=3D<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; RREG32(sdma_base_addr &#43; mmSDMA0_RLC0_RB_RPTR_HI);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; RREG32(rlc_reg_offset &#43; mmSDMA0_RLC0_RB_RPTR_HI);<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+&gt;&nbsp;&nbsp; }<br>
+</div>
+</span></font></div>
+</body>
+</html>
+
+--_000_DM6PR12MB27784ED82D2680435D20248FF0850DM6PR12MB2778namp_--
+
+--===============1082155872==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+
+--===============1082155872==--
