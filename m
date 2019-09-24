@@ -1,98 +1,50 @@
-From: Sasha Levin <sashal@kernel.org>
-Subject: [PATCH AUTOSEL 5.3 33/87] drm/amd/display: Register VUPDATE_NO_LOCK interrupts for DCN2
-Date: Tue, 24 Sep 2019 12:40:49 -0400
-Message-ID: <20190924164144.25591-33-sashal@kernel.org>
+From: Sasha Levin <sashal-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org>
+Subject: [PATCH AUTOSEL 5.3 35/87] drm/amd/powerplay/smu7: enforce minimal
+ VBITimeout (v2)
+Date: Tue, 24 Sep 2019 12:40:51 -0400
+Message-ID: <20190924164144.25591-35-sashal@kernel.org>
 References: <20190924164144.25591-1-sashal@kernel.org>
 Mime-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20190924164144.25591-1-sashal@kernel.org>
-Sender: linux-kernel-owner@vger.kernel.org
-To: linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Cc: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>, David Francis <David.Francis@amd.com>, Leo Li <sunpeng.li@amd.com>, Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20190924164144.25591-1-sashal-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, stable-u79uwXL29TY76Z2rM5mHXA@public.gmane.org
+Cc: Sasha Levin <sashal-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org>, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Ahzo <Ahzo-q7wo9g+UVklWk0Htik3J/w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, Evan Quan <evan.quan-5C7GfCeVMHo@public.gmane.org>
 
-From: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
-
-[ Upstream commit e40837afb9b011757e17e9f71d97853ca574bcff ]
-
-[Why]
-These are needed to send back DRM vblank events in the case where VRR
-is on. Without the interrupt enabled we're deferring the events into the
-vblank queue and userspace is left waiting forever to get back the
-events they need.
-
-Found using igt@kms_vrr - the test fails immediately due to vblank
-timeout.
-
-[How]
-Register them the same way we're handling it for DCN1.
-
-This fixes igt@kms_vrr for DCN2.
-
-Signed-off-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
-Reviewed-by: David Francis <David.Francis@amd.com>
-Acked-by: Leo Li <sunpeng.li@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- .../display/dc/irq/dcn20/irq_service_dcn20.c  | 28 ++++++++++++-------
- 1 file changed, 18 insertions(+), 10 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/dc/irq/dcn20/irq_service_dcn20.c b/drivers/gpu/drm/amd/display/dc/irq/dcn20/irq_service_dcn20.c
-index 3cc0f2a1f77cc..5db29bf582d31 100644
---- a/drivers/gpu/drm/amd/display/dc/irq/dcn20/irq_service_dcn20.c
-+++ b/drivers/gpu/drm/amd/display/dc/irq/dcn20/irq_service_dcn20.c
-@@ -167,6 +167,11 @@ static const struct irq_source_info_funcs vblank_irq_info_funcs = {
- 	.ack = NULL
- };
- 
-+static const struct irq_source_info_funcs vupdate_no_lock_irq_info_funcs = {
-+	.set = NULL,
-+	.ack = NULL
-+};
-+
- #undef BASE_INNER
- #define BASE_INNER(seg) DCN_BASE__INST0_SEG ## seg
- 
-@@ -221,12 +226,15 @@ static const struct irq_source_info_funcs vblank_irq_info_funcs = {
- 		.funcs = &pflip_irq_info_funcs\
- 	}
- 
--#define vupdate_int_entry(reg_num)\
-+/* vupdate_no_lock_int_entry maps to DC_IRQ_SOURCE_VUPDATEx, to match semantic
-+ * of DCE's DC_IRQ_SOURCE_VUPDATEx.
-+ */
-+#define vupdate_no_lock_int_entry(reg_num)\
- 	[DC_IRQ_SOURCE_VUPDATE1 + reg_num] = {\
- 		IRQ_REG_ENTRY(OTG, reg_num,\
--			OTG_GLOBAL_SYNC_STATUS, VUPDATE_INT_EN,\
--			OTG_GLOBAL_SYNC_STATUS, VUPDATE_EVENT_CLEAR),\
--		.funcs = &vblank_irq_info_funcs\
-+			OTG_GLOBAL_SYNC_STATUS, VUPDATE_NO_LOCK_INT_EN,\
-+			OTG_GLOBAL_SYNC_STATUS, VUPDATE_NO_LOCK_EVENT_CLEAR),\
-+		.funcs = &vupdate_no_lock_irq_info_funcs\
- 	}
- 
- #define vblank_int_entry(reg_num)\
-@@ -333,12 +341,12 @@ irq_source_info_dcn20[DAL_IRQ_SOURCES_NUMBER] = {
- 	dc_underflow_int_entry(6),
- 	[DC_IRQ_SOURCE_DMCU_SCP] = dummy_irq_entry(),
- 	[DC_IRQ_SOURCE_VBIOS_SW] = dummy_irq_entry(),
--	vupdate_int_entry(0),
--	vupdate_int_entry(1),
--	vupdate_int_entry(2),
--	vupdate_int_entry(3),
--	vupdate_int_entry(4),
--	vupdate_int_entry(5),
-+	vupdate_no_lock_int_entry(0),
-+	vupdate_no_lock_int_entry(1),
-+	vupdate_no_lock_int_entry(2),
-+	vupdate_no_lock_int_entry(3),
-+	vupdate_no_lock_int_entry(4),
-+	vupdate_no_lock_int_entry(5),
- 	vblank_int_entry(0),
- 	vblank_int_entry(1),
- 	vblank_int_entry(2),
--- 
-2.20.1
+RnJvbTogQWh6byA8QWh6b0B0dXRhbm90YS5jb20+CgpbIFVwc3RyZWFtIGNvbW1pdCBmNjU5YmI2
+ZGFlNThjMTEzODA1ZjkyODIyZTRjMTZkZGQzMTU2Yjc5IF0KClRoaXMgZml4ZXMgc2NyZWVuIGNv
+cnJ1cHRpb24vZmxpY2tlcmluZyBvbiA3NSBIeiBkaXNwbGF5cy4KCnYyOiBtYWtlIHByaW50IHN0
+YXRlbWVudCBkZWJ1ZyBvbmx5IChBbGV4KQoKQnVnemlsbGE6IGh0dHBzOi8vYnVncy5mcmVlZGVz
+a3RvcC5vcmcvc2hvd19idWcuY2dpP2lkPTEwMjY0NgpSZXZpZXdlZC1ieTogRXZhbiBRdWFuIDxl
+dmFuLnF1YW5AYW1kLmNvbT4KU2lnbmVkLW9mZi1ieTogQWh6byA8QWh6b0B0dXRhbm90YS5jb20+
+ClNpZ25lZC1vZmYtYnk6IEFsZXggRGV1Y2hlciA8YWxleGFuZGVyLmRldWNoZXJAYW1kLmNvbT4K
+U2lnbmVkLW9mZi1ieTogU2FzaGEgTGV2aW4gPHNhc2hhbEBrZXJuZWwub3JnPgotLS0KIGRyaXZl
+cnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL3NtdTdfaHdtZ3IuYyB8IDUgKysrKysKIDEg
+ZmlsZSBjaGFuZ2VkLCA1IGluc2VydGlvbnMoKykKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9k
+cm0vYW1kL3Bvd2VycGxheS9od21nci9zbXU3X2h3bWdyLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1k
+L3Bvd2VycGxheS9od21nci9zbXU3X2h3bWdyLmMKaW5kZXggNDg3YWVlZTFjZjhhNS4uM2MxMDg0
+ZGU1ZDU5ZiAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3Iv
+c211N19od21nci5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL3Nt
+dTdfaHdtZ3IuYwpAQCAtNDA2OCw2ICs0MDY4LDExIEBAIHN0YXRpYyBpbnQgc211N19wcm9ncmFt
+X2Rpc3BsYXlfZ2FwKHN0cnVjdCBwcF9od21nciAqaHdtZ3IpCiAKIAlkYXRhLT5mcmFtZV90aW1l
+X3gyID0gZnJhbWVfdGltZV9pbl91cyAqIDIgLyAxMDA7CiAKKwlpZiAoZGF0YS0+ZnJhbWVfdGlt
+ZV94MiA8IDI4MCkgeworCQlwcl9kZWJ1ZygiJXM6IGVuZm9yY2UgbWluaW1hbCBWQklUaW1lb3V0
+OiAlZCAtPiAyODBcbiIsIF9fZnVuY19fLCBkYXRhLT5mcmFtZV90aW1lX3gyKTsKKwkJZGF0YS0+
+ZnJhbWVfdGltZV94MiA9IDI4MDsKKwl9CisKIAlkaXNwbGF5X2dhcDIgPSBwcmVfdmJpX3RpbWVf
+aW5fdXMgKiAocmVmX2Nsb2NrIC8gMTAwKTsKIAogCWNnc193cml0ZV9pbmRfcmVnaXN0ZXIoaHdt
+Z3ItPmRldmljZSwgQ0dTX0lORF9SRUdfX1NNQywgaXhDR19ESVNQTEFZX0dBUF9DTlRMMiwgZGlz
+cGxheV9nYXAyKTsKLS0gCjIuMjAuMQoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVz
+a3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9h
+bWQtZ2Z4
