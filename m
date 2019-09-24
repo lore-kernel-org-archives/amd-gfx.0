@@ -1,54 +1,50 @@
-From: Sasha Levin <sashal@kernel.org>
-Subject: [PATCH AUTOSEL 4.19 15/50] drm/amd/display: fix issue where 252-255 values are clipped
-Date: Tue, 24 Sep 2019 12:48:12 -0400
-Message-ID: <20190924164847.27780-15-sashal@kernel.org>
+From: Sasha Levin <sashal-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org>
+Subject: [PATCH AUTOSEL 4.19 16/50] drm/amd/display: reprogram VM config when
+ system resume
+Date: Tue, 24 Sep 2019 12:48:13 -0400
+Message-ID: <20190924164847.27780-16-sashal@kernel.org>
 References: <20190924164847.27780-1-sashal@kernel.org>
 Mime-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Return-path: <stable-owner@vger.kernel.org>
-In-Reply-To: <20190924164847.27780-1-sashal@kernel.org>
-Sender: stable-owner@vger.kernel.org
-To: linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Cc: Anthony Koo <Anthony.Koo@amd.com>, Aric Cyr <Aric.Cyr@amd.com>, Leo Li <sunpeng.li@amd.com>, Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20190924164847.27780-1-sashal-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, stable-u79uwXL29TY76Z2rM5mHXA@public.gmane.org
+Cc: Sasha Levin <sashal-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org>, Lewis Huang <Lewis.Huang-5C7GfCeVMHo@public.gmane.org>, Eric Yang <eric.yang2-5C7GfCeVMHo@public.gmane.org>, Leo Li <sunpeng.li-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, Jun Lei <Jun.Lei-5C7GfCeVMHo@public.gmane.org>
 
-From: Anthony Koo <Anthony.Koo@amd.com>
-
-[ Upstream commit 1cbcfc975164f397b449efb17f59d81a703090db ]
-
-[Why]
-When endpoint is at the boundary of a region, such as at 2^0=1
-we find that the last segment has a sharp slope and some points
-are clipped at the top.
-
-[How]
-If end point is 1, which is exactly at the 2^0 region boundary, we
-need to program an additional region beyond this point.
-
-Signed-off-by: Anthony Koo <Anthony.Koo@amd.com>
-Reviewed-by: Aric Cyr <Aric.Cyr@amd.com>
-Acked-by: Leo Li <sunpeng.li@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/gpu/drm/amd/display/dc/dcn10/dcn10_cm_common.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_cm_common.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_cm_common.c
-index 5d95a997fd9f9..f8904f73f57b0 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_cm_common.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_cm_common.c
-@@ -292,9 +292,10 @@ bool cm_helper_translate_curve_to_hw_format(
- 		seg_distr[7] = 4;
- 		seg_distr[8] = 4;
- 		seg_distr[9] = 4;
-+		seg_distr[10] = 1;
- 
- 		region_start = -10;
--		region_end = 0;
-+		region_end = 1;
- 	}
- 
- 	for (i = region_end - region_start; i < MAX_REGIONS_NUMBER ; i++)
--- 
-2.20.1
+RnJvbTogTGV3aXMgSHVhbmcgPExld2lzLkh1YW5nQGFtZC5jb20+CgpbIFVwc3RyZWFtIGNvbW1p
+dCBlNTM4MjcwMWMzNTIwYjNlZDY2MTY5YTZlNGFhNmNlNWRmOGM1NmUwIF0KCltXaHldClRoZSB2
+bSBjb25maWcgd2lsbCBiZSBjbGVhciB0byAwIHdoZW4gc3lzdGVtIGVudGVyIFM0LiBJdCB3aWxs
+CmNhdXNlIGh1YmJ1YiBkaWRuJ3Qga25vdyBob3cgdG8gZmV0Y2ggZGF0YSB3aGVuIHN5c3RlbSBy
+ZXN1bWUuClRoZSBmbGlwIGFsd2F5cyBwZW5kaW5nIGJlY2F1c2UgZWFybGllc3RfaW51c2VfYWRk
+cmVzcyBhbmQKcmVxdWVzdF9hZGRyZXNzIGFyZSBkaWZmZXJlbnQuCgpbSG93XQpSZXByb2dyYW0g
+Vk0gY29uZmlnIHdoZW4gc3lzdGVtIHJlc3VtZQoKU2lnbmVkLW9mZi1ieTogTGV3aXMgSHVhbmcg
+PExld2lzLkh1YW5nQGFtZC5jb20+ClJldmlld2VkLWJ5OiBKdW4gTGVpIDxKdW4uTGVpQGFtZC5j
+b20+CkFja2VkLWJ5OiBFcmljIFlhbmcgPGVyaWMueWFuZzJAYW1kLmNvbT4KQWNrZWQtYnk6IExl
+byBMaSA8c3VucGVuZy5saUBhbWQuY29tPgpTaWduZWQtb2ZmLWJ5OiBBbGV4IERldWNoZXIgPGFs
+ZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+ClNpZ25lZC1vZmYtYnk6IFNhc2hhIExldmluIDxzYXNo
+YWxAa2VybmVsLm9yZz4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvY29yZS9k
+Yy5jIHwgOCArKysrKysrKwogMSBmaWxlIGNoYW5nZWQsIDggaW5zZXJ0aW9ucygrKQoKZGlmZiAt
+LWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9jb3JlL2RjLmMgYi9kcml2ZXJz
+L2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvY29yZS9kYy5jCmluZGV4IGY0Yjg5ZDFlYTZmNmYuLjJi
+MmVmZTQ0M2MzNmQgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9j
+b3JlL2RjLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2NvcmUvZGMuYwpA
+QCAtMTU4NSw2ICsxNTg1LDE0IEBAIHZvaWQgZGNfc2V0X3Bvd2VyX3N0YXRlKAogCQlkY19yZXNv
+dXJjZV9zdGF0ZV9jb25zdHJ1Y3QoZGMsIGRjLT5jdXJyZW50X3N0YXRlKTsKIAogCQlkYy0+aHdz
+cy5pbml0X2h3KGRjKTsKKworI2lmZGVmIENPTkZJR19EUk1fQU1EX0RDX0RDTjJfMAorCQlpZiAo
+ZGMtPmh3c3MuaW5pdF9zeXNfY3R4ICE9IE5VTEwgJiYKKwkJCWRjLT52bV9wYV9jb25maWcudmFs
+aWQpIHsKKwkJCWRjLT5od3NzLmluaXRfc3lzX2N0eChkYy0+aHdzZXEsIGRjLCAmZGMtPnZtX3Bh
+X2NvbmZpZyk7CisJCX0KKyNlbmRpZgorCiAJCWJyZWFrOwogCWRlZmF1bHQ6CiAKLS0gCjIuMjAu
+MQoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdm
+eCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0
+cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
