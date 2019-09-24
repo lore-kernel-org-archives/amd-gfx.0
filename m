@@ -1,51 +1,98 @@
 From: Sasha Levin <sashal@kernel.org>
-Subject: [PATCH AUTOSEL 5.3 32/87] drm/amd/display: reprogram VM config when
- system resume
-Date: Tue, 24 Sep 2019 12:40:48 -0400
-Message-ID: <20190924164144.25591-32-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.3 33/87] drm/amd/display: Register VUPDATE_NO_LOCK interrupts for DCN2
+Date: Tue, 24 Sep 2019 12:40:49 -0400
+Message-ID: <20190924164144.25591-33-sashal@kernel.org>
 References: <20190924164144.25591-1-sashal@kernel.org>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
 In-Reply-To: <20190924164144.25591-1-sashal@kernel.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+Sender: linux-kernel-owner@vger.kernel.org
 To: linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Cc: Sasha Levin <sashal@kernel.org>, Lewis Huang <Lewis.Huang@amd.com>, Eric Yang <eric.yang2@amd.com>, Leo Li <sunpeng.li@amd.com>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>, Jun Lei <Jun.Lei@amd.com>
+Cc: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>, David Francis <David.Francis@amd.com>, Leo Li <sunpeng.li@amd.com>, Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
 List-Id: amd-gfx.lists.freedesktop.org
 
-RnJvbTogTGV3aXMgSHVhbmcgPExld2lzLkh1YW5nQGFtZC5jb20+CgpbIFVwc3RyZWFtIGNvbW1p
-dCBlNTM4MjcwMWMzNTIwYjNlZDY2MTY5YTZlNGFhNmNlNWRmOGM1NmUwIF0KCltXaHldClRoZSB2
-bSBjb25maWcgd2lsbCBiZSBjbGVhciB0byAwIHdoZW4gc3lzdGVtIGVudGVyIFM0LiBJdCB3aWxs
-CmNhdXNlIGh1YmJ1YiBkaWRuJ3Qga25vdyBob3cgdG8gZmV0Y2ggZGF0YSB3aGVuIHN5c3RlbSBy
-ZXN1bWUuClRoZSBmbGlwIGFsd2F5cyBwZW5kaW5nIGJlY2F1c2UgZWFybGllc3RfaW51c2VfYWRk
-cmVzcyBhbmQKcmVxdWVzdF9hZGRyZXNzIGFyZSBkaWZmZXJlbnQuCgpbSG93XQpSZXByb2dyYW0g
-Vk0gY29uZmlnIHdoZW4gc3lzdGVtIHJlc3VtZQoKU2lnbmVkLW9mZi1ieTogTGV3aXMgSHVhbmcg
-PExld2lzLkh1YW5nQGFtZC5jb20+ClJldmlld2VkLWJ5OiBKdW4gTGVpIDxKdW4uTGVpQGFtZC5j
-b20+CkFja2VkLWJ5OiBFcmljIFlhbmcgPGVyaWMueWFuZzJAYW1kLmNvbT4KQWNrZWQtYnk6IExl
-byBMaSA8c3VucGVuZy5saUBhbWQuY29tPgpTaWduZWQtb2ZmLWJ5OiBBbGV4IERldWNoZXIgPGFs
-ZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+ClNpZ25lZC1vZmYtYnk6IFNhc2hhIExldmluIDxzYXNo
-YWxAa2VybmVsLm9yZz4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvY29yZS9k
-Yy5jIHwgOCArKysrKysrKwogMSBmaWxlIGNoYW5nZWQsIDggaW5zZXJ0aW9ucygrKQoKZGlmZiAt
-LWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9jb3JlL2RjLmMgYi9kcml2ZXJz
-L2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvY29yZS9kYy5jCmluZGV4IGNiYzQ4MGEzMzM3NjQuLjcz
-MGY5N2JhOGRiYmUgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9j
-b3JlL2RjLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2NvcmUvZGMuYwpA
-QCAtMjE4Nyw2ICsyMTg3LDE0IEBAIHZvaWQgZGNfc2V0X3Bvd2VyX3N0YXRlKAogCQlkY19yZXNv
-dXJjZV9zdGF0ZV9jb25zdHJ1Y3QoZGMsIGRjLT5jdXJyZW50X3N0YXRlKTsKIAogCQlkYy0+aHdz
-cy5pbml0X2h3KGRjKTsKKworI2lmZGVmIENPTkZJR19EUk1fQU1EX0RDX0RDTjJfMAorCQlpZiAo
-ZGMtPmh3c3MuaW5pdF9zeXNfY3R4ICE9IE5VTEwgJiYKKwkJCWRjLT52bV9wYV9jb25maWcudmFs
-aWQpIHsKKwkJCWRjLT5od3NzLmluaXRfc3lzX2N0eChkYy0+aHdzZXEsIGRjLCAmZGMtPnZtX3Bh
-X2NvbmZpZyk7CisJCX0KKyNlbmRpZgorCiAJCWJyZWFrOwogCWRlZmF1bHQ6CiAJCUFTU0VSVChk
-Yy0+Y3VycmVudF9zdGF0ZS0+c3RyZWFtX2NvdW50ID09IDApOwotLSAKMi4yMC4xCgpfX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpkcmktZGV2ZWwgbWFpbGlu
-ZyBsaXN0CmRyaS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVl
-ZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9kcmktZGV2ZWw=
+From: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+
+[ Upstream commit e40837afb9b011757e17e9f71d97853ca574bcff ]
+
+[Why]
+These are needed to send back DRM vblank events in the case where VRR
+is on. Without the interrupt enabled we're deferring the events into the
+vblank queue and userspace is left waiting forever to get back the
+events they need.
+
+Found using igt@kms_vrr - the test fails immediately due to vblank
+timeout.
+
+[How]
+Register them the same way we're handling it for DCN1.
+
+This fixes igt@kms_vrr for DCN2.
+
+Signed-off-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+Reviewed-by: David Francis <David.Francis@amd.com>
+Acked-by: Leo Li <sunpeng.li@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ .../display/dc/irq/dcn20/irq_service_dcn20.c  | 28 ++++++++++++-------
+ 1 file changed, 18 insertions(+), 10 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/dc/irq/dcn20/irq_service_dcn20.c b/drivers/gpu/drm/amd/display/dc/irq/dcn20/irq_service_dcn20.c
+index 3cc0f2a1f77cc..5db29bf582d31 100644
+--- a/drivers/gpu/drm/amd/display/dc/irq/dcn20/irq_service_dcn20.c
++++ b/drivers/gpu/drm/amd/display/dc/irq/dcn20/irq_service_dcn20.c
+@@ -167,6 +167,11 @@ static const struct irq_source_info_funcs vblank_irq_info_funcs = {
+ 	.ack = NULL
+ };
+ 
++static const struct irq_source_info_funcs vupdate_no_lock_irq_info_funcs = {
++	.set = NULL,
++	.ack = NULL
++};
++
+ #undef BASE_INNER
+ #define BASE_INNER(seg) DCN_BASE__INST0_SEG ## seg
+ 
+@@ -221,12 +226,15 @@ static const struct irq_source_info_funcs vblank_irq_info_funcs = {
+ 		.funcs = &pflip_irq_info_funcs\
+ 	}
+ 
+-#define vupdate_int_entry(reg_num)\
++/* vupdate_no_lock_int_entry maps to DC_IRQ_SOURCE_VUPDATEx, to match semantic
++ * of DCE's DC_IRQ_SOURCE_VUPDATEx.
++ */
++#define vupdate_no_lock_int_entry(reg_num)\
+ 	[DC_IRQ_SOURCE_VUPDATE1 + reg_num] = {\
+ 		IRQ_REG_ENTRY(OTG, reg_num,\
+-			OTG_GLOBAL_SYNC_STATUS, VUPDATE_INT_EN,\
+-			OTG_GLOBAL_SYNC_STATUS, VUPDATE_EVENT_CLEAR),\
+-		.funcs = &vblank_irq_info_funcs\
++			OTG_GLOBAL_SYNC_STATUS, VUPDATE_NO_LOCK_INT_EN,\
++			OTG_GLOBAL_SYNC_STATUS, VUPDATE_NO_LOCK_EVENT_CLEAR),\
++		.funcs = &vupdate_no_lock_irq_info_funcs\
+ 	}
+ 
+ #define vblank_int_entry(reg_num)\
+@@ -333,12 +341,12 @@ irq_source_info_dcn20[DAL_IRQ_SOURCES_NUMBER] = {
+ 	dc_underflow_int_entry(6),
+ 	[DC_IRQ_SOURCE_DMCU_SCP] = dummy_irq_entry(),
+ 	[DC_IRQ_SOURCE_VBIOS_SW] = dummy_irq_entry(),
+-	vupdate_int_entry(0),
+-	vupdate_int_entry(1),
+-	vupdate_int_entry(2),
+-	vupdate_int_entry(3),
+-	vupdate_int_entry(4),
+-	vupdate_int_entry(5),
++	vupdate_no_lock_int_entry(0),
++	vupdate_no_lock_int_entry(1),
++	vupdate_no_lock_int_entry(2),
++	vupdate_no_lock_int_entry(3),
++	vupdate_no_lock_int_entry(4),
++	vupdate_no_lock_int_entry(5),
+ 	vblank_int_entry(0),
+ 	vblank_int_entry(1),
+ 	vblank_int_entry(2),
+-- 
+2.20.1
