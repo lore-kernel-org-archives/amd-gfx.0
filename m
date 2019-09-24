@@ -1,7 +1,7 @@
 From: "Liu, Shaoyun" <Shaoyun.Liu-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH] drm/amdgpu: Add NAVI12 support from kfd side
-Date: Tue, 24 Sep 2019 22:13:51 +0000
-Message-ID: <1569363225-18469-1-git-send-email-shaoyun.liu@amd.com>
+Subject: [PATCH] drm/amdkfd: Add NAVI12 support from kfd side
+Date: Tue, 24 Sep 2019 22:16:19 +0000
+Message-ID: <1569363372-18620-1-git-send-email-shaoyun.liu@amd.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
