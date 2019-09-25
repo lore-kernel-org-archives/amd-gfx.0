@@ -1,87 +1,111 @@
-From: "Zhao, Yong" <Yong.Zhao-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 3/3] drm/amdkfd: Remove the control stack workaround for
- GFX10
-Date: Wed, 25 Sep 2019 18:34:35 +0000
-Message-ID: <09afdf34-0c72-5306-103a-1290734fa1a2@amd.com>
-References: <20190925181527.17091-1-Yong.Zhao@amd.com>
- <20190925181527.17091-3-Yong.Zhao@amd.com>
- <3d63ddfd-2773-b89d-c0dc-75ac1397b1fc@amd.com>
+From: Sean Paul <sean@poorly.run>
+Subject: Re: [PATCH v2 08/27] drm/dp_mst: Remove PDT teardown in
+ drm_dp_destroy_port() and refactor
+Date: Wed, 25 Sep 2019 15:00:58 -0400
+Message-ID: <20190925190058.GF218215@art_vandelay>
+References: <20190903204645.25487-1-lyude@redhat.com>
+ <20190903204645.25487-9-lyude@redhat.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <3d63ddfd-2773-b89d-c0dc-75ac1397b1fc-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-Content-ID: <C94D3FF974D6FE45AE63C3C35A382D51-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Type: text/plain; charset=iso-8859-1
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Content-Disposition: inline
+In-Reply-To: <20190903204645.25487-9-lyude@redhat.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Lyude Paul <lyude@redhat.com>
+Cc: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, Juston Li <juston.li@intel.com>, Imre Deak <imre.deak@intel.com>, Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>, Harry Wentland <hwentlan@amd.com>, Daniel Vetter <daniel.vetter@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, Sean Paul <sean@poorly.run>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, linux-kernel@vger.kernel.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-WWVzLiBJIGNvbmZpcm1lZCB3aXRoIENQIGd1eXMgYW5kIHRoZXkgc2FpZCB0aGUgYmVoYXZpb3Ig
-b24gR0ZYMTAgaXMgdGhlIA0Kc2FtZSBhcyBHRlg4IG5vdy4gSSByZW1lbWJlciB0aGF0IHRoZSB3
-b3JrYXJvdW5kIG9uIEdGWDkgd2FzIHRvIGhlbHAgDQp3aXRoIGEgSFcgYnVnLCBidXQgbm90IHRv
-byBzdXJlLg0KDQpSZWdhcmRzLA0KDQpZb25nDQoNCk9uIDIwMTktMDktMjUgMjoyNSBwLm0uLCBL
-dWVobGluZywgRmVsaXggd3JvdGU6DQo+IE9uIDIwMTktMDktMjUgMjoxNSBwLm0uLCBaaGFvLCBZ
-b25nIHdyb3RlOg0KPj4gVGhlIEdGWDEwIGRvZXMgbm90IGhhdmUgdGhpcyBoYXJkd2FyZSBidWcg
-YW55IG1vcmUsIHNvIHJlbW92ZSBpdC4NCj4gSSB3b3VsZG4ndCBjYWxsIHRoaXMgYSBidWcgYW5k
-IGEgd29ya2Fyb3VuZC4gTW9yZSBsaWtlIGEgY2hhbmdlIGluIHRoZQ0KPiBIVyBvciBGVyBiZWhh
-dmlvdXIgYW5kIGEgY29ycmVzcG9uZGluZyBkcml2ZXIgY2hhbmdlLiBJLmUuIGluIEdGWHY4IHRo
-ZQ0KPiBjb250cm9sIHN0YWNrIHdhcyBpbiB0aGUgdXNlciBtb2RlIENXU1IgYWxsb2NhdGlvbi4g
-SW4gR0ZYdjkgaXQgbW92ZWQNCj4gaW50byBhIGtlcm5lbCBtb2RlIGJ1ZmZlciBuZXh0IHRvIHRo
-ZSBNUUQuIFNvIGluIEdGWHYxMCB0aGUgY29udHJvbA0KPiBzdGFjayBtb3ZlZCBiYWNrIGludG8g
-dGhlIHVzZXIgbW9kZSBDV1NSIGJ1ZmZlcj8NCj4NCj4gUmVnYXJkcywNCj4gICDCoCBGZWxpeA0K
-Pg0KPj4gQ2hhbmdlLUlkOiBJNDQ2Yzk2ODU1NDlhMDlhYzg4NDZhNDJlZTIyZDg2Y2ZiOTNmZDk4
-Yw0KPj4gU2lnbmVkLW9mZi1ieTogWW9uZyBaaGFvIDxZb25nLlpoYW9AYW1kLmNvbT4NCj4+IC0t
-LQ0KPj4gICAgLi4uL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfbXFkX21hbmFnZXJfdjEwLmMgIHwg
-MzcgKystLS0tLS0tLS0tLS0tLS0tLQ0KPj4gICAgMSBmaWxlIGNoYW5nZWQsIDQgaW5zZXJ0aW9u
-cygrKSwgMzMgZGVsZXRpb25zKC0pDQo+Pg0KPj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2Ry
-bS9hbWQvYW1ka2ZkL2tmZF9tcWRfbWFuYWdlcl92MTAuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-YW1ka2ZkL2tmZF9tcWRfbWFuYWdlcl92MTAuYw0KPj4gaW5kZXggOWNkM2ViMmQ5MGJkLi40YTIz
-NmIyYzIzNTQgMTAwNjQ0DQo+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRf
-bXFkX21hbmFnZXJfdjEwLmMNCj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tm
-ZF9tcWRfbWFuYWdlcl92MTAuYw0KPj4gQEAgLTY5LDM1ICs2OSwxMyBAQCBzdGF0aWMgdm9pZCB1
-cGRhdGVfY3VfbWFzayhzdHJ1Y3QgbXFkX21hbmFnZXIgKm1tLCB2b2lkICptcWQsDQo+PiAgICBz
-dGF0aWMgc3RydWN0IGtmZF9tZW1fb2JqICphbGxvY2F0ZV9tcWQoc3RydWN0IGtmZF9kZXYgKmtm
-ZCwNCj4+ICAgIAkJc3RydWN0IHF1ZXVlX3Byb3BlcnRpZXMgKnEpDQo+PiAgICB7DQo+PiAtCWlu
-dCByZXR2YWw7DQo+PiAtCXN0cnVjdCBrZmRfbWVtX29iaiAqbXFkX21lbV9vYmogPSBOVUxMOw0K
-Pj4gKwlzdHJ1Y3Qga2ZkX21lbV9vYmogKm1xZF9tZW1fb2JqOw0KPj4gICAgDQo+PiAtCS8qIEZy
-b20gVjksICBmb3IgQ1dTUiwgdGhlIGNvbnRyb2wgc3RhY2sgaXMgbG9jYXRlZCBvbiB0aGUgbmV4
-dCBwYWdlDQo+PiAtCSAqIGJvdW5kYXJ5IGFmdGVyIHRoZSBtcWQsIHdlIHdpbGwgdXNlIHRoZSBn
-dHQgYWxsb2NhdGlvbiBmdW5jdGlvbg0KPj4gLQkgKiBpbnN0ZWFkIG9mIHN1Yi1hbGxvY2F0aW9u
-IGZ1bmN0aW9uLg0KPj4gLQkgKi8NCj4+IC0JaWYgKGtmZC0+Y3dzcl9lbmFibGVkICYmIChxLT50
-eXBlID09IEtGRF9RVUVVRV9UWVBFX0NPTVBVVEUpKSB7DQo+PiAtCQltcWRfbWVtX29iaiA9IGt6
-YWxsb2Moc2l6ZW9mKHN0cnVjdCBrZmRfbWVtX29iaiksIEdGUF9OT0lPKTsNCj4+IC0JCWlmICgh
-bXFkX21lbV9vYmopDQo+PiAtCQkJcmV0dXJuIE5VTEw7DQo+PiAtCQlyZXR2YWwgPSBhbWRncHVf
-YW1ka2ZkX2FsbG9jX2d0dF9tZW0oa2ZkLT5rZ2QsDQo+PiAtCQkJQUxJR04ocS0+Y3RsX3N0YWNr
-X3NpemUsIFBBR0VfU0laRSkgKw0KPj4gLQkJCQlBTElHTihzaXplb2Yoc3RydWN0IHYxMF9jb21w
-dXRlX21xZCksIFBBR0VfU0laRSksDQo+PiAtCQkJJihtcWRfbWVtX29iai0+Z3R0X21lbSksDQo+
-PiAtCQkJJihtcWRfbWVtX29iai0+Z3B1X2FkZHIpLA0KPj4gLQkJCSh2b2lkICopJihtcWRfbWVt
-X29iai0+Y3B1X3B0ciksIHRydWUpOw0KPj4gLQl9IGVsc2Ugew0KPj4gLQkJcmV0dmFsID0ga2Zk
-X2d0dF9zYV9hbGxvY2F0ZShrZmQsIHNpemVvZihzdHJ1Y3QgdjEwX2NvbXB1dGVfbXFkKSwNCj4+
-IC0JCQkJJm1xZF9tZW1fb2JqKTsNCj4+IC0JfQ0KPj4gLQ0KPj4gLQlpZiAocmV0dmFsKSB7DQo+
-PiAtCQlrZnJlZShtcWRfbWVtX29iaik7DQo+PiArCWlmIChrZmRfZ3R0X3NhX2FsbG9jYXRlKGtm
-ZCwgc2l6ZW9mKHN0cnVjdCB2MTBfY29tcHV0ZV9tcWQpLA0KPj4gKwkJCSZtcWRfbWVtX29iaikp
-DQo+PiAgICAJCXJldHVybiBOVUxMOw0KPj4gLQl9DQo+PiAgICANCj4+ICAgIAlyZXR1cm4gbXFk
-X21lbV9vYmo7DQo+PiAtDQo+PiAgICB9DQo+PiAgICANCj4+ICAgIHN0YXRpYyB2b2lkIGluaXRf
-bXFkKHN0cnVjdCBtcWRfbWFuYWdlciAqbW0sIHZvaWQgKiptcWQsDQo+PiBAQCAtMjUwLDE0ICsy
-MjgsNyBAQCBzdGF0aWMgaW50IGRlc3Ryb3lfbXFkKHN0cnVjdCBtcWRfbWFuYWdlciAqbW0sIHZv
-aWQgKm1xZCwNCj4+ICAgIHN0YXRpYyB2b2lkIGZyZWVfbXFkKHN0cnVjdCBtcWRfbWFuYWdlciAq
-bW0sIHZvaWQgKm1xZCwNCj4+ICAgIAkJCXN0cnVjdCBrZmRfbWVtX29iaiAqbXFkX21lbV9vYmop
-DQo+PiAgICB7DQo+PiAtCXN0cnVjdCBrZmRfZGV2ICprZmQgPSBtbS0+ZGV2Ow0KPj4gLQ0KPj4g
-LQlpZiAobXFkX21lbV9vYmotPmd0dF9tZW0pIHsNCj4+IC0JCWFtZGdwdV9hbWRrZmRfZnJlZV9n
-dHRfbWVtKGtmZC0+a2dkLCBtcWRfbWVtX29iai0+Z3R0X21lbSk7DQo+PiAtCQlrZnJlZShtcWRf
-bWVtX29iaik7DQo+PiAtCX0gZWxzZSB7DQo+PiAtCQlrZmRfZ3R0X3NhX2ZyZWUobW0tPmRldiwg
-bXFkX21lbV9vYmopOw0KPj4gLQl9DQo+PiArCWtmZF9ndHRfc2FfZnJlZShtbS0+ZGV2LCBtcWRf
-bWVtX29iaik7DQo+PiAgICB9DQo+PiAgICANCj4+ICAgIHN0YXRpYyBib29sIGlzX29jY3VwaWVk
-KHN0cnVjdCBtcWRfbWFuYWdlciAqbW0sIHZvaWQgKm1xZCwNCl9fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhA
-bGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxt
-YW4vbGlzdGluZm8vYW1kLWdmeA==
+On Tue, Sep 03, 2019 at 04:45:46PM -0400, Lyude Paul wrote:
+> This will allow us to add some locking for port->* members, in
+> particular the PDT and ->connector, which can't be done from
+> drm_dp_destroy_port() since we don't know what locks the caller might be
+> holding.
+
+Might be nice to mention that this is already done in the delayed destroy worker
+so readers don't need to go looking for it. Perhaps update this when you apply
+the patch.
+
+> 
+> Changes since v2:
+> * Clarify commit message
+> 
+> Cc: Juston Li <juston.li@intel.com>
+> Cc: Imre Deak <imre.deak@intel.com>
+> Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
+> Cc: Harry Wentland <hwentlan@amd.com>
+> Cc: Daniel Vetter <daniel.vetter@ffwll.ch>
+> Signed-off-by: Lyude Paul <lyude@redhat.com>
+
+Reviewed-by: Sean Paul <sean@poorly.run>
+
+> ---
+>  drivers/gpu/drm/drm_dp_mst_topology.c | 40 +++++++++++----------------
+>  1 file changed, 16 insertions(+), 24 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/drm_dp_mst_topology.c b/drivers/gpu/drm/drm_dp_mst_topology.c
+> index f5f1d8b50fb6..af3189df28aa 100644
+> --- a/drivers/gpu/drm/drm_dp_mst_topology.c
+> +++ b/drivers/gpu/drm/drm_dp_mst_topology.c
+> @@ -1511,31 +1511,22 @@ static void drm_dp_destroy_port(struct kref *kref)
+>  		container_of(kref, struct drm_dp_mst_port, topology_kref);
+>  	struct drm_dp_mst_topology_mgr *mgr = port->mgr;
+>  
+> -	if (!port->input) {
+> -		kfree(port->cached_edid);
+> +	/* There's nothing that needs locking to destroy an input port yet */
+> +	if (port->input) {
+> +		drm_dp_mst_put_port_malloc(port);
+> +		return;
+> +	}
+>  
+> -		/*
+> -		 * The only time we don't have a connector
+> -		 * on an output port is if the connector init
+> -		 * fails.
+> -		 */
+> -		if (port->connector) {
+> -			/* we can't destroy the connector here, as
+> -			 * we might be holding the mode_config.mutex
+> -			 * from an EDID retrieval */
+> +	kfree(port->cached_edid);
+>  
+> -			mutex_lock(&mgr->delayed_destroy_lock);
+> -			list_add(&port->next, &mgr->destroy_port_list);
+> -			mutex_unlock(&mgr->delayed_destroy_lock);
+> -			schedule_work(&mgr->delayed_destroy_work);
+> -			return;
+> -		}
+> -		/* no need to clean up vcpi
+> -		 * as if we have no connector we never setup a vcpi */
+> -		drm_dp_port_teardown_pdt(port, port->pdt);
+> -		port->pdt = DP_PEER_DEVICE_NONE;
+> -	}
+> -	drm_dp_mst_put_port_malloc(port);
+> +	/*
+> +	 * we can't destroy the connector here, as we might be holding the
+> +	 * mode_config.mutex from an EDID retrieval
+> +	 */
+> +	mutex_lock(&mgr->delayed_destroy_lock);
+> +	list_add(&port->next, &mgr->destroy_port_list);
+> +	mutex_unlock(&mgr->delayed_destroy_lock);
+> +	schedule_work(&mgr->delayed_destroy_work);
+>  }
+>  
+>  /**
+> @@ -3998,7 +3989,8 @@ static void drm_dp_tx_work(struct work_struct *work)
+>  static inline void
+>  drm_dp_delayed_destroy_port(struct drm_dp_mst_port *port)
+>  {
+> -	port->mgr->cbs->destroy_connector(port->mgr, port->connector);
+> +	if (port->connector)
+> +		port->mgr->cbs->destroy_connector(port->mgr, port->connector);
+>  
+>  	drm_dp_port_teardown_pdt(port, port->pdt);
+>  	port->pdt = DP_PEER_DEVICE_NONE;
+> -- 
+> 2.21.0
+> 
+
+-- 
+Sean Paul, Software Engineer, Google / Chromium OS
