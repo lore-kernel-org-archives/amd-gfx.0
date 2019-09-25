@@ -1,68 +1,69 @@
-From: Sean Paul <sean@poorly.run>
-Subject: Re: [PATCH v2 24/27] drm/amdgpu/dm: Resume short HPD IRQs before
- resuming MST topology
-Date: Wed, 25 Sep 2019 16:08:38 -0400
-Message-ID: <20190925200838.GO218215@art_vandelay>
-References: <20190903204645.25487-1-lyude@redhat.com>
- <20190903204645.25487-25-lyude@redhat.com>
+From: "Liu, Shaoyun" <Shaoyun.Liu-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: [PATCH] drm/amdgpu: Add NAVI12 support from kfd side
+Date: Wed, 25 Sep 2019 20:09:24 +0000
+Message-ID: <DM6PR12MB3241269E6B5007951F0B59BEF4870@DM6PR12MB3241.namprd12.prod.outlook.com>
+References: <1569363225-18469-1-git-send-email-shaoyun.liu@amd.com>
+ <2b7c9fe9-0849-d3a5-99b4-3203c1b82de2@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Transfer-Encoding: 8bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Content-Disposition: inline
-In-Reply-To: <20190903204645.25487-25-lyude@redhat.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Lyude Paul <lyude@redhat.com>
-Cc: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, Juston Li <juston.li@intel.com>, Imre Deak <imre.deak@intel.com>, Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>, Harry Wentland <hwentlan@amd.com>, Daniel Vetter <daniel.vetter@ffwll.ch>, Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, Alex Deucher <alexander.deucher@amd.com>, Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>, David Francis <David.Francis@amd.com>, Mario Kleiner <mario.kleiner.de@gmail.com>, Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <2b7c9fe9-0849-d3a5-99b4-3203c1b82de2-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-On Tue, Sep 03, 2019 at 04:46:02PM -0400, Lyude Paul wrote:
-> Since we're going to be reprobing the entire topology state on resume
-> now using sideband transactions, we need to ensure that we actually have
-> short HPD irqs enabled before calling drm_dp_mst_topology_mgr_resume().
-> So, do that.
-> 
-> Cc: Juston Li <juston.li@intel.com>
-> Cc: Imre Deak <imre.deak@intel.com>
-> Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
-> Cc: Harry Wentland <hwentlan@amd.com>
-> Cc: Daniel Vetter <daniel.vetter@ffwll.ch>
-> Signed-off-by: Lyude Paul <lyude@redhat.com>
-> ---
->  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 6 +++---
->  1 file changed, 3 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index 73630e2940d4..4d3c8bff77da 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -1185,15 +1185,15 @@ static int dm_resume(void *handle)
->  	/* program HPD filter */
->  	dc_resume(dm->dc);
->  
-> -	/* On resume we need to  rewrite the MSTM control bits to enamble MST*/
-> -	s3_handle_mst(ddev, false);
-> -
->  	/*
->  	 * early enable HPD Rx IRQ, should be done before set mode as short
->  	 * pulse interrupts are used for MST
->  	 */
->  	amdgpu_dm_irq_resume_early(adev);
->  
-> +	/* On resume we need to  rewrite the MSTM control bits to enamble MST*/
-
-While we're here,
-
-s/  / / && s/enamble/enable/ && s_*/_ */_
-
-> +	s3_handle_mst(ddev, false);
-> +
->  	/* Do detection*/
->  	drm_connector_list_iter_begin(ddev, &iter);
->  	drm_for_each_connector_iter(connector, &iter) {
-> -- 
-> 2.21.0
-> 
-
--- 
-Sean Paul, Software Engineer, Google / Chromium OS
+SSBzZW50IG91dCBhbm90aGVyIGNoYW5nZSB0aGF0IHNldCB0aGUgIGFzaWNfZmFtaWx5IGFzIENI
+SVBfTkFWSTEwIHNpbmNlIGZyb20gS0ZEIHNpZGUgdGhlcmUgaXMgbm8gZGlmZmVyZW5jZSBmb3Ig
+bmF2aTEwIGFuZCAgbmF2aTEyLiANCg0KUmVnYXJkcw0KU2hhb3l1bi5saXUNCg0KLS0tLS1Pcmln
+aW5hbCBNZXNzYWdlLS0tLS0NCkZyb206IEt1ZWhsaW5nLCBGZWxpeCA8RmVsaXguS3VlaGxpbmdA
+YW1kLmNvbT4gDQpTZW50OiBXZWRuZXNkYXksIFNlcHRlbWJlciAyNSwgMjAxOSAxMToyMyBBTQ0K
+VG86IExpdSwgU2hhb3l1biA8U2hhb3l1bi5MaXVAYW1kLmNvbT47IGFtZC1nZnhAbGlzdHMuZnJl
+ZWRlc2t0b3Aub3JnDQpTdWJqZWN0OiBSZTogW1BBVENIXSBkcm0vYW1kZ3B1OiBBZGQgTkFWSTEy
+IHN1cHBvcnQgZnJvbSBrZmQgc2lkZQ0KDQpZb3UnbGwgYWxzbyBuZWVkIHRvIGFkZCAiY2FzZSBD
+SElQX05BVkkxMjoiIGluIGEgYnVuY2ggb2YgcGxhY2VzLiBHcmVwIGZvciAiQ0hJUF9OQVZJMTAi
+IGFuZCB5b3UnbGwgZmluZCB0aGVtIGFsbCBwcmV0dHkgcXVpY2tseS4NCg0KUmVnYXJkcywNCiDC
+oCBGZWxpeA0KDQpPbiAyMDE5LTA5LTI0IDY6MTMgcC5tLiwgTGl1LCBTaGFveXVuIHdyb3RlOg0K
+PiBBZGQgZGV2aWNlIGluZm8gZm9yIGJvdGggbmF2aTEyIFBGIGFuZCBWRg0KPg0KPiBDaGFuZ2Ut
+SWQ6IElmYjQwMzVlNjVjMTJkMTUzZmMzMGU1OTNmZTEwOWY5YzdlMDU0MWY0DQo+IFNpZ25lZC1v
+ZmYtYnk6IHNoYW95dW5sIDxzaGFveXVuLmxpdUBhbWQuY29tPg0KPiAtLS0NCj4gICBkcml2ZXJz
+L2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfZGV2aWNlLmMgfCAxOSArKysrKysrKysrKysrKysrKysr
+DQo+ICAgMSBmaWxlIGNoYW5nZWQsIDE5IGluc2VydGlvbnMoKykNCj4NCj4gZGlmZiAtLWdpdCBh
+L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9kZXZpY2UuYyANCj4gYi9kcml2ZXJzL2dw
+dS9kcm0vYW1kL2FtZGtmZC9rZmRfZGV2aWNlLmMNCj4gaW5kZXggZjMyOWI4Mi4uZWRmYmFlNWMg
+MTAwNjQ0DQo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9kZXZpY2UuYw0K
+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfZGV2aWNlLmMNCj4gQEAgLTM4
+Nyw2ICszODcsMjQgQEAgc3RhdGljIGNvbnN0IHN0cnVjdCBrZmRfZGV2aWNlX2luZm8gbmF2aTEw
+X2RldmljZV9pbmZvID0gew0KPiAgIAkubnVtX3NkbWFfcXVldWVzX3Blcl9lbmdpbmUgPSA4LA0K
+PiAgIH07DQo+ICAgDQo+ICtzdGF0aWMgY29uc3Qgc3RydWN0IGtmZF9kZXZpY2VfaW5mbyBuYXZp
+MTJfZGV2aWNlX2luZm8gPSB7DQo+ICsJLmFzaWNfZmFtaWx5ID0gQ0hJUF9OQVZJMTIsDQo+ICsJ
+LmFzaWNfbmFtZSA9ICJuYXZpMTIiLA0KPiArCS5tYXhfcGFzaWRfYml0cyA9IDE2LA0KPiArCS5t
+YXhfbm9fb2ZfaHFkICA9IDI0LA0KPiArCS5kb29yYmVsbF9zaXplICA9IDgsDQo+ICsJLmloX3Jp
+bmdfZW50cnlfc2l6ZSA9IDggKiBzaXplb2YodWludDMyX3QpLA0KPiArCS5ldmVudF9pbnRlcnJ1
+cHRfY2xhc3MgPSAmZXZlbnRfaW50ZXJydXB0X2NsYXNzX3Y5LA0KPiArCS5udW1fb2Zfd2F0Y2hf
+cG9pbnRzID0gNCwNCj4gKwkubXFkX3NpemVfYWxpZ25lZCA9IE1RRF9TSVpFX0FMSUdORUQsDQo+
+ICsJLm5lZWRzX2lvbW11X2RldmljZSA9IGZhbHNlLA0KPiArCS5zdXBwb3J0c19jd3NyID0gdHJ1
+ZSwNCj4gKwkubmVlZHNfcGNpX2F0b21pY3MgPSBmYWxzZSwNCj4gKwkubnVtX3NkbWFfZW5naW5l
+cyA9IDIsDQo+ICsJLm51bV94Z21pX3NkbWFfZW5naW5lcyA9IDAsDQo+ICsJLm51bV9zZG1hX3F1
+ZXVlc19wZXJfZW5naW5lID0gOCwNCj4gK307DQo+ICsNCj4gICBzdGF0aWMgY29uc3Qgc3RydWN0
+IGtmZF9kZXZpY2VfaW5mbyBuYXZpMTRfZGV2aWNlX2luZm8gPSB7DQo+ICAgCS5hc2ljX2ZhbWls
+eSA9IENISVBfTkFWSTE0LA0KPiAgIAkuYXNpY19uYW1lID0gIm5hdmkxNCIsDQo+IEBAIC00MjUs
+NiArNDQzLDcgQEAgc3RhdGljIGNvbnN0IHN0cnVjdCBrZmRfZGV2aWNlX2luZm8gKmtmZF9zdXBw
+b3J0ZWRfZGV2aWNlc1tdWzJdID0gew0KPiAgIAlbQ0hJUF9SRU5PSVJdID0geyZyZW5vaXJfZGV2
+aWNlX2luZm8sIE5VTEx9LA0KPiAgIAlbQ0hJUF9BUkNUVVJVU10gPSB7JmFyY3R1cnVzX2Rldmlj
+ZV9pbmZvLCAmYXJjdHVydXNfZGV2aWNlX2luZm99LA0KPiAgIAlbQ0hJUF9OQVZJMTBdID0geyZu
+YXZpMTBfZGV2aWNlX2luZm8sIE5VTEx9LA0KPiArCVtDSElQX05BVkkxMl0gPSB7Jm5hdmkxMl9k
+ZXZpY2VfaW5mbywgJm5hdmkxMl9kZXZpY2VfaW5mb30sDQo+ICAgCVtDSElQX05BVkkxNF0gPSB7
+Jm5hdmkxNF9kZXZpY2VfaW5mbywgTlVMTH0sDQo+ICAgfTsNCj4gICANCl9fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFt
+ZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
+L21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
