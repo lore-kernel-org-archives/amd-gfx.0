@@ -1,34 +1,35 @@
 From: Sean Paul <sean@poorly.run>
-Subject: Re: [PATCH v2 20/27] drm/dp_mst: Protect drm_dp_mst_port members
- with connection_mutex
-Date: Wed, 25 Sep 2019 16:00:20 -0400
-Message-ID: <20190925200020.GL218215@art_vandelay>
+Subject: Re: [PATCH v2 21/27] drm/dp_mst: Don't forget to update port->input
+ in drm_dp_mst_handle_conn_stat()
+Date: Wed, 25 Sep 2019 16:03:27 -0400
+Message-ID: <20190925200327.GM218215@art_vandelay>
 References: <20190903204645.25487-1-lyude@redhat.com>
- <20190903204645.25487-21-lyude@redhat.com>
+ <20190903204645.25487-22-lyude@redhat.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset=iso-8859-1
 Content-Transfer-Encoding: 8bit
 Return-path: <linux-kernel-owner@vger.kernel.org>
 Content-Disposition: inline
-In-Reply-To: <20190903204645.25487-21-lyude@redhat.com>
+In-Reply-To: <20190903204645.25487-22-lyude@redhat.com>
 Sender: linux-kernel-owner@vger.kernel.org
 To: Lyude Paul <lyude@redhat.com>
 Cc: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, Juston Li <juston.li@intel.com>, Imre Deak <imre.deak@intel.com>, Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>, Harry Wentland <hwentlan@amd.com>, Daniel Vetter <daniel.vetter@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, Sean Paul <sean@poorly.run>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, linux-kernel@vger.kernel.org
 List-Id: amd-gfx.lists.freedesktop.org
 
-On Tue, Sep 03, 2019 at 04:45:58PM -0400, Lyude Paul wrote:
-> Yes-you read that right. Currently there is literally no locking in
-> place for any of the drm_dp_mst_port struct members that can be modified
-> in response to a link address response, or a connection status response.
-> Which literally means if we're unlucky enough to have any sort of
-> hotplugging event happen before we're finished with reprobing link
-> addresses, we'll race and the contents of said struct members becomes
-> undefined. Fun!
+On Tue, Sep 03, 2019 at 04:45:59PM -0400, Lyude Paul wrote:
+> This probably hasn't caused any problems up until now since it's
+> probably nearly impossible to encounter this in the wild, however if we
+> were to receive a connection status notification from the MST hub after
+> resume while we're in the middle of reprobing the link addresses for a
+> topology then there's a much larger chance that a port could have
+> changed from being an output port to input port (or vice versa). If we
+> forget to update this bit of information, we'll potentially ignore a
+> valid PDT change on a downstream port because we think it's an input
+> port.
 > 
-> So, finally add some simple locking protections to our MST helpers by
-> protecting any drm_dp_mst_port members which can be changed by link
-> address responses or connection status notifications under
-> drm_device->mode_config.connection_mutex.
+> So, make sure we read the input_port field in connection status
+> notifications in drm_dp_mst_handle_conn_stat() to prevent this from
+> happening once we've implemented suspend/resume reprobing.
 > 
 > Cc: Juston Li <juston.li@intel.com>
 > Cc: Imre Deak <imre.deak@intel.com>
@@ -36,136 +37,73 @@ On Tue, Sep 03, 2019 at 04:45:58PM -0400, Lyude Paul wrote:
 > Cc: Harry Wentland <hwentlan@amd.com>
 > Cc: Daniel Vetter <daniel.vetter@ffwll.ch>
 > Signed-off-by: Lyude Paul <lyude@redhat.com>
+
+Nice catch! Same comment here re: port->mutex, but we can sort that out on the
+other thread
+
+Reviewed-by: Sean Paul <sean@poorly.run>
+
+
 > ---
->  drivers/gpu/drm/drm_dp_mst_topology.c | 144 +++++++++++++++++++-------
->  include/drm/drm_dp_mst_helper.h       |  39 +++++--
->  2 files changed, 133 insertions(+), 50 deletions(-)
+>  drivers/gpu/drm/drm_dp_mst_topology.c | 51 +++++++++++++++++++--------
+>  1 file changed, 37 insertions(+), 14 deletions(-)
 > 
 > diff --git a/drivers/gpu/drm/drm_dp_mst_topology.c b/drivers/gpu/drm/drm_dp_mst_topology.c
-> index 5101eeab4485..259634c5d6dc 100644
+> index 259634c5d6dc..e407aba1fbd2 100644
 > --- a/drivers/gpu/drm/drm_dp_mst_topology.c
 > +++ b/drivers/gpu/drm/drm_dp_mst_topology.c
-> @@ -1354,6 +1354,7 @@ static void drm_dp_free_mst_port(struct kref *kref)
->  		container_of(kref, struct drm_dp_mst_port, malloc_kref);
->  
->  	drm_dp_mst_put_mstb_malloc(port->parent);
-> +	mutex_destroy(&port->lock);
->  	kfree(port);
->  }
->  
-> @@ -1906,6 +1907,36 @@ void drm_dp_mst_connector_early_unregister(struct drm_connector *connector,
->  }
->  EXPORT_SYMBOL(drm_dp_mst_connector_early_unregister);
->  
-> +static void
-> +drm_dp_mst_port_add_connector(struct drm_dp_mst_branch *mstb,
-> +			      struct drm_dp_mst_port *port)
-> +{
-> +	struct drm_dp_mst_topology_mgr *mgr = port->mgr;
-> +	char proppath[255];
-> +	int ret;
-> +
-> +	build_mst_prop_path(mstb, port->port_num, proppath, sizeof(proppath));
-> +	port->connector = mgr->cbs->add_connector(mgr, port, proppath);
-> +	if (!port->connector) {
-> +		ret = -ENOMEM;
-> +		goto error;
-> +	}
-> +
-> +	if ((port->pdt == DP_PEER_DEVICE_DP_LEGACY_CONV ||
-> +	     port->pdt == DP_PEER_DEVICE_SST_SINK) &&
-> +	    port->port_num >= DP_MST_LOGICAL_PORT_0) {
-> +		port->cached_edid = drm_get_edid(port->connector,
-> +						 &port->aux.ddc);
-> +		drm_connector_set_tile_property(port->connector);
-> +	}
-> +
-> +	mgr->cbs->register_connector(port->connector);
-> +	return;
-> +
-> +error:
-> +	DRM_ERROR("Failed to create connector for port %p: %d\n", port, ret);
-> +}
-> +
->  static void
->  drm_dp_mst_handle_link_address_port(struct drm_dp_mst_branch *mstb,
->  				    struct drm_device *dev,
-> @@ -1913,8 +1944,12 @@ drm_dp_mst_handle_link_address_port(struct drm_dp_mst_branch *mstb,
+> @@ -2078,18 +2078,23 @@ static void
+>  drm_dp_mst_handle_conn_stat(struct drm_dp_mst_branch *mstb,
+>  			    struct drm_dp_connection_status_notify *conn_stat)
 >  {
->  	struct drm_dp_mst_topology_mgr *mgr = mstb->mgr;
+> -	struct drm_device *dev = mstb->mgr->dev;
+> +	struct drm_dp_mst_topology_mgr *mgr = mstb->mgr;
+> +	struct drm_device *dev = mgr->dev;
 >  	struct drm_dp_mst_port *port;
-> -	bool created = false;
-> -	int old_ddps = 0;
-> +	struct drm_dp_mst_branch *child_mstb = NULL;
+> -	int old_ddps;
+> -	bool dowork = false;
 > +	struct drm_connector *connector_to_destroy = NULL;
-> +	int old_ddps = 0, ret;
-> +	u8 new_pdt = DP_PEER_DEVICE_NONE;
-> +	bool created = false, send_link_addr = false,
-> +	     create_connector = false;
+> +	int old_ddps, ret;
+> +	u8 new_pdt;
+> +	bool dowork = false, create_connector = false;
 >  
->  	port = drm_dp_get_port(mstb, port_msg->port_number);
->  	if (!port) {
-> @@ -1923,6 +1958,7 @@ drm_dp_mst_handle_link_address_port(struct drm_dp_mst_branch *mstb,
->  			return;
->  		kref_init(&port->topology_kref);
->  		kref_init(&port->malloc_kref);
-> +		mutex_init(&port->lock);
->  		port->parent = mstb;
->  		port->port_num = port_msg->port_number;
->  		port->mgr = mgr;
-> @@ -1937,11 +1973,17 @@ drm_dp_mst_handle_link_address_port(struct drm_dp_mst_branch *mstb,
->  		drm_dp_mst_get_mstb_malloc(mstb);
->  
->  		created = true;
-> -	} else {
-> -		old_ddps = port->ddps;
->  	}
+>  	port = drm_dp_get_port(mstb, conn_stat->port_number);
+>  	if (!port)
+>  		return;
 >  
 > +	mutex_lock(&port->lock);
-> +	drm_modeset_lock(&dev->mode_config.connection_mutex, NULL);
-> +
-> +	if (!created)
-> +		old_ddps = port->ddps;
-> +
->  	port->input = port_msg->input_port;
-> +	if (!port->input)
-> +		new_pdt = port_msg->peer_device_type;
->  	port->mcs = port_msg->mcs;
->  	port->ddps = port_msg->ddps;
->  	port->ldps = port_msg->legacy_device_plug_status;
-> @@ -1969,44 +2011,58 @@ drm_dp_mst_handle_link_address_port(struct drm_dp_mst_branch *mstb,
+>  	drm_modeset_lock(&dev->mode_config.connection_mutex, NULL);
+>  
+>  	old_ddps = port->ddps;
+> +	port->input = conn_stat->input_port;
+>  	port->mcs = conn_stat->message_capability_status;
+>  	port->ldps = conn_stat->legacy_device_plug_status;
+>  	port->ddps = conn_stat->displayport_device_plug_status;
+> @@ -2102,23 +2107,41 @@ drm_dp_mst_handle_conn_stat(struct drm_dp_mst_branch *mstb,
 >  		}
 >  	}
 >  
 > -	if (!port->input) {
 > -		int ret = drm_dp_port_set_pdt(port,
-> -					      port_msg->peer_device_type);
+> -					      conn_stat->peer_device_type);
 > -		if (ret == 1) {
-> -			drm_dp_send_link_address(mgr, port->mstb);
+> -			dowork = true;
 > -		} else if (ret < 0) {
-> -			DRM_ERROR("Failed to change PDT on port %p: %d\n",
+> -			DRM_ERROR("Failed to change PDT for port %p: %d\n",
 > -				  port, ret);
-> -			goto fail;
+> -			dowork = false;
+> -		}
+> +	new_pdt = port->input ? DP_PEER_DEVICE_NONE : conn_stat->peer_device_type;
+> +
 > +	ret = drm_dp_port_set_pdt(port, new_pdt);
 > +	if (ret == 1) {
-> +		send_link_addr = true;
+> +		dowork = true;
 > +	} else if (ret < 0) {
-> +		DRM_ERROR("Failed to change PDT on port %p: %d\n",
+> +		DRM_ERROR("Failed to change PDT for port %p: %d\n",
 > +			  port, ret);
-> +		goto fail_unlock;
+> +		dowork = false;
 > +	}
 > +
-> +	if (send_link_addr) {
-> +		mutex_lock(&mgr->lock);
-> +		if (port->mstb) {
-> +			child_mstb = port->mstb;
-> +			drm_dp_mst_get_mstb_malloc(child_mstb);
->  		}
-> +		mutex_unlock(&mgr->lock);
->  	}
->  
-> -	if (created && !port->input) {
-> -		char proppath[255];
 > +	/*
 > +	 * We unset port->connector before dropping connection_mutex so that
 > +	 * there's no chance any of the atomic MST helpers can accidentally
@@ -176,187 +114,24 @@ On Tue, Sep 03, 2019 at 04:45:58PM -0400, Lyude Paul wrote:
 > +		port->connector = NULL;
 > +	} else if (!port->connector && !port->input) {
 > +		create_connector = true;
-> +	}
+>  	}
 >  
-> -		build_mst_prop_path(mstb, port->port_num, proppath,
-> -				    sizeof(proppath));
-> -		port->connector = (*mgr->cbs->add_connector)(mgr, port,
-> -							     proppath);
-> -		if (!port->connector)
-> -			goto fail;
-> +	drm_modeset_unlock(&dev->mode_config.connection_mutex);
-
-Do you drop this early b/c it deadlocks with something upstack? If so, I
-wonder if you could plumb an acquire context through the appropriate
-functions to avoid needing the port->lock at all?
-
-Sean
-
->  
-> -		if ((port->pdt == DP_PEER_DEVICE_DP_LEGACY_CONV ||
-> -		     port->pdt == DP_PEER_DEVICE_SST_SINK) &&
-> -		    port->port_num >= DP_MST_LOGICAL_PORT_0) {
-> -			port->cached_edid = drm_get_edid(port->connector,
-> -							 &port->aux.ddc);
-> -			drm_connector_set_tile_property(port->connector);
-> -		}
+>  	drm_modeset_unlock(&dev->mode_config.connection_mutex);
+> +
 > +	if (connector_to_destroy)
 > +		mgr->cbs->destroy_connector(mgr, connector_to_destroy);
 > +	else if (create_connector)
 > +		drm_dp_mst_port_add_connector(mstb, port);
 > +
 > +	mutex_unlock(&port->lock);
->  
-> -		(*mgr->cbs->register_connector)(port->connector);
-> +	if (send_link_addr && child_mstb) {
-> +		drm_dp_send_link_address(mgr, child_mstb);
-> +		drm_dp_mst_put_mstb_malloc(child_mstb);
->  	}
->  
->  	/* put reference to this port */
->  	drm_dp_mst_topology_put_port(port);
->  	return;
->  
-> -fail:
-> +fail_unlock:
-> +	drm_modeset_unlock(&dev->mode_config.connection_mutex);
-> +	mutex_unlock(&port->lock);
 > +
->  	/* Remove it from the port list */
->  	mutex_lock(&mgr->lock);
->  	list_del(&port->next);
-> @@ -2022,6 +2078,7 @@ static void
->  drm_dp_mst_handle_conn_stat(struct drm_dp_mst_branch *mstb,
->  			    struct drm_dp_connection_status_notify *conn_stat)
->  {
-> +	struct drm_device *dev = mstb->mgr->dev;
->  	struct drm_dp_mst_port *port;
->  	int old_ddps;
->  	bool dowork = false;
-> @@ -2030,6 +2087,8 @@ drm_dp_mst_handle_conn_stat(struct drm_dp_mst_branch *mstb,
->  	if (!port)
->  		return;
->  
-> +	drm_modeset_lock(&dev->mode_config.connection_mutex, NULL);
-> +
->  	old_ddps = port->ddps;
->  	port->mcs = conn_stat->message_capability_status;
->  	port->ldps = conn_stat->legacy_device_plug_status;
-> @@ -2055,6 +2114,7 @@ drm_dp_mst_handle_conn_stat(struct drm_dp_mst_branch *mstb,
->  		}
->  	}
->  
-> +	drm_modeset_unlock(&dev->mode_config.connection_mutex);
 >  	drm_dp_mst_topology_put_port(port);
 >  	if (dowork)
 >  		queue_work(system_long_wq, &mstb->mgr->work);
-> @@ -2147,28 +2207,34 @@ drm_dp_get_mst_branch_device_by_guid(struct drm_dp_mst_topology_mgr *mgr,
->  static void drm_dp_check_and_send_link_address(struct drm_dp_mst_topology_mgr *mgr,
->  					       struct drm_dp_mst_branch *mstb)
->  {
-> +	struct drm_device *dev = mgr->dev;
->  	struct drm_dp_mst_port *port;
-> -	struct drm_dp_mst_branch *mstb_child;
-> +
->  	if (!mstb->link_address_sent)
->  		drm_dp_send_link_address(mgr, mstb);
->  
->  	list_for_each_entry(port, &mstb->ports, next) {
-> -		if (port->input)
-> -			continue;
-> +		struct drm_dp_mst_branch *mstb_child = NULL;
-> +
-> +		drm_modeset_lock(&dev->mode_config.connection_mutex, NULL);
->  
-> -		if (!port->ddps)
-> +		if (port->input || !port->ddps) {
-> +			drm_modeset_unlock(&dev->mode_config.connection_mutex);
->  			continue;
-> +		}
->  
->  		if (!port->available_pbn)
->  			drm_dp_send_enum_path_resources(mgr, mstb, port);
->  
-> -		if (port->mstb) {
-> +		if (port->mstb)
->  			mstb_child = drm_dp_mst_topology_get_mstb_validated(
->  			    mgr, port->mstb);
-> -			if (mstb_child) {
-> -				drm_dp_check_and_send_link_address(mgr, mstb_child);
-> -				drm_dp_mst_topology_put_mstb(mstb_child);
-> -			}
-> +
-> +		drm_modeset_unlock(&dev->mode_config.connection_mutex);
-> +
-> +		if (mstb_child) {
-> +			drm_dp_check_and_send_link_address(mgr, mstb_child);
-> +			drm_dp_mst_topology_put_mstb(mstb_child);
->  		}
->  	}
+> -
 >  }
-> diff --git a/include/drm/drm_dp_mst_helper.h b/include/drm/drm_dp_mst_helper.h
-> index 7d80c38ee00e..1efbb086f7ac 100644
-> --- a/include/drm/drm_dp_mst_helper.h
-> +++ b/include/drm/drm_dp_mst_helper.h
-> @@ -45,23 +45,34 @@ struct drm_dp_vcpi {
->  /**
->   * struct drm_dp_mst_port - MST port
->   * @port_num: port number
-> - * @input: if this port is an input port.
-> - * @mcs: message capability status - DP 1.2 spec.
-> - * @ddps: DisplayPort Device Plug Status - DP 1.2
-> - * @pdt: Peer Device Type
-> - * @ldps: Legacy Device Plug Status
-> - * @dpcd_rev: DPCD revision of device on this port
-> - * @num_sdp_streams: Number of simultaneous streams
-> - * @num_sdp_stream_sinks: Number of stream sinks
-> - * @available_pbn: Available bandwidth for this port.
-> + * @input: if this port is an input port. Protected by
-> + * &drm_device.mode_config.connection_mutex.
-> + * @mcs: message capability status - DP 1.2 spec. Protected by
-> + * &drm_device.mode_config.connection_mutex.
-> + * @ddps: DisplayPort Device Plug Status - DP 1.2. Protected by
-> + * &drm_device.mode_config.connection_mutex.
-> + * @pdt: Peer Device Type. Protected by
-> + * &drm_device.mode_config.connection_mutex.
-> + * @ldps: Legacy Device Plug Status. Protected by
-> + * &drm_device.mode_config.connection_mutex.
-> + * @dpcd_rev: DPCD revision of device on this port. Protected by
-> + * &drm_device.mode_config.connection_mutex.
-> + * @num_sdp_streams: Number of simultaneous streams. Protected by
-> + * &drm_device.mode_config.connection_mutex.
-> + * @num_sdp_stream_sinks: Number of stream sinks. Protected by
-> + * &drm_device.mode_config.connection_mutex.
-> + * @available_pbn: Available bandwidth for this port. Protected by
-> + * &drm_device.mode_config.connection_mutex.
->   * @next: link to next port on this branch device
->   * @mstb: branch device on this port, protected by
->   * &drm_dp_mst_topology_mgr.lock
->   * @aux: i2c aux transport to talk to device connected to this port, protected
-> - * by &drm_dp_mst_topology_mgr.lock
-> + * by &drm_device.mode_config.connection_mutex.
->   * @parent: branch device parent of this port
->   * @vcpi: Virtual Channel Payload info for this port.
-> - * @connector: DRM connector this port is connected to.
-> + * @connector: DRM connector this port is connected to. Protected by @lock.
-> + * When there is already a connector registered for this port, this is also
-> + * protected by &drm_device.mode_config.connection_mutex.
->   * @mgr: topology manager this port lives under.
->   *
->   * This structure represents an MST port endpoint on a device somewhere
-> @@ -100,6 +111,12 @@ struct drm_dp_mst_port {
->  	struct drm_connector *connector;
->  	struct drm_dp_mst_topology_mgr *mgr;
 >  
-> +	/**
-> +	 * @lock: Protects @connector. If needed, this lock should be grabbed
-> +	 * before &drm_device.mode_config.connection_mutex.
-> +	 */
-> +	struct mutex lock;
-> +
->  	/**
->  	 * @cached_edid: for DP logical ports - make tiling work by ensuring
->  	 * that the EDID for all connectors is read immediately.
+>  static struct drm_dp_mst_branch *drm_dp_get_mst_branch_device(struct drm_dp_mst_topology_mgr *mgr,
 > -- 
 > 2.21.0
 > 
