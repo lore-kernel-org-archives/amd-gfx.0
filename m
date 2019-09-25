@@ -1,165 +1,83 @@
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: return tcc_disabled_mask to userspace
-Date: Tue, 24 Sep 2019 22:58:22 -0400
-Message-ID: <CADnq5_N=b0RWk-t8MnjiTNUcr35ZQ5GYMOw2H_oGQOjpGGzeHQ@mail.gmail.com>
-References: <20190924222901.5621-1-maraeo@gmail.com>
-Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190924222901.5621-1-maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+From: Navid Emamdoost <navid.emamdoost@gmail.com>
+Subject: [PATCH] drm/amd/display: prevent memory leak
+Date: Tue, 24 Sep 2019 23:23:56 -0500
+Message-ID: <20190925042407.31383-1-navid.emamdoost@gmail.com>
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Sender: linux-kernel-owner@vger.kernel.org
+Cc: emamd001@umn.edu, smccaman@umn.edu, kjlu@umn.edu, Navid Emamdoost <navid.emamdoost@gmail.com>, Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>, Tony Cheng <Tony.Cheng@amd.com>, Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>, Eric Yang <Eric.Yang2@amd.com>, Jun Lei <Jun.Lei@amd.com>, Wesley Chalmers <Wesley.Chalmers@amd.com>, David Francis <David.Francis@amd.com>, Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>, Aidan Wood <Aidan.Wood@amd.com>, Ken Chalmers <ken.chalm>
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gVHVlLCBTZXAgMjQsIDIwMTkgYXQgNjoyOSBQTSBNYXJlayBPbMWhw6FrIDxtYXJhZW9AZ21h
-aWwuY29tPiB3cm90ZToKPgo+IEZyb206IE1hcmVrIE9sxaHDoWsgPG1hcmVrLm9sc2FrQGFtZC5j
-b20+Cj4KPiBVTURzIG5lZWQgdGhpcyBmb3IgY29ycmVjdCBwcm9ncmFtbWluZyBvZiBoYXJ2ZXN0
-ZWQgY2hpcHMuCj4KPiBTaWduZWQtb2ZmLWJ5OiBNYXJlayBPbMWhw6FrIDxtYXJlay5vbHNha0Bh
-bWQuY29tPgo+IC0tLQo+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZHJ2LmMg
-fCAgMyArKy0KPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2dmeC5oIHwgIDEg
-Kwo+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfa21zLmMgfCAgMiArKwo+ICBk
-cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjEwXzAuYyAgfCAxMSArKysrKysrKysrKwo+
-ICBpbmNsdWRlL3VhcGkvZHJtL2FtZGdwdV9kcm0uaCAgICAgICAgICAgfCAgMiArKwo+ICA1IGZp
-bGVzIGNoYW5nZWQsIDE4IGluc2VydGlvbnMoKyksIDEgZGVsZXRpb24oLSkKPgo+IGRpZmYgLS1n
-aXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZHJ2LmMgYi9kcml2ZXJzL2dw
-dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZHJ2LmMKPiBpbmRleCBmODJkNjM0Y2YzZjkuLmI3MGIz
-MDM3OGMyMCAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
-ZHJ2LmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZHJ2LmMKPiBA
-QCAtNzUsMjMgKzc1LDI0IEBACj4gICAqIC0gMy4yNS4wIC0gQWRkIHN1cHBvcnQgZm9yIHNlbnNv
-ciBxdWVyeSBpbmZvIChzdGFibGUgcHN0YXRlIHNjbGsvbWNsaykuCj4gICAqIC0gMy4yNi4wIC0g
-R0ZYOTogUHJvY2VzcyBBTURHUFVfSUJfRkxBR19UQ19XQl9OT1RfSU5WQUxJREFURS4KPiAgICog
-LSAzLjI3LjAgLSBBZGQgbmV3IGNodW5rIHRvIHRvIEFNREdQVV9DUyB0byBlbmFibGUgQk9fTElT
-VCBjcmVhdGlvbi4KPiAgICogLSAzLjI4LjAgLSBBZGQgQU1ER1BVX0NIVU5LX0lEX1NDSEVEVUxF
-RF9ERVBFTkRFTkNJRVMKPiAgICogLSAzLjI5LjAgLSBBZGQgQU1ER1BVX0lCX0ZMQUdfUkVTRVRf
-R0RTX01BWF9XQVZFX0lECj4gICAqIC0gMy4zMC4wIC0gQWRkIEFNREdQVV9TQ0hFRF9PUF9DT05U
-RVhUX1BSSU9SSVRZX09WRVJSSURFLgo+ICAgKiAtIDMuMzEuMCAtIEFkZCBzdXBwb3J0IGZvciBw
-ZXItZmxpcCB0aWxpbmcgYXR0cmlidXRlIGNoYW5nZXMgd2l0aCBEQwo+ICAgKiAtIDMuMzIuMCAt
-IEFkZCBzeW5jb2JqIHRpbWVsaW5lIHN1cHBvcnQgdG8gQU1ER1BVX0NTLgo+ICAgKiAtIDMuMzMu
-MCAtIEZpeGVzIGZvciBHRFMgRU5PTUVNIGZhaWx1cmVzIGluIEFNREdQVV9DUy4KPiAgICogLSAz
-LjM0LjAgLSBOb24tREMgY2FuIGZsaXAgY29ycmVjdGx5IGJldHdlZW4gYnVmZmVycyB3aXRoIGRp
-ZmZlcmVudCBwaXRjaGVzCj4gKyAqIC0gMy4zNS4wIC0gQWRkIGRybV9hbWRncHVfaW5mb19kZXZp
-Y2U6OnRjY19kaXNhYmxlZF9tYXNrCj4gICAqLwo+ICAjZGVmaW5lIEtNU19EUklWRVJfTUFKT1Ig
-ICAgICAgMwo+IC0jZGVmaW5lIEtNU19EUklWRVJfTUlOT1IgICAgICAgMzQKPiArI2RlZmluZSBL
-TVNfRFJJVkVSX01JTk9SICAgICAgIDM1Cj4gICNkZWZpbmUgS01TX0RSSVZFUl9QQVRDSExFVkVM
-ICAwCj4KPiAgI2RlZmluZSBBTURHUFVfTUFYX1RJTUVPVVRfUEFSQU1fTEVOVEggMjU2Cj4KPiAg
-aW50IGFtZGdwdV92cmFtX2xpbWl0ID0gMDsKPiAgaW50IGFtZGdwdV92aXNfdnJhbV9saW1pdCA9
-IDA7Cj4gIGludCBhbWRncHVfZ2FydF9zaXplID0gLTE7IC8qIGF1dG8gKi8KPiAgaW50IGFtZGdw
-dV9ndHRfc2l6ZSA9IC0xOyAvKiBhdXRvICovCj4gIGludCBhbWRncHVfbW92ZXJhdGUgPSAtMTsg
-LyogYXV0byAqLwo+ICBpbnQgYW1kZ3B1X2JlbmNobWFya2luZyA9IDA7Cj4gZGlmZiAtLWdpdCBh
-L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9nZnguaCBiL2RyaXZlcnMvZ3B1L2Ry
-bS9hbWQvYW1kZ3B1L2FtZGdwdV9nZnguaAo+IGluZGV4IDU5YzU0NjRjOTZiZS4uODhkY2NmZjQx
-ZGZmIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9nZngu
-aAo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9nZnguaAo+IEBAIC0x
-NTgsMjAgKzE1OCwyMSBAQCBzdHJ1Y3QgYW1kZ3B1X2dmeF9jb25maWcgewo+ICAgICAgICAgc3Ry
-dWN0IGFtZGdwdV9yYl9jb25maWcgcmJfY29uZmlnW0FNREdQVV9HRlhfTUFYX1NFXVtBTURHUFVf
-R0ZYX01BWF9TSF9QRVJfU0VdOwo+Cj4gICAgICAgICAvKiBnZnggY29uZmlndXJlIGZlYXR1cmUg
-Ki8KPiAgICAgICAgIHVpbnQzMl90IGRvdWJsZV9vZmZjaGlwX2xkc19idWY7Cj4gICAgICAgICAv
-KiBjYWNoZWQgdmFsdWUgb2YgREJfREVCVUcyICovCj4gICAgICAgICB1aW50MzJfdCBkYl9kZWJ1
-ZzI7Cj4gICAgICAgICAvKiBnZngxMCBzcGVjaWZpYyBjb25maWcgKi8KPiAgICAgICAgIHVpbnQz
-Ml90IG51bV9zY19wZXJfc2g7Cj4gICAgICAgICB1aW50MzJfdCBudW1fcGFja2VyX3Blcl9zYzsK
-PiAgICAgICAgIHVpbnQzMl90IHBhX3NjX3RpbGVfc3RlZXJpbmdfb3ZlcnJpZGU7Cj4gKyAgICAg
-ICB1aW50NjRfdCB0Y2NfZGlzYWJsZWRfbWFzazsKPiAgfTsKPgo+ICBzdHJ1Y3QgYW1kZ3B1X2N1
-X2luZm8gewo+ICAgICAgICAgdWludDMyX3Qgc2ltZF9wZXJfY3U7Cj4gICAgICAgICB1aW50MzJf
-dCBtYXhfd2F2ZXNfcGVyX3NpbWQ7Cj4gICAgICAgICB1aW50MzJfdCB3YXZlX2Zyb250X3NpemU7
-Cj4gICAgICAgICB1aW50MzJfdCBtYXhfc2NyYXRjaF9zbG90c19wZXJfY3U7Cj4gICAgICAgICB1
-aW50MzJfdCBsZHNfc2l6ZTsKPgo+ICAgICAgICAgLyogdG90YWwgYWN0aXZlIENVIG51bWJlciAq
-Lwo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfa21zLmMg
-Yi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfa21zLmMKPiBpbmRleCA5MWY1YWFm
-OTk4NjEuLjczNTZlZmU3ZTJkMyAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
-ZGdwdS9hbWRncHVfa21zLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
-cHVfa21zLmMKPiBAQCAtNzc1LDIwICs3NzUsMjIgQEAgc3RhdGljIGludCBhbWRncHVfaW5mb19p
-b2N0bChzdHJ1Y3QgZHJtX2RldmljZSAqZGV2LCB2b2lkICpkYXRhLCBzdHJ1Y3QgZHJtX2ZpbGUK
-PiAgICAgICAgICAgICAgICAgZGV2X2luZm8ubnVtX2N1X3Blcl9zaCA9IGFkZXYtPmdmeC5jb25m
-aWcubWF4X2N1X3Blcl9zaDsKPiAgICAgICAgICAgICAgICAgZGV2X2luZm8ubnVtX3RjY19ibG9j
-a3MgPSBhZGV2LT5nZnguY29uZmlnLm1heF90ZXh0dXJlX2NoYW5uZWxfY2FjaGVzOwo+ICAgICAg
-ICAgICAgICAgICBkZXZfaW5mby5nc192Z3RfdGFibGVfZGVwdGggPSBhZGV2LT5nZnguY29uZmln
-LmdzX3ZndF90YWJsZV9kZXB0aDsKPiAgICAgICAgICAgICAgICAgZGV2X2luZm8uZ3NfcHJpbV9i
-dWZmZXJfZGVwdGggPSBhZGV2LT5nZnguY29uZmlnLmdzX3ByaW1fYnVmZmVyX2RlcHRoOwo+ICAg
-ICAgICAgICAgICAgICBkZXZfaW5mby5tYXhfZ3Nfd2F2ZXNfcGVyX3ZndCA9IGFkZXYtPmdmeC5j
-b25maWcubWF4X2dzX3RocmVhZHM7Cj4KPiAgICAgICAgICAgICAgICAgaWYgKGFkZXYtPmZhbWls
-eSA+PSBBTURHUFVfRkFNSUxZX05WKQo+ICAgICAgICAgICAgICAgICAgICAgICAgIGRldl9pbmZv
-LnBhX3NjX3RpbGVfc3RlZXJpbmdfb3ZlcnJpZGUgPQo+ICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgYWRldi0+Z2Z4LmNvbmZpZy5wYV9zY190aWxlX3N0ZWVyaW5nX292ZXJyaWRlOwo+
-Cj4gKyAgICAgICAgICAgICAgIGRldl9pbmZvLnRjY19kaXNhYmxlZF9tYXNrID0gYWRldi0+Z2Z4
-LmNvbmZpZy50Y2NfZGlzYWJsZWRfbWFzazsKPiArCj4gICAgICAgICAgICAgICAgIHJldHVybiBj
-b3B5X3RvX3VzZXIob3V0LCAmZGV2X2luZm8sCj4gICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgbWluKChzaXplX3Qpc2l6ZSwgc2l6ZW9mKGRldl9pbmZvKSkpID8gLUVGQVVMVCA6
-IDA7Cj4gICAgICAgICB9Cj4gICAgICAgICBjYXNlIEFNREdQVV9JTkZPX1ZDRV9DTE9DS19UQUJM
-RTogewo+ICAgICAgICAgICAgICAgICB1bnNpZ25lZCBpOwo+ICAgICAgICAgICAgICAgICBzdHJ1
-Y3QgZHJtX2FtZGdwdV9pbmZvX3ZjZV9jbG9ja190YWJsZSB2Y2VfY2xrX3RhYmxlID0ge307Cj4g
-ICAgICAgICAgICAgICAgIHN0cnVjdCBhbWRfdmNlX3N0YXRlICp2Y2Vfc3RhdGU7Cj4KPiAgICAg
-ICAgICAgICAgICAgZm9yIChpID0gMDsgaSA8IEFNREdQVV9WQ0VfQ0xPQ0tfVEFCTEVfRU5UUklF
-UzsgaSsrKSB7Cj4gICAgICAgICAgICAgICAgICAgICAgICAgdmNlX3N0YXRlID0gYW1kZ3B1X2Rw
-bV9nZXRfdmNlX2Nsb2NrX3N0YXRlKGFkZXYsIGkpOwo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dw
-dS9kcm0vYW1kL2FtZGdwdS9nZnhfdjEwXzAuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
-L2dmeF92MTBfMC5jCj4gaW5kZXggY2ZjMDk1MmY2MTc1Li5jYTAxNjQzZmEwYzggMTAwNjQ0Cj4g
-LS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3YxMF8wLmMKPiArKysgYi9kcml2
-ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjEwXzAuYwo+IEBAIC0xNjg0LDMxICsxNjg0LDQy
-IEBAIHN0YXRpYyB2b2lkIGdmeF92MTBfMF90Y3BfaGFydmVzdChzdHJ1Y3QgYW1kZ3B1X2Rldmlj
-ZSAqYWRldikKPiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHRtcCB8PSAoZ2NyZF90
-YXJnZXRzX2Rpc2FibGVfdGNwICYgZ2NyZF90YXJnZXRzX2Rpc2FibGVfbWFzayk7Cj4gICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICBXUkVHMzJfU09DMTUoR0MsIDAsIG1tR0NSRF9TQV9U
-QVJHRVRTX0RJU0FCTEUsIHRtcCk7Cj4gICAgICAgICAgICAgICAgICAgICAgICAgfQo+ICAgICAg
-ICAgICAgICAgICB9Cj4KPiAgICAgICAgICAgICAgICAgZ2Z4X3YxMF8wX3NlbGVjdF9zZV9zaChh
-ZGV2LCAweGZmZmZmZmZmLCAweGZmZmZmZmZmLCAweGZmZmZmZmZmKTsKPiAgICAgICAgICAgICAg
-ICAgbXV0ZXhfdW5sb2NrKCZhZGV2LT5ncmJtX2lkeF9tdXRleCk7Cj4gICAgICAgICB9Cj4gIH0K
-Pgo+ICtzdGF0aWMgdm9pZCBnZnhfdjEwXzBfZ2V0X3RjY19pbmZvKHN0cnVjdCBhbWRncHVfZGV2
-aWNlICphZGV2KQo+ICt7Cj4gKyAgICAgICB1aW50MzJfdCB0Y2NfZGlzYWJsZSA9IFJSRUczMl9T
-T0MxNShHQywgMCwgbW1DR1RTX1RDQ19ESVNBQkxFKSB8Cj4gKyAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgIFJSRUczMl9TT0MxNShHQywgMCwgbW1DR1RTX1VTRVJfVENDX0RJU0FCTEUpOwo+
-ICsKPiArICAgICAgIGFkZXYtPmdmeC5jb25maWcudGNjX2Rpc2FibGVkX21hc2sgPQo+ICsgICAg
-ICAgICAgICAgICBSRUdfR0VUX0ZJRUxEKHRjY19kaXNhYmxlLCBDR1RTX1RDQ19ESVNBQkxFLCBU
-Q0NfRElTQUJMRSkgfAo+ICsgICAgICAgICAgICAgICAoUkVHX0dFVF9GSUVMRCh0Y2NfZGlzYWJs
-ZSwgQ0dUU19UQ0NfRElTQUJMRSwgSElfVENDX0RJU0FCTEUpIDw8IDE2KTsKPiArfQoKQXJlIFRD
-Q3MgcGVyIFNFL1NIPyAgSWYgc28sIHlvdSdsbCBuZWVkIHRvIHdhbGsgZWFjaCBpbnN0YW5jZSBh
-bmQKY3JlYXRlIGEgbWFzayBmcm9tIGVhY2ggaW5zdGFuY2UgbGlrZSB3ZSBkbyBmb3Igc2V0dXBf
-cmIgYW5kIGN1X2luZm8uCgpBbGV4Cgo+ICsKPiAgc3RhdGljIHZvaWQgZ2Z4X3YxMF8wX2NvbnN0
-YW50c19pbml0KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQo+ICB7Cj4gICAgICAgICB1MzIg
-dG1wOwo+ICAgICAgICAgaW50IGk7Cj4KPiAgICAgICAgIFdSRUczMl9GSUVMRDE1KEdDLCAwLCBH
-UkJNX0NOVEwsIFJFQURfVElNRU9VVCwgMHhmZik7Cj4KPiAgICAgICAgIGdmeF92MTBfMF90aWxp
-bmdfbW9kZV90YWJsZV9pbml0KGFkZXYpOwo+Cj4gICAgICAgICBnZnhfdjEwXzBfc2V0dXBfcmIo
-YWRldik7Cj4gICAgICAgICBnZnhfdjEwXzBfZ2V0X2N1X2luZm8oYWRldiwgJmFkZXYtPmdmeC5j
-dV9pbmZvKTsKPiArICAgICAgIGdmeF92MTBfMF9nZXRfdGNjX2luZm8oYWRldik7Cj4gICAgICAg
-ICBhZGV2LT5nZnguY29uZmlnLnBhX3NjX3RpbGVfc3RlZXJpbmdfb3ZlcnJpZGUgPQo+ICAgICAg
-ICAgICAgICAgICBnZnhfdjEwXzBfaW5pdF9wYV9zY190aWxlX3N0ZWVyaW5nX292ZXJyaWRlKGFk
-ZXYpOwo+Cj4gICAgICAgICAvKiBYWFggU0hfTUVNIHJlZ3MgKi8KPiAgICAgICAgIC8qIHdoZXJl
-IHRvIHB1dCBMRFMsIHNjcmF0Y2gsIEdQVVZNIGluIEZTQTY0IHNwYWNlICovCj4gICAgICAgICBt
-dXRleF9sb2NrKCZhZGV2LT5zcmJtX211dGV4KTsKPiAgICAgICAgIGZvciAoaSA9IDA7IGkgPCBh
-ZGV2LT52bV9tYW5hZ2VyLmlkX21ncltBTURHUFVfR0ZYSFVCXzBdLm51bV9pZHM7IGkrKykgewo+
-ICAgICAgICAgICAgICAgICBudl9ncmJtX3NlbGVjdChhZGV2LCAwLCAwLCAwLCBpKTsKPiAgICAg
-ICAgICAgICAgICAgLyogQ1AgYW5kIHNoYWRlcnMgKi8KPiAgICAgICAgICAgICAgICAgV1JFRzMy
-X1NPQzE1KEdDLCAwLCBtbVNIX01FTV9DT05GSUcsIERFRkFVTFRfU0hfTUVNX0NPTkZJRyk7Cj4g
-ZGlmZiAtLWdpdCBhL2luY2x1ZGUvdWFwaS9kcm0vYW1kZ3B1X2RybS5oIGIvaW5jbHVkZS91YXBp
-L2RybS9hbWRncHVfZHJtLmgKPiBpbmRleCBmM2FkNDI5MTczZTMuLmE2OWUzMTkyOTE1NSAxMDA2
-NDQKPiAtLS0gYS9pbmNsdWRlL3VhcGkvZHJtL2FtZGdwdV9kcm0uaAo+ICsrKyBiL2luY2x1ZGUv
-dWFwaS9kcm0vYW1kZ3B1X2RybS5oCj4gQEAgLTEwMDEsMjAgKzEwMDEsMjIgQEAgc3RydWN0IGRy
-bV9hbWRncHVfaW5mb19kZXZpY2Ugewo+ICAgICAgICAgX191MzIgbWF4X2dzX3dhdmVzX3Blcl92
-Z3Q7Cj4gICAgICAgICBfX3UzMiBfcGFkMTsKPiAgICAgICAgIC8qIGFsd2F5cyBvbiBjdSBiaXRt
-YXAgKi8KPiAgICAgICAgIF9fdTMyIGN1X2FvX2JpdG1hcFs0XVs0XTsKPiAgICAgICAgIC8qKiBT
-dGFydGluZyBoaWdoIHZpcnR1YWwgYWRkcmVzcyBmb3IgVU1Ecy4gKi8KPiAgICAgICAgIF9fdTY0
-IGhpZ2hfdmFfb2Zmc2V0Owo+ICAgICAgICAgLyoqIFRoZSBtYXhpbXVtIGhpZ2ggdmlydHVhbCBh
-ZGRyZXNzICovCj4gICAgICAgICBfX3U2NCBoaWdoX3ZhX21heDsKPiAgICAgICAgIC8qIGdmeDEw
-IHBhX3NjX3RpbGVfc3RlZXJpbmdfb3ZlcnJpZGUgKi8KPiAgICAgICAgIF9fdTMyIHBhX3NjX3Rp
-bGVfc3RlZXJpbmdfb3ZlcnJpZGU7Cj4gKyAgICAgICAvKiBkaXNhYmxlZCBUQ0NzICovCj4gKyAg
-ICAgICBfX3U2NCB0Y2NfZGlzYWJsZWRfbWFzazsKPiAgfTsKPgo+ICBzdHJ1Y3QgZHJtX2FtZGdw
-dV9pbmZvX2h3X2lwIHsKPiAgICAgICAgIC8qKiBWZXJzaW9uIG9mIGgvdyBJUCAqLwo+ICAgICAg
-ICAgX191MzIgIGh3X2lwX3ZlcnNpb25fbWFqb3I7Cj4gICAgICAgICBfX3UzMiAgaHdfaXBfdmVy
-c2lvbl9taW5vcjsKPiAgICAgICAgIC8qKiBDYXBhYmlsaXRpZXMgKi8KPiAgICAgICAgIF9fdTY0
-ICBjYXBhYmlsaXRpZXNfZmxhZ3M7Cj4gICAgICAgICAvKiogY29tbWFuZCBidWZmZXIgYWRkcmVz
-cyBzdGFydCBhbGlnbm1lbnQqLwo+ICAgICAgICAgX191MzIgIGliX3N0YXJ0X2FsaWdubWVudDsK
-PiAtLQo+IDIuMTcuMQo+Cj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX18KPiBhbWQtZ2Z4IG1haWxpbmcgbGlzdAo+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0
-b3Aub3JnCj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9h
-bWQtZ2Z4Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFt
-ZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8v
-bGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
+In dcn*_create_resource_pool the allocated memory should be released if
+construct pool fails.
+
+Signed-off-by: Navid Emamdoost <navid.emamdoost@gmail.com>
+---
+ drivers/gpu/drm/amd/display/dc/dce100/dce100_resource.c | 1 +
+ drivers/gpu/drm/amd/display/dc/dce110/dce110_resource.c | 1 +
+ drivers/gpu/drm/amd/display/dc/dce112/dce112_resource.c | 1 +
+ drivers/gpu/drm/amd/display/dc/dce120/dce120_resource.c | 1 +
+ drivers/gpu/drm/amd/display/dc/dcn10/dcn10_resource.c   | 1 +
+ 5 files changed, 5 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/display/dc/dce100/dce100_resource.c b/drivers/gpu/drm/amd/display/dc/dce100/dce100_resource.c
+index afc61055eca1..1787b9bf800a 100644
+--- a/drivers/gpu/drm/amd/display/dc/dce100/dce100_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/dce100/dce100_resource.c
+@@ -1091,6 +1091,7 @@ struct resource_pool *dce100_create_resource_pool(
+ 	if (construct(num_virtual_links, dc, pool))
+ 		return &pool->base;
+ 
++	kfree(pool);
+ 	BREAK_TO_DEBUGGER();
+ 	return NULL;
+ }
+diff --git a/drivers/gpu/drm/amd/display/dc/dce110/dce110_resource.c b/drivers/gpu/drm/amd/display/dc/dce110/dce110_resource.c
+index c66fe170e1e8..318e9c2e2ca8 100644
+--- a/drivers/gpu/drm/amd/display/dc/dce110/dce110_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/dce110/dce110_resource.c
+@@ -1462,6 +1462,7 @@ struct resource_pool *dce110_create_resource_pool(
+ 	if (construct(num_virtual_links, dc, pool, asic_id))
+ 		return &pool->base;
+ 
++	kfree(pool);
+ 	BREAK_TO_DEBUGGER();
+ 	return NULL;
+ }
+diff --git a/drivers/gpu/drm/amd/display/dc/dce112/dce112_resource.c b/drivers/gpu/drm/amd/display/dc/dce112/dce112_resource.c
+index 3ac4c7e73050..3199d493d13b 100644
+--- a/drivers/gpu/drm/amd/display/dc/dce112/dce112_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/dce112/dce112_resource.c
+@@ -1338,6 +1338,7 @@ struct resource_pool *dce112_create_resource_pool(
+ 	if (construct(num_virtual_links, dc, pool))
+ 		return &pool->base;
+ 
++	kfree(pool);
+ 	BREAK_TO_DEBUGGER();
+ 	return NULL;
+ }
+diff --git a/drivers/gpu/drm/amd/display/dc/dce120/dce120_resource.c b/drivers/gpu/drm/amd/display/dc/dce120/dce120_resource.c
+index 7d08154e9662..bb497f43f6eb 100644
+--- a/drivers/gpu/drm/amd/display/dc/dce120/dce120_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/dce120/dce120_resource.c
+@@ -1203,6 +1203,7 @@ struct resource_pool *dce120_create_resource_pool(
+ 	if (construct(num_virtual_links, dc, pool))
+ 		return &pool->base;
+ 
++	kfree(pool);
+ 	BREAK_TO_DEBUGGER();
+ 	return NULL;
+ }
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_resource.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_resource.c
+index 5a89e462e7cc..59305e411a66 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_resource.c
+@@ -1570,6 +1570,7 @@ struct resource_pool *dcn10_create_resource_pool(
+ 	if (construct(init_data->num_virtual_links, dc, pool))
+ 		return &pool->base;
+ 
++	kfree(pool);
+ 	BREAK_TO_DEBUGGER();
+ 	return NULL;
+ }
+-- 
+2.17.1
