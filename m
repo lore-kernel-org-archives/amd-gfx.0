@@ -1,13 +1,15 @@
-From: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: return tcc_disabled_mask to userspace
-Date: Wed, 25 Sep 2019 17:05:10 -0400
-Message-ID: <CAAxE2A7vPH-S-Fjk+CfjR+zEZ-hjkTtS=gsBBgbGiD2iNJbOJA@mail.gmail.com>
-References: <20190924222901.5621-1-maraeo@gmail.com>
- <CADnq5_N=b0RWk-t8MnjiTNUcr35ZQ5GYMOw2H_oGQOjpGGzeHQ@mail.gmail.com>
+From: "Grodzovsky, Andrey" <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu: Add SMUIO values for other I2C controller v2
+Date: Wed, 25 Sep 2019 21:10:35 +0000
+Message-ID: <310ae51a-04b9-d72d-67c3-2795b578c4d4@amd.com>
+References: <20190925210301.24572-1-kent.russell@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0727494074=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CADnq5_N=b0RWk-t8MnjiTNUcr35ZQ5GYMOw2H_oGQOjpGGzeHQ-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
+In-Reply-To: <20190925210301.24572-1-kent.russell-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
+Content-ID: <E7795F90BB237B4DB49BA7133965231D-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,536 +20,546 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Russell, Kent" <Kent.Russell-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============0727494074==
-Content-Type: multipart/alternative; boundary="00000000000050d1a2059367047b"
-
---00000000000050d1a2059367047b
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-I think TCCs are global, because all memory traffic from gfx
-engines+cp+sdma has to go through TCCs, e.g. memory requests from different
-SEs accessing the same memory address go to the same TCC.
-
-Marek
-
-On Tue, Sep 24, 2019 at 10:58 PM Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org> wrote=
-:
-
-> On Tue, Sep 24, 2019 at 6:29 PM Marek Ol=C5=A1=C3=A1k <maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org> =
-wrote:
-> >
-> > From: Marek Ol=C5=A1=C3=A1k <marek.olsak-5C7GfCeVMHo@public.gmane.org>
-> >
-> > UMDs need this for correct programming of harvested chips.
-> >
-> > Signed-off-by: Marek Ol=C5=A1=C3=A1k <marek.olsak-5C7GfCeVMHo@public.gmane.org>
-> > ---
-> >  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c |  3 ++-
-> >  drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h |  1 +
-> >  drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c |  2 ++
-> >  drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c  | 11 +++++++++++
-> >  include/uapi/drm/amdgpu_drm.h           |  2 ++
-> >  5 files changed, 18 insertions(+), 1 deletion(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> > index f82d634cf3f9..b70b30378c20 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> > @@ -75,23 +75,24 @@
-> >   * - 3.25.0 - Add support for sensor query info (stable pstate
-> sclk/mclk).
-> >   * - 3.26.0 - GFX9: Process AMDGPU_IB_FLAG_TC_WB_NOT_INVALIDATE.
-> >   * - 3.27.0 - Add new chunk to to AMDGPU_CS to enable BO_LIST creation=
-.
-> >   * - 3.28.0 - Add AMDGPU_CHUNK_ID_SCHEDULED_DEPENDENCIES
-> >   * - 3.29.0 - Add AMDGPU_IB_FLAG_RESET_GDS_MAX_WAVE_ID
-> >   * - 3.30.0 - Add AMDGPU_SCHED_OP_CONTEXT_PRIORITY_OVERRIDE.
-> >   * - 3.31.0 - Add support for per-flip tiling attribute changes with D=
-C
-> >   * - 3.32.0 - Add syncobj timeline support to AMDGPU_CS.
-> >   * - 3.33.0 - Fixes for GDS ENOMEM failures in AMDGPU_CS.
-> >   * - 3.34.0 - Non-DC can flip correctly between buffers with different
-> pitches
-> > + * - 3.35.0 - Add drm_amdgpu_info_device::tcc_disabled_mask
-> >   */
-> >  #define KMS_DRIVER_MAJOR       3
-> > -#define KMS_DRIVER_MINOR       34
-> > +#define KMS_DRIVER_MINOR       35
-> >  #define KMS_DRIVER_PATCHLEVEL  0
-> >
-> >  #define AMDGPU_MAX_TIMEOUT_PARAM_LENTH 256
-> >
-> >  int amdgpu_vram_limit =3D 0;
-> >  int amdgpu_vis_vram_limit =3D 0;
-> >  int amdgpu_gart_size =3D -1; /* auto */
-> >  int amdgpu_gtt_size =3D -1; /* auto */
-> >  int amdgpu_moverate =3D -1; /* auto */
-> >  int amdgpu_benchmarking =3D 0;
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-> > index 59c5464c96be..88dccff41dff 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-> > @@ -158,20 +158,21 @@ struct amdgpu_gfx_config {
-> >         struct amdgpu_rb_config
-> rb_config[AMDGPU_GFX_MAX_SE][AMDGPU_GFX_MAX_SH_PER_SE];
-> >
-> >         /* gfx configure feature */
-> >         uint32_t double_offchip_lds_buf;
-> >         /* cached value of DB_DEBUG2 */
-> >         uint32_t db_debug2;
-> >         /* gfx10 specific config */
-> >         uint32_t num_sc_per_sh;
-> >         uint32_t num_packer_per_sc;
-> >         uint32_t pa_sc_tile_steering_override;
-> > +       uint64_t tcc_disabled_mask;
-> >  };
-> >
-> >  struct amdgpu_cu_info {
-> >         uint32_t simd_per_cu;
-> >         uint32_t max_waves_per_simd;
-> >         uint32_t wave_front_size;
-> >         uint32_t max_scratch_slots_per_cu;
-> >         uint32_t lds_size;
-> >
-> >         /* total active CU number */
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-> > index 91f5aaf99861..7356efe7e2d3 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-> > @@ -775,20 +775,22 @@ static int amdgpu_info_ioctl(struct drm_device
-> *dev, void *data, struct drm_file
-> >                 dev_info.num_cu_per_sh =3D adev->gfx.config.max_cu_per_=
-sh;
-> >                 dev_info.num_tcc_blocks =3D
-> adev->gfx.config.max_texture_channel_caches;
-> >                 dev_info.gs_vgt_table_depth =3D
-> adev->gfx.config.gs_vgt_table_depth;
-> >                 dev_info.gs_prim_buffer_depth =3D
-> adev->gfx.config.gs_prim_buffer_depth;
-> >                 dev_info.max_gs_waves_per_vgt =3D
-> adev->gfx.config.max_gs_threads;
-> >
-> >                 if (adev->family >=3D AMDGPU_FAMILY_NV)
-> >                         dev_info.pa_sc_tile_steering_override =3D
-> >
->  adev->gfx.config.pa_sc_tile_steering_override;
-> >
-> > +               dev_info.tcc_disabled_mask =3D
-> adev->gfx.config.tcc_disabled_mask;
-> > +
-> >                 return copy_to_user(out, &dev_info,
-> >                                     min((size_t)size, sizeof(dev_info))=
-)
-> ? -EFAULT : 0;
-> >         }
-> >         case AMDGPU_INFO_VCE_CLOCK_TABLE: {
-> >                 unsigned i;
-> >                 struct drm_amdgpu_info_vce_clock_table vce_clk_table =
-=3D
-> {};
-> >                 struct amd_vce_state *vce_state;
-> >
-> >                 for (i =3D 0; i < AMDGPU_VCE_CLOCK_TABLE_ENTRIES; i++) =
-{
-> >                         vce_state =3D amdgpu_dpm_get_vce_clock_state(ad=
-ev,
-> i);
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-> b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-> > index cfc0952f6175..ca01643fa0c8 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-> > @@ -1684,31 +1684,42 @@ static void gfx_v10_0_tcp_harvest(struct
-> amdgpu_device *adev)
-> >                                 tmp |=3D (gcrd_targets_disable_tcp &
-> gcrd_targets_disable_mask);
-> >                                 WREG32_SOC15(GC, 0,
-> mmGCRD_SA_TARGETS_DISABLE, tmp);
-> >                         }
-> >                 }
-> >
-> >                 gfx_v10_0_select_se_sh(adev, 0xffffffff, 0xffffffff,
-> 0xffffffff);
-> >                 mutex_unlock(&adev->grbm_idx_mutex);
-> >         }
-> >  }
-> >
-> > +static void gfx_v10_0_get_tcc_info(struct amdgpu_device *adev)
-> > +{
-> > +       uint32_t tcc_disable =3D RREG32_SOC15(GC, 0, mmCGTS_TCC_DISABLE=
-) |
-> > +                              RREG32_SOC15(GC, 0,
-> mmCGTS_USER_TCC_DISABLE);
-> > +
-> > +       adev->gfx.config.tcc_disabled_mask =3D
-> > +               REG_GET_FIELD(tcc_disable, CGTS_TCC_DISABLE,
-> TCC_DISABLE) |
-> > +               (REG_GET_FIELD(tcc_disable, CGTS_TCC_DISABLE,
-> HI_TCC_DISABLE) << 16);
-> > +}
->
-> Are TCCs per SE/SH?  If so, you'll need to walk each instance and
-> create a mask from each instance like we do for setup_rb and cu_info.
->
-> Alex
->
-> > +
-> >  static void gfx_v10_0_constants_init(struct amdgpu_device *adev)
-> >  {
-> >         u32 tmp;
-> >         int i;
-> >
-> >         WREG32_FIELD15(GC, 0, GRBM_CNTL, READ_TIMEOUT, 0xff);
-> >
-> >         gfx_v10_0_tiling_mode_table_init(adev);
-> >
-> >         gfx_v10_0_setup_rb(adev);
-> >         gfx_v10_0_get_cu_info(adev, &adev->gfx.cu_info);
-> > +       gfx_v10_0_get_tcc_info(adev);
-> >         adev->gfx.config.pa_sc_tile_steering_override =3D
-> >                 gfx_v10_0_init_pa_sc_tile_steering_override(adev);
-> >
-> >         /* XXX SH_MEM regs */
-> >         /* where to put LDS, scratch, GPUVM in FSA64 space */
-> >         mutex_lock(&adev->srbm_mutex);
-> >         for (i =3D 0; i <
-> adev->vm_manager.id_mgr[AMDGPU_GFXHUB_0].num_ids; i++) {
-> >                 nv_grbm_select(adev, 0, 0, 0, i);
-> >                 /* CP and shaders */
-> >                 WREG32_SOC15(GC, 0, mmSH_MEM_CONFIG,
-> DEFAULT_SH_MEM_CONFIG);
-> > diff --git a/include/uapi/drm/amdgpu_drm.h
-> b/include/uapi/drm/amdgpu_drm.h
-> > index f3ad429173e3..a69e31929155 100644
-> > --- a/include/uapi/drm/amdgpu_drm.h
-> > +++ b/include/uapi/drm/amdgpu_drm.h
-> > @@ -1001,20 +1001,22 @@ struct drm_amdgpu_info_device {
-> >         __u32 max_gs_waves_per_vgt;
-> >         __u32 _pad1;
-> >         /* always on cu bitmap */
-> >         __u32 cu_ao_bitmap[4][4];
-> >         /** Starting high virtual address for UMDs. */
-> >         __u64 high_va_offset;
-> >         /** The maximum high virtual address */
-> >         __u64 high_va_max;
-> >         /* gfx10 pa_sc_tile_steering_override */
-> >         __u32 pa_sc_tile_steering_override;
-> > +       /* disabled TCCs */
-> > +       __u64 tcc_disabled_mask;
-> >  };
-> >
-> >  struct drm_amdgpu_info_hw_ip {
-> >         /** Version of h/w IP */
-> >         __u32  hw_ip_version_major;
-> >         __u32  hw_ip_version_minor;
-> >         /** Capabilities */
-> >         __u64  capabilities_flags;
-> >         /** command buffer address start alignment*/
-> >         __u32  ib_start_alignment;
-> > --
-> > 2.17.1
-> >
-> > _______________________________________________
-> > amd-gfx mailing list
-> > amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-> > https://lists.freedesktop.org/mailman/listinfo/amd-gfx
->
-
---00000000000050d1a2059367047b
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div>I think TCCs are global, because all memory traffic f=
-rom gfx engines+cp+sdma has to go through TCCs, e.g. memory requests from d=
-ifferent SEs accessing the same memory address go to the same TCC.<br></div=
-><div><br></div><div>Marek<br></div></div><br><div class=3D"gmail_quote"><d=
-iv dir=3D"ltr" class=3D"gmail_attr">On Tue, Sep 24, 2019 at 10:58 PM Alex D=
-eucher &lt;<a href=3D"mailto:alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org" target=3D"_blank">alexd=
-eucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" =
-style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);pa=
-dding-left:1ex">On Tue, Sep 24, 2019 at 6:29 PM Marek Ol=C5=A1=C3=A1k &lt;<=
-a href=3D"mailto:maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org" target=3D"_blank">maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&g=
-t; wrote:<br>
-&gt;<br>
-&gt; From: Marek Ol=C5=A1=C3=A1k &lt;<a href=3D"mailto:marek.olsak-5C7GfCeVMHo@public.gmane.org"=
- target=3D"_blank">marek.olsak-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
-&gt;<br>
-&gt; UMDs need this for correct programming of harvested chips.<br>
-&gt;<br>
-&gt; Signed-off-by: Marek Ol=C5=A1=C3=A1k &lt;<a href=3D"mailto:marek.olsak=
-@amd.com" target=3D"_blank">marek.olsak-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
-&gt; ---<br>
-&gt;=C2=A0 drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c |=C2=A0 3 ++-<br>
-&gt;=C2=A0 drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h |=C2=A0 1 +<br>
-&gt;=C2=A0 drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c |=C2=A0 2 ++<br>
-&gt;=C2=A0 drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c=C2=A0 | 11 +++++++++++<br=
->
-&gt;=C2=A0 include/uapi/drm/amdgpu_drm.h=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0|=C2=A0 2 ++<br>
-&gt;=C2=A0 5 files changed, 18 insertions(+), 1 deletion(-)<br>
-&gt;<br>
-&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm=
-/amd/amdgpu/amdgpu_drv.c<br>
-&gt; index f82d634cf3f9..b70b30378c20 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c<br>
-&gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c<br>
-&gt; @@ -75,23 +75,24 @@<br>
-&gt;=C2=A0 =C2=A0* - 3.25.0 - Add support for sensor query info (stable pst=
-ate sclk/mclk).<br>
-&gt;=C2=A0 =C2=A0* - 3.26.0 - GFX9: Process AMDGPU_IB_FLAG_TC_WB_NOT_INVALI=
-DATE.<br>
-&gt;=C2=A0 =C2=A0* - 3.27.0 - Add new chunk to to AMDGPU_CS to enable BO_LI=
-ST creation.<br>
-&gt;=C2=A0 =C2=A0* - 3.28.0 - Add AMDGPU_CHUNK_ID_SCHEDULED_DEPENDENCIES<br=
->
-&gt;=C2=A0 =C2=A0* - 3.29.0 - Add AMDGPU_IB_FLAG_RESET_GDS_MAX_WAVE_ID<br>
-&gt;=C2=A0 =C2=A0* - 3.30.0 - Add AMDGPU_SCHED_OP_CONTEXT_PRIORITY_OVERRIDE=
-.<br>
-&gt;=C2=A0 =C2=A0* - 3.31.0 - Add support for per-flip tiling attribute cha=
-nges with DC<br>
-&gt;=C2=A0 =C2=A0* - 3.32.0 - Add syncobj timeline support to AMDGPU_CS.<br=
->
-&gt;=C2=A0 =C2=A0* - 3.33.0 - Fixes for GDS ENOMEM failures in AMDGPU_CS.<b=
-r>
-&gt;=C2=A0 =C2=A0* - 3.34.0 - Non-DC can flip correctly between buffers wit=
-h different pitches<br>
-&gt; + * - 3.35.0 - Add drm_amdgpu_info_device::tcc_disabled_mask<br>
-&gt;=C2=A0 =C2=A0*/<br>
-&gt;=C2=A0 #define KMS_DRIVER_MAJOR=C2=A0 =C2=A0 =C2=A0 =C2=A03<br>
-&gt; -#define KMS_DRIVER_MINOR=C2=A0 =C2=A0 =C2=A0 =C2=A034<br>
-&gt; +#define KMS_DRIVER_MINOR=C2=A0 =C2=A0 =C2=A0 =C2=A035<br>
-&gt;=C2=A0 #define KMS_DRIVER_PATCHLEVEL=C2=A0 0<br>
-&gt;<br>
-&gt;=C2=A0 #define AMDGPU_MAX_TIMEOUT_PARAM_LENTH 256<br>
-&gt;<br>
-&gt;=C2=A0 int amdgpu_vram_limit =3D 0;<br>
-&gt;=C2=A0 int amdgpu_vis_vram_limit =3D 0;<br>
-&gt;=C2=A0 int amdgpu_gart_size =3D -1; /* auto */<br>
-&gt;=C2=A0 int amdgpu_gtt_size =3D -1; /* auto */<br>
-&gt;=C2=A0 int amdgpu_moverate =3D -1; /* auto */<br>
-&gt;=C2=A0 int amdgpu_benchmarking =3D 0;<br>
-&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h b/drivers/gpu/drm=
-/amd/amdgpu/amdgpu_gfx.h<br>
-&gt; index 59c5464c96be..88dccff41dff 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h<br>
-&gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h<br>
-&gt; @@ -158,20 +158,21 @@ struct amdgpu_gfx_config {<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0struct amdgpu_rb_config rb_config[AMD=
-GPU_GFX_MAX_SE][AMDGPU_GFX_MAX_SH_PER_SE];<br>
-&gt;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0/* gfx configure feature */<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0uint32_t double_offchip_lds_buf;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0/* cached value of DB_DEBUG2 */<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0uint32_t db_debug2;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0/* gfx10 specific config */<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0uint32_t num_sc_per_sh;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0uint32_t num_packer_per_sc;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0uint32_t pa_sc_tile_steering_override=
-;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0uint64_t tcc_disabled_mask;<br>
-&gt;=C2=A0 };<br>
-&gt;<br>
-&gt;=C2=A0 struct amdgpu_cu_info {<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0uint32_t simd_per_cu;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0uint32_t max_waves_per_simd;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0uint32_t wave_front_size;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0uint32_t max_scratch_slots_per_cu;<br=
->
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0uint32_t lds_size;<br>
-&gt;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0/* total active CU number */<br>
-&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm=
-/amd/amdgpu/amdgpu_kms.c<br>
-&gt; index 91f5aaf99861..7356efe7e2d3 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c<br>
-&gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c<br>
-&gt; @@ -775,20 +775,22 @@ static int amdgpu_info_ioctl(struct drm_device *=
-dev, void *data, struct drm_file<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0dev_info.=
-num_cu_per_sh =3D adev-&gt;gfx.config.max_cu_per_sh;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0dev_info.=
-num_tcc_blocks =3D adev-&gt;gfx.config.max_texture_channel_caches;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0dev_info.=
-gs_vgt_table_depth =3D adev-&gt;gfx.config.gs_vgt_table_depth;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0dev_info.=
-gs_prim_buffer_depth =3D adev-&gt;gfx.config.gs_prim_buffer_depth;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0dev_info.=
-max_gs_waves_per_vgt =3D adev-&gt;gfx.config.max_gs_threads;<br>
-&gt;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (adev-=
-&gt;family &gt;=3D AMDGPU_FAMILY_NV)<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0dev_info.pa_sc_tile_steering_override =3D<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0adev-&gt;gfx.config.pa_sc_t=
-ile_steering_override;<br>
-&gt;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0dev_info.tcc_d=
-isabled_mask =3D adev-&gt;gfx.config.tcc_disabled_mask;<br>
-&gt; +<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return co=
-py_to_user(out, &amp;dev_info,<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0min((size_t)s=
-ize, sizeof(dev_info))) ? -EFAULT : 0;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0case AMDGPU_INFO_VCE_CLOCK_TABLE: {<b=
-r>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0unsigned =
-i;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0struct dr=
-m_amdgpu_info_vce_clock_table vce_clk_table =3D {};<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0struct am=
-d_vce_state *vce_state;<br>
-&gt;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0for (i =
-=3D 0; i &lt; AMDGPU_VCE_CLOCK_TABLE_ENTRIES; i++) {<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0vce_state =3D amdgpu_dpm_get_vce_clock_state(adev, i);<=
-br>
-&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/=
-amd/amdgpu/gfx_v10_0.c<br>
-&gt; index cfc0952f6175..ca01643fa0c8 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c<br>
-&gt; +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c<br>
-&gt; @@ -1684,31 +1684,42 @@ static void gfx_v10_0_tcp_harvest(struct amdgp=
-u_device *adev)<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0tmp |=3D (gcrd_targets_disa=
-ble_tcp &amp; gcrd_targets_disable_mask);<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0WREG32_SOC15(GC, 0, mmGCRD_=
-SA_TARGETS_DISABLE, tmp);<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0}<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
-&gt;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0gfx_v10_0=
-_select_se_sh(adev, 0xffffffff, 0xffffffff, 0xffffffff);<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0mutex_unl=
-ock(&amp;adev-&gt;grbm_idx_mutex);<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
-&gt;=C2=A0 }<br>
-&gt;<br>
-&gt; +static void gfx_v10_0_get_tcc_info(struct amdgpu_device *adev)<br>
-&gt; +{<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0uint32_t tcc_disable =3D RREG32_SOC15(GC, =
-0, mmCGTS_TCC_DISABLE) |<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 RREG32_SOC15(GC, 0, mmCGTS_USER_TCC_DIS=
-ABLE);<br>
-&gt; +<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0adev-&gt;gfx.config.tcc_disabled_mask =3D<=
-br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0REG_GET_FIELD(=
-tcc_disable, CGTS_TCC_DISABLE, TCC_DISABLE) |<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0(REG_GET_FIELD=
-(tcc_disable, CGTS_TCC_DISABLE, HI_TCC_DISABLE) &lt;&lt; 16);<br>
-&gt; +}<br>
-<br>
-Are TCCs per SE/SH?=C2=A0 If so, you&#39;ll need to walk each instance and<=
-br>
-create a mask from each instance like we do for setup_rb and cu_info.<br>
-<br>
-Alex<br>
-<br>
-&gt; +<br>
-&gt;=C2=A0 static void gfx_v10_0_constants_init(struct amdgpu_device *adev)=
-<br>
-&gt;=C2=A0 {<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0u32 tmp;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0int i;<br>
-&gt;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0WREG32_FIELD15(GC, 0, GRBM_CNTL, READ=
-_TIMEOUT, 0xff);<br>
-&gt;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0gfx_v10_0_tiling_mode_table_init(adev=
-);<br>
-&gt;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0gfx_v10_0_setup_rb(adev);<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0gfx_v10_0_get_cu_info(adev, &amp;adev=
--&gt;gfx.cu_info);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0gfx_v10_0_get_tcc_info(adev);<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0adev-&gt;gfx.config.pa_sc_tile_steeri=
-ng_override =3D<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0gfx_v10_0=
-_init_pa_sc_tile_steering_override(adev);<br>
-&gt;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0/* XXX SH_MEM regs */<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0/* where to put LDS, scratch, GPUVM i=
-n FSA64 space */<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0mutex_lock(&amp;adev-&gt;srbm_mutex);=
-<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0for (i =3D 0; i &lt; adev-&gt;vm_mana=
-ger.id_mgr[AMDGPU_GFXHUB_0].num_ids; i++) {<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0nv_grbm_s=
-elect(adev, 0, 0, 0, i);<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0/* CP and=
- shaders */<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0WREG32_SO=
-C15(GC, 0, mmSH_MEM_CONFIG, DEFAULT_SH_MEM_CONFIG);<br>
-&gt; diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_d=
-rm.h<br>
-&gt; index f3ad429173e3..a69e31929155 100644<br>
-&gt; --- a/include/uapi/drm/amdgpu_drm.h<br>
-&gt; +++ b/include/uapi/drm/amdgpu_drm.h<br>
-&gt; @@ -1001,20 +1001,22 @@ struct drm_amdgpu_info_device {<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0__u32 max_gs_waves_per_vgt;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0__u32 _pad1;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0/* always on cu bitmap */<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0__u32 cu_ao_bitmap[4][4];<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0/** Starting high virtual address for=
- UMDs. */<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0__u64 high_va_offset;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0/** The maximum high virtual address =
-*/<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0__u64 high_va_max;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0/* gfx10 pa_sc_tile_steering_override=
- */<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0__u32 pa_sc_tile_steering_override;<b=
-r>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0/* disabled TCCs */<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0__u64 tcc_disabled_mask;<br>
-&gt;=C2=A0 };<br>
-&gt;<br>
-&gt;=C2=A0 struct drm_amdgpu_info_hw_ip {<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0/** Version of h/w IP */<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0__u32=C2=A0 hw_ip_version_major;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0__u32=C2=A0 hw_ip_version_minor;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0/** Capabilities */<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0__u64=C2=A0 capabilities_flags;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0/** command buffer address start alig=
-nment*/<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0__u32=C2=A0 ib_start_alignment;<br>
-&gt; --<br>
-&gt; 2.17.1<br>
-&gt;<br>
-&gt; _______________________________________________<br>
-&gt; amd-gfx mailing list<br>
-&gt; <a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" target=3D"_blank">amd=
--gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
-&gt; <a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" rel=
-=3D"noreferrer" target=3D"_blank">https://lists.freedesktop.org/mailman/lis=
-tinfo/amd-gfx</a><br>
-</blockquote></div>
-
---00000000000050d1a2059367047b--
-
---===============0727494074==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
-
---===============0727494074==--
+UmV2aWV3ZWQtYnk6IEFuZHJleSBHcm9kem92c2t5IDxhbmRyZXkuZ3JvZHpvdnNreUBhbWQuY29t
+Pg0KDQpIb3cgYXJlIHlvdSBwbGFubmluZyB0byB1c2UgdGhlbSBnaXZlbiB0aGUgaGFyZCBjb2Rl
+ZCB1c2Ugb2YgQ1NLVklJMkMgDQooaW5zdGFuY2UgemVybyBJMkMgZW5naW5lKSBpbiBJMkMgY29u
+dHJvbGxlciBjb2RlID8NCg0KQW5kcmV5DQoNCk9uIDkvMjUvMTkgNTowMyBQTSwgUnVzc2VsbCwg
+S2VudCB3cm90ZToNCj4gVGhlc2UgYXJlIHRoZSBvZmZzZXRzIGZvciBDS1NWSUkyQzEsIGFuZCBt
+YXRjaCB1cCB3aXRoIHRoZSB2YWx1ZXMNCj4gYWxyZWFkeSBhZGRlZCBmb3IgQ0tTVklJMkMNCj4N
+Cj4gdjI6IERvbid0IHJlbW92ZSBzb21lIG9mIHRoZSBDU0tWSUkyQyB2YWx1ZXMNCj4NCj4gQ2hh
+bmdlLUlkOiBJNWVkODhiYjMxMjUzY2NhZjRlZDRhZTZmNDk1OTA0MGMwZGEyZjZkMA0KPiBTaWdu
+ZWQtb2ZmLWJ5OiBLZW50IFJ1c3NlbGwgPGtlbnQucnVzc2VsbEBhbWQuY29tPg0KPiAtLS0NCj4g
+ICAuLi4vYXNpY19yZWcvc211aW8vc211aW9fMTFfMF8wX29mZnNldC5oICAgICAgfCAgOTIgKysr
+KysrKysrDQo+ICAgLi4uL2FzaWNfcmVnL3NtdWlvL3NtdWlvXzExXzBfMF9zaF9tYXNrLmggICAg
+IHwgMTc2ICsrKysrKysrKysrKysrKysrKw0KPiAgIDIgZmlsZXMgY2hhbmdlZCwgMjY4IGluc2Vy
+dGlvbnMoKykNCj4NCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvaW5jbHVkZS9h
+c2ljX3JlZy9zbXVpby9zbXVpb18xMV8wXzBfb2Zmc2V0LmggYi9kcml2ZXJzL2dwdS9kcm0vYW1k
+L2luY2x1ZGUvYXNpY19yZWcvc211aW8vc211aW9fMTFfMF8wX29mZnNldC5oDQo+IGluZGV4IGQz
+ODc2MDUyNTYyYi4uNjg3ZDY4NDNjMjU4IDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0v
+YW1kL2luY2x1ZGUvYXNpY19yZWcvc211aW8vc211aW9fMTFfMF8wX29mZnNldC5oDQo+ICsrKyBi
+L2RyaXZlcnMvZ3B1L2RybS9hbWQvaW5jbHVkZS9hc2ljX3JlZy9zbXVpby9zbXVpb18xMV8wXzBf
+b2Zmc2V0LmgNCj4gQEAgLTEyMSw2ICsxMjEsOTggQEANCj4gICAjZGVmaW5lIG1tQ0tTVklJMkNf
+SUNfQ09NUF9WRVJTSU9OX0JBU0VfSURYICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgMA0KPiAgICNkZWZpbmUgbW1DS1NWSUkyQ19JQ19D
+T01QX1RZUEUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAweDAwNmQNCj4gICAjZGVmaW5lIG1tQ0tTVklJMkNfSUNf
+Q09NUF9UWVBFX0JBU0VfSURYICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgMA0KPiArI2RlZmluZSBtbUNLU1ZJSTJDMV9JQ19DT04g
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgIDB4MDA4MA0KPiArI2RlZmluZSBtbUNLU1ZJSTJDMV9JQ19DT05f
+QkFTRV9JRFggICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgIDANCj4gKyNkZWZpbmUgbW1DS1NWSUkyQzFfSUNfVEFSICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAweDAwODENCj4gKyNkZWZpbmUgbW1DS1NWSUkyQzFfSUNfVEFSX0JBU0Vf
+SURYICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAwDQo+ICsjZGVmaW5lIG1tQ0tTVklJMkMxX0lDX1NBUiAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgMHgwMDgyDQo+ICsjZGVmaW5lIG1tQ0tTVklJMkMxX0lDX1NBUl9CQVNFX0lEWCAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgMA0KPiArI2RlZmluZSBtbUNLU1ZJSTJDMV9JQ19IU19NQUREUiAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgIDB4MDA4Mw0KPiArI2RlZmluZSBtbUNLU1ZJSTJDMV9JQ19IU19NQUREUl9CQVNFX0lEWCAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgIDANCj4gKyNkZWZpbmUgbW1DS1NWSUkyQzFfSUNfREFUQV9DTUQgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAw
+eDAwODQNCj4gKyNkZWZpbmUgbW1DS1NWSUkyQzFfSUNfREFUQV9DTURfQkFTRV9JRFggICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAw
+DQo+ICsjZGVmaW5lIG1tQ0tTVklJMkMxX0lDX1NTX1NDTF9IQ05UICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgMHgwMDg1
+DQo+ICsjZGVmaW5lIG1tQ0tTVklJMkMxX0lDX1NTX1NDTF9IQ05UX0JBU0VfSURYICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgMA0KPiAr
+I2RlZmluZSBtbUNLU1ZJSTJDMV9JQ19TU19TQ0xfTENOVCAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDB4MDA4Ng0KPiAr
+I2RlZmluZSBtbUNLU1ZJSTJDMV9JQ19TU19TQ0xfTENOVF9CQVNFX0lEWCAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDANCj4gKyNkZWZp
+bmUgbW1DS1NWSUkyQzFfSUNfRlNfU0NMX0hDTlQgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAweDAwODcNCj4gKyNkZWZp
+bmUgbW1DS1NWSUkyQzFfSUNfRlNfU0NMX0hDTlRfQkFTRV9JRFggICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAwDQo+ICsjZGVmaW5lIG1t
+Q0tTVklJMkMxX0lDX0ZTX1NDTF9MQ05UICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgMHgwMDg4DQo+ICsjZGVmaW5lIG1t
+Q0tTVklJMkMxX0lDX0ZTX1NDTF9MQ05UX0JBU0VfSURYICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgMA0KPiArI2RlZmluZSBtbUNLU1ZJ
+STJDMV9JQ19IU19TQ0xfSENOVCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDB4MDA4OQ0KPiArI2RlZmluZSBtbUNLU1ZJ
+STJDMV9JQ19IU19TQ0xfSENOVF9CQVNFX0lEWCAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDANCj4gKyNkZWZpbmUgbW1DS1NWSUkyQzFf
+SUNfSFNfU0NMX0xDTlQgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAweDAwOGENCj4gKyNkZWZpbmUgbW1DS1NWSUkyQzFf
+SUNfSFNfU0NMX0xDTlRfQkFTRV9JRFggICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAwDQo+ICsjZGVmaW5lIG1tQ0tTVklJMkMxX0lDX0lO
+VFJfU1RBVCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgMHgwMDhiDQo+ICsjZGVmaW5lIG1tQ0tTVklJMkMxX0lDX0lO
+VFJfU1RBVF9CQVNFX0lEWCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgMA0KPiArI2RlZmluZSBtbUNLU1ZJSTJDMV9JQ19JTlRSX01B
+U0sgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgIDB4MDA4Yw0KPiArI2RlZmluZSBtbUNLU1ZJSTJDMV9JQ19JTlRSX01B
+U0tfQkFTRV9JRFggICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgIDANCj4gKyNkZWZpbmUgbW1DS1NWSUkyQzFfSUNfUkFXX0lOVFJfU1RB
+VCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAweDAwOGQNCj4gKyNkZWZpbmUgbW1DS1NWSUkyQzFfSUNfUkFXX0lOVFJfU1RB
+VF9CQVNFX0lEWCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAwDQo+ICsjZGVmaW5lIG1tQ0tTVklJMkMxX0lDX1JYX1RMICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgMHgwMDhlDQo+ICsjZGVmaW5lIG1tQ0tTVklJMkMxX0lDX1JYX1RMX0JBU0VfSURYICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgMA0KPiArI2RlZmluZSBtbUNLU1ZJSTJDMV9JQ19UWF9UTCAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+IDB4MDA4Zg0KPiArI2RlZmluZSBtbUNLU1ZJSTJDMV9JQ19UWF9UTF9CQVNFX0lEWCAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+IDANCj4gKyNkZWZpbmUgbW1DS1NWSUkyQzFfSUNfQ0xSX0lOVFIgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAweDAw
+OTANCj4gKyNkZWZpbmUgbW1DS1NWSUkyQzFfSUNfQ0xSX0lOVFJfQkFTRV9JRFggICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAwDQo+
+ICsjZGVmaW5lIG1tQ0tTVklJMkMxX0lDX0NMUl9SWF9VTkRFUiAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgMHgwMDkxDQo+
+ICsjZGVmaW5lIG1tQ0tTVklJMkMxX0lDX0NMUl9SWF9VTkRFUl9CQVNFX0lEWCAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgMA0KPiArI2Rl
+ZmluZSBtbUNLU1ZJSTJDMV9JQ19DTFJfUlhfT1ZFUiAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDB4MDA5Mg0KPiArI2Rl
+ZmluZSBtbUNLU1ZJSTJDMV9JQ19DTFJfUlhfT1ZFUl9CQVNFX0lEWCAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDANCj4gKyNkZWZpbmUg
+bW1DS1NWSUkyQzFfSUNfQ0xSX1RYX09WRVIgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAweDAwOTMNCj4gKyNkZWZpbmUg
+bW1DS1NWSUkyQzFfSUNfQ0xSX1RYX09WRVJfQkFTRV9JRFggICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAwDQo+ICsjZGVmaW5lIG1tQ0tT
+VklJMkMxX0lDX0NMUl9SRF9SRVEgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgMHgwMDk0DQo+ICsjZGVmaW5lIG1tQ0tT
+VklJMkMxX0lDX0NMUl9SRF9SRVFfQkFTRV9JRFggICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgMA0KPiArI2RlZmluZSBtbUNLU1ZJSTJD
+MV9JQ19DTFJfVFhfQUJSVCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgIDB4MDA5NQ0KPiArI2RlZmluZSBtbUNLU1ZJSTJD
+MV9JQ19DTFJfVFhfQUJSVF9CQVNFX0lEWCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgIDANCj4gKyNkZWZpbmUgbW1DS1NWSUkyQzFfSUNf
+Q0xSX1JYX0RPTkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAweDAwOTYNCj4gKyNkZWZpbmUgbW1DS1NWSUkyQzFfSUNf
+Q0xSX1JYX0RPTkVfQkFTRV9JRFggICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAwDQo+ICsjZGVmaW5lIG1tQ0tTVklJMkMxX0lDX0NMUl9B
+Q1RJVklUWSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgMHgwMDk3DQo+ICsjZGVmaW5lIG1tQ0tTVklJMkMxX0lDX0NMUl9B
+Q1RJVklUWV9CQVNFX0lEWCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgMA0KPiArI2RlZmluZSBtbUNLU1ZJSTJDMV9JQ19DTFJfU1RPUF9E
+RVQgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgIDB4MDA5OA0KPiArI2RlZmluZSBtbUNLU1ZJSTJDMV9JQ19DTFJfU1RPUF9E
+RVRfQkFTRV9JRFggICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgIDANCj4gKyNkZWZpbmUgbW1DS1NWSUkyQzFfSUNfQ0xSX1NUQVJUX0RFVCAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAweDAwOTkNCj4gKyNkZWZpbmUgbW1DS1NWSUkyQzFfSUNfQ0xSX1NUQVJUX0RFVF9C
+QVNFX0lEWCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAwDQo+ICsjZGVmaW5lIG1tQ0tTVklJMkMxX0lDX0NMUl9HRU5fQ0FMTCAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgMHgwMDlhDQo+ICsjZGVmaW5lIG1tQ0tTVklJMkMxX0lDX0NMUl9HRU5fQ0FMTF9CQVNFX0lE
+WCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgMA0KPiArI2RlZmluZSBtbUNLU1ZJSTJDMV9JQ19FTkFCTEUgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDB4
+MDA5Yg0KPiArI2RlZmluZSBtbUNLU1ZJSTJDMV9JQ19FTkFCTEVfQkFTRV9JRFggICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDAN
+Cj4gKyNkZWZpbmUgbW1DS1NWSUkyQzFfSUNfU1RBVFVTICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAweDAwOWMN
+Cj4gKyNkZWZpbmUgbW1DS1NWSUkyQzFfSUNfU1RBVFVTX0JBU0VfSURYICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAwDQo+ICsj
+ZGVmaW5lIG1tQ0tTVklJMkMxX0lDX1RYRkxSICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgMHgwMDlkDQo+ICsj
+ZGVmaW5lIG1tQ0tTVklJMkMxX0lDX1RYRkxSX0JBU0VfSURYICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgMA0KPiArI2RlZmlu
+ZSBtbUNLU1ZJSTJDMV9JQ19SWEZMUiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDB4MDA5ZQ0KPiArI2RlZmlu
+ZSBtbUNLU1ZJSTJDMV9JQ19SWEZMUl9CQVNFX0lEWCAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDANCj4gKyNkZWZpbmUgbW1D
+S1NWSUkyQzFfSUNfU0RBX0hPTEQgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAweDAwOWYNCj4gKyNkZWZpbmUgbW1D
+S1NWSUkyQzFfSUNfU0RBX0hPTERfQkFTRV9JRFggICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAwDQo+ICsjZGVmaW5lIG1tQ0tTVklJ
+MkMxX0lDX1RYX0FCUlRfU09VUkNFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgMHgwMGEwDQo+ICsjZGVmaW5lIG1tQ0tTVklJ
+MkMxX0lDX1RYX0FCUlRfU09VUkNFX0JBU0VfSURYICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgMA0KPiArI2RlZmluZSBtbUNLU1ZJSTJDMV9J
+Q19TTFZfREFUQV9OQUNLX09OTFkgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgIDB4MDBhMQ0KPiArI2RlZmluZSBtbUNLU1ZJSTJDMV9J
+Q19TTFZfREFUQV9OQUNLX09OTFlfQkFTRV9JRFggICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgIDANCj4gKyNkZWZpbmUgbW1DS1NWSUkyQzFfSUNfRE1B
+X0NSICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAweDAwYTINCj4gKyNkZWZpbmUgbW1DS1NWSUkyQzFfSUNfRE1B
+X0NSX0JBU0VfSURYICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAwDQo+ICsjZGVmaW5lIG1tQ0tTVklJMkMxX0lDX0RNQV9URExS
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgMHgwMGEzDQo+ICsjZGVmaW5lIG1tQ0tTVklJMkMxX0lDX0RNQV9URExS
+X0JBU0VfSURYICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgMA0KPiArI2RlZmluZSBtbUNLU1ZJSTJDMV9JQ19ETUFfUkRMUiAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgIDB4MDBhNA0KPiArI2RlZmluZSBtbUNLU1ZJSTJDMV9JQ19ETUFfUkRMUl9CQVNF
+X0lEWCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgIDANCj4gKyNkZWZpbmUgbW1DS1NWSUkyQzFfSUNfU0RBX1NFVFVQICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAweDAwYTUNCj4gKyNkZWZpbmUgbW1DS1NWSUkyQzFfSUNfU0RBX1NFVFVQX0JBU0VfSURY
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAwDQo+ICsjZGVmaW5lIG1tQ0tTVklJMkMxX0lDX0FDS19HRU5FUkFMX0NBTEwgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+MHgwMGE2DQo+ICsjZGVmaW5lIG1tQ0tTVklJMkMxX0lDX0FDS19HRU5FUkFMX0NBTExfQkFTRV9J
+RFggICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+MA0KPiArI2RlZmluZSBtbUNLU1ZJSTJDMV9JQ19FTkFCTEVfU1RBVFVTICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDB4MDBh
+Nw0KPiArI2RlZmluZSBtbUNLU1ZJSTJDMV9JQ19FTkFCTEVfU1RBVFVTX0JBU0VfSURYICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDANCj4g
+KyNkZWZpbmUgbW1DS1NWSUkyQzFfSUNfRlNfU1BLTEVOICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAweDAwYTgNCj4g
+KyNkZWZpbmUgbW1DS1NWSUkyQzFfSUNfRlNfU1BLTEVOX0JBU0VfSURYICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAwDQo+ICsjZGVm
+aW5lIG1tQ0tTVklJMkMxX0lDX0hTX1NQS0xFTiAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgMHgwMGE5DQo+ICsjZGVm
+aW5lIG1tQ0tTVklJMkMxX0lDX0hTX1NQS0xFTl9CQVNFX0lEWCAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgMA0KPiArI2RlZmluZSBt
+bUNLU1ZJSTJDMV9JQ19DTFJfUkVTVEFSVF9ERVQgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDB4MDBhYQ0KPiArI2RlZmluZSBt
+bUNLU1ZJSTJDMV9JQ19DTFJfUkVTVEFSVF9ERVRfQkFTRV9JRFggICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDANCj4gKyNkZWZpbmUgbW1DS1NW
+SUkyQzFfSUNfQ09NUF9QQVJBTV8xICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAweDAwYWINCj4gKyNkZWZpbmUgbW1DS1NW
+SUkyQzFfSUNfQ09NUF9QQVJBTV8xX0JBU0VfSURYICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAwDQo+ICsjZGVmaW5lIG1tQ0tTVklJMkMx
+X0lDX0NPTVBfVkVSU0lPTiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgMHgwMGFjDQo+ICsjZGVmaW5lIG1tQ0tTVklJMkMx
+X0lDX0NPTVBfVkVSU0lPTl9CQVNFX0lEWCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgMA0KPiArI2RlZmluZSBtbUNLU1ZJSTJDMV9JQ19D
+T01QX1RZUEUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgIDB4MDBhZA0KPiArI2RlZmluZSBtbUNLU1ZJSTJDMV9JQ19D
+T01QX1RZUEVfQkFTRV9JRFggICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgIDANCj4gICAjZGVmaW5lIG1tU01VSU9fTVBfUkVTRVRfSU5U
+UiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgMHgwMGMxDQo+ICAgI2RlZmluZSBtbVNNVUlPX01QX1JFU0VUX0lO
+VFJfQkFTRV9JRFggICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgIDANCj4gICAjZGVmaW5lIG1tU01VSU9fU09DX0hBTFQgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgMHgwMGMyDQo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1k
+L2luY2x1ZGUvYXNpY19yZWcvc211aW8vc211aW9fMTFfMF8wX3NoX21hc2suaCBiL2RyaXZlcnMv
+Z3B1L2RybS9hbWQvaW5jbHVkZS9hc2ljX3JlZy9zbXVpby9zbXVpb18xMV8wXzBfc2hfbWFzay5o
+DQo+IGluZGV4IGY4YWZhMzUxOGJmMi4uNjkwNWE5NjE4MTI3IDEwMDY0NA0KPiAtLS0gYS9kcml2
+ZXJzL2dwdS9kcm0vYW1kL2luY2x1ZGUvYXNpY19yZWcvc211aW8vc211aW9fMTFfMF8wX3NoX21h
+c2suaA0KPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2luY2x1ZGUvYXNpY19yZWcvc211aW8v
+c211aW9fMTFfMF8wX3NoX21hc2suaA0KPiBAQCAtMjY4LDYgKzI2OCwxODIgQEANCj4gICAvL0NL
+U1ZJSTJDX0lDX0NPTVBfVFlQRQ0KPiAgICNkZWZpbmUgQ0tTVklJMkNfSUNfQ09NUF9UWVBFX19D
+T01QX1RZUEVfX1NISUZUICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgMHgwDQo+ICAgI2RlZmluZSBDS1NWSUkyQ19JQ19DT01QX1RZ
+UEVfX0NPTVBfVFlQRV9NQVNLICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAweEZGRkZGRkZGTA0KPiArLy9DS1NWSUkyQzFfSUNf
+Q09ODQo+ICsjZGVmaW5lIENLU1ZJSTJDMV9JQ19DT05fX0lDMV9NQVNURVJfTU9ERV9fU0hJRlQg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgIDB4MA0KPiArI2RlZmluZSBDS1NWSUkyQzFfSUNfQ09OX19JQzFfTUFYX1NQRUVEX01PREVf
+X1NISUZUICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAweDENCj4gKyNkZWZpbmUgQ0tTVklJMkMxX0lDX0NPTl9fSUMxXzEwQklUQUREUl9T
+TEFWRV9fU0hJRlQgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgMHgzDQo+ICsjZGVmaW5lIENLU1ZJSTJDMV9JQ19DT05fX0lDMV8xMEJJVEFE
+RFJfTUFTVEVSX19TSElGVCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgIDB4NA0KPiArI2RlZmluZSBDS1NWSUkyQzFfSUNfQ09OX19JQzFfUkVT
+VEFSVF9FTl9fU0hJRlQgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAweDUNCj4gKyNkZWZpbmUgQ0tTVklJMkMxX0lDX0NPTl9fSUMx
+X1NMQVZFX0RJU0FCTEVfX1NISUZUICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgMHg2DQo+ICsjZGVmaW5lIENLU1ZJSTJDMV9JQ19DT05f
+X1NUT1AxX0RFVF9JRkFERFJFU1NFRF9fU0hJRlQgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgIDB4Nw0KPiArI2RlZmluZSBDS1NWSUkyQzFfSUNf
+Q09OX19UWDFfRU1QVFlfQ1RSTF9fU0hJRlQgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAweDgNCj4gKyNkZWZpbmUgQ0tTVklJMkMx
+X0lDX0NPTl9fUlgxX0ZJRk9fRlVMTF9ITERfQ1RSTF9fU0hJRlQgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgMHg5DQo+ICsjZGVmaW5lIENLU1ZJ
+STJDMV9JQ19DT05fX0lDMV9NQVNURVJfTU9ERV9NQVNLICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDB4MDAwMDAwMDFMDQo+ICsj
+ZGVmaW5lIENLU1ZJSTJDMV9JQ19DT05fX0lDMV9NQVhfU1BFRURfTU9ERV9NQVNLICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDB4MDAw
+MDAwMDZMDQo+ICsjZGVmaW5lIENLU1ZJSTJDMV9JQ19DT05fX0lDMV8xMEJJVEFERFJfU0xBVkVf
+TUFTSyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgIDB4MDAwMDAwMDhMDQo+ICsjZGVmaW5lIENLU1ZJSTJDMV9JQ19DT05fX0lDMV8xMEJJ
+VEFERFJfTUFTVEVSX01BU0sgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgIDB4MDAwMDAwMTBMDQo+ICsjZGVmaW5lIENLU1ZJSTJDMV9JQ19D
+T05fX0lDMV9SRVNUQVJUX0VOX01BU0sgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDB4MDAwMDAwMjBMDQo+ICsjZGVmaW5lIENL
+U1ZJSTJDMV9JQ19DT05fX0lDMV9TTEFWRV9ESVNBQkxFX01BU0sgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDB4MDAwMDAwNDBMDQo+
+ICsjZGVmaW5lIENLU1ZJSTJDMV9JQ19DT05fX1NUT1AxX0RFVF9JRkFERFJFU1NFRF9NQVNLICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDB4
+MDAwMDAwODBMDQo+ICsjZGVmaW5lIENLU1ZJSTJDMV9JQ19DT05fX1RYMV9FTVBUWV9DVFJMX01B
+U0sgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgIDB4MDAwMDAxMDBMDQo+ICsjZGVmaW5lIENLU1ZJSTJDMV9JQ19DT05fX1JYMV9G
+SUZPX0ZVTExfSExEX0NUUkxfTUFTSyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgIDB4MDAwMDAyMDBMDQo+ICsvL0NLU1ZJSTJDMV9JQ19UQVIN
+Cj4gKyNkZWZpbmUgQ0tTVklJMkMxX0lDX1RBUl9fSUMxX1RBUl9fU0hJRlQgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+MHgwDQo+ICsjZGVmaW5lIENLU1ZJSTJDMV9JQ19UQVJfX0dDMV9PUl9TVEFSVF9fU0hJRlQgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgIDB4YQ0KPiArI2RlZmluZSBDS1NWSUkyQzFfSUNfVEFSX19TUEVDSUFMMV9fU0hJRlQgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAweGINCj4gKyNkZWZpbmUgQ0tTVklJMkMxX0lDX1RBUl9fSUMxXzEwQklUQUREUl9N
+QVNURVJfX1NISUZUICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgMHhjDQo+ICsjZGVmaW5lIENLU1ZJSTJDMV9JQ19UQVJfX0lDMV9UQVJfTUFT
+SyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgIDB4MDAwMDAzRkZMDQo+ICsjZGVmaW5lIENLU1ZJSTJDMV9JQ19UQVJf
+X0dDMV9PUl9TVEFSVF9NQVNLICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgIDB4MDAwMDA0MDBMDQo+ICsjZGVmaW5lIENLU1ZJ
+STJDMV9JQ19UQVJfX1NQRUNJQUwxX01BU0sgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDB4MDAwMDA4MDBMDQo+ICsj
+ZGVmaW5lIENLU1ZJSTJDMV9JQ19UQVJfX0lDMV8xMEJJVEFERFJfTUFTVEVSX01BU0sgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDB4MDAw
+MDEwMDBMDQo+ICsvL0NLU1ZJSTJDMV9JQ19TQVINCj4gKyNkZWZpbmUgQ0tTVklJMkMxX0lDX1NB
+Ul9fSUMxX1NBUl9fU0hJRlQgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgMHgwDQo+ICsjZGVmaW5lIENLU1ZJSTJDMV9J
+Q19TQVJfX0lDMV9TQVJfTUFTSyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDB4MDAwMDAzRkZMDQo+ICsvL0NLU1ZJ
+STJDMV9JQ19IU19NQUREUg0KPiArI2RlZmluZSBDS1NWSUkyQzFfSUNfSFNfTUFERFJfX0lDMV9I
+U19NQUREUl9fU0hJRlQgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAweDANCj4gKyNkZWZpbmUgQ0tTVklJMkMxX0lDX0hTX01BRERSX19J
+QzFfSFNfTUFERFJfTUFTSyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgMHgwMDAwMDAwN0wNCj4gKy8vQ0tTVklJMkMxX0lDX0RBVEFf
+Q01EDQo+ICsjZGVmaW5lIENLU1ZJSTJDMV9JQ19EQVRBX0NNRF9fREFUMV9fU0hJRlQgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgIDB4MA0KPiArI2RlZmluZSBDS1NWSUkyQzFfSUNfREFUQV9DTURfX0NNRDFfX1NISUZUICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAweDgNCj4gKyNkZWZpbmUgQ0tTVklJMkMxX0lDX0RBVEFfQ01EX19TVE9QMV9fU0hJ
+RlQgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgMHg5DQo+ICsjZGVmaW5lIENLU1ZJSTJDMV9JQ19EQVRBX0NNRF9fUkVTVEFS
+VDFfX1NISUZUICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgIDB4YQ0KPiArI2RlZmluZSBDS1NWSUkyQzFfSUNfREFUQV9DTURfX0RB
+VDFfTUFTSyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAweDAwMDAwMEZGTA0KPiArI2RlZmluZSBDS1NWSUkyQzFfSUNf
+REFUQV9DTURfX0NNRDFfTUFTSyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAweDAwMDAwMTAwTA0KPiArI2RlZmluZSBD
+S1NWSUkyQzFfSUNfREFUQV9DTURfX1NUT1AxX01BU0sgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAweDAwMDAwMjAwTA0K
+PiArI2RlZmluZSBDS1NWSUkyQzFfSUNfREFUQV9DTURfX1JFU1RBUlQxX01BU0sgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAw
+eDAwMDAwNDAwTA0KPiArLy9DS1NWSUkyQzFfSUNfU1NfU0NMX0hDTlQNCj4gKyNkZWZpbmUgQ0tT
+VklJMkMxX0lDX1NTX1NDTF9IQ05UX19JQzFfU1NfU0NMX0hDTlRfX1NISUZUICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgMHgwDQo+ICsjZGVmaW5l
+IENLU1ZJSTJDMV9JQ19TU19TQ0xfSENOVF9fSUMxX1NTX1NDTF9IQ05UX01BU0sgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDB4MDAwMEZGRkZM
+DQo+ICsvL0NLU1ZJSTJDMV9JQ19TU19TQ0xfTENOVA0KPiArI2RlZmluZSBDS1NWSUkyQzFfSUNf
+U1NfU0NMX0xDTlRfX0lDMV9TU19TQ0xfTENOVF9fU0hJRlQgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAweDANCj4gKyNkZWZpbmUgQ0tTVklJMkMx
+X0lDX1NTX1NDTF9MQ05UX19JQzFfU1NfU0NMX0xDTlRfTUFTSyAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgMHgwMDAwRkZGRkwNCj4gKy8vQ0tT
+VklJMkMxX0lDX0ZTX1NDTF9IQ05UDQo+ICsjZGVmaW5lIENLU1ZJSTJDMV9JQ19GU19TQ0xfSENO
+VF9fSUMxX0ZTX1NDTF9IQ05UX19TSElGVCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgIDB4MA0KPiArI2RlZmluZSBDS1NWSUkyQzFfSUNfRlNfU0NM
+X0hDTlRfX0lDMV9GU19TQ0xfSENOVF9NQVNLICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAweDAwMDBGRkZGTA0KPiArLy9DS1NWSUkyQzFfSUNf
+RlNfU0NMX0xDTlQNCj4gKyNkZWZpbmUgQ0tTVklJMkMxX0lDX0ZTX1NDTF9MQ05UX19JQzFfRlNf
+U0NMX0xDTlRfX1NISUZUICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgMHgwDQo+ICsjZGVmaW5lIENLU1ZJSTJDMV9JQ19GU19TQ0xfTENOVF9fSUMx
+X0ZTX1NDTF9MQ05UX01BU0sgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgIDB4MDAwMEZGRkZMDQo+ICsvL0NLU1ZJSTJDMV9JQ19IU19TQ0xfSENO
+VA0KPiArI2RlZmluZSBDS1NWSUkyQzFfSUNfSFNfU0NMX0hDTlRfX0lDMV9IU19TQ0xfSENOVF9f
+U0hJRlQgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAweDANCj4gKyNkZWZpbmUgQ0tTVklJMkMxX0lDX0hTX1NDTF9IQ05UX19JQzFfSFNfU0NMX0hD
+TlRfTUFTSyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgMHgwMDAwRkZGRkwNCj4gKy8vQ0tTVklJMkMxX0lDX0hTX1NDTF9MQ05UDQo+ICsjZGVm
+aW5lIENLU1ZJSTJDMV9JQ19IU19TQ0xfTENOVF9fSUMxX0hTX1NDTF9MQ05UX19TSElGVCAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDB4MA0KPiAr
+I2RlZmluZSBDS1NWSUkyQzFfSUNfSFNfU0NMX0xDTlRfX0lDMV9IU19TQ0xfTENOVF9NQVNLICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAweDAw
+MDBGRkZGTA0KPiArLy9DS1NWSUkyQzFfSUNfSU5UUl9TVEFUDQo+ICsjZGVmaW5lIENLU1ZJSTJD
+MV9JQ19JTlRSX1NUQVRfX1IxX1JYX1VOREVSX19TSElGVCAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDB4MA0KPiArI2RlZmluZSBDS1NW
+SUkyQzFfSUNfSU5UUl9TVEFUX19SMV9SWF9PVkVSX19TSElGVCAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAweDENCj4gKyNkZWZpbmUg
+Q0tTVklJMkMxX0lDX0lOVFJfU1RBVF9fUjFfUlhfRlVMTF9fU0hJRlQgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgMHgyDQo+ICsjZGVm
+aW5lIENLU1ZJSTJDMV9JQ19JTlRSX1NUQVRfX1IxX1RYX09WRVJfX1NISUZUICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDB4Mw0KPiAr
+I2RlZmluZSBDS1NWSUkyQzFfSUNfSU5UUl9TVEFUX19SMV9UWF9FTVBUWV9fU0hJRlQgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAweDQN
+Cj4gKyNkZWZpbmUgQ0tTVklJMkMxX0lDX0lOVFJfU1RBVF9fUjFfUkRfUkVRX19TSElGVCAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+MHg1DQo+ICsjZGVmaW5lIENLU1ZJSTJDMV9JQ19JTlRSX1NUQVRfX1IxX1RYX0FCUlRfX1NISUZU
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgIDB4Ng0KPiArI2RlZmluZSBDS1NWSUkyQzFfSUNfSU5UUl9TVEFUX19SMV9SWF9ET05FX19T
+SElGVCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAweDcNCj4gKyNkZWZpbmUgQ0tTVklJMkMxX0lDX0lOVFJfU1RBVF9fUjFfQUNUSVZJ
+VFlfX1NISUZUICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgMHg4DQo+ICsjZGVmaW5lIENLU1ZJSTJDMV9JQ19JTlRSX1NUQVRfX1IxX1NU
+T1BfREVUX19TSElGVCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgIDB4OQ0KPiArI2RlZmluZSBDS1NWSUkyQzFfSUNfSU5UUl9TVEFUX19S
+MV9TVEFSVF9ERVRfX1NISUZUICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAweGENCj4gKyNkZWZpbmUgQ0tTVklJMkMxX0lDX0lOVFJfU1RB
+VF9fUjFfR0VOX0NBTExfX1NISUZUICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgMHhiDQo+ICsjZGVmaW5lIENLU1ZJSTJDMV9JQ19JTlRS
+X1NUQVRfX1IxX1JFU1RBUlRfREVUX19TSElGVCAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgIDB4Yw0KPiArI2RlZmluZSBDS1NWSUkyQzFfSUNf
+SU5UUl9TVEFUX19SMV9NU1RfT05fSE9MRF9fU0hJRlQgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAweGQNCj4gKyNkZWZpbmUgQ0tTVklJMkMx
+X0lDX0lOVFJfU1RBVF9fUjFfUlhfVU5ERVJfTUFTSyAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgMHgwMDAwMDAwMUwNCj4gKyNkZWZp
+bmUgQ0tTVklJMkMxX0lDX0lOVFJfU1RBVF9fUjFfUlhfT1ZFUl9NQVNLICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgMHgwMDAwMDAw
+MkwNCj4gKyNkZWZpbmUgQ0tTVklJMkMxX0lDX0lOVFJfU1RBVF9fUjFfUlhfRlVMTF9NQVNLICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgMHgwMDAwMDAwNEwNCj4gKyNkZWZpbmUgQ0tTVklJMkMxX0lDX0lOVFJfU1RBVF9fUjFfVFhf
+T1ZFUl9NQVNLICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgMHgwMDAwMDAwOEwNCj4gKyNkZWZpbmUgQ0tTVklJMkMxX0lDX0lOVFJf
+U1RBVF9fUjFfVFhfRU1QVFlfTUFTSyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgMHgwMDAwMDAxMEwNCj4gKyNkZWZpbmUgQ0tTVklJ
+MkMxX0lDX0lOVFJfU1RBVF9fUjFfUkRfUkVRX01BU0sgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgMHgwMDAwMDAyMEwNCj4gKyNk
+ZWZpbmUgQ0tTVklJMkMxX0lDX0lOVFJfU1RBVF9fUjFfVFhfQUJSVF9NQVNLICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgMHgwMDAw
+MDA0MEwNCj4gKyNkZWZpbmUgQ0tTVklJMkMxX0lDX0lOVFJfU1RBVF9fUjFfUlhfRE9ORV9NQVNL
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgMHgwMDAwMDA4MEwNCj4gKyNkZWZpbmUgQ0tTVklJMkMxX0lDX0lOVFJfU1RBVF9fUjFf
+QUNUSVZJVFlfTUFTSyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgMHgwMDAwMDEwMEwNCj4gKyNkZWZpbmUgQ0tTVklJMkMxX0lDX0lO
+VFJfU1RBVF9fUjFfU1RPUF9ERVRfTUFTSyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgMHgwMDAwMDIwMEwNCj4gKyNkZWZpbmUgQ0tT
+VklJMkMxX0lDX0lOVFJfU1RBVF9fUjFfU1RBUlRfREVUX01BU0sgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgMHgwMDAwMDQwMEwNCj4g
+KyNkZWZpbmUgQ0tTVklJMkMxX0lDX0lOVFJfU1RBVF9fUjFfR0VOX0NBTExfTUFTSyAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgMHgw
+MDAwMDgwMEwNCj4gKyNkZWZpbmUgQ0tTVklJMkMxX0lDX0lOVFJfU1RBVF9fUjFfUkVTVEFSVF9E
+RVRfTUFTSyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgMHgwMDAwMTAwMEwNCj4gKyNkZWZpbmUgQ0tTVklJMkMxX0lDX0lOVFJfU1RBVF9f
+UjFfTVNUX09OX0hPTERfTUFTSyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgMHgwMDAwMjAwMEwNCj4gKy8vQ0tTVklJMkMxX0lDX0lOVFJf
+TUFTSw0KPiArI2RlZmluZSBDS1NWSUkyQzFfSUNfSU5UUl9NQVNLX19NMV9SWF9VTkRFUl9fU0hJ
+RlQgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAweDANCj4gKyNkZWZpbmUgQ0tTVklJMkMxX0lDX0lOVFJfTUFTS19fTTFfUlhfT1ZFUl9f
+U0hJRlQgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgMHgxDQo+ICsjZGVmaW5lIENLU1ZJSTJDMV9JQ19JTlRSX01BU0tfX00xX1JYX0ZV
+TExfX1NISUZUICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgIDB4Mg0KPiArI2RlZmluZSBDS1NWSUkyQzFfSUNfSU5UUl9NQVNLX19NMV9U
+WF9PVkVSX19TSElGVCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAweDMNCj4gKyNkZWZpbmUgQ0tTVklJMkMxX0lDX0lOVFJfTUFTS19f
+TTFfVFhfRU1QVFlfX1NISUZUICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgMHg0DQo+ICsjZGVmaW5lIENLU1ZJSTJDMV9JQ19JTlRSX01B
+U0tfX00xX1JEX1JFUV9fU0hJRlQgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgIDB4NQ0KPiArI2RlZmluZSBDS1NWSUkyQzFfSUNfSU5U
+Ul9NQVNLX19NMV9UWF9BQlJUX19TSElGVCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAweDYNCj4gKyNkZWZpbmUgQ0tTVklJMkMxX0lD
+X0lOVFJfTUFTS19fTTFfUlhfRE9ORV9fU0hJRlQgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgMHg3DQo+ICsjZGVmaW5lIENLU1ZJSTJD
+MV9JQ19JTlRSX01BU0tfX00xX0FDVElWSVRZX19TSElGVCAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDB4OA0KPiArI2RlZmluZSBDS1NW
+SUkyQzFfSUNfSU5UUl9NQVNLX19NMV9TVE9QX0RFVF9fU0hJRlQgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAweDkNCj4gKyNkZWZpbmUg
+Q0tTVklJMkMxX0lDX0lOVFJfTUFTS19fTTFfU1RBUlRfREVUX19TSElGVCAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgMHhhDQo+ICsjZGVm
+aW5lIENLU1ZJSTJDMV9JQ19JTlRSX01BU0tfX00xX0dFTl9DQUxMX19TSElGVCAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDB4Yg0KPiAr
+I2RlZmluZSBDS1NWSUkyQzFfSUNfSU5UUl9NQVNLX19NMV9SRVNUQVJUX0RFVF9fU0hJRlQgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAweGMN
+Cj4gKyNkZWZpbmUgQ0tTVklJMkMxX0lDX0lOVFJfTUFTS19fTTFfTVNUX09OX0hPTERfX1NISUZU
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+MHhkDQo+ICsjZGVmaW5lIENLU1ZJSTJDMV9JQ19JTlRSX01BU0tfX00xX1JYX1VOREVSX01BU0sg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgIDB4MDAwMDAwMDFMDQo+ICsjZGVmaW5lIENLU1ZJSTJDMV9JQ19JTlRSX01BU0tfX00xX1JY
+X09WRVJfTUFTSyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgIDB4MDAwMDAwMDJMDQo+ICsjZGVmaW5lIENLU1ZJSTJDMV9JQ19JTlRS
+X01BU0tfX00xX1JYX0ZVTExfTUFTSyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgIDB4MDAwMDAwMDRMDQo+ICsjZGVmaW5lIENLU1ZJ
+STJDMV9JQ19JTlRSX01BU0tfX00xX1RYX09WRVJfTUFTSyAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDB4MDAwMDAwMDhMDQo+ICsj
+ZGVmaW5lIENLU1ZJSTJDMV9JQ19JTlRSX01BU0tfX00xX1RYX0VNUFRZX01BU0sgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDB4MDAw
+MDAwMTBMDQo+ICsjZGVmaW5lIENLU1ZJSTJDMV9JQ19JTlRSX01BU0tfX00xX1JEX1JFUV9NQVNL
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgIDB4MDAwMDAwMjBMDQo+ICsjZGVmaW5lIENLU1ZJSTJDMV9JQ19JTlRSX01BU0tfX00x
+X1RYX0FCUlRfTUFTSyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgIDB4MDAwMDAwNDBMDQo+ICsjZGVmaW5lIENLU1ZJSTJDMV9JQ19J
+TlRSX01BU0tfX00xX1JYX0RPTkVfTUFTSyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDB4MDAwMDAwODBMDQo+ICsjZGVmaW5lIENL
+U1ZJSTJDMV9JQ19JTlRSX01BU0tfX00xX0FDVElWSVRZX01BU0sgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDB4MDAwMDAxMDBMDQo+
+ICsjZGVmaW5lIENLU1ZJSTJDMV9JQ19JTlRSX01BU0tfX00xX1NUT1BfREVUX01BU0sgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDB4
+MDAwMDAyMDBMDQo+ICsjZGVmaW5lIENLU1ZJSTJDMV9JQ19JTlRSX01BU0tfX00xX1NUQVJUX0RF
+VF9NQVNLICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgIDB4MDAwMDA0MDBMDQo+ICsjZGVmaW5lIENLU1ZJSTJDMV9JQ19JTlRSX01BU0tf
+X00xX0dFTl9DQUxMX01BU0sgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgIDB4MDAwMDA4MDBMDQo+ICsjZGVmaW5lIENLU1ZJSTJDMV9J
+Q19JTlRSX01BU0tfX00xX1JFU1RBUlRfREVUX01BU0sgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDB4MDAwMDEwMDBMDQo+ICsjZGVmaW5l
+IENLU1ZJSTJDMV9JQ19JTlRSX01BU0tfX00xX01TVF9PTl9IT0xEX01BU0sgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDB4MDAwMDIwMDBM
+DQo+ICsvL0NLU1ZJSTJDMV9JQ19SQVdfSU5UUl9TVEFUDQo+ICsvL0NLU1ZJSTJDMV9JQ19SWF9U
+TA0KPiArLy9DS1NWSUkyQzFfSUNfVFhfVEwNCj4gKy8vQ0tTVklJMkMxX0lDX0NMUl9JTlRSDQo+
+ICsvL0NLU1ZJSTJDMV9JQ19DTFJfUlhfVU5ERVINCj4gKy8vQ0tTVklJMkMxX0lDX0NMUl9SWF9P
+VkVSDQo+ICsvL0NLU1ZJSTJDMV9JQ19DTFJfVFhfT1ZFUg0KPiArLy9DS1NWSUkyQzFfSUNfQ0xS
+X1JEX1JFUQ0KPiArLy9DS1NWSUkyQzFfSUNfQ0xSX1RYX0FCUlQNCj4gKy8vQ0tTVklJMkMxX0lD
+X0NMUl9SWF9ET05FDQo+ICsvL0NLU1ZJSTJDMV9JQ19DTFJfQUNUSVZJVFkNCj4gKy8vQ0tTVklJ
+MkMxX0lDX0NMUl9TVE9QX0RFVA0KPiArLy9DS1NWSUkyQzFfSUNfQ0xSX1NUQVJUX0RFVA0KPiAr
+Ly9DS1NWSUkyQzFfSUNfQ0xSX0dFTl9DQUxMDQo+ICsvL0NLU1ZJSTJDMV9JQ19FTkFCTEUNCj4g
+KyNkZWZpbmUgQ0tTVklJMkMxX0lDX0VOQUJMRV9fRU5BQkxFMV9fU0hJRlQgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgMHgw
+DQo+ICsjZGVmaW5lIENLU1ZJSTJDMV9JQ19FTkFCTEVfX0FCT1JUMV9fU0hJRlQgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+IDB4MQ0KPiArI2RlZmluZSBDS1NWSUkyQzFfSUNfRU5BQkxFX19FTkFCTEUxX01BU0sgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAweDAwMDAwMDAxTA0KPiArI2RlZmluZSBDS1NWSUkyQzFfSUNfRU5BQkxFX19BQk9SVDFf
+TUFTSyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAweDAwMDAwMDAyTA0KPiArLy9DS1NWSUkyQzFfSUNfU1RBVFVTDQo+
+ICsjZGVmaW5lIENLU1ZJSTJDMV9JQ19TVEFUVVNfX0FDVElWSVRZMV9fU0hJRlQgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDB4
+MA0KPiArI2RlZmluZSBDS1NWSUkyQzFfSUNfU1RBVFVTX19URk5GMV9fU0hJRlQgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAweDENCj4gKyNkZWZpbmUgQ0tTVklJMkMxX0lDX1NUQVRVU19fVEZFMV9fU0hJRlQgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgMHgyDQo+ICsjZGVmaW5lIENLU1ZJSTJDMV9JQ19TVEFUVVNfX1JGTkUxX19TSElGVCAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgIDB4Mw0KPiArI2RlZmluZSBDS1NWSUkyQzFfSUNfU1RBVFVTX19SRkYxX19TSElG
+VCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAweDQNCj4gKyNkZWZpbmUgQ0tTVklJMkMxX0lDX1NUQVRVU19fTVNUMV9B
+Q1RJVklUWV9fU0hJRlQgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgMHg1DQo+ICsjZGVmaW5lIENLU1ZJSTJDMV9JQ19TVEFUVVNfX1NM
+VjFfQUNUSVZJVFlfX1NISUZUICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgIDB4Ng0KPiArI2RlZmluZSBDS1NWSUkyQzFfSUNfU1RBVFVT
+X19BQ1RJVklUWTFfTUFTSyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAweDAwMDAwMDAxTA0KPiArI2RlZmluZSBDS1NWSUky
+QzFfSUNfU1RBVFVTX19URk5GMV9NQVNLICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAweDAwMDAwMDAyTA0KPiArI2Rl
+ZmluZSBDS1NWSUkyQzFfSUNfU1RBVFVTX19URkUxX01BU0sgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAweDAwMDAw
+MDA0TA0KPiArI2RlZmluZSBDS1NWSUkyQzFfSUNfU1RBVFVTX19SRk5FMV9NQVNLICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAweDAwMDAwMDA4TA0KPiArI2RlZmluZSBDS1NWSUkyQzFfSUNfU1RBVFVTX19SRkYxX01B
+U0sgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAweDAwMDAwMDEwTA0KPiArI2RlZmluZSBDS1NWSUkyQzFfSUNfU1RB
+VFVTX19NU1QxX0FDVElWSVRZX01BU0sgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAweDAwMDAwMDIwTA0KPiArI2RlZmluZSBDS1NW
+SUkyQzFfSUNfU1RBVFVTX19TTFYxX0FDVElWSVRZX01BU0sgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAweDAwMDAwMDQwTA0KPiAr
+Ly9DS1NWSUkyQzFfSUNfVFhGTFINCj4gKy8vQ0tTVklJMkMxX0lDX1JYRkxSDQo+ICsvL0NLU1ZJ
+STJDMV9JQ19TREFfSE9MRA0KPiArI2RlZmluZSBDS1NWSUkyQzFfSUNfU0RBX0hPTERfX0lDMV9T
+REFfSE9MRF9fU0hJRlQgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAweDANCj4gKyNkZWZpbmUgQ0tTVklJMkMxX0lDX1NEQV9IT0xEX19J
+QzFfU0RBX0hPTERfTUFTSyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgMHgwMEZGRkZGRkwNCj4gKy8vQ0tTVklJMkMxX0lDX1RYX0FC
+UlRfU09VUkNFDQo+ICsvL0NLU1ZJSTJDMV9JQ19TTFZfREFUQV9OQUNLX09OTFkNCj4gKy8vQ0tT
+VklJMkMxX0lDX0RNQV9DUg0KPiArLy9DS1NWSUkyQzFfSUNfRE1BX1RETFINCj4gKy8vQ0tTVklJ
+MkMxX0lDX0RNQV9SRExSDQo+ICsvL0NLU1ZJSTJDMV9JQ19TREFfU0VUVVANCj4gKyNkZWZpbmUg
+Q0tTVklJMkMxX0lDX1NEQV9TRVRVUF9fU0RBMV9TRVRVUF9fU0hJRlQgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgMHgwDQo+ICsjZGVm
+aW5lIENLU1ZJSTJDMV9JQ19TREFfU0VUVVBfX1NEQTFfU0VUVVBfTUFTSyAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDB4MDAwMDAw
+RkZMDQo+ICsvL0NLU1ZJSTJDMV9JQ19BQ0tfR0VORVJBTF9DQUxMDQo+ICsjZGVmaW5lIENLU1ZJ
+STJDMV9JQ19BQ0tfR0VORVJBTF9DQUxMX19BQ0sxX0dFTkVSQUxfQ0FMTF9fU0hJRlQgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDB4MA0KPiArI2RlZmluZSBD
+S1NWSUkyQzFfSUNfQUNLX0dFTkVSQUxfQ0FMTF9fQUNLMV9HRU5FUkFMX0NBTExfTUFTSyAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAweDAwMDAwMDAxTA0K
+PiArLy9DS1NWSUkyQzFfSUNfRU5BQkxFX1NUQVRVUw0KPiArI2RlZmluZSBDS1NWSUkyQzFfSUNf
+RU5BQkxFX1NUQVRVU19fSUMxX0VOX19TSElGVCAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAweDANCj4gKyNkZWZpbmUgQ0tTVklJMkMx
+X0lDX0VOQUJMRV9TVEFUVVNfX1NMVjFfUlhfQUJPUlRFRF9fU0hJRlQgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgMHgxDQo+ICsjZGVmaW5lIENLU1ZJ
+STJDMV9JQ19FTkFCTEVfU1RBVFVTX19TTFYxX0ZJRk9fRklMTEVEX0FORF9GTFVTSEVEX19TSElG
+VCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDB4Mg0KPiArI2RlZmluZSBD
+S1NWSUkyQzFfSUNfRU5BQkxFX1NUQVRVU19fSUMxX0VOX01BU0sgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAweDAwMDAwMDAxTA0K
+PiArI2RlZmluZSBDS1NWSUkyQzFfSUNfRU5BQkxFX1NUQVRVU19fU0xWMV9SWF9BQk9SVEVEX01B
+U0sgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAw
+eDAwMDAwMDAyTA0KPiArI2RlZmluZSBDS1NWSUkyQzFfSUNfRU5BQkxFX1NUQVRVU19fU0xWMV9G
+SUZPX0ZJTExFRF9BTkRfRkxVU0hFRF9NQVNLICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAweDAwMDAwMDA0TA0KPiAgIC8vU01VSU9fTVBfUkVTRVRfSU5UUg0KPiAgICNk
+ZWZpbmUgU01VSU9fTVBfUkVTRVRfSU5UUl9fU01VSU9fTVBfUkVTRVRfSU5UUl9fU0hJRlQgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgMHgwDQo+
+ICAgI2RlZmluZSBTTVVJT19NUF9SRVNFVF9JTlRSX19TTVVJT19NUF9SRVNFVF9JTlRSX01BU0sg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAw
+eDAwMDAwMDAxTA0KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0
+cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
