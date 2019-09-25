@@ -1,123 +1,93 @@
-From: "Tuikov, Luben" <Luben.Tuikov@amd.com>
-Subject: Re: [PATCH v3 10/11] drm/amdgpu: job is secure iff CS is secure (v4)
-Date: Wed, 25 Sep 2019 17:22:29 +0000
-Message-ID: <5e934e53-8970-fd97-dc0f-3fd20a367de4@amd.com>
-References: <1569422279-6609-1-git-send-email-ray.huang@amd.com>
- <e04af4ef-aa3b-534b-8c5b-e6ee11f677a5@amd.com>
- <MN2PR12MB3309B9F92121C846639C87ECEC870@MN2PR12MB3309.namprd12.prod.outlook.com>
+From: Sean Paul <sean@poorly.run>
+Subject: Re: [PATCH v2 01/27] drm/dp_mst: Move link address dumping into a
+ function
+Date: Wed, 25 Sep 2019 13:45:00 -0400
+Message-ID: <20190925174500.GB218215@art_vandelay>
+References: <20190903204645.25487-1-lyude@redhat.com>
+ <20190903204645.25487-2-lyude@redhat.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-In-Reply-To: <MN2PR12MB3309B9F92121C846639C87ECEC870@MN2PR12MB3309.namprd12.prod.outlook.com>
-Content-Language: en-US
-Content-ID: <F2C7A3E6B3661045ADE02FDFBE934EB2@namprd12.prod.outlook.com>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: "Huang, Ray" <Ray.Huang@amd.com>, "Koenig, Christian" <Christian.Koenig@amd.com>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "Deucher, Alexander" <Alexander.Deucher@amd.com>
-Cc: "Liu, Aaron" <Aaron.Liu@amd.com>
+Content-Type: text/plain; charset=iso-8859-1
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Content-Disposition: inline
+In-Reply-To: <20190903204645.25487-2-lyude@redhat.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Lyude Paul <lyude@redhat.com>
+Cc: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, Juston Li <juston.li@intel.com>, Imre Deak <imre.deak@intel.com>, Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>, Harry Wentland <hwentlan@amd.com>, Daniel Vetter <daniel@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, Sean Paul <sean@poorly.run>, David Airlie <airlied@linux.ie>, linux-kernel@vger.kernel.org
 List-Id: amd-gfx.lists.freedesktop.org
 
-T24gMjAxOS0wOS0yNSAxMDo1NCwgSHVhbmcsIFJheSB3cm90ZToNCj4+IC0tLS0tT3JpZ2luYWwg
-TWVzc2FnZS0tLS0tDQo+PiBGcm9tOiBLb2VuaWcsIENocmlzdGlhbiA8Q2hyaXN0aWFuLktvZW5p
-Z0BhbWQuY29tPg0KPj4gU2VudDogV2VkbmVzZGF5LCBTZXB0ZW1iZXIgMjUsIDIwMTkgMTA6NDcg
-UE0NCj4+IFRvOiBIdWFuZywgUmF5IDxSYXkuSHVhbmdAYW1kLmNvbT47IGFtZC1nZnhAbGlzdHMu
-ZnJlZWRlc2t0b3Aub3JnOyBkcmktDQo+PiBkZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmc7IERl
-dWNoZXIsIEFsZXhhbmRlcg0KPj4gPEFsZXhhbmRlci5EZXVjaGVyQGFtZC5jb20+DQo+PiBDYzog
-VHVpa292LCBMdWJlbiA8THViZW4uVHVpa292QGFtZC5jb20+OyBMaXUsIEFhcm9uDQo+PiA8QWFy
-b24uTGl1QGFtZC5jb20+DQo+PiBTdWJqZWN0OiBSZTogW1BBVENIIHYzIDEwLzExXSBkcm0vYW1k
-Z3B1OiBqb2IgaXMgc2VjdXJlIGlmZiBDUyBpcyBzZWN1cmUgKHY0KQ0KPj4NCj4+IEFtIDI1LjA5
-LjE5IHVtIDE2OjM4IHNjaHJpZWIgSHVhbmcsIFJheToNCj4+PiBNYXJrIGEgam9iIGFzIHNlY3Vy
-ZSwgaWYgYW5kIG9ubHkgaWYgdGhlIGNvbW1hbmQgc3VibWlzc2lvbiBmbGFnIGhhcw0KPj4+IHRo
-ZSBzZWN1cmUgZmxhZyBzZXQuDQo+Pj4NCj4+PiB2MjogZml4IHRoZSBudWxsIGpvYiBwb2ludGVy
-IHdoaWxlIGluIHZtaWQgMCBzdWJtaXNzaW9uLg0KPj4+IHYzOiBDb250ZXh0IC0tPiBDb21tYW5k
-IHN1Ym1pc3Npb24uDQo+Pj4gdjQ6IGZpbGxpbmcgY3MgcGFyc2VyIHdpdGggY3MtPmluLmZsYWdz
-DQo+Pj4NCj4+PiBTaWduZWQtb2ZmLWJ5OiBIdWFuZyBSdWkgPHJheS5odWFuZ0BhbWQuY29tPg0K
-Pj4+IENvLWRldmVsb3BlZC1ieTogTHViZW4gVHVpa292IDxsdWJlbi50dWlrb3ZAYW1kLmNvbT4N
-Cj4+PiBTaWduZWQtb2ZmLWJ5OiBMdWJlbiBUdWlrb3YgPGx1YmVuLnR1aWtvdkBhbWQuY29tPg0K
-Pj4+IFJldmlld2VkLWJ5OiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+
-DQo+Pj4gLS0tDQo+Pj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHUuaCAgICAg
-fCAgMyArKysNCj4+PiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9jcy5jICB8
-IDExICsrKysrKysrKystDQo+Pj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
-aWIuYyAgfCAgNCArKy0tDQo+Pj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
-am9iLmggfCAgMiArKw0KPj4+ICAgNCBmaWxlcyBjaGFuZ2VkLCAxNyBpbnNlcnRpb25zKCspLCAz
-IGRlbGV0aW9ucygtKQ0KPj4+DQo+Pj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-YW1kZ3B1L2FtZGdwdS5oDQo+Pj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHUu
-aA0KPj4+IGluZGV4IDY5N2U4ZTUuLmZkNjA2OTUgMTAwNjQ0DQo+Pj4gLS0tIGEvZHJpdmVycy9n
-cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1LmgNCj4+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1k
-L2FtZGdwdS9hbWRncHUuaA0KPj4+IEBAIC00ODUsNiArNDg1LDkgQEAgc3RydWN0IGFtZGdwdV9j
-c19wYXJzZXIgew0KPj4+ICAgCXVpbnQ2NF90CQkJYnl0ZXNfbW92ZWQ7DQo+Pj4gICAJdWludDY0
-X3QJCQlieXRlc19tb3ZlZF92aXM7DQo+Pj4NCj4+PiArCS8qIHNlY3VyZSBjcyAqLw0KPj4+ICsJ
-Ym9vbAkJCQlpc19zZWN1cmU7DQo+Pj4gKw0KPj4+ICAgCS8qIHVzZXIgZmVuY2UgKi8NCj4+PiAg
-IAlzdHJ1Y3QgYW1kZ3B1X2JvX2xpc3RfZW50cnkJdWZfZW50cnk7DQo+Pj4NCj4+PiBkaWZmIC0t
-Z2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2NzLmMNCj4+PiBiL2RyaXZl
-cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9jcy5jDQo+Pj4gaW5kZXggNTFmM2RiMC4uOTAz
-OGRjMSAxMDA2NDQNCj4+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
-Y3MuYw0KPj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9jcy5jDQo+
-Pj4gQEAgLTEzMyw2ICsxMzMsMTQgQEAgc3RhdGljIGludCBhbWRncHVfY3NfcGFyc2VyX2luaXQo
-c3RydWN0DQo+PiBhbWRncHVfY3NfcGFyc2VyICpwLCB1bmlvbiBkcm1fYW1kZ3B1X2NzDQo+Pj4g
-ICAJCWdvdG8gZnJlZV9jaHVuazsNCj4+PiAgIAl9DQo+Pj4NCj4+PiArCS8qKg0KDQpOQUsgdG8g
-ZG91YmxlLXN0YXJzIGZsYWctcG9sZSB0b3AgaGVyZS0tdGhpcyBpcyBOT1QgYSBmdW5jdGlvbiBj
-b21tZW50Lg0KU2luY2UgeW91IGRvIGhhdmUgYW4gZW1wdHkgbGluZSBpbW1lZGlhdGVseSBCRUZP
-UkUgdGhpcyBjb21tZW50LA0KdGhlbiB5b3UgZG8gbm90IG5lZWQgdGhlIGZsYWctcG9sZSB0b3Ag
-Ii8qIiB0byBhZGQgeWV0IGFub3RoZXINCnNlbWktZW1wdHkgbGluZS4gSnVzdCBzdGFydCB5b3Vy
-IGNvbW1lbnQgbm9ybWFsbHk6DQoNCi8qIFRoZSBjb21tYW5kIHN1Ym1pc3Npb24gLi4uDQogKg0K
-Li4uDQogKi8NCnAtPmlzX3NlY3VyZSA9IC4uLg0KDQpSZWdhcmRzLA0KTHViZW4NCg0KPj4+ICsJ
-ICogVGhlIGNvbW1hbmQgc3VibWlzc2lvbiAoY3MpIGlzIGEgdW5pb24sIHNvIGFuIGFzc2lnbm1l
-bnQgdG8NCj4+PiArCSAqICdvdXQnIGlzIGRlc3RydWN0aXZlIHRvIHRoZSBjcyAoYXQgbGVhc3Qg
-dGhlIGZpcnN0IDgNCj4+PiArCSAqIGJ5dGVzKS4gRm9yIHRoaXMgcmVhc29uLCBpbnF1aXJlIGFi
-b3V0IHRoZSBmbGFncyBiZWZvcmUgdGhlDQo+Pj4gKwkgKiBhc3NpZ25tZW50IHRvICdvdXQnLg0K
-Pj4+ICsJICovDQo+Pj4gKwlwLT5pc19zZWN1cmUgPSBjcy0+aW4uZmxhZ3MgJiBBTURHUFVfQ1Nf
-RkxBR1NfU0VDVVJFOw0KPj4+ICsNCj4+PiAgIAkvKiBnZXQgY2h1bmtzICovDQo+Pj4gICAJY2h1
-bmtfYXJyYXlfdXNlciA9IHU2NF90b191c2VyX3B0cihjcy0+aW4uY2h1bmtzKTsNCj4+PiAgIAlp
-ZiAoY29weV9mcm9tX3VzZXIoY2h1bmtfYXJyYXksIGNodW5rX2FycmF5X3VzZXIsIEBAIC0xMjUy
-LDgNCj4+PiArMTI2MCw5IEBAIHN0YXRpYyBpbnQgYW1kZ3B1X2NzX3N1Ym1pdChzdHJ1Y3QgYW1k
-Z3B1X2NzX3BhcnNlciAqcCwNCj4+PiAgIAkJcC0+Y3R4LT5wcmVhbWJsZV9wcmVzZW50ZWQgPSB0
-cnVlOw0KPj4+ICAgCX0NCj4+Pg0KPj4+IC0JY3MtPm91dC5oYW5kbGUgPSBzZXE7DQo+Pj4gKwlq
-b2ItPnNlY3VyZSA9IHAtPmlzX3NlY3VyZTsNCj4+PiAgIAlqb2ItPnVmX3NlcXVlbmNlID0gc2Vx
-Ow0KPj4+ICsJY3MtPm91dC5oYW5kbGUgPSBzZXE7DQo+Pg0KPj4gQXQgbGVhc3QgaXQgaXMgbm8g
-bG9uZ2VyIGFjY2Vzc2luZyBjcy0+aW4sIGJ1dCB0aGF0IHN0aWxsIGxvb2tzIGxpa2UgdGhlIHdy
-b25nIHBsYWNlDQo+PiB0byBpbml0aWFsaXplIHRoZSBqb2IuDQo+Pg0KPj4gV2h5IGNhbid0IHdl
-IGZpbGwgdGhhdCBpbiBkaXJlY3RseSBhZnRlciBhbWRncHVfam9iX2FsbG9jKCkgPw0KPiANCj4g
-VGhlcmUgaXMgbm90IGlucHV0IG1lbWJlciB0aGF0IGlzIHNlY3VyZSByZWxhdGVkIGluIGFtZGdw
-dV9qb2JfYWxsb2MoKSBleGNlcHQgYWRkIGFuIG9uZToNCj4gIA0KPiBhbWRncHVfam9iX2FsbG9j
-KGFkZXYsIG51bV9pYnMsIGpvYiwgdm0sIHNlY3VyZSkNCj4gDQo+IEl0IGxvb2tzIHRvbyBtdWNo
-LCBpc24ndCBpdD8NCj4gDQo+IFRoYW5rcywNCj4gUmF5DQo+IA0KPj4NCj4+IFJlZ2FyZHMsDQo+
-PiBDaHJpc3RpYW4uDQo+Pg0KPj4+DQo+Pj4gICAJYW1kZ3B1X2pvYl9mcmVlX3Jlc291cmNlcyhq
-b2IpOw0KPj4+DQo+Pj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
-ZGdwdV9pYi5jDQo+Pj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfaWIuYw0K
-Pj4+IGluZGV4IGUxZGMyMjkuLmNiOWI2NTAgMTAwNjQ0DQo+Pj4gLS0tIGEvZHJpdmVycy9ncHUv
-ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2liLmMNCj4+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1k
-L2FtZGdwdS9hbWRncHVfaWIuYw0KPj4+IEBAIC0yMTAsNyArMjEwLDcgQEAgaW50IGFtZGdwdV9p
-Yl9zY2hlZHVsZShzdHJ1Y3QgYW1kZ3B1X3JpbmcgKnJpbmcsDQo+PiB1bnNpZ25lZCBudW1faWJz
-LA0KPj4+ICAgCWlmIChqb2IgJiYgcmluZy0+ZnVuY3MtPmVtaXRfY250eGNudGwpIHsNCj4+PiAg
-IAkJc3RhdHVzIHw9IGpvYi0+cHJlYW1ibGVfc3RhdHVzOw0KPj4+ICAgCQlzdGF0dXMgfD0gam9i
-LT5wcmVlbXB0aW9uX3N0YXR1czsNCj4+PiAtCQlhbWRncHVfcmluZ19lbWl0X2NudHhjbnRsKHJp
-bmcsIHN0YXR1cywgZmFsc2UpOw0KPj4+ICsJCWFtZGdwdV9yaW5nX2VtaXRfY250eGNudGwocmlu
-Zywgc3RhdHVzLCBqb2ItPnNlY3VyZSk7DQo+Pj4gICAJfQ0KPj4+DQo+Pj4gICAJZm9yIChpID0g
-MDsgaSA8IG51bV9pYnM7ICsraSkgew0KPj4+IEBAIC0yMjksNyArMjI5LDcgQEAgaW50IGFtZGdw
-dV9pYl9zY2hlZHVsZShzdHJ1Y3QgYW1kZ3B1X3JpbmcgKnJpbmcsDQo+PiB1bnNpZ25lZCBudW1f
-aWJzLA0KPj4+ICAgCX0NCj4+Pg0KPj4+ICAgCWlmIChyaW5nLT5mdW5jcy0+ZW1pdF90bXopDQo+
-Pj4gLQkJYW1kZ3B1X3JpbmdfZW1pdF90bXoocmluZywgZmFsc2UsIGZhbHNlKTsNCj4+PiArCQlh
-bWRncHVfcmluZ19lbWl0X3RteihyaW5nLCBmYWxzZSwgam9iID8gam9iLT5zZWN1cmUgOiBmYWxz
-ZSk7DQo+Pj4NCj4+PiAgICNpZmRlZiBDT05GSUdfWDg2XzY0DQo+Pj4gICAJaWYgKCEoYWRldi0+
-ZmxhZ3MgJiBBTURfSVNfQVBVKSkNCj4+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9hbWRncHUvYW1kZ3B1X2pvYi5oDQo+Pj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
-bWRncHVfam9iLmgNCj4+PiBpbmRleCBkYzdlZTkzLi5hYTBlMzc1IDEwMDY0NA0KPj4+IC0tLSBh
-L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9qb2IuaA0KPj4+ICsrKyBiL2RyaXZl
-cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9qb2IuaA0KPj4+IEBAIC02Myw2ICs2Myw4IEBA
-IHN0cnVjdCBhbWRncHVfam9iIHsNCj4+PiAgIAl1aW50NjRfdAkJdWZfYWRkcjsNCj4+PiAgIAl1
-aW50NjRfdAkJdWZfc2VxdWVuY2U7DQo+Pj4NCj4+PiArCS8qIHRoZSBqb2IgaXMgZHVlIHRvIGEg
-c2VjdXJlIGNvbW1hbmQgc3VibWlzc2lvbiAqLw0KPj4+ICsJYm9vbAkJCXNlY3VyZTsNCj4+PiAg
-IH07DQo+Pj4NCj4+PiAgIGludCBhbWRncHVfam9iX2FsbG9jKHN0cnVjdCBhbWRncHVfZGV2aWNl
-ICphZGV2LCB1bnNpZ25lZCBudW1faWJzLA0KPiANCg0KX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX18KZHJpLWRldmVsIG1haWxpbmcgbGlzdApkcmktZGV2ZWxA
-bGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxt
-YW4vbGlzdGluZm8vZHJpLWRldmVs
+On Tue, Sep 03, 2019 at 04:45:39PM -0400, Lyude Paul wrote:
+> Makes things easier to read.
+> 
+> Cc: Juston Li <juston.li@intel.com>
+> Cc: Imre Deak <imre.deak@intel.com>
+> Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
+> Cc: Harry Wentland <hwentlan@amd.com>
+> Reviewed-by: Daniel Vetter <daniel@ffwll.ch>
+> Signed-off-by: Lyude Paul <lyude@redhat.com>
+
+Reviewed-by: Sean Paul <sean@poorly.run>
+
+> ---
+>  drivers/gpu/drm/drm_dp_mst_topology.c | 35 ++++++++++++++++++---------
+>  1 file changed, 23 insertions(+), 12 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/drm_dp_mst_topology.c b/drivers/gpu/drm/drm_dp_mst_topology.c
+> index 82add736e17d..36db66a0ddb1 100644
+> --- a/drivers/gpu/drm/drm_dp_mst_topology.c
+> +++ b/drivers/gpu/drm/drm_dp_mst_topology.c
+> @@ -2103,6 +2103,28 @@ static void drm_dp_queue_down_tx(struct drm_dp_mst_topology_mgr *mgr,
+>  	mutex_unlock(&mgr->qlock);
+>  }
+>  
+> +static void
+> +drm_dp_dump_link_address(struct drm_dp_link_address_ack_reply *reply)
+> +{
+> +	struct drm_dp_link_addr_reply_port *port_reply;
+> +	int i;
+> +
+> +	for (i = 0; i < reply->nports; i++) {
+> +		port_reply = &reply->ports[i];
+> +		DRM_DEBUG_KMS("port %d: input %d, pdt: %d, pn: %d, dpcd_rev: %02x, mcs: %d, ddps: %d, ldps %d, sdp %d/%d\n",
+> +			      i,
+> +			      port_reply->input_port,
+> +			      port_reply->peer_device_type,
+> +			      port_reply->port_number,
+> +			      port_reply->dpcd_revision,
+> +			      port_reply->mcs,
+> +			      port_reply->ddps,
+> +			      port_reply->legacy_device_plug_status,
+> +			      port_reply->num_sdp_streams,
+> +			      port_reply->num_sdp_stream_sinks);
+> +	}
+> +}
+> +
+>  static void drm_dp_send_link_address(struct drm_dp_mst_topology_mgr *mgr,
+>  				     struct drm_dp_mst_branch *mstb)
+>  {
+> @@ -2128,18 +2150,7 @@ static void drm_dp_send_link_address(struct drm_dp_mst_topology_mgr *mgr,
+>  			DRM_DEBUG_KMS("link address nak received\n");
+>  		} else {
+>  			DRM_DEBUG_KMS("link address reply: %d\n", txmsg->reply.u.link_addr.nports);
+> -			for (i = 0; i < txmsg->reply.u.link_addr.nports; i++) {
+> -				DRM_DEBUG_KMS("port %d: input %d, pdt: %d, pn: %d, dpcd_rev: %02x, mcs: %d, ddps: %d, ldps %d, sdp %d/%d\n", i,
+> -				       txmsg->reply.u.link_addr.ports[i].input_port,
+> -				       txmsg->reply.u.link_addr.ports[i].peer_device_type,
+> -				       txmsg->reply.u.link_addr.ports[i].port_number,
+> -				       txmsg->reply.u.link_addr.ports[i].dpcd_revision,
+> -				       txmsg->reply.u.link_addr.ports[i].mcs,
+> -				       txmsg->reply.u.link_addr.ports[i].ddps,
+> -				       txmsg->reply.u.link_addr.ports[i].legacy_device_plug_status,
+> -				       txmsg->reply.u.link_addr.ports[i].num_sdp_streams,
+> -				       txmsg->reply.u.link_addr.ports[i].num_sdp_stream_sinks);
+> -			}
+> +			drm_dp_dump_link_address(&txmsg->reply.u.link_addr);
+>  
+>  			drm_dp_check_mstb_guid(mstb, txmsg->reply.u.link_addr.guid);
+>  
+> -- 
+> 2.21.0
+> 
+
+-- 
+Sean Paul, Software Engineer, Google / Chromium OS
