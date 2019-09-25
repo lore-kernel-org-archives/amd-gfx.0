@@ -1,172 +1,80 @@
-From: Sean Paul <sean@poorly.run>
-Subject: Re: [PATCH v2 04/27] drm/dp_mst: Move test_calc_pbn_mode() into an
- actual selftest
-Date: Wed, 25 Sep 2019 14:17:34 -0400
-Message-ID: <20190925181734.GE218215@art_vandelay>
-References: <20190903204645.25487-1-lyude@redhat.com>
- <20190903204645.25487-5-lyude@redhat.com>
+From: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 3/3] drm/amdkfd: Remove the control stack workaround for
+ GFX10
+Date: Wed, 25 Sep 2019 18:25:43 +0000
+Message-ID: <3d63ddfd-2773-b89d-c0dc-75ac1397b1fc@amd.com>
+References: <20190925181527.17091-1-Yong.Zhao@amd.com>
+ <20190925181527.17091-3-Yong.Zhao@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Transfer-Encoding: 8bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Content-Disposition: inline
-In-Reply-To: <20190903204645.25487-5-lyude@redhat.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Lyude Paul <lyude@redhat.com>
-Cc: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, Juston Li <juston.li@intel.com>, Imre Deak <imre.deak@intel.com>, Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>, Harry Wentland <hwentlan@amd.com>, Daniel Vetter <daniel.vetter@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, Sean Paul <sean@poorly.run>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, Thomas Hellstrom <thellstrom@vmware.com>, Deepak Rawat <drawat@vmware.com>, Alexandru Gheorghe <alexandru-cosmin.gheorghe@arm.com>, Thomas Gleixner <tglx@linutronix.de>, linux-kernel@vger.kernel.org
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20190925181527.17091-3-Yong.Zhao-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
+Content-ID: <69B2738EF0EB1849AFD762983F2ECCC5-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Zhao, Yong" <Yong.Zhao-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-On Tue, Sep 03, 2019 at 04:45:42PM -0400, Lyude Paul wrote:
-> Yes, apparently we've been testing this for every single driver load for
-> quite a long time now. At least that means our PBN calculation is solid!
-> 
-> Anyway, introduce self tests for MST and move this into there.
-> 
-> Cc: Juston Li <juston.li@intel.com>
-> Cc: Imre Deak <imre.deak@intel.com>
-> Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
-> Cc: Harry Wentland <hwentlan@amd.com>
-> Reviewed-by: Daniel Vetter <daniel.vetter@ffwll.ch>
-> Signed-off-by: Lyude Paul <lyude@redhat.com>
-
-Reviewed-by: Sean Paul <sean@poorly.run>
-
-> ---
->  drivers/gpu/drm/drm_dp_mst_topology.c         | 27 ---------------
->  drivers/gpu/drm/selftests/Makefile            |  2 +-
->  .../gpu/drm/selftests/drm_modeset_selftests.h |  1 +
->  .../drm/selftests/test-drm_dp_mst_helper.c    | 34 +++++++++++++++++++
->  .../drm/selftests/test-drm_modeset_common.h   |  1 +
->  5 files changed, 37 insertions(+), 28 deletions(-)
->  create mode 100644 drivers/gpu/drm/selftests/test-drm_dp_mst_helper.c
-> 
-> diff --git a/drivers/gpu/drm/drm_dp_mst_topology.c b/drivers/gpu/drm/drm_dp_mst_topology.c
-> index 738f260d4b15..6f7f449ca12b 100644
-> --- a/drivers/gpu/drm/drm_dp_mst_topology.c
-> +++ b/drivers/gpu/drm/drm_dp_mst_topology.c
-> @@ -47,7 +47,6 @@
->   */
->  static bool dump_dp_payload_table(struct drm_dp_mst_topology_mgr *mgr,
->  				  char *buf);
-> -static int test_calc_pbn_mode(void);
->  
->  static void drm_dp_mst_topology_put_port(struct drm_dp_mst_port *port);
->  
-> @@ -3561,30 +3560,6 @@ int drm_dp_calc_pbn_mode(int clock, int bpp)
->  }
->  EXPORT_SYMBOL(drm_dp_calc_pbn_mode);
->  
-> -static int test_calc_pbn_mode(void)
-> -{
-> -	int ret;
-> -	ret = drm_dp_calc_pbn_mode(154000, 30);
-> -	if (ret != 689) {
-> -		DRM_ERROR("PBN calculation test failed - clock %d, bpp %d, expected PBN %d, actual PBN %d.\n",
-> -				154000, 30, 689, ret);
-> -		return -EINVAL;
-> -	}
-> -	ret = drm_dp_calc_pbn_mode(234000, 30);
-> -	if (ret != 1047) {
-> -		DRM_ERROR("PBN calculation test failed - clock %d, bpp %d, expected PBN %d, actual PBN %d.\n",
-> -				234000, 30, 1047, ret);
-> -		return -EINVAL;
-> -	}
-> -	ret = drm_dp_calc_pbn_mode(297000, 24);
-> -	if (ret != 1063) {
-> -		DRM_ERROR("PBN calculation test failed - clock %d, bpp %d, expected PBN %d, actual PBN %d.\n",
-> -				297000, 24, 1063, ret);
-> -		return -EINVAL;
-> -	}
-> -	return 0;
-> -}
-> -
->  /* we want to kick the TX after we've ack the up/down IRQs. */
->  static void drm_dp_mst_kick_tx(struct drm_dp_mst_topology_mgr *mgr)
->  {
-> @@ -4033,8 +4008,6 @@ int drm_dp_mst_topology_mgr_init(struct drm_dp_mst_topology_mgr *mgr,
->  	if (!mgr->proposed_vcpis)
->  		return -ENOMEM;
->  	set_bit(0, &mgr->payload_mask);
-> -	if (test_calc_pbn_mode() < 0)
-> -		DRM_ERROR("MST PBN self-test failed\n");
->  
->  	mst_state = kzalloc(sizeof(*mst_state), GFP_KERNEL);
->  	if (mst_state == NULL)
-> diff --git a/drivers/gpu/drm/selftests/Makefile b/drivers/gpu/drm/selftests/Makefile
-> index aae88f8a016c..d2137342b371 100644
-> --- a/drivers/gpu/drm/selftests/Makefile
-> +++ b/drivers/gpu/drm/selftests/Makefile
-> @@ -1,6 +1,6 @@
->  # SPDX-License-Identifier: GPL-2.0-only
->  test-drm_modeset-y := test-drm_modeset_common.o test-drm_plane_helper.o \
->                        test-drm_format.o test-drm_framebuffer.o \
-> -		      test-drm_damage_helper.o
-> +		      test-drm_damage_helper.o test-drm_dp_mst_helper.o
->  
->  obj-$(CONFIG_DRM_DEBUG_SELFTEST) += test-drm_mm.o test-drm_modeset.o test-drm_cmdline_parser.o
-> diff --git a/drivers/gpu/drm/selftests/drm_modeset_selftests.h b/drivers/gpu/drm/selftests/drm_modeset_selftests.h
-> index 464753746013..dec3ee3ec96f 100644
-> --- a/drivers/gpu/drm/selftests/drm_modeset_selftests.h
-> +++ b/drivers/gpu/drm/selftests/drm_modeset_selftests.h
-> @@ -32,3 +32,4 @@ selftest(damage_iter_damage_one_intersect, igt_damage_iter_damage_one_intersect)
->  selftest(damage_iter_damage_one_outside, igt_damage_iter_damage_one_outside)
->  selftest(damage_iter_damage_src_moved, igt_damage_iter_damage_src_moved)
->  selftest(damage_iter_damage_not_visible, igt_damage_iter_damage_not_visible)
-> +selftest(dp_mst_calc_pbn_mode, igt_dp_mst_calc_pbn_mode)
-> diff --git a/drivers/gpu/drm/selftests/test-drm_dp_mst_helper.c b/drivers/gpu/drm/selftests/test-drm_dp_mst_helper.c
-> new file mode 100644
-> index 000000000000..9baa5171988d
-> --- /dev/null
-> +++ b/drivers/gpu/drm/selftests/test-drm_dp_mst_helper.c
-> @@ -0,0 +1,34 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +/*
-> + * Test cases for for the DRM DP MST helpers
-> + */
-> +
-> +#include <drm/drm_dp_mst_helper.h>
-> +#include <drm/drm_print.h>
-> +
-> +#include "test-drm_modeset_common.h"
-> +
-> +int igt_dp_mst_calc_pbn_mode(void *ignored)
-> +{
-> +	int pbn, i;
-> +	const struct {
-> +		int rate;
-> +		int bpp;
-> +		int expected;
-> +	} test_params[] = {
-> +		{ 154000, 30, 689 },
-> +		{ 234000, 30, 1047 },
-> +		{ 297000, 24, 1063 },
-> +	};
-> +
-> +	for (i = 0; i < ARRAY_SIZE(test_params); i++) {
-> +		pbn = drm_dp_calc_pbn_mode(test_params[i].rate,
-> +					   test_params[i].bpp);
-> +		FAIL(pbn != test_params[i].expected,
-> +		     "Expected PBN %d for clock %d bpp %d, got %d\n",
-> +		     test_params[i].expected, test_params[i].rate,
-> +		     test_params[i].bpp, pbn);
-> +	}
-> +
-> +	return 0;
-> +}
-> diff --git a/drivers/gpu/drm/selftests/test-drm_modeset_common.h b/drivers/gpu/drm/selftests/test-drm_modeset_common.h
-> index 8c76f09c12d1..590bda35a683 100644
-> --- a/drivers/gpu/drm/selftests/test-drm_modeset_common.h
-> +++ b/drivers/gpu/drm/selftests/test-drm_modeset_common.h
-> @@ -39,5 +39,6 @@ int igt_damage_iter_damage_one_intersect(void *ignored);
->  int igt_damage_iter_damage_one_outside(void *ignored);
->  int igt_damage_iter_damage_src_moved(void *ignored);
->  int igt_damage_iter_damage_not_visible(void *ignored);
-> +int igt_dp_mst_calc_pbn_mode(void *ignored);
->  
->  #endif
-> -- 
-> 2.21.0
-> 
-
--- 
-Sean Paul, Software Engineer, Google / Chromium OS
+T24gMjAxOS0wOS0yNSAyOjE1IHAubS4sIFpoYW8sIFlvbmcgd3JvdGU6DQo+IFRoZSBHRlgxMCBk
+b2VzIG5vdCBoYXZlIHRoaXMgaGFyZHdhcmUgYnVnIGFueSBtb3JlLCBzbyByZW1vdmUgaXQuDQoN
+Ckkgd291bGRuJ3QgY2FsbCB0aGlzIGEgYnVnIGFuZCBhIHdvcmthcm91bmQuIE1vcmUgbGlrZSBh
+IGNoYW5nZSBpbiB0aGUgDQpIVyBvciBGVyBiZWhhdmlvdXIgYW5kIGEgY29ycmVzcG9uZGluZyBk
+cml2ZXIgY2hhbmdlLiBJLmUuIGluIEdGWHY4IHRoZSANCmNvbnRyb2wgc3RhY2sgd2FzIGluIHRo
+ZSB1c2VyIG1vZGUgQ1dTUiBhbGxvY2F0aW9uLiBJbiBHRlh2OSBpdCBtb3ZlZCANCmludG8gYSBr
+ZXJuZWwgbW9kZSBidWZmZXIgbmV4dCB0byB0aGUgTVFELiBTbyBpbiBHRlh2MTAgdGhlIGNvbnRy
+b2wgDQpzdGFjayBtb3ZlZCBiYWNrIGludG8gdGhlIHVzZXIgbW9kZSBDV1NSIGJ1ZmZlcj8NCg0K
+UmVnYXJkcywNCiDCoCBGZWxpeA0KDQo+DQo+IENoYW5nZS1JZDogSTQ0NmM5Njg1NTQ5YTA5YWM4
+ODQ2YTQyZWUyMmQ4NmNmYjkzZmQ5OGMNCj4gU2lnbmVkLW9mZi1ieTogWW9uZyBaaGFvIDxZb25n
+LlpoYW9AYW1kLmNvbT4NCj4gLS0tDQo+ICAgLi4uL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfbXFk
+X21hbmFnZXJfdjEwLmMgIHwgMzcgKystLS0tLS0tLS0tLS0tLS0tLQ0KPiAgIDEgZmlsZSBjaGFu
+Z2VkLCA0IGluc2VydGlvbnMoKyksIDMzIGRlbGV0aW9ucygtKQ0KPg0KPiBkaWZmIC0tZ2l0IGEv
+ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX21xZF9tYW5hZ2VyX3YxMC5jIGIvZHJpdmVy
+cy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX21xZF9tYW5hZ2VyX3YxMC5jDQo+IGluZGV4IDljZDNl
+YjJkOTBiZC4uNGEyMzZiMmMyMzU0IDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1k
+L2FtZGtmZC9rZmRfbXFkX21hbmFnZXJfdjEwLmMNCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2Ft
+ZC9hbWRrZmQva2ZkX21xZF9tYW5hZ2VyX3YxMC5jDQo+IEBAIC02OSwzNSArNjksMTMgQEAgc3Rh
+dGljIHZvaWQgdXBkYXRlX2N1X21hc2soc3RydWN0IG1xZF9tYW5hZ2VyICptbSwgdm9pZCAqbXFk
+LA0KPiAgIHN0YXRpYyBzdHJ1Y3Qga2ZkX21lbV9vYmogKmFsbG9jYXRlX21xZChzdHJ1Y3Qga2Zk
+X2RldiAqa2ZkLA0KPiAgIAkJc3RydWN0IHF1ZXVlX3Byb3BlcnRpZXMgKnEpDQo+ICAgew0KPiAt
+CWludCByZXR2YWw7DQo+IC0Jc3RydWN0IGtmZF9tZW1fb2JqICptcWRfbWVtX29iaiA9IE5VTEw7
+DQo+ICsJc3RydWN0IGtmZF9tZW1fb2JqICptcWRfbWVtX29iajsNCj4gICANCj4gLQkvKiBGcm9t
+IFY5LCAgZm9yIENXU1IsIHRoZSBjb250cm9sIHN0YWNrIGlzIGxvY2F0ZWQgb24gdGhlIG5leHQg
+cGFnZQ0KPiAtCSAqIGJvdW5kYXJ5IGFmdGVyIHRoZSBtcWQsIHdlIHdpbGwgdXNlIHRoZSBndHQg
+YWxsb2NhdGlvbiBmdW5jdGlvbg0KPiAtCSAqIGluc3RlYWQgb2Ygc3ViLWFsbG9jYXRpb24gZnVu
+Y3Rpb24uDQo+IC0JICovDQo+IC0JaWYgKGtmZC0+Y3dzcl9lbmFibGVkICYmIChxLT50eXBlID09
+IEtGRF9RVUVVRV9UWVBFX0NPTVBVVEUpKSB7DQo+IC0JCW1xZF9tZW1fb2JqID0ga3phbGxvYyhz
+aXplb2Yoc3RydWN0IGtmZF9tZW1fb2JqKSwgR0ZQX05PSU8pOw0KPiAtCQlpZiAoIW1xZF9tZW1f
+b2JqKQ0KPiAtCQkJcmV0dXJuIE5VTEw7DQo+IC0JCXJldHZhbCA9IGFtZGdwdV9hbWRrZmRfYWxs
+b2NfZ3R0X21lbShrZmQtPmtnZCwNCj4gLQkJCUFMSUdOKHEtPmN0bF9zdGFja19zaXplLCBQQUdF
+X1NJWkUpICsNCj4gLQkJCQlBTElHTihzaXplb2Yoc3RydWN0IHYxMF9jb21wdXRlX21xZCksIFBB
+R0VfU0laRSksDQo+IC0JCQkmKG1xZF9tZW1fb2JqLT5ndHRfbWVtKSwNCj4gLQkJCSYobXFkX21l
+bV9vYmotPmdwdV9hZGRyKSwNCj4gLQkJCSh2b2lkICopJihtcWRfbWVtX29iai0+Y3B1X3B0ciks
+IHRydWUpOw0KPiAtCX0gZWxzZSB7DQo+IC0JCXJldHZhbCA9IGtmZF9ndHRfc2FfYWxsb2NhdGUo
+a2ZkLCBzaXplb2Yoc3RydWN0IHYxMF9jb21wdXRlX21xZCksDQo+IC0JCQkJJm1xZF9tZW1fb2Jq
+KTsNCj4gLQl9DQo+IC0NCj4gLQlpZiAocmV0dmFsKSB7DQo+IC0JCWtmcmVlKG1xZF9tZW1fb2Jq
+KTsNCj4gKwlpZiAoa2ZkX2d0dF9zYV9hbGxvY2F0ZShrZmQsIHNpemVvZihzdHJ1Y3QgdjEwX2Nv
+bXB1dGVfbXFkKSwNCj4gKwkJCSZtcWRfbWVtX29iaikpDQo+ICAgCQlyZXR1cm4gTlVMTDsNCj4g
+LQl9DQo+ICAgDQo+ICAgCXJldHVybiBtcWRfbWVtX29iajsNCj4gLQ0KPiAgIH0NCj4gICANCj4g
+ICBzdGF0aWMgdm9pZCBpbml0X21xZChzdHJ1Y3QgbXFkX21hbmFnZXIgKm1tLCB2b2lkICoqbXFk
+LA0KPiBAQCAtMjUwLDE0ICsyMjgsNyBAQCBzdGF0aWMgaW50IGRlc3Ryb3lfbXFkKHN0cnVjdCBt
+cWRfbWFuYWdlciAqbW0sIHZvaWQgKm1xZCwNCj4gICBzdGF0aWMgdm9pZCBmcmVlX21xZChzdHJ1
+Y3QgbXFkX21hbmFnZXIgKm1tLCB2b2lkICptcWQsDQo+ICAgCQkJc3RydWN0IGtmZF9tZW1fb2Jq
+ICptcWRfbWVtX29iaikNCj4gICB7DQo+IC0Jc3RydWN0IGtmZF9kZXYgKmtmZCA9IG1tLT5kZXY7
+DQo+IC0NCj4gLQlpZiAobXFkX21lbV9vYmotPmd0dF9tZW0pIHsNCj4gLQkJYW1kZ3B1X2FtZGtm
+ZF9mcmVlX2d0dF9tZW0oa2ZkLT5rZ2QsIG1xZF9tZW1fb2JqLT5ndHRfbWVtKTsNCj4gLQkJa2Zy
+ZWUobXFkX21lbV9vYmopOw0KPiAtCX0gZWxzZSB7DQo+IC0JCWtmZF9ndHRfc2FfZnJlZShtbS0+
+ZGV2LCBtcWRfbWVtX29iaik7DQo+IC0JfQ0KPiArCWtmZF9ndHRfc2FfZnJlZShtbS0+ZGV2LCBt
+cWRfbWVtX29iaik7DQo+ICAgfQ0KPiAgIA0KPiAgIHN0YXRpYyBib29sIGlzX29jY3VwaWVkKHN0
+cnVjdCBtcWRfbWFuYWdlciAqbW0sIHZvaWQgKm1xZCwNCl9fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlz
+dHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4v
+bGlzdGluZm8vYW1kLWdmeA==
