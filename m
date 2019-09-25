@@ -1,13 +1,14 @@
-From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: Add NAVI12 support from kfd side
-Date: Wed, 25 Sep 2019 13:00:11 +0000
-Message-ID: <BN6PR12MB1809F0717D9D94EBC3ED1E9FF7870@BN6PR12MB1809.namprd12.prod.outlook.com>
-References: <1569363225-18469-1-git-send-email-shaoyun.liu@amd.com>
+From: "Huang, Ray" <Ray.Huang-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH v2 00/11] drm/amdgpu: introduce secure buffer object support
+ (trusted memory zone)
+Date: Wed, 25 Sep 2019 13:45:08 +0000
+Message-ID: <1569419090-5304-1-git-send-email-ray.huang@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1469947970=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1569363225-18469-1-git-send-email-shaoyun.liu-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
+Content-ID: <545160CE7EA433458D4D55D1F56AC73A-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,199 +19,74 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Liu, Shaoyun" <Shaoyun.Liu-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Cc: "Tuikov, Luben" <Luben.Tuikov-5C7GfCeVMHo@public.gmane.org>, "Huang, Ray" <Ray.Huang-5C7GfCeVMHo@public.gmane.org>, "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "Liu,
+ Aaron" <Aaron.Liu-5C7GfCeVMHo@public.gmane.org>
 
---===============1469947970==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_BN6PR12MB1809F0717D9D94EBC3ED1E9FF7870BN6PR12MB1809namp_"
-
---_000_BN6PR12MB1809F0717D9D94EBC3ED1E9FF7870BN6PR12MB1809namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-Reviewed-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-________________________________
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Liu, Sha=
-oyun <Shaoyun.Liu-5C7GfCeVMHo@public.gmane.org>
-Sent: Tuesday, September 24, 2019 6:13 PM
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: Liu, Shaoyun <Shaoyun.Liu-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH] drm/amdgpu: Add NAVI12 support from kfd side
-
-Add device info for both navi12 PF and VF
-
-Change-Id: Ifb4035e65c12d153fc30e593fe109f9c7e0541f4
-Signed-off-by: shaoyunl <shaoyun.liu-5C7GfCeVMHo@public.gmane.org>
----
- drivers/gpu/drm/amd/amdkfd/kfd_device.c | 19 +++++++++++++++++++
- 1 file changed, 19 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device.c b/drivers/gpu/drm/amd/=
-amdkfd/kfd_device.c
-index f329b82..edfbae5c 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-@@ -387,6 +387,24 @@ static const struct kfd_device_info navi10_device_info=
- =3D {
-         .num_sdma_queues_per_engine =3D 8,
- };
-
-+static const struct kfd_device_info navi12_device_info =3D {
-+       .asic_family =3D CHIP_NAVI12,
-+       .asic_name =3D "navi12",
-+       .max_pasid_bits =3D 16,
-+       .max_no_of_hqd  =3D 24,
-+       .doorbell_size  =3D 8,
-+       .ih_ring_entry_size =3D 8 * sizeof(uint32_t),
-+       .event_interrupt_class =3D &event_interrupt_class_v9,
-+       .num_of_watch_points =3D 4,
-+       .mqd_size_aligned =3D MQD_SIZE_ALIGNED,
-+       .needs_iommu_device =3D false,
-+       .supports_cwsr =3D true,
-+       .needs_pci_atomics =3D false,
-+       .num_sdma_engines =3D 2,
-+       .num_xgmi_sdma_engines =3D 0,
-+       .num_sdma_queues_per_engine =3D 8,
-+};
-+
- static const struct kfd_device_info navi14_device_info =3D {
-         .asic_family =3D CHIP_NAVI14,
-         .asic_name =3D "navi14",
-@@ -425,6 +443,7 @@ static const struct kfd_device_info *kfd_supported_devi=
-ces[][2] =3D {
-         [CHIP_RENOIR] =3D {&renoir_device_info, NULL},
-         [CHIP_ARCTURUS] =3D {&arcturus_device_info, &arcturus_device_info}=
-,
-         [CHIP_NAVI10] =3D {&navi10_device_info, NULL},
-+       [CHIP_NAVI12] =3D {&navi12_device_info, &navi12_device_info},
-         [CHIP_NAVI14] =3D {&navi14_device_info, NULL},
- };
-
---
-2.7.4
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---_000_BN6PR12MB1809F0717D9D94EBC3ED1E9FF7870BN6PR12MB1809namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Reviewed-by: Alex Deucher &lt;alexander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
-</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
-ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Liu, Shaoyun &lt;Shaoyun.Liu@=
-amd.com&gt;<br>
-<b>Sent:</b> Tuesday, September 24, 2019 6:13 PM<br>
-<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org &lt;amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&=
-gt;<br>
-<b>Cc:</b> Liu, Shaoyun &lt;Shaoyun.Liu-5C7GfCeVMHo@public.gmane.org&gt;<br>
-<b>Subject:</b> [PATCH] drm/amdgpu: Add NAVI12 support from kfd side</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">Add device info for both navi12 PF and VF<br>
-<br>
-Change-Id: Ifb4035e65c12d153fc30e593fe109f9c7e0541f4<br>
-Signed-off-by: shaoyunl &lt;shaoyun.liu-5C7GfCeVMHo@public.gmane.org&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/amdkfd/kfd_device.c | 19 &#43;&#43;&#43;&#43;&#43=
-;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;<br>
-&nbsp;1 file changed, 19 insertions(&#43;)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device.c b/drivers/gpu/drm/amd/=
-amdkfd/kfd_device.c<br>
-index f329b82..edfbae5c 100644<br>
---- a/drivers/gpu/drm/amd/amdkfd/kfd_device.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdkfd/kfd_device.c<br>
-@@ -387,6 &#43;387,24 @@ static const struct kfd_device_info navi10_device_=
-info =3D {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .num_sdma_queues_per_engin=
-e =3D 8,<br>
-&nbsp;};<br>
-&nbsp;<br>
-&#43;static const struct kfd_device_info navi12_device_info =3D {<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .asic_family =3D CHIP_NAVI12,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .asic_name =3D &quot;navi12&quot;=
-,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .max_pasid_bits =3D 16,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .max_no_of_hqd&nbsp; =3D 24,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .doorbell_size&nbsp; =3D 8,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .ih_ring_entry_size =3D 8 * sizeo=
-f(uint32_t),<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .event_interrupt_class =3D &amp;e=
-vent_interrupt_class_v9,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .num_of_watch_points =3D 4,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .mqd_size_aligned =3D MQD_SIZE_AL=
-IGNED,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .needs_iommu_device =3D false,<br=
->
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .supports_cwsr =3D true,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .needs_pci_atomics =3D false,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .num_sdma_engines =3D 2,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .num_xgmi_sdma_engines =3D 0,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .num_sdma_queues_per_engine =3D 8=
-,<br>
-&#43;};<br>
-&#43;<br>
-&nbsp;static const struct kfd_device_info navi14_device_info =3D {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .asic_family =3D CHIP_NAVI=
-14,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .asic_name =3D &quot;navi1=
-4&quot;,<br>
-@@ -425,6 &#43;443,7 @@ static const struct kfd_device_info *kfd_supported_=
-devices[][2] =3D {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [CHIP_RENOIR] =3D {&amp;re=
-noir_device_info, NULL},<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [CHIP_ARCTURUS] =3D {&amp;=
-arcturus_device_info, &amp;arcturus_device_info},<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [CHIP_NAVI10] =3D {&amp;na=
-vi10_device_info, NULL},<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [CHIP_NAVI12] =3D {&amp;navi12_de=
-vice_info, &amp;navi12_device_info},<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [CHIP_NAVI14] =3D {&amp;na=
-vi14_device_info, NULL},<br>
-&nbsp;};<br>
-&nbsp;<br>
--- <br>
-2.7.4<br>
-<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
-lists.freedesktop.org/mailman/listinfo/amd-gfx</a></div>
-</span></font></div>
-</body>
-</html>
-
---_000_BN6PR12MB1809F0717D9D94EBC3ED1E9FF7870BN6PR12MB1809namp_--
-
---===============1469947970==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
-
---===============1469947970==--
+SGkgYWxsLA0KDQpUaGVzZSBzZXJpZXMgb2YgcGF0Y2hlcyBpbnRyb2R1Y2UgYSBmZWF0dXJlIHRv
+IHN1cHBvcnQgc2VjdXJlIGJ1ZmZlciBvYmplY3QuDQpUaGUgVHJ1c3RlZCBNZW1vcnkgWm9uZSAo
+VE1aKSBpcyBhIG1ldGhvZCB0byBwcm90ZWN0IHRoZSBjb250ZW50cyBiZWluZyB3cml0dGVuDQp0
+byBhbmQgcmVhZCBmcm9tIG1lbW9yeS4gV2UgdXNlIFRNWiBoYXJkd2FyZSBtZW1vcnkgcHJvdGVj
+dGlvbiBzY2hlbWUgdG8NCmltcGxlbWVudCB0aGUgc2VjdXJlIGJ1ZmZlciBvYmplY3Qgc3VwcG9y
+dC4NCg0KVE1aIGlzIHRoZSBwYWdlLWxldmVsIHByb3RlY3Rpb24gdGhhdCBoYXJkd2FyZSB3aWxs
+IGRldGVjdCB0aGUgVE1aIGJpdCBpbiB0aGUNCnBhZ2UgdGFibGUgZW50cnkgdG8gc2V0IHRoZSBj
+dXJyZW50IHBhZ2UgaXMgZW5jcnlwdGVkLiBXaXRoIHRoaXMgaGFyZHdhcmUNCmZlYXR1cmUsIHdl
+IGRlc2lnbiBhIEJPLWxldmVsIHByb3RlY3Rpb24gaW4ga2VybmVsIGRyaXZlciB0byBwcm92aWRl
+IGEgbmV3IGZsYWcNCkFNREdQVV9HRU1fQ1JFQVRFX0VOQ1JZUFRFRCB0byBnZW0gY3JlYXRlIGlv
+Y3RsIHRvIGxpYmRybSBmb3IgdGhlIHNlY3VyZSBidWZmZXINCmFsbG9jYXRpb24uIEFuZCBhbHNv
+IHByb3ZpZGUgdGhlIG5ldyBBTURHUFVfQ1NfRkxBR1NfU0VDVVJFIHRvIGluZGljYXRlIHRoZQ0K
+Y29tbWFuZCBzdWJtbWlzc2lvbiBpcyB0cnVzdGVkIG9yIG5vdC4gSWYgdGhlIEJPIGlzIHNlY3Vy
+ZSwgdGhlbiB0aGUgZGF0YSBpcw0KZW5jcnlwdGVkLCBvbmx5IHRoZSB0cnVzdGVkIElQIGJsb2Nr
+cyBzdWNoIGFzIGdmeCwgc2RtYSwgdmNuIGFyZSBhYmxlIHRvDQpkZWNyeXB0LiBDUFUgYXMgdGhl
+IHVuLXRydXN0ZWQgSVAgYXJlIHVuYWJsZSB0byByZWFkIHRoZSBzZWN1cmUgYnVmZmVyLg0KDQpX
+ZSB3aWxsIHN1Ym1pdCB0aGUgbmV3IHNlY3VyZSBjb21tYW5kIGxhdGVyIGZvciBsaWJkcm0sIGFu
+ZCBjcmVhdGUgYSBuZXcgdGVzdA0Kc3VpdGUgdG8gdmVyaWZ5IHRoZSBzZWN1cml0eSBmZWF0dXJl
+IGluIHRoZSBsaWJkcm0gdW5pdCB0ZXN0cy4NCg0KU3VpdGUgaWQgPSAxMTogTmFtZSAnU2VjdXJp
+dHkgVGVzdHMgc3RhdHVzOiBFTkFCTEVEJw0KVGVzdCBpZCAxOiBOYW1lOiAnYWxsb2NhdGUgc2Vj
+dXJlIGJ1ZmZlciB0ZXN0IHN0YXR1czogRU5BQkxFRCcNClRlc3QgaWQgMjogTmFtZTogJ2dyYXBo
+aWNzIHNlY3VyZSBjb21tYW5kIHN1Ym1pc3Npb24gc3RhdHVzOiBFTkFCTEVEJw0KDQpDaGFuZ2Vz
+IGZyb20gVjEgLT4gVjI6DQotIENoYW5nZSB0aGUgVUFQSSBmcm9tIHNlY3VyZSBjb250ZXh0IHRv
+IHNlY3VyZSBjb21tYW5kIHN1Ym1pc3Npb24gZm9yIGRpc3BsYXkNCiAgc2VydmVyIGFuZCBjbGll
+bnQgdXNhZ2UuIChUaGFua3MgTHViZW4pDQotIFJlbW92ZSB0dG1fbWVtX3JlZyBtYWNybyB0byBn
+ZXQgdHRtX2JvIG9iamVjdC4NCi0gTW92ZSB0aGUgYW1kZ3B1X2JvX2VuY3J5cHRlZCBpbnRvIGFt
+ZGdwdV92bV9ib191cGRhdGUoKS4gDQoNClRoYW5rcywNClJheQ0KDQpBbGV4IERldWNoZXIgKDMp
+Og0KICBkcm0vYW1kZ3B1OiBhZGQgVUFQSSBmb3IgY3JlYXRpbmcgZW5jcnlwdGVkIGJ1ZmZlcnMN
+CiAgZHJtL2FtZGdwdTogZGVmaW5lIHRoZSBUTVogYml0IGZvciB0aGUgUFRFDQogIGRybS9hbWRn
+cHU6IHNldCBUTVogYml0cyBpbiBQVEVzIGZvciBzZWN1cmUgQk8gKHY0KQ0KDQpIdWFuZyBSdWkg
+KDcpOg0KICBkcm0vYW1kZ3B1OiBhZGQgdG16IGZlYXR1cmUgcGFyYW1ldGVyICh2MikNCiAgZHJt
+L2FtZGdwdTogYWRkIGFtZGdwdV90bXogZGF0YSBzdHJ1Y3R1cmUNCiAgZHJtL2FtZGdwdTogYWRk
+IGZ1bmN0aW9uIHRvIGNoZWNrIHRteiBjYXBhYmlsaXR5ICh2NCkNCiAgZHJtL2FtZGdwdTogYWRk
+IHRteiBiaXQgaW4gZnJhbWUgY29udHJvbCBwYWNrZXQNCiAgZHJtL2FtZGdwdTogZXhwYW5kIHRo
+ZSBlbWl0IHRteiBpbnRlcmZhY2Ugd2l0aCB0cnVzdGVkIGZsYWcNCiAgZHJtL2FtZGdwdTogZXhw
+YW5kIHRoZSBjb250ZXh0IGNvbnRyb2wgaW50ZXJmYWNlIHdpdGggdHJ1c3QgZmxhZw0KICBkcm0v
+YW1kZ3B1OiBqb2IgaXMgc2VjdXJlIGlmZiBDUyBpcyBzZWN1cmUgKHYzKQ0KDQpMdWJlbiBUdWlr
+b3YgKDEpOg0KICBkcm0vYW1kZ3B1OiBhZGQgVUFQSSB0byBjcmVhdGUgc2VjdXJlIGNvbW1hbmRz
+ICh2MykNCg0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L01ha2VmaWxlICAgICAgICB8ICAy
+ICstDQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1LmggICAgICAgIHwgIDcgKysr
+Ky0NCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfY3MuYyAgICAgfCAgOCArKysr
+LQ0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYyB8ICAzICsrDQog
+ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rydi5jICAgIHwgMTEgKysrKysrKw0K
+IGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9nZW0uYyAgICB8IDEyICsrKysrKyst
+DQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2liLmMgICAgIHwgIDQgKy0tDQog
+ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2pvYi5oICAgIHwgIDIgKysNCiBkcml2
+ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfb2JqZWN0LmggfCAxMSArKysrKysrDQogZHJp
+dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3JpbmcuaCAgIHwgIDkgKysrLS0tDQogZHJp
+dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Rtei5jICAgIHwgNDkgKysrKysrKysrKysr
+KysrKysrKysrKysrKysrKysrDQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Rt
+ei5oICAgIHwgMzkgKysrKysrKysrKysrKysrKysrKysrKysrDQogZHJpdmVycy9ncHUvZHJtL2Ft
+ZC9hbWRncHUvYW1kZ3B1X3ZtLmMgICAgIHwgIDUgKysrDQogZHJpdmVycy9ncHUvZHJtL2FtZC9h
+bWRncHUvYW1kZ3B1X3ZtLmggICAgIHwgIDMgKysNCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
+dS9nZnhfdjEwXzAuYyAgICAgfCAyMCArKysrKysrKystLS0NCiBkcml2ZXJzL2dwdS9kcm0vYW1k
+L2FtZGdwdS9nZnhfdjZfMC5jICAgICAgfCAgMyArLQ0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
+Z3B1L2dmeF92N18wLmMgICAgICB8ICAzICstDQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
+Z2Z4X3Y4XzAuYyAgICAgIHwgIDMgKy0NCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhf
+djlfMC5jICAgICAgfCAxNiArKysrKysrLS0tDQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
+bnZkLmggICAgICAgICAgIHwgIDEgKw0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3NvYzE1
+ZC5oICAgICAgICB8ICAxICsNCiBpbmNsdWRlL3VhcGkvZHJtL2FtZGdwdV9kcm0uaCAgICAgICAg
+ICAgICAgfCAxMCArKysrKy0NCiAyMiBmaWxlcyBjaGFuZ2VkLCAxOTkgaW5zZXJ0aW9ucygrKSwg
+MjMgZGVsZXRpb25zKC0pDQogY3JlYXRlIG1vZGUgMTAwNjQ0IGRyaXZlcnMvZ3B1L2RybS9hbWQv
+YW1kZ3B1L2FtZGdwdV90bXouYw0KIGNyZWF0ZSBtb2RlIDEwMDY0NCBkcml2ZXJzL2dwdS9kcm0v
+YW1kL2FtZGdwdS9hbWRncHVfdG16LmgNCg0KLS0gDQoyLjcuNA0KDQpfX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQt
+Z2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9t
+YWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
