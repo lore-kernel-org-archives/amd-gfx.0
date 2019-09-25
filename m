@@ -1,106 +1,67 @@
-From: Alex Deucher <alexdeucher@gmail.com>
-Subject: Re: [PATCH] drm/amd/display: prevent memory leak
-Date: Wed, 25 Sep 2019 12:04:22 -0400
-Message-ID: <CADnq5_MuFQgTQn50DikASgNVjLaJxPcQdfMPXesxdSqhME_Dmg@mail.gmail.com>
-References: <20190925042407.31383-1-navid.emamdoost@gmail.com> <5cb6dec0-7f88-5d14-82cb-919f1d190b2f@amd.com>
+From: "Huang, Ray" <Ray.Huang-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: [PATCH] drm/amdgpu: Add NAVI12 support from kfd side
+Date: Wed, 25 Sep 2019 16:20:06 +0000
+Message-ID: <MN2PR12MB33092AF63CB063654D8B1935EC870@MN2PR12MB3309.namprd12.prod.outlook.com>
+References: <1569363225-18469-1-git-send-email-shaoyun.liu@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <5cb6dec0-7f88-5d14-82cb-919f1d190b2f@amd.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Harry Wentland <hwentlan@amd.com>
-Cc: Navid Emamdoost <navid.emamdoost@gmail.com>, David Airlie <airlied@linux.ie>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "Lei, Jun" <Jun.Lei@amd.com>, Sam Ravnborg <sam@ravnborg.org>, Wang Hai <wanghai26@huawei.com>, "Cheng, Tony" <Tony.Cheng@amd.com>, "Francis, David" <David.Francis@amd.com>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "emamd001@umn.edu" <emamd001@umn.edu>, "Bernstein, Eric" <Eric.Bernstein@amd.com>, Su Sung Chung <Su.Chung@amd.com>, "smccaman@umn.edu" <smccaman@umn.edu>, "Li, Sun peng (Leo)" <Sunpeng.Li@amd.com>, "kjlu@umn.edu" <kjlu@umn.edu>, Aidan Wood <Aidan.Wood@amd.com>, "Wu, Hersen" <hersenxs.wu@amd.com>, Lakha, Bhawanpreet
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <1569363225-18469-1-git-send-email-shaoyun.liu-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Liu, Shaoyun" <Shaoyun.Liu-5C7GfCeVMHo@public.gmane.org>
 
-On Wed, Sep 25, 2019 at 9:54 AM Harry Wentland <hwentlan@amd.com> wrote:
->
->
->
-> On 2019-09-25 12:23 a.m., Navid Emamdoost wrote:
-> > In dcn*_create_resource_pool the allocated memory should be released if
-> > construct pool fails.
-> >
-> > Signed-off-by: Navid Emamdoost <navid.emamdoost@gmail.com>
->
-> Reviewed-by: Harry Wentland <harry.wentland@amd.com>
->
-
-Applied.  thanks!
-
-Alex
-
-> Harry
->
-> > ---
-> >  drivers/gpu/drm/amd/display/dc/dce100/dce100_resource.c | 1 +
-> >  drivers/gpu/drm/amd/display/dc/dce110/dce110_resource.c | 1 +
-> >  drivers/gpu/drm/amd/display/dc/dce112/dce112_resource.c | 1 +
-> >  drivers/gpu/drm/amd/display/dc/dce120/dce120_resource.c | 1 +
-> >  drivers/gpu/drm/amd/display/dc/dcn10/dcn10_resource.c   | 1 +
-> >  5 files changed, 5 insertions(+)
-> >
-> > diff --git a/drivers/gpu/drm/amd/display/dc/dce100/dce100_resource.c b/drivers/gpu/drm/amd/display/dc/dce100/dce100_resource.c
-> > index afc61055eca1..1787b9bf800a 100644
-> > --- a/drivers/gpu/drm/amd/display/dc/dce100/dce100_resource.c
-> > +++ b/drivers/gpu/drm/amd/display/dc/dce100/dce100_resource.c
-> > @@ -1091,6 +1091,7 @@ struct resource_pool *dce100_create_resource_pool(
-> >       if (construct(num_virtual_links, dc, pool))
-> >               return &pool->base;
-> >
-> > +     kfree(pool);
-> >       BREAK_TO_DEBUGGER();
-> >       return NULL;
-> >  }
-> > diff --git a/drivers/gpu/drm/amd/display/dc/dce110/dce110_resource.c b/drivers/gpu/drm/amd/display/dc/dce110/dce110_resource.c
-> > index c66fe170e1e8..318e9c2e2ca8 100644
-> > --- a/drivers/gpu/drm/amd/display/dc/dce110/dce110_resource.c
-> > +++ b/drivers/gpu/drm/amd/display/dc/dce110/dce110_resource.c
-> > @@ -1462,6 +1462,7 @@ struct resource_pool *dce110_create_resource_pool(
-> >       if (construct(num_virtual_links, dc, pool, asic_id))
-> >               return &pool->base;
-> >
-> > +     kfree(pool);
-> >       BREAK_TO_DEBUGGER();
-> >       return NULL;
-> >  }
-> > diff --git a/drivers/gpu/drm/amd/display/dc/dce112/dce112_resource.c b/drivers/gpu/drm/amd/display/dc/dce112/dce112_resource.c
-> > index 3ac4c7e73050..3199d493d13b 100644
-> > --- a/drivers/gpu/drm/amd/display/dc/dce112/dce112_resource.c
-> > +++ b/drivers/gpu/drm/amd/display/dc/dce112/dce112_resource.c
-> > @@ -1338,6 +1338,7 @@ struct resource_pool *dce112_create_resource_pool(
-> >       if (construct(num_virtual_links, dc, pool))
-> >               return &pool->base;
-> >
-> > +     kfree(pool);
-> >       BREAK_TO_DEBUGGER();
-> >       return NULL;
-> >  }
-> > diff --git a/drivers/gpu/drm/amd/display/dc/dce120/dce120_resource.c b/drivers/gpu/drm/amd/display/dc/dce120/dce120_resource.c
-> > index 7d08154e9662..bb497f43f6eb 100644
-> > --- a/drivers/gpu/drm/amd/display/dc/dce120/dce120_resource.c
-> > +++ b/drivers/gpu/drm/amd/display/dc/dce120/dce120_resource.c
-> > @@ -1203,6 +1203,7 @@ struct resource_pool *dce120_create_resource_pool(
-> >       if (construct(num_virtual_links, dc, pool))
-> >               return &pool->base;
-> >
-> > +     kfree(pool);
-> >       BREAK_TO_DEBUGGER();
-> >       return NULL;
-> >  }
-> > diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_resource.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_resource.c
-> > index 5a89e462e7cc..59305e411a66 100644
-> > --- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_resource.c
-> > +++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_resource.c
-> > @@ -1570,6 +1570,7 @@ struct resource_pool *dcn10_create_resource_pool(
-> >       if (construct(init_data->num_virtual_links, dc, pool))
-> >               return &pool->base;
-> >
-> > +     kfree(pool);
-> >       BREAK_TO_DEBUGGER();
-> >       return NULL;
-> >  }
-> >
-> _______________________________________________
-> dri-devel mailing list
-> dri-devel@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/dri-devel
+PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBhbWQtZ2Z4IDxhbWQtZ2Z4LWJv
+dW5jZXNAbGlzdHMuZnJlZWRlc2t0b3Aub3JnPiBPbiBCZWhhbGYgT2YgTGl1LA0KPiBTaGFveXVu
+DQo+IFNlbnQ6IFdlZG5lc2RheSwgU2VwdGVtYmVyIDI1LCAyMDE5IDY6MTQgQU0NCj4gVG86IGFt
+ZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnDQo+IENjOiBMaXUsIFNoYW95dW4gPFNoYW95dW4u
+TGl1QGFtZC5jb20+DQo+IFN1YmplY3Q6IFtQQVRDSF0gZHJtL2FtZGdwdTogQWRkIE5BVkkxMiBz
+dXBwb3J0IGZyb20ga2ZkIHNpZGUNCj4gDQo+IEFkZCBkZXZpY2UgaW5mbyBmb3IgYm90aCBuYXZp
+MTIgUEYgYW5kIFZGDQo+IA0KPiBDaGFuZ2UtSWQ6IElmYjQwMzVlNjVjMTJkMTUzZmMzMGU1OTNm
+ZTEwOWY5YzdlMDU0MWY0DQo+IFNpZ25lZC1vZmYtYnk6IHNoYW95dW5sIDxzaGFveXVuLmxpdUBh
+bWQuY29tPg0KDQpSZXZpZXdlZC1ieTogSHVhbmcgUnVpIDxyYXkuaHVhbmdAYW1kLmNvbT4NCg0K
+PiAtLS0NCj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9kZXZpY2UuYyB8IDE5ICsr
+KysrKysrKysrKysrKysrKysNCj4gIDEgZmlsZSBjaGFuZ2VkLCAxOSBpbnNlcnRpb25zKCspDQo+
+IA0KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX2RldmljZS5j
+DQo+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX2RldmljZS5jDQo+IGluZGV4IGYz
+MjliODIuLmVkZmJhZTVjIDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtm
+ZC9rZmRfZGV2aWNlLmMNCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX2Rl
+dmljZS5jDQo+IEBAIC0zODcsNiArMzg3LDI0IEBAIHN0YXRpYyBjb25zdCBzdHJ1Y3Qga2ZkX2Rl
+dmljZV9pbmZvDQo+IG5hdmkxMF9kZXZpY2VfaW5mbyA9IHsNCj4gIAkubnVtX3NkbWFfcXVldWVz
+X3Blcl9lbmdpbmUgPSA4LA0KPiAgfTsNCj4gDQo+ICtzdGF0aWMgY29uc3Qgc3RydWN0IGtmZF9k
+ZXZpY2VfaW5mbyBuYXZpMTJfZGV2aWNlX2luZm8gPSB7DQo+ICsJLmFzaWNfZmFtaWx5ID0gQ0hJ
+UF9OQVZJMTIsDQo+ICsJLmFzaWNfbmFtZSA9ICJuYXZpMTIiLA0KPiArCS5tYXhfcGFzaWRfYml0
+cyA9IDE2LA0KPiArCS5tYXhfbm9fb2ZfaHFkICA9IDI0LA0KPiArCS5kb29yYmVsbF9zaXplICA9
+IDgsDQo+ICsJLmloX3JpbmdfZW50cnlfc2l6ZSA9IDggKiBzaXplb2YodWludDMyX3QpLA0KPiAr
+CS5ldmVudF9pbnRlcnJ1cHRfY2xhc3MgPSAmZXZlbnRfaW50ZXJydXB0X2NsYXNzX3Y5LA0KPiAr
+CS5udW1fb2Zfd2F0Y2hfcG9pbnRzID0gNCwNCj4gKwkubXFkX3NpemVfYWxpZ25lZCA9IE1RRF9T
+SVpFX0FMSUdORUQsDQo+ICsJLm5lZWRzX2lvbW11X2RldmljZSA9IGZhbHNlLA0KPiArCS5zdXBw
+b3J0c19jd3NyID0gdHJ1ZSwNCj4gKwkubmVlZHNfcGNpX2F0b21pY3MgPSBmYWxzZSwNCj4gKwku
+bnVtX3NkbWFfZW5naW5lcyA9IDIsDQo+ICsJLm51bV94Z21pX3NkbWFfZW5naW5lcyA9IDAsDQo+
+ICsJLm51bV9zZG1hX3F1ZXVlc19wZXJfZW5naW5lID0gOCwNCj4gK307DQo+ICsNCj4gIHN0YXRp
+YyBjb25zdCBzdHJ1Y3Qga2ZkX2RldmljZV9pbmZvIG5hdmkxNF9kZXZpY2VfaW5mbyA9IHsNCj4g
+IAkuYXNpY19mYW1pbHkgPSBDSElQX05BVkkxNCwNCj4gIAkuYXNpY19uYW1lID0gIm5hdmkxNCIs
+DQo+IEBAIC00MjUsNiArNDQzLDcgQEAgc3RhdGljIGNvbnN0IHN0cnVjdCBrZmRfZGV2aWNlX2lu
+Zm8NCj4gKmtmZF9zdXBwb3J0ZWRfZGV2aWNlc1tdWzJdID0gew0KPiAgCVtDSElQX1JFTk9JUl0g
+PSB7JnJlbm9pcl9kZXZpY2VfaW5mbywgTlVMTH0sDQo+ICAJW0NISVBfQVJDVFVSVVNdID0geyZh
+cmN0dXJ1c19kZXZpY2VfaW5mbywNCj4gJmFyY3R1cnVzX2RldmljZV9pbmZvfSwNCj4gIAlbQ0hJ
+UF9OQVZJMTBdID0geyZuYXZpMTBfZGV2aWNlX2luZm8sIE5VTEx9LA0KPiArCVtDSElQX05BVkkx
+Ml0gPSB7Jm5hdmkxMl9kZXZpY2VfaW5mbywgJm5hdmkxMl9kZXZpY2VfaW5mb30sDQo+ICAJW0NI
+SVBfTkFWSTE0XSA9IHsmbmF2aTE0X2RldmljZV9pbmZvLCBOVUxMfSwgIH07DQo+IA0KPiAtLQ0K
+PiAyLjcuNA0KPiANCj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX18NCj4gYW1kLWdmeCBtYWlsaW5nIGxpc3QNCj4gYW1kLWdmeEBsaXN0cy5mcmVlZGVza3Rv
+cC5vcmcNCj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9h
+bWQtZ2Z4DQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwph
+bWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczov
+L2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
