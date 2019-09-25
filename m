@@ -1,35 +1,34 @@
 From: Sean Paul <sean@poorly.run>
-Subject: Re: [PATCH v2 21/27] drm/dp_mst: Don't forget to update port->input
- in drm_dp_mst_handle_conn_stat()
-Date: Wed, 25 Sep 2019 16:03:27 -0400
-Message-ID: <20190925200327.GM218215@art_vandelay>
+Subject: Re: [PATCH v2 22/27] drm/nouveau: Don't grab runtime PM refs for HPD
+ IRQs
+Date: Wed, 25 Sep 2019 16:06:56 -0400
+Message-ID: <20190925200656.GN218215@art_vandelay>
 References: <20190903204645.25487-1-lyude@redhat.com>
- <20190903204645.25487-22-lyude@redhat.com>
+ <20190903204645.25487-23-lyude@redhat.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset=iso-8859-1
 Content-Transfer-Encoding: 8bit
 Return-path: <linux-kernel-owner@vger.kernel.org>
 Content-Disposition: inline
-In-Reply-To: <20190903204645.25487-22-lyude@redhat.com>
+In-Reply-To: <20190903204645.25487-23-lyude@redhat.com>
 Sender: linux-kernel-owner@vger.kernel.org
 To: Lyude Paul <lyude@redhat.com>
-Cc: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, Juston Li <juston.li@intel.com>, Imre Deak <imre.deak@intel.com>, Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>, Harry Wentland <hwentlan@amd.com>, Daniel Vetter <daniel.vetter@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, Sean Paul <sean@poorly.run>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, linux-kernel@vger.kernel.org
+Cc: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, Juston Li <juston.li@intel.com>, Imre Deak <imre.deak@intel.com>, Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>, Harry Wentland <hwentlan@amd.com>, Daniel Vetter <daniel.vetter@ffwll.ch>, Ben Skeggs <bskeggs@redhat.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, linux-kernel@vger.kernel.org
 List-Id: amd-gfx.lists.freedesktop.org
 
-On Tue, Sep 03, 2019 at 04:45:59PM -0400, Lyude Paul wrote:
-> This probably hasn't caused any problems up until now since it's
-> probably nearly impossible to encounter this in the wild, however if we
-> were to receive a connection status notification from the MST hub after
-> resume while we're in the middle of reprobing the link addresses for a
-> topology then there's a much larger chance that a port could have
-> changed from being an output port to input port (or vice versa). If we
-> forget to update this bit of information, we'll potentially ignore a
-> valid PDT change on a downstream port because we think it's an input
-> port.
+On Tue, Sep 03, 2019 at 04:46:00PM -0400, Lyude Paul wrote:
+> In order for suspend/resume reprobing to work, we need to be able to
+> perform sideband communications during suspend/resume, along with
+> runtime PM suspend/resume. In order to do so, we also need to make sure
+> that nouveau doesn't bother grabbing a runtime PM reference to do so,
+> since otherwise we'll start deadlocking runtime PM again.
 > 
-> So, make sure we read the input_port field in connection status
-> notifications in drm_dp_mst_handle_conn_stat() to prevent this from
-> happening once we've implemented suspend/resume reprobing.
+> Note that we weren't able to do this before, because of the DP MST
+> helpers processing UP requests from topologies in the same context as
+> drm_dp_mst_hpd_irq() which would have caused us to open ourselves up to
+> receiving hotplug events and deadlocking with runtime suspend/resume.
+> Now that those requests are handled asynchronously, this change should
+> be completely safe.
 > 
 > Cc: Juston Li <juston.li@intel.com>
 > Cc: Imre Deak <imre.deak@intel.com>
@@ -38,100 +37,69 @@ On Tue, Sep 03, 2019 at 04:45:59PM -0400, Lyude Paul wrote:
 > Cc: Daniel Vetter <daniel.vetter@ffwll.ch>
 > Signed-off-by: Lyude Paul <lyude@redhat.com>
 
-Nice catch! Same comment here re: port->mutex, but we can sort that out on the
-other thread
+Seems reasonable to me, but would feel better if a nouveau person confirmed
 
 Reviewed-by: Sean Paul <sean@poorly.run>
 
 
 > ---
->  drivers/gpu/drm/drm_dp_mst_topology.c | 51 +++++++++++++++++++--------
->  1 file changed, 37 insertions(+), 14 deletions(-)
+>  drivers/gpu/drm/nouveau/nouveau_connector.c | 33 +++++++++++----------
+>  1 file changed, 17 insertions(+), 16 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/drm_dp_mst_topology.c b/drivers/gpu/drm/drm_dp_mst_topology.c
-> index 259634c5d6dc..e407aba1fbd2 100644
-> --- a/drivers/gpu/drm/drm_dp_mst_topology.c
-> +++ b/drivers/gpu/drm/drm_dp_mst_topology.c
-> @@ -2078,18 +2078,23 @@ static void
->  drm_dp_mst_handle_conn_stat(struct drm_dp_mst_branch *mstb,
->  			    struct drm_dp_connection_status_notify *conn_stat)
->  {
-> -	struct drm_device *dev = mstb->mgr->dev;
-> +	struct drm_dp_mst_topology_mgr *mgr = mstb->mgr;
-> +	struct drm_device *dev = mgr->dev;
->  	struct drm_dp_mst_port *port;
-> -	int old_ddps;
-> -	bool dowork = false;
-> +	struct drm_connector *connector_to_destroy = NULL;
-> +	int old_ddps, ret;
-> +	u8 new_pdt;
-> +	bool dowork = false, create_connector = false;
->  
->  	port = drm_dp_get_port(mstb, conn_stat->port_number);
->  	if (!port)
->  		return;
->  
-> +	mutex_lock(&port->lock);
->  	drm_modeset_lock(&dev->mode_config.connection_mutex, NULL);
->  
->  	old_ddps = port->ddps;
-> +	port->input = conn_stat->input_port;
->  	port->mcs = conn_stat->message_capability_status;
->  	port->ldps = conn_stat->legacy_device_plug_status;
->  	port->ddps = conn_stat->displayport_device_plug_status;
-> @@ -2102,23 +2107,41 @@ drm_dp_mst_handle_conn_stat(struct drm_dp_mst_branch *mstb,
->  		}
->  	}
->  
-> -	if (!port->input) {
-> -		int ret = drm_dp_port_set_pdt(port,
-> -					      conn_stat->peer_device_type);
-> -		if (ret == 1) {
-> -			dowork = true;
-> -		} else if (ret < 0) {
-> -			DRM_ERROR("Failed to change PDT for port %p: %d\n",
-> -				  port, ret);
-> -			dowork = false;
-> -		}
-> +	new_pdt = port->input ? DP_PEER_DEVICE_NONE : conn_stat->peer_device_type;
+> diff --git a/drivers/gpu/drm/nouveau/nouveau_connector.c b/drivers/gpu/drm/nouveau/nouveau_connector.c
+> index 56871d34e3fb..f276918d3f3b 100644
+> --- a/drivers/gpu/drm/nouveau/nouveau_connector.c
+> +++ b/drivers/gpu/drm/nouveau/nouveau_connector.c
+> @@ -1131,6 +1131,16 @@ nouveau_connector_hotplug(struct nvif_notify *notify)
+>  	const char *name = connector->name;
+>  	struct nouveau_encoder *nv_encoder;
+>  	int ret;
+> +	bool plugged = (rep->mask != NVIF_NOTIFY_CONN_V0_UNPLUG);
 > +
-> +	ret = drm_dp_port_set_pdt(port, new_pdt);
-> +	if (ret == 1) {
-> +		dowork = true;
-> +	} else if (ret < 0) {
-> +		DRM_ERROR("Failed to change PDT for port %p: %d\n",
-> +			  port, ret);
-> +		dowork = false;
+> +	if (rep->mask & NVIF_NOTIFY_CONN_V0_IRQ) {
+> +		NV_DEBUG(drm, "service %s\n", name);
+> +		drm_dp_cec_irq(&nv_connector->aux);
+> +		if ((nv_encoder = find_encoder(connector, DCB_OUTPUT_DP)))
+> +			nv50_mstm_service(nv_encoder->dp.mstm);
+> +
+> +		return NVIF_NOTIFY_KEEP;
 > +	}
-> +
-> +	/*
-> +	 * We unset port->connector before dropping connection_mutex so that
-> +	 * there's no chance any of the atomic MST helpers can accidentally
-> +	 * associate a to-be-destroyed connector with a port.
-> +	 */
-> +	if (port->connector && port->input) {
-> +		connector_to_destroy = port->connector;
-> +		port->connector = NULL;
-> +	} else if (!port->connector && !port->input) {
-> +		create_connector = true;
+>  
+>  	ret = pm_runtime_get(drm->dev->dev);
+>  	if (ret == 0) {
+> @@ -1151,25 +1161,16 @@ nouveau_connector_hotplug(struct nvif_notify *notify)
+>  		return NVIF_NOTIFY_DROP;
 >  	}
 >  
->  	drm_modeset_unlock(&dev->mode_config.connection_mutex);
-> +
-> +	if (connector_to_destroy)
-> +		mgr->cbs->destroy_connector(mgr, connector_to_destroy);
-> +	else if (create_connector)
-> +		drm_dp_mst_port_add_connector(mstb, port);
-> +
-> +	mutex_unlock(&port->lock);
-> +
->  	drm_dp_mst_topology_put_port(port);
->  	if (dowork)
->  		queue_work(system_long_wq, &mstb->mgr->work);
+> -	if (rep->mask & NVIF_NOTIFY_CONN_V0_IRQ) {
+> -		NV_DEBUG(drm, "service %s\n", name);
+> -		drm_dp_cec_irq(&nv_connector->aux);
+> -		if ((nv_encoder = find_encoder(connector, DCB_OUTPUT_DP)))
+> -			nv50_mstm_service(nv_encoder->dp.mstm);
+> -	} else {
+> -		bool plugged = (rep->mask != NVIF_NOTIFY_CONN_V0_UNPLUG);
 > -
->  }
+> +	if (!plugged)
+> +		drm_dp_cec_unset_edid(&nv_connector->aux);
+> +	NV_DEBUG(drm, "%splugged %s\n", plugged ? "" : "un", name);
+> +	if ((nv_encoder = find_encoder(connector, DCB_OUTPUT_DP))) {
+>  		if (!plugged)
+> -			drm_dp_cec_unset_edid(&nv_connector->aux);
+> -		NV_DEBUG(drm, "%splugged %s\n", plugged ? "" : "un", name);
+> -		if ((nv_encoder = find_encoder(connector, DCB_OUTPUT_DP))) {
+> -			if (!plugged)
+> -				nv50_mstm_remove(nv_encoder->dp.mstm);
+> -		}
+> -
+> -		drm_helper_hpd_irq_event(connector->dev);
+> +			nv50_mstm_remove(nv_encoder->dp.mstm);
+>  	}
 >  
->  static struct drm_dp_mst_branch *drm_dp_get_mst_branch_device(struct drm_dp_mst_topology_mgr *mgr,
+> +	drm_helper_hpd_irq_event(connector->dev);
+> +
+>  	pm_runtime_mark_last_busy(drm->dev->dev);
+>  	pm_runtime_put_autosuspend(drm->dev->dev);
+>  	return NVIF_NOTIFY_KEEP;
 > -- 
 > 2.21.0
 > 
