@@ -1,54 +1,69 @@
-From: Sean Paul <sean@poorly.run>
-Subject: Re: [PATCH v2 02/27] drm/dp_mst: Get rid of list clear in
- destroy_connector_work
-Date: Wed, 25 Sep 2019 13:45:34 -0400
-Message-ID: <20190925174534.GC218215@art_vandelay>
-References: <20190903204645.25487-1-lyude@redhat.com>
- <20190903204645.25487-3-lyude@redhat.com>
+From: "Zhao, Yong" <Yong.Zhao-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH 1/3] drm/amdgpu: Export setup_vm_pt_regs() logic for gfxhub 2.0
+Date: Wed, 25 Sep 2019 18:15:41 +0000
+Message-ID: <20190925181527.17091-1-Yong.Zhao@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Transfer-Encoding: 8bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Content-Disposition: inline
-In-Reply-To: <20190903204645.25487-3-lyude@redhat.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Lyude Paul <lyude@redhat.com>
-Cc: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, Juston Li <juston.li@intel.com>, Imre Deak <imre.deak@intel.com>, Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>, Harry Wentland <hwentlan@amd.com>, Daniel Vetter <daniel.vetter@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, Sean Paul <sean@poorly.run>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, linux-kernel@vger.kernel.org
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Zhao, Yong" <Yong.Zhao-5C7GfCeVMHo@public.gmane.org>
 
-On Tue, Sep 03, 2019 at 04:45:40PM -0400, Lyude Paul wrote:
-> This seems to be some leftover detritus from before the port/mstb kref
-> cleanup and doesn't do anything anymore, so get rid of it.
-> 
-> Cc: Juston Li <juston.li@intel.com>
-> Cc: Imre Deak <imre.deak@intel.com>
-> Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
-> Cc: Harry Wentland <hwentlan@amd.com>
-> Reviewed-by: Daniel Vetter <daniel.vetter@ffwll.ch>
-> Signed-off-by: Lyude Paul <lyude@redhat.com>
-
-Reviewed-by: Sean Paul <sean@poorly.run>
-
-> ---
->  drivers/gpu/drm/drm_dp_mst_topology.c | 2 --
->  1 file changed, 2 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/drm_dp_mst_topology.c b/drivers/gpu/drm/drm_dp_mst_topology.c
-> index 36db66a0ddb1..3054ec622506 100644
-> --- a/drivers/gpu/drm/drm_dp_mst_topology.c
-> +++ b/drivers/gpu/drm/drm_dp_mst_topology.c
-> @@ -3760,8 +3760,6 @@ static void drm_dp_destroy_connector_work(struct work_struct *work)
->  		list_del(&port->next);
->  		mutex_unlock(&mgr->destroy_connector_lock);
->  
-> -		INIT_LIST_HEAD(&port->next);
-> -
->  		mgr->cbs->destroy_connector(mgr, port->connector);
->  
->  		drm_dp_port_teardown_pdt(port, port->pdt);
-> -- 
-> 2.21.0
-> 
-
--- 
-Sean Paul, Software Engineer, Google / Chromium OS
+VGhlIEtGRCBjb2RlIHdpbGwgY2FsbCB0aGlzIGZ1bmN0aW9uIGxhdGVyLgoKQ2hhbmdlLUlkOiBJ
+ODhhNTMzNjhjZGVlNzE5YjJjNzUzOTNlNWNkYmQ4MjkwNTg0NTQ4ZQpTaWduZWQtb2ZmLWJ5OiBZ
+b25nIFpoYW8gPFlvbmcuWmhhb0BhbWQuY29tPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
+Z3B1L2dmeGh1Yl92Ml8wLmMgfCAyMCArKysrKysrKysrKystLS0tLS0tLQogZHJpdmVycy9ncHUv
+ZHJtL2FtZC9hbWRncHUvZ2Z4aHViX3YyXzAuaCB8ICAyICsrCiAyIGZpbGVzIGNoYW5nZWQsIDE0
+IGluc2VydGlvbnMoKyksIDggZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUv
+ZHJtL2FtZC9hbWRncHUvZ2Z4aHViX3YyXzAuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
+L2dmeGh1Yl92Ml8wLmMKaW5kZXggYTkyMzg3MzVkMzYxLi5iNjAxYzY3NDBlZjUgMTAwNjQ0Ci0t
+LSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeGh1Yl92Ml8wLmMKKysrIGIvZHJpdmVy
+cy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4aHViX3YyXzAuYwpAQCAtNDYsMjEgKzQ2LDI1IEBAIHU2
+NCBnZnhodWJfdjJfMF9nZXRfbWNfZmJfb2Zmc2V0KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2
+KQogCXJldHVybiAodTY0KVJSRUczMl9TT0MxNShHQywgMCwgbW1HQ01DX1ZNX0ZCX09GRlNFVCkg
+PDwgMjQ7CiB9CiAKLXN0YXRpYyB2b2lkIGdmeGh1Yl92Ml8wX2luaXRfZ2FydF9wdF9yZWdzKHN0
+cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQordm9pZCBnZnhodWJfdjJfMF9zZXR1cF92bV9wdF9y
+ZWdzKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LCB1aW50MzJfdCB2bWlkLAorCQkJCXVpbnQ2
+NF90IHBhZ2VfdGFibGVfYmFzZSkKIHsKLQl1aW50NjRfdCB2YWx1ZSA9IGFtZGdwdV9nbWNfcGRf
+YWRkcihhZGV2LT5nYXJ0LmJvKTsKKwkvKiB0d28gcmVnaXN0ZXJzIGRpc3RhbmNlIGJldHdlZW4g
+bW1HQ1ZNX0NPTlRFWFQwXyogdG8gbW1HQ1ZNX0NPTlRFWFQxXyogKi8KKwlpbnQgb2Zmc2V0ID0g
+bW1HQ1ZNX0NPTlRFWFQxX1BBR0VfVEFCTEVfQkFTRV9BRERSX0xPMzIKKwkJCS0gbW1HQ1ZNX0NP
+TlRFWFQwX1BBR0VfVEFCTEVfQkFTRV9BRERSX0xPMzI7CiAKKwlXUkVHMzJfU09DMTVfT0ZGU0VU
+KEdDLCAwLCBtbUdDVk1fQ09OVEVYVDBfUEFHRV9UQUJMRV9CQVNFX0FERFJfTE8zMiwKKwkJCQlv
+ZmZzZXQgKiB2bWlkLCBsb3dlcl8zMl9iaXRzKHBhZ2VfdGFibGVfYmFzZSkpOwogCi0JV1JFRzMy
+X1NPQzE1KEdDLCAwLCBtbUdDVk1fQ09OVEVYVDBfUEFHRV9UQUJMRV9CQVNFX0FERFJfTE8zMiwK
+LQkJICAgICBsb3dlcl8zMl9iaXRzKHZhbHVlKSk7Ci0KLQlXUkVHMzJfU09DMTUoR0MsIDAsIG1t
+R0NWTV9DT05URVhUMF9QQUdFX1RBQkxFX0JBU0VfQUREUl9ISTMyLAotCQkgICAgIHVwcGVyXzMy
+X2JpdHModmFsdWUpKTsKKwlXUkVHMzJfU09DMTVfT0ZGU0VUKEdDLCAwLCBtbUdDVk1fQ09OVEVY
+VDBfUEFHRV9UQUJMRV9CQVNFX0FERFJfSEkzMiwKKwkJCQlvZmZzZXQgKiB2bWlkLCB1cHBlcl8z
+Ml9iaXRzKHBhZ2VfdGFibGVfYmFzZSkpOwogfQogCiBzdGF0aWMgdm9pZCBnZnhodWJfdjJfMF9p
+bml0X2dhcnRfYXBlcnR1cmVfcmVncyhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikKIHsKLQln
+ZnhodWJfdjJfMF9pbml0X2dhcnRfcHRfcmVncyhhZGV2KTsKKwl1aW50NjRfdCBwdF9iYXNlID0g
+YW1kZ3B1X2dtY19wZF9hZGRyKGFkZXYtPmdhcnQuYm8pOworCisJZ2Z4aHViX3YyXzBfc2V0dXBf
+dm1fcHRfcmVncyhhZGV2LCAwLCBwdF9iYXNlKTsKIAogCVdSRUczMl9TT0MxNShHQywgMCwgbW1H
+Q1ZNX0NPTlRFWFQwX1BBR0VfVEFCTEVfU1RBUlRfQUREUl9MTzMyLAogCQkgICAgICh1MzIpKGFk
+ZXYtPmdtYy5nYXJ0X3N0YXJ0ID4+IDEyKSk7CmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0v
+YW1kL2FtZGdwdS9nZnhodWJfdjJfMC5oIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4
+aHViX3YyXzAuaAppbmRleCAwNjgwNzk0MDc0OGIuLjM5MmI4Y2Q5NGZjMCAxMDA2NDQKLS0tIGEv
+ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4aHViX3YyXzAuaAorKysgYi9kcml2ZXJzL2dw
+dS9kcm0vYW1kL2FtZGdwdS9nZnhodWJfdjJfMC5oCkBAIC0zMSw1ICszMSw3IEBAIHZvaWQgZ2Z4
+aHViX3YyXzBfc2V0X2ZhdWx0X2VuYWJsZV9kZWZhdWx0KHN0cnVjdCBhbWRncHVfZGV2aWNlICph
+ZGV2LAogCQkJCQkgIGJvb2wgdmFsdWUpOwogdm9pZCBnZnhodWJfdjJfMF9pbml0KHN0cnVjdCBh
+bWRncHVfZGV2aWNlICphZGV2KTsKIHU2NCBnZnhodWJfdjJfMF9nZXRfbWNfZmJfb2Zmc2V0KHN0
+cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KTsKK3ZvaWQgZ2Z4aHViX3YyXzBfc2V0dXBfdm1fcHRf
+cmVncyhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwgdWludDMyX3Qgdm1pZCwKKwkJCQl1aW50
+NjRfdCBwYWdlX3RhYmxlX2Jhc2UpOwogCiAjZW5kaWYKLS0gCjIuMTcuMQoKX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QK
+YW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5v
+cmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
