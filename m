@@ -1,52 +1,188 @@
-From: Lyude Paul <lyude-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>
-Subject: [PATCH 3/6] drm/amdgpu/dm/mst: Use ->atomic_best_encoder
-Date: Thu, 26 Sep 2019 18:51:05 -0400
-Message-ID: <20190926225122.31455-4-lyude@redhat.com>
+From: Lyude Paul <lyude@redhat.com>
+Subject: [PATCH 4/6] drm/amdgpu/dm/mst: Make MST encoders per-CRTC and fix encoder usage
+Date: Thu, 26 Sep 2019 18:51:06 -0400
+Message-ID: <20190926225122.31455-5-lyude@redhat.com>
 References: <20190926225122.31455-1-lyude@redhat.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190926225122.31455-1-lyude-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: "David (ChunMing) Zhou" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, Thomas Lim <Thomas.Lim-5C7GfCeVMHo@public.gmane.org>, Leo Li <sunpeng.li-5C7GfCeVMHo@public.gmane.org>, David Francis <David.Francis-5C7GfCeVMHo@public.gmane.org>, linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, David Airlie <airlied-cv59FeDIM0c@public.gmane.org>, "Jerry (Fangzhi) Zuo" <Jerry.Zuo-5C7GfCeVMHo@public.gmane.org>, Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>, Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20190926225122.31455-1-lyude@redhat.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: amd-gfx@lists.freedesktop.org
+Cc: Harry Wentland <harry.wentland@amd.com>, Alex Deucher <alexander.deucher@amd.com>, Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>, Leo Li <sunpeng.li@amd.com>, David Francis <David.Francis@amd.com>, "Jerry (Fangzhi) Zuo" <Jerry.Zuo@amd.com>, Mario Kleiner <mario.kleiner.de@gmail.com>, Thomas Lim <Thomas.Lim@amd.com>, =?UTF-8?q?Mathias=20Fr=C3=B6hlich?= <Mathias.Froehlich@web.de>, stable@vger.kernel.org, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, Sam Ravnborg <sam@ravnborg.org>, Brajeswar Ghosh <brajeswar.linux@gmail.com>, Dingchen Zhang <dingchen.zhang@amd.com>, dri-devel@lists.freedesktop.org, linux-kernel@vger.kern
+List-Id: amd-gfx.lists.freedesktop.org
 
-V2UgYXJlIHN1cHBvc2VkIHRvIGJlIGF0b21pYyBhZnRlciBhbGwuIFdlJ2xsIG5lZWQgdGhpcyBp
-biBhIG1vbWVudCBmb3IKdGhlIG5leHQgY29tbWl0LgoKU2lnbmVkLW9mZi1ieTogTHl1ZGUgUGF1
-bCA8bHl1ZGVAcmVkaGF0LmNvbT4KLS0tCiAuLi4vZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9h
-bWRncHVfZG1fbXN0X3R5cGVzLmMgICAgfCAxMCArKysrKy0tLS0tCiAxIGZpbGUgY2hhbmdlZCwg
-NSBpbnNlcnRpb25zKCspLCA1IGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1
-L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtX21zdF90eXBlcy5jIGIvZHJpdmVy
-cy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG1fbXN0X3R5cGVzLmMKaW5k
-ZXggYTM5OGRkZDFmMzA2Li5kOTExM2NlMGJlMDkgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2Ry
-bS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtX21zdF90eXBlcy5jCisrKyBiL2RyaXZl
-cnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtX21zdF90eXBlcy5jCkBA
-IC0yNDMsMTcgKzI0MywxNyBAQCBzdGF0aWMgaW50IGRtX2RwX21zdF9nZXRfbW9kZXMoc3RydWN0
-IGRybV9jb25uZWN0b3IgKmNvbm5lY3RvcikKIAlyZXR1cm4gcmV0OwogfQogCi1zdGF0aWMgc3Ry
-dWN0IGRybV9lbmNvZGVyICpkbV9tc3RfYmVzdF9lbmNvZGVyKHN0cnVjdCBkcm1fY29ubmVjdG9y
-ICpjb25uZWN0b3IpCitzdGF0aWMgc3RydWN0IGRybV9lbmNvZGVyICoKK2RtX21zdF9hdG9taWNf
-YmVzdF9lbmNvZGVyKHN0cnVjdCBkcm1fY29ubmVjdG9yICpjb25uZWN0b3IsCisJCQkgICBzdHJ1
-Y3QgZHJtX2Nvbm5lY3Rvcl9zdGF0ZSAqY29ubmVjdG9yX3N0YXRlKQogewotCXN0cnVjdCBhbWRn
-cHVfZG1fY29ubmVjdG9yICphbWRncHVfZG1fY29ubmVjdG9yID0gdG9fYW1kZ3B1X2RtX2Nvbm5l
-Y3Rvcihjb25uZWN0b3IpOwotCi0JcmV0dXJuICZhbWRncHVfZG1fY29ubmVjdG9yLT5tc3RfZW5j
-b2Rlci0+YmFzZTsKKwlyZXR1cm4gJnRvX2FtZGdwdV9kbV9jb25uZWN0b3IoY29ubmVjdG9yKS0+
-bXN0X2VuY29kZXItPmJhc2U7CiB9CiAKIHN0YXRpYyBjb25zdCBzdHJ1Y3QgZHJtX2Nvbm5lY3Rv
-cl9oZWxwZXJfZnVuY3MgZG1fZHBfbXN0X2Nvbm5lY3Rvcl9oZWxwZXJfZnVuY3MgPSB7CiAJLmdl
-dF9tb2RlcyA9IGRtX2RwX21zdF9nZXRfbW9kZXMsCiAJLm1vZGVfdmFsaWQgPSBhbWRncHVfZG1f
-Y29ubmVjdG9yX21vZGVfdmFsaWQsCi0JLmJlc3RfZW5jb2RlciA9IGRtX21zdF9iZXN0X2VuY29k
-ZXIsCisJLmF0b21pY19iZXN0X2VuY29kZXIgPSBkbV9tc3RfYXRvbWljX2Jlc3RfZW5jb2RlciwK
-IH07CiAKIHN0YXRpYyB2b2lkIGFtZGdwdV9kbV9lbmNvZGVyX2Rlc3Ryb3koc3RydWN0IGRybV9l
-bmNvZGVyICplbmNvZGVyKQotLSAKMi4yMS4wCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZy
-ZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3Rp
-bmZvL2FtZC1nZng=
+While this commit certainly will result in creating less fake MST
+encoders, the main purpose of this is actually to fix amdgpu's incorrect
+usage of the drm_encoder API in it's MST code. Currently we create one
+encoder per-MST connector. However, MST connectors can and usually do
+get created at basically any point before or after driver device
+registration. Thus, this means we've been creating and destroying
+drm_encoder structs every time we create or destroy an MST connector.
+
+This behavior likely is just leftover from when we made amdgpu stop
+reusing DRM connectors for MST. Since this will definitely break things,
+let's fix it by being a bit more efficient with our MST encoders by
+creating one per-CRTC, which allows us to have just the right number of
+encoders and do so before we've called drm_dev_register().
+
+Signed-off-by: Lyude Paul <lyude@redhat.com>
+Fixes: 0e6613e46fed ("drm/amd/display: Drop reusing drm connector for MST")
+Cc: Harry Wentland <harry.wentland@amd.com>
+Cc: Lyude Paul <lyude@redhat.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+Cc: Leo Li <sunpeng.li@amd.com>
+Cc: David Francis <David.Francis@amd.com>
+Cc: "Jerry (Fangzhi) Zuo" <Jerry.Zuo@amd.com>
+Cc: Mario Kleiner <mario.kleiner.de@gmail.com>
+Cc: Thomas Lim <Thomas.Lim@amd.com>
+Cc: "Mathias Fröhlich" <Mathias.Froehlich@web.de>
+Cc: <stable@vger.kernel.org> # v4.20+
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h      |  3 ++
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  4 +++
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |  1 -
+ .../display/amdgpu_dm/amdgpu_dm_mst_types.c   | 28 ++++++++++---------
+ .../display/amdgpu_dm/amdgpu_dm_mst_types.h   |  3 ++
+ 5 files changed, 25 insertions(+), 14 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
+index eb9975f4decb..b54a6f4e392e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
+@@ -427,6 +427,9 @@ struct amdgpu_crtc {
+ 
+ 	int otg_inst;
+ 	struct drm_pending_vblank_event *event;
++
++	/* Fake encoder to use for MST */
++	struct amdgpu_encoder *mst_encoder;
+ };
+ 
+ struct amdgpu_encoder_atom_dig {
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index f4e0f27a76de..b404f1ae6df7 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -4803,6 +4803,10 @@ static int amdgpu_dm_crtc_init(struct amdgpu_display_manager *dm,
+ 				   true, MAX_COLOR_LUT_ENTRIES);
+ 	drm_mode_crtc_set_gamma_size(&acrtc->base, MAX_COLOR_LEGACY_LUT_ENTRIES);
+ 
++	acrtc->mst_encoder = amdgpu_dm_dp_create_fake_mst_encoder(acrtc);
++	if (!acrtc->mst_encoder)
++		goto fail;
++
+ 	return 0;
+ 
+ fail:
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+index c8c525a2b505..bcd9115c4923 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+@@ -267,7 +267,6 @@ struct amdgpu_dm_connector {
+ 	struct amdgpu_dm_dp_aux dm_dp_aux;
+ 	struct drm_dp_mst_port *port;
+ 	struct amdgpu_dm_connector *mst_port;
+-	struct amdgpu_encoder *mst_encoder;
+ 
+ 	/* TODO see if we can merge with ddc_bus or make a dm_connector */
+ 	struct amdgpu_i2c_adapter *i2c;
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+index d9113ce0be09..d680f32cf625 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+@@ -141,14 +141,12 @@ dm_dp_mst_detect(struct drm_connector *connector, bool force)
+ static void
+ dm_dp_mst_connector_destroy(struct drm_connector *connector)
+ {
+-	struct amdgpu_dm_connector *amdgpu_dm_connector = to_amdgpu_dm_connector(connector);
+-	struct amdgpu_encoder *amdgpu_encoder = amdgpu_dm_connector->mst_encoder;
++	struct amdgpu_dm_connector *amdgpu_dm_connector =
++		to_amdgpu_dm_connector(connector);
+ 
+ 	kfree(amdgpu_dm_connector->edid);
+ 	amdgpu_dm_connector->edid = NULL;
+ 
+-	drm_encoder_cleanup(&amdgpu_encoder->base);
+-	kfree(amdgpu_encoder);
+ 	drm_connector_cleanup(connector);
+ 	drm_dp_mst_put_port_malloc(amdgpu_dm_connector->port);
+ 	kfree(amdgpu_dm_connector);
+@@ -247,7 +245,7 @@ static struct drm_encoder *
+ dm_mst_atomic_best_encoder(struct drm_connector *connector,
+ 			   struct drm_connector_state *connector_state)
+ {
+-	return &to_amdgpu_dm_connector(connector)->mst_encoder->base;
++	return &to_amdgpu_crtc(connector_state->crtc)->mst_encoder->base;
+ }
+ 
+ static const struct drm_connector_helper_funcs dm_dp_mst_connector_helper_funcs = {
+@@ -266,11 +264,10 @@ static const struct drm_encoder_funcs amdgpu_dm_encoder_funcs = {
+ 	.destroy = amdgpu_dm_encoder_destroy,
+ };
+ 
+-static struct amdgpu_encoder *
+-dm_dp_create_fake_mst_encoder(struct amdgpu_dm_connector *connector)
++struct amdgpu_encoder *
++amdgpu_dm_dp_create_fake_mst_encoder(struct amdgpu_crtc *acrtc)
+ {
+-	struct drm_device *dev = connector->base.dev;
+-	struct amdgpu_device *adev = dev->dev_private;
++	struct drm_device *dev = acrtc->base.dev;
+ 	struct amdgpu_encoder *amdgpu_encoder;
+ 	struct drm_encoder *encoder;
+ 
+@@ -279,7 +276,7 @@ dm_dp_create_fake_mst_encoder(struct amdgpu_dm_connector *connector)
+ 		return NULL;
+ 
+ 	encoder = &amdgpu_encoder->base;
+-	encoder->possible_crtcs = amdgpu_dm_get_encoder_crtc_mask(adev);
++	encoder->possible_crtcs = drm_crtc_mask(&acrtc->base);
+ 
+ 	drm_encoder_init(
+ 		dev,
+@@ -302,6 +299,7 @@ dm_dp_add_mst_connector(struct drm_dp_mst_topology_mgr *mgr,
+ 	struct drm_device *dev = master->base.dev;
+ 	struct amdgpu_device *adev = dev->dev_private;
+ 	struct amdgpu_dm_connector *aconnector;
++	struct drm_crtc *crtc;
+ 	struct drm_connector *connector;
+ 
+ 	aconnector = kzalloc(sizeof(*aconnector), GFP_KERNEL);
+@@ -329,9 +327,13 @@ dm_dp_add_mst_connector(struct drm_dp_mst_topology_mgr *mgr,
+ 		master->dc_link,
+ 		master->connector_id);
+ 
+-	aconnector->mst_encoder = dm_dp_create_fake_mst_encoder(master);
+-	drm_connector_attach_encoder(&aconnector->base,
+-				     &aconnector->mst_encoder->base);
++	/* Attach fake MST encoders */
++	drm_for_each_crtc(crtc, dev) {
++		struct amdgpu_crtc *acrtc = to_amdgpu_crtc(crtc);
++
++		drm_connector_attach_encoder(connector,
++					     &acrtc->mst_encoder->base);
++	}
+ 
+ 	drm_object_attach_property(
+ 		&connector->base,
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.h
+index 2da851b40042..ce84d9db83e5 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.h
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.h
+@@ -28,8 +28,11 @@
+ 
+ struct amdgpu_display_manager;
+ struct amdgpu_dm_connector;
++struct amdgpu_crtc;
+ 
+ void amdgpu_dm_initialize_dp_connector(struct amdgpu_display_manager *dm,
+ 				       struct amdgpu_dm_connector *aconnector);
++struct amdgpu_encoder *
++amdgpu_dm_dp_create_fake_mst_encoder(struct amdgpu_crtc *acrtc);
+ 
+ #endif
+-- 
+2.21.0
