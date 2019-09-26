@@ -1,16 +1,14 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu/gmc10: apply the 'invalidation from sdma'
- workaround for navi
-Date: Thu, 26 Sep 2019 14:29:26 +0200
-Message-ID: <608f4e8a-ef35-6fbc-cda6-51c3803af014@gmail.com>
-References: <20190926080746.20765-1-xiaojie.yuan@amd.com>
- <BN8PR12MB36027CA5662543E7F956657589860@BN8PR12MB3602.namprd12.prod.outlook.com>
- <BN6PR12MB1809591CB4102B70BEC82E93F7860@BN6PR12MB1809.namprd12.prod.outlook.com>
-Reply-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
+From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amdkfd: use navi12 specific family id for navi12 code
+ path
+Date: Thu, 26 Sep 2019 12:59:09 +0000
+Message-ID: <BN6PR12MB18097A1F7C3C73476F30C719F7860@BN6PR12MB1809.namprd12.prod.outlook.com>
+References: <1569446041-12694-1-git-send-email-shaoyun.liu@amd.com>,
+ <DM6PR12MB32419C43945D41CE2F6C0DA2F4860@DM6PR12MB3241.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1169247151=="
+Content-Type: multipart/mixed; boundary="===============1846027271=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <BN6PR12MB1809591CB4102B70BEC82E93F7860-/b2+HYfkarSEx6ez0IUAagdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
+In-Reply-To: <DM6PR12MB32419C43945D41CE2F6C0DA2F4860-lmeGfMZKVrEShx2hYn8pVQdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -22,229 +20,372 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Yuan, Xiaojie" <Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org" <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+To: "Liu, Shaoyun" <Shaoyun.Liu-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-This is a multi-part message in MIME format.
---===============1169247151==
-Content-Type: multipart/alternative;
- boundary="------------F7EF14EA4E76D9D44665EAA8"
+--===============1846027271==
 Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_BN6PR12MB18097A1F7C3C73476F30C719F7860BN6PR12MB1809namp_"
 
-This is a multi-part message in MIME format.
---------------F7EF14EA4E76D9D44665EAA8
-Content-Type: text/plain; charset=windows-1252; format=flowed
-Content-Transfer-Encoding: 8bit
+--_000_BN6PR12MB18097A1F7C3C73476F30C719F7860BN6PR12MB1809namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-Stop, wait a second guys!
+Reviewed-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+________________________________
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Liu, Sha=
+oyun <Shaoyun.Liu-5C7GfCeVMHo@public.gmane.org>
+Sent: Thursday, September 26, 2019 8:03 AM
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Subject: Re: [PATCH] drm/amdkfd: use navi12 specific family id for navi12 c=
+ode path
 
-This will disable the workaround for Navi10 and that is certainly not 
-correct:
-> !(adev->asic_type >= CHIP_NAVI10 && adev->asic_type <= CHIP_NAVI12)
+Ping.
+________________________________
+From: Liu, Shaoyun <Shaoyun.Liu-5C7GfCeVMHo@public.gmane.org>
+Sent: September 25, 2019 5:14:08 PM
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: Liu, Shaoyun <Shaoyun.Liu-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH] drm/amdkfd: use navi12 specific family id for navi12 code =
+path
 
-Christian.
+Keep the same use of CHIP_IDs for navi12 in kfd
+
+Change-Id: I5e52bbc058be51e79553147732a571a604537b7c
+Signed-off-by: shaoyunl <shaoyun.liu-5C7GfCeVMHo@public.gmane.org>
+---
+ drivers/gpu/drm/amd/amdkfd/kfd_crat.c                 | 1 +
+ drivers/gpu/drm/amd/amdkfd/kfd_device.c               | 2 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c | 1 +
+ drivers/gpu/drm/amd/amdkfd/kfd_flat_memory.c          | 1 +
+ drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.c         | 1 +
+ drivers/gpu/drm/amd/amdkfd/kfd_packet_manager.c       | 1 +
+ drivers/gpu/drm/amd/amdkfd/kfd_topology.c             | 1 +
+ 7 files changed, 7 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c b/drivers/gpu/drm/amd/am=
+dkfd/kfd_crat.c
+index 1ef3c32..0c327e0 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
+@@ -676,6 +676,7 @@ static int kfd_fill_gpu_cache_info(struct kfd_dev *kdev=
+,
+                 num_of_cache_types =3D ARRAY_SIZE(renoir_cache_info);
+                 break;
+         case CHIP_NAVI10:
++       case CHIP_NAVI12:
+         case CHIP_NAVI14:
+                 pcache_info =3D navi10_cache_info;
+                 num_of_cache_types =3D ARRAY_SIZE(navi10_cache_info);
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device.c b/drivers/gpu/drm/amd/=
+amdkfd/kfd_device.c
+index 270389b..edfbae5c 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
+@@ -388,7 +388,7 @@ static const struct kfd_device_info navi10_device_info =
+=3D {
+ };
+
+ static const struct kfd_device_info navi12_device_info =3D {
+-       .asic_family =3D CHIP_NAVI10,
++       .asic_family =3D CHIP_NAVI12,
+         .asic_name =3D "navi12",
+         .max_pasid_bits =3D 16,
+         .max_no_of_hqd  =3D 24,
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/driver=
+s/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+index 399a612..54f0c5cc 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+@@ -1798,6 +1798,7 @@ struct device_queue_manager *device_queue_manager_ini=
+t(struct kfd_dev *dev)
+                 device_queue_manager_init_v9(&dqm->asic_ops);
+                 break;
+         case CHIP_NAVI10:
++       case CHIP_NAVI12:
+         case CHIP_NAVI14:
+                 device_queue_manager_init_v10_navi10(&dqm->asic_ops);
+                 break;
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_flat_memory.c b/drivers/gpu/drm=
+/amd/amdkfd/kfd_flat_memory.c
+index 4816614..450c991 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_flat_memory.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_flat_memory.c
+@@ -408,6 +408,7 @@ int kfd_init_apertures(struct kfd_process *process)
+                         case CHIP_RENOIR:
+                         case CHIP_ARCTURUS:
+                         case CHIP_NAVI10:
++                       case CHIP_NAVI12:
+                         case CHIP_NAVI14:
+                                 kfd_init_apertures_v9(pdd, id);
+                                 break;
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.c b/drivers/gpu/dr=
+m/amd/amdkfd/kfd_kernel_queue.c
+index 990ab54..11d2448 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.c
+@@ -335,6 +335,7 @@ struct kernel_queue *kernel_queue_init(struct kfd_dev *=
+dev,
+                 kernel_queue_init_v9(&kq->ops_asic_specific);
+                 break;
+         case CHIP_NAVI10:
++       case CHIP_NAVI12:
+         case CHIP_NAVI14:
+                 kernel_queue_init_v10(&kq->ops_asic_specific);
+                 break;
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager.c b/drivers/gpu/=
+drm/amd/amdkfd/kfd_packet_manager.c
+index af62be0..83ef4b3 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager.c
+@@ -244,6 +244,7 @@ int pm_init(struct packet_manager *pm, struct device_qu=
+eue_manager *dqm)
+                 pm->pmf =3D &kfd_v9_pm_funcs;
+                 break;
+         case CHIP_NAVI10:
++       case CHIP_NAVI12:
+         case CHIP_NAVI14:
+                 pm->pmf =3D &kfd_v10_pm_funcs;
+                 break;
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c b/drivers/gpu/drm/am=
+d/amdkfd/kfd_topology.c
+index f2170f0..453832e 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+@@ -1320,6 +1320,7 @@ int kfd_topology_add_device(struct kfd_dev *gpu)
+         case CHIP_RENOIR:
+         case CHIP_ARCTURUS:
+         case CHIP_NAVI10:
++       case CHIP_NAVI12:
+         case CHIP_NAVI14:
+                 dev->node_props.capability |=3D ((HSA_CAP_DOORBELL_TYPE_2_=
+0 <<
+                         HSA_CAP_DOORBELL_TYPE_TOTALBITS_SHIFT) &
+--
+2.7.4
 
 
-Am 26.09.19 um 14:26 schrieb Deucher, Alexander:
-> Please add a patch description.  With that fixed:
-> Reviewed-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-> ------------------------------------------------------------------------
-> *From:* amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of 
-> Yuan, Xiaojie <Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org>
-> *Sent:* Thursday, September 26, 2019 4:09 AM
-> *To:* amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-> *Cc:* alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-> *Subject:* Re: [PATCH] drm/amdgpu/gmc10: apply the 'invalidation from 
-> sdma' workaround for navi
-> Hi Alex,
->
-> This patch is to add the asic_type check which is missing after 
-> drm-next branch rebase.
->
-> BR,
-> Xiaojie
-> ------------------------------------------------------------------------
-> *From:* Yuan, Xiaojie <Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org>
-> *Sent:* Thursday, September 26, 2019 4:08 PM
-> *To:* amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-> *Cc:* alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>; Yuan, Xiaojie 
-> <Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org>
-> *Subject:* [PATCH] drm/amdgpu/gmc10: apply the 'invalidation from 
-> sdma' workaround for navi
-> Fixes: 767acabdac81 ("drm/amd/powerplay: add baco smu reset function 
-> for smu11")
-> Signed-off-by: Xiaojie Yuan <xiaojie.yuan-5C7GfCeVMHo@public.gmane.org>
-> ---
->  drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c | 1 +
->  1 file changed, 1 insertion(+)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c 
-> b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-> index cb3f61873baa..dc2e68e019eb 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-> @@ -292,6 +292,7 @@ static void gmc_v10_0_flush_gpu_tlb(struct 
-> amdgpu_device *adev, uint32_t vmid,
->
->          if (!adev->mman.buffer_funcs_enabled ||
->              !adev->ib_pool_ready ||
-> +           !(adev->asic_type >= CHIP_NAVI10 && adev->asic_type <= 
-> CHIP_NAVI12) ||
->              adev->in_gpu_reset) {
->                  gmc_v10_0_flush_vm_hub(adev, vmid, AMDGPU_GFXHUB_0, 0);
-> mutex_unlock(&adev->mman.gtt_window_lock);
-> -- 
-> 2.20.1
->
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
-
---------------F7EF14EA4E76D9D44665EAA8
-Content-Type: text/html; charset=windows-1252
-Content-Transfer-Encoding: 8bit
+--_000_BN6PR12MB18097A1F7C3C73476F30C719F7860BN6PR12MB1809namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
 <html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html;
-      charset=windows-1252">
-  </head>
-  <body text="#000000" bgcolor="#FFFFFF">
-    <div class="moz-cite-prefix">Stop, wait a second guys!<br>
-      <br>
-      This will disable the workaround for Navi10 and that is certainly
-      not correct:<br>
-      <blockquote type="cite"><font size="2"><span
-            style="font-size:11pt">
-            !(adev-&gt;asic_type &gt;= CHIP_NAVI10 &amp;&amp;
-            adev-&gt;asic_type &lt;= CHIP_NAVI12)</span></font></blockquote>
-      <br>
-      Christian.<br>
-      <br>
-      <br>
-      Am 26.09.19 um 14:26 schrieb Deucher, Alexander:<br>
-    </div>
-    <blockquote type="cite"
-cite="mid:BN6PR12MB1809591CB4102B70BEC82E93F7860-/b2+HYfkarSEx6ez0IUAagdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org">
-      <meta http-equiv="Content-Type" content="text/html;
-        charset=windows-1252">
-      <style type="text/css" style="display:none;"> P {margin-top:0;margin-bottom:0;} </style>
-      <div style="font-family: Calibri, Arial, Helvetica, sans-serif;
-        font-size: 12pt; color: rgb(0, 0, 0);">
-        Please add a patch description.  With that fixed:<br>
-      </div>
-      <div style="font-family: Calibri, Arial, Helvetica, sans-serif;
-        font-size: 12pt; color: rgb(0, 0, 0);">
-        Reviewed-by: Alex Deucher <a class="moz-txt-link-rfc2396E" href="mailto:alexander.deucher-5C7GfCeVMHo@public.gmane.org">&lt;alexander.deucher-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
-      </div>
-      <hr style="display:inline-block;width:98%" tabindex="-1">
-      <div id="divRplyFwdMsg" dir="ltr"><font style="font-size:11pt"
-          face="Calibri, sans-serif" color="#000000"><b>From:</b>
-          amd-gfx <a class="moz-txt-link-rfc2396E" href="mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">&lt;amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt;</a> on
-          behalf of Yuan, Xiaojie <a class="moz-txt-link-rfc2396E" href="mailto:Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org">&lt;Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
-          <b>Sent:</b> Thursday, September 26, 2019 4:09 AM<br>
-          <b>To:</b> <a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>
-          <a class="moz-txt-link-rfc2396E" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">&lt;amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt;</a><br>
-          <b>Cc:</b> <a class="moz-txt-link-abbreviated" href="mailto:alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org">alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a> <a class="moz-txt-link-rfc2396E" href="mailto:alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org">&lt;alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;</a><br>
-          <b>Subject:</b> Re: [PATCH] drm/amdgpu/gmc10: apply the
-          'invalidation from sdma' workaround for navi</font>
-        <div> </div>
-      </div>
-      <style type="text/css" style="display:none">
-<!--
-p
-	{margin-top:0;
-	margin-bottom:0}
--->
-</style>
-      <div dir="ltr">
-        <div style="font-family:Calibri,Helvetica,sans-serif;
-          font-size:11pt; color:rgb(0,0,0)">
-          Hi Alex,</div>
-        <div style="font-family:Calibri,Helvetica,sans-serif;
-          font-size:11pt; color:rgb(0,0,0)">
-          <br>
-        </div>
-        <div style="font-family:Calibri,Helvetica,sans-serif;
-          font-size:11pt; color:rgb(0,0,0)">
-          This patch is to add the asic_type check which is missing
-          after drm-next branch rebase.</div>
-        <div style="font-family:Calibri,Helvetica,sans-serif;
-          font-size:11pt; color:rgb(0,0,0)">
-          <br>
-        </div>
-        <div style="font-family:Calibri,Helvetica,sans-serif;
-          font-size:11pt; color:rgb(0,0,0)">
-          BR,</div>
-        <div style="font-family:Calibri,Helvetica,sans-serif;
-          font-size:11pt; color:rgb(0,0,0)">
-          Xiaojie<br>
-        </div>
-        <hr tabindex="-1" style="display:inline-block; width:98%">
-        <div id="x_divRplyFwdMsg" dir="ltr"><font style="font-size:11pt"
-            face="Calibri, sans-serif" color="#000000"><b>From:</b>
-            Yuan, Xiaojie <a class="moz-txt-link-rfc2396E" href="mailto:Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org">&lt;Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
-            <b>Sent:</b> Thursday, September 26, 2019 4:08 PM<br>
-            <b>To:</b> <a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>
-            <a class="moz-txt-link-rfc2396E" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">&lt;amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt;</a><br>
-            <b>Cc:</b> <a class="moz-txt-link-abbreviated" href="mailto:alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org">alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>
-            <a class="moz-txt-link-rfc2396E" href="mailto:alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org">&lt;alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;</a>; Yuan, Xiaojie
-            <a class="moz-txt-link-rfc2396E" href="mailto:Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org">&lt;Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
-            <b>Subject:</b> [PATCH] drm/amdgpu/gmc10: apply the
-            'invalidation from sdma' workaround for navi</font>
-          <div> </div>
-        </div>
-        <div class="x_BodyFragment"><font size="2"><span
-              style="font-size:11pt">
-              <div class="x_PlainText">Fixes: 767acabdac81
-                ("drm/amd/powerplay: add baco smu reset function for
-                smu11")<br>
-                Signed-off-by: Xiaojie Yuan <a class="moz-txt-link-rfc2396E" href="mailto:xiaojie.yuan-5C7GfCeVMHo@public.gmane.org">&lt;xiaojie.yuan-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
-                ---<br>
-                 drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c | 1 +<br>
-                 1 file changed, 1 insertion(+)<br>
-                <br>
-                diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-                b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c<br>
-                index cb3f61873baa..dc2e68e019eb 100644<br>
-                --- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c<br>
-                +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c<br>
-                @@ -292,6 +292,7 @@ static void
-                gmc_v10_0_flush_gpu_tlb(struct amdgpu_device *adev,
-                uint32_t vmid,<br>
-                 <br>
-                         if (!adev-&gt;mman.buffer_funcs_enabled ||<br>
-                             !adev-&gt;ib_pool_ready ||<br>
-                +           !(adev-&gt;asic_type &gt;= CHIP_NAVI10
-                &amp;&amp; adev-&gt;asic_type &lt;= CHIP_NAVI12) ||<br>
-                             adev-&gt;in_gpu_reset) {<br>
-                                 gmc_v10_0_flush_vm_hub(adev, vmid,
-                AMDGPU_GFXHUB_0, 0);<br>
-                                
-                mutex_unlock(&amp;adev-&gt;mman.gtt_window_lock);<br>
-                -- <br>
-                2.20.1<br>
-                <br>
-              </div>
-            </span></font></div>
-      </div>
-      <br>
-      <fieldset class="mimeAttachmentHeader"></fieldset>
-      <pre class="moz-quote-pre" wrap="">_______________________________________________
-amd-gfx mailing list
-<a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>
-<a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a></pre>
-    </blockquote>
-    <br>
-  </body>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Reviewed-by: Alex Deucher &lt;alexander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
+</div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
+ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Liu, Shaoyun &lt;Shaoyun.Liu@=
+amd.com&gt;<br>
+<b>Sent:</b> Thursday, September 26, 2019 8:03 AM<br>
+<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org &lt;amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&=
+gt;<br>
+<b>Subject:</b> Re: [PATCH] drm/amdkfd: use navi12 specific family id for n=
+avi12 code path</font>
+<div>&nbsp;</div>
+</div>
+<div>Ping.
+<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
+<div id=3D"x_divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" =
+color=3D"#000000" style=3D"font-size:11pt"><b>From:</b> Liu, Shaoyun &lt;Sh=
+aoyun.Liu-5C7GfCeVMHo@public.gmane.org&gt;<br>
+<b>Sent:</b> September 25, 2019 5:14:08 PM<br>
+<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org &lt;amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&=
+gt;<br>
+<b>Cc:</b> Liu, Shaoyun &lt;Shaoyun.Liu-5C7GfCeVMHo@public.gmane.org&gt;<br>
+<b>Subject:</b> [PATCH] drm/amdkfd: use navi12 specific family id for navi1=
+2 code path</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"x_BodyFragment"><font size=3D"2"><span style=3D"font-size:11p=
+t">
+<div class=3D"x_PlainText">Keep the same use of CHIP_IDs for navi12 in kfd<=
+br>
+<br>
+Change-Id: I5e52bbc058be51e79553147732a571a604537b7c<br>
+Signed-off-by: shaoyunl &lt;shaoyun.liu-5C7GfCeVMHo@public.gmane.org&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/amdkfd/kfd_crat.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | 1 &#43;<=
+br>
+&nbsp;drivers/gpu/drm/amd/amdkfd/kfd_device.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | 2 &#43;-<br>
+&nbsp;drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c | 1 &#43;<br>
+&nbsp;drivers/gpu/drm/amd/amdkfd/kfd_flat_memory.c&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | 1 &#43;<br>
+&nbsp;drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.c&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp; | 1 &#43;<br>
+&nbsp;drivers/gpu/drm/amd/amdkfd/kfd_packet_manager.c&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; | 1 &#43;<br>
+&nbsp;drivers/gpu/drm/amd/amdkfd/kfd_topology.c&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | 1 &#43;<br>
+&nbsp;7 files changed, 7 insertions(&#43;), 1 deletion(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c b/drivers/gpu/drm/amd/am=
+dkfd/kfd_crat.c<br>
+index 1ef3c32..0c327e0 100644<br>
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c<br>
+@@ -676,6 &#43;676,7 @@ static int kfd_fill_gpu_cache_info(struct kfd_dev *=
+kdev,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; num_of_cache_types =3D ARRAY_SIZE(renoir_cache_info);=
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; break;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_NAVI10:<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_NAVI12:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_NAVI14:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; pcache_info =3D navi10_cache_info;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; num_of_cache_types =3D ARRAY_SIZE(navi10_cache_info);=
+<br>
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device.c b/drivers/gpu/drm/amd/=
+amdkfd/kfd_device.c<br>
+index 270389b..edfbae5c 100644<br>
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_device.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdkfd/kfd_device.c<br>
+@@ -388,7 &#43;388,7 @@ static const struct kfd_device_info navi10_device_i=
+nfo =3D {<br>
+&nbsp;};<br>
+&nbsp;<br>
+&nbsp;static const struct kfd_device_info navi12_device_info =3D {<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .asic_family =3D CHIP_NAVI10,<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .asic_family =3D CHIP_NAVI12,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .asic_name =3D &quot;navi1=
+2&quot;,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .max_pasid_bits =3D 16,<br=
+>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .max_no_of_hqd&nbsp; =3D 2=
+4,<br>
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/driver=
+s/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c<br>
+index 399a612..54f0c5cc 100644<br>
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c<br>
+@@ -1798,6 &#43;1798,7 @@ struct device_queue_manager *device_queue_manager=
+_init(struct kfd_dev *dev)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; device_queue_manager_init_v9(&amp;dqm-&gt;asic_ops);<=
+br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; break;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_NAVI10:<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_NAVI12:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_NAVI14:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; device_queue_manager_init_v10_navi10(&amp;dqm-&gt;asi=
+c_ops);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; break;<br>
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_flat_memory.c b/drivers/gpu/drm=
+/amd/amdkfd/kfd_flat_memory.c<br>
+index 4816614..450c991 100644<br>
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_flat_memory.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdkfd/kfd_flat_memory.c<br>
+@@ -408,6 &#43;408,7 @@ int kfd_init_apertures(struct kfd_process *process)=
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case =
+CHIP_RENOIR:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case =
+CHIP_ARCTURUS:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case =
+CHIP_NAVI10:<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_NA=
+VI12:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case =
+CHIP_NAVI14:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfd_init_apertures_v9(pdd, id);<=
+br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; break;<br>
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.c b/drivers/gpu/dr=
+m/amd/amdkfd/kfd_kernel_queue.c<br>
+index 990ab54..11d2448 100644<br>
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.c<br>
+@@ -335,6 &#43;335,7 @@ struct kernel_queue *kernel_queue_init(struct kfd_d=
+ev *dev,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; kernel_queue_init_v9(&amp;kq-&gt;ops_asic_specific);<=
+br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; break;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_NAVI10:<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_NAVI12:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_NAVI14:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; kernel_queue_init_v10(&amp;kq-&gt;ops_asic_specific);=
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; break;<br>
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager.c b/drivers/gpu/=
+drm/amd/amdkfd/kfd_packet_manager.c<br>
+index af62be0..83ef4b3 100644<br>
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager.c<br>
+@@ -244,6 &#43;244,7 @@ int pm_init(struct packet_manager *pm, struct devic=
+e_queue_manager *dqm)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; pm-&gt;pmf =3D &amp;kfd_v9_pm_funcs;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; break;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_NAVI10:<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_NAVI12:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_NAVI14:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; pm-&gt;pmf =3D &amp;kfd_v10_pm_funcs;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; break;<br>
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c b/drivers/gpu/drm/am=
+d/amdkfd/kfd_topology.c<br>
+index f2170f0..453832e 100644<br>
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c<br>
+@@ -1320,6 &#43;1320,7 @@ int kfd_topology_add_device(struct kfd_dev *gpu)<=
+br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_RENOIR:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_ARCTURUS:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_NAVI10:<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_NAVI12:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_NAVI14:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; dev-&gt;node_props.capability |=3D ((HSA_CAP_DOORBELL=
+_TYPE_2_0 &lt;&lt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; HSA_C=
+AP_DOORBELL_TYPE_TOTALBITS_SHIFT) &amp;<br>
+-- <br>
+2.7.4<br>
+<br>
+</div>
+</span></font></div>
+</div>
+</body>
 </html>
 
---------------F7EF14EA4E76D9D44665EAA8--
+--_000_BN6PR12MB18097A1F7C3C73476F30C719F7860BN6PR12MB1809namp_--
 
---===============1169247151==
+--===============1846027271==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -254,4 +395,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
 
---===============1169247151==--
+--===============1846027271==--
