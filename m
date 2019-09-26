@@ -1,15 +1,16 @@
-From: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
+From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
 Subject: Re: [PATCH] drm/amdgpu/gmc10: apply the 'invalidation from sdma'
  workaround for navi
-Date: Thu, 26 Sep 2019 18:02:23 +0000
-Message-ID: <6c2ee5a6-8283-4b36-9177-36ddb22a60ad@email.android.com>
+Date: Thu, 26 Sep 2019 18:07:17 +0000
+Message-ID: <BN6PR12MB1809EBBAFA1BB6FA8A241641F7860@BN6PR12MB1809.namprd12.prod.outlook.com>
 References: <93f9508c-2871-4d48-9407-a0c3a6525bab@email.android.com>,
- <BN8PR12MB3602A7F8546E1C581D47B38B89860@BN8PR12MB3602.namprd12.prod.outlook.com>
+ <BN8PR12MB3602A7F8546E1C581D47B38B89860@BN8PR12MB3602.namprd12.prod.outlook.com>,
+ <6c2ee5a6-8283-4b36-9177-36ddb22a60ad@email.android.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1396212037=="
+Content-Type: multipart/mixed; boundary="===============1435880960=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <BN8PR12MB3602A7F8546E1C581D47B38B89860-h6+T2+wrnx1lGJ5xs4l7kQdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
-Content-Language: de-DE
+In-Reply-To: <6c2ee5a6-8283-4b36-9177-36ddb22a60ad-2ueSQiBKiTY7tOexoI0I+QC/G2K4zDHf@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -20,18 +21,51 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Yuan, Xiaojie" <Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org>
-Cc: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "Deucher,
- Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "Yuan, Xiaojie" <Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org>
+Cc: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============1396212037==
-Content-Language: de-DE
+--===============1435880960==
+Content-Language: en-US
 Content-Type: multipart/alternative;
-	boundary="_000_6c2ee5a682834b36917736ddb22a60ademailandroidcom_"
+	boundary="_000_BN6PR12MB1809EBBAFA1BB6FA8A241641F7860BN6PR12MB1809namp_"
 
---_000_6c2ee5a682834b36917736ddb22a60ademailandroidcom_
+--_000_BN6PR12MB1809EBBAFA1BB6FA8A241641F7860BN6PR12MB1809namp_
 Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
+
+
+Maybe I'm mixing up issues.  The navi10/14 issue that was fixed on navi12 w=
+as fixed in amdgpu_ids.c in
+
+commit a2bd77bbde791202267c25478bbcbe71bb4ecdd5
+Author: Christian K=F6nig <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+Date:   Thu Feb 7 12:10:29 2019 +0100
+
+    drm/amdgpu: disable concurrent flushes for Navi10 v2
+
+    Navi10 have a bug in the SDMA which can theoretically cause memory
+    corruption with concurrent VMID flushes
+
+    v2: explicitely check Navi10
+
+    Signed-off-by: Christian K=F6nig <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+    Reviewed-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+    Signed-off-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+
+This is a different issue and may apply to all navi parts.  so maybe the pa=
+tch is fine as is.
+
+Alex
+
+________________________________
+From: Koenig, Christian <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
+Sent: Thursday, September 26, 2019 2:02 PM
+To: Yuan, Xiaojie <Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org>
+Cc: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>; Deucher, Alexander <Alexander.Deu=
+cher-5C7GfCeVMHo@public.gmane.org>; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org=
+>
+Subject: Re: [PATCH] drm/amdgpu/gmc10: apply the 'invalidation from sdma' w=
+orkaround for navi
 
 Well then you didn't figured out the root cause correctly.
 
@@ -210,7 +244,7 @@ device *adev, uint32_t vmid,
 >
 
 
---_000_6c2ee5a682834b36917736ddb22a60ademailandroidcom_
+--_000_BN6PR12MB1809EBBAFA1BB6FA8A241641F7860BN6PR12MB1809namp_
 Content-Type: text/html; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
 
@@ -218,7 +252,91 @@ Content-Transfer-Encoding: quoted-printable
 <head>
 <meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
 1">
-<meta content=3D"text/html; charset=3Diso-8859-1">
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Maybe I'm mixing up issues.&nbsp; The navi10/14 issue that was fixed on nav=
+i12 was fixed in amdgpu_ids.c in</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<span>commit a2bd77bbde791202267c25478bbcbe71bb4ecdd5<br>
+</span>
+<div>Author: Christian K=F6nig &lt;christian.koenig-5C7GfCeVMHo@public.gmane.org&gt;<br>
+</div>
+<div>Date: &nbsp; Thu Feb 7 12:10:29 2019 &#43;0100<br>
+</div>
+<div><br>
+</div>
+<div>&nbsp; &nbsp; drm/amdgpu: disable concurrent flushes for Navi10 v2<br>
+</div>
+<div>&nbsp; &nbsp; <br>
+</div>
+<div>&nbsp; &nbsp; Navi10 have a bug in the SDMA which can theoretically ca=
+use memory<br>
+</div>
+<div>&nbsp; &nbsp; corruption with concurrent VMID flushes<br>
+</div>
+<div>&nbsp; &nbsp; <br>
+</div>
+<div>&nbsp; &nbsp; v2: explicitely check Navi10<br>
+</div>
+<div>&nbsp; &nbsp; <br>
+</div>
+<div>&nbsp; &nbsp; Signed-off-by: Christian K=F6nig &lt;christian.koenig@am=
+d.com&gt;<br>
+</div>
+<div>&nbsp; &nbsp; Reviewed-by: Alex Deucher &lt;alexander.deucher-5C7GfCeVMHo@public.gmane.org&=
+gt;<br>
+</div>
+<div>&nbsp; &nbsp; Signed-off-by: Alex Deucher &lt;alexander.deucher-urvtwAKJhsc@public.gmane.org=
+m&gt;<br>
+</div>
+<span></span></div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+This is a different issue and may apply to all navi parts.&nbsp; so maybe t=
+he patch is fine as is.</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Alex<br>
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Koenig, Christian &lt=
+;Christian.Koenig-5C7GfCeVMHo@public.gmane.org&gt;<br>
+<b>Sent:</b> Thursday, September 26, 2019 2:02 PM<br>
+<b>To:</b> Yuan, Xiaojie &lt;Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org&gt;<br>
+<b>Cc:</b> Alex Deucher &lt;alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;; Deucher, Alexander &=
+lt;Alexander.Deucher-5C7GfCeVMHo@public.gmane.org&gt;; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org &lt;amd-gfx=
+@lists.freedesktop.org&gt;<br>
+<b>Subject:</b> Re: [PATCH] drm/amdgpu/gmc10: apply the 'invalidation from =
+sdma' workaround for navi</font>
+<div>&nbsp;</div>
+</div>
 <style type=3D"text/css" style=3D"display:none">
 <!--
 p
@@ -226,8 +344,7 @@ p
 	margin-bottom:0}
 -->
 </style>
-</head>
-<body dir=3D"ltr">
+<div dir=3D"ltr">
 <div dir=3D"auto">Well then you didn't figured out the root cause correctly=
 .
 <div dir=3D"auto"><br>
@@ -242,9 +359,9 @@ his.</div>
 </div>
 <div dir=3D"auto">Christian.</div>
 </div>
-<div class=3D"gmail_extra"><br>
-<div class=3D"gmail_quote">Am 26.09.2019 19:38 schrieb &quot;Yuan, Xiaojie&=
-quot; &lt;Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org&gt;:<br type=3D"attribution">
+<div class=3D"x_gmail_extra"><br>
+<div class=3D"x_gmail_quote">Am 26.09.2019 19:38 schrieb &quot;Yuan, Xiaoji=
+e&quot; &lt;Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org&gt;:<br type=3D"attribution">
 </div>
 </div>
 <div>
@@ -274,11 +391,11 @@ BR,</div>
 or:rgb(0,0,0)">
 Xiaojie<br>
 </div>
-<div id=3D"appendonsend"></div>
+<div id=3D"x_appendonsend"></div>
 <hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" co=
-lor=3D"#000000" style=3D"font-size:11pt"><b>From:</b> Koenig, Christian &lt=
-;Christian.Koenig-5C7GfCeVMHo@public.gmane.org&gt;<br>
+<div id=3D"x_divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" =
+color=3D"#000000" style=3D"font-size:11pt"><b>From:</b> Koenig, Christian &=
+lt;Christian.Koenig-5C7GfCeVMHo@public.gmane.org&gt;<br>
 <b>Sent:</b> Thursday, September 26, 2019 10:20 PM<br>
 <b>To:</b> Alex Deucher &lt;alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;<br>
 <b>Cc:</b> Deucher, Alexander &lt;Alexander.Deucher-5C7GfCeVMHo@public.gmane.org&gt;; Yuan, Xiao=
@@ -291,11 +408,11 @@ sdma' workaround for navi</font>
 <div>
 <div dir=3D"auto">
 <div><br>
-<div class=3D"x_gmail_extra"><br>
-<div class=3D"x_gmail_quote">Am 26.09.2019 15:51 schrieb Alex Deucher &lt;a=
-lexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;:<br type=3D"attribution">
-<blockquote class=3D"x_quote" style=3D"margin:0 0 0 .8ex; border-left:1px #=
-ccc solid; padding-left:1ex">
+<div class=3D"x_x_gmail_extra"><br>
+<div class=3D"x_x_gmail_quote">Am 26.09.2019 15:51 schrieb Alex Deucher &lt=
+;alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;:<br type=3D"attribution">
+<blockquote class=3D"x_x_quote" style=3D"margin:0 0 0 .8ex; border-left:1px=
+ #ccc solid; padding-left:1ex">
 <div><font size=3D"2"><span style=3D"font-size:11pt">
 <div>On Thu, Sep 26, 2019 at 9:47 AM Koenig, Christian<br>
 &lt;Christian.Koenig-5C7GfCeVMHo@public.gmane.org&gt; wrote:<br>
@@ -375,10 +492,10 @@ we can't be sure if there won't be another variant in the future.</div>
 <div dir=3D"auto"><br>
 </div>
 <div dir=3D"auto">
-<div class=3D"x_gmail_extra">
-<div class=3D"x_gmail_quote">
-<blockquote class=3D"x_quote" style=3D"margin:0 0 0 .8ex; border-left:1px #=
-ccc solid; padding-left:1ex">
+<div class=3D"x_x_gmail_extra">
+<div class=3D"x_x_gmail_quote">
+<blockquote class=3D"x_x_quote" style=3D"margin:0 0 0 .8ex; border-left:1px=
+ #ccc solid; padding-left:1ex">
 <div><font size=3D"2"><span style=3D"font-size:11pt">
 <div><br>
 diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c<br>
@@ -503,12 +620,13 @@ man.gtt_window_lock);<br>
 </div>
 </div>
 </div>
+</div>
 </body>
 </html>
 
---_000_6c2ee5a682834b36917736ddb22a60ademailandroidcom_--
+--_000_BN6PR12MB1809EBBAFA1BB6FA8A241641F7860BN6PR12MB1809namp_--
 
---===============1396212037==
+--===============1435880960==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -518,4 +636,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
 
---===============1396212037==--
+--===============1435880960==--
