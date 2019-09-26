@@ -1,13 +1,16 @@
 From: "Zhao, Yong" <Yong.Zhao-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH 6/6] drm/amdkfd: Eliminate get_atc_vmid_pasid_mapping_valid
-Date: Thu, 26 Sep 2019 18:38:51 +0000
-Message-ID: <20190926183826.18813-6-Yong.Zhao@amd.com>
-References: <20190926183826.18813-1-Yong.Zhao@amd.com>
+Subject: Re: [PATCH 3/3] drm/amdkfd: Remove the control stack workaround for
+ GFX10
+Date: Thu, 26 Sep 2019 18:41:52 +0000
+Message-ID: <DM6PR12MB2778D26FD0EC07F2DA570340F0860@DM6PR12MB2778.namprd12.prod.outlook.com>
+References: <20190925181527.17091-1-Yong.Zhao@amd.com>
+ <20190925181527.17091-3-Yong.Zhao@amd.com>
+ <3d63ddfd-2773-b89d-c0dc-75ac1397b1fc@amd.com>,
+ <09afdf34-0c72-5306-103a-1290734fa1a2@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0908116970=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190926183826.18813-1-Yong.Zhao-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <09afdf34-0c72-5306-103a-1290734fa1a2-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -19,319 +22,335 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Zhao, Yong" <Yong.Zhao-5C7GfCeVMHo@public.gmane.org>
+To: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-Z2V0X2F0Y192bWlkX3Bhc2lkX21hcHBpbmdfdmFsaWQoKSBpcyB2ZXJ5IHNpbWlsYXIgdG8KZ2V0
-X2F0Y192bWlkX3Bhc2lkX21hcHBpbmdfcGFzaWQoKSwgc28gdGhleSBjYW4gYmUgbWVyZ2VkIGlu
-dG8gYSBuZXcKZnVuY3Rpb24gZ2V0X2F0Y192bWlkX3Bhc2lkX21hcHBpbmdfaW5mbygpIHRvIHJl
-ZHVjZSByZWdpc3RlciBhY2Nlc3MKdGltZXMuCgpDaGFuZ2UtSWQ6IEkyNTVlYmYyNjI5MDEyNDAw
-YjA3ZmU2YTY5YzNkMDc1Y2ZkNDY2MTJlClNpZ25lZC1vZmYtYnk6IFlvbmcgWmhhbyA8WW9uZy5a
-aGFvQGFtZC5jb20+Ci0tLQogLi4uL2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9hbWRrZmRfYXJjdHVy
-dXMuYyAgIHwgIDYgKy0tCiAuLi4vZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2FtZGtmZF9nZnhfdjEw
-LmMgICAgfCA0OSArKysrKysrLS0tLS0tLS0tLS0tCiAuLi4vZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
-ZGdwdV9hbWRrZmRfZ2Z4X3Y3LmMgfCAyOCArKysrLS0tLS0tLQogLi4uL2dwdS9kcm0vYW1kL2Ft
-ZGdwdS9hbWRncHVfYW1ka2ZkX2dmeF92OC5jIHwgMzIgKysrKy0tLS0tLS0tCiAuLi4vZ3B1L2Ry
-bS9hbWQvYW1kZ3B1L2FtZGdwdV9hbWRrZmRfZ2Z4X3Y5LmMgfCA0NSArKysrKysrLS0tLS0tLS0t
-LQogLi4uL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfYW1ka2ZkX2dmeF92OS5oIHwgIDYgKy0t
-CiAuLi4vZ3B1L2RybS9hbWQvYW1ka2ZkL2Npa19ldmVudF9pbnRlcnJ1cHQuYyAgfCAgOCArLS0K
-IGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9kYmdkZXYuYyAgICAgICB8IDE2ICsrKy0t
-LQogLi4uL2dwdS9kcm0vYW1kL2luY2x1ZGUva2dkX2tmZF9pbnRlcmZhY2UuaCAgIHwgIDggKyst
-CiA5IGZpbGVzIGNoYW5nZWQsIDc2IGluc2VydGlvbnMoKyksIDEyMiBkZWxldGlvbnMoLSkKCmRp
-ZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfYW1ka2ZkX2FyY3R1
-cnVzLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfYW1ka2ZkX2FyY3R1cnVz
-LmMKaW5kZXggZWI2ZThiMjMyNzI5Li41ZTFiZDY1MDBmZTIgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMv
-Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9hbWRrZmRfYXJjdHVydXMuYworKysgYi9kcml2ZXJz
-L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfYW1ka2ZkX2FyY3R1cnVzLmMKQEAgLTI3OSwxMCAr
-Mjc5LDggQEAgc3RhdGljIGNvbnN0IHN0cnVjdCBrZmQya2dkX2NhbGxzIGtmZDJrZ2QgPSB7CiAJ
-LmFkZHJlc3Nfd2F0Y2hfZXhlY3V0ZSA9IGtnZF9nZnhfdjlfYWRkcmVzc193YXRjaF9leGVjdXRl
-LAogCS53YXZlX2NvbnRyb2xfZXhlY3V0ZSA9IGtnZF9nZnhfdjlfd2F2ZV9jb250cm9sX2V4ZWN1
-dGUsCiAJLmFkZHJlc3Nfd2F0Y2hfZ2V0X29mZnNldCA9IGtnZF9nZnhfdjlfYWRkcmVzc193YXRj
-aF9nZXRfb2Zmc2V0LAotCS5nZXRfYXRjX3ZtaWRfcGFzaWRfbWFwcGluZ19wYXNpZCA9Ci0JCQlr
-Z2RfZ2Z4X3Y5X2dldF9hdGNfdm1pZF9wYXNpZF9tYXBwaW5nX3Bhc2lkLAotCS5nZXRfYXRjX3Zt
-aWRfcGFzaWRfbWFwcGluZ192YWxpZCA9Ci0JCQlrZ2RfZ2Z4X3Y5X2dldF9hdGNfdm1pZF9wYXNp
-ZF9tYXBwaW5nX3ZhbGlkLAorCS5nZXRfYXRjX3ZtaWRfcGFzaWRfbWFwcGluZ19pbmZvID0KKwkJ
-CWtnZF9nZnhfdjlfZ2V0X2F0Y192bWlkX3Bhc2lkX21hcHBpbmdfaW5mbywKIAkuZ2V0X3RpbGVf
-Y29uZmlnID0ga2dkX2dmeF92OV9nZXRfdGlsZV9jb25maWcsCiAJLnNldF92bV9jb250ZXh0X3Bh
-Z2VfdGFibGVfYmFzZSA9IGtnZF9nZnhfdjlfc2V0X3ZtX2NvbnRleHRfcGFnZV90YWJsZV9iYXNl
-LAogCS5pbnZhbGlkYXRlX3RsYnMgPSBrZ2RfZ2Z4X3Y5X2ludmFsaWRhdGVfdGxicywKZGlmZiAt
-LWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9hbWRrZmRfZ2Z4X3YxMC5j
-IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2FtZGtmZF9nZnhfdjEwLmMKaW5k
-ZXggMDlkNTA5NDljNWI5Li41N2ZmNjk4ZjUxYmIgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2Ry
-bS9hbWQvYW1kZ3B1L2FtZGdwdV9hbWRrZmRfZ2Z4X3YxMC5jCisrKyBiL2RyaXZlcnMvZ3B1L2Ry
-bS9hbWQvYW1kZ3B1L2FtZGdwdV9hbWRrZmRfZ2Z4X3YxMC5jCkBAIC0xMDAsMTAgKzEwMCw4IEBA
-IHN0YXRpYyB1aW50MzJfdCBrZ2RfYWRkcmVzc193YXRjaF9nZXRfb2Zmc2V0KHN0cnVjdCBrZ2Rf
-ZGV2ICprZ2QsCiAJCQkJCXVuc2lnbmVkIGludCB3YXRjaF9wb2ludF9pZCwKIAkJCQkJdW5zaWdu
-ZWQgaW50IHJlZ19vZmZzZXQpOwogCi1zdGF0aWMgYm9vbCBnZXRfYXRjX3ZtaWRfcGFzaWRfbWFw
-cGluZ192YWxpZChzdHJ1Y3Qga2dkX2RldiAqa2dkLAotCQl1aW50OF90IHZtaWQpOwotc3RhdGlj
-IHVpbnQxNl90IGdldF9hdGNfdm1pZF9wYXNpZF9tYXBwaW5nX3Bhc2lkKHN0cnVjdCBrZ2RfZGV2
-ICprZ2QsCi0JCXVpbnQ4X3Qgdm1pZCk7CitzdGF0aWMgYm9vbCBnZXRfYXRjX3ZtaWRfcGFzaWRf
-bWFwcGluZ19pbmZvKHN0cnVjdCBrZ2RfZGV2ICprZ2QsCisJCQkJCXVpbnQ4X3Qgdm1pZCwgdWlu
-dDE2X3QgKnBfcGFzaWQpOwogc3RhdGljIHZvaWQgc2V0X3ZtX2NvbnRleHRfcGFnZV90YWJsZV9i
-YXNlKHN0cnVjdCBrZ2RfZGV2ICprZ2QsIHVpbnQzMl90IHZtaWQsCiAJCXVpbnQ2NF90IHBhZ2Vf
-dGFibGVfYmFzZSk7CiBzdGF0aWMgaW50IGludmFsaWRhdGVfdGxicyhzdHJ1Y3Qga2dkX2RldiAq
-a2dkLCB1aW50MTZfdCBwYXNpZCk7CkBAIC0xNTcsMTAgKzE1NSw4IEBAIHN0YXRpYyBjb25zdCBz
-dHJ1Y3Qga2ZkMmtnZF9jYWxscyBrZmQya2dkID0gewogCS5hZGRyZXNzX3dhdGNoX2V4ZWN1dGUg
-PSBrZ2RfYWRkcmVzc193YXRjaF9leGVjdXRlLAogCS53YXZlX2NvbnRyb2xfZXhlY3V0ZSA9IGtn
-ZF93YXZlX2NvbnRyb2xfZXhlY3V0ZSwKIAkuYWRkcmVzc193YXRjaF9nZXRfb2Zmc2V0ID0ga2dk
-X2FkZHJlc3Nfd2F0Y2hfZ2V0X29mZnNldCwKLQkuZ2V0X2F0Y192bWlkX3Bhc2lkX21hcHBpbmdf
-cGFzaWQgPQotCQkJZ2V0X2F0Y192bWlkX3Bhc2lkX21hcHBpbmdfcGFzaWQsCi0JLmdldF9hdGNf
-dm1pZF9wYXNpZF9tYXBwaW5nX3ZhbGlkID0KLQkJCWdldF9hdGNfdm1pZF9wYXNpZF9tYXBwaW5n
-X3ZhbGlkLAorCS5nZXRfYXRjX3ZtaWRfcGFzaWRfbWFwcGluZ19pbmZvID0KKwkJCWdldF9hdGNf
-dm1pZF9wYXNpZF9tYXBwaW5nX2luZm8sCiAJLmdldF90aWxlX2NvbmZpZyA9IGFtZGdwdV9hbWRr
-ZmRfZ2V0X3RpbGVfY29uZmlnLAogCS5zZXRfdm1fY29udGV4dF9wYWdlX3RhYmxlX2Jhc2UgPSBz
-ZXRfdm1fY29udGV4dF9wYWdlX3RhYmxlX2Jhc2UsCiAJLmludmFsaWRhdGVfdGxicyA9IGludmFs
-aWRhdGVfdGxicywKQEAgLTc3MiwyNiArNzY4LDE3IEBAIHN0YXRpYyBpbnQga2dkX2hxZF9zZG1h
-X2Rlc3Ryb3koc3RydWN0IGtnZF9kZXYgKmtnZCwgdm9pZCAqbXFkLAogCXJldHVybiAwOwogfQog
-Ci1zdGF0aWMgYm9vbCBnZXRfYXRjX3ZtaWRfcGFzaWRfbWFwcGluZ192YWxpZChzdHJ1Y3Qga2dk
-X2RldiAqa2dkLAotCQkJCQkJCXVpbnQ4X3Qgdm1pZCkKK3N0YXRpYyBib29sIGdldF9hdGNfdm1p
-ZF9wYXNpZF9tYXBwaW5nX2luZm8oc3RydWN0IGtnZF9kZXYgKmtnZCwKKwkJCQkJdWludDhfdCB2
-bWlkLCB1aW50MTZfdCAqcF9wYXNpZCkKIHsKLQl1aW50MzJfdCByZWc7CisJdWludDMyX3QgdmFs
-dWU7CiAJc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYgPSAoc3RydWN0IGFtZGdwdV9kZXZpY2Ug
-Kikga2dkOwogCi0JcmVnID0gUlJFRzMyKFNPQzE1X1JFR19PRkZTRVQoQVRIVUIsIDAsIG1tQVRD
-X1ZNSUQwX1BBU0lEX01BUFBJTkcpCisJdmFsdWUgPSBSUkVHMzIoU09DMTVfUkVHX09GRlNFVChB
-VEhVQiwgMCwgbW1BVENfVk1JRDBfUEFTSURfTUFQUElORykKIAkJICAgICArIHZtaWQpOwotCXJl
-dHVybiByZWcgJiBBVENfVk1JRDBfUEFTSURfTUFQUElOR19fVkFMSURfTUFTSzsKLX0KLQotc3Rh
-dGljIHVpbnQxNl90IGdldF9hdGNfdm1pZF9wYXNpZF9tYXBwaW5nX3Bhc2lkKHN0cnVjdCBrZ2Rf
-ZGV2ICprZ2QsCi0JCQkJCQkJCXVpbnQ4X3Qgdm1pZCkKLXsKLQl1aW50MzJfdCByZWc7Ci0Jc3Ry
-dWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYgPSAoc3RydWN0IGFtZGdwdV9kZXZpY2UgKikga2dkOwor
-CSpwX3Bhc2lkID0gdmFsdWUgJiBBVENfVk1JRDBfUEFTSURfTUFQUElOR19fUEFTSURfTUFTSzsK
-IAotCXJlZyA9IFJSRUczMihTT0MxNV9SRUdfT0ZGU0VUKEFUSFVCLCAwLCBtbUFUQ19WTUlEMF9Q
-QVNJRF9NQVBQSU5HKQotCQkgICAgICsgdm1pZCk7Ci0JcmV0dXJuIHJlZyAmIEFUQ19WTUlEMF9Q
-QVNJRF9NQVBQSU5HX19QQVNJRF9NQVNLOworCXJldHVybiAhISh2YWx1ZSAmIEFUQ19WTUlEMF9Q
-QVNJRF9NQVBQSU5HX19WQUxJRF9NQVNLKTsKIH0KIAogc3RhdGljIGludCBpbnZhbGlkYXRlX3Rs
-YnNfd2l0aF9raXEoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsIHVpbnQxNl90IHBhc2lkKQpA
-QCAtODIzLDYgKzgxMCw4IEBAIHN0YXRpYyBpbnQgaW52YWxpZGF0ZV90bGJzKHN0cnVjdCBrZ2Rf
-ZGV2ICprZ2QsIHVpbnQxNl90IHBhc2lkKQogewogCXN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2
-ID0gKHN0cnVjdCBhbWRncHVfZGV2aWNlICopIGtnZDsKIAlpbnQgdm1pZDsKKwl1aW50MTZfdCBx
-dWVyaWVkX3Bhc2lkOworCWJvb2wgcmV0OwogCXN0cnVjdCBhbWRncHVfcmluZyAqcmluZyA9ICZh
-ZGV2LT5nZngua2lxLnJpbmc7CiAKIAlpZiAoYW1kZ3B1X2VtdV9tb2RlID09IDAgJiYgcmluZy0+
-c2NoZWQucmVhZHkpCkBAIC04MzEsMTMgKzgyMCwxMyBAQCBzdGF0aWMgaW50IGludmFsaWRhdGVf
-dGxicyhzdHJ1Y3Qga2dkX2RldiAqa2dkLCB1aW50MTZfdCBwYXNpZCkKIAlmb3IgKHZtaWQgPSAw
-OyB2bWlkIDwgMTY7IHZtaWQrKykgewogCQlpZiAoIWFtZGdwdV9hbWRrZmRfaXNfa2ZkX3ZtaWQo
-YWRldiwgdm1pZCkpCiAJCQljb250aW51ZTsKLQkJaWYgKGdldF9hdGNfdm1pZF9wYXNpZF9tYXBw
-aW5nX3ZhbGlkKGtnZCwgdm1pZCkpIHsKLQkJCWlmIChnZXRfYXRjX3ZtaWRfcGFzaWRfbWFwcGlu
-Z19wYXNpZChrZ2QsIHZtaWQpCi0JCQkJPT0gcGFzaWQpIHsKLQkJCQlhbWRncHVfZ21jX2ZsdXNo
-X2dwdV90bGIoYWRldiwgdm1pZCwKLQkJCQkJCUFNREdQVV9HRlhIVUJfMCwgMCk7Ci0JCQkJYnJl
-YWs7Ci0JCQl9CisKKwkJcmV0ID0gZ2V0X2F0Y192bWlkX3Bhc2lkX21hcHBpbmdfaW5mbyhrZ2Qs
-IHZtaWQsCisJCQkJJnF1ZXJpZWRfcGFzaWQpOworCQlpZiAocmV0CSYmIHF1ZXJpZWRfcGFzaWQg
-PT0gcGFzaWQpIHsKKwkJCWFtZGdwdV9nbWNfZmx1c2hfZ3B1X3RsYihhZGV2LCB2bWlkLAorCQkJ
-CQlBTURHUFVfR0ZYSFVCXzAsIDApOworCQkJYnJlYWs7CiAJCX0KIAl9CiAKZGlmZiAtLWdpdCBh
-L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9hbWRrZmRfZ2Z4X3Y3LmMgYi9kcml2
-ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfYW1ka2ZkX2dmeF92Ny5jCmluZGV4IGRkNzU0
-OGU5OTMyYi4uYWM4MTEzNjEyNDZkIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
-ZGdwdS9hbWRncHVfYW1ka2ZkX2dmeF92Ny5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
-Z3B1L2FtZGdwdV9hbWRrZmRfZ2Z4X3Y3LmMKQEAgLTEzNiw5ICsxMzYsOCBAQCBzdGF0aWMgdWlu
-dDMyX3Qga2dkX2FkZHJlc3Nfd2F0Y2hfZ2V0X29mZnNldChzdHJ1Y3Qga2dkX2RldiAqa2dkLAog
-CQkJCQl1bnNpZ25lZCBpbnQgd2F0Y2hfcG9pbnRfaWQsCiAJCQkJCXVuc2lnbmVkIGludCByZWdf
-b2Zmc2V0KTsKIAotc3RhdGljIGJvb2wgZ2V0X2F0Y192bWlkX3Bhc2lkX21hcHBpbmdfdmFsaWQo
-c3RydWN0IGtnZF9kZXYgKmtnZCwgdWludDhfdCB2bWlkKTsKLXN0YXRpYyB1aW50MTZfdCBnZXRf
-YXRjX3ZtaWRfcGFzaWRfbWFwcGluZ19wYXNpZChzdHJ1Y3Qga2dkX2RldiAqa2dkLAotCQkJCQkJ
-CXVpbnQ4X3Qgdm1pZCk7CitzdGF0aWMgYm9vbCBnZXRfYXRjX3ZtaWRfcGFzaWRfbWFwcGluZ19p
-bmZvKHN0cnVjdCBrZ2RfZGV2ICprZ2QsCisJCQkJCXVpbnQ4X3Qgdm1pZCwgdWludDE2X3QgKnBf
-cGFzaWQpOwogCiBzdGF0aWMgdm9pZCBzZXRfc2NyYXRjaF9iYWNraW5nX3ZhKHN0cnVjdCBrZ2Rf
-ZGV2ICprZ2QsCiAJCQkJCXVpbnQ2NF90IHZhLCB1aW50MzJfdCB2bWlkKTsKQEAgLTE4OSw4ICsx
-ODgsNyBAQCBzdGF0aWMgY29uc3Qgc3RydWN0IGtmZDJrZ2RfY2FsbHMga2ZkMmtnZCA9IHsKIAku
-YWRkcmVzc193YXRjaF9leGVjdXRlID0ga2dkX2FkZHJlc3Nfd2F0Y2hfZXhlY3V0ZSwKIAkud2F2
-ZV9jb250cm9sX2V4ZWN1dGUgPSBrZ2Rfd2F2ZV9jb250cm9sX2V4ZWN1dGUsCiAJLmFkZHJlc3Nf
-d2F0Y2hfZ2V0X29mZnNldCA9IGtnZF9hZGRyZXNzX3dhdGNoX2dldF9vZmZzZXQsCi0JLmdldF9h
-dGNfdm1pZF9wYXNpZF9tYXBwaW5nX3Bhc2lkID0gZ2V0X2F0Y192bWlkX3Bhc2lkX21hcHBpbmdf
-cGFzaWQsCi0JLmdldF9hdGNfdm1pZF9wYXNpZF9tYXBwaW5nX3ZhbGlkID0gZ2V0X2F0Y192bWlk
-X3Bhc2lkX21hcHBpbmdfdmFsaWQsCisJLmdldF9hdGNfdm1pZF9wYXNpZF9tYXBwaW5nX2luZm8g
-PSBnZXRfYXRjX3ZtaWRfcGFzaWRfbWFwcGluZ19pbmZvLAogCS5zZXRfc2NyYXRjaF9iYWNraW5n
-X3ZhID0gc2V0X3NjcmF0Y2hfYmFja2luZ192YSwKIAkuZ2V0X3RpbGVfY29uZmlnID0gZ2V0X3Rp
-bGVfY29uZmlnLAogCS5zZXRfdm1fY29udGV4dF9wYWdlX3RhYmxlX2Jhc2UgPSBzZXRfdm1fY29u
-dGV4dF9wYWdlX3RhYmxlX2Jhc2UsCkBAIC03NTYsMjQgKzc1NCwxNiBAQCBzdGF0aWMgdWludDMy
-X3Qga2dkX2FkZHJlc3Nfd2F0Y2hfZ2V0X29mZnNldChzdHJ1Y3Qga2dkX2RldiAqa2dkLAogCXJl
-dHVybiB3YXRjaFJlZ3Nbd2F0Y2hfcG9pbnRfaWQgKiBBRERSRVNTX1dBVENIX1JFR19NQVggKyBy
-ZWdfb2Zmc2V0XTsKIH0KIAotc3RhdGljIGJvb2wgZ2V0X2F0Y192bWlkX3Bhc2lkX21hcHBpbmdf
-dmFsaWQoc3RydWN0IGtnZF9kZXYgKmtnZCwKLQkJCQkJCQl1aW50OF90IHZtaWQpCitzdGF0aWMg
-Ym9vbCBnZXRfYXRjX3ZtaWRfcGFzaWRfbWFwcGluZ19pbmZvKHN0cnVjdCBrZ2RfZGV2ICprZ2Qs
-CisJCQkJCXVpbnQ4X3Qgdm1pZCwgdWludDE2X3QgKnBfcGFzaWQpCiB7Ci0JdWludDMyX3QgcmVn
-OworCXVpbnQzMl90IHZhbHVlOwogCXN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2ID0gKHN0cnVj
-dCBhbWRncHVfZGV2aWNlICopIGtnZDsKIAotCXJlZyA9IFJSRUczMihtbUFUQ19WTUlEMF9QQVNJ
-RF9NQVBQSU5HICsgdm1pZCk7Ci0JcmV0dXJuIHJlZyAmIEFUQ19WTUlEMF9QQVNJRF9NQVBQSU5H
-X19WQUxJRF9NQVNLOwotfQotCi1zdGF0aWMgdWludDE2X3QgZ2V0X2F0Y192bWlkX3Bhc2lkX21h
-cHBpbmdfcGFzaWQoc3RydWN0IGtnZF9kZXYgKmtnZCwKLQkJCQkJCQkJdWludDhfdCB2bWlkKQot
-ewotCXVpbnQzMl90IHJlZzsKLQlzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiA9IChzdHJ1Y3Qg
-YW1kZ3B1X2RldmljZSAqKSBrZ2Q7CisJdmFsdWUgPSBSUkVHMzIobW1BVENfVk1JRDBfUEFTSURf
-TUFQUElORyArIHZtaWQpOworCSpwX3Bhc2lkID0gdmFsdWUgJiBBVENfVk1JRDBfUEFTSURfTUFQ
-UElOR19fUEFTSURfTUFTSzsKIAotCXJlZyA9IFJSRUczMihtbUFUQ19WTUlEMF9QQVNJRF9NQVBQ
-SU5HICsgdm1pZCk7Ci0JcmV0dXJuIHJlZyAmIEFUQ19WTUlEMF9QQVNJRF9NQVBQSU5HX19QQVNJ
-RF9NQVNLOworCXJldHVybiAhISh2YWx1ZSAmIEFUQ19WTUlEMF9QQVNJRF9NQVBQSU5HX19WQUxJ
-RF9NQVNLKTsKIH0KIAogc3RhdGljIHZvaWQgc2V0X3NjcmF0Y2hfYmFja2luZ192YShzdHJ1Y3Qg
-a2dkX2RldiAqa2dkLApkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
-Z3B1X2FtZGtmZF9nZnhfdjguYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9h
-bWRrZmRfZ2Z4X3Y4LmMKaW5kZXggZjEyYWM3ODcwN2I0Li5iN2YwZDU5NGVjN2IgMTAwNjQ0Ci0t
-LSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9hbWRrZmRfZ2Z4X3Y4LmMKKysr
-IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2FtZGtmZF9nZnhfdjguYwpAQCAt
-OTksMTAgKzk5LDggQEAgc3RhdGljIHVpbnQzMl90IGtnZF9hZGRyZXNzX3dhdGNoX2dldF9vZmZz
-ZXQoc3RydWN0IGtnZF9kZXYgKmtnZCwKIAkJCQkJdW5zaWduZWQgaW50IHdhdGNoX3BvaW50X2lk
-LAogCQkJCQl1bnNpZ25lZCBpbnQgcmVnX29mZnNldCk7CiAKLXN0YXRpYyBib29sIGdldF9hdGNf
-dm1pZF9wYXNpZF9tYXBwaW5nX3ZhbGlkKHN0cnVjdCBrZ2RfZGV2ICprZ2QsCi0JCXVpbnQ4X3Qg
-dm1pZCk7Ci1zdGF0aWMgdWludDE2X3QgZ2V0X2F0Y192bWlkX3Bhc2lkX21hcHBpbmdfcGFzaWQo
-c3RydWN0IGtnZF9kZXYgKmtnZCwKLQkJdWludDhfdCB2bWlkKTsKK3N0YXRpYyBib29sIGdldF9h
-dGNfdm1pZF9wYXNpZF9tYXBwaW5nX2luZm8oc3RydWN0IGtnZF9kZXYgKmtnZCwKKwkJCQkJdWlu
-dDhfdCB2bWlkLCB1aW50MTZfdCAqcF9wYXNpZCk7CiBzdGF0aWMgdm9pZCBzZXRfc2NyYXRjaF9i
-YWNraW5nX3ZhKHN0cnVjdCBrZ2RfZGV2ICprZ2QsCiAJCQkJCXVpbnQ2NF90IHZhLCB1aW50MzJf
-dCB2bWlkKTsKIHN0YXRpYyB2b2lkIHNldF92bV9jb250ZXh0X3BhZ2VfdGFibGVfYmFzZShzdHJ1
-Y3Qga2dkX2RldiAqa2dkLCB1aW50MzJfdCB2bWlkLApAQCAtMTUxLDEwICsxNDksOCBAQCBzdGF0
-aWMgY29uc3Qgc3RydWN0IGtmZDJrZ2RfY2FsbHMga2ZkMmtnZCA9IHsKIAkuYWRkcmVzc193YXRj
-aF9leGVjdXRlID0ga2dkX2FkZHJlc3Nfd2F0Y2hfZXhlY3V0ZSwKIAkud2F2ZV9jb250cm9sX2V4
-ZWN1dGUgPSBrZ2Rfd2F2ZV9jb250cm9sX2V4ZWN1dGUsCiAJLmFkZHJlc3Nfd2F0Y2hfZ2V0X29m
-ZnNldCA9IGtnZF9hZGRyZXNzX3dhdGNoX2dldF9vZmZzZXQsCi0JLmdldF9hdGNfdm1pZF9wYXNp
-ZF9tYXBwaW5nX3Bhc2lkID0KLQkJCWdldF9hdGNfdm1pZF9wYXNpZF9tYXBwaW5nX3Bhc2lkLAot
-CS5nZXRfYXRjX3ZtaWRfcGFzaWRfbWFwcGluZ192YWxpZCA9Ci0JCQlnZXRfYXRjX3ZtaWRfcGFz
-aWRfbWFwcGluZ192YWxpZCwKKwkuZ2V0X2F0Y192bWlkX3Bhc2lkX21hcHBpbmdfaW5mbyA9CisJ
-CQlnZXRfYXRjX3ZtaWRfcGFzaWRfbWFwcGluZ19pbmZvLAogCS5zZXRfc2NyYXRjaF9iYWNraW5n
-X3ZhID0gc2V0X3NjcmF0Y2hfYmFja2luZ192YSwKIAkuZ2V0X3RpbGVfY29uZmlnID0gZ2V0X3Rp
-bGVfY29uZmlnLAogCS5zZXRfdm1fY29udGV4dF9wYWdlX3RhYmxlX2Jhc2UgPSBzZXRfdm1fY29u
-dGV4dF9wYWdlX3RhYmxlX2Jhc2UsCkBAIC02NzcsMjQgKzY3MywxNiBAQCBzdGF0aWMgaW50IGtn
-ZF9ocWRfc2RtYV9kZXN0cm95KHN0cnVjdCBrZ2RfZGV2ICprZ2QsIHZvaWQgKm1xZCwKIAlyZXR1
-cm4gMDsKIH0KIAotc3RhdGljIGJvb2wgZ2V0X2F0Y192bWlkX3Bhc2lkX21hcHBpbmdfdmFsaWQo
-c3RydWN0IGtnZF9kZXYgKmtnZCwKLQkJCQkJCQl1aW50OF90IHZtaWQpCitzdGF0aWMgYm9vbCBn
-ZXRfYXRjX3ZtaWRfcGFzaWRfbWFwcGluZ19pbmZvKHN0cnVjdCBrZ2RfZGV2ICprZ2QsCisJCQkJ
-CXVpbnQ4X3Qgdm1pZCwgdWludDE2X3QgKnBfcGFzaWQpCiB7Ci0JdWludDMyX3QgcmVnOworCXVp
-bnQzMl90IHZhbHVlOwogCXN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2ID0gKHN0cnVjdCBhbWRn
-cHVfZGV2aWNlICopIGtnZDsKIAotCXJlZyA9IFJSRUczMihtbUFUQ19WTUlEMF9QQVNJRF9NQVBQ
-SU5HICsgdm1pZCk7Ci0JcmV0dXJuIHJlZyAmIEFUQ19WTUlEMF9QQVNJRF9NQVBQSU5HX19WQUxJ
-RF9NQVNLOwotfQotCi1zdGF0aWMgdWludDE2X3QgZ2V0X2F0Y192bWlkX3Bhc2lkX21hcHBpbmdf
-cGFzaWQoc3RydWN0IGtnZF9kZXYgKmtnZCwKLQkJCQkJCQkJdWludDhfdCB2bWlkKQotewotCXVp
-bnQzMl90IHJlZzsKLQlzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiA9IChzdHJ1Y3QgYW1kZ3B1
-X2RldmljZSAqKSBrZ2Q7CisJdmFsdWUgPSBSUkVHMzIobW1BVENfVk1JRDBfUEFTSURfTUFQUElO
-RyArIHZtaWQpOworCSpwX3Bhc2lkID0gdmFsdWUgJiBBVENfVk1JRDBfUEFTSURfTUFQUElOR19f
-UEFTSURfTUFTSzsKIAotCXJlZyA9IFJSRUczMihtbUFUQ19WTUlEMF9QQVNJRF9NQVBQSU5HICsg
-dm1pZCk7Ci0JcmV0dXJuIHJlZyAmIEFUQ19WTUlEMF9QQVNJRF9NQVBQSU5HX19QQVNJRF9NQVNL
-OworCXJldHVybiAhISh2YWx1ZSAmIEFUQ19WTUlEMF9QQVNJRF9NQVBQSU5HX19WQUxJRF9NQVNL
-KTsKIH0KIAogc3RhdGljIGludCBrZ2RfYWRkcmVzc193YXRjaF9kaXNhYmxlKHN0cnVjdCBrZ2Rf
-ZGV2ICprZ2QpCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
-YW1ka2ZkX2dmeF92OS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2FtZGtm
-ZF9nZnhfdjkuYwppbmRleCBmOGY4ZDZmZThiNTIuLjRkMmNiYmRjNDM5YiAxMDA2NDQKLS0tIGEv
-ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2FtZGtmZF9nZnhfdjkuYworKysgYi9k
-cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfYW1ka2ZkX2dmeF92OS5jCkBAIC02MzAs
-MjYgKzYzMCwxNyBAQCBzdGF0aWMgaW50IGtnZF9ocWRfc2RtYV9kZXN0cm95KHN0cnVjdCBrZ2Rf
-ZGV2ICprZ2QsIHZvaWQgKm1xZCwKIAlyZXR1cm4gMDsKIH0KIAotYm9vbCBrZ2RfZ2Z4X3Y5X2dl
-dF9hdGNfdm1pZF9wYXNpZF9tYXBwaW5nX3ZhbGlkKHN0cnVjdCBrZ2RfZGV2ICprZ2QsCi0JCQkJ
-CQkJdWludDhfdCB2bWlkKQorYm9vbCBrZ2RfZ2Z4X3Y5X2dldF9hdGNfdm1pZF9wYXNpZF9tYXBw
-aW5nX2luZm8oc3RydWN0IGtnZF9kZXYgKmtnZCwKKwkJCQkJdWludDhfdCB2bWlkLCB1aW50MTZf
-dCAqcF9wYXNpZCkKIHsKLQl1aW50MzJfdCByZWc7CisJdWludDMyX3QgdmFsdWU7CiAJc3RydWN0
-IGFtZGdwdV9kZXZpY2UgKmFkZXYgPSAoc3RydWN0IGFtZGdwdV9kZXZpY2UgKikga2dkOwogCi0J
-cmVnID0gUlJFRzMyKFNPQzE1X1JFR19PRkZTRVQoQVRIVUIsIDAsIG1tQVRDX1ZNSUQwX1BBU0lE
-X01BUFBJTkcpCisJdmFsdWUgPSBSUkVHMzIoU09DMTVfUkVHX09GRlNFVChBVEhVQiwgMCwgbW1B
-VENfVk1JRDBfUEFTSURfTUFQUElORykKIAkJICAgICArIHZtaWQpOwotCXJldHVybiByZWcgJiBB
-VENfVk1JRDBfUEFTSURfTUFQUElOR19fVkFMSURfTUFTSzsKLX0KLQotdWludDE2X3Qga2dkX2dm
-eF92OV9nZXRfYXRjX3ZtaWRfcGFzaWRfbWFwcGluZ19wYXNpZChzdHJ1Y3Qga2dkX2RldiAqa2dk
-LAotCQkJCQkJCQl1aW50OF90IHZtaWQpCi17Ci0JdWludDMyX3QgcmVnOwotCXN0cnVjdCBhbWRn
-cHVfZGV2aWNlICphZGV2ID0gKHN0cnVjdCBhbWRncHVfZGV2aWNlICopIGtnZDsKKwkqcF9wYXNp
-ZCA9IHZhbHVlICYgQVRDX1ZNSUQwX1BBU0lEX01BUFBJTkdfX1BBU0lEX01BU0s7CiAKLQlyZWcg
-PSBSUkVHMzIoU09DMTVfUkVHX09GRlNFVChBVEhVQiwgMCwgbW1BVENfVk1JRDBfUEFTSURfTUFQ
-UElORykKLQkJICAgICArIHZtaWQpOwotCXJldHVybiByZWcgJiBBVENfVk1JRDBfUEFTSURfTUFQ
-UElOR19fUEFTSURfTUFTSzsKKwlyZXR1cm4gISEodmFsdWUgJiBBVENfVk1JRDBfUEFTSURfTUFQ
-UElOR19fVkFMSURfTUFTSyk7CiB9CiAKIHN0YXRpYyBpbnQgaW52YWxpZGF0ZV90bGJzX3dpdGhf
-a2lxKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LCB1aW50MTZfdCBwYXNpZCwKQEAgLTY4NCw2
-ICs2NzUsOCBAQCBpbnQga2dkX2dmeF92OV9pbnZhbGlkYXRlX3RsYnMoc3RydWN0IGtnZF9kZXYg
-KmtnZCwgdWludDE2X3QgcGFzaWQpCiB7CiAJc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYgPSAo
-c3RydWN0IGFtZGdwdV9kZXZpY2UgKikga2dkOwogCWludCB2bWlkLCBpOworCXVpbnQxNl90IHF1
-ZXJpZWRfcGFzaWQ7CisJYm9vbCByZXQ7CiAJc3RydWN0IGFtZGdwdV9yaW5nICpyaW5nID0gJmFk
-ZXYtPmdmeC5raXEucmluZzsKIAl1aW50MzJfdCBmbHVzaF90eXBlID0gMDsKIApAQCAtNjk5LDE0
-ICs2OTIsMTQgQEAgaW50IGtnZF9nZnhfdjlfaW52YWxpZGF0ZV90bGJzKHN0cnVjdCBrZ2RfZGV2
-ICprZ2QsIHVpbnQxNl90IHBhc2lkKQogCWZvciAodm1pZCA9IDA7IHZtaWQgPCAxNjsgdm1pZCsr
-KSB7CiAJCWlmICghYW1kZ3B1X2FtZGtmZF9pc19rZmRfdm1pZChhZGV2LCB2bWlkKSkKIAkJCWNv
-bnRpbnVlOwotCQlpZiAoa2dkX2dmeF92OV9nZXRfYXRjX3ZtaWRfcGFzaWRfbWFwcGluZ192YWxp
-ZChrZ2QsIHZtaWQpKSB7Ci0JCQlpZiAoa2dkX2dmeF92OV9nZXRfYXRjX3ZtaWRfcGFzaWRfbWFw
-cGluZ19wYXNpZChrZ2QsIHZtaWQpCi0JCQkJPT0gcGFzaWQpIHsKLQkJCQlmb3IgKGkgPSAwOyBp
-IDwgYWRldi0+bnVtX3ZtaHViczsgaSsrKQotCQkJCQlhbWRncHVfZ21jX2ZsdXNoX2dwdV90bGIo
-YWRldiwgdm1pZCwKLQkJCQkJCQkJaSwgZmx1c2hfdHlwZSk7Ci0JCQkJYnJlYWs7Ci0JCQl9CisK
-KwkJcmV0ID0ga2dkX2dmeF92OV9nZXRfYXRjX3ZtaWRfcGFzaWRfbWFwcGluZ19pbmZvKGtnZCwg
-dm1pZCwKKwkJCQkmcXVlcmllZF9wYXNpZCk7CisJCWlmIChyZXQgJiYgcXVlcmllZF9wYXNpZCA9
-PSBwYXNpZCkgeworCQkJZm9yIChpID0gMDsgaSA8IGFkZXYtPm51bV92bWh1YnM7IGkrKykKKwkJ
-CQlhbWRncHVfZ21jX2ZsdXNoX2dwdV90bGIoYWRldiwgdm1pZCwKKwkJCQkJCQlpLCBmbHVzaF90
-eXBlKTsKKwkJCWJyZWFrOwogCQl9CiAJfQogCkBAIC0xMDQwLDEwICsxMDMzLDggQEAgc3RhdGlj
-IGNvbnN0IHN0cnVjdCBrZmQya2dkX2NhbGxzIGtmZDJrZ2QgPSB7CiAJLmFkZHJlc3Nfd2F0Y2hf
-ZXhlY3V0ZSA9IGtnZF9nZnhfdjlfYWRkcmVzc193YXRjaF9leGVjdXRlLAogCS53YXZlX2NvbnRy
-b2xfZXhlY3V0ZSA9IGtnZF9nZnhfdjlfd2F2ZV9jb250cm9sX2V4ZWN1dGUsCiAJLmFkZHJlc3Nf
-d2F0Y2hfZ2V0X29mZnNldCA9IGtnZF9nZnhfdjlfYWRkcmVzc193YXRjaF9nZXRfb2Zmc2V0LAot
-CS5nZXRfYXRjX3ZtaWRfcGFzaWRfbWFwcGluZ19wYXNpZCA9Ci0JCQlrZ2RfZ2Z4X3Y5X2dldF9h
-dGNfdm1pZF9wYXNpZF9tYXBwaW5nX3Bhc2lkLAotCS5nZXRfYXRjX3ZtaWRfcGFzaWRfbWFwcGlu
-Z192YWxpZCA9Ci0JCQlrZ2RfZ2Z4X3Y5X2dldF9hdGNfdm1pZF9wYXNpZF9tYXBwaW5nX3ZhbGlk
-LAorCS5nZXRfYXRjX3ZtaWRfcGFzaWRfbWFwcGluZ19pbmZvID0KKwkJCWtnZF9nZnhfdjlfZ2V0
-X2F0Y192bWlkX3Bhc2lkX21hcHBpbmdfaW5mbywKIAkuZ2V0X3RpbGVfY29uZmlnID0ga2dkX2dm
-eF92OV9nZXRfdGlsZV9jb25maWcsCiAJLnNldF92bV9jb250ZXh0X3BhZ2VfdGFibGVfYmFzZSA9
-IGtnZF9nZnhfdjlfc2V0X3ZtX2NvbnRleHRfcGFnZV90YWJsZV9iYXNlLAogCS5pbnZhbGlkYXRl
-X3RsYnMgPSBrZ2RfZ2Z4X3Y5X2ludmFsaWRhdGVfdGxicywKZGlmZiAtLWdpdCBhL2RyaXZlcnMv
-Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9hbWRrZmRfZ2Z4X3Y5LmggYi9kcml2ZXJzL2dwdS9k
-cm0vYW1kL2FtZGdwdS9hbWRncHVfYW1ka2ZkX2dmeF92OS5oCmluZGV4IGM5NWM5ZmUzZWIzZC4u
-ZmQ0ZjUwNDY2OGNiIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
-cHVfYW1ka2ZkX2dmeF92OS5oCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdw
-dV9hbWRrZmRfZ2Z4X3Y5LmgKQEAgLTUzLDEwICs1Myw4IEBAIHVpbnQzMl90IGtnZF9nZnhfdjlf
-YWRkcmVzc193YXRjaF9nZXRfb2Zmc2V0KHN0cnVjdCBrZ2RfZGV2ICprZ2QsCiAJCQkJCXVuc2ln
-bmVkIGludCB3YXRjaF9wb2ludF9pZCwKIAkJCQkJdW5zaWduZWQgaW50IHJlZ19vZmZzZXQpOwog
-Ci1ib29sIGtnZF9nZnhfdjlfZ2V0X2F0Y192bWlkX3Bhc2lkX21hcHBpbmdfdmFsaWQoc3RydWN0
-IGtnZF9kZXYgKmtnZCwKLQkJdWludDhfdCB2bWlkKTsKLXVpbnQxNl90IGtnZF9nZnhfdjlfZ2V0
-X2F0Y192bWlkX3Bhc2lkX21hcHBpbmdfcGFzaWQoc3RydWN0IGtnZF9kZXYgKmtnZCwKLQkJdWlu
-dDhfdCB2bWlkKTsKK2Jvb2wga2dkX2dmeF92OV9nZXRfYXRjX3ZtaWRfcGFzaWRfbWFwcGluZ19p
-bmZvKHN0cnVjdCBrZ2RfZGV2ICprZ2QsCisJCQkJCXVpbnQ4X3Qgdm1pZCwgdWludDE2X3QgKnBf
-cGFzaWQpOwogdm9pZCBrZ2RfZ2Z4X3Y5X3NldF92bV9jb250ZXh0X3BhZ2VfdGFibGVfYmFzZShz
-dHJ1Y3Qga2dkX2RldiAqa2dkLCB1aW50MzJfdCB2bWlkLAogCQl1aW50NjRfdCBwYWdlX3RhYmxl
-X2Jhc2UpOwogaW50IGtnZF9nZnhfdjlfaW52YWxpZGF0ZV90bGJzKHN0cnVjdCBrZ2RfZGV2ICpr
-Z2QsIHVpbnQxNl90IHBhc2lkKTsKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
-a2ZkL2Npa19ldmVudF9pbnRlcnJ1cHQuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2Np
-a19ldmVudF9pbnRlcnJ1cHQuYwppbmRleCAxNzdkMWU1MzI5YTUuLjlmNTliYTkzY2ZlMCAxMDA2
-NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQvY2lrX2V2ZW50X2ludGVycnVwdC5j
-CisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2Npa19ldmVudF9pbnRlcnJ1cHQuYwpA
-QCAtMzMsNyArMzMsOSBAQCBzdGF0aWMgYm9vbCBjaWtfZXZlbnRfaW50ZXJydXB0X2lzcihzdHJ1
-Y3Qga2ZkX2RldiAqZGV2LAogCWNvbnN0IHN0cnVjdCBjaWtfaWhfcmluZ19lbnRyeSAqaWhyZSA9
-CiAJCQkoY29uc3Qgc3RydWN0IGNpa19paF9yaW5nX2VudHJ5ICopaWhfcmluZ19lbnRyeTsKIAlj
-b25zdCBzdHJ1Y3Qga2ZkMmtnZF9jYWxscyAqZjJnID0gZGV2LT5rZmQya2dkOwotCXVuc2lnbmVk
-IGludCB2bWlkLCBwYXNpZDsKKwl1bnNpZ25lZCBpbnQgdm1pZDsKKwl1aW50MTZfdCBwYXNpZDsK
-Kwlib29sIHJldDsKIAogCS8qIFRoaXMgd29ya2Fyb3VuZCBpcyBkdWUgdG8gSFcvRlcgbGltaXRh
-dGlvbiBvbiBIYXdhaWkgdGhhdAogCSAqIFZNSUQgYW5kIFBBU0lEIGFyZSBub3Qgd3JpdHRlbiBp
-bnRvIGloX3JpbmdfZW50cnkKQEAgLTQ4LDEzICs1MCwxMyBAQCBzdGF0aWMgYm9vbCBjaWtfZXZl
-bnRfaW50ZXJydXB0X2lzcihzdHJ1Y3Qga2ZkX2RldiAqZGV2LAogCQkqdG1wX2locmUgPSAqaWhy
-ZTsKIAogCQl2bWlkID0gZjJnLT5yZWFkX3ZtaWRfZnJvbV92bWZhdWx0X3JlZyhkZXYtPmtnZCk7
-Ci0JCXBhc2lkID0gZjJnLT5nZXRfYXRjX3ZtaWRfcGFzaWRfbWFwcGluZ19wYXNpZChkZXYtPmtn
-ZCwgdm1pZCk7CisJCXJldCA9IGYyZy0+Z2V0X2F0Y192bWlkX3Bhc2lkX21hcHBpbmdfaW5mbyhk
-ZXYtPmtnZCwgdm1pZCwgJnBhc2lkKTsKIAogCQl0bXBfaWhyZS0+cmluZ19pZCAmPSAweDAwMDAw
-MGZmOwogCQl0bXBfaWhyZS0+cmluZ19pZCB8PSB2bWlkIDw8IDg7CiAJCXRtcF9paHJlLT5yaW5n
-X2lkIHw9IHBhc2lkIDw8IDE2OwogCi0JCXJldHVybiAocGFzaWQgIT0gMCkgJiYKKwkJcmV0dXJu
-IHJldCAmJiAocGFzaWQgIT0gMCkgJiYKIAkJCXZtaWQgPj0gZGV2LT52bV9pbmZvLmZpcnN0X3Zt
-aWRfa2ZkICYmCiAJCQl2bWlkIDw9IGRldi0+dm1faW5mby5sYXN0X3ZtaWRfa2ZkOwogCX0KZGlm
-ZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9kYmdkZXYuYyBiL2RyaXZl
-cnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9kYmdkZXYuYwppbmRleCA0OTI5NTFjYWQxNDMuLjFl
-YjBjMmJlZGNkOSAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX2Ri
-Z2Rldi5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9kYmdkZXYuYwpAQCAt
-Nzc1LDYgKzc3NSw3IEBAIGludCBkYmdkZXZfd2F2ZV9yZXNldF93YXZlZnJvbnRzKHN0cnVjdCBr
-ZmRfZGV2ICpkZXYsIHN0cnVjdCBrZmRfcHJvY2VzcyAqcCkKIHsKIAlpbnQgc3RhdHVzID0gMDsK
-IAl1bnNpZ25lZCBpbnQgdm1pZDsKKwl1aW50MTZfdCBxdWVyaWVkX3Bhc2lkOwogCXVuaW9uIFNR
-X0NNRF9CSVRTIHJlZ19zcV9jbWQ7CiAJdW5pb24gR1JCTV9HRlhfSU5ERVhfQklUUyByZWdfZ2Z4
-X2luZGV4OwogCXN0cnVjdCBrZmRfcHJvY2Vzc19kZXZpY2UgKnBkZDsKQEAgLTc5NiwxNCArNzk3
-LDEzIEBAIGludCBkYmdkZXZfd2F2ZV9yZXNldF93YXZlZnJvbnRzKHN0cnVjdCBrZmRfZGV2ICpk
-ZXYsIHN0cnVjdCBrZmRfcHJvY2VzcyAqcCkKIAkgKi8KIAogCWZvciAodm1pZCA9IGZpcnN0X3Zt
-aWRfdG9fc2Nhbjsgdm1pZCA8PSBsYXN0X3ZtaWRfdG9fc2Nhbjsgdm1pZCsrKSB7Ci0JCWlmIChk
-ZXYtPmtmZDJrZ2QtPmdldF9hdGNfdm1pZF9wYXNpZF9tYXBwaW5nX3ZhbGlkCi0JCQkJKGRldi0+
-a2dkLCB2bWlkKSkgewotCQkJaWYgKGRldi0+a2ZkMmtnZC0+Z2V0X2F0Y192bWlkX3Bhc2lkX21h
-cHBpbmdfcGFzaWQKLQkJCQkJKGRldi0+a2dkLCB2bWlkKSA9PSBwLT5wYXNpZCkgewotCQkJCXBy
-X2RlYnVnKCJLaWxsaW5nIHdhdmUgZnJvbnRzIG9mIHZtaWQgJWQgYW5kIHBhc2lkIDB4JXhcbiIs
-Ci0JCQkJCQl2bWlkLCBwLT5wYXNpZCk7Ci0JCQkJYnJlYWs7Ci0JCQl9CisJCXN0YXR1cyA9IGRl
-di0+a2ZkMmtnZC0+Z2V0X2F0Y192bWlkX3Bhc2lkX21hcHBpbmdfaW5mbworCQkJCShkZXYtPmtn
-ZCwgdm1pZCwgJnF1ZXJpZWRfcGFzaWQpOworCisJCWlmIChzdGF0dXMgJiYgcXVlcmllZF9wYXNp
-ZCA9PSBwLT5wYXNpZCkgeworCQkJcHJfZGVidWcoIktpbGxpbmcgd2F2ZSBmcm9udHMgb2Ygdm1p
-ZCAlZCBhbmQgcGFzaWQgMHgleFxuIiwKKwkJCQkJdm1pZCwgcC0+cGFzaWQpOworCQkJYnJlYWs7
-CiAJCX0KIAl9CiAKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvaW5jbHVkZS9rZ2Rf
-a2ZkX2ludGVyZmFjZS5oIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9pbmNsdWRlL2tnZF9rZmRfaW50
-ZXJmYWNlLmgKaW5kZXggOWY1OTNjMmVlNGUwLi4zMmExYTUzMDEyZGQgMTAwNjQ0Ci0tLSBhL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvaW5jbHVkZS9rZ2Rfa2ZkX2ludGVyZmFjZS5oCisrKyBiL2RyaXZl
-cnMvZ3B1L2RybS9hbWQvaW5jbHVkZS9rZ2Rfa2ZkX2ludGVyZmFjZS5oCkBAIC0zMDAsMTIgKzMw
-MCwxMCBAQCBzdHJ1Y3Qga2ZkMmtnZF9jYWxscyB7CiAJdWludDMyX3QgKCphZGRyZXNzX3dhdGNo
-X2dldF9vZmZzZXQpKHN0cnVjdCBrZ2RfZGV2ICprZ2QsCiAJCQkJCXVuc2lnbmVkIGludCB3YXRj
-aF9wb2ludF9pZCwKIAkJCQkJdW5zaWduZWQgaW50IHJlZ19vZmZzZXQpOwotCWJvb2wgKCpnZXRf
-YXRjX3ZtaWRfcGFzaWRfbWFwcGluZ192YWxpZCkoCisJYm9vbCAoKmdldF9hdGNfdm1pZF9wYXNp
-ZF9tYXBwaW5nX2luZm8pKAogCQkJCQlzdHJ1Y3Qga2dkX2RldiAqa2dkLAotCQkJCQl1aW50OF90
-IHZtaWQpOwotCXVpbnQxNl90ICgqZ2V0X2F0Y192bWlkX3Bhc2lkX21hcHBpbmdfcGFzaWQpKAot
-CQkJCQlzdHJ1Y3Qga2dkX2RldiAqa2dkLAotCQkJCQl1aW50OF90IHZtaWQpOworCQkJCQl1aW50
-OF90IHZtaWQsCisJCQkJCXVpbnQxNl90ICpwX3Bhc2lkKTsKIAogCS8qIE5vIGxvbmdlciBuZWVk
-ZWQgZnJvbSBHRlh2OSBvbndhcmQuIFRoZSBzY3JhdGNoIGJhc2UgYWRkcmVzcyBpcwogCSAqIHBh
-c3NlZCB0byB0aGUgc2hhZGVyIGJ5IHRoZSBDUC4gSXQncyB0aGUgdXNlciBtb2RlIGRyaXZlcidz
-Ci0tIAoyLjE3LjEKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0
-dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
+--===============0908116970==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_DM6PR12MB2778D26FD0EC07F2DA570340F0860DM6PR12MB2778namp_"
+
+--_000_DM6PR12MB2778D26FD0EC07F2DA570340F0860DM6PR12MB2778namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+Hi Felix,
+
+I reworded this patch in the next series. Please review the first two patch=
+es in this series.
+
+Regards,
+Yong
+________________________________
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Zhao, Yo=
+ng <Yong.Zhao-5C7GfCeVMHo@public.gmane.org>
+Sent: Wednesday, September 25, 2019 2:34 PM
+To: Kuehling, Felix <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org=
+ <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Subject: Re: [PATCH 3/3] drm/amdkfd: Remove the control stack workaround fo=
+r GFX10
+
+Yes. I confirmed with CP guys and they said the behavior on GFX10 is the
+same as GFX8 now. I remember that the workaround on GFX9 was to help
+with a HW bug, but not too sure.
+
+Regards,
+
+Yong
+
+On 2019-09-25 2:25 p.m., Kuehling, Felix wrote:
+> On 2019-09-25 2:15 p.m., Zhao, Yong wrote:
+>> The GFX10 does not have this hardware bug any more, so remove it.
+> I wouldn't call this a bug and a workaround. More like a change in the
+> HW or FW behaviour and a corresponding driver change. I.e. in GFXv8 the
+> control stack was in the user mode CWSR allocation. In GFXv9 it moved
+> into a kernel mode buffer next to the MQD. So in GFXv10 the control
+> stack moved back into the user mode CWSR buffer?
+>
+> Regards,
+>     Felix
+>
+>> Change-Id: I446c9685549a09ac8846a42ee22d86cfb93fd98c
+>> Signed-off-by: Yong Zhao <Yong.Zhao-5C7GfCeVMHo@public.gmane.org>
+>> ---
+>>    .../gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c  | 37 ++----------------=
+-
+>>    1 file changed, 4 insertions(+), 33 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c b/drivers/=
+gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c
+>> index 9cd3eb2d90bd..4a236b2c2354 100644
+>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c
+>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c
+>> @@ -69,35 +69,13 @@ static void update_cu_mask(struct mqd_manager *mm, v=
+oid *mqd,
+>>    static struct kfd_mem_obj *allocate_mqd(struct kfd_dev *kfd,
+>>               struct queue_properties *q)
+>>    {
+>> -    int retval;
+>> -    struct kfd_mem_obj *mqd_mem_obj =3D NULL;
+>> +    struct kfd_mem_obj *mqd_mem_obj;
+>>
+>> -    /* From V9,  for CWSR, the control stack is located on the next pag=
+e
+>> -     * boundary after the mqd, we will use the gtt allocation function
+>> -     * instead of sub-allocation function.
+>> -     */
+>> -    if (kfd->cwsr_enabled && (q->type =3D=3D KFD_QUEUE_TYPE_COMPUTE)) {
+>> -            mqd_mem_obj =3D kzalloc(sizeof(struct kfd_mem_obj), GFP_NOI=
+O);
+>> -            if (!mqd_mem_obj)
+>> -                    return NULL;
+>> -            retval =3D amdgpu_amdkfd_alloc_gtt_mem(kfd->kgd,
+>> -                    ALIGN(q->ctl_stack_size, PAGE_SIZE) +
+>> -                            ALIGN(sizeof(struct v10_compute_mqd), PAGE_=
+SIZE),
+>> -                    &(mqd_mem_obj->gtt_mem),
+>> -                    &(mqd_mem_obj->gpu_addr),
+>> -                    (void *)&(mqd_mem_obj->cpu_ptr), true);
+>> -    } else {
+>> -            retval =3D kfd_gtt_sa_allocate(kfd, sizeof(struct v10_compu=
+te_mqd),
+>> -                            &mqd_mem_obj);
+>> -    }
+>> -
+>> -    if (retval) {
+>> -            kfree(mqd_mem_obj);
+>> +    if (kfd_gtt_sa_allocate(kfd, sizeof(struct v10_compute_mqd),
+>> +                    &mqd_mem_obj))
+>>               return NULL;
+>> -    }
+>>
+>>       return mqd_mem_obj;
+>> -
+>>    }
+>>
+>>    static void init_mqd(struct mqd_manager *mm, void **mqd,
+>> @@ -250,14 +228,7 @@ static int destroy_mqd(struct mqd_manager *mm, void=
+ *mqd,
+>>    static void free_mqd(struct mqd_manager *mm, void *mqd,
+>>                       struct kfd_mem_obj *mqd_mem_obj)
+>>    {
+>> -    struct kfd_dev *kfd =3D mm->dev;
+>> -
+>> -    if (mqd_mem_obj->gtt_mem) {
+>> -            amdgpu_amdkfd_free_gtt_mem(kfd->kgd, mqd_mem_obj->gtt_mem);
+>> -            kfree(mqd_mem_obj);
+>> -    } else {
+>> -            kfd_gtt_sa_free(mm->dev, mqd_mem_obj);
+>> -    }
+>> +    kfd_gtt_sa_free(mm->dev, mqd_mem_obj);
+>>    }
+>>
+>>    static bool is_occupied(struct mqd_manager *mm, void *mqd,
+_______________________________________________
+amd-gfx mailing list
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--_000_DM6PR12MB2778D26FD0EC07F2DA570340F0860DM6PR12MB2778namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Hi Felix,</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+I reworded this patch in the next series. Please review the first two patch=
+es in this series.</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Regards,</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<span style=3D"color: rgb(0, 0, 0); font-family: Calibri, Arial, Helvetica,=
+ sans-serif; font-size: 12pt;">Yong&nbsp;</span></div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
+ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Zhao, Yong &lt;Yong.Zhao@amd.=
+com&gt;<br>
+<b>Sent:</b> Wednesday, September 25, 2019 2:34 PM<br>
+<b>To:</b> Kuehling, Felix &lt;Felix.Kuehling-5C7GfCeVMHo@public.gmane.org&gt;; amd-gfx-PD4FTy7X32k@public.gmane.org=
+eedesktop.org &lt;amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt;<br>
+<b>Subject:</b> Re: [PATCH 3/3] drm/amdkfd: Remove the control stack workar=
+ound for GFX10</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">Yes. I confirmed with CP guys and they said the be=
+havior on GFX10 is the
+<br>
+same as GFX8 now. I remember that the workaround on GFX9 was to help <br>
+with a HW bug, but not too sure.<br>
+<br>
+Regards,<br>
+<br>
+Yong<br>
+<br>
+On 2019-09-25 2:25 p.m., Kuehling, Felix wrote:<br>
+&gt; On 2019-09-25 2:15 p.m., Zhao, Yong wrote:<br>
+&gt;&gt; The GFX10 does not have this hardware bug any more, so remove it.<=
+br>
+&gt; I wouldn't call this a bug and a workaround. More like a change in the=
+<br>
+&gt; HW or FW behaviour and a corresponding driver change. I.e. in GFXv8 th=
+e<br>
+&gt; control stack was in the user mode CWSR allocation. In GFXv9 it moved<=
+br>
+&gt; into a kernel mode buffer next to the MQD. So in GFXv10 the control<br=
+>
+&gt; stack moved back into the user mode CWSR buffer?<br>
+&gt;<br>
+&gt; Regards,<br>
+&gt;&nbsp;&nbsp; &nbsp; Felix<br>
+&gt;<br>
+&gt;&gt; Change-Id: I446c9685549a09ac8846a42ee22d86cfb93fd98c<br>
+&gt;&gt; Signed-off-by: Yong Zhao &lt;Yong.Zhao-5C7GfCeVMHo@public.gmane.org&gt;<br>
+&gt;&gt; ---<br>
+&gt;&gt;&nbsp;&nbsp;&nbsp; .../gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c&nbs=
+p; | 37 &#43;&#43;-----------------<br>
+&gt;&gt;&nbsp;&nbsp;&nbsp; 1 file changed, 4 insertions(&#43;), 33 deletion=
+s(-)<br>
+&gt;&gt;<br>
+&gt;&gt; diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c b/dr=
+ivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c<br>
+&gt;&gt; index 9cd3eb2d90bd..4a236b2c2354 100644<br>
+&gt;&gt; --- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c<br>
+&gt;&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c=
+<br>
+&gt;&gt; @@ -69,35 &#43;69,13 @@ static void update_cu_mask(struct mqd_mana=
+ger *mm, void *mqd,<br>
+&gt;&gt;&nbsp;&nbsp;&nbsp; static struct kfd_mem_obj *allocate_mqd(struct k=
+fd_dev *kfd,<br>
+&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp; struct queue_properties *q)<br>
+&gt;&gt;&nbsp;&nbsp;&nbsp; {<br>
+&gt;&gt; -&nbsp;&nbsp;&nbsp; int retval;<br>
+&gt;&gt; -&nbsp;&nbsp;&nbsp; struct kfd_mem_obj *mqd_mem_obj =3D NULL;<br>
+&gt;&gt; &#43;&nbsp;&nbsp;&nbsp; struct kfd_mem_obj *mqd_mem_obj;<br>
+&gt;&gt;&nbsp;&nbsp;&nbsp; <br>
+&gt;&gt; -&nbsp;&nbsp;&nbsp; /* From V9,&nbsp; for CWSR, the control stack =
+is located on the next page<br>
+&gt;&gt; -&nbsp;&nbsp;&nbsp;&nbsp; * boundary after the mqd, we will use th=
+e gtt allocation function<br>
+&gt;&gt; -&nbsp;&nbsp;&nbsp;&nbsp; * instead of sub-allocation function.<br=
+>
+&gt;&gt; -&nbsp;&nbsp;&nbsp;&nbsp; */<br>
+&gt;&gt; -&nbsp;&nbsp;&nbsp; if (kfd-&gt;cwsr_enabled &amp;&amp; (q-&gt;typ=
+e =3D=3D KFD_QUEUE_TYPE_COMPUTE)) {<br>
+&gt;&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+; mqd_mem_obj =3D kzalloc(sizeof(struct kfd_mem_obj), GFP_NOIO);<br>
+&gt;&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+; if (!mqd_mem_obj)<br>
+&gt;&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return NULL;<br>
+&gt;&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+; retval =3D amdgpu_amdkfd_alloc_gtt_mem(kfd-&gt;kgd,<br>
+&gt;&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ALIGN(q-&gt;ctl_stack_siz=
+e, PAGE_SIZE) &#43;<br>
+&gt;&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp; ALIGN(sizeof(struct v10_compute_mqd), PAGE_SIZE),<br=
+>
+&gt;&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &amp;(mqd_mem_obj-&gt;gtt=
+_mem),<br>
+&gt;&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &amp;(mqd_mem_obj-&gt;gpu=
+_addr),<br>
+&gt;&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (void *)&amp;(mqd_mem_obj=
+-&gt;cpu_ptr), true);<br>
+&gt;&gt; -&nbsp;&nbsp;&nbsp; } else {<br>
+&gt;&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+; retval =3D kfd_gtt_sa_allocate(kfd, sizeof(struct v10_compute_mqd),<br>
+&gt;&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp; &amp;mqd_mem_obj);<br>
+&gt;&gt; -&nbsp;&nbsp;&nbsp; }<br>
+&gt;&gt; -<br>
+&gt;&gt; -&nbsp;&nbsp;&nbsp; if (retval) {<br>
+&gt;&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+; kfree(mqd_mem_obj);<br>
+&gt;&gt; &#43;&nbsp;&nbsp;&nbsp; if (kfd_gtt_sa_allocate(kfd, sizeof(struct=
+ v10_compute_mqd),<br>
+&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &amp;mqd_mem_obj))<br=
+>
+&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp; return NULL;<br>
+&gt;&gt; -&nbsp;&nbsp;&nbsp; }<br>
+&gt;&gt;&nbsp;&nbsp;&nbsp; <br>
+&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return mqd_mem_obj;<br>
+&gt;&gt; -<br>
+&gt;&gt;&nbsp;&nbsp;&nbsp; }<br>
+&gt;&gt;&nbsp;&nbsp;&nbsp; <br>
+&gt;&gt;&nbsp;&nbsp;&nbsp; static void init_mqd(struct mqd_manager *mm, voi=
+d **mqd,<br>
+&gt;&gt; @@ -250,14 &#43;228,7 @@ static int destroy_mqd(struct mqd_manager=
+ *mm, void *mqd,<br>
+&gt;&gt;&nbsp;&nbsp;&nbsp; static void free_mqd(struct mqd_manager *mm, voi=
+d *mqd,<br>
+&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct kf=
+d_mem_obj *mqd_mem_obj)<br>
+&gt;&gt;&nbsp;&nbsp;&nbsp; {<br>
+&gt;&gt; -&nbsp;&nbsp;&nbsp; struct kfd_dev *kfd =3D mm-&gt;dev;<br>
+&gt;&gt; -<br>
+&gt;&gt; -&nbsp;&nbsp;&nbsp; if (mqd_mem_obj-&gt;gtt_mem) {<br>
+&gt;&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+; amdgpu_amdkfd_free_gtt_mem(kfd-&gt;kgd, mqd_mem_obj-&gt;gtt_mem);<br>
+&gt;&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+; kfree(mqd_mem_obj);<br>
+&gt;&gt; -&nbsp;&nbsp;&nbsp; } else {<br>
+&gt;&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+; kfd_gtt_sa_free(mm-&gt;dev, mqd_mem_obj);<br>
+&gt;&gt; -&nbsp;&nbsp;&nbsp; }<br>
+&gt;&gt; &#43;&nbsp;&nbsp;&nbsp; kfd_gtt_sa_free(mm-&gt;dev, mqd_mem_obj);<=
+br>
+&gt;&gt;&nbsp;&nbsp;&nbsp; }<br>
+&gt;&gt;&nbsp;&nbsp;&nbsp; <br>
+&gt;&gt;&nbsp;&nbsp;&nbsp; static bool is_occupied(struct mqd_manager *mm, =
+void *mqd,<br>
+_______________________________________________<br>
+amd-gfx mailing list<br>
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
+lists.freedesktop.org/mailman/listinfo/amd-gfx</a></div>
+</span></font></div>
+</body>
+</html>
+
+--_000_DM6PR12MB2778D26FD0EC07F2DA570340F0860DM6PR12MB2778namp_--
+
+--===============0908116970==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+
+--===============0908116970==--
