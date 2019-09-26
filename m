@@ -1,15 +1,14 @@
-From: "Feng, Kenneth" <Kenneth.Feng-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH 2/2] drm/amd/powerplay: add sensor lock support for smu
-Date: Thu, 26 Sep 2019 09:31:13 +0000
-Message-ID: <MN2PR12MB35981FFFBC659EB46A0591928E860@MN2PR12MB3598.namprd12.prod.outlook.com>
-References: <20190926085607.2510-1-kevin1.wang@amd.com>
- <20190926085607.2510-2-kevin1.wang@amd.com>
+From: "Liu, Shaoyun" <Shaoyun.Liu-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amdkfd: use navi12 specific family id for navi12 code
+ path
+Date: Thu, 26 Sep 2019 12:03:14 +0000
+Message-ID: <DM6PR12MB32419C43945D41CE2F6C0DA2F4860@DM6PR12MB3241.namprd12.prod.outlook.com>
+References: <1569446041-12694-1-git-send-email-shaoyun.liu@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============2079188914=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190926085607.2510-2-kevin1.wang-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
+In-Reply-To: <1569446041-12694-1-git-send-email-shaoyun.liu-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-CA
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -20,87 +19,350 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Wang, Kevin(Yang)" <Kevin1.Wang-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Huang, Ray" <Ray.Huang-5C7GfCeVMHo@public.gmane.org>
+To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-SGVyZSdzIHRoZSBjYXNlOiB0aGUgdXNlciBtb2RlIGRyaXZlciBhbmQgdGhlIHRlc3RlciBhY2Nl
-c3MgdGhlIHN5c2ZzIHNpbXVsdGFuZW91c2x5LgpUaGF0IGNhdXNlcyB0aGUgbWVzc2FnZS9wYXJh
-bWV0ZXIgbWlzbWF0Y2guClJldmlld2VkLWJ5OiBLZW5uZXRoIEZlbmcgPGtlbm5ldGguZmVuZ0Bh
-bWQuY29tPgoKCi0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tCkZyb206IFdhbmcsIEtldmluKFlh
-bmcpIApTZW50OiBUaHVyc2RheSwgU2VwdGVtYmVyIDI2LCAyMDE5IDQ6NTYgUE0KVG86IGFtZC1n
-ZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCkNjOiBIdWFuZywgUmF5IDxSYXkuSHVhbmdAYW1kLmNv
-bT47IEZlbmcsIEtlbm5ldGggPEtlbm5ldGguRmVuZ0BhbWQuY29tPjsgV2FuZywgS2V2aW4oWWFu
-ZykgPEtldmluMS5XYW5nQGFtZC5jb20+ClN1YmplY3Q6IFtQQVRDSCAyLzJdIGRybS9hbWQvcG93
-ZXJwbGF5OiBhZGQgc2Vuc29yIGxvY2sgc3VwcG9ydCBmb3Igc211Cgp3aGVuIG11bHRpdGhyZWFk
-aW5nIGFjY2VzcyBzeXNmcyBvZiBhbWRncHVfcG1faW5mbyBhdCB0aGUgc2FtZXRpbWUuCnRoZSBz
-d3NtdSBkcml2ZXIgY2F1c2Ugc211IGZpcm13YXJlIGhhbmcuCgplZzoKc2luZ2xlIHRocmVhZCBh
-Y2Nlc3M6Ck1lc3NhZ2UgQSArIFBhcmFtIEEgPT0+IHJpZ2h0Ck1lc3NhZ2UgQiArIFBhcmFtIEIg
-PT0+IHJpZ2h0Ck1lc3NhZ2UgQyArIFBhcmFtIEMgPT0+IHJpZ2h0Cm11bHRpdGhyZWFkaW5nIGFj
-Y2VzczoKTWVzc2FnZSBBICsgUGFyYW0gQiA9PT4gZXJyb3IKTWVzc2FnZSBCICsgUGFyYW0gQSA9
-PT4gZXJyb3IKTWVzc2FnZSBDICsgUGFyYW0gQyA9PT4gcmlnaHQKCnRoZSBwYXRjaCB3aWxsIGFk
-ZCBzZW5zb3IgbG9jayhtdXRleCkgdG8gYXZvaWQgdGhpcyBlcnJvci4KClNpZ25lZC1vZmYtYnk6
-IEtldmluIFdhbmcgPGtldmluMS53YW5nQGFtZC5jb20+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9wb3dlcnBsYXkvYW1kZ3B1X3NtdS5jICAgICB8IDIgKysKIGRyaXZlcnMvZ3B1L2RybS9hbWQv
-cG93ZXJwbGF5L2FyY3R1cnVzX3BwdC5jICAgfCAyICsrCiBkcml2ZXJzL2dwdS9kcm0vYW1kL3Bv
-d2VycGxheS9pbmMvYW1kZ3B1X3NtdS5oIHwgMSArCiBkcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2Vy
-cGxheS9uYXZpMTBfcHB0LmMgICAgIHwgMiArKwogZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBs
-YXkvdmVnYTIwX3BwdC5jICAgICB8IDIgKysKIDUgZmlsZXMgY2hhbmdlZCwgOSBpbnNlcnRpb25z
-KCspCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvYW1kZ3B1X3Nt
-dS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvYW1kZ3B1X3NtdS5jCmluZGV4IDIz
-MjkzZTE1NjM2Yi4uZGY1MTBjYjg2ZGE1IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1k
-L3Bvd2VycGxheS9hbWRncHVfc211LmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBs
-YXkvYW1kZ3B1X3NtdS5jCkBAIC04NDAsNiArODQwLDggQEAgc3RhdGljIGludCBzbXVfc3dfaW5p
-dCh2b2lkICpoYW5kbGUpCiAJc211LT5zbXVfYmFjby5zdGF0ZSA9IFNNVV9CQUNPX1NUQVRFX0VY
-SVQ7CiAJc211LT5zbXVfYmFjby5wbGF0Zm9ybV9zdXBwb3J0ID0gZmFsc2U7CiAKKwltdXRleF9p
-bml0KCZzbXUtPnNlbnNvcl9sb2NrKTsKKwogCXNtdS0+d2F0ZXJtYXJrc19iaXRtYXAgPSAwOwog
-CXNtdS0+cG93ZXJfcHJvZmlsZV9tb2RlID0gUFBfU01DX1BPV0VSX1BST0ZJTEVfQk9PVFVQX0RF
-RkFVTFQ7CiAJc211LT5kZWZhdWx0X3Bvd2VyX3Byb2ZpbGVfbW9kZSA9IFBQX1NNQ19QT1dFUl9Q
-Uk9GSUxFX0JPT1RVUF9ERUZBVUxUOwpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9w
-b3dlcnBsYXkvYXJjdHVydXNfcHB0LmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9h
-cmN0dXJ1c19wcHQuYwppbmRleCBhMDQ3YTdlYzM2OTguLmI5YjdiNzMzNTRhMCAxMDA2NDQKLS0t
-IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvYXJjdHVydXNfcHB0LmMKKysrIGIvZHJp
-dmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvYXJjdHVydXNfcHB0LmMKQEAgLTEwMjUsNiArMTAy
-NSw3IEBAIHN0YXRpYyBpbnQgYXJjdHVydXNfcmVhZF9zZW5zb3Ioc3RydWN0IHNtdV9jb250ZXh0
-ICpzbXUsCiAJaWYgKCFkYXRhIHx8ICFzaXplKQogCQlyZXR1cm4gLUVJTlZBTDsKIAorCW11dGV4
-X2xvY2soJnNtdS0+c2Vuc29yX2xvY2spOwogCXN3aXRjaCAoc2Vuc29yKSB7CiAJY2FzZSBBTURH
-UFVfUFBfU0VOU09SX01BWF9GQU5fUlBNOgogCQkqKHVpbnQzMl90ICopZGF0YSA9IHBwdGFibGUt
-PkZhbk1heGltdW1ScG07IEBAIC0xMDUxLDYgKzEwNTIsNyBAQCBzdGF0aWMgaW50IGFyY3R1cnVz
-X3JlYWRfc2Vuc29yKHN0cnVjdCBzbXVfY29udGV4dCAqc211LAogCWRlZmF1bHQ6CiAJCXJldCA9
-IHNtdV9zbWNfcmVhZF9zZW5zb3Ioc211LCBzZW5zb3IsIGRhdGEsIHNpemUpOwogCX0KKwltdXRl
-eF91bmxvY2soJnNtdS0+c2Vuc29yX2xvY2spOwogCiAJcmV0dXJuIHJldDsKIH0KZGlmZiAtLWdp
-dCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2luYy9hbWRncHVfc211LmggYi9kcml2
-ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9pbmMvYW1kZ3B1X3NtdS5oCmluZGV4IDVjODk4NDQ0
-ZmY5Ny4uYmM0YjczZTA3MThlIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2Vy
-cGxheS9pbmMvYW1kZ3B1X3NtdS5oCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5
-L2luYy9hbWRncHVfc211LmgKQEAgLTM1MCw2ICszNTAsNyBAQCBzdHJ1Y3Qgc211X2NvbnRleHQK
-IAljb25zdCBzdHJ1Y3Qgc211X2Z1bmNzCQkqZnVuY3M7CiAJY29uc3Qgc3RydWN0IHBwdGFibGVf
-ZnVuY3MJKnBwdF9mdW5jczsKIAlzdHJ1Y3QgbXV0ZXgJCQltdXRleDsKKwlzdHJ1Y3QgbXV0ZXgJ
-CQlzZW5zb3JfbG9jazsKIAl1aW50NjRfdCBwb29sX3NpemU7CiAKIAlzdHJ1Y3Qgc211X3RhYmxl
-X2NvbnRleHQJc211X3RhYmxlOwpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dl
-cnBsYXkvbmF2aTEwX3BwdC5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvbmF2aTEw
-X3BwdC5jCmluZGV4IGRiMmUxODFiYTQ1YS4uYzBiNjQwZDhkOWUxIDEwMDY0NAotLS0gYS9kcml2
-ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9uYXZpMTBfcHB0LmMKKysrIGIvZHJpdmVycy9ncHUv
-ZHJtL2FtZC9wb3dlcnBsYXkvbmF2aTEwX3BwdC5jCkBAIC0xMzg3LDYgKzEzODcsNyBAQCBzdGF0
-aWMgaW50IG5hdmkxMF9yZWFkX3NlbnNvcihzdHJ1Y3Qgc211X2NvbnRleHQgKnNtdSwKIAlpZigh
-ZGF0YSB8fCAhc2l6ZSkKIAkJcmV0dXJuIC1FSU5WQUw7CiAKKwltdXRleF9sb2NrKCZzbXUtPnNl
-bnNvcl9sb2NrKTsKIAlzd2l0Y2ggKHNlbnNvcikgewogCWNhc2UgQU1ER1BVX1BQX1NFTlNPUl9N
-QVhfRkFOX1JQTToKIAkJKih1aW50MzJfdCAqKWRhdGEgPSBwcHRhYmxlLT5GYW5NYXhpbXVtUnBt
-OyBAQCAtMTQxMCw2ICsxNDExLDcgQEAgc3RhdGljIGludCBuYXZpMTBfcmVhZF9zZW5zb3Ioc3Ry
-dWN0IHNtdV9jb250ZXh0ICpzbXUsCiAJZGVmYXVsdDoKIAkJcmV0ID0gc211X3NtY19yZWFkX3Nl
-bnNvcihzbXUsIHNlbnNvciwgZGF0YSwgc2l6ZSk7CiAJfQorCW11dGV4X3VubG9jaygmc211LT5z
-ZW5zb3JfbG9jayk7CiAKIAlyZXR1cm4gcmV0OwogfQpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUv
-ZHJtL2FtZC9wb3dlcnBsYXkvdmVnYTIwX3BwdC5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dl
-cnBsYXkvdmVnYTIwX3BwdC5jCmluZGV4IDkwODJkYTE1NzhkMS4uZjY1NWViZDliYTIyIDEwMDY0
-NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS92ZWdhMjBfcHB0LmMKKysrIGIv
-ZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvdmVnYTIwX3BwdC5jCkBAIC0zMDE3LDYgKzMw
-MTcsNyBAQCBzdGF0aWMgaW50IHZlZ2EyMF9yZWFkX3NlbnNvcihzdHJ1Y3Qgc211X2NvbnRleHQg
-KnNtdSwKIAlpZighZGF0YSB8fCAhc2l6ZSkKIAkJcmV0dXJuIC1FSU5WQUw7CiAKKwltdXRleF9s
-b2NrKCZzbXUtPnNlbnNvcl9sb2NrKTsKIAlzd2l0Y2ggKHNlbnNvcikgewogCWNhc2UgQU1ER1BV
-X1BQX1NFTlNPUl9NQVhfRkFOX1JQTToKIAkJKih1aW50MzJfdCAqKWRhdGEgPSBwcHRhYmxlLT5G
-YW5NYXhpbXVtUnBtOyBAQCAtMzA0Miw2ICszMDQzLDcgQEAgc3RhdGljIGludCB2ZWdhMjBfcmVh
-ZF9zZW5zb3Ioc3RydWN0IHNtdV9jb250ZXh0ICpzbXUsCiAJZGVmYXVsdDoKIAkJcmV0ID0gc211
-X3NtY19yZWFkX3NlbnNvcihzbXUsIHNlbnNvciwgZGF0YSwgc2l6ZSk7CiAJfQorCW11dGV4X3Vu
-bG9jaygmc211LT5zZW5zb3JfbG9jayk7CiAKIAlyZXR1cm4gcmV0OwogfQotLQoyLjE3LjEKCl9f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFp
-bGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJl
-ZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
+--===============2079188914==
+Content-Language: en-CA
+Content-Type: multipart/alternative;
+	boundary="_000_DM6PR12MB32419C43945D41CE2F6C0DA2F4860DM6PR12MB3241namp_"
+
+--_000_DM6PR12MB32419C43945D41CE2F6C0DA2F4860DM6PR12MB3241namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+Ping.
+________________________________
+From: Liu, Shaoyun <Shaoyun.Liu-5C7GfCeVMHo@public.gmane.org>
+Sent: September 25, 2019 5:14:08 PM
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: Liu, Shaoyun <Shaoyun.Liu-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH] drm/amdkfd: use navi12 specific family id for navi12 code =
+path
+
+Keep the same use of CHIP_IDs for navi12 in kfd
+
+Change-Id: I5e52bbc058be51e79553147732a571a604537b7c
+Signed-off-by: shaoyunl <shaoyun.liu-5C7GfCeVMHo@public.gmane.org>
+---
+ drivers/gpu/drm/amd/amdkfd/kfd_crat.c                 | 1 +
+ drivers/gpu/drm/amd/amdkfd/kfd_device.c               | 2 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c | 1 +
+ drivers/gpu/drm/amd/amdkfd/kfd_flat_memory.c          | 1 +
+ drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.c         | 1 +
+ drivers/gpu/drm/amd/amdkfd/kfd_packet_manager.c       | 1 +
+ drivers/gpu/drm/amd/amdkfd/kfd_topology.c             | 1 +
+ 7 files changed, 7 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c b/drivers/gpu/drm/amd/am=
+dkfd/kfd_crat.c
+index 1ef3c32..0c327e0 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
+@@ -676,6 +676,7 @@ static int kfd_fill_gpu_cache_info(struct kfd_dev *kdev=
+,
+                 num_of_cache_types =3D ARRAY_SIZE(renoir_cache_info);
+                 break;
+         case CHIP_NAVI10:
++       case CHIP_NAVI12:
+         case CHIP_NAVI14:
+                 pcache_info =3D navi10_cache_info;
+                 num_of_cache_types =3D ARRAY_SIZE(navi10_cache_info);
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device.c b/drivers/gpu/drm/amd/=
+amdkfd/kfd_device.c
+index 270389b..edfbae5c 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
+@@ -388,7 +388,7 @@ static const struct kfd_device_info navi10_device_info =
+=3D {
+ };
+
+ static const struct kfd_device_info navi12_device_info =3D {
+-       .asic_family =3D CHIP_NAVI10,
++       .asic_family =3D CHIP_NAVI12,
+         .asic_name =3D "navi12",
+         .max_pasid_bits =3D 16,
+         .max_no_of_hqd  =3D 24,
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/driver=
+s/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+index 399a612..54f0c5cc 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+@@ -1798,6 +1798,7 @@ struct device_queue_manager *device_queue_manager_ini=
+t(struct kfd_dev *dev)
+                 device_queue_manager_init_v9(&dqm->asic_ops);
+                 break;
+         case CHIP_NAVI10:
++       case CHIP_NAVI12:
+         case CHIP_NAVI14:
+                 device_queue_manager_init_v10_navi10(&dqm->asic_ops);
+                 break;
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_flat_memory.c b/drivers/gpu/drm=
+/amd/amdkfd/kfd_flat_memory.c
+index 4816614..450c991 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_flat_memory.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_flat_memory.c
+@@ -408,6 +408,7 @@ int kfd_init_apertures(struct kfd_process *process)
+                         case CHIP_RENOIR:
+                         case CHIP_ARCTURUS:
+                         case CHIP_NAVI10:
++                       case CHIP_NAVI12:
+                         case CHIP_NAVI14:
+                                 kfd_init_apertures_v9(pdd, id);
+                                 break;
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.c b/drivers/gpu/dr=
+m/amd/amdkfd/kfd_kernel_queue.c
+index 990ab54..11d2448 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.c
+@@ -335,6 +335,7 @@ struct kernel_queue *kernel_queue_init(struct kfd_dev *=
+dev,
+                 kernel_queue_init_v9(&kq->ops_asic_specific);
+                 break;
+         case CHIP_NAVI10:
++       case CHIP_NAVI12:
+         case CHIP_NAVI14:
+                 kernel_queue_init_v10(&kq->ops_asic_specific);
+                 break;
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager.c b/drivers/gpu/=
+drm/amd/amdkfd/kfd_packet_manager.c
+index af62be0..83ef4b3 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager.c
+@@ -244,6 +244,7 @@ int pm_init(struct packet_manager *pm, struct device_qu=
+eue_manager *dqm)
+                 pm->pmf =3D &kfd_v9_pm_funcs;
+                 break;
+         case CHIP_NAVI10:
++       case CHIP_NAVI12:
+         case CHIP_NAVI14:
+                 pm->pmf =3D &kfd_v10_pm_funcs;
+                 break;
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c b/drivers/gpu/drm/am=
+d/amdkfd/kfd_topology.c
+index f2170f0..453832e 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+@@ -1320,6 +1320,7 @@ int kfd_topology_add_device(struct kfd_dev *gpu)
+         case CHIP_RENOIR:
+         case CHIP_ARCTURUS:
+         case CHIP_NAVI10:
++       case CHIP_NAVI12:
+         case CHIP_NAVI14:
+                 dev->node_props.capability |=3D ((HSA_CAP_DOORBELL_TYPE_2_=
+0 <<
+                         HSA_CAP_DOORBELL_TYPE_TOTALBITS_SHIFT) &
+--
+2.7.4
+
+
+--_000_DM6PR12MB32419C43945D41CE2F6C0DA2F4860DM6PR12MB3241namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+</head>
+<body>
+Ping.
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Liu, Shaoyun &lt;Shao=
+yun.Liu-5C7GfCeVMHo@public.gmane.org&gt;<br>
+<b>Sent:</b> September 25, 2019 5:14:08 PM<br>
+<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org &lt;amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&=
+gt;<br>
+<b>Cc:</b> Liu, Shaoyun &lt;Shaoyun.Liu-5C7GfCeVMHo@public.gmane.org&gt;<br>
+<b>Subject:</b> [PATCH] drm/amdkfd: use navi12 specific family id for navi1=
+2 code path</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">Keep the same use of CHIP_IDs for navi12 in kfd<br=
+>
+<br>
+Change-Id: I5e52bbc058be51e79553147732a571a604537b7c<br>
+Signed-off-by: shaoyunl &lt;shaoyun.liu-5C7GfCeVMHo@public.gmane.org&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/amdkfd/kfd_crat.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | 1 &#43;<=
+br>
+&nbsp;drivers/gpu/drm/amd/amdkfd/kfd_device.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | 2 &#43;-<br>
+&nbsp;drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c | 1 &#43;<br>
+&nbsp;drivers/gpu/drm/amd/amdkfd/kfd_flat_memory.c&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | 1 &#43;<br>
+&nbsp;drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.c&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp; | 1 &#43;<br>
+&nbsp;drivers/gpu/drm/amd/amdkfd/kfd_packet_manager.c&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; | 1 &#43;<br>
+&nbsp;drivers/gpu/drm/amd/amdkfd/kfd_topology.c&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | 1 &#43;<br>
+&nbsp;7 files changed, 7 insertions(&#43;), 1 deletion(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c b/drivers/gpu/drm/amd/am=
+dkfd/kfd_crat.c<br>
+index 1ef3c32..0c327e0 100644<br>
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c<br>
+@@ -676,6 &#43;676,7 @@ static int kfd_fill_gpu_cache_info(struct kfd_dev *=
+kdev,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; num_of_cache_types =3D ARRAY_SIZE(renoir_cache_info);=
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; break;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_NAVI10:<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_NAVI12:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_NAVI14:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; pcache_info =3D navi10_cache_info;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; num_of_cache_types =3D ARRAY_SIZE(navi10_cache_info);=
+<br>
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device.c b/drivers/gpu/drm/amd/=
+amdkfd/kfd_device.c<br>
+index 270389b..edfbae5c 100644<br>
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_device.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdkfd/kfd_device.c<br>
+@@ -388,7 &#43;388,7 @@ static const struct kfd_device_info navi10_device_i=
+nfo =3D {<br>
+&nbsp;};<br>
+&nbsp;<br>
+&nbsp;static const struct kfd_device_info navi12_device_info =3D {<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .asic_family =3D CHIP_NAVI10,<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .asic_family =3D CHIP_NAVI12,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .asic_name =3D &quot;navi1=
+2&quot;,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .max_pasid_bits =3D 16,<br=
+>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .max_no_of_hqd&nbsp; =3D 2=
+4,<br>
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/driver=
+s/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c<br>
+index 399a612..54f0c5cc 100644<br>
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c<br>
+@@ -1798,6 &#43;1798,7 @@ struct device_queue_manager *device_queue_manager=
+_init(struct kfd_dev *dev)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; device_queue_manager_init_v9(&amp;dqm-&gt;asic_ops);<=
+br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; break;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_NAVI10:<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_NAVI12:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_NAVI14:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; device_queue_manager_init_v10_navi10(&amp;dqm-&gt;asi=
+c_ops);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; break;<br>
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_flat_memory.c b/drivers/gpu/drm=
+/amd/amdkfd/kfd_flat_memory.c<br>
+index 4816614..450c991 100644<br>
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_flat_memory.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdkfd/kfd_flat_memory.c<br>
+@@ -408,6 &#43;408,7 @@ int kfd_init_apertures(struct kfd_process *process)=
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case =
+CHIP_RENOIR:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case =
+CHIP_ARCTURUS:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case =
+CHIP_NAVI10:<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_NA=
+VI12:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case =
+CHIP_NAVI14:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfd_init_apertures_v9(pdd, id);<=
+br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; break;<br>
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.c b/drivers/gpu/dr=
+m/amd/amdkfd/kfd_kernel_queue.c<br>
+index 990ab54..11d2448 100644<br>
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.c<br>
+@@ -335,6 &#43;335,7 @@ struct kernel_queue *kernel_queue_init(struct kfd_d=
+ev *dev,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; kernel_queue_init_v9(&amp;kq-&gt;ops_asic_specific);<=
+br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; break;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_NAVI10:<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_NAVI12:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_NAVI14:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; kernel_queue_init_v10(&amp;kq-&gt;ops_asic_specific);=
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; break;<br>
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager.c b/drivers/gpu/=
+drm/amd/amdkfd/kfd_packet_manager.c<br>
+index af62be0..83ef4b3 100644<br>
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager.c<br>
+@@ -244,6 &#43;244,7 @@ int pm_init(struct packet_manager *pm, struct devic=
+e_queue_manager *dqm)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; pm-&gt;pmf =3D &amp;kfd_v9_pm_funcs;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; break;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_NAVI10:<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_NAVI12:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_NAVI14:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; pm-&gt;pmf =3D &amp;kfd_v10_pm_funcs;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; break;<br>
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c b/drivers/gpu/drm/am=
+d/amdkfd/kfd_topology.c<br>
+index f2170f0..453832e 100644<br>
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c<br>
+@@ -1320,6 &#43;1320,7 @@ int kfd_topology_add_device(struct kfd_dev *gpu)<=
+br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_RENOIR:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_ARCTURUS:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_NAVI10:<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_NAVI12:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_NAVI14:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; dev-&gt;node_props.capability |=3D ((HSA_CAP_DOORBELL=
+_TYPE_2_0 &lt;&lt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; HSA_C=
+AP_DOORBELL_TYPE_TOTALBITS_SHIFT) &amp;<br>
+-- <br>
+2.7.4<br>
+<br>
+</div>
+</span></font></div>
+</body>
+</html>
+
+--_000_DM6PR12MB32419C43945D41CE2F6C0DA2F4860DM6PR12MB3241namp_--
+
+--===============2079188914==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+
+--===============2079188914==--
