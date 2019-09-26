@@ -1,12 +1,16 @@
-From: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu/gmc10: apply the 'invalidation from sdma'
- workaround for navi
-Date: Thu, 26 Sep 2019 14:20:01 +0000
-Message-ID: <93f9508c-2871-4d48-9407-a0c3a6525bab@email.android.com>
+From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 2/2] drm/amd/powerplay: add sensor lock support for smu
+Date: Thu, 26 Sep 2019 15:06:18 +0000
+Message-ID: <BN6PR12MB180969DC3D8DCB2FBE655DB8F7860@BN6PR12MB1809.namprd12.prod.outlook.com>
+References: <20190926085607.2510-1-kevin1.wang@amd.com>
+ <20190926085607.2510-2-kevin1.wang@amd.com>,
+ <MN2PR12MB334488D05D2FAEF84C6D550EE4860@MN2PR12MB3344.namprd12.prod.outlook.com>,
+ <MN2PR12MB3296504F830A8D72700D11B1A2860@MN2PR12MB3296.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0239611760=="
+Content-Type: multipart/mixed; boundary="===============1215599947=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Content-Language: de-DE
+In-Reply-To: <MN2PR12MB3296504F830A8D72700D11B1A2860-rweVpJHSKTqAm9ToKNQgFgdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -17,283 +21,499 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Yuan,
- Xiaojie" <Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org>
+To: "Wang, Kevin(Yang)" <Kevin1.Wang-5C7GfCeVMHo@public.gmane.org>, "Quan, Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Huang, Ray" <Ray.Huang-5C7GfCeVMHo@public.gmane.org>, "Feng, Kenneth" <Kenneth.Feng-5C7GfCeVMHo@public.gmane.org>
 
---===============0239611760==
-Content-Language: de-DE
+--===============1215599947==
+Content-Language: en-US
 Content-Type: multipart/alternative;
-	boundary="_000_93f9508c28714d489407a0c3a6525babemailandroidcom_"
+	boundary="_000_BN6PR12MB180969DC3D8DCB2FBE655DB8F7860BN6PR12MB1809namp_"
 
---_000_93f9508c28714d489407a0c3a6525babemailandroidcom_
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+--_000_BN6PR12MB180969DC3D8DCB2FBE655DB8F7860BN6PR12MB1809namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-DQoNCkFtIDI2LjA5LjIwMTkgMTU6NTEgc2NocmllYiBBbGV4IERldWNoZXIgPGFsZXhkZXVjaGVy
-QGdtYWlsLmNvbT46DQpPbiBUaHUsIFNlcCAyNiwgMjAxOSBhdCA5OjQ3IEFNIEtvZW5pZywgQ2hy
-aXN0aWFuDQo8Q2hyaXN0aWFuLktvZW5pZ0BhbWQuY29tPiB3cm90ZToNCj4NCj4gQW0gMjYuMDku
-MTkgdW0gMTU6NDAgc2NocmllYiBBbGV4IERldWNoZXI6DQo+ID4gT24gVGh1LCBTZXAgMjYsIDIw
-MTkgYXQgODoyOSBBTSBDaHJpc3RpYW4gS8O2bmlnDQo+ID4gPGNrb2VuaWcubGVpY2h0enVtZXJr
-ZW5AZ21haWwuY29tPiB3cm90ZToNCj4gPj4gU3RvcCwgd2FpdCBhIHNlY29uZCBndXlzIQ0KPiA+
-Pg0KPiA+PiBUaGlzIHdpbGwgZGlzYWJsZSB0aGUgd29ya2Fyb3VuZCBmb3IgTmF2aTEwIGFuZCB0
-aGF0IGlzIGNlcnRhaW5seSBub3QgY29ycmVjdDoNCj4gPj4NCj4gPj4gIShhZGV2LT5hc2ljX3R5
-cGUgPj0gQ0hJUF9OQVZJMTAgJiYgYWRldi0+YXNpY190eXBlIDw9IENISVBfTkFWSTEyKQ0KPiA+
-Pg0KPiA+IEFjdHVhbGx5LCBJIHRoaW5rIGl0J3MgY29ycmVjdC4gV2hlbiBJIG1lcmdlZCB0aGUg
-YmFjbyBwYXRjaCwgSQ0KPiA+IGFjY2lkZW50YWxseSBkcm9wcGVkIHRoZSBuYXZpIGNoZWNrcy4g
-IEUuZy4sDQo+ID4gQEAgLTI0NSw4ICsyNDUsOSBAQCBzdGF0aWMgdm9pZCBnbWNfdjEwXzBfZmx1
-c2hfZ3B1X3RsYihzdHJ1Y3QNCj4gPiBhbWRncHVfZGV2aWNlICphZGV2LA0KPiA+ICAgICAgICAg
-IG11dGV4X2xvY2soJmFkZXYtPm1tYW4uZ3R0X3dpbmRvd19sb2NrKTsNCj4gPg0KPiA+ICAgICAg
-ICAgIGdtY192MTBfMF9mbHVzaF92bV9odWIoYWRldiwgdm1pZCwgQU1ER1BVX01NSFVCLCAwKTsN
-Cj4gPiAtICAgICAgIGlmICghYWRldi0+bW1hbi5idWZmZXJfZnVuY3NfZW5hYmxlZCB8fCAhYWRl
-di0+aWJfcG9vbF9yZWFkeSB8fA0KPiA+IC0gICAgICAgICAgIGFkZXYtPmFzaWNfdHlwZSAhPSBD
-SElQX05BVkkxMCkgew0KPiA+ICsgICAgICAgaWYgKCFhZGV2LT5tbWFuLmJ1ZmZlcl9mdW5jc19l
-bmFibGVkIHx8DQo+ID4gKyAgICAgICAgICAgIWFkZXYtPmliX3Bvb2xfcmVhZHkgfHwNCj4gPiAr
-ICAgICAgICAgICBhZGV2LT5pbl9ncHVfcmVzZXQpIHsNCj4gPiAgICAgICAgICAgICAgICAgIGdt
-Y192MTBfMF9mbHVzaF92bV9odWIoYWRldiwgdm1pZCwgQU1ER1BVX0dGWEhVQiwgMCk7DQo+ID4g
-ICAgICAgICAgICAgICAgICBtdXRleF91bmxvY2soJmFkZXYtPm1tYW4uZ3R0X3dpbmRvd19sb2Nr
-KTsNCj4gPiAgICAgICAgICAgICAgICAgIHJldHVybjsNCj4gPiBJIHRoaW5rIGl0IHNob3VsZCBo
-YXZlIGJlZW4NCj4gPiBhZGV2LT5hc2ljX3R5cGUgIT0gQ0hJUF9OQVZJMTAgJiYgYWRldi0+YXNp
-Y190eXBlICE9IENISVBfTkFWSTE0ICYmDQo+ID4gYWRldi0+YXNpY190eXBlICE9IENISVBfTkFW
-STEyDQo+DQo+IE15IGxhc3Qgc3RhdHVzIGlzIHRoYXQgTmF2aTEyIGlzIG5vdCBzdXBwb3NlZCB0
-byBuZWVkIHRoYXQgd29ya2Fyb3VuZCwNCj4gdGhhdCdzIHdoeSB3ZSBjaGVja2VkIE5hdmkxMCBh
-bmQgbGF0ZXIgTmF2aTE0IHNlcGFyYXRlbHkuDQo+DQo+IEl0J3MgcG9zc2libGUgdGhhdCBJIG1p
-c3MtcmVhZCB0aGUgIShhZGV2LT5hc2ljX3R5cGUgPj0gQ0hJUF9OQVZJMTAgJiYNCj4gYWRldi0+
-YXNpY190eXBlIDw9IENISVBfTkFWSTEyKSBjaGVjayBoZXJlLCBidXQgZWl0aGVyIHdheSB0aGF0
-IGxvb2tzIHRvDQo+IGNvbXBsaWNhdGVkIHRvIG1lLg0KPg0KPiBXZSBzaG91bGQgcmF0aGVyIG1l
-bnRpb24gZXZlcnkgYWZmZWN0ZWQgYXNpYyB0eXBlIHNlcGFyYXRlbHkgaGVyZS4NCg0KR29vZCBw
-b2ludC4gIG5hdmkxMiBzaG91bGQgYmUgZHJvcHBlZCBmcm9tIHRoZSBjaGVjay4gIEhvdyBhYm91
-dCB0aGUgZm9sbG93aW5nPw0KDQpJIHdvdWxkIHJhdGhlciB0ZXN0IGV4cGxpY2l0bHkgZm9yIE5h
-dmkgMTAgYW5kIDE0LCBjYXVzZSB3ZSBjYW4ndCBiZSBzdXJlIGlmIHRoZXJlIHdvbid0IGJlIGFu
-b3RoZXIgdmFyaWFudCBpbiB0aGUgZnV0dXJlLg0KDQpDaHJpc3RpYW4uDQoNCg0KZGlmZiAtLWdp
-dCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192MTBfMC5jDQpiL2RyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1kZ3B1L2dtY192MTBfMC5jDQppbmRleCAyNDFhNGU1N2NmNGEuLjI4MGJiZDdj
-YThhMCAxMDA2NDQNCi0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192MTBfMC5j
-DQorKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNfdjEwXzAuYw0KQEAgLTI5Miw3
-ICsyOTIsOCBAQCBzdGF0aWMgdm9pZCBnbWNfdjEwXzBfZmx1c2hfZ3B1X3RsYihzdHJ1Y3QNCmFt
-ZGdwdV9kZXZpY2UgKmFkZXYsIHVpbnQzMl90IHZtaWQsDQoNCiAgICAgICAgaWYgKCFhZGV2LT5t
-bWFuLmJ1ZmZlcl9mdW5jc19lbmFibGVkIHx8DQogICAgICAgICAgICAhYWRldi0+aWJfcG9vbF9y
-ZWFkeSB8fA0KLSAgICAgICAgICAgYWRldi0+aW5fZ3B1X3Jlc2V0KSB7DQorICAgICAgICAgICBh
-ZGV2LT5pbl9ncHVfcmVzZXQgfHwNCisgICAgICAgICAgIChhZGV2LT5hc2ljX3R5cGUgPT0gQ0hJ
-UF9OQVZJMTIpKSB7DQogICAgICAgICAgICAgICAgZ21jX3YxMF8wX2ZsdXNoX3ZtX2h1YihhZGV2
-LCB2bWlkLCBBTURHUFVfR0ZYSFVCXzAsIDApOw0KICAgICAgICAgICAgICAgIG11dGV4X3VubG9j
-aygmYWRldi0+bW1hbi5ndHRfd2luZG93X2xvY2spOw0KICAgICAgICAgICAgICAgIHJldHVybjsN
-Cg0KQWxleA0KDQo+DQo+IFJlZ2FyZHMsDQo+IENocmlzdGlhbi4NCj4NCj4gPg0KPiA+IEFsZXgN
-Cj4gPg0KPiA+PiBDaHJpc3RpYW4uDQo+ID4+DQo+ID4+DQo+ID4+IEFtIDI2LjA5LjE5IHVtIDE0
-OjI2IHNjaHJpZWIgRGV1Y2hlciwgQWxleGFuZGVyOg0KPiA+Pg0KPiA+PiBQbGVhc2UgYWRkIGEg
-cGF0Y2ggZGVzY3JpcHRpb24uICBXaXRoIHRoYXQgZml4ZWQ6DQo+ID4+IFJldmlld2VkLWJ5OiBB
-bGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+DQo+ID4+IF9fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fDQo+ID4+IEZyb206IGFtZC1nZnggPGFtZC1nZngtYm91bmNl
-c0BsaXN0cy5mcmVlZGVza3RvcC5vcmc+IG9uIGJlaGFsZiBvZiBZdWFuLCBYaWFvamllIDxYaWFv
-amllLll1YW5AYW1kLmNvbT4NCj4gPj4gU2VudDogVGh1cnNkYXksIFNlcHRlbWJlciAyNiwgMjAx
-OSA0OjA5IEFNDQo+ID4+IFRvOiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZyA8YW1kLWdm
-eEBsaXN0cy5mcmVlZGVza3RvcC5vcmc+DQo+ID4+IENjOiBhbGV4ZGV1Y2hlckBnbWFpbC5jb20g
-PGFsZXhkZXVjaGVyQGdtYWlsLmNvbT4NCj4gPj4gU3ViamVjdDogUmU6IFtQQVRDSF0gZHJtL2Ft
-ZGdwdS9nbWMxMDogYXBwbHkgdGhlICdpbnZhbGlkYXRpb24gZnJvbSBzZG1hJyB3b3JrYXJvdW5k
-IGZvciBuYXZpDQo+ID4+DQo+ID4+IEhpIEFsZXgsDQo+ID4+DQo+ID4+IFRoaXMgcGF0Y2ggaXMg
-dG8gYWRkIHRoZSBhc2ljX3R5cGUgY2hlY2sgd2hpY2ggaXMgbWlzc2luZyBhZnRlciBkcm0tbmV4
-dCBicmFuY2ggcmViYXNlLg0KPiA+Pg0KPiA+PiBCUiwNCj4gPj4gWGlhb2ppZQ0KPiA+PiBfX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fXw0KPiA+PiBGcm9tOiBZdWFuLCBYaWFvamllIDxY
-aWFvamllLll1YW5AYW1kLmNvbT4NCj4gPj4gU2VudDogVGh1cnNkYXksIFNlcHRlbWJlciAyNiwg
-MjAxOSA0OjA4IFBNDQo+ID4+IFRvOiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZyA8YW1k
-LWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmc+DQo+ID4+IENjOiBhbGV4ZGV1Y2hlckBnbWFpbC5j
-b20gPGFsZXhkZXVjaGVyQGdtYWlsLmNvbT47IFl1YW4sIFhpYW9qaWUgPFhpYW9qaWUuWXVhbkBh
-bWQuY29tPg0KPiA+PiBTdWJqZWN0OiBbUEFUQ0hdIGRybS9hbWRncHUvZ21jMTA6IGFwcGx5IHRo
-ZSAnaW52YWxpZGF0aW9uIGZyb20gc2RtYScgd29ya2Fyb3VuZCBmb3IgbmF2aQ0KPiA+Pg0KPiA+
-PiBGaXhlczogNzY3YWNhYmRhYzgxICgiZHJtL2FtZC9wb3dlcnBsYXk6IGFkZCBiYWNvIHNtdSBy
-ZXNldCBmdW5jdGlvbiBmb3Igc211MTEiKQ0KPiA+PiBTaWduZWQtb2ZmLWJ5OiBYaWFvamllIFl1
-YW4gPHhpYW9qaWUueXVhbkBhbWQuY29tPg0KPiA+PiAtLS0NCj4gPj4gICBkcml2ZXJzL2dwdS9k
-cm0vYW1kL2FtZGdwdS9nbWNfdjEwXzAuYyB8IDEgKw0KPiA+PiAgIDEgZmlsZSBjaGFuZ2VkLCAx
-IGluc2VydGlvbigrKQ0KPiA+Pg0KPiA+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9hbWRncHUvZ21jX3YxMF8wLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNfdjEw
-XzAuYw0KPiA+PiBpbmRleCBjYjNmNjE4NzNiYWEuLmRjMmU2OGUwMTllYiAxMDA2NDQNCj4gPj4g
-LS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ21jX3YxMF8wLmMNCj4gPj4gKysrIGIv
-ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ21jX3YxMF8wLmMNCj4gPj4gQEAgLTI5Miw2ICsy
-OTIsNyBAQCBzdGF0aWMgdm9pZCBnbWNfdjEwXzBfZmx1c2hfZ3B1X3RsYihzdHJ1Y3QgYW1kZ3B1
-X2RldmljZSAqYWRldiwgdWludDMyX3Qgdm1pZCwNCj4gPj4NCj4gPj4gICAgICAgICAgIGlmICgh
-YWRldi0+bW1hbi5idWZmZXJfZnVuY3NfZW5hYmxlZCB8fA0KPiA+PiAgICAgICAgICAgICAgICFh
-ZGV2LT5pYl9wb29sX3JlYWR5IHx8DQo+ID4+ICsgICAgICAgICAgICEoYWRldi0+YXNpY190eXBl
-ID49IENISVBfTkFWSTEwICYmIGFkZXYtPmFzaWNfdHlwZSA8PSBDSElQX05BVkkxMikgfHwNCj4g
-Pj4gICAgICAgICAgICAgICBhZGV2LT5pbl9ncHVfcmVzZXQpIHsNCj4gPj4gICAgICAgICAgICAg
-ICAgICAgZ21jX3YxMF8wX2ZsdXNoX3ZtX2h1YihhZGV2LCB2bWlkLCBBTURHUFVfR0ZYSFVCXzAs
-IDApOw0KPiA+PiAgICAgICAgICAgICAgICAgICBtdXRleF91bmxvY2soJmFkZXYtPm1tYW4uZ3R0
-X3dpbmRvd19sb2NrKTsNCj4gPj4gLS0NCj4gPj4gMi4yMC4xDQo+ID4+DQo+ID4+DQo+ID4+IF9f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fDQo+ID4+IGFtZC1n
-ZnggbWFpbGluZyBsaXN0DQo+ID4+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnDQo+ID4+
-IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA0K
-PiA+Pg0KPiA+Pg0KPg0KDQo=
+Does the older powerplay code need a similar fix?
 
---_000_93f9508c28714d489407a0c3a6525babemailandroidcom_
-Content-Type: text/html; charset="utf-8"
-Content-ID: <735B4F743BC10C4D998DF6AED2AEB39F-t0aD9ArCiwdO0n7uQEQMm4CZgX+1HZI1@public.gmane.org>
-Content-Transfer-Encoding: base64
+Alex
+________________________________
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Wang, Ke=
+vin(Yang) <Kevin1.Wang-5C7GfCeVMHo@public.gmane.org>
+Sent: Thursday, September 26, 2019 9:06 AM
+To: Quan, Evan <Evan.Quan-5C7GfCeVMHo@public.gmane.org>; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org <amd-gfx@=
+lists.freedesktop.org>
+Cc: Huang, Ray <Ray.Huang-5C7GfCeVMHo@public.gmane.org>; Feng, Kenneth <Kenneth.Feng-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 2/2] drm/amd/powerplay: add sensor lock support for smu
 
-PGh0bWw+DQo8aGVhZD4NCjxtZXRhIGh0dHAtZXF1aXY9IkNvbnRlbnQtVHlwZSIgY29udGVudD0i
-dGV4dC9odG1sOyBjaGFyc2V0PXV0Zi04Ij4NCjwvaGVhZD4NCjxib2R5Pg0KPGRpdiBkaXI9ImF1
-dG8iPg0KPGRpdj48YnI+DQo8ZGl2IGNsYXNzPSJnbWFpbF9leHRyYSI+PGJyPg0KPGRpdiBjbGFz
-cz0iZ21haWxfcXVvdGUiPkFtIDI2LjA5LjIwMTkgMTU6NTEgc2NocmllYiBBbGV4IERldWNoZXIg
-Jmx0O2FsZXhkZXVjaGVyQGdtYWlsLmNvbSZndDs6PGJyIHR5cGU9ImF0dHJpYnV0aW9uIj4NCjxi
-bG9ja3F1b3RlIGNsYXNzPSJxdW90ZSIgc3R5bGU9Im1hcmdpbjowIDAgMCAuOGV4O2JvcmRlci1s
-ZWZ0OjFweCAjY2NjIHNvbGlkO3BhZGRpbmctbGVmdDoxZXgiPg0KPGRpdj48Zm9udCBzaXplPSIy
-Ij48c3BhbiBzdHlsZT0iZm9udC1zaXplOjExcHQiPg0KPGRpdj5PbiBUaHUsIFNlcCAyNiwgMjAx
-OSBhdCA5OjQ3IEFNIEtvZW5pZywgQ2hyaXN0aWFuPGJyPg0KJmx0O0NocmlzdGlhbi5Lb2VuaWdA
-YW1kLmNvbSZndDsgd3JvdGU6PGJyPg0KJmd0Ozxicj4NCiZndDsgQW0gMjYuMDkuMTkgdW0gMTU6
-NDAgc2NocmllYiBBbGV4IERldWNoZXI6PGJyPg0KJmd0OyAmZ3Q7IE9uIFRodSwgU2VwIDI2LCAy
-MDE5IGF0IDg6MjkgQU0gQ2hyaXN0aWFuIEvDtm5pZzxicj4NCiZndDsgJmd0OyAmbHQ7Y2tvZW5p
-Zy5sZWljaHR6dW1lcmtlbkBnbWFpbC5jb20mZ3Q7IHdyb3RlOjxicj4NCiZndDsgJmd0OyZndDsg
-U3RvcCwgd2FpdCBhIHNlY29uZCBndXlzITxicj4NCiZndDsgJmd0OyZndDs8YnI+DQomZ3Q7ICZn
-dDsmZ3Q7IFRoaXMgd2lsbCBkaXNhYmxlIHRoZSB3b3JrYXJvdW5kIGZvciBOYXZpMTAgYW5kIHRo
-YXQgaXMgY2VydGFpbmx5IG5vdCBjb3JyZWN0Ojxicj4NCiZndDsgJmd0OyZndDs8YnI+DQomZ3Q7
-ICZndDsmZ3Q7ICEoYWRldi0mZ3Q7YXNpY190eXBlICZndDs9IENISVBfTkFWSTEwICZhbXA7JmFt
-cDsgYWRldi0mZ3Q7YXNpY190eXBlICZsdDs9IENISVBfTkFWSTEyKTxicj4NCiZndDsgJmd0OyZn
-dDs8YnI+DQomZ3Q7ICZndDsgQWN0dWFsbHksIEkgdGhpbmsgaXQncyBjb3JyZWN0LiBXaGVuIEkg
-bWVyZ2VkIHRoZSBiYWNvIHBhdGNoLCBJPGJyPg0KJmd0OyAmZ3Q7IGFjY2lkZW50YWxseSBkcm9w
-cGVkIHRoZSBuYXZpIGNoZWNrcy4mbmJzcDsgRS5nLiw8YnI+DQomZ3Q7ICZndDsgQEAgLTI0NSw4
-ICYjNDM7MjQ1LDkgQEAgc3RhdGljIHZvaWQgZ21jX3YxMF8wX2ZsdXNoX2dwdV90bGIoc3RydWN0
-PGJyPg0KJmd0OyAmZ3Q7IGFtZGdwdV9kZXZpY2UgKmFkZXYsPGJyPg0KJmd0OyAmZ3Q7Jm5ic3A7
-Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7IG11dGV4X2xv
-Y2soJmFtcDthZGV2LSZndDttbWFuLmd0dF93aW5kb3dfbG9jayk7PGJyPg0KJmd0OyAmZ3Q7PGJy
-Pg0KJmd0OyAmZ3Q7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5i
-c3A7Jm5ic3A7IGdtY192MTBfMF9mbHVzaF92bV9odWIoYWRldiwgdm1pZCwgQU1ER1BVX01NSFVC
-LCAwKTs8YnI+DQomZ3Q7ICZndDsgLSZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNw
-OyBpZiAoIWFkZXYtJmd0O21tYW4uYnVmZmVyX2Z1bmNzX2VuYWJsZWQgfHwgIWFkZXYtJmd0O2li
-X3Bvb2xfcmVhZHkgfHw8YnI+DQomZ3Q7ICZndDsgLSZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZu
-YnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyBhZGV2LSZndDthc2ljX3R5cGUgIT0g
-Q0hJUF9OQVZJMTApIHs8IS0tIC0tPjxicj4NCiZndDsgJmd0OyAmIzQzOyZuYnNwOyZuYnNwOyZu
-YnNwOyZuYnNwOyZuYnNwOyZuYnNwOyBpZiAoIWFkZXYtJmd0O21tYW4uYnVmZmVyX2Z1bmNzX2Vu
-YWJsZWQgfHw8YnI+DQomZ3Q7ICZndDsgJiM0MzsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJz
-cDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsgIWFkZXYtJmd0O2liX3Bvb2xfcmVhZHkg
-fHw8YnI+DQomZ3Q7ICZndDsgJiM0MzsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJz
-cDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsgYWRldi0mZ3Q7aW5fZ3B1X3Jlc2V0KSB7PCEtLSAt
-LT48YnI+DQomZ3Q7ICZndDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJz
-cDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsm
-bmJzcDsgZ21jX3YxMF8wX2ZsdXNoX3ZtX2h1YihhZGV2LCB2bWlkLCBBTURHUFVfR0ZYSFVCLCAw
-KTs8YnI+DQomZ3Q7ICZndDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJz
-cDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsm
-bmJzcDsgbXV0ZXhfdW5sb2NrKCZhbXA7YWRldi0mZ3Q7bW1hbi5ndHRfd2luZG93X2xvY2spOzxi
-cj4NCiZndDsgJmd0OyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZu
-YnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNw
-OyByZXR1cm47PGJyPg0KJmd0OyAmZ3Q7IEkgdGhpbmsgaXQgc2hvdWxkIGhhdmUgYmVlbjxicj4N
-CiZndDsgJmd0OyBhZGV2LSZndDthc2ljX3R5cGUgIT0gQ0hJUF9OQVZJMTAgJmFtcDsmYW1wOyBh
-ZGV2LSZndDthc2ljX3R5cGUgIT0gQ0hJUF9OQVZJMTQgJmFtcDsmYW1wOzxicj4NCiZndDsgJmd0
-OyBhZGV2LSZndDthc2ljX3R5cGUgIT0gQ0hJUF9OQVZJMTI8YnI+DQomZ3Q7PGJyPg0KJmd0OyBN
-eSBsYXN0IHN0YXR1cyBpcyB0aGF0IE5hdmkxMiBpcyBub3Qgc3VwcG9zZWQgdG8gbmVlZCB0aGF0
-IHdvcmthcm91bmQsPGJyPg0KJmd0OyB0aGF0J3Mgd2h5IHdlIGNoZWNrZWQgTmF2aTEwIGFuZCBs
-YXRlciBOYXZpMTQgc2VwYXJhdGVseS48YnI+DQomZ3Q7PGJyPg0KJmd0OyBJdCdzIHBvc3NpYmxl
-IHRoYXQgSSBtaXNzLXJlYWQgdGhlICEoYWRldi0mZ3Q7YXNpY190eXBlICZndDs9IENISVBfTkFW
-STEwICZhbXA7JmFtcDs8YnI+DQomZ3Q7IGFkZXYtJmd0O2FzaWNfdHlwZSAmbHQ7PSBDSElQX05B
-VkkxMikgY2hlY2sgaGVyZSwgYnV0IGVpdGhlciB3YXkgdGhhdCBsb29rcyB0bzxicj4NCiZndDsg
-Y29tcGxpY2F0ZWQgdG8gbWUuPGJyPg0KJmd0Ozxicj4NCiZndDsgV2Ugc2hvdWxkIHJhdGhlciBt
-ZW50aW9uIGV2ZXJ5IGFmZmVjdGVkIGFzaWMgdHlwZSBzZXBhcmF0ZWx5IGhlcmUuPGJyPg0KPGJy
-Pg0KR29vZCBwb2ludC4mbmJzcDsgbmF2aTEyIHNob3VsZCBiZSBkcm9wcGVkIGZyb20gdGhlIGNo
-ZWNrLiZuYnNwOyBIb3cgYWJvdXQgdGhlIGZvbGxvd2luZz88YnI+DQo8L2Rpdj4NCjwvc3Bhbj48
-L2ZvbnQ+PC9kaXY+DQo8L2Jsb2NrcXVvdGU+DQo8L2Rpdj4NCjwvZGl2Pg0KPC9kaXY+DQo8ZGl2
-IGRpcj0iYXV0byI+PGJyPg0KPC9kaXY+DQo8ZGl2IGRpcj0iYXV0byI+SSB3b3VsZCByYXRoZXIg
-dGVzdCBleHBsaWNpdGx5IGZvciBOYXZpIDEwIGFuZCAxNCwgY2F1c2Ugd2UgY2FuJ3QgYmUgc3Vy
-ZSBpZiB0aGVyZSB3b24ndCBiZSBhbm90aGVyIHZhcmlhbnQgaW4gdGhlIGZ1dHVyZS48L2Rpdj4N
-CjxkaXYgZGlyPSJhdXRvIj48YnI+DQo8L2Rpdj4NCjxkaXYgZGlyPSJhdXRvIj5DaHJpc3RpYW4u
-PC9kaXY+DQo8ZGl2IGRpcj0iYXV0byI+PGJyPg0KPC9kaXY+DQo8ZGl2IGRpcj0iYXV0byI+DQo8
-ZGl2IGNsYXNzPSJnbWFpbF9leHRyYSI+DQo8ZGl2IGNsYXNzPSJnbWFpbF9xdW90ZSI+DQo8Ymxv
-Y2txdW90ZSBjbGFzcz0icXVvdGUiIHN0eWxlPSJtYXJnaW46MCAwIDAgLjhleDtib3JkZXItbGVm
-dDoxcHggI2NjYyBzb2xpZDtwYWRkaW5nLWxlZnQ6MWV4Ij4NCjxkaXY+PGZvbnQgc2l6ZT0iMiI+
-PHNwYW4gc3R5bGU9ImZvbnQtc2l6ZToxMXB0Ij4NCjxkaXY+PGJyPg0KZGlmZiAtLWdpdCBhL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192MTBfMC5jPGJyPg0KYi9kcml2ZXJzL2dwdS9k
-cm0vYW1kL2FtZGdwdS9nbWNfdjEwXzAuYzxicj4NCmluZGV4IDI0MWE0ZTU3Y2Y0YS4uMjgwYmJk
-N2NhOGEwIDEwMDY0NDxicj4NCi0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192
-MTBfMC5jPGJyPg0KJiM0MzsmIzQzOyYjNDM7IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
-Z21jX3YxMF8wLmM8YnI+DQpAQCAtMjkyLDcgJiM0MzsyOTIsOCBAQCBzdGF0aWMgdm9pZCBnbWNf
-djEwXzBfZmx1c2hfZ3B1X3RsYihzdHJ1Y3Q8YnI+DQphbWRncHVfZGV2aWNlICphZGV2LCB1aW50
-MzJfdCB2bWlkLDxicj4NCjxicj4NCiZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNw
-OyZuYnNwOyBpZiAoIWFkZXYtJmd0O21tYW4uYnVmZmVyX2Z1bmNzX2VuYWJsZWQgfHw8YnI+DQom
-bmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJz
-cDsmbmJzcDsgIWFkZXYtJmd0O2liX3Bvb2xfcmVhZHkgfHw8YnI+DQotJm5ic3A7Jm5ic3A7Jm5i
-c3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7IGFkZXYtJmd0O2lu
-X2dwdV9yZXNldCkgezwhLS0gLS0+PGJyPg0KJiM0MzsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsm
-bmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsgYWRldi0mZ3Q7aW5fZ3B1X3Jlc2V0
-IHx8PGJyPg0KJiM0MzsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsm
-bmJzcDsmbmJzcDsmbmJzcDsgKGFkZXYtJmd0O2FzaWNfdHlwZSA9PSBDSElQX05BVkkxMikpIHs8
-IS0tIC0tPjxicj4NCiZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZu
-YnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyBnbWNfdjEwXzBf
-Zmx1c2hfdm1faHViKGFkZXYsIHZtaWQsIEFNREdQVV9HRlhIVUJfMCwgMCk7PGJyPg0KJm5ic3A7
-Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5i
-c3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7IG11dGV4X3VubG9jaygmYW1wO2FkZXYtJmd0O21t
-YW4uZ3R0X3dpbmRvd19sb2NrKTs8YnI+DQombmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsm
-bmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJz
-cDsgcmV0dXJuOzxicj4NCjxicj4NCkFsZXg8YnI+DQo8YnI+DQomZ3Q7PGJyPg0KJmd0OyBSZWdh
-cmRzLDxicj4NCiZndDsgQ2hyaXN0aWFuLjxicj4NCiZndDs8YnI+DQomZ3Q7ICZndDs8YnI+DQom
-Z3Q7ICZndDsgQWxleDxicj4NCiZndDsgJmd0Ozxicj4NCiZndDsgJmd0OyZndDsgQ2hyaXN0aWFu
-Ljxicj4NCiZndDsgJmd0OyZndDs8YnI+DQomZ3Q7ICZndDsmZ3Q7PGJyPg0KJmd0OyAmZ3Q7Jmd0
-OyBBbSAyNi4wOS4xOSB1bSAxNDoyNiBzY2hyaWViIERldWNoZXIsIEFsZXhhbmRlcjo8YnI+DQom
-Z3Q7ICZndDsmZ3Q7PGJyPg0KJmd0OyAmZ3Q7Jmd0OyBQbGVhc2UgYWRkIGEgcGF0Y2ggZGVzY3Jp
-cHRpb24uJm5ic3A7IFdpdGggdGhhdCBmaXhlZDo8YnI+DQomZ3Q7ICZndDsmZ3Q7IFJldmlld2Vk
-LWJ5OiBBbGV4IERldWNoZXIgJmx0O2FsZXhhbmRlci5kZXVjaGVyQGFtZC5jb20mZ3Q7PGJyPg0K
-Jmd0OyAmZ3Q7Jmd0OyBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXzxicj4NCiZndDsg
-Jmd0OyZndDsgRnJvbTogYW1kLWdmeCAmbHQ7YW1kLWdmeC1ib3VuY2VzQGxpc3RzLmZyZWVkZXNr
-dG9wLm9yZyZndDsgb24gYmVoYWxmIG9mIFl1YW4sIFhpYW9qaWUgJmx0O1hpYW9qaWUuWXVhbkBh
-bWQuY29tJmd0Ozxicj4NCiZndDsgJmd0OyZndDsgU2VudDogVGh1cnNkYXksIFNlcHRlbWJlciAy
-NiwgMjAxOSA0OjA5IEFNPGJyPg0KJmd0OyAmZ3Q7Jmd0OyBUbzogYW1kLWdmeEBsaXN0cy5mcmVl
-ZGVza3RvcC5vcmcgJmx0O2FtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnJmd0Ozxicj4NCiZn
-dDsgJmd0OyZndDsgQ2M6IGFsZXhkZXVjaGVyQGdtYWlsLmNvbSAmbHQ7YWxleGRldWNoZXJAZ21h
-aWwuY29tJmd0Ozxicj4NCiZndDsgJmd0OyZndDsgU3ViamVjdDogUmU6IFtQQVRDSF0gZHJtL2Ft
-ZGdwdS9nbWMxMDogYXBwbHkgdGhlICdpbnZhbGlkYXRpb24gZnJvbSBzZG1hJyB3b3JrYXJvdW5k
-IGZvciBuYXZpPGJyPg0KJmd0OyAmZ3Q7Jmd0Ozxicj4NCiZndDsgJmd0OyZndDsgSGkgQWxleCw8
-YnI+DQomZ3Q7ICZndDsmZ3Q7PGJyPg0KJmd0OyAmZ3Q7Jmd0OyBUaGlzIHBhdGNoIGlzIHRvIGFk
-ZCB0aGUgYXNpY190eXBlIGNoZWNrIHdoaWNoIGlzIG1pc3NpbmcgYWZ0ZXIgZHJtLW5leHQgYnJh
-bmNoIHJlYmFzZS48YnI+DQomZ3Q7ICZndDsmZ3Q7PGJyPg0KJmd0OyAmZ3Q7Jmd0OyBCUiw8YnI+
-DQomZ3Q7ICZndDsmZ3Q7IFhpYW9qaWU8YnI+DQomZ3Q7ICZndDsmZ3Q7IF9fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fPGJyPg0KJmd0OyAmZ3Q7Jmd0OyBGcm9tOiBZdWFuLCBYaWFvamll
-ICZsdDtYaWFvamllLll1YW5AYW1kLmNvbSZndDs8YnI+DQomZ3Q7ICZndDsmZ3Q7IFNlbnQ6IFRo
-dXJzZGF5LCBTZXB0ZW1iZXIgMjYsIDIwMTkgNDowOCBQTTxicj4NCiZndDsgJmd0OyZndDsgVG86
-IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnICZsdDthbWQtZ2Z4QGxpc3RzLmZyZWVkZXNr
-dG9wLm9yZyZndDs8YnI+DQomZ3Q7ICZndDsmZ3Q7IENjOiBhbGV4ZGV1Y2hlckBnbWFpbC5jb20g
-Jmx0O2FsZXhkZXVjaGVyQGdtYWlsLmNvbSZndDs7IFl1YW4sIFhpYW9qaWUgJmx0O1hpYW9qaWUu
-WXVhbkBhbWQuY29tJmd0Ozxicj4NCiZndDsgJmd0OyZndDsgU3ViamVjdDogW1BBVENIXSBkcm0v
-YW1kZ3B1L2dtYzEwOiBhcHBseSB0aGUgJ2ludmFsaWRhdGlvbiBmcm9tIHNkbWEnIHdvcmthcm91
-bmQgZm9yIG5hdmk8YnI+DQomZ3Q7ICZndDsmZ3Q7PGJyPg0KJmd0OyAmZ3Q7Jmd0OyBGaXhlczog
-NzY3YWNhYmRhYzgxICgmcXVvdDtkcm0vYW1kL3Bvd2VycGxheTogYWRkIGJhY28gc211IHJlc2V0
-IGZ1bmN0aW9uIGZvciBzbXUxMSZxdW90Oyk8YnI+DQomZ3Q7ICZndDsmZ3Q7IFNpZ25lZC1vZmYt
-Ynk6IFhpYW9qaWUgWXVhbiAmbHQ7eGlhb2ppZS55dWFuQGFtZC5jb20mZ3Q7PGJyPg0KJmd0OyAm
-Z3Q7Jmd0OyAtLS08YnI+DQomZ3Q7ICZndDsmZ3Q7Jm5ic3A7Jm5ic3A7IGRyaXZlcnMvZ3B1L2Ry
-bS9hbWQvYW1kZ3B1L2dtY192MTBfMC5jIHwgMSAmIzQzOzxicj4NCiZndDsgJmd0OyZndDsmbmJz
-cDsmbmJzcDsgMSBmaWxlIGNoYW5nZWQsIDEgaW5zZXJ0aW9uKCYjNDM7KTxicj4NCiZndDsgJmd0
-OyZndDs8YnI+DQomZ3Q7ICZndDsmZ3Q7IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1k
-L2FtZGdwdS9nbWNfdjEwXzAuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192MTBf
-MC5jPGJyPg0KJmd0OyAmZ3Q7Jmd0OyBpbmRleCBjYjNmNjE4NzNiYWEuLmRjMmU2OGUwMTllYiAx
-MDA2NDQ8YnI+DQomZ3Q7ICZndDsmZ3Q7IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
-L2dtY192MTBfMC5jPGJyPg0KJmd0OyAmZ3Q7Jmd0OyAmIzQzOyYjNDM7JiM0MzsgYi9kcml2ZXJz
-L2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNfdjEwXzAuYzxicj4NCiZndDsgJmd0OyZndDsgQEAgLTI5
-Miw2ICYjNDM7MjkyLDcgQEAgc3RhdGljIHZvaWQgZ21jX3YxMF8wX2ZsdXNoX2dwdV90bGIoc3Ry
-dWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsIHVpbnQzMl90IHZtaWQsPGJyPg0KJmd0OyAmZ3Q7Jmd0
-Ozxicj4NCiZndDsgJmd0OyZndDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsm
-bmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsgaWYgKCFhZGV2LSZndDttbWFuLmJ1ZmZlcl9mdW5jc19l
-bmFibGVkIHx8PGJyPg0KJmd0OyAmZ3Q7Jmd0OyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNw
-OyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyAh
-YWRldi0mZ3Q7aWJfcG9vbF9yZWFkeSB8fDxicj4NCiZndDsgJmd0OyZndDsgJiM0MzsmbmJzcDsm
-bmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsgIShh
-ZGV2LSZndDthc2ljX3R5cGUgJmd0Oz0gQ0hJUF9OQVZJMTAgJmFtcDsmYW1wOyBhZGV2LSZndDth
-c2ljX3R5cGUgJmx0Oz0gQ0hJUF9OQVZJMTIpIHx8PGJyPg0KJmd0OyAmZ3Q7Jmd0OyZuYnNwOyZu
-YnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNw
-OyZuYnNwOyZuYnNwOyZuYnNwOyBhZGV2LSZndDtpbl9ncHVfcmVzZXQpIHs8IS0tIC0tPjxicj4N
-CiZndDsgJmd0OyZndDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsm
-bmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJz
-cDsmbmJzcDsgZ21jX3YxMF8wX2ZsdXNoX3ZtX2h1YihhZGV2LCB2bWlkLCBBTURHUFVfR0ZYSFVC
-XzAsIDApOzxicj4NCiZndDsgJmd0OyZndDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsm
-bmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJz
-cDsmbmJzcDsmbmJzcDsmbmJzcDsgbXV0ZXhfdW5sb2NrKCZhbXA7YWRldi0mZ3Q7bW1hbi5ndHRf
-d2luZG93X2xvY2spOzxicj4NCiZndDsgJmd0OyZndDsgLS08YnI+DQomZ3Q7ICZndDsmZ3Q7IDIu
-MjAuMTxicj4NCiZndDsgJmd0OyZndDs8YnI+DQomZ3Q7ICZndDsmZ3Q7PGJyPg0KJmd0OyAmZ3Q7
-Jmd0OyBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXzxicj4N
-CiZndDsgJmd0OyZndDsgYW1kLWdmeCBtYWlsaW5nIGxpc3Q8YnI+DQomZ3Q7ICZndDsmZ3Q7IGFt
-ZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnPGJyPg0KJmd0OyAmZ3Q7Jmd0OyA8YSBocmVmPSJo
-dHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngiPmh0
-dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeDwvYT48
-YnI+DQomZ3Q7ICZndDsmZ3Q7PGJyPg0KJmd0OyAmZ3Q7Jmd0Ozxicj4NCiZndDs8YnI+DQo8L2Rp
-dj4NCjwvc3Bhbj48L2ZvbnQ+PC9kaXY+DQo8L2Jsb2NrcXVvdGU+DQo8L2Rpdj4NCjxicj4NCjwv
-ZGl2Pg0KPC9kaXY+DQo8L2Rpdj4NCjwvYm9keT4NCjwvaHRtbD4NCg==
+sure, you are right, the origin design should be add this lock into these f=
+unctions,
+but only add these functions can't fix this issue.
+eg:
+"watch -n 0 /sys/kenel/debug/dri0/amdgpu_pm_info"
+16 threads run this command will cause smu error.
 
---_000_93f9508c28714d489407a0c3a6525babemailandroidcom_--
+so this is workaound fix about sensor interface.
+in fact, the smu driver need more lock to protect smu resource.
+but too many locks can easily lead to deadlocks in smu driver.
+solve the problem temporarily first and optimize this part later
 
---===============0239611760==
+  1.  Message + Param =3D=3D> message param lock
+  2.  Message + Message Result =3D=3D> message result lock
+  3.  Message1 + Message2 =3D=3D> message pair lock (eg: SetFeatureLow and =
+SetFeatureHigh)
+
+Best Regars,
+Kevin
+________________________________
+From: Quan, Evan <Evan.Quan-5C7GfCeVMHo@public.gmane.org>
+Sent: Thursday, September 26, 2019 8:22 PM
+To: Wang, Kevin(Yang) <Kevin1.Wang-5C7GfCeVMHo@public.gmane.org>; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org =
+<amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: Huang, Ray <Ray.Huang-5C7GfCeVMHo@public.gmane.org>; Feng, Kenneth <Kenneth.Feng-5C7GfCeVMHo@public.gmane.org>; W=
+ang, Kevin(Yang) <Kevin1.Wang-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: [PATCH 2/2] drm/amd/powerplay: add sensor lock support for smu
+
+How about adding the mutex protection in smu_v11_0_send_msg_with_param and =
+smu_v11_0_send_msg?
+That seems able to simplify the code.
+
+-----Original Message-----
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> On Behalf Of Wang, Ke=
+vin(Yang)
+Sent: Thursday, September 26, 2019 4:56 PM
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Huang, Ray <Ray.Huang-5C7GfCeVMHo@public.gmane.org>; Feng, Kenneth <Kenneth.Feng-5C7GfCeVMHo@public.gmane.org>; W=
+ang, Kevin(Yang) <Kevin1.Wang-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH 2/2] drm/amd/powerplay: add sensor lock support for smu
+
+when multithreading access sysfs of amdgpu_pm_info at the sametime.
+the swsmu driver cause smu firmware hang.
+
+eg:
+single thread access:
+Message A + Param A =3D=3D> right
+Message B + Param B =3D=3D> right
+Message C + Param C =3D=3D> right
+multithreading access:
+Message A + Param B =3D=3D> error
+Message B + Param A =3D=3D> error
+Message C + Param C =3D=3D> right
+
+the patch will add sensor lock(mutex) to avoid this error.
+
+Signed-off-by: Kevin Wang <kevin1.wang-5C7GfCeVMHo@public.gmane.org>
+---
+ drivers/gpu/drm/amd/powerplay/amdgpu_smu.c     | 2 ++
+ drivers/gpu/drm/amd/powerplay/arcturus_ppt.c   | 2 ++
+ drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h | 1 +
+ drivers/gpu/drm/amd/powerplay/navi10_ppt.c     | 2 ++
+ drivers/gpu/drm/amd/powerplay/vega20_ppt.c     | 2 ++
+ 5 files changed, 9 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c b/drivers/gpu/drm/a=
+md/powerplay/amdgpu_smu.c
+index 23293e15636b..df510cb86da5 100644
+--- a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
++++ b/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
+@@ -840,6 +840,8 @@ static int smu_sw_init(void *handle)
+         smu->smu_baco.state =3D SMU_BACO_STATE_EXIT;
+         smu->smu_baco.platform_support =3D false;
+
++       mutex_init(&smu->sensor_lock);
++
+         smu->watermarks_bitmap =3D 0;
+         smu->power_profile_mode =3D PP_SMC_POWER_PROFILE_BOOTUP_DEFAULT;
+         smu->default_power_profile_mode =3D PP_SMC_POWER_PROFILE_BOOTUP_DE=
+FAULT;
+diff --git a/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c b/drivers/gpu/drm=
+/amd/powerplay/arcturus_ppt.c
+index a047a7ec3698..b9b7b73354a0 100644
+--- a/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c
++++ b/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c
+@@ -1025,6 +1025,7 @@ static int arcturus_read_sensor(struct smu_context *s=
+mu,
+         if (!data || !size)
+                 return -EINVAL;
+
++       mutex_lock(&smu->sensor_lock);
+         switch (sensor) {
+         case AMDGPU_PP_SENSOR_MAX_FAN_RPM:
+                 *(uint32_t *)data =3D pptable->FanMaximumRpm; @@ -1051,6 +=
+1052,7 @@ static int arcturus_read_sensor(struct smu_context *smu,
+         default:
+                 ret =3D smu_smc_read_sensor(smu, sensor, data, size);
+         }
++       mutex_unlock(&smu->sensor_lock);
+
+         return ret;
+ }
+diff --git a/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h b/drivers/gpu/d=
+rm/amd/powerplay/inc/amdgpu_smu.h
+index 5c898444ff97..bc4b73e0718e 100644
+--- a/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h
++++ b/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h
+@@ -350,6 +350,7 @@ struct smu_context
+         const struct smu_funcs          *funcs;
+         const struct pptable_funcs      *ppt_funcs;
+         struct mutex                    mutex;
++       struct mutex                    sensor_lock;
+         uint64_t pool_size;
+
+         struct smu_table_context        smu_table;
+diff --git a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c b/drivers/gpu/drm/a=
+md/powerplay/navi10_ppt.c
+index db2e181ba45a..c0b640d8d9e1 100644
+--- a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
++++ b/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
+@@ -1387,6 +1387,7 @@ static int navi10_read_sensor(struct smu_context *smu=
+,
+         if(!data || !size)
+                 return -EINVAL;
+
++       mutex_lock(&smu->sensor_lock);
+         switch (sensor) {
+         case AMDGPU_PP_SENSOR_MAX_FAN_RPM:
+                 *(uint32_t *)data =3D pptable->FanMaximumRpm; @@ -1410,6 +=
+1411,7 @@ static int navi10_read_sensor(struct smu_context *smu,
+         default:
+                 ret =3D smu_smc_read_sensor(smu, sensor, data, size);
+         }
++       mutex_unlock(&smu->sensor_lock);
+
+         return ret;
+ }
+diff --git a/drivers/gpu/drm/amd/powerplay/vega20_ppt.c b/drivers/gpu/drm/a=
+md/powerplay/vega20_ppt.c
+index 9082da1578d1..f655ebd9ba22 100644
+--- a/drivers/gpu/drm/amd/powerplay/vega20_ppt.c
++++ b/drivers/gpu/drm/amd/powerplay/vega20_ppt.c
+@@ -3017,6 +3017,7 @@ static int vega20_read_sensor(struct smu_context *smu=
+,
+         if(!data || !size)
+                 return -EINVAL;
+
++       mutex_lock(&smu->sensor_lock);
+         switch (sensor) {
+         case AMDGPU_PP_SENSOR_MAX_FAN_RPM:
+                 *(uint32_t *)data =3D pptable->FanMaximumRpm; @@ -3042,6 +=
+3043,7 @@ static int vega20_read_sensor(struct smu_context *smu,
+         default:
+                 ret =3D smu_smc_read_sensor(smu, sensor, data, size);
+         }
++       mutex_unlock(&smu->sensor_lock);
+
+         return ret;
+ }
+--
+2.17.1
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--_000_BN6PR12MB180969DC3D8DCB2FBE655DB8F7860BN6PR12MB1809namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Does the older powerplay code need a similar fix?</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Alex<br>
+</div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
+ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Wang, Kevin(Yang) &lt;Kevin1.=
+Wang-5C7GfCeVMHo@public.gmane.org&gt;<br>
+<b>Sent:</b> Thursday, September 26, 2019 9:06 AM<br>
+<b>To:</b> Quan, Evan &lt;Evan.Quan-5C7GfCeVMHo@public.gmane.org&gt;; amd-gfx-PD4FTy7X32lNgt0PjOBp9/rsn8yoX9R0@public.gmane.org=
+org &lt;amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt;<br>
+<b>Cc:</b> Huang, Ray &lt;Ray.Huang-5C7GfCeVMHo@public.gmane.org&gt;; Feng, Kenneth &lt;Kenneth.=
+Feng-5C7GfCeVMHo@public.gmane.org&gt;<br>
+<b>Subject:</b> Re: [PATCH 2/2] drm/amd/powerplay: add sensor lock support =
+for smu</font>
+<div>&nbsp;</div>
+</div>
+<style type=3D"text/css" style=3D"display:none">
+<!--
+p
+	{margin-top:0;
+	margin-bottom:0}
+-->
+</style>
+<div dir=3D"ltr">
+<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
+t; color:rgb(0,0,0)">
+sure, you are right, the origin design should be add this lock into these f=
+unctions,</div>
+<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
+t; color:rgb(0,0,0)">
+but only add these functions can't fix this issue.</div>
+<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
+t; color:rgb(0,0,0)">
+eg:</div>
+<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
+t; color:rgb(0,0,0)">
+<span style=3D"margin:0px; font-size:12pt; font-family:Calibri,Arial,Helvet=
+ica,sans-serif; background-color:rgb(255,255,255)"><i>&quot;watch -n 0 /sys=
+/kenel/debug/dri0/amdgpu_pm_info&quot;</i></span><br>
+</div>
+<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
+t; color:rgb(0,0,0)">
+<span style=3D"margin:0px; font-size:12pt; font-family:Calibri,Arial,Helvet=
+ica,sans-serif; background-color:rgb(255,255,255)"><i>16 threads run this c=
+ommand will cause smu error.</i></span></div>
+<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
+t; color:rgb(0,0,0)">
+<br>
+</div>
+<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
+t; color:rgb(0,0,0)">
+so this is workaound fix about sensor interface.<br>
+</div>
+<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
+t; color:rgb(0,0,0)">
+<span>in fact, the smu driver need more lock to protect smu resource.</span=
+></div>
+<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
+t; color:rgb(0,0,0)">
+<span><span>but too many locks can easily lead to deadlocks in smu driver.<=
+br>
+<span>solve the problem temporarily first and optimize this part later</spa=
+n><br>
+</span></span></div>
+<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
+t; color:rgb(0,0,0)">
+<ol>
+<li>Message &#43; Param =3D=3D&gt; message param lock</li><li>Message &#43;=
+ Message Result =3D=3D&gt; message result lock</li><li>Message1 &#43; Messa=
+ge2 =3D=3D&gt; message pair lock (eg: SetFeatureLow and SetFeatureHigh)</li=
+></ol>
+<div><br>
+</div>
+<div>Best Regars,<br>
+Kevin</div>
+</div>
+<div id=3D"x_appendonsend"></div>
+<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
+<div id=3D"x_divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" =
+color=3D"#000000" style=3D"font-size:11pt"><b>From:</b> Quan, Evan &lt;Evan=
+.Quan-5C7GfCeVMHo@public.gmane.org&gt;<br>
+<b>Sent:</b> Thursday, September 26, 2019 8:22 PM<br>
+<b>To:</b> Wang, Kevin(Yang) &lt;Kevin1.Wang-5C7GfCeVMHo@public.gmane.org&gt;; amd-gfx-PD4FTy7X32mzQB+pC5nmwQ@public.gmane.org=
+edesktop.org &lt;amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt;<br>
+<b>Cc:</b> Huang, Ray &lt;Ray.Huang-5C7GfCeVMHo@public.gmane.org&gt;; Feng, Kenneth &lt;Kenneth.=
+Feng-5C7GfCeVMHo@public.gmane.org&gt;; Wang, Kevin(Yang) &lt;Kevin1.Wang-5C7GfCeVMHo@public.gmane.org&gt;<br>
+<b>Subject:</b> RE: [PATCH 2/2] drm/amd/powerplay: add sensor lock support =
+for smu</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"x_BodyFragment"><font size=3D"2"><span style=3D"font-size:11p=
+t">
+<div class=3D"x_PlainText">How about adding the mutex protection in smu_v11=
+_0_send_msg_with_param and smu_v11_0_send_msg?<br>
+That seems able to simplify the code.<br>
+<br>
+-----Original Message-----<br>
+From: amd-gfx &lt;amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; On Behalf Of Wa=
+ng, Kevin(Yang)<br>
+Sent: Thursday, September 26, 2019 4:56 PM<br>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+Cc: Huang, Ray &lt;Ray.Huang-5C7GfCeVMHo@public.gmane.org&gt;; Feng, Kenneth &lt;Kenneth.Feng@am=
+d.com&gt;; Wang, Kevin(Yang) &lt;Kevin1.Wang-5C7GfCeVMHo@public.gmane.org&gt;<br>
+Subject: [PATCH 2/2] drm/amd/powerplay: add sensor lock support for smu<br>
+<br>
+when multithreading access sysfs of amdgpu_pm_info at the sametime.<br>
+the swsmu driver cause smu firmware hang.<br>
+<br>
+eg:<br>
+single thread access:<br>
+Message A &#43; Param A =3D=3D&gt; right<br>
+Message B &#43; Param B =3D=3D&gt; right<br>
+Message C &#43; Param C =3D=3D&gt; right<br>
+multithreading access:<br>
+Message A &#43; Param B =3D=3D&gt; error<br>
+Message B &#43; Param A =3D=3D&gt; error<br>
+Message C &#43; Param C =3D=3D&gt; right<br>
+<br>
+the patch will add sensor lock(mutex) to avoid this error.<br>
+<br>
+Signed-off-by: Kevin Wang &lt;kevin1.wang-5C7GfCeVMHo@public.gmane.org&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/powerplay/amdgpu_smu.c&nbsp;&nbsp;&nbsp;&nbsp; | =
+2 &#43;&#43;<br>
+&nbsp;drivers/gpu/drm/amd/powerplay/arcturus_ppt.c&nbsp;&nbsp; | 2 &#43;&#4=
+3;<br>
+&nbsp;drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h | 1 &#43;<br>
+&nbsp;drivers/gpu/drm/amd/powerplay/navi10_ppt.c&nbsp;&nbsp;&nbsp;&nbsp; | =
+2 &#43;&#43;<br>
+&nbsp;drivers/gpu/drm/amd/powerplay/vega20_ppt.c&nbsp;&nbsp;&nbsp;&nbsp; | =
+2 &#43;&#43;<br>
+&nbsp;5 files changed, 9 insertions(&#43;)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c b/drivers/gpu/drm/a=
+md/powerplay/amdgpu_smu.c<br>
+index 23293e15636b..df510cb86da5 100644<br>
+--- a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c<br>
+@@ -840,6 &#43;840,8 @@ static int smu_sw_init(void *handle)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; smu-&gt;smu_baco.state =3D=
+ SMU_BACO_STATE_EXIT;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; smu-&gt;smu_baco.platform_=
+support =3D false;<br>
+&nbsp;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_init(&amp;smu-&gt;sensor_lo=
+ck);<br>
+&#43;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; smu-&gt;watermarks_bitmap =
+=3D 0;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; smu-&gt;power_profile_mode=
+ =3D PP_SMC_POWER_PROFILE_BOOTUP_DEFAULT;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; smu-&gt;default_power_prof=
+ile_mode =3D PP_SMC_POWER_PROFILE_BOOTUP_DEFAULT;<br>
+diff --git a/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c b/drivers/gpu/drm=
+/amd/powerplay/arcturus_ppt.c<br>
+index a047a7ec3698..b9b7b73354a0 100644<br>
+--- a/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c<br>
+@@ -1025,6 &#43;1025,7 @@ static int arcturus_read_sensor(struct smu_contex=
+t *smu,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!data || !size)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; return -EINVAL;<br>
+&nbsp;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_lock(&amp;smu-&gt;sensor_lo=
+ck);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; switch (sensor) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case AMDGPU_PP_SENSOR_MAX_=
+FAN_RPM:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; *(uint32_t *)data =3D pptable-&gt;FanMaximumRpm; @@ -=
+1051,6 &#43;1052,7 @@ static int arcturus_read_sensor(struct smu_context *s=
+mu,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; default:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; ret =3D smu_smc_read_sensor(smu, sensor, data, size);=
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_unlock(&amp;smu-&gt;sensor_=
+lock);<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret;<br>
+&nbsp;}<br>
+diff --git a/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h b/drivers/gpu/d=
+rm/amd/powerplay/inc/amdgpu_smu.h<br>
+index 5c898444ff97..bc4b73e0718e 100644<br>
+--- a/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h<br>
+@@ -350,6 &#43;350,7 @@ struct smu_context<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; const struct smu_funcs&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *funcs;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; const struct pptable_funcs=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *ppt_funcs;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct mutex&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; mutex;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct mutex&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp; sensor_lock;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint64_t pool_size;<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct smu_table_context&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; smu_table;<br>
+diff --git a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c b/drivers/gpu/drm/a=
+md/powerplay/navi10_ppt.c<br>
+index db2e181ba45a..c0b640d8d9e1 100644<br>
+--- a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/navi10_ppt.c<br>
+@@ -1387,6 &#43;1387,7 @@ static int navi10_read_sensor(struct smu_context =
+*smu,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if(!data || !size)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; return -EINVAL;<br>
+&nbsp;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_lock(&amp;smu-&gt;sensor_lo=
+ck);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; switch (sensor) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case AMDGPU_PP_SENSOR_MAX_=
+FAN_RPM:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; *(uint32_t *)data =3D pptable-&gt;FanMaximumRpm; @@ -=
+1410,6 &#43;1411,7 @@ static int navi10_read_sensor(struct smu_context *smu=
+,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; default:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; ret =3D smu_smc_read_sensor(smu, sensor, data, size);=
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_unlock(&amp;smu-&gt;sensor_=
+lock);<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret;<br>
+&nbsp;}<br>
+diff --git a/drivers/gpu/drm/amd/powerplay/vega20_ppt.c b/drivers/gpu/drm/a=
+md/powerplay/vega20_ppt.c<br>
+index 9082da1578d1..f655ebd9ba22 100644<br>
+--- a/drivers/gpu/drm/amd/powerplay/vega20_ppt.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/vega20_ppt.c<br>
+@@ -3017,6 &#43;3017,7 @@ static int vega20_read_sensor(struct smu_context =
+*smu,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if(!data || !size)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; return -EINVAL;<br>
+&nbsp;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_lock(&amp;smu-&gt;sensor_lo=
+ck);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; switch (sensor) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case AMDGPU_PP_SENSOR_MAX_=
+FAN_RPM:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; *(uint32_t *)data =3D pptable-&gt;FanMaximumRpm; @@ -=
+3042,6 &#43;3043,7 @@ static int vega20_read_sensor(struct smu_context *smu=
+,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; default:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; ret =3D smu_smc_read_sensor(smu, sensor, data, size);=
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_unlock(&amp;smu-&gt;sensor_=
+lock);<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret;<br>
+&nbsp;}<br>
+--<br>
+2.17.1<br>
+<br>
+_______________________________________________<br>
+amd-gfx mailing list<br>
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
+lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
+</div>
+</span></font></div>
+</div>
+</body>
+</html>
+
+--_000_BN6PR12MB180969DC3D8DCB2FBE655DB8F7860BN6PR12MB1809namp_--
+
+--===============1215599947==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -303,4 +523,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
 
---===============0239611760==--
+--===============1215599947==--
