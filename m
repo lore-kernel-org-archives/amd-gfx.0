@@ -1,82 +1,43 @@
-From: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 2/3] drm/amdkfd: Use setup_vm_pt_regs function from base
- driver in KFD
-Date: Thu, 26 Sep 2019 22:27:43 +0000
-Message-ID: <49f5025e-6388-1536-727e-55f266263d28@amd.com>
-References: <20190925181527.17091-1-Yong.Zhao@amd.com>
- <20190925181527.17091-2-Yong.Zhao@amd.com>
+From: Lyude Paul <lyude@redhat.com>
+Subject: [PATCH 0/6] drm/amdgpu: Fix incorrect encoder API usages
+Date: Thu, 26 Sep 2019 18:51:02 -0400
+Message-ID: <20190926225122.31455-1-lyude@redhat.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190925181527.17091-2-Yong.Zhao-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-Content-ID: <064BC69390A4B742BD69998DCD33EFC0-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Zhao, Yong" <Yong.Zhao-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: amd-gfx@lists.freedesktop.org
+Cc: Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>, Leo Li <sunpeng.li@amd.com>, David Airlie <airlied@linux.ie>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, David Francis <david.francis@amd.com>, linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, "David (ChunMing) Zhou" <david1.zhou@amd.com>, "Jerry (Fangzhi) Zuo" <jerry.zuo@amd.com>, Harry Wentland <harry.wentland@amd.com>, Thomas Lim <thomas.lim@amd.com>, Lyude Paul <lyude@redhat.com>, Mario Kleiner <mario.kleiner.de@gmail.com>, Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>, Dingchen Zhang <dingchen.zhang@amd.com>, Brajeswar Ghosh <brajeswar.linux@gmail.com>, Sam Ravnborg <sam@ravnborg.org>, Maarten Lankhorst <maarten.lankhorst@>
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gMjAxOS0wOS0yNSAyOjE1IHAubS4sIFpoYW8sIFlvbmcgd3JvdGU6DQo+IFRoaXMgd2FzIGRv
-bmUgb24gR0ZYOSBwcmV2aW91c2x5LCBub3cgZG8gaXQgZm9yIEdGWDEwLg0KPg0KPiBDaGFuZ2Ut
-SWQ6IEk0NDQyZTYwNTM0YzU5YmM5NTI2YTY3MzU1OWYwMThiYTgwNThkZWFjDQo+IFNpZ25lZC1v
-ZmYtYnk6IFlvbmcgWmhhbyA8WW9uZy5aaGFvQGFtZC5jb20+DQoNClJldmlld2VkLWJ5OiBGZWxp
-eCBLdWVobGluZyA8RmVsaXguS3VlaGxpbmdAYW1kLmNvbT4NCg0KDQo+IC0tLQ0KPiAgIC4uLi9k
-cm0vYW1kL2FtZGdwdS9hbWRncHVfYW1ka2ZkX2dmeF92MTAuYyAgICB8IDIzICsrKy0tLS0tLS0t
-LS0tLS0tLS0NCj4gICAxIGZpbGUgY2hhbmdlZCwgMyBpbnNlcnRpb25zKCspLCAyMCBkZWxldGlv
-bnMoLSkNCj4NCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdw
-dV9hbWRrZmRfZ2Z4X3YxMC5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Ft
-ZGtmZF9nZnhfdjEwLmMNCj4gaW5kZXggZmU1YjcwMmM3NWNlLi42NDU2OGVkMzI3OTMgMTAwNjQ0
-DQo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9hbWRrZmRfZ2Z4X3Yx
-MC5jDQo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9hbWRrZmRfZ2Z4
-X3YxMC5jDQo+IEBAIC00Miw2ICs0Miw3IEBADQo+ICAgI2luY2x1ZGUgInYxMF9zdHJ1Y3RzLmgi
-DQo+ICAgI2luY2x1ZGUgIm52LmgiDQo+ICAgI2luY2x1ZGUgIm52ZC5oIg0KPiArI2luY2x1ZGUg
-ImdmeGh1Yl92Ml8wLmgiDQo+ICAgDQo+ICAgZW51bSBocWRfZGVxdWV1ZV9yZXF1ZXN0X3R5cGUg
-ew0KPiAgIAlOT19BQ1RJT04gPSAwLA0KPiBAQCAtMjUxLDExICsyNTIsNiBAQCBzdGF0aWMgaW50
-IGtnZF9zZXRfcGFzaWRfdm1pZF9tYXBwaW5nKHN0cnVjdCBrZ2RfZGV2ICprZ2QsIHVuc2lnbmVk
-IGludCBwYXNpZCwNCj4gICAJCQlBVENfVk1JRDBfUEFTSURfTUFQUElOR19fVkFMSURfTUFTSzsN
-Cj4gICANCj4gICAJcHJfZGVidWcoInBhc2lkIDB4JXggdm1pZCAlZCwgcmVnIHZhbHVlICV4XG4i
-LCBwYXNpZCwgdm1pZCwgcGFzaWRfbWFwcGluZyk7DQo+IC0JLyoNCj4gLQkgKiBuZWVkIHRvIGRv
-IHRoaXMgdHdpY2UsIG9uY2UgZm9yIGdmeCBhbmQgb25jZSBmb3IgbW1odWINCj4gLQkgKiBmb3Ig
-QVRDIGFkZCAxNiB0byBWTUlEIGZvciBtbWh1YiwgZm9yIElIIGRpZmZlcmVudCByZWdpc3RlcnMu
-DQo+IC0JICogQVRDX1ZNSUQwLi4xNSByZWdpc3RlcnMgYXJlIHNlcGFyYXRlIGZyb20gQVRDX1ZN
-SUQxNi4uMzEuDQo+IC0JICovDQo+ICAgDQo+ICAgCXByX2RlYnVnKCJBVEhVQiwgcmVnICV4XG4i
-LCBTT0MxNV9SRUdfT0ZGU0VUKEFUSFVCLCAwLCBtbUFUQ19WTUlEMF9QQVNJRF9NQVBQSU5HKSAr
-IHZtaWQpOw0KPiAgIAlXUkVHMzIoU09DMTVfUkVHX09GRlNFVChBVEhVQiwgMCwgbW1BVENfVk1J
-RDBfUEFTSURfTUFQUElORykgKyB2bWlkLA0KPiBAQCAtOTEwLDcgKzkwNiw2IEBAIHN0YXRpYyB2
-b2lkIHNldF92bV9jb250ZXh0X3BhZ2VfdGFibGVfYmFzZShzdHJ1Y3Qga2dkX2RldiAqa2dkLCB1
-aW50MzJfdCB2bWlkLA0KPiAgIAkJdWludDY0X3QgcGFnZV90YWJsZV9iYXNlKQ0KPiAgIHsNCj4g
-ICAJc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYgPSBnZXRfYW1kZ3B1X2RldmljZShrZ2QpOw0K
-PiAtCXVpbnQ2NF90IGJhc2UgPSBwYWdlX3RhYmxlX2Jhc2UgfCBBTURHUFVfUFRFX1ZBTElEOw0K
-PiAgIA0KPiAgIAlpZiAoIWFtZGdwdV9hbWRrZmRfaXNfa2ZkX3ZtaWQoYWRldiwgdm1pZCkpIHsN
-Cj4gICAJCXByX2VycigidHJ5aW5nIHRvIHNldCBwYWdlIHRhYmxlIGJhc2UgZm9yIHdyb25nIFZN
-SUQgJXVcbiIsDQo+IEBAIC05MTgsMTggKzkxMyw2IEBAIHN0YXRpYyB2b2lkIHNldF92bV9jb250
-ZXh0X3BhZ2VfdGFibGVfYmFzZShzdHJ1Y3Qga2dkX2RldiAqa2dkLCB1aW50MzJfdCB2bWlkLA0K
-PiAgIAkJcmV0dXJuOw0KPiAgIAl9DQo+ICAgDQo+IC0JLyogVE9ETzogdGFrZSBhZHZhbnRhZ2Ug
-b2YgcGVyLXByb2Nlc3MgYWRkcmVzcyBzcGFjZSBzaXplLiBGb3INCj4gLQkgKiBub3csIGFsbCBw
-cm9jZXNzZXMgc2hhcmUgdGhlIHNhbWUgYWRkcmVzcyBzcGFjZSBzaXplLCBsaWtlDQo+IC0JICog
-b24gR0ZYOCBhbmQgb2xkZXIuDQo+IC0JICovDQo+IC0JV1JFRzMyKFNPQzE1X1JFR19PRkZTRVQo
-R0MsIDAsIG1tR0NWTV9DT05URVhUMF9QQUdFX1RBQkxFX1NUQVJUX0FERFJfTE8zMikgKyAodm1p
-ZCoyKSwgMCk7DQo+IC0JV1JFRzMyKFNPQzE1X1JFR19PRkZTRVQoR0MsIDAsIG1tR0NWTV9DT05U
-RVhUMF9QQUdFX1RBQkxFX1NUQVJUX0FERFJfSEkzMikgKyAodm1pZCoyKSwgMCk7DQo+IC0NCj4g
-LQlXUkVHMzIoU09DMTVfUkVHX09GRlNFVChHQywgMCwgbW1HQ1ZNX0NPTlRFWFQwX1BBR0VfVEFC
-TEVfRU5EX0FERFJfTE8zMikgKyAodm1pZCoyKSwNCj4gLQkJCWxvd2VyXzMyX2JpdHMoYWRldi0+
-dm1fbWFuYWdlci5tYXhfcGZuIC0gMSkpOw0KPiAtCVdSRUczMihTT0MxNV9SRUdfT0ZGU0VUKEdD
-LCAwLCBtbUdDVk1fQ09OVEVYVDBfUEFHRV9UQUJMRV9FTkRfQUREUl9ISTMyKSArICh2bWlkKjIp
-LA0KPiAtCQkJdXBwZXJfMzJfYml0cyhhZGV2LT52bV9tYW5hZ2VyLm1heF9wZm4gLSAxKSk7DQo+
-IC0NCj4gLQlXUkVHMzIoU09DMTVfUkVHX09GRlNFVChHQywgMCwgbW1HQ1ZNX0NPTlRFWFQwX1BB
-R0VfVEFCTEVfQkFTRV9BRERSX0xPMzIpICsgKHZtaWQqMiksIGxvd2VyXzMyX2JpdHMoYmFzZSkp
-Ow0KPiAtCVdSRUczMihTT0MxNV9SRUdfT0ZGU0VUKEdDLCAwLCBtbUdDVk1fQ09OVEVYVDBfUEFH
-RV9UQUJMRV9CQVNFX0FERFJfSEkzMikgKyAodm1pZCoyKSwgdXBwZXJfMzJfYml0cyhiYXNlKSk7
-DQo+ICsJLyogU0RNQSBpcyBvbiBnZnhodWIgYXMgd2VsbCBvbiBOYXZpMSogc2VyaWVzICovDQo+
-ICsJZ2Z4aHViX3YyXzBfc2V0dXBfdm1fcHRfcmVncyhhZGV2LCB2bWlkLCBwYWdlX3RhYmxlX2Jh
-c2UpOw0KPiAgIH0NCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0
-dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
+Noticed this while trying to respin my MST suspend/resume patch series.
+It's not technically possible (at least until someone moves amdgpu
+away from the deprecated drm_device->driver->{load,unload} hooks) for
+amdgpu to properly register all of it's encoders before registering with
+userspace. However, amdgpu also apparently adds and removes encoders
+along with MST connectors - which is a much bigger issue as userspace
+applications definitely do not expect this type of behavior.
+
+So, let's fix it and add some WARNs() so new drivers don't accidentally
+make this mistake in the future.
+
+Lyude Paul (6):
+  drm/amdgpu/dm/mst: Don't create MST topology managers for eDP ports
+  drm/amdgpu/dm/mst: Remove unnecessary NULL check
+  drm/amdgpu/dm/mst: Use ->atomic_best_encoder
+  drm/amdgpu/dm/mst: Make MST encoders per-CRTC and fix encoder usage
+  drm/amdgpu/dm/mst: Report possible_crtcs incorrectly, for now
+  drm/encoder: WARN() when adding/removing encoders after device
+    registration
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h      |  3 ++
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 15 ++++++
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |  1 -
+ .../display/amdgpu_dm/amdgpu_dm_mst_types.c   | 46 ++++++++++---------
+ .../display/amdgpu_dm/amdgpu_dm_mst_types.h   |  3 ++
+ drivers/gpu/drm/drm_encoder.c                 | 31 ++++++++++---
+ 6 files changed, 70 insertions(+), 29 deletions(-)
+
+-- 
+2.21.0
