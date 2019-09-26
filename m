@@ -1,56 +1,30 @@
-From: Eric Engestrom <eric@engestrom.ch>
-Subject: Re: [PATCH v2 0/9] drm/print: add and use drm_debug_enabled()
-Date: Thu, 26 Sep 2019 08:48:14 +0100
-Message-ID: <20190926074814.rdzxjmut6izqf4d5@engestrom.ch>
-References: <cover.1569329774.git.jani.nikula@intel.com>
+From: Luya Tshimbalanga <luya-rxtnV0ftBwyoClj4AeEUq9i2O/JbrIOy@public.gmane.org>
+Subject: [Follow-up] Status of AMD Sensor Fusion HUB for Linux
+Date: Thu, 26 Sep 2019 00:59:32 -0700
+Message-ID: <63bd81a9-7166-73df-6605-83489fa7daf1@fedoraproject.org>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Content-Transfer-Encoding: base64
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-Content-Disposition: inline
-In-Reply-To: <cover.1569329774.git.jani.nikula@intel.com>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: Jani Nikula <jani.nikula@intel.com>
-Cc: nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, Russell King <linux+etnaviv@armlinux.org.uk>, amd-gfx@lists.freedesktop.org, etnaviv@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org, Alex Deucher <alexander.deucher@amd.com>, freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>, Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>, Ben Skeggs <bskeggs@redhat.com>
-List-Id: amd-gfx.lists.freedesktop.org
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-T24gVHVlc2RheSwgMjAxOS0wOS0yNCAxNTo1ODo1NiArMDMwMCwgSmFuaSBOaWt1bGEgd3JvdGU6
-Cj4gSGkgYWxsLCB2MiBvZiBbMV0sIGEgbGl0dGxlIHJlZmFjdG9yaW5nIGFyb3VuZCBkcm1fZGVi
-dWcgYWNjZXNzIHRvCj4gYWJzdHJhY3QgaXQgYmV0dGVyLiBUaGVyZSBzaG91bGRuJ3QgYmUgYW55
-IGZ1bmN0aW9uYWwgY2hhbmdlcy4KPiAKPiBJJ2QgYXBwcmVjaWF0ZSBhY2tzIGZvciBtZXJnaW5n
-IHRoZSBsb3QgdmlhIGRybS1taXNjLiBJZiB0aGVyZSBhcmUgYW55Cj4gb2JqZWN0aW9ucyB0byB0
-aGF0LCB3ZSdsbCBuZWVkIHRvIHBvc3Rwb25lIHRoZSBsYXN0IHBhdGNoIHVudGlsCj4gZXZlcnl0
-aGluZyBoYXMgYmVlbiBtZXJnZWQgYW5kIGNvbnZlcnRlZCBpbiBkcm0tbmV4dC4KPiAKPiBCUiwK
-PiBKYW5pLgo+IAo+IENjOiBFcmljIEVuZ2VzdHJvbSA8ZXJpYy5lbmdlc3Ryb21AaW50ZWwuY29t
-Pgo+IENjOiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+Cj4gQ2M6IENo
-cmlzdGlhbiBLw7ZuaWcgPGNocmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4KPiBDYzogRGF2aWQgKENo
-dW5NaW5nKSBaaG91IDxEYXZpZDEuWmhvdUBhbWQuY29tPgo+IENjOiBhbWQtZ2Z4QGxpc3RzLmZy
-ZWVkZXNrdG9wLm9yZwo+IENjOiBCZW4gU2tlZ2dzIDxic2tlZ2dzQHJlZGhhdC5jb20+Cj4gQ2M6
-IG5vdXZlYXVAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4gQ2M6IFJvYiBDbGFyayA8cm9iZGNsYXJr
-QGdtYWlsLmNvbT4KPiBDYzogU2VhbiBQYXVsIDxzZWFuQHBvb3JseS5ydW4+Cj4gQ2M6IGxpbnV4
-LWFybS1tc21Admdlci5rZXJuZWwub3JnCj4gQ2M6IGZyZWVkcmVub0BsaXN0cy5mcmVlZGVza3Rv
-cC5vcmcKPiBDYzogRnJhbmNpc2NvIEplcmV6IDxjdXJyb2plcmV6QHJpc2V1cC5uZXQ+Cj4gQ2M6
-IEx1Y2FzIFN0YWNoIDxsLnN0YWNoQHBlbmd1dHJvbml4LmRlPgo+IENjOiBSdXNzZWxsIEtpbmcg
-PGxpbnV4K2V0bmF2aXZAYXJtbGludXgub3JnLnVrPgo+IENjOiBDaHJpc3RpYW4gR21laW5lciA8
-Y2hyaXN0aWFuLmdtZWluZXJAZ21haWwuY29tPgo+IENjOiBldG5hdml2QGxpc3RzLmZyZWVkZXNr
-dG9wLm9yZwo+IAo+IAo+IFsxXSBodHRwOi8vbWlkLm1haWwtYXJjaGl2ZS5jb20vY292ZXIuMTU2
-ODM3NTE4OS5naXQuamFuaS5uaWt1bGFAaW50ZWwuY29tCj4gCj4gSmFuaSBOaWt1bGEgKDkpOgo+
-ICAgZHJtL3ByaW50OiBtb3ZlIGRybV9kZWJ1ZyB2YXJpYWJsZSB0byBkcm1fcHJpbnQuW2NoXQo+
-ICAgZHJtL3ByaW50OiBhZGQgZHJtX2RlYnVnX2VuYWJsZWQoKQo+ICAgZHJtL2k5MTU6IHVzZSBk
-cm1fZGVidWdfZW5hYmxlZCgpIHRvIGNoZWNrIGZvciBkZWJ1ZyBjYXRlZ29yaWVzCj4gICBkcm0v
-cHJpbnQ6IHJlbmFtZSBkcm1fZGVidWcgdG8gX19kcm1fZGVidWcgdG8gZGlzY291cmFnZSB1c2UK
-ClRoZSBhYm92ZSBmb3VyIHBhdGNoZXMgYXJlOgpSZXZpZXdlZC1ieTogRXJpYyBFbmdlc3Ryb20g
-PGVyaWNAZW5nZXN0cm9tLmNoPgoKRGlkIHlvdSBjaGVjayB0byBtYWtlIHN1cmUgdGhlIGB1bmxp
-a2VseSgpYCBpcyBwcm9wYWdhdGVkIGNvcnJlY3RseQpvdXRzaWRlIHRoZSBgZHJtX2RlYnVnX2Vu
-YWJsZWQoKWAgY2FsbD8KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX18KZHJpLWRldmVsIG1haWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Au
-b3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRl
-dmVs
+SGVsbG8sCgpXaGF0IGlzIHRoZSBjdXJyZW50IHN0YXR1cyBvZiB0aGUgZHJpdmVyIG9yIG1vZHVs
+ZSBmb3IgQU1EIFNlbnNvciBGdXNpb24gCkhVQiBmb3IgbW9iaWxlIFJhdmVuIFJpZGdlIGZhbWls
+eT8gVG8gdGhpcyBkYXksIG1ham9yaXR5IG9mIG1vYmlsZSAKcG93ZXJlZCBkZXZpY2UgZXF1aXBw
+ZWQgd2l0aCB0aGF0IEFQVSBmYW1pbHkgbGFja3MgZ3lyb3Njb3BpYyBmdW5jdGlvbiAKZm9yIHRo
+ZSBzY3JlZW4uCgpUaGFua3MgaW4gYWR2YW5jZS4KCi0tIApMdXlhIFRzaGltYmFsYW5nYQpGZWRv
+cmEgRGVzaWduIFRlYW0KRmVkb3JhIERlc2lnbiBTdWl0ZSBtYWludGFpbmVyCgpfX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlz
+dAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9w
+Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
