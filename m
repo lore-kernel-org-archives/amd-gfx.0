@@ -1,13 +1,14 @@
 From: "Quan, Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH] drm/amd/amdgpu: add IH cg support on soc15 project
-Date: Thu, 26 Sep 2019 12:22:29 +0000
-Message-ID: <MN2PR12MB3344C1FA11445E993231FDDCE4860@MN2PR12MB3344.namprd12.prod.outlook.com>
-References: <1569487656-24977-1-git-send-email-kenneth.feng@amd.com>
+Subject: RE: [PATCH] drm/amdgpu/gmc10: apply the 'invalidation from sdma'
+ workaround for navi
+Date: Thu, 26 Sep 2019 12:24:31 +0000
+Message-ID: <MN2PR12MB3344DE303C67119711B88DB5E4860@MN2PR12MB3344.namprd12.prod.outlook.com>
+References: <20190926080746.20765-1-xiaojie.yuan@amd.com>
+ <BN8PR12MB36027CA5662543E7F956657589860@BN8PR12MB3602.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0912493067=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1569487656-24977-1-git-send-email-kenneth.feng-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <BN8PR12MB36027CA5662543E7F956657589860-h6+T2+wrnx1lGJ5xs4l7kQdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -19,103 +20,258 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Feng, Kenneth" <Kenneth.Feng-5C7GfCeVMHo@public.gmane.org>
+To: "Yuan, Xiaojie" <Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org" <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 
-UmV2aWV3ZWQtYnk6IEV2YW4gUXVhbiA8ZXZhbi5xdWFuQGFtZC5jb20+DQoNCi0tLS0tT3JpZ2lu
-YWwgTWVzc2FnZS0tLS0tDQpGcm9tOiBhbWQtZ2Z4IDxhbWQtZ2Z4LWJvdW5jZXNAbGlzdHMuZnJl
-ZWRlc2t0b3Aub3JnPiBPbiBCZWhhbGYgT2YgS2VubmV0aCBGZW5nDQpTZW50OiBUaHVyc2RheSwg
-U2VwdGVtYmVyIDI2LCAyMDE5IDQ6NDggUE0NClRvOiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9w
-Lm9yZw0KQ2M6IEZlbmcsIEtlbm5ldGggPEtlbm5ldGguRmVuZ0BhbWQuY29tPg0KU3ViamVjdDog
-W1BBVENIXSBkcm0vYW1kL2FtZGdwdTogYWRkIElIIGNnIHN1cHBvcnQgb24gc29jMTUgcHJvamVj
-dA0KDQplbmFibGUvZGlzYWJsZSBJSCBjbG9jayBnYXRpbmcgb24gc29jMTUgcHJvamVjdHMuDQoN
-ClNpZ25lZC1vZmYtYnk6IEtlbm5ldGggRmVuZyA8a2VubmV0aC5mZW5nQGFtZC5jb20+DQotLS0N
-CiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9zb2MxNS5jICAgICAgICAgICAgICAgICB8ICAz
-ICstDQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvdmVnYTEwX2loLmMgICAgICAgICAgICAg
-fCAzOSArKysrKysrKysrKysrKysrKysrKysrDQogLi4uL2FtZC9pbmNsdWRlL2FzaWNfcmVnL29z
-cy9vc3NzeXNfNF8wX3NoX21hc2suaCAgfCAgNCArKysNCiAzIGZpbGVzIGNoYW5nZWQsIDQ1IGlu
-c2VydGlvbnMoKyksIDEgZGVsZXRpb24oLSkNCg0KZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2Ry
-bS9hbWQvYW1kZ3B1L3NvYzE1LmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9zb2MxNS5j
-DQppbmRleCA1ODgxODc2MS4uZTQwNDEwZSAxMDA2NDQNCi0tLSBhL2RyaXZlcnMvZ3B1L2RybS9h
-bWQvYW1kZ3B1L3NvYzE1LmMNCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3NvYzE1
-LmMNCkBAIC0xMTY2LDcgKzExNjYsOCBAQCBzdGF0aWMgaW50IHNvYzE1X2NvbW1vbl9lYXJseV9p
-bml0KHZvaWQgKmhhbmRsZSkNCiAJCQlBTURfQ0dfU1VQUE9SVF9TRE1BX01HQ0cgfA0KIAkJCUFN
-RF9DR19TVVBQT1JUX1NETUFfTFMgfA0KIAkJCUFNRF9DR19TVVBQT1JUX01DX01HQ0cgfA0KLQkJ
-CUFNRF9DR19TVVBQT1JUX01DX0xTOw0KKwkJCUFNRF9DR19TVVBQT1JUX01DX0xTIHwNCisJCQlB
-TURfQ0dfU1VQUE9SVF9JSF9DRzsNCiAJCWFkZXYtPnBnX2ZsYWdzID0gMDsNCiAJCWFkZXYtPmV4
-dGVybmFsX3Jldl9pZCA9IGFkZXYtPnJldl9pZCArIDB4MzI7DQogCQlicmVhazsNCmRpZmYgLS1n
-aXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS92ZWdhMTBfaWguYyBiL2RyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1kZ3B1L3ZlZ2ExMF9paC5jDQppbmRleCAxNGUwYjA0Li41Y2I3ZTIzIDEwMDY0
-NA0KLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvdmVnYTEwX2loLmMNCisrKyBiL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3ZlZ2ExMF9paC5jDQpAQCAtNjc1LDEwICs2NzUsNDkg
-QEAgc3RhdGljIGludCB2ZWdhMTBfaWhfc29mdF9yZXNldCh2b2lkICpoYW5kbGUpDQogCXJldHVy
-biAwOw0KIH0NCiANCitzdGF0aWMgdm9pZCB2ZWdhMTBfaWhfdXBkYXRlX2Nsb2NrZ2F0aW5nX3N0
-YXRlKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LA0KKwkJCQkJICAgICAgIGJvb2wgZW5hYmxl
-KQ0KK3sNCisJdWludDMyX3QgZGF0YSwgZGVmLCBmaWVsZF92YWw7DQorDQorCWlmIChhZGV2LT5j
-Z19mbGFncyAmIEFNRF9DR19TVVBQT1JUX0lIX0NHKSB7DQorCQlkZWYgPSBkYXRhID0gUlJFRzMy
-X1NPQzE1KE9TU1NZUywgMCwgbW1JSF9DTEtfQ1RSTCk7DQorCQlmaWVsZF92YWwgPSBlbmFibGUg
-PyAwIDogMTsNCisJCS8qKg0KKwkJICogVmVnYTEwIGRvZXMgbm90IGhhdmUgSUhfUkVUUllfSU5U
-X0NBTV9NRU1fQ0xLX1NPRlRfT1ZFUlJJREUNCisJCSAqIGFuZCBJSF9CVUZGRVJfTUVNX0NMS19T
-T0ZUX09WRVJSSURFIGZpZWxkLg0KKwkJICovDQorCQlpZiAoYWRldi0+YXNpY190eXBlID4gQ0hJ
-UF9WRUdBMTApIHsNCisJCQlkYXRhID0gUkVHX1NFVF9GSUVMRChkYXRhLCBJSF9DTEtfQ1RSTCwN
-CisJCQkJICAgICBJSF9SRVRSWV9JTlRfQ0FNX01FTV9DTEtfU09GVF9PVkVSUklERSwgZmllbGRf
-dmFsKTsNCisJCQlkYXRhID0gUkVHX1NFVF9GSUVMRChkYXRhLCBJSF9DTEtfQ1RSTCwNCisJCQkJ
-ICAgICBJSF9CVUZGRVJfTUVNX0NMS19TT0ZUX09WRVJSSURFLCBmaWVsZF92YWwpOw0KKwkJfQ0K
-Kw0KKwkJZGF0YSA9IFJFR19TRVRfRklFTEQoZGF0YSwgSUhfQ0xLX0NUUkwsDQorCQkJCSAgICAg
-REJVU19NVVhfQ0xLX1NPRlRfT1ZFUlJJREUsIGZpZWxkX3ZhbCk7DQorCQlkYXRhID0gUkVHX1NF
-VF9GSUVMRChkYXRhLCBJSF9DTEtfQ1RSTCwNCisJCQkJICAgICBPU1NTWVNfU0hBUkVfQ0xLX1NP
-RlRfT1ZFUlJJREUsIGZpZWxkX3ZhbCk7DQorCQlkYXRhID0gUkVHX1NFVF9GSUVMRChkYXRhLCBJ
-SF9DTEtfQ1RSTCwNCisJCQkJICAgICBMSU1JVF9TTU5fQ0xLX1NPRlRfT1ZFUlJJREUsIGZpZWxk
-X3ZhbCk7DQorCQlkYXRhID0gUkVHX1NFVF9GSUVMRChkYXRhLCBJSF9DTEtfQ1RSTCwNCisJCQkJ
-ICAgICBEWU5fQ0xLX1NPRlRfT1ZFUlJJREUsIGZpZWxkX3ZhbCk7DQorCQlkYXRhID0gUkVHX1NF
-VF9GSUVMRChkYXRhLCBJSF9DTEtfQ1RSTCwNCisJCQkJICAgICBSRUdfQ0xLX1NPRlRfT1ZFUlJJ
-REUsIGZpZWxkX3ZhbCk7DQorCQlpZiAoZGVmICE9IGRhdGEpDQorCQkJV1JFRzMyX1NPQzE1KE9T
-U1NZUywgMCwgbW1JSF9DTEtfQ1RSTCwgZGF0YSk7DQorCX0NCit9DQorDQogc3RhdGljIGludCB2
-ZWdhMTBfaWhfc2V0X2Nsb2NrZ2F0aW5nX3N0YXRlKHZvaWQgKmhhbmRsZSwNCiAJCQkJCSAgZW51
-bSBhbWRfY2xvY2tnYXRpbmdfc3RhdGUgc3RhdGUpICB7DQorCXN0cnVjdCBhbWRncHVfZGV2aWNl
-ICphZGV2ID0gKHN0cnVjdCBhbWRncHVfZGV2aWNlICopaGFuZGxlOw0KKw0KKwl2ZWdhMTBfaWhf
-dXBkYXRlX2Nsb2NrZ2F0aW5nX3N0YXRlKGFkZXYsDQorCQkJCXN0YXRlID09IEFNRF9DR19TVEFU
-RV9HQVRFID8gdHJ1ZSA6IGZhbHNlKTsNCiAJcmV0dXJuIDA7DQorDQogfQ0KIA0KIHN0YXRpYyBp
-bnQgdmVnYTEwX2loX3NldF9wb3dlcmdhdGluZ19zdGF0ZSh2b2lkICpoYW5kbGUsIGRpZmYgLS1n
-aXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2luY2x1ZGUvYXNpY19yZWcvb3NzL29zc3N5c180XzBf
-c2hfbWFzay5oIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9pbmNsdWRlL2FzaWNfcmVnL29zcy9vc3Nz
-eXNfNF8wX3NoX21hc2suaA0KaW5kZXggZGM5ODk1YS4uMDk2ZDg3OCAxMDA2NDQNCi0tLSBhL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvaW5jbHVkZS9hc2ljX3JlZy9vc3Mvb3Nzc3lzXzRfMF9zaF9tYXNr
-LmgNCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvaW5jbHVkZS9hc2ljX3JlZy9vc3Mvb3Nzc3lz
-XzRfMF9zaF9tYXNrLmgNCkBAIC01ODgsMTEgKzU4OCwxNSBAQA0KICNkZWZpbmUgSUhfU1RPUk1f
-Q0xJRU5UX0xJU1RfQ05UTF9fQ0xJRU5UMzBfSVNfU1RPUk1fQ0xJRU5UX01BU0sgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgMHg0MDAwMDAwMEwNCiAjZGVmaW5l
-IElIX1NUT1JNX0NMSUVOVF9MSVNUX0NOVExfX0NMSUVOVDMxX0lTX1NUT1JNX0NMSUVOVF9NQVNL
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDB4ODAwMDAwMDBM
-DQogLy9JSF9DTEtfQ1RSTA0KKyNkZWZpbmUgSUhfQ0xLX0NUUkxfX0lIX1JFVFJZX0lOVF9DQU1f
-TUVNX0NMS19TT0ZUX09WRVJSSURFX19TSElGVCAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgIDB4MTkNCisjZGVmaW5lIElIX0NMS19DVFJMX19JSF9CVUZGRVJfTUVN
-X0NMS19TT0ZUX09WRVJSSURFX19TSElGVCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgIAkJICAweDFhDQogI2RlZmluZSBJSF9DTEtfQ1RSTF9fREJVU19NVVhfQ0xL
-X1NPRlRfT1ZFUlJJREVfX1NISUZUICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAweDFiDQogI2RlZmluZSBJSF9DTEtfQ1RSTF9fT1NTU1lTX1NI
-QVJFX0NMS19TT0ZUX09WRVJSSURFX19TSElGVCAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAweDFjDQogI2RlZmluZSBJSF9DTEtfQ1RSTF9fTElNSVRf
-U01OX0NMS19TT0ZUX09WRVJSSURFX19TSElGVCAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAweDFkDQogI2RlZmluZSBJSF9DTEtfQ1RSTF9fRFlO
-X0NMS19TT0ZUX09WRVJSSURFX19TSElGVCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAweDFlDQogI2RlZmluZSBJSF9DTEtfQ1RSTF9f
-UkVHX0NMS19TT0ZUX09WRVJSSURFX19TSElGVCAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAweDFmDQorI2RlZmluZSBJSF9DTEtfQ1RS
-TF9fSUhfUkVUUllfSU5UX0NBTV9NRU1fQ0xLX1NPRlRfT1ZFUlJJREVfTUFTSyAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAweDAyMDAwMDAwTA0KKyNkZWZpbmUg
-SUhfQ0xLX0NUUkxfX0lIX0JVRkZFUl9NRU1fQ0xLX1NPRlRfT1ZFUlJJREVfTUFTSyAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAkJICAweDA0MDAwMDAwTA0KICNk
-ZWZpbmUgSUhfQ0xLX0NUUkxfX0RCVVNfTVVYX0NMS19TT0ZUX09WRVJSSURFX01BU0sgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgMHgwODAw
-MDAwMEwNCiAjZGVmaW5lIElIX0NMS19DVFJMX19PU1NTWVNfU0hBUkVfQ0xLX1NPRlRfT1ZFUlJJ
-REVfTUFTSyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgIDB4MTAwMDAwMDBMDQogI2RlZmluZSBJSF9DTEtfQ1RSTF9fTElNSVRfU01OX0NMS19TT0ZU
-X09WRVJSSURFX01BU0sgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAweDIwMDAwMDAwTA0KLS0NCjIuNy40DQoNCl9fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fDQphbWQtZ2Z4IG1haWxpbmcgbGlzdA0KYW1k
-LWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
-L21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA0KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVl
-ZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5m
-by9hbWQtZ2Z4
+--===============0912493067==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_MN2PR12MB3344DE303C67119711B88DB5E4860MN2PR12MB3344namp_"
+
+--_000_MN2PR12MB3344DE303C67119711B88DB5E4860MN2PR12MB3344namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+This patch was already reviewed-by. I think you can land it on the branch d=
+irectly.
+
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> On Behalf Of Yuan, Xi=
+aojie
+Sent: Thursday, September 26, 2019 4:09 PM
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org
+Subject: Re: [PATCH] drm/amdgpu/gmc10: apply the 'invalidation from sdma' w=
+orkaround for navi
+
+Hi Alex,
+
+This patch is to add the asic_type check which is missing after drm-next br=
+anch rebase.
+
+BR,
+Xiaojie
+________________________________
+From: Yuan, Xiaojie <Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org<mailto:Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org>>
+Sent: Thursday, September 26, 2019 4:08 PM
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> <am=
+d-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>>
+Cc: alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org<mailto:alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org> <alexdeucher@gmail.=
+com<mailto:alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>>; Yuan, Xiaojie <Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org<mai=
+lto:Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org>>
+Subject: [PATCH] drm/amdgpu/gmc10: apply the 'invalidation from sdma' worka=
+round for navi
+
+Fixes: 767acabdac81 ("drm/amd/powerplay: add baco smu reset function for sm=
+u11")
+Signed-off-by: Xiaojie Yuan <xiaojie.yuan-5C7GfCeVMHo@public.gmane.org<mailto:xiaojie.yuan@amd.c=
+om>>
+---
+ drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c b/drivers/gpu/drm/amd/a=
+mdgpu/gmc_v10_0.c
+index cb3f61873baa..dc2e68e019eb 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+@@ -292,6 +292,7 @@ static void gmc_v10_0_flush_gpu_tlb(struct amdgpu_devic=
+e *adev, uint32_t vmid,
+
+         if (!adev->mman.buffer_funcs_enabled ||
+             !adev->ib_pool_ready ||
++           !(adev->asic_type >=3D CHIP_NAVI10 && adev->asic_type <=3D CHIP=
+_NAVI12) ||
+             adev->in_gpu_reset) {
+                 gmc_v10_0_flush_vm_hub(adev, vmid, AMDGPU_GFXHUB_0, 0);
+                 mutex_unlock(&adev->mman.gtt_window_lock);
+--
+2.20.1
+
+--_000_MN2PR12MB3344DE303C67119711B88DB5E4860MN2PR12MB3344namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40">
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
+<!--[if !mso]><style>v\:* {behavior:url(#default#VML);}
+o\:* {behavior:url(#default#VML);}
+w\:* {behavior:url(#default#VML);}
+.shape {behavior:url(#default#VML);}
+</style><![endif]--><style><!--
+/* Font Definitions */
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:DengXian;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:DengXian;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:#0563C1;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{mso-style-priority:99;
+	color:#954F72;
+	text-decoration:underline;}
+p.msonormal0, li.msonormal0, div.msonormal0
+	{mso-style-name:msonormal;
+	margin:0in;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+span.EmailStyle20
+	{mso-style-type:personal-reply;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-size:10.0pt;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.25in 1.0in 1.25in;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
+</head>
+<body lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72">
+<div class=3D"WordSection1">
+<p class=3D"MsoNormal">This patch was already reviewed-by. I think you can =
+land it on the branch directly.<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<div>
+<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
+0in 0in">
+<p class=3D"MsoNormal"><b>From:</b> amd-gfx &lt;amd-gfx-bounces-PD4FTy7X32mMSPqsTGOZug@public.gmane.org=
+esktop.org&gt;
+<b>On Behalf Of </b>Yuan, Xiaojie<br>
+<b>Sent:</b> Thursday, September 26, 2019 4:09 PM<br>
+<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>Cc:</b> alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org<br>
+<b>Subject:</b> Re: [PATCH] drm/amdgpu/gmc10: apply the 'invalidation from =
+sdma' workaround for navi<o:p></o:p></p>
+</div>
+</div>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<div>
+<p class=3D"MsoNormal"><span style=3D"color:black">Hi Alex,<o:p></o:p></spa=
+n></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"color:black"><o:p>&nbsp;</o:p></span>=
+</p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"color:black">This patch is to add the=
+ asic_type check which is missing after drm-next branch rebase.<o:p></o:p><=
+/span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"color:black"><o:p>&nbsp;</o:p></span>=
+</p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"color:black">BR,<o:p></o:p></span></p=
+>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"color:black">Xiaojie<o:p></o:p></span=
+></p>
+</div>
+<div class=3D"MsoNormal" align=3D"center" style=3D"text-align:center">
+<hr size=3D"2" width=3D"98%" align=3D"center">
+</div>
+<div id=3D"divRplyFwdMsg">
+<p class=3D"MsoNormal"><b><span style=3D"color:black">From:</span></b><span=
+ style=3D"color:black"> Yuan, Xiaojie &lt;<a href=3D"mailto:Xiaojie.Yuan@am=
+d.com">Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
+<b>Sent:</b> Thursday, September 26, 2019 4:08 PM<br>
+<b>To:</b> <a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx@lists.f=
+reedesktop.org</a> &lt;<a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd=
+-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>&gt;<br>
+<b>Cc:</b> <a href=3D"mailto:alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org">alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</=
+a> &lt;<a href=3D"mailto:alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org">alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&g=
+t;; Yuan, Xiaojie &lt;<a href=3D"mailto:Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org">Xiaojie.Yuan@=
+amd.com</a>&gt;<br>
+<b>Subject:</b> [PATCH] drm/amdgpu/gmc10: apply the 'invalidation from sdma=
+' workaround for navi</span>
+<o:p></o:p></p>
+<div>
+<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt">Fixes: 767acabdac81 (=
+&quot;drm/amd/powerplay: add baco smu reset function for smu11&quot;)<br>
+Signed-off-by: Xiaojie Yuan &lt;<a href=3D"mailto:xiaojie.yuan-5C7GfCeVMHo@public.gmane.org">xia=
+ojie.yuan-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c | 1 &#43;<br>
+&nbsp;1 file changed, 1 insertion(&#43;)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c b/drivers/gpu/drm/amd/a=
+mdgpu/gmc_v10_0.c<br>
+index cb3f61873baa..dc2e68e019eb 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c<br>
+@@ -292,6 &#43;292,7 @@ static void gmc_v10_0_flush_gpu_tlb(struct amdgpu_d=
+evice *adev, uint32_t vmid,<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!adev-&gt;mman.buffer_=
+funcs_enabled ||<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; !a=
+dev-&gt;ib_pool_ready ||<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; !(adev-&g=
+t;asic_type &gt;=3D CHIP_NAVI10 &amp;&amp; adev-&gt;asic_type &lt;=3D CHIP_=
+NAVI12) ||<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ad=
+ev-&gt;in_gpu_reset) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; gmc_v10_0_flush_vm_hub(adev, vmid, AMDGPU_GFXHUB_0, 0=
+);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; mutex_unlock(&amp;adev-&gt;mman.gtt_window_lock);<br>
+-- <br>
+2.20.1<o:p></o:p></p>
+</div>
+</div>
+</div>
+</body>
+</html>
+
+--_000_MN2PR12MB3344DE303C67119711B88DB5E4860MN2PR12MB3344namp_--
+
+--===============0912493067==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+
+--===============0912493067==--
