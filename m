@@ -1,12 +1,11 @@
-From: "Liang, Prike" <Prike.Liang-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH 8/8] drm/amd/powerplay: update the interface for getting dpm
- full scale clock frequency
-Date: Thu, 26 Sep 2019 03:50:19 +0000
-Message-ID: <1569469774-16813-8-git-send-email-Prike.Liang@amd.com>
+From: "Wang, Kevin(Yang)" <Kevin1.Wang-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 1/8] drm/amd/powerplay: bypass dpm_context null pointer
+ check guard for some smu series
+Date: Thu, 26 Sep 2019 05:15:16 +0000
+Message-ID: <MN2PR12MB3296E9B2628C3354FB53DABEA2860@MN2PR12MB3296.namprd12.prod.outlook.com>
 References: <1569469774-16813-1-git-send-email-Prike.Liang@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1873584874=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 In-Reply-To: <1569469774-16813-1-git-send-email-Prike.Liang-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
@@ -20,105 +19,282 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Liang, Prike" <Prike.Liang-5C7GfCeVMHo@public.gmane.org>, "Quan, Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>, "Huang, Ray" <Ray.Huang-5C7GfCeVMHo@public.gmane.org>, "keneth.feng-5C7GfCeVMHo@public.gmane.org" <keneth.feng-5C7GfCeVMHo@public.gmane.org>
+To: "Liang, Prike" <Prike.Liang-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Quan, Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>, "Huang, Ray" <Ray.Huang-5C7GfCeVMHo@public.gmane.org>, "keneth.feng-5C7GfCeVMHo@public.gmane.org" <keneth.feng-5C7GfCeVMHo@public.gmane.org>
 
-VXBkYXRlIGdldF9kcG1fdWNsa19saW1pdGVkIHRvIGdldCBtb3JlIGNsb2NrIHR5cGUgZnVsbCBz
-Y2FsZSBkcG0gZnJlcXVlbmN5LgoKU2lnbmVkLW9mZi1ieTogUHJpa2UgTGlhbmcgPFByaWtlLkxp
-YW5nQGFtZC5jb20+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaW5jL2FtZGdw
-dV9zbXUuaCB8ICA3ICsrKystLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L3Jlbm9p
-cl9wcHQuYyAgICAgfCAxNiArKysrKystLS0tLS0tLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvcG93
-ZXJwbGF5L3NtdV92MTJfMC5jICAgICAgfCAyOCArKysrKysrKysrKysrKysrKysrKysrLS0tLQog
-MyBmaWxlcyBjaGFuZ2VkLCAzNCBpbnNlcnRpb25zKCspLCAxNyBkZWxldGlvbnMoLSkKCmRpZmYg
-LS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9pbmMvYW1kZ3B1X3NtdS5oIGIv
-ZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaW5jL2FtZGdwdV9zbXUuaAppbmRleCBiMTE4
-ODYzLi5lYjgxZWRkIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9p
-bmMvYW1kZ3B1X3NtdS5oCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2luYy9h
-bWRncHVfc211LmgKQEAgLTQ2NSw3ICs0NjUsOCBAQCBzdHJ1Y3QgcHB0YWJsZV9mdW5jcyB7CiAJ
-aW50ICgqZGlzcGxheV9kaXNhYmxlX21lbW9yeV9jbG9ja19zd2l0Y2gpKHN0cnVjdCBzbXVfY29u
-dGV4dCAqc211LCBib29sIGRpc2FibGVfbWVtb3J5X2Nsb2NrX3N3aXRjaCk7CiAJdm9pZCAoKmR1
-bXBfcHB0YWJsZSkoc3RydWN0IHNtdV9jb250ZXh0ICpzbXUpOwogCWludCAoKmdldF9wb3dlcl9s
-aW1pdCkoc3RydWN0IHNtdV9jb250ZXh0ICpzbXUsIHVpbnQzMl90ICpsaW1pdCwgYm9vbCBhc2lj
-X2RlZmF1bHQpOwotCWludCAoKmdldF9kcG1fdWNsa19saW1pdGVkKShzdHJ1Y3Qgc211X2NvbnRl
-eHQgKnNtdSwgdWludDMyX3QgKmNsb2NrLCBib29sIG1heCk7CisJaW50ICgqZ2V0X2RwbV9jbGtf
-bGltaXRlZCkoc3RydWN0IHNtdV9jb250ZXh0ICpzbXUsIGVudW0gc211X2Nsa190eXBlIGNsa190
-eXBlLAorCQkJCSAgIHVpbnQzMl90IGRwbV9sZXZlbCwgdWludDMyX3QgKmZyZXEpOwogfTsKIAog
-c3RydWN0IHNtdV9mdW5jcwpAQCAtNzc0LDggKzc3NSw4IEBAIHN0cnVjdCBzbXVfZnVuY3MKIAko
-KHNtdSktPnBwdF9mdW5jcy0+c2V0X3BlcmZvcm1hbmNlX2xldmVsPyAoc211KS0+cHB0X2Z1bmNz
-LT5zZXRfcGVyZm9ybWFuY2VfbGV2ZWwoKHNtdSksIChsZXZlbCkpIDogLUVJTlZBTCk7CiAjZGVm
-aW5lIHNtdV9kdW1wX3BwdGFibGUoc211KSBcCiAJKChzbXUpLT5wcHRfZnVuY3MtPmR1bXBfcHB0
-YWJsZSA/IChzbXUpLT5wcHRfZnVuY3MtPmR1bXBfcHB0YWJsZSgoc211KSkgOiAwKQotI2RlZmlu
-ZSBzbXVfZ2V0X2RwbV91Y2xrX2xpbWl0ZWQoc211LCBjbG9jaywgbWF4KSBcCi0JCSgoc211KS0+
-cHB0X2Z1bmNzLT5nZXRfZHBtX3VjbGtfbGltaXRlZCA/IChzbXUpLT5wcHRfZnVuY3MtPmdldF9k
-cG1fdWNsa19saW1pdGVkKChzbXUpLCAoY2xvY2spLCAobWF4KSkgOiAtRUlOVkFMKQorI2RlZmlu
-ZSBzbXVfZ2V0X2RwbV9jbGtfbGltaXRlZChzbXUsIGNsa190eXBlLCBkcG1fbGV2ZWwsIGZyZXEp
-IFwKKwkJKChzbXUpLT5wcHRfZnVuY3MtPmdldF9kcG1fY2xrX2xpbWl0ZWQgPyAoc211KS0+cHB0
-X2Z1bmNzLT5nZXRfZHBtX2Nsa19saW1pdGVkKChzbXUpLCAoY2xrX3R5cGUpLCAoZHBtX2xldmVs
-KSwgKGZyZXEpKSA6IC1FSU5WQUwpCiAKICNkZWZpbmUgc211X3NldF9zb2Z0X2ZyZXFfbGltaXRl
-ZF9yYW5nZShzbXUsIGNsa190eXBlLCBtaW4sIG1heCkgXAogCQkoKHNtdSktPmZ1bmNzLT5zZXRf
-c29mdF9mcmVxX2xpbWl0ZWRfcmFuZ2UgPyAoc211KS0+ZnVuY3MtPnNldF9zb2Z0X2ZyZXFfbGlt
-aXRlZF9yYW5nZSgoc211KSwgKGNsa190eXBlKSwgKG1pbiksIChtYXgpKSA6IC1FSU5WQUwpCmRp
-ZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9yZW5vaXJfcHB0LmMgYi9k
-cml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9yZW5vaXJfcHB0LmMKaW5kZXggYzYzNTE4YS4u
-NTU2Y2E2OCAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvcmVub2ly
-X3BwdC5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L3Jlbm9pcl9wcHQuYwpA
-QCAtMTYxLDIxICsxNjEsMTcgQEAgc3RhdGljIGludCByZW5vaXJfdGFibGVzX2luaXQoc3RydWN0
-IHNtdV9jb250ZXh0ICpzbXUsIHN0cnVjdCBzbXVfdGFibGUgKnRhYmxlcykKICAqIFRoaXMgaW50
-ZXJmYWNlIGp1c3QgZm9yIGdldHRpbmcgdWNsayB1bHRpbWF0ZSBmcmVxIGFuZCBzaG91bGQndCBp
-bnRyb2R1Y2UKICAqIG90aGVyIGxpa2V3aXNlIGZ1bmN0aW9uIHJlc3VsdCBpbiBvdmVybXVjaCBj
-YWxsYmFjay4KICAqLwotc3RhdGljIGludCByZW5vaXJfZ2V0X2RwbV91Y2xrX2xpbWl0ZWQoc3Ry
-dWN0IHNtdV9jb250ZXh0ICpzbXUsIHVpbnQzMl90ICpjbG9jaywgYm9vbCBtYXgpCitzdGF0aWMg
-aW50IHJlbm9pcl9nZXRfZHBtX2Nsa19saW1pdGVkKHN0cnVjdCBzbXVfY29udGV4dCAqc211LCBl
-bnVtIHNtdV9jbGtfdHlwZSBjbGtfdHlwZSwKKwkJCQkJCXVpbnQzMl90IGRwbV9sZXZlbCwgdWlu
-dDMyX3QgKmZyZXEpCiB7CisJRHBtQ2xvY2tzX3QgKmNsa190YWJsZSA9IHNtdS0+c211X3RhYmxl
-LmNsb2Nrc190YWJsZTsKIAotCURwbUNsb2Nrc190ICp0YWJsZSA9IHNtdS0+c211X3RhYmxlLmNs
-b2Nrc190YWJsZTsKLQotCWlmICghY2xvY2sgfHwgIXRhYmxlKQorCWlmICghY2xrX3RhYmxlIHx8
-IGNsa190eXBlID49IFNNVV9DTEtfQ09VTlQpCiAJCXJldHVybiAtRUlOVkFMOwogCi0JaWYgKG1h
-eCkKLQkJKmNsb2NrID0gdGFibGUtPkZDbG9ja3NbTlVNX0ZDTEtfRFBNX0xFVkVMUy0xXS5GcmVx
-OwotCWVsc2UKLQkJKmNsb2NrID0gdGFibGUtPkZDbG9ja3NbMF0uRnJlcTsKKwlHRVRfRFBNX0NV
-Ul9GUkVRKGNsa190YWJsZSwgY2xrX3R5cGUsIGRwbV9sZXZlbCwgKmZyZXEpOwogCiAJcmV0dXJu
-IDA7Ci0KIH0KIAogc3RhdGljIGludCByZW5vaXJfcHJpbnRfY2xrX2xldmVscyhzdHJ1Y3Qgc211
-X2NvbnRleHQgKnNtdSwKQEAgLTU1NSw3ICs1NTEsNyBAQCBzdGF0aWMgY29uc3Qgc3RydWN0IHBw
-dGFibGVfZnVuY3MgcmVub2lyX3BwdF9mdW5jcyA9IHsKIAkuZ2V0X3NtdV90YWJsZV9pbmRleCA9
-IHJlbm9pcl9nZXRfc211X3RhYmxlX2luZGV4LAogCS50YWJsZXNfaW5pdCA9IHJlbm9pcl90YWJs
-ZXNfaW5pdCwKIAkuc2V0X3Bvd2VyX3N0YXRlID0gTlVMTCwKLQkuZ2V0X2RwbV91Y2xrX2xpbWl0
-ZWQgPSByZW5vaXJfZ2V0X2RwbV91Y2xrX2xpbWl0ZWQsCisJLmdldF9kcG1fY2xrX2xpbWl0ZWQg
-PSByZW5vaXJfZ2V0X2RwbV9jbGtfbGltaXRlZCwKIAkucHJpbnRfY2xrX2xldmVscyA9IHJlbm9p
-cl9wcmludF9jbGtfbGV2ZWxzLAogCS5nZXRfY3VycmVudF9wb3dlcl9zdGF0ZSA9IHJlbm9pcl9n
-ZXRfY3VycmVudF9wb3dlcl9zdGF0ZSwKIAkuZHBtX3NldF91dmRfZW5hYmxlID0gcmVub2lyX2Rw
-bV9zZXRfdXZkX2VuYWJsZSwKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJw
-bGF5L3NtdV92MTJfMC5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvc211X3YxMl8w
-LmMKaW5kZXggYzBjMGE2MC4uYzc4YzY5ZCAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9wb3dlcnBsYXkvc211X3YxMl8wLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBs
-YXkvc211X3YxMl8wLmMKQEAgLTMyMywxMCArMzIzLDE4IEBAIHN0YXRpYyBpbnQgc211X3YxMl8w
-X2dldF9kcG1fdWx0aW1hdGVfZnJlcShzdHJ1Y3Qgc211X2NvbnRleHQgKnNtdSwgZW51bSBzbXVf
-Y2xrCiAJCQkJCQkgdWludDMyX3QgKm1pbiwgdWludDMyX3QgKm1heCkKIHsKIAlpbnQgcmV0ID0g
-MDsKKwl1aW50MzJfdCBtY2xrX21hc2ssIHNvY19tYXNrOwogCiAJbXV0ZXhfbG9jaygmc211LT5t
-dXRleCk7CiAKIAlpZiAobWF4KSB7CisJCXJldCA9IHNtdV9nZXRfcHJvZmlsaW5nX2Nsa19tYXNr
-KHNtdSwgQU1EX0RQTV9GT1JDRURfTEVWRUxfUFJPRklMRV9QRUFLLAorCQkJCQkJIE5VTEwsCisJ
-CQkJCQkgJm1jbGtfbWFzaywKKwkJCQkJCSAmc29jX21hc2spOworCQlpZiAocmV0KQorCQkJZ290
-byBmYWlsZWQ7CisKIAkJc3dpdGNoIChjbGtfdHlwZSkgewogCQljYXNlIFNNVV9HRlhDTEs6CiAJ
-CWNhc2UgU01VX1NDTEs6CkBAIC0zNDAsMTQgKzM0OCwyMCBAQCBzdGF0aWMgaW50IHNtdV92MTJf
-MF9nZXRfZHBtX3VsdGltYXRlX2ZyZXEoc3RydWN0IHNtdV9jb250ZXh0ICpzbXUsIGVudW0gc211
-X2NsawogCQkJCWdvdG8gZmFpbGVkOwogCQkJYnJlYWs7CiAJCWNhc2UgU01VX1VDTEs6Ci0JCQly
-ZXQgPSBzbXVfZ2V0X2RwbV91Y2xrX2xpbWl0ZWQoc211LCBtYXgsIHRydWUpOworCQljYXNlIFNN
-VV9GQ0xLOgorCQljYXNlIFNNVV9NQ0xLOgorCQkJcmV0ID0gc211X2dldF9kcG1fY2xrX2xpbWl0
-ZWQoc211LCBjbGtfdHlwZSwgbWNsa19tYXNrLCBtYXgpOworCQkJaWYgKHJldCkKKwkJCQlnb3Rv
-IGZhaWxlZDsKKwkJCWJyZWFrOworCQljYXNlIFNNVV9TT0NDTEs6CisJCQlyZXQgPSBzbXVfZ2V0
-X2RwbV9jbGtfbGltaXRlZChzbXUsIGNsa190eXBlLCBzb2NfbWFzaywgbWF4KTsKIAkJCWlmIChy
-ZXQpCiAJCQkJZ290byBmYWlsZWQ7CiAJCQlicmVhazsKIAkJZGVmYXVsdDoKIAkJCXJldCA9IC1F
-SU5WQUw7CiAJCQlnb3RvIGZhaWxlZDsKLQogCQl9CiAJfQogCkBAIC0zNjUsNyArMzc5LDE0IEBA
-IHN0YXRpYyBpbnQgc211X3YxMl8wX2dldF9kcG1fdWx0aW1hdGVfZnJlcShzdHJ1Y3Qgc211X2Nv
-bnRleHQgKnNtdSwgZW51bSBzbXVfY2xrCiAJCQkJZ290byBmYWlsZWQ7CiAJCQlicmVhazsKIAkJ
-Y2FzZSBTTVVfVUNMSzoKLQkJCXJldCA9IHNtdV9nZXRfZHBtX3VjbGtfbGltaXRlZChzbXUsIG1p
-biwgZmFsc2UpOworCQljYXNlIFNNVV9GQ0xLOgorCQljYXNlIFNNVV9NQ0xLOgorCQkJcmV0ID0g
-c211X2dldF9kcG1fY2xrX2xpbWl0ZWQoc211LCBjbGtfdHlwZSwgMCwgbWluKTsKKwkJCWlmIChy
-ZXQpCisJCQkJZ290byBmYWlsZWQ7CisJCQlicmVhazsKKwkJY2FzZSBTTVVfU09DQ0xLOgorCQkJ
-cmV0ID0gc211X2dldF9kcG1fY2xrX2xpbWl0ZWQoc211LCBjbGtfdHlwZSwgMCwgbWluKTsKIAkJ
-CWlmIChyZXQpCiAJCQkJZ290byBmYWlsZWQ7CiAJCQlicmVhazsKQEAgLTM3Myw3ICszOTQsNiBA
-QCBzdGF0aWMgaW50IHNtdV92MTJfMF9nZXRfZHBtX3VsdGltYXRlX2ZyZXEoc3RydWN0IHNtdV9j
-b250ZXh0ICpzbXUsIGVudW0gc211X2NsawogCQkJcmV0ID0gLUVJTlZBTDsKIAkJCWdvdG8gZmFp
-bGVkOwogCQl9Ci0KIAl9CiBmYWlsZWQ6CiAJbXV0ZXhfdW5sb2NrKCZzbXUtPm11dGV4KTsKLS0g
-CjIuNy40CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwph
-bWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczov
-L2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
+--===============1873584874==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_MN2PR12MB3296E9B2628C3354FB53DABEA2860MN2PR12MB3296namp_"
+
+--_000_MN2PR12MB3296E9B2628C3354FB53DABEA2860MN2PR12MB3296namp_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+comment inline.
+________________________________
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Liang, P=
+rike <Prike.Liang-5C7GfCeVMHo@public.gmane.org>
+Sent: Thursday, September 26, 2019 11:50 AM
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: Liang, Prike <Prike.Liang-5C7GfCeVMHo@public.gmane.org>; Quan, Evan <Evan.Quan-5C7GfCeVMHo@public.gmane.org>; Hua=
+ng, Ray <Ray.Huang-5C7GfCeVMHo@public.gmane.org>; keneth.feng-5C7GfCeVMHo@public.gmane.org <keneth.feng-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH 1/8] drm/amd/powerplay: bypass dpm_context null pointer che=
+ck guard for some smu series
+
+For now APU has no smu_dpm_context structure for containing default/current=
+ related dpm tables,
+thus will needn't initialize smu_dpm_context to aviod APU null pointer issu=
+e.
+
+Signed-off-by: Prike Liang <Prike.Liang-5C7GfCeVMHo@public.gmane.org>
+---
+ drivers/gpu/drm/amd/powerplay/amdgpu_smu.c     | 7 ++++---
+ drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h | 1 +
+ drivers/gpu/drm/amd/powerplay/renoir_ppt.c     | 1 +
+ 3 files changed, 6 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c b/drivers/gpu/drm/a=
+md/powerplay/amdgpu_smu.c
+index 23293e1..ae4a82e 100644
+--- a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
++++ b/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
+@@ -1557,7 +1557,8 @@ static int smu_enable_umd_pstate(void *handle,
+
+         struct smu_context *smu =3D (struct smu_context*)(handle);
+         struct smu_dpm_context *smu_dpm_ctx =3D &(smu->smu_dpm);
+-       if (!smu->pm_enabled || !smu_dpm_ctx->dpm_context)
++
++       if (!smu->is_apu && (!smu->pm_enabled || !smu_dpm_ctx->dpm_context)=
+)
+                 return -EINVAL;
+
+         if (!(smu_dpm_ctx->dpm_level & profile_mode_mask)) {
+@@ -1755,7 +1756,7 @@ enum amd_dpm_forced_level smu_get_performance_level(s=
+truct smu_context *smu)
+         struct smu_dpm_context *smu_dpm_ctx =3D &(smu->smu_dpm);
+         enum amd_dpm_forced_level level;
+
+-       if (!smu_dpm_ctx->dpm_context)
++       if (!smu->is_apu && !smu_dpm_ctx->dpm_context)
+                 return -EINVAL;
+
+         mutex_lock(&(smu->mutex));
+@@ -1770,7 +1771,7 @@ int smu_force_performance_level(struct smu_context *s=
+mu, enum amd_dpm_forced_lev
+         struct smu_dpm_context *smu_dpm_ctx =3D &(smu->smu_dpm);
+         int ret =3D 0;
+
+-       if (!smu_dpm_ctx->dpm_context)
++       if (!smu->is_apu && !smu_dpm_ctx->dpm_context)
+                 return -EINVAL;
+
+         ret =3D smu_enable_umd_pstate(smu, &level);
+diff --git a/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h b/drivers/gpu/d=
+rm/amd/powerplay/inc/amdgpu_smu.h
+index 5c89844..bd1e621 100644
+--- a/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h
++++ b/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h
+@@ -387,6 +387,7 @@ struct smu_context
+         uint32_t power_profile_mode;
+         uint32_t default_power_profile_mode;
+         bool pm_enabled;
++       bool is_apu;
+
+         uint32_t smc_if_version;
+
+diff --git a/drivers/gpu/drm/amd/powerplay/renoir_ppt.c b/drivers/gpu/drm/a=
+md/powerplay/renoir_ppt.c
+index 9311b6a..a4e44d3 100644
+--- a/drivers/gpu/drm/amd/powerplay/renoir_ppt.c
++++ b/drivers/gpu/drm/amd/powerplay/renoir_ppt.c
+@@ -141,6 +141,7 @@ static int renoir_get_smu_table_index(struct smu_contex=
+t *smc, uint32_t index)
+ static int renoir_tables_init(struct smu_context *smu, struct smu_table *t=
+ables)
+ {
+         struct smu_table_context *smu_table =3D &smu->smu_table;
++       smu->is_apu =3D true;
+[keivn]:
+i'd like move this into function of "renoir_set_ppt_funcs".
+and this member should be set default value in amdgpu_smu.c
+
+after fixed:
+Reviewed-by: Kevin Wang <kevin1.wang-5C7GfCeVMHo@public.gmane.org>
+
+         SMU_TABLE_INIT(tables, SMU_TABLE_WATERMARKS, sizeof(Watermarks_t),
+                 PAGE_SIZE, AMDGPU_GEM_DOMAIN_VRAM);
+--
+2.7.4
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--_000_MN2PR12MB3296E9B2628C3354FB53DABEA2860MN2PR12MB3296namp_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+comment inline.</div>
+<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" co=
+lor=3D"#000000" style=3D"font-size:11pt"><b>From:</b> amd-gfx &lt;amd-gfx-b=
+ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Liang, Prike &lt;Prike.Liang@=
+amd.com&gt;<br>
+<b>Sent:</b> Thursday, September 26, 2019 11:50 AM<br>
+<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org &lt;amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&=
+gt;<br>
+<b>Cc:</b> Liang, Prike &lt;Prike.Liang-5C7GfCeVMHo@public.gmane.org&gt;; Quan, Evan &lt;Evan.Qu=
+an-5C7GfCeVMHo@public.gmane.org&gt;; Huang, Ray &lt;Ray.Huang-5C7GfCeVMHo@public.gmane.org&gt;; keneth.feng-5C7GfCeVMHo@public.gmane.org &=
+lt;keneth.feng-5C7GfCeVMHo@public.gmane.org&gt;<br>
+<b>Subject:</b> [PATCH 1/8] drm/amd/powerplay: bypass dpm_context null poin=
+ter check guard for some smu series</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt"=
+>
+<div class=3D"PlainText">For now APU has no smu_dpm_context structure for c=
+ontaining default/current related dpm tables,<br>
+thus will needn't initialize smu_dpm_context to aviod APU null pointer issu=
+e.<br>
+<br>
+Signed-off-by: Prike Liang &lt;Prike.Liang-5C7GfCeVMHo@public.gmane.org&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/powerplay/amdgpu_smu.c&nbsp;&nbsp;&nbsp;&nbsp; | =
+7 &#43;&#43;&#43;&#43;---<br>
+&nbsp;drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h | 1 &#43;<br>
+&nbsp;drivers/gpu/drm/amd/powerplay/renoir_ppt.c&nbsp;&nbsp;&nbsp;&nbsp; | =
+1 &#43;<br>
+&nbsp;3 files changed, 6 insertions(&#43;), 3 deletions(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c b/drivers/gpu/drm/a=
+md/powerplay/amdgpu_smu.c<br>
+index 23293e1..ae4a82e 100644<br>
+--- a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c<br>
+@@ -1557,7 &#43;1557,8 @@ static int smu_enable_umd_pstate(void *handle,<br=
+>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct smu_context *smu =
+=3D (struct smu_context*)(handle);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct smu_dpm_context *sm=
+u_dpm_ctx =3D &amp;(smu-&gt;smu_dpm);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!smu-&gt;pm_enabled || !smu_dpm_c=
+tx-&gt;dpm_context)<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!smu-&gt;is_apu &amp;&amp; (!=
+smu-&gt;pm_enabled || !smu_dpm_ctx-&gt;dpm_context))<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; return -EINVAL;<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!(smu_dpm_ctx-&gt;dpm_=
+level &amp; profile_mode_mask)) {<br>
+@@ -1755,7 &#43;1756,7 @@ enum amd_dpm_forced_level smu_get_performance_lev=
+el(struct smu_context *smu)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct smu_dpm_context *sm=
+u_dpm_ctx =3D &amp;(smu-&gt;smu_dpm);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; enum amd_dpm_forced_level =
+level;<br>
+&nbsp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!smu_dpm_ctx-&gt;dpm_context)<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!smu-&gt;is_apu &amp;&amp; !s=
+mu_dpm_ctx-&gt;dpm_context)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; return -EINVAL;<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_lock(&amp;(smu-&gt;m=
+utex));<br>
+@@ -1770,7 &#43;1771,7 @@ int smu_force_performance_level(struct smu_contex=
+t *smu, enum amd_dpm_forced_lev<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct smu_dpm_context *sm=
+u_dpm_ctx =3D &amp;(smu-&gt;smu_dpm);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int ret =3D 0;<br>
+&nbsp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!smu_dpm_ctx-&gt;dpm_context)<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!smu-&gt;is_apu &amp;&amp; !s=
+mu_dpm_ctx-&gt;dpm_context)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; return -EINVAL;<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D smu_enable_umd_pst=
+ate(smu, &amp;level);<br>
+diff --git a/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h b/drivers/gpu/d=
+rm/amd/powerplay/inc/amdgpu_smu.h<br>
+index 5c89844..bd1e621 100644<br>
+--- a/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h<br>
+@@ -387,6 &#43;387,7 @@ struct smu_context<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t power_profile_mod=
+e;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t default_power_pro=
+file_mode;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool pm_enabled;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool is_apu;<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t smc_if_version;<b=
+r>
+&nbsp;<br>
+diff --git a/drivers/gpu/drm/amd/powerplay/renoir_ppt.c b/drivers/gpu/drm/a=
+md/powerplay/renoir_ppt.c<br>
+index 9311b6a..a4e44d3 100644<br>
+--- a/drivers/gpu/drm/amd/powerplay/renoir_ppt.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/renoir_ppt.c<br>
+@@ -141,6 &#43;141,7 @@ static int renoir_get_smu_table_index(struct smu_co=
+ntext *smc, uint32_t index)<br>
+&nbsp;static int renoir_tables_init(struct smu_context *smu, struct smu_tab=
+le *tables)<br>
+&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct smu_table_context *=
+smu_table =3D &amp;smu-&gt;smu_table;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; smu-&gt;is_apu =3D true;</div>
+<div class=3D"PlainText">[keivn]:</div>
+<div class=3D"PlainText">i'd like move this into function of &quot;renoir_s=
+et_ppt_funcs&quot;.</div>
+<div class=3D"PlainText">and this member should be set default value in amd=
+gpu_smu.c</div>
+<div class=3D"PlainText"><br>
+</div>
+<div class=3D"PlainText">after fixed:</div>
+<div class=3D"PlainText">Reviewed-by: Kevin Wang &lt;kevin1.wang-5C7GfCeVMHo@public.gmane.org&gt=
+;</div>
+<div class=3D"PlainText">&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SMU_TABLE_INIT(tables, SMU=
+_TABLE_WATERMARKS, sizeof(Watermarks_t),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; PAGE_SIZE, AMDGPU_GEM_DOMAIN_VRAM);<br>
+-- <br>
+2.7.4<br>
+<br>
+_______________________________________________<br>
+amd-gfx mailing list<br>
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
+lists.freedesktop.org/mailman/listinfo/amd-gfx</a></div>
+</span></font></div>
+</body>
+</html>
+
+--_000_MN2PR12MB3296E9B2628C3354FB53DABEA2860MN2PR12MB3296namp_--
+
+--===============1873584874==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+
+--===============1873584874==--
