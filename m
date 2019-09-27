@@ -1,76 +1,47 @@
-From: Sean Paul <sean@poorly.run>
-Subject: Re: [PATCH 5/6] drm/amdgpu/dm/mst: Report possible_crtcs
- incorrectly, for now
-Date: Fri, 27 Sep 2019 11:27:41 -0400
-Message-ID: <20190927152741.GU218215@art_vandelay>
-References: <20190926225122.31455-1-lyude@redhat.com>
- <20190926225122.31455-6-lyude@redhat.com>
+From: Markus Elfring <Markus.Elfring@web.de>
+Subject: Re: [PATCH v2] drm/amdgpu: fix multiple memory leaks
+Date: Fri, 27 Sep 2019 18:37:37 +0200
+Message-ID: <1cc7e3f9-69fb-e8dc-4bfc-dbb69de66ec7@web.de>
+References: <20190918190529.17298-1-navid.emamdoost@gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 Return-path: <linux-kernel-owner@vger.kernel.org>
-Content-Disposition: inline
-In-Reply-To: <20190926225122.31455-6-lyude@redhat.com>
+In-Reply-To: <20190918190529.17298-1-navid.emamdoost@gmail.com>
+Content-Language: en-US
 Sender: linux-kernel-owner@vger.kernel.org
-To: Lyude Paul <lyude@redhat.com>
-Cc: amd-gfx@lists.freedesktop.org, Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>, Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, Alex Deucher <alexander.deucher@amd.com>, Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>, David Francis <David.Francis@amd.com>, Mario Kleiner <mario.kleiner.de@gmail.com>, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+To: Navid Emamdoost <navid.emamdoost@gmail.com>, =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Cc: Chunming Zhou <David1.Zhou@amd.com>, Rex Zhu <Rex.Zhu@amd.com>, Alex Deucher <alexander.deucher@amd.com>, Sam Ravnborg <sam@ravnborg.org>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, Navid Emamdoost <emamd001@umn.edu>, Kangjie Lu <kjlu@umn.edu>, Stephen A McCamant <smccaman@umn.edu>, linux-kernel@vger.kernel.org, kernel-janitors@vger.kernel.org
 List-Id: amd-gfx.lists.freedesktop.org
 
-On Thu, Sep 26, 2019 at 06:51:07PM -0400, Lyude Paul wrote:
-> This commit is seperate from the previous one to make it easier to
-> revert in the future. Basically, there's multiple userspace applications
-> that interpret possible_crtcs very wrong:
-> 
-> https://gitlab.freedesktop.org/xorg/xserver/merge_requests/277
-> https://gitlab.gnome.org/GNOME/mutter/issues/759
-> 
-> While work is ongoing to fix these issues in userspace, we need to
-> report ->possible_crtcs incorrectly for now in order to avoid
-> introducing a regression in in userspace. Once these issues get fixed,
-> this commit should be reverted.
-> 
-> Signed-off-by: Lyude Paul <lyude@redhat.com>
-> Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
-> ---
->  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 11 +++++++++++
->  1 file changed, 11 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index b404f1ae6df7..fe8ac801d7a5 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -4807,6 +4807,17 @@ static int amdgpu_dm_crtc_init(struct amdgpu_display_manager *dm,
->  	if (!acrtc->mst_encoder)
->  		goto fail;
->  
-> +	/*
-> +	 * FIXME: This is a hack to workaround the following issues:
-> +	 *
-> +	 * https://gitlab.gnome.org/GNOME/mutter/issues/759
-> +	 * https://gitlab.freedesktop.org/xorg/xserver/merge_requests/277
-> +	 *
-> +	 * One these issues are closed, this should be removed
+> v2: moved the released into goto error handlings
 
-Even when these issues are closed, we'll still be introducing a regression if we
-revert this change. Time for actually_possible_crtcs? :)
+A better version comment should be moved below the triple dashes.
 
-You also might want to briefly explain the u/s bug in case the links go sour.
 
-> +	 */
-> +	acrtc->mst_encoder->base.possible_crtcs =
-> +		amdgpu_dm_get_encoder_crtc_mask(dm->adev);
+Will the tag =E2=80=9CFixes=E2=80=9D be added?
 
-Why don't we put this hack in amdgpu_dm_dp_create_fake_mst_encoder()?
 
-Sean
-
-> +
+> @@ -393,6 +395,16 @@ static int acp_hw_init(void *handle)
+>  	val &=3D ~ACP_SOFT_RESET__SoftResetAud_MASK;
+>  	cgs_write_register(adev->acp.cgs_device, mmACP_SOFT_RESET, val);
 >  	return 0;
->  
->  fail:
-> -- 
-> 2.21.0
-> 
+> +
+> +out4:
+> +	kfree(i2s_pdata);
+> +out3:
+> +	kfree(adev->acp.acp_res);
+> +out2:
+> +	kfree(adev->acp.acp_cell);
+> +out1:
+> +	kfree(adev->acp.acp_genpd);
+> +	return ret;
+>  }
+>
+>  /**
 
--- 
-Sean Paul, Software Engineer, Google / Chromium OS
+I suggest to reconsider the label selection according to the Linux coding =
+style.
+
+Regards,
+Markus
