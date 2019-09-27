@@ -1,67 +1,512 @@
-From: "Kasiviswanathan, Harish" <Harish.Kasiviswanathan-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH] drm/amdkfd: fix kgd2kfd_device_init() definition conflict
- error
-Date: Fri, 27 Sep 2019 14:49:04 +0000
-Message-ID: <MN2PR12MB2911B358339AF86E955FD7E88C810@MN2PR12MB2911.namprd12.prod.outlook.com>
-References: <1569558805-30951-1-git-send-email-Prike.Liang@amd.com>
- <c7587938-62b1-e050-5d0f-073f94827e51@amd.com>
+From: Sean Paul <sean@poorly.run>
+Subject: Re: [PATCH v2 27/27] drm/dp_mst: Add topology ref history tracking
+ for debugging
+Date: Fri, 27 Sep 2019 10:51:07 -0400
+Message-ID: <20190927145107.GT218215@art_vandelay>
+References: <20190903204645.25487-1-lyude@redhat.com>
+ <20190903204645.25487-28-lyude@redhat.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <c7587938-62b1-e050-5d0f-073f94827e51-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>, "Liang, Prike" <Prike.Liang-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Huang, Ray" <Ray.Huang-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset=iso-8859-1
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Content-Disposition: inline
+In-Reply-To: <20190903204645.25487-28-lyude@redhat.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Lyude Paul <lyude@redhat.com>
+Cc: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, Juston Li <juston.li@intel.com>, Imre Deak <imre.deak@intel.com>, Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>, Harry Wentland <hwentlan@amd.com>, Daniel Vetter <daniel.vetter@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, Sean Paul <sean@poorly.run>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, linux-kernel@vger.kernel.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-U29ycnkgbWlzc2VkIGl0IHRvby4gVGhhbmtzIGZvciBmaXhpbmcgaXQuDQoNCkJlc3QgUmVnYXJk
-cywNCkhhcmlzaA0KDQoNCi0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQpGcm9tOiBLdWVobGlu
-ZywgRmVsaXggPEZlbGl4Lkt1ZWhsaW5nQGFtZC5jb20+IA0KU2VudDogRnJpZGF5LCBTZXB0ZW1i
-ZXIgMjcsIDIwMTkgMTA6MTkgQU0NClRvOiBMaWFuZywgUHJpa2UgPFByaWtlLkxpYW5nQGFtZC5j
-b20+OyBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0KQ2M6IEthc2l2aXN3YW5hdGhhbiwg
-SGFyaXNoIDxIYXJpc2guS2FzaXZpc3dhbmF0aGFuQGFtZC5jb20+OyBIdWFuZywgUmF5IDxSYXku
-SHVhbmdAYW1kLmNvbT4NClN1YmplY3Q6IFJlOiBbUEFUQ0hdIGRybS9hbWRrZmQ6IGZpeCBrZ2Qy
-a2ZkX2RldmljZV9pbml0KCkgZGVmaW5pdGlvbiBjb25mbGljdCBlcnJvcg0KDQpPbiAyMDE5LTA5
-LTI3IDA6MzMsIExpYW5nLCBQcmlrZSB3cm90ZToNCj4gVGhlIHBhdGNoIGM2NzA3MDcgZHJtL2Ft
-ZDogUGFzcyBkcm1fZGV2aWNlIHRvIGtmZCBpbnRyb2R1Y2VkIHRoaXMgaXNzdWUgYW5kDQo+IGZp
-eCB0aGUgZm9sbG93aW5nIGNvbXBpbGVyIGVycm9yLg0KPg0KPiAgICBDQyBbTV0gIGRyaXZlcnMv
-Z3B1L2RybS9hbWQvYW1kZ3B1Ly8uLi9wb3dlcnBsYXkvc211bWdyL2Zpamlfc211bWdyLm8NCj4g
-ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvL2FtZGdwdV9hbWRrZmQuYzo3NDY6NjogZXJyb3I6
-IGNvbmZsaWN0aW5nIHR5cGVzIGZvciDigJhrZ2Qya2ZkX2RldmljZV9pbml04oCZDQo+ICAgYm9v
-bCBrZ2Qya2ZkX2RldmljZV9pbml0KHN0cnVjdCBrZmRfZGV2ICprZmQsDQo+ICAgICAgICBeDQo+
-IEluIGZpbGUgaW5jbHVkZWQgZnJvbSBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS8vYW1kZ3B1
-X2FtZGtmZC5jOjIzOjA6DQo+IGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1Ly9hbWRncHVfYW1k
-a2ZkLmg6MjUzOjY6IG5vdGU6IHByZXZpb3VzIGRlY2xhcmF0aW9uIG9mIOKAmGtnZDJrZmRfZGV2
-aWNlX2luaXTigJkgd2FzIGhlcmUNCj4gICBib29sIGtnZDJrZmRfZGV2aWNlX2luaXQoc3RydWN0
-IGtmZF9kZXYgKmtmZCwNCj4gICAgICAgIF4NCj4gc2NyaXB0cy9NYWtlZmlsZS5idWlsZDoyNzM6
-IHJlY2lwZSBmb3IgdGFyZ2V0ICdkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS8vYW1kZ3B1X2Ft
-ZGtmZC5vJyBmYWlsZWQNCj4gbWFrZVsxXTogKioqIFtkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
-dS8vYW1kZ3B1X2FtZGtmZC5vXSBFcnJvciAxDQo+DQo+IFNpZ25lZC1vZmYtYnk6IFByaWtlIExp
-YW5nIDxQcmlrZS5MaWFuZ0BhbWQuY29tPg0KDQpUaGlzIGZpeCBpcyBmb3IgdGhlIGNhc2UgdGhh
-dCBDT05GSUdfSFNBX0FNRCBpcyBkaXNhYmxlZC4gU29ycnkgZm9yIA0KbWlzc2luZyB0aGF0IHdo
-ZW4gcmV2aWV3aW5nIEhhcmlzaCdzIGNvZGUuDQoNClJldmlld2VkLWJ5OiBGZWxpeCBLdWVobGlu
-ZyA8RmVsaXguS3VlaGxpbmdAYW1kLmNvbT4NCg0KDQo+IC0tLQ0KPiAgIGRyaXZlcnMvZ3B1L2Ry
-bS9hbWQvYW1kZ3B1L2FtZGdwdV9hbWRrZmQuYyB8IDEgKw0KPiAgIDEgZmlsZSBjaGFuZ2VkLCAx
-IGluc2VydGlvbigrKQ0KPg0KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
-cHUvYW1kZ3B1X2FtZGtmZC5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Ft
-ZGtmZC5jDQo+IGluZGV4IDIyMTA0N2QuLjkyNjY2YjEgMTAwNjQ0DQo+IC0tLSBhL2RyaXZlcnMv
-Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9hbWRrZmQuYw0KPiArKysgYi9kcml2ZXJzL2dwdS9k
-cm0vYW1kL2FtZGdwdS9hbWRncHVfYW1ka2ZkLmMNCj4gQEAgLTc0NCw2ICs3NDQsNyBAQCBzdHJ1
-Y3Qga2ZkX2RldiAqa2dkMmtmZF9wcm9iZShzdHJ1Y3Qga2dkX2RldiAqa2dkLCBzdHJ1Y3QgcGNp
-X2RldiAqcGRldiwNCj4gICB9DQo+ICAgDQo+ICAgYm9vbCBrZ2Qya2ZkX2RldmljZV9pbml0KHN0
-cnVjdCBrZmRfZGV2ICprZmQsDQo+ICsJCQkgc3RydWN0IGRybV9kZXZpY2UgKmRkZXYsDQo+ICAg
-CQkJIGNvbnN0IHN0cnVjdCBrZ2Qya2ZkX3NoYXJlZF9yZXNvdXJjZXMgKmdwdV9yZXNvdXJjZXMp
-DQo+ICAgew0KPiAgIAlyZXR1cm4gZmFsc2U7DQpfX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZy
-ZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3Rp
-bmZvL2FtZC1nZng=
+On Tue, Sep 03, 2019 at 04:46:05PM -0400, Lyude Paul wrote:
+> For very subtle mistakes with topology refs, it can be rather difficult
+> to trace them down with the debugging info that we already have. I had
+> one such issue recently while trying to implement suspend/resume
+> reprobing for MST, and ended up coming up with this.
+> 
+> Inspired by Chris Wilson's wakeref tracking for i915, this adds a very
+> similar feature to the DP MST helpers, which allows for partial tracking
+> of topology refs for both ports and branch devices. This is a lot less
+> advanced then wakeref tracking: we merely keep a count of all of the
+> spots where a topology ref has been grabbed or dropped, then dump out
+> that history in chronological order when a port or branch device's
+> topology refcount reaches 0. So far, I've found this incredibly useful
+> for debugging topology refcount errors.
+> 
+> Since this has the potential to be somewhat slow and loud, we add an
+> expert kernel config option to enable or disable this feature,
+> CONFIG_DRM_DEBUG_DP_MST_TOPOLOGY_REFS.
+> 
+
+Looks very useful indeed! 
+
+My only nit is that we could probably grow the list a little more aggressively
+(or start it off at some size > 1) and avoid a bunch of reallocs. That said,
+I'm not sure how often it's reallocated so it might not be an issue. Either
+way, 
+
+Reviewed-by: Sean Paul <sean@poorly.run>
+
+
+> Changes since v1:
+> * Don't forget to destroy topology_ref_history_lock
+> 
+> Cc: Juston Li <juston.li@intel.com>
+> Cc: Imre Deak <imre.deak@intel.com>
+> Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
+> Cc: Harry Wentland <hwentlan@amd.com>
+> Cc: Daniel Vetter <daniel.vetter@ffwll.ch>
+> Signed-off-by: Lyude Paul <lyude@redhat.com>
+> ---
+>  drivers/gpu/drm/Kconfig               |  14 ++
+>  drivers/gpu/drm/drm_dp_mst_topology.c | 233 +++++++++++++++++++++++++-
+>  include/drm/drm_dp_mst_helper.h       |  45 +++++
+>  3 files changed, 288 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/Kconfig b/drivers/gpu/drm/Kconfig
+> index e67c194c2aca..44fc2c2a6e2c 100644
+> --- a/drivers/gpu/drm/Kconfig
+> +++ b/drivers/gpu/drm/Kconfig
+> @@ -93,6 +93,20 @@ config DRM_KMS_FB_HELPER
+>  	help
+>  	  FBDEV helpers for KMS drivers.
+>  
+> +config DRM_DEBUG_DP_MST_TOPOLOGY_REFS
+> +        bool "Enable refcount backtrace history in the DP MST helpers"
+> +        select STACKDEPOT
+> +        depends on DRM_KMS_HELPER
+> +        depends on DEBUG_KERNEL
+> +        depends on EXPERT
+> +        help
+> +          Enables debug tracing for topology refs in DRM's DP MST helpers. A
+> +          history of each topology reference/dereference will be printed to the
+> +          kernel log once a port or branch device's topology refcount reaches 0.
+> +
+> +          This has the potential to use a lot of memory and print some very
+> +          large kernel messages. If in doubt, say "N".
+> +
+>  config DRM_FBDEV_EMULATION
+>  	bool "Enable legacy fbdev support for your modesetting driver"
+>  	depends on DRM
+> diff --git a/drivers/gpu/drm/drm_dp_mst_topology.c b/drivers/gpu/drm/drm_dp_mst_topology.c
+> index 5b5c0b3b3c0e..18f9a02927d9 100644
+> --- a/drivers/gpu/drm/drm_dp_mst_topology.c
+> +++ b/drivers/gpu/drm/drm_dp_mst_topology.c
+> @@ -28,6 +28,13 @@
+>  #include <linux/sched.h>
+>  #include <linux/seq_file.h>
+>  
+> +#if IS_ENABLED(CONFIG_DRM_DEBUG_DP_MST_TOPOLOGY_REFS)
+> +#include <linux/stackdepot.h>
+> +#include <linux/sort.h>
+> +#include <linux/timekeeping.h>
+> +#include <linux/math64.h>
+> +#endif
+> +
+>  #include <drm/drm_atomic.h>
+>  #include <drm/drm_atomic_helper.h>
+>  #include <drm/drm_dp_mst_helper.h>
+> @@ -1405,12 +1412,189 @@ drm_dp_mst_put_port_malloc(struct drm_dp_mst_port *port)
+>  }
+>  EXPORT_SYMBOL(drm_dp_mst_put_port_malloc);
+>  
+> +#if IS_ENABLED(CONFIG_DRM_DEBUG_DP_MST_TOPOLOGY_REFS)
+> +
+> +#define STACK_DEPTH 8
+> +
+> +static noinline void
+> +__topology_ref_save(struct drm_dp_mst_topology_mgr *mgr,
+> +		    struct drm_dp_mst_topology_ref_history *history,
+> +		    enum drm_dp_mst_topology_ref_type type)
+> +{
+> +	struct drm_dp_mst_topology_ref_entry *entry = NULL;
+> +	depot_stack_handle_t backtrace;
+> +	ulong stack_entries[STACK_DEPTH];
+> +	uint n;
+> +	int i;
+> +
+> +	n = stack_trace_save(stack_entries, ARRAY_SIZE(stack_entries), 1);
+> +	backtrace = stack_depot_save(stack_entries, n, GFP_KERNEL);
+> +	if (!backtrace)
+> +		goto fail_alloc;
+> +
+> +	/* Try to find an existing entry for this backtrace */
+> +	for (i = 0; i < history->len; i++) {
+> +		if (history->entries[i].backtrace == backtrace) {
+> +			entry = &history->entries[i];
+> +			break;
+> +		}
+> +	}
+> +
+> +	/* Otherwise add one */
+> +	if (!entry) {
+> +		struct drm_dp_mst_topology_ref_entry *new;
+> +		int new_len = history->len + 1;
+> +
+> +		new = krealloc(history->entries, sizeof(*new) * new_len,
+> +			       GFP_KERNEL);
+> +		if (!new)
+> +			goto fail_alloc;
+> +
+> +		entry = &new[history->len];
+> +		history->len = new_len;
+> +		history->entries = new;
+> +
+> +		entry->backtrace = backtrace;
+> +		entry->type = type;
+> +		entry->count = 0;
+> +	}
+> +	entry->count++;
+> +	entry->ts_nsec = ktime_get_ns();
+> +
+> +	return;
+> +fail_alloc:
+> +	DRM_WARN_ONCE("Failed to allocate memory for topology refcount backtrace\n");
+> +}
+> +
+> +static int
+> +topology_ref_history_cmp(const void *a, const void *b)
+> +{
+> +	const struct drm_dp_mst_topology_ref_entry *entry_a = a, *entry_b = b;
+> +
+> +	if (entry_a->ts_nsec > entry_b->ts_nsec)
+> +		return 1;
+> +	else if (entry_a->ts_nsec < entry_b->ts_nsec)
+> +		return -1;
+> +	else
+> +		return 0;
+> +}
+> +
+> +static inline const char *
+> +topology_ref_type_to_str(enum drm_dp_mst_topology_ref_type type)
+> +{
+> +	if (type == DRM_DP_MST_TOPOLOGY_REF_GET)
+> +		return "get";
+> +	else
+> +		return "put";
+> +}
+> +
+> +static void
+> +__dump_topology_ref_history(struct drm_dp_mst_topology_ref_history *history,
+> +			    void *ptr, const char *type_str)
+> +{
+> +	struct drm_printer p = drm_debug_printer(DBG_PREFIX);
+> +	char *buf = kzalloc(PAGE_SIZE, GFP_KERNEL);
+> +	int i;
+> +
+> +	if (!buf)
+> +		return;
+> +
+> +	if (!history->len)
+> +		goto out;
+> +
+> +	/* First, sort the list so that it goes from oldest to newest
+> +	 * reference entry
+> +	 */
+> +	sort(history->entries, history->len, sizeof(*history->entries),
+> +	     topology_ref_history_cmp, NULL);
+> +
+> +	drm_printf(&p,
+> +		   "%s (%p/%px) topology count reached 0, dumping history:\n",
+> +		   type_str, ptr, ptr);
+> +
+> +	for (i = 0; i < history->len; i++) {
+> +		const struct drm_dp_mst_topology_ref_entry *entry =
+> +			&history->entries[i];
+> +		ulong *entries;
+> +		uint nr_entries;
+> +		u64 ts_nsec = entry->ts_nsec;
+> +		u64 rem_nsec = do_div(ts_nsec, 1000000000);
+> +
+> +		nr_entries = stack_depot_fetch(entry->backtrace, &entries);
+> +		stack_trace_snprint(buf, PAGE_SIZE, entries, nr_entries, 4);
+> +
+> +		drm_printf(&p, "  %d %ss (last at %5llu.%06llu):\n%s",
+> +			   entry->count,
+> +			   topology_ref_type_to_str(entry->type),
+> +			   ts_nsec, rem_nsec / 1000, buf);
+> +	}
+> +
+> +	/* Now free the history, since this is the only time we expose it */
+> +	kfree(history->entries);
+> +out:
+> +	kfree(buf);
+> +}
+> +
+> +static __always_inline void
+> +drm_dp_mst_dump_mstb_topology_history(struct drm_dp_mst_branch *mstb)
+> +{
+> +	__dump_topology_ref_history(&mstb->topology_ref_history, mstb,
+> +				    "MSTB");
+> +}
+> +
+> +static __always_inline void
+> +drm_dp_mst_dump_port_topology_history(struct drm_dp_mst_port *port)
+> +{
+> +	__dump_topology_ref_history(&port->topology_ref_history, port,
+> +				    "Port");
+> +}
+> +
+> +static __always_inline void
+> +save_mstb_topology_ref(struct drm_dp_mst_branch *mstb,
+> +		       enum drm_dp_mst_topology_ref_type type)
+> +{
+> +	__topology_ref_save(mstb->mgr, &mstb->topology_ref_history, type);
+> +}
+> +
+> +static __always_inline void
+> +save_port_topology_ref(struct drm_dp_mst_port *port,
+> +		       enum drm_dp_mst_topology_ref_type type)
+> +{
+> +	__topology_ref_save(port->mgr, &port->topology_ref_history, type);
+> +}
+> +
+> +static inline void
+> +topology_ref_history_lock(struct drm_dp_mst_topology_mgr *mgr)
+> +{
+> +	mutex_lock(&mgr->topology_ref_history_lock);
+> +}
+> +
+> +static inline void
+> +topology_ref_history_unlock(struct drm_dp_mst_topology_mgr *mgr)
+> +{
+> +	mutex_unlock(&mgr->topology_ref_history_lock);
+> +}
+> +#else
+> +static inline void
+> +topology_ref_history_lock(struct drm_dp_mst_topology_mgr *mgr) {}
+> +static inline void
+> +topology_ref_history_unlock(struct drm_dp_mst_topology_mgr *mgr) {}
+> +static inline void
+> +drm_dp_mst_dump_mstb_topology_history(struct drm_dp_mst_branch *mstb) {}
+> +static inline void
+> +drm_dp_mst_dump_port_topology_history(struct drm_dp_mst_port *port) {}
+> +#define save_mstb_topology_ref(mstb, type)
+> +#define save_port_topology_ref(port, type)
+> +#endif
+> +
+>  static void drm_dp_destroy_mst_branch_device(struct kref *kref)
+>  {
+>  	struct drm_dp_mst_branch *mstb =
+>  		container_of(kref, struct drm_dp_mst_branch, topology_kref);
+>  	struct drm_dp_mst_topology_mgr *mgr = mstb->mgr;
+>  
+> +	drm_dp_mst_dump_mstb_topology_history(mstb);
+> +
+>  	INIT_LIST_HEAD(&mstb->destroy_next);
+>  
+>  	/*
+> @@ -1448,11 +1632,18 @@ static void drm_dp_destroy_mst_branch_device(struct kref *kref)
+>  static int __must_check
+>  drm_dp_mst_topology_try_get_mstb(struct drm_dp_mst_branch *mstb)
+>  {
+> -	int ret = kref_get_unless_zero(&mstb->topology_kref);
+> +	int ret;
+>  
+> -	if (ret)
+> +	topology_ref_history_lock(mstb->mgr);
+> +	ret = kref_get_unless_zero(&mstb->topology_kref);
+> +
+> +	if (ret) {
+>  		DRM_DEBUG("mstb %p/%px (%d)\n",
+>  			  mstb, mstb, kref_read(&mstb->topology_kref));
+> +		save_mstb_topology_ref(mstb, DRM_DP_MST_TOPOLOGY_REF_GET);
+> +	}
+> +
+> +	topology_ref_history_unlock(mstb->mgr);
+>  
+>  	return ret;
+>  }
+> @@ -1473,10 +1664,15 @@ drm_dp_mst_topology_try_get_mstb(struct drm_dp_mst_branch *mstb)
+>   */
+>  static void drm_dp_mst_topology_get_mstb(struct drm_dp_mst_branch *mstb)
+>  {
+> +	topology_ref_history_lock(mstb->mgr);
+> +
+> +	save_mstb_topology_ref(mstb, DRM_DP_MST_TOPOLOGY_REF_GET);
+>  	WARN_ON(kref_read(&mstb->topology_kref) == 0);
+>  	kref_get(&mstb->topology_kref);
+>  	DRM_DEBUG("mstb %p/%px (%d)\n",
+>  		  mstb, mstb, kref_read(&mstb->topology_kref));
+> +
+> +	topology_ref_history_unlock(mstb->mgr);
+>  }
+>  
+>  /**
+> @@ -1494,9 +1690,14 @@ static void drm_dp_mst_topology_get_mstb(struct drm_dp_mst_branch *mstb)
+>  static void
+>  drm_dp_mst_topology_put_mstb(struct drm_dp_mst_branch *mstb)
+>  {
+> +	topology_ref_history_lock(mstb->mgr);
+> +
+>  	DRM_DEBUG("mstb %p/%px (%d)\n",
+>  		  mstb, mstb, kref_read(&mstb->topology_kref) - 1);
+> +	save_mstb_topology_ref(mstb, DRM_DP_MST_TOPOLOGY_REF_PUT);
+>  	kref_put(&mstb->topology_kref, drm_dp_destroy_mst_branch_device);
+> +
+> +	topology_ref_history_unlock(mstb->mgr);
+>  }
+>  
+>  static void drm_dp_destroy_port(struct kref *kref)
+> @@ -1505,6 +1706,8 @@ static void drm_dp_destroy_port(struct kref *kref)
+>  		container_of(kref, struct drm_dp_mst_port, topology_kref);
+>  	struct drm_dp_mst_topology_mgr *mgr = port->mgr;
+>  
+> +	drm_dp_mst_dump_port_topology_history(port);
+> +
+>  	/* There's nothing that needs locking to destroy an input port yet */
+>  	if (port->input) {
+>  		drm_dp_mst_put_port_malloc(port);
+> @@ -1548,12 +1751,18 @@ static void drm_dp_destroy_port(struct kref *kref)
+>  static int __must_check
+>  drm_dp_mst_topology_try_get_port(struct drm_dp_mst_port *port)
+>  {
+> -	int ret = kref_get_unless_zero(&port->topology_kref);
+> +	int ret;
+> +
+> +	topology_ref_history_lock(port->mgr);
+> +	ret = kref_get_unless_zero(&port->topology_kref);
+>  
+> -	if (ret)
+> +	if (ret) {
+>  		DRM_DEBUG("port %p/%px (%d)\n",
+>  			  port, port, kref_read(&port->topology_kref));
+> +		save_port_topology_ref(port, DRM_DP_MST_TOPOLOGY_REF_GET);
+> +	}
+>  
+> +	topology_ref_history_unlock(port->mgr);
+>  	return ret;
+>  }
+>  
+> @@ -1572,10 +1781,15 @@ drm_dp_mst_topology_try_get_port(struct drm_dp_mst_port *port)
+>   */
+>  static void drm_dp_mst_topology_get_port(struct drm_dp_mst_port *port)
+>  {
+> +	topology_ref_history_lock(port->mgr);
+> +
+>  	WARN_ON(kref_read(&port->topology_kref) == 0);
+>  	kref_get(&port->topology_kref);
+>  	DRM_DEBUG("port %p/%px (%d)\n",
+>  		  port, port, kref_read(&port->topology_kref));
+> +	save_port_topology_ref(port, DRM_DP_MST_TOPOLOGY_REF_GET);
+> +
+> +	topology_ref_history_unlock(port->mgr);
+>  }
+>  
+>  /**
+> @@ -1591,9 +1805,14 @@ static void drm_dp_mst_topology_get_port(struct drm_dp_mst_port *port)
+>   */
+>  static void drm_dp_mst_topology_put_port(struct drm_dp_mst_port *port)
+>  {
+> +	topology_ref_history_lock(port->mgr);
+> +
+>  	DRM_DEBUG("port %p/%px (%d)\n",
+>  		  port, port, kref_read(&port->topology_kref) - 1);
+> +	save_port_topology_ref(port, DRM_DP_MST_TOPOLOGY_REF_PUT);
+>  	kref_put(&port->topology_kref, drm_dp_destroy_port);
+> +
+> +	topology_ref_history_unlock(port->mgr);
+>  }
+>  
+>  static struct drm_dp_mst_branch *
+> @@ -4548,6 +4767,9 @@ int drm_dp_mst_topology_mgr_init(struct drm_dp_mst_topology_mgr *mgr,
+>  	mutex_init(&mgr->payload_lock);
+>  	mutex_init(&mgr->delayed_destroy_lock);
+>  	mutex_init(&mgr->up_req_lock);
+> +#if IS_ENABLED(CONFIG_DRM_DEBUG_DP_MST_TOPOLOGY_REFS)
+> +	mutex_init(&mgr->topology_ref_history_lock);
+> +#endif
+>  	INIT_LIST_HEAD(&mgr->tx_msg_downq);
+>  	INIT_LIST_HEAD(&mgr->destroy_port_list);
+>  	INIT_LIST_HEAD(&mgr->destroy_branch_device_list);
+> @@ -4613,6 +4835,9 @@ void drm_dp_mst_topology_mgr_destroy(struct drm_dp_mst_topology_mgr *mgr)
+>  	mutex_destroy(&mgr->qlock);
+>  	mutex_destroy(&mgr->lock);
+>  	mutex_destroy(&mgr->up_req_lock);
+> +#if IS_ENABLED(CONFIG_DRM_DEBUG_DP_MST_TOPOLOGY_REFS)
+> +	mutex_destroy(&mgr->topology_ref_history_lock);
+> +#endif
+>  }
+>  EXPORT_SYMBOL(drm_dp_mst_topology_mgr_destroy);
+>  
+> diff --git a/include/drm/drm_dp_mst_helper.h b/include/drm/drm_dp_mst_helper.h
+> index 1bdee5ee6dcd..75b8fba6f399 100644
+> --- a/include/drm/drm_dp_mst_helper.h
+> +++ b/include/drm/drm_dp_mst_helper.h
+> @@ -26,6 +26,26 @@
+>  #include <drm/drm_dp_helper.h>
+>  #include <drm/drm_atomic.h>
+>  
+> +#if IS_ENABLED(CONFIG_DRM_DEBUG_DP_MST_TOPOLOGY_REFS)
+> +#include <linux/stackdepot.h>
+> +#include <linux/timekeeping.h>
+> +
+> +enum drm_dp_mst_topology_ref_type {
+> +	DRM_DP_MST_TOPOLOGY_REF_GET,
+> +	DRM_DP_MST_TOPOLOGY_REF_PUT,
+> +};
+> +
+> +struct drm_dp_mst_topology_ref_history {
+> +	struct drm_dp_mst_topology_ref_entry {
+> +		enum drm_dp_mst_topology_ref_type type;
+> +		int count;
+> +		ktime_t ts_nsec;
+> +		depot_stack_handle_t backtrace;
+> +	} *entries;
+> +	int len;
+> +};
+> +#endif /* IS_ENABLED(CONFIG_DRM_DEBUG_DP_MST_TOPOLOGY_REFS) */
+> +
+>  struct drm_dp_mst_branch;
+>  
+>  /**
+> @@ -92,6 +112,14 @@ struct drm_dp_mst_port {
+>  	 */
+>  	struct kref malloc_kref;
+>  
+> +#if IS_ENABLED(CONFIG_DRM_DEBUG_DP_MST_TOPOLOGY_REFS)
+> +	/**
+> +	 * @topology_ref_history: A history of each topology
+> +	 * reference/dereference. See CONFIG_DRM_DEBUG_DP_MST_TOPOLOGY_REFS.
+> +	 */
+> +	struct drm_dp_mst_topology_ref_history topology_ref_history;
+> +#endif
+> +
+>  	u8 port_num;
+>  	bool input;
+>  	bool mcs;
+> @@ -162,6 +190,14 @@ struct drm_dp_mst_branch {
+>  	 */
+>  	struct kref malloc_kref;
+>  
+> +#if IS_ENABLED(CONFIG_DRM_DEBUG_DP_MST_TOPOLOGY_REFS)
+> +	/**
+> +	 * @topology_ref_history: A history of each topology
+> +	 * reference/dereference. See CONFIG_DRM_DEBUG_DP_MST_TOPOLOGY_REFS.
+> +	 */
+> +	struct drm_dp_mst_topology_ref_history topology_ref_history;
+> +#endif
+> +
+>  	/**
+>  	 * @destroy_next: linked-list entry used by
+>  	 * drm_dp_delayed_destroy_work()
+> @@ -630,6 +666,15 @@ struct drm_dp_mst_topology_mgr {
+>  	 * transmissions.
+>  	 */
+>  	struct work_struct up_req_work;
+> +
+> +#if IS_ENABLED(CONFIG_DRM_DEBUG_DP_MST_TOPOLOGY_REFS)
+> +	/**
+> +	 * @topology_ref_history_lock: protects
+> +	 * &drm_dp_mst_port.topology_ref_history and
+> +	 * &drm_dp_mst_branch.topology_ref_history.
+> +	 */
+> +	struct mutex topology_ref_history_lock;
+> +#endif
+>  };
+>  
+>  int drm_dp_mst_topology_mgr_init(struct drm_dp_mst_topology_mgr *mgr,
+> -- 
+> 2.21.0
+> 
+
+-- 
+Sean Paul, Software Engineer, Google / Chromium OS
