@@ -1,11 +1,14 @@
-From: "Wang, Kevin(Yang)" <Kevin1.Wang-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH] drm/amd/powerplay: initlialize smu->is_apu is false by default
-Date: Fri, 27 Sep 2019 06:57:56 +0000
-Message-ID: <20190927065727.22272-1-kevin1.wang@amd.com>
+From: "Liang, Prike" <Prike.Liang-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: [PATCH] drm/amd/powerplay: initlialize smu->is_apu is false by
+ default
+Date: Fri, 27 Sep 2019 08:37:02 +0000
+Message-ID: <MN2PR12MB3536BA16A58AE0E5E6424063FB810@MN2PR12MB3536.namprd12.prod.outlook.com>
+References: <20190927065727.22272-1-kevin1.wang@amd.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20190927065727.22272-1-kevin1.wang-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -17,24 +20,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Liang, Prike" <Prike.Liang-5C7GfCeVMHo@public.gmane.org>, "Huang, Ray" <Ray.Huang-5C7GfCeVMHo@public.gmane.org>, "Feng, Kenneth" <Kenneth.Feng-5C7GfCeVMHo@public.gmane.org>, "Wang,
- Kevin(Yang)" <Kevin1.Wang-5C7GfCeVMHo@public.gmane.org>
+To: "Wang, Kevin(Yang)" <Kevin1.Wang-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Huang, Ray" <Ray.Huang-5C7GfCeVMHo@public.gmane.org>, "Feng, Kenneth" <Kenneth.Feng-5C7GfCeVMHo@public.gmane.org>
 
-dGhlIG1lbWJlciBvZiBpc19hcHUgaW4gc211X2NvbnRleHQgbmVlZCB0byBpbml0bGlhbGl6ZSBi
-eSBkZWZhdWx0LgoKc2V0IGRlZmF1bHQgdmFsdWUgaXMgZmFsc2UgKGRHUFUpCgpmb3IgcGF0Y2g6
-Cglkcm0vYW1kL3Bvd2VycGxheTogYnlwYXNzIGRwbV9jb250ZXh0IG51bGwgcG9pbnRlciBjaGVj
-ayBndWFyZAoJZm9yIHNvbWUgc211IHNlcmllcwoKU2lnbmVkLW9mZi1ieTogS2V2aW4gV2FuZyA8
-a2V2aW4xLndhbmdAYW1kLmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9h
-bWRncHVfc211LmMgfCAxICsKIDEgZmlsZSBjaGFuZ2VkLCAxIGluc2VydGlvbigrKQoKZGlmZiAt
-LWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2FtZGdwdV9zbXUuYyBiL2RyaXZl
-cnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2FtZGdwdV9zbXUuYwppbmRleCA3Yjk5NWIwODM0ZWIu
-LjZhNjRmNzY1ZmNkNCAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkv
-YW1kZ3B1X3NtdS5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2FtZGdwdV9z
-bXUuYwpAQCAtNzEyLDYgKzcxMiw3IEBAIHN0YXRpYyBpbnQgc211X2Vhcmx5X2luaXQodm9pZCAq
-aGFuZGxlKQogCiAJc211LT5hZGV2ID0gYWRldjsKIAlzbXUtPnBtX2VuYWJsZWQgPSAhIWFtZGdw
-dV9kcG07CisJc211LT5pc19hcHUgPSBmYWxzZTsKIAltdXRleF9pbml0KCZzbXUtPm11dGV4KTsK
-IAogCXJldHVybiBzbXVfc2V0X2Z1bmNzKGFkZXYpOwotLSAKMi4xNy4xCgpfX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAph
-bWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9y
-Zy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
+RG9lcyB1c2UgdGhlIGRlZmF1bHQgdmFsdWUgKGZhbHNlKSBmb3IgdGhlIEJvb2xlYW4gdmFyaWFi
+bGUgb2YgaXNfYXB1IG5vdCBlbm91Z2ggZm9yIGlkZW50aWZ5aW5nIERHUFU/ICAgCkFueXdheSwg
+aW5pdGlhbGl6ZSB0aGUgaXNfYXB1IGR1cmluZyBzbXUgZWFybHkgaW5pdGlhbGl6ZSBhbHNvIGZp
+bmUgYW5kIHRoZSBwYXRjaCBpcyAKClJldmlld2VkLWJ5OiBQcmlrZSBMaWFuZyA8UHJpa2UuTGlh
+bmdAYW1kLmNvbT4KClRoYW5rcywKUHJpa2UKPiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQo+
+IEZyb206IFdhbmcsIEtldmluKFlhbmcpIDxLZXZpbjEuV2FuZ0BhbWQuY29tPgo+IFNlbnQ6IEZy
+aWRheSwgU2VwdGVtYmVyIDI3LCAyMDE5IDI6NTggUE0KPiBUbzogYW1kLWdmeEBsaXN0cy5mcmVl
+ZGVza3RvcC5vcmcKPiBDYzogSHVhbmcsIFJheSA8UmF5Lkh1YW5nQGFtZC5jb20+OyBGZW5nLCBL
+ZW5uZXRoCj4gPEtlbm5ldGguRmVuZ0BhbWQuY29tPjsgTGlhbmcsIFByaWtlIDxQcmlrZS5MaWFu
+Z0BhbWQuY29tPjsgV2FuZywKPiBLZXZpbihZYW5nKSA8S2V2aW4xLldhbmdAYW1kLmNvbT4KPiBT
+dWJqZWN0OiBbUEFUQ0hdIGRybS9hbWQvcG93ZXJwbGF5OiBpbml0bGlhbGl6ZSBzbXUtPmlzX2Fw
+dSBpcyBmYWxzZSBieQo+IGRlZmF1bHQKPiAKPiB0aGUgbWVtYmVyIG9mIGlzX2FwdSBpbiBzbXVf
+Y29udGV4dCBuZWVkIHRvIGluaXRsaWFsaXplIGJ5IGRlZmF1bHQuCj4gCj4gc2V0IGRlZmF1bHQg
+dmFsdWUgaXMgZmFsc2UgKGRHUFUpCj4gCj4gZm9yIHBhdGNoOgo+IAlkcm0vYW1kL3Bvd2VycGxh
+eTogYnlwYXNzIGRwbV9jb250ZXh0IG51bGwgcG9pbnRlciBjaGVjayBndWFyZAo+IAlmb3Igc29t
+ZSBzbXUgc2VyaWVzCj4gCj4gU2lnbmVkLW9mZi1ieTogS2V2aW4gV2FuZyA8a2V2aW4xLndhbmdA
+YW1kLmNvbT4KPiAtLS0KPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvYW1kZ3B1X3Nt
+dS5jIHwgMSArCj4gIDEgZmlsZSBjaGFuZ2VkLCAxIGluc2VydGlvbigrKQo+IAo+IGRpZmYgLS1n
+aXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9hbWRncHVfc211LmMKPiBiL2RyaXZl
+cnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2FtZGdwdV9zbXUuYwo+IGluZGV4IDdiOTk1YjA4MzRl
+Yi4uNmE2NGY3NjVmY2Q0IDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJw
+bGF5L2FtZGdwdV9zbXUuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2Ft
+ZGdwdV9zbXUuYwo+IEBAIC03MTIsNiArNzEyLDcgQEAgc3RhdGljIGludCBzbXVfZWFybHlfaW5p
+dCh2b2lkICpoYW5kbGUpCj4gCj4gIAlzbXUtPmFkZXYgPSBhZGV2Owo+ICAJc211LT5wbV9lbmFi
+bGVkID0gISFhbWRncHVfZHBtOwo+ICsJc211LT5pc19hcHUgPSBmYWxzZTsKPiAgCW11dGV4X2lu
+aXQoJnNtdS0+bXV0ZXgpOwo+IAo+ICAJcmV0dXJuIHNtdV9zZXRfZnVuY3MoYWRldik7Cj4gLS0K
+PiAyLjE3LjEKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+CmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBz
+Oi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
