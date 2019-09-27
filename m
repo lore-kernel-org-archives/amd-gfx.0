@@ -1,54 +1,66 @@
-From: Alex Deucher <alexdeucher@gmail.com>
-Subject: Re: [PATCH 1/6] drm/amdgpu/dm/mst: Don't create MST topology managers
- for eDP ports
-Date: Fri, 27 Sep 2019 14:18:59 -0400
-Message-ID: <CADnq5_PF_aAcCADP1g3+4UFmWM7TVPmSsnaw1GaFqVzBodVE3A@mail.gmail.com>
-References: <20190926225122.31455-1-lyude@redhat.com> <20190926225122.31455-2-lyude@redhat.com>
- <2a1d5221-b801-44f9-c966-1163b8d67b3f@amd.com>
+From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH 3/6] drm/amdgpu/dm/mst: Use ->atomic_best_encoder
+Date: Fri, 27 Sep 2019 14:20:39 -0400
+Message-ID: <CADnq5_PH=Znbo1NajL=OJFbOyEYFXX7xrQM-8hh7YXUhXpicrQ@mail.gmail.com>
+References: <20190926225122.31455-1-lyude@redhat.com>
+ <20190926225122.31455-4-lyude@redhat.com>
+ <6129c0a5-9a8a-8a05-4dd9-db3204dcbfd8@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <2a1d5221-b801-44f9-c966-1163b8d67b3f@amd.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Harry Wentland <hwentlan@amd.com>
-Cc: Lyude Paul <lyude@redhat.com>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Zhou, David(ChunMing)" <David1.Zhou@amd.com>, Thomas Lim <Thomas.Lim@amd.com>, "Li, Sun peng (Leo)" <Sunpeng.Li@amd.com>, "Francis, David" <David.Francis@amd.com>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, David Airlie <airlied@linux.ie>, "Zuo, Jerry" <Jerry.Zuo@amd.com>, Daniel Vetter <daniel@ffwll.ch>, "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Wentland, Harry" <Harry.Wentland@amd.com>, "Koenig, Christian" <Christian.Koenig@amd.com>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <6129c0a5-9a8a-8a05-4dd9-db3204dcbfd8-5C7GfCeVMHo@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Harry Wentland <hwentlan-5C7GfCeVMHo@public.gmane.org>
+Cc: "Zhou, David(ChunMing)" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, Thomas Lim <Thomas.Lim-5C7GfCeVMHo@public.gmane.org>, "Li, Sun peng (Leo)" <Sunpeng.Li-5C7GfCeVMHo@public.gmane.org>, "Francis, David" <David.Francis-5C7GfCeVMHo@public.gmane.org>, "linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org" <linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, David Airlie <airlied-cv59FeDIM0c@public.gmane.org>, "Zuo, Jerry" <Jerry.Zuo-5C7GfCeVMHo@public.gmane.org>, "dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>, "Deucher,
+ Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Wentland,
+ Harry" <Harry.Wentland-5C7GfCeVMHo@public.gmane.org>, "Koenig,
+ Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
 
-On Fri, Sep 27, 2019 at 1:48 PM Harry Wentland <hwentlan@amd.com> wrote:
->
-> On 2019-09-26 6:51 p.m., Lyude Paul wrote:
-> > Signed-off-by: Lyude Paul <lyude@redhat.com>
->
-> Reviewed-by: Harry Wentland <harry.wentland@amd.com>
->
-
-Applied.  Thanks!
-
-Alex
-
-> Harry
->
-> > ---
-> >  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c | 4 ++++
-> >  1 file changed, 4 insertions(+)
-> >
-> > diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-> > index 5ec14efd4d8c..185bf0e2bda2 100644
-> > --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-> > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-> > @@ -417,6 +417,10 @@ void amdgpu_dm_initialize_dp_connector(struct amdgpu_display_manager *dm,
-> >       drm_dp_aux_register(&aconnector->dm_dp_aux.aux);
-> >       drm_dp_cec_register_connector(&aconnector->dm_dp_aux.aux,
-> >                                     &aconnector->base);
-> > +
-> > +     if (aconnector->base.connector_type == DRM_MODE_CONNECTOR_eDP)
-> > +             return;
-> > +
-> >       aconnector->mst_mgr.cbs = &dm_mst_cbs;
-> >       drm_dp_mst_topology_mgr_init(
-> >               &aconnector->mst_mgr,
-> >
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+T24gRnJpLCBTZXAgMjcsIDIwMTkgYXQgMTo1NiBQTSBIYXJyeSBXZW50bGFuZCA8aHdlbnRsYW5A
+YW1kLmNvbT4gd3JvdGU6Cj4KPiBPbiAyMDE5LTA5LTI2IDY6NTEgcC5tLiwgTHl1ZGUgUGF1bCB3
+cm90ZToKPiA+IFdlIGFyZSBzdXBwb3NlZCB0byBiZSBhdG9taWMgYWZ0ZXIgYWxsLiBXZSdsbCBu
+ZWVkIHRoaXMgaW4gYSBtb21lbnQgZm9yCj4gPiB0aGUgbmV4dCBjb21taXQuCj4gPgo+ID4gU2ln
+bmVkLW9mZi1ieTogTHl1ZGUgUGF1bCA8bHl1ZGVAcmVkaGF0LmNvbT4KPgo+IFJldmlld2VkLWJ5
+OiBIYXJyeSBXZW50bGFuZCA8aGFycnkud2VudGxhbmRAYW1kLmNvbT4KPgoKQXBwbGllZC4gIFRo
+YW5rcyEKCkFsZXgKCj4gSGFycnkKPgo+ID4gLS0tCj4gPiAgLi4uL2RybS9hbWQvZGlzcGxheS9h
+bWRncHVfZG0vYW1kZ3B1X2RtX21zdF90eXBlcy5jICAgIHwgMTAgKysrKystLS0tLQo+ID4gIDEg
+ZmlsZSBjaGFuZ2VkLCA1IGluc2VydGlvbnMoKyksIDUgZGVsZXRpb25zKC0pCj4gPgo+ID4gZGlm
+ZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2Rt
+X21zdF90eXBlcy5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRn
+cHVfZG1fbXN0X3R5cGVzLmMKPiA+IGluZGV4IGEzOThkZGQxZjMwNi4uZDkxMTNjZTBiZTA5IDEw
+MDY0NAo+ID4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRn
+cHVfZG1fbXN0X3R5cGVzLmMKPiA+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9h
+bWRncHVfZG0vYW1kZ3B1X2RtX21zdF90eXBlcy5jCj4gPiBAQCAtMjQzLDE3ICsyNDMsMTcgQEAg
+c3RhdGljIGludCBkbV9kcF9tc3RfZ2V0X21vZGVzKHN0cnVjdCBkcm1fY29ubmVjdG9yICpjb25u
+ZWN0b3IpCj4gPiAgICAgICByZXR1cm4gcmV0Owo+ID4gIH0KPiA+Cj4gPiAtc3RhdGljIHN0cnVj
+dCBkcm1fZW5jb2RlciAqZG1fbXN0X2Jlc3RfZW5jb2RlcihzdHJ1Y3QgZHJtX2Nvbm5lY3RvciAq
+Y29ubmVjdG9yKQo+ID4gK3N0YXRpYyBzdHJ1Y3QgZHJtX2VuY29kZXIgKgo+ID4gK2RtX21zdF9h
+dG9taWNfYmVzdF9lbmNvZGVyKHN0cnVjdCBkcm1fY29ubmVjdG9yICpjb25uZWN0b3IsCj4gPiAr
+ICAgICAgICAgICAgICAgICAgICAgICAgc3RydWN0IGRybV9jb25uZWN0b3Jfc3RhdGUgKmNvbm5l
+Y3Rvcl9zdGF0ZSkKPiA+ICB7Cj4gPiAtICAgICBzdHJ1Y3QgYW1kZ3B1X2RtX2Nvbm5lY3RvciAq
+YW1kZ3B1X2RtX2Nvbm5lY3RvciA9IHRvX2FtZGdwdV9kbV9jb25uZWN0b3IoY29ubmVjdG9yKTsK
+PiA+IC0KPiA+IC0gICAgIHJldHVybiAmYW1kZ3B1X2RtX2Nvbm5lY3Rvci0+bXN0X2VuY29kZXIt
+PmJhc2U7Cj4gPiArICAgICByZXR1cm4gJnRvX2FtZGdwdV9kbV9jb25uZWN0b3IoY29ubmVjdG9y
+KS0+bXN0X2VuY29kZXItPmJhc2U7Cj4gPiAgfQo+ID4KPiA+ICBzdGF0aWMgY29uc3Qgc3RydWN0
+IGRybV9jb25uZWN0b3JfaGVscGVyX2Z1bmNzIGRtX2RwX21zdF9jb25uZWN0b3JfaGVscGVyX2Z1
+bmNzID0gewo+ID4gICAgICAgLmdldF9tb2RlcyA9IGRtX2RwX21zdF9nZXRfbW9kZXMsCj4gPiAg
+ICAgICAubW9kZV92YWxpZCA9IGFtZGdwdV9kbV9jb25uZWN0b3JfbW9kZV92YWxpZCwKPiA+IC0g
+ICAgIC5iZXN0X2VuY29kZXIgPSBkbV9tc3RfYmVzdF9lbmNvZGVyLAo+ID4gKyAgICAgLmF0b21p
+Y19iZXN0X2VuY29kZXIgPSBkbV9tc3RfYXRvbWljX2Jlc3RfZW5jb2RlciwKPiA+ICB9Owo+ID4K
+PiA+ICBzdGF0aWMgdm9pZCBhbWRncHVfZG1fZW5jb2Rlcl9kZXN0cm95KHN0cnVjdCBkcm1fZW5j
+b2RlciAqZW5jb2RlcikKPiA+Cj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX18KPiBhbWQtZ2Z4IG1haWxpbmcgbGlzdAo+IGFtZC1nZnhAbGlzdHMuZnJlZWRl
+c2t0b3Aub3JnCj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5m
+by9hbWQtZ2Z4Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+CmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBz
+Oi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
