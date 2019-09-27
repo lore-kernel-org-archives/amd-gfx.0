@@ -1,61 +1,60 @@
-From: Alex Deucher <alexdeucher@gmail.com>
-Subject: Re: [PATCH 3/6] drm/amdgpu/dm/mst: Use ->atomic_best_encoder
-Date: Fri, 27 Sep 2019 10:06:33 -0400
-Message-ID: <CADnq5_NUkJxcdc4PFW6MNiDaVD7WR+_JtztOxFqWkkXaR2Br=A@mail.gmail.com>
-References: <20190926225122.31455-1-lyude@redhat.com> <20190926225122.31455-4-lyude@redhat.com>
+From: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amdkfd: fix kgd2kfd_device_init() definition conflict
+ error
+Date: Fri, 27 Sep 2019 14:18:40 +0000
+Message-ID: <c7587938-62b1-e050-5d0f-073f94827e51@amd.com>
+References: <1569558805-30951-1-git-send-email-Prike.Liang@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20190926225122.31455-4-lyude@redhat.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Lyude Paul <lyude@redhat.com>
-Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, Thomas Lim <Thomas.Lim@amd.com>, Leo Li <sunpeng.li@amd.com>, David Francis <David.Francis@amd.com>, LKML <linux-kernel@vger.kernel.org>, Maling list - DRI developers <dri-devel@lists.freedesktop.org>, David Airlie <airlied@linux.ie>, "Jerry (Fangzhi) Zuo" <Jerry.Zuo@amd.com>, Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>, Harry Wentland <harry.wentland@amd.com>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <1569558805-30951-1-git-send-email-Prike.Liang-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
+Content-ID: <C3F56431CDC6254BAD0714CAB456A7CB-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Liang, Prike" <Prike.Liang-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Huang, Ray" <Ray.Huang-5C7GfCeVMHo@public.gmane.org>, "Kasiviswanathan,
+ Harish" <Harish.Kasiviswanathan-5C7GfCeVMHo@public.gmane.org>
 
-On Thu, Sep 26, 2019 at 6:52 PM Lyude Paul <lyude@redhat.com> wrote:
->
-> We are supposed to be atomic after all. We'll need this in a moment for
-> the next commit.
->
-> Signed-off-by: Lyude Paul <lyude@redhat.com>
-
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
-
-> ---
->  .../drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c    | 10 +++++-----
->  1 file changed, 5 insertions(+), 5 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-> index a398ddd1f306..d9113ce0be09 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-> @@ -243,17 +243,17 @@ static int dm_dp_mst_get_modes(struct drm_connector *connector)
->         return ret;
->  }
->
-> -static struct drm_encoder *dm_mst_best_encoder(struct drm_connector *connector)
-> +static struct drm_encoder *
-> +dm_mst_atomic_best_encoder(struct drm_connector *connector,
-> +                          struct drm_connector_state *connector_state)
->  {
-> -       struct amdgpu_dm_connector *amdgpu_dm_connector = to_amdgpu_dm_connector(connector);
-> -
-> -       return &amdgpu_dm_connector->mst_encoder->base;
-> +       return &to_amdgpu_dm_connector(connector)->mst_encoder->base;
->  }
->
->  static const struct drm_connector_helper_funcs dm_dp_mst_connector_helper_funcs = {
->         .get_modes = dm_dp_mst_get_modes,
->         .mode_valid = amdgpu_dm_connector_mode_valid,
-> -       .best_encoder = dm_mst_best_encoder,
-> +       .atomic_best_encoder = dm_mst_atomic_best_encoder,
->  };
->
->  static void amdgpu_dm_encoder_destroy(struct drm_encoder *encoder)
-> --
-> 2.21.0
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+T24gMjAxOS0wOS0yNyAwOjMzLCBMaWFuZywgUHJpa2Ugd3JvdGU6DQo+IFRoZSBwYXRjaCBjNjcw
+NzA3IGRybS9hbWQ6IFBhc3MgZHJtX2RldmljZSB0byBrZmQgaW50cm9kdWNlZCB0aGlzIGlzc3Vl
+IGFuZA0KPiBmaXggdGhlIGZvbGxvd2luZyBjb21waWxlciBlcnJvci4NCj4NCj4gICAgQ0MgW01d
+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS8vLi4vcG93ZXJwbGF5L3NtdW1nci9maWppX3Nt
+dW1nci5vDQo+IGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1Ly9hbWRncHVfYW1ka2ZkLmM6NzQ2
+OjY6IGVycm9yOiBjb25mbGljdGluZyB0eXBlcyBmb3Ig4oCYa2dkMmtmZF9kZXZpY2VfaW5pdOKA
+mQ0KPiAgIGJvb2wga2dkMmtmZF9kZXZpY2VfaW5pdChzdHJ1Y3Qga2ZkX2RldiAqa2ZkLA0KPiAg
+ICAgICAgXg0KPiBJbiBmaWxlIGluY2x1ZGVkIGZyb20gZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
+cHUvL2FtZGdwdV9hbWRrZmQuYzoyMzowOg0KPiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS8v
+YW1kZ3B1X2FtZGtmZC5oOjI1Mzo2OiBub3RlOiBwcmV2aW91cyBkZWNsYXJhdGlvbiBvZiDigJhr
+Z2Qya2ZkX2RldmljZV9pbml04oCZIHdhcyBoZXJlDQo+ICAgYm9vbCBrZ2Qya2ZkX2RldmljZV9p
+bml0KHN0cnVjdCBrZmRfZGV2ICprZmQsDQo+ICAgICAgICBeDQo+IHNjcmlwdHMvTWFrZWZpbGUu
+YnVpbGQ6MjczOiByZWNpcGUgZm9yIHRhcmdldCAnZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
+L2FtZGdwdV9hbWRrZmQubycgZmFpbGVkDQo+IG1ha2VbMV06ICoqKiBbZHJpdmVycy9ncHUvZHJt
+L2FtZC9hbWRncHUvL2FtZGdwdV9hbWRrZmQub10gRXJyb3IgMQ0KPg0KPiBTaWduZWQtb2ZmLWJ5
+OiBQcmlrZSBMaWFuZyA8UHJpa2UuTGlhbmdAYW1kLmNvbT4NCg0KVGhpcyBmaXggaXMgZm9yIHRo
+ZSBjYXNlIHRoYXQgQ09ORklHX0hTQV9BTUQgaXMgZGlzYWJsZWQuIFNvcnJ5IGZvciANCm1pc3Np
+bmcgdGhhdCB3aGVuIHJldmlld2luZyBIYXJpc2gncyBjb2RlLg0KDQpSZXZpZXdlZC1ieTogRmVs
+aXggS3VlaGxpbmcgPEZlbGl4Lkt1ZWhsaW5nQGFtZC5jb20+DQoNCg0KPiAtLS0NCj4gICBkcml2
+ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfYW1ka2ZkLmMgfCAxICsNCj4gICAxIGZpbGUg
+Y2hhbmdlZCwgMSBpbnNlcnRpb24oKykNCj4NCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2Ry
+bS9hbWQvYW1kZ3B1L2FtZGdwdV9hbWRrZmQuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
+L2FtZGdwdV9hbWRrZmQuYw0KPiBpbmRleCAyMjEwNDdkLi45MjY2NmIxIDEwMDY0NA0KPiAtLS0g
+YS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfYW1ka2ZkLmMNCj4gKysrIGIvZHJp
+dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2FtZGtmZC5jDQo+IEBAIC03NDQsNiArNzQ0
+LDcgQEAgc3RydWN0IGtmZF9kZXYgKmtnZDJrZmRfcHJvYmUoc3RydWN0IGtnZF9kZXYgKmtnZCwg
+c3RydWN0IHBjaV9kZXYgKnBkZXYsDQo+ICAgfQ0KPiAgIA0KPiAgIGJvb2wga2dkMmtmZF9kZXZp
+Y2VfaW5pdChzdHJ1Y3Qga2ZkX2RldiAqa2ZkLA0KPiArCQkJIHN0cnVjdCBkcm1fZGV2aWNlICpk
+ZGV2LA0KPiAgIAkJCSBjb25zdCBzdHJ1Y3Qga2dkMmtmZF9zaGFyZWRfcmVzb3VyY2VzICpncHVf
+cmVzb3VyY2VzKQ0KPiAgIHsNCj4gICAJcmV0dXJuIGZhbHNlOw0KX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdm
+eEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFp
+bG1hbi9saXN0aW5mby9hbWQtZ2Z4
