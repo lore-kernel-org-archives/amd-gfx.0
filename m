@@ -1,165 +1,187 @@
-From: Sean Paul <sean@poorly.run>
-Subject: Re: [PATCH v2 26/27] drm/dp_mst: Also print unhashed pointers for
- malloc/topology references
-Date: Fri, 27 Sep 2019 10:25:10 -0400
-Message-ID: <20190927142510.GS218215@art_vandelay>
-References: <20190903204645.25487-1-lyude@redhat.com>
- <20190903204645.25487-27-lyude@redhat.com>
+From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu: return tcc_disabled_mask to userspace
+Date: Fri, 27 Sep 2019 10:36:33 -0400
+Message-ID: <CADnq5_OUnUxPUrtDFFzfek0juyPGsUbdu1RfFcx5wX-LSodfbg@mail.gmail.com>
+References: <20190924222901.5621-1-maraeo@gmail.com>
+ <CADnq5_N=b0RWk-t8MnjiTNUcr35ZQ5GYMOw2H_oGQOjpGGzeHQ@mail.gmail.com>
+ <CAAxE2A7vPH-S-Fjk+CfjR+zEZ-hjkTtS=gsBBgbGiD2iNJbOJA@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Transfer-Encoding: 8bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Content-Disposition: inline
-In-Reply-To: <20190903204645.25487-27-lyude@redhat.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Lyude Paul <lyude@redhat.com>
-Cc: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, Juston Li <juston.li@intel.com>, Imre Deak <imre.deak@intel.com>, Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>, Harry Wentland <hwentlan@amd.com>, Daniel Vetter <daniel.vetter@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, Sean Paul <sean@poorly.run>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, linux-kernel@vger.kernel.org
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <CAAxE2A7vPH-S-Fjk+CfjR+zEZ-hjkTtS=gsBBgbGiD2iNJbOJA-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-On Tue, Sep 03, 2019 at 04:46:04PM -0400, Lyude Paul wrote:
-> Currently we only print mstb/port pointer addresses in our malloc and
-> topology refcount functions using the hashed-by-default %p, but
-> unfortunately if you're trying to debug a use-after-free error caused by
-> a refcounting error then this really isn't terribly useful. On the other
-> hand though, everything in the rest of the DP MST helpers uses hashed
-> pointer values as well and probably isn't useful to convert to unhashed.
-> So, let's just get the best of both worlds and print both the hashed and
-> unhashed pointer in our malloc/topology refcount debugging output. This
-> will hopefully make it a lot easier to figure out which port/mstb is
-> causing KASAN to get upset.
-> 
-> Cc: Juston Li <juston.li@intel.com>
-> Cc: Imre Deak <imre.deak@intel.com>
-> Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
-> Cc: Harry Wentland <hwentlan@amd.com>
-> Cc: Daniel Vetter <daniel.vetter@ffwll.ch>
-> Signed-off-by: Lyude Paul <lyude@redhat.com>
-
-It's really too bad there isn't a CONFIG_DEBUG_SHOW_PK_ADDRESSES or even a value
-of kptr_restrict value that bypasses pointer hashing. I'm sure we're not the
-only ones to feel this pain. Maybe everyone just hacks vsnprintf...
-
-As it is, I'm not totally sold on exposing the actual addresses unconditionally.
-What do you think about pulling the print out into a function and only printing
-px if a debug kconfig is set?
-
-Sean
-
-> ---
->  drivers/gpu/drm/drm_dp_mst_topology.c | 34 ++++++++++++++++-----------
->  1 file changed, 20 insertions(+), 14 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/drm_dp_mst_topology.c b/drivers/gpu/drm/drm_dp_mst_topology.c
-> index 2fe24e366925..5b5c0b3b3c0e 100644
-> --- a/drivers/gpu/drm/drm_dp_mst_topology.c
-> +++ b/drivers/gpu/drm/drm_dp_mst_topology.c
-> @@ -1327,7 +1327,8 @@ static void
->  drm_dp_mst_get_mstb_malloc(struct drm_dp_mst_branch *mstb)
->  {
->  	kref_get(&mstb->malloc_kref);
-> -	DRM_DEBUG("mstb %p (%d)\n", mstb, kref_read(&mstb->malloc_kref));
-> +	DRM_DEBUG("mstb %p/%px (%d)\n",
-> +		  mstb, mstb, kref_read(&mstb->malloc_kref));
->  }
->  
->  /**
-> @@ -1344,7 +1345,8 @@ drm_dp_mst_get_mstb_malloc(struct drm_dp_mst_branch *mstb)
->  static void
->  drm_dp_mst_put_mstb_malloc(struct drm_dp_mst_branch *mstb)
->  {
-> -	DRM_DEBUG("mstb %p (%d)\n", mstb, kref_read(&mstb->malloc_kref) - 1);
-> +	DRM_DEBUG("mstb %p/%px (%d)\n",
-> +		  mstb, mstb, kref_read(&mstb->malloc_kref) - 1);
->  	kref_put(&mstb->malloc_kref, drm_dp_free_mst_branch_device);
->  }
->  
-> @@ -1379,7 +1381,8 @@ void
->  drm_dp_mst_get_port_malloc(struct drm_dp_mst_port *port)
->  {
->  	kref_get(&port->malloc_kref);
-> -	DRM_DEBUG("port %p (%d)\n", port, kref_read(&port->malloc_kref));
-> +	DRM_DEBUG("port %p/%px (%d)\n",
-> +		  port, port, kref_read(&port->malloc_kref));
->  }
->  EXPORT_SYMBOL(drm_dp_mst_get_port_malloc);
->  
-> @@ -1396,7 +1399,8 @@ EXPORT_SYMBOL(drm_dp_mst_get_port_malloc);
->  void
->  drm_dp_mst_put_port_malloc(struct drm_dp_mst_port *port)
->  {
-> -	DRM_DEBUG("port %p (%d)\n", port, kref_read(&port->malloc_kref) - 1);
-> +	DRM_DEBUG("port %p/%px (%d)\n",
-> +		  port, port, kref_read(&port->malloc_kref) - 1);
->  	kref_put(&port->malloc_kref, drm_dp_free_mst_port);
->  }
->  EXPORT_SYMBOL(drm_dp_mst_put_port_malloc);
-> @@ -1447,8 +1451,8 @@ drm_dp_mst_topology_try_get_mstb(struct drm_dp_mst_branch *mstb)
->  	int ret = kref_get_unless_zero(&mstb->topology_kref);
->  
->  	if (ret)
-> -		DRM_DEBUG("mstb %p (%d)\n", mstb,
-> -			  kref_read(&mstb->topology_kref));
-> +		DRM_DEBUG("mstb %p/%px (%d)\n",
-> +			  mstb, mstb, kref_read(&mstb->topology_kref));
->  
->  	return ret;
->  }
-> @@ -1471,7 +1475,8 @@ static void drm_dp_mst_topology_get_mstb(struct drm_dp_mst_branch *mstb)
->  {
->  	WARN_ON(kref_read(&mstb->topology_kref) == 0);
->  	kref_get(&mstb->topology_kref);
-> -	DRM_DEBUG("mstb %p (%d)\n", mstb, kref_read(&mstb->topology_kref));
-> +	DRM_DEBUG("mstb %p/%px (%d)\n",
-> +		  mstb, mstb, kref_read(&mstb->topology_kref));
->  }
->  
->  /**
-> @@ -1489,8 +1494,8 @@ static void drm_dp_mst_topology_get_mstb(struct drm_dp_mst_branch *mstb)
->  static void
->  drm_dp_mst_topology_put_mstb(struct drm_dp_mst_branch *mstb)
->  {
-> -	DRM_DEBUG("mstb %p (%d)\n",
-> -		  mstb, kref_read(&mstb->topology_kref) - 1);
-> +	DRM_DEBUG("mstb %p/%px (%d)\n",
-> +		  mstb, mstb, kref_read(&mstb->topology_kref) - 1);
->  	kref_put(&mstb->topology_kref, drm_dp_destroy_mst_branch_device);
->  }
->  
-> @@ -1546,8 +1551,8 @@ drm_dp_mst_topology_try_get_port(struct drm_dp_mst_port *port)
->  	int ret = kref_get_unless_zero(&port->topology_kref);
->  
->  	if (ret)
-> -		DRM_DEBUG("port %p (%d)\n", port,
-> -			  kref_read(&port->topology_kref));
-> +		DRM_DEBUG("port %p/%px (%d)\n",
-> +			  port, port, kref_read(&port->topology_kref));
->  
->  	return ret;
->  }
-> @@ -1569,7 +1574,8 @@ static void drm_dp_mst_topology_get_port(struct drm_dp_mst_port *port)
->  {
->  	WARN_ON(kref_read(&port->topology_kref) == 0);
->  	kref_get(&port->topology_kref);
-> -	DRM_DEBUG("port %p (%d)\n", port, kref_read(&port->topology_kref));
-> +	DRM_DEBUG("port %p/%px (%d)\n",
-> +		  port, port, kref_read(&port->topology_kref));
->  }
->  
->  /**
-> @@ -1585,8 +1591,8 @@ static void drm_dp_mst_topology_get_port(struct drm_dp_mst_port *port)
->   */
->  static void drm_dp_mst_topology_put_port(struct drm_dp_mst_port *port)
->  {
-> -	DRM_DEBUG("port %p (%d)\n",
-> -		  port, kref_read(&port->topology_kref) - 1);
-> +	DRM_DEBUG("port %p/%px (%d)\n",
-> +		  port, port, kref_read(&port->topology_kref) - 1);
->  	kref_put(&port->topology_kref, drm_dp_destroy_port);
->  }
->  
-> -- 
-> 2.21.0
-> 
-
--- 
-Sean Paul, Software Engineer, Google / Chromium OS
+T24gV2VkLCBTZXAgMjUsIDIwMTkgYXQgNTowNSBQTSBNYXJlayBPbMWhw6FrIDxtYXJhZW9AZ21h
+aWwuY29tPiB3cm90ZToKPgo+IEkgdGhpbmsgVENDcyBhcmUgZ2xvYmFsLCBiZWNhdXNlIGFsbCBt
+ZW1vcnkgdHJhZmZpYyBmcm9tIGdmeCBlbmdpbmVzK2NwK3NkbWEgaGFzIHRvIGdvIHRocm91Z2gg
+VENDcywgZS5nLiBtZW1vcnkgcmVxdWVzdHMgZnJvbSBkaWZmZXJlbnQgU0VzIGFjY2Vzc2luZyB0
+aGUgc2FtZSBtZW1vcnkgYWRkcmVzcyBnbyB0byB0aGUgc2FtZSBUQ0MuCj4KCkkgdmVyaWZpZWQg
+d2l0aCB0aGUgaHcgdGVhbS4gIFlvdSBtaWdodCB3YW50IHRvIHByb3ZpZGUgYSBiaXQgbW9yZQpk
+ZXRhaWwgaW4gdGhlIHBhdGNoIGRlc2NyaXB0aW9uLiAgRWl0aGVyIHdheSwgcGF0Y2ggaXM6ClJl
+dmlld2VkLWJ5OiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+Cgo+IE1h
+cmVrCj4KPiBPbiBUdWUsIFNlcCAyNCwgMjAxOSBhdCAxMDo1OCBQTSBBbGV4IERldWNoZXIgPGFs
+ZXhkZXVjaGVyQGdtYWlsLmNvbT4gd3JvdGU6Cj4+Cj4+IE9uIFR1ZSwgU2VwIDI0LCAyMDE5IGF0
+IDY6MjkgUE0gTWFyZWsgT2zFocOhayA8bWFyYWVvQGdtYWlsLmNvbT4gd3JvdGU6Cj4+ID4KPj4g
+PiBGcm9tOiBNYXJlayBPbMWhw6FrIDxtYXJlay5vbHNha0BhbWQuY29tPgo+PiA+Cj4+ID4gVU1E
+cyBuZWVkIHRoaXMgZm9yIGNvcnJlY3QgcHJvZ3JhbW1pbmcgb2YgaGFydmVzdGVkIGNoaXBzLgo+
+PiA+Cj4+ID4gU2lnbmVkLW9mZi1ieTogTWFyZWsgT2zFocOhayA8bWFyZWsub2xzYWtAYW1kLmNv
+bT4KPj4gPiAtLS0KPj4gPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rydi5j
+IHwgIDMgKystCj4+ID4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9nZnguaCB8
+ICAxICsKPj4gPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2ttcy5jIHwgIDIg
+KysKPj4gPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3YxMF8wLmMgIHwgMTEgKysr
+KysrKysrKysKPj4gPiAgaW5jbHVkZS91YXBpL2RybS9hbWRncHVfZHJtLmggICAgICAgICAgIHwg
+IDIgKysKPj4gPiAgNSBmaWxlcyBjaGFuZ2VkLCAxOCBpbnNlcnRpb25zKCspLCAxIGRlbGV0aW9u
+KC0pCj4+ID4KPj4gPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
+Z3B1X2Rydi5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rydi5jCj4+ID4g
+aW5kZXggZjgyZDYzNGNmM2Y5Li5iNzBiMzAzNzhjMjAgMTAwNjQ0Cj4+ID4gLS0tIGEvZHJpdmVy
+cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rydi5jCj4+ID4gKysrIGIvZHJpdmVycy9ncHUv
+ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rydi5jCj4+ID4gQEAgLTc1LDIzICs3NSwyNCBAQAo+PiA+
+ICAgKiAtIDMuMjUuMCAtIEFkZCBzdXBwb3J0IGZvciBzZW5zb3IgcXVlcnkgaW5mbyAoc3RhYmxl
+IHBzdGF0ZSBzY2xrL21jbGspLgo+PiA+ICAgKiAtIDMuMjYuMCAtIEdGWDk6IFByb2Nlc3MgQU1E
+R1BVX0lCX0ZMQUdfVENfV0JfTk9UX0lOVkFMSURBVEUuCj4+ID4gICAqIC0gMy4yNy4wIC0gQWRk
+IG5ldyBjaHVuayB0byB0byBBTURHUFVfQ1MgdG8gZW5hYmxlIEJPX0xJU1QgY3JlYXRpb24uCj4+
+ID4gICAqIC0gMy4yOC4wIC0gQWRkIEFNREdQVV9DSFVOS19JRF9TQ0hFRFVMRURfREVQRU5ERU5D
+SUVTCj4+ID4gICAqIC0gMy4yOS4wIC0gQWRkIEFNREdQVV9JQl9GTEFHX1JFU0VUX0dEU19NQVhf
+V0FWRV9JRAo+PiA+ICAgKiAtIDMuMzAuMCAtIEFkZCBBTURHUFVfU0NIRURfT1BfQ09OVEVYVF9Q
+UklPUklUWV9PVkVSUklERS4KPj4gPiAgICogLSAzLjMxLjAgLSBBZGQgc3VwcG9ydCBmb3IgcGVy
+LWZsaXAgdGlsaW5nIGF0dHJpYnV0ZSBjaGFuZ2VzIHdpdGggREMKPj4gPiAgICogLSAzLjMyLjAg
+LSBBZGQgc3luY29iaiB0aW1lbGluZSBzdXBwb3J0IHRvIEFNREdQVV9DUy4KPj4gPiAgICogLSAz
+LjMzLjAgLSBGaXhlcyBmb3IgR0RTIEVOT01FTSBmYWlsdXJlcyBpbiBBTURHUFVfQ1MuCj4+ID4g
+ICAqIC0gMy4zNC4wIC0gTm9uLURDIGNhbiBmbGlwIGNvcnJlY3RseSBiZXR3ZWVuIGJ1ZmZlcnMg
+d2l0aCBkaWZmZXJlbnQgcGl0Y2hlcwo+PiA+ICsgKiAtIDMuMzUuMCAtIEFkZCBkcm1fYW1kZ3B1
+X2luZm9fZGV2aWNlOjp0Y2NfZGlzYWJsZWRfbWFzawo+PiA+ICAgKi8KPj4gPiAgI2RlZmluZSBL
+TVNfRFJJVkVSX01BSk9SICAgICAgIDMKPj4gPiAtI2RlZmluZSBLTVNfRFJJVkVSX01JTk9SICAg
+ICAgIDM0Cj4+ID4gKyNkZWZpbmUgS01TX0RSSVZFUl9NSU5PUiAgICAgICAzNQo+PiA+ICAjZGVm
+aW5lIEtNU19EUklWRVJfUEFUQ0hMRVZFTCAgMAo+PiA+Cj4+ID4gICNkZWZpbmUgQU1ER1BVX01B
+WF9USU1FT1VUX1BBUkFNX0xFTlRIIDI1Ngo+PiA+Cj4+ID4gIGludCBhbWRncHVfdnJhbV9saW1p
+dCA9IDA7Cj4+ID4gIGludCBhbWRncHVfdmlzX3ZyYW1fbGltaXQgPSAwOwo+PiA+ICBpbnQgYW1k
+Z3B1X2dhcnRfc2l6ZSA9IC0xOyAvKiBhdXRvICovCj4+ID4gIGludCBhbWRncHVfZ3R0X3NpemUg
+PSAtMTsgLyogYXV0byAqLwo+PiA+ICBpbnQgYW1kZ3B1X21vdmVyYXRlID0gLTE7IC8qIGF1dG8g
+Ki8KPj4gPiAgaW50IGFtZGdwdV9iZW5jaG1hcmtpbmcgPSAwOwo+PiA+IGRpZmYgLS1naXQgYS9k
+cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZ2Z4LmggYi9kcml2ZXJzL2dwdS9kcm0v
+YW1kL2FtZGdwdS9hbWRncHVfZ2Z4LmgKPj4gPiBpbmRleCA1OWM1NDY0Yzk2YmUuLjg4ZGNjZmY0
+MWRmZiAxMDA2NDQKPj4gPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
+Z2Z4LmgKPj4gPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZ2Z4LmgK
+Pj4gPiBAQCAtMTU4LDIwICsxNTgsMjEgQEAgc3RydWN0IGFtZGdwdV9nZnhfY29uZmlnIHsKPj4g
+PiAgICAgICAgIHN0cnVjdCBhbWRncHVfcmJfY29uZmlnIHJiX2NvbmZpZ1tBTURHUFVfR0ZYX01B
+WF9TRV1bQU1ER1BVX0dGWF9NQVhfU0hfUEVSX1NFXTsKPj4gPgo+PiA+ICAgICAgICAgLyogZ2Z4
+IGNvbmZpZ3VyZSBmZWF0dXJlICovCj4+ID4gICAgICAgICB1aW50MzJfdCBkb3VibGVfb2ZmY2hp
+cF9sZHNfYnVmOwo+PiA+ICAgICAgICAgLyogY2FjaGVkIHZhbHVlIG9mIERCX0RFQlVHMiAqLwo+
+PiA+ICAgICAgICAgdWludDMyX3QgZGJfZGVidWcyOwo+PiA+ICAgICAgICAgLyogZ2Z4MTAgc3Bl
+Y2lmaWMgY29uZmlnICovCj4+ID4gICAgICAgICB1aW50MzJfdCBudW1fc2NfcGVyX3NoOwo+PiA+
+ICAgICAgICAgdWludDMyX3QgbnVtX3BhY2tlcl9wZXJfc2M7Cj4+ID4gICAgICAgICB1aW50MzJf
+dCBwYV9zY190aWxlX3N0ZWVyaW5nX292ZXJyaWRlOwo+PiA+ICsgICAgICAgdWludDY0X3QgdGNj
+X2Rpc2FibGVkX21hc2s7Cj4+ID4gIH07Cj4+ID4KPj4gPiAgc3RydWN0IGFtZGdwdV9jdV9pbmZv
+IHsKPj4gPiAgICAgICAgIHVpbnQzMl90IHNpbWRfcGVyX2N1Owo+PiA+ICAgICAgICAgdWludDMy
+X3QgbWF4X3dhdmVzX3Blcl9zaW1kOwo+PiA+ICAgICAgICAgdWludDMyX3Qgd2F2ZV9mcm9udF9z
+aXplOwo+PiA+ICAgICAgICAgdWludDMyX3QgbWF4X3NjcmF0Y2hfc2xvdHNfcGVyX2N1Owo+PiA+
+ICAgICAgICAgdWludDMyX3QgbGRzX3NpemU7Cj4+ID4KPj4gPiAgICAgICAgIC8qIHRvdGFsIGFj
+dGl2ZSBDVSBudW1iZXIgKi8KPj4gPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9h
+bWRncHUvYW1kZ3B1X2ttcy5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2tt
+cy5jCj4+ID4gaW5kZXggOTFmNWFhZjk5ODYxLi43MzU2ZWZlN2UyZDMgMTAwNjQ0Cj4+ID4gLS0t
+IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2ttcy5jCj4+ID4gKysrIGIvZHJp
+dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2ttcy5jCj4+ID4gQEAgLTc3NSwyMCArNzc1
+LDIyIEBAIHN0YXRpYyBpbnQgYW1kZ3B1X2luZm9faW9jdGwoc3RydWN0IGRybV9kZXZpY2UgKmRl
+diwgdm9pZCAqZGF0YSwgc3RydWN0IGRybV9maWxlCj4+ID4gICAgICAgICAgICAgICAgIGRldl9p
+bmZvLm51bV9jdV9wZXJfc2ggPSBhZGV2LT5nZnguY29uZmlnLm1heF9jdV9wZXJfc2g7Cj4+ID4g
+ICAgICAgICAgICAgICAgIGRldl9pbmZvLm51bV90Y2NfYmxvY2tzID0gYWRldi0+Z2Z4LmNvbmZp
+Zy5tYXhfdGV4dHVyZV9jaGFubmVsX2NhY2hlczsKPj4gPiAgICAgICAgICAgICAgICAgZGV2X2lu
+Zm8uZ3Nfdmd0X3RhYmxlX2RlcHRoID0gYWRldi0+Z2Z4LmNvbmZpZy5nc192Z3RfdGFibGVfZGVw
+dGg7Cj4+ID4gICAgICAgICAgICAgICAgIGRldl9pbmZvLmdzX3ByaW1fYnVmZmVyX2RlcHRoID0g
+YWRldi0+Z2Z4LmNvbmZpZy5nc19wcmltX2J1ZmZlcl9kZXB0aDsKPj4gPiAgICAgICAgICAgICAg
+ICAgZGV2X2luZm8ubWF4X2dzX3dhdmVzX3Blcl92Z3QgPSBhZGV2LT5nZnguY29uZmlnLm1heF9n
+c190aHJlYWRzOwo+PiA+Cj4+ID4gICAgICAgICAgICAgICAgIGlmIChhZGV2LT5mYW1pbHkgPj0g
+QU1ER1BVX0ZBTUlMWV9OVikKPj4gPiAgICAgICAgICAgICAgICAgICAgICAgICBkZXZfaW5mby5w
+YV9zY190aWxlX3N0ZWVyaW5nX292ZXJyaWRlID0KPj4gPiAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgIGFkZXYtPmdmeC5jb25maWcucGFfc2NfdGlsZV9zdGVlcmluZ19vdmVycmlkZTsK
+Pj4gPgo+PiA+ICsgICAgICAgICAgICAgICBkZXZfaW5mby50Y2NfZGlzYWJsZWRfbWFzayA9IGFk
+ZXYtPmdmeC5jb25maWcudGNjX2Rpc2FibGVkX21hc2s7Cj4+ID4gKwo+PiA+ICAgICAgICAgICAg
+ICAgICByZXR1cm4gY29weV90b191c2VyKG91dCwgJmRldl9pbmZvLAo+PiA+ICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgIG1pbigoc2l6ZV90KXNpemUsIHNpemVvZihkZXZfaW5m
+bykpKSA/IC1FRkFVTFQgOiAwOwo+PiA+ICAgICAgICAgfQo+PiA+ICAgICAgICAgY2FzZSBBTURH
+UFVfSU5GT19WQ0VfQ0xPQ0tfVEFCTEU6IHsKPj4gPiAgICAgICAgICAgICAgICAgdW5zaWduZWQg
+aTsKPj4gPiAgICAgICAgICAgICAgICAgc3RydWN0IGRybV9hbWRncHVfaW5mb192Y2VfY2xvY2tf
+dGFibGUgdmNlX2Nsa190YWJsZSA9IHt9Owo+PiA+ICAgICAgICAgICAgICAgICBzdHJ1Y3QgYW1k
+X3ZjZV9zdGF0ZSAqdmNlX3N0YXRlOwo+PiA+Cj4+ID4gICAgICAgICAgICAgICAgIGZvciAoaSA9
+IDA7IGkgPCBBTURHUFVfVkNFX0NMT0NLX1RBQkxFX0VOVFJJRVM7IGkrKykgewo+PiA+ICAgICAg
+ICAgICAgICAgICAgICAgICAgIHZjZV9zdGF0ZSA9IGFtZGdwdV9kcG1fZ2V0X3ZjZV9jbG9ja19z
+dGF0ZShhZGV2LCBpKTsKPj4gPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
+cHUvZ2Z4X3YxMF8wLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjEwXzAuYwo+
+PiA+IGluZGV4IGNmYzA5NTJmNjE3NS4uY2EwMTY0M2ZhMGM4IDEwMDY0NAo+PiA+IC0tLSBhL2Ry
+aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92MTBfMC5jCj4+ID4gKysrIGIvZHJpdmVycy9n
+cHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3YxMF8wLmMKPj4gPiBAQCAtMTY4NCwzMSArMTY4NCw0MiBA
+QCBzdGF0aWMgdm9pZCBnZnhfdjEwXzBfdGNwX2hhcnZlc3Qoc3RydWN0IGFtZGdwdV9kZXZpY2Ug
+KmFkZXYpCj4+ID4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB0bXAgfD0gKGdjcmRf
+dGFyZ2V0c19kaXNhYmxlX3RjcCAmIGdjcmRfdGFyZ2V0c19kaXNhYmxlX21hc2spOwo+PiA+ICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgV1JFRzMyX1NPQzE1KEdDLCAwLCBtbUdDUkRf
+U0FfVEFSR0VUU19ESVNBQkxFLCB0bXApOwo+PiA+ICAgICAgICAgICAgICAgICAgICAgICAgIH0K
+Pj4gPiAgICAgICAgICAgICAgICAgfQo+PiA+Cj4+ID4gICAgICAgICAgICAgICAgIGdmeF92MTBf
+MF9zZWxlY3Rfc2Vfc2goYWRldiwgMHhmZmZmZmZmZiwgMHhmZmZmZmZmZiwgMHhmZmZmZmZmZik7
+Cj4+ID4gICAgICAgICAgICAgICAgIG11dGV4X3VubG9jaygmYWRldi0+Z3JibV9pZHhfbXV0ZXgp
+Owo+PiA+ICAgICAgICAgfQo+PiA+ICB9Cj4+ID4KPj4gPiArc3RhdGljIHZvaWQgZ2Z4X3YxMF8w
+X2dldF90Y2NfaW5mbyhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikKPj4gPiArewo+PiA+ICsg
+ICAgICAgdWludDMyX3QgdGNjX2Rpc2FibGUgPSBSUkVHMzJfU09DMTUoR0MsIDAsIG1tQ0dUU19U
+Q0NfRElTQUJMRSkgfAo+PiA+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBSUkVHMzJf
+U09DMTUoR0MsIDAsIG1tQ0dUU19VU0VSX1RDQ19ESVNBQkxFKTsKPj4gPiArCj4+ID4gKyAgICAg
+ICBhZGV2LT5nZnguY29uZmlnLnRjY19kaXNhYmxlZF9tYXNrID0KPj4gPiArICAgICAgICAgICAg
+ICAgUkVHX0dFVF9GSUVMRCh0Y2NfZGlzYWJsZSwgQ0dUU19UQ0NfRElTQUJMRSwgVENDX0RJU0FC
+TEUpIHwKPj4gPiArICAgICAgICAgICAgICAgKFJFR19HRVRfRklFTEQodGNjX2Rpc2FibGUsIENH
+VFNfVENDX0RJU0FCTEUsIEhJX1RDQ19ESVNBQkxFKSA8PCAxNik7Cj4+ID4gK30KPj4KPj4gQXJl
+IFRDQ3MgcGVyIFNFL1NIPyAgSWYgc28sIHlvdSdsbCBuZWVkIHRvIHdhbGsgZWFjaCBpbnN0YW5j
+ZSBhbmQKPj4gY3JlYXRlIGEgbWFzayBmcm9tIGVhY2ggaW5zdGFuY2UgbGlrZSB3ZSBkbyBmb3Ig
+c2V0dXBfcmIgYW5kIGN1X2luZm8uCj4+Cj4+IEFsZXgKPj4KPj4gPiArCj4+ID4gIHN0YXRpYyB2
+b2lkIGdmeF92MTBfMF9jb25zdGFudHNfaW5pdChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikK
+Pj4gPiAgewo+PiA+ICAgICAgICAgdTMyIHRtcDsKPj4gPiAgICAgICAgIGludCBpOwo+PiA+Cj4+
+ID4gICAgICAgICBXUkVHMzJfRklFTEQxNShHQywgMCwgR1JCTV9DTlRMLCBSRUFEX1RJTUVPVVQs
+IDB4ZmYpOwo+PiA+Cj4+ID4gICAgICAgICBnZnhfdjEwXzBfdGlsaW5nX21vZGVfdGFibGVfaW5p
+dChhZGV2KTsKPj4gPgo+PiA+ICAgICAgICAgZ2Z4X3YxMF8wX3NldHVwX3JiKGFkZXYpOwo+PiA+
+ICAgICAgICAgZ2Z4X3YxMF8wX2dldF9jdV9pbmZvKGFkZXYsICZhZGV2LT5nZnguY3VfaW5mbyk7
+Cj4+ID4gKyAgICAgICBnZnhfdjEwXzBfZ2V0X3RjY19pbmZvKGFkZXYpOwo+PiA+ICAgICAgICAg
+YWRldi0+Z2Z4LmNvbmZpZy5wYV9zY190aWxlX3N0ZWVyaW5nX292ZXJyaWRlID0KPj4gPiAgICAg
+ICAgICAgICAgICAgZ2Z4X3YxMF8wX2luaXRfcGFfc2NfdGlsZV9zdGVlcmluZ19vdmVycmlkZShh
+ZGV2KTsKPj4gPgo+PiA+ICAgICAgICAgLyogWFhYIFNIX01FTSByZWdzICovCj4+ID4gICAgICAg
+ICAvKiB3aGVyZSB0byBwdXQgTERTLCBzY3JhdGNoLCBHUFVWTSBpbiBGU0E2NCBzcGFjZSAqLwo+
+PiA+ICAgICAgICAgbXV0ZXhfbG9jaygmYWRldi0+c3JibV9tdXRleCk7Cj4+ID4gICAgICAgICBm
+b3IgKGkgPSAwOyBpIDwgYWRldi0+dm1fbWFuYWdlci5pZF9tZ3JbQU1ER1BVX0dGWEhVQl8wXS5u
+dW1faWRzOyBpKyspIHsKPj4gPiAgICAgICAgICAgICAgICAgbnZfZ3JibV9zZWxlY3QoYWRldiwg
+MCwgMCwgMCwgaSk7Cj4+ID4gICAgICAgICAgICAgICAgIC8qIENQIGFuZCBzaGFkZXJzICovCj4+
+ID4gICAgICAgICAgICAgICAgIFdSRUczMl9TT0MxNShHQywgMCwgbW1TSF9NRU1fQ09ORklHLCBE
+RUZBVUxUX1NIX01FTV9DT05GSUcpOwo+PiA+IGRpZmYgLS1naXQgYS9pbmNsdWRlL3VhcGkvZHJt
+L2FtZGdwdV9kcm0uaCBiL2luY2x1ZGUvdWFwaS9kcm0vYW1kZ3B1X2RybS5oCj4+ID4gaW5kZXgg
+ZjNhZDQyOTE3M2UzLi5hNjllMzE5MjkxNTUgMTAwNjQ0Cj4+ID4gLS0tIGEvaW5jbHVkZS91YXBp
+L2RybS9hbWRncHVfZHJtLmgKPj4gPiArKysgYi9pbmNsdWRlL3VhcGkvZHJtL2FtZGdwdV9kcm0u
+aAo+PiA+IEBAIC0xMDAxLDIwICsxMDAxLDIyIEBAIHN0cnVjdCBkcm1fYW1kZ3B1X2luZm9fZGV2
+aWNlIHsKPj4gPiAgICAgICAgIF9fdTMyIG1heF9nc193YXZlc19wZXJfdmd0Owo+PiA+ICAgICAg
+ICAgX191MzIgX3BhZDE7Cj4+ID4gICAgICAgICAvKiBhbHdheXMgb24gY3UgYml0bWFwICovCj4+
+ID4gICAgICAgICBfX3UzMiBjdV9hb19iaXRtYXBbNF1bNF07Cj4+ID4gICAgICAgICAvKiogU3Rh
+cnRpbmcgaGlnaCB2aXJ0dWFsIGFkZHJlc3MgZm9yIFVNRHMuICovCj4+ID4gICAgICAgICBfX3U2
+NCBoaWdoX3ZhX29mZnNldDsKPj4gPiAgICAgICAgIC8qKiBUaGUgbWF4aW11bSBoaWdoIHZpcnR1
+YWwgYWRkcmVzcyAqLwo+PiA+ICAgICAgICAgX191NjQgaGlnaF92YV9tYXg7Cj4+ID4gICAgICAg
+ICAvKiBnZngxMCBwYV9zY190aWxlX3N0ZWVyaW5nX292ZXJyaWRlICovCj4+ID4gICAgICAgICBf
+X3UzMiBwYV9zY190aWxlX3N0ZWVyaW5nX292ZXJyaWRlOwo+PiA+ICsgICAgICAgLyogZGlzYWJs
+ZWQgVENDcyAqLwo+PiA+ICsgICAgICAgX191NjQgdGNjX2Rpc2FibGVkX21hc2s7Cj4+ID4gIH07
+Cj4+ID4KPj4gPiAgc3RydWN0IGRybV9hbWRncHVfaW5mb19od19pcCB7Cj4+ID4gICAgICAgICAv
+KiogVmVyc2lvbiBvZiBoL3cgSVAgKi8KPj4gPiAgICAgICAgIF9fdTMyICBod19pcF92ZXJzaW9u
+X21ham9yOwo+PiA+ICAgICAgICAgX191MzIgIGh3X2lwX3ZlcnNpb25fbWlub3I7Cj4+ID4gICAg
+ICAgICAvKiogQ2FwYWJpbGl0aWVzICovCj4+ID4gICAgICAgICBfX3U2NCAgY2FwYWJpbGl0aWVz
+X2ZsYWdzOwo+PiA+ICAgICAgICAgLyoqIGNvbW1hbmQgYnVmZmVyIGFkZHJlc3Mgc3RhcnQgYWxp
+Z25tZW50Ki8KPj4gPiAgICAgICAgIF9fdTMyICBpYl9zdGFydF9hbGlnbm1lbnQ7Cj4+ID4gLS0K
+Pj4gPiAyLjE3LjEKPj4gPgo+PiA+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fCj4+ID4gYW1kLWdmeCBtYWlsaW5nIGxpc3QKPj4gPiBhbWQtZ2Z4QGxpc3Rz
+LmZyZWVkZXNrdG9wLm9yZwo+PiA+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxt
+YW4vbGlzdGluZm8vYW1kLWdmeApfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9w
+Lm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1n
+Zng=
