@@ -1,48 +1,40 @@
-From: yu kuai <yukuai3@huawei.com>
-Subject: [PATCH V2] drm/amdgpu: remove set but not used variable 'pipe'
-Date: Sun, 29 Sep 2019 20:40:16 +0800
-Message-ID: <1569760816-60192-1-git-send-email-yukuai3@huawei.com>
+From: Saurav Girepunje <saurav.girepunje@gmail.com>
+Subject: [PATCH] gpu: drm: amd: amdgpu: Remove call to memset after
+ dma_alloc_coherent
+Date: Sat, 28 Sep 2019 14:37:29 +0530
+Message-ID: <20190928090725.GA11659@saurav>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Sender: linux-kernel-owner@vger.kernel.org
-To: alexander.deucher@amd.com, christian.koenig@amd.com, David1.Zhou@amd.com, airlied@linux.ie, daniel@ffwll.ch
-Cc: yukuai3@huawei.com, zhengbin13@huawei.com, yi.zhang@huawei.com, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+Content-Disposition: inline
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: alexander.deucher@amd.com, christian.koenig@amd.com, David1.Zhou@amd.com, airlied@linux.ie, daniel@ffwll.ch, saurav.girepunje@gmail.com, sam@ravnborg.org, michel.daenzer@amd.com, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, gregkh@linuxfoundation.org
+Cc: saurav.girepunje@hotmail.com
 List-Id: amd-gfx.lists.freedesktop.org
 
-Fixes gcc '-Wunused-but-set-variable' warning:
-
-rivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c: In function
-‘amdgpu_gfx_graphics_queue_acquire’:
-drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c:234:16: warning:
-variable ‘pipe’ set but not used [-Wunused-but-set-variable]
-
-It is never used, so can be removed.
-
-Reported-by: Hulk Robot <hulkci@huawei.com>
-Signed-off-by: yu kuai <yukuai3@huawei.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c | 4 +---
- 1 file changed, 1 insertion(+), 3 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-index f9bef31..c1035a3 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-@@ -231,12 +231,10 @@ void amdgpu_gfx_compute_queue_acquire(struct amdgpu_device *adev)
- 
- void amdgpu_gfx_graphics_queue_acquire(struct amdgpu_device *adev)
- {
--	int i, queue, pipe, me;
-+	int i, queue, me;
- 
- 	for (i = 0; i < AMDGPU_MAX_GFX_QUEUES; ++i) {
- 		queue = i % adev->gfx.me.num_queue_per_pipe;
--		pipe = (i / adev->gfx.me.num_queue_per_pipe)
--			% adev->gfx.me.num_pipe_per_me;
- 		me = (i / adev->gfx.me.num_queue_per_pipe)
- 		      / adev->gfx.me.num_pipe_per_me;
- 
--- 
-2.7.4
+ZG1hX2FsbG9jX2NvaGVyZW50IGhhcyBhbHJlYWR5IHplcm9lZCB0aGUgbWVtb3J5LgpTbyBtZW1z
+ZXQgaXMgbm90IG5lZWRlZC4KClNpZ25lZC1vZmYtYnk6IFNhdXJhdiBHaXJlcHVuamUgPHNhdXJh
+di5naXJlcHVuamVAZ21haWwuY29tPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
+ZGdwdV9paC5jIHwgMSAtCiAxIGZpbGUgY2hhbmdlZCwgMSBkZWxldGlvbigtKQoKZGlmZiAtLWdp
+dCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9paC5jIGIvZHJpdmVycy9ncHUv
+ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2loLmMKaW5kZXggNmQ4ZjA1NTExYWJhLi4xMTFhMzAxY2U4
+NzggMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9paC5jCisr
+KyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9paC5jCkBAIC02Niw3ICs2Niw2
+IEBAIGludCBhbWRncHVfaWhfcmluZ19pbml0KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LCBz
+dHJ1Y3QgYW1kZ3B1X2loX3JpbmcgKmloLAogCQlpZiAoaWgtPnJpbmcgPT0gTlVMTCkKIAkJCXJl
+dHVybiAtRU5PTUVNOwogCi0JCW1lbXNldCgodm9pZCAqKWloLT5yaW5nLCAwLCBpaC0+cmluZ19z
+aXplICsgOCk7CiAJCWloLT5ncHVfYWRkciA9IGRtYV9hZGRyOwogCQlpaC0+d3B0cl9hZGRyID0g
+ZG1hX2FkZHIgKyBpaC0+cmluZ19zaXplOwogCQlpaC0+d3B0cl9jcHUgPSAmaWgtPnJpbmdbaWgt
+PnJpbmdfc2l6ZSAvIDRdOwotLSAKMi4yMC4xCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fXwpkcmktZGV2ZWwgbWFpbGluZyBsaXN0CmRyaS1kZXZlbEBsaXN0
+cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9s
+aXN0aW5mby9kcmktZGV2ZWw=
