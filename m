@@ -1,61 +1,48 @@
-From: Jesse Zhang <zhexi.zhang-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH] drm/amd/powerplay: Protect backend resource when unload driver
-Date: Sun, 29 Sep 2019 17:20:56 +0800
-Message-ID: <1569748856-19532-1-git-send-email-zhexi.zhang@amd.com>
-References: <1569578864-4558-1-git-send-email-zhexi.zhang@amd.com>
+From: yu kuai <yukuai3@huawei.com>
+Subject: [PATCH] drm/amdgpu: remove set but not used variable 'pipe'
+Date: Sun, 29 Sep 2019 20:38:43 +0800
+Message-ID: <1569760723-119944-1-git-send-email-yukuai3@huawei.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1569578864-4558-1-git-send-email-zhexi.zhang-5C7GfCeVMHo@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Jesse Zhang <zhexi.zhang-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset="y"
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: alexander.deucher@amd.com, christian.koenig@amd.com, David1.Zhou@amd.com, airlied@linux.ie, daniel@ffwll.ch
+Cc: yukuai3@huawei.com, zhengbin13@huawei.com, yi.zhang@huawei.com, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-RnJvbTogSmVzc2UgWmhhbmcgPFpoZXhpLlpoYW5nQGFtZC5jb20+CgpHdWVzdCBkcml2ZXIgY2Fu
-IGJlIHVubG9hZGVkIHdoaWxlIGVuZ2luZXMgc3RpbGwgdXNpbmcgc29tZQpiYWNrZW5kIHJlc291
-cmNlcy4gVGhhdCB3b3VsZCBsZWFkIHRvIHVzZSBhZnRlciBmcmVlIGFuZCB0aGVuCmNhdXNlIGd1
-ZXN0IGRyaXZlciBmYWlsZWQuCgpOZWVkIHRvIGFkZCBtdXRleCBsb2NrIGJlZm9yZSBiYWNrZW5k
-IHJlc291cmNlcyBmcmVlIHRvIG1ha2UKc3VyZSBub2JvZHkgaXMgdXNpbmcgaXQuCgpOZWVkIHRv
-IGNoZWNrIGJhY2tlbmQgZGF0YSBhdmFpbGFibGlsaXR5IGJlZm9yZSBWQ0UvVVZEIGVudGVyCnBv
-d2VyZ2F0aW5nIG1vZGUsIGlmIGJhY2tlbmQgcmVzb3VyY2VzIGhhdmUgYmVlbiBmcmVlLCB0aGVu
-CnNraXAgZW50ZXJpbmcgcG93ZXJnYXRpbmcuCgpDaGFuZ2UtSWQ6IElmN2Y5MzIyMWRkZWNjNTc4
-ODg0ZGM5ZTk5YTUyZjIyYTQzZTE2YjA3ClNpZ25lZC1vZmYtYnk6IEplc3NlIFpoYW5nIDx6aGV4
-aS56aGFuZ0BhbWQuY29tPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2FtZF9w
-b3dlcnBsYXkuYyAgICAgIHwgMiArKwogZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdt
-Z3IvdmVnYTEwX2h3bWdyLmMgfCA2ICsrKysrKwogMiBmaWxlcyBjaGFuZ2VkLCA4IGluc2VydGlv
-bnMoKykKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9hbWRfcG93
-ZXJwbGF5LmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9hbWRfcG93ZXJwbGF5LmMK
-aW5kZXggZmE4YWQ3ZC4uYzMyYjJkZCAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9w
-b3dlcnBsYXkvYW1kX3Bvd2VycGxheS5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJw
-bGF5L2FtZF9wb3dlcnBsYXkuYwpAQCAtMTM0LDcgKzEzNCw5IEBAIHN0YXRpYyBpbnQgcHBfaHdf
-ZmluaSh2b2lkICpoYW5kbGUpCiAJc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYgPSBoYW5kbGU7
-CiAJc3RydWN0IHBwX2h3bWdyICpod21nciA9IGFkZXYtPnBvd2VycGxheS5wcF9oYW5kbGU7CiAK
-KwltdXRleF9sb2NrKCZod21nci0+c211X2xvY2spOwogCWh3bWdyX2h3X2ZpbmkoaHdtZ3IpOwor
-CW11dGV4X3VubG9jaygmcHBfaHdtZ3ItPnNtdV9sb2NrKTsKIAogCXJldHVybiAwOwogfQpkaWZm
-IC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3IvdmVnYTEwX2h3bWdy
-LmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci92ZWdhMTBfaHdtZ3IuYwpp
-bmRleCBkMDg0OTNiLi5lNTFmZmRkIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bv
-d2VycGxheS9od21nci92ZWdhMTBfaHdtZ3IuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bv
-d2VycGxheS9od21nci92ZWdhMTBfaHdtZ3IuYwpAQCAtNDYxOSw2ICs0NjE5LDkgQEAgc3RhdGlj
-IHZvaWQgdmVnYTEwX3Bvd2VyX2dhdGVfdmNlKHN0cnVjdCBwcF9od21nciAqaHdtZ3IsIGJvb2wg
-YmdhdGUpCiB7CiAJc3RydWN0IHZlZ2ExMF9od21nciAqZGF0YSA9IGh3bWdyLT5iYWNrZW5kOwog
-CisJaWYgKCFkYXRhKQorCQlyZXR1cm47CisKIAlkYXRhLT52Y2VfcG93ZXJfZ2F0ZWQgPSBiZ2F0
-ZTsKIAl2ZWdhMTBfZW5hYmxlX2Rpc2FibGVfdmNlX2RwbShod21nciwgIWJnYXRlKTsKIH0KQEAg
-LTQ2MjcsNiArNDYzMCw5IEBAIHN0YXRpYyB2b2lkIHZlZ2ExMF9wb3dlcl9nYXRlX3V2ZChzdHJ1
-Y3QgcHBfaHdtZ3IgKmh3bWdyLCBib29sIGJnYXRlKQogewogCXN0cnVjdCB2ZWdhMTBfaHdtZ3Ig
-KmRhdGEgPSBod21nci0+YmFja2VuZDsKIAorCWlmICghZGF0YSkKKwkJcmV0dXJuOworCiAJZGF0
-YS0+dXZkX3Bvd2VyX2dhdGVkID0gYmdhdGU7CiAJdmVnYTEwX2VuYWJsZV9kaXNhYmxlX3V2ZF9k
-cG0oaHdtZ3IsICFiZ2F0ZSk7CiB9Ci0tIAoyLjcuNAoKX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0
-cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9s
-aXN0aW5mby9hbWQtZ2Z4
+Fixes gcc '-Wunused-but-set-variable' warning:
+
+rivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c: In function
+‘amdgpu_gfx_graphics_queue_acquire’:
+drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c:234:16: warning:
+variable ‘pipe’ set but not used [-Wunused-but-set-variable]
+
+It is never used, so can be removed.
+
+Reported-by: Hulk Robot <hulkci@huawei.com>
+Signed-off-by: yu kuai <yukuai3@huawei.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+index f9bef31..c1035a3 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+@@ -231,12 +231,10 @@ void amdgpu_gfx_compute_queue_acquire(struct amdgpu_device *adev)
+ 
+ void amdgpu_gfx_graphics_queue_acquire(struct amdgpu_device *adev)
+ {
+-	int i, queue, pipe, me;
++	int i, queue, me;
+ 
+ 	for (i = 0; i < AMDGPU_MAX_GFX_QUEUES; ++i) {
+ 		queue = i % adev->gfx.me.num_queue_per_pipe;
+-		pipe = (i / adev->gfx.me.num_queue_per_pipe)
+-			% adev->gfx.me.num_pipe_per_me;
+ 		me = (i / adev->gfx.me.num_queue_per_pipe)
+ 		      / adev->gfx.me.num_pipe_per_me;
+ 
+-- 
+2.7.4
