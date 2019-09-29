@@ -1,9 +1,9 @@
 From: yu kuai <yukuai3@huawei.com>
-Subject: [PATCH] drm/amdgpu: remove set but not used variable 'pipe'
-Date: Sun, 29 Sep 2019 20:38:43 +0800
-Message-ID: <1569760723-119944-1-git-send-email-yukuai3@huawei.com>
+Subject: [PATCH V2] drm/amdgpu: remove set but not used variable 'pipe'
+Date: Sun, 29 Sep 2019 20:40:16 +0800
+Message-ID: <1569760816-60192-1-git-send-email-yukuai3@huawei.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="y"
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 Return-path: <linux-kernel-owner@vger.kernel.org>
 Sender: linux-kernel-owner@vger.kernel.org
