@@ -1,105 +1,140 @@
-From: "Siqueira, Rodrigo" <Rodrigo.Siqueira@amd.com>
-Subject: [PATCH] drm/amdgpu: Initialize variable before use
-Date: Mon, 30 Sep 2019 20:09:13 +0000
-Message-ID: <20190930200902.inmjn264l6pxcdsq@outlook.office365.com>
-Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0268369342=="
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-Content-Language: en-US
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Cc: "Li, Sun peng (Leo)" <Sunpeng.Li@amd.com>, "Kazlauskas,
- Nicholas" <Nicholas.Kazlauskas@amd.com>, David Airlie <airlied@linux.ie>, "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Koenig,
- Christian" <Christian.Koenig@amd.com>
+From: Navid Emamdoost <navid.emamdoost@gmail.com>
+Subject: [PATCH v3] drm/amdgpu: fix multiple memory leaks in acp_hw_init
+Date: Mon, 30 Sep 2019 16:26:40 -0500
+Message-ID: <20190930212644.9372-1-navid.emamdoost@gmail.com>
+References: <88fc639a-32ed-b6c6-f930-552083d5887d@amd.com>
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <88fc639a-32ed-b6c6-f930-552083d5887d@amd.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Christian.Koenig@amd.com
+Cc: emamd001@umn.edu, smccaman@umn.edu, kjlu@umn.edu, Navid Emamdoost <navid.emamdoost@gmail.com>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, Sam Ravnborg <sam@ravnborg.org>, Rex Zhu <Rex.Zhu@amd.com>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
 List-Id: amd-gfx.lists.freedesktop.org
 
---===============0268369342==
-Content-Language: en-US
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="txxk4cquvzk7uxl3"
+In acp_hw_init there are some allocations that needs to be released in
+case of failure:
 
---txxk4cquvzk7uxl3
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+1- adev->acp.acp_genpd should be released if any allocation attemp for
+adev->acp.acp_cell, adev->acp.acp_res or i2s_pdata fails.
+2- all of those allocations should be released if
+mfd_add_hotplug_devices or pm_genpd_add_device fail.
+3- Release is needed in case of time out values expire.
 
-The 'debug_data' variable gets printed in debug statements without a
-prior initialization in the function
-hubbub1_verify_allow_pstate_change_high, as reported when building with
-gcc 9.1.0:
-
-warning: =E2=80=98debug_data=E2=80=99 may be used uninitialized in this fun=
-ction [-Wmaybe-uninitialized]
-  290 |  printk##once(KERN_##level "[" DRM_NAME "] " fmt, ##__VA_ARGS__)
-      |  ^~~~~~
-dc/dcn10/dcn10_hubbub.c:134:15: note: =E2=80=98debug_data=E2=80=99 was decl=
-ared here
-  134 |  unsigned int debug_data;
-
-Note that initialize debug_data with 0, in this case, is safe because we
-have a loop in a few lines below that will initialize this variable with
-the proper value.
-
-Signed-off-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+Signed-off-by: Navid Emamdoost <navid.emamdoost@gmail.com>
 ---
- drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hubbub.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Changes in v2:
+	-- moved the releases under goto
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hubbub.c b/drivers/=
-gpu/drm/amd/display/dc/dcn10/dcn10_hubbub.c
-index a780057e2dbc..b6967a7e6c7b 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hubbub.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hubbub.c
-@@ -133,7 +133,7 @@ bool hubbub1_verify_allow_pstate_change_high(
- 	static unsigned int max_sampled_pstate_wait_us; /* data collection */
- 	static bool forced_pstate_allow; /* help with revert wa */
-=20
--	unsigned int debug_data;
-+	unsigned int debug_data =3D 0;
- 	unsigned int i;
-=20
- 	if (forced_pstate_allow) {
---=20
-2.23.0
+Changes in v3:
+	-- fixed multiple goto issue
+	-- added goto for 3 other failure cases: one when
+mfd_add_hotplug_devices fails, and two when time out values expires.
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c | 41 ++++++++++++++++---------
+ 1 file changed, 27 insertions(+), 14 deletions(-)
 
---txxk4cquvzk7uxl3
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCgAdFiEE4tZ+ii1mjMCMQbfkWJzP/comvP8FAl2SYN4ACgkQWJzP/com
-vP+ZZw//TKZ68EVv0YJGu9G+5mCRQGjtH1CmeD85MF3RHxVMdiHJun2AFJkz38aH
-slGNn0FclGf7r9y7iYvI7yDwlBRBS3g+Dj/pkk9zfUZ2XpiEP02LrZiSEyVv9zF+
-Y7NKhHp7nYMGwAVytlpRYglH20BlvthMGE9Rt42GTmdFDY8LYeTB/5J6Nl6R+/EZ
-4uhOPTwcRffUK7TNqsBIuqnSUbrBt1ekpgm4baJeUKsPzx26q6bPO42AsX2JJhdJ
-58TPbsN/8WvHfHdx/vL0/cJ9+aD6YeDhfTEm+nYJ42OIVcUmLEJqOA5Y54EWTPg7
-yDA3KCNhnVNMXl00DDj9LyADEm8jMBniN729Arp01S9Ak6Aiw5xrpauEvyXScr4S
-1uy+PpInyvDNcHT0i1GGRRycVvbCzQHCd4YYxL3TxCgemUIA9Wzj2vLw1UhZKp+s
-gTDuAbghFwW9Nn+w3AXP1NT+VvBmP7FGNdEL7Q6Q1MN1X5w7Dy1oPz+wANeBPN71
-ChGp6vF+9TLjCyx/u0Y3Hu+nnKlLDpnlPaVtUC31NhsgkbDgpJA5sHCSQVJjrKTy
-cVKcGjpVBcSd0dzppxvhX9tShBcjnvvDjIuNLaxDFenla/aeubQt9GLiPMeAOxCu
-Bv+g6gD9cRatgMWFEBc1VjZwlu0679U8Q+X07X2YrZtmdwv5aDo=
-=oORu
------END PGP SIGNATURE-----
-
---txxk4cquvzk7uxl3--
-
---===============0268369342==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KZHJpLWRldmVs
-IG1haWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
-dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVs
-
---===============0268369342==--
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c
+index eba42c752bca..7809745ec0f1 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c
+@@ -184,12 +184,12 @@ static struct device *get_mfd_cell_dev(const char *device_name, int r)
+  */
+ static int acp_hw_init(void *handle)
+ {
+-	int r, i;
++	int r, i, ret;
+ 	uint64_t acp_base;
+ 	u32 val = 0;
+ 	u32 count = 0;
+ 	struct device *dev;
+-	struct i2s_platform_data *i2s_pdata;
++	struct i2s_platform_data *i2s_pdata = NULL;
+ 
+ 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+ 
+@@ -231,20 +231,21 @@ static int acp_hw_init(void *handle)
+ 	adev->acp.acp_cell = kcalloc(ACP_DEVS, sizeof(struct mfd_cell),
+ 							GFP_KERNEL);
+ 
+-	if (adev->acp.acp_cell == NULL)
+-		return -ENOMEM;
++	if (adev->acp.acp_cell == NULL) {
++		ret = -ENOMEM;
++		goto failure;
++	}
+ 
+ 	adev->acp.acp_res = kcalloc(5, sizeof(struct resource), GFP_KERNEL);
+ 	if (adev->acp.acp_res == NULL) {
+-		kfree(adev->acp.acp_cell);
+-		return -ENOMEM;
++		ret = -ENOMEM;
++		goto failure;
+ 	}
+ 
+ 	i2s_pdata = kcalloc(3, sizeof(struct i2s_platform_data), GFP_KERNEL);
+ 	if (i2s_pdata == NULL) {
+-		kfree(adev->acp.acp_res);
+-		kfree(adev->acp.acp_cell);
+-		return -ENOMEM;
++		ret = -ENOMEM;
++		goto failure;
+ 	}
+ 
+ 	switch (adev->asic_type) {
+@@ -340,15 +341,18 @@ static int acp_hw_init(void *handle)
+ 
+ 	r = mfd_add_hotplug_devices(adev->acp.parent, adev->acp.acp_cell,
+ 								ACP_DEVS);
+-	if (r)
+-		return r;
++	if (r) {
++		ret = r;
++		goto failure;
++	}
+ 
+ 	for (i = 0; i < ACP_DEVS ; i++) {
+ 		dev = get_mfd_cell_dev(adev->acp.acp_cell[i].name, i);
+ 		r = pm_genpd_add_device(&adev->acp.acp_genpd->gpd, dev);
+ 		if (r) {
+ 			dev_err(dev, "Failed to add dev to genpd\n");
+-			return r;
++			ret = r;
++			goto failure;
+ 		}
+ 	}
+ 
+@@ -367,7 +371,8 @@ static int acp_hw_init(void *handle)
+ 			break;
+ 		if (--count == 0) {
+ 			dev_err(&adev->pdev->dev, "Failed to reset ACP\n");
+-			return -ETIMEDOUT;
++			ret = -ETIMEDOUT;
++			goto failure;
+ 		}
+ 		udelay(100);
+ 	}
+@@ -384,7 +389,8 @@ static int acp_hw_init(void *handle)
+ 			break;
+ 		if (--count == 0) {
+ 			dev_err(&adev->pdev->dev, "Failed to reset ACP\n");
+-			return -ETIMEDOUT;
++			ret = -ETIMEDOUT;
++			goto failure;
+ 		}
+ 		udelay(100);
+ 	}
+@@ -393,6 +399,13 @@ static int acp_hw_init(void *handle)
+ 	val &= ~ACP_SOFT_RESET__SoftResetAud_MASK;
+ 	cgs_write_register(adev->acp.cgs_device, mmACP_SOFT_RESET, val);
+ 	return 0;
++
++failure:
++	kfree(i2s_pdata);
++	kfree(adev->acp.acp_res);
++	kfree(adev->acp.acp_cell);
++	kfree(adev->acp.acp_genpd);
++	return ret;
+ }
+ 
+ /**
+-- 
+2.17.1
