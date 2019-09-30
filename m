@@ -1,120 +1,45 @@
-From: Navid Emamdoost <navid.emamdoost@gmail.com>
-Subject: Re: [PATCH v2] drm/amdgpu: fix multiple memory leaks
-Date: Mon, 30 Sep 2019 16:31:51 -0500
-Message-ID: <CAEkB2EREjd9BbOeMmk9VWg+UB4ujieMz13Pj7hoAPpE2PGh3hQ@mail.gmail.com>
-References: <7bab24ff-ded7-9f76-ba25-efd07cdd30dd@amd.com> <20190918190529.17298-1-navid.emamdoost@gmail.com>
- <88fc639a-32ed-b6c6-f930-552083d5887d@amd.com>
+From: "Zhao, Yong" <Yong.Zhao-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH] drm/amdkfd: Improve KFD IOCTL printing
+Date: Mon, 30 Sep 2019 21:55:26 +0000
+Message-ID: <20190930215513.3570-1-Yong.Zhao@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <88fc639a-32ed-b6c6-f930-552083d5887d@amd.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: "Koenig, Christian" <Christian.Koenig@amd.com>
-Cc: "emamd001@umn.edu" <emamd001@umn.edu>, "smccaman@umn.edu" <smccaman@umn.edu>, "kjlu@umn.edu" <kjlu@umn.edu>, "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Zhou, David(ChunMing)" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, Rex Zhu <Rex.Zhu@amd.com>, Sam Ravnborg <sam@ravnborg.org>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Zhao, Yong" <Yong.Zhao-5C7GfCeVMHo@public.gmane.org>
 
-On Thu, Sep 19, 2019 at 3:03 AM Koenig, Christian
-<Christian.Koenig@amd.com> wrote:
->
-> Am 18.09.19 um 21:05 schrieb Navid Emamdoost:
-> > In acp_hw_init there are some allocations that needs to be released in
-> > case of failure:
-> >
-> > 1- adev->acp.acp_genpd should be released if any allocation attemp for
-> > adev->acp.acp_cell, adev->acp.acp_res or i2s_pdata fails.
-> > 2- all of those allocations should be released if pm_genpd_add_device
-> > fails.
-> >
-> > v2: moved the released into goto error handlings
-> >
-> > Signed-off-by: Navid Emamdoost <navid.emamdoost@gmail.com>
-> > ---
-> >   drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c | 30 +++++++++++++++++--------
-> >   1 file changed, 21 insertions(+), 9 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c
-> > index eba42c752bca..c0db75b71859 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c
-> > @@ -184,7 +184,7 @@ static struct device *get_mfd_cell_dev(const char *device_name, int r)
-> >    */
-> >   static int acp_hw_init(void *handle)
-> >   {
-> > -     int r, i;
-> > +     int r, i, ret;
-> >       uint64_t acp_base;
-> >       u32 val = 0;
-> >       u32 count = 0;
-> > @@ -231,20 +231,21 @@ static int acp_hw_init(void *handle)
-> >       adev->acp.acp_cell = kcalloc(ACP_DEVS, sizeof(struct mfd_cell),
-> >                                                       GFP_KERNEL);
-> >
-> > -     if (adev->acp.acp_cell == NULL)
-> > -             return -ENOMEM;
-> > +     if (adev->acp.acp_cell == NULL) {
-> > +             ret = -ENOMEM;
-> > +             goto out1;
-> > +     }
-> >
-> >       adev->acp.acp_res = kcalloc(5, sizeof(struct resource), GFP_KERNEL);
-> >       if (adev->acp.acp_res == NULL) {
-> > -             kfree(adev->acp.acp_cell);
-> > -             return -ENOMEM;
-> > +             ret = -ENOMEM;
-> > +             goto out2;
-> >       }
-> >
-> >       i2s_pdata = kcalloc(3, sizeof(struct i2s_platform_data), GFP_KERNEL);
-> >       if (i2s_pdata == NULL) {
-> > -             kfree(adev->acp.acp_res);
-> > -             kfree(adev->acp.acp_cell);
-> > -             return -ENOMEM;
-> > +             ret = -ENOMEM;
-> > +             goto out3;
-> >       }
-> >
-> >       switch (adev->asic_type) {
-> > @@ -348,7 +349,8 @@ static int acp_hw_init(void *handle)
-> >               r = pm_genpd_add_device(&adev->acp.acp_genpd->gpd, dev);
-> >               if (r) {
-> >                       dev_err(dev, "Failed to add dev to genpd\n");
-> > -                     return r;
-> > +                     ret = r;
-> > +                     goto out4;
-> >               }
-> >       }
-> >
-> > @@ -393,6 +395,16 @@ static int acp_hw_init(void *handle)
-> >       val &= ~ACP_SOFT_RESET__SoftResetAud_MASK;
-> >       cgs_write_register(adev->acp.cgs_device, mmACP_SOFT_RESET, val);
-> >       return 0;
-> > +
-> > +out4:
-> > +     kfree(i2s_pdata);
-> > +out3:
-> > +     kfree(adev->acp.acp_res);
-> > +out2:
-> > +     kfree(adev->acp.acp_cell);
-> > +out1:
-> > +     kfree(adev->acp.acp_genpd);
->
-> kfree on a NULL pointer is harmless, so a single error label should be
-> sufficient.
->
-I fixed this by just using failure label.
-
-> Christian.
->
-> > +     return ret;
-> >   }
-> >
-> >   /**
->
-
-In addition to previous cases, I covered 3 more error handling cases
-that seemed need to goto failure. One where mfd_add_hotplug_devices
-fails and the other two cases where time out values expire.
-
-
--- 
-Navid.
+VGhlIGNvZGUgdXNlIGhleCBkZWZpbmUsIHNvIHNob3VsZCB0aGUgcHJpbnRpbmcuCgpDaGFuZ2Ut
+SWQ6IElhN2NjNzY5MDU1M2JiMDQzOTE1YjNkOGMwMTU3MjE2YzY0NDIxYTYwClNpZ25lZC1vZmYt
+Ynk6IFlvbmcgWmhhbyA8WW9uZy5aaGFvQGFtZC5jb20+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2Ft
+ZC9hbWRrZmQva2ZkX2NoYXJkZXYuYyB8IDUgKysrLS0KIDEgZmlsZSBjaGFuZ2VkLCAzIGluc2Vy
+dGlvbnMoKyksIDIgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2Ft
+ZC9hbWRrZmQva2ZkX2NoYXJkZXYuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9j
+aGFyZGV2LmMKaW5kZXggYzI4YmEwYzFkN2FjLi5kOWUzNmRiZjEzZDUgMTAwNjQ0Ci0tLSBhL2Ry
+aXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9jaGFyZGV2LmMKKysrIGIvZHJpdmVycy9ncHUv
+ZHJtL2FtZC9hbWRrZmQva2ZkX2NoYXJkZXYuYwpAQCAtMTg0MCw3ICsxODQwLDcgQEAgc3RhdGlj
+IGxvbmcga2ZkX2lvY3RsKHN0cnVjdCBmaWxlICpmaWxlcCwgdW5zaWduZWQgaW50IGNtZCwgdW5z
+aWduZWQgbG9uZyBhcmcpCiAJfSBlbHNlCiAJCWdvdG8gZXJyX2kxOwogCi0JZGV2X2RiZyhrZmRf
+ZGV2aWNlLCAiaW9jdGwgY21kIDB4JXggKCMlZCksIGFyZyAweCVseFxuIiwgY21kLCBuciwgYXJn
+KTsKKwlkZXZfZGJnKGtmZF9kZXZpY2UsICJpb2N0bCBjbWQgMHgleCAoIzB4JXgpLCBhcmcgMHgl
+bHhcbiIsIGNtZCwgbnIsIGFyZyk7CiAKIAlwcm9jZXNzID0ga2ZkX2dldF9wcm9jZXNzKGN1cnJl
+bnQpOwogCWlmIChJU19FUlIocHJvY2VzcykpIHsKQEAgLTE4OTUsNyArMTg5NSw4IEBAIHN0YXRp
+YyBsb25nIGtmZF9pb2N0bChzdHJ1Y3QgZmlsZSAqZmlsZXAsIHVuc2lnbmVkIGludCBjbWQsIHVu
+c2lnbmVkIGxvbmcgYXJnKQogCQlrZnJlZShrZGF0YSk7CiAKIAlpZiAocmV0Y29kZSkKLQkJZGV2
+X2RiZyhrZmRfZGV2aWNlLCAicmV0ID0gJWRcbiIsIHJldGNvZGUpOworCQlkZXZfZGJnKGtmZF9k
+ZXZpY2UsICJpb2N0bCBjbWQgKCMweCV4KSwgYXJnIDB4JWx4LCByZXQgPSAlZFxuIiwKKwkJCQlu
+ciwgYXJnLCByZXRjb2RlKTsKIAogCXJldHVybiByZXRjb2RlOwogfQotLSAKMi4xNy4xCgpfX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxp
+bmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVk
+ZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
