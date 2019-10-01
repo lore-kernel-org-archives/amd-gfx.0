@@ -1,47 +1,84 @@
 From: Sasha Levin <sashal@kernel.org>
-Subject: [PATCH AUTOSEL 5.2 19/63] drm/amdgpu: Check for valid number of registers to read
-Date: Tue,  1 Oct 2019 12:40:41 -0400
-Message-ID: <20191001164125.15398-19-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.2 60/63] drm/radeon: Bail earlier when
+ radeon.cik_/si_support=0 is passed
+Date: Tue,  1 Oct 2019 12:41:22 -0400
+Message-ID: <20191001164125.15398-60-sashal@kernel.org>
 References: <20191001164125.15398-1-sashal@kernel.org>
 Mime-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Return-path: <stable-owner@vger.kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
 In-Reply-To: <20191001164125.15398-1-sashal@kernel.org>
-Sender: stable-owner@vger.kernel.org
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 To: linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Cc: Trek <trek00@inbox.ru>, Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Cc: Sasha Levin <sashal@kernel.org>, dri-devel@lists.freedesktop.org, Hans de Goede <hdegoede@redhat.com>, =?UTF-8?q?Michel=20D=C3=A4nzer?= <mdaenzer@redhat.com>, amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>
 List-Id: amd-gfx.lists.freedesktop.org
 
-From: Trek <trek00@inbox.ru>
-
-[ Upstream commit 73d8e6c7b841d9bf298c8928f228fb433676635c ]
-
-Do not try to allocate any amount of memory requested by the user.
-Instead limit it to 128 registers. Actually the longest series of
-consecutive allowed registers are 48, mmGB_TILE_MODE0-31 and
-mmGB_MACROTILE_MODE0-15 (0x2644-0x2673).
-
-Bug: https://bugs.freedesktop.org/show_bug.cgi?id=111273
-Signed-off-by: Trek <trek00@inbox.ru>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-index b17d0545728ee..a103998f72128 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-@@ -662,6 +662,9 @@ static int amdgpu_info_ioctl(struct drm_device *dev, void *data, struct drm_file
- 		if (sh_num == AMDGPU_INFO_MMR_SH_INDEX_MASK)
- 			sh_num = 0xffffffff;
- 
-+		if (info->read_mmr_reg.count > 128)
-+			return -EINVAL;
-+
- 		regs = kmalloc_array(info->read_mmr_reg.count, sizeof(*regs), GFP_KERNEL);
- 		if (!regs)
- 			return -ENOMEM;
--- 
-2.20.1
+RnJvbTogSGFucyBkZSBHb2VkZSA8aGRlZ29lZGVAcmVkaGF0LmNvbT4KClsgVXBzdHJlYW0gY29t
+bWl0IDlkYmM4OGQwMTNiNzljNjJiZDg0NWNiOWU3YzAyNTZlNjYwOTY3YzUgXQoKQmFpbCBmcm9t
+IHRoZSBwY2lfZHJpdmVyIHByb2JlIGZ1bmN0aW9uIGluc3RlYWQgb2YgZnJvbSB0aGUgZHJtX2Ry
+aXZlcgpsb2FkIGZ1bmN0aW9uLgoKVGhpcyBhdm9pZCAvZGV2L2RyaS9jYXJkMCB0ZW1wb3Jhcmls
+eSBnZXR0aW5nIHJlZ2lzdGVyZWQgYW5kIHRoZW4KdW5yZWdpc3RlcmVkIGFnYWluLCBzZW5kaW5n
+IHVud2FudGVkIGFkZCAvIHJlbW92ZSB1ZGV2IGV2ZW50cyB0bwp1c2Vyc3BhY2UuCgpTcGVjaWZp
+Y2FsbHkgdGhpcyBhdm9pZHMgdHJpZ2dlcmluZyB0aGUgKHVzZXJzcGFjZSkgYnVnIGZpeGVkIGJ5
+IHRoaXMKcGx5bW91dGggbWVyZ2UtcmVxdWVzdDoKaHR0cHM6Ly9naXRsYWIuZnJlZWRlc2t0b3Au
+b3JnL3BseW1vdXRoL3BseW1vdXRoL21lcmdlX3JlcXVlc3RzLzU5CgpOb3RlIHRoYXQgZGVzcGl0
+ZSB0aGF0IGJlaW5nIGFuIHVzZXJzcGFjZSBidWcsIG5vdCBzZW5kaW5nIHVubmVjZXNzYXJ5CnVk
+ZXYgZXZlbnRzIGlzIGEgZ29vZCBpZGVhIGluIGdlbmVyYWwuCgpCdWdMaW5rOiBodHRwczovL2J1
+Z3ppbGxhLnJlZGhhdC5jb20vc2hvd19idWcuY2dpP2lkPTE0OTA0OTAKUmV2aWV3ZWQtYnk6IE1p
+Y2hlbCBEw6RuemVyIDxtZGFlbnplckByZWRoYXQuY29tPgpTaWduZWQtb2ZmLWJ5OiBIYW5zIGRl
+IEdvZWRlIDxoZGVnb2VkZUByZWRoYXQuY29tPgpTaWduZWQtb2ZmLWJ5OiBBbGV4IERldWNoZXIg
+PGFsZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+ClNpZ25lZC1vZmYtYnk6IFNhc2hhIExldmluIDxz
+YXNoYWxAa2VybmVsLm9yZz4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vcmFkZW9uL3JhZGVvbl9kcnYu
+YyB8IDMxICsrKysrKysrKysrKysrKysrKysrKysrKysrKysrCiBkcml2ZXJzL2dwdS9kcm0vcmFk
+ZW9uL3JhZGVvbl9rbXMuYyB8IDI1IC0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tCiAyIGZpbGVzIGNo
+YW5nZWQsIDMxIGluc2VydGlvbnMoKyksIDI1IGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2Ry
+aXZlcnMvZ3B1L2RybS9yYWRlb24vcmFkZW9uX2Rydi5jIGIvZHJpdmVycy9ncHUvZHJtL3JhZGVv
+bi9yYWRlb25fZHJ2LmMKaW5kZXggMmU5NmM4ODYzOTJiZC4uNTUwMmUzNDI4ODY4NSAxMDA2NDQK
+LS0tIGEvZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9yYWRlb25fZHJ2LmMKKysrIGIvZHJpdmVycy9n
+cHUvZHJtL3JhZGVvbi9yYWRlb25fZHJ2LmMKQEAgLTMyMCw4ICszMjAsMzkgQEAgYm9vbCByYWRl
+b25fZGV2aWNlX2lzX3ZpcnR1YWwodm9pZCk7CiBzdGF0aWMgaW50IHJhZGVvbl9wY2lfcHJvYmUo
+c3RydWN0IHBjaV9kZXYgKnBkZXYsCiAJCQkgICAgY29uc3Qgc3RydWN0IHBjaV9kZXZpY2VfaWQg
+KmVudCkKIHsKKwl1bnNpZ25lZCBsb25nIGZsYWdzID0gMDsKIAlpbnQgcmV0OwogCisJaWYgKCFl
+bnQpCisJCXJldHVybiAtRU5PREVWOyAvKiBBdm9pZCBOVUxMLXB0ciBkZXJlZiBpbiBkcm1fZ2V0
+X3BjaV9kZXYgKi8KKworCWZsYWdzID0gZW50LT5kcml2ZXJfZGF0YTsKKworCWlmICghcmFkZW9u
+X3NpX3N1cHBvcnQpIHsKKwkJc3dpdGNoIChmbGFncyAmIFJBREVPTl9GQU1JTFlfTUFTSykgewor
+CQljYXNlIENISVBfVEFISVRJOgorCQljYXNlIENISVBfUElUQ0FJUk46CisJCWNhc2UgQ0hJUF9W
+RVJERToKKwkJY2FzZSBDSElQX09MQU5EOgorCQljYXNlIENISVBfSEFJTkFOOgorCQkJZGV2X2lu
+Zm8oJnBkZXYtPmRldiwKKwkJCQkgIlNJIHN1cHBvcnQgZGlzYWJsZWQgYnkgbW9kdWxlIHBhcmFt
+XG4iKTsKKwkJCXJldHVybiAtRU5PREVWOworCQl9CisJfQorCWlmICghcmFkZW9uX2Npa19zdXBw
+b3J0KSB7CisJCXN3aXRjaCAoZmxhZ3MgJiBSQURFT05fRkFNSUxZX01BU0spIHsKKwkJY2FzZSBD
+SElQX0tBVkVSSToKKwkJY2FzZSBDSElQX0JPTkFJUkU6CisJCWNhc2UgQ0hJUF9IQVdBSUk6CisJ
+CWNhc2UgQ0hJUF9LQUJJTkk6CisJCWNhc2UgQ0hJUF9NVUxMSU5TOgorCQkJZGV2X2luZm8oJnBk
+ZXYtPmRldiwKKwkJCQkgIkNJSyBzdXBwb3J0IGRpc2FibGVkIGJ5IG1vZHVsZSBwYXJhbVxuIik7
+CisJCQlyZXR1cm4gLUVOT0RFVjsKKwkJfQorCX0KKwogCWlmICh2Z2Ffc3dpdGNoZXJvb19jbGll
+bnRfcHJvYmVfZGVmZXIocGRldikpCiAJCXJldHVybiAtRVBST0JFX0RFRkVSOwogCmRpZmYgLS1n
+aXQgYS9kcml2ZXJzL2dwdS9kcm0vcmFkZW9uL3JhZGVvbl9rbXMuYyBiL2RyaXZlcnMvZ3B1L2Ry
+bS9yYWRlb24vcmFkZW9uX2ttcy5jCmluZGV4IDZhOGZiNmZkMTgzYzMuLjNmZjgzNTc2N2FjNTgg
+MTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9yYWRlb24vcmFkZW9uX2ttcy5jCisrKyBiL2Ry
+aXZlcnMvZ3B1L2RybS9yYWRlb24vcmFkZW9uX2ttcy5jCkBAIC05NSwzMSArOTUsNiBAQCBpbnQg
+cmFkZW9uX2RyaXZlcl9sb2FkX2ttcyhzdHJ1Y3QgZHJtX2RldmljZSAqZGV2LCB1bnNpZ25lZCBs
+b25nIGZsYWdzKQogCXN0cnVjdCByYWRlb25fZGV2aWNlICpyZGV2OwogCWludCByLCBhY3BpX3N0
+YXR1czsKIAotCWlmICghcmFkZW9uX3NpX3N1cHBvcnQpIHsKLQkJc3dpdGNoIChmbGFncyAmIFJB
+REVPTl9GQU1JTFlfTUFTSykgewotCQljYXNlIENISVBfVEFISVRJOgotCQljYXNlIENISVBfUElU
+Q0FJUk46Ci0JCWNhc2UgQ0hJUF9WRVJERToKLQkJY2FzZSBDSElQX09MQU5EOgotCQljYXNlIENI
+SVBfSEFJTkFOOgotCQkJZGV2X2luZm8oZGV2LT5kZXYsCi0JCQkJICJTSSBzdXBwb3J0IGRpc2Fi
+bGVkIGJ5IG1vZHVsZSBwYXJhbVxuIik7Ci0JCQlyZXR1cm4gLUVOT0RFVjsKLQkJfQotCX0KLQlp
+ZiAoIXJhZGVvbl9jaWtfc3VwcG9ydCkgewotCQlzd2l0Y2ggKGZsYWdzICYgUkFERU9OX0ZBTUlM
+WV9NQVNLKSB7Ci0JCWNhc2UgQ0hJUF9LQVZFUkk6Ci0JCWNhc2UgQ0hJUF9CT05BSVJFOgotCQlj
+YXNlIENISVBfSEFXQUlJOgotCQljYXNlIENISVBfS0FCSU5JOgotCQljYXNlIENISVBfTVVMTElO
+UzoKLQkJCWRldl9pbmZvKGRldi0+ZGV2LAotCQkJCSAiQ0lLIHN1cHBvcnQgZGlzYWJsZWQgYnkg
+bW9kdWxlIHBhcmFtXG4iKTsKLQkJCXJldHVybiAtRU5PREVWOwotCQl9Ci0JfQotCiAJcmRldiA9
+IGt6YWxsb2Moc2l6ZW9mKHN0cnVjdCByYWRlb25fZGV2aWNlKSwgR0ZQX0tFUk5FTCk7CiAJaWYg
+KHJkZXYgPT0gTlVMTCkgewogCQlyZXR1cm4gLUVOT01FTTsKLS0gCjIuMjAuMQoKX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KZHJpLWRldmVsIG1haWxpbmcg
+bGlzdApkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRl
+c2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVs
