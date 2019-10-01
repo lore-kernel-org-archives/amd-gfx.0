@@ -1,84 +1,47 @@
 From: Sasha Levin <sashal@kernel.org>
-Subject: [PATCH AUTOSEL 5.2 60/63] drm/radeon: Bail earlier when
- radeon.cik_/si_support=0 is passed
-Date: Tue,  1 Oct 2019 12:41:22 -0400
-Message-ID: <20191001164125.15398-60-sashal@kernel.org>
-References: <20191001164125.15398-1-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 4.19 13/43] drm/amdgpu: Fix KFD-related kernel oops on Hawaii
+Date: Tue,  1 Oct 2019 12:42:41 -0400
+Message-ID: <20191001164311.15993-13-sashal@kernel.org>
+References: <20191001164311.15993-1-sashal@kernel.org>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-In-Reply-To: <20191001164125.15398-1-sashal@kernel.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Return-path: <stable-owner@vger.kernel.org>
+In-Reply-To: <20191001164311.15993-1-sashal@kernel.org>
+Sender: stable-owner@vger.kernel.org
 To: linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Cc: Sasha Levin <sashal@kernel.org>, dri-devel@lists.freedesktop.org, Hans de Goede <hdegoede@redhat.com>, =?UTF-8?q?Michel=20D=C3=A4nzer?= <mdaenzer@redhat.com>, amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>
+Cc: Felix Kuehling <Felix.Kuehling@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
 List-Id: amd-gfx.lists.freedesktop.org
 
-RnJvbTogSGFucyBkZSBHb2VkZSA8aGRlZ29lZGVAcmVkaGF0LmNvbT4KClsgVXBzdHJlYW0gY29t
-bWl0IDlkYmM4OGQwMTNiNzljNjJiZDg0NWNiOWU3YzAyNTZlNjYwOTY3YzUgXQoKQmFpbCBmcm9t
-IHRoZSBwY2lfZHJpdmVyIHByb2JlIGZ1bmN0aW9uIGluc3RlYWQgb2YgZnJvbSB0aGUgZHJtX2Ry
-aXZlcgpsb2FkIGZ1bmN0aW9uLgoKVGhpcyBhdm9pZCAvZGV2L2RyaS9jYXJkMCB0ZW1wb3Jhcmls
-eSBnZXR0aW5nIHJlZ2lzdGVyZWQgYW5kIHRoZW4KdW5yZWdpc3RlcmVkIGFnYWluLCBzZW5kaW5n
-IHVud2FudGVkIGFkZCAvIHJlbW92ZSB1ZGV2IGV2ZW50cyB0bwp1c2Vyc3BhY2UuCgpTcGVjaWZp
-Y2FsbHkgdGhpcyBhdm9pZHMgdHJpZ2dlcmluZyB0aGUgKHVzZXJzcGFjZSkgYnVnIGZpeGVkIGJ5
-IHRoaXMKcGx5bW91dGggbWVyZ2UtcmVxdWVzdDoKaHR0cHM6Ly9naXRsYWIuZnJlZWRlc2t0b3Au
-b3JnL3BseW1vdXRoL3BseW1vdXRoL21lcmdlX3JlcXVlc3RzLzU5CgpOb3RlIHRoYXQgZGVzcGl0
-ZSB0aGF0IGJlaW5nIGFuIHVzZXJzcGFjZSBidWcsIG5vdCBzZW5kaW5nIHVubmVjZXNzYXJ5CnVk
-ZXYgZXZlbnRzIGlzIGEgZ29vZCBpZGVhIGluIGdlbmVyYWwuCgpCdWdMaW5rOiBodHRwczovL2J1
-Z3ppbGxhLnJlZGhhdC5jb20vc2hvd19idWcuY2dpP2lkPTE0OTA0OTAKUmV2aWV3ZWQtYnk6IE1p
-Y2hlbCBEw6RuemVyIDxtZGFlbnplckByZWRoYXQuY29tPgpTaWduZWQtb2ZmLWJ5OiBIYW5zIGRl
-IEdvZWRlIDxoZGVnb2VkZUByZWRoYXQuY29tPgpTaWduZWQtb2ZmLWJ5OiBBbGV4IERldWNoZXIg
-PGFsZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+ClNpZ25lZC1vZmYtYnk6IFNhc2hhIExldmluIDxz
-YXNoYWxAa2VybmVsLm9yZz4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vcmFkZW9uL3JhZGVvbl9kcnYu
-YyB8IDMxICsrKysrKysrKysrKysrKysrKysrKysrKysrKysrCiBkcml2ZXJzL2dwdS9kcm0vcmFk
-ZW9uL3JhZGVvbl9rbXMuYyB8IDI1IC0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tCiAyIGZpbGVzIGNo
-YW5nZWQsIDMxIGluc2VydGlvbnMoKyksIDI1IGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2Ry
-aXZlcnMvZ3B1L2RybS9yYWRlb24vcmFkZW9uX2Rydi5jIGIvZHJpdmVycy9ncHUvZHJtL3JhZGVv
-bi9yYWRlb25fZHJ2LmMKaW5kZXggMmU5NmM4ODYzOTJiZC4uNTUwMmUzNDI4ODY4NSAxMDA2NDQK
-LS0tIGEvZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9yYWRlb25fZHJ2LmMKKysrIGIvZHJpdmVycy9n
-cHUvZHJtL3JhZGVvbi9yYWRlb25fZHJ2LmMKQEAgLTMyMCw4ICszMjAsMzkgQEAgYm9vbCByYWRl
-b25fZGV2aWNlX2lzX3ZpcnR1YWwodm9pZCk7CiBzdGF0aWMgaW50IHJhZGVvbl9wY2lfcHJvYmUo
-c3RydWN0IHBjaV9kZXYgKnBkZXYsCiAJCQkgICAgY29uc3Qgc3RydWN0IHBjaV9kZXZpY2VfaWQg
-KmVudCkKIHsKKwl1bnNpZ25lZCBsb25nIGZsYWdzID0gMDsKIAlpbnQgcmV0OwogCisJaWYgKCFl
-bnQpCisJCXJldHVybiAtRU5PREVWOyAvKiBBdm9pZCBOVUxMLXB0ciBkZXJlZiBpbiBkcm1fZ2V0
-X3BjaV9kZXYgKi8KKworCWZsYWdzID0gZW50LT5kcml2ZXJfZGF0YTsKKworCWlmICghcmFkZW9u
-X3NpX3N1cHBvcnQpIHsKKwkJc3dpdGNoIChmbGFncyAmIFJBREVPTl9GQU1JTFlfTUFTSykgewor
-CQljYXNlIENISVBfVEFISVRJOgorCQljYXNlIENISVBfUElUQ0FJUk46CisJCWNhc2UgQ0hJUF9W
-RVJERToKKwkJY2FzZSBDSElQX09MQU5EOgorCQljYXNlIENISVBfSEFJTkFOOgorCQkJZGV2X2lu
-Zm8oJnBkZXYtPmRldiwKKwkJCQkgIlNJIHN1cHBvcnQgZGlzYWJsZWQgYnkgbW9kdWxlIHBhcmFt
-XG4iKTsKKwkJCXJldHVybiAtRU5PREVWOworCQl9CisJfQorCWlmICghcmFkZW9uX2Npa19zdXBw
-b3J0KSB7CisJCXN3aXRjaCAoZmxhZ3MgJiBSQURFT05fRkFNSUxZX01BU0spIHsKKwkJY2FzZSBD
-SElQX0tBVkVSSToKKwkJY2FzZSBDSElQX0JPTkFJUkU6CisJCWNhc2UgQ0hJUF9IQVdBSUk6CisJ
-CWNhc2UgQ0hJUF9LQUJJTkk6CisJCWNhc2UgQ0hJUF9NVUxMSU5TOgorCQkJZGV2X2luZm8oJnBk
-ZXYtPmRldiwKKwkJCQkgIkNJSyBzdXBwb3J0IGRpc2FibGVkIGJ5IG1vZHVsZSBwYXJhbVxuIik7
-CisJCQlyZXR1cm4gLUVOT0RFVjsKKwkJfQorCX0KKwogCWlmICh2Z2Ffc3dpdGNoZXJvb19jbGll
-bnRfcHJvYmVfZGVmZXIocGRldikpCiAJCXJldHVybiAtRVBST0JFX0RFRkVSOwogCmRpZmYgLS1n
-aXQgYS9kcml2ZXJzL2dwdS9kcm0vcmFkZW9uL3JhZGVvbl9rbXMuYyBiL2RyaXZlcnMvZ3B1L2Ry
-bS9yYWRlb24vcmFkZW9uX2ttcy5jCmluZGV4IDZhOGZiNmZkMTgzYzMuLjNmZjgzNTc2N2FjNTgg
-MTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9yYWRlb24vcmFkZW9uX2ttcy5jCisrKyBiL2Ry
-aXZlcnMvZ3B1L2RybS9yYWRlb24vcmFkZW9uX2ttcy5jCkBAIC05NSwzMSArOTUsNiBAQCBpbnQg
-cmFkZW9uX2RyaXZlcl9sb2FkX2ttcyhzdHJ1Y3QgZHJtX2RldmljZSAqZGV2LCB1bnNpZ25lZCBs
-b25nIGZsYWdzKQogCXN0cnVjdCByYWRlb25fZGV2aWNlICpyZGV2OwogCWludCByLCBhY3BpX3N0
-YXR1czsKIAotCWlmICghcmFkZW9uX3NpX3N1cHBvcnQpIHsKLQkJc3dpdGNoIChmbGFncyAmIFJB
-REVPTl9GQU1JTFlfTUFTSykgewotCQljYXNlIENISVBfVEFISVRJOgotCQljYXNlIENISVBfUElU
-Q0FJUk46Ci0JCWNhc2UgQ0hJUF9WRVJERToKLQkJY2FzZSBDSElQX09MQU5EOgotCQljYXNlIENI
-SVBfSEFJTkFOOgotCQkJZGV2X2luZm8oZGV2LT5kZXYsCi0JCQkJICJTSSBzdXBwb3J0IGRpc2Fi
-bGVkIGJ5IG1vZHVsZSBwYXJhbVxuIik7Ci0JCQlyZXR1cm4gLUVOT0RFVjsKLQkJfQotCX0KLQlp
-ZiAoIXJhZGVvbl9jaWtfc3VwcG9ydCkgewotCQlzd2l0Y2ggKGZsYWdzICYgUkFERU9OX0ZBTUlM
-WV9NQVNLKSB7Ci0JCWNhc2UgQ0hJUF9LQVZFUkk6Ci0JCWNhc2UgQ0hJUF9CT05BSVJFOgotCQlj
-YXNlIENISVBfSEFXQUlJOgotCQljYXNlIENISVBfS0FCSU5JOgotCQljYXNlIENISVBfTVVMTElO
-UzoKLQkJCWRldl9pbmZvKGRldi0+ZGV2LAotCQkJCSAiQ0lLIHN1cHBvcnQgZGlzYWJsZWQgYnkg
-bW9kdWxlIHBhcmFtXG4iKTsKLQkJCXJldHVybiAtRU5PREVWOwotCQl9Ci0JfQotCiAJcmRldiA9
-IGt6YWxsb2Moc2l6ZW9mKHN0cnVjdCByYWRlb25fZGV2aWNlKSwgR0ZQX0tFUk5FTCk7CiAJaWYg
-KHJkZXYgPT0gTlVMTCkgewogCQlyZXR1cm4gLUVOT01FTTsKLS0gCjIuMjAuMQoKX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KZHJpLWRldmVsIG1haWxpbmcg
-bGlzdApkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRl
-c2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVs
+From: Felix Kuehling <Felix.Kuehling@amd.com>
+
+[ Upstream commit dcafbd50f2e4d5cc964aae409fb5691b743fba23 ]
+
+Hawaii needs to flush caches explicitly, submitting an IB in a user
+VMID from kernel mode. There is no s_fence in this case.
+
+Fixes: eb3961a57424 ("drm/amdgpu: remove fence context from the job")
+Signed-off-by: Felix Kuehling <Felix.Kuehling@amd.com>
+Reviewed-by: Christian König <christian.koenig@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
+index 51b5e977ca885..f4e9d1b10e3ed 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
+@@ -139,7 +139,8 @@ int amdgpu_ib_schedule(struct amdgpu_ring *ring, unsigned num_ibs,
+ 	/* ring tests don't use a job */
+ 	if (job) {
+ 		vm = job->vm;
+-		fence_ctx = job->base.s_fence->scheduled.context;
++		fence_ctx = job->base.s_fence ?
++			job->base.s_fence->scheduled.context : 0;
+ 	} else {
+ 		vm = NULL;
+ 		fence_ctx = 0;
+-- 
+2.20.1
