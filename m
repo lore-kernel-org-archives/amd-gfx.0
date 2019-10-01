@@ -1,49 +1,44 @@
-From: "Gustavo A. R. Silva" <gustavo@embeddedor.com>
+From: "Liu, Leo" <Leo.Liu@amd.com>
 Subject: Re: [PATCH] drm/amdgpu: fix structurally dead code vcn_v2_5_hw_init
-Date: Tue, 1 Oct 2019 16:57:23 -0500
-Message-ID: <3c6ebf4a-8cba-40e2-7d70-c4d5006a160b@embeddedor.com>
+Date: Tue, 1 Oct 2019 22:21:20 +0000
+Message-ID: <23314fce-800c-552f-e879-464f9709d12b@amd.com>
 References: <20191001171635.GA17306@embeddedor>
  <192815d9-5ecb-09a7-4624-5fd36126890d@amd.com>
  <823b10a3-fe0e-2e8c-02c3-534944dbe6d2@embeddedor.com>
  <dc76a52b-09a2-7ab9-b53e-52500f4f8669@amd.com>
+ <3c6ebf4a-8cba-40e2-7d70-c4d5006a160b@embeddedor.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-In-Reply-To: <dc76a52b-09a2-7ab9-b53e-52500f4f8669@amd.com>
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <3c6ebf4a-8cba-40e2-7d70-c4d5006a160b@embeddedor.com>
 Content-Language: en-US
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: "Liu, Leo" <Leo.Liu@amd.com>, "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Koenig, Christian" <Christian.Koenig@amd.com>, "Zhou, David(ChunMing)" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>
-Cc: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Content-ID: <6815B8CBB7A62E49A2816B454DB0BE00@namprd12.prod.outlook.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: "Gustavo A. R. Silva" <gustavo@embeddedor.com>, "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Koenig, Christian" <Christian.Koenig@amd.com>, "Zhou, David(ChunMing)" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>
+Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
 List-Id: amd-gfx.lists.freedesktop.org
 
-CgpPbiAxMC8xLzE5IDE2OjQ2LCBMaXUsIExlbyB3cm90ZToKCj4+Pj4gKwkJcmluZy0+c2NoZWQu
-cmVhZHkgPSB0cnVlOwo+Pj4gVGhpcyBpcyByZWR1bmRhbnQuIGFsbCB0aGUgc2NoZWQtPnJlYWR5
-IGlzIGluaXRpYWxpemVkIGFzIHRydWUsIHBsZWFzZQo+Pj4gcmVmZXIgdG8gZHJtX3NjaGVkX2lu
-aXQoKQo+Pj4KPj4gSSBzZWUuLi4gc28gaW4gdGhlIGZvbGxvd2luZyBjb21taXQgMWI2MWRlNDVk
-ZmFmICgiZHJtL2FtZGdwdTogYWRkIGluaXRpYWwgVkNOMi4wIHN1cHBvcnQgKHYyKSIpCj4+IHRo
-YXQgbGluZSBpcyBhbHNvIHJlZHVuZGFudD8KPiAKPiBZZXMuCj4gCgpPSy4KCj4gCj4+Pj4gICAg
-CQlyID0gYW1kZ3B1X3JpbmdfdGVzdF9yaW5nKHJpbmcpOwo+Pj4+ICAgIAkJaWYgKHIpIHsKPj4+
-PiAgICAJCQlyaW5nLT5zY2hlZC5yZWFkeSA9IGZhbHNlOwo+Pj4+IEBAIC0yNjYsOCArMjY3LDcg
-QEAgc3RhdGljIGludCB2Y25fdjJfNV9od19pbml0KHZvaWQgKmhhbmRsZSkKPj4+PiAgICAKPj4+
-PiAgICAJCWZvciAoaSA9IDA7IGkgPCBhZGV2LT52Y24ubnVtX2VuY19yaW5nczsgKytpKSB7Cj4+
-Pj4gICAgCQkJcmluZyA9ICZhZGV2LT52Y24uaW5zdFtqXS5yaW5nX2VuY1tpXTsKPj4+PiAtCQkJ
-cmluZy0+c2NoZWQucmVhZHkgPSBmYWxzZTsKPj4+PiAtCQkJY29udGludWU7Cj4+Pj4gKwkJCXJp
-bmctPnNjaGVkLnJlYWR5ID0gdHJ1ZTsKPj4+IEJlY2F1c2UgdGhlIFZDTiAyLjUgRlcgc3RpbGwg
-aGFzIGlzc3VlIGZvciBlbmNvZGUsIHNvIHdlIGhhdmUgaXQKPj4+IGRpc2FibGVkIGhlcmUuCj4+
-Pgo+PiBPSy4gU28sIG1heWJlIHdlIGNhbiBhZGQgYSBjb21tZW50IHBvaW50aW5nIHRoYXQgb3V0
-Pwo+IAo+IFRoYXQgY291bGQgYmUgYmV0dGVyLgo+IAoKR3JlYXQuIEknbSBnbGFkIGl0J3Mgbm90
-IGEgYnVnLiAgSSdsbCB3cml0ZSBhIHBhdGNoIGZvciB0aGF0IHNvIG90aGVyCnBlb3BsZSBkb24n
-dCB3YXN0ZSB0aW1lIHRha2luZyBhIGxvb2suCgpJIGFwcHJlY2lhdGUgeW91ciBmZWVkYmFjay4K
-VGhhbmtzCi0tCkd1c3Rhdm8KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX18KZHJpLWRldmVsIG1haWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0
-b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJp
-LWRldmVs
+DQpPbiAyMDE5LTEwLTAxIDU6NTcgcC5tLiwgR3VzdGF2byBBLiBSLiBTaWx2YSB3cm90ZToNCj4N
+Cj4gT24gMTAvMS8xOSAxNjo0NiwgTGl1LCBMZW8gd3JvdGU6DQo+DQo+Pj4+PiArCQlyaW5nLT5z
+Y2hlZC5yZWFkeSA9IHRydWU7DQo+Pj4+IFRoaXMgaXMgcmVkdW5kYW50LiBhbGwgdGhlIHNjaGVk
+LT5yZWFkeSBpcyBpbml0aWFsaXplZCBhcyB0cnVlLCBwbGVhc2UNCj4+Pj4gcmVmZXIgdG8gZHJt
+X3NjaGVkX2luaXQoKQ0KPj4+Pg0KPj4+IEkgc2VlLi4uIHNvIGluIHRoZSBmb2xsb3dpbmcgY29t
+bWl0IDFiNjFkZTQ1ZGZhZiAoImRybS9hbWRncHU6IGFkZCBpbml0aWFsIFZDTjIuMCBzdXBwb3J0
+ICh2MikiKQ0KPj4+IHRoYXQgbGluZSBpcyBhbHNvIHJlZHVuZGFudD8NCj4+IFllcy4NCj4+DQo+
+IE9LLg0KPg0KPj4+Pj4gICAgIAkJciA9IGFtZGdwdV9yaW5nX3Rlc3RfcmluZyhyaW5nKTsNCj4+
+Pj4+ICAgICAJCWlmIChyKSB7DQo+Pj4+PiAgICAgCQkJcmluZy0+c2NoZWQucmVhZHkgPSBmYWxz
+ZTsNCj4+Pj4+IEBAIC0yNjYsOCArMjY3LDcgQEAgc3RhdGljIGludCB2Y25fdjJfNV9od19pbml0
+KHZvaWQgKmhhbmRsZSkNCj4+Pj4+ICAgICANCj4+Pj4+ICAgICAJCWZvciAoaSA9IDA7IGkgPCBh
+ZGV2LT52Y24ubnVtX2VuY19yaW5nczsgKytpKSB7DQo+Pj4+PiAgICAgCQkJcmluZyA9ICZhZGV2
+LT52Y24uaW5zdFtqXS5yaW5nX2VuY1tpXTsNCj4+Pj4+IC0JCQlyaW5nLT5zY2hlZC5yZWFkeSA9
+IGZhbHNlOw0KPj4+Pj4gLQkJCWNvbnRpbnVlOw0KPj4+Pj4gKwkJCXJpbmctPnNjaGVkLnJlYWR5
+ID0gdHJ1ZTsNCj4+Pj4gQmVjYXVzZSB0aGUgVkNOIDIuNSBGVyBzdGlsbCBoYXMgaXNzdWUgZm9y
+IGVuY29kZSwgc28gd2UgaGF2ZSBpdA0KPj4+PiBkaXNhYmxlZCBoZXJlLg0KPj4+Pg0KPj4+IE9L
+LiBTbywgbWF5YmUgd2UgY2FuIGFkZCBhIGNvbW1lbnQgcG9pbnRpbmcgdGhhdCBvdXQ/DQo+PiBU
+aGF0IGNvdWxkIGJlIGJldHRlci4NCj4+DQo+IEdyZWF0LiBJJ20gZ2xhZCBpdCdzIG5vdCBhIGJ1
+Zy4gIEknbGwgd3JpdGUgYSBwYXRjaCBmb3IgdGhhdCBzbyBvdGhlcg0KPiBwZW9wbGUgZG9uJ3Qg
+d2FzdGUgdGltZSB0YWtpbmcgYSBsb29rLg0KDQpUaGFua3MsIGp1c3Qgc2VudCB0d28gcGF0Y2hl
+cyB0byBhZGQgY29tbWVudCwgYW5kIGxvbmcgd2l0aCB0aGUgcGF0Y2ggdG8gDQptYWtlIFZDTiBy
+aW5nIHJlYWR5IHByb3Blcmx5Lg0KDQpMZW8NCg0KDQoNCg0KPg0KPiBJIGFwcHJlY2lhdGUgeW91
+ciBmZWVkYmFjay4NCj4gVGhhbmtzDQo+IC0tDQo+IEd1c3Rhdm8NCg==
