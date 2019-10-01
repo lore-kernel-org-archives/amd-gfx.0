@@ -1,10 +1,19 @@
-From: Joe Barnett <thejoe-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: HMM related? memory leakage
-Date: Tue, 1 Oct 2019 08:13:04 -0700
-Message-ID: <CAHpbJO-Vmb7d6Dc3hMdquVE0-Ptc-H8vVLauQWQGKBMd3AGotg@mail.gmail.com>
+From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [RFC PATCH] drm:- Add a modifier to denote 'protected' framebuffer
+Date: Tue, 1 Oct 2019 11:30:20 -0400
+Message-ID: <CADnq5_NmgeZqUwq46aMRFUNmUabaVwFVD-Q_wvN1n8qZaj_rBA@mail.gmail.com>
+References: <20190909134241.23297-1-ayan.halder@arm.com>
+ <20190917125301.GQ3958@phenom.ffwll.local>
+ <20190917160730.hutzlbuqtpmmtdz3@e110455-lin.cambridge.arm.com>
+ <11689dc3-6c3e-084b-b66d-e6ccf75cb8fb@baylibre.com>
+ <CAKMK7uF7oKV4609Ca4mLj7gYC1rkWnWAV7_hM5Z48Ez1cBoMqA@mail.gmail.com>
+ <20190930095134.xjcucw2rrij5f4np@DESKTOP-E1NTVVP.localdomain>
+ <20190930125701.GA13998@arm.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1825350231=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20190930125701.GA13998-5wv7dgnIgG8@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -15,232 +24,214 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: Ayan Halder <Ayan.Halder-5wv7dgnIgG8@public.gmane.org>
+Cc: "David1.Zhou-5C7GfCeVMHo@public.gmane.org" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, Neil Armstrong <narmstrong-rdvid1DuHRBWk0Htik3J/w@public.gmane.org>, "maxime.ripard-LDxbnhwyfcJBDgjK7y7TUQ@public.gmane.org" <maxime.ripard-LDxbnhwyfcJBDgjK7y7TUQ@public.gmane.org>, Liviu Dudau <Liviu.Dudau-5wv7dgnIgG8@public.gmane.org>, "maarten.lankhorst-VuQAYsv1563Yd54FQh9/CA@public.gmane.org" <maarten.lankhorst-VuQAYsv1563Yd54FQh9/CA@public.gmane.org>, "linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org" <linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, "dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "sumit.semwal-QSEj5FYQhm4dnm+yROfE0A@public.gmane.org" <sumit.semwal-QSEj5FYQhm4dnm+yROfE0A@public.gmane.org>, "linaro-mm-sig-cunTk1MwBs8s++Sfvej+rw@public.gmane.org" <linaro-mm-sig-cunTk1MwBs8s++Sfvej+rw@public.gmane.org>, "airlied-cv59FeDIM0c@public.gmane.org" <airlied-cv59FeDIM0c@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>, "alexander.deucher-5C7GfCeVMHo@public.gmane.org" <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, "christian.koenig-5C7GfCeVMHo@public.gmane.org" <christian.koenig-5C7GfCeVMHo@public.gmane.org>, nd <nd-5wv7dgnIgG8@public.gmane.org>, "sean-p7yTbzM4H96eqtR555YLDQ@public.gmane.org" <sean-p7yTbzM4H96eqtR555YLDQ@public.gmane.org>, Brian Starkey <Brian.Starkey-5wv7dgnIgG8@public.gmane.org>"linux-media-u79uwXL29TY76Z2rM5mHXA@public.gmane.org" <linu>
 
---===============1825350231==
-Content-Type: multipart/alternative; boundary="000000000000b9d8a30593dacab3"
-
---000000000000b9d8a30593dacab3
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-In the development version of ubuntu, using a 5.3 kernel, running the
-dolphin emulator appears to leak memory (there may be other apps that
-trigger the same issue, but haven't run into them).  The "used" memory
-reported by top grows until the app exits, and does not get freed at that
-time.  This is on a dell xps 2-in-1 with hybrid intel/amd-vega-m graphics,
-and DRI_PRIME=3D1.  Some more details at downstream bug report:
-https://bugs.launchpad.net/ubuntu/+source/linux/+bug/1844962
-
-Running a kernel bisection to find the offending commit shows this:
-
-899fbde1464639e3d12eaffdad8481a59b367fcb is the first bad commit
-commit 899fbde1464639e3d12eaffdad8481a59b367fcb
-Author: Philip Yang <Philip.Yang-5C7GfCeVMHo@public.gmane.org>
-Date:   Thu Dec 13 15:35:28 2018 -0500
-
-    drm/amdgpu: replace get_user_pages with HMM mirror helpers
-
-    Use HMM helper function hmm_vma_fault() to get physical pages backing
-    userptr and start CPU page table update track of those pages. Then use
-    hmm_vma_range_done() to check if those pages are updated before
-    amdgpu_cs_submit for gfx or before user queues are resumed for kfd.
-
-    If userptr pages are updated, for gfx, amdgpu_cs_ioctl will restart
-    from scratch, for kfd, restore worker is rescheduled to retry.
-
-    HMM simplify the CPU page table concurrent update check, so remove
-    guptasklock, mmu_invalidations, last_set_pages fields from
-    amdgpu_ttm_tt struct.
-
-    HMM does not pin the page (increase page ref count), so remove related
-    operations like release_pages(), put_page(), mark_page_dirty().
-
-    Signed-off-by: Philip Yang <Philip.Yang-5C7GfCeVMHo@public.gmane.org>
-    Reviewed-by: Felix Kuehling <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
-    Reviewed-by: Christian K=C3=B6nig <christian.koenig-5C7GfCeVMHo@public.gmane.org>
-    Signed-off-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-
-:040000 040000 0c9f0e2e82e5e4d2d3a4c0daea22eb911244b771
-fdcdc7c80f5383486962edf4561e205b55bd8c21 M drivers
-
-
-$ git bisect log
-# bad: [f74c2bb98776e2de508f4d607cd519873065118e] Linux 5.3-rc8
-# good: [1c163f4c7b3f621efff9b28a47abb36f7378d783] Linux 5.0
-git bisect start 'v5.3-rc8' 'v5.0'
-# good: [a2d635decbfa9c1e4ae15cb05b68b2559f7f827c] Merge tag
-'drm-next-2019-05-09' of git://anongit.freedesktop.org/drm/drm
-git bisect good a2d635decbfa9c1e4ae15cb05b68b2559f7f827c
-# good: [a2d635decbfa9c1e4ae15cb05b68b2559f7f827c] Merge tag
-'drm-next-2019-05-09' of git://anongit.freedesktop.org/drm/drm
-git bisect good a2d635decbfa9c1e4ae15cb05b68b2559f7f827c
-# good: [8f6ccf6159aed1f04c6d179f61f6fb2691261e84] Merge tag 'clone3-v5.3'
-of git://git.kernel.org/pub/scm/linux/kernel/git/brauner/linux
-git bisect good 8f6ccf6159aed1f04c6d179f61f6fb2691261e84
-# good: [8f6ccf6159aed1f04c6d179f61f6fb2691261e84] Merge tag 'clone3-v5.3'
-of git://git.kernel.org/pub/scm/linux/kernel/git/brauner/linux
-git bisect good 8f6ccf6159aed1f04c6d179f61f6fb2691261e84
-# bad: [be8454afc50f43016ca8b6130d9673bdd0bd56ec] Merge tag
-'drm-next-2019-07-16' of git://anongit.freedesktop.org/drm/drm
-git bisect bad be8454afc50f43016ca8b6130d9673bdd0bd56ec
-# bad: [be8454afc50f43016ca8b6130d9673bdd0bd56ec] Merge tag
-'drm-next-2019-07-16' of git://anongit.freedesktop.org/drm/drm
-git bisect bad be8454afc50f43016ca8b6130d9673bdd0bd56ec
-# good: [d72619706abc4aa7e540ea882dae883cee7cc3b3] Merge tag 'tty-5.3-rc1'
-of git://git.kernel.org/pub/scm/linux/kernel/git/gregkh/tty
-git bisect good d72619706abc4aa7e540ea882dae883cee7cc3b3
-# bad: [83145f110eb2ada9d54fcbcf416c02de126381c1] drm/amdgpu: don't
-invalidate caches in RELEASE_MEM, only do the writeback
-git bisect bad 83145f110eb2ada9d54fcbcf416c02de126381c1
-# bad: [b239c01727459ba08c44b79e6225d3c58723f282] drm/amdgpu: add mcbp
-driver parameter
-git bisect bad b239c01727459ba08c44b79e6225d3c58723f282
-# good: [e1dc68a4b149d47536cd001d0d0abadbb62d37bd] drm: atmel-hlcdc: avoid
-initializing cfg with zero
-git bisect good e1dc68a4b149d47536cd001d0d0abadbb62d37bd
-# bad: [c53e4db71276bf257b09010935a04bdafddd458e] drm/amdgpu: cancel
-late_init_work before gpu reset
-git bisect bad c53e4db71276bf257b09010935a04bdafddd458e
-# good: [2da4605dce38b84cd2e5b86686f43adae1b2cacb] drm/amd/display: Use DCN
-functions instead of DCE
-git bisect good 2da4605dce38b84cd2e5b86686f43adae1b2cacb
-# bad: [1c1e53f7f2ce191e6787d3d0648fe8ce7088ceaa] drm/amd/doc: Add XGMI
-sysfs documentation
-git bisect bad 1c1e53f7f2ce191e6787d3d0648fe8ce7088ceaa
-# good: [89cd9d23e9a74d94f0db5bbbaf2ef1f6ede36ae5] drm/amdkfd: avoid HMM
-change cause circular lock
-git bisect good 89cd9d23e9a74d94f0db5bbbaf2ef1f6ede36ae5
-# bad: [0803e7a9e850f9d6397c594d6c6deac9b2b6d696] drm/amdkfd: Allocate hiq
-and sdma mqd from mqd trunk
-git bisect bad 0803e7a9e850f9d6397c594d6c6deac9b2b6d696
-# bad: [972fcdb52fe865a2f639e3200b97e648f34a0f41] drm/amdkfd: Introduce
-asic-specific mqd_manager_init function
-git bisect bad 972fcdb52fe865a2f639e3200b97e648f34a0f41
-# bad: [6c55d6e90e68a4789cbd72a0287026d4dfb4a9f9] drm/amdkfd: support
-concurrent userptr update for HMM
-git bisect bad 6c55d6e90e68a4789cbd72a0287026d4dfb4a9f9
-# bad: [ad595b8634f36f04bf69bef4eff854091d94f8b3] drm/amdgpu: fix HMM
-config dependency issue
-git bisect bad ad595b8634f36f04bf69bef4eff854091d94f8b3
-# bad: [899fbde1464639e3d12eaffdad8481a59b367fcb] drm/amdgpu: replace
-get_user_pages with HMM mirror helpers
-git bisect bad 899fbde1464639e3d12eaffdad8481a59b367fcb
-# first bad commit: [899fbde1464639e3d12eaffdad8481a59b367fcb] drm/amdgpu:
-replace get_user_pages with HMM mirror helpers
-
-Let me know if I can provide more information.
-Thanks,
--Joe
-
---000000000000b9d8a30593dacab3
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div>In the development version of ubuntu, using a 5.3 ker=
-nel, running the dolphin emulator appears to leak memory (there may be othe=
-r apps that trigger the same issue, but haven&#39;t run into them).=C2=A0 T=
-he &quot;used&quot; memory reported by top grows until the app exits, and d=
-oes not get freed at that time.=C2=A0 This is on a dell xps 2-in-1 with hyb=
-rid intel/amd-vega-m graphics, and DRI_PRIME=3D1.=C2=A0 Some more details a=
-t downstream bug report: <a href=3D"https://bugs.launchpad.net/ubuntu/+sour=
-ce/linux/+bug/1844962">https://bugs.launchpad.net/ubuntu/+source/linux/+bug=
-/1844962</a></div><div><br></div><div>Running a kernel bisection to find th=
-e offending commit shows this:</div><div><br></div><div>899fbde1464639e3d12=
-eaffdad8481a59b367fcb is the first bad commit<br>commit 899fbde1464639e3d12=
-eaffdad8481a59b367fcb<br>Author: Philip Yang &lt;<a href=3D"mailto:Philip.Y=
-ang-5C7GfCeVMHo@public.gmane.org">Philip.Yang-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>Date: =C2=A0 Thu Dec 13 15:35:2=
-8 2018 -0500<br><br>=C2=A0 =C2=A0 drm/amdgpu: replace get_user_pages with H=
-MM mirror helpers<br>=C2=A0 =C2=A0 <br>=C2=A0 =C2=A0 Use HMM helper functio=
-n hmm_vma_fault() to get physical pages backing<br>=C2=A0 =C2=A0 userptr an=
-d start CPU page table update track of those pages. Then use<br>=C2=A0 =C2=
-=A0 hmm_vma_range_done() to check if those pages are updated before<br>=C2=
-=A0 =C2=A0 amdgpu_cs_submit for gfx or before user queues are resumed for k=
-fd.<br>=C2=A0 =C2=A0 <br>=C2=A0 =C2=A0 If userptr pages are updated, for gf=
-x, amdgpu_cs_ioctl will restart<br>=C2=A0 =C2=A0 from scratch, for kfd, res=
-tore worker is rescheduled to retry.<br>=C2=A0 =C2=A0 <br>=C2=A0 =C2=A0 HMM=
- simplify the CPU page table concurrent update check, so remove<br>=C2=A0 =
-=C2=A0 guptasklock, mmu_invalidations, last_set_pages fields from<br>=C2=A0=
- =C2=A0 amdgpu_ttm_tt struct.<br>=C2=A0 =C2=A0 <br>=C2=A0 =C2=A0 HMM does n=
-ot pin the page (increase page ref count), so remove related<br>=C2=A0 =C2=
-=A0 operations like release_pages(), put_page(), mark_page_dirty().<br>=C2=
-=A0 =C2=A0 <br>=C2=A0 =C2=A0 Signed-off-by: Philip Yang &lt;<a href=3D"mail=
-to:Philip.Yang-5C7GfCeVMHo@public.gmane.org">Philip.Yang-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>=C2=A0 =C2=A0 Review=
-ed-by: Felix Kuehling &lt;<a href=3D"mailto:Felix.Kuehling-5C7GfCeVMHo@public.gmane.org">Felix.K=
-uehling-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>=C2=A0 =C2=A0 Reviewed-by: Christian K=C3=B6nig =
-&lt;<a href=3D"mailto:christian.koenig-5C7GfCeVMHo@public.gmane.org">christian.koenig-5C7GfCeVMHo@public.gmane.org</a=
->&gt;<br>=C2=A0 =C2=A0 Signed-off-by: Alex Deucher &lt;<a href=3D"mailto:al=
-exander.deucher-5C7GfCeVMHo@public.gmane.org">alexander.deucher-5C7GfCeVMHo@public.gmane.org</a>&gt;<br><br>:040000 0=
-40000 0c9f0e2e82e5e4d2d3a4c0daea22eb911244b771 fdcdc7c80f5383486962edf4561e=
-205b55bd8c21 M	drivers<br><br><br>$ git bisect log<br># bad: [f74c2bb98776e=
-2de508f4d607cd519873065118e] Linux 5.3-rc8<br># good: [1c163f4c7b3f621efff9=
-b28a47abb36f7378d783] Linux 5.0<br>git bisect start &#39;v5.3-rc8&#39; &#39=
-;v5.0&#39;<br># good: [a2d635decbfa9c1e4ae15cb05b68b2559f7f827c] Merge tag =
-&#39;drm-next-2019-05-09&#39; of git://<a href=3D"http://anongit.freedeskto=
-p.org/drm/drm">anongit.freedesktop.org/drm/drm</a><br>git bisect good a2d63=
-5decbfa9c1e4ae15cb05b68b2559f7f827c<br># good: [a2d635decbfa9c1e4ae15cb05b6=
-8b2559f7f827c] Merge tag &#39;drm-next-2019-05-09&#39; of git://<a href=3D"=
-http://anongit.freedesktop.org/drm/drm">anongit.freedesktop.org/drm/drm</a>=
-<br>git bisect good a2d635decbfa9c1e4ae15cb05b68b2559f7f827c<br># good: [8f=
-6ccf6159aed1f04c6d179f61f6fb2691261e84] Merge tag &#39;clone3-v5.3&#39; of =
-git://<a href=3D"http://git.kernel.org/pub/scm/linux/kernel/git/brauner/lin=
-ux">git.kernel.org/pub/scm/linux/kernel/git/brauner/linux</a><br>git bisect=
- good 8f6ccf6159aed1f04c6d179f61f6fb2691261e84<br># good: [8f6ccf6159aed1f0=
-4c6d179f61f6fb2691261e84] Merge tag &#39;clone3-v5.3&#39; of git://<a href=
-=3D"http://git.kernel.org/pub/scm/linux/kernel/git/brauner/linux">git.kerne=
-l.org/pub/scm/linux/kernel/git/brauner/linux</a><br>git bisect good 8f6ccf6=
-159aed1f04c6d179f61f6fb2691261e84<br># bad: [be8454afc50f43016ca8b6130d9673=
-bdd0bd56ec] Merge tag &#39;drm-next-2019-07-16&#39; of git://<a href=3D"htt=
-p://anongit.freedesktop.org/drm/drm">anongit.freedesktop.org/drm/drm</a><br=
->git bisect bad be8454afc50f43016ca8b6130d9673bdd0bd56ec<br># bad: [be8454a=
-fc50f43016ca8b6130d9673bdd0bd56ec] Merge tag &#39;drm-next-2019-07-16&#39; =
-of git://<a href=3D"http://anongit.freedesktop.org/drm/drm">anongit.freedes=
-ktop.org/drm/drm</a><br>git bisect bad be8454afc50f43016ca8b6130d9673bdd0bd=
-56ec<br># good: [d72619706abc4aa7e540ea882dae883cee7cc3b3] Merge tag &#39;t=
-ty-5.3-rc1&#39; of git://<a href=3D"http://git.kernel.org/pub/scm/linux/ker=
-nel/git/gregkh/tty">git.kernel.org/pub/scm/linux/kernel/git/gregkh/tty</a><=
-br>git bisect good d72619706abc4aa7e540ea882dae883cee7cc3b3<br># bad: [8314=
-5f110eb2ada9d54fcbcf416c02de126381c1] drm/amdgpu: don&#39;t invalidate cach=
-es in RELEASE_MEM, only do the writeback<br>git bisect bad 83145f110eb2ada9=
-d54fcbcf416c02de126381c1<br># bad: [b239c01727459ba08c44b79e6225d3c58723f28=
-2] drm/amdgpu: add mcbp driver parameter<br>git bisect bad b239c01727459ba0=
-8c44b79e6225d3c58723f282<br># good: [e1dc68a4b149d47536cd001d0d0abadbb62d37=
-bd] drm: atmel-hlcdc: avoid initializing cfg with zero<br>git bisect good e=
-1dc68a4b149d47536cd001d0d0abadbb62d37bd<br># bad: [c53e4db71276bf257b090109=
-35a04bdafddd458e] drm/amdgpu: cancel late_init_work before gpu reset<br>git=
- bisect bad c53e4db71276bf257b09010935a04bdafddd458e<br># good: [2da4605dce=
-38b84cd2e5b86686f43adae1b2cacb] drm/amd/display: Use DCN functions instead =
-of DCE<br>git bisect good 2da4605dce38b84cd2e5b86686f43adae1b2cacb<br># bad=
-: [1c1e53f7f2ce191e6787d3d0648fe8ce7088ceaa] drm/amd/doc: Add XGMI sysfs do=
-cumentation<br>git bisect bad 1c1e53f7f2ce191e6787d3d0648fe8ce7088ceaa<br>#=
- good: [89cd9d23e9a74d94f0db5bbbaf2ef1f6ede36ae5] drm/amdkfd: avoid HMM cha=
-nge cause circular lock<br>git bisect good 89cd9d23e9a74d94f0db5bbbaf2ef1f6=
-ede36ae5<br># bad: [0803e7a9e850f9d6397c594d6c6deac9b2b6d696] drm/amdkfd: A=
-llocate hiq and sdma mqd from mqd trunk<br>git bisect bad 0803e7a9e850f9d63=
-97c594d6c6deac9b2b6d696<br># bad: [972fcdb52fe865a2f639e3200b97e648f34a0f41=
-] drm/amdkfd: Introduce asic-specific mqd_manager_init function<br>git bise=
-ct bad 972fcdb52fe865a2f639e3200b97e648f34a0f41<br># bad: [6c55d6e90e68a478=
-9cbd72a0287026d4dfb4a9f9] drm/amdkfd: support concurrent userptr update for=
- HMM<br>git bisect bad 6c55d6e90e68a4789cbd72a0287026d4dfb4a9f9<br># bad: [=
-ad595b8634f36f04bf69bef4eff854091d94f8b3] drm/amdgpu: fix HMM config depend=
-ency issue<br>git bisect bad ad595b8634f36f04bf69bef4eff854091d94f8b3<br># =
-bad: [899fbde1464639e3d12eaffdad8481a59b367fcb] drm/amdgpu: replace get_use=
-r_pages with HMM mirror helpers<br>git bisect bad 899fbde1464639e3d12eaffda=
-d8481a59b367fcb<br># first bad commit: [899fbde1464639e3d12eaffdad8481a59b3=
-67fcb] drm/amdgpu: replace get_user_pages with HMM mirror helpers</div><div=
-><br></div><div>Let me know if I can provide more information.</div><div>Th=
-anks,</div><div>-Joe<br></div></div>
-
---000000000000b9d8a30593dacab3--
-
---===============1825350231==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
-
---===============1825350231==--
+T24gTW9uLCBTZXAgMzAsIDIwMTkgYXQgODo1NyBBTSBBeWFuIEhhbGRlciA8QXlhbi5IYWxkZXJA
+YXJtLmNvbT4gd3JvdGU6Cj4KPiBPbiBNb24sIFNlcCAzMCwgMjAxOSBhdCAwOTo1MTozNUFNICsw
+MDAwLCBCcmlhbiBTdGFya2V5IHdyb3RlOgo+ID4gSGksCj4gPgo+ID4gT24gVHVlLCBTZXAgMTcs
+IDIwMTkgYXQgMDc6MzY6NDVQTSArMDIwMCwgRGFuaWVsIFZldHRlciB3cm90ZToKPiA+ID4gT24g
+VHVlLCBTZXAgMTcsIDIwMTkgYXQgNjoxNSBQTSBOZWlsIEFybXN0cm9uZyA8bmFybXN0cm9uZ0Bi
+YXlsaWJyZS5jb20+IHdyb3RlOgo+ID4gPiA+Cj4gPiA+ID4gSGksCj4gPiA+ID4KPiA+ID4gPiBP
+biAxNy8wOS8yMDE5IDE4OjA3LCBMaXZpdSBEdWRhdSB3cm90ZToKPiA+ID4gPiA+IE9uIFR1ZSwg
+U2VwIDE3LCAyMDE5IGF0IDAyOjUzOjAxUE0gKzAyMDAsIERhbmllbCBWZXR0ZXIgd3JvdGU6Cj4g
+PiA+ID4gPj4gT24gTW9uLCBTZXAgMDksIDIwMTkgYXQgMDE6NDI6NTNQTSArMDAwMCwgQXlhbiBI
+YWxkZXIgd3JvdGU6Cj4gPiA+ID4gPj4+IEFkZCBhIG1vZGlmaWVyICdEUk1fRk9STUFUX01PRF9B
+Uk1fUFJPVEVDVEVEJyB3aGljaCBkZW5vdGVzIHRoYXQgdGhlIGZyYW1lYnVmZmVyCj4gPiA+ID4g
+Pj4+IGlzIGFsbG9jYXRlZCBpbiBhIHByb3RlY3RlZCBzeXN0ZW0gbWVtb3J5Lgo+ID4gPiA+ID4+
+PiBFc3NlbnRpYWxseSwgd2Ugd2FudCB0byBzdXBwb3J0IEVHTF9FWFRfcHJvdGVjdGVkX2NvbnRl
+bnQgaW4gb3VyIGtvbWVkYSBkcml2ZXIuCj4gPiA+ID4gPj4+Cj4gPiA+ID4gPj4+IFNpZ25lZC1v
+ZmYtYnk6IEF5YW4gS3VtYXIgSGFsZGVyIDxheWFuLmhhbGRlckBhcm0uY29tPgo+ID4gPiA+ID4+
+Pgo+ID4gPiA+ID4+PiAvLS0gTm90ZSB0byByZXZpZXdlcgo+ID4gPiA+ID4+PiBLb21lZGEgZHJp
+dmVyIGlzIGNhcGFibGUgb2YgcmVuZGVyaW5nIERSTSAoRGlnaXRhbCBSaWdodHMgTWFuYWdlbWVu
+dCkgcHJvdGVjdGVkCj4gPiA+ID4gPj4+IGNvbnRlbnQuIFRoZSBEUk0gY29udGVudCBpcyBzdG9y
+ZWQgaW4gYSBmcmFtZWJ1ZmZlciBhbGxvY2F0ZWQgaW4gc3lzdGVtIG1lbW9yeQo+ID4gPiA+ID4+
+PiAod2hpY2ggbmVlZHMgc29tZSBzcGVjaWFsIGhhcmR3YXJlIHNpZ25hbHMgZm9yIGFjY2Vzcyku
+Cj4gPiA+ID4gPj4+Cj4gPiA+ID4gPj4+IExldCB1cyBpZ25vcmUgaG93IHRoZSBwcm90ZWN0ZWQg
+c3lzdGVtIG1lbW9yeSBpcyBhbGxvY2F0ZWQgYW5kIGZvciB0aGUgc2NvcGUgb2YKPiA+ID4gPiA+
+Pj4gdGhpcyBkaXNjdXNzaW9uLCB3ZSB3YW50IHRvIGZpZ3VyZSBvdXQgdGhlIGJlc3Qgd2F5IHBv
+c3NpYmxlIGZvciB0aGUgdXNlcnNwYWNlCj4gPiA+ID4gPj4+IHRvIGNvbW11bmljYXRlIHRvIHRo
+ZSBkcm0gZHJpdmVyIHRvIHR1cm4gdGhlIHByb3RlY3RlZCBtb2RlIG9uIChmb3IgYWNjZXNzaW5n
+IHRoZQo+ID4gPiA+ID4+PiBmcmFtZWJ1ZmZlciB3aXRoIHRoZSBEUk0gY29udGVudCkgb3Igb2Zm
+Lgo+ID4gPiA+ID4+Pgo+ID4gPiA+ID4+PiBUaGUgcG9zc2libGUgd2F5cyBieSB3aGljaCB0aGUg
+dXNlcnNwYWNlIGNvdWxkIGFjaGlldmUgdGhpcyBpcyB2aWE6LQo+ID4gPiA+ID4+Pgo+ID4gPiA+
+ID4+PiAxLiBNb2RpZmllcnMgOi0gVGhpcyBsb29rcyB0byBtZSB0aGUgYmVzdCB3YXkgYnkgd2hp
+Y2ggdGhlIHVzZXJzcGFjZSBjYW4KPiA+ID4gPiA+Pj4gY29tbXVuaWNhdGUgdG8gdGhlIGtlcm5l
+bCB0byB0dXJuIHRoZSBwcm90ZWN0ZWQgbW9kZSBvbiBmb3IgdGhlIGtvbWVkYSBkcml2ZXIKPiA+
+ID4gPiA+Pj4gYXMgaXQgaXMgZ29pbmcgdG8gYWNjZXNzIG9uZSBvZiB0aGUgcHJvdGVjdGVkIGZy
+YW1lYnVmZmVycy4gVGhlIG9ubHkgcHJvYmxlbSBpcwo+ID4gPiA+ID4+PiB0aGF0IHRoZSBjdXJy
+ZW50IG1vZGlmaWVycyBkZXNjcmliZSB0aGUgdGlsaW5nL2NvbXByZXNzaW9uIGZvcm1hdC4gSG93
+ZXZlciwgaXQKPiA+ID4gPiA+Pj4gZG9lcyBub3QgaHVydCB0byBleHRlbmQgdGhlIG1lYW5pbmcg
+b2YgbW9kaWZpZXJzIHRvIGRlbm90ZSBvdGhlciBhdHRyaWJ1dGVzIG9mCj4gPiA+ID4gPj4+IHRo
+ZSBmcmFtZWJ1ZmZlciBhcyB3ZWxsLgo+ID4gPiA+ID4+Pgo+ID4gPiA+ID4+PiBUaGUgb3RoZXIg
+cmVhc29uIGlzIHRoYXQgb24gQW5kcm9pZCwgd2UgZ2V0IGFuIGluZm8gZnJvbSBHcmFsbG9jCj4g
+PiA+ID4gPj4+IChHUkFMTE9DX1VTQUdFX1BST1RFQ1RFRCkgd2hpY2ggdGVsbHMgdXMgdGhhdCB0
+aGUgYnVmZmVyIGlzIHByb3RlY3RlZC4gVGhpcyBjYW4KPiA+ID4gPiA+Pj4gYmUgdXNlZCB0byBz
+ZXQgdXAgdGhlIG1vZGlmaWVyL3MgKEFkZEZCMikgZHVyaW5nIGZyYW1lYnVmZmVyIGNyZWF0aW9u
+Lgo+ID4gPiA+ID4+Cj4gPiA+ID4gPj4gSG93IGRvZXMgdGhpcyBtZXNoIHdpdGggb3RoZXIgbW9k
+aWZpZXJzLCBsaWtlIEFGQkM/IFRoYXQncyB3aGVyZSBJIHNlZSB0aGUKPiA+ID4gPiA+PiBpc3N1
+ZSBoZXJlLgo+ID4gPiA+ID4KPiA+ID4gPiA+IEFGQkMgbW9kaWZpZXJzIGFyZSBjdXJyZW50bHkg
+dW5kZXIgQXJtJ3MgbmFtZXNwYWNlLCB0aGUgdGhvdWdodCBiZWhpbmQgdGhlIERSTQo+ID4gPiA+
+ID4gbW9kaWZpZXJzIHdvdWxkIGJlIHRvIGhhdmUgaXQgYXMgYSAiZ2VuZXJpYyIgbW9kaWZpZXIu
+Cj4gPiA+Cj4gPiA+IEJ1dCBpZiBpdCdzIGEgZ2VuZXJpYyBmbGFnLCBob3cgZG8geW91IGNvbWJp
+bmUgdGhhdCB3aXRoIG90aGVyCj4gPiA+IG1vZGlmaWVycz8gTGlrZSBpZiB5b3UgaGF2ZSBhIHRp
+bGVkIGJ1ZmZlciwgYnV0IGFsc28gZW5jcnlwdGVkPyBPcgo+ID4gPiBhZmJjIGNvbXByZXNzZWQs
+IG9yIHdoYXRldmVyIGVsc2UuIEknZCBleHBlY3QgZm9yIHlvdXIgaHcgZW5jcnlwdGlvbgo+ID4g
+PiBpcyBvcnRob2dvbmFsIHRvIHRoZSBidWZmZXIvdGlsaW5nL2NvbXByZXNzaW9uIGZvcm1hdCB1
+c2VkPwo+ID4KPiA+IFRoaXMgYml0IGRvZXNuJ3Qgb3ZlcmxhcCB3aXRoIGFueSBvZiB0aGUgb3Ro
+ZXIgQUZCQyBtb2RpZmllcnMsIHNvIGFzCj4gPiB5b3Ugc2F5IGl0J2QgYmUgb3J0aG9nb25hbCwg
+YW5kIGNvdWxkIGJlIHNldCBvbiBBRkJDIGJ1ZmZlcnMgKGlmIHdlCj4gPiB3ZW50IHRoYXQgcm91
+dGUpLgo+ID4KPiA+ID4KPiA+ID4gPiA+Pj4gMi4gRnJhbWVidWZmZXIgZmxhZ3MgOi0gQXMgb2Yg
+dG9kYXksIHRoaXMgY2FuIGJlIG9uZSBvZiB0aGUgdHdvIHZhbHVlcwo+ID4gPiA+ID4+PiBpZSAo
+RFJNX01PREVfRkJfSU5URVJMQUNFRC9EUk1fTU9ERV9GQl9NT0RJRklFUlMpLiBVbmxpa2UgbW9k
+aWZpZXJzLCB0aGUgZHJtCj4gPiA+ID4gPj4+IGZyYW1lYnVmZmVyIGZsYWdzIGFyZSBnZW5lcmlj
+IHRvIHRoZSBkcm0gc3Vic3lzdGVtIGFuZCBpZGVhbGx5IHdlIHNob3VsZCBub3QKPiA+ID4gPiA+
+Pj4gaW50cm9kdWNlIGFueSBkcml2ZXIgc3BlY2lmaWMgY29uc3RyYWludC9mZWF0dXJlLgo+ID4g
+PiA+ID4+Pgo+ID4gPiA+ID4+PiAzLiBDb25uZWN0b3IgcHJvcGVydHk6LSBJIGNvdWxkIHNlZSB0
+aGUgZm9sbG93aW5nIHByb3BlcnRpZXMgdXNlZCBmb3IgRFJNCj4gPiA+ID4gPj4+IHByb3RlY3Rl
+ZCBjb250ZW50Oi0KPiA+ID4gPiA+Pj4gRFJNX01PREVfQ09OVEVOVF9QUk9URUNUSU9OX0RFU0lS
+RUQgLyBFTkFCTEVEIDotICJUaGlzIHByb3BlcnR5IGlzIHVzZWQgYnkKPiA+ID4gPiA+Pj4gdXNl
+cnNwYWNlIHRvIHJlcXVlc3QgdGhlIGtlcm5lbCBwcm90ZWN0IGZ1dHVyZSBjb250ZW50IGNvbW11
+bmljYXRlZCBvdmVyCj4gPiA+ID4gPj4+IHRoZSBsaW5rIi4gQ2xlYXJseSwgd2UgYXJlIG5vdCBj
+b25jZXJuZWQgd2l0aCB0aGUgcHJvdGVjdGlvbiBhdHRyaWJ1dGVzIG9mIHRoZQo+ID4gPiA+ID4+
+PiB0cmFuc21pdHRlci4gU28sIHdlIGNhbm5vdCB1c2UgdGhpcyBwcm9wZXJ0eSBmb3Igb3VyIGNh
+c2UuCj4gPiA+ID4gPj4+Cj4gPiA+ID4gPj4+IDQuIERSTSBwbGFuZSBwcm9wZXJ0eTotIEFnYWlu
+LCB3ZSB3YW50IHRvIGNvbW11bmljYXRlIHRoYXQgdGhlIGZyYW1lYnVmZmVyKHdoaWNoCj4gPiA+
+ID4gPj4+IGNhbiBiZSBhdHRhY2hlZCB0byBhbnkgcGxhbmUpIGlzIHByb3RlY3RlZC4gU28gaW50
+cm9kdWNpbmcgYSBuZXcgcGxhbmUgcHJvcGVydHkKPiA+ID4gPiA+Pj4gZG9lcyBub3QgaGVscC4K
+PiA+ID4gPiA+Pj4KPiA+ID4gPiA+Pj4gNS4gRFJNIGNydGMgcHJvcGVydHk6LSBGb3IgdGhlIHNh
+bWUgcmVhc29uIGFzIGFib3ZlLCBpbnRyb2R1Y2luZyBhIG5ldyBjcnRjCj4gPiA+ID4gPj4+IHBy
+b3BlcnR5IGRvZXMgbm90IGhlbHAuCj4gPiA+ID4gPj4KPiA+ID4gPiA+PiA2LiBKdXN0IHRyYWNr
+IHRoaXMgYXMgcGFydCBvZiBidWZmZXIgYWxsb2NhdGlvbiwgaS5lLiBJIHRoaW5rIGl0IGRvZXMK
+PiA+ID4gPiA+PiBtYXR0ZXIgaG93IHlvdSBhbGxvY2F0ZSB0aGVzZSBwcm90ZWN0ZWQgYnVmZmVy
+cy4gV2UgY291bGQgYWRkIGEgImlzCj4gPiA+ID4gPj4gcHJvdGVjdGVkIGJ1ZmZlciIgZmxhZyBh
+dCB0aGUgZG1hX2J1ZiBsZXZlbCBmb3IgdGhpcy4KPiA+Cj4gPiBJIGFsc28gbGlrZSB0aGlzIGFw
+cHJvYWNoLiBUaGUgcHJvdGVjdGVkLW5lc3MgaXMgYSBwcm9wZXJ0eSBvZiB0aGUKPiA+IGFsbG9j
+YXRpb24sIHNvIG1ha2VzIHNlbnNlIHRvIHN0b3JlIGl0IHdpdGggdGhlIGFsbG9jYXRpb24gSU1P
+Lgo+ID4KPiA+ID4gPiA+Pgo+ID4gPiA+ID4+IFNvIHllYWggZm9yIHRoaXMgc3R1ZmYgaGVyZSBJ
+IHRoaW5rIHdlIGRvIHdhbnQgdGhlIGZ1bGwgdXNlcnNwYWNlIHNpZGUsCj4gPiA+ID4gPj4gZnJv
+bSBhbGxvY2F0b3IgdG8gcmVuZGVyaW5nIHNvbWV0aGluZyBpbnRvIHRoaXMgcHJvdGVjdGVkIGJ1
+ZmZlcnMgKG5vIG5lZWQKPiA+ID4gPiA+PiB0byBhbHNvIGhhdmUgdGhlIGVudGlyZSAiZGVjb2Rl
+IGEgcHJvdGVjdGVkIGJpdHN0cmVhbSBwYXJ0IiBpbW8sIHNpbmNlCj4gPiA+ID4gPj4gdGhhdCB3
+aWxsIGZyZWFrIHBlb3BsZSBvdXQpLiBVbmZvcnR1bmF0ZWx5LCBpbiBteSBleHBlcmllbmNlLCB0
+aGF0IGtpbGxzCj4gPiA+ID4gPj4gaXQgZm9yIHVwc3RyZWFtIDotLyBCdXQgYWxzbyBpbiBteSBl
+eHBlcmllbmNlIG9mIGxvb2tpbmcgaW50byB0aGlzIGZvcgo+ID4gPiA+ID4+IG90aGVyIGdwdSdz
+LCB3ZSByZWFsbHkgbmVlZCB0byBoYXZlIHRoZSBmdWxsIHBpY3R1cmUgaGVyZSB0byBtYWtlIHN1
+cmUKPiA+ID4gPiA+PiB3ZSdyZSBub3Qgc2NyZXdpbmcgdGhpcyB1cC4KPiA+ID4gPiA+Cj4gPiA+
+ID4gPiBNYXliZSBBeWFuIGNvdWxkJ3ZlIGJlZW4gYSBiaXQgY2xlYXJlciBpbiBoaXMgbWVzc2Fn
+ZSwgYnV0IHRoZSBhc2sgaGVyZSBpcyBmb3IgaWRlYXMKPiA+ID4gPiA+IG9uIGhvdyB1c2Vyc3Bh
+Y2UgImNvbW11bmljYXRlcyIgKHN0b3Jlcz8pIHRoZSBmYWN0IHRoYXQgdGhlIGJ1ZmZlcnMgYXJl
+IHByb3RlY3RlZCB0bwo+ID4gPiA+ID4gdGhlIGtlcm5lbCBkcml2ZXIuIEluIG91ciBkaXNwbGF5
+IHByb2Nlc3NvciB3ZSBuZWVkIHRvIHRoZSB0aGUgaGFyZHdhcmUgdGhhdCB0aGUKPiA+ID4gPiA+
+IGJ1ZmZlcnMgYXJlIHByb3RlY3RlZCBiZWZvcmUgaXQgdHJpZXMgdG8gZmV0Y2ggdGhlbSBzbyB0
+aGF0IGl0IGNhbiAxKSBlbmFibGUgdGhlCj4gPiA+ID4gPiBhZGRpdGlvbmFsIGhhcmR3YXJlIHNp
+Z25hbGluZyB0aGF0IHNldHMgdGhlIHByb3RlY3Rpb24gYXJvdW5kIHRoZSBzdHJlYW07IGFuZCAy
+KSByZWFkCj4gPiA+ID4gPiB0aGUgcHJvdGVjdGVkIGJ1ZmZlcnMgaW4gYSBzcGVjaWFsIG1vZGUg
+d2hlcmUgdGhlcmUgdGhlIG1hZ2ljIGhhcHBlbnMuCj4gPiA+Cj4gPiA+IFRoYXQgd2FzIGNsZWFy
+LCBidXQgZm9yIHRoZSBmdWxsIHBpY3R1cmUgd2UgYWxzbyBuZWVkIHRvIGtub3cgaG93Cj4gPiA+
+IHRoZXNlIGJ1ZmZlcnMgYXJlIHByb2R1Y2VkIGFuZCB3aGVyZSB0aGV5IGFyZSBhbGxvY2F0ZWQu
+IE9uZSBhcHByb2FjaAo+ID4gPiB3b3VsZCBiZSB0byBoYXZlIGEgZG1hLWJ1ZiBoZWFwIHRoYXQg
+Z2l2ZXMgeW91IGVuY3J5cHRlZCBidWZmZXJzIGJhY2suCj4gPiA+IFdpdGggdGhhdCB3ZSBuZWVk
+IHRvIG1ha2Ugc3VyZSB0aGF0IG9ubHkgZW5jcnlwdGlvbi1hd2FyZSBkcml2ZXJzCj4gPiA+IGFs
+bG93IHN1Y2ggYnVmZmVycyB0byBiZSBpbXBvcnRlZCwgYW5kIHRoZSBlbnRpcmUgcHJvYmxlbSBi
+ZWNvbWVzIGEKPiA+ID4ga2VybmVsLWludGVybmFsIG9uZSAtIGFzaWRlIGZyb20gYWxsb2NhdGlu
+ZyB0aGUgcmlnaHQga2luZCBvZiBidWZmZXIKPiA+ID4gYXQgdGhlIHJpZ2h0IHBsYWNlLgo+ID4g
+Pgo+ID4KPiA+IEluIG91ciBjYXNlLCB3ZSdkIGJlIHN1cHBvcnRpbmcgYSBzeXN0ZW0gbGlrZSBU
+Wk1QLTEsIHRoZXJlJ3MgYQo+ID4gTGluYXJvIGNvbm5lY3QgcHJlc2VudGF0aW9uIG9uIGl0IGhl
+cmU6Cj4gPiBodHRwczovL2Nvbm5lY3QubGluYXJvLm9yZy9yZXNvdXJjZXMvaGtnMTgvaGtnMTgt
+NDA4Lwo+ID4KPiA+IFRoZSBzaW1wbGVzdCB3YXkgdG8gaW1wbGVtZW50IHRoaXMgaXMgZm9yIGZp
+cm13YXJlIHRvIHNldCB1cCBhCj4gPiBjYXJ2ZW91dCB3aGljaCBpdCB0ZWxscyBsaW51eCBpcyBz
+ZWN1cmUuIEEgbGludXggYWxsb2NhdG9yIChpb24sIGdlbSwKPiA+IHZiMiwgd2hhdGV2ZXIpIGNh
+biBhbGxvY2F0ZSBmcm9tIHRoaXMgY2FydmVvdXQsIGFuZCB0YWcgdGhlIGJ1ZmZlciBhcwo+ID4g
+c2VjdXJlLgo+ID4KPiA+IEluIHRoaXMga2luZCBvZiBzeXN0ZW0sIGxpbnV4IGRvZXNuJ3QgbmVj
+ZXNzYXJpbHkgbmVlZCB0byBrbm93Cj4gPiBhbnl0aGluZyBhYm91dCBob3cgYnVmZmVycyBhcmUg
+cHJvdGVjdGVkLCBvciB3aGF0IEhXIGlzIGNhcGFibGUgb2YgLQo+ID4gaXQgb25seSBuZWVkcyB0
+byBjYXJyeSBhcm91bmQgdGhlICJpc19wcm90ZWN0ZWQiIGZsYWcuCj4gPgo+ID4gSGVyZSwgdGhl
+IFRFRSBpcyB1bHRpbWF0ZWx5IHJlc3BvbnNpYmxlIGZvciBkZWNpZGluZyB3aGljaCBIVyBnZXRz
+Cj4gPiBhY2Nlc3MgdG8gYSBidWZmZXIuIEkgZG9uJ3Qgc2VlIGEgYmVuZWZpdCBvZiBoYXZpbmcg
+bGludXggZGVjaWRlIHdoaWNoCj4gPiBkcml2ZXJzIGNhbiBvciBjYW5ub3QgaW1wb3J0IGEgYnVm
+ZmVyLCBiZWNhdXNlIHRoYXQgZGVjaXNpb24gc2hvdWxkIGJlCj4gPiBoYW5kbGVkIGJ5IHRoZSBU
+RUUuCj4gPgo+ID4gRm9yIHByb3Zpbmcgb3V0IHRoZSBwaXBlbGluZSwgSU1PIGl0IGRvZXNuJ3Qg
+bWF0dGVyIHdoZXRoZXIgdGhlCj4gPiBidWZmZXJzIGFyZSBwcm90ZWN0ZWQgb3Igbm90LiBGb3Ig
+b3VyIERQVSwgYWxsIHRoYXQgbWF0dGVycyBpcyB0aGF0IGlmCj4gPiB0aGUgYnVmZmVyIGNsYWlt
+cyB0byBiZSBwcm90ZWN0ZWQsIHdlIGhhdmUgdG8gc2V0IG91ciBwcm90ZWN0ZWQKPiA+IGNvbnRy
+b2wgYml0LiBOb3RoaW5nIG1vcmUuIEFGQUlLIGl0IHNob3VsZCB3b3JrIHRoZSBzYW1lIGZvciBv
+dGhlcgo+ID4gVFpNUC0xIGltcGxlbWVudGF0aW9ucy4KPiA+Cj4gPiA+ID4gPiBTbyB5ZWFoLCB3
+ZSBrbm93IHdlIGRvIHdhbnQgZnVsbCB1c2Vyc3BhY2Ugc3VwcG9ydCwgd2UncmUgcHJvZGRpbmcg
+dGhlIGNvbW11bml0eSBvbgo+ID4gPiA+ID4gYW5zd2VycyBvbiBob3cgdG8gYmVzdCBsZXQgdGhl
+IGtlcm5lbCBzaWRlIGtub3cgd2hhdCB1c2Vyc3BhY2UgaGFzIGRvbmUuCj4gPiA+ID4KPiA+ID4g
+PiBBY3R1YWxseSB0aGlzIGlzIGludGVyZXN0aW5nIGZvciBvdGhlciBtdWx0aW1lZGlhIFNvQ3Mg
+aW1wbGVtZW50aW5nIHNlY3VyZSB2aWRlbyBkZWNvZGUKPiA+ID4gPiBwYXRocyB3aGVyZSB2aWRl
+byBidWZmZXJzIGFyZSBhbGxvY2F0ZWQgYW5kIG1hbmFnZWQgYnkgYSB0cnVzdGVkIGFwcC4KPiA+
+ID4KPiA+ID4gWWVhaCBJIGV4cGVjdCB0aGVyZSdzIG1vcmUgdGhhbiBqdXN0IGFybSB3YW50aW5n
+IHRoaXMuIEkgYWxzbyB3b25kZXIKPiA+ID4gaG93IHRoYXQgaW50ZXJhY3RzIHdpdGggdGhlIHNl
+Y3VyZSBtZW1vcnkgYWxsb2NhdG9yIHRoYXQgd2FzIGJvYmJpbmcKPiA+ID4gYXJvdW5kIG9uIGRy
+aS1kZXZlbCBmb3IgYSB3aGlsZSwgYnV0IHNlZW1zIHRvIG5vdCBoYXZlIGdvbmUgYW55d2hlcmUu
+Cj4gPiA+IFRoYXQgdGhpbmcgaW1wbGVtZW50ZWQgbXkgaWRlYSBvZiAic2VjdXJlIG1lbW9yeSBp
+cyBvbmx5IGFsbG9jYXRlZCBieQo+ID4gPiBhIHNwZWNpYWwgZW50aXR5Ii4KPiA+ID4gLURhbmll
+bAo+ID4KPiA+IExpa2UgSSBzYWlkLCBmb3IgdXMgYWxsIHdlIG5lZWQgaXMgYSB3YXkgdG8gY2Fy
+cnkgYXJvdW5kIGEgMS1iaXQKPiA+ICJpc19wcm90ZWN0ZWQiIGZsYWcgd2l0aCBhIGJ1ZmZlci4g
+Q291bGQgb3RoZXIgZm9sa3Mgc2hhcmUgd2hhdCdzCj4gPiBuZWVkZWQgZm9yIHRoZWlyIHN5c3Rl
+bXMgc28gd2UgY2FuIHJlYXNvbiBhYm91dCBzb21ldGhpbmcgdGhhdCB3b3Jrcwo+ID4gZm9yIGFs
+bD8KPgo+IFRvIG1ha2UgdGhpbmdzIGEgYml0IG1vcmUgc3BlY2lmaWMsIHdlIGFyZSB0aGlua2lu
+ZyBvZiB0aGUgZm9sbG93aW5nCj4gcGF0Y2ggOi0KPgo+IGRpZmYgLS1naXQgYS9pbmNsdWRlL2xp
+bnV4L2RtYS1idWYuaCBiL2luY2x1ZGUvbGludXgvZG1hLWJ1Zi5oCj4gaW5kZXggZWMyMTJjYjI3
+ZmRjLi4zNmYwODEzMDczYTIgMTAwNjQ0Cj4gLS0tIGEvaW5jbHVkZS9saW51eC9kbWEtYnVmLmgK
+PiArKysgYi9pbmNsdWRlL2xpbnV4L2RtYS1idWYuaAo+IEBAIC0yNzksNiArMjc5LDcgQEAgc3Ry
+dWN0IGRtYV9idWZfb3BzIHsKPiAgICogICAgICAgICBrZXJuZWwgbW9kdWxlLgo+ICAgKiBAbGlz
+dF9ub2RlOiBub2RlIGZvciBkbWFfYnVmIGFjY291bnRpbmcgYW5kIGRlYnVnZ2luZy4KPiAgICog
+QHByaXY6IGV4cG9ydGVyIHNwZWNpZmljIHByaXZhdGUgZGF0YSBmb3IgdGhpcyBidWZmZXIgb2Jq
+ZWN0Lgo+ICsgKiBAaXNfcHJvdGVjdGVkOiBkZW5vdGVzIHRoYXQgdGhlIGJ1ZmZlciBpcwo+IHNl
+Y3VyZS9wcm90ZWN0ZWQvZW5jcnlwdGVkL3RydXN0ZWQuCj4gICAqIEByZXN2OiByZXNlcnZhdGlv
+biBvYmplY3QgbGlua2VkIHRvIHRoaXMgZG1hLWJ1Zgo+ICAgKiBAcG9sbDogZm9yIHVzZXJzcGFj
+ZSBwb2xsIHN1cHBvcnQKPiAgICogQGNiX2V4Y2w6IGZvciB1c2Vyc3BhY2UgcG9sbCBzdXBwb3J0
+Cj4gQEAgLTMwNiw2ICszMDcsNyBAQCBzdHJ1Y3QgZG1hX2J1ZiB7Cj4gICAgICAgICBzdHJ1Y3Qg
+bW9kdWxlICpvd25lcjsKPiAgICAgICAgIHN0cnVjdCBsaXN0X2hlYWQgbGlzdF9ub2RlOwo+ICAg
+ICAgICAgdm9pZCAqcHJpdjsKPiArICAgICAgIGJvb2wgaXNfcHJvdGVjdGVkOwo+ICAgICAgICAg
+c3RydWN0IGRtYV9yZXN2ICpyZXN2Owo+Cj4gICAgICAgICAvKiBwb2xsIHN1cHBvcnQgKi8KPgo+
+IEBhbGwsIEBhbWRncHUtZm9sa3MgOi0gSXMgdGhpcyBzb21ldGhpbmcgeW91IGNhbiB1c2Ugb2Yg
+dG8gZGVub3RlCj4gc2VjdXJlL3Byb3RlY3RlZC9lbmNyeXB0ZWQvdHJ1c3RlZCBidWZmZXJzID8K
+Ckkgc3VwcG9zZS4gIEF0IHRoZSBtb21lbnQsIHdlIGRvbid0IHJlYWxseSBoYXZlIGEgbmVlZCBm
+b3IgaXQgc2luY2Ugd2UKb25seSBvdXIgSVBzIHN1cHBvcnQgb3VyIGVuY3J5cHRpb24gc2NoZW1l
+IGFuZCBpZiB3ZSBzaGFyZSBidWZmZXJzCmJldHdlZW4gd2UgY2FuIGdldCB0byB0aGUgc2VjdXJl
+IHN0YXR1cyB3aGVuIHdlIGxvb2sgdXAgdGhlIGFtZGdwdQpidWZmZXIgb2JqZWN0IGludGVybmFs
+bHkgaW4gdGhlIGtlcm5lbCBzaWRlLiAgU3RpbGwgbWlnaHQgYmUgdXNlZnVsCmZvciBjYXNlcyB3
+aGVyZSBzZWN1cmUgYnVmZmVycyBnZXQgc2hhcmVkIGFjcm9zcyBkcml2ZXJzIHNvIHdlIGhhdmUg
+YQpnZW5lcmljIGNoZWNrIGZvciBzZWN1cmUgc3RhdHVzLgoKQWxleAoKPgo+IFRoZSB3YXkgJ2lz
+X3Byb3RlY3RlZCcgZmxhZyBnZXRzIHVzZWQgdG8gYWxsb2NhdGUKPiBzZWN1cmUvcHJvdGVjdGVk
+L2VuY3J5cHRlZCBidWZmZXJzIHdpbGwgYmUgdmVuZG9yIHNwZWNpZmljLgo+Cj4gUGxlYXNlIGNv
+bW1lbnQgdG8gbGV0IHVzIGtub3cgaWYgaXQgbG9va3MgdXNlZnVsIHRvIG5vbiBBcm0gZm9sa3Mu
+Cj4gPgo+ID4gVGhhbmtzIQo+ID4gLUJyaWFuCj4gPgo+ID4gPgo+ID4gPiA+Cj4gPiA+ID4gTmVp
+bAo+ID4gPiA+Cj4gPiA+ID4gPgo+ID4gPiA+ID4gQmVzdCByZWdhcmRzLAo+ID4gPiA+ID4gTGl2
+aXUKPiA+ID4gPiA+Cj4gPiA+ID4gPgo+ID4gPiA+ID4+IC1EYW5pZWwKPiA+ID4gPiA+Pgo+ID4g
+PiA+ID4+Pgo+ID4gPiA+ID4+PiAtLS8KPiA+ID4gPiA+Pj4KPiA+ID4gPiA+Pj4gLS0tCj4gPiA+
+ID4gPj4+ICBpbmNsdWRlL3VhcGkvZHJtL2RybV9mb3VyY2MuaCB8IDkgKysrKysrKysrCj4gPiA+
+ID4gPj4+ICAxIGZpbGUgY2hhbmdlZCwgOSBpbnNlcnRpb25zKCspCj4gPiA+ID4gPj4+Cj4gPiA+
+ID4gPj4+IGRpZmYgLS1naXQgYS9pbmNsdWRlL3VhcGkvZHJtL2RybV9mb3VyY2MuaCBiL2luY2x1
+ZGUvdWFwaS9kcm0vZHJtX2ZvdXJjYy5oCj4gPiA+ID4gPj4+IGluZGV4IDNmZWVhYTNmOTg3YS4u
+MzhlNWU4MWQxMWZlIDEwMDY0NAo+ID4gPiA+ID4+PiAtLS0gYS9pbmNsdWRlL3VhcGkvZHJtL2Ry
+bV9mb3VyY2MuaAo+ID4gPiA+ID4+PiArKysgYi9pbmNsdWRlL3VhcGkvZHJtL2RybV9mb3VyY2Mu
+aAo+ID4gPiA+ID4+PiBAQCAtNzQyLDYgKzc0MiwxNSBAQCBleHRlcm4gIkMiIHsKPiA+ID4gPiA+
+Pj4gICAqLwo+ID4gPiA+ID4+PiAgI2RlZmluZSBBRkJDX0ZPUk1BVF9NT0RfQkNIICAgICAoMVVM
+TCA8PCAxMSkKPiA+ID4gPiA+Pj4KPiA+ID4gPiA+Pj4gKy8qCj4gPiA+ID4gPj4+ICsgKiBQcm90
+ZWN0ZWQgZnJhbWVidWZmZXIKPiA+ID4gPiA+Pj4gKyAqCj4gPiA+ID4gPj4+ICsgKiBUaGUgZnJh
+bWVidWZmZXIgaXMgYWxsb2NhdGVkIGluIGEgcHJvdGVjdGVkIHN5c3RlbSBtZW1vcnkgd2hpY2gg
+Y2FuIGJlIGFjY2Vzc2VkCj4gPiA+ID4gPj4+ICsgKiB2aWEgc29tZSBzcGVjaWFsIGhhcmR3YXJl
+IHNpZ25hbHMgZnJvbSB0aGUgZHB1LiBUaGlzIGlzIHVzZWQgdG8gc3VwcG9ydAo+ID4gPiA+ID4+
+PiArICogJ0dSQUxMT0NfVVNBR0VfUFJPVEVDVEVEJyBpbiBvdXIgZnJhbWVidWZmZXIgZm9yIEVH
+TF9FWFRfcHJvdGVjdGVkX2NvbnRlbnQuCj4gPiA+ID4gPj4+ICsgKi8KPiA+ID4gPiA+Pj4gKyNk
+ZWZpbmUgRFJNX0ZPUk1BVF9NT0RfQVJNX1BST1RFQ1RFRCAgICAgICBmb3VyY2NfbW9kX2NvZGUo
+QVJNLCAoMVVMTCA8PCA1NSkpCj4gPiA+ID4gPj4+ICsKPiA+ID4gPiA+Pj4gIC8qCj4gPiA+ID4g
+Pj4+ICAgKiBBbGx3aW5uZXIgdGlsZWQgbW9kaWZpZXIKPiA+ID4gPiA+Pj4gICAqCj4gPiA+ID4g
+Pj4+IC0tCj4gPiA+ID4gPj4+IDIuMjMuMAo+ID4gPiA+ID4+Pgo+ID4gPiA+ID4+Cj4gPiA+ID4g
+Pj4gLS0KPiA+ID4gPiA+PiBEYW5pZWwgVmV0dGVyCj4gPiA+ID4gPj4gU29mdHdhcmUgRW5naW5l
+ZXIsIEludGVsIENvcnBvcmF0aW9uCj4gPiA+ID4gPj4gaHR0cDovL2Jsb2cuZmZ3bGwuY2gKPiA+
+ID4gPiA+Cj4gPiA+ID4KPiA+ID4gPiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fXwo+ID4gPiA+IGRyaS1kZXZlbCBtYWlsaW5nIGxpc3QKPiA+ID4gPiBkcmkt
+ZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4gPiA+ID4gaHR0cHM6Ly9saXN0cy5mcmVlZGVz
+a3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9kcmktZGV2ZWwKPiA+ID4KPiA+ID4KPiA+ID4KPiA+
+ID4gLS0KPiA+ID4gRGFuaWVsIFZldHRlcgo+ID4gPiBTb2Z0d2FyZSBFbmdpbmVlciwgSW50ZWwg
+Q29ycG9yYXRpb24KPiA+ID4gKzQxICgwKSA3OSAzNjUgNTcgNDggLSBodHRwOi8vYmxvZy5mZnds
+bC5jaApfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQt
+Z2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xp
+c3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
