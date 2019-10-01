@@ -1,12 +1,12 @@
 From: Sasha Levin <sashal@kernel.org>
-Subject: [PATCH AUTOSEL 4.14 10/29] drm/amdgpu: Check for valid number of registers to read
-Date: Tue,  1 Oct 2019 12:44:04 -0400
-Message-ID: <20191001164423.16406-10-sashal@kernel.org>
-References: <20191001164423.16406-1-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 4.9 07/19] drm/amdgpu: Check for valid number of registers to read
+Date: Tue,  1 Oct 2019 12:44:53 -0400
+Message-ID: <20191001164505.16708-7-sashal@kernel.org>
+References: <20191001164505.16708-1-sashal@kernel.org>
 Mime-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Return-path: <stable-owner@vger.kernel.org>
-In-Reply-To: <20191001164423.16406-1-sashal@kernel.org>
+In-Reply-To: <20191001164505.16708-1-sashal@kernel.org>
 Sender: stable-owner@vger.kernel.org
 To: linux-kernel@vger.kernel.org, stable@vger.kernel.org
 Cc: Trek <trek00@inbox.ru>, Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
@@ -30,10 +30,10 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 3 insertions(+)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-index e16229000a983..884ed359f2493 100644
+index 3938fca1ea8e5..24941a7b659f4 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-@@ -540,6 +540,9 @@ static int amdgpu_info_ioctl(struct drm_device *dev, void *data, struct drm_file
+@@ -430,6 +430,9 @@ static int amdgpu_info_ioctl(struct drm_device *dev, void *data, struct drm_file
  		if (sh_num == AMDGPU_INFO_MMR_SH_INDEX_MASK)
  			sh_num = 0xffffffff;
  
