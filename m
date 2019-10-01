@@ -1,65 +1,100 @@
-From: Markus Elfring <Markus.Elfring@web.de>
+From: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
 Subject: Re: [PATCH v3] drm/amdgpu: fix multiple memory leaks in acp_hw_init
-Date: Tue, 1 Oct 2019 13:24:39 +0200
-Message-ID: <3e685bb8-8a76-cda7-2118-a317516b2bf5@web.de>
-References: <20190930212644.9372-1-navid.emamdoost@gmail.com>
+Date: Tue, 1 Oct 2019 12:19:17 +0000
+Message-ID: <3a00a4c9-af4c-3505-1bef-b119435da5d7@amd.com>
+References: <88fc639a-32ed-b6c6-f930-552083d5887d@amd.com>
+ <20190930212644.9372-1-navid.emamdoost@gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20190930212644.9372-1-navid.emamdoost@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20190930212644.9372-1-navid.emamdoost-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 Content-Language: en-US
-Sender: linux-kernel-owner@vger.kernel.org
-To: Navid Emamdoost <navid.emamdoost@gmail.com>, =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Cc: Navid Emamdoost <emamd001@umn.edu>, Kangjie Lu <kjlu@umn.edu>, Stephen McCamant <smccaman@umn.edu>, Alex Deucher <alexander.deucher@amd.com>, Chunming Zhou <David1.Zhou@amd.com>, Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@linux.ie>, Sam Ravnborg <sam@ravnborg.org>, Sven Van Asbroeck <thesven73@gmail.com>, LKML <linux-kernel@vger.kernel.org>, kernel-janitors@vger.kernel.org
-List-Id: amd-gfx.lists.freedesktop.org
+Content-ID: <66A240ED74751A4DA4BA020402040C38-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Navid Emamdoost <navid.emamdoost-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Cc: "Zhou, David(ChunMing)" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, David Airlie <airlied-cv59FeDIM0c@public.gmane.org>, Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>, "kjlu-OJFnDUYgAso@public.gmane.org" <kjlu-OJFnDUYgAso@public.gmane.org>, "linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org" <linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "emamd001-OJFnDUYgAso@public.gmane.org" <emamd001-OJFnDUYgAso@public.gmane.org>, "dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>, "smccaman-OJFnDUYgAso@public.gmane.org" <smccaman-OJFnDUYgAso@public.gmane.org>, "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, Sam Ravnborg <sam-uyr5N9Q2VtJg9hUCZPvPmw@public.gmane.org>
 
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c
-> @@ -184,12 +184,12 @@ static struct device *get_mfd_cell_dev(const char =
-*device_name, int r)
-=E2=80=A6
-> +	struct i2s_platform_data *i2s_pdata =3D NULL;
-=E2=80=A6
-
-I propose to reconsider this update suggestion.
-
-
-> @@ -231,20 +231,21 @@ static int acp_hw_init(void *handle)
->  	adev->acp.acp_cell =3D kcalloc(ACP_DEVS, sizeof(struct mfd_cell),
->  							GFP_KERNEL);
->
-> -	if (adev->acp.acp_cell =3D=3D NULL)
-> -		return -ENOMEM;
-=E2=80=A6
-
-I suggest to keep this source code place unchanged (at the moment).
-https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Do=
-cumentation/process/coding-style.rst?id=3D54ecb8f7028c5eb3d740bb82b0f1d90f=
-2df63c5c#n456
-
-
-> @@ -393,6 +399,13 @@ static int acp_hw_init(void *handle)
->  	val &=3D ~ACP_SOFT_RESET__SoftResetAud_MASK;
->  	cgs_write_register(adev->acp.cgs_device, mmACP_SOFT_RESET, val);
->  	return 0;
-> +
-> +failure:
-> +	kfree(i2s_pdata);
-> +	kfree(adev->acp.acp_res);
-> +	kfree(adev->acp.acp_cell);
-> +	kfree(adev->acp.acp_genpd);
-> +	return ret;
->  }
->
->  /**
-
-I would prefer separate jump targets for efficient exception handling.
-Please choose more appropriate labels for this function implementation.
-
-
-> ---
-
-I suggest to replace this second delimiter by a blank line.
-
-Regards,
-Markus
+QW0gMzAuMDkuMTkgdW0gMjM6MjYgc2NocmllYiBOYXZpZCBFbWFtZG9vc3Q6DQo+IEluIGFjcF9o
+d19pbml0IHRoZXJlIGFyZSBzb21lIGFsbG9jYXRpb25zIHRoYXQgbmVlZHMgdG8gYmUgcmVsZWFz
+ZWQgaW4NCj4gY2FzZSBvZiBmYWlsdXJlOg0KPg0KPiAxLSBhZGV2LT5hY3AuYWNwX2dlbnBkIHNo
+b3VsZCBiZSByZWxlYXNlZCBpZiBhbnkgYWxsb2NhdGlvbiBhdHRlbXAgZm9yDQo+IGFkZXYtPmFj
+cC5hY3BfY2VsbCwgYWRldi0+YWNwLmFjcF9yZXMgb3IgaTJzX3BkYXRhIGZhaWxzLg0KPiAyLSBh
+bGwgb2YgdGhvc2UgYWxsb2NhdGlvbnMgc2hvdWxkIGJlIHJlbGVhc2VkIGlmDQo+IG1mZF9hZGRf
+aG90cGx1Z19kZXZpY2VzIG9yIHBtX2dlbnBkX2FkZF9kZXZpY2UgZmFpbC4NCj4gMy0gUmVsZWFz
+ZSBpcyBuZWVkZWQgaW4gY2FzZSBvZiB0aW1lIG91dCB2YWx1ZXMgZXhwaXJlLg0KPg0KPiBTaWdu
+ZWQtb2ZmLWJ5OiBOYXZpZCBFbWFtZG9vc3QgPG5hdmlkLmVtYW1kb29zdEBnbWFpbC5jb20+DQo+
+IC0tLQ0KPiBDaGFuZ2VzIGluIHYyOg0KPiAJLS0gbW92ZWQgdGhlIHJlbGVhc2VzIHVuZGVyIGdv
+dG8NCj4NCj4gQ2hhbmdlcyBpbiB2MzoNCj4gCS0tIGZpeGVkIG11bHRpcGxlIGdvdG8gaXNzdWUN
+Cj4gCS0tIGFkZGVkIGdvdG8gZm9yIDMgb3RoZXIgZmFpbHVyZSBjYXNlczogb25lIHdoZW4NCj4g
+bWZkX2FkZF9ob3RwbHVnX2RldmljZXMgZmFpbHMsIGFuZCB0d28gd2hlbiB0aW1lIG91dCB2YWx1
+ZXMgZXhwaXJlcy4NCj4gLS0tDQo+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
+X2FjcC5jIHwgNDEgKysrKysrKysrKysrKysrKy0tLS0tLS0tLQ0KPiAgIDEgZmlsZSBjaGFuZ2Vk
+LCAyNyBpbnNlcnRpb25zKCspLCAxNCBkZWxldGlvbnMoLSkNCj4NCj4gZGlmZiAtLWdpdCBhL2Ry
+aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9hY3AuYyBiL2RyaXZlcnMvZ3B1L2RybS9h
+bWQvYW1kZ3B1L2FtZGdwdV9hY3AuYw0KPiBpbmRleCBlYmE0MmM3NTJiY2EuLjc4MDk3NDVlYzBm
+MSAxMDA2NDQNCj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2FjcC5j
+DQo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9hY3AuYw0KPiBAQCAt
+MTg0LDEyICsxODQsMTIgQEAgc3RhdGljIHN0cnVjdCBkZXZpY2UgKmdldF9tZmRfY2VsbF9kZXYo
+Y29uc3QgY2hhciAqZGV2aWNlX25hbWUsIGludCByKQ0KPiAgICAqLw0KPiAgIHN0YXRpYyBpbnQg
+YWNwX2h3X2luaXQodm9pZCAqaGFuZGxlKQ0KPiAgIHsNCj4gLQlpbnQgciwgaTsNCj4gKwlpbnQg
+ciwgaSwgcmV0Ow0KDQpQbGVhc2UgZG9uJ3QgYWRkIGFub3RoZXIgInJldCIgdmFyaWFibGUsIGlu
+c3RlYWQgYWx3YXlzIHVzZSAiciIgaGVyZS4NCg0KQXBhcnQgZnJvbSB0aGF0IGxvb2tzIGdvb2Qg
+dG8gbWUsDQpDaHJpc3RpYW4uDQoNCj4gICAJdWludDY0X3QgYWNwX2Jhc2U7DQo+ICAgCXUzMiB2
+YWwgPSAwOw0KPiAgIAl1MzIgY291bnQgPSAwOw0KPiAgIAlzdHJ1Y3QgZGV2aWNlICpkZXY7DQo+
+IC0Jc3RydWN0IGkyc19wbGF0Zm9ybV9kYXRhICppMnNfcGRhdGE7DQo+ICsJc3RydWN0IGkyc19w
+bGF0Zm9ybV9kYXRhICppMnNfcGRhdGEgPSBOVUxMOw0KPiAgIA0KPiAgIAlzdHJ1Y3QgYW1kZ3B1
+X2RldmljZSAqYWRldiA9IChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqKWhhbmRsZTsNCj4gICANCj4g
+QEAgLTIzMSwyMCArMjMxLDIxIEBAIHN0YXRpYyBpbnQgYWNwX2h3X2luaXQodm9pZCAqaGFuZGxl
+KQ0KPiAgIAlhZGV2LT5hY3AuYWNwX2NlbGwgPSBrY2FsbG9jKEFDUF9ERVZTLCBzaXplb2Yoc3Ry
+dWN0IG1mZF9jZWxsKSwNCj4gICAJCQkJCQkJR0ZQX0tFUk5FTCk7DQo+ICAgDQo+IC0JaWYgKGFk
+ZXYtPmFjcC5hY3BfY2VsbCA9PSBOVUxMKQ0KPiAtCQlyZXR1cm4gLUVOT01FTTsNCj4gKwlpZiAo
+YWRldi0+YWNwLmFjcF9jZWxsID09IE5VTEwpIHsNCj4gKwkJcmV0ID0gLUVOT01FTTsNCj4gKwkJ
+Z290byBmYWlsdXJlOw0KPiArCX0NCj4gICANCj4gICAJYWRldi0+YWNwLmFjcF9yZXMgPSBrY2Fs
+bG9jKDUsIHNpemVvZihzdHJ1Y3QgcmVzb3VyY2UpLCBHRlBfS0VSTkVMKTsNCj4gICAJaWYgKGFk
+ZXYtPmFjcC5hY3BfcmVzID09IE5VTEwpIHsNCj4gLQkJa2ZyZWUoYWRldi0+YWNwLmFjcF9jZWxs
+KTsNCj4gLQkJcmV0dXJuIC1FTk9NRU07DQo+ICsJCXJldCA9IC1FTk9NRU07DQo+ICsJCWdvdG8g
+ZmFpbHVyZTsNCj4gICAJfQ0KPiAgIA0KPiAgIAlpMnNfcGRhdGEgPSBrY2FsbG9jKDMsIHNpemVv
+ZihzdHJ1Y3QgaTJzX3BsYXRmb3JtX2RhdGEpLCBHRlBfS0VSTkVMKTsNCj4gICAJaWYgKGkyc19w
+ZGF0YSA9PSBOVUxMKSB7DQo+IC0JCWtmcmVlKGFkZXYtPmFjcC5hY3BfcmVzKTsNCj4gLQkJa2Zy
+ZWUoYWRldi0+YWNwLmFjcF9jZWxsKTsNCj4gLQkJcmV0dXJuIC1FTk9NRU07DQo+ICsJCXJldCA9
+IC1FTk9NRU07DQo+ICsJCWdvdG8gZmFpbHVyZTsNCj4gICAJfQ0KPiAgIA0KPiAgIAlzd2l0Y2gg
+KGFkZXYtPmFzaWNfdHlwZSkgew0KPiBAQCAtMzQwLDE1ICszNDEsMTggQEAgc3RhdGljIGludCBh
+Y3BfaHdfaW5pdCh2b2lkICpoYW5kbGUpDQo+ICAgDQo+ICAgCXIgPSBtZmRfYWRkX2hvdHBsdWdf
+ZGV2aWNlcyhhZGV2LT5hY3AucGFyZW50LCBhZGV2LT5hY3AuYWNwX2NlbGwsDQo+ICAgCQkJCQkJ
+CQlBQ1BfREVWUyk7DQo+IC0JaWYgKHIpDQo+IC0JCXJldHVybiByOw0KPiArCWlmIChyKSB7DQo+
+ICsJCXJldCA9IHI7DQo+ICsJCWdvdG8gZmFpbHVyZTsNCj4gKwl9DQo+ICAgDQo+ICAgCWZvciAo
+aSA9IDA7IGkgPCBBQ1BfREVWUyA7IGkrKykgew0KPiAgIAkJZGV2ID0gZ2V0X21mZF9jZWxsX2Rl
+dihhZGV2LT5hY3AuYWNwX2NlbGxbaV0ubmFtZSwgaSk7DQo+ICAgCQlyID0gcG1fZ2VucGRfYWRk
+X2RldmljZSgmYWRldi0+YWNwLmFjcF9nZW5wZC0+Z3BkLCBkZXYpOw0KPiAgIAkJaWYgKHIpIHsN
+Cj4gICAJCQlkZXZfZXJyKGRldiwgIkZhaWxlZCB0byBhZGQgZGV2IHRvIGdlbnBkXG4iKTsNCj4g
+LQkJCXJldHVybiByOw0KPiArCQkJcmV0ID0gcjsNCj4gKwkJCWdvdG8gZmFpbHVyZTsNCj4gICAJ
+CX0NCj4gICAJfQ0KPiAgIA0KPiBAQCAtMzY3LDcgKzM3MSw4IEBAIHN0YXRpYyBpbnQgYWNwX2h3
+X2luaXQodm9pZCAqaGFuZGxlKQ0KPiAgIAkJCWJyZWFrOw0KPiAgIAkJaWYgKC0tY291bnQgPT0g
+MCkgew0KPiAgIAkJCWRldl9lcnIoJmFkZXYtPnBkZXYtPmRldiwgIkZhaWxlZCB0byByZXNldCBB
+Q1BcbiIpOw0KPiAtCQkJcmV0dXJuIC1FVElNRURPVVQ7DQo+ICsJCQlyZXQgPSAtRVRJTUVET1VU
+Ow0KPiArCQkJZ290byBmYWlsdXJlOw0KPiAgIAkJfQ0KPiAgIAkJdWRlbGF5KDEwMCk7DQo+ICAg
+CX0NCj4gQEAgLTM4NCw3ICszODksOCBAQCBzdGF0aWMgaW50IGFjcF9od19pbml0KHZvaWQgKmhh
+bmRsZSkNCj4gICAJCQlicmVhazsNCj4gICAJCWlmICgtLWNvdW50ID09IDApIHsNCj4gICAJCQlk
+ZXZfZXJyKCZhZGV2LT5wZGV2LT5kZXYsICJGYWlsZWQgdG8gcmVzZXQgQUNQXG4iKTsNCj4gLQkJ
+CXJldHVybiAtRVRJTUVET1VUOw0KPiArCQkJcmV0ID0gLUVUSU1FRE9VVDsNCj4gKwkJCWdvdG8g
+ZmFpbHVyZTsNCj4gICAJCX0NCj4gICAJCXVkZWxheSgxMDApOw0KPiAgIAl9DQo+IEBAIC0zOTMs
+NiArMzk5LDEzIEBAIHN0YXRpYyBpbnQgYWNwX2h3X2luaXQodm9pZCAqaGFuZGxlKQ0KPiAgIAl2
+YWwgJj0gfkFDUF9TT0ZUX1JFU0VUX19Tb2Z0UmVzZXRBdWRfTUFTSzsNCj4gICAJY2dzX3dyaXRl
+X3JlZ2lzdGVyKGFkZXYtPmFjcC5jZ3NfZGV2aWNlLCBtbUFDUF9TT0ZUX1JFU0VULCB2YWwpOw0K
+PiAgIAlyZXR1cm4gMDsNCj4gKw0KPiArZmFpbHVyZToNCj4gKwlrZnJlZShpMnNfcGRhdGEpOw0K
+PiArCWtmcmVlKGFkZXYtPmFjcC5hY3BfcmVzKTsNCj4gKwlrZnJlZShhZGV2LT5hY3AuYWNwX2Nl
+bGwpOw0KPiArCWtmcmVlKGFkZXYtPmFjcC5hY3BfZ2VucGQpOw0KPiArCXJldHVybiByZXQ7DQo+
+ICAgfQ0KPiAgIA0KPiAgIC8qKg0KDQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNr
+dG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2Ft
+ZC1nZng=
