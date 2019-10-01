@@ -1,12 +1,13 @@
 From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
 Subject: Re: [PATCH] drm/amd/amdgpu/sriov ip block setting of Arcturus
-Date: Tue, 1 Oct 2019 13:28:14 +0000
-Message-ID: <BN6PR12MB180981B2A3F072C4D43C0CD5F79D0@BN6PR12MB1809.namprd12.prod.outlook.com>
-References: <20190930050010.7437-1-Jack.Zhang1@amd.com>
+Date: Tue, 1 Oct 2019 13:29:09 +0000
+Message-ID: <BN6PR12MB180982E0A63F348A3F7A9C86F79D0@BN6PR12MB1809.namprd12.prod.outlook.com>
+References: <20190930050010.7437-1-Jack.Zhang1@amd.com>,
+ <BN6PR12MB180981B2A3F072C4D43C0CD5F79D0@BN6PR12MB1809.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0766393995=="
+Content-Type: multipart/mixed; boundary="===============0766760779=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190930050010.7437-1-Jack.Zhang1-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <BN6PR12MB180981B2A3F072C4D43C0CD5F79D0-/b2+HYfkarSEx6ez0IUAagdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -20,14 +21,26 @@ Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 To: "Zhang, Jack (Jian)" <Jack.Zhang1-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============0766393995==
+--===============0766760779==
 Content-Language: en-US
 Content-Type: multipart/alternative;
-	boundary="_000_BN6PR12MB180981B2A3F072C4D43C0CD5F79D0BN6PR12MB1809namp_"
+	boundary="_000_BN6PR12MB180982E0A63F348A3F7A9C86F79D0BN6PR12MB1809namp_"
 
---_000_BN6PR12MB180981B2A3F072C4D43C0CD5F79D0BN6PR12MB1809namp_
-Content-Type: text/plain; charset="iso-8859-1"
+--_000_BN6PR12MB180982E0A63F348A3F7A9C86F79D0BN6PR12MB1809namp_
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
+
+Actually, we can probably drop that hunk because adev->mode_info.num_crtc s=
+hould be 0 for arcturus right?
+
+Alex
+________________________________
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Deucher,=
+ Alexander <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Sent: Tuesday, October 1, 2019 9:28 AM
+To: Zhang, Jack (Jian) <Jack.Zhang1-5C7GfCeVMHo@public.gmane.org>; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org=
+ <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Subject: Re: [PATCH] drm/amd/amdgpu/sriov ip block setting of Arcturus
 
 
 
@@ -139,30 +152,64 @@ amd-gfx mailing list
 amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 
---_000_BN6PR12MB180981B2A3F072C4D43C0CD5F79D0BN6PR12MB1809namp_
-Content-Type: text/html; charset="iso-8859-1"
+--_000_BN6PR12MB180982E0A63F348A3F7A9C86F79D0BN6PR12MB1809namp_
+Content-Type: text/html; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
 <html>
 <head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
 <style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
 ttom:0;} </style>
 </head>
 <body dir=3D"ltr">
 <div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
 : 12pt; color: rgb(0, 0, 0);">
+Actually, we can probably drop that hunk because <font size=3D"2"><span sty=
+le=3D"font-size:11pt">adev-&gt;mode_info.num_crtc</span></font> should be 0=
+ for arcturus right?</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
 <br>
 </div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Alex<br>
+</div>
 <div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
+ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Deucher, Alexander &lt;Alexan=
+der.Deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
+<b>Sent:</b> Tuesday, October 1, 2019 9:28 AM<br>
+<b>To:</b> Zhang, Jack (Jian) &lt;Jack.Zhang1-5C7GfCeVMHo@public.gmane.org&gt;; amd-gfx-PD4FTy7X32k@public.gmane.org=
+eedesktop.org &lt;amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt;<br>
+<b>Subject:</b> Re: [PATCH] drm/amd/amdgpu/sriov ip block setting of Arctur=
+us</font>
+<div>&nbsp;</div>
+</div>
+<style type=3D"text/css" style=3D"display:none">
+<!--
+p
+	{margin-top:0;
+	margin-bottom:0}
+-->
+</style>
+<div dir=3D"ltr">
+<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
+t; color:rgb(0,0,0)">
+<br>
+</div>
+<div id=3D"x_appendonsend"></div>
 <div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
 t; color:rgb(0,0,0)">
 <br>
 </div>
 <hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font style=3D"font-size:11pt" face=
-=3D"Calibri, sans-serif" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx=
+<div id=3D"x_divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" =
+color=3D"#000000" style=3D"font-size:11pt"><b>From:</b> amd-gfx &lt;amd-gfx=
 -bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Jack Zhang &lt;Jack.Zhang1@=
 amd.com&gt;<br>
 <b>Sent:</b> Monday, September 30, 2019 1:00 AM<br>
@@ -173,9 +220,9 @@ gt;<br>
 font>
 <div>&nbsp;</div>
 </div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt"=
->
-<div class=3D"PlainText">Add ip block setting for Arcturus SRIOV<br>
+<div class=3D"x_BodyFragment"><font size=3D"2"><span style=3D"font-size:11p=
+t">
+<div class=3D"x_PlainText">Add ip block setting for Arcturus SRIOV<br>
 <br>
 1.PSP need to be initialized before IH.<br>
 2.SMU doesn't need to be initialized at kmd driver.<br>
@@ -231,18 +278,17 @@ p;&nbsp;&nbsp; }<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
 &nbsp; <br>
 </div>
-<div class=3D"PlainText"><span style=3D"color: rgb(111, 192, 64);">This is =
-a general bug fix and should be split out into a separate patch.</span></di=
-v>
-<div class=3D"PlainText"><br>
+<div class=3D"x_PlainText"><span style=3D"color:rgb(111,192,64)">This is a =
+general bug fix and should be split out into a separate patch.</span></div>
+<div class=3D"x_PlainText"><br>
 </div>
-<div class=3D"PlainText"><span style=3D"color: rgb(111, 192, 64);">Alex</sp=
-an><br>
+<div class=3D"x_PlainText"><span style=3D"color:rgb(111,192,64)">Alex</span=
+><br>
 </div>
-<div class=3D"PlainText"><br>
+<div class=3D"x_PlainText"><br>
 </div>
-<div class=3D"PlainText">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r=
- =3D gmc_v9_0_gart_enable(adev);<br>
+<div class=3D"x_PlainText">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+ r =3D gmc_v9_0_gart_enable(adev);<br>
 diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c b/drivers/gpu/drm/amd/amdgp=
 u/soc15.c<br>
 index dbd790e..ac181e3 100644<br>
@@ -333,12 +379,13 @@ amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
 <a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
 lists.freedesktop.org/mailman/listinfo/amd-gfx</a></div>
 </span></font></div>
+</div>
 </body>
 </html>
 
---_000_BN6PR12MB180981B2A3F072C4D43C0CD5F79D0BN6PR12MB1809namp_--
+--_000_BN6PR12MB180982E0A63F348A3F7A9C86F79D0BN6PR12MB1809namp_--
 
---===============0766393995==
+--===============0766760779==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -348,4 +395,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
 
---===============0766393995==--
+--===============0766760779==--
