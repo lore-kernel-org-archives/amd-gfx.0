@@ -1,98 +1,78 @@
-From: "Gustavo A. R. Silva" <gustavo@embeddedor.com>
+From: "Liu, Leo" <Leo.Liu-5C7GfCeVMHo@public.gmane.org>
 Subject: Re: [PATCH] drm/amdgpu: fix structurally dead code vcn_v2_5_hw_init
-Date: Tue, 1 Oct 2019 16:43:20 -0500
-Message-ID: <823b10a3-fe0e-2e8c-02c3-534944dbe6d2@embeddedor.com>
+Date: Tue, 1 Oct 2019 21:46:26 +0000
+Message-ID: <dc76a52b-09a2-7ab9-b53e-52500f4f8669@amd.com>
 References: <20191001171635.GA17306@embeddedor>
  <192815d9-5ecb-09a7-4624-5fd36126890d@amd.com>
+ <823b10a3-fe0e-2e8c-02c3-534944dbe6d2@embeddedor.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <192815d9-5ecb-09a7-4624-5fd36126890d@amd.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <823b10a3-fe0e-2e8c-02c3-534944dbe6d2-L1vi/lXTdts+Va1GwOuvDg@public.gmane.org>
 Content-Language: en-US
-Sender: linux-kernel-owner@vger.kernel.org
-To: "Liu, Leo" <Leo.Liu@amd.com>, "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Koenig, Christian" <Christian.Koenig@amd.com>, "Zhou, David(ChunMing)" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>
-Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-ID: <1FC97F3F91534145A5FB569298E79834-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Gustavo A. R. Silva" <gustavo-L1vi/lXTdts+Va1GwOuvDg@public.gmane.org>, "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "Zhou, David(ChunMing)" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, David Airlie <airlied-cv59FeDIM0c@public.gmane.org>, Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>
+Cc: "dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org" <linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>
 
-Hi,
-
-On 10/1/19 16:29, Liu, Leo wrote:
-> 
-> On 2019-10-01 1:16 p.m., Gustavo A. R. Silva wrote:
->> Notice that there is a *continue* statement in the middle of the
->> for loop and that prevents the code below from ever being reached:
->>
->> 	r = amdgpu_ring_test_ring(ring);
->> 	if (r) {
->> 		ring->sched.ready = false;
->> 		goto done;
->> 	}
->>
->> Fix this by removing the continue statement and updating ring->sched.ready
->> to true before calling amdgpu_ring_test_ring(ring).
->>
->> Notice that this fix is based on
->> commit 1b61de45dfaf ("drm/amdgpu: add initial VCN2.0 support (v2)")
->>
->> Addresses-Coverity-ID 1485608 ("Structurally dead code")
->> Fixes: 28c17d72072b ("drm/amdgpu: add VCN2.5 basic supports")
->> Signed-off-by: Gustavo A. R. Silva <gustavo@embeddedor.com>
->> ---
->>
->> Any feedback is greatly appreciated.
->>
->>   drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c | 5 +++--
->>   1 file changed, 3 insertions(+), 2 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c b/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
->> index 395c2259f979..47b0dcd59e13 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
->> @@ -258,6 +258,7 @@ static int vcn_v2_5_hw_init(void *handle)
->>   		adev->nbio_funcs->vcn_doorbell_range(adev, ring->use_doorbell,
->>   						     ring->doorbell_index, j);
->>   
->> +		ring->sched.ready = true;
-> 
-> This is redundant. all the sched->ready is initialized as true, please 
-> refer to drm_sched_init()
-> 
-
-I see... so in the following commit 1b61de45dfaf ("drm/amdgpu: add initial VCN2.0 support (v2)")
-that line is also redundant?
-
-> 
->>   		r = amdgpu_ring_test_ring(ring);
->>   		if (r) {
->>   			ring->sched.ready = false;
->> @@ -266,8 +267,7 @@ static int vcn_v2_5_hw_init(void *handle)
->>   
->>   		for (i = 0; i < adev->vcn.num_enc_rings; ++i) {
->>   			ring = &adev->vcn.inst[j].ring_enc[i];
->> -			ring->sched.ready = false;
->> -			continue;
->> +			ring->sched.ready = true;
-> 
-> Because the VCN 2.5 FW still has issue for encode, so we have it 
-> disabled here.
-> 
-
-OK. So, maybe we can add a comment pointing that out?
-
-Thanks
---
-Gustavo
-
-> 
->>   			r = amdgpu_ring_test_ring(ring);
->>   			if (r) {
->>   				ring->sched.ready = false;
->> @@ -276,6 +276,7 @@ static int vcn_v2_5_hw_init(void *handle)
->>   		}
->>   
->>   		ring = &adev->vcn.inst[j].ring_jpeg;
->> +		ring->sched.ready = true;
->>   		r = amdgpu_ring_test_ring(ring);
->>   		if (r) {
->>   			ring->sched.ready = false;
+DQpPbiAyMDE5LTEwLTAxIDU6NDMgcC5tLiwgR3VzdGF2byBBLiBSLiBTaWx2YSB3cm90ZToNCj4g
+SGksDQo+DQo+IE9uIDEwLzEvMTkgMTY6MjksIExpdSwgTGVvIHdyb3RlOg0KPj4gT24gMjAxOS0x
+MC0wMSAxOjE2IHAubS4sIEd1c3Rhdm8gQS4gUi4gU2lsdmEgd3JvdGU6DQo+Pj4gTm90aWNlIHRo
+YXQgdGhlcmUgaXMgYSAqY29udGludWUqIHN0YXRlbWVudCBpbiB0aGUgbWlkZGxlIG9mIHRoZQ0K
+Pj4+IGZvciBsb29wIGFuZCB0aGF0IHByZXZlbnRzIHRoZSBjb2RlIGJlbG93IGZyb20gZXZlciBi
+ZWluZyByZWFjaGVkOg0KPj4+DQo+Pj4gCXIgPSBhbWRncHVfcmluZ190ZXN0X3JpbmcocmluZyk7
+DQo+Pj4gCWlmIChyKSB7DQo+Pj4gCQlyaW5nLT5zY2hlZC5yZWFkeSA9IGZhbHNlOw0KPj4+IAkJ
+Z290byBkb25lOw0KPj4+IAl9DQo+Pj4NCj4+PiBGaXggdGhpcyBieSByZW1vdmluZyB0aGUgY29u
+dGludWUgc3RhdGVtZW50IGFuZCB1cGRhdGluZyByaW5nLT5zY2hlZC5yZWFkeQ0KPj4+IHRvIHRy
+dWUgYmVmb3JlIGNhbGxpbmcgYW1kZ3B1X3JpbmdfdGVzdF9yaW5nKHJpbmcpLg0KPj4+DQo+Pj4g
+Tm90aWNlIHRoYXQgdGhpcyBmaXggaXMgYmFzZWQgb24NCj4+PiBjb21taXQgMWI2MWRlNDVkZmFm
+ICgiZHJtL2FtZGdwdTogYWRkIGluaXRpYWwgVkNOMi4wIHN1cHBvcnQgKHYyKSIpDQo+Pj4NCj4+
+PiBBZGRyZXNzZXMtQ292ZXJpdHktSUQgMTQ4NTYwOCAoIlN0cnVjdHVyYWxseSBkZWFkIGNvZGUi
+KQ0KPj4+IEZpeGVzOiAyOGMxN2Q3MjA3MmIgKCJkcm0vYW1kZ3B1OiBhZGQgVkNOMi41IGJhc2lj
+IHN1cHBvcnRzIikNCj4+PiBTaWduZWQtb2ZmLWJ5OiBHdXN0YXZvIEEuIFIuIFNpbHZhIDxndXN0
+YXZvQGVtYmVkZGVkb3IuY29tPg0KPj4+IC0tLQ0KPj4+DQo+Pj4gQW55IGZlZWRiYWNrIGlzIGdy
+ZWF0bHkgYXBwcmVjaWF0ZWQuDQo+Pj4NCj4+PiAgICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
+dS92Y25fdjJfNS5jIHwgNSArKystLQ0KPj4+ICAgIDEgZmlsZSBjaGFuZ2VkLCAzIGluc2VydGlv
+bnMoKyksIDIgZGVsZXRpb25zKC0pDQo+Pj4NCj4+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUv
+ZHJtL2FtZC9hbWRncHUvdmNuX3YyXzUuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3Zj
+bl92Ml81LmMNCj4+PiBpbmRleCAzOTVjMjI1OWY5NzkuLjQ3YjBkY2Q1OWUxMyAxMDA2NDQNCj4+
+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS92Y25fdjJfNS5jDQo+Pj4gKysrIGIv
+ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvdmNuX3YyXzUuYw0KPj4+IEBAIC0yNTgsNiArMjU4
+LDcgQEAgc3RhdGljIGludCB2Y25fdjJfNV9od19pbml0KHZvaWQgKmhhbmRsZSkNCj4+PiAgICAJ
+CWFkZXYtPm5iaW9fZnVuY3MtPnZjbl9kb29yYmVsbF9yYW5nZShhZGV2LCByaW5nLT51c2VfZG9v
+cmJlbGwsDQo+Pj4gICAgCQkJCQkJICAgICByaW5nLT5kb29yYmVsbF9pbmRleCwgaik7DQo+Pj4g
+ICAgDQo+Pj4gKwkJcmluZy0+c2NoZWQucmVhZHkgPSB0cnVlOw0KPj4gVGhpcyBpcyByZWR1bmRh
+bnQuIGFsbCB0aGUgc2NoZWQtPnJlYWR5IGlzIGluaXRpYWxpemVkIGFzIHRydWUsIHBsZWFzZQ0K
+Pj4gcmVmZXIgdG8gZHJtX3NjaGVkX2luaXQoKQ0KPj4NCj4gSSBzZWUuLi4gc28gaW4gdGhlIGZv
+bGxvd2luZyBjb21taXQgMWI2MWRlNDVkZmFmICgiZHJtL2FtZGdwdTogYWRkIGluaXRpYWwgVkNO
+Mi4wIHN1cHBvcnQgKHYyKSIpDQo+IHRoYXQgbGluZSBpcyBhbHNvIHJlZHVuZGFudD8NCg0KWWVz
+Lg0KDQoNCj4+PiAgICAJCXIgPSBhbWRncHVfcmluZ190ZXN0X3JpbmcocmluZyk7DQo+Pj4gICAg
+CQlpZiAocikgew0KPj4+ICAgIAkJCXJpbmctPnNjaGVkLnJlYWR5ID0gZmFsc2U7DQo+Pj4gQEAg
+LTI2Niw4ICsyNjcsNyBAQCBzdGF0aWMgaW50IHZjbl92Ml81X2h3X2luaXQodm9pZCAqaGFuZGxl
+KQ0KPj4+ICAgIA0KPj4+ICAgIAkJZm9yIChpID0gMDsgaSA8IGFkZXYtPnZjbi5udW1fZW5jX3Jp
+bmdzOyArK2kpIHsNCj4+PiAgICAJCQlyaW5nID0gJmFkZXYtPnZjbi5pbnN0W2pdLnJpbmdfZW5j
+W2ldOw0KPj4+IC0JCQlyaW5nLT5zY2hlZC5yZWFkeSA9IGZhbHNlOw0KPj4+IC0JCQljb250aW51
+ZTsNCj4+PiArCQkJcmluZy0+c2NoZWQucmVhZHkgPSB0cnVlOw0KPj4gQmVjYXVzZSB0aGUgVkNO
+IDIuNSBGVyBzdGlsbCBoYXMgaXNzdWUgZm9yIGVuY29kZSwgc28gd2UgaGF2ZSBpdA0KPj4gZGlz
+YWJsZWQgaGVyZS4NCj4+DQo+IE9LLiBTbywgbWF5YmUgd2UgY2FuIGFkZCBhIGNvbW1lbnQgcG9p
+bnRpbmcgdGhhdCBvdXQ/DQoNClRoYXQgY291bGQgYmUgYmV0dGVyLg0KDQpUaGFua3MsDQpMZW8N
+Cg0KDQo+DQo+IFRoYW5rcw0KPiAtLQ0KPiBHdXN0YXZvDQo+DQo+Pj4gICAgCQkJciA9IGFtZGdw
+dV9yaW5nX3Rlc3RfcmluZyhyaW5nKTsNCj4+PiAgICAJCQlpZiAocikgew0KPj4+ICAgIAkJCQly
+aW5nLT5zY2hlZC5yZWFkeSA9IGZhbHNlOw0KPj4+IEBAIC0yNzYsNiArMjc2LDcgQEAgc3RhdGlj
+IGludCB2Y25fdjJfNV9od19pbml0KHZvaWQgKmhhbmRsZSkNCj4+PiAgICAJCX0NCj4+PiAgICAN
+Cj4+PiAgICAJCXJpbmcgPSAmYWRldi0+dmNuLmluc3Rbal0ucmluZ19qcGVnOw0KPj4+ICsJCXJp
+bmctPnNjaGVkLnJlYWR5ID0gdHJ1ZTsNCj4+PiAgICAJCXIgPSBhbWRncHVfcmluZ190ZXN0X3Jp
+bmcocmluZyk7DQo+Pj4gICAgCQlpZiAocikgew0KPj4+ICAgIAkJCXJpbmctPnNjaGVkLnJlYWR5
+ID0gZmFsc2U7DQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+XwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRw
+czovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
