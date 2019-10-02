@@ -1,75 +1,35 @@
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+From: Arnd Bergmann <arnd@arndb.de>
 Subject: Re: [PATCH 4/6] drm/amd/display: fix dcn21 Makefile for clang
-Date: Wed, 2 Oct 2019 10:17:07 -0400
-Message-ID: <CADnq5_PkTwTBbQY9JatZD2_sWjdU5_hK7V2GLfviEvMh_QB12Q@mail.gmail.com>
-References: <20191002120136.1777161-1-arnd@arndb.de>
- <20191002120136.1777161-5-arnd@arndb.de>
+Date: Wed, 2 Oct 2019 16:51:09 +0200
+Message-ID: <CAK8P3a0KMT437okhobg=Vzi5LRDgUO7L-x35LczBGXE2jYLg2A@mail.gmail.com>
+References: <20191002120136.1777161-1-arnd@arndb.de> <20191002120136.1777161-5-arnd@arndb.de>
+ <CADnq5_PkTwTBbQY9JatZD2_sWjdU5_hK7V2GLfviEvMh_QB12Q@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20191002120136.1777161-5-arnd-r2nGTMty4D4@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Arnd Bergmann <arnd-r2nGTMty4D4@public.gmane.org>
-Cc: "David (ChunMing) Zhou" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, clang-built-linux-/JYPxA39Uh5TLH3MbocFFw@public.gmane.org, Leo Li <sunpeng.li-5C7GfCeVMHo@public.gmane.org>, Bhawanpreet Lakha <Bhawanpreet.Lakha-5C7GfCeVMHo@public.gmane.org>, LKML <linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, Maling list - DRI developers <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, David Airlie <airlied-cv59FeDIM0c@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>, Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8BIT
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <CADnq5_PkTwTBbQY9JatZD2_sWjdU5_hK7V2GLfviEvMh_QB12Q@mail.gmail.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Alex Deucher <alexdeucher@gmail.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, LKML <linux-kernel@vger.kernel.org>, Maling list - DRI developers <dri-devel@lists.freedesktop.org>, clang-built-linux <clang-built-linux@googlegroups.com>, amd-gfx list <amd-gfx@lists.freedesktop.org>, Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gV2VkLCBPY3QgMiwgMjAxOSBhdCA4OjAzIEFNIEFybmQgQmVyZ21hbm4gPGFybmRAYXJuZGIu
-ZGU+IHdyb3RlOgo+Cj4gSnVzdCBsaWtlIGFsbCB0aGUgb3RoZXIgdmFyaWFudHMsIHRoaXMgb25l
-IHBhc3NlcyBpbnZhbGlkCj4gY29tcGlsZS10aW1lIG9wdGlvbnMgd2l0aCBjbGFuZyBhZnRlciB0
-aGUgbmV3IGNvZGUgZ290Cj4gbWVyZ2VkOgo+Cj4gY2xhbmc6IGVycm9yOiB1bmtub3duIGFyZ3Vt
-ZW50OiAnLW1wcmVmZXJyZWQtc3RhY2stYm91bmRhcnk9NCcKPiBzY3JpcHRzL01ha2VmaWxlLmJ1
-aWxkOjI2NTogcmVjaXBlIGZvciB0YXJnZXQgJ2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1Ly4u
-L2Rpc3BsYXkvZGMvZGNuMjEvZGNuMjFfcmVzb3VyY2UubycgZmFpbGVkCj4KPiBVc2UgdGhlIHNh
-bWUgdmFyaWFudCB0aGF0IHdlIGhhdmUgZm9yIGRjbjIwIHRvIGZpeCBjb21waWxhdGlvbi4KPgo+
-IEZpeGVzOiBlY2VkNTFmOWJhYmIgKCJkcm0vYW1kL2Rpc3BsYXk6IEFkZCBodWJwIGJsb2NrIGZv
-ciBSZW5vaXIgKHYyKSIpCj4gU2lnbmVkLW9mZi1ieTogQXJuZCBCZXJnbWFubiA8YXJuZEBhcm5k
-Yi5kZT4KCkknbSBnZXR0aW5nIGFuIGVycm9yIHdpdGggZ2NjIHdpdGggdGhpcyBwYXRjaDoKICBD
-QyBbTV0gIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1Ly4uL2Rpc3BsYXkvZGMvZGNuMjEvZGNu
-MjFfcmVzb3VyY2Uubwpkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS8uLi9kaXNwbGF5L2RjL2Rj
-bjIxL2RjbjIxX3Jlc291cmNlLmM6IEluCmZ1bmN0aW9uIOKAmGNhbGN1bGF0ZV93bV9zZXRfZm9y
-X3ZsZXZlbOKAmToKZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvLi4vZGlzcGxheS9kYy9kY24y
-MS9kY24yMV9yZXNvdXJjZS5jOjk2NDoyMjoKZXJyb3I6IFNTRSByZWdpc3RlciByZXR1cm4gd2l0
-aCBTU0UgZGlzYWJsZWQKICB3bV9zZXQtPnVyZ2VudF9ucyA9IGdldF93bV91cmdlbnQoZG1sLCBw
-aXBlcywgcGlwZV9jbnQpICogMTAwMDsKICAgICAgICAgICAgICAgICAgICAgIF5+fn5+fn5+fn5+
-fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+Cm1ha2VbNF06ICoqKiBbc2NyaXB0cy9NYWtlZmlsZS5i
-dWlsZDoyNzM6CmRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1Ly4uL2Rpc3BsYXkvZGMvZGNuMjEv
-ZGNuMjFfcmVzb3VyY2Uub10gRXJyb3IKMQptYWtlWzNdOiAqKiogW3NjcmlwdHMvTWFrZWZpbGUu
-YnVpbGQ6NDkwOiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdV0gRXJyb3IgMgptYWtlWzNdOiAq
-KiogV2FpdGluZyBmb3IgdW5maW5pc2hlZCBqb2JzLi4uLgptYWtlWzJdOiAqKiogW3NjcmlwdHMv
-TWFrZWZpbGUuYnVpbGQ6NDkwOiBkcml2ZXJzL2dwdS9kcm1dIEVycm9yIDIKbWFrZVsxXTogKioq
-IFtzY3JpcHRzL01ha2VmaWxlLmJ1aWxkOjQ5MDogZHJpdmVycy9ncHVdIEVycm9yIDIKbWFrZTog
-KioqIFtNYWtlZmlsZToxMDgwOiBkcml2ZXJzXSBFcnJvciAyCgpBbGV4Cgo+IC0tLQo+ICBkcml2
-ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvZGNuMjEvTWFrZWZpbGUgfCAxMiArKysrKysrKysr
-Ky0KPiAgMSBmaWxlIGNoYW5nZWQsIDExIGluc2VydGlvbnMoKyksIDEgZGVsZXRpb24oLSkKPgo+
-IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvZGNuMjEvTWFrZWZp
-bGUgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvZGNuMjEvTWFrZWZpbGUKPiBpbmRl
-eCA4Y2Q5ZGU4YjFhN2EuLmVmNjczYmZmYzI0MSAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9k
-cm0vYW1kL2Rpc3BsYXkvZGMvZGNuMjEvTWFrZWZpbGUKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0v
-YW1kL2Rpc3BsYXkvZGMvZGNuMjEvTWFrZWZpbGUKPiBAQCAtMyw3ICszLDE3IEBACj4KPiAgRENO
-MjEgPSBkY24yMV9odWJwLm8gZGNuMjFfaHViYnViLm8gZGNuMjFfcmVzb3VyY2Uubwo+Cj4gLUNG
-TEFHU18kKEFNRERBTFBBVEgpL2RjL2RjbjIxL2RjbjIxX3Jlc291cmNlLm8gOj0gLW1oYXJkLWZs
-b2F0IC1tc3NlIC1tcHJlZmVycmVkLXN0YWNrLWJvdW5kYXJ5PTQKPiAraWZuZXEgKCQoY2FsbCBj
-Yy1vcHRpb24sIC1tcHJlZmVycmVkLXN0YWNrLWJvdW5kYXJ5PTQpLCkKPiArICAgICAgIGNjX3N0
-YWNrX2FsaWduIDo9IC1tcHJlZmVycmVkLXN0YWNrLWJvdW5kYXJ5PTQKPiArZWxzZSBpZm5lcSAo
-JChjYWxsIGNjLW9wdGlvbiwgLW1zdGFjay1hbGlnbm1lbnQ9MTYpLCkKPiArICAgICAgIGNjX3N0
-YWNrX2FsaWduIDo9IC1tc3RhY2stYWxpZ25tZW50PTE2Cj4gK2VuZGlmCj4gKwo+ICtDRkxBR1Nf
-JChBTUREQUxQQVRIKS9kYy9kY24yMS9kY24yMV9yZXNvdXJjZS5vIDo9IC1taGFyZC1mbG9hdCAt
-bXNzZSAkKGNjX3N0YWNrX2FsaWduKQo+ICsKPiAraWZkZWYgQ09ORklHX0NDX0lTX0NMQU5HCj4g
-K0NGTEFHU18kKEFNRERBTFBBVEgpL2RjL2RjbjIxL2RjbjIxX3Jlc291cmNlLm8gKz0gLW1zc2Uy
-Cj4gK2VuZGlmCj4KPiAgQU1EX0RBTF9EQ04yMSA9ICQoYWRkcHJlZml4ICQoQU1EREFMUEFUSCkv
-ZGMvZGNuMjEvLCQoRENOMjEpKQo+Cj4gLS0KPiAyLjIwLjAKPgo+IF9fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCj4gZHJpLWRldmVsIG1haWxpbmcgbGlzdAo+
-IGRyaS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPiBodHRwczovL2xpc3RzLmZyZWVkZXNr
-dG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2RyaS1kZXZlbApfX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxp
-c3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFu
-L2xpc3RpbmZvL2FtZC1nZng=
+On Wed, Oct 2, 2019 at 4:17 PM Alex Deucher <alexdeucher@gmail.com> wrote:
+>
+> I'm getting an error with gcc with this patch:
+>   CC [M]  drivers/gpu/drm/amd/amdgpu/../display/dc/dcn21/dcn21_resource.o
+> drivers/gpu/drm/amd/amdgpu/../display/dc/dcn21/dcn21_resource.c: In
+> function ‘calculate_wm_set_for_vlevel’:
+> drivers/gpu/drm/amd/amdgpu/../display/dc/dcn21/dcn21_resource.c:964:22:
+> error: SSE register return with SSE disabled
+
+I checked again with gcc-8, but do not see that error message.
+
+> > -CFLAGS_$(AMDDALPATH)/dc/dcn21/dcn21_resource.o := -mhard-float -msse -mpreferred-stack-boundary=4
+> > +CFLAGS_$(AMDDALPATH)/dc/dcn21/dcn21_resource.o := -mhard-float -msse $(cc_stack_align)
+
+Nothing should really change with regards to the -msse flag here, only
+the stack alignment flag changed. Maybe there was some other change
+in your Makefile that conflicts with my my patch?
+
+       Arnd
