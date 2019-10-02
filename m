@@ -1,77 +1,79 @@
-From: Nick Desaulniers <ndesaulniers@google.com>
+From: Alex Deucher <alexdeucher@gmail.com>
 Subject: Re: [PATCH 4/6] drm/amd/display: fix dcn21 Makefile for clang
-Date: Wed, 2 Oct 2019 14:14:29 -0700
-Message-ID: <CAKwvOdmjM80XP7VH83iLn=8mz6W1+SbXST2FChEnH0LSRRm4pA@mail.gmail.com>
-References: <20191002120136.1777161-1-arnd@arndb.de> <20191002120136.1777161-5-arnd@arndb.de>
+Date: Wed, 2 Oct 2019 17:24:37 -0400
+Message-ID: <CADnq5_MyUp9OkqM+MUHZ8BpLEe5afBpAqOwQxDwAWgvVvqbpoQ@mail.gmail.com>
+References: <20191002120136.1777161-1-arnd@arndb.de>
+ <20191002120136.1777161-5-arnd@arndb.de>
+ <CAKwvOdmjM80XP7VH83iLn=8mz6W1+SbXST2FChEnH0LSRRm4pA@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20191002120136.1777161-5-arnd@arndb.de>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Arnd Bergmann <arnd@arndb.de>, Alex Deucher <alexander.deucher@amd.com>
-Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, clang-built-linux <clang-built-linux@googlegroups.com>, amd-gfx@lists.freedesktop.org, LKML <linux-kernel@vger.kernel.org>, dri-devel <dri-devel@lists.freedesktop.org>, Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+In-Reply-To: <CAKwvOdmjM80XP7VH83iLn=8mz6W1+SbXST2FChEnH0LSRRm4pA@mail.gmail.com>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: Nick Desaulniers <ndesaulniers@google.com>
+Cc: Arnd Bergmann <arnd@arndb.de>, Leo Li <sunpeng.li@amd.com>, David Airlie <airlied@linux.ie>, LKML <linux-kernel@vger.kernel.org>, amd-gfx list <amd-gfx@lists.freedesktop.org>, clang-built-linux <clang-built-linux@googlegroups.com>, dri-devel <dri-devel@lists.freedesktop.org>, Alex Deucher <alexander.deucher@amd.com>, Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
 List-Id: amd-gfx.lists.freedesktop.org
 
-On Wed, Oct 2, 2019 at 5:03 AM Arnd Bergmann <arnd@arndb.de> wrote:
->
-> Just like all the other variants, this one passes invalid
-> compile-time options with clang after the new code got
-> merged:
->
-> clang: error: unknown argument: '-mpreferred-stack-boundary=4'
-> scripts/Makefile.build:265: recipe for target 'drivers/gpu/drm/amd/amdgpu/../display/dc/dcn21/dcn21_resource.o' failed
->
-> Use the same variant that we have for dcn20 to fix compilation.
->
-> Fixes: eced51f9babb ("drm/amd/display: Add hubp block for Renoir (v2)")
-> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
-
-Thanks for the patch!
-Reviewed-by: Nick Desaulniers <ndesaulniers@google.com>
-Tested-by: Nick Desaulniers <ndesaulniers@google.com>
-(Though I think it's already been merged)
-
-Alex, do you know why the AMDGPU driver uses a different stack
-alignment (16B) than the rest of the x86 kernel?  (see
-arch/x86/Makefile which uses 8B stack alignment).
-
-> ---
->  drivers/gpu/drm/amd/display/dc/dcn21/Makefile | 12 +++++++++++-
->  1 file changed, 11 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/display/dc/dcn21/Makefile b/drivers/gpu/drm/amd/display/dc/dcn21/Makefile
-> index 8cd9de8b1a7a..ef673bffc241 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dcn21/Makefile
-> +++ b/drivers/gpu/drm/amd/display/dc/dcn21/Makefile
-> @@ -3,7 +3,17 @@
->
->  DCN21 = dcn21_hubp.o dcn21_hubbub.o dcn21_resource.o
->
-> -CFLAGS_$(AMDDALPATH)/dc/dcn21/dcn21_resource.o := -mhard-float -msse -mpreferred-stack-boundary=4
-> +ifneq ($(call cc-option, -mpreferred-stack-boundary=4),)
-> +       cc_stack_align := -mpreferred-stack-boundary=4
-> +else ifneq ($(call cc-option, -mstack-alignment=16),)
-> +       cc_stack_align := -mstack-alignment=16
-> +endif
-> +
-> +CFLAGS_$(AMDDALPATH)/dc/dcn21/dcn21_resource.o := -mhard-float -msse $(cc_stack_align)
-> +
-> +ifdef CONFIG_CC_IS_CLANG
-> +CFLAGS_$(AMDDALPATH)/dc/dcn21/dcn21_resource.o += -msse2
-> +endif
->
->  AMD_DAL_DCN21 = $(addprefix $(AMDDALPATH)/dc/dcn21/,$(DCN21))
->
-> --
-> 2.20.0
->
-> --
-> You received this message because you are subscribed to the Google Groups "Clang Built Linux" group.
-> To unsubscribe from this group and stop receiving emails from it, send an email to clang-built-linux+unsubscribe@googlegroups.com.
-> To view this discussion on the web visit https://groups.google.com/d/msgid/clang-built-linux/20191002120136.1777161-5-arnd%40arndb.de.
-
-
-
--- 
-Thanks,
-~Nick Desaulniers
+T24gV2VkLCBPY3QgMiwgMjAxOSBhdCA1OjE5IFBNIE5pY2sgRGVzYXVsbmllcnMgPG5kZXNhdWxu
+aWVyc0Bnb29nbGUuY29tPiB3cm90ZToKPgo+IE9uIFdlZCwgT2N0IDIsIDIwMTkgYXQgNTowMyBB
+TSBBcm5kIEJlcmdtYW5uIDxhcm5kQGFybmRiLmRlPiB3cm90ZToKPiA+Cj4gPiBKdXN0IGxpa2Ug
+YWxsIHRoZSBvdGhlciB2YXJpYW50cywgdGhpcyBvbmUgcGFzc2VzIGludmFsaWQKPiA+IGNvbXBp
+bGUtdGltZSBvcHRpb25zIHdpdGggY2xhbmcgYWZ0ZXIgdGhlIG5ldyBjb2RlIGdvdAo+ID4gbWVy
+Z2VkOgo+ID4KPiA+IGNsYW5nOiBlcnJvcjogdW5rbm93biBhcmd1bWVudDogJy1tcHJlZmVycmVk
+LXN0YWNrLWJvdW5kYXJ5PTQnCj4gPiBzY3JpcHRzL01ha2VmaWxlLmJ1aWxkOjI2NTogcmVjaXBl
+IGZvciB0YXJnZXQgJ2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1Ly4uL2Rpc3BsYXkvZGMvZGNu
+MjEvZGNuMjFfcmVzb3VyY2UubycgZmFpbGVkCj4gPgo+ID4gVXNlIHRoZSBzYW1lIHZhcmlhbnQg
+dGhhdCB3ZSBoYXZlIGZvciBkY24yMCB0byBmaXggY29tcGlsYXRpb24uCj4gPgo+ID4gRml4ZXM6
+IGVjZWQ1MWY5YmFiYiAoImRybS9hbWQvZGlzcGxheTogQWRkIGh1YnAgYmxvY2sgZm9yIFJlbm9p
+ciAodjIpIikKPiA+IFNpZ25lZC1vZmYtYnk6IEFybmQgQmVyZ21hbm4gPGFybmRAYXJuZGIuZGU+
+Cj4KPiBUaGFua3MgZm9yIHRoZSBwYXRjaCEKPiBSZXZpZXdlZC1ieTogTmljayBEZXNhdWxuaWVy
+cyA8bmRlc2F1bG5pZXJzQGdvb2dsZS5jb20+Cj4gVGVzdGVkLWJ5OiBOaWNrIERlc2F1bG5pZXJz
+IDxuZGVzYXVsbmllcnNAZ29vZ2xlLmNvbT4KPiAoVGhvdWdoIEkgdGhpbmsgaXQncyBhbHJlYWR5
+IGJlZW4gbWVyZ2VkKQo+Cj4gQWxleCwgZG8geW91IGtub3cgd2h5IHRoZSBBTURHUFUgZHJpdmVy
+IHVzZXMgYSBkaWZmZXJlbnQgc3RhY2sKPiBhbGlnbm1lbnQgKDE2QikgdGhhbiB0aGUgcmVzdCBv
+ZiB0aGUgeDg2IGtlcm5lbD8gIChzZWUKPiBhcmNoL3g4Ni9NYWtlZmlsZSB3aGljaCB1c2VzIDhC
+IHN0YWNrIGFsaWdubWVudCkuCgpOb3Qgc3VyZS4gIE1heWJlIEhhcnJ5IGNhbiBjb21tZW50LiAg
+SSB0aGluayBpdCB3YXMgYWRkZWQgZm9yIHRoZQpmbG9hdGluZyBwb2ludCBzdHVmZi4gIE5vdCBz
+dXJlIGlmIGl0J3Mgc3RyaWN0bHkgcmVxdWlyZWQgb3Igbm90LgoKQWxleAoKPgo+ID4gLS0tCj4g
+PiAgZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2RjbjIxL01ha2VmaWxlIHwgMTIgKysr
+KysrKysrKystCj4gPiAgMSBmaWxlIGNoYW5nZWQsIDExIGluc2VydGlvbnMoKyksIDEgZGVsZXRp
+b24oLSkKPiA+Cj4gPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2Rj
+L2RjbjIxL01ha2VmaWxlIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2RjbjIxL01h
+a2VmaWxlCj4gPiBpbmRleCA4Y2Q5ZGU4YjFhN2EuLmVmNjczYmZmYzI0MSAxMDA2NDQKPiA+IC0t
+LSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9kY24yMS9NYWtlZmlsZQo+ID4gKysr
+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2RjbjIxL01ha2VmaWxlCj4gPiBAQCAt
+Myw3ICszLDE3IEBACj4gPgo+ID4gIERDTjIxID0gZGNuMjFfaHVicC5vIGRjbjIxX2h1YmJ1Yi5v
+IGRjbjIxX3Jlc291cmNlLm8KPiA+Cj4gPiAtQ0ZMQUdTXyQoQU1EREFMUEFUSCkvZGMvZGNuMjEv
+ZGNuMjFfcmVzb3VyY2UubyA6PSAtbWhhcmQtZmxvYXQgLW1zc2UgLW1wcmVmZXJyZWQtc3RhY2st
+Ym91bmRhcnk9NAo+ID4gK2lmbmVxICgkKGNhbGwgY2Mtb3B0aW9uLCAtbXByZWZlcnJlZC1zdGFj
+ay1ib3VuZGFyeT00KSwpCj4gPiArICAgICAgIGNjX3N0YWNrX2FsaWduIDo9IC1tcHJlZmVycmVk
+LXN0YWNrLWJvdW5kYXJ5PTQKPiA+ICtlbHNlIGlmbmVxICgkKGNhbGwgY2Mtb3B0aW9uLCAtbXN0
+YWNrLWFsaWdubWVudD0xNiksKQo+ID4gKyAgICAgICBjY19zdGFja19hbGlnbiA6PSAtbXN0YWNr
+LWFsaWdubWVudD0xNgo+ID4gK2VuZGlmCj4gPiArCj4gPiArQ0ZMQUdTXyQoQU1EREFMUEFUSCkv
+ZGMvZGNuMjEvZGNuMjFfcmVzb3VyY2UubyA6PSAtbWhhcmQtZmxvYXQgLW1zc2UgJChjY19zdGFj
+a19hbGlnbikKPiA+ICsKPiA+ICtpZmRlZiBDT05GSUdfQ0NfSVNfQ0xBTkcKPiA+ICtDRkxBR1Nf
+JChBTUREQUxQQVRIKS9kYy9kY24yMS9kY24yMV9yZXNvdXJjZS5vICs9IC1tc3NlMgo+ID4gK2Vu
+ZGlmCj4gPgo+ID4gIEFNRF9EQUxfRENOMjEgPSAkKGFkZHByZWZpeCAkKEFNRERBTFBBVEgpL2Rj
+L2RjbjIxLywkKERDTjIxKSkKPiA+Cj4gPiAtLQo+ID4gMi4yMC4wCj4gPgo+ID4gLS0KPiA+IFlv
+dSByZWNlaXZlZCB0aGlzIG1lc3NhZ2UgYmVjYXVzZSB5b3UgYXJlIHN1YnNjcmliZWQgdG8gdGhl
+IEdvb2dsZSBHcm91cHMgIkNsYW5nIEJ1aWx0IExpbnV4IiBncm91cC4KPiA+IFRvIHVuc3Vic2Ny
+aWJlIGZyb20gdGhpcyBncm91cCBhbmQgc3RvcCByZWNlaXZpbmcgZW1haWxzIGZyb20gaXQsIHNl
+bmQgYW4gZW1haWwgdG8gY2xhbmctYnVpbHQtbGludXgrdW5zdWJzY3JpYmVAZ29vZ2xlZ3JvdXBz
+LmNvbS4KPiA+IFRvIHZpZXcgdGhpcyBkaXNjdXNzaW9uIG9uIHRoZSB3ZWIgdmlzaXQgaHR0cHM6
+Ly9ncm91cHMuZ29vZ2xlLmNvbS9kL21zZ2lkL2NsYW5nLWJ1aWx0LWxpbnV4LzIwMTkxMDAyMTIw
+MTM2LjE3NzcxNjEtNS1hcm5kJTQwYXJuZGIuZGUuCj4KPgo+Cj4gLS0KPiBUaGFua3MsCj4gfk5p
+Y2sgRGVzYXVsbmllcnMKPiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fXwo+IGFtZC1nZnggbWFpbGluZyBsaXN0Cj4gYW1kLWdmeEBsaXN0cy5mcmVlZGVza3Rv
+cC5vcmcKPiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2Ft
+ZC1nZngKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KZHJp
+LWRldmVsIG1haWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBz
+Oi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVs
