@@ -1,53 +1,50 @@
 From: Arnd Bergmann <arnd@arndb.de>
-Subject: [PATCH 4/6] drm/amd/display: fix dcn21 Makefile for clang
-Date: Wed,  2 Oct 2019 14:01:25 +0200
-Message-ID: <20191002120136.1777161-5-arnd@arndb.de>
+Subject: [PATCH 5/6] [RESEND] drm/amd/display: hide an unused variable
+Date: Wed,  2 Oct 2019 14:01:26 +0200
+Message-ID: <20191002120136.1777161-6-arnd@arndb.de>
 References: <20191002120136.1777161-1-arnd@arndb.de>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
 In-Reply-To: <20191002120136.1777161-1-arnd@arndb.de>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+Sender: linux-kernel-owner@vger.kernel.org
 To: Alex Deucher <alexander.deucher@amd.com>, Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>
-Cc: Arnd Bergmann <arnd@arndb.de>, linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, clang-built-linux@googlegroups.com, amd-gfx@lists.freedesktop.org, Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>
+Cc: clang-built-linux@googlegroups.com, amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, Arnd Bergmann <arnd@arndb.de>, Dingchen Zhang <dingchen.zhang@amd.com>, Harry Wentland <Harry.Wentland@amd.com>, Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>, David Francis <David.Francis@amd.com>, Mario Kleiner <mario.kleiner.de@gmail.com>
 List-Id: amd-gfx.lists.freedesktop.org
 
-SnVzdCBsaWtlIGFsbCB0aGUgb3RoZXIgdmFyaWFudHMsIHRoaXMgb25lIHBhc3NlcyBpbnZhbGlk
-CmNvbXBpbGUtdGltZSBvcHRpb25zIHdpdGggY2xhbmcgYWZ0ZXIgdGhlIG5ldyBjb2RlIGdvdApt
-ZXJnZWQ6CgpjbGFuZzogZXJyb3I6IHVua25vd24gYXJndW1lbnQ6ICctbXByZWZlcnJlZC1zdGFj
-ay1ib3VuZGFyeT00JwpzY3JpcHRzL01ha2VmaWxlLmJ1aWxkOjI2NTogcmVjaXBlIGZvciB0YXJn
-ZXQgJ2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1Ly4uL2Rpc3BsYXkvZGMvZGNuMjEvZGNuMjFf
-cmVzb3VyY2UubycgZmFpbGVkCgpVc2UgdGhlIHNhbWUgdmFyaWFudCB0aGF0IHdlIGhhdmUgZm9y
-IGRjbjIwIHRvIGZpeCBjb21waWxhdGlvbi4KCkZpeGVzOiBlY2VkNTFmOWJhYmIgKCJkcm0vYW1k
-L2Rpc3BsYXk6IEFkZCBodWJwIGJsb2NrIGZvciBSZW5vaXIgKHYyKSIpClNpZ25lZC1vZmYtYnk6
-IEFybmQgQmVyZ21hbm4gPGFybmRAYXJuZGIuZGU+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9k
-aXNwbGF5L2RjL2RjbjIxL01ha2VmaWxlIHwgMTIgKysrKysrKysrKystCiAxIGZpbGUgY2hhbmdl
-ZCwgMTEgaW5zZXJ0aW9ucygrKSwgMSBkZWxldGlvbigtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMv
-Z3B1L2RybS9hbWQvZGlzcGxheS9kYy9kY24yMS9NYWtlZmlsZSBiL2RyaXZlcnMvZ3B1L2RybS9h
-bWQvZGlzcGxheS9kYy9kY24yMS9NYWtlZmlsZQppbmRleCA4Y2Q5ZGU4YjFhN2EuLmVmNjczYmZm
-YzI0MSAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2RjbjIxL01h
-a2VmaWxlCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9kY24yMS9NYWtlZmls
-ZQpAQCAtMyw3ICszLDE3IEBACiAKIERDTjIxID0gZGNuMjFfaHVicC5vIGRjbjIxX2h1YmJ1Yi5v
-IGRjbjIxX3Jlc291cmNlLm8KIAotQ0ZMQUdTXyQoQU1EREFMUEFUSCkvZGMvZGNuMjEvZGNuMjFf
-cmVzb3VyY2UubyA6PSAtbWhhcmQtZmxvYXQgLW1zc2UgLW1wcmVmZXJyZWQtc3RhY2stYm91bmRh
-cnk9NAoraWZuZXEgKCQoY2FsbCBjYy1vcHRpb24sIC1tcHJlZmVycmVkLXN0YWNrLWJvdW5kYXJ5
-PTQpLCkKKwljY19zdGFja19hbGlnbiA6PSAtbXByZWZlcnJlZC1zdGFjay1ib3VuZGFyeT00Citl
-bHNlIGlmbmVxICgkKGNhbGwgY2Mtb3B0aW9uLCAtbXN0YWNrLWFsaWdubWVudD0xNiksKQorCWNj
-X3N0YWNrX2FsaWduIDo9IC1tc3RhY2stYWxpZ25tZW50PTE2CitlbmRpZgorCitDRkxBR1NfJChB
-TUREQUxQQVRIKS9kYy9kY24yMS9kY24yMV9yZXNvdXJjZS5vIDo9IC1taGFyZC1mbG9hdCAtbXNz
-ZSAkKGNjX3N0YWNrX2FsaWduKQorCitpZmRlZiBDT05GSUdfQ0NfSVNfQ0xBTkcKK0NGTEFHU18k
-KEFNRERBTFBBVEgpL2RjL2RjbjIxL2RjbjIxX3Jlc291cmNlLm8gKz0gLW1zc2UyCitlbmRpZgog
-CiBBTURfREFMX0RDTjIxID0gJChhZGRwcmVmaXggJChBTUREQUxQQVRIKS9kYy9kY24yMS8sJChE
-Q04yMSkpCiAKLS0gCjIuMjAuMAoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX18KZHJpLWRldmVsIG1haWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMuZnJlZWRl
-c2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8v
-ZHJpLWRldmVs
+Without CONFIG_DEBUG_FS, we get a warning for an unused
+variable:
+
+drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.c:6020:33: error: unused variable 'source' [-Werror,-Wunused-variable]
+
+Hide the variable in an #ifdef like its only users.
+
+Fixes: 14b2584636c6 ("drm/amd/display: add functionality to grab DPRX CRC entries.")
+Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+---
+This was a bugfix for a commit that landed in v5.4-rc1. The
+fix was applied by Alex Deucher on Sep 19, but is still not
+seen in linux-next.
+Resending to make sure this makes it into v5.4-final, but
+please ignore if this is already coming.
+---
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 8cab6da512a0..7516a6436822 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -6019,7 +6019,9 @@ static void amdgpu_dm_enable_crtc_interrupts(struct drm_device *dev,
+ 	struct drm_crtc *crtc;
+ 	struct drm_crtc_state *old_crtc_state, *new_crtc_state;
+ 	int i;
++#ifdef CONFIG_DEBUG_FS
+ 	enum amdgpu_dm_pipe_crc_source source;
++#endif
+ 
+ 	for_each_oldnew_crtc_in_state(state, crtc, old_crtc_state,
+ 				      new_crtc_state, i) {
+-- 
+2.20.0
