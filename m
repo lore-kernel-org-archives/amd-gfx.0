@@ -1,87 +1,58 @@
-From: James Zhu <jamesz-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 1/2] drm/amdgpu/vcn: use amdgpu_ring_test_helper instead of
-Date: Wed, 2 Oct 2019 13:16:59 +0000
-Message-ID: <c0dd973a-f80e-382a-02e7-af2849718f1d@amd.com>
-References: <20191001221708.20185-1-leo.liu@amd.com>
+From: "Gustavo A. R. Silva" <gustavo@embeddedor.com>
+Subject: Re: [PATCH] drm/amdgpu: fix structurally dead code vcn_v2_5_hw_init
+Date: Wed, 2 Oct 2019 08:32:18 -0500
+Message-ID: <36766293-28b1-8903-bde8-5f04082c8b89@embeddedor.com>
+References: <20191001171635.GA17306@embeddedor>
+ <192815d9-5ecb-09a7-4624-5fd36126890d@amd.com>
+ <823b10a3-fe0e-2e8c-02c3-534944dbe6d2@embeddedor.com>
+ <dc76a52b-09a2-7ab9-b53e-52500f4f8669@amd.com>
+ <3c6ebf4a-8cba-40e2-7d70-c4d5006a160b@embeddedor.com>
+ <23314fce-800c-552f-e879-464f9709d12b@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20191001221708.20185-1-leo.liu-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <23314fce-800c-552f-e879-464f9709d12b@amd.com>
 Content-Language: en-US
-Content-ID: <765570945D1AB54B8D70E7F9B2AE855B-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: "Liu, Leo" <Leo.Liu@amd.com>, "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Koenig, Christian" <Christian.Koenig@amd.com>, "Zhou, David(ChunMing)" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>
+Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-UmV2aWV3ZWQtYnk6IEphbWVzIFpodSA8SmFtZXMuWmh1QGFtZC5jb20+IGZvciB0aGlzIHNlcmll
-cw0KDQpPbiAyMDE5LTEwLTAxIDY6MTcgcC5tLiwgTGl1LCBMZW8gd3JvdGU6DQo+IGFtZGdwdV9y
-aW5nX3Rlc3RfcmluZywgc28gaXQgd2lsbCBkZXRlcm1pbmUgd2hldGhlciB0aGUgcmluZyBpcyBy
-ZWFkeQ0KPg0KPiBTaWduZWQtb2ZmLWJ5OiBMZW8gTGl1IDxsZW8ubGl1QGFtZC5jb20+DQo+IENj
-OiBHdXN0YXZvIEEuIFIuIFNpbHZhIDxndXN0YXZvQGVtYmVkZGVkb3IuY29tPg0KPiAtLS0NCj4g
-ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS92Y25fdjFfMC5jIHwgIDEgLQ0KPiAgIGRyaXZl
-cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3Zjbl92Ml8wLmMgfCAyMSArKysrKystLS0tLS0tLS0tLS0t
-LS0NCj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS92Y25fdjJfNS5jIHwgMTggKysrKysr
-LS0tLS0tLS0tLS0tDQo+ICAgMyBmaWxlcyBjaGFuZ2VkLCAxMiBpbnNlcnRpb25zKCspLCAyOCBk
-ZWxldGlvbnMoLSkNCj4NCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
-L3Zjbl92MV8wLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS92Y25fdjFfMC5jDQo+IGlu
-ZGV4IDkzYjM1MDBlNTIyYi4uYjRmODRhODIwYTQ0IDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJzL2dw
-dS9kcm0vYW1kL2FtZGdwdS92Y25fdjFfMC5jDQo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-YW1kZ3B1L3Zjbl92MV8wLmMNCj4gQEAgLTIwMiw3ICsyMDIsNiBAQCBzdGF0aWMgaW50IHZjbl92
-MV8wX2h3X2luaXQodm9pZCAqaGFuZGxlKQ0KPiAgIA0KPiAgIAlmb3IgKGkgPSAwOyBpIDwgYWRl
-di0+dmNuLm51bV9lbmNfcmluZ3M7ICsraSkgew0KPiAgIAkJcmluZyA9ICZhZGV2LT52Y24uaW5z
-dC0+cmluZ19lbmNbaV07DQo+IC0JCXJpbmctPnNjaGVkLnJlYWR5ID0gdHJ1ZTsNCj4gICAJCXIg
-PSBhbWRncHVfcmluZ190ZXN0X2hlbHBlcihyaW5nKTsNCj4gICAJCWlmIChyKQ0KPiAgIAkJCWdv
-dG8gZG9uZTsNCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3Zjbl92
-Ml8wLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS92Y25fdjJfMC5jDQo+IGluZGV4IDQ2
-MjhmZDEwYTllYy4uMzhmNzg3YTU2MGNiIDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0v
-YW1kL2FtZGdwdS92Y25fdjJfMC5jDQo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
-L3Zjbl92Ml8wLmMNCj4gQEAgLTI0NywzMCArMjQ3LDIxIEBAIHN0YXRpYyBpbnQgdmNuX3YyXzBf
-aHdfaW5pdCh2b2lkICpoYW5kbGUpDQo+ICAgCWFkZXYtPm5iaW8uZnVuY3MtPnZjbl9kb29yYmVs
-bF9yYW5nZShhZGV2LCByaW5nLT51c2VfZG9vcmJlbGwsDQo+ICAgCQkJCQkgICAgIHJpbmctPmRv
-b3JiZWxsX2luZGV4LCAwKTsNCj4gICANCj4gLQlyaW5nLT5zY2hlZC5yZWFkeSA9IHRydWU7DQo+
-IC0JciA9IGFtZGdwdV9yaW5nX3Rlc3RfcmluZyhyaW5nKTsNCj4gLQlpZiAocikgew0KPiAtCQly
-aW5nLT5zY2hlZC5yZWFkeSA9IGZhbHNlOw0KPiArCXIgPSBhbWRncHVfcmluZ190ZXN0X2hlbHBl
-cihyaW5nKTsNCj4gKwlpZiAocikNCj4gICAJCWdvdG8gZG9uZTsNCj4gLQl9DQo+ICAgDQo+ICAg
-CWZvciAoaSA9IDA7IGkgPCBhZGV2LT52Y24ubnVtX2VuY19yaW5nczsgKytpKSB7DQo+ICAgCQly
-aW5nID0gJmFkZXYtPnZjbi5pbnN0LT5yaW5nX2VuY1tpXTsNCj4gLQkJcmluZy0+c2NoZWQucmVh
-ZHkgPSB0cnVlOw0KPiAtCQlyID0gYW1kZ3B1X3JpbmdfdGVzdF9yaW5nKHJpbmcpOw0KPiAtCQlp
-ZiAocikgew0KPiAtCQkJcmluZy0+c2NoZWQucmVhZHkgPSBmYWxzZTsNCj4gKwkJciA9IGFtZGdw
-dV9yaW5nX3Rlc3RfaGVscGVyKHJpbmcpOw0KPiArCQlpZiAocikNCj4gICAJCQlnb3RvIGRvbmU7
-DQo+IC0JCX0NCj4gICAJfQ0KPiAgIA0KPiAgIAlyaW5nID0gJmFkZXYtPnZjbi5pbnN0LT5yaW5n
-X2pwZWc7DQo+IC0JcmluZy0+c2NoZWQucmVhZHkgPSB0cnVlOw0KPiAtCXIgPSBhbWRncHVfcmlu
-Z190ZXN0X3JpbmcocmluZyk7DQo+IC0JaWYgKHIpIHsNCj4gLQkJcmluZy0+c2NoZWQucmVhZHkg
-PSBmYWxzZTsNCj4gKwlyID0gYW1kZ3B1X3JpbmdfdGVzdF9oZWxwZXIocmluZyk7DQo+ICsJaWYg
-KHIpDQo+ICAgCQlnb3RvIGRvbmU7DQo+IC0JfQ0KPiAgIA0KPiAgIGRvbmU6DQo+ICAgCWlmICgh
-cikNCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3Zjbl92Ml81LmMg
-Yi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS92Y25fdjJfNS5jDQo+IGluZGV4IGJmODYyNmUx
-NWIwOS4uY2MxOTQ0NDQzNjNmIDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
-ZGdwdS92Y25fdjJfNS5jDQo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3Zjbl92
-Ml81LmMNCj4gQEAgLTI1OCwyOSArMjU4LDIzIEBAIHN0YXRpYyBpbnQgdmNuX3YyXzVfaHdfaW5p
-dCh2b2lkICpoYW5kbGUpDQo+ICAgCQlhZGV2LT5uYmlvLmZ1bmNzLT52Y25fZG9vcmJlbGxfcmFu
-Z2UoYWRldiwgcmluZy0+dXNlX2Rvb3JiZWxsLA0KPiAgIAkJCQkJCSAgICAgcmluZy0+ZG9vcmJl
-bGxfaW5kZXgsIGopOw0KPiAgIA0KPiAtCQlyID0gYW1kZ3B1X3JpbmdfdGVzdF9yaW5nKHJpbmcp
-Ow0KPiAtCQlpZiAocikgew0KPiAtCQkJcmluZy0+c2NoZWQucmVhZHkgPSBmYWxzZTsNCj4gKwkJ
-ciA9IGFtZGdwdV9yaW5nX3Rlc3RfaGVscGVyKHJpbmcpOw0KPiArCQlpZiAocikNCj4gICAJCQln
-b3RvIGRvbmU7DQo+IC0JCX0NCj4gICANCj4gICAJCWZvciAoaSA9IDA7IGkgPCBhZGV2LT52Y24u
-bnVtX2VuY19yaW5nczsgKytpKSB7DQo+ICAgCQkJcmluZyA9ICZhZGV2LT52Y24uaW5zdFtqXS5y
-aW5nX2VuY1tpXTsNCj4gICAJCQlyaW5nLT5zY2hlZC5yZWFkeSA9IGZhbHNlOw0KPiAgIAkJCWNv
-bnRpbnVlOw0KPiAtCQkJciA9IGFtZGdwdV9yaW5nX3Rlc3RfcmluZyhyaW5nKTsNCj4gLQkJCWlm
-IChyKSB7DQo+IC0JCQkJcmluZy0+c2NoZWQucmVhZHkgPSBmYWxzZTsNCj4gKwkJCXIgPSBhbWRn
-cHVfcmluZ190ZXN0X2hlbHBlcihyaW5nKTsNCj4gKwkJCWlmIChyKQ0KPiAgIAkJCQlnb3RvIGRv
-bmU7DQo+IC0JCQl9DQo+ICAgCQl9DQo+ICAgDQo+ICAgCQlyaW5nID0gJmFkZXYtPnZjbi5pbnN0
-W2pdLnJpbmdfanBlZzsNCj4gLQkJciA9IGFtZGdwdV9yaW5nX3Rlc3RfcmluZyhyaW5nKTsNCj4g
-LQkJaWYgKHIpIHsNCj4gLQkJCXJpbmctPnNjaGVkLnJlYWR5ID0gZmFsc2U7DQo+ICsJCXIgPSBh
-bWRncHVfcmluZ190ZXN0X2hlbHBlcihyaW5nKTsNCj4gKwkJaWYgKHIpDQo+ICAgCQkJZ290byBk
-b25lOw0KPiAtCQl9DQo+ICAgCX0NCj4gICBkb25lOg0KPiAgIAlpZiAoIXIpDQpfX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlz
-dAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9w
-Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
+
+
+On 10/1/19 17:21, Liu, Leo wrote:
+
+>>>> OK. So, maybe we can add a comment pointing that out?
+>>> That could be better.
+>>>
+>> Great. I'm glad it's not a bug.  I'll write a patch for that so other
+>> people don't waste time taking a look.
+> 
+> Thanks, just sent two patches to add comment, and long with the patch to 
+> make VCN ring ready properly.
+> 
+
+Awesome. Thank you. I would just add a commit log to this patch:
+
+[PATCH 2/2] drm/amdgpu: add a comment to VCN 2.5 encode ring
+
+I'd update the subject to: drm/amdgpu: add code comment in vcn_v2_5_hw_init
+and add this as a commit log: Add a comment to VCN 2.5 encode ring
+
+Also, I think it's important to follow the process and CC all the people and lists
+below:
+
+$ scripts/get_maintainer.pl --nokeywords --nogit --nogit-fallback drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
+Alex Deucher <alexander.deucher@amd.com> (supporter:RADEON and AMDGPU DRM DRIVERS)
+"Christian König" <christian.koenig@amd.com> (supporter:RADEON and AMDGPU DRM DRIVERS)
+"David (ChunMing) Zhou" <David1.Zhou@amd.com> (supporter:RADEON and AMDGPU DRM DRIVERS)
+David Airlie <airlied@linux.ie> (maintainer:DRM DRIVERS)
+Daniel Vetter <daniel@ffwll.ch> (maintainer:DRM DRIVERS)
+amd-gfx@lists.freedesktop.org (open list:RADEON and AMDGPU DRM DRIVERS)
+dri-devel@lists.freedesktop.org (open list:DRM DRIVERS)
+linux-kernel@vger.kernel.org (open list)
+
+Thanks
+--
+Gustavo
