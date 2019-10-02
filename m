@@ -1,101 +1,52 @@
-From: Bhawanpreet Lakha <Bhawanpreet.Lakha-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH 37/38] drm/amd/display: hook up notify watermark ranges and
- get clock table
-Date: Wed, 2 Oct 2019 14:16:32 -0400
-Message-ID: <20191002181633.22805-38-Bhawanpreet.Lakha@amd.com>
-References: <20191002181633.22805-1-Bhawanpreet.Lakha@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Subject: Re: [PATCH 0/6] amdgpu build fixes
+Date: Wed, 2 Oct 2019 14:47:10 -0400
+Message-ID: <CADnq5_MLg=J5dmSGzx8jC=1--d2S3HJzWH3EHhyzT6da5a3wcA@mail.gmail.com>
+References: <20191002120136.1777161-1-arnd@arndb.de>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20191002181633.22805-1-Bhawanpreet.Lakha-5C7GfCeVMHo@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Eric Yang <Eric.Yang2-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset="UTF-8"
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20191002120136.1777161-1-arnd@arndb.de>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Arnd Bergmann <arnd@arndb.de>
+Cc: Alex Deucher <alexander.deucher@amd.com>, clang-built-linux <clang-built-linux@googlegroups.com>, Maling list - DRI developers <dri-devel@lists.freedesktop.org>, LKML <linux-kernel@vger.kernel.org>, amd-gfx list <amd-gfx@lists.freedesktop.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-RnJvbTogRXJpYyBZYW5nIDxFcmljLllhbmcyQGFtZC5jb20+CgpbV2h5XQpQcmV2aW91c2x5IFNN
-VSB3YXMgZ2l2aW5nIHVzIDBzIGZvciB0aGUgY2xvY2sgdGFibGUuIE5vdyB0aGV5IGhhdmUgdmFs
-aWQKY2xvY2sgdGFibGUuIFdlIHNob3VsZCB1c2UgdGhlaXJzLiBBbHNvLCBuZWVkIHRvIHNlbmQg
-U01VIHdhdGVybWFyawpyYW5nZXMgZm9yIHNlbGVjdGluZyBvcHRpbWFsIHdhdGVybWFya3MuCgpD
-aGFuZ2UtSWQ6IEk1OWNlZmQzNDNkZGI3ZWJmMDAxNjQ4NTRjNmI0MzQwN2U3YzA3YzRlClNpZ25l
-ZC1vZmYtYnk6IEVyaWMgWWFuZyA8RXJpYy5ZYW5nMkBhbWQuY29tPgotLS0KIC4uLi9hbWQvZGlz
-cGxheS9kYy9jbGtfbWdyL2RjbjIxL3JuX2Nsa19tZ3IuYyB8IDQ0ICsrKysrKysrKysrKysrKy0t
-LS0KIC4uLi9kcm0vYW1kL2Rpc3BsYXkvZGMvZGNuMjEvZGNuMjFfcmVzb3VyY2UuYyB8IDE2ICsr
-KysrLS0KIDIgZmlsZXMgY2hhbmdlZCwgNDggaW5zZXJ0aW9ucygrKSwgMTIgZGVsZXRpb25zKC0p
-CgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2Nsa19tZ3IvZGNu
-MjEvcm5fY2xrX21nci5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2Nsa19tZ3Iv
-ZGNuMjEvcm5fY2xrX21nci5jCmluZGV4IGNhZTZhNmY1NDA1ZC4uZjBmNmI5ZmUzZjQ5IDEwMDY0
-NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvY2xrX21nci9kY24yMS9ybl9j
-bGtfbWdyLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2Nsa19tZ3IvZGNu
-MjEvcm5fY2xrX21nci5jCkBAIC01MjksMjIgKzUyOSw0OCBAQCB2b2lkIGJ1aWxkX3dhdGVybWFy
-a19yYW5nZXMoc3RydWN0IGNsa19id19wYXJhbXMgKmJ3X3BhcmFtcywgc3RydWN0IHBwX3NtdV93
-bV9yYQogCiB9CiAKLXZvaWQgY2xrX21ncl9oZWxwZXJfcG9wdWxhdGVfYndfcGFyYW1zKHN0cnVj
-dCBjbGtfYndfcGFyYW1zICpid19wYXJhbXMsIHN0cnVjdCBkcG1fY2xvY2tzICpjbG9ja190YWJs
-ZSwgc3RydWN0IGh3X2FzaWNfaWQgKmFzaWNfaWQpCit1bnNpZ25lZCBpbnQgZmluZF9kY2ZjbGtf
-Zm9yX3ZvbHRhZ2Uoc3RydWN0IGRwbV9jbG9ja3MgKmNsb2NrX3RhYmxlLCB1bnNpZ25lZCBpbnQg
-dm9sdGFnZSkKIHsKIAlpbnQgaTsKIAorCWZvciAoaSA9IDA7IGkgPCBQUF9TTVVfTlVNX0RDRkNM
-S19EUE1fTEVWRUxTOyBpKyspIHsKKwkJaWYgKGNsb2NrX3RhYmxlLT5EY2ZDbG9ja3NbaV0uVm9s
-ID09IHZvbHRhZ2UpCisJCQlyZXR1cm4gY2xvY2tfdGFibGUtPkRjZkNsb2Nrc1tpXS5GcmVxOwor
-CX0KKworCUFTU0VSVCgwKTsKKwlyZXR1cm4gMDsKK30KKwordm9pZCBjbGtfbWdyX2hlbHBlcl9w
-b3B1bGF0ZV9id19wYXJhbXMoc3RydWN0IGNsa19id19wYXJhbXMgKmJ3X3BhcmFtcywgc3RydWN0
-IGRwbV9jbG9ja3MgKmNsb2NrX3RhYmxlLCBzdHJ1Y3QgaHdfYXNpY19pZCAqYXNpY19pZCkKK3sK
-KwlpbnQgaSwgajsKKwogCUFTU0VSVChQUF9TTVVfTlVNX0ZDTEtfRFBNX0xFVkVMUyA8PSBNQVhf
-TlVNX0RQTV9MVkwpOwogCi0JZm9yIChpID0gMDsgaSA8IFBQX1NNVV9OVU1fRkNMS19EUE1fTEVW
-RUxTOyBpKyspIHsKLQkJaWYgKGNsb2NrX3RhYmxlLT5GQ2xvY2tzW2ldLkZyZXEgPT0gMCkKKwkv
-KiBGaW5kIGxvd2VzdCBEUE0sIEZDTEsgaXMgZmlsbGVkIGluIHJldmVyc2Ugb3JkZXIqLworCisJ
-Zm9yIChpID0gUFBfU01VX05VTV9GQ0xLX0RQTV9MRVZFTFMgLSAxOyBpID49IDA7IGktLSkgewor
-CQlpZiAoY2xvY2tfdGFibGUtPkZDbG9ja3NbaV0uRnJlcSAhPSAwKSB7CisJCQlqID0gaTsKIAkJ
-CWJyZWFrOworCQl9CisJfQogCi0JCWJ3X3BhcmFtcy0+Y2xrX3RhYmxlLmVudHJpZXNbaV0uZGNm
-Y2xrX21oeiA9IGNsb2NrX3RhYmxlLT5EY2ZDbG9ja3NbaV0uRnJlcTsKLQkJYndfcGFyYW1zLT5j
-bGtfdGFibGUuZW50cmllc1tpXS5mY2xrX21oeiA9IGNsb2NrX3RhYmxlLT5GQ2xvY2tzW2ldLkZy
-ZXE7Ci0JCWJ3X3BhcmFtcy0+Y2xrX3RhYmxlLmVudHJpZXNbaV0ubWVtY2xrX21oeiA9IGNsb2Nr
-X3RhYmxlLT5NZW1DbG9ja3NbaV0uRnJlcTsKLQkJYndfcGFyYW1zLT5jbGtfdGFibGUuZW50cmll
-c1tpXS5zb2NjbGtfbWh6ID0gY2xvY2tfdGFibGUtPlNvY0Nsb2Nrc1tpXS5GcmVxOwotCQlid19w
-YXJhbXMtPmNsa190YWJsZS5lbnRyaWVzW2ldLnZvbHRhZ2UgPSBjbG9ja190YWJsZS0+RkNsb2Nr
-c1tpXS5Wb2w7CisJZm9yIChpID0gMDsgaSA8IFBQX1NNVV9OVU1fRkNMS19EUE1fTEVWRUxTOyBp
-KyspIHsKKwkJaWYgKGogPCAwKSB7CisJCQkvKiBJbnZhbGlkIGVudHJpZXMgKi8KKwkJCWJ3X3Bh
-cmFtcy0+Y2xrX3RhYmxlLmVudHJpZXNbaV0uZmNsa19taHogPSAwOworCQkJY29udGludWU7CisJ
-CX0KKwkJYndfcGFyYW1zLT5jbGtfdGFibGUuZW50cmllc1tpXS5mY2xrX21oeiA9IGNsb2NrX3Rh
-YmxlLT5GQ2xvY2tzW2pdLkZyZXE7CisJCWJ3X3BhcmFtcy0+Y2xrX3RhYmxlLmVudHJpZXNbaV0u
-bWVtY2xrX21oeiA9IGNsb2NrX3RhYmxlLT5NZW1DbG9ja3Nbal0uRnJlcTsKKwkJYndfcGFyYW1z
-LT5jbGtfdGFibGUuZW50cmllc1tpXS52b2x0YWdlID0gY2xvY2tfdGFibGUtPkZDbG9ja3Nbal0u
-Vm9sOworCQlid19wYXJhbXMtPmNsa190YWJsZS5lbnRyaWVzW2ldLmRjZmNsa19taHogPSBmaW5k
-X2RjZmNsa19mb3Jfdm9sdGFnZShjbG9ja190YWJsZSwgY2xvY2tfdGFibGUtPkZDbG9ja3Nbal0u
-Vm9sKTsKKwkJai0tOwogCX0KKworCiAJYndfcGFyYW1zLT5jbGtfdGFibGUubnVtX2VudHJpZXMg
-PSBpOwogCiAJYndfcGFyYW1zLT52cmFtX3R5cGUgPSBhc2ljX2lkLT52cmFtX3R5cGU7CkBAIC01
-NTMsNyArNTc5LDcgQEAgdm9pZCBjbGtfbWdyX2hlbHBlcl9wb3B1bGF0ZV9id19wYXJhbXMoc3Ry
-dWN0IGNsa19id19wYXJhbXMgKmJ3X3BhcmFtcywgc3RydWN0IGQKIAlmb3IgKGkgPSAwOyBpIDwg
-V01fU0VUX0NPVU5UOyBpKyspIHsKIAkJYndfcGFyYW1zLT53bV90YWJsZS5lbnRyaWVzW2ldLndt
-X2luc3QgPSBpOwogCi0JCWlmIChjbG9ja190YWJsZS0+RkNsb2Nrc1tpXS5GcmVxID09IDApIHsK
-KwkJaWYgKGkgPj0gYndfcGFyYW1zLT5jbGtfdGFibGUubnVtX2VudHJpZXMpIHsKIAkJCWJ3X3Bh
-cmFtcy0+d21fdGFibGUuZW50cmllc1tpXS52YWxpZCA9IGZhbHNlOwogCQkJY29udGludWU7CiAJ
-CX0KZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9kY24yMS9kY24y
-MV9yZXNvdXJjZS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2RjbjIxL2RjbjIx
-X3Jlc291cmNlLmMKaW5kZXggY2I0NjlmMzdjMWViLi41NDg2ZmM2MTIwNzcgMTAwNjQ0Ci0tLSBh
-L2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9kY24yMS9kY24yMV9yZXNvdXJjZS5jCisr
-KyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9kY24yMS9kY24yMV9yZXNvdXJjZS5j
-CkBAIC0xMzM0LDEwICsxMzM0LDIwIEBAIHN0cnVjdCBwcF9zbXVfZnVuY3MgKmRjbjIxX3BwX3Nt
-dV9jcmVhdGUoc3RydWN0IGRjX2NvbnRleHQgKmN0eCkKIHsKIAlzdHJ1Y3QgcHBfc211X2Z1bmNz
-ICpwcF9zbXUgPSBremFsbG9jKHNpemVvZigqcHBfc211KSwgR0ZQX0tFUk5FTCk7CiAKLQlwcF9z
-bXUtPmN0eC52ZXIgPSBQUF9TTVVfVkVSX1JOOworCWlmICghcHBfc211KQorCQlyZXR1cm4gcHBf
-c211OwogCi0JcHBfc211LT5ybl9mdW5jcy5nZXRfZHBtX2Nsb2NrX3RhYmxlID0gZHVtbXlfZ2V0
-X2RwbV9jbG9ja190YWJsZTsKLQlwcF9zbXUtPnJuX2Z1bmNzLnNldF93bV9yYW5nZXMgPSBkdW1t
-eV9zZXRfd21fcmFuZ2VzOworCWlmIChJU19GUEdBX01BWElNVVNfREMoY3R4LT5kY2VfZW52aXJv
-bm1lbnQpKSB7CisJCXBwX3NtdS0+Y3R4LnZlciA9IFBQX1NNVV9WRVJfUk47CisJCXBwX3NtdS0+
-cm5fZnVuY3MuZ2V0X2RwbV9jbG9ja190YWJsZSA9IGR1bW15X2dldF9kcG1fY2xvY2tfdGFibGU7
-CisJCXBwX3NtdS0+cm5fZnVuY3Muc2V0X3dtX3JhbmdlcyA9IGR1bW15X3NldF93bV9yYW5nZXM7
-CisJfSBlbHNlIHsKKworCQlkbV9wcF9nZXRfZnVuY3MoY3R4LCBwcF9zbXUpOworCisJCWlmIChw
-cF9zbXUtPmN0eC52ZXIgIT0gUFBfU01VX1ZFUl9STikKKwkJCXBwX3NtdSA9IG1lbXNldChwcF9z
-bXUsIDAsIHNpemVvZihzdHJ1Y3QgcHBfc211X2Z1bmNzKSk7CisJfQogCiAJcmV0dXJuIHBwX3Nt
-dTsKIH0KLS0gCjIuMTcuMQoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5v
-cmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+On Wed, Oct 2, 2019 at 8:02 AM Arnd Bergmann <arnd@arndb.de> wrote:
+>
+> Here are a couple of build fixes from my backlog in the randconfig
+> tree. It would be good to get them all into linux-5.4.
+>
+>      Arnd
+>
+> Arnd Bergmann (6):
+>   drm/amdgpu: make pmu support optional, again
+>   drm/amdgpu: hide another #warning
+>   drm/amdgpu: display_mode_vba_21: remove uint typedef
+>   drm/amd/display: fix dcn21 Makefile for clang
+>   [RESEND] drm/amd/display: hide an unused variable
+>   [RESEND] drm/amdgpu: work around llvm bug #42576
+
+I've applied 1-5 and I'll send them for 5.4.  There still seems to be
+some debate about 6.
+
+Thanks.
+
+Alex
+
+>
+>  drivers/gpu/drm/amd/amdgpu/Makefile                 |  2 +-
+>  drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c              |  1 +
+>  drivers/gpu/drm/amd/amdgpu/soc15.c                  |  2 --
+>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c   |  2 ++
+>  drivers/gpu/drm/amd/display/dc/dcn21/Makefile       | 12 +++++++++++-
+>  .../amd/display/dc/dml/dcn21/display_mode_vba_21.c  | 13 +++++--------
+>  6 files changed, 20 insertions(+), 12 deletions(-)
+>
+> --
+> 2.20.0
+>
+> _______________________________________________
+> dri-devel mailing list
+> dri-devel@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/dri-devel
