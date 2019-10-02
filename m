@@ -1,56 +1,121 @@
-From: Julien Isorce <julien.isorce-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: [PATCH] drm/amd/display: Use pixel encoding 444 for dongle usb-c to
- hdmi
-Date: Tue,  1 Oct 2019 15:21:23 -0700
-Message-ID: <20191001222123.2392-1-jisorce@oblong.com>
-Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+From: Navid Emamdoost <navid.emamdoost@gmail.com>
+Subject: [PATCH v4] drm/amdgpu: fix multiple memory leaks in acp_hw_init
+Date: Tue,  1 Oct 2019 22:46:07 -0500
+Message-ID: <20191002034612.26607-1-navid.emamdoost@gmail.com>
+References: <3a00a4c9-af4c-3505-1bef-b119435da5d7@amd.com>
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <3a00a4c9-af4c-3505-1bef-b119435da5d7@amd.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Christian.Koenig@amd.com
+Cc: emamd001@umn.edu, smccaman@umn.edu, kjlu@umn.edu, Navid Emamdoost <navid.emamdoost@gmail.com>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, Sam Ravnborg <sam@ravnborg.org>, Rex Zhu <Rex.Zhu@amd.com>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-Rml4IHBpbmtpc2ggY29sb3IgaXNzdWUgYXJvdW5kIGdyZXkgYXJlYXMuIFRoaXMgYWxzbyBoYXBw
-ZW5zCndoZW4gbm90IHVzaW5nIGFueSBkb25nbGUgc28gZGlyZWN0bHkgd2l0aCBhIHVzYi1jIHRv
-IERpc3BsYXkKUG9ydCBjYWJsZS4gTWVhbmluZyB0aGVyZSBpcyBzb21ldGhpbmcgd3Jvbmcgd2hl
-biB1c2luZyBwaXhlbAplbmNvZGluZyBSR0Igd2l0aCBhbWQgZHJpdmVyIGluIHRoZSBnZW5lcmFs
-IGNhc2UuIEluIHRoZSBtZWFudGltZQpqdXN0IHVzZSB0aGUgc2FtZSBwaXhlbCBlbmNvZGluZyBh
-cyB3aGVuIHVzaW5nIEhETUkgd2l0aG91dCBkb25nbGUuClRoaXMgd2F5IHVzZXJzIHdpbGwgc2Vl
-IHRoZSBzYW1lIHRoaW5nIG9uIDIgaWRlbnRpY2FsIHNjcmVlbnMgd2hlbgpvbmUgaXMgY29ubmVj
-dGVkIHdpdGggaGRtaS10by1oZG1pIGFuZCB0aGUgb3RoZXIgaXMgY29ubmVjdGVkIHdpdGgKdXNi
-LWMtdG8taGRtaS4KClNpZ25lZC1vZmYtYnk6IEp1bGllbiBJc29yY2UgPGppc29yY2VAb2Jsb25n
-LmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9k
-bS5jIHwgNSArKysrKwogMSBmaWxlIGNoYW5nZWQsIDUgaW5zZXJ0aW9ucygrKQoKZGlmZiAtLWdp
-dCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtLmMgYi9k
-cml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5jCmluZGV4IGQz
-ZjQwNGYwOTdlYi4uODEzOWRjYzBiZmJhIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1k
-L2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-ZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtLmMKQEAgLTMzMTMsNiArMzMxMyw3IEBAIHN0YXRp
-YyB2b2lkIGZpbGxfc3RyZWFtX3Byb3BlcnRpZXNfZnJvbV9kcm1fZGlzcGxheV9tb2RlKAogewog
-CXN0cnVjdCBkY19jcnRjX3RpbWluZyAqdGltaW5nX291dCA9ICZzdHJlYW0tPnRpbWluZzsKIAlj
-b25zdCBzdHJ1Y3QgZHJtX2Rpc3BsYXlfaW5mbyAqaW5mbyA9ICZjb25uZWN0b3ItPmRpc3BsYXlf
-aW5mbzsKKwljb25zdCBzdHJ1Y3QgZGNfbGluayAqbGluayA9IHN0cmVhbS0+c2luay0+bGluazsK
-IAogCW1lbXNldCh0aW1pbmdfb3V0LCAwLCBzaXplb2Yoc3RydWN0IGRjX2NydGNfdGltaW5nKSk7
-CiAKQEAgLTMzMjcsNiArMzMyOCwxMCBAQCBzdGF0aWMgdm9pZCBmaWxsX3N0cmVhbV9wcm9wZXJ0
-aWVzX2Zyb21fZHJtX2Rpc3BsYXlfbW9kZSgKIAllbHNlIGlmICgoY29ubmVjdG9yLT5kaXNwbGF5
-X2luZm8uY29sb3JfZm9ybWF0cyAmIERSTV9DT0xPUl9GT1JNQVRfWUNSQ0I0NDQpCiAJCQkmJiBz
-dHJlYW0tPnNpZ25hbCA9PSBTSUdOQUxfVFlQRV9IRE1JX1RZUEVfQSkKIAkJdGltaW5nX291dC0+
-cGl4ZWxfZW5jb2RpbmcgPSBQSVhFTF9FTkNPRElOR19ZQ0JDUjQ0NDsKKwllbHNlIGlmICgoY29u
-bmVjdG9yLT5kaXNwbGF5X2luZm8uY29sb3JfZm9ybWF0cyAmIERSTV9DT0xPUl9GT1JNQVRfWUNS
-Q0I0NDQpCisJCQkmJiBzdHJlYW0tPnNpbmstPnNpbmtfc2lnbmFsID09IFNJR05BTF9UWVBFX0RJ
-U1BMQVlfUE9SVAorCQkJJiYgbGluay0+ZHBjZF9jYXBzLmRvbmdsZV90eXBlID09IERJU1BMQVlf
-RE9OR0xFX0RQX0hETUlfQ09OVkVSVEVSKQorCQl0aW1pbmdfb3V0LT5waXhlbF9lbmNvZGluZyA9
-IFBJWEVMX0VOQ09ESU5HX1lDQkNSNDQ0OwogCWVsc2UKIAkJdGltaW5nX291dC0+cGl4ZWxfZW5j
-b2RpbmcgPSBQSVhFTF9FTkNPRElOR19SR0I7CiAKLS0gCjIuMTcuMQoKX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1k
-LWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcv
-bWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+In acp_hw_init there are some allocations that needs to be released in
+case of failure:
+
+1- adev->acp.acp_genpd should be released if any allocation attemp for
+adev->acp.acp_cell, adev->acp.acp_res or i2s_pdata fails.
+2- all of those allocations should be released if
+mfd_add_hotplug_devices or pm_genpd_add_device fail.
+3- Release is needed in case of time out values expire.
+
+Signed-off-by: Navid Emamdoost <navid.emamdoost@gmail.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c | 34 ++++++++++++++++---------
+ 1 file changed, 22 insertions(+), 12 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c
+index eba42c752bca..82155ac3288a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c
+@@ -189,7 +189,7 @@ static int acp_hw_init(void *handle)
+ 	u32 val = 0;
+ 	u32 count = 0;
+ 	struct device *dev;
+-	struct i2s_platform_data *i2s_pdata;
++	struct i2s_platform_data *i2s_pdata = NULL;
+ 
+ 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+ 
+@@ -231,20 +231,21 @@ static int acp_hw_init(void *handle)
+ 	adev->acp.acp_cell = kcalloc(ACP_DEVS, sizeof(struct mfd_cell),
+ 							GFP_KERNEL);
+ 
+-	if (adev->acp.acp_cell == NULL)
+-		return -ENOMEM;
++	if (adev->acp.acp_cell == NULL) {
++		r = -ENOMEM;
++		goto failure;
++	}
+ 
+ 	adev->acp.acp_res = kcalloc(5, sizeof(struct resource), GFP_KERNEL);
+ 	if (adev->acp.acp_res == NULL) {
+-		kfree(adev->acp.acp_cell);
+-		return -ENOMEM;
++		r = -ENOMEM;
++		goto failure;
+ 	}
+ 
+ 	i2s_pdata = kcalloc(3, sizeof(struct i2s_platform_data), GFP_KERNEL);
+ 	if (i2s_pdata == NULL) {
+-		kfree(adev->acp.acp_res);
+-		kfree(adev->acp.acp_cell);
+-		return -ENOMEM;
++		r = -ENOMEM;
++		goto failure;
+ 	}
+ 
+ 	switch (adev->asic_type) {
+@@ -341,14 +342,14 @@ static int acp_hw_init(void *handle)
+ 	r = mfd_add_hotplug_devices(adev->acp.parent, adev->acp.acp_cell,
+ 								ACP_DEVS);
+ 	if (r)
+-		return r;
++		goto failure;
+ 
+ 	for (i = 0; i < ACP_DEVS ; i++) {
+ 		dev = get_mfd_cell_dev(adev->acp.acp_cell[i].name, i);
+ 		r = pm_genpd_add_device(&adev->acp.acp_genpd->gpd, dev);
+ 		if (r) {
+ 			dev_err(dev, "Failed to add dev to genpd\n");
+-			return r;
++			goto failure;
+ 		}
+ 	}
+ 
+@@ -367,7 +368,8 @@ static int acp_hw_init(void *handle)
+ 			break;
+ 		if (--count == 0) {
+ 			dev_err(&adev->pdev->dev, "Failed to reset ACP\n");
+-			return -ETIMEDOUT;
++			r = -ETIMEDOUT;
++			goto failure;
+ 		}
+ 		udelay(100);
+ 	}
+@@ -384,7 +386,8 @@ static int acp_hw_init(void *handle)
+ 			break;
+ 		if (--count == 0) {
+ 			dev_err(&adev->pdev->dev, "Failed to reset ACP\n");
+-			return -ETIMEDOUT;
++			r = -ETIMEDOUT;
++			goto failure;
+ 		}
+ 		udelay(100);
+ 	}
+@@ -393,6 +396,13 @@ static int acp_hw_init(void *handle)
+ 	val &= ~ACP_SOFT_RESET__SoftResetAud_MASK;
+ 	cgs_write_register(adev->acp.cgs_device, mmACP_SOFT_RESET, val);
+ 	return 0;
++
++failure:
++	kfree(i2s_pdata);
++	kfree(adev->acp.acp_res);
++	kfree(adev->acp.acp_cell);
++	kfree(adev->acp.acp_genpd);
++	return r;
+ }
+ 
+ /**
+-- 
+2.17.1
