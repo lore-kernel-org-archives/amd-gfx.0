@@ -1,55 +1,64 @@
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: Drop unused variable and statement
-Date: Wed, 2 Oct 2019 09:39:28 -0400
-Message-ID: <CADnq5_OsUSP0OXWfB4=XfLuHmDMtPDyWY7EwbMPGEbz3+mi=SQ@mail.gmail.com>
-References: <20191002051759.GA161133@LGEARND20B15>
+From: Alex Deucher <alexdeucher@gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: Initialize variable before use
+Date: Wed, 2 Oct 2019 09:41:21 -0400
+Message-ID: <CADnq5_MapuHn=yNSkYf6yUzatXps2sMJPNLJ-wUad5jqg+GuQw@mail.gmail.com>
+References: <20190930200902.inmjn264l6pxcdsq@outlook.office365.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20191002051759.GA161133@LGEARND20B15>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Austin Kim <austindh.kim-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: Chunming Zhou <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, Dave Airlie <airlied-cv59FeDIM0c@public.gmane.org>, LKML <linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, Maling list - DRI developers <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>, "Deucher, Alexander" <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, "Quan,
- Evan" <evan.quan-5C7GfCeVMHo@public.gmane.org>, Christian Koenig <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20190930200902.inmjn264l6pxcdsq@outlook.office365.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: "Siqueira, Rodrigo" <Rodrigo.Siqueira@amd.com>
+Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "Zhou, David(ChunMing)" <David1.Zhou@amd.com>, "Li, Sun peng (Leo)" <Sunpeng.Li@amd.com>, "Kazlauskas, Nicholas" <Nicholas.Kazlauskas@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Wentland, Harry" <Harry.Wentland@amd.com>, "Koenig, Christian" <Christian.Koenig@amd.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gV2VkLCBPY3QgMiwgMjAxOSBhdCAzOjE5IEFNIEF1c3RpbiBLaW0gPGF1c3RpbmRoLmtpbUBn
-bWFpbC5jb20+IHdyb3RlOgo+Cj4gRXZlbiB0aG91Z2ggJ3NtdThfc211JyBpcyBkZWNsYXJlZCwg
-aXQgaXMgbm90IHVzZWQgYWZ0ZXIgYmVsb3cgc3RhdGVtZW50Lgo+Cj4gICAgc211OF9zbXUgPSBo
-d21nci0+c211X2JhY2tlbmQ7Cj4KPiBTbyAndW51c2VkIHZhcmlhYmxlJyBjb3VsZCBiZSBzYWZl
-bHkgcmVtb3ZlZAo+IHRvIHN0b3Agd2FybmluZyBtZXNzYWdlIGFzIGJlbG93Ogo+Cj4gICAgZHJp
-dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvLi4vcG93ZXJwbGF5L3NtdW1nci9zbXU4X3NtdW1nci5j
-OjE4MDoyMjoKPiAgICB3YXJuaW5nOiB2YXJpYWJsZSDigJhzbXU4X3NtdeKAmSBzZXQgYnV0IG5v
-dCB1c2VkCj4gICAgWy1XdW51c2VkLWJ1dC1zZXQtdmFyaWFibGVdCj4KPiAgICBzdHJ1Y3Qgc211
-OF9zbXVtZ3IgKnNtdThfc211Owo+ICAgICAgICAgICAgICBeCj4gU2lnbmVkLW9mZi1ieTogQXVz
-dGluIEtpbSA8YXVzdGluZGgua2ltQGdtYWlsLmNvbT4KCkFwcGxpZWQuICBUaGFua3MhCgpBbGV4
-Cgo+IC0tLQo+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9zbXVtZ3Ivc211OF9zbXVt
-Z3IuYyB8IDIgLS0KPiAgMSBmaWxlIGNoYW5nZWQsIDIgZGVsZXRpb25zKC0pCj4KPiBkaWZmIC0t
-Z2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvc211bWdyL3NtdThfc211bWdyLmMg
-Yi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9zbXVtZ3Ivc211OF9zbXVtZ3IuYwo+IGlu
-ZGV4IDQ3MjhhYTIuLjdkY2EwNGEgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9w
-b3dlcnBsYXkvc211bWdyL3NtdThfc211bWdyLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1k
-L3Bvd2VycGxheS9zbXVtZ3Ivc211OF9zbXVtZ3IuYwo+IEBAIC0xNzcsMTIgKzE3NywxMCBAQCBz
-dGF0aWMgaW50IHNtdThfbG9hZF9tZWNfZmlybXdhcmUoc3RydWN0IHBwX2h3bWdyICpod21ncikK
-PiAgICAgICAgIHVpbnQzMl90IHRtcDsKPiAgICAgICAgIGludCByZXQgPSAwOwo+ICAgICAgICAg
-c3RydWN0IGNnc19maXJtd2FyZV9pbmZvIGluZm8gPSB7MH07Cj4gLSAgICAgICBzdHJ1Y3Qgc211
-OF9zbXVtZ3IgKnNtdThfc211Owo+Cj4gICAgICAgICBpZiAoaHdtZ3IgPT0gTlVMTCB8fCBod21n
-ci0+ZGV2aWNlID09IE5VTEwpCj4gICAgICAgICAgICAgICAgIHJldHVybiAtRUlOVkFMOwo+Cj4g
-LSAgICAgICBzbXU4X3NtdSA9IGh3bWdyLT5zbXVfYmFja2VuZDsKPiAgICAgICAgIHJldCA9IGNn
-c19nZXRfZmlybXdhcmVfaW5mbyhod21nci0+ZGV2aWNlLAo+ICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgIENHU19VQ09ERV9JRF9DUF9NRUMsICZpbmZvKTsK
-Pgo+IC0tCj4gMi42LjIKPgo+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fCj4gYW1kLWdmeCBtYWlsaW5nIGxpc3QKPiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNr
-dG9wLm9yZwo+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8v
-YW1kLWdmeApfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwph
-bWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczov
-L2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
+On Mon, Sep 30, 2019 at 4:09 PM Siqueira, Rodrigo
+<Rodrigo.Siqueira@amd.com> wrote:
+>
+> The 'debug_data' variable gets printed in debug statements without a
+> prior initialization in the function
+> hubbub1_verify_allow_pstate_change_high, as reported when building with
+> gcc 9.1.0:
+>
+> warning: =E2=80=98debug_data=E2=80=99 may be used uninitialized in this f=
+unction [-Wmaybe-uninitialized]
+>   290 |  printk##once(KERN_##level "[" DRM_NAME "] " fmt, ##__VA_ARGS__)
+>       |  ^~~~~~
+> dc/dcn10/dcn10_hubbub.c:134:15: note: =E2=80=98debug_data=E2=80=99 was de=
+clared here
+>   134 |  unsigned int debug_data;
+>
+> Note that initialize debug_data with 0, in this case, is safe because we
+> have a loop in a few lines below that will initialize this variable with
+> the proper value.
+>
+> Signed-off-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+
+> ---
+>  drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hubbub.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hubbub.c b/driver=
+s/gpu/drm/amd/display/dc/dcn10/dcn10_hubbub.c
+> index a780057e2dbc..b6967a7e6c7b 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hubbub.c
+> +++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hubbub.c
+> @@ -133,7 +133,7 @@ bool hubbub1_verify_allow_pstate_change_high(
+>         static unsigned int max_sampled_pstate_wait_us; /* data collectio=
+n */
+>         static bool forced_pstate_allow; /* help with revert wa */
+>
+> -       unsigned int debug_data;
+> +       unsigned int debug_data =3D 0;
+>         unsigned int i;
+>
+>         if (forced_pstate_allow) {
+> --
+> 2.23.0
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
