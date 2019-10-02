@@ -1,42 +1,78 @@
 From: Arnd Bergmann <arnd@arndb.de>
-Subject: [PATCH 2/6] drm/amdgpu: hide another #warning
-Date: Wed,  2 Oct 2019 14:01:23 +0200
-Message-ID: <20191002120136.1777161-3-arnd@arndb.de>
+Subject: [PATCH 3/6] drm/amdgpu: display_mode_vba_21: remove uint typedef
+Date: Wed,  2 Oct 2019 14:01:24 +0200
+Message-ID: <20191002120136.1777161-4-arnd@arndb.de>
 References: <20191002120136.1777161-1-arnd@arndb.de>
 Mime-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
 In-Reply-To: <20191002120136.1777161-1-arnd@arndb.de>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>
-Cc: clang-built-linux@googlegroups.com, amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, Arnd Bergmann <arnd@arndb.de>, Harry Wentland <harry.wentland@amd.com>, Roman Li <Roman.Li@amd.com>, Huang Rui <ray.huang@amd.com>, Evan Quan <evan.quan@amd.com>, Prike Liang <Prike.Liang@amd.com>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: Alex Deucher <alexander.deucher@amd.com>, Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>
+Cc: Arnd Bergmann <arnd@arndb.de>, linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, clang-built-linux@googlegroups.com, amd-gfx@lists.freedesktop.org, Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>
 List-Id: amd-gfx.lists.freedesktop.org
 
-An earlier patch of mine disabled some #warning statements
-that get in the way of build testing, but then another
-instance was added around the same time.
-
-Remove that as well.
-
-Fixes: b5203d16aef4 ("drm/amd/amdgpu: hide #warning for missing DC config")
-Fixes: e1c14c43395c ("drm/amdgpu: Enable DC on Renoir")
-Signed-off-by: Arnd Bergmann <arnd@arndb.de>
----
- drivers/gpu/drm/amd/amdgpu/soc15.c | 2 --
- 1 file changed, 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c b/drivers/gpu/drm/amd/amdgpu/soc15.c
-index f70658a536a9..a337d980b434 100644
---- a/drivers/gpu/drm/amd/amdgpu/soc15.c
-+++ b/drivers/gpu/drm/amd/amdgpu/soc15.c
-@@ -771,8 +771,6 @@ int soc15_set_ip_blocks(struct amdgpu_device *adev)
- #if defined(CONFIG_DRM_AMD_DC)
-                 else if (amdgpu_device_has_dc_support(adev))
-                         amdgpu_device_ip_block_add(adev, &dm_ip_block);
--#else
--#       warning "Enable CONFIG_DRM_AMD_DC for display support on SOC15."
- #endif
- 		amdgpu_device_ip_block_add(adev, &vcn_v2_0_ip_block);
- 		break;
--- 
-2.20.0
+VGhlIHR5cGUgZGVmaW5pdGlvbiBmb3IgJ3VpbnQnIGNsYXNoZXMgd2l0aCB0aGUgZ2VuZXJpYyBr
+ZXJuZWwKaGVhZGVyczoKCmRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1Ly4uL2Rpc3BsYXkvZGMv
+ZG1sL2RjbjIxL2Rpc3BsYXlfbW9kZV92YmFfMjEuYzo0MzoyMjogZXJyb3I6IHJlZGVmaW5pdGlv
+biBvZiB0eXBlZGVmICd1aW50JyBpcyBhIEMxMSBmZWF0dXJlIFstV2Vycm9yLC1XdHlwZWRlZi1y
+ZWRlZmluaXRpb25dCmluY2x1ZGUvbGludXgvdHlwZXMuaDo5MjoyMzogbm90ZTogcHJldmlvdXMg
+ZGVmaW5pdGlvbiBpcyBoZXJlCgpKdXN0IHJlbW92ZSB0aGlzIHR5cGUgYW5kIHVzZSBwbGFpbiAn
+dW5zaWduZWQgaW50JyBjb25zaXN0ZW50bHksCmFzIGl0IGlzIGFscmVhZHkgdXNlIGFsbW9zdCBl
+dmVyeXdoZXJlIGluIHRoaXMgZmlsZS4KCkZpeGVzOiBiMDQ2NDFhM2Y0YzUgKCJkcm0vYW1kL2Rp
+c3BsYXk6IEFkZCBSZW5vaXIgRE1MIikKU2lnbmVkLW9mZi1ieTogQXJuZCBCZXJnbWFubiA8YXJu
+ZEBhcm5kYi5kZT4KLS0tCiAuLi4vYW1kL2Rpc3BsYXkvZGMvZG1sL2RjbjIxL2Rpc3BsYXlfbW9k
+ZV92YmFfMjEuYyAgfCAxMyArKysrKy0tLS0tLS0tCiAxIGZpbGUgY2hhbmdlZCwgNSBpbnNlcnRp
+b25zKCspLCA4IGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQv
+ZGlzcGxheS9kYy9kbWwvZGNuMjEvZGlzcGxheV9tb2RlX3ZiYV8yMS5jIGIvZHJpdmVycy9ncHUv
+ZHJtL2FtZC9kaXNwbGF5L2RjL2RtbC9kY24yMS9kaXNwbGF5X21vZGVfdmJhXzIxLmMKaW5kZXgg
+NDZjZGE4NWQzZDYzLi45OTg5NzBlMmY4NGMgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9h
+bWQvZGlzcGxheS9kYy9kbWwvZGNuMjEvZGlzcGxheV9tb2RlX3ZiYV8yMS5jCisrKyBiL2RyaXZl
+cnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9kbWwvZGNuMjEvZGlzcGxheV9tb2RlX3ZiYV8yMS5j
+CkBAIC0zOSw5ICszOSw2IEBACiAgKiB3YXlzLiBVbmxlc3MgdGhlcmUgaXMgc29tZXRoaW5nIGNs
+ZWFybHkgd3Jvbmcgd2l0aCBpdCB0aGUgY29kZSBzaG91bGQKICAqIHJlbWFpbiBhcy1pcyBhcyBp
+dCBwcm92aWRlcyB1cyB3aXRoIGEgZ3VhcmFudGVlIGZyb20gSFcgdGhhdCBpdCBpcyBjb3JyZWN0
+LgogICovCi0KLXR5cGVkZWYgdW5zaWduZWQgaW50IHVpbnQ7Ci0KIHR5cGVkZWYgc3RydWN0IHsK
+IAlhbWRncHVfZGNfZG91YmxlIERQUENMSzsKIAlhbWRncHVfZGNfZG91YmxlIERJU1BDTEs7CkBA
+IC00Nzc0LDcgKzQ3NzEsNyBAQCB2b2lkIGRtbDIxX01vZGVTdXBwb3J0QW5kU3lzdGVtQ29uZmln
+dXJhdGlvbkZ1bGwoc3RydWN0IGRpc3BsYXlfbW9kZV9saWIgKm1vZGVfbAogCQkJCW1vZGVfbGli
+LT52YmEuTWF4aW11bVJlYWRCYW5kd2lkdGhXaXRob3V0UHJlZmV0Y2ggPSAwLjA7CiAJCQkJbW9k
+ZV9saWItPnZiYS5NYXhpbXVtUmVhZEJhbmR3aWR0aFdpdGhQcmVmZXRjaCA9IDAuMDsKIAkJCQlm
+b3IgKGsgPSAwOyBrIDw9IG1vZGVfbGliLT52YmEuTnVtYmVyT2ZBY3RpdmVQbGFuZXMgLSAxOyBr
+KyspIHsKLQkJCQkJdWludCBtOworCQkJCQl1bnNpZ25lZCBpbnQgbTsKIAogCQkJCQlsb2NhbHMt
+PmN1cnNvcl9id1trXSA9IDA7CiAJCQkJCWxvY2Fscy0+Y3Vyc29yX2J3X3ByZVtrXSA9IDA7CkBA
+IC01Mjg1LDcgKzUyODIsNyBAQCBzdGF0aWMgdm9pZCBDYWxjdWxhdGVXYXRlcm1hcmtzQW5kRFJB
+TVNwZWVkQ2hhbmdlU3VwcG9ydCgKIAlhbWRncHVfZGNfZG91YmxlIFNlY29uZE1pbkFjdGl2ZURS
+QU1DbG9ja0NoYW5nZU1hcmdpbk9uZURpc3BsYXlJblZCTGFuazsKIAlhbWRncHVfZGNfZG91Ymxl
+IEZ1bGxERVRCdWZmZXJpbmdUaW1lWVN0dXR0ZXJDcml0aWNhbFBsYW5lID0gMDsKIAlhbWRncHVf
+ZGNfZG91YmxlIFRpbWVUb0ZpbmlzaFN3YXRoVHJhbnNmZXJTdHV0dGVyQ3JpdGljYWxQbGFuZSA9
+IDA7Ci0JdWludCBrLCBqOworCXVuc2lnbmVkIGludCBrLCBqOwogCiAJbW9kZV9saWItPnZiYS5U
+b3RhbEFjdGl2ZURQUCA9IDA7CiAJbW9kZV9saWItPnZiYS5Ub3RhbERDQ0FjdGl2ZURQUCA9IDA7
+CkBAIC01NTA3LDcgKzU1MDQsNyBAQCBzdGF0aWMgdm9pZCBDYWxjdWxhdGVEQ0ZDTEtEZWVwU2xl
+ZXAoCiAJCWFtZGdwdV9kY19kb3VibGUgRFBQQ0xLW10sCiAJCWFtZGdwdV9kY19kb3VibGUgKkRD
+RkNMS0RlZXBTbGVlcCkKIHsKLQl1aW50IGs7CisJdW5zaWduZWQgaW50IGs7CiAJYW1kZ3B1X2Rj
+X2RvdWJsZSBEaXNwbGF5UGlwZUxpbmVEZWxpdmVyeVRpbWVMdW1hOwogCWFtZGdwdV9kY19kb3Vi
+bGUgRGlzcGxheVBpcGVMaW5lRGVsaXZlcnlUaW1lQ2hyb21hOwogCS8vYW1kZ3B1X2RjX2RvdWJs
+ZSAgIERDRkNMS0RlZXBTbGVlcFBlclBsYW5lW0RDX19OVU1fRFBQX19NQVhdOwpAQCAtNTcyNyw3
+ICs1NzI0LDcgQEAgc3RhdGljIHZvaWQgQ2FsY3VsYXRlUGl4ZWxEZWxpdmVyeVRpbWVzKAogCQlh
+bWRncHVfZGNfZG91YmxlIERpc3BsYXlQaXBlUmVxdWVzdERlbGl2ZXJ5VGltZUNocm9tYVByZWZl
+dGNoW10pCiB7CiAJYW1kZ3B1X2RjX2RvdWJsZSByZXFfcGVyX3N3YXRoX3ViOwotCXVpbnQgazsK
+Kwl1bnNpZ25lZCBpbnQgazsKIAogCWZvciAoayA9IDA7IGsgPCBOdW1iZXJPZkFjdGl2ZVBsYW5l
+czsgKytrKSB7CiAJCWlmIChWUmF0aW9ba10gPD0gMSkgewpAQCAtNTg2OSw3ICs1ODY2LDcgQEAg
+c3RhdGljIHZvaWQgQ2FsY3VsYXRlTWV0YUFuZFBURVRpbWVzKAogCXVuc2lnbmVkIGludCBkcHRl
+X2dyb3Vwc19wZXJfcm93X2Nocm9tYV91YjsKIAl1bnNpZ25lZCBpbnQgbnVtX2dyb3VwX3Blcl9s
+b3dlcl92bV9zdGFnZTsKIAl1bnNpZ25lZCBpbnQgbnVtX3JlcV9wZXJfbG93ZXJfdm1fc3RhZ2U7
+Ci0JdWludCBrOworCXVuc2lnbmVkIGludCBrOwogCiAJZm9yIChrID0gMDsgayA8IE51bWJlck9m
+QWN0aXZlUGxhbmVzOyArK2spIHsKIAkJaWYgKEdQVVZNRW5hYmxlID09IHRydWUpIHsKLS0gCjIu
+MjAuMAoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KZHJp
+LWRldmVsIG1haWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBz
+Oi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVs
