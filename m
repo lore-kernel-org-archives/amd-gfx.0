@@ -1,39 +1,65 @@
-From: Nathan Chancellor <natechancellor@gmail.com>
-Subject: Re: [PATCH 6/6] [RESEND] drm/amdgpu: work around llvm bug #42576
-Date: Wed, 2 Oct 2019 10:07:33 -0700
-Message-ID: <20191002170733.GB1076951@archlinux-threadripper>
-References: <20191002120136.1777161-7-arnd@arndb.de>
- <20191002165137.15726-1-ndesaulniers@google.com>
+From: "Huang, Ray" <Ray.Huang-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: [PATCH 1/2] drm/ttm: also export ttm_bo_vm_fault
+Date: Wed, 2 Oct 2019 17:46:18 +0000
+Message-ID: <MN2PR12MB33095356AB2BAAB358F1255AEC9C0@MN2PR12MB3309.namprd12.prod.outlook.com>
+References: <20190927123425.17513-1-christian.koenig@amd.com>
+ <8758219e-884d-1205-f2e0-7e304049707a@gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Content-Disposition: inline
-In-Reply-To: <20191002165137.15726-1-ndesaulniers@google.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Nick Desaulniers <ndesaulniers@google.com>
-Cc: arnd@arndb.de, David1.Zhou@amd.com, Hawking.Zhang@amd.com, airlied@linux.ie, alexander.deucher@amd.com, amd-gfx@lists.freedesktop.org, christian.koenig@amd.com, clang-built-linux@googlegroups.com, daniel@ffwll.ch, dri-devel@lists.freedesktop.org, le.ma@amd.com, linux-kernel@vger.kernel.org, ray.huang@amd.com
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <8758219e-884d-1205-f2e0-7e304049707a-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: =?utf-8?B?Q2hyaXN0aWFuIEvDtm5pZw==?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-On Wed, Oct 02, 2019 at 09:51:37AM -0700, 'Nick Desaulniers' via Clang Built Linux wrote:
-> > Apparently this bug is still present in both the released clang-9
-> > and the current development version of clang-10.
-> > I was hoping we would not need a workaround in clang-9+, but
-> > it seems that we do.
-> 
-> I think I'd rather:
-> 1. mark AMDGPU BROKEN if CC_IS_CLANG. There are numerous other issues building
->    a working driver here.
-
-The only reason I am not thrilled about this is we will lose out on
-warning coverage while the compiler bug gets fixed. I think the AMDGPU
-drivers have been the single biggest source of clang warnings.
-
-I think something like:
-
-depends on CC_IS_GCC || (CC_IS_CLANG && COMPILE_TEST)
-
-would end up avoiding the runtime issues and give us warning coverage.
-The only issue is that we would still need this patch...
-
-Cheers,
-Nathan
+QWhoLiDwn5iKDQoNClJldmlld2VkLWJ5OiBIdWFuZyBSdWkgPHJheS5odWFuZ0BhbWQuY29tPg0K
+DQotLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KRnJvbTogYW1kLWdmeCA8YW1kLWdmeC1ib3Vu
+Y2VzQGxpc3RzLmZyZWVkZXNrdG9wLm9yZz4gT24gQmVoYWxmIE9mIENocmlzdGlhbiBLw7ZuaWcN
+ClNlbnQ6IFdlZG5lc2RheSwgT2N0b2JlciAyLCAyMDE5IDQ6MzggQU0NClRvOiBhbWQtZ2Z4QGxp
+c3RzLmZyZWVkZXNrdG9wLm9yZzsgZHJpLWRldmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0KU3Vi
+amVjdDogUmU6IFtQQVRDSCAxLzJdIGRybS90dG06IGFsc28gZXhwb3J0IHR0bV9ib192bV9mYXVs
+dA0KDQpKdXN0IGEgZ2VudGxlIHBpbmcgb24gdGhpcy4gRXZlcnlib2R5IG9uIFhEQywgb3IgY2Fu
+IHdlIGdldCB0aGlzIGNvbWl0dGVkPw0KDQpBbSAyNy4wOS4xOSB1bSAxNDozNCBzY2hyaWViIENo
+cmlzdGlhbiBLw7ZuaWc6DQo+IFRoYXQgaXMgbmVlZGVkIGJ5IGF0IGxlYXN0IGEgY2xlYW51cCBp
+biByYWRlb24uDQo+DQo+IFNpZ25lZC1vZmYtYnk6IENocmlzdGlhbiBLw7ZuaWcgPGNocmlzdGlh
+bi5rb2VuaWdAYW1kLmNvbT4NCj4gLS0tDQo+ICAgZHJpdmVycy9ncHUvZHJtL3R0bS90dG1fYm9f
+dm0uYyB8IDMgKystDQo+ICAgaW5jbHVkZS9kcm0vdHRtL3R0bV9ib19hcGkuaCAgICB8IDIgKysN
+Cj4gICAyIGZpbGVzIGNoYW5nZWQsIDQgaW5zZXJ0aW9ucygrKSwgMSBkZWxldGlvbigtKQ0KPg0K
+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL3R0bS90dG1fYm9fdm0uYyANCj4gYi9kcml2
+ZXJzL2dwdS9kcm0vdHRtL3R0bV9ib192bS5jIGluZGV4IGNiMzEyMGNkNWFhMS4uNTI1MDQ2YmJj
+YjZiIA0KPiAxMDA2NDQNCj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL3R0bS90dG1fYm9fdm0uYw0K
+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vdHRtL3R0bV9ib192bS5jDQo+IEBAIC0zMTYsNyArMzE2
+LDcgQEAgdm1fZmF1bHRfdCB0dG1fYm9fdm1fZmF1bHRfcmVzZXJ2ZWQoc3RydWN0IHZtX2ZhdWx0
+ICp2bWYsDQo+ICAgfQ0KPiAgIEVYUE9SVF9TWU1CT0wodHRtX2JvX3ZtX2ZhdWx0X3Jlc2VydmVk
+KTsNCj4gICANCj4gLXN0YXRpYyB2bV9mYXVsdF90IHR0bV9ib192bV9mYXVsdChzdHJ1Y3Qgdm1f
+ZmF1bHQgKnZtZikNCj4gK3ZtX2ZhdWx0X3QgdHRtX2JvX3ZtX2ZhdWx0KHN0cnVjdCB2bV9mYXVs
+dCAqdm1mKQ0KPiAgIHsNCj4gICAJc3RydWN0IHZtX2FyZWFfc3RydWN0ICp2bWEgPSB2bWYtPnZt
+YTsNCj4gICAJcGdwcm90X3QgcHJvdDsNCj4gQEAgLTMzNiw2ICszMzYsNyBAQCBzdGF0aWMgdm1f
+ZmF1bHRfdCB0dG1fYm9fdm1fZmF1bHQoc3RydWN0IHZtX2ZhdWx0IA0KPiAqdm1mKQ0KPiAgIA0K
+PiAgIAlyZXR1cm4gcmV0Ow0KPiAgIH0NCj4gK0VYUE9SVF9TWU1CT0wodHRtX2JvX3ZtX2ZhdWx0
+KTsNCj4gICANCj4gICB2b2lkIHR0bV9ib192bV9vcGVuKHN0cnVjdCB2bV9hcmVhX3N0cnVjdCAq
+dm1hKQ0KPiAgIHsNCj4gZGlmZiAtLWdpdCBhL2luY2x1ZGUvZHJtL3R0bS90dG1fYm9fYXBpLmgg
+DQo+IGIvaW5jbHVkZS9kcm0vdHRtL3R0bV9ib19hcGkuaCBpbmRleCA4NTEyNjBjYmJiMmYuLmRh
+ZDQxY2Y1Y2Q2NCAxMDA2NDQNCj4gLS0tIGEvaW5jbHVkZS9kcm0vdHRtL3R0bV9ib19hcGkuaA0K
+PiArKysgYi9pbmNsdWRlL2RybS90dG0vdHRtX2JvX2FwaS5oDQo+IEBAIC03OTYsNiArNzk2LDgg
+QEAgdm1fZmF1bHRfdCB0dG1fYm9fdm1fZmF1bHRfcmVzZXJ2ZWQoc3RydWN0IHZtX2ZhdWx0ICp2
+bWYsDQo+ICAgCQkJCSAgICBwZ3Byb3RfdCBwcm90LA0KPiAgIAkJCQkgICAgcGdvZmZfdCBudW1f
+cHJlZmF1bHQpOw0KPiAgIA0KPiArdm1fZmF1bHRfdCB0dG1fYm9fdm1fZmF1bHQoc3RydWN0IHZt
+X2ZhdWx0ICp2bWYpOw0KPiArDQo+ICAgdm9pZCB0dG1fYm9fdm1fb3BlbihzdHJ1Y3Qgdm1fYXJl
+YV9zdHJ1Y3QgKnZtYSk7DQo+ICAgDQo+ICAgdm9pZCB0dG1fYm9fdm1fY2xvc2Uoc3RydWN0IHZt
+X2FyZWFfc3RydWN0ICp2bWEpOw0KDQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fXw0KYW1kLWdmeCBtYWlsaW5nIGxpc3QNCmFtZC1nZnhAbGlzdHMuZnJlZWRl
+c2t0b3Aub3JnDQpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZv
+L2FtZC1nZngNCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+CmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBz
+Oi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
