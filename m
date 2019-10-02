@@ -1,51 +1,56 @@
-From: Austin Kim <austindh.kim@gmail.com>
-Subject: [PATCH] drm/amdgpu: Drop unused variable and statement
-Date: Wed, 2 Oct 2019 14:17:59 +0900
-Message-ID: <20191002051759.GA161133@LGEARND20B15>
+From: Markus Elfring <Markus.Elfring@web.de>
+Subject: Re: [PATCH v4] drm/amdgpu: fix multiple memory leaks in acp_hw_init
+Date: Wed, 2 Oct 2019 07:47:37 +0200
+Message-ID: <c03a8983-3f83-0596-96fa-a1a9312e82f8@web.de>
+References: <20191002034612.26607-1-navid.emamdoost@gmail.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: quoted-printable
 Return-path: <linux-kernel-owner@vger.kernel.org>
-Content-Disposition: inline
+In-Reply-To: <20191002034612.26607-1-navid.emamdoost@gmail.com>
+Content-Language: en-US
 Sender: linux-kernel-owner@vger.kernel.org
-To: alexander.deucher@amd.com, evan.quan@amd.com, christian.koenig@amd.com, David1.Zhou@amd.com, airlied@linux.ie, daniel@ffwll.ch
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, austindh.kim@gmail.com
+To: Navid Emamdoost <navid.emamdoost@gmail.com>, =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>, Chunming Zhou <David1.Zhou@amd.com>, Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Cc: Navid Emamdoost <emamd001@umn.edu>, Kangjie Lu <kjlu@umn.edu>, Stephen McCamant <smccaman@umn.edu>, Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@linux.ie>, Sam Ravnborg <sam@ravnborg.org>, linux-kernel@vger.kernel.org, kernel-janitors@vger.kernel.org
 List-Id: amd-gfx.lists.freedesktop.org
 
-Even though 'smu8_smu' is declared, it is not used after below statement.
+> ---
 
-   smu8_smu = hwmgr->smu_backend;
+Why did you omit the patch change log at this place?
 
-So 'unused variable' could be safely removed
-to stop warning message as below:
 
-   drivers/gpu/drm/amd/amdgpu/../powerplay/smumgr/smu8_smumgr.c:180:22:
-   warning: variable ‘smu8_smu’ set but not used 
-   [-Wunused-but-set-variable]
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c | 34 ++++++++++++++++---------
 
-   struct smu8_smumgr *smu8_smu;
-             ^
-Signed-off-by: Austin Kim <austindh.kim@gmail.com>
----
- drivers/gpu/drm/amd/powerplay/smumgr/smu8_smumgr.c | 2 --
- 1 file changed, 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/powerplay/smumgr/smu8_smumgr.c b/drivers/gpu/drm/amd/powerplay/smumgr/smu8_smumgr.c
-index 4728aa2..7dca04a 100644
---- a/drivers/gpu/drm/amd/powerplay/smumgr/smu8_smumgr.c
-+++ b/drivers/gpu/drm/amd/powerplay/smumgr/smu8_smumgr.c
-@@ -177,12 +177,10 @@ static int smu8_load_mec_firmware(struct pp_hwmgr *hwmgr)
- 	uint32_t tmp;
- 	int ret = 0;
- 	struct cgs_firmware_info info = {0};
--	struct smu8_smumgr *smu8_smu;
- 
- 	if (hwmgr == NULL || hwmgr->device == NULL)
- 		return -EINVAL;
- 
--	smu8_smu = hwmgr->smu_backend;
- 	ret = cgs_get_firmware_info(hwmgr->device,
- 						CGS_UCODE_ID_CP_MEC, &info);
- 
--- 
-2.6.2
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c
+> @@ -189,7 +189,7 @@ static int acp_hw_init(void *handle)
+=E2=80=A6
+> +	struct i2s_platform_data *i2s_pdata =3D NULL;
+=E2=80=A6
+
+I propose to reconsider this update suggestion once more.
+
+
+> @@ -393,6 +396,13 @@ static int acp_hw_init(void *handle)
+>  	val &=3D ~ACP_SOFT_RESET__SoftResetAud_MASK;
+>  	cgs_write_register(adev->acp.cgs_device, mmACP_SOFT_RESET, val);
+>  	return 0;
+> +
+> +failure:
+> +	kfree(i2s_pdata);
+> +	kfree(adev->acp.acp_res);
+> +	kfree(adev->acp.acp_cell);
+> +	kfree(adev->acp.acp_genpd);
+> +	return r;
+>  }
+>
+>  /**
+
+Are you going to follow a known programming guideline?
+https://wiki.sei.cmu.edu/confluence/display/c/MEM12-C.+Consider+using+a+go=
+to+chain+when+leaving+a+function+on+error+when+using+and+releasing+resourc=
+es#MEM12-C.Considerusingagotochainwhenleavingafunctiononerrorwhenusingandr=
+eleasingresources-CompliantSolution%28copy_process%28%29fromLinuxkernel%29
+
+Regards,
+Markus
