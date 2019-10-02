@@ -1,56 +1,90 @@
-From: Markus Elfring <Markus.Elfring@web.de>
+From: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
 Subject: Re: [PATCH v4] drm/amdgpu: fix multiple memory leaks in acp_hw_init
-Date: Wed, 2 Oct 2019 07:47:37 +0200
-Message-ID: <c03a8983-3f83-0596-96fa-a1a9312e82f8@web.de>
-References: <20191002034612.26607-1-navid.emamdoost@gmail.com>
+Date: Wed, 2 Oct 2019 06:58:19 +0000
+Message-ID: <7bc971c9-3c60-1780-cdd6-16cc97b6b77f@amd.com>
+References: <3a00a4c9-af4c-3505-1bef-b119435da5d7@amd.com>
+ <20191002034612.26607-1-navid.emamdoost@gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20191002034612.26607-1-navid.emamdoost@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20191002034612.26607-1-navid.emamdoost-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 Content-Language: en-US
-Sender: linux-kernel-owner@vger.kernel.org
-To: Navid Emamdoost <navid.emamdoost@gmail.com>, =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>, Chunming Zhou <David1.Zhou@amd.com>, Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Cc: Navid Emamdoost <emamd001@umn.edu>, Kangjie Lu <kjlu@umn.edu>, Stephen McCamant <smccaman@umn.edu>, Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@linux.ie>, Sam Ravnborg <sam@ravnborg.org>, linux-kernel@vger.kernel.org, kernel-janitors@vger.kernel.org
-List-Id: amd-gfx.lists.freedesktop.org
+Content-ID: <FB0770EA691B394EB6DA21C87E47017C-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Navid Emamdoost <navid.emamdoost-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Cc: "Zhou, David(ChunMing)" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, David Airlie <airlied-cv59FeDIM0c@public.gmane.org>, Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>, "kjlu-OJFnDUYgAso@public.gmane.org" <kjlu-OJFnDUYgAso@public.gmane.org>, "linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org" <linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "emamd001-OJFnDUYgAso@public.gmane.org" <emamd001-OJFnDUYgAso@public.gmane.org>, "dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>, "smccaman-OJFnDUYgAso@public.gmane.org" <smccaman-OJFnDUYgAso@public.gmane.org>, "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, Sam Ravnborg <sam-uyr5N9Q2VtJg9hUCZPvPmw@public.gmane.org>
 
-> ---
-
-Why did you omit the patch change log at this place?
-
-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c | 34 ++++++++++++++++---------
-
-
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c
-> @@ -189,7 +189,7 @@ static int acp_hw_init(void *handle)
-=E2=80=A6
-> +	struct i2s_platform_data *i2s_pdata =3D NULL;
-=E2=80=A6
-
-I propose to reconsider this update suggestion once more.
-
-
-> @@ -393,6 +396,13 @@ static int acp_hw_init(void *handle)
->  	val &=3D ~ACP_SOFT_RESET__SoftResetAud_MASK;
->  	cgs_write_register(adev->acp.cgs_device, mmACP_SOFT_RESET, val);
->  	return 0;
-> +
-> +failure:
-> +	kfree(i2s_pdata);
-> +	kfree(adev->acp.acp_res);
-> +	kfree(adev->acp.acp_cell);
-> +	kfree(adev->acp.acp_genpd);
-> +	return r;
->  }
->
->  /**
-
-Are you going to follow a known programming guideline?
-https://wiki.sei.cmu.edu/confluence/display/c/MEM12-C.+Consider+using+a+go=
-to+chain+when+leaving+a+function+on+error+when+using+and+releasing+resourc=
-es#MEM12-C.Considerusingagotochainwhenleavingafunctiononerrorwhenusingandr=
-eleasingresources-CompliantSolution%28copy_process%28%29fromLinuxkernel%29
-
-Regards,
-Markus
+QW0gMDIuMTAuMTkgdW0gMDU6NDYgc2NocmllYiBOYXZpZCBFbWFtZG9vc3Q6DQo+IEluIGFjcF9o
+d19pbml0IHRoZXJlIGFyZSBzb21lIGFsbG9jYXRpb25zIHRoYXQgbmVlZHMgdG8gYmUgcmVsZWFz
+ZWQgaW4NCj4gY2FzZSBvZiBmYWlsdXJlOg0KPg0KPiAxLSBhZGV2LT5hY3AuYWNwX2dlbnBkIHNo
+b3VsZCBiZSByZWxlYXNlZCBpZiBhbnkgYWxsb2NhdGlvbiBhdHRlbXAgZm9yDQo+IGFkZXYtPmFj
+cC5hY3BfY2VsbCwgYWRldi0+YWNwLmFjcF9yZXMgb3IgaTJzX3BkYXRhIGZhaWxzLg0KPiAyLSBh
+bGwgb2YgdGhvc2UgYWxsb2NhdGlvbnMgc2hvdWxkIGJlIHJlbGVhc2VkIGlmDQo+IG1mZF9hZGRf
+aG90cGx1Z19kZXZpY2VzIG9yIHBtX2dlbnBkX2FkZF9kZXZpY2UgZmFpbC4NCj4gMy0gUmVsZWFz
+ZSBpcyBuZWVkZWQgaW4gY2FzZSBvZiB0aW1lIG91dCB2YWx1ZXMgZXhwaXJlLg0KPg0KPiBTaWdu
+ZWQtb2ZmLWJ5OiBOYXZpZCBFbWFtZG9vc3QgPG5hdmlkLmVtYW1kb29zdEBnbWFpbC5jb20+DQoN
+ClJldmlld2VkLWJ5OiBDaHJpc3RpYW4gS8O2bmlnIDxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+
+DQoNCj4gLS0tDQo+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2FjcC5jIHwg
+MzQgKysrKysrKysrKysrKysrKy0tLS0tLS0tLQ0KPiAgIDEgZmlsZSBjaGFuZ2VkLCAyMiBpbnNl
+cnRpb25zKCspLCAxMiBkZWxldGlvbnMoLSkNCj4NCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1
+L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9hY3AuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
+L2FtZGdwdV9hY3AuYw0KPiBpbmRleCBlYmE0MmM3NTJiY2EuLjgyMTU1YWMzMjg4YSAxMDA2NDQN
+Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2FjcC5jDQo+ICsrKyBi
+L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9hY3AuYw0KPiBAQCAtMTg5LDcgKzE4
+OSw3IEBAIHN0YXRpYyBpbnQgYWNwX2h3X2luaXQodm9pZCAqaGFuZGxlKQ0KPiAgIAl1MzIgdmFs
+ID0gMDsNCj4gICAJdTMyIGNvdW50ID0gMDsNCj4gICAJc3RydWN0IGRldmljZSAqZGV2Ow0KPiAt
+CXN0cnVjdCBpMnNfcGxhdGZvcm1fZGF0YSAqaTJzX3BkYXRhOw0KPiArCXN0cnVjdCBpMnNfcGxh
+dGZvcm1fZGF0YSAqaTJzX3BkYXRhID0gTlVMTDsNCj4gICANCj4gICAJc3RydWN0IGFtZGdwdV9k
+ZXZpY2UgKmFkZXYgPSAoc3RydWN0IGFtZGdwdV9kZXZpY2UgKiloYW5kbGU7DQo+ICAgDQo+IEBA
+IC0yMzEsMjAgKzIzMSwyMSBAQCBzdGF0aWMgaW50IGFjcF9od19pbml0KHZvaWQgKmhhbmRsZSkN
+Cj4gICAJYWRldi0+YWNwLmFjcF9jZWxsID0ga2NhbGxvYyhBQ1BfREVWUywgc2l6ZW9mKHN0cnVj
+dCBtZmRfY2VsbCksDQo+ICAgCQkJCQkJCUdGUF9LRVJORUwpOw0KPiAgIA0KPiAtCWlmIChhZGV2
+LT5hY3AuYWNwX2NlbGwgPT0gTlVMTCkNCj4gLQkJcmV0dXJuIC1FTk9NRU07DQo+ICsJaWYgKGFk
+ZXYtPmFjcC5hY3BfY2VsbCA9PSBOVUxMKSB7DQo+ICsJCXIgPSAtRU5PTUVNOw0KPiArCQlnb3Rv
+IGZhaWx1cmU7DQo+ICsJfQ0KPiAgIA0KPiAgIAlhZGV2LT5hY3AuYWNwX3JlcyA9IGtjYWxsb2Mo
+NSwgc2l6ZW9mKHN0cnVjdCByZXNvdXJjZSksIEdGUF9LRVJORUwpOw0KPiAgIAlpZiAoYWRldi0+
+YWNwLmFjcF9yZXMgPT0gTlVMTCkgew0KPiAtCQlrZnJlZShhZGV2LT5hY3AuYWNwX2NlbGwpOw0K
+PiAtCQlyZXR1cm4gLUVOT01FTTsNCj4gKwkJciA9IC1FTk9NRU07DQo+ICsJCWdvdG8gZmFpbHVy
+ZTsNCj4gICAJfQ0KPiAgIA0KPiAgIAlpMnNfcGRhdGEgPSBrY2FsbG9jKDMsIHNpemVvZihzdHJ1
+Y3QgaTJzX3BsYXRmb3JtX2RhdGEpLCBHRlBfS0VSTkVMKTsNCj4gICAJaWYgKGkyc19wZGF0YSA9
+PSBOVUxMKSB7DQo+IC0JCWtmcmVlKGFkZXYtPmFjcC5hY3BfcmVzKTsNCj4gLQkJa2ZyZWUoYWRl
+di0+YWNwLmFjcF9jZWxsKTsNCj4gLQkJcmV0dXJuIC1FTk9NRU07DQo+ICsJCXIgPSAtRU5PTUVN
+Ow0KPiArCQlnb3RvIGZhaWx1cmU7DQo+ICAgCX0NCj4gICANCj4gICAJc3dpdGNoIChhZGV2LT5h
+c2ljX3R5cGUpIHsNCj4gQEAgLTM0MSwxNCArMzQyLDE0IEBAIHN0YXRpYyBpbnQgYWNwX2h3X2lu
+aXQodm9pZCAqaGFuZGxlKQ0KPiAgIAlyID0gbWZkX2FkZF9ob3RwbHVnX2RldmljZXMoYWRldi0+
+YWNwLnBhcmVudCwgYWRldi0+YWNwLmFjcF9jZWxsLA0KPiAgIAkJCQkJCQkJQUNQX0RFVlMpOw0K
+PiAgIAlpZiAocikNCj4gLQkJcmV0dXJuIHI7DQo+ICsJCWdvdG8gZmFpbHVyZTsNCj4gICANCj4g
+ICAJZm9yIChpID0gMDsgaSA8IEFDUF9ERVZTIDsgaSsrKSB7DQo+ICAgCQlkZXYgPSBnZXRfbWZk
+X2NlbGxfZGV2KGFkZXYtPmFjcC5hY3BfY2VsbFtpXS5uYW1lLCBpKTsNCj4gICAJCXIgPSBwbV9n
+ZW5wZF9hZGRfZGV2aWNlKCZhZGV2LT5hY3AuYWNwX2dlbnBkLT5ncGQsIGRldik7DQo+ICAgCQlp
+ZiAocikgew0KPiAgIAkJCWRldl9lcnIoZGV2LCAiRmFpbGVkIHRvIGFkZCBkZXYgdG8gZ2VucGRc
+biIpOw0KPiAtCQkJcmV0dXJuIHI7DQo+ICsJCQlnb3RvIGZhaWx1cmU7DQo+ICAgCQl9DQo+ICAg
+CX0NCj4gICANCj4gQEAgLTM2Nyw3ICszNjgsOCBAQCBzdGF0aWMgaW50IGFjcF9od19pbml0KHZv
+aWQgKmhhbmRsZSkNCj4gICAJCQlicmVhazsNCj4gICAJCWlmICgtLWNvdW50ID09IDApIHsNCj4g
+ICAJCQlkZXZfZXJyKCZhZGV2LT5wZGV2LT5kZXYsICJGYWlsZWQgdG8gcmVzZXQgQUNQXG4iKTsN
+Cj4gLQkJCXJldHVybiAtRVRJTUVET1VUOw0KPiArCQkJciA9IC1FVElNRURPVVQ7DQo+ICsJCQln
+b3RvIGZhaWx1cmU7DQo+ICAgCQl9DQo+ICAgCQl1ZGVsYXkoMTAwKTsNCj4gICAJfQ0KPiBAQCAt
+Mzg0LDcgKzM4Niw4IEBAIHN0YXRpYyBpbnQgYWNwX2h3X2luaXQodm9pZCAqaGFuZGxlKQ0KPiAg
+IAkJCWJyZWFrOw0KPiAgIAkJaWYgKC0tY291bnQgPT0gMCkgew0KPiAgIAkJCWRldl9lcnIoJmFk
+ZXYtPnBkZXYtPmRldiwgIkZhaWxlZCB0byByZXNldCBBQ1BcbiIpOw0KPiAtCQkJcmV0dXJuIC1F
+VElNRURPVVQ7DQo+ICsJCQlyID0gLUVUSU1FRE9VVDsNCj4gKwkJCWdvdG8gZmFpbHVyZTsNCj4g
+ICAJCX0NCj4gICAJCXVkZWxheSgxMDApOw0KPiAgIAl9DQo+IEBAIC0zOTMsNiArMzk2LDEzIEBA
+IHN0YXRpYyBpbnQgYWNwX2h3X2luaXQodm9pZCAqaGFuZGxlKQ0KPiAgIAl2YWwgJj0gfkFDUF9T
+T0ZUX1JFU0VUX19Tb2Z0UmVzZXRBdWRfTUFTSzsNCj4gICAJY2dzX3dyaXRlX3JlZ2lzdGVyKGFk
+ZXYtPmFjcC5jZ3NfZGV2aWNlLCBtbUFDUF9TT0ZUX1JFU0VULCB2YWwpOw0KPiAgIAlyZXR1cm4g
+MDsNCj4gKw0KPiArZmFpbHVyZToNCj4gKwlrZnJlZShpMnNfcGRhdGEpOw0KPiArCWtmcmVlKGFk
+ZXYtPmFjcC5hY3BfcmVzKTsNCj4gKwlrZnJlZShhZGV2LT5hY3AuYWNwX2NlbGwpOw0KPiArCWtm
+cmVlKGFkZXYtPmFjcC5hY3BfZ2VucGQpOw0KPiArCXJldHVybiByOw0KPiAgIH0NCj4gICANCj4g
+ICAvKioNCg0KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18K
+YW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6
+Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
