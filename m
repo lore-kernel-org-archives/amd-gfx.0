@@ -1,58 +1,55 @@
-From: "Gustavo A. R. Silva" <gustavo@embeddedor.com>
-Subject: Re: [PATCH] drm/amdgpu: fix structurally dead code vcn_v2_5_hw_init
-Date: Wed, 2 Oct 2019 08:32:18 -0500
-Message-ID: <36766293-28b1-8903-bde8-5f04082c8b89@embeddedor.com>
-References: <20191001171635.GA17306@embeddedor>
- <192815d9-5ecb-09a7-4624-5fd36126890d@amd.com>
- <823b10a3-fe0e-2e8c-02c3-534944dbe6d2@embeddedor.com>
- <dc76a52b-09a2-7ab9-b53e-52500f4f8669@amd.com>
- <3c6ebf4a-8cba-40e2-7d70-c4d5006a160b@embeddedor.com>
- <23314fce-800c-552f-e879-464f9709d12b@amd.com>
+From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu: Drop unused variable and statement
+Date: Wed, 2 Oct 2019 09:39:28 -0400
+Message-ID: <CADnq5_OsUSP0OXWfB4=XfLuHmDMtPDyWY7EwbMPGEbz3+mi=SQ@mail.gmail.com>
+References: <20191002051759.GA161133@LGEARND20B15>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <23314fce-800c-552f-e879-464f9709d12b@amd.com>
-Content-Language: en-US
-Sender: linux-kernel-owner@vger.kernel.org
-To: "Liu, Leo" <Leo.Liu@amd.com>, "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Koenig, Christian" <Christian.Koenig@amd.com>, "Zhou, David(ChunMing)" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>
-Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20191002051759.GA161133@LGEARND20B15>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Austin Kim <austindh.kim-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Cc: Chunming Zhou <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, Dave Airlie <airlied-cv59FeDIM0c@public.gmane.org>, LKML <linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, Maling list - DRI developers <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>, "Deucher, Alexander" <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, "Quan,
+ Evan" <evan.quan-5C7GfCeVMHo@public.gmane.org>, Christian Koenig <christian.koenig-5C7GfCeVMHo@public.gmane.org>
 
-
-
-On 10/1/19 17:21, Liu, Leo wrote:
-
->>>> OK. So, maybe we can add a comment pointing that out?
->>> That could be better.
->>>
->> Great. I'm glad it's not a bug.  I'll write a patch for that so other
->> people don't waste time taking a look.
-> 
-> Thanks, just sent two patches to add comment, and long with the patch to 
-> make VCN ring ready properly.
-> 
-
-Awesome. Thank you. I would just add a commit log to this patch:
-
-[PATCH 2/2] drm/amdgpu: add a comment to VCN 2.5 encode ring
-
-I'd update the subject to: drm/amdgpu: add code comment in vcn_v2_5_hw_init
-and add this as a commit log: Add a comment to VCN 2.5 encode ring
-
-Also, I think it's important to follow the process and CC all the people and lists
-below:
-
-$ scripts/get_maintainer.pl --nokeywords --nogit --nogit-fallback drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
-Alex Deucher <alexander.deucher@amd.com> (supporter:RADEON and AMDGPU DRM DRIVERS)
-"Christian König" <christian.koenig@amd.com> (supporter:RADEON and AMDGPU DRM DRIVERS)
-"David (ChunMing) Zhou" <David1.Zhou@amd.com> (supporter:RADEON and AMDGPU DRM DRIVERS)
-David Airlie <airlied@linux.ie> (maintainer:DRM DRIVERS)
-Daniel Vetter <daniel@ffwll.ch> (maintainer:DRM DRIVERS)
-amd-gfx@lists.freedesktop.org (open list:RADEON and AMDGPU DRM DRIVERS)
-dri-devel@lists.freedesktop.org (open list:DRM DRIVERS)
-linux-kernel@vger.kernel.org (open list)
-
-Thanks
---
-Gustavo
+T24gV2VkLCBPY3QgMiwgMjAxOSBhdCAzOjE5IEFNIEF1c3RpbiBLaW0gPGF1c3RpbmRoLmtpbUBn
+bWFpbC5jb20+IHdyb3RlOgo+Cj4gRXZlbiB0aG91Z2ggJ3NtdThfc211JyBpcyBkZWNsYXJlZCwg
+aXQgaXMgbm90IHVzZWQgYWZ0ZXIgYmVsb3cgc3RhdGVtZW50Lgo+Cj4gICAgc211OF9zbXUgPSBo
+d21nci0+c211X2JhY2tlbmQ7Cj4KPiBTbyAndW51c2VkIHZhcmlhYmxlJyBjb3VsZCBiZSBzYWZl
+bHkgcmVtb3ZlZAo+IHRvIHN0b3Agd2FybmluZyBtZXNzYWdlIGFzIGJlbG93Ogo+Cj4gICAgZHJp
+dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvLi4vcG93ZXJwbGF5L3NtdW1nci9zbXU4X3NtdW1nci5j
+OjE4MDoyMjoKPiAgICB3YXJuaW5nOiB2YXJpYWJsZSDigJhzbXU4X3NtdeKAmSBzZXQgYnV0IG5v
+dCB1c2VkCj4gICAgWy1XdW51c2VkLWJ1dC1zZXQtdmFyaWFibGVdCj4KPiAgICBzdHJ1Y3Qgc211
+OF9zbXVtZ3IgKnNtdThfc211Owo+ICAgICAgICAgICAgICBeCj4gU2lnbmVkLW9mZi1ieTogQXVz
+dGluIEtpbSA8YXVzdGluZGgua2ltQGdtYWlsLmNvbT4KCkFwcGxpZWQuICBUaGFua3MhCgpBbGV4
+Cgo+IC0tLQo+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9zbXVtZ3Ivc211OF9zbXVt
+Z3IuYyB8IDIgLS0KPiAgMSBmaWxlIGNoYW5nZWQsIDIgZGVsZXRpb25zKC0pCj4KPiBkaWZmIC0t
+Z2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvc211bWdyL3NtdThfc211bWdyLmMg
+Yi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9zbXVtZ3Ivc211OF9zbXVtZ3IuYwo+IGlu
+ZGV4IDQ3MjhhYTIuLjdkY2EwNGEgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9w
+b3dlcnBsYXkvc211bWdyL3NtdThfc211bWdyLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1k
+L3Bvd2VycGxheS9zbXVtZ3Ivc211OF9zbXVtZ3IuYwo+IEBAIC0xNzcsMTIgKzE3NywxMCBAQCBz
+dGF0aWMgaW50IHNtdThfbG9hZF9tZWNfZmlybXdhcmUoc3RydWN0IHBwX2h3bWdyICpod21ncikK
+PiAgICAgICAgIHVpbnQzMl90IHRtcDsKPiAgICAgICAgIGludCByZXQgPSAwOwo+ICAgICAgICAg
+c3RydWN0IGNnc19maXJtd2FyZV9pbmZvIGluZm8gPSB7MH07Cj4gLSAgICAgICBzdHJ1Y3Qgc211
+OF9zbXVtZ3IgKnNtdThfc211Owo+Cj4gICAgICAgICBpZiAoaHdtZ3IgPT0gTlVMTCB8fCBod21n
+ci0+ZGV2aWNlID09IE5VTEwpCj4gICAgICAgICAgICAgICAgIHJldHVybiAtRUlOVkFMOwo+Cj4g
+LSAgICAgICBzbXU4X3NtdSA9IGh3bWdyLT5zbXVfYmFja2VuZDsKPiAgICAgICAgIHJldCA9IGNn
+c19nZXRfZmlybXdhcmVfaW5mbyhod21nci0+ZGV2aWNlLAo+ICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgIENHU19VQ09ERV9JRF9DUF9NRUMsICZpbmZvKTsK
+Pgo+IC0tCj4gMi42LjIKPgo+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fCj4gYW1kLWdmeCBtYWlsaW5nIGxpc3QKPiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNr
+dG9wLm9yZwo+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8v
+YW1kLWdmeApfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwph
+bWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczov
+L2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
