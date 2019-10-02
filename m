@@ -1,65 +1,83 @@
-From: Alex Deucher <alexdeucher@gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: remove set but not used variable 'pipe'
-Date: Wed, 2 Oct 2019 09:44:31 -0400
-Message-ID: <CADnq5_N9a+s5stOOX8QaMZXWJ680povytY975QvO0Eu7Y=UBYA@mail.gmail.com>
-References: <1569760723-119944-1-git-send-email-yukuai3@huawei.com>
+From: "Gustavo A. R. Silva" <gustavo-L1vi/lXTdts+Va1GwOuvDg@public.gmane.org>
+Subject: Re: [PATCH 1/2] drm/amdgpu/vcn: use amdgpu_ring_test_helper instead of
+Date: Wed, 2 Oct 2019 08:23:21 -0500
+Message-ID: <18891125-1a20-5c74-a8dd-7099754d2c16@embeddedor.com>
+References: <20191001221708.20185-1-leo.liu@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <1569760723-119944-1-git-send-email-yukuai3@huawei.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: yu kuai <yukuai3@huawei.com>
-Cc: "Deucher, Alexander" <alexander.deucher@amd.com>, Christian Koenig <christian.koenig@amd.com>, Chunming Zhou <David1.Zhou@amd.com>, Dave Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, yi.zhang@huawei.com, LKML <linux-kernel@vger.kernel.org>, Maling list - DRI developers <dri-devel@lists.freedesktop.org>, zhengbin13@huawei.com, amd-gfx list <amd-gfx@lists.freedesktop.org>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20191001221708.20185-1-leo.liu-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Liu, Leo" <Leo.Liu-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-On Mon, Sep 30, 2019 at 3:03 AM yu kuai <yukuai3@huawei.com> wrote:
->
-> Fixes gcc '-Wunused-but-set-variable' warning:
->
-> rivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c: In function
-> =E2=80=98amdgpu_gfx_graphics_queue_acquire=E2=80=99:
-> drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c:234:16: warning:
-> variable =E2=80=98pipe=E2=80=99 set but not used [-Wunused-but-set-variab=
-le]
->
-> It is never used, so can be removed.
->
-> Reported-by: Hulk Robot <hulkci@huawei.com>
-> Signed-off-by: yu kuai <yukuai3@huawei.com>
-
-Applied.  thanks!
-
-Alex
-
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c | 4 +---
->  1 file changed, 1 insertion(+), 3 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_gfx.c
-> index f9bef31..c1035a3 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-> @@ -231,12 +231,10 @@ void amdgpu_gfx_compute_queue_acquire(struct amdgpu=
-_device *adev)
->
->  void amdgpu_gfx_graphics_queue_acquire(struct amdgpu_device *adev)
->  {
-> -       int i, queue, pipe, me;
-> +       int i, queue, me;
->
->         for (i =3D 0; i < AMDGPU_MAX_GFX_QUEUES; ++i) {
->                 queue =3D i % adev->gfx.me.num_queue_per_pipe;
-> -               pipe =3D (i / adev->gfx.me.num_queue_per_pipe)
-> -                       % adev->gfx.me.num_pipe_per_me;
->                 me =3D (i / adev->gfx.me.num_queue_per_pipe)
->                       / adev->gfx.me.num_pipe_per_me;
->
-> --
-> 2.7.4
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+CgpPbiAxMC8xLzE5IDE3OjE3LCBMaXUsIExlbyB3cm90ZToKPiBhbWRncHVfcmluZ190ZXN0X3Jp
+bmcsIHNvIGl0IHdpbGwgZGV0ZXJtaW5lIHdoZXRoZXIgdGhlIHJpbmcgaXMgcmVhZHkKPiAKPiBT
+aWduZWQtb2ZmLWJ5OiBMZW8gTGl1IDxsZW8ubGl1QGFtZC5jb20+Cj4gQ2M6IEd1c3Rhdm8gQS4g
+Ui4gU2lsdmEgPGd1c3Rhdm9AZW1iZWRkZWRvci5jb20+CgpBY2tlZC1ieTogR3VzdGF2byBBLiBS
+LiBTaWx2YSA8Z3VzdGF2b0BlbWJlZGRlZG9yLmNvbT4KCj4gLS0tCj4gIGRyaXZlcnMvZ3B1L2Ry
+bS9hbWQvYW1kZ3B1L3Zjbl92MV8wLmMgfCAgMSAtCj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
+Z3B1L3Zjbl92Ml8wLmMgfCAyMSArKysrKystLS0tLS0tLS0tLS0tLS0KPiAgZHJpdmVycy9ncHUv
+ZHJtL2FtZC9hbWRncHUvdmNuX3YyXzUuYyB8IDE4ICsrKysrKy0tLS0tLS0tLS0tLQo+ICAzIGZp
+bGVzIGNoYW5nZWQsIDEyIGluc2VydGlvbnMoKyksIDI4IGRlbGV0aW9ucygtKQo+IAo+IGRpZmYg
+LS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS92Y25fdjFfMC5jIGIvZHJpdmVycy9n
+cHUvZHJtL2FtZC9hbWRncHUvdmNuX3YxXzAuYwo+IGluZGV4IDkzYjM1MDBlNTIyYi4uYjRmODRh
+ODIwYTQ0IDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3Zjbl92MV8w
+LmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS92Y25fdjFfMC5jCj4gQEAgLTIw
+Miw3ICsyMDIsNiBAQCBzdGF0aWMgaW50IHZjbl92MV8wX2h3X2luaXQodm9pZCAqaGFuZGxlKQo+
+ICAKPiAgCWZvciAoaSA9IDA7IGkgPCBhZGV2LT52Y24ubnVtX2VuY19yaW5nczsgKytpKSB7Cj4g
+IAkJcmluZyA9ICZhZGV2LT52Y24uaW5zdC0+cmluZ19lbmNbaV07Cj4gLQkJcmluZy0+c2NoZWQu
+cmVhZHkgPSB0cnVlOwo+ICAJCXIgPSBhbWRncHVfcmluZ190ZXN0X2hlbHBlcihyaW5nKTsKPiAg
+CQlpZiAocikKPiAgCQkJZ290byBkb25lOwo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0v
+YW1kL2FtZGdwdS92Y25fdjJfMC5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvdmNuX3Yy
+XzAuYwo+IGluZGV4IDQ2MjhmZDEwYTllYy4uMzhmNzg3YTU2MGNiIDEwMDY0NAo+IC0tLSBhL2Ry
+aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3Zjbl92Ml8wLmMKPiArKysgYi9kcml2ZXJzL2dwdS9k
+cm0vYW1kL2FtZGdwdS92Y25fdjJfMC5jCj4gQEAgLTI0NywzMCArMjQ3LDIxIEBAIHN0YXRpYyBp
+bnQgdmNuX3YyXzBfaHdfaW5pdCh2b2lkICpoYW5kbGUpCj4gIAlhZGV2LT5uYmlvLmZ1bmNzLT52
+Y25fZG9vcmJlbGxfcmFuZ2UoYWRldiwgcmluZy0+dXNlX2Rvb3JiZWxsLAo+ICAJCQkJCSAgICAg
+cmluZy0+ZG9vcmJlbGxfaW5kZXgsIDApOwo+ICAKPiAtCXJpbmctPnNjaGVkLnJlYWR5ID0gdHJ1
+ZTsKPiAtCXIgPSBhbWRncHVfcmluZ190ZXN0X3JpbmcocmluZyk7Cj4gLQlpZiAocikgewo+IC0J
+CXJpbmctPnNjaGVkLnJlYWR5ID0gZmFsc2U7Cj4gKwlyID0gYW1kZ3B1X3JpbmdfdGVzdF9oZWxw
+ZXIocmluZyk7Cj4gKwlpZiAocikKPiAgCQlnb3RvIGRvbmU7Cj4gLQl9Cj4gIAo+ICAJZm9yIChp
+ID0gMDsgaSA8IGFkZXYtPnZjbi5udW1fZW5jX3JpbmdzOyArK2kpIHsKPiAgCQlyaW5nID0gJmFk
+ZXYtPnZjbi5pbnN0LT5yaW5nX2VuY1tpXTsKPiAtCQlyaW5nLT5zY2hlZC5yZWFkeSA9IHRydWU7
+Cj4gLQkJciA9IGFtZGdwdV9yaW5nX3Rlc3RfcmluZyhyaW5nKTsKPiAtCQlpZiAocikgewo+IC0J
+CQlyaW5nLT5zY2hlZC5yZWFkeSA9IGZhbHNlOwo+ICsJCXIgPSBhbWRncHVfcmluZ190ZXN0X2hl
+bHBlcihyaW5nKTsKPiArCQlpZiAocikKPiAgCQkJZ290byBkb25lOwo+IC0JCX0KPiAgCX0KPiAg
+Cj4gIAlyaW5nID0gJmFkZXYtPnZjbi5pbnN0LT5yaW5nX2pwZWc7Cj4gLQlyaW5nLT5zY2hlZC5y
+ZWFkeSA9IHRydWU7Cj4gLQlyID0gYW1kZ3B1X3JpbmdfdGVzdF9yaW5nKHJpbmcpOwo+IC0JaWYg
+KHIpIHsKPiAtCQlyaW5nLT5zY2hlZC5yZWFkeSA9IGZhbHNlOwo+ICsJciA9IGFtZGdwdV9yaW5n
+X3Rlc3RfaGVscGVyKHJpbmcpOwo+ICsJaWYgKHIpCj4gIAkJZ290byBkb25lOwo+IC0JfQo+ICAK
+PiAgZG9uZToKPiAgCWlmICghcikKPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9h
+bWRncHUvdmNuX3YyXzUuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3Zjbl92Ml81LmMK
+PiBpbmRleCBiZjg2MjZlMTViMDkuLmNjMTk0NDQ0MzYzZiAxMDA2NDQKPiAtLS0gYS9kcml2ZXJz
+L2dwdS9kcm0vYW1kL2FtZGdwdS92Y25fdjJfNS5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2Ft
+ZC9hbWRncHUvdmNuX3YyXzUuYwo+IEBAIC0yNTgsMjkgKzI1OCwyMyBAQCBzdGF0aWMgaW50IHZj
+bl92Ml81X2h3X2luaXQodm9pZCAqaGFuZGxlKQo+ICAJCWFkZXYtPm5iaW8uZnVuY3MtPnZjbl9k
+b29yYmVsbF9yYW5nZShhZGV2LCByaW5nLT51c2VfZG9vcmJlbGwsCj4gIAkJCQkJCSAgICAgcmlu
+Zy0+ZG9vcmJlbGxfaW5kZXgsIGopOwo+ICAKPiAtCQlyID0gYW1kZ3B1X3JpbmdfdGVzdF9yaW5n
+KHJpbmcpOwo+IC0JCWlmIChyKSB7Cj4gLQkJCXJpbmctPnNjaGVkLnJlYWR5ID0gZmFsc2U7Cj4g
+KwkJciA9IGFtZGdwdV9yaW5nX3Rlc3RfaGVscGVyKHJpbmcpOwo+ICsJCWlmIChyKQo+ICAJCQln
+b3RvIGRvbmU7Cj4gLQkJfQo+ICAKPiAgCQlmb3IgKGkgPSAwOyBpIDwgYWRldi0+dmNuLm51bV9l
+bmNfcmluZ3M7ICsraSkgewo+ICAJCQlyaW5nID0gJmFkZXYtPnZjbi5pbnN0W2pdLnJpbmdfZW5j
+W2ldOwo+ICAJCQlyaW5nLT5zY2hlZC5yZWFkeSA9IGZhbHNlOwo+ICAJCQljb250aW51ZTsKPiAt
+CQkJciA9IGFtZGdwdV9yaW5nX3Rlc3RfcmluZyhyaW5nKTsKPiAtCQkJaWYgKHIpIHsKPiAtCQkJ
+CXJpbmctPnNjaGVkLnJlYWR5ID0gZmFsc2U7Cj4gKwkJCXIgPSBhbWRncHVfcmluZ190ZXN0X2hl
+bHBlcihyaW5nKTsKPiArCQkJaWYgKHIpCj4gIAkJCQlnb3RvIGRvbmU7Cj4gLQkJCX0KPiAgCQl9
+Cj4gIAo+ICAJCXJpbmcgPSAmYWRldi0+dmNuLmluc3Rbal0ucmluZ19qcGVnOwo+IC0JCXIgPSBh
+bWRncHVfcmluZ190ZXN0X3JpbmcocmluZyk7Cj4gLQkJaWYgKHIpIHsKPiAtCQkJcmluZy0+c2No
+ZWQucmVhZHkgPSBmYWxzZTsKPiArCQlyID0gYW1kZ3B1X3JpbmdfdGVzdF9oZWxwZXIocmluZyk7
+Cj4gKwkJaWYgKHIpCj4gIAkJCWdvdG8gZG9uZTsKPiAtCQl9Cj4gIAl9Cj4gIGRvbmU6Cj4gIAlp
+ZiAoIXIpCj4gCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+CmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBz
+Oi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
