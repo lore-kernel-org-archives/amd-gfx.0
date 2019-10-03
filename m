@@ -1,79 +1,317 @@
-From: "Yang, Philip" <Philip.Yang-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH] drm/amdgpu: user pages array memory leak fix
-Date: Thu, 3 Oct 2019 19:44:37 +0000
-Message-ID: <20191003194423.14468-1-Philip.Yang@amd.com>
+From: Davidlohr Bueso <dave@stgolabs.net>
+Subject: [PATCH 03/11] drm/amdgpu: convert amdgpu_vm_it to half closed intervals
+Date: Thu,  3 Oct 2019 13:18:50 -0700
+Message-ID: <20191003201858.11666-4-dave@stgolabs.net>
+References: <20191003201858.11666-1-dave@stgolabs.net>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "thej^C@gmail.com" <thej^C@gmail.com>
-Cc: "Yang, Philip" <Philip.Yang-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20191003201858.11666-1-dave@stgolabs.net>
+Sender: linux-kernel-owner@vger.kernel.org
+To: akpm@linux-foundation.org
+Cc: walken@google.com, peterz@infradead.org, linux-kernel@vger.kernel.org, linux-mm@kvack.org, dri-devel@lists.freedesktop.org, linux-rdma@vger.kernel.org, dave@stgolabs.net, Jerome Glisse <jglisse@redhat.com>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, Daniel Vetter <daniel@ffwll.ch>, amd-gfx@lists.freedesktop.org, Davidlohr Bueso <dbueso@suse.de>
+List-Id: amd-gfx.lists.freedesktop.org
 
-dXNlcl9wYWdlcyBhcnJheSBzaG91bGQgYWx3YXlzIGJlIGZyZWVkIGFmdGVyIHZhbGlkYXRpb24g
-cmVnYXJkbGVzcyBpZgp1c2VyIHBhZ2VzIGFyZSBjaGFuZ2VkIGFmdGVyIGJvIGlzIGNyZWF0ZWQg
-YmVjYXVzZSB3aXRoIEhNTSBjaGFuZ2UgcGFyc2UKYm8gYWx3YXlzIGFsbG9jYXRlIHVzZXIgcGFn
-ZXMgYXJyYXkgdG8gZ2V0IHVzZXIgcGFnZXMgZm9yIHVzZXJwdHIgYm8uCgpEb24ndCBuZWVkIHRv
-IGdldCB1c2VyIHBhZ2VzIHdoaWxlIGNyZWF0aW5nIHVlcnB0ciBibyBiZWNhdXNlIHVzZXIgcGFn
-ZXMKd2lsbCBvbmx5IGJlIHVzZWQgd2hpbGUgdmFsaWRhdGluZyBhZnRlciBwYXJzaW5nIHVzZXJw
-dHIgYm8uCgpCdWd6aWxsYTogaHR0cHM6Ly9idWdzLmxhdW5jaHBhZC5uZXQvdWJ1bnR1Lytzb3Vy
-Y2UvbGludXgvK2J1Zy8xODQ0OTYyCgp2MjogcmVtb3ZlIHVudXNlZCBsb2NhbCB2YXJpYWJsZSBh
-bmQgYW1lbmQgY29tbWl0CgpTaWduZWQtb2ZmLWJ5OiBQaGlsaXAgWWFuZyA8UGhpbGlwLllhbmdA
-YW1kLmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfY3MuYyAgfCAg
-NCArLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZ2VtLmMgfCAyMyArLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLQogMiBmaWxlcyBjaGFuZ2VkLCAyIGluc2VydGlvbnMoKyksIDI1
-IGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
-ZGdwdV9jcy5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2NzLmMKaW5kZXgg
-NDliNzY3YjcyMzhmLi45NjExODZlNzExM2UgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9h
-bWQvYW1kZ3B1L2FtZGdwdV9jcy5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
-ZGdwdV9jcy5jCkBAIC00NzQsNyArNDc0LDYgQEAgc3RhdGljIGludCBhbWRncHVfY3NfbGlzdF92
-YWxpZGF0ZShzdHJ1Y3QgYW1kZ3B1X2NzX3BhcnNlciAqcCwKIAogCWxpc3RfZm9yX2VhY2hfZW50
-cnkobG9iaiwgdmFsaWRhdGVkLCB0di5oZWFkKSB7CiAJCXN0cnVjdCBhbWRncHVfYm8gKmJvID0g
-dHRtX3RvX2FtZGdwdV9ibyhsb2JqLT50di5ibyk7Ci0JCWJvb2wgYmluZGluZ191c2VycHRyID0g
-ZmFsc2U7CiAJCXN0cnVjdCBtbV9zdHJ1Y3QgKnVzZXJtbTsKIAogCQl1c2VybW0gPSBhbWRncHVf
-dHRtX3R0X2dldF91c2VybW0oYm8tPnRiby50dG0pOwpAQCAtNDkxLDE0ICs0OTAsMTMgQEAgc3Rh
-dGljIGludCBhbWRncHVfY3NfbGlzdF92YWxpZGF0ZShzdHJ1Y3QgYW1kZ3B1X2NzX3BhcnNlciAq
-cCwKIAogCQkJYW1kZ3B1X3R0bV90dF9zZXRfdXNlcl9wYWdlcyhiby0+dGJvLnR0bSwKIAkJCQkJ
-CSAgICAgbG9iai0+dXNlcl9wYWdlcyk7Ci0JCQliaW5kaW5nX3VzZXJwdHIgPSB0cnVlOwogCQl9
-CiAKIAkJciA9IGFtZGdwdV9jc192YWxpZGF0ZShwLCBibyk7CiAJCWlmIChyKQogCQkJcmV0dXJu
-IHI7CiAKLQkJaWYgKGJpbmRpbmdfdXNlcnB0cikgeworCQlpZiAobG9iai0+dXNlcl9wYWdlcykg
-ewogCQkJa3ZmcmVlKGxvYmotPnVzZXJfcGFnZXMpOwogCQkJbG9iai0+dXNlcl9wYWdlcyA9IE5V
-TEw7CiAJCX0KZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9n
-ZW0uYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9nZW0uYwppbmRleCBhODI4
-ZTNkMGJmYmQuLjNjY2Q2MWQ2OTk2NCAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9h
-bWRncHUvYW1kZ3B1X2dlbS5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdw
-dV9nZW0uYwpAQCAtMjgzLDcgKzI4Myw2IEBAIGludCBhbWRncHVfZ2VtX2NyZWF0ZV9pb2N0bChz
-dHJ1Y3QgZHJtX2RldmljZSAqZGV2LCB2b2lkICpkYXRhLAogaW50IGFtZGdwdV9nZW1fdXNlcnB0
-cl9pb2N0bChzdHJ1Y3QgZHJtX2RldmljZSAqZGV2LCB2b2lkICpkYXRhLAogCQkJICAgICBzdHJ1
-Y3QgZHJtX2ZpbGUgKmZpbHApCiB7Ci0Jc3RydWN0IHR0bV9vcGVyYXRpb25fY3R4IGN0eCA9IHsg
-dHJ1ZSwgZmFsc2UgfTsKIAlzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiA9IGRldi0+ZGV2X3By
-aXZhdGU7CiAJc3RydWN0IGRybV9hbWRncHVfZ2VtX3VzZXJwdHIgKmFyZ3MgPSBkYXRhOwogCXN0
-cnVjdCBkcm1fZ2VtX29iamVjdCAqZ29iajsKQEAgLTMyNiwzMiArMzI1LDEyIEBAIGludCBhbWRn
-cHVfZ2VtX3VzZXJwdHJfaW9jdGwoc3RydWN0IGRybV9kZXZpY2UgKmRldiwgdm9pZCAqZGF0YSwK
-IAkJCWdvdG8gcmVsZWFzZV9vYmplY3Q7CiAJfQogCi0JaWYgKGFyZ3MtPmZsYWdzICYgQU1ER1BV
-X0dFTV9VU0VSUFRSX1ZBTElEQVRFKSB7Ci0JCXIgPSBhbWRncHVfdHRtX3R0X2dldF91c2VyX3Bh
-Z2VzKGJvLCBiby0+dGJvLnR0bS0+cGFnZXMpOwotCQlpZiAocikKLQkJCWdvdG8gcmVsZWFzZV9v
-YmplY3Q7Ci0KLQkJciA9IGFtZGdwdV9ib19yZXNlcnZlKGJvLCB0cnVlKTsKLQkJaWYgKHIpCi0J
-CQlnb3RvIHVzZXJfcGFnZXNfZG9uZTsKLQotCQlhbWRncHVfYm9fcGxhY2VtZW50X2Zyb21fZG9t
-YWluKGJvLCBBTURHUFVfR0VNX0RPTUFJTl9HVFQpOwotCQlyID0gdHRtX2JvX3ZhbGlkYXRlKCZi
-by0+dGJvLCAmYm8tPnBsYWNlbWVudCwgJmN0eCk7Ci0JCWFtZGdwdV9ib191bnJlc2VydmUoYm8p
-OwotCQlpZiAocikKLQkJCWdvdG8gdXNlcl9wYWdlc19kb25lOwotCX0KLQogCXIgPSBkcm1fZ2Vt
-X2hhbmRsZV9jcmVhdGUoZmlscCwgZ29iaiwgJmhhbmRsZSk7CiAJaWYgKHIpCi0JCWdvdG8gdXNl
-cl9wYWdlc19kb25lOworCQlnb3RvIHJlbGVhc2Vfb2JqZWN0OwogCiAJYXJncy0+aGFuZGxlID0g
-aGFuZGxlOwogCi11c2VyX3BhZ2VzX2RvbmU6Ci0JaWYgKGFyZ3MtPmZsYWdzICYgQU1ER1BVX0dF
-TV9VU0VSUFRSX1ZBTElEQVRFKQotCQlhbWRncHVfdHRtX3R0X2dldF91c2VyX3BhZ2VzX2RvbmUo
-Ym8tPnRiby50dG0pOwotCiByZWxlYXNlX29iamVjdDoKIAlkcm1fZ2VtX29iamVjdF9wdXRfdW5s
-b2NrZWQoZ29iaik7CiAKLS0gCjIuMTcuMQoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVl
-ZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5m
-by9hbWQtZ2Z4
+The amdgpu_vm interval tree really wants [a, b) intervals,
+not fully closed ones. As such convert it to use the new
+interval_tree_gen.h, and also rename the 'last' endpoint
+in the node to 'end', which is both a more suitable name
+for the half closed interval and also reduces the chances
+of missing a conversion when doing insertion or lookup.
+
+Cc: Jerome Glisse <jglisse@redhat.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: "Christian König" <christian.koenig@amd.com>
+Cc: Daniel Vetter <daniel@ffwll.ch>
+Cc: amd-gfx@lists.freedesktop.org
+Signed-off-by: Davidlohr Bueso <dbueso@suse.de>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c     |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_object.h |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h  | 18 ++++++------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c    |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c    |  3 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c     | 46 +++++++++++++++---------------
+ 6 files changed, 36 insertions(+), 37 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+index 49b767b7238f..290bfe820890 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+@@ -756,7 +756,7 @@ static int amdgpu_cs_vm_handling(struct amdgpu_cs_parser *p)
+ 			}
+ 
+ 			if ((va_start + chunk_ib->ib_bytes) >
+-			    (m->last + 1) * AMDGPU_GPU_PAGE_SIZE) {
++			    m->end * AMDGPU_GPU_PAGE_SIZE) {
+ 				DRM_ERROR("IB va_start+ib_bytes is invalid\n");
+ 				return -EINVAL;
+ 			}
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
+index 7e99f6c58c48..60b73bc4d11a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
+@@ -51,7 +51,7 @@ struct amdgpu_bo_va_mapping {
+ 	struct list_head		list;
+ 	struct rb_node			rb;
+ 	uint64_t			start;
+-	uint64_t			last;
++	uint64_t			end;
+ 	uint64_t			__subtree_last;
+ 	uint64_t			offset;
+ 	uint64_t			flags;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h
+index 8227ebd0f511..c5b0e88d019c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h
+@@ -247,7 +247,7 @@ TRACE_EVENT(amdgpu_vm_bo_map,
+ 	    TP_STRUCT__entry(
+ 			     __field(struct amdgpu_bo *, bo)
+ 			     __field(long, start)
+-			     __field(long, last)
++			     __field(long, end)
+ 			     __field(u64, offset)
+ 			     __field(u64, flags)
+ 			     ),
+@@ -255,12 +255,12 @@ TRACE_EVENT(amdgpu_vm_bo_map,
+ 	    TP_fast_assign(
+ 			   __entry->bo = bo_va ? bo_va->base.bo : NULL;
+ 			   __entry->start = mapping->start;
+-			   __entry->last = mapping->last;
++			   __entry->end = mapping->end;
+ 			   __entry->offset = mapping->offset;
+ 			   __entry->flags = mapping->flags;
+ 			   ),
+-	    TP_printk("bo=%p, start=%lx, last=%lx, offset=%010llx, flags=%llx",
+-		      __entry->bo, __entry->start, __entry->last,
++	    TP_printk("bo=%p, start=%lx, end=%lx, offset=%010llx, flags=%llx",
++		      __entry->bo, __entry->start, __entry->end,
+ 		      __entry->offset, __entry->flags)
+ );
+ 
+@@ -271,7 +271,7 @@ TRACE_EVENT(amdgpu_vm_bo_unmap,
+ 	    TP_STRUCT__entry(
+ 			     __field(struct amdgpu_bo *, bo)
+ 			     __field(long, start)
+-			     __field(long, last)
++			     __field(long, end)
+ 			     __field(u64, offset)
+ 			     __field(u64, flags)
+ 			     ),
+@@ -279,12 +279,12 @@ TRACE_EVENT(amdgpu_vm_bo_unmap,
+ 	    TP_fast_assign(
+ 			   __entry->bo = bo_va ? bo_va->base.bo : NULL;
+ 			   __entry->start = mapping->start;
+-			   __entry->last = mapping->last;
++			   __entry->end = mapping->end;
+ 			   __entry->offset = mapping->offset;
+ 			   __entry->flags = mapping->flags;
+ 			   ),
+-	    TP_printk("bo=%p, start=%lx, last=%lx, offset=%010llx, flags=%llx",
+-		      __entry->bo, __entry->start, __entry->last,
++	    TP_printk("bo=%p, start=%lx, end=%lx, offset=%010llx, flags=%llx",
++		      __entry->bo, __entry->start, __entry->end,
+ 		      __entry->offset, __entry->flags)
+ );
+ 
+@@ -299,7 +299,7 @@ DECLARE_EVENT_CLASS(amdgpu_vm_mapping,
+ 
+ 	    TP_fast_assign(
+ 			   __entry->soffset = mapping->start;
+-			   __entry->eoffset = mapping->last + 1;
++			   __entry->eoffset = mapping->end;
+ 			   __entry->flags = mapping->flags;
+ 			   ),
+ 	    TP_printk("soffs=%010llx, eoffs=%010llx, flags=%llx",
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
+index b2c364b8695f..8094dd0b0332 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
+@@ -819,7 +819,7 @@ static int amdgpu_uvd_cs_pass2(struct amdgpu_uvd_cs_ctx *ctx)
+ 
+ 	start = amdgpu_bo_gpu_offset(bo);
+ 
+-	end = (mapping->last + 1 - mapping->start);
++	end = mapping->end - mapping->start;
+ 	end = end * AMDGPU_GPU_PAGE_SIZE + start;
+ 
+ 	addr -= mapping->start * AMDGPU_GPU_PAGE_SIZE;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c
+index b70b3c45bb29..d6511bf446df 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c
+@@ -642,8 +642,7 @@ static int amdgpu_vce_cs_reloc(struct amdgpu_cs_parser *p, uint32_t ib_idx,
+ 		return r;
+ 	}
+ 
+-	if ((addr + (uint64_t)size) >
+-	    (mapping->last + 1) * AMDGPU_GPU_PAGE_SIZE) {
++	if ((addr + (uint64_t)size) > mapping->end * AMDGPU_GPU_PAGE_SIZE) {
+ 		DRM_ERROR("BO to small for addr 0x%010Lx %d %d\n",
+ 			  addr, lo, hi);
+ 		return -EINVAL;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+index a2c797e34a29..2f618017617e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+@@ -26,7 +26,7 @@
+  *          Jerome Glisse
+  */
+ #include <linux/dma-fence-array.h>
+-#include <linux/interval_tree_generic.h>
++#include <linux/interval_tree_gen.h>
+ #include <linux/idr.h>
+ 
+ #include <drm/amdgpu_drm.h>
+@@ -58,13 +58,13 @@
+  */
+ 
+ #define START(node) ((node)->start)
+-#define LAST(node) ((node)->last)
++#define END(node) ((node)->end)
+ 
+ INTERVAL_TREE_DEFINE(struct amdgpu_bo_va_mapping, rb, uint64_t, __subtree_last,
+-		     START, LAST, static, amdgpu_vm_it)
++		     START, END, static, amdgpu_vm_it)
+ 
+ #undef START
+-#undef LAST
++#undef END
+ 
+ /**
+  * struct amdgpu_prt_cb - Helper to disable partial resident texture feature from a fence callback
+@@ -1616,7 +1616,7 @@ static int amdgpu_vm_bo_split_mapping(struct amdgpu_device *adev,
+ 	do {
+ 		dma_addr_t *dma_addr = NULL;
+ 		uint64_t max_entries;
+-		uint64_t addr, last;
++		uint64_t addr, end;
+ 
+ 		if (nodes) {
+ 			addr = nodes->start << PAGE_SHIFT;
+@@ -1654,21 +1654,21 @@ static int amdgpu_vm_bo_split_mapping(struct amdgpu_device *adev,
+ 			addr += pfn << PAGE_SHIFT;
+ 		}
+ 
+-		last = min((uint64_t)mapping->last, start + max_entries - 1);
++		end = min((uint64_t)mapping->end, start + max_entries);
+ 		r = amdgpu_vm_bo_update_mapping(adev, vm, false, exclusive,
+-						start, last, flags, addr,
++						start, end, flags, addr,
+ 						dma_addr, fence);
+ 		if (r)
+ 			return r;
+ 
+-		pfn += (last - start + 1) / AMDGPU_GPU_PAGES_IN_CPU_PAGE;
++		pfn += (end - start) / AMDGPU_GPU_PAGES_IN_CPU_PAGE;
+ 		if (nodes && nodes->size == pfn) {
+ 			pfn = 0;
+ 			++nodes;
+ 		}
+-		start = last + 1;
++		start = end;
+ 
+-	} while (unlikely(start != mapping->last + 1));
++	} while (unlikely(start != mapping->end));
+ 
+ 	return 0;
+ }
+@@ -1946,7 +1946,7 @@ int amdgpu_vm_clear_freed(struct amdgpu_device *adev,
+ 			init_pte_value = AMDGPU_PTE_DEFAULT_ATC;
+ 
+ 		r = amdgpu_vm_bo_update_mapping(adev, vm, false, NULL,
+-						mapping->start, mapping->last,
++						mapping->start, mapping->end,
+ 						init_pte_value, 0, NULL, &f);
+ 		amdgpu_vm_free_mapping(adev, vm, mapping, f);
+ 		if (r) {
+@@ -2129,7 +2129,7 @@ int amdgpu_vm_bo_map(struct amdgpu_device *adev,
+ 		return -EINVAL;
+ 
+ 	/* make sure object fit at this offset */
+-	eaddr = saddr + size - 1;
++	eaddr = saddr + size;
+ 	if (saddr >= eaddr ||
+ 	    (bo && offset + size > amdgpu_bo_size(bo)))
+ 		return -EINVAL;
+@@ -2142,7 +2142,7 @@ int amdgpu_vm_bo_map(struct amdgpu_device *adev,
+ 		/* bo and tmp overlap, invalid addr */
+ 		dev_err(adev->dev, "bo %p va 0x%010Lx-0x%010Lx conflict with "
+ 			"0x%010Lx-0x%010Lx\n", bo, saddr, eaddr,
+-			tmp->start, tmp->last + 1);
++			tmp->start, tmp->end);
+ 		return -EINVAL;
+ 	}
+ 
+@@ -2151,7 +2151,7 @@ int amdgpu_vm_bo_map(struct amdgpu_device *adev,
+ 		return -ENOMEM;
+ 
+ 	mapping->start = saddr;
+-	mapping->last = eaddr;
++	mapping->end = eaddr;
+ 	mapping->offset = offset;
+ 	mapping->flags = flags;
+ 
+@@ -2194,7 +2194,7 @@ int amdgpu_vm_bo_replace_map(struct amdgpu_device *adev,
+ 		return -EINVAL;
+ 
+ 	/* make sure object fit at this offset */
+-	eaddr = saddr + size - 1;
++	eaddr = saddr + size;
+ 	if (saddr >= eaddr ||
+ 	    (bo && offset + size > amdgpu_bo_size(bo)))
+ 		return -EINVAL;
+@@ -2214,7 +2214,7 @@ int amdgpu_vm_bo_replace_map(struct amdgpu_device *adev,
+ 	eaddr /= AMDGPU_GPU_PAGE_SIZE;
+ 
+ 	mapping->start = saddr;
+-	mapping->last = eaddr;
++	mapping->end = eaddr;
+ 	mapping->offset = offset;
+ 	mapping->flags = flags;
+ 
+@@ -2299,7 +2299,7 @@ int amdgpu_vm_bo_clear_mappings(struct amdgpu_device *adev,
+ 	LIST_HEAD(removed);
+ 	uint64_t eaddr;
+ 
+-	eaddr = saddr + size - 1;
++	eaddr = saddr + size;
+ 	saddr /= AMDGPU_GPU_PAGE_SIZE;
+ 	eaddr /= AMDGPU_GPU_PAGE_SIZE;
+ 
+@@ -2322,7 +2322,7 @@ int amdgpu_vm_bo_clear_mappings(struct amdgpu_device *adev,
+ 		/* Remember mapping split at the start */
+ 		if (tmp->start < saddr) {
+ 			before->start = tmp->start;
+-			before->last = saddr - 1;
++			before->end = saddr;
+ 			before->offset = tmp->offset;
+ 			before->flags = tmp->flags;
+ 			before->bo_va = tmp->bo_va;
+@@ -2330,9 +2330,9 @@ int amdgpu_vm_bo_clear_mappings(struct amdgpu_device *adev,
+ 		}
+ 
+ 		/* Remember mapping split at the end */
+-		if (tmp->last > eaddr) {
+-			after->start = eaddr + 1;
+-			after->last = tmp->last;
++		if (tmp->end > eaddr) {
++			after->start = eaddr;
++			after->end = tmp->end;
+ 			after->offset = tmp->offset;
+ 			after->offset += after->start - tmp->start;
+ 			after->flags = tmp->flags;
+@@ -2353,8 +2353,8 @@ int amdgpu_vm_bo_clear_mappings(struct amdgpu_device *adev,
+ 
+ 		if (tmp->start < saddr)
+ 		    tmp->start = saddr;
+-		if (tmp->last > eaddr)
+-		    tmp->last = eaddr;
++		if (tmp->end > eaddr)
++		    tmp->end = eaddr;
+ 
+ 		tmp->bo_va = NULL;
+ 		list_add(&tmp->list, &vm->freed);
+-- 
+2.16.4
