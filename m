@@ -1,12 +1,14 @@
-From: Tom St Denis <tstdenis82-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+From: "Liu, Shaoyun" <Shaoyun.Liu-5C7GfCeVMHo@public.gmane.org>
 Subject: Re: [PATCH] drm/amdgpu: improve MSI-X handling (v3)
-Date: Thu, 3 Oct 2019 13:33:40 -0400
-Message-ID: <CAAzXoRKMd2gSrK5GE2Y6UDkbjLifZ5UuAvpTS06eeqB7zJP_Aw@mail.gmail.com>
+Date: Thu, 3 Oct 2019 17:37:38 +0000
+Message-ID: <60280b19-47f7-76b5-f69f-a05ca103061a@amd.com>
 References: <20191003172951.15866-1-alexander.deucher@amd.com>
+ <CAAzXoRKMd2gSrK5GE2Y6UDkbjLifZ5UuAvpTS06eeqB7zJP_Aw@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0569022426=="
+Content-Type: multipart/mixed; boundary="===============0712291833=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20191003172951.15866-1-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <CAAzXoRKMd2gSrK5GE2Y6UDkbjLifZ5UuAvpTS06eeqB7zJP_Aw-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -17,180 +19,153 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, amd-gfx mailing list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Tom St Denis <tstdenis82-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, amd-gfx mailing list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============0569022426==
-Content-Type: multipart/alternative; boundary="00000000000023423b059404fdb1"
+--===============0712291833==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_60280b1947f776b5f69fa05ca103061aamdcom_"
 
---00000000000023423b059404fdb1
-Content-Type: text/plain; charset="UTF-8"
+--_000_60280b1947f776b5f69fa05ca103061aamdcom_
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-Tested-by: Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org>
+TG9va3MgZ29vZCB0byBtZSAuDQoNClJldmlld2VkLWJ5OiBTaGFveXVuIGxpdSAgPHNoYW95dW4u
+bGl1QGFtZC5jb20+PG1haWx0bzpzaGFveXVuLmxpdUBhbWQuY29tPg0KDQoNCk9uIDIwMTktMTAt
+MDMgMTozMyBwLm0uLCBUb20gU3QgRGVuaXMgd3JvdGU6DQoNClRlc3RlZC1ieTogVG9tIFN0IERl
+bmlzIDx0b20uc3RkZW5pc0BhbWQuY29tPjxtYWlsdG86dG9tLnN0ZGVuaXNAYW1kLmNvbT4NCg0K
+Q2hlZXJzLA0KVG9tDQoNCk9uIFRodSwgT2N0IDMsIDIwMTkgYXQgMTozMCBQTSBBbGV4IERldWNo
+ZXIgPGFsZXhkZXVjaGVyQGdtYWlsLmNvbT48bWFpbHRvOmFsZXhkZXVjaGVyQGdtYWlsLmNvbT4g
+d3JvdGU6DQoNCg0KDQpDaGVjayB0aGUgbnVtYmVyIG9mIHN1cHBvcnRlZCB2ZWN0b3JzIGFuZCBm
+YWxsIGJhY2sgdG8gTVNJIGlmDQp3ZSByZXR1cm4gb3IgZXJyb3Igb3IgMCBNU0ktWCB2ZWN0b3Jz
+Lg0KDQp2Mjogb25seSBhbGxvY2F0ZSBvbmUgdmVjdG9yLiAgV2UgY2FuJ3QgY3VycmVudGx5IHVz
+ZSBtb3JlIHRoYW4NCm9uZSBhbnl3YXkuDQoNCnYzOiBpbnN0YWxsIHRoZSBpcnEgb24gdmVjdG9y
+IDAuDQoNClNpZ25lZC1vZmYtYnk6IEFsZXggRGV1Y2hlciA8YWxleGFuZGVyLmRldWNoZXJAYW1k
+LmNvbT48bWFpbHRvOmFsZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+DQotLS0NCiBkcml2ZXJzL2dw
+dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfaXJxLmMgfCAxNyArKysrKysrKysrKysrLS0tLQ0KIDEg
+ZmlsZSBjaGFuZ2VkLCAxMyBpbnNlcnRpb25zKCspLCA0IGRlbGV0aW9ucygtKQ0KDQpkaWZmIC0t
+Z2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2lycS5jDQpiL2RyaXZlcnMv
+Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9pcnEuYw0KaW5kZXggNTA3NzFiMjc1N2RjLi42ZjNi
+MDNmNjIyNGYgMTAwNjQ0DQotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
+aXJxLmMNCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9pcnEuYw0KQEAg
+LTI0NSwxMSArMjQ1LDE5IEBAIGludCBhbWRncHVfaXJxX2luaXQoc3RydWN0IGFtZGdwdV9kZXZp
+Y2UgKmFkZXYpDQogICAgICAgIGFkZXYtPmlycS5tc2lfZW5hYmxlZCA9IGZhbHNlOw0KDQogICAg
+ICAgIGlmIChhbWRncHVfbXNpX29rKGFkZXYpKSB7DQotICAgICAgICAgICAgICAgaW50IG52ZWMg
+PSBwY2lfYWxsb2NfaXJxX3ZlY3RvcnMoYWRldi0+cGRldiwgMSwNCnBjaV9tc2l4X3ZlY19jb3Vu
+dChhZGV2LT5wZGV2KSwNCi0gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBQ
+Q0lfSVJRX01TSSB8IFBDSV9JUlFfTVNJWCk7DQorICAgICAgICAgICAgICAgaW50IG52ZWMgPSBw
+Y2lfbXNpeF92ZWNfY291bnQoYWRldi0+cGRldik7DQorICAgICAgICAgICAgICAgdW5zaWduZWQg
+aW50IGZsYWdzOw0KKw0KKyAgICAgICAgICAgICAgIGlmIChudmVjIDw9IDApIHsNCisgICAgICAg
+ICAgICAgICAgICAgICAgIGZsYWdzID0gUENJX0lSUV9NU0k7DQorICAgICAgICAgICAgICAgfSBl
+bHNlIHsNCisgICAgICAgICAgICAgICAgICAgICAgIGZsYWdzID0gUENJX0lSUV9NU0kgfCBQQ0lf
+SVJRX01TSVg7DQorICAgICAgICAgICAgICAgfQ0KKyAgICAgICAgICAgICAgIC8qIHdlIG9ubHkg
+bmVlZCBvbmUgdmVjdG9yICovDQorICAgICAgICAgICAgICAgbnZlYyA9IHBjaV9hbGxvY19pcnFf
+dmVjdG9ycyhhZGV2LT5wZGV2LCAxLCAxLCBmbGFncyk7DQogICAgICAgICAgICAgICAgaWYgKG52
+ZWMgPiAwKSB7DQogICAgICAgICAgICAgICAgICAgICAgICBhZGV2LT5pcnEubXNpX2VuYWJsZWQg
+PSB0cnVlOw0KLSAgICAgICAgICAgICAgICAgICAgICAgZGV2X2RiZyhhZGV2LT5kZXYsICJhbWRn
+cHU6IHVzaW5nIE1TSS5cbiIpOw0KKyAgICAgICAgICAgICAgICAgICAgICAgZGV2X2RiZyhhZGV2
+LT5kZXYsICJhbWRncHU6IHVzaW5nIE1TSS9NU0ktWC5cbiIpOw0KICAgICAgICAgICAgICAgIH0N
+CiAgICAgICAgfQ0KDQpAQCAtMjcyLDcgKzI4MCw4IEBAIGludCBhbWRncHVfaXJxX2luaXQoc3Ry
+dWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpDQogICAgICAgIElOSVRfV09SSygmYWRldi0+aXJxLmlo
+Ml93b3JrLCBhbWRncHVfaXJxX2hhbmRsZV9paDIpOw0KDQogICAgICAgIGFkZXYtPmlycS5pbnN0
+YWxsZWQgPSB0cnVlOw0KLSAgICAgICByID0gZHJtX2lycV9pbnN0YWxsKGFkZXYtPmRkZXYsIGFk
+ZXYtPmRkZXYtPnBkZXYtPmlycSk7DQorICAgICAgIC8qIFVzZSB2ZWN0b3IgMCBmb3IgTVNJLVgg
+Ki8NCisgICAgICAgciA9IGRybV9pcnFfaW5zdGFsbChhZGV2LT5kZGV2LCBwY2lfaXJxX3ZlY3Rv
+cihhZGV2LT5wZGV2LCAwKSk7DQogICAgICAgIGlmIChyKSB7DQogICAgICAgICAgICAgICAgYWRl
+di0+aXJxLmluc3RhbGxlZCA9IGZhbHNlOw0KICAgICAgICAgICAgICAgIGlmICghYW1kZ3B1X2Rl
+dmljZV9oYXNfZGNfc3VwcG9ydChhZGV2KSkNCi0tDQoyLjIwLjENCg0KX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18NCmFtZC1nZnggbWFpbGluZyBsaXN0DQph
+bWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZzxtYWlsdG86YW1kLWdmeEBsaXN0cy5mcmVlZGVz
+a3RvcC5vcmc+DQpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZv
+L2FtZC1nZngNCg0KDQoNCg0KDQoNCg0KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX18NCmFtZC1nZnggbWFpbGluZyBsaXN0DQphbWQtZ2Z4QGxpc3RzLmZyZWVk
+ZXNrdG9wLm9yZzxtYWlsdG86YW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmc+DQpodHRwczov
+L2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngNCg==
 
-Cheers,
-Tom
+--_000_60280b1947f776b5f69fa05ca103061aamdcom_
+Content-Type: text/html; charset="utf-8"
+Content-ID: <2E460E69C3AE624E9D7553E1337381F5-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
+Content-Transfer-Encoding: base64
 
-On Thu, Oct 3, 2019 at 1:30 PM Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org> wrote:
+PGh0bWw+DQo8aGVhZD4NCjxtZXRhIGh0dHAtZXF1aXY9IkNvbnRlbnQtVHlwZSIgY29udGVudD0i
+dGV4dC9odG1sOyBjaGFyc2V0PXV0Zi04Ij4NCjwvaGVhZD4NCjxib2R5IHRleHQ9IiMwMDAwMDAi
+IGJnY29sb3I9IiNGRkZGRkYiPg0KPHA+TG9va3MgZ29vZCB0byBtZSAuIDxicj4NCjwvcD4NCjxw
+PlJldmlld2VkLWJ5OiBTaGFveXVuIGxpdSZuYnNwOyA8YSBjbGFzcz0ibW96LXR4dC1saW5rLXJm
+YzIzOTZFIiBocmVmPSJtYWlsdG86c2hhb3l1bi5saXVAYW1kLmNvbSI+DQombHQ7c2hhb3l1bi5s
+aXVAYW1kLmNvbSZndDs8L2E+Jm5ic3A7PC9wPg0KPHA+PGJyPg0KPC9wPg0KPGRpdiBjbGFzcz0i
+bW96LWNpdGUtcHJlZml4Ij5PbiAyMDE5LTEwLTAzIDE6MzMgcC5tLiwgVG9tIFN0IERlbmlzIHdy
+b3RlOjxicj4NCjwvZGl2Pg0KPGJsb2NrcXVvdGUgdHlwZT0iY2l0ZSIgY2l0ZT0ibWlkOkNBQXpY
+b1JLTWQyZ1NySzVHRTJZNlVEa2JqTGlmWjVVdUF2cFRTMDZlZXFCN3pKUF9Bd0BtYWlsLmdtYWls
+LmNvbSI+DQo8cHJlIGNsYXNzPSJtb3otcXVvdGUtcHJlIiB3cmFwPSIiPlRlc3RlZC1ieTogVG9t
+IFN0IERlbmlzIDxhIGNsYXNzPSJtb3otdHh0LWxpbmstcmZjMjM5NkUiIGhyZWY9Im1haWx0bzp0
+b20uc3RkZW5pc0BhbWQuY29tIj4mbHQ7dG9tLnN0ZGVuaXNAYW1kLmNvbSZndDs8L2E+DQoNCkNo
+ZWVycywNClRvbQ0KDQpPbiBUaHUsIE9jdCAzLCAyMDE5IGF0IDE6MzAgUE0gQWxleCBEZXVjaGVy
+IDxhIGNsYXNzPSJtb3otdHh0LWxpbmstcmZjMjM5NkUiIGhyZWY9Im1haWx0bzphbGV4ZGV1Y2hl
+ckBnbWFpbC5jb20iPiZsdDthbGV4ZGV1Y2hlckBnbWFpbC5jb20mZ3Q7PC9hPiB3cm90ZToNCg0K
+PC9wcmU+DQo8YmxvY2txdW90ZSB0eXBlPSJjaXRlIj4NCjxwcmUgY2xhc3M9Im1vei1xdW90ZS1w
+cmUiIHdyYXA9IiI+Q2hlY2sgdGhlIG51bWJlciBvZiBzdXBwb3J0ZWQgdmVjdG9ycyBhbmQgZmFs
+bCBiYWNrIHRvIE1TSSBpZg0Kd2UgcmV0dXJuIG9yIGVycm9yIG9yIDAgTVNJLVggdmVjdG9ycy4N
+Cg0KdjI6IG9ubHkgYWxsb2NhdGUgb25lIHZlY3Rvci4gIFdlIGNhbid0IGN1cnJlbnRseSB1c2Ug
+bW9yZSB0aGFuDQpvbmUgYW55d2F5Lg0KDQp2MzogaW5zdGFsbCB0aGUgaXJxIG9uIHZlY3RvciAw
+Lg0KDQpTaWduZWQtb2ZmLWJ5OiBBbGV4IERldWNoZXIgPGEgY2xhc3M9Im1vei10eHQtbGluay1y
+ZmMyMzk2RSIgaHJlZj0ibWFpbHRvOmFsZXhhbmRlci5kZXVjaGVyQGFtZC5jb20iPiZsdDthbGV4
+YW5kZXIuZGV1Y2hlckBhbWQuY29tJmd0OzwvYT4NCi0tLQ0KIGRyaXZlcnMvZ3B1L2RybS9hbWQv
+YW1kZ3B1L2FtZGdwdV9pcnEuYyB8IDE3ICYjNDM7JiM0MzsmIzQzOyYjNDM7JiM0MzsmIzQzOyYj
+NDM7JiM0MzsmIzQzOyYjNDM7JiM0MzsmIzQzOyYjNDM7LS0tLQ0KIDEgZmlsZSBjaGFuZ2VkLCAx
+MyBpbnNlcnRpb25zKCYjNDM7KSwgNCBkZWxldGlvbnMoLSkNCg0KZGlmZiAtLWdpdCBhL2RyaXZl
+cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9pcnEuYw0KYi9kcml2ZXJzL2dwdS9kcm0vYW1k
+L2FtZGdwdS9hbWRncHVfaXJxLmMNCmluZGV4IDUwNzcxYjI3NTdkYy4uNmYzYjAzZjYyMjRmIDEw
+MDY0NA0KLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2lycS5jDQomIzQz
+OyYjNDM7JiM0MzsgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfaXJxLmMNCkBA
+IC0yNDUsMTEgJiM0MzsyNDUsMTkgQEAgaW50IGFtZGdwdV9pcnFfaW5pdChzdHJ1Y3QgYW1kZ3B1
+X2RldmljZSAqYWRldikNCiAgICAgICAgYWRldi0mZ3Q7aXJxLm1zaV9lbmFibGVkID0gZmFsc2U7
+DQoNCiAgICAgICAgaWYgKGFtZGdwdV9tc2lfb2soYWRldikpIHsNCi0gICAgICAgICAgICAgICBp
+bnQgbnZlYyA9IHBjaV9hbGxvY19pcnFfdmVjdG9ycyhhZGV2LSZndDtwZGV2LCAxLA0KcGNpX21z
+aXhfdmVjX2NvdW50KGFkZXYtJmd0O3BkZXYpLA0KLSAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgIFBDSV9JUlFfTVNJIHwgUENJX0lSUV9NU0lYKTsNCiYjNDM7ICAgICAgICAg
+ICAgICAgaW50IG52ZWMgPSBwY2lfbXNpeF92ZWNfY291bnQoYWRldi0mZ3Q7cGRldik7DQomIzQz
+OyAgICAgICAgICAgICAgIHVuc2lnbmVkIGludCBmbGFnczsNCiYjNDM7DQomIzQzOyAgICAgICAg
+ICAgICAgIGlmIChudmVjICZsdDs9IDApIHsNCiYjNDM7ICAgICAgICAgICAgICAgICAgICAgICBm
+bGFncyA9IFBDSV9JUlFfTVNJOw0KJiM0MzsgICAgICAgICAgICAgICB9IGVsc2Ugew0KJiM0Mzsg
+ICAgICAgICAgICAgICAgICAgICAgIGZsYWdzID0gUENJX0lSUV9NU0kgfCBQQ0lfSVJRX01TSVg7
+DQomIzQzOyAgICAgICAgICAgICAgIH0NCiYjNDM7ICAgICAgICAgICAgICAgLyogd2Ugb25seSBu
+ZWVkIG9uZSB2ZWN0b3IgKi8NCiYjNDM7ICAgICAgICAgICAgICAgbnZlYyA9IHBjaV9hbGxvY19p
+cnFfdmVjdG9ycyhhZGV2LSZndDtwZGV2LCAxLCAxLCBmbGFncyk7DQogICAgICAgICAgICAgICAg
+aWYgKG52ZWMgJmd0OyAwKSB7DQogICAgICAgICAgICAgICAgICAgICAgICBhZGV2LSZndDtpcnEu
+bXNpX2VuYWJsZWQgPSB0cnVlOw0KLSAgICAgICAgICAgICAgICAgICAgICAgZGV2X2RiZyhhZGV2
+LSZndDtkZXYsICZxdW90O2FtZGdwdTogdXNpbmcgTVNJLlxuJnF1b3Q7KTsNCiYjNDM7ICAgICAg
+ICAgICAgICAgICAgICAgICBkZXZfZGJnKGFkZXYtJmd0O2RldiwgJnF1b3Q7YW1kZ3B1OiB1c2lu
+ZyBNU0kvTVNJLVguXG4mcXVvdDspOw0KICAgICAgICAgICAgICAgIH0NCiAgICAgICAgfQ0KDQpA
+QCAtMjcyLDcgJiM0MzsyODAsOCBAQCBpbnQgYW1kZ3B1X2lycV9pbml0KHN0cnVjdCBhbWRncHVf
+ZGV2aWNlICphZGV2KQ0KICAgICAgICBJTklUX1dPUksoJmFtcDthZGV2LSZndDtpcnEuaWgyX3dv
+cmssIGFtZGdwdV9pcnFfaGFuZGxlX2loMik7DQoNCiAgICAgICAgYWRldi0mZ3Q7aXJxLmluc3Rh
+bGxlZCA9IHRydWU7DQotICAgICAgIHIgPSBkcm1faXJxX2luc3RhbGwoYWRldi0mZ3Q7ZGRldiwg
+YWRldi0mZ3Q7ZGRldi0mZ3Q7cGRldi0mZ3Q7aXJxKTsNCiYjNDM7ICAgICAgIC8qIFVzZSB2ZWN0
+b3IgMCBmb3IgTVNJLVggKi8NCiYjNDM7ICAgICAgIHIgPSBkcm1faXJxX2luc3RhbGwoYWRldi0m
+Z3Q7ZGRldiwgcGNpX2lycV92ZWN0b3IoYWRldi0mZ3Q7cGRldiwgMCkpOw0KICAgICAgICBpZiAo
+cikgew0KICAgICAgICAgICAgICAgIGFkZXYtJmd0O2lycS5pbnN0YWxsZWQgPSBmYWxzZTsNCiAg
+ICAgICAgICAgICAgICBpZiAoIWFtZGdwdV9kZXZpY2VfaGFzX2RjX3N1cHBvcnQoYWRldikpDQot
+LQ0KMi4yMC4xDQoNCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fDQphbWQtZ2Z4IG1haWxpbmcgbGlzdA0KPGEgY2xhc3M9Im1vei10eHQtbGluay1hYmJyZXZp
+YXRlZCIgaHJlZj0ibWFpbHRvOmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnIj5hbWQtZ2Z4
+QGxpc3RzLmZyZWVkZXNrdG9wLm9yZzwvYT4NCjxhIGNsYXNzPSJtb3otdHh0LWxpbmstZnJlZXRl
+eHQiIGhyZWY9Imh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8v
+YW1kLWdmeCI+aHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9h
+bWQtZ2Z4PC9hPg0KPC9wcmU+DQo8L2Jsb2NrcXVvdGU+DQo8cHJlIGNsYXNzPSJtb3otcXVvdGUt
+cHJlIiB3cmFwPSIiPg0KPC9wcmU+DQo8YnI+DQo8ZmllbGRzZXQgY2xhc3M9Im1pbWVBdHRhY2ht
+ZW50SGVhZGVyIj48L2ZpZWxkc2V0Pg0KPHByZSBjbGFzcz0ibW96LXF1b3RlLXByZSIgd3JhcD0i
+Ij5fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXw0KYW1kLWdm
+eCBtYWlsaW5nIGxpc3QNCjxhIGNsYXNzPSJtb3otdHh0LWxpbmstYWJicmV2aWF0ZWQiIGhyZWY9
+Im1haWx0bzphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZyI+YW1kLWdmeEBsaXN0cy5mcmVl
+ZGVza3RvcC5vcmc8L2E+DQo8YSBjbGFzcz0ibW96LXR4dC1saW5rLWZyZWV0ZXh0IiBocmVmPSJo
+dHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngiPmh0
+dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeDwvYT48
+L3ByZT4NCjwvYmxvY2txdW90ZT4NCjwvYm9keT4NCjwvaHRtbD4NCg==
 
-> Check the number of supported vectors and fall back to MSI if
-> we return or error or 0 MSI-X vectors.
->
-> v2: only allocate one vector.  We can't currently use more than
-> one anyway.
->
-> v3: install the irq on vector 0.
->
-> Signed-off-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c | 17 +++++++++++++----
->  1 file changed, 13 insertions(+), 4 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
-> index 50771b2757dc..6f3b03f6224f 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
-> @@ -245,11 +245,19 @@ int amdgpu_irq_init(struct amdgpu_device *adev)
->         adev->irq.msi_enabled = false;
->
->         if (amdgpu_msi_ok(adev)) {
-> -               int nvec = pci_alloc_irq_vectors(adev->pdev, 1,
-> pci_msix_vec_count(adev->pdev),
-> -                                       PCI_IRQ_MSI | PCI_IRQ_MSIX);
-> +               int nvec = pci_msix_vec_count(adev->pdev);
-> +               unsigned int flags;
-> +
-> +               if (nvec <= 0) {
-> +                       flags = PCI_IRQ_MSI;
-> +               } else {
-> +                       flags = PCI_IRQ_MSI | PCI_IRQ_MSIX;
-> +               }
-> +               /* we only need one vector */
-> +               nvec = pci_alloc_irq_vectors(adev->pdev, 1, 1, flags);
->                 if (nvec > 0) {
->                         adev->irq.msi_enabled = true;
-> -                       dev_dbg(adev->dev, "amdgpu: using MSI.\n");
-> +                       dev_dbg(adev->dev, "amdgpu: using MSI/MSI-X.\n");
->                 }
->         }
->
-> @@ -272,7 +280,8 @@ int amdgpu_irq_init(struct amdgpu_device *adev)
->         INIT_WORK(&adev->irq.ih2_work, amdgpu_irq_handle_ih2);
->
->         adev->irq.installed = true;
-> -       r = drm_irq_install(adev->ddev, adev->ddev->pdev->irq);
-> +       /* Use vector 0 for MSI-X */
-> +       r = drm_irq_install(adev->ddev, pci_irq_vector(adev->pdev, 0));
->         if (r) {
->                 adev->irq.installed = false;
->                 if (!amdgpu_device_has_dc_support(adev))
-> --
-> 2.20.1
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+--_000_60280b1947f776b5f69fa05ca103061aamdcom_--
 
---00000000000023423b059404fdb1
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">Tested-by: Tom St Denis &lt;<a href=3D"mailto:tom.stdenis@=
-amd.com">tom.stdenis-5C7GfCeVMHo@public.gmane.org</a>&gt;<div><br></div><div>Cheers,</div><div>T=
-om</div></div><br><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmai=
-l_attr">On Thu, Oct 3, 2019 at 1:30 PM Alex Deucher &lt;<a href=3D"mailto:a=
-lexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org">alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt; wrote:<br></div><blockq=
-uote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1p=
-x solid rgb(204,204,204);padding-left:1ex">Check the number of supported ve=
-ctors and fall back to MSI if<br>
-we return or error or 0 MSI-X vectors.<br>
-<br>
-v2: only allocate one vector.=C2=A0 We can&#39;t currently use more than<br=
->
-one anyway.<br>
-<br>
-v3: install the irq on vector 0.<br>
-<br>
-Signed-off-by: Alex Deucher &lt;<a href=3D"mailto:alexander.deucher-5C7GfCeVMHo@public.gmane.org=
-" target=3D"_blank">alexander.deucher-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
----<br>
-=C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c | 17 +++++++++++++----<br>
-=C2=A01 file changed, 13 insertions(+), 4 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_irq.c<br>
-index 50771b2757dc..6f3b03f6224f 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c<br>
-@@ -245,11 +245,19 @@ int amdgpu_irq_init(struct amdgpu_device *adev)<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 adev-&gt;irq.msi_enabled =3D false;<br>
-<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 if (amdgpu_msi_ok(adev)) {<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0int nvec =3D pci_al=
-loc_irq_vectors(adev-&gt;pdev, 1, pci_msix_vec_count(adev-&gt;pdev),<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0PCI_IRQ_M=
-SI | PCI_IRQ_MSIX);<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0int nvec =3D pci_ms=
-ix_vec_count(adev-&gt;pdev);<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0unsigned int flags;=
-<br>
-+<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (nvec &lt;=3D 0)=
- {<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0flags =3D PCI_IRQ_MSI;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0} else {<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0flags =3D PCI_IRQ_MSI | PCI_IRQ_MSIX;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0/* we only need one=
- vector */<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0nvec =3D pci_alloc_=
-irq_vectors(adev-&gt;pdev, 1, 1, flags);<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 if (nvec &gt; 0) {<=
-br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 adev-&gt;irq.msi_enabled =3D true;<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0dev_dbg(adev-&gt;dev, &quot;amdgpu: using MSI.\n&quot;);<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0dev_dbg(adev-&gt;dev, &quot;amdgpu: using MSI/MSI-X.\n&quot;);<br=
->
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 }<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 }<br>
-<br>
-@@ -272,7 +280,8 @@ int amdgpu_irq_init(struct amdgpu_device *adev)<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 INIT_WORK(&amp;adev-&gt;irq.ih2_work, amdgpu_ir=
-q_handle_ih2);<br>
-<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 adev-&gt;irq.installed =3D true;<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0r =3D drm_irq_install(adev-&gt;ddev, adev-&gt;d=
-dev-&gt;pdev-&gt;irq);<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0/* Use vector 0 for MSI-X */<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0r =3D drm_irq_install(adev-&gt;ddev, pci_irq_ve=
-ctor(adev-&gt;pdev, 0));<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 if (r) {<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 adev-&gt;irq.instal=
-led =3D false;<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 if (!amdgpu_device_=
-has_dc_support(adev))<br>
--- <br>
-2.20.1<br>
-<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-<a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" target=3D"_blank">amd-gfx@=
-lists.freedesktop.org</a><br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" rel=3D"n=
-oreferrer" target=3D"_blank">https://lists.freedesktop.org/mailman/listinfo=
-/amd-gfx</a></blockquote></div>
-
---00000000000023423b059404fdb1--
-
---===============0569022426==
+--===============0712291833==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -200,4 +175,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
 
---===============0569022426==--
+--===============0712291833==--
