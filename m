@@ -1,70 +1,50 @@
-From: Colin Ian King <colin.king@canonical.com>
-Subject: re: drm/amd/display: Add HDCP module - static analysis bug report
-Date: Thu, 3 Oct 2019 23:08:03 +0100
-Message-ID: <951eb7dc-bebe-5049-4998-f199e18b0bf3@canonical.com>
+From: "Tuikov, Luben" <Luben.Tuikov-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH] drm/amdgpu: Use the ALIGN() macro
+Date: Thu, 3 Oct 2019 23:39:14 +0000
+Message-ID: <20191003233902.1982-1-luben.tuikov@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 Content-Language: en-US
-Sender: linux-kernel-owner@vger.kernel.org
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, amd-gfx mailing list <amd-gfx@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>
-Cc: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-List-Id: amd-gfx.lists.freedesktop.org
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Tuikov,
+ Luben" <Luben.Tuikov-5C7GfCeVMHo@public.gmane.org>, "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
 
-Hi,
-
-Static analysis with Coverity has detected a potential issue with
-function validate_bksv in
-drivers/gpu/drm/amd/display/modules/hdcp/hdcp1_execution.c with recent
-commit:
-
-commit ed9d8e2bcb003ec94658cafe9b1bb3960e2139ec
-Author: Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>
-Date:   Tue Aug 6 17:52:01 2019 -0400
-
-    drm/amd/display: Add HDCP module
-
-
-The analysis is as follows:
-
- 28 static inline enum mod_hdcp_status validate_bksv(struct mod_hdcp *hdcp)
- 29 {
-
-CID 89852 (#1 of 1): Out-of-bounds read (OVERRUN)
-
-1. overrun-local:
-Overrunning array of 5 bytes at byte offset 7 by dereferencing pointer
-(uint64_t *)hdcp->auth.msg.hdcp1.bksv.
-
- 30        uint64_t n = *(uint64_t *)hdcp->auth.msg.hdcp1.bksv;
- 31        uint8_t count = 0;
- 32
- 33        while (n) {
- 34                count++;
- 35                n &= (n - 1);
- 36        }
-
-hdcp->auth.msg.hdcp1.bksv is an array of 5 uint8_t as defined in
-drivers/gpu/drm/amd/display/modules/hdcp/hdcp.h as follows:
-
-struct mod_hdcp_message_hdcp1 {
-        uint8_t         an[8];
-        uint8_t         aksv[5];
-        uint8_t         ainfo;
-        uint8_t         bksv[5];
-        uint16_t        r0p;
-        uint8_t         bcaps;
-        uint16_t        bstatus;
-        uint8_t         ksvlist[635];
-        uint16_t        ksvlist_size;
-        uint8_t         vp[20];
-
-        uint16_t        binfo_dp;
-};
-
-variable n is going to contain the contains of r0p and bcaps. I'm not
-sure if that is intentional. If not, then the count is going to be
-incorrect if these are non-zero.
-
-Colin
+VXNlIHRoZSBBTElHTigpIG1hY3JvIHRvIHNldCAibnVtX2R3IiB0byBhCm11bHRpcGxlIG9mIDgs
+IGkuZS4gbG93ZXIgMyBiaXRzIGNsZWFyZWQuCgpTaWduZWQtb2ZmLWJ5OiBMdWJlbiBUdWlrb3Yg
+PGx1YmVuLnR1aWtvdkBhbWQuY29tPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
+ZGdwdV90dG0uYyB8IDExICsrLS0tLS0tLS0tCiAxIGZpbGUgY2hhbmdlZCwgMiBpbnNlcnRpb25z
+KCspLCA5IGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
+Z3B1L2FtZGdwdV90dG0uYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV90dG0u
+YwppbmRleCA2OGM1NDFlMTExODkuLjczYzYyOGJjNmE1YiAxMDA2NDQKLS0tIGEvZHJpdmVycy9n
+cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3R0bS5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQv
+YW1kZ3B1L2FtZGdwdV90dG0uYwpAQCAtMTkyMywxMCArMTkyMyw3IEBAIHN0YXRpYyBpbnQgYW1k
+Z3B1X21hcF9idWZmZXIoc3RydWN0IHR0bV9idWZmZXJfb2JqZWN0ICpibywKIAkqYWRkciArPSAo
+dTY0KXdpbmRvdyAqIEFNREdQVV9HVFRfTUFYX1RSQU5TRkVSX1NJWkUgKgogCQlBTURHUFVfR1BV
+X1BBR0VfU0laRTsKIAotCW51bV9kdyA9IGFkZXYtPm1tYW4uYnVmZmVyX2Z1bmNzLT5jb3B5X251
+bV9kdzsKLQl3aGlsZSAobnVtX2R3ICYgMHg3KQotCQludW1fZHcrKzsKLQorCW51bV9kdyA9IEFM
+SUdOKGFkZXYtPm1tYW4uYnVmZmVyX2Z1bmNzLT5jb3B5X251bV9kdywgOCk7CiAJbnVtX2J5dGVz
+ID0gbnVtX3BhZ2VzICogODsKIAogCXIgPSBhbWRncHVfam9iX2FsbG9jX3dpdGhfaWIoYWRldiwg
+bnVtX2R3ICogNCArIG51bV9ieXRlcywgJmpvYik7CkBAIC0xOTg2LDExICsxOTgzLDcgQEAgaW50
+IGFtZGdwdV9jb3B5X2J1ZmZlcihzdHJ1Y3QgYW1kZ3B1X3JpbmcgKnJpbmcsIHVpbnQ2NF90IHNy
+Y19vZmZzZXQsCiAKIAltYXhfYnl0ZXMgPSBhZGV2LT5tbWFuLmJ1ZmZlcl9mdW5jcy0+Y29weV9t
+YXhfYnl0ZXM7CiAJbnVtX2xvb3BzID0gRElWX1JPVU5EX1VQKGJ5dGVfY291bnQsIG1heF9ieXRl
+cyk7Ci0JbnVtX2R3ID0gbnVtX2xvb3BzICogYWRldi0+bW1hbi5idWZmZXJfZnVuY3MtPmNvcHlf
+bnVtX2R3OwotCi0JLyogZm9yIElCIHBhZGRpbmcgKi8KLQl3aGlsZSAobnVtX2R3ICYgMHg3KQot
+CQludW1fZHcrKzsKKwludW1fZHcgPSBBTElHTihudW1fbG9vcHMgKiBhZGV2LT5tbWFuLmJ1ZmZl
+cl9mdW5jcy0+Y29weV9udW1fZHcsIDgpOwogCiAJciA9IGFtZGdwdV9qb2JfYWxsb2Nfd2l0aF9p
+YihhZGV2LCBudW1fZHcgKiA0LCAmam9iKTsKIAlpZiAocikKLS0gCjIuMjMuMC4xNjkuZzhhM2E2
+ODE3ZTIKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFt
+ZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8v
+bGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
