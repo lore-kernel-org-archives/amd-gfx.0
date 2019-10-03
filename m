@@ -1,47 +1,148 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: do not execute 0-sized IBs
-Date: Thu, 3 Oct 2019 10:09:37 +0200
-Message-ID: <12e0b546-faaf-38c3-c0fc-1e713348b62e@gmail.com>
-References: <20191003080306.3514-1-pierre-eric.pelloux-prayer@amd.com>
-Reply-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
+From: Colin King <colin.king@canonical.com>
+Subject: [PATCH][drm-next] drm/amd/display: fix spelling mistake AUTHENICATED -> AUTHENTICATED
+Date: Thu,  3 Oct 2019 09:22:32 +0100
+Message-ID: <20191003082232.4136-1-colin.king@canonical.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20191003080306.3514-1-pierre-eric.pelloux-prayer-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Pelloux-prayer, Pierre-eric" <Pierre-eric.Pelloux-prayer-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, David Zhou <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, Wenjing Liu <Wenjing.Liu@amd.com>, Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.or
+Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-QW0gMDMuMTAuMTkgdW0gMTA6MDMgc2NocmllYiBQZWxsb3V4LXByYXllciwgUGllcnJlLWVyaWM6
-Cj4gVGhpcyBjYW4gYmUgc2FmZWx5IHNraXBwZWQgZW50aXJlbHkuCj4gVGhpcyBzZWVtcyB0byBo
-ZWxwIHdpdGggaHR0cHM6Ly9idWdzLmZyZWVkZXNrdG9wLm9yZy9zaG93X2J1Zy5jZ2k/aWQ9MTEx
-NDgxLgoKTkFLLCBwbGVhc2UgaW5zdGVhZCBmaXggZ21jX3YxMF8wX2ZsdXNoX2dwdV90bGIgdG8g
-aW5jbHVkZSBhdCBsZWFzdCBzb21lIApOT1AgaW4gdGhlIHN1Ym1pdHRlZCBJQnMuCgpDaHJpc3Rp
-YW4uCgo+Cj4gU2lnbmVkLW9mZi1ieTogUGllcnJlLUVyaWMgUGVsbG91eC1QcmF5ZXIgPHBpZXJy
-ZS1lcmljLnBlbGxvdXgtcHJheWVyQGFtZC5jb20+Cj4gLS0tCj4gICBkcml2ZXJzL2dwdS9kcm0v
-YW1kL2FtZGdwdS9hbWRncHVfaWIuYyB8IDUgKysrKysKPiAgIDEgZmlsZSBjaGFuZ2VkLCA1IGlu
-c2VydGlvbnMoKykKPgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
-bWRncHVfaWIuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9pYi5jCj4gaW5k
-ZXggNjA2NTU4MzRkNjQ5Li5hYTE2M2U2NzlmMWYgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUv
-ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2liLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
-ZGdwdS9hbWRncHVfaWIuYwo+IEBAIC0yMjcsNiArMjI3LDExIEBAIGludCBhbWRncHVfaWJfc2No
-ZWR1bGUoc3RydWN0IGFtZGdwdV9yaW5nICpyaW5nLCB1bnNpZ25lZCBudW1faWJzLAo+ICAgCQkg
-ICAgIWFtZGdwdV9zcmlvdl92ZihhZGV2KSkgLyogZm9yIFNSSU9WIHByZWVtcHRpb24sIFByZWFt
-YmxlIENFIGliIG11c3QgYmUgaW5zZXJ0ZWQgYW55d2F5ICovCj4gICAJCQljb250aW51ZTsKPiAg
-IAo+ICsJCWlmIChpYi0+bGVuZ3RoX2R3ID09IDApIHsKPiArCQkJLyogT24gTmF2aSBnbWNfdjEw
-XzBfZmx1c2hfZ3B1X3RsYiBlbWl0cyAwIHNpemVkIElCICovCj4gKwkJCWNvbnRpbnVlOwo+ICsJ
-CX0KPiArCj4gICAJCWFtZGdwdV9yaW5nX2VtaXRfaWIocmluZywgam9iLCBpYiwgc3RhdHVzKTsK
-PiAgIAkJc3RhdHVzICY9IH5BTURHUFVfSEFWRV9DVFhfU1dJVENIOwo+ICAgCX0KCl9fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBs
-aXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0
-b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
+From: Colin Ian King <colin.king@canonical.com>
+
+There is a spelling mistake in the macros H1_A45_AUTHENICATED and
+D1_A4_AUTHENICATED, fix these by adding the missing T.
+
+Signed-off-by: Colin Ian King <colin.king@canonical.com>
+---
+ drivers/gpu/drm/amd/display/modules/hdcp/hdcp.h      |  4 ++--
+ .../drm/amd/display/modules/hdcp/hdcp1_execution.c   |  4 ++--
+ .../drm/amd/display/modules/hdcp/hdcp1_transition.c  | 12 ++++++------
+ drivers/gpu/drm/amd/display/modules/hdcp/hdcp_log.c  |  8 ++++----
+ 4 files changed, 14 insertions(+), 14 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/modules/hdcp/hdcp.h b/drivers/gpu/drm/amd/display/modules/hdcp/hdcp.h
+index 402bb7999093..5664bc0b5bd0 100644
+--- a/drivers/gpu/drm/amd/display/modules/hdcp/hdcp.h
++++ b/drivers/gpu/drm/amd/display/modules/hdcp/hdcp.h
+@@ -176,7 +176,7 @@ enum mod_hdcp_hdcp1_state_id {
+ 	H1_A0_WAIT_FOR_ACTIVE_RX,
+ 	H1_A1_EXCHANGE_KSVS,
+ 	H1_A2_COMPUTATIONS_A3_VALIDATE_RX_A6_TEST_FOR_REPEATER,
+-	H1_A45_AUTHENICATED,
++	H1_A45_AUTHENTICATED,
+ 	H1_A8_WAIT_FOR_READY,
+ 	H1_A9_READ_KSV_LIST,
+ 	HDCP1_STATE_END = H1_A9_READ_KSV_LIST
+@@ -188,7 +188,7 @@ enum mod_hdcp_hdcp1_dp_state_id {
+ 	D1_A1_EXCHANGE_KSVS,
+ 	D1_A23_WAIT_FOR_R0_PRIME,
+ 	D1_A2_COMPUTATIONS_A3_VALIDATE_RX_A5_TEST_FOR_REPEATER,
+-	D1_A4_AUTHENICATED,
++	D1_A4_AUTHENTICATED,
+ 	D1_A6_WAIT_FOR_READY,
+ 	D1_A7_READ_KSV_LIST,
+ 	HDCP1_DP_STATE_END = D1_A7_READ_KSV_LIST,
+diff --git a/drivers/gpu/drm/amd/display/modules/hdcp/hdcp1_execution.c b/drivers/gpu/drm/amd/display/modules/hdcp/hdcp1_execution.c
+index 9e7302eac299..3db4a7da414f 100644
+--- a/drivers/gpu/drm/amd/display/modules/hdcp/hdcp1_execution.c
++++ b/drivers/gpu/drm/amd/display/modules/hdcp/hdcp1_execution.c
+@@ -476,7 +476,7 @@ enum mod_hdcp_status mod_hdcp_hdcp1_execution(struct mod_hdcp *hdcp,
+ 		status = computations_validate_rx_test_for_repeater(hdcp,
+ 				event_ctx, input);
+ 		break;
+-	case H1_A45_AUTHENICATED:
++	case H1_A45_AUTHENTICATED:
+ 		status = authenticated(hdcp, event_ctx, input);
+ 		break;
+ 	case H1_A8_WAIT_FOR_READY:
+@@ -513,7 +513,7 @@ extern enum mod_hdcp_status mod_hdcp_hdcp1_dp_execution(struct mod_hdcp *hdcp,
+ 		status = computations_validate_rx_test_for_repeater(
+ 				hdcp, event_ctx, input);
+ 		break;
+-	case D1_A4_AUTHENICATED:
++	case D1_A4_AUTHENTICATED:
+ 		status = authenticated_dp(hdcp, event_ctx, input);
+ 		break;
+ 	case D1_A6_WAIT_FOR_READY:
+diff --git a/drivers/gpu/drm/amd/display/modules/hdcp/hdcp1_transition.c b/drivers/gpu/drm/amd/display/modules/hdcp/hdcp1_transition.c
+index 1d187809b709..136b8011ff3f 100644
+--- a/drivers/gpu/drm/amd/display/modules/hdcp/hdcp1_transition.c
++++ b/drivers/gpu/drm/amd/display/modules/hdcp/hdcp1_transition.c
+@@ -81,11 +81,11 @@ enum mod_hdcp_status mod_hdcp_hdcp1_transition(struct mod_hdcp *hdcp,
+ 			set_state_id(hdcp, output, H1_A8_WAIT_FOR_READY);
+ 		} else {
+ 			callback_in_ms(0, output);
+-			set_state_id(hdcp, output, H1_A45_AUTHENICATED);
++			set_state_id(hdcp, output, H1_A45_AUTHENTICATED);
+ 			HDCP_FULL_DDC_TRACE(hdcp);
+ 		}
+ 		break;
+-	case H1_A45_AUTHENICATED:
++	case H1_A45_AUTHENTICATED:
+ 		if (input->link_maintenance != PASS) {
+ 			/* 1A-07: consider invalid ri' a failure */
+ 			/* 1A-07a: consider read ri' not returned a failure */
+@@ -129,7 +129,7 @@ enum mod_hdcp_status mod_hdcp_hdcp1_transition(struct mod_hdcp *hdcp,
+ 			break;
+ 		}
+ 		callback_in_ms(0, output);
+-		set_state_id(hdcp, output, H1_A45_AUTHENICATED);
++		set_state_id(hdcp, output, H1_A45_AUTHENTICATED);
+ 		HDCP_FULL_DDC_TRACE(hdcp);
+ 		break;
+ 	default:
+@@ -224,11 +224,11 @@ enum mod_hdcp_status mod_hdcp_hdcp1_dp_transition(struct mod_hdcp *hdcp,
+ 			set_watchdog_in_ms(hdcp, 5000, output);
+ 			set_state_id(hdcp, output, D1_A6_WAIT_FOR_READY);
+ 		} else {
+-			set_state_id(hdcp, output, D1_A4_AUTHENICATED);
++			set_state_id(hdcp, output, D1_A4_AUTHENTICATED);
+ 			HDCP_FULL_DDC_TRACE(hdcp);
+ 		}
+ 		break;
+-	case D1_A4_AUTHENICATED:
++	case D1_A4_AUTHENTICATED:
+ 		if (input->link_integiry_check != PASS ||
+ 				input->reauth_request_check != PASS) {
+ 			/* 1A-07: restart hdcp on a link integrity failure */
+@@ -295,7 +295,7 @@ enum mod_hdcp_status mod_hdcp_hdcp1_dp_transition(struct mod_hdcp *hdcp,
+ 			fail_and_restart_in_ms(0, &status, output);
+ 			break;
+ 		}
+-		set_state_id(hdcp, output, D1_A4_AUTHENICATED);
++		set_state_id(hdcp, output, D1_A4_AUTHENTICATED);
+ 		HDCP_FULL_DDC_TRACE(hdcp);
+ 		break;
+ 	default:
+diff --git a/drivers/gpu/drm/amd/display/modules/hdcp/hdcp_log.c b/drivers/gpu/drm/amd/display/modules/hdcp/hdcp_log.c
+index d868f556d180..3982ced5f969 100644
+--- a/drivers/gpu/drm/amd/display/modules/hdcp/hdcp_log.c
++++ b/drivers/gpu/drm/amd/display/modules/hdcp/hdcp_log.c
+@@ -136,8 +136,8 @@ char *mod_hdcp_state_id_to_str(int32_t id)
+ 		return "H1_A1_EXCHANGE_KSVS";
+ 	case H1_A2_COMPUTATIONS_A3_VALIDATE_RX_A6_TEST_FOR_REPEATER:
+ 		return "H1_A2_COMPUTATIONS_A3_VALIDATE_RX_A6_TEST_FOR_REPEATER";
+-	case H1_A45_AUTHENICATED:
+-		return "H1_A45_AUTHENICATED";
++	case H1_A45_AUTHENTICATED:
++		return "H1_A45_AUTHENTICATED";
+ 	case H1_A8_WAIT_FOR_READY:
+ 		return "H1_A8_WAIT_FOR_READY";
+ 	case H1_A9_READ_KSV_LIST:
+@@ -150,8 +150,8 @@ char *mod_hdcp_state_id_to_str(int32_t id)
+ 		return "D1_A23_WAIT_FOR_R0_PRIME";
+ 	case D1_A2_COMPUTATIONS_A3_VALIDATE_RX_A5_TEST_FOR_REPEATER:
+ 		return "D1_A2_COMPUTATIONS_A3_VALIDATE_RX_A5_TEST_FOR_REPEATER";
+-	case D1_A4_AUTHENICATED:
+-		return "D1_A4_AUTHENICATED";
++	case D1_A4_AUTHENTICATED:
++		return "D1_A4_AUTHENTICATED";
+ 	case D1_A6_WAIT_FOR_READY:
+ 		return "D1_A6_WAIT_FOR_READY";
+ 	case D1_A7_READ_KSV_LIST:
+-- 
+2.20.1
