@@ -1,15 +1,16 @@
-From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: do not execute 0-sized IBs
-Date: Thu, 3 Oct 2019 13:12:01 +0000
-Message-ID: <BN6PR12MB1809256856DE153A35FD7EF6F79F0@BN6PR12MB1809.namprd12.prod.outlook.com>
-References: <20191003080306.3514-1-pierre-eric.pelloux-prayer@amd.com>
- <12e0b546-faaf-38c3-c0fc-1e713348b62e@gmail.com>,
- <a8d4871c-4b00-3a72-1cff-50878e1d8818@amd.com>
+From: Harry Wentland <hwentlan-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH][drm-next] drm/amd/display: fix spelling mistake
+ AUTHENICATED -> AUTHENTICATED
+Date: Thu, 3 Oct 2019 13:27:05 +0000
+Message-ID: <125634cd-b636-c4dc-4e05-bc5c543b7230@amd.com>
+References: <20191003082232.4136-1-colin.king@canonical.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============2082011708=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <a8d4871c-4b00-3a72-1cff-50878e1d8818-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <20191003082232.4136-1-colin.king-Z7WLFzj8eWMS+FvcfC7Uqw@public.gmane.org>
 Content-Language: en-US
+Content-ID: <66FA29DAD42AEE41BF81C0702495AFF9-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -20,201 +21,117 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Pelloux-prayer, Pierre-eric" <Pierre-eric.Pelloux-prayer-5C7GfCeVMHo@public.gmane.org>, "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Colin King <colin.king-Z7WLFzj8eWMS+FvcfC7Uqw@public.gmane.org>, "Wentland, Harry" <Harry.Wentland-5C7GfCeVMHo@public.gmane.org>, "Li, Sun peng (Leo)" <Sunpeng.Li-5C7GfCeVMHo@public.gmane.org>, "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "Zhou, David(ChunMing)" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, David Airlie <airlied-cv59FeDIM0c@public.gmane.org>, Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>, "Liu,
+ Wenjing" <Wenjing.Liu-5C7GfCeVMHo@public.gmane.org>, "Lakha, Bhawanpreet" <Bhawanpreet.Lakha-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "dri-devel-PD4FTy7X32lNgt0PjOBp9/EVdHwE84te@public.gmane.org" <dri-devel-PD4FTy7X32lNgt0PjOBp9/EVdHwE84te@public.gmane.org>
+Cc: "kernel-janitors-u79uwXL29TY76Z2rM5mHXA@public.gmane.org" <kernel-janitors-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, "linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org" <linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>
 
---===============2082011708==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_BN6PR12MB1809256856DE153A35FD7EF6F79F0BN6PR12MB1809namp_"
-
---_000_BN6PR12MB1809256856DE153A35FD7EF6F79F0BN6PR12MB1809namp_
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-Does some variant of the patch on this thread help?
-https://patchwork.freedesktop.org/patch/333068/
-
-Alex
-
-________________________________
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Pelloux-=
-prayer, Pierre-eric <Pierre-eric.Pelloux-prayer-5C7GfCeVMHo@public.gmane.org>
-Sent: Thursday, October 3, 2019 4:25 AM
-To: Koenig, Christian <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>; amd-gfx-PD4FTy7X32lNgt0PjOBp93gSJqDPrsil@public.gmane.org=
-.org <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: do not execute 0-sized IBs
-
-
-On 03/10/2019 10:09, Christian K=F6nig wrote:
-> Am 03.10.19 um 10:03 schrieb Pelloux-prayer, Pierre-eric:
->> This can be safely skipped entirely.
->> This seems to help with https://bugs.freedesktop.org/show_bug.cgi?id=3D1=
-11481.
->
-> NAK, please instead fix gmc_v10_0_flush_gpu_tlb to include at least some =
-NOP in the submitted IBs.
-
-Is there any interest in executing an empty (or only filled with NOPs) IB?
-
-Anyway I can modify the patch to do this.
-
-Thanks,
-Pierre-Eric
-
->
-> Christian.
->
->>
->> Signed-off-by: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@am=
-d.com>
->> ---
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c | 5 +++++
->>   1 file changed, 5 insertions(+)
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_ib.c
->> index 60655834d649..aa163e679f1f 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
->> @@ -227,6 +227,11 @@ int amdgpu_ib_schedule(struct amdgpu_ring *ring, un=
-signed num_ibs,
->>               !amdgpu_sriov_vf(adev)) /* for SRIOV preemption, Preamble =
-CE ib must be inserted anyway */
->>               continue;
->>   +        if (ib->length_dw =3D=3D 0) {
->> +            /* On Navi gmc_v10_0_flush_gpu_tlb emits 0 sized IB */
->> +            continue;
->> +        }
->> +
->>           amdgpu_ring_emit_ib(ring, job, ib, status);
->>           status &=3D ~AMDGPU_HAVE_CTX_SWITCH;
->>       }
->
-_______________________________________________
-amd-gfx mailing list
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---_000_BN6PR12MB1809256856DE153A35FD7EF6F79F0BN6PR12MB1809namp_
-Content-Type: text/html; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Does some variant of the patch on this thread help?</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<a href=3D"https://patchwork.freedesktop.org/patch/333068/" id=3D"LPlnk1082=
-71">https://patchwork.freedesktop.org/patch/333068/</a></div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Alex<br>
-</div>
-<div id=3D"appendonsend"></div>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
-t; color:rgb(0,0,0)">
-<br>
-</div>
-<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font style=3D"font-size:11pt" face=
-=3D"Calibri, sans-serif" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx=
--bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Pelloux-prayer, Pierre-eric=
- &lt;Pierre-eric.Pelloux-prayer-5C7GfCeVMHo@public.gmane.org&gt;<br>
-<b>Sent:</b> Thursday, October 3, 2019 4:25 AM<br>
-<b>To:</b> Koenig, Christian &lt;Christian.Koenig-5C7GfCeVMHo@public.gmane.org&gt;; amd-gfx@list=
-s.freedesktop.org &lt;amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt;<br>
-<b>Subject:</b> Re: [PATCH] drm/amdgpu: do not execute 0-sized IBs</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt"=
->
-<div class=3D"PlainText"><br>
-On 03/10/2019 10:09, Christian K=F6nig wrote:<br>
-&gt; Am 03.10.19 um 10:03 schrieb Pelloux-prayer, Pierre-eric:<br>
-&gt;&gt; This can be safely skipped entirely.<br>
-&gt;&gt; This seems to help with <a href=3D"https://bugs.freedesktop.org/sh=
-ow_bug.cgi?id=3D111481">
-https://bugs.freedesktop.org/show_bug.cgi?id=3D111481</a>.<br>
-&gt; <br>
-&gt; NAK, please instead fix gmc_v10_0_flush_gpu_tlb to include at least so=
-me NOP in the submitted IBs.<br>
-<br>
-Is there any interest in executing an empty (or only filled with NOPs) IB?<=
-br>
-<br>
-Anyway I can modify the patch to do this.<br>
-<br>
-Thanks,<br>
-Pierre-Eric<br>
-<br>
-&gt; <br>
-&gt; Christian.<br>
-&gt; <br>
-&gt;&gt;<br>
-&gt;&gt; Signed-off-by: Pierre-Eric Pelloux-Prayer &lt;pierre-eric.pelloux-=
-prayer-5C7GfCeVMHo@public.gmane.org&gt;<br>
-&gt;&gt; ---<br>
-&gt;&gt; &nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c | 5 &#43;&#43;&#43;&=
-#43;&#43;<br>
-&gt;&gt; &nbsp; 1 file changed, 5 insertions(&#43;)<br>
-&gt;&gt;<br>
-&gt;&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c b/drivers/gpu/=
-drm/amd/amdgpu/amdgpu_ib.c<br>
-&gt;&gt; index 60655834d649..aa163e679f1f 100644<br>
-&gt;&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c<br>
-&gt;&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c<br>
-&gt;&gt; @@ -227,6 &#43;227,11 @@ int amdgpu_ib_schedule(struct amdgpu_ring=
- *ring, unsigned num_ibs,<br>
-&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp; !amdgpu_sriov_vf(adev)) /* for SRIOV preemption, Preamble CE i=
-b must be inserted anyway */<br>
-&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp; continue;<br>
-&gt;&gt; &nbsp; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ib-&gt;=
-length_dw =3D=3D 0) {<br>
-&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp; /* On Navi gmc_v10_0_flush_gpu_tlb emits 0 sized IB */<br>
-&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp; continue;<br>
-&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&gt;&gt; &#43;<br>
-&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_ring=
-_emit_ib(ring, job, ib, status);<br>
-&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; status &amp=
-;=3D ~AMDGPU_HAVE_CTX_SWITCH;<br>
-&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&gt; <br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
-lists.freedesktop.org/mailman/listinfo/amd-gfx</a></div>
-</span></font></div>
-</body>
-</html>
-
---_000_BN6PR12MB1809256856DE153A35FD7EF6F79F0BN6PR12MB1809namp_--
-
---===============2082011708==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
-
---===============2082011708==--
+T24gMjAxOS0xMC0wMyA0OjIyIGEubS4sIENvbGluIEtpbmcgd3JvdGU6DQo+IEZyb206IENvbGlu
+IElhbiBLaW5nIDxjb2xpbi5raW5nQGNhbm9uaWNhbC5jb20+DQo+IA0KPiBUaGVyZSBpcyBhIHNw
+ZWxsaW5nIG1pc3Rha2UgaW4gdGhlIG1hY3JvcyBIMV9BNDVfQVVUSEVOSUNBVEVEIGFuZA0KPiBE
+MV9BNF9BVVRIRU5JQ0FURUQsIGZpeCB0aGVzZSBieSBhZGRpbmcgdGhlIG1pc3NpbmcgVC4NCj4g
+DQo+IFNpZ25lZC1vZmYtYnk6IENvbGluIElhbiBLaW5nIDxjb2xpbi5raW5nQGNhbm9uaWNhbC5j
+b20+DQoNClJldmlld2VkLWJ5OiBIYXJyeSBXZW50bGFuZCA8aGFycnkud2VudGxhbmRAYW1kLmNv
+bT4NCg0KSGFycnkNCg0KPiAtLS0NCj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9tb2R1
+bGVzL2hkY3AvaGRjcC5oICAgICAgfCAgNCArKy0tDQo+ICAuLi4vZHJtL2FtZC9kaXNwbGF5L21v
+ZHVsZXMvaGRjcC9oZGNwMV9leGVjdXRpb24uYyAgIHwgIDQgKystLQ0KPiAgLi4uL2RybS9hbWQv
+ZGlzcGxheS9tb2R1bGVzL2hkY3AvaGRjcDFfdHJhbnNpdGlvbi5jICB8IDEyICsrKysrKy0tLS0t
+LQ0KPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L21vZHVsZXMvaGRjcC9oZGNwX2xvZy5j
+ICB8ICA4ICsrKystLS0tDQo+ICA0IGZpbGVzIGNoYW5nZWQsIDE0IGluc2VydGlvbnMoKyksIDE0
+IGRlbGV0aW9ucygtKQ0KPiANCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlz
+cGxheS9tb2R1bGVzL2hkY3AvaGRjcC5oIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L21v
+ZHVsZXMvaGRjcC9oZGNwLmgNCj4gaW5kZXggNDAyYmI3OTk5MDkzLi41NjY0YmMwYjViZDAgMTAw
+NjQ0DQo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9tb2R1bGVzL2hkY3AvaGRj
+cC5oDQo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9tb2R1bGVzL2hkY3AvaGRj
+cC5oDQo+IEBAIC0xNzYsNyArMTc2LDcgQEAgZW51bSBtb2RfaGRjcF9oZGNwMV9zdGF0ZV9pZCB7
+DQo+ICAJSDFfQTBfV0FJVF9GT1JfQUNUSVZFX1JYLA0KPiAgCUgxX0ExX0VYQ0hBTkdFX0tTVlMs
+DQo+ICAJSDFfQTJfQ09NUFVUQVRJT05TX0EzX1ZBTElEQVRFX1JYX0E2X1RFU1RfRk9SX1JFUEVB
+VEVSLA0KPiAtCUgxX0E0NV9BVVRIRU5JQ0FURUQsDQo+ICsJSDFfQTQ1X0FVVEhFTlRJQ0FURUQs
+DQo+ICAJSDFfQThfV0FJVF9GT1JfUkVBRFksDQo+ICAJSDFfQTlfUkVBRF9LU1ZfTElTVCwNCj4g
+IAlIRENQMV9TVEFURV9FTkQgPSBIMV9BOV9SRUFEX0tTVl9MSVNUDQo+IEBAIC0xODgsNyArMTg4
+LDcgQEAgZW51bSBtb2RfaGRjcF9oZGNwMV9kcF9zdGF0ZV9pZCB7DQo+ICAJRDFfQTFfRVhDSEFO
+R0VfS1NWUywNCj4gIAlEMV9BMjNfV0FJVF9GT1JfUjBfUFJJTUUsDQo+ICAJRDFfQTJfQ09NUFVU
+QVRJT05TX0EzX1ZBTElEQVRFX1JYX0E1X1RFU1RfRk9SX1JFUEVBVEVSLA0KPiAtCUQxX0E0X0FV
+VEhFTklDQVRFRCwNCj4gKwlEMV9BNF9BVVRIRU5USUNBVEVELA0KPiAgCUQxX0E2X1dBSVRfRk9S
+X1JFQURZLA0KPiAgCUQxX0E3X1JFQURfS1NWX0xJU1QsDQo+ICAJSERDUDFfRFBfU1RBVEVfRU5E
+ID0gRDFfQTdfUkVBRF9LU1ZfTElTVCwNCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9h
+bWQvZGlzcGxheS9tb2R1bGVzL2hkY3AvaGRjcDFfZXhlY3V0aW9uLmMgYi9kcml2ZXJzL2dwdS9k
+cm0vYW1kL2Rpc3BsYXkvbW9kdWxlcy9oZGNwL2hkY3AxX2V4ZWN1dGlvbi5jDQo+IGluZGV4IDll
+NzMwMmVhYzI5OS4uM2RiNGE3ZGE0MTRmIDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0v
+YW1kL2Rpc3BsYXkvbW9kdWxlcy9oZGNwL2hkY3AxX2V4ZWN1dGlvbi5jDQo+ICsrKyBiL2RyaXZl
+cnMvZ3B1L2RybS9hbWQvZGlzcGxheS9tb2R1bGVzL2hkY3AvaGRjcDFfZXhlY3V0aW9uLmMNCj4g
+QEAgLTQ3Niw3ICs0NzYsNyBAQCBlbnVtIG1vZF9oZGNwX3N0YXR1cyBtb2RfaGRjcF9oZGNwMV9l
+eGVjdXRpb24oc3RydWN0IG1vZF9oZGNwICpoZGNwLA0KPiAgCQlzdGF0dXMgPSBjb21wdXRhdGlv
+bnNfdmFsaWRhdGVfcnhfdGVzdF9mb3JfcmVwZWF0ZXIoaGRjcCwNCj4gIAkJCQlldmVudF9jdHgs
+IGlucHV0KTsNCj4gIAkJYnJlYWs7DQo+IC0JY2FzZSBIMV9BNDVfQVVUSEVOSUNBVEVEOg0KPiAr
+CWNhc2UgSDFfQTQ1X0FVVEhFTlRJQ0FURUQ6DQo+ICAJCXN0YXR1cyA9IGF1dGhlbnRpY2F0ZWQo
+aGRjcCwgZXZlbnRfY3R4LCBpbnB1dCk7DQo+ICAJCWJyZWFrOw0KPiAgCWNhc2UgSDFfQThfV0FJ
+VF9GT1JfUkVBRFk6DQo+IEBAIC01MTMsNyArNTEzLDcgQEAgZXh0ZXJuIGVudW0gbW9kX2hkY3Bf
+c3RhdHVzIG1vZF9oZGNwX2hkY3AxX2RwX2V4ZWN1dGlvbihzdHJ1Y3QgbW9kX2hkY3AgKmhkY3As
+DQo+ICAJCXN0YXR1cyA9IGNvbXB1dGF0aW9uc192YWxpZGF0ZV9yeF90ZXN0X2Zvcl9yZXBlYXRl
+cigNCj4gIAkJCQloZGNwLCBldmVudF9jdHgsIGlucHV0KTsNCj4gIAkJYnJlYWs7DQo+IC0JY2Fz
+ZSBEMV9BNF9BVVRIRU5JQ0FURUQ6DQo+ICsJY2FzZSBEMV9BNF9BVVRIRU5USUNBVEVEOg0KPiAg
+CQlzdGF0dXMgPSBhdXRoZW50aWNhdGVkX2RwKGhkY3AsIGV2ZW50X2N0eCwgaW5wdXQpOw0KPiAg
+CQlicmVhazsNCj4gIAljYXNlIEQxX0E2X1dBSVRfRk9SX1JFQURZOg0KPiBkaWZmIC0tZ2l0IGEv
+ZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L21vZHVsZXMvaGRjcC9oZGNwMV90cmFuc2l0aW9u
+LmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvbW9kdWxlcy9oZGNwL2hkY3AxX3RyYW5z
+aXRpb24uYw0KPiBpbmRleCAxZDE4NzgwOWI3MDkuLjEzNmI4MDExZmYzZiAxMDA2NDQNCj4gLS0t
+IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L21vZHVsZXMvaGRjcC9oZGNwMV90cmFuc2l0
+aW9uLmMNCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L21vZHVsZXMvaGRjcC9o
+ZGNwMV90cmFuc2l0aW9uLmMNCj4gQEAgLTgxLDExICs4MSwxMSBAQCBlbnVtIG1vZF9oZGNwX3N0
+YXR1cyBtb2RfaGRjcF9oZGNwMV90cmFuc2l0aW9uKHN0cnVjdCBtb2RfaGRjcCAqaGRjcCwNCj4g
+IAkJCXNldF9zdGF0ZV9pZChoZGNwLCBvdXRwdXQsIEgxX0E4X1dBSVRfRk9SX1JFQURZKTsNCj4g
+IAkJfSBlbHNlIHsNCj4gIAkJCWNhbGxiYWNrX2luX21zKDAsIG91dHB1dCk7DQo+IC0JCQlzZXRf
+c3RhdGVfaWQoaGRjcCwgb3V0cHV0LCBIMV9BNDVfQVVUSEVOSUNBVEVEKTsNCj4gKwkJCXNldF9z
+dGF0ZV9pZChoZGNwLCBvdXRwdXQsIEgxX0E0NV9BVVRIRU5USUNBVEVEKTsNCj4gIAkJCUhEQ1Bf
+RlVMTF9ERENfVFJBQ0UoaGRjcCk7DQo+ICAJCX0NCj4gIAkJYnJlYWs7DQo+IC0JY2FzZSBIMV9B
+NDVfQVVUSEVOSUNBVEVEOg0KPiArCWNhc2UgSDFfQTQ1X0FVVEhFTlRJQ0FURUQ6DQo+ICAJCWlm
+IChpbnB1dC0+bGlua19tYWludGVuYW5jZSAhPSBQQVNTKSB7DQo+ICAJCQkvKiAxQS0wNzogY29u
+c2lkZXIgaW52YWxpZCByaScgYSBmYWlsdXJlICovDQo+ICAJCQkvKiAxQS0wN2E6IGNvbnNpZGVy
+IHJlYWQgcmknIG5vdCByZXR1cm5lZCBhIGZhaWx1cmUgKi8NCj4gQEAgLTEyOSw3ICsxMjksNyBA
+QCBlbnVtIG1vZF9oZGNwX3N0YXR1cyBtb2RfaGRjcF9oZGNwMV90cmFuc2l0aW9uKHN0cnVjdCBt
+b2RfaGRjcCAqaGRjcCwNCj4gIAkJCWJyZWFrOw0KPiAgCQl9DQo+ICAJCWNhbGxiYWNrX2luX21z
+KDAsIG91dHB1dCk7DQo+IC0JCXNldF9zdGF0ZV9pZChoZGNwLCBvdXRwdXQsIEgxX0E0NV9BVVRI
+RU5JQ0FURUQpOw0KPiArCQlzZXRfc3RhdGVfaWQoaGRjcCwgb3V0cHV0LCBIMV9BNDVfQVVUSEVO
+VElDQVRFRCk7DQo+ICAJCUhEQ1BfRlVMTF9ERENfVFJBQ0UoaGRjcCk7DQo+ICAJCWJyZWFrOw0K
+PiAgCWRlZmF1bHQ6DQo+IEBAIC0yMjQsMTEgKzIyNCwxMSBAQCBlbnVtIG1vZF9oZGNwX3N0YXR1
+cyBtb2RfaGRjcF9oZGNwMV9kcF90cmFuc2l0aW9uKHN0cnVjdCBtb2RfaGRjcCAqaGRjcCwNCj4g
+IAkJCXNldF93YXRjaGRvZ19pbl9tcyhoZGNwLCA1MDAwLCBvdXRwdXQpOw0KPiAgCQkJc2V0X3N0
+YXRlX2lkKGhkY3AsIG91dHB1dCwgRDFfQTZfV0FJVF9GT1JfUkVBRFkpOw0KPiAgCQl9IGVsc2Ug
+ew0KPiAtCQkJc2V0X3N0YXRlX2lkKGhkY3AsIG91dHB1dCwgRDFfQTRfQVVUSEVOSUNBVEVEKTsN
+Cj4gKwkJCXNldF9zdGF0ZV9pZChoZGNwLCBvdXRwdXQsIEQxX0E0X0FVVEhFTlRJQ0FURUQpOw0K
+PiAgCQkJSERDUF9GVUxMX0REQ19UUkFDRShoZGNwKTsNCj4gIAkJfQ0KPiAgCQlicmVhazsNCj4g
+LQljYXNlIEQxX0E0X0FVVEhFTklDQVRFRDoNCj4gKwljYXNlIEQxX0E0X0FVVEhFTlRJQ0FURUQ6
+DQo+ICAJCWlmIChpbnB1dC0+bGlua19pbnRlZ2lyeV9jaGVjayAhPSBQQVNTIHx8DQo+ICAJCQkJ
+aW5wdXQtPnJlYXV0aF9yZXF1ZXN0X2NoZWNrICE9IFBBU1MpIHsNCj4gIAkJCS8qIDFBLTA3OiBy
+ZXN0YXJ0IGhkY3Agb24gYSBsaW5rIGludGVncml0eSBmYWlsdXJlICovDQo+IEBAIC0yOTUsNyAr
+Mjk1LDcgQEAgZW51bSBtb2RfaGRjcF9zdGF0dXMgbW9kX2hkY3BfaGRjcDFfZHBfdHJhbnNpdGlv
+bihzdHJ1Y3QgbW9kX2hkY3AgKmhkY3AsDQo+ICAJCQlmYWlsX2FuZF9yZXN0YXJ0X2luX21zKDAs
+ICZzdGF0dXMsIG91dHB1dCk7DQo+ICAJCQlicmVhazsNCj4gIAkJfQ0KPiAtCQlzZXRfc3RhdGVf
+aWQoaGRjcCwgb3V0cHV0LCBEMV9BNF9BVVRIRU5JQ0FURUQpOw0KPiArCQlzZXRfc3RhdGVfaWQo
+aGRjcCwgb3V0cHV0LCBEMV9BNF9BVVRIRU5USUNBVEVEKTsNCj4gIAkJSERDUF9GVUxMX0REQ19U
+UkFDRShoZGNwKTsNCj4gIAkJYnJlYWs7DQo+ICAJZGVmYXVsdDoNCj4gZGlmZiAtLWdpdCBhL2Ry
+aXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9tb2R1bGVzL2hkY3AvaGRjcF9sb2cuYyBiL2RyaXZl
+cnMvZ3B1L2RybS9hbWQvZGlzcGxheS9tb2R1bGVzL2hkY3AvaGRjcF9sb2cuYw0KPiBpbmRleCBk
+ODY4ZjU1NmQxODAuLjM5ODJjZWQ1Zjk2OSAxMDA2NDQNCj4gLS0tIGEvZHJpdmVycy9ncHUvZHJt
+L2FtZC9kaXNwbGF5L21vZHVsZXMvaGRjcC9oZGNwX2xvZy5jDQo+ICsrKyBiL2RyaXZlcnMvZ3B1
+L2RybS9hbWQvZGlzcGxheS9tb2R1bGVzL2hkY3AvaGRjcF9sb2cuYw0KPiBAQCAtMTM2LDggKzEz
+Niw4IEBAIGNoYXIgKm1vZF9oZGNwX3N0YXRlX2lkX3RvX3N0cihpbnQzMl90IGlkKQ0KPiAgCQly
+ZXR1cm4gIkgxX0ExX0VYQ0hBTkdFX0tTVlMiOw0KPiAgCWNhc2UgSDFfQTJfQ09NUFVUQVRJT05T
+X0EzX1ZBTElEQVRFX1JYX0E2X1RFU1RfRk9SX1JFUEVBVEVSOg0KPiAgCQlyZXR1cm4gIkgxX0Ey
+X0NPTVBVVEFUSU9OU19BM19WQUxJREFURV9SWF9BNl9URVNUX0ZPUl9SRVBFQVRFUiI7DQo+IC0J
+Y2FzZSBIMV9BNDVfQVVUSEVOSUNBVEVEOg0KPiAtCQlyZXR1cm4gIkgxX0E0NV9BVVRIRU5JQ0FU
+RUQiOw0KPiArCWNhc2UgSDFfQTQ1X0FVVEhFTlRJQ0FURUQ6DQo+ICsJCXJldHVybiAiSDFfQTQ1
+X0FVVEhFTlRJQ0FURUQiOw0KPiAgCWNhc2UgSDFfQThfV0FJVF9GT1JfUkVBRFk6DQo+ICAJCXJl
+dHVybiAiSDFfQThfV0FJVF9GT1JfUkVBRFkiOw0KPiAgCWNhc2UgSDFfQTlfUkVBRF9LU1ZfTElT
+VDoNCj4gQEAgLTE1MCw4ICsxNTAsOCBAQCBjaGFyICptb2RfaGRjcF9zdGF0ZV9pZF90b19zdHIo
+aW50MzJfdCBpZCkNCj4gIAkJcmV0dXJuICJEMV9BMjNfV0FJVF9GT1JfUjBfUFJJTUUiOw0KPiAg
+CWNhc2UgRDFfQTJfQ09NUFVUQVRJT05TX0EzX1ZBTElEQVRFX1JYX0E1X1RFU1RfRk9SX1JFUEVB
+VEVSOg0KPiAgCQlyZXR1cm4gIkQxX0EyX0NPTVBVVEFUSU9OU19BM19WQUxJREFURV9SWF9BNV9U
+RVNUX0ZPUl9SRVBFQVRFUiI7DQo+IC0JY2FzZSBEMV9BNF9BVVRIRU5JQ0FURUQ6DQo+IC0JCXJl
+dHVybiAiRDFfQTRfQVVUSEVOSUNBVEVEIjsNCj4gKwljYXNlIEQxX0E0X0FVVEhFTlRJQ0FURUQ6
+DQo+ICsJCXJldHVybiAiRDFfQTRfQVVUSEVOVElDQVRFRCI7DQo+ICAJY2FzZSBEMV9BNl9XQUlU
+X0ZPUl9SRUFEWToNCj4gIAkJcmV0dXJuICJEMV9BNl9XQUlUX0ZPUl9SRUFEWSI7DQo+ICAJY2Fz
+ZSBEMV9BN19SRUFEX0tTVl9MSVNUOg0KPiANCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJl
+ZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGlu
+Zm8vYW1kLWdmeA==
