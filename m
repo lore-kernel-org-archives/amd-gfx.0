@@ -1,7 +1,7 @@
 From: Colin King <colin.king@canonical.com>
-Subject: [PATCH][next] drm/amdgpu: remove redundant variable r and redundant return statement
-Date: Thu,  3 Oct 2019 22:40:49 +0100
-Message-ID: <20191003214049.23067-1-colin.king@canonical.com>
+Subject: [PATCH][next] drm/amdgpu: fix uninitialized variable pasid_mapping_needed
+Date: Thu,  3 Oct 2019 22:52:27 +0100
+Message-ID: <20191003215227.23540-1-colin.king@canonical.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -13,35 +13,30 @@ List-Id: amd-gfx.lists.freedesktop.org
 
 From: Colin Ian King <colin.king@canonical.com>
 
-There is a return statement that is not reachable and a variable that
-is not used.  Remove them.
+The boolean variable pasid_mapping_needed is not initialized and
+there are code paths that do not assign it any value before it is
+is read later.  Fix this by initializing pasid_mapping_needed to
+false.
 
-Addresses-Coverity: ("Structurally dead code")
-Fixes: de7b45babd9b ("drm/amdgpu: cleanup creating BOs at fixed location (v2)")
+Addresses-Coverity: ("Uninitialized scalar variable")
+Fixes: 6817bf283b2b ("drm/amdgpu: grab the id mgr lock while accessing passid_mapping")
 Signed-off-by: Colin Ian King <colin.king@canonical.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 2 --
- 1 file changed, 2 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-index 481e4c381083..814159f15633 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-@@ -1636,7 +1636,6 @@ static void amdgpu_ttm_fw_reserve_vram_fini(struct amdgpu_device *adev)
- static int amdgpu_ttm_fw_reserve_vram_init(struct amdgpu_device *adev)
- {
- 	uint64_t vram_size = adev->gmc.visible_vram_size;
--	int r;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+index a2c797e34a29..be10e4b9a94d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+@@ -1055,7 +1055,7 @@ int amdgpu_vm_flush(struct amdgpu_ring *ring, struct amdgpu_job *job,
+ 		id->oa_size != job->oa_size);
+ 	bool vm_flush_needed = job->vm_needs_flush;
+ 	struct dma_fence *fence = NULL;
+-	bool pasid_mapping_needed;
++	bool pasid_mapping_needed = false;
+ 	unsigned patch_offset = 0;
+ 	int r;
  
- 	adev->fw_vram_usage.va = NULL;
- 	adev->fw_vram_usage.reserved_bo = NULL;
-@@ -1651,7 +1650,6 @@ static int amdgpu_ttm_fw_reserve_vram_init(struct amdgpu_device *adev)
- 					  AMDGPU_GEM_DOMAIN_VRAM,
- 					  &adev->fw_vram_usage.reserved_bo,
- 					  &adev->fw_vram_usage.va);
--	return r;
- }
- 
- /**
 -- 
 2.20.1
