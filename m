@@ -1,55 +1,47 @@
-From: Raul E Rangel <rrangel@chromium.org>
-Subject: [PATCH v3] drm/amd/display: fix struct init in update_bounding_box
-Date: Thu,  3 Oct 2019 14:24:44 -0600
-Message-ID: <20191003142423.v3.1.I5c52c59b731fe266252588ab2b32c0e3d4d808f1@changeid>
+From: Colin King <colin.king@canonical.com>
+Subject: [PATCH][next] drm/amdgpu: remove redundant variable r and redundant return statement
+Date: Thu,  3 Oct 2019 22:40:49 +0100
+Message-ID: <20191003214049.23067-1-colin.king@canonical.com>
 Mime-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 Return-path: <linux-kernel-owner@vger.kernel.org>
 Sender: linux-kernel-owner@vger.kernel.org
-To: amd-gfx@lists.freedesktop.org
-Cc: Raul E Rangel <rrangel@chromium.org>, Leo Li <sunpeng.li@amd.com>, David Airlie <airlied@linux.ie>, Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, hersen wu <hersenxs.wu@amd.com>, linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, Nikola Cornij <nikola.cornij@amd.com>, Alex Deucher <alexander.deucher@amd.com>, Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>, Harry Wentland <harry.wentland@amd.com>, Charlene Liu <charlene.liu@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, Jun Lei <Jun.Lei@amd.com>, Daniel Vetter <daniel@ffwll.ch>
+To: Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, David Zhou <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
 List-Id: amd-gfx.lists.freedesktop.org
 
-dcn20_resource.c:2636:9: error: missing braces around initializer [-Werror=missing-braces]
-  struct _vcs_dpi_voltage_scaling_st calculated_states[MAX_CLOCK_LIMIT_STATES] = {0};
-         ^
+From: Colin Ian King <colin.king@canonical.com>
 
-Fixes: 7ed4e6352c16f ("drm/amd/display: Add DCN2 HW Sequencer and Resource")
+There is a return statement that is not reachable and a variable that
+is not used.  Remove them.
 
-Signed-off-by: Raul E Rangel <rrangel@chromium.org>
-
+Addresses-Coverity: ("Structurally dead code")
+Fixes: de7b45babd9b ("drm/amdgpu: cleanup creating BOs at fixed location (v2)")
+Signed-off-by: Colin Ian King <colin.king@canonical.com>
 ---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 2 --
+ 1 file changed, 2 deletions(-)
 
-Changes in v3:
-- Use memset
-
-Changes in v2:
-- Use {{0}} instead of {}
-
- drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
-index b949e202d6cb7..f72c26ae41def 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
-@@ -2633,7 +2633,7 @@ static void cap_soc_clocks(
- static void update_bounding_box(struct dc *dc, struct _vcs_dpi_soc_bounding_box_st *bb,
- 		struct pp_smu_nv_clock_table *max_clocks, unsigned int *uclk_states, unsigned int num_states)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+index 481e4c381083..814159f15633 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+@@ -1636,7 +1636,6 @@ static void amdgpu_ttm_fw_reserve_vram_fini(struct amdgpu_device *adev)
+ static int amdgpu_ttm_fw_reserve_vram_init(struct amdgpu_device *adev)
  {
--	struct _vcs_dpi_voltage_scaling_st calculated_states[MAX_CLOCK_LIMIT_STATES] = {0};
-+	struct _vcs_dpi_voltage_scaling_st calculated_states[MAX_CLOCK_LIMIT_STATES];
- 	int i;
- 	int num_calculated_states = 0;
- 	int min_dcfclk = 0;
-@@ -2641,6 +2641,8 @@ static void update_bounding_box(struct dc *dc, struct _vcs_dpi_soc_bounding_box_
- 	if (num_states == 0)
- 		return;
+ 	uint64_t vram_size = adev->gmc.visible_vram_size;
+-	int r;
  
-+	memset(calculated_states, 0, sizeof(calculated_states));
-+
- 	if (dc->bb_overrides.min_dcfclk_mhz > 0)
- 		min_dcfclk = dc->bb_overrides.min_dcfclk_mhz;
- 	else
+ 	adev->fw_vram_usage.va = NULL;
+ 	adev->fw_vram_usage.reserved_bo = NULL;
+@@ -1651,7 +1650,6 @@ static int amdgpu_ttm_fw_reserve_vram_init(struct amdgpu_device *adev)
+ 					  AMDGPU_GEM_DOMAIN_VRAM,
+ 					  &adev->fw_vram_usage.reserved_bo,
+ 					  &adev->fw_vram_usage.va);
+-	return r;
+ }
+ 
+ /**
 -- 
-2.23.0.444.g18eeb5a265-goog
+2.20.1
