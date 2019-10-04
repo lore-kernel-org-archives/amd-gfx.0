@@ -1,57 +1,33 @@
-From: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 1/2] drm/amdkfd: Fix MQD size calculation
-Date: Fri, 4 Oct 2019 14:53:32 +0000
-Message-ID: <c9b1f0d0-e449-ba40-76c2-14e01830bc1f@amd.com>
-References: <1570200515-18992-1-git-send-email-Oak.Zeng@amd.com>
+From: Randy Dunlap <rdunlap@infradead.org>
+Subject: Re: linux-next: Tree for Oct 4 (amdgpu)
+Date: Fri, 4 Oct 2019 07:54:38 -0700
+Message-ID: <06969836-ac7f-0d18-1866-159e48018d98@infradead.org>
+References: <20191004155929.3ac043b5@canb.auug.org.au>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1570200515-18992-1-git-send-email-Oak.Zeng-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset=windows-1252
+Content-Transfer-Encoding: 7bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20191004155929.3ac043b5@canb.auug.org.au>
 Content-Language: en-US
-Content-ID: <C09A5C45786BFE4DA8491C8D246D7174-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Zeng, Oak" <Oak.Zeng-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Kim, Jonathan" <Jonathan.Kim-5C7GfCeVMHo@public.gmane.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Stephen Rothwell <sfr@canb.auug.org.au>, Linux Next Mailing List <linux-next@vger.kernel.org>
+Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, dri-devel <dri-devel@lists.freedesktop.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gMjAxOS0xMC0wNCAxMDo0OCwgWmVuZywgT2FrIHdyb3RlOg0KPiBPbiBkZXZpY2UgaW5pdGlh
-bGl6YXRpb24sIGEgdHJ1bmsgb2YgR1RUIG1lbW9yeSBpcyBwcmUtYWxsb2NhdGVkIGZvcg0KPiBI
-SVEgYW5kIGFsbCBTRE1BIHF1ZXVlcyBtcWQuIFRoZSBzaXplIG9mIHRoaXMgYWxsb2NhdGlvbiB3
-YXMgd3JvbmcuDQo+IFRoZSBjb3JyZWN0IHNkbWEgZW5naW5lIG51bWJlciBzaG91bGQgYmUgUENJ
-ZS1vcHRpbWl6ZWQgU0RNQSBlbmdpbmUNCj4gbnVtYmVyIHBsdXMgeGdtaSBTRE1BIGVuZ2luZSBu
-dW1iZXIuDQo+DQo+IENoYW5nZS1JZDogSWVjZDExYWU0ZjVhMzE0NTkxNTY2NzcyYWEyYTIzZTFm
-ZTRiOTQyNzUNCj4gUmVwb3J0ZWQtYnk6IEpvbmF0aGFuIEtpbSA8Sm9uYXRoYW4uS2ltQGFtZC5j
-b20+DQo+IFNpZ25lZC1vZmYtYnk6IEpvbmF0aGFuIEtpbSA8Sm9uYXRoYW4uS2ltQGFtZC5jb20+
-DQo+IFNpZ25lZC1vZmYtYnk6IE9hayBaZW5nIDxPYWsuWmVuZ0BhbWQuY29tPg0KDQpNaW5vciBj
-b3NtZXRpYyBuaXQtcGljayBpbmxpbmUgdGhhdCBjaGVja3BhdGNoLnBsIHdvdWxkIHByb2JhYmx5
-IHdhcm4gDQphYm91dC4gV2l0aCB0aGF0IGZpeGVkLCB0aGlzIHBhdGNoIGlzDQoNClJldmlld2Vk
-LWJ5OiBGZWxpeCBLdWVobGluZyA8RmVsaXguS3VlaGxpbmdAYW1kLmNvbT4NCg0KDQo+IC0tLQ0K
-PiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9kZXZpY2VfcXVldWVfbWFuYWdlci5j
-IHwgMyArKy0NCj4gICAxIGZpbGUgY2hhbmdlZCwgMiBpbnNlcnRpb25zKCspLCAxIGRlbGV0aW9u
-KC0pDQo+DQo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfZGV2
-aWNlX3F1ZXVlX21hbmFnZXIuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9kZXZp
-Y2VfcXVldWVfbWFuYWdlci5jDQo+IGluZGV4IDE2YzA0ZjguLmU1NWQwMjEgMTAwNjQ0DQo+IC0t
-LSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9kZXZpY2VfcXVldWVfbWFuYWdlci5j
-DQo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9kZXZpY2VfcXVldWVfbWFu
-YWdlci5jDQo+IEBAIC0xODQ5LDcgKzE4NDksOCBAQCBzdGF0aWMgaW50IGFsbG9jYXRlX2hpcV9z
-ZG1hX21xZChzdHJ1Y3QgZGV2aWNlX3F1ZXVlX21hbmFnZXIgKmRxbSkNCj4gICAJc3RydWN0IGtm
-ZF9kZXYgKmRldiA9IGRxbS0+ZGV2Ow0KPiAgIAlzdHJ1Y3Qga2ZkX21lbV9vYmogKm1lbV9vYmog
-PSAmZHFtLT5oaXFfc2RtYV9tcWQ7DQo+ICAgCXVpbnQzMl90IHNpemUgPSBkcW0tPm1xZF9tZ3Jz
-W0tGRF9NUURfVFlQRV9TRE1BXS0+bXFkX3NpemUgKg0KPiAtCQlkZXYtPmRldmljZV9pbmZvLT5u
-dW1fc2RtYV9lbmdpbmVzICoNCj4gKwkJKGRldi0+ZGV2aWNlX2luZm8tPm51bV9zZG1hX2VuZ2lu
-ZXMgKw0KPiArCQlkZXYtPmRldmljZV9pbmZvLT5udW1feGdtaV9zZG1hX2VuZ2luZXMpKg0KDQpU
-aGVyZSBzaG91bGQgYmUgYSBzcGFjZSBiZXR3ZWVuICkgYW5kICouDQoNCg0KPiAgIAkJZGV2LT5k
-ZXZpY2VfaW5mby0+bnVtX3NkbWFfcXVldWVzX3Blcl9lbmdpbmUgKw0KPiAgIAkJZHFtLT5tcWRf
-bWdyc1tLRkRfTVFEX1RZUEVfSElRXS0+bXFkX3NpemU7DQo+ICAgDQpfX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQt
-Z2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9t
-YWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
+On 10/3/19 10:59 PM, Stephen Rothwell wrote:
+> Hi all,
+> 
+> Changes since 20191003:
+> 
+
+on x86_64:
+CONFIG_DRM_AMDGPU=y
+# CONFIG_DRM_AMDGPU_SI is not set
+# CONFIG_DRM_AMDGPU_CIK is not set
+CONFIG_DRM_AMDGPU_USERPTR=y
+CONFIG_DRM_AMDGPU_GART_DEBUGFS=y
+
+ld: drivers/gpu/drm/amd/amdkfd/kfd_device.o:(.rodata+0xf60): undefined reference to `gfx_v7_kfd2kgd'
+
+-- 
+~Randy
