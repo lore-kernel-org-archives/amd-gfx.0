@@ -1,71 +1,95 @@
-From: Alex Deucher <alexdeucher@gmail.com>
-Subject: Re: [PATCH][next] drm/amdgpu: remove redundant variable r and
- redundant return statement
-Date: Fri, 4 Oct 2019 08:57:25 -0400
-Message-ID: <CADnq5_N6WP=gDE=Yqv6CqKs13LkUJzFx9C6YmiU1ua_MSg_uiw@mail.gmail.com>
-References: <20191003214049.23067-1-colin.king@canonical.com> <70c50fec-7ab7-3ac9-3f49-d5f2651554e4@amd.com>
+From: "Yang, Philip" <Philip.Yang-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu: user pages array memory leak fix
+Date: Fri, 4 Oct 2019 13:40:11 +0000
+Message-ID: <e86d92cd-7bae-6704-00db-1a79ccbb1011@amd.com>
+References: <20191003194423.14468-1-Philip.Yang@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <70c50fec-7ab7-3ac9-3f49-d5f2651554e4@amd.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: "Koenig, Christian" <Christian.Koenig@amd.com>
-Cc: Colin King <colin.king@canonical.com>, "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Zhou, David(ChunMing)" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "kernel-janitors@vger.kernel.org" <kernel-janitors@vger.kernel.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20191003194423.14468-1-Philip.Yang-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
+Content-ID: <28B57967A9676346A0D5D2BB516D8831-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "thejoe-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org" <thejoe-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
 
-On Fri, Oct 4, 2019 at 3:29 AM Koenig, Christian
-<Christian.Koenig@amd.com> wrote:
->
-> Am 03.10.19 um 23:40 schrieb Colin King:
-> > From: Colin Ian King <colin.king@canonical.com>
-> >
-> > There is a return statement that is not reachable and a variable that
-> > is not used.  Remove them.
-> >
-> > Addresses-Coverity: ("Structurally dead code")
-> > Fixes: de7b45babd9b ("drm/amdgpu: cleanup creating BOs at fixed locatio=
-n (v2)")
-> > Signed-off-by: Colin Ian King <colin.king@canonical.com>
->
-> Reviewed-by: Christian K=C3=B6nig <christian.koenig@amd.com>
-
-Applied.  Thanks!
-
-Alex
-
->
-> > ---
-> >   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 2 --
-> >   1 file changed, 2 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/=
-amd/amdgpu/amdgpu_ttm.c
-> > index 481e4c381083..814159f15633 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> > @@ -1636,7 +1636,6 @@ static void amdgpu_ttm_fw_reserve_vram_fini(struc=
-t amdgpu_device *adev)
-> >   static int amdgpu_ttm_fw_reserve_vram_init(struct amdgpu_device *adev=
-)
-> >   {
-> >       uint64_t vram_size =3D adev->gmc.visible_vram_size;
-> > -     int r;
-> >
-> >       adev->fw_vram_usage.va =3D NULL;
-> >       adev->fw_vram_usage.reserved_bo =3D NULL;
-> > @@ -1651,7 +1650,6 @@ static int amdgpu_ttm_fw_reserve_vram_init(struct=
- amdgpu_device *adev)
-> >                                         AMDGPU_GEM_DOMAIN_VRAM,
-> >                                         &adev->fw_vram_usage.reserved_b=
-o,
-> >                                         &adev->fw_vram_usage.va);
-> > -     return r;
-> >   }
-> >
-> >   /**
->
-> _______________________________________________
-> dri-devel mailing list
-> dri-devel@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/dri-devel
+VGhhbmtzIEpvZSBmb3IgdGhlIHRlc3QsIEkgd2lsbCBhZGQgeW91ciBUZXN0ZWQtYnkuDQoNCkhp
+IENocmlzdGlhbiwNCg0KTWF5IHlvdSBoZWxwIHJldmlldz8gVGhlIGNoYW5nZSByZW1vdmVzIHRo
+ZSBnZXQgdXNlciBwYWdlcyBmcm9tIA0KZ2VtX3VzZXJwdHJfaW9jdGwsIHRoaXMgd2FzIGRvbmUg
+aWYgZmxhZ3MgQU1ER1BVX0dFTV9VU0VSUFRSX1ZBTElEQVRFIGlzIA0Kc2V0LCBhbmQgZGVsYXkg
+dGhlIGdldCB1c2VyIHBhZ2VzIHRvIGFtZGdwdV9jc19wYXJzZXJfYm9zLCBhbmQgY2hlY2sgaWYg
+DQp1c2VyIHBhZ2VzIGFyZSBpbnZhbGlkYXRlZCB3aGVuIGFtZGdwdV9jc19zdWJtaXQuIEkgZG9u
+J3QgZmluZCBpc3N1ZSBmb3IgDQpvdmVybmlnaHQgdGVzdCwgYnV0IG5vdCBzdXJlIGlmIHRoZXJl
+IGlzIHBvdGVudGlhbCBzaWRlIGVmZmVjdC4NCg0KVGhhbmtzLA0KUGhpbGlwDQoNCk9uIDIwMTkt
+MTAtMDMgMzo0NCBwLm0uLCBZYW5nLCBQaGlsaXAgd3JvdGU6DQo+IHVzZXJfcGFnZXMgYXJyYXkg
+c2hvdWxkIGFsd2F5cyBiZSBmcmVlZCBhZnRlciB2YWxpZGF0aW9uIHJlZ2FyZGxlc3MgaWYNCj4g
+dXNlciBwYWdlcyBhcmUgY2hhbmdlZCBhZnRlciBibyBpcyBjcmVhdGVkIGJlY2F1c2Ugd2l0aCBI
+TU0gY2hhbmdlIHBhcnNlDQo+IGJvIGFsd2F5cyBhbGxvY2F0ZSB1c2VyIHBhZ2VzIGFycmF5IHRv
+IGdldCB1c2VyIHBhZ2VzIGZvciB1c2VycHRyIGJvLg0KPiANCj4gRG9uJ3QgbmVlZCB0byBnZXQg
+dXNlciBwYWdlcyB3aGlsZSBjcmVhdGluZyB1ZXJwdHIgYm8gYmVjYXVzZSB1c2VyIHBhZ2VzDQo+
+IHdpbGwgb25seSBiZSB1c2VkIHdoaWxlIHZhbGlkYXRpbmcgYWZ0ZXIgcGFyc2luZyB1c2VycHRy
+IGJvLg0KPiANCj4gQnVnemlsbGE6IGh0dHBzOi8vYnVncy5sYXVuY2hwYWQubmV0L3VidW50dS8r
+c291cmNlL2xpbnV4LytidWcvMTg0NDk2Mg0KPiANCj4gdjI6IHJlbW92ZSB1bnVzZWQgbG9jYWwg
+dmFyaWFibGUgYW5kIGFtZW5kIGNvbW1pdA0KPiANCj4gU2lnbmVkLW9mZi1ieTogUGhpbGlwIFlh
+bmcgPFBoaWxpcC5ZYW5nQGFtZC5jb20+DQo+IC0tLQ0KPiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQv
+YW1kZ3B1L2FtZGdwdV9jcy5jICB8ICA0ICstLS0NCj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
+ZGdwdS9hbWRncHVfZ2VtLmMgfCAyMyArLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQ0KPiAgIDIgZmls
+ZXMgY2hhbmdlZCwgMiBpbnNlcnRpb25zKCspLCAyNSBkZWxldGlvbnMoLSkNCj4gDQo+IGRpZmYg
+LS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfY3MuYyBiL2RyaXZlcnMv
+Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9jcy5jDQo+IGluZGV4IDQ5Yjc2N2I3MjM4Zi4uOTYx
+MTg2ZTcxMTNlIDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
+cHVfY3MuYw0KPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfY3MuYw0K
+PiBAQCAtNDc0LDcgKzQ3NCw2IEBAIHN0YXRpYyBpbnQgYW1kZ3B1X2NzX2xpc3RfdmFsaWRhdGUo
+c3RydWN0IGFtZGdwdV9jc19wYXJzZXIgKnAsDQo+ICAgDQo+ICAgCWxpc3RfZm9yX2VhY2hfZW50
+cnkobG9iaiwgdmFsaWRhdGVkLCB0di5oZWFkKSB7DQo+ICAgCQlzdHJ1Y3QgYW1kZ3B1X2JvICpi
+byA9IHR0bV90b19hbWRncHVfYm8obG9iai0+dHYuYm8pOw0KPiAtCQlib29sIGJpbmRpbmdfdXNl
+cnB0ciA9IGZhbHNlOw0KPiAgIAkJc3RydWN0IG1tX3N0cnVjdCAqdXNlcm1tOw0KPiAgIA0KPiAg
+IAkJdXNlcm1tID0gYW1kZ3B1X3R0bV90dF9nZXRfdXNlcm1tKGJvLT50Ym8udHRtKTsNCj4gQEAg
+LTQ5MSwxNCArNDkwLDEzIEBAIHN0YXRpYyBpbnQgYW1kZ3B1X2NzX2xpc3RfdmFsaWRhdGUoc3Ry
+dWN0IGFtZGdwdV9jc19wYXJzZXIgKnAsDQo+ICAgDQo+ICAgCQkJYW1kZ3B1X3R0bV90dF9zZXRf
+dXNlcl9wYWdlcyhiby0+dGJvLnR0bSwNCj4gICAJCQkJCQkgICAgIGxvYmotPnVzZXJfcGFnZXMp
+Ow0KPiAtCQkJYmluZGluZ191c2VycHRyID0gdHJ1ZTsNCj4gICAJCX0NCj4gICANCj4gICAJCXIg
+PSBhbWRncHVfY3NfdmFsaWRhdGUocCwgYm8pOw0KPiAgIAkJaWYgKHIpDQo+ICAgCQkJcmV0dXJu
+IHI7DQo+ICAgDQo+IC0JCWlmIChiaW5kaW5nX3VzZXJwdHIpIHsNCj4gKwkJaWYgKGxvYmotPnVz
+ZXJfcGFnZXMpIHsNCj4gICAJCQlrdmZyZWUobG9iai0+dXNlcl9wYWdlcyk7DQo+ICAgCQkJbG9i
+ai0+dXNlcl9wYWdlcyA9IE5VTEw7DQo+ICAgCQl9DQo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dw
+dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZ2VtLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
+dS9hbWRncHVfZ2VtLmMNCj4gaW5kZXggYTgyOGUzZDBiZmJkLi4zY2NkNjFkNjk5NjQgMTAwNjQ0
+DQo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9nZW0uYw0KPiArKysg
+Yi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZ2VtLmMNCj4gQEAgLTI4Myw3ICsy
+ODMsNiBAQCBpbnQgYW1kZ3B1X2dlbV9jcmVhdGVfaW9jdGwoc3RydWN0IGRybV9kZXZpY2UgKmRl
+diwgdm9pZCAqZGF0YSwNCj4gICBpbnQgYW1kZ3B1X2dlbV91c2VycHRyX2lvY3RsKHN0cnVjdCBk
+cm1fZGV2aWNlICpkZXYsIHZvaWQgKmRhdGEsDQo+ICAgCQkJICAgICBzdHJ1Y3QgZHJtX2ZpbGUg
+KmZpbHApDQo+ICAgew0KPiAtCXN0cnVjdCB0dG1fb3BlcmF0aW9uX2N0eCBjdHggPSB7IHRydWUs
+IGZhbHNlIH07DQo+ICAgCXN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2ID0gZGV2LT5kZXZfcHJp
+dmF0ZTsNCj4gICAJc3RydWN0IGRybV9hbWRncHVfZ2VtX3VzZXJwdHIgKmFyZ3MgPSBkYXRhOw0K
+PiAgIAlzdHJ1Y3QgZHJtX2dlbV9vYmplY3QgKmdvYmo7DQo+IEBAIC0zMjYsMzIgKzMyNSwxMiBA
+QCBpbnQgYW1kZ3B1X2dlbV91c2VycHRyX2lvY3RsKHN0cnVjdCBkcm1fZGV2aWNlICpkZXYsIHZv
+aWQgKmRhdGEsDQo+ICAgCQkJZ290byByZWxlYXNlX29iamVjdDsNCj4gICAJfQ0KPiAgIA0KPiAt
+CWlmIChhcmdzLT5mbGFncyAmIEFNREdQVV9HRU1fVVNFUlBUUl9WQUxJREFURSkgew0KPiAtCQly
+ID0gYW1kZ3B1X3R0bV90dF9nZXRfdXNlcl9wYWdlcyhibywgYm8tPnRiby50dG0tPnBhZ2VzKTsN
+Cj4gLQkJaWYgKHIpDQo+IC0JCQlnb3RvIHJlbGVhc2Vfb2JqZWN0Ow0KPiAtDQo+IC0JCXIgPSBh
+bWRncHVfYm9fcmVzZXJ2ZShibywgdHJ1ZSk7DQo+IC0JCWlmIChyKQ0KPiAtCQkJZ290byB1c2Vy
+X3BhZ2VzX2RvbmU7DQo+IC0NCj4gLQkJYW1kZ3B1X2JvX3BsYWNlbWVudF9mcm9tX2RvbWFpbihi
+bywgQU1ER1BVX0dFTV9ET01BSU5fR1RUKTsNCj4gLQkJciA9IHR0bV9ib192YWxpZGF0ZSgmYm8t
+PnRibywgJmJvLT5wbGFjZW1lbnQsICZjdHgpOw0KPiAtCQlhbWRncHVfYm9fdW5yZXNlcnZlKGJv
+KTsNCj4gLQkJaWYgKHIpDQo+IC0JCQlnb3RvIHVzZXJfcGFnZXNfZG9uZTsNCj4gLQl9DQo+IC0N
+Cj4gICAJciA9IGRybV9nZW1faGFuZGxlX2NyZWF0ZShmaWxwLCBnb2JqLCAmaGFuZGxlKTsNCj4g
+ICAJaWYgKHIpDQo+IC0JCWdvdG8gdXNlcl9wYWdlc19kb25lOw0KPiArCQlnb3RvIHJlbGVhc2Vf
+b2JqZWN0Ow0KPiAgIA0KPiAgIAlhcmdzLT5oYW5kbGUgPSBoYW5kbGU7DQo+ICAgDQo+IC11c2Vy
+X3BhZ2VzX2RvbmU6DQo+IC0JaWYgKGFyZ3MtPmZsYWdzICYgQU1ER1BVX0dFTV9VU0VSUFRSX1ZB
+TElEQVRFKQ0KPiAtCQlhbWRncHVfdHRtX3R0X2dldF91c2VyX3BhZ2VzX2RvbmUoYm8tPnRiby50
+dG0pOw0KPiAtDQo+ICAgcmVsZWFzZV9vYmplY3Q6DQo+ICAgCWRybV9nZW1fb2JqZWN0X3B1dF91
+bmxvY2tlZChnb2JqKTsNCj4gICANCj4gDQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVk
+ZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZv
+L2FtZC1nZng=
