@@ -1,64 +1,62 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Subject: Re: [PATCH 03/11] drm/amdgpu: convert amdgpu_vm_it to half closed
- intervals
-Date: Fri, 4 Oct 2019 14:39:40 +0200
-Message-ID: <232710bd-dc54-9d77-6f0f-24a91a28cbf6@gmail.com>
-References: <20191003201858.11666-1-dave@stgolabs.net>
- <20191003201858.11666-4-dave@stgolabs.net>
- <dc9cc8c4-7275-43be-5bed-91384e3246ae@amd.com>
- <20191004113628.GA260828@google.com>
-Reply-To: christian.koenig@amd.com
+From: Alex Deucher <alexdeucher@gmail.com>
+Subject: Re: [PATCH v3] drm/amd/display: fix struct init in update_bounding_box
+Date: Fri, 4 Oct 2019 08:47:04 -0400
+Message-ID: <CADnq5_OzUR12aLNgF1fO2JNZOwK=7z8SP8GvsWtSZo9bjnOVKg@mail.gmail.com>
+References: <20191003142423.v3.1.I5c52c59b731fe266252588ab2b32c0e3d4d808f1@changeid>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20191004113628.GA260828@google.com>
-Content-Language: en-US
-Sender: linux-kernel-owner@vger.kernel.org
-To: Michel Lespinasse <walken@google.com>, "Koenig, Christian" <Christian.Koenig@amd.com>
-Cc: Davidlohr Bueso <dave@stgolabs.net>, Davidlohr Bueso <dbueso@suse.de>, "peterz@infradead.org" <peterz@infradead.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "linux-mm@kvack.org" <linux-mm@kvack.org>, Jerome Glisse <jglisse@redhat.com>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, Daniel Vetter <daniel@ffwll.ch>, "Deucher, Alexander" <Alexander.Deucher@amd.com>, "akpm@linux-foundation.org" <akpm@linux-foundation.org>, "linux-rdma@vger.kernel.org" <linux-rdma@vger.kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+In-Reply-To: <20191003142423.v3.1.I5c52c59b731fe266252588ab2b32c0e3d4d808f1@changeid>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: Raul E Rangel <rrangel@chromium.org>
+Cc: Charlene Liu <charlene.liu@amd.com>, Leo Li <sunpeng.li@amd.com>, Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>, LKML <linux-kernel@vger.kernel.org>, amd-gfx list <amd-gfx@lists.freedesktop.org>, Nikola Cornij <nikola.cornij@amd.com>, David Airlie <airlied@linux.ie>, Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>, hersen wu <hersenxs.wu@amd.com>, Maling list - DRI developers <dri-devel@lists.freedesktop.org>, Alex Deucher <alexander.deucher@amd.com>, Jun Lei <Jun.Lei@amd.com>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
 List-Id: amd-gfx.lists.freedesktop.org
 
-Hi Michel,
-
-Am 04.10.19 um 13:36 schrieb Michel Lespinasse:
-> On Fri, Oct 04, 2019 at 06:54:54AM +0000, Koenig, Christian wrote:
->> Am 03.10.19 um 22:18 schrieb Davidlohr Bueso:
->>> The amdgpu_vm interval tree really wants [a, b) intervals,
->> NAK, we explicitly do need an [a, b[ interval here.
-> Hi Christian,
->
-> Just wanted to confirm where you stand on this patch, since I think
-> you reconsidered your initial position after first looking at 9/11
-> from this series.
->
-> I do not know the amdgpu code well, but I think the changes should be
-> fine - in struct amdgpu_bo_va_mapping, the "end" field will hold what
-> was previously stored in the "last" field, plus one. The expectation
-> is that overflows should not be an issue there, as "end" is explicitly
-> declared as an uint64, and as the code was previously computing
-> "last + 1" in many places.
->
-> Does that seem workable to you ?
-
-No, we computed last + 1 in a couple of debug places were it doesn't 
-hurt us and IIRC we currently cheat a bit because we use pfn instead of 
-addresses on some other places.
-
-But that is only a leftover from radeon and we need to fix that sooner 
-or later, cause essentially the physical address space of the device is 
-really full 64bits, e.g. 0x0-0xffffffffffffffff.
-
-So that only fits into a 64bit int when we use half open/closed 
-intervals, but would wrap around to zero if we use a closed interval.
-
-I initially thought that the set was changing the interval tree into 
-always using a closed interval, but that seems to have been a 
-misunderstanding.
-
-Regards,
-Christian.
-
->
-> Thanks,
->
+T24gVGh1LCBPY3QgMywgMjAxOSBhdCA0OjM1IFBNIFJhdWwgRSBSYW5nZWwgPHJyYW5nZWxAY2hy
+b21pdW0ub3JnPiB3cm90ZToKPgo+IGRjbjIwX3Jlc291cmNlLmM6MjYzNjo5OiBlcnJvcjogbWlz
+c2luZyBicmFjZXMgYXJvdW5kIGluaXRpYWxpemVyIFstV2Vycm9yPW1pc3NpbmctYnJhY2VzXQo+
+ICAgc3RydWN0IF92Y3NfZHBpX3ZvbHRhZ2Vfc2NhbGluZ19zdCBjYWxjdWxhdGVkX3N0YXRlc1tN
+QVhfQ0xPQ0tfTElNSVRfU1RBVEVTXSA9IHswfTsKPiAgICAgICAgICBeCj4KPiBGaXhlczogN2Vk
+NGU2MzUyYzE2ZiAoImRybS9hbWQvZGlzcGxheTogQWRkIERDTjIgSFcgU2VxdWVuY2VyIGFuZCBS
+ZXNvdXJjZSIpCj4KPiBTaWduZWQtb2ZmLWJ5OiBSYXVsIEUgUmFuZ2VsIDxycmFuZ2VsQGNocm9t
+aXVtLm9yZz4KCkFwcGxpZWQuICB0aGFua3MhCgpBbGV4Cgo+Cj4gLS0tCj4KPiBDaGFuZ2VzIGlu
+IHYzOgo+IC0gVXNlIG1lbXNldAo+Cj4gQ2hhbmdlcyBpbiB2MjoKPiAtIFVzZSB7ezB9fSBpbnN0
+ZWFkIG9mIHt9Cj4KPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2RjbjIwL2RjbjIw
+X3Jlc291cmNlLmMgfCA0ICsrKy0KPiAgMSBmaWxlIGNoYW5nZWQsIDMgaW5zZXJ0aW9ucygrKSwg
+MSBkZWxldGlvbigtKQo+Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxh
+eS9kYy9kY24yMC9kY24yMF9yZXNvdXJjZS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5
+L2RjL2RjbjIwL2RjbjIwX3Jlc291cmNlLmMKPiBpbmRleCBiOTQ5ZTIwMmQ2Y2I3Li5mNzJjMjZh
+ZTQxZGVmIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9kY24y
+MC9kY24yMF9yZXNvdXJjZS5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2Rj
+L2RjbjIwL2RjbjIwX3Jlc291cmNlLmMKPiBAQCAtMjYzMyw3ICsyNjMzLDcgQEAgc3RhdGljIHZv
+aWQgY2FwX3NvY19jbG9ja3MoCj4gIHN0YXRpYyB2b2lkIHVwZGF0ZV9ib3VuZGluZ19ib3goc3Ry
+dWN0IGRjICpkYywgc3RydWN0IF92Y3NfZHBpX3NvY19ib3VuZGluZ19ib3hfc3QgKmJiLAo+ICAg
+ICAgICAgICAgICAgICBzdHJ1Y3QgcHBfc211X252X2Nsb2NrX3RhYmxlICptYXhfY2xvY2tzLCB1
+bnNpZ25lZCBpbnQgKnVjbGtfc3RhdGVzLCB1bnNpZ25lZCBpbnQgbnVtX3N0YXRlcykKPiAgewo+
+IC0gICAgICAgc3RydWN0IF92Y3NfZHBpX3ZvbHRhZ2Vfc2NhbGluZ19zdCBjYWxjdWxhdGVkX3N0
+YXRlc1tNQVhfQ0xPQ0tfTElNSVRfU1RBVEVTXSA9IHswfTsKPiArICAgICAgIHN0cnVjdCBfdmNz
+X2RwaV92b2x0YWdlX3NjYWxpbmdfc3QgY2FsY3VsYXRlZF9zdGF0ZXNbTUFYX0NMT0NLX0xJTUlU
+X1NUQVRFU107Cj4gICAgICAgICBpbnQgaTsKPiAgICAgICAgIGludCBudW1fY2FsY3VsYXRlZF9z
+dGF0ZXMgPSAwOwo+ICAgICAgICAgaW50IG1pbl9kY2ZjbGsgPSAwOwo+IEBAIC0yNjQxLDYgKzI2
+NDEsOCBAQCBzdGF0aWMgdm9pZCB1cGRhdGVfYm91bmRpbmdfYm94KHN0cnVjdCBkYyAqZGMsIHN0
+cnVjdCBfdmNzX2RwaV9zb2NfYm91bmRpbmdfYm94Xwo+ICAgICAgICAgaWYgKG51bV9zdGF0ZXMg
+PT0gMCkKPiAgICAgICAgICAgICAgICAgcmV0dXJuOwo+Cj4gKyAgICAgICBtZW1zZXQoY2FsY3Vs
+YXRlZF9zdGF0ZXMsIDAsIHNpemVvZihjYWxjdWxhdGVkX3N0YXRlcykpOwo+ICsKPiAgICAgICAg
+IGlmIChkYy0+YmJfb3ZlcnJpZGVzLm1pbl9kY2ZjbGtfbWh6ID4gMCkKPiAgICAgICAgICAgICAg
+ICAgbWluX2RjZmNsayA9IGRjLT5iYl9vdmVycmlkZXMubWluX2RjZmNsa19taHo7Cj4gICAgICAg
+ICBlbHNlCj4gLS0KPiAyLjIzLjAuNDQ0LmcxOGVlYjVhMjY1LWdvb2cKPgo+IF9fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCj4gYW1kLWdmeCBtYWlsaW5nIGxp
+c3QKPiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+IGh0dHBzOi8vbGlzdHMuZnJlZWRl
+c2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeApfX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fXwpkcmktZGV2ZWwgbWFpbGluZyBsaXN0CmRyaS1kZXZl
+bEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFp
+bG1hbi9saXN0aW5mby9kcmktZGV2ZWw=
