@@ -1,78 +1,62 @@
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH] drm/amd/display: Make some functions static
-Date: Fri, 4 Oct 2019 08:52:26 -0400
-Message-ID: <CADnq5_P1cb58LRY+_su0cLxY4_wQJVKcZ7zYV73xdeNCw8GFng@mail.gmail.com>
-References: <1570181860-135298-1-git-send-email-zhengbin13@huawei.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Subject: Re: [PATCH][next] drm/amdgpu: fix uninitialized variable pasid_mapping_needed
+Date: Fri, 4 Oct 2019 08:54:56 -0400
+Message-ID: <CADnq5_N-tdCJ_LUwunwmrj88vAPBbCLD2uwDTBGzB0XJWdak2g@mail.gmail.com>
+References: <20191003215227.23540-1-colin.king@canonical.com> <55116b72-4e15-7efe-09a6-283a7090966a@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1570181860-135298-1-git-send-email-zhengbin13-hv44wF8Li93QT0dZR+AlfA@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: zhengbin <zhengbin13-hv44wF8Li93QT0dZR+AlfA@public.gmane.org>
-Cc: Dave Airlie <airlied-cv59FeDIM0c@public.gmane.org>, Bhawanpreet Lakha <Bhawanpreet.Lakha-5C7GfCeVMHo@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Maling list - DRI developers <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Deucher,
- Alexander" <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, "Wentland,
- Harry" <harry.wentland-5C7GfCeVMHo@public.gmane.org>, Christian Koenig <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <55116b72-4e15-7efe-09a6-283a7090966a@amd.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: "Koenig, Christian" <Christian.Koenig@amd.com>
+Cc: Colin King <colin.king@canonical.com>, "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Zhou, David(ChunMing)" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "kernel-janitors@vger.kernel.org" <kernel-janitors@vger.kernel.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gRnJpLCBPY3QgNCwgMjAxOSBhdCA4OjI1IEFNIHpoZW5nYmluIDx6aGVuZ2JpbjEzQGh1YXdl
-aS5jb20+IHdyb3RlOgo+Cj4gRml4IHNwYXJzZSB3YXJuaW5nczoKPgo+IGRyaXZlcnMvZ3B1L2Ry
-bS9hbWQvYW1kZ3B1Ly4uL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbV9oZGNwLmM6MzI6Njog
-d2FybmluZzogc3ltYm9sICdscF93cml0ZV9pMmMnIHdhcyBub3QgZGVjbGFyZWQuIFNob3VsZCBp
-dCBiZSBzdGF0aWM/Cj4gZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvLi4vZGlzcGxheS9hbWRn
-cHVfZG0vYW1kZ3B1X2RtX2hkY3AuYzo0Mjo2OiB3YXJuaW5nOiBzeW1ib2wgJ2xwX3JlYWRfaTJj
-JyB3YXMgbm90IGRlY2xhcmVkLiBTaG91bGQgaXQgYmUgc3RhdGljPwo+IGRyaXZlcnMvZ3B1L2Ry
-bS9hbWQvYW1kZ3B1Ly4uL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbV9oZGNwLmM6NTI6Njog
-d2FybmluZzogc3ltYm9sICdscF93cml0ZV9kcGNkJyB3YXMgbm90IGRlY2xhcmVkLiBTaG91bGQg
-aXQgYmUgc3RhdGljPwo+IGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1Ly4uL2Rpc3BsYXkvYW1k
-Z3B1X2RtL2FtZGdwdV9kbV9oZGNwLmM6NTk6Njogd2FybmluZzogc3ltYm9sICdscF9yZWFkX2Rw
-Y2QnIHdhcyBub3QgZGVjbGFyZWQuIFNob3VsZCBpdCBiZSBzdGF0aWM/Cj4KPiBSZXBvcnRlZC1i
-eTogSHVsayBSb2JvdCA8aHVsa2NpQGh1YXdlaS5jb20+Cj4gU2lnbmVkLW9mZi1ieTogemhlbmdi
-aW4gPHpoZW5nYmluMTNAaHVhd2VpLmNvbT4KCkFwcGxpZWQuICB0aGFua3MhCgpBbGV4Cgo+IC0t
-LQo+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbV9oZGNw
-LmMgfCAxMiArKysrKysrKy0tLS0KPiAgMSBmaWxlIGNoYW5nZWQsIDggaW5zZXJ0aW9ucygrKSwg
-NCBkZWxldGlvbnMoLSkKPgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3Bs
-YXkvYW1kZ3B1X2RtL2FtZGdwdV9kbV9oZGNwLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3Bs
-YXkvYW1kZ3B1X2RtL2FtZGdwdV9kbV9oZGNwLmMKPiBpbmRleCAyNDQzYzIzLi43NzE4MWRkIDEw
-MDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1
-X2RtX2hkY3AuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0v
-YW1kZ3B1X2RtX2hkY3AuYwo+IEBAIC0yOSw3ICsyOSw4IEBACj4gICNpbmNsdWRlICJkbV9oZWxw
-ZXJzLmgiCj4gICNpbmNsdWRlIDxkcm0vZHJtX2hkY3AuaD4KPgo+IC1ib29sIGxwX3dyaXRlX2ky
-Yyh2b2lkICpoYW5kbGUsIHVpbnQzMl90IGFkZHJlc3MsIGNvbnN0IHVpbnQ4X3QgKmRhdGEsIHVp
-bnQzMl90IHNpemUpCj4gK3N0YXRpYyBib29sCj4gK2xwX3dyaXRlX2kyYyh2b2lkICpoYW5kbGUs
-IHVpbnQzMl90IGFkZHJlc3MsIGNvbnN0IHVpbnQ4X3QgKmRhdGEsIHVpbnQzMl90IHNpemUpCj4g
-IHsKPgo+ICAgICAgICAgc3RydWN0IGRjX2xpbmsgKmxpbmsgPSBoYW5kbGU7Cj4gQEAgLTM5LDcg
-KzQwLDggQEAgYm9vbCBscF93cml0ZV9pMmModm9pZCAqaGFuZGxlLCB1aW50MzJfdCBhZGRyZXNz
-LCBjb25zdCB1aW50OF90ICpkYXRhLCB1aW50MzJfdAo+ICAgICAgICAgcmV0dXJuIGRtX2hlbHBl
-cnNfc3VibWl0X2kyYyhsaW5rLT5jdHgsIGxpbmssICZjbWQpOwo+ICB9Cj4KPiAtYm9vbCBscF9y
-ZWFkX2kyYyh2b2lkICpoYW5kbGUsIHVpbnQzMl90IGFkZHJlc3MsIHVpbnQ4X3Qgb2Zmc2V0LCB1
-aW50OF90ICpkYXRhLCB1aW50MzJfdCBzaXplKQo+ICtzdGF0aWMgYm9vbAo+ICtscF9yZWFkX2ky
-Yyh2b2lkICpoYW5kbGUsIHVpbnQzMl90IGFkZHJlc3MsIHVpbnQ4X3Qgb2Zmc2V0LCB1aW50OF90
-ICpkYXRhLCB1aW50MzJfdCBzaXplKQo+ICB7Cj4gICAgICAgICBzdHJ1Y3QgZGNfbGluayAqbGlu
-ayA9IGhhbmRsZTsKPgo+IEBAIC00OSwxNCArNTEsMTYgQEAgYm9vbCBscF9yZWFkX2kyYyh2b2lk
-ICpoYW5kbGUsIHVpbnQzMl90IGFkZHJlc3MsIHVpbnQ4X3Qgb2Zmc2V0LCB1aW50OF90ICpkYXRh
-LAo+ICAgICAgICAgcmV0dXJuIGRtX2hlbHBlcnNfc3VibWl0X2kyYyhsaW5rLT5jdHgsIGxpbmss
-ICZjbWQpOwo+ICB9Cj4KPiAtYm9vbCBscF93cml0ZV9kcGNkKHZvaWQgKmhhbmRsZSwgdWludDMy
-X3QgYWRkcmVzcywgY29uc3QgdWludDhfdCAqZGF0YSwgdWludDMyX3Qgc2l6ZSkKPiArc3RhdGlj
-IGJvb2wKPiArbHBfd3JpdGVfZHBjZCh2b2lkICpoYW5kbGUsIHVpbnQzMl90IGFkZHJlc3MsIGNv
-bnN0IHVpbnQ4X3QgKmRhdGEsIHVpbnQzMl90IHNpemUpCj4gIHsKPiAgICAgICAgIHN0cnVjdCBk
-Y19saW5rICpsaW5rID0gaGFuZGxlOwo+Cj4gICAgICAgICByZXR1cm4gZG1faGVscGVyc19kcF93
-cml0ZV9kcGNkKGxpbmstPmN0eCwgbGluaywgYWRkcmVzcywgZGF0YSwgc2l6ZSk7Cj4gIH0KPgo+
-IC1ib29sIGxwX3JlYWRfZHBjZCh2b2lkICpoYW5kbGUsIHVpbnQzMl90IGFkZHJlc3MsIHVpbnQ4
-X3QgKmRhdGEsIHVpbnQzMl90IHNpemUpCj4gK3N0YXRpYyBib29sCj4gK2xwX3JlYWRfZHBjZCh2
-b2lkICpoYW5kbGUsIHVpbnQzMl90IGFkZHJlc3MsIHVpbnQ4X3QgKmRhdGEsIHVpbnQzMl90IHNp
-emUpCj4gIHsKPiAgICAgICAgIHN0cnVjdCBkY19saW5rICpsaW5rID0gaGFuZGxlOwo+Cj4gLS0K
-PiAyLjcuNAo+Cj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X18KPiBhbWQtZ2Z4IG1haWxpbmcgbGlzdAo+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
-Cj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
-Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZngg
-bWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMu
-ZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
+On Fri, Oct 4, 2019 at 3:28 AM Koenig, Christian
+<Christian.Koenig@amd.com> wrote:
+>
+> Am 03.10.19 um 23:52 schrieb Colin King:
+> > From: Colin Ian King <colin.king@canonical.com>
+> >
+> > The boolean variable pasid_mapping_needed is not initialized and
+> > there are code paths that do not assign it any value before it is
+> > is read later.  Fix this by initializing pasid_mapping_needed to
+> > false.
+> >
+> > Addresses-Coverity: ("Uninitialized scalar variable")
+> > Fixes: 6817bf283b2b ("drm/amdgpu: grab the id mgr lock while accessing =
+passid_mapping")
+> > Signed-off-by: Colin Ian King <colin.king@canonical.com>
+>
+> Reviewed-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+>
+
+Applied.  thanks!
+
+Alex
+
+> > ---
+> >   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 2 +-
+> >   1 file changed, 1 insertion(+), 1 deletion(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_vm.c
+> > index a2c797e34a29..be10e4b9a94d 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> > @@ -1055,7 +1055,7 @@ int amdgpu_vm_flush(struct amdgpu_ring *ring, str=
+uct amdgpu_job *job,
+> >               id->oa_size !=3D job->oa_size);
+> >       bool vm_flush_needed =3D job->vm_needs_flush;
+> >       struct dma_fence *fence =3D NULL;
+> > -     bool pasid_mapping_needed;
+> > +     bool pasid_mapping_needed =3D false;
+> >       unsigned patch_offset =3D 0;
+> >       int r;
+> >
+>
+> _______________________________________________
+> dri-devel mailing list
+> dri-devel@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/dri-devel
