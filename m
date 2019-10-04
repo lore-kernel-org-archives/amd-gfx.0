@@ -1,60 +1,69 @@
 From: Alex Deucher <alexdeucher@gmail.com>
-Subject: Re: [PATCH][next] drm/amdgpu: fix uninitialized variable pasid_mapping_needed
-Date: Fri, 4 Oct 2019 08:54:56 -0400
-Message-ID: <CADnq5_N-tdCJ_LUwunwmrj88vAPBbCLD2uwDTBGzB0XJWdak2g@mail.gmail.com>
-References: <20191003215227.23540-1-colin.king@canonical.com> <55116b72-4e15-7efe-09a6-283a7090966a@amd.com>
+Subject: Re: [PATCH][next] drm/amdgpu: remove redundant variable r and
+ redundant return statement
+Date: Fri, 4 Oct 2019 08:57:25 -0400
+Message-ID: <CADnq5_N6WP=gDE=Yqv6CqKs13LkUJzFx9C6YmiU1ua_MSg_uiw@mail.gmail.com>
+References: <20191003214049.23067-1-colin.king@canonical.com> <70c50fec-7ab7-3ac9-3f49-d5f2651554e4@amd.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <55116b72-4e15-7efe-09a6-283a7090966a@amd.com>
+In-Reply-To: <70c50fec-7ab7-3ac9-3f49-d5f2651554e4@amd.com>
 Sender: linux-kernel-owner@vger.kernel.org
 To: "Koenig, Christian" <Christian.Koenig@amd.com>
 Cc: Colin King <colin.king@canonical.com>, "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Zhou, David(ChunMing)" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "kernel-janitors@vger.kernel.org" <kernel-janitors@vger.kernel.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
 List-Id: amd-gfx.lists.freedesktop.org
 
-On Fri, Oct 4, 2019 at 3:28 AM Koenig, Christian
+On Fri, Oct 4, 2019 at 3:29 AM Koenig, Christian
 <Christian.Koenig@amd.com> wrote:
 >
-> Am 03.10.19 um 23:52 schrieb Colin King:
+> Am 03.10.19 um 23:40 schrieb Colin King:
 > > From: Colin Ian King <colin.king@canonical.com>
 > >
-> > The boolean variable pasid_mapping_needed is not initialized and
-> > there are code paths that do not assign it any value before it is
-> > is read later.  Fix this by initializing pasid_mapping_needed to
-> > false.
+> > There is a return statement that is not reachable and a variable that
+> > is not used.  Remove them.
 > >
-> > Addresses-Coverity: ("Uninitialized scalar variable")
-> > Fixes: 6817bf283b2b ("drm/amdgpu: grab the id mgr lock while accessing =
-passid_mapping")
+> > Addresses-Coverity: ("Structurally dead code")
+> > Fixes: de7b45babd9b ("drm/amdgpu: cleanup creating BOs at fixed locatio=
+n (v2)")
 > > Signed-off-by: Colin Ian King <colin.king@canonical.com>
 >
 > Reviewed-by: Christian K=C3=B6nig <christian.koenig@amd.com>
->
 
-Applied.  thanks!
+Applied.  Thanks!
 
 Alex
 
+>
 > > ---
-> >   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 2 +-
-> >   1 file changed, 1 insertion(+), 1 deletion(-)
+> >   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 2 --
+> >   1 file changed, 2 deletions(-)
 > >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_vm.c
-> > index a2c797e34a29..be10e4b9a94d 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> > @@ -1055,7 +1055,7 @@ int amdgpu_vm_flush(struct amdgpu_ring *ring, str=
-uct amdgpu_job *job,
-> >               id->oa_size !=3D job->oa_size);
-> >       bool vm_flush_needed =3D job->vm_needs_flush;
-> >       struct dma_fence *fence =3D NULL;
-> > -     bool pasid_mapping_needed;
-> > +     bool pasid_mapping_needed =3D false;
-> >       unsigned patch_offset =3D 0;
-> >       int r;
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/=
+amd/amdgpu/amdgpu_ttm.c
+> > index 481e4c381083..814159f15633 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> > @@ -1636,7 +1636,6 @@ static void amdgpu_ttm_fw_reserve_vram_fini(struc=
+t amdgpu_device *adev)
+> >   static int amdgpu_ttm_fw_reserve_vram_init(struct amdgpu_device *adev=
+)
+> >   {
+> >       uint64_t vram_size =3D adev->gmc.visible_vram_size;
+> > -     int r;
 > >
+> >       adev->fw_vram_usage.va =3D NULL;
+> >       adev->fw_vram_usage.reserved_bo =3D NULL;
+> > @@ -1651,7 +1650,6 @@ static int amdgpu_ttm_fw_reserve_vram_init(struct=
+ amdgpu_device *adev)
+> >                                         AMDGPU_GEM_DOMAIN_VRAM,
+> >                                         &adev->fw_vram_usage.reserved_b=
+o,
+> >                                         &adev->fw_vram_usage.va);
+> > -     return r;
+> >   }
+> >
+> >   /**
 >
 > _______________________________________________
 > dri-devel mailing list
