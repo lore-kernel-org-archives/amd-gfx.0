@@ -1,33 +1,54 @@
-From: Randy Dunlap <rdunlap@infradead.org>
-Subject: Re: linux-next: Tree for Oct 4 (amdgpu)
-Date: Fri, 4 Oct 2019 07:54:38 -0700
-Message-ID: <06969836-ac7f-0d18-1866-159e48018d98@infradead.org>
-References: <20191004155929.3ac043b5@canb.auug.org.au>
+From: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 2/2] drm/amdkfd: Print more sdma engine hqds in debug fs
+Date: Fri, 4 Oct 2019 14:55:06 +0000
+Message-ID: <36a3d627-6b18-de6b-ccdd-a4e96eb30b68@amd.com>
+References: <1570200515-18992-1-git-send-email-Oak.Zeng@amd.com>
+ <1570200515-18992-2-git-send-email-Oak.Zeng@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=windows-1252
-Content-Transfer-Encoding: 7bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20191004155929.3ac043b5@canb.auug.org.au>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <1570200515-18992-2-git-send-email-Oak.Zeng-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
-Sender: linux-kernel-owner@vger.kernel.org
-To: Stephen Rothwell <sfr@canb.auug.org.au>, Linux Next Mailing List <linux-next@vger.kernel.org>
-Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, dri-devel <dri-devel@lists.freedesktop.org>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-ID: <3E287B452E8E2146B826382F2C928C4E-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Zeng, Oak" <Oak.Zeng-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Kim, Jonathan" <Jonathan.Kim-5C7GfCeVMHo@public.gmane.org>
 
-On 10/3/19 10:59 PM, Stephen Rothwell wrote:
-> Hi all,
-> 
-> Changes since 20191003:
-> 
-
-on x86_64:
-CONFIG_DRM_AMDGPU=y
-# CONFIG_DRM_AMDGPU_SI is not set
-# CONFIG_DRM_AMDGPU_CIK is not set
-CONFIG_DRM_AMDGPU_USERPTR=y
-CONFIG_DRM_AMDGPU_GART_DEBUGFS=y
-
-ld: drivers/gpu/drm/amd/amdkfd/kfd_device.o:(.rodata+0xf60): undefined reference to `gfx_v7_kfd2kgd'
-
--- 
-~Randy
+T24gMjAxOS0xMC0wNCAxMDo0OCwgWmVuZywgT2FrIHdyb3RlOg0KPiBQcmV2aW91c2x5IG9ubHkg
+UENJZS1vcHRpbWl6ZWQgU0RNQSBlbmdpbmUgaHFkcyB3ZXJlDQo+IGV4cG9zZWQgaW4gZGVidWcg
+ZnMuIFByaW50IGFsbCBTRE1BIGVuZ2luZSBocWRzLg0KPg0KPiBDaGFuZ2UtSWQ6IEkwMzc1NmZj
+MGZhOTkxNjlkODhlMjY1NTYwZjUwNWVkMTg2MjQyYjAyDQo+IFJlcG9ydGVkLWJ5OiBKb25hdGhh
+biBLaW0gPEpvbmF0aGFuLktpbUBhbWQuY29tPg0KPiBTaWduZWQtb2ZmLWJ5OiBKb25hdGhhbiBL
+aW0gPEpvbmF0aGFuLktpbUBhbWQuY29tPg0KPiBTaWduZWQtb2ZmLWJ5OiBPYWsgWmVuZyA8T2Fr
+LlplbmdAYW1kLmNvbT4NCk1pbm9yIGNvc21ldGljIG5pdC1waWNrIGlubGluZSB0aGF0IGNoZWNr
+cGF0Y2gucGwgd291bGQgcHJvYmFibHkgd2FybiANCmFib3V0LiBXaXRoIHRoYXQgZml4ZWQsIHRo
+aXMgcGF0Y2ggaXMNCg0KUmV2aWV3ZWQtYnk6IEZlbGl4IEt1ZWhsaW5nIDxGZWxpeC5LdWVobGlu
+Z0BhbWQuY29tPg0KDQoNCj4gLS0tDQo+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2Zk
+X2RldmljZV9xdWV1ZV9tYW5hZ2VyLmMgfCAyICstDQo+ICAgMSBmaWxlIGNoYW5nZWQsIDEgaW5z
+ZXJ0aW9uKCspLCAxIGRlbGV0aW9uKC0pDQo+DQo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9k
+cm0vYW1kL2FtZGtmZC9rZmRfZGV2aWNlX3F1ZXVlX21hbmFnZXIuYyBiL2RyaXZlcnMvZ3B1L2Ry
+bS9hbWQvYW1ka2ZkL2tmZF9kZXZpY2VfcXVldWVfbWFuYWdlci5jDQo+IGluZGV4IGU1NWQwMjEu
+LjBlYmM2MDQgMTAwNjQ0DQo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9k
+ZXZpY2VfcXVldWVfbWFuYWdlci5jDQo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2Zk
+L2tmZF9kZXZpY2VfcXVldWVfbWFuYWdlci5jDQo+IEBAIC0yNDE2LDcgKzI0MTYsNyBAQCBpbnQg
+ZHFtX2RlYnVnZnNfaHFkcyhzdHJ1Y3Qgc2VxX2ZpbGUgKm0sIHZvaWQgKmRhdGEpDQo+ICAgCQl9
+DQo+ICAgCX0NCj4gICANCj4gLQlmb3IgKHBpcGUgPSAwOyBwaXBlIDwgZ2V0X251bV9zZG1hX2Vu
+Z2luZXMoZHFtKTsgcGlwZSsrKSB7DQo+ICsJZm9yIChwaXBlID0gMDsgcGlwZSA8IGdldF9udW1f
+c2RtYV9lbmdpbmVzKGRxbSkgKyBnZXRfbnVtX3hnbWlfc2RtYV9lbmdpbmVzKGRxbSk7IHBpcGUr
+Kykgew0KDQpUaGlzIGxpbmUgbG9va3MgbG9uZ2VyIHRoYW4gODAgY2hhcmFjdGVycy4gVHJ5IHRv
+IGZpbmQgYSBnb29kIHBsYWNlIHRvIA0KYnJlYWsgaXQuDQoNCg0KPiAgIAkJZm9yIChxdWV1ZSA9
+IDA7DQo+ICAgCQkgICAgIHF1ZXVlIDwgZHFtLT5kZXYtPmRldmljZV9pbmZvLT5udW1fc2RtYV9x
+dWV1ZXNfcGVyX2VuZ2luZTsNCj4gICAJCSAgICAgcXVldWUrKykgew0KX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1k
+LWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcv
+bWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
