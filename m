@@ -1,67 +1,64 @@
-From: zhengbin <zhengbin13-hv44wF8Li93QT0dZR+AlfA@public.gmane.org>
-Subject: [PATCH] drm/amd/display: Make some functions static
-Date: Fri, 4 Oct 2019 17:37:40 +0800
-Message-ID: <1570181860-135298-1-git-send-email-zhengbin13@huawei.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+Subject: Re: [PATCH 03/11] drm/amdgpu: convert amdgpu_vm_it to half closed
+ intervals
+Date: Fri, 4 Oct 2019 14:39:40 +0200
+Message-ID: <232710bd-dc54-9d77-6f0f-24a91a28cbf6@gmail.com>
+References: <20191003201858.11666-1-dave@stgolabs.net>
+ <20191003201858.11666-4-dave@stgolabs.net>
+ <dc9cc8c4-7275-43be-5bed-91384e3246ae@amd.com>
+ <20191004113628.GA260828@google.com>
+Reply-To: christian.koenig@amd.com
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Bhawanpreet.Lakha-5C7GfCeVMHo@public.gmane.org, harry.wentland-5C7GfCeVMHo@public.gmane.org, alexander.deucher-5C7GfCeVMHo@public.gmane.org, christian.koenig-5C7GfCeVMHo@public.gmane.org, airlied-cv59FeDIM0c@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: zhengbin13-hv44wF8Li93QT0dZR+AlfA@public.gmane.org
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20191004113628.GA260828@google.com>
+Content-Language: en-US
+Sender: linux-kernel-owner@vger.kernel.org
+To: Michel Lespinasse <walken@google.com>, "Koenig, Christian" <Christian.Koenig@amd.com>
+Cc: Davidlohr Bueso <dave@stgolabs.net>, Davidlohr Bueso <dbueso@suse.de>, "peterz@infradead.org" <peterz@infradead.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "linux-mm@kvack.org" <linux-mm@kvack.org>, Jerome Glisse <jglisse@redhat.com>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, Daniel Vetter <daniel@ffwll.ch>, "Deucher, Alexander" <Alexander.Deucher@amd.com>, "akpm@linux-foundation.org" <akpm@linux-foundation.org>, "linux-rdma@vger.kernel.org" <linux-rdma@vger.kernel.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-Rml4IHNwYXJzZSB3YXJuaW5nczoKCmRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1Ly4uL2Rpc3Bs
-YXkvYW1kZ3B1X2RtL2FtZGdwdV9kbV9oZGNwLmM6MzI6Njogd2FybmluZzogc3ltYm9sICdscF93
-cml0ZV9pMmMnIHdhcyBub3QgZGVjbGFyZWQuIFNob3VsZCBpdCBiZSBzdGF0aWM/CmRyaXZlcnMv
-Z3B1L2RybS9hbWQvYW1kZ3B1Ly4uL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbV9oZGNwLmM6
-NDI6Njogd2FybmluZzogc3ltYm9sICdscF9yZWFkX2kyYycgd2FzIG5vdCBkZWNsYXJlZC4gU2hv
-dWxkIGl0IGJlIHN0YXRpYz8KZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvLi4vZGlzcGxheS9h
-bWRncHVfZG0vYW1kZ3B1X2RtX2hkY3AuYzo1Mjo2OiB3YXJuaW5nOiBzeW1ib2wgJ2xwX3dyaXRl
-X2RwY2QnIHdhcyBub3QgZGVjbGFyZWQuIFNob3VsZCBpdCBiZSBzdGF0aWM/CmRyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1kZ3B1Ly4uL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbV9oZGNwLmM6NTk6
-Njogd2FybmluZzogc3ltYm9sICdscF9yZWFkX2RwY2QnIHdhcyBub3QgZGVjbGFyZWQuIFNob3Vs
-ZCBpdCBiZSBzdGF0aWM/CgpSZXBvcnRlZC1ieTogSHVsayBSb2JvdCA8aHVsa2NpQGh1YXdlaS5j
-b20+ClNpZ25lZC1vZmYtYnk6IHpoZW5nYmluIDx6aGVuZ2JpbjEzQGh1YXdlaS5jb20+Ci0tLQog
-ZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG1faGRjcC5jIHwg
-MTIgKysrKysrKystLS0tCiAxIGZpbGUgY2hhbmdlZCwgOCBpbnNlcnRpb25zKCspLCA0IGRlbGV0
-aW9ucygtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVf
-ZG0vYW1kZ3B1X2RtX2hkY3AuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVf
-ZG0vYW1kZ3B1X2RtX2hkY3AuYwppbmRleCAyNDQzYzIzLi43NzE4MWRkIDEwMDY0NAotLS0gYS9k
-cml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbV9oZGNwLmMKKysr
-IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG1faGRjcC5j
-CkBAIC0yOSw3ICsyOSw4IEBACiAjaW5jbHVkZSAiZG1faGVscGVycy5oIgogI2luY2x1ZGUgPGRy
-bS9kcm1faGRjcC5oPgoKLWJvb2wgbHBfd3JpdGVfaTJjKHZvaWQgKmhhbmRsZSwgdWludDMyX3Qg
-YWRkcmVzcywgY29uc3QgdWludDhfdCAqZGF0YSwgdWludDMyX3Qgc2l6ZSkKK3N0YXRpYyBib29s
-CitscF93cml0ZV9pMmModm9pZCAqaGFuZGxlLCB1aW50MzJfdCBhZGRyZXNzLCBjb25zdCB1aW50
-OF90ICpkYXRhLCB1aW50MzJfdCBzaXplKQogewoKIAlzdHJ1Y3QgZGNfbGluayAqbGluayA9IGhh
-bmRsZTsKQEAgLTM5LDcgKzQwLDggQEAgYm9vbCBscF93cml0ZV9pMmModm9pZCAqaGFuZGxlLCB1
-aW50MzJfdCBhZGRyZXNzLCBjb25zdCB1aW50OF90ICpkYXRhLCB1aW50MzJfdAogCXJldHVybiBk
-bV9oZWxwZXJzX3N1Ym1pdF9pMmMobGluay0+Y3R4LCBsaW5rLCAmY21kKTsKIH0KCi1ib29sIGxw
-X3JlYWRfaTJjKHZvaWQgKmhhbmRsZSwgdWludDMyX3QgYWRkcmVzcywgdWludDhfdCBvZmZzZXQs
-IHVpbnQ4X3QgKmRhdGEsIHVpbnQzMl90IHNpemUpCitzdGF0aWMgYm9vbAorbHBfcmVhZF9pMmMo
-dm9pZCAqaGFuZGxlLCB1aW50MzJfdCBhZGRyZXNzLCB1aW50OF90IG9mZnNldCwgdWludDhfdCAq
-ZGF0YSwgdWludDMyX3Qgc2l6ZSkKIHsKIAlzdHJ1Y3QgZGNfbGluayAqbGluayA9IGhhbmRsZTsK
-CkBAIC00OSwxNCArNTEsMTYgQEAgYm9vbCBscF9yZWFkX2kyYyh2b2lkICpoYW5kbGUsIHVpbnQz
-Ml90IGFkZHJlc3MsIHVpbnQ4X3Qgb2Zmc2V0LCB1aW50OF90ICpkYXRhLAogCXJldHVybiBkbV9o
-ZWxwZXJzX3N1Ym1pdF9pMmMobGluay0+Y3R4LCBsaW5rLCAmY21kKTsKIH0KCi1ib29sIGxwX3dy
-aXRlX2RwY2Qodm9pZCAqaGFuZGxlLCB1aW50MzJfdCBhZGRyZXNzLCBjb25zdCB1aW50OF90ICpk
-YXRhLCB1aW50MzJfdCBzaXplKQorc3RhdGljIGJvb2wKK2xwX3dyaXRlX2RwY2Qodm9pZCAqaGFu
-ZGxlLCB1aW50MzJfdCBhZGRyZXNzLCBjb25zdCB1aW50OF90ICpkYXRhLCB1aW50MzJfdCBzaXpl
-KQogewogCXN0cnVjdCBkY19saW5rICpsaW5rID0gaGFuZGxlOwoKIAlyZXR1cm4gZG1faGVscGVy
-c19kcF93cml0ZV9kcGNkKGxpbmstPmN0eCwgbGluaywgYWRkcmVzcywgZGF0YSwgc2l6ZSk7CiB9
-CgotYm9vbCBscF9yZWFkX2RwY2Qodm9pZCAqaGFuZGxlLCB1aW50MzJfdCBhZGRyZXNzLCB1aW50
-OF90ICpkYXRhLCB1aW50MzJfdCBzaXplKQorc3RhdGljIGJvb2wKK2xwX3JlYWRfZHBjZCh2b2lk
-ICpoYW5kbGUsIHVpbnQzMl90IGFkZHJlc3MsIHVpbnQ4X3QgKmRhdGEsIHVpbnQzMl90IHNpemUp
-CiB7CiAJc3RydWN0IGRjX2xpbmsgKmxpbmsgPSBoYW5kbGU7CgotLQoyLjcuNAoKX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxp
-c3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3Rv
-cC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+Hi Michel,
+
+Am 04.10.19 um 13:36 schrieb Michel Lespinasse:
+> On Fri, Oct 04, 2019 at 06:54:54AM +0000, Koenig, Christian wrote:
+>> Am 03.10.19 um 22:18 schrieb Davidlohr Bueso:
+>>> The amdgpu_vm interval tree really wants [a, b) intervals,
+>> NAK, we explicitly do need an [a, b[ interval here.
+> Hi Christian,
+>
+> Just wanted to confirm where you stand on this patch, since I think
+> you reconsidered your initial position after first looking at 9/11
+> from this series.
+>
+> I do not know the amdgpu code well, but I think the changes should be
+> fine - in struct amdgpu_bo_va_mapping, the "end" field will hold what
+> was previously stored in the "last" field, plus one. The expectation
+> is that overflows should not be an issue there, as "end" is explicitly
+> declared as an uint64, and as the code was previously computing
+> "last + 1" in many places.
+>
+> Does that seem workable to you ?
+
+No, we computed last + 1 in a couple of debug places were it doesn't 
+hurt us and IIRC we currently cheat a bit because we use pfn instead of 
+addresses on some other places.
+
+But that is only a leftover from radeon and we need to fix that sooner 
+or later, cause essentially the physical address space of the device is 
+really full 64bits, e.g. 0x0-0xffffffffffffffff.
+
+So that only fits into a 64bit int when we use half open/closed 
+intervals, but would wrap around to zero if we use a closed interval.
+
+I initially thought that the set was changing the interval tree into 
+always using a closed interval, but that seems to have been a 
+misunderstanding.
+
+Regards,
+Christian.
+
+>
+> Thanks,
+>
