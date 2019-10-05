@@ -1,68 +1,43 @@
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: Use the ALIGN() macro
-Date: Sat, 5 Oct 2019 01:04:24 -0400
-Message-ID: <CADnq5_PODmkjPnvdO4JaRDRgS4r+nR4UEJy-YZ7=ZpjNWzGrRQ@mail.gmail.com>
-References: <20191003233902.1982-1-luben.tuikov@amd.com>
- <f4f4bdef-577a-7402-e467-7003be73687a@gmail.com>
- <911f3f03-3484-f03f-ee89-c6ad6e9ff68f@amd.com>
+From: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+Subject: [PATCH] drm/amd/display: Fix typo in some comments
+Date: Sat,  5 Oct 2019 13:32:05 +0200
+Message-ID: <20191005113205.14601-1-christophe.jaillet@wanadoo.fr>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <911f3f03-3484-f03f-ee89-c6ad6e9ff68f-5C7GfCeVMHo@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Tuikov, Luben" <Luben.Tuikov-5C7GfCeVMHo@public.gmane.org>
-Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Koenig,
- Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: harry.wentland@amd.com, sunpeng.li@amd.com, alexander.deucher@amd.com, christian.koenig@amd.com, David1.Zhou@amd.com, airlied@linux.ie, daniel@ffwll.ch
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, kernel-janitors@vger.kernel.org, Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gRnJpLCBPY3QgNCwgMjAxOSBhdCA3OjI5IFBNIFR1aWtvdiwgTHViZW4gPEx1YmVuLlR1aWtv
-dkBhbWQuY29tPiB3cm90ZToKPgo+IE9uIDIwMTktMTAtMDQgMzoxNiBhLm0uLCBDaHJpc3RpYW4g
-S8O2bmlnIHdyb3RlOgo+ID4gQW0gMDQuMTAuMTkgdW0gMDE6Mzkgc2NocmllYiBUdWlrb3YsIEx1
-YmVuOgo+ID4+IFVzZSB0aGUgQUxJR04oKSBtYWNybyB0byBzZXQgIm51bV9kdyIgdG8gYQo+ID4+
-IG11bHRpcGxlIG9mIDgsIGkuZS4gbG93ZXIgMyBiaXRzIGNsZWFyZWQuCj4gPj4KPiA+PiBTaWdu
-ZWQtb2ZmLWJ5OiBMdWJlbiBUdWlrb3YgPGx1YmVuLnR1aWtvdkBhbWQuY29tPgo+ID4KPiA+IFJl
-dmlld2VkLWJ5OiBDaHJpc3RpYW4gS8O2bmlnIDxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+Cj4K
-PiBIaSBDaHJpc3RpYW4sCj4KPiBObyBBQ0s/Cj4KPiBJJ3ZlIGJlZW4gcnVubmluZyB0aGlzIHZl
-cnNpb24gb2YgdGhlIGRyaXZlciBhbmQgbm8gcHJvYmxlbXMuCj4KCllvdSBjYW4gZ28gYWhlYWQg
-YW5kIGNvbW1pdC4gIFlvdSBoYXZlIGEgcmV2aWV3ZWQtYnkuCgpBbGV4Cgo+IFJlZ2FyZHMsCj4g
-THViZW4KPgo+ID4KPiA+PiAtLS0KPiA+PiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
-ZGdwdV90dG0uYyB8IDExICsrLS0tLS0tLS0tCj4gPj4gICAxIGZpbGUgY2hhbmdlZCwgMiBpbnNl
-cnRpb25zKCspLCA5IGRlbGV0aW9ucygtKQo+ID4+Cj4gPj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMv
-Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV90dG0uYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
-Z3B1L2FtZGdwdV90dG0uYwo+ID4+IGluZGV4IDY4YzU0MWUxMTE4OS4uNzNjNjI4YmM2YTViIDEw
-MDY0NAo+ID4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV90dG0uYwo+
-ID4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV90dG0uYwo+ID4+IEBA
-IC0xOTIzLDEwICsxOTIzLDcgQEAgc3RhdGljIGludCBhbWRncHVfbWFwX2J1ZmZlcihzdHJ1Y3Qg
-dHRtX2J1ZmZlcl9vYmplY3QgKmJvLAo+ID4+ICAgICAgKmFkZHIgKz0gKHU2NCl3aW5kb3cgKiBB
-TURHUFVfR1RUX01BWF9UUkFOU0ZFUl9TSVpFICoKPiA+PiAgICAgICAgICAgICAgQU1ER1BVX0dQ
-VV9QQUdFX1NJWkU7Cj4gPj4KPiA+PiAtICAgIG51bV9kdyA9IGFkZXYtPm1tYW4uYnVmZmVyX2Z1
-bmNzLT5jb3B5X251bV9kdzsKPiA+PiAtICAgIHdoaWxlIChudW1fZHcgJiAweDcpCj4gPj4gLSAg
-ICAgICAgICAgIG51bV9kdysrOwo+ID4+IC0KPiA+PiArICAgIG51bV9kdyA9IEFMSUdOKGFkZXYt
-Pm1tYW4uYnVmZmVyX2Z1bmNzLT5jb3B5X251bV9kdywgOCk7Cj4gPj4gICAgICBudW1fYnl0ZXMg
-PSBudW1fcGFnZXMgKiA4Owo+ID4+Cj4gPj4gICAgICByID0gYW1kZ3B1X2pvYl9hbGxvY193aXRo
-X2liKGFkZXYsIG51bV9kdyAqIDQgKyBudW1fYnl0ZXMsICZqb2IpOwo+ID4+IEBAIC0xOTg2LDEx
-ICsxOTgzLDcgQEAgaW50IGFtZGdwdV9jb3B5X2J1ZmZlcihzdHJ1Y3QgYW1kZ3B1X3JpbmcgKnJp
-bmcsIHVpbnQ2NF90IHNyY19vZmZzZXQsCj4gPj4KPiA+PiAgICAgIG1heF9ieXRlcyA9IGFkZXYt
-Pm1tYW4uYnVmZmVyX2Z1bmNzLT5jb3B5X21heF9ieXRlczsKPiA+PiAgICAgIG51bV9sb29wcyA9
-IERJVl9ST1VORF9VUChieXRlX2NvdW50LCBtYXhfYnl0ZXMpOwo+ID4+IC0gICAgbnVtX2R3ID0g
-bnVtX2xvb3BzICogYWRldi0+bW1hbi5idWZmZXJfZnVuY3MtPmNvcHlfbnVtX2R3Owo+ID4+IC0K
-PiA+PiAtICAgIC8qIGZvciBJQiBwYWRkaW5nICovCj4gPj4gLSAgICB3aGlsZSAobnVtX2R3ICYg
-MHg3KQo+ID4+IC0gICAgICAgICAgICBudW1fZHcrKzsKPiA+PiArICAgIG51bV9kdyA9IEFMSUdO
-KG51bV9sb29wcyAqIGFkZXYtPm1tYW4uYnVmZmVyX2Z1bmNzLT5jb3B5X251bV9kdywgOCk7Cj4g
-Pj4KPiA+PiAgICAgIHIgPSBhbWRncHVfam9iX2FsbG9jX3dpdGhfaWIoYWRldiwgbnVtX2R3ICog
-NCwgJmpvYik7Cj4gPj4gICAgICBpZiAocikKPiA+Cj4KPiBfX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fXwo+IGFtZC1nZnggbWFpbGluZyBsaXN0Cj4gYW1kLWdm
-eEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9t
-YWlsbWFuL2xpc3RpbmZvL2FtZC1nZngKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVz
-a3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9h
-bWQtZ2Z4
+p and g are switched in 'amdpgu_dm'
+
+Signed-off-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+---
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 92932d521d7f..b9c2e1a930ab 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -1043,7 +1043,7 @@ static void s3_handle_mst(struct drm_device *dev, bool suspend)
+ 
+ /**
+  * dm_hw_init() - Initialize DC device
+- * @handle: The base driver device containing the amdpgu_dm device.
++ * @handle: The base driver device containing the amdgpu_dm device.
+  *
+  * Initialize the &struct amdgpu_display_manager device. This involves calling
+  * the initializers of each DM component, then populating the struct with them.
+@@ -1073,7 +1073,7 @@ static int dm_hw_init(void *handle)
+ 
+ /**
+  * dm_hw_fini() - Teardown DC device
+- * @handle: The base driver device containing the amdpgu_dm device.
++ * @handle: The base driver device containing the amdgpu_dm device.
+  *
+  * Teardown components within &struct amdgpu_display_manager that require
+  * cleanup. This involves cleaning up the DRM device, DC, and any modules that
+-- 
+2.20.1
