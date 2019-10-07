@@ -1,64 +1,113 @@
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: simplify gds_compute_max_wave_id computation
-Date: Mon, 7 Oct 2019 14:46:36 -0400
-Message-ID: <CADnq5_OkPmkKttvCbS1jG3dZ0oRdPegJtPhuxFc-j3QVNuVDWA@mail.gmail.com>
-References: <20190925203502.30996-1-maraeo@gmail.com>
- <CAAxE2A7rOodqyZVWCQYcbx6Xsc=XQ_EsVCF+G_tFOWcB7omMmA@mail.gmail.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Subject: Re: [PATCH v3] drm/amd: Fix Kconfig indentation
+Date: Mon, 7 Oct 2019 14:54:13 -0400
+Message-ID: <CADnq5_MpRZKTKLbJhzKOS=boP8RwvXPzkk0vBnJeRPgTHxStJQ@mail.gmail.com>
+References: <20191007173322.9306-1-krzk@kernel.org>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CAAxE2A7rOodqyZVWCQYcbx6Xsc=XQ_EsVCF+G_tFOWcB7omMmA-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: amd-gfx mailing list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Type: text/plain; charset="UTF-8"
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20191007173322.9306-1-krzk@kernel.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, Sean Paul <sean@poorly.run>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, Maling list - DRI developers <dri-devel@lists.freedesktop.org>, LKML <linux-kernel@vger.kernel.org>, amd-gfx list <amd-gfx@lists.freedesktop.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-UmV2aWV3ZWQtYnk6IEFsZXggRGV1Y2hlciA8YWxleGFuZGVyLmRldWNoZXJAYW1kLmNvbT4KCk9u
-IE1vbiwgT2N0IDcsIDIwMTkgYXQgMjowNSBQTSBNYXJlayBPbMWhw6FrIDxtYXJhZW9AZ21haWwu
-Y29tPiB3cm90ZToKPgo+IHBpbmcKPgo+IE9uIFdlZCwgU2VwIDI1LCAyMDE5IGF0IDQ6MzUgUE0g
-TWFyZWsgT2zFocOhayA8bWFyYWVvQGdtYWlsLmNvbT4gd3JvdGU6Cj4+Cj4+IEZyb206IE1hcmVr
-IE9sxaHDoWsgPG1hcmVrLm9sc2FrQGFtZC5jb20+Cj4+Cj4+IFNpZ25lZC1vZmYtYnk6IE1hcmVr
-IE9sxaHDoWsgPG1hcmVrLm9sc2FrQGFtZC5jb20+Cj4+IC0tLQo+PiAgZHJpdmVycy9ncHUvZHJt
-L2FtZC9hbWRncHUvZ2Z4X3YxMF8wLmMgfCAxMyArKysrKy0tLS0tLS0tCj4+ICAxIGZpbGUgY2hh
-bmdlZCwgNSBpbnNlcnRpb25zKCspLCA4IGRlbGV0aW9ucygtKQo+Pgo+PiBkaWZmIC0tZ2l0IGEv
-ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3YxMF8wLmMgYi9kcml2ZXJzL2dwdS9kcm0v
-YW1kL2FtZGdwdS9nZnhfdjEwXzAuYwo+PiBpbmRleCBjYTAxNjQzZmEwYzguLjczY2QyNTQ0NDli
-MyAxMDA2NDQKPj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3YxMF8wLmMK
-Pj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3YxMF8wLmMKPj4gQEAgLTUy
-NzUsMjkgKzUyNzUsMjYgQEAgc3RhdGljIHZvaWQgZ2Z4X3YxMF8wX3NldF9ybGNfZnVuY3Moc3Ry
-dWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpCj4+ICAgICAgICAgY2FzZSBDSElQX05BVkkxMjoKPj4g
-ICAgICAgICAgICAgICAgIGFkZXYtPmdmeC5ybGMuZnVuY3MgPSAmZ2Z4X3YxMF8wX3JsY19mdW5j
-czsKPj4gICAgICAgICAgICAgICAgIGJyZWFrOwo+PiAgICAgICAgIGRlZmF1bHQ6Cj4+ICAgICAg
-ICAgICAgICAgICBicmVhazsKPj4gICAgICAgICB9Cj4+ICB9Cj4+Cj4+ICBzdGF0aWMgdm9pZCBn
-ZnhfdjEwXzBfc2V0X2dkc19pbml0KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQo+PiAgewo+
-PiAtICAgICAgIC8qIGluaXQgYXNpYyBnZHMgaW5mbyAqLwo+PiAtICAgICAgIHN3aXRjaCAoYWRl
-di0+YXNpY190eXBlKSB7Cj4+IC0gICAgICAgY2FzZSBDSElQX05BVkkxMDoKPj4gLSAgICAgICBk
-ZWZhdWx0Ogo+PiAtICAgICAgICAgICAgICAgYWRldi0+Z2RzLmdkc19zaXplID0gMHgxMDAwMDsK
-Pj4gLSAgICAgICAgICAgICAgIGFkZXYtPmdkcy5nZHNfY29tcHV0ZV9tYXhfd2F2ZV9pZCA9IDB4
-NGZmOwo+PiAtICAgICAgICAgICAgICAgYnJlYWs7Cj4+IC0gICAgICAgfQo+PiArICAgICAgIHVu
-c2lnbmVkIHRvdGFsX2N1ID0gYWRldi0+Z2Z4LmNvbmZpZy5tYXhfY3VfcGVyX3NoICoKPj4gKyAg
-ICAgICAgICAgICAgICAgICAgICAgICAgIGFkZXYtPmdmeC5jb25maWcubWF4X3NoX3Blcl9zZSAq
-Cj4+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICBhZGV2LT5nZnguY29uZmlnLm1heF9zaGFk
-ZXJfZW5naW5lczsKPj4KPj4gKyAgICAgICBhZGV2LT5nZHMuZ2RzX3NpemUgPSAweDEwMDAwOwo+
-PiArICAgICAgIGFkZXYtPmdkcy5nZHNfY29tcHV0ZV9tYXhfd2F2ZV9pZCA9IHRvdGFsX2N1ICog
-MzIgLSAxOwo+PiAgICAgICAgIGFkZXYtPmdkcy5nd3Nfc2l6ZSA9IDY0Owo+PiAgICAgICAgIGFk
-ZXYtPmdkcy5vYV9zaXplID0gMTY7Cj4+ICB9Cj4+Cj4+ICBzdGF0aWMgdm9pZCBnZnhfdjEwXzBf
-c2V0X3VzZXJfd2dwX2luYWN0aXZlX2JpdG1hcF9wZXJfc2goc3RydWN0IGFtZGdwdV9kZXZpY2Ug
-KmFkZXYsCj4+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICB1MzIgYml0bWFwKQo+PiAgewo+PiAgICAgICAgIHUzMiBkYXRhOwo+Pgo+PiAg
-ICAgICAgIGlmICghYml0bWFwKQo+PiAtLQo+PiAyLjE3LjEKPj4KPiBfX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwo+IGFtZC1nZnggbWFpbGluZyBsaXN0Cj4g
-YW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9w
-Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngKX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5m
-cmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0
-aW5mby9hbWQtZ2Z4
+On Mon, Oct 7, 2019 at 1:33 PM Krzysztof Kozlowski <krzk@kernel.org> wrote:
+>
+> Adjust indentation from spaces to tab (+optional two spaces) as in
+> coding style with command like:
+>     $ sed -e 's/^        /\t/' -i */Kconfig
+>
+> Signed-off-by: Krzysztof Kozlowski <krzk@kernel.org>
+
+Applied.  Thanks!
+
+Alex
+
+>
+> ---
+>
+> Changes since v2:
+> 1. Split AMD and i915 to separate patches.
+> ---
+>  drivers/gpu/drm/Kconfig             |  4 ++--
+>  drivers/gpu/drm/amd/display/Kconfig | 32 ++++++++++++++---------------
+>  2 files changed, 18 insertions(+), 18 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/Kconfig b/drivers/gpu/drm/Kconfig
+> index 108e1b7f4564..7cb6e4eb99e8 100644
+> --- a/drivers/gpu/drm/Kconfig
+> +++ b/drivers/gpu/drm/Kconfig
+> @@ -226,9 +226,9 @@ config DRM_AMDGPU
+>         tristate "AMD GPU"
+>         depends on DRM && PCI && MMU
+>         select FW_LOADER
+> -        select DRM_KMS_HELPER
+> +       select DRM_KMS_HELPER
+>         select DRM_SCHED
+> -        select DRM_TTM
+> +       select DRM_TTM
+>         select POWER_SUPPLY
+>         select HWMON
+>         select BACKLIGHT_CLASS_DEVICE
+> diff --git a/drivers/gpu/drm/amd/display/Kconfig b/drivers/gpu/drm/amd/display/Kconfig
+> index 1bbe762ee6ba..313183b80032 100644
+> --- a/drivers/gpu/drm/amd/display/Kconfig
+> +++ b/drivers/gpu/drm/amd/display/Kconfig
+> @@ -23,16 +23,16 @@ config DRM_AMD_DC_DCN2_0
+>         depends on DRM_AMD_DC && X86
+>         depends on DRM_AMD_DC_DCN1_0
+>         help
+> -           Choose this option if you want to have
+> -           Navi support for display engine
+> +         Choose this option if you want to have
+> +         Navi support for display engine
+>
+>  config DRM_AMD_DC_DCN2_1
+> -        bool "DCN 2.1 family"
+> -        depends on DRM_AMD_DC && X86
+> -        depends on DRM_AMD_DC_DCN2_0
+> -        help
+> -            Choose this option if you want to have
+> -            Renoir support for display engine
+> +       bool "DCN 2.1 family"
+> +       depends on DRM_AMD_DC && X86
+> +       depends on DRM_AMD_DC_DCN2_0
+> +       help
+> +         Choose this option if you want to have
+> +         Renoir support for display engine
+>
+>  config DRM_AMD_DC_DSC_SUPPORT
+>         bool "DSC support"
+> @@ -41,16 +41,16 @@ config DRM_AMD_DC_DSC_SUPPORT
+>         depends on DRM_AMD_DC_DCN1_0
+>         depends on DRM_AMD_DC_DCN2_0
+>         help
+> -           Choose this option if you want to have
+> -           Dynamic Stream Compression support
+> +         Choose this option if you want to have
+> +         Dynamic Stream Compression support
+>
+>  config DRM_AMD_DC_HDCP
+> -        bool "Enable HDCP support in DC"
+> -        depends on DRM_AMD_DC
+> -        help
+> -         Choose this option
+> -         if you want to support
+> -         HDCP authentication
+> +       bool "Enable HDCP support in DC"
+> +       depends on DRM_AMD_DC
+> +       help
+> +        Choose this option
+> +        if you want to support
+> +        HDCP authentication
+>
+>  config DEBUG_KERNEL_DC
+>         bool "Enable kgdb break in DC"
+> --
+> 2.17.1
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
