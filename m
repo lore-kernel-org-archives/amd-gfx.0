@@ -1,113 +1,88 @@
-From: Alex Deucher <alexdeucher@gmail.com>
-Subject: Re: [PATCH v3] drm/amd: Fix Kconfig indentation
-Date: Mon, 7 Oct 2019 14:54:13 -0400
-Message-ID: <CADnq5_MpRZKTKLbJhzKOS=boP8RwvXPzkk0vBnJeRPgTHxStJQ@mail.gmail.com>
-References: <20191007173322.9306-1-krzk@kernel.org>
+From: "Zeng, Oak" <Oak.Zeng-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH 1/2] drm/amdgpu: Clean up gmc_v9_0_gart_enable
+Date: Mon, 7 Oct 2019 20:34:15 +0000
+Message-ID: <1570480448-29861-1-git-send-email-Oak.Zeng@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20191007173322.9306-1-krzk@kernel.org>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, Sean Paul <sean@poorly.run>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, Maling list - DRI developers <dri-devel@lists.freedesktop.org>, LKML <linux-kernel@vger.kernel.org>, amd-gfx list <amd-gfx@lists.freedesktop.org>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>, "Zeng, Oak" <Oak.Zeng-5C7GfCeVMHo@public.gmane.org>, "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
 
-On Mon, Oct 7, 2019 at 1:33 PM Krzysztof Kozlowski <krzk@kernel.org> wrote:
->
-> Adjust indentation from spaces to tab (+optional two spaces) as in
-> coding style with command like:
->     $ sed -e 's/^        /\t/' -i */Kconfig
->
-> Signed-off-by: Krzysztof Kozlowski <krzk@kernel.org>
-
-Applied.  Thanks!
-
-Alex
-
->
-> ---
->
-> Changes since v2:
-> 1. Split AMD and i915 to separate patches.
-> ---
->  drivers/gpu/drm/Kconfig             |  4 ++--
->  drivers/gpu/drm/amd/display/Kconfig | 32 ++++++++++++++---------------
->  2 files changed, 18 insertions(+), 18 deletions(-)
->
-> diff --git a/drivers/gpu/drm/Kconfig b/drivers/gpu/drm/Kconfig
-> index 108e1b7f4564..7cb6e4eb99e8 100644
-> --- a/drivers/gpu/drm/Kconfig
-> +++ b/drivers/gpu/drm/Kconfig
-> @@ -226,9 +226,9 @@ config DRM_AMDGPU
->         tristate "AMD GPU"
->         depends on DRM && PCI && MMU
->         select FW_LOADER
-> -        select DRM_KMS_HELPER
-> +       select DRM_KMS_HELPER
->         select DRM_SCHED
-> -        select DRM_TTM
-> +       select DRM_TTM
->         select POWER_SUPPLY
->         select HWMON
->         select BACKLIGHT_CLASS_DEVICE
-> diff --git a/drivers/gpu/drm/amd/display/Kconfig b/drivers/gpu/drm/amd/display/Kconfig
-> index 1bbe762ee6ba..313183b80032 100644
-> --- a/drivers/gpu/drm/amd/display/Kconfig
-> +++ b/drivers/gpu/drm/amd/display/Kconfig
-> @@ -23,16 +23,16 @@ config DRM_AMD_DC_DCN2_0
->         depends on DRM_AMD_DC && X86
->         depends on DRM_AMD_DC_DCN1_0
->         help
-> -           Choose this option if you want to have
-> -           Navi support for display engine
-> +         Choose this option if you want to have
-> +         Navi support for display engine
->
->  config DRM_AMD_DC_DCN2_1
-> -        bool "DCN 2.1 family"
-> -        depends on DRM_AMD_DC && X86
-> -        depends on DRM_AMD_DC_DCN2_0
-> -        help
-> -            Choose this option if you want to have
-> -            Renoir support for display engine
-> +       bool "DCN 2.1 family"
-> +       depends on DRM_AMD_DC && X86
-> +       depends on DRM_AMD_DC_DCN2_0
-> +       help
-> +         Choose this option if you want to have
-> +         Renoir support for display engine
->
->  config DRM_AMD_DC_DSC_SUPPORT
->         bool "DSC support"
-> @@ -41,16 +41,16 @@ config DRM_AMD_DC_DSC_SUPPORT
->         depends on DRM_AMD_DC_DCN1_0
->         depends on DRM_AMD_DC_DCN2_0
->         help
-> -           Choose this option if you want to have
-> -           Dynamic Stream Compression support
-> +         Choose this option if you want to have
-> +         Dynamic Stream Compression support
->
->  config DRM_AMD_DC_HDCP
-> -        bool "Enable HDCP support in DC"
-> -        depends on DRM_AMD_DC
-> -        help
-> -         Choose this option
-> -         if you want to support
-> -         HDCP authentication
-> +       bool "Enable HDCP support in DC"
-> +       depends on DRM_AMD_DC
-> +       help
-> +        Choose this option
-> +        if you want to support
-> +        HDCP authentication
->
->  config DEBUG_KERNEL_DC
->         bool "Enable kgdb break in DC"
-> --
-> 2.17.1
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+TWFueSBsb2dpYyBpbiB0aGlzIGZ1bmN0aW9uIGFyZSBIRFAgc2V0IHVwLApub3QgZ2FydCBzZXQg
+dXAuIE1vdmVkIHRob3NlIGxvZ2ljIHRvIGdtY192OV8wX2h3X2luaXQuCk5vIGZ1bmN0aW9uYWwg
+Y2hhbmdlLgoKQ2hhbmdlLUlkOiBJYjAwY2MxZmZkMWU0ODZlNzc1NzE3OTZkY2U1M2FhNzUwNmMw
+YzU1ZgpTaWduZWQtb2ZmLWJ5OiBPYWsgWmVuZyA8T2FrLlplbmdAYW1kLmNvbT4KLS0tCiBkcml2
+ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNfdjlfMC5jIHwgODIgKysrKysrKysrKysrKysrKyst
+LS0tLS0tLS0tLS0tLS0tLS0KIDEgZmlsZSBjaGFuZ2VkLCA0MSBpbnNlcnRpb25zKCspLCA0MSBk
+ZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNf
+djlfMC5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ21jX3Y5XzAuYwppbmRleCA0YjEx
+ZjdlLi5jN2UwN2YxIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNf
+djlfMC5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192OV8wLmMKQEAgLTEx
+MzUsMTMgKzExMzUsNyBAQCBzdGF0aWMgdm9pZCBnbWNfdjlfMF9pbml0X2dvbGRlbl9yZWdpc3Rl
+cnMoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpCiAgKi8KIHN0YXRpYyBpbnQgZ21jX3Y5XzBf
+Z2FydF9lbmFibGUoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpCiB7Ci0JaW50IHIsIGk7Ci0J
+Ym9vbCB2YWx1ZTsKLQl1MzIgdG1wOwotCi0JYW1kZ3B1X2RldmljZV9wcm9ncmFtX3JlZ2lzdGVy
+X3NlcXVlbmNlKGFkZXYsCi0JCQkJCQlnb2xkZW5fc2V0dGluZ3NfdmVnYTEwX2hkcCwKLQkJCQkJ
+CUFSUkFZX1NJWkUoZ29sZGVuX3NldHRpbmdzX3ZlZ2ExMF9oZHApKTsKKwlpbnQgcjsKIAogCWlm
+IChhZGV2LT5nYXJ0LmJvID09IE5VTEwpIHsKIAkJZGV2X2VycihhZGV2LT5kZXYsICJObyBWUkFN
+IG9iamVjdCBmb3IgUENJRSBHQVJULlxuIik7CkBAIC0xMTUxLDE1ICsxMTQ1LDYgQEAgc3RhdGlj
+IGludCBnbWNfdjlfMF9nYXJ0X2VuYWJsZShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikKIAlp
+ZiAocikKIAkJcmV0dXJuIHI7CiAKLQlzd2l0Y2ggKGFkZXYtPmFzaWNfdHlwZSkgewotCWNhc2Ug
+Q0hJUF9SQVZFTjoKLQkJLyogVE9ETyBmb3IgcmVub2lyICovCi0JCW1taHViX3YxXzBfdXBkYXRl
+X3Bvd2VyX2dhdGluZyhhZGV2LCB0cnVlKTsKLQkJYnJlYWs7Ci0JZGVmYXVsdDoKLQkJYnJlYWs7
+Ci0JfQotCiAJciA9IGdmeGh1Yl92MV8wX2dhcnRfZW5hYmxlKGFkZXYpOwogCWlmIChyKQogCQly
+ZXR1cm4gcjsKQEAgLTExNzEsNiArMTE1Niw0NiBAQCBzdGF0aWMgaW50IGdtY192OV8wX2dhcnRf
+ZW5hYmxlKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQogCWlmIChyKQogCQlyZXR1cm4gcjsK
+IAorCURSTV9JTkZPKCJQQ0lFIEdBUlQgb2YgJXVNIGVuYWJsZWQgKHRhYmxlIGF0IDB4JTAxNmxs
+WCkuXG4iLAorCQkgKHVuc2lnbmVkKShhZGV2LT5nbWMuZ2FydF9zaXplID4+IDIwKSwKKwkJICh1
+bnNpZ25lZCBsb25nIGxvbmcpYW1kZ3B1X2JvX2dwdV9vZmZzZXQoYWRldi0+Z2FydC5ibykpOwor
+CWFkZXYtPmdhcnQucmVhZHkgPSB0cnVlOworCXJldHVybiAwOworfQorCitzdGF0aWMgaW50IGdt
+Y192OV8wX2h3X2luaXQodm9pZCAqaGFuZGxlKQoreworCWludCByLCBpOworCWJvb2wgdmFsdWU7
+CisJdTMyIHRtcDsKKwlzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiA9IChzdHJ1Y3QgYW1kZ3B1
+X2RldmljZSAqKWhhbmRsZTsKKworCS8qIFRoZSBzZXF1ZW5jZSBvZiB0aGVzZSB0d28gZnVuY3Rp
+b24gY2FsbHMgbWF0dGVycy4qLworCWdtY192OV8wX2luaXRfZ29sZGVuX3JlZ2lzdGVycyhhZGV2
+KTsKKworCWlmIChhZGV2LT5tb2RlX2luZm8ubnVtX2NydGMpIHsKKwkJaWYgKGFkZXYtPmFzaWNf
+dHlwZSAhPSBDSElQX0FSQ1RVUlVTKSB7CisJCQkvKiBMb2Nrb3V0IGFjY2VzcyB0aHJvdWdoIFZH
+QSBhcGVydHVyZSovCisJCQlXUkVHMzJfRklFTEQxNShEQ0UsIDAsIFZHQV9IRFBfQ09OVFJPTCwg
+VkdBX01FTU9SWV9ESVNBQkxFLCAxKTsKKworCQkJLyogZGlzYWJsZSBWR0EgcmVuZGVyICovCisJ
+CQlXUkVHMzJfRklFTEQxNShEQ0UsIDAsIFZHQV9SRU5ERVJfQ09OVFJPTCwgVkdBX1ZTVEFUVVNf
+Q05UTCwgMCk7CisJCX0KKwl9CisKKwlhbWRncHVfZGV2aWNlX3Byb2dyYW1fcmVnaXN0ZXJfc2Vx
+dWVuY2UoYWRldiwKKwkJCQkJCWdvbGRlbl9zZXR0aW5nc192ZWdhMTBfaGRwLAorCQkJCQkJQVJS
+QVlfU0laRShnb2xkZW5fc2V0dGluZ3NfdmVnYTEwX2hkcCkpOworCisJc3dpdGNoIChhZGV2LT5h
+c2ljX3R5cGUpIHsKKwljYXNlIENISVBfUkFWRU46CisJCS8qIFRPRE8gZm9yIHJlbm9pciAqLwor
+CQltbWh1Yl92MV8wX3VwZGF0ZV9wb3dlcl9nYXRpbmcoYWRldiwgdHJ1ZSk7CisJCWJyZWFrOwor
+CWRlZmF1bHQ6CisJCWJyZWFrOworCX0KKwogCVdSRUczMl9GSUVMRDE1KEhEUCwgMCwgSERQX01J
+U0NfQ05UTCwgRkxVU0hfSU5WQUxJREFURV9DQUNIRSwgMSk7CiAKIAl0bXAgPSBSUkVHMzJfU09D
+MTUoSERQLCAwLCBtbUhEUF9IT1NUX1BBVEhfQ05UTCk7CkBAIC0xMTk5LDMxICsxMjI0LDYgQEAg
+c3RhdGljIGludCBnbWNfdjlfMF9nYXJ0X2VuYWJsZShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRl
+dikKIAlpZiAoYWRldi0+dW1jLmZ1bmNzICYmIGFkZXYtPnVtYy5mdW5jcy0+aW5pdF9yZWdpc3Rl
+cnMpCiAJCWFkZXYtPnVtYy5mdW5jcy0+aW5pdF9yZWdpc3RlcnMoYWRldik7CiAKLQlEUk1fSU5G
+TygiUENJRSBHQVJUIG9mICV1TSBlbmFibGVkICh0YWJsZSBhdCAweCUwMTZsbFgpLlxuIiwKLQkJ
+ICh1bnNpZ25lZCkoYWRldi0+Z21jLmdhcnRfc2l6ZSA+PiAyMCksCi0JCSAodW5zaWduZWQgbG9u
+ZyBsb25nKWFtZGdwdV9ib19ncHVfb2Zmc2V0KGFkZXYtPmdhcnQuYm8pKTsKLQlhZGV2LT5nYXJ0
+LnJlYWR5ID0gdHJ1ZTsKLQlyZXR1cm4gMDsKLX0KLQotc3RhdGljIGludCBnbWNfdjlfMF9od19p
+bml0KHZvaWQgKmhhbmRsZSkKLXsKLQlpbnQgcjsKLQlzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRl
+diA9IChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqKWhhbmRsZTsKLQotCS8qIFRoZSBzZXF1ZW5jZSBv
+ZiB0aGVzZSB0d28gZnVuY3Rpb24gY2FsbHMgbWF0dGVycy4qLwotCWdtY192OV8wX2luaXRfZ29s
+ZGVuX3JlZ2lzdGVycyhhZGV2KTsKLQotCWlmIChhZGV2LT5tb2RlX2luZm8ubnVtX2NydGMpIHsK
+LQkJaWYgKGFkZXYtPmFzaWNfdHlwZSAhPSBDSElQX0FSQ1RVUlVTKSB7Ci0JCQkvKiBMb2Nrb3V0
+IGFjY2VzcyB0aHJvdWdoIFZHQSBhcGVydHVyZSovCi0JCQlXUkVHMzJfRklFTEQxNShEQ0UsIDAs
+IFZHQV9IRFBfQ09OVFJPTCwgVkdBX01FTU9SWV9ESVNBQkxFLCAxKTsKLQotCQkJLyogZGlzYWJs
+ZSBWR0EgcmVuZGVyICovCi0JCQlXUkVHMzJfRklFTEQxNShEQ0UsIDAsIFZHQV9SRU5ERVJfQ09O
+VFJPTCwgVkdBX1ZTVEFUVVNfQ05UTCwgMCk7Ci0JCX0KLQl9Ci0KIAlyID0gZ21jX3Y5XzBfZ2Fy
+dF9lbmFibGUoYWRldik7CiAKIAlyZXR1cm4gcjsKLS0gCjIuNy40CgpfX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQt
+Z2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9t
+YWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
