@@ -1,17 +1,12 @@
-From: "Zeng, Oak" <Oak.Zeng-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH] drm/amdgpu: Enable gfx cache probing on HDP write for
- arcturus
-Date: Mon, 7 Oct 2019 18:04:33 +0000
-Message-ID: <BL0PR12MB2580FB1137F93CF6B6CF8DE9809B0@BL0PR12MB2580.namprd12.prod.outlook.com>
-References: <1568927828-17593-1-git-send-email-Oak.Zeng@amd.com>
- <BL0PR12MB2580DFF062B6AE6A61C3AFBC809E0@BL0PR12MB2580.namprd12.prod.outlook.com>
- <79b8aa8b-1e0c-643e-266f-45239592b6b1@amd.com>
+From: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu: simplify gds_compute_max_wave_id computation
+Date: Mon, 7 Oct 2019 14:05:18 -0400
+Message-ID: <CAAxE2A7rOodqyZVWCQYcbx6Xsc=XQ_EsVCF+G_tFOWcB7omMmA@mail.gmail.com>
+References: <20190925203502.30996-1-maraeo@gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0695047305=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <79b8aa8b-1e0c-643e-266f-45239592b6b1-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
+In-Reply-To: <20190925203502.30996-1-maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -22,48 +17,158 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
+To: amd-gfx mailing list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-QWdyZWVkLiBJIHdpbGwgbW92ZSBub25lIGdhcnQgbG9naWMgZnJvbSBnbWNfdjlfMF9nYXJ0X2Vu
-YWJsZSB0byBnbWNfdjlfMF9od19pbml0DQoNClJlZ2FyZHMsDQpPYWsNCg0KLS0tLS1PcmlnaW5h
-bCBNZXNzYWdlLS0tLS0NCkZyb206IEt1ZWhsaW5nLCBGZWxpeCA8RmVsaXguS3VlaGxpbmdAYW1k
-LmNvbT4gDQpTZW50OiBGcmlkYXksIE9jdG9iZXIgNCwgMjAxOSAxMTowMyBBTQ0KVG86IFplbmcs
-IE9hayA8T2FrLlplbmdAYW1kLmNvbT47IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnDQpD
-YzogS29lbmlnLCBDaHJpc3RpYW4gPENocmlzdGlhbi5Lb2VuaWdAYW1kLmNvbT4NClN1YmplY3Q6
-IFJlOiBbUEFUQ0hdIGRybS9hbWRncHU6IEVuYWJsZSBnZnggY2FjaGUgcHJvYmluZyBvbiBIRFAg
-d3JpdGUgZm9yIGFyY3R1cnVzDQoNCkknbSBwcmV0dHkgc3VyZSB0aGUgZ2FydF9lbmFibGUgZnVu
-Y3Rpb24gaXMgbm90IHRoZSByaWdodCBwbGFjZSBmb3IgdGhpcy4gR0FSVCBpcyBmb3IgR1BVIGFj
-Y2VzcyB0byBzeXN0ZW0gbWVtb3J5LiBIRFAgaXMgZm9yIGhvc3QgYWNjZXNzIHRvIEdQVSBtZW1v
-cnkuIEFsc28sIEkgd291bGQgZXhwZWN0IGFueXRoaW5nIGRvbmUgaW4gZ2FydF9lbmFibGUgdG8g
-YmUgdW5kb25lIGluIGdhcnRfZGlzYWJsZS4gSWYgdGhhdCdzIG5vdCB0aGUgaW50ZW50aW9uLCBt
-YXliZSB0aGlzIHNob3VsZCBnbyBpbiBnbWNfdjlfMF9od19pbml0Lg0KDQpSZWdhcmRzLA0KIMKg
-IEZlbGl4DQoNCk9uIDIwMTktMTAtMDQgMTA6NTYsIFplbmcsIE9hayB3cm90ZToNCj4gUGluZy4u
-Lg0KPg0KPiBSZWdhcmRzLA0KPiBPYWsNCj4NCj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0N
-Cj4gRnJvbTogWmVuZywgT2FrIDxPYWsuWmVuZ0BhbWQuY29tPg0KPiBTZW50OiBUaHVyc2RheSwg
-U2VwdGVtYmVyIDE5LCAyMDE5IDU6MTcgUE0NCj4gVG86IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0
-b3Aub3JnDQo+IENjOiBLdWVobGluZywgRmVsaXggPEZlbGl4Lkt1ZWhsaW5nQGFtZC5jb20+OyBL
-b2VuaWcsIENocmlzdGlhbiANCj4gPENocmlzdGlhbi5Lb2VuaWdAYW1kLmNvbT47IFplbmcsIE9h
-ayA8T2FrLlplbmdAYW1kLmNvbT4NCj4gU3ViamVjdDogW1BBVENIXSBkcm0vYW1kZ3B1OiBFbmFi
-bGUgZ2Z4IGNhY2hlIHByb2Jpbmcgb24gSERQIHdyaXRlIGZvciANCj4gYXJjdHVydXMNCj4NCj4g
-VGhpcyBhbGxvd3MgZ2Z4IGNhY2hlIHRvIGJlIHByb2JlZCBhbmQgaW52YWxpZGF0ZWQgKGZvciBu
-b25lLWRpcnR5IGNhY2hlIGxpbmVzKSBvbiBhIEhEUCB3cml0ZSAoZnJvbSBlaXRoZXIgYW5vdGhl
-ciBHUFUgb3IgQ1BVKS4gVGhpcyBzaG91bGQgd29yayBvbmx5IGZvciB0aGUgbWVtb3J5IG1hcHBl
-ZCBhcyBSVyBtZW1vcnkgdHlwZSBuZXdseSBhZGRlZCBmb3IgYXJjdHVydXMsIHRvIGFjaGlldmUg
-c29tZSBjYWNoZSBjb2hlcmVuY2UgYi90IG11bHRpcGxlIG1lbW9yeSBjbGllbnRzLg0KPg0KPiBD
-aGFuZ2UtSWQ6IEkwYTY5ZDAwMDBlNDg3MDZiYjcxMzIzNWJmYmM4M2ZjYzY3Nzc0NjE0DQo+IFNp
-Z25lZC1vZmYtYnk6IE9hayBaZW5nIDxPYWsuWmVuZ0BhbWQuY29tPg0KPiAtLS0NCj4gICBkcml2
-ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNfdjlfMC5jIHwgMyArKysNCj4gICAxIGZpbGUgY2hh
-bmdlZCwgMyBpbnNlcnRpb25zKCspDQo+DQo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0v
-YW1kL2FtZGdwdS9nbWNfdjlfMC5jIA0KPiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dt
-Y192OV8wLmMNCj4gaW5kZXggNTdkNzZlZS4uZTAxYTM1OSAxMDA2NDQNCj4gLS0tIGEvZHJpdmVy
-cy9ncHUvZHJtL2FtZC9hbWRncHUvZ21jX3Y5XzAuYw0KPiArKysgYi9kcml2ZXJzL2dwdS9kcm0v
-YW1kL2FtZGdwdS9nbWNfdjlfMC5jDQo+IEBAIC0xMjcyLDYgKzEyNzIsOSBAQCBzdGF0aWMgaW50
-IGdtY192OV8wX2dhcnRfZW5hYmxlKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQ0KPiAgIAkJ
-LyogVE9ETyBmb3IgcmVub2lyICovDQo+ICAgCQltbWh1Yl92MV8wX3VwZGF0ZV9wb3dlcl9nYXRp
-bmcoYWRldiwgdHJ1ZSk7DQo+ICAgCQlicmVhazsNCj4gKwljYXNlIENISVBfQVJDVFVSVVM6DQo+
-ICsJCVdSRUczMl9GSUVMRDE1KEhEUCwgMCwgSERQX01NSFVCX0NOVEwsIEhEUF9NTUhVQl9HQ0Ms
-IDEpOw0KPiArCQlicmVhazsNCj4gICAJZGVmYXVsdDoNCj4gICAJCWJyZWFrOw0KPiAgIAl9DQo+
-IC0tDQo+IDIuNy40DQo+DQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9y
-ZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
+--===============0695047305==
+Content-Type: multipart/alternative; boundary="0000000000002eb187059455e735"
+
+--0000000000002eb187059455e735
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+ping
+
+On Wed, Sep 25, 2019 at 4:35 PM Marek Ol=C5=A1=C3=A1k <maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org> wr=
+ote:
+
+> From: Marek Ol=C5=A1=C3=A1k <marek.olsak-5C7GfCeVMHo@public.gmane.org>
+>
+> Signed-off-by: Marek Ol=C5=A1=C3=A1k <marek.olsak-5C7GfCeVMHo@public.gmane.org>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c | 13 +++++--------
+>  1 file changed, 5 insertions(+), 8 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+> b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+> index ca01643fa0c8..73cd254449b3 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+> @@ -5275,29 +5275,26 @@ static void gfx_v10_0_set_rlc_funcs(struct
+> amdgpu_device *adev)
+>         case CHIP_NAVI12:
+>                 adev->gfx.rlc.funcs =3D &gfx_v10_0_rlc_funcs;
+>                 break;
+>         default:
+>                 break;
+>         }
+>  }
+>
+>  static void gfx_v10_0_set_gds_init(struct amdgpu_device *adev)
+>  {
+> -       /* init asic gds info */
+> -       switch (adev->asic_type) {
+> -       case CHIP_NAVI10:
+> -       default:
+> -               adev->gds.gds_size =3D 0x10000;
+> -               adev->gds.gds_compute_max_wave_id =3D 0x4ff;
+> -               break;
+> -       }
+> +       unsigned total_cu =3D adev->gfx.config.max_cu_per_sh *
+> +                           adev->gfx.config.max_sh_per_se *
+> +                           adev->gfx.config.max_shader_engines;
+>
+> +       adev->gds.gds_size =3D 0x10000;
+> +       adev->gds.gds_compute_max_wave_id =3D total_cu * 32 - 1;
+>         adev->gds.gws_size =3D 64;
+>         adev->gds.oa_size =3D 16;
+>  }
+>
+>  static void gfx_v10_0_set_user_wgp_inactive_bitmap_per_sh(struct
+> amdgpu_device *adev,
+>                                                           u32 bitmap)
+>  {
+>         u32 data;
+>
+>         if (!bitmap)
+> --
+> 2.17.1
+>
+>
+
+--0000000000002eb187059455e735
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">ping<br></div><br><div class=3D"gmail_quote"><div dir=3D"l=
+tr" class=3D"gmail_attr">On Wed, Sep 25, 2019 at 4:35 PM Marek Ol=C5=A1=C3=
+=A1k &lt;<a href=3D"mailto:maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org">maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt; wrote=
+:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.=
+8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">From: Marek Ol=
+=C5=A1=C3=A1k &lt;<a href=3D"mailto:marek.olsak-5C7GfCeVMHo@public.gmane.org" target=3D"_blank">=
+marek.olsak-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
+<br>
+Signed-off-by: Marek Ol=C5=A1=C3=A1k &lt;<a href=3D"mailto:marek.olsak@amd.=
+com" target=3D"_blank">marek.olsak-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
+---<br>
+=C2=A0drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c | 13 +++++--------<br>
+=C2=A01 file changed, 5 insertions(+), 8 deletions(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/a=
+mdgpu/gfx_v10_0.c<br>
+index ca01643fa0c8..73cd254449b3 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c<br>
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c<br>
+@@ -5275,29 +5275,26 @@ static void gfx_v10_0_set_rlc_funcs(struct amdgpu_d=
+evice *adev)<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 case CHIP_NAVI12:<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 adev-&gt;gfx.rlc.fu=
+ncs =3D &amp;gfx_v10_0_rlc_funcs;<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 break;<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 default:<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 break;<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 }<br>
+=C2=A0}<br>
+<br>
+=C2=A0static void gfx_v10_0_set_gds_init(struct amdgpu_device *adev)<br>
+=C2=A0{<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0/* init asic gds info */<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0switch (adev-&gt;asic_type) {<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0case CHIP_NAVI10:<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0default:<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0adev-&gt;gds.gds_si=
+ze =3D 0x10000;<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0adev-&gt;gds.gds_co=
+mpute_max_wave_id =3D 0x4ff;<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0break;<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0unsigned total_cu =3D adev-&gt;gfx.config.max_c=
+u_per_sh *<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0adev-&gt;gfx.config.max_sh_per_se *<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0adev-&gt;gfx.config.max_shader_engines;<br>
+<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0adev-&gt;gds.gds_size =3D 0x10000;<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0adev-&gt;gds.gds_compute_max_wave_id =3D total_=
+cu * 32 - 1;<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 adev-&gt;gds.gws_size =3D 64;<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 adev-&gt;gds.oa_size =3D 16;<br>
+=C2=A0}<br>
+<br>
+=C2=A0static void gfx_v10_0_set_user_wgp_inactive_bitmap_per_sh(struct amdg=
+pu_device *adev,<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 u32 bitmap)<br>
+=C2=A0{<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 u32 data;<br>
+<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 if (!bitmap)<br>
+-- <br>
+2.17.1<br>
+<br>
+</blockquote></div>
+
+--0000000000002eb187059455e735--
+
+--===============0695047305==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+
+--===============0695047305==--
