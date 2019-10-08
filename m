@@ -1,81 +1,49 @@
-From: Colin King <colin.king@canonical.com>
-Subject: [PATCH] drm/amdgpu/display: make various arrays static, makes object smaller
-Date: Mon,  7 Oct 2019 22:58:57 +0100
-Message-ID: <20191007215857.14720-1-colin.king@canonical.com>
+From: Jani Nikula <jani.nikula@linux.intel.com>
+Subject: Re: [PATCH TRIVIAL v2] gpu: Fix Kconfig indentation
+Date: Tue, 08 Oct 2019 09:05:49 +0300
+Message-ID: <87v9szdb5u.fsf@intel.com>
+References: <20191004144549.3567-1-krzk@kernel.org> <87sgo4hjii.fsf@intel.com> <CADnq5_MqGehpWwOAxYg0T2x3qXisqmae2uGG5dijQX+Aa4NsoQ@mail.gmail.com> <CAJKOXPeVFeSDpxPv-rDywCafWbN3mivtcM3UQX_+wZkyPcZwPQ@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <CAJKOXPeVFeSDpxPv-rDywCafWbN3mivtcM3UQX_+wZkyPcZwPQ@mail.gmail.com>
 Sender: linux-kernel-owner@vger.kernel.org
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, David Zhou <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
+To: Krzysztof Kozlowski <krzk@kernel.org>, Alex Deucher <alexdeucher@gmail.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, Sean Paul <sean@poorly.run>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, Jiri Kosina <trivial@kernel.org>, Maling list - DRI developers <dri-devel@lists.freedesktop.org>, LKML <linux-kernel@vger.kernel.org>, amd-gfx list <amd-gfx@lists.freedesktop.org>, Intel Graphics Development <intel-gfx@lists.freedesktop.org>, lima@lists.freedesktop.org, nouveau <nouveau@lists.freedesktop.org>, linux-arm-kernel <linux-arm-kernel@lists.infradead.org>, linux-rockchip@lists.infradead.org
 List-Id: amd-gfx.lists.freedesktop.org
 
-From: Colin Ian King <colin.king@canonical.com>
+On Mon, 07 Oct 2019, Krzysztof Kozlowski <krzk@kernel.org> wrote:
+> On Mon, 7 Oct 2019 at 18:09, Alex Deucher <alexdeucher@gmail.com> wrote:
+>>
+>> On Mon, Oct 7, 2019 at 7:39 AM Jani Nikula <jani.nikula@linux.intel.com> wrote:
+>> >
+>> > On Fri, 04 Oct 2019, Krzysztof Kozlowski <krzk@kernel.org> wrote:
+>> > >  drivers/gpu/drm/i915/Kconfig             |  12 +-
+>> > >  drivers/gpu/drm/i915/Kconfig.debug       | 144 +++++++++++------------
+>> >
+>> > Please split these out to a separate patch. Can't speak for others, but
+>> > the patch looks like it'll be conflicts galore and a problem to manage
+>> > if merged in one big lump.
+>>
+>> Yes, it would be nice to have the amd patch separate as well.
+>
+> I'll split the AMD and i915 although I am not sure if it is sense to
+> split such trivial patch per each driver.
 
-Don't populate the arrays on the stack but instead make them
-static. Makes the object code smaller by 158 bytes.
+Thanks.
 
-Before:
-   text	   data	    bss	    dec	    hex	filename
-  32468	   2072	      0	  34540	   86ec	display/dc/bios/bios_parser.o
-  22198	   1088	      0	  23286	   5af6	display/dc/bios/bios_parser2.o
-  22278	   1076	      0	  23354	   5b3a	display/dc/dce/dce_mem_input.o
+See MAINTAINERS, many of the drivers are maintained in the same drm-misc
+repo, and it makes no difference to split those.
 
-81180
-After:
-   text	   data	    bss	    dec	    hex	filename
-  32341	   2136	      0	  34477	   86ad	display/dc/bios/bios_parser.o
-  22070	   1184	      0	  23254	   5ad6	display/dc/bios/bios_parser2.o
-  22119	   1172	      0	  23291	   5afb	display/dc/dce/dce_mem_input.o
+In general it's, well, trivial to split up patches like this per driver
+or repo, but not splitting it up generates extra busywork in managing
+conflicts until some common merge/backmerge happens. We just want to
+apply the patch and forget about it, instead of dealing with a trivial
+whitespace cleanup many times over.
 
-(gcc version 9.2.1, amd64)
+BR,
+Jani.
 
-Signed-off-by: Colin Ian King <colin.king@canonical.com>
----
- drivers/gpu/drm/amd/display/dc/bios/bios_parser.c  | 2 +-
- drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c | 2 +-
- drivers/gpu/drm/amd/display/dc/dce/dce_mem_input.c | 2 +-
- 3 files changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/bios/bios_parser.c b/drivers/gpu/drm/amd/display/dc/bios/bios_parser.c
-index 221e0f56389f..65ab225cf542 100644
---- a/drivers/gpu/drm/amd/display/dc/bios/bios_parser.c
-+++ b/drivers/gpu/drm/amd/display/dc/bios/bios_parser.c
-@@ -2745,7 +2745,7 @@ static enum bp_result bios_get_board_layout_info(
- 	struct bios_parser *bp;
- 	enum bp_result record_result;
- 
--	const unsigned int slot_index_to_vbios_id[MAX_BOARD_SLOTS] = {
-+	static const unsigned int slot_index_to_vbios_id[MAX_BOARD_SLOTS] = {
- 		GENERICOBJECT_BRACKET_LAYOUT_ENUM_ID1,
- 		GENERICOBJECT_BRACKET_LAYOUT_ENUM_ID2,
- 		0, 0
-diff --git a/drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c b/drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c
-index dff65c0fe82f..809c4a89b899 100644
---- a/drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c
-+++ b/drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c
-@@ -1832,7 +1832,7 @@ static enum bp_result bios_get_board_layout_info(
- 	struct bios_parser *bp;
- 	enum bp_result record_result;
- 
--	const unsigned int slot_index_to_vbios_id[MAX_BOARD_SLOTS] = {
-+	static const unsigned int slot_index_to_vbios_id[MAX_BOARD_SLOTS] = {
- 		GENERICOBJECT_BRACKET_LAYOUT_ENUM_ID1,
- 		GENERICOBJECT_BRACKET_LAYOUT_ENUM_ID2,
- 		0, 0
-diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_mem_input.c b/drivers/gpu/drm/amd/display/dc/dce/dce_mem_input.c
-index 8aa937f496c4..ed0031d5e021 100644
---- a/drivers/gpu/drm/amd/display/dc/dce/dce_mem_input.c
-+++ b/drivers/gpu/drm/amd/display/dc/dce/dce_mem_input.c
-@@ -395,7 +395,7 @@ static void program_size_and_rotation(
- {
- 	const struct rect *in_rect = &plane_size->surface_size;
- 	struct rect hw_rect = plane_size->surface_size;
--	const uint32_t rotation_angles[ROTATION_ANGLE_COUNT] = {
-+	static const uint32_t rotation_angles[ROTATION_ANGLE_COUNT] = {
- 			[ROTATION_ANGLE_0] = 0,
- 			[ROTATION_ANGLE_90] = 1,
- 			[ROTATION_ANGLE_180] = 2,
 -- 
-2.20.1
+Jani Nikula, Intel Open Source Graphics Center
