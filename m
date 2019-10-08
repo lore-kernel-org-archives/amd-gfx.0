@@ -1,396 +1,87 @@
-From: Daniel Vetter <daniel@ffwll.ch>
-Subject: Re: [PATCH v2 03/27] drm/dp_mst: Destroy MSTBs asynchronously
-Date: Tue, 8 Oct 2019 11:45:44 +0200
-Message-ID: <20191008094544.GI16989@phenom.ffwll.local>
-References: <20190903204645.25487-1-lyude@redhat.com>
- <20190903204645.25487-4-lyude@redhat.com>
- <20190925181644.GD218215@art_vandelay>
- <e9a2638663549d86779002e3616fc2e89f9c7028.camel@redhat.com>
- <20190927133107.GQ218215@art_vandelay>
+From: Harry Wentland <hwentlan-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu/display: make various arrays static, makes
+ object smaller
+Date: Tue, 8 Oct 2019 13:56:00 +0000
+Message-ID: <9579bfae-1db5-d282-79ea-df1966f4c123@amd.com>
+References: <20191007215857.14720-1-colin.king@canonical.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Transfer-Encoding: 8bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Content-Disposition: inline
-In-Reply-To: <20190927133107.GQ218215@art_vandelay>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Sean Paul <sean@poorly.run>
-Cc: Lyude Paul <lyude@redhat.com>, dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, Juston Li <juston.li@intel.com>, Imre Deak <imre.deak@intel.com>, Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>, Harry Wentland <hwentlan@amd.com>, Daniel Vetter <daniel@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@linux.ie>, linux-kernel@vger.kernel.org
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20191007215857.14720-1-colin.king-Z7WLFzj8eWMS+FvcfC7Uqw@public.gmane.org>
+Content-Language: en-US
+Content-ID: <97F77E734A27F1469061A04F2F087279-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Colin King <colin.king-Z7WLFzj8eWMS+FvcfC7Uqw@public.gmane.org>, "Wentland, Harry" <Harry.Wentland-5C7GfCeVMHo@public.gmane.org>, "Li, Sun peng (Leo)" <Sunpeng.Li-5C7GfCeVMHo@public.gmane.org>, "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "Zhou, David(ChunMing)" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, David Airlie <airlied-cv59FeDIM0c@public.gmane.org>, Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "kernel-janitors-u79uwXL29TY76Z2rM5mHXA@public.gmane.org" <kernel-janitors-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, "linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org" <linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>
 
-On Fri, Sep 27, 2019 at 09:31:07AM -0400, Sean Paul wrote:
-> On Wed, Sep 25, 2019 at 04:08:22PM -0400, Lyude Paul wrote:
-> > On Wed, 2019-09-25 at 14:16 -0400, Sean Paul wrote:
-> > > On Tue, Sep 03, 2019 at 04:45:41PM -0400, Lyude Paul wrote:
-> > > > When reprobing an MST topology during resume, we have to account for the
-> > > > fact that while we were suspended it's possible that mstbs may have been
-> > > > removed from any ports in the topology. Since iterating downwards in the
-> > > > topology requires that we hold &mgr->lock, destroying MSTBs from this
-> > > > context would result in attempting to lock &mgr->lock a second time and
-> > > > deadlocking.
-> > > > 
-> > > > So, fix this by first moving destruction of MSTBs into
-> > > > destroy_connector_work, then rename destroy_connector_work and friends
-> > > > to reflect that they now destroy both ports and mstbs.
-> > > > 
-> > > > Changes since v1:
-> > > > * s/destroy_connector_list/destroy_port_list/
-> > > >   s/connector_destroy_lock/delayed_destroy_lock/
-> > > >   s/connector_destroy_work/delayed_destroy_work/
-> > > >   s/drm_dp_finish_destroy_branch_device/drm_dp_delayed_destroy_mstb/
-> > > >   s/drm_dp_finish_destroy_port/drm_dp_delayed_destroy_port/
-> > > >   - danvet
-> > > > * Use two loops in drm_dp_delayed_destroy_work() - danvet
-> > > > * Better explain why we need to do this - danvet
-> > > > * Use cancel_work_sync() instead of flush_work() - flush_work() doesn't
-> > > >   account for work requeing
-> > > > 
-> > > > Cc: Juston Li <juston.li@intel.com>
-> > > > Cc: Imre Deak <imre.deak@intel.com>
-> > > > Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
-> > > > Cc: Harry Wentland <hwentlan@amd.com>
-> > > > Cc: Daniel Vetter <daniel@ffwll.ch>
-> > > > Signed-off-by: Lyude Paul <lyude@redhat.com>
-> > > 
-> > > Took me a while to grok this, and I'm still not 100% confident my mental
-> > > model
-> > > is correct, so please bear with me while I ask silly questions :)
-> > > 
-> > > Now that the destroy is delayed, and the port remains in the topology, is it
-> > > possible we will underflow the topology kref by calling put_mstb multiple
-> > > times?
-> > > It looks like that would result in a WARN from refcount.c, and wouldn't call
-> > > the
-> > > destroy function multiple times, so that's nice :)
-> > > 
-> > > Similarly, is there any defense against calling get_mstb() between destroy()
-> > > and
-> > > the delayed destroy worker running?
-> > > 
-> > Good question! There's only one instance where we unconditionally grab an MSTB
-> > ref, drm_dp_mst_topology_mgr_set_mst(), and in that location we're guaranteed
-> > to be the only one with access to that mstb until we drop &mgr->lock.
-> > Everywhere else we use drm_dp_mst_topology_try_get_mstb(), which uses
-> > kref_get_unless_zero() to protect against that kind of situation (and forces
-> > the caller to check with __must_check)
-
-Imo would be good to add this to the commit message when merging as a Q&A,
-just for the record. At least I like to do that with the
-silly-but-no-so-silly questions that come up in review.
--Daniel
-
-> 
-> Awesome, thanks for the breakdown!
-> 
-> 
-> Reviewed-by: Sean Paul <sean@poorly.run>
-> 
-> 
-> > 
-> > > Sean
-> > > 
-> > > > ---
-> > > >  drivers/gpu/drm/drm_dp_mst_topology.c | 162 +++++++++++++++++---------
-> > > >  include/drm/drm_dp_mst_helper.h       |  26 +++--
-> > > >  2 files changed, 127 insertions(+), 61 deletions(-)
-> > > > 
-> > > > diff --git a/drivers/gpu/drm/drm_dp_mst_topology.c
-> > > > b/drivers/gpu/drm/drm_dp_mst_topology.c
-> > > > index 3054ec622506..738f260d4b15 100644
-> > > > --- a/drivers/gpu/drm/drm_dp_mst_topology.c
-> > > > +++ b/drivers/gpu/drm/drm_dp_mst_topology.c
-> > > > @@ -1113,34 +1113,17 @@ static void
-> > > > drm_dp_destroy_mst_branch_device(struct kref *kref)
-> > > >  	struct drm_dp_mst_branch *mstb =
-> > > >  		container_of(kref, struct drm_dp_mst_branch, topology_kref);
-> > > >  	struct drm_dp_mst_topology_mgr *mgr = mstb->mgr;
-> > > > -	struct drm_dp_mst_port *port, *tmp;
-> > > > -	bool wake_tx = false;
-> > > >  
-> > > > -	mutex_lock(&mgr->lock);
-> > > > -	list_for_each_entry_safe(port, tmp, &mstb->ports, next) {
-> > > > -		list_del(&port->next);
-> > > > -		drm_dp_mst_topology_put_port(port);
-> > > > -	}
-> > > > -	mutex_unlock(&mgr->lock);
-> > > > -
-> > > > -	/* drop any tx slots msg */
-> > > > -	mutex_lock(&mstb->mgr->qlock);
-> > > > -	if (mstb->tx_slots[0]) {
-> > > > -		mstb->tx_slots[0]->state = DRM_DP_SIDEBAND_TX_TIMEOUT;
-> > > > -		mstb->tx_slots[0] = NULL;
-> > > > -		wake_tx = true;
-> > > > -	}
-> > > > -	if (mstb->tx_slots[1]) {
-> > > > -		mstb->tx_slots[1]->state = DRM_DP_SIDEBAND_TX_TIMEOUT;
-> > > > -		mstb->tx_slots[1] = NULL;
-> > > > -		wake_tx = true;
-> > > > -	}
-> > > > -	mutex_unlock(&mstb->mgr->qlock);
-> > > > +	INIT_LIST_HEAD(&mstb->destroy_next);
-> > > >  
-> > > > -	if (wake_tx)
-> > > > -		wake_up_all(&mstb->mgr->tx_waitq);
-> > > > -
-> > > > -	drm_dp_mst_put_mstb_malloc(mstb);
-> > > > +	/*
-> > > > +	 * This can get called under mgr->mutex, so we need to perform the
-> > > > +	 * actual destruction of the mstb in another worker
-> > > > +	 */
-> > > > +	mutex_lock(&mgr->delayed_destroy_lock);
-> > > > +	list_add(&mstb->destroy_next, &mgr->destroy_branch_device_list);
-> > > > +	mutex_unlock(&mgr->delayed_destroy_lock);
-> > > > +	schedule_work(&mgr->delayed_destroy_work);
-> > > >  }
-> > > >  
-> > > >  /**
-> > > > @@ -1255,10 +1238,10 @@ static void drm_dp_destroy_port(struct kref *kref)
-> > > >  			 * we might be holding the mode_config.mutex
-> > > >  			 * from an EDID retrieval */
-> > > >  
-> > > > -			mutex_lock(&mgr->destroy_connector_lock);
-> > > > -			list_add(&port->next, &mgr->destroy_connector_list);
-> > > > -			mutex_unlock(&mgr->destroy_connector_lock);
-> > > > -			schedule_work(&mgr->destroy_connector_work);
-> > > > +			mutex_lock(&mgr->delayed_destroy_lock);
-> > > > +			list_add(&port->next, &mgr->destroy_port_list);
-> > > > +			mutex_unlock(&mgr->delayed_destroy_lock);
-> > > > +			schedule_work(&mgr->delayed_destroy_work);
-> > > >  			return;
-> > > >  		}
-> > > >  		/* no need to clean up vcpi
-> > > > @@ -2792,7 +2775,7 @@ void drm_dp_mst_topology_mgr_suspend(struct
-> > > > drm_dp_mst_topology_mgr *mgr)
-> > > >  			   DP_MST_EN | DP_UPSTREAM_IS_SRC);
-> > > >  	mutex_unlock(&mgr->lock);
-> > > >  	flush_work(&mgr->work);
-> > > > -	flush_work(&mgr->destroy_connector_work);
-> > > > +	flush_work(&mgr->delayed_destroy_work);
-> > > >  }
-> > > >  EXPORT_SYMBOL(drm_dp_mst_topology_mgr_suspend);
-> > > >  
-> > > > @@ -3740,34 +3723,104 @@ static void drm_dp_tx_work(struct work_struct
-> > > > *work)
-> > > >  	mutex_unlock(&mgr->qlock);
-> > > >  }
-> > > >  
-> > > > -static void drm_dp_destroy_connector_work(struct work_struct *work)
-> > > > +static inline void
-> > > > +drm_dp_delayed_destroy_port(struct drm_dp_mst_port *port)
-> > > >  {
-> > > > -	struct drm_dp_mst_topology_mgr *mgr = container_of(work, struct
-> > > > drm_dp_mst_topology_mgr, destroy_connector_work);
-> > > > -	struct drm_dp_mst_port *port;
-> > > > -	bool send_hotplug = false;
-> > > > +	port->mgr->cbs->destroy_connector(port->mgr, port->connector);
-> > > > +
-> > > > +	drm_dp_port_teardown_pdt(port, port->pdt);
-> > > > +	port->pdt = DP_PEER_DEVICE_NONE;
-> > > > +
-> > > > +	drm_dp_mst_put_port_malloc(port);
-> > > > +}
-> > > > +
-> > > > +static inline void
-> > > > +drm_dp_delayed_destroy_mstb(struct drm_dp_mst_branch *mstb)
-> > > > +{
-> > > > +	struct drm_dp_mst_topology_mgr *mgr = mstb->mgr;
-> > > > +	struct drm_dp_mst_port *port, *tmp;
-> > > > +	bool wake_tx = false;
-> > > > +
-> > > > +	mutex_lock(&mgr->lock);
-> > > > +	list_for_each_entry_safe(port, tmp, &mstb->ports, next) {
-> > > > +		list_del(&port->next);
-> > > > +		drm_dp_mst_topology_put_port(port);
-> > > > +	}
-> > > > +	mutex_unlock(&mgr->lock);
-> > > > +
-> > > > +	/* drop any tx slots msg */
-> > > > +	mutex_lock(&mstb->mgr->qlock);
-> > > > +	if (mstb->tx_slots[0]) {
-> > > > +		mstb->tx_slots[0]->state = DRM_DP_SIDEBAND_TX_TIMEOUT;
-> > > > +		mstb->tx_slots[0] = NULL;
-> > > > +		wake_tx = true;
-> > > > +	}
-> > > > +	if (mstb->tx_slots[1]) {
-> > > > +		mstb->tx_slots[1]->state = DRM_DP_SIDEBAND_TX_TIMEOUT;
-> > > > +		mstb->tx_slots[1] = NULL;
-> > > > +		wake_tx = true;
-> > > > +	}
-> > > > +	mutex_unlock(&mstb->mgr->qlock);
-> > > > +
-> > > > +	if (wake_tx)
-> > > > +		wake_up_all(&mstb->mgr->tx_waitq);
-> > > > +
-> > > > +	drm_dp_mst_put_mstb_malloc(mstb);
-> > > > +}
-> > > > +
-> > > > +static void drm_dp_delayed_destroy_work(struct work_struct *work)
-> > > > +{
-> > > > +	struct drm_dp_mst_topology_mgr *mgr =
-> > > > +		container_of(work, struct drm_dp_mst_topology_mgr,
-> > > > +			     delayed_destroy_work);
-> > > > +	bool send_hotplug = false, go_again;
-> > > > +
-> > > >  	/*
-> > > >  	 * Not a regular list traverse as we have to drop the destroy
-> > > > -	 * connector lock before destroying the connector, to avoid AB->BA
-> > > > +	 * connector lock before destroying the mstb/port, to avoid AB->BA
-> > > >  	 * ordering between this lock and the config mutex.
-> > > >  	 */
-> > > > -	for (;;) {
-> > > > -		mutex_lock(&mgr->destroy_connector_lock);
-> > > > -		port = list_first_entry_or_null(&mgr->destroy_connector_list,
-> > > > struct drm_dp_mst_port, next);
-> > > > -		if (!port) {
-> > > > -			mutex_unlock(&mgr->destroy_connector_lock);
-> > > > -			break;
-> > > > +	do {
-> > > > +		go_again = false;
-> > > > +
-> > > > +		for (;;) {
-> > > > +			struct drm_dp_mst_branch *mstb;
-> > > > +
-> > > > +			mutex_lock(&mgr->delayed_destroy_lock);
-> > > > +			mstb = list_first_entry_or_null(&mgr-
-> > > > >destroy_branch_device_list,
-> > > > +							struct
-> > > > drm_dp_mst_branch,
-> > > > +							destroy_next);
-> > > > +			if (mstb)
-> > > > +				list_del(&mstb->destroy_next);
-> > > > +			mutex_unlock(&mgr->delayed_destroy_lock);
-> > > > +
-> > > > +			if (!mstb)
-> > > > +				break;
-> > > > +
-> > > > +			drm_dp_delayed_destroy_mstb(mstb);
-> > > > +			go_again = true;
-> > > >  		}
-> > > > -		list_del(&port->next);
-> > > > -		mutex_unlock(&mgr->destroy_connector_lock);
-> > > >  
-> > > > -		mgr->cbs->destroy_connector(mgr, port->connector);
-> > > > +		for (;;) {
-> > > > +			struct drm_dp_mst_port *port;
-> > > >  
-> > > > -		drm_dp_port_teardown_pdt(port, port->pdt);
-> > > > -		port->pdt = DP_PEER_DEVICE_NONE;
-> > > > +			mutex_lock(&mgr->delayed_destroy_lock);
-> > > > +			port = list_first_entry_or_null(&mgr-
-> > > > >destroy_port_list,
-> > > > +							struct
-> > > > drm_dp_mst_port,
-> > > > +							next);
-> > > > +			if (port)
-> > > > +				list_del(&port->next);
-> > > > +			mutex_unlock(&mgr->delayed_destroy_lock);
-> > > > +
-> > > > +			if (!port)
-> > > > +				break;
-> > > > +
-> > > > +			drm_dp_delayed_destroy_port(port);
-> > > > +			send_hotplug = true;
-> > > > +			go_again = true;
-> > > > +		}
-> > > > +	} while (go_again);
-> > > >  
-> > > > -		drm_dp_mst_put_port_malloc(port);
-> > > > -		send_hotplug = true;
-> > > > -	}
-> > > >  	if (send_hotplug)
-> > > >  		drm_kms_helper_hotplug_event(mgr->dev);
-> > > >  }
-> > > > @@ -3957,12 +4010,13 @@ int drm_dp_mst_topology_mgr_init(struct
-> > > > drm_dp_mst_topology_mgr *mgr,
-> > > >  	mutex_init(&mgr->lock);
-> > > >  	mutex_init(&mgr->qlock);
-> > > >  	mutex_init(&mgr->payload_lock);
-> > > > -	mutex_init(&mgr->destroy_connector_lock);
-> > > > +	mutex_init(&mgr->delayed_destroy_lock);
-> > > >  	INIT_LIST_HEAD(&mgr->tx_msg_downq);
-> > > > -	INIT_LIST_HEAD(&mgr->destroy_connector_list);
-> > > > +	INIT_LIST_HEAD(&mgr->destroy_port_list);
-> > > > +	INIT_LIST_HEAD(&mgr->destroy_branch_device_list);
-> > > >  	INIT_WORK(&mgr->work, drm_dp_mst_link_probe_work);
-> > > >  	INIT_WORK(&mgr->tx_work, drm_dp_tx_work);
-> > > > -	INIT_WORK(&mgr->destroy_connector_work,
-> > > > drm_dp_destroy_connector_work);
-> > > > +	INIT_WORK(&mgr->delayed_destroy_work, drm_dp_delayed_destroy_work);
-> > > >  	init_waitqueue_head(&mgr->tx_waitq);
-> > > >  	mgr->dev = dev;
-> > > >  	mgr->aux = aux;
-> > > > @@ -4005,7 +4059,7 @@ void drm_dp_mst_topology_mgr_destroy(struct
-> > > > drm_dp_mst_topology_mgr *mgr)
-> > > >  {
-> > > >  	drm_dp_mst_topology_mgr_set_mst(mgr, false);
-> > > >  	flush_work(&mgr->work);
-> > > > -	flush_work(&mgr->destroy_connector_work);
-> > > > +	cancel_work_sync(&mgr->delayed_destroy_work);
-> > > >  	mutex_lock(&mgr->payload_lock);
-> > > >  	kfree(mgr->payloads);
-> > > >  	mgr->payloads = NULL;
-> > > > diff --git a/include/drm/drm_dp_mst_helper.h
-> > > > b/include/drm/drm_dp_mst_helper.h
-> > > > index fc349204a71b..4a4507fe928d 100644
-> > > > --- a/include/drm/drm_dp_mst_helper.h
-> > > > +++ b/include/drm/drm_dp_mst_helper.h
-> > > > @@ -143,6 +143,12 @@ struct drm_dp_mst_branch {
-> > > >  	 */
-> > > >  	struct kref malloc_kref;
-> > > >  
-> > > > +	/**
-> > > > +	 * @destroy_next: linked-list entry used by
-> > > > +	 * drm_dp_delayed_destroy_work()
-> > > > +	 */
-> > > > +	struct list_head destroy_next;
-> > > > +
-> > > >  	u8 rad[8];
-> > > >  	u8 lct;
-> > > >  	int num_ports;
-> > > > @@ -575,18 +581,24 @@ struct drm_dp_mst_topology_mgr {
-> > > >  	struct work_struct tx_work;
-> > > >  
-> > > >  	/**
-> > > > -	 * @destroy_connector_list: List of to be destroyed connectors.
-> > > > +	 * @destroy_port_list: List of to be destroyed connectors.
-> > > > +	 */
-> > > > +	struct list_head destroy_port_list;
-> > > > +	/**
-> > > > +	 * @destroy_branch_device_list: List of to be destroyed branch
-> > > > +	 * devices.
-> > > >  	 */
-> > > > -	struct list_head destroy_connector_list;
-> > > > +	struct list_head destroy_branch_device_list;
-> > > >  	/**
-> > > > -	 * @destroy_connector_lock: Protects @connector_list.
-> > > > +	 * @delayed_destroy_lock: Protects @destroy_port_list and
-> > > > +	 * @destroy_branch_device_list.
-> > > >  	 */
-> > > > -	struct mutex destroy_connector_lock;
-> > > > +	struct mutex delayed_destroy_lock;
-> > > >  	/**
-> > > > -	 * @destroy_connector_work: Work item to destroy connectors. Needed to
-> > > > -	 * avoid locking inversion.
-> > > > +	 * @delayed_destroy_work: Work item to destroy MST port and branch
-> > > > +	 * devices, needed to avoid locking inversion.
-> > > >  	 */
-> > > > -	struct work_struct destroy_connector_work;
-> > > > +	struct work_struct delayed_destroy_work;
-> > > >  };
-> > > >  
-> > > >  int drm_dp_mst_topology_mgr_init(struct drm_dp_mst_topology_mgr *mgr,
-> > > > -- 
-> > > > 2.21.0
-> > > > 
-> > -- 
-> > Cheers,
-> > 	Lyude Paul
-> > 
-> 
-> -- 
-> Sean Paul, Software Engineer, Google / Chromium OS
-
--- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
+T24gMjAxOS0xMC0wNyA1OjU4IHAubS4sIENvbGluIEtpbmcgd3JvdGU6DQo+IEZyb206IENvbGlu
+IElhbiBLaW5nIDxjb2xpbi5raW5nQGNhbm9uaWNhbC5jb20+DQo+IA0KPiBEb24ndCBwb3B1bGF0
+ZSB0aGUgYXJyYXlzIG9uIHRoZSBzdGFjayBidXQgaW5zdGVhZCBtYWtlIHRoZW0NCj4gc3RhdGlj
+LiBNYWtlcyB0aGUgb2JqZWN0IGNvZGUgc21hbGxlciBieSAxNTggYnl0ZXMuDQo+IA0KPiBCZWZv
+cmU6DQo+ICAgIHRleHQJICAgZGF0YQkgICAgYnNzCSAgICBkZWMJICAgIGhleAlmaWxlbmFtZQ0K
+PiAgIDMyNDY4CSAgIDIwNzIJICAgICAgMAkgIDM0NTQwCSAgIDg2ZWMJZGlzcGxheS9kYy9iaW9z
+L2Jpb3NfcGFyc2VyLm8NCj4gICAyMjE5OAkgICAxMDg4CSAgICAgIDAJICAyMzI4NgkgICA1YWY2
+CWRpc3BsYXkvZGMvYmlvcy9iaW9zX3BhcnNlcjIubw0KPiAgIDIyMjc4CSAgIDEwNzYJICAgICAg
+MAkgIDIzMzU0CSAgIDViM2EJZGlzcGxheS9kYy9kY2UvZGNlX21lbV9pbnB1dC5vDQo+IA0KPiA4
+MTE4MA0KPiBBZnRlcjoNCj4gICAgdGV4dAkgICBkYXRhCSAgICBic3MJICAgIGRlYwkgICAgaGV4
+CWZpbGVuYW1lDQo+ICAgMzIzNDEJICAgMjEzNgkgICAgICAwCSAgMzQ0NzcJICAgODZhZAlkaXNw
+bGF5L2RjL2Jpb3MvYmlvc19wYXJzZXIubw0KPiAgIDIyMDcwCSAgIDExODQJICAgICAgMAkgIDIz
+MjU0CSAgIDVhZDYJZGlzcGxheS9kYy9iaW9zL2Jpb3NfcGFyc2VyMi5vDQo+ICAgMjIxMTkJICAg
+MTE3MgkgICAgICAwCSAgMjMyOTEJICAgNWFmYglkaXNwbGF5L2RjL2RjZS9kY2VfbWVtX2lucHV0
+Lm8NCj4gDQo+IChnY2MgdmVyc2lvbiA5LjIuMSwgYW1kNjQpDQo+IA0KPiBTaWduZWQtb2ZmLWJ5
+OiBDb2xpbiBJYW4gS2luZyA8Y29saW4ua2luZ0BjYW5vbmljYWwuY29tPg0KPiAtLS0NCj4gIGRy
+aXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9iaW9zL2Jpb3NfcGFyc2VyLmMgIHwgMiArLQ0K
+PiAgZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2Jpb3MvYmlvc19wYXJzZXIyLmMgfCAy
+ICstDQo+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvZGNlL2RjZV9tZW1faW5wdXQu
+YyB8IDIgKy0NCj4gIDMgZmlsZXMgY2hhbmdlZCwgMyBpbnNlcnRpb25zKCspLCAzIGRlbGV0aW9u
+cygtKQ0KPiANCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9i
+aW9zL2Jpb3NfcGFyc2VyLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvYmlvcy9i
+aW9zX3BhcnNlci5jDQo+IGluZGV4IDIyMWUwZjU2Mzg5Zi4uNjVhYjIyNWNmNTQyIDEwMDY0NA0K
+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvYmlvcy9iaW9zX3BhcnNlci5j
+DQo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9iaW9zL2Jpb3NfcGFyc2Vy
+LmMNCj4gQEAgLTI3NDUsNyArMjc0NSw3IEBAIHN0YXRpYyBlbnVtIGJwX3Jlc3VsdCBiaW9zX2dl
+dF9ib2FyZF9sYXlvdXRfaW5mbygNCj4gIAlzdHJ1Y3QgYmlvc19wYXJzZXIgKmJwOw0KPiAgCWVu
+dW0gYnBfcmVzdWx0IHJlY29yZF9yZXN1bHQ7DQo+ICANCj4gLQljb25zdCB1bnNpZ25lZCBpbnQg
+c2xvdF9pbmRleF90b192Ymlvc19pZFtNQVhfQk9BUkRfU0xPVFNdID0gew0KPiArCXN0YXRpYyBj
+b25zdCB1bnNpZ25lZCBpbnQgc2xvdF9pbmRleF90b192Ymlvc19pZFtNQVhfQk9BUkRfU0xPVFNd
+ID0gew0KDQpXb24ndCB0aGlzIGJyZWFrIHRoZSBtdWx0aS1HUFUgY2FzZSB3aGVyZSB5b3UnbGwg
+aGF2ZSBtdWx0aXBsZSBkcml2ZXINCmluc3RhbmNlcyB3aXRoIGRpZmZlcmVudCBsYXlvdXQ/DQoN
+CkhhcnJ5DQoNCj4gIAkJR0VORVJJQ09CSkVDVF9CUkFDS0VUX0xBWU9VVF9FTlVNX0lEMSwNCj4g
+IAkJR0VORVJJQ09CSkVDVF9CUkFDS0VUX0xBWU9VVF9FTlVNX0lEMiwNCj4gIAkJMCwgMA0KPiBk
+aWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2Jpb3MvYmlvc19wYXJz
+ZXIyLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvYmlvcy9iaW9zX3BhcnNlcjIu
+Yw0KPiBpbmRleCBkZmY2NWMwZmU4MmYuLjgwOWM0YTg5Yjg5OSAxMDA2NDQNCj4gLS0tIGEvZHJp
+dmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2Jpb3MvYmlvc19wYXJzZXIyLmMNCj4gKysrIGIv
+ZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2Jpb3MvYmlvc19wYXJzZXIyLmMNCj4gQEAg
+LTE4MzIsNyArMTgzMiw3IEBAIHN0YXRpYyBlbnVtIGJwX3Jlc3VsdCBiaW9zX2dldF9ib2FyZF9s
+YXlvdXRfaW5mbygNCj4gIAlzdHJ1Y3QgYmlvc19wYXJzZXIgKmJwOw0KPiAgCWVudW0gYnBfcmVz
+dWx0IHJlY29yZF9yZXN1bHQ7DQo+ICANCj4gLQljb25zdCB1bnNpZ25lZCBpbnQgc2xvdF9pbmRl
+eF90b192Ymlvc19pZFtNQVhfQk9BUkRfU0xPVFNdID0gew0KPiArCXN0YXRpYyBjb25zdCB1bnNp
+Z25lZCBpbnQgc2xvdF9pbmRleF90b192Ymlvc19pZFtNQVhfQk9BUkRfU0xPVFNdID0gew0KPiAg
+CQlHRU5FUklDT0JKRUNUX0JSQUNLRVRfTEFZT1VUX0VOVU1fSUQxLA0KPiAgCQlHRU5FUklDT0JK
+RUNUX0JSQUNLRVRfTEFZT1VUX0VOVU1fSUQyLA0KPiAgCQkwLCAwDQo+IGRpZmYgLS1naXQgYS9k
+cml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvZGNlL2RjZV9tZW1faW5wdXQuYyBiL2RyaXZl
+cnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9kY2UvZGNlX21lbV9pbnB1dC5jDQo+IGluZGV4IDhh
+YTkzN2Y0OTZjNC4uZWQwMDMxZDVlMDIxIDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0v
+YW1kL2Rpc3BsYXkvZGMvZGNlL2RjZV9tZW1faW5wdXQuYw0KPiArKysgYi9kcml2ZXJzL2dwdS9k
+cm0vYW1kL2Rpc3BsYXkvZGMvZGNlL2RjZV9tZW1faW5wdXQuYw0KPiBAQCAtMzk1LDcgKzM5NSw3
+IEBAIHN0YXRpYyB2b2lkIHByb2dyYW1fc2l6ZV9hbmRfcm90YXRpb24oDQo+ICB7DQo+ICAJY29u
+c3Qgc3RydWN0IHJlY3QgKmluX3JlY3QgPSAmcGxhbmVfc2l6ZS0+c3VyZmFjZV9zaXplOw0KPiAg
+CXN0cnVjdCByZWN0IGh3X3JlY3QgPSBwbGFuZV9zaXplLT5zdXJmYWNlX3NpemU7DQo+IC0JY29u
+c3QgdWludDMyX3Qgcm90YXRpb25fYW5nbGVzW1JPVEFUSU9OX0FOR0xFX0NPVU5UXSA9IHsNCj4g
+KwlzdGF0aWMgY29uc3QgdWludDMyX3Qgcm90YXRpb25fYW5nbGVzW1JPVEFUSU9OX0FOR0xFX0NP
+VU5UXSA9IHsNCj4gIAkJCVtST1RBVElPTl9BTkdMRV8wXSA9IDAsDQo+ICAJCQlbUk9UQVRJT05f
+QU5HTEVfOTBdID0gMSwNCj4gIAkJCVtST1RBVElPTl9BTkdMRV8xODBdID0gMiwNCj4gDQpfX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxp
+bmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVk
+ZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
