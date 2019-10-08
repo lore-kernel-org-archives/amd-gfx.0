@@ -1,29 +1,15 @@
-From: Lyude Paul <lyude-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>
-Subject: Re: [PATCH 13/14] drm/amd/display: Recalculate VCPI slots for new
- DSC connectors
-Date: Tue, 08 Oct 2019 12:41:39 -0400
-Message-ID: <3ed6c187103cc92d993c9ff7639228b51cf24891.camel@redhat.com>
-References: <20191001161721.13793-1-mikita.lipski@amd.com>
- <20191001161721.13793-2-mikita.lipski@amd.com>
- <20191001161721.13793-3-mikita.lipski@amd.com>
- <20191001161721.13793-4-mikita.lipski@amd.com>
- <20191001161721.13793-5-mikita.lipski@amd.com>
- <20191001161721.13793-6-mikita.lipski@amd.com>
- <20191001161721.13793-7-mikita.lipski@amd.com>
- <20191001161721.13793-8-mikita.lipski@amd.com>
- <20191001161721.13793-9-mikita.lipski@amd.com>
- <20191001161721.13793-10-mikita.lipski@amd.com>
- <20191001161721.13793-11-mikita.lipski@amd.com>
- <20191001161721.13793-12-mikita.lipski@amd.com>
- <20191001161721.13793-13-mikita.lipski@amd.com>
- <20191001161721.13793-14-mikita.lipski@amd.com>
- <7dbc168013be604ade84b374051a990175d8724e.camel@redhat.com>
- <033d162a18f61874c4489d1249fd618becb9cd60.camel@redhat.com>
+From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amd/display: Use pixel encoding 444 for dongle usb-c
+ to hdmi
+Date: Tue, 8 Oct 2019 17:28:44 +0000
+Message-ID: <DM5PR12MB1820556F9855FDC376F4B6DDF79A0@DM5PR12MB1820.namprd12.prod.outlook.com>
+References: <20191001222123.2392-1-jisorce@oblong.com>,
+ <CAHWPjbWcdhnewEN8OEUgDu5aBpYBW5tUggA_KJ_BUR8JLvCsQw@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0510463134=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <033d162a18f61874c4489d1249fd618becb9cd60.camel-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>
+In-Reply-To: <CAHWPjbWcdhnewEN8OEUgDu5aBpYBW5tUggA_KJ_BUR8JLvCsQw-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -34,200 +20,206 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: mikita.lipski-5C7GfCeVMHo@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Dave Airlie <airlied-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, Jerry Zuo <Jerry.Zuo-5C7GfCeVMHo@public.gmane.org>, Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: Julien Isorce <julien.isorce-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Wentland, Harry" <Harry.Wentland-5C7GfCeVMHo@public.gmane.org>, "Kazlauskas, Nicholas" <Nicholas.Kazlauskas-5C7GfCeVMHo@public.gmane.org>, "Li, Sun peng (Leo)" <Sunpeng.Li-5C7GfCeVMHo@public.gmane.org>
 
-T24gVHVlLCAyMDE5LTEwLTA4IGF0IDEyOjI0IC0wNDAwLCBMeXVkZSBQYXVsIHdyb3RlOgo+IC4u
-Lgo+IHlpa2VzCj4gSSBuZWVkIHRvIGFwb2xvZ2l6ZSBiZWNhdXNlIEkgd2FzIGdvaW5nIHRocm91
-Z2ggbXkgZW1haWwgYW5kIEkgcmVhbGl6ZWQgeW91Cj4gX2RpZF8gcmVzcG9uZCB0byBtZSBlYXJs
-aWVyIHJlZ2FyZGluZyBzb21lIG9mIHRoZXNlIHF1ZXN0aW9ucywgaXQganVzdAo+IGFwcGVhcnMK
-PiB0aGUgcmVwbHkgZmVsbCB0aHJvdWdoIHRoZSBjcmFja3MgYW5kIHNvbWVob3cgSSBkaWRuJ3Qg
-bm90aWNlIGl0IHVudGlsIGp1c3QKPiBub3cuIFNvcnJ5IGFib3V0IHRoYXQhCgpSZWZlcnJpbmcg
-dG8gdGhpcyByZXNwb25zZSwgamZ5aToKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvYXJj
-aGl2ZXMvYW1kLWdmeC8yMDE5LU9jdG9iZXIvMDQwNjgzLmh0bWwKCihzb3JyeSBhZ2FpbiBmb3Ig
-cmVwbHlpbmcgYmVmb3JlIHJlYWRpbmcgdGhhdCEpCj4gCj4gSSdtIHN0aWxsIG5vdCBzdXJlIEkg
-dW5kZXJzdGFuZCB3aHkgdGhpcyBpcyBhIGZ1dHVyZSBlbmhhbmNlbWVudD8gRXZlcnl0aGluZwo+
-IHdlIG5lZWQgdG8gaW1wbGVtZW50IHRoZXNlIGhlbHBlcnMgc2hvdWxkIGFscmVhZHkgYmUgaGVy
-ZSwgaXQncyBqdXN0IGEKPiBtYXR0ZXIKPiBvZiBrZWVwaW5nIHRyYWNrIHdobyBoYXMgZHNjIGVu
-YWJsZWQgd2hlcmUgaW4gdGhlIG1zdCBhdG9taWMgc3RhdGUKPiAKPiBPbiBNb24sIDIwMTktMTAt
-MDcgYXQgMTc6NTIgLTA0MDAsIEx5dWRlIFBhdWwgd3JvdGU6Cj4gPiBPaywgbGV0J3Mgc3RvcCBh
-bmQgc2xvdyBkb3duIGZvciBhIG1pbnV0ZSBoZXJlIHNpbmNlIEkndmUgcmVwZWF0ZWQgbXlzZWxm
-Cj4gPiBhCj4gPiBmZXcgdGltZXMsIGFuZCBJJ2QgbGlrZSB0byBmaWd1cmUgb3V0IHdoYXQncyBh
-Y3R1YWxseSBoYXBwZW5pbmcgaGVyZSBhbmQKPiA+IHdoZXRoZXIgSSdtIG5vdCBiZWluZyBjbGVh
-ciBlbm91Z2ggd2l0aCBteSBleHBsYW5hdGlvbnMsIG9yIGlmIHRoZXJlJ3MKPiA+IGp1c3QKPiA+
-IHNvbWUgbWlzdW5kZXJzdGFuZGluZyBoZXJlLgo+ID4gCj4gPiBJJ2xsIHN0YXJ0IG9mIGJ5IHRy
-eWluZyBteSBiZXN0IHRvIGV4cGxhaW4gbXkgaGVzaXN0YW5jZSBpbiBhY2NlcHRpbmcKPiA+IHRo
-ZXNlCj4gPiBwYXRjaGVzLiBUbyBiZSBjbGVhciwgTVNUIHdpdGggRFNDIGlzIGEgYmlnIHRoaW5n
-IGluIHRlcm1zIG9mIGltcGFjdC4KPiA+IFRoZXJlJ3MKPiA+IGEgbG90IG9mIHRoaW5ncyB0byBj
-b25zaWRlcjoKPiA+ICAqIFdoYXQgc2hvdWxkIHRoZSBkZWZhdWx0IERTQyBwb2xpY3kgZm9yIE1T
-VCBiZT8gU2hvdWxkIHdlIGtlZXAgaXQgb24gYnkKPiA+ICAgIGRlZmF1bHQgc28gdGhhdCB3ZSBk
-b24ndCBuZWVkIHRvIHRyaWdnZXIgYSBsYXJnZSBudW1iZXIgb2YgUEJOCj4gPiAgICByZWNhbGN1
-bGF0aW9ucyBhbmQgZW5hYmxlIERTQyBvbiBhIHBlci1jYXNlIGJhc2lzLCBvciBhcmUgdGhlcmUK
-PiA+IGxlZ2l0aW1hdGUKPiA+ICAgIHJlYXNvbnMgdG8ga2VlcCBEU0Mgb2ZmIGJ5IGRlZmF1bHQg
-KHN1Y2ggYXMgcG90ZW50aWFsIGlzc3VlcyB3aXRoCj4gPiBsb3NzaW5lc3MKPiA+ICAgIGRvd24g
-dGhlIGxpbmUpLgo+ID4gICogV2UgaGF2ZSBvdGhlciBkcml2ZXJzIGluIHRoZSB0cmVlIHRoYXQg
-YXJlIHBsYW5uaW5nIG9uIGltcGxlbWVudGluZyBNU1QKPiA+IERTQwo+ID4gICAgcXVpdGUgc29v
-bi4gQ2hhbmNlcyBhcmUgdGhleSdsbCBiZSBpbXBsZW1lbnRpbmcgaGVscGVycyB0byBkbyB0aGlz
-IHNvCj4gPiB0aGlzCj4gPiAgICBjYW4gYmUgc3VwcG9ydGVkIGFjcm9zcyB0aGUgRFJNIHRyZWUs
-IGFuZCBjaGFuY2VzIGFyZSB3ZSdsbCBqdXN0IGhhdmUKPiA+IHRvCj4gPiAgICByZXdyaXRlIGFu
-ZCByZW1vdmUgbW9zdCBvZiB0aGlzIGNvZGUgaW4gdGhhdCBjYXNlIG9uY2UgdGhleSBkby4KPiA+
-ICAqIGFtZGdwdSBhbHJlYWR5IGhhcyBhIF9sb3RfIG9mIGNvZGUgdGhhdCBkb2Vzbid0IG5lZWQg
-dG8sIGFuZCBzaG91bGRuJ3QKPiA+IGJlCj4gPiAgICB0aGVyZS4gVGhpcyByYW5nZXMgZnJvbSB2
-YXJpb3VzIERDIHNwZWNpZmljIGhlbHBlcnMgdGhhdCBhcmUKPiA+IGVzc2VudGlhbGx5Cj4gPiAg
-ICB0aGUgc2FtZSBhcyB0aGUgaGVscGVycyB0aGF0IHdlIGFscmVhZHkgaW1wbGVtZW50IGluIHRo
-ZSByZXN0IG9mIERSTSwKPiA+IHRvCj4gPiAgICBtaXN1c2VzIG9mIHZhcmlvdXMga2VybmVsIEFQ
-SXMsIGFuZCBhIGNvbXBsZXRlIGxhY2sgb2YgYW55IGtpbmQgb2YgY29kZQo+ID4gICAgc3R5bGUg
-KGF0IGxlYXN0IHRoZSBsYXN0IHRpbWUgdGhhdCBJIGNoZWNrZWQpIGluIG9yIG91dCBvZiBEQy4g
-VGhpcwo+ID4gbWFrZXMKPiA+ICAgIHRoZSBkcml2ZXIgbW9yZSBkaWZmaWN1bHQgZm9yIHBlb3Bs
-ZSB3aG8gZG9uJ3Qgd29yayBhdCBBTUQgYnV0IGFyZSB3ZWxsCj4gPiAgICBhY2N1c3RvbWVkIHRv
-IHdvcmtpbmcgb24gdGhlIHJlc3Qgb2YgdGhlIGtlcm5lbCwgZS5nLiBteXNlbGYgYW5kCj4gPiBv
-dGhlcnMsCj4gPiAgICBhbmQgaXQncyBhIHByb2JsZW0gdGhhdCBzZXJpb3VzbHkgbmVlZHMgdG8g
-YmUgc29sdmVkLiBBZGRpbmcgbW9yZQo+ID4gcmVkdW5kYW50Cj4gPiAgICBEUCBoZWxwZXJzIHRo
-YXQgd2lsbCBpbmV2aXRhYmx5IGdldCByZW1vdmVkIGlzIGp1c3QgbWFraW5nIHRoZSBwcm9ibGVt
-Cj4gPiAgICB3b3JzZS4KPiA+IAo+ID4gV2l0aCBhbGwgb2YgdGhpcyBiZWluZyBzYWlkOiBJJ3Zl
-IGJlZW4gYXNraW5nIHRoZSBzYW1lIHF1ZXN0aW9ucyBhYm91dAo+ID4gdGhpcwo+ID4gcGF0Y2gg
-dGhyb3VnaG91dCB0aGUgd2hvbGUgcGF0Y2ggc2VyaWVzIHNvIGZhciAoc2luY2UgaXQgZ290IHBh
-c3NlZCBvZmYgdG8KPiA+IHlvdQo+ID4gZnJvbSBEYXZpZCdzIGludGVybnNoaXAgZW5kaW5nKToK
-PiA+IAo+ID4gICogQ2FuIHdlIGtlZXAgRFNDIGVuYWJsZWQgYnkgZGVmYXVsdCwgc28gdGhhdCB0
-aGVzZSBwYXRjaGVzIGFyZW4ndAo+ID4gbmVlZGVkPwo+ID4gICogSWYgd2UgY2FuJ3QsIGNhbiB3
-ZSBtb3ZlIHRoaXMgaW50byBjb21tb24gY29kZSBzbyB0aGF0IG90aGVyIGRyaXZlcnMKPiA+IGNh
-bgo+ID4gICAgdXNlIGl0Pwo+ID4gVGhlIHByb2JsZW0gaXMgSSBoYXZlbid0IHJlY2VpdmVkIGFu
-eSByZXNwb25zZXMgdG8gdGhlc2UgcXVlc3Rpb25zLCBvdGhlcgo+ID4gdGhlbgo+ID4gYmVpbmcg
-dG9sZCBieSBEYXZpZCBhIG1vbnRoIG9yIHR3byBhZ28gdGhhdCBpdCB3b3VsZCBiZSBleHBlZGll
-bnQgdG8ganVzdAo+ID4gYWNjZXB0IHRoZSBwYXRjaGVzIGFuZCBtb3ZlIG9uLiBIb25lc3RseSwg
-aWYgZGlzY3Vzc2lvbiBoYWQgYmVlbiBoYWQgYWJvdXQKPiA+IHRoZQo+ID4gY2hhbmdlcyBJIHJl
-cXVlc3RlZCwgSSB3b3VsZCBoYXZlIGdpdmVuIG15IHItYiBhIGxvbmcgdGltZSBhZ28uIEluIGZh
-Y3QtSQo+ID4gcmVhbGx5IHdhbnQgdG8gZ2l2ZSBpdCBub3chIFRoZXJlJ3MgbXVsdGlwbGUgcGF0
-Y2hlcyBpbiB0aGlzIHNlcmllcyB0aGF0Cj4gPiB3b3VsZAo+ID4gYmUgdmVyeSB1c2VmdWwgZm9y
-IG90aGVyIHRoaW5ncyB0aGF0IGFyZSBiZWluZyB3b3JrZWQgb24gYXQgdGhlIG1vbWVudCwKPiA+
-IHN1Y2gKPiA+IGFzIHRoZSBjaGFuZ2VzIHRvIGRybV9kcF9kcGNkX3JlYWQvZHJtX2RwX2RwY2Rf
-d3JpdGUoKS4gQnV0IEkgcmVhbGx5IHRoaW5rCj4gPiB0aGlzIG5lZWRzIHRvIGJlIGRpc2N1c3Nl
-ZCBmaXJzdCwgYW5kIEknbSB3b3JyaWVkIHRoYXQganVzdCBnb2luZyBhaGVhZAo+ID4gYW5kCj4g
-PiBnaXZpbmcgbXkgUi1CIGJlZm9yZSB0aGV5IGhhdmUgYmVlbiBkaXNjdXNzZWQgd2lsbCBmdXJ0
-aGVyIGVuY291cmFnZQo+ID4gcnVzaGluZwo+ID4gY2hhbmdlcyBsaWtlIHRoaXMgaW4gdGhlIGZ1
-dHVyZSBhbmQgY29udGludWFsbHkgYnVpbGRpbmcgbW9yZSB0ZWNoIGRlYnQKPiA+IGZvcgo+ID4g
-b3Vyc2VsdmVzLgo+ID4gCj4gPiBQbGVhc2Ugbm90ZSBhcyB3ZWxsOiBpZiBhbnl0aGluZyBJJ3Zl
-IGFza2VkIGZvciBpcyBjb25mdXNpbmcsIG9yIHlvdSBkb24ndAo+ID4gdW5kZXJzdGFuZCB3aGF0
-IEknbSBhc2tpbmcgb3IgbG9va2luZyBmb3IgSSBhbSBtb3JlIHRoZW4gd2lsbGluZyB0byBoZWxw
-Cj4gPiBleHBsYWluIHRoaW5ncyBhbmQgaGVscCBvdXQgYXMgYmVzdCBhcyBJIGNhbi4gSSB1bmRl
-cnN0YW5kIHRoYXQgYSBsb3Qgb2YKPiA+IHRoZQo+ID4gZGV2ZWxvcGVycyB3b3JraW5nIG9uIERS
-TSBhdCBBTUQgbWF5IGhhdmUgbW9yZSBleHBlcmllbmNlIGluIFdpbmRvd3MgYW5kCj4gPiBNYWMK
-PiA+IGxhbmQgYW5kIGFzIGEgcmVzdWx0LCB0cnlpbmcgdG8gZ2V0IHVzZWQgdG8gdGhlIHdheSB0
-aGF0IHdlIGRvIHRoaW5ncyBpbgo+ID4gdGhlCj4gPiBMaW51eCBrZXJuZWwgY2FuIGJlIGEgY29u
-ZnVzaW5nIGVuZGVhdm9yLiBJJ20gbW9yZSB0aGVuIGhhcHB5IHRvIGhlbHAgb3V0Cj4gPiB3aXRo
-Cj4gPiB0aGlzIHdoZXJldmVyIEkgY2FuLCBhbGwgeW91IG5lZWQgdG8gZG8gaXMgYXNrLiBBc2tp
-bmcgYSBmZXcgcXVlc3Rpb25zCj4gPiBhYm91dAo+ID4gc29tZXRoaW5nIHlvdSBhcmVuJ3Qgc3Vy
-ZSB5b3UgdW5kZXJzdGFuZCBjYW4gc2F2ZSBib3RoIG9mIHVzIGEgbG90IG9mCj4gPiB0aW1lLAo+
-ID4gYW5kIGF2b2lkIGhhdmluZyB0byBnbyB0aHJvdWdoIHRoaXMgbWFueSBwYXRjaCByZXNwaW5z
-Lgo+ID4gCj4gPiBJbiB0aGUgbWVhbiB0aW1lLCBJJ2QgYmUgd2lsbGluZyB0byBsb29rIGF0IHdo
-YXQgcGF0Y2hlcyBmcm9tIHRoaXMgc2VyaWVzCj4gPiB0aGF0Cj4gPiBoYXZlIGFscmVhZHkgYmVl
-biByZXZpZXdlZCB3aGljaCBjb3VsZCBiZSBwdXNoZWQgdG8gZHJtLW1pc2Mgb3IgZnJpZW5kcyBp
-bgo+ID4gdGhlCj4gPiBtZWFuIHRpbWUgdG8gc3BlZWQgdGhpbmdzIHVwIGEgYml0Lgo+ID4gCj4g
-PiBPbiBUdWUsIDIwMTktMTAtMDEgYXQgMTI6MTcgLTA0MDAsIG1pa2l0YS5saXBza2lAYW1kLmNv
-bSB3cm90ZToKPiA+ID4gRnJvbTogTWlraXRhIExpcHNraSA8bWlraXRhLmxpcHNraUBhbWQuY29t
-Pgo+ID4gPiAKPiA+ID4gU2luY2UgZm9yIERTQyBNU1QgY29ubmVjdG9yJ3MgUEJOIGlzIGNsYWN1
-bGF0ZWQgZGlmZmVyZW50bHkKPiA+ID4gZHVlIHRvIGNvbXByZXNzaW9uLCB3ZSBoYXZlIHRvIHJl
-Y2FsY3VsYXRlIGJvdGggUEJOIGFuZAo+ID4gPiBWQ1BJIHNsb3RzIGZvciB0aGF0IGNvbm5lY3Rv
-ci4KPiA+ID4gCj4gPiA+IFRoaXMgcGF0Y2ggcHJvcG9zZXMgdG8gdXNlIHNpbWlsYWlyIGxvZ2lj
-IGFzIGluCj4gPiA+IGRtX2VuY29kZXJfaGVscGVyX2F0b21pY19jaGVrLCBidXQgc2luY2Ugd2Ug
-ZG8gbm90IGtub3cgd2hpY2gKPiA+ID4gY29ubmVjdG9ycyB3aWxsIGhhdmUgRFNDIGVuYWJsZWQg
-d2UgaGF2ZSB0byByZWNhbGN1bGF0ZSBQQk4gb25seQo+ID4gPiBhZnRlciB0aGF0J3MgZGV0ZXJt
-aW5lZCwgd2hpY2ggaXMgZG9uZSBpbgo+ID4gPiBjb21wdXRlX21zdF9kc2NfY29uZmlnc19mb3Jf
-c3RhdGUuCj4gPiA+IAo+ID4gPiBDYzogSmVycnkgWnVvIDxKZXJyeS5adW9AYW1kLmNvbT4KPiA+
-ID4gQ2M6IEhhcnJ5IFdlbnRsYW5kIDxoYXJyeS53ZW50bGFuZEBhbWQuY29tPgo+ID4gPiBDYzog
-THl1ZGUgUGF1bCA8bHl1ZGVAcmVkaGF0LmNvbT4KPiA+ID4gU2lnbmVkLW9mZi1ieTogTWlraXRh
-IExpcHNraSA8bWlraXRhLmxpcHNraUBhbWQuY29tPgo+ID4gPiAtLS0KPiA+ID4gIC4uLi9ncHUv
-ZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG0uYyB8IDY0ICsrKysrKysrKysrKysr
-KysrLS0KPiA+ID4gIC4uLi9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtX2hlbHBlcnMu
-YyB8ICA2IC0tCj4gPiA+ICAyIGZpbGVzIGNoYW5nZWQsIDU5IGluc2VydGlvbnMoKyksIDExIGRl
-bGV0aW9ucygtKQo+ID4gPiAKPiA+ID4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-ZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtLmMKPiA+ID4gYi9kcml2ZXJzL2dwdS9kcm0vYW1k
-L2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5jCj4gPiA+IGluZGV4IDgxZTMwOTE4ZjllYy4u
-NzUwMWNlMjIzM2VkIDEwMDY0NAo+ID4gPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3Bs
-YXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5jCj4gPiA+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-ZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtLmMKPiA+ID4gQEAgLTQ1NjksNiArNDU2OSwyNyBA
-QCBzdGF0aWMgdm9pZCBkbV9lbmNvZGVyX2hlbHBlcl9kaXNhYmxlKHN0cnVjdAo+ID4gPiBkcm1f
-ZW5jb2RlciAqZW5jb2RlcikKPiA+ID4gIAo+ID4gPiAgfQo+ID4gPiAgCj4gPiA+ICtzdGF0aWMg
-aW50IGNvbnZlcnRfZGNfY29sb3JfZGVwdGhfaW50b19icGMgKGVudW0gZGNfY29sb3JfZGVwdGgK
-PiA+ID4gZGlzcGxheV9jb2xvcl9kZXB0aCkKPiA+ID4gK3sKPiA+ID4gKwlzd2l0Y2ggKGRpc3Bs
-YXlfY29sb3JfZGVwdGgpIHsKPiA+ID4gKwkJY2FzZSBDT0xPUl9ERVBUSF82NjY6Cj4gPiA+ICsJ
-CQlyZXR1cm4gNjsKPiA+ID4gKwkJY2FzZSBDT0xPUl9ERVBUSF84ODg6Cj4gPiA+ICsJCQlyZXR1
-cm4gODsKPiA+ID4gKwkJY2FzZSBDT0xPUl9ERVBUSF8xMDEwMTA6Cj4gPiA+ICsJCQlyZXR1cm4g
-MTA7Cj4gPiA+ICsJCWNhc2UgQ09MT1JfREVQVEhfMTIxMjEyOgo+ID4gPiArCQkJcmV0dXJuIDEy
-Owo+ID4gPiArCQljYXNlIENPTE9SX0RFUFRIXzE0MTQxNDoKPiA+ID4gKwkJCXJldHVybiAxNDsK
-PiA+ID4gKwkJY2FzZSBDT0xPUl9ERVBUSF8xNjE2MTY6Cj4gPiA+ICsJCQlyZXR1cm4gMTY7Cj4g
-PiA+ICsJCWRlZmF1bHQ6Cj4gPiA+ICsJCQlicmVhazsKPiA+ID4gKwkJfQo+ID4gPiArCXJldHVy
-biAwOwo+ID4gPiArfQo+ID4gPiArCj4gPiA+ICBzdGF0aWMgaW50IGRtX2VuY29kZXJfaGVscGVy
-X2F0b21pY19jaGVjayhzdHJ1Y3QgZHJtX2VuY29kZXIgKmVuY29kZXIsCj4gPiA+ICAJCQkJCSAg
-c3RydWN0IGRybV9jcnRjX3N0YXRlICpjcnRjX3N0YXRlLAo+ID4gPiAgCQkJCQkgIHN0cnVjdCBk
-cm1fY29ubmVjdG9yX3N0YXRlCj4gPiA+ICpjb25uX3N0YXRlKQo+ID4gPiBAQCAtNDYxNiw2ICs0
-NjM3LDM2IEBAIGNvbnN0IHN0cnVjdCBkcm1fZW5jb2Rlcl9oZWxwZXJfZnVuY3MKPiA+ID4gYW1k
-Z3B1X2RtX2VuY29kZXJfaGVscGVyX2Z1bmNzID0gewo+ID4gPiAgCS5hdG9taWNfY2hlY2sgPSBk
-bV9lbmNvZGVyX2hlbHBlcl9hdG9taWNfY2hlY2sKPiA+ID4gIH07Cj4gPiA+ICAKPiA+ID4gKyNp
-ZmRlZiBDT05GSUdfRFJNX0FNRF9EQ19EU0NfU1VQUE9SVAo+ID4gPiArc3RhdGljIGludCBkbV91
-cGRhdGVfbXN0X3ZjcGlfc2xvdHNfZm9yX2RzYyhzdHJ1Y3QgZHJtX2F0b21pY19zdGF0ZQo+ID4g
-PiAqc3RhdGUsCj4gPiA+ICsJCQkJCSAgICBzdHJ1Y3QgZGNfc3RhdGUgKmRjX3N0YXRlKQo+ID4g
-PiArewo+ID4gPiArCXN0cnVjdCBkY19zdHJlYW1fc3RhdGUgKnN0cmVhbTsKPiA+ID4gKwlzdHJ1
-Y3QgYW1kZ3B1X2RtX2Nvbm5lY3RvciAqYWNvbm5lY3RvcjsKPiA+ID4gKwlpbnQgaSwgY2xvY2sg
-PSAwLCBicHAgPSAwOwo+ID4gPiArCj4gPiA+ICsJZm9yIChpID0gMDsgaSA8IGRjX3N0YXRlLT5z
-dHJlYW1fY291bnQ7IGkrKykgewo+ID4gPiArCQlzdHJlYW0gPSBkY19zdGF0ZS0+c3RyZWFtc1tp
-XTsKPiA+ID4gKwkJYWNvbm5lY3RvciA9IChzdHJ1Y3QgYW1kZ3B1X2RtX2Nvbm5lY3RvciAqKXN0
-cmVhbS0KPiA+ID4gPiBkbV9zdHJlYW1fY29udGV4dDsKPiA+ID4gKwo+ID4gPiArCQlpZiAoc3Ry
-ZWFtICYmIHN0cmVhbS0+dGltaW5nLmZsYWdzLkRTQyA9PSAxKSB7Cj4gPiA+ICsJCQlicHAgPSBj
-b252ZXJ0X2RjX2NvbG9yX2RlcHRoX2ludG9fYnBjKHN0cmVhbS0KPiA+ID4gPiB0aW1pbmcuZGlz
-cGxheV9jb2xvcl9kZXB0aCkqIDM7Cj4gPiA+ICsJCQljbG9jayA9IHN0cmVhbS0+dGltaW5nLnBp
-eF9jbGtfMTAwaHogLyAxMDsKPiA+ID4gKwo+ID4gPiArCQkJYWNvbm5lY3Rvci0+cGJuID0gZHJt
-X2RwX2NhbGNfcGJuX21vZGUoY2xvY2ssIGJwcCwKPiA+ID4gdHJ1ZSk7Cj4gPiA+ICsKPiA+ID4g
-KwkJCWFjb25uZWN0b3ItPnZjcGlfc2xvdHMgPQo+ID4gPiBkcm1fZHBfYXRvbWljX2ZpbmRfdmNw
-aV9zbG90cyhzdGF0ZSwKPiA+ID4gKwkJCQkJCQkgICZhY29ubmVjdG9yLQo+ID4gPiA+IG1zdF9w
-b3J0LT5tc3RfbWdyLAo+ID4gPiArCQkJCQkJCSAgYWNvbm5lY3Rvci0+cG9ydCwKPiA+ID4gKwkJ
-CQkJCQkgIGFjb25uZWN0b3ItPnBibik7Cj4gPiA+ICsJCQlpZiAoYWNvbm5lY3Rvci0+dmNwaV9z
-bG90cyA8IDApCj4gPiA+ICsJCQkJcmV0dXJuIGFjb25uZWN0b3ItPnZjcGlfc2xvdHM7Cj4gPiA+
-ICsJCX0KPiA+ID4gKwl9Cj4gPiA+ICsJcmV0dXJuIDA7Cj4gPiA+ICt9Cj4gPiA+ICsjZW5kaWYK
-PiA+ID4gKwo+ID4gPiAgc3RhdGljIHZvaWQgZG1fZHJtX3BsYW5lX3Jlc2V0KHN0cnVjdCBkcm1f
-cGxhbmUgKnBsYW5lKQo+ID4gPiAgewo+ID4gPiAgCXN0cnVjdCBkbV9wbGFuZV9zdGF0ZSAqYW1k
-Z3B1X3N0YXRlID0gTlVMTDsKPiA+ID4gQEAgLTc2MjksMTEgKzc2ODAsNiBAQCBzdGF0aWMgaW50
-IGFtZGdwdV9kbV9hdG9taWNfY2hlY2soc3RydWN0Cj4gPiA+IGRybV9kZXZpY2UKPiA+ID4gKmRl
-diwKPiA+ID4gIAlpZiAocmV0KQo+ID4gPiAgCQlnb3RvIGZhaWw7Cj4gPiA+ICAKPiA+ID4gLQkv
-KiBQZXJmb3JtIHZhbGlkYXRpb24gb2YgTVNUIHRvcG9sb2d5IGluIHRoZSBzdGF0ZSovCj4gPiA+
-IC0JcmV0ID0gZHJtX2RwX21zdF9hdG9taWNfY2hlY2soc3RhdGUpOwo+ID4gPiAtCWlmIChyZXQp
-Cj4gPiA+IC0JCWdvdG8gZmFpbDsKPiA+ID4gLQo+ID4gPiAgCWlmIChzdGF0ZS0+bGVnYWN5X2N1
-cnNvcl91cGRhdGUpIHsKPiA+ID4gIAkJLyoKPiA+ID4gIAkJICogVGhpcyBpcyBhIGZhc3QgY3Vy
-c29yIHVwZGF0ZSBjb21pbmcgZnJvbSB0aGUgcGxhbmUgdXBkYXRlCj4gPiA+IEBAIC03NzA1LDYg
-Kzc3NTEsMTAgQEAgc3RhdGljIGludCBhbWRncHVfZG1fYXRvbWljX2NoZWNrKHN0cnVjdAo+ID4g
-PiBkcm1fZGV2aWNlCj4gPiA+ICpkZXYsCj4gPiA+ICAjaWZkZWYgQ09ORklHX0RSTV9BTURfRENf
-RFNDX1NVUFBPUlQKPiA+ID4gIAkJaWYgKCFjb21wdXRlX21zdF9kc2NfY29uZmlnc19mb3Jfc3Rh
-dGUoZG1fc3RhdGUtPmNvbnRleHQpKQo+ID4gPiAgCQkJZ290byBmYWlsOwo+ID4gPiArCj4gPiA+
-ICsJCXJldCA9IGRtX3VwZGF0ZV9tc3RfdmNwaV9zbG90c19mb3JfZHNjKHN0YXRlLCBkbV9zdGF0
-ZS0KPiA+ID4gPiBjb250ZXh0KTsKPiA+ID4gKwkJaWYgKHJldCkKPiA+ID4gKwkJCWdvdG8gZmFp
-bDsKPiA+ID4gICNlbmRpZgo+ID4gPiAgCQlpZiAoZGNfdmFsaWRhdGVfZ2xvYmFsX3N0YXRlKGRj
-LCBkbV9zdGF0ZS0+Y29udGV4dCwgZmFsc2UpICE9Cj4gPiA+IERDX09LKSB7Cj4gPiA+ICAJCQly
-ZXQgPSAtRUlOVkFMOwo+ID4gPiBAQCAtNzczNCw2ICs3Nzg0LDEwIEBAIHN0YXRpYyBpbnQgYW1k
-Z3B1X2RtX2F0b21pY19jaGVjayhzdHJ1Y3QKPiA+ID4gZHJtX2RldmljZQo+ID4gPiAqZGV2LAo+
-ID4gPiAgCQkJCWRjX3JldGFpbl9zdGF0ZShvbGRfZG1fc3RhdGUtPmNvbnRleHQpOwo+ID4gPiAg
-CQl9Cj4gPiA+ICAJfQo+ID4gPiArCS8qIFBlcmZvcm0gdmFsaWRhdGlvbiBvZiBNU1QgdG9wb2xv
-Z3kgaW4gdGhlIHN0YXRlKi8KPiA+ID4gKwlyZXQgPSBkcm1fZHBfbXN0X2F0b21pY19jaGVjayhz
-dGF0ZSk7Cj4gPiA+ICsJaWYgKHJldCkKPiA+ID4gKwkJZ290byBmYWlsOwo+ID4gPiAgCj4gPiA+
-ICAJLyogU3RvcmUgdGhlIG92ZXJhbGwgdXBkYXRlIHR5cGUgZm9yIHVzZSBsYXRlciBpbiBhdG9t
-aWMgY2hlY2suICovCj4gPiA+ICAJZm9yX2VhY2hfbmV3X2NydGNfaW5fc3RhdGUgKHN0YXRlLCBj
-cnRjLCBuZXdfY3J0Y19zdGF0ZSwgaSkgewo+ID4gPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUv
-ZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG1faGVscGVycy5jCj4gPiA+IGIvZHJp
-dmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG1faGVscGVycy5jCj4g
-PiA+IGluZGV4IGJkNjk0NDk5ZTNkZS4uM2U0NGUyZGEyZDBkIDEwMDY0NAo+ID4gPiAtLS0gYS9k
-cml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbV9oZWxwZXJzLmMK
-PiA+ID4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVf
-ZG1faGVscGVycy5jCj4gPiA+IEBAIC0yMDEsMTIgKzIwMSw2IEBAIGJvb2wKPiA+ID4gZG1faGVs
-cGVyc19kcF9tc3Rfd3JpdGVfcGF5bG9hZF9hbGxvY2F0aW9uX3RhYmxlKAo+ID4gPiAgCW1zdF9w
-b3J0ID0gYWNvbm5lY3Rvci0+cG9ydDsKPiA+ID4gIAo+ID4gPiAgCWlmIChlbmFibGUpIHsKPiA+
-ID4gLQo+ID4gPiAtCQkvKiBDb252ZXJ0IGtpbG9iaXRzIHBlciBzZWNvbmQgLyA2NCAoZm9yIDY0
-IHRpbWVzbG90cykgdG8gcGJuCj4gPiA+ICg1NC82NCBtZWdhYnl0ZXMgcGVyIHNlY29uZCkgKi8K
-PiA+ID4gLQkJcGJuX3Blcl90aW1lc2xvdCA9IGRjX2xpbmtfYmFuZHdpZHRoX2ticHMoCj4gPiA+
-IC0JCQkJc3RyZWFtLT5saW5rLCBkY19saW5rX2dldF9saW5rX2NhcChzdHJlYW0tCj4gPiA+ID4g
-bGluaykpIC8gKDggKiAxMDAwICogNTQpOwo+ID4gPiAtCQlhY29ubmVjdG9yLT52Y3BpX3Nsb3Rz
-ID0gRElWX1JPVU5EX1VQKGFjb25uZWN0b3ItPnBibiwKPiA+ID4gcGJuX3Blcl90aW1lc2xvdCk7
-Cj4gPiA+IC0KPiA+ID4gIAkJcmV0ID0gZHJtX2RwX21zdF9hbGxvY2F0ZV92Y3BpKG1zdF9tZ3Is
-IG1zdF9wb3J0LAo+ID4gPiAgCQkJCQkgICAgICAgYWNvbm5lY3Rvci0+cGJuLAo+ID4gPiAgCQkJ
-CQkgICAgICAgYWNvbm5lY3Rvci0+dmNwaV9zbG90cyk7Ci0tIApDaGVlcnMsCglMeXVkZSBQYXVs
-CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4
-IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3Rz
-LmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
+--===============0510463134==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_DM5PR12MB1820556F9855FDC376F4B6DDF79A0DM5PR12MB1820namp_"
+
+--_000_DM5PR12MB1820556F9855FDC376F4B6DDF79A0DM5PR12MB1820namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
++ some display folks.
+________________________________
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Julien I=
+sorce <julien.isorce-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Sent: Tuesday, October 8, 2019 12:06 PM
+To: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Subject: Re: [PATCH] drm/amd/display: Use pixel encoding 444 for dongle usb=
+-c to hdmi
+
+Hi,
+
+Gentle ping ?
+
+Thx
+Julien
+
+On Tue, Oct 1, 2019 at 3:21 PM Julien Isorce <julien.isorce-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org<mailt=
+o:julien.isorce-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>> wrote:
+Fix pinkish color issue around grey areas. This also happens
+when not using any dongle so directly with a usb-c to Display
+Port cable. Meaning there is something wrong when using pixel
+encoding RGB with amd driver in the general case. In the meantime
+just use the same pixel encoding as when using HDMI without dongle.
+This way users will see the same thing on 2 identical screens when
+one is connected with hdmi-to-hdmi and the other is connected with
+usb-c-to-hdmi.
+
+Signed-off-by: Julien Isorce <jisorce-bXq66PvbRDbQT0dZR+AlfA@public.gmane.org<mailto:jisorce-bXq66PvbRDbQT0dZR+AlfA@public.gmane.org>=
+>
+---
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gp=
+u/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index d3f404f097eb..8139dcc0bfba 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -3313,6 +3313,7 @@ static void fill_stream_properties_from_drm_display_m=
+ode(
+ {
+        struct dc_crtc_timing *timing_out =3D &stream->timing;
+        const struct drm_display_info *info =3D &connector->display_info;
++       const struct dc_link *link =3D stream->sink->link;
+
+        memset(timing_out, 0, sizeof(struct dc_crtc_timing));
+
+@@ -3327,6 +3328,10 @@ static void fill_stream_properties_from_drm_display_=
+mode(
+        else if ((connector->display_info.color_formats & DRM_COLOR_FORMAT_=
+YCRCB444)
+                        && stream->signal =3D=3D SIGNAL_TYPE_HDMI_TYPE_A)
+                timing_out->pixel_encoding =3D PIXEL_ENCODING_YCBCR444;
++       else if ((connector->display_info.color_formats & DRM_COLOR_FORMAT_=
+YCRCB444)
++                       && stream->sink->sink_signal =3D=3D SIGNAL_TYPE_DIS=
+PLAY_PORT
++                       && link->dpcd_caps.dongle_type =3D=3D DISPLAY_DONGL=
+E_DP_HDMI_CONVERTER)
++               timing_out->pixel_encoding =3D PIXEL_ENCODING_YCBCR444;
+        else
+                timing_out->pixel_encoding =3D PIXEL_ENCODING_RGB;
+
+--
+2.17.1
+
+
+--_000_DM5PR12MB1820556F9855FDC376F4B6DDF79A0DM5PR12MB1820namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+&#43; some display folks.<br>
+</div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
+ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Julien Isorce &lt;julien.isor=
+ce-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;<br>
+<b>Sent:</b> Tuesday, October 8, 2019 12:06 PM<br>
+<b>To:</b> amd-gfx list &lt;amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt;<br>
+<b>Subject:</b> Re: [PATCH] drm/amd/display: Use pixel encoding 444 for don=
+gle usb-c to hdmi</font>
+<div>&nbsp;</div>
+</div>
+<div>
+<div dir=3D"ltr">
+<div>Hi,</div>
+<div><br>
+</div>
+<div>Gentle ping ?</div>
+<div><br>
+</div>
+<div>Thx</div>
+<div>Julien</div>
+<br>
+<div class=3D"x_gmail_quote">
+<div dir=3D"ltr" class=3D"x_gmail_attr">On Tue, Oct 1, 2019 at 3:21 PM Juli=
+en Isorce &lt;<a href=3D"mailto:julien.isorce-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org">julien.isorce@gmai=
+l.com</a>&gt; wrote:<br>
+</div>
+<blockquote class=3D"x_gmail_quote" style=3D"margin:0px 0px 0px 0.8ex; bord=
+er-left:1px solid rgb(204,204,204); padding-left:1ex">
+Fix pinkish color issue around grey areas. This also happens<br>
+when not using any dongle so directly with a usb-c to Display<br>
+Port cable. Meaning there is something wrong when using pixel<br>
+encoding RGB with amd driver in the general case. In the meantime<br>
+just use the same pixel encoding as when using HDMI without dongle.<br>
+This way users will see the same thing on 2 identical screens when<br>
+one is connected with hdmi-to-hdmi and the other is connected with<br>
+usb-c-to-hdmi.<br>
+<br>
+Signed-off-by: Julien Isorce &lt;<a href=3D"mailto:jisorce-bXq66PvbRDbQT0dZR+AlfA@public.gmane.org" targ=
+et=3D"_blank">jisorce-bXq66PvbRDbQT0dZR+AlfA@public.gmane.org</a>&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 5 &#43;&#43;&#43;=
+&#43;&#43;<br>
+&nbsp;1 file changed, 5 insertions(&#43;)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gp=
+u/drm/amd/display/amdgpu_dm/amdgpu_dm.c<br>
+index d3f404f097eb..8139dcc0bfba 100644<br>
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c<br>
+@@ -3313,6 &#43;3313,7 @@ static void fill_stream_properties_from_drm_displ=
+ay_mode(<br>
+&nbsp;{<br>
+&nbsp; &nbsp; &nbsp; &nbsp; struct dc_crtc_timing *timing_out =3D &amp;stre=
+am-&gt;timing;<br>
+&nbsp; &nbsp; &nbsp; &nbsp; const struct drm_display_info *info =3D &amp;co=
+nnector-&gt;display_info;<br>
+&#43;&nbsp; &nbsp; &nbsp; &nbsp;const struct dc_link *link =3D stream-&gt;s=
+ink-&gt;link;<br>
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; memset(timing_out, 0, sizeof(struct dc_crtc_tim=
+ing));<br>
+<br>
+@@ -3327,6 &#43;3328,10 @@ static void fill_stream_properties_from_drm_disp=
+lay_mode(<br>
+&nbsp; &nbsp; &nbsp; &nbsp; else if ((connector-&gt;display_info.color_form=
+ats &amp; DRM_COLOR_FORMAT_YCRCB444)<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp=
+; &nbsp; &amp;&amp; stream-&gt;signal =3D=3D SIGNAL_TYPE_HDMI_TYPE_A)<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; timing_out-&gt;pixe=
+l_encoding =3D PIXEL_ENCODING_YCBCR444;<br>
+&#43;&nbsp; &nbsp; &nbsp; &nbsp;else if ((connector-&gt;display_info.color_=
+formats &amp; DRM_COLOR_FORMAT_YCRCB444)<br>
+&#43;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =
+&nbsp; &nbsp;&amp;&amp; stream-&gt;sink-&gt;sink_signal =3D=3D SIGNAL_TYPE_=
+DISPLAY_PORT<br>
+&#43;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =
+&nbsp; &nbsp;&amp;&amp; link-&gt;dpcd_caps.dongle_type =3D=3D DISPLAY_DONGL=
+E_DP_HDMI_CONVERTER)<br>
+&#43;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;timing_out-&gt;=
+pixel_encoding =3D PIXEL_ENCODING_YCBCR444;<br>
+&nbsp; &nbsp; &nbsp; &nbsp; else<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; timing_out-&gt;pixe=
+l_encoding =3D PIXEL_ENCODING_RGB;<br>
+<br>
+-- <br>
+2.17.1<br>
+<br>
+</blockquote>
+</div>
+</div>
+</div>
+</body>
+</html>
+
+--_000_DM5PR12MB1820556F9855FDC376F4B6DDF79A0DM5PR12MB1820namp_--
+
+--===============0510463134==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+
+--===============0510463134==--
