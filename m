@@ -1,15 +1,17 @@
-From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+From: Harry Wentland <hwentlan-5C7GfCeVMHo@public.gmane.org>
 Subject: Re: [PATCH] drm/amd/display: Use pixel encoding 444 for dongle usb-c
  to hdmi
-Date: Tue, 8 Oct 2019 17:28:44 +0000
-Message-ID: <DM5PR12MB1820556F9855FDC376F4B6DDF79A0@DM5PR12MB1820.namprd12.prod.outlook.com>
-References: <20191001222123.2392-1-jisorce@oblong.com>,
+Date: Tue, 8 Oct 2019 17:44:10 +0000
+Message-ID: <4610d814-6c54-982e-ecc6-716cc42b5e68@amd.com>
+References: <20191001222123.2392-1-jisorce@oblong.com>
  <CAHWPjbWcdhnewEN8OEUgDu5aBpYBW5tUggA_KJ_BUR8JLvCsQw@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0510463134=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 In-Reply-To: <CAHWPjbWcdhnewEN8OEUgDu5aBpYBW5tUggA_KJ_BUR8JLvCsQw-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
 Content-Language: en-US
+Content-ID: <226C4B6E6E8CAE468ED13D21C1C35FC8-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -20,206 +22,63 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Julien Isorce <julien.isorce-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Wentland, Harry" <Harry.Wentland-5C7GfCeVMHo@public.gmane.org>, "Kazlauskas, Nicholas" <Nicholas.Kazlauskas-5C7GfCeVMHo@public.gmane.org>, "Li, Sun peng (Leo)" <Sunpeng.Li-5C7GfCeVMHo@public.gmane.org>
+To: Julien Isorce <julien.isorce-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============0510463134==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_DM5PR12MB1820556F9855FDC376F4B6DDF79A0DM5PR12MB1820namp_"
-
---_000_DM5PR12MB1820556F9855FDC376F4B6DDF79A0DM5PR12MB1820namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-+ some display folks.
-________________________________
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Julien I=
-sorce <julien.isorce-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Sent: Tuesday, October 8, 2019 12:06 PM
-To: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Subject: Re: [PATCH] drm/amd/display: Use pixel encoding 444 for dongle usb=
--c to hdmi
-
-Hi,
-
-Gentle ping ?
-
-Thx
-Julien
-
-On Tue, Oct 1, 2019 at 3:21 PM Julien Isorce <julien.isorce-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org<mailt=
-o:julien.isorce-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>> wrote:
-Fix pinkish color issue around grey areas. This also happens
-when not using any dongle so directly with a usb-c to Display
-Port cable. Meaning there is something wrong when using pixel
-encoding RGB with amd driver in the general case. In the meantime
-just use the same pixel encoding as when using HDMI without dongle.
-This way users will see the same thing on 2 identical screens when
-one is connected with hdmi-to-hdmi and the other is connected with
-usb-c-to-hdmi.
-
-Signed-off-by: Julien Isorce <jisorce-bXq66PvbRDbQT0dZR+AlfA@public.gmane.org<mailto:jisorce-bXq66PvbRDbQT0dZR+AlfA@public.gmane.org>=
->
----
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 5 +++++
- 1 file changed, 5 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gp=
-u/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index d3f404f097eb..8139dcc0bfba 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -3313,6 +3313,7 @@ static void fill_stream_properties_from_drm_display_m=
-ode(
- {
-        struct dc_crtc_timing *timing_out =3D &stream->timing;
-        const struct drm_display_info *info =3D &connector->display_info;
-+       const struct dc_link *link =3D stream->sink->link;
-
-        memset(timing_out, 0, sizeof(struct dc_crtc_timing));
-
-@@ -3327,6 +3328,10 @@ static void fill_stream_properties_from_drm_display_=
-mode(
-        else if ((connector->display_info.color_formats & DRM_COLOR_FORMAT_=
-YCRCB444)
-                        && stream->signal =3D=3D SIGNAL_TYPE_HDMI_TYPE_A)
-                timing_out->pixel_encoding =3D PIXEL_ENCODING_YCBCR444;
-+       else if ((connector->display_info.color_formats & DRM_COLOR_FORMAT_=
-YCRCB444)
-+                       && stream->sink->sink_signal =3D=3D SIGNAL_TYPE_DIS=
-PLAY_PORT
-+                       && link->dpcd_caps.dongle_type =3D=3D DISPLAY_DONGL=
-E_DP_HDMI_CONVERTER)
-+               timing_out->pixel_encoding =3D PIXEL_ENCODING_YCBCR444;
-        else
-                timing_out->pixel_encoding =3D PIXEL_ENCODING_RGB;
-
---
-2.17.1
-
-
---_000_DM5PR12MB1820556F9855FDC376F4B6DDF79A0DM5PR12MB1820namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-&#43; some display folks.<br>
-</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
-ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Julien Isorce &lt;julien.isor=
-ce-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;<br>
-<b>Sent:</b> Tuesday, October 8, 2019 12:06 PM<br>
-<b>To:</b> amd-gfx list &lt;amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt;<br>
-<b>Subject:</b> Re: [PATCH] drm/amd/display: Use pixel encoding 444 for don=
-gle usb-c to hdmi</font>
-<div>&nbsp;</div>
-</div>
-<div>
-<div dir=3D"ltr">
-<div>Hi,</div>
-<div><br>
-</div>
-<div>Gentle ping ?</div>
-<div><br>
-</div>
-<div>Thx</div>
-<div>Julien</div>
-<br>
-<div class=3D"x_gmail_quote">
-<div dir=3D"ltr" class=3D"x_gmail_attr">On Tue, Oct 1, 2019 at 3:21 PM Juli=
-en Isorce &lt;<a href=3D"mailto:julien.isorce-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org">julien.isorce@gmai=
-l.com</a>&gt; wrote:<br>
-</div>
-<blockquote class=3D"x_gmail_quote" style=3D"margin:0px 0px 0px 0.8ex; bord=
-er-left:1px solid rgb(204,204,204); padding-left:1ex">
-Fix pinkish color issue around grey areas. This also happens<br>
-when not using any dongle so directly with a usb-c to Display<br>
-Port cable. Meaning there is something wrong when using pixel<br>
-encoding RGB with amd driver in the general case. In the meantime<br>
-just use the same pixel encoding as when using HDMI without dongle.<br>
-This way users will see the same thing on 2 identical screens when<br>
-one is connected with hdmi-to-hdmi and the other is connected with<br>
-usb-c-to-hdmi.<br>
-<br>
-Signed-off-by: Julien Isorce &lt;<a href=3D"mailto:jisorce-bXq66PvbRDbQT0dZR+AlfA@public.gmane.org" targ=
-et=3D"_blank">jisorce-bXq66PvbRDbQT0dZR+AlfA@public.gmane.org</a>&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 5 &#43;&#43;&#43;=
-&#43;&#43;<br>
-&nbsp;1 file changed, 5 insertions(&#43;)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gp=
-u/drm/amd/display/amdgpu_dm/amdgpu_dm.c<br>
-index d3f404f097eb..8139dcc0bfba 100644<br>
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c<br>
-@@ -3313,6 &#43;3313,7 @@ static void fill_stream_properties_from_drm_displ=
-ay_mode(<br>
-&nbsp;{<br>
-&nbsp; &nbsp; &nbsp; &nbsp; struct dc_crtc_timing *timing_out =3D &amp;stre=
-am-&gt;timing;<br>
-&nbsp; &nbsp; &nbsp; &nbsp; const struct drm_display_info *info =3D &amp;co=
-nnector-&gt;display_info;<br>
-&#43;&nbsp; &nbsp; &nbsp; &nbsp;const struct dc_link *link =3D stream-&gt;s=
-ink-&gt;link;<br>
-<br>
-&nbsp; &nbsp; &nbsp; &nbsp; memset(timing_out, 0, sizeof(struct dc_crtc_tim=
-ing));<br>
-<br>
-@@ -3327,6 &#43;3328,10 @@ static void fill_stream_properties_from_drm_disp=
-lay_mode(<br>
-&nbsp; &nbsp; &nbsp; &nbsp; else if ((connector-&gt;display_info.color_form=
-ats &amp; DRM_COLOR_FORMAT_YCRCB444)<br>
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp=
-; &nbsp; &amp;&amp; stream-&gt;signal =3D=3D SIGNAL_TYPE_HDMI_TYPE_A)<br>
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; timing_out-&gt;pixe=
-l_encoding =3D PIXEL_ENCODING_YCBCR444;<br>
-&#43;&nbsp; &nbsp; &nbsp; &nbsp;else if ((connector-&gt;display_info.color_=
-formats &amp; DRM_COLOR_FORMAT_YCRCB444)<br>
-&#43;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =
-&nbsp; &nbsp;&amp;&amp; stream-&gt;sink-&gt;sink_signal =3D=3D SIGNAL_TYPE_=
-DISPLAY_PORT<br>
-&#43;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =
-&nbsp; &nbsp;&amp;&amp; link-&gt;dpcd_caps.dongle_type =3D=3D DISPLAY_DONGL=
-E_DP_HDMI_CONVERTER)<br>
-&#43;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;timing_out-&gt;=
-pixel_encoding =3D PIXEL_ENCODING_YCBCR444;<br>
-&nbsp; &nbsp; &nbsp; &nbsp; else<br>
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; timing_out-&gt;pixe=
-l_encoding =3D PIXEL_ENCODING_RGB;<br>
-<br>
--- <br>
-2.17.1<br>
-<br>
-</blockquote>
-</div>
-</div>
-</div>
-</body>
-</html>
-
---_000_DM5PR12MB1820556F9855FDC376F4B6DDF79A0DM5PR12MB1820namp_--
-
---===============0510463134==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
-
---===============0510463134==--
+SGkgSnVsaWVuLA0KDQpjdXJpb3VzIHdoaWNoIG1vbml0b3IgeW91J3JlIHVzaW5nLg0KDQpIYXZl
+IHlvdSBjaGVja2VkIHdoZXRoZXIgdGhlIGRyaXZlciBwaWNrcyBSR0Igb3IgWUNCQ1I0MjAgd2l0
+aG91dCB5b3VyDQpwYXRjaD8NCg0KSSdtIG5vdCBzdXJlIEkgdW5kZXJzdGFuZCBob3cgdGhlIHBp
+bmtpc2ggY29sb3IgaXNzdWUgbG9va3MuIERvIHlvdSBzZWUNCmEgcGlua2lzaCBjb2xvciBhdCB0
+aGUgdHJhbnNpdGlvbiBmcm9tIGdyZXkgdG8gYW5vdGhlciBjb2xvcj8gT3IgaXMgdGhlDQplbnRp
+cmUgZ3JleSBhcmVhIHBpbmtpc2g/DQoNClRoYW5rcywNCkhhcnJ5DQoNCk9uIDIwMTktMTAtMDgg
+MTI6MDYgcC5tLiwgSnVsaWVuIElzb3JjZSB3cm90ZToNCj4gSGksDQo+IA0KPiBHZW50bGUgcGlu
+ZyA/DQo+IA0KPiBUaHgNCj4gSnVsaWVuDQo+IA0KPiBPbiBUdWUsIE9jdCAxLCAyMDE5IGF0IDM6
+MjEgUE0gSnVsaWVuIElzb3JjZSA8anVsaWVuLmlzb3JjZUBnbWFpbC5jb20NCj4gPG1haWx0bzpq
+dWxpZW4uaXNvcmNlQGdtYWlsLmNvbT4+IHdyb3RlOg0KPiANCj4gICAgIEZpeCBwaW5raXNoIGNv
+bG9yIGlzc3VlIGFyb3VuZCBncmV5IGFyZWFzLiBUaGlzIGFsc28gaGFwcGVucw0KPiAgICAgd2hl
+biBub3QgdXNpbmcgYW55IGRvbmdsZSBzbyBkaXJlY3RseSB3aXRoIGEgdXNiLWMgdG8gRGlzcGxh
+eQ0KPiAgICAgUG9ydCBjYWJsZS4gTWVhbmluZyB0aGVyZSBpcyBzb21ldGhpbmcgd3Jvbmcgd2hl
+biB1c2luZyBwaXhlbA0KPiAgICAgZW5jb2RpbmcgUkdCIHdpdGggYW1kIGRyaXZlciBpbiB0aGUg
+Z2VuZXJhbCBjYXNlLiBJbiB0aGUgbWVhbnRpbWUNCj4gICAgIGp1c3QgdXNlIHRoZSBzYW1lIHBp
+eGVsIGVuY29kaW5nIGFzIHdoZW4gdXNpbmcgSERNSSB3aXRob3V0IGRvbmdsZS4NCj4gICAgIFRo
+aXMgd2F5IHVzZXJzIHdpbGwgc2VlIHRoZSBzYW1lIHRoaW5nIG9uIDIgaWRlbnRpY2FsIHNjcmVl
+bnMgd2hlbg0KPiAgICAgb25lIGlzIGNvbm5lY3RlZCB3aXRoIGhkbWktdG8taGRtaSBhbmQgdGhl
+IG90aGVyIGlzIGNvbm5lY3RlZCB3aXRoDQo+ICAgICB1c2ItYy10by1oZG1pLg0KPiANCj4gICAg
+IFNpZ25lZC1vZmYtYnk6IEp1bGllbiBJc29yY2UgPGppc29yY2VAb2Jsb25nLmNvbQ0KPiAgICAg
+PG1haWx0bzpqaXNvcmNlQG9ibG9uZy5jb20+Pg0KPiAgICAgLS0tDQo+ICAgICDCoGRyaXZlcnMv
+Z3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtLmMgfCA1ICsrKysrDQo+ICAg
+ICDCoDEgZmlsZSBjaGFuZ2VkLCA1IGluc2VydGlvbnMoKykNCj4gDQo+ICAgICBkaWZmIC0tZ2l0
+IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG0uYw0KPiAg
+ICAgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5jDQo+
+ICAgICBpbmRleCBkM2Y0MDRmMDk3ZWIuLjgxMzlkY2MwYmZiYSAxMDA2NDQNCj4gICAgIC0tLSBh
+L2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtLmMNCj4gICAg
+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtLmMN
+Cj4gICAgIEBAIC0zMzEzLDYgKzMzMTMsNyBAQCBzdGF0aWMgdm9pZA0KPiAgICAgZmlsbF9zdHJl
+YW1fcHJvcGVydGllc19mcm9tX2RybV9kaXNwbGF5X21vZGUoDQo+ICAgICDCoHsNCj4gICAgIMKg
+IMKgIMKgIMKgIHN0cnVjdCBkY19jcnRjX3RpbWluZyAqdGltaW5nX291dCA9ICZzdHJlYW0tPnRp
+bWluZzsNCj4gICAgIMKgIMKgIMKgIMKgIGNvbnN0IHN0cnVjdCBkcm1fZGlzcGxheV9pbmZvICpp
+bmZvID0gJmNvbm5lY3Rvci0+ZGlzcGxheV9pbmZvOw0KPiAgICAgK8KgIMKgIMKgIMKgY29uc3Qg
+c3RydWN0IGRjX2xpbmsgKmxpbmsgPSBzdHJlYW0tPnNpbmstPmxpbms7DQo+IA0KPiAgICAgwqAg
+wqAgwqAgwqAgbWVtc2V0KHRpbWluZ19vdXQsIDAsIHNpemVvZihzdHJ1Y3QgZGNfY3J0Y190aW1p
+bmcpKTsNCj4gDQo+ICAgICBAQCAtMzMyNyw2ICszMzI4LDEwIEBAIHN0YXRpYyB2b2lkDQo+ICAg
+ICBmaWxsX3N0cmVhbV9wcm9wZXJ0aWVzX2Zyb21fZHJtX2Rpc3BsYXlfbW9kZSgNCj4gICAgIMKg
+IMKgIMKgIMKgIGVsc2UgaWYgKChjb25uZWN0b3ItPmRpc3BsYXlfaW5mby5jb2xvcl9mb3JtYXRz
+ICYNCj4gICAgIERSTV9DT0xPUl9GT1JNQVRfWUNSQ0I0NDQpDQo+ICAgICDCoCDCoCDCoCDCoCDC
+oCDCoCDCoCDCoCDCoCDCoCDCoCDCoCAmJiBzdHJlYW0tPnNpZ25hbCA9PSBTSUdOQUxfVFlQRV9I
+RE1JX1RZUEVfQSkNCj4gICAgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIHRpbWluZ19vdXQtPnBp
+eGVsX2VuY29kaW5nID0gUElYRUxfRU5DT0RJTkdfWUNCQ1I0NDQ7DQo+ICAgICArwqAgwqAgwqAg
+wqBlbHNlIGlmICgoY29ubmVjdG9yLT5kaXNwbGF5X2luZm8uY29sb3JfZm9ybWF0cyAmDQo+ICAg
+ICBEUk1fQ09MT1JfRk9STUFUX1lDUkNCNDQ0KQ0KPiAgICAgK8KgIMKgIMKgIMKgIMKgIMKgIMKg
+IMKgIMKgIMKgIMKgIMKgJiYgc3RyZWFtLT5zaW5rLT5zaW5rX3NpZ25hbCA9PQ0KPiAgICAgU0lH
+TkFMX1RZUEVfRElTUExBWV9QT1JUDQo+ICAgICArwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAg
+wqAgwqAgwqAmJiBsaW5rLT5kcGNkX2NhcHMuZG9uZ2xlX3R5cGUgPT0NCj4gICAgIERJU1BMQVlf
+RE9OR0xFX0RQX0hETUlfQ09OVkVSVEVSKQ0KPiAgICAgK8KgIMKgIMKgIMKgIMKgIMKgIMKgIMKg
+dGltaW5nX291dC0+cGl4ZWxfZW5jb2RpbmcgPSBQSVhFTF9FTkNPRElOR19ZQ0JDUjQ0NDsNCj4g
+ICAgIMKgIMKgIMKgIMKgIGVsc2UNCj4gICAgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIHRpbWlu
+Z19vdXQtPnBpeGVsX2VuY29kaW5nID0gUElYRUxfRU5DT0RJTkdfUkdCOw0KPiANCj4gICAgIC0t
+IA0KPiAgICAgMi4xNy4xDQo+IA0KPiANCj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX18NCj4gYW1kLWdmeCBtYWlsaW5nIGxpc3QNCj4gYW1kLWdmeEBsaXN0
+cy5mcmVlZGVza3RvcC5vcmcNCj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1h
+bi9saXN0aW5mby9hbWQtZ2Z4DQo+IA0KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVz
+a3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9h
+bWQtZ2Z4
