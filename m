@@ -1,49 +1,102 @@
-From: Jani Nikula <jani.nikula@linux.intel.com>
-Subject: Re: [PATCH TRIVIAL v2] gpu: Fix Kconfig indentation
-Date: Tue, 08 Oct 2019 09:05:49 +0300
-Message-ID: <87v9szdb5u.fsf@intel.com>
-References: <20191004144549.3567-1-krzk@kernel.org> <87sgo4hjii.fsf@intel.com> <CADnq5_MqGehpWwOAxYg0T2x3qXisqmae2uGG5dijQX+Aa4NsoQ@mail.gmail.com> <CAJKOXPeVFeSDpxPv-rDywCafWbN3mivtcM3UQX_+wZkyPcZwPQ@mail.gmail.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH 1/2] drm/amdgpu: Clean up gmc_v9_0_gart_enable
+Date: Tue, 8 Oct 2019 09:59:16 +0200
+Message-ID: <0362dc2a-d23f-6c75-31f0-383af04a827e@gmail.com>
+References: <1570480448-29861-1-git-send-email-Oak.Zeng@amd.com>
+Reply-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
 Mime-Version: 1.0
-Content-Type: text/plain
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <CAJKOXPeVFeSDpxPv-rDywCafWbN3mivtcM3UQX_+wZkyPcZwPQ@mail.gmail.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Krzysztof Kozlowski <krzk@kernel.org>, Alex Deucher <alexdeucher@gmail.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, Sean Paul <sean@poorly.run>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, Jiri Kosina <trivial@kernel.org>, Maling list - DRI developers <dri-devel@lists.freedesktop.org>, LKML <linux-kernel@vger.kernel.org>, amd-gfx list <amd-gfx@lists.freedesktop.org>, Intel Graphics Development <intel-gfx@lists.freedesktop.org>, lima@lists.freedesktop.org, nouveau <nouveau@lists.freedesktop.org>, linux-arm-kernel <linux-arm-kernel@lists.infradead.org>, linux-rockchip@lists.infradead.org
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <1570480448-29861-1-git-send-email-Oak.Zeng-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Zeng, Oak" <Oak.Zeng-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>, "Koenig,
+ Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
 
-On Mon, 07 Oct 2019, Krzysztof Kozlowski <krzk@kernel.org> wrote:
-> On Mon, 7 Oct 2019 at 18:09, Alex Deucher <alexdeucher@gmail.com> wrote:
->>
->> On Mon, Oct 7, 2019 at 7:39 AM Jani Nikula <jani.nikula@linux.intel.com> wrote:
->> >
->> > On Fri, 04 Oct 2019, Krzysztof Kozlowski <krzk@kernel.org> wrote:
->> > >  drivers/gpu/drm/i915/Kconfig             |  12 +-
->> > >  drivers/gpu/drm/i915/Kconfig.debug       | 144 +++++++++++------------
->> >
->> > Please split these out to a separate patch. Can't speak for others, but
->> > the patch looks like it'll be conflicts galore and a problem to manage
->> > if merged in one big lump.
->>
->> Yes, it would be nice to have the amd patch separate as well.
->
-> I'll split the AMD and i915 although I am not sure if it is sense to
-> split such trivial patch per each driver.
-
-Thanks.
-
-See MAINTAINERS, many of the drivers are maintained in the same drm-misc
-repo, and it makes no difference to split those.
-
-In general it's, well, trivial to split up patches like this per driver
-or repo, but not splitting it up generates extra busywork in managing
-conflicts until some common merge/backmerge happens. We just want to
-apply the patch and forget about it, instead of dealing with a trivial
-whitespace cleanup many times over.
-
-BR,
-Jani.
-
-
--- 
-Jani Nikula, Intel Open Source Graphics Center
+QW0gMDcuMTAuMTkgdW0gMjI6MzQgc2NocmllYiBaZW5nLCBPYWs6Cj4gTWFueSBsb2dpYyBpbiB0
+aGlzIGZ1bmN0aW9uIGFyZSBIRFAgc2V0IHVwLAo+IG5vdCBnYXJ0IHNldCB1cC4gTW92ZWQgdGhv
+c2UgbG9naWMgdG8gZ21jX3Y5XzBfaHdfaW5pdC4KPiBObyBmdW5jdGlvbmFsIGNoYW5nZS4KPgo+
+IENoYW5nZS1JZDogSWIwMGNjMWZmZDFlNDg2ZTc3NTcxNzk2ZGNlNTNhYTc1MDZjMGM1NWYKPiBT
+aWduZWQtb2ZmLWJ5OiBPYWsgWmVuZyA8T2FrLlplbmdAYW1kLmNvbT4KCk9uZSBtaW5vciBub3Rl
+IG9uIHRoZSBjb2Rpbmcgc3R5bGUgYmVsb3csIGFwYXJ0IGZyb20gdGhhdCB0aGUgcGF0Y2ggaXMg
+CkFja2VkLWJ5OiBDaHJpc3RpYW4gS8O2bmlnIDxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+LgoK
+PiAtLS0KPiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192OV8wLmMgfCA4MiArKysr
+KysrKysrKysrKysrKy0tLS0tLS0tLS0tLS0tLS0tLQo+ICAgMSBmaWxlIGNoYW5nZWQsIDQxIGlu
+c2VydGlvbnMoKyksIDQxIGRlbGV0aW9ucygtKQo+Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1
+L2RybS9hbWQvYW1kZ3B1L2dtY192OV8wLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9n
+bWNfdjlfMC5jCj4gaW5kZXggNGIxMWY3ZS4uYzdlMDdmMSAxMDA2NDQKPiAtLS0gYS9kcml2ZXJz
+L2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNfdjlfMC5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2Ft
+ZC9hbWRncHUvZ21jX3Y5XzAuYwo+IEBAIC0xMTM1LDEzICsxMTM1LDcgQEAgc3RhdGljIHZvaWQg
+Z21jX3Y5XzBfaW5pdF9nb2xkZW5fcmVnaXN0ZXJzKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2
+KQo+ICAgICovCj4gICBzdGF0aWMgaW50IGdtY192OV8wX2dhcnRfZW5hYmxlKHN0cnVjdCBhbWRn
+cHVfZGV2aWNlICphZGV2KQo+ICAgewo+IC0JaW50IHIsIGk7Cj4gLQlib29sIHZhbHVlOwo+IC0J
+dTMyIHRtcDsKPiAtCj4gLQlhbWRncHVfZGV2aWNlX3Byb2dyYW1fcmVnaXN0ZXJfc2VxdWVuY2Uo
+YWRldiwKPiAtCQkJCQkJZ29sZGVuX3NldHRpbmdzX3ZlZ2ExMF9oZHAsCj4gLQkJCQkJCUFSUkFZ
+X1NJWkUoZ29sZGVuX3NldHRpbmdzX3ZlZ2ExMF9oZHApKTsKPiArCWludCByOwo+ICAgCj4gICAJ
+aWYgKGFkZXYtPmdhcnQuYm8gPT0gTlVMTCkgewo+ICAgCQlkZXZfZXJyKGFkZXYtPmRldiwgIk5v
+IFZSQU0gb2JqZWN0IGZvciBQQ0lFIEdBUlQuXG4iKTsKPiBAQCAtMTE1MSwxNSArMTE0NSw2IEBA
+IHN0YXRpYyBpbnQgZ21jX3Y5XzBfZ2FydF9lbmFibGUoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFk
+ZXYpCj4gICAJaWYgKHIpCj4gICAJCXJldHVybiByOwo+ICAgCj4gLQlzd2l0Y2ggKGFkZXYtPmFz
+aWNfdHlwZSkgewo+IC0JY2FzZSBDSElQX1JBVkVOOgo+IC0JCS8qIFRPRE8gZm9yIHJlbm9pciAq
+Lwo+IC0JCW1taHViX3YxXzBfdXBkYXRlX3Bvd2VyX2dhdGluZyhhZGV2LCB0cnVlKTsKPiAtCQli
+cmVhazsKPiAtCWRlZmF1bHQ6Cj4gLQkJYnJlYWs7Cj4gLQl9Cj4gLQo+ICAgCXIgPSBnZnhodWJf
+djFfMF9nYXJ0X2VuYWJsZShhZGV2KTsKPiAgIAlpZiAocikKPiAgIAkJcmV0dXJuIHI7Cj4gQEAg
+LTExNzEsNiArMTE1Niw0NiBAQCBzdGF0aWMgaW50IGdtY192OV8wX2dhcnRfZW5hYmxlKHN0cnVj
+dCBhbWRncHVfZGV2aWNlICphZGV2KQo+ICAgCWlmIChyKQo+ICAgCQlyZXR1cm4gcjsKPiAgIAo+
+ICsJRFJNX0lORk8oIlBDSUUgR0FSVCBvZiAldU0gZW5hYmxlZCAodGFibGUgYXQgMHglMDE2bGxY
+KS5cbiIsCj4gKwkJICh1bnNpZ25lZCkoYWRldi0+Z21jLmdhcnRfc2l6ZSA+PiAyMCksCj4gKwkJ
+ICh1bnNpZ25lZCBsb25nIGxvbmcpYW1kZ3B1X2JvX2dwdV9vZmZzZXQoYWRldi0+Z2FydC5ibykp
+Owo+ICsJYWRldi0+Z2FydC5yZWFkeSA9IHRydWU7Cj4gKwlyZXR1cm4gMDsKPiArfQo+ICsKPiAr
+c3RhdGljIGludCBnbWNfdjlfMF9od19pbml0KHZvaWQgKmhhbmRsZSkKPiArewo+ICsJaW50IHIs
+IGk7Cj4gKwlib29sIHZhbHVlOwo+ICsJdTMyIHRtcDsKPiArCXN0cnVjdCBhbWRncHVfZGV2aWNl
+ICphZGV2ID0gKHN0cnVjdCBhbWRncHVfZGV2aWNlICopaGFuZGxlOwoKV2UgdXN1YWxseSB0cnkg
+dG8gaGF2ZSB2YXJpYWJsZXMgbGlrZSByIGFuZCBpIGRlY2xhcmVkIGxhc3QgYW5kIGxvbmcgCnN0
+cnVjdHVyZSBkZWZpbmVzIGZpcnN0LgoKUmVnYXJkcywKQ2hyaXN0aWFuLgoKPiArCj4gKwkvKiBU
+aGUgc2VxdWVuY2Ugb2YgdGhlc2UgdHdvIGZ1bmN0aW9uIGNhbGxzIG1hdHRlcnMuKi8KPiArCWdt
+Y192OV8wX2luaXRfZ29sZGVuX3JlZ2lzdGVycyhhZGV2KTsKPiArCj4gKwlpZiAoYWRldi0+bW9k
+ZV9pbmZvLm51bV9jcnRjKSB7Cj4gKwkJaWYgKGFkZXYtPmFzaWNfdHlwZSAhPSBDSElQX0FSQ1RV
+UlVTKSB7Cj4gKwkJCS8qIExvY2tvdXQgYWNjZXNzIHRocm91Z2ggVkdBIGFwZXJ0dXJlKi8KPiAr
+CQkJV1JFRzMyX0ZJRUxEMTUoRENFLCAwLCBWR0FfSERQX0NPTlRST0wsIFZHQV9NRU1PUllfRElT
+QUJMRSwgMSk7Cj4gKwo+ICsJCQkvKiBkaXNhYmxlIFZHQSByZW5kZXIgKi8KPiArCQkJV1JFRzMy
+X0ZJRUxEMTUoRENFLCAwLCBWR0FfUkVOREVSX0NPTlRST0wsIFZHQV9WU1RBVFVTX0NOVEwsIDAp
+Owo+ICsJCX0KPiArCX0KPiArCj4gKwlhbWRncHVfZGV2aWNlX3Byb2dyYW1fcmVnaXN0ZXJfc2Vx
+dWVuY2UoYWRldiwKPiArCQkJCQkJZ29sZGVuX3NldHRpbmdzX3ZlZ2ExMF9oZHAsCj4gKwkJCQkJ
+CUFSUkFZX1NJWkUoZ29sZGVuX3NldHRpbmdzX3ZlZ2ExMF9oZHApKTsKPiArCj4gKwlzd2l0Y2gg
+KGFkZXYtPmFzaWNfdHlwZSkgewo+ICsJY2FzZSBDSElQX1JBVkVOOgo+ICsJCS8qIFRPRE8gZm9y
+IHJlbm9pciAqLwo+ICsJCW1taHViX3YxXzBfdXBkYXRlX3Bvd2VyX2dhdGluZyhhZGV2LCB0cnVl
+KTsKPiArCQlicmVhazsKPiArCWRlZmF1bHQ6Cj4gKwkJYnJlYWs7Cj4gKwl9Cj4gKwo+ICAgCVdS
+RUczMl9GSUVMRDE1KEhEUCwgMCwgSERQX01JU0NfQ05UTCwgRkxVU0hfSU5WQUxJREFURV9DQUNI
+RSwgMSk7Cj4gICAKPiAgIAl0bXAgPSBSUkVHMzJfU09DMTUoSERQLCAwLCBtbUhEUF9IT1NUX1BB
+VEhfQ05UTCk7Cj4gQEAgLTExOTksMzEgKzEyMjQsNiBAQCBzdGF0aWMgaW50IGdtY192OV8wX2dh
+cnRfZW5hYmxlKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQo+ICAgCWlmIChhZGV2LT51bWMu
+ZnVuY3MgJiYgYWRldi0+dW1jLmZ1bmNzLT5pbml0X3JlZ2lzdGVycykKPiAgIAkJYWRldi0+dW1j
+LmZ1bmNzLT5pbml0X3JlZ2lzdGVycyhhZGV2KTsKPiAgIAo+IC0JRFJNX0lORk8oIlBDSUUgR0FS
+VCBvZiAldU0gZW5hYmxlZCAodGFibGUgYXQgMHglMDE2bGxYKS5cbiIsCj4gLQkJICh1bnNpZ25l
+ZCkoYWRldi0+Z21jLmdhcnRfc2l6ZSA+PiAyMCksCj4gLQkJICh1bnNpZ25lZCBsb25nIGxvbmcp
+YW1kZ3B1X2JvX2dwdV9vZmZzZXQoYWRldi0+Z2FydC5ibykpOwo+IC0JYWRldi0+Z2FydC5yZWFk
+eSA9IHRydWU7Cj4gLQlyZXR1cm4gMDsKPiAtfQo+IC0KPiAtc3RhdGljIGludCBnbWNfdjlfMF9o
+d19pbml0KHZvaWQgKmhhbmRsZSkKPiAtewo+IC0JaW50IHI7Cj4gLQlzdHJ1Y3QgYW1kZ3B1X2Rl
+dmljZSAqYWRldiA9IChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqKWhhbmRsZTsKPiAtCj4gLQkvKiBU
+aGUgc2VxdWVuY2Ugb2YgdGhlc2UgdHdvIGZ1bmN0aW9uIGNhbGxzIG1hdHRlcnMuKi8KPiAtCWdt
+Y192OV8wX2luaXRfZ29sZGVuX3JlZ2lzdGVycyhhZGV2KTsKPiAtCj4gLQlpZiAoYWRldi0+bW9k
+ZV9pbmZvLm51bV9jcnRjKSB7Cj4gLQkJaWYgKGFkZXYtPmFzaWNfdHlwZSAhPSBDSElQX0FSQ1RV
+UlVTKSB7Cj4gLQkJCS8qIExvY2tvdXQgYWNjZXNzIHRocm91Z2ggVkdBIGFwZXJ0dXJlKi8KPiAt
+CQkJV1JFRzMyX0ZJRUxEMTUoRENFLCAwLCBWR0FfSERQX0NPTlRST0wsIFZHQV9NRU1PUllfRElT
+QUJMRSwgMSk7Cj4gLQo+IC0JCQkvKiBkaXNhYmxlIFZHQSByZW5kZXIgKi8KPiAtCQkJV1JFRzMy
+X0ZJRUxEMTUoRENFLCAwLCBWR0FfUkVOREVSX0NPTlRST0wsIFZHQV9WU1RBVFVTX0NOVEwsIDAp
+Owo+IC0JCX0KPiAtCX0KPiAtCj4gICAJciA9IGdtY192OV8wX2dhcnRfZW5hYmxlKGFkZXYpOwo+
+ICAgCj4gICAJcmV0dXJuIHI7CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9w
+Lm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1n
+Zng=
