@@ -1,7 +1,7 @@
 From: "Yin, Tianci (Rico)" <Tianci.Yin-5C7GfCeVMHo@public.gmane.org>
 Subject: Recall: [PATCH 7/8] drm/amdgpu: reserve vram for memory training
-Date: Wed, 9 Oct 2019 11:12:58 +0000
-Message-ID: <SN1PR12MB25440AE5B799F325E0FBF93395950@SN1PR12MB2544.namprd12.prod.outlook.com>
+Date: Wed, 9 Oct 2019 11:13:07 +0000
+Message-ID: <SN1PR12MB2544C19778CB64E816F1296E95950@SN1PR12MB2544.namprd12.prod.outlook.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
