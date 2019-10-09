@@ -1,11 +1,14 @@
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: [PATCH] drm/amdgpu/swSMU/navi: add feature toggles for more things
-Date: Wed,  9 Oct 2019 08:17:14 -0500
-Message-ID: <20191009131714.24259-1-alexander.deucher@amd.com>
+From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 2/2] drm/amd/powerplay: re-enable FW_DSTATE feature bit
+Date: Wed, 9 Oct 2019 13:35:50 +0000
+Message-ID: <DM5PR12MB182077A0796BED759991002EF7950@DM5PR12MB1820.namprd12.prod.outlook.com>
+References: <20191009110757.30995-1-xiaojie.yuan@amd.com>,
+ <20191009110757.30995-2-xiaojie.yuan@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1474305562=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20191009110757.30995-2-xiaojie.yuan-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -16,57 +19,180 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+To: "Yuan, Xiaojie" <Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Xiao, Jack" <Jack.Xiao-5C7GfCeVMHo@public.gmane.org>, "Wang,
+ Kevin(Yang)" <Kevin1.Wang-5C7GfCeVMHo@public.gmane.org>, "Feng, Kenneth" <Kenneth.Feng-5C7GfCeVMHo@public.gmane.org>, "Quan, Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>, "Zhang, Hawking" <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>
 
-QWRkIHRvZ2dsZXMgZm9yIG1vcmUgcG93ZXIgZmVhdHVyZXMuICBIZWxwZnVsIGluIGRlYnVnZ2lu
-Zy4KClNpZ25lZC1vZmYtYnk6IEFsZXggRGV1Y2hlciA8YWxleGFuZGVyLmRldWNoZXJAYW1kLmNv
-bT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9uYXZpMTBfcHB0LmMgfCAyNCAr
-KysrKysrKysrKysrKysrLS0tLS0tCiAxIGZpbGUgY2hhbmdlZCwgMTggaW5zZXJ0aW9ucygrKSwg
-NiBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxh
-eS9uYXZpMTBfcHB0LmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9uYXZpMTBfcHB0
-LmMKaW5kZXggYTU4M2NmODdiNTE0Li44ZTFmM2JlOGJhNmYgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMv
-Z3B1L2RybS9hbWQvcG93ZXJwbGF5L25hdmkxMF9wcHQuYworKysgYi9kcml2ZXJzL2dwdS9kcm0v
-YW1kL3Bvd2VycGxheS9uYXZpMTBfcHB0LmMKQEAgLTMyOCwxMSArMzI4LDcgQEAgbmF2aTEwX2dl
-dF9hbGxvd2VkX2ZlYXR1cmVfbWFzayhzdHJ1Y3Qgc211X2NvbnRleHQgKnNtdSwKIAltZW1zZXQo
-ZmVhdHVyZV9tYXNrLCAwLCBzaXplb2YodWludDMyX3QpICogbnVtKTsKIAogCSoodWludDY0X3Qg
-KilmZWF0dXJlX21hc2sgfD0gRkVBVFVSRV9NQVNLKEZFQVRVUkVfRFBNX1BSRUZFVENIRVJfQklU
-KQotCQkJCXwgRkVBVFVSRV9NQVNLKEZFQVRVUkVfRFBNX0dGWENMS19CSVQpCi0JCQkJfCBGRUFU
-VVJFX01BU0soRkVBVFVSRV9EUE1fU09DQ0xLX0JJVCkKIAkJCQl8IEZFQVRVUkVfTUFTSyhGRUFU
-VVJFX0RQTV9NUDBDTEtfQklUKQotCQkJCXwgRkVBVFVSRV9NQVNLKEZFQVRVUkVfRFBNX0xJTktf
-QklUKQotCQkJCXwgRkVBVFVSRV9NQVNLKEZFQVRVUkVfR0ZYX1VMVl9CSVQpCiAJCQkJfCBGRUFU
-VVJFX01BU0soRkVBVFVSRV9SU01VX1NNTl9DR19CSVQpCiAJCQkJfCBGRUFUVVJFX01BU0soRkVB
-VFVSRV9EU19TT0NDTEtfQklUKQogCQkJCXwgRkVBVFVSRV9NQVNLKEZFQVRVUkVfUFBUX0JJVCkK
-QEAgLTM0Miw4ICszMzgsNiBAQCBuYXZpMTBfZ2V0X2FsbG93ZWRfZmVhdHVyZV9tYXNrKHN0cnVj
-dCBzbXVfY29udGV4dCAqc211LAogCQkJCXwgRkVBVFVSRV9NQVNLKEZFQVRVUkVfRkFOX0NPTlRS
-T0xfQklUKQogCQkJCXwgRkVBVFVSRV9NQVNLKEZFQVRVUkVfVEhFUk1BTF9CSVQpCiAJCQkJfCBG
-RUFUVVJFX01BU0soRkVBVFVSRV9MRURfRElTUExBWV9CSVQpCi0JCQkJfCBGRUFUVVJFX01BU0so
-RkVBVFVSRV9EUE1fRENFRkNMS19CSVQpCi0JCQkJfCBGRUFUVVJFX01BU0soRkVBVFVSRV9EU19H
-RlhDTEtfQklUKQogCQkJCXwgRkVBVFVSRV9NQVNLKEZFQVRVUkVfRFNfRENFRkNMS19CSVQpCiAJ
-CQkJfCBGRUFUVVJFX01BU0soRkVBVFVSRV9GV19EU1RBVEVfQklUKQogCQkJCXwgRkVBVFVSRV9N
-QVNLKEZFQVRVUkVfQkFDT19CSVQpCkBAIC0zNTIsMTEgKzM0NiwyOSBAQCBuYXZpMTBfZ2V0X2Fs
-bG93ZWRfZmVhdHVyZV9tYXNrKHN0cnVjdCBzbXVfY29udGV4dCAqc211LAogCQkJCXwgRkVBVFVS
-RV9NQVNLKEZFQVRVUkVfQVBDQ19ERkxMX0JJVCkKIAkJCQl8IEZFQVRVUkVfTUFTSyhGRUFUVVJF
-X0ZXX0NURl9CSVQpOwogCisJaWYgKGFkZXYtPnBtLnBwX2ZlYXR1cmUgJiBQUF9TT0NDTEtfRFBN
-X01BU0spCisJCSoodWludDY0X3QgKilmZWF0dXJlX21hc2sgfD0gRkVBVFVSRV9NQVNLKEZFQVRV
-UkVfRFBNX1NPQ0NMS19CSVQpOworCisJaWYgKGFkZXYtPnBtLnBwX2ZlYXR1cmUgJiBQUF9TQ0xL
-X0RQTV9NQVNLKQorCQkqKHVpbnQ2NF90ICopZmVhdHVyZV9tYXNrIHw9IEZFQVRVUkVfTUFTSyhG
-RUFUVVJFX0RQTV9HRlhDTEtfQklUKTsKKworCWlmIChhZGV2LT5wbS5wcF9mZWF0dXJlICYgUFBf
-UENJRV9EUE1fTUFTSykKKwkJKih1aW50NjRfdCAqKWZlYXR1cmVfbWFzayB8PSBGRUFUVVJFX01B
-U0soRkVBVFVSRV9EUE1fTElOS19CSVQpOworCisJaWYgKGFkZXYtPnBtLnBwX2ZlYXR1cmUgJiBQ
-UF9EQ0VGQ0xLX0RQTV9NQVNLKQorCQkqKHVpbnQ2NF90ICopZmVhdHVyZV9tYXNrIHw9IEZFQVRV
-UkVfTUFTSyhGRUFUVVJFX0RQTV9EQ0VGQ0xLX0JJVCk7CisKIAlpZiAoYWRldi0+cG0ucHBfZmVh
-dHVyZSAmIFBQX01DTEtfRFBNX01BU0spCiAJCSoodWludDY0X3QgKilmZWF0dXJlX21hc2sgfD0g
-RkVBVFVSRV9NQVNLKEZFQVRVUkVfRFBNX1VDTEtfQklUKQogCQkJCXwgRkVBVFVSRV9NQVNLKEZF
-QVRVUkVfTUVNX1ZERENJX1NDQUxJTkdfQklUKQogCQkJCXwgRkVBVFVSRV9NQVNLKEZFQVRVUkVf
-TUVNX01WRERfU0NBTElOR19CSVQpOwogCisJaWYgKGFkZXYtPnBtLnBwX2ZlYXR1cmUgJiBQUF9V
-TFZfTUFTSykKKwkJKih1aW50NjRfdCAqKWZlYXR1cmVfbWFzayB8PSBGRUFUVVJFX01BU0soRkVB
-VFVSRV9HRlhfVUxWX0JJVCk7CisKKwlpZiAoYWRldi0+cG0ucHBfZmVhdHVyZSAmIFBQX1NDTEtf
-REVFUF9TTEVFUF9NQVNLKQorCQkqKHVpbnQ2NF90ICopZmVhdHVyZV9tYXNrIHw9IEZFQVRVUkVf
-TUFTSyhGRUFUVVJFX0RTX0dGWENMS19CSVQpOworCiAJaWYgKGFkZXYtPnBtLnBwX2ZlYXR1cmUg
-JiBQUF9HRlhPRkZfTUFTSykgewogCQkqKHVpbnQ2NF90ICopZmVhdHVyZV9tYXNrIHw9IEZFQVRV
-UkVfTUFTSyhGRUFUVVJFX0dGWE9GRl9CSVQpOwogCQkvKiBUT0RPOiByZW1vdmUgaXQgb25jZSBm
-dyBmaXggdGhlIGJ1ZyAqLwotLSAKMi4yMC4xCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZy
-ZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3Rp
-bmZvL2FtZC1nZng=
+--===============1474305562==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_DM5PR12MB182077A0796BED759991002EF7950DM5PR12MB1820namp_"
+
+--_000_DM5PR12MB182077A0796BED759991002EF7950DM5PR12MB1820namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+What version of firmware has the fix?  Was it recently fixed?  We should ch=
+eck the version if the old one may be out in the wild.
+
+Alex
+________________________________
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Yuan, Xi=
+aojie <Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org>
+Sent: Wednesday, October 9, 2019 7:08 AM
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: Xiao, Jack <Jack.Xiao-5C7GfCeVMHo@public.gmane.org>; Wang, Kevin(Yang) <Kevin1.Wang-5C7GfCeVMHo@public.gmane.org>=
+; Zhang, Hawking <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>; Quan, Evan <Evan.Quan-5C7GfCeVMHo@public.gmane.org>; F=
+eng, Kenneth <Kenneth.Feng-5C7GfCeVMHo@public.gmane.org>; Yuan, Xiaojie <Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH 2/2] drm/amd/powerplay: re-enable FW_DSTATE feature bit
+
+SMU firmware has fix the bug, so remove this workaround.
+
+Signed-off-by: Xiaojie Yuan <xiaojie.yuan-5C7GfCeVMHo@public.gmane.org>
+---
+ drivers/gpu/drm/amd/powerplay/navi10_ppt.c | 5 +----
+ 1 file changed, 1 insertion(+), 4 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c b/drivers/gpu/drm/a=
+md/powerplay/navi10_ppt.c
+index 44152c1f01c7..3628295469c4 100644
+--- a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
++++ b/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
+@@ -359,11 +359,8 @@ navi10_get_allowed_feature_mask(struct smu_context *sm=
+u,
+                                 | FEATURE_MASK(FEATURE_MEM_VDDCI_SCALING_B=
+IT)
+                                 | FEATURE_MASK(FEATURE_MEM_MVDD_SCALING_BI=
+T);
+
+-       if (adev->pm.pp_feature & PP_GFXOFF_MASK) {
++       if (adev->pm.pp_feature & PP_GFXOFF_MASK)
+                 *(uint64_t *)feature_mask |=3D FEATURE_MASK(FEATURE_GFXOFF=
+_BIT);
+-               /* TODO: remove it once fw fix the bug */
+-               *(uint64_t *)feature_mask &=3D ~FEATURE_MASK(FEATURE_FW_DST=
+ATE_BIT);
+-       }
+
+         if (smu->adev->pg_flags & AMD_PG_SUPPORT_MMHUB)
+                 *(uint64_t *)feature_mask |=3D FEATURE_MASK(FEATURE_MMHUB_=
+PG_BIT);
+--
+2.20.1
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--_000_DM5PR12MB182077A0796BED759991002EF7950DM5PR12MB1820namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+What version of firmware has the fix?&nbsp; Was it recently fixed?&nbsp; We=
+ should check the version if the old one may be out in the wild.</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Alex<br>
+</div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
+ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Yuan, Xiaojie &lt;Xiaojie.Yua=
+n@amd.com&gt;<br>
+<b>Sent:</b> Wednesday, October 9, 2019 7:08 AM<br>
+<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org &lt;amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&=
+gt;<br>
+<b>Cc:</b> Xiao, Jack &lt;Jack.Xiao-5C7GfCeVMHo@public.gmane.org&gt;; Wang, Kevin(Yang) &lt;Kevi=
+n1.Wang-5C7GfCeVMHo@public.gmane.org&gt;; Zhang, Hawking &lt;Hawking.Zhang-5C7GfCeVMHo@public.gmane.org&gt;; Quan, Ev=
+an &lt;Evan.Quan-5C7GfCeVMHo@public.gmane.org&gt;; Feng, Kenneth &lt;Kenneth.Feng-5C7GfCeVMHo@public.gmane.org&gt;; Y=
+uan, Xiaojie &lt;Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org&gt;<br>
+<b>Subject:</b> [PATCH 2/2] drm/amd/powerplay: re-enable FW_DSTATE feature =
+bit</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">SMU firmware has fix the bug, so remove this worka=
+round.<br>
+<br>
+Signed-off-by: Xiaojie Yuan &lt;xiaojie.yuan-5C7GfCeVMHo@public.gmane.org&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/powerplay/navi10_ppt.c | 5 &#43;----<br>
+&nbsp;1 file changed, 1 insertion(&#43;), 4 deletions(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c b/drivers/gpu/drm/a=
+md/powerplay/navi10_ppt.c<br>
+index 44152c1f01c7..3628295469c4 100644<br>
+--- a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/navi10_ppt.c<br>
+@@ -359,11 &#43;359,8 @@ navi10_get_allowed_feature_mask(struct smu_context=
+ *smu,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | FEATURE_MASK(FEATURE_MEM_VDDCI=
+_SCALING_BIT)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | FEATURE_MASK(FEATURE_MEM_MVDD_=
+SCALING_BIT);<br>
+&nbsp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;pm.pp_feature &amp; PP_G=
+FXOFF_MASK) {<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;pm.pp_feature &amp; =
+PP_GFXOFF_MASK)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; *(uint64_t *)feature_mask |=3D FEATURE_MASK(FEATURE_G=
+FXOFF_BIT);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; /* TODO: remove it once fw fix the bug */<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; *(uint64_t *)feature_mask &amp;=3D ~FEATURE_MASK(FEATURE_FW_DSTA=
+TE_BIT);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (smu-&gt;adev-&gt;pg_fl=
+ags &amp; AMD_PG_SUPPORT_MMHUB)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; *(uint64_t *)feature_mask |=3D FEATURE_MASK(FEATURE_M=
+MHUB_PG_BIT);<br>
+-- <br>
+2.20.1<br>
+<br>
+_______________________________________________<br>
+amd-gfx mailing list<br>
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
+lists.freedesktop.org/mailman/listinfo/amd-gfx</a></div>
+</span></font></div>
+</body>
+</html>
+
+--_000_DM5PR12MB182077A0796BED759991002EF7950DM5PR12MB1820namp_--
+
+--===============1474305562==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+
+--===============1474305562==--
