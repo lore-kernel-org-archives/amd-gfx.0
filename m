@@ -1,66 +1,105 @@
-From: "Lakha, Bhawanpreet" <Bhawanpreet.Lakha@amd.com>
+From: Daniel Vetter <daniel@ffwll.ch>
 Subject: Re: drm/amd/display: Add HDCP module - static analysis bug report
-Date: Wed, 9 Oct 2019 18:23:26 +0000
-Message-ID: <a0d5f3a3-a2b3-5367-42f9-bde514571e25@amd.com>
+Date: Wed, 9 Oct 2019 20:43:58 +0200
+Message-ID: <CAKMK7uEtJRDhibWDv2TB2WrFzFooMWPSbveDD2N-rudAwvzVFA@mail.gmail.com>
 References: <951eb7dc-bebe-5049-4998-f199e18b0bf3@canonical.com>
- <20191009163235.GT16989@phenom.ffwll.local>
+ <20191009163235.GT16989@phenom.ffwll.local> <a0d5f3a3-a2b3-5367-42f9-bde514571e25@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-In-Reply-To: <20191009163235.GT16989@phenom.ffwll.local>
-Content-Language: en-US
-Content-ID: <F0D6969DDC7B294D8B3E2143A2776E83@namprd12.prod.outlook.com>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: Colin Ian King <colin.king@canonical.com>, "Wentland, Harry" <Harry.Wentland@amd.com>, "Li, Sun peng (Leo)" <Sunpeng.Li@amd.com>, "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Koenig, Christian" <Christian.Koenig@amd.com>, "Zhou, David(ChunMing)" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, amd-gfx mailing list <amd-gfx@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <a0d5f3a3-a2b3-5367-42f9-bde514571e25@amd.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: "Lakha, Bhawanpreet" <Bhawanpreet.Lakha@amd.com>
+Cc: Colin Ian King <colin.king@canonical.com>, "Wentland, Harry" <Harry.Wentland@amd.com>, "Li, Sun peng (Leo)" <Sunpeng.Li@amd.com>, "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Koenig, Christian" <Christian.Koenig@amd.com>, "Zhou, David(ChunMing)" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, amd-gfx mailing list <amd-gfx@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
 List-Id: amd-gfx.lists.freedesktop.org
 
-SGksDQoNClRoZSByZWFzb24gd2UgZG9uJ3QgdXNlIGRybV9oZGNwIGlzIGJlY2F1c2Ugb3VyIHBv
-bGljeSBpcyB0byBkbyBoZGNwIA0KdmVyaWZpY2F0aW9uIHVzaW5nIFBTUC9IVyAob25ib2FyZCBz
-ZWN1cmUgcHJvY2Vzc29yKS4NCg0KQmhhd2FuDQoNCk9uIDIwMTktMTAtMDkgMTI6MzIgcC5tLiwg
-RGFuaWVsIFZldHRlciB3cm90ZToNCj4gT24gVGh1LCBPY3QgMDMsIDIwMTkgYXQgMTE6MDg6MDNQ
-TSArMDEwMCwgQ29saW4gSWFuIEtpbmcgd3JvdGU6DQo+PiBIaSwNCj4+DQo+PiBTdGF0aWMgYW5h
-bHlzaXMgd2l0aCBDb3Zlcml0eSBoYXMgZGV0ZWN0ZWQgYSBwb3RlbnRpYWwgaXNzdWUgd2l0aA0K
-Pj4gZnVuY3Rpb24gdmFsaWRhdGVfYmtzdiBpbg0KPj4gZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNw
-bGF5L21vZHVsZXMvaGRjcC9oZGNwMV9leGVjdXRpb24uYyB3aXRoIHJlY2VudA0KPj4gY29tbWl0
-Og0KPj4NCj4+IGNvbW1pdCBlZDlkOGUyYmNiMDAzZWM5NDY1OGNhZmU5YjFiYjM5NjBlMjEzOWVj
-DQo+PiBBdXRob3I6IEJoYXdhbnByZWV0IExha2hhIDxCaGF3YW5wcmVldC5MYWtoYUBhbWQuY29t
-Pg0KPj4gRGF0ZTogICBUdWUgQXVnIDYgMTc6NTI6MDEgMjAxOSAtMDQwMA0KPj4NCj4+ICAgICAg
-ZHJtL2FtZC9kaXNwbGF5OiBBZGQgSERDUCBtb2R1bGUNCj4gSSB0aGluayB0aGUgcmVhbCBxdWVz
-dGlvbiBoZXJlIGlzIC4uLiB3aHkgaXMgdGhpcyBub3QgdXNpbmcgZHJtX2hkY3A/DQo+IC1EYW5p
-ZWwNCj4NCj4+DQo+PiBUaGUgYW5hbHlzaXMgaXMgYXMgZm9sbG93czoNCj4+DQo+PiAgIDI4IHN0
-YXRpYyBpbmxpbmUgZW51bSBtb2RfaGRjcF9zdGF0dXMgdmFsaWRhdGVfYmtzdihzdHJ1Y3QgbW9k
-X2hkY3AgKmhkY3ApDQo+PiAgIDI5IHsNCj4+DQo+PiBDSUQgODk4NTIgKCMxIG9mIDEpOiBPdXQt
-b2YtYm91bmRzIHJlYWQgKE9WRVJSVU4pDQo+Pg0KPj4gMS4gb3ZlcnJ1bi1sb2NhbDoNCj4+IE92
-ZXJydW5uaW5nIGFycmF5IG9mIDUgYnl0ZXMgYXQgYnl0ZSBvZmZzZXQgNyBieSBkZXJlZmVyZW5j
-aW5nIHBvaW50ZXINCj4+ICh1aW50NjRfdCAqKWhkY3AtPmF1dGgubXNnLmhkY3AxLmJrc3YuDQo+
-Pg0KPj4gICAzMCAgICAgICAgdWludDY0X3QgbiA9ICoodWludDY0X3QgKiloZGNwLT5hdXRoLm1z
-Zy5oZGNwMS5ia3N2Ow0KPj4gICAzMSAgICAgICAgdWludDhfdCBjb3VudCA9IDA7DQo+PiAgIDMy
-DQo+PiAgIDMzICAgICAgICB3aGlsZSAobikgew0KPj4gICAzNCAgICAgICAgICAgICAgICBjb3Vu
-dCsrOw0KPj4gICAzNSAgICAgICAgICAgICAgICBuICY9IChuIC0gMSk7DQo+PiAgIDM2ICAgICAg
-ICB9DQo+Pg0KPj4gaGRjcC0+YXV0aC5tc2cuaGRjcDEuYmtzdiBpcyBhbiBhcnJheSBvZiA1IHVp
-bnQ4X3QgYXMgZGVmaW5lZCBpbg0KPj4gZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L21vZHVs
-ZXMvaGRjcC9oZGNwLmggYXMgZm9sbG93czoNCj4+DQo+PiBzdHJ1Y3QgbW9kX2hkY3BfbWVzc2Fn
-ZV9oZGNwMSB7DQo+PiAgICAgICAgICB1aW50OF90ICAgICAgICAgYW5bOF07DQo+PiAgICAgICAg
-ICB1aW50OF90ICAgICAgICAgYWtzdls1XTsNCj4+ICAgICAgICAgIHVpbnQ4X3QgICAgICAgICBh
-aW5mbzsNCj4+ICAgICAgICAgIHVpbnQ4X3QgICAgICAgICBia3N2WzVdOw0KPj4gICAgICAgICAg
-dWludDE2X3QgICAgICAgIHIwcDsNCj4+ICAgICAgICAgIHVpbnQ4X3QgICAgICAgICBiY2FwczsN
-Cj4+ICAgICAgICAgIHVpbnQxNl90ICAgICAgICBic3RhdHVzOw0KPj4gICAgICAgICAgdWludDhf
-dCAgICAgICAgIGtzdmxpc3RbNjM1XTsNCj4+ICAgICAgICAgIHVpbnQxNl90ICAgICAgICBrc3Zs
-aXN0X3NpemU7DQo+PiAgICAgICAgICB1aW50OF90ICAgICAgICAgdnBbMjBdOw0KPj4NCj4+ICAg
-ICAgICAgIHVpbnQxNl90ICAgICAgICBiaW5mb19kcDsNCj4+IH07DQo+Pg0KPj4gdmFyaWFibGUg
-biBpcyBnb2luZyB0byBjb250YWluIHRoZSBjb250YWlucyBvZiByMHAgYW5kIGJjYXBzLiBJJ20g
-bm90DQo+PiBzdXJlIGlmIHRoYXQgaXMgaW50ZW50aW9uYWwuIElmIG5vdCwgdGhlbiB0aGUgY291
-bnQgaXMgZ29pbmcgdG8gYmUNCj4+IGluY29ycmVjdCBpZiB0aGVzZSBhcmUgbm9uLXplcm8uDQo+
-Pg0KPj4gQ29saW4NCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fCmRyaS1kZXZlbCBtYWlsaW5nIGxpc3QKZHJpLWRldmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9y
-ZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2RyaS1kZXZl
-bA==
+On Wed, Oct 9, 2019 at 8:23 PM Lakha, Bhawanpreet
+<Bhawanpreet.Lakha@amd.com> wrote:
+>
+> Hi,
+>
+> The reason we don't use drm_hdcp is because our policy is to do hdcp
+> verification using PSP/HW (onboard secure processor).
+
+i915 also uses hw to auth, we still use the parts from drm_hdcp ...
+Did you actually look at what's in there? It's essentially just shared
+defines and data structures from the standard, plus a few minimal
+helpers to en/decode some bits. Just from a quick read the entire
+patch very much looks like midlayer everywhere design that we
+discussed back when DC landed ...
+-Daniel
+
+>
+> Bhawan
+>
+> On 2019-10-09 12:32 p.m., Daniel Vetter wrote:
+> > On Thu, Oct 03, 2019 at 11:08:03PM +0100, Colin Ian King wrote:
+> >> Hi,
+> >>
+> >> Static analysis with Coverity has detected a potential issue with
+> >> function validate_bksv in
+> >> drivers/gpu/drm/amd/display/modules/hdcp/hdcp1_execution.c with recent
+> >> commit:
+> >>
+> >> commit ed9d8e2bcb003ec94658cafe9b1bb3960e2139ec
+> >> Author: Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>
+> >> Date:   Tue Aug 6 17:52:01 2019 -0400
+> >>
+> >>      drm/amd/display: Add HDCP module
+> > I think the real question here is ... why is this not using drm_hdcp?
+> > -Daniel
+> >
+> >>
+> >> The analysis is as follows:
+> >>
+> >>   28 static inline enum mod_hdcp_status validate_bksv(struct mod_hdcp *hdcp)
+> >>   29 {
+> >>
+> >> CID 89852 (#1 of 1): Out-of-bounds read (OVERRUN)
+> >>
+> >> 1. overrun-local:
+> >> Overrunning array of 5 bytes at byte offset 7 by dereferencing pointer
+> >> (uint64_t *)hdcp->auth.msg.hdcp1.bksv.
+> >>
+> >>   30        uint64_t n = *(uint64_t *)hdcp->auth.msg.hdcp1.bksv;
+> >>   31        uint8_t count = 0;
+> >>   32
+> >>   33        while (n) {
+> >>   34                count++;
+> >>   35                n &= (n - 1);
+> >>   36        }
+> >>
+> >> hdcp->auth.msg.hdcp1.bksv is an array of 5 uint8_t as defined in
+> >> drivers/gpu/drm/amd/display/modules/hdcp/hdcp.h as follows:
+> >>
+> >> struct mod_hdcp_message_hdcp1 {
+> >>          uint8_t         an[8];
+> >>          uint8_t         aksv[5];
+> >>          uint8_t         ainfo;
+> >>          uint8_t         bksv[5];
+> >>          uint16_t        r0p;
+> >>          uint8_t         bcaps;
+> >>          uint16_t        bstatus;
+> >>          uint8_t         ksvlist[635];
+> >>          uint16_t        ksvlist_size;
+> >>          uint8_t         vp[20];
+> >>
+> >>          uint16_t        binfo_dp;
+> >> };
+> >>
+> >> variable n is going to contain the contains of r0p and bcaps. I'm not
+> >> sure if that is intentional. If not, then the count is going to be
+> >> incorrect if these are non-zero.
+> >>
+> >> Colin
+> _______________________________________________
+> dri-devel mailing list
+> dri-devel@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/dri-devel
+
+
+
+-- 
+Daniel Vetter
+Software Engineer, Intel Corporation
++41 (0) 79 365 57 48 - http://blog.ffwll.ch
