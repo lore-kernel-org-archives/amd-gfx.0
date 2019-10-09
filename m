@@ -1,50 +1,66 @@
-From: Alex Deucher <alexdeucher@gmail.com>
-Subject: [PATCH] Revert "drm/radeon: Fix EEH during kexec"
-Date: Wed,  9 Oct 2019 13:15:03 -0500
-Message-ID: <20191009181503.20381-1-alexander.deucher@amd.com>
+From: "Lakha, Bhawanpreet" <Bhawanpreet.Lakha@amd.com>
+Subject: Re: drm/amd/display: Add HDCP module - static analysis bug report
+Date: Wed, 9 Oct 2019 18:23:26 +0000
+Message-ID: <a0d5f3a3-a2b3-5367-42f9-bde514571e25@amd.com>
+References: <951eb7dc-bebe-5049-4998-f199e18b0bf3@canonical.com>
+ <20191009163235.GT16989@phenom.ffwll.local>
 Mime-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Return-path: <stable-owner@vger.kernel.org>
-Sender: stable-owner@vger.kernel.org
-To: amd-gfx@lists.freedesktop.org, kmahlkuc@linux.vnet.ibm.com
-Cc: Alex Deucher <alexander.deucher@amd.com>, stable@vger.kernel.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+In-Reply-To: <20191009163235.GT16989@phenom.ffwll.local>
+Content-Language: en-US
+Content-ID: <F0D6969DDC7B294D8B3E2143A2776E83@namprd12.prod.outlook.com>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: Colin Ian King <colin.king@canonical.com>, "Wentland, Harry" <Harry.Wentland@amd.com>, "Li, Sun peng (Leo)" <Sunpeng.Li@amd.com>, "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Koenig, Christian" <Christian.Koenig@amd.com>, "Zhou, David(ChunMing)" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, amd-gfx mailing list <amd-gfx@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
 List-Id: amd-gfx.lists.freedesktop.org
 
-This reverts commit 6f7fe9a93e6c09bf988c5059403f5f88e17e21e6.
-
-This breaks some boards.  Maybe just enable this on PPC for
-now?
-
-Bug: https://bugzilla.kernel.org/show_bug.cgi?id=205147
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-Cc: stable@vger.kernel.org
----
- drivers/gpu/drm/radeon/radeon_drv.c | 8 --------
- 1 file changed, 8 deletions(-)
-
-diff --git a/drivers/gpu/drm/radeon/radeon_drv.c b/drivers/gpu/drm/radeon/radeon_drv.c
-index 4267cb55bc33..2bc56f829bf7 100644
---- a/drivers/gpu/drm/radeon/radeon_drv.c
-+++ b/drivers/gpu/drm/radeon/radeon_drv.c
-@@ -378,19 +378,11 @@ radeon_pci_remove(struct pci_dev *pdev)
- static void
- radeon_pci_shutdown(struct pci_dev *pdev)
- {
--	struct drm_device *ddev = pci_get_drvdata(pdev);
--
- 	/* if we are running in a VM, make sure the device
- 	 * torn down properly on reboot/shutdown
- 	 */
- 	if (radeon_device_is_virtual())
- 		radeon_pci_remove(pdev);
--
--	/* Some adapters need to be suspended before a
--	* shutdown occurs in order to prevent an error
--	* during kexec.
--	*/
--	radeon_suspend_kms(ddev, true, true, false);
- }
- 
- static int radeon_pmops_suspend(struct device *dev)
--- 
-2.20.1
+SGksDQoNClRoZSByZWFzb24gd2UgZG9uJ3QgdXNlIGRybV9oZGNwIGlzIGJlY2F1c2Ugb3VyIHBv
+bGljeSBpcyB0byBkbyBoZGNwIA0KdmVyaWZpY2F0aW9uIHVzaW5nIFBTUC9IVyAob25ib2FyZCBz
+ZWN1cmUgcHJvY2Vzc29yKS4NCg0KQmhhd2FuDQoNCk9uIDIwMTktMTAtMDkgMTI6MzIgcC5tLiwg
+RGFuaWVsIFZldHRlciB3cm90ZToNCj4gT24gVGh1LCBPY3QgMDMsIDIwMTkgYXQgMTE6MDg6MDNQ
+TSArMDEwMCwgQ29saW4gSWFuIEtpbmcgd3JvdGU6DQo+PiBIaSwNCj4+DQo+PiBTdGF0aWMgYW5h
+bHlzaXMgd2l0aCBDb3Zlcml0eSBoYXMgZGV0ZWN0ZWQgYSBwb3RlbnRpYWwgaXNzdWUgd2l0aA0K
+Pj4gZnVuY3Rpb24gdmFsaWRhdGVfYmtzdiBpbg0KPj4gZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNw
+bGF5L21vZHVsZXMvaGRjcC9oZGNwMV9leGVjdXRpb24uYyB3aXRoIHJlY2VudA0KPj4gY29tbWl0
+Og0KPj4NCj4+IGNvbW1pdCBlZDlkOGUyYmNiMDAzZWM5NDY1OGNhZmU5YjFiYjM5NjBlMjEzOWVj
+DQo+PiBBdXRob3I6IEJoYXdhbnByZWV0IExha2hhIDxCaGF3YW5wcmVldC5MYWtoYUBhbWQuY29t
+Pg0KPj4gRGF0ZTogICBUdWUgQXVnIDYgMTc6NTI6MDEgMjAxOSAtMDQwMA0KPj4NCj4+ICAgICAg
+ZHJtL2FtZC9kaXNwbGF5OiBBZGQgSERDUCBtb2R1bGUNCj4gSSB0aGluayB0aGUgcmVhbCBxdWVz
+dGlvbiBoZXJlIGlzIC4uLiB3aHkgaXMgdGhpcyBub3QgdXNpbmcgZHJtX2hkY3A/DQo+IC1EYW5p
+ZWwNCj4NCj4+DQo+PiBUaGUgYW5hbHlzaXMgaXMgYXMgZm9sbG93czoNCj4+DQo+PiAgIDI4IHN0
+YXRpYyBpbmxpbmUgZW51bSBtb2RfaGRjcF9zdGF0dXMgdmFsaWRhdGVfYmtzdihzdHJ1Y3QgbW9k
+X2hkY3AgKmhkY3ApDQo+PiAgIDI5IHsNCj4+DQo+PiBDSUQgODk4NTIgKCMxIG9mIDEpOiBPdXQt
+b2YtYm91bmRzIHJlYWQgKE9WRVJSVU4pDQo+Pg0KPj4gMS4gb3ZlcnJ1bi1sb2NhbDoNCj4+IE92
+ZXJydW5uaW5nIGFycmF5IG9mIDUgYnl0ZXMgYXQgYnl0ZSBvZmZzZXQgNyBieSBkZXJlZmVyZW5j
+aW5nIHBvaW50ZXINCj4+ICh1aW50NjRfdCAqKWhkY3AtPmF1dGgubXNnLmhkY3AxLmJrc3YuDQo+
+Pg0KPj4gICAzMCAgICAgICAgdWludDY0X3QgbiA9ICoodWludDY0X3QgKiloZGNwLT5hdXRoLm1z
+Zy5oZGNwMS5ia3N2Ow0KPj4gICAzMSAgICAgICAgdWludDhfdCBjb3VudCA9IDA7DQo+PiAgIDMy
+DQo+PiAgIDMzICAgICAgICB3aGlsZSAobikgew0KPj4gICAzNCAgICAgICAgICAgICAgICBjb3Vu
+dCsrOw0KPj4gICAzNSAgICAgICAgICAgICAgICBuICY9IChuIC0gMSk7DQo+PiAgIDM2ICAgICAg
+ICB9DQo+Pg0KPj4gaGRjcC0+YXV0aC5tc2cuaGRjcDEuYmtzdiBpcyBhbiBhcnJheSBvZiA1IHVp
+bnQ4X3QgYXMgZGVmaW5lZCBpbg0KPj4gZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L21vZHVs
+ZXMvaGRjcC9oZGNwLmggYXMgZm9sbG93czoNCj4+DQo+PiBzdHJ1Y3QgbW9kX2hkY3BfbWVzc2Fn
+ZV9oZGNwMSB7DQo+PiAgICAgICAgICB1aW50OF90ICAgICAgICAgYW5bOF07DQo+PiAgICAgICAg
+ICB1aW50OF90ICAgICAgICAgYWtzdls1XTsNCj4+ICAgICAgICAgIHVpbnQ4X3QgICAgICAgICBh
+aW5mbzsNCj4+ICAgICAgICAgIHVpbnQ4X3QgICAgICAgICBia3N2WzVdOw0KPj4gICAgICAgICAg
+dWludDE2X3QgICAgICAgIHIwcDsNCj4+ICAgICAgICAgIHVpbnQ4X3QgICAgICAgICBiY2FwczsN
+Cj4+ICAgICAgICAgIHVpbnQxNl90ICAgICAgICBic3RhdHVzOw0KPj4gICAgICAgICAgdWludDhf
+dCAgICAgICAgIGtzdmxpc3RbNjM1XTsNCj4+ICAgICAgICAgIHVpbnQxNl90ICAgICAgICBrc3Zs
+aXN0X3NpemU7DQo+PiAgICAgICAgICB1aW50OF90ICAgICAgICAgdnBbMjBdOw0KPj4NCj4+ICAg
+ICAgICAgIHVpbnQxNl90ICAgICAgICBiaW5mb19kcDsNCj4+IH07DQo+Pg0KPj4gdmFyaWFibGUg
+biBpcyBnb2luZyB0byBjb250YWluIHRoZSBjb250YWlucyBvZiByMHAgYW5kIGJjYXBzLiBJJ20g
+bm90DQo+PiBzdXJlIGlmIHRoYXQgaXMgaW50ZW50aW9uYWwuIElmIG5vdCwgdGhlbiB0aGUgY291
+bnQgaXMgZ29pbmcgdG8gYmUNCj4+IGluY29ycmVjdCBpZiB0aGVzZSBhcmUgbm9uLXplcm8uDQo+
+Pg0KPj4gQ29saW4NCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fCmRyaS1kZXZlbCBtYWlsaW5nIGxpc3QKZHJpLWRldmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9y
+ZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2RyaS1kZXZl
+bA==
