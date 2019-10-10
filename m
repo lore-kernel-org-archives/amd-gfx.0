@@ -1,14 +1,15 @@
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+From: "Wang, Kevin(Yang)" <Kevin1.Wang-5C7GfCeVMHo@public.gmane.org>
 Subject: Re: [PATCH 1/2] drm/amd/powerplay: add more feature bits
-Date: Wed, 9 Oct 2019 22:33:19 -0400
-Message-ID: <CADnq5_MQSOscW5N2TX1jXgWGt4fyoA6-A8QPWreyEOroT_AR6Q@mail.gmail.com>
+Date: Thu, 10 Oct 2019 02:40:55 +0000
+Message-ID: <DM6PR12MB3290C65962F4DEC69415E0E3A2940@DM6PR12MB3290.namprd12.prod.outlook.com>
 References: <20191009110757.30995-1-xiaojie.yuan@amd.com>
- <BN8PR12MB3602BB4F482647F07C325E3A89940@BN8PR12MB3602.namprd12.prod.outlook.com>
+ <BN8PR12MB3602BB4F482647F07C325E3A89940@BN8PR12MB3602.namprd12.prod.outlook.com>,
+ <CADnq5_MQSOscW5N2TX1jXgWGt4fyoA6-A8QPWreyEOroT_AR6Q@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0967526409=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <BN8PR12MB3602BB4F482647F07C325E3A89940-h6+T2+wrnx1lGJ5xs4l7kQdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
+In-Reply-To: <CADnq5_MQSOscW5N2TX1jXgWGt4fyoA6-A8QPWreyEOroT_AR6Q-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -19,63 +20,284 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Yuan, Xiaojie" <Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org>
-Cc: "Xiao, Jack" <Jack.Xiao-5C7GfCeVMHo@public.gmane.org>, "Wang,
- Kevin(Yang)" <Kevin1.Wang-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Quan,
- Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>, "Feng, Kenneth" <Kenneth.Feng-5C7GfCeVMHo@public.gmane.org>, "Zhang,
+To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "Yuan, Xiaojie" <Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org>
+Cc: "Xiao, Jack" <Jack.Xiao-5C7GfCeVMHo@public.gmane.org>, "Quan, Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>, "Feng,
+ Kenneth" <Kenneth.Feng-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Zhang,
  Hawking" <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>
 
-QWNrZWQtYnk6IEFsZXggRGV1Y2hlciA8YWxleGFuZGVyLmRldWNoZXJAYW1kLmNvbT4KCk9uIFdl
-ZCwgT2N0IDksIDIwMTkgYXQgMTA6MjUgUE0gWXVhbiwgWGlhb2ppZSA8WGlhb2ppZS5ZdWFuQGFt
-ZC5jb20+IHdyb3RlOgo+Cj4gUGluZyAuLi4KPgo+IEJSLAo+IFhpYW9qaWUKPiBfX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fXwo+IEZyb206IFl1YW4sIFhpYW9qaWUgPFhpYW9qaWUuWXVh
-bkBhbWQuY29tPgo+IFNlbnQ6IFdlZG5lc2RheSwgT2N0b2JlciA5LCAyMDE5IDc6MDggUE0KPiBU
-bzogYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcgPGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0
-b3Aub3JnPgo+IENjOiBaaGFuZywgSGF3a2luZyA8SGF3a2luZy5aaGFuZ0BhbWQuY29tPjsgWGlh
-bywgSmFjayA8SmFjay5YaWFvQGFtZC5jb20+OyBGZW5nLCBLZW5uZXRoIDxLZW5uZXRoLkZlbmdA
-YW1kLmNvbT47IFF1YW4sIEV2YW4gPEV2YW4uUXVhbkBhbWQuY29tPjsgV2FuZywgS2V2aW4oWWFu
-ZykgPEtldmluMS5XYW5nQGFtZC5jb20+OyBZdWFuLCBYaWFvamllIDxYaWFvamllLll1YW5AYW1k
-LmNvbT4KPiBTdWJqZWN0OiBbUEFUQ0ggMS8yXSBkcm0vYW1kL3Bvd2VycGxheTogYWRkIG1vcmUg
-ZmVhdHVyZSBiaXRzCj4KPiBTaWduZWQtb2ZmLWJ5OiBYaWFvamllIFl1YW4gPHhpYW9qaWUueXVh
-bkBhbWQuY29tPgo+IC0tLQo+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9uYXZpMTBf
-cHB0LmMgfCA1ICsrKystCj4gIDEgZmlsZSBjaGFuZ2VkLCA0IGluc2VydGlvbnMoKyksIDEgZGVs
-ZXRpb24oLSkKPgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9u
-YXZpMTBfcHB0LmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9uYXZpMTBfcHB0LmMK
-PiBpbmRleCA1YTM0ZDAxZjdmN2MuLjQ0MTUyYzFmMDFjNyAxMDA2NDQKPiAtLS0gYS9kcml2ZXJz
-L2dwdS9kcm0vYW1kL3Bvd2VycGxheS9uYXZpMTBfcHB0LmMKPiArKysgYi9kcml2ZXJzL2dwdS9k
-cm0vYW1kL3Bvd2VycGxheS9uYXZpMTBfcHB0LmMKPiBAQCAtMzM3LDE5ICszMzcsMjIgQEAgbmF2
-aTEwX2dldF9hbGxvd2VkX2ZlYXR1cmVfbWFzayhzdHJ1Y3Qgc211X2NvbnRleHQgKnNtdSwKPiAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB8IEZFQVRVUkVfTUFTSyhGRUFUVVJFX1BQ
-VF9CSVQpCj4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgfCBGRUFUVVJFX01BU0so
-RkVBVFVSRV9URENfQklUKQo+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHwgRkVB
-VFVSRV9NQVNLKEZFQVRVUkVfR0ZYX0VEQ19CSVQpCj4gKyAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICB8IEZFQVRVUkVfTUFTSyhGRUFUVVJFX0FQQ0NfUExVU19CSVQpCj4gICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgfCBGRUFUVVJFX01BU0soRkVBVFVSRV9WUjBIT1RfQklU
-KQo+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHwgRkVBVFVSRV9NQVNLKEZFQVRV
-UkVfRkFOX0NPTlRST0xfQklUKQo+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHwg
-RkVBVFVSRV9NQVNLKEZFQVRVUkVfVEhFUk1BTF9CSVQpCj4gICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgfCBGRUFUVVJFX01BU0soRkVBVFVSRV9MRURfRElTUExBWV9CSVQpCj4gICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgfCBGRUFUVVJFX01BU0soRkVBVFVSRV9EUE1f
-RENFRkNMS19CSVQpCj4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgfCBGRUFUVVJF
-X01BU0soRkVBVFVSRV9EU19HRlhDTEtfQklUKQo+ICsgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgfCBGRUFUVVJFX01BU0soRkVBVFVSRV9EU19MQ0xLX0JJVCkKPiAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICB8IEZFQVRVUkVfTUFTSyhGRUFUVVJFX0RTX0RDRUZDTEtfQklU
-KQo+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHwgRkVBVFVSRV9NQVNLKEZFQVRV
-UkVfRldfRFNUQVRFX0JJVCkKPiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB8IEZF
-QVRVUkVfTUFTSyhGRUFUVVJFX0JBQ09fQklUKQo+ICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgIHwgRkVBVFVSRV9NQVNLKEZFQVRVUkVfQUNEQ19CSVQpCj4gICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgfCBGRUFUVVJFX01BU0soRkVBVFVSRV9HRlhfU1NfQklUKQo+ICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHwgRkVBVFVSRV9NQVNLKEZFQVRVUkVfQVBD
-Q19ERkxMX0JJVCkKPiAtICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHwgRkVBVFVSRV9N
-QVNLKEZFQVRVUkVfRldfQ1RGX0JJVCk7Cj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICB8IEZFQVRVUkVfTUFTSyhGRUFUVVJFX0ZXX0NURl9CSVQpCj4gKyAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICB8IEZFQVRVUkVfTUFTSyhGRUFUVVJFX09VVF9PRl9CQU5EX01PTklUT1Jf
-QklUKTsKPgo+ICAgICAgICAgIGlmIChhZGV2LT5wbS5wcF9mZWF0dXJlICYgUFBfTUNMS19EUE1f
-TUFTSykKPiAgICAgICAgICAgICAgICAgICoodWludDY0X3QgKilmZWF0dXJlX21hc2sgfD0gRkVB
-VFVSRV9NQVNLKEZFQVRVUkVfRFBNX1VDTEtfQklUKQo+IC0tCj4gMi4yMC4xCj4KPiBfX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwo+IGFtZC1nZnggbWFpbGlu
-ZyBsaXN0Cj4gYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPiBodHRwczovL2xpc3RzLmZy
-ZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngKX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdm
-eEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFp
-bG1hbi9saXN0aW5mby9hbWQtZ2Z4
+--===============0967526409==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_DM6PR12MB3290C65962F4DEC69415E0E3A2940DM6PR12MB3290namp_"
+
+--_000_DM6PR12MB3290C65962F4DEC69415E0E3A2940DM6PR12MB3290namp_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+Reviewed-by: Kevin Wang <kevin1.wang-5C7GfCeVMHo@public.gmane.org>
+
+Best Regards,
+Kevin
+
+________________________________
+From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Sent: Thursday, October 10, 2019 10:33 AM
+To: Yuan, Xiaojie <Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org>
+Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>; Xiao, Ja=
+ck <Jack.Xiao-5C7GfCeVMHo@public.gmane.org>; Quan, Evan <Evan.Quan-5C7GfCeVMHo@public.gmane.org>; Feng, Kenneth <Kenn=
+eth.Feng-5C7GfCeVMHo@public.gmane.org>; Wang, Kevin(Yang) <Kevin1.Wang-5C7GfCeVMHo@public.gmane.org>; Zhang, Hawking =
+<Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 1/2] drm/amd/powerplay: add more feature bits
+
+Acked-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+
+On Wed, Oct 9, 2019 at 10:25 PM Yuan, Xiaojie <Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org> wrote:
+>
+> Ping ...
+>
+> BR,
+> Xiaojie
+> ________________________________
+> From: Yuan, Xiaojie <Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org>
+> Sent: Wednesday, October 9, 2019 7:08 PM
+> To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+> Cc: Zhang, Hawking <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>; Xiao, Jack <Jack.Xiao-5C7GfCeVMHo@public.gmane.org=
+>; Feng, Kenneth <Kenneth.Feng-5C7GfCeVMHo@public.gmane.org>; Quan, Evan <Evan.Quan-5C7GfCeVMHo@public.gmane.org>; Wa=
+ng, Kevin(Yang) <Kevin1.Wang-5C7GfCeVMHo@public.gmane.org>; Yuan, Xiaojie <Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org>
+> Subject: [PATCH 1/2] drm/amd/powerplay: add more feature bits
+>
+> Signed-off-by: Xiaojie Yuan <xiaojie.yuan-5C7GfCeVMHo@public.gmane.org>
+> ---
+>  drivers/gpu/drm/amd/powerplay/navi10_ppt.c | 5 ++++-
+>  1 file changed, 4 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c b/drivers/gpu/drm=
+/amd/powerplay/navi10_ppt.c
+> index 5a34d01f7f7c..44152c1f01c7 100644
+> --- a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
+> +++ b/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
+> @@ -337,19 +337,22 @@ navi10_get_allowed_feature_mask(struct smu_context =
+*smu,
+>                                  | FEATURE_MASK(FEATURE_PPT_BIT)
+>                                  | FEATURE_MASK(FEATURE_TDC_BIT)
+>                                  | FEATURE_MASK(FEATURE_GFX_EDC_BIT)
+> +                               | FEATURE_MASK(FEATURE_APCC_PLUS_BIT)
+>                                  | FEATURE_MASK(FEATURE_VR0HOT_BIT)
+>                                  | FEATURE_MASK(FEATURE_FAN_CONTROL_BIT)
+>                                  | FEATURE_MASK(FEATURE_THERMAL_BIT)
+>                                  | FEATURE_MASK(FEATURE_LED_DISPLAY_BIT)
+>                                  | FEATURE_MASK(FEATURE_DPM_DCEFCLK_BIT)
+>                                  | FEATURE_MASK(FEATURE_DS_GFXCLK_BIT)
+> +                               | FEATURE_MASK(FEATURE_DS_LCLK_BIT)
+>                                  | FEATURE_MASK(FEATURE_DS_DCEFCLK_BIT)
+>                                  | FEATURE_MASK(FEATURE_FW_DSTATE_BIT)
+>                                  | FEATURE_MASK(FEATURE_BACO_BIT)
+>                                  | FEATURE_MASK(FEATURE_ACDC_BIT)
+>                                  | FEATURE_MASK(FEATURE_GFX_SS_BIT)
+>                                  | FEATURE_MASK(FEATURE_APCC_DFLL_BIT)
+> -                               | FEATURE_MASK(FEATURE_FW_CTF_BIT);
+> +                               | FEATURE_MASK(FEATURE_FW_CTF_BIT)
+> +                               | FEATURE_MASK(FEATURE_OUT_OF_BAND_MONITO=
+R_BIT);
+>
+>          if (adev->pm.pp_feature & PP_MCLK_DPM_MASK)
+>                  *(uint64_t *)feature_mask |=3D FEATURE_MASK(FEATURE_DPM_=
+UCLK_BIT)
+> --
+> 2.20.1
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--_000_DM6PR12MB3290C65962F4DEC69415E0E3A2940DM6PR12MB3290namp_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Reviewed-by: Kevin Wang &lt;kevin1.wang-5C7GfCeVMHo@public.gmane.org&gt;</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Best Regards,<br>
+Kevin</div>
+<div id=3D"appendonsend"></div>
+<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
+t; color:rgb(0,0,0)">
+<br>
+</div>
+<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" co=
+lor=3D"#000000" style=3D"font-size:11pt"><b>From:</b> Alex Deucher &lt;alex=
+deucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;<br>
+<b>Sent:</b> Thursday, October 10, 2019 10:33 AM<br>
+<b>To:</b> Yuan, Xiaojie &lt;Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org&gt;<br>
+<b>Cc:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org &lt;amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&=
+gt;; Xiao, Jack &lt;Jack.Xiao-5C7GfCeVMHo@public.gmane.org&gt;; Quan, Evan &lt;Evan.Quan-5C7GfCeVMHo@public.gmane.org=
+&gt;; Feng, Kenneth &lt;Kenneth.Feng-5C7GfCeVMHo@public.gmane.org&gt;; Wang, Kevin(Yang) &lt;Kev=
+in1.Wang-5C7GfCeVMHo@public.gmane.org&gt;; Zhang, Hawking &lt;Hawking.Zhang-5C7GfCeVMHo@public.gmane.org&gt;<br>
+<b>Subject:</b> Re: [PATCH 1/2] drm/amd/powerplay: add more feature bits</f=
+ont>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt"=
+>
+<div class=3D"PlainText">Acked-by: Alex Deucher &lt;alexander.deucher@amd.c=
+om&gt;<br>
+<br>
+On Wed, Oct 9, 2019 at 10:25 PM Yuan, Xiaojie &lt;Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org&gt; =
+wrote:<br>
+&gt;<br>
+&gt; Ping ...<br>
+&gt;<br>
+&gt; BR,<br>
+&gt; Xiaojie<br>
+&gt; ________________________________<br>
+&gt; From: Yuan, Xiaojie &lt;Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org&gt;<br>
+&gt; Sent: Wednesday, October 9, 2019 7:08 PM<br>
+&gt; To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org &lt;amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt=
+;<br>
+&gt; Cc: Zhang, Hawking &lt;Hawking.Zhang-5C7GfCeVMHo@public.gmane.org&gt;; Xiao, Jack &lt;Jack.=
+Xiao-5C7GfCeVMHo@public.gmane.org&gt;; Feng, Kenneth &lt;Kenneth.Feng-5C7GfCeVMHo@public.gmane.org&gt;; Quan, Evan &l=
+t;Evan.Quan-5C7GfCeVMHo@public.gmane.org&gt;; Wang, Kevin(Yang) &lt;Kevin1.Wang-5C7GfCeVMHo@public.gmane.org&gt;; Yua=
+n, Xiaojie &lt;Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org&gt;<br>
+&gt; Subject: [PATCH 1/2] drm/amd/powerplay: add more feature bits<br>
+&gt;<br>
+&gt; Signed-off-by: Xiaojie Yuan &lt;xiaojie.yuan-5C7GfCeVMHo@public.gmane.org&gt;<br>
+&gt; ---<br>
+&gt;&nbsp; drivers/gpu/drm/amd/powerplay/navi10_ppt.c | 5 &#43;&#43;&#43;&#=
+43;-<br>
+&gt;&nbsp; 1 file changed, 4 insertions(&#43;), 1 deletion(-)<br>
+&gt;<br>
+&gt; diff --git a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c b/drivers/gpu/=
+drm/amd/powerplay/navi10_ppt.c<br>
+&gt; index 5a34d01f7f7c..44152c1f01c7 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c<br>
+&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/navi10_ppt.c<br>
+&gt; @@ -337,19 &#43;337,22 @@ navi10_get_allowed_feature_mask(struct smu_c=
+ontext *smu,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | FEATURE_MASK(FEATURE=
+_PPT_BIT)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | FEATURE_MASK(FEATURE=
+_TDC_BIT)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | FEATURE_MASK(FEATURE=
+_GFX_EDC_BIT)<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | FEATURE_MASK(FEATURE_APCC_PLUS_B=
+IT)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | FEATURE_MASK(FEATURE=
+_VR0HOT_BIT)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | FEATURE_MASK(FEATURE=
+_FAN_CONTROL_BIT)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | FEATURE_MASK(FEATURE=
+_THERMAL_BIT)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | FEATURE_MASK(FEATURE=
+_LED_DISPLAY_BIT)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | FEATURE_MASK(FEATURE=
+_DPM_DCEFCLK_BIT)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | FEATURE_MASK(FEATURE=
+_DS_GFXCLK_BIT)<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | FEATURE_MASK(FEATURE_DS_LCLK_BIT=
+)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | FEATURE_MASK(FEATURE=
+_DS_DCEFCLK_BIT)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | FEATURE_MASK(FEATURE=
+_FW_DSTATE_BIT)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | FEATURE_MASK(FEATURE=
+_BACO_BIT)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | FEATURE_MASK(FEATURE=
+_ACDC_BIT)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | FEATURE_MASK(FEATURE=
+_GFX_SS_BIT)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | FEATURE_MASK(FEATURE=
+_APCC_DFLL_BIT)<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | FEATURE_MASK(FEATURE_FW_CTF_BIT);<br=
+>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | FEATURE_MASK(FEATURE_FW_CTF_BIT)=
+<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | FEATURE_MASK(FEATURE_OUT_OF_BAND=
+_MONITOR_BIT);<br>
+&gt;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;pm.=
+pp_feature &amp; PP_MCLK_DPM_MASK)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *(uint64_t *)feature_mask |=3D FEATURE_MASK=
+(FEATURE_DPM_UCLK_BIT)<br>
+&gt; --<br>
+&gt; 2.20.1<br>
+&gt;<br>
+&gt; _______________________________________________<br>
+&gt; amd-gfx mailing list<br>
+&gt; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+&gt; <a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">htt=
+ps://lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
+</div>
+</span></font></div>
+</body>
+</html>
+
+--_000_DM6PR12MB3290C65962F4DEC69415E0E3A2940DM6PR12MB3290namp_--
+
+--===============0967526409==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+
+--===============0967526409==--
