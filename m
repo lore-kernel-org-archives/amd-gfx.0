@@ -1,53 +1,45 @@
-From: KyleMahlkuch <kmahlkuc@linux.vnet.ibm.com>
-Subject: [PATCH v3] drm/radeon: Fix EEH during kexec
-Date: Thu, 10 Oct 2019 14:44:29 -0500
-Message-ID: <1570736672-10644-1-git-send-email-kmahlkuc@linux.vnet.ibm.com>
-Return-path: <stable-owner@vger.kernel.org>
-Sender: stable-owner@vger.kernel.org
-To: alexander.deucher@amd.com
-Cc: stable@vger.kernel.org, amd-gfx@lists.freedesktop.org, KyleMahlkuch <kmahlkuc@linux.vnet.ibm.com>
+From: Gabriel C <nix.or.die@gmail.com>
+Subject: [amdgpu] ASSERT()'s in write_i2c*retimer_setting() functions
+Date: Fri, 11 Oct 2019 01:34:08 +0200
+Message-ID: <CAEJqkgi-9_1D91GUm_MbS-=RRRwMZjqEYWhCCdk+STvc0PeYXw@mail.gmail.com>
+Mime-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: LKML <linux-kernel@vger.kernel.org>, amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Zeyu Fan <Zeyu.Fan@amd.com>, dri-devel@lists.freedesktop.org
 List-Id: amd-gfx.lists.freedesktop.org
 
-During kexec some adapters hit an EEH since they are not properly
-shut down in the radeon_pci_shutdown() function. Adding
-radeon_suspend_kms() fixes this issue.
-Enabled only on PPC because this patch causes issues on some other
-boards.
+Hello,
 
-Signed-off-by: Kyle Mahlkuch <Kyle.Mahlkuch at ibm.com>
----
- drivers/gpu/drm/radeon/radeon_drv.c | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
+I've built recently a new box with a Ryzen3 2200G APU.
 
-diff --git a/drivers/gpu/drm/radeon/radeon_drv.c b/drivers/gpu/drm/radeon/radeon_drv.c
-index 9e55076..4528f4d 100644
---- a/drivers/gpu/drm/radeon/radeon_drv.c
-+++ b/drivers/gpu/drm/radeon/radeon_drv.c
-@@ -379,11 +379,25 @@ static int radeon_pci_probe(struct pci_dev *pdev,
- static void
- radeon_pci_shutdown(struct pci_dev *pdev)
- {
-+#ifdef CONFIG_PPC64
-+	struct drm_device *ddev = pci_get_drvdata(pdev);
-+#endif
-+
- 	/* if we are running in a VM, make sure the device
- 	 * torn down properly on reboot/shutdown
- 	 */
- 	if (radeon_device_is_virtual())
- 		radeon_pci_remove(pdev);
-+
-+#ifdef CONFIG_PPC64
-+	/* Some adapters need to be suspended before a
-+	 * shutdown occurs in order to prevent an error
-+	 * during kexec.
-+	 * Make this power specific becauase it breaks
-+	 * some non-power boards.
-+	 */
-+	radeon_suspend_kms(ddev, true, true, false);
-+#endif
- }
- 
- static int radeon_pmops_suspend(struct device *dev)
--- 
-1.8.3.1
+Each time I plug in an HDMI cable ( to a TV or Monitor ),
+or boot with HDMI connected a lot ASSERT()'s from
+write_i2c*retimer_setting() functions are triggered.
+
+I see the same on a Laptop with a Ryzen7 3750H with
+hybrid GPU configuration.
+
+Besides the noise in dmesg and the delay on boot,
+everything is working fine. I cannot find anything wrong
+or broken.
+
+Since the write errors seem to not be fatal, I think a friendly message
+would help more instead of flooding the dmesg with dumps while
+everything is working properly.
+
+Why is ASSERT() used there?
+
+I have a dmesg from the Ryzen3 box with drm.debug and a snipped
+from the Laptop ( not near me right now ) uploaded there:
+
+https://crazy.dev.frugalware.org/amdgpu/
+
+Please let me know if you need more information,
+If needed I can upload a dmesg from the Laptop with drm.debug too.
+
+
+Best Regards,
+
+Gabriel C
