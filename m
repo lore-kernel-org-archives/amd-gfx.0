@@ -1,15 +1,13 @@
-From: "Yuan, Xiaojie" <Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu/discovery: reserve discovery data at the top
- of VRAM
-Date: Thu, 10 Oct 2019 12:59:05 +0000
-Message-ID: <BN8PR12MB360282C2972F0C781AC23C4889940@BN8PR12MB3602.namprd12.prod.outlook.com>
-References: <20191010124757.17427-1-xiaojie.yuan@amd.com>,
- <CADnq5_Mz7SDUs4MWKzhZp3toc0x0guRJjA+JyFb7CcChtBAixw@mail.gmail.com>
+From: Ville Syrjala <ville.syrjala-VuQAYsv1563Yd54FQh9/CA@public.gmane.org>
+Subject: [PATCH 2/3] drm/amdgpu/powerplay: Use swap() where appropriate
+Date: Thu, 10 Oct 2019 16:11:58 +0300
+Message-ID: <20191010131159.17346-2-ville.syrjala@linux.intel.com>
+References: <20191010131159.17346-1-ville.syrjala@linux.intel.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0111906881=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CADnq5_Mz7SDUs4MWKzhZp3toc0x0guRJjA+JyFb7CcChtBAixw-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
-Content-Language: en-US
+In-Reply-To: <20191010131159.17346-1-ville.syrjala-VuQAYsv1563Yd54FQh9/CA@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -20,285 +18,60 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: "Xiao, Jack" <Jack.Xiao-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Zhang,
- Hawking" <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>
+To: dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: "David (ChunMing) Zhou" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, Evan Quan <evan.quan-5C7GfCeVMHo@public.gmane.org>, Rex Zhu <rex.zhu-5C7GfCeVMHo@public.gmane.org>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
 
---===============0111906881==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_BN8PR12MB360282C2972F0C781AC23C4889940BN8PR12MB3602namp_"
-
---_000_BN8PR12MB360282C2972F0C781AC23C4889940BN8PR12MB3602namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-Thanks Alex. I'll try to use the new api and send v2 patch.
-
-BR,
-Xiaojie
-________________________________
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Sent: Thursday, October 10, 2019 8:57 PM
-To: Yuan, Xiaojie <Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org>
-Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>; Xiao, Ja=
-ck <Jack.Xiao-5C7GfCeVMHo@public.gmane.org>; Zhang, Hawking <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu/discovery: reserve discovery data at the to=
-p of VRAM
-
-On Thu, Oct 10, 2019 at 8:48 AM Yuan, Xiaojie <Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org> wrote:
->
-> IP Discovery data is TMR fenced by the latest PSP BL,
-> so we need to reserve this region.
->
-> Signed-off-by: Xiaojie Yuan <xiaojie.yuan-5C7GfCeVMHo@public.gmane.org>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu.h     |  1 +
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 15 +++++++++++++++
->  2 files changed, 16 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/am=
-dgpu/amdgpu.h
-> index be0b2c69c223..6775647f0ba5 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> @@ -812,6 +812,7 @@ struct amdgpu_device {
->         uint8_t                         *bios;
->         uint32_t                        bios_size;
->         struct amdgpu_bo                *stolen_vga_memory;
-> +       struct amdgpu_bo                *discovery_memory;
->         uint32_t                        bios_scratch_reg_offset;
->         uint32_t                        bios_scratch[AMDGPU_BIOS_NUM_SCRA=
-TCH];
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_ttm.c
-> index edffc883549a..c3d7eb685a23 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> @@ -1955,6 +1955,18 @@ int amdgpu_ttm_init(struct amdgpu_device *adev)
->                                     NULL, &stolen_vga_buf);
->         if (r)
->                 return r;
-> +
-> +       /*
-> +        * reserve one TMR (64K) memory at the top of VRAM which holds
-> +        * IP Discovery data and is protected by PSP.
-> +        */
-> +       r =3D amdgpu_bo_create_kernel(adev, 64 << 10, PAGE_SIZE,
-> +                                   AMDGPU_GEM_DOMAIN_VRAM,
-> +                                   &adev->discovery_memory,
-> +                                   NULL, NULL);
-> +       if (r)
-> +               return r;
-> +
-
-I think we should use amdgpu_bo_create_kernel_at() for both this and
-stolen_vga_memory so that we make sure we end up reserving the right
-location since both of these buffers are created by firmware at fixed
-locations.
-
-Alex
-
->         DRM_INFO("amdgpu: %uM of VRAM memory ready\n",
->                  (unsigned) (adev->gmc.real_vram_size / (1024 * 1024)));
->
-> @@ -2024,6 +2036,9 @@ void amdgpu_ttm_late_init(struct amdgpu_device *ade=
-v)
->         void *stolen_vga_buf;
->         /* return the VGA stolen memory (if any) back to VRAM */
->         amdgpu_bo_free_kernel(&adev->stolen_vga_memory, NULL, &stolen_vga=
-_buf);
-> +
-> +       /* return the IP Discovery TMR memory back to VRAM */
-> +       amdgpu_bo_free_kernel(&adev->discovery_memory, NULL, NULL);
->  }
->
->  /**
-> --
-> 2.20.1
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---_000_BN8PR12MB360282C2972F0C781AC23C4889940BN8PR12MB3602namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<div style=3D"font-family: Calibri, Helvetica, sans-serif; font-size: 11pt;=
- color: rgb(0, 0, 0);">
-Thanks Alex. I'll try to use the new api and send v2 patch.<br>
-</div>
-<div style=3D"font-family: Calibri, Helvetica, sans-serif; font-size: 11pt;=
- color: rgb(0, 0, 0);">
-<br>
-</div>
-<div style=3D"font-family: Calibri, Helvetica, sans-serif; font-size: 11pt;=
- color: rgb(0, 0, 0);">
-BR,</div>
-<div style=3D"font-family: Calibri, Helvetica, sans-serif; font-size: 11pt;=
- color: rgb(0, 0, 0);">
-Xiaojie<br>
-</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Alex Deucher &lt;alex=
-deucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;<br>
-<b>Sent:</b> Thursday, October 10, 2019 8:57 PM<br>
-<b>To:</b> Yuan, Xiaojie &lt;Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org&gt;<br>
-<b>Cc:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org &lt;amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&=
-gt;; Xiao, Jack &lt;Jack.Xiao-5C7GfCeVMHo@public.gmane.org&gt;; Zhang, Hawking &lt;Hawking.Zhang=
-@amd.com&gt;<br>
-<b>Subject:</b> Re: [PATCH] drm/amdgpu/discovery: reserve discovery data at=
- the top of VRAM</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">On Thu, Oct 10, 2019 at 8:48 AM Yuan, Xiaojie &lt;=
-Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org&gt; wrote:<br>
-&gt;<br>
-&gt; IP Discovery data is TMR fenced by the latest PSP BL,<br>
-&gt; so we need to reserve this region.<br>
-&gt;<br>
-&gt; Signed-off-by: Xiaojie Yuan &lt;xiaojie.yuan-5C7GfCeVMHo@public.gmane.org&gt;<br>
-&gt; ---<br>
-&gt;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu.h&nbsp;&nbsp;&nbsp;&nbsp; |&nb=
-sp; 1 &#43;<br>
-&gt;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 15 &#43;&#43;&#43;&#43=
-;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;<br>
-&gt;&nbsp; 2 files changed, 16 insertions(&#43;)<br>
-&gt;<br>
-&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd=
-/amdgpu/amdgpu.h<br>
-&gt; index be0b2c69c223..6775647f0ba5 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h<br>
-&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu.h<br>
-&gt; @@ -812,6 &#43;812,7 @@ struct amdgpu_device {<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint8_t&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *bios;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bios_size;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_bo&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp; *stolen_vga_memory;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_bo&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; *discovery_memory;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bios_scratch_reg_offset;<=
-br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bios_scratch[AMDGPU_BIOS_=
-NUM_SCRATCH];<br>
-&gt;<br>
-&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm=
-/amd/amdgpu/amdgpu_ttm.c<br>
-&gt; index edffc883549a..c3d7eb685a23 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c<br>
-&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c<br>
-&gt; @@ -1955,6 &#43;1955,18 @@ int amdgpu_ttm_init(struct amdgpu_device *a=
-dev)<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; NULL=
-, &amp;stolen_vga_buf);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r)<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp; return r;<br>
-&gt; &#43;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /*<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * reserve one TMR (64K=
-) memory at the top of VRAM which holds<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * IP Discovery data an=
-d is protected by PSP.<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_bo_create_kerne=
-l(adev, 64 &lt;&lt; 10, PAGE_SIZE,<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMDGPU_GEM=
-_DOMAIN_VRAM,<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &amp;adev-=
-&gt;discovery_memory,<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; NULL, NULL=
-);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r)<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; return r;<br>
-&gt; &#43;<br>
-<br>
-I think we should use amdgpu_bo_create_kernel_at() for both this and<br>
-stolen_vga_memory so that we make sure we end up reserving the right<br>
-location since both of these buffers are created by firmware at fixed<br>
-locations.<br>
-<br>
-Alex<br>
-<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DRM_INFO(&quot;amdgpu:=
- %uM of VRAM memory ready\n&quot;,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (unsigned) (adev-&gt;gmc.real_vram_size / (=
-1024 * 1024)));<br>
-&gt;<br>
-&gt; @@ -2024,6 &#43;2036,9 @@ void amdgpu_ttm_late_init(struct amdgpu_devi=
-ce *adev)<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; void *stolen_vga_buf;<=
-br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* return the VGA stol=
-en memory (if any) back to VRAM */<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_bo_free_kernel(=
-&amp;adev-&gt;stolen_vga_memory, NULL, &amp;stolen_vga_buf);<br>
-&gt; &#43;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* return the IP Discovery T=
-MR memory back to VRAM */<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_bo_free_kernel(&amp;a=
-dev-&gt;discovery_memory, NULL, NULL);<br>
-&gt;&nbsp; }<br>
-&gt;<br>
-&gt;&nbsp; /**<br>
-&gt; --<br>
-&gt; 2.20.1<br>
-&gt;<br>
-&gt; _______________________________________________<br>
-&gt; amd-gfx mailing list<br>
-&gt; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-&gt; <a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">htt=
-ps://lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
-</div>
-</span></font></div>
-</body>
-</html>
-
---_000_BN8PR12MB360282C2972F0C781AC23C4889940BN8PR12MB3602namp_--
-
---===============0111906881==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
-
---===============0111906881==--
+RnJvbTogVmlsbGUgU3lyasOkbMOkIDx2aWxsZS5zeXJqYWxhQGxpbnV4LmludGVsLmNvbT4KCkBz
+d2FwQAppZGVudGlmaWVyIFRFTVA7CmV4cHJlc3Npb24gQSxCOwpAQAotIFRFTVAgPSBBOwotIEEg
+PSBCOwotIEIgPSBURU1QOworIHN3YXAoQSwgQik7CgpAQAp0eXBlIFQ7CmlkZW50aWZpZXIgc3dh
+cC5URU1QOwpAQAooCi0gVCBURU1QOwp8Ci0gVCBURU1QID0gey4uLn07CikKLi4uIHdoZW4gIT0g
+VEVNUAoKQ2M6IFJleCBaaHUgPHJleC56aHVAYW1kLmNvbT4KQ2M6IEV2YW4gUXVhbiA8ZXZhbi5x
+dWFuQGFtZC5jb20+CkNjOiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+
+CkNjOiAiQ2hyaXN0aWFuIEvDtm5pZyIgPGNocmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4KQ2M6ICJE
+YXZpZCAoQ2h1bk1pbmcpIFpob3UiIDxEYXZpZDEuWmhvdUBhbWQuY29tPgpDYzogYW1kLWdmeEBs
+aXN0cy5mcmVlZGVza3RvcC5vcmcKU2lnbmVkLW9mZi1ieTogVmlsbGUgU3lyasOkbMOkIDx2aWxs
+ZS5zeXJqYWxhQGxpbnV4LmludGVsLmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2Vy
+cGxheS9od21nci9zbXU3X2h3bWdyLmMgICB8IDYgKystLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1k
+L3Bvd2VycGxheS9od21nci92ZWdhMTBfaHdtZ3IuYyB8IDYgKystLS0tCiAyIGZpbGVzIGNoYW5n
+ZWQsIDQgaW5zZXJ0aW9ucygrKSwgOCBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJz
+L2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci9zbXU3X2h3bWdyLmMgYi9kcml2ZXJzL2dwdS9k
+cm0vYW1kL3Bvd2VycGxheS9od21nci9zbXU3X2h3bWdyLmMKaW5kZXggMzRmOTVlMGUzZWE0Li4x
+ZmU5OTI4MzVhNzYgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3
+bWdyL3NtdTdfaHdtZ3IuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21n
+ci9zbXU3X2h3bWdyLmMKQEAgLTE5OTQsNyArMTk5NCw2IEBAIHN0YXRpYyBpbnQgc211N19zb3J0
+X2xvb2t1cF90YWJsZShzdHJ1Y3QgcHBfaHdtZ3IgKmh3bWdyLAogCQlzdHJ1Y3QgcGhtX3BwdF92
+MV92b2x0YWdlX2xvb2t1cF90YWJsZSAqbG9va3VwX3RhYmxlKQogewogCXVpbnQzMl90IHRhYmxl
+X3NpemUsIGksIGo7Ci0Jc3RydWN0IHBobV9wcHRfdjFfdm9sdGFnZV9sb29rdXBfcmVjb3JkIHRt
+cF92b2x0YWdlX2xvb2t1cF9yZWNvcmQ7CiAJdGFibGVfc2l6ZSA9IGxvb2t1cF90YWJsZS0+Y291
+bnQ7CiAKIAlQUF9BU1NFUlRfV0lUSF9DT0RFKDAgIT0gbG9va3VwX3RhYmxlLT5jb3VudCwKQEAg
+LTIwMDUsOSArMjAwNCw4IEBAIHN0YXRpYyBpbnQgc211N19zb3J0X2xvb2t1cF90YWJsZShzdHJ1
+Y3QgcHBfaHdtZ3IgKmh3bWdyLAogCQlmb3IgKGogPSBpICsgMTsgaiA+IDA7IGotLSkgewogCQkJ
+aWYgKGxvb2t1cF90YWJsZS0+ZW50cmllc1tqXS51c192ZGQgPAogCQkJCQlsb29rdXBfdGFibGUt
+PmVudHJpZXNbaiAtIDFdLnVzX3ZkZCkgewotCQkJCXRtcF92b2x0YWdlX2xvb2t1cF9yZWNvcmQg
+PSBsb29rdXBfdGFibGUtPmVudHJpZXNbaiAtIDFdOwotCQkJCWxvb2t1cF90YWJsZS0+ZW50cmll
+c1tqIC0gMV0gPSBsb29rdXBfdGFibGUtPmVudHJpZXNbal07Ci0JCQkJbG9va3VwX3RhYmxlLT5l
+bnRyaWVzW2pdID0gdG1wX3ZvbHRhZ2VfbG9va3VwX3JlY29yZDsKKwkJCQlzd2FwKGxvb2t1cF90
+YWJsZS0+ZW50cmllc1tqIC0gMV0sCisJCQkJICAgICBsb29rdXBfdGFibGUtPmVudHJpZXNbal0p
+OwogCQkJfQogCQl9CiAJfQpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBs
+YXkvaHdtZ3IvdmVnYTEwX2h3bWdyLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9o
+d21nci92ZWdhMTBfaHdtZ3IuYwppbmRleCBkMDg0OTNiNjdiNjcuLmY1ZGNiYTQ0Zjc0YSAxMDA2
+NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3IvdmVnYTEwX2h3bWdy
+LmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3IvdmVnYTEwX2h3bWdy
+LmMKQEAgLTcxMiw3ICs3MTIsNiBAQCBzdGF0aWMgaW50IHZlZ2ExMF9zb3J0X2xvb2t1cF90YWJs
+ZShzdHJ1Y3QgcHBfaHdtZ3IgKmh3bWdyLAogCQlzdHJ1Y3QgcGhtX3BwdF92MV92b2x0YWdlX2xv
+b2t1cF90YWJsZSAqbG9va3VwX3RhYmxlKQogewogCXVpbnQzMl90IHRhYmxlX3NpemUsIGksIGo7
+Ci0Jc3RydWN0IHBobV9wcHRfdjFfdm9sdGFnZV9sb29rdXBfcmVjb3JkIHRtcF92b2x0YWdlX2xv
+b2t1cF9yZWNvcmQ7CiAKIAlQUF9BU1NFUlRfV0lUSF9DT0RFKGxvb2t1cF90YWJsZSAmJiBsb29r
+dXBfdGFibGUtPmNvdW50LAogCQkiTG9va3VwIHRhYmxlIGlzIGVtcHR5IiwgcmV0dXJuIC1FSU5W
+QUwpOwpAQCAtNzI0LDkgKzcyMyw4IEBAIHN0YXRpYyBpbnQgdmVnYTEwX3NvcnRfbG9va3VwX3Rh
+YmxlKHN0cnVjdCBwcF9od21nciAqaHdtZ3IsCiAJCWZvciAoaiA9IGkgKyAxOyBqID4gMDsgai0t
+KSB7CiAJCQlpZiAobG9va3VwX3RhYmxlLT5lbnRyaWVzW2pdLnVzX3ZkZCA8CiAJCQkJCWxvb2t1
+cF90YWJsZS0+ZW50cmllc1tqIC0gMV0udXNfdmRkKSB7Ci0JCQkJdG1wX3ZvbHRhZ2VfbG9va3Vw
+X3JlY29yZCA9IGxvb2t1cF90YWJsZS0+ZW50cmllc1tqIC0gMV07Ci0JCQkJbG9va3VwX3RhYmxl
+LT5lbnRyaWVzW2ogLSAxXSA9IGxvb2t1cF90YWJsZS0+ZW50cmllc1tqXTsKLQkJCQlsb29rdXBf
+dGFibGUtPmVudHJpZXNbal0gPSB0bXBfdm9sdGFnZV9sb29rdXBfcmVjb3JkOworCQkJCXN3YXAo
+bG9va3VwX3RhYmxlLT5lbnRyaWVzW2ogLSAxXSwKKwkJCQkgICAgIGxvb2t1cF90YWJsZS0+ZW50
+cmllc1tqXSk7CiAJCQl9CiAJCX0KIAl9Ci0tIAoyLjIxLjAKCl9fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhA
+bGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxt
+YW4vbGlzdGluZm8vYW1kLWdmeA==
