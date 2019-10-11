@@ -1,17 +1,14 @@
-From: "Wang, Kevin(Yang)" <Kevin1.Wang-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 2/2] drm/amd/powerplay: re-enable FW_DSTATE feature bit
-Date: Fri, 11 Oct 2019 13:33:24 +0000
-Message-ID: <MN2PR12MB3296D8FFE9B513BEEBBC24B6A2970@MN2PR12MB3296.namprd12.prod.outlook.com>
-References: <20191009110757.30995-1-xiaojie.yuan@amd.com>,
- <20191009110757.30995-2-xiaojie.yuan@amd.com>,
- <DM5PR12MB182077A0796BED759991002EF7950@DM5PR12MB1820.namprd12.prod.outlook.com>
- <BN8PR12MB3602F6E7A20C0F1FE3997FF589950@BN8PR12MB3602.namprd12.prod.outlook.com>,
- <MN2PR12MB3598AD3DF5A31DF503C03EAE8E940@MN2PR12MB3598.namprd12.prod.outlook.com>
+From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH 3/3] drm/amdgpu: add RAS support for VML2 and ATCL2
+Date: Fri, 11 Oct 2019 10:12:10 -0400
+Message-ID: <CADnq5_Mvr0jm5-mjXRPNGF435Qy7aZyHP2_7=J62_wDTWNRbig@mail.gmail.com>
+References: <20191011024922.9018-1-Dennis.Li@amd.com>
+ <20191011024922.9018-4-Dennis.Li@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1790823042=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <MN2PR12MB3598AD3DF5A31DF503C03EAE8E940-rweVpJHSKTohWwLleUddgQdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
-Content-Language: en-US
+In-Reply-To: <20191011024922.9018-4-Dennis.Li-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -22,508 +19,160 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Feng, Kenneth" <Kenneth.Feng-5C7GfCeVMHo@public.gmane.org>, "Yuan, Xiaojie" <Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org>, "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Xiao, Jack" <Jack.Xiao-5C7GfCeVMHo@public.gmane.org>, "Quan, Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>, "Zhang,
- Hawking" <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>
+To: Dennis Li <Dennis.Li-5C7GfCeVMHo@public.gmane.org>
+Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, Tao Zhou <Tao.Zhou1-5C7GfCeVMHo@public.gmane.org>, "Chen, Guchun" <Guchun.Chen-5C7GfCeVMHo@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Hawking Zhang <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>
 
---===============1790823042==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_MN2PR12MB3296D8FFE9B513BEEBBC24B6A2970MN2PR12MB3296namp_"
-
---_000_MN2PR12MB3296D8FFE9B513BEEBBC24B6A2970MN2PR12MB3296namp_
-Content-Type: text/plain; charset="Windows-1252"
-Content-Transfer-Encoding: quoted-printable
-
-Reviewed-by: Kevin Wang <kevin1.wang-5C7GfCeVMHo@public.gmane.org>
-
-________________________________
-From: Feng, Kenneth <Kenneth.Feng-5C7GfCeVMHo@public.gmane.org>
-Sent: Thursday, October 10, 2019 3:00 PM
-To: Yuan, Xiaojie <Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org>; Deucher, Alexander <Alexander.Deu=
-cher-5C7GfCeVMHo@public.gmane.org>; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org=
->
-Cc: Xiao, Jack <Jack.Xiao-5C7GfCeVMHo@public.gmane.org>; Wang, Kevin(Yang) <Kevin1.Wang-5C7GfCeVMHo@public.gmane.org>=
-; Zhang, Hawking <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>; Quan, Evan <Evan.Quan-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH 2/2] drm/amd/powerplay: re-enable FW_DSTATE feature bit
-
-
-Hi Alex,
-
-This issue was navi10 specific and was found in May, 2019.
-
-It was early after the asic back, then since gfxoff was removed from navi10=
-, we didn=92t really verify which firmware version started to have a fix.
-
-For navi14/navi12, there=92s no such issue at all.
-
-Sorry for losing the track of it.
-
-
-
-
-
-From: Yuan, Xiaojie
-Sent: Thursday, October 10, 2019 1:17 AM
-To: Deucher, Alexander <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>; amd-gfx-PD4FTy7X32nrcLQh/DF6ew@public.gmane.org=
-op.org
-Cc: Xiao, Jack <Jack.Xiao-5C7GfCeVMHo@public.gmane.org>; Wang, Kevin(Yang) <Kevin1.Wang-5C7GfCeVMHo@public.gmane.org>=
-; Zhang, Hawking <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>; Quan, Evan <Evan.Quan-5C7GfCeVMHo@public.gmane.org>; F=
-eng, Kenneth <Kenneth.Feng-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 2/2] drm/amd/powerplay: re-enable FW_DSTATE feature bit
-
-
-
-Hi Alex,
-
-
-
-For now, gfxoff for navi10 is disabled by default, and I also verified on n=
-avi14 with both GFXOFF and FW_DSTATE feature bits toggled on.
-
-
-
-Hi Kenneth / Jack,
-
-
-
-Could you help to confirm the firmware version?
-
-
-
-BR,
-
-Xiaojie
-
-________________________________
-
-From: Deucher, Alexander <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org<mailto:Alexander.Deuche=
-r@amd.com>>
-Sent: Wednesday, October 9, 2019 9:35 PM
-To: Yuan, Xiaojie <Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org<mailto:Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org>>; amd-=
-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> <amd-gfx@li=
-sts.freedesktop.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>>
-Cc: Xiao, Jack <Jack.Xiao-5C7GfCeVMHo@public.gmane.org<mailto:Jack.Xiao-5C7GfCeVMHo@public.gmane.org>>; Wang, Kevin(Y=
-ang) <Kevin1.Wang-5C7GfCeVMHo@public.gmane.org<mailto:Kevin1.Wang-5C7GfCeVMHo@public.gmane.org>>; Zhang, Hawking <Haw=
-king.Zhang-5C7GfCeVMHo@public.gmane.org<mailto:Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>>; Quan, Evan <Evan.Quan@am=
-d.com<mailto:Evan.Quan-5C7GfCeVMHo@public.gmane.org>>; Feng, Kenneth <Kenneth.Feng-5C7GfCeVMHo@public.gmane.org<mailt=
-o:Kenneth.Feng-5C7GfCeVMHo@public.gmane.org>>
-Subject: Re: [PATCH 2/2] drm/amd/powerplay: re-enable FW_DSTATE feature bit
-
-
-
-What version of firmware has the fix?  Was it recently fixed?  We should ch=
-eck the version if the old one may be out in the wild.
-
-
-
-Alex
-
-________________________________
-
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-bounces=
-@lists.freedesktop.org>> on behalf of Yuan, Xiaojie <Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org<m=
-ailto:Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org>>
-Sent: Wednesday, October 9, 2019 7:08 AM
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> <am=
-d-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>>
-Cc: Xiao, Jack <Jack.Xiao-5C7GfCeVMHo@public.gmane.org<mailto:Jack.Xiao-5C7GfCeVMHo@public.gmane.org>>; Wang, Kevin(Y=
-ang) <Kevin1.Wang-5C7GfCeVMHo@public.gmane.org<mailto:Kevin1.Wang-5C7GfCeVMHo@public.gmane.org>>; Zhang, Hawking <Haw=
-king.Zhang-5C7GfCeVMHo@public.gmane.org<mailto:Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>>; Quan, Evan <Evan.Quan@am=
-d.com<mailto:Evan.Quan-5C7GfCeVMHo@public.gmane.org>>; Feng, Kenneth <Kenneth.Feng-5C7GfCeVMHo@public.gmane.org<mailt=
-o:Kenneth.Feng-5C7GfCeVMHo@public.gmane.org>>; Yuan, Xiaojie <Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org<mailto:Xiaoji=
-e.Yuan-5C7GfCeVMHo@public.gmane.org>>
-Subject: [PATCH 2/2] drm/amd/powerplay: re-enable FW_DSTATE feature bit
-
-
-
-SMU firmware has fix the bug, so remove this workaround.
-
-Signed-off-by: Xiaojie Yuan <xiaojie.yuan-5C7GfCeVMHo@public.gmane.org<mailto:xiaojie.yuan@amd.c=
-om>>
----
- drivers/gpu/drm/amd/powerplay/navi10_ppt.c | 5 +----
- 1 file changed, 1 insertion(+), 4 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c b/drivers/gpu/drm/a=
-md/powerplay/navi10_ppt.c
-index 44152c1f01c7..3628295469c4 100644
---- a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
-+++ b/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
-@@ -359,11 +359,8 @@ navi10_get_allowed_feature_mask(struct smu_context *sm=
-u,
-                                 | FEATURE_MASK(FEATURE_MEM_VDDCI_SCALING_B=
-IT)
-                                 | FEATURE_MASK(FEATURE_MEM_MVDD_SCALING_BI=
-T);
-
--       if (adev->pm.pp_feature & PP_GFXOFF_MASK) {
-+       if (adev->pm.pp_feature & PP_GFXOFF_MASK)
-                 *(uint64_t *)feature_mask |=3D FEATURE_MASK(FEATURE_GFXOFF=
-_BIT);
--               /* TODO: remove it once fw fix the bug */
--               *(uint64_t *)feature_mask &=3D ~FEATURE_MASK(FEATURE_FW_DST=
-ATE_BIT);
--       }
-
-         if (smu->adev->pg_flags & AMD_PG_SUPPORT_MMHUB)
-                 *(uint64_t *)feature_mask |=3D FEATURE_MASK(FEATURE_MMHUB_=
-PG_BIT);
---
-2.20.1
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---_000_MN2PR12MB3296D8FFE9B513BEEBBC24B6A2970MN2PR12MB3296namp_
-Content-Type: text/html; charset="Windows-1252"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3DWindows-1=
-252">
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Reviewed-by: Kevin Wang &lt;kevin1.wang-5C7GfCeVMHo@public.gmane.org&gt;</div>
-<div id=3D"appendonsend"></div>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
-t; color:rgb(0,0,0)">
-<br>
-</div>
-<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" co=
-lor=3D"#000000" style=3D"font-size:11pt"><b>From:</b> Feng, Kenneth &lt;Ken=
-neth.Feng-5C7GfCeVMHo@public.gmane.org&gt;<br>
-<b>Sent:</b> Thursday, October 10, 2019 3:00 PM<br>
-<b>To:</b> Yuan, Xiaojie &lt;Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org&gt;; Deucher, Alexander &=
-lt;Alexander.Deucher-5C7GfCeVMHo@public.gmane.org&gt;; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org &lt;amd-gfx=
-@lists.freedesktop.org&gt;<br>
-<b>Cc:</b> Xiao, Jack &lt;Jack.Xiao-5C7GfCeVMHo@public.gmane.org&gt;; Wang, Kevin(Yang) &lt;Kevi=
-n1.Wang-5C7GfCeVMHo@public.gmane.org&gt;; Zhang, Hawking &lt;Hawking.Zhang-5C7GfCeVMHo@public.gmane.org&gt;; Quan, Ev=
-an &lt;Evan.Quan-5C7GfCeVMHo@public.gmane.org&gt;<br>
-<b>Subject:</b> RE: [PATCH 2/2] drm/amd/powerplay: re-enable FW_DSTATE feat=
-ure bit</font>
-<div>&nbsp;</div>
-</div>
-<div lang=3D"EN-US">
-<div class=3D"x_WordSection1">
-<p class=3D"x_MsoNormal" style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt=
-; font-family: &quot;Times New Roman&quot;, serif;margin: 0in 0in 0.0001pt;=
- font-size: 12pt; font-family: &quot;Times New Roman&quot;, serif;">
-<span style=3D"font-size:11.0pt; font-family:&quot;Calibri&quot;,sans-serif=
-; color:#1F497D">Hi Alex,</span></p>
-<p class=3D"x_MsoNormal" style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt=
-; font-family: &quot;Times New Roman&quot;, serif;margin: 0in 0in 0.0001pt;=
- font-size: 12pt; font-family: &quot;Times New Roman&quot;, serif;">
-<span style=3D"font-size:11.0pt; font-family:&quot;Calibri&quot;,sans-serif=
-; color:#1F497D">This issue was navi10 specific and was found in May, 2019.=
-</span></p>
-<p class=3D"x_MsoNormal" style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt=
-; font-family: &quot;Times New Roman&quot;, serif;margin: 0in 0in 0.0001pt;=
- font-size: 12pt; font-family: &quot;Times New Roman&quot;, serif;">
-<span style=3D"font-size:11.0pt; font-family:&quot;Calibri&quot;,sans-serif=
-; color:#1F497D">It was early after the asic back, then since gfxoff was re=
-moved from navi10, we didn=92t really verify which firmware version started=
- to have a fix.</span></p>
-<p class=3D"x_MsoNormal" style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt=
-; font-family: &quot;Times New Roman&quot;, serif;margin: 0in 0in 0.0001pt;=
- font-size: 12pt; font-family: &quot;Times New Roman&quot;, serif;">
-<span style=3D"font-size:11.0pt; font-family:&quot;Calibri&quot;,sans-serif=
-; color:#1F497D">For navi14/navi12, there=92s no such issue at all.</span><=
-/p>
-<p class=3D"x_MsoNormal" style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt=
-; font-family: &quot;Times New Roman&quot;, serif;margin: 0in 0in 0.0001pt;=
- font-size: 12pt; font-family: &quot;Times New Roman&quot;, serif;">
-<span style=3D"font-size:11.0pt; font-family:&quot;Calibri&quot;,sans-serif=
-; color:#1F497D">Sorry for losing the track of it.</span></p>
-<p class=3D"x_MsoNormal" style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt=
-; font-family: &quot;Times New Roman&quot;, serif;margin: 0in 0in 0.0001pt;=
- font-size: 12pt; font-family: &quot;Times New Roman&quot;, serif;">
-<span style=3D"font-size:11.0pt; font-family:&quot;Calibri&quot;,sans-serif=
-; color:#1F497D">&nbsp;</span></p>
-<p class=3D"x_MsoNormal" style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt=
-; font-family: &quot;Times New Roman&quot;, serif;margin: 0in 0in 0.0001pt;=
- font-size: 12pt; font-family: &quot;Times New Roman&quot;, serif;">
-<span style=3D"font-size:11.0pt; font-family:&quot;Calibri&quot;,sans-serif=
-; color:#1F497D">&nbsp;</span></p>
-<div>
-<div style=3D"border:none; border-top:solid #E1E1E1 1.0pt; padding:3.0pt 0i=
-n 0in 0in">
-<p class=3D"x_MsoNormal" style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt=
-; font-family: &quot;Times New Roman&quot;, serif;margin: 0in 0in 0.0001pt;=
- font-size: 12pt; font-family: &quot;Times New Roman&quot;, serif;">
-<b><span style=3D"font-size:11.0pt; font-family:&quot;Calibri&quot;,sans-se=
-rif">From:</span></b><span style=3D"font-size:11.0pt; font-family:&quot;Cal=
-ibri&quot;,sans-serif"> Yuan, Xiaojie
-<br>
-<b>Sent:</b> Thursday, October 10, 2019 1:17 AM<br>
-<b>To:</b> Deucher, Alexander &lt;Alexander.Deucher-5C7GfCeVMHo@public.gmane.org&gt;; amd-gfx@li=
-sts.freedesktop.org<br>
-<b>Cc:</b> Xiao, Jack &lt;Jack.Xiao-5C7GfCeVMHo@public.gmane.org&gt;; Wang, Kevin(Yang) &lt;Kevi=
-n1.Wang-5C7GfCeVMHo@public.gmane.org&gt;; Zhang, Hawking &lt;Hawking.Zhang-5C7GfCeVMHo@public.gmane.org&gt;; Quan, Ev=
-an &lt;Evan.Quan-5C7GfCeVMHo@public.gmane.org&gt;; Feng, Kenneth &lt;Kenneth.Feng-5C7GfCeVMHo@public.gmane.org&gt;<br=
->
-<b>Subject:</b> Re: [PATCH 2/2] drm/amd/powerplay: re-enable FW_DSTATE feat=
-ure bit</span></p>
-</div>
-</div>
-<p class=3D"x_MsoNormal" style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt=
-; font-family: &quot;Times New Roman&quot;, serif;margin: 0in 0in 0.0001pt;=
- font-size: 12pt; font-family: &quot;Times New Roman&quot;, serif;">
-&nbsp;</p>
-<div>
-<p class=3D"x_MsoNormal" style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt=
-; font-family: &quot;Times New Roman&quot;, serif;margin: 0in 0in 0.0001pt;=
- font-size: 12pt; font-family: &quot;Times New Roman&quot;, serif;">
-<span style=3D"font-size:11.0pt; font-family:&quot;Calibri&quot;,sans-serif=
-; color:black">Hi Alex,</span></p>
-</div>
-<div>
-<p class=3D"x_MsoNormal" style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt=
-; font-family: &quot;Times New Roman&quot;, serif;margin: 0in 0in 0.0001pt;=
- font-size: 12pt; font-family: &quot;Times New Roman&quot;, serif;">
-<span style=3D"font-size:11.0pt; font-family:&quot;Calibri&quot;,sans-serif=
-; color:black">&nbsp;</span></p>
-</div>
-<div>
-<p class=3D"x_MsoNormal" style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt=
-; font-family: &quot;Times New Roman&quot;, serif;margin: 0in 0in 0.0001pt;=
- font-size: 12pt; font-family: &quot;Times New Roman&quot;, serif;">
-<span style=3D"font-size:11.0pt; font-family:&quot;Calibri&quot;,sans-serif=
-; color:black">For now, gfxoff for navi10 is disabled by default, and I als=
-o verified on navi14 with both GFXOFF and FW_DSTATE feature bits toggled on=
-.</span></p>
-</div>
-<div>
-<p class=3D"x_MsoNormal" style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt=
-; font-family: &quot;Times New Roman&quot;, serif;margin: 0in 0in 0.0001pt;=
- font-size: 12pt; font-family: &quot;Times New Roman&quot;, serif;">
-<span style=3D"font-size:11.0pt; font-family:&quot;Calibri&quot;,sans-serif=
-; color:black">&nbsp;</span></p>
-</div>
-<div>
-<p class=3D"x_MsoNormal" style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt=
-; font-family: &quot;Times New Roman&quot;, serif;margin: 0in 0in 0.0001pt;=
- font-size: 12pt; font-family: &quot;Times New Roman&quot;, serif;">
-<span style=3D"font-size:11.0pt; font-family:&quot;Calibri&quot;,sans-serif=
-; color:black">Hi Kenneth / Jack,</span></p>
-</div>
-<div>
-<p class=3D"x_MsoNormal" style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt=
-; font-family: &quot;Times New Roman&quot;, serif;margin: 0in 0in 0.0001pt;=
- font-size: 12pt; font-family: &quot;Times New Roman&quot;, serif;">
-<span style=3D"font-size:11.0pt; font-family:&quot;Calibri&quot;,sans-serif=
-; color:black">&nbsp;</span></p>
-</div>
-<div>
-<p class=3D"x_MsoNormal" style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt=
-; font-family: &quot;Times New Roman&quot;, serif;margin: 0in 0in 0.0001pt;=
- font-size: 12pt; font-family: &quot;Times New Roman&quot;, serif;">
-<span style=3D"font-size:11.0pt; font-family:&quot;Calibri&quot;,sans-serif=
-; color:black">Could you help to confirm the firmware version?</span></p>
-</div>
-<div>
-<p class=3D"x_MsoNormal" style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt=
-; font-family: &quot;Times New Roman&quot;, serif;margin: 0in 0in 0.0001pt;=
- font-size: 12pt; font-family: &quot;Times New Roman&quot;, serif;">
-<span style=3D"font-size:11.0pt; font-family:&quot;Calibri&quot;,sans-serif=
-; color:black">&nbsp;</span></p>
-</div>
-<div>
-<p class=3D"x_MsoNormal" style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt=
-; font-family: &quot;Times New Roman&quot;, serif;margin: 0in 0in 0.0001pt;=
- font-size: 12pt; font-family: &quot;Times New Roman&quot;, serif;">
-<span style=3D"font-size:11.0pt; font-family:&quot;Calibri&quot;,sans-serif=
-; color:black">BR,</span></p>
-</div>
-<div>
-<p class=3D"x_MsoNormal" style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt=
-; font-family: &quot;Times New Roman&quot;, serif;margin: 0in 0in 0.0001pt;=
- font-size: 12pt; font-family: &quot;Times New Roman&quot;, serif;">
-<span style=3D"font-size:11.0pt; font-family:&quot;Calibri&quot;,sans-serif=
-; color:black">Xiaojie</span></p>
-</div>
-<div class=3D"x_MsoNormal" align=3D"center" style=3D"margin: 0in 0in 0.0001=
-pt; font-size: 12pt; font-family: &quot;Times New Roman&quot;, serif;text-a=
-lign:center">
-<hr size=3D"2" width=3D"98%" align=3D"center">
-</div>
-<div id=3D"x_divRplyFwdMsg">
-<p class=3D"x_MsoNormal" style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt=
-; font-family: &quot;Times New Roman&quot;, serif;margin: 0in 0in 0.0001pt;=
- font-size: 12pt; font-family: &quot;Times New Roman&quot;, serif;">
-<b><span style=3D"font-size:11.0pt; font-family:&quot;Calibri&quot;,sans-se=
-rif; color:black">From:</span></b><span style=3D"font-size:11.0pt; font-fam=
-ily:&quot;Calibri&quot;,sans-serif; color:black"> Deucher, Alexander &lt;<a=
- href=3D"mailto:Alexander.Deucher-5C7GfCeVMHo@public.gmane.org">Alexander.Deucher-5C7GfCeVMHo@public.gmane.org</a>&gt=
-;<br>
-<b>Sent:</b> Wednesday, October 9, 2019 9:35 PM<br>
-<b>To:</b> Yuan, Xiaojie &lt;<a href=3D"mailto:Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org">Xiaoji=
-e.Yuan-5C7GfCeVMHo@public.gmane.org</a>&gt;;
-<a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9/rsn8yoX9R0@public.gmane.org=
-org</a> &lt;<a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx@lists.=
-freedesktop.org</a>&gt;<br>
-<b>Cc:</b> Xiao, Jack &lt;<a href=3D"mailto:Jack.Xiao-5C7GfCeVMHo@public.gmane.org">Jack.Xiao@am=
-d.com</a>&gt;; Wang, Kevin(Yang) &lt;<a href=3D"mailto:Kevin1.Wang-5C7GfCeVMHo@public.gmane.org"=
->Kevin1.Wang-5C7GfCeVMHo@public.gmane.org</a>&gt;; Zhang, Hawking &lt;<a href=3D"mailto:Hawking.=
-Zhang-5C7GfCeVMHo@public.gmane.org">Hawking.Zhang-5C7GfCeVMHo@public.gmane.org</a>&gt;; Quan, Evan
- &lt;<a href=3D"mailto:Evan.Quan-5C7GfCeVMHo@public.gmane.org">Evan.Quan-5C7GfCeVMHo@public.gmane.org</a>&gt;; Feng, =
-Kenneth &lt;<a href=3D"mailto:Kenneth.Feng-5C7GfCeVMHo@public.gmane.org">Kenneth.Feng-5C7GfCeVMHo@public.gmane.org</a=
->&gt;<br>
-<b>Subject:</b> Re: [PATCH 2/2] drm/amd/powerplay: re-enable FW_DSTATE feat=
-ure bit</span>
-</p>
-<div>
-<p class=3D"x_MsoNormal" style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt=
-; font-family: &quot;Times New Roman&quot;, serif;margin: 0in 0in 0.0001pt;=
- font-size: 12pt; font-family: &quot;Times New Roman&quot;, serif;">
-&nbsp;</p>
-</div>
-</div>
-<div>
-<div>
-<p class=3D"x_MsoNormal" style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt=
-; font-family: &quot;Times New Roman&quot;, serif;margin: 0in 0in 0.0001pt;=
- font-size: 12pt; font-family: &quot;Times New Roman&quot;, serif;">
-<span style=3D"font-family:&quot;Calibri&quot;,sans-serif; color:black">Wha=
-t version of firmware has the fix?&nbsp; Was it recently fixed?&nbsp; We sh=
-ould check the version if the old one may be out in the wild.</span></p>
-</div>
-<div>
-<p class=3D"x_MsoNormal" style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt=
-; font-family: &quot;Times New Roman&quot;, serif;margin: 0in 0in 0.0001pt;=
- font-size: 12pt; font-family: &quot;Times New Roman&quot;, serif;">
-<span style=3D"font-family:&quot;Calibri&quot;,sans-serif; color:black">&nb=
-sp;</span></p>
-</div>
-<div>
-<p class=3D"x_MsoNormal" style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt=
-; font-family: &quot;Times New Roman&quot;, serif;margin: 0in 0in 0.0001pt;=
- font-size: 12pt; font-family: &quot;Times New Roman&quot;, serif;">
-<span style=3D"font-family:&quot;Calibri&quot;,sans-serif; color:black">Ale=
-x</span></p>
-</div>
-<div class=3D"x_MsoNormal" align=3D"center" style=3D"margin: 0in 0in 0.0001=
-pt; font-size: 12pt; font-family: &quot;Times New Roman&quot;, serif;text-a=
-lign:center">
-<hr size=3D"2" width=3D"98%" align=3D"center">
-</div>
-<div id=3D"x_x_divRplyFwdMsg">
-<p class=3D"x_MsoNormal" style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt=
-; font-family: &quot;Times New Roman&quot;, serif;margin: 0in 0in 0.0001pt;=
- font-size: 12pt; font-family: &quot;Times New Roman&quot;, serif;">
-<b><span style=3D"font-size:11.0pt; font-family:&quot;Calibri&quot;,sans-se=
-rif; color:black">From:</span></b><span style=3D"font-size:11.0pt; font-fam=
-ily:&quot;Calibri&quot;,sans-serif; color:black"> amd-gfx &lt;<a href=3D"ma=
-ilto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-bounces-PD4FTy7X32nrcLQh/DF6ew@public.gmane.org=
-op.org</a>&gt;
- on behalf of Yuan, Xiaojie &lt;<a href=3D"mailto:Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org">Xia=
-ojie.Yuan-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
-<b>Sent:</b> Wednesday, October 9, 2019 7:08 AM<br>
-<b>To:</b> <a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx@lists.f=
-reedesktop.org</a> &lt;<a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd=
--gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>&gt;<br>
-<b>Cc:</b> Xiao, Jack &lt;<a href=3D"mailto:Jack.Xiao-5C7GfCeVMHo@public.gmane.org">Jack.Xiao@am=
-d.com</a>&gt;; Wang, Kevin(Yang) &lt;<a href=3D"mailto:Kevin1.Wang-5C7GfCeVMHo@public.gmane.org"=
->Kevin1.Wang-5C7GfCeVMHo@public.gmane.org</a>&gt;; Zhang, Hawking &lt;<a href=3D"mailto:Hawking.=
-Zhang-5C7GfCeVMHo@public.gmane.org">Hawking.Zhang-5C7GfCeVMHo@public.gmane.org</a>&gt;; Quan, Evan
- &lt;<a href=3D"mailto:Evan.Quan-5C7GfCeVMHo@public.gmane.org">Evan.Quan-5C7GfCeVMHo@public.gmane.org</a>&gt;; Feng, =
-Kenneth &lt;<a href=3D"mailto:Kenneth.Feng-5C7GfCeVMHo@public.gmane.org">Kenneth.Feng-5C7GfCeVMHo@public.gmane.org</a=
->&gt;; Yuan, Xiaojie &lt;<a href=3D"mailto:Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org">Xiaojie.Yu=
-an-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
-<b>Subject:</b> [PATCH 2/2] drm/amd/powerplay: re-enable FW_DSTATE feature =
-bit</span>
-</p>
-<div>
-<p class=3D"x_MsoNormal" style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt=
-; font-family: &quot;Times New Roman&quot;, serif;margin: 0in 0in 0.0001pt;=
- font-size: 12pt; font-family: &quot;Times New Roman&quot;, serif;">
-&nbsp;</p>
-</div>
-</div>
-<div>
-<div>
-<p class=3D"x_MsoNormal" style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt=
-; font-family: &quot;Times New Roman&quot;, serif;margin: 0in 0in 0.0001pt;=
- font-size: 12pt; font-family: &quot;Times New Roman&quot;, serif;">
-<span style=3D"font-size:11.0pt">SMU firmware has fix the bug, so remove th=
-is workaround.<br>
-<br>
-Signed-off-by: Xiaojie Yuan &lt;<a href=3D"mailto:xiaojie.yuan-5C7GfCeVMHo@public.gmane.org">xia=
-ojie.yuan-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/powerplay/navi10_ppt.c | 5 &#43;----<br>
-&nbsp;1 file changed, 1 insertion(&#43;), 4 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c b/drivers/gpu/drm/a=
-md/powerplay/navi10_ppt.c<br>
-index 44152c1f01c7..3628295469c4 100644<br>
---- a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/navi10_ppt.c<br>
-@@ -359,11 &#43;359,8 @@ navi10_get_allowed_feature_mask(struct smu_context=
- *smu,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | FEATURE_MASK(FEATURE_MEM_VDDCI=
-_SCALING_BIT)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | FEATURE_MASK(FEATURE_MEM_MVDD_=
-SCALING_BIT);<br>
-&nbsp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;pm.pp_feature &amp; PP_G=
-FXOFF_MASK) {<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;pm.pp_feature &amp; =
-PP_GFXOFF_MASK)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; *(uint64_t *)feature_mask |=3D FEATURE_MASK(FEATURE_G=
-FXOFF_BIT);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; /* TODO: remove it once fw fix the bug */<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; *(uint64_t *)feature_mask &amp;=3D ~FEATURE_MASK(FEATURE_FW_DSTA=
-TE_BIT);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (smu-&gt;adev-&gt;pg_fl=
-ags &amp; AMD_PG_SUPPORT_MMHUB)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; *(uint64_t *)feature_mask |=3D FEATURE_MASK(FEATURE_M=
-MHUB_PG_BIT);<br>
--- <br>
-2.20.1<br>
-<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-<a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9/rsn8yoX9R0@public.gmane.org=
-org</a><br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
-lists.freedesktop.org/mailman/listinfo/amd-gfx</a></span></p>
-</div>
-</div>
-</div>
-</div>
-</div>
-</body>
-</html>
-
---_000_MN2PR12MB3296D8FFE9B513BEEBBC24B6A2970MN2PR12MB3296namp_--
-
---===============1790823042==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
-
---===============1790823042==--
+T24gVGh1LCBPY3QgMTAsIDIwMTkgYXQgMTA6NTAgUE0gRGVubmlzIExpIDxEZW5uaXMuTGlAYW1k
+LmNvbT4gd3JvdGU6Cj4KPiBBZGQgY29kZXMgdG8gcXVlcnkgdGhlIEVEQyBjb3VudCBvZiBWTUwy
+ICYgQVRDTDIKPgo+IENoYW5nZS1JZDogSWYyYzI1MTQ4MWJhMGExYTM0Y2UzNDA1YTg1Zjg2ZDY1
+ZWVjZWU0NjEKPiBTaWduZWQtb2ZmLWJ5OiBEZW5uaXMgTGkgPERlbm5pcy5MaUBhbWQuY29tPgoK
+U2VyaWVzIGlzOgpBY2tlZC1ieTogQWxleCBEZXVjaGVyIDxhbGV4YW5kZXIuZGV1Y2hlckBhbWQu
+Y29tPgoKPiAtLS0KPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y5XzAuYyB8IDE2
+NyArKysrKysrKysrKysrKysrKysrKysrKysrKwo+ICAxIGZpbGUgY2hhbmdlZCwgMTY3IGluc2Vy
+dGlvbnMoKykKPgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhf
+djlfMC5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y5XzAuYwo+IGluZGV4IDJh
+OTUwOTNiODVhNS4uMjJiZTYxNzc5MzhlIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9h
+bWQvYW1kZ3B1L2dmeF92OV8wLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9n
+ZnhfdjlfMC5jCj4gQEAgLTYxNTIsNiArNjE1MiwxNzEgQEAgc3RhdGljIGludCBnZnhfdjlfMF9y
+YXNfZXJyb3JfaW5qZWN0KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LAo+ICAgICAgICAgcmV0
+dXJuIHJldDsKPiAgfQo+Cj4gK3N0YXRpYyBjb25zdCBjaGFyICp2bWwyX21lbXNbXSA9IHsKPiAr
+ICAgICAgICJVVENfVk1MMl9CQU5LX0NBQ0hFXzBfQklHS19NRU0wIiwKPiArICAgICAgICJVVENf
+Vk1MMl9CQU5LX0NBQ0hFXzBfQklHS19NRU0xIiwKPiArICAgICAgICJVVENfVk1MMl9CQU5LX0NB
+Q0hFXzBfNEtfTUVNMCIsCj4gKyAgICAgICAiVVRDX1ZNTDJfQkFOS19DQUNIRV8wXzRLX01FTTEi
+LAo+ICsgICAgICAgIlVUQ19WTUwyX0JBTktfQ0FDSEVfMV9CSUdLX01FTTAiLAo+ICsgICAgICAg
+IlVUQ19WTUwyX0JBTktfQ0FDSEVfMV9CSUdLX01FTTEiLAo+ICsgICAgICAgIlVUQ19WTUwyX0JB
+TktfQ0FDSEVfMV80S19NRU0wIiwKPiArICAgICAgICJVVENfVk1MMl9CQU5LX0NBQ0hFXzFfNEtf
+TUVNMSIsCj4gKyAgICAgICAiVVRDX1ZNTDJfQkFOS19DQUNIRV8yX0JJR0tfTUVNMCIsCj4gKyAg
+ICAgICAiVVRDX1ZNTDJfQkFOS19DQUNIRV8yX0JJR0tfTUVNMSIsCj4gKyAgICAgICAiVVRDX1ZN
+TDJfQkFOS19DQUNIRV8yXzRLX01FTTAiLAo+ICsgICAgICAgIlVUQ19WTUwyX0JBTktfQ0FDSEVf
+Ml80S19NRU0xIiwKPiArICAgICAgICJVVENfVk1MMl9CQU5LX0NBQ0hFXzNfQklHS19NRU0wIiwK
+PiArICAgICAgICJVVENfVk1MMl9CQU5LX0NBQ0hFXzNfQklHS19NRU0xIiwKPiArICAgICAgICJV
+VENfVk1MMl9CQU5LX0NBQ0hFXzNfNEtfTUVNMCIsCj4gKyAgICAgICAiVVRDX1ZNTDJfQkFOS19D
+QUNIRV8zXzRLX01FTTEiLAo+ICt9Owo+ICsKPiArc3RhdGljIGNvbnN0IGNoYXIgKnZtbDJfd2Fs
+a2VyX21lbXNbXSA9IHsKPiArICAgICAgICJVVENfVk1MMl9DQUNIRV9QREUwX01FTTAiLAo+ICsg
+ICAgICAgIlVUQ19WTUwyX0NBQ0hFX1BERTBfTUVNMSIsCj4gKyAgICAgICAiVVRDX1ZNTDJfQ0FD
+SEVfUERFMV9NRU0wIiwKPiArICAgICAgICJVVENfVk1MMl9DQUNIRV9QREUxX01FTTEiLAo+ICsg
+ICAgICAgIlVUQ19WTUwyX0NBQ0hFX1BERTJfTUVNMCIsCj4gKyAgICAgICAiVVRDX1ZNTDJfQ0FD
+SEVfUERFMl9NRU0xIiwKPiArICAgICAgICJVVENfVk1MMl9SRElGX0xPR19GSUZPIiwKPiArfTsK
+PiArCj4gK3N0YXRpYyBjb25zdCBjaGFyICphdGNfbDJfY2FjaGVfMm1fbWVtc1tdID0gewo+ICsg
+ICAgICAgIlVUQ19BVENMMl9DQUNIRV8yTV9CQU5LMF9XQVkwX01FTSIsCj4gKyAgICAgICAiVVRD
+X0FUQ0wyX0NBQ0hFXzJNX0JBTkswX1dBWTFfTUVNIiwKPiArICAgICAgICJVVENfQVRDTDJfQ0FD
+SEVfMk1fQkFOSzFfV0FZMF9NRU0iLAo+ICsgICAgICAgIlVUQ19BVENMMl9DQUNIRV8yTV9CQU5L
+MV9XQVkxX01FTSIsCj4gK307Cj4gKwo+ICtzdGF0aWMgY29uc3QgY2hhciAqYXRjX2wyX2NhY2hl
+XzRrX21lbXNbXSA9IHsKPiArICAgICAgICJVVENfQVRDTDJfQ0FDSEVfNEtfQkFOSzBfV0FZMF9N
+RU0wIiwKPiArICAgICAgICJVVENfQVRDTDJfQ0FDSEVfNEtfQkFOSzBfV0FZMF9NRU0xIiwKPiAr
+ICAgICAgICJVVENfQVRDTDJfQ0FDSEVfNEtfQkFOSzBfV0FZMF9NRU0yIiwKPiArICAgICAgICJV
+VENfQVRDTDJfQ0FDSEVfNEtfQkFOSzBfV0FZMF9NRU0zIiwKPiArICAgICAgICJVVENfQVRDTDJf
+Q0FDSEVfNEtfQkFOSzBfV0FZMF9NRU00IiwKPiArICAgICAgICJVVENfQVRDTDJfQ0FDSEVfNEtf
+QkFOSzBfV0FZMF9NRU01IiwKPiArICAgICAgICJVVENfQVRDTDJfQ0FDSEVfNEtfQkFOSzBfV0FZ
+MF9NRU02IiwKPiArICAgICAgICJVVENfQVRDTDJfQ0FDSEVfNEtfQkFOSzBfV0FZMF9NRU03IiwK
+PiArICAgICAgICJVVENfQVRDTDJfQ0FDSEVfNEtfQkFOSzBfV0FZMV9NRU0wIiwKPiArICAgICAg
+ICJVVENfQVRDTDJfQ0FDSEVfNEtfQkFOSzBfV0FZMV9NRU0xIiwKPiArICAgICAgICJVVENfQVRD
+TDJfQ0FDSEVfNEtfQkFOSzBfV0FZMV9NRU0yIiwKPiArICAgICAgICJVVENfQVRDTDJfQ0FDSEVf
+NEtfQkFOSzBfV0FZMV9NRU0zIiwKPiArICAgICAgICJVVENfQVRDTDJfQ0FDSEVfNEtfQkFOSzBf
+V0FZMV9NRU00IiwKPiArICAgICAgICJVVENfQVRDTDJfQ0FDSEVfNEtfQkFOSzBfV0FZMV9NRU01
+IiwKPiArICAgICAgICJVVENfQVRDTDJfQ0FDSEVfNEtfQkFOSzBfV0FZMV9NRU02IiwKPiArICAg
+ICAgICJVVENfQVRDTDJfQ0FDSEVfNEtfQkFOSzBfV0FZMV9NRU03IiwKPiArICAgICAgICJVVENf
+QVRDTDJfQ0FDSEVfNEtfQkFOSzFfV0FZMF9NRU0wIiwKPiArICAgICAgICJVVENfQVRDTDJfQ0FD
+SEVfNEtfQkFOSzFfV0FZMF9NRU0xIiwKPiArICAgICAgICJVVENfQVRDTDJfQ0FDSEVfNEtfQkFO
+SzFfV0FZMF9NRU0yIiwKPiArICAgICAgICJVVENfQVRDTDJfQ0FDSEVfNEtfQkFOSzFfV0FZMF9N
+RU0zIiwKPiArICAgICAgICJVVENfQVRDTDJfQ0FDSEVfNEtfQkFOSzFfV0FZMF9NRU00IiwKPiAr
+ICAgICAgICJVVENfQVRDTDJfQ0FDSEVfNEtfQkFOSzFfV0FZMF9NRU01IiwKPiArICAgICAgICJV
+VENfQVRDTDJfQ0FDSEVfNEtfQkFOSzFfV0FZMF9NRU02IiwKPiArICAgICAgICJVVENfQVRDTDJf
+Q0FDSEVfNEtfQkFOSzFfV0FZMF9NRU03IiwKPiArICAgICAgICJVVENfQVRDTDJfQ0FDSEVfNEtf
+QkFOSzFfV0FZMV9NRU0wIiwKPiArICAgICAgICJVVENfQVRDTDJfQ0FDSEVfNEtfQkFOSzFfV0FZ
+MV9NRU0xIiwKPiArICAgICAgICJVVENfQVRDTDJfQ0FDSEVfNEtfQkFOSzFfV0FZMV9NRU0yIiwK
+PiArICAgICAgICJVVENfQVRDTDJfQ0FDSEVfNEtfQkFOSzFfV0FZMV9NRU0zIiwKPiArICAgICAg
+ICJVVENfQVRDTDJfQ0FDSEVfNEtfQkFOSzFfV0FZMV9NRU00IiwKPiArICAgICAgICJVVENfQVRD
+TDJfQ0FDSEVfNEtfQkFOSzFfV0FZMV9NRU01IiwKPiArICAgICAgICJVVENfQVRDTDJfQ0FDSEVf
+NEtfQkFOSzFfV0FZMV9NRU02IiwKPiArICAgICAgICJVVENfQVRDTDJfQ0FDSEVfNEtfQkFOSzFf
+V0FZMV9NRU03IiwKPiArfTsKPiArCj4gK3N0YXRpYyBpbnQgZ2Z4X3Y5XzBfcXVlcnlfdXRjX2Vk
+Y19zdGF0dXMoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsCj4gKyAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICBzdHJ1Y3QgcmFzX2Vycl9kYXRhICplcnJfZGF0YSkKPiAr
+ewo+ICsgICAgICAgdWludDMyX3QgaSwgZGF0YTsKPiArICAgICAgIHVpbnQzMl90IHNlY19jb3Vu
+dCwgZGVkX2NvdW50Owo+ICsKPiArICAgICAgIFdSRUczMl9TT0MxNShHQywgMCwgbW1WTV9MMl9N
+RU1fRUNDX0lOREVYLCAyNTUpOwo+ICsgICAgICAgV1JFRzMyX1NPQzE1KEdDLCAwLCBtbVZNX0wy
+X01FTV9FQ0NfQ05ULCAwKTsKPiArICAgICAgIFdSRUczMl9TT0MxNShHQywgMCwgbW1WTV9MMl9X
+QUxLRVJfTUVNX0VDQ19JTkRFWCwgMjU1KTsKPiArICAgICAgIFdSRUczMl9TT0MxNShHQywgMCwg
+bW1WTV9MMl9XQUxLRVJfTUVNX0VDQ19DTlQsIDApOwo+ICsgICAgICAgV1JFRzMyX1NPQzE1KEdD
+LCAwLCBtbUFUQ19MMl9DQUNIRV8yTV9FRENfSU5ERVgsIDI1NSk7Cj4gKyAgICAgICBXUkVHMzJf
+U09DMTUoR0MsIDAsIG1tQVRDX0wyX0NBQ0hFXzJNX0VEQ19DTlQsIDApOwo+ICsgICAgICAgV1JF
+RzMyX1NPQzE1KEdDLCAwLCBtbUFUQ19MMl9DQUNIRV80S19FRENfSU5ERVgsIDI1NSk7Cj4gKyAg
+ICAgICBXUkVHMzJfU09DMTUoR0MsIDAsIG1tQVRDX0wyX0NBQ0hFXzRLX0VEQ19DTlQsIDApOwo+
+ICsKPiArICAgICAgIGZvciAoaSA9IDA7IGkgPCAxNjsgaSsrKSB7Cj4gKyAgICAgICAgICAgICAg
+IFdSRUczMl9TT0MxNShHQywgMCwgbW1WTV9MMl9NRU1fRUNDX0lOREVYLCBpKTsKPiArICAgICAg
+ICAgICAgICAgZGF0YSA9IFJSRUczMl9TT0MxNShHQywgMCwgbW1WTV9MMl9NRU1fRUNDX0NOVCk7
+Cj4gKwo+ICsgICAgICAgICAgICAgICBzZWNfY291bnQgPSBSRUdfR0VUX0ZJRUxEKGRhdGEsIFZN
+X0wyX01FTV9FQ0NfQ05ULCBTRUNfQ09VTlQpOwo+ICsgICAgICAgICAgICAgICBpZiAoc2VjX2Nv
+dW50KSB7Cj4gKyAgICAgICAgICAgICAgICAgICAgICAgRFJNX0lORk8oIkluc3RhbmNlWyVkXTog
+U3ViQmxvY2sgJXMsIFNFQyAlZFxuIiwgaSwKPiArICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICB2bWwyX21lbXNbaV0sIHNlY19jb3VudCk7Cj4gKyAgICAgICAgICAgICAgICAgICAgICAg
+ZXJyX2RhdGEtPmNlX2NvdW50ICs9IHNlY19jb3VudDsKPiArICAgICAgICAgICAgICAgfQo+ICsK
+PiArICAgICAgICAgICAgICAgZGVkX2NvdW50ID0gUkVHX0dFVF9GSUVMRChkYXRhLCBWTV9MMl9N
+RU1fRUNDX0NOVCwgREVEX0NPVU5UKTsKPiArICAgICAgICAgICAgICAgaWYgKGRlZF9jb3VudCkg
+ewo+ICsgICAgICAgICAgICAgICAgICAgICAgIERSTV9JTkZPKCJJbnN0YW5jZVslZF06IFN1YkJs
+b2NrICVzLCBERUQgJWRcbiIsIGksCj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+dm1sMl9tZW1zW2ldLCBkZWRfY291bnQpOwo+ICsgICAgICAgICAgICAgICAgICAgICAgIGVycl9k
+YXRhLT51ZV9jb3VudCArPSBkZWRfY291bnQ7Cj4gKyAgICAgICAgICAgICAgIH0KPiArICAgICAg
+IH0KPiArCj4gKyAgICAgICBmb3IgKGkgPSAwOyBpIDwgNzsgaSsrKSB7Cj4gKyAgICAgICAgICAg
+ICAgIFdSRUczMl9TT0MxNShHQywgMCwgbW1WTV9MMl9XQUxLRVJfTUVNX0VDQ19JTkRFWCwgaSk7
+Cj4gKyAgICAgICAgICAgICAgIGRhdGEgPSBSUkVHMzJfU09DMTUoR0MsIDAsIG1tVk1fTDJfV0FM
+S0VSX01FTV9FQ0NfQ05UKTsKPiArCj4gKyAgICAgICAgICAgICAgIHNlY19jb3VudCA9IFJFR19H
+RVRfRklFTEQoZGF0YSwgVk1fTDJfV0FMS0VSX01FTV9FQ0NfQ05ULAo+ICsgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFNFQ19DT1VOVCk7Cj4gKyAgICAgICAg
+ICAgICAgIGlmIChzZWNfY291bnQpIHsKPiArICAgICAgICAgICAgICAgICAgICAgICBEUk1fSU5G
+TygiSW5zdGFuY2VbJWRdOiBTdWJCbG9jayAlcywgU0VDICVkXG4iLCBpLAo+ICsgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgIHZtbDJfd2Fsa2VyX21lbXNbaV0sIHNlY19jb3VudCk7Cj4g
+KyAgICAgICAgICAgICAgICAgICAgICAgZXJyX2RhdGEtPmNlX2NvdW50ICs9IHNlY19jb3VudDsK
+PiArICAgICAgICAgICAgICAgfQo+ICsKPiArICAgICAgICAgICAgICAgZGVkX2NvdW50ID0gUkVH
+X0dFVF9GSUVMRChkYXRhLCBWTV9MMl9XQUxLRVJfTUVNX0VDQ19DTlQsCj4gKyAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgREVEX0NPVU5UKTsKPiArICAgICAg
+ICAgICAgICAgaWYgKGRlZF9jb3VudCkgewo+ICsgICAgICAgICAgICAgICAgICAgICAgIERSTV9J
+TkZPKCJJbnN0YW5jZVslZF06IFN1YkJsb2NrICVzLCBERUQgJWRcbiIsIGksCj4gKyAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgdm1sMl93YWxrZXJfbWVtc1tpXSwgZGVkX2NvdW50KTsK
+PiArICAgICAgICAgICAgICAgICAgICAgICBlcnJfZGF0YS0+dWVfY291bnQgKz0gZGVkX2NvdW50
+Owo+ICsgICAgICAgICAgICAgICB9Cj4gKyAgICAgICB9Cj4gKwo+ICsgICAgICAgZm9yIChpID0g
+MDsgaSA8IDQ7IGkrKykgewo+ICsgICAgICAgICAgICAgICBXUkVHMzJfU09DMTUoR0MsIDAsIG1t
+QVRDX0wyX0NBQ0hFXzJNX0VEQ19JTkRFWCwgaSk7Cj4gKyAgICAgICAgICAgICAgIGRhdGEgPSBS
+UkVHMzJfU09DMTUoR0MsIDAsIG1tQVRDX0wyX0NBQ0hFXzJNX0VEQ19DTlQpOwo+ICsKPiArICAg
+ICAgICAgICAgICAgc2VjX2NvdW50ID0gKGRhdGEgJiAweDAwMDA2MDAwTCkgPj4gMHhkOwo+ICsg
+ICAgICAgICAgICAgICBpZiAoc2VjX2NvdW50KSB7Cj4gKyAgICAgICAgICAgICAgICAgICAgICAg
+RFJNX0lORk8oIkluc3RhbmNlWyVkXTogU3ViQmxvY2sgJXMsIFNFQyAlZFxuIiwgaSwKPiArICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICBhdGNfbDJfY2FjaGVfMm1fbWVtc1tpXSwgc2Vj
+X2NvdW50KTsKPiArICAgICAgICAgICAgICAgICAgICAgICBlcnJfZGF0YS0+Y2VfY291bnQgKz0g
+c2VjX2NvdW50Owo+ICsgICAgICAgICAgICAgICB9Cj4gKyAgICAgICB9Cj4gKwo+ICsgICAgICAg
+Zm9yIChpID0gMDsgaSA8IDMyOyBpKyspIHsKPiArICAgICAgICAgICAgICAgV1JFRzMyX1NPQzE1
+KEdDLCAwLCBtbUFUQ19MMl9DQUNIRV80S19FRENfSU5ERVgsIGkpOwo+ICsgICAgICAgICAgICAg
+ICBkYXRhID0gUlJFRzMyX1NPQzE1KEdDLCAwLCBtbUFUQ19MMl9DQUNIRV80S19FRENfQ05UKTsK
+PiArCj4gKyAgICAgICAgICAgICAgIHNlY19jb3VudCA9IChkYXRhICYgMHgwMDAwNjAwMEwpID4+
+IDB4ZDsKPiArICAgICAgICAgICAgICAgaWYgKHNlY19jb3VudCkgewo+ICsgICAgICAgICAgICAg
+ICAgICAgICAgIERSTV9JTkZPKCJJbnN0YW5jZVslZF06IFN1YkJsb2NrICVzLCBTRUMgJWRcbiIs
+IGksCj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgYXRjX2wyX2NhY2hlXzRrX21l
+bXNbaV0sIHNlY19jb3VudCk7Cj4gKyAgICAgICAgICAgICAgICAgICAgICAgZXJyX2RhdGEtPmNl
+X2NvdW50ICs9IHNlY19jb3VudDsKPiArICAgICAgICAgICAgICAgfQo+ICsKPiArICAgICAgICAg
+ICAgICAgZGVkX2NvdW50ID0gKGRhdGEgJiAweDAwMDE4MDAwTCkgPj4gMHhmOwo+ICsgICAgICAg
+ICAgICAgICBpZiAoZGVkX2NvdW50KSB7Cj4gKyAgICAgICAgICAgICAgICAgICAgICAgRFJNX0lO
+Rk8oIkluc3RhbmNlWyVkXTogU3ViQmxvY2sgJXMsIERFRCAlZFxuIiwgaSwKPiArICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICBhdGNfbDJfY2FjaGVfNGtfbWVtc1tpXSwgZGVkX2NvdW50
+KTsKPiArICAgICAgICAgICAgICAgICAgICAgICBlcnJfZGF0YS0+dWVfY291bnQgKz0gZGVkX2Nv
+dW50Owo+ICsgICAgICAgICAgICAgICB9Cj4gKyAgICAgICB9Cj4gKwo+ICsgICAgICAgV1JFRzMy
+X1NPQzE1KEdDLCAwLCBtbVZNX0wyX01FTV9FQ0NfSU5ERVgsIDI1NSk7Cj4gKyAgICAgICBXUkVH
+MzJfU09DMTUoR0MsIDAsIG1tVk1fTDJfV0FMS0VSX01FTV9FQ0NfSU5ERVgsIDI1NSk7Cj4gKyAg
+ICAgICBXUkVHMzJfU09DMTUoR0MsIDAsIG1tQVRDX0wyX0NBQ0hFXzJNX0VEQ19JTkRFWCwgMjU1
+KTsKPiArICAgICAgIFdSRUczMl9TT0MxNShHQywgMCwgbW1BVENfTDJfQ0FDSEVfNEtfRURDX0lO
+REVYLCAyNTUpOwo+ICsKPiArICAgICAgIHJldHVybiAwOwo+ICt9Cj4gKwo+ICBzdGF0aWMgaW50
+IF9fZ2V0X3Jhc19lcnJvcl9jb3VudChjb25zdCBzdHJ1Y3Qgc29jMTVfcmVnX2VudHJ5ICpyZWcs
+Cj4gICAgICAgICB1aW50MzJfdCBzZV9pZCwgdWludDMyX3QgaW5zdF9pZCwgdWludDMyX3QgdmFs
+dWUsCj4gICAgICAgICB1aW50MzJfdCAqc2VjX2NvdW50LCB1aW50MzJfdCAqZGVkX2NvdW50KQo+
+IEBAIC02MjI2LDYgKzYzOTEsOCBAQCBzdGF0aWMgaW50IGdmeF92OV8wX3F1ZXJ5X3Jhc19lcnJv
+cl9jb3VudChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwKPiAgICAgICAgIGdmeF92OV8wX3Nl
+bGVjdF9zZV9zaChhZGV2LCAweGZmZmZmZmZmLCAweGZmZmZmZmZmLCAweGZmZmZmZmZmKTsKPiAg
+ICAgICAgIG11dGV4X3VubG9jaygmYWRldi0+Z3JibV9pZHhfbXV0ZXgpOwo+Cj4gKyAgICAgICBn
+ZnhfdjlfMF9xdWVyeV91dGNfZWRjX3N0YXR1cyhhZGV2LCBlcnJfZGF0YSk7Cj4gKwo+ICAgICAg
+ICAgcmV0dXJuIDA7Cj4gIH0KPgo+IC0tCj4gMi4xNy4xCj4KPiBfX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fXwo+IGFtZC1nZnggbWFpbGluZyBsaXN0Cj4gYW1k
+LWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9y
+Zy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVl
+ZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5m
+by9hbWQtZ2Z4
