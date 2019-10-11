@@ -1,15 +1,15 @@
-From: "Quan, Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH 15/15] drm/amdgpu: enable BACO reset for SMU7 based dGPUs
- (v2)
-Date: Fri, 11 Oct 2019 08:44:11 +0000
-Message-ID: <MN2PR12MB33443FD9C6422917CD7F7642E4970@MN2PR12MB3344.namprd12.prod.outlook.com>
-References: <20191011012135.18566-1-alexander.deucher@amd.com>
- <20191011012135.18566-16-alexander.deucher@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu/sdma5: fix mask value of POLL_REGMEM packet
+ for pipe sync
+Date: Fri, 11 Oct 2019 10:53:48 +0200
+Message-ID: <03836bb7-cfdd-b966-d46a-c09dd5eefe9e@gmail.com>
+References: <20191009170923.15479-1-xiaojie.yuan@amd.com>
+ <DM5PR12MB18207AE8E0DD7CCE9FB23E41F7950@DM5PR12MB1820.namprd12.prod.outlook.com>
+Reply-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1805723932=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20191011012135.18566-16-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <DM5PR12MB18207AE8E0DD7CCE9FB23E41F7950-2J9CzHegvk8qWyLXlBb1HgdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -21,125 +21,170 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+To: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Yuan, Xiaojie" <Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Xiao, Jack" <Jack.Xiao-5C7GfCeVMHo@public.gmane.org>, "Zhang, Hawking" <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>
 
-U2VyaWVzIGlzIHJldmlld2VkLWJ5OiBFdmFuIFF1YW4gPGV2YW4ucXVhbkBhbWQuY29tPg0KDQot
-LS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KRnJvbTogYW1kLWdmeCA8YW1kLWdmeC1ib3VuY2Vz
-QGxpc3RzLmZyZWVkZXNrdG9wLm9yZz4gT24gQmVoYWxmIE9mIEFsZXggRGV1Y2hlcg0KU2VudDog
-RnJpZGF5LCBPY3RvYmVyIDExLCAyMDE5IDk6MjIgQU0NClRvOiBhbWQtZ2Z4QGxpc3RzLmZyZWVk
-ZXNrdG9wLm9yZw0KQ2M6IERldWNoZXIsIEFsZXhhbmRlciA8QWxleGFuZGVyLkRldWNoZXJAYW1k
-LmNvbT4NClN1YmplY3Q6IFtQQVRDSCAxNS8xNV0gZHJtL2FtZGdwdTogZW5hYmxlIEJBQ08gcmVz
-ZXQgZm9yIFNNVTcgYmFzZWQgZEdQVXMgKHYyKQ0KDQpVc2UgQkFDTyB0byByZXNldCB0aGUgR1BV
-IGlmIHN1cHBvcnRlZCBvbiBTTVU3IGJhc2VkDQpkR1BVcy4NCg0KdjI6IGRvbid0IHVzZSBiYWNv
-IG9uIENJIHBhcnRzDQoNClNpZ25lZC1vZmYtYnk6IEFsZXggRGV1Y2hlciA8YWxleGFuZGVyLmRl
-dWNoZXJAYW1kLmNvbT4NCi0tLQ0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Npay5jIHwg
-NDggKysrKysrKysrKysrKysrKy0tDQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvY2lrLmgg
-fCAgMyArKw0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3ZpLmMgIHwgODQgKysrKysrKysr
-KysrKysrKysrKysrKysrKysrKysrLS0NCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS92aS5o
-ICB8ICAzICsrDQogNCBmaWxlcyBjaGFuZ2VkLCAxMjggaW5zZXJ0aW9ucygrKSwgMTAgZGVsZXRp
-b25zKC0pDQoNCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9jaWsuYyBi
-L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Npay5jDQppbmRleCBiODFiYjQxNGZjYjMuLmZj
-OGIzNDQ4MGY2NiAxMDA2NDQNCi0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Npay5j
-DQorKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9jaWsuYw0KQEAgLTEyNzAsMTUgKzEy
-NzAsMTUgQEAgc3RhdGljIGludCBjaWtfZ3B1X3BjaV9jb25maWdfcmVzZXQoc3RydWN0IGFtZGdw
-dV9kZXZpY2UgKmFkZXYpDQogfQ0KIA0KIC8qKg0KLSAqIGNpa19hc2ljX3Jlc2V0IC0gc29mdCBy
-ZXNldCBHUFUNCisgKiBjaWtfYXNpY19wY2lfY29uZmlnX3Jlc2V0IC0gc29mdCByZXNldCBHUFUN
-CiAgKg0KICAqIEBhZGV2OiBhbWRncHVfZGV2aWNlIHBvaW50ZXINCiAgKg0KLSAqIExvb2sgdXAg
-d2hpY2ggYmxvY2tzIGFyZSBodW5nIGFuZCBhdHRlbXB0DQotICogdG8gcmVzZXQgdGhlbS4NCisg
-KiBVc2UgUENJIENvbmZpZyBtZXRob2QgdG8gcmVzZXQgdGhlIEdQVS4NCisgKg0KICAqIFJldHVy
-bnMgMCBmb3Igc3VjY2Vzcy4NCiAgKi8NCi1zdGF0aWMgaW50IGNpa19hc2ljX3Jlc2V0KHN0cnVj
-dCBhbWRncHVfZGV2aWNlICphZGV2KQ0KK3N0YXRpYyBpbnQgY2lrX2FzaWNfcGNpX2NvbmZpZ19y
-ZXNldChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikNCiB7DQogCWludCByOw0KIA0KQEAgLTEy
-OTQsNyArMTI5NCw0NSBAQCBzdGF0aWMgaW50IGNpa19hc2ljX3Jlc2V0KHN0cnVjdCBhbWRncHVf
-ZGV2aWNlICphZGV2KQ0KIHN0YXRpYyBlbnVtIGFtZF9yZXNldF9tZXRob2QNCiBjaWtfYXNpY19y
-ZXNldF9tZXRob2Qoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpDQogew0KLQlyZXR1cm4gQU1E
-X1JFU0VUX01FVEhPRF9MRUdBQ1k7DQorCWJvb2wgYmFjb19yZXNldDsNCisNCisJc3dpdGNoIChh
-ZGV2LT5hc2ljX3R5cGUpIHsNCisJY2FzZSBDSElQX0JPTkFJUkU6DQorCWNhc2UgQ0hJUF9IQVdB
-SUk6DQorCQkvKiBkaXNhYmxlIGJhY28gcmVzZXQgdW50aWwgaXQgd29ya3MgKi8NCisJCS8qIHNt
-dTdfYXNpY19nZXRfYmFjb19jYXBhYmlsaXR5KGFkZXYsICZiYWNvX3Jlc2V0KTsgKi8NCisJCWJh
-Y29fcmVzZXQgPSBmYWxzZTsNCisJCWJyZWFrOw0KKwlkZWZhdWx0Og0KKwkJYmFjb19yZXNldCA9
-IGZhbHNlOw0KKwkJYnJlYWs7DQorCX0NCisNCisJaWYgKGJhY29fcmVzZXQpDQorCQlyZXR1cm4g
-QU1EX1JFU0VUX01FVEhPRF9CQUNPOw0KKwllbHNlDQorCQlyZXR1cm4gQU1EX1JFU0VUX01FVEhP
-RF9MRUdBQ1k7DQorfQ0KKw0KKy8qKg0KKyAqIGNpa19hc2ljX3Jlc2V0IC0gc29mdCByZXNldCBH
-UFUNCisgKg0KKyAqIEBhZGV2OiBhbWRncHVfZGV2aWNlIHBvaW50ZXINCisgKg0KKyAqIExvb2sg
-dXAgd2hpY2ggYmxvY2tzIGFyZSBodW5nIGFuZCBhdHRlbXB0DQorICogdG8gcmVzZXQgdGhlbS4N
-CisgKiBSZXR1cm5zIDAgZm9yIHN1Y2Nlc3MuDQorICovDQorc3RhdGljIGludCBjaWtfYXNpY19y
-ZXNldChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikNCit7DQorCWludCByOw0KKw0KKwlpZiAo
-Y2lrX2FzaWNfcmVzZXRfbWV0aG9kKGFkZXYpID09IEFNRF9SRVNFVF9NRVRIT0RfQkFDTykNCisJ
-CXIgPSBzbXU3X2FzaWNfYmFjb19yZXNldChhZGV2KTsNCisJZWxzZQ0KKwkJciA9IGNpa19hc2lj
-X3BjaV9jb25maWdfcmVzZXQoYWRldik7DQorDQorCXJldHVybiByOw0KIH0NCiANCiBzdGF0aWMg
-dTMyIGNpa19nZXRfY29uZmlnX21lbXNpemUoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpDQpk
-aWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvY2lrLmggYi9kcml2ZXJzL2dw
-dS9kcm0vYW1kL2FtZGdwdS9jaWsuaA0KaW5kZXggNTRjNjI1YTJlNTcwLi45ODcwYmYyNzg3MGUg
-MTAwNjQ0DQotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9jaWsuaA0KKysrIGIvZHJp
-dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvY2lrLmgNCkBAIC0zMSw0ICszMSw3IEBAIHZvaWQgY2lr
-X3NyYm1fc2VsZWN0KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LA0KIGludCBjaWtfc2V0X2lw
-X2Jsb2NrcyhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldik7DQogDQogdm9pZCBsZWdhY3lfZG9v
-cmJlbGxfaW5kZXhfaW5pdChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldik7DQoraW50IHNtdTdf
-YXNpY19nZXRfYmFjb19jYXBhYmlsaXR5KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LCBib29s
-ICpjYXApOw0KK2ludCBzbXU3X2FzaWNfYmFjb19yZXNldChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAq
-YWRldik7DQorDQogI2VuZGlmDQpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
-cHUvdmkuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3ZpLmMNCmluZGV4IDVmOGM4Nzg2
-Y2FjNS4uNzhlNWNkYzBjMDU4IDEwMDY0NA0KLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
-cHUvdmkuYw0KKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvdmkuYw0KQEAgLTY4OSwx
-NiArNjg5LDUwIEBAIHN0YXRpYyBpbnQgdmlfZ3B1X3BjaV9jb25maWdfcmVzZXQoc3RydWN0IGFt
-ZGdwdV9kZXZpY2UgKmFkZXYpDQogCXJldHVybiAtRUlOVkFMOw0KIH0NCiANCitpbnQgc211N19h
-c2ljX2dldF9iYWNvX2NhcGFiaWxpdHkoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsIGJvb2wg
-KmNhcCkNCit7DQorCXZvaWQgKnBwX2hhbmRsZSA9IGFkZXYtPnBvd2VycGxheS5wcF9oYW5kbGU7
-DQorCWNvbnN0IHN0cnVjdCBhbWRfcG1fZnVuY3MgKnBwX2Z1bmNzID0gYWRldi0+cG93ZXJwbGF5
-LnBwX2Z1bmNzOw0KKw0KKwlpZiAoIXBwX2Z1bmNzIHx8ICFwcF9mdW5jcy0+Z2V0X2FzaWNfYmFj
-b19jYXBhYmlsaXR5KSB7DQorCQkqY2FwID0gZmFsc2U7DQorCQlyZXR1cm4gLUVOT0VOVDsNCisJ
-fQ0KKw0KKwlyZXR1cm4gcHBfZnVuY3MtPmdldF9hc2ljX2JhY29fY2FwYWJpbGl0eShwcF9oYW5k
-bGUsIGNhcCk7DQorfQ0KKw0KK2ludCBzbXU3X2FzaWNfYmFjb19yZXNldChzdHJ1Y3QgYW1kZ3B1
-X2RldmljZSAqYWRldikNCit7DQorCXZvaWQgKnBwX2hhbmRsZSA9IGFkZXYtPnBvd2VycGxheS5w
-cF9oYW5kbGU7DQorCWNvbnN0IHN0cnVjdCBhbWRfcG1fZnVuY3MgKnBwX2Z1bmNzID0gYWRldi0+
-cG93ZXJwbGF5LnBwX2Z1bmNzOw0KKw0KKwlpZiAoIXBwX2Z1bmNzIHx8IXBwX2Z1bmNzLT5nZXRf
-YXNpY19iYWNvX3N0YXRlIHx8IXBwX2Z1bmNzLT5zZXRfYXNpY19iYWNvX3N0YXRlKQ0KKwkJcmV0
-dXJuIC1FTk9FTlQ7DQorDQorCS8qIGVudGVyIEJBQ08gc3RhdGUgKi8NCisJaWYgKHBwX2Z1bmNz
-LT5zZXRfYXNpY19iYWNvX3N0YXRlKHBwX2hhbmRsZSwgMSkpDQorCQlyZXR1cm4gLUVJTzsNCisN
-CisJLyogZXhpdCBCQUNPIHN0YXRlICovDQorCWlmIChwcF9mdW5jcy0+c2V0X2FzaWNfYmFjb19z
-dGF0ZShwcF9oYW5kbGUsIDApKQ0KKwkJcmV0dXJuIC1FSU87DQorDQorCWRldl9pbmZvKGFkZXYt
-PmRldiwgIkdQVSBCQUNPIHJlc2V0XG4iKTsNCisNCisJcmV0dXJuIDA7DQorfQ0KKw0KIC8qKg0K
-LSAqIHZpX2FzaWNfcmVzZXQgLSBzb2Z0IHJlc2V0IEdQVQ0KKyAqIHZpX2FzaWNfcGNpX2NvbmZp
-Z19yZXNldCAtIHNvZnQgcmVzZXQgR1BVDQogICoNCiAgKiBAYWRldjogYW1kZ3B1X2RldmljZSBw
-b2ludGVyDQogICoNCi0gKiBMb29rIHVwIHdoaWNoIGJsb2NrcyBhcmUgaHVuZyBhbmQgYXR0ZW1w
-dA0KLSAqIHRvIHJlc2V0IHRoZW0uDQorICogVXNlIFBDSSBDb25maWcgbWV0aG9kIHRvIHJlc2V0
-IHRoZSBHUFUuDQorICoNCiAgKiBSZXR1cm5zIDAgZm9yIHN1Y2Nlc3MuDQogICovDQotc3RhdGlj
-IGludCB2aV9hc2ljX3Jlc2V0KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQ0KK3N0YXRpYyBp
-bnQgdmlfYXNpY19wY2lfY29uZmlnX3Jlc2V0KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQ0K
-IHsNCiAJaW50IHI7DQogDQpAQCAtNzE0LDcgKzc0OCw0NyBAQCBzdGF0aWMgaW50IHZpX2FzaWNf
-cmVzZXQoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpDQogc3RhdGljIGVudW0gYW1kX3Jlc2V0
-X21ldGhvZA0KIHZpX2FzaWNfcmVzZXRfbWV0aG9kKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2
-KQ0KIHsNCi0JcmV0dXJuIEFNRF9SRVNFVF9NRVRIT0RfTEVHQUNZOw0KKwlib29sIGJhY29fcmVz
-ZXQ7DQorDQorCXN3aXRjaCAoYWRldi0+YXNpY190eXBlKSB7DQorCWNhc2UgQ0hJUF9GSUpJOg0K
-KwljYXNlIENISVBfVE9OR0E6DQorCWNhc2UgQ0hJUF9QT0xBUklTMTA6DQorCWNhc2UgQ0hJUF9Q
-T0xBUklTMTE6DQorCWNhc2UgQ0hJUF9QT0xBUklTMTI6DQorCWNhc2UgQ0hJUF9UT1BBWjoNCisJ
-CXNtdTdfYXNpY19nZXRfYmFjb19jYXBhYmlsaXR5KGFkZXYsICZiYWNvX3Jlc2V0KTsNCisJCWJy
-ZWFrOw0KKwlkZWZhdWx0Og0KKwkJYmFjb19yZXNldCA9IGZhbHNlOw0KKwkJYnJlYWs7DQorCX0N
-CisNCisJaWYgKGJhY29fcmVzZXQpDQorCQlyZXR1cm4gQU1EX1JFU0VUX01FVEhPRF9CQUNPOw0K
-KwllbHNlDQorCQlyZXR1cm4gQU1EX1JFU0VUX01FVEhPRF9MRUdBQ1k7DQorfQ0KKw0KKy8qKg0K
-KyAqIHZpX2FzaWNfcmVzZXQgLSBzb2Z0IHJlc2V0IEdQVQ0KKyAqDQorICogQGFkZXY6IGFtZGdw
-dV9kZXZpY2UgcG9pbnRlcg0KKyAqDQorICogTG9vayB1cCB3aGljaCBibG9ja3MgYXJlIGh1bmcg
-YW5kIGF0dGVtcHQNCisgKiB0byByZXNldCB0aGVtLg0KKyAqIFJldHVybnMgMCBmb3Igc3VjY2Vz
-cy4NCisgKi8NCitzdGF0aWMgaW50IHZpX2FzaWNfcmVzZXQoc3RydWN0IGFtZGdwdV9kZXZpY2Ug
-KmFkZXYpDQorew0KKwlpbnQgcjsNCisNCisJaWYgKHZpX2FzaWNfcmVzZXRfbWV0aG9kKGFkZXYp
-ID09IEFNRF9SRVNFVF9NRVRIT0RfQkFDTykNCisJCXIgPSBzbXU3X2FzaWNfYmFjb19yZXNldChh
-ZGV2KTsNCisJZWxzZQ0KKwkJciA9IHZpX2FzaWNfcGNpX2NvbmZpZ19yZXNldChhZGV2KTsNCisN
-CisJcmV0dXJuIHI7DQogfQ0KIA0KIHN0YXRpYyB1MzIgdmlfZ2V0X2NvbmZpZ19tZW1zaXplKHN0
-cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQ0KZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9h
-bWQvYW1kZ3B1L3ZpLmggYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS92aS5oDQppbmRleCA4
-ZGUwNzcyZjk4NmMuLjQwZDQxNzQ5MTNhNCAxMDA2NDQNCi0tLSBhL2RyaXZlcnMvZ3B1L2RybS9h
-bWQvYW1kZ3B1L3ZpLmgNCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3ZpLmgNCkBA
-IC0zMSw0ICszMSw3IEBAIHZvaWQgdmlfc3JibV9zZWxlY3Qoc3RydWN0IGFtZGdwdV9kZXZpY2Ug
-KmFkZXYsDQogaW50IHZpX3NldF9pcF9ibG9ja3Moc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYp
-Ow0KIA0KIHZvaWQgbGVnYWN5X2Rvb3JiZWxsX2luZGV4X2luaXQoc3RydWN0IGFtZGdwdV9kZXZp
-Y2UgKmFkZXYpOw0KK2ludCBzbXU3X2FzaWNfZ2V0X2JhY29fY2FwYWJpbGl0eShzdHJ1Y3QgYW1k
-Z3B1X2RldmljZSAqYWRldiwgYm9vbCAqY2FwKTsNCitpbnQgc211N19hc2ljX2JhY29fcmVzZXQo
-c3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpOw0KKw0KICNlbmRpZg0KLS0gDQoyLjIwLjENCg0K
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18NCmFtZC1nZngg
-bWFpbGluZyBsaXN0DQphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0KaHR0cHM6Ly9saXN0
-cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4DQpfX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAph
-bWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9y
-Zy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
+This is a multi-part message in MIME format.
+--===============1805723932==
+Content-Type: multipart/alternative;
+ boundary="------------41AA3C65EED4B43414EEF479"
+Content-Language: en-US
+
+This is a multi-part message in MIME format.
+--------------41AA3C65EED4B43414EEF479
+Content-Type: text/plain; charset=windows-1252; format=flowed
+Content-Transfer-Encoding: 8bit
+
+Good catch! Reviewed-by: Christian König <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+
+Am 09.10.19 um 19:11 schrieb Deucher, Alexander:
+> Reviewed-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+> ------------------------------------------------------------------------
+> *From:* amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of 
+> Yuan, Xiaojie <Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org>
+> *Sent:* Wednesday, October 9, 2019 1:09 PM
+> *To:* amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+> *Cc:* Xiao, Jack <Jack.Xiao-5C7GfCeVMHo@public.gmane.org>; Yuan, Xiaojie 
+> <Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org>; Zhang, Hawking <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>
+> *Subject:* [PATCH] drm/amdgpu/sdma5: fix mask value of POLL_REGMEM 
+> packet for pipe sync
+> sdma will hang once sequence number to be polled reaches 0x1000_0000
+>
+> Signed-off-by: Xiaojie Yuan <xiaojie.yuan-5C7GfCeVMHo@public.gmane.org>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c 
+> b/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
+> index ad5c3566337c..3460c00f3eaa 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
+> @@ -1126,7 +1126,7 @@ static void 
+> sdma_v5_0_ring_emit_pipeline_sync(struct amdgpu_ring *ring)
+>          amdgpu_ring_write(ring, addr & 0xfffffffc);
+>          amdgpu_ring_write(ring, upper_32_bits(addr) & 0xffffffff);
+>          amdgpu_ring_write(ring, seq); /* reference */
+> -       amdgpu_ring_write(ring, 0xfffffff); /* mask */
+> +       amdgpu_ring_write(ring, 0xffffffff); /* mask */
+>          amdgpu_ring_write(ring, 
+> SDMA_PKT_POLL_REGMEM_DW5_RETRY_COUNT(0xfff) |
+> SDMA_PKT_POLL_REGMEM_DW5_INTERVAL(4)); /* retry count, poll interval */
+>  }
+> -- 
+> 2.20.1
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+
+--------------41AA3C65EED4B43414EEF479
+Content-Type: text/html; charset=windows-1252
+Content-Transfer-Encoding: 8bit
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html;
+      charset=windows-1252">
+  </head>
+  <body text="#000000" bgcolor="#FFFFFF">
+    <div class="moz-cite-prefix">Good catch! Reviewed-by: Christian
+      König <a class="moz-txt-link-rfc2396E" href="mailto:christian.koenig-5C7GfCeVMHo@public.gmane.org">&lt;christian.koenig-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
+      <br>
+      Am 09.10.19 um 19:11 schrieb Deucher, Alexander:<br>
+    </div>
+    <blockquote type="cite"
+cite="mid:DM5PR12MB18207AE8E0DD7CCE9FB23E41F7950-2J9CzHegvk8qWyLXlBb1HgdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org">
+      <meta http-equiv="Content-Type" content="text/html;
+        charset=windows-1252">
+      <style type="text/css" style="display:none;"> P {margin-top:0;margin-bottom:0;} </style>
+      <div style="font-family: Calibri, Arial, Helvetica, sans-serif;
+        font-size: 12pt; color: rgb(0, 0, 0);">
+        Reviewed-by: Alex Deucher <a class="moz-txt-link-rfc2396E" href="mailto:alexander.deucher-5C7GfCeVMHo@public.gmane.org">&lt;alexander.deucher-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
+      </div>
+      <hr style="display:inline-block;width:98%" tabindex="-1">
+      <div id="divRplyFwdMsg" dir="ltr"><font style="font-size:11pt"
+          face="Calibri, sans-serif" color="#000000"><b>From:</b>
+          amd-gfx <a class="moz-txt-link-rfc2396E" href="mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">&lt;amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt;</a> on
+          behalf of Yuan, Xiaojie <a class="moz-txt-link-rfc2396E" href="mailto:Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org">&lt;Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
+          <b>Sent:</b> Wednesday, October 9, 2019 1:09 PM<br>
+          <b>To:</b> <a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>
+          <a class="moz-txt-link-rfc2396E" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">&lt;amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt;</a><br>
+          <b>Cc:</b> Xiao, Jack <a class="moz-txt-link-rfc2396E" href="mailto:Jack.Xiao-5C7GfCeVMHo@public.gmane.org">&lt;Jack.Xiao-5C7GfCeVMHo@public.gmane.org&gt;</a>; Yuan, Xiaojie
+          <a class="moz-txt-link-rfc2396E" href="mailto:Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org">&lt;Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org&gt;</a>; Zhang, Hawking
+          <a class="moz-txt-link-rfc2396E" href="mailto:Hawking.Zhang-5C7GfCeVMHo@public.gmane.org">&lt;Hawking.Zhang-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
+          <b>Subject:</b> [PATCH] drm/amdgpu/sdma5: fix mask value of
+          POLL_REGMEM packet for pipe sync</font>
+        <div> </div>
+      </div>
+      <div class="BodyFragment"><font size="2"><span
+            style="font-size:11pt;">
+            <div class="PlainText">sdma will hang once sequence number
+              to be polled reaches 0x1000_0000<br>
+              <br>
+              Signed-off-by: Xiaojie Yuan <a class="moz-txt-link-rfc2396E" href="mailto:xiaojie.yuan-5C7GfCeVMHo@public.gmane.org">&lt;xiaojie.yuan-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
+              ---<br>
+               drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c | 2 +-<br>
+               1 file changed, 1 insertion(+), 1 deletion(-)<br>
+              <br>
+              diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
+              b/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c<br>
+              index ad5c3566337c..3460c00f3eaa 100644<br>
+              --- a/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c<br>
+              +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c<br>
+              @@ -1126,7 +1126,7 @@ static void
+              sdma_v5_0_ring_emit_pipeline_sync(struct amdgpu_ring
+              *ring)<br>
+                       amdgpu_ring_write(ring, addr &amp; 0xfffffffc);<br>
+                       amdgpu_ring_write(ring, upper_32_bits(addr) &amp;
+              0xffffffff);<br>
+                       amdgpu_ring_write(ring, seq); /* reference */<br>
+              -       amdgpu_ring_write(ring, 0xfffffff); /* mask */<br>
+              +       amdgpu_ring_write(ring, 0xffffffff); /* mask */<br>
+                       amdgpu_ring_write(ring,
+              SDMA_PKT_POLL_REGMEM_DW5_RETRY_COUNT(0xfff) |<br>
+                                        
+              SDMA_PKT_POLL_REGMEM_DW5_INTERVAL(4)); /* retry count,
+              poll interval */<br>
+               }<br>
+              -- <br>
+              2.20.1<br>
+              <br>
+              _______________________________________________<br>
+              amd-gfx mailing list<br>
+              <a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
+              <a
+                href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx"
+                moz-do-not-send="true">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a></div>
+          </span></font></div>
+      <br>
+      <fieldset class="mimeAttachmentHeader"></fieldset>
+      <pre class="moz-quote-pre" wrap="">_______________________________________________
+amd-gfx mailing list
+<a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>
+<a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a></pre>
+    </blockquote>
+    <br>
+  </body>
+</html>
+
+--------------41AA3C65EED4B43414EEF479--
+
+--===============1805723932==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+
+--===============1805723932==--
