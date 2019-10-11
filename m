@@ -1,129 +1,61 @@
-From: Michel =?ISO-8859-1?Q?D=E4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Subject: [ANNOUNCE] xf86-video-amdgpu 19.1.0
-Date: Fri, 11 Oct 2019 18:46:13 +0200
-Message-ID: <d42184a578b143e2205f55dcf370834f0b0cfbab.camel@daenzer.net>
+From: "tj@kernel.org" <tj@kernel.org>
+Subject: Re: [PATCH RFC v4 14/16] drm, cgroup: Introduce lgpu as DRM cgroup
+ resource
+Date: Fri, 11 Oct 2019 10:12:47 -0700
+Message-ID: <20191011171247.GC18794@devbig004.ftw2.facebook.com>
+References: <20190829060533.32315-1-Kenny.Ho@amd.com>
+ <20190829060533.32315-15-Kenny.Ho@amd.com>
+ <b3d2b3c1-8854-10ca-3e39-b3bef35bdfa9@amd.com>
+ <20191009103153.GU16989@phenom.ffwll.local>
+ <ee873e89-48fd-c4c9-1ce0-73965f4ad2ba@amd.com>
+ <20191009153429.GI16989@phenom.ffwll.local>
+ <c7812af4-7ec4-02bb-ff4c-21dd114cf38e@amd.com>
+ <20191009160652.GO16989@phenom.ffwll.local>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0621236716=="
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Resent-To: xorg-announce-go0+a7rfsptAfugRpC6u6w@public.gmane.org
-Resent-Message-ID: <4923f143-34dd-6507-ed29-979ae5a382eb@daenzer.net>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: xorg-announce-go0+a7rfsptAfugRpC6u6w@public.gmane.org
-Cc: xorg-go0+a7rfsptAfugRpC6u6w@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-
-
---===============0621236716==
-Content-Type: multipart/signed; micalg="pgp-sha1"; protocol="application/pgp-signature";
-	boundary="=-nhXDBgXD2LgU3Q/kw0nZ"
-
-
---=-nhXDBgXD2LgU3Q/kw0nZ
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-
-I'm pleased to announce the 19.1.0 release of xf86-video-amdgpu, the
-Xorg driver for AMD Radeon GPUs supported by the amdgpu kernel driver.
-This release supports xserver versions 1.13-1.20.
-
-There are no big changes in this release, just fixes and other minor
-improvements.
-
-Thanks to everybody who contributed to this release in any way!
-
-
-NOTE:
-
-As of September, I'm no longer working for AMD but for Red Hat's
-graphics infrastructure team. I'm hoping that someone from my former
-team at AMD will step up to maintain this driver.
-
-
-Flora Cui (1):
-      dri2: reply to client for WaitMSC request in any case
-
-Michel D=C3=A4nzer (13):
-      Retry get_fb_ptr in get_fb
-      dri3: Always flush glamor before sharing pixmap storage with clients
-      dri2: Re-use previous CRTC when possible if pick_best_crtc returns NU=
-LL
-      Remove dri2_drawable_crtc parameter consider_disabled
-      present: Check that we can get a KMS FB for flipping
-      Don't disable page flipping completely with SW cursor
-      gitlab-ci: Use templates from wayland/ci-templates
-      present: Also check pixmap pitch in check_flip with current xserver
-      present: Don't check pixmap pitch in check_flip with current DC
-      present: Don't check pixmap pitch in check_flip with non-DC >=3D 3.34
-      Don't set up black scanout buffer if LeaveVT is called from CloseScre=
-en
-      Don't unreference FBs of pixmaps from different screens in LeaveVT
-      Bump version for the 19.1.0 release
-
-git tag: xf86-video-amdgpu-19.1.0
-
-https://xorg.freedesktop.org/archive/individual/driver/xf86-video-amdgpu-19=
-.1.0.tar.bz2
-MD5:  55ad19b858e186a2cf4e91ed832c05e7  xf86-video-amdgpu-19.1.0.tar.bz2
-SHA1: 044a97ea2f36dd3d2d4844bb503dd4e2b2854d56  xf86-video-amdgpu-19.1.0.ta=
-r.bz2
-SHA256: 4f0ea4e0ae61995ac2b7c72433d31deab63b60c78763020aaa1b28696124fe5d  x=
-f86-video-amdgpu-19.1.0.tar.bz2
-SHA512: ccdaa2378492da1a2f3d18fedacd1318c4708da534a8a959276a82730d5420619d8=
-3ad1ec8d7835c55655fe56123cd9bffb44e6223c5a97033c01f598af4a173  xf86-video-a=
-mdgpu-19.1.0.tar.bz2
-PGP:  https://xorg.freedesktop.org/archive/individual/driver/xf86-video-amd=
-gpu-19.1.0.tar.bz2.sig
-
-https://xorg.freedesktop.org/archive/individual/driver/xf86-video-amdgpu-19=
-.1.0.tar.gz
-MD5:  5aec06fed52d09838d0511c59dd2d861  xf86-video-amdgpu-19.1.0.tar.gz
-SHA1: 453ef4c403c1966bb0555057248629a1514ab18e  xf86-video-amdgpu-19.1.0.ta=
-r.gz
-SHA256: 9967435ca5686395375adea503ee774ddb95181505247d164ee3a1a2995a081f  x=
-f86-video-amdgpu-19.1.0.tar.gz
-SHA512: 660bea3ff6c8123ebc7df82b8e90308759c1575a3b28fddc95f0e46b575250991ed=
-a36f0e85d9db9777d712c247dadc8ce1f45541146ac513ec8874b774a440d  xf86-video-a=
-mdgpu-19.1.0.tar.gz
-PGP:  https://xorg.freedesktop.org/archive/individual/driver/xf86-video-amd=
-gpu-19.1.0.tar.gz.sig
-
---=20
-Earthling Michel D=C3=A4nzer               |               https://redhat.c=
-om
-Libre software enthusiast             |             Mesa and X developer
-
---=-nhXDBgXD2LgU3Q/kw0nZ
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
-
------BEGIN PGP SIGNATURE-----
-
-iHEEABECADEWIQSwn681vpFFIZgJURRaga+OatuyAAUCXaCx1RMcbWljaGVsQGRh
-ZW56ZXIubmV0AAoJEFqBr45q27IAYgQAn3PGCJ9pv9d3kdWSSM4pw0fQIRExAKCB
-XiWaFB7Mwnn9mf6CiVHzc58lcQ==
-=mc73
------END PGP SIGNATURE-----
-
---=-nhXDBgXD2LgU3Q/kw0nZ--
-
---===============0621236716==
 Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
 Content-Transfer-Encoding: base64
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
 Content-Disposition: inline
+In-Reply-To: <20191009160652.GO16989@phenom.ffwll.local>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: Daniel Vetter <daniel@ffwll.ch>
+Cc: "Ho, Kenny" <Kenny.Ho@amd.com>, "Kuehling, Felix" <Felix.Kuehling@amd.com>, "jsparks@cray.com" <jsparks@cray.com>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "lkaplan@cray.com" <lkaplan@cray.com>, "y2kenny@gmail.com" <y2kenny@gmail.com>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "Greathouse, Joseph" <Joseph.Greathouse@amd.com>, "Deucher,
+ Alexander" <Alexander.Deucher@amd.com>, "cgroups@vger.kernel.org" <cgroups@vger.kernel.org>, "Koenig,
+ Christian" <Christian.Koenig@amd.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
-
---===============0621236716==--
+SGVsbG8sIERhbmllbC4KCk9uIFdlZCwgT2N0IDA5LCAyMDE5IGF0IDA2OjA2OjUyUE0gKzAyMDAs
+IERhbmllbCBWZXR0ZXIgd3JvdGU6Cj4gVGhhdCdzIG5vdCB0aGUgcG9pbnQgSSB3YXMgbWFraW5n
+LiBGb3IgY3B1IGNncm91cHMgdGhlcmUncyBhIHZlcnkgd2VsbAo+IGRlZmluZWQgY29ubmVjdGlv
+biBiZXR3ZWVuIHRoZSBjcHUgYml0bWFza3MvbnVtYmVycyBpbiBjZ3JvdXBzIGFuZCB0aGUgY3B1
+Cj4gYml0bWFza3MgeW91IHVzZSBpbiB2YXJpb3VzIHN5c3RlbSBjYWxscyAodGhleSBtYXRjaCku
+IEFuZCB0aGF0IHN0dWZmCj4gd29ya3MgYWNyb3NzIHZlbmRvcnMuCgpQbGVhc2Ugbm90ZSB0aGF0
+IHRoZXJlIGFyZSBhIGxvdCBvZiBsaW1pdGF0aW9ucyBldmVuIHRvIGNwdXNldC4KQWZmaW5pdHkg
+aXMgZWFzeSB0byBpbXBsZW1lbnQgYW5kIHNlZW1zIGF0dHJhY3RpdmUgaW4gdGVybXMgb2YKYWJz
+b2x1dGUgaXNvbGF0aW9uIGJ1dCBpdCdzIGluaGVyZW50bHkgY3VtYmVyc29tZSBhbmQgbGltaXRl
+ZCBpbgpncmFudWxhcml0eSBhbmQgY2FuIGxlYWQgdG8gc3VycHJpc2luZyBmYWlsdXJlIG1vZGVz
+IHdoZXJlIGNvbnRlbnRpb24Kb24gb25lIGNwdSBjYW4ndCBiZSByZXNvbHZlZCBieSB0aGUgbG9h
+ZCBiYWxhbmNlciBhbmQgbGVhZHMgdG8gc3lzdGVtCndpZGUgc2xvd2Rvd25zIC8gc3RhbGxzIGNh
+dXNlZCBieSB0aGUgZGVwZW5kZW5jeSBjaGFpbiBhbmNob3JlZCBhdCB0aGUKYWZmaW5pdHkgbGlt
+aXRlZCB0YXNrcy4KCk1heWJlIHRoaXMgaXMgYSBsZXNzIG9mIGEgcHJvYmxlbSBmb3IgZ3B1IHdv
+cmtsb2FkcyBidXQgaW4gZ2VuZXJhbCB0aGUKbW9yZSBjb25zdHJhaW50cyBhcmUgcHV0IG9uIHNj
+aGVkdWxpbmcsIHRoZSBtb3JlIGxpa2VseSBpcyB0aGUgc3lzdGVtCnRvIGRldmVsb3AgdHdpc3Rl
+ZCBkZXBlbmRlbmN5IGNoYWlucyB3aGlsZSBvdGhlciBwYXJ0cyBvZiB0aGUgc3lzdGVtCmFyZSBz
+aXR0aW5nIGlkbGUuCgpIb3cgZG9lcyBzY2hlZHVsaW5nIGN1cnJlbnRseSB3b3JrIHdoZW4gdGhl
+cmUgYXJlIGNvbXBldGluZyBncHUKd29ya2xvYWRzPyAgVGhlcmUgZ290dGEgYmUgc29tZSBmYWly
+bmVzcyBwcm92aXNpb24gd2hldGhlciB0aGF0J3MgdW5pdAphbGxvY2F0aW9uIGJhc2VkIG9yIHRp
+bWUgc2xpY2luZywgcmlnaHQ/ICBJZiB0aGF0J3MgdGhlIGNhc2UsIGl0IG1pZ2h0CmJlIGJlc3Qg
+dG8gaW1wbGVtZW50IHByb3BvcnRpb25hbCBjb250cm9sIG9uIHRvcCBvZiB0aGF0LgpXb3JrLWNv
+bnNlcnZpbmcgbWVjaGFuaXNtcyBhcmUgdGhlIG1vc3QgdmVyc2F0aWxlLCBlYXNpZXN0IHRvIHVz
+ZSBhbmQKbGVhc3QgbGlrZWx5IHRvIGNhdXNlIHJlZ3Jlc3Npb25zLgoKVGhhbmtzLgoKLS0gCnRl
+anVuCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmRyaS1k
+ZXZlbCBtYWlsaW5nIGxpc3QKZHJpLWRldmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczov
+L2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2RyaS1kZXZlbA==
