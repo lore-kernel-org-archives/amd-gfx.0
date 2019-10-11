@@ -1,45 +1,82 @@
-From: Gabriel C <nix.or.die@gmail.com>
-Subject: [amdgpu] ASSERT()'s in write_i2c*retimer_setting() functions
-Date: Fri, 11 Oct 2019 01:34:08 +0200
-Message-ID: <CAEJqkgi-9_1D91GUm_MbS-=RRRwMZjqEYWhCCdk+STvc0PeYXw@mail.gmail.com>
+From: "Wang, Kevin(Yang)" <Kevin1.Wang-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH] drm/amdgpu/swSMU: custom UMD pstate peak clock for navi14
+Date: Fri, 11 Oct 2019 00:51:34 +0000
+Message-ID: <20191011005107.29716-1-kevin1.wang@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Sender: linux-kernel-owner@vger.kernel.org
-To: LKML <linux-kernel@vger.kernel.org>, amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: Zeyu Fan <Zeyu.Fan@amd.com>, dri-devel@lists.freedesktop.org
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Hesik, Christopher" <Christopher.Hesik-5C7GfCeVMHo@public.gmane.org>, "Feng,
+ Kenneth" <Kenneth.Feng-5C7GfCeVMHo@public.gmane.org>, "Wang, Kevin(Yang)" <Kevin1.Wang-5C7GfCeVMHo@public.gmane.org>, "Zhang, Hawking" <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>
 
-Hello,
-
-I've built recently a new box with a Ryzen3 2200G APU.
-
-Each time I plug in an HDMI cable ( to a TV or Monitor ),
-or boot with HDMI connected a lot ASSERT()'s from
-write_i2c*retimer_setting() functions are triggered.
-
-I see the same on a Laptop with a Ryzen7 3750H with
-hybrid GPU configuration.
-
-Besides the noise in dmesg and the delay on boot,
-everything is working fine. I cannot find anything wrong
-or broken.
-
-Since the write errors seem to not be fatal, I think a friendly message
-would help more instead of flooding the dmesg with dumps while
-everything is working properly.
-
-Why is ASSERT() used there?
-
-I have a dmesg from the Ryzen3 box with drm.debug and a snipped
-from the Laptop ( not near me right now ) uploaded there:
-
-https://crazy.dev.frugalware.org/amdgpu/
-
-Please let me know if you need more information,
-If needed I can upload a dmesg from the Laptop with drm.debug too.
-
-
-Best Regards,
-
-Gabriel C
+YWRkIG5hdmkxNCB1bWQgcHN0YXRlIHBlYWsgY2xvY2sgc3VwcG9ydC4KCk5BVkkxNF9VTURfUFNU
+QVRFX1BFQUtfWFRfR0ZYQ0xLICAgMTY3MCBNSHoKTkFWSTE0X1VNRF9QU1RBVEVfUEVBS19YVE1f
+R0ZYQ0xLICAxNDQ4IE1IegpOQVZJMTRfVU1EX1BTVEFURV9QRUFLX1hMTV9HRlhDTEsgIDExODEg
+TUh6Ck5BVkkxNF9VTURfUFNUQVRFX1BFQUtfWFRYX0dGWENMSyAgMTcxNyBNSHoKTkFWSTE0X1VN
+RF9QU1RBVEVfUEVBS19YTF9HRlhDTEsgICAxNDQ4IE1IegoKU2lnbmVkLW9mZi1ieTogS2V2aW4g
+V2FuZyA8a2V2aW4xLndhbmdAYW1kLmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2Vy
+cGxheS9uYXZpMTBfcHB0LmMgfCA1MyArKysrKysrKysrKysrKysrLS0tLS0tCiBkcml2ZXJzL2dw
+dS9kcm0vYW1kL3Bvd2VycGxheS9uYXZpMTBfcHB0LmggfCAgNiArKysKIDIgZmlsZXMgY2hhbmdl
+ZCwgNDUgaW5zZXJ0aW9ucygrKSwgMTQgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVy
+cy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvbmF2aTEwX3BwdC5jIGIvZHJpdmVycy9ncHUvZHJtL2Ft
+ZC9wb3dlcnBsYXkvbmF2aTEwX3BwdC5jCmluZGV4IDY2YTNmY2Q3YjFkMC4uODBlOTZlMzQxMmFj
+IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9uYXZpMTBfcHB0LmMK
+KysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvbmF2aTEwX3BwdC5jCkBAIC0xNDY3
+LDE4ICsxNDY3LDQ3IEBAIHN0YXRpYyBpbnQgbmF2aTEwX3NldF9wZWFrX2Nsb2NrX2J5X2Rldmlj
+ZShzdHJ1Y3Qgc211X2NvbnRleHQgKnNtdSkKIAl1aW50MzJfdCBzY2xrX2ZyZXEgPSAwLCB1Y2xr
+X2ZyZXEgPSAwOwogCXVpbnQzMl90IHVjbGtfbGV2ZWwgPSAwOwogCi0Jc3dpdGNoIChhZGV2LT5w
+ZGV2LT5yZXZpc2lvbikgewotCWNhc2UgMHhmMDogLyogWFRYICovCi0JY2FzZSAweGMwOgotCQlz
+Y2xrX2ZyZXEgPSBOQVZJMTBfUEVBS19TQ0xLX1hUWDsKLQkJYnJlYWs7Ci0JY2FzZSAweGYxOiAv
+KiBYVCAqLwotCWNhc2UgMHhjMToKLQkJc2Nsa19mcmVxID0gTkFWSTEwX1BFQUtfU0NMS19YVDsK
+Kwlzd2l0Y2ggKGFkZXYtPmFzaWNfdHlwZSkgeworCWNhc2UgQ0hJUF9OQVZJMTA6CisJCXN3aXRj
+aCAoYWRldi0+cGRldi0+cmV2aXNpb24pIHsKKwkJY2FzZSAweGYwOiAvKiBYVFggKi8KKwkJY2Fz
+ZSAweGMwOgorCQkJc2Nsa19mcmVxID0gTkFWSTEwX1BFQUtfU0NMS19YVFg7CisJCQlicmVhazsK
+KwkJY2FzZSAweGYxOiAvKiBYVCAqLworCQljYXNlIDB4YzE6CisJCQlzY2xrX2ZyZXEgPSBOQVZJ
+MTBfUEVBS19TQ0xLX1hUOworCQkJYnJlYWs7CisJCWRlZmF1bHQ6IC8qIFhMICovCisJCQlzY2xr
+X2ZyZXEgPSBOQVZJMTBfUEVBS19TQ0xLX1hMOworCQkJYnJlYWs7CisJCX0KIAkJYnJlYWs7Ci0J
+ZGVmYXVsdDogLyogWEwgKi8KLQkJc2Nsa19mcmVxID0gTkFWSTEwX1BFQUtfU0NMS19YTDsKKwlj
+YXNlIENISVBfTkFWSTE0OgorCQlzd2l0Y2ggKGFkZXYtPnBkZXYtPnJldmlzaW9uKSB7CisJCWNh
+c2UgMHhjNzogLyogWFQgKi8KKwkJY2FzZSAweGY0OgorCQkJc2Nsa19mcmVxID0gTkFWSTE0X1VN
+RF9QU1RBVEVfUEVBS19YVF9HRlhDTEs7CisJCQlicmVhazsKKwkJY2FzZSAweGMxOiAvKiBYVE0g
+Ki8KKwkJY2FzZSAweGYyOgorCQkJc2Nsa19mcmVxID0gTkFWSTE0X1VNRF9QU1RBVEVfUEVBS19Y
+VE1fR0ZYQ0xLOworCQkJYnJlYWs7CisJCWNhc2UgMHhjMzogLyogWExNICovCisJCWNhc2UgMHhm
+MzoKKwkJCXNjbGtfZnJlcSA9IE5BVkkxNF9VTURfUFNUQVRFX1BFQUtfWExNX0dGWENMSzsKKwkJ
+CWJyZWFrOworCQljYXNlIDB4YzU6IC8qIFhUWCAqLworCQljYXNlIDB4ZjY6CisJCQlzY2xrX2Zy
+ZXEgPSBOQVZJMTRfVU1EX1BTVEFURV9QRUFLX1hMTV9HRlhDTEs7CisJCQlicmVhazsKKwkJZGVm
+YXVsdDogLyogWEwgKi8KKwkJCXNjbGtfZnJlcSA9IE5BVkkxNF9VTURfUFNUQVRFX1BFQUtfWExf
+R0ZYQ0xLOworCQkJYnJlYWs7CisJCX0KIAkJYnJlYWs7CisJZGVmYXVsdDoKKwkJcmV0dXJuIC1F
+SU5WQUw7CiAJfQogCiAJcmV0ID0gc211X2dldF9kcG1fbGV2ZWxfY291bnQoc211LCBTTVVfVUNM
+SywgJnVjbGtfbGV2ZWwpOwpAQCAtMTUwMSwxMCArMTUzMCw2IEBAIHN0YXRpYyBpbnQgbmF2aTEw
+X3NldF9wZWFrX2Nsb2NrX2J5X2RldmljZShzdHJ1Y3Qgc211X2NvbnRleHQgKnNtdSkKIHN0YXRp
+YyBpbnQgbmF2aTEwX3NldF9wZXJmb3JtYW5jZV9sZXZlbChzdHJ1Y3Qgc211X2NvbnRleHQgKnNt
+dSwgZW51bSBhbWRfZHBtX2ZvcmNlZF9sZXZlbCBsZXZlbCkKIHsKIAlpbnQgcmV0ID0gMDsKLQlz
+dHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiA9IHNtdS0+YWRldjsKLQotCWlmIChhZGV2LT5hc2lj
+X3R5cGUgIT0gQ0hJUF9OQVZJMTApCi0JCXJldHVybiAtRUlOVkFMOwogCiAJc3dpdGNoIChsZXZl
+bCkgewogCWNhc2UgQU1EX0RQTV9GT1JDRURfTEVWRUxfUFJPRklMRV9QRUFLOgpkaWZmIC0tZ2l0
+IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvbmF2aTEwX3BwdC5oIGIvZHJpdmVycy9n
+cHUvZHJtL2FtZC9wb3dlcnBsYXkvbmF2aTEwX3BwdC5oCmluZGV4IDYyMGZmMTdjMmZlZi4uYTM3
+ZTM3YzVmMTA1IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9uYXZp
+MTBfcHB0LmgKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvbmF2aTEwX3BwdC5o
+CkBAIC0yNyw2ICsyNywxMiBAQAogI2RlZmluZSBOQVZJMTBfUEVBS19TQ0xLX1hUICAJCSgxNzU1
+KQogI2RlZmluZSBOQVZJMTBfUEVBS19TQ0xLX1hMICAJCSgxNjI1KQogCisjZGVmaW5lIE5BVkkx
+NF9VTURfUFNUQVRFX1BFQUtfWFRfR0ZYQ0xLICAgICAgKDE2NzApCisjZGVmaW5lIE5BVkkxNF9V
+TURfUFNUQVRFX1BFQUtfWFRNX0dGWENMSyAgICAgKDE0NDgpCisjZGVmaW5lIE5BVkkxNF9VTURf
+UFNUQVRFX1BFQUtfWExNX0dGWENMSyAgICAgKDExODEpCisjZGVmaW5lIE5BVkkxNF9VTURfUFNU
+QVRFX1BFQUtfWFRYX0dGWENMSyAgICAgKDE3MTcpCisjZGVmaW5lIE5BVkkxNF9VTURfUFNUQVRF
+X1BFQUtfWExfR0ZYQ0xLICAgICAgKDE0NDgpCisKIGV4dGVybiB2b2lkIG5hdmkxMF9zZXRfcHB0
+X2Z1bmNzKHN0cnVjdCBzbXVfY29udGV4dCAqc211KTsKIAogI2VuZGlmCi0tIAoyLjE3LjEKCl9f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFp
+bGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJl
+ZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
