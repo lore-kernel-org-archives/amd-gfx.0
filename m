@@ -1,16 +1,16 @@
-From: "Yang, Philip" <Philip.Yang-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH v3] drm/amdgpu: user pages array memory leak fix
-Date: Fri, 11 Oct 2019 18:47:59 +0000
-Message-ID: <81ef18d9-ae50-6b06-d5b3-5f90a6d35487@amd.com>
-References: <20191011143620.8785-1-Philip.Yang@amd.com>
- <9abf4c92-a30c-ae3d-5544-6428c3aec2ce@amd.com>
+From: Julien Isorce <julien.isorce-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH] drm/amd/display: Use pixel encoding 444 for dongle usb-c
+ to hdmi
+Date: Fri, 11 Oct 2019 12:31:43 -0700
+Message-ID: <CAHWPjbXH=GYR55+3i1FXF6XcvgGP5ngiSZGOkNuoCt4JPVVp0Q@mail.gmail.com>
+References: <20191001222123.2392-1-jisorce@oblong.com>
+ <CAHWPjbWcdhnewEN8OEUgDu5aBpYBW5tUggA_KJ_BUR8JLvCsQw@mail.gmail.com>
+ <4610d814-6c54-982e-ecc6-716cc42b5e68@amd.com>
+ <CAHWPjbXPL9NsT0yXb8_wkodT18TEBcgf81tY49GP+U=SGZ26YQ@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============2037740371=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <9abf4c92-a30c-ae3d-5544-6428c3aec2ce-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-Content-ID: <F6E4D737F62CD1489ED51C8350EF26BD-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
+In-Reply-To: <CAHWPjbXPL9NsT0yXb8_wkodT18TEBcgf81tY49GP+U=SGZ26YQ-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -21,62 +21,307 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Koenig,
- Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "thejoe-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org" <thejoe-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+To: Harry Wentland <hwentlan-5C7GfCeVMHo@public.gmane.org>
+Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-DQoNCk9uIDIwMTktMTAtMTEgMTozMyBwLm0uLCBLdWVobGluZywgRmVsaXggd3JvdGU6DQo+IE9u
-IDIwMTktMTAtMTEgMTA6MzYgYS5tLiwgWWFuZywgUGhpbGlwIHdyb3RlOg0KPj4gdXNlcl9wYWdl
-cyBhcnJheSBzaG91bGQgYWx3YXlzIGJlIGZyZWVkIGFmdGVyIHZhbGlkYXRpb24gcmVnYXJkbGVz
-cyBpZg0KPj4gdXNlciBwYWdlcyBhcmUgY2hhbmdlZCBhZnRlciBibyBpcyBjcmVhdGVkIGJlY2F1
-c2Ugd2l0aCBITU0gY2hhbmdlIHBhcnNlDQo+PiBibyBhbHdheXMgYWxsb2NhdGUgdXNlciBwYWdl
-cyBhcnJheSB0byBnZXQgdXNlciBwYWdlcyBmb3IgdXNlcnB0ciBiby4NCj4+DQo+PiB2MjogcmVt
-b3ZlIHVudXNlZCBsb2NhbCB2YXJpYWJsZSBhbmQgYW1lbmQgY29tbWl0DQo+Pg0KPj4gdjM6IGFk
-ZCBiYWNrIGdldCB1c2VyIHBhZ2VzIGluIGdlbV91c2VycHRyX2lvY3RsLCB0byBkZXRlY3QgYXBw
-bGljYXRpb24NCj4+IGJ1ZyB3aGVyZSBhbiB1c2VycHRyIFZNQSBpcyBub3QgYW5hbnltb3VzIG1l
-bW9yeSBhbmQgcmVqZWN0IGl0Lg0KPj4NCj4+IEJ1Z3ppbGxhOiBodHRwczovL2J1Z3MubGF1bmNo
-cGFkLm5ldC91YnVudHUvK3NvdXJjZS9saW51eC8rYnVnLzE4NDQ5NjINCj4+DQo+PiBTaWduZWQt
-b2ZmLWJ5OiBQaGlsaXAgWWFuZyA8UGhpbGlwLllhbmdAYW1kLmNvbT4NCj4+IFRlc3RlZC1ieTog
-Sm9lIEJhcm5ldHQgPHRoZWpvZUBnbWFpbC5jb20+DQo+PiBSZXZpZXdlZC1ieTogQ2hyaXN0aWFu
-IEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPg0KPj4gLS0tDQo+PiAgICBkcml2ZXJz
-L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfY3MuYyB8IDQgKy0tLQ0KPj4gICAgMSBmaWxlIGNo
-YW5nZWQsIDEgaW5zZXJ0aW9uKCspLCAzIGRlbGV0aW9ucygtKQ0KPj4NCj4+IGRpZmYgLS1naXQg
-YS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfY3MuYyBiL2RyaXZlcnMvZ3B1L2Ry
-bS9hbWQvYW1kZ3B1L2FtZGdwdV9jcy5jDQo+PiBpbmRleCBjMThhMTUzYjNkMmEuLmU3YjM5ZGFh
-MjJmNiAxMDA2NDQNCj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9j
-cy5jDQo+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfY3MuYw0KPj4g
-QEAgLTQ3Niw3ICs0NzYsNiBAQCBzdGF0aWMgaW50IGFtZGdwdV9jc19saXN0X3ZhbGlkYXRlKHN0
-cnVjdCBhbWRncHVfY3NfcGFyc2VyICpwLA0KPj4gICAgDQo+PiAgICAJbGlzdF9mb3JfZWFjaF9l
-bnRyeShsb2JqLCB2YWxpZGF0ZWQsIHR2LmhlYWQpIHsNCj4+ICAgIAkJc3RydWN0IGFtZGdwdV9i
-byAqYm8gPSB0dG1fdG9fYW1kZ3B1X2JvKGxvYmotPnR2LmJvKTsNCj4+IC0JCWJvb2wgYmluZGlu
-Z191c2VycHRyID0gZmFsc2U7DQo+PiAgICAJCXN0cnVjdCBtbV9zdHJ1Y3QgKnVzZXJtbTsNCj4+
-ICAgIA0KPj4gICAgCQl1c2VybW0gPSBhbWRncHVfdHRtX3R0X2dldF91c2VybW0oYm8tPnRiby50
-dG0pOw0KPj4gQEAgLTQ5MywxNCArNDkyLDEzIEBAIHN0YXRpYyBpbnQgYW1kZ3B1X2NzX2xpc3Rf
-dmFsaWRhdGUoc3RydWN0IGFtZGdwdV9jc19wYXJzZXIgKnAsDQo+PiAgICANCj4+ICAgIAkJCWFt
-ZGdwdV90dG1fdHRfc2V0X3VzZXJfcGFnZXMoYm8tPnRiby50dG0sDQo+PiAgICAJCQkJCQkgICAg
-IGxvYmotPnVzZXJfcGFnZXMpOw0KPj4gLQkJCWJpbmRpbmdfdXNlcnB0ciA9IHRydWU7DQo+PiAg
-ICAJCX0NCj4+ICAgIA0KPj4gICAgCQlyID0gYW1kZ3B1X2NzX3ZhbGlkYXRlKHAsIGJvKTsNCj4+
-ICAgIAkJaWYgKHIpDQo+PiAgICAJCQlyZXR1cm4gcjsNCj4+ICAgIA0KPj4gLQkJaWYgKGJpbmRp
-bmdfdXNlcnB0cikgew0KPj4gKwkJaWYgKGxvYmotPnVzZXJfcGFnZXMpIHsNCj4gDQo+IFRoaXMg
-aWYgaXMgbm90IG5lZWRlZC4ga3ZmcmVlIHNob3VsZCBiZSBhYmxlIHRvIGhhbmRsZSBOVUxMIHBv
-aW50ZXJzLA0KPiBhbmQgdW5jb25kaXRpb25hbGx5IHNldHRpbmcgdGhlIHBvaW50ZXIgdG8gTlVM
-TCBhZnRlcndhcmRzIGlzIG5vdCBhDQo+IHByb2JsZW0gZWl0aGVyLiBXaXRoIHRoYXQgZml4ZWQs
-IHRoaXMgY29tbWl0IGlzDQo+IA0KPiBSZXZpZXdlZC1ieTogRmVsaXggS3VlaGxpbmcgPEZlbGl4
-Lkt1ZWhsaW5nQGFtZC5jb20+DQo+IA0KPiBIb3dldmVyLCBJIGRvbid0IHRoaW5rIHRoaXMgc2hv
-dWxkIGJlIHRoZSBmaW5hbCBzb2x1dGlvbi4gTXkgY29uY2Vybg0KPiB3aXRoIHRoaXMgc29sdXRp
-b24gaXMsIHRoYXQgeW91IGVuZCB1cCBmcmVlaW5nIGFuZCByZWdlbmVyYXRpbmcgdGhlDQo+IHVz
-ZXJfcGFnZXMgYXJyYXlzIG1vcmUgZnJlcXVlbnRseSB0aGFuIG5lY2Vzc2FyeTogT24gZXZlcnkg
-Y29tbWFuZA0KPiBzdWJtaXNzaW9uLCBldmVuIGlmIHRoZXJlIHdhcyBubyBNTVUgbm90aWZpZXIg
-c2luY2UgdGhlIGxhc3QgY29tbWFuZA0KPiBzdWJtaXNzaW9uLiBJIHdhcyBob3Bpbmcgd2UgY291
-bGQgZ2V0IGJhY2sgdG8gYSBzb2x1dGlvbiB3aGVyZSB3ZSBjYW4NCj4gbWFpbnRhaW4gdGhlIHNh
-bWUgdXNlcl9wYWdlcyBhcnJheSBhY3Jvc3MgY29tbWFuZCBzdWJtaXNzaW9ucywgc2luY2UgTU1V
-DQo+IG5vdGlmaWVycyBhcmUgcmFyZS4gVGhhdCBzaG91bGQgcmVkdWNlIG92ZXJoZWFkIGZyb20g
-ZG9pbmcgYWxsIHRob3MgcGFnZQ0KPiB0YWJsZSB3YWxrcyBpbiBITU0gb24gZXZlcnkgY29tbWFu
-ZCBzdWJtaXNzaW9ucyB3aGVuIHVzaW5nIHVzZXJwdHJzLg0KPiANClllcywgSSB3aWxsIGhhdmUg
-YW5vdGhlciBwYXRjaCB0byBhZGRyZXNzIHRoaXMgdXNpbmcgaG1tX3JhbmdlX3ZhbGlkLCANCnRo
-ZSBpZGVhIGlzIHRvIGFsbG93IGhtbSByYW5nZSB0cmFja2luZyBjcm9zcyBnZW1fdXNlcnB0cl9p
-b2N0bCBhbmQgDQpjc19pb2N0bC4NCg0KVGhhbmtzLA0KUGhpbGlwDQoNCj4gUmVnYXJkcywNCj4g
-ICDCoCBGZWxpeA0KPiANCj4gDQo+PiAgICAJCQlrdmZyZWUobG9iai0+dXNlcl9wYWdlcyk7DQo+
-PiAgICAJCQlsb2JqLT51c2VyX3BhZ2VzID0gTlVMTDsNCj4+ICAgIAkJfQ0KX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QK
-YW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5v
-cmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+--===============2037740371==
+Content-Type: multipart/alternative; boundary="0000000000000cda010594a792b3"
+
+--0000000000000cda010594a792b3
+Content-Type: text/plain; charset="UTF-8"
+
+Hi Harry,
+
+Do you need more information ?
+
+Thx
+Julien
+
+On Tue, Oct 8, 2019 at 11:15 AM Julien Isorce <julien.isorce-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+wrote:
+
+> Hi Harry,
+>
+> I can reproduce on LG, Samsung and NEC monitors.
+>
+> "Have you checked whether the driver picks RGB or YCBCR420 without your
+> patch?" -> it was selecting RGB .
+>
+> For example on https://commons.wikimedia.org/wiki/File:Gray_scale.jpg ,
+> the second band from the left, will be entirely pinkish.
+> Since the issue also happens without dongle, so with a direct cable from
+> the miniDP from the graphic card to DisplayPort on the screen I think there
+> is more serious issue with RGB output in amdgpu. But it is not easy to
+> reproduce, you should try on above image.
+>
+> In any case, the goal with the patch is just to get the same output when
+> using 2 screens at the same time, one connected to hdmi output of the
+> graphic card and one connected  to usb-c to graphic card (hdmi cable with
+> dongle). So prior this patch, the first one would use YCbCr 444 and the
+> second would use RGB.
+> After this patch, both will use YCbCr 444 (both are hdmi).
+> The patch does not change the case for miniDP to DisplayPort, the driver
+> will still use RGB. Because maybe the RGB issue is also specific to that
+> graphic card which
+> is VEGA"M". So that is why the patch only tries to match hdmi cases
+> together, whether it is direct connection or through usb-c.
+>
+> -
+> Julien
+>
+>
+>
+> On Tue, Oct 8, 2019 at 10:44 AM Harry Wentland <hwentlan-5C7GfCeVMHo@public.gmane.org> wrote:
+>
+>> Hi Julien,
+>>
+>> curious which monitor you're using.
+>>
+>> Have you checked whether the driver picks RGB or YCBCR420 without your
+>> patch?
+>>
+>> I'm not sure I understand how the pinkish color issue looks. Do you see
+>> a pinkish color at the transition from grey to another color? Or is the
+>> entire grey area pinkish?
+>>
+>> Thanks,
+>> Harry
+>>
+>> On 2019-10-08 12:06 p.m., Julien Isorce wrote:
+>> > Hi,
+>> >
+>> > Gentle ping ?
+>> >
+>> > Thx
+>> > Julien
+>> >
+>> > On Tue, Oct 1, 2019 at 3:21 PM Julien Isorce <julien.isorce-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org
+>> > <mailto:julien.isorce-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>> wrote:
+>> >
+>> >     Fix pinkish color issue around grey areas. This also happens
+>> >     when not using any dongle so directly with a usb-c to Display
+>> >     Port cable. Meaning there is something wrong when using pixel
+>> >     encoding RGB with amd driver in the general case. In the meantime
+>> >     just use the same pixel encoding as when using HDMI without dongle.
+>> >     This way users will see the same thing on 2 identical screens when
+>> >     one is connected with hdmi-to-hdmi and the other is connected with
+>> >     usb-c-to-hdmi.
+>> >
+>> >     Signed-off-by: Julien Isorce <jisorce-bXq66PvbRDbQT0dZR+AlfA@public.gmane.org
+>> >     <mailto:jisorce-bXq66PvbRDbQT0dZR+AlfA@public.gmane.org>>
+>> >     ---
+>> >      drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 5 +++++
+>> >      1 file changed, 5 insertions(+)
+>> >
+>> >     diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>> >     b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>> >     index d3f404f097eb..8139dcc0bfba 100644
+>> >     --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>> >     +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>> >     @@ -3313,6 +3313,7 @@ static void
+>> >     fill_stream_properties_from_drm_display_mode(
+>> >      {
+>> >             struct dc_crtc_timing *timing_out = &stream->timing;
+>> >             const struct drm_display_info *info =
+>> &connector->display_info;
+>> >     +       const struct dc_link *link = stream->sink->link;
+>> >
+>> >             memset(timing_out, 0, sizeof(struct dc_crtc_timing));
+>> >
+>> >     @@ -3327,6 +3328,10 @@ static void
+>> >     fill_stream_properties_from_drm_display_mode(
+>> >             else if ((connector->display_info.color_formats &
+>> >     DRM_COLOR_FORMAT_YCRCB444)
+>> >                             && stream->signal ==
+>> SIGNAL_TYPE_HDMI_TYPE_A)
+>> >                     timing_out->pixel_encoding =
+>> PIXEL_ENCODING_YCBCR444;
+>> >     +       else if ((connector->display_info.color_formats &
+>> >     DRM_COLOR_FORMAT_YCRCB444)
+>> >     +                       && stream->sink->sink_signal ==
+>> >     SIGNAL_TYPE_DISPLAY_PORT
+>> >     +                       && link->dpcd_caps.dongle_type ==
+>> >     DISPLAY_DONGLE_DP_HDMI_CONVERTER)
+>> >     +               timing_out->pixel_encoding =
+>> PIXEL_ENCODING_YCBCR444;
+>> >             else
+>> >                     timing_out->pixel_encoding = PIXEL_ENCODING_RGB;
+>> >
+>> >     --
+>> >     2.17.1
+>> >
+>> >
+>> > _______________________________________________
+>> > amd-gfx mailing list
+>> > amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+>> > https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+>> >
+>>
+>
+
+--0000000000000cda010594a792b3
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Hi Harry,<div><br></div><div>Do you need more information =
+?</div><div><br></div><div>Thx</div><div>Julien</div></div><br><div class=
+=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr">On Tue, Oct 8, 2019 =
+at 11:15 AM Julien Isorce &lt;<a href=3D"mailto:julien.isorce-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org">ju=
+lien.isorce-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt; wrote:<br></div><blockquote class=3D"gmail_qu=
+ote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,20=
+4);padding-left:1ex"><div dir=3D"ltr">Hi Harry,<div><br></div><div>I can re=
+produce on LG, Samsung and NEC monitors.</div><div><br></div><div>&quot;Hav=
+e you checked whether the driver picks RGB or YCBCR420 without your<br>patc=
+h?&quot; -&gt; it was selecting RGB .<br></div><div><br></div><div>For exam=
+ple on <a href=3D"https://commons.wikimedia.org/wiki/File:Gray_scale.jpg" t=
+arget=3D"_blank">https://commons.wikimedia.org/wiki/File:Gray_scale.jpg</a>=
+ , the second band from the left, will be entirely pinkish.<br></div><div>S=
+ince the issue also happens without dongle, so with a direct cable from the=
+ miniDP from the graphic card to DisplayPort on the screen I think there is=
+ more serious issue with RGB output in amdgpu. But it is not easy to reprod=
+uce, you should try on above image.</div><div><br></div><div>In any case, t=
+he goal with the patch is just to get the same output when using 2 screens =
+at the same time, one connected to hdmi output of the graphic card and one =
+connected=C2=A0 to usb-c to graphic card (hdmi cable with dongle). So prior=
+ this patch, the first one would use YCbCr 444 and the second would use RGB=
+.</div><div>After this patch, both will use=C2=A0YCbCr 444 (both are hdmi).=
+</div><div>The patch does not change the case for miniDP to DisplayPort, th=
+e driver will still use RGB. Because maybe the RGB issue is also specific t=
+o that graphic card which</div><div>is=C2=A0VEGA&quot;M&quot;. So that is w=
+hy the patch only tries to match hdmi cases together, whether it is direct =
+connection or through usb-c.</div><div><br></div><div>-</div><div>Julien</d=
+iv><div><br></div><div><br></div></div><br><div class=3D"gmail_quote"><div =
+dir=3D"ltr" class=3D"gmail_attr">On Tue, Oct 8, 2019 at 10:44 AM Harry Went=
+land &lt;<a href=3D"mailto:hwentlan-5C7GfCeVMHo@public.gmane.org" target=3D"_blank">hwentlan@amd=
+.com</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"mar=
+gin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1=
+ex">Hi Julien,<br>
+<br>
+curious which monitor you&#39;re using.<br>
+<br>
+Have you checked whether the driver picks RGB or YCBCR420 without your<br>
+patch?<br>
+<br>
+I&#39;m not sure I understand how the pinkish color issue looks. Do you see=
+<br>
+a pinkish color at the transition from grey to another color? Or is the<br>
+entire grey area pinkish?<br>
+<br>
+Thanks,<br>
+Harry<br>
+<br>
+On 2019-10-08 12:06 p.m., Julien Isorce wrote:<br>
+&gt; Hi,<br>
+&gt; <br>
+&gt; Gentle ping ?<br>
+&gt; <br>
+&gt; Thx<br>
+&gt; Julien<br>
+&gt; <br>
+&gt; On Tue, Oct 1, 2019 at 3:21 PM Julien Isorce &lt;<a href=3D"mailto:jul=
+ien.isorce-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org" target=3D"_blank">julien.isorce-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a><br>
+&gt; &lt;mailto:<a href=3D"mailto:julien.isorce-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org" target=3D"_blank=
+">julien.isorce-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt;&gt; wrote:<br>
+&gt; <br>
+&gt;=C2=A0 =C2=A0 =C2=A0Fix pinkish color issue around grey areas. This als=
+o happens<br>
+&gt;=C2=A0 =C2=A0 =C2=A0when not using any dongle so directly with a usb-c =
+to Display<br>
+&gt;=C2=A0 =C2=A0 =C2=A0Port cable. Meaning there is something wrong when u=
+sing pixel<br>
+&gt;=C2=A0 =C2=A0 =C2=A0encoding RGB with amd driver in the general case. I=
+n the meantime<br>
+&gt;=C2=A0 =C2=A0 =C2=A0just use the same pixel encoding as when using HDMI=
+ without dongle.<br>
+&gt;=C2=A0 =C2=A0 =C2=A0This way users will see the same thing on 2 identic=
+al screens when<br>
+&gt;=C2=A0 =C2=A0 =C2=A0one is connected with hdmi-to-hdmi and the other is=
+ connected with<br>
+&gt;=C2=A0 =C2=A0 =C2=A0usb-c-to-hdmi.<br>
+&gt; <br>
+&gt;=C2=A0 =C2=A0 =C2=A0Signed-off-by: Julien Isorce &lt;<a href=3D"mailto:=
+jisorce-bXq66PvbRDbQT0dZR+AlfA@public.gmane.org" target=3D"_blank">jisorce-bXq66PvbRDbQT0dZR+AlfA@public.gmane.org</a><br>
+&gt;=C2=A0 =C2=A0 =C2=A0&lt;mailto:<a href=3D"mailto:jisorce-bXq66PvbRDbQT0dZR+AlfA@public.gmane.org" ta=
+rget=3D"_blank">jisorce-bXq66PvbRDbQT0dZR+AlfA@public.gmane.org</a>&gt;&gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0---<br>
+&gt;=C2=A0 =C2=A0 =C2=A0=C2=A0drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_=
+dm.c | 5 +++++<br>
+&gt;=C2=A0 =C2=A0 =C2=A0=C2=A01 file changed, 5 insertions(+)<br>
+&gt; <br>
+&gt;=C2=A0 =C2=A0 =C2=A0diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/=
+amdgpu_dm.c<br>
+&gt;=C2=A0 =C2=A0 =C2=A0b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c=
+<br>
+&gt;=C2=A0 =C2=A0 =C2=A0index d3f404f097eb..8139dcc0bfba 100644<br>
+&gt;=C2=A0 =C2=A0 =C2=A0--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_=
+dm.c<br>
+&gt;=C2=A0 =C2=A0 =C2=A0+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_=
+dm.c<br>
+&gt;=C2=A0 =C2=A0 =C2=A0@@ -3313,6 +3313,7 @@ static void<br>
+&gt;=C2=A0 =C2=A0 =C2=A0fill_stream_properties_from_drm_display_mode(<br>
+&gt;=C2=A0 =C2=A0 =C2=A0=C2=A0{<br>
+&gt;=C2=A0 =C2=A0 =C2=A0=C2=A0 =C2=A0 =C2=A0 =C2=A0 struct dc_crtc_timing *=
+timing_out =3D &amp;stream-&gt;timing;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0=C2=A0 =C2=A0 =C2=A0 =C2=A0 const struct drm_displa=
+y_info *info =3D &amp;connector-&gt;display_info;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0+=C2=A0 =C2=A0 =C2=A0 =C2=A0const struct dc_link *l=
+ink =3D stream-&gt;sink-&gt;link;<br>
+&gt; <br>
+&gt;=C2=A0 =C2=A0 =C2=A0=C2=A0 =C2=A0 =C2=A0 =C2=A0 memset(timing_out, 0, s=
+izeof(struct dc_crtc_timing));<br>
+&gt; <br>
+&gt;=C2=A0 =C2=A0 =C2=A0@@ -3327,6 +3328,10 @@ static void<br>
+&gt;=C2=A0 =C2=A0 =C2=A0fill_stream_properties_from_drm_display_mode(<br>
+&gt;=C2=A0 =C2=A0 =C2=A0=C2=A0 =C2=A0 =C2=A0 =C2=A0 else if ((connector-&gt=
+;display_info.color_formats &amp;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0DRM_COLOR_FORMAT_YCRCB444)<br>
+&gt;=C2=A0 =C2=A0 =C2=A0=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 &amp;&amp; stream-&gt;signal =3D=3D SIGN=
+AL_TYPE_HDMI_TYPE_A)<br>
+&gt;=C2=A0 =C2=A0 =C2=A0=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 timing_out-&gt;pixel_encoding =3D PIXEL_ENCODING_YCBCR444;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0+=C2=A0 =C2=A0 =C2=A0 =C2=A0else if ((connector-&gt=
+;display_info.color_formats &amp;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0DRM_COLOR_FORMAT_YCRCB444)<br>
+&gt;=C2=A0 =C2=A0 =C2=A0+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&amp;&amp; stream-&gt;sink-&gt;sink_signa=
+l =3D=3D<br>
+&gt;=C2=A0 =C2=A0 =C2=A0SIGNAL_TYPE_DISPLAY_PORT<br>
+&gt;=C2=A0 =C2=A0 =C2=A0+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&amp;&amp; link-&gt;dpcd_caps.dongle_type=
+ =3D=3D<br>
+&gt;=C2=A0 =C2=A0 =C2=A0DISPLAY_DONGLE_DP_HDMI_CONVERTER)<br>
+&gt;=C2=A0 =C2=A0 =C2=A0+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0timing_out-&gt;pixel_encoding =3D PIXEL_ENCODING_YCBCR444;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0=C2=A0 =C2=A0 =C2=A0 =C2=A0 else<br>
+&gt;=C2=A0 =C2=A0 =C2=A0=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 timing_out-&gt;pixel_encoding =3D PIXEL_ENCODING_RGB;<br>
+&gt; <br>
+&gt;=C2=A0 =C2=A0 =C2=A0-- <br>
+&gt;=C2=A0 =C2=A0 =C2=A02.17.1<br>
+&gt; <br>
+&gt; <br>
+&gt; _______________________________________________<br>
+&gt; amd-gfx mailing list<br>
+&gt; <a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" target=3D"_blank">amd=
+-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
+&gt; <a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" rel=
+=3D"noreferrer" target=3D"_blank">https://lists.freedesktop.org/mailman/lis=
+tinfo/amd-gfx</a><br>
+&gt; <br>
+</blockquote></div>
+</blockquote></div>
+
+--0000000000000cda010594a792b3--
+
+--===============2037740371==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+
+--===============2037740371==--
