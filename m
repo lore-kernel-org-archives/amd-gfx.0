@@ -1,18 +1,16 @@
-From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+From: "Wang, Kevin(Yang)" <Kevin1.Wang-5C7GfCeVMHo@public.gmane.org>
 Subject: Re: [PATCH 2/2] drm/amd/powerplay: re-enable FW_DSTATE feature bit
-Date: Fri, 11 Oct 2019 13:31:42 +0000
-Message-ID: <BN6PR12MB1809DF05179210CEE97C7059F7970@BN6PR12MB1809.namprd12.prod.outlook.com>
+Date: Fri, 11 Oct 2019 13:33:24 +0000
+Message-ID: <MN2PR12MB3296D8FFE9B513BEEBBC24B6A2970@MN2PR12MB3296.namprd12.prod.outlook.com>
 References: <20191009110757.30995-1-xiaojie.yuan@amd.com>,
  <20191009110757.30995-2-xiaojie.yuan@amd.com>,
  <DM5PR12MB182077A0796BED759991002EF7950@DM5PR12MB1820.namprd12.prod.outlook.com>
  <BN8PR12MB3602F6E7A20C0F1FE3997FF589950@BN8PR12MB3602.namprd12.prod.outlook.com>,
- <MN2PR12MB3598AD3DF5A31DF503C03EAE8E940@MN2PR12MB3598.namprd12.prod.outlook.com>,
- <CY4PR12MB181316A0DC0FC83741C2D887F7940@CY4PR12MB1813.namprd12.prod.outlook.com>,
- <BN8PR12MB3602CDCC1180499A29B4F7A389970@BN8PR12MB3602.namprd12.prod.outlook.com>
+ <MN2PR12MB3598AD3DF5A31DF503C03EAE8E940@MN2PR12MB3598.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1213279325=="
+Content-Type: multipart/mixed; boundary="===============1790823042=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <BN8PR12MB3602CDCC1180499A29B4F7A389970-h6+T2+wrnx1lGJ5xs4l7kQdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
+In-Reply-To: <MN2PR12MB3598AD3DF5A31DF503C03EAE8E940-rweVpJHSKTohWwLleUddgQdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -24,54 +22,24 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Yuan, Xiaojie" <Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org>, "Feng, Kenneth" <Kenneth.Feng-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Xiao, Jack" <Jack.Xiao-5C7GfCeVMHo@public.gmane.org>, "Wang,
- Kevin(Yang)" <Kevin1.Wang-5C7GfCeVMHo@public.gmane.org>, "Quan, Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>, "Zhang,
+To: "Feng, Kenneth" <Kenneth.Feng-5C7GfCeVMHo@public.gmane.org>, "Yuan, Xiaojie" <Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org>, "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Xiao, Jack" <Jack.Xiao-5C7GfCeVMHo@public.gmane.org>, "Quan, Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>, "Zhang,
  Hawking" <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>
 
---===============1213279325==
+--===============1790823042==
 Content-Language: en-US
 Content-Type: multipart/alternative;
-	boundary="_000_BN6PR12MB1809DF05179210CEE97C7059F7970BN6PR12MB1809namp_"
+	boundary="_000_MN2PR12MB3296D8FFE9B513BEEBBC24B6A2970MN2PR12MB3296namp_"
 
---_000_BN6PR12MB1809DF05179210CEE97C7059F7970BN6PR12MB1809namp_
+--_000_MN2PR12MB3296D8FFE9B513BEEBBC24B6A2970MN2PR12MB3296namp_
 Content-Type: text/plain; charset="Windows-1252"
 Content-Transfer-Encoding: quoted-printable
 
-Acked-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-________________________________
-From: Yuan, Xiaojie <Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org>
-Sent: Friday, October 11, 2019 4:20 AM
-To: Deucher, Alexander <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>; Feng, Kenneth <Kenneth.=
-Feng-5C7GfCeVMHo@public.gmane.org>; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org=
->
-Cc: Xiao, Jack <Jack.Xiao-5C7GfCeVMHo@public.gmane.org>; Wang, Kevin(Yang) <Kevin1.Wang-5C7GfCeVMHo@public.gmane.org>=
-; Zhang, Hawking <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>; Quan, Evan <Evan.Quan-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 2/2] drm/amd/powerplay: re-enable FW_DSTATE feature bit
+Reviewed-by: Kevin Wang <kevin1.wang-5C7GfCeVMHo@public.gmane.org>
 
-Hi there,
-
-Could someone give an RB or ACK? This patch has been verified on both navi1=
-2 and navi14.
-Thanks.
-
-BR,
-Xiaojie
-________________________________
-From: Deucher, Alexander <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Sent: Thursday, October 10, 2019 8:20 PM
-To: Feng, Kenneth <Kenneth.Feng-5C7GfCeVMHo@public.gmane.org>; Yuan, Xiaojie <Xiaojie.Yuan@amd.c=
-om>; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: Xiao, Jack <Jack.Xiao-5C7GfCeVMHo@public.gmane.org>; Wang, Kevin(Yang) <Kevin1.Wang-5C7GfCeVMHo@public.gmane.org>=
-; Zhang, Hawking <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>; Quan, Evan <Evan.Quan-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 2/2] drm/amd/powerplay: re-enable FW_DSTATE feature bit
-
-Great.  thanks!
-
-Alex
 ________________________________
 From: Feng, Kenneth <Kenneth.Feng-5C7GfCeVMHo@public.gmane.org>
-Sent: Thursday, October 10, 2019 3:00 AM
+Sent: Thursday, October 10, 2019 3:00 PM
 To: Yuan, Xiaojie <Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org>; Deucher, Alexander <Alexander.Deu=
 cher-5C7GfCeVMHo@public.gmane.org>; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org=
 >
@@ -209,7 +177,7 @@ amd-gfx mailing list
 amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 
---_000_BN6PR12MB1809DF05179210CEE97C7059F7970BN6PR12MB1809namp_
+--_000_MN2PR12MB3296D8FFE9B513BEEBBC24B6A2970MN2PR12MB3296namp_
 Content-Type: text/html; charset="Windows-1252"
 Content-Transfer-Encoding: quoted-printable
 
@@ -223,100 +191,17 @@ ttom:0;} </style>
 <body dir=3D"ltr">
 <div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
 : 12pt; color: rgb(0, 0, 0);">
-Acked-by: Alex Deucher &lt;alexander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
-</div>
+Reviewed-by: Kevin Wang &lt;kevin1.wang-5C7GfCeVMHo@public.gmane.org&gt;</div>
 <div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Yuan, Xiaojie &lt;Xia=
-ojie.Yuan-5C7GfCeVMHo@public.gmane.org&gt;<br>
-<b>Sent:</b> Friday, October 11, 2019 4:20 AM<br>
-<b>To:</b> Deucher, Alexander &lt;Alexander.Deucher-5C7GfCeVMHo@public.gmane.org&gt;; Feng, Kenn=
-eth &lt;Kenneth.Feng-5C7GfCeVMHo@public.gmane.org&gt;; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org &lt;amd-gfx=
-@lists.freedesktop.org&gt;<br>
-<b>Cc:</b> Xiao, Jack &lt;Jack.Xiao-5C7GfCeVMHo@public.gmane.org&gt;; Wang, Kevin(Yang) &lt;Kevi=
-n1.Wang-5C7GfCeVMHo@public.gmane.org&gt;; Zhang, Hawking &lt;Hawking.Zhang-5C7GfCeVMHo@public.gmane.org&gt;; Quan, Ev=
-an &lt;Evan.Quan-5C7GfCeVMHo@public.gmane.org&gt;<br>
-<b>Subject:</b> Re: [PATCH 2/2] drm/amd/powerplay: re-enable FW_DSTATE feat=
-ure bit</font>
-<div>&nbsp;</div>
-</div>
-<style type=3D"text/css" style=3D"display:none">
-<!--
-p
-	{margin-top:0;
-	margin-bottom:0}
--->
-</style>
-<div dir=3D"ltr">
-<div style=3D"font-family:Calibri,Helvetica,sans-serif; font-size:11pt; col=
-or:rgb(0,0,0)">
-Hi there,<br>
-</div>
-<div style=3D"font-family:Calibri,Helvetica,sans-serif; font-size:11pt; col=
-or:rgb(0,0,0)">
+<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
+t; color:rgb(0,0,0)">
 <br>
 </div>
-<div style=3D"font-family:Calibri,Helvetica,sans-serif; font-size:11pt; col=
-or:rgb(0,0,0)">
-Could someone give an RB or ACK? This patch has been verified on both navi1=
-2 and navi14.</div>
-<div style=3D"font-family:Calibri,Helvetica,sans-serif; font-size:11pt; col=
-or:rgb(0,0,0)">
-Thanks.<br>
-</div>
-<div style=3D"font-family:Calibri,Helvetica,sans-serif; font-size:11pt; col=
-or:rgb(0,0,0)">
-<br>
-</div>
-<div style=3D"font-family:Calibri,Helvetica,sans-serif; font-size:11pt; col=
-or:rgb(0,0,0)">
-BR,</div>
-<div style=3D"font-family:Calibri,Helvetica,sans-serif; font-size:11pt; col=
-or:rgb(0,0,0)">
-Xiaojie<br>
-</div>
-<div id=3D"x_appendonsend"></div>
 <hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
-<div id=3D"x_divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" =
-color=3D"#000000" style=3D"font-size:11pt"><b>From:</b> Deucher, Alexander =
-&lt;Alexander.Deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
-<b>Sent:</b> Thursday, October 10, 2019 8:20 PM<br>
-<b>To:</b> Feng, Kenneth &lt;Kenneth.Feng-5C7GfCeVMHo@public.gmane.org&gt;; Yuan, Xiaojie &lt;Xi=
-aojie.Yuan-5C7GfCeVMHo@public.gmane.org&gt;; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org &lt;amd-gfx-PD4FTy7X32mzQB+pC5nmwQ@public.gmane.org=
-edesktop.org&gt;<br>
-<b>Cc:</b> Xiao, Jack &lt;Jack.Xiao-5C7GfCeVMHo@public.gmane.org&gt;; Wang, Kevin(Yang) &lt;Kevi=
-n1.Wang-5C7GfCeVMHo@public.gmane.org&gt;; Zhang, Hawking &lt;Hawking.Zhang-5C7GfCeVMHo@public.gmane.org&gt;; Quan, Ev=
-an &lt;Evan.Quan-5C7GfCeVMHo@public.gmane.org&gt;<br>
-<b>Subject:</b> Re: [PATCH 2/2] drm/amd/powerplay: re-enable FW_DSTATE feat=
-ure bit</font>
-<div>&nbsp;</div>
-</div>
-<style type=3D"text/css" style=3D"display:none">
-<!--
-p
-	{margin-top:0;
-	margin-bottom:0}
--->
-</style>
-<div dir=3D"ltr">
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
-t; color:rgb(0,0,0)">
-Great.&nbsp; thanks!</div>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
-t; color:rgb(0,0,0)">
-<br>
-</div>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
-t; color:rgb(0,0,0)">
-Alex<br>
-</div>
-<div id=3D"x_x_appendonsend"></div>
-<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
-<div id=3D"x_x_divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif=
-" color=3D"#000000" style=3D"font-size:11pt"><b>From:</b> Feng, Kenneth &lt=
-;Kenneth.Feng-5C7GfCeVMHo@public.gmane.org&gt;<br>
-<b>Sent:</b> Thursday, October 10, 2019 3:00 AM<br>
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" co=
+lor=3D"#000000" style=3D"font-size:11pt"><b>From:</b> Feng, Kenneth &lt;Ken=
+neth.Feng-5C7GfCeVMHo@public.gmane.org&gt;<br>
+<b>Sent:</b> Thursday, October 10, 2019 3:00 PM<br>
 <b>To:</b> Yuan, Xiaojie &lt;Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org&gt;; Deucher, Alexander &=
 lt;Alexander.Deucher-5C7GfCeVMHo@public.gmane.org&gt;; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org &lt;amd-gfx=
 @lists.freedesktop.org&gt;<br>
@@ -327,68 +212,56 @@ an &lt;Evan.Quan-5C7GfCeVMHo@public.gmane.org&gt;<br>
 ure bit</font>
 <div>&nbsp;</div>
 </div>
-<style>
-<!--
-@font-face
-	{font-family:SimSun}
-@font-face
-	{font-family:"Cambria Math"}
-@font-face
-	{font-family:Calibri}
-@font-face
-	{font-family:SimSun}
-p.x_x_x_MsoNormal, li.x_x_x_MsoNormal, div.x_x_x_MsoNormal
-	{margin:0in;
-	margin-bottom:.0001pt;
-	font-size:12.0pt;
-	font-family:"Times New Roman",serif}
-a:link, span.x_x_x_MsoHyperlink
-	{color:blue;
-	text-decoration:underline}
-a:visited, span.x_x_x_MsoHyperlinkFollowed
-	{color:purple;
-	text-decoration:underline}
-p
-	{margin:0in;
-	margin-bottom:.0001pt;
-	font-size:12.0pt;
-	font-family:"Times New Roman",serif}
-span.x_x_x_EmailStyle18
-	{font-family:"Calibri",sans-serif;
-	color:#1F497D}
-.x_x_x_MsoChpDefault
-	{font-size:10.0pt}
-@page WordSection1
-	{margin:1.0in 1.25in 1.0in 1.25in}
--->
-</style>
 <div lang=3D"EN-US">
-<div class=3D"x_x_x_WordSection1">
-<p class=3D"x_x_x_MsoNormal"><span style=3D"font-size:11.0pt; font-family:&=
-quot;Calibri&quot;,sans-serif; color:#1F497D">Hi Alex,</span></p>
-<p class=3D"x_x_x_MsoNormal"><span style=3D"font-size:11.0pt; font-family:&=
-quot;Calibri&quot;,sans-serif; color:#1F497D">This issue was navi10 specifi=
-c and was found in May, 2019.</span></p>
-<p class=3D"x_x_x_MsoNormal"><span style=3D"font-size:11.0pt; font-family:&=
-quot;Calibri&quot;,sans-serif; color:#1F497D">It was early after the asic b=
-ack, then since gfxoff was removed from navi10, we didn=92t really verify w=
-hich firmware version started to have a fix.</span></p>
-<p class=3D"x_x_x_MsoNormal"><span style=3D"font-size:11.0pt; font-family:&=
-quot;Calibri&quot;,sans-serif; color:#1F497D">For navi14/navi12, there=92s =
-no such issue at all.</span></p>
-<p class=3D"x_x_x_MsoNormal"><span style=3D"font-size:11.0pt; font-family:&=
-quot;Calibri&quot;,sans-serif; color:#1F497D">Sorry for losing the track of=
- it.</span></p>
-<p class=3D"x_x_x_MsoNormal"><span style=3D"font-size:11.0pt; font-family:&=
-quot;Calibri&quot;,sans-serif; color:#1F497D">&nbsp;</span></p>
-<p class=3D"x_x_x_MsoNormal"><span style=3D"font-size:11.0pt; font-family:&=
-quot;Calibri&quot;,sans-serif; color:#1F497D">&nbsp;</span></p>
+<div class=3D"x_WordSection1">
+<p class=3D"x_MsoNormal" style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt=
+; font-family: &quot;Times New Roman&quot;, serif;margin: 0in 0in 0.0001pt;=
+ font-size: 12pt; font-family: &quot;Times New Roman&quot;, serif;">
+<span style=3D"font-size:11.0pt; font-family:&quot;Calibri&quot;,sans-serif=
+; color:#1F497D">Hi Alex,</span></p>
+<p class=3D"x_MsoNormal" style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt=
+; font-family: &quot;Times New Roman&quot;, serif;margin: 0in 0in 0.0001pt;=
+ font-size: 12pt; font-family: &quot;Times New Roman&quot;, serif;">
+<span style=3D"font-size:11.0pt; font-family:&quot;Calibri&quot;,sans-serif=
+; color:#1F497D">This issue was navi10 specific and was found in May, 2019.=
+</span></p>
+<p class=3D"x_MsoNormal" style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt=
+; font-family: &quot;Times New Roman&quot;, serif;margin: 0in 0in 0.0001pt;=
+ font-size: 12pt; font-family: &quot;Times New Roman&quot;, serif;">
+<span style=3D"font-size:11.0pt; font-family:&quot;Calibri&quot;,sans-serif=
+; color:#1F497D">It was early after the asic back, then since gfxoff was re=
+moved from navi10, we didn=92t really verify which firmware version started=
+ to have a fix.</span></p>
+<p class=3D"x_MsoNormal" style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt=
+; font-family: &quot;Times New Roman&quot;, serif;margin: 0in 0in 0.0001pt;=
+ font-size: 12pt; font-family: &quot;Times New Roman&quot;, serif;">
+<span style=3D"font-size:11.0pt; font-family:&quot;Calibri&quot;,sans-serif=
+; color:#1F497D">For navi14/navi12, there=92s no such issue at all.</span><=
+/p>
+<p class=3D"x_MsoNormal" style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt=
+; font-family: &quot;Times New Roman&quot;, serif;margin: 0in 0in 0.0001pt;=
+ font-size: 12pt; font-family: &quot;Times New Roman&quot;, serif;">
+<span style=3D"font-size:11.0pt; font-family:&quot;Calibri&quot;,sans-serif=
+; color:#1F497D">Sorry for losing the track of it.</span></p>
+<p class=3D"x_MsoNormal" style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt=
+; font-family: &quot;Times New Roman&quot;, serif;margin: 0in 0in 0.0001pt;=
+ font-size: 12pt; font-family: &quot;Times New Roman&quot;, serif;">
+<span style=3D"font-size:11.0pt; font-family:&quot;Calibri&quot;,sans-serif=
+; color:#1F497D">&nbsp;</span></p>
+<p class=3D"x_MsoNormal" style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt=
+; font-family: &quot;Times New Roman&quot;, serif;margin: 0in 0in 0.0001pt;=
+ font-size: 12pt; font-family: &quot;Times New Roman&quot;, serif;">
+<span style=3D"font-size:11.0pt; font-family:&quot;Calibri&quot;,sans-serif=
+; color:#1F497D">&nbsp;</span></p>
 <div>
 <div style=3D"border:none; border-top:solid #E1E1E1 1.0pt; padding:3.0pt 0i=
 n 0in 0in">
-<p class=3D"x_x_x_MsoNormal"><b><span style=3D"font-size:11.0pt; font-famil=
-y:&quot;Calibri&quot;,sans-serif">From:</span></b><span style=3D"font-size:=
-11.0pt; font-family:&quot;Calibri&quot;,sans-serif"> Yuan, Xiaojie
+<p class=3D"x_MsoNormal" style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt=
+; font-family: &quot;Times New Roman&quot;, serif;margin: 0in 0in 0.0001pt;=
+ font-size: 12pt; font-family: &quot;Times New Roman&quot;, serif;">
+<b><span style=3D"font-size:11.0pt; font-family:&quot;Calibri&quot;,sans-se=
+rif">From:</span></b><span style=3D"font-size:11.0pt; font-family:&quot;Cal=
+ibri&quot;,sans-serif"> Yuan, Xiaojie
 <br>
 <b>Sent:</b> Thursday, October 10, 2019 1:17 AM<br>
 <b>To:</b> Deucher, Alexander &lt;Alexander.Deucher-5C7GfCeVMHo@public.gmane.org&gt;; amd-gfx@li=
@@ -401,60 +274,96 @@ an &lt;Evan.Quan-5C7GfCeVMHo@public.gmane.org&gt;; Feng, Kenneth &lt;Kenneth.Fen
 ure bit</span></p>
 </div>
 </div>
-<p class=3D"x_x_x_MsoNormal">&nbsp;</p>
+<p class=3D"x_MsoNormal" style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt=
+; font-family: &quot;Times New Roman&quot;, serif;margin: 0in 0in 0.0001pt;=
+ font-size: 12pt; font-family: &quot;Times New Roman&quot;, serif;">
+&nbsp;</p>
 <div>
-<p class=3D"x_x_x_MsoNormal"><span style=3D"font-size:11.0pt; font-family:&=
-quot;Calibri&quot;,sans-serif; color:black">Hi Alex,</span></p>
+<p class=3D"x_MsoNormal" style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt=
+; font-family: &quot;Times New Roman&quot;, serif;margin: 0in 0in 0.0001pt;=
+ font-size: 12pt; font-family: &quot;Times New Roman&quot;, serif;">
+<span style=3D"font-size:11.0pt; font-family:&quot;Calibri&quot;,sans-serif=
+; color:black">Hi Alex,</span></p>
 </div>
 <div>
-<p class=3D"x_x_x_MsoNormal"><span style=3D"font-size:11.0pt; font-family:&=
-quot;Calibri&quot;,sans-serif; color:black">&nbsp;</span></p>
+<p class=3D"x_MsoNormal" style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt=
+; font-family: &quot;Times New Roman&quot;, serif;margin: 0in 0in 0.0001pt;=
+ font-size: 12pt; font-family: &quot;Times New Roman&quot;, serif;">
+<span style=3D"font-size:11.0pt; font-family:&quot;Calibri&quot;,sans-serif=
+; color:black">&nbsp;</span></p>
 </div>
 <div>
-<p class=3D"x_x_x_MsoNormal"><span style=3D"font-size:11.0pt; font-family:&=
-quot;Calibri&quot;,sans-serif; color:black">For now, gfxoff for navi10 is d=
-isabled by default, and I also verified on navi14 with both GFXOFF and FW_D=
-STATE feature bits toggled on.</span></p>
+<p class=3D"x_MsoNormal" style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt=
+; font-family: &quot;Times New Roman&quot;, serif;margin: 0in 0in 0.0001pt;=
+ font-size: 12pt; font-family: &quot;Times New Roman&quot;, serif;">
+<span style=3D"font-size:11.0pt; font-family:&quot;Calibri&quot;,sans-serif=
+; color:black">For now, gfxoff for navi10 is disabled by default, and I als=
+o verified on navi14 with both GFXOFF and FW_DSTATE feature bits toggled on=
+.</span></p>
 </div>
 <div>
-<p class=3D"x_x_x_MsoNormal"><span style=3D"font-size:11.0pt; font-family:&=
-quot;Calibri&quot;,sans-serif; color:black">&nbsp;</span></p>
+<p class=3D"x_MsoNormal" style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt=
+; font-family: &quot;Times New Roman&quot;, serif;margin: 0in 0in 0.0001pt;=
+ font-size: 12pt; font-family: &quot;Times New Roman&quot;, serif;">
+<span style=3D"font-size:11.0pt; font-family:&quot;Calibri&quot;,sans-serif=
+; color:black">&nbsp;</span></p>
 </div>
 <div>
-<p class=3D"x_x_x_MsoNormal"><span style=3D"font-size:11.0pt; font-family:&=
-quot;Calibri&quot;,sans-serif; color:black">Hi Kenneth / Jack,</span></p>
+<p class=3D"x_MsoNormal" style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt=
+; font-family: &quot;Times New Roman&quot;, serif;margin: 0in 0in 0.0001pt;=
+ font-size: 12pt; font-family: &quot;Times New Roman&quot;, serif;">
+<span style=3D"font-size:11.0pt; font-family:&quot;Calibri&quot;,sans-serif=
+; color:black">Hi Kenneth / Jack,</span></p>
 </div>
 <div>
-<p class=3D"x_x_x_MsoNormal"><span style=3D"font-size:11.0pt; font-family:&=
-quot;Calibri&quot;,sans-serif; color:black">&nbsp;</span></p>
+<p class=3D"x_MsoNormal" style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt=
+; font-family: &quot;Times New Roman&quot;, serif;margin: 0in 0in 0.0001pt;=
+ font-size: 12pt; font-family: &quot;Times New Roman&quot;, serif;">
+<span style=3D"font-size:11.0pt; font-family:&quot;Calibri&quot;,sans-serif=
+; color:black">&nbsp;</span></p>
 </div>
 <div>
-<p class=3D"x_x_x_MsoNormal"><span style=3D"font-size:11.0pt; font-family:&=
-quot;Calibri&quot;,sans-serif; color:black">Could you help to confirm the f=
-irmware version?</span></p>
+<p class=3D"x_MsoNormal" style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt=
+; font-family: &quot;Times New Roman&quot;, serif;margin: 0in 0in 0.0001pt;=
+ font-size: 12pt; font-family: &quot;Times New Roman&quot;, serif;">
+<span style=3D"font-size:11.0pt; font-family:&quot;Calibri&quot;,sans-serif=
+; color:black">Could you help to confirm the firmware version?</span></p>
 </div>
 <div>
-<p class=3D"x_x_x_MsoNormal"><span style=3D"font-size:11.0pt; font-family:&=
-quot;Calibri&quot;,sans-serif; color:black">&nbsp;</span></p>
+<p class=3D"x_MsoNormal" style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt=
+; font-family: &quot;Times New Roman&quot;, serif;margin: 0in 0in 0.0001pt;=
+ font-size: 12pt; font-family: &quot;Times New Roman&quot;, serif;">
+<span style=3D"font-size:11.0pt; font-family:&quot;Calibri&quot;,sans-serif=
+; color:black">&nbsp;</span></p>
 </div>
 <div>
-<p class=3D"x_x_x_MsoNormal"><span style=3D"font-size:11.0pt; font-family:&=
-quot;Calibri&quot;,sans-serif; color:black">BR,</span></p>
+<p class=3D"x_MsoNormal" style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt=
+; font-family: &quot;Times New Roman&quot;, serif;margin: 0in 0in 0.0001pt;=
+ font-size: 12pt; font-family: &quot;Times New Roman&quot;, serif;">
+<span style=3D"font-size:11.0pt; font-family:&quot;Calibri&quot;,sans-serif=
+; color:black">BR,</span></p>
 </div>
 <div>
-<p class=3D"x_x_x_MsoNormal"><span style=3D"font-size:11.0pt; font-family:&=
-quot;Calibri&quot;,sans-serif; color:black">Xiaojie</span></p>
+<p class=3D"x_MsoNormal" style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt=
+; font-family: &quot;Times New Roman&quot;, serif;margin: 0in 0in 0.0001pt;=
+ font-size: 12pt; font-family: &quot;Times New Roman&quot;, serif;">
+<span style=3D"font-size:11.0pt; font-family:&quot;Calibri&quot;,sans-serif=
+; color:black">Xiaojie</span></p>
 </div>
-<div class=3D"x_x_x_MsoNormal" align=3D"center" style=3D"text-align:center"=
->
+<div class=3D"x_MsoNormal" align=3D"center" style=3D"margin: 0in 0in 0.0001=
+pt; font-size: 12pt; font-family: &quot;Times New Roman&quot;, serif;text-a=
+lign:center">
 <hr size=3D"2" width=3D"98%" align=3D"center">
 </div>
-<div id=3D"x_x_x_divRplyFwdMsg">
-<p class=3D"x_x_x_MsoNormal"><b><span style=3D"font-size:11.0pt; font-famil=
-y:&quot;Calibri&quot;,sans-serif; color:black">From:</span></b><span style=
-=3D"font-size:11.0pt; font-family:&quot;Calibri&quot;,sans-serif; color:bla=
-ck"> Deucher, Alexander &lt;<a href=3D"mailto:Alexander.Deucher-5C7GfCeVMHo@public.gmane.org">Al=
-exander.Deucher-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
+<div id=3D"x_divRplyFwdMsg">
+<p class=3D"x_MsoNormal" style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt=
+; font-family: &quot;Times New Roman&quot;, serif;margin: 0in 0in 0.0001pt;=
+ font-size: 12pt; font-family: &quot;Times New Roman&quot;, serif;">
+<b><span style=3D"font-size:11.0pt; font-family:&quot;Calibri&quot;,sans-se=
+rif; color:black">From:</span></b><span style=3D"font-size:11.0pt; font-fam=
+ily:&quot;Calibri&quot;,sans-serif; color:black"> Deucher, Alexander &lt;<a=
+ href=3D"mailto:Alexander.Deucher-5C7GfCeVMHo@public.gmane.org">Alexander.Deucher-5C7GfCeVMHo@public.gmane.org</a>&gt=
+;<br>
 <b>Sent:</b> Wednesday, October 9, 2019 9:35 PM<br>
 <b>To:</b> Yuan, Xiaojie &lt;<a href=3D"mailto:Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org">Xiaoji=
 e.Yuan-5C7GfCeVMHo@public.gmane.org</a>&gt;;
@@ -472,34 +381,49 @@ Kenneth &lt;<a href=3D"mailto:Kenneth.Feng-5C7GfCeVMHo@public.gmane.org">Kenneth
 ure bit</span>
 </p>
 <div>
-<p class=3D"x_x_x_MsoNormal">&nbsp;</p>
+<p class=3D"x_MsoNormal" style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt=
+; font-family: &quot;Times New Roman&quot;, serif;margin: 0in 0in 0.0001pt;=
+ font-size: 12pt; font-family: &quot;Times New Roman&quot;, serif;">
+&nbsp;</p>
 </div>
 </div>
 <div>
 <div>
-<p class=3D"x_x_x_MsoNormal"><span style=3D"font-family:&quot;Calibri&quot;=
-,sans-serif; color:black">What version of firmware has the fix?&nbsp; Was i=
-t recently fixed?&nbsp; We should check the version if the old one may be o=
-ut in the wild.</span></p>
+<p class=3D"x_MsoNormal" style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt=
+; font-family: &quot;Times New Roman&quot;, serif;margin: 0in 0in 0.0001pt;=
+ font-size: 12pt; font-family: &quot;Times New Roman&quot;, serif;">
+<span style=3D"font-family:&quot;Calibri&quot;,sans-serif; color:black">Wha=
+t version of firmware has the fix?&nbsp; Was it recently fixed?&nbsp; We sh=
+ould check the version if the old one may be out in the wild.</span></p>
 </div>
 <div>
-<p class=3D"x_x_x_MsoNormal"><span style=3D"font-family:&quot;Calibri&quot;=
-,sans-serif; color:black">&nbsp;</span></p>
+<p class=3D"x_MsoNormal" style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt=
+; font-family: &quot;Times New Roman&quot;, serif;margin: 0in 0in 0.0001pt;=
+ font-size: 12pt; font-family: &quot;Times New Roman&quot;, serif;">
+<span style=3D"font-family:&quot;Calibri&quot;,sans-serif; color:black">&nb=
+sp;</span></p>
 </div>
 <div>
-<p class=3D"x_x_x_MsoNormal"><span style=3D"font-family:&quot;Calibri&quot;=
-,sans-serif; color:black">Alex</span></p>
+<p class=3D"x_MsoNormal" style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt=
+; font-family: &quot;Times New Roman&quot;, serif;margin: 0in 0in 0.0001pt;=
+ font-size: 12pt; font-family: &quot;Times New Roman&quot;, serif;">
+<span style=3D"font-family:&quot;Calibri&quot;,sans-serif; color:black">Ale=
+x</span></p>
 </div>
-<div class=3D"x_x_x_MsoNormal" align=3D"center" style=3D"text-align:center"=
->
+<div class=3D"x_MsoNormal" align=3D"center" style=3D"margin: 0in 0in 0.0001=
+pt; font-size: 12pt; font-family: &quot;Times New Roman&quot;, serif;text-a=
+lign:center">
 <hr size=3D"2" width=3D"98%" align=3D"center">
 </div>
-<div id=3D"x_x_x_x_divRplyFwdMsg">
-<p class=3D"x_x_x_MsoNormal"><b><span style=3D"font-size:11.0pt; font-famil=
-y:&quot;Calibri&quot;,sans-serif; color:black">From:</span></b><span style=
-=3D"font-size:11.0pt; font-family:&quot;Calibri&quot;,sans-serif; color:bla=
-ck"> amd-gfx &lt;<a href=3D"mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">a=
-md-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>&gt;
+<div id=3D"x_x_divRplyFwdMsg">
+<p class=3D"x_MsoNormal" style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt=
+; font-family: &quot;Times New Roman&quot;, serif;margin: 0in 0in 0.0001pt;=
+ font-size: 12pt; font-family: &quot;Times New Roman&quot;, serif;">
+<b><span style=3D"font-size:11.0pt; font-family:&quot;Calibri&quot;,sans-se=
+rif; color:black">From:</span></b><span style=3D"font-size:11.0pt; font-fam=
+ily:&quot;Calibri&quot;,sans-serif; color:black"> amd-gfx &lt;<a href=3D"ma=
+ilto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-bounces-PD4FTy7X32nrcLQh/DF6ew@public.gmane.org=
+op.org</a>&gt;
  on behalf of Yuan, Xiaojie &lt;<a href=3D"mailto:Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org">Xia=
 ojie.Yuan-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
 <b>Sent:</b> Wednesday, October 9, 2019 7:08 AM<br>
@@ -518,13 +442,19 @@ an-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
 bit</span>
 </p>
 <div>
-<p class=3D"x_x_x_MsoNormal">&nbsp;</p>
+<p class=3D"x_MsoNormal" style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt=
+; font-family: &quot;Times New Roman&quot;, serif;margin: 0in 0in 0.0001pt;=
+ font-size: 12pt; font-family: &quot;Times New Roman&quot;, serif;">
+&nbsp;</p>
 </div>
 </div>
 <div>
 <div>
-<p class=3D"x_x_x_MsoNormal"><span style=3D"font-size:11.0pt">SMU firmware =
-has fix the bug, so remove this workaround.<br>
+<p class=3D"x_MsoNormal" style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt=
+; font-family: &quot;Times New Roman&quot;, serif;margin: 0in 0in 0.0001pt;=
+ font-size: 12pt; font-family: &quot;Times New Roman&quot;, serif;">
+<span style=3D"font-size:11.0pt">SMU firmware has fix the bug, so remove th=
+is workaround.<br>
 <br>
 Signed-off-by: Xiaojie Yuan &lt;<a href=3D"mailto:xiaojie.yuan-5C7GfCeVMHo@public.gmane.org">xia=
 ojie.yuan-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
@@ -581,14 +511,12 @@ lists.freedesktop.org/mailman/listinfo/amd-gfx</a></span></p>
 </div>
 </div>
 </div>
-</div>
-</div>
 </body>
 </html>
 
---_000_BN6PR12MB1809DF05179210CEE97C7059F7970BN6PR12MB1809namp_--
+--_000_MN2PR12MB3296D8FFE9B513BEEBBC24B6A2970MN2PR12MB3296namp_--
 
---===============1213279325==
+--===============1790823042==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -598,4 +526,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
 
---===============1213279325==--
+--===============1790823042==--
