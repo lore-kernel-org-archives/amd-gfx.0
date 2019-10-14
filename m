@@ -1,90 +1,40 @@
-From: "Quan, Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH 00/19] Enable BACO for power savings
-Date: Mon, 14 Oct 2019 03:32:50 +0000
-Message-ID: <MN2PR12MB3344864109A58576381CC12CE4900@MN2PR12MB3344.namprd12.prod.outlook.com>
-References: <20191011014536.10869-1-alexander.deucher@amd.com>
-Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20191011014536.10869-1-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "tiwai-l3A5Bk7waGM@public.gmane.org" <tiwai-l3A5Bk7waGM@public.gmane.org>, "lukas-JFq808J9C/izQB+pC5nmwQ@public.gmane.org" <lukas-JFq808J9C/izQB+pC5nmwQ@public.gmane.org>
-Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+From: Sasha Levin <sashal@kernel.org>
+Subject: Re: [PATCH] Revert "drm/radeon: Fix EEH during kexec"
+Date: Mon, 14 Oct 2019 03:54:22 +0000
+Message-ID: <20191014035423.30DCD2083B@mail.kernel.org>
+References: <20191009181503.20381-1-alexander.deucher@amd.com>
+Return-path: <stable-owner@vger.kernel.org>
+In-Reply-To: <20191009181503.20381-1-alexander.deucher@amd.com>
+Sender: stable-owner@vger.kernel.org
+To: Sasha Levin <sashal@kernel.org>, Alex Deucher <alexdeucher@gmail.com>, amd-gfx@lists.freedesktop.org, kmahlkuc@linux.vnet.ibm.com
+Cc: Alex Deucher <alexander.deucher@amd.com>, stable@vger.kernel.orgstable@vger.kernel.orgstable@vger.kernel.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-UGF0Y2ggMSAtIDE2IGFyZSBSZXZpZXdlZC1ieTogRXZhbiBRdWFuIDxldmFuLnF1YW5AYW1kLmNv
-bT4NClBhdGNoIDE3IC0gMTkgYXJlIGFja2VkLWJ5OiBFdmFuIFF1YW4gPGV2YW4ucXVhbkBhbWQu
-Y29tPg0KDQotLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KRnJvbTogYW1kLWdmeCA8YW1kLWdm
-eC1ib3VuY2VzQGxpc3RzLmZyZWVkZXNrdG9wLm9yZz4gT24gQmVoYWxmIE9mIEFsZXggRGV1Y2hl
-cg0KU2VudDogRnJpZGF5LCBPY3RvYmVyIDExLCAyMDE5IDk6NDUgQU0NClRvOiBhbWQtZ2Z4QGxp
-c3RzLmZyZWVkZXNrdG9wLm9yZzsgdGl3YWlAc3VzZS5kZTsgbHVrYXNAd3VubmVyLmRlDQpDYzog
-RGV1Y2hlciwgQWxleGFuZGVyIDxBbGV4YW5kZXIuRGV1Y2hlckBhbWQuY29tPg0KU3ViamVjdDog
-W1BBVENIIDAwLzE5XSBFbmFibGUgQkFDTyBmb3IgcG93ZXIgc2F2aW5ncw0KDQpUaGlzIHBhdGNo
-IHNldCBlbmFibGVzIEJBQ08gKEJ1cyBBY3RpdmUgQ2hpcCBPZmYpIGZvciBwb3dlciBzYXZpbmdz
-IG9uIFZJKyBhc2ljcy4gIFNpbWlsYXIgdG8gUG93ZXJYcHJlc3MgYW5kIEh5YnJpZCBHcmFwaGlj
-cyAoUFgvSEcpIGxhcHRvcHMsIHdlIGNhbiBkaXNhYmxlIEdQVXMgYXQgcnVudGltZSB3aGVuIHRo
-ZXkgYXJlIG5vdCBpbiB1c2UgaXMgdGhleSBzdXBwb3J0IEJBQ08uICBUaGUgcnVudGltZSBwbSBj
-b2RlIGluIGFtZGdwdSB3YXMgb3JpZ2luYWxseSBkZXZlbG9wZWQgZm9yIFBYL0hHIGxhcHRvcHMs
-IHNvIGl0IHdhcyBwcmV0dHkgZW50YW5nbGVkIHdpdGggdGhlIHZnYV9zd2l0Y2hlcm9vIGFuZCBB
-Q1BJIGNvZGUuICBTaW5jZSB0aGUgR1BVIGNvbnRhaW5zIGFuIGF1ZGlvIGNvZGVjIGZvciBIRE1J
-L0RQLCB0aGVyZSBpcyBzb21lIGludGVyYWN0aW9uIHdpdGggdGhlIGhkYSBkcml2ZXIuICBJIGFt
-IGJ5IG5vIG1lYW5zIGFuIGV4cGVydCBvbiBhbHNhLCBzbyBhbnkgYWR2aWNlIG9uIHRob3NlIHBh
-dGNoZXMgaXMgbXVjaCBhcHByZWNpYXRlZC4gIEkgaGFkIHRvIGVuYWJsZSBydW50aW1lIHBtIG9u
-IHRoZSBoZGEgZGV2aWNlIHRvIGFsbG93IHRoZSBHUFUgdG8gZW50ZXIgcnVudGltZSBwbSBiZWNh
-dXNlIHRoZXkgYXJlIGxpbmtlZC4NCg0KVGhlc2UgcGF0Y2hlcyBkZXBlbmQgb24gdGhlIGNsZWFu
-IHBhdGNoZXMgYW5kIENJL1ZJIEJBQ08gcGF0Y2hlcyBJIHNlbnQgb3V0IGVhcmxpZXIgdG9kYXku
-DQoNClRoZSBmdWxsIHRyZWUgY2FuIGJlIGZvdW5kIGhlcmU6DQpodHRwczovL2NnaXQuZnJlZWRl
-c2t0b3Aub3JnL35hZ2Q1Zi9saW51eC9sb2cvP2g9YmFjbw0KDQpUT0RPOg0KLSBUdXJuIG9mZiBy
-dW50aW1lIHBtIHdoZW4gS0ZEIGlzIGFjdGl2ZQ0KLSBNYWtlIHN1cmUgYXVkaW8gc3RpbGwgd29y
-a3MNCi0gTWFrZSBzdXJlIFBYL0hHIHN0aWxsIHdvcmtzDQoNCkFsZXggRGV1Y2hlciAoMTkpOg0K
-ICBkcm0vYW1kZ3B1OiBhZGQgYXNpYyBjYWxsYmFjayBmb3IgQkFDTyBzdXBwb3J0DQogIGRybS9h
-bWRncHU6IGFkZCBzdXBwb3J0c19iYWNvIGNhbGxiYWNrIGZvciBzb2MxNSBhc2ljcy4NCiAgZHJt
-L2FtZGdwdTogYWRkIHN1cHBvcnRzX2JhY28gY2FsbGJhY2sgZm9yIFNJIGFzaWNzLg0KICBkcm0v
-YW1kZ3B1OiBhZGQgc3VwcG9ydHNfYmFjbyBjYWxsYmFjayBmb3IgQ0lLIGFzaWNzLg0KICBkcm0v
-YW1kZ3B1OiBhZGQgc3VwcG9ydHNfYmFjbyBjYWxsYmFjayBmb3IgVkkgYXNpY3MuDQogIGRybS9h
-bWRncHU6IGFkZCBzdXBwb3J0c19iYWNvIGNhbGxiYWNrIGZvciBOViBhc2ljcy4NCiAgZHJtL2Ft
-ZGdwdTogYWRkIGEgYW1kZ3B1X2RldmljZV9zdXBwb3J0c19iYWNvIGhlbHBlcg0KICBkcm0vYW1k
-Z3B1OiByZW5hbWUgYW1kZ3B1X2RldmljZV9pc19weCB0byBhbWRncHVfZGV2aWNlX3N1cHBvcnRz
-X2JvY28NCiAgZHJtL2FtZGdwdTogYWRkIGFkZGl0aW9uYWwgYm9jbyBjaGVja3MgdG8gcnVudGlt
-ZSBzdXNwZW5kL3Jlc3VtZQ0KICBkcm0vYW1kZ3B1OiBzcGxpdCBzd1NNVSBiYWNvX3Jlc2V0IGlu
-dG8gZW50ZXIgYW5kIGV4aXQNCiAgZHJtL2FtZGdwdTogYWRkIGhlbHBlcnMgZm9yIGJhY28gZW50
-cnkgYW5kIGV4aXQNCiAgZHJtL2FtZGdwdTogYWRkIGJhY28gc3VwcG9ydCB0byBydW50aW1lIHN1
-c3BlbmQvcmVzdW1lDQogIGRybS9hbWRncHU6IHN0YXJ0IHRvIGRpc2VudGFuZ2xlIGJvY28gZnJv
-bSBydW50aW1lIHBtDQogIGRybS9hbWRncHU6IGRpc2VudGFuZ2xlIHJ1bnRpbWUgcG0gYW5kIHZn
-YV9zd2l0Y2hlcm9vDQogIGRybS9hbWRncHU6IGVuYWJsZSBydW50aW1lIHBtIG9uIEJBQ08gY2Fw
-YWJsZSBib2FyZHMgaWYgcnVucG09MQ0KICBkcm0vYW1kZ3B1L3J1bnBtOiBlbmFibGUgcnVucG0g
-b24gYmFjbyBjYXBhYmxlIFZJKyBhc2ljcw0KICBBTFNBOiBoZGEvaGRtaSAtIGZpeCB2Z2Fzd2l0
-Y2hlcm9vIGRldGVjdGlvbiBmb3IgQU1EDQogIEFMU0E6IGhkYS9oZG1pIC0gZW5hYmxlIHJ1bnRp
-bWUgcG0gZm9yIG5ld2VyIEFNRCBkaXNwbGF5IGF1ZGlvDQogIEFMU0E6IGhkYS9oZG1pIC0gZW5h
-YmxlIGF1dG9tYXRpYyBydW50aW1lIHBtIGZvciBBTUQgSERNSSBjb2RlY3MgYnkNCiAgICBkZWZh
-dWx0DQoNCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHUuaCAgICAgICAgICAgfCAg
-MTIgKy0NCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMgICAgfCAx
-MDYgKysrKysrKysrKysrKysrKy0tDQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
-X2Rydi5jICAgICAgIHwgIDY0ICsrKysrKy0tLS0tDQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
-cHUvYW1kZ3B1X2ttcy5jICAgICAgIHwgIDIwICsrKy0NCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
-ZGdwdS9jaWsuYyAgICAgICAgICAgICAgfCAgMTggKysrDQogZHJpdmVycy9ncHUvZHJtL2FtZC9h
-bWRncHUvbnYuYyAgICAgICAgICAgICAgIHwgIDE4ICsrLQ0KIGRyaXZlcnMvZ3B1L2RybS9hbWQv
-YW1kZ3B1L3NpLmMgICAgICAgICAgICAgICB8ICAgNiArDQogZHJpdmVycy9ncHUvZHJtL2FtZC9h
-bWRncHUvc29jMTUuYyAgICAgICAgICAgIHwgIDM3ICsrKysrLQ0KIGRyaXZlcnMvZ3B1L2RybS9h
-bWQvYW1kZ3B1L3ZpLmMgICAgICAgICAgICAgICB8ICAyMiArKysrDQogLi4uL2dwdS9kcm0vYW1k
-L3Bvd2VycGxheS9pbmMvYW1kZ3B1X3NtdS5oICAgIHwgICA5ICstDQogZHJpdmVycy9ncHUvZHJt
-L2FtZC9wb3dlcnBsYXkvc211X3YxMV8wLmMgICAgIHwgIDEyICstDQogc291bmQvcGNpL2hkYS9o
-ZGFfaW50ZWwuYyAgICAgICAgICAgICAgICAgICAgIHwgIDc0ICsrKysrKysrKysrLQ0KIHNvdW5k
-L3BjaS9oZGEvcGF0Y2hfaGRtaS5jICAgICAgICAgICAgICAgICAgICB8ICAgMSArDQogMTMgZmls
-ZXMgY2hhbmdlZCwgMzQzIGluc2VydGlvbnMoKyksIDU2IGRlbGV0aW9ucygtKQ0KDQotLQ0KMi4y
-MC4xDQoNCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fDQph
-bWQtZ2Z4IG1haWxpbmcgbGlzdA0KYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCmh0dHBz
-Oi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA0KX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5n
-IGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVz
-a3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+Hi,
+
+[This is an automated email]
+
+This commit has been processed because it contains a -stable tag.
+The stable tag indicates that it's relevant for the following trees: all
+
+The bot has tested the following trees: v5.3.5, v5.2.20, v4.19.78, v4.14.148, v4.9.196, v4.4.196.
+
+v5.3.5: Build OK!
+v5.2.20: Build OK!
+v4.19.78: Build OK!
+v4.14.148: Build OK!
+v4.9.196: Build OK!
+v4.4.196: Failed to apply! Possible dependencies:
+    6f7fe9a93e6c0 ("drm/radeon: Fix EEH during kexec")
+    a481daa88fd4d ("drm/radeon: always apply pci shutdown callbacks")
+    a801abe4773da ("drm/radeon: wire up a pci shutdown callback")
+    b9b487e494712 ("Revert "drm/radeon: always apply pci shutdown callbacks"")
+
+
+NOTE: The patch will not be queued to stable trees until it is upstream.
+
+How should we proceed with this patch?
+
+-- 
+Thanks,
+Sasha
