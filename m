@@ -1,40 +1,41 @@
-From: Sasha Levin <sashal@kernel.org>
+From: Sasha Levin <sashal-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org>
 Subject: Re: [PATCH] Revert "drm/radeon: Fix EEH during kexec"
 Date: Mon, 14 Oct 2019 03:54:22 +0000
-Message-ID: <20191014035423.30DCD2083B@mail.kernel.org>
+Message-ID: <20191014035423.30DCD2083B__26157.6935112075$1571025275$gmane$org@mail.kernel.org>
 References: <20191009181503.20381-1-alexander.deucher@amd.com>
-Return-path: <stable-owner@vger.kernel.org>
-In-Reply-To: <20191009181503.20381-1-alexander.deucher@amd.com>
-Sender: stable-owner@vger.kernel.org
-To: Sasha Levin <sashal@kernel.org>, Alex Deucher <alexdeucher@gmail.com>, amd-gfx@lists.freedesktop.org, kmahlkuc@linux.vnet.ibm.com
-Cc: Alex Deucher <alexander.deucher@amd.com>, stable@vger.kernel.orgstable@vger.kernel.orgstable@vger.kernel.org
-List-Id: amd-gfx.lists.freedesktop.org
+Mime-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20191009181503.20381-1-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Sasha Levin <sashal-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org>, Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, kmahlkuc-23VcF4HTsmIX0ybBhKVfKdBPR1lH4CV8@public.gmane.org
+Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, stable-u79uwXL29TY76Z2rM5mHXA@public.gmane.org
 
-Hi,
-
-[This is an automated email]
-
-This commit has been processed because it contains a -stable tag.
-The stable tag indicates that it's relevant for the following trees: all
-
-The bot has tested the following trees: v5.3.5, v5.2.20, v4.19.78, v4.14.148, v4.9.196, v4.4.196.
-
-v5.3.5: Build OK!
-v5.2.20: Build OK!
-v4.19.78: Build OK!
-v4.14.148: Build OK!
-v4.9.196: Build OK!
-v4.4.196: Failed to apply! Possible dependencies:
-    6f7fe9a93e6c0 ("drm/radeon: Fix EEH during kexec")
-    a481daa88fd4d ("drm/radeon: always apply pci shutdown callbacks")
-    a801abe4773da ("drm/radeon: wire up a pci shutdown callback")
-    b9b487e494712 ("Revert "drm/radeon: always apply pci shutdown callbacks"")
-
-
-NOTE: The patch will not be queued to stable trees until it is upstream.
-
-How should we proceed with this patch?
-
--- 
-Thanks,
-Sasha
+SGksCgpbVGhpcyBpcyBhbiBhdXRvbWF0ZWQgZW1haWxdCgpUaGlzIGNvbW1pdCBoYXMgYmVlbiBw
+cm9jZXNzZWQgYmVjYXVzZSBpdCBjb250YWlucyBhIC1zdGFibGUgdGFnLgpUaGUgc3RhYmxlIHRh
+ZyBpbmRpY2F0ZXMgdGhhdCBpdCdzIHJlbGV2YW50IGZvciB0aGUgZm9sbG93aW5nIHRyZWVzOiBh
+bGwKClRoZSBib3QgaGFzIHRlc3RlZCB0aGUgZm9sbG93aW5nIHRyZWVzOiB2NS4zLjUsIHY1LjIu
+MjAsIHY0LjE5Ljc4LCB2NC4xNC4xNDgsIHY0LjkuMTk2LCB2NC40LjE5Ni4KCnY1LjMuNTogQnVp
+bGQgT0shCnY1LjIuMjA6IEJ1aWxkIE9LIQp2NC4xOS43ODogQnVpbGQgT0shCnY0LjE0LjE0ODog
+QnVpbGQgT0shCnY0LjkuMTk2OiBCdWlsZCBPSyEKdjQuNC4xOTY6IEZhaWxlZCB0byBhcHBseSEg
+UG9zc2libGUgZGVwZW5kZW5jaWVzOgogICAgNmY3ZmU5YTkzZTZjMCAoImRybS9yYWRlb246IEZp
+eCBFRUggZHVyaW5nIGtleGVjIikKICAgIGE0ODFkYWE4OGZkNGQgKCJkcm0vcmFkZW9uOiBhbHdh
+eXMgYXBwbHkgcGNpIHNodXRkb3duIGNhbGxiYWNrcyIpCiAgICBhODAxYWJlNDc3M2RhICgiZHJt
+L3JhZGVvbjogd2lyZSB1cCBhIHBjaSBzaHV0ZG93biBjYWxsYmFjayIpCiAgICBiOWI0ODdlNDk0
+NzEyICgiUmV2ZXJ0ICJkcm0vcmFkZW9uOiBhbHdheXMgYXBwbHkgcGNpIHNodXRkb3duIGNhbGxi
+YWNrcyIiKQoKCk5PVEU6IFRoZSBwYXRjaCB3aWxsIG5vdCBiZSBxdWV1ZWQgdG8gc3RhYmxlIHRy
+ZWVzIHVudGlsIGl0IGlzIHVwc3RyZWFtLgoKSG93IHNob3VsZCB3ZSBwcm9jZWVkIHdpdGggdGhp
+cyBwYXRjaD8KCi0tIApUaGFua3MsClNhc2hhCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJl
+ZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGlu
+Zm8vYW1kLWdmeA==
