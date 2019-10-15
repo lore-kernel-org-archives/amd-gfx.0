@@ -1,158 +1,43 @@
-From: "S, Shirish" <sshankar-5C7GfCeVMHo@public.gmane.org>
+From: Arnd Bergmann <arnd@arndb.de>
 Subject: Re: AMDGPU and 16B stack alignment
-Date: Tue, 15 Oct 2019 07:08:19 +0000
-Message-ID: <9e4d6378-5032-8521-13a9-d9d9519d07de@amd.com>
+Date: Tue, 15 Oct 2019 09:19:04 +0200
+Message-ID: <CAK8P3a3_Q15hKT=gyupb0FrPX1xV3tEBpVaYy1LF0kMUj2u8hw@mail.gmail.com>
 References: <CAKwvOdnDVe-dahZGnRtzMrx-AH_C+2Lf20qjFQHNtn9xh=Okzw@mail.gmail.com>
+ <9e4d6378-5032-8521-13a9-d9d9519d07de@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1893495904=="
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CAKwvOdnDVe-dahZGnRtzMrx-AH_C+2Lf20qjFQHNtn9xh=Okzw-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Nick Desaulniers <ndesaulniers-hpIqsD4AKlfQT0dZR+AlfA@public.gmane.org>, "Wentland, Harry" <Harry.Wentland-5C7GfCeVMHo@public.gmane.org>, "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Cc: "Zhou, David(ChunMing)" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, Arnd Bergmann <arnd-r2nGTMty4D4@public.gmane.org>, clang-built-linux <clang-built-linux-/JYPxA39Uh5TLH3MbocFFw@public.gmane.org>, "andrew.cooper3-Sxgqhf6Nn4DQT0dZR+AlfA@public.gmane.org" <andrew.cooper3-Sxgqhf6Nn4DQT0dZR+AlfA@public.gmane.org>, LKML <linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "S,
- Shirish" <Shirish.S-5C7GfCeVMHo@public.gmane.org>, Matthias Kaehlcke <mka-hpIqsD4AKlfQT0dZR+AlfA@public.gmane.org>, "yshuiv7-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org" <yshuiv7-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "Koenig,
- Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset="UTF-8"
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <9e4d6378-5032-8521-13a9-d9d9519d07de@amd.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: "S, Shirish" <sshankar@amd.com>
+Cc: Nick Desaulniers <ndesaulniers@google.com>, "Wentland, Harry" <Harry.Wentland@amd.com>, "Deucher, Alexander" <Alexander.Deucher@amd.com>, "yshuiv7@gmail.com" <yshuiv7@gmail.com>, "andrew.cooper3@citrix.com" <andrew.cooper3@citrix.com>, clang-built-linux <clang-built-linux@googlegroups.com>, Matthias Kaehlcke <mka@google.com>, "S, Shirish" <Shirish.S@amd.com>, "Zhou, David(ChunMing)" <David1.Zhou@amd.com>, "Koenig, Christian" <Christian.Koenig@amd.com>, amd-gfx list <amd-gfx@lists.freedesktop.org>, LKML <linux-kernel@vger.kernel.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
---===============1893495904==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_9e4d63785032852113a9d9d9519d07deamdcom_"
+On Tue, Oct 15, 2019 at 9:08 AM S, Shirish <sshankar@amd.com> wrote:
+> On 10/15/2019 3:52 AM, Nick Desaulniers wrote:
 
---_000_9e4d63785032852113a9d9d9519d07deamdcom_
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+> My gcc build fails with below errors:
+>
+> dcn_calcs.c:1:0: error: -mpreferred-stack-boundary=3 is not between 4 and 12
+>
+> dcn_calc_math.c:1:0: error: -mpreferred-stack-boundary=3 is not between 4 and 12
+>
+> While GPF observed on clang builds seem to be fixed.
 
-SGkgTmljaywNCg0KT24gMTAvMTUvMjAxOSAzOjUyIEFNLCBOaWNrIERlc2F1bG5pZXJzIHdyb3Rl
-Og0KDQpIZWxsbyENCg0KVGhlIHg4NiBrZXJuZWwgaXMgY29tcGlsZWQgd2l0aCBhbiA4QiBzdGFj
-ayBhbGlnbm1lbnQgdmlhDQogICAgYC1tcHJlZmVycmVkLXN0YWNrLWJvdW5kYXJ5PTNgIGZvciBH
-Q0Mgc2luY2UgMy42LXJjMSB2aWENCiAgICBjb21taXQgZDliMGNkZTkxYzYwICgieDg2LTY0LCBn
-Y2M6IFVzZQ0KLW1wcmVmZXJyZWQtc3RhY2stYm91bmRhcnk9MyBpZiBzdXBwb3J0ZWQiKQ0KICAg
-IG9yIGAtbXN0YWNrLWFsaWdubWVudD04YCBmb3IgQ2xhbmcuIFBhcnRzIG9mIHRoZSBBTURHUFUg
-ZHJpdmVyIGFyZQ0KICAgIGNvbXBpbGVkIHdpdGggMTZCIHN0YWNrIGFsaWdubWVudC4NCg0KICAg
-IEdlbmVyYWxseSwgdGhlIHN0YWNrIGFsaWdubWVudCBpcyBwYXJ0IG9mIHRoZSBBQkkuIExpbmtp
-bmcgdG9nZXRoZXIgdHdvDQogICAgZGlmZmVyZW50IHRyYW5zbGF0aW9uIHVuaXRzIHdpdGggZGlm
-ZmVyaW5nIHN0YWNrIGFsaWdubWVudCBpcyBkYW5nZXJvdXMsDQogICAgcGFydGljdWxhcmx5IHdo
-ZW4gdGhlIHRyYW5zbGF0aW9uIHVuaXQgd2l0aCB0aGUgc21hbGxlciBzdGFjayBhbGlnbm1lbnQN
-CiAgICBtYWtlcyBjYWxscyBpbnRvIHRoZSB0cmFuc2xhdGlvbiB1bml0IHdpdGggdGhlIGxhcmdl
-ciBzdGFjayBhbGlnbm1lbnQuDQogICAgV2hpbGUgOEIgYWxpZ25lZCBzdGFja3MgYXJlIHNvbWV0
-aW1lcyBhbHNvIDE2QiBhbGlnbmVkLCB0aGV5IGFyZSBub3QNCiAgICBhbHdheXMuDQoNCiAgICBN
-dWx0aXBsZSB1c2VycyBoYXZlIHJlcG9ydGVkIEdlbmVyYWwgUHJvdGVjdGlvbiBGYXVsdHMgKEdQ
-Rikgd2hlbiB1c2luZw0KICAgIHRoZSBBTURHUFUgZHJpdmVyIGNvbXBpbGVkIHdpdGggQ2xhbmcu
-IENsYW5nIGlzIHBsYWNpbmcgb2JqZWN0cyBpbiBzdGFjaw0KICAgIHNsb3RzIGFzc3VtaW5nIHRo
-ZSBzdGFjayBpcyAxNkIgYWxpZ25lZCwgYW5kIHNlbGVjdGluZyBpbnN0cnVjdGlvbnMgdGhhdA0K
-ICAgIHJlcXVpcmUgMTZCIGFsaWduZWQgbWVtb3J5IG9wZXJhbmRzLiBBdCBydW50aW1lLCBzeXNj
-YWxscyBoYW5kbGluZyA4Qg0KICAgIHN0YWNrIGFsaWduZWQgY29kZSBjYWxscyBpbnRvIGNvZGUg
-dGhhdCBhc3N1bWVzIDE2QiBzdGFjayBhbGlnbm1lbnQuDQogICAgV2hlbiB0aGUgc3RhY2sgaXMg
-YSBtdWx0aXBsZSBvZiA4QiBidXQgbm90IDE2QiwgdGhlc2UgaW5zdHJ1Y3Rpb25zDQogICAgcmVz
-dWx0IGluIGEgR1BGLg0KDQogICAgR0NDIGRvZXNuJ3Qgc2VsZWN0IGluc3RydWN0aW9ucyB3aXRo
-IGFsaWdubWVudCByZXF1aXJlbWVudHMsIHNvIHRoZSBHUEZzDQogICAgYXJlbid0IG9ic2VydmVk
-LCBidXQgaXQgaXMgc3RpbGwgY29uc2lkZXJlZCBhbiBBQkkgYnJlYWthZ2UgdG8gbWl4IGFuZA0K
-ICAgIG1hdGNoIHN0YWNrIGFsaWdubWVudC4NCg0KSSBoYXZlIHBhdGNoZXMgdGhhdCBiYXNpY2Fs
-bHkgcmVtb3ZlIC1tcHJlZmVycmVkLXN0YWNrLWJvdW5kYXJ5PTQgYW5kDQotbXN0YWNrLWFsaWdu
-bWVudD0xNiBmcm9tIEFNREdQVToNCmh0dHBzOi8vZ2l0aHViLmNvbS9DbGFuZ0J1aWx0TGludXgv
-bGludXgvaXNzdWVzLzczNSNpc3N1ZWNvbW1lbnQtNTQxMjQ3NjAxDQpZdXh1YW4gaGFzIHRlc3Rl
-ZCB3aXRoIENsYW5nIGFuZCBHQ0MgYW5kIHJlcG9ydGVkIGl0IGZpeGVzIHRoZSBHUEYncyBvYnNl
-cnZlZC4NCg0KTXkgZ2NjIGJ1aWxkIGZhaWxzIHdpdGggYmVsb3cgZXJyb3JzOg0KDQpkY25fY2Fs
-Y3MuYzoxOjA6IGVycm9yOiAtbXByZWZlcnJlZC1zdGFjay1ib3VuZGFyeT0zIGlzIG5vdCBiZXR3
-ZWVuIDQgYW5kIDEyDQoNCmRjbl9jYWxjX21hdGguYzoxOjA6IGVycm9yOiAtbXByZWZlcnJlZC1z
-dGFjay1ib3VuZGFyeT0zIGlzIG5vdCBiZXR3ZWVuIDQgYW5kIDEyDQoNCldoaWxlIEdQRiBvYnNl
-cnZlZCBvbiBjbGFuZyBidWlsZHMgc2VlbSB0byBiZSBmaXhlZC4NCg0KLS0NClJlZ2FyZHMsDQpT
-aGlyaXNoIFMNCg0KDQoNCkkndmUgc3BsaXQgdGhlIHBhdGNoIGludG8gNDsgc2FtZSBjb21taXQg
-bWVzc2FnZSBidXQgZGlmZmVyZW50IEZpeGVzDQp0YWdzIHNvIHRoYXQgdGhleSBiYWNrcG9ydCB0
-byBzdGFibGUgb24gZmluZXIgZ3JhbnVsYXJpdHkuIDIgcXVlc3Rpb25zDQpCRUZPUkUgSSBzZW5k
-IHRoZSBzZXJpZXM6DQoNCjEuIFdvdWxkIHlvdSBwcmVmZXIgNCBwYXRjaGVzIHdpdGggdW5pcXVl
-IGBmaXhlc2AgdGFncywgb3IgMSBwYXRjaD8NCjIuIFdhcyB0aGVyZSBvciBpcyB0aGVyZSBzdGls
-bCBhIGdvb2QgcmVhc29uIGZvciB0aGUgc3RhY2sgYWxpZ25tZW50IG1pc21hdGNoPw0KDQooRnVy
-dGhlciwgSSB0aGluayB3ZSBjYW4gdXNlIC1tc3NlMiBmb3IgQk9USCBjbGFuZytnY2MgYWZ0ZXIg
-bXkgcGF0Y2gsDQpidXQgSSBkb24ndCBoYXZlIGhhcmR3YXJlIHRvIHRlc3Qgb24uIEknbSBoYXBw
-eSB0byB3cml0ZS9zZW5kIHRoZQ0KZm9sbG93IHVwIHBhdGNoLCBidXQgSSdkIG5lZWQgaGVscCB0
-ZXN0aW5nKS4NCg0KDQoNCg0K
+Ok, so it seems that gcc insists on having at least 2^4 bytes stack
+alignment when
+SSE is enabled on x86-64, but does not actually rely on that for
+correct operation
+unless it's using sse2. So -msse always has to be paired with
+ -mpreferred-stack-boundary=3.
 
---_000_9e4d63785032852113a9d9d9519d07deamdcom_
-Content-Type: text/html; charset="utf-8"
-Content-ID: <267B82E01838E646AB58A6CF276F443F-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
-Content-Transfer-Encoding: base64
+For clang, it sounds like the opposite is true: when passing 16 byte
+stack alignment
+and having sse/sse2 enabled, it requires the incoming stack to be 16
+byte aligned,
+but passing 8 byte alignment makes it do the right thing.
 
-PGh0bWw+DQo8aGVhZD4NCjxtZXRhIGh0dHAtZXF1aXY9IkNvbnRlbnQtVHlwZSIgY29udGVudD0i
-dGV4dC9odG1sOyBjaGFyc2V0PXV0Zi04Ij4NCjwvaGVhZD4NCjxib2R5IHRleHQ9IiMwMDAwMDAi
-IGJnY29sb3I9IiNGRkZGRkYiPg0KPHA+SGkgTmljayw8YnI+DQo8L3A+DQo8ZGl2IGNsYXNzPSJt
-b3otY2l0ZS1wcmVmaXgiPk9uIDEwLzE1LzIwMTkgMzo1MiBBTSwgTmljayBEZXNhdWxuaWVycyB3
-cm90ZTo8YnI+DQo8L2Rpdj4NCjxibG9ja3F1b3RlIHR5cGU9ImNpdGUiIGNpdGU9Im1pZDpDQUt3
-dk9kbkRWZS1kYWhaR25SdHpNcngtQUhfQyYjNDM7MkxmMjBxakZRSE50bjl4aD1Pa3p3QG1haWwu
-Z21haWwuY29tIj4NCjxwcmUgY2xhc3M9Im1vei1xdW90ZS1wcmUiIHdyYXA9IiI+SGVsbG8hDQoN
-ClRoZSB4ODYga2VybmVsIGlzIGNvbXBpbGVkIHdpdGggYW4gOEIgc3RhY2sgYWxpZ25tZW50IHZp
-YQ0KICAgIGAtbXByZWZlcnJlZC1zdGFjay1ib3VuZGFyeT0zYCBmb3IgR0NDIHNpbmNlIDMuNi1y
-YzEgdmlhDQogICAgY29tbWl0IGQ5YjBjZGU5MWM2MCAoJnF1b3Q7eDg2LTY0LCBnY2M6IFVzZQ0K
-LW1wcmVmZXJyZWQtc3RhY2stYm91bmRhcnk9MyBpZiBzdXBwb3J0ZWQmcXVvdDspDQogICAgb3Ig
-YC1tc3RhY2stYWxpZ25tZW50PThgIGZvciBDbGFuZy4gUGFydHMgb2YgdGhlIEFNREdQVSBkcml2
-ZXIgYXJlDQogICAgY29tcGlsZWQgd2l0aCAxNkIgc3RhY2sgYWxpZ25tZW50Lg0KDQogICAgR2Vu
-ZXJhbGx5LCB0aGUgc3RhY2sgYWxpZ25tZW50IGlzIHBhcnQgb2YgdGhlIEFCSS4gTGlua2luZyB0
-b2dldGhlciB0d28NCiAgICBkaWZmZXJlbnQgdHJhbnNsYXRpb24gdW5pdHMgd2l0aCBkaWZmZXJp
-bmcgc3RhY2sgYWxpZ25tZW50IGlzIGRhbmdlcm91cywNCiAgICBwYXJ0aWN1bGFybHkgd2hlbiB0
-aGUgdHJhbnNsYXRpb24gdW5pdCB3aXRoIHRoZSBzbWFsbGVyIHN0YWNrIGFsaWdubWVudA0KICAg
-IG1ha2VzIGNhbGxzIGludG8gdGhlIHRyYW5zbGF0aW9uIHVuaXQgd2l0aCB0aGUgbGFyZ2VyIHN0
-YWNrIGFsaWdubWVudC4NCiAgICBXaGlsZSA4QiBhbGlnbmVkIHN0YWNrcyBhcmUgc29tZXRpbWVz
-IGFsc28gMTZCIGFsaWduZWQsIHRoZXkgYXJlIG5vdA0KICAgIGFsd2F5cy4NCg0KICAgIE11bHRp
-cGxlIHVzZXJzIGhhdmUgcmVwb3J0ZWQgR2VuZXJhbCBQcm90ZWN0aW9uIEZhdWx0cyAoR1BGKSB3
-aGVuIHVzaW5nDQogICAgdGhlIEFNREdQVSBkcml2ZXIgY29tcGlsZWQgd2l0aCBDbGFuZy4gQ2xh
-bmcgaXMgcGxhY2luZyBvYmplY3RzIGluIHN0YWNrDQogICAgc2xvdHMgYXNzdW1pbmcgdGhlIHN0
-YWNrIGlzIDE2QiBhbGlnbmVkLCBhbmQgc2VsZWN0aW5nIGluc3RydWN0aW9ucyB0aGF0DQogICAg
-cmVxdWlyZSAxNkIgYWxpZ25lZCBtZW1vcnkgb3BlcmFuZHMuIEF0IHJ1bnRpbWUsIHN5c2NhbGxz
-IGhhbmRsaW5nIDhCDQogICAgc3RhY2sgYWxpZ25lZCBjb2RlIGNhbGxzIGludG8gY29kZSB0aGF0
-IGFzc3VtZXMgMTZCIHN0YWNrIGFsaWdubWVudC4NCiAgICBXaGVuIHRoZSBzdGFjayBpcyBhIG11
-bHRpcGxlIG9mIDhCIGJ1dCBub3QgMTZCLCB0aGVzZSBpbnN0cnVjdGlvbnMNCiAgICByZXN1bHQg
-aW4gYSBHUEYuDQoNCiAgICBHQ0MgZG9lc24ndCBzZWxlY3QgaW5zdHJ1Y3Rpb25zIHdpdGggYWxp
-Z25tZW50IHJlcXVpcmVtZW50cywgc28gdGhlIEdQRnMNCiAgICBhcmVuJ3Qgb2JzZXJ2ZWQsIGJ1
-dCBpdCBpcyBzdGlsbCBjb25zaWRlcmVkIGFuIEFCSSBicmVha2FnZSB0byBtaXggYW5kDQogICAg
-bWF0Y2ggc3RhY2sgYWxpZ25tZW50Lg0KDQpJIGhhdmUgcGF0Y2hlcyB0aGF0IGJhc2ljYWxseSBy
-ZW1vdmUgLW1wcmVmZXJyZWQtc3RhY2stYm91bmRhcnk9NCBhbmQNCi1tc3RhY2stYWxpZ25tZW50
-PTE2IGZyb20gQU1ER1BVOg0KPGEgY2xhc3M9Im1vei10eHQtbGluay1mcmVldGV4dCIgaHJlZj0i
-aHR0cHM6Ly9naXRodWIuY29tL0NsYW5nQnVpbHRMaW51eC9saW51eC9pc3N1ZXMvNzM1I2lzc3Vl
-Y29tbWVudC01NDEyNDc2MDEiPmh0dHBzOi8vZ2l0aHViLmNvbS9DbGFuZ0J1aWx0TGludXgvbGlu
-dXgvaXNzdWVzLzczNSNpc3N1ZWNvbW1lbnQtNTQxMjQ3NjAxPC9hPg0KWXV4dWFuIGhhcyB0ZXN0
-ZWQgd2l0aCBDbGFuZyBhbmQgR0NDIGFuZCByZXBvcnRlZCBpdCBmaXhlcyB0aGUgR1BGJ3Mgb2Jz
-ZXJ2ZWQuPC9wcmU+DQo8L2Jsb2NrcXVvdGU+DQo8cD5NeSBnY2MgYnVpbGQgZmFpbHMgd2l0aCBi
-ZWxvdyBlcnJvcnM6PC9wPg0KPGJsb2NrcXVvdGU+DQo8cD5kY25fY2FsY3MuYzoxOjA6IGVycm9y
-OiAtbXByZWZlcnJlZC1zdGFjay1ib3VuZGFyeT0zIGlzIG5vdCBiZXR3ZWVuIDQgYW5kIDEyPC9w
-Pg0KPHA+ZGNuX2NhbGNfbWF0aC5jOjE6MDogZXJyb3I6IC1tcHJlZmVycmVkLXN0YWNrLWJvdW5k
-YXJ5PTMgaXMgbm90IGJldHdlZW4gNCBhbmQgMTI8L3A+DQo8L2Jsb2NrcXVvdGU+DQo8cD5XaGls
-ZSBHUEYgb2JzZXJ2ZWQgb24gY2xhbmcgYnVpbGRzIHNlZW0gdG8gYmUgZml4ZWQuPGJyPg0KPC9w
-Pg0KPHByZSBjbGFzcz0ibW96LXNpZ25hdHVyZSIgY29scz0iNzIiPi0tIA0KUmVnYXJkcywNClNo
-aXJpc2ggUzwvcHJlPg0KPGJsb2NrcXVvdGUgdHlwZT0iY2l0ZSIgY2l0ZT0ibWlkOkNBS3d2T2Ru
-RFZlLWRhaFpHblJ0ek1yeC1BSF9DJiM0MzsyTGYyMHFqRlFITnRuOXhoPU9rendAbWFpbC5nbWFp
-bC5jb20iPg0KPHByZSBjbGFzcz0ibW96LXF1b3RlLXByZSIgd3JhcD0iIj4NCg0KSSd2ZSBzcGxp
-dCB0aGUgcGF0Y2ggaW50byA0OyBzYW1lIGNvbW1pdCBtZXNzYWdlIGJ1dCBkaWZmZXJlbnQgRml4
-ZXMNCnRhZ3Mgc28gdGhhdCB0aGV5IGJhY2twb3J0IHRvIHN0YWJsZSBvbiBmaW5lciBncmFudWxh
-cml0eS4gMiBxdWVzdGlvbnMNCkJFRk9SRSBJIHNlbmQgdGhlIHNlcmllczoNCg0KMS4gV291bGQg
-eW91IHByZWZlciA0IHBhdGNoZXMgd2l0aCB1bmlxdWUgYGZpeGVzYCB0YWdzLCBvciAxIHBhdGNo
-Pw0KMi4gV2FzIHRoZXJlIG9yIGlzIHRoZXJlIHN0aWxsIGEgZ29vZCByZWFzb24gZm9yIHRoZSBz
-dGFjayBhbGlnbm1lbnQgbWlzbWF0Y2g/DQoNCihGdXJ0aGVyLCBJIHRoaW5rIHdlIGNhbiB1c2Ug
-LW1zc2UyIGZvciBCT1RIIGNsYW5nJiM0MztnY2MgYWZ0ZXIgbXkgcGF0Y2gsDQpidXQgSSBkb24n
-dCBoYXZlIGhhcmR3YXJlIHRvIHRlc3Qgb24uIEknbSBoYXBweSB0byB3cml0ZS9zZW5kIHRoZQ0K
-Zm9sbG93IHVwIHBhdGNoLCBidXQgSSdkIG5lZWQgaGVscCB0ZXN0aW5nKS4NCjwvcHJlPg0KPC9i
-bG9ja3F1b3RlPg0KPHByZSBjbGFzcz0ibW96LXNpZ25hdHVyZSIgY29scz0iNzIiPg0KPC9wcmU+
-DQo8L2JvZHk+DQo8L2h0bWw+DQo=
+So, should we just always pass $(call cc-option, -mpreferred-stack-boundary=4)
+to get the desired outcome on both?
 
---_000_9e4d63785032852113a9d9d9519d07deamdcom_--
-
---===============1893495904==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
-
---===============1893495904==--
+       Arnd
