@@ -1,92 +1,110 @@
-From: =?UTF-8?q?Luk=C3=A1=C5=A1=20Krej=C4=8D=C3=AD?= <lskrejci@gmail.com>
-Subject: [RFC PATCH RESEND] drm/amd/display: Add back missing backlight level
- rounding
-Date: Tue, 15 Oct 2019 22:03:04 +0200
-Message-ID: <20191015200304.30470-1-lskrejci@gmail.com>
+From: Nick Desaulniers <ndesaulniers@google.com>
+Subject: Re: AMDGPU and 16B stack alignment
+Date: Tue, 15 Oct 2019 13:15:57 -0700
+Message-ID: <CAKwvOdme6g7rr+AkJi6Do6Rzq7zYAJm+spQaBF3cwgKU1H2ThQ@mail.gmail.com>
+References: <CAKwvOdnDVe-dahZGnRtzMrx-AH_C+2Lf20qjFQHNtn9xh=Okzw@mail.gmail.com>
+ <9e4d6378-5032-8521-13a9-d9d9519d07de@amd.com> <CAK8P3a3_Q15hKT=gyupb0FrPX1xV3tEBpVaYy1LF0kMUj2u8hw@mail.gmail.com>
+ <CAKwvOdnLxm_tZ_qR1D-BE64Z3QaMC2h79ooobdRVAzmCD_2_Sg@mail.gmail.com> <CADnq5_P55aRJ-1VVz2uKA=xpddyi0BvDcXqPD=xVpw3aJZrzng@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, Alex Deucher <alexander.deucher@amd.com>, Anthony Koo <Anthony.Koo@amd.com>, Tony Cheng <Tony.Cheng@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: David Airlie <airlied@linux.ie>, =?UTF-8?q?Luk=C3=A1=C5=A1=20Krej=C4=8D=C3=AD?= <lskrejci@gmail.com>, dri-devel@lists.freedesktop.org, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <CADnq5_P55aRJ-1VVz2uKA=xpddyi0BvDcXqPD=xVpw3aJZrzng@mail.gmail.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Alex Deucher <alexdeucher@gmail.com>
+Cc: Arnd Bergmann <arnd@arndb.de>, "S, Shirish" <sshankar@amd.com>, "Zhou, David(ChunMing)" <David1.Zhou@amd.com>, clang-built-linux <clang-built-linux@googlegroups.com>, "andrew.cooper3@citrix.com" <andrew.cooper3@citrix.com>, LKML <linux-kernel@vger.kernel.org>, amd-gfx list <amd-gfx@lists.freedesktop.org>, "S, Shirish" <Shirish.S@amd.com>, Matthias Kaehlcke <mka@google.com>, "yshuiv7@gmail.com" <yshuiv7@gmail.com>, "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Wentland, Harry" <Harry.Wentland@amd.com>, "Koenig, Christian" <Christian.Koenig@amd.com>
 List-Id: amd-gfx.lists.freedesktop.org
 
-W1doeV0KSGF2aW5nIHRoZSByb3VuZGluZyBvZiB0aGUgYmFja2xpZ2h0IHZhbHVlIHJlc3RvcmVk
-IHRvIHRoZSB3YXkgaXQgd2FzCnNlZW1pbmdseSBnZXRzIHJpZCBvZiBiYWNrbGlnaHQgZmxpY2tl
-cmluZyBvbiBjZXJ0YWluIFN0b25leSBSaWRnZQpsYXB0b3BzLgoKW0hvd10KUmVzY2FsZSB0aGUg
-YmFja2xpZ2h0IGxldmVsIGJldHdlZW4gbWluIGFuZCBtYXggaW5wdXQgc2lnbmFsIHZhbHVlIGFu
-ZApyb3VuZCBpdCB0byBhIG51bWJlciBiZXR3ZWVuIDB4MCBhbmQgMHhGRi4gVGhlbiwgdXNlIHRo
-ZSByb3VuZGluZyBtb2RlCnRoYXQgd2FzIHByZXZpb3VzbHkgaW4gZHJpdmVyX3NldF9iYWNrbGln
-aHRfbGV2ZWwoKSBhbmQKZG1jdV9zZXRfYmFja2xpZ2h0X2xldmVsKCksIGkuZS4gcmVzY2FsZSB0
-aGUgYmFja2xpZ2h0IGxldmVsIGJldHdlZW4gMHgwCmFuZCAweDEwMDAgYnkgbXVsdGlwbHlpbmcg
-aXQgYnkgMHgxMDEgYW5kIHVzZSB0aGUgbW9zdCBzaWduaWZpY2FudCBiaXQKb2YgdGhlIGZyYWN0
-aW9uIChvciBpbiB0aGlzIGNhc2UgdGhlIDh0aCBiaXQgb2YgdGhlIHZhbHVlIGJlY2F1c2UgaXQn
-cwp0aGUgc2FtZSB0aGluZywgZS5nLiBDMyAqIDB4MTAxID0gMHhDM0MzIGFuZCBDMyAqIDB4MTAx
-MDEgPSAweEMzQzNDMykgdG8Kcm91bmQgaXQuCgpGaXhlczogMjYyNDg1YTUwZmQ0ICgiZHJtL2Ft
-ZC9kaXNwbGF5OiBFeHBhbmQgZGMgdG8gdXNlIDE2LjE2IGJpdCBiYWNrbGlnaHQiKQpCdWd6aWxs
-YTogaHR0cHM6Ly9idWd6aWxsYS5rZXJuZWwub3JnL3Nob3dfYnVnLmNnaT9pZD0yMDQ5NTcKU2ln
-bmVkLW9mZi1ieTogTHVrw6HFoSBLcmVqxI3DrSA8bHNrcmVqY2lAZ21haWwuY29tPgotLS0KCk5v
-dGVzOgogICAgQnVnOgogICAgLSBDYW4gYmUgcmVwcm9kdWNlZCBvbiBIUCAxNS1yYjAyMG5jIChT
-dG9uZXkgUmlkZ2UgUjIgRTItOTAwMGUgQVBVKSBhbmQKICAgICAgQWNlciBBc3BpcmUgMyBBMzE1
-LTIxRy05MUpMIChTdG9uZXkgUmlkZ2UgUjMgQTQtOTEyMCBBUFUpLgogICAgCiAgICAtIEZvciBt
-ZSwgdGhlIGJ1ZyBpcyBpbmNvbnNpc3RlbnQgLSBpdCBkb2VzIG5vdCBoYXBwZW4gb24gZXZlcnkg
-Ym9vdCwKICAgICAgYnV0IGlmIGl0IGRvZXMgaGFwcGVuLCBpdCdzIHVzdWFsbHkgd2l0aGluIHRo
-cmVlIG1pbnV0ZXMgYWZ0ZXIgYm9vdHVwLgogICAgCiAgICAtIEl0IGNvbmNlcm5zIHRoZSBiYWNr
-bGlnaHQuIFRoYXQgbWVhbnMgaXQgY2FuIGJlIHJlcHJvZHVjZWQgb24gdGhlCiAgICAgIGZyYW1l
-YnVmZmVyIGNvbnNvbGUuCiAgICAKICAgIC0gUmVwcm9kdWNlcyBvbiBBcmNoIExpbnV4IChjdXN0
-b20gYnVpbHQpIGxpdmUgQ0QsIGxpbnV4IGtlcm5lbCB2NS4zLjIKICAgICAgYW5kIFVidW50dSAx
-OS4wNCwga2VybmVsLXBwYS9tYWlubGluZSB2NS4wLjAtcmMxLCB2NS4wLjAsIHY1LjMuMiwgdjUu
-My40LAogICAgICB2NS40LXJjMi4KICAgIAogICAgLSBDYW4gbm90IGJlIHJlcHJvZHVjZWQgb24g
-a2VybmVsIHY1LjMuNCB3aXRoIHRoaXMgcGF0Y2ggYXBwbGllZCBvciBvbgogICAgICB2NC4yMC4w
-LCA0LjIwLjE3LCA0LjE5Ljc1ICh0aGlzIGJ1ZyBpcyBhIHJlZ3Jlc3Npb24pLgogICAgCiAgICAt
-IFRoZSBvdGhlciBwZXJzb24gdGhhdCByZXByb2R1Y2VkIHRoZSBpc3N1ZSAoc2VlIHRoZSBCdWd6
-aWxsYSBsaW5rCiAgICAgIGFib3ZlKSBjb25maXJtZWQgdGhhdCB0aGUgcGF0Y2ggd29ya3MgZm9y
-IHRoZW0gdG9vLgogICAgCiAgICBQYXRjaDoKICAgIC0gSXMgdGhlIGNvbW1lbnQgbW9kaWZpZWQg
-YnkgdGhpcyBjb21taXQgY29ycmVjdD8gQm90aAogICAgICBkcml2ZXJfc2V0X2JhY2tsaWdodF9s
-ZXZlbCgpIGFuZCBkbWN1X3NldF9iYWNrbGlnaHRfbGV2ZWwoKSBjaGVjayB0aGUKICAgICAgMTd0
-aCBiaXQgb2YgYGJyaWdodG5lc3NgIGFrYSBgYmFja2xpZ2h0X3B3bV91MTZfMTZgLCBidXQKICAg
-ICAgMjYyNDg1YTUwZmQ0NTMyYThkNzExNjUxOTBhZGM3YTBhMTliY2M5ZSAoImRybS9hbWQvZGlz
-cGxheTogRXhwYW5kIGRjCiAgICAgIHRvIHVzZSAxNi4xNiBiaXQgYmFja2xpZ2h0Iikgc3BlY2lm
-aWNhbGx5IG1lbnRpb25zIDB4RkZGRiBhcyB0aGUgbWF4CiAgICAgIGJhY2tsaWdodCB2YWx1ZS4K
-ICAgIAogICAgLSB1c2Vfc21vb3RoX2JyaWdodG5lc3MgaXMgZmFsc2UgKG5vIERNQ1UgZmlybXdh
-cmUgYXZhaWxhYmxlKSBvbiBteQogICAgICBsYXB0b3AsIHNvIHRoZSBvdGhlciBjb2RlIHBhdGgg
-KGRtY3Vfc2V0X2JhY2tsaWdodF9sZXZlbCgpKSBpcwogICAgICB1bnRlc3RlZC4KICAgIAogICAg
-LSBJJ20gbm90IHN1cmUgd2h5IHRoZSByb3VuZGluZyBmaXhlcyB0aGUgaXNzdWUgYW5kIHdoZXRo
-ZXIgdGhpcwogICAgICBmdW5jdGlvbiBpcyB0aGUgcmlnaHQgcGxhY2UgdG8gYWRkIGJhY2sgdGhl
-IHJvdW5kaW5nIChhbmQgd2hldGhlciBpdAogICAgICBldmVuIGlzIHRoZSByaWdodCB3YXkgdG8g
-c29sdmUgdGhlIGlzc3VlKSwgc28gdGhhdCdzIHdoeSB0aGlzIHBhdGNoIGlzCiAgICAgIFJGQy4K
-CiAuLi4vZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtLmMgICB8IDE3ICsr
-KysrKysrKysrLS0tLS0tCiAxIGZpbGUgY2hhbmdlZCwgMTEgaW5zZXJ0aW9ucygrKSwgNiBkZWxl
-dGlvbnMoLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1
-X2RtL2FtZGdwdV9kbS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9h
-bWRncHVfZG0uYwppbmRleCBhNTJmMGIxM2EyYzguLmFmOWE1ZjQ2YjY3MSAxMDA2NDQKLS0tIGEv
-ZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG0uYworKysgYi9k
-cml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5jCkBAIC0yMDgz
-LDE3ICsyMDgzLDIyIEBAIHN0YXRpYyBpbnQgYW1kZ3B1X2RtX2JhY2tsaWdodF91cGRhdGVfc3Rh
-dHVzKHN0cnVjdCBiYWNrbGlnaHRfZGV2aWNlICpiZCkKIAkgKiBUaGUgYnJpZ2h0bmVzcyBpbnB1
-dCBpcyBpbiB0aGUgcmFuZ2UgMC0yNTUKIAkgKiBJdCBuZWVkcyB0byBiZSByZXNjYWxlZCB0byBi
-ZSBiZXR3ZWVuIHRoZQogCSAqIHJlcXVlc3RlZCBtaW4gYW5kIG1heCBpbnB1dCBzaWduYWwKLQkg
-KgotCSAqIEl0IGFsc28gbmVlZHMgdG8gYmUgc2NhbGVkIHVwIGJ5IDB4MTAxIHRvCi0JICogbWF0
-Y2ggdGhlIERDIGludGVyZmFjZSB3aGljaCBoYXMgYSByYW5nZSBvZgotCSAqIDAgdG8gMHhmZmZm
-CiAJICovCiAJYnJpZ2h0bmVzcyA9CiAJCWJyaWdodG5lc3MKLQkJKiAweDEwMQorCQkqIDB4MTAw
-CiAJCSogKGNhcHMubWF4X2lucHV0X3NpZ25hbCAtIGNhcHMubWluX2lucHV0X3NpZ25hbCkKIAkJ
-LyBBTURHUFVfTUFYX0JMX0xFVkVMCi0JCSsgY2Fwcy5taW5faW5wdXRfc2lnbmFsICogMHgxMDE7
-CisJCSsgY2Fwcy5taW5faW5wdXRfc2lnbmFsICogMHgxMDA7CisKKwlicmlnaHRuZXNzID0gKGJy
-aWdodG5lc3MgPj4gOCkgKyAoKGJyaWdodG5lc3MgPj4gNykgJiAxKTsKKwkvKgorCSAqIEl0IGFs
-c28gbmVlZHMgdG8gYmUgc2NhbGVkIHVwIGJ5IDB4MTAxIGFuZAorCSAqIHJvdW5kZWQgb2ZmIHRv
-IG1hdGNoIHRoZSBEQyBpbnRlcmZhY2Ugd2hpY2gKKwkgKiBoYXMgYSByYW5nZSBvZiAwIHRvIDB4
-MTAwMDAKKwkgKi8KKwlicmlnaHRuZXNzICo9IDB4MTAxOworCWJyaWdodG5lc3MgKz0gKGJyaWdo
-dG5lc3MgPj4gNykgJiAxOwogCiAJaWYgKGRjX2xpbmtfc2V0X2JhY2tsaWdodF9sZXZlbChkbS0+
-YmFja2xpZ2h0X2xpbmssCiAJCQlicmlnaHRuZXNzLCAwKSkKLS0gCjIuMjMuMAoKX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KZHJpLWRldmVsIG1haWxpbmcg
-bGlzdApkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRl
-c2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVs
+On Tue, Oct 15, 2019 at 11:30 AM Alex Deucher <alexdeucher@gmail.com> wrote:
+>
+> On Tue, Oct 15, 2019 at 2:07 PM Nick Desaulniers
+> <ndesaulniers@google.com> wrote:
+> >
+> > On Tue, Oct 15, 2019 at 12:19 AM Arnd Bergmann <arnd@arndb.de> wrote:
+> > >
+> > > On Tue, Oct 15, 2019 at 9:08 AM S, Shirish <sshankar@amd.com> wrote:
+> > > > On 10/15/2019 3:52 AM, Nick Desaulniers wrote:
+> > >
+> > > > My gcc build fails with below errors:
+> > > >
+> > > > dcn_calcs.c:1:0: error: -mpreferred-stack-boundary=3 is not between 4 and 12
+> > > >
+> > > > dcn_calc_math.c:1:0: error: -mpreferred-stack-boundary=3 is not between 4 and 12
+> >
+> > I was able to reproduce this failure on pre-7.1 versions of GCC.  It
+> > seems that when:
+> > 1. code is using doubles
+> > 2. setting -mpreferred-stack-boundary=3 -mno-sse2, ie. 8B stack alignment
+> > than GCC produces that error:
+> > https://godbolt.org/z/7T8nbH
+> >
+> > That's already a tall order of constraints, so it's understandable
+> > that the compiler would just error likely during instruction
+> > selection, but was eventually taught how to solve such constraints.
+> >
+> > > >
+> > > > While GPF observed on clang builds seem to be fixed.
+> >
+> > Thanks for the report.  Your testing these patches is invaluable, Shirish!
+> >
+> > >
+> > > Ok, so it seems that gcc insists on having at least 2^4 bytes stack
+> > > alignment when
+> > > SSE is enabled on x86-64, but does not actually rely on that for
+> > > correct operation
+> > > unless it's using sse2. So -msse always has to be paired with
+> > >  -mpreferred-stack-boundary=3.
+> >
+> > Seemingly only for older versions of GCC, pre 7.1.
+> >
+> > >
+> > > For clang, it sounds like the opposite is true: when passing 16 byte
+> > > stack alignment
+> > > and having sse/sse2 enabled, it requires the incoming stack to be 16
+> > > byte aligned,
+> >
+> > I don't think it requires the incoming stack to be 16B aligned for
+> > sse2, I think it requires the incoming and current stack alignment to
+> > match. Today it does not, which is why we observe GPFs.
+> >
+> > > but passing 8 byte alignment makes it do the right thing.
+> > >
+> > > So, should we just always pass $(call cc-option, -mpreferred-stack-boundary=4)
+> > > to get the desired outcome on both?
+> >
+> > Hmmm...I would have liked to remove it outright, as it is an ABI
+> > mismatch that is likely to result in instability and non-fun-to-debug
+> > runtime issues in the future.  I suspect my patch does work for GCC
+> > 7.1+.  The question is: Do we want to either:
+> > 1. mark AMDGPU broken for GCC < 7.1, or
+> > 2. continue supporting it via stack alignment mismatch?
+> >
+> > 2 is brittle, and may break at any point in the future, but if it's
+> > working for someone it does make me feel bad to outright disable it.
+> > What I'd image 2 looks like is (psuedo code in a Makefile):
+>
+> Well, it's been working as is for years now, at least with gcc, so I'd
+> hate to break that.
+
+Ok, I'm happy to leave that as is for GCC, then.  Would you prefer I
+modify it for GCC >7.1 or just leave it alone (maybe I'll add a
+comment about *why* it's done for GCC)? Would you prefer 1 patch or 4?
+
+>
+> Alex
+>
+> >
+> > if CC_IS_GCC && GCC_VERSION < 7.1:
+> >   set stack alignment to 16B and hope for the best
+
+Ie, this ^
+
+> >
+> > So my diff would be amended to keep the stack alignment flags, but
+> > only to support GCC < 7.1.  And that assumes my change compiles with
+> > GCC 7.1+. (Looks like it does for me locally with GCC 8.3, but I would
+> > feel even more confident if someone with hardware to test on and GCC
+> > 7.1+ could boot test).
+
+-- 
+Thanks,
+~Nick Desaulniers
