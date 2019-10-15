@@ -1,72 +1,89 @@
-From: "Tuikov, Luben" <Luben.Tuikov-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 1/8] drm/amdgpu: update amdgpu_discovery to handle revision
-Date: Tue, 15 Oct 2019 18:01:15 +0000
-Message-ID: <e4b046e5-b91a-997c-e47c-dae0360d3a27@amd.com>
-References: <20191014032118.14020-1-tianci.yin@amd.com>
+From: Nick Desaulniers <ndesaulniers@google.com>
+Subject: Re: AMDGPU and 16B stack alignment
+Date: Tue, 15 Oct 2019 11:05:56 -0700
+Message-ID: <CAKwvOdnLxm_tZ_qR1D-BE64Z3QaMC2h79ooobdRVAzmCD_2_Sg@mail.gmail.com>
+References: <CAKwvOdnDVe-dahZGnRtzMrx-AH_C+2Lf20qjFQHNtn9xh=Okzw@mail.gmail.com>
+ <9e4d6378-5032-8521-13a9-d9d9519d07de@amd.com> <CAK8P3a3_Q15hKT=gyupb0FrPX1xV3tEBpVaYy1LF0kMUj2u8hw@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20191014032118.14020-1-tianci.yin-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-Content-ID: <A693A449935FA94D8BF5F3F92EBECDA3-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Yin, Tianci (Rico)" <Tianci.Yin-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Koenig,
- Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset="UTF-8"
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <CAK8P3a3_Q15hKT=gyupb0FrPX1xV3tEBpVaYy1LF0kMUj2u8hw@mail.gmail.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Arnd Bergmann <arnd@arndb.de>, "S, Shirish" <sshankar@amd.com>
+Cc: "Wentland, Harry" <Harry.Wentland@amd.com>, "Deucher, Alexander" <Alexander.Deucher@amd.com>, "yshuiv7@gmail.com" <yshuiv7@gmail.com>, "andrew.cooper3@citrix.com" <andrew.cooper3@citrix.com>, clang-built-linux <clang-built-linux@googlegroups.com>, Matthias Kaehlcke <mka@google.com>, "S, Shirish" <Shirish.S@amd.com>, "Zhou, David(ChunMing)" <David1.Zhou@amd.com>, "Koenig, Christian" <Christian.Koenig@amd.com>, amd-gfx list <amd-gfx@lists.freedesktop.org>, LKML <linux-kernel@vger.kernel.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-UGF0Y2hlcyAxLTc6IExvb2tzIGdvb2QuDQpSZXZpZXdlZC1ieTogTHViZW4gVHVpa292IDxsdWJl
-bi50dWlrb3ZAYW1kLmNvbT4NCg0KUGF0Y2ggODogTkFLISBmb3IgdGhlIHNhbWUgZXhhY3QgcmVh
-c29uIGFzIHRoZSBwcmV2aW91cyByZXZpZXcuIE5vIGNoYW5nZXMgdG8gTkFLIHJlYXNvbmluZyBm
-cm9tIHByZXZpb3VzIHJldmlldy4NCg0KUmVnYXJkcywNCkx1YmVuDQoNCk9uIDIwMTktMTAtMTMg
-MTE6MjEgcC5tLiwgVGlhbmNpIFlpbiB3cm90ZToNCj4gRnJvbTogIlRpYW5jaS5ZaW4iIDx0aWFu
-Y2kueWluQGFtZC5jb20+DQo+IA0KPiB1cGRhdGUgYW1kZ3B1X2Rpc2NvdmVyeSB0byBnZXQgSVAg
-cmV2aXNpb24uDQo+IA0KPiBDaGFuZ2UtSWQ6IElmODE1MjEwM2QwM2I1OGUxZGMwZjMyZGI2MzYy
-NWUyOTBmNWYwOGEwDQo+IFJldmlld2VkLWJ5OiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVj
-aGVyQGFtZC5jb20+DQo+IFNpZ25lZC1vZmYtYnk6IFRpYW5jaS5ZaW4gPHRpYW5jaS55aW5AYW1k
-LmNvbT4NCj4gLS0tDQo+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGlzY292
-ZXJ5LmMgfCA0ICsrKy0NCj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kaXNj
-b3ZlcnkuaCB8IDIgKy0NCj4gIDIgZmlsZXMgY2hhbmdlZCwgNCBpbnNlcnRpb25zKCspLCAyIGRl
-bGV0aW9ucygtKQ0KPiANCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
-L2FtZGdwdV9kaXNjb3ZlcnkuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9k
-aXNjb3ZlcnkuYw0KPiBpbmRleCA3MTE5OGM1MzE4ZTEuLmRkZDgzNjQxMDJhMiAxMDA2NDQNCj4g
-LS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rpc2NvdmVyeS5jDQo+ICsr
-KyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kaXNjb3ZlcnkuYw0KPiBAQCAt
-MzMzLDcgKzMzMyw3IEBAIGludCBhbWRncHVfZGlzY292ZXJ5X3JlZ19iYXNlX2luaXQoc3RydWN0
-IGFtZGdwdV9kZXZpY2UgKmFkZXYpDQo+ICB9DQo+ICANCj4gIGludCBhbWRncHVfZGlzY292ZXJ5
-X2dldF9pcF92ZXJzaW9uKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LCBpbnQgaHdfaWQsDQo+
-IC0JCQkJICAgIGludCAqbWFqb3IsIGludCAqbWlub3IpDQo+ICsJCQkJICAgIGludCAqbWFqb3Is
-IGludCAqbWlub3IsIGludCAqcmV2aXNpb24pDQo+ICB7DQo+ICAJc3RydWN0IGJpbmFyeV9oZWFk
-ZXIgKmJoZHI7DQo+ICAJc3RydWN0IGlwX2Rpc2NvdmVyeV9oZWFkZXIgKmloZHI7DQo+IEBAIC0z
-NjksNiArMzY5LDggQEAgaW50IGFtZGdwdV9kaXNjb3ZlcnlfZ2V0X2lwX3ZlcnNpb24oc3RydWN0
-IGFtZGdwdV9kZXZpY2UgKmFkZXYsIGludCBod19pZCwNCj4gIAkJCQkJKm1ham9yID0gaXAtPm1h
-am9yOw0KPiAgCQkJCWlmIChtaW5vcikNCj4gIAkJCQkJKm1pbm9yID0gaXAtPm1pbm9yOw0KPiAr
-CQkJCWlmIChyZXZpc2lvbikNCj4gKwkJCQkJKnJldmlzaW9uID0gaXAtPnJldmlzaW9uOw0KPiAg
-CQkJCXJldHVybiAwOw0KPiAgCQkJfQ0KPiAgCQkJaXBfb2Zmc2V0ICs9IHNpemVvZigqaXApICsg
-NCAqIChpcC0+bnVtX2Jhc2VfYWRkcmVzcyAtIDEpOw0KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9n
-cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rpc2NvdmVyeS5oIGIvZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9hbWRncHUvYW1kZ3B1X2Rpc2NvdmVyeS5oDQo+IGluZGV4IDVhNjY5M2Q3ZDI2OS4uYmE3OGUx
-NWQ5YjA1IDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
-ZGlzY292ZXJ5LmgNCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rp
-c2NvdmVyeS5oDQo+IEBAIC0zMCw3ICszMCw3IEBAIGludCBhbWRncHVfZGlzY292ZXJ5X2luaXQo
-c3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpOw0KPiAgdm9pZCBhbWRncHVfZGlzY292ZXJ5X2Zp
-bmkoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpOw0KPiAgaW50IGFtZGdwdV9kaXNjb3Zlcnlf
-cmVnX2Jhc2VfaW5pdChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldik7DQo+ICBpbnQgYW1kZ3B1
-X2Rpc2NvdmVyeV9nZXRfaXBfdmVyc2lvbihzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwgaW50
-IGh3X2lkLA0KPiAtICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgaW50ICptYWpv
-ciwgaW50ICptaW5vcik7DQo+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBp
-bnQgKm1ham9yLCBpbnQgKm1pbm9yLCBpbnQgKnJldmlzaW9uKTsNCj4gIGludCBhbWRncHVfZGlz
-Y292ZXJ5X2dldF9nZnhfaW5mbyhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldik7DQo+ICANCj4g
-ICNlbmRpZiAvKiBfX0FNREdQVV9ESVNDT1ZFUllfXyAqLw0KPiANCg0KX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1k
-LWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcv
-bWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+On Tue, Oct 15, 2019 at 12:19 AM Arnd Bergmann <arnd@arndb.de> wrote:
+>
+> On Tue, Oct 15, 2019 at 9:08 AM S, Shirish <sshankar@amd.com> wrote:
+> > On 10/15/2019 3:52 AM, Nick Desaulniers wrote:
+>
+> > My gcc build fails with below errors:
+> >
+> > dcn_calcs.c:1:0: error: -mpreferred-stack-boundary=3 is not between 4 and 12
+> >
+> > dcn_calc_math.c:1:0: error: -mpreferred-stack-boundary=3 is not between 4 and 12
+
+I was able to reproduce this failure on pre-7.1 versions of GCC.  It
+seems that when:
+1. code is using doubles
+2. setting -mpreferred-stack-boundary=3 -mno-sse2, ie. 8B stack alignment
+than GCC produces that error:
+https://godbolt.org/z/7T8nbH
+
+That's already a tall order of constraints, so it's understandable
+that the compiler would just error likely during instruction
+selection, but was eventually taught how to solve such constraints.
+
+> >
+> > While GPF observed on clang builds seem to be fixed.
+
+Thanks for the report.  Your testing these patches is invaluable, Shirish!
+
+>
+> Ok, so it seems that gcc insists on having at least 2^4 bytes stack
+> alignment when
+> SSE is enabled on x86-64, but does not actually rely on that for
+> correct operation
+> unless it's using sse2. So -msse always has to be paired with
+>  -mpreferred-stack-boundary=3.
+
+Seemingly only for older versions of GCC, pre 7.1.
+
+>
+> For clang, it sounds like the opposite is true: when passing 16 byte
+> stack alignment
+> and having sse/sse2 enabled, it requires the incoming stack to be 16
+> byte aligned,
+
+I don't think it requires the incoming stack to be 16B aligned for
+sse2, I think it requires the incoming and current stack alignment to
+match. Today it does not, which is why we observe GPFs.
+
+> but passing 8 byte alignment makes it do the right thing.
+>
+> So, should we just always pass $(call cc-option, -mpreferred-stack-boundary=4)
+> to get the desired outcome on both?
+
+Hmmm...I would have liked to remove it outright, as it is an ABI
+mismatch that is likely to result in instability and non-fun-to-debug
+runtime issues in the future.  I suspect my patch does work for GCC
+7.1+.  The question is: Do we want to either:
+1. mark AMDGPU broken for GCC < 7.1, or
+2. continue supporting it via stack alignment mismatch?
+
+2 is brittle, and may break at any point in the future, but if it's
+working for someone it does make me feel bad to outright disable it.
+What I'd image 2 looks like is (psuedo code in a Makefile):
+
+if CC_IS_GCC && GCC_VERSION < 7.1:
+  set stack alignment to 16B and hope for the best
+
+So my diff would be amended to keep the stack alignment flags, but
+only to support GCC < 7.1.  And that assumes my change compiles with
+GCC 7.1+. (Looks like it does for me locally with GCC 8.3, but I would
+feel even more confident if someone with hardware to test on and GCC
+7.1+ could boot test).
+-- 
+Thanks,
+~Nick Desaulniers
