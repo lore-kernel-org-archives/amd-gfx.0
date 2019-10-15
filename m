@@ -1,58 +1,57 @@
-From: Nick Desaulniers <ndesaulniers@google.com>
-Subject: AMDGPU and 16B stack alignment
-Date: Mon, 14 Oct 2019 15:22:09 -0700
-Message-ID: <CAKwvOdnDVe-dahZGnRtzMrx-AH_C+2Lf20qjFQHNtn9xh=Okzw@mail.gmail.com>
+From: "Quan, Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: [PATCH] drm/amdgpu: No need to check gfxoff status after enable
+ gfxoff feature
+Date: Tue, 15 Oct 2019 00:54:34 +0000
+Message-ID: <MN2PR12MB3344D347B1BBC093BAE5BBD3E4930@MN2PR12MB3344.namprd12.prod.outlook.com>
+References: <1571021854-25722-1-git-send-email-curry.gong@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Harry Wentland <harry.wentland@amd.com>, "Deucher, Alexander" <alexander.deucher@amd.com>
-Cc: yshuiv7@gmail.com, andrew.cooper3@citrix.com, Arnd Bergmann <arnd@arndb.de>, clang-built-linux <clang-built-linux@googlegroups.com>, Matthias Kaehlcke <mka@google.com>, "S, Shirish" <shirish.s@amd.com>, "Zhou, David(ChunMing)" <David1.Zhou@amd.com>, "Koenig, Christian" <christian.koenig@amd.com>, amd-gfx list <amd-gfx@lists.freedesktop.org>, LKML <linux-kernel@vger.kernel.org>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <1571021854-25722-1-git-send-email-curry.gong-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Gong, Curry" <Curry.Gong-5C7GfCeVMHo@public.gmane.org>
 
-Hello!
-
-The x86 kernel is compiled with an 8B stack alignment via
-    `-mpreferred-stack-boundary=3` for GCC since 3.6-rc1 via
-    commit d9b0cde91c60 ("x86-64, gcc: Use
--mpreferred-stack-boundary=3 if supported")
-    or `-mstack-alignment=8` for Clang. Parts of the AMDGPU driver are
-    compiled with 16B stack alignment.
-
-    Generally, the stack alignment is part of the ABI. Linking together two
-    different translation units with differing stack alignment is dangerous,
-    particularly when the translation unit with the smaller stack alignment
-    makes calls into the translation unit with the larger stack alignment.
-    While 8B aligned stacks are sometimes also 16B aligned, they are not
-    always.
-
-    Multiple users have reported General Protection Faults (GPF) when using
-    the AMDGPU driver compiled with Clang. Clang is placing objects in stack
-    slots assuming the stack is 16B aligned, and selecting instructions that
-    require 16B aligned memory operands. At runtime, syscalls handling 8B
-    stack aligned code calls into code that assumes 16B stack alignment.
-    When the stack is a multiple of 8B but not 16B, these instructions
-    result in a GPF.
-
-    GCC doesn't select instructions with alignment requirements, so the GPFs
-    aren't observed, but it is still considered an ABI breakage to mix and
-    match stack alignment.
-
-I have patches that basically remove -mpreferred-stack-boundary=4 and
--mstack-alignment=16 from AMDGPU:
-https://github.com/ClangBuiltLinux/linux/issues/735#issuecomment-541247601
-Yuxuan has tested with Clang and GCC and reported it fixes the GPF's observed.
-
-I've split the patch into 4; same commit message but different Fixes
-tags so that they backport to stable on finer granularity. 2 questions
-BEFORE I send the series:
-
-1. Would you prefer 4 patches with unique `fixes` tags, or 1 patch?
-2. Was there or is there still a good reason for the stack alignment mismatch?
-
-(Further, I think we can use -msse2 for BOTH clang+gcc after my patch,
-but I don't have hardware to test on. I'm happy to write/send the
-follow up patch, but I'd need help testing).
--- 
-Thanks,
-~Nick Desaulniers
+QWNrZWQtYnk6IEV2YW4gUXVhbiA8ZXZhbi5xdWFuQGFtZC5jb20+DQoNCi0tLS0tT3JpZ2luYWwg
+TWVzc2FnZS0tLS0tDQpGcm9tOiBhbWQtZ2Z4IDxhbWQtZ2Z4LWJvdW5jZXNAbGlzdHMuZnJlZWRl
+c2t0b3Aub3JnPiBPbiBCZWhhbGYgT2YgY2hlbiBnb25nDQpTZW50OiBNb25kYXksIE9jdG9iZXIg
+MTQsIDIwMTkgMTA6NTggQU0NClRvOiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0KQ2M6
+IEdvbmcsIEN1cnJ5IDxDdXJyeS5Hb25nQGFtZC5jb20+DQpTdWJqZWN0OiBbUEFUQ0hdIGRybS9h
+bWRncHU6IE5vIG5lZWQgdG8gY2hlY2sgZ2Z4b2ZmIHN0YXR1cyBhZnRlciBlbmFibGUgZ2Z4b2Zm
+IGZlYXR1cmUNCg0Kc211X3NlbmRfc21jX21zZyhzbXUsIFNNVV9NU0dfQWxsb3dHZnhPZmYpIEp1
+c3QgdHVybiBvbiBhIHN3aXRjaC4NCg0KQXMgdG8gd2hlbiBHUFUgZ2V0IGludG8gIkdGWG9mZiIg
+d2lsbCBiZSB1cCB0byBkcmF3aW5nIGxvYWQuDQoNClNvIHdlIGNhbiBub3Qgc3VyZSB3aGljaCBz
+dGF0ZSBHUFUgc2hvdWxkIGJlIGluIGFmdGVyIGVuYWJsZSBnZnhvZmYgZmVhdHVyZS4NCg0KU2ln
+bmVkLW9mZi1ieTogY2hlbiBnb25nIDxjdXJyeS5nb25nQGFtZC5jb20+DQotLS0NCiBkcml2ZXJz
+L2dwdS9kcm0vYW1kL3Bvd2VycGxheS9zbXVfdjEyXzAuYyB8IDkgLS0tLS0tLS0tDQogMSBmaWxl
+IGNoYW5nZWQsIDkgZGVsZXRpb25zKC0pDQoNCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0v
+YW1kL3Bvd2VycGxheS9zbXVfdjEyXzAuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5
+L3NtdV92MTJfMC5jDQppbmRleCBjOTY5MWQwLi5jYWM0MjY5IDEwMDY0NA0KLS0tIGEvZHJpdmVy
+cy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvc211X3YxMl8wLmMNCisrKyBiL2RyaXZlcnMvZ3B1L2Ry
+bS9hbWQvcG93ZXJwbGF5L3NtdV92MTJfMC5jDQpAQCAtMjQ0LDE1ICsyNDQsNiBAQCBzdGF0aWMg
+aW50IHNtdV92MTJfMF9nZnhfb2ZmX2NvbnRyb2woc3RydWN0IHNtdV9jb250ZXh0ICpzbXUsIGJv
+b2wgZW5hYmxlKQ0KIAlpZiAoZW5hYmxlKSB7DQogCQlyZXQgPSBzbXVfc2VuZF9zbWNfbXNnKHNt
+dSwgU01VX01TR19BbGxvd0dmeE9mZik7DQogDQotCQkvKiBjb25maXJtIGdmeCBpcyBiYWNrIHRv
+ICJvZmYiIHN0YXRlLCB0aW1lb3V0IGlzIDUgc2Vjb25kcyAqLw0KLQkJd2hpbGUgKCEoc211X3Yx
+Ml8wX2dldF9nZnhvZmZfc3RhdHVzKHNtdSkgPT0gMCkpIHsNCi0JCQltc2xlZXAoMTApOw0KLQkJ
+CXRpbWVvdXQtLTsNCi0JCQlpZiAodGltZW91dCA9PSAwKSB7DQotCQkJCURSTV9FUlJPUigiZW5h
+YmxlIGdmeG9mZiB0aW1lb3V0IGFuZCBmYWlsZWQhXG4iKTsNCi0JCQkJYnJlYWs7DQotCQkJfQ0K
+LQkJfQ0KIAl9IGVsc2Ugew0KIAkJcmV0ID0gc211X3NlbmRfc21jX21zZyhzbXUsIFNNVV9NU0df
+RGlzYWxsb3dHZnhPZmYpOw0KIA0KLS0NCjIuNy40DQoNCl9fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fDQphbWQtZ2Z4IG1haWxpbmcgbGlzdA0KYW1kLWdmeEBs
+aXN0cy5mcmVlZGVza3RvcC5vcmcNCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxt
+YW4vbGlzdGluZm8vYW1kLWdmeA0KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3Rv
+cC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQt
+Z2Z4
