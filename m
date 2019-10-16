@@ -1,87 +1,79 @@
-From: =?UTF-8?q?Marek=20Ol=C5=A1=C3=A1k?= <maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: libdrm 2.4.100
-Date: Wed, 16 Oct 2019 17:40:08 -0400
-Message-ID: <20191016214008.5538-1-maraeo@gmail.com>
-Reply-To: xorg-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+From: Nick Desaulniers <ndesaulniers@google.com>
+Subject: [PATCH 0/3] drm/amdgpu: fix stack alignment ABI mismatch
+Date: Wed, 16 Oct 2019 16:02:06 -0700
+Message-ID: <20191016230209.39663-1-ndesaulniers@google.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <xorg-announce-bounces-go0+a7rfsptAfugRpC6u6w@public.gmane.org>
-List-Unsubscribe: <https://lists.x.org/mailman/options/xorg-announce>,
- <mailto:xorg-announce-request-go0+a7rfsptAfugRpC6u6w@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.x.org/archives/xorg-announce>
-List-Post: <mailto:xorg-announce-go0+a7rfsptAfugRpC6u6w@public.gmane.org>
-List-Help: <mailto:xorg-announce-request-go0+a7rfsptAfugRpC6u6w@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.x.org/mailman/listinfo/xorg-announce>,
- <mailto:xorg-announce-request-go0+a7rfsptAfugRpC6u6w@public.gmane.org?subject=subscribe>
-Errors-To: xorg-announce-bounces-go0+a7rfsptAfugRpC6u6w@public.gmane.org
-Sender: "xorg-announce" <xorg-announce-bounces-go0+a7rfsptAfugRpC6u6w@public.gmane.org>
-To: dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, xorg-announce-go0+a7rfsptAfugRpC6u6w@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Content-Type: text/plain; charset="UTF-8"
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: harry.wentland@amd.com, alexander.deucher@amd.com
+Cc: yshuiv7@gmail.com, andrew.cooper3@citrix.com, arnd@arndb.de, clang-built-linux@googlegroups.com, mka@google.com, shirish.s@amd.com, David1.Zhou@amd.com, christian.koenig@amd.com, amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org, Nick Desaulniers <ndesaulniers@google.com>
 List-Id: amd-gfx.lists.freedesktop.org
 
-LS0tLS1CRUdJTiBQR1AgU0lHTkVEIE1FU1NBR0UtLS0tLQpIYXNoOiBTSEE1MTIKCgpBbnVzaGEg
-U3JpdmF0c2EgKDEpOgogICAgICBpbnRlbDogc3luYyBpOTE1X3BjaWlkcy5oIHdpdGgga2VybmVs
-CgpFbWlsIFZlbGlrb3YgKDEpOgogICAgICAqLXN5bWJvbHMtY2hlY2s6IHVzZSBub3JtYWwgc2hl
-bGwgb3ZlciBiYXNoCgpFcmljIEVuZ2VzdHJvbSAoNyk6CiAgICAgIHhmODZkcm06IGRlZHVwZSBg
-I2RlZmluZWBzCiAgICAgIHhmODZkcm06IHVzZSBtYXggc2l6ZSBvZiBkcm0gbm9kZSBuYW1lIGlu
-c3RlYWQgb2YgYXJiaXRyYXJ5IHNpemUKICAgICAgeGY4NmRybTogZGVkdXBlIGRybUdldERldmlj
-ZU5hbWUoKSBsb2dpYwogICAgICBtZXNvbjogZml4IHN5cy9ta2Rldi5oIGRldGVjdGlvbiBvbiBT
-b2xhcmlzCiAgICAgICotc3ltYm9scy1jaGVjazogbGV0IG1lc29uIGZpZ3VyZSBvdXQgaG93IHRv
-IGV4ZWN1dGUgdGhlIHNjcmlwdHMKICAgICAgUkVMRUFTSU5HOiB1cGRhdGUgaW5zdHJ1Y3Rpb25z
-IHRvIHVzZSBtZXNvbiBpbnN0ZWFkIG9mIGF1dG90b29scwogICAgICBsaWJkcm06IHJlbW92ZSBh
-dXRvdG9vbHMgc3VwcG9ydAoKRmxvcmEgQ3VpICgzKToKICAgICAgdGVzdHMvYW1kZ3B1OiBmaXgg
-Zm9yIGRpc3BhdGNoL2RyYXcgdGVzdAogICAgICB0ZXN0cy9hbWRncHU6IGFkZCBncHUgcmVzZXQg
-dGVzdAogICAgICB0ZXN0cy9hbWRncHU6IGRpc2FibGUgcmVzZXQgdGVzdCBmb3Igbm93CgpHdWNo
-dW4gQ2hlbiAoNyk6CiAgICAgIGFtZGdwdTogYWRkIGdmeCByYXMgaW5qZWN0IGNvbmZpZ3VyYXRp
-b24gZmlsZQogICAgICB0ZXN0cy9hbWRncHUvcmFzOiByZWZpbmUgcmFzIGluamVjdCB0ZXN0CiAg
-ICAgIGFtZGdwdTogYWRkIHVtYyByYXMgaW5qZWN0IHRlc3QgY29uZmlndXJhdGlvbgogICAgICBh
-bWRncHU6IHJlbW92ZSBqc29uIHBhY2thZ2UgZGVwZW5kZW5jZQogICAgICBhbWRncHU6IGRlbGV0
-ZSB0ZXN0IGNvbmZpZ3VyYXRpb24gZmlsZQogICAgICBhbWRncHU6IGFkZCByYXMgaW5qZWN0IHVu
-aXQgdGVzdAogICAgICBhbWRncHU6IGFkZCByYXMgZmVhdHVyZSBjYXBhYmlsaXR5IGNoZWNrIGlu
-IGluamVjdCB0ZXN0CgpJbGlhIE1pcmtpbiAoMSk6CiAgICAgIHRlc3RzL3V0aWw6IGZpeCBpbmNv
-cnJlY3QgbWVtc2V0IGFyZ3VtZW50IG9yZGVyCgpKb25hdGhhbiBHcmF5ICgyKToKICAgICAgeGY4
-NmRybTogdGVzdCBmb3IgcmVuZGVyIG5vZGVzIGJlZm9yZSBwcmltYXJ5IG5vZGVzCiAgICAgIHhm
-ODZkcm06IG9wZW4gY29ycmVjdCByZW5kZXIgbm9kZSBvbiBub24tbGludXgKCkxlIE1hICgyKToK
-ICAgICAgdGVzdHMvYW1kZ3B1OiBkaXZpZGUgZGlzcGF0Y2ggdGVzdCBpbnRvIGNvbXB1dGUgYW5k
-IGdmeAogICAgICB0ZXN0cy9hbWRncHU6IGFkZCB0aGUgbWlzc2luZyBkZWFjdGl2YXRpb24gY2Fz
-ZSBmb3IgZGlzcGF0Y2ggdGVzdAoKTHVjYXMgRGUgTWFyY2hpICgxKToKICAgICAgaW50ZWw6IHN5
-bmMgaTkxNV9wY2lpZHMuaCB3aXRoIGtlcm5lbAoKTWFyZWsgT2zFocOhayAoNSk6CiAgICAgIGlu
-Y2x1ZGU6IHVwZGF0ZSBhbWRncHVfZHJtLmgKICAgICAgYW1kZ3B1OiBhZGQgYW1kZ3B1X2NzX3F1
-ZXJ5X3Jlc2V0X3N0YXRlMiBmb3IgQU1ER1BVX0NUWF9PUF9RVUVSWV9TVEFURTIKICAgICAgQnVt
-cCB0aGUgdmVyc2lvbiB0byAyLjQuMTAwCiAgICAgIFJldmVydCAibGliZHJtOiByZW1vdmUgYXV0
-b3Rvb2xzIHN1cHBvcnQiCiAgICAgIEJ1bXAgdGhlIHZlcnNpb24gdG8gMi40LjEwMCBmb3IgYXV0
-b3Rvb2xzCgpOaWNsYXMgWmVpc2luZyAoMik6CiAgICAgIG1lc29uLmJ1aWxkOiBGaXggdHlwbwog
-ICAgICBtZXNvbi5idWlsZDogRml4IGhlYWRlciBkZXRlY3Rpb24gb24gRnJlZUJTRAoKTmlybW95
-IERhcyAoMSk6CiAgICAgIHRlc3QvYW1kZ3B1OiBkb24ndCBmcmVlIHVudXNlZCBibyBoYW5kbGUK
-ClJvZHJpZ28gVml2aSAoMik6CiAgICAgIGludGVsOiBhZGQgdGhlIFRHTCAxMiBQQ0kgSURzIGFu
-ZCBtYWNyb3MKICAgICAgaW50ZWw6IEFkZCBzdXBwb3J0IGZvciBFSEwKCmdpdCB0YWc6IGxpYmRy
-bS0yLjQuMTAwCgpodHRwczovL2RyaS5mcmVlZGVza3RvcC5vcmcvbGliZHJtL2xpYmRybS0yLjQu
-MTAwLnRhci5iejIKTUQ1OiAgZjQ3YmM4N2UyODE5OGJhNTI3ZTZiNDRmZmRkNjJmNjUgIGxpYmRy
-bS0yLjQuMTAwLnRhci5iejIKU0hBMTogOWY1MjY5MDlhYmEwOGI1NjU4Y2ZiYTNmN2ZkZTkzODVj
-YWQ2ZjNiNSAgbGliZHJtLTIuNC4xMDAudGFyLmJ6MgpTSEEyNTY6IGM3N2NjODI4MTg2YzljZWVj
-M2U1NmFlMjAyYjQzZWU5OWViOTMyYjRhODcyNTUwMzhhODBlOGExMDYwZDBhNWQgIGxpYmRybS0y
-LjQuMTAwLnRhci5iejIKU0hBNTEyOiA0ZDNhNTU1NmU2NTA4NzI5NDRhZjUyZjQ5ZGUzOTVlMGNl
-OGFjOWFjNTg1MzBlMzlhMzQ0MTNlOTRkYzU2YzIzMWVlNzFiOGI4ZGU5ZmI5NDQyNjM1MTVhOTIy
-YjNlYmJmN2RkZmViZWFhYTkxNTQzYzI2MDRmOWJjZjU2MTI0NyAgbGliZHJtLTIuNC4xMDAudGFy
-LmJ6MgpQR1A6ICBodHRwczovL2RyaS5mcmVlZGVza3RvcC5vcmcvbGliZHJtL2xpYmRybS0yLjQu
-MTAwLnRhci5iejIuc2lnCgpodHRwczovL2RyaS5mcmVlZGVza3RvcC5vcmcvbGliZHJtL2xpYmRy
-bS0yLjQuMTAwLnRhci5negpNRDU6ICBjNDdiMTcxODczNGNjNjYxNzM0ZWQ2M2Y5NGJjMjdjMSAg
-bGliZHJtLTIuNC4xMDAudGFyLmd6ClNIQTE6IDIwOTdmMGI5OGRlYWZmMTZiOGYzYjkzY2VkY2I1
-Y2QzNTI5MWEzYzEgIGxpYmRybS0yLjQuMTAwLnRhci5negpTSEEyNTY6IDZhNTMzN2MwNTRjMGM0
-N2JjMTY2MDdhMjFlZmEyYjYyMmUwODAzMGJlNDEwMWVmNGEyNDFjNWViMDViNjYxOWIgIGxpYmRy
-bS0yLjQuMTAwLnRhci5negpTSEE1MTI6IGI2MTgzNTQ3M2M3NzY5MWM0YThlNjdiMzJiOWRmNDIw
-NjYxZThiZjg3MDA1MDczMzRiNThiZGU1ZTZhNDAyZGVlNGFlYTJiZWMxZTViODMzNDNkZDI4ZmNi
-NmNmOWZkMDg0MDY0ZDQzNzMzMmYxNzhkZjgxYzQ3ODA1NTI1OTViICBsaWJkcm0tMi40LjEwMC50
-YXIuZ3oKUEdQOiAgaHR0cHM6Ly9kcmkuZnJlZWRlc2t0b3Aub3JnL2xpYmRybS9saWJkcm0tMi40
-LjEwMC50YXIuZ3ouc2lnCgotLS0tLUJFR0lOIFBHUCBTSUdOQVRVUkUtLS0tLQoKaVFFekJBRUJD
-Z0FkRmlFRXpVZkZOQm8zWHpPKzk3cjYvZEZkV3M3dzhyRUZBbDJuamhFQUNna1EvZEZkV3M3dwo4
-ckhsOUFmK09EdmRpVWxiZTIwdU9kOHZCRFZGZ0lSNVo0SjhhRnIvYlVKN1p4WFNBeXRXZ2xmWTZU
-aDlVODlICnNONlV5WGVzOXRyM09oQW90QmdaMkxZaDFCRE0xOFhTQklkdGVxUXo5dWlhWmZ3K0w4
-T25acTNlaWtKOEF4bHcKYkNiSlp0V2ExN0tKUWpGUjdDdjNXb3pzYW9wS0ptN0E2Y1hIbXVoazFs
-cTl1a1VCRFBDUUlxYXFmOUsrelRCUQpzSVY4d2xpQW1FSzNzOXRSaFQzdnNrMTJEbURmTzBrVU41
-MDR2T1hkT2poQUNsRE4wM00wdzRSWHFERU5HN2d6CnFtN2VIZ0U3dWdxa0N4QlBHZE5mVFNJb2Ft
-RlZPYU5SL1BDcXp0NS82Vk1hVzlvRktTVFRneWdsclZVanVsRTYKQVpSREhQZFE5RDZQODRXcFB0
-QVdPdWc0RUpoVnVRPT0KPU5rTDgKLS0tLS1FTkQgUEdQIFNJR05BVFVSRS0tLS0tCl9fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCnhvcmctYW5ub3VuY2UgbWFp
-bGluZyBsaXN0CnhvcmctYW5ub3VuY2VAbGlzdHMueC5vcmcKaHR0cHM6Ly9saXN0cy54Lm9yZy9t
-YWlsbWFuL2xpc3RpbmZvL3hvcmctYW5ub3VuY2U=
+The x86 kernel is compiled with an 8B stack alignment via
+`-mpreferred-stack-boundary=3` for GCC since 3.6-rc1 via
+commit d9b0cde91c60 ("x86-64, gcc: Use -mpreferred-stack-boundary=3 if supported")
+or `-mstack-alignment=8` for Clang. Parts of the AMDGPU driver are
+compiled with 16B stack alignment.
+
+Generally, the stack alignment is part of the ABI. Linking together two
+different translation units with differing stack alignment is dangerous,
+particularly when the translation unit with the smaller stack alignment
+makes calls into the translation unit with the larger stack alignment.
+While 8B aligned stacks are sometimes also 16B aligned, they are not
+always.
+
+Multiple users have reported General Protection Faults (GPF) when using
+the AMDGPU driver compiled with Clang. Clang is placing objects in stack
+slots assuming the stack is 16B aligned, and selecting instructions that
+require 16B aligned memory operands.
+
+At runtime, syscall handlers with 8B aligned stack call into code that
+assumes 16B stack alignment.  When the stack is a multiple of 8B but not
+16B, these instructions result in a GPF.
+
+Remove the code that added compatibility between the differing compiler
+flags, as it will result in runtime GPFs when built with Clang.
+
+The series is broken into 3 patches, the first is an important fix for
+Clang for ChromeOS. The rest are attempted cleanups for GCC, but require
+additional boot testing. The first patch is critical, the rest are nice
+to have. I've compile tested the series with ToT Clang, GCC 4.9, and GCC
+8.3 **but** I do not have hardware to test on, so I need folks with the
+above compilers and relevant hardware to help test the series.
+
+The first patch is a functional change for Clang only. It does not
+change anything for any version of GCC. Yuxuan boot tested a previous
+incarnation on hardware, but I've changed it enough that I think it made
+sense to drop the previous tested by tag.
+
+The second patch is a functional change for GCC 7.1+ only. It does not
+affect older versions of GCC or Clang (though if someone wanted to
+double check with pre-GCC 7.1 it wouldn't hurt).  It should be boot
+tested on GCC 7.1+ on the relevant hardware.
+
+The final patch is also a functional change for GCC 7.1+ only. It does
+not affect older versions of GCC or Clang. It should be boot tested on
+GCC 7.1+ on the relevant hardware. Theoretically, there may be an issue
+with it, and it's ok to drop it. The series was intentional broken into
+3 in order to allow them to be incrementally tested and accepted. It's
+ok to take earlier patches without the later patches.
+
+And finally, I do not condone linking object files of differing stack
+alignments.  Idealistically, we'd mark the driver broken for pre-GCC
+7.1.  Pragmatically, "if it ain't broke, don't fix it."
+
+Nick Desaulniers (3):
+  drm/amdgpu: fix stack alignment ABI mismatch for Clang
+  drm/amdgpu: fix stack alignment ABI mismatch for GCC 7.1+
+  drm/amdgpu: enable -msse2 for GCC 7.1+ users
+
+ drivers/gpu/drm/amd/display/dc/calcs/Makefile | 19 ++++++++++++-------
+ drivers/gpu/drm/amd/display/dc/dcn20/Makefile | 19 ++++++++++++-------
+ drivers/gpu/drm/amd/display/dc/dcn21/Makefile | 19 ++++++++++++-------
+ drivers/gpu/drm/amd/display/dc/dml/Makefile   | 19 ++++++++++++-------
+ drivers/gpu/drm/amd/display/dc/dsc/Makefile   | 19 ++++++++++++-------
+ 5 files changed, 60 insertions(+), 35 deletions(-)
+
+-- 
+2.23.0.700.g56cf767bdb-goog
