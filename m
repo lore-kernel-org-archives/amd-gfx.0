@@ -1,78 +1,466 @@
-From: Gerd Hoffmann <kraxel@redhat.com>
-Subject: [PATCH v4 07/11] drm/ttm: rename ttm_fbdev_mmap
-Date: Wed, 16 Oct 2019 13:51:59 +0200
-Message-ID: <20191016115203.20095-8-kraxel@redhat.com>
-References: <20191016115203.20095-1-kraxel@redhat.com>
+From: "Wang, Kevin(Yang)" <Kevin1.Wang-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu: fix amdgpu trace event print string format
+ error
+Date: Wed, 16 Oct 2019 12:01:13 +0000
+Message-ID: <MN2PR12MB329607EB61BBC2CB91F8972FA2920@MN2PR12MB3296.namprd12.prod.outlook.com>
+References: <20191016030606.6750-1-kevin1.wang@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-In-Reply-To: <20191016115203.20095-1-kraxel@redhat.com>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: dri-devel@lists.freedesktop.org
-Cc: David Airlie <airlied@linux.ie>, Daniel Vetter <daniel.vetter@ffwll.ch>, open list <linux-kernel@vger.kernel.org>, "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>, Huang Rui <ray.huang@amd.com>, Gerd Hoffmann <kraxel@redhat.com>, Thomas Zimmermann <tzimmermann@suse.de>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: multipart/mixed; boundary="===============0724933026=="
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20191016030606.6750-1-kevin1.wang-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Koenig,
+ Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
 
-UmVuYW1lIHR0bV9mYmRldl9tbWFwIHRvIHR0bV9ib19tbWFwX29iai4gIE1vdmUgdGhlIHZtX3Bn
-b2ZmIHNhbml0eQpjaGVjayB0byBhbWRncHVfYm9fZmJkZXZfbW1hcCAob25seSB0dG1fZmJkZXZf
-bW1hcCB1c2VyIGluIHRyZWUpLgoKVGhlIHR0bV9ib19tbWFwX29iaiBmdW5jdGlvbiBjYW4gbm93
-IGJlIHVzZWQgdG8gbWFwIGFueSBidWZmZXIgb2JqZWN0LgpUaGlzIGFsbG93cyB0byBpbXBsZW1l
-bnQgJmRybV9nZW1fb2JqZWN0X2Z1bmNzLm1tYXAgaW4gZ2VtIHR0bSBoZWxwZXJzLgoKdjM6IHBh
-dGNoIGFkZGVkIHRvIHNlcmllcwoKU2lnbmVkLW9mZi1ieTogR2VyZCBIb2ZmbWFubiA8a3JheGVs
-QHJlZGhhdC5jb20+CkFja2VkLWJ5OiBUaG9tYXMgWmltbWVybWFubiA8dHppbW1lcm1hbm5Ac3Vz
-ZS5kZT4KLS0tCiBpbmNsdWRlL2RybS90dG0vdHRtX2JvX2FwaS5oICAgICAgICAgICAgICAgfCAx
-MCArKysrLS0tLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfb2JqZWN0LmMg
-fCAgNSArKysrLQogZHJpdmVycy9ncHUvZHJtL3R0bS90dG1fYm9fdm0uYyAgICAgICAgICAgIHwg
-IDggKystLS0tLS0KIDMgZmlsZXMgY2hhbmdlZCwgMTAgaW5zZXJ0aW9ucygrKSwgMTMgZGVsZXRp
-b25zKC0pCgpkaWZmIC0tZ2l0IGEvaW5jbHVkZS9kcm0vdHRtL3R0bV9ib19hcGkuaCBiL2luY2x1
-ZGUvZHJtL3R0bS90dG1fYm9fYXBpLmgKaW5kZXggNDNjNDkyOWEyMTcxLi5kMjI3N2UwNjMxNmQg
-MTAwNjQ0Ci0tLSBhL2luY2x1ZGUvZHJtL3R0bS90dG1fYm9fYXBpLmgKKysrIGIvaW5jbHVkZS9k
-cm0vdHRtL3R0bV9ib19hcGkuaApAQCAtNzEwLDE2ICs3MTAsMTQgQEAgaW50IHR0bV9ib19rbWFw
-KHN0cnVjdCB0dG1fYnVmZmVyX29iamVjdCAqYm8sIHVuc2lnbmVkIGxvbmcgc3RhcnRfcGFnZSwK
-IHZvaWQgdHRtX2JvX2t1bm1hcChzdHJ1Y3QgdHRtX2JvX2ttYXBfb2JqICptYXApOwogCiAvKioK
-LSAqIHR0bV9mYmRldl9tbWFwIC0gbW1hcCBmYmRldiBtZW1vcnkgYmFja2VkIGJ5IGEgdHRtIGJ1
-ZmZlciBvYmplY3QuCisgKiB0dG1fYm9fbW1hcF9vYmogLSBtbWFwIG1lbW9yeSBiYWNrZWQgYnkg
-YSB0dG0gYnVmZmVyIG9iamVjdC4KICAqCiAgKiBAdm1hOiAgICAgICB2bWEgYXMgaW5wdXQgZnJv
-bSB0aGUgZmJkZXYgbW1hcCBtZXRob2QuCi0gKiBAYm86ICAgICAgICBUaGUgYm8gYmFja2luZyB0
-aGUgYWRkcmVzcyBzcGFjZS4gVGhlIGFkZHJlc3Mgc3BhY2Ugd2lsbAotICogaGF2ZSB0aGUgc2Ft
-ZSBzaXplIGFzIHRoZSBibywgYW5kIHN0YXJ0IGF0IG9mZnNldCAwLgorICogQGJvOiAgICAgICAg
-VGhlIGJvIGJhY2tpbmcgdGhlIGFkZHJlc3Mgc3BhY2UuCiAgKgotICogVGhpcyBmdW5jdGlvbiBp
-cyBpbnRlbmRlZCB0byBiZSBjYWxsZWQgYnkgdGhlIGZiZGV2IG1tYXAgbWV0aG9kCi0gKiBpZiB0
-aGUgZmJkZXYgYWRkcmVzcyBzcGFjZSBpcyB0byBiZSBiYWNrZWQgYnkgYSBiby4KKyAqIE1hcHMg
-YSBidWZmZXIgb2JqZWN0LgogICovCi1pbnQgdHRtX2ZiZGV2X21tYXAoc3RydWN0IHZtX2FyZWFf
-c3RydWN0ICp2bWEsIHN0cnVjdCB0dG1fYnVmZmVyX29iamVjdCAqYm8pOworaW50IHR0bV9ib19t
-bWFwX29iaihzdHJ1Y3Qgdm1fYXJlYV9zdHJ1Y3QgKnZtYSwgc3RydWN0IHR0bV9idWZmZXJfb2Jq
-ZWN0ICpibyk7CiAKIC8qKgogICogdHRtX2JvX21tYXAgLSBtbWFwIG91dCBvZiB0aGUgdHRtIGRl
-dmljZSBhZGRyZXNzIHNwYWNlLgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
-cHUvYW1kZ3B1X29iamVjdC5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X29i
-amVjdC5jCmluZGV4IDFmZWFkMGU4Yjg5MC4uNmYwYjc4OWEwYjQ5IDEwMDY0NAotLS0gYS9kcml2
-ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfb2JqZWN0LmMKKysrIGIvZHJpdmVycy9ncHUv
-ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X29iamVjdC5jCkBAIC0xMDU4LDcgKzEwNTgsMTAgQEAgdm9p
-ZCBhbWRncHVfYm9fZmluaShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikKIGludCBhbWRncHVf
-Ym9fZmJkZXZfbW1hcChzdHJ1Y3QgYW1kZ3B1X2JvICpibywKIAkJCSAgICAgc3RydWN0IHZtX2Fy
-ZWFfc3RydWN0ICp2bWEpCiB7Ci0JcmV0dXJuIHR0bV9mYmRldl9tbWFwKHZtYSwgJmJvLT50Ym8p
-OworCWlmICh2bWEtPnZtX3Bnb2ZmICE9IDApCisJCXJldHVybiAtRUFDQ0VTOworCisJcmV0dXJu
-IHR0bV9ib19tbWFwX29iaih2bWEsICZiby0+dGJvKTsKIH0KIAogLyoqCmRpZmYgLS1naXQgYS9k
-cml2ZXJzL2dwdS9kcm0vdHRtL3R0bV9ib192bS5jIGIvZHJpdmVycy9ncHUvZHJtL3R0bS90dG1f
-Ym9fdm0uYwppbmRleCA1MzM0NWMwODU0ZDUuLjFhOWRiNjkxZjk1NCAxMDA2NDQKLS0tIGEvZHJp
-dmVycy9ncHUvZHJtL3R0bS90dG1fYm9fdm0uYworKysgYi9kcml2ZXJzL2dwdS9kcm0vdHRtL3R0
-bV9ib192bS5jCkBAIC00NzksMTQgKzQ3OSwxMCBAQCBpbnQgdHRtX2JvX21tYXAoc3RydWN0IGZp
-bGUgKmZpbHAsIHN0cnVjdCB2bV9hcmVhX3N0cnVjdCAqdm1hLAogfQogRVhQT1JUX1NZTUJPTCh0
-dG1fYm9fbW1hcCk7CiAKLWludCB0dG1fZmJkZXZfbW1hcChzdHJ1Y3Qgdm1fYXJlYV9zdHJ1Y3Qg
-KnZtYSwgc3RydWN0IHR0bV9idWZmZXJfb2JqZWN0ICpibykKK2ludCB0dG1fYm9fbW1hcF9vYmoo
-c3RydWN0IHZtX2FyZWFfc3RydWN0ICp2bWEsIHN0cnVjdCB0dG1fYnVmZmVyX29iamVjdCAqYm8p
-CiB7Ci0JaWYgKHZtYS0+dm1fcGdvZmYgIT0gMCkKLQkJcmV0dXJuIC1FQUNDRVM7Ci0KIAl0dG1f
-Ym9fZ2V0KGJvKTsKLQogCXR0bV9ib19tbWFwX3ZtYV9zZXR1cChibywgdm1hKTsKIAlyZXR1cm4g
-MDsKIH0KLUVYUE9SVF9TWU1CT0wodHRtX2ZiZGV2X21tYXApOworRVhQT1JUX1NZTUJPTCh0dG1f
-Ym9fbW1hcF9vYmopOwotLSAKMi4xOC4xCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fXwpkcmktZGV2ZWwgbWFpbGluZyBsaXN0CmRyaS1kZXZlbEBsaXN0cy5m
-cmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0
-aW5mby9kcmktZGV2ZWw=
+--===============0724933026==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_MN2PR12MB329607EB61BBC2CB91F8972FA2920MN2PR12MB3296namp_"
+
+--_000_MN2PR12MB329607EB61BBC2CB91F8972FA2920MN2PR12MB3296namp_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+add @Koenig, Christian<mailto:Christian.Koenig-5C7GfCeVMHo@public.gmane.org>,
+could you help me review it?
+
+Best Regards,
+Kevin
+
+________________________________
+From: Wang, Kevin(Yang) <Kevin1.Wang-5C7GfCeVMHo@public.gmane.org>
+Sent: Wednesday, October 16, 2019 11:06 AM
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: Wang, Kevin(Yang) <Kevin1.Wang-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH] drm/amdgpu: fix amdgpu trace event print string format err=
+or
+
+the trace event print string format error.
+(use integer type to handle string)
+
+before:
+amdgpu_test_kev-1556  [002]   138.508781: amdgpu_cs_ioctl:
+sched_job=3D8, timeline=3Dgfx_0.0.0, context=3D177, seqno=3D1,
+ring_name=3Dffff94d01c207bf0, num_ibs=3D2
+
+after:
+amdgpu_test_kev-1506  [004]   370.703783: amdgpu_cs_ioctl:
+sched_job=3D12, timeline=3Dgfx_0.0.0, context=3D234, seqno=3D2,
+ring_name=3Dgfx_0.0.0, num_ibs=3D1
+
+change trace event list:
+1.amdgpu_cs_ioctl
+2.amdgpu_sched_run_job
+3.amdgpu_ib_pipe_sync
+
+Signed-off-by: Kevin Wang <kevin1.wang-5C7GfCeVMHo@public.gmane.org>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h | 18 +++++++++---------
+ 1 file changed, 9 insertions(+), 9 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_trace.h
+index 8227ebd0f511..f940526c5889 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h
+@@ -170,7 +170,7 @@ TRACE_EVENT(amdgpu_cs_ioctl,
+                              __field(unsigned int, context)
+                              __field(unsigned int, seqno)
+                              __field(struct dma_fence *, fence)
+-                            __field(char *, ring_name)
++                            __string(ring, to_amdgpu_ring(job->base.sched)=
+->name)
+                              __field(u32, num_ibs)
+                              ),
+
+@@ -179,12 +179,12 @@ TRACE_EVENT(amdgpu_cs_ioctl,
+                            __assign_str(timeline, AMDGPU_JOB_GET_TIMELINE_=
+NAME(job))
+                            __entry->context =3D job->base.s_fence->finishe=
+d.context;
+                            __entry->seqno =3D job->base.s_fence->finished.=
+seqno;
+-                          __entry->ring_name =3D to_amdgpu_ring(job->base.=
+sched)->name;
++                          __assign_str(ring, to_amdgpu_ring(job->base.sche=
+d)->name)
+                            __entry->num_ibs =3D job->num_ibs;
+                            ),
+             TP_printk("sched_job=3D%llu, timeline=3D%s, context=3D%u, seqn=
+o=3D%u, ring_name=3D%s, num_ibs=3D%u",
+                       __entry->sched_job_id, __get_str(timeline), __entry-=
+>context,
+-                     __entry->seqno, __entry->ring_name, __entry->num_ibs)
++                     __entry->seqno, __get_str(ring), __entry->num_ibs)
+ );
+
+ TRACE_EVENT(amdgpu_sched_run_job,
+@@ -195,7 +195,7 @@ TRACE_EVENT(amdgpu_sched_run_job,
+                              __string(timeline, AMDGPU_JOB_GET_TIMELINE_NA=
+ME(job))
+                              __field(unsigned int, context)
+                              __field(unsigned int, seqno)
+-                            __field(char *, ring_name)
++                            __string(ring, to_amdgpu_ring(job->base.sched)=
+->name)
+                              __field(u32, num_ibs)
+                              ),
+
+@@ -204,12 +204,12 @@ TRACE_EVENT(amdgpu_sched_run_job,
+                            __assign_str(timeline, AMDGPU_JOB_GET_TIMELINE_=
+NAME(job))
+                            __entry->context =3D job->base.s_fence->finishe=
+d.context;
+                            __entry->seqno =3D job->base.s_fence->finished.=
+seqno;
+-                          __entry->ring_name =3D to_amdgpu_ring(job->base.=
+sched)->name;
++                          __assign_str(ring, to_amdgpu_ring(job->base.sche=
+d)->name)
+                            __entry->num_ibs =3D job->num_ibs;
+                            ),
+             TP_printk("sched_job=3D%llu, timeline=3D%s, context=3D%u, seqn=
+o=3D%u, ring_name=3D%s, num_ibs=3D%u",
+                       __entry->sched_job_id, __get_str(timeline), __entry-=
+>context,
+-                     __entry->seqno, __entry->ring_name, __entry->num_ibs)
++                     __entry->seqno, __get_str(ring), __entry->num_ibs)
+ );
+
+
+@@ -473,7 +473,7 @@ TRACE_EVENT(amdgpu_ib_pipe_sync,
+             TP_PROTO(struct amdgpu_job *sched_job, struct dma_fence *fence=
+),
+             TP_ARGS(sched_job, fence),
+             TP_STRUCT__entry(
+-                            __field(const char *,name)
++                            __string(ring, sched_job->base.sched->name);
+                              __field(uint64_t, id)
+                              __field(struct dma_fence *, fence)
+                              __field(uint64_t, ctx)
+@@ -481,14 +481,14 @@ TRACE_EVENT(amdgpu_ib_pipe_sync,
+                              ),
+
+             TP_fast_assign(
+-                          __entry->name =3D sched_job->base.sched->name;
++                          __assign_str(ring, sched_job->base.sched->name)
+                            __entry->id =3D sched_job->base.id;
+                            __entry->fence =3D fence;
+                            __entry->ctx =3D fence->context;
+                            __entry->seqno =3D fence->seqno;
+                            ),
+             TP_printk("job ring=3D%s, id=3D%llu, need pipe sync to fence=
+=3D%p, context=3D%llu, seq=3D%u",
+-                     __entry->name, __entry->id,
++                     __get_str(ring), __entry->id,
+                       __entry->fence, __entry->ctx,
+                       __entry->seqno)
+ );
+--
+2.17.1
+
+
+--_000_MN2PR12MB329607EB61BBC2CB91F8972FA2920MN2PR12MB3296namp_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+add <a id=3D"OWAAM231809" class=3D"_1OtrSZdhKXVv3UhaivrdJ4 mention ms-bgc-n=
+lr ms-fcl-b" href=3D"mailto:Christian.Koenig-5C7GfCeVMHo@public.gmane.org">
+@Koenig, Christian</a>,</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+could you help me review it?</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Best Regards,<br>
+Kevin</div>
+<div id=3D"appendonsend"></div>
+<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
+t; color:rgb(0,0,0)">
+<br>
+</div>
+<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" co=
+lor=3D"#000000" style=3D"font-size:11pt"><b>From:</b> Wang, Kevin(Yang) &lt=
+;Kevin1.Wang-5C7GfCeVMHo@public.gmane.org&gt;<br>
+<b>Sent:</b> Wednesday, October 16, 2019 11:06 AM<br>
+<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org &lt;amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&=
+gt;<br>
+<b>Cc:</b> Wang, Kevin(Yang) &lt;Kevin1.Wang-5C7GfCeVMHo@public.gmane.org&gt;<br>
+<b>Subject:</b> [PATCH] drm/amdgpu: fix amdgpu trace event print string for=
+mat error</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt"=
+>
+<div class=3D"PlainText">the trace event print string format error.<br>
+(use integer type to handle string)<br>
+<br>
+before:<br>
+amdgpu_test_kev-1556&nbsp; [002]&nbsp;&nbsp; 138.508781: amdgpu_cs_ioctl:<b=
+r>
+sched_job=3D8, timeline=3Dgfx_0.0.0, context=3D177, seqno=3D1,<br>
+ring_name=3Dffff94d01c207bf0, num_ibs=3D2<br>
+<br>
+after:<br>
+amdgpu_test_kev-1506&nbsp; [004]&nbsp;&nbsp; 370.703783: amdgpu_cs_ioctl:<b=
+r>
+sched_job=3D12, timeline=3Dgfx_0.0.0, context=3D234, seqno=3D2,<br>
+ring_name=3Dgfx_0.0.0, num_ibs=3D1<br>
+<br>
+change trace event list:<br>
+1.amdgpu_cs_ioctl<br>
+2.amdgpu_sched_run_job<br>
+3.amdgpu_ib_pipe_sync<br>
+<br>
+Signed-off-by: Kevin Wang &lt;kevin1.wang-5C7GfCeVMHo@public.gmane.org&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h | 18 &#43;&#43;&#43;&#43;&#=
+43;&#43;&#43;&#43;&#43;---------<br>
+&nbsp;1 file changed, 9 insertions(&#43;), 9 deletions(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_trace.h<br>
+index 8227ebd0f511..f940526c5889 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h<br>
+@@ -170,7 &#43;170,7 @@ TRACE_EVENT(amdgpu_cs_ioctl,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp; __field(unsigned int, context)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp; __field(unsigned int, seqno)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp; __field(struct dma_fence *, fence)<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; __field(char *, ring_name)<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp; __string(ring, to_amdgpu_ring(job-&gt;base.sched)-&gt;nam=
+e)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp; __field(u32, num_ibs)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp; ),<br>
+&nbsp;<br>
+@@ -179,12 &#43;179,12 @@ TRACE_EVENT(amdgpu_cs_ioctl,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp; __assign_str(timeline, AMDGPU_JOB_GET_TIMELINE_NAME(job))<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp; __entry-&gt;context =3D job-&gt;base.s_fence-&gt;finished.cont=
+ext;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp; __entry-&gt;seqno =3D job-&gt;base.s_fence-&gt;finished.seqno;=
+<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+; __entry-&gt;ring_name =3D to_amdgpu_ring(job-&gt;base.sched)-&gt;name;<br=
+>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp; __assign_str(ring, to_amdgpu_ring(job-&gt;base.sched)-&gt;name)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp; __entry-&gt;num_ibs =3D job-&gt;num_ibs;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp; ),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TP=
+_printk(&quot;sched_job=3D%llu, timeline=3D%s, context=3D%u, seqno=3D%u, ri=
+ng_name=3D%s, num_ibs=3D%u&quot;,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; __entry-&gt;sched=
+_job_id, __get_str(timeline), __entry-&gt;context,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; __entry-&gt;seqno, __entry-&=
+gt;ring_name, __entry-&gt;num_ibs)<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; __entry-&gt;seqno, __get=
+_str(ring), __entry-&gt;num_ibs)<br>
+&nbsp;);<br>
+&nbsp;<br>
+&nbsp;TRACE_EVENT(amdgpu_sched_run_job,<br>
+@@ -195,7 &#43;195,7 @@ TRACE_EVENT(amdgpu_sched_run_job,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp; __string(timeline, AMDGPU_JOB_GET_TIMELINE_NAME(jo=
+b))<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp; __field(unsigned int, context)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp; __field(unsigned int, seqno)<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; __field(char *, ring_name)<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp; __string(ring, to_amdgpu_ring(job-&gt;base.sched)-&gt;nam=
+e)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp; __field(u32, num_ibs)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp; ),<br>
+&nbsp;<br>
+@@ -204,12 &#43;204,12 @@ TRACE_EVENT(amdgpu_sched_run_job,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp; __assign_str(timeline, AMDGPU_JOB_GET_TIMELINE_NAME(job))<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp; __entry-&gt;context =3D job-&gt;base.s_fence-&gt;finished.cont=
+ext;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp; __entry-&gt;seqno =3D job-&gt;base.s_fence-&gt;finished.seqno;=
+<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+; __entry-&gt;ring_name =3D to_amdgpu_ring(job-&gt;base.sched)-&gt;name;<br=
+>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp; __assign_str(ring, to_amdgpu_ring(job-&gt;base.sched)-&gt;name)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp; __entry-&gt;num_ibs =3D job-&gt;num_ibs;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp; ),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TP=
+_printk(&quot;sched_job=3D%llu, timeline=3D%s, context=3D%u, seqno=3D%u, ri=
+ng_name=3D%s, num_ibs=3D%u&quot;,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; __entry-&gt;sched=
+_job_id, __get_str(timeline), __entry-&gt;context,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; __entry-&gt;seqno, __entry-&=
+gt;ring_name, __entry-&gt;num_ibs)<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; __entry-&gt;seqno, __get=
+_str(ring), __entry-&gt;num_ibs)<br>
+&nbsp;);<br>
+&nbsp;<br>
+&nbsp;<br>
+@@ -473,7 &#43;473,7 @@ TRACE_EVENT(amdgpu_ib_pipe_sync,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TP=
+_PROTO(struct amdgpu_job *sched_job, struct dma_fence *fence),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TP=
+_ARGS(sched_job, fence),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TP=
+_STRUCT__entry(<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; __field(const char *,name)<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp; __string(ring, sched_job-&gt;base.sched-&gt;name);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp; __field(uint64_t, id)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp; __field(struct dma_fence *, fence)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp; __field(uint64_t, ctx)<br>
+@@ -481,14 &#43;481,14 @@ TRACE_EVENT(amdgpu_ib_pipe_sync,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp; ),<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TP=
+_fast_assign(<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+; __entry-&gt;name =3D sched_job-&gt;base.sched-&gt;name;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp; __assign_str(ring, sched_job-&gt;base.sched-&gt;name)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp; __entry-&gt;id =3D sched_job-&gt;base.id;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp; __entry-&gt;fence =3D fence;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp; __entry-&gt;ctx =3D fence-&gt;context;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp; __entry-&gt;seqno =3D fence-&gt;seqno;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp; ),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TP=
+_printk(&quot;job ring=3D%s, id=3D%llu, need pipe sync to fence=3D%p, conte=
+xt=3D%llu, seq=3D%u&quot;,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; __entry-&gt;name, __entry-&g=
+t;id,<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; __get_str(ring), __entry=
+-&gt;id,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; __entry-&gt;fence=
+, __entry-&gt;ctx,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; __entry-&gt;seqno=
+)<br>
+&nbsp;);<br>
+-- <br>
+2.17.1<br>
+<br>
+</div>
+</span></font></div>
+</body>
+</html>
+
+--_000_MN2PR12MB329607EB61BBC2CB91F8972FA2920MN2PR12MB3296namp_--
+
+--===============0724933026==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+
+--===============0724933026==--
