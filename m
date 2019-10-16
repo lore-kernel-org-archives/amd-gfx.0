@@ -1,95 +1,87 @@
-From: Arvind Sankar <nivedita@alum.mit.edu>
-Subject: Re: AMDGPU and 16B stack alignment
-Date: Wed, 16 Oct 2019 14:55:00 -0400
-Message-ID: <20191016185500.GA2674383@rani>
-References: <CAKwvOdnDVe-dahZGnRtzMrx-AH_C+2Lf20qjFQHNtn9xh=Okzw@mail.gmail.com>
- <9e4d6378-5032-8521-13a9-d9d9519d07de@amd.com>
- <CAK8P3a3_Q15hKT=gyupb0FrPX1xV3tEBpVaYy1LF0kMUj2u8hw@mail.gmail.com>
- <CAKwvOdnLxm_tZ_qR1D-BE64Z3QaMC2h79ooobdRVAzmCD_2_Sg@mail.gmail.com>
- <20191015202636.GA1671072@rani>
- <CAKwvOd=yGXMwdoxKCD2gcEgevozf41jVmqCkW7CU=Xvd7mqtjw@mail.gmail.com>
+From: =?UTF-8?q?Marek=20Ol=C5=A1=C3=A1k?= <maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: libdrm 2.4.100
+Date: Wed, 16 Oct 2019 17:40:08 -0400
+Message-ID: <20191016214008.5538-1-maraeo@gmail.com>
+Reply-To: xorg-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Mime-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Content-Disposition: inline
-In-Reply-To: <CAKwvOd=yGXMwdoxKCD2gcEgevozf41jVmqCkW7CU=Xvd7mqtjw@mail.gmail.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Nick Desaulniers <ndesaulniers@google.com>
-Cc: Arvind Sankar <nivedita@alum.mit.edu>, Arnd Bergmann <arnd@arndb.de>, "S, Shirish" <sshankar@amd.com>, "Wentland, Harry" <Harry.Wentland@amd.com>, "Deucher, Alexander" <Alexander.Deucher@amd.com>, "yshuiv7@gmail.com" <yshuiv7@gmail.com>, "andrew.cooper3@citrix.com" <andrew.cooper3@citrix.com>, clang-built-linux <clang-built-linux@googlegroups.com>, Matthias Kaehlcke <mka@google.com>, "S, Shirish" <Shirish.S@amd.com>, "Zhou, David(ChunMing)" <David1.Zhou@amd.com>, "Koenig, Christian" <Christian.Koenig@amd.com>, amd-gfx list <amd-gfx@lists.freedesktop.org>, LKML <linux-kernel@vger.kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <xorg-announce-bounces-go0+a7rfsptAfugRpC6u6w@public.gmane.org>
+List-Unsubscribe: <https://lists.x.org/mailman/options/xorg-announce>,
+ <mailto:xorg-announce-request-go0+a7rfsptAfugRpC6u6w@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.x.org/archives/xorg-announce>
+List-Post: <mailto:xorg-announce-go0+a7rfsptAfugRpC6u6w@public.gmane.org>
+List-Help: <mailto:xorg-announce-request-go0+a7rfsptAfugRpC6u6w@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.x.org/mailman/listinfo/xorg-announce>,
+ <mailto:xorg-announce-request-go0+a7rfsptAfugRpC6u6w@public.gmane.org?subject=subscribe>
+Errors-To: xorg-announce-bounces-go0+a7rfsptAfugRpC6u6w@public.gmane.org
+Sender: "xorg-announce" <xorg-announce-bounces-go0+a7rfsptAfugRpC6u6w@public.gmane.org>
+To: dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, xorg-announce-go0+a7rfsptAfugRpC6u6w@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 List-Id: amd-gfx.lists.freedesktop.org
 
-On Tue, Oct 15, 2019 at 06:51:26PM -0700, Nick Desaulniers wrote:
-> On Tue, Oct 15, 2019 at 1:26 PM Arvind Sankar <nivedita@alum.mit.edu> wrote:
-> >
-> > On Tue, Oct 15, 2019 at 11:05:56AM -0700, Nick Desaulniers wrote:
-> > > Hmmm...I would have liked to remove it outright, as it is an ABI
-> > > mismatch that is likely to result in instability and non-fun-to-debug
-> > > runtime issues in the future.  I suspect my patch does work for GCC
-> > > 7.1+.  The question is: Do we want to either:
-> > > 1. mark AMDGPU broken for GCC < 7.1, or
-> > > 2. continue supporting it via stack alignment mismatch?
-> > >
-> > > 2 is brittle, and may break at any point in the future, but if it's
-> > > working for someone it does make me feel bad to outright disable it.
-> > > What I'd image 2 looks like is (psuedo code in a Makefile):
-> > >
-> > > if CC_IS_GCC && GCC_VERSION < 7.1:
-> > >   set stack alignment to 16B and hope for the best
-> > >
-> > > So my diff would be amended to keep the stack alignment flags, but
-> > > only to support GCC < 7.1.  And that assumes my change compiles with
-> > > GCC 7.1+. (Looks like it does for me locally with GCC 8.3, but I would
-> > > feel even more confident if someone with hardware to test on and GCC
-> > > 7.1+ could boot test).
-> > > --
-> > > Thanks,
-> > > ~Nick Desaulniers
-> >
-> > If we do keep it, would adding -mstackrealign make it more robust?
-> > That's simple and will only add the alignment to functions that require
-> > 16-byte alignment (at least on gcc).
-> 
-> I think there's also `-mincoming-stack-boundary=`.
-> https://github.com/ClangBuiltLinux/linux/issues/735#issuecomment-540038017
-
-Yes, but -mstackrealign looks like it's supported by clang as well.
-> 
-> >
-> > Alternative is to use
-> > __attribute__((force_align_arg_pointer)) on functions that might be
-> > called from 8-byte-aligned code.
-> 
-> Which is hard to automate and easy to forget.  Likely a large diff to fix today.
-
-Right, this is a no-go, esp to just fix old compilers.
-> 
-> >
-> > It looks like -mstackrealign should work from gcc 5.3 onwards.
-> 
-> The kernel would generally like to support GCC 4.9+.
-> 
-> There's plenty of different ways to keep layering on duct tape and
-> bailing wire to support differing ABIs, but that's just adding
-> technical debt that will have to be repaid one day.  That's why the
-> cleanest solution IMO is mark the driver broken for old toolchains,
-> and use a code-base-consistent stack alignment.  Bending over
-> backwards to support old toolchains means accepting stack alignment
-> mismatches, which is in the "unspecified behavior" ring of the
-> "undefined behavior" Venn diagram.  I have the same opinion on relying
-> on explicitly undefined behavior.
-> 
-> I'll send patches for fixing up Clang, but please consider my strong
-> advice to generally avoid stack alignment mismatches, regardless of
-> compiler.
-> --
-> Thanks,
-> ~Nick Desaulniers
-
-What I suggested was in reference to your proposal for dropping the
--mpreferred-stack-boundary=4 for modern compilers, but keeping it for
-<7.1. -mstackrealign would at least let 5.3 onwards be less likely to
-break (and it doesn't error before then, I think it just doesn't
-actually do anything, so no worse than now at least).
-
-Simply dropping support for <7.1 would be cleanest, yes, but it sounds
-like people don't want to go that far.
+LS0tLS1CRUdJTiBQR1AgU0lHTkVEIE1FU1NBR0UtLS0tLQpIYXNoOiBTSEE1MTIKCgpBbnVzaGEg
+U3JpdmF0c2EgKDEpOgogICAgICBpbnRlbDogc3luYyBpOTE1X3BjaWlkcy5oIHdpdGgga2VybmVs
+CgpFbWlsIFZlbGlrb3YgKDEpOgogICAgICAqLXN5bWJvbHMtY2hlY2s6IHVzZSBub3JtYWwgc2hl
+bGwgb3ZlciBiYXNoCgpFcmljIEVuZ2VzdHJvbSAoNyk6CiAgICAgIHhmODZkcm06IGRlZHVwZSBg
+I2RlZmluZWBzCiAgICAgIHhmODZkcm06IHVzZSBtYXggc2l6ZSBvZiBkcm0gbm9kZSBuYW1lIGlu
+c3RlYWQgb2YgYXJiaXRyYXJ5IHNpemUKICAgICAgeGY4NmRybTogZGVkdXBlIGRybUdldERldmlj
+ZU5hbWUoKSBsb2dpYwogICAgICBtZXNvbjogZml4IHN5cy9ta2Rldi5oIGRldGVjdGlvbiBvbiBT
+b2xhcmlzCiAgICAgICotc3ltYm9scy1jaGVjazogbGV0IG1lc29uIGZpZ3VyZSBvdXQgaG93IHRv
+IGV4ZWN1dGUgdGhlIHNjcmlwdHMKICAgICAgUkVMRUFTSU5HOiB1cGRhdGUgaW5zdHJ1Y3Rpb25z
+IHRvIHVzZSBtZXNvbiBpbnN0ZWFkIG9mIGF1dG90b29scwogICAgICBsaWJkcm06IHJlbW92ZSBh
+dXRvdG9vbHMgc3VwcG9ydAoKRmxvcmEgQ3VpICgzKToKICAgICAgdGVzdHMvYW1kZ3B1OiBmaXgg
+Zm9yIGRpc3BhdGNoL2RyYXcgdGVzdAogICAgICB0ZXN0cy9hbWRncHU6IGFkZCBncHUgcmVzZXQg
+dGVzdAogICAgICB0ZXN0cy9hbWRncHU6IGRpc2FibGUgcmVzZXQgdGVzdCBmb3Igbm93CgpHdWNo
+dW4gQ2hlbiAoNyk6CiAgICAgIGFtZGdwdTogYWRkIGdmeCByYXMgaW5qZWN0IGNvbmZpZ3VyYXRp
+b24gZmlsZQogICAgICB0ZXN0cy9hbWRncHUvcmFzOiByZWZpbmUgcmFzIGluamVjdCB0ZXN0CiAg
+ICAgIGFtZGdwdTogYWRkIHVtYyByYXMgaW5qZWN0IHRlc3QgY29uZmlndXJhdGlvbgogICAgICBh
+bWRncHU6IHJlbW92ZSBqc29uIHBhY2thZ2UgZGVwZW5kZW5jZQogICAgICBhbWRncHU6IGRlbGV0
+ZSB0ZXN0IGNvbmZpZ3VyYXRpb24gZmlsZQogICAgICBhbWRncHU6IGFkZCByYXMgaW5qZWN0IHVu
+aXQgdGVzdAogICAgICBhbWRncHU6IGFkZCByYXMgZmVhdHVyZSBjYXBhYmlsaXR5IGNoZWNrIGlu
+IGluamVjdCB0ZXN0CgpJbGlhIE1pcmtpbiAoMSk6CiAgICAgIHRlc3RzL3V0aWw6IGZpeCBpbmNv
+cnJlY3QgbWVtc2V0IGFyZ3VtZW50IG9yZGVyCgpKb25hdGhhbiBHcmF5ICgyKToKICAgICAgeGY4
+NmRybTogdGVzdCBmb3IgcmVuZGVyIG5vZGVzIGJlZm9yZSBwcmltYXJ5IG5vZGVzCiAgICAgIHhm
+ODZkcm06IG9wZW4gY29ycmVjdCByZW5kZXIgbm9kZSBvbiBub24tbGludXgKCkxlIE1hICgyKToK
+ICAgICAgdGVzdHMvYW1kZ3B1OiBkaXZpZGUgZGlzcGF0Y2ggdGVzdCBpbnRvIGNvbXB1dGUgYW5k
+IGdmeAogICAgICB0ZXN0cy9hbWRncHU6IGFkZCB0aGUgbWlzc2luZyBkZWFjdGl2YXRpb24gY2Fz
+ZSBmb3IgZGlzcGF0Y2ggdGVzdAoKTHVjYXMgRGUgTWFyY2hpICgxKToKICAgICAgaW50ZWw6IHN5
+bmMgaTkxNV9wY2lpZHMuaCB3aXRoIGtlcm5lbAoKTWFyZWsgT2zFocOhayAoNSk6CiAgICAgIGlu
+Y2x1ZGU6IHVwZGF0ZSBhbWRncHVfZHJtLmgKICAgICAgYW1kZ3B1OiBhZGQgYW1kZ3B1X2NzX3F1
+ZXJ5X3Jlc2V0X3N0YXRlMiBmb3IgQU1ER1BVX0NUWF9PUF9RVUVSWV9TVEFURTIKICAgICAgQnVt
+cCB0aGUgdmVyc2lvbiB0byAyLjQuMTAwCiAgICAgIFJldmVydCAibGliZHJtOiByZW1vdmUgYXV0
+b3Rvb2xzIHN1cHBvcnQiCiAgICAgIEJ1bXAgdGhlIHZlcnNpb24gdG8gMi40LjEwMCBmb3IgYXV0
+b3Rvb2xzCgpOaWNsYXMgWmVpc2luZyAoMik6CiAgICAgIG1lc29uLmJ1aWxkOiBGaXggdHlwbwog
+ICAgICBtZXNvbi5idWlsZDogRml4IGhlYWRlciBkZXRlY3Rpb24gb24gRnJlZUJTRAoKTmlybW95
+IERhcyAoMSk6CiAgICAgIHRlc3QvYW1kZ3B1OiBkb24ndCBmcmVlIHVudXNlZCBibyBoYW5kbGUK
+ClJvZHJpZ28gVml2aSAoMik6CiAgICAgIGludGVsOiBhZGQgdGhlIFRHTCAxMiBQQ0kgSURzIGFu
+ZCBtYWNyb3MKICAgICAgaW50ZWw6IEFkZCBzdXBwb3J0IGZvciBFSEwKCmdpdCB0YWc6IGxpYmRy
+bS0yLjQuMTAwCgpodHRwczovL2RyaS5mcmVlZGVza3RvcC5vcmcvbGliZHJtL2xpYmRybS0yLjQu
+MTAwLnRhci5iejIKTUQ1OiAgZjQ3YmM4N2UyODE5OGJhNTI3ZTZiNDRmZmRkNjJmNjUgIGxpYmRy
+bS0yLjQuMTAwLnRhci5iejIKU0hBMTogOWY1MjY5MDlhYmEwOGI1NjU4Y2ZiYTNmN2ZkZTkzODVj
+YWQ2ZjNiNSAgbGliZHJtLTIuNC4xMDAudGFyLmJ6MgpTSEEyNTY6IGM3N2NjODI4MTg2YzljZWVj
+M2U1NmFlMjAyYjQzZWU5OWViOTMyYjRhODcyNTUwMzhhODBlOGExMDYwZDBhNWQgIGxpYmRybS0y
+LjQuMTAwLnRhci5iejIKU0hBNTEyOiA0ZDNhNTU1NmU2NTA4NzI5NDRhZjUyZjQ5ZGUzOTVlMGNl
+OGFjOWFjNTg1MzBlMzlhMzQ0MTNlOTRkYzU2YzIzMWVlNzFiOGI4ZGU5ZmI5NDQyNjM1MTVhOTIy
+YjNlYmJmN2RkZmViZWFhYTkxNTQzYzI2MDRmOWJjZjU2MTI0NyAgbGliZHJtLTIuNC4xMDAudGFy
+LmJ6MgpQR1A6ICBodHRwczovL2RyaS5mcmVlZGVza3RvcC5vcmcvbGliZHJtL2xpYmRybS0yLjQu
+MTAwLnRhci5iejIuc2lnCgpodHRwczovL2RyaS5mcmVlZGVza3RvcC5vcmcvbGliZHJtL2xpYmRy
+bS0yLjQuMTAwLnRhci5negpNRDU6ICBjNDdiMTcxODczNGNjNjYxNzM0ZWQ2M2Y5NGJjMjdjMSAg
+bGliZHJtLTIuNC4xMDAudGFyLmd6ClNIQTE6IDIwOTdmMGI5OGRlYWZmMTZiOGYzYjkzY2VkY2I1
+Y2QzNTI5MWEzYzEgIGxpYmRybS0yLjQuMTAwLnRhci5negpTSEEyNTY6IDZhNTMzN2MwNTRjMGM0
+N2JjMTY2MDdhMjFlZmEyYjYyMmUwODAzMGJlNDEwMWVmNGEyNDFjNWViMDViNjYxOWIgIGxpYmRy
+bS0yLjQuMTAwLnRhci5negpTSEE1MTI6IGI2MTgzNTQ3M2M3NzY5MWM0YThlNjdiMzJiOWRmNDIw
+NjYxZThiZjg3MDA1MDczMzRiNThiZGU1ZTZhNDAyZGVlNGFlYTJiZWMxZTViODMzNDNkZDI4ZmNi
+NmNmOWZkMDg0MDY0ZDQzNzMzMmYxNzhkZjgxYzQ3ODA1NTI1OTViICBsaWJkcm0tMi40LjEwMC50
+YXIuZ3oKUEdQOiAgaHR0cHM6Ly9kcmkuZnJlZWRlc2t0b3Aub3JnL2xpYmRybS9saWJkcm0tMi40
+LjEwMC50YXIuZ3ouc2lnCgotLS0tLUJFR0lOIFBHUCBTSUdOQVRVUkUtLS0tLQoKaVFFekJBRUJD
+Z0FkRmlFRXpVZkZOQm8zWHpPKzk3cjYvZEZkV3M3dzhyRUZBbDJuamhFQUNna1EvZEZkV3M3dwo4
+ckhsOUFmK09EdmRpVWxiZTIwdU9kOHZCRFZGZ0lSNVo0SjhhRnIvYlVKN1p4WFNBeXRXZ2xmWTZU
+aDlVODlICnNONlV5WGVzOXRyM09oQW90QmdaMkxZaDFCRE0xOFhTQklkdGVxUXo5dWlhWmZ3K0w4
+T25acTNlaWtKOEF4bHcKYkNiSlp0V2ExN0tKUWpGUjdDdjNXb3pzYW9wS0ptN0E2Y1hIbXVoazFs
+cTl1a1VCRFBDUUlxYXFmOUsrelRCUQpzSVY4d2xpQW1FSzNzOXRSaFQzdnNrMTJEbURmTzBrVU41
+MDR2T1hkT2poQUNsRE4wM00wdzRSWHFERU5HN2d6CnFtN2VIZ0U3dWdxa0N4QlBHZE5mVFNJb2Ft
+RlZPYU5SL1BDcXp0NS82Vk1hVzlvRktTVFRneWdsclZVanVsRTYKQVpSREhQZFE5RDZQODRXcFB0
+QVdPdWc0RUpoVnVRPT0KPU5rTDgKLS0tLS1FTkQgUEdQIFNJR05BVFVSRS0tLS0tCl9fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCnhvcmctYW5ub3VuY2UgbWFp
+bGluZyBsaXN0CnhvcmctYW5ub3VuY2VAbGlzdHMueC5vcmcKaHR0cHM6Ly9saXN0cy54Lm9yZy9t
+YWlsbWFuL2xpc3RpbmZvL3hvcmctYW5ub3VuY2U=
