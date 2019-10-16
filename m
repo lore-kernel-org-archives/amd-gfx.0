@@ -1,10 +1,12 @@
 From: Nick Desaulniers <ndesaulniers@google.com>
-Subject: [PATCH 0/3] drm/amdgpu: fix stack alignment ABI mismatch
-Date: Wed, 16 Oct 2019 16:02:06 -0700
-Message-ID: <20191016230209.39663-1-ndesaulniers@google.com>
+Subject: [PATCH 1/3] drm/amdgpu: fix stack alignment ABI mismatch for Clang
+Date: Wed, 16 Oct 2019 16:02:07 -0700
+Message-ID: <20191016230209.39663-2-ndesaulniers@google.com>
+References: <20191016230209.39663-1-ndesaulniers@google.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="UTF-8"
 Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20191016230209.39663-1-ndesaulniers@google.com>
 Sender: linux-kernel-owner@vger.kernel.org
 To: harry.wentland@amd.com, alexander.deucher@amd.com
 Cc: yshuiv7@gmail.com, andrew.cooper3@citrix.com, arnd@arndb.de, clang-built-linux@googlegroups.com, mka@google.com, shirish.s@amd.com, David1.Zhou@amd.com, christian.koenig@amd.com, amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org, Nick Desaulniers <ndesaulniers@google.com>
@@ -33,47 +35,132 @@ assumes 16B stack alignment.  When the stack is a multiple of 8B but not
 16B, these instructions result in a GPF.
 
 Remove the code that added compatibility between the differing compiler
-flags, as it will result in runtime GPFs when built with Clang.
+flags, as it will result in runtime GPFs when built with Clang. Cleanups
+for GCC will be sent in later patches in the series.
 
-The series is broken into 3 patches, the first is an important fix for
-Clang for ChromeOS. The rest are attempted cleanups for GCC, but require
-additional boot testing. The first patch is critical, the rest are nice
-to have. I've compile tested the series with ToT Clang, GCC 4.9, and GCC
-8.3 **but** I do not have hardware to test on, so I need folks with the
-above compilers and relevant hardware to help test the series.
+Link: https://github.com/ClangBuiltLinux/linux/issues/735
+Debugged-by: Yuxuan Shui <yshuiv7@gmail.com>
+Reported-by: Shirish S <shirish.s@amd.com>
+Reported-by: Yuxuan Shui <yshuiv7@gmail.com>
+Suggested-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Signed-off-by: Nick Desaulniers <ndesaulniers@google.com>
+---
+ drivers/gpu/drm/amd/display/dc/calcs/Makefile | 10 ++++------
+ drivers/gpu/drm/amd/display/dc/dcn20/Makefile | 10 ++++------
+ drivers/gpu/drm/amd/display/dc/dcn21/Makefile | 10 ++++------
+ drivers/gpu/drm/amd/display/dc/dml/Makefile   | 10 ++++------
+ drivers/gpu/drm/amd/display/dc/dsc/Makefile   | 10 ++++------
+ 5 files changed, 20 insertions(+), 30 deletions(-)
 
-The first patch is a functional change for Clang only. It does not
-change anything for any version of GCC. Yuxuan boot tested a previous
-incarnation on hardware, but I've changed it enough that I think it made
-sense to drop the previous tested by tag.
-
-The second patch is a functional change for GCC 7.1+ only. It does not
-affect older versions of GCC or Clang (though if someone wanted to
-double check with pre-GCC 7.1 it wouldn't hurt).  It should be boot
-tested on GCC 7.1+ on the relevant hardware.
-
-The final patch is also a functional change for GCC 7.1+ only. It does
-not affect older versions of GCC or Clang. It should be boot tested on
-GCC 7.1+ on the relevant hardware. Theoretically, there may be an issue
-with it, and it's ok to drop it. The series was intentional broken into
-3 in order to allow them to be incrementally tested and accepted. It's
-ok to take earlier patches without the later patches.
-
-And finally, I do not condone linking object files of differing stack
-alignments.  Idealistically, we'd mark the driver broken for pre-GCC
-7.1.  Pragmatically, "if it ain't broke, don't fix it."
-
-Nick Desaulniers (3):
-  drm/amdgpu: fix stack alignment ABI mismatch for Clang
-  drm/amdgpu: fix stack alignment ABI mismatch for GCC 7.1+
-  drm/amdgpu: enable -msse2 for GCC 7.1+ users
-
- drivers/gpu/drm/amd/display/dc/calcs/Makefile | 19 ++++++++++++-------
- drivers/gpu/drm/amd/display/dc/dcn20/Makefile | 19 ++++++++++++-------
- drivers/gpu/drm/amd/display/dc/dcn21/Makefile | 19 ++++++++++++-------
- drivers/gpu/drm/amd/display/dc/dml/Makefile   | 19 ++++++++++++-------
- drivers/gpu/drm/amd/display/dc/dsc/Makefile   | 19 ++++++++++++-------
- 5 files changed, 60 insertions(+), 35 deletions(-)
-
+diff --git a/drivers/gpu/drm/amd/display/dc/calcs/Makefile b/drivers/gpu/drm/amd/display/dc/calcs/Makefile
+index 985633c08a26..4b1a8a08a5de 100644
+--- a/drivers/gpu/drm/amd/display/dc/calcs/Makefile
++++ b/drivers/gpu/drm/amd/display/dc/calcs/Makefile
+@@ -24,13 +24,11 @@
+ # It calculates Bandwidth and Watermarks values for HW programming
+ #
+ 
+-ifneq ($(call cc-option, -mpreferred-stack-boundary=4),)
+-	cc_stack_align := -mpreferred-stack-boundary=4
+-else ifneq ($(call cc-option, -mstack-alignment=16),)
+-	cc_stack_align := -mstack-alignment=16
+-endif
++calcs_ccflags := -mhard-float -msse
+ 
+-calcs_ccflags := -mhard-float -msse $(cc_stack_align)
++ifdef CONFIG_CC_IS_GCC
++calcs_ccflags += -mpreferred-stack-boundary=4
++endif
+ 
+ ifdef CONFIG_CC_IS_CLANG
+ calcs_ccflags += -msse2
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/Makefile b/drivers/gpu/drm/amd/display/dc/dcn20/Makefile
+index ddb8d5649e79..5fe3eb80075d 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn20/Makefile
++++ b/drivers/gpu/drm/amd/display/dc/dcn20/Makefile
+@@ -10,13 +10,11 @@ ifdef CONFIG_DRM_AMD_DC_DSC_SUPPORT
+ DCN20 += dcn20_dsc.o
+ endif
+ 
+-ifneq ($(call cc-option, -mpreferred-stack-boundary=4),)
+-	cc_stack_align := -mpreferred-stack-boundary=4
+-else ifneq ($(call cc-option, -mstack-alignment=16),)
+-	cc_stack_align := -mstack-alignment=16
+-endif
++CFLAGS_$(AMDDALPATH)/dc/dcn20/dcn20_resource.o := -mhard-float -msse
+ 
+-CFLAGS_$(AMDDALPATH)/dc/dcn20/dcn20_resource.o := -mhard-float -msse $(cc_stack_align)
++ifdef CONFIG_CC_IS_GCC
++CFLAGS_$(AMDDALPATH)/dc/dcn20/dcn20_resource.o += -mpreferred-stack-boundary=4
++endif
+ 
+ ifdef CONFIG_CC_IS_CLANG
+ CFLAGS_$(AMDDALPATH)/dc/dcn20/dcn20_resource.o += -msse2
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn21/Makefile b/drivers/gpu/drm/amd/display/dc/dcn21/Makefile
+index ef673bffc241..7057e20748b9 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn21/Makefile
++++ b/drivers/gpu/drm/amd/display/dc/dcn21/Makefile
+@@ -3,13 +3,11 @@
+ 
+ DCN21 = dcn21_hubp.o dcn21_hubbub.o dcn21_resource.o
+ 
+-ifneq ($(call cc-option, -mpreferred-stack-boundary=4),)
+-	cc_stack_align := -mpreferred-stack-boundary=4
+-else ifneq ($(call cc-option, -mstack-alignment=16),)
+-	cc_stack_align := -mstack-alignment=16
+-endif
++CFLAGS_$(AMDDALPATH)/dc/dcn21/dcn21_resource.o := -mhard-float -msse
+ 
+-CFLAGS_$(AMDDALPATH)/dc/dcn21/dcn21_resource.o := -mhard-float -msse $(cc_stack_align)
++ifdef CONFIG_CC_IS_GCC
++CFLAGS_$(AMDDALPATH)/dc/dcn21/dcn21_resource.o += -mpreferred-stack-boundary=4
++endif
+ 
+ ifdef CONFIG_CC_IS_CLANG
+ CFLAGS_$(AMDDALPATH)/dc/dcn21/dcn21_resource.o += -msse2
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/Makefile b/drivers/gpu/drm/amd/display/dc/dml/Makefile
+index 5b2a65b42403..1bd6e307b7f8 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/Makefile
++++ b/drivers/gpu/drm/amd/display/dc/dml/Makefile
+@@ -24,13 +24,11 @@
+ # It provides the general basic services required by other DAL
+ # subcomponents.
+ 
+-ifneq ($(call cc-option, -mpreferred-stack-boundary=4),)
+-	cc_stack_align := -mpreferred-stack-boundary=4
+-else ifneq ($(call cc-option, -mstack-alignment=16),)
+-	cc_stack_align := -mstack-alignment=16
+-endif
++dml_ccflags := -mhard-float -msse
+ 
+-dml_ccflags := -mhard-float -msse $(cc_stack_align)
++ifdef CONFIG_CC_IS_GCC
++dml_ccflags += -mpreferred-stack-boundary=4
++endif
+ 
+ ifdef CONFIG_CC_IS_CLANG
+ dml_ccflags += -msse2
+diff --git a/drivers/gpu/drm/amd/display/dc/dsc/Makefile b/drivers/gpu/drm/amd/display/dc/dsc/Makefile
+index b456cd23c6fa..932c3055230e 100644
+--- a/drivers/gpu/drm/amd/display/dc/dsc/Makefile
++++ b/drivers/gpu/drm/amd/display/dc/dsc/Makefile
+@@ -1,13 +1,11 @@
+ #
+ # Makefile for the 'dsc' sub-component of DAL.
+ 
+-ifneq ($(call cc-option, -mpreferred-stack-boundary=4),)
+-	cc_stack_align := -mpreferred-stack-boundary=4
+-else ifneq ($(call cc-option, -mstack-alignment=16),)
+-	cc_stack_align := -mstack-alignment=16
+-endif
++dsc_ccflags := -mhard-float -msse
+ 
+-dsc_ccflags := -mhard-float -msse $(cc_stack_align)
++ifdef CONFIG_CC_IS_GCC
++dsc_ccflags += -mpreferred-stack-boundary=4
++endif
+ 
+ ifdef CONFIG_CC_IS_CLANG
+ dsc_ccflags += -msse2
 -- 
 2.23.0.700.g56cf767bdb-goog
