@@ -1,13 +1,14 @@
-From: "Wang, Kevin(Yang)" <Kevin1.Wang-5C7GfCeVMHo@public.gmane.org>
+From: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
 Subject: Re: [PATCH] drm/amdgpu: fix amdgpu trace event print string format
  error
-Date: Wed, 16 Oct 2019 12:01:13 +0000
-Message-ID: <MN2PR12MB329607EB61BBC2CB91F8972FA2920@MN2PR12MB3296.namprd12.prod.outlook.com>
+Date: Wed, 16 Oct 2019 12:15:39 +0000
+Message-ID: <d0b2c610-ae32-7272-18fb-d3b970fd7947@amd.com>
 References: <20191016030606.6750-1-kevin1.wang@amd.com>
+ <MN2PR12MB329607EB61BBC2CB91F8972FA2920@MN2PR12MB3296.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0724933026=="
+Content-Type: multipart/mixed; boundary="===============0311718247=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20191016030606.6750-1-kevin1.wang-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <MN2PR12MB329607EB61BBC2CB91F8972FA2920-rweVpJHSKTqAm9ToKNQgFgdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -19,441 +20,408 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Koenig,
- Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
+To: "Wang, Kevin(Yang)" <Kevin1.Wang-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============0724933026==
+--===============0311718247==
 Content-Language: en-US
 Content-Type: multipart/alternative;
-	boundary="_000_MN2PR12MB329607EB61BBC2CB91F8972FA2920MN2PR12MB3296namp_"
+	boundary="_000_d0b2c610ae32727218fbd3b970fd7947amdcom_"
 
---_000_MN2PR12MB329607EB61BBC2CB91F8972FA2920MN2PR12MB3296namp_
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+--_000_d0b2c610ae32727218fbd3b970fd7947amdcom_
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-add @Koenig, Christian<mailto:Christian.Koenig-5C7GfCeVMHo@public.gmane.org>,
-could you help me review it?
+SGkgS2V2aW4sDQoNCndlbGwgdGhhdCBjb3BpZXMgdGhlIHN0cmluZyBpbnRvIHRoZSByaW5nIGJ1
+ZmZlciBldmVyeSB0aW1lIHRoZSB0cmFjZSBldmVudCBpcyBjYWxsZWQgd2hpY2ggaXMgbm90IG5l
+Y2Vzc2FyeSBhIGdvb2QgaWRlYSBmb3IgYSBjb25zdGFudCBzdHJpbmcuDQoNCkNhbid0IHdlIGF2
+b2lkIHRoYXQgc29tZWhvdz8NCg0KVGhhbmtzLA0KQ2hyaXN0aWFuLg0KDQpBbSAxNi4xMC4xOSB1
+bSAxNDowMSBzY2hyaWViIFdhbmcsIEtldmluKFlhbmcpOg0KYWRkIEBLb2VuaWcsIENocmlzdGlh
+bjxtYWlsdG86Q2hyaXN0aWFuLktvZW5pZ0BhbWQuY29tPiwNCmNvdWxkIHlvdSBoZWxwIG1lIHJl
+dmlldyBpdD8NCg0KQmVzdCBSZWdhcmRzLA0KS2V2aW4NCg0KX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX18NCkZyb206IFdhbmcsIEtldmluKFlhbmcpIDxLZXZpbjEuV2FuZ0BhbWQuY29t
+PjxtYWlsdG86S2V2aW4xLldhbmdAYW1kLmNvbT4NClNlbnQ6IFdlZG5lc2RheSwgT2N0b2JlciAx
+NiwgMjAxOSAxMTowNiBBTQ0KVG86IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnPG1haWx0
+bzphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZz4gPGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0
+b3Aub3JnPjxtYWlsdG86YW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmc+DQpDYzogV2FuZywg
+S2V2aW4oWWFuZykgPEtldmluMS5XYW5nQGFtZC5jb20+PG1haWx0bzpLZXZpbjEuV2FuZ0BhbWQu
+Y29tPg0KU3ViamVjdDogW1BBVENIXSBkcm0vYW1kZ3B1OiBmaXggYW1kZ3B1IHRyYWNlIGV2ZW50
+IHByaW50IHN0cmluZyBmb3JtYXQgZXJyb3INCg0KdGhlIHRyYWNlIGV2ZW50IHByaW50IHN0cmlu
+ZyBmb3JtYXQgZXJyb3IuDQoodXNlIGludGVnZXIgdHlwZSB0byBoYW5kbGUgc3RyaW5nKQ0KDQpi
+ZWZvcmU6DQphbWRncHVfdGVzdF9rZXYtMTU1NiAgWzAwMl0gICAxMzguNTA4NzgxOiBhbWRncHVf
+Y3NfaW9jdGw6DQpzY2hlZF9qb2I9OCwgdGltZWxpbmU9Z2Z4XzAuMC4wLCBjb250ZXh0PTE3Nywg
+c2Vxbm89MSwNCnJpbmdfbmFtZT1mZmZmOTRkMDFjMjA3YmYwLCBudW1faWJzPTINCg0KYWZ0ZXI6
+DQphbWRncHVfdGVzdF9rZXYtMTUwNiAgWzAwNF0gICAzNzAuNzAzNzgzOiBhbWRncHVfY3NfaW9j
+dGw6DQpzY2hlZF9qb2I9MTIsIHRpbWVsaW5lPWdmeF8wLjAuMCwgY29udGV4dD0yMzQsIHNlcW5v
+PTIsDQpyaW5nX25hbWU9Z2Z4XzAuMC4wLCBudW1faWJzPTENCg0KY2hhbmdlIHRyYWNlIGV2ZW50
+IGxpc3Q6DQoxLmFtZGdwdV9jc19pb2N0bA0KMi5hbWRncHVfc2NoZWRfcnVuX2pvYg0KMy5hbWRn
+cHVfaWJfcGlwZV9zeW5jDQoNClNpZ25lZC1vZmYtYnk6IEtldmluIFdhbmcgPGtldmluMS53YW5n
+QGFtZC5jb20+PG1haWx0bzprZXZpbjEud2FuZ0BhbWQuY29tPg0KLS0tDQogZHJpdmVycy9ncHUv
+ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3RyYWNlLmggfCAxOCArKysrKysrKystLS0tLS0tLS0NCiAx
+IGZpbGUgY2hhbmdlZCwgOSBpbnNlcnRpb25zKCspLCA5IGRlbGV0aW9ucygtKQ0KDQpkaWZmIC0t
+Z2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3RyYWNlLmggYi9kcml2ZXJz
+L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdHJhY2UuaA0KaW5kZXggODIyN2ViZDBmNTExLi5m
+OTQwNTI2YzU4ODkgMTAwNjQ0DQotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
+cHVfdHJhY2UuaA0KKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3RyYWNl
+LmgNCkBAIC0xNzAsNyArMTcwLDcgQEAgVFJBQ0VfRVZFTlQoYW1kZ3B1X2NzX2lvY3RsLA0KICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgX19maWVsZCh1bnNpZ25lZCBpbnQsIGNvbnRleHQp
+DQogICAgICAgICAgICAgICAgICAgICAgICAgICAgICBfX2ZpZWxkKHVuc2lnbmVkIGludCwgc2Vx
+bm8pDQogICAgICAgICAgICAgICAgICAgICAgICAgICAgICBfX2ZpZWxkKHN0cnVjdCBkbWFfZmVu
+Y2UgKiwgZmVuY2UpDQotICAgICAgICAgICAgICAgICAgICAgICAgICAgIF9fZmllbGQoY2hhciAq
+LCByaW5nX25hbWUpDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgIF9fc3RyaW5nKHJpbmcs
+IHRvX2FtZGdwdV9yaW5nKGpvYi0+YmFzZS5zY2hlZCktPm5hbWUpDQogICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICBfX2ZpZWxkKHUzMiwgbnVtX2licykNCiAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICksDQoNCkBAIC0xNzksMTIgKzE3OSwxMiBAQCBUUkFDRV9FVkVOVChhbWRncHVf
+Y3NfaW9jdGwsDQogICAgICAgICAgICAgICAgICAgICAgICAgICAgX19hc3NpZ25fc3RyKHRpbWVs
+aW5lLCBBTURHUFVfSk9CX0dFVF9USU1FTElORV9OQU1FKGpvYikpDQogICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgX19lbnRyeS0+Y29udGV4dCA9IGpvYi0+YmFzZS5zX2ZlbmNlLT5maW5pc2hl
+ZC5jb250ZXh0Ow0KICAgICAgICAgICAgICAgICAgICAgICAgICAgIF9fZW50cnktPnNlcW5vID0g
+am9iLT5iYXNlLnNfZmVuY2UtPmZpbmlzaGVkLnNlcW5vOw0KLSAgICAgICAgICAgICAgICAgICAg
+ICAgICAgX19lbnRyeS0+cmluZ19uYW1lID0gdG9fYW1kZ3B1X3Jpbmcoam9iLT5iYXNlLnNjaGVk
+KS0+bmFtZTsNCisgICAgICAgICAgICAgICAgICAgICAgICAgIF9fYXNzaWduX3N0cihyaW5nLCB0
+b19hbWRncHVfcmluZyhqb2ItPmJhc2Uuc2NoZWQpLT5uYW1lKQ0KICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgIF9fZW50cnktPm51bV9pYnMgPSBqb2ItPm51bV9pYnM7DQogICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgKSwNCiAgICAgICAgICAgICBUUF9wcmludGsoInNjaGVkX2pvYj0lbGx1
+LCB0aW1lbGluZT0lcywgY29udGV4dD0ldSwgc2Vxbm89JXUsIHJpbmdfbmFtZT0lcywgbnVtX2li
+cz0ldSIsDQogICAgICAgICAgICAgICAgICAgICAgIF9fZW50cnktPnNjaGVkX2pvYl9pZCwgX19n
+ZXRfc3RyKHRpbWVsaW5lKSwgX19lbnRyeS0+Y29udGV4dCwNCi0gICAgICAgICAgICAgICAgICAg
+ICBfX2VudHJ5LT5zZXFubywgX19lbnRyeS0+cmluZ19uYW1lLCBfX2VudHJ5LT5udW1faWJzKQ0K
+KyAgICAgICAgICAgICAgICAgICAgIF9fZW50cnktPnNlcW5vLCBfX2dldF9zdHIocmluZyksIF9f
+ZW50cnktPm51bV9pYnMpDQogKTsNCg0KIFRSQUNFX0VWRU5UKGFtZGdwdV9zY2hlZF9ydW5fam9i
+LA0KQEAgLTE5NSw3ICsxOTUsNyBAQCBUUkFDRV9FVkVOVChhbWRncHVfc2NoZWRfcnVuX2pvYiwN
+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIF9fc3RyaW5nKHRpbWVsaW5lLCBBTURHUFVf
+Sk9CX0dFVF9USU1FTElORV9OQU1FKGpvYikpDQogICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICBfX2ZpZWxkKHVuc2lnbmVkIGludCwgY29udGV4dCkNCiAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgIF9fZmllbGQodW5zaWduZWQgaW50LCBzZXFubykNCi0gICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgX19maWVsZChjaGFyICosIHJpbmdfbmFtZSkNCisgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgX19zdHJpbmcocmluZywgdG9fYW1kZ3B1X3Jpbmcoam9iLT5iYXNlLnNjaGVkKS0+
+bmFtZSkNCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIF9fZmllbGQodTMyLCBudW1faWJz
+KQ0KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgKSwNCg0KQEAgLTIwNCwxMiArMjA0LDEy
+IEBAIFRSQUNFX0VWRU5UKGFtZGdwdV9zY2hlZF9ydW5fam9iLA0KICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgIF9fYXNzaWduX3N0cih0aW1lbGluZSwgQU1ER1BVX0pPQl9HRVRfVElNRUxJTkVf
+TkFNRShqb2IpKQ0KICAgICAgICAgICAgICAgICAgICAgICAgICAgIF9fZW50cnktPmNvbnRleHQg
+PSBqb2ItPmJhc2Uuc19mZW5jZS0+ZmluaXNoZWQuY29udGV4dDsNCiAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICBfX2VudHJ5LT5zZXFubyA9IGpvYi0+YmFzZS5zX2ZlbmNlLT5maW5pc2hlZC5z
+ZXFubzsNCi0gICAgICAgICAgICAgICAgICAgICAgICAgIF9fZW50cnktPnJpbmdfbmFtZSA9IHRv
+X2FtZGdwdV9yaW5nKGpvYi0+YmFzZS5zY2hlZCktPm5hbWU7DQorICAgICAgICAgICAgICAgICAg
+ICAgICAgICBfX2Fzc2lnbl9zdHIocmluZywgdG9fYW1kZ3B1X3Jpbmcoam9iLT5iYXNlLnNjaGVk
+KS0+bmFtZSkNCiAgICAgICAgICAgICAgICAgICAgICAgICAgICBfX2VudHJ5LT5udW1faWJzID0g
+am9iLT5udW1faWJzOw0KICAgICAgICAgICAgICAgICAgICAgICAgICAgICksDQogICAgICAgICAg
+ICAgVFBfcHJpbnRrKCJzY2hlZF9qb2I9JWxsdSwgdGltZWxpbmU9JXMsIGNvbnRleHQ9JXUsIHNl
+cW5vPSV1LCByaW5nX25hbWU9JXMsIG51bV9pYnM9JXUiLA0KICAgICAgICAgICAgICAgICAgICAg
+ICBfX2VudHJ5LT5zY2hlZF9qb2JfaWQsIF9fZ2V0X3N0cih0aW1lbGluZSksIF9fZW50cnktPmNv
+bnRleHQsDQotICAgICAgICAgICAgICAgICAgICAgX19lbnRyeS0+c2Vxbm8sIF9fZW50cnktPnJp
+bmdfbmFtZSwgX19lbnRyeS0+bnVtX2licykNCisgICAgICAgICAgICAgICAgICAgICBfX2VudHJ5
+LT5zZXFubywgX19nZXRfc3RyKHJpbmcpLCBfX2VudHJ5LT5udW1faWJzKQ0KICk7DQoNCg0KQEAg
+LTQ3Myw3ICs0NzMsNyBAQCBUUkFDRV9FVkVOVChhbWRncHVfaWJfcGlwZV9zeW5jLA0KICAgICAg
+ICAgICAgIFRQX1BST1RPKHN0cnVjdCBhbWRncHVfam9iICpzY2hlZF9qb2IsIHN0cnVjdCBkbWFf
+ZmVuY2UgKmZlbmNlKSwNCiAgICAgICAgICAgICBUUF9BUkdTKHNjaGVkX2pvYiwgZmVuY2UpLA0K
+ICAgICAgICAgICAgIFRQX1NUUlVDVF9fZW50cnkoDQotICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgIF9fZmllbGQoY29uc3QgY2hhciAqLG5hbWUpDQorICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgIF9fc3RyaW5nKHJpbmcsIHNjaGVkX2pvYi0+YmFzZS5zY2hlZC0+bmFtZSk7DQogICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICBfX2ZpZWxkKHVpbnQ2NF90LCBpZCkNCiAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgIF9fZmllbGQoc3RydWN0IGRtYV9mZW5jZSAqLCBmZW5jZSkNCiAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgIF9fZmllbGQodWludDY0X3QsIGN0eCkNCkBAIC00
+ODEsMTQgKzQ4MSwxNCBAQCBUUkFDRV9FVkVOVChhbWRncHVfaWJfcGlwZV9zeW5jLA0KICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgKSwNCg0KICAgICAgICAgICAgIFRQX2Zhc3RfYXNzaWdu
+KA0KLSAgICAgICAgICAgICAgICAgICAgICAgICAgX19lbnRyeS0+bmFtZSA9IHNjaGVkX2pvYi0+
+YmFzZS5zY2hlZC0+bmFtZTsNCisgICAgICAgICAgICAgICAgICAgICAgICAgIF9fYXNzaWduX3N0
+cihyaW5nLCBzY2hlZF9qb2ItPmJhc2Uuc2NoZWQtPm5hbWUpDQogICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgX19lbnRyeS0+aWQgPSBzY2hlZF9qb2ItPmJhc2UuaWQ7DQogICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgX19lbnRyeS0+ZmVuY2UgPSBmZW5jZTsNCiAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICBfX2VudHJ5LT5jdHggPSBmZW5jZS0+Y29udGV4dDsNCiAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICBfX2VudHJ5LT5zZXFubyA9IGZlbmNlLT5zZXFubzsNCiAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICApLA0KICAgICAgICAgICAgIFRQX3ByaW50aygiam9iIHJpbmc9JXMs
+IGlkPSVsbHUsIG5lZWQgcGlwZSBzeW5jIHRvIGZlbmNlPSVwLCBjb250ZXh0PSVsbHUsIHNlcT0l
+dSIsDQotICAgICAgICAgICAgICAgICAgICAgX19lbnRyeS0+bmFtZSwgX19lbnRyeS0+aWQsDQor
+ICAgICAgICAgICAgICAgICAgICAgX19nZXRfc3RyKHJpbmcpLCBfX2VudHJ5LT5pZCwNCiAgICAg
+ICAgICAgICAgICAgICAgICAgX19lbnRyeS0+ZmVuY2UsIF9fZW50cnktPmN0eCwNCiAgICAgICAg
+ICAgICAgICAgICAgICAgX19lbnRyeS0+c2Vxbm8pDQogKTsNCi0tDQoyLjE3LjENCg0KDQo=
 
-Best Regards,
-Kevin
+--_000_d0b2c610ae32727218fbd3b970fd7947amdcom_
+Content-Type: text/html; charset="utf-8"
+Content-ID: <B1184FFDF549284684DF88C3090E7BA0-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
+Content-Transfer-Encoding: base64
 
-________________________________
-From: Wang, Kevin(Yang) <Kevin1.Wang-5C7GfCeVMHo@public.gmane.org>
-Sent: Wednesday, October 16, 2019 11:06 AM
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: Wang, Kevin(Yang) <Kevin1.Wang-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH] drm/amdgpu: fix amdgpu trace event print string format err=
-or
+PGh0bWw+DQo8aGVhZD4NCjxtZXRhIGh0dHAtZXF1aXY9IkNvbnRlbnQtVHlwZSIgY29udGVudD0i
+dGV4dC9odG1sOyBjaGFyc2V0PXV0Zi04Ij4NCjwvaGVhZD4NCjxib2R5IHRleHQ9IiMwMDAwMDAi
+IGJnY29sb3I9IiNGRkZGRkYiPg0KPGRpdiBjbGFzcz0ibW96LWNpdGUtcHJlZml4Ij5IaSBLZXZp
+biw8YnI+DQo8YnI+DQp3ZWxsIHRoYXQgY29waWVzIHRoZSBzdHJpbmcgaW50byB0aGUgcmluZyBi
+dWZmZXIgZXZlcnkgdGltZSB0aGUgdHJhY2UgZXZlbnQgaXMgY2FsbGVkIHdoaWNoIGlzIG5vdCBu
+ZWNlc3NhcnkgYSBnb29kIGlkZWEgZm9yIGEgY29uc3RhbnQgc3RyaW5nLjxicj4NCjxicj4NCkNh
+bid0IHdlIGF2b2lkIHRoYXQgc29tZWhvdz88YnI+DQo8YnI+DQpUaGFua3MsPGJyPg0KQ2hyaXN0
+aWFuLjxicj4NCjxicj4NCkFtIDE2LjEwLjE5IHVtIDE0OjAxIHNjaHJpZWIgV2FuZywgS2V2aW4o
+WWFuZyk6PGJyPg0KPC9kaXY+DQo8YmxvY2txdW90ZSB0eXBlPSJjaXRlIiBjaXRlPSJtaWQ6TU4y
+UFIxMk1CMzI5NjA3RUI2MUJCQzJDQjkxRjg5NzJGQTI5MjBATU4yUFIxMk1CMzI5Ni5uYW1wcmQx
+Mi5wcm9kLm91dGxvb2suY29tIj4NCjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyIgc3R5bGU9ImRpc3Bs
+YXk6bm9uZTsiPiBQIHttYXJnaW4tdG9wOjA7bWFyZ2luLWJvdHRvbTowO30gPC9zdHlsZT4NCjxk
+aXYgc3R5bGU9ImZvbnQtZmFtaWx5OiBDYWxpYnJpLCBBcmlhbCwgSGVsdmV0aWNhLCBzYW5zLXNl
+cmlmOw0KICAgICAgICBmb250LXNpemU6IDEycHQ7IGNvbG9yOiByZ2IoMCwgMCwgMCk7Ij4NCmFk
+ZCA8YSBpZD0iT1dBQU0yMzE4MDkiIGNsYXNzPSJfMU90clNaZGhLWFZ2M1VoYWl2cmRKNCBtZW50
+aW9uDQogICAgICAgICAgbXMtYmdjLW5sciBtcy1mY2wtYiIgaHJlZj0ibWFpbHRvOkNocmlzdGlh
+bi5Lb2VuaWdAYW1kLmNvbSIgbW96LWRvLW5vdC1zZW5kPSJ0cnVlIj4NCkBLb2VuaWcsIENocmlz
+dGlhbjwvYT4sPC9kaXY+DQo8ZGl2IHN0eWxlPSJmb250LWZhbWlseTogQ2FsaWJyaSwgQXJpYWws
+IEhlbHZldGljYSwgc2Fucy1zZXJpZjsNCiAgICAgICAgZm9udC1zaXplOiAxMnB0OyBjb2xvcjog
+cmdiKDAsIDAsIDApOyI+DQpjb3VsZCB5b3UgaGVscCBtZSByZXZpZXcgaXQ/PC9kaXY+DQo8ZGl2
+IHN0eWxlPSJmb250LWZhbWlseTogQ2FsaWJyaSwgQXJpYWwsIEhlbHZldGljYSwgc2Fucy1zZXJp
+ZjsNCiAgICAgICAgZm9udC1zaXplOiAxMnB0OyBjb2xvcjogcmdiKDAsIDAsIDApOyI+DQo8YnI+
+DQo8L2Rpdj4NCjxkaXYgc3R5bGU9ImZvbnQtZmFtaWx5OiBDYWxpYnJpLCBBcmlhbCwgSGVsdmV0
+aWNhLCBzYW5zLXNlcmlmOw0KICAgICAgICBmb250LXNpemU6IDEycHQ7IGNvbG9yOiByZ2IoMCwg
+MCwgMCk7Ij4NCkJlc3QgUmVnYXJkcyw8YnI+DQpLZXZpbjwvZGl2Pg0KPGRpdiBzdHlsZT0iZm9u
+dC1mYW1pbHk6Q2FsaWJyaSxBcmlhbCxIZWx2ZXRpY2Esc2Fucy1zZXJpZjsNCiAgICAgICAgZm9u
+dC1zaXplOjEycHQ7IGNvbG9yOnJnYigwLDAsMCkiPg0KPGJyPg0KPC9kaXY+DQo8aHIgdGFiaW5k
+ZXg9Ii0xIiBzdHlsZT0iZGlzcGxheTppbmxpbmUtYmxvY2s7IHdpZHRoOjk4JSI+DQo8ZGl2IGlk
+PSJkaXZScGx5RndkTXNnIiBkaXI9Imx0ciI+PGZvbnQgc3R5bGU9ImZvbnQtc2l6ZToxMXB0IiBm
+YWNlPSJDYWxpYnJpLCBzYW5zLXNlcmlmIiBjb2xvcj0iIzAwMDAwMCI+PGI+RnJvbTo8L2I+IFdh
+bmcsIEtldmluKFlhbmcpDQo8YSBjbGFzcz0ibW96LXR4dC1saW5rLXJmYzIzOTZFIiBocmVmPSJt
+YWlsdG86S2V2aW4xLldhbmdAYW1kLmNvbSI+Jmx0O0tldmluMS5XYW5nQGFtZC5jb20mZ3Q7PC9h
+Pjxicj4NCjxiPlNlbnQ6PC9iPiBXZWRuZXNkYXksIE9jdG9iZXIgMTYsIDIwMTkgMTE6MDYgQU08
+YnI+DQo8Yj5Ubzo8L2I+IDxhIGNsYXNzPSJtb3otdHh0LWxpbmstYWJicmV2aWF0ZWQiIGhyZWY9
+Im1haWx0bzphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZyI+DQphbWQtZ2Z4QGxpc3RzLmZy
+ZWVkZXNrdG9wLm9yZzwvYT4gPGEgY2xhc3M9Im1vei10eHQtbGluay1yZmMyMzk2RSIgaHJlZj0i
+bWFpbHRvOmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnIj4NCiZsdDthbWQtZ2Z4QGxpc3Rz
+LmZyZWVkZXNrdG9wLm9yZyZndDs8L2E+PGJyPg0KPGI+Q2M6PC9iPiBXYW5nLCBLZXZpbihZYW5n
+KSA8YSBjbGFzcz0ibW96LXR4dC1saW5rLXJmYzIzOTZFIiBocmVmPSJtYWlsdG86S2V2aW4xLldh
+bmdAYW1kLmNvbSI+DQombHQ7S2V2aW4xLldhbmdAYW1kLmNvbSZndDs8L2E+PGJyPg0KPGI+U3Vi
+amVjdDo8L2I+IFtQQVRDSF0gZHJtL2FtZGdwdTogZml4IGFtZGdwdSB0cmFjZSBldmVudCBwcmlu
+dCBzdHJpbmcgZm9ybWF0IGVycm9yPC9mb250Pg0KPGRpdj4mbmJzcDs8L2Rpdj4NCjwvZGl2Pg0K
+PGRpdiBjbGFzcz0iQm9keUZyYWdtZW50Ij48Zm9udCBzaXplPSIyIj48c3BhbiBzdHlsZT0iZm9u
+dC1zaXplOjExcHQiPg0KPGRpdiBjbGFzcz0iUGxhaW5UZXh0Ij50aGUgdHJhY2UgZXZlbnQgcHJp
+bnQgc3RyaW5nIGZvcm1hdCBlcnJvci48YnI+DQoodXNlIGludGVnZXIgdHlwZSB0byBoYW5kbGUg
+c3RyaW5nKTxicj4NCjxicj4NCmJlZm9yZTo8YnI+DQphbWRncHVfdGVzdF9rZXYtMTU1NiZuYnNw
+OyBbMDAyXSZuYnNwOyZuYnNwOyAxMzguNTA4NzgxOiBhbWRncHVfY3NfaW9jdGw6PGJyPg0Kc2No
+ZWRfam9iPTgsIHRpbWVsaW5lPWdmeF8wLjAuMCwgY29udGV4dD0xNzcsIHNlcW5vPTEsPGJyPg0K
+cmluZ19uYW1lPWZmZmY5NGQwMWMyMDdiZjAsIG51bV9pYnM9Mjxicj4NCjxicj4NCmFmdGVyOjxi
+cj4NCmFtZGdwdV90ZXN0X2tldi0xNTA2Jm5ic3A7IFswMDRdJm5ic3A7Jm5ic3A7IDM3MC43MDM3
+ODM6IGFtZGdwdV9jc19pb2N0bDo8YnI+DQpzY2hlZF9qb2I9MTIsIHRpbWVsaW5lPWdmeF8wLjAu
+MCwgY29udGV4dD0yMzQsIHNlcW5vPTIsPGJyPg0KcmluZ19uYW1lPWdmeF8wLjAuMCwgbnVtX2li
+cz0xPGJyPg0KPGJyPg0KY2hhbmdlIHRyYWNlIGV2ZW50IGxpc3Q6PGJyPg0KMS5hbWRncHVfY3Nf
+aW9jdGw8YnI+DQoyLmFtZGdwdV9zY2hlZF9ydW5fam9iPGJyPg0KMy5hbWRncHVfaWJfcGlwZV9z
+eW5jPGJyPg0KPGJyPg0KU2lnbmVkLW9mZi1ieTogS2V2aW4gV2FuZyA8YSBjbGFzcz0ibW96LXR4
+dC1saW5rLXJmYzIzOTZFIiBocmVmPSJtYWlsdG86a2V2aW4xLndhbmdAYW1kLmNvbSI+DQombHQ7
+a2V2aW4xLndhbmdAYW1kLmNvbSZndDs8L2E+PGJyPg0KLS0tPGJyPg0KJm5ic3A7ZHJpdmVycy9n
+cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3RyYWNlLmggfCAxOCAmIzQzOyYjNDM7JiM0MzsmIzQz
+OyYjNDM7JiM0MzsmIzQzOyYjNDM7JiM0MzstLS0tLS0tLS08YnI+DQombmJzcDsxIGZpbGUgY2hh
+bmdlZCwgOSBpbnNlcnRpb25zKCYjNDM7KSwgOSBkZWxldGlvbnMoLSk8YnI+DQo8YnI+DQpkaWZm
+IC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3RyYWNlLmggYi9kcml2
+ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdHJhY2UuaDxicj4NCmluZGV4IDgyMjdlYmQw
+ZjUxMS4uZjk0MDUyNmM1ODg5IDEwMDY0NDxicj4NCi0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQv
+YW1kZ3B1L2FtZGdwdV90cmFjZS5oPGJyPg0KJiM0MzsmIzQzOyYjNDM7IGIvZHJpdmVycy9ncHUv
+ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3RyYWNlLmg8YnI+DQpAQCAtMTcwLDcgJiM0MzsxNzAsNyBA
+QCBUUkFDRV9FVkVOVChhbWRncHVfY3NfaW9jdGwsPGJyPg0KJm5ic3A7Jm5ic3A7Jm5ic3A7Jm5i
+c3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7
+Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5i
+c3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7IF9fZmllbGQodW5zaWduZWQg
+aW50LCBjb250ZXh0KTxicj4NCiZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZu
+YnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNw
+OyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZu
+YnNwOyZuYnNwOyZuYnNwOyZuYnNwOyBfX2ZpZWxkKHVuc2lnbmVkIGludCwgc2Vxbm8pPGJyPg0K
+Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5i
+c3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7
+Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5i
+c3A7IF9fZmllbGQoc3RydWN0IGRtYV9mZW5jZSAqLCBmZW5jZSk8YnI+DQotJm5ic3A7Jm5ic3A7
+Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5i
+c3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7
+Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7IF9fZmllbGQoY2hhciAqLCByaW5n
+X25hbWUpPGJyPg0KJiM0MzsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJz
+cDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsm
+bmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJz
+cDsmbmJzcDsgX19zdHJpbmcocmluZywgdG9fYW1kZ3B1X3Jpbmcoam9iLSZndDtiYXNlLnNjaGVk
+KS0mZ3Q7bmFtZSk8YnI+DQombmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJz
+cDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsm
+bmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJz
+cDsmbmJzcDsmbmJzcDsmbmJzcDsgX19maWVsZCh1MzIsIG51bV9pYnMpPGJyPg0KJm5ic3A7Jm5i
+c3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7
+Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5i
+c3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7ICksPGJy
+Pg0KJm5ic3A7PGJyPg0KQEAgLTE3OSwxMiAmIzQzOzE3OSwxMiBAQCBUUkFDRV9FVkVOVChhbWRn
+cHVfY3NfaW9jdGwsPGJyPg0KJm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5i
+c3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7
+Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5i
+c3A7Jm5ic3A7IF9fYXNzaWduX3N0cih0aW1lbGluZSwgQU1ER1BVX0pPQl9HRVRfVElNRUxJTkVf
+TkFNRShqb2IpKTxicj4NCiZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNw
+OyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZu
+YnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNw
+OyZuYnNwOyBfX2VudHJ5LSZndDtjb250ZXh0ID0gam9iLSZndDtiYXNlLnNfZmVuY2UtJmd0O2Zp
+bmlzaGVkLmNvbnRleHQ7PGJyPg0KJm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7
+Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5i
+c3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7
+Jm5ic3A7Jm5ic3A7IF9fZW50cnktJmd0O3NlcW5vID0gam9iLSZndDtiYXNlLnNfZmVuY2UtJmd0
+O2ZpbmlzaGVkLnNlcW5vOzxicj4NCi0mbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJz
+cDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsm
+bmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJz
+cDsgX19lbnRyeS0mZ3Q7cmluZ19uYW1lID0gdG9fYW1kZ3B1X3Jpbmcoam9iLSZndDtiYXNlLnNj
+aGVkKS0mZ3Q7bmFtZTs8YnI+DQomIzQzOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZu
+YnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNw
+OyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZu
+YnNwOyBfX2Fzc2lnbl9zdHIocmluZywgdG9fYW1kZ3B1X3Jpbmcoam9iLSZndDtiYXNlLnNjaGVk
+KS0mZ3Q7bmFtZSk8YnI+DQombmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJz
+cDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsm
+bmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJz
+cDsmbmJzcDsgX19lbnRyeS0mZ3Q7bnVtX2licyA9IGpvYi0mZ3Q7bnVtX2liczs8YnI+DQombmJz
+cDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsm
+bmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJz
+cDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsgKSw8YnI+DQombmJz
+cDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsm
+bmJzcDsmbmJzcDsgVFBfcHJpbnRrKCZxdW90O3NjaGVkX2pvYj0lbGx1LCB0aW1lbGluZT0lcywg
+Y29udGV4dD0ldSwgc2Vxbm89JXUsIHJpbmdfbmFtZT0lcywgbnVtX2licz0ldSZxdW90Oyw8YnI+
+DQombmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsm
+bmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJz
+cDsmbmJzcDsmbmJzcDsmbmJzcDsgX19lbnRyeS0mZ3Q7c2NoZWRfam9iX2lkLCBfX2dldF9zdHIo
+dGltZWxpbmUpLCBfX2VudHJ5LSZndDtjb250ZXh0LDxicj4NCi0mbmJzcDsmbmJzcDsmbmJzcDsm
+bmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJz
+cDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsgX19lbnRyeS0mZ3Q7
+c2Vxbm8sIF9fZW50cnktJmd0O3JpbmdfbmFtZSwgX19lbnRyeS0mZ3Q7bnVtX2licyk8YnI+DQom
+IzQzOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNw
+OyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZu
+YnNwOyZuYnNwOyBfX2VudHJ5LSZndDtzZXFubywgX19nZXRfc3RyKHJpbmcpLCBfX2VudHJ5LSZn
+dDtudW1faWJzKTxicj4NCiZuYnNwOyk7PGJyPg0KJm5ic3A7PGJyPg0KJm5ic3A7VFJBQ0VfRVZF
+TlQoYW1kZ3B1X3NjaGVkX3J1bl9qb2IsPGJyPg0KQEAgLTE5NSw3ICYjNDM7MTk1LDcgQEAgVFJB
+Q0VfRVZFTlQoYW1kZ3B1X3NjaGVkX3J1bl9qb2IsPGJyPg0KJm5ic3A7Jm5ic3A7Jm5ic3A7Jm5i
+c3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7
+Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5i
+c3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7IF9fc3RyaW5nKHRpbWVsaW5l
+LCBBTURHUFVfSk9CX0dFVF9USU1FTElORV9OQU1FKGpvYikpPGJyPg0KJm5ic3A7Jm5ic3A7Jm5i
+c3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7
+Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5i
+c3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7IF9fZmllbGQodW5z
+aWduZWQgaW50LCBjb250ZXh0KTxicj4NCiZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZu
+YnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNw
+OyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZu
+YnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyBfX2ZpZWxkKHVuc2lnbmVkIGludCwgc2Vxbm8p
+PGJyPg0KLSZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZu
+YnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNw
+OyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyBf
+X2ZpZWxkKGNoYXIgKiwgcmluZ19uYW1lKTxicj4NCiYjNDM7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5i
+c3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7
+Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5i
+c3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7IF9fc3RyaW5nKHJpbmcsIHRvX2FtZGdwdV9yaW5n
+KGpvYi0mZ3Q7YmFzZS5zY2hlZCktJmd0O25hbWUpPGJyPg0KJm5ic3A7Jm5ic3A7Jm5ic3A7Jm5i
+c3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7
+Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5i
+c3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7IF9fZmllbGQodTMyLCBudW1f
+aWJzKTxicj4NCiZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNw
+OyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZu
+YnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNw
+OyZuYnNwOyZuYnNwOyApLDxicj4NCiZuYnNwOzxicj4NCkBAIC0yMDQsMTIgJiM0MzsyMDQsMTIg
+QEAgVFJBQ0VfRVZFTlQoYW1kZ3B1X3NjaGVkX3J1bl9qb2IsPGJyPg0KJm5ic3A7Jm5ic3A7Jm5i
+c3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7
+Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5i
+c3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7IF9fYXNzaWduX3N0cih0aW1lbGluZSwg
+QU1ER1BVX0pPQl9HRVRfVElNRUxJTkVfTkFNRShqb2IpKTxicj4NCiZuYnNwOyZuYnNwOyZuYnNw
+OyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZu
+YnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNw
+OyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyBfX2VudHJ5LSZndDtjb250ZXh0ID0gam9i
+LSZndDtiYXNlLnNfZmVuY2UtJmd0O2ZpbmlzaGVkLmNvbnRleHQ7PGJyPg0KJm5ic3A7Jm5ic3A7
+Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5i
+c3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7
+Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7IF9fZW50cnktJmd0O3NlcW5vID0g
+am9iLSZndDtiYXNlLnNfZmVuY2UtJmd0O2ZpbmlzaGVkLnNlcW5vOzxicj4NCi0mbmJzcDsmbmJz
+cDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsm
+bmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJz
+cDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsgX19lbnRyeS0mZ3Q7cmluZ19uYW1lID0gdG9fYW1k
+Z3B1X3Jpbmcoam9iLSZndDtiYXNlLnNjaGVkKS0mZ3Q7bmFtZTs8YnI+DQomIzQzOyZuYnNwOyZu
+YnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNw
+OyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZu
+YnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyBfX2Fzc2lnbl9zdHIocmluZywgdG9fYW1kZ3B1
+X3Jpbmcoam9iLSZndDtiYXNlLnNjaGVkKS0mZ3Q7bmFtZSk8YnI+DQombmJzcDsmbmJzcDsmbmJz
+cDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsm
+bmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJz
+cDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsgX19lbnRyeS0mZ3Q7bnVtX2licyA9IGpv
+Yi0mZ3Q7bnVtX2liczs8YnI+DQombmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsm
+bmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJz
+cDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsm
+bmJzcDsmbmJzcDsgKSw8YnI+DQombmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsm
+bmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsgVFBfcHJpbnRrKCZxdW90O3NjaGVk
+X2pvYj0lbGx1LCB0aW1lbGluZT0lcywgY29udGV4dD0ldSwgc2Vxbm89JXUsIHJpbmdfbmFtZT0l
+cywgbnVtX2licz0ldSZxdW90Oyw8YnI+DQombmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsm
+bmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJz
+cDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsgX19lbnRyeS0mZ3Q7
+c2NoZWRfam9iX2lkLCBfX2dldF9zdHIodGltZWxpbmUpLCBfX2VudHJ5LSZndDtjb250ZXh0LDxi
+cj4NCi0mbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJz
+cDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsm
+bmJzcDsmbmJzcDsgX19lbnRyeS0mZ3Q7c2Vxbm8sIF9fZW50cnktJmd0O3JpbmdfbmFtZSwgX19l
+bnRyeS0mZ3Q7bnVtX2licyk8YnI+DQomIzQzOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNw
+OyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZu
+YnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyBfX2VudHJ5LSZndDtzZXFubywgX19n
+ZXRfc3RyKHJpbmcpLCBfX2VudHJ5LSZndDtudW1faWJzKTxicj4NCiZuYnNwOyk7PGJyPg0KJm5i
+c3A7PGJyPg0KJm5ic3A7PGJyPg0KQEAgLTQ3Myw3ICYjNDM7NDczLDcgQEAgVFJBQ0VfRVZFTlQo
+YW1kZ3B1X2liX3BpcGVfc3luYyw8YnI+DQombmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsm
+bmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsgVFBfUFJPVE8oc3RydWN0
+IGFtZGdwdV9qb2IgKnNjaGVkX2pvYiwgc3RydWN0IGRtYV9mZW5jZSAqZmVuY2UpLDxicj4NCiZu
+YnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNw
+OyZuYnNwOyZuYnNwOyBUUF9BUkdTKHNjaGVkX2pvYiwgZmVuY2UpLDxicj4NCiZuYnNwOyZuYnNw
+OyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZu
+YnNwOyBUUF9TVFJVQ1RfX2VudHJ5KDxicj4NCi0mbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJz
+cDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsm
+bmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJz
+cDsmbmJzcDsmbmJzcDsmbmJzcDsgX19maWVsZChjb25zdCBjaGFyICosbmFtZSk8YnI+DQomIzQz
+OyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZu
+YnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNw
+OyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyBfX3N0cmlu
+ZyhyaW5nLCBzY2hlZF9qb2ItJmd0O2Jhc2Uuc2NoZWQtJmd0O25hbWUpOzxicj4NCiZuYnNwOyZu
+YnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNw
+OyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZu
+YnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyBfX2Zp
+ZWxkKHVpbnQ2NF90LCBpZCk8YnI+DQombmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJz
+cDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsm
+bmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJz
+cDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsgX19maWVsZChzdHJ1Y3QgZG1hX2ZlbmNlICosIGZl
+bmNlKTxicj4NCiZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNw
+OyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZu
+YnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNw
+OyZuYnNwOyZuYnNwOyBfX2ZpZWxkKHVpbnQ2NF90LCBjdHgpPGJyPg0KQEAgLTQ4MSwxNCAmIzQz
+OzQ4MSwxNCBAQCBUUkFDRV9FVkVOVChhbWRncHVfaWJfcGlwZV9zeW5jLDxicj4NCiZuYnNwOyZu
+YnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNw
+OyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZu
+YnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyApLDxi
+cj4NCiZuYnNwOzxicj4NCiZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNw
+OyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyBUUF9mYXN0X2Fzc2lnbig8YnI+DQotJm5i
+c3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7
+Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5i
+c3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7IF9fZW50cnktJmd0O25hbWUgPSBzY2hl
+ZF9qb2ItJmd0O2Jhc2Uuc2NoZWQtJmd0O25hbWU7PGJyPg0KJiM0MzsmbmJzcDsmbmJzcDsmbmJz
+cDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsm
+bmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJz
+cDsmbmJzcDsmbmJzcDsmbmJzcDsgX19hc3NpZ25fc3RyKHJpbmcsIHNjaGVkX2pvYi0mZ3Q7YmFz
+ZS5zY2hlZC0mZ3Q7bmFtZSk8YnI+DQombmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJz
+cDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsm
+bmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJz
+cDsmbmJzcDsmbmJzcDsgX19lbnRyeS0mZ3Q7aWQgPSBzY2hlZF9qb2ItJmd0O2Jhc2UuaWQ7PGJy
+Pg0KJm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7
+Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5i
+c3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7IF9fZW50
+cnktJmd0O2ZlbmNlID0gZmVuY2U7PGJyPg0KJm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7
+Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5i
+c3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7
+Jm5ic3A7Jm5ic3A7Jm5ic3A7IF9fZW50cnktJmd0O2N0eCA9IGZlbmNlLSZndDtjb250ZXh0Ozxi
+cj4NCiZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNw
+OyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZu
+YnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyBfX2Vu
+dHJ5LSZndDtzZXFubyA9IGZlbmNlLSZndDtzZXFubzs8YnI+DQombmJzcDsmbmJzcDsmbmJzcDsm
+bmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJz
+cDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsm
+bmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsgKSw8YnI+DQombmJzcDsmbmJzcDsmbmJzcDsm
+bmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsgVFBf
+cHJpbnRrKCZxdW90O2pvYiByaW5nPSVzLCBpZD0lbGx1LCBuZWVkIHBpcGUgc3luYyB0byBmZW5j
+ZT0lcCwgY29udGV4dD0lbGx1LCBzZXE9JXUmcXVvdDssPGJyPg0KLSZuYnNwOyZuYnNwOyZuYnNw
+OyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZu
+YnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyBfX2VudHJ5LSZn
+dDtuYW1lLCBfX2VudHJ5LSZndDtpZCw8YnI+DQomIzQzOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNw
+OyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZu
+YnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyBfX2dldF9zdHIocmluZyks
+IF9fZW50cnktJmd0O2lkLDxicj4NCiZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNw
+OyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZu
+YnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyBfX2VudHJ5LSZndDtmZW5j
+ZSwgX19lbnRyeS0mZ3Q7Y3R4LDxicj4NCiZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZu
+YnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNw
+OyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyBfX2VudHJ5LSZndDtz
+ZXFubyk8YnI+DQombmJzcDspOzxicj4NCi0tIDxicj4NCjIuMTcuMTxicj4NCjxicj4NCjwvZGl2
+Pg0KPC9zcGFuPjwvZm9udD48L2Rpdj4NCjwvYmxvY2txdW90ZT4NCjxicj4NCjwvYm9keT4NCjwv
+aHRtbD4NCg==
 
-the trace event print string format error.
-(use integer type to handle string)
+--_000_d0b2c610ae32727218fbd3b970fd7947amdcom_--
 
-before:
-amdgpu_test_kev-1556  [002]   138.508781: amdgpu_cs_ioctl:
-sched_job=3D8, timeline=3Dgfx_0.0.0, context=3D177, seqno=3D1,
-ring_name=3Dffff94d01c207bf0, num_ibs=3D2
-
-after:
-amdgpu_test_kev-1506  [004]   370.703783: amdgpu_cs_ioctl:
-sched_job=3D12, timeline=3Dgfx_0.0.0, context=3D234, seqno=3D2,
-ring_name=3Dgfx_0.0.0, num_ibs=3D1
-
-change trace event list:
-1.amdgpu_cs_ioctl
-2.amdgpu_sched_run_job
-3.amdgpu_ib_pipe_sync
-
-Signed-off-by: Kevin Wang <kevin1.wang-5C7GfCeVMHo@public.gmane.org>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h | 18 +++++++++---------
- 1 file changed, 9 insertions(+), 9 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_trace.h
-index 8227ebd0f511..f940526c5889 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h
-@@ -170,7 +170,7 @@ TRACE_EVENT(amdgpu_cs_ioctl,
-                              __field(unsigned int, context)
-                              __field(unsigned int, seqno)
-                              __field(struct dma_fence *, fence)
--                            __field(char *, ring_name)
-+                            __string(ring, to_amdgpu_ring(job->base.sched)=
-->name)
-                              __field(u32, num_ibs)
-                              ),
-
-@@ -179,12 +179,12 @@ TRACE_EVENT(amdgpu_cs_ioctl,
-                            __assign_str(timeline, AMDGPU_JOB_GET_TIMELINE_=
-NAME(job))
-                            __entry->context =3D job->base.s_fence->finishe=
-d.context;
-                            __entry->seqno =3D job->base.s_fence->finished.=
-seqno;
--                          __entry->ring_name =3D to_amdgpu_ring(job->base.=
-sched)->name;
-+                          __assign_str(ring, to_amdgpu_ring(job->base.sche=
-d)->name)
-                            __entry->num_ibs =3D job->num_ibs;
-                            ),
-             TP_printk("sched_job=3D%llu, timeline=3D%s, context=3D%u, seqn=
-o=3D%u, ring_name=3D%s, num_ibs=3D%u",
-                       __entry->sched_job_id, __get_str(timeline), __entry-=
->context,
--                     __entry->seqno, __entry->ring_name, __entry->num_ibs)
-+                     __entry->seqno, __get_str(ring), __entry->num_ibs)
- );
-
- TRACE_EVENT(amdgpu_sched_run_job,
-@@ -195,7 +195,7 @@ TRACE_EVENT(amdgpu_sched_run_job,
-                              __string(timeline, AMDGPU_JOB_GET_TIMELINE_NA=
-ME(job))
-                              __field(unsigned int, context)
-                              __field(unsigned int, seqno)
--                            __field(char *, ring_name)
-+                            __string(ring, to_amdgpu_ring(job->base.sched)=
-->name)
-                              __field(u32, num_ibs)
-                              ),
-
-@@ -204,12 +204,12 @@ TRACE_EVENT(amdgpu_sched_run_job,
-                            __assign_str(timeline, AMDGPU_JOB_GET_TIMELINE_=
-NAME(job))
-                            __entry->context =3D job->base.s_fence->finishe=
-d.context;
-                            __entry->seqno =3D job->base.s_fence->finished.=
-seqno;
--                          __entry->ring_name =3D to_amdgpu_ring(job->base.=
-sched)->name;
-+                          __assign_str(ring, to_amdgpu_ring(job->base.sche=
-d)->name)
-                            __entry->num_ibs =3D job->num_ibs;
-                            ),
-             TP_printk("sched_job=3D%llu, timeline=3D%s, context=3D%u, seqn=
-o=3D%u, ring_name=3D%s, num_ibs=3D%u",
-                       __entry->sched_job_id, __get_str(timeline), __entry-=
->context,
--                     __entry->seqno, __entry->ring_name, __entry->num_ibs)
-+                     __entry->seqno, __get_str(ring), __entry->num_ibs)
- );
-
-
-@@ -473,7 +473,7 @@ TRACE_EVENT(amdgpu_ib_pipe_sync,
-             TP_PROTO(struct amdgpu_job *sched_job, struct dma_fence *fence=
-),
-             TP_ARGS(sched_job, fence),
-             TP_STRUCT__entry(
--                            __field(const char *,name)
-+                            __string(ring, sched_job->base.sched->name);
-                              __field(uint64_t, id)
-                              __field(struct dma_fence *, fence)
-                              __field(uint64_t, ctx)
-@@ -481,14 +481,14 @@ TRACE_EVENT(amdgpu_ib_pipe_sync,
-                              ),
-
-             TP_fast_assign(
--                          __entry->name =3D sched_job->base.sched->name;
-+                          __assign_str(ring, sched_job->base.sched->name)
-                            __entry->id =3D sched_job->base.id;
-                            __entry->fence =3D fence;
-                            __entry->ctx =3D fence->context;
-                            __entry->seqno =3D fence->seqno;
-                            ),
-             TP_printk("job ring=3D%s, id=3D%llu, need pipe sync to fence=
-=3D%p, context=3D%llu, seq=3D%u",
--                     __entry->name, __entry->id,
-+                     __get_str(ring), __entry->id,
-                       __entry->fence, __entry->ctx,
-                       __entry->seqno)
- );
---
-2.17.1
-
-
---_000_MN2PR12MB329607EB61BBC2CB91F8972FA2920MN2PR12MB3296namp_
-Content-Type: text/html; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-add <a id=3D"OWAAM231809" class=3D"_1OtrSZdhKXVv3UhaivrdJ4 mention ms-bgc-n=
-lr ms-fcl-b" href=3D"mailto:Christian.Koenig-5C7GfCeVMHo@public.gmane.org">
-@Koenig, Christian</a>,</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-could you help me review it?</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Best Regards,<br>
-Kevin</div>
-<div id=3D"appendonsend"></div>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
-t; color:rgb(0,0,0)">
-<br>
-</div>
-<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" co=
-lor=3D"#000000" style=3D"font-size:11pt"><b>From:</b> Wang, Kevin(Yang) &lt=
-;Kevin1.Wang-5C7GfCeVMHo@public.gmane.org&gt;<br>
-<b>Sent:</b> Wednesday, October 16, 2019 11:06 AM<br>
-<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org &lt;amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&=
-gt;<br>
-<b>Cc:</b> Wang, Kevin(Yang) &lt;Kevin1.Wang-5C7GfCeVMHo@public.gmane.org&gt;<br>
-<b>Subject:</b> [PATCH] drm/amdgpu: fix amdgpu trace event print string for=
-mat error</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt"=
->
-<div class=3D"PlainText">the trace event print string format error.<br>
-(use integer type to handle string)<br>
-<br>
-before:<br>
-amdgpu_test_kev-1556&nbsp; [002]&nbsp;&nbsp; 138.508781: amdgpu_cs_ioctl:<b=
-r>
-sched_job=3D8, timeline=3Dgfx_0.0.0, context=3D177, seqno=3D1,<br>
-ring_name=3Dffff94d01c207bf0, num_ibs=3D2<br>
-<br>
-after:<br>
-amdgpu_test_kev-1506&nbsp; [004]&nbsp;&nbsp; 370.703783: amdgpu_cs_ioctl:<b=
-r>
-sched_job=3D12, timeline=3Dgfx_0.0.0, context=3D234, seqno=3D2,<br>
-ring_name=3Dgfx_0.0.0, num_ibs=3D1<br>
-<br>
-change trace event list:<br>
-1.amdgpu_cs_ioctl<br>
-2.amdgpu_sched_run_job<br>
-3.amdgpu_ib_pipe_sync<br>
-<br>
-Signed-off-by: Kevin Wang &lt;kevin1.wang-5C7GfCeVMHo@public.gmane.org&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h | 18 &#43;&#43;&#43;&#43;&#=
-43;&#43;&#43;&#43;&#43;---------<br>
-&nbsp;1 file changed, 9 insertions(&#43;), 9 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_trace.h<br>
-index 8227ebd0f511..f940526c5889 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h<br>
-@@ -170,7 &#43;170,7 @@ TRACE_EVENT(amdgpu_cs_ioctl,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp; __field(unsigned int, context)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp; __field(unsigned int, seqno)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp; __field(struct dma_fence *, fence)<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp; __field(char *, ring_name)<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp; __string(ring, to_amdgpu_ring(job-&gt;base.sched)-&gt;nam=
-e)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp; __field(u32, num_ibs)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp; ),<br>
-&nbsp;<br>
-@@ -179,12 &#43;179,12 @@ TRACE_EVENT(amdgpu_cs_ioctl,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp; __assign_str(timeline, AMDGPU_JOB_GET_TIMELINE_NAME(job))<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp; __entry-&gt;context =3D job-&gt;base.s_fence-&gt;finished.cont=
-ext;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp; __entry-&gt;seqno =3D job-&gt;base.s_fence-&gt;finished.seqno;=
-<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-; __entry-&gt;ring_name =3D to_amdgpu_ring(job-&gt;base.sched)-&gt;name;<br=
->
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp; __assign_str(ring, to_amdgpu_ring(job-&gt;base.sched)-&gt;name)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp; __entry-&gt;num_ibs =3D job-&gt;num_ibs;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp; ),<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TP=
-_printk(&quot;sched_job=3D%llu, timeline=3D%s, context=3D%u, seqno=3D%u, ri=
-ng_name=3D%s, num_ibs=3D%u&quot;,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; __entry-&gt;sched=
-_job_id, __get_str(timeline), __entry-&gt;context,<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; __entry-&gt;seqno, __entry-&=
-gt;ring_name, __entry-&gt;num_ibs)<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; __entry-&gt;seqno, __get=
-_str(ring), __entry-&gt;num_ibs)<br>
-&nbsp;);<br>
-&nbsp;<br>
-&nbsp;TRACE_EVENT(amdgpu_sched_run_job,<br>
-@@ -195,7 &#43;195,7 @@ TRACE_EVENT(amdgpu_sched_run_job,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp; __string(timeline, AMDGPU_JOB_GET_TIMELINE_NAME(jo=
-b))<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp; __field(unsigned int, context)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp; __field(unsigned int, seqno)<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp; __field(char *, ring_name)<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp; __string(ring, to_amdgpu_ring(job-&gt;base.sched)-&gt;nam=
-e)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp; __field(u32, num_ibs)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp; ),<br>
-&nbsp;<br>
-@@ -204,12 &#43;204,12 @@ TRACE_EVENT(amdgpu_sched_run_job,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp; __assign_str(timeline, AMDGPU_JOB_GET_TIMELINE_NAME(job))<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp; __entry-&gt;context =3D job-&gt;base.s_fence-&gt;finished.cont=
-ext;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp; __entry-&gt;seqno =3D job-&gt;base.s_fence-&gt;finished.seqno;=
-<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-; __entry-&gt;ring_name =3D to_amdgpu_ring(job-&gt;base.sched)-&gt;name;<br=
->
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp; __assign_str(ring, to_amdgpu_ring(job-&gt;base.sched)-&gt;name)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp; __entry-&gt;num_ibs =3D job-&gt;num_ibs;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp; ),<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TP=
-_printk(&quot;sched_job=3D%llu, timeline=3D%s, context=3D%u, seqno=3D%u, ri=
-ng_name=3D%s, num_ibs=3D%u&quot;,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; __entry-&gt;sched=
-_job_id, __get_str(timeline), __entry-&gt;context,<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; __entry-&gt;seqno, __entry-&=
-gt;ring_name, __entry-&gt;num_ibs)<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; __entry-&gt;seqno, __get=
-_str(ring), __entry-&gt;num_ibs)<br>
-&nbsp;);<br>
-&nbsp;<br>
-&nbsp;<br>
-@@ -473,7 &#43;473,7 @@ TRACE_EVENT(amdgpu_ib_pipe_sync,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TP=
-_PROTO(struct amdgpu_job *sched_job, struct dma_fence *fence),<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TP=
-_ARGS(sched_job, fence),<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TP=
-_STRUCT__entry(<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp; __field(const char *,name)<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp; __string(ring, sched_job-&gt;base.sched-&gt;name);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp; __field(uint64_t, id)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp; __field(struct dma_fence *, fence)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp; __field(uint64_t, ctx)<br>
-@@ -481,14 &#43;481,14 @@ TRACE_EVENT(amdgpu_ib_pipe_sync,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp; ),<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TP=
-_fast_assign(<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-; __entry-&gt;name =3D sched_job-&gt;base.sched-&gt;name;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp; __assign_str(ring, sched_job-&gt;base.sched-&gt;name)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp; __entry-&gt;id =3D sched_job-&gt;base.id;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp; __entry-&gt;fence =3D fence;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp; __entry-&gt;ctx =3D fence-&gt;context;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp; __entry-&gt;seqno =3D fence-&gt;seqno;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp; ),<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TP=
-_printk(&quot;job ring=3D%s, id=3D%llu, need pipe sync to fence=3D%p, conte=
-xt=3D%llu, seq=3D%u&quot;,<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; __entry-&gt;name, __entry-&g=
-t;id,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; __get_str(ring), __entry=
--&gt;id,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; __entry-&gt;fence=
-, __entry-&gt;ctx,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; __entry-&gt;seqno=
-)<br>
-&nbsp;);<br>
--- <br>
-2.17.1<br>
-<br>
-</div>
-</span></font></div>
-</body>
-</html>
-
---_000_MN2PR12MB329607EB61BBC2CB91F8972FA2920MN2PR12MB3296namp_--
-
---===============0724933026==
+--===============0311718247==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -463,4 +431,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
 
---===============0724933026==--
+--===============0311718247==--
