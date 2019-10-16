@@ -1,50 +1,95 @@
-From: Mikita Lipski <mlipski-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu/display: fix build when
- CONFIG_DRM_AMD_DC_DSC_SUPPORT=n
-Date: Wed, 16 Oct 2019 17:39:07 +0000
-Message-ID: <f97ea24b-9d65-9b61-5144-f417e19391e9@amd.com>
-References: <20191016161343.698656-1-alexander.deucher@amd.com>
+From: Arvind Sankar <nivedita@alum.mit.edu>
+Subject: Re: AMDGPU and 16B stack alignment
+Date: Wed, 16 Oct 2019 14:55:00 -0400
+Message-ID: <20191016185500.GA2674383@rani>
+References: <CAKwvOdnDVe-dahZGnRtzMrx-AH_C+2Lf20qjFQHNtn9xh=Okzw@mail.gmail.com>
+ <9e4d6378-5032-8521-13a9-d9d9519d07de@amd.com>
+ <CAK8P3a3_Q15hKT=gyupb0FrPX1xV3tEBpVaYy1LF0kMUj2u8hw@mail.gmail.com>
+ <CAKwvOdnLxm_tZ_qR1D-BE64Z3QaMC2h79ooobdRVAzmCD_2_Sg@mail.gmail.com>
+ <20191015202636.GA1671072@rani>
+ <CAKwvOd=yGXMwdoxKCD2gcEgevozf41jVmqCkW7CU=Xvd7mqtjw@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20191016161343.698656-1-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-Content-ID: <86152FEED9B42B43B82D815737183EDE-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset=utf-8
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Content-Disposition: inline
+In-Reply-To: <CAKwvOd=yGXMwdoxKCD2gcEgevozf41jVmqCkW7CU=Xvd7mqtjw@mail.gmail.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Nick Desaulniers <ndesaulniers@google.com>
+Cc: Arvind Sankar <nivedita@alum.mit.edu>, Arnd Bergmann <arnd@arndb.de>, "S, Shirish" <sshankar@amd.com>, "Wentland, Harry" <Harry.Wentland@amd.com>, "Deucher, Alexander" <Alexander.Deucher@amd.com>, "yshuiv7@gmail.com" <yshuiv7@gmail.com>, "andrew.cooper3@citrix.com" <andrew.cooper3@citrix.com>, clang-built-linux <clang-built-linux@googlegroups.com>, Matthias Kaehlcke <mka@google.com>, "S, Shirish" <Shirish.S@amd.com>, "Zhou, David(ChunMing)" <David1.Zhou@amd.com>, "Koenig, Christian" <Christian.Koenig@amd.com>, amd-gfx list <amd-gfx@lists.freedesktop.org>, LKML <linux-kernel@vger.kernel.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-UmV2aWV3ZWQtYnk6IE1pa2l0YSBMaXBza2kgPG1pa2l0YS5saXBza2lAYW1kLmNvbT4NCg0KT24g
-MTYuMTAuMjAxOSAxMjoxMywgQWxleCBEZXVjaGVyIHdyb3RlOg0KPiBBZGQgcHJvcGVyIGNvbmZp
-ZyBjaGVjay4NCj4gDQo+IFNpZ25lZC1vZmYtYnk6IEFsZXggRGV1Y2hlciA8YWxleGFuZGVyLmRl
-dWNoZXJAYW1kLmNvbT4NCj4gLS0tDQo+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2Rj
-L2RjbjIwL2RjbjIwX3Jlc291cmNlLmMgfCAyICsrDQo+ICAgMSBmaWxlIGNoYW5nZWQsIDIgaW5z
-ZXJ0aW9ucygrKQ0KPiANCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxh
-eS9kYy9kY24yMC9kY24yMF9yZXNvdXJjZS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5
-L2RjL2RjbjIwL2RjbjIwX3Jlc291cmNlLmMNCj4gaW5kZXggOTE0ZTM3OGJjZGE0Li40ZjAzMzE4
-MTA2OTYgMTAwNjQ0DQo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9kY24y
-MC9kY24yMF9yZXNvdXJjZS5jDQo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9k
-Yy9kY24yMC9kY24yMF9yZXNvdXJjZS5jDQo+IEBAIC0xOTEwLDggKzE5MTAsMTAgQEAgaW50IGRj
-bjIwX3BvcHVsYXRlX2RtbF9waXBlc19mcm9tX2NvbnRleHQoDQo+ICAgCQkJcGlwZXNbcGlwZV9j
-bnRdLmRvdXQub3V0cHV0X2JwcCA9IG91dHB1dF9icGMgKiAzOw0KPiAgIAkJfQ0KPiAgIA0KPiAr
-I2lmZGVmIENPTkZJR19EUk1fQU1EX0RDX0RTQ19TVVBQT1JUDQo+ICAgCQlpZiAocmVzX2N0eC0+
-cGlwZV9jdHhbaV0uc3RyZWFtLT50aW1pbmcuZmxhZ3MuRFNDKQ0KPiAgIAkJCXBpcGVzW3BpcGVf
-Y250XS5kb3V0Lm91dHB1dF9icHAgPSByZXNfY3R4LT5waXBlX2N0eFtpXS5zdHJlYW0tPnRpbWlu
-Zy5kc2NfY2ZnLmJpdHNfcGVyX3BpeGVsIC8gMTYuMDsNCj4gKyNlbmRpZg0KPiAgIA0KPiAgIAkJ
-LyogdG9kbzogZGVmYXVsdCBtYXggZm9yIG5vdywgdW50aWwgdGhlcmUgaXMgbG9naWMgcmVmbGVj
-dGluZyB0aGlzIGluIGRjKi8NCj4gICAJCXBpcGVzW3BpcGVfY250XS5kb3V0Lm91dHB1dF9icGMg
-PSAxMjsNCj4gDQoNCi0tIA0KVGhhbmtzLA0KTWlraXRhIExpcHNraQ0KU29mdHdhcmUgRW5naW5l
-ZXIsIEFNRA0KbWlraXRhLmxpcHNraUBhbWQuY29tDQpfX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3Rz
-LmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xp
-c3RpbmZvL2FtZC1nZng=
+On Tue, Oct 15, 2019 at 06:51:26PM -0700, Nick Desaulniers wrote:
+> On Tue, Oct 15, 2019 at 1:26 PM Arvind Sankar <nivedita@alum.mit.edu> wrote:
+> >
+> > On Tue, Oct 15, 2019 at 11:05:56AM -0700, Nick Desaulniers wrote:
+> > > Hmmm...I would have liked to remove it outright, as it is an ABI
+> > > mismatch that is likely to result in instability and non-fun-to-debug
+> > > runtime issues in the future.  I suspect my patch does work for GCC
+> > > 7.1+.  The question is: Do we want to either:
+> > > 1. mark AMDGPU broken for GCC < 7.1, or
+> > > 2. continue supporting it via stack alignment mismatch?
+> > >
+> > > 2 is brittle, and may break at any point in the future, but if it's
+> > > working for someone it does make me feel bad to outright disable it.
+> > > What I'd image 2 looks like is (psuedo code in a Makefile):
+> > >
+> > > if CC_IS_GCC && GCC_VERSION < 7.1:
+> > >   set stack alignment to 16B and hope for the best
+> > >
+> > > So my diff would be amended to keep the stack alignment flags, but
+> > > only to support GCC < 7.1.  And that assumes my change compiles with
+> > > GCC 7.1+. (Looks like it does for me locally with GCC 8.3, but I would
+> > > feel even more confident if someone with hardware to test on and GCC
+> > > 7.1+ could boot test).
+> > > --
+> > > Thanks,
+> > > ~Nick Desaulniers
+> >
+> > If we do keep it, would adding -mstackrealign make it more robust?
+> > That's simple and will only add the alignment to functions that require
+> > 16-byte alignment (at least on gcc).
+> 
+> I think there's also `-mincoming-stack-boundary=`.
+> https://github.com/ClangBuiltLinux/linux/issues/735#issuecomment-540038017
+
+Yes, but -mstackrealign looks like it's supported by clang as well.
+> 
+> >
+> > Alternative is to use
+> > __attribute__((force_align_arg_pointer)) on functions that might be
+> > called from 8-byte-aligned code.
+> 
+> Which is hard to automate and easy to forget.  Likely a large diff to fix today.
+
+Right, this is a no-go, esp to just fix old compilers.
+> 
+> >
+> > It looks like -mstackrealign should work from gcc 5.3 onwards.
+> 
+> The kernel would generally like to support GCC 4.9+.
+> 
+> There's plenty of different ways to keep layering on duct tape and
+> bailing wire to support differing ABIs, but that's just adding
+> technical debt that will have to be repaid one day.  That's why the
+> cleanest solution IMO is mark the driver broken for old toolchains,
+> and use a code-base-consistent stack alignment.  Bending over
+> backwards to support old toolchains means accepting stack alignment
+> mismatches, which is in the "unspecified behavior" ring of the
+> "undefined behavior" Venn diagram.  I have the same opinion on relying
+> on explicitly undefined behavior.
+> 
+> I'll send patches for fixing up Clang, but please consider my strong
+> advice to generally avoid stack alignment mismatches, regardless of
+> compiler.
+> --
+> Thanks,
+> ~Nick Desaulniers
+
+What I suggested was in reference to your proposal for dropping the
+-mpreferred-stack-boundary=4 for modern compilers, but keeping it for
+<7.1. -mstackrealign would at least let 5.3 onwards be less likely to
+break (and it doesn't error before then, I think it just doesn't
+actually do anything, so no worse than now at least).
+
+Simply dropping support for <7.1 would be cleanest, yes, but it sounds
+like people don't want to go that far.
