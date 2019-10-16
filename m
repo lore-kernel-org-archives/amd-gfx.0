@@ -1,13 +1,17 @@
-From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu/psp: declare PSP TA firmware
-Date: Wed, 16 Oct 2019 12:45:01 +0000
-Message-ID: <BN6PR12MB180987D3A7CD9D402B8997F3F7920@BN6PR12MB1809.namprd12.prod.outlook.com>
-References: <1571194113-22696-1-git-send-email-curry.gong@amd.com>
+From: James Zhu <jamesz-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 1/3] drm/amdgpu/uvd:Add uvd enc session bo
+Date: Wed, 16 Oct 2019 13:01:40 +0000
+Message-ID: <700870ad-2a19-3d92-ef42-fe53c9735185@amd.com>
+References: <1571177279-9435-1-git-send-email-James.Zhu@amd.com>
+ <1571177279-9435-2-git-send-email-James.Zhu@amd.com>
+ <3198889b-9df5-dd90-0457-79a1a886ec4d@gmail.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1417797008=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1571194113-22696-1-git-send-email-curry.gong-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <3198889b-9df5-dd90-0457-79a1a886ec4d-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 Content-Language: en-US
+Content-ID: <043FDD7C8307784D9CA6DA041ECCCBDA-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,135 +22,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Gong, Curry" <Curry.Gong-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Lakha, Bhawanpreet" <Bhawanpreet.Lakha-5C7GfCeVMHo@public.gmane.org>
+To: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "Zhu, James" <James.Zhu-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============1417797008==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_BN6PR12MB180987D3A7CD9D402B8997F3F7920BN6PR12MB1809namp_"
-
---_000_BN6PR12MB180987D3A7CD9D402B8997F3F7920BN6PR12MB1809namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-Reviewed-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-________________________________
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of chen gon=
-g <curry.gong-5C7GfCeVMHo@public.gmane.org>
-Sent: Tuesday, October 15, 2019 10:48 PM
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: Lakha, Bhawanpreet <Bhawanpreet.Lakha-5C7GfCeVMHo@public.gmane.org>; Gong, Curry <Curry.Gong=
-@amd.com>
-Subject: [PATCH] drm/amdgpu/psp: declare PSP TA firmware
-
-Add PSP TA firmware declaration for raven raven2 picasso
-
-Signed-off-by: chen gong <curry.gong-5C7GfCeVMHo@public.gmane.org>
----
- drivers/gpu/drm/amd/amdgpu/psp_v10_0.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v10_0.c b/drivers/gpu/drm/amd/a=
-mdgpu/psp_v10_0.c
-index b96484a..b345e69 100644
---- a/drivers/gpu/drm/amd/amdgpu/psp_v10_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/psp_v10_0.c
-@@ -40,6 +40,9 @@
- MODULE_FIRMWARE("amdgpu/raven_asd.bin");
- MODULE_FIRMWARE("amdgpu/picasso_asd.bin");
- MODULE_FIRMWARE("amdgpu/raven2_asd.bin");
-+MODULE_FIRMWARE("amdgpu/picasso_ta.bin");
-+MODULE_FIRMWARE("amdgpu/raven2_ta.bin");
-+MODULE_FIRMWARE("amdgpu/raven_ta.bin");
-
- static int psp_v10_0_init_microcode(struct psp_context *psp)
- {
---
-2.7.4
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---_000_BN6PR12MB180987D3A7CD9D402B8997F3F7920BN6PR12MB1809namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Reviewed-by: Alex Deucher &lt;alexander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
-</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
-ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of chen gong &lt;curry.gong@amd.=
-com&gt;<br>
-<b>Sent:</b> Tuesday, October 15, 2019 10:48 PM<br>
-<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org &lt;amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&=
-gt;<br>
-<b>Cc:</b> Lakha, Bhawanpreet &lt;Bhawanpreet.Lakha-5C7GfCeVMHo@public.gmane.org&gt;; Gong, Curr=
-y &lt;Curry.Gong-5C7GfCeVMHo@public.gmane.org&gt;<br>
-<b>Subject:</b> [PATCH] drm/amdgpu/psp: declare PSP TA firmware</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">Add PSP TA firmware declaration for raven raven2 p=
-icasso<br>
-<br>
-Signed-off-by: chen gong &lt;curry.gong-5C7GfCeVMHo@public.gmane.org&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/psp_v10_0.c | 3 &#43;&#43;&#43;<br>
-&nbsp;1 file changed, 3 insertions(&#43;)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v10_0.c b/drivers/gpu/drm/amd/a=
-mdgpu/psp_v10_0.c<br>
-index b96484a..b345e69 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/psp_v10_0.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/psp_v10_0.c<br>
-@@ -40,6 &#43;40,9 @@<br>
-&nbsp;MODULE_FIRMWARE(&quot;amdgpu/raven_asd.bin&quot;);<br>
-&nbsp;MODULE_FIRMWARE(&quot;amdgpu/picasso_asd.bin&quot;);<br>
-&nbsp;MODULE_FIRMWARE(&quot;amdgpu/raven2_asd.bin&quot;);<br>
-&#43;MODULE_FIRMWARE(&quot;amdgpu/picasso_ta.bin&quot;);<br>
-&#43;MODULE_FIRMWARE(&quot;amdgpu/raven2_ta.bin&quot;);<br>
-&#43;MODULE_FIRMWARE(&quot;amdgpu/raven_ta.bin&quot;);<br>
-&nbsp;<br>
-&nbsp;static int psp_v10_0_init_microcode(struct psp_context *psp)<br>
-&nbsp;{<br>
--- <br>
-2.7.4<br>
-<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
-lists.freedesktop.org/mailman/listinfo/amd-gfx</a></div>
-</span></font></div>
-</body>
-</html>
-
---_000_BN6PR12MB180987D3A7CD9D402B8997F3F7920BN6PR12MB1809namp_--
-
---===============1417797008==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
-
---===============1417797008==--
+VGhhbmtzIGZvciB5b3VyIGNvbW1lbnRzIQ0KDQpBbGV4IGhhcyBhIG5ldyBwYXRjaCBzdWJtaXQs
+IEkgYW0gdmVyaWZ5aW5nIGl0Lg0KDQpUaGFua3MhDQoNCkphbWVzIFpodQ0KDQpPbiAyMDE5LTEw
+LTE2IDQ6NTkgYS5tLiwgQ2hyaXN0aWFuIEvDtm5pZyB3cm90ZToNCj4gQW0gMTYuMTAuMTkgdW0g
+MDA6MDggc2NocmllYiBaaHUsIEphbWVzOg0KPj4gQWRkIHV2ZCBlbmMgc2Vzc2lvbiBibyBmb3Ig
+dXZkIGVuY29kZSBJQiB0ZXN0Lg0KPj4NCj4+IFNpZ25lZC1vZmYtYnk6IEphbWVzIFpodSA8SmFt
+ZXMuWmh1QGFtZC5jb20+DQo+PiAtLS0NCj4+IMKgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
+L2FtZGdwdV91dmQuaCB8IDQgKysrKw0KPj4gwqAgMSBmaWxlIGNoYW5nZWQsIDQgaW5zZXJ0aW9u
+cygrKQ0KPj4NCj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
+cHVfdXZkLmggDQo+PiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV91dmQuaA0K
+Pj4gaW5kZXggNWViNjMyOC4uMWUzOWM4YSAxMDA2NDQNCj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2Ry
+bS9hbWQvYW1kZ3B1L2FtZGdwdV91dmQuaA0KPj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9h
+bWRncHUvYW1kZ3B1X3V2ZC5oDQo+PiBAQCAtNjcsNiArNjcsMTAgQEAgc3RydWN0IGFtZGdwdV91
+dmQgew0KPj4gwqDCoMKgwqDCoCB1bnNpZ25lZMKgwqDCoMKgwqDCoMKgIGhhcnZlc3RfY29uZmln
+Ow0KPj4gwqDCoMKgwqDCoCAvKiBzdG9yZSBpbWFnZSB3aWR0aCB0byBhZGp1c3QgbmIgbWVtb3J5
+IHN0YXRlICovDQo+PiDCoMKgwqDCoMKgIHVuc2lnbmVkwqDCoMKgwqDCoMKgwqAgZGVjb2RlX2lt
+YWdlX3dpZHRoOw0KPj4gKw0KPj4gK8KgwqDCoCBzdHJ1Y3QgYW1kZ3B1X2JvICplbmNfc2Vzc2lv
+bl9ibzsNCj4+ICvCoMKgwqAgdm9pZMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAqZW5jX3Nlc3Np
+b25fY3B1X2FkZHI7DQo+PiArwqDCoMKgIHVpbnQ2NF90wqDCoMKgwqDCoMKgwqDCoMKgIGVuY19z
+ZXNzaW9uX2dwdV9hZGRyOw0KPg0KPiBQbGVhc2UgZG9uJ3Qga2VlcCB0aGF0IGFsbG9jYXRlZCBh
+bGwgdGhlIHRpbWUsIGJ1dCByYXRoZXIgb25seSANCj4gYWxsb2NhdGUgaXQgb24gZGVtYW5kIGR1
+cmluZyB0aGUgSUIgdGVzdC4NCj4NCj4gUmVnYXJkcywNCj4gQ2hyaXN0aWFuLg0KPg0KPj4gwqAg
+fTsNCj4+IMKgIMKgIGludCBhbWRncHVfdXZkX3N3X2luaXQoc3RydWN0IGFtZGdwdV9kZXZpY2Ug
+KmFkZXYpOw0KPg0KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0
+cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
