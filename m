@@ -1,69 +1,42 @@
-From: "Liu, Zhan" <Zhan.Liu-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH] drm/amd/display: Modify display link stream setup sequence.
-Date: Thu, 17 Oct 2019 04:28:08 +0000
-Message-ID: <DM6PR12MB346669D491903EB8D5D671919E6D0@DM6PR12MB3466.namprd12.prod.outlook.com>
+From: Chen Wandun <chenwandun@huawei.com>
+Subject: [PATCH] drm/amdgpu/display: fix compile error
+Date: Thu, 17 Oct 2019 14:19:32 +0800
+Message-ID: <1571293172-116998-1-git-send-email-chenwandun@huawei.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Liu,
- Zhan" <Zhan.Liu-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: harry.wentland@amd.com, alexander.deucher@amd.com, sunpeng.li@amd.com, christian.koenig@amd.com, David1.Zhou@amd.com, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Cc: chenwandun@huawei.com
+List-Id: amd-gfx.lists.freedesktop.org
 
-RnJvbTogWmhhbiBMaXUgPHpoYW4ubGl1QGFtZC5jb20+CgpbV2h5XQpXaGVuIGEgc3BlY2lmaWMg
-a2luZCBvZiBjb25uZWN0b3IgaXMgZGV0ZWN0ZWQsCkRDIG5lZWRzIHRvIHNldCB0aGUgYXR0cmli
-dXRlIG9mIHRoZSBzdHJlYW0uClRoaXMgc3RlcCBuZWVkcyB0byBiZSBkb25lIGJlZm9yZSBlbmFi
-bGluZyBsaW5rLApvciBzb21lIGJ1Z3MgKGUuZy4gZGlzcGxheSB3b24ndCBsaWdodCB1cCkKd2ls
-bCBiZSBvYnNlcnZlZC4KCltIb3ddClNldHRpbmcgdGhlIGF0dHJpYnV0ZSBvZiB0aGUgc3RyZWFt
-IGZpcnN0LCB0aGVuCmVuYWJsaW5nIHN0cmVhbS4KClNpZ25lZC1vZmYtYnk6IFpoYW4gTGl1IDx6
-aGFuLmxpdUBhbWQuY29tPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9jb3Jl
-L2RjX2xpbmsuYyB8IDIwICsrKysrKysrKy0tLS0tLS0tLS0KIDEgZmlsZSBjaGFuZ2VkLCAxMCBp
-bnNlcnRpb25zKCspLCAxMCBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9k
-cm0vYW1kL2Rpc3BsYXkvZGMvY29yZS9kY19saW5rLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rp
-c3BsYXkvZGMvY29yZS9kY19saW5rLmMKaW5kZXggZmIxODY4MWI1MDJiLi43MTNjYWFiODI4Mzcg
-MTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9jb3JlL2RjX2xpbmsu
-YworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvY29yZS9kY19saW5rLmMKQEAg
-LTI3NDUsMTYgKzI3NDUsNiBAQCB2b2lkIGNvcmVfbGlua19lbmFibGVfc3RyZWFtKAogICAgICAg
-ICAgICAgICAgICAgICAgICBkY19pc192aXJ0dWFsX3NpZ25hbChwaXBlX2N0eC0+c3RyZWFtLT5z
-aWduYWwpKQogICAgICAgICAgICAgICAgcmV0dXJuOwoKLSAgICAgICBpZiAoIWRjX2lzX3ZpcnR1
-YWxfc2lnbmFsKHBpcGVfY3R4LT5zdHJlYW0tPnNpZ25hbCkpIHsKLSAgICAgICAgICAgICAgIHN0
-cmVhbS0+bGluay0+bGlua19lbmMtPmZ1bmNzLT5zZXR1cCgKLSAgICAgICAgICAgICAgICAgICAg
-ICAgc3RyZWFtLT5saW5rLT5saW5rX2VuYywKLSAgICAgICAgICAgICAgICAgICAgICAgcGlwZV9j
-dHgtPnN0cmVhbS0+c2lnbmFsKTsKLSAgICAgICAgICAgICAgIHBpcGVfY3R4LT5zdHJlYW1fcmVz
-LnN0cmVhbV9lbmMtPmZ1bmNzLT5zZXR1cF9zdGVyZW9fc3luYygKLSAgICAgICAgICAgICAgICAg
-ICAgICAgcGlwZV9jdHgtPnN0cmVhbV9yZXMuc3RyZWFtX2VuYywKLSAgICAgICAgICAgICAgICAg
-ICAgICAgcGlwZV9jdHgtPnN0cmVhbV9yZXMudGctPmluc3QsCi0gICAgICAgICAgICAgICAgICAg
-ICAgIHN0cmVhbS0+dGltaW5nLnRpbWluZ18zZF9mb3JtYXQgIT0gVElNSU5HXzNEX0ZPUk1BVF9O
-T05FKTsKLSAgICAgICB9Ci0KICAgICAgICBpZiAoZGNfaXNfZHBfc2lnbmFsKHBpcGVfY3R4LT5z
-dHJlYW0tPnNpZ25hbCkpCiAgICAgICAgICAgICAgICBwaXBlX2N0eC0+c3RyZWFtX3Jlcy5zdHJl
-YW1fZW5jLT5mdW5jcy0+ZHBfc2V0X3N0cmVhbV9hdHRyaWJ1dGUoCiAgICAgICAgICAgICAgICAg
-ICAgICAgIHBpcGVfY3R4LT5zdHJlYW1fcmVzLnN0cmVhbV9lbmMsCkBAIC0yODQxLDYgKzI4MzEs
-MTYgQEAgdm9pZCBjb3JlX2xpbmtfZW5hYmxlX3N0cmVhbSgKICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgIENPTlRST0xMRVJfRFBfVEVTVF9QQVRURVJOX1ZJREVPTU9ERSwK
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIENPTE9SX0RFUFRIX1VOREVG
-SU5FRCk7CgorICAgICAgICAgICAgICAgaWYgKCFkY19pc192aXJ0dWFsX3NpZ25hbChwaXBlX2N0
-eC0+c3RyZWFtLT5zaWduYWwpKSB7CisgICAgICAgICAgICAgICAgICAgICAgIHN0cmVhbS0+bGlu
-ay0+bGlua19lbmMtPmZ1bmNzLT5zZXR1cCgKKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICBzdHJlYW0tPmxpbmstPmxpbmtfZW5jLAorICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-IHBpcGVfY3R4LT5zdHJlYW0tPnNpZ25hbCk7CisgICAgICAgICAgICAgICAgICAgICAgIHBpcGVf
-Y3R4LT5zdHJlYW1fcmVzLnN0cmVhbV9lbmMtPmZ1bmNzLT5zZXR1cF9zdGVyZW9fc3luYygKKyAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwaXBlX2N0eC0+c3RyZWFtX3Jlcy5zdHJlYW1f
-ZW5jLAorICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBpcGVfY3R4LT5zdHJlYW1fcmVz
-LnRnLT5pbnN0LAorICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHN0cmVhbS0+dGltaW5n
-LnRpbWluZ18zZF9mb3JtYXQgIT0gVElNSU5HXzNEX0ZPUk1BVF9OT05FKTsKKyAgICAgICAgICAg
-ICAgIH0KKwogI2lmZGVmIENPTkZJR19EUk1fQU1EX0RDX0RTQ19TVVBQT1JUCiAgICAgICAgICAg
-ICAgICBpZiAocGlwZV9jdHgtPnN0cmVhbS0+dGltaW5nLmZsYWdzLkRTQykgewogICAgICAgICAg
-ICAgICAgICAgICAgICBpZiAoZGNfaXNfZHBfc2lnbmFsKHBpcGVfY3R4LT5zdHJlYW0tPnNpZ25h
-bCkgfHwKLS0KMi4xNy4xCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
-Cmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
+From: Chenwandun <chenwandun@huawei.com>
+
+drivers/gpu/drm/amd/amdgpu/../display/dc/dcn20/dcn20_resource.c:1913:48: error: struct dc_crtc_timing_flags has no member named DSC
+   if (res_ctx->pipe_ctx[i].stream->timing.flags.DSC)
+						^
+drivers/gpu/drm/amd/amdgpu/../display/dc/dcn20/dcn20_resource.c:1914:73: error: struct dc_crtc_timing has no member named dsc_cfg
+   pipes[pipe_cnt].dout.output_bpp = res_ctx->pipe_ctx[i].stream->timing.dsc_cfg.bits_per_pixel / 16.0;
+									^
+Signed-off-by: Chenwandun <chenwandun@huawei.com>
+---
+ drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
+index 914e378..4f03318 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
+@@ -1910,8 +1910,10 @@ int dcn20_populate_dml_pipes_from_context(
+ 			pipes[pipe_cnt].dout.output_bpp = output_bpc * 3;
+ 		}
+ 
++#ifdef CONFIG_DRM_AMD_DC_DSC_SUPPORT
+ 		if (res_ctx->pipe_ctx[i].stream->timing.flags.DSC)
+ 			pipes[pipe_cnt].dout.output_bpp = res_ctx->pipe_ctx[i].stream->timing.dsc_cfg.bits_per_pixel / 16.0;
++#endif
+ 
+ 		/* todo: default max for now, until there is logic reflecting this in dc*/
+ 		pipes[pipe_cnt].dout.output_bpc = 12;
+-- 
+2.7.4
