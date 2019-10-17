@@ -1,15 +1,15 @@
-From: "Liu, Zhan" <Zhan.Liu-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH v2] drm/amd/display: Modify display link stream setup
- sequence.
-Date: Thu, 17 Oct 2019 20:53:31 +0000
-Message-ID: <DM6PR12MB3466ECB8AA076B5344C2D6619E6D0@DM6PR12MB3466.namprd12.prod.outlook.com>
-References: <DM6PR12MB3466E0D0DADF7599F877F0859E6D0@DM6PR12MB3466.namprd12.prod.outlook.com>
- <BYAPR12MB35608C9F6518E2E0ECF8FB91EC6D0@BYAPR12MB3560.namprd12.prod.outlook.com>
+From: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: Stack out of bounds in KFD on Arcturus
+Date: Thu, 17 Oct 2019 21:29:37 +0000
+Message-ID: <31aa5ae0-5eb4-38ca-aed7-d807ab19e2ca@amd.com>
+References: <a81a3f82-1f21-663f-150c-cdbbbf231ab3@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0527424165=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <BYAPR12MB35608C9F6518E2E0ECF8FB91EC6D0-ZGDeBxoHBPn7R3asTXea4wdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
+In-Reply-To: <a81a3f82-1f21-663f-150c-cdbbbf231ab3-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
+Content-ID: <9356D7347A7C9645B3AAC502677053D1-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -20,357 +20,151 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Kazlauskas, Nicholas" <Nicholas.Kazlauskas-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Grodzovsky, Andrey" <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>
+Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============0527424165==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_DM6PR12MB3466ECB8AA076B5344C2D6619E6D0DM6PR12MB3466namp_"
-
---_000_DM6PR12MB3466ECB8AA076B5344C2D6619E6D0DM6PR12MB3466namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-Thx! Will do it.
-
-Zhan
-
-From: Kazlauskas, Nicholas <Nicholas.Kazlauskas-5C7GfCeVMHo@public.gmane.org>
-Sent: 2019/October/17, Thursday 4:51 PM
-To: Liu, Zhan <Zhan.Liu-5C7GfCeVMHo@public.gmane.org>; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Subject: Re: [PATCH v2] drm/amd/display: Modify display link stream setup s=
-equence.
-
-This is actually setting DIG mode a second time, right? I don't think this =
-is what sets GC_SEND.
-
-Please mention that this is setting the DIG_MODE to the correct value after=
- having been overridden by the call to transmitter control in your patch de=
-scription. Also correct the HACK comment to mention that this second call i=
-s needed to reconfigure the DIG as a workaround for the incorrect value bei=
-ng applied from transmitter control. Specifics help in source.
-
-I don't think there is a case where we'd want HDMI changed to DVI so it's p=
-robably fine to leave this as is for now...
-
-With those fixed, you can add my:
-
-Reviewed-by: Nicholas Kazlauskas <nicholas.kazlauskas-5C7GfCeVMHo@public.gmane.org<mailto:nichol=
-as.kazlauskas-5C7GfCeVMHo@public.gmane.org>>
-
-Thanks,
-
-Nicholas Kazlauskas
-
-________________________________
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-bounces=
-@lists.freedesktop.org>> on behalf of Liu, Zhan <Zhan.Liu-5C7GfCeVMHo@public.gmane.org<mailto:Zh=
-an.Liu-5C7GfCeVMHo@public.gmane.org>>
-Sent: Thursday, October 17, 2019, 3:04 PM
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>; Li=
-u, Zhan
-Subject: [PATCH v2] drm/amd/display: Modify display link stream setup seque=
-nce.
-
-
-[Why]
-This patch is for fixing Navi14 pink screen issue. With this
-patch, stream->link->link_enc->funcs->setup will be called
-twice: this will make sure GC_SEND is set to 1. Though we
-still need to look into why the issue only happens on
-Linux, but not on Windows side.
-
-[How]
-Call stream->link->link_enc->funcs->setup twice.
-
-Signed-off-by: Zhan liu <zhan.liu-5C7GfCeVMHo@public.gmane.org<mailto:zhan.liu-5C7GfCeVMHo@public.gmane.org>>
----
- drivers/gpu/drm/amd/display/dc/core/dc_link.c | 6 ++++++
- 1 file changed, 6 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link.c b/drivers/gpu/dr=
-m/amd/display/dc/core/dc_link.c
-index 935053664160..8683e8613ec2 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-@@ -2842,6 +2842,12 @@ void core_link_enable_stream(
-                                        CONTROLLER_DP_TEST_PATTERN_VIDEOMOD=
-E,
-                                        COLOR_DEPTH_UNDEFINED);
-
-+               /* Hack on Navi14: fixes Navi14 HDMI pink screen issue */
-+               if (!dc_is_virtual_signal(pipe_ctx->stream->signal))
-+                       stream->link->link_enc->funcs->setup(
-+                               stream->link->link_enc,
-+                               pipe_ctx->stream->signal);
-+
- #ifdef CONFIG_DRM_AMD_DC_DSC_SUPPORT
-                if (pipe_ctx->stream->timing.flags.DSC) {
-                        if (dc_is_dp_signal(pipe_ctx->stream->signal) ||
---
-2.17.0
-_______________________________________________
-amd-gfx mailing list
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-_______________________________________________
-amd-gfx mailing list
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
-
---_000_DM6PR12MB3466ECB8AA076B5344C2D6619E6D0DM6PR12MB3466namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
-osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
-xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
-//www.w3.org/TR/REC-html40">
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
-<!--[if !mso]><style>v\:* {behavior:url(#default#VML);}
-o\:* {behavior:url(#default#VML);}
-w\:* {behavior:url(#default#VML);}
-.shape {behavior:url(#default#VML);}
-</style><![endif]--><style><!--
-/* Font Definitions */
-@font-face
-	{font-family:"Cambria Math";
-	panose-1:2 4 5 3 5 4 6 3 2 4;}
-@font-face
-	{font-family:DengXian;
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-@font-face
-	{font-family:Calibri;
-	panose-1:2 15 5 2 2 2 4 3 2 4;}
-@font-face
-	{font-family:"\@DengXian";
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-/* Style Definitions */
-p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin:0in;
-	margin-bottom:.0001pt;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif;}
-a:link, span.MsoHyperlink
-	{mso-style-priority:99;
-	color:blue;
-	text-decoration:underline;}
-a:visited, span.MsoHyperlinkFollowed
-	{mso-style-priority:99;
-	color:purple;
-	text-decoration:underline;}
-p.msonormal0, li.msonormal0, div.msonormal0
-	{mso-style-name:msonormal;
-	mso-margin-top-alt:auto;
-	margin-right:0in;
-	mso-margin-bottom-alt:auto;
-	margin-left:0in;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif;}
-p.emailquote, li.emailquote, div.emailquote
-	{mso-style-name:emailquote;
-	mso-margin-top-alt:auto;
-	margin-right:0in;
-	mso-margin-bottom-alt:auto;
-	margin-left:1.0pt;
-	border:none;
-	padding:0in;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif;}
-span.EmailStyle21
-	{mso-style-type:personal-reply;
-	font-family:"Calibri",sans-serif;
-	color:windowtext;}
-.MsoChpDefault
-	{mso-style-type:export-only;
-	font-size:10.0pt;}
-@page WordSection1
-	{size:8.5in 11.0in;
-	margin:1.0in 1.0in 1.0in 1.0in;}
-div.WordSection1
-	{page:WordSection1;}
---></style><!--[if gte mso 9]><xml>
-<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
-</xml><![endif]--><!--[if gte mso 9]><xml>
-<o:shapelayout v:ext=3D"edit">
-<o:idmap v:ext=3D"edit" data=3D"1" />
-</o:shapelayout></xml><![endif]-->
-</head>
-<body lang=3D"EN-US" link=3D"blue" vlink=3D"purple">
-<div class=3D"WordSection1">
-<p class=3D"MsoNormal">Thx! Will do it.<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">Zhan<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<div style=3D"border:none;border-left:solid blue 1.5pt;padding:0in 0in 0in =
-4.0pt">
-<div>
-<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
-0in 0in">
-<p class=3D"MsoNormal"><b>From:</b> Kazlauskas, Nicholas &lt;Nicholas.Kazla=
-uskas-5C7GfCeVMHo@public.gmane.org&gt;
-<br>
-<b>Sent:</b> 2019/October/17, Thursday 4:51 PM<br>
-<b>To:</b> Liu, Zhan &lt;Zhan.Liu-5C7GfCeVMHo@public.gmane.org&gt;; amd-gfx-PD4FTy7X32lNgt0PjOBp9/EVdHwE84te@public.gmane.org=
-g<br>
-<b>Subject:</b> Re: [PATCH v2] drm/amd/display: Modify display link stream =
-setup sequence.<o:p></o:p></p>
-</div>
-</div>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<div>
-<p class=3D"MsoNormal" style=3D"background:white"><span style=3D"color:#212=
-121">This is actually setting DIG mode a second time, right? I don't think =
-this is what sets GC_SEND.<o:p></o:p></span></p>
-<p class=3D"MsoNormal" style=3D"background:white"><span style=3D"color:#212=
-121"><o:p>&nbsp;</o:p></span></p>
-<p class=3D"MsoNormal" style=3D"background:white"><span style=3D"color:#212=
-121">Please mention that this is setting the DIG_MODE to the correct value =
-after having been overridden by the call to transmitter control in your pat=
-ch description. Also correct the HACK
- comment to mention that this second call is needed to reconfigure the DIG =
-as a workaround for the incorrect value being applied from transmitter cont=
-rol. Specifics help in source.<o:p></o:p></span></p>
-<p class=3D"MsoNormal" style=3D"background:white"><span style=3D"color:#212=
-121"><o:p>&nbsp;</o:p></span></p>
-<p class=3D"MsoNormal" style=3D"background:white"><span style=3D"color:#212=
-121">I don't think there is a case where we'd want HDMI changed to DVI so i=
-t's probably fine to leave this as is for now...<o:p></o:p></span></p>
-<p class=3D"MsoNormal" style=3D"background:white"><span style=3D"color:#212=
-121"><o:p>&nbsp;</o:p></span></p>
-<p class=3D"MsoNormal" style=3D"background:white"><span style=3D"color:#212=
-121">With those fixed, you can add my:<o:p></o:p></span></p>
-<p class=3D"MsoNormal" style=3D"background:white"><span style=3D"color:#212=
-121"><o:p>&nbsp;</o:p></span></p>
-<p class=3D"MsoNormal" style=3D"background:white"><span style=3D"color:#212=
-121">Reviewed-by: Nicholas Kazlauskas &lt;<a href=3D"mailto:nicholas.kazlau=
-skas-5C7GfCeVMHo@public.gmane.org">nicholas.kazlauskas-5C7GfCeVMHo@public.gmane.org</a>&gt;<o:p></o:p></span></p>
-<p class=3D"MsoNormal" style=3D"background:white"><span style=3D"color:#212=
-121"><o:p>&nbsp;</o:p></span></p>
-<p class=3D"MsoNormal" style=3D"background:white"><span style=3D"color:#212=
-121">Thanks,<o:p></o:p></span></p>
-<p class=3D"MsoNormal" style=3D"background:white"><span style=3D"color:#212=
-121"><o:p>&nbsp;</o:p></span></p>
-<p class=3D"MsoNormal" style=3D"background:white"><span style=3D"color:#212=
-121">Nicholas Kazlauskas<o:p></o:p></span></p>
-<div id=3D"id-77342fb2-e4ed-464c-97e1-4a1a620e36e9">
-<div>
-<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;font-family:&quot;Ar=
-ial&quot;,sans-serif;color:black"><o:p>&nbsp;</o:p></span></p>
-</div>
-<div class=3D"MsoNormal" align=3D"center" style=3D"text-align:center">
-<hr size=3D"2" width=3D"98%" align=3D"center">
-</div>
-<div id=3D"divRplyFwdMsg">
-<p class=3D"MsoNormal"><strong><span style=3D"font-family:&quot;Calibri&quo=
-t;,sans-serif">From:</span></strong> amd-gfx &lt;<a href=3D"mailto:amd-gfx-=
-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>&gt=
-; on behalf of Liu, Zhan &lt;<a href=3D"mailto:Zhan.Liu-5C7GfCeVMHo@public.gmane.org">Zhan.Liu@a=
-md.com</a>&gt;<br>
-<strong><span style=3D"font-family:&quot;Calibri&quot;,sans-serif">Sent:</s=
-pan></strong> Thursday, October 17, 2019, 3:04 PM<br>
-<strong><span style=3D"font-family:&quot;Calibri&quot;,sans-serif">To:</spa=
-n></strong> <a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>; Liu, Zhan<br>
-<strong><span style=3D"font-family:&quot;Calibri&quot;,sans-serif">Subject:=
-</span></strong> [PATCH v2] drm/amd/display: Modify display link stream set=
-up sequence.<o:p></o:p></p>
-</div>
-<p class=3D"MsoNormal"><br>
-<br>
-<o:p></o:p></p>
-<div>
-<p class=3D"MsoNormal">[Why]<br>
-This patch is for fixing Navi14 pink screen issue. With this<br>
-patch, stream-&gt;link-&gt;link_enc-&gt;funcs-&gt;setup will be called<br>
-twice: this will make sure GC_SEND is set to 1. Though we<br>
-still need to look into why the issue only happens on<br>
-Linux, but not on Windows side.<br>
-<br>
-[How]<br>
-Call stream-&gt;link-&gt;link_enc-&gt;funcs-&gt;setup twice.<br>
-<br>
-Signed-off-by: Zhan liu &lt;<a href=3D"mailto:zhan.liu-5C7GfCeVMHo@public.gmane.org">zhan.liu@am=
-d.com</a>&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/display/dc/core/dc_link.c | 6 &#43;&#43;&#43;&#43=
-;&#43;&#43;<br>
-&nbsp;1 file changed, 6 insertions(&#43;)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link.c b/drivers/gpu/dr=
-m/amd/display/dc/core/dc_link.c<br>
-index 935053664160..8683e8613ec2 100644<br>
---- a/drivers/gpu/drm/amd/display/dc/core/dc_link.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/display/dc/core/dc_link.c<br>
-@@ -2842,6 &#43;2842,12 @@ void core_link_enable_stream(<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp; CONTROLLER_DP_TEST_PATTERN_VIDEOMODE,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp; COLOR_DEPTH_UNDEFINED);<br>
-<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; /* Hack on Navi14: fixes Navi14 HDMI pink screen issue */<br=
->
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; if (!dc_is_virtual_signal(pipe_ctx-&gt;stream-&gt;signal))<b=
-r>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; stream-&gt;l=
-ink-&gt;link_enc-&gt;funcs-&gt;setup(<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; stream-&gt;link-&gt;link_enc,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pipe_ctx-&gt;stream-&gt;signal);<br>
-&#43;<br>
-&nbsp;#ifdef CONFIG_DRM_AMD_DC_DSC_SUPPORT<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp; if (pipe_ctx-&gt;stream-&gt;timing.flags.DSC) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (dc_is_d=
-p_signal(pipe_ctx-&gt;stream-&gt;signal) ||<br>
---<br>
-2.17.0<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
-lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
-<a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9/rsn8yoX9R0@public.gmane.org=
-org</a><br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-<a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9/rsn8yoX9R0@public.gmane.org=
-org</a><br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
-lists.freedesktop.org/mailman/listinfo/amd-gfx</a><o:p></o:p></p>
-</div>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-</div>
-</div>
-</div>
-</div>
-</body>
-</html>
-
---_000_DM6PR12MB3466ECB8AA076B5344C2D6619E6D0DM6PR12MB3466namp_--
-
---===============0527424165==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
-
---===============0527424165==--
+SSBkb24ndCBzZWUgd2h5IHRoaXMgcHJvYmxlbSB3b3VsZCBiZSBzcGVjaWZpYyB0byBBcmN0dXJ1
+cy4gSSBkb24ndCBzZWUgDQphbnkgZXhjZXNzaXZlIGFsbG9jYXRpb25zIG9uIHRoZSBzdGFjayBl
+aXRoZXIuIEFsc28gdGhlIGNvZGUgaW52b2x2ZWQgDQpoZXJlIGhhc24ndCBjaGFuZ2VkIHJlY2Vu
+dGx5Lg0KDQpBcmUgeW91IHVzaW5nIHNvbWUgd2VpcmQga2VybmVsIGNvbmZpZyB3aXRoIGEgc21h
+bGxlciBzdGFjaz8gSXMgaXQgDQpzcGVjaWZpYyB0byBhIGNvbXBpbGVyIHZlcnNpb24gb3Igc29t
+ZSBvcHRpbWl6YXRpb24gZmxhZ3M/IEkndmUgDQpzb21ldGltZXMgc2VlbiBmdW5jdGlvbiBpbmxp
+bmluZyBjYXVzZSBleGNlc3NpdmUgc3RhY2sgdXNhZ2UuDQoNClJlZ2FyZHMsDQogwqAgRmVsaXgN
+Cg0KT24gMjAxOS0xMC0xNyA0OjA5IHAubS4sIEdyb2R6b3Zza3ksIEFuZHJleSB3cm90ZToNCj4g
+SGUgRmVsaXggLSBJIHNlZSB0aGlzIG9uIGJvb3Qgd2hlbiB3b3JraW5nIHdpdGggQXJjdHVydXMu
+DQo+DQo+IEFuZHJleQ0KPg0KPg0KPiBbwqAgMTAzLjYwMjA5Ml0ga2ZkIGtmZDogQWxsb2NhdGVk
+IDM5NjkwNTYgYnl0ZXMgb24gZ2FydA0KPiBbwqAgMTAzLjYxMDc2OV0NCj4gPT09PT09PT09PT09
+PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09DQo+
+IFvCoCAxMDMuNjExNDY5XSBCVUc6IEtBU0FOOiBzdGFjay1vdXQtb2YtYm91bmRzIGluDQo+IGtm
+ZF9jcmVhdGVfdmNyYXRfaW1hZ2VfZ3B1KzB4NWRiLzB4YjgwIFthbWRncHVdDQo+IFvCoCAxMDMu
+NjExNjQ2XSBSZWFkIG9mIHNpemUgNCBhdCBhZGRyIGZmZmY4ODgzY2IxOWVlMzggYnkgdGFzayBt
+b2Rwcm9iZS8xMTIyDQo+DQo+IFvCoCAxMDMuNjExODM2XSBDUFU6IDMgUElEOiAxMTIyIENvbW06
+IG1vZHByb2JlIFRhaW50ZWQ6IEcNCj4gT8KgwqDCoMKgwqAgNS4zLjAtcmMzKyAjNDUNCj4gW8Kg
+IDEwMy42MTE4NDddIEhhcmR3YXJlIG5hbWU6IFN5c3RlbSBtYW51ZmFjdHVyZXIgU3lzdGVtIFBy
+b2R1Y3QNCj4gTmFtZS9aMTcwLVBSTywgQklPUyAxOTAyIDA2LzI3LzIwMTYNCj4gW8KgIDEwMy42
+MTE4NTZdIENhbGwgVHJhY2U6DQo+IFvCoCAxMDMuNjExODc5XcKgIGR1bXBfc3RhY2srMHg3MS8w
+eGFiDQo+IFvCoCAxMDMuNjExOTA3XcKgIHByaW50X2FkZHJlc3NfZGVzY3JpcHRpb24rMHgxZGEv
+MHgzYzANCj4gW8KgIDEwMy42MTI0NTNdwqAgPyBrZmRfY3JlYXRlX3ZjcmF0X2ltYWdlX2dwdSsw
+eDVkYi8weGI4MCBbYW1kZ3B1XQ0KPiBbwqAgMTAzLjYxMjQ3OV3CoCBfX2thc2FuX3JlcG9ydCsw
+eDEzZi8weDFhMA0KPiBbwqAgMTAzLjYxMzAyMl3CoCA/IGtmZF9jcmVhdGVfdmNyYXRfaW1hZ2Vf
+Z3B1KzB4NWRiLzB4YjgwIFthbWRncHVdDQo+IFvCoCAxMDMuNjEzNTgwXcKgID8ga2ZkX2NyZWF0
+ZV92Y3JhdF9pbWFnZV9ncHUrMHg1ZGIvMHhiODAgW2FtZGdwdV0NCj4gW8KgIDEwMy42MTM2MDRd
+wqAga2FzYW5fcmVwb3J0KzB4ZS8weDIwDQo+IFvCoCAxMDMuNjE0MTQ5XcKgIGtmZF9jcmVhdGVf
+dmNyYXRfaW1hZ2VfZ3B1KzB4NWRiLzB4YjgwIFthbWRncHVdDQo+IFvCoCAxMDMuNjE0NzYyXcKg
+ID8ga2ZkX2ZpbGxfZ3B1X21lbW9yeV9hZmZpbml0eSsweDExMC8weDExMCBbYW1kZ3B1XQ0KPiBb
+wqAgMTAzLjYxNDc5Nl3CoCA/IF9fYWxsb2NfcGFnZXNfbm9kZW1hc2srMHgyYzkvMHg1NjANCj4g
+W8KgIDEwMy42MTQ4MjRdwqAgPyBfX2FsbG9jX3BhZ2VzX3Nsb3dwYXRoKzB4MTM5MC8weDEzOTAN
+Cj4gW8KgIDEwMy42MTQ4OThdwqAgPyBrbWFsbG9jX29yZGVyKzB4NjMvMHg3MA0KPiBbwqAgMTAz
+LjYxNTQ2OV3CoCBrZmRfY3JlYXRlX2NyYXRfaW1hZ2VfdmlydHVhbCsweDcwYy8weDc3MCBbYW1k
+Z3B1XQ0KPiBbwqAgMTAzLjYxNjA1NF3CoCA/IGtmZF9jcmVhdGVfY3JhdF9pbWFnZV9hY3BpKzB4
+MWMwLzB4MWMwIFthbWRncHVdDQo+IFvCoCAxMDMuNjE2MDk1XcKgID8gdXBfd3JpdGUrMHg0Yi8w
+eDcwDQo+IFvCoCAxMDMuNjE2NjQ5XcKgIGtmZF90b3BvbG9neV9hZGRfZGV2aWNlKzB4OThkLzB4
+YjEwIFthbWRncHVdDQo+IFvCoCAxMDMuNjE3MjA3XcKgID8ga2ZkX3RvcG9sb2d5X3NodXRkb3du
+KzB4NjAvMHg2MCBbYW1kZ3B1XQ0KPiBbwqAgMTAzLjYxNzc0M13CoCA/IHN0YXJ0X2Nwc2NoKzB4
+MmZmLzB4M2EwIFthbWRncHVdDQo+IFvCoCAxMDMuNjE3Nzc3XcKgID8gbXV0ZXhfbG9ja19pb19u
+ZXN0ZWQrMHhhYzAvMHhhYzANCj4gW8KgIDEwMy42MTc4MDddwqAgPyBfX211dGV4X3VubG9ja19z
+bG93cGF0aCsweGRhLzB4NDIwDQo+IFvCoCAxMDMuNjE3ODQ4XcKgID8gX19tdXRleF91bmxvY2tf
+c2xvd3BhdGgrMHhkYS8weDQyMA0KPiBbwqAgMTAzLjYxNzg3N13CoCA/IHdhaXRfZm9yX2NvbXBs
+ZXRpb24rMHgyMDAvMHgyMDANCj4gW8KgIDEwMy42MTg0NjFdwqAgPyBzdGFydF9jcHNjaCsweDM4
+Yi8weDNhMCBbYW1kZ3B1XQ0KPiBbwqAgMTAzLjYxOTAxMV3CoCA/IGNyZWF0ZV9xdWV1ZV9jcHNj
+aCsweDY3MC8weDY3MCBbYW1kZ3B1XQ0KPiBbwqAgMTAzLjYxOTU3M13CoCA/IGtmZF9pb21tdV9k
+ZXZpY2VfaW5pdCsweDkyLzB4MWUwIFthbWRncHVdDQo+IFvCoCAxMDMuNjIwMTEyXcKgID8ga2Zk
+X2lvbW11X3Jlc3VtZSsweDJjLzB4MmMwIFthbWRncHVdDQo+IFvCoCAxMDMuNjIwNjU1XcKgID8g
+a2ZkX2lvbW11X2NoZWNrX2RldmljZSsweGYwLzB4ZjAgW2FtZGdwdV0NCj4gW8KgIDEwMy42MjEy
+MjhdwqAga2dkMmtmZF9kZXZpY2VfaW5pdCsweDQ3NC8weDg3MCBbYW1kZ3B1XQ0KPiBbwqAgMTAz
+LjYyMTc4MV3CoCBhbWRncHVfYW1ka2ZkX2RldmljZV9pbml0KzB4MjkxLzB4MzkwIFthbWRncHVd
+DQo+IFvCoCAxMDMuNjIyMzI5XcKgID8gYW1kZ3B1X2FtZGtmZF9kZXZpY2VfcHJvYmUrMHg5MC8w
+eDkwIFthbWRncHVdDQo+IFvCoCAxMDMuNjIyMzQ0XcKgID8ga21zZ19kdW1wX3Jld2luZF9ub2xv
+Y2srMHg1OS8weDU5DQo+IFvCoCAxMDMuNjIyODk1XcKgID8gYW1kZ3B1X3Jhc19lZXByb21fdGVz
+dCsweDcxLzB4OTAgW2FtZGdwdV0NCj4gW8KgIDEwMy42MjM0MjRdwqAgYW1kZ3B1X2RldmljZV9p
+bml0KzB4MWJiZS8weDJmMDAgW2FtZGdwdV0NCj4gW8KgIDEwMy42MjM4MTldwqAgPyBhbWRncHVf
+ZGV2aWNlX2hhc19kY19zdXBwb3J0KzB4MzAvMHgzMCBbYW1kZ3B1XQ0KPiBbwqAgMTAzLjYyMzg0
+Ml3CoCA/IF9faXNvbGF0ZV9mcmVlX3BhZ2UrMHgyOTAvMHgyOTANCj4gW8KgIDEwMy42MjM4NTJd
+wqAgPyBmc19yZWNsYWltX2FjcXVpcmUucGFydC45NysweDUvMHgzMA0KPiBbwqAgMTAzLjYyMzg5
+MV3CoCA/IF9fYWxsb2NfcGFnZXNfbm9kZW1hc2srMHgyYzkvMHg1NjANCj4gW8KgIDEwMy42MjM5
+MTJdwqAgPyBfX2FsbG9jX3BhZ2VzX3Nsb3dwYXRoKzB4MTM5MC8weDEzOTANCj4gW8KgIDEwMy42
+MjM5NDVdwqAgPyBrYXNhbl91bnBvaXNvbl9zaGFkb3crMHgzMS8weDQwDQo+IFvCoCAxMDMuNjIz
+OTcwXcKgID8ga21hbGxvY19vcmRlcisweDYzLzB4NzANCj4gW8KgIDEwMy42MjQzMzddwqAgYW1k
+Z3B1X2RyaXZlcl9sb2FkX2ttcysweGQ5LzB4NDMwIFthbWRncHVdDQo+IFvCoCAxMDMuNjI0Njkw
+XcKgID8gYW1kZ3B1X3JlZ2lzdGVyX2dwdV9pbnN0YW5jZSsweGUwLzB4ZTAgW2FtZGdwdV0NCj4g
+W8KgIDEwMy42MjQ3NTZdwqAgPyBkcm1fZGV2X3JlZ2lzdGVyKzB4MTljLzB4MzEwIFtkcm1dDQo+
+IFvCoCAxMDMuNjI0NzY4XcKgID8gX19rYXNhbl9zbGFiX2ZyZWUrMHgxMzMvMHgxNjANCj4gW8Kg
+IDEwMy42MjQ4NDldwqAgZHJtX2Rldl9yZWdpc3RlcisweDFmNS8weDMxMCBbZHJtXQ0KPiBbwqAg
+MTAzLjYyNTIxMl3CoCBhbWRncHVfcGNpX3Byb2JlKzB4MTA5LzB4MWYwIFthbWRncHVdDQo+IFvC
+oCAxMDMuNjI1NTY1XcKgID8gYW1kZ3B1X3Btb3BzX3J1bnRpbWVfaWRsZSsweGUwLzB4ZTAgW2Ft
+ZGdwdV0NCj4gW8KgIDEwMy42MjU1ODBdwqAgbG9jYWxfcGNpX3Byb2JlKzB4NzQvMHhkMA0KPiBb
+wqAgMTAzLjYyNTYwM13CoCBwY2lfZGV2aWNlX3Byb2JlKzB4MWZhLzB4MzEwDQo+IFvCoCAxMDMu
+NjI1NjIwXcKgID8gcGNpX2RldmljZV9yZW1vdmUrMHgxYzAvMHgxYzANCj4gW8KgIDEwMy42MjU2
+NDBdwqAgPyBzeXNmc19kb19jcmVhdGVfbGlua19zZC5pc3JhLjIrMHg3NC8weGUwDQo+IFvCoCAx
+MDMuNjI1NjczXcKgIHJlYWxseV9wcm9iZSsweDM2Ny8weDVkMA0KPiBbwqAgMTAzLjYyNTcwMF3C
+oCBkcml2ZXJfcHJvYmVfZGV2aWNlKzB4MTc3LzB4MWIwDQo+IFvCoCAxMDMuNjI1NzIxXcKgIGRl
+dmljZV9kcml2ZXJfYXR0YWNoKzB4OGEvMHg5MA0KPiBbwqAgMTAzLjYyNTczN13CoCA/IGRldmlj
+ZV9kcml2ZXJfYXR0YWNoKzB4OTAvMHg5MA0KPiBbwqAgMTAzLjYyNTc0Nl3CoCBfX2RyaXZlcl9h
+dHRhY2grMHhlYi8weDE5MA0KPiBbwqAgMTAzLjYyNTc2NV3CoCA/IGRldmljZV9kcml2ZXJfYXR0
+YWNoKzB4OTAvMHg5MA0KPiBbwqAgMTAzLjYyNTc3M13CoCBidXNfZm9yX2VhY2hfZGV2KzB4ZTQv
+MHgxNjANCj4gW8KgIDEwMy42MjU3ODldwqAgPyBzdWJzeXNfZGV2X2l0ZXJfZXhpdCsweDEwLzB4
+MTANCj4gW8KgIDEwMy42MjU4MjldwqAgYnVzX2FkZF9kcml2ZXIrMHgyNzcvMHgzMzANCj4gW8Kg
+IDEwMy42MjU4NTVdwqAgZHJpdmVyX3JlZ2lzdGVyKzB4YzYvMHgxYTANCj4gW8KgIDEwMy42MjU4
+NjZdwqAgPyAweGZmZmZmZmZmYTBkODgwMDANCj4gW8KgIDEwMy42MjU4ODBdwqAgZG9fb25lX2lu
+aXRjYWxsKzB4ZDMvMHgzMzQNCj4gW8KgIDEwMy42MjU4OTVdwqAgPyB0cmFjZV9ldmVudF9yYXdf
+ZXZlbnRfaW5pdGNhbGxfZmluaXNoKzB4MTUwLzB4MTUwDQo+IFvCoCAxMDMuNjI1OTExXcKgID8g
+a2FzYW5fdW5wb2lzb25fc2hhZG93KzB4MzEvMHg0MA0KPiBbwqAgMTAzLjYyNTkyNF3CoCA/IF9f
+a2FzYW5fa21hbGxvYysweGQ1LzB4ZjANCj4gW8KgIDEwMy42MjU5NDZdwqAgPyBrbWVtX2NhY2hl
+X2FsbG9jX3RyYWNlKzB4MTU0LzB4MzAwDQo+IFvCoCAxMDMuNjI1OTU1XcKgID8ga2FzYW5fdW5w
+b2lzb25fc2hhZG93KzB4MzEvMHg0MA0KPiBbwqAgMTAzLjYyNTk4NV3CoCBkb19pbml0X21vZHVs
+ZSsweGVjLzB4MzU0DQo+IFvCoCAxMDMuNjI2MDExXcKgIGxvYWRfbW9kdWxlKzB4M2M5MS8weDQ5
+ODANCj4gW8KgIDEwMy42MjYxMThdwqAgPyBtb2R1bGVfZnJvYl9hcmNoX3NlY3Rpb25zKzB4MjAv
+MHgyMA0KPiBbwqAgMTAzLjYyNjEzMl3CoCA/IGltYV9yZWFkX2ZpbGUrMHgxMC8weDEwDQo+IFvC
+oCAxMDMuNjI2MTQyXcKgID8gdmZzX3JlYWQrMHgxMjcvMHgxOTANCj4gW8KgIDEwMy42MjYxNjNd
+wqAgPyBrZXJuZWxfcmVhZCsweDk1LzB4YjANCj4gW8KgIDEwMy42MjYxODddwqAgPyBrZXJuZWxf
+cmVhZF9maWxlKzB4MWE1LzB4MzQwDQo+IFvCoCAxMDMuNjI2Mjc3XcKgID8gX19kb19zeXNfZmlu
+aXRfbW9kdWxlKzB4MTc1LzB4MWIwDQo+IFvCoCAxMDMuNjI2Mjg3XcKgIF9fZG9fc3lzX2Zpbml0
+X21vZHVsZSsweDE3NS8weDFiMA0KPiBbwqAgMTAzLjYyNjMwMV3CoCA/IF9faWEzMl9zeXNfaW5p
+dF9tb2R1bGUrMHg0MC8weDQwDQo+IFvCoCAxMDMuNjI2MzM4XcKgID8gbG9ja19kb3duZ3JhZGUr
+MHgzOTAvMHgzOTANCj4gW8KgIDEwMy42MjYzOTZdwqAgPyB2dGltZV91c2VyX2V4aXQrMHhjOC8w
+eGUwDQo+IFvCoCAxMDMuNjI2NDIzXcKgIGRvX3N5c2NhbGxfNjQrMHg3ZC8weDI1MA0KPiBbwqAg
+MTAzLjYyNjQ0MF3CoCBlbnRyeV9TWVNDQUxMXzY0X2FmdGVyX2h3ZnJhbWUrMHg0NC8weGE5DQo+
+IFvCoCAxMDMuNjI2NDUwXSBSSVA6IDAwMzM6MHg3ZjA5OTg0ODU0ZDkNCj4gW8KgIDEwMy42MjY0
+NjFdIENvZGU6IDAwIGYzIGMzIDY2IDJlIDBmIDFmIDg0IDAwIDAwIDAwIDAwIDAwIDBmIDFmIDQw
+IDAwDQo+IDQ4IDg5IGY4IDQ4IDg5IGY3IDQ4IDg5IGQ2IDQ4IDg5IGNhIDRkIDg5IGMyIDRkIDg5
+IGM4IDRjIDhiIDRjIDI0IDA4IDBmDQo+IDA1IDw0OD4gM2QgMDEgZjAgZmYgZmYgNzMgMDEgYzMg
+NDggOGIgMGQgOGYgMjkgMmMgMDAgZjcgZDggNjQgODkgMDEgNDgNCj4gW8KgIDEwMy42MjY0Njhd
+IFJTUDogMDAyYjowMDAwN2ZmYzQyODk2MDA4IEVGTEFHUzogMDAwMDAyNDYgT1JJR19SQVg6DQo+
+IDAwMDAwMDAwMDAwMDAxMzkNCj4gW8KgIDEwMy42MjY0NzldIFJBWDogZmZmZmZmZmZmZmZmZmZk
+YSBSQlg6IDAwMDA1NTlhNTI0OTU0MDAgUkNYOg0KPiAwMDAwN2YwOTk4NDg1NGQ5DQo+IFvCoCAx
+MDMuNjI2NDg2XSBSRFg6IDAwMDAwMDAwMDAwMDAwMDAgUlNJOiAwMDAwNTU5YTUyNDk5OTAwIFJE
+SToNCj4gMDAwMDAwMDAwMDAwMDAwNg0KPiBbwqAgMTAzLjYyNjQ5M10gUkJQOiAwMDAwNTU5YTUy
+NDk5OTAwIFIwODogMDAwMDAwMDAwMDAwMDAwMCBSMDk6DQo+IDAwMDAwMDAwMDAwMDAwMDANCj4g
+W8KgIDEwMy42MjY1MDBdIFIxMDogMDAwMDAwMDAwMDAwMDAwNiBSMTE6IDAwMDAwMDAwMDAwMDAy
+NDYgUjEyOg0KPiAwMDAwMDAwMDAwMDAwMDAwDQo+IFvCoCAxMDMuNjI2NTA4XSBSMTM6IDAwMDA1
+NTlhNTI0OTliMzAgUjE0OiAwMDAwMDAwMDAwMDQwMDAwIFIxNToNCj4gMDAwMDAwMDAwMDAwMDAx
+Mw0KPg0KPiBbwqAgMTAzLjYyNjU5Ml0gVGhlIGJ1Z2d5IGFkZHJlc3MgYmVsb25ncyB0byB0aGUg
+cGFnZToNCj4gW8KgIDEwMy42MjY2NjVdIHBhZ2U6ZmZmZmVhMDAwZjJjNjc4MCByZWZjb3VudDow
+IG1hcGNvdW50OjANCj4gbWFwcGluZzowMDAwMDAwMDAwMDAwMDAwIGluZGV4OjB4MA0KPiBbwqAg
+MTAzLjYyNjY3NV0gZmxhZ3M6IDB4MmZmZmYwMDAwMDAwMDAwKCkNCj4gW8KgIDEwMy42MjY2ODZd
+IHJhdzogMDJmZmZmMDAwMDAwMDAwMCAwMDAwMDAwMDAwMDAwMDAwIGZmZmZlYTAwMGYyYzY3ODgN
+Cj4gMDAwMDAwMDAwMDAwMDAwMA0KPiBbwqAgMTAzLjYyNjY5Nl0gcmF3OiAwMDAwMDAwMDAwMDAw
+MDAwIDAwMDAwMDAwMDAwMDAwMDAgMDAwMDAwMDBmZmZmZmZmZg0KPiAwMDAwMDAwMDAwMDAwMDAw
+DQo+IFvCoCAxMDMuNjI2NzAyXSBwYWdlIGR1bXBlZCBiZWNhdXNlOiBrYXNhbjogYmFkIGFjY2Vz
+cyBkZXRlY3RlZA0KPg0KPiBbwqAgMTAzLjYyNjc0Ml0gYWRkciBmZmZmODg4M2NiMTllZTM4IGlz
+IGxvY2F0ZWQgaW4gc3RhY2sgb2YgdGFzaw0KPiBtb2Rwcm9iZS8xMTIyIGF0IG9mZnNldCAyNjQg
+aW4gZnJhbWU6DQo+IFvCoCAxMDMuNjI3MjMzXcKgIGtmZF9jcmVhdGVfdmNyYXRfaW1hZ2VfZ3B1
+KzB4MC8weGI4MCBbYW1kZ3B1XQ0KPg0KPiBbwqAgMTAzLjYyNzM0Nl0gdGhpcyBmcmFtZSBoYXMg
+MyBvYmplY3RzOg0KPiBbwqAgMTAzLjYyNzQwNV3CoCBbMzIsIDM2KSAnYXZhaWxfc2l6ZScNCj4g
+W8KgIDEwMy42Mjc0MTBdwqAgWzk2LCAxMjApICdsb2NhbF9tZW1faW5mbycNCj4gW8KgIDEwMy42
+Mjc0NjZdwqAgWzE2MCwgMjY0KSAnY3VfaW5mbycNCj4NCj4gW8KgIDEwMy42Mjc2MDJdIE1lbW9y
+eSBzdGF0ZSBhcm91bmQgdGhlIGJ1Z2d5IGFkZHJlc3M6DQo+IFvCoCAxMDMuNjI3Njc1XcKgIGZm
+ZmY4ODgzY2IxOWVkMDA6IDAwIDAwIDAwIDAwIDAwIDAwIGYxIGYxIGYxIGYxIDA0IGY0IGY0DQo+
+IGY0IGYyIGYyDQo+IFvCoCAxMDMuNjI3NzgwXcKgIGZmZmY4ODgzY2IxOWVkODA6IGYyIGYyIDAw
+IDAwIDAwIGY0IGYyIGYyIGYyIGYyIDAwIDAwIDAwDQo+IDAwIDAwIDAwDQo+IFvCoCAxMDMuNjI3
+ODg1XSA+ZmZmZjg4ODNjYjE5ZWUwMDogMDAgMDAgMDAgMDAgMDAgMDAgMDAgZjQgZjQgZjQgZjMg
+ZjMgZjMNCj4gZjMgMDAgMDANCj4gW8KgIDEwMy42Mjc5ODldwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqAgXg0KPiBbwqAgMTAzLjYyODA2NV3CoCBmZmZmODg4M2NiMTllZTgwOiAwMCAwMCAwMCAwMCAw
+MCAwMCAwMCAwMCAwMCAwMCAwMCAwMCAwMA0KPiAwMCAwMCAwMA0KPiBbwqAgMTAzLjYyODE2OV3C
+oCBmZmZmODg4M2NiMTllZjAwOiBmMSBmMSBmMSBmMSAwMCBmNCBmNCBmNCBmMyBmMyBmMyBmMyAw
+MA0KPiAwMCAwMCAwMA0KPiBbwqAgMTAzLjYyODI3M10NCj4gPT09PT09PT09PT09PT09PT09PT09
+PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09DQo+DQpfX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcg
+bGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNr
+dG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
