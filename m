@@ -1,107 +1,80 @@
-From: Nick Desaulniers <ndesaulniers@google.com>
-Subject: Re: AMDGPU and 16B stack alignment
-Date: Wed, 16 Oct 2019 16:05:27 -0700
-Message-ID: <CAKwvOdkXDyqMA-mOz_PE9x0V0ePtA9uFcJS+1ibpBqde6MXX4g@mail.gmail.com>
-References: <CAKwvOdnDVe-dahZGnRtzMrx-AH_C+2Lf20qjFQHNtn9xh=Okzw@mail.gmail.com>
- <9e4d6378-5032-8521-13a9-d9d9519d07de@amd.com> <CAK8P3a3_Q15hKT=gyupb0FrPX1xV3tEBpVaYy1LF0kMUj2u8hw@mail.gmail.com>
- <CAKwvOdnLxm_tZ_qR1D-BE64Z3QaMC2h79ooobdRVAzmCD_2_Sg@mail.gmail.com>
- <20191015202636.GA1671072@rani> <CAKwvOd=yGXMwdoxKCD2gcEgevozf41jVmqCkW7CU=Xvd7mqtjw@mail.gmail.com>
- <20191016185500.GA2674383@rani>
+From: "Kim, Jonathan" <Jonathan.Kim-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH] drm/amdgpu: disable c-states on xgmi perfmons
+Date: Thu, 17 Oct 2019 00:49:04 +0000
+Message-ID: <20191017004852.6230-1-jonathan.kim@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20191016185500.GA2674383@rani>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Arvind Sankar <nivedita@alum.mit.edu>
-Cc: Arnd Bergmann <arnd@arndb.de>, "S, Shirish" <sshankar@amd.com>, "Wentland, Harry" <Harry.Wentland@amd.com>, "Deucher, Alexander" <Alexander.Deucher@amd.com>, "yshuiv7@gmail.com" <yshuiv7@gmail.com>, "andrew.cooper3@citrix.com" <andrew.cooper3@citrix.com>, clang-built-linux <clang-built-linux@googlegroups.com>, Matthias Kaehlcke <mka@google.com>, "S, Shirish" <Shirish.S@amd.com>, "Zhou, David(ChunMing)" <David1.Zhou@amd.com>, "Koenig, Christian" <Christian.Koenig@amd.com>, amd-gfx list <amd-gfx@lists.freedesktop.org>, LKML <linux-kernel@vger.kernel.org>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Felix.Keuhling-5C7GfCeVMHo@public.gmane.org" <Felix.Keuhling-5C7GfCeVMHo@public.gmane.org>, "Quan,
+ Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>, "Kim, Jonathan" <Jonathan.Kim-5C7GfCeVMHo@public.gmane.org>
 
-On Wed, Oct 16, 2019 at 11:55 AM Arvind Sankar <nivedita@alum.mit.edu> wrote:
->
-> On Tue, Oct 15, 2019 at 06:51:26PM -0700, Nick Desaulniers wrote:
-> > On Tue, Oct 15, 2019 at 1:26 PM Arvind Sankar <nivedita@alum.mit.edu> wrote:
-> > >
-> > > On Tue, Oct 15, 2019 at 11:05:56AM -0700, Nick Desaulniers wrote:
-> > > > Hmmm...I would have liked to remove it outright, as it is an ABI
-> > > > mismatch that is likely to result in instability and non-fun-to-debug
-> > > > runtime issues in the future.  I suspect my patch does work for GCC
-> > > > 7.1+.  The question is: Do we want to either:
-> > > > 1. mark AMDGPU broken for GCC < 7.1, or
-> > > > 2. continue supporting it via stack alignment mismatch?
-> > > >
-> > > > 2 is brittle, and may break at any point in the future, but if it's
-> > > > working for someone it does make me feel bad to outright disable it.
-> > > > What I'd image 2 looks like is (psuedo code in a Makefile):
-> > > >
-> > > > if CC_IS_GCC && GCC_VERSION < 7.1:
-> > > >   set stack alignment to 16B and hope for the best
-> > > >
-> > > > So my diff would be amended to keep the stack alignment flags, but
-> > > > only to support GCC < 7.1.  And that assumes my change compiles with
-> > > > GCC 7.1+. (Looks like it does for me locally with GCC 8.3, but I would
-> > > > feel even more confident if someone with hardware to test on and GCC
-> > > > 7.1+ could boot test).
-> > > > --
-> > > > Thanks,
-> > > > ~Nick Desaulniers
-> > >
-> > > If we do keep it, would adding -mstackrealign make it more robust?
-> > > That's simple and will only add the alignment to functions that require
-> > > 16-byte alignment (at least on gcc).
-> >
-> > I think there's also `-mincoming-stack-boundary=`.
-> > https://github.com/ClangBuiltLinux/linux/issues/735#issuecomment-540038017
->
-> Yes, but -mstackrealign looks like it's supported by clang as well.
-
-Good to know, but I want less duct tape, not more.
-
-> >
-> > >
-> > > Alternative is to use
-> > > __attribute__((force_align_arg_pointer)) on functions that might be
-> > > called from 8-byte-aligned code.
-> >
-> > Which is hard to automate and easy to forget.  Likely a large diff to fix today.
->
-> Right, this is a no-go, esp to just fix old compilers.
-> >
-> > >
-> > > It looks like -mstackrealign should work from gcc 5.3 onwards.
-> >
-> > The kernel would generally like to support GCC 4.9+.
-> >
-> > There's plenty of different ways to keep layering on duct tape and
-> > bailing wire to support differing ABIs, but that's just adding
-> > technical debt that will have to be repaid one day.  That's why the
-> > cleanest solution IMO is mark the driver broken for old toolchains,
-> > and use a code-base-consistent stack alignment.  Bending over
-> > backwards to support old toolchains means accepting stack alignment
-> > mismatches, which is in the "unspecified behavior" ring of the
-> > "undefined behavior" Venn diagram.  I have the same opinion on relying
-> > on explicitly undefined behavior.
-> >
-> > I'll send patches for fixing up Clang, but please consider my strong
-> > advice to generally avoid stack alignment mismatches, regardless of
-> > compiler.
-> > --
-> > Thanks,
-> > ~Nick Desaulniers
->
-> What I suggested was in reference to your proposal for dropping the
-> -mpreferred-stack-boundary=4 for modern compilers, but keeping it for
-> <7.1. -mstackrealign would at least let 5.3 onwards be less likely to
-> break (and it doesn't error before then, I think it just doesn't
-> actually do anything, so no worse than now at least).
->
-> Simply dropping support for <7.1 would be cleanest, yes, but it sounds
-> like people don't want to go that far.
-
-That's fair.  I've included your suggestions in the commit message of
-02/03 of a series I just sent but forgot to in reply to this thread:
-https://lkml.org/lkml/2019/10/16/1700
-
-Also, I do appreciate the suggestions and understand the value of brainstorming.
--- 
-Thanks,
-~Nick Desaulniers
+cmVhZCBvciB3cml0ZXMgdG8gZGYgcmVnaXN0ZXJzIHdoZW4gZ3B1IGRmIGlzIGluIGMtc3RhdGVz
+IHdpbGwgcmVzdWx0IGluCmhhbmcuICBkZiBjLXN0YXRlcyBzaG91bGQgYmUgZGlzYWJsZWQgcHJp
+b3IgdG8gcmVhZCBvciB3cml0ZXMgdGhlbgpyZS1lbmFibGVkIGFmdGVyIHJlYWQgb3Igd3JpdGVz
+LgoKQ2hhbmdlLUlkOiBJNmQ1YTgzZTRmZTEzZTI5YzczZGZiMDNhOTRmZTdjNjExZTg2N2ZlYwpT
+aWduZWQtb2ZmLWJ5OiBKb25hdGhhbiBLaW0gPEpvbmF0aGFuLktpbUBhbWQuY29tPgotLS0KIGRy
+aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2RmX3YzXzYuYyB8IDIxICsrKysrKysrKysrKysrKysr
+KysrLQogMSBmaWxlIGNoYW5nZWQsIDIwIGluc2VydGlvbnMoKyksIDEgZGVsZXRpb24oLSkKCmRp
+ZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9kZl92M182LmMgYi9kcml2ZXJz
+L2dwdS9kcm0vYW1kL2FtZGdwdS9kZl92M182LmMKaW5kZXggMTZmYmQyYmM4YWQxLi45YTU4NDE2
+NjYyZTAgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2RmX3YzXzYuYwor
+KysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9kZl92M182LmMKQEAgLTEwMiw2ICsxMDIs
+OSBAQCBzdGF0aWMgdWludDY0X3QgZGZfdjNfNl9nZXRfZmljYShzdHJ1Y3QgYW1kZ3B1X2Rldmlj
+ZSAqYWRldiwKIAlhZGRyZXNzID0gYWRldi0+bmJpby5mdW5jcy0+Z2V0X3BjaWVfaW5kZXhfb2Zm
+c2V0KGFkZXYpOwogCWRhdGEgPSBhZGV2LT5uYmlvLmZ1bmNzLT5nZXRfcGNpZV9kYXRhX29mZnNl
+dChhZGV2KTsKIAorCWlmIChzbXVfc2V0X2RmX2NzdGF0ZSgmYWRldi0+c211LCAwKSkKKwkJcmV0
+dXJuIDB4RkZGRkZGRkZGRkZGRkZGRjsKKwogCXNwaW5fbG9ja19pcnFzYXZlKCZhZGV2LT5wY2ll
+X2lkeF9sb2NrLCBmbGFncyk7CiAJV1JFRzMyKGFkZHJlc3MsIHNtbkRGX1BJRV9BT05fRmFicmlj
+SW5kaXJlY3RDb25maWdBY2Nlc3NBZGRyZXNzMyk7CiAJV1JFRzMyKGRhdGEsIGZpY2FhX3ZhbCk7
+CkBAIC0xMTQsNiArMTE3LDggQEAgc3RhdGljIHVpbnQ2NF90IGRmX3YzXzZfZ2V0X2ZpY2Eoc3Ry
+dWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsCiAKIAlzcGluX3VubG9ja19pcnFyZXN0b3JlKCZhZGV2
+LT5wY2llX2lkeF9sb2NrLCBmbGFncyk7CiAKKwlzbXVfc2V0X2RmX2NzdGF0ZSgmYWRldi0+c211
+LCAxKTsKKwogCXJldHVybiAoKChmaWNhZGhfdmFsICYgMHhGRkZGRkZGRkZGRkZGRkZGKSA8PCAz
+MikgfCBmaWNhZGxfdmFsKTsKIH0KIApAQCAtMTI1LDYgKzEzMCw5IEBAIHN0YXRpYyB2b2lkIGRm
+X3YzXzZfc2V0X2ZpY2Eoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsIHVpbnQzMl90IGZpY2Fh
+X3ZhbCwKIAlhZGRyZXNzID0gYWRldi0+bmJpby5mdW5jcy0+Z2V0X3BjaWVfaW5kZXhfb2Zmc2V0
+KGFkZXYpOwogCWRhdGEgPSBhZGV2LT5uYmlvLmZ1bmNzLT5nZXRfcGNpZV9kYXRhX29mZnNldChh
+ZGV2KTsKIAorCWlmIChzbXVfc2V0X2RmX2NzdGF0ZSgmYWRldi0+c211LCAwKSkKKwkJcmV0dXJu
+OworCiAJc3Bpbl9sb2NrX2lycXNhdmUoJmFkZXYtPnBjaWVfaWR4X2xvY2ssIGZsYWdzKTsKIAlX
+UkVHMzIoYWRkcmVzcywgc21uREZfUElFX0FPTl9GYWJyaWNJbmRpcmVjdENvbmZpZ0FjY2Vzc0Fk
+ZHJlc3MzKTsKIAlXUkVHMzIoZGF0YSwgZmljYWFfdmFsKTsKQEAgLTEzNCw4ICsxNDIsOSBAQCBz
+dGF0aWMgdm9pZCBkZl92M182X3NldF9maWNhKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LCB1
+aW50MzJfdCBmaWNhYV92YWwsCiAKIAlXUkVHMzIoYWRkcmVzcywgc21uREZfUElFX0FPTl9GYWJy
+aWNJbmRpcmVjdENvbmZpZ0FjY2Vzc0RhdGFIaTMpOwogCVdSRUczMihkYXRhLCBmaWNhZGhfdmFs
+KTsKLQogCXNwaW5fdW5sb2NrX2lycXJlc3RvcmUoJmFkZXYtPnBjaWVfaWR4X2xvY2ssIGZsYWdz
+KTsKKworCXNtdV9zZXRfZGZfY3N0YXRlKCZhZGV2LT5zbXUsIDEpOwogfQogCiAvKgpAQCAtMTUz
+LDEyICsxNjIsMTcgQEAgc3RhdGljIHZvaWQgZGZfdjNfNl9wZXJmbW9uX3JyZWcoc3RydWN0IGFt
+ZGdwdV9kZXZpY2UgKmFkZXYsCiAJYWRkcmVzcyA9IGFkZXYtPm5iaW8uZnVuY3MtPmdldF9wY2ll
+X2luZGV4X29mZnNldChhZGV2KTsKIAlkYXRhID0gYWRldi0+bmJpby5mdW5jcy0+Z2V0X3BjaWVf
+ZGF0YV9vZmZzZXQoYWRldik7CiAKKwlpZiAoc211X3NldF9kZl9jc3RhdGUoJmFkZXYtPnNtdSwg
+MCkpCisJCXJldHVybjsKKwogCXNwaW5fbG9ja19pcnFzYXZlKCZhZGV2LT5wY2llX2lkeF9sb2Nr
+LCBmbGFncyk7CiAJV1JFRzMyKGFkZHJlc3MsIGxvX2FkZHIpOwogCSpsb192YWwgPSBSUkVHMzIo
+ZGF0YSk7CiAJV1JFRzMyKGFkZHJlc3MsIGhpX2FkZHIpOwogCSpoaV92YWwgPSBSUkVHMzIoZGF0
+YSk7CiAJc3Bpbl91bmxvY2tfaXJxcmVzdG9yZSgmYWRldi0+cGNpZV9pZHhfbG9jaywgZmxhZ3Mp
+OworCisJc211X3NldF9kZl9jc3RhdGUoJmFkZXYtPnNtdSwgMSk7CiB9CiAKIC8qCkBAIC0xNzUs
+MTIgKzE4OSwxNyBAQCBzdGF0aWMgdm9pZCBkZl92M182X3BlcmZtb25fd3JlZyhzdHJ1Y3QgYW1k
+Z3B1X2RldmljZSAqYWRldiwgdWludDMyX3QgbG9fYWRkciwKIAlhZGRyZXNzID0gYWRldi0+bmJp
+by5mdW5jcy0+Z2V0X3BjaWVfaW5kZXhfb2Zmc2V0KGFkZXYpOwogCWRhdGEgPSBhZGV2LT5uYmlv
+LmZ1bmNzLT5nZXRfcGNpZV9kYXRhX29mZnNldChhZGV2KTsKIAorCWlmIChzbXVfc2V0X2RmX2Nz
+dGF0ZSgmYWRldi0+c211LCAwKSkKKwkJcmV0dXJuOworCiAJc3Bpbl9sb2NrX2lycXNhdmUoJmFk
+ZXYtPnBjaWVfaWR4X2xvY2ssIGZsYWdzKTsKIAlXUkVHMzIoYWRkcmVzcywgbG9fYWRkcik7CiAJ
+V1JFRzMyKGRhdGEsIGxvX3ZhbCk7CiAJV1JFRzMyKGFkZHJlc3MsIGhpX2FkZHIpOwogCVdSRUcz
+MihkYXRhLCBoaV92YWwpOwogCXNwaW5fdW5sb2NrX2lycXJlc3RvcmUoJmFkZXYtPnBjaWVfaWR4
+X2xvY2ssIGZsYWdzKTsKKworCXNtdV9zZXRfZGZfY3N0YXRlKCZhZGV2LT5zbXUsIDEpOwogfQog
+CiAvKiBnZXQgdGhlIG51bWJlciBvZiBkZiBjb3VudGVycyBhdmFpbGFibGUgKi8KLS0gCjIuMTcu
+MQoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdm
+eCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0
+cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
