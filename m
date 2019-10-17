@@ -1,14 +1,11 @@
-From: "Siqueira, Rodrigo" <Rodrigo.Siqueira-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amd/display: Modify display link stream setup
- sequence.
-Date: Thu, 17 Oct 2019 14:34:38 +0000
-Message-ID: <20191017143435.qncwbu7tawqyezw7@outlook.office365.com>
-References: <DM6PR12MB346669D491903EB8D5D671919E6D0@DM6PR12MB3466.namprd12.prod.outlook.com>
+From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: [PATCH 1/2] drm/amdgpu/vce: fix allocation size in enc ring test
+Date: Thu, 17 Oct 2019 11:44:55 -0400
+Message-ID: <20191017154456.335015-1-alexander.deucher@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1825230968=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <DM6PR12MB346669D491903EB8D5D671919E6D0-lmeGfMZKVrFD9+oK+SxdZAdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
-Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -19,136 +16,67 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Liu, Zhan" <Zhan.Liu-5C7GfCeVMHo@public.gmane.org>
-Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
 
---===============1825230968==
-Content-Language: en-US
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="evzostl23fxpgfaa"
-
---evzostl23fxpgfaa
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-Hi Zhan,
-
-I tested your patch, and it fixed the issue. I have some notes:
-
-1. Your patch does not apply smoothly, try to rebase your branch (I
-manually fix it for testing your patch).
-2. In the commit message, I recommend you to describe the "pink" color
-issue when using HDMI. It is going to make easy to understand the issue
-that your patch is trying to fix.=20
-
-Thanks
-
-On 10/17, Liu, Zhan wrote:
-> From: Zhan Liu <zhan.liu-5C7GfCeVMHo@public.gmane.org>
->=20
-> [Why]
-> When a specific kind of connector is detected,
-> DC needs to set the attribute of the stream.
-> This step needs to be done before enabling link,
-> or some bugs (e.g. display won't light up)
-> will be observed.
->=20
-> [How]
-> Setting the attribute of the stream first, then
-> enabling stream.
->=20
-> Signed-off-by: Zhan Liu <zhan.liu-5C7GfCeVMHo@public.gmane.org>
-> ---
->  drivers/gpu/drm/amd/display/dc/core/dc_link.c | 20 +++++++++----------
->  1 file changed, 10 insertions(+), 10 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link.c b/drivers/gpu/=
-drm/amd/display/dc/core/dc_link.c
-> index fb18681b502b..713caab82837 100644
-> --- a/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-> +++ b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-> @@ -2745,16 +2745,6 @@ void core_link_enable_stream(
->                         dc_is_virtual_signal(pipe_ctx->stream->signal))
->                 return;
->=20
-> -       if (!dc_is_virtual_signal(pipe_ctx->stream->signal)) {
-> -               stream->link->link_enc->funcs->setup(
-> -                       stream->link->link_enc,
-> -                       pipe_ctx->stream->signal);
-> -               pipe_ctx->stream_res.stream_enc->funcs->setup_stereo_sync(
-> -                       pipe_ctx->stream_res.stream_enc,
-> -                       pipe_ctx->stream_res.tg->inst,
-> -                       stream->timing.timing_3d_format !=3D TIMING_3D_FO=
-RMAT_NONE);
-> -       }
-> -
->         if (dc_is_dp_signal(pipe_ctx->stream->signal))
->                 pipe_ctx->stream_res.stream_enc->funcs->dp_set_stream_att=
-ribute(
->                         pipe_ctx->stream_res.stream_enc,
-> @@ -2841,6 +2831,16 @@ void core_link_enable_stream(
->                                         CONTROLLER_DP_TEST_PATTERN_VIDEOM=
-ODE,
->                                         COLOR_DEPTH_UNDEFINED);
->=20
-> +               if (!dc_is_virtual_signal(pipe_ctx->stream->signal)) {
-> +                       stream->link->link_enc->funcs->setup(
-> +                               stream->link->link_enc,
-> +                               pipe_ctx->stream->signal);
-> +                       pipe_ctx->stream_res.stream_enc->funcs->setup_ste=
-reo_sync(
-> +                               pipe_ctx->stream_res.stream_enc,
-> +                               pipe_ctx->stream_res.tg->inst,
-> +                               stream->timing.timing_3d_format !=3D TIMI=
-NG_3D_FORMAT_NONE);
-> +               }
-> +
->  #ifdef CONFIG_DRM_AMD_DC_DSC_SUPPORT
->                 if (pipe_ctx->stream->timing.flags.DSC) {
->                         if (dc_is_dp_signal(pipe_ctx->stream->signal) ||
-> --
-> 2.17.1
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---=20
-Rodrigo Siqueira
-Software Engineer, Advanced Micro Devices (AMD)
-https://siqueira.tech
-
---evzostl23fxpgfaa
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCgAdFiEE4tZ+ii1mjMCMQbfkWJzP/comvP8FAl2oe/sACgkQWJzP/com
-vP9z2g/7Bewf93NmUOMsV+Msu8XBmkX2LPd2yd307G5+HH3fYy2HmSmjC+R/fVDg
-H1Wb9oNymre6Ww83FJrDahGzN9uQEaIDgdNLM51hS2YlwbPZGK2dN9dd4HEjYT9/
-9FnhuYKhgJ2yvjGXGmWcnzlVV/thTw65N88a/f585KZiW8TR8AkBymu+DHtZUNmB
-xF1DGdZmlxzBOqu2eYKrcRrtO7deYWrCkCHGO/aTzORNtBWBKd+3eUoIPgsspV74
-AwshcxesAVOPQETVBNBi9KZ74rQNT8TMX9V+mtuFjMF/ntDKyMpPTfw4yOpvWlID
-ul9KlbzHMbryiBabq0uPM7BqXWV0jIzPI+/YaxHdluBc4DA9QCHFQJOxHrfsE6So
-W6fEqhikibITN4WKOpjoioZNqzNzseD5CF+K4jFQMjBBpSZT0DpL5n767fonJqF6
-YJsm+tSI3RAI/QGsK4A0+Cjrit8q4ltvd8miUGyO9zMfcs8etR6jMfSb8pb930e4
-cBNueSuIYMUQfBHRC2wnBaZrRQoos9C/Y2HZtsZfQCP+HXzpRuSftMCkR4M77uw1
-T9UuJABajiRVFKQb113Za636amPN1KsOobrY6jDvWJLEPfgrtAvOCFG7sEfsBy/z
-IgvaH9/C0sl0uX9BUiJMMRu5U6VWqcY/BkFQrqPenHqrFnUVvqs=
-=pQSp
------END PGP SIGNATURE-----
-
---evzostl23fxpgfaa--
-
---===============1825230968==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
-
---===============1825230968==--
+V2UgbmVlZCB0byBhbGxvY2F0ZSBhIGxhcmdlIGVub3VnaCBidWZmZXIgZm9yIHRoZQpmZWVkYmFj
+ayBidWZmZXIsIG90aGVyd2lzZSB0aGUgSUIgdGVzdCBjYW4gb3ZlcndyaXRlCm90aGVyIG1lbW9y
+eS4KClNpZ25lZC1vZmYtYnk6IEFsZXggRGV1Y2hlciA8YWxleGFuZGVyLmRldWNoZXJAYW1kLmNv
+bT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdmNlLmMgfCAyMCArKysr
+KysrKysrKysrKystLS0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZjZS5o
+IHwgIDEgKwogMiBmaWxlcyBjaGFuZ2VkLCAxNiBpbnNlcnRpb25zKCspLCA1IGRlbGV0aW9ucygt
+KQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92Y2UuYyBi
+L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92Y2UuYwppbmRleCBiNzBiM2M0NWJi
+MjkuLjY1MDQ0YjFiM2Q0YyAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
+YW1kZ3B1X3ZjZS5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92Y2Uu
+YwpAQCAtNDI5LDEzICs0MjksMTQgQEAgdm9pZCBhbWRncHVfdmNlX2ZyZWVfaGFuZGxlcyhzdHJ1
+Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwgc3RydWN0IGRybV9maWxlICpmaWxwKQogICogT3BlbiB1
+cCBhIHN0cmVhbSBmb3IgSFcgdGVzdAogICovCiBpbnQgYW1kZ3B1X3ZjZV9nZXRfY3JlYXRlX21z
+ZyhzdHJ1Y3QgYW1kZ3B1X3JpbmcgKnJpbmcsIHVpbnQzMl90IGhhbmRsZSwKKwkJCSAgICAgIHN0
+cnVjdCBhbWRncHVfYm8gKmJvLAogCQkJICAgICAgc3RydWN0IGRtYV9mZW5jZSAqKmZlbmNlKQog
+ewogCWNvbnN0IHVuc2lnbmVkIGliX3NpemVfZHcgPSAxMDI0OwogCXN0cnVjdCBhbWRncHVfam9i
+ICpqb2I7CiAJc3RydWN0IGFtZGdwdV9pYiAqaWI7CiAJc3RydWN0IGRtYV9mZW5jZSAqZiA9IE5V
+TEw7Ci0JdWludDY0X3QgZHVtbXk7CisJdWludDY0X3QgYWRkcjsKIAlpbnQgaSwgcjsKIAogCXIg
+PSBhbWRncHVfam9iX2FsbG9jX3dpdGhfaWIocmluZy0+YWRldiwgaWJfc2l6ZV9kdyAqIDQsICZq
+b2IpOwpAQCAtNDQ0LDcgKzQ0NSw3IEBAIGludCBhbWRncHVfdmNlX2dldF9jcmVhdGVfbXNnKHN0
+cnVjdCBhbWRncHVfcmluZyAqcmluZywgdWludDMyX3QgaGFuZGxlLAogCiAJaWIgPSAmam9iLT5p
+YnNbMF07CiAKLQlkdW1teSA9IGliLT5ncHVfYWRkciArIDEwMjQ7CisJYWRkciA9IGFtZGdwdV9i
+b19ncHVfb2Zmc2V0KGJvKTsKIAogCS8qIHN0aXRjaCB0b2dldGhlciBhbiBWQ0UgY3JlYXRlIG1z
+ZyAqLwogCWliLT5sZW5ndGhfZHcgPSAwOwpAQCAtNDc2LDggKzQ3Nyw4IEBAIGludCBhbWRncHVf
+dmNlX2dldF9jcmVhdGVfbXNnKHN0cnVjdCBhbWRncHVfcmluZyAqcmluZywgdWludDMyX3QgaGFu
+ZGxlLAogCiAJaWItPnB0cltpYi0+bGVuZ3RoX2R3KytdID0gMHgwMDAwMDAxNDsgLyogbGVuICov
+CiAJaWItPnB0cltpYi0+bGVuZ3RoX2R3KytdID0gMHgwNTAwMDAwNTsgLyogZmVlZGJhY2sgYnVm
+ZmVyICovCi0JaWItPnB0cltpYi0+bGVuZ3RoX2R3KytdID0gdXBwZXJfMzJfYml0cyhkdW1teSk7
+Ci0JaWItPnB0cltpYi0+bGVuZ3RoX2R3KytdID0gZHVtbXk7CisJaWItPnB0cltpYi0+bGVuZ3Ro
+X2R3KytdID0gdXBwZXJfMzJfYml0cyhhZGRyKTsKKwlpYi0+cHRyW2liLT5sZW5ndGhfZHcrK10g
+PSBhZGRyOwogCWliLT5wdHJbaWItPmxlbmd0aF9kdysrXSA9IDB4MDAwMDAwMDE7CiAKIAlmb3Ig
+KGkgPSBpYi0+bGVuZ3RoX2R3OyBpIDwgaWJfc2l6ZV9kdzsgKytpKQpAQCAtMTExMCwxMyArMTEx
+MSwyMCBAQCBpbnQgYW1kZ3B1X3ZjZV9yaW5nX3Rlc3RfcmluZyhzdHJ1Y3QgYW1kZ3B1X3Jpbmcg
+KnJpbmcpCiBpbnQgYW1kZ3B1X3ZjZV9yaW5nX3Rlc3RfaWIoc3RydWN0IGFtZGdwdV9yaW5nICpy
+aW5nLCBsb25nIHRpbWVvdXQpCiB7CiAJc3RydWN0IGRtYV9mZW5jZSAqZmVuY2UgPSBOVUxMOwor
+CXN0cnVjdCBhbWRncHVfYm8gKmJvID0gTlVMTDsKIAlsb25nIHI7CiAKIAkvKiBza2lwIHZjZSBy
+aW5nMS8yIGliIHRlc3QgZm9yIG5vdywgc2luY2UgaXQncyBub3QgcmVsaWFibGUgKi8KIAlpZiAo
+cmluZyAhPSAmcmluZy0+YWRldi0+dmNlLnJpbmdbMF0pCiAJCXJldHVybiAwOwogCi0JciA9IGFt
+ZGdwdV92Y2VfZ2V0X2NyZWF0ZV9tc2cocmluZywgMSwgTlVMTCk7CisJciA9IGFtZGdwdV9ib19j
+cmVhdGVfcmVzZXJ2ZWQocmluZy0+YWRldiwgNTEyLCBQQUdFX1NJWkUsCisJCQkJICAgICAgQU1E
+R1BVX0dFTV9ET01BSU5fVlJBTSwKKwkJCQkgICAgICAmYm8sIE5VTEwsIE5VTEwpOworCWlmIChy
+KQorCQlyZXR1cm4gcjsKKworCXIgPSBhbWRncHVfdmNlX2dldF9jcmVhdGVfbXNnKHJpbmcsIDEs
+IGJvLCBOVUxMKTsKIAlpZiAocikKIAkJZ290byBlcnJvcjsKIApAQCAtMTEzMiw1ICsxMTQwLDcg
+QEAgaW50IGFtZGdwdV92Y2VfcmluZ190ZXN0X2liKHN0cnVjdCBhbWRncHVfcmluZyAqcmluZywg
+bG9uZyB0aW1lb3V0KQogCiBlcnJvcjoKIAlkbWFfZmVuY2VfcHV0KGZlbmNlKTsKKwlhbWRncHVf
+Ym9fdW5yZXNlcnZlKGJvKTsKKwlhbWRncHVfYm9fdW5yZWYoJmJvKTsKIAlyZXR1cm4gcjsKIH0K
+ZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92Y2UuaCBiL2Ry
+aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92Y2UuaAppbmRleCAzMGVhNTRkZDkxMTcu
+LmU4MDJmN2Q5ZGIwYSAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
+Z3B1X3ZjZS5oCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92Y2UuaApA
+QCAtNTksNiArNTksNyBAQCBpbnQgYW1kZ3B1X3ZjZV9lbnRpdHlfaW5pdChzdHJ1Y3QgYW1kZ3B1
+X2RldmljZSAqYWRldik7CiBpbnQgYW1kZ3B1X3ZjZV9zdXNwZW5kKHN0cnVjdCBhbWRncHVfZGV2
+aWNlICphZGV2KTsKIGludCBhbWRncHVfdmNlX3Jlc3VtZShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAq
+YWRldik7CiBpbnQgYW1kZ3B1X3ZjZV9nZXRfY3JlYXRlX21zZyhzdHJ1Y3QgYW1kZ3B1X3Jpbmcg
+KnJpbmcsIHVpbnQzMl90IGhhbmRsZSwKKwkJCSAgICAgIHN0cnVjdCBhbWRncHVfYm8gKmJvLAog
+CQkJICAgICAgc3RydWN0IGRtYV9mZW5jZSAqKmZlbmNlKTsKIGludCBhbWRncHVfdmNlX2dldF9k
+ZXN0cm95X21zZyhzdHJ1Y3QgYW1kZ3B1X3JpbmcgKnJpbmcsIHVpbnQzMl90IGhhbmRsZSwKIAkJ
+CSAgICAgICBib29sIGRpcmVjdCwgc3RydWN0IGRtYV9mZW5jZSAqKmZlbmNlKTsKLS0gCjIuMjMu
+MAoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdm
+eCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0
+cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
