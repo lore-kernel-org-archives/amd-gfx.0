@@ -1,12 +1,13 @@
-From: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [RFC] drm: Add AMD GFX9+ format modifiers.
-Date: Thu, 17 Oct 2019 15:49:40 -0400
-Message-ID: <CAAxE2A42b0bkMkA1_XuHzgphfVVtMmLGrrvAOo49K1ujY_y_JA@mail.gmail.com>
-References: <20191016134656.3396068-1-bas@basnieuwenhuizen.nl>
+From: "Grodzovsky, Andrey" <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>
+Subject: Stack out of bounds in KFD on Arcturus
+Date: Thu, 17 Oct 2019 20:09:41 +0000
+Message-ID: <a81a3f82-1f21-663f-150c-cdbbbf231ab3@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0275992549=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20191016134656.3396068-1-bas-dldO88ZXqoXqqjsSq9zF6IRWq/SkRNHw@public.gmane.org>
+Content-Language: en-US
+Content-ID: <8E529A23E1337A4E882FB9EA792286D3-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -17,615 +18,139 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Bas Nieuwenhuizen <bas-dldO88ZXqoXqqjsSq9zF6IRWq/SkRNHw@public.gmane.org>
-Cc: dri-devel <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Daniel Stone <daniel-rLtY4a/8tF1rovVCs/uTlw@public.gmane.org>, amd-gfx mailing list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>, Drew Davenport <ddavenport-F7+t8E8rja9g9hUCZPvPmw@public.gmane.org>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+To: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
+Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============0275992549==
-Content-Type: multipart/alternative; boundary="000000000000d1b0c5059520865c"
-
---000000000000d1b0c5059520865c
-Content-Type: text/plain; charset="UTF-8"
-
-On Wed, Oct 16, 2019 at 9:48 AM Bas Nieuwenhuizen <bas-dldO88ZXqoXqqjsSq9zF6IRWq/SkRNHw@public.gmane.org>
-wrote:
-
-> This adds initial format modifiers for AMD GFX9 and newer GPUs.
->
-> This is particularly useful to determine if we can use DCC, and whether
-> we need an extra display compatible DCC metadata plane.
->
-> Design decisions:
->   - Always expose a single plane
->        This way everything works correctly with images with multiple
-> planes.
->
->   - Do not add an extra memory region in DCC for putting a bit on whether
->     we are in compressed state.
->        A decompress on import is cheap enough if already decompressed, and
->        I do think in most cases we can avoid it in advance during modifier
->        negotiation. The remainder is probably not common enough to worry
->        about.
->
->   - Explicitly define the sizes as part of the modifier description instead
->     of using whatever the current version of radeonsi does.
->        This way we can avoid dedicated buffers and we can make sure we keep
->        compatibility across mesa versions. I'd like to put some tests on
->        this on ac_surface.c so we can learn early in the process if things
->        need to be changed. Furthermore, the lack of configurable strides on
->        GFX10 means things already go wrong if we do not agree, making a
->        custom stride somewhat less useful.
->
-
-The custom stride will be back for 2D images (not for 3D/Array), so
-Navi10-14 will be the only hw not supporting the custom stride for 2D. It
-might not be worth adding the width and height into the modifier just
-because of Navi10-14, though I don't feel strongly about it.
-
-This patch doesn't add the sizes into the description anyway.
-
-The rest looks good.
-
-Marek
-
-
->
->   - No usage of BO metadata at all for modifier usecases.
->        To avoid the requirement of dedicated dma bufs per image. For
->        non-modifier based interop we still use the BO metadata, since we
->        need to keep compatibility with old mesa and this is used for
->        depth/msaa/3d/CL etc. API interop.
->
->   - A single FD for all planes.
->        Easier in Vulkan / bindless and radeonsi is already transitioning.
->
->   - Make a single modifier for DCN1
->       It defines things uniquely given bpp, which we can assume, so adding
->       more modifier values do not add clarity.
->
->   - Not exposing the 4K and 256B tiling modes.
->       These are largely only better for something like a cursor or very
-> long
->       and/or tall images. Are they worth the added complexity to save
-> memory?
->       For context, at 32bpp, tiles are 128x128 pixels.
->
->   - For multiplane images, every plane uses the same tiling.
->       On GFX9/GFX10 we can, so no need to make it complicated.
->
->   - We use family_id + external_rev to distinguish between incompatible
-> GPUs.
->       PCI ID is not enough, as RAVEN and RAVEN2 have the same PCI device
-> id,
->       but different tiling. We might be able to find bigger equivalence
->       groups for _X, but especially for DCC I would be uncomfortable
-> making it
->       shared between GPUs.
->
->   - For DCN1 DCC, radeonsi currently uses another texelbuffer with indices
->     to reorder. This is not shared.
->       Specific to current implementation and does not need to be shared. To
->       pave the way to shader-based solution, lets keep this internal to
-> each
->       driver. This should reduce the modifier churn if any of the driver
->       implementations change. (Especially as you'd want to support the old
->       implementation for a while to stay compatible with old kernels not
->       supporting a new modifier yet).
->
->   - No support for rotated swizzling.
->       Can be added easily later and nothing in the stack would generate it
->       currently.
->
->   - Add extra enum values in the definitions.
->       This way we can easily switch on modifier without having to pass
-> around
->       the current GPU everywhere, assuming the modifier has been validated.
-> ---
->
->  Since my previous attempt for modifiers got bogged down on details for
->  the GFX6-GFX8 modifiers in previous discussions, this only attempts to
->  define modifiers for GFX9+, which is significantly simpler.
->
->  For a final version I'd like to wait until I have written most of the
->  userspace + kernelspace so we can actually test it. However, I'd
->  appreciate any early feedback people are willing to give.
->
->  Initial Mesa amd/common support + tests are available at
->  https://gitlab.freedesktop.org/bnieuwenhuizen/mesa/tree/modifiers
->
->  I tested the HW to actually behave as described in the descriptions
->  on Raven and plan to test on a subset of the others.
->
->  include/uapi/drm/drm_fourcc.h | 118 ++++++++++++++++++++++++++++++++++
->  1 file changed, 118 insertions(+)
->
-> diff --git a/include/uapi/drm/drm_fourcc.h b/include/uapi/drm/drm_fourcc.h
-> index 3feeaa3f987a..9bd286ab2bee 100644
-> --- a/include/uapi/drm/drm_fourcc.h
-> +++ b/include/uapi/drm/drm_fourcc.h
-> @@ -756,6 +756,124 @@ extern "C" {
->   */
->  #define DRM_FORMAT_MOD_ALLWINNER_TILED fourcc_mod_code(ALLWINNER, 1)
->
-> +/*
-> + * AMD GFX9+ format modifiers
-> + */
-> +
-> +/*
-> + * enum-like values for easy switches.
-> + *
-> + * No fixed field-size but implementations are supposed to enforce
-> all-zeros of
-> + * unused bits during validation.
-> + */
-> +#define DRM_FORMAT_MOD_AMD_GFX9_64K_STANDARD_id       0
-> +#define DRM_FORMAT_MOD_AMD_GFX9_64K_DISPLAY_id        1
-> +#define DRM_FORMAT_MOD_AMD_GFX9_64K_X_STANDARD_id     2
-> +#define DRM_FORMAT_MOD_AMD_GFX9_64K_X_DISPLAY_id      3
-> +#define DRM_FORMAT_MOD_AMD_GFX10_64K_X_RENDER_id      4
-> +#define DRM_FORMAT_MOD_AMD_GFX9_64K_X_STANDARD_DCC_id 5
-> +#define DRM_FORMAT_MOD_AMD_GFX10_64K_X_RENDER_DCC_id  6
-> +#define DRM_FORMAT_MOD_AMD_GFX9_64K_X_DCN1_DCC_id     7
-> +
-> +/*
-> + * tiling modes that are compatible between all GPUs that support the
-> tiling
-> + * mode.
-> + *
-> + * STANDARD/DISPLAY/ROTATED + bitdepth determine the indexing within a
-> 256 byte
-> + * micro-block.
-> + *
-> + * The macro-block is 64 KiB and the micro-block in macro-block
-> addressing is
-> + * y0-x0-y1-x1-... up till the dimensions of the macro-block.
-> + *
-> + * The image is then a plain row-major image of macro-blocks.
-> + */
-> +#define DRM_FORMAT_MOD_AMD_GFX9_64K_STANDARD \
-> +       fourcc_mod_code(AMD, DRM_FORMAT_MOD_AMD_GFX9_64K_STANDARD_id)
-> +#define DRM_FORMAT_MOD_AMD_GFX9_64K_DISPLAY  \
-> +       fourcc_mod_code(AMD, DRM_FORMAT_MOD_AMD_GFX9_64K_DISPLAY_id)
-> +
-> +/*
-> + * Same as above, but applies a transformation on the micro-block in
-> macro-block
-> + * indexing that depends on the GPU pipes, shader engines and banks.
-> + *
-> + * RENDER is a new micro-block tiling for GFX10+.
-> + */
-> +#define DRM_FORMAT_MOD_AMD_GFX9_64K_X_STANDARD(family_id, external_rev)  \
-> +       fourcc_mod_code(AMD, DRM_FORMAT_MOD_AMD_GFX9_64K_X_STANDARD_id | \
-> +                            ((uint64_t)family_id << 40) |               \
-> +                            ((uint64_t)external_rev << 48))
-> +#define DRM_FORMAT_MOD_AMD_GFX9_64K_X_DISPLAY(family_id, external_rev)   \
-> +       fourcc_mod_code(AMD, DRM_FORMAT_MOD_AMD_GFX9_64K_X_DISPLAY_id |  \
-> +                            ((uint64_t)family_id << 40) |               \
-> +                            ((uint64_t)external_rev << 48))
-> +#define DRM_FORMAT_MOD_AMD_GFX10_64K_X_RENDER(family_id, external_rev)   \
-> +       fourcc_mod_code(AMD, DRM_FORMAT_MOD_AMD_GFX10_64K_X_RENDER_id |  \
-> +                            ((uint64_t)family_id << 40) |               \
-> +                            ((uint64_t)external_rev << 48))
-> +
-> +/*
-> + * Same as above, but with DCC enabled.
-> + *
-> + * We add the PCI ID of the device to make sure the transformation above
-> is
-> + * applied the same way, as well as make sure the implementation of DCC
-> supports
-> + * the same patterns.
-> + *
-> + * The DCC is pipe-aligned (and on GFX9 rb-aligned).
-> + *
-> + * This includes 2 memory regions per plane:
-> + *  - main image
-> + *  - DCC metadata
-> + *
-> + * These are tightly packed according to platform specific DCC alignment
-> + * requirements.
-> + *
-> + * pipe+rb aligned DCC alignment:
-> + * - GFX9: MAX(65536,
-> + *             MIN2(32, pipes * shader_engines) *
-> + *               num_backends * interleave_bytes)
-> + * - GFX10 (without rbplus): MAX2(pipes * interleave_bytes, 4096)
-> + *
-> + * aligned DCC size:
-> + * - GFX9:
-> + *    tiles of MAX2(256 * num_backends KiB, 1 MiB) of pixel data (prefer
-> + *    width if odd log2) at ratio 1/256
-> + * - GFX10 (without rbplus):
-> + *    tiles of 256 * MAX2(pipes * interleave_bytes, 4096) of pixel data
-> + *    (prefer width if odd log2) at ratio 1/256
-> + */
-> +#define DRM_FORMAT_MOD_AMD_GFX9_64K_X_STANDARD_DCC(family_id,
-> external_rev)  \
-> +       fourcc_mod_code(AMD, DRM_FORMAT_MOD_AMD_GFX9_64K_X_STANDARD_DCC_id
-> | \
-> +                            ((uint64_t)family_id << 40) |
->    \
-> +                            ((uint64_t)external_rev << 48))
-> +#define DRM_FORMAT_MOD_AMD_GFX10_64K_X_RENDER_DCC(family_id,
-> external_rev)   \
-> +       fourcc_mod_code(AMD, DRM_FORMAT_MOD_AMD_GFX10_64K_X_RENDER_DCC_id
-> |  \
-> +                            ((uint64_t)family_id << 40) |
->    \
-> +                            ((uint64_t)external_rev << 48))
-> +
-> +/*
-> + * DCC that is displayable with DCN1 hardware.
-> + *
-> + * for bpp <= 32 bits, the micro-tiling is STANDARD and for bpp == 64
-> bits, the
-> + * micro-tiling is DISPLAY.
-> + *
-> + * This includes 3 memory regions per plane:
-> + *   - main image
-> + *   - DCC (non aligned)
-> + *   - DCC (pipe-aligned & rb-aligned)
-> + *
-> + * non-aligned DCC alignment:
-> + * - GFX9: MAX(65536, interleave_bytes)
-> + * - GFX10 (without rbplus): 4096
-> + *
-> + * non-aligned DCC size:
-> + * - GFX9 & GFX10 (without rbplus):
-> + *    tiles for 1 MiB of pixel data (prefer width if odd log2) at ratio
-> 1/256
-> + */
-> +#define DRM_FORMAT_MOD_AMD_GFX9_64K_X_DCN1_DCC(family_id, external_rev)  \
-> +       fourcc_mod_code(AMD, DRM_FORMAT_MOD_AMD_GFX9_64K_X_DCN1_DCC_id | \
-> +                            ((uint64_t)family_id << 40) |               \
-> +                            ((uint64_t)external_rev << 48))
-> +
->  #if defined(__cplusplus)
->  }
->  #endif
-> --
-> 2.23.0
->
->
-
---000000000000d1b0c5059520865c
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail=
-_attr">On Wed, Oct 16, 2019 at 9:48 AM Bas Nieuwenhuizen &lt;<a href=3D"mai=
-lto:bas-dldO88ZXqoXqqjsSq9zF6IRWq/SkRNHw@public.gmane.org">bas-dldO88ZXqoXqqjsSq9zF6IRWq/SkRNHw@public.gmane.org</a>&gt; wrote:<br></di=
-v><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;borde=
-r-left:1px solid rgb(204,204,204);padding-left:1ex">This adds initial forma=
-t modifiers for AMD GFX9 and newer GPUs.<br>
-<br>
-This is particularly useful to determine if we can use DCC, and whether<br>
-we need an extra display compatible DCC metadata plane.<br>
-<br>
-Design decisions:<br>
-=C2=A0 - Always expose a single plane<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0This way everything works correctly with images =
-with multiple planes.<br>
-<br>
-=C2=A0 - Do not add an extra memory region in DCC for putting a bit on whet=
-her<br>
-=C2=A0 =C2=A0 we are in compressed state.<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0A decompress on import is cheap enough if alread=
-y decompressed, and<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0I do think in most cases we can avoid it in adva=
-nce during modifier<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0negotiation. The remainder is probably not commo=
-n enough to worry<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0about.<br>
-<br>
-=C2=A0 - Explicitly define the sizes as part of the modifier description in=
-stead<br>
-=C2=A0 =C2=A0 of using whatever the current version of radeonsi does.<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0This way we can avoid dedicated buffers and we c=
-an make sure we keep<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0compatibility across mesa versions. I&#39;d like=
- to put some tests on<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0this on ac_surface.c so we can learn early in th=
-e process if things<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0need to be changed. Furthermore, the lack of con=
-figurable strides on<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0GFX10 means things already go wrong if we do not=
- agree, making a<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0custom stride somewhat less useful.<br></blockqu=
-ote><div><br></div><div>The custom stride will be back for 2D images (not f=
-or 3D/Array), so Navi10-14 will be the only hw not supporting the custom st=
-ride for 2D. It might not be worth adding the width and height into the mod=
-ifier just because of Navi10-14, though I don&#39;t feel strongly about it.=
-</div><div><br></div><div>This patch doesn&#39;t add the sizes into the des=
-cription anyway.</div><div><br></div><div>The rest looks good.</div><div><b=
-r></div><div>Marek<br></div><div>=C2=A0</div><blockquote class=3D"gmail_quo=
-te" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204=
-);padding-left:1ex">
-<br>
-=C2=A0 - No usage of BO metadata at all for modifier usecases.<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0To avoid the requirement of dedicated dma bufs p=
-er image. For<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0non-modifier based interop we still use the BO m=
-etadata, since we<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0need to keep compatibility with old mesa and thi=
-s is used for<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0depth/msaa/3d/CL etc. API interop.<br>
-<br>
-=C2=A0 - A single FD for all planes.<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0Easier in Vulkan / bindless and radeonsi is alre=
-ady transitioning.<br>
-<br>
-=C2=A0 - Make a single modifier for DCN1<br>
-=C2=A0 =C2=A0 =C2=A0 It defines things uniquely given bpp, which we can ass=
-ume, so adding<br>
-=C2=A0 =C2=A0 =C2=A0 more modifier values do not add clarity.<br>
-<br>
-=C2=A0 - Not exposing the 4K and 256B tiling modes.<br>
-=C2=A0 =C2=A0 =C2=A0 These are largely only better for something like a cur=
-sor or very long<br>
-=C2=A0 =C2=A0 =C2=A0 and/or tall images. Are they worth the added complexit=
-y to save memory?<br>
-=C2=A0 =C2=A0 =C2=A0 For context, at 32bpp, tiles are 128x128 pixels.<br>
-<br>
-=C2=A0 - For multiplane images, every plane uses the same tiling.<br>
-=C2=A0 =C2=A0 =C2=A0 On GFX9/GFX10 we can, so no need to make it complicate=
-d.<br>
-<br>
-=C2=A0 - We use family_id + external_rev to distinguish between incompatibl=
-e GPUs.<br>
-=C2=A0 =C2=A0 =C2=A0 PCI ID is not enough, as RAVEN and RAVEN2 have the sam=
-e PCI device id,<br>
-=C2=A0 =C2=A0 =C2=A0 but different tiling. We might be able to find bigger =
-equivalence<br>
-=C2=A0 =C2=A0 =C2=A0 groups for _X, but especially for DCC I would be uncom=
-fortable making it<br>
-=C2=A0 =C2=A0 =C2=A0 shared between GPUs.<br>
-<br>
-=C2=A0 - For DCN1 DCC, radeonsi currently uses another texelbuffer with ind=
-ices<br>
-=C2=A0 =C2=A0 to reorder. This is not shared.<br>
-=C2=A0 =C2=A0 =C2=A0 Specific to current implementation and does not need t=
-o be shared. To<br>
-=C2=A0 =C2=A0 =C2=A0 pave the way to shader-based solution, lets keep this =
-internal to each<br>
-=C2=A0 =C2=A0 =C2=A0 driver. This should reduce the modifier churn if any o=
-f the driver<br>
-=C2=A0 =C2=A0 =C2=A0 implementations change. (Especially as you&#39;d want =
-to support the old<br>
-=C2=A0 =C2=A0 =C2=A0 implementation for a while to stay compatible with old=
- kernels not<br>
-=C2=A0 =C2=A0 =C2=A0 supporting a new modifier yet).<br>
-<br>
-=C2=A0 - No support for rotated swizzling.<br>
-=C2=A0 =C2=A0 =C2=A0 Can be added easily later and nothing in the stack wou=
-ld generate it<br>
-=C2=A0 =C2=A0 =C2=A0 currently.<br>
-<br>
-=C2=A0 - Add extra enum values in the definitions.<br>
-=C2=A0 =C2=A0 =C2=A0 This way we can easily switch on modifier without havi=
-ng to pass around<br>
-=C2=A0 =C2=A0 =C2=A0 the current GPU everywhere, assuming the modifier has =
-been validated.<br>
----<br>
-<br>
-=C2=A0Since my previous attempt for modifiers got bogged down on details fo=
-r<br>
-=C2=A0the GFX6-GFX8 modifiers in previous discussions, this only attempts t=
-o<br>
-=C2=A0define modifiers for GFX9+, which is significantly simpler.<br>
-<br>
-=C2=A0For a final version I&#39;d like to wait until I have written most of=
- the<br>
-=C2=A0userspace + kernelspace so we can actually test it. However, I&#39;d<=
-br>
-=C2=A0appreciate any early feedback people are willing to give.<br>
-<br>
-=C2=A0Initial Mesa amd/common support + tests are available at<br>
-=C2=A0<a href=3D"https://gitlab.freedesktop.org/bnieuwenhuizen/mesa/tree/mo=
-difiers" rel=3D"noreferrer" target=3D"_blank">https://gitlab.freedesktop.or=
-g/bnieuwenhuizen/mesa/tree/modifiers</a><br>
-<br>
-=C2=A0I tested the HW to actually behave as described in the descriptions<b=
-r>
-=C2=A0on Raven and plan to test on a subset of the others.<br>
-<br>
-=C2=A0include/uapi/drm/drm_fourcc.h | 118 +++++++++++++++++++++++++++++++++=
-+<br>
-=C2=A01 file changed, 118 insertions(+)<br>
-<br>
-diff --git a/include/uapi/drm/drm_fourcc.h b/include/uapi/drm/drm_fourcc.h<=
-br>
-index 3feeaa3f987a..9bd286ab2bee 100644<br>
---- a/include/uapi/drm/drm_fourcc.h<br>
-+++ b/include/uapi/drm/drm_fourcc.h<br>
-@@ -756,6 +756,124 @@ extern &quot;C&quot; {<br>
-=C2=A0 */<br>
-=C2=A0#define DRM_FORMAT_MOD_ALLWINNER_TILED fourcc_mod_code(ALLWINNER, 1)<=
-br>
-<br>
-+/*<br>
-+ * AMD GFX9+ format modifiers<br>
-+ */<br>
-+<br>
-+/*<br>
-+ * enum-like values for easy switches.<br>
-+ *<br>
-+ * No fixed field-size but implementations are supposed to enforce all-zer=
-os of<br>
-+ * unused bits during validation.<br>
-+ */<br>
-+#define DRM_FORMAT_MOD_AMD_GFX9_64K_STANDARD_id=C2=A0 =C2=A0 =C2=A0 =C2=A0=
-0<br>
-+#define DRM_FORMAT_MOD_AMD_GFX9_64K_DISPLAY_id=C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-1<br>
-+#define DRM_FORMAT_MOD_AMD_GFX9_64K_X_STANDARD_id=C2=A0 =C2=A0 =C2=A02<br>
-+#define DRM_FORMAT_MOD_AMD_GFX9_64K_X_DISPLAY_id=C2=A0 =C2=A0 =C2=A0 3<br>
-+#define DRM_FORMAT_MOD_AMD_GFX10_64K_X_RENDER_id=C2=A0 =C2=A0 =C2=A0 4<br>
-+#define DRM_FORMAT_MOD_AMD_GFX9_64K_X_STANDARD_DCC_id 5<br>
-+#define DRM_FORMAT_MOD_AMD_GFX10_64K_X_RENDER_DCC_id=C2=A0 6<br>
-+#define DRM_FORMAT_MOD_AMD_GFX9_64K_X_DCN1_DCC_id=C2=A0 =C2=A0 =C2=A07<br>
-+<br>
-+/*<br>
-+ * tiling modes that are compatible between all GPUs that support the tili=
-ng<br>
-+ * mode.<br>
-+ *<br>
-+ * STANDARD/DISPLAY/ROTATED + bitdepth determine the indexing within a 256=
- byte<br>
-+ * micro-block.<br>
-+ *<br>
-+ * The macro-block is 64 KiB and the micro-block in macro-block addressing=
- is<br>
-+ * y0-x0-y1-x1-... up till the dimensions of the macro-block.<br>
-+ *<br>
-+ * The image is then a plain row-major image of macro-blocks.<br>
-+ */<br>
-+#define DRM_FORMAT_MOD_AMD_GFX9_64K_STANDARD \<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0fourcc_mod_code(AMD, DRM_FORMAT_MOD_AMD_GFX9_64=
-K_STANDARD_id)<br>
-+#define DRM_FORMAT_MOD_AMD_GFX9_64K_DISPLAY=C2=A0 \<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0fourcc_mod_code(AMD, DRM_FORMAT_MOD_AMD_GFX9_64=
-K_DISPLAY_id)<br>
-+<br>
-+/*<br>
-+ * Same as above, but applies a transformation on the micro-block in macro=
--block<br>
-+ * indexing that depends on the GPU pipes, shader engines and banks.<br>
-+ *<br>
-+ * RENDER is a new micro-block tiling for GFX10+.<br>
-+ */<br>
-+#define DRM_FORMAT_MOD_AMD_GFX9_64K_X_STANDARD(family_id, external_rev)=C2=
-=A0 \<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0fourcc_mod_code(AMD, DRM_FORMAT_MOD_AMD_GFX9_64=
-K_X_STANDARD_id | \<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 ((uint64_t)family_id &lt;&lt; 40) |=C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0\<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 ((uint64_t)external_rev &lt;&lt; 48))<br>
-+#define DRM_FORMAT_MOD_AMD_GFX9_64K_X_DISPLAY(family_id, external_rev)=C2=
-=A0 =C2=A0\<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0fourcc_mod_code(AMD, DRM_FORMAT_MOD_AMD_GFX9_64=
-K_X_DISPLAY_id |=C2=A0 \<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 ((uint64_t)family_id &lt;&lt; 40) |=C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0\<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 ((uint64_t)external_rev &lt;&lt; 48))<br>
-+#define DRM_FORMAT_MOD_AMD_GFX10_64K_X_RENDER(family_id, external_rev)=C2=
-=A0 =C2=A0\<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0fourcc_mod_code(AMD, DRM_FORMAT_MOD_AMD_GFX10_6=
-4K_X_RENDER_id |=C2=A0 \<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 ((uint64_t)family_id &lt;&lt; 40) |=C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0\<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 ((uint64_t)external_rev &lt;&lt; 48))<br>
-+<br>
-+/*<br>
-+ * Same as above, but with DCC enabled.<br>
-+ *<br>
-+ * We add the PCI ID of the device to make sure the transformation above i=
-s<br>
-+ * applied the same way, as well as make sure the implementation of DCC su=
-pports<br>
-+ * the same patterns.<br>
-+ *<br>
-+ * The DCC is pipe-aligned (and on GFX9 rb-aligned).<br>
-+ *<br>
-+ * This includes 2 memory regions per plane:<br>
-+ *=C2=A0 - main image<br>
-+ *=C2=A0 - DCC metadata<br>
-+ *<br>
-+ * These are tightly packed according to platform specific DCC alignment<b=
-r>
-+ * requirements.<br>
-+ *<br>
-+ * pipe+rb aligned DCC alignment:<br>
-+ * - GFX9: MAX(65536,<br>
-+ *=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0MIN2(32, pipes * shader_=
-engines) *<br>
-+ *=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0num_backends * in=
-terleave_bytes)<br>
-+ * - GFX10 (without rbplus): MAX2(pipes * interleave_bytes, 4096)<br>
-+ *<br>
-+ * aligned DCC size:<br>
-+ * - GFX9:<br>
-+ *=C2=A0 =C2=A0 tiles of MAX2(256 * num_backends KiB, 1 MiB) of pixel data=
- (prefer<br>
-+ *=C2=A0 =C2=A0 width if odd log2) at ratio 1/256<br>
-+ * - GFX10 (without rbplus):<br>
-+ *=C2=A0 =C2=A0 tiles of 256 * MAX2(pipes * interleave_bytes, 4096) of pix=
-el data<br>
-+ *=C2=A0 =C2=A0 (prefer width if odd log2) at ratio 1/256<br>
-+ */<br>
-+#define DRM_FORMAT_MOD_AMD_GFX9_64K_X_STANDARD_DCC(family_id, external_rev=
-)=C2=A0 \<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0fourcc_mod_code(AMD, DRM_FORMAT_MOD_AMD_GFX9_64=
-K_X_STANDARD_DCC_id | \<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 ((uint64_t)family_id &lt;&lt; 40) |=C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0\<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 ((uint64_t)external_rev &lt;&lt; 48))<br>
-+#define DRM_FORMAT_MOD_AMD_GFX10_64K_X_RENDER_DCC(family_id, external_rev)=
-=C2=A0 =C2=A0\<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0fourcc_mod_code(AMD, DRM_FORMAT_MOD_AMD_GFX10_6=
-4K_X_RENDER_DCC_id |=C2=A0 \<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 ((uint64_t)family_id &lt;&lt; 40) |=C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0\<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 ((uint64_t)external_rev &lt;&lt; 48))<br>
-+<br>
-+/*<br>
-+ * DCC that is displayable with DCN1 hardware.<br>
-+ *<br>
-+ * for bpp &lt;=3D 32 bits, the micro-tiling is STANDARD and for bpp =3D=
-=3D 64 bits, the<br>
-+ * micro-tiling is DISPLAY.<br>
-+ *<br>
-+ * This includes 3 memory regions per plane:<br>
-+ *=C2=A0 =C2=A0- main image<br>
-+ *=C2=A0 =C2=A0- DCC (non aligned)<br>
-+ *=C2=A0 =C2=A0- DCC (pipe-aligned &amp; rb-aligned)<br>
-+ *<br>
-+ * non-aligned DCC alignment:<br>
-+ * - GFX9: MAX(65536, interleave_bytes)<br>
-+ * - GFX10 (without rbplus): 4096<br>
-+ *<br>
-+ * non-aligned DCC size:<br>
-+ * - GFX9 &amp; GFX10 (without rbplus):<br>
-+ *=C2=A0 =C2=A0 tiles for 1 MiB of pixel data (prefer width if odd log2) a=
-t ratio 1/256<br>
-+ */<br>
-+#define DRM_FORMAT_MOD_AMD_GFX9_64K_X_DCN1_DCC(family_id, external_rev)=C2=
-=A0 \<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0fourcc_mod_code(AMD, DRM_FORMAT_MOD_AMD_GFX9_64=
-K_X_DCN1_DCC_id | \<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 ((uint64_t)family_id &lt;&lt; 40) |=C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0\<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 ((uint64_t)external_rev &lt;&lt; 48))<br>
-+<br>
-=C2=A0#if defined(__cplusplus)<br>
-=C2=A0}<br>
-=C2=A0#endif<br>
--- <br>
-2.23.0<br>
-<br>
-</blockquote></div></div>
-
---000000000000d1b0c5059520865c--
-
---===============0275992549==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
-
---===============0275992549==--
+SGUgRmVsaXggLSBJIHNlZSB0aGlzIG9uIGJvb3Qgd2hlbiB3b3JraW5nIHdpdGggQXJjdHVydXMu
+DQoNCkFuZHJleQ0KDQoNClvCoCAxMDMuNjAyMDkyXSBrZmQga2ZkOiBBbGxvY2F0ZWQgMzk2OTA1
+NiBieXRlcyBvbiBnYXJ0DQpbwqAgMTAzLjYxMDc2OV0gDQo9PT09PT09PT09PT09PT09PT09PT09
+PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT0NClvCoCAxMDMuNjEx
+NDY5XSBCVUc6IEtBU0FOOiBzdGFjay1vdXQtb2YtYm91bmRzIGluIA0Ka2ZkX2NyZWF0ZV92Y3Jh
+dF9pbWFnZV9ncHUrMHg1ZGIvMHhiODAgW2FtZGdwdV0NClvCoCAxMDMuNjExNjQ2XSBSZWFkIG9m
+IHNpemUgNCBhdCBhZGRyIGZmZmY4ODgzY2IxOWVlMzggYnkgdGFzayBtb2Rwcm9iZS8xMTIyDQoN
+ClvCoCAxMDMuNjExODM2XSBDUFU6IDMgUElEOiAxMTIyIENvbW06IG1vZHByb2JlIFRhaW50ZWQ6
+IEfCoMKgwqDCoMKgwqDCoMKgwqDCoCANCk/CoMKgwqDCoMKgIDUuMy4wLXJjMysgIzQ1DQpbwqAg
+MTAzLjYxMTg0N10gSGFyZHdhcmUgbmFtZTogU3lzdGVtIG1hbnVmYWN0dXJlciBTeXN0ZW0gUHJv
+ZHVjdCANCk5hbWUvWjE3MC1QUk8sIEJJT1MgMTkwMiAwNi8yNy8yMDE2DQpbwqAgMTAzLjYxMTg1
+Nl0gQ2FsbCBUcmFjZToNClvCoCAxMDMuNjExODc5XcKgIGR1bXBfc3RhY2srMHg3MS8weGFiDQpb
+wqAgMTAzLjYxMTkwN13CoCBwcmludF9hZGRyZXNzX2Rlc2NyaXB0aW9uKzB4MWRhLzB4M2MwDQpb
+wqAgMTAzLjYxMjQ1M13CoCA/IGtmZF9jcmVhdGVfdmNyYXRfaW1hZ2VfZ3B1KzB4NWRiLzB4Yjgw
+IFthbWRncHVdDQpbwqAgMTAzLjYxMjQ3OV3CoCBfX2thc2FuX3JlcG9ydCsweDEzZi8weDFhMA0K
+W8KgIDEwMy42MTMwMjJdwqAgPyBrZmRfY3JlYXRlX3ZjcmF0X2ltYWdlX2dwdSsweDVkYi8weGI4
+MCBbYW1kZ3B1XQ0KW8KgIDEwMy42MTM1ODBdwqAgPyBrZmRfY3JlYXRlX3ZjcmF0X2ltYWdlX2dw
+dSsweDVkYi8weGI4MCBbYW1kZ3B1XQ0KW8KgIDEwMy42MTM2MDRdwqAga2FzYW5fcmVwb3J0KzB4
+ZS8weDIwDQpbwqAgMTAzLjYxNDE0OV3CoCBrZmRfY3JlYXRlX3ZjcmF0X2ltYWdlX2dwdSsweDVk
+Yi8weGI4MCBbYW1kZ3B1XQ0KW8KgIDEwMy42MTQ3NjJdwqAgPyBrZmRfZmlsbF9ncHVfbWVtb3J5
+X2FmZmluaXR5KzB4MTEwLzB4MTEwIFthbWRncHVdDQpbwqAgMTAzLjYxNDc5Nl3CoCA/IF9fYWxs
+b2NfcGFnZXNfbm9kZW1hc2srMHgyYzkvMHg1NjANClvCoCAxMDMuNjE0ODI0XcKgID8gX19hbGxv
+Y19wYWdlc19zbG93cGF0aCsweDEzOTAvMHgxMzkwDQpbwqAgMTAzLjYxNDg5OF3CoCA/IGttYWxs
+b2Nfb3JkZXIrMHg2My8weDcwDQpbwqAgMTAzLjYxNTQ2OV3CoCBrZmRfY3JlYXRlX2NyYXRfaW1h
+Z2VfdmlydHVhbCsweDcwYy8weDc3MCBbYW1kZ3B1XQ0KW8KgIDEwMy42MTYwNTRdwqAgPyBrZmRf
+Y3JlYXRlX2NyYXRfaW1hZ2VfYWNwaSsweDFjMC8weDFjMCBbYW1kZ3B1XQ0KW8KgIDEwMy42MTYw
+OTVdwqAgPyB1cF93cml0ZSsweDRiLzB4NzANClvCoCAxMDMuNjE2NjQ5XcKgIGtmZF90b3BvbG9n
+eV9hZGRfZGV2aWNlKzB4OThkLzB4YjEwIFthbWRncHVdDQpbwqAgMTAzLjYxNzIwN13CoCA/IGtm
+ZF90b3BvbG9neV9zaHV0ZG93bisweDYwLzB4NjAgW2FtZGdwdV0NClvCoCAxMDMuNjE3NzQzXcKg
+ID8gc3RhcnRfY3BzY2grMHgyZmYvMHgzYTAgW2FtZGdwdV0NClvCoCAxMDMuNjE3Nzc3XcKgID8g
+bXV0ZXhfbG9ja19pb19uZXN0ZWQrMHhhYzAvMHhhYzANClvCoCAxMDMuNjE3ODA3XcKgID8gX19t
+dXRleF91bmxvY2tfc2xvd3BhdGgrMHhkYS8weDQyMA0KW8KgIDEwMy42MTc4NDhdwqAgPyBfX211
+dGV4X3VubG9ja19zbG93cGF0aCsweGRhLzB4NDIwDQpbwqAgMTAzLjYxNzg3N13CoCA/IHdhaXRf
+Zm9yX2NvbXBsZXRpb24rMHgyMDAvMHgyMDANClvCoCAxMDMuNjE4NDYxXcKgID8gc3RhcnRfY3Bz
+Y2grMHgzOGIvMHgzYTAgW2FtZGdwdV0NClvCoCAxMDMuNjE5MDExXcKgID8gY3JlYXRlX3F1ZXVl
+X2Nwc2NoKzB4NjcwLzB4NjcwIFthbWRncHVdDQpbwqAgMTAzLjYxOTU3M13CoCA/IGtmZF9pb21t
+dV9kZXZpY2VfaW5pdCsweDkyLzB4MWUwIFthbWRncHVdDQpbwqAgMTAzLjYyMDExMl3CoCA/IGtm
+ZF9pb21tdV9yZXN1bWUrMHgyYy8weDJjMCBbYW1kZ3B1XQ0KW8KgIDEwMy42MjA2NTVdwqAgPyBr
+ZmRfaW9tbXVfY2hlY2tfZGV2aWNlKzB4ZjAvMHhmMCBbYW1kZ3B1XQ0KW8KgIDEwMy42MjEyMjhd
+wqAga2dkMmtmZF9kZXZpY2VfaW5pdCsweDQ3NC8weDg3MCBbYW1kZ3B1XQ0KW8KgIDEwMy42MjE3
+ODFdwqAgYW1kZ3B1X2FtZGtmZF9kZXZpY2VfaW5pdCsweDI5MS8weDM5MCBbYW1kZ3B1XQ0KW8Kg
+IDEwMy42MjIzMjldwqAgPyBhbWRncHVfYW1ka2ZkX2RldmljZV9wcm9iZSsweDkwLzB4OTAgW2Ft
+ZGdwdV0NClvCoCAxMDMuNjIyMzQ0XcKgID8ga21zZ19kdW1wX3Jld2luZF9ub2xvY2srMHg1OS8w
+eDU5DQpbwqAgMTAzLjYyMjg5NV3CoCA/IGFtZGdwdV9yYXNfZWVwcm9tX3Rlc3QrMHg3MS8weDkw
+IFthbWRncHVdDQpbwqAgMTAzLjYyMzQyNF3CoCBhbWRncHVfZGV2aWNlX2luaXQrMHgxYmJlLzB4
+MmYwMCBbYW1kZ3B1XQ0KW8KgIDEwMy42MjM4MTldwqAgPyBhbWRncHVfZGV2aWNlX2hhc19kY19z
+dXBwb3J0KzB4MzAvMHgzMCBbYW1kZ3B1XQ0KW8KgIDEwMy42MjM4NDJdwqAgPyBfX2lzb2xhdGVf
+ZnJlZV9wYWdlKzB4MjkwLzB4MjkwDQpbwqAgMTAzLjYyMzg1Ml3CoCA/IGZzX3JlY2xhaW1fYWNx
+dWlyZS5wYXJ0Ljk3KzB4NS8weDMwDQpbwqAgMTAzLjYyMzg5MV3CoCA/IF9fYWxsb2NfcGFnZXNf
+bm9kZW1hc2srMHgyYzkvMHg1NjANClvCoCAxMDMuNjIzOTEyXcKgID8gX19hbGxvY19wYWdlc19z
+bG93cGF0aCsweDEzOTAvMHgxMzkwDQpbwqAgMTAzLjYyMzk0NV3CoCA/IGthc2FuX3VucG9pc29u
+X3NoYWRvdysweDMxLzB4NDANClvCoCAxMDMuNjIzOTcwXcKgID8ga21hbGxvY19vcmRlcisweDYz
+LzB4NzANClvCoCAxMDMuNjI0MzM3XcKgIGFtZGdwdV9kcml2ZXJfbG9hZF9rbXMrMHhkOS8weDQz
+MCBbYW1kZ3B1XQ0KW8KgIDEwMy42MjQ2OTBdwqAgPyBhbWRncHVfcmVnaXN0ZXJfZ3B1X2luc3Rh
+bmNlKzB4ZTAvMHhlMCBbYW1kZ3B1XQ0KW8KgIDEwMy42MjQ3NTZdwqAgPyBkcm1fZGV2X3JlZ2lz
+dGVyKzB4MTljLzB4MzEwIFtkcm1dDQpbwqAgMTAzLjYyNDc2OF3CoCA/IF9fa2FzYW5fc2xhYl9m
+cmVlKzB4MTMzLzB4MTYwDQpbwqAgMTAzLjYyNDg0OV3CoCBkcm1fZGV2X3JlZ2lzdGVyKzB4MWY1
+LzB4MzEwIFtkcm1dDQpbwqAgMTAzLjYyNTIxMl3CoCBhbWRncHVfcGNpX3Byb2JlKzB4MTA5LzB4
+MWYwIFthbWRncHVdDQpbwqAgMTAzLjYyNTU2NV3CoCA/IGFtZGdwdV9wbW9wc19ydW50aW1lX2lk
+bGUrMHhlMC8weGUwIFthbWRncHVdDQpbwqAgMTAzLjYyNTU4MF3CoCBsb2NhbF9wY2lfcHJvYmUr
+MHg3NC8weGQwDQpbwqAgMTAzLjYyNTYwM13CoCBwY2lfZGV2aWNlX3Byb2JlKzB4MWZhLzB4MzEw
+DQpbwqAgMTAzLjYyNTYyMF3CoCA/IHBjaV9kZXZpY2VfcmVtb3ZlKzB4MWMwLzB4MWMwDQpbwqAg
+MTAzLjYyNTY0MF3CoCA/IHN5c2ZzX2RvX2NyZWF0ZV9saW5rX3NkLmlzcmEuMisweDc0LzB4ZTAN
+ClvCoCAxMDMuNjI1NjczXcKgIHJlYWxseV9wcm9iZSsweDM2Ny8weDVkMA0KW8KgIDEwMy42MjU3
+MDBdwqAgZHJpdmVyX3Byb2JlX2RldmljZSsweDE3Ny8weDFiMA0KW8KgIDEwMy42MjU3MjFdwqAg
+ZGV2aWNlX2RyaXZlcl9hdHRhY2grMHg4YS8weDkwDQpbwqAgMTAzLjYyNTczN13CoCA/IGRldmlj
+ZV9kcml2ZXJfYXR0YWNoKzB4OTAvMHg5MA0KW8KgIDEwMy42MjU3NDZdwqAgX19kcml2ZXJfYXR0
+YWNoKzB4ZWIvMHgxOTANClvCoCAxMDMuNjI1NzY1XcKgID8gZGV2aWNlX2RyaXZlcl9hdHRhY2gr
+MHg5MC8weDkwDQpbwqAgMTAzLjYyNTc3M13CoCBidXNfZm9yX2VhY2hfZGV2KzB4ZTQvMHgxNjAN
+ClvCoCAxMDMuNjI1Nzg5XcKgID8gc3Vic3lzX2Rldl9pdGVyX2V4aXQrMHgxMC8weDEwDQpbwqAg
+MTAzLjYyNTgyOV3CoCBidXNfYWRkX2RyaXZlcisweDI3Ny8weDMzMA0KW8KgIDEwMy42MjU4NTVd
+wqAgZHJpdmVyX3JlZ2lzdGVyKzB4YzYvMHgxYTANClvCoCAxMDMuNjI1ODY2XcKgID8gMHhmZmZm
+ZmZmZmEwZDg4MDAwDQpbwqAgMTAzLjYyNTg4MF3CoCBkb19vbmVfaW5pdGNhbGwrMHhkMy8weDMz
+NA0KW8KgIDEwMy42MjU4OTVdwqAgPyB0cmFjZV9ldmVudF9yYXdfZXZlbnRfaW5pdGNhbGxfZmlu
+aXNoKzB4MTUwLzB4MTUwDQpbwqAgMTAzLjYyNTkxMV3CoCA/IGthc2FuX3VucG9pc29uX3NoYWRv
+dysweDMxLzB4NDANClvCoCAxMDMuNjI1OTI0XcKgID8gX19rYXNhbl9rbWFsbG9jKzB4ZDUvMHhm
+MA0KW8KgIDEwMy42MjU5NDZdwqAgPyBrbWVtX2NhY2hlX2FsbG9jX3RyYWNlKzB4MTU0LzB4MzAw
+DQpbwqAgMTAzLjYyNTk1NV3CoCA/IGthc2FuX3VucG9pc29uX3NoYWRvdysweDMxLzB4NDANClvC
+oCAxMDMuNjI1OTg1XcKgIGRvX2luaXRfbW9kdWxlKzB4ZWMvMHgzNTQNClvCoCAxMDMuNjI2MDEx
+XcKgIGxvYWRfbW9kdWxlKzB4M2M5MS8weDQ5ODANClvCoCAxMDMuNjI2MTE4XcKgID8gbW9kdWxl
+X2Zyb2JfYXJjaF9zZWN0aW9ucysweDIwLzB4MjANClvCoCAxMDMuNjI2MTMyXcKgID8gaW1hX3Jl
+YWRfZmlsZSsweDEwLzB4MTANClvCoCAxMDMuNjI2MTQyXcKgID8gdmZzX3JlYWQrMHgxMjcvMHgx
+OTANClvCoCAxMDMuNjI2MTYzXcKgID8ga2VybmVsX3JlYWQrMHg5NS8weGIwDQpbwqAgMTAzLjYy
+NjE4N13CoCA/IGtlcm5lbF9yZWFkX2ZpbGUrMHgxYTUvMHgzNDANClvCoCAxMDMuNjI2Mjc3XcKg
+ID8gX19kb19zeXNfZmluaXRfbW9kdWxlKzB4MTc1LzB4MWIwDQpbwqAgMTAzLjYyNjI4N13CoCBf
+X2RvX3N5c19maW5pdF9tb2R1bGUrMHgxNzUvMHgxYjANClvCoCAxMDMuNjI2MzAxXcKgID8gX19p
+YTMyX3N5c19pbml0X21vZHVsZSsweDQwLzB4NDANClvCoCAxMDMuNjI2MzM4XcKgID8gbG9ja19k
+b3duZ3JhZGUrMHgzOTAvMHgzOTANClvCoCAxMDMuNjI2Mzk2XcKgID8gdnRpbWVfdXNlcl9leGl0
+KzB4YzgvMHhlMA0KW8KgIDEwMy42MjY0MjNdwqAgZG9fc3lzY2FsbF82NCsweDdkLzB4MjUwDQpb
+wqAgMTAzLjYyNjQ0MF3CoCBlbnRyeV9TWVNDQUxMXzY0X2FmdGVyX2h3ZnJhbWUrMHg0NC8weGE5
+DQpbwqAgMTAzLjYyNjQ1MF0gUklQOiAwMDMzOjB4N2YwOTk4NDg1NGQ5DQpbwqAgMTAzLjYyNjQ2
+MV0gQ29kZTogMDAgZjMgYzMgNjYgMmUgMGYgMWYgODQgMDAgMDAgMDAgMDAgMDAgMGYgMWYgNDAg
+MDAgDQo0OCA4OSBmOCA0OCA4OSBmNyA0OCA4OSBkNiA0OCA4OSBjYSA0ZCA4OSBjMiA0ZCA4OSBj
+OCA0YyA4YiA0YyAyNCAwOCAwZiANCjA1IDw0OD4gM2QgMDEgZjAgZmYgZmYgNzMgMDEgYzMgNDgg
+OGIgMGQgOGYgMjkgMmMgMDAgZjcgZDggNjQgODkgMDEgNDgNClvCoCAxMDMuNjI2NDY4XSBSU1A6
+IDAwMmI6MDAwMDdmZmM0Mjg5NjAwOCBFRkxBR1M6IDAwMDAwMjQ2IE9SSUdfUkFYOiANCjAwMDAw
+MDAwMDAwMDAxMzkNClvCoCAxMDMuNjI2NDc5XSBSQVg6IGZmZmZmZmZmZmZmZmZmZGEgUkJYOiAw
+MDAwNTU5YTUyNDk1NDAwIFJDWDogDQowMDAwN2YwOTk4NDg1NGQ5DQpbwqAgMTAzLjYyNjQ4Nl0g
+UkRYOiAwMDAwMDAwMDAwMDAwMDAwIFJTSTogMDAwMDU1OWE1MjQ5OTkwMCBSREk6IA0KMDAwMDAw
+MDAwMDAwMDAwNg0KW8KgIDEwMy42MjY0OTNdIFJCUDogMDAwMDU1OWE1MjQ5OTkwMCBSMDg6IDAw
+MDAwMDAwMDAwMDAwMDAgUjA5OiANCjAwMDAwMDAwMDAwMDAwMDANClvCoCAxMDMuNjI2NTAwXSBS
+MTA6IDAwMDAwMDAwMDAwMDAwMDYgUjExOiAwMDAwMDAwMDAwMDAwMjQ2IFIxMjogDQowMDAwMDAw
+MDAwMDAwMDAwDQpbwqAgMTAzLjYyNjUwOF0gUjEzOiAwMDAwNTU5YTUyNDk5YjMwIFIxNDogMDAw
+MDAwMDAwMDA0MDAwMCBSMTU6IA0KMDAwMDAwMDAwMDAwMDAxMw0KDQpbwqAgMTAzLjYyNjU5Ml0g
+VGhlIGJ1Z2d5IGFkZHJlc3MgYmVsb25ncyB0byB0aGUgcGFnZToNClvCoCAxMDMuNjI2NjY1XSBw
+YWdlOmZmZmZlYTAwMGYyYzY3ODAgcmVmY291bnQ6MCBtYXBjb3VudDowIA0KbWFwcGluZzowMDAw
+MDAwMDAwMDAwMDAwIGluZGV4OjB4MA0KW8KgIDEwMy42MjY2NzVdIGZsYWdzOiAweDJmZmZmMDAw
+MDAwMDAwMCgpDQpbwqAgMTAzLjYyNjY4Nl0gcmF3OiAwMmZmZmYwMDAwMDAwMDAwIDAwMDAwMDAw
+MDAwMDAwMDAgZmZmZmVhMDAwZjJjNjc4OCANCjAwMDAwMDAwMDAwMDAwMDANClvCoCAxMDMuNjI2
+Njk2XSByYXc6IDAwMDAwMDAwMDAwMDAwMDAgMDAwMDAwMDAwMDAwMDAwMCAwMDAwMDAwMGZmZmZm
+ZmZmIA0KMDAwMDAwMDAwMDAwMDAwMA0KW8KgIDEwMy42MjY3MDJdIHBhZ2UgZHVtcGVkIGJlY2F1
+c2U6IGthc2FuOiBiYWQgYWNjZXNzIGRldGVjdGVkDQoNClvCoCAxMDMuNjI2NzQyXSBhZGRyIGZm
+ZmY4ODgzY2IxOWVlMzggaXMgbG9jYXRlZCBpbiBzdGFjayBvZiB0YXNrIA0KbW9kcHJvYmUvMTEy
+MiBhdCBvZmZzZXQgMjY0IGluIGZyYW1lOg0KW8KgIDEwMy42MjcyMzNdwqAga2ZkX2NyZWF0ZV92
+Y3JhdF9pbWFnZV9ncHUrMHgwLzB4YjgwIFthbWRncHVdDQoNClvCoCAxMDMuNjI3MzQ2XSB0aGlz
+IGZyYW1lIGhhcyAzIG9iamVjdHM6DQpbwqAgMTAzLjYyNzQwNV3CoCBbMzIsIDM2KSAnYXZhaWxf
+c2l6ZScNClvCoCAxMDMuNjI3NDEwXcKgIFs5NiwgMTIwKSAnbG9jYWxfbWVtX2luZm8nDQpbwqAg
+MTAzLjYyNzQ2Nl3CoCBbMTYwLCAyNjQpICdjdV9pbmZvJw0KDQpbwqAgMTAzLjYyNzYwMl0gTWVt
+b3J5IHN0YXRlIGFyb3VuZCB0aGUgYnVnZ3kgYWRkcmVzczoNClvCoCAxMDMuNjI3Njc1XcKgIGZm
+ZmY4ODgzY2IxOWVkMDA6IDAwIDAwIDAwIDAwIDAwIDAwIGYxIGYxIGYxIGYxIDA0IGY0IGY0IA0K
+ZjQgZjIgZjINClvCoCAxMDMuNjI3NzgwXcKgIGZmZmY4ODgzY2IxOWVkODA6IGYyIGYyIDAwIDAw
+IDAwIGY0IGYyIGYyIGYyIGYyIDAwIDAwIDAwIA0KMDAgMDAgMDANClvCoCAxMDMuNjI3ODg1XSA+
+ZmZmZjg4ODNjYjE5ZWUwMDogMDAgMDAgMDAgMDAgMDAgMDAgMDAgZjQgZjQgZjQgZjMgZjMgZjMg
+DQpmMyAwMCAwMA0KW8KgIDEwMy42Mjc5ODldwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgXg0KW8Kg
+IDEwMy42MjgwNjVdwqAgZmZmZjg4ODNjYjE5ZWU4MDogMDAgMDAgMDAgMDAgMDAgMDAgMDAgMDAg
+MDAgMDAgMDAgMDAgMDAgDQowMCAwMCAwMA0KW8KgIDEwMy42MjgxNjldwqAgZmZmZjg4ODNjYjE5
+ZWYwMDogZjEgZjEgZjEgZjEgMDAgZjQgZjQgZjQgZjMgZjMgZjMgZjMgMDAgDQowMCAwMCAwMA0K
+W8KgIDEwMy42MjgyNzNdIA0KPT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09
+PT09PT09PT09PT09PT09PT09PT09PT09PT09DQoNCl9fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMu
+ZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlz
+dGluZm8vYW1kLWdmeA==
