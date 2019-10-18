@@ -1,20 +1,12 @@
-From: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: Spontaneous reboots when using RX 560
-Date: Fri, 18 Oct 2019 10:32:08 +0000
-Message-ID: <57826a9e-5842-4ddd-a456-67d1d1b9a9ce@amd.com>
-References: <CAHL+j0_2ir=8hHDoyqizweOUSV6XfqC-UCD15WuJ9vvptNLr0g@mail.gmail.com>
- <CADnq5_N0r8O2vQapGaary0L-OfdTdz-ezcMJK90+Gy2sPujYcw@mail.gmail.com>
- <CAHL+j08qsu1pSOZPLB9-XWw9ZmT2OamaWPBJV4T3Vzx_C8cD7g@mail.gmail.com>
- <67658520-b3f4-d2f9-7247-dd434ab5c30b@amd.com>
- <CAHL+j0-Nm+6VFXi_w4iciNdG40zubpqvh1RXs3MFfXJK2mFr0Q@mail.gmail.com>
- <CAHL+j0_=r1XBOzwiQmbZTVoRsZ5=Du3pAPd_n7pia81FegdHhw@mail.gmail.com>
+From: "Yuan, Xiaojie" <Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH 1/2] drm/amdgpu/psp11: wait for sOS ready for ring creation
+Date: Fri, 18 Oct 2019 10:59:39 +0000
+Message-ID: <20191018105923.8277-1-xiaojie.yuan@amd.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CAHL+j0_=r1XBOzwiQmbZTVoRsZ5=Du3pAPd_n7pia81FegdHhw-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
 Content-Language: en-US
-Content-ID: <073CA8BC96451B47B483E914AB6E41E8-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -25,26 +17,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Sylvain Munaut <246tnt-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Long, Gang" <Gang.Long-5C7GfCeVMHo@public.gmane.org>, "Xiao, Jack" <Jack.Xiao-5C7GfCeVMHo@public.gmane.org>, "Yuan,
+ Xiaojie" <Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org>, "Zhang, Hawking" <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>
 
-QW0gMTcuMTAuMTkgdW0gMjI6MTIgc2NocmllYiBTeWx2YWluIE11bmF1dDoNCj4gU28gYSBiaXQg
-bW9yZSB0ZXN0aW5nLg0KPg0KPiBJIHdhcyB1c2luZyBhIGJpdCBvZiAidW51c3VhbCIgY29uZmln
-IEkgZ3Vlc3MsIGhhdmluZyAyIEdQVXMgYW5kIHNvbWUNCj4gb3RoZXIgcGNpZSBjYXJkcyAoMTBH
-LCAuLikuDQo+IFNvIEkgc2ltcGxpZmllZCBhbmQgd2VudCB0byB0aGUgbW9zdCBzdGFuZGFyZCB0
-aGluZyBJIGNvdWxkIHRoaW5rIG9mLA0KPiBfanVzdF8gdGhlIFJYIDU2MCBjYXJkIHBsdWdnZWQg
-aW50byB0aGUgbWFpbiBQQ0llIDE2eCBzbG90IGRpcmVjdGx5DQo+IGNvbm5lY3RlZCB0byB0aGUg
-Q1BVLg0KPg0KPiBBbmQgZXhhY3Qgc2FtZSByZXN1bHRzLCBubyBjaGFuZ2UgaW4gYmVoYXZpb3Iu
-DQo+DQo+IFNvIG9uIG9uZSBoYW5kIEknbSBoYXBweSB0aGF0IHRoZSBvdGhlciBjYXJkcyBhbmQg
-aGF2aW5nIHRoZSBBTUQgR1BVDQo+IGluIHRoZSBzZWNvbmQgc2xvdCBpc24ndCB0aGUgaXNzdWUg
-KGJlY2F1c2UgSSByZWFsbHkgbmVlZCB0aGF0IGNvbmZpZw0KPiB0aGF0IHdheSksIGJ1dCBvbiB0
-aGUgb3RoZXIsIEknbSBubyBjbG9zZXIgdG8gZmluZGluZyB0aGUgaXNzdWUgOi8NCg0KQXQgbGVh
-c3QgeW91IHRlc3RlZCBxdWl0ZSBhIGJ1bmNoIG9mIHRoaW5ncyB3aGljaCBJIHdvdWxkIGhhdmUg
-c3VnZ2VzdGVkIA0KYXMgd2VsbC4NCg0KSSB3b3VsZCBhbHNvIHRlc3QgaWYgZGlzYWJsaW5nIHBv
-d2VyIGZlYXR1cmVzIGhlbHBzIGFzIHdlbGwsIHRyeSB0byBhZGQgDQphbWRncHUucGdfbWFzaz0w
-IGFuZCBhbWRncHUuY2dfbWFzaz0wIHRvIHRoZSBrZXJuZWwgY29tbWFuZCBsaW5lIGZvciANCmV4
-YW1wbGUuDQoNClJlZ2FyZHMsDQpDaHJpc3RpYW4uDQoNCj4NCj4gQ2hlZXJzLA0KPg0KPiAgICAg
-ICBTeWx2YWluIE11bmF1dA0KDQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9w
-Lm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1n
-Zng=
+U2lnbmVkLW9mZi1ieTogWGlhb2ppZSBZdWFuIDx4aWFvamllLnl1YW5AYW1kLmNvbT4KLS0tCiBk
+cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9wc3BfdjExXzAuYyB8IDggKysrKysrKysKIDEgZmls
+ZSBjaGFuZ2VkLCA4IGluc2VydGlvbnMoKykKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0v
+YW1kL2FtZGdwdS9wc3BfdjExXzAuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3BzcF92
+MTFfMC5jCmluZGV4IGU4ZTcwYjc0ZWE1Yi4uZGZlODVhMWQ3OWE1IDEwMDY0NAotLS0gYS9kcml2
+ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9wc3BfdjExXzAuYworKysgYi9kcml2ZXJzL2dwdS9kcm0v
+YW1kL2FtZGdwdS9wc3BfdjExXzAuYwpAQCAtNDU5LDYgKzQ1OSwxNCBAQCBzdGF0aWMgaW50IHBz
+cF92MTFfMF9yaW5nX2NyZWF0ZShzdHJ1Y3QgcHNwX2NvbnRleHQgKnBzcCwKIAkJCQkgICAweDgw
+MDAwMDAwLCAweDgwMDBGRkZGLCBmYWxzZSk7CiAKIAl9IGVsc2UgeworCQkvKiBXYWl0IGZvciBz
+T1MgcmVhZHkgZm9yIHJpbmcgY3JlYXRpb24gKi8KKwkJcmV0ID0gcHNwX3dhaXRfZm9yKHBzcCwg
+U09DMTVfUkVHX09GRlNFVChNUDAsIDAsIG1tTVAwX1NNTl9DMlBNU0dfNjQpLAorCQkJCSAgIDB4
+ODAwMDAwMDAsIDB4ODAwMDAwMDAsIGZhbHNlKTsKKwkJaWYgKHJldCkgeworCQkJRFJNX0VSUk9S
+KCJGYWlsZWQgdG8gd2FpdCBmb3Igc09TIHJlYWR5IGZvciByaW5nIGNyZWF0aW9uXG4iKTsKKwkJ
+CXJldHVybiByZXQ7CisJCX0KKwogCQkvKiBXcml0ZSBsb3cgYWRkcmVzcyBvZiB0aGUgcmluZyB0
+byBDMlBNU0dfNjkgKi8KIAkJcHNwX3JpbmdfcmVnID0gbG93ZXJfMzJfYml0cyhyaW5nLT5yaW5n
+X21lbV9tY19hZGRyKTsKIAkJV1JFRzMyX1NPQzE1KE1QMCwgMCwgbW1NUDBfU01OX0MyUE1TR182
+OSwgcHNwX3JpbmdfcmVnKTsKLS0gCjIuMjAuMQoKX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5m
+cmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0
+aW5mby9hbWQtZ2Z4
