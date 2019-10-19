@@ -1,79 +1,109 @@
-From: "Koenig, Christian" <Christian.Koenig@amd.com>
-Subject: Re: [PATCH hmm 00/15] Consolidate the mmu notifier interval_tree and
- locking
-Date: Sun, 20 Oct 2019 14:21:42 +0000
-Message-ID: <f7e34d8f-f3b0-b86d-7388-1f791674a4a9@amd.com>
-References: <20191015181242.8343-1-jgg@ziepe.ca>
- <bc954d29-388b-9e29-f960-115ccc6b9fea@gmail.com>
- <20191016160444.GB3430@mellanox.com>
- <2df298e2-ee91-ef40-5da9-2bc1af3a17be@gmail.com>
- <2046e0b4-ba05-0683-5804-e9bbf903658d@amd.com>
- <d6bcbd2a-2519-8945-eaf5-4f4e738c7fa9@amd.com>
- <20191018203608.GA5670@mellanox.com>
+From: Qu Wenruo <quwenruo.btrfs-KK0ffGbhmjU@public.gmane.org>
+Subject: thunderbolt 3 eGPU related bugs under Linux (1. Unable to hot-unplug,
+ 2. initialization not properly)
+Date: Sat, 19 Oct 2019 21:27:49 +0800
+Message-ID: <fc475d0b-a988-d549-c446-cecf64059b5a@gmx.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-In-Reply-To: <20191018203608.GA5670@mellanox.com>
-Content-Language: en-US
-Content-ID: <1234AEC0EFCF61438D7BE1FC78AA678E@namprd12.prod.outlook.com>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: Jason Gunthorpe <jgg@mellanox.com>
-Cc: Andrea Arcangeli <aarcange@redhat.com>, "Yang,
- Philip" <Philip.Yang@amd.com>, Ralph Campbell <rcampbell@nvidia.com>, "linux-rdma@vger.kernel.org" <linux-rdma@vger.kernel.org>, John Hubbard <jhubbard@nvidia.com>, "Kuehling, Felix" <Felix.Kuehling@amd.com>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "linux-mm@kvack.org" <linux-mm@kvack.org>, Jerome Glisse <jglisse@redhat.com>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, Ben Skeggs <bskeggs@redhat.com>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: multipart/mixed; boundary="===============1760236491=="
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-QW0gMTguMTAuMTkgdW0gMjI6MzYgc2NocmllYiBKYXNvbiBHdW50aG9ycGU6DQo+IE9uIFRodSwg
-T2N0IDE3LCAyMDE5IGF0IDA0OjQ3OjIwUE0gKzAwMDAsIEtvZW5pZywgQ2hyaXN0aWFuIHdyb3Rl
-Og0KPg0KPj4+IGdldF91c2VyX3BhZ2VzL2htbV9yYW5nZV9mYXVsdCgpIGFuZCBpbnZhbGlkYXRl
-X3JhbmdlX3N0YXJ0KCkgYm90aCBhcmUNCj4+PiBjYWxsZWQgd2hpbGUgaG9sZGluZyBtbS0+bWFw
-X3NlbSwgc28gdGhleSBhcmUgYWx3YXlzIHNlcmlhbGl6ZWQuDQo+PiBOb3QgZXZlbiByZW1vdGVs
-eS4NCj4+DQo+PiBGb3IgY2FsbGluZyBnZXRfdXNlcl9wYWdlcygpL2htbV9yYW5nZV9mYXVsdCgp
-IHlvdSBvbmx5IG5lZWQgdG8gaG9sZCB0aGUNCj4+IG1tYXBfc2VtIGluIHJlYWQgbW9kZS4NCj4g
-UmlnaHQNCj4gICANCj4+IEFuZCBJSVJDIGludmFsaWRhdGVfcmFuZ2Vfc3RhcnQoKSBpcyBzb21l
-dGltZXMgY2FsbGVkIHdpdGhvdXQgaG9sZGluZw0KPj4gdGhlIG1tYXBfc2VtIGF0IGFsbC4NCj4g
-WWVwDQo+ICAgDQo+PiBTbyBhZ2FpbiBob3cgYXJlIHRoZXkgc2VyaWFsaXplZD8NCj4gVGhlICdk
-cml2ZXIgbG9jaycgdGhpbmcgZG9lcyBpdCwgcmVhZCB0aGUgaG1tIGRvY3VtZW50YXRpb24sIHRo
-ZSBobW0NCj4gYXBwcm9hY2ggaXMgYmFzaWNhbGx5IHRoZSBvbmx5IGFwcHJvYWNoIHRoYXQgd2Fz
-IGNvcnJlY3Qgb2YgYWxsIHRoZQ0KPiBkcml2ZXJzLi4NCg0KV2VsbCB0aGF0J3Mgd2hhdCBJJ3Zl
-IGRpZCwgYnV0IHdoYXQgSE1NIGRvZXMgc3RpbGwgZG9lc24ndCBsb29rcyBjb3JyZWN0IA0KdG8g
-bWUuDQoNCj4gU28gbG9uZyBhcyB0aGUgJ2RyaXZlciBsb2NrJyBpcyBoZWxkIHRoZSByYW5nZSBj
-YW5ub3QgYmVjb21lDQo+IGludmFsaWRhdGVkIGFzIHRoZSAnZHJpdmVyIGxvY2snIHByZXZlbnRz
-IHByb2dyZXNzIG9mIGludmFsaWRhdGlvbi4NCg0KQ29ycmVjdCwgYnV0IHRoZSBwcm9ibGVtIGlz
-IGl0IGRvZXNuJ3Qgd2FpdCBmb3Igb25nb2luZyBvcGVyYXRpb25zIHRvIA0KY29tcGxldGUuDQoN
-ClNlZSBJJ20gdGFsa2luZyBhYm91dCB0aGUgZm9sbG93aW5nIGNhc2U6DQoNClRocmVhZCBBwqDC
-oMKgIFRocmVhZCBCDQppbnZhbGlkYXRlX3JhbmdlX3N0YXJ0KCkNCiDCoMKgwqAgwqDCoMKgIMKg
-wqDCoCDCoMKgwqAgwqDCoMKgIG1tdV9yYW5nZV9yZWFkX2JlZ2luKCkNCiDCoMKgwqAgwqDCoMKg
-IMKgwqDCoCDCoMKgwqAgwqDCoMKgIGdldF91c2VyX3BhZ2VzKCkvaG1tX3JhbmdlX2ZhdWx0KCkN
-CiDCoMKgwqAgwqDCoMKgIMKgwqDCoCDCoMKgwqAgwqDCoMKgIGdyYWJfZHJpdmVyX2xvY2soKQ0K
-VXBkYXRpbmcgdGhlIHB0ZXMNCmludmFsaWRhdGVfcmFuZ2VfZW5kKCkNCg0KQXMgZmFyIGFzIEkg
-Y2FuIHNlZSBpbiBpbnZhbGlkYXRlX3JhbmdlX3N0YXJ0KCkgdGhlIGRyaXZlciBsb2NrIGlzIHRh
-a2VuIA0KdG8gbWFrZSBzdXJlIHRoYXQgd2UgY2FuJ3Qgc3RhcnQgYW55IGludmFsaWRhdGlvbiB3
-aGlsZSB0aGUgZHJpdmVyIGlzIA0KdXNpbmcgdGhlIHBhZ2VzIGZvciBhIGNvbW1hbmQgc3VibWlz
-c2lvbi4NCg0KQnV0IHRoZSBwYWdlcyB3ZSBnb3QgZnJvbSBnZXRfdXNlcl9wYWdlcygpL2htbV9y
-YW5nZV9mYXVsdCgpIG1pZ2h0IG5vdCANCmJlIHVwIHRvIGRhdGUgYmVjYXVzZSB0aGUgZHJpdmVy
-IGxvY2sgaXMgYWxzbyBkcm9wcGVkIGFnYWluIGluIA0KaW52YWxpZGF0ZV9yYW5nZV9zdGFydCgp
-IGFuZCBub3QgaW4gaW52YWxpZGF0ZV9yYW5nZV9lbmQoKS4NCg0KPiBIb2xkaW5nIHRoZSBkcml2
-ZXIgbG9jayBhbmQgdXNpbmcgdGhlIHNlcSBiYXNlZCBtbXVfcmFuZ2VfcmVhZF9yZXRyeSgpDQo+
-IHRlbGxzIGlmIHRoZSBwcmV2aW91cyB1bmxvY2tlZCBnZXRfdXNlcl9wYWdlcygpIGlzIHN0aWxs
-IHZhbGlkIG9yDQo+IG5lZWRzIHRvIGJlIGRpc2NhcmQuDQo+DQo+IFNvIGl0IGRvZXNuJ3QgbWF0
-dGVyIGlmIGdldF91c2VyX3BhZ2VzKCkgcmFjZXMgb3Igbm90LCB0aGUgcmVzdWx0IGlzIG5vdA0K
-PiB0byBiZSB1c2VkIHVudGlsIHRoZSBkcml2ZXIgbG9jayBpcyBoZWxkIGFuZCBtbXVfcmFuZ2Vf
-cmVhZF9yZXRyeSgpDQo+IGNhbGxlZCwgd2hpY2ggcHJvdmlkZXMgdGhlIGNvaGVyZW5jZS4NCj4N
-Cj4gSXQgaXMgdGhlIHVzdWFsIHNlcWxvY2sgcGF0dGVybi4NCg0KV2VsbCB3ZSBkb24ndCB1cGRh
-dGUgdGhlIHNlcWxvY2sgYWZ0ZXIgdGhlIHVwZGF0ZSB0byB0aGUgcHJvdGVjdGVkIGRhdGEgDQpz
-dHJ1Y3R1cmUgKHRoZSBwYWdlIHRhYmxlKSBoYXBwZW5lZCwgYnV0IHJhdGhlciBiZWZvcmUgdGhh
-dC4NCg0KVGhhdCBkb2Vzbid0IGxvb2tzIGxpa2UgdGhlIG5vcm1hbCBwYXR0ZXIgZm9yIGEgc2Vx
-bG9jayB0byBtZSBhbmQgYXMgZmFyIA0KYXMgSSBjYW4gc2VlIHRoYXQgaXMgcXVpdGUgYSBidWcg
-aW4gdGhlIEhNTSBkZXNpZ24vbG9naWMuDQoNClJlZ2FyZHMsDQpDaHJpc3RpYW4uDQoNCj4NCj4g
-SmFzb24NCg0KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18K
-ZHJpLWRldmVsIG1haWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0
-dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVs
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--===============1760236491==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="KaBrD5u6ywVI7I5PZ1V76BZNrjiV39N40"
+
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--KaBrD5u6ywVI7I5PZ1V76BZNrjiV39N40
+Content-Type: multipart/mixed; boundary="O30hFYTtsAzEXApjTrMeARy9sLkn5iKtL"
+
+--O30hFYTtsAzEXApjTrMeARy9sLkn5iKtL
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: quoted-printable
+
+Hi,
+
+Thanks for all your awesome works for the full open-source graphic stack.=
+
+
+But I still find some bugs related to thunderbolt 3 eGPU, which is very
+annoying.
+
+- Unable to hot unplug.
+  Hot unplug can easily crash the kernel, most like due to some
+  BUG_ON().
+  This is particularly annoying if the thunderbolt 3 cable is not
+  stable.
+
+  I guess it can't be easily fixed anyway, since most PCIE device
+  doesn't expect link/physical layer error.
+
+- Initialization is not properly done under Linux only.
+  If the GPU is initialized under Linux (no matter hot-plugged in or
+  cold boot), although eGPU is properly initialized and detected, the
+  display connected to eGPU will just output message indicating
+  unacceptable refresh rate.
+
+  The display only accepts refresh rate not higher than 60Hz, and xrandr
+  shows the display is at 60Hz, but still, the display doesn't accept
+  that signal.
+  Also, X11 starts and log shows no obvious problem, but no display.
+
+  The most strange thing is, if the eGPU is initialized under windows
+  first, then rebooted into Linux with eGPU, then everything works fine.
+
+  I guess this can be solved.
+
+Hardware info:
+- Laptop: ThinkPad X1 Carbon 6th gen
+- eGPU box: AORUS gaming box
+- eGPU GPU: AORUS RX580 mini
+
+Thanks,
+Qu
+
+
+--O30hFYTtsAzEXApjTrMeARy9sLkn5iKtL--
+
+--KaBrD5u6ywVI7I5PZ1V76BZNrjiV39N40
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEELd9y5aWlW6idqkLhwj2R86El/qgFAl2rD1UACgkQwj2R86El
+/qipYAgApE3SjPkwGIZBHQV/pB40gVNv1ogRVNQJrdbObaxsjwBNsTRAiriuGw/K
+QtKE1G5nARP5V5h+fRsLRGU8JuzlQT7gOdbgDYtPTjK5nnRbdqEZRqXutG5BjlIz
+YcRChbz/Ir3ZFZbUyWMpvI8Ldn3EaTqLn/AYyvD2tetC4UEGkaYWz18YA+59/eDv
+nAFR2bBJQGhUivIrVw+72q9mrFffnrRZpRlflJqQqZEnu2P8CbYA5FBmpsNdyS+u
+M0MJqny1HilzCgoTlOO+fiXAAGPJn7ru7vmKzLtrgPriTn7iP6UXXExriLWdYkrl
+i+gRwKQQw716prGmctngTvXxLSkWOA==
+=pvSX
+-----END PGP SIGNATURE-----
+
+--KaBrD5u6ywVI7I5PZ1V76BZNrjiV39N40--
+
+--===============1760236491==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+
+--===============1760236491==--
