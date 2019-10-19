@@ -1,62 +1,46 @@
-From: Chen Wandun <chenwandun@huawei.com>
-Subject: [PATCH] drm/amd/display: remove gcc warning Wunused-but-set-variable
-Date: Sat, 19 Oct 2019 11:23:51 +0800
-Message-ID: <1571455431-104881-1-git-send-email-chenwandun@huawei.com>
+From: Wambui Karuga <wambui@karuga.xyz>
+Subject: [PATCH] drm/amd/amdgpu: make undeclared variables static
+Date: Sat, 19 Oct 2019 10:24:26 +0300
+Message-ID: <20191019072426.20535-1-wambui@karuga.xyz>
 Mime-Version: 1.0
-Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
 Return-path: <linux-kernel-owner@vger.kernel.org>
 Sender: linux-kernel-owner@vger.kernel.org
-To: harry.wentland@amd.com, sunpeng.li@amd.com, alexander.deucher@amd.com, christian.koenig@amd.com, David1.Zhou@amd.com, Bhawanpreet.Lakha@amd.com, David.Francis@amd.com, Tony.Cheng@amd.com, abdoulaye.berthe@amd.com, Thomas.Lim@amd.com, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Cc: chenwandun@huawei.com
+To: dri-devel@lists.freedesktop.org
+Cc: linux-kernel@vger.kernel.org, alexander.deucher@amd.com, christian.koenig@amd.com, David1.Zhou@amd.com, airlied@linux.ie, daniel@ffwll.ch, amd-gfx@lists.freedesktop.org, outreachy-kernel@googlegroups.com
 List-Id: amd-gfx.lists.freedesktop.org
 
-From: Chenwandun <chenwandun@huawei.com>
+Make the `amdgpu_lockup_timeout` and `amdgpu_exp_hw_support` variables
+static to remove the following sparse warnings:
+drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c:103:19: warning: symbol 'amdgpu_lockup_timeout' was not declared. Should it be static?
+drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c:117:18: warning: symbol 'amdgpu_exp_hw_support' was not declared. Should it be static?
 
-drivers/gpu/drm/amd/display/dc/dce/dce_aux.c: In function dce_aux_configure_timeout:
-drivers/gpu/drm/amd/display/dc/dce/dce_aux.c: warning: variable timeout set but not used [-Wunused-but-set-variable]
-
-Signed-off-by: Chenwandun <chenwandun@huawei.com>
+Signed-off-by: Wambui Karuga <wambui@karuga.xyz>
 ---
- drivers/gpu/drm/amd/display/dc/dce/dce_aux.c | 5 -----
- 1 file changed, 5 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_aux.c b/drivers/gpu/drm/amd/display/dc/dce/dce_aux.c
-index 976bd49..739f8e2 100644
---- a/drivers/gpu/drm/amd/display/dc/dce/dce_aux.c
-+++ b/drivers/gpu/drm/amd/display/dc/dce/dce_aux.c
-@@ -432,7 +432,6 @@ static bool dce_aux_configure_timeout(struct ddc_service *ddc,
- {
- 	uint32_t multiplier = 0;
- 	uint32_t length = 0;
--	uint32_t timeout = 0;
- 	struct ddc *ddc_pin = ddc->ddc_pin;
- 	struct dce_aux *aux_engine = ddc->ctx->dc->res_pool->engines[ddc_pin->pin_data->en];
- 	struct aux_engine_dce110 *aux110 = FROM_AUX_ENGINE(aux_engine);
-@@ -446,25 +445,21 @@ static bool dce_aux_configure_timeout(struct ddc_service *ddc,
- 		length = timeout_in_us/TIME_OUT_MULTIPLIER_8;
- 		if (timeout_in_us % TIME_OUT_MULTIPLIER_8 != 0)
- 			length++;
--		timeout = length * TIME_OUT_MULTIPLIER_8;
- 	} else if (timeout_in_us <= 2 * TIME_OUT_INCREMENT) {
- 		multiplier = 1;
- 		length = timeout_in_us/TIME_OUT_MULTIPLIER_16;
- 		if (timeout_in_us % TIME_OUT_MULTIPLIER_16 != 0)
- 			length++;
--		timeout = length * TIME_OUT_MULTIPLIER_16;
- 	} else if (timeout_in_us <= 4 * TIME_OUT_INCREMENT) {
- 		multiplier = 2;
- 		length = timeout_in_us/TIME_OUT_MULTIPLIER_32;
- 		if (timeout_in_us % TIME_OUT_MULTIPLIER_32 != 0)
- 			length++;
--		timeout = length * TIME_OUT_MULTIPLIER_32;
- 	} else if (timeout_in_us > 4 * TIME_OUT_INCREMENT) {
- 		multiplier = 3;
- 		length = timeout_in_us/TIME_OUT_MULTIPLIER_64;
- 		if (timeout_in_us % TIME_OUT_MULTIPLIER_64 != 0)
- 			length++;
--		timeout = length * TIME_OUT_MULTIPLIER_64;
- 	}
- 
- 	length = (length < MAX_TIMEOUT_LENGTH) ? length : MAX_TIMEOUT_LENGTH;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+index 3fae1007143e..c5b3c0c9193b 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+@@ -100,7 +100,7 @@ int amdgpu_disp_priority = 0;
+ int amdgpu_hw_i2c = 0;
+ int amdgpu_pcie_gen2 = -1;
+ int amdgpu_msi = -1;
+-char amdgpu_lockup_timeout[AMDGPU_MAX_TIMEOUT_PARAM_LENTH];
++static char amdgpu_lockup_timeout[AMDGPU_MAX_TIMEOUT_PARAM_LENTH];
+ int amdgpu_dpm = -1;
+ int amdgpu_fw_load_type = -1;
+ int amdgpu_aspm = -1;
+@@ -114,7 +114,7 @@ int amdgpu_vm_block_size = -1;
+ int amdgpu_vm_fault_stop = 0;
+ int amdgpu_vm_debug = 0;
+ int amdgpu_vm_update_mode = -1;
+-int amdgpu_exp_hw_support = 0;
++static int amdgpu_exp_hw_support;
+ int amdgpu_dc = -1;
+ int amdgpu_sched_jobs = 32;
+ int amdgpu_sched_hw_submission = 2;
 -- 
-2.7.4
+2.23.0
