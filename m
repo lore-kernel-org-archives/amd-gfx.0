@@ -1,127 +1,62 @@
-From: "Zeng, Oak" <Oak.Zeng-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH v2] drm/amdkfd: kfd open return failed if device is locked
-Date: Fri, 18 Oct 2019 22:54:15 +0000
-Message-ID: <BL0PR12MB258072D365E0BF60C939E8D0806C0@BL0PR12MB2580.namprd12.prod.outlook.com>
-References: <20191018173614.9758-1-Philip.Yang@amd.com>
- <b669ac97-7389-caec-70e7-40f1ab5429e3@amd.com>
+From: Chen Wandun <chenwandun@huawei.com>
+Subject: [PATCH] drm/amd/display: remove gcc warning Wunused-but-set-variable
+Date: Sat, 19 Oct 2019 11:23:51 +0800
+Message-ID: <1571455431-104881-1-git-send-email-chenwandun@huawei.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <b669ac97-7389-caec-70e7-40f1ab5429e3-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Yang,
- Philip" <Philip.Yang-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: harry.wentland@amd.com, sunpeng.li@amd.com, alexander.deucher@amd.com, christian.koenig@amd.com, David1.Zhou@amd.com, Bhawanpreet.Lakha@amd.com, David.Francis@amd.com, Tony.Cheng@amd.com, abdoulaye.berthe@amd.com, Thomas.Lim@amd.com, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Cc: chenwandun@huawei.com
+List-Id: amd-gfx.lists.freedesktop.org
 
-SW4gY3VycmVudCBpbXBsZW1lbnRhdGlvbiwgZXZlbiBkcW0gaXMgc3RvcHBlZCwgdXNlciBjYW4g
-c3RpbGwgY3JlYXRlIChhbmQgc3RhcnQpIG5ldyBxdWV1ZS4gVGhpcyBpcyBub3QgY29ycmVjdC4g
-V2Ugc2hvdWxkIGZvcmJpZCB1c2VyIGNyZWF0ZS9zdGFydCBuZXcgcXVldWUgaWYgZHFtIGlzIHN0
-b3BwZWQgLSBzdG9wIG1lYW5zIHN0b3BwaW5nIHRoZSBjdXJyZW50IGV4ZWN1dGluZyBxdWV1ZXMg
-YW5kIHN0b3AgcmVjZWl2aW5nIG5ldyBjcmVhdGluZyByZXF1ZXN0Lg0KDQpSZWdhcmRzLA0KT2Fr
-DQoNCi0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQpGcm9tOiBhbWQtZ2Z4IDxhbWQtZ2Z4LWJv
-dW5jZXNAbGlzdHMuZnJlZWRlc2t0b3Aub3JnPiBPbiBCZWhhbGYgT2YgS3VlaGxpbmcsIEZlbGl4
-DQpTZW50OiBGcmlkYXksIE9jdG9iZXIgMTgsIDIwMTkgMzowOCBQTQ0KVG86IGFtZC1nZnhAbGlz
-dHMuZnJlZWRlc2t0b3Aub3JnOyBZYW5nLCBQaGlsaXAgPFBoaWxpcC5ZYW5nQGFtZC5jb20+DQpT
-dWJqZWN0OiBSZTogW1BBVENIIHYyXSBkcm0vYW1ka2ZkOiBrZmQgb3BlbiByZXR1cm4gZmFpbGVk
-IGlmIGRldmljZSBpcyBsb2NrZWQNCg0KT24gMjAxOS0xMC0xOCAxOjM2IHAubS4sIFlhbmcsIFBo
-aWxpcCB3cm90ZToNCj4gSWYgZGV2aWNlIGlzIGxvY2tlZCBmb3Igc3VzcGVuZCBhbmQgcmVzdW1l
-LCBrZmQgb3BlbiBzaG91bGQgcmV0dXJuIA0KPiBmYWlsZWQgLUVBR0FJTiB3aXRob3V0IGNyZWF0
-aW5nIHByb2Nlc3MsIG90aGVyd2lzZSB0aGUgYXBwbGljYXRpb24gDQo+IGV4aXQgdG8gcmVsZWFz
-ZSB0aGUgcHJvY2VzcyB3aWxsIGhhbmcgdG8gd2FpdCBmb3IgcmVzdW1lIGlzIGRvbmUgaWYgDQo+
-IHRoZSBzdXNwZW5kIGFuZCByZXN1bWUgaXMgc3R1Y2sgc29tZXdoZXJlLiBUaGlzIGlzIGJhY2t0
-cmFjZToNCj4NCj4gdjI6IGZpeCBwcm9jZXNzZXMgdGhhdCB3ZXJlIGNyZWF0ZWQgYmVmb3JlIHN1
-c3BlbmQvcmVzdW1lIGdvdCBzdHVjaw0KPg0KPiBbVGh1IE9jdCAxNyAxNjo0MzozNyAyMDE5XSBJ
-TkZPOiB0YXNrIHJvY21pbmZvOjMwMjQgYmxvY2tlZCBmb3IgbW9yZSANCj4gdGhhbiAxMjAgc2Vj
-b25kcy4NCj4gW1RodSBPY3QgMTcgMTY6NDM6MzcgMjAxOV0gICAgICAgTm90IHRhaW50ZWQNCj4g
-NS4wLjAtcmMxLWtmZC1jb21wdXRlLXJvY20tZGttcy1uby1ucGktMTEzMSAjMSBbVGh1IE9jdCAx
-NyAxNjo0MzozNyANCj4gMjAxOV0gImVjaG8gMCA+IC9wcm9jL3N5cy9rZXJuZWwvaHVuZ190YXNr
-X3RpbWVvdXRfc2VjcyIgZGlzYWJsZXMgdGhpcyANCj4gbWVzc2FnZS4NCj4gW1RodSBPY3QgMTcg
-MTY6NDM6MzcgMjAxOV0gcm9jbWluZm8gICAgICAgIEQgICAgMCAgMzAyNCAgIDI5NDcNCj4gMHg4
-MDAwMDAwMA0KPiBbVGh1IE9jdCAxNyAxNjo0MzozNyAyMDE5XSBDYWxsIFRyYWNlOg0KPiBbVGh1
-IE9jdCAxNyAxNjo0MzozNyAyMDE5XSAgPyBfX3NjaGVkdWxlKzB4M2Q5LzB4OGEwIFtUaHUgT2N0
-IDE3IA0KPiAxNjo0MzozNyAyMDE5XSAgc2NoZWR1bGUrMHgzMi8weDcwIFtUaHUgT2N0IDE3IDE2
-OjQzOjM3IDIwMTldICANCj4gc2NoZWR1bGVfcHJlZW1wdF9kaXNhYmxlZCsweGEvMHgxMA0KPiBb
-VGh1IE9jdCAxNyAxNjo0MzozNyAyMDE5XSAgX19tdXRleF9sb2NrLmlzcmEuOSsweDFlMy8weDRl
-MCBbVGh1IE9jdCANCj4gMTcgMTY6NDM6MzcgMjAxOV0gID8gX19jYWxsX3NyY3UrMHgyNjQvMHgz
-YjAgW1RodSBPY3QgMTcgMTY6NDM6MzcgDQo+IDIwMTldICA/IHByb2Nlc3NfdGVybWluYXRpb25f
-Y3BzY2grMHgyNC8weDJmMA0KPiBbYW1kZ3B1XQ0KPiBbVGh1IE9jdCAxNyAxNjo0MzozNyAyMDE5
-XSAgcHJvY2Vzc190ZXJtaW5hdGlvbl9jcHNjaCsweDI0LzB4MmYwDQo+IFthbWRncHVdDQo+IFtU
-aHUgT2N0IDE3IDE2OjQzOjM3IDIwMTldDQo+IGtmZF9wcm9jZXNzX2RlcXVldWVfZnJvbV9hbGxf
-ZGV2aWNlcysweDQyLzB4NjAgW2FtZGdwdV0gW1RodSBPY3QgMTcgDQo+IDE2OjQzOjM3IDIwMTld
-ICBrZmRfcHJvY2Vzc19ub3RpZmllcl9yZWxlYXNlKzB4MWJlLzB4MjIwDQo+IFthbWRncHVdDQo+
-IFtUaHUgT2N0IDE3IDE2OjQzOjM3IDIwMTldICBfX21tdV9ub3RpZmllcl9yZWxlYXNlKzB4M2Uv
-MHhjMCBbVGh1IE9jdCANCj4gMTcgMTY6NDM6MzcgMjAxOV0gIGV4aXRfbW1hcCsweDE2MC8weDFh
-MCBbVGh1IE9jdCAxNyAxNjo0MzozNyAyMDE5XSAgPyANCj4gX19oYW5kbGVfbW1fZmF1bHQrMHhi
-YTMvMHgxMjAwIFtUaHUgT2N0IDE3IDE2OjQzOjM3IDIwMTldICA/IA0KPiBleGl0X3JvYnVzdF9s
-aXN0KzB4NWEvMHgxMTAgW1RodSBPY3QgMTcgMTY6NDM6MzcgMjAxOV0gIA0KPiBtbXB1dCsweDRh
-LzB4MTIwIFtUaHUgT2N0IDE3IDE2OjQzOjM3IDIwMTldICBkb19leGl0KzB4Mjg0LzB4YjIwIFtU
-aHUgDQo+IE9jdCAxNyAxNjo0MzozNyAyMDE5XSAgPyBoYW5kbGVfbW1fZmF1bHQrMHhmYS8weDIw
-MCBbVGh1IE9jdCAxNyANCj4gMTY6NDM6MzcgMjAxOV0gIGRvX2dyb3VwX2V4aXQrMHgzYS8weGEw
-IFtUaHUgT2N0IDE3IDE2OjQzOjM3IDIwMTldICANCj4gX194NjRfc3lzX2V4aXRfZ3JvdXArMHgx
-NC8weDIwIFtUaHUgT2N0IDE3IDE2OjQzOjM3IDIwMTldICANCj4gZG9fc3lzY2FsbF82NCsweDRm
-LzB4MTAwIFtUaHUgT2N0IDE3IDE2OjQzOjM3IDIwMTldICANCj4gZW50cnlfU1lTQ0FMTF82NF9h
-ZnRlcl9od2ZyYW1lKzB4NDQvMHhhOQ0KPg0KPiBTaWduZWQtb2ZmLWJ5OiBQaGlsaXAgWWFuZyA8
-UGhpbGlwLllhbmdAYW1kLmNvbT4NCj4gLS0tDQo+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRr
-ZmQva2ZkX2NoYXJkZXYuYyAgICAgICAgICAgICAgIHwgNiArKystLS0NCj4gICBkcml2ZXJzL2dw
-dS9kcm0vYW1kL2FtZGtmZC9rZmRfcHJvY2Vzc19xdWV1ZV9tYW5hZ2VyLmMgfCA2ICsrKysrKw0K
-PiAgIDIgZmlsZXMgY2hhbmdlZCwgOSBpbnNlcnRpb25zKCspLCAzIGRlbGV0aW9ucygtKQ0KPg0K
-PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX2NoYXJkZXYuYyAN
-Cj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfY2hhcmRldi5jDQo+IGluZGV4IGQ5
-ZTM2ZGJmMTNkNS4uNDBkNzVjMzlmMDhlIDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0v
-YW1kL2FtZGtmZC9rZmRfY2hhcmRldi5jDQo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
-a2ZkL2tmZF9jaGFyZGV2LmMNCj4gQEAgLTEyMCwxMyArMTIwLDEzIEBAIHN0YXRpYyBpbnQga2Zk
-X29wZW4oc3RydWN0IGlub2RlICppbm9kZSwgc3RydWN0IGZpbGUgKmZpbGVwKQ0KPiAgIAkJcmV0
-dXJuIC1FUEVSTTsNCj4gICAJfQ0KPiAgIA0KPiArCWlmIChrZmRfaXNfbG9ja2VkKCkpDQo+ICsJ
-CXJldHVybiAtRUFHQUlOOw0KPiArDQo+ICAgCXByb2Nlc3MgPSBrZmRfY3JlYXRlX3Byb2Nlc3Mo
-ZmlsZXApOw0KPiAgIAlpZiAoSVNfRVJSKHByb2Nlc3MpKQ0KPiAgIAkJcmV0dXJuIFBUUl9FUlIo
-cHJvY2Vzcyk7DQo+ICAgDQo+IC0JaWYgKGtmZF9pc19sb2NrZWQoKSkNCj4gLQkJcmV0dXJuIC1F
-QUdBSU47DQo+IC0NCj4gICAJZGV2X2RiZyhrZmRfZGV2aWNlLCAicHJvY2VzcyAlZCBvcGVuZWQs
-IGNvbXBhdCBtb2RlICgzMiBiaXQpIC0gJWRcbiIsDQo+ICAgCQlwcm9jZXNzLT5wYXNpZCwgcHJv
-Y2Vzcy0+aXNfMzJiaXRfdXNlcl9tb2RlKTsNCj4gICANCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMv
-Z3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9wcm9jZXNzX3F1ZXVlX21hbmFnZXIuYyANCj4gYi9kcml2
-ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfcHJvY2Vzc19xdWV1ZV9tYW5hZ2VyLmMNCj4gaW5k
-ZXggODUwOTgxNGE2ZmYwLi4zNzg0MDEzYjkyYTAgMTAwNjQ0DQo+IC0tLSBhL2RyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1ka2ZkL2tmZF9wcm9jZXNzX3F1ZXVlX21hbmFnZXIuYw0KPiArKysgYi9kcml2
-ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfcHJvY2Vzc19xdWV1ZV9tYW5hZ2VyLmMNCj4gQEAg
-LTEyOCw2ICsxMjgsMTIgQEAgdm9pZCBrZmRfcHJvY2Vzc19kZXF1ZXVlX2Zyb21fYWxsX2Rldmlj
-ZXMoc3RydWN0IGtmZF9wcm9jZXNzICpwKQ0KPiAgIHsNCj4gICAJc3RydWN0IGtmZF9wcm9jZXNz
-X2RldmljZSAqcGRkOw0KPiAgIA0KPiArCS8qIElmIHN1c3BlbmQvcmVzdW1lIGdvdCBzdHVjaywg
-ZHFtX2xvY2sgaXMgaG9sZCwNCj4gKwkgKiBza2lwIHByb2Nlc3NfdGVybWluYXRpb25fY3BzY2gg
-dG8gYXZvaWQgZGVhZGxvY2sNCj4gKwkgKi8NCj4gKwlpZiAoa2ZkX2lzX2xvY2tlZCgpKQ0KPiAr
-CQlyZXR1cm47DQo+ICsNCg0KSG9sZGluZyB0aGUgRFFNIGxvY2sgZHVyaW5nIHJlc2V0IGhhcyBj
-YXVzZWQgb3RoZXIgcHJvYmxlbXMgKGxvY2sgZGVwZW5kZW5jeSBpc3N1ZXMgYW5kIGRlYWRsb2Nr
-cykgYW5kIEkgd2FzIHRoaW5raW5nIGFib3V0IGdldHRpbmcgcmlkIG9mIHRoYXQgY29tcGxldGVs
-eS4gVGhlIGludGVudGlvbiBvZiBob2xkaW5nIHRoZSBEUU0gbG9jayBkdXJpbmcgcmVzZXQgd2Fz
-IHRvIHByZXZlbnQgdGhlIGRldmljZSBxdWV1ZSBtYW5hZ2VyIGZyb20gYWNjZXNzaW5nIHRoZSBD
-UCBoYXJkd2FyZSB3aGlsZSBhIHJlc2V0IHdhcyBpbiBwcm9ncmVzcy4gSG93ZXZlciwgSSB0aGlu
-ayB0aGVyZSBhcmUgc21hcnRlciB3YXlzIHRvIGFjaGlldmUgdGhhdC4gV2UgYWxyZWFkeSBnZXQg
-YSBwcmUtcmVzZXQgY2FsbGJhY2sgKGtnZDJrZmRfcHJlX3Jlc2V0KSB0aGF0IGV4ZWN1dGVzIHRo
-ZSBrZ2Qya2ZkX3N1c3BlbmQsIHdoaWNoIHN1c3BlbmRzIHByb2Nlc3NlcyBhbmQgc3RvcHMgRFFN
-IHRocm91Z2gga2ZkLT5kcW0tPm9wcy5zdG9wKGtmZC0+ZHFtKS4gVGhpcyBzaG91bGQgdGFrZSBj
-YXJlIG9mIG1vc3Qgb2YgdGhlIHByb2JsZW0uIElmIHRoZXJlIGFyZSBhbnkgcGxhY2VzIGluIERR
-TSB0aGF0IHRyeSB0byBhY2Nlc3MgdGhlIGRldmljZXMsIHRoZXkgc2hvdWxkIGFkZCBjb25kaXRp
-b25zIHRvIG5vdCBhY2Nlc3MgSFcgd2hpbGUgRFFNIGlzIHN0b3BwZWQuIFRoZW4gd2UgY291bGQg
-YXZvaWQgaG9sZGluZyBhIGxvY2sgaW5kZWZpbml0ZWx5IHdoaWxlIGEgcmVzZXQgaXMgaW4gcHJv
-Z3Jlc3MuDQoNClRoZSBEUU0gbG9jayBpcyBwYXJ0aWN1bGFybHkgcHJvYmxlbWF0aWMgaW4gdGVy
-bXMgb2YgbG9jayBkZXBlbmRlbmNpZXMgYmVjYXVzZSBpdCBjYW4gYmUgdGFrZW4gaW4gTU1VIG5v
-dGlmaWVycy4gV2Ugd2FudCB0byBhdm9pZCB0YWtpbmcgYW55IG90aGVyIGxvY2tzIHdoaWxlIGhv
-bGRpbmcgdGhlIERRTSBsb2NrLiBIb2xkaW5nIHRoZSBEUU0gbG9jayBmb3IgYSBsb25nIHRpbWUg
-ZHVyaW5nIHJlc2V0IGlzIGNvdW50ZXJwcm9kdWN0aXZlIHRvIHRoYXQgb2JqZWN0aXZlLg0KDQpS
-ZWdhcmRzLA0KIMKgIEZlbGl4DQoNCg0KPiAgIAlsaXN0X2Zvcl9lYWNoX2VudHJ5KHBkZCwgJnAt
-PnBlcl9kZXZpY2VfZGF0YSwgcGVyX2RldmljZV9saXN0KQ0KPiAgIAkJa2ZkX3Byb2Nlc3NfZGVx
-dWV1ZV9mcm9tX2RldmljZShwZGQpOw0KPiAgIH0NCl9fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fDQphbWQtZ2Z4IG1haWxpbmcgbGlzdA0KYW1kLWdmeEBsaXN0
-cy5mcmVlZGVza3RvcC5vcmcNCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4v
-bGlzdGluZm8vYW1kLWdmeA0KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5v
-cmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+From: Chenwandun <chenwandun@huawei.com>
+
+drivers/gpu/drm/amd/display/dc/dce/dce_aux.c: In function dce_aux_configure_timeout:
+drivers/gpu/drm/amd/display/dc/dce/dce_aux.c: warning: variable timeout set but not used [-Wunused-but-set-variable]
+
+Signed-off-by: Chenwandun <chenwandun@huawei.com>
+---
+ drivers/gpu/drm/amd/display/dc/dce/dce_aux.c | 5 -----
+ 1 file changed, 5 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_aux.c b/drivers/gpu/drm/amd/display/dc/dce/dce_aux.c
+index 976bd49..739f8e2 100644
+--- a/drivers/gpu/drm/amd/display/dc/dce/dce_aux.c
++++ b/drivers/gpu/drm/amd/display/dc/dce/dce_aux.c
+@@ -432,7 +432,6 @@ static bool dce_aux_configure_timeout(struct ddc_service *ddc,
+ {
+ 	uint32_t multiplier = 0;
+ 	uint32_t length = 0;
+-	uint32_t timeout = 0;
+ 	struct ddc *ddc_pin = ddc->ddc_pin;
+ 	struct dce_aux *aux_engine = ddc->ctx->dc->res_pool->engines[ddc_pin->pin_data->en];
+ 	struct aux_engine_dce110 *aux110 = FROM_AUX_ENGINE(aux_engine);
+@@ -446,25 +445,21 @@ static bool dce_aux_configure_timeout(struct ddc_service *ddc,
+ 		length = timeout_in_us/TIME_OUT_MULTIPLIER_8;
+ 		if (timeout_in_us % TIME_OUT_MULTIPLIER_8 != 0)
+ 			length++;
+-		timeout = length * TIME_OUT_MULTIPLIER_8;
+ 	} else if (timeout_in_us <= 2 * TIME_OUT_INCREMENT) {
+ 		multiplier = 1;
+ 		length = timeout_in_us/TIME_OUT_MULTIPLIER_16;
+ 		if (timeout_in_us % TIME_OUT_MULTIPLIER_16 != 0)
+ 			length++;
+-		timeout = length * TIME_OUT_MULTIPLIER_16;
+ 	} else if (timeout_in_us <= 4 * TIME_OUT_INCREMENT) {
+ 		multiplier = 2;
+ 		length = timeout_in_us/TIME_OUT_MULTIPLIER_32;
+ 		if (timeout_in_us % TIME_OUT_MULTIPLIER_32 != 0)
+ 			length++;
+-		timeout = length * TIME_OUT_MULTIPLIER_32;
+ 	} else if (timeout_in_us > 4 * TIME_OUT_INCREMENT) {
+ 		multiplier = 3;
+ 		length = timeout_in_us/TIME_OUT_MULTIPLIER_64;
+ 		if (timeout_in_us % TIME_OUT_MULTIPLIER_64 != 0)
+ 			length++;
+-		timeout = length * TIME_OUT_MULTIPLIER_64;
+ 	}
+ 
+ 	length = (length < MAX_TIMEOUT_LENGTH) ? length : MAX_TIMEOUT_LENGTH;
+-- 
+2.7.4
