@@ -1,46 +1,140 @@
-From: Shannon Nelson <snelson@pensando.io>
-Subject: Re: [PATCH 5/5] ionic: Use debugfs_create_bool() to export bool
-Date: Mon, 21 Oct 2019 09:35:03 -0700
-Message-ID: <aeebbd5f-6100-2780-ef1c-6b1c261c9d23@pensando.io>
-References: <20191021145149.31657-1-geert+renesas@glider.be>
- <20191021145149.31657-6-geert+renesas@glider.be>
+From: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH v2] drm/amdkfd: kfd open return failed if device is locked
+Date: Mon, 21 Oct 2019 16:46:05 +0000
+Message-ID: <21d4465f-e2be-9c60-2924-dadaf181f029@amd.com>
+References: <20191018173614.9758-1-Philip.Yang@amd.com>
+ <b669ac97-7389-caec-70e7-40f1ab5429e3@amd.com>
+ <BL0PR12MB258072D365E0BF60C939E8D0806C0@BL0PR12MB2580.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20191021145149.31657-6-geert+renesas@glider.be>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <BL0PR12MB258072D365E0BF60C939E8D0806C0-b4cIHhjg/p/XzH18dTCKOgdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
 Content-Language: en-US
-Sender: linux-kernel-owner@vger.kernel.org
-To: Geert Uytterhoeven <geert+renesas@glider.be>, =?UTF-8?Q?Breno_Leit=c3=a3o?= <leitao@debian.org>, Nayna Jain <nayna@linux.ibm.com>, Paulo Flabiano Smorigo <pfsmorigo@gmail.com>, Benjamin Herrenschmidt <benh@kernel.crashing.org>, Paul Mackerras <paulus@samba.org>, Michael Ellerman <mpe@ellerman.id.au>, Herbert Xu <herbert@gondor.apana.org.au>, "David S . Miller" <davem@davemloft.net>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>, David@rox.of.borg, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, Casey Leedom <leedom@chelsio.com>, Pensando Drivers <drivers@pensando.io>, Kevin Hilman <khilman@kernel.org>, Nishanth Menon <nm@ti.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-crypto@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, netdev@vger.kernel.org, linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org
-List-Id: amd-gfx.lists.freedesktop.org
+Content-ID: <8D9F3A3DE22BAD4F83F52C8B0E81E832-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Zeng, Oak" <Oak.Zeng-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Yang, Philip" <Philip.Yang-5C7GfCeVMHo@public.gmane.org>
 
-On 10/21/19 7:51 AM, Geert Uytterhoeven wrote:
-> Currently bool ionic_cq.done_color is exported using
-> debugfs_create_u8(), which requires a cast, preventing further compiler
-> checks.
->
-> Fix this by switching to debugfs_create_bool(), and dropping the cast.
->
-> Signed-off-by: Geert Uytterhoeven <geert+renesas@glider.be>
-
-Acked-by: Shannon Nelson <snelson@pensando.io>
-
-> ---
->   drivers/net/ethernet/pensando/ionic/ionic_debugfs.c | 3 +--
->   1 file changed, 1 insertion(+), 2 deletions(-)
->
-> diff --git a/drivers/net/ethernet/pensando/ionic/ionic_debugfs.c b/drivers/net/ethernet/pensando/ionic/ionic_debugfs.c
-> index bc03cecf80cc9eb4..5beba915f69d12dd 100644
-> --- a/drivers/net/ethernet/pensando/ionic/ionic_debugfs.c
-> +++ b/drivers/net/ethernet/pensando/ionic/ionic_debugfs.c
-> @@ -170,8 +170,7 @@ void ionic_debugfs_add_qcq(struct ionic_lif *lif, struct ionic_qcq *qcq)
->   	debugfs_create_x64("base_pa", 0400, cq_dentry, &cq->base_pa);
->   	debugfs_create_u32("num_descs", 0400, cq_dentry, &cq->num_descs);
->   	debugfs_create_u32("desc_size", 0400, cq_dentry, &cq->desc_size);
-> -	debugfs_create_u8("done_color", 0400, cq_dentry,
-> -			  (u8 *)&cq->done_color);
-> +	debugfs_create_bool("done_color", 0400, cq_dentry, &cq->done_color);
->   
->   	debugfs_create_file("tail", 0400, cq_dentry, cq, &cq_tail_fops);
->   
+T24gMjAxOS0xMC0xOCA2OjU0IHAubS4sIFplbmcsIE9hayB3cm90ZToNCj4gSW4gY3VycmVudCBp
+bXBsZW1lbnRhdGlvbiwgZXZlbiBkcW0gaXMgc3RvcHBlZCwgdXNlciBjYW4gc3RpbGwgY3JlYXRl
+IChhbmQgc3RhcnQpIG5ldyBxdWV1ZS4gVGhpcyBpcyBub3QgY29ycmVjdC4gV2Ugc2hvdWxkIGZv
+cmJpZCB1c2VyIGNyZWF0ZS9zdGFydCBuZXcgcXVldWUgaWYgZHFtIGlzIHN0b3BwZWQgLSBzdG9w
+IG1lYW5zIHN0b3BwaW5nIHRoZSBjdXJyZW50IGV4ZWN1dGluZyBxdWV1ZXMgYW5kIHN0b3AgcmVj
+ZWl2aW5nIG5ldyBjcmVhdGluZyByZXF1ZXN0Lg0KDQpRdWV1ZXMgYmVpbmcgc3RvcHBlZCBzaG91
+bGQgYmUgbm8gcmVhc29uIG5vdCB0byBjcmVhdGUgbmV3IHF1ZXVlcy4gDQpDcmVhdGluZyBhIG5l
+dyBxdWV1ZSBpcyBqdXN0IGFsbG9jYXRpbmcgYSBuZXcgTVFEIGFuZCBwb3B1bGF0aW5nIGl0LiBJ
+ZiANCnRoZSBwcm9jZXNzIGlzIHN1c3BlbmRlZCAod2hpY2ggaXQgaXMgZHVyaW5nIHJlc2V0IGFu
+ZCBzdXNwZW5kIGFuZCANCmV2aWN0aW9ucyksIHRoZXJlIGlzIG5vIG5lZWQgdG8gdG91Y2ggaGFy
+ZHdhcmUgcmVnaXN0ZXJzIG9yIHNlbmQgYW4gDQp1cGRhdGVkIHJ1bmxpc3QgdG8gdGhlIEhXUy4N
+Cg0KV2hlbiB0aGUgcHJvY2VzcyBpcyByZXN1bWVkIGF0IHRoZSBlbmQgb2YgdGhlIHJlc2V0L3N1
+c3BlbmQvZXZpY3Rpb24sIA0KdGhhdCdzIHdoZW4gYW55IG5ld2x5IGNyZWF0ZWQgcXVldWVzIHdv
+dWxkIGdldCBtYXBwZWQgdG8gdGhlIGhhcmR3YXJlLg0KDQpSZWdhcmRzLA0KIMKgIEZlbGl4DQoN
+Cg0KPg0KPiBSZWdhcmRzLA0KPiBPYWsNCj4NCj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0N
+Cj4gRnJvbTogYW1kLWdmeCA8YW1kLWdmeC1ib3VuY2VzQGxpc3RzLmZyZWVkZXNrdG9wLm9yZz4g
+T24gQmVoYWxmIE9mIEt1ZWhsaW5nLCBGZWxpeA0KPiBTZW50OiBGcmlkYXksIE9jdG9iZXIgMTgs
+IDIwMTkgMzowOCBQTQ0KPiBUbzogYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmc7IFlhbmcs
+IFBoaWxpcCA8UGhpbGlwLllhbmdAYW1kLmNvbT4NCj4gU3ViamVjdDogUmU6IFtQQVRDSCB2Ml0g
+ZHJtL2FtZGtmZDoga2ZkIG9wZW4gcmV0dXJuIGZhaWxlZCBpZiBkZXZpY2UgaXMgbG9ja2VkDQo+
+DQo+IE9uIDIwMTktMTAtMTggMTozNiBwLm0uLCBZYW5nLCBQaGlsaXAgd3JvdGU6DQo+PiBJZiBk
+ZXZpY2UgaXMgbG9ja2VkIGZvciBzdXNwZW5kIGFuZCByZXN1bWUsIGtmZCBvcGVuIHNob3VsZCBy
+ZXR1cm4NCj4+IGZhaWxlZCAtRUFHQUlOIHdpdGhvdXQgY3JlYXRpbmcgcHJvY2Vzcywgb3RoZXJ3
+aXNlIHRoZSBhcHBsaWNhdGlvbg0KPj4gZXhpdCB0byByZWxlYXNlIHRoZSBwcm9jZXNzIHdpbGwg
+aGFuZyB0byB3YWl0IGZvciByZXN1bWUgaXMgZG9uZSBpZg0KPj4gdGhlIHN1c3BlbmQgYW5kIHJl
+c3VtZSBpcyBzdHVjayBzb21ld2hlcmUuIFRoaXMgaXMgYmFja3RyYWNlOg0KPj4NCj4+IHYyOiBm
+aXggcHJvY2Vzc2VzIHRoYXQgd2VyZSBjcmVhdGVkIGJlZm9yZSBzdXNwZW5kL3Jlc3VtZSBnb3Qg
+c3R1Y2sNCj4+DQo+PiBbVGh1IE9jdCAxNyAxNjo0MzozNyAyMDE5XSBJTkZPOiB0YXNrIHJvY21p
+bmZvOjMwMjQgYmxvY2tlZCBmb3IgbW9yZQ0KPj4gdGhhbiAxMjAgc2Vjb25kcy4NCj4+IFtUaHUg
+T2N0IDE3IDE2OjQzOjM3IDIwMTldICAgICAgIE5vdCB0YWludGVkDQo+PiA1LjAuMC1yYzEta2Zk
+LWNvbXB1dGUtcm9jbS1ka21zLW5vLW5waS0xMTMxICMxIFtUaHUgT2N0IDE3IDE2OjQzOjM3DQo+
+PiAyMDE5XSAiZWNobyAwID4gL3Byb2Mvc3lzL2tlcm5lbC9odW5nX3Rhc2tfdGltZW91dF9zZWNz
+IiBkaXNhYmxlcyB0aGlzDQo+PiBtZXNzYWdlLg0KPj4gW1RodSBPY3QgMTcgMTY6NDM6MzcgMjAx
+OV0gcm9jbWluZm8gICAgICAgIEQgICAgMCAgMzAyNCAgIDI5NDcNCj4+IDB4ODAwMDAwMDANCj4+
+IFtUaHUgT2N0IDE3IDE2OjQzOjM3IDIwMTldIENhbGwgVHJhY2U6DQo+PiBbVGh1IE9jdCAxNyAx
+Njo0MzozNyAyMDE5XSAgPyBfX3NjaGVkdWxlKzB4M2Q5LzB4OGEwIFtUaHUgT2N0IDE3DQo+PiAx
+Njo0MzozNyAyMDE5XSAgc2NoZWR1bGUrMHgzMi8weDcwIFtUaHUgT2N0IDE3IDE2OjQzOjM3IDIw
+MTldDQo+PiBzY2hlZHVsZV9wcmVlbXB0X2Rpc2FibGVkKzB4YS8weDEwDQo+PiBbVGh1IE9jdCAx
+NyAxNjo0MzozNyAyMDE5XSAgX19tdXRleF9sb2NrLmlzcmEuOSsweDFlMy8weDRlMCBbVGh1IE9j
+dA0KPj4gMTcgMTY6NDM6MzcgMjAxOV0gID8gX19jYWxsX3NyY3UrMHgyNjQvMHgzYjAgW1RodSBP
+Y3QgMTcgMTY6NDM6MzcNCj4+IDIwMTldICA/IHByb2Nlc3NfdGVybWluYXRpb25fY3BzY2grMHgy
+NC8weDJmMA0KPj4gW2FtZGdwdV0NCj4+IFtUaHUgT2N0IDE3IDE2OjQzOjM3IDIwMTldICBwcm9j
+ZXNzX3Rlcm1pbmF0aW9uX2Nwc2NoKzB4MjQvMHgyZjANCj4+IFthbWRncHVdDQo+PiBbVGh1IE9j
+dCAxNyAxNjo0MzozNyAyMDE5XQ0KPj4ga2ZkX3Byb2Nlc3NfZGVxdWV1ZV9mcm9tX2FsbF9kZXZp
+Y2VzKzB4NDIvMHg2MCBbYW1kZ3B1XSBbVGh1IE9jdCAxNw0KPj4gMTY6NDM6MzcgMjAxOV0gIGtm
+ZF9wcm9jZXNzX25vdGlmaWVyX3JlbGVhc2UrMHgxYmUvMHgyMjANCj4+IFthbWRncHVdDQo+PiBb
+VGh1IE9jdCAxNyAxNjo0MzozNyAyMDE5XSAgX19tbXVfbm90aWZpZXJfcmVsZWFzZSsweDNlLzB4
+YzAgW1RodSBPY3QNCj4+IDE3IDE2OjQzOjM3IDIwMTldICBleGl0X21tYXArMHgxNjAvMHgxYTAg
+W1RodSBPY3QgMTcgMTY6NDM6MzcgMjAxOV0gID8NCj4+IF9faGFuZGxlX21tX2ZhdWx0KzB4YmEz
+LzB4MTIwMCBbVGh1IE9jdCAxNyAxNjo0MzozNyAyMDE5XSAgPw0KPj4gZXhpdF9yb2J1c3RfbGlz
+dCsweDVhLzB4MTEwIFtUaHUgT2N0IDE3IDE2OjQzOjM3IDIwMTldDQo+PiBtbXB1dCsweDRhLzB4
+MTIwIFtUaHUgT2N0IDE3IDE2OjQzOjM3IDIwMTldICBkb19leGl0KzB4Mjg0LzB4YjIwIFtUaHUN
+Cj4+IE9jdCAxNyAxNjo0MzozNyAyMDE5XSAgPyBoYW5kbGVfbW1fZmF1bHQrMHhmYS8weDIwMCBb
+VGh1IE9jdCAxNw0KPj4gMTY6NDM6MzcgMjAxOV0gIGRvX2dyb3VwX2V4aXQrMHgzYS8weGEwIFtU
+aHUgT2N0IDE3IDE2OjQzOjM3IDIwMTldDQo+PiBfX3g2NF9zeXNfZXhpdF9ncm91cCsweDE0LzB4
+MjAgW1RodSBPY3QgMTcgMTY6NDM6MzcgMjAxOV0NCj4+IGRvX3N5c2NhbGxfNjQrMHg0Zi8weDEw
+MCBbVGh1IE9jdCAxNyAxNjo0MzozNyAyMDE5XQ0KPj4gZW50cnlfU1lTQ0FMTF82NF9hZnRlcl9o
+d2ZyYW1lKzB4NDQvMHhhOQ0KPj4NCj4+IFNpZ25lZC1vZmYtYnk6IFBoaWxpcCBZYW5nIDxQaGls
+aXAuWWFuZ0BhbWQuY29tPg0KPj4gLS0tDQo+PiAgICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtm
+ZC9rZmRfY2hhcmRldi5jICAgICAgICAgICAgICAgfCA2ICsrKy0tLQ0KPj4gICAgZHJpdmVycy9n
+cHUvZHJtL2FtZC9hbWRrZmQva2ZkX3Byb2Nlc3NfcXVldWVfbWFuYWdlci5jIHwgNiArKysrKysN
+Cj4+ICAgIDIgZmlsZXMgY2hhbmdlZCwgOSBpbnNlcnRpb25zKCspLCAzIGRlbGV0aW9ucygtKQ0K
+Pj4NCj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfY2hhcmRl
+di5jDQo+PiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9jaGFyZGV2LmMNCj4+IGlu
+ZGV4IGQ5ZTM2ZGJmMTNkNS4uNDBkNzVjMzlmMDhlIDEwMDY0NA0KPj4gLS0tIGEvZHJpdmVycy9n
+cHUvZHJtL2FtZC9hbWRrZmQva2ZkX2NoYXJkZXYuYw0KPj4gKysrIGIvZHJpdmVycy9ncHUvZHJt
+L2FtZC9hbWRrZmQva2ZkX2NoYXJkZXYuYw0KPj4gQEAgLTEyMCwxMyArMTIwLDEzIEBAIHN0YXRp
+YyBpbnQga2ZkX29wZW4oc3RydWN0IGlub2RlICppbm9kZSwgc3RydWN0IGZpbGUgKmZpbGVwKQ0K
+Pj4gICAgCQlyZXR1cm4gLUVQRVJNOw0KPj4gICAgCX0NCj4+ICAgIA0KPj4gKwlpZiAoa2ZkX2lz
+X2xvY2tlZCgpKQ0KPj4gKwkJcmV0dXJuIC1FQUdBSU47DQo+PiArDQo+PiAgICAJcHJvY2VzcyA9
+IGtmZF9jcmVhdGVfcHJvY2VzcyhmaWxlcCk7DQo+PiAgICAJaWYgKElTX0VSUihwcm9jZXNzKSkN
+Cj4+ICAgIAkJcmV0dXJuIFBUUl9FUlIocHJvY2Vzcyk7DQo+PiAgICANCj4+IC0JaWYgKGtmZF9p
+c19sb2NrZWQoKSkNCj4+IC0JCXJldHVybiAtRUFHQUlOOw0KPj4gLQ0KPj4gICAgCWRldl9kYmco
+a2ZkX2RldmljZSwgInByb2Nlc3MgJWQgb3BlbmVkLCBjb21wYXQgbW9kZSAoMzIgYml0KSAtICVk
+XG4iLA0KPj4gICAgCQlwcm9jZXNzLT5wYXNpZCwgcHJvY2Vzcy0+aXNfMzJiaXRfdXNlcl9tb2Rl
+KTsNCj4+ICAgIA0KPj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tm
+ZF9wcm9jZXNzX3F1ZXVlX21hbmFnZXIuYw0KPj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtm
+ZC9rZmRfcHJvY2Vzc19xdWV1ZV9tYW5hZ2VyLmMNCj4+IGluZGV4IDg1MDk4MTRhNmZmMC4uMzc4
+NDAxM2I5MmEwIDEwMDY0NA0KPj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2Zk
+X3Byb2Nlc3NfcXVldWVfbWFuYWdlci5jDQo+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
+ZGtmZC9rZmRfcHJvY2Vzc19xdWV1ZV9tYW5hZ2VyLmMNCj4+IEBAIC0xMjgsNiArMTI4LDEyIEBA
+IHZvaWQga2ZkX3Byb2Nlc3NfZGVxdWV1ZV9mcm9tX2FsbF9kZXZpY2VzKHN0cnVjdCBrZmRfcHJv
+Y2VzcyAqcCkNCj4+ICAgIHsNCj4+ICAgIAlzdHJ1Y3Qga2ZkX3Byb2Nlc3NfZGV2aWNlICpwZGQ7
+DQo+PiAgICANCj4+ICsJLyogSWYgc3VzcGVuZC9yZXN1bWUgZ290IHN0dWNrLCBkcW1fbG9jayBp
+cyBob2xkLA0KPj4gKwkgKiBza2lwIHByb2Nlc3NfdGVybWluYXRpb25fY3BzY2ggdG8gYXZvaWQg
+ZGVhZGxvY2sNCj4+ICsJICovDQo+PiArCWlmIChrZmRfaXNfbG9ja2VkKCkpDQo+PiArCQlyZXR1
+cm47DQo+PiArDQo+IEhvbGRpbmcgdGhlIERRTSBsb2NrIGR1cmluZyByZXNldCBoYXMgY2F1c2Vk
+IG90aGVyIHByb2JsZW1zIChsb2NrIGRlcGVuZGVuY3kgaXNzdWVzIGFuZCBkZWFkbG9ja3MpIGFu
+ZCBJIHdhcyB0aGlua2luZyBhYm91dCBnZXR0aW5nIHJpZCBvZiB0aGF0IGNvbXBsZXRlbHkuIFRo
+ZSBpbnRlbnRpb24gb2YgaG9sZGluZyB0aGUgRFFNIGxvY2sgZHVyaW5nIHJlc2V0IHdhcyB0byBw
+cmV2ZW50IHRoZSBkZXZpY2UgcXVldWUgbWFuYWdlciBmcm9tIGFjY2Vzc2luZyB0aGUgQ1AgaGFy
+ZHdhcmUgd2hpbGUgYSByZXNldCB3YXMgaW4gcHJvZ3Jlc3MuIEhvd2V2ZXIsIEkgdGhpbmsgdGhl
+cmUgYXJlIHNtYXJ0ZXIgd2F5cyB0byBhY2hpZXZlIHRoYXQuIFdlIGFscmVhZHkgZ2V0IGEgcHJl
+LXJlc2V0IGNhbGxiYWNrIChrZ2Qya2ZkX3ByZV9yZXNldCkgdGhhdCBleGVjdXRlcyB0aGUga2dk
+MmtmZF9zdXNwZW5kLCB3aGljaCBzdXNwZW5kcyBwcm9jZXNzZXMgYW5kIHN0b3BzIERRTSB0aHJv
+dWdoIGtmZC0+ZHFtLT5vcHMuc3RvcChrZmQtPmRxbSkuIFRoaXMgc2hvdWxkIHRha2UgY2FyZSBv
+ZiBtb3N0IG9mIHRoZSBwcm9ibGVtLiBJZiB0aGVyZSBhcmUgYW55IHBsYWNlcyBpbiBEUU0gdGhh
+dCB0cnkgdG8gYWNjZXNzIHRoZSBkZXZpY2VzLCB0aGV5IHNob3VsZCBhZGQgY29uZGl0aW9ucyB0
+byBub3QgYWNjZXNzIEhXIHdoaWxlIERRTSBpcyBzdG9wcGVkLiBUaGVuIHdlIGNvdWxkIGF2b2lk
+IGhvbGRpbmcgYSBsb2NrIGluZGVmaW5pdGVseSB3aGlsZSBhIHJlc2V0IGlzIGluIHByb2dyZXNz
+Lg0KPg0KPiBUaGUgRFFNIGxvY2sgaXMgcGFydGljdWxhcmx5IHByb2JsZW1hdGljIGluIHRlcm1z
+IG9mIGxvY2sgZGVwZW5kZW5jaWVzIGJlY2F1c2UgaXQgY2FuIGJlIHRha2VuIGluIE1NVSBub3Rp
+ZmllcnMuIFdlIHdhbnQgdG8gYXZvaWQgdGFraW5nIGFueSBvdGhlciBsb2NrcyB3aGlsZSBob2xk
+aW5nIHRoZSBEUU0gbG9jay4gSG9sZGluZyB0aGUgRFFNIGxvY2sgZm9yIGEgbG9uZyB0aW1lIGR1
+cmluZyByZXNldCBpcyBjb3VudGVycHJvZHVjdGl2ZSB0byB0aGF0IG9iamVjdGl2ZS4NCj4NCj4g
+UmVnYXJkcywNCj4gICDCoCBGZWxpeA0KPg0KPg0KPj4gICAgCWxpc3RfZm9yX2VhY2hfZW50cnko
+cGRkLCAmcC0+cGVyX2RldmljZV9kYXRhLCBwZXJfZGV2aWNlX2xpc3QpDQo+PiAgICAJCWtmZF9w
+cm9jZXNzX2RlcXVldWVfZnJvbV9kZXZpY2UocGRkKTsNCj4+ICAgIH0NCj4gX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18NCj4gYW1kLWdmeCBtYWlsaW5nIGxp
+c3QNCj4gYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCj4gaHR0cHM6Ly9saXN0cy5mcmVl
+ZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4DQpfX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4
+QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWls
+bWFuL2xpc3RpbmZvL2FtZC1nZng=
