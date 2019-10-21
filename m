@@ -1,102 +1,39 @@
-From: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH hmm 00/15] Consolidate the mmu notifier interval_tree and
- locking
-Date: Mon, 21 Oct 2019 14:28:46 +0000
-Message-ID: <e07092c3-8ccd-9814-835c-6c462017aff8@amd.com>
-References: <20191015181242.8343-1-jgg@ziepe.ca>
- <bc954d29-388b-9e29-f960-115ccc6b9fea@gmail.com>
- <20191016160444.GB3430@mellanox.com>
- <2df298e2-ee91-ef40-5da9-2bc1af3a17be@gmail.com>
- <2046e0b4-ba05-0683-5804-e9bbf903658d@amd.com>
- <d6bcbd2a-2519-8945-eaf5-4f4e738c7fa9@amd.com>
- <20191018203608.GA5670@mellanox.com>
- <f7e34d8f-f3b0-b86d-7388-1f791674a4a9@amd.com>
- <20191021135744.GA25164@mellanox.com>
-Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20191021135744.GA25164-VPRAkNaXOzVWk0Htik3J/w@public.gmane.org>
-Content-Language: en-US
-Content-ID: <C8AB85CE73410E46A13A7818A70C6315-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Jason Gunthorpe <jgg-VPRAkNaXOzVWk0Htik3J/w@public.gmane.org>
-Cc: Andrea Arcangeli <aarcange-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>, "Yang,
- Philip" <Philip.Yang-5C7GfCeVMHo@public.gmane.org>, Ralph Campbell <rcampbell-DDmLM1+adcrQT0dZR+AlfA@public.gmane.org>, "linux-rdma-u79uwXL29TY76Z2rM5mHXA@public.gmane.org" <linux-rdma-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, John Hubbard <jhubbard-DDmLM1+adcrQT0dZR+AlfA@public.gmane.org>, "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "linux-mm-Bw31MaZKKs3YtjvyW6yDsg@public.gmane.org" <linux-mm-Bw31MaZKKs3YtjvyW6yDsg@public.gmane.org>, Jerome Glisse <jglisse-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>, "dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Ben Skeggs <bskeggs-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>
+From: Geert Uytterhoeven <geert+renesas@glider.be>
+Subject: [PATCH 5/5] ionic: Use debugfs_create_bool() to export bool
+Date: Mon, 21 Oct 2019 16:51:49 +0200
+Message-ID: <20191021145149.31657-6-geert+renesas@glider.be>
+References: <20191021145149.31657-1-geert+renesas@glider.be>
+Return-path: <netdev-owner@vger.kernel.org>
+In-Reply-To: <20191021145149.31657-1-geert+renesas@glider.be>
+Sender: netdev-owner@vger.kernel.org
+To: =?UTF-8?q?Breno=20Leit=C3=A3o?= <leitao@debian.org>, Nayna Jain <nayna@linux.ibm.com>, Paulo Flabiano Smorigo <pfsmorigo@gmail.com>, Benjamin Herrenschmidt <benh@kernel.crashing.org>, Paul Mackerras <paulus@samba.org>, Michael Ellerman <mpe@ellerman.id.au>, Herbert Xu <herbert@gondor.apana.org.au>, "David S . Miller" <davem@davemloft.net>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, David@rox.of.borg, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, Casey Leedom <leedom@chelsio.com>, Shannon Nelson <snelson@pensando.io>, Pensando Drivers <drivers@pensando.io>, Kevin Hilman <khilman@kernel.org>, Nishanth Menon <nm@ti.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-crypto@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, netdev@vger.kernel.org, linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org, Geert Uytterhoeven <geert+renesas@glider.be>
+List-Id: amd-gfx.lists.freedesktop.org
 
-QW0gMjEuMTAuMTkgdW0gMTU6NTcgc2NocmllYiBKYXNvbiBHdW50aG9ycGU6DQo+IE9uIFN1biwg
-T2N0IDIwLCAyMDE5IGF0IDAyOjIxOjQyUE0gKzAwMDAsIEtvZW5pZywgQ2hyaXN0aWFuIHdyb3Rl
-Og0KPj4gQW0gMTguMTAuMTkgdW0gMjI6MzYgc2NocmllYiBKYXNvbiBHdW50aG9ycGU6DQo+Pj4g
-T24gVGh1LCBPY3QgMTcsIDIwMTkgYXQgMDQ6NDc6MjBQTSArMDAwMCwgS29lbmlnLCBDaHJpc3Rp
-YW4gd3JvdGU6DQo+Pj4gW1NOSVBdDQo+Pj4gICAgDQo+Pj4+IFNvIGFnYWluIGhvdyBhcmUgdGhl
-eSBzZXJpYWxpemVkPw0KPj4+IFRoZSAnZHJpdmVyIGxvY2snIHRoaW5nIGRvZXMgaXQsIHJlYWQg
-dGhlIGhtbSBkb2N1bWVudGF0aW9uLCB0aGUgaG1tDQo+Pj4gYXBwcm9hY2ggaXMgYmFzaWNhbGx5
-IHRoZSBvbmx5IGFwcHJvYWNoIHRoYXQgd2FzIGNvcnJlY3Qgb2YgYWxsIHRoZQ0KPj4+IGRyaXZl
-cnMuLg0KPj4gV2VsbCB0aGF0J3Mgd2hhdCBJJ3ZlIGRpZCwgYnV0IHdoYXQgSE1NIGRvZXMgc3Rp
-bGwgZG9lc24ndCBsb29rcyBjb3JyZWN0DQo+PiB0byBtZS4NCj4gSXQgaGFzIGEgYnVnLCBidXQg
-dGhlIGJhc2ljIGZsb3cgc2VlbXMgdG8gd29yay4NCj4NCj4gaHR0cHM6Ly9wYXRjaHdvcmsua2Vy
-bmVsLm9yZy9wYXRjaC8xMTE5MQ0KDQpNYXliZSB3cm9uZyBsaW5rPyBUaGF0IGxpbmsgbG9va3Mg
-bGlrZSBhbiB1bnJlbGF0ZWQgZGlzY3Vzc2lvbiBvbiBrZXJuZWwgDQppbWFnZSByZWxvY2F0aW9u
-Lg0KDQo+Pj4gU28gbG9uZyBhcyB0aGUgJ2RyaXZlciBsb2NrJyBpcyBoZWxkIHRoZSByYW5nZSBj
-YW5ub3QgYmVjb21lDQo+Pj4gaW52YWxpZGF0ZWQgYXMgdGhlICdkcml2ZXIgbG9jaycgcHJldmVu
-dHMgcHJvZ3Jlc3Mgb2YgaW52YWxpZGF0aW9uLg0KPj4gQ29ycmVjdCwgYnV0IHRoZSBwcm9ibGVt
-IGlzIGl0IGRvZXNuJ3Qgd2FpdCBmb3Igb25nb2luZyBvcGVyYXRpb25zIHRvDQo+PiBjb21wbGV0
-ZS4NCj4+DQo+PiBTZWUgSSdtIHRhbGtpbmcgYWJvdXQgdGhlIGZvbGxvd2luZyBjYXNlOg0KPj4N
-Cj4+IFRocmVhZCBBwqDCoMKgIFRocmVhZCBCDQo+PiBpbnZhbGlkYXRlX3JhbmdlX3N0YXJ0KCkN
-Cj4+ICAgICAgICAgICAgICAgICAgICAgICBtbXVfcmFuZ2VfcmVhZF9iZWdpbigpDQo+PiAgICAg
-ICAgICAgICAgICAgICAgICAgZ2V0X3VzZXJfcGFnZXMoKS9obW1fcmFuZ2VfZmF1bHQoKQ0KPj4g
-ICAgICAgICAgICAgICAgICAgICAgIGdyYWJfZHJpdmVyX2xvY2soKQ0KPj4gVXBkYXRpbmcgdGhl
-IHB0ZXMNCj4+IGludmFsaWRhdGVfcmFuZ2VfZW5kKCkNCj4+DQo+PiBBcyBmYXIgYXMgSSBjYW4g
-c2VlIGluIGludmFsaWRhdGVfcmFuZ2Vfc3RhcnQoKSB0aGUgZHJpdmVyIGxvY2sgaXMgdGFrZW4N
-Cj4+IHRvIG1ha2Ugc3VyZSB0aGF0IHdlIGNhbid0IHN0YXJ0IGFueSBpbnZhbGlkYXRpb24gd2hp
-bGUgdGhlIGRyaXZlciBpcw0KPj4gdXNpbmcgdGhlIHBhZ2VzIGZvciBhIGNvbW1hbmQgc3VibWlz
-c2lvbi4NCj4gQWdhaW4sIHRoaXMgdXNlcyB0aGUgc2VxbG9jayBsaWtlIHNjaGVtZSAqYW5kKiB0
-aGUgZHJpdmVyIGxvY2suDQo+DQo+IEluIHRoaXMgY2FzZSBhZnRlciBncmFiX2RyaXZlcl9sb2Nr
-KCkgbW11X3JhbmdlX3JlYWRfcmV0cnkoKSB3aWxsDQo+IHJldHVybiBmYWxzZSBpZiBUaHJlYWQg
-QSBoYXMgcHJvZ3Jlc3NlZCB0byAndXBkYXRpbmcgdGhlIHB0ZXMuDQo+DQo+IEZvciBpbnN0YW5j
-ZSBoZXJlIGlzIGhvdyB0aGUgY29uY3VycmVuY3kgcmVzb2x2ZXMgZm9yIHJldHJ5Og0KPg0KPiAg
-ICAgICAgIENQVTEgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIENQVTINCj4gICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICBzZXEgPSBtbXVfcmFuZ2VfcmVhZF9iZWdpbigp
-DQo+IGludmFsaWRhdGVfcmFuZ2Vfc3RhcnQoKQ0KPiAgICBpbnZhbGlkYXRlX3NlcSsrDQoNCkhv
-dyB0aGF0IHdhcyBvcmRlciB3YXMgd2hhdCBjb25mdXNpbmcgbWUuIEJ1dCBJJ3ZlIHJlYWQgdXAg
-b24gdGhlIGNvZGUgDQppbiBtbXVfcmFuZ2VfcmVhZF9iZWdpbigpIGFuZCBmb3VuZCB0aGUgbGlu
-ZXMgSSB3YXMgbG9va2luZyBmb3I6DQoNCivCoMKgwqAgaWYgKGlzX2ludmFsaWRhdGluZykNCivC
-oMKgwqAgwqDCoMKgIHdhaXRfZXZlbnQobW1uX21tLT53cSwNCivCoMKgwqAgwqDCoMKgIMKgwqDC
-oCDCoMKgIFJFQURfT05DRShtbW5fbW0tPmludmFsaWRhdGVfc2VxKSAhPSBzZXEpOw0KDQpbU05J
-UF0NCg0KPiBGb3IgdGhlIGFib3ZlIEkndmUgc2ltcGxpZmllZCB0aGUgbWVjaGFuaWNzIG9mIHRo
-ZSBpbnZhbGlkYXRlX3NlcSwgeW91DQo+IG5lZWQgdG8gbG9vayB0aHJvdWdoIHRoZSBwYXRjaCB0
-byBzZWUgaG93IGl0IGFjdHVhbGx5IHdvcmtzLg0KDQpZZWEsIHRoYXQgeW91IGFsc28gYWxsb3cg
-bXVsdGlwbGUgd3JpdGUgc2lkZXMgaXMgcHJldHR5IG5lYXQuDQoNCj4+IFdlbGwgd2UgZG9uJ3Qg
-dXBkYXRlIHRoZSBzZXFsb2NrIGFmdGVyIHRoZSB1cGRhdGUgdG8gdGhlIHByb3RlY3RlZCBkYXRh
-DQo+PiBzdHJ1Y3R1cmUgKHRoZSBwYWdlIHRhYmxlKSBoYXBwZW5lZCwgYnV0IHJhdGhlciBiZWZv
-cmUgdGhhdC4NCj4gPz8/IFRoaXMgaXMgd2hhdCBtbl9pdHJlZV9pbnZfZW5kKCkgZG9lcywgaXQg
-aXMgY2FsbGVkIGJ5DQo+IGludmFsaWRhdGVfcmFuZ2VfZW5kDQo+DQo+PiBUaGF0IGRvZXNuJ3Qg
-bG9va3MgbGlrZSB0aGUgbm9ybWFsIHBhdHRlciBmb3IgYSBzZXFsb2NrIHRvIG1lIGFuZCBhcyBm
-YXINCj4+IGFzIEkgY2FuIHNlZSB0aGF0IGlzIHF1aXRlIGEgYnVnIGluIHRoZSBITU0gZGVzaWdu
-L2xvZ2ljLg0KPiBXZWxsLCBobW0gaGFzIGEgYnVnIGJlY2F1c2UgaXQgZG9lc24ndCB1c2UgYSBz
-ZXFsb2NrIHBhdHRlcm4sIHNlZSB0aGUNCj4gYWJvdmUgVVJMLg0KPg0KPiBPbmUgb2YgdGhlIG1v
-dGl2YXRpb25zIGZvciB0aGlzIHdvcmsgaXMgdG8gc3F1YXNoIHRoYXQgYnVnIGJ5IGFkZGluZyBh
-DQo+IHNlcWxvY2sgbGlrZSBwYXR0ZXJuLiBCdXQgdGhlIGJhc2ljIGhtbSBmbG93IGFuZCBjb2xs
-aXNpb24tcmV0cnkNCj4gYXBwcm9hY2ggc2VlbXMgc291bmQuDQo+DQo+IERvIHlvdSBzZWUgYSBw
-cm9ibGVtIHdpdGggdGhpcyBwYXRjaD8NCg0KTm8sIG5vdCBhbnkgbW9yZS4NCg0KRXNzZW50aWFs
-bHkgeW91IGFyZSBkb2luZyB0aGUgc2FtZSB0aGluZyBJJ3ZlIHRyaWVkIHRvIGRvIHdpdGggdGhl
-IA0Kb3JpZ2luYWwgYW1kZ3B1IGltcGxlbWVudGF0aW9uLiBUaGUgZGlmZmVyZW5jZSBpcyB0aGF0
-IHlvdSBkb24ndCB0cnkgdG8gDQp1c2UgYSBwZXIgcmFuZ2Ugc2VxdWVuY2UgKHdoaWNoIGlzIGEg
-Z29vZCBpZGVhLCB3ZSBuZXZlciBnb3QgdGhhdCBmdWxseSANCndvcmtpbmcpIGFuZCB5b3UgYWxs
-b3cgbXVsdGlwbGUgd3JpdGVycyBhdCB0aGUgc2FtZSB0aW1lLg0KDQpGZWVsIGZyZWUgdG8gc3Rp
-dGNoIGFuIEFja2VkLWJ5OiBDaHJpc3RpYW4gS8O2bmlnIA0KPGNocmlzdGlhbi5rb2VuaWdAYW1k
-LmNvbT4gb24gcGF0Y2ggIzIsIGJ1dCB5b3Ugc3RpbGwgZG9pbmcgYSBidW5jaCBvZiANCnRoaW5n
-cyBpbiB0aGVyZSB3aGljaCBhcmUgd2F5IGJleW9uZCBteSB1bmRlcnN0YW5kaW5nIChlLmcuIHdo
-ZXJlIGFyZSANCmFsbCB0aGUgU01QIGJhcnJpZXJzPykuDQoNCkNoZWVycywNCkNocmlzdGlhbi4N
-Cg0KPg0KPiBKYXNvbg0KDQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9y
-ZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
+Currently bool ionic_cq.done_color is exported using
+debugfs_create_u8(), which requires a cast, preventing further compiler
+checks.
+
+Fix this by switching to debugfs_create_bool(), and dropping the cast.
+
+Signed-off-by: Geert Uytterhoeven <geert+renesas@glider.be>
+---
+ drivers/net/ethernet/pensando/ionic/ionic_debugfs.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
+
+diff --git a/drivers/net/ethernet/pensando/ionic/ionic_debugfs.c b/drivers/net/ethernet/pensando/ionic/ionic_debugfs.c
+index bc03cecf80cc9eb4..5beba915f69d12dd 100644
+--- a/drivers/net/ethernet/pensando/ionic/ionic_debugfs.c
++++ b/drivers/net/ethernet/pensando/ionic/ionic_debugfs.c
+@@ -170,8 +170,7 @@ void ionic_debugfs_add_qcq(struct ionic_lif *lif, struct ionic_qcq *qcq)
+ 	debugfs_create_x64("base_pa", 0400, cq_dentry, &cq->base_pa);
+ 	debugfs_create_u32("num_descs", 0400, cq_dentry, &cq->num_descs);
+ 	debugfs_create_u32("desc_size", 0400, cq_dentry, &cq->desc_size);
+-	debugfs_create_u8("done_color", 0400, cq_dentry,
+-			  (u8 *)&cq->done_color);
++	debugfs_create_bool("done_color", 0400, cq_dentry, &cq->done_color);
+ 
+ 	debugfs_create_file("tail", 0400, cq_dentry, cq, &cq_tail_fops);
+ 
+-- 
+2.17.1
