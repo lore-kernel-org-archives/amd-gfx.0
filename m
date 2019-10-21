@@ -1,7 +1,7 @@
 From: Geert Uytterhoeven <geert+renesas@glider.be>
-Subject: [PATCH 4/5] power: avs: smartreflex: Remove superfluous cast in debugfs_create_file() call
-Date: Mon, 21 Oct 2019 16:51:48 +0200
-Message-ID: <20191021145149.31657-5-geert+renesas@glider.be>
+Subject: [PATCH 2/5] cxgb4/cxgb4vf: Remove superfluous void * cast in debugfs_create_file() call
+Date: Mon, 21 Oct 2019 16:51:46 +0200
+Message-ID: <20191021145149.31657-3-geert+renesas@glider.be>
 References: <20191021145149.31657-1-geert+renesas@glider.be>
 Return-path: <linux-kernel-owner@vger.kernel.org>
 In-Reply-To: <20191021145149.31657-1-geert+renesas@glider.be>
@@ -16,21 +16,21 @@ further compiler checks.
 
 Signed-off-by: Geert Uytterhoeven <geert+renesas@glider.be>
 ---
- drivers/power/avs/smartreflex.c | 2 +-
+ drivers/net/ethernet/chelsio/cxgb4vf/cxgb4vf_main.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/power/avs/smartreflex.c b/drivers/power/avs/smartreflex.c
-index 4684e7df833a81e9..5376f3d22f31eade 100644
---- a/drivers/power/avs/smartreflex.c
-+++ b/drivers/power/avs/smartreflex.c
-@@ -905,7 +905,7 @@ static int omap_sr_probe(struct platform_device *pdev)
- 	sr_info->dbg_dir = debugfs_create_dir(sr_info->name, sr_dbg_dir);
+diff --git a/drivers/net/ethernet/chelsio/cxgb4vf/cxgb4vf_main.c b/drivers/net/ethernet/chelsio/cxgb4vf/cxgb4vf_main.c
+index f6fc0875d5b0a285..4a07a73c672b5996 100644
+--- a/drivers/net/ethernet/chelsio/cxgb4vf/cxgb4vf_main.c
++++ b/drivers/net/ethernet/chelsio/cxgb4vf/cxgb4vf_main.c
+@@ -2480,7 +2480,7 @@ static int setup_debugfs(struct adapter *adapter)
+ 	for (i = 0; i < ARRAY_SIZE(debugfs_files); i++)
+ 		debugfs_create_file(debugfs_files[i].name,
+ 				    debugfs_files[i].mode,
+-				    adapter->debugfs_root, (void *)adapter,
++				    adapter->debugfs_root, adapter,
+ 				    debugfs_files[i].fops);
  
- 	debugfs_create_file("autocomp", S_IRUGO | S_IWUSR, sr_info->dbg_dir,
--			    (void *)sr_info, &pm_sr_fops);
-+			    sr_info, &pm_sr_fops);
- 	debugfs_create_x32("errweight", S_IRUGO, sr_info->dbg_dir,
- 			   &sr_info->err_weight);
- 	debugfs_create_x32("errmaxlimit", S_IRUGO, sr_info->dbg_dir,
+ 	return 0;
 -- 
 2.17.1
