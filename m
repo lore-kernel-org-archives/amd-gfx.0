@@ -1,34 +1,46 @@
-From: Dennis Dalessandro <dennis.dalessandro@intel.com>
-Subject: Re: [PATCH hmm 00/15] Consolidate the mmu notifier interval_tree and
- locking
-Date: Mon, 21 Oct 2019 11:55:51 -0400
-Message-ID: <5fdbcda8-c6ec-70aa-3f89-147fe67152f2@intel.com>
-References: <20191015181242.8343-1-jgg@ziepe.ca>
+From: Shannon Nelson <snelson@pensando.io>
+Subject: Re: [PATCH 5/5] ionic: Use debugfs_create_bool() to export bool
+Date: Mon, 21 Oct 2019 09:35:03 -0700
+Message-ID: <aeebbd5f-6100-2780-ef1c-6b1c261c9d23@pensando.io>
+References: <20191021145149.31657-1-geert+renesas@glider.be>
+ <20191021145149.31657-6-geert+renesas@glider.be>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-In-Reply-To: <20191015181242.8343-1-jgg@ziepe.ca>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20191021145149.31657-6-geert+renesas@glider.be>
 Content-Language: en-US
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: Jason Gunthorpe <jgg@ziepe.ca>, Jerome Glisse <jglisse@redhat.com>, Ralph Campbell <rcampbell@nvidia.com>, John Hubbard <jhubbard@nvidia.com>, Felix.Kuehling@amd.com
-Cc: Andrea Arcangeli <aarcange@redhat.com>, linux-rdma@vger.kernel.org, amd-gfx@lists.freedesktop.org, linux-mm@kvack.org, Jason Gunthorpe <jgg@mellanox.com>, dri-devel@lists.freedesktop.org, Ben Skeggs <bskeggs@redhat.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Geert Uytterhoeven <geert+renesas@glider.be>, =?UTF-8?Q?Breno_Leit=c3=a3o?= <leitao@debian.org>, Nayna Jain <nayna@linux.ibm.com>, Paulo Flabiano Smorigo <pfsmorigo@gmail.com>, Benjamin Herrenschmidt <benh@kernel.crashing.org>, Paul Mackerras <paulus@samba.org>, Michael Ellerman <mpe@ellerman.id.au>, Herbert Xu <herbert@gondor.apana.org.au>, "David S . Miller" <davem@davemloft.net>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>, David@rox.of.borg, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, Casey Leedom <leedom@chelsio.com>, Pensando Drivers <drivers@pensando.io>, Kevin Hilman <khilman@kernel.org>, Nishanth Menon <nm@ti.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-crypto@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, netdev@vger.kernel.org, linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org
 List-Id: amd-gfx.lists.freedesktop.org
 
-T24gMTAvMTUvMjAxOSAyOjEyIFBNLCBKYXNvbiBHdW50aG9ycGUgd3JvdGU6Cj4gVGhpcyBpcyBz
-dGlsbCBiZWluZyB0ZXN0ZWQsIGJ1dCBJIGZpZ3VyZWQgdG8gc2VuZCBpdCB0byBzdGFydCBnZXR0
-aW5nIGhlbHAKPiBmcm9tIHRoZSB4ZW4sIGFtZCBhbmQgaGZpIGRyaXZlcnMgd2hpY2ggSSBjYW5u
-b3QgdGVzdCBoZXJlLgoKU29ycnkgZm9yIHRoZSBkZWxheSwgSSBuZXZlciBzZWVuIHRoaXMuIFdh
-cyBub3Qgb24gQ2MgbGlzdCBhbmQgZGlkbid0IApyZWdpc3RlciB0byBtZSBpdCBpbXBhY3RlZCBo
-ZmkuIEknbGwgdGFrZSBhIGxvb2sgYW5kIHJ1biBpdCB0aHJvdWdoIHNvbWUgCmhmaTEgdGVzdHMu
-CgotRGVubnkKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18K
-ZHJpLWRldmVsIG1haWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0
-dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVs
+On 10/21/19 7:51 AM, Geert Uytterhoeven wrote:
+> Currently bool ionic_cq.done_color is exported using
+> debugfs_create_u8(), which requires a cast, preventing further compiler
+> checks.
+>
+> Fix this by switching to debugfs_create_bool(), and dropping the cast.
+>
+> Signed-off-by: Geert Uytterhoeven <geert+renesas@glider.be>
+
+Acked-by: Shannon Nelson <snelson@pensando.io>
+
+> ---
+>   drivers/net/ethernet/pensando/ionic/ionic_debugfs.c | 3 +--
+>   1 file changed, 1 insertion(+), 2 deletions(-)
+>
+> diff --git a/drivers/net/ethernet/pensando/ionic/ionic_debugfs.c b/drivers/net/ethernet/pensando/ionic/ionic_debugfs.c
+> index bc03cecf80cc9eb4..5beba915f69d12dd 100644
+> --- a/drivers/net/ethernet/pensando/ionic/ionic_debugfs.c
+> +++ b/drivers/net/ethernet/pensando/ionic/ionic_debugfs.c
+> @@ -170,8 +170,7 @@ void ionic_debugfs_add_qcq(struct ionic_lif *lif, struct ionic_qcq *qcq)
+>   	debugfs_create_x64("base_pa", 0400, cq_dentry, &cq->base_pa);
+>   	debugfs_create_u32("num_descs", 0400, cq_dentry, &cq->num_descs);
+>   	debugfs_create_u32("desc_size", 0400, cq_dentry, &cq->desc_size);
+> -	debugfs_create_u8("done_color", 0400, cq_dentry,
+> -			  (u8 *)&cq->done_color);
+> +	debugfs_create_bool("done_color", 0400, cq_dentry, &cq->done_color);
+>   
+>   	debugfs_create_file("tail", 0400, cq_dentry, cq, &cq_tail_fops);
+>   
