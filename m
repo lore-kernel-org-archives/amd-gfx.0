@@ -1,12 +1,13 @@
-From: Harry Wentland <hwentlan-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm: Fix DSC throughput mode 0 mask definition
-Date: Mon, 21 Oct 2019 15:35:36 +0000
-Message-ID: <584f5292-c177-34d8-8e2f-0e6661a87f23@amd.com>
-References: <20191021150345.igdye4kv35nsk4ox@outlook.office365.com>
+From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: [PATCH] drm/amdgpu: refine reboot debugfs operation in ras case
+Date: Mon, 21 Oct 2019 15:40:52 +0000
+Message-ID: <BN6PR12MB18090F5D406FEC27FF168726F7690@BN6PR12MB1809.namprd12.prod.outlook.com>
+References: <20191021093245.28945-1-guchun.chen@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0721323171=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20191021150345.igdye4kv35nsk4ox-1ViLX0X+lBJGNQ1M2rI3KwRV3xvJKrda@public.gmane.org>
+In-Reply-To: <20191021093245.28945-1-guchun.chen-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -18,94 +19,106 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Siqueira, Rodrigo" <Rodrigo.Siqueira-5C7GfCeVMHo@public.gmane.org>, "Wentland, Harry" <Harry.Wentland-5C7GfCeVMHo@public.gmane.org>, "Li, Sun peng (Leo)" <Sunpeng.Li-5C7GfCeVMHo@public.gmane.org>, "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Cornij, Nikola" <Nikola.Cornij-5C7GfCeVMHo@public.gmane.org>, Jani Nikula <jani.nikula-VuQAYsv1563Yd54FQh9/CA@public.gmane.org>, Manasi Navare <manasi.d.navare-ral2JQCrhuEAvxtiuMwx3w@public.gmane.org>, =?Windows-1252?Q?Ville_Syrj=E4l=E4?= <ville.syrjala-VuQAYsv1563Yd54FQh9/CA@public.gmane.org>, Rodrigo Siqueira <rodrigosiqueiramelo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org" <linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, "dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "Zhang, Hawking" <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>, "Li,
+ Dennis" <Dennis.Li-5C7GfCeVMHo@public.gmane.org>, "Grodzovsky, Andrey" <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>, "Zhou1, Tao" <Tao.Zhou1-5C7GfCeVMHo@public.gmane.org>
+Cc: "Li, Candice" <Candice.Li-5C7GfCeVMHo@public.gmane.org>, "Chen, Guchun" <Guchun.Chen-5C7GfCeVMHo@public.gmane.org>
 
---===============0721323171==
-Content-Language: en-US
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="5AEnsr0KGpggiNbzF6C8RpBBDmYFBFOo5"
-
---5AEnsr0KGpggiNbzF6C8RpBBDmYFBFOo5
-Content-Type: multipart/mixed; boundary="nJMgTaE3fRVCldVSrzx3nOVyfe3neO6fn"
-
---nJMgTaE3fRVCldVSrzx3nOVyfe3neO6fn
-Content-Type: text/plain; charset=windows-1252
-Content-Language: en-US
-Content-Transfer-Encoding: quoted-printable
-
-On 2019-10-21 11:03 a.m., Siqueira, Rodrigo wrote:
-> Commit d7cd0e05 introduced a change at DP_DSC_THROUGHPUT_MODE_0_170
-> which is not aligned with the spec. This commit replace 15 << 4 by
-> 15 << 0 for DP_DSC_THROUGHPUT_MODE_0_170 in order to make it follow the=
-
-> specification.
->=20
-> Cc: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>
-> Cc: Leo Li <sunpeng.li-5C7GfCeVMHo@public.gmane.org>
-> Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-> Cc: Nikola Cornij <nikola.cornij-5C7GfCeVMHo@public.gmane.org>
-> Cc: Jani Nikula <jani.nikula-VuQAYsv1563Yd54FQh9/CA@public.gmane.org>
-> Cc: Manasi Navare <manasi.d.navare-ral2JQCrhuEAvxtiuMwx3w@public.gmane.org>
-> Cc: Ville Syrj=E4l=E4 <ville.syrjala-VuQAYsv1563Yd54FQh9/CA@public.gmane.org>
-> Fixes: d7cd0e053b1 (drm/amd/display: Add 170Mpix/sec DSC throughput sup=
-port)
-> Signed-off-by: Rodrigo Siqueira <Rodrigo.Siqueira-5C7GfCeVMHo@public.gmane.org>
-
-Reviewed-by: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>
-
-Harry
-
-> ---
->  include/drm/drm_dp_helper.h | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->=20
-> diff --git a/include/drm/drm_dp_helper.h b/include/drm/drm_dp_helper.h
-> index cfadeeef8492..52024049c59e 100644
-> --- a/include/drm/drm_dp_helper.h
-> +++ b/include/drm/drm_dp_helper.h
-> @@ -306,7 +306,7 @@
->  # define DP_DSC_THROUGHPUT_MODE_0_900       (12 << 0)
->  # define DP_DSC_THROUGHPUT_MODE_0_950       (13 << 0)
->  # define DP_DSC_THROUGHPUT_MODE_0_1000      (14 << 0)
-> -# define DP_DSC_THROUGHPUT_MODE_0_170       (15 << 4)
-> +# define DP_DSC_THROUGHPUT_MODE_0_170       (15 << 0) /* 1.4a */
->  # define DP_DSC_THROUGHPUT_MODE_1_MASK      (0xf << 4)
->  # define DP_DSC_THROUGHPUT_MODE_1_SHIFT     4
->  # define DP_DSC_THROUGHPUT_MODE_1_UPSUPPORTED 0
->=20
-
-
---nJMgTaE3fRVCldVSrzx3nOVyfe3neO6fn--
-
---5AEnsr0KGpggiNbzF6C8RpBBDmYFBFOo5
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEkiEcMSFhcOGNLtE6LVgVyYwUtuMFAl2t0EUACgkQLVgVyYwU
-tuON8gf+Mgje6g3E0+fTAj/6T//tK+k2y7tTD/Tast/oj4gw5ZKZzprYVwXqHfGe
-AeJfwbwFtfGjFt21RU62DxwrgK9jDq8LapcNZLYE2ox3AjHGWL+mImXBCKS1gKmY
-YlWSt29xA1RI7RD1y3Lo4xSMsstFbpNMP5063sRM5x7J4qUyZSuzTcPVGyYYit5G
-VQ+Ofd8Vvb84ILbjD5s4eQik2w3C31TLBlMrDnVsr6Ui01pysx/ZsQgUSReIxI2C
-jAIWDhlG8eKIpsP3Xx+BDpZwAST5n6nD8PLVDHfUcKG3xqkkMeYc7QVvbjEGnf+w
-UkFpcP9KCK8hvRfh+XS+4AxVUJcCNg==
-=BQvT
------END PGP SIGNATURE-----
-
---5AEnsr0KGpggiNbzF6C8RpBBDmYFBFOo5--
-
---===============0721323171==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
-
---===============0721323171==--
+PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBhbWQtZ2Z4IDxhbWQtZ2Z4LWJv
+dW5jZXNAbGlzdHMuZnJlZWRlc2t0b3Aub3JnPiBPbiBCZWhhbGYgT2YNCj4gQ2hlbiwgR3VjaHVu
+DQo+IFNlbnQ6IE1vbmRheSwgT2N0b2JlciAyMSwgMjAxOSA1OjMzIEFNDQo+IFRvOiBhbWQtZ2Z4
+QGxpc3RzLmZyZWVkZXNrdG9wLm9yZzsgS29lbmlnLCBDaHJpc3RpYW4NCj4gPENocmlzdGlhbi5L
+b2VuaWdAYW1kLmNvbT47IFpoYW5nLCBIYXdraW5nDQo+IDxIYXdraW5nLlpoYW5nQGFtZC5jb20+
+OyBMaSwgRGVubmlzIDxEZW5uaXMuTGlAYW1kLmNvbT47DQo+IEdyb2R6b3Zza3ksIEFuZHJleSA8
+QW5kcmV5Lkdyb2R6b3Zza3lAYW1kLmNvbT47IFpob3UxLCBUYW8NCj4gPFRhby5aaG91MUBhbWQu
+Y29tPg0KPiBDYzogTGksIENhbmRpY2UgPENhbmRpY2UuTGlAYW1kLmNvbT47IENoZW4sIEd1Y2h1
+bg0KPiA8R3VjaHVuLkNoZW5AYW1kLmNvbT4NCj4gU3ViamVjdDogW1BBVENIXSBkcm0vYW1kZ3B1
+OiByZWZpbmUgcmVib290IGRlYnVnZnMgb3BlcmF0aW9uIGluIHJhcyBjYXNlDQo+IA0KPiBSYXMg
+cmVib290IGRlYnVnZnMgbm9kZSBhbGxvd3MgdXNlciBvbmUgZWFzeSBjb250cm9sIHRvIGF2b2lk
+IGdwdSByZWNvdmVyeQ0KPiBoYW5nIHByb2JsZW0gYW5kIGRpcmVjdGx5IHJlYm9vdCBzeXN0ZW0g
+cGVyIGNhcmQgYmFzaXMsIGFmdGVyIHJhcw0KPiB1bmNvcnJlY3RhYmxlIGVycm9yIGhhcHBlbnMu
+IEhvd2V2ZXIsIGl0IGlzIG9uZSBjb21tb24gZW50cnksIHdoaWNoDQo+IHNob3VsZCBnZXQgcmlk
+IG9mIHJhc19jdHJsIG5vZGUgYW5kIHJlbW92ZSBpcCBkZXBlbmRlbmNlIHdoZW4gaW5wdXR0aW5n
+IGJ5DQo+IHVzZXIuIFNvIGFkZCBvbmUgbmV3IGF1dG9fcmVib290IG5vZGUgaW4gcmFzIGRlYnVn
+ZnMgZGlyIHRvIGFjaGlldmUgdGhpcy4NCj4gDQo+IHYyOiBpbiBjb21taXQgbXNzYWdlLCBhZGQg
+anVzdGlmaWNhdGlvbiB3aHkgcmFzIHJlYm9vdCBkZWJ1Z2ZzIG5vZGUgaXMNCj4gbmVlZGVkLg0K
+PiANCj4gU2lnbmVkLW9mZi1ieTogR3VjaHVuIENoZW4gPGd1Y2h1bi5jaGVuQGFtZC5jb20+DQoN
+ClJldmlld2VkLWJ5OiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+DQoN
+Cj4gLS0tDQo+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcmFzLmMgfCA1Nw0K
+PiArKysrKysrKysrKysrKysrKysrKysrLS0tDQo+ICAxIGZpbGUgY2hhbmdlZCwgNTAgaW5zZXJ0
+aW9ucygrKSwgNyBkZWxldGlvbnMoLSkNCj4gDQo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9k
+cm0vYW1kL2FtZGdwdS9hbWRncHVfcmFzLmMNCj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
+dS9hbWRncHVfcmFzLmMNCj4gaW5kZXggNjIyMDM5NDUyMWU0Li42NDUwMDY1Yjg4ZGUgMTAwNjQ0
+DQo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9yYXMuYw0KPiArKysg
+Yi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcmFzLmMNCj4gQEAgLTE1Myw4ICsx
+NTMsNiBAQCBzdGF0aWMgaW50DQo+IGFtZGdwdV9yYXNfZGVidWdmc19jdHJsX3BhcnNlX2RhdGEo
+c3RydWN0IGZpbGUgKmYsDQo+ICAJCW9wID0gMTsNCj4gIAllbHNlIGlmIChzc2NhbmYoc3RyLCAi
+aW5qZWN0ICUzMnMgJThzIiwgYmxvY2tfbmFtZSwgZXJyKSA9PSAyKQ0KPiAgCQlvcCA9IDI7DQo+
+IC0JZWxzZSBpZiAoc3NjYW5mKHN0ciwgInJlYm9vdCAlMzJzIiwgYmxvY2tfbmFtZSkgPT0gMSkN
+Cj4gLQkJb3AgPSAzOw0KPiAgCWVsc2UgaWYgKHN0clswXSAmJiBzdHJbMV0gJiYgc3RyWzJdICYm
+IHN0clszXSkNCj4gIAkJLyogYXNjaWkgc3RyaW5nLCBidXQgY29tbWFuZHMgYXJlIG5vdCBtYXRj
+aGVkLiAqLw0KPiAgCQlyZXR1cm4gLUVJTlZBTDsNCj4gQEAgLTIxOCwxMiArMjE2LDExIEBAIHN0
+YXRpYyBzdHJ1Y3QgcmFzX21hbmFnZXINCj4gKmFtZGdwdV9yYXNfZmluZF9vYmooc3RydWN0IGFt
+ZGdwdV9kZXZpY2UgKmFkZXYsDQo+ICAgKiB2YWx1ZSB0byB0aGUgYWRkcmVzcy4NCj4gICAqDQo+
+ICAgKiBTZWNvbmQgbWVtYmVyOiBzdHJ1Y3QgcmFzX2RlYnVnX2lmOjpvcC4NCj4gLSAqIEl0IGhh
+cyBmb3VyIGtpbmRzIG9mIG9wZXJhdGlvbnMuDQo+ICsgKiBJdCBoYXMgdGhyZWUga2luZHMgb2Yg
+b3BlcmF0aW9ucy4NCj4gICAqDQo+ICAgKiAtIDA6IGRpc2FibGUgUkFTIG9uIHRoZSBibG9jay4g
+VGFrZSA6OmhlYWQgYXMgaXRzIGRhdGEuDQo+ICAgKiAtIDE6IGVuYWJsZSBSQVMgb24gdGhlIGJs
+b2NrLiBUYWtlIDo6aGVhZCBhcyBpdHMgZGF0YS4NCj4gICAqIC0gMjogaW5qZWN0IGVycm9ycyBv
+biB0aGUgYmxvY2suIFRha2UgOjppbmplY3QgYXMgaXRzIGRhdGEuDQo+IC0gKiAtIDM6IHJlYm9v
+dCBvbiB1bnJlY292ZXJhYmxlIGVycm9yDQo+ICAgKg0KPiAgICogSG93IHRvIHVzZSB0aGUgaW50
+ZXJmYWNlPw0KPiAgICogcHJvZ3JhbXM6DQo+IEBAIC0zMDUsOSArMzAyLDYgQEAgc3RhdGljIHNz
+aXplX3QgYW1kZ3B1X3Jhc19kZWJ1Z2ZzX2N0cmxfd3JpdGUoc3RydWN0DQo+IGZpbGUgKmYsIGNv
+bnN0IGNoYXIgX191c2VyICoNCj4gIAkJLyogZGF0YS5pbmplY3QuYWRkcmVzcyBpcyBvZmZzZXQg
+aW5zdGVhZCBvZiBhYnNvbHV0ZSBncHUNCj4gYWRkcmVzcyAqLw0KPiAgCQlyZXQgPSBhbWRncHVf
+cmFzX2Vycm9yX2luamVjdChhZGV2LCAmZGF0YS5pbmplY3QpOw0KPiAgCQlicmVhazsNCj4gLQlj
+YXNlIDM6DQo+IC0JCWFtZGdwdV9yYXNfZ2V0X2NvbnRleHQoYWRldiktPnJlYm9vdCA9IHRydWU7
+DQo+IC0JCWJyZWFrOw0KPiAgCWRlZmF1bHQ6DQo+ICAJCXJldCA9IC1FSU5WQUw7DQo+ICAJCWJy
+ZWFrOw0KPiBAQCAtMzQ2LDYgKzM0MCw0NiBAQCBzdGF0aWMgc3NpemVfdA0KPiBhbWRncHVfcmFz
+X2RlYnVnZnNfZWVwcm9tX3dyaXRlKHN0cnVjdCBmaWxlICpmLCBjb25zdCBjaGFyIF9fdXNlcg0K
+PiAgCXJldHVybiByZXQgPT0gMSA/IHNpemUgOiAtRUlPOw0KPiAgfQ0KPiANCj4gKy8qKg0KPiAr
+ICogRE9DOiBBTURHUFUgUkFTIGRlYnVnZnMgYXV0byByZWJvb3QgaW50ZXJmYWNlDQo+ICsgKg0K
+PiArICogQWZ0ZXIgb25lIHVuY29ycmVjdGFibGUgZXJyb3IgaGFwcGVucywgR1BVIHJlY292ZXJ5
+IHdpbGwgYmUgc2NoZWR1bGVkLg0KPiArICogRHVlIHRvIHRoZSBrbm93biBwcm9ibGVtIGluIEdQ
+VSByZWNvdmVyeSBmYWlsaW5nIHRvIGJyaW5nIEdQVSBiYWNrLA0KPiArdGhpcw0KPiArICogaW50
+ZXJmYWNlIHByb3ZpZGVzIG9uZSBkaXJlY3Qgd2F5IHRvIHVzZXIgdG8gcmVib290IHN5c3RlbQ0K
+PiArYXV0b21hdGljYWxseQ0KPiArICogaW4gc3VjaCBjYXNlIHdpdGhpbiBFUlJFVkVOVF9BVEhV
+Ql9JTlRFUlJVUFQgZ2VuZXJhdGVkLiBOb3JtYWwNCj4gR1BVDQo+ICtyZWNvdmVyeQ0KPiArICog
+cm91dGluZSB3aWxsIG5ldmVyIGJlIGNhbGxlZC4NCj4gKyAqDQo+ICsgKiBFbmFibGUgYXV0b19y
+ZWJvb3Q6DQo+ICsgKg0KPiArICoJZWNobyAxID4gL3N5cy9rZXJuZWwvZGVidWcvZHJpL3gvcmFz
+L2F1dG9fcmVib290DQo+ICsgKg0KPiArICogUmV2ZXJ0IGF1dG9fcmVib290Og0KPiArICoNCj4g
+KyAqIAllY2hvIDAgPiAvc3lzL2tlcm5lbC9kZWJ1Zy9kcmkveC9yYXMvYXV0b19yZWJvb3QNCj4g
+KyAqDQo+ICsgKi8NCj4gK3N0YXRpYyBzc2l6ZV90IGFtZGdwdV9yYXNfZGVidWdmc19yZWJvb3Rf
+d3JpdGUoc3RydWN0IGZpbGUgKmYsDQo+ICsJY29uc3QgY2hhciBfX3VzZXIgKmJ1Ziwgc2l6ZV90
+IHNpemUsIGxvZmZfdCAqcG9zKSB7DQo+ICsJc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYgPQ0K
+PiArCQkoc3RydWN0IGFtZGdwdV9kZXZpY2UgKilmaWxlX2lub2RlKGYpLT5pX3ByaXZhdGU7DQo+
+ICsJY2hhciB0bXBbOF0gPSB7MH07DQo+ICsJaW50IHZhbHVlID0gLTE7DQo+ICsNCj4gKwlpZiAo
+c2l6ZSAhPSBzaW1wbGVfd3JpdGVfdG9fYnVmZmVyKHRtcCwgc2l6ZW9mKHRtcCksIHBvcywgYnVm
+LCBzaXplKSkNCj4gKwkJcmV0dXJuIC1FSU5WQUw7DQo+ICsNCj4gKwlpZiAoa3N0cnRvaW50KHRt
+cCwgMTAsICZ2YWx1ZSkpDQo+ICsJCXJldHVybiAtRUlOVkFMOw0KPiArDQo+ICsJaWYgKHZhbHVl
+ID09IDEpDQo+ICsJCWFtZGdwdV9yYXNfZ2V0X2NvbnRleHQoYWRldiktPnJlYm9vdCA9IHRydWU7
+DQo+ICsJZWxzZSBpZiAodmFsdWUgPT0gMCkNCj4gKwkJYW1kZ3B1X3Jhc19nZXRfY29udGV4dChh
+ZGV2KS0+cmVib290ID0gZmFsc2U7DQo+ICsNCj4gKwlyZXR1cm4gc2l6ZTsNCj4gK30NCj4gKw0K
+PiAgc3RhdGljIGNvbnN0IHN0cnVjdCBmaWxlX29wZXJhdGlvbnMgYW1kZ3B1X3Jhc19kZWJ1Z2Zz
+X2N0cmxfb3BzID0gew0KPiAgCS5vd25lciA9IFRISVNfTU9EVUxFLA0KPiAgCS5yZWFkID0gTlVM
+TCwNCj4gQEAgLTM2MCw2ICszOTQsMTMgQEAgc3RhdGljIGNvbnN0IHN0cnVjdCBmaWxlX29wZXJh
+dGlvbnMNCj4gYW1kZ3B1X3Jhc19kZWJ1Z2ZzX2VlcHJvbV9vcHMgPSB7DQo+ICAJLmxsc2VlayA9
+IGRlZmF1bHRfbGxzZWVrDQo+ICB9Ow0KPiANCj4gK3N0YXRpYyBjb25zdCBzdHJ1Y3QgZmlsZV9v
+cGVyYXRpb25zIGFtZGdwdV9yYXNfZGVidWdmc19yZWJvb3Rfb3BzID0gew0KPiArCS5vd25lciA9
+IFRISVNfTU9EVUxFLA0KPiArCS5yZWFkID0gTlVMTCwNCj4gKwkud3JpdGUgPSBhbWRncHVfcmFz
+X2RlYnVnZnNfcmVib290X3dyaXRlLA0KPiArCS5sbHNlZWsgPSBkZWZhdWx0X2xsc2Vlaw0KPiAr
+fTsNCj4gKw0KPiAgLyoqDQo+ICAgKiBET0M6IEFNREdQVSBSQVMgc3lzZnMgRXJyb3IgQ291bnQg
+SW50ZXJmYWNlDQo+ICAgKg0KPiBAQCAtMTAzNyw2ICsxMDc4LDggQEAgc3RhdGljIHZvaWQNCj4g
+YW1kZ3B1X3Jhc19kZWJ1Z2ZzX2NyZWF0ZV9jdHJsX25vZGUoc3RydWN0IGFtZGdwdV9kZXZpY2Ug
+KmFkZXYpDQo+ICAJCQkJYWRldiwgJmFtZGdwdV9yYXNfZGVidWdmc19jdHJsX29wcyk7DQo+ICAJ
+ZGVidWdmc19jcmVhdGVfZmlsZSgicmFzX2VlcHJvbV9yZXNldCIsIFNfSVdVR08gfCBTX0lSVUdP
+LA0KPiBjb24tPmRpciwNCj4gIAkJCQlhZGV2LCAmYW1kZ3B1X3Jhc19kZWJ1Z2ZzX2VlcHJvbV9v
+cHMpOw0KPiArCWRlYnVnZnNfY3JlYXRlX2ZpbGUoImF1dG9fcmVib290IiwgU19JV1VHTyB8IFNf
+SVJVR08sIGNvbi0+ZGlyLA0KPiArCQkJCWFkZXYsICZhbWRncHVfcmFzX2RlYnVnZnNfcmVib290
+X29wcyk7DQo+ICB9DQo+IA0KPiAgdm9pZCBhbWRncHVfcmFzX2RlYnVnZnNfY3JlYXRlKHN0cnVj
+dCBhbWRncHVfZGV2aWNlICphZGV2LA0KPiAtLQ0KPiAyLjE3LjENCj4gDQo+IF9fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fDQo+IGFtZC1nZnggbWFpbGluZyBs
+aXN0DQo+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnDQo+IGh0dHBzOi8vbGlzdHMuZnJl
+ZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA0KX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdm
+eEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFp
+bG1hbi9saXN0aW5mby9hbWQtZ2Z4
