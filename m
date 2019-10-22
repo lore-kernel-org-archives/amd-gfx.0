@@ -1,7 +1,7 @@
 From: Lyude Paul <lyude@redhat.com>
-Subject: [PATCH v5 03/14] drm/dp_mst: Refactor pdt setup/teardown, add more locking
-Date: Mon, 21 Oct 2019 22:35:58 -0400
-Message-ID: <20191022023641.8026-4-lyude@redhat.com>
+Subject: [PATCH v5 05/14] drm/dp_mst: Add probe_lock
+Date: Mon, 21 Oct 2019 22:36:00 -0400
+Message-ID: <20191022023641.8026-6-lyude@redhat.com>
 References: <20191022023641.8026-1-lyude@redhat.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -13,369 +13,229 @@ To: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, nouveau@list
 Cc: Juston Li <juston.li@intel.com>, Imre Deak <imre.deak@intel.com>, =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>, Harry Wentland <hwentlan@amd.com>, Daniel Vetter <daniel.vetter@ffwll.ch>, Sean Paul <sean@poorly.run>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, linux-kernel@vger.kernel.org
 List-Id: amd-gfx.lists.freedesktop.org
 
-Since we're going to be implementing suspend/resume reprobing very soon,
-we need to make sure we are extra careful to ensure that our locking
-actually protects the topology state where we expect it to. Turns out
-this isn't the case with drm_dp_port_setup_pdt() and
-drm_dp_port_teardown_pdt(), both of which change port->mstb without
-grabbing &mgr->lock.
+Currently, MST lacks locking in a lot of places that really should have
+some sort of locking. Hotplugging and link address code paths are some
+of the offenders here, as there is actually nothing preventing us from
+running a link address probe while at the same time handling a
+connection status update request - something that's likely always been
+possible but never seen in the wild because hotplugging has been broken
+for ages now (with the exception of amdgpu, for reasons I don't think
+are worth digging into very far).
 
-Additionally, since most callers of these functions are just using it to
-teardown the port's previous PDT and setup a new one we can simplify
-things a bit and combine drm_dp_port_setup_pdt() and
-drm_dp_port_teardown_pdt() into a single function:
-drm_dp_port_set_pdt(). This function also handles actually ensuring that
-we grab the correct locks when we need to modify port->mstb.
+Note: I'm going to start using the term "in-memory topology layout" here
+to refer to drm_dp_mst_port->mstb and drm_dp_mst_branch->ports.
 
+Locking in these places is a little tougher then it looks though.
+Generally we protect anything having to do with the in-memory topology
+layout under &mgr->lock. But this becomes nearly impossible to do from
+the context of link address probes due to the fact that &mgr->lock is
+usually grabbed under random various modesetting locks, meaning that
+there's no way we can just invert the &mgr->lock order and keep it
+locked throughout the whole process of updating the topology.
+
+Luckily there are only two workers which can modify the in-memory
+topology layout: drm_dp_mst_up_req_work() and
+drm_dp_mst_link_probe_work(), meaning as long as we prevent these two
+workers from traveling the topology layout in parallel with the intent
+of updating it we don't need to worry about grabbing &mgr->lock in these
+workers for reads. We only need to grab &mgr->lock in these workers for
+writes, so that readers outside these two workers are still protected
+from the topology layout changing beneath them.
+
+So, add the new &mgr->probe_lock and use it in both
+drm_dp_mst_link_probe_work() and drm_dp_mst_up_req_work(). Additionally,
+add some more detailed explanations for how this locking is intended to
+work to drm_dp_mst_port->mstb and drm_dp_mst_branch->ports.
+
+Signed-off-by: Lyude Paul <lyude@redhat.com>
 Cc: Juston Li <juston.li@intel.com>
 Cc: Imre Deak <imre.deak@intel.com>
 Cc: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
 Cc: Harry Wentland <hwentlan@amd.com>
 Cc: Daniel Vetter <daniel.vetter@ffwll.ch>
-Signed-off-by: Lyude Paul <lyude@redhat.com>
-Reviewed-by: Sean Paul <sean@poorly.run>
+Cc: Sean Paul <sean@poorly.run>
 ---
- drivers/gpu/drm/drm_dp_mst_topology.c | 181 +++++++++++++++-----------
- include/drm/drm_dp_mst_helper.h       |   6 +-
- 2 files changed, 110 insertions(+), 77 deletions(-)
+ drivers/gpu/drm/drm_dp_mst_topology.c | 28 ++++++++++++++---------
+ include/drm/drm_dp_mst_helper.h       | 32 +++++++++++++++++++++++----
+ 2 files changed, 46 insertions(+), 14 deletions(-)
 
 diff --git a/drivers/gpu/drm/drm_dp_mst_topology.c b/drivers/gpu/drm/drm_dp=
 _mst_topology.c
-index 204d0c832c65..3f16c0cb094b 100644
+index 08c316a727df..11d842f0bff5 100644
 --- a/drivers/gpu/drm/drm_dp_mst_topology.c
 +++ b/drivers/gpu/drm/drm_dp_mst_topology.c
-@@ -1486,24 +1486,6 @@ drm_dp_mst_topology_put_mstb(struct drm_dp_mst_branc=
-h *mstb)
- =09kref_put(&mstb->topology_kref, drm_dp_destroy_mst_branch_device);
- }
-=20
--static void drm_dp_port_teardown_pdt(struct drm_dp_mst_port *port, int old=
-_pdt)
--{
--=09struct drm_dp_mst_branch *mstb;
--
--=09switch (old_pdt) {
--=09case DP_PEER_DEVICE_DP_LEGACY_CONV:
--=09case DP_PEER_DEVICE_SST_SINK:
--=09=09/* remove i2c over sideband */
--=09=09drm_dp_mst_unregister_i2c_bus(&port->aux);
--=09=09break;
--=09case DP_PEER_DEVICE_MST_BRANCHING:
--=09=09mstb =3D port->mstb;
--=09=09port->mstb =3D NULL;
--=09=09drm_dp_mst_topology_put_mstb(mstb);
--=09=09break;
--=09}
--}
--
- static void drm_dp_destroy_port(struct kref *kref)
+@@ -2147,37 +2147,40 @@ static void drm_dp_check_and_send_link_address(stru=
+ct drm_dp_mst_topology_mgr *m
+ =09=09=09=09=09       struct drm_dp_mst_branch *mstb)
  {
- =09struct drm_dp_mst_port *port =3D
-@@ -1713,38 +1695,79 @@ static u8 drm_dp_calculate_rad(struct drm_dp_mst_po=
-rt *port,
- =09return parent_lct + 1;
- }
+ =09struct drm_dp_mst_port *port;
+-=09struct drm_dp_mst_branch *mstb_child;
++
+ =09if (!mstb->link_address_sent)
+ =09=09drm_dp_send_link_address(mgr, mstb);
 =20
--/*
-- * return sends link address for new mstb
-- */
--static bool drm_dp_port_setup_pdt(struct drm_dp_mst_port *port)
-+static int drm_dp_port_set_pdt(struct drm_dp_mst_port *port, u8 new_pdt)
- {
--=09int ret;
--=09u8 rad[6], lct;
--=09bool send_link =3D false;
-+=09struct drm_dp_mst_topology_mgr *mgr =3D port->mgr;
-+=09struct drm_dp_mst_branch *mstb;
-+=09u8 rad[8], lct;
-+=09int ret =3D 0;
-+
-+=09if (port->pdt =3D=3D new_pdt)
-+=09=09return 0;
-+
-+=09/* Teardown the old pdt, if there is one */
-+=09switch (port->pdt) {
-+=09case DP_PEER_DEVICE_DP_LEGACY_CONV:
-+=09case DP_PEER_DEVICE_SST_SINK:
-+=09=09/*
-+=09=09 * If the new PDT would also have an i2c bus, don't bother
-+=09=09 * with reregistering it
-+=09=09 */
-+=09=09if (new_pdt =3D=3D DP_PEER_DEVICE_DP_LEGACY_CONV ||
-+=09=09    new_pdt =3D=3D DP_PEER_DEVICE_SST_SINK) {
-+=09=09=09port->pdt =3D new_pdt;
-+=09=09=09return 0;
-+=09=09}
-+
-+=09=09/* remove i2c over sideband */
-+=09=09drm_dp_mst_unregister_i2c_bus(&port->aux);
-+=09=09break;
-+=09case DP_PEER_DEVICE_MST_BRANCHING:
-+=09=09mutex_lock(&mgr->lock);
-+=09=09drm_dp_mst_topology_put_mstb(port->mstb);
-+=09=09port->mstb =3D NULL;
-+=09=09mutex_unlock(&mgr->lock);
-+=09=09break;
-+=09}
-+
-+=09port->pdt =3D new_pdt;
- =09switch (port->pdt) {
- =09case DP_PEER_DEVICE_DP_LEGACY_CONV:
- =09case DP_PEER_DEVICE_SST_SINK:
- =09=09/* add i2c over sideband */
- =09=09ret =3D drm_dp_mst_register_i2c_bus(&port->aux);
- =09=09break;
-+
- =09case DP_PEER_DEVICE_MST_BRANCHING:
- =09=09lct =3D drm_dp_calculate_rad(port, rad);
-+=09=09mstb =3D drm_dp_add_mst_branch_device(lct, rad);
-+=09=09if (!mstb) {
-+=09=09=09ret =3D -ENOMEM;
-+=09=09=09DRM_ERROR("Failed to create MSTB for port %p", port);
-+=09=09=09goto out;
-+=09=09}
+ =09list_for_each_entry(port, &mstb->ports, next) {
+-=09=09if (port->input)
+-=09=09=09continue;
++=09=09struct drm_dp_mst_branch *mstb_child =3D NULL;
 =20
--=09=09port->mstb =3D drm_dp_add_mst_branch_device(lct, rad);
+-=09=09if (!port->ddps)
++=09=09if (port->input || !port->ddps)
+ =09=09=09continue;
+=20
+ =09=09if (!port->available_pbn)
+ =09=09=09drm_dp_send_enum_path_resources(mgr, mstb, port);
+=20
 -=09=09if (port->mstb) {
--=09=09=09port->mstb->mgr =3D port->mgr;
--=09=09=09port->mstb->port_parent =3D port;
--=09=09=09/*
--=09=09=09 * Make sure this port's memory allocation stays
--=09=09=09 * around until its child MSTB releases it
--=09=09=09 */
--=09=09=09drm_dp_mst_get_port_malloc(port);
-+=09=09mutex_lock(&mgr->lock);
-+=09=09port->mstb =3D mstb;
-+=09=09mstb->mgr =3D port->mgr;
-+=09=09mstb->port_parent =3D port;
-=20
--=09=09=09send_link =3D true;
--=09=09}
-+=09=09/*
-+=09=09 * Make sure this port's memory allocation stays
-+=09=09 * around until its child MSTB releases it
-+=09=09 */
-+=09=09drm_dp_mst_get_port_malloc(port);
-+=09=09mutex_unlock(&mgr->lock);
++=09=09if (port->mstb)
+ =09=09=09mstb_child =3D drm_dp_mst_topology_get_mstb_validated(
+ =09=09=09    mgr, port->mstb);
+-=09=09=09if (mstb_child) {
+-=09=09=09=09drm_dp_check_and_send_link_address(mgr, mstb_child);
+-=09=09=09=09drm_dp_mst_topology_put_mstb(mstb_child);
+-=09=09=09}
 +
-+=09=09/* And make sure we send a link address for this */
-+=09=09ret =3D 1;
- =09=09break;
++=09=09if (mstb_child) {
++=09=09=09drm_dp_check_and_send_link_address(mgr, mstb_child);
++=09=09=09drm_dp_mst_topology_put_mstb(mstb_child);
+ =09=09}
  =09}
--=09return send_link;
-+
-+out:
-+=09if (ret < 0)
-+=09=09port->pdt =3D DP_PEER_DEVICE_NONE;
-+=09return ret;
  }
 =20
- /**
-@@ -1881,10 +1904,9 @@ drm_dp_mst_handle_link_address_port(struct drm_dp_ms=
-t_branch *mstb,
- =09=09=09=09    struct drm_device *dev,
- =09=09=09=09    struct drm_dp_link_addr_reply_port *port_msg)
+ static void drm_dp_mst_link_probe_work(struct work_struct *work)
  {
-+=09struct drm_dp_mst_topology_mgr *mgr =3D mstb->mgr;
- =09struct drm_dp_mst_port *port;
--=09bool ret;
- =09bool created =3D false;
--=09int old_pdt =3D 0;
- =09int old_ddps =3D 0;
+-=09struct drm_dp_mst_topology_mgr *mgr =3D container_of(work, struct drm_d=
+p_mst_topology_mgr, work);
++=09struct drm_dp_mst_topology_mgr *mgr =3D
++=09=09container_of(work, struct drm_dp_mst_topology_mgr, work);
++=09struct drm_device *dev =3D mgr->dev;
+ =09struct drm_dp_mst_branch *mstb;
+ =09int ret;
 =20
- =09port =3D drm_dp_get_port(mstb, port_msg->port_number);
-@@ -1896,7 +1918,7 @@ drm_dp_mst_handle_link_address_port(struct drm_dp_mst=
-_branch *mstb,
- =09=09kref_init(&port->malloc_kref);
- =09=09port->parent =3D mstb;
- =09=09port->port_num =3D port_msg->port_number;
--=09=09port->mgr =3D mstb->mgr;
-+=09=09port->mgr =3D mgr;
- =09=09port->aux.name =3D "DPMST";
- =09=09port->aux.dev =3D dev->dev;
- =09=09port->aux.is_remote =3D true;
-@@ -1909,11 +1931,9 @@ drm_dp_mst_handle_link_address_port(struct drm_dp_ms=
-t_branch *mstb,
-=20
- =09=09created =3D true;
- =09} else {
--=09=09old_pdt =3D port->pdt;
- =09=09old_ddps =3D port->ddps;
- =09}
-=20
--=09port->pdt =3D port_msg->peer_device_type;
- =09port->input =3D port_msg->input_port;
- =09port->mcs =3D port_msg->mcs;
- =09port->ddps =3D port_msg->ddps;
-@@ -1925,29 +1945,33 @@ drm_dp_mst_handle_link_address_port(struct drm_dp_m=
-st_branch *mstb,
- =09/* manage mstb port lists with mgr lock - take a reference
- =09   for this list */
- =09if (created) {
--=09=09mutex_lock(&mstb->mgr->lock);
-+=09=09mutex_lock(&mgr->lock);
- =09=09drm_dp_mst_topology_get_port(port);
- =09=09list_add(&port->next, &mstb->ports);
--=09=09mutex_unlock(&mstb->mgr->lock);
-+=09=09mutex_unlock(&mgr->lock);
- =09}
-=20
- =09if (old_ddps !=3D port->ddps) {
- =09=09if (port->ddps) {
- =09=09=09if (!port->input) {
--=09=09=09=09drm_dp_send_enum_path_resources(mstb->mgr,
--=09=09=09=09=09=09=09=09mstb, port);
-+=09=09=09=09drm_dp_send_enum_path_resources(mgr, mstb,
-+=09=09=09=09=09=09=09=09port);
- =09=09=09}
- =09=09} else {
- =09=09=09port->available_pbn =3D 0;
- =09=09}
- =09}
-=20
--=09if (old_pdt !=3D port->pdt && !port->input) {
--=09=09drm_dp_port_teardown_pdt(port, old_pdt);
--
--=09=09ret =3D drm_dp_port_setup_pdt(port);
--=09=09if (ret =3D=3D true)
--=09=09=09drm_dp_send_link_address(mstb->mgr, port->mstb);
-+=09if (!port->input) {
-+=09=09int ret =3D drm_dp_port_set_pdt(port,
-+=09=09=09=09=09      port_msg->peer_device_type);
-+=09=09if (ret =3D=3D 1) {
-+=09=09=09drm_dp_send_link_address(mgr, port->mstb);
-+=09=09} else if (ret < 0) {
-+=09=09=09DRM_ERROR("Failed to change PDT on port %p: %d\n",
-+=09=09=09=09  port, ret);
-+=09=09=09goto fail;
-+=09=09}
- =09}
-=20
- =09if (created && !port->input) {
-@@ -1955,18 +1979,11 @@ drm_dp_mst_handle_link_address_port(struct drm_dp_m=
-st_branch *mstb,
-=20
- =09=09build_mst_prop_path(mstb, port->port_num, proppath,
- =09=09=09=09    sizeof(proppath));
--=09=09port->connector =3D (*mstb->mgr->cbs->add_connector)(mstb->mgr,
--=09=09=09=09=09=09=09=09   port,
--=09=09=09=09=09=09=09=09   proppath);
--=09=09if (!port->connector) {
--=09=09=09/* remove it from the port list */
--=09=09=09mutex_lock(&mstb->mgr->lock);
--=09=09=09list_del(&port->next);
--=09=09=09mutex_unlock(&mstb->mgr->lock);
--=09=09=09/* drop port list reference */
--=09=09=09drm_dp_mst_topology_put_port(port);
--=09=09=09goto out;
--=09=09}
-+=09=09port->connector =3D (*mgr->cbs->add_connector)(mgr, port,
-+=09=09=09=09=09=09=09     proppath);
-+=09=09if (!port->connector)
-+=09=09=09goto fail;
++=09mutex_lock(&mgr->probe_lock);
 +
- =09=09if ((port->pdt =3D=3D DP_PEER_DEVICE_DP_LEGACY_CONV ||
- =09=09     port->pdt =3D=3D DP_PEER_DEVICE_SST_SINK) &&
- =09=09    port->port_num >=3D DP_MST_LOGICAL_PORT_0) {
-@@ -1974,12 +1991,24 @@ drm_dp_mst_handle_link_address_port(struct drm_dp_m=
-st_branch *mstb,
- =09=09=09=09=09=09=09 &port->aux.ddc);
- =09=09=09drm_connector_set_tile_property(port->connector);
- =09=09}
--=09=09(*mstb->mgr->cbs->register_connector)(port->connector);
-+
-+=09=09(*mgr->cbs->register_connector)(port->connector);
+ =09mutex_lock(&mgr->lock);
+ =09mstb =3D mgr->mst_primary;
+ =09if (mstb) {
+@@ -2190,6 +2193,7 @@ static void drm_dp_mst_link_probe_work(struct work_st=
+ruct *work)
+ =09=09drm_dp_check_and_send_link_address(mgr, mstb);
+ =09=09drm_dp_mst_topology_put_mstb(mstb);
  =09}
-=20
--out:
- =09/* put reference to this port */
- =09drm_dp_mst_topology_put_port(port);
-+=09return;
-+
-+fail:
-+=09/* Remove it from the port list */
-+=09mutex_lock(&mgr->lock);
-+=09list_del(&port->next);
-+=09mutex_unlock(&mgr->lock);
-+
-+=09/* Drop the port list reference */
-+=09drm_dp_mst_topology_put_port(port);
-+=09/* And now drop our reference */
-+=09drm_dp_mst_topology_put_port(port);
++=09mutex_unlock(&mgr->probe_lock);
  }
 =20
- static void
-@@ -1987,16 +2016,14 @@ drm_dp_mst_handle_conn_stat(struct drm_dp_mst_branc=
-h *mstb,
- =09=09=09    struct drm_dp_connection_status_notify *conn_stat)
- {
- =09struct drm_dp_mst_port *port;
--=09int old_pdt;
- =09int old_ddps;
- =09bool dowork =3D false;
-+
- =09port =3D drm_dp_get_port(mstb, conn_stat->port_number);
- =09if (!port)
- =09=09return;
+ static bool drm_dp_validate_guid(struct drm_dp_mst_topology_mgr *mgr,
+@@ -3313,6 +3317,7 @@ static void drm_dp_mst_up_req_work(struct work_struct=
+ *work)
+ =09=09=09     up_req_work);
+ =09struct drm_dp_pending_up_req *up_req;
 =20
- =09old_ddps =3D port->ddps;
--=09old_pdt =3D port->pdt;
--=09port->pdt =3D conn_stat->peer_device_type;
- =09port->mcs =3D conn_stat->message_capability_status;
- =09port->ldps =3D conn_stat->legacy_device_plug_status;
- =09port->ddps =3D conn_stat->displayport_device_plug_status;
-@@ -2008,11 +2035,17 @@ drm_dp_mst_handle_conn_stat(struct drm_dp_mst_branc=
-h *mstb,
- =09=09=09port->available_pbn =3D 0;
- =09=09}
++=09mutex_lock(&mgr->probe_lock);
+ =09while (true) {
+ =09=09mutex_lock(&mgr->up_req_lock);
+ =09=09up_req =3D list_first_entry_or_null(&mgr->up_req_list,
+@@ -3328,6 +3333,7 @@ static void drm_dp_mst_up_req_work(struct work_struct=
+ *work)
+ =09=09drm_dp_mst_process_up_req(mgr, up_req);
+ =09=09kfree(up_req);
  =09}
--=09if (old_pdt !=3D port->pdt && !port->input) {
--=09=09drm_dp_port_teardown_pdt(port, old_pdt);
-=20
--=09=09if (drm_dp_port_setup_pdt(port))
-+=09if (!port->input) {
-+=09=09int ret =3D drm_dp_port_set_pdt(port,
-+=09=09=09=09=09      conn_stat->peer_device_type);
-+=09=09if (ret =3D=3D 1) {
- =09=09=09dowork =3D true;
-+=09=09} else if (ret < 0) {
-+=09=09=09DRM_ERROR("Failed to change PDT for port %p: %d\n",
-+=09=09=09=09  port, ret);
-+=09=09=09dowork =3D false;
-+=09=09}
- =09}
-=20
- =09drm_dp_mst_topology_put_port(port);
-@@ -3975,9 +4008,7 @@ drm_dp_delayed_destroy_port(struct drm_dp_mst_port *p=
-ort)
- =09if (port->connector)
- =09=09port->mgr->cbs->destroy_connector(port->mgr, port->connector);
-=20
--=09drm_dp_port_teardown_pdt(port, port->pdt);
--=09port->pdt =3D DP_PEER_DEVICE_NONE;
--
-+=09drm_dp_port_set_pdt(port, DP_PEER_DEVICE_NONE);
- =09drm_dp_mst_put_port_malloc(port);
++=09mutex_unlock(&mgr->probe_lock);
  }
+=20
+ static int drm_dp_mst_handle_up_req(struct drm_dp_mst_topology_mgr *mgr)
+@@ -4349,6 +4355,7 @@ int drm_dp_mst_topology_mgr_init(struct drm_dp_mst_to=
+pology_mgr *mgr,
+ =09mutex_init(&mgr->payload_lock);
+ =09mutex_init(&mgr->delayed_destroy_lock);
+ =09mutex_init(&mgr->up_req_lock);
++=09mutex_init(&mgr->probe_lock);
+ =09INIT_LIST_HEAD(&mgr->tx_msg_downq);
+ =09INIT_LIST_HEAD(&mgr->destroy_port_list);
+ =09INIT_LIST_HEAD(&mgr->destroy_branch_device_list);
+@@ -4414,6 +4421,7 @@ void drm_dp_mst_topology_mgr_destroy(struct drm_dp_ms=
+t_topology_mgr *mgr)
+ =09mutex_destroy(&mgr->qlock);
+ =09mutex_destroy(&mgr->lock);
+ =09mutex_destroy(&mgr->up_req_lock);
++=09mutex_destroy(&mgr->probe_lock);
+ }
+ EXPORT_SYMBOL(drm_dp_mst_topology_mgr_destroy);
 =20
 diff --git a/include/drm/drm_dp_mst_helper.h b/include/drm/drm_dp_mst_helpe=
 r.h
-index b2160c366fb7..8ba2a01324bb 100644
+index 7d80c38ee00e..bccb5514e0ef 100644
 --- a/include/drm/drm_dp_mst_helper.h
 +++ b/include/drm/drm_dp_mst_helper.h
-@@ -55,8 +55,10 @@ struct drm_dp_vcpi {
+@@ -55,8 +55,6 @@ struct drm_dp_vcpi {
   * @num_sdp_stream_sinks: Number of stream sinks
   * @available_pbn: Available bandwidth for this port.
   * @next: link to next port on this branch device
-- * @mstb: branch device attach below this port
-- * @aux: i2c aux transport to talk to device connected to this port.
-+ * @mstb: branch device on this port, protected by
-+ * &drm_dp_mst_topology_mgr.lock
-+ * @aux: i2c aux transport to talk to device connected to this port, prote=
+- * @mstb: branch device on this port, protected by
+- * &drm_dp_mst_topology_mgr.lock
+  * @aux: i2c aux transport to talk to device connected to this port, prote=
 cted
-+ * by &drm_dp_mst_topology_mgr.lock
+  * by &drm_dp_mst_topology_mgr.lock
   * @parent: branch device parent of this port
-  * @vcpi: Virtual Channel Payload info for this port.
-  * @connector: DRM connector this port is connected to.
+@@ -92,7 +90,17 @@ struct drm_dp_mst_port {
+ =09u8 num_sdp_stream_sinks;
+ =09uint16_t available_pbn;
+ =09struct list_head next;
+-=09struct drm_dp_mst_branch *mstb; /* pointer to an mstb if this port has =
+one */
++=09/**
++=09 * @mstb: the branch device connected to this port, if there is one.
++=09 * This should be considered protected for reading by
++=09 * &drm_dp_mst_topology_mgr.lock. There are two exceptions to this:
++=09 * &drm_dp_mst_topology_mgr.up_req_work and
++=09 * &drm_dp_mst_topology_mgr.work, which do not grab
++=09 * &drm_dp_mst_topology_mgr.lock during reads but are the only
++=09 * updaters of this list and are protected from writing concurrently
++=09 * by &drm_dp_mst_topology_mgr.probe_lock.
++=09 */
++=09struct drm_dp_mst_branch *mstb;
+ =09struct drm_dp_aux aux; /* i2c bus for this port? */
+ =09struct drm_dp_mst_branch *parent;
+=20
+@@ -118,7 +126,6 @@ struct drm_dp_mst_port {
+  * @lct: Link count total to talk to this branch device.
+  * @num_ports: number of ports on the branch.
+  * @msg_slots: one bit per transmitted msg slot.
+- * @ports: linked list of ports on this branch.
+  * @port_parent: pointer to the port parent, NULL if toplevel.
+  * @mgr: topology manager for this branch device.
+  * @tx_slots: transmission slots for this device.
+@@ -156,6 +163,16 @@ struct drm_dp_mst_branch {
+ =09int num_ports;
+=20
+ =09int msg_slots;
++=09/**
++=09 * @ports: the list of ports on this branch device. This should be
++=09 * considered protected for reading by &drm_dp_mst_topology_mgr.lock.
++=09 * There are two exceptions to this:
++=09 * &drm_dp_mst_topology_mgr.up_req_work and
++=09 * &drm_dp_mst_topology_mgr.work, which do not grab
++=09 * &drm_dp_mst_topology_mgr.lock during reads but are the only
++=09 * updaters of this list and are protected from updating the list
++=09 * concurrently by @drm_dp_mst_topology_mgr.probe_lock
++=09 */
+ =09struct list_head ports;
+=20
+ =09/* list of tx ops queue for this port */
+@@ -502,6 +519,13 @@ struct drm_dp_mst_topology_mgr {
+ =09 */
+ =09struct mutex lock;
+=20
++=09/**
++=09 * @probe_lock: Prevents @work and @up_req_work, the only writers of
++=09 * &drm_dp_mst_port.mstb and &drm_dp_mst_branch.ports, from racing
++=09 * while they update the topology.
++=09 */
++=09struct mutex probe_lock;
++
+ =09/**
+ =09 * @mst_state: If this manager is enabled for an MST capable port. Fals=
+e
+ =09 * if no MST sink/branch devices is connected.
 --=20
 2.21.0
