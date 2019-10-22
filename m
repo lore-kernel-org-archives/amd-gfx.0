@@ -1,171 +1,249 @@
-From: "Yang, Philip" <Philip.Yang-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdkfd: don't use dqm lock during device
- reset/suspend/resume
-Date: Tue, 22 Oct 2019 15:57:53 +0000
-Message-ID: <487a7a91-f2d5-7cb0-afdf-d45360ae0eed@amd.com>
-References: <20191021210436.10571-1-Philip.Yang@amd.com>
- <fbdfee2b-e9f9-598c-14f3-719429b9f374@amd.com>
+From: Sean Paul <sean@poorly.run>
+Subject: Re: [PATCH v5 05/14] drm/dp_mst: Add probe_lock
+Date: Tue, 22 Oct 2019 12:06:09 -0400
+Message-ID: <20191022160609.GE85762@art_vandelay>
+References: <20191022023641.8026-1-lyude@redhat.com>
+ <20191022023641.8026-6-lyude@redhat.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <fbdfee2b-e9f9-598c-14f3-719429b9f374-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-Content-ID: <E2910CEAD5C8814596FFE6E158773D50-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Type: text/plain; charset=iso-8859-1
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Content-Disposition: inline
+In-Reply-To: <20191022023641.8026-6-lyude@redhat.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Lyude Paul <lyude@redhat.com>
+Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, Juston Li <juston.li@intel.com>, Imre Deak <imre.deak@intel.com>, Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>, Harry Wentland <hwentlan@amd.com>, Daniel Vetter <daniel.vetter@ffwll.ch>, Sean Paul <sean@poorly.run>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, linux-kernel@vger.kernel.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-DQoNCk9uIDIwMTktMTAtMjEgOTowMyBwLm0uLCBLdWVobGluZywgRmVsaXggd3JvdGU6DQo+IA0K
-PiBPbiAyMDE5LTEwLTIxIDU6MDQgcC5tLiwgWWFuZywgUGhpbGlwIHdyb3RlOg0KPj4gSWYgZGV2
-aWNlIHJlc2V0L3N1c3BlbmQvcmVzdW1lIGZhaWxlZCBmb3Igc29tZSByZWFzb24sIGRxbSBsb2Nr
-IGlzDQo+PiBob2xkIGZvcmV2ZXIgYW5kIHRoaXMgY2F1c2VzIGRlYWRsb2NrLiBCZWxvdyBpcyBh
-IGtlcm5lbCBiYWNrdHJhY2Ugd2hlbg0KPj4gYXBwbGljYXRpb24gb3BlbiBrZmQgYWZ0ZXIgc3Vz
-cGVuZC9yZXN1bWUgZmFpbGVkLg0KPj4NCj4+IEluc3RlYWQgb2YgaG9sZGluZyBkcW0gbG9jayBp
-biBwcmVfcmVzZXQgYW5kIHJlbGVhc2luZyBkcW0gbG9jayBpbg0KPj4gcG9zdF9yZXNldCwgYWRk
-IGRxbS0+ZGV2aWNlX3N0b3BwZWQgZmxhZyB3aGljaCBpcyBtb2RpZmllZCBpbg0KPj4gZHFtLT5v
-cHMuc3RhcnQgYW5kIGRxbS0+b3BzLnN0b3AuIFRoZSBmbGFnIGRvZXNuJ3QgbmVlZCBsb2NrIHBy
-b3RlY3Rpb24NCj4+IGJlY2F1c2Ugd3JpdGUvcmVhZCBhcmUgYWxsIGluc2lkZSBkcW0gbG9jay4N
-Cj4+DQo+PiBGb3IgSFdTIGNhc2UsIG1hcF9xdWV1ZXNfY3BzY2ggYW5kIHVubWFwX3F1ZXVlc19j
-cHNjaCBjaGVja3MNCj4+IGRldmljZV9zdG9wcGVkIGZsYWcgYmVmb3JlIHNlbmRpbmcgdGhlIHVw
-ZGF0ZWQgcnVubGlzdC4NCj4gDQo+IFdoYXQgYWJvdXQgdGhlIG5vbi1IV1MgY2FzZT8NCj4gDQo+
-IEluIHRoZW9yeSBpbiBub24tSFdTIGNhc2UgbmV3IHF1ZXVlcyBzaG91bGQgYmUgY3JlYXRlZCBp
-biBldmljdGVkIHN0YXRlDQo+IHdoaWxlIHRoZSBkZXZpY2UgKGFuZCBhbGwgcHJvY2Vzc2VzKSBh
-cmUgc3VzcGVuZGVkLiBTbyB3ZSBzaG91bGQgbmV2ZXINCj4gdHJ5IHRvIG1hcCBvciB1bm1hcCBx
-dWV1ZXMgdG8gSFFEcyBkdXJpbmcgc3VzcGVuZC4gQnV0IEknZCBmZWVsIGJldHRlcg0KPiB3aXRo
-IGEgV0FSTl9PTiBhbmQgZXJyb3IgcmV0dXJuIGluIHRoZSByaWdodCBwbGFjZXMgdG8gbWFrZSBz
-dXJlIHdlJ3JlDQo+IG5vdCBtaXNzaW5nIGFueXRoaW5nLiBCYXNpY2FsbHksIHdlIGNhbid0IGNh
-bGwgYW55IG9mIHRoZQ0KPiBsb2FkL2Rlc3Ryb3lfbXFkIGZ1bmN0aW9ucyB3aGlsZSBzdXNwZW5k
-ZWQuDQo+IA0KdjIgcGF0Y2ggYWRkIG5vbi1IV1MgY2FzZS4NCg0KPiBUaGF0IHJlbWluZHMgbWUs
-IHdlIGFsc28gaGF2ZSB0byBhZGQgc29tZSBjaGVja3MgaW4gdGhlIGRlYnVnZnMgY29kZSB0bw0K
-PiBhdm9pZCBkdW1waW5nIEhRRHMgb2YgYSBEUU0gdGhhdCdzIHN0b3BwZWQuDQo+DQpUaGFua3Ms
-IGRvbmUgaW4gdjIgcGF0Y2gNCg0KPiBMYXN0IGNvbW1lbnQ6IGRxbS0+ZGV2aWNlX3N0b3BwZWQg
-bXVzdCBiZSBpbml0aWFsaXplZCBhcyB0cnVlLiBJdCB3aWxsDQo+IGdldCBzZXQgdG8gZmFsc2Ug
-d2hlbiB0aGUgZGV2aWNlIGlzIGZpcnN0IHN0YXJ0ZWQuIEl0IG1heSBiZSBlYXNpZXIgdG8NCj4g
-cmV2ZXJzZSB0aGUgbG9naWMsIHNvbWV0aGluZyBsaWtlIGRxbS0+c2NoZWRfcnVubmluZyB0aGF0
-IGdldHMNCj4gaW1wbGljaXRseSBpbml0aWFsaXplZCBhcyBmYWxzZS4NCj4gDQpDaGFuZ2UgdG8g
-ZHFtLT5zY2hlZF9ydW5uaW5nIGluIHYyIHBhdGNoLg0KDQpSZWdhcmRzLA0KUGhpbGlwDQoNCj4g
-UmVnYXJkcywNCj4gICDCoCBGZWxpeA0KPiANCj4gDQo+Pg0KPj4gQmFja3RyYWNlIG9mIGRxbSBs
-b2NrIGRlYWRsb2NrOg0KPj4NCj4+IFtUaHUgT2N0IDE3IDE2OjQzOjM3IDIwMTldIElORk86IHRh
-c2sgcm9jbWluZm86MzAyNCBibG9ja2VkIGZvciBtb3JlDQo+PiB0aGFuIDEyMCBzZWNvbmRzLg0K
-Pj4gW1RodSBPY3QgMTcgMTY6NDM6MzcgMjAxOV0gICAgICAgTm90IHRhaW50ZWQNCj4+IDUuMC4w
-LXJjMS1rZmQtY29tcHV0ZS1yb2NtLWRrbXMtbm8tbnBpLTExMzEgIzENCj4+IFtUaHUgT2N0IDE3
-IDE2OjQzOjM3IDIwMTldICJlY2hvIDAgPg0KPj4gL3Byb2Mvc3lzL2tlcm5lbC9odW5nX3Rhc2tf
-dGltZW91dF9zZWNzIiBkaXNhYmxlcyB0aGlzIG1lc3NhZ2UuDQo+PiBbVGh1IE9jdCAxNyAxNjo0
-MzozNyAyMDE5XSByb2NtaW5mbyAgICAgICAgRCAgICAwICAzMDI0ICAgMjk0Nw0KPj4gMHg4MDAw
-MDAwMA0KPj4gW1RodSBPY3QgMTcgMTY6NDM6MzcgMjAxOV0gQ2FsbCBUcmFjZToNCj4+IFtUaHUg
-T2N0IDE3IDE2OjQzOjM3IDIwMTldICA/IF9fc2NoZWR1bGUrMHgzZDkvMHg4YTANCj4+IFtUaHUg
-T2N0IDE3IDE2OjQzOjM3IDIwMTldICBzY2hlZHVsZSsweDMyLzB4NzANCj4+IFtUaHUgT2N0IDE3
-IDE2OjQzOjM3IDIwMTldICBzY2hlZHVsZV9wcmVlbXB0X2Rpc2FibGVkKzB4YS8weDEwDQo+PiBb
-VGh1IE9jdCAxNyAxNjo0MzozNyAyMDE5XSAgX19tdXRleF9sb2NrLmlzcmEuOSsweDFlMy8weDRl
-MA0KPj4gW1RodSBPY3QgMTcgMTY6NDM6MzcgMjAxOV0gID8gX19jYWxsX3NyY3UrMHgyNjQvMHgz
-YjANCj4+IFtUaHUgT2N0IDE3IDE2OjQzOjM3IDIwMTldICA/IHByb2Nlc3NfdGVybWluYXRpb25f
-Y3BzY2grMHgyNC8weDJmMA0KPj4gW2FtZGdwdV0NCj4+IFtUaHUgT2N0IDE3IDE2OjQzOjM3IDIw
-MTldICBwcm9jZXNzX3Rlcm1pbmF0aW9uX2Nwc2NoKzB4MjQvMHgyZjANCj4+IFthbWRncHVdDQo+
-PiBbVGh1IE9jdCAxNyAxNjo0MzozNyAyMDE5XQ0KPj4ga2ZkX3Byb2Nlc3NfZGVxdWV1ZV9mcm9t
-X2FsbF9kZXZpY2VzKzB4NDIvMHg2MCBbYW1kZ3B1XQ0KPj4gW1RodSBPY3QgMTcgMTY6NDM6Mzcg
-MjAxOV0gIGtmZF9wcm9jZXNzX25vdGlmaWVyX3JlbGVhc2UrMHgxYmUvMHgyMjANCj4+IFthbWRn
-cHVdDQo+PiBbVGh1IE9jdCAxNyAxNjo0MzozNyAyMDE5XSAgX19tbXVfbm90aWZpZXJfcmVsZWFz
-ZSsweDNlLzB4YzANCj4+IFtUaHUgT2N0IDE3IDE2OjQzOjM3IDIwMTldICBleGl0X21tYXArMHgx
-NjAvMHgxYTANCj4+IFtUaHUgT2N0IDE3IDE2OjQzOjM3IDIwMTldICA/IF9faGFuZGxlX21tX2Zh
-dWx0KzB4YmEzLzB4MTIwMA0KPj4gW1RodSBPY3QgMTcgMTY6NDM6MzcgMjAxOV0gID8gZXhpdF9y
-b2J1c3RfbGlzdCsweDVhLzB4MTEwDQo+PiBbVGh1IE9jdCAxNyAxNjo0MzozNyAyMDE5XSAgbW1w
-dXQrMHg0YS8weDEyMA0KPj4gW1RodSBPY3QgMTcgMTY6NDM6MzcgMjAxOV0gIGRvX2V4aXQrMHgy
-ODQvMHhiMjANCj4+IFtUaHUgT2N0IDE3IDE2OjQzOjM3IDIwMTldICA/IGhhbmRsZV9tbV9mYXVs
-dCsweGZhLzB4MjAwDQo+PiBbVGh1IE9jdCAxNyAxNjo0MzozNyAyMDE5XSAgZG9fZ3JvdXBfZXhp
-dCsweDNhLzB4YTANCj4+IFtUaHUgT2N0IDE3IDE2OjQzOjM3IDIwMTldICBfX3g2NF9zeXNfZXhp
-dF9ncm91cCsweDE0LzB4MjANCj4+IFtUaHUgT2N0IDE3IDE2OjQzOjM3IDIwMTldICBkb19zeXNj
-YWxsXzY0KzB4NGYvMHgxMDANCj4+IFtUaHUgT2N0IDE3IDE2OjQzOjM3IDIwMTldICBlbnRyeV9T
-WVNDQUxMXzY0X2FmdGVyX2h3ZnJhbWUrMHg0NC8weGE5DQo+Pg0KPj4gU3VnZ2VzdGVkLWJ5OiBG
-ZWxpeCBLdWVobGluZyA8RmVsaXguS3VlaGxpbmdAYW1kLmNvbT4NCj4+IFNpZ25lZC1vZmYtYnk6
-IFBoaWxpcCBZYW5nIDxQaGlsaXAuWWFuZ0BhbWQuY29tPg0KPj4gLS0tDQo+PiAgICBkcml2ZXJz
-L2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfY2hhcmRldi5jICAgICAgICAgICAgfCAgNiArKystLS0N
-Cj4+ICAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9kZXZpY2UuYyAgICAgICAgICAg
-ICB8ICA1IC0tLS0tDQo+PiAgICAuLi4vZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9kZXZpY2VfcXVl
-dWVfbWFuYWdlci5jICAgfCAxMyArKysrKysrKysrLS0tDQo+PiAgICAuLi4vZ3B1L2RybS9hbWQv
-YW1ka2ZkL2tmZF9kZXZpY2VfcXVldWVfbWFuYWdlci5oICAgfCAgMSArDQo+PiAgICA0IGZpbGVz
-IGNoYW5nZWQsIDE0IGluc2VydGlvbnMoKyksIDExIGRlbGV0aW9ucygtKQ0KPj4NCj4+IGRpZmYg
-LS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfY2hhcmRldi5jIGIvZHJpdmVy
-cy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX2NoYXJkZXYuYw0KPj4gaW5kZXggZDllMzZkYmYxM2Q1
-Li40MGQ3NWMzOWYwOGUgMTAwNjQ0DQo+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtm
-ZC9rZmRfY2hhcmRldi5jDQo+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRf
-Y2hhcmRldi5jDQo+PiBAQCAtMTIwLDEzICsxMjAsMTMgQEAgc3RhdGljIGludCBrZmRfb3Blbihz
-dHJ1Y3QgaW5vZGUgKmlub2RlLCBzdHJ1Y3QgZmlsZSAqZmlsZXApDQo+PiAgICAJCXJldHVybiAt
-RVBFUk07DQo+PiAgICAJfQ0KPj4gICAgDQo+PiArCWlmIChrZmRfaXNfbG9ja2VkKCkpDQo+PiAr
-CQlyZXR1cm4gLUVBR0FJTjsNCj4+ICsNCj4+ICAgIAlwcm9jZXNzID0ga2ZkX2NyZWF0ZV9wcm9j
-ZXNzKGZpbGVwKTsNCj4+ICAgIAlpZiAoSVNfRVJSKHByb2Nlc3MpKQ0KPj4gICAgCQlyZXR1cm4g
-UFRSX0VSUihwcm9jZXNzKTsNCj4+ICAgIA0KPj4gLQlpZiAoa2ZkX2lzX2xvY2tlZCgpKQ0KPj4g
-LQkJcmV0dXJuIC1FQUdBSU47DQo+PiAtDQo+PiAgICAJZGV2X2RiZyhrZmRfZGV2aWNlLCAicHJv
-Y2VzcyAlZCBvcGVuZWQsIGNvbXBhdCBtb2RlICgzMiBiaXQpIC0gJWRcbiIsDQo+PiAgICAJCXBy
-b2Nlc3MtPnBhc2lkLCBwcm9jZXNzLT5pc18zMmJpdF91c2VyX21vZGUpOw0KPj4gICAgDQo+PiBk
-aWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX2RldmljZS5jIGIvZHJp
-dmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX2RldmljZS5jDQo+PiBpbmRleCA4ZjRiMjRlODQ5
-NjQuLjRmYTg4MzRjZTdjYiAxMDA2NDQNCj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
-a2ZkL2tmZF9kZXZpY2UuYw0KPj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2Zk
-X2RldmljZS5jDQo+PiBAQCAtNzMwLDkgKzczMCw2IEBAIGludCBrZ2Qya2ZkX3ByZV9yZXNldChz
-dHJ1Y3Qga2ZkX2RldiAqa2ZkKQ0KPj4gICAgCQlyZXR1cm4gMDsNCj4+ICAgIAlrZ2Qya2ZkX3N1
-c3BlbmQoa2ZkKTsNCj4+ICAgIA0KPj4gLQkvKiBob2xkIGRxbS0+bG9jayB0byBwcmV2ZW50IGZ1
-cnRoZXIgZXhlY3V0aW9uKi8NCj4+IC0JZHFtX2xvY2soa2ZkLT5kcW0pOw0KPj4gLQ0KPj4gICAg
-CWtmZF9zaWduYWxfcmVzZXRfZXZlbnQoa2ZkKTsNCj4+ICAgIAlyZXR1cm4gMDsNCj4+ICAgIH0N
-Cj4+IEBAIC03NTAsOCArNzQ3LDYgQEAgaW50IGtnZDJrZmRfcG9zdF9yZXNldChzdHJ1Y3Qga2Zk
-X2RldiAqa2ZkKQ0KPj4gICAgCWlmICgha2ZkLT5pbml0X2NvbXBsZXRlKQ0KPj4gICAgCQlyZXR1
-cm4gMDsNCj4+ICAgIA0KPj4gLQlkcW1fdW5sb2NrKGtmZC0+ZHFtKTsNCj4+IC0NCj4+ICAgIAly
-ZXQgPSBrZmRfcmVzdW1lKGtmZCk7DQo+PiAgICAJaWYgKHJldCkNCj4+ICAgIAkJcmV0dXJuIHJl
-dDsNCj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfZGV2aWNl
-X3F1ZXVlX21hbmFnZXIuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9kZXZpY2Vf
-cXVldWVfbWFuYWdlci5jDQo+PiBpbmRleCA4MWZiNTQ1Y2Y0MmMuLjA0YTQwZmFiZTlkNyAxMDA2
-NDQNCj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9kZXZpY2VfcXVldWVf
-bWFuYWdlci5jDQo+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfZGV2aWNl
-X3F1ZXVlX21hbmFnZXIuYw0KPj4gQEAgLTkxNSw3ICs5MTUsOCBAQCBzdGF0aWMgaW50IHN0YXJ0
-X25vY3BzY2goc3RydWN0IGRldmljZV9xdWV1ZV9tYW5hZ2VyICpkcW0pDQo+PiAgICAJDQo+PiAg
-ICAJaWYgKGRxbS0+ZGV2LT5kZXZpY2VfaW5mby0+YXNpY19mYW1pbHkgPT0gQ0hJUF9IQVdBSUkp
-DQo+PiAgICAJCXJldHVybiBwbV9pbml0KCZkcW0tPnBhY2tldHMsIGRxbSk7DQo+PiAtCQ0KPj4g
-KwlkcW0tPmRldmljZV9zdG9wcGVkID0gZmFsc2U7DQo+PiArDQo+PiAgICAJcmV0dXJuIDA7DQo+
-PiAgICB9DQo+PiAgICANCj4+IEBAIC05MjMsNyArOTI0LDggQEAgc3RhdGljIGludCBzdG9wX25v
-Y3BzY2goc3RydWN0IGRldmljZV9xdWV1ZV9tYW5hZ2VyICpkcW0pDQo+PiAgICB7DQo+PiAgICAJ
-aWYgKGRxbS0+ZGV2LT5kZXZpY2VfaW5mby0+YXNpY19mYW1pbHkgPT0gQ0hJUF9IQVdBSUkpDQo+
-PiAgICAJCXBtX3VuaW5pdCgmZHFtLT5wYWNrZXRzKTsNCj4+IC0JDQo+PiArCWRxbS0+ZGV2aWNl
-X3N0b3BwZWQgPSB0cnVlOw0KPj4gKw0KPj4gICAgCXJldHVybiAwOw0KPj4gICAgfQ0KPj4gICAg
-DQo+PiBAQCAtMTA3NCw2ICsxMDc2LDcgQEAgc3RhdGljIGludCBzdGFydF9jcHNjaChzdHJ1Y3Qg
-ZGV2aWNlX3F1ZXVlX21hbmFnZXIgKmRxbSkNCj4+ICAgIAlkcW1fbG9jayhkcW0pOw0KPj4gICAg
-CS8qIGNsZWFyIGhhbmcgc3RhdHVzIHdoZW4gZHJpdmVyIHRyeSB0byBzdGFydCB0aGUgaHcgc2No
-ZWR1bGVyICovDQo+PiAgICAJZHFtLT5pc19od3NfaGFuZyA9IGZhbHNlOw0KPj4gKwlkcW0tPmRl
-dmljZV9zdG9wcGVkID0gZmFsc2U7DQo+PiAgICAJZXhlY3V0ZV9xdWV1ZXNfY3BzY2goZHFtLCBL
-RkRfVU5NQVBfUVVFVUVTX0ZJTFRFUl9EWU5BTUlDX1FVRVVFUywgMCk7DQo+PiAgICAJZHFtX3Vu
-bG9jayhkcW0pOw0KPj4gICAgDQo+PiBAQCAtMTA4OSw2ICsxMDkyLDcgQEAgc3RhdGljIGludCBz
-dG9wX2Nwc2NoKHN0cnVjdCBkZXZpY2VfcXVldWVfbWFuYWdlciAqZHFtKQ0KPj4gICAgew0KPj4g
-ICAgCWRxbV9sb2NrKGRxbSk7DQo+PiAgICAJdW5tYXBfcXVldWVzX2Nwc2NoKGRxbSwgS0ZEX1VO
-TUFQX1FVRVVFU19GSUxURVJfQUxMX1FVRVVFUywgMCk7DQo+PiArCWRxbS0+ZGV2aWNlX3N0b3Bw
-ZWQgPSB0cnVlOw0KPj4gICAgCWRxbV91bmxvY2soZHFtKTsNCj4+ICAgIA0KPj4gICAgCWtmZF9n
-dHRfc2FfZnJlZShkcW0tPmRldiwgZHFtLT5mZW5jZV9tZW0pOw0KPj4gQEAgLTEyNzUsOSArMTI3
-OSwxMCBAQCBzdGF0aWMgaW50IG1hcF9xdWV1ZXNfY3BzY2goc3RydWN0IGRldmljZV9xdWV1ZV9t
-YW5hZ2VyICpkcW0pDQo+PiAgICB7DQo+PiAgICAJaW50IHJldHZhbDsNCj4+ICAgIA0KPj4gKwlp
-ZiAoZHFtLT5kZXZpY2Vfc3RvcHBlZCkNCj4+ICsJCXJldHVybiAwOw0KPj4gICAgCWlmIChkcW0t
-PnF1ZXVlX2NvdW50IDw9IDAgfHwgZHFtLT5wcm9jZXNzZXNfY291bnQgPD0gMCkNCj4+ICAgIAkJ
-cmV0dXJuIDA7DQo+PiAtDQo+PiAgICAJaWYgKGRxbS0+YWN0aXZlX3J1bmxpc3QpDQo+PiAgICAJ
-CXJldHVybiAwOw0KPj4gICAgDQo+PiBAQCAtMTI5OSw2ICsxMzA0LDggQEAgc3RhdGljIGludCB1
-bm1hcF9xdWV1ZXNfY3BzY2goc3RydWN0IGRldmljZV9xdWV1ZV9tYW5hZ2VyICpkcW0sDQo+PiAg
-ICB7DQo+PiAgICAJaW50IHJldHZhbCA9IDA7DQo+PiAgICANCj4+ICsJaWYgKGRxbS0+ZGV2aWNl
-X3N0b3BwZWQpDQo+PiArCQlyZXR1cm4gMDsNCj4+ICAgIAlpZiAoZHFtLT5pc19od3NfaGFuZykN
-Cj4+ICAgIAkJcmV0dXJuIC1FSU87DQo+PiAgICAJaWYgKCFkcW0tPmFjdGl2ZV9ydW5saXN0KQ0K
-Pj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9kZXZpY2VfcXVl
-dWVfbWFuYWdlci5oIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX2RldmljZV9xdWV1
-ZV9tYW5hZ2VyLmgNCj4+IGluZGV4IDJlYWVhNmIwNGNiZS4uNDRlY2RmOTk5Y2E4IDEwMDY0NA0K
-Pj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX2RldmljZV9xdWV1ZV9tYW5h
-Z2VyLmgNCj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9kZXZpY2VfcXVl
-dWVfbWFuYWdlci5oDQo+PiBAQCAtMjAxLDYgKzIwMSw3IEBAIHN0cnVjdCBkZXZpY2VfcXVldWVf
-bWFuYWdlciB7DQo+PiAgICAJYm9vbAkJCWlzX2h3c19oYW5nOw0KPj4gICAgCXN0cnVjdCB3b3Jr
-X3N0cnVjdAlod19leGNlcHRpb25fd29yazsNCj4+ICAgIAlzdHJ1Y3Qga2ZkX21lbV9vYmoJaGlx
-X3NkbWFfbXFkOw0KPj4gKwlib29sCQkJZGV2aWNlX3N0b3BwZWQ7DQo+PiAgICB9Ow0KPj4gICAg
-DQo+PiAgICB2b2lkIGRldmljZV9xdWV1ZV9tYW5hZ2VyX2luaXRfY2lrKA0KX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QK
-YW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5v
-cmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+On Mon, Oct 21, 2019 at 10:36:00PM -0400, Lyude Paul wrote:
+> Currently, MST lacks locking in a lot of places that really should have
+> some sort of locking. Hotplugging and link address code paths are some
+> of the offenders here, as there is actually nothing preventing us from
+> running a link address probe while at the same time handling a
+> connection status update request - something that's likely always been
+> possible but never seen in the wild because hotplugging has been broken
+> for ages now (with the exception of amdgpu, for reasons I don't think
+> are worth digging into very far).
+> 
+> Note: I'm going to start using the term "in-memory topology layout" here
+> to refer to drm_dp_mst_port->mstb and drm_dp_mst_branch->ports.
+> 
+> Locking in these places is a little tougher then it looks though.
+> Generally we protect anything having to do with the in-memory topology
+> layout under &mgr->lock. But this becomes nearly impossible to do from
+> the context of link address probes due to the fact that &mgr->lock is
+> usually grabbed under random various modesetting locks, meaning that
+> there's no way we can just invert the &mgr->lock order and keep it
+> locked throughout the whole process of updating the topology.
+> 
+> Luckily there are only two workers which can modify the in-memory
+> topology layout: drm_dp_mst_up_req_work() and
+> drm_dp_mst_link_probe_work(), meaning as long as we prevent these two
+> workers from traveling the topology layout in parallel with the intent
+> of updating it we don't need to worry about grabbing &mgr->lock in these
+> workers for reads. We only need to grab &mgr->lock in these workers for
+> writes, so that readers outside these two workers are still protected
+> from the topology layout changing beneath them.
+> 
+> So, add the new &mgr->probe_lock and use it in both
+> drm_dp_mst_link_probe_work() and drm_dp_mst_up_req_work(). Additionally,
+> add some more detailed explanations for how this locking is intended to
+> work to drm_dp_mst_port->mstb and drm_dp_mst_branch->ports.
+
+This seems like a good solution to me, thanks for working this through!
+
+Any chance we could add a WARN_ON(!mutex_is_locked(&mgr->probe_lock)); somewhere
+centrally called by all paths modifying the in-memory topology layout?
+drm_dp_add_port perhaps? That way we have a fallback in case something else
+starts mucking with the topology.
+
+Other than that,
+
+Reviewed-by: Sean Paul <sean@poorly.run>
+
+
+> 
+> Signed-off-by: Lyude Paul <lyude@redhat.com>
+> Cc: Juston Li <juston.li@intel.com>
+> Cc: Imre Deak <imre.deak@intel.com>
+> Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
+> Cc: Harry Wentland <hwentlan@amd.com>
+> Cc: Daniel Vetter <daniel.vetter@ffwll.ch>
+> Cc: Sean Paul <sean@poorly.run>
+> ---
+>  drivers/gpu/drm/drm_dp_mst_topology.c | 28 ++++++++++++++---------
+>  include/drm/drm_dp_mst_helper.h       | 32 +++++++++++++++++++++++----
+>  2 files changed, 46 insertions(+), 14 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/drm_dp_mst_topology.c b/drivers/gpu/drm/drm_dp_mst_topology.c
+> index 08c316a727df..11d842f0bff5 100644
+> --- a/drivers/gpu/drm/drm_dp_mst_topology.c
+> +++ b/drivers/gpu/drm/drm_dp_mst_topology.c
+> @@ -2147,37 +2147,40 @@ static void drm_dp_check_and_send_link_address(struct drm_dp_mst_topology_mgr *m
+>  					       struct drm_dp_mst_branch *mstb)
+>  {
+>  	struct drm_dp_mst_port *port;
+> -	struct drm_dp_mst_branch *mstb_child;
+> +
+>  	if (!mstb->link_address_sent)
+>  		drm_dp_send_link_address(mgr, mstb);
+>  
+>  	list_for_each_entry(port, &mstb->ports, next) {
+> -		if (port->input)
+> -			continue;
+> +		struct drm_dp_mst_branch *mstb_child = NULL;
+>  
+> -		if (!port->ddps)
+> +		if (port->input || !port->ddps)
+>  			continue;
+>  
+>  		if (!port->available_pbn)
+>  			drm_dp_send_enum_path_resources(mgr, mstb, port);
+>  
+> -		if (port->mstb) {
+> +		if (port->mstb)
+>  			mstb_child = drm_dp_mst_topology_get_mstb_validated(
+>  			    mgr, port->mstb);
+> -			if (mstb_child) {
+> -				drm_dp_check_and_send_link_address(mgr, mstb_child);
+> -				drm_dp_mst_topology_put_mstb(mstb_child);
+> -			}
+> +
+> +		if (mstb_child) {
+> +			drm_dp_check_and_send_link_address(mgr, mstb_child);
+> +			drm_dp_mst_topology_put_mstb(mstb_child);
+>  		}
+>  	}
+>  }
+>  
+>  static void drm_dp_mst_link_probe_work(struct work_struct *work)
+>  {
+> -	struct drm_dp_mst_topology_mgr *mgr = container_of(work, struct drm_dp_mst_topology_mgr, work);
+> +	struct drm_dp_mst_topology_mgr *mgr =
+> +		container_of(work, struct drm_dp_mst_topology_mgr, work);
+> +	struct drm_device *dev = mgr->dev;
+>  	struct drm_dp_mst_branch *mstb;
+>  	int ret;
+>  
+> +	mutex_lock(&mgr->probe_lock);
+> +
+>  	mutex_lock(&mgr->lock);
+>  	mstb = mgr->mst_primary;
+>  	if (mstb) {
+> @@ -2190,6 +2193,7 @@ static void drm_dp_mst_link_probe_work(struct work_struct *work)
+>  		drm_dp_check_and_send_link_address(mgr, mstb);
+>  		drm_dp_mst_topology_put_mstb(mstb);
+>  	}
+> +	mutex_unlock(&mgr->probe_lock);
+>  }
+>  
+>  static bool drm_dp_validate_guid(struct drm_dp_mst_topology_mgr *mgr,
+> @@ -3313,6 +3317,7 @@ static void drm_dp_mst_up_req_work(struct work_struct *work)
+>  			     up_req_work);
+>  	struct drm_dp_pending_up_req *up_req;
+>  
+> +	mutex_lock(&mgr->probe_lock);
+>  	while (true) {
+>  		mutex_lock(&mgr->up_req_lock);
+>  		up_req = list_first_entry_or_null(&mgr->up_req_list,
+> @@ -3328,6 +3333,7 @@ static void drm_dp_mst_up_req_work(struct work_struct *work)
+>  		drm_dp_mst_process_up_req(mgr, up_req);
+>  		kfree(up_req);
+>  	}
+> +	mutex_unlock(&mgr->probe_lock);
+>  }
+>  
+>  static int drm_dp_mst_handle_up_req(struct drm_dp_mst_topology_mgr *mgr)
+> @@ -4349,6 +4355,7 @@ int drm_dp_mst_topology_mgr_init(struct drm_dp_mst_topology_mgr *mgr,
+>  	mutex_init(&mgr->payload_lock);
+>  	mutex_init(&mgr->delayed_destroy_lock);
+>  	mutex_init(&mgr->up_req_lock);
+> +	mutex_init(&mgr->probe_lock);
+>  	INIT_LIST_HEAD(&mgr->tx_msg_downq);
+>  	INIT_LIST_HEAD(&mgr->destroy_port_list);
+>  	INIT_LIST_HEAD(&mgr->destroy_branch_device_list);
+> @@ -4414,6 +4421,7 @@ void drm_dp_mst_topology_mgr_destroy(struct drm_dp_mst_topology_mgr *mgr)
+>  	mutex_destroy(&mgr->qlock);
+>  	mutex_destroy(&mgr->lock);
+>  	mutex_destroy(&mgr->up_req_lock);
+> +	mutex_destroy(&mgr->probe_lock);
+>  }
+>  EXPORT_SYMBOL(drm_dp_mst_topology_mgr_destroy);
+>  
+> diff --git a/include/drm/drm_dp_mst_helper.h b/include/drm/drm_dp_mst_helper.h
+> index 7d80c38ee00e..bccb5514e0ef 100644
+> --- a/include/drm/drm_dp_mst_helper.h
+> +++ b/include/drm/drm_dp_mst_helper.h
+> @@ -55,8 +55,6 @@ struct drm_dp_vcpi {
+>   * @num_sdp_stream_sinks: Number of stream sinks
+>   * @available_pbn: Available bandwidth for this port.
+>   * @next: link to next port on this branch device
+> - * @mstb: branch device on this port, protected by
+> - * &drm_dp_mst_topology_mgr.lock
+>   * @aux: i2c aux transport to talk to device connected to this port, protected
+>   * by &drm_dp_mst_topology_mgr.lock
+>   * @parent: branch device parent of this port
+> @@ -92,7 +90,17 @@ struct drm_dp_mst_port {
+>  	u8 num_sdp_stream_sinks;
+>  	uint16_t available_pbn;
+>  	struct list_head next;
+> -	struct drm_dp_mst_branch *mstb; /* pointer to an mstb if this port has one */
+> +	/**
+> +	 * @mstb: the branch device connected to this port, if there is one.
+> +	 * This should be considered protected for reading by
+> +	 * &drm_dp_mst_topology_mgr.lock. There are two exceptions to this:
+> +	 * &drm_dp_mst_topology_mgr.up_req_work and
+> +	 * &drm_dp_mst_topology_mgr.work, which do not grab
+> +	 * &drm_dp_mst_topology_mgr.lock during reads but are the only
+> +	 * updaters of this list and are protected from writing concurrently
+> +	 * by &drm_dp_mst_topology_mgr.probe_lock.
+> +	 */
+> +	struct drm_dp_mst_branch *mstb;
+>  	struct drm_dp_aux aux; /* i2c bus for this port? */
+>  	struct drm_dp_mst_branch *parent;
+>  
+> @@ -118,7 +126,6 @@ struct drm_dp_mst_port {
+>   * @lct: Link count total to talk to this branch device.
+>   * @num_ports: number of ports on the branch.
+>   * @msg_slots: one bit per transmitted msg slot.
+> - * @ports: linked list of ports on this branch.
+>   * @port_parent: pointer to the port parent, NULL if toplevel.
+>   * @mgr: topology manager for this branch device.
+>   * @tx_slots: transmission slots for this device.
+> @@ -156,6 +163,16 @@ struct drm_dp_mst_branch {
+>  	int num_ports;
+>  
+>  	int msg_slots;
+> +	/**
+> +	 * @ports: the list of ports on this branch device. This should be
+> +	 * considered protected for reading by &drm_dp_mst_topology_mgr.lock.
+> +	 * There are two exceptions to this:
+> +	 * &drm_dp_mst_topology_mgr.up_req_work and
+> +	 * &drm_dp_mst_topology_mgr.work, which do not grab
+> +	 * &drm_dp_mst_topology_mgr.lock during reads but are the only
+> +	 * updaters of this list and are protected from updating the list
+> +	 * concurrently by @drm_dp_mst_topology_mgr.probe_lock
+> +	 */
+>  	struct list_head ports;
+>  
+>  	/* list of tx ops queue for this port */
+> @@ -502,6 +519,13 @@ struct drm_dp_mst_topology_mgr {
+>  	 */
+>  	struct mutex lock;
+>  
+> +	/**
+> +	 * @probe_lock: Prevents @work and @up_req_work, the only writers of
+> +	 * &drm_dp_mst_port.mstb and &drm_dp_mst_branch.ports, from racing
+> +	 * while they update the topology.
+> +	 */
+> +	struct mutex probe_lock;
+> +
+>  	/**
+>  	 * @mst_state: If this manager is enabled for an MST capable port. False
+>  	 * if no MST sink/branch devices is connected.
+> -- 
+> 2.21.0
+> 
+
+-- 
+Sean Paul, Software Engineer, Google / Chromium OS
