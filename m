@@ -1,7 +1,7 @@
 From: Lyude Paul <lyude@redhat.com>
-Subject: [PATCH v5 09/14] drm/nouveau: Don't grab runtime PM refs for HPD IRQs
-Date: Mon, 21 Oct 2019 22:36:04 -0400
-Message-ID: <20191022023641.8026-10-lyude@redhat.com>
+Subject: [PATCH v5 12/14] drm/amdgpu/dm: Resume short HPD IRQs before resuming MST topology
+Date: Mon, 21 Oct 2019 22:36:07 -0400
+Message-ID: <20191022023641.8026-13-lyude@redhat.com>
 References: <20191022023641.8026-1-lyude@redhat.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -10,89 +10,51 @@ Return-path: <linux-kernel-owner@vger.kernel.org>
 In-Reply-To: <20191022023641.8026-1-lyude@redhat.com>
 Sender: linux-kernel-owner@vger.kernel.org
 To: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
-Cc: Juston Li <juston.li@intel.com>, Imre Deak <imre.deak@intel.com>, =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>, Harry Wentland <hwentlan@amd.com>, Daniel Vetter <daniel.vetter@ffwll.ch>, Sean Paul <sean@poorly.run>, Ben Skeggs <bskeggs@redhat.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, linux-kernel@vger.kernel.org
+Cc: Juston Li <juston.li@intel.com>, Imre Deak <imre.deak@intel.com>, =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>, Harry Wentland <hwentlan@amd.com>, Daniel Vetter <daniel.vetter@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>, Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>, David Francis <David.Francis@amd.com>, Mario Kleiner <mario.kleiner.de@gmail.com>, linux-kernel@vger.kernel.org
 List-Id: amd-gfx.lists.freedesktop.org
 
-In order for suspend/resume reprobing to work, we need to be able to
-perform sideband communications during suspend/resume, along with
-runtime PM suspend/resume. In order to do so, we also need to make sure
-that nouveau doesn't bother grabbing a runtime PM reference to do so,
-since otherwise we'll start deadlocking runtime PM again.
+Since we're going to be reprobing the entire topology state on resume
+now using sideband transactions, we need to ensure that we actually have
+short HPD irqs enabled before calling drm_dp_mst_topology_mgr_resume().
+So, do that.
 
-Note that we weren't able to do this before, because of the DP MST
-helpers processing UP requests from topologies in the same context as
-drm_dp_mst_hpd_irq() which would have caused us to open ourselves up to
-receiving hotplug events and deadlocking with runtime suspend/resume.
-Now that those requests are handled asynchronously, this change should
-be completely safe.
+Changes since v3:
+* Fix typo in comments
 
 Cc: Juston Li <juston.li@intel.com>
 Cc: Imre Deak <imre.deak@intel.com>
 Cc: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
 Cc: Harry Wentland <hwentlan@amd.com>
 Cc: Daniel Vetter <daniel.vetter@ffwll.ch>
-Reviewed-by: Sean Paul <sean@poorly.run>
 Signed-off-by: Lyude Paul <lyude@redhat.com>
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/nouveau/nouveau_connector.c | 33 +++++++++++----------
- 1 file changed, 17 insertions(+), 16 deletions(-)
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/nouveau/nouveau_connector.c b/drivers/gpu/drm/=
-nouveau/nouveau_connector.c
-index 3a5db17bc5c7..5b413588b823 100644
---- a/drivers/gpu/drm/nouveau/nouveau_connector.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_connector.c
-@@ -1130,6 +1130,16 @@ nouveau_connector_hotplug(struct nvif_notify *notify=
-)
- =09const char *name =3D connector->name;
- =09struct nouveau_encoder *nv_encoder;
- =09int ret;
-+=09bool plugged =3D (rep->mask !=3D NVIF_NOTIFY_CONN_V0_UNPLUG);
-+
-+=09if (rep->mask & NVIF_NOTIFY_CONN_V0_IRQ) {
-+=09=09NV_DEBUG(drm, "service %s\n", name);
-+=09=09drm_dp_cec_irq(&nv_connector->aux);
-+=09=09if ((nv_encoder =3D find_encoder(connector, DCB_OUTPUT_DP)))
-+=09=09=09nv50_mstm_service(nv_encoder->dp.mstm);
-+
-+=09=09return NVIF_NOTIFY_KEEP;
-+=09}
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gp=
+u/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 887bc1d5d9e2..8f67d301ad81 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -1186,15 +1186,15 @@ static int dm_resume(void *handle)
+ =09/* program HPD filter */
+ =09dc_resume(dm->dc);
 =20
- =09ret =3D pm_runtime_get(drm->dev->dev);
- =09if (ret =3D=3D 0) {
-@@ -1150,25 +1160,16 @@ nouveau_connector_hotplug(struct nvif_notify *notif=
-y)
- =09=09return NVIF_NOTIFY_DROP;
- =09}
-=20
--=09if (rep->mask & NVIF_NOTIFY_CONN_V0_IRQ) {
--=09=09NV_DEBUG(drm, "service %s\n", name);
--=09=09drm_dp_cec_irq(&nv_connector->aux);
--=09=09if ((nv_encoder =3D find_encoder(connector, DCB_OUTPUT_DP)))
--=09=09=09nv50_mstm_service(nv_encoder->dp.mstm);
--=09} else {
--=09=09bool plugged =3D (rep->mask !=3D NVIF_NOTIFY_CONN_V0_UNPLUG);
+-=09/* On resume we need to  rewrite the MSTM control bits to enamble MST*/
+-=09s3_handle_mst(ddev, false);
 -
-+=09if (!plugged)
-+=09=09drm_dp_cec_unset_edid(&nv_connector->aux);
-+=09NV_DEBUG(drm, "%splugged %s\n", plugged ? "" : "un", name);
-+=09if ((nv_encoder =3D find_encoder(connector, DCB_OUTPUT_DP))) {
- =09=09if (!plugged)
--=09=09=09drm_dp_cec_unset_edid(&nv_connector->aux);
--=09=09NV_DEBUG(drm, "%splugged %s\n", plugged ? "" : "un", name);
--=09=09if ((nv_encoder =3D find_encoder(connector, DCB_OUTPUT_DP))) {
--=09=09=09if (!plugged)
--=09=09=09=09nv50_mstm_remove(nv_encoder->dp.mstm);
--=09=09}
--
--=09=09drm_helper_hpd_irq_event(connector->dev);
-+=09=09=09nv50_mstm_remove(nv_encoder->dp.mstm);
- =09}
+ =09/*
+ =09 * early enable HPD Rx IRQ, should be done before set mode as short
+ =09 * pulse interrupts are used for MST
+ =09 */
+ =09amdgpu_dm_irq_resume_early(adev);
 =20
-+=09drm_helper_hpd_irq_event(connector->dev);
++=09/* On resume we need to rewrite the MSTM control bits to enable MST*/
++=09s3_handle_mst(ddev, false);
 +
- =09pm_runtime_mark_last_busy(drm->dev->dev);
- =09pm_runtime_put_autosuspend(drm->dev->dev);
- =09return NVIF_NOTIFY_KEEP;
+ =09/* Do detection*/
+ =09drm_connector_list_iter_begin(ddev, &iter);
+ =09drm_for_each_connector_iter(connector, &iter) {
 --=20
 2.21.0
