@@ -1,249 +1,40 @@
-From: Sean Paul <sean@poorly.run>
-Subject: Re: [PATCH v5 05/14] drm/dp_mst: Add probe_lock
-Date: Tue, 22 Oct 2019 12:06:09 -0400
-Message-ID: <20191022160609.GE85762@art_vandelay>
-References: <20191022023641.8026-1-lyude@redhat.com>
- <20191022023641.8026-6-lyude@redhat.com>
+From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel@daenzer.net>
+Subject: Re: radeon Disabling GPU acceleration (WB disabled?)
+Date: Tue, 22 Oct 2019 18:09:26 +0200
+Message-ID: <61646cbe-c4a9-cef1-d586-f3ac794b998a@daenzer.net>
+References: <24b5f681-df58-7663-af7c-9fa9b9158be9@linux.ee>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Transfer-Encoding: 8bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Content-Disposition: inline
-In-Reply-To: <20191022023641.8026-6-lyude@redhat.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Lyude Paul <lyude@redhat.com>
-Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, Juston Li <juston.li@intel.com>, Imre Deak <imre.deak@intel.com>, Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>, Harry Wentland <hwentlan@amd.com>, Daniel Vetter <daniel.vetter@ffwll.ch>, Sean Paul <sean@poorly.run>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+In-Reply-To: <24b5f681-df58-7663-af7c-9fa9b9158be9@linux.ee>
+Content-Language: en-CA
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: Meelis Roos <mroos@linux.ee>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
 List-Id: amd-gfx.lists.freedesktop.org
 
-On Mon, Oct 21, 2019 at 10:36:00PM -0400, Lyude Paul wrote:
-> Currently, MST lacks locking in a lot of places that really should have
-> some sort of locking. Hotplugging and link address code paths are some
-> of the offenders here, as there is actually nothing preventing us from
-> running a link address probe while at the same time handling a
-> connection status update request - something that's likely always been
-> possible but never seen in the wild because hotplugging has been broken
-> for ages now (with the exception of amdgpu, for reasons I don't think
-> are worth digging into very far).
-> 
-> Note: I'm going to start using the term "in-memory topology layout" here
-> to refer to drm_dp_mst_port->mstb and drm_dp_mst_branch->ports.
-> 
-> Locking in these places is a little tougher then it looks though.
-> Generally we protect anything having to do with the in-memory topology
-> layout under &mgr->lock. But this becomes nearly impossible to do from
-> the context of link address probes due to the fact that &mgr->lock is
-> usually grabbed under random various modesetting locks, meaning that
-> there's no way we can just invert the &mgr->lock order and keep it
-> locked throughout the whole process of updating the topology.
-> 
-> Luckily there are only two workers which can modify the in-memory
-> topology layout: drm_dp_mst_up_req_work() and
-> drm_dp_mst_link_probe_work(), meaning as long as we prevent these two
-> workers from traveling the topology layout in parallel with the intent
-> of updating it we don't need to worry about grabbing &mgr->lock in these
-> workers for reads. We only need to grab &mgr->lock in these workers for
-> writes, so that readers outside these two workers are still protected
-> from the topology layout changing beneath them.
-> 
-> So, add the new &mgr->probe_lock and use it in both
-> drm_dp_mst_link_probe_work() and drm_dp_mst_up_req_work(). Additionally,
-> add some more detailed explanations for how this locking is intended to
-> work to drm_dp_mst_port->mstb and drm_dp_mst_branch->ports.
-
-This seems like a good solution to me, thanks for working this through!
-
-Any chance we could add a WARN_ON(!mutex_is_locked(&mgr->probe_lock)); somewhere
-centrally called by all paths modifying the in-memory topology layout?
-drm_dp_add_port perhaps? That way we have a fallback in case something else
-starts mucking with the topology.
-
-Other than that,
-
-Reviewed-by: Sean Paul <sean@poorly.run>
-
-
-> 
-> Signed-off-by: Lyude Paul <lyude@redhat.com>
-> Cc: Juston Li <juston.li@intel.com>
-> Cc: Imre Deak <imre.deak@intel.com>
-> Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
-> Cc: Harry Wentland <hwentlan@amd.com>
-> Cc: Daniel Vetter <daniel.vetter@ffwll.ch>
-> Cc: Sean Paul <sean@poorly.run>
-> ---
->  drivers/gpu/drm/drm_dp_mst_topology.c | 28 ++++++++++++++---------
->  include/drm/drm_dp_mst_helper.h       | 32 +++++++++++++++++++++++----
->  2 files changed, 46 insertions(+), 14 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/drm_dp_mst_topology.c b/drivers/gpu/drm/drm_dp_mst_topology.c
-> index 08c316a727df..11d842f0bff5 100644
-> --- a/drivers/gpu/drm/drm_dp_mst_topology.c
-> +++ b/drivers/gpu/drm/drm_dp_mst_topology.c
-> @@ -2147,37 +2147,40 @@ static void drm_dp_check_and_send_link_address(struct drm_dp_mst_topology_mgr *m
->  					       struct drm_dp_mst_branch *mstb)
->  {
->  	struct drm_dp_mst_port *port;
-> -	struct drm_dp_mst_branch *mstb_child;
-> +
->  	if (!mstb->link_address_sent)
->  		drm_dp_send_link_address(mgr, mstb);
->  
->  	list_for_each_entry(port, &mstb->ports, next) {
-> -		if (port->input)
-> -			continue;
-> +		struct drm_dp_mst_branch *mstb_child = NULL;
->  
-> -		if (!port->ddps)
-> +		if (port->input || !port->ddps)
->  			continue;
->  
->  		if (!port->available_pbn)
->  			drm_dp_send_enum_path_resources(mgr, mstb, port);
->  
-> -		if (port->mstb) {
-> +		if (port->mstb)
->  			mstb_child = drm_dp_mst_topology_get_mstb_validated(
->  			    mgr, port->mstb);
-> -			if (mstb_child) {
-> -				drm_dp_check_and_send_link_address(mgr, mstb_child);
-> -				drm_dp_mst_topology_put_mstb(mstb_child);
-> -			}
-> +
-> +		if (mstb_child) {
-> +			drm_dp_check_and_send_link_address(mgr, mstb_child);
-> +			drm_dp_mst_topology_put_mstb(mstb_child);
->  		}
->  	}
->  }
->  
->  static void drm_dp_mst_link_probe_work(struct work_struct *work)
->  {
-> -	struct drm_dp_mst_topology_mgr *mgr = container_of(work, struct drm_dp_mst_topology_mgr, work);
-> +	struct drm_dp_mst_topology_mgr *mgr =
-> +		container_of(work, struct drm_dp_mst_topology_mgr, work);
-> +	struct drm_device *dev = mgr->dev;
->  	struct drm_dp_mst_branch *mstb;
->  	int ret;
->  
-> +	mutex_lock(&mgr->probe_lock);
-> +
->  	mutex_lock(&mgr->lock);
->  	mstb = mgr->mst_primary;
->  	if (mstb) {
-> @@ -2190,6 +2193,7 @@ static void drm_dp_mst_link_probe_work(struct work_struct *work)
->  		drm_dp_check_and_send_link_address(mgr, mstb);
->  		drm_dp_mst_topology_put_mstb(mstb);
->  	}
-> +	mutex_unlock(&mgr->probe_lock);
->  }
->  
->  static bool drm_dp_validate_guid(struct drm_dp_mst_topology_mgr *mgr,
-> @@ -3313,6 +3317,7 @@ static void drm_dp_mst_up_req_work(struct work_struct *work)
->  			     up_req_work);
->  	struct drm_dp_pending_up_req *up_req;
->  
-> +	mutex_lock(&mgr->probe_lock);
->  	while (true) {
->  		mutex_lock(&mgr->up_req_lock);
->  		up_req = list_first_entry_or_null(&mgr->up_req_list,
-> @@ -3328,6 +3333,7 @@ static void drm_dp_mst_up_req_work(struct work_struct *work)
->  		drm_dp_mst_process_up_req(mgr, up_req);
->  		kfree(up_req);
->  	}
-> +	mutex_unlock(&mgr->probe_lock);
->  }
->  
->  static int drm_dp_mst_handle_up_req(struct drm_dp_mst_topology_mgr *mgr)
-> @@ -4349,6 +4355,7 @@ int drm_dp_mst_topology_mgr_init(struct drm_dp_mst_topology_mgr *mgr,
->  	mutex_init(&mgr->payload_lock);
->  	mutex_init(&mgr->delayed_destroy_lock);
->  	mutex_init(&mgr->up_req_lock);
-> +	mutex_init(&mgr->probe_lock);
->  	INIT_LIST_HEAD(&mgr->tx_msg_downq);
->  	INIT_LIST_HEAD(&mgr->destroy_port_list);
->  	INIT_LIST_HEAD(&mgr->destroy_branch_device_list);
-> @@ -4414,6 +4421,7 @@ void drm_dp_mst_topology_mgr_destroy(struct drm_dp_mst_topology_mgr *mgr)
->  	mutex_destroy(&mgr->qlock);
->  	mutex_destroy(&mgr->lock);
->  	mutex_destroy(&mgr->up_req_lock);
-> +	mutex_destroy(&mgr->probe_lock);
->  }
->  EXPORT_SYMBOL(drm_dp_mst_topology_mgr_destroy);
->  
-> diff --git a/include/drm/drm_dp_mst_helper.h b/include/drm/drm_dp_mst_helper.h
-> index 7d80c38ee00e..bccb5514e0ef 100644
-> --- a/include/drm/drm_dp_mst_helper.h
-> +++ b/include/drm/drm_dp_mst_helper.h
-> @@ -55,8 +55,6 @@ struct drm_dp_vcpi {
->   * @num_sdp_stream_sinks: Number of stream sinks
->   * @available_pbn: Available bandwidth for this port.
->   * @next: link to next port on this branch device
-> - * @mstb: branch device on this port, protected by
-> - * &drm_dp_mst_topology_mgr.lock
->   * @aux: i2c aux transport to talk to device connected to this port, protected
->   * by &drm_dp_mst_topology_mgr.lock
->   * @parent: branch device parent of this port
-> @@ -92,7 +90,17 @@ struct drm_dp_mst_port {
->  	u8 num_sdp_stream_sinks;
->  	uint16_t available_pbn;
->  	struct list_head next;
-> -	struct drm_dp_mst_branch *mstb; /* pointer to an mstb if this port has one */
-> +	/**
-> +	 * @mstb: the branch device connected to this port, if there is one.
-> +	 * This should be considered protected for reading by
-> +	 * &drm_dp_mst_topology_mgr.lock. There are two exceptions to this:
-> +	 * &drm_dp_mst_topology_mgr.up_req_work and
-> +	 * &drm_dp_mst_topology_mgr.work, which do not grab
-> +	 * &drm_dp_mst_topology_mgr.lock during reads but are the only
-> +	 * updaters of this list and are protected from writing concurrently
-> +	 * by &drm_dp_mst_topology_mgr.probe_lock.
-> +	 */
-> +	struct drm_dp_mst_branch *mstb;
->  	struct drm_dp_aux aux; /* i2c bus for this port? */
->  	struct drm_dp_mst_branch *parent;
->  
-> @@ -118,7 +126,6 @@ struct drm_dp_mst_port {
->   * @lct: Link count total to talk to this branch device.
->   * @num_ports: number of ports on the branch.
->   * @msg_slots: one bit per transmitted msg slot.
-> - * @ports: linked list of ports on this branch.
->   * @port_parent: pointer to the port parent, NULL if toplevel.
->   * @mgr: topology manager for this branch device.
->   * @tx_slots: transmission slots for this device.
-> @@ -156,6 +163,16 @@ struct drm_dp_mst_branch {
->  	int num_ports;
->  
->  	int msg_slots;
-> +	/**
-> +	 * @ports: the list of ports on this branch device. This should be
-> +	 * considered protected for reading by &drm_dp_mst_topology_mgr.lock.
-> +	 * There are two exceptions to this:
-> +	 * &drm_dp_mst_topology_mgr.up_req_work and
-> +	 * &drm_dp_mst_topology_mgr.work, which do not grab
-> +	 * &drm_dp_mst_topology_mgr.lock during reads but are the only
-> +	 * updaters of this list and are protected from updating the list
-> +	 * concurrently by @drm_dp_mst_topology_mgr.probe_lock
-> +	 */
->  	struct list_head ports;
->  
->  	/* list of tx ops queue for this port */
-> @@ -502,6 +519,13 @@ struct drm_dp_mst_topology_mgr {
->  	 */
->  	struct mutex lock;
->  
-> +	/**
-> +	 * @probe_lock: Prevents @work and @up_req_work, the only writers of
-> +	 * &drm_dp_mst_port.mstb and &drm_dp_mst_branch.ports, from racing
-> +	 * while they update the topology.
-> +	 */
-> +	struct mutex probe_lock;
-> +
->  	/**
->  	 * @mst_state: If this manager is enabled for an MST capable port. False
->  	 * if no MST sink/branch devices is connected.
-> -- 
-> 2.21.0
-> 
-
--- 
-Sean Paul, Software Engineer, Google / Chromium OS
+T24gMjAxOS0xMC0yMCAxMToyMSBwLm0uLCBNZWVsaXMgUm9vcyB3cm90ZToKPiBJIHRyaWVkIDUu
+MiwgNS4zIGFuZCA1LjQtcmM0IG9uIG15IG9sZCBGdWppdHN1IFJYMjIwIHdpdGggaW50ZWdyYXRl
+ZAo+IFJhZGVvbiBSVjEwMC4gRG1lc2cgdGVsbHMgdGhhdCBHUFUgYWNjZWxlcmF0aW9uIGlzIGRp
+c2FibGVkLiBJIGRvIG5vdAo+IGtub3cgaWYgaXQgaGFzIGJlZW4gZW5hYmxlZCBpbiB0aGUgcGFz
+dCAtIG5vIG9sZCBrZXJuZWxzIGhhbmR5IGF0IHRoZQo+IG1vbWVudC4KPiAKPiBGcm9tIGRtZXNn
+IGl0IGxvb2tzIGxpa2Ugc29tZXRoaW5nIHdpdGggTVRSUiBtYXliZTogV0IgZGlzYWJsZWQuCgpU
+aGF0J3MgaGFybWxlc3MuCgoKPiBbwqDCoMKgIDguNTM1OTc1XSBbZHJtXSBEcml2ZXIgc3VwcG9y
+dHMgcHJlY2lzZSB2YmxhbmsgdGltZXN0YW1wIHF1ZXJ5Lgo+IFvCoMKgwqAgOC41MzU5ODFdIHJh
+ZGVvbiAwMDAwOjAwOjA1LjA6IERpc2FibGluZyBHUFUgYWNjZWxlcmF0aW9uCgpUaGlzIGxvb2tz
+IGxpa2UgZHJtX2lycV9pbnN0YWxsIHJldHVybnMgYW4gZXJyb3IgaW4gcmFkZW9uX2lycV9rbXNf
+aW5pdC4KCgotLSAKRWFydGhsaW5nIE1pY2hlbCBEw6RuemVyICAgICAgICAgICAgICAgfCAgICAg
+ICAgICAgICAgIGh0dHBzOi8vcmVkaGF0LmNvbQpMaWJyZSBzb2Z0d2FyZSBlbnRodXNpYXN0ICAg
+ICAgICAgICAgIHwgICAgICAgICAgICAgTWVzYSBhbmQgWCBkZXZlbG9wZXIKX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KZHJpLWRldmVsIG1haWxpbmcgbGlz
+dApkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0
+b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVs
