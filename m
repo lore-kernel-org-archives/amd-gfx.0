@@ -1,98 +1,46 @@
-From: Nirmoy <nirmodas-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: remove unused variable in
- amdgpu_gfx_kiq_free_ring
-Date: Wed, 23 Oct 2019 15:27:21 +0000
-Message-ID: <a177beed-e7a4-df24-e3f2-97c86b9d3a88@amd.com>
-References: <20191023143517.57753-1-nirmoy.das@amd.com>
- <b1569003-1b14-d71d-32b8-3695677189ac@amd.com>
+From: Mark Salyzyn <salyzyn@android.com>
+Subject: Re: [PATCH] Cleanup: replace prefered with preferred
+Date: Wed, 23 Oct 2019 08:40:59 -0700
+Message-ID: <fa12cb96-7a93-bf85-214d-a7bfaf8b8b0a@android.com>
+References: <20191022214208.211448-1-salyzyn@android.com>
+ <20191023115637.GA23733@linux.intel.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <b1569003-1b14-d71d-32b8-3695677189ac-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-Content-ID: <23123D15D765D849BD7D9DFCBBE98B72-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, Nirmoy Das <nirmoy.aiemd-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Cc: "Das, Nirmoy" <Nirmoy.Das-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20191023115637.GA23733@linux.intel.com>
+Content-Language: en-GB
+Sender: linux-kernel-owner@vger.kernel.org
+To: Jarkko Sakkinen <jarkko.sakkinen@linux.intel.com>
+Cc: linux-kernel@vger.kernel.org, kernel-team@android.com, "David S. Miller" <davem@davemloft.net>, Jonathan Corbet <corbet@lwn.net>, Ard Biesheuvel <ard.biesheuvel@linaro.org>, Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, VMware Graphics <linux-graphics-maintainer@vmware.com>, Thomas Hellstrom <thellstrom@vmware.com>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Trond Myklebust <trond.myklebust@hammerspace.com>, Anna Schumaker <anna.schumaker@netapp.com>, Alexander
+List-Id: amd-gfx.lists.freedesktop.org
 
-VGhhbmtzIFVwZGF0ZWQgYW5kIHB1c2hlZCB0b8KgIGJyYWhtYSBIRUFEOnJlZnMvZm9yL2FtZC1z
-dGFnaW5nLWRybS1uZXh0DQoNCk9uIDEwLzIzLzE5IDU6MjEgUE0sIEtvZW5pZywgQ2hyaXN0aWFu
-IHdyb3RlOg0KPiBNYXliZSBzYXkgcGFyYW1ldGVyIGluc3RlYWQgb2YgdmFyaWFibGUgaW4gdGhl
-IHN1YmplY3QuDQo+DQo+IEFtIDIzLjEwLjE5IHVtIDE2OjM1IHNjaHJpZWIgTmlybW95IERhczoN
-Cj4+IFNpZ25lZC1vZmYtYnk6IE5pcm1veSBEYXMgPG5pcm1veS5kYXNAYW1kLmNvbT4NCj4gQXBh
-cnQgZnJvbSB0aGF0IEFja2VkLWJ5OiBDaHJpc3RpYW4gS8O2bmlnIDxjaHJpc3RpYW4ua29lbmln
-QGFtZC5jb20+DQo+DQo+PiAtLS0NCj4+ICAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
-ZGdwdV9nZnguYyB8IDMgKy0tDQo+PiAgICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
-cHVfZ2Z4LmggfCAzICstLQ0KPj4gICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Yx
-MF8wLmMgIHwgMiArLQ0KPj4gICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y4XzAu
-YyAgIHwgMiArLQ0KPj4gICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y5XzAuYyAg
-IHwgMiArLQ0KPj4gICAgNSBmaWxlcyBjaGFuZ2VkLCA1IGluc2VydGlvbnMoKyksIDcgZGVsZXRp
-b25zKC0pDQo+Pg0KPj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
-ZGdwdV9nZnguYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9nZnguYw0KPj4g
-aW5kZXggMDY5NTE1ZjU3YzJhLi5jOWQxZmFkYTYxODggMTAwNjQ0DQo+PiAtLS0gYS9kcml2ZXJz
-L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZ2Z4LmMNCj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2Ry
-bS9hbWQvYW1kZ3B1L2FtZGdwdV9nZnguYw0KPj4gQEAgLTMxOSw4ICszMTksNyBAQCBpbnQgYW1k
-Z3B1X2dmeF9raXFfaW5pdF9yaW5nKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LA0KPj4gICAg
-CXJldHVybiByOw0KPj4gICAgfQ0KPj4gICAgDQo+PiAtdm9pZCBhbWRncHVfZ2Z4X2tpcV9mcmVl
-X3Jpbmcoc3RydWN0IGFtZGdwdV9yaW5nICpyaW5nLA0KPj4gLQkJCSAgICAgIHN0cnVjdCBhbWRn
-cHVfaXJxX3NyYyAqaXJxKQ0KPj4gK3ZvaWQgYW1kZ3B1X2dmeF9raXFfZnJlZV9yaW5nKHN0cnVj
-dCBhbWRncHVfcmluZyAqcmluZykNCj4+ICAgIHsNCj4+ICAgIAlhbWRncHVfZGV2aWNlX3diX2Zy
-ZWUocmluZy0+YWRldiwgcmluZy0+YWRldi0+dmlydC5yZWdfdmFsX29mZnMpOw0KPj4gICAgCWFt
-ZGdwdV9yaW5nX2ZpbmkocmluZyk7DQo+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9hbWRncHUvYW1kZ3B1X2dmeC5oIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
-X2dmeC5oDQo+PiBpbmRleCAzNWVmZjllNmNlMTYuLjQ1OWFhOTA1OTU0MiAxMDA2NDQNCj4+IC0t
-LSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9nZnguaA0KPj4gKysrIGIvZHJp
-dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2dmeC5oDQo+PiBAQCAtMzMwLDggKzMzMCw3
-IEBAIGludCBhbWRncHVfZ2Z4X2tpcV9pbml0X3Jpbmcoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFk
-ZXYsDQo+PiAgICAJCQkgICAgIHN0cnVjdCBhbWRncHVfcmluZyAqcmluZywNCj4+ICAgIAkJCSAg
-ICAgc3RydWN0IGFtZGdwdV9pcnFfc3JjICppcnEpOw0KPj4gICAgDQo+PiAtdm9pZCBhbWRncHVf
-Z2Z4X2tpcV9mcmVlX3Jpbmcoc3RydWN0IGFtZGdwdV9yaW5nICpyaW5nLA0KPj4gLQkJCSAgICAg
-IHN0cnVjdCBhbWRncHVfaXJxX3NyYyAqaXJxKTsNCj4+ICt2b2lkIGFtZGdwdV9nZnhfa2lxX2Zy
-ZWVfcmluZyhzdHJ1Y3QgYW1kZ3B1X3JpbmcgKnJpbmcpOw0KPj4gICAgDQo+PiAgICB2b2lkIGFt
-ZGdwdV9nZnhfa2lxX2Zpbmkoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpOw0KPj4gICAgaW50
-IGFtZGdwdV9nZnhfa2lxX2luaXQoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsDQo+PiBkaWZm
-IC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3YxMF8wLmMgYi9kcml2ZXJz
-L2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjEwXzAuYw0KPj4gaW5kZXggOGZjYTZhYjVmYThmLi5h
-YzQzYjFhZjY5ZTMgMTAwNjQ0DQo+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9n
-ZnhfdjEwXzAuYw0KPj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3YxMF8w
-LmMNCj4+IEBAIC0xNDQzLDcgKzE0NDMsNyBAQCBzdGF0aWMgaW50IGdmeF92MTBfMF9zd19maW5p
-KHZvaWQgKmhhbmRsZSkNCj4+ICAgIAkJYW1kZ3B1X3JpbmdfZmluaSgmYWRldi0+Z2Z4LmNvbXB1
-dGVfcmluZ1tpXSk7DQo+PiAgICANCj4+ICAgIAlhbWRncHVfZ2Z4X21xZF9zd19maW5pKGFkZXYp
-Ow0KPj4gLQlhbWRncHVfZ2Z4X2tpcV9mcmVlX3JpbmcoJmFkZXYtPmdmeC5raXEucmluZywgJmFk
-ZXYtPmdmeC5raXEuaXJxKTsNCj4+ICsJYW1kZ3B1X2dmeF9raXFfZnJlZV9yaW5nKCZhZGV2LT5n
-Zngua2lxLnJpbmcpOw0KPj4gICAgCWFtZGdwdV9nZnhfa2lxX2ZpbmkoYWRldik7DQo+PiAgICAN
-Cj4+ICAgIAlnZnhfdjEwXzBfcGZwX2ZpbmkoYWRldik7DQo+PiBkaWZmIC0tZ2l0IGEvZHJpdmVy
-cy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y4XzAuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
-Z3B1L2dmeF92OF8wLmMNCj4+IGluZGV4IGE3ZmUwZWEyNGQxZi4uZTRjNjQ1ZGE0ZTI4IDEwMDY0
-NA0KPj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y4XzAuYw0KPj4gKysr
-IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y4XzAuYw0KPj4gQEAgLTIxMDMsNyAr
-MjEwMyw3IEBAIHN0YXRpYyBpbnQgZ2Z4X3Y4XzBfc3dfZmluaSh2b2lkICpoYW5kbGUpDQo+PiAg
-ICAJCWFtZGdwdV9yaW5nX2ZpbmkoJmFkZXYtPmdmeC5jb21wdXRlX3JpbmdbaV0pOw0KPj4gICAg
-DQo+PiAgICAJYW1kZ3B1X2dmeF9tcWRfc3dfZmluaShhZGV2KTsNCj4+IC0JYW1kZ3B1X2dmeF9r
-aXFfZnJlZV9yaW5nKCZhZGV2LT5nZngua2lxLnJpbmcsICZhZGV2LT5nZngua2lxLmlycSk7DQo+
-PiArCWFtZGdwdV9nZnhfa2lxX2ZyZWVfcmluZygmYWRldi0+Z2Z4LmtpcS5yaW5nKTsNCj4+ICAg
-IAlhbWRncHVfZ2Z4X2tpcV9maW5pKGFkZXYpOw0KPj4gICAgDQo+PiAgICAJZ2Z4X3Y4XzBfbWVj
-X2ZpbmkoYWRldik7DQo+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
-Z2Z4X3Y5XzAuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92OV8wLmMNCj4+IGlu
-ZGV4IGRkMzQ1ZmNlZGI5Ny4uOWZlOTVlNzY5M2Q1IDEwMDY0NA0KPj4gLS0tIGEvZHJpdmVycy9n
-cHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y5XzAuYw0KPj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9hbWRncHUvZ2Z4X3Y5XzAuYw0KPj4gQEAgLTIxNTMsNyArMjE1Myw3IEBAIHN0YXRpYyBpbnQg
-Z2Z4X3Y5XzBfc3dfZmluaSh2b2lkICpoYW5kbGUpDQo+PiAgICAJCWFtZGdwdV9yaW5nX2Zpbmko
-JmFkZXYtPmdmeC5jb21wdXRlX3JpbmdbaV0pOw0KPj4gICAgDQo+PiAgICAJYW1kZ3B1X2dmeF9t
-cWRfc3dfZmluaShhZGV2KTsNCj4+IC0JYW1kZ3B1X2dmeF9raXFfZnJlZV9yaW5nKCZhZGV2LT5n
-Zngua2lxLnJpbmcsICZhZGV2LT5nZngua2lxLmlycSk7DQo+PiArCWFtZGdwdV9nZnhfa2lxX2Zy
-ZWVfcmluZygmYWRldi0+Z2Z4LmtpcS5yaW5nKTsNCj4+ICAgIAlhbWRncHVfZ2Z4X2tpcV9maW5p
-KGFkZXYpOw0KPj4gICAgDQo+PiAgICAJZ2Z4X3Y5XzBfbWVjX2ZpbmkoYWRldik7DQpfX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcg
-bGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNr
-dG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
+On 10/23/19 4:56 AM, Jarkko Sakkinen wrote:
+> On Tue, Oct 22, 2019 at 02:41:45PM -0700, Mark Salyzyn wrote:
+>> Replace all occurrences of prefered with preferred to make future
+>> checkpatch.pl's happy.  A few places the incorrect spelling is
+>> matched with the correct spelling to preserve existing user space API.
+>>
+>> Signed-off-by: Mark Salyzyn <salyzyn@android.com>
+> I'd fix such things when the code is otherwise change and scope this
+> patch only to Documentation/. There is no pragmatic benefit of doing
+> this for the code.
+>
+> /Jarkko
+
+The pragmatic benefit comes with the use of an ABI/API checker (which is 
+a 'distro' thing, not a top of tree kernel thing) produces its map which 
+is typically required to be co-located in the same tree as the kernel 
+repository. Quite a few ABI/API update checkins result in a 
+checkpatch.pl complaint about the misspelled elements being 
+(re-)recorded due to proximity. We have a separate task to improve how 
+it is tracked in Android to reduce milepost marker changes that result 
+in sweeping changes to the database which would reduce the occurrences.
+
+I will split this between pure and inert documentation/comments for now, 
+with a followup later for the code portion which understandably is more 
+controversial.
+
+Cleanup is the least appreciated part of kernel maintenance ;-}.
+
+Sincerely -- Mark Salyzyn
