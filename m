@@ -1,40 +1,64 @@
-From: Alex Deucher <alexdeucher@gmail.com>
-Subject: Re: radeon Disabling GPU acceleration (WB disabled?)
-Date: Tue, 22 Oct 2019 23:04:06 -0400
-Message-ID: <CADnq5_OEP8Rwcjok8LbedZ00B=3voEu97ngeOMiGLde=ZjXrHg@mail.gmail.com>
-References: <24b5f681-df58-7663-af7c-9fa9b9158be9@linux.ee> <61646cbe-c4a9-cef1-d586-f3ac794b998a@daenzer.net>
+From: "S, Shirish" <sshankar-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] UPSTREAM: drm/amd/display: Fix Apple dongle cannot be
+ successfully detected
+Date: Wed, 23 Oct 2019 06:19:56 +0000
+Message-ID: <2d745e77-c6be-fb02-a1ee-c07664b911cd@amd.com>
+References: <20191021075439.1066-1-Ching-shih.Li@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <61646cbe-c4a9-cef1-d586-f3ac794b998a@daenzer.net>
-Sender: linux-kernel-owner@vger.kernel.org
-To: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel@daenzer.net>
-Cc: Meelis Roos <mroos@linux.ee>, amd-gfx list <amd-gfx@lists.freedesktop.org>, Maling list - DRI developers <dri-devel@lists.freedesktop.org>, LKML <linux-kernel@vger.kernel.org>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20191021075439.1066-1-Ching-shih.Li-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
+Content-ID: <638349B04A563545A061462996A9FE0F-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Li, Ching-shih (Louis)" <Ching-shih.Li-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Wentland, Harry" <Harry.Wentland-5C7GfCeVMHo@public.gmane.org>, "Kazlauskas,
+ Nicholas" <Nicholas.Kazlauskas-5C7GfCeVMHo@public.gmane.org>
 
-On Tue, Oct 22, 2019 at 12:09 PM Michel D=C3=A4nzer <michel@daenzer.net> wr=
-ote:
->
-> On 2019-10-20 11:21 p.m., Meelis Roos wrote:
-> > I tried 5.2, 5.3 and 5.4-rc4 on my old Fujitsu RX220 with integrated
-> > Radeon RV100. Dmesg tells that GPU acceleration is disabled. I do not
-> > know if it has been enabled in the past - no old kernels handy at the
-> > moment.
-> >
-> > From dmesg it looks like something with MTRR maybe: WB disabled.
->
-> That's harmless.
->
->
-> > [    8.535975] [drm] Driver supports precise vblank timestamp query.
-> > [    8.535981] radeon 0000:00:05.0: Disabling GPU acceleration
->
-> This looks like drm_irq_install returns an error in radeon_irq_kms_init.
->
-
-Check to see that the sbios assigns an irq to the device.  There may
-be an option in the sbios configuration settings.  IIRC, some old
-platforms didn't always assign interrupts to vga devices.
-
-Alex
+VGhlIFVQU1RSRUFNIHRhZyBpbiB0aGUgY29tbWl0IG1lc3NhZ2UgbmVlZHMgdG8gYmUgcmVtb3Zl
+ZC4NCg0KT24gMTAvMjEvMjAxOSAxOjI0IFBNLCBMb3VpcyBMaSB3cm90ZToNCj4gW1doeV0NCj4g
+RXh0ZXJuYWwgbW9uaXRvciBjYW5ub3QgYmUgZGlzcGxheWVkIGNvbnNpc3RlbnRseSwgaWYgY29u
+bmVjdGluZw0KPiB2aWEgdGhpcyBBcHBsZSBkb25nbGUgKEExNjIxLCBVU0IgVHlwZS1DIHRvIEhE
+TUkpLg0KPiBCeSBleHBlcmltZW50cywgaXQgaXMgY29uZmlybWVkIHRoYXQgdGhlIGRvbmdsZSBu
+ZWVkcyAyMDBtcyBhdCBsZWFzdA0KPiB0byBiZSByZWFkeSBmb3IgY29tbXVuaWNhdGlvbiwgYWZ0
+ZXIgaXQgc2V0cyBIUEQgc2lnbmFsIGhpZ2guDQo+DQo+IFtIb3ddDQo+IFdoZW4gcmVjZWl2aW5n
+IEhQRCBJUlEsIGRlbGF5IDUwMG1zIGF0IHRoZSBiZWdpbm5pbmcgb2YgaGFuZGxlX2hwZF9pcnEo
+KS4NCg0KQW0gbm90IHN1cmUgaG93IHRoaXMgZGVsYXkgc2hhbGwgaW1wYWN0IG9uIGRvbmdsZXMg
+dGhhdCBkb24ndCBuZWVkIGl0LA0KDQppZGVhbGx5IGl0IHNob3VsZCBiZSBhZGRlZCBhcyBxdWly
+aywgYXQgbGVhc3QgcmVzdHJpY3QgaXQgdG8gdGhlc2UgDQpzcGVjaWZpYyB2ZW5kb3JzLg0KDQpJ
+bnN0ZWFkIG9mIGRlbGF5LCBjYW4geW91IGZpbmQgYW55IHBhcmFtZXRlciB0byB3YWl0IGZvciBm
+b3IgdGhlIA0KY29tbXVuaWNhdGlvbiB0byBiZSByZWFkeSwNCg0KaW4gdGhhdCB3YXkgaXQgc2hh
+bGwgYmUgZmFpbHNhZmUuDQoNCj4gVGhlbiBydW4gdGhlIG9yaWdpbmFsIHByb2NlZHVyZS4NCj4g
+V2l0aCB0aGlzIHBhdGNoIGFwcGxpZWQsIHRoZSBwcm9ibGVtIGNhbm5vdCBiZSByZXByb2R1Y2Vk
+Lg0KPiBXaXRoIG90aGVyIGRvbmdsZXMsIHRlc3QgcmVzdWx0cyBhcmUgUEFTUy4NCj4gVGVzdCBy
+ZXN1bHQgaXMgUEFTUyBhZnRlciBzeXN0ZW0gcmVzdW1lcyBmcm9tIHN1c3BlbmQuDQo+DQo+IFNp
+Z25lZC1vZmYtYnk6IExvdWlzIExpIDxDaGluZy1zaGloLkxpQGFtZC5jb20+DQo+IC0tLQ0KPiAg
+IGRyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtLmMgfCA1ICsr
+KysrDQo+ICAgMSBmaWxlIGNoYW5nZWQsIDUgaW5zZXJ0aW9ucygrKQ0KPg0KPiBkaWZmIC0tZ2l0
+IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG0uYyBiL2Ry
+aXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtLmMNCj4gaW5kZXgg
+MGFlZjkyYjdjMDM3Li4wNDNkZGFjNzM4NjIgMTAwNjQ0DQo+IC0tLSBhL2RyaXZlcnMvZ3B1L2Ry
+bS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtLmMNCj4gKysrIGIvZHJpdmVycy9ncHUv
+ZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG0uYw0KPiBAQCAtMTAyNSw2ICsxMDI1
+LDExIEBAIHN0YXRpYyB2b2lkIGhhbmRsZV9ocGRfaXJxKHZvaWQgKnBhcmFtKQ0KPiAgIAlzdHJ1
+Y3QgZHJtX2RldmljZSAqZGV2ID0gY29ubmVjdG9yLT5kZXY7DQo+ICAgCWVudW0gZGNfY29ubmVj
+dGlvbl90eXBlIG5ld19jb25uZWN0aW9uX3R5cGUgPSBkY19jb25uZWN0aW9uX25vbmU7DQo+ICAg
+DQo+ICsgICAgLyogU29tZSBtb25pdG9ycy9kb25nbGVzIG5lZWQgYXJvdW5kIDIwMG1zIHRvIGJl
+IHJlYWR5IGZvciBjb21tdW5pY2F0aW9uDQo+ICsgICAgICogYWZ0ZXIgdGhleSBkcml2ZSBIUEQg
+c2lnbmFsIGhpZ2guDQo+ICsgICAgICovDQo+ICsgICAgbWRlbGF5KDUwMCk7DQo+ICsNCj4gICAJ
+LyogSW4gY2FzZSBvZiBmYWlsdXJlIG9yIE1TVCBubyBuZWVkIHRvIHVwZGF0ZSBjb25uZWN0b3Ig
+c3RhdHVzIG9yIG5vdGlmeSB0aGUgT1MNCj4gICAJICogc2luY2UgKGZvciBNU1QgY2FzZSkgTVNU
+IGRvZXMgdGhpcyBpbiBpdCdzIG93biBjb250ZXh0Lg0KPiAgIAkgKi8NCg0KLS0gDQpSZWdhcmRz
+LA0KU2hpcmlzaCBTDQoNCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
+Cmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
