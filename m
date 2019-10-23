@@ -1,94 +1,34 @@
-From: Klaus Kusche <klaus.kusche-bdq14YP6qtToRkiLMAh8bw@public.gmane.org>
-Subject: Displayport on thunderbolt dock is down although X thinks it is up
-Date: Tue, 22 Oct 2019 20:15:42 +0200
-Message-ID: <630a1630-a29c-e188-28c6-03af004b7ef1@computerix.info>
-References: <30c555d1-e019-3668-c35b-021003e2a6e2@computerix.info>
- <20191021114731.GZ2819@lahna.fi.intel.com>
- <f5d7c7da-c7f3-df87-75b9-48db12f640fb@computerix.info>
- <20191021130541.GG2819@lahna.fi.intel.com>
- <cebaf35c-a5f5-94b1-7ccc-0e9636c95bc3@computerix.info>
- <20191021162022.GV2819@lahna.fi.intel.com>
- <313ae966-aae5-92a9-4eeb-02fec9cc43d4@computerix.info>
-Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <313ae966-aae5-92a9-4eeb-02fec9cc43d4-bdq14YP6qtToRkiLMAh8bw@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: alexander.deucher-5C7GfCeVMHo@public.gmane.org, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+From: zhongshiqi <zhong.shiqi@zte.com.cn>
+Subject: [PATCH] dc.c:use kzalloc without test
+Date: Wed, 23 Oct 2019 16:32:23 +0800
+Message-ID: <1571819543-15676-1-git-send-email-zhong.shiqi@zte.com.cn>
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: harry.wentland@amd.com
+Cc: sunpeng.li@amd.com, alexander.deucher@amd.com, christian.koenig@amd.com, David1.Zhou@amd.com, airlied@linux.ie, daniel@ffwll.ch, Bhawanpreet.Lakha@amd.com, Jun.Lei@amd.com, David.Francis@amd.com, Dmytro.Laktyushkin@amd.com, anthony.koo@amd.com, Wenjing.Liu@amd.com, nicholas.kazlauskas@amd.com, Aidan.Wood@amd.com, Chris.Park@amd.com, Eric.Yang2@amd.com, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, xue.zhihong@zte.com.cn, wang.yi59@zte.com.cn, cheng.shengyu@zte.com.cn, zhongshiqi <zhong.shiqi@zte.com.cn>
+List-Id: amd-gfx.lists.freedesktop.org
 
-CkhlbGxvLAoKdGhlIHRodW5kZXJib2x0IG1haW50YWluZXJzIHRvbGQgbWUgdGhhdCB0aGUgZm9s
-bG93aW5nIHF1ZXN0aW9uIApzaG91bGQgYmUgZGlyZWN0ZWQgdG8gdGhlIGdmeCBwZW9wbGU6CgpJ
-IHVzZSBhIGRlbGwgcHJlY2lzaW9uIDc3NDAgbm90ZWJvb2sgd2l0aCBhbWQgcG9sYXJpcyAxMiBn
-cmFwaGljcy4KVGhlIG5vdGVib29rIGlzIGNvbm5lY3RlZCBvciBob3RwbHVnZ2VkIHRvIGEgbm9u
-YW1lIHRodW5kZXJib2x0IGRvY2sKd2l0aCBkaXNwbGF5cG9ydCBvciBoZG1pIG1vbml0b3JzIGNv
-bm5lY3RlZCB0byB0aGUgZG9jay4KCldpdGggZ2VudG9vLCBhbWRncHUga2VybmVsIGRyaXZlciBh
-bmQgbW9kZXNldHRpbmcgWCBkcml2ZXIsCkkndmUgdGhlIGZvbGxvd2luZyBwcm9ibGVtOgoKSW4g
-YWxtb3N0IGFsbCBjYXNlcyB3aGVuIHdhcm0gYm9vdGluZyAod2l0aG91dCBwb3dlcmRvd24pLCAK
-YW5kIGluIGF0IGxlYXN0IGhhbGYgb2YgdGhlIGF0dGVtcHRzIHdoZW4gaG90cGx1Z2dpbmcgdGhl
-IHRiIGRvY2ssCmFuZCB3aGVuZXZlciBjaGFuZ2luZyByZXNvbHV0aW9uIG9yIG1vbml0b3IgY29u
-ZmlndXJhdGlvbgpvciBzd2l0Y2hpbmcgZnJvbSB0ZXh0IG1vZGUgdG8gWHdpbmRvd3Mgb3IgYmFj
-aywgZGlzcGxheXBvcnQgZmFpbHMgaW4gWDoKWHdpbmRvd3MgdGhpbmtzIHRoYXQgYSBtb25pdG9y
-IGlzIGNvbm5lY3RlZCBhbmQgZHAgaXMgYWN0aXZlIGFuZCB3b3JraW5nLApidXQgaW4gbW9zdCBj
-YXNlcyBubyBzaWduYWwgYXQgYWxsIGFycml2ZXMgYXQgdGhlIG1vbml0b3IgCih0aGUgbW9uaXRv
-ciByZW1haW5zIGluIHNsZWVwIHN0YXRlIGJlY2F1c2Ugb2Ygbm8gYWN0aXZlIGlucHV0KSwKb3Ig
-aW4gcmFyZSBjYXNlcywgdGhlIG1vbml0b3Igd2FrZXMgdXAsIGJ1dCBzaG93cyBhIGJsYWNrIHNj
-cmVlbi4KCkhvdHBsdWdnaW5nIHRoZSBkb2NrIGlzIHJlY29nbml6ZWQgKEkgY29uZmlndXJlZCBt
-eSBzeXN0ZW0gdG8gdHVybiBvZmYgCnRoZSBsYXB0b3AgZGlzcGxheSB3aGVuIGFuIGV4dGVybmFs
-IG1vbml0b3IgaXMgcHJlc2VudCk6IFdoZW4gSSB1bnBsdWcgCmFuZCByZXBsdWcgdGhlIGRvY2ss
-IHRoZSBpbnRlcm5hbCBkaXNwbGF5IGdvZXMgb24gYW5kIG9mZiwgcmVsaWFibHkuCkJ1dCB0aGUg
-ZXh0ZXJuYWwgZGlzcGxheSBkb2VzIG5vdCBkaXNwbGF5IGFueXRoaW5nLi4uCgpJbiB0aGUga2Vy
-bmVsIGxvZyBJIGdldApPY3QgMTcgMDg6NTE6MzEgbGFwIGtlcm5lbDogW2RybTphbWRncHVfYXRv
-bWJpb3NfZHBfbGlua190cmFpbl0gKkVSUk9SKiBjbG9jayByZWNvdmVyeSB0cmllZCA1IHRpbWVz
-Ck9jdCAxNyAwODo1MTozMSBsYXAga2VybmVsOiBbZHJtOmFtZGdwdV9hdG9tYmlvc19kcF9saW5r
-X3RyYWluXSAqRVJST1IqIGNsb2NrIHJlY292ZXJ5IGZhaWxlZApidXQgYXMgZmFyIGFzIEkgY2Fu
-IHRlbGwgbm90aGluZyBlbHNlLgoKSW4gbWFueSBjYXNlcywgInhzZXQgZHBtcyBmb3JjZSBvZmYg
-OyBzbGVlcCAyIDsgeHNldCBkcG1zIGZvcmNlIG9uIiAKYnJpbmdzIHRoZSBkaXNwbGF5IGJhY2sg
-dG8gbGl2ZS4gSWYgbm90LCBwb3dlcmN5Y2xpbmcgdGhlIGRpc3BsYXkKb3IgdW5wbHVnZ2luZyBh
-bmQgcmVwbHVnZ2luZyBpdHMgZGlzcGxheXBvcnQgY2FibGUgc29tZXRpbWVzIGhlbHBzLgpBZnRl
-ciBjb2xkIGJvb3RpbmcgKGFmdGVyIHBvd2VyaW5nIG5vdGVib29rLCBkb2NrIGFuZCBkaXNwbGF5
-IG9mZiAmIG9uKSwKdGhlIHNpdHVhdGlvbiBpcyB3b3JzZTogCiJ4c2V0IGRwbXMgZm9yY2Ugb2Zm
-IDsgc2xlZXAgMiA7IHhzZXQgZHBtcyBmb3JjZSBvbiIgYWxtb3N0IG5ldmVyIGhlbHBzLgoKV2l0
-aCBhbWRncHUga2VybmVsIGRyaXZlciBhbmQgYW1kZ3B1IFh3aW5kb3cgZHJpdmVyIGluc3RlYWQg
-b2YgbW9kZXNldHRpbmcsCnRoZSBzaXR1YXRpb24gaXMgbXVjaCB3b3JzZTogSSBuZXZlciBtYW5h
-Z2VkIHRvIGdldCBhbnl0aGluZyBkaXNwbGF5ZWQKb24gdGhlIGV4dGVybmFsIG1vbml0b3IsIG5v
-IG1hdHRlciB3aGF0IHRyaWNrcyBJIGFwcGx5LAphbHRob3VnaCB0aGUgbW9uaXRvciB3b3JrcyBp
-biB0ZXh0IG1vZGUgYmVmb3JlIHN0YXJ0aW5nIFguCgpNeSB3aWxkIGd1ZXNzLCB3aXRob3V0IGtu
-b3dpbmcgYW55dGhpbmcgYWJvdXQgdGhlIGludGVybmFsczoKWCBkb2VzIG5vdCByZWFsaXplIHRo
-YXQgdGhlIHR1bm5lbGxlZCBkaXNwbHlwb3J0IGxpbmsgaXMgYWN0dWFsbHkgCmNvbXBsZXRlbHkg
-ZG93biBhZnRlciBtb2RlIHN3aXRjaGVzIGV0Yy4uIEl0IGp1c3QgdHJpZXMgdG8gcmVzeW5jCmlu
-c3RlYWQgb2Ygc2h1dHRpbmcgdGhlIGxpbmsgZG93biBhbmQgY29tcGxldGVseSByZS1pbml0aWFs
-aXppbmcgaXQuCk9ubHkgYSBkcG1zIG9mZi9vbiBvciBhIG1vbml0b3Igb2ZmL29uIGZvcmNlcyBh
-IGNvbXBsZXRlIGxpbmsgcmVpbml0LgoKCldpdGggdWJ1bnR1IChkZWxsIHByZWluc3RhbGxlZCwg
-YW1kZ3B1K2FtZGdwdSksIGhvdHBsdWdnaW5nIHRoZSBkb2NrIApvciB3YXJtIGJvb3RpbmcgKHdp
-dGhvdXQgcG93ZXJkb3duKSB3aXRoIHRoZSBkb2NrIGNvbm5lY3RlZCAKdXN1YWxseSB3b3JrcyBm
-aW5lLiAKQ29sZCBib290aW5nIChhZnRlciBwb3dlcmRvd24pIGFsc28gZmFpbHMgYXMgYWJvdmUu
-CgpJIHdhcyB1bmFibGUgdG8gbG9jYXRlIGFueSBzaWduaWZpY2FudCBkaWZmZXJlbmNlIGluIHRo
-ZSBrZXJuZWwgY29uZmlnCmJldHdlZW4gbXkgZ2VudG9vIGFuZCB1YnVudHUuIEhvd2V2ZXIsIHVi
-dW50dSBpbnN0YWxscyB0b25zIG9mIHVkZXYgcnVsZXMsCmFsc28gZm9yIGRybSBhbmQgdGhlIGdy
-YXBoaWMgY2FyZCAoSSBkb24ndCBoYXZlIGFueSBzdWNoIHJ1bGVzIGluIGdlbnRvbykuIApIZW5j
-ZSwgSSBzdXNwZWN0IHRoYXQgdGhlaXIga2VybmVsIGhhcyB0aGUgc2FtZSBwcm9ibGVtLCAKYnV0
-IHRoZSBwcm9ibGVtIGlzIHdvcmtlZCBhcm91bmQgYnkgdWRldiBhY3Rpb25zLgoKClF1ZXN0aW9u
-czoKKiBCZXN0IHBsYWNlIHRvIGFzayBmb3IgdGhpcyBwcm9ibGVtPwoqIEFueSBoaW50cyBhYm91
-dCB0aGF0IHByb2JsZW0/CiogV2h5IGRvZXMgYW1kZ3B1K21vZGVzZXR0aW5nIGJlaGF2ZSBtdWNo
-IGJldHRlciB0aGFuIGFtZGdwdSthbWRncHU/CiogQW55IHVkZXYgcnVsZXMga25vd24gb3IgbmVl
-ZGVkIGZvciBkaXNwbGF5cG9ydCBvdmVyIGhvdHBsdWcgdGh1bmRlcmJvbHQsCm9yIHRvIGZpeCB0
-aGUgcHJvYmxlbT8KCgpNYW55IHRoYW5rcyEKCi0tIApQcm9mLiBEci4gS2xhdXMgS3VzY2hlClBy
-aXZhdGUgYWRkcmVzczogUm9zZW5iZXJnIDQxLCAwNzU0NiBHZXJhLCBHZXJtYW55Cis0OSAzNjUg
-MjA0MTMwNTgga2xhdXMua3VzY2hlQGNvbXB1dGVyaXguaW5mbyBodHRwczovL3d3dy5jb21wdXRl
-cml4LmluZm8KT2ZmaWNlIGFkZHJlc3M6IERIR0UgR2VyYSwgV2VnIGRlciBGcmV1bmRzY2hhZnQg
-NCwgMDc1NDYgR2VyYSwgR2VybWFueQorNDkgMzY1IDQzNDEgMzA2IGtsYXVzLmt1c2NoZUBkaGdl
-LmRlIGh0dHBzOi8vd3d3LmRoZ2UuZGUKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVz
-a3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9h
-bWQtZ2Z4
+dc.c:583:null check is needed after using kzalloc function
+
+Signed-off-by: zhongshiqi <zhong.shiqi@zte.com.cn>
+---
+ drivers/gpu/drm/amd/display/dc/core/dc.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
+index 5d1aded..4b8819c 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
+@@ -580,6 +580,10 @@ static bool construct(struct dc *dc,
+ #ifdef CONFIG_DRM_AMD_DC_DCN2_0
+ 	// Allocate memory for the vm_helper
+ 	dc->vm_helper = kzalloc(sizeof(struct vm_helper), GFP_KERNEL);
++	if (!dc->vm_helper) {
++		dm_error("%s: failed to create dc->vm_helper\n", __func__);
++		goto fail;
++	}
+ 
+ #endif
+ 	memcpy(&dc->bb_overrides, &init_params->bb_overrides, sizeof(dc->bb_overrides));
+-- 
+2.9.5
