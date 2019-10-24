@@ -1,121 +1,99 @@
-From: "Tuikov, Luben" <Luben.Tuikov-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH] drm/amdgpu: GFX9, GFX10: GRBM requires 1-cycle delay
-Date: Thu, 24 Oct 2019 21:16:55 +0000
-Message-ID: <20191024211430.25399-1-luben.tuikov@amd.com>
+From: Nick Desaulniers <ndesaulniers@google.com>
+Subject: Re: [PATCH 0/3] drm/amdgpu: fix stack alignment ABI mismatch
+Date: Thu, 24 Oct 2019 15:08:44 -0700
+Message-ID: <CAKwvOdkDCeNCg7N0jyjo9oQmVX6seOXjSv06DvQDCDz_7qSo=Q@mail.gmail.com>
+References: <20191016230209.39663-1-ndesaulniers@google.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Pelloux-prayer,
- Pierre-eric" <Pierre-eric.Pelloux-prayer-5C7GfCeVMHo@public.gmane.org>, "Tuikov,
- Luben" <Luben.Tuikov-5C7GfCeVMHo@public.gmane.org>, "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset="UTF-8"
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20191016230209.39663-1-ndesaulniers@google.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Harry Wentland <harry.wentland@amd.com>, "Deucher, Alexander" <alexander.deucher@amd.com>, yshuiv7@gmail.com, "S, Shirish" <shirish.s@amd.com>
+Cc: andrew.cooper3@citrix.com, Arnd Bergmann <arnd@arndb.de>, clang-built-linux <clang-built-linux@googlegroups.com>, Matthias Kaehlcke <mka@google.com>, "Zhou, David(ChunMing)" <David1.Zhou@amd.com>, "Koenig, Christian" <christian.koenig@amd.com>, amd-gfx list <amd-gfx@lists.freedesktop.org>, LKML <linux-kernel@vger.kernel.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-VGhlIEdSQk0gaW50ZXJmYWNlIGlzIG5vdyBjYXBhYmxlIG9mIGJ1cnN0aW5nCjEtY3ljbGUgb3Ag
-cGVyIHJlZ2lzdGVyLCBhIFdSSVRFIGZvbGxvd2VkIGJ5CmFub3RoZXIgV1JJVEUsIG9yIGEgV1JJ
-VEUgZm9sbG93ZWQgYnkgYSBSRUFELS1tdWNoCmZhc3RlciB0aGFuIHByZXZpb3VzIG11dGktY3lj
-bGUgcGVyCmNvbXBsZXRlZC10cmFuc2FjdGlvbiBpbnRlcmZhY2UuIFRoaXMgY2F1c2VzIGEKcHJv
-YmxlbSwgd2hlcmVieSBzdGF0dXMgcmVnaXN0ZXJzIHJlcXVpcmluZyBhCnJlYWQvd3JpdGUgYnkg
-aGFyZHdhcmUsIGhhdmUgYSAxLWN5Y2xlIGRlbGF5LCBkdWUKdG8gdGhlIHJlZ2lzdGVyIHVwZGF0
-ZSBoYXZpbmcgdG8gZ28gdGhyb3VnaCBHUkJNCmludGVyZmFjZS4KClRoaXMgcGF0Y2ggYWRkcyB0
-aGlzIGRlbGF5LgoKQSBvbmUgY3ljbGUgcmVhZCBvcCBpcyBhZGRlZCBhZnRlciB1cGRhdGluZyB0
-aGUKaW52YWxpZGF0ZSByZXF1ZXN0IGFuZCBiZWZvcmUgcmVhZGluZyB0aGUKaW52YWxpZGF0ZS1B
-Q0sgc3RhdHVzLgoKU2VlIGFsc28gY29tbWl0CjUzNDk5MTczMWNiNWZhOTRiNTUxOTk1NzY0NmNm
-ODQ5Y2ExMGQxN2QuCgpTaWduZWQtb2ZmLWJ5OiBMdWJlbiBUdWlrb3YgPGx1YmVuLnR1aWtvdkBh
-bWQuY29tPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92MTBfMC5jIHwgNCAr
-Ky0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjlfMC5jICB8IDQgKystLQogZHJp
-dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ21jX3YxMF8wLmMgfCA5ICsrKysrKysrKwogZHJpdmVy
-cy9ncHUvZHJtL2FtZC9hbWRncHUvZ21jX3Y5XzAuYyAgfCA4ICsrKysrKysrCiBkcml2ZXJzL2dw
-dS9kcm0vYW1kL2FtZGdwdS9zZG1hX3Y1XzAuYyB8IDIgKy0KIDUgZmlsZXMgY2hhbmdlZCwgMjIg
-aW5zZXJ0aW9ucygrKSwgNSBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9k
-cm0vYW1kL2FtZGdwdS9nZnhfdjEwXzAuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dm
-eF92MTBfMC5jCmluZGV4IGFjNDNiMWFmNjllMy4uMDA0Mjg2OGRiZDUzIDEwMDY0NAotLS0gYS9k
-cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjEwXzAuYworKysgYi9kcml2ZXJzL2dwdS9k
-cm0vYW1kL2FtZGdwdS9nZnhfdjEwXzAuYwpAQCAtNTEyOSw3ICs1MTI5LDcgQEAgc3RhdGljIGNv
-bnN0IHN0cnVjdCBhbWRncHVfcmluZ19mdW5jcyBnZnhfdjEwXzBfcmluZ19mdW5jc19nZnggPSB7
-CiAJCTUgKyAvKiBDT05EX0VYRUMgKi8KIAkJNyArIC8qIFBJUEVMSU5FX1NZTkMgKi8KIAkJU09D
-MTVfRkxVU0hfR1BVX1RMQl9OVU1fV1JFRyAqIDUgKwotCQlTT0MxNV9GTFVTSF9HUFVfVExCX05V
-TV9SRUdfV0FJVCAqIDcgKworCQlTT0MxNV9GTFVTSF9HUFVfVExCX05VTV9SRUdfV0FJVCAqIDcg
-KiAyICsKIAkJMiArIC8qIFZNX0ZMVVNIICovCiAJCTggKyAvKiBGRU5DRSBmb3IgVk1fRkxVU0gg
-Ki8KIAkJMjAgKyAvKiBHRFMgc3dpdGNoICovCkBAIC01MTgyLDcgKzUxODIsNyBAQCBzdGF0aWMg
-Y29uc3Qgc3RydWN0IGFtZGdwdV9yaW5nX2Z1bmNzIGdmeF92MTBfMF9yaW5nX2Z1bmNzX2NvbXB1
-dGUgPSB7CiAJCTUgKyAvKiBoZHAgaW52YWxpZGF0ZSAqLwogCQk3ICsgLyogZ2Z4X3YxMF8wX3Jp
-bmdfZW1pdF9waXBlbGluZV9zeW5jICovCiAJCVNPQzE1X0ZMVVNIX0dQVV9UTEJfTlVNX1dSRUcg
-KiA1ICsKLQkJU09DMTVfRkxVU0hfR1BVX1RMQl9OVU1fUkVHX1dBSVQgKiA3ICsKKwkJU09DMTVf
-RkxVU0hfR1BVX1RMQl9OVU1fUkVHX1dBSVQgKiA3ICogMiArCiAJCTIgKyAvKiBnZnhfdjEwXzBf
-cmluZ19lbWl0X3ZtX2ZsdXNoICovCiAJCTggKyA4ICsgOCwgLyogZ2Z4X3YxMF8wX3JpbmdfZW1p
-dF9mZW5jZSB4MyBmb3IgdXNlciBmZW5jZSwgdm0gZmVuY2UgKi8KIAkuZW1pdF9pYl9zaXplID0J
-NywgLyogZ2Z4X3YxMF8wX3JpbmdfZW1pdF9pYl9jb21wdXRlICovCmRpZmYgLS1naXQgYS9kcml2
-ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjlfMC5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9h
-bWRncHUvZ2Z4X3Y5XzAuYwppbmRleCA5ZmU5NWU3NjkzZDUuLjlhN2E3MTcyMDhkZSAxMDA2NDQK
-LS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y5XzAuYworKysgYi9kcml2ZXJz
-L2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjlfMC5jCkBAIC02MjE4LDcgKzYyMTgsNyBAQCBzdGF0
-aWMgY29uc3Qgc3RydWN0IGFtZGdwdV9yaW5nX2Z1bmNzIGdmeF92OV8wX3JpbmdfZnVuY3NfZ2Z4
-ID0gewogCQk1ICsgIC8qIENPTkRfRVhFQyAqLwogCQk3ICsgIC8qIFBJUEVMSU5FX1NZTkMgKi8K
-IAkJU09DMTVfRkxVU0hfR1BVX1RMQl9OVU1fV1JFRyAqIDUgKwotCQlTT0MxNV9GTFVTSF9HUFVf
-VExCX05VTV9SRUdfV0FJVCAqIDcgKworCQlTT0MxNV9GTFVTSF9HUFVfVExCX05VTV9SRUdfV0FJ
-VCAqIDcgKiAyICsKIAkJMiArIC8qIFZNX0ZMVVNIICovCiAJCTggKyAgLyogRkVOQ0UgZm9yIFZN
-X0ZMVVNIICovCiAJCTIwICsgLyogR0RTIHN3aXRjaCAqLwpAQCAtNjI3MSw3ICs2MjcxLDcgQEAg
-c3RhdGljIGNvbnN0IHN0cnVjdCBhbWRncHVfcmluZ19mdW5jcyBnZnhfdjlfMF9yaW5nX2Z1bmNz
-X2NvbXB1dGUgPSB7CiAJCTUgKyAvKiBoZHAgaW52YWxpZGF0ZSAqLwogCQk3ICsgLyogZ2Z4X3Y5
-XzBfcmluZ19lbWl0X3BpcGVsaW5lX3N5bmMgKi8KIAkJU09DMTVfRkxVU0hfR1BVX1RMQl9OVU1f
-V1JFRyAqIDUgKwotCQlTT0MxNV9GTFVTSF9HUFVfVExCX05VTV9SRUdfV0FJVCAqIDcgKworCQlT
-T0MxNV9GTFVTSF9HUFVfVExCX05VTV9SRUdfV0FJVCAqIDcgKiAyICsKIAkJMiArIC8qIGdmeF92
-OV8wX3JpbmdfZW1pdF92bV9mbHVzaCAqLwogCQk4ICsgOCArIDgsIC8qIGdmeF92OV8wX3Jpbmdf
-ZW1pdF9mZW5jZSB4MyBmb3IgdXNlciBmZW5jZSwgdm0gZmVuY2UgKi8KIAkuZW1pdF9pYl9zaXpl
-ID0JNywgLyogZ2Z4X3Y5XzBfcmluZ19lbWl0X2liX2NvbXB1dGUgKi8KZGlmZiAtLWdpdCBhL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192MTBfMC5jIGIvZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9hbWRncHUvZ21jX3YxMF8wLmMKaW5kZXggNmUxYjI1YmQxZmU3Li4xMDBkNTI2ZTlhNDIgMTAw
-NjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192MTBfMC5jCisrKyBiL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192MTBfMC5jCkBAIC0zNDYsNiArMzQ2LDE1IEBA
-IHN0YXRpYyB1aW50NjRfdCBnbWNfdjEwXzBfZW1pdF9mbHVzaF9ncHVfdGxiKHN0cnVjdCBhbWRn
-cHVfcmluZyAqcmluZywKIAogCWFtZGdwdV9yaW5nX2VtaXRfd3JlZyhyaW5nLCBodWItPnZtX2lu
-dl9lbmcwX3JlcSArIGVuZywgcmVxKTsKIAorCS8qIEluc2VydCBhIGR1bW15IHJlYWQgdG8gZGVs
-YXkgb25lIGN5Y2xlIGJlZm9yZSB0aGUgQUNLCisJICogaW5xdWlyeS4KKwkgKi8KKwlpZiAocmlu
-Zy0+ZnVuY3MtPnR5cGUgPT0gQU1ER1BVX1JJTkdfVFlQRV9TRE1BIHx8CisJICAgIHJpbmctPmZ1
-bmNzLT50eXBlID09IEFNREdQVV9SSU5HX1RZUEVfR0ZYICB8fAorCSAgICByaW5nLT5mdW5jcy0+
-dHlwZSA9PSBBTURHUFVfUklOR19UWVBFX0NPTVBVVEUpCisJCWFtZGdwdV9yaW5nX2VtaXRfcmVn
-X3dhaXQocmluZywKKwkJCQkJICBodWItPnZtX2ludl9lbmcwX3JlcSArIGVuZywgMCwgMCk7CisK
-IAkvKiB3YWl0IGZvciB0aGUgaW52YWxpZGF0ZSB0byBjb21wbGV0ZSAqLwogCWFtZGdwdV9yaW5n
-X2VtaXRfcmVnX3dhaXQocmluZywgaHViLT52bV9pbnZfZW5nMF9hY2sgKyBlbmcsCiAJCQkJICAx
-IDw8IHZtaWQsIDEgPDwgdm1pZCk7CmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
-ZGdwdS9nbWNfdjlfMC5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ21jX3Y5XzAuYwpp
-bmRleCA5ZjJhODkzODcxZWMuLjhmMzA5N2U0NTI5OSAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUv
-ZHJtL2FtZC9hbWRncHUvZ21jX3Y5XzAuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
-dS9nbWNfdjlfMC5jCkBAIC00OTUsNiArNDk1LDE0IEBAIHN0YXRpYyB1aW50NjRfdCBnbWNfdjlf
-MF9lbWl0X2ZsdXNoX2dwdV90bGIoc3RydWN0IGFtZGdwdV9yaW5nICpyaW5nLAogCWFtZGdwdV9y
-aW5nX2VtaXRfd3JlZyhyaW5nLCBodWItPmN0eDBfcHRiX2FkZHJfaGkzMiArICgyICogdm1pZCks
-CiAJCQkgICAgICB1cHBlcl8zMl9iaXRzKHBkX2FkZHIpKTsKIAorCS8qIEluc2VydCBhIGR1bW15
-IHJlYWQgdG8gZGVsYXkgb25lIGN5Y2xlIGJlZm9yZSB0aGUgQUNLCisJICogaW5xdWlyeS4KKwkg
-Ki8KKwlpZiAocmluZy0+ZnVuY3MtPnR5cGUgPT0gQU1ER1BVX1JJTkdfVFlQRV9HRlggIHx8CisJ
-ICAgIHJpbmctPmZ1bmNzLT50eXBlID09IEFNREdQVV9SSU5HX1RZUEVfQ09NUFVURSkKKwkJYW1k
-Z3B1X3JpbmdfZW1pdF9yZWdfd2FpdChyaW5nLAorCQkJCQkgIGh1Yi0+dm1faW52X2VuZzBfcmVx
-ICsgZW5nLCAwLCAwKTsKKwogCWFtZGdwdV9yaW5nX2VtaXRfcmVnX3dyaXRlX3JlZ193YWl0KHJp
-bmcsIGh1Yi0+dm1faW52X2VuZzBfcmVxICsgZW5nLAogCQkJCQkgICAgaHViLT52bV9pbnZfZW5n
-MF9hY2sgKyBlbmcsCiAJCQkJCSAgICByZXEsIDEgPDwgdm1pZCk7CmRpZmYgLS1naXQgYS9kcml2
-ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9zZG1hX3Y1XzAuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-YW1kZ3B1L3NkbWFfdjVfMC5jCmluZGV4IGI4ZmRiMTkyZjZkNi4uMGM0MWI0ZmRjNThiIDEwMDY0
-NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9zZG1hX3Y1XzAuYworKysgYi9kcml2
-ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9zZG1hX3Y1XzAuYwpAQCAtMTU4OCw3ICsxNTg4LDcgQEAg
-c3RhdGljIGNvbnN0IHN0cnVjdCBhbWRncHVfcmluZ19mdW5jcyBzZG1hX3Y1XzBfcmluZ19mdW5j
-cyA9IHsKIAkJNiArIC8qIHNkbWFfdjVfMF9yaW5nX2VtaXRfcGlwZWxpbmVfc3luYyAqLwogCQkv
-KiBzZG1hX3Y1XzBfcmluZ19lbWl0X3ZtX2ZsdXNoICovCiAJCVNPQzE1X0ZMVVNIX0dQVV9UTEJf
-TlVNX1dSRUcgKiAzICsKLQkJU09DMTVfRkxVU0hfR1BVX1RMQl9OVU1fUkVHX1dBSVQgKiA2ICsK
-KwkJU09DMTVfRkxVU0hfR1BVX1RMQl9OVU1fUkVHX1dBSVQgKiA2ICogMiArCiAJCTEwICsgMTAg
-KyAxMCwgLyogc2RtYV92NV8wX3JpbmdfZW1pdF9mZW5jZSB4MyBmb3IgdXNlciBmZW5jZSwgdm0g
-ZmVuY2UgKi8KIAkuZW1pdF9pYl9zaXplID0gNyArIDYsIC8qIHNkbWFfdjVfMF9yaW5nX2VtaXRf
-aWIgKi8KIAkuZW1pdF9pYiA9IHNkbWFfdjVfMF9yaW5nX2VtaXRfaWIsCi0tIAoyLjIzLjAuMzg1
-LmdiYzEyOTc0YTg5CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpo
-dHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
+On Wed, Oct 16, 2019 at 4:02 PM Nick Desaulniers
+<ndesaulniers@google.com> wrote:
+>
+> The x86 kernel is compiled with an 8B stack alignment via
+> `-mpreferred-stack-boundary=3` for GCC since 3.6-rc1 via
+> commit d9b0cde91c60 ("x86-64, gcc: Use -mpreferred-stack-boundary=3 if supported")
+> or `-mstack-alignment=8` for Clang. Parts of the AMDGPU driver are
+> compiled with 16B stack alignment.
+>
+> Generally, the stack alignment is part of the ABI. Linking together two
+> different translation units with differing stack alignment is dangerous,
+> particularly when the translation unit with the smaller stack alignment
+> makes calls into the translation unit with the larger stack alignment.
+> While 8B aligned stacks are sometimes also 16B aligned, they are not
+> always.
+>
+> Multiple users have reported General Protection Faults (GPF) when using
+> the AMDGPU driver compiled with Clang. Clang is placing objects in stack
+> slots assuming the stack is 16B aligned, and selecting instructions that
+> require 16B aligned memory operands.
+>
+> At runtime, syscall handlers with 8B aligned stack call into code that
+> assumes 16B stack alignment.  When the stack is a multiple of 8B but not
+> 16B, these instructions result in a GPF.
+>
+> Remove the code that added compatibility between the differing compiler
+> flags, as it will result in runtime GPFs when built with Clang.
+>
+> The series is broken into 3 patches, the first is an important fix for
+> Clang for ChromeOS. The rest are attempted cleanups for GCC, but require
+> additional boot testing. The first patch is critical, the rest are nice
+> to have. I've compile tested the series with ToT Clang, GCC 4.9, and GCC
+> 8.3 **but** I do not have hardware to test on, so I need folks with the
+> above compilers and relevant hardware to help test the series.
+>
+> The first patch is a functional change for Clang only. It does not
+> change anything for any version of GCC. Yuxuan boot tested a previous
+> incarnation on hardware, but I've changed it enough that I think it made
+> sense to drop the previous tested by tag.
+
+Thanks for testing the first patch Shirish. Are you or Yuxuan able to
+test the rest of the series with any combination of {clang|gcc < 7.1|
+gcc >= 7.1} on hardware and report your findings?
+
+>
+> The second patch is a functional change for GCC 7.1+ only. It does not
+> affect older versions of GCC or Clang (though if someone wanted to
+> double check with pre-GCC 7.1 it wouldn't hurt).  It should be boot
+> tested on GCC 7.1+ on the relevant hardware.
+>
+> The final patch is also a functional change for GCC 7.1+ only. It does
+> not affect older versions of GCC or Clang. It should be boot tested on
+> GCC 7.1+ on the relevant hardware. Theoretically, there may be an issue
+> with it, and it's ok to drop it. The series was intentional broken into
+> 3 in order to allow them to be incrementally tested and accepted. It's
+> ok to take earlier patches without the later patches.
+>
+> And finally, I do not condone linking object files of differing stack
+> alignments.  Idealistically, we'd mark the driver broken for pre-GCC
+> 7.1.  Pragmatically, "if it ain't broke, don't fix it."
+
+Harry, Alex,
+Thoughts on the series? Has AMD been able to stress test these more internally?
+
+>
+> Nick Desaulniers (3):
+>   drm/amdgpu: fix stack alignment ABI mismatch for Clang
+>   drm/amdgpu: fix stack alignment ABI mismatch for GCC 7.1+
+>   drm/amdgpu: enable -msse2 for GCC 7.1+ users
+>
+>  drivers/gpu/drm/amd/display/dc/calcs/Makefile | 19 ++++++++++++-------
+>  drivers/gpu/drm/amd/display/dc/dcn20/Makefile | 19 ++++++++++++-------
+>  drivers/gpu/drm/amd/display/dc/dcn21/Makefile | 19 ++++++++++++-------
+>  drivers/gpu/drm/amd/display/dc/dml/Makefile   | 19 ++++++++++++-------
+>  drivers/gpu/drm/amd/display/dc/dsc/Makefile   | 19 ++++++++++++-------
+>  5 files changed, 60 insertions(+), 35 deletions(-)
+>
+> --
+> 2.23.0.700.g56cf767bdb-goog
+>
+
+
+-- 
+Thanks,
+~Nick Desaulniers
