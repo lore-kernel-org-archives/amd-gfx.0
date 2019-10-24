@@ -1,63 +1,46 @@
-From: Jarkko Sakkinen <jarkko.sakkinen@linux.intel.com>
-Subject: Re: [PATCH] Cleanup: replace prefered with preferred
-Date: Thu, 24 Oct 2019 20:30:51 +0300
-Message-ID: <20191024173051.GB7948@linux.intel.com>
-References: <20191022214208.211448-1-salyzyn@android.com>
- <20191023115637.GA23733@linux.intel.com>
- <fa12cb96-7a93-bf85-214d-a7bfaf8b8b0a@android.com>
+From: Sylvain Munaut <246tnt-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: Spontaneous reboots when using RX 560
+Date: Thu, 24 Oct 2019 19:33:33 +0200
+Message-ID: <CAHL+j0_LNy+R3A6DW7MKojW0XycOhCBeCHzA9LenaFvkwM0JWg@mail.gmail.com>
+References: <CAHL+j0_2ir=8hHDoyqizweOUSV6XfqC-UCD15WuJ9vvptNLr0g@mail.gmail.com>
+ <CADnq5_N0r8O2vQapGaary0L-OfdTdz-ezcMJK90+Gy2sPujYcw@mail.gmail.com>
+ <CAHL+j08qsu1pSOZPLB9-XWw9ZmT2OamaWPBJV4T3Vzx_C8cD7g@mail.gmail.com>
+ <67658520-b3f4-d2f9-7247-dd434ab5c30b@amd.com>
+ <CAHL+j0-Nm+6VFXi_w4iciNdG40zubpqvh1RXs3MFfXJK2mFr0Q@mail.gmail.com>
+ <CAHL+j0_=r1XBOzwiQmbZTVoRsZ5=Du3pAPd_n7pia81FegdHhw@mail.gmail.com>
+ <57826a9e-5842-4ddd-a456-67d1d1b9a9ce@amd.com>
+ <CAHL+j0-NJ8F4RpMJ5m9_9gk_t+zhwFwVmG6MMy4TBYa4XjnWEA@mail.gmail.com>
+ <CADnq5_MTYe5z0gbtY0eCnUax2D=HZYBQF7YWPS86pikDXGVWOA@mail.gmail.com>
+ <CAHL+j0_Dn9VZ7CN-yaaFP4kk39gWTKu4fLZ6SN4Dj17e2z+4RQ@mail.gmail.com>
+ <CAHL+j08BgqmOoQHnsfE3xtZFsz14cOZ=Xui3o7mENJd3Fq0z0g@mail.gmail.com>
+ <CAHL+j0-E83G4+xYDcJ2xB2abF9DXA78CXfP9LrVVktTmvsBYvg@mail.gmail.com>
+ <CAHL+j0-D=AX7==2RRTXDaKEQwid8x817XO-upaDmCemMpvEF6Q@mail.gmail.com>
+ <CADnq5_OL2ra6k8HHnAc=2Zp=bkKA6pLmGDacS3V+6RYHPgwtjg@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Return-path: <netdev-owner@vger.kernel.org>
-Content-Disposition: inline
-In-Reply-To: <fa12cb96-7a93-bf85-214d-a7bfaf8b8b0a@android.com>
-Sender: netdev-owner@vger.kernel.org
-To: Mark Salyzyn <salyzyn@android.com>
-Cc: linux-kernel@vger.kernel.org, kernel-team@android.com, "David S. Miller" <davem@davemloft.net>, Jonathan Corbet <corbet@lwn.net>, Ard Biesheuvel <ard.biesheuvel@linaro.org>, Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, Alex Deucher <alexander.deucher@amd.com>, Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, VMware Graphics <linux-graphics-maintainer@vmware.com>, Thomas Hellstrom <thellstrom@vmware.com>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Trond Myklebust <trond.myklebust@hammerspace.com>, Anna Schumaker <anna.schumaker@netapp.com>, Alexand
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <CADnq5_OL2ra6k8HHnAc=2Zp=bkKA6pLmGDacS3V+6RYHPgwtjg-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Cc: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-On Wed, Oct 23, 2019 at 08:40:59AM -0700, Mark Salyzyn wrote:
-> On 10/23/19 4:56 AM, Jarkko Sakkinen wrote:
-> > On Tue, Oct 22, 2019 at 02:41:45PM -0700, Mark Salyzyn wrote:
-> > > Replace all occurrences of prefered with preferred to make future
-> > > checkpatch.pl's happy.  A few places the incorrect spelling is
-> > > matched with the correct spelling to preserve existing user space API.
-> > > 
-> > > Signed-off-by: Mark Salyzyn <salyzyn@android.com>
-> > I'd fix such things when the code is otherwise change and scope this
-> > patch only to Documentation/. There is no pragmatic benefit of doing
-> > this for the code.
-> > 
-> > /Jarkko
-> 
-> The pragmatic benefit comes with the use of an ABI/API checker (which is a
-> 'distro' thing, not a top of tree kernel thing) produces its map which is
-> typically required to be co-located in the same tree as the kernel
-> repository. Quite a few ABI/API update checkins result in a checkpatch.pl
-> complaint about the misspelled elements being (re-)recorded due to
-> proximity. We have a separate task to improve how it is tracked in Android
-> to reduce milepost marker changes that result in sweeping changes to the
-> database which would reduce the occurrences.
-> 
-> I will split this between pure and inert documentation/comments for now,
-> with a followup later for the code portion which understandably is more
-> controversial.
-> 
-> Cleanup is the least appreciated part of kernel maintenance ;-}.
-> 
-> Sincerely -- Mark Salyzyn
-
-I'm a strong believer of "evolutionary" approach. Patch sets for the
-most part (everything in the end has to be considered case by case, not
-a strict rule) should have some functional changes involved.
-
-What I do require for the parts that I maintain is that any new change
-will result cleaner code base than the one that existed before that
-change was applied. Again, there are some exceptions to this e.g.
-circulating a firmware bug but this is my driving guideline as a
-maintainer.
-
-Doing cleanups just for cleanups can sometimes add unnecessary merge
-conflicts when backporting patches to stable kernels. Thus, if you are
-doing just a cleanup you should have extremely good reasons to do so.
-
-/Jarkko
+SGksCgo+IENhbiB5b3Ugc2VuZCBtZSBhIGNvcHkgb2YgdGhlIHZiaW9zIGZyb20gdGhhdCBib2Fy
+ZD8KPgo+IChhcyByb290KQo+ICh1c2UgbHNwY2kgdG8gZ2V0IHRoZSBidXMgaWQpCj4gY2QgL3N5
+cy9idXMvcGNpL2RldmljZXMvPHBjaSBidXMgaWQ+Cj4gZWNobyAxID4gcm9tCj4gY2F0IHJvbSA+
+IC90bXAvdmJpb3Mucm9tCj4gZWNobyAwID4gcm9tCgpTdXJlLCBzZW50IGFzIHByaXZhdGUgbWVz
+c2FnZS4KCkFsc28sIEkgZ290IGhvbGQgb2YgYSBSWDU3MCBmcm9tIGFub3RoZXIgdmVuZG9yIGFu
+ZCB0ZXN0ZWQgdGhhdC4gV29ya3MKZmluZSwgbm8gY3Jhc2ggZXZlbiBkdXJpbmcgc3RyZXNzIHRl
+c3RzIC8gYmVuY2htYXJrcy4KCkNoZWVycywKCiAgICBTeWx2YWluCl9fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1n
+ZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21h
+aWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
