@@ -2,75 +2,100 @@ Return-Path: <SRS0=Gnzf=YR=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.0 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
-	FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-6.7 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
+	HTML_MESSAGE,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,
+	SPF_PASS autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DE603CA9EAF
-	for <amd-gfx@archiver.kernel.org>; Thu, 24 Oct 2019 10:26:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E3FF5CA9EAF
+	for <amd-gfx@archiver.kernel.org>; Thu, 24 Oct 2019 10:27:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B257220684
-	for <amd-gfx@archiver.kernel.org>; Thu, 24 Oct 2019 10:26:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B257220684
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id C34BD21929
+	for <amd-gfx@archiver.kernel.org>; Thu, 24 Oct 2019 10:27:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C34BD21929
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 816106E1F4;
-	Thu, 24 Oct 2019 10:26:03 +0000 (UTC)
-Received: from mail-wm1-x344.google.com (mail-wm1-x344.google.com
- [IPv6:2a00:1450:4864:20::344])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1A55E6E1F4;
- Thu, 24 Oct 2019 10:26:02 +0000 (UTC)
-Received: by mail-wm1-x344.google.com with SMTP id n7so1354439wmc.3;
- Thu, 24 Oct 2019 03:26:02 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:from:to:references:message-id:date
- :user-agent:mime-version:in-reply-to:content-transfer-encoding
- :content-language;
- bh=pYCwuvgTQdYrDj2Px6CRQM89iEVVohZKJJZpy41b42U=;
- b=UalDMnVkqrvowJB29AbDmvqaPgsZf8MoZBhloOSnF0A5HCiIdJZM8jcvyQyeGoLNhB
- 8ofqKmot8o50MOKdOly+k75nnAr9SKOByHZNWqbVbRnWzt+waz+RltrWfxEH7Gfi67UR
- Cp0nOl2P6DtkgzScl01aeMTD9DClG32Dx7rJPbYMxItOGY0XJOClU3v9tPcr4ZCR/Ske
- t6heaRd7rTXDq3ddoVYzy4qsWLwl77L9b5p/c1YqGzGYpuiVW104btIgSc8wOlYtvsET
- 2tsoX1pNkW/0F9L94lVMk1u/PqwhVO65f1xwjZ4QoSE8gBTRCGFdHn4IOej/oyUB+PTm
- 8F9A==
-X-Gm-Message-State: APjAAAW3uHDTKJ5TG4vj5xwlhoDM9oDxF3YpZlqVoDHzXW248haTLWpW
- WpCjMCzhgpaW98YJAkW9deohpRS8
-X-Google-Smtp-Source: APXvYqwstaG7X8XIMUWEkvXxwohyFbfwO2qPcTruCEz/lQ5/CXAJAQI+R60uXqR9AjV0SWzYZhBa4g==
-X-Received: by 2002:a1c:108:: with SMTP id 8mr4114688wmb.25.1571912760727;
- Thu, 24 Oct 2019 03:26:00 -0700 (PDT)
-Received: from ?IPv6:2a02:908:1252:fb60:be8a:bd56:1f94:86e7?
- ([2a02:908:1252:fb60:be8a:bd56:1f94:86e7])
- by smtp.gmail.com with ESMTPSA id e3sm1835279wme.36.2019.10.24.03.25.59
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Thu, 24 Oct 2019 03:26:00 -0700 (PDT)
-Subject: Re: [PATCH] drm/ttm: use the parent resv for ghost objects v2
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-To: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- "Zhou, David(ChunMing)" <David1.Zhou@amd.com>, Huang Rui <ray.huang@amd.com>
-References: <20191018115831.14951-1-christian.koenig@amd.com>
-Message-ID: <01bf3c2a-e178-6083-01a8-bb06aaef10bf@gmail.com>
-Date: Thu, 24 Oct 2019 12:25:59 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.9.0
-MIME-Version: 1.0
-In-Reply-To: <20191018115831.14951-1-christian.koenig@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 81F8389F0A;
+	Thu, 24 Oct 2019 10:27:56 +0000 (UTC)
+Received: from NAM01-SN1-obe.outbound.protection.outlook.com
+ (mail-eopbgr820058.outbound.protection.outlook.com [40.107.82.58])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3DA6689F0A
+ for <amd-gfx@lists.freedesktop.org>; Thu, 24 Oct 2019 10:27:55 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=RSuUS4xy/PZ/5hiHxqfDS9wOOjmcE6pqVjBnjZdL2Wt4LmM6EzsB2G5NXwR5VcSFw1sDs/T0wtrOe2ScaVOvc9ghF25hu/U9afeJpaO2P57qqGlsV7amHvOHWPv3Jih9pmTkDXbd9fyTPRVSvuIug6w8Vrh9f834TayUphv/BGsVvWbMhsDC8CrCoaLcm4JVtEQdhkrB61Hv1YQdumU9CgMrCbSc2UUzNyr9yZZdJN3GKzOX2DtsnB46KFrAKGG6vo/D+EozB6gA9vil0IA8DEG/Gs/H7GOfE1/R5XqCyBiuKm55Hb+puMeqF0MeNecP1ByNrOVuS0nOFLPDGQT8iw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=TtO+rFoYniLH7TZAasFBcwhRj7+PDrkmZebaybHau0Y=;
+ b=M2gIPyjXba82PdJNaR/CL6jDG5XdtxdP9SXNUsxbV9oZ7rlymjZO0+HjL1zrxfXyWrmK2APpic1pBja4EA+Yz4pvvK7hmGusxfOIR680+FVOHbVlRu85BSsiMZvqVjMhbyFGRteYenfmMwNyvmtS9EVLrVi9CUiWcUJJ/jGhfFDWnglqDn7g8yFFkyGGMhjEHTx+cnD1EIOLZs7YNsKx65MpglsHpzBWfFq4sewoZoWwdXLYBHQ0HC5SXsC7Sejpyw8Ok1syD7HVLU7O5hJ/V+LI2uQrLbF8No98RnoQzPLgoYGrvVmHPu5JFxe30zHtHozyWm11BzH1/zPqHP0fMA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+Received: from BL0PR12MB2529.namprd12.prod.outlook.com (52.132.11.156) by
+ BL0PR12MB2500.namprd12.prod.outlook.com (52.132.11.151) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2387.20; Thu, 24 Oct 2019 10:27:51 +0000
+Received: from BL0PR12MB2529.namprd12.prod.outlook.com
+ ([fe80::d99f:9c71:b847:e592]) by BL0PR12MB2529.namprd12.prod.outlook.com
+ ([fe80::d99f:9c71:b847:e592%5]) with mapi id 15.20.2347.029; Thu, 24 Oct 2019
+ 10:27:51 +0000
+From: "Yin, Tianci (Rico)" <Tianci.Yin@amd.com>
+To: "Xu, Feifei" <Feifei.Xu@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: Re: [PATCH 2/3] drm/amdgpu/gfx10: update gfx golden settings for
+ navi14
+Thread-Topic: [PATCH 2/3] drm/amdgpu/gfx10: update gfx golden settings for
+ navi14
+Thread-Index: AQHVilNBm+BQ8aVD3EO5E95DllDO7qdpkoMAgAAELzY=
+Date: Thu, 24 Oct 2019 10:27:51 +0000
+Message-ID:
+ <BL0PR12MB2529E9FE67CC8E55C28F04EE956A0@BL0PR12MB2529.namprd12.prod.outlook.com>
+References: <20191024101004.17247-1-tianci.yin@amd.com>
+ <20191024101004.17247-2-tianci.yin@amd.com>,
+ <CH2PR12MB37671C7C33787D8C5E987986FE6A0@CH2PR12MB3767.namprd12.prod.outlook.com>
+In-Reply-To: <CH2PR12MB37671C7C33787D8C5E987986FE6A0@CH2PR12MB3767.namprd12.prod.outlook.com>
+Accept-Language: en-US, zh-CN
 Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [180.167.199.189]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-ht: Tenant
+x-ms-office365-filtering-correlation-id: fabcd852-5563-40a2-ca0d-08d7586cd2cf
+x-ms-traffictypediagnostic: BL0PR12MB2500:
+x-ms-exchange-purlcount: 1
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <BL0PR12MB250078D0105B1EB2A38E4465956A0@BL0PR12MB2500.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:2043;
+x-forefront-prvs: 0200DDA8BE
+x-forefront-antispam-report: SFV:NSPM;
+ SFS:(10009020)(4636009)(346002)(376002)(396003)(366004)(136003)(39860400002)(199004)(189003)(13464003)(74316002)(52536014)(26005)(478600001)(14454004)(99286004)(606006)(19627405001)(6246003)(8676002)(2906002)(966005)(236005)(102836004)(9686003)(229853002)(316002)(6436002)(6306002)(54896002)(8936002)(55016002)(66446008)(15650500001)(76116006)(66476007)(53546011)(6506007)(66556008)(64756008)(91956017)(66946007)(66066001)(4326008)(76176011)(7696005)(256004)(105004)(33656002)(81166006)(25786009)(81156014)(476003)(5660300002)(14444005)(7736002)(2501003)(486006)(446003)(54906003)(86362001)(71200400001)(6116002)(71190400001)(3846002)(186003)(110136005)(11346002);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:BL0PR12MB2500;
+ H:BL0PR12MB2529.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; A:1; MX:1; 
+received-spf: None (protection.outlook.com: amd.com does not designate
+ permitted sender hosts)
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: eMed2q0nHjRjQidruFNcyO2nAIoWPqoLIs24ab9gXkW0S7X4enf+MSvSCkm+eCvvth0Sj+Hh5DDQsKSp+MkMLAn46hfXKN/YhqXJ3z4mt+6u5Ot/NHD595K4GlrbPQ7k33vBSbVF5JkJmAreVqP4ZywTz9NjAC98cs467c3ou1McEOj2LtfdR7uYenc4h9lyXb8sg/iaJLS0BedtRKXE+DzRm+HtRz9mcuuIweGB5URM2+A8bw8AONCpMZaCPjMKv5HXJz3/O4Yhjo+oXRJB9lRu4PaCqERYRjO+VPHKV2k4/lJefccD0wvhk0fC6RYM9aJN50dV34lCl49n569NgDEy9s1qu4C1utL7hQ0P0L0K9u5VuOsD0GGPyN/LIvBX51J2lPsC0vrDjuevp4iUb0hVzRiKptTFTpECoztiXz81JDdo79x7cFOYz8v85uJhMOIMNwFv20+UrXbcuq+qSHmksLNQAyRhu8dZXy7TEf0=
+MIME-Version: 1.0
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: fabcd852-5563-40a2-ca0d-08d7586cd2cf
+X-MS-Exchange-CrossTenant-originalarrivaltime: 24 Oct 2019 10:27:51.1330 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: m5i2Zq5CWhQPIc/Sa9vZUeBX9i5KtixeuZdWhECr730PqCxmhY4zhpD1ot3kyw+s50SFSyVHSkNojImVV154NQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB2500
 X-Mailman-Original-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20161025;
- h=subject:from:to:references:message-id:date:user-agent:mime-version
- :in-reply-to:content-transfer-encoding:content-language;
- bh=pYCwuvgTQdYrDj2Px6CRQM89iEVVohZKJJZpy41b42U=;
- b=SJ/cSo/Efj3wg9v2BaP123rHCcf/tKrVr8GS5TDIgnhg+blYKjc6yijjySypcGRuxu
- UF4fYDI3guSQ3uYCftIu6DQoqe0LvVYqj/FPUKmXudVDtcfo/lhknVp0oIikt77CXGdy
- vumLaomGpvSQA0QjbwQeIqIdJZ98aavTbGs0M3HYMAjwoluL2e0ftW1Zc79KBP+ZW2oY
- HY9TGT2szD5JSo/PDwZZQIVeEaMV9d9NoVsoRYWzn/ltEho5lm29W+YLHO56uuITLWPL
- oDjopRmQiOSw5OJIGsoHe84Z0r931yfaaYNNYi9T28YeXzgWrCE6AdeBlomSU7VjLxsF
- tGgw==
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=TtO+rFoYniLH7TZAasFBcwhRj7+PDrkmZebaybHau0Y=;
+ b=GzpzXTMP1/y4KhZGAmLwezXzakLPSnL9rVgql8vbSULPXi6wnqvbmYxjTj+pNhZxxTJnk5dBTip92R72h0FM1+wrlkYgvBhvbGnXhphX/IWPIg161hU4AoSQY2Nk6cpL59Y/x0K0WnbbWF3yTy/x9HUkCuH5BhCzzjDr1k6lkrY=
+X-Mailman-Original-Authentication-Results: spf=none (sender IP is )
+ smtp.mailfrom=Tianci.Yin@amd.com; 
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -82,64 +107,197 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Cc: "Xiao, Jack" <Jack.Xiao@amd.com>, "Zhang, Hawking" <Hawking.Zhang@amd.com>,
+ "Yuan, Xiaojie" <Xiaojie.Yuan@amd.com>
+Content-Type: multipart/mixed; boundary="===============0933745964=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-Message-ID: <20191024102559.HcgAWmuFmgXbRNY4cTqhrUnquClLU8-MrnL0dExDD_k@z>
+Message-ID: <20191024102751.uRAdlcEtNzxpRfRsam0WRdUV_hxOKFwom15HjxmJyXU@z>
 
-UGluZz8KCkFtIDE4LjEwLjE5IHVtIDEzOjU4IHNjaHJpZWIgQ2hyaXN0aWFuIEvDtm5pZzoKPiBU
-aGlzIHdheSB0aGUgVFRNIGlzIGRlc3Ryb3llZCB3aXRoIHRoZSBjb3JyZWN0IGRtYV9yZXN2IG9i
-amVjdAo+IGxvY2tlZCBhbmQgd2UgY2FuIGV2ZW4gcGlwZWxpbmUgaW1wb3J0ZWQgQk8gZXZpY3Rp
-b25zLgo+Cj4gdjI6IExpbWl0IHRoaXMgdG8gb25seSBjYXNlcyB3aGVuIHRoZSBwYXJlbnQgb2Jq
-ZWN0IHVzZXMgYSBzZXBhcmF0ZQo+ICAgICAgcmVzZXJ2YXRpb24gb2JqZWN0IGFzIHdlbGwuIFRo
-aXMgZml4ZXMgYW5vdGhlciBPT00gcHJvYmxlbS4KPgo+IFNpZ25lZC1vZmYtYnk6IENocmlzdGlh
-biBLw7ZuaWcgPGNocmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4KPiAtLS0KPiAgIGRyaXZlcnMvZ3B1
-L2RybS90dG0vdHRtX2JvX3V0aWwuYyB8IDE2ICsrKysrKysrKy0tLS0tLS0KPiAgIDEgZmlsZSBj
-aGFuZ2VkLCA5IGluc2VydGlvbnMoKyksIDcgZGVsZXRpb25zKC0pCj4KPiBkaWZmIC0tZ2l0IGEv
-ZHJpdmVycy9ncHUvZHJtL3R0bS90dG1fYm9fdXRpbC5jIGIvZHJpdmVycy9ncHUvZHJtL3R0bS90
-dG1fYm9fdXRpbC5jCj4gaW5kZXggZTAzMGMyN2Y1M2NmLi40NWU0NDBmODBiN2IgMTAwNjQ0Cj4g
-LS0tIGEvZHJpdmVycy9ncHUvZHJtL3R0bS90dG1fYm9fdXRpbC5jCj4gKysrIGIvZHJpdmVycy9n
-cHUvZHJtL3R0bS90dG1fYm9fdXRpbC5jCj4gQEAgLTUxMiw3ICs1MTIsOSBAQCBzdGF0aWMgaW50
-IHR0bV9idWZmZXJfb2JqZWN0X3RyYW5zZmVyKHN0cnVjdCB0dG1fYnVmZmVyX29iamVjdCAqYm8s
-Cj4gICAJa3JlZl9pbml0KCZmYm8tPmJhc2Uua3JlZik7Cj4gICAJZmJvLT5iYXNlLmRlc3Ryb3kg
-PSAmdHRtX3RyYW5zZmVyZWRfZGVzdHJveTsKPiAgIAlmYm8tPmJhc2UuYWNjX3NpemUgPSAwOwo+
-IC0JZmJvLT5iYXNlLmJhc2UucmVzdiA9ICZmYm8tPmJhc2UuYmFzZS5fcmVzdjsKPiArCWlmIChi
-by0+YmFzZS5yZXN2ID09ICZiby0+YmFzZS5fcmVzdikKPiArCQlmYm8tPmJhc2UuYmFzZS5yZXN2
-ID0gJmZiby0+YmFzZS5iYXNlLl9yZXN2Owo+ICsKPiAgIAlkbWFfcmVzdl9pbml0KGZiby0+YmFz
-ZS5iYXNlLnJlc3YpOwo+ICAgCXJldCA9IGRtYV9yZXN2X3RyeWxvY2soZmJvLT5iYXNlLmJhc2Uu
-cmVzdik7Cj4gICAJV0FSTl9PTighcmV0KTsKPiBAQCAtNzExLDcgKzcxMyw3IEBAIGludCB0dG1f
-Ym9fbW92ZV9hY2NlbF9jbGVhbnVwKHN0cnVjdCB0dG1fYnVmZmVyX29iamVjdCAqYm8sCj4gICAJ
-CWlmIChyZXQpCj4gICAJCQlyZXR1cm4gcmV0Owo+ICAgCj4gLQkJZG1hX3Jlc3ZfYWRkX2V4Y2xf
-ZmVuY2UoZ2hvc3Rfb2JqLT5iYXNlLnJlc3YsIGZlbmNlKTsKPiArCQlkbWFfcmVzdl9hZGRfZXhj
-bF9mZW5jZSgmZ2hvc3Rfb2JqLT5iYXNlLl9yZXN2LCBmZW5jZSk7Cj4gICAKPiAgIAkJLyoqCj4g
-ICAJCSAqIElmIHdlJ3JlIG5vdCBtb3ZpbmcgdG8gZml4ZWQgbWVtb3J5LCB0aGUgVFRNIG9iamVj
-dAo+IEBAIC03MjQsNyArNzI2LDcgQEAgaW50IHR0bV9ib19tb3ZlX2FjY2VsX2NsZWFudXAoc3Ry
-dWN0IHR0bV9idWZmZXJfb2JqZWN0ICpibywKPiAgIAkJZWxzZQo+ICAgCQkJYm8tPnR0bSA9IE5V
-TEw7Cj4gICAKPiAtCQl0dG1fYm9fdW5yZXNlcnZlKGdob3N0X29iaik7Cj4gKwkJZG1hX3Jlc3Zf
-dW5sb2NrKCZnaG9zdF9vYmotPmJhc2UuX3Jlc3YpOwo+ICAgCQl0dG1fYm9fcHV0KGdob3N0X29i
-aik7Cj4gICAJfQo+ICAgCj4gQEAgLTc2Nyw3ICs3NjksNyBAQCBpbnQgdHRtX2JvX3BpcGVsaW5l
-X21vdmUoc3RydWN0IHR0bV9idWZmZXJfb2JqZWN0ICpibywKPiAgIAkJaWYgKHJldCkKPiAgIAkJ
-CXJldHVybiByZXQ7Cj4gICAKPiAtCQlkbWFfcmVzdl9hZGRfZXhjbF9mZW5jZShnaG9zdF9vYmot
-PmJhc2UucmVzdiwgZmVuY2UpOwo+ICsJCWRtYV9yZXN2X2FkZF9leGNsX2ZlbmNlKCZnaG9zdF9v
-YmotPmJhc2UuX3Jlc3YsIGZlbmNlKTsKPiAgIAo+ICAgCQkvKioKPiAgIAkJICogSWYgd2UncmUg
-bm90IG1vdmluZyB0byBmaXhlZCBtZW1vcnksIHRoZSBUVE0gb2JqZWN0Cj4gQEAgLTc4MCw3ICs3
-ODIsNyBAQCBpbnQgdHRtX2JvX3BpcGVsaW5lX21vdmUoc3RydWN0IHR0bV9idWZmZXJfb2JqZWN0
-ICpibywKPiAgIAkJZWxzZQo+ICAgCQkJYm8tPnR0bSA9IE5VTEw7Cj4gICAKPiAtCQl0dG1fYm9f
-dW5yZXNlcnZlKGdob3N0X29iaik7Cj4gKwkJZG1hX3Jlc3ZfdW5sb2NrKCZnaG9zdF9vYmotPmJh
-c2UuX3Jlc3YpOwo+ICAgCQl0dG1fYm9fcHV0KGdob3N0X29iaik7Cj4gICAKPiAgIAl9IGVsc2Ug
-aWYgKGZyb20tPmZsYWdzICYgVFRNX01FTVRZUEVfRkxBR19GSVhFRCkgewo+IEBAIC04MzYsNyAr
-ODM4LDcgQEAgaW50IHR0bV9ib19waXBlbGluZV9ndXR0aW5nKHN0cnVjdCB0dG1fYnVmZmVyX29i
-amVjdCAqYm8pCj4gICAJaWYgKHJldCkKPiAgIAkJcmV0dXJuIHJldDsKPiAgIAo+IC0JcmV0ID0g
-ZG1hX3Jlc3ZfY29weV9mZW5jZXMoZ2hvc3QtPmJhc2UucmVzdiwgYm8tPmJhc2UucmVzdik7Cj4g
-KwlyZXQgPSBkbWFfcmVzdl9jb3B5X2ZlbmNlcygmZ2hvc3QtPmJhc2UuX3Jlc3YsIGJvLT5iYXNl
-LnJlc3YpOwo+ICAgCS8qIExhc3QgcmVzb3J0LCB3YWl0IGZvciB0aGUgQk8gdG8gYmUgaWRsZSB3
-aGVuIHdlIGFyZSBPT00gKi8KPiAgIAlpZiAocmV0KQo+ICAgCQl0dG1fYm9fd2FpdChibywgZmFs
-c2UsIGZhbHNlKTsKPiBAQCAtODQ1LDcgKzg0Nyw3IEBAIGludCB0dG1fYm9fcGlwZWxpbmVfZ3V0
-dGluZyhzdHJ1Y3QgdHRtX2J1ZmZlcl9vYmplY3QgKmJvKQo+ICAgCWJvLT5tZW0ubWVtX3R5cGUg
-PSBUVE1fUExfU1lTVEVNOwo+ICAgCWJvLT50dG0gPSBOVUxMOwo+ICAgCj4gLQl0dG1fYm9fdW5y
-ZXNlcnZlKGdob3N0KTsKPiArCWRtYV9yZXN2X3VubG9jaygmZ2hvc3QtPmJhc2UuX3Jlc3YpOwo+
-ICAgCXR0bV9ib19wdXQoZ2hvc3QpOwo+ICAgCj4gICAJcmV0dXJuIDA7CgpfX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAph
-bWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9y
-Zy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
+--===============0933745964==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_BL0PR12MB2529E9FE67CC8E55C28F04EE956A0BL0PR12MB2529namp_"
+
+--_000_BL0PR12MB2529E9FE67CC8E55C28F04EE956A0BL0PR12MB2529namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+Thanks Feifei!
+________________________________
+From: Xu, Feifei <Feifei.Xu@amd.com>
+Sent: Thursday, October 24, 2019 18:12
+To: Yin, Tianci (Rico) <Tianci.Yin@amd.com>; amd-gfx@lists.freedesktop.org =
+<amd-gfx@lists.freedesktop.org>
+Cc: Xiao, Jack <Jack.Xiao@amd.com>; Yuan, Xiaojie <Xiaojie.Yuan@amd.com>; Y=
+in, Tianci (Rico) <Tianci.Yin@amd.com>; Zhang, Hawking <Hawking.Zhang@amd.c=
+om>
+Subject: RE: [PATCH 2/3] drm/amdgpu/gfx10: update gfx golden settings for n=
+avi14
+
+Series is reviewed-by: Feifei Xu <Feifei.Xu@amd.com>
+
+Thanks,
+Feifei
+
+-----Original Message-----
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Tianci Y=
+in
+Sent: Thursday, October 24, 2019 6:10 PM
+To: amd-gfx@lists.freedesktop.org
+Cc: Xu, Feifei <Feifei.Xu@amd.com>; Xiao, Jack <Jack.Xiao@amd.com>; Yuan, X=
+iaojie <Xiaojie.Yuan@amd.com>; Yin, Tianci (Rico) <Tianci.Yin@amd.com>; Zha=
+ng, Hawking <Hawking.Zhang@amd.com>
+Subject: [PATCH 2/3] drm/amdgpu/gfx10: update gfx golden settings for navi1=
+4
+
+From: "Tianci.Yin" <tianci.yin@amd.com>
+
+update registers: mmCGTT_SPI_CLK_CTRL
+
+Change-Id: Ib2539aae1fb0d001278b7f89c90ad6296f9fb85f
+Signed-off-by: Tianci.Yin <tianci.yin@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/a=
+mdgpu/gfx_v10_0.c
+index 11e863c4c40b..22d0fade9c71 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+@@ -140,7 +140,7 @@ static const struct soc15_reg_golden golden_settings_gc=
+_10_1_1[] =3D
+         SOC15_REG_GOLDEN_VALUE(GC, 0, mmCB_HW_CONTROL_4, 0xffffffff, 0x003=
+c0014),
+         SOC15_REG_GOLDEN_VALUE(GC, 0, mmCGTT_GS_NGG_CLK_CTRL, 0xffff8fff, =
+0xffff8100),
+         SOC15_REG_GOLDEN_VALUE(GC, 0, mmCGTT_IA_CLK_CTRL, 0xffff0fff, 0xff=
+ff0100),
+-       SOC15_REG_GOLDEN_VALUE(GC, 0, mmCGTT_SPI_CLK_CTRL, 0xc0000000, 0xc0=
+000100),
++       SOC15_REG_GOLDEN_VALUE(GC, 0, mmCGTT_SPI_CLK_CTRL, 0xcd000000, 0x0d=
+000100),
+         SOC15_REG_GOLDEN_VALUE(GC, 0, mmCGTT_SQ_CLK_CTRL, 0xf8ff0fff, 0x60=
+000100),
+         SOC15_REG_GOLDEN_VALUE(GC, 0, mmCGTT_SQG_CLK_CTRL, 0x40000ff0, 0x4=
+0000100),
+         SOC15_REG_GOLDEN_VALUE(GC, 0, mmCGTT_VGT_CLK_CTRL, 0xffff8fff, 0xf=
+fff8100),
+--
+2.17.1
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--_000_BL0PR12MB2529E9FE67CC8E55C28F04EE956A0BL0PR12MB2529namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Thanks Feifei!<br>
+</div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Xu, Feifei &lt;Feifei=
+.Xu@amd.com&gt;<br>
+<b>Sent:</b> Thursday, October 24, 2019 18:12<br>
+<b>To:</b> Yin, Tianci (Rico) &lt;Tianci.Yin@amd.com&gt;; amd-gfx@lists.fre=
+edesktop.org &lt;amd-gfx@lists.freedesktop.org&gt;<br>
+<b>Cc:</b> Xiao, Jack &lt;Jack.Xiao@amd.com&gt;; Yuan, Xiaojie &lt;Xiaojie.=
+Yuan@amd.com&gt;; Yin, Tianci (Rico) &lt;Tianci.Yin@amd.com&gt;; Zhang, Haw=
+king &lt;Hawking.Zhang@amd.com&gt;<br>
+<b>Subject:</b> RE: [PATCH 2/3] drm/amdgpu/gfx10: update gfx golden setting=
+s for navi14</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">Series is reviewed-by: Feifei Xu &lt;Feifei.Xu@amd=
+.com&gt;<br>
+<br>
+Thanks,<br>
+Feifei<br>
+<br>
+-----Original Message-----<br>
+From: amd-gfx &lt;amd-gfx-bounces@lists.freedesktop.org&gt; On Behalf Of Ti=
+anci Yin<br>
+Sent: Thursday, October 24, 2019 6:10 PM<br>
+To: amd-gfx@lists.freedesktop.org<br>
+Cc: Xu, Feifei &lt;Feifei.Xu@amd.com&gt;; Xiao, Jack &lt;Jack.Xiao@amd.com&=
+gt;; Yuan, Xiaojie &lt;Xiaojie.Yuan@amd.com&gt;; Yin, Tianci (Rico) &lt;Tia=
+nci.Yin@amd.com&gt;; Zhang, Hawking &lt;Hawking.Zhang@amd.com&gt;<br>
+Subject: [PATCH 2/3] drm/amdgpu/gfx10: update gfx golden settings for navi1=
+4<br>
+<br>
+From: &quot;Tianci.Yin&quot; &lt;tianci.yin@amd.com&gt;<br>
+<br>
+update registers: mmCGTT_SPI_CLK_CTRL<br>
+<br>
+Change-Id: Ib2539aae1fb0d001278b7f89c90ad6296f9fb85f<br>
+Signed-off-by: Tianci.Yin &lt;tianci.yin@amd.com&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c | 2 &#43;-<br>
+&nbsp;1 file changed, 1 insertion(&#43;), 1 deletion(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/a=
+mdgpu/gfx_v10_0.c<br>
+index 11e863c4c40b..22d0fade9c71 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c<br>
+@@ -140,7 &#43;140,7 @@ static const struct soc15_reg_golden golden_setting=
+s_gc_10_1_1[] =3D<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SOC15_REG_GOLDEN_VALUE(GC,=
+ 0, mmCB_HW_CONTROL_4, 0xffffffff, 0x003c0014),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SOC15_REG_GOLDEN_VALUE(GC,=
+ 0, mmCGTT_GS_NGG_CLK_CTRL, 0xffff8fff, 0xffff8100),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SOC15_REG_GOLDEN_VALUE(GC,=
+ 0, mmCGTT_IA_CLK_CTRL, 0xffff0fff, 0xffff0100),<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SOC15_REG_GOLDEN_VALUE(GC, 0, mmCGTT_=
+SPI_CLK_CTRL, 0xc0000000, 0xc0000100),<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SOC15_REG_GOLDEN_VALUE(GC, 0, mmC=
+GTT_SPI_CLK_CTRL, 0xcd000000, 0x0d000100),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SOC15_REG_GOLDEN_VALUE(GC,=
+ 0, mmCGTT_SQ_CLK_CTRL, 0xf8ff0fff, 0x60000100),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SOC15_REG_GOLDEN_VALUE(GC,=
+ 0, mmCGTT_SQG_CLK_CTRL, 0x40000ff0, 0x40000100),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SOC15_REG_GOLDEN_VALUE(GC,=
+ 0, mmCGTT_VGT_CLK_CTRL, 0xffff8fff, 0xffff8100),<br>
+-- <br>
+2.17.1<br>
+<br>
+_______________________________________________<br>
+amd-gfx mailing list<br>
+amd-gfx@lists.freedesktop.org<br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
+lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
+</div>
+</span></font></div>
+</body>
+</html>
+
+--_000_BL0PR12MB2529E9FE67CC8E55C28F04EE956A0BL0PR12MB2529namp_--
+
+--===============0933745964==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+
+--===============0933745964==--
