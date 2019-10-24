@@ -1,59 +1,63 @@
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: Spontaneous reboots when using RX 560
-Date: Thu, 24 Oct 2019 12:55:59 -0400
-Message-ID: <CADnq5_OL2ra6k8HHnAc=2Zp=bkKA6pLmGDacS3V+6RYHPgwtjg@mail.gmail.com>
-References: <CAHL+j0_2ir=8hHDoyqizweOUSV6XfqC-UCD15WuJ9vvptNLr0g@mail.gmail.com>
- <CADnq5_N0r8O2vQapGaary0L-OfdTdz-ezcMJK90+Gy2sPujYcw@mail.gmail.com>
- <CAHL+j08qsu1pSOZPLB9-XWw9ZmT2OamaWPBJV4T3Vzx_C8cD7g@mail.gmail.com>
- <67658520-b3f4-d2f9-7247-dd434ab5c30b@amd.com>
- <CAHL+j0-Nm+6VFXi_w4iciNdG40zubpqvh1RXs3MFfXJK2mFr0Q@mail.gmail.com>
- <CAHL+j0_=r1XBOzwiQmbZTVoRsZ5=Du3pAPd_n7pia81FegdHhw@mail.gmail.com>
- <57826a9e-5842-4ddd-a456-67d1d1b9a9ce@amd.com>
- <CAHL+j0-NJ8F4RpMJ5m9_9gk_t+zhwFwVmG6MMy4TBYa4XjnWEA@mail.gmail.com>
- <CADnq5_MTYe5z0gbtY0eCnUax2D=HZYBQF7YWPS86pikDXGVWOA@mail.gmail.com>
- <CAHL+j0_Dn9VZ7CN-yaaFP4kk39gWTKu4fLZ6SN4Dj17e2z+4RQ@mail.gmail.com>
- <CAHL+j08BgqmOoQHnsfE3xtZFsz14cOZ=Xui3o7mENJd3Fq0z0g@mail.gmail.com>
- <CAHL+j0-E83G4+xYDcJ2xB2abF9DXA78CXfP9LrVVktTmvsBYvg@mail.gmail.com>
- <CAHL+j0-D=AX7==2RRTXDaKEQwid8x817XO-upaDmCemMpvEF6Q@mail.gmail.com>
+From: Jarkko Sakkinen <jarkko.sakkinen@linux.intel.com>
+Subject: Re: [PATCH] Cleanup: replace prefered with preferred
+Date: Thu, 24 Oct 2019 20:30:51 +0300
+Message-ID: <20191024173051.GB7948@linux.intel.com>
+References: <20191022214208.211448-1-salyzyn@android.com>
+ <20191023115637.GA23733@linux.intel.com>
+ <fa12cb96-7a93-bf85-214d-a7bfaf8b8b0a@android.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CAHL+j0-D=AX7==2RRTXDaKEQwid8x817XO-upaDmCemMpvEF6Q-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Sylvain Munaut <246tnt-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Type: text/plain; charset=us-ascii
+Return-path: <netdev-owner@vger.kernel.org>
+Content-Disposition: inline
+In-Reply-To: <fa12cb96-7a93-bf85-214d-a7bfaf8b8b0a@android.com>
+Sender: netdev-owner@vger.kernel.org
+To: Mark Salyzyn <salyzyn@android.com>
+Cc: linux-kernel@vger.kernel.org, kernel-team@android.com, "David S. Miller" <davem@davemloft.net>, Jonathan Corbet <corbet@lwn.net>, Ard Biesheuvel <ard.biesheuvel@linaro.org>, Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, Alex Deucher <alexander.deucher@amd.com>, Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, VMware Graphics <linux-graphics-maintainer@vmware.com>, Thomas Hellstrom <thellstrom@vmware.com>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Trond Myklebust <trond.myklebust@hammerspace.com>, Anna Schumaker <anna.schumaker@netapp.com>, Alexand
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gVHVlLCBPY3QgMjIsIDIwMTkgYXQgNzowMSBBTSBTeWx2YWluIE11bmF1dCA8MjQ2dG50QGdt
-YWlsLmNvbT4gd3JvdGU6Cj4KPiBIaSBBbGwsCj4KPiBNb3JlIHRlc3Rpbmcgb3ZlciB0aGUgbGFz
-dCBmZXcgZGF5cyBzaG93ZWQgdGhhdCBvbmx5IGVpdGhlciB0aGUgbG93ZXN0Cj4gcG93ZXIgbW9k
-ZSwgb3Igc2xpZ2h0bHkgYWJvdmUgY2FuIHdvcmsuIE9oLCBJIGFsc28gdGVzdGVkIDUuNC1yYzMg
-anVzdAo+IGluIGNhc2UgYnV0IHNhbWUgcmVzdWx0cy4KPiBJdCBkb2Vzbid0IHNlZW0gdG8gYmUg
-dGhlIGFmZmVjdGVkIGJ5IFBDSWUgbGFuZSBzcGVlZCwgTWVtb3J5IHNlZW1zCj4gc3RhYmxlIGF0
-IDYyNU0gYW5kIGFsbW9zdCBhdCAxNTAwTSAob25seSB0aGUgc3VzdGFpbmVkIGhlYXZ5IHdvcmts
-b2FkCj4gZXZlbnR1YWxseSBicmluZyBpdCBkb3duKSwgYnV0IHRoZSBTb0Mgc3BlZWQgc2VlbXMg
-cHJldHR5IHRvdWNoeS4KPgo+IFNvIHRoYXQgd291bGQgc2VlbSB0byBjb25maXJtIHNvbWV0aGlu
-ZyBpcyB3cm9uZyBlaXRoZXIgaW4gdGhlIHBvd2VyCj4gcGxheSB0YWJsZSBpdHNlbGYsIG9yIGl0
-cyBpbnRlcnByZXRhdGlvbiBieSB0aGUgbGludXggZHJpdmVyLgo+IEkgdHJpZWQgYnJ1dGUtbG9h
-ZGluZyBzb21lIG90aGVyIFJYNTcwIHBwdGFibGUgaW50byBpdCwgYnV0IHRoYXQKPiBkaWRuJ3Qg
-cmVhbGx5IGRvIG11Y2guIEFmdGVyIHdyaXRpbmcgaXQgdG8gcHBfdGFibGUsIHRoZSBjYXJkIHdh
-cwo+IHN0dWNrIGF0IGl0cyBsb3dlciBjbG9jayBtb2RlLiBXb3JraW5nIGZpbmUsIGJ1dCBzYW1l
-IGFzIGlmIEkgaGFkCj4gZm9yY2VkIGl0IHRvIGxvdyBwb3dlci4KPgo+IElzIHRoZXJlIGFueXdh
-eSB0byBleHRyYWN0IHRoZSBwb3dlciBwbGF5IHRhYmxlIGZyb20gd2luZG93cyBzaW5jZQo+IGl0
-J3MgcnVubmluZyBmaW5lIHRoZXJlID8KPiBJJ20ga2luZCBvZiBydW5uaW5nIG91dCBvZiBpZGVh
-IG9mIHdoYXQgdG8gdHJ5IG5leHQuCgpDYW4geW91IHNlbmQgbWUgYSBjb3B5IG9mIHRoZSB2Ymlv
-cyBmcm9tIHRoYXQgYm9hcmQ/CgooYXMgcm9vdCkKKHVzZSBsc3BjaSB0byBnZXQgdGhlIGJ1cyBp
-ZCkKY2QgL3N5cy9idXMvcGNpL2RldmljZXMvPHBjaSBidXMgaWQ+CmVjaG8gMSA+IHJvbQpjYXQg
-cm9tID4gL3RtcC92Ymlvcy5yb20KZWNobyAwID4gcm9tCl9fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlz
-dHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4v
-bGlzdGluZm8vYW1kLWdmeA==
+On Wed, Oct 23, 2019 at 08:40:59AM -0700, Mark Salyzyn wrote:
+> On 10/23/19 4:56 AM, Jarkko Sakkinen wrote:
+> > On Tue, Oct 22, 2019 at 02:41:45PM -0700, Mark Salyzyn wrote:
+> > > Replace all occurrences of prefered with preferred to make future
+> > > checkpatch.pl's happy.  A few places the incorrect spelling is
+> > > matched with the correct spelling to preserve existing user space API.
+> > > 
+> > > Signed-off-by: Mark Salyzyn <salyzyn@android.com>
+> > I'd fix such things when the code is otherwise change and scope this
+> > patch only to Documentation/. There is no pragmatic benefit of doing
+> > this for the code.
+> > 
+> > /Jarkko
+> 
+> The pragmatic benefit comes with the use of an ABI/API checker (which is a
+> 'distro' thing, not a top of tree kernel thing) produces its map which is
+> typically required to be co-located in the same tree as the kernel
+> repository. Quite a few ABI/API update checkins result in a checkpatch.pl
+> complaint about the misspelled elements being (re-)recorded due to
+> proximity. We have a separate task to improve how it is tracked in Android
+> to reduce milepost marker changes that result in sweeping changes to the
+> database which would reduce the occurrences.
+> 
+> I will split this between pure and inert documentation/comments for now,
+> with a followup later for the code portion which understandably is more
+> controversial.
+> 
+> Cleanup is the least appreciated part of kernel maintenance ;-}.
+> 
+> Sincerely -- Mark Salyzyn
+
+I'm a strong believer of "evolutionary" approach. Patch sets for the
+most part (everything in the end has to be considered case by case, not
+a strict rule) should have some functional changes involved.
+
+What I do require for the parts that I maintain is that any new change
+will result cleaner code base than the one that existed before that
+change was applied. Again, there are some exceptions to this e.g.
+circulating a firmware bug but this is my driving guideline as a
+maintainer.
+
+Doing cleanups just for cleanups can sometimes add unnecessary merge
+conflicts when backporting patches to stable kernels. Thus, if you are
+doing just a cleanup you should have extremely good reasons to do so.
+
+/Jarkko
