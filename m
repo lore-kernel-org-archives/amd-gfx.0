@@ -1,24 +1,12 @@
-From: Christoph Hellwig <hch-wEGCiKHe2LqWVfeAwA7xHQ@public.gmane.org>
-Subject: Re: [PATCH hmm 00/15] Consolidate the mmu notifier interval_tree and
- locking
-Date: Wed, 23 Oct 2019 19:16:25 -0700
-Message-ID: <20191024021625.GA5893@infradead.org>
-References: <f7e34d8f-f3b0-b86d-7388-1f791674a4a9@amd.com>
- <20191021135744.GA25164@mellanox.com>
- <e07092c3-8ccd-9814-835c-6c462017aff8@amd.com>
- <20191021151221.GC25164@mellanox.com>
- <20191022075735.GV11828@phenom.ffwll.local>
- <20191022150109.GF22766@mellanox.com>
- <20191023090858.GV11828@phenom.ffwll.local>
- <13edf841-421e-3522-fcec-ef919c2013ef@gmail.com>
- <20191023165223.GA4163@redhat.com>
- <20191023172442.GX22766@mellanox.com>
+From: chen gong <curry.gong-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH] drm/amd/powerplay: modify the parameters of
+ SMU_MSG_PowerUpVcn to 0
+Date: Thu, 24 Oct 2019 16:59:24 +0800
+Message-ID: <1571907564-18087-1-git-send-email-curry.gong@amd.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Content-Disposition: inline
-In-Reply-To: <20191023172442.GX22766-VPRAkNaXOzVWk0Htik3J/w@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -29,19 +17,24 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Jason Gunthorpe <jgg-VPRAkNaXOzVWk0Htik3J/w@public.gmane.org>
-Cc: Andrea Arcangeli <aarcange-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>, "Yang,
- Philip" <Philip.Yang-5C7GfCeVMHo@public.gmane.org>, Ralph Campbell <rcampbell-DDmLM1+adcrQT0dZR+AlfA@public.gmane.org>, "linux-rdma-u79uwXL29TY76Z2rM5mHXA@public.gmane.org" <linux-rdma-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, John Hubbard <jhubbard-DDmLM1+adcrQT0dZR+AlfA@public.gmane.org>, "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "linux-mm-Bw31MaZKKs3YtjvyW6yDsg@public.gmane.org" <linux-mm-Bw31MaZKKs3YtjvyW6yDsg@public.gmane.org>, Jerome Glisse <jglisse-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>, "dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "christian.koenig-5C7GfCeVMHo@public.gmane.org" <christian.koenig-5C7GfCeVMHo@public.gmane.org>, Ben Skeggs <bskeggs-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: chen gong <curry.gong-5C7GfCeVMHo@public.gmane.org>
 
-T24gV2VkLCBPY3QgMjMsIDIwMTkgYXQgMDU6MjQ6NDVQTSArMDAwMCwgSmFzb24gR3VudGhvcnBl
-IHdyb3RlOgo+IG1seDUgaXMgc2ltaWxhciwgYnV0IG5vdCBjdXJyZW50bHkgY29kZWQgcXVpdGUg
-cmlnaHQsIHRoZXJlIGlzIG9uZQo+IGxvY2sgdGhhdCBwcm90ZWN0cyB0aGUgY29tbWFuZCBxdWV1
-ZSBmb3Igc3VibWl0dGluZyBpbnZhbGlkYXRpb25zIHRvCj4gdGhlIEhXIGFuZCBpdCBkb2Vzbid0
-IG1ha2UgYSBsb3Qgb2Ygc2Vuc2UgdG8gaGF2ZSBhZGRpdGlvbmFsIGZpbmUKPiBncmFpbmVkIGxv
-Y2tpbmcgYmV5b25kIHRoYXQuCgpJRkYgYWxsIGRyaXZlcnMgY291bGQgYWdyZWUgb24gYSBsb2Nr
-IHR5cGUgKHJ3X3NlbWFwaG9yZT8pIGZvciB0aGlzCnByb3RlY3Rpb24geW91IGNvdWxkIGFkZCBh
-IHBvaW50ZXIgdG8gdGhlIHJhbmdlIHdoaWNoIHdvdWxkIGNsZWFyCnRoaW5ncyB1cCBhIGxvdC4g
-IEknbSBqdXN0IG5vdCBzdXJlIHlvdSBjb3VsZCBnZXQgZXZlcnlvbmUgdG8KYWdyZWUuCl9fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGlu
-ZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRl
-c2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
+VGhlIHBhcmFtZXRlcnMgd2hhdCBTTVVfTVNHX1Bvd2VyVXBWY24gbmVlZCBpcyAwLCBub3QgMQoK
+U2lnbmVkLW9mZi1ieTogY2hlbiBnb25nIDxjdXJyeS5nb25nQGFtZC5jb20+Ci0tLQogZHJpdmVy
+cy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvcmVub2lyX3BwdC5jIHwgMiArLQogMSBmaWxlIGNoYW5n
+ZWQsIDEgaW5zZXJ0aW9uKCspLCAxIGRlbGV0aW9uKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9n
+cHUvZHJtL2FtZC9wb3dlcnBsYXkvcmVub2lyX3BwdC5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9w
+b3dlcnBsYXkvcmVub2lyX3BwdC5jCmluZGV4IDQ1YzVmNTQuLjRhOTc1MTkgMTAwNjQ0Ci0tLSBh
+L2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L3Jlbm9pcl9wcHQuYworKysgYi9kcml2ZXJz
+L2dwdS9kcm0vYW1kL3Bvd2VycGxheS9yZW5vaXJfcHB0LmMKQEAgLTI4Miw3ICsyODIsNyBAQCBz
+dGF0aWMgaW50IHJlbm9pcl9kcG1fc2V0X3V2ZF9lbmFibGUoc3RydWN0IHNtdV9jb250ZXh0ICpz
+bXUsIGJvb2wgZW5hYmxlKQogCWlmIChlbmFibGUpIHsKIAkJLyogdmNuIGRwbSBvbiBpcyBhIHBy
+ZXJlcXVpc2l0ZSBmb3IgdmNuIHBvd2VyIGdhdGUgbWVzc2FnZXMgKi8KIAkJaWYgKHNtdV9mZWF0
+dXJlX2lzX2VuYWJsZWQoc211LCBTTVVfRkVBVFVSRV9WQ05fUEdfQklUKSkgewotCQkJcmV0ID0g
+c211X3NlbmRfc21jX21zZ193aXRoX3BhcmFtKHNtdSwgU01VX01TR19Qb3dlclVwVmNuLCAxKTsK
+KwkJCXJldCA9IHNtdV9zZW5kX3NtY19tc2dfd2l0aF9wYXJhbShzbXUsIFNNVV9NU0dfUG93ZXJV
+cFZjbiwgMCk7CiAJCQlpZiAocmV0KQogCQkJCXJldHVybiByZXQ7CiAJCX0KLS0gCjIuNy40Cgpf
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1h
+aWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZy
+ZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
