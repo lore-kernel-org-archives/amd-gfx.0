@@ -1,54 +1,49 @@
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Subject: Re: [PATCH] Cleanup: replace prefered with preferred
-Date: Thu, 24 Oct 2019 14:47:28 -0400
-Message-ID: <20191024184728.GC260560@kroah.com>
-References: <20191022214208.211448-1-salyzyn@android.com>
- <20191023115637.GA23733@linux.intel.com>
- <fa12cb96-7a93-bf85-214d-a7bfaf8b8b0a@android.com>
+From: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amdkfd: bug fix for out of bounds mem on gpu cache
+ filling info
+Date: Thu, 24 Oct 2019 19:40:53 +0000
+Message-ID: <d86f66b9-deef-3ee2-4d4e-7bd7cdda52af@amd.com>
+References: <20191024184604.127737-1-alex.sierra@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Content-Disposition: inline
-In-Reply-To: <fa12cb96-7a93-bf85-214d-a7bfaf8b8b0a@android.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Mark Salyzyn <salyzyn@android.com>
-Cc: Jarkko Sakkinen <jarkko.sakkinen@linux.intel.com>, linux-kernel@vger.kernel.org, kernel-team@android.com, "David S. Miller" <davem@davemloft.net>, Jonathan Corbet <corbet@lwn.net>, Ard Biesheuvel <ard.biesheuvel@linaro.org>, Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, Alex Deucher <alexander.deucher@amd.com>, Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, VMware Graphics <linux-graphics-maintainer@vmware.com>, Thomas Hellstrom <thellstrom@vmware.com>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Trond Myklebust <trond.myklebust@hammerspace.com>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20191024184604.127737-1-alex.sierra-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
+Content-ID: <4AAFEDA036122B4F8E60D427F8587C2F-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Sierra Guiza, Alejandro (Alex)" <Alex.Sierra-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-On Wed, Oct 23, 2019 at 08:40:59AM -0700, Mark Salyzyn wrote:
-> On 10/23/19 4:56 AM, Jarkko Sakkinen wrote:
-> > On Tue, Oct 22, 2019 at 02:41:45PM -0700, Mark Salyzyn wrote:
-> > > Replace all occurrences of prefered with preferred to make future
-> > > checkpatch.pl's happy.  A few places the incorrect spelling is
-> > > matched with the correct spelling to preserve existing user space API.
-> > > 
-> > > Signed-off-by: Mark Salyzyn <salyzyn@android.com>
-> > I'd fix such things when the code is otherwise change and scope this
-> > patch only to Documentation/. There is no pragmatic benefit of doing
-> > this for the code.
-> > 
-> > /Jarkko
-> 
-> The pragmatic benefit comes with the use of an ABI/API checker (which is a
-> 'distro' thing, not a top of tree kernel thing) produces its map which is
-> typically required to be co-located in the same tree as the kernel
-> repository. Quite a few ABI/API update checkins result in a checkpatch.pl
-> complaint about the misspelled elements being (re-)recorded due to
-> proximity. We have a separate task to improve how it is tracked in Android
-> to reduce milepost marker changes that result in sweeping changes to the
-> database which would reduce the occurrences.
-
-Requiring checkpatch spelling warnings to be correct based on function
-names is crazy, you should fix your tools if you are requiring something
-as looney as that :)
-
-> I will split this between pure and inert documentation/comments for now,
-> with a followup later for the code portion which understandably is more
-> controversial.
-
-Please break up per subsystem, like all trivial patches, as this
-isn't anything special.
-
-thanks,
-
-greg k-h
+T24gMjAxOS0xMC0yNCAxNDo0NiwgU2llcnJhIEd1aXphLCBBbGVqYW5kcm8gKEFsZXgpIHdyb3Rl
+Og0KPiBUaGUgYml0bWFwIGluIGN1X2luZm8gc3RydWN0dXJlIGlzIGRlZmluZWQgYXMgYSA0eDQg
+c2l6ZSBhcnJheS4gSW4NCj4gQWN0dXJ1cywgdGhpcyBtYXRyaXggaXMgaW5pdGlhbGl6ZWQgYXMg
+YSA0eDIuIEJhc2VkIG9uIHRoZSA4IHNoYWRlcnMuDQo+IEluIHRoZSBncHUgY2FjaGUgZmlsbGlu
+ZyBpbml0aWFsaXphdGlvbiwgdGhlIGFjY2VzcyB0byB0aGUgYml0bWFwIG1hdHJpeA0KPiB3YXMg
+ZG9uZSBhcyBhbiA4eDEgaW5zdGVhZCBvZiA0eDIuIENhdXNpbmcgYW4gb3V0IG9mIGJvdW5kcyBt
+ZW1vcnkNCj4gYWNjZXNzIGVycm9yLg0KPiBEdWUgdG8gdGhpcywgdGhlIG51bWJlciBvZiBHUFUg
+Y2FjaGUgZW50cmllcyB3YXMgaW5jb25zaXN0ZW50Lg0KPg0KPiBTaWduZWQtb2ZmLWJ5OiBBbGV4
+IFNpZXJyYSA8YWxleC5zaWVycmFAYW1kLmNvbT4NCg0KUmV2aWV3ZWQtYnk6IEZlbGl4IEt1ZWhs
+aW5nIDxGZWxpeC5LdWVobGluZ0BhbWQuY29tPg0KDQoNCj4gLS0tDQo+ICAgZHJpdmVycy9ncHUv
+ZHJtL2FtZC9hbWRrZmQva2ZkX2NyYXQuYyB8IDIgKy0NCj4gICAxIGZpbGUgY2hhbmdlZCwgMSBp
+bnNlcnRpb24oKyksIDEgZGVsZXRpb24oLSkNCj4NCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1
+L2RybS9hbWQvYW1ka2ZkL2tmZF9jcmF0LmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9r
+ZmRfY3JhdC5jDQo+IGluZGV4IDBjMzI3ZTBmYzBmNy4uZGU5ZjY4ZDVjMzEyIDEwMDY0NA0KPiAt
+LS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfY3JhdC5jDQo+ICsrKyBiL2RyaXZl
+cnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9jcmF0LmMNCj4gQEAgLTcxMCw3ICs3MTAsNyBAQCBz
+dGF0aWMgaW50IGtmZF9maWxsX2dwdV9jYWNoZV9pbmZvKHN0cnVjdCBrZmRfZGV2ICprZGV2LA0K
+PiAgIAkJCQkJCXBjYWNoZV9pbmZvLA0KPiAgIAkJCQkJCWN1X2luZm8sDQo+ICAgCQkJCQkJbWVt
+X2F2YWlsYWJsZSwNCj4gLQkJCQkJCWN1X2luZm8tPmN1X2JpdG1hcFtpXVtqXSwNCj4gKwkJCQkJ
+CWN1X2luZm8tPmN1X2JpdG1hcFtpICUgNF1baiArIGkgLyA0XSwNCj4gICAJCQkJCQljdCwNCj4g
+ICAJCQkJCQljdV9wcm9jZXNzb3JfaWQsDQo+ICAgCQkJCQkJayk7DQpfX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQt
+Z2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9t
+YWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
