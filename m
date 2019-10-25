@@ -1,96 +1,32 @@
-From: "Grodzovsky, Andrey" <Andrey.Grodzovsky@amd.com>
-Subject: Re: [PATCH 1/2] drm/sched: Set error to s_fence if HW job submission
- failed.
-Date: Fri, 25 Oct 2019 14:57:03 +0000
-Message-ID: <1638959e-08ef-3a24-babc-5cbddcae0575@amd.com>
-References: <1571947050-26276-1-git-send-email-andrey.grodzovsky@amd.com>
- <dbc0cddf-e1e1-fa36-df26-b784aea6dc12@gmail.com>
+From: Herbert Xu <herbert@gondor.apana.org.au>
+Subject: Re: [PATCH 1/5] crypto: nx - Improve debugfs_create_u{32,64}()
+ handling for atomics
+Date: Fri, 25 Oct 2019 23:27:12 +0800
+Message-ID: <20191025152712.26q6s5gbygdxd33j@gondor.apana.org.au>
+References: <20191021145149.31657-1-geert+renesas@glider.be>
+ <20191021145149.31657-2-geert+renesas@glider.be>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-In-Reply-To: <dbc0cddf-e1e1-fa36-df26-b784aea6dc12@gmail.com>
-Content-Language: en-US
-Content-ID: <E5D153621804494DB07CC77EEFE2DE11@namprd12.prod.outlook.com>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: "Koenig, Christian" <Christian.Koenig@amd.com>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>
-Cc: "S, Shirish" <Shirish.S@amd.com>
+Content-Type: text/plain; charset=us-ascii
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Content-Disposition: inline
+In-Reply-To: <20191021145149.31657-2-geert+renesas@glider.be>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Geert Uytterhoeven <geert+renesas@glider.be>
+Cc: Breno =?iso-8859-1?Q?Leit=E3o?= <leitao@debian.org>, Nayna Jain <nayna@linux.ibm.com>, Paulo Flabiano Smorigo <pfsmorigo@gmail.com>, Benjamin Herrenschmidt <benh@kernel.crashing.org>, Paul Mackerras <paulus@samba.org>, Michael Ellerman <mpe@ellerman.id.au>, "David S . Miller" <davem@davemloft.net>, Alex Deucher <alexander.deucher@amd.com>, Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, David@rox.of.borg, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, Casey Leedom <leedom@chelsio.com>, Shannon Nelson <snelson@pensando.io>, Pensando Drivers <drivers@pensando.io>, Kevin Hilman <khilman@kernel.org>, Nishanth Menon <nm@ti.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-crypto@vger.kernel.org, linuxppc-dev@lists.ozla
 List-Id: amd-gfx.lists.freedesktop.org
 
-DQpPbiAxMC8yNS8xOSA0OjQ0IEFNLCBDaHJpc3RpYW4gS8O2bmlnIHdyb3RlOg0KPiBBbSAyNC4x
-MC4xOSB1bSAyMTo1NyBzY2hyaWViIEFuZHJleSBHcm9kem92c2t5Og0KPj4gUHJvYmxlbToNCj4+
-IFdoZW4gcnVuX2pvYiBmYWlscyBhbmQgSFcgZmVuY2UgcmV0dXJuZWQgaXMgTlVMTCB3ZSBzdGls
-bCBzaWduYWwNCj4+IHRoZSBzX2ZlbmNlIHRvIGF2b2lkIGhhbmdzIGJ1dCB0aGUgdXNlciBoYXMg
-bm8gd2F5IG9mIGtub3dpbmcgaWYNCj4+IHRoZSBhY3R1YWwgSFcgam9iIHdhcyByYW4gYW5kIGZp
-bmlzaGVkLg0KPj4NCj4+IEZpeDoNCj4+IEFsbG93IC5ydW5fam9iIGltcGxlbWVudGF0aW9ucyB0
-byByZXR1cm4gRVJSX1BUUiBpbiB0aGUgZmVuY2UgcG9pbnRlcg0KPj4gcmV0dXJuZWQgYW5kIHRo
-ZW4gc2V0IHRoaXMgZXJyb3IgZm9yIHNfZmVuY2UtPmZpbmlzaGVkIGZlbmNlIHNvIHdob2V2ZXIN
-Cj4+IHdhaXQgb24gdGhpcyBmZW5jZSBjYW4gaW5zcGVjdCB0aGUgc2lnbmFsZWQgZmVuY2UgZm9y
-IGFuIGVycm9yLg0KPj4NCj4+IFNpZ25lZC1vZmYtYnk6IEFuZHJleSBHcm9kem92c2t5IDxhbmRy
-ZXkuZ3JvZHpvdnNreUBhbWQuY29tPg0KPj4gLS0tDQo+PiDCoCBkcml2ZXJzL2dwdS9kcm0vc2No
-ZWR1bGVyL3NjaGVkX21haW4uYyB8IDE5ICsrKysrKysrKysrKysrKystLS0NCj4+IMKgIDEgZmls
-ZSBjaGFuZ2VkLCAxNiBpbnNlcnRpb25zKCspLCAzIGRlbGV0aW9ucygtKQ0KPj4NCj4+IGRpZmYg
-LS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vc2NoZWR1bGVyL3NjaGVkX21haW4uYyANCj4+IGIvZHJp
-dmVycy9ncHUvZHJtL3NjaGVkdWxlci9zY2hlZF9tYWluLmMNCj4+IGluZGV4IDlhMGVlNzQuLmYz
-OWI5N2UgMTAwNjQ0DQo+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vc2NoZWR1bGVyL3NjaGVkX21h
-aW4uYw0KPj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL3NjaGVkdWxlci9zY2hlZF9tYWluLmMNCj4+
-IEBAIC00NzksNiArNDc5LDcgQEAgdm9pZCBkcm1fc2NoZWRfcmVzdWJtaXRfam9icyhzdHJ1Y3Qg
-DQo+PiBkcm1fZ3B1X3NjaGVkdWxlciAqc2NoZWQpDQo+PiDCoMKgwqDCoMKgIHN0cnVjdCBkcm1f
-c2NoZWRfam9iICpzX2pvYiwgKnRtcDsNCj4+IMKgwqDCoMKgwqAgdWludDY0X3QgZ3VpbHR5X2Nv
-bnRleHQ7DQo+PiDCoMKgwqDCoMKgIGJvb2wgZm91bmRfZ3VpbHR5ID0gZmFsc2U7DQo+PiArwqDC
-oMKgIHN0cnVjdCBkbWFfZmVuY2UgKmZlbmNlOw0KPj4gwqAgwqDCoMKgwqDCoCBsaXN0X2Zvcl9l
-YWNoX2VudHJ5X3NhZmUoc19qb2IsIHRtcCwgDQo+PiAmc2NoZWQtPnJpbmdfbWlycm9yX2xpc3Qs
-IG5vZGUpIHsNCj4+IMKgwqDCoMKgwqDCoMKgwqDCoCBzdHJ1Y3QgZHJtX3NjaGVkX2ZlbmNlICpz
-X2ZlbmNlID0gc19qb2ItPnNfZmVuY2U7DQo+PiBAQCAtNDkyLDcgKzQ5MywxNiBAQCB2b2lkIGRy
-bV9zY2hlZF9yZXN1Ym1pdF9qb2JzKHN0cnVjdCANCj4+IGRybV9ncHVfc2NoZWR1bGVyICpzY2hl
-ZCkNCj4+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGRtYV9mZW5jZV9zZXRfZXJyb3IoJnNf
-ZmVuY2UtPmZpbmlzaGVkLCAtRUNBTkNFTEVEKTsNCj4+IMKgIMKgwqDCoMKgwqDCoMKgwqDCoCBk
-bWFfZmVuY2VfcHV0KHNfam9iLT5zX2ZlbmNlLT5wYXJlbnQpOw0KPj4gLcKgwqDCoMKgwqDCoMKg
-IHNfam9iLT5zX2ZlbmNlLT5wYXJlbnQgPSBzY2hlZC0+b3BzLT5ydW5fam9iKHNfam9iKTsNCj4+
-ICvCoMKgwqDCoMKgwqDCoCBmZW5jZSA9IHNjaGVkLT5vcHMtPnJ1bl9qb2Ioc19qb2IpOw0KPj4g
-Kw0KPj4gK8KgwqDCoMKgwqDCoMKgIGlmIChJU19FUlJfT1JfTlVMTChmZW5jZSkpIHsNCj4+ICvC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgIHNfam9iLT5zX2ZlbmNlLT5wYXJlbnQgPSBOVUxMOw0KPj4g
-K8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAgZG1hX2ZlbmNlX3NldF9lcnJvcigmc19mZW5jZS0+Zmlu
-aXNoZWQsIFBUUl9FUlIoZmVuY2UpKTsNCj4+ICvCoMKgwqDCoMKgwqDCoCB9IGVsc2Ugew0KPj4g
-K8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAgc19qb2ItPnNfZmVuY2UtPnBhcmVudCA9IGZlbmNlOw0K
-Pj4gK8KgwqDCoMKgwqDCoMKgIH0NCj4+ICsNCj4+ICsNCj4NCj4gTWF5YmUgdGltZSBmb3IgYSBk
-cm1fc2NoZWRfcnVuX2pvYigpIGZ1bmN0aW9uIHdoaWNoIGRvZXMgdGhhdCANCj4gaGFuZGxpbmc/
-IEFuZCB3aHkgZG9uJ3Qgd2UgbmVlZCB0byBpbnN0YWxsIHRoZSBjYWxsYmFjayBoZXJlPw0KDQoN
-CldoYXQgY29kZSBkbyB5b3Ugd2FudCB0byBwdXQgaW4gZHJtX3NjaGVkX3J1bl9qb2IgPw0KDQpX
-ZSByZWluc3RhbGwgdGhlIGNhbGxiYWNrIGxhdGVyIGluIGRybV9zY2hlZF9zdGFydCwgDQpkcm1f
-c2NoZWRfcmVzdWJtaXRfam9icyBpcyBjb25kaXRpb25hbCBvbiB3aGV0aGVyIHRoZSBndWlsdHkg
-ZmVuY2UgZGlkIA0Kc2lnbmFsIGJ5IHRoaXMgdGltZSBvciBub3QgYW5kIHNvIHRoZSBzcGxpdCBv
-ZiB0aGUgbG9naWMgaW50byANCmRybV9zY2hlZF9zdGFydCBhbmQgZHJtX3NjaGVkX3Jlc3VibWl0
-X2pvYnMuDQoNCkFuZHJleQ0KDQoNCj4NCj4gQXBhcnQgZnJvbSB0aGF0IGxvb2tzIGdvb2QgdG8g
-bWUsDQo+IENocmlzdGlhbi4NCj4NCj4+IMKgwqDCoMKgwqAgfQ0KPj4gwqAgfQ0KPj4gwqAgRVhQ
-T1JUX1NZTUJPTChkcm1fc2NoZWRfcmVzdWJtaXRfam9icyk7DQo+PiBAQCAtNzIwLDcgKzczMCw3
-IEBAIHN0YXRpYyBpbnQgZHJtX3NjaGVkX21haW4odm9pZCAqcGFyYW0pDQo+PiDCoMKgwqDCoMKg
-wqDCoMKgwqAgZmVuY2UgPSBzY2hlZC0+b3BzLT5ydW5fam9iKHNjaGVkX2pvYik7DQo+PiDCoMKg
-wqDCoMKgwqDCoMKgwqAgZHJtX3NjaGVkX2ZlbmNlX3NjaGVkdWxlZChzX2ZlbmNlKTsNCj4+IMKg
-IC3CoMKgwqDCoMKgwqDCoCBpZiAoZmVuY2UpIHsNCj4+ICvCoMKgwqDCoMKgwqDCoCBpZiAoIUlT
-X0VSUl9PUl9OVUxMKGZlbmNlKSkgew0KPj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgc19m
-ZW5jZS0+cGFyZW50ID0gZG1hX2ZlbmNlX2dldChmZW5jZSk7DQo+PiDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoCByID0gZG1hX2ZlbmNlX2FkZF9jYWxsYmFjayhmZW5jZSwgJnNjaGVkX2pvYi0+
-Y2IsDQo+PiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoCBkcm1fc2NoZWRfcHJvY2Vzc19qb2IpOw0KPj4gQEAgLTczMCw4ICs3NDAsMTEgQEAg
-c3RhdGljIGludCBkcm1fc2NoZWRfbWFpbih2b2lkICpwYXJhbSkNCj4+IMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqAgRFJNX0VSUk9SKCJmZW5jZSBhZGQgY2FsbGJhY2sgZmFpbGVk
-ICglZClcbiIsDQo+PiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgIHIpOw0KPj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgZG1hX2ZlbmNlX3B1dChmZW5j
-ZSk7DQo+PiAtwqDCoMKgwqDCoMKgwqAgfSBlbHNlDQo+PiArwqDCoMKgwqDCoMKgwqAgfSBlbHNl
-IHsNCj4+ICsNCj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGRtYV9mZW5jZV9zZXRfZXJyb3Io
-JnNfZmVuY2UtPmZpbmlzaGVkLCBQVFJfRVJSKGZlbmNlKSk7DQo+PiDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoCBkcm1fc2NoZWRfcHJvY2Vzc19qb2IoTlVMTCwgJnNjaGVkX2pvYi0+Y2IpOw0K
-Pj4gK8KgwqDCoMKgwqDCoMKgIH0NCj4+IMKgIMKgwqDCoMKgwqDCoMKgwqDCoCB3YWtlX3VwKCZz
-Y2hlZC0+am9iX3NjaGVkdWxlZCk7DQo+PiDCoMKgwqDCoMKgIH0NCj4NCl9fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmRyaS1kZXZlbCBtYWlsaW5nIGxpc3QK
-ZHJpLWRldmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9w
-Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL2RyaS1kZXZlbA==
+On Mon, Oct 21, 2019 at 04:51:45PM +0200, Geert Uytterhoeven wrote:
+> Variables of type atomic{,64}_t can be used fine with
+> debugfs_create_u{32,64}, when passing a pointer to the embedded counter.
+> This allows to get rid of the casts, which prevented compiler checks.
+> 
+> Signed-off-by: Geert Uytterhoeven <geert+renesas@glider.be>
+> ---
+>  drivers/crypto/nx/nx_debugfs.c | 18 +++++++++---------
+>  1 file changed, 9 insertions(+), 9 deletions(-)
+
+Patch applied.  Thanks.
+-- 
+Email: Herbert Xu <herbert@gondor.apana.org.au>
+Home Page: http://gondor.apana.org.au/~herbert/
+PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
