@@ -1,44 +1,76 @@
-From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel@daenzer.net>
-Subject: Re: [PATCH] drm/radeon: Handle workqueue allocation failure
-Date: Fri, 25 Oct 2019 18:20:01 +0200
-Message-ID: <e2f87ecc-0a8e-253d-107c-5cf6486c4b6a@daenzer.net>
-References: <20191025110450.10474-1-will@kernel.org>
- <5d6a88a2-2719-a859-04df-10b0d893ff39@daenzer.net>
- <20191025161804.GA12335@willie-the-truck>
+From: Alex Deucher <alexdeucher@gmail.com>
+Subject: Re: [PATCH] drm/amd/display: remove gcc warning
+ Wunused-but-set-variable
+Date: Fri, 25 Oct 2019 15:22:31 -0400
+Message-ID: <CADnq5_NiuOrH48a9qscT60kzhcSCgmRF8dmBj4Ga9Lkh_L1+4w@mail.gmail.com>
+References: <1571455431-104881-1-git-send-email-chenwandun@huawei.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20191025161804.GA12335@willie-the-truck>
-Content-Language: en-CA
-Sender: linux-kernel-owner@vger.kernel.org
-To: Will Deacon <will@kernel.org>
-Cc: amd-gfx@lists.freedesktop.org, David Airlie <airlied@linux.ie>, linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, Nicolas Waisman <nico@semmle.com>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+In-Reply-To: <1571455431-104881-1-git-send-email-chenwandun@huawei.com>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: Chen Wandun <chenwandun@huawei.com>
+Cc: Thomas Lim <Thomas.Lim@amd.com>, "Leo (Sunpeng) Li" <sunpeng.li@amd.com>, David Francis <David.Francis@amd.com>, LKML <linux-kernel@vger.kernel.org>, amd-gfx list <amd-gfx@lists.freedesktop.org>, "Cheng,
+ Tony" <Tony.Cheng@amd.com>, Maling list - DRI developers <dri-devel@lists.freedesktop.org>, abdoulaye.berthe@amd.com, "Deucher, Alexander" <alexander.deucher@amd.com>, Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>, Christian Koenig <christian.koenig@amd.com>
 List-Id: amd-gfx.lists.freedesktop.org
 
-On 2019-10-25 6:18 p.m., Will Deacon wrote:
-> On Fri, Oct 25, 2019 at 06:06:26PM +0200, Michel Dänzer wrote:
->> On 2019-10-25 1:04 p.m., Will Deacon wrote:
->>> In the highly unlikely event that we fail to allocate the "radeon-crtc"
->>> workqueue, we should bail cleanly rather than blindly march on with a
->>> NULL pointer installed for the 'flip_queue' field of the 'radeon_crtc'
->>> structure.
->>>
->>> This was reported previously by Nicolas, but I don't think his fix was
->>> correct:
->>
->> Neither is this one I'm afraid. See my feedback on
->> https://patchwork.freedesktop.org/patch/331534/ .
-> 
-> Thanks. Although I agree with you wrt the original patch, I don't think
-> the workqueue allocation failure is distinguishable from the CRTC allocation
-> failure with my patch. Are you saying that the error path there is broken
-> too?
-
-The driver won't actually work if radeon_crtc_init bails silently, it'll
-just fall over at some later point.
-
-
--- 
-Earthling Michel Dänzer               |               https://redhat.com
-Libre software enthusiast             |             Mesa and X developer
+T24gU2F0LCBPY3QgMTksIDIwMTkgYXQgODowNyBQTSBDaGVuIFdhbmR1biA8Y2hlbndhbmR1bkBo
+dWF3ZWkuY29tPiB3cm90ZToKPgo+IEZyb206IENoZW53YW5kdW4gPGNoZW53YW5kdW5AaHVhd2Vp
+LmNvbT4KPgo+IGRyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9kY2UvZGNlX2F1eC5jOiBJ
+biBmdW5jdGlvbiBkY2VfYXV4X2NvbmZpZ3VyZV90aW1lb3V0Ogo+IGRyaXZlcnMvZ3B1L2RybS9h
+bWQvZGlzcGxheS9kYy9kY2UvZGNlX2F1eC5jOiB3YXJuaW5nOiB2YXJpYWJsZSB0aW1lb3V0IHNl
+dCBidXQgbm90IHVzZWQgWy1XdW51c2VkLWJ1dC1zZXQtdmFyaWFibGVdCj4KPiBTaWduZWQtb2Zm
+LWJ5OiBDaGVud2FuZHVuIDxjaGVud2FuZHVuQGh1YXdlaS5jb20+CgpBcHBsaWVkLiAgVGhhbmtz
+IQoKQWxleAoKPiAtLS0KPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2RjZS9kY2Vf
+YXV4LmMgfCA1IC0tLS0tCj4gIDEgZmlsZSBjaGFuZ2VkLCA1IGRlbGV0aW9ucygtKQo+Cj4gZGlm
+ZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9kY2UvZGNlX2F1eC5jIGIv
+ZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2RjZS9kY2VfYXV4LmMKPiBpbmRleCA5NzZi
+ZDQ5Li43MzlmOGUyIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9k
+Yy9kY2UvZGNlX2F1eC5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2Rj
+ZS9kY2VfYXV4LmMKPiBAQCAtNDMyLDcgKzQzMiw2IEBAIHN0YXRpYyBib29sIGRjZV9hdXhfY29u
+ZmlndXJlX3RpbWVvdXQoc3RydWN0IGRkY19zZXJ2aWNlICpkZGMsCj4gIHsKPiAgICAgICAgIHVp
+bnQzMl90IG11bHRpcGxpZXIgPSAwOwo+ICAgICAgICAgdWludDMyX3QgbGVuZ3RoID0gMDsKPiAt
+ICAgICAgIHVpbnQzMl90IHRpbWVvdXQgPSAwOwo+ICAgICAgICAgc3RydWN0IGRkYyAqZGRjX3Bp
+biA9IGRkYy0+ZGRjX3BpbjsKPiAgICAgICAgIHN0cnVjdCBkY2VfYXV4ICphdXhfZW5naW5lID0g
+ZGRjLT5jdHgtPmRjLT5yZXNfcG9vbC0+ZW5naW5lc1tkZGNfcGluLT5waW5fZGF0YS0+ZW5dOwo+
+ICAgICAgICAgc3RydWN0IGF1eF9lbmdpbmVfZGNlMTEwICphdXgxMTAgPSBGUk9NX0FVWF9FTkdJ
+TkUoYXV4X2VuZ2luZSk7Cj4gQEAgLTQ0NiwyNSArNDQ1LDIxIEBAIHN0YXRpYyBib29sIGRjZV9h
+dXhfY29uZmlndXJlX3RpbWVvdXQoc3RydWN0IGRkY19zZXJ2aWNlICpkZGMsCj4gICAgICAgICAg
+ICAgICAgIGxlbmd0aCA9IHRpbWVvdXRfaW5fdXMvVElNRV9PVVRfTVVMVElQTElFUl84Owo+ICAg
+ICAgICAgICAgICAgICBpZiAodGltZW91dF9pbl91cyAlIFRJTUVfT1VUX01VTFRJUExJRVJfOCAh
+PSAwKQo+ICAgICAgICAgICAgICAgICAgICAgICAgIGxlbmd0aCsrOwo+IC0gICAgICAgICAgICAg
+ICB0aW1lb3V0ID0gbGVuZ3RoICogVElNRV9PVVRfTVVMVElQTElFUl84Owo+ICAgICAgICAgfSBl
+bHNlIGlmICh0aW1lb3V0X2luX3VzIDw9IDIgKiBUSU1FX09VVF9JTkNSRU1FTlQpIHsKPiAgICAg
+ICAgICAgICAgICAgbXVsdGlwbGllciA9IDE7Cj4gICAgICAgICAgICAgICAgIGxlbmd0aCA9IHRp
+bWVvdXRfaW5fdXMvVElNRV9PVVRfTVVMVElQTElFUl8xNjsKPiAgICAgICAgICAgICAgICAgaWYg
+KHRpbWVvdXRfaW5fdXMgJSBUSU1FX09VVF9NVUxUSVBMSUVSXzE2ICE9IDApCj4gICAgICAgICAg
+ICAgICAgICAgICAgICAgbGVuZ3RoKys7Cj4gLSAgICAgICAgICAgICAgIHRpbWVvdXQgPSBsZW5n
+dGggKiBUSU1FX09VVF9NVUxUSVBMSUVSXzE2Owo+ICAgICAgICAgfSBlbHNlIGlmICh0aW1lb3V0
+X2luX3VzIDw9IDQgKiBUSU1FX09VVF9JTkNSRU1FTlQpIHsKPiAgICAgICAgICAgICAgICAgbXVs
+dGlwbGllciA9IDI7Cj4gICAgICAgICAgICAgICAgIGxlbmd0aCA9IHRpbWVvdXRfaW5fdXMvVElN
+RV9PVVRfTVVMVElQTElFUl8zMjsKPiAgICAgICAgICAgICAgICAgaWYgKHRpbWVvdXRfaW5fdXMg
+JSBUSU1FX09VVF9NVUxUSVBMSUVSXzMyICE9IDApCj4gICAgICAgICAgICAgICAgICAgICAgICAg
+bGVuZ3RoKys7Cj4gLSAgICAgICAgICAgICAgIHRpbWVvdXQgPSBsZW5ndGggKiBUSU1FX09VVF9N
+VUxUSVBMSUVSXzMyOwo+ICAgICAgICAgfSBlbHNlIGlmICh0aW1lb3V0X2luX3VzID4gNCAqIFRJ
+TUVfT1VUX0lOQ1JFTUVOVCkgewo+ICAgICAgICAgICAgICAgICBtdWx0aXBsaWVyID0gMzsKPiAg
+ICAgICAgICAgICAgICAgbGVuZ3RoID0gdGltZW91dF9pbl91cy9USU1FX09VVF9NVUxUSVBMSUVS
+XzY0Owo+ICAgICAgICAgICAgICAgICBpZiAodGltZW91dF9pbl91cyAlIFRJTUVfT1VUX01VTFRJ
+UExJRVJfNjQgIT0gMCkKPiAgICAgICAgICAgICAgICAgICAgICAgICBsZW5ndGgrKzsKPiAtICAg
+ICAgICAgICAgICAgdGltZW91dCA9IGxlbmd0aCAqIFRJTUVfT1VUX01VTFRJUExJRVJfNjQ7Cj4g
+ICAgICAgICB9Cj4KPiAgICAgICAgIGxlbmd0aCA9IChsZW5ndGggPCBNQVhfVElNRU9VVF9MRU5H
+VEgpID8gbGVuZ3RoIDogTUFYX1RJTUVPVVRfTEVOR1RIOwo+IC0tCj4gMi43LjQKPgo+IF9fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCj4gZHJpLWRldmVsIG1h
+aWxpbmcgbGlzdAo+IGRyaS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPiBodHRwczovL2xp
+c3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2RyaS1kZXZlbApfX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpkcmktZGV2ZWwgbWFpbGluZyBs
+aXN0CmRyaS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVz
+a3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9kcmktZGV2ZWw=
