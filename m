@@ -1,14 +1,16 @@
-From: Kyle Mahlkuch <kmahlkuc-23VcF4HTsmIX0ybBhKVfKdBPR1lH4CV8@public.gmane.org>
-Subject: Re: [PATCH v3] drm/radeon: Fix EEH during kexec
-Date: Fri, 25 Oct 2019 15:49:38 -0500
-Message-ID: <0064d9ea-4749-0129-05b1-99697fb58730@linux.vnet.ibm.com>
-References: <1570736672-10644-1-git-send-email-kmahlkuc@linux.vnet.ibm.com>
- <20191011042734.GA939089@kroah.com>
+From: "Tuikov, Luben" <Luben.Tuikov-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu: simplify padding calculations
+Date: Fri, 25 Oct 2019 21:51:24 +0000
+Message-ID: <ed713bfe-2032-b56a-3e29-f61f48aeeb3b@amd.com>
+References: <20191024234444.4375-1-luben.tuikov@amd.com>
+ <45e07677-717a-2c01-369e-1dbd19ce8e74@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0540271174=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20191011042734.GA939089-U8xfFu+wG4EAvxtiuMwx3w@public.gmane.org>
+In-Reply-To: <45e07677-717a-2c01-369e-1dbd19ce8e74-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
+Content-ID: <E9BA86179FC5784D806BC0282DFB5F45-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -19,118 +21,139 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Greg KH <gregkh-hQyY1W1yCW8ekmWlsbkhG0B+6BGkLq7r@public.gmane.org>
-Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, stable-u79uwXL29TY76Z2rM5mHXA@public.gmane.org
+To: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
 
-This is a multi-part message in MIME format.
---===============0540271174==
-Content-Type: multipart/alternative;
- boundary="------------761D57267238DBBF77BF895E"
-Content-Language: en-US
-
-This is a multi-part message in MIME format.
---------------761D57267238DBBF77BF895E
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
-
-
-On 10/10/19 11:27 PM, Greg KH wrote:
-
-> On Thu, Oct 10, 2019 at 02:44:29PM -0500, KyleMahlkuch wrote:
->> During kexec some adapters hit an EEH since they are not properly
->> shut down in the radeon_pci_shutdown() function. Adding
->> radeon_suspend_kms() fixes this issue.
->> Enabled only on PPC because this patch causes issues on some other
->> boards.
->>
->> Signed-off-by: Kyle Mahlkuch <Kyle.Mahlkuch at ibm.com>
-> Real email address please, with a '@' sign.
->
-> And your "From:" line did not match up with this :(
-
-Greg, thanks for your help, I've resubmitted my patch.
-
->> ---
->>   drivers/gpu/drm/radeon/radeon_drv.c | 14 ++++++++++++++
->>   1 file changed, 14 insertions(+)
-> <formletter>
->
-> This is not the correct way to submit patches for inclusion in the
-> stable kernel tree.  Please read:
->      https://www.kernel.org/doc/html/latest/process/stable-kernel-rules.html
-> for how to do this properly.
->
-> </formletter>
-
---------------761D57267238DBBF77BF895E
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: 7bit
-
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body text="#000000" bgcolor="#FFFFFF">
-    <p><br>
-    </p>
-    <div class="moz-cite-prefix">
-      <pre>On 10/10/19 11:27 PM, Greg KH wrote:</pre>
-    </div>
-    <blockquote type="cite" cite="mid:20191011042734.GA939089-U8xfFu+wG4EAvxtiuMwx3w@public.gmane.org">
-      <pre class="moz-quote-pre" wrap="">On Thu, Oct 10, 2019 at 02:44:29PM -0500, KyleMahlkuch wrote:
-</pre>
-      <blockquote type="cite">
-        <pre class="moz-quote-pre" wrap="">During kexec some adapters hit an EEH since they are not properly
-shut down in the radeon_pci_shutdown() function. Adding
-radeon_suspend_kms() fixes this issue.
-Enabled only on PPC because this patch causes issues on some other
-boards.
-
-Signed-off-by: Kyle Mahlkuch &lt;Kyle.Mahlkuch at ibm.com&gt;
-</pre>
-      </blockquote>
-      <pre class="moz-quote-pre" wrap="">
-Real email address please, with a '@' sign.
-
-And your "From:" line did not match up with this :(
-</pre>
-    </blockquote>
-    <pre>Greg, thanks for your help, I've resubmitted my patch. 
-</pre>
-    <blockquote type="cite" cite="mid:20191011042734.GA939089-U8xfFu+wG4EAvxtiuMwx3w@public.gmane.org">
-      <pre class="moz-quote-pre" wrap="">
-</pre>
-      <blockquote type="cite">
-        <pre class="moz-quote-pre" wrap="">---
- drivers/gpu/drm/radeon/radeon_drv.c | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
-</pre>
-      </blockquote>
-      <pre class="moz-quote-pre" wrap="">
-&lt;formletter&gt;
-
-This is not the correct way to submit patches for inclusion in the
-stable kernel tree.  Please read:
-    <a class="moz-txt-link-freetext" href="https://www.kernel.org/doc/html/latest/process/stable-kernel-rules.html">https://www.kernel.org/doc/html/latest/process/stable-kernel-rules.html</a>
-for how to do this properly.
-
-&lt;/formletter&gt;
-</pre>
-    </blockquote>
-  </body>
-</html>
-
---------------761D57267238DBBF77BF895E--
-
-
---===============0540271174==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
-
---===============0540271174==--
+T24gMjAxOS0xMC0yNSAyOjU0IGEubS4sIEtvZW5pZywgQ2hyaXN0aWFuIHdyb3RlOg0KPiBBbSAy
+NS4xMC4xOSB1bSAwMTo0NCBzY2hyaWViIFR1aWtvdiwgTHViZW46DQo+PiBTaW1wbGlmeSBwYWRk
+aW5nIGNhbGN1bGF0aW9ucy4NCj4+DQo+PiBTaWduZWQtb2ZmLWJ5OiBMdWJlbiBUdWlrb3YgPGx1
+YmVuLnR1aWtvdkBhbWQuY29tPg0KPj4gLS0tDQo+PiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
+Z3B1L2Npa19zZG1hLmMgIHwgIDQgKystLQ0KPj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
+dS9zZG1hX3YyXzQuYyB8ICA0ICsrLS0NCj4+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
+c2RtYV92M18wLmMgfCAgNCArKy0tDQo+PiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3Nk
+bWFfdjRfMC5jIHwgIDQgKystLQ0KPj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9zZG1h
+X3Y1XzAuYyB8IDE0ICsrKysrKysrKy0tLS0tDQo+PiAgIDUgZmlsZXMgY2hhbmdlZCwgMTcgaW5z
+ZXJ0aW9ucygrKSwgMTMgZGVsZXRpb25zKC0pDQo+Pg0KPj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMv
+Z3B1L2RybS9hbWQvYW1kZ3B1L2Npa19zZG1hLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
+dS9jaWtfc2RtYS5jDQo+PiBpbmRleCBjNDUzMDRmMTA0N2MuLjFlYTllMThkNmYwOCAxMDA2NDQN
+Cj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Npa19zZG1hLmMNCj4+ICsrKyBi
+L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Npa19zZG1hLmMNCj4+IEBAIC0yMjgsNyArMjI4
+LDcgQEAgc3RhdGljIHZvaWQgY2lrX3NkbWFfcmluZ19lbWl0X2liKHN0cnVjdCBhbWRncHVfcmlu
+ZyAqcmluZywNCj4+ICAgCXUzMiBleHRyYV9iaXRzID0gdm1pZCAmIDB4ZjsNCj4+ICAgDQo+PiAg
+IAkvKiBJQiBwYWNrZXQgbXVzdCBlbmQgb24gYSA4IERXIGJvdW5kYXJ5ICovDQo+PiAtCWNpa19z
+ZG1hX3JpbmdfaW5zZXJ0X25vcChyaW5nLCAoMTIgLSAobG93ZXJfMzJfYml0cyhyaW5nLT53cHRy
+KSAmIDcpKSAlIDgpOw0KPj4gKwljaWtfc2RtYV9yaW5nX2luc2VydF9ub3AocmluZywgKDQtbG93
+ZXJfMzJfYml0cyhyaW5nLT53cHRyKSkgJiA3KTsNCj4+ICAgDQo+PiAgIAlhbWRncHVfcmluZ193
+cml0ZShyaW5nLCBTRE1BX1BBQ0tFVChTRE1BX09QQ09ERV9JTkRJUkVDVF9CVUZGRVIsIDAsIGV4
+dHJhX2JpdHMpKTsNCj4+ICAgCWFtZGdwdV9yaW5nX3dyaXRlKHJpbmcsIGliLT5ncHVfYWRkciAm
+IDB4ZmZmZmZmZTApOyAvKiBiYXNlIG11c3QgYmUgMzIgYnl0ZSBhbGlnbmVkICovDQo+PiBAQCAt
+ODExLDcgKzgxMSw3IEBAIHN0YXRpYyB2b2lkIGNpa19zZG1hX3JpbmdfcGFkX2liKHN0cnVjdCBh
+bWRncHVfcmluZyAqcmluZywgc3RydWN0IGFtZGdwdV9pYiAqaWIpDQo+PiAgIAl1MzIgcGFkX2Nv
+dW50Ow0KPj4gICAJaW50IGk7DQo+PiAgIA0KPj4gLQlwYWRfY291bnQgPSAoOCAtIChpYi0+bGVu
+Z3RoX2R3ICYgMHg3KSkgJSA4Ow0KPj4gKwlwYWRfY291bnQgPSAoLWliLT5sZW5ndGhfZHcpICYg
+NzsNCj4+ICAgCWZvciAoaSA9IDA7IGkgPCBwYWRfY291bnQ7IGkrKykNCj4+ICAgCQlpZiAoc2Rt
+YSAmJiBzZG1hLT5idXJzdF9ub3AgJiYgKGkgPT0gMCkpDQo+PiAgIAkJCWliLT5wdHJbaWItPmxl
+bmd0aF9kdysrXSA9DQo+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
+c2RtYV92Ml80LmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9zZG1hX3YyXzQuYw0KPj4g
+aW5kZXggYTEwMTc1ODM4MDEzLi5kMzQwZjE3OTQwMWEgMTAwNjQ0DQo+PiAtLS0gYS9kcml2ZXJz
+L2dwdS9kcm0vYW1kL2FtZGdwdS9zZG1hX3YyXzQuYw0KPj4gKysrIGIvZHJpdmVycy9ncHUvZHJt
+L2FtZC9hbWRncHUvc2RtYV92Ml80LmMNCj4+IEBAIC0yNTUsNyArMjU1LDcgQEAgc3RhdGljIHZv
+aWQgc2RtYV92Ml80X3JpbmdfZW1pdF9pYihzdHJ1Y3QgYW1kZ3B1X3JpbmcgKnJpbmcsDQo+PiAg
+IAl1bnNpZ25lZCB2bWlkID0gQU1ER1BVX0pPQl9HRVRfVk1JRChqb2IpOw0KPj4gICANCj4+ICAg
+CS8qIElCIHBhY2tldCBtdXN0IGVuZCBvbiBhIDggRFcgYm91bmRhcnkgKi8NCj4+IC0Jc2RtYV92
+Ml80X3JpbmdfaW5zZXJ0X25vcChyaW5nLCAoMTAgLSAobG93ZXJfMzJfYml0cyhyaW5nLT53cHRy
+KSAmIDcpKSAlIDgpOw0KPj4gKwlzZG1hX3YyXzRfcmluZ19pbnNlcnRfbm9wKHJpbmcsICgyLWxv
+d2VyXzMyX2JpdHMocmluZy0+d3B0cikpICYgNyk7DQo+PiAgIA0KPj4gICAJYW1kZ3B1X3Jpbmdf
+d3JpdGUocmluZywgU0RNQV9QS1RfSEVBREVSX09QKFNETUFfT1BfSU5ESVJFQ1QpIHwNCj4+ICAg
+CQkJICBTRE1BX1BLVF9JTkRJUkVDVF9IRUFERVJfVk1JRCh2bWlkICYgMHhmKSk7DQo+PiBAQCAt
+NzUwLDcgKzc1MCw3IEBAIHN0YXRpYyB2b2lkIHNkbWFfdjJfNF9yaW5nX3BhZF9pYihzdHJ1Y3Qg
+YW1kZ3B1X3JpbmcgKnJpbmcsIHN0cnVjdCBhbWRncHVfaWIgKmliDQo+PiAgIAl1MzIgcGFkX2Nv
+dW50Ow0KPj4gICAJaW50IGk7DQo+PiAgIA0KPj4gLQlwYWRfY291bnQgPSAoOCAtIChpYi0+bGVu
+Z3RoX2R3ICYgMHg3KSkgJSA4Ow0KPj4gKwlwYWRfY291bnQgPSAoLWliLT5sZW5ndGhfZHcpICYg
+NzsNCj4+ICAgCWZvciAoaSA9IDA7IGkgPCBwYWRfY291bnQ7IGkrKykNCj4+ICAgCQlpZiAoc2Rt
+YSAmJiBzZG1hLT5idXJzdF9ub3AgJiYgKGkgPT0gMCkpDQo+PiAgIAkJCWliLT5wdHJbaWItPmxl
+bmd0aF9kdysrXSA9DQo+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
+c2RtYV92M18wLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9zZG1hX3YzXzAuYw0KPj4g
+aW5kZXggNWY0ZTJjNjE2MjQxLi41YzNjMzEwMTg4YjYgMTAwNjQ0DQo+PiAtLS0gYS9kcml2ZXJz
+L2dwdS9kcm0vYW1kL2FtZGdwdS9zZG1hX3YzXzAuYw0KPj4gKysrIGIvZHJpdmVycy9ncHUvZHJt
+L2FtZC9hbWRncHUvc2RtYV92M18wLmMNCj4+IEBAIC00MjksNyArNDI5LDcgQEAgc3RhdGljIHZv
+aWQgc2RtYV92M18wX3JpbmdfZW1pdF9pYihzdHJ1Y3QgYW1kZ3B1X3JpbmcgKnJpbmcsDQo+PiAg
+IAl1bnNpZ25lZCB2bWlkID0gQU1ER1BVX0pPQl9HRVRfVk1JRChqb2IpOw0KPj4gICANCj4+ICAg
+CS8qIElCIHBhY2tldCBtdXN0IGVuZCBvbiBhIDggRFcgYm91bmRhcnkgKi8NCj4+IC0Jc2RtYV92
+M18wX3JpbmdfaW5zZXJ0X25vcChyaW5nLCAoMTAgLSAobG93ZXJfMzJfYml0cyhyaW5nLT53cHRy
+KSAmIDcpKSAlIDgpOw0KPj4gKwlzZG1hX3YzXzBfcmluZ19pbnNlcnRfbm9wKHJpbmcsICgyLWxv
+d2VyXzMyX2JpdHMocmluZy0+d3B0cikpICYgNyk7DQo+PiAgIA0KPj4gICAJYW1kZ3B1X3Jpbmdf
+d3JpdGUocmluZywgU0RNQV9QS1RfSEVBREVSX09QKFNETUFfT1BfSU5ESVJFQ1QpIHwNCj4+ICAg
+CQkJICBTRE1BX1BLVF9JTkRJUkVDVF9IRUFERVJfVk1JRCh2bWlkICYgMHhmKSk7DQo+PiBAQCAt
+MTAyMSw3ICsxMDIxLDcgQEAgc3RhdGljIHZvaWQgc2RtYV92M18wX3JpbmdfcGFkX2liKHN0cnVj
+dCBhbWRncHVfcmluZyAqcmluZywgc3RydWN0IGFtZGdwdV9pYiAqaWINCj4+ICAgCXUzMiBwYWRf
+Y291bnQ7DQo+PiAgIAlpbnQgaTsNCj4+ICAgDQo+PiAtCXBhZF9jb3VudCA9ICg4IC0gKGliLT5s
+ZW5ndGhfZHcgJiAweDcpKSAlIDg7DQo+PiArCXBhZF9jb3VudCA9ICgtaWItPmxlbmd0aF9kdykg
+JiA3Ow0KPj4gICAJZm9yIChpID0gMDsgaSA8IHBhZF9jb3VudDsgaSsrKQ0KPj4gICAJCWlmIChz
+ZG1hICYmIHNkbWEtPmJ1cnN0X25vcCAmJiAoaSA9PSAwKSkNCj4+ICAgCQkJaWItPnB0cltpYi0+
+bGVuZ3RoX2R3KytdID0NCj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
+dS9zZG1hX3Y0XzAuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3NkbWFfdjRfMC5jDQo+
+PiBpbmRleCA0NWJkNTM4YmE5N2UuLjdjNzFjODhlMzhhNCAxMDA2NDQNCj4+IC0tLSBhL2RyaXZl
+cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3NkbWFfdjRfMC5jDQo+PiArKysgYi9kcml2ZXJzL2dwdS9k
+cm0vYW1kL2FtZGdwdS9zZG1hX3Y0XzAuYw0KPj4gQEAgLTY5OCw3ICs2OTgsNyBAQCBzdGF0aWMg
+dm9pZCBzZG1hX3Y0XzBfcmluZ19lbWl0X2liKHN0cnVjdCBhbWRncHVfcmluZyAqcmluZywNCj4+
+ICAgCXVuc2lnbmVkIHZtaWQgPSBBTURHUFVfSk9CX0dFVF9WTUlEKGpvYik7DQo+PiAgIA0KPj4g
+ICAJLyogSUIgcGFja2V0IG11c3QgZW5kIG9uIGEgOCBEVyBib3VuZGFyeSAqLw0KPj4gLQlzZG1h
+X3Y0XzBfcmluZ19pbnNlcnRfbm9wKHJpbmcsICgxMCAtIChsb3dlcl8zMl9iaXRzKHJpbmctPndw
+dHIpICYgNykpICUgOCk7DQo+PiArCXNkbWFfdjRfMF9yaW5nX2luc2VydF9ub3AocmluZywgKDIt
+bG93ZXJfMzJfYml0cyhyaW5nLT53cHRyKSkgJiA3KTsNCj4+ICAgDQo+PiAgIAlhbWRncHVfcmlu
+Z193cml0ZShyaW5nLCBTRE1BX1BLVF9IRUFERVJfT1AoU0RNQV9PUF9JTkRJUkVDVCkgfA0KPj4g
+ICAJCQkgIFNETUFfUEtUX0lORElSRUNUX0hFQURFUl9WTUlEKHZtaWQgJiAweGYpKTsNCj4+IEBA
+IC0xNTgwLDcgKzE1ODAsNyBAQCBzdGF0aWMgdm9pZCBzZG1hX3Y0XzBfcmluZ19wYWRfaWIoc3Ry
+dWN0IGFtZGdwdV9yaW5nICpyaW5nLCBzdHJ1Y3QgYW1kZ3B1X2liICppYg0KPj4gICAJdTMyIHBh
+ZF9jb3VudDsNCj4+ICAgCWludCBpOw0KPj4gICANCj4+IC0JcGFkX2NvdW50ID0gKDggLSAoaWIt
+Pmxlbmd0aF9kdyAmIDB4NykpICUgODsNCj4+ICsJcGFkX2NvdW50ID0gKC1pYi0+bGVuZ3RoX2R3
+KSAmIDc7DQo+PiAgIAlmb3IgKGkgPSAwOyBpIDwgcGFkX2NvdW50OyBpKyspDQo+PiAgIAkJaWYg
+KHNkbWEgJiYgc2RtYS0+YnVyc3Rfbm9wICYmIChpID09IDApKQ0KPj4gICAJCQlpYi0+cHRyW2li
+LT5sZW5ndGhfZHcrK10gPQ0KPj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
+Z3B1L3NkbWFfdjVfMC5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvc2RtYV92NV8wLmMN
+Cj4+IGluZGV4IDBjNDFiNGZkYzU4Yi4uNjdlZGU5ZTRkZjAxIDEwMDY0NA0KPj4gLS0tIGEvZHJp
+dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvc2RtYV92NV8wLmMNCj4+ICsrKyBiL2RyaXZlcnMvZ3B1
+L2RybS9hbWQvYW1kZ3B1L3NkbWFfdjVfMC5jDQo+PiBAQCAtMzgyLDggKzM4MiwxMiBAQCBzdGF0
+aWMgdm9pZCBzZG1hX3Y1XzBfcmluZ19lbWl0X2liKHN0cnVjdCBhbWRncHVfcmluZyAqcmluZywN
+Cj4+ICAgCXVuc2lnbmVkIHZtaWQgPSBBTURHUFVfSk9CX0dFVF9WTUlEKGpvYik7DQo+PiAgIAl1
+aW50NjRfdCBjc2FfbWNfYWRkciA9IGFtZGdwdV9zZG1hX2dldF9jc2FfbWNfYWRkcihyaW5nLCB2
+bWlkKTsNCj4+ICAgDQo+PiAtCS8qIElCIHBhY2tldCBtdXN0IGVuZCBvbiBhIDggRFcgYm91bmRh
+cnkgKi8NCj4+IC0Jc2RtYV92NV8wX3JpbmdfaW5zZXJ0X25vcChyaW5nLCAoMTAgLSAobG93ZXJf
+MzJfYml0cyhyaW5nLT53cHRyKSAmIDcpKSAlIDgpOw0KPj4gKwkvKiBBbiBJQiBwYWNrZXQgbXVz
+dCBlbmQgb24gYSA4IERXIGJvdW5kYXJ5LS10aGUgbmV4dCBkd29yZCBtdXN0DQo+PiArCSAqIGJl
+IG9uIGEgOC1kd29yZCBib3VuZGFyeS4gT3VyIElCIGJlbG93IGlzIDYgZHdvcmRzIGxvbmcsDQo+
+IA0KPiBUaGF0IHNob3VsZCBwcm9iYWJseSByZWFkICJvdXIgSUIgY29tbWFuZCIgb3IgIm91ciBJ
+QiBwYWNrZXQiLg0KDQpEb25lLg0KDQo+IA0KPj4gKwkgKiB0aHVzIGFkZCB4IG51bWJlciBvZiBO
+T1BzLCBzdWNoIHRoYXQNCj4+ICsJICogd3B0ciArIDYgKyB4ID0gOGssIGsgPj0gMC4NCj4gDQo+
+IE1heWJlIHdyaXRlICh3cnB0ciArIDYgKyB4KSAlIDggPSAwIHRvIG1ha2UgdGhhdCBtb3JlIG9i
+dmlvdXMuDQoNClRoYXQncyBsZXNzIG9idmlvdXMuIEluIG15IG1pbmQgSSBhbHdheXMgdHJhbnNs
+YXRlIGl0IHRvDQphIGNvbmdydWVuY2UgZXhwcmVzc2lvbi4gSXQncyB3aGF0IEkgdXNlZCB0byBk
+ZXJpdmUgdGhlIGFsZ2VicmFpYw0Kc2ltcGxpZmljYXRpb25zIG9mIHRoaXMgcGF0Y2guDQoNCkkn
+bGwgYWRkIHRoZSBoaWdobHkgY3J5cHRpYyAiKHdycHRyICsgNiArIHgpICUgOCA9IDAiIHRvIG1h
+a2UgeW91IGhhcHB5LA0KYmVsb3cgdGhlIGFsZ2VicmFpYyBleHByZXNzaW9uIGFscmVhZHkgdGhl
+cmUuDQoNCj4gDQo+PiArCSAqLw0KPj4gKwlzZG1hX3Y1XzBfcmluZ19pbnNlcnRfbm9wKHJpbmcs
+ICgyLWxvd2VyXzMyX2JpdHMocmluZy0+d3B0cikpICYgNyk7DQo+IA0KPiBTcGFjZXMgYmV0d2Vl
+biBvcGVyYXRvcnMgcGxlYXNlLg0KDQpZZWFoLCBJIHdhbnRlZCB0byBwdXQgYW4gZW1waGFzaXMg
+b24gdGhlIEFORC1vcCwgYnV0IEknbGwgYWRkIHRoZW0uDQoNClJlZ2FyZHMsDQpMdWJlbg0KDQoN
+Cj4gDQo+IEFwYXJ0IGZvcm0gdGhhdCBsb29rcyBnb29kIHRvIG1lLA0KPiBDaHJpc3RpYW4uDQo+
+IA0KPj4gICANCj4+ICAgCWFtZGdwdV9yaW5nX3dyaXRlKHJpbmcsIFNETUFfUEtUX0hFQURFUl9P
+UChTRE1BX09QX0lORElSRUNUKSB8DQo+PiAgIAkJCSAgU0RNQV9QS1RfSU5ESVJFQ1RfSEVBREVS
+X1ZNSUQodm1pZCAmIDB4ZikpOw0KPj4gQEAgLTEwODYsMTAgKzEwOTAsMTAgQEAgc3RhdGljIHZv
+aWQgc2RtYV92NV8wX3ZtX3NldF9wdGVfcGRlKHN0cnVjdCBhbWRncHVfaWIgKmliLA0KPj4gICB9
+DQo+PiAgIA0KPj4gICAvKioNCj4+IC0gKiBzZG1hX3Y1XzBfcmluZ19wYWRfaWIgLSBwYWQgdGhl
+IElCIHRvIHRoZSByZXF1aXJlZCBudW1iZXIgb2YgZHcNCj4+IC0gKg0KPj4gKyAqIHNkbWFfdjVf
+MF9yaW5nX3BhZF9pYiAtIHBhZCB0aGUgSUINCj4+ICAgICogQGliOiBpbmRpcmVjdCBidWZmZXIg
+dG8gZmlsbCB3aXRoIHBhZGRpbmcNCj4+ICAgICoNCj4+ICsgKiBQYWQgdGhlIElCIHdpdGggTk9Q
+cyB0byBhIGJvdW5kYXJ5IG11bHRpcGxlIG9mIDguDQo+PiAgICAqLw0KPj4gICBzdGF0aWMgdm9p
+ZCBzZG1hX3Y1XzBfcmluZ19wYWRfaWIoc3RydWN0IGFtZGdwdV9yaW5nICpyaW5nLCBzdHJ1Y3Qg
+YW1kZ3B1X2liICppYikNCj4+ICAgew0KPj4gQEAgLTEwOTcsNyArMTEwMSw3IEBAIHN0YXRpYyB2
+b2lkIHNkbWFfdjVfMF9yaW5nX3BhZF9pYihzdHJ1Y3QgYW1kZ3B1X3JpbmcgKnJpbmcsIHN0cnVj
+dCBhbWRncHVfaWIgKmliDQo+PiAgIAl1MzIgcGFkX2NvdW50Ow0KPj4gICAJaW50IGk7DQo+PiAg
+IA0KPj4gLQlwYWRfY291bnQgPSAoOCAtIChpYi0+bGVuZ3RoX2R3ICYgMHg3KSkgJSA4Ow0KPj4g
+KwlwYWRfY291bnQgPSAoLWliLT5sZW5ndGhfZHcpICYgMHg3Ow0KPj4gICAJZm9yIChpID0gMDsg
+aSA8IHBhZF9jb3VudDsgaSsrKQ0KPj4gICAJCWlmIChzZG1hICYmIHNkbWEtPmJ1cnN0X25vcCAm
+JiAoaSA9PSAwKSkNCj4+ICAgCQkJaWItPnB0cltpYi0+bGVuZ3RoX2R3KytdID0NCj4gDQoNCl9f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFp
+bGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJl
+ZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
