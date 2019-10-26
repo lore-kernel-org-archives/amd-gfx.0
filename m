@@ -1,69 +1,37 @@
-From: "Tuikov, Luben" <Luben.Tuikov-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH] drm/amdgpu: GFX10: GRBM requires 1-cycle delay (v2)
-Date: Fri, 25 Oct 2019 22:59:52 +0000
-Message-ID: <20191025225930.15074-1-luben.tuikov@amd.com>
-References: <b40c78f1-17a5-f0f9-183e-0c78fd7163e9@amd.com>
+From: Greg KH <gregkh@linuxfoundation.org>
+Subject: Re: [PATCH v3] drm/radeon: Fix EEH during kexec
+Date: Sat, 26 Oct 2019 10:00:32 +0200
+Message-ID: <20191026080032.GA554748@kroah.com>
+References: <1572036050-18945-1-git-send-email-kmahlkuc@linux.vnet.ibm.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <b40c78f1-17a5-f0f9-183e-0c78fd7163e9-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Tuikov,
- Luben" <Luben.Tuikov-5C7GfCeVMHo@public.gmane.org>, "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset=us-ascii
+Return-path: <stable-owner@vger.kernel.org>
+Content-Disposition: inline
+In-Reply-To: <1572036050-18945-1-git-send-email-kmahlkuc@linux.vnet.ibm.com>
+Sender: stable-owner@vger.kernel.org
+To: KyleMahlkuch <kmahlkuc@linux.vnet.ibm.com>
+Cc: alexander.deucher@amd.com, stable@vger.kernel.org, amd-gfx@lists.freedesktop.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-VGhlIEdSQk0gaW50ZXJmYWNlIGlzIG5vdyBjYXBhYmxlIG9mIGJ1cnN0aW5nCjEtY3ljbGUgb3Ag
-cGVyIHJlZ2lzdGVyLCBhIFdSSVRFIGZvbGxvd2VkIGJ5CmFub3RoZXIgV1JJVEUsIG9yIGEgV1JJ
-VEUgZm9sbG93ZWQgYnkgYSBSRUFELS1tdWNoCmZhc3RlciB0aGFuIHByZXZpb3VzIG11dGktY3lj
-bGUgcGVyCmNvbXBsZXRlZC10cmFuc2FjdGlvbiBpbnRlcmZhY2UuIFRoaXMgY2F1c2VzIGEKcHJv
-YmxlbSwgd2hlcmVieSBzdGF0dXMgcmVnaXN0ZXJzIHJlcXVpcmluZyBhCnJlYWQvd3JpdGUgYnkg
-aGFyZHdhcmUsIGhhdmUgYSAxLWN5Y2xlIGRlbGF5LCBkdWUKdG8gdGhlIHJlZ2lzdGVyIHVwZGF0
-ZSBoYXZpbmcgdG8gZ28gdGhyb3VnaCBHUkJNCmludGVyZmFjZS4KClRoaXMgcGF0Y2ggYWRkcyB0
-aGlzIGRlbGF5LgoKQSBvbmUgY3ljbGUgcmVhZCBvcCBpcyBhZGRlZCBhZnRlciB1cGRhdGluZyB0
-aGUKaW52YWxpZGF0ZSByZXF1ZXN0IGFuZCBiZWZvcmUgcmVhZGluZyB0aGUKaW52YWxpZGF0ZS1B
-Q0sgc3RhdHVzLgoKU2VlIGFsc28gY29tbWl0CjUzNDk5MTczMWNiNWZhOTRiNTUxOTk1NzY0NmNm
-ODQ5Y2ExMGQxN2QuCgp2MjogUmVtb3ZlIEdGWDkgYW5kIGFwcGx5IG9ubHkgdG8gU0RNQSByaW5n
-LgoKU2lnbmVkLW9mZi1ieTogTHViZW4gVHVpa292IDxsdWJlbi50dWlrb3ZAYW1kLmNvbT4KLS0t
-CiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNfdjEwXzAuYyB8IDcgKysrKysrKwogZHJp
-dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvc2RtYV92NV8wLmMgfCAyICstCiAyIGZpbGVzIGNoYW5n
-ZWQsIDggaW5zZXJ0aW9ucygrKSwgMSBkZWxldGlvbigtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMv
-Z3B1L2RybS9hbWQvYW1kZ3B1L2dtY192MTBfMC5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
-cHUvZ21jX3YxMF8wLmMKaW5kZXggNmUxYjI1YmQxZmU3Li5kZWRkN2UxYWIyZmIgMTAwNjQ0Ci0t
-LSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192MTBfMC5jCisrKyBiL2RyaXZlcnMv
-Z3B1L2RybS9hbWQvYW1kZ3B1L2dtY192MTBfMC5jCkBAIC0zNDYsNiArMzQ2LDEzIEBAIHN0YXRp
-YyB1aW50NjRfdCBnbWNfdjEwXzBfZW1pdF9mbHVzaF9ncHVfdGxiKHN0cnVjdCBhbWRncHVfcmlu
-ZyAqcmluZywKIAogCWFtZGdwdV9yaW5nX2VtaXRfd3JlZyhyaW5nLCBodWItPnZtX2ludl9lbmcw
-X3JlcSArIGVuZywgcmVxKTsKIAorCS8qIEluc2VydCBhIGR1bW15IHJlYWQgdG8gZGVsYXkgb25l
-IGN5Y2xlIGFmdGVyIHRoZSB3cml0ZSBSRVEsCisJICogYW5kIGJlZm9yZSB0aGUgQUNLIGlucXVp
-cnkuCisJICovCisJaWYgKHJpbmctPmZ1bmNzLT50eXBlID09IEFNREdQVV9SSU5HX1RZUEVfU0RN
-QSkKKwkJYW1kZ3B1X3JpbmdfZW1pdF9yZWdfd2FpdChyaW5nLAorCQkJCQkgIGh1Yi0+dm1faW52
-X2VuZzBfcmVxICsgZW5nLCAwLCAwKTsKKwogCS8qIHdhaXQgZm9yIHRoZSBpbnZhbGlkYXRlIHRv
-IGNvbXBsZXRlICovCiAJYW1kZ3B1X3JpbmdfZW1pdF9yZWdfd2FpdChyaW5nLCBodWItPnZtX2lu
-dl9lbmcwX2FjayArIGVuZywKIAkJCQkgIDEgPDwgdm1pZCwgMSA8PCB2bWlkKTsKZGlmZiAtLWdp
-dCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3NkbWFfdjVfMC5jIGIvZHJpdmVycy9ncHUv
-ZHJtL2FtZC9hbWRncHUvc2RtYV92NV8wLmMKaW5kZXggYjhmZGIxOTJmNmQ2Li4wYzQxYjRmZGM1
-OGIgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3NkbWFfdjVfMC5jCisr
-KyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3NkbWFfdjVfMC5jCkBAIC0xNTg4LDcgKzE1
-ODgsNyBAQCBzdGF0aWMgY29uc3Qgc3RydWN0IGFtZGdwdV9yaW5nX2Z1bmNzIHNkbWFfdjVfMF9y
-aW5nX2Z1bmNzID0gewogCQk2ICsgLyogc2RtYV92NV8wX3JpbmdfZW1pdF9waXBlbGluZV9zeW5j
-ICovCiAJCS8qIHNkbWFfdjVfMF9yaW5nX2VtaXRfdm1fZmx1c2ggKi8KIAkJU09DMTVfRkxVU0hf
-R1BVX1RMQl9OVU1fV1JFRyAqIDMgKwotCQlTT0MxNV9GTFVTSF9HUFVfVExCX05VTV9SRUdfV0FJ
-VCAqIDYgKworCQlTT0MxNV9GTFVTSF9HUFVfVExCX05VTV9SRUdfV0FJVCAqIDYgKiAyICsKIAkJ
-MTAgKyAxMCArIDEwLCAvKiBzZG1hX3Y1XzBfcmluZ19lbWl0X2ZlbmNlIHgzIGZvciB1c2VyIGZl
-bmNlLCB2bSBmZW5jZSAqLwogCS5lbWl0X2liX3NpemUgPSA3ICsgNiwgLyogc2RtYV92NV8wX3Jp
-bmdfZW1pdF9pYiAqLwogCS5lbWl0X2liID0gc2RtYV92NV8wX3JpbmdfZW1pdF9pYiwKLS0gCjIu
-MjMuMC4zODUuZ2JjMTI5NzRhODkKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0
-b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1k
-LWdmeA==
+On Fri, Oct 25, 2019 at 03:40:50PM -0500, KyleMahlkuch wrote:
+> From: Kyle Mahlkuch <kmahlkuc@linux.vnet.ibm.com>
+> 
+> During kexec some adapters hit an EEH since they are not properly
+> shut down in the radeon_pci_shutdown() function. Adding
+> radeon_suspend_kms() fixes this issue.
+> Enabled only on PPC because this patch causes issues on some other
+> boards.
+> 
+> Signed-off-by: Kyle Mahlkuch <kmahlkuc@linux.vnet.ibm.com>
+> ---
+>  drivers/gpu/drm/radeon/radeon_drv.c | 14 ++++++++++++++
+>  1 file changed, 14 insertions(+)
+
+<formletter>
+
+This is not the correct way to submit patches for inclusion in the
+stable kernel tree.  Please read:
+    https://www.kernel.org/doc/html/latest/process/stable-kernel-rules.html
+for how to do this properly.
+
+</formletter>
