@@ -6,43 +6,40 @@ X-Spam-Status: No, score=-9.8 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 16CEDCA9EC0
-	for <amd-gfx@archiver.kernel.org>; Mon, 28 Oct 2019 13:36:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 42F92CA9EC0
+	for <amd-gfx@archiver.kernel.org>; Mon, 28 Oct 2019 13:37:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E67BA2086D
-	for <amd-gfx@archiver.kernel.org>; Mon, 28 Oct 2019 13:36:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E67BA2086D
+	by mail.kernel.org (Postfix) with ESMTPS id 1D938214B2
+	for <amd-gfx@archiver.kernel.org>; Mon, 28 Oct 2019 13:37:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1D938214B2
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=huawei.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A2FD66E86B;
-	Mon, 28 Oct 2019 13:36:38 +0000 (UTC)
-Received: from huawei.com (szxga04-in.huawei.com [45.249.212.190])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C58626E86B;
- Mon, 28 Oct 2019 13:34:58 +0000 (UTC)
-Received: from DGGEMS403-HUB.china.huawei.com (unknown [172.30.72.60])
- by Forcepoint Email with ESMTP id 9A01375B8B23BB5841DE;
- Mon, 28 Oct 2019 21:34:53 +0800 (CST)
-Received: from localhost (10.133.213.239) by DGGEMS403-HUB.china.huawei.com
- (10.3.19.203) with Microsoft SMTP Server id 14.3.439.0; Mon, 28 Oct 2019
- 21:34:45 +0800
+	by gabe.freedesktop.org (Postfix) with ESMTP id E4E0C6E86C;
+	Mon, 28 Oct 2019 13:37:50 +0000 (UTC)
+Received: from huawei.com (szxga05-in.huawei.com [45.249.212.191])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F125B6E86C;
+ Mon, 28 Oct 2019 13:36:43 +0000 (UTC)
+Received: from DGGEMS407-HUB.china.huawei.com (unknown [172.30.72.58])
+ by Forcepoint Email with ESMTP id 329F9FADBF5561FE308D;
+ Mon, 28 Oct 2019 21:36:38 +0800 (CST)
+Received: from localhost (10.133.213.239) by DGGEMS407-HUB.china.huawei.com
+ (10.3.19.207) with Microsoft SMTP Server id 14.3.439.0; Mon, 28 Oct 2019
+ 21:36:30 +0800
 From: YueHaibing <yuehaibing@huawei.com>
-To: <harry.wentland@amd.com>, <sunpeng.li@amd.com>,
- <alexander.deucher@amd.com>, <christian.koenig@amd.com>,
- <David1.Zhou@amd.com>, <airlied@linux.ie>, <daniel@ffwll.ch>,
- <Bhawanpreet.Lakha@amd.com>, <Dmytro.Laktyushkin@amd.com>,
- <charlene.liu@amd.com>, <eric.bernstein@amd.com>, <Jun.Lei@amd.com>,
- <Anthony.Koo@amd.com>, <Reza.Amini@amd.com>, <Harmanprit.Tatla@amd.com>
-Subject: [PATCH -next] drm/amd/display: Make calculate_integer_scaling static
-Date: Mon, 28 Oct 2019 21:34:36 +0800
-Message-ID: <20191028133436.30608-1-yuehaibing@huawei.com>
+To: <rex.zhu@amd.com>, <evan.quan@amd.com>, <alexander.deucher@amd.com>,
+ <christian.koenig@amd.com>, <David1.Zhou@amd.com>, <airlied@linux.ie>,
+ <daniel@ffwll.ch>
+Subject: [PATCH 3/3] drm/amd/powerplay: Make two functions static
+Date: Mon, 28 Oct 2019 21:36:21 +0800
+Message-ID: <20191028133621.21400-1-yuehaibing@huawei.com>
 X-Mailer: git-send-email 2.10.2.windows.1
 MIME-Version: 1.0
 X-Originating-IP: [10.133.213.239]
 X-CFilter-Loop: Reflected
-X-Mailman-Approved-At: Mon, 28 Oct 2019 13:36:38 +0000
+X-Mailman-Approved-At: Mon, 28 Oct 2019 13:37:50 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -60,25 +57,33 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-Message-ID: <20191028133436.dHso9eZnQ4wFgC3Sru2XhwbV0E8Pypn8F71LUtHZIzk@z>
+Message-ID: <20191028133621.5N-AcQ406gBFfUzRwf3U1O3kL__BZbFpVG_SSLsmHDw@z>
 
-Rml4IHNwYXJzZSB3YXJuaW5nOgoKZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvLi4vZGlzcGxh
-eS9kYy9jb3JlL2RjX3Jlc291cmNlLmM6OTYzOjY6CiB3YXJuaW5nOiBzeW1ib2wgJ2NhbGN1bGF0
-ZV9pbnRlZ2VyX3NjYWxpbmcnIHdhcyBub3QgZGVjbGFyZWQuIFNob3VsZCBpdCBiZSBzdGF0aWM/
-CgpSZXBvcnRlZC1ieTogSHVsayBSb2JvdCA8aHVsa2NpQGh1YXdlaS5jb20+ClNpZ25lZC1vZmYt
-Ynk6IFl1ZUhhaWJpbmcgPHl1ZWhhaWJpbmdAaHVhd2VpLmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9k
-cm0vYW1kL2Rpc3BsYXkvZGMvY29yZS9kY19yZXNvdXJjZS5jIHwgMiArLQogMSBmaWxlIGNoYW5n
-ZWQsIDEgaW5zZXJ0aW9uKCspLCAxIGRlbGV0aW9uKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9n
-cHUvZHJtL2FtZC9kaXNwbGF5L2RjL2NvcmUvZGNfcmVzb3VyY2UuYyBiL2RyaXZlcnMvZ3B1L2Ry
-bS9hbWQvZGlzcGxheS9kYy9jb3JlL2RjX3Jlc291cmNlLmMKaW5kZXggNzBlNjAxYS4uMzc2OTgz
-MCAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2NvcmUvZGNfcmVz
-b3VyY2UuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvY29yZS9kY19yZXNv
-dXJjZS5jCkBAIC05NjAsNyArOTYwLDcgQEAgc3RhdGljIGJvb2wgYXJlX3JlY3RzX2ludGVnZXJf
-bXVsdGlwbGVzKHN0cnVjdCByZWN0IHNyYywgc3RydWN0IHJlY3QgZGVzdCkKIAlyZXR1cm4gZmFs
-c2U7CiB9CiAKLXZvaWQgY2FsY3VsYXRlX2ludGVnZXJfc2NhbGluZyhzdHJ1Y3QgcGlwZV9jdHgg
-KnBpcGVfY3R4KQorc3RhdGljIHZvaWQgY2FsY3VsYXRlX2ludGVnZXJfc2NhbGluZyhzdHJ1Y3Qg
-cGlwZV9jdHggKnBpcGVfY3R4KQogewogCWlmICghcGlwZV9jdHgtPnBsYW5lX3N0YXRlLT5zY2Fs
-aW5nX3F1YWxpdHkuaW50ZWdlcl9zY2FsaW5nKQogCQlyZXR1cm47Ci0tIAoyLjcuNAoKCl9fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGlu
-ZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRl
-c2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
+Rml4IHNwYXJzZSB3YXJuaW5nczoKCmRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1Ly4uL3Bvd2Vy
+cGxheS9hcmN0dXJ1c19wcHQuYzoyMDUwOjU6CiB3YXJuaW5nOiBzeW1ib2wgJ2FyY3R1cnVzX2ky
+Y19lZXByb21fY29udHJvbF9pbml0JyB3YXMgbm90IGRlY2xhcmVkLiBTaG91bGQgaXQgYmUgc3Rh
+dGljPwpkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS8uLi9wb3dlcnBsYXkvYXJjdHVydXNfcHB0
+LmM6MjA2ODo2Ogogd2FybmluZzogc3ltYm9sICdhcmN0dXJ1c19pMmNfZWVwcm9tX2NvbnRyb2xf
+ZmluaScgd2FzIG5vdCBkZWNsYXJlZC4gU2hvdWxkIGl0IGJlIHN0YXRpYz8KClJlcG9ydGVkLWJ5
+OiBIdWxrIFJvYm90IDxodWxrY2lAaHVhd2VpLmNvbT4KU2lnbmVkLW9mZi1ieTogWXVlSGFpYmlu
+ZyA8eXVlaGFpYmluZ0BodWF3ZWkuY29tPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJw
+bGF5L2FyY3R1cnVzX3BwdC5jIHwgNCArKy0tCiAxIGZpbGUgY2hhbmdlZCwgMiBpbnNlcnRpb25z
+KCspLCAyIGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93
+ZXJwbGF5L2FyY3R1cnVzX3BwdC5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvYXJj
+dHVydXNfcHB0LmMKaW5kZXggZDQ4YTQ5ZC4uMzA5OWFjMiAxMDA2NDQKLS0tIGEvZHJpdmVycy9n
+cHUvZHJtL2FtZC9wb3dlcnBsYXkvYXJjdHVydXNfcHB0LmMKKysrIGIvZHJpdmVycy9ncHUvZHJt
+L2FtZC9wb3dlcnBsYXkvYXJjdHVydXNfcHB0LmMKQEAgLTIwNDcsNyArMjA0Nyw3IEBAIHN0YXRp
+YyBjb25zdCBzdHJ1Y3QgaTJjX2FsZ29yaXRobSBhcmN0dXJ1c19pMmNfZWVwcm9tX2kyY19hbGdv
+ID0gewogCS5mdW5jdGlvbmFsaXR5ID0gYXJjdHVydXNfaTJjX2VlcHJvbV9pMmNfZnVuYywKIH07
+CiAKLWludCBhcmN0dXJ1c19pMmNfZWVwcm9tX2NvbnRyb2xfaW5pdChzdHJ1Y3QgaTJjX2FkYXB0
+ZXIgKmNvbnRyb2wpCitzdGF0aWMgaW50IGFyY3R1cnVzX2kyY19lZXByb21fY29udHJvbF9pbml0
+KHN0cnVjdCBpMmNfYWRhcHRlciAqY29udHJvbCkKIHsKIAlzdHJ1Y3QgYW1kZ3B1X2RldmljZSAq
+YWRldiA9IHRvX2FtZGdwdV9kZXZpY2UoY29udHJvbCk7CiAJaW50IHJlczsKQEAgLTIwNjUsNyAr
+MjA2NSw3IEBAIGludCBhcmN0dXJ1c19pMmNfZWVwcm9tX2NvbnRyb2xfaW5pdChzdHJ1Y3QgaTJj
+X2FkYXB0ZXIgKmNvbnRyb2wpCiAJcmV0dXJuIHJlczsKIH0KIAotdm9pZCBhcmN0dXJ1c19pMmNf
+ZWVwcm9tX2NvbnRyb2xfZmluaShzdHJ1Y3QgaTJjX2FkYXB0ZXIgKmNvbnRyb2wpCitzdGF0aWMg
+dm9pZCBhcmN0dXJ1c19pMmNfZWVwcm9tX2NvbnRyb2xfZmluaShzdHJ1Y3QgaTJjX2FkYXB0ZXIg
+KmNvbnRyb2wpCiB7CiAJaTJjX2RlbF9hZGFwdGVyKGNvbnRyb2wpOwogfQotLSAKMi43LjQKCgpf
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1h
+aWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZy
+ZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
