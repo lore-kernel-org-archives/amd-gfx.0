@@ -1,54 +1,36 @@
-From: "Quan, Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH] drm/amd/powerplay: Disable gfx CGPG when suspend smu
-Date: Mon, 28 Oct 2019 05:48:07 +0000
-Message-ID: <MN2PR12MB33445EA31CC5982407D0896CE4660@MN2PR12MB3344.namprd12.prod.outlook.com>
-References: <1572001610-9599-1-git-send-email-curry.gong@amd.com>
-Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1572001610-9599-1-git-send-email-curry.gong-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Gong, Curry" <Curry.Gong-5C7GfCeVMHo@public.gmane.org>
+From: madhuparnabhowmik04@gmail.com
+Subject: [PATCH] Drivers: gpu: drm: amd: display: amdgpu_dm: amdgpu_dm.h: Fixed a documentation warning
+Date: Mon, 28 Oct 2019 11:34:43 +0530
+Message-ID: <20191028060443.14997-1-madhuparnabhowmik04@gmail.com>
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: harry.wentland@amd.com, alexander.deucher@amd.com
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, linux-kernel-mentees@lists.linuxfoundation.org, Madhuparna Bhowmik <madhuparnabhowmik04@gmail.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
-QWNrZWQtYnk6IEV2YW4gUXVhbiA8ZXZhbi5xdWFuQGFtZC5jb20+DQoNCi0tLS0tT3JpZ2luYWwg
-TWVzc2FnZS0tLS0tDQpGcm9tOiBhbWQtZ2Z4IDxhbWQtZ2Z4LWJvdW5jZXNAbGlzdHMuZnJlZWRl
-c2t0b3Aub3JnPiBPbiBCZWhhbGYgT2YgY2hlbiBnb25nDQpTZW50OiBGcmlkYXksIE9jdG9iZXIg
-MjUsIDIwMTkgNzowNyBQTQ0KVG86IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnDQpDYzog
-R29uZywgQ3VycnkgPEN1cnJ5LkdvbmdAYW1kLmNvbT4NClN1YmplY3Q6IFtQQVRDSF0gZHJtL2Ft
-ZC9wb3dlcnBsYXk6IERpc2FibGUgZ2Z4IENHUEcgd2hlbiBzdXNwZW5kIHNtdQ0KDQppZiBubyBk
-aXNhYmxlIGdmeCBDR1BHIHdoZW4gc3VzcGVuZCBzbXUsIGVuYWJsaW5nIGdmeCBDR1BHIHdpbGwg
-ZmFpbCB3aGVuIHJlc3VtZSBzbXUuDQoNClBsYXRmb3JtOiBSZW5vaXINCmRtZXNnIGxvZyBpbmZv
-cm1hdGlvbjoNCg0KWyAgMTUxLjg0NDExMCBdIGFtZGdwdTogW3Bvd2VycGxheV0gU01VIGlzIHJl
-c3VtaW5nLi4uDQpbICAxNTEuODQ0MTE2IF0gYW1kZ3B1OiBbcG93ZXJwbGF5XSBkcG0gaGFzIGJl
-ZW4gZGlzYWJsZWQNClsgIDE1MS44NDQ2MDQgXSBhbWRncHU6IFtwb3dlcnBsYXldIEZhaWxlZCB0
-byBzZW5kIG1lc3NhZ2UgMHgyZixyZXNwb25zZSAweGZmZmZmZmZiIHBhcmFtIDB4MQ0KWyAgMTUx
-Ljg0NDYwNSBdIGFtZGdwdTogW3Bvd2VycGxheV0gU01VIGlzIHJlc3VtZWQgc3VjY2Vzc2Z1bGx5
-IQ0KDQpTaWduZWQtb2ZmLWJ5OiBjaGVuIGdvbmcgPGN1cnJ5LmdvbmdAYW1kLmNvbT4NCi0tLQ0K
-IGRyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2FtZGdwdV9zbXUuYyB8IDIgKysNCiAxIGZp
-bGUgY2hhbmdlZCwgMiBpbnNlcnRpb25zKCspDQoNCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9k
-cm0vYW1kL3Bvd2VycGxheS9hbWRncHVfc211LmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2Vy
-cGxheS9hbWRncHVfc211LmMNCmluZGV4IDI2OTIzYWEuLjRlNDY4YjAgMTAwNjQ0DQotLS0gYS9k
-cml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9hbWRncHVfc211LmMNCisrKyBiL2RyaXZlcnMv
-Z3B1L2RybS9hbWQvcG93ZXJwbGF5L2FtZGdwdV9zbXUuYw0KQEAgLTEzNTEsNiArMTM1MSw4IEBA
-IHN0YXRpYyBpbnQgc211X3N1c3BlbmQodm9pZCAqaGFuZGxlKQ0KIAlpZiAoYWRldi0+YXNpY190
-eXBlID49IENISVBfTkFWSTEwICYmDQogCSAgICBhZGV2LT5nZngucmxjLmZ1bmNzLT5zdG9wKQ0K
-IAkJYWRldi0+Z2Z4LnJsYy5mdW5jcy0+c3RvcChhZGV2KTsNCisJaWYgKHNtdS0+aXNfYXB1KQ0K
-KwkJc211X3NldF9nZnhfY2dwZygmYWRldi0+c211LCBmYWxzZSk7DQogDQogCXJldHVybiAwOw0K
-IH0NCi0tIA0KMi43LjQNCg0KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX18NCmFtZC1nZnggbWFpbGluZyBsaXN0DQphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9w
-Lm9yZw0KaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQt
-Z2Z4DQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQt
-Z2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xp
-c3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
+From: Madhuparna Bhowmik <madhuparnabhowmik04@gmail.com>
+
+This patch fixes the following  warning: Incorrect use of
+ kernel-doc format:          * @atomic_obj
+by adding a colon after @atomic_obj.
+
+Signed-off-by: Madhuparna Bhowmik <madhuparnabhowmik04@gmail.com>
+---
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+index c8c525a2b505..80d53d095773 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+@@ -128,7 +128,7 @@ struct amdgpu_display_manager {
+ 	u16 display_indexes_num;
+ 
+ 	/**
+-	 * @atomic_obj
++	 * @atomic_obj:
+ 	 *
+ 	 * In combination with &dm_atomic_state it helps manage
+ 	 * global atomic state that doesn't map cleanly into existing
+-- 
+2.17.1
