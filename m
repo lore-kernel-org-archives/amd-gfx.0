@@ -1,95 +1,88 @@
-From: MONSSA <debian-5HtL1SuYj39OxF6Tv1QG9Q@public.gmane.org>
-Subject: Can't get VGA video on Carrizo R7 gpu, only HDMI
-Date: Mon, 28 Oct 2019 14:01:46 -0300
-Message-ID: <bad3aed9-65f7-7166-3404-5d1d5687eaf0@monssa.com.ar>
+From: Alex Deucher <alexdeucher@gmail.com>
+Subject: Re: [PATCH -next] drm/amdgpu: remove set but not used variable 'adev'
+Date: Mon, 28 Oct 2019 13:38:30 -0400
+Message-ID: <CADnq5_PPCFLZzMCUxW4Ofd5+A=N5s-iMURrSEj8C6V1NJhS68A@mail.gmail.com>
+References: <20191023075831.33636-1-yuehaibing@huawei.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Content-Type: text/plain; charset="UTF-8"
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20191023075831.33636-1-yuehaibing@huawei.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: YueHaibing <yuehaibing@huawei.com>
+Cc: "Deucher, Alexander" <alexander.deucher@amd.com>, Christian Koenig <christian.koenig@amd.com>, Chunming Zhou <David1.Zhou@amd.com>, Dave Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, "Kuehling, Felix" <Felix.Kuehling@amd.com>, "Yang, Philip" <Philip.Yang@amd.com>, Jason Gunthorpe <jgg@ziepe.ca>, Gerd Hoffmann <kraxel@redhat.com>, Thomas Zimmermann <tzimmermann@suse.de>, tiancyin <tianci.yin@amd.com>, Maling list - DRI developers <dri-devel@lists.freedesktop.org>, amd-gfx list <amd-gfx@lists.freedesktop.org>, LKML <linux-kernel@vger.kernel.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-SGVsbG8uIFRoaXMgaXMgbXkgZmlyc3QgdGltZSB0cnlpbmcgdG8gcmVwb3J0IGEgYnVnLCBJIGhv
-cGUgSSdtIGluIHRoZSAKcmlnaHQgcGxhY2UuCgpJIGhhdmUgYSBQQyB3aXRoIE1TSSBBNjhITS1F
-MzMgVjIgbW90aGVyYm9hcmQsIGFuZCBBTUQgQTgtNzY4MCBDUFUgd2l0aCAKUmFkZW9uIFI3LgoK
-SSdtIHJ1bm5pbmcgRGViaWFuIDkgU3RyZXRjaCwgS2VybmVsfjQuMTkuMC0wLmJwby42LWFtZDY0
-LCB1c2luZyBhbWRncHUgCmRyaXZlciwgYW5kIEkgZ2V0IHZpZGVvIG9ubHkgb24gdGhlIEhETUkg
-b3V0cHV0LgoKeHJhbmRyIG9ubHkgbGlzdHMgdGhlIEhETUkgb3V0cHV0IGFzIGNvbm5lY3RlZCwg
-YW5kIGEgRFZJIG91dHB1dCAKZGlzY29ubmVjdGVkLiBUaGUgbW90aGVyYm9hcmQgZG9lc24ndCBo
-YXZlIERWSSBjb25uZWN0b3IsIG9ubHkgVkdBIGFuZCBIRE1JLgoKSSB0cmllZCBmb3JjaW5nIHZp
-ZGVvIG91dHB1dCBvbiB0aGUgRFZJIGludGVyZmFjZSwgYnV0IEkgZGlkbid0IGdldCBhbnkgCnZp
-ZGVvIG9uIFZHQSBwb3J0LCBldmVuIHRob3VnaCB0aGUgZGVza3RvcCB3YXMgYXJyYW5nZWQgdG8g
-c3ByZWFkIGFjcm9zcyAKYm90aCBzY3JlZW5zLgoKSSB0cmllZCBzZXZlcmFsIG9wdGlvbnMgZm9y
-IHRoZSBrZXJuZWwgbW9kdWxlLCBzdWNoIGFzICJleHBfaHdfc3VwcG9ydCIgCmFuZCAiY2lrX3N1
-cHBvcnQiIGRpZG4ndCBmdWxseSBrbm93aW5nIHdoYXQgdGhleSBkaWQsIHRvIG5vIGF2YWlsLgoK
-T2YgY291cnNlIEkgaGF2ZSB0d28gbW9uaXRvcnMgcGx1Z2dlZCBpbiB0byBib3RoIGNvbm5lY3Rv
-cnMsIGFuZCBJIHJ1bGVkIApvdXQgaGFyZHdhcmUgcHJvYmxlbXMgKHN1Y2ggYXMgYnVybmVkIGNv
-bm5lY3RvcikgYmVjYXVzZSBJIGNoYW5nZWQgdGhlIApIREQgYW5kIGluc3RhbGxlZCB3aW5kb3dz
-LCB3aXRoIHRoZSBvZmZpY2lhbCBBTUQgd2luZG93cyBkcml2ZXJzIEkgZ2V0IAp2aWRlbyB3b3Jr
-aW5nIGZpbmUgb24gYm90aCBtb25pdG9ycywgc28gbW9uaXRvcnMsIGNhYmxlcyBhbmQgcG9ydHMg
-YXJlIAp3b3JraW5nLgoKVGhlIG1vdGhlcmJvYXJkIGhhcyB0aGUgbGF0ZXN0IEJJT1MgYXZhaWxh
-YmxlLgoKVGhhbmtzIGluIGFkdmFuY2UgZm9yIGFueSBoZWxwLgoKSGVyZSBpcyBzb21lIGluZm8s
-IHRlbGwgbWUgaWYgeW91IG5lZWQgYW55IG1vcmU6CgowMDowMS4wIFZHQSBjb21wYXRpYmxlIGNv
-bnRyb2xsZXI6IEFkdmFuY2VkIE1pY3JvIERldmljZXMsIEluYy4gCltBTUQvQVRJXSBDYXJyaXpv
-IChyZXYgZTIpIChwcm9nLWlmIDAwIFtWR0EgY29udHJvbGxlcl0pCiDCoMKgwqAgU3Vic3lzdGVt
-OiBNaWNyby1TdGFyIEludGVybmF0aW9uYWwgQ28uLCBMdGQuIFtNU0ldIFdhbmkgW1JhZGVvbiAK
-UjUvUjYvUjcgR3JhcGhpY3NdCiDCoMKgwqAgQ29udHJvbDogSS9PKyBNZW0rIEJ1c01hc3Rlcisg
-U3BlY0N5Y2xlLSBNZW1XSU5WLSBWR0FTbm9vcC0gUGFyRXJyLSAKU3RlcHBpbmctIFNFUlItIEZh
-c3RCMkItIERpc0lOVHgrCiDCoMKgwqAgU3RhdHVzOiBDYXArIDY2TUh6LSBVREYtIEZhc3RCMkIt
-IFBhckVyci0gREVWU0VMPWZhc3QgPlRBYm9ydC0gCjxUQWJvcnQtIDxNQWJvcnQtID5TRVJSLSA8
-UEVSUi0gSU5UeC0KIMKgwqDCoCBMYXRlbmN5OiAwLCBDYWNoZSBMaW5lIFNpemU6IDY0IGJ5dGVz
-CiDCoMKgwqAgSW50ZXJydXB0OiBwaW4gQSByb3V0ZWQgdG8gSVJRIDM2CiDCoMKgwqAgUmVnaW9u
-IDA6IE1lbW9yeSBhdCBjMDAwMDAwMCAoNjQtYml0LCBwcmVmZXRjaGFibGUpIFtzaXplPTI1Nk1d
-CiDCoMKgwqAgUmVnaW9uIDI6IE1lbW9yeSBhdCBkMDAwMDAwMCAoNjQtYml0LCBwcmVmZXRjaGFi
-bGUpIFtzaXplPThNXQogwqDCoMKgIFJlZ2lvbiA0OiBJL08gcG9ydHMgYXQgZjAwMCBbc2l6ZT0y
-NTZdCiDCoMKgwqAgUmVnaW9uIDU6IE1lbW9yeSBhdCBmZWIwMDAwMCAoMzItYml0LCBub24tcHJl
-ZmV0Y2hhYmxlKSBbc2l6ZT0yNTZLXQogwqDCoMKgIEV4cGFuc2lvbiBST00gYXQgMDAwYzAwMDAg
-W2Rpc2FibGVkXSBbc2l6ZT0xMjhLXQogwqDCoMKgIENhcGFiaWxpdGllczogWzQ4XSBWZW5kb3Ig
-U3BlY2lmaWMgSW5mb3JtYXRpb246IExlbj0wOCA8Pz4KIMKgwqDCoCBDYXBhYmlsaXRpZXM6IFs1
-MF0gUG93ZXIgTWFuYWdlbWVudCB2ZXJzaW9uIDMKIMKgwqDCoCDCoMKgwqAgRmxhZ3M6IFBNRUNs
-ay0gRFNJLSBEMSsgRDIrIEF1eEN1cnJlbnQ9MG1BIApQTUUoRDAtLEQxKyxEMissRDNob3QrLEQz
-Y29sZC0pCiDCoMKgwqAgwqDCoMKgIFN0YXR1czogRDAgTm9Tb2Z0UnN0LSBQTUUtRW5hYmxlLSBE
-U2VsPTAgRFNjYWxlPTAgUE1FLQogwqDCoMKgIENhcGFiaWxpdGllczogWzU4XSBFeHByZXNzICh2
-MikgUm9vdCBDb21wbGV4IEludGVncmF0ZWQgRW5kcG9pbnQsIApNU0kgMDAKIMKgwqDCoCDCoMKg
-wqAgRGV2Q2FwOsKgwqDCoCBNYXhQYXlsb2FkIDI1NiBieXRlcywgUGhhbnRGdW5jIDAKIMKgwqDC
-oCDCoMKgwqAgwqDCoMKgIEV4dFRhZysgUkJFKwogwqDCoMKgIMKgwqDCoCBEZXZDdGw6wqDCoMKg
-IFJlcG9ydCBlcnJvcnM6IENvcnJlY3RhYmxlLSBOb24tRmF0YWwtIEZhdGFsLSAKVW5zdXBwb3J0
-ZWQtCiDCoMKgwqAgwqDCoMKgIMKgwqDCoCBSbHhkT3JkKyBFeHRUYWcrIFBoYW50RnVuYy0gQXV4
-UHdyLSBOb1Nub29wKwogwqDCoMKgIMKgwqDCoCDCoMKgwqAgTWF4UGF5bG9hZCAxMjggYnl0ZXMs
-IE1heFJlYWRSZXEgNTEyIGJ5dGVzCiDCoMKgwqAgwqDCoMKgIERldlN0YTrCoMKgwqAgQ29yckVy
-ci0gVW5jb3JyRXJyLSBGYXRhbEVyci0gVW5zdXBwUmVxLSBBdXhQd3ItIApUcmFuc1BlbmQtCiDC
-oMKgwqAgwqDCoMKgIERldkNhcDI6IENvbXBsZXRpb24gVGltZW91dDogTm90IFN1cHBvcnRlZCwg
-VGltZW91dERpcy0sIExUUi0sIApPQkZGIE5vdCBTdXBwb3J0ZWQKIMKgwqDCoCDCoMKgwqAgRGV2
-Q3RsMjogQ29tcGxldGlvbiBUaW1lb3V0OiA1MHVzIHRvIDUwbXMsIFRpbWVvdXREaXMtLCBMVFIt
-LCAKT0JGRiBEaXNhYmxlZAogwqDCoMKgIENhcGFiaWxpdGllczogW2EwXSBNU0k6IEVuYWJsZSsg
-Q291bnQ9MS8xIE1hc2thYmxlLSA2NGJpdCsKIMKgwqDCoCDCoMKgwqAgQWRkcmVzczogMDAwMDAw
-MDBmZWUwMDAwMMKgIERhdGE6IDAwMDAKIMKgwqDCoCBDYXBhYmlsaXRpZXM6IFsxMDAgdjFdIFZl
-bmRvciBTcGVjaWZpYyBJbmZvcm1hdGlvbjogSUQ9MDAwMSBSZXY9MSAKTGVuPTAxMCA8Pz4KIMKg
-wqDCoCBDYXBhYmlsaXRpZXM6IFsyNzAgdjFdICMxOQogwqDCoMKgIENhcGFiaWxpdGllczogWzJi
-MCB2MV0gQWRkcmVzcyBUcmFuc2xhdGlvbiBTZXJ2aWNlIChBVFMpCiDCoMKgwqAgwqDCoMKgIEFU
-U0NhcDrCoMKgwqAgSW52YWxpZGF0ZSBRdWV1ZSBEZXB0aDogMDAKIMKgwqDCoCDCoMKgwqAgQVRT
-Q3RsOsKgwqDCoCBFbmFibGUrLCBTbWFsbGVzdCBUcmFuc2xhdGlvbiBVbml0OiAwMAogwqDCoMKg
-IENhcGFiaWxpdGllczogWzJjMCB2MV0gUGFnZSBSZXF1ZXN0IEludGVyZmFjZSAoUFJJKQogwqDC
-oMKgIMKgwqDCoCBQUklDdGw6IEVuYWJsZSsgUmVzZXQtCiDCoMKgwqAgwqDCoMKgIFBSSVN0YTog
-UkYtIFVQUkdJLSBTdG9wcGVkKwogwqDCoMKgIMKgwqDCoCBQYWdlIFJlcXVlc3QgQ2FwYWNpdHk6
-IDAwMDAwMDIwLCBQYWdlIFJlcXVlc3QgQWxsb2NhdGlvbjogMDAwMDAwMjAKIMKgwqDCoCBDYXBh
-YmlsaXRpZXM6IFsyZDAgdjFdIFByb2Nlc3MgQWRkcmVzcyBTcGFjZSBJRCAoUEFTSUQpCiDCoMKg
-wqAgwqDCoMKgIFBBU0lEQ2FwOiBFeGVjLSBQcml2LSwgTWF4IFBBU0lEIFdpZHRoOiAxMAogwqDC
-oMKgIMKgwqDCoCBQQVNJREN0bDogRW5hYmxlKyBFeGVjLSBQcml2LQogwqDCoMKgIEtlcm5lbCBk
-cml2ZXIgaW4gdXNlOiBhbWRncHUKIMKgwqDCoCBLZXJuZWwgbW9kdWxlczogYW1kZ3B1CgoKLS0g
-Ckp1bGnDoW4gTWV0ZWxza2kKRGVwYXJ0YW1lbnRvIElUCk1vbml0b3JpbmcgU3RhdGlvbiBTLkEu
-CkNhbGxlIDQ4IG7CsCA4MTIKTGEgUGxhdGEgKEIxOTAwQUhOKSAtIEJBIC0gQVJHClRlbC9GYXg6
-ICgrNTQpIDIyMSA0MjUgMzM1NQoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3Rv
-cC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQt
-Z2Z4
+On Wed, Oct 23, 2019 at 4:10 AM YueHaibing <yuehaibing@huawei.com> wrote:
+>
+> drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c:1221:24: warning: variable adev set but not used [-Wunused-but-set-variable]
+> drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c:488:24: warning: variable adev set but not used [-Wunused-but-set-variable]
+> drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c:547:24: warning: variable adev set but not used [-Wunused-but-set-variable]
+>
+> It is never used, so can removed it.
+>
+> Signed-off-by: YueHaibing <yuehaibing@huawei.com>
+
+Applied.  thanks!
+
+Alex
+
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 9 ---------
+>  1 file changed, 9 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> index a61b0d9..ba00262 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> @@ -485,15 +485,12 @@ static int amdgpu_move_vram_ram(struct ttm_buffer_object *bo, bool evict,
+>                                 struct ttm_operation_ctx *ctx,
+>                                 struct ttm_mem_reg *new_mem)
+>  {
+> -       struct amdgpu_device *adev;
+>         struct ttm_mem_reg *old_mem = &bo->mem;
+>         struct ttm_mem_reg tmp_mem;
+>         struct ttm_place placements;
+>         struct ttm_placement placement;
+>         int r;
+>
+> -       adev = amdgpu_ttm_adev(bo->bdev);
+> -
+>         /* create space/pages for new_mem in GTT space */
+>         tmp_mem = *new_mem;
+>         tmp_mem.mm_node = NULL;
+> @@ -544,15 +541,12 @@ static int amdgpu_move_ram_vram(struct ttm_buffer_object *bo, bool evict,
+>                                 struct ttm_operation_ctx *ctx,
+>                                 struct ttm_mem_reg *new_mem)
+>  {
+> -       struct amdgpu_device *adev;
+>         struct ttm_mem_reg *old_mem = &bo->mem;
+>         struct ttm_mem_reg tmp_mem;
+>         struct ttm_placement placement;
+>         struct ttm_place placements;
+>         int r;
+>
+> -       adev = amdgpu_ttm_adev(bo->bdev);
+> -
+>         /* make space in GTT for old_mem buffer */
+>         tmp_mem = *new_mem;
+>         tmp_mem.mm_node = NULL;
+> @@ -1218,11 +1212,8 @@ static struct ttm_backend_func amdgpu_backend_func = {
+>  static struct ttm_tt *amdgpu_ttm_tt_create(struct ttm_buffer_object *bo,
+>                                            uint32_t page_flags)
+>  {
+> -       struct amdgpu_device *adev;
+>         struct amdgpu_ttm_tt *gtt;
+>
+> -       adev = amdgpu_ttm_adev(bo->bdev);
+> -
+>         gtt = kzalloc(sizeof(struct amdgpu_ttm_tt), GFP_KERNEL);
+>         if (gtt == NULL) {
+>                 return NULL;
+> --
+> 2.7.4
+>
+>
+> _______________________________________________
+> dri-devel mailing list
+> dri-devel@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/dri-devel
