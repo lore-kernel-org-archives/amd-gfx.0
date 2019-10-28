@@ -1,13 +1,14 @@
-From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: [PATCH 2/2] drm/amdgpu: add independent DMA-buf import v9
-Date: Mon, 28 Oct 2019 16:14:07 +0100
-Message-ID: <20191028151407.15357-2-christian.koenig@amd.com>
-References: <20191028151407.15357-1-christian.koenig@amd.com>
+From: "Zhao, Yong" <Yong.Zhao-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amdkfd: Delete unnecessary pr_fmt switch
+Date: Mon, 28 Oct 2019 15:34:05 +0000
+Message-ID: <DM6PR12MB27789F7136560521E8B2DB88F0660@DM6PR12MB2778.namprd12.prod.outlook.com>
+References: <20191025212059.10355-1-Yong.Zhao@amd.com>,
+ <CADnq5_Pj_g++EPmmDfgNs0c6CWVfPyL4egfD-ps607bLPQ9fGA@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0382418189=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20191028151407.15357-1-christian.koenig-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <CADnq5_Pj_g++EPmmDfgNs0c6CWVfPyL4egfD-ps607bLPQ9fGA-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,147 +19,377 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-SW5zdGVhZCBvZiByZWx5aW5nIG9uIHRoZSBEUk0gZnVuY3Rpb25zIGp1c3QgaW1wbGVtZW50IG91
-ciBvd24gaW1wb3J0CmZ1bmN0aW9ucy4gVGhpcyBwcmVwYXJlcyBzdXBwb3J0IGZvciB0YWtpbmcg
-Y2FyZSBvZiB1bnBpbm5lZCBETUEtYnVmLgoKdjI6IGVuYWJsZSBmb3IgYWxsIGV4cG9ydGVycywg
-bm90IGp1c3QgYW1kZ3B1LCBmaXggaW52YWxpZGF0aW9uCiAgICBoYW5kbGluZywgbG9jayByZXNl
-cnZhdGlvbiBvYmplY3Qgd2hpbGUgc2V0dGluZyBjYWxsYmFjawp2MzogY2hhbmdlIHRvIG5ldyBk
-bWFfYnVmIGF0dGFjaCBpbnRlcmZhY2UKdjQ6IHNwbGl0IG91dCBmcm9tIHVucGlubmVkIERNQS1i
-dWYgd29yawp2NTogcmViYXNlZCBhbmQgY2xlYW51cCBvbiBuZXcgRE1BLWJ1ZiBpbnRlcmZhY2UK
-djY6IHNxdWFzaCB3aXRoIGludmFsaWRhdGlvbiBjYWxsYmFjayBjaGFuZ2UsCiAgICBzdG9wIHVz
-aW5nIF8obWFwfHVubWFwKV9sb2NrZWQKdjc6IGRyb3AgaW52YWxpZGF0aW9ucyB3aGVuIHRoZSBC
-TyBpcyBhbHJlYWR5IGluIHN5c3RlbSBkb21haW4Kdjg6IHJlYmFzZSBvbiBuZXcgRE1BLWJ1ZiBw
-YXRjaCBhbmQgZHJvcCBtb3ZlIG5vdGlmaWNhdGlvbgp2OTogY2xlYW51cCBjb21tZW50cwoKU2ln
-bmVkLW9mZi1ieTogQ2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPgot
-LS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kbWFfYnVmLmMgfCA0MyArKysr
-KysrKysrKystLS0tLS0tLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kbWFf
-YnVmLmggfCAgNCAtLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rydi5jICAg
-ICB8ICAxIC0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV90dG0uYyAgICAgfCAz
-MiArKysrKysrKysrKystLS0KIDQgZmlsZXMgY2hhbmdlZCwgNTIgaW5zZXJ0aW9ucygrKSwgMjgg
-ZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
-Z3B1X2RtYV9idWYuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kbWFfYnVm
-LmMKaW5kZXggZjE0YjUyY2M3MjA1Li5kNWJjZGZlZmJhZDYgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMv
-Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kbWFfYnVmLmMKKysrIGIvZHJpdmVycy9ncHUvZHJt
-L2FtZC9hbWRncHUvYW1kZ3B1X2RtYV9idWYuYwpAQCAtMzcwLDMxICszNzAsMjggQEAgc3RydWN0
-IGRtYV9idWYgKmFtZGdwdV9nZW1fcHJpbWVfZXhwb3J0KHN0cnVjdCBkcm1fZ2VtX29iamVjdCAq
-Z29iaiwKIH0KIAogLyoqCi0gKiBhbWRncHVfZ2VtX3ByaW1lX2ltcG9ydF9zZ190YWJsZSAtICZk
-cm1fZHJpdmVyLmdlbV9wcmltZV9pbXBvcnRfc2dfdGFibGUKLSAqIGltcGxlbWVudGF0aW9uCisg
-KiBhbWRncHVfZG1hX2J1Zl9jcmVhdGVfb2JqIC0gY3JlYXRlIEJPIGZvciBETUEtYnVmIGltcG9y
-dAorICoKICAqIEBkZXY6IERSTSBkZXZpY2UKLSAqIEBhdHRhY2g6IERNQS1idWYgYXR0YWNobWVu
-dAotICogQHNnOiBTY2F0dGVyL2dhdGhlciB0YWJsZQorICogQGRtYV9idWY6IERNQS1idWYKICAq
-Ci0gKiBJbXBvcnRzIHNoYXJlZCBETUEgYnVmZmVyIG1lbW9yeSBleHBvcnRlZCBieSBhbm90aGVy
-IGRldmljZS4KKyAqIENyZWF0ZXMgYW4gZW1wdHkgU0cgQk8gZm9yIERNQS1idWYgaW1wb3J0Lgog
-ICoKICAqIFJldHVybnM6CiAgKiBBIG5ldyBHRU0gQk8gb2YgdGhlIGdpdmVuIERSTSBkZXZpY2Us
-IHJlcHJlc2VudGluZyB0aGUgbWVtb3J5CiAgKiBkZXNjcmliZWQgYnkgdGhlIGdpdmVuIERNQS1i
-dWYgYXR0YWNobWVudCBhbmQgc2NhdHRlci9nYXRoZXIgdGFibGUuCiAgKi8KLXN0cnVjdCBkcm1f
-Z2VtX29iamVjdCAqCi1hbWRncHVfZ2VtX3ByaW1lX2ltcG9ydF9zZ190YWJsZShzdHJ1Y3QgZHJt
-X2RldmljZSAqZGV2LAotCQkJCSBzdHJ1Y3QgZG1hX2J1Zl9hdHRhY2htZW50ICphdHRhY2gsCi0J
-CQkJIHN0cnVjdCBzZ190YWJsZSAqc2cpCitzdGF0aWMgc3RydWN0IGRybV9nZW1fb2JqZWN0ICoK
-K2FtZGdwdV9kbWFfYnVmX2NyZWF0ZV9vYmooc3RydWN0IGRybV9kZXZpY2UgKmRldiwgc3RydWN0
-IGRtYV9idWYgKmRtYV9idWYpCiB7Ci0Jc3RydWN0IGRtYV9yZXN2ICpyZXN2ID0gYXR0YWNoLT5k
-bWFidWYtPnJlc3Y7CisJc3RydWN0IGRtYV9yZXN2ICpyZXN2ID0gZG1hX2J1Zi0+cmVzdjsKIAlz
-dHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiA9IGRldi0+ZGV2X3ByaXZhdGU7CiAJc3RydWN0IGFt
-ZGdwdV9ibyAqYm87CiAJc3RydWN0IGFtZGdwdV9ib19wYXJhbSBicDsKIAlpbnQgcmV0OwogCiAJ
-bWVtc2V0KCZicCwgMCwgc2l6ZW9mKGJwKSk7Ci0JYnAuc2l6ZSA9IGF0dGFjaC0+ZG1hYnVmLT5z
-aXplOworCWJwLnNpemUgPSBkbWFfYnVmLT5zaXplOwogCWJwLmJ5dGVfYWxpZ24gPSBQQUdFX1NJ
-WkU7CiAJYnAuZG9tYWluID0gQU1ER1BVX0dFTV9ET01BSU5fQ1BVOwogCWJwLmZsYWdzID0gMDsK
-QEAgLTQwNSwxMSArNDAyLDkgQEAgYW1kZ3B1X2dlbV9wcmltZV9pbXBvcnRfc2dfdGFibGUoc3Ry
-dWN0IGRybV9kZXZpY2UgKmRldiwKIAlpZiAocmV0KQogCQlnb3RvIGVycm9yOwogCi0JYm8tPnRi
-by5zZyA9IHNnOwotCWJvLT50Ym8udHRtLT5zZyA9IHNnOwogCWJvLT5hbGxvd2VkX2RvbWFpbnMg
-PSBBTURHUFVfR0VNX0RPTUFJTl9HVFQ7CiAJYm8tPnByZWZlcnJlZF9kb21haW5zID0gQU1ER1BV
-X0dFTV9ET01BSU5fR1RUOwotCWlmIChhdHRhY2gtPmRtYWJ1Zi0+b3BzICE9ICZhbWRncHVfZG1h
-YnVmX29wcykKKwlpZiAoZG1hX2J1Zi0+b3BzICE9ICZhbWRncHVfZG1hYnVmX29wcykKIAkJYm8t
-PnByaW1lX3NoYXJlZF9jb3VudCA9IDE7CiAKIAlkbWFfcmVzdl91bmxvY2socmVzdik7CkBAIC00
-MjUsMTUgKzQyMCwxNSBAQCBhbWRncHVfZ2VtX3ByaW1lX2ltcG9ydF9zZ190YWJsZShzdHJ1Y3Qg
-ZHJtX2RldmljZSAqZGV2LAogICogQGRldjogRFJNIGRldmljZQogICogQGRtYV9idWY6IFNoYXJl
-ZCBETUEgYnVmZmVyCiAgKgotICogVGhlIG1haW4gd29yayBpcyBkb25lIGJ5IHRoZSAmZHJtX2dl
-bV9wcmltZV9pbXBvcnQgaGVscGVyLCB3aGljaCBpbiB0dXJuCi0gKiB1c2VzICZhbWRncHVfZ2Vt
-X3ByaW1lX2ltcG9ydF9zZ190YWJsZS4KKyAqIEltcG9ydCBhIGRtYV9idWYgaW50byBhIHRoZSBk
-cml2ZXIgYW5kIHBvdGVudGlhbGx5IGNyZWF0ZSBhIG5ldyBHRU0gb2JqZWN0LgogICoKICAqIFJl
-dHVybnM6CiAgKiBHRU0gQk8gcmVwcmVzZW50aW5nIHRoZSBzaGFyZWQgRE1BIGJ1ZmZlciBmb3Ig
-dGhlIGdpdmVuIGRldmljZS4KICAqLwogc3RydWN0IGRybV9nZW1fb2JqZWN0ICphbWRncHVfZ2Vt
-X3ByaW1lX2ltcG9ydChzdHJ1Y3QgZHJtX2RldmljZSAqZGV2LAotCQkJCQkgICAgc3RydWN0IGRt
-YV9idWYgKmRtYV9idWYpCisJCQkJCSAgICAgICBzdHJ1Y3QgZG1hX2J1ZiAqZG1hX2J1ZikKIHsK
-KwlzdHJ1Y3QgZG1hX2J1Zl9hdHRhY2htZW50ICphdHRhY2g7CiAJc3RydWN0IGRybV9nZW1fb2Jq
-ZWN0ICpvYmo7CiAKIAlpZiAoZG1hX2J1Zi0+b3BzID09ICZhbWRncHVfZG1hYnVmX29wcykgewpA
-QCAtNDQ4LDUgKzQ0MywxNyBAQCBzdHJ1Y3QgZHJtX2dlbV9vYmplY3QgKmFtZGdwdV9nZW1fcHJp
-bWVfaW1wb3J0KHN0cnVjdCBkcm1fZGV2aWNlICpkZXYsCiAJCX0KIAl9CiAKLQlyZXR1cm4gZHJt
-X2dlbV9wcmltZV9pbXBvcnQoZGV2LCBkbWFfYnVmKTsKKwlvYmogPSBhbWRncHVfZG1hX2J1Zl9j
-cmVhdGVfb2JqKGRldiwgZG1hX2J1Zik7CisJaWYgKElTX0VSUihvYmopKQorCQlyZXR1cm4gb2Jq
-OworCisJYXR0YWNoID0gZG1hX2J1Zl9keW5hbWljX2F0dGFjaChkbWFfYnVmLCBkZXYtPmRldiwg
-dHJ1ZSk7CisJaWYgKElTX0VSUihhdHRhY2gpKSB7CisJCWRybV9nZW1fb2JqZWN0X3B1dChvYmop
-OworCQlyZXR1cm4gRVJSX0NBU1QoYXR0YWNoKTsKKwl9CisKKwlnZXRfZG1hX2J1ZihkbWFfYnVm
-KTsKKwlvYmotPmltcG9ydF9hdHRhY2ggPSBhdHRhY2g7CisJcmV0dXJuIG9iajsKIH0KZGlmZiAt
-LWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kbWFfYnVmLmggYi9kcml2
-ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZG1hX2J1Zi5oCmluZGV4IGNlMWIzZjAxNzQ1
-MS4uZWM0NDdhN2I2YjI4IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
-bWRncHVfZG1hX2J1Zi5oCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9k
-bWFfYnVmLmgKQEAgLTI1LDEwICsyNSw2IEBACiAKICNpbmNsdWRlIDxkcm0vZHJtX2dlbS5oPgog
-Ci1zdHJ1Y3QgZHJtX2dlbV9vYmplY3QgKgotYW1kZ3B1X2dlbV9wcmltZV9pbXBvcnRfc2dfdGFi
-bGUoc3RydWN0IGRybV9kZXZpY2UgKmRldiwKLQkJCQkgc3RydWN0IGRtYV9idWZfYXR0YWNobWVu
-dCAqYXR0YWNoLAotCQkJCSBzdHJ1Y3Qgc2dfdGFibGUgKnNnKTsKIHN0cnVjdCBkbWFfYnVmICph
-bWRncHVfZ2VtX3ByaW1lX2V4cG9ydChzdHJ1Y3QgZHJtX2dlbV9vYmplY3QgKmdvYmosCiAJCQkJ
-CWludCBmbGFncyk7CiBzdHJ1Y3QgZHJtX2dlbV9vYmplY3QgKmFtZGdwdV9nZW1fcHJpbWVfaW1w
-b3J0KHN0cnVjdCBkcm1fZGV2aWNlICpkZXYsCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0v
-YW1kL2FtZGdwdS9hbWRncHVfZHJ2LmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
-cHVfZHJ2LmMKaW5kZXggODgwNTc3NmM4YzUyLi4yNWFkZjJiODQ3ZTggMTAwNjQ0Ci0tLSBhL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kcnYuYworKysgYi9kcml2ZXJzL2dwdS9k
-cm0vYW1kL2FtZGdwdS9hbWRncHVfZHJ2LmMKQEAgLTE0NDUsNyArMTQ0NSw2IEBAIHN0YXRpYyBz
-dHJ1Y3QgZHJtX2RyaXZlciBrbXNfZHJpdmVyID0gewogCS5wcmltZV9mZF90b19oYW5kbGUgPSBk
-cm1fZ2VtX3ByaW1lX2ZkX3RvX2hhbmRsZSwKIAkuZ2VtX3ByaW1lX2V4cG9ydCA9IGFtZGdwdV9n
-ZW1fcHJpbWVfZXhwb3J0LAogCS5nZW1fcHJpbWVfaW1wb3J0ID0gYW1kZ3B1X2dlbV9wcmltZV9p
-bXBvcnQsCi0JLmdlbV9wcmltZV9pbXBvcnRfc2dfdGFibGUgPSBhbWRncHVfZ2VtX3ByaW1lX2lt
-cG9ydF9zZ190YWJsZSwKIAkuZ2VtX3ByaW1lX3ZtYXAgPSBhbWRncHVfZ2VtX3ByaW1lX3ZtYXAs
-CiAJLmdlbV9wcmltZV92dW5tYXAgPSBhbWRncHVfZ2VtX3ByaW1lX3Z1bm1hcCwKIAkuZ2VtX3By
-aW1lX21tYXAgPSBhbWRncHVfZ2VtX3ByaW1lX21tYXAsCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dw
-dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdHRtLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
-dS9hbWRncHVfdHRtLmMKaW5kZXggOGU4NjdiOGI0MzJmLi5jMTkxMDBjZWQwNDAgMTAwNjQ0Ci0t
-LSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV90dG0uYworKysgYi9kcml2ZXJz
-L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdHRtLmMKQEAgLTM5LDYgKzM5LDcgQEAKICNpbmNs
-dWRlIDxsaW51eC9zbGFiLmg+CiAjaW5jbHVkZSA8bGludXgvc3dhcC5oPgogI2luY2x1ZGUgPGxp
-bnV4L3N3aW90bGIuaD4KKyNpbmNsdWRlIDxsaW51eC9kbWEtYnVmLmg+CiAKICNpbmNsdWRlIDxk
-cm0vdHRtL3R0bV9ib19hcGkuaD4KICNpbmNsdWRlIDxkcm0vdHRtL3R0bV9ib19kcml2ZXIuaD4K
-QEAgLTc2Myw2ICs3NjQsNyBAQCBzdGF0aWMgdW5zaWduZWQgbG9uZyBhbWRncHVfdHRtX2lvX21l
-bV9wZm4oc3RydWN0IHR0bV9idWZmZXJfb2JqZWN0ICpibywKICAqLwogc3RydWN0IGFtZGdwdV90
-dG1fdHQgewogCXN0cnVjdCB0dG1fZG1hX3R0CXR0bTsKKwlzdHJ1Y3QgZHJtX2dlbV9vYmplY3QJ
-KmdvYmo7CiAJdTY0CQkJb2Zmc2V0OwogCXVpbnQ2NF90CQl1c2VycHRyOwogCXN0cnVjdCB0YXNr
-X3N0cnVjdAkqdXNlcnRhc2s7CkBAIC0xMjI3LDYgKzEyMjksNyBAQCBzdGF0aWMgc3RydWN0IHR0
-bV90dCAqYW1kZ3B1X3R0bV90dF9jcmVhdGUoc3RydWN0IHR0bV9idWZmZXJfb2JqZWN0ICpibywK
-IAkJcmV0dXJuIE5VTEw7CiAJfQogCWd0dC0+dHRtLnR0bS5mdW5jID0gJmFtZGdwdV9iYWNrZW5k
-X2Z1bmM7CisJZ3R0LT5nb2JqID0gJmJvLT5iYXNlOwogCiAJLyogYWxsb2NhdGUgc3BhY2UgZm9y
-IHRoZSB1bmluaXRpYWxpemVkIHBhZ2UgZW50cmllcyAqLwogCWlmICh0dG1fc2dfdHRfaW5pdCgm
-Z3R0LT50dG0sIGJvLCBwYWdlX2ZsYWdzKSkgewpAQCAtMTI0Nyw3ICsxMjUwLDYgQEAgc3RhdGlj
-IGludCBhbWRncHVfdHRtX3R0X3BvcHVsYXRlKHN0cnVjdCB0dG1fdHQgKnR0bSwKIHsKIAlzdHJ1
-Y3QgYW1kZ3B1X2RldmljZSAqYWRldiA9IGFtZGdwdV90dG1fYWRldih0dG0tPmJkZXYpOwogCXN0
-cnVjdCBhbWRncHVfdHRtX3R0ICpndHQgPSAodm9pZCAqKXR0bTsKLQlib29sIHNsYXZlID0gISEo
-dHRtLT5wYWdlX2ZsYWdzICYgVFRNX1BBR0VfRkxBR19TRyk7CiAKIAkvKiB1c2VyIHBhZ2VzIGFy
-ZSBib3VuZCBieSBhbWRncHVfdHRtX3R0X3Bpbl91c2VycHRyKCkgKi8KIAlpZiAoZ3R0ICYmIGd0
-dC0+dXNlcnB0cikgewpAQCAtMTI2MCw3ICsxMjYyLDE5IEBAIHN0YXRpYyBpbnQgYW1kZ3B1X3R0
-bV90dF9wb3B1bGF0ZShzdHJ1Y3QgdHRtX3R0ICp0dG0sCiAJCXJldHVybiAwOwogCX0KIAotCWlm
-IChzbGF2ZSAmJiB0dG0tPnNnKSB7CisJaWYgKHR0bS0+cGFnZV9mbGFncyAmIFRUTV9QQUdFX0ZM
-QUdfU0cpIHsKKwkJaWYgKCF0dG0tPnNnKSB7CisJCQlzdHJ1Y3QgZG1hX2J1Zl9hdHRhY2htZW50
-ICphdHRhY2g7CisJCQlzdHJ1Y3Qgc2dfdGFibGUgKnNndDsKKworCQkJYXR0YWNoID0gZ3R0LT5n
-b2JqLT5pbXBvcnRfYXR0YWNoOworCQkJc2d0ID0gZG1hX2J1Zl9tYXBfYXR0YWNobWVudChhdHRh
-Y2gsIERNQV9CSURJUkVDVElPTkFMKTsKKwkJCWlmIChJU19FUlIoc2d0KSkKKwkJCQlyZXR1cm4g
-UFRSX0VSUihzZ3QpOworCisJCQl0dG0tPnNnID0gc2d0OworCQl9CisKIAkJZHJtX3ByaW1lX3Nn
-X3RvX3BhZ2VfYWRkcl9hcnJheXModHRtLT5zZywgdHRtLT5wYWdlcywKIAkJCQkJCSBndHQtPnR0
-bS5kbWFfYWRkcmVzcywKIAkJCQkJCSB0dG0tPm51bV9wYWdlcyk7CkBAIC0xMjg3LDkgKzEzMDEs
-OCBAQCBzdGF0aWMgaW50IGFtZGdwdV90dG1fdHRfcG9wdWxhdGUoc3RydWN0IHR0bV90dCAqdHRt
-LAogICovCiBzdGF0aWMgdm9pZCBhbWRncHVfdHRtX3R0X3VucG9wdWxhdGUoc3RydWN0IHR0bV90
-dCAqdHRtKQogewotCXN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2OwogCXN0cnVjdCBhbWRncHVf
-dHRtX3R0ICpndHQgPSAodm9pZCAqKXR0bTsKLQlib29sIHNsYXZlID0gISEodHRtLT5wYWdlX2Zs
-YWdzICYgVFRNX1BBR0VfRkxBR19TRyk7CisJc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXY7CiAK
-IAlpZiAoZ3R0ICYmIGd0dC0+dXNlcnB0cikgewogCQlhbWRncHVfdHRtX3R0X3NldF91c2VyX3Bh
-Z2VzKHR0bSwgTlVMTCk7CkBAIC0xMjk4LDcgKzEzMTEsMTYgQEAgc3RhdGljIHZvaWQgYW1kZ3B1
-X3R0bV90dF91bnBvcHVsYXRlKHN0cnVjdCB0dG1fdHQgKnR0bSkKIAkJcmV0dXJuOwogCX0KIAot
-CWlmIChzbGF2ZSkKKwlpZiAodHRtLT5zZyAmJiBndHQtPmdvYmotPmltcG9ydF9hdHRhY2gpIHsK
-KwkJc3RydWN0IGRtYV9idWZfYXR0YWNobWVudCAqYXR0YWNoOworCisJCWF0dGFjaCA9IGd0dC0+
-Z29iai0+aW1wb3J0X2F0dGFjaDsKKwkJZG1hX2J1Zl91bm1hcF9hdHRhY2htZW50KGF0dGFjaCwg
-dHRtLT5zZywgRE1BX0JJRElSRUNUSU9OQUwpOworCQl0dG0tPnNnID0gTlVMTDsKKwkJcmV0dXJu
-OworCX0KKworCWlmICh0dG0tPnBhZ2VfZmxhZ3MgJiBUVE1fUEFHRV9GTEFHX1NHKQogCQlyZXR1
-cm47CiAKIAlhZGV2ID0gYW1kZ3B1X3R0bV9hZGV2KHR0bS0+YmRldik7Ci0tIAoyLjE3LjEKCl9f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFp
-bGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJl
-ZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
+--===============0382418189==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_DM6PR12MB27789F7136560521E8B2DB88F0660DM6PR12MB2778namp_"
+
+--_000_DM6PR12MB27789F7136560521E8B2DB88F0660DM6PR12MB2778namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+Modified according to the comment and pushed. Thanks!
+
+Regards,
+Yong
+________________________________
+From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Sent: Monday, October 28, 2019 8:39 AM
+To: Zhao, Yong <Yong.Zhao-5C7GfCeVMHo@public.gmane.org>
+Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Subject: Re: [PATCH] drm/amdkfd: Delete unnecessary pr_fmt switch
+
+On Fri, Oct 25, 2019 at 5:21 PM Zhao, Yong <Yong.Zhao-5C7GfCeVMHo@public.gmane.org> wrote:
+>
+> Given amdkfd.ko has been merged into amdgpu.ko, this switch is no
+> longer useful.
+>
+> Change-Id: If56b80e086f4ea26f347c70b620b3892afc24ddf
+> Signed-off-by: Yong Zhao <Yong.Zhao-5C7GfCeVMHo@public.gmane.org>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c          | 1 -
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c | 4 ----
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c  | 3 ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v7.c   | 1 -
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v8.c   | 1 -
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c   | 3 ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c    | 3 ---
+>  7 files changed, 16 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c b/drivers/gpu/drm=
+/amd/amdgpu/amdgpu_amdkfd.c
+> index d3da9dde4ee1..fa5471c12c34 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
+> @@ -19,7 +19,6 @@
+>   * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+>   * OTHER DEALINGS IN THE SOFTWARE.
+>   */
+> -
+
+Unrelated whitespace change.
+
+>  #include "amdgpu_amdkfd.h"
+>  #include "amd_shared.h"
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c b/driver=
+s/gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c
+> index e1fbbebce4fd..b6713e0ed1b2 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c
+> @@ -19,10 +19,6 @@
+>   * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+>   * OTHER DEALINGS IN THE SOFTWARE.
+>   */
+> -
+> -#undef pr_fmt
+> -#define pr_fmt(fmt) "kfd2kgd: " fmt
+> -
+>  #include <linux/module.h>
+>  #include <linux/fdtable.h>
+>  #include <linux/uaccess.h>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c b/drivers=
+/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c
+> index 0878f59ec340..61cd707158e4 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c
+> @@ -19,9 +19,6 @@
+>   * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+>   * OTHER DEALINGS IN THE SOFTWARE.
+>   */
+> -#undef pr_fmt
+> -#define pr_fmt(fmt) "kfd2kgd: " fmt
+> -
+>  #include <linux/mmu_context.h>
+>  #include "amdgpu.h"
+>  #include "amdgpu_amdkfd.h"
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v7.c b/drivers/=
+gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v7.c
+> index 6e6f0a99ec06..30897b2d9175 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v7.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v7.c
+> @@ -19,7 +19,6 @@
+>   * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+>   * OTHER DEALINGS IN THE SOFTWARE.
+>   */
+> -
+
+Unrelated whitespace change.
+
+>  #include <linux/mmu_context.h>
+>
+>  #include "amdgpu.h"
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v8.c b/drivers/=
+gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v8.c
+> index bfbddedb2380..ede6ab0cbe4b 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v8.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v8.c
+> @@ -19,7 +19,6 @@
+>   * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+>   * OTHER DEALINGS IN THE SOFTWARE.
+>   */
+> -
+
+Same here.
+
+With those dropped, the patch is:
+Reviewed-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+
+>  #include <linux/mmu_context.h>
+>
+>  #include "amdgpu.h"
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c b/drivers/=
+gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
+> index c72246f2c08a..47c853ef1051 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
+> @@ -19,9 +19,6 @@
+>   * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+>   * OTHER DEALINGS IN THE SOFTWARE.
+>   */
+> -
+> -#define pr_fmt(fmt) "kfd2kgd: " fmt
+> -
+>  #include <linux/mmu_context.h>
+>
+>  #include "amdgpu.h"
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/g=
+pu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+> index 1fbe81094b5f..97114e18c022 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+> @@ -19,9 +19,6 @@
+>   * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+>   * OTHER DEALINGS IN THE SOFTWARE.
+>   */
+> -
+> -#define pr_fmt(fmt) "kfd2kgd: " fmt
+> -
+>  #include <linux/dma-buf.h>
+>  #include <linux/list.h>
+>  #include <linux/pagemap.h>
+> --
+> 2.17.1
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--_000_DM6PR12MB27789F7136560521E8B2DB88F0660DM6PR12MB2778namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Modified according to the comment and pushed. Thanks!</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Regards,</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Yong</div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Alex Deucher &lt;alex=
+deucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;<br>
+<b>Sent:</b> Monday, October 28, 2019 8:39 AM<br>
+<b>To:</b> Zhao, Yong &lt;Yong.Zhao-5C7GfCeVMHo@public.gmane.org&gt;<br>
+<b>Cc:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org &lt;amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&=
+gt;<br>
+<b>Subject:</b> Re: [PATCH] drm/amdkfd: Delete unnecessary pr_fmt switch</f=
+ont>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">On Fri, Oct 25, 2019 at 5:21 PM Zhao, Yong &lt;Yon=
+g.Zhao-5C7GfCeVMHo@public.gmane.org&gt; wrote:<br>
+&gt;<br>
+&gt; Given amdkfd.ko has been merged into amdgpu.ko, this switch is no<br>
+&gt; longer useful.<br>
+&gt;<br>
+&gt; Change-Id: If56b80e086f4ea26f347c70b620b3892afc24ddf<br>
+&gt; Signed-off-by: Yong Zhao &lt;Yong.Zhao-5C7GfCeVMHo@public.gmane.org&gt;<br>
+&gt; ---<br>
+&gt;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | 1 -<br>
+&gt;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c | 4 ----<br>
+&gt;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c&nbsp; | 3 ---=
+<br>
+&gt;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v7.c&nbsp;&nbsp; | =
+1 -<br>
+&gt;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v8.c&nbsp;&nbsp; | =
+1 -<br>
+&gt;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c&nbsp;&nbsp; | =
+3 ---<br>
+&gt;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c&nbsp;&nbsp;&nbs=
+p; | 3 ---<br>
+&gt;&nbsp; 7 files changed, 16 deletions(-)<br>
+&gt;<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c b/drivers/gpu/=
+drm/amd/amdgpu/amdgpu_amdkfd.c<br>
+&gt; index d3da9dde4ee1..fa5471c12c34 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c<br>
+&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c<br>
+&gt; @@ -19,7 &#43;19,6 @@<br>
+&gt;&nbsp;&nbsp; * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE =
+OR THE USE OR<br>
+&gt;&nbsp;&nbsp; * OTHER DEALINGS IN THE SOFTWARE.<br>
+&gt;&nbsp;&nbsp; */<br>
+&gt; -<br>
+<br>
+Unrelated whitespace change.<br>
+<br>
+&gt;&nbsp; #include &quot;amdgpu_amdkfd.h&quot;<br>
+&gt;&nbsp; #include &quot;amd_shared.h&quot;<br>
+&gt;<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c b/dri=
+vers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c<br>
+&gt; index e1fbbebce4fd..b6713e0ed1b2 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c<br>
+&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c<=
+br>
+&gt; @@ -19,10 &#43;19,6 @@<br>
+&gt;&nbsp;&nbsp; * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE =
+OR THE USE OR<br>
+&gt;&nbsp;&nbsp; * OTHER DEALINGS IN THE SOFTWARE.<br>
+&gt;&nbsp;&nbsp; */<br>
+&gt; -<br>
+&gt; -#undef pr_fmt<br>
+&gt; -#define pr_fmt(fmt) &quot;kfd2kgd: &quot; fmt<br>
+&gt; -<br>
+&gt;&nbsp; #include &lt;linux/module.h&gt;<br>
+&gt;&nbsp; #include &lt;linux/fdtable.h&gt;<br>
+&gt;&nbsp; #include &lt;linux/uaccess.h&gt;<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c b/driv=
+ers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c<br>
+&gt; index 0878f59ec340..61cd707158e4 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c<br>
+&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c<b=
+r>
+&gt; @@ -19,9 &#43;19,6 @@<br>
+&gt;&nbsp;&nbsp; * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE =
+OR THE USE OR<br>
+&gt;&nbsp;&nbsp; * OTHER DEALINGS IN THE SOFTWARE.<br>
+&gt;&nbsp;&nbsp; */<br>
+&gt; -#undef pr_fmt<br>
+&gt; -#define pr_fmt(fmt) &quot;kfd2kgd: &quot; fmt<br>
+&gt; -<br>
+&gt;&nbsp; #include &lt;linux/mmu_context.h&gt;<br>
+&gt;&nbsp; #include &quot;amdgpu.h&quot;<br>
+&gt;&nbsp; #include &quot;amdgpu_amdkfd.h&quot;<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v7.c b/drive=
+rs/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v7.c<br>
+&gt; index 6e6f0a99ec06..30897b2d9175 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v7.c<br>
+&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v7.c<br=
+>
+&gt; @@ -19,7 &#43;19,6 @@<br>
+&gt;&nbsp;&nbsp; * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE =
+OR THE USE OR<br>
+&gt;&nbsp;&nbsp; * OTHER DEALINGS IN THE SOFTWARE.<br>
+&gt;&nbsp;&nbsp; */<br>
+&gt; -<br>
+<br>
+Unrelated whitespace change.<br>
+<br>
+&gt;&nbsp; #include &lt;linux/mmu_context.h&gt;<br>
+&gt;<br>
+&gt;&nbsp; #include &quot;amdgpu.h&quot;<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v8.c b/drive=
+rs/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v8.c<br>
+&gt; index bfbddedb2380..ede6ab0cbe4b 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v8.c<br>
+&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v8.c<br=
+>
+&gt; @@ -19,7 &#43;19,6 @@<br>
+&gt;&nbsp;&nbsp; * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE =
+OR THE USE OR<br>
+&gt;&nbsp;&nbsp; * OTHER DEALINGS IN THE SOFTWARE.<br>
+&gt;&nbsp;&nbsp; */<br>
+&gt; -<br>
+<br>
+Same here.<br>
+<br>
+With those dropped, the patch is:<br>
+Reviewed-by: Alex Deucher &lt;alexander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
+<br>
+&gt;&nbsp; #include &lt;linux/mmu_context.h&gt;<br>
+&gt;<br>
+&gt;&nbsp; #include &quot;amdgpu.h&quot;<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c b/drive=
+rs/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c<br>
+&gt; index c72246f2c08a..47c853ef1051 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c<br>
+&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c<br=
+>
+&gt; @@ -19,9 &#43;19,6 @@<br>
+&gt;&nbsp;&nbsp; * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE =
+OR THE USE OR<br>
+&gt;&nbsp;&nbsp; * OTHER DEALINGS IN THE SOFTWARE.<br>
+&gt;&nbsp;&nbsp; */<br>
+&gt; -<br>
+&gt; -#define pr_fmt(fmt) &quot;kfd2kgd: &quot; fmt<br>
+&gt; -<br>
+&gt;&nbsp; #include &lt;linux/mmu_context.h&gt;<br>
+&gt;<br>
+&gt;&nbsp; #include &quot;amdgpu.h&quot;<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/driver=
+s/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c<br>
+&gt; index 1fbe81094b5f..97114e18c022 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c<br>
+&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c<br>
+&gt; @@ -19,9 &#43;19,6 @@<br>
+&gt;&nbsp;&nbsp; * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE =
+OR THE USE OR<br>
+&gt;&nbsp;&nbsp; * OTHER DEALINGS IN THE SOFTWARE.<br>
+&gt;&nbsp;&nbsp; */<br>
+&gt; -<br>
+&gt; -#define pr_fmt(fmt) &quot;kfd2kgd: &quot; fmt<br>
+&gt; -<br>
+&gt;&nbsp; #include &lt;linux/dma-buf.h&gt;<br>
+&gt;&nbsp; #include &lt;linux/list.h&gt;<br>
+&gt;&nbsp; #include &lt;linux/pagemap.h&gt;<br>
+&gt; --<br>
+&gt; 2.17.1<br>
+&gt;<br>
+&gt; _______________________________________________<br>
+&gt; amd-gfx mailing list<br>
+&gt; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+&gt; <a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">htt=
+ps://lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
+</div>
+</span></font></div>
+</body>
+</html>
+
+--_000_DM6PR12MB27789F7136560521E8B2DB88F0660DM6PR12MB2778namp_--
+
+--===============0382418189==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+
+--===============0382418189==--
