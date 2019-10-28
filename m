@@ -2,76 +2,101 @@ Return-Path: <SRS0=qril=YV=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.0 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
-	FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
-	HTML_MESSAGE,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-8.2 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B6D1ACA9EC0
-	for <amd-gfx@archiver.kernel.org>; Mon, 28 Oct 2019 16:05:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5A765CA9EC0
+	for <amd-gfx@archiver.kernel.org>; Mon, 28 Oct 2019 16:49:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 92BD3208C0
-	for <amd-gfx@archiver.kernel.org>; Mon, 28 Oct 2019 16:05:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 92BD3208C0
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 0F015208C0
+	for <amd-gfx@archiver.kernel.org>; Mon, 28 Oct 2019 16:49:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0F015208C0
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5D9616E97B;
-	Mon, 28 Oct 2019 16:05:57 +0000 (UTC)
-Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com
- [IPv6:2a00:1450:4864:20::442])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 19BD86E97B
- for <amd-gfx@lists.freedesktop.org>; Mon, 28 Oct 2019 16:05:56 +0000 (UTC)
-Received: by mail-wr1-x442.google.com with SMTP id t16so10517321wrr.1
- for <amd-gfx@lists.freedesktop.org>; Mon, 28 Oct 2019 09:05:56 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:reply-to:subject:to:references:from:message-id
- :date:user-agent:mime-version:in-reply-to:content-language;
- bh=7IjDYnbu9NG2oc/494nwvZyks6ae3nNr8Tg+OLq7UZg=;
- b=qFVerTGYSXvyuSxYw1dC1Y4ZXXxxiYJTQtm+N3ITjGncqWv/KEnt1wk5NPcTmSZ0DH
- PfVllRjD7ocRYCMuSfa6vMUzhgGc6o4Hbmou00KBf/Rv52FPQoRXHITjVtqijx1ocGzu
- qbsy29N62VcskNdDXUQaCb1KzDb0HeHKdV4sEdhDmynXJNkt/GY7+/N9NmKPZLrMqK8E
- TwR/LrZACua8Xn3yji1Kagts4cl+3TGrirRJTv6ViUf6VLios660IXPK1WFiOrng1tiA
- rwMjM879Lznbao2dhchbcR9F2QGIJU+EE6qwtghKconlizjtkDG24IMsBzKl/B8MV1mW
- 8QpQ==
-X-Gm-Message-State: APjAAAVu697Zy+o8H5YF8xuhAjoalXvKlBJ0Uv84I960uy/Ya0sm0Cmv
- X5a9r9wIacJ00CHodWv2Fg6foD8X
-X-Google-Smtp-Source: APXvYqzKaXlF45StHn4Rqg6UxtmNX8WgizeyKh14pPDXHg+O2GieMhRBnGIn+qYiwJYIty10qsVTYA==
-X-Received: by 2002:adf:f145:: with SMTP id y5mr12283778wro.330.1572278754468; 
- Mon, 28 Oct 2019 09:05:54 -0700 (PDT)
-Received: from ?IPv6:2a02:908:1252:fb60:be8a:bd56:1f94:86e7?
- ([2a02:908:1252:fb60:be8a:bd56:1f94:86e7])
- by smtp.gmail.com with ESMTPSA id l18sm18993360wrn.48.2019.10.28.09.05.53
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Mon, 28 Oct 2019 09:05:53 -0700 (PDT)
-Subject: Re: [PATCH 2/2] drm/amdgpu: add independent DMA-buf import v9
-To: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-References: <20191028151407.15357-1-christian.koenig@amd.com>
- <20191028151407.15357-2-christian.koenig@amd.com>
- <DM5PR12MB1820ECFFCFAFCAD6FB7D8F55F7660@DM5PR12MB1820.namprd12.prod.outlook.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Message-ID: <7773a20b-2335-8889-f196-2fa195290501@gmail.com>
-Date: Mon, 28 Oct 2019 17:05:52 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.9.0
-MIME-Version: 1.0
-In-Reply-To: <DM5PR12MB1820ECFFCFAFCAD6FB7D8F55F7660@DM5PR12MB1820.namprd12.prod.outlook.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id C88206E98C;
+	Mon, 28 Oct 2019 16:49:24 +0000 (UTC)
+Received: from NAM01-BY2-obe.outbound.protection.outlook.com
+ (mail-eopbgr810073.outbound.protection.outlook.com [40.107.81.73])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4AB946E98C
+ for <amd-gfx@lists.freedesktop.org>; Mon, 28 Oct 2019 16:49:24 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=dxfhtS96B//+jdtbO7c1iQ9YVxIp3qTekyzKMH/os1S967/5XQCniMqUOeSbXx4RSVproMrKLBUuQJ2rZiQZobzSTDH1+aYUXNRSWrLPbtqLv6Y0Zbz1G0+WA1t4S1K1WHaY5UmauITFwOvsoeezKMFyQpazH15jXV91nzSMjWdEKdiUxW4pF3jHJ7dj6r56mmqpNN4UUy9mBmf+Jij9vMdbSep7A8plYK9w+LtCRUSP2jlzHA4UFPQ51GIxAtRZiQ9AUfx3i0ll1E9q8UdWtxGVpeebguVmXEEbceLbk9hSfs7X5lNqn0k3setixrHPuG/elL5FNj6ZZPdIEjYgDQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=gDWSRBMkvRQtOF+sXU01WyuXnNQ/bele23Gx30Zvtvw=;
+ b=bk5jSL9u28gvDs26MbYoeeCtWnKLzuUMpCyToMfaaodqk6QJLIvDMc2KUI0h3W39WjkMoyQT1UaEWSD23rYtZvJc9JzQIIf4DSjMSuxJgCAZrGL1GkA/FQeXHjA5dHICSNLDTlI3esvFPSGRyOHaYS9COMXjUrIIbvbF7XN7x71xNCMMJ5zqsr0I0rBBlJEVrg2s3cpffP+K6eNWUAVpirVUFGzrSLR7r0ZIJ0nKW2cKVqjv91PDjt99ulxGY33IafL2wChFgVmMGelYVE5cFNfAQQGChhsdZ97M39XCBs1ZInIWaSY+XA5cjLVEDHgtql8MY0c2CTxHcR6R9LK5Xg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+Received: from DM6PR12MB3947.namprd12.prod.outlook.com (10.255.174.156) by
+ DM6PR12MB2793.namprd12.prod.outlook.com (20.176.114.219) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2387.22; Mon, 28 Oct 2019 16:49:18 +0000
+Received: from DM6PR12MB3947.namprd12.prod.outlook.com
+ ([fe80::288c:66ec:203d:aede]) by DM6PR12MB3947.namprd12.prod.outlook.com
+ ([fe80::288c:66ec:203d:aede%4]) with mapi id 15.20.2387.025; Mon, 28 Oct 2019
+ 16:49:18 +0000
+From: "Kuehling, Felix" <Felix.Kuehling@amd.com>
+To: "Zhao, Yong" <Yong.Zhao@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: Re: [PATCH] drm/amdkfd: Delete duplicated queue bit map reservation
+Thread-Topic: [PATCH] drm/amdkfd: Delete duplicated queue bit map reservation
+Thread-Index: AQHViq/+pfN5s8nB6Uef1g1LFxHsWqdwSeQA
+Date: Mon, 28 Oct 2019 16:49:18 +0000
+Message-ID: <aaf8a526-0b98-23af-f345-f7f9738435f8@amd.com>
+References: <20191024211402.29915-1-Yong.Zhao@amd.com>
+In-Reply-To: <20191024211402.29915-1-Yong.Zhao@amd.com>
+Accept-Language: en-US
 Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [165.204.55.251]
+user-agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.9.0
+x-clientproxiedby: YTOPR0101CA0045.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b00:14::22) To DM6PR12MB3947.namprd12.prod.outlook.com
+ (2603:10b6:5:1cb::28)
+x-ms-exchange-messagesentrepresentingtype: 1
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-ht: Tenant
+x-ms-office365-filtering-correlation-id: d938dde6-14b5-4cb1-46c1-08d75bc6c658
+x-ms-traffictypediagnostic: DM6PR12MB2793:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <DM6PR12MB279387A73BF72CADBA4B50B592660@DM6PR12MB2793.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:7219;
+x-forefront-prvs: 0204F0BDE2
+x-forefront-antispam-report: SFV:NSPM;
+ SFS:(10009020)(4636009)(376002)(366004)(39860400002)(346002)(396003)(136003)(189003)(199004)(305945005)(26005)(36756003)(71200400001)(186003)(86362001)(11346002)(478600001)(6436002)(71190400001)(7736002)(66066001)(65956001)(65806001)(6246003)(31686004)(31696002)(476003)(8936002)(81166006)(2616005)(81156014)(25786009)(4001150100001)(446003)(8676002)(229853002)(64756008)(66446008)(6506007)(66476007)(6512007)(66556008)(66946007)(76176011)(2906002)(53546011)(3846002)(486006)(316002)(6116002)(386003)(52116002)(99286004)(14454004)(5660300002)(58126008)(6486002)(102836004)(2501003)(110136005)(256004);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:DM6PR12MB2793;
+ H:DM6PR12MB3947.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; MX:1; A:1; 
+received-spf: None (protection.outlook.com: amd.com does not designate
+ permitted sender hosts)
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: j/sMO5y1sIZ3DE5Alj6xXY4xAallsvIu4YajfrNITjMIbfUKQfNtFQKwFITNt7q5XDxC0cUm5mHBS6j6zaHSnHMKgiMpMW+yerHyEpjR2eyQW3saViEnhhwZPnjF2qPN6Yt/2bk2dpIyyfQ7DGEY2aO+2NDSOgs8OBVPdjtX2ruk65APAxVO2wJ0jOuU6F/G5mnciFTgpPkteaLKa4KP4nPgHgcgLaT9OhrPK7MY8JaceR/0if5kawsT2Tg/jhTSPGWffO0By9yO7tE7ZwxSiNb6vB2yBsoqzbEFDHCB9TXl9i7n6vQ1C3BjQS9kKjwWPWBpAzM8wntg6IJqZixLKdxFOR9W7LedeLwxQ0/RChksfWqOtjRGv2sHugA/ykHb7+Bovx/SD9ZtyT34tOlTI1jXNfpcMznddq4fdH4WdKhM6G2nAqhj7M4X3D2ddW4t
+Content-ID: <B824EE0E2D04AE48B794789E496B405C@namprd12.prod.outlook.com>
+MIME-Version: 1.0
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d938dde6-14b5-4cb1-46c1-08d75bc6c658
+X-MS-Exchange-CrossTenant-originalarrivaltime: 28 Oct 2019 16:49:18.7169 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: kTMpbwKZyRRogRrfB/i1+j/JN8F8CgvM31hoAWZy6IiPQQdphLn8Cr3ty6tSBrfuAm3D0PkeqWXNj7fb0CP/gg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB2793
 X-Mailman-Original-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20161025;
- h=reply-to:subject:to:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language;
- bh=7IjDYnbu9NG2oc/494nwvZyks6ae3nNr8Tg+OLq7UZg=;
- b=fLDXVzhqhIqulsfq795mKfNn+cv3FKQTSwLbnzneDEqzcIOkCrWOnrPPlu34hc9suB
- qoKeI+KuPgzW8Os3l4XONqrOoCbuCKWufu7FpVOkiCWlK5CNOlBWDcVy3Qx3zarDMge3
- XCC69EPwqkhavSNgBEL0jjq+TCw6fI4zSr0Aqy/fKLWtIjDqGtTdOR1B7EB4sTlOEQ7Y
- Y5JyRZVmxIPm3rLZcPyRUd89Qa0gqQENy7ml/OhmJAu67nfCAiCFzVrtTxf72IcipwAp
- E6naTAQpwE3rewfq/kKGS9esizH9UA7kBauLK1Xe40T3bZfRjNPlo9VsVuFpWDxwnqdz
- 0I3Q==
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=gDWSRBMkvRQtOF+sXU01WyuXnNQ/bele23Gx30Zvtvw=;
+ b=Ffw4gblY6XLsWa9xQw27JFshrYFphHZRu5aOS7cVWUMdwP832b3EdO5D3bYatH6HLuvkxlSuyHBwR2f6DaMkT/XXuDuR9aNeuVgCXCYWWgxuLh4kG47Eg+0WUib1gKR4C6bD1G+FCwu20QOIgDwXnGB/Zk6ghcl99K2XMGIsC4E=
+X-Mailman-Original-Authentication-Results: spf=none (sender IP is )
+ smtp.mailfrom=Felix.Kuehling@amd.com; 
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -83,653 +108,34 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: christian.koenig@amd.com
-Content-Type: multipart/mixed; boundary="===============0829435158=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-Message-ID: <20191028160552.i5OsbeATfdcMlM2mAesoozj4QYsNgQNeAPWV4XsgHrs@z>
+Message-ID: <20191028164918.S7OHh1dQ9afOVsmhXO1EJRF6yXIRpha4eHDV9ZLGCqo@z>
 
-This is a multi-part message in MIME format.
---===============0829435158==
-Content-Type: multipart/alternative;
- boundary="------------93691FF0869918CB4D5F6BC6"
-Content-Language: en-US
-
-This is a multi-part message in MIME format.
---------------93691FF0869918CB4D5F6BC6
-Content-Type: text/plain; charset=windows-1252; format=flowed
-Content-Transfer-Encoding: 8bit
-
-Thanks, as discussed internally I've just pushed those two to 
-drm-misc-next instead of amd-staging-drm-next.
-
-Christian.
-
-Am 28.10.19 um 16:38 schrieb Deucher, Alexander:
-> Series is:
-> Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-> ------------------------------------------------------------------------
-> *From:* amd-gfx <amd-gfx-bounces@lists.freedesktop.org> on behalf of 
-> Christian König <ckoenig.leichtzumerken@gmail.com>
-> *Sent:* Monday, October 28, 2019 11:14 AM
-> *To:* amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
-> *Subject:* [PATCH 2/2] drm/amdgpu: add independent DMA-buf import v9
-> Instead of relying on the DRM functions just implement our own import
-> functions. This prepares support for taking care of unpinned DMA-buf.
->
-> v2: enable for all exporters, not just amdgpu, fix invalidation
->     handling, lock reservation object while setting callback
-> v3: change to new dma_buf attach interface
-> v4: split out from unpinned DMA-buf work
-> v5: rebased and cleanup on new DMA-buf interface
-> v6: squash with invalidation callback change,
->     stop using _(map|unmap)_locked
-> v7: drop invalidations when the BO is already in system domain
-> v8: rebase on new DMA-buf patch and drop move notification
-> v9: cleanup comments
->
-> Signed-off-by: Christian König <christian.koenig@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c | 43 ++++++++++++---------
->  drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.h |  4 --
->  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c     |  1 -
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c     | 32 ++++++++++++---
->  4 files changed, 52 insertions(+), 28 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c 
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
-> index f14b52cc7205..d5bcdfefbad6 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
-> @@ -370,31 +370,28 @@ struct dma_buf *amdgpu_gem_prime_export(struct 
-> drm_gem_object *gobj,
->  }
->
->  /**
-> - * amdgpu_gem_prime_import_sg_table - 
-> &drm_driver.gem_prime_import_sg_table
-> - * implementation
-> + * amdgpu_dma_buf_create_obj - create BO for DMA-buf import
-> + *
->   * @dev: DRM device
-> - * @attach: DMA-buf attachment
-> - * @sg: Scatter/gather table
-> + * @dma_buf: DMA-buf
->   *
-> - * Imports shared DMA buffer memory exported by another device.
-> + * Creates an empty SG BO for DMA-buf import.
->   *
->   * Returns:
->   * A new GEM BO of the given DRM device, representing the memory
->   * described by the given DMA-buf attachment and scatter/gather table.
->   */
-> -struct drm_gem_object *
-> -amdgpu_gem_prime_import_sg_table(struct drm_device *dev,
-> -                                struct dma_buf_attachment *attach,
-> -                                struct sg_table *sg)
-> +static struct drm_gem_object *
-> +amdgpu_dma_buf_create_obj(struct drm_device *dev, struct dma_buf 
-> *dma_buf)
->  {
-> -       struct dma_resv *resv = attach->dmabuf->resv;
-> +       struct dma_resv *resv = dma_buf->resv;
->          struct amdgpu_device *adev = dev->dev_private;
->          struct amdgpu_bo *bo;
->          struct amdgpu_bo_param bp;
->          int ret;
->
->          memset(&bp, 0, sizeof(bp));
-> -       bp.size = attach->dmabuf->size;
-> +       bp.size = dma_buf->size;
->          bp.byte_align = PAGE_SIZE;
->          bp.domain = AMDGPU_GEM_DOMAIN_CPU;
->          bp.flags = 0;
-> @@ -405,11 +402,9 @@ amdgpu_gem_prime_import_sg_table(struct 
-> drm_device *dev,
->          if (ret)
->                  goto error;
->
-> -       bo->tbo.sg = sg;
-> -       bo->tbo.ttm->sg = sg;
->          bo->allowed_domains = AMDGPU_GEM_DOMAIN_GTT;
->          bo->preferred_domains = AMDGPU_GEM_DOMAIN_GTT;
-> -       if (attach->dmabuf->ops != &amdgpu_dmabuf_ops)
-> +       if (dma_buf->ops != &amdgpu_dmabuf_ops)
->                  bo->prime_shared_count = 1;
->
->          dma_resv_unlock(resv);
-> @@ -425,15 +420,15 @@ amdgpu_gem_prime_import_sg_table(struct 
-> drm_device *dev,
->   * @dev: DRM device
->   * @dma_buf: Shared DMA buffer
->   *
-> - * The main work is done by the &drm_gem_prime_import helper, which 
-> in turn
-> - * uses &amdgpu_gem_prime_import_sg_table.
-> + * Import a dma_buf into a the driver and potentially create a new 
-> GEM object.
->   *
->   * Returns:
->   * GEM BO representing the shared DMA buffer for the given device.
->   */
->  struct drm_gem_object *amdgpu_gem_prime_import(struct drm_device *dev,
-> -                                           struct dma_buf *dma_buf)
-> +                                              struct dma_buf *dma_buf)
->  {
-> +       struct dma_buf_attachment *attach;
->          struct drm_gem_object *obj;
->
->          if (dma_buf->ops == &amdgpu_dmabuf_ops) {
-> @@ -448,5 +443,17 @@ struct drm_gem_object 
-> *amdgpu_gem_prime_import(struct drm_device *dev,
->                  }
->          }
->
-> -       return drm_gem_prime_import(dev, dma_buf);
-> +       obj = amdgpu_dma_buf_create_obj(dev, dma_buf);
-> +       if (IS_ERR(obj))
-> +               return obj;
-> +
-> +       attach = dma_buf_dynamic_attach(dma_buf, dev->dev, true);
-> +       if (IS_ERR(attach)) {
-> +               drm_gem_object_put(obj);
-> +               return ERR_CAST(attach);
-> +       }
-> +
-> +       get_dma_buf(dma_buf);
-> +       obj->import_attach = attach;
-> +       return obj;
->  }
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.h 
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.h
-> index ce1b3f017451..ec447a7b6b28 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.h
-> @@ -25,10 +25,6 @@
->
->  #include <drm/drm_gem.h>
->
-> -struct drm_gem_object *
-> -amdgpu_gem_prime_import_sg_table(struct drm_device *dev,
-> -                                struct dma_buf_attachment *attach,
-> -                                struct sg_table *sg);
->  struct dma_buf *amdgpu_gem_prime_export(struct drm_gem_object *gobj,
->                                          int flags);
->  struct drm_gem_object *amdgpu_gem_prime_import(struct drm_device *dev,
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c 
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> index 8805776c8c52..25adf2b847e8 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> @@ -1445,7 +1445,6 @@ static struct drm_driver kms_driver = {
->          .prime_fd_to_handle = drm_gem_prime_fd_to_handle,
->          .gem_prime_export = amdgpu_gem_prime_export,
->          .gem_prime_import = amdgpu_gem_prime_import,
-> -       .gem_prime_import_sg_table = amdgpu_gem_prime_import_sg_table,
->          .gem_prime_vmap = amdgpu_gem_prime_vmap,
->          .gem_prime_vunmap = amdgpu_gem_prime_vunmap,
->          .gem_prime_mmap = amdgpu_gem_prime_mmap,
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c 
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> index 8e867b8b432f..c19100ced040 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> @@ -39,6 +39,7 @@
->  #include <linux/slab.h>
->  #include <linux/swap.h>
->  #include <linux/swiotlb.h>
-> +#include <linux/dma-buf.h>
->
->  #include <drm/ttm/ttm_bo_api.h>
->  #include <drm/ttm/ttm_bo_driver.h>
-> @@ -763,6 +764,7 @@ static unsigned long amdgpu_ttm_io_mem_pfn(struct 
-> ttm_buffer_object *bo,
->   */
->  struct amdgpu_ttm_tt {
->          struct ttm_dma_tt       ttm;
-> +       struct drm_gem_object   *gobj;
->          u64                     offset;
->          uint64_t                userptr;
->          struct task_struct      *usertask;
-> @@ -1227,6 +1229,7 @@ static struct ttm_tt 
-> *amdgpu_ttm_tt_create(struct ttm_buffer_object *bo,
->                  return NULL;
->          }
->          gtt->ttm.ttm.func = &amdgpu_backend_func;
-> +       gtt->gobj = &bo->base;
->
->          /* allocate space for the uninitialized page entries */
->          if (ttm_sg_tt_init(&gtt->ttm, bo, page_flags)) {
-> @@ -1247,7 +1250,6 @@ static int amdgpu_ttm_tt_populate(struct ttm_tt 
-> *ttm,
->  {
->          struct amdgpu_device *adev = amdgpu_ttm_adev(ttm->bdev);
->          struct amdgpu_ttm_tt *gtt = (void *)ttm;
-> -       bool slave = !!(ttm->page_flags & TTM_PAGE_FLAG_SG);
->
->          /* user pages are bound by amdgpu_ttm_tt_pin_userptr() */
->          if (gtt && gtt->userptr) {
-> @@ -1260,7 +1262,19 @@ static int amdgpu_ttm_tt_populate(struct ttm_tt 
-> *ttm,
->                  return 0;
->          }
->
-> -       if (slave && ttm->sg) {
-> +       if (ttm->page_flags & TTM_PAGE_FLAG_SG) {
-> +               if (!ttm->sg) {
-> +                       struct dma_buf_attachment *attach;
-> +                       struct sg_table *sgt;
-> +
-> +                       attach = gtt->gobj->import_attach;
-> +                       sgt = dma_buf_map_attachment(attach, 
-> DMA_BIDIRECTIONAL);
-> +                       if (IS_ERR(sgt))
-> +                               return PTR_ERR(sgt);
-> +
-> +                       ttm->sg = sgt;
-> +               }
-> +
-> drm_prime_sg_to_page_addr_arrays(ttm->sg, ttm->pages,
-> gtt->ttm.dma_address,
-> ttm->num_pages);
-> @@ -1287,9 +1301,8 @@ static int amdgpu_ttm_tt_populate(struct ttm_tt 
-> *ttm,
->   */
->  static void amdgpu_ttm_tt_unpopulate(struct ttm_tt *ttm)
->  {
-> -       struct amdgpu_device *adev;
->          struct amdgpu_ttm_tt *gtt = (void *)ttm;
-> -       bool slave = !!(ttm->page_flags & TTM_PAGE_FLAG_SG);
-> +       struct amdgpu_device *adev;
->
->          if (gtt && gtt->userptr) {
->                  amdgpu_ttm_tt_set_user_pages(ttm, NULL);
-> @@ -1298,7 +1311,16 @@ static void amdgpu_ttm_tt_unpopulate(struct 
-> ttm_tt *ttm)
->                  return;
->          }
->
-> -       if (slave)
-> +       if (ttm->sg && gtt->gobj->import_attach) {
-> +               struct dma_buf_attachment *attach;
-> +
-> +               attach = gtt->gobj->import_attach;
-> +               dma_buf_unmap_attachment(attach, ttm->sg, 
-> DMA_BIDIRECTIONAL);
-> +               ttm->sg = NULL;
-> +               return;
-> +       }
-> +
-> +       if (ttm->page_flags & TTM_PAGE_FLAG_SG)
->                  return;
->
->          adev = amdgpu_ttm_adev(ttm->bdev);
-> -- 
-> 2.17.1
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
-
---------------93691FF0869918CB4D5F6BC6
-Content-Type: text/html; charset=windows-1252
-Content-Transfer-Encoding: 8bit
-
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html;
-      charset=windows-1252">
-  </head>
-  <body text="#000000" bgcolor="#FFFFFF">
-    <div class="moz-cite-prefix">Thanks, as discussed internally I've
-      just pushed those two to drm-misc-next instead of
-      amd-staging-drm-next.<br>
-      <br>
-      Christian.<br>
-      <br>
-      Am 28.10.19 um 16:38 schrieb Deucher, Alexander:<br>
-    </div>
-    <blockquote type="cite"
-cite="mid:DM5PR12MB1820ECFFCFAFCAD6FB7D8F55F7660@DM5PR12MB1820.namprd12.prod.outlook.com">
-      <meta http-equiv="Content-Type" content="text/html;
-        charset=windows-1252">
-      <style type="text/css" style="display:none;"> P {margin-top:0;margin-bottom:0;} </style>
-      <div style="font-family: Calibri, Arial, Helvetica, sans-serif;
-        font-size: 12pt; color: rgb(0, 0, 0);">
-        Series is:</div>
-      <div style="font-family: Calibri, Arial, Helvetica, sans-serif;
-        font-size: 12pt; color: rgb(0, 0, 0);">
-        Reviewed-by: Alex Deucher <a class="moz-txt-link-rfc2396E" href="mailto:alexander.deucher@amd.com">&lt;alexander.deucher@amd.com&gt;</a><br>
-      </div>
-      <hr style="display:inline-block;width:98%" tabindex="-1">
-      <div id="divRplyFwdMsg" dir="ltr"><font style="font-size:11pt"
-          face="Calibri, sans-serif" color="#000000"><b>From:</b>
-          amd-gfx <a class="moz-txt-link-rfc2396E" href="mailto:amd-gfx-bounces@lists.freedesktop.org">&lt;amd-gfx-bounces@lists.freedesktop.org&gt;</a> on
-          behalf of Christian König
-          <a class="moz-txt-link-rfc2396E" href="mailto:ckoenig.leichtzumerken@gmail.com">&lt;ckoenig.leichtzumerken@gmail.com&gt;</a><br>
-          <b>Sent:</b> Monday, October 28, 2019 11:14 AM<br>
-          <b>To:</b> <a class="moz-txt-link-abbreviated" href="mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.org</a>
-          <a class="moz-txt-link-rfc2396E" href="mailto:amd-gfx@lists.freedesktop.org">&lt;amd-gfx@lists.freedesktop.org&gt;</a><br>
-          <b>Subject:</b> [PATCH 2/2] drm/amdgpu: add independent
-          DMA-buf import v9</font>
-        <div> </div>
-      </div>
-      <div class="BodyFragment"><font size="2"><span
-            style="font-size:11pt;">
-            <div class="PlainText">Instead of relying on the DRM
-              functions just implement our own import<br>
-              functions. This prepares support for taking care of
-              unpinned DMA-buf.<br>
-              <br>
-              v2: enable for all exporters, not just amdgpu, fix
-              invalidation<br>
-                  handling, lock reservation object while setting
-              callback<br>
-              v3: change to new dma_buf attach interface<br>
-              v4: split out from unpinned DMA-buf work<br>
-              v5: rebased and cleanup on new DMA-buf interface<br>
-              v6: squash with invalidation callback change,<br>
-                  stop using _(map|unmap)_locked<br>
-              v7: drop invalidations when the BO is already in system
-              domain<br>
-              v8: rebase on new DMA-buf patch and drop move notification<br>
-              v9: cleanup comments<br>
-              <br>
-              Signed-off-by: Christian König
-              <a class="moz-txt-link-rfc2396E" href="mailto:christian.koenig@amd.com">&lt;christian.koenig@amd.com&gt;</a><br>
-              ---<br>
-               drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c | 43
-              ++++++++++++---------<br>
-               drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.h |  4 --<br>
-               drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c     |  1 -<br>
-               drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c     | 32
-              ++++++++++++---<br>
-               4 files changed, 52 insertions(+), 28 deletions(-)<br>
-              <br>
-              diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
-              b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c<br>
-              index f14b52cc7205..d5bcdfefbad6 100644<br>
-              --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c<br>
-              +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c<br>
-              @@ -370,31 +370,28 @@ struct dma_buf
-              *amdgpu_gem_prime_export(struct drm_gem_object *gobj,<br>
-               }<br>
-               <br>
-               /**<br>
-              - * amdgpu_gem_prime_import_sg_table -
-              &amp;drm_driver.gem_prime_import_sg_table<br>
-              - * implementation<br>
-              + * amdgpu_dma_buf_create_obj - create BO for DMA-buf
-              import<br>
-              + *<br>
-                * @dev: DRM device<br>
-              - * @attach: DMA-buf attachment<br>
-              - * @sg: Scatter/gather table<br>
-              + * @dma_buf: DMA-buf<br>
-                *<br>
-              - * Imports shared DMA buffer memory exported by another
-              device.<br>
-              + * Creates an empty SG BO for DMA-buf import.<br>
-                *<br>
-                * Returns:<br>
-                * A new GEM BO of the given DRM device, representing the
-              memory<br>
-                * described by the given DMA-buf attachment and
-              scatter/gather table.<br>
-                */<br>
-              -struct drm_gem_object *<br>
-              -amdgpu_gem_prime_import_sg_table(struct drm_device *dev,<br>
-              -                                struct dma_buf_attachment
-              *attach,<br>
-              -                                struct sg_table *sg)<br>
-              +static struct drm_gem_object *<br>
-              +amdgpu_dma_buf_create_obj(struct drm_device *dev, struct
-              dma_buf *dma_buf)<br>
-               {<br>
-              -       struct dma_resv *resv =
-              attach-&gt;dmabuf-&gt;resv;<br>
-              +       struct dma_resv *resv = dma_buf-&gt;resv;<br>
-                       struct amdgpu_device *adev = dev-&gt;dev_private;<br>
-                       struct amdgpu_bo *bo;<br>
-                       struct amdgpu_bo_param bp;<br>
-                       int ret;<br>
-               <br>
-                       memset(&amp;bp, 0, sizeof(bp));<br>
-              -       bp.size = attach-&gt;dmabuf-&gt;size;<br>
-              +       bp.size = dma_buf-&gt;size;<br>
-                       bp.byte_align = PAGE_SIZE;<br>
-                       bp.domain = AMDGPU_GEM_DOMAIN_CPU;<br>
-                       bp.flags = 0;<br>
-              @@ -405,11 +402,9 @@
-              amdgpu_gem_prime_import_sg_table(struct drm_device *dev,<br>
-                       if (ret)<br>
-                               goto error;<br>
-               <br>
-              -       bo-&gt;tbo.sg = sg;<br>
-              -       bo-&gt;tbo.ttm-&gt;sg = sg;<br>
-                       bo-&gt;allowed_domains = AMDGPU_GEM_DOMAIN_GTT;<br>
-                       bo-&gt;preferred_domains = AMDGPU_GEM_DOMAIN_GTT;<br>
-              -       if (attach-&gt;dmabuf-&gt;ops !=
-              &amp;amdgpu_dmabuf_ops)<br>
-              +       if (dma_buf-&gt;ops != &amp;amdgpu_dmabuf_ops)<br>
-                               bo-&gt;prime_shared_count = 1;<br>
-               <br>
-                       dma_resv_unlock(resv);<br>
-              @@ -425,15 +420,15 @@
-              amdgpu_gem_prime_import_sg_table(struct drm_device *dev,<br>
-                * @dev: DRM device<br>
-                * @dma_buf: Shared DMA buffer<br>
-                *<br>
-              - * The main work is done by the &amp;drm_gem_prime_import
-              helper, which in turn<br>
-              - * uses &amp;amdgpu_gem_prime_import_sg_table.<br>
-              + * Import a dma_buf into a the driver and potentially
-              create a new GEM object.<br>
-                *<br>
-                * Returns:<br>
-                * GEM BO representing the shared DMA buffer for the
-              given device.<br>
-                */<br>
-               struct drm_gem_object *amdgpu_gem_prime_import(struct
-              drm_device *dev,<br>
-              -                                           struct dma_buf
-              *dma_buf)<br>
-              +                                              struct
-              dma_buf *dma_buf)<br>
-               {<br>
-              +       struct dma_buf_attachment *attach;<br>
-                       struct drm_gem_object *obj;<br>
-               <br>
-                       if (dma_buf-&gt;ops == &amp;amdgpu_dmabuf_ops) {<br>
-              @@ -448,5 +443,17 @@ struct drm_gem_object
-              *amdgpu_gem_prime_import(struct drm_device *dev,<br>
-                               }<br>
-                       }<br>
-               <br>
-              -       return drm_gem_prime_import(dev, dma_buf);<br>
-              +       obj = amdgpu_dma_buf_create_obj(dev, dma_buf);<br>
-              +       if (IS_ERR(obj))<br>
-              +               return obj;<br>
-              +<br>
-              +       attach = dma_buf_dynamic_attach(dma_buf,
-              dev-&gt;dev, true);<br>
-              +       if (IS_ERR(attach)) {<br>
-              +               drm_gem_object_put(obj);<br>
-              +               return ERR_CAST(attach);<br>
-              +       }<br>
-              +<br>
-              +       get_dma_buf(dma_buf);<br>
-              +       obj-&gt;import_attach = attach;<br>
-              +       return obj;<br>
-               }<br>
-              diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.h
-              b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.h<br>
-              index ce1b3f017451..ec447a7b6b28 100644<br>
-              --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.h<br>
-              +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.h<br>
-              @@ -25,10 +25,6 @@<br>
-               <br>
-               #include &lt;drm/drm_gem.h&gt;<br>
-               <br>
-              -struct drm_gem_object *<br>
-              -amdgpu_gem_prime_import_sg_table(struct drm_device *dev,<br>
-              -                                struct dma_buf_attachment
-              *attach,<br>
-              -                                struct sg_table *sg);<br>
-               struct dma_buf *amdgpu_gem_prime_export(struct
-              drm_gem_object *gobj,<br>
-                                                       int flags);<br>
-               struct drm_gem_object *amdgpu_gem_prime_import(struct
-              drm_device *dev,<br>
-              diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-              b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c<br>
-              index 8805776c8c52..25adf2b847e8 100644<br>
-              --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c<br>
-              +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c<br>
-              @@ -1445,7 +1445,6 @@ static struct drm_driver kms_driver
-              = {<br>
-                       .prime_fd_to_handle = drm_gem_prime_fd_to_handle,<br>
-                       .gem_prime_export = amdgpu_gem_prime_export,<br>
-                       .gem_prime_import = amdgpu_gem_prime_import,<br>
-              -       .gem_prime_import_sg_table =
-              amdgpu_gem_prime_import_sg_table,<br>
-                       .gem_prime_vmap = amdgpu_gem_prime_vmap,<br>
-                       .gem_prime_vunmap = amdgpu_gem_prime_vunmap,<br>
-                       .gem_prime_mmap = amdgpu_gem_prime_mmap,<br>
-              diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-              b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c<br>
-              index 8e867b8b432f..c19100ced040 100644<br>
-              --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c<br>
-              +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c<br>
-              @@ -39,6 +39,7 @@<br>
-               #include &lt;linux/slab.h&gt;<br>
-               #include &lt;linux/swap.h&gt;<br>
-               #include &lt;linux/swiotlb.h&gt;<br>
-              +#include &lt;linux/dma-buf.h&gt;<br>
-               <br>
-               #include &lt;drm/ttm/ttm_bo_api.h&gt;<br>
-               #include &lt;drm/ttm/ttm_bo_driver.h&gt;<br>
-              @@ -763,6 +764,7 @@ static unsigned long
-              amdgpu_ttm_io_mem_pfn(struct ttm_buffer_object *bo,<br>
-                */<br>
-               struct amdgpu_ttm_tt {<br>
-                       struct ttm_dma_tt       ttm;<br>
-              +       struct drm_gem_object   *gobj;<br>
-                       u64                     offset;<br>
-                       uint64_t                userptr;<br>
-                       struct task_struct      *usertask;<br>
-              @@ -1227,6 +1229,7 @@ static struct ttm_tt
-              *amdgpu_ttm_tt_create(struct ttm_buffer_object *bo,<br>
-                               return NULL;<br>
-                       }<br>
-                       gtt-&gt;ttm.ttm.func = &amp;amdgpu_backend_func;<br>
-              +       gtt-&gt;gobj = &amp;bo-&gt;base;<br>
-               <br>
-                       /* allocate space for the uninitialized page
-              entries */<br>
-                       if (ttm_sg_tt_init(&amp;gtt-&gt;ttm, bo,
-              page_flags)) {<br>
-              @@ -1247,7 +1250,6 @@ static int
-              amdgpu_ttm_tt_populate(struct ttm_tt *ttm,<br>
-               {<br>
-                       struct amdgpu_device *adev =
-              amdgpu_ttm_adev(ttm-&gt;bdev);<br>
-                       struct amdgpu_ttm_tt *gtt = (void *)ttm;<br>
-              -       bool slave = !!(ttm-&gt;page_flags &amp;
-              TTM_PAGE_FLAG_SG);<br>
-               <br>
-                       /* user pages are bound by
-              amdgpu_ttm_tt_pin_userptr() */<br>
-                       if (gtt &amp;&amp; gtt-&gt;userptr) {<br>
-              @@ -1260,7 +1262,19 @@ static int
-              amdgpu_ttm_tt_populate(struct ttm_tt *ttm,<br>
-                               return 0;<br>
-                       }<br>
-               <br>
-              -       if (slave &amp;&amp; ttm-&gt;sg) {<br>
-              +       if (ttm-&gt;page_flags &amp; TTM_PAGE_FLAG_SG) {<br>
-              +               if (!ttm-&gt;sg) {<br>
-              +                       struct dma_buf_attachment *attach;<br>
-              +                       struct sg_table *sgt;<br>
-              +<br>
-              +                       attach =
-              gtt-&gt;gobj-&gt;import_attach;<br>
-              +                       sgt =
-              dma_buf_map_attachment(attach, DMA_BIDIRECTIONAL);<br>
-              +                       if (IS_ERR(sgt))<br>
-              +                               return PTR_ERR(sgt);<br>
-              +<br>
-              +                       ttm-&gt;sg = sgt;<br>
-              +               }<br>
-              +<br>
-                              
-              drm_prime_sg_to_page_addr_arrays(ttm-&gt;sg,
-              ttm-&gt;pages,<br>
-                                                               
-              gtt-&gt;ttm.dma_address,<br>
-                                                               
-              ttm-&gt;num_pages);<br>
-              @@ -1287,9 +1301,8 @@ static int
-              amdgpu_ttm_tt_populate(struct ttm_tt *ttm,<br>
-                */<br>
-               static void amdgpu_ttm_tt_unpopulate(struct ttm_tt *ttm)<br>
-               {<br>
-              -       struct amdgpu_device *adev;<br>
-                       struct amdgpu_ttm_tt *gtt = (void *)ttm;<br>
-              -       bool slave = !!(ttm-&gt;page_flags &amp;
-              TTM_PAGE_FLAG_SG);<br>
-              +       struct amdgpu_device *adev;<br>
-               <br>
-                       if (gtt &amp;&amp; gtt-&gt;userptr) {<br>
-                               amdgpu_ttm_tt_set_user_pages(ttm, NULL);<br>
-              @@ -1298,7 +1311,16 @@ static void
-              amdgpu_ttm_tt_unpopulate(struct ttm_tt *ttm)<br>
-                               return;<br>
-                       }<br>
-               <br>
-              -       if (slave)<br>
-              +       if (ttm-&gt;sg &amp;&amp;
-              gtt-&gt;gobj-&gt;import_attach) {<br>
-              +               struct dma_buf_attachment *attach;<br>
-              +<br>
-              +               attach = gtt-&gt;gobj-&gt;import_attach;<br>
-              +               dma_buf_unmap_attachment(attach,
-              ttm-&gt;sg, DMA_BIDIRECTIONAL);<br>
-              +               ttm-&gt;sg = NULL;<br>
-              +               return;<br>
-              +       }<br>
-              +<br>
-              +       if (ttm-&gt;page_flags &amp; TTM_PAGE_FLAG_SG)<br>
-                               return;<br>
-               <br>
-                       adev = amdgpu_ttm_adev(ttm-&gt;bdev);<br>
-              -- <br>
-              2.17.1<br>
-              <br>
-              _______________________________________________<br>
-              amd-gfx mailing list<br>
-              <a class="moz-txt-link-abbreviated" href="mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.org</a><br>
-              <a
-                href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx"
-                moz-do-not-send="true">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a></div>
-          </span></font></div>
-    </blockquote>
-    <br>
-  </body>
-</html>
-
---------------93691FF0869918CB4D5F6BC6--
-
---===============0829435158==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
-
---===============0829435158==--
+T24gMjAxOS0xMC0yNCA1OjE0IHAubS4sIFpoYW8sIFlvbmcgd3JvdGU6DQo+IFRoZSBLSVEgaXMg
+b24gdGhlIHNlY29uZCBNRUMgYW5kIGl0cyByZXNlcnZhdGlvbiBpcyBjb3ZlcmVkIGluIHRoZQ0K
+PiBsYXR0ZXIgbG9naWMsIHNvIG5vIG5lZWQgdG8gcmVzZXJ2ZSBpdHMgYml0IHR3aWNlLg0KPg0K
+PiBDaGFuZ2UtSWQ6IEllZWUzOTA5NTNhNjBjN2Q0M2RlNWE5YWVjMzg4MDNmMWY1ODNhNGE5DQo+
+IFNpZ25lZC1vZmYtYnk6IFlvbmcgWmhhbyA8WW9uZy5aaGFvQGFtZC5jb20+DQoNClJldmlld2Vk
+LWJ5OiBGZWxpeCBLdWVobGluZyA8RmVsaXguS3VlaGxpbmdAYW1kLmNvbT4NCg0KDQo+IC0tLQ0K
+PiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9hbWRrZmQuYyB8IDggLS0tLS0t
+LS0NCj4gICAxIGZpbGUgY2hhbmdlZCwgOCBkZWxldGlvbnMoLSkNCj4NCj4gZGlmZiAtLWdpdCBh
+L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9hbWRrZmQuYyBiL2RyaXZlcnMvZ3B1
+L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9hbWRrZmQuYw0KPiBpbmRleCA4YzUzMTc5M2ZlMTcuLmQz
+ZGE5ZGRlNGVlMSAxMDA2NDQNCj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
+Z3B1X2FtZGtmZC5jDQo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9h
+bWRrZmQuYw0KPiBAQCAtMTMwLDE0ICsxMzAsNiBAQCB2b2lkIGFtZGdwdV9hbWRrZmRfZGV2aWNl
+X2luaXQoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpDQo+ICAgCQkJCSAgYWRldi0+Z2Z4Lm1l
+Yy5xdWV1ZV9iaXRtYXAsDQo+ICAgCQkJCSAgS0dEX01BWF9RVUVVRVMpOw0KPiAgIA0KPiAtCQkv
+KiByZW1vdmUgdGhlIEtJUSBiaXQgYXMgd2VsbCAqLw0KPiAtCQlpZiAoYWRldi0+Z2Z4LmtpcS5y
+aW5nLnNjaGVkLnJlYWR5KQ0KPiAtCQkJY2xlYXJfYml0KGFtZGdwdV9nZnhfbWVjX3F1ZXVlX3Rv
+X2JpdChhZGV2LA0KPiAtCQkJCQkJCSAgYWRldi0+Z2Z4LmtpcS5yaW5nLm1lIC0gMSwNCj4gLQkJ
+CQkJCQkgIGFkZXYtPmdmeC5raXEucmluZy5waXBlLA0KPiAtCQkJCQkJCSAgYWRldi0+Z2Z4Lmtp
+cS5yaW5nLnF1ZXVlKSwNCj4gLQkJCQkgIGdwdV9yZXNvdXJjZXMucXVldWVfYml0bWFwKTsNCj4g
+LQ0KPiAgIAkJLyogQWNjb3JkaW5nIHRvIGxpbnV4L2JpdG1hcC5oIHdlIHNob3VsZG4ndCB1c2Ug
+Yml0bWFwX2NsZWFyIGlmDQo+ICAgCQkgKiBuYml0cyBpcyBub3QgY29tcGlsZSB0aW1lIGNvbnN0
+YW50DQo+ICAgCQkgKi8NCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
+Cmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
