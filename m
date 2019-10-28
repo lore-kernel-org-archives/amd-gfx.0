@@ -1,36 +1,86 @@
-From: madhuparnabhowmik04@gmail.com
-Subject: [PATCH] Drivers: gpu: drm: amd: display: amdgpu_dm: amdgpu_dm.h: Fixed a documentation warning
-Date: Mon, 28 Oct 2019 11:34:43 +0530
-Message-ID: <20191028060443.14997-1-madhuparnabhowmik04@gmail.com>
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Sender: linux-kernel-owner@vger.kernel.org
-To: harry.wentland@amd.com, alexander.deucher@amd.com
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, linux-kernel-mentees@lists.linuxfoundation.org, Madhuparna Bhowmik <madhuparnabhowmik04@gmail.com>
-List-Id: amd-gfx.lists.freedesktop.org
+From: "Huang, Ray" <Ray.Huang-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amd/powerplay: Disable gfx CGPG when suspend smu
+Date: Mon, 28 Oct 2019 06:07:06 +0000
+Message-ID: <MN2PR12MB33099769189751D17A09853CEC660@MN2PR12MB3309.namprd12.prod.outlook.com>
+References: <1572001610-9599-1-git-send-email-curry.gong@amd.com>
+ <MN2PR12MB3309AD7F0E9B0911A7AC9C5CEC650@MN2PR12MB3309.namprd12.prod.outlook.com>
+ <MN2PR12MB3069CB862732575D4F9835BF9D660@MN2PR12MB3069.namprd12.prod.outlook.com>
+Mime-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <MN2PR12MB3069CB862732575D4F9835BF9D660-rweVpJHSKTpIs82n4wpHmwdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
+Content-Language: en-US
+Content-ID: <6F00A64E80309A4F9102CDB2D7F91A2F-t0aD9ArCiwdO0n7uQEQMm4CZgX+1HZI1@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Gong, Curry" <Curry.Gong-5C7GfCeVMHo@public.gmane.org>
+Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-From: Madhuparna Bhowmik <madhuparnabhowmik04@gmail.com>
-
-This patch fixes the following  warning: Incorrect use of
- kernel-doc format:          * @atomic_obj
-by adding a colon after @atomic_obj.
-
-Signed-off-by: Madhuparna Bhowmik <madhuparnabhowmik04@gmail.com>
----
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-index c8c525a2b505..80d53d095773 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-@@ -128,7 +128,7 @@ struct amdgpu_display_manager {
- 	u16 display_indexes_num;
- 
- 	/**
--	 * @atomic_obj
-+	 * @atomic_obj:
- 	 *
- 	 * In combination with &dm_atomic_state it helps manage
- 	 * global atomic state that doesn't map cleanly into existing
--- 
-2.17.1
+T24gTW9uLCBPY3QgMjgsIDIwMTkgYXQgMTA6MzQ6NTRBTSArMDgwMCwgR29uZywgQ3Vycnkgd3Jv
+dGU6Cj4gSGkgUmF5Ogo+IAo+IEJlY2F1c2UgSSBmb3VuZCB0aGF0IGVuYWJsZSBDR1BHIGZvciBh
+bGwgQVBVIGluIHNtdV9yZXN1bWUgYXQgMGQyZTliMTA0MjhhNgoKSSBzZWUsIHRoYW5rcy4KClBh
+dGNoIGlzIFJldmlld2VkLWJ5OiBIdWFuZyBSdWkgPHJheS5odWFuZ0BhbWQuY29tPgoKPiAKPiBj
+b21taXQgMGQyZTliMTA0MjhhNmMyNjFjOTlmMmQ5ODJiZTc3NDVmMzVlZWY5Nwo+IEF1dGhvcjog
+UHJpa2UgTGlhbmcgPFByaWtlLkxpYW5nQGFtZC5jb20+Cj4gRGF0ZTogICBUdWUgT2N0IDE1IDE3
+OjExOjQ5IDIwMTkgKzA4MDAKPiAKPiAgICAgZHJtL2FtZGdwdTogZml4IFMzIGZhaWxlZCBhcyBS
+TEMgc2FmZSBtb2RlIGVudHJ5IHN0dWNrZWQgaW4gcG9sbG9pbmcgZ2Z4IGFjcQo+IAo+ICAgICBG
+aXggZ2Z4IGNncGcgc2V0dGluZyBzZXF1ZW5jZSBmb3IgUkxDIGRlYWRsb2NrIGF0IHNhZmUgbW9k
+ZSBlbnRyeSBpbiBwb2xsaW5nIGdmeCByZXNwb25zZS4KPiAgICAgVGhlIHBhdGNoIGNhbiBmaXgg
+VkNOIElCIHRlc3QgZmFpbGVkIGFuZCBEQUwgZ2V0IGRpc3BhbHkgY291bnQgZmFpbGVkIGlzc3Vl
+Lgo+IAo+ICAgICBTaWduZWQtb2ZmLWJ5OiBQcmlrZSBMaWFuZyA8UHJpa2UuTGlhbmdAYW1kLmNv
+bT4KPiAgICAgUmV2aWV3ZWQtYnk6IEh1YW5nIFJ1aSA8cmF5Lmh1YW5nQGFtZC5jb20+Cj4gCj4g
+Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2FtZGdwdV9zbXUu
+YyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2FtZGdwdV9zbXUuYwo+IGluZGV4IGFj
+ZWM2OWI3NDczNC4uZTJhMDNmNDExZDZiIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9h
+bWQvcG93ZXJwbGF5L2FtZGdwdV9zbXUuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93
+ZXJwbGF5L2FtZGdwdV9zbXUuYwo+IEBAIC0xMzUwLDYgKzEzNTEsOSBAQCBzdGF0aWMgaW50IHNt
+dV9yZXN1bWUodm9pZCAqaGFuZGxlKQo+ICAgICAgICAgaWYgKHJldCkKPiAgICAgICAgICAgICAg
+ICAgZ290byBmYWlsZWQ7Cj4gCj4gKyAgICAgICBpZiAoc211LT5pc19hcHUpCj4gKyAgICAgICAg
+ICAgICAgIHNtdV9zZXRfZ2Z4X2NncGcoJmFkZXYtPnNtdSwgdHJ1ZSk7Cj4gKwo+ICAgICAgICAg
+bXV0ZXhfdW5sb2NrKCZzbXUtPm11dGV4KTsKPiAKPiAgICAgICAgIHByX2luZm8oIlNNVSBpcyBy
+ZXN1bWVkIHN1Y2Nlc3NmdWxseSFcbiIpOwo+IAo+IC0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0t
+Cj4gRnJvbTogSHVhbmcsIFJheSA8UmF5Lkh1YW5nQGFtZC5jb20+IAo+IFNlbnQ6IEZyaWRheSwg
+T2N0b2JlciAyNSwgMjAxOSA5OjI2IFBNCj4gVG86IEdvbmcsIEN1cnJ5IDxDdXJyeS5Hb25nQGFt
+ZC5jb20+OyBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+IENjOiBHb25nLCBDdXJyeSA8
+Q3VycnkuR29uZ0BhbWQuY29tPgo+IFN1YmplY3Q6IFJFOiBbUEFUQ0hdIGRybS9hbWQvcG93ZXJw
+bGF5OiBEaXNhYmxlIGdmeCBDR1BHIHdoZW4gc3VzcGVuZCBzbXUKPiAKPiBXaHkgZG8geW91IGRp
+c2FibGUgQ0dQRyBmb3IgYWxsIEFQVT8KPiAKPiBUaGFua3MsCj4gUmF5Cj4gCj4gLS0tLS1Pcmln
+aW5hbCBNZXNzYWdlLS0tLS0KPiBGcm9tOiBhbWQtZ2Z4IDxhbWQtZ2Z4LWJvdW5jZXNAbGlzdHMu
+ZnJlZWRlc2t0b3Aub3JnPiBPbiBCZWhhbGYgT2YgY2hlbiBnb25nCj4gU2VudDogRnJpZGF5LCBP
+Y3RvYmVyIDI1LCAyMDE5IDc6MDcgUE0KPiBUbzogYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5v
+cmcKPiBDYzogR29uZywgQ3VycnkgPEN1cnJ5LkdvbmdAYW1kLmNvbT4KPiBTdWJqZWN0OiBbUEFU
+Q0hdIGRybS9hbWQvcG93ZXJwbGF5OiBEaXNhYmxlIGdmeCBDR1BHIHdoZW4gc3VzcGVuZCBzbXUK
+PiAKPiBpZiBubyBkaXNhYmxlIGdmeCBDR1BHIHdoZW4gc3VzcGVuZCBzbXUsIGVuYWJsaW5nIGdm
+eCBDR1BHIHdpbGwgZmFpbCB3aGVuIHJlc3VtZSBzbXUuCj4gCj4gUGxhdGZvcm06IFJlbm9pcgo+
+IGRtZXNnIGxvZyBpbmZvcm1hdGlvbjoKPiAKPiBbICAxNTEuODQ0MTEwIF0gYW1kZ3B1OiBbcG93
+ZXJwbGF5XSBTTVUgaXMgcmVzdW1pbmcuLi4KPiBbICAxNTEuODQ0MTE2IF0gYW1kZ3B1OiBbcG93
+ZXJwbGF5XSBkcG0gaGFzIGJlZW4gZGlzYWJsZWQgWyAgMTUxLjg0NDYwNCBdIGFtZGdwdTogW3Bv
+d2VycGxheV0gRmFpbGVkIHRvIHNlbmQgbWVzc2FnZSAweDJmLHJlc3BvbnNlIDB4ZmZmZmZmZmIg
+cGFyYW0gMHgxIFsgIDE1MS44NDQ2MDUgXSBhbWRncHU6IFtwb3dlcnBsYXldIFNNVSBpcyByZXN1
+bWVkIHN1Y2Nlc3NmdWxseSEKPiAKPiBTaWduZWQtb2ZmLWJ5OiBjaGVuIGdvbmcgPGN1cnJ5Lmdv
+bmdAYW1kLmNvbT4KPiAtLS0KPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvYW1kZ3B1
+X3NtdS5jIHwgMiArKwo+ICAxIGZpbGUgY2hhbmdlZCwgMiBpbnNlcnRpb25zKCspCj4gCj4gZGlm
+ZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2FtZGdwdV9zbXUuYyBiL2Ry
+aXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2FtZGdwdV9zbXUuYwo+IGluZGV4IDI2OTIzYWEu
+LjRlNDY4YjAgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvYW1k
+Z3B1X3NtdS5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvYW1kZ3B1X3Nt
+dS5jCj4gQEAgLTEzNTEsNiArMTM1MSw4IEBAIHN0YXRpYyBpbnQgc211X3N1c3BlbmQodm9pZCAq
+aGFuZGxlKQo+ICAJaWYgKGFkZXYtPmFzaWNfdHlwZSA+PSBDSElQX05BVkkxMCAmJgo+ICAJICAg
+IGFkZXYtPmdmeC5ybGMuZnVuY3MtPnN0b3ApCj4gIAkJYWRldi0+Z2Z4LnJsYy5mdW5jcy0+c3Rv
+cChhZGV2KTsKPiArCWlmIChzbXUtPmlzX2FwdSkKPiArCQlzbXVfc2V0X2dmeF9jZ3BnKCZhZGV2
+LT5zbXUsIGZhbHNlKTsKPiAgCj4gIAlyZXR1cm4gMDsKPiAgfQo+IC0tCj4gMi43LjQKPiAKPiBf
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwo+IGFtZC1nZngg
+bWFpbGluZyBsaXN0Cj4gYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPiBodHRwczovL2xp
+c3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngKX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QK
+YW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5v
+cmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
