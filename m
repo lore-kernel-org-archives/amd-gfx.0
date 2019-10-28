@@ -1,60 +1,72 @@
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH 3/3] drm/amd/powerplay: Make two functions static
-Date: Mon, 28 Oct 2019 10:06:05 -0400
-Message-ID: <CADnq5_Ow+W_Syo6G3ZUXJeiLbc4YU=DL1FtznaTKm=RGj4tq1g@mail.gmail.com>
-References: <20191028133621.21400-1-yuehaibing@huawei.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Subject: Re: [PATCH v3] drm/radeon: Fix EEH during kexec
+Date: Mon, 28 Oct 2019 10:07:47 -0400
+Message-ID: <CADnq5_Mky3rf8x2f1VJinDO02fQ8UBEW-iDL5nUHrAsSXQKHVg@mail.gmail.com>
+References: <1572036050-18945-1-git-send-email-kmahlkuc@linux.vnet.ibm.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20191028133621.21400-1-yuehaibing-hv44wF8Li93QT0dZR+AlfA@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: YueHaibing <yuehaibing-hv44wF8Li93QT0dZR+AlfA@public.gmane.org>
-Cc: Chunming Zhou <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, Dave Airlie <airlied-cv59FeDIM0c@public.gmane.org>, LKML <linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, Maling list - DRI developers <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>, "Deucher, Alexander" <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, "Quan,
- Evan" <evan.quan-5C7GfCeVMHo@public.gmane.org>, Rex Zhu <rex.zhu-5C7GfCeVMHo@public.gmane.org>, Christian Koenig <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset="UTF-8"
+Return-path: <stable-owner@vger.kernel.org>
+In-Reply-To: <1572036050-18945-1-git-send-email-kmahlkuc@linux.vnet.ibm.com>
+Sender: stable-owner@vger.kernel.org
+To: KyleMahlkuch <kmahlkuc@linux.vnet.ibm.com>
+Cc: "Deucher, Alexander" <alexander.deucher@amd.com>, amd-gfx list <amd-gfx@lists.freedesktop.org>, "for 3.8" <stable@vger.kernel.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gTW9uLCBPY3QgMjgsIDIwMTkgYXQgOTozNyBBTSBZdWVIYWliaW5nIDx5dWVoYWliaW5nQGh1
-YXdlaS5jb20+IHdyb3RlOgo+Cj4gRml4IHNwYXJzZSB3YXJuaW5nczoKPgo+IGRyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1kZ3B1Ly4uL3Bvd2VycGxheS9hcmN0dXJ1c19wcHQuYzoyMDUwOjU6Cj4gIHdh
-cm5pbmc6IHN5bWJvbCAnYXJjdHVydXNfaTJjX2VlcHJvbV9jb250cm9sX2luaXQnIHdhcyBub3Qg
-ZGVjbGFyZWQuIFNob3VsZCBpdCBiZSBzdGF0aWM/Cj4gZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
-cHUvLi4vcG93ZXJwbGF5L2FyY3R1cnVzX3BwdC5jOjIwNjg6NjoKPiAgd2FybmluZzogc3ltYm9s
-ICdhcmN0dXJ1c19pMmNfZWVwcm9tX2NvbnRyb2xfZmluaScgd2FzIG5vdCBkZWNsYXJlZC4gU2hv
-dWxkIGl0IGJlIHN0YXRpYz8KPgo+IFJlcG9ydGVkLWJ5OiBIdWxrIFJvYm90IDxodWxrY2lAaHVh
-d2VpLmNvbT4KPiBTaWduZWQtb2ZmLWJ5OiBZdWVIYWliaW5nIDx5dWVoYWliaW5nQGh1YXdlaS5j
-b20+CgpBcHBsaWVkLiAgVGhhbmtzLiAgSXMgdGhlcmUgbW9yZSB0byB0aGlzIHNlcmllcz8gIEkg
-ZG9uJ3Qgc2VlIHBhdGNoZXMgMSBvciAyLgoKQWxleAoKPiAtLS0KPiAgZHJpdmVycy9ncHUvZHJt
-L2FtZC9wb3dlcnBsYXkvYXJjdHVydXNfcHB0LmMgfCA0ICsrLS0KPiAgMSBmaWxlIGNoYW5nZWQs
-IDIgaW5zZXJ0aW9ucygrKSwgMiBkZWxldGlvbnMoLSkKPgo+IGRpZmYgLS1naXQgYS9kcml2ZXJz
-L2dwdS9kcm0vYW1kL3Bvd2VycGxheS9hcmN0dXJ1c19wcHQuYyBiL2RyaXZlcnMvZ3B1L2RybS9h
-bWQvcG93ZXJwbGF5L2FyY3R1cnVzX3BwdC5jCj4gaW5kZXggZDQ4YTQ5ZC4uMzA5OWFjMiAxMDA2
-NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9hcmN0dXJ1c19wcHQuYwo+
-ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2FyY3R1cnVzX3BwdC5jCj4gQEAg
-LTIwNDcsNyArMjA0Nyw3IEBAIHN0YXRpYyBjb25zdCBzdHJ1Y3QgaTJjX2FsZ29yaXRobSBhcmN0
-dXJ1c19pMmNfZWVwcm9tX2kyY19hbGdvID0gewo+ICAgICAgICAgLmZ1bmN0aW9uYWxpdHkgPSBh
-cmN0dXJ1c19pMmNfZWVwcm9tX2kyY19mdW5jLAo+ICB9Owo+Cj4gLWludCBhcmN0dXJ1c19pMmNf
-ZWVwcm9tX2NvbnRyb2xfaW5pdChzdHJ1Y3QgaTJjX2FkYXB0ZXIgKmNvbnRyb2wpCj4gK3N0YXRp
-YyBpbnQgYXJjdHVydXNfaTJjX2VlcHJvbV9jb250cm9sX2luaXQoc3RydWN0IGkyY19hZGFwdGVy
-ICpjb250cm9sKQo+ICB7Cj4gICAgICAgICBzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiA9IHRv
-X2FtZGdwdV9kZXZpY2UoY29udHJvbCk7Cj4gICAgICAgICBpbnQgcmVzOwo+IEBAIC0yMDY1LDcg
-KzIwNjUsNyBAQCBpbnQgYXJjdHVydXNfaTJjX2VlcHJvbV9jb250cm9sX2luaXQoc3RydWN0IGky
-Y19hZGFwdGVyICpjb250cm9sKQo+ICAgICAgICAgcmV0dXJuIHJlczsKPiAgfQo+Cj4gLXZvaWQg
-YXJjdHVydXNfaTJjX2VlcHJvbV9jb250cm9sX2Zpbmkoc3RydWN0IGkyY19hZGFwdGVyICpjb250
-cm9sKQo+ICtzdGF0aWMgdm9pZCBhcmN0dXJ1c19pMmNfZWVwcm9tX2NvbnRyb2xfZmluaShzdHJ1
-Y3QgaTJjX2FkYXB0ZXIgKmNvbnRyb2wpCj4gIHsKPiAgICAgICAgIGkyY19kZWxfYWRhcHRlcihj
-b250cm9sKTsKPiAgfQo+IC0tCj4gMi43LjQKPgo+Cj4gX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX18KPiBhbWQtZ2Z4IG1haWxpbmcgbGlzdAo+IGFtZC1nZnhA
-bGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFp
-bG1hbi9saXN0aW5mby9hbWQtZ2Z4Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0
-b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1k
-LWdmeA==
+On Fri, Oct 25, 2019 at 4:44 PM KyleMahlkuch
+<kmahlkuc@linux.vnet.ibm.com> wrote:
+>
+> From: Kyle Mahlkuch <kmahlkuc@linux.vnet.ibm.com>
+>
+> During kexec some adapters hit an EEH since they are not properly
+> shut down in the radeon_pci_shutdown() function. Adding
+> radeon_suspend_kms() fixes this issue.
+> Enabled only on PPC because this patch causes issues on some other
+> boards.
+>
+> Signed-off-by: Kyle Mahlkuch <kmahlkuc@linux.vnet.ibm.com>
+
+Applied.  Thanks!
+
+Alex
+
+> ---
+>  drivers/gpu/drm/radeon/radeon_drv.c | 14 ++++++++++++++
+>  1 file changed, 14 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/radeon/radeon_drv.c b/drivers/gpu/drm/radeon/radeon_drv.c
+> index 9e55076..4528f4d 100644
+> --- a/drivers/gpu/drm/radeon/radeon_drv.c
+> +++ b/drivers/gpu/drm/radeon/radeon_drv.c
+> @@ -379,11 +379,25 @@ static int radeon_pci_probe(struct pci_dev *pdev,
+>  static void
+>  radeon_pci_shutdown(struct pci_dev *pdev)
+>  {
+> +#ifdef CONFIG_PPC64
+> +       struct drm_device *ddev = pci_get_drvdata(pdev);
+> +#endif
+> +
+>         /* if we are running in a VM, make sure the device
+>          * torn down properly on reboot/shutdown
+>          */
+>         if (radeon_device_is_virtual())
+>                 radeon_pci_remove(pdev);
+> +
+> +#ifdef CONFIG_PPC64
+> +       /* Some adapters need to be suspended before a
+> +        * shutdown occurs in order to prevent an error
+> +        * during kexec.
+> +        * Make this power specific becauase it breaks
+> +        * some non-power boards.
+> +        */
+> +       radeon_suspend_kms(ddev, true, true, false);
+> +#endif
+>  }
+>
+>  static int radeon_pmops_suspend(struct device *dev)
+> --
+> 1.8.3.1
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
