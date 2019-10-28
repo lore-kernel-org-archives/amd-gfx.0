@@ -1,75 +1,38 @@
-From: Wambui Karuga <wambui.karugax@gmail.com>
-Subject: [Outreachy][PATCH 2/2] drm/amd: correct "_LENTH" mispelling in constant
-Date: Mon, 28 Oct 2019 12:20:05 +0300
-Message-ID: <20191028092005.31121-3-wambui.karugax@gmail.com>
-References: <20191028092005.31121-1-wambui.karugax@gmail.com>
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20191028092005.31121-1-wambui.karugax@gmail.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Cc: alexander.deucher@amd.com, christian.koenig@amd.com, David1.Zhou@amd.com, airlied@linux.ie, daniel@ffwll.ch, outreachy-kernel@googlegroups.com
-List-Id: amd-gfx.lists.freedesktop.org
+From: <jianzh-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH] drm/amdgpu/SRIOV: SRIOV VF doesn't support BACO
+Date: Mon, 28 Oct 2019 10:14:55 +0000
+Message-ID: <20191028101432.16464-1-jianzh@amd.com>
+Mime-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Deng, Emily" <Emily.Deng-5C7GfCeVMHo@public.gmane.org>, "Zhao, Jiange" <Jiange.Zhao-5C7GfCeVMHo@public.gmane.org>, "Nieto, David M" <David.Nieto-5C7GfCeVMHo@public.gmane.org>
 
-Correct the "_LENTH" mispelling in the AMDGPU_MAX_TIMEOUT_PARAM_LENGTH
-constant.
-
-Signed-off-by: Wambui Karuga <wambui.karugax@gmail.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu.h        | 4 ++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 4 ++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c    | 2 +-
- 3 files changed, 5 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-index 3610defdfae1..7d1e528cc783 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-@@ -108,7 +108,7 @@ struct amdgpu_mgpu_info
- 	uint32_t			num_apu;
- };
- 
--#define AMDGPU_MAX_TIMEOUT_PARAM_LENTH	256
-+#define AMDGPU_MAX_TIMEOUT_PARAM_LENGTH	256
- 
- /*
-  * Modules parameters.
-@@ -126,7 +126,7 @@ extern int amdgpu_disp_priority;
- extern int amdgpu_hw_i2c;
- extern int amdgpu_pcie_gen2;
- extern int amdgpu_msi;
--extern char amdgpu_lockup_timeout[AMDGPU_MAX_TIMEOUT_PARAM_LENTH];
-+extern char amdgpu_lockup_timeout[AMDGPU_MAX_TIMEOUT_PARAM_LENGTH];
- extern int amdgpu_dpm;
- extern int amdgpu_fw_load_type;
- extern int amdgpu_aspm;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index 676cad15239f..4eee40b9d0b0 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -2631,9 +2631,9 @@ static int amdgpu_device_get_job_timeout_settings(struct amdgpu_device *adev)
- 	else
- 		adev->compute_timeout = MAX_SCHEDULE_TIMEOUT;
- 
--	if (strnlen(input, AMDGPU_MAX_TIMEOUT_PARAM_LENTH)) {
-+	if (strnlen(input, AMDGPU_MAX_TIMEOUT_PARAM_LENGTH)) {
- 		while ((timeout_setting = strsep(&input, ",")) &&
--				strnlen(timeout_setting, AMDGPU_MAX_TIMEOUT_PARAM_LENTH)) {
-+				strnlen(timeout_setting, AMDGPU_MAX_TIMEOUT_PARAM_LENGTH)) {
- 			ret = kstrtol(timeout_setting, 0, &timeout);
- 			if (ret)
- 				return ret;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-index c685400febe2..16147ca9b851 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-@@ -101,7 +101,7 @@ int amdgpu_disp_priority = 0;
- int amdgpu_hw_i2c = 0;
- int amdgpu_pcie_gen2 = -1;
- int amdgpu_msi = -1;
--char amdgpu_lockup_timeout[AMDGPU_MAX_TIMEOUT_PARAM_LENTH];
-+char amdgpu_lockup_timeout[AMDGPU_MAX_TIMEOUT_PARAM_LENGTH];
- int amdgpu_dpm = -1;
- int amdgpu_fw_load_type = -1;
- int amdgpu_aspm = -1;
--- 
-2.17.1
+RnJvbTogSmlhbmdlIFpoYW8gPEppYW5nZS5aaGFvQGFtZC5jb20+CgpTUklPViBWRiBkb2Vzbid0
+IHN1cHBvcnQgQkFDTy4KCk9ubHkgUEYgd2l0aCBCQUNPIGNhcGFiaWxpdHkgY2FuIGRvIGl0LgoK
+U2lnbmVkLW9mZi1ieTogSmlhbmdlIFpoYW8gPEppYW5nZS5aaGFvQGFtZC5jb20+Ci0tLQogZHJp
+dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvbnYuYyB8IDIgKy0KIDEgZmlsZSBjaGFuZ2VkLCAxIGlu
+c2VydGlvbigrKSwgMSBkZWxldGlvbigtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9h
+bWQvYW1kZ3B1L252LmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9udi5jCmluZGV4IDIy
+YWIxOTU1YjkyMy4uYTU1YTJlODNmYjE5IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1k
+L2FtZGdwdS9udi5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L252LmMKQEAgLTI5
+OSw3ICsyOTksNyBAQCBudl9hc2ljX3Jlc2V0X21ldGhvZChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAq
+YWRldikKIHsKIAlzdHJ1Y3Qgc211X2NvbnRleHQgKnNtdSA9ICZhZGV2LT5zbXU7CiAKLQlpZiAo
+c211X2JhY29faXNfc3VwcG9ydChzbXUpKQorCWlmICghYW1kZ3B1X3NyaW92X3ZmKGFkZXYpICYm
+IHNtdV9iYWNvX2lzX3N1cHBvcnQoc211KSkKIAkJcmV0dXJuIEFNRF9SRVNFVF9NRVRIT0RfQkFD
+TzsKIAllbHNlCiAJCXJldHVybiBBTURfUkVTRVRfTUVUSE9EX01PREUxOwotLSAKMi4yMC4xCgpf
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1h
+aWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZy
+ZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
