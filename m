@@ -1,26 +1,26 @@
-From: Dan Carpenter <dan.carpenter-QHcLZuEGTsvQT0dZR+AlfA@public.gmane.org>
+From: Dan Carpenter <dan.carpenter@oracle.com>
 Subject: Re: [PATCH] drm/sched:  Fix passing zero to 'PTR_ERR' warning
-Date: Tue, 29 Oct 2019 20:51:48 +0300
-Message-ID: <20191029175148.GA3866@kadam>
+Date: Tue, 29 Oct 2019 21:03:57 +0300
+Message-ID: <20191029180357.GB3866@kadam>
 References: <1572361484-9828-1-git-send-email-andrey.grodzovsky@amd.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
 Content-Disposition: inline
-In-Reply-To: <1572361484-9828-1-git-send-email-andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Andrey Grodzovsky <andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>
-Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+In-Reply-To: <1572361484-9828-1-git-send-email-andrey.grodzovsky@amd.com>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+List-Id: amd-gfx.lists.freedesktop.org
 
 T24gVHVlLCBPY3QgMjksIDIwMTkgYXQgMTE6MDQ6NDRBTSAtMDQwMCwgQW5kcmV5IEdyb2R6b3Zz
 a3kgd3JvdGU6Cj4gRml4IGEgc3RhdGljIGNvZGUgY2hlY2tlciB3YXJuaW5nLgo+IAo+IFNpZ25l
@@ -32,17 +32,28 @@ cnMvZ3B1L2RybS9zY2hlZHVsZXIvc2NoZWRfbWFpbi5jCj4gaW5kZXggZjM5Yjk3ZS4uODk4YjBj
 OSAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vc2NoZWR1bGVyL3NjaGVkX21haW4uYwo+
 ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9zY2hlZHVsZXIvc2NoZWRfbWFpbi5jCj4gQEAgLTQ5Nyw3
 ICs0OTcsNyBAQCB2b2lkIGRybV9zY2hlZF9yZXN1Ym1pdF9qb2JzKHN0cnVjdCBkcm1fZ3B1X3Nj
-aGVkdWxlciAqc2NoZWQpCj4gIAo+ICAJCWlmIChJU19FUlJfT1JfTlVMTChmZW5jZSkpIHsKPiAg
-CQkJc19qb2ItPnNfZmVuY2UtPnBhcmVudCA9IE5VTEw7Cj4gLQkJCWRtYV9mZW5jZV9zZXRfZXJy
-b3IoJnNfZmVuY2UtPmZpbmlzaGVkLCBQVFJfRVJSKGZlbmNlKSk7Cj4gKwkJCWRtYV9mZW5jZV9z
-ZXRfZXJyb3IoJnNfZmVuY2UtPmZpbmlzaGVkLCBQVFJfRVJSX09SX1pFUk8oZmVuY2UpKTsKClRo
-aXMgd2lsbCBzaWxlbmNlIHRoZSBzdGF0aWMgY2hlY2tlciB3YXJuaW5nLCBidXQgaXQgd2lsbCBz
-dGlsbCB0cmlnZ2VyCmEgV0FSTl9PTigpLiAgQW5kIGl0IHNvcnQgb2YgaGFzIGluc3BpcmVkIG1l
-IHRvIGdlbmVyYXRlIGEgbmV3IHdhcm5pbmcKYmVjYXVzZSB0aGF0J3Mgbm90IGhvdyBQVFJfRVJS
-X09SX1pFUk8oKSBpcyBzdXBwb3NlZCB0byBiZSB1c2VkLiAgOlAKClBUUl9FUlJfT1JfWkVSTygp
-IGlzIHNob3J0IGhhbmQgZm9yIHRoaXMgc2l0dWF0aW9uOgoKLQlpZiAoSVNfRVJSKGZlbmNlKSkK
-LQkJcmV0dXJuIFBUUl9FUlIoZmVuY2UpOwotCXJldHVybiAwOworCXJldHVybiBQVFJfRVJSX09S
-X1pFUk8oZmVuY2UpOwoKcmVnYXJkcywKZGFuIGNhcnBlbnRlcgoKCl9fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1n
-ZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21h
-aWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
+aGVkdWxlciAqc2NoZWQpCj4gCQlmZW5jZSA9IHNjaGVkLT5vcHMtPnJ1bl9qb2Ioc19qb2IpOwo+
+ICAKPiAgCQlpZiAoSVNfRVJSX09SX05VTEwoZmVuY2UpKSB7Cj4gIAkJCXNfam9iLT5zX2ZlbmNl
+LT5wYXJlbnQgPSBOVUxMOwo+IC0JCQlkbWFfZmVuY2Vfc2V0X2Vycm9yKCZzX2ZlbmNlLT5maW5p
+c2hlZCwgUFRSX0VSUihmZW5jZSkpOwo+ICsJCQlkbWFfZmVuY2Vfc2V0X2Vycm9yKCZzX2ZlbmNl
+LT5maW5pc2hlZCwgUFRSX0VSUl9PUl9aRVJPKGZlbmNlKSk7CgpJIGZlZWwgbGlrZSBJIHNob3Vs
+ZCBleHBsYWluIGJldHRlci4gIEl0J3MgZ2VuZXJhbGx5IGJhZCB0byBtaXggTlVMTCBhbmQKZXJy
+b3IgcG9pbnRlcnMuICBUaGUgc2l0dWF0aW9uIHdoZXJlIHlvdSB3b3VsZCBkbyBpdCBpcyB3aGVu
+IE5VTEwgaXMgYQpzcGVjaWFsIGNhc2Ugb2Ygc3VjY2Vzcy4gIEEgdHlwaWNhbCBzaXR1YXRpb24g
+aXMgeW91IHJlcXVlc3QgYSBmZWF0dXJlLApsaWtlIG1heWJlIGxvZ2dpbmcgZm9yIGV4YW1wbGU6
+CgoJcCA9IGdldF9sb2dnZXIoKTsKCklmIHRoZXJlIGlzbid0IGVub3VnaCBtZW1vcnkgdGhlbiBn
+ZXRfbG9nZ2VyKCkgcmV0dXJucyBFUlJfUFRSKC1FTk9NRU0pOwpidXQgaWYgdGhlIHVzZXIgaGFz
+IGRpc2FibGVkIGxvZ2dpbmcgdGhlbiB3ZSBjYW4ndCByZXR1cm4gYSB2YWxpZApwb2ludGVyIGJ1
+dCBpdCdzIGFsc28gbm90IGFuIGVycm9yIHNvIHdlIHJldHVybiBOVUxMLiAgSXQncyBhIHNwZWNp
+YWwKY2FzZSBvZiBzdWNjZXNzLgoKSW4gdGhpcyBzaXR1YXRpb24gc2NoZWQtPm9wcy0+cnVuX2pv
+YihzX2pvYik7IGFwcGVhcnMgdG8gb25seSBldmVyCnJldHVybiBOVUxMIGFuZCBpdCdzIG5vdCBh
+IHNwZWNpYWwgY2FzZSBvZiBzdWNjZXNzLCBpdCdzIGEgcmVndWxhciBvbGQKZXJyb3IuICBJIGd1
+ZXNzIHdlIGFyZSB0cmFuc2l0aW9uaW5nIGZyb20gcmV0dXJuaW5nIE5VTEwgdG8gcmV0dXJuaW5n
+CmVycm9yIHBvaW50ZXJzPwoKU28gd2Ugc2hvdWxkIGp1c3QgZG8gc29tZXRoaW5nIGxpa2U6CgoJ
+ZmVuY2UgPSBzY2hlZC0+b3BzLT5ydW5fam9iKHNfam9iKTsKCgkvKiBGSVhNRTogT2N0IDIwMTk6
+IFJlbW92ZSB0aGlzIGNvZGUgd2hlbiBmZW5jZSBjYW4ndCBiZSBOVUxMLiAqLwoJaWYgKCFmZW5j
+ZSkKCQlmZW5jZSA9IEVSUl9QVFIoLUVJTlZBTCk7CgoJaWYgKElTX0VSUihmZW5jZSkpIHsKCQku
+Li4KCnJlZ2FyZHMsCmRhbiBjYXJwZW50ZXIKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fCmRyaS1kZXZlbCBtYWlsaW5nIGxpc3QKZHJpLWRldmVsQGxpc3Rz
+LmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xp
+c3RpbmZvL2RyaS1kZXZlbA==
