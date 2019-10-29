@@ -6,35 +6,35 @@ X-Spam-Status: No, score=-3.8 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
 	MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS autolearn=no
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 50239CA9EB9
-	for <amd-gfx@archiver.kernel.org>; Tue, 29 Oct 2019 05:50:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E4DA8CA9EB9
+	for <amd-gfx@archiver.kernel.org>; Tue, 29 Oct 2019 05:51:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2C38D20659
-	for <amd-gfx@archiver.kernel.org>; Tue, 29 Oct 2019 05:50:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2C38D20659
+	by mail.kernel.org (Postfix) with ESMTPS id C037620659
+	for <amd-gfx@archiver.kernel.org>; Tue, 29 Oct 2019 05:51:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C037620659
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=suse.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EE4316E086;
-	Tue, 29 Oct 2019 05:50:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 868856E08C;
+	Tue, 29 Oct 2019 05:51:11 +0000 (UTC)
 Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 99E0D6E086
- for <amd-gfx@lists.freedesktop.org>; Tue, 29 Oct 2019 05:50:38 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 978B96E08C
+ for <amd-gfx@lists.freedesktop.org>; Tue, 29 Oct 2019 05:51:10 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id 2011CB1F7;
- Tue, 29 Oct 2019 05:50:37 +0000 (UTC)
-Date: Tue, 29 Oct 2019 06:50:37 +0100
-Message-ID: <s5hd0egt80i.wl-tiwai@suse.de>
+ by mx1.suse.de (Postfix) with ESMTP id 2D306B24B;
+ Tue, 29 Oct 2019 05:51:09 +0000 (UTC)
+Date: Tue, 29 Oct 2019 06:51:09 +0100
+Message-ID: <s5hblu0t7zm.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: Alex Deucher <alexdeucher@gmail.com>
-Subject: Re: [PATCH 20/21] ALSA: hda/hdmi - enable runtime pm for newer AMD
- display audio
-In-Reply-To: <20191028214216.1508370-21-alexander.deucher@amd.com>
+Subject: Re: [PATCH 21/21] ALSA: hda/hdmi - enable automatic runtime pm for
+ AMD HDMI codecs by default
+In-Reply-To: <20191028214216.1508370-22-alexander.deucher@amd.com>
 References: <20191028214216.1508370-1-alexander.deucher@amd.com>
- <20191028214216.1508370-21-alexander.deucher@amd.com>
+ <20191028214216.1508370-22-alexander.deucher@amd.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
@@ -56,15 +56,13 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-Message-ID: <20191029055037.sQbklUR_P9DnwgfcjRLBGcPGFbvLTWkPMLIg6mkgrJg@z>
+Message-ID: <20191029055109.vDYRh0H91wET-kNh2lai1ygLNCzLLLGerUKLiEfGLZY@z>
 
-T24gTW9uLCAyOCBPY3QgMjAxOSAyMjo0MjoxNSArMDEwMCwKQWxleCBEZXVjaGVyIHdyb3RlOgo+
-IAo+IFdlIGFyZSBhYmxlIHRvIHBvd2VyIGRvd24gdGhlIEdQVSBhbmQgYXVkaW8gdmlhIHRoZSBH
-UFUgZHJpdmVyCj4gc28gZmxhZyB0aGVzZSBhc2ljcyBhcyBzdXBwb3J0aW5nIHJ1bnRpbWUgcG0u
-Cj4gCj4gQWNrZWQtYnk6IEV2YW4gUXVhbiA8ZXZhbi5xdWFuQGFtZC5jb20+Cj4gU2lnbmVkLW9m
-Zi1ieTogQWxleCBEZXVjaGVyIDxhbGV4YW5kZXIuZGV1Y2hlckBhbWQuY29tPgo+IC0tLQo+IAo+
-IHYyOgo+IC0gc3BsaXQgb3V0IGFkZGluZyB0aGUgbmV3IHBjaSBpZHMKClJldmlld2VkLWJ5OiBU
-YWthc2hpIEl3YWkgPHRpd2FpQHN1c2UuZGU+CgoKdGhhbmtzLAoKVGFrYXNoaQpfX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlz
-dAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9w
-Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
+T24gTW9uLCAyOCBPY3QgMjAxOSAyMjo0MjoxNiArMDEwMCwKQWxleCBEZXVjaGVyIHdyb3RlOgo+
+IAo+IFNvIHRoYXQgd2UgY2FuIHBvd2VyIGRvd24gdGhlIEdQVSBhbmQgYXVkaW8gdG8gc2F2ZSBw
+b3dlci4KPiAKPiBBY2tlZC1ieTogRXZhbiBRdWFuIDxldmFuLnF1YW5AYW1kLmNvbT4KPiBTaWdu
+ZWQtb2ZmLWJ5OiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+CgpSZXZp
+ZXdlZC1ieTogVGFrYXNoaSBJd2FpIDx0aXdhaUBzdXNlLmRlPgoKCnRoYW5rcywKClRha2FzaGkK
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
