@@ -2,102 +2,96 @@ Return-Path: <SRS0=VQNv=YW=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.8 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-6.7 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
+	HTML_MESSAGE,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,
+	SPF_PASS autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9BA79CA9EAE
-	for <amd-gfx@archiver.kernel.org>; Tue, 29 Oct 2019 12:43:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 46472CA9EC4
+	for <amd-gfx@archiver.kernel.org>; Tue, 29 Oct 2019 12:43:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 41C5C2086A
-	for <amd-gfx@archiver.kernel.org>; Tue, 29 Oct 2019 12:43:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 41C5C2086A
+	by mail.kernel.org (Postfix) with ESMTPS id 24EA821734
+	for <amd-gfx@archiver.kernel.org>; Tue, 29 Oct 2019 12:43:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 24EA821734
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 116C56E2DD;
-	Tue, 29 Oct 2019 12:43:04 +0000 (UTC)
-Received: from NAM04-SN1-obe.outbound.protection.outlook.com
- (mail-eopbgr700046.outbound.protection.outlook.com [40.107.70.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 322F16E2D3
- for <amd-gfx@lists.freedesktop.org>; Tue, 29 Oct 2019 12:43:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D140C6E2DE;
+	Tue, 29 Oct 2019 12:43:48 +0000 (UTC)
+Received: from NAM04-CO1-obe.outbound.protection.outlook.com
+ (mail-eopbgr690080.outbound.protection.outlook.com [40.107.69.80])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4D1F56E2DE
+ for <amd-gfx@lists.freedesktop.org>; Tue, 29 Oct 2019 12:43:47 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Dt9y6kBrKhNFnlvZNrZ53oHuKF6O6n886xt6M3MjTseD47Pk4DKjTJlYZIhtF3mf8BJtfhznfeBtcSsOuUkPSufFzLm66X1wXEnE5rgwMC3gMH2kVuJxJseCZ81MARnKU3gx5jHZywL1hAhJU2KCtdrIn/WPj0h1ixHGwsKsTuNQmQvcv0uKzTBBLy4hnio/96ATdqDpsgRSuRSrgjwo+zBOBCHbp5WH0M+KxgeQ2m0hxYS4WNSUf/6PuhRxDUF82PEuJmr/5q85u+E9CcKlWYPenuCK6Q9mU/bec/IvvEgBxSAM8eNuBo1kqiIf/kXwMJi/6HEf2nFso6itZ5p77Q==
+ b=JbLtPaQV+3dsLljJZVqtcgLVMWeJ/kK1tjvvcfEo0rqd0P62F+0f5jCwFEtKW7RqHfkVHGlK03nHVOUVyJvkOydMTIW8OFTxaJ6nBqWOkbNwHX3YjkLypQGIyqj0YHr6ri7Kx3Pvs5X+qygObNF+bwfqoj7niSlwxt44wHWB4UlxV3WW//JCsG7nDamJAfkECyl2iWJRrDp6MsF9AuD8QwJZ+awL45QU6KlFKTHoCgqdCRCdrfN2RxUAqsyBQSJnrnvO23pexGCDcikkKN4ETyLHAZBttE2q7W6BHbzxUp2/t/YI+lm429CV5PSgRTrUaDKrAlM20Lvdzj76kw87vg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5DTHZDblfxeGp6KY1/X8Q5plL2+TjbvgVkfqL5gXnHo=;
- b=BfvlENt8wx5mobpXAklkqBAdKYqD4GUhHueHNUFulcI//xXbSGAC6C3uXlyTZG8DLqSDq9fT2Ygt22rYkQDxm1Ctl4ysy4SOm/F+Entb4lVhIBL/tHGksGFQVxkPsfK4gEzZJ/ClO5Wimqo0JsFgnOqSofFzk90yNbNYQ+JG2gwsGDdGi6Cdksfzt53pi8YvLAU0cmAbqZp1zcwPDriOGN6hX+5/jWJhYIpka90ZI7mUTBPnTpx/tm07j9wMYt6E5k6YuK7NsPRFbk9hDTIPwJ0hPL/3FL6ZeABqFHSYKmwGQOnosU1KGf7hj2qgXtb6+0hGsm1vswsu10FgnZD+Kw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=permerror action=none header.from=amd.com; dkim=none (message not
- signed); arc=none
-Received: from DM5PR12CA0069.namprd12.prod.outlook.com (2603:10b6:3:103::31)
- by DM6PR12MB3226.namprd12.prod.outlook.com (2603:10b6:5:185::30) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2387.24; Tue, 29 Oct
- 2019 12:43:01 +0000
-Received: from CO1NAM03FT020.eop-NAM03.prod.protection.outlook.com
- (2a01:111:f400:7e48::208) by DM5PR12CA0069.outlook.office365.com
- (2603:10b6:3:103::31) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id 15.20.2408.17 via Frontend
- Transport; Tue, 29 Oct 2019 12:43:01 +0000
-Received-SPF: None (protection.outlook.com: amd.com does not designate
+ bh=CZhAmvNRqibtDYp3RTrIaF7b3zrR5QjPiB2p83kB4Mk=;
+ b=AlqL0BWdxPmEk9r7YtFa8zbHvPgU4FTxTejo6QHa1twHuRNc/t/aQSkAJ3vdnw2yps9VhH/A+mG7/7Xc9gcZq8flU481bz7EHA4MBAdSUwImB6kaFWOJGkdbbmEUYG6XtjhYCWo43qQFk6bMYpbZiXMVkPp+oCNJr3Qs6vMhTG8BPQ5kX78PcTsGokOViQ3R5WMHUY8TATK3l+EfL4dCDExsUqzXhMkOXT1qpaWNLoh2CgxdbqC3uiEDkrSEWfspoyOMciT5ilcUESIjnNVLpkxEfzwB7Gf2X0sX93udoyfKJTPMJ5CAtGiyC+TUkMNU0PLbWongFLHxTBYaDhaBZw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+Received: from DM5PR12MB1820.namprd12.prod.outlook.com (10.175.88.143) by
+ DM5PR12MB2536.namprd12.prod.outlook.com (52.132.140.164) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2387.24; Tue, 29 Oct 2019 12:43:46 +0000
+Received: from DM5PR12MB1820.namprd12.prod.outlook.com
+ ([fe80::a0bb:dcbd:9ae:7807]) by DM5PR12MB1820.namprd12.prod.outlook.com
+ ([fe80::a0bb:dcbd:9ae:7807%5]) with mapi id 15.20.2387.025; Tue, 29 Oct 2019
+ 12:43:45 +0000
+From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
+To: "Ma, Le" <Le.Ma@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: Re: [PATCH 1/1] drm/amdgpu: add missing amdgpu_ras.h header include
+Thread-Topic: [PATCH 1/1] drm/amdgpu: add missing amdgpu_ras.h header include
+Thread-Index: AQHVjlZr7jMnXNd/3U6FCcX44cdqKKdxkEfp
+Date: Tue, 29 Oct 2019 12:43:45 +0000
+Message-ID:
+ <DM5PR12MB18200145818DFEB546A06701F7610@DM5PR12MB1820.namprd12.prod.outlook.com>
+References: <1572352976-22963-1-git-send-email-le.ma@amd.com>
+In-Reply-To: <1572352976-22963-1-git-send-email-le.ma@amd.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [71.219.59.120]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-ht: Tenant
+x-ms-office365-filtering-correlation-id: 0186b7dc-a083-4030-16b7-08d75c6da36d
+x-ms-traffictypediagnostic: DM5PR12MB2536:
+x-ms-exchange-purlcount: 1
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <DM5PR12MB25361473B43BCF784C476AD7F7610@DM5PR12MB2536.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:169;
+x-forefront-prvs: 0205EDCD76
+x-forefront-antispam-report: SFV:NSPM;
+ SFS:(10009020)(4636009)(366004)(376002)(39860400002)(346002)(396003)(136003)(199004)(189003)(25786009)(8936002)(6506007)(64756008)(606006)(66446008)(5660300002)(66476007)(76116006)(66556008)(316002)(6246003)(66066001)(110136005)(14454004)(446003)(54896002)(4326008)(6306002)(236005)(11346002)(55016002)(256004)(7736002)(476003)(9686003)(52536014)(66946007)(966005)(478600001)(2906002)(486006)(76176011)(3846002)(2501003)(186003)(33656002)(53546011)(19627405001)(71190400001)(8676002)(86362001)(7696005)(71200400001)(229853002)(102836004)(6436002)(99286004)(74316002)(81156014)(26005)(6116002)(105004)(81166006);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:DM5PR12MB2536;
+ H:DM5PR12MB1820.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; A:1; MX:1; 
+received-spf: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
-Received: from SATLEXMB01.amd.com (165.204.84.17) by
- CO1NAM03FT020.mail.protection.outlook.com (10.152.80.178) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id
- 15.20.2387.20 via Frontend Transport; Tue, 29 Oct 2019 12:43:01 +0000
-Received: from SATLEXMB02.amd.com (10.181.40.143) by SATLEXMB01.amd.com
- (10.181.40.142) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Tue, 29 Oct
- 2019 07:43:00 -0500
-Received: from localhost.localdomain (10.180.168.240) by SATLEXMB02.amd.com
- (10.181.40.143) with Microsoft SMTP Server id 15.1.1713.5 via Frontend
- Transport; Tue, 29 Oct 2019 07:42:59 -0500
-From: Le Ma <le.ma@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 1/1] drm/amdgpu: add missing amdgpu_ras.h header include
-Date: Tue, 29 Oct 2019 20:42:56 +0800
-Message-ID: <1572352976-22963-1-git-send-email-le.ma@amd.com>
-X-Mailer: git-send-email 2.7.4
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: wyyNyJctr/MifF5m+1/0VLSId7rRmetkzYTvzrxMvDLPIfWmoNnSC6kmj6LdBOHlGmEwNT9QKWYZYK1Cq8/iwDQZezXm1ZbiuDjwGGqweFHtGskfspMzPTbmwDlXmPPdPUS68jYP58fBNM/fXJyMCRSCYcn61ewTXRS328aGAioQ06IobDgKZLQroQIpKseKCii+8W3vvtVAxWsQ/sJqFC/q5WMiEX1DZmxdXONog0wm7NX9696MZ2LzUbJ9ORkgYy0j+ziJA27z/da1HORrKmIOy94pPNkAu380yfHOuYtDvklZghNyCWlJ5FkESHNpvla711qHt1j1M2sNB75q4KaT0kwQo8KdI2Tpy2Mgks5Jf3ZFDOESyD5+kEYjdkkJyOOkIwvk+EDC+jrtX73CiQoKXFFAv5VgD1zELXs+tVNk+9C63gek3gm7dvXUC3rIQxQtWxVkgLPh0rjLejlO+dWRSEiWM3IpSfQTh1+XLsA=
 MIME-Version: 1.0
-X-EOPAttributedMessage: 0
-X-MS-Office365-Filtering-HT: Tenant
-X-Forefront-Antispam-Report: CIP:165.204.84.17; IPV:NLI; CTRY:US; EFV:NLI;
- SFV:NSPM;
- SFS:(10009020)(4636009)(136003)(346002)(376002)(39860400002)(396003)(428003)(189003)(199004)(36756003)(186003)(4326008)(51416003)(476003)(6916009)(2616005)(86362001)(8676002)(47776003)(2351001)(126002)(305945005)(44832011)(486006)(8936002)(81166006)(336012)(81156014)(316002)(16586007)(54906003)(356004)(26005)(50466002)(48376002)(50226002)(70206006)(6666004)(5660300002)(70586007)(426003)(478600001)(4744005)(2906002);
- DIR:OUT; SFP:1101; SCL:1; SRVR:DM6PR12MB3226; H:SATLEXMB01.amd.com; FPR:;
- SPF:None; LANG:en; PTR:InfoDomainNonexistent; MX:1; A:1; 
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 6c52416b-9d08-41ce-023d-08d75c6d88da
-X-MS-TrafficTypeDiagnostic: DM6PR12MB3226:
-X-Microsoft-Antispam-PRVS: <DM6PR12MB3226207D8A99E45B5102D050F6610@DM6PR12MB3226.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:296;
-X-Forefront-PRVS: 0205EDCD76
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: NSEms4pCGyEIWHMPe9fkmeKsNGU89r9XE2ANrPDrjEc3G3f1V26KR2vN1677FJQ62qNLMJhorTfjs9vcHJWkkW5rQINq+RBtpOXbOtKe/ef3RcmVHIIVwjv7CKGmcykGZU9+CLsGEbInS9yauQuUAKypiRqKWX+sjkupukXJ5HSwAQjQk0x4g5hF9WTXUdvxvmgvJeZpHLk6yueDV2Gh//HIpKigTmIrfcfGZvIIzYo0MVIUn8H5lkf014GcPeI+C9sB9l4RxJgFZ2iMrcYcdqEaUl8u8JNKwJeVFwYW5AuWAZ5hbyqvtJmvSSY+l0WDIAPSBzYbKL9EfcZ2s4j92HEgoGNlTGfdQEOTrZCR+xOvv5jGzhekIFilk9VuN2pIfFiPf0CkvknjLEXaoq8XlPge0Wsi7oW6m7QAz1I3m34JXEw/uNSJ5sWcVYCn0WjN
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Oct 2019 12:43:01.1762 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6c52416b-9d08-41ce-023d-08d75c6d88da
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB01.amd.com]
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3226
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0186b7dc-a083-4030-16b7-08d75c6da36d
+X-MS-Exchange-CrossTenant-originalarrivaltime: 29 Oct 2019 12:43:45.7371 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 8nj6rAQdprfXPfGXqLBsg6nSZWXUpZsx0yVhOP5rWWlBmobcqnUMymhQYpZEUFKMYnIVd3zMjv1Lf3joCfC5vg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB2536
 X-Mailman-Original-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5DTHZDblfxeGp6KY1/X8Q5plL2+TjbvgVkfqL5gXnHo=;
- b=bMN1z83hI5um+a7PoD/Zq/0l+gRgC9y9oh9j1yrRkoZyCBBDpUB5JDq98MxpV7KAnIylaC94y/7wgblPvrCaqN731a7I0Yh4y5dNbrFm/UI/v0/AMdhCqlNTQh50EwXtCFzC/SfYg6IfJ+0aEEMogCgNHXsrcGYs+0mWK66YhZw=
-X-Mailman-Original-Authentication-Results: spf=none (sender IP is
- 165.204.84.17)
- smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
- header.d=none;lists.freedesktop.org; dmarc=permerror action=none
- header.from=amd.com;
+ bh=CZhAmvNRqibtDYp3RTrIaF7b3zrR5QjPiB2p83kB4Mk=;
+ b=IELLXpaVt+Xv47vZGb41BQWzII1Q9szB80dqevifL+L7lJt7/k+OuEeRJ2fpMyBRy5lt6NdvYlBB20VK4MQCM/JeFbjWWSe2d9EaAmXBVstKLTVmvTNHuuZ1RkplR6ZCF1TL6cRJbS2K2PobJzRnRfie7goJCBOUtKm89NAlVjQ=
+X-Mailman-Original-Authentication-Results: spf=none (sender IP is )
+ smtp.mailfrom=Alexander.Deucher@amd.com; 
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -109,24 +103,137 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Tom.StDenis@amd.com, Le Ma <le.ma@amd.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: "StDenis, Tom" <Tom.StDenis@amd.com>
+Content-Type: multipart/mixed; boundary="===============1749603891=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-Message-ID: <20191029124256.UlvwmrD-92uXzYEDQmPNzRvsNXfbRP8vqUCKCiw5GCw@z>
+Message-ID: <20191029124345.w1cVqjLH5RTOVLS80Ykv4QS6I670rH8kwcAzliizAZU@z>
 
-Rml4IGNvbXBpbGF0aW9uIGVycm9yLgoKQ2hhbmdlLUlkOiBJNDYxYzU1ODc3OGY5YTUyMzc4MjY5
-MzI0ZGM0MWI4ZDYzOWYzY2NiZQpTaWduZWQtb2ZmLWJ5OiBMZSBNYSA8bGUubWFAYW1kLmNvbT4K
-LS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcHNwLmMgfCAyICsrCiAxIGZp
-bGUgY2hhbmdlZCwgMiBpbnNlcnRpb25zKCspCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJt
-L2FtZC9hbWRncHUvYW1kZ3B1X3BzcC5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
-Z3B1X3BzcC5jCmluZGV4IGZjZTIwNmYuLmJiZTlhYzcgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9wc3AuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
-ZGdwdS9hbWRncHVfcHNwLmMKQEAgLTM0LDYgKzM0LDggQEAKICNpbmNsdWRlICJwc3BfdjExXzAu
-aCIKICNpbmNsdWRlICJwc3BfdjEyXzAuaCIKIAorI2luY2x1ZGUgImFtZGdwdV9yYXMuaCIKKwog
-c3RhdGljIHZvaWQgcHNwX3NldF9mdW5jcyhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldik7CiAK
-IHN0YXRpYyBpbnQgcHNwX2Vhcmx5X2luaXQodm9pZCAqaGFuZGxlKQotLSAKMi43LjQKCl9fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGlu
-ZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRl
-c2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
+--===============1749603891==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_DM5PR12MB18200145818DFEB546A06701F7610DM5PR12MB1820namp_"
+
+--_000_DM5PR12MB18200145818DFEB546A06701F7610DM5PR12MB1820namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
+________________________________
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> on behalf of Le Ma <l=
+e.ma@amd.com>
+Sent: Tuesday, October 29, 2019 8:42 AM
+To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
+Cc: StDenis, Tom <Tom.StDenis@amd.com>; Ma, Le <Le.Ma@amd.com>
+Subject: [PATCH 1/1] drm/amdgpu: add missing amdgpu_ras.h header include
+
+Fix compilation error.
+
+Change-Id: I461c558778f9a52378269324dc41b8d639f3ccbe
+Signed-off-by: Le Ma <le.ma@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_psp.c
+index fce206f..bbe9ac7 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+@@ -34,6 +34,8 @@
+ #include "psp_v11_0.h"
+ #include "psp_v12_0.h"
+
++#include "amdgpu_ras.h"
++
+ static void psp_set_funcs(struct amdgpu_device *adev);
+
+ static int psp_early_init(void *handle)
+--
+2.7.4
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--_000_DM5PR12MB18200145818DFEB546A06701F7610DM5PR12MB1820namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Acked-by: Alex Deucher &lt;alexander.deucher@amd.com&gt;<br>
+</div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
+ounces@lists.freedesktop.org&gt; on behalf of Le Ma &lt;le.ma@amd.com&gt;<b=
+r>
+<b>Sent:</b> Tuesday, October 29, 2019 8:42 AM<br>
+<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
+gt;<br>
+<b>Cc:</b> StDenis, Tom &lt;Tom.StDenis@amd.com&gt;; Ma, Le &lt;Le.Ma@amd.c=
+om&gt;<br>
+<b>Subject:</b> [PATCH 1/1] drm/amdgpu: add missing amdgpu_ras.h header inc=
+lude</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">Fix compilation error.<br>
+<br>
+Change-Id: I461c558778f9a52378269324dc41b8d639f3ccbe<br>
+Signed-off-by: Le Ma &lt;le.ma@amd.com&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c | 2 &#43;&#43;<br>
+&nbsp;1 file changed, 2 insertions(&#43;)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_psp.c<br>
+index fce206f..bbe9ac7 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c<br>
+@@ -34,6 &#43;34,8 @@<br>
+&nbsp;#include &quot;psp_v11_0.h&quot;<br>
+&nbsp;#include &quot;psp_v12_0.h&quot;<br>
+&nbsp;<br>
+&#43;#include &quot;amdgpu_ras.h&quot;<br>
+&#43;<br>
+&nbsp;static void psp_set_funcs(struct amdgpu_device *adev);<br>
+&nbsp;<br>
+&nbsp;static int psp_early_init(void *handle)<br>
+-- <br>
+2.7.4<br>
+<br>
+_______________________________________________<br>
+amd-gfx mailing list<br>
+amd-gfx@lists.freedesktop.org<br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
+lists.freedesktop.org/mailman/listinfo/amd-gfx</a></div>
+</span></font></div>
+</body>
+</html>
+
+--_000_DM5PR12MB18200145818DFEB546A06701F7610DM5PR12MB1820namp_--
+
+--===============1749603891==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+
+--===============1749603891==--
