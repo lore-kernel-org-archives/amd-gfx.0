@@ -2,104 +2,96 @@ Return-Path: <SRS0=VQNv=YW=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.7 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
-	HTML_MESSAGE,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,
-	SPF_PASS autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-9.8 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 09640CA9EAE
-	for <amd-gfx@archiver.kernel.org>; Tue, 29 Oct 2019 09:33:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 56874CA9EAE
+	for <amd-gfx@archiver.kernel.org>; Tue, 29 Oct 2019 11:36:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D1D2F2087E
-	for <amd-gfx@archiver.kernel.org>; Tue, 29 Oct 2019 09:33:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D1D2F2087E
+	by mail.kernel.org (Postfix) with ESMTPS id 3246220830
+	for <amd-gfx@archiver.kernel.org>; Tue, 29 Oct 2019 11:36:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3246220830
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9BDA46E19B;
-	Tue, 29 Oct 2019 09:33:17 +0000 (UTC)
-Received: from NAM01-SN1-obe.outbound.protection.outlook.com
- (mail-eopbgr820074.outbound.protection.outlook.com [40.107.82.74])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 747DC6E19B;
- Tue, 29 Oct 2019 09:33:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CD4AD6E216;
+	Tue, 29 Oct 2019 11:36:56 +0000 (UTC)
+Received: from NAM04-CO1-obe.outbound.protection.outlook.com
+ (mail-eopbgr690063.outbound.protection.outlook.com [40.107.69.63])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5FE356E216
+ for <amd-gfx@lists.freedesktop.org>; Tue, 29 Oct 2019 11:36:55 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=REpZKTRudZZcaj0YReIhCMdPHPa/1pipiTLYgVeDbEPIKOrja9y2cBnlL9ooC+lC6YtNND8/MMIzCjhy8q4T9HXvnZlBYcimmuTFVCHGOuzVRwX+hBgEgNkI/7iRvVOteATvk/WbOmwgQu3v8wX01AtM2OfBjnzmAvbaouLL2tbxI9172ge48hP9xzteRpCJxE+hKoeIpb0R98Wis/Iks+g+S1KywmDWO6Y0+2wRxh42YwR1QmEQrCtNAe7uZ7FJChfx1OZPzXI7WgmNtj+Vnhhr2lJFpOUi3/suGTRZSY8D1OcCFXUO2dytGnDq57jt+yx1eoaLKEgwKBNjYldHmQ==
+ b=GDJ1+k7mgF4ySu4SUlPcVV/cOvhFIK2QQ7DGitpQJIF17w/WVHsLldab2UP4H0++JY6Gwf03QdTeNnepY3Fb807X1apO+JqYfSIf5heQ4xhQpyln8gc1CAWkVgKKsAbUpwvABB2xe9LpBQIGWy7yPrnOzRD9rsWzWsAZQAlfopJwCLR/nd4mR5Ax6sNM7EvyKnwDyknY0JeVpX+F/JdBk3bk6DE5FtVdCOFe13ZB0P69HGKxCor/zxjYqLJ7sEjgNQlYbLu3tELaXR931H6OPQf4hQh0/aAsdMnC8vCE7ExOiEngExQWISOXHvmIQUBKnrpi4R2feMU/xbgw/lN1Iw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8Z3CGXIC/IxcwdCev9nOF03Da5W60Imix4qfJrJURZY=;
- b=KQI+hPMi6/Vd6QaVNCVsJaCUM7klwj19QIEAU2H4OgdD4KbpOMrDm0GYhphS2Cojvf5XNfMfgncyIMNPsTXD5obMYle/0JTO3w42iLzuxjwQ/m08sBaPi8dcrAHzrrnGV8R4q7q10MlEMyO3j2lg87+rHHN0ET852iREV+F7Fko9wZdR8EeKM9yeISkrvCdm2CF8jHO3TSH98DCTlM8mLn/wFEGMMYUL7Iry6J410e+qrU16HuqM2h7vaXhVjuk21vjYMmQs88UmUL41ltZ9Z31ieIPm/VOrJ6kp9sBSpMVyxbqq+iL+MVdLKqhJ7D3hEilnT4C3adv+Nsc1OFxoqA==
+ bh=uXJycEiOrzwNw9jLqJbhjzy/feQR+fpz2T0MSj/oisE=;
+ b=C7gbC0dWNnYMJkrmvajcPHR79kRBJTViepnNz6iXbVjrLXrqsRK6OQ7UuWXF7SvURzOqJckI5dlEWoqNfK4wuEjly789Dsy5b642iPJ+c/CpAOpzwI+yiKxxKiFZ91QRiXxIUao7bQKKPSf9bwF/T7djYmGRdxdN+HYP7DWyGf4nI8lc8bYbDMCTGw2aZQbMAEIlFCxjBVdzbyy1FybOBtR+OthC/G5DJUOTYtgyVtZVgwaJ90FHSAwsjLOTONNeXAWsYEHTWi+59THHzxXX4ZORUMvjIR0KCl7/oqZlBy3ELlOP3z0ms2zTiNzyaJSt/QWaJKXEro+/pwLhYM9QyA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
-Received: from MN2PR12MB3296.namprd12.prod.outlook.com (20.179.80.139) by
- MN2PR12MB4077.namprd12.prod.outlook.com (52.135.50.79) with Microsoft SMTP
+Received: from BN8PR12MB3602.namprd12.prod.outlook.com (20.178.212.86) by
+ BN8PR12MB2962.namprd12.prod.outlook.com (20.178.211.216) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2387.22; Tue, 29 Oct 2019 09:33:14 +0000
-Received: from MN2PR12MB3296.namprd12.prod.outlook.com
- ([fe80::3db4:a949:8b89:33be]) by MN2PR12MB3296.namprd12.prod.outlook.com
- ([fe80::3db4:a949:8b89:33be%7]) with mapi id 15.20.2387.025; Tue, 29 Oct 2019
- 09:33:14 +0000
-From: "Wang, Kevin(Yang)" <Kevin1.Wang@amd.com>
-To: Saurav Girepunje <saurav.girepunje@gmail.com>, "Deucher, Alexander"
- <Alexander.Deucher@amd.com>, "Koenig, Christian" <Christian.Koenig@amd.com>,
- "Zhou, David(ChunMing)" <David1.Zhou@amd.com>, "airlied@linux.ie"
- <airlied@linux.ie>, "daniel@ffwll.ch" <daniel@ffwll.ch>, "StDenis, Tom"
- <Tom.StDenis@amd.com>, "xywang.sjtu@sjtu.edu.cn" <xywang.sjtu@sjtu.edu.cn>,
- "Xiao, Jack" <Jack.Xiao@amd.com>, "sam@ravnborg.org" <sam@ravnborg.org>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] drm: amd: amdgpu: Remove NULL check not needed before
- freeing functions
-Thread-Topic: [PATCH] drm: amd: amdgpu: Remove NULL check not needed before
- freeing functions
-Thread-Index: AQHVjjoHIAB4wkrfs0irqM/KindPaqdxWa8x
-Date: Tue, 29 Oct 2019 09:33:14 +0000
-Message-ID:
- <MN2PR12MB329687D0CBC265443C4A667AA2610@MN2PR12MB3296.namprd12.prod.outlook.com>
-References: <20191029091943.GA10258@saurav>
-In-Reply-To: <20191029091943.GA10258@saurav>
-Accept-Language: en-US, zh-CN
+ 15.20.2387.24; Tue, 29 Oct 2019 11:36:53 +0000
+Received: from BN8PR12MB3602.namprd12.prod.outlook.com
+ ([fe80::adae:509b:748f:cd05]) by BN8PR12MB3602.namprd12.prod.outlook.com
+ ([fe80::adae:509b:748f:cd05%6]) with mapi id 15.20.2408.018; Tue, 29 Oct 2019
+ 11:36:53 +0000
+From: "Yuan, Xiaojie" <Xiaojie.Yuan@amd.com>
+To: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amdgpu/gfx10: fix mqd backup/restore for gfx rings
+Thread-Topic: [PATCH] drm/amdgpu/gfx10: fix mqd backup/restore for gfx rings
+Thread-Index: AQHVjk0pFslnEm/ESEOuM8mneGiGDA==
+Date: Tue, 29 Oct 2019 11:36:53 +0000
+Message-ID: <20191029113635.16161-1-xiaojie.yuan@amd.com>
+Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
+x-clientproxiedby: HK0PR03CA0022.apcprd03.prod.outlook.com
+ (2603:1096:203:2e::34) To BN8PR12MB3602.namprd12.prod.outlook.com
+ (2603:10b6:408:49::22)
+x-ms-exchange-messagesentrepresentingtype: 1
+x-mailer: git-send-email 2.20.1
 x-originating-ip: [180.167.199.189]
 x-ms-publictraffictype: Email
 x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: f2feec9a-7e07-4e3a-e01c-08d75c5305c9
-x-ms-traffictypediagnostic: MN2PR12MB4077:
+x-ms-office365-filtering-correlation-id: 65d1362f-ccbc-4883-bbaa-08d75c644b97
+x-ms-traffictypediagnostic: BN8PR12MB2962:
 x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <MN2PR12MB407743BF5C9C1CA581E8447FA2610@MN2PR12MB4077.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:5797;
+x-microsoft-antispam-prvs: <BN8PR12MB296253FBCA01249B0B739EEC89610@BN8PR12MB2962.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:5236;
 x-forefront-prvs: 0205EDCD76
 x-forefront-antispam-report: SFV:NSPM;
- SFS:(10009020)(4636009)(136003)(346002)(376002)(39860400002)(366004)(396003)(189003)(199004)(478600001)(256004)(19627405001)(105004)(8676002)(6436002)(186003)(74316002)(4326008)(45080400002)(33656002)(25786009)(7736002)(486006)(8936002)(71200400001)(71190400001)(11346002)(86362001)(81156014)(446003)(2201001)(476003)(14444005)(81166006)(66066001)(2171002)(6246003)(229853002)(66446008)(54896002)(76116006)(66476007)(64756008)(9686003)(52536014)(2906002)(3846002)(316002)(7696005)(6116002)(6506007)(66556008)(76176011)(53546011)(66946007)(55016002)(99286004)(5660300002)(14454004)(110136005)(26005)(102836004)(2501003)(91956017)(921003)(1121003);
- DIR:OUT; SFP:1101; SCL:1; SRVR:MN2PR12MB4077;
- H:MN2PR12MB3296.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; MX:1; A:1; 
+ SFS:(10009020)(4636009)(396003)(366004)(346002)(39860400002)(376002)(136003)(199004)(189003)(8676002)(6436002)(5640700003)(66476007)(66446008)(64756008)(52116002)(66556008)(36756003)(476003)(86362001)(486006)(2351001)(1076003)(25786009)(26005)(81166006)(14454004)(81156014)(6486002)(66946007)(50226002)(7736002)(6512007)(305945005)(5660300002)(8936002)(102836004)(71200400001)(2501003)(14444005)(2616005)(66066001)(186003)(6916009)(99286004)(71190400001)(256004)(386003)(316002)(54906003)(478600001)(6116002)(4326008)(2906002)(6506007)(3846002);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:BN8PR12MB2962;
+ H:BN8PR12MB3602.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; A:1; MX:1; 
 received-spf: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
 x-ms-exchange-senderadcheck: 1
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: zqI3tM0uGKZDoYGEguOxH6XYYCNCl042bosZVrhiRBHiw/k3Ff1ucUArKR9yPM+BcoBOivi1V33bjUwIFzxlK4gbXM3a0GBHijNePWJlbmfELKXMc1y1P4ese8yf+eJVY4pc1HMt3Zp7jkn6GLBamcdRlnw84/k6oS51QcLaKW8taN43jYX0YO6OzLX115dCOxGoPACbZiPRO87PB/dDCcksd7mGXItHMNYw8sjl9ZBRpj0s2Vu/+LHsIuldFPB+wj5yCM1N64rtq8HYGuNjr3o8ndY8gPba//RA6PpATCoQmibg6XLgDfHF2SIzBlINP8VyaensRB5nKjnBzcsahhaUsESD8Bk1ysxnBqBFEWeUSz2QVmzdPhmfEtJBQEl09XcmAJyHShlaaFC0q2yfr3XJIStR99Jl8o+K+026cSWB4ajWjvtTGbUjMl3bWKVW
+x-microsoft-antispam-message-info: 4HXeX61O+jwlrAL1ekhfKwMIY8CKVO5fOOdDcJD2orMoENydab/mWhZiYx2+EwrCdF7sRf0Br74TI4YvjJIlp8nu0J+Bf2IsASe2l0fss3ICmLqUynN0DU9v5WHkBSIqAqNY32ttHzfEx6rOHtj5SYV6q6eSKFJyfS4lRCdDyIgSPpcooApxX0mgzrCVh9+vs9UBlTr5RiFdoD7EY0fn5TsB0Hyk4wZzS8zEd3YwSGG66UJqtdkvla9W/C5gDeQ3y3QUHE52SOjLiOk5Z5rbxNX1g2I6ROX0igDmtg0cgR/2egaHzYTobR9I3mRF/izAk+6zZ7fvYmcHqBV9Ti0M/TqyxGfWOkc7Tb205zOzi/PhTG2EFGh8htZtFvZtpF/XCxebwhDKGWSEzPnGfOt+7S727jMTv2vENfircSpFP3rBctcoPUKF2NmlLoU0sjlT
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f2feec9a-7e07-4e3a-e01c-08d75c5305c9
-X-MS-Exchange-CrossTenant-originalarrivaltime: 29 Oct 2019 09:33:14.3782 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 65d1362f-ccbc-4883-bbaa-08d75c644b97
+X-MS-Exchange-CrossTenant-originalarrivaltime: 29 Oct 2019 11:36:53.5242 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: eq+OYqYuIEF8AGZkDtaMf7qwKYMFf/3hoGYWn4/0wRAp6fhMRz2xvdwVc5WP5QXs
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4077
+X-MS-Exchange-CrossTenant-userprincipalname: q5AX5NJMqZoR2+6tW9z3ZMUZ9mxz/+55tkQYhcVIcwD2LDiaxwMRxyDyg2Fsgvxm
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN8PR12MB2962
 X-Mailman-Original-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8Z3CGXIC/IxcwdCev9nOF03Da5W60Imix4qfJrJURZY=;
- b=sPRsqNMDPz5Y/SVzOKNCLnfwMNXznEbKTqCGg60hcpNQNAsuU3rxsmvmRnEWJaeGPdZypGY8KKvIswSNkr7oUqPWoJdxilsbSuwoktA7Qf5Ep3m/h3fkNefK1xMXs+no4eHwEdZbyOpmdMkUOze13vepLZJQytR48OWWWJytZcs=
+ bh=uXJycEiOrzwNw9jLqJbhjzy/feQR+fpz2T0MSj/oisE=;
+ b=vZHAfCYIAEgrCNtrKcnvbtxA+g2JQRZEgjNniJRcSliRVbdmuzEvcaitmtgDj/5zfowwHmhAqYkSE4yyqFdri4gAiqsFrinF35RhlI9NrI+qX/fgW9+FnWsCnUwIgGmEyf+M+0YEJ/gdS32LWh6P05L43O12qFMkwBg9OW+uxYQ=
 X-Mailman-Original-Authentication-Results: spf=none (sender IP is )
- smtp.mailfrom=Kevin1.Wang@amd.com; 
+ smtp.mailfrom=Xiaojie.Yuan@amd.com; 
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -111,266 +103,54 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "saurav.girepunje@hotmail.com" <saurav.girepunje@hotmail.com>
-Content-Type: multipart/mixed; boundary="===============0497031002=="
+Cc: "Xiao, Jack" <Jack.Xiao@amd.com>, "Yuan, Xiaojie" <Xiaojie.Yuan@amd.com>,
+ "Zhang, Hawking" <Hawking.Zhang@amd.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-Message-ID: <20191029093314.xkiW1MANUe8uzShU_Ur7dsdjXeVYcujg0h_WHh77ko8@z>
+Message-ID: <20191029113653.8WeYCvqM_PC8FIGAu4NukH5Bycc_eRPEbvUoO4FRmu8@z>
 
---===============0497031002==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_MN2PR12MB329687D0CBC265443C4A667AA2610MN2PR12MB3296namp_"
-
---_000_MN2PR12MB329687D0CBC265443C4A667AA2610MN2PR12MB3296namp_
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-Hi Saurav,
-
-the driver already has the same fix patch,
-you can pull the latest driver tree and check it again,
-thanks.
-
-From 2032324682c1ca563e33c56e51d9ae17a2b38105 Mon Sep 17 00:00:00 2001
-From: zhong jiang <zhongjiang@huawei.com>
-Date: Tue, 3 Sep 2019 14:15:05 +0800
-Subject: [PATCH] drm/amdgpu: remove the redundant null checks
-
-debugfs_remove and kfree has taken the null check in account.
-hence it is unnecessary to check it. Just remove the condition.
-No functional change.
-
-This issue was detected by using the Coccinelle software.
-
-Signed-off-by: zhong jiang <zhongjiang@huawei.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-
-Best Regards,
-Kevin
-________________________________
-From: Saurav Girepunje <saurav.girepunje@gmail.com>
-Sent: Tuesday, October 29, 2019 5:19 PM
-To: Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian <Chri=
-stian.Koenig@amd.com>; Zhou, David(ChunMing) <David1.Zhou@amd.com>; airlied=
-@linux.ie <airlied@linux.ie>; daniel@ffwll.ch <daniel@ffwll.ch>; StDenis, T=
-om <Tom.StDenis@amd.com>; xywang.sjtu@sjtu.edu.cn <xywang.sjtu@sjtu.edu.cn>=
-; Xiao, Jack <Jack.Xiao@amd.com>; sam@ravnborg.org <sam@ravnborg.org>; Wang=
-, Kevin(Yang) <Kevin1.Wang@amd.com>; saurav.girepunje@gmail.com <saurav.gir=
-epunje@gmail.com>; amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop=
-.org>; dri-devel@lists.freedesktop.org <dri-devel@lists.freedesktop.org>; l=
-inux-kernel@vger.kernel.org <linux-kernel@vger.kernel.org>
-Cc: saurav.girepunje@hotmail.com <saurav.girepunje@hotmail.com>
-Subject: [PATCH] drm: amd: amdgpu: Remove NULL check not needed before free=
-ing functions
-
-Remove unneeded NULL check before freeing functions
-kfree and debugfs_remove.
-
-Signed-off-by: Saurav Girepunje <saurav.girepunje@gmail.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c | 6 ++----
- 1 file changed, 2 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/drivers/gpu/drm/=
-amd/amdgpu/amdgpu_debugfs.c
-index 5652cc72ed3a..cb94627fc0f4 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-@@ -1077,8 +1077,7 @@ static int amdgpu_debugfs_ib_preempt(void *data, u64 =
-val)
-
-         ttm_bo_unlock_delayed_workqueue(&adev->mman.bdev, resched);
-
--       if (fences)
--               kfree(fences);
-+       kfree(fences);
-
-         return 0;
- }
-@@ -1103,8 +1102,7 @@ int amdgpu_debugfs_init(struct amdgpu_device *adev)
-
- void amdgpu_debugfs_preempt_cleanup(struct amdgpu_device *adev)
- {
--       if (adev->debugfs_preempt)
--               debugfs_remove(adev->debugfs_preempt);
-+       debugfs_remove(adev->debugfs_preempt);
- }
-
- #else
---
-2.20.1
-
-
---_000_MN2PR12MB329687D0CBC265443C4A667AA2610MN2PR12MB3296namp_
-Content-Type: text/html; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Hi Saurav,</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-the driver already has the same fix patch,</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-you can pull the latest driver tree and check it again,</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-thanks.</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<span style=3D"font-family: &quot;Courier New&quot;, monospace;"><i>From 20=
-32324682c1ca563e33c56e51d9ae17a2b38105 Mon Sep 17 00:00:00 2001</i></span><=
-span><i><br>
-</i></span>
-<div><span style=3D"font-family: &quot;Courier New&quot;, monospace;"><i>Fr=
-om: zhong jiang &lt;zhongjiang@huawei.com&gt;</i></span><i><br>
-</i></div>
-<div><span style=3D"font-family: &quot;Courier New&quot;, monospace;"><i>Da=
-te: Tue, 3 Sep 2019 14:15:05 &#43;0800</i></span><i><br>
-</i></div>
-<div><span style=3D"font-family: &quot;Courier New&quot;, monospace;"><i>Su=
-bject: [PATCH] drm/amdgpu: remove the redundant null checks</i></span><i><b=
-r>
-</i></div>
-<div><i><br>
-</i></div>
-<div><span style=3D"font-family: &quot;Courier New&quot;, monospace;"><i>de=
-bugfs_remove and kfree has taken the null check in account.</i></span><i><b=
-r>
-</i></div>
-<div><span style=3D"font-family: &quot;Courier New&quot;, monospace;"><i>he=
-nce it is unnecessary to check it. Just remove the condition.</i></span><i>=
-<br>
-</i></div>
-<div><span style=3D"font-family: &quot;Courier New&quot;, monospace;"><i>No=
- functional change.</i></span><i><br>
-</i></div>
-<div><i><br>
-</i></div>
-<div><span style=3D"font-family: &quot;Courier New&quot;, monospace;"><i>Th=
-is issue was detected by using the Coccinelle software.</i></span><i><br>
-</i></div>
-<div><i><br>
-</i></div>
-<div><span style=3D"font-family: &quot;Courier New&quot;, monospace;"><i>Si=
-gned-off-by: zhong jiang &lt;zhongjiang@huawei.com&gt;</i></span><i><br>
-</i></div>
-<i><span style=3D"font-family: &quot;Courier New&quot;, monospace;">Signed-=
-off-by: Alex Deucher &lt;alexander.deucher@amd.com&gt;</span><br>
-</i></div>
-<i><span></span></i>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<span style=3D"color: rgb(0, 0, 0); font-family: Calibri, Arial, Helvetica,=
- sans-serif; font-size: 12pt;">Best Regards,</span><br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Kevin</div>
-<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" co=
-lor=3D"#000000" style=3D"font-size:11pt"><b>From:</b> Saurav Girepunje &lt;=
-saurav.girepunje@gmail.com&gt;<br>
-<b>Sent:</b> Tuesday, October 29, 2019 5:19 PM<br>
-<b>To:</b> Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;; Koenig, Ch=
-ristian &lt;Christian.Koenig@amd.com&gt;; Zhou, David(ChunMing) &lt;David1.=
-Zhou@amd.com&gt;; airlied@linux.ie &lt;airlied@linux.ie&gt;; daniel@ffwll.c=
-h &lt;daniel@ffwll.ch&gt;; StDenis, Tom &lt;Tom.StDenis@amd.com&gt;;
- xywang.sjtu@sjtu.edu.cn &lt;xywang.sjtu@sjtu.edu.cn&gt;; Xiao, Jack &lt;Ja=
-ck.Xiao@amd.com&gt;; sam@ravnborg.org &lt;sam@ravnborg.org&gt;; Wang, Kevin=
-(Yang) &lt;Kevin1.Wang@amd.com&gt;; saurav.girepunje@gmail.com &lt;saurav.g=
-irepunje@gmail.com&gt;; amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.fre=
-edesktop.org&gt;;
- dri-devel@lists.freedesktop.org &lt;dri-devel@lists.freedesktop.org&gt;; l=
-inux-kernel@vger.kernel.org &lt;linux-kernel@vger.kernel.org&gt;<br>
-<b>Cc:</b> saurav.girepunje@hotmail.com &lt;saurav.girepunje@hotmail.com&gt=
-;<br>
-<b>Subject:</b> [PATCH] drm: amd: amdgpu: Remove NULL check not needed befo=
-re freeing functions</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt"=
->
-<div class=3D"PlainText">Remove unneeded NULL check before freeing function=
-s<br>
-kfree and debugfs_remove.<br>
-<br>
-Signed-off-by: Saurav Girepunje &lt;saurav.girepunje@gmail.com&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c | 6 &#43;&#43;----<br>
-&nbsp;1 file changed, 2 insertions(&#43;), 4 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/drivers/gpu/drm/=
-amd/amdgpu/amdgpu_debugfs.c<br>
-index 5652cc72ed3a..cb94627fc0f4 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c<br>
-@@ -1077,8 &#43;1077,7 @@ static int amdgpu_debugfs_ib_preempt(void *data, =
-u64 val)<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ttm_bo_unlock_delayed_work=
-queue(&amp;adev-&gt;mman.bdev, resched);<br>
-&nbsp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (fences)<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; kfree(fences);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfree(fences);<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
-&nbsp;}<br>
-@@ -1103,8 &#43;1102,7 @@ int amdgpu_debugfs_init(struct amdgpu_device *ade=
-v)<br>
-&nbsp;<br>
-&nbsp;void amdgpu_debugfs_preempt_cleanup(struct amdgpu_device *adev)<br>
-&nbsp;{<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;debugfs_preempt)<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; debugfs_remove(adev-&gt;debugfs_preempt);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; debugfs_remove(adev-&gt;debugfs_p=
-reempt);<br>
-&nbsp;}<br>
-&nbsp;<br>
-&nbsp;#else<br>
--- <br>
-2.20.1<br>
-<br>
-</div>
-</span></font></div>
-</body>
-</html>
-
---_000_MN2PR12MB329687D0CBC265443C4A667AA2610MN2PR12MB3296namp_--
-
---===============0497031002==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
-
---===============0497031002==--
+MS4gbm8gbmVlZCB0byBhbGxvY2F0ZSBhbiBleHRyYSBtZW1iZXIgZm9yICdtcWRfYmFja3VwJyBh
+cnJheQoyLiBiYWNrdXAvcmVzdG9yZSBtcWQgdG8vZnJvbSB0aGUgY29ycmVjdCAnbXFkX2JhY2t1
+cCcgYXJyYXkgc2xvdAoKU2lnbmVkLW9mZi1ieTogWGlhb2ppZSBZdWFuIDx4aWFvamllLnl1YW5A
+YW1kLmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZ2Z4LmggfCAy
+ICstCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjEwXzAuYyAgfCA5ICsrKysrLS0t
+LQogMiBmaWxlcyBjaGFuZ2VkLCA2IGluc2VydGlvbnMoKyksIDUgZGVsZXRpb25zKC0pCgpkaWZm
+IC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2dmeC5oIGIvZHJpdmVy
+cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2dmeC5oCmluZGV4IDQ1OWFhOTA1OTU0Mi4uNmQx
+OWU3ODkxNDkxIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
+Z2Z4LmgKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2dmeC5oCkBAIC0y
+MjUsNyArMjI1LDcgQEAgc3RydWN0IGFtZGdwdV9tZSB7CiAJdWludDMyX3QJCQludW1fbWU7CiAJ
+dWludDMyX3QJCQludW1fcGlwZV9wZXJfbWU7CiAJdWludDMyX3QJCQludW1fcXVldWVfcGVyX3Bp
+cGU7Ci0Jdm9pZAkJCQkqbXFkX2JhY2t1cFtBTURHUFVfTUFYX0dGWF9SSU5HUyArIDFdOworCXZv
+aWQJCQkJKm1xZF9iYWNrdXBbQU1ER1BVX01BWF9HRlhfUklOR1NdOwogCiAJLyogVGhlc2UgYXJl
+IHRoZSByZXNvdXJjZXMgZm9yIHdoaWNoIGFtZGdwdSB0YWtlcyBvd25lcnNoaXAgKi8KIAlERUNM
+QVJFX0JJVE1BUChxdWV1ZV9iaXRtYXAsIEFNREdQVV9NQVhfR0ZYX1FVRVVFUyk7CmRpZmYgLS1n
+aXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjEwXzAuYyBiL2RyaXZlcnMvZ3B1
+L2RybS9hbWQvYW1kZ3B1L2dmeF92MTBfMC5jCmluZGV4IGVmMTk3NWE1MzIzYS4uMmM1ZGM5YjU4
+ZTIzIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjEwXzAuYwor
+KysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjEwXzAuYwpAQCAtMzA3NSw2ICsz
+MDc1LDcgQEAgc3RhdGljIGludCBnZnhfdjEwXzBfZ2Z4X2luaXRfcXVldWUoc3RydWN0IGFtZGdw
+dV9yaW5nICpyaW5nKQogewogCXN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2ID0gcmluZy0+YWRl
+djsKIAlzdHJ1Y3QgdjEwX2dmeF9tcWQgKm1xZCA9IHJpbmctPm1xZF9wdHI7CisJaW50IG1xZF9p
+ZHggPSByaW5nIC0gJmFkZXYtPmdmeC5nZnhfcmluZ1swXTsKIAogCWlmICghYWRldi0+aW5fZ3B1
+X3Jlc2V0ICYmICFhZGV2LT5pbl9zdXNwZW5kKSB7CiAJCW1lbXNldCgodm9pZCAqKW1xZCwgMCwg
+c2l6ZW9mKCptcWQpKTsKQEAgLTMwODYsMTIgKzMwODcsMTIgQEAgc3RhdGljIGludCBnZnhfdjEw
+XzBfZ2Z4X2luaXRfcXVldWUoc3RydWN0IGFtZGdwdV9yaW5nICpyaW5nKQogI2VuZGlmCiAJCW52
+X2dyYm1fc2VsZWN0KGFkZXYsIDAsIDAsIDAsIDApOwogCQltdXRleF91bmxvY2soJmFkZXYtPnNy
+Ym1fbXV0ZXgpOwotCQlpZiAoYWRldi0+Z2Z4Lm1lLm1xZF9iYWNrdXBbQU1ER1BVX01BWF9HRlhf
+UklOR1NdKQotCQkJbWVtY3B5KGFkZXYtPmdmeC5tZS5tcWRfYmFja3VwW0FNREdQVV9NQVhfR0ZY
+X1JJTkdTXSwgbXFkLCBzaXplb2YoKm1xZCkpOworCQlpZiAoYWRldi0+Z2Z4Lm1lLm1xZF9iYWNr
+dXBbbXFkX2lkeF0pCisJCQltZW1jcHkoYWRldi0+Z2Z4Lm1lLm1xZF9iYWNrdXBbbXFkX2lkeF0s
+IG1xZCwgc2l6ZW9mKCptcWQpKTsKIAl9IGVsc2UgaWYgKGFkZXYtPmluX2dwdV9yZXNldCkgewog
+CQkvKiByZXNldCBtcWQgd2l0aCB0aGUgYmFja3VwIGNvcHkgKi8KLQkJaWYgKGFkZXYtPmdmeC5t
+ZS5tcWRfYmFja3VwW0FNREdQVV9NQVhfR0ZYX1JJTkdTXSkKLQkJCW1lbWNweShtcWQsIGFkZXYt
+PmdmeC5tZS5tcWRfYmFja3VwW0FNREdQVV9NQVhfR0ZYX1JJTkdTXSwgc2l6ZW9mKCptcWQpKTsK
+KwkJaWYgKGFkZXYtPmdmeC5tZS5tcWRfYmFja3VwW21xZF9pZHhdKQorCQkJbWVtY3B5KG1xZCwg
+YWRldi0+Z2Z4Lm1lLm1xZF9iYWNrdXBbbXFkX2lkeF0sIHNpemVvZigqbXFkKSk7CiAJCS8qIHJl
+c2V0IHRoZSByaW5nICovCiAJCXJpbmctPndwdHIgPSAwOwogCQlhbWRncHVfcmluZ19jbGVhcl9y
+aW5nKHJpbmcpOwotLSAKMi4yMC4xCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNr
+dG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2Ft
+ZC1nZng=
