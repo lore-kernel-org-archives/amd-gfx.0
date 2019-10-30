@@ -1,39 +1,53 @@
-From: neil-Zmh7m9nwg1oHZynSCUjJ3A@public.gmane.org
-Subject: [PATCH] drm/amdgpu: Show resolution correctly in mode validation
- debug output
-Date: Wed, 30 Oct 2019 12:58:37 -0600
-Message-ID: <20191030185837.8766-1-neil@neil.mayhew.name>
+From: Alex Deucher <alexdeucher@gmail.com>
+Subject: Re: [PATCH] Drivers: gpu: drm: amd: display: amdgpu_dm: amdgpu_dm.h:
+ Fixed a documentation warning
+Date: Wed, 30 Oct 2019 15:08:48 -0400
+Message-ID: <CADnq5_PHHNYp-nfjsgRfeoaMEo+QeQD1-rtDpQhqdJeG7gMMVA@mail.gmail.com>
+References: <20191028060443.14997-1-madhuparnabhowmik04@gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Neil Mayhew <neil-Zmh7m9nwg1oHZynSCUjJ3A@public.gmane.org>
+Content-Type: text/plain; charset="UTF-8"
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20191028060443.14997-1-madhuparnabhowmik04@gmail.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: madhuparnabhowmik04@gmail.com
+Cc: "Wentland, Harry" <harry.wentland@amd.com>, "Deucher, Alexander" <alexander.deucher@amd.com>, linux-kernel-mentees@lists.linuxfoundation.org, Maling list - DRI developers <dri-devel@lists.freedesktop.org>, amd-gfx list <amd-gfx@lists.freedesktop.org>, LKML <linux-kernel@vger.kernel.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-RnJvbTogTmVpbCBNYXloZXcgPG5laWxAbmVpbC5tYXloZXcubmFtZT4KCi0tLQogZHJpdmVycy9n
-cHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG0uYyB8IDIgKy0KIDEgZmlsZSBj
-aGFuZ2VkLCAxIGluc2VydGlvbigrKSwgMSBkZWxldGlvbigtKQoKZGlmZiAtLWdpdCBhL2RyaXZl
-cnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtLmMgYi9kcml2ZXJzL2dw
-dS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5jCmluZGV4IGE1MmYwYjEzYTJj
-OC4uZjgwMmM3ODRlNmY2IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkv
-YW1kZ3B1X2RtL2FtZGdwdV9kbS5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9h
-bWRncHVfZG0vYW1kZ3B1X2RtLmMKQEAgLTQxMTQsOCArNDExNCw4IEBAIGVudW0gZHJtX21vZGVf
-c3RhdHVzIGFtZGdwdV9kbV9jb25uZWN0b3JfbW9kZV92YWxpZChzdHJ1Y3QgZHJtX2Nvbm5lY3Rv
-ciAqY29ubmVjCiAJCXJlc3VsdCA9IE1PREVfT0s7CiAJZWxzZQogCQlEUk1fREVCVUdfS01TKCJN
-b2RlICVkeCVkIChjbGsgJWQpIGZhaWxlZCBEQyB2YWxpZGF0aW9uIHdpdGggZXJyb3IgJWRcbiIs
-Ci0JCQkgICAgICBtb2RlLT52ZGlzcGxheSwKIAkJCSAgICAgIG1vZGUtPmhkaXNwbGF5LAorCQkJ
-ICAgICAgbW9kZS0+dmRpc3BsYXksCiAJCQkgICAgICBtb2RlLT5jbG9jaywKIAkJCSAgICAgIGRj
-X3Jlc3VsdCk7CiAKLS0gCjIuMjMuMAoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVz
-a3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9h
-bWQtZ2Z4
+On Mon, Oct 28, 2019 at 4:25 AM <madhuparnabhowmik04@gmail.com> wrote:
+>
+> From: Madhuparna Bhowmik <madhuparnabhowmik04@gmail.com>
+>
+> This patch fixes the following  warning: Incorrect use of
+>  kernel-doc format:          * @atomic_obj
+> by adding a colon after @atomic_obj.
+>
+> Signed-off-by: Madhuparna Bhowmik <madhuparnabhowmik04@gmail.com>
+
+Thanks for the patch.  This as already fixed by Harry.
+
+Alex
+
+> ---
+>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+> index c8c525a2b505..80d53d095773 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+> @@ -128,7 +128,7 @@ struct amdgpu_display_manager {
+>         u16 display_indexes_num;
+>
+>         /**
+> -        * @atomic_obj
+> +        * @atomic_obj:
+>          *
+>          * In combination with &dm_atomic_state it helps manage
+>          * global atomic state that doesn't map cleanly into existing
+> --
+> 2.17.1
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
