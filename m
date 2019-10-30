@@ -1,87 +1,91 @@
-From: Michael Ellerman <mpe@ellerman.id.au>
-Subject: Re: [PATCH v3] drm/radeon: Fix EEH during kexec
-Date: Wed, 30 Oct 2019 21:35:10 +1100
-Message-ID: <87o8xyfrmp.fsf@mpe.ellerman.id.au>
-References: <1572036050-18945-1-git-send-email-kmahlkuc@linux.vnet.ibm.com>
+From: "Kazlauskas, Nicholas" <Nicholas.Kazlauskas-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH -next] drm/amd/display: Add a conversion function for
+ transmitter and phy_id enums
+Date: Wed, 30 Oct 2019 12:33:11 +0000
+Message-ID: <b8a9f49e-b788-82b8-ead3-0ae6fba7e8fa@amd.com>
+References: <20191030060411.21168-1-natechancellor@gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain
-Return-path: <linuxppc-dev-bounces+glppe-linuxppc-embedded-2=m.gmane.org@lists.ozlabs.org>
-In-Reply-To: <1572036050-18945-1-git-send-email-kmahlkuc@linux.vnet.ibm.com>
-List-Unsubscribe: <https://lists.ozlabs.org/options/linuxppc-dev>,
- <mailto:linuxppc-dev-request@lists.ozlabs.org?subject=unsubscribe>
-List-Archive: <http://lists.ozlabs.org/pipermail/linuxppc-dev/>
-List-Post: <mailto:linuxppc-dev@lists.ozlabs.org>
-List-Help: <mailto:linuxppc-dev-request@lists.ozlabs.org?subject=help>
-List-Subscribe: <https://lists.ozlabs.org/listinfo/linuxppc-dev>,
- <mailto:linuxppc-dev-request@lists.ozlabs.org?subject=subscribe>
-Errors-To: linuxppc-dev-bounces+glppe-linuxppc-embedded-2=m.gmane.org@lists.ozlabs.org
-Sender: "Linuxppc-dev"
- <linuxppc-dev-bounces+glppe-linuxppc-embedded-2=m.gmane.org@lists.ozlabs.org>
-To: alexander.deucher@amd.com
-Cc: linuxppc-dev@lists.ozlabs.org, Kyle Mahlkuch <kmahlkuc@linux.vnet.ibm.com>, amd-gfx@lists.freedesktop.org
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20191030060411.21168-1-natechancellor-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Content-Language: en-US
+Content-ID: <5C94A34E747B3348870EDD8EC50ECBB8-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Nathan Chancellor <natechancellor-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "Wentland, Harry" <Harry.Wentland-5C7GfCeVMHo@public.gmane.org>, "Li, Sun peng (Leo)" <Sunpeng.Li-5C7GfCeVMHo@public.gmane.org>, "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "Zhou, David(ChunMing)" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>
+Cc: "clang-built-linux-/JYPxA39Uh5TLH3MbocFFw@public.gmane.org" <clang-built-linux-/JYPxA39Uh5TLH3MbocFFw@public.gmane.org>, "dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Li,
+ Roman" <Roman.Li-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org" <linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>
 
-Hi Kyle,
-
-KyleMahlkuch <kmahlkuc@linux.vnet.ibm.com> writes:
-> From: Kyle Mahlkuch <kmahlkuc@linux.vnet.ibm.com>
->
-> During kexec some adapters hit an EEH since they are not properly
-> shut down in the radeon_pci_shutdown() function. Adding
-> radeon_suspend_kms() fixes this issue.
-> Enabled only on PPC because this patch causes issues on some other
-> boards.
-
-Which adapters hit the issues?
-
-And do we know why they're not shut down correctly in
-radeon_pci_shutdown()? That seems like the root cause no?
-
-
-> diff --git a/drivers/gpu/drm/radeon/radeon_drv.c b/drivers/gpu/drm/radeon/radeon_drv.c
-> index 9e55076..4528f4d 100644
-> --- a/drivers/gpu/drm/radeon/radeon_drv.c
-> +++ b/drivers/gpu/drm/radeon/radeon_drv.c
-> @@ -379,11 +379,25 @@ static int radeon_pci_probe(struct pci_dev *pdev,
->  static void
->  radeon_pci_shutdown(struct pci_dev *pdev)
->  {
-> +#ifdef CONFIG_PPC64
-> +	struct drm_device *ddev = pci_get_drvdata(pdev);
-> +#endif
-
-This local serves no real purpose and could be avoided, which would also
-avoid this ifdef.
-
->  	/* if we are running in a VM, make sure the device
->  	 * torn down properly on reboot/shutdown
->  	 */
->  	if (radeon_device_is_virtual())
->  		radeon_pci_remove(pdev);
-> +
-> +#ifdef CONFIG_PPC64
-> +	/* Some adapters need to be suspended before a
-
-AFAIK drm uses normal kernel comment style, so this should be:
-
-	/*
-	 * Some adapters need to be suspended before a
-> +	 * shutdown occurs in order to prevent an error
-> +	 * during kexec.
-> +	 * Make this power specific becauase it breaks
-> +	 * some non-power boards.
-> +	 */
-> +	radeon_suspend_kms(ddev, true, true, false);
-
-ie, instead do:
-
-	radeon_suspend_kms(pci_get_drvdata(pdev), true, true, false);
-
-> +#endif
->  }
->  
->  static int radeon_pmops_suspend(struct device *dev)
-> -- 
-> 1.8.3.1
-
-cheers
+T24gMjAxOS0xMC0zMCAyOjA0IGEubS4sIE5hdGhhbiBDaGFuY2VsbG9yIHdyb3RlOg0KPiBDbGFu
+ZyB3YXJuczoNCj4gDQo+IC4uL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1Ly4uL2Rpc3BsYXkv
+ZGMvY29yZS9kY19saW5rLmM6MjUyMDo0MjoNCj4gZXJyb3I6IGltcGxpY2l0IGNvbnZlcnNpb24g
+ZnJvbSBlbnVtZXJhdGlvbiB0eXBlICdlbnVtIHRyYW5zbWl0dGVyJyB0bw0KPiBkaWZmZXJlbnQg
+ZW51bWVyYXRpb24gdHlwZSAnZW51bSBwaHlzaWNhbF9waHlfaWQnDQo+IFstV2Vycm9yLC1XZW51
+bS1jb252ZXJzaW9uXQ0KPiAgICAgICAgICBwc3JfY29udGV4dC0+c211UGh5SWQgPSBsaW5rLT5s
+aW5rX2VuYy0+dHJhbnNtaXR0ZXI7DQo+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB+
+IH5+fn5+fn5+fn5+fn5+fn5efn5+fn5+fn5+fg0KPiAxIGVycm9yIGdlbmVyYXRlZC4NCj4gDQo+
+IEFzIHRoZSBjb21tZW50IGFib3ZlIHRoaXMgYXNzaWdubWVudCBzdGF0ZXMsIHRoaXMgaXMgaW50
+ZW50aW9uYWwuIFRvDQo+IG1hdGNoIHByZXZpb3VzIHdhcm5pbmdzIG9mIHRoaXMgbmF0dXJlLCBh
+ZGQgYSBjb252ZXJzaW9uIGZ1bmN0aW9uIHRoYXQNCj4gZXhwbGljaXRseSBjb252ZXJ0cyBiZXR3
+ZWVuIHRoZSBlbnVtcyBhbmQgd2FybnMgd2hlbiB0aGVyZSBpcyBhDQo+IG1pc21hdGNoLg0KPiAN
+Cj4gU2VlIGNvbW1pdCA4MjhjZmEyOTA5M2YgKCJkcm0vYW1kZ3B1OiBGaXggYW1kZ3B1IHJhcyB0
+byB0YSBlbnVtcw0KPiBjb252ZXJzaW9uIikgYW5kIGNvbW1pdCBkOWVjNWNmZDVhMmUgKCJkcm0v
+YW1kL2Rpc3BsYXk6IFVzZSBzd2l0Y2ggdGFibGUNCj4gZm9yIGRjX3RvX3NtdV9jbG9ja190eXBl
+IikgZm9yIHByZXZpb3VzIGV4YW1wbGVzIG9mIHRoaXMuDQo+IA0KPiBGaXhlczogZTBkMDhhNDBh
+NjNiICgiZHJtL2FtZC9kaXNwbGF5OiBBZGQgZGVidWdmcyBlbnRyeSBmb3IgcmVhZGluZyBwc3Ig
+c3RhdGUiKQ0KPiBMaW5rOiBodHRwczovL2dpdGh1Yi5jb20vQ2xhbmdCdWlsdExpbnV4L2xpbnV4
+L2lzc3Vlcy83NTgNCj4gU2lnbmVkLW9mZi1ieTogTmF0aGFuIENoYW5jZWxsb3IgPG5hdGVjaGFu
+Y2VsbG9yQGdtYWlsLmNvbT4NCg0KUmV2aWV3ZWQtYnk6IE5pY2hvbGFzIEthemxhdXNrYXMgPG5p
+Y2hvbGFzLmthemxhdXNrYXNAYW1kLmNvbT4NCg0KV2l0aCB0aGUgc21hbGwgbml0cGljayB0aGF0
+IG1heWJlIHRoZSBkZWZhdWx0IGNhc2Ugc2hvdWxkIGJlIA0KUEhZTERfVU5LTk9XTiwgYnV0IHdl
+bGwgZ2V0IHRoZSB3YXJuaW5nIGlmIHRoYXQgaGFwcGVucyBhbnl3YXkuDQoNCk5pY2hvbGFzIEth
+emxhdXNrYXMNCg0KPiAtLS0NCj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvY29y
+ZS9kY19saW5rLmMgfCAzOCArKysrKysrKysrKysrKysrKystDQo+ICAgMSBmaWxlIGNoYW5nZWQs
+IDM3IGluc2VydGlvbnMoKyksIDEgZGVsZXRpb24oLSkNCj4gDQo+IGRpZmYgLS1naXQgYS9kcml2
+ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvY29yZS9kY19saW5rLmMgYi9kcml2ZXJzL2dwdS9k
+cm0vYW1kL2Rpc3BsYXkvZGMvY29yZS9kY19saW5rLmMNCj4gaW5kZXggN2IxODA4N2JlNTg1Li4z
+OGRmZTQ2MGUxM2IgMTAwNjQ0DQo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9k
+Yy9jb3JlL2RjX2xpbmsuYw0KPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMv
+Y29yZS9kY19saW5rLmMNCj4gQEAgLTI0NDcsNiArMjQ0Nyw0MSBAQCBib29sIGRjX2xpbmtfZ2V0
+X3Bzcl9zdGF0ZShjb25zdCBzdHJ1Y3QgZGNfbGluayAqbGluaywgdWludDMyX3QgKnBzcl9zdGF0
+ZSkNCj4gICAJcmV0dXJuIHRydWU7DQo+ICAgfQ0KPiAgIA0KPiArc3RhdGljIGlubGluZSBlbnVt
+IHBoeXNpY2FsX3BoeV9pZA0KPiArdHJhbnNtaXR0ZXJfdG9fcGh5X2lkKGVudW0gdHJhbnNtaXR0
+ZXIgdHJhbnNtaXR0ZXJfdmFsdWUpDQo+ICt7DQo+ICsJc3dpdGNoICh0cmFuc21pdHRlcl92YWx1
+ZSkgew0KPiArCWNhc2UgVFJBTlNNSVRURVJfVU5JUEhZX0E6DQo+ICsJCXJldHVybiBQSFlMRF8w
+Ow0KPiArCWNhc2UgVFJBTlNNSVRURVJfVU5JUEhZX0I6DQo+ICsJCXJldHVybiBQSFlMRF8xOw0K
+PiArCWNhc2UgVFJBTlNNSVRURVJfVU5JUEhZX0M6DQo+ICsJCXJldHVybiBQSFlMRF8yOw0KPiAr
+CWNhc2UgVFJBTlNNSVRURVJfVU5JUEhZX0Q6DQo+ICsJCXJldHVybiBQSFlMRF8zOw0KPiArCWNh
+c2UgVFJBTlNNSVRURVJfVU5JUEhZX0U6DQo+ICsJCXJldHVybiBQSFlMRF80Ow0KPiArCWNhc2Ug
+VFJBTlNNSVRURVJfVU5JUEhZX0Y6DQo+ICsJCXJldHVybiBQSFlMRF81Ow0KPiArCWNhc2UgVFJB
+TlNNSVRURVJfTlVUTUVHX0NSVDoNCj4gKwkJcmV0dXJuIFBIWUxEXzY7DQo+ICsJY2FzZSBUUkFO
+U01JVFRFUl9UUkFWSVNfQ1JUOg0KPiArCQlyZXR1cm4gUEhZTERfNzsNCj4gKwljYXNlIFRSQU5T
+TUlUVEVSX1RSQVZJU19MQ0Q6DQo+ICsJCXJldHVybiBQSFlMRF84Ow0KPiArCWNhc2UgVFJBTlNN
+SVRURVJfVU5JUEhZX0c6DQo+ICsJCXJldHVybiBQSFlMRF85Ow0KPiArCWNhc2UgVFJBTlNNSVRU
+RVJfQ09VTlQ6DQo+ICsJCXJldHVybiBQSFlMRF9DT1VOVDsNCj4gKwljYXNlIFRSQU5TTUlUVEVS
+X1VOS05PV046DQo+ICsJCXJldHVybiBQSFlMRF9VTktOT1dOOw0KPiArCWRlZmF1bHQ6DQo+ICsJ
+CVdBUk5fT05DRSgxLCAiVW5rbm93biB0cmFuc21pdHRlciB2YWx1ZSAlZFxuIiwNCj4gKwkJCSAg
+dHJhbnNtaXR0ZXJfdmFsdWUpOw0KPiArCQlyZXR1cm4gUEhZTERfMDsNCj4gKwl9DQo+ICt9DQo+
+ICsNCj4gICBib29sIGRjX2xpbmtfc2V0dXBfcHNyKHN0cnVjdCBkY19saW5rICpsaW5rLA0KPiAg
+IAkJY29uc3Qgc3RydWN0IGRjX3N0cmVhbV9zdGF0ZSAqc3RyZWFtLCBzdHJ1Y3QgcHNyX2NvbmZp
+ZyAqcHNyX2NvbmZpZywNCj4gICAJCXN0cnVjdCBwc3JfY29udGV4dCAqcHNyX2NvbnRleHQpDQo+
+IEBAIC0yNTE3LDcgKzI1NTIsOCBAQCBib29sIGRjX2xpbmtfc2V0dXBfcHNyKHN0cnVjdCBkY19s
+aW5rICpsaW5rLA0KPiAgIAkvKiBIYXJkY29kZWQgZm9yIG5vdy4gIENhbiBiZSBQY2llIG9yIFVu
+aXBoeSAob3IgVW5rbm93bikqLw0KPiAgIAlwc3JfY29udGV4dC0+cGh5VHlwZSA9IFBIWV9UWVBF
+X1VOSVBIWTsNCj4gICAJLypQaHlJZCBpcyBhc3NvY2lhdGVkIHdpdGggdGhlIHRyYW5zbWl0dGVy
+IGlkKi8NCj4gLQlwc3JfY29udGV4dC0+c211UGh5SWQgPSBsaW5rLT5saW5rX2VuYy0+dHJhbnNt
+aXR0ZXI7DQo+ICsJcHNyX2NvbnRleHQtPnNtdVBoeUlkID0NCj4gKwkJdHJhbnNtaXR0ZXJfdG9f
+cGh5X2lkKGxpbmstPmxpbmtfZW5jLT50cmFuc21pdHRlcik7DQo+ICAgDQo+ICAgCXBzcl9jb250
+ZXh0LT5jcnRjVGltaW5nVmVydGljYWxUb3RhbCA9IHN0cmVhbS0+dGltaW5nLnZfdG90YWw7DQo+
+ICAgCXBzcl9jb250ZXh0LT52c3luY1JhdGVIeiA9IGRpdjY0X3U2NChkaXY2NF91NjQoKHN0cmVh
+bS0+DQo+IA0KDQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+XwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRw
+czovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
