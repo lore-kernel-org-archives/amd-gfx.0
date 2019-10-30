@@ -1,81 +1,122 @@
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu/gfx10: fix mqd backup/restore for gfx rings
-Date: Wed, 30 Oct 2019 10:00:07 -0400
-Message-ID: <CADnq5_N+aUssBh6WSxUEMZTuAk-7j+CgCwSg2coQhJnGpWL4vQ@mail.gmail.com>
-References: <20191029113635.16161-1-xiaojie.yuan@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Subject: Re: [PATCH -next] drm/amd/display: Add a conversion function for
+ transmitter and phy_id enums
+Date: Wed, 30 Oct 2019 10:03:59 -0400
+Message-ID: <CADnq5_Na9Lyb_9z7DY27o8SWkPQNi6pNbU1qXd0R7W6_Qa9Xtg@mail.gmail.com>
+References: <20191030060411.21168-1-natechancellor@gmail.com> <b8a9f49e-b788-82b8-ead3-0ae6fba7e8fa@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20191029113635.16161-1-xiaojie.yuan-5C7GfCeVMHo@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Yuan, Xiaojie" <Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org>
-Cc: "Xiao, Jack" <Jack.Xiao-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Zhang,
- Hawking" <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset="UTF-8"
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <b8a9f49e-b788-82b8-ead3-0ae6fba7e8fa@amd.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: "Kazlauskas, Nicholas" <Nicholas.Kazlauskas@amd.com>
+Cc: Nathan Chancellor <natechancellor@gmail.com>, "Wentland, Harry" <Harry.Wentland@amd.com>, "Li, Sun peng (Leo)" <Sunpeng.Li@amd.com>, "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Koenig, Christian" <Christian.Koenig@amd.com>, "Zhou, David(ChunMing)" <David1.Zhou@amd.com>, "clang-built-linux@googlegroups.com" <clang-built-linux@googlegroups.com>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "Li, Roman" <Roman.Li@amd.com>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gVHVlLCBPY3QgMjksIDIwMTkgYXQgNzozNyBBTSBZdWFuLCBYaWFvamllIDxYaWFvamllLll1
-YW5AYW1kLmNvbT4gd3JvdGU6Cj4KPiAxLiBubyBuZWVkIHRvIGFsbG9jYXRlIGFuIGV4dHJhIG1l
-bWJlciBmb3IgJ21xZF9iYWNrdXAnIGFycmF5Cj4gMi4gYmFja3VwL3Jlc3RvcmUgbXFkIHRvL2Zy
-b20gdGhlIGNvcnJlY3QgJ21xZF9iYWNrdXAnIGFycmF5IHNsb3QKPgo+IFNpZ25lZC1vZmYtYnk6
-IFhpYW9qaWUgWXVhbiA8eGlhb2ppZS55dWFuQGFtZC5jb20+CgpBY2tlZC1ieTogQWxleCBEZXVj
-aGVyIDxhbGV4YW5kZXIuZGV1Y2hlckBhbWQuY29tPgoKPiAtLS0KPiAgZHJpdmVycy9ncHUvZHJt
-L2FtZC9hbWRncHUvYW1kZ3B1X2dmeC5oIHwgMiArLQo+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
-ZGdwdS9nZnhfdjEwXzAuYyAgfCA5ICsrKysrLS0tLQo+ICAyIGZpbGVzIGNoYW5nZWQsIDYgaW5z
-ZXJ0aW9ucygrKSwgNSBkZWxldGlvbnMoLSkKPgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9k
-cm0vYW1kL2FtZGdwdS9hbWRncHVfZ2Z4LmggYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
-bWRncHVfZ2Z4LmgKPiBpbmRleCA0NTlhYTkwNTk1NDIuLjZkMTllNzg5MTQ5MSAxMDA2NDQKPiAt
-LS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZ2Z4LmgKPiArKysgYi9kcml2
-ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZ2Z4LmgKPiBAQCAtMjI1LDcgKzIyNSw3IEBA
-IHN0cnVjdCBhbWRncHVfbWUgewo+ICAgICAgICAgdWludDMyX3QgICAgICAgICAgICAgICAgICAg
-ICAgICBudW1fbWU7Cj4gICAgICAgICB1aW50MzJfdCAgICAgICAgICAgICAgICAgICAgICAgIG51
-bV9waXBlX3Blcl9tZTsKPiAgICAgICAgIHVpbnQzMl90ICAgICAgICAgICAgICAgICAgICAgICAg
-bnVtX3F1ZXVlX3Blcl9waXBlOwo+IC0gICAgICAgdm9pZCAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAqbXFkX2JhY2t1cFtBTURHUFVfTUFYX0dGWF9SSU5HUyArIDFdOwo+ICsgICAgICAgdm9p
-ZCAgICAgICAgICAgICAgICAgICAgICAgICAgICAqbXFkX2JhY2t1cFtBTURHUFVfTUFYX0dGWF9S
-SU5HU107Cj4KPiAgICAgICAgIC8qIFRoZXNlIGFyZSB0aGUgcmVzb3VyY2VzIGZvciB3aGljaCBh
-bWRncHUgdGFrZXMgb3duZXJzaGlwICovCj4gICAgICAgICBERUNMQVJFX0JJVE1BUChxdWV1ZV9i
-aXRtYXAsIEFNREdQVV9NQVhfR0ZYX1FVRVVFUyk7Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1kZ3B1L2dmeF92MTBfMC5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
-Z2Z4X3YxMF8wLmMKPiBpbmRleCBlZjE5NzVhNTMyM2EuLjJjNWRjOWI1OGUyMyAxMDA2NDQKPiAt
-LS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjEwXzAuYwo+ICsrKyBiL2RyaXZl
-cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92MTBfMC5jCj4gQEAgLTMwNzUsNiArMzA3NSw3IEBA
-IHN0YXRpYyBpbnQgZ2Z4X3YxMF8wX2dmeF9pbml0X3F1ZXVlKHN0cnVjdCBhbWRncHVfcmluZyAq
-cmluZykKPiAgewo+ICAgICAgICAgc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYgPSByaW5nLT5h
-ZGV2Owo+ICAgICAgICAgc3RydWN0IHYxMF9nZnhfbXFkICptcWQgPSByaW5nLT5tcWRfcHRyOwo+
-ICsgICAgICAgaW50IG1xZF9pZHggPSByaW5nIC0gJmFkZXYtPmdmeC5nZnhfcmluZ1swXTsKPgo+
-ICAgICAgICAgaWYgKCFhZGV2LT5pbl9ncHVfcmVzZXQgJiYgIWFkZXYtPmluX3N1c3BlbmQpIHsK
-PiAgICAgICAgICAgICAgICAgbWVtc2V0KCh2b2lkICopbXFkLCAwLCBzaXplb2YoKm1xZCkpOwo+
-IEBAIC0zMDg2LDEyICszMDg3LDEyIEBAIHN0YXRpYyBpbnQgZ2Z4X3YxMF8wX2dmeF9pbml0X3F1
-ZXVlKHN0cnVjdCBhbWRncHVfcmluZyAqcmluZykKPiAgI2VuZGlmCj4gICAgICAgICAgICAgICAg
-IG52X2dyYm1fc2VsZWN0KGFkZXYsIDAsIDAsIDAsIDApOwo+ICAgICAgICAgICAgICAgICBtdXRl
-eF91bmxvY2soJmFkZXYtPnNyYm1fbXV0ZXgpOwo+IC0gICAgICAgICAgICAgICBpZiAoYWRldi0+
-Z2Z4Lm1lLm1xZF9iYWNrdXBbQU1ER1BVX01BWF9HRlhfUklOR1NdKQo+IC0gICAgICAgICAgICAg
-ICAgICAgICAgIG1lbWNweShhZGV2LT5nZngubWUubXFkX2JhY2t1cFtBTURHUFVfTUFYX0dGWF9S
-SU5HU10sIG1xZCwgc2l6ZW9mKCptcWQpKTsKPiArICAgICAgICAgICAgICAgaWYgKGFkZXYtPmdm
-eC5tZS5tcWRfYmFja3VwW21xZF9pZHhdKQo+ICsgICAgICAgICAgICAgICAgICAgICAgIG1lbWNw
-eShhZGV2LT5nZngubWUubXFkX2JhY2t1cFttcWRfaWR4XSwgbXFkLCBzaXplb2YoKm1xZCkpOwo+
-ICAgICAgICAgfSBlbHNlIGlmIChhZGV2LT5pbl9ncHVfcmVzZXQpIHsKPiAgICAgICAgICAgICAg
-ICAgLyogcmVzZXQgbXFkIHdpdGggdGhlIGJhY2t1cCBjb3B5ICovCj4gLSAgICAgICAgICAgICAg
-IGlmIChhZGV2LT5nZngubWUubXFkX2JhY2t1cFtBTURHUFVfTUFYX0dGWF9SSU5HU10pCj4gLSAg
-ICAgICAgICAgICAgICAgICAgICAgbWVtY3B5KG1xZCwgYWRldi0+Z2Z4Lm1lLm1xZF9iYWNrdXBb
-QU1ER1BVX01BWF9HRlhfUklOR1NdLCBzaXplb2YoKm1xZCkpOwo+ICsgICAgICAgICAgICAgICBp
-ZiAoYWRldi0+Z2Z4Lm1lLm1xZF9iYWNrdXBbbXFkX2lkeF0pCj4gKyAgICAgICAgICAgICAgICAg
-ICAgICAgbWVtY3B5KG1xZCwgYWRldi0+Z2Z4Lm1lLm1xZF9iYWNrdXBbbXFkX2lkeF0sIHNpemVv
-ZigqbXFkKSk7Cj4gICAgICAgICAgICAgICAgIC8qIHJlc2V0IHRoZSByaW5nICovCj4gICAgICAg
-ICAgICAgICAgIHJpbmctPndwdHIgPSAwOwo+ICAgICAgICAgICAgICAgICBhbWRncHVfcmluZ19j
-bGVhcl9yaW5nKHJpbmcpOwo+IC0tCj4gMi4yMC4xCj4KPiBfX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fXwo+IGFtZC1nZnggbWFpbGluZyBsaXN0Cj4gYW1kLWdm
-eEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9t
-YWlsbWFuL2xpc3RpbmZvL2FtZC1nZngKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVz
-a3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9h
-bWQtZ2Z4
+On Wed, Oct 30, 2019 at 8:33 AM Kazlauskas, Nicholas
+<Nicholas.Kazlauskas@amd.com> wrote:
+>
+> On 2019-10-30 2:04 a.m., Nathan Chancellor wrote:
+> > Clang warns:
+> >
+> > ../drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc_link.c:2520:42:
+> > error: implicit conversion from enumeration type 'enum transmitter' to
+> > different enumeration type 'enum physical_phy_id'
+> > [-Werror,-Wenum-conversion]
+> >          psr_context->smuPhyId = link->link_enc->transmitter;
+> >                                ~ ~~~~~~~~~~~~~~~~^~~~~~~~~~~
+> > 1 error generated.
+> >
+> > As the comment above this assignment states, this is intentional. To
+> > match previous warnings of this nature, add a conversion function that
+> > explicitly converts between the enums and warns when there is a
+> > mismatch.
+> >
+> > See commit 828cfa29093f ("drm/amdgpu: Fix amdgpu ras to ta enums
+> > conversion") and commit d9ec5cfd5a2e ("drm/amd/display: Use switch table
+> > for dc_to_smu_clock_type") for previous examples of this.
+> >
+> > Fixes: e0d08a40a63b ("drm/amd/display: Add debugfs entry for reading psr state")
+> > Link: https://github.com/ClangBuiltLinux/linux/issues/758
+> > Signed-off-by: Nathan Chancellor <natechancellor@gmail.com>
+>
+> Reviewed-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+>
+> With the small nitpick that maybe the default case should be
+> PHYLD_UNKNOWN, but well get the warning if that happens anyway.
+>
+
+Applied with that change.
+
+Thanks!
+
+Alex
+
+> Nicholas Kazlauskas
+>
+> > ---
+> >   drivers/gpu/drm/amd/display/dc/core/dc_link.c | 38 ++++++++++++++++++-
+> >   1 file changed, 37 insertions(+), 1 deletion(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link.c b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
+> > index 7b18087be585..38dfe460e13b 100644
+> > --- a/drivers/gpu/drm/amd/display/dc/core/dc_link.c
+> > +++ b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
+> > @@ -2447,6 +2447,41 @@ bool dc_link_get_psr_state(const struct dc_link *link, uint32_t *psr_state)
+> >       return true;
+> >   }
+> >
+> > +static inline enum physical_phy_id
+> > +transmitter_to_phy_id(enum transmitter transmitter_value)
+> > +{
+> > +     switch (transmitter_value) {
+> > +     case TRANSMITTER_UNIPHY_A:
+> > +             return PHYLD_0;
+> > +     case TRANSMITTER_UNIPHY_B:
+> > +             return PHYLD_1;
+> > +     case TRANSMITTER_UNIPHY_C:
+> > +             return PHYLD_2;
+> > +     case TRANSMITTER_UNIPHY_D:
+> > +             return PHYLD_3;
+> > +     case TRANSMITTER_UNIPHY_E:
+> > +             return PHYLD_4;
+> > +     case TRANSMITTER_UNIPHY_F:
+> > +             return PHYLD_5;
+> > +     case TRANSMITTER_NUTMEG_CRT:
+> > +             return PHYLD_6;
+> > +     case TRANSMITTER_TRAVIS_CRT:
+> > +             return PHYLD_7;
+> > +     case TRANSMITTER_TRAVIS_LCD:
+> > +             return PHYLD_8;
+> > +     case TRANSMITTER_UNIPHY_G:
+> > +             return PHYLD_9;
+> > +     case TRANSMITTER_COUNT:
+> > +             return PHYLD_COUNT;
+> > +     case TRANSMITTER_UNKNOWN:
+> > +             return PHYLD_UNKNOWN;
+> > +     default:
+> > +             WARN_ONCE(1, "Unknown transmitter value %d\n",
+> > +                       transmitter_value);
+> > +             return PHYLD_0;
+> > +     }
+> > +}
+> > +
+> >   bool dc_link_setup_psr(struct dc_link *link,
+> >               const struct dc_stream_state *stream, struct psr_config *psr_config,
+> >               struct psr_context *psr_context)
+> > @@ -2517,7 +2552,8 @@ bool dc_link_setup_psr(struct dc_link *link,
+> >       /* Hardcoded for now.  Can be Pcie or Uniphy (or Unknown)*/
+> >       psr_context->phyType = PHY_TYPE_UNIPHY;
+> >       /*PhyId is associated with the transmitter id*/
+> > -     psr_context->smuPhyId = link->link_enc->transmitter;
+> > +     psr_context->smuPhyId =
+> > +             transmitter_to_phy_id(link->link_enc->transmitter);
+> >
+> >       psr_context->crtcTimingVerticalTotal = stream->timing.v_total;
+> >       psr_context->vsyncRateHz = div64_u64(div64_u64((stream->
+> >
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
