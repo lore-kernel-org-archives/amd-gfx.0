@@ -1,121 +1,46 @@
-From: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: remove PT BOs when unmapping
-Date: Wed, 30 Oct 2019 15:47:53 +0000
-Message-ID: <ef1c1862-2c4e-1a76-5df0-943b6a972698@amd.com>
-References: <1572379585-1401-1-git-send-email-JinhuiEric.Huang@amd.com>
- <ebd653c8-d9e9-b104-769f-e68dee0e4c65@gmail.com>
+From: Sasha Levin <sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.3 55/81] drm/amdgpu: fix potential VM faults
+Date: Wed, 30 Oct 2019 11:49:01 -0400
+Message-ID: <20191030154928.9432-55-sashal@kernel.org>
+References: <20191030154928.9432-1-sashal@kernel.org>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <ebd653c8-d9e9-b104-769f-e68dee0e4c65-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Content-Language: en-US
-Content-ID: <819BC549570C2C4A85DEDE0D0D3A15F8-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "Huang, JinHuiEric" <JinHuiEric.Huang-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20191030154928.9432-1-sashal@kernel.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Cc: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gMjAxOS0xMC0zMCA5OjUyIGEubS4sIENocmlzdGlhbiBLw7ZuaWcgd3JvdGU6DQo+IEFtIDI5
-LjEwLjE5IHVtIDIxOjA2IHNjaHJpZWIgSHVhbmcsIEppbkh1aUVyaWM6DQo+PiBUaGUgaXNzdWUg
-aXMgUFQgQk9zIGFyZSBub3QgZnJlZWQgd2hlbiB1bm1hcHBpbmcgVkEsDQo+PiB3aGljaCBjYXVz
-ZXMgdnJhbSB1c2FnZSBhY2N1bXVsYXRlZCBpcyBodWdlIGluIHNvbWUNCj4+IG1lbW9yeSBzdHJl
-c3MgdGVzdCwgc3VjaCBhcyBrZmQgYmlnIGJ1ZmZlciBzdHJlc3MgdGVzdC4NCj4+IEZ1bmN0aW9u
-IGFtZGdwdV92bV9ib191cGRhdGVfbWFwcGluZygpIGlzIGNhbGxlZCBieSBib3RoDQo+PiBhbWRn
-cHVfdm1fYm9fdXBkYXRlKCkgYW5kIGFtZGdwdV92bV9jbGVhcl9mcmVlZCgpLiBUaGUNCj4+IHNv
-bHV0aW9uIGlzIHJlcGxhY2luZyBhbWRncHVfdm1fYm9fdXBkYXRlX21hcHBpbmcoKSBpbg0KPj4g
-YW1kZ3B1X3ZtX2NsZWFyX2ZyZWVkKCkgd2l0aCByZW1vdmluZyBQVCBCT3MgZnVuY3Rpb24NCj4+
-IHRvIHNhdmUgdnJhbSB1c2FnZS4NCj4NCj4gTkFLLCB0aGF0IGlzIGludGVudGlvbmFsIGJlaGF2
-aW9yLg0KPg0KPiBPdGhlcndpc2Ugd2UgY2FuIHJ1biBpbnRvIG91dCBvZiBtZW1vcnkgc2l0dWF0
-aW9ucyB3aGVuIHBhZ2UgdGFibGVzIA0KPiBuZWVkIHRvIGJlIGFsbG9jYXRlZCBhZ2FpbiB1bmRl
-ciBzdHJlc3MuDQoNClRoYXQncyBhIGJpdCBhcmJpdHJhcnkgYW5kIGluY29uc2lzdGVudC4gV2Ug
-YXJlIGZyZWVpbmcgcGFnZSB0YWJsZXMgaW4gDQpvdGhlciBzaXR1YXRpb25zLCB3aGVuIGEgbWFw
-cGluZyB1c2VzIGh1Z2UgcGFnZXMgaW4gDQphbWRncHVfdm1fdXBkYXRlX3B0ZXMuIFdoeSBub3Qg
-d2hlbiBhIG1hcHBpbmcgaXMgZGVzdHJveWVkIGNvbXBsZXRlbHk/DQoNCkknbSBhY3R1YWxseSBh
-IGJpdCBzdXJwcmlzZWQgdGhhdCB0aGUgaHVnZS1wYWdlIGhhbmRsaW5nIGluIA0KYW1kZ3B1X3Zt
-X3VwZGF0ZV9wdGVzIGlzbid0IGtpY2tpbmcgaW4gdG8gZnJlZSB1cCBsb3dlci1sZXZlbCBwYWdl
-IA0KdGFibGVzIHdoZW4gYSBCTyBpcyB1bm1hcHBlZC4NCg0KUmVnYXJkcywNCiDCoCBGZWxpeA0K
-DQoNCj4NCj4gUmVnYXJkcywNCj4gQ2hyaXN0aWFuLg0KPg0KPj4NCj4+IENoYW5nZS1JZDogSWMy
-NGUzNWJmZjhjYTg1MjY1YjQxOGE2NDIzNzNmMTg5ZDk3MmE5MjQNCj4+IFNpZ25lZC1vZmYtYnk6
-IEVyaWMgSHVhbmcgPEppbmh1aUVyaWMuSHVhbmdAYW1kLmNvbT4NCj4+IC0tLQ0KPj4gwqAgZHJp
-dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMgfCA1NiANCj4+ICsrKysrKysrKysr
-KysrKysrKysrKysrKysrKysrLS0tLS0NCj4+IMKgIDEgZmlsZSBjaGFuZ2VkLCA0OCBpbnNlcnRp
-b25zKCspLCA4IGRlbGV0aW9ucygtKQ0KPj4NCj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9k
-cm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uYyANCj4+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
-cHUvYW1kZ3B1X3ZtLmMNCj4+IGluZGV4IDBmNGMzYjIuLjhhNDgwYzcgMTAwNjQ0DQo+PiAtLS0g
-YS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uYw0KPj4gKysrIGIvZHJpdmVy
-cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMNCj4+IEBAIC0xOTMwLDYgKzE5MzAsNTEg
-QEAgc3RhdGljIHZvaWQgYW1kZ3B1X3ZtX3BydF9maW5pKHN0cnVjdCANCj4+IGFtZGdwdV9kZXZp
-Y2UgKmFkZXYsIHN0cnVjdCBhbWRncHVfdm0gKnZtKQ0KPj4gwqAgfQ0KPj4gwqAgwqAgLyoqDQo+
-PiArICogYW1kZ3B1X3ZtX3JlbW92ZV9wdGVzIC0gZnJlZSBQVCBCT3MNCj4+ICsgKg0KPj4gKyAq
-IEBhZGV2OiBhbWRncHUgZGV2aWNlIHN0cnVjdHVyZQ0KPj4gKyAqIEB2bTogYW1kZ3B1IHZtIHN0
-cnVjdHVyZQ0KPj4gKyAqIEBzdGFydDogc3RhcnQgb2YgbWFwcGVkIHJhbmdlDQo+PiArICogQGVu
-ZDogZW5kIG9mIG1hcHBlZCBlbnRyeQ0KPj4gKyAqDQo+PiArICogRnJlZSB0aGUgcGFnZSB0YWJs
-ZSBsZXZlbC4NCj4+ICsgKi8NCj4+ICtzdGF0aWMgaW50IGFtZGdwdV92bV9yZW1vdmVfcHRlcyhz
-dHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwNCj4+ICvCoMKgwqDCoMKgwqDCoCBzdHJ1Y3QgYW1k
-Z3B1X3ZtICp2bSwgdWludDY0X3Qgc3RhcnQsIHVpbnQ2NF90IGVuZCkNCj4+ICt7DQo+PiArwqDC
-oMKgIHN0cnVjdCBhbWRncHVfdm1fcHRfY3Vyc29yIGN1cnNvcjsNCj4+ICvCoMKgwqAgdW5zaWdu
-ZWQgc2hpZnQsIG51bV9lbnRyaWVzOw0KPj4gKw0KPj4gK8KgwqDCoCBhbWRncHVfdm1fcHRfc3Rh
-cnQoYWRldiwgdm0sIHN0YXJ0LCAmY3Vyc29yKTsNCj4+ICvCoMKgwqAgd2hpbGUgKGN1cnNvci5s
-ZXZlbCA8IEFNREdQVV9WTV9QVEIpIHsNCj4+ICvCoMKgwqDCoMKgwqDCoCBpZiAoIWFtZGdwdV92
-bV9wdF9kZXNjZW5kYW50KGFkZXYsICZjdXJzb3IpKQ0KPj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKg
-wqAgcmV0dXJuIC1FTk9FTlQ7DQo+PiArwqDCoMKgIH0NCj4+ICsNCj4+ICvCoMKgwqAgd2hpbGUg
-KGN1cnNvci5wZm4gPCBlbmQpIHsNCj4+ICvCoMKgwqDCoMKgwqDCoCBhbWRncHVfdm1fZnJlZV90
-YWJsZShjdXJzb3IuZW50cnkpOw0KPj4gK8KgwqDCoMKgwqDCoMKgIG51bV9lbnRyaWVzID0gYW1k
-Z3B1X3ZtX251bV9lbnRyaWVzKGFkZXYsIGN1cnNvci5sZXZlbCAtIDEpOw0KPj4gKw0KPj4gK8Kg
-wqDCoMKgwqDCoMKgIGlmIChjdXJzb3IuZW50cnkgIT0gJmN1cnNvci5wYXJlbnQtPmVudHJpZXNb
-bnVtX2VudHJpZXMgLSAxXSkgew0KPj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAgLyogTmV4dCBw
-dGIgZW50cnkgKi8NCj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHNoaWZ0ID0gYW1kZ3B1X3Zt
-X2xldmVsX3NoaWZ0KGFkZXYsIGN1cnNvci5sZXZlbCAtIDEpOw0KPj4gK8KgwqDCoMKgwqDCoMKg
-wqDCoMKgwqAgY3Vyc29yLnBmbiArPSAxVUxMIDw8IHNoaWZ0Ow0KPj4gK8KgwqDCoMKgwqDCoMKg
-wqDCoMKgwqAgY3Vyc29yLnBmbiAmPSB+KCgxVUxMIDw8IHNoaWZ0KSAtIDEpOw0KPj4gK8KgwqDC
-oMKgwqDCoMKgwqDCoMKgwqAgY3Vyc29yLmVudHJ5Kys7DQo+PiArwqDCoMKgwqDCoMKgwqAgfSBl
-bHNlIHsNCj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIC8qIE5leHQgcHRiIGVudHJ5IGluIG5l
-eHQgcGQwIGVudHJ5ICovDQo+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBhbWRncHVfdm1fcHRf
-YW5jZXN0b3IoJmN1cnNvcik7DQo+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBzaGlmdCA9IGFt
-ZGdwdV92bV9sZXZlbF9zaGlmdChhZGV2LCBjdXJzb3IubGV2ZWwgLSAxKTsNCj4+ICvCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgIGN1cnNvci5wZm4gKz0gMVVMTCA8PCBzaGlmdDsNCj4+ICvCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgIGN1cnNvci5wZm4gJj0gfigoMVVMTCA8PCBzaGlmdCkgLSAxKTsNCj4+
-ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGFtZGdwdV92bV9wdF9kZXNjZW5kYW50KGFkZXYsICZj
-dXJzb3IpOw0KPj4gK8KgwqDCoMKgwqDCoMKgIH0NCj4+ICvCoMKgwqAgfQ0KPj4gKw0KPj4gK8Kg
-wqDCoCByZXR1cm4gMDsNCj4+ICt9DQo+PiArDQo+PiArLyoqDQo+PiDCoMKgICogYW1kZ3B1X3Zt
-X2NsZWFyX2ZyZWVkIC0gY2xlYXIgZnJlZWQgQk9zIGluIHRoZSBQVA0KPj4gwqDCoCAqDQo+PiDC
-oMKgICogQGFkZXY6IGFtZGdwdV9kZXZpY2UgcG9pbnRlcg0KPj4gQEAgLTE5NDksNyArMTk5NCw2
-IEBAIGludCBhbWRncHVfdm1fY2xlYXJfZnJlZWQoc3RydWN0IGFtZGdwdV9kZXZpY2UgDQo+PiAq
-YWRldiwNCj4+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBzdHJ1Y3QgZG1hX2ZlbmNl
-ICoqZmVuY2UpDQo+PiDCoCB7DQo+PiDCoMKgwqDCoMKgIHN0cnVjdCBhbWRncHVfYm9fdmFfbWFw
-cGluZyAqbWFwcGluZzsNCj4+IC3CoMKgwqAgdWludDY0X3QgaW5pdF9wdGVfdmFsdWUgPSAwOw0K
-Pj4gwqDCoMKgwqDCoCBzdHJ1Y3QgZG1hX2ZlbmNlICpmID0gTlVMTDsNCj4+IMKgwqDCoMKgwqAg
-aW50IHI7DQo+PiDCoCBAQCAtMTk1OCwxMyArMjAwMiwxMCBAQCBpbnQgYW1kZ3B1X3ZtX2NsZWFy
-X2ZyZWVkKHN0cnVjdCANCj4+IGFtZGdwdV9kZXZpY2UgKmFkZXYsDQo+PiDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoCBzdHJ1Y3QgYW1kZ3B1X2JvX3ZhX21hcHBpbmcsIGxpc3QpOw0KPj4gwqDC
-oMKgwqDCoMKgwqDCoMKgIGxpc3RfZGVsKCZtYXBwaW5nLT5saXN0KTsNCj4+IMKgIC3CoMKgwqDC
-oMKgwqDCoCBpZiAodm0tPnB0ZV9zdXBwb3J0X2F0cyAmJg0KPj4gLcKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqAgbWFwcGluZy0+c3RhcnQgPCBBTURHUFVfR01DX0hPTEVfU1RBUlQpDQo+PiAtwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoCBpbml0X3B0ZV92YWx1ZSA9IEFNREdQVV9QVEVfREVGQVVMVF9BVEM7
-DQo+PiArwqDCoMKgwqDCoMKgwqAgciA9IGFtZGdwdV92bV9yZW1vdmVfcHRlcyhhZGV2LCB2bSwN
-Cj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgKG1hcHBpbmctPnN0YXJ0ICsgMHgx
-ZmYpICYgKH4weDFmZmxsKSwNCj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgKG1h
-cHBpbmctPmxhc3QgKyAxKSAmICh+MHgxZmZsbCkpOw0KPj4gwqAgLcKgwqDCoMKgwqDCoMKgIHIg
-PSBhbWRncHVfdm1fYm9fdXBkYXRlX21hcHBpbmcoYWRldiwgdm0sIGZhbHNlLCBOVUxMLA0KPj4g
-LcKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgbWFwcGluZy0+
-c3RhcnQsIG1hcHBpbmctPmxhc3QsDQo+PiAtwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoCBpbml0X3B0ZV92YWx1ZSwgMCwgTlVMTCwgJmYpOw0KPj4gwqDCoMKg
-wqDCoMKgwqDCoMKgIGFtZGdwdV92bV9mcmVlX21hcHBpbmcoYWRldiwgdm0sIG1hcHBpbmcsIGYp
-Ow0KPj4gwqDCoMKgwqDCoMKgwqDCoMKgIGlmIChyKSB7DQo+PiDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoCBkbWFfZmVuY2VfcHV0KGYpOw0KPj4gQEAgLTE5ODAsNyArMjAyMSw2IEBAIGludCBh
-bWRncHVfdm1fY2xlYXJfZnJlZWQoc3RydWN0IGFtZGdwdV9kZXZpY2UgDQo+PiAqYWRldiwNCj4+
-IMKgwqDCoMKgwqAgfQ0KPj4gwqAgwqDCoMKgwqDCoCByZXR1cm4gMDsNCj4+IC0NCj4+IMKgIH0N
-Cj4+IMKgIMKgIC8qKg0KPg0KPiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fXw0KPiBhbWQtZ2Z4IG1haWxpbmcgbGlzdA0KPiBhbWQtZ2Z4QGxpc3RzLmZyZWVk
-ZXNrdG9wLm9yZw0KPiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3Rp
-bmZvL2FtZC1nZngNCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0
-dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
+From: Christian König <christian.koenig@amd.com>
+
+[ Upstream commit 3122051edc7c27cc08534be730f4c7c180919b8a ]
+
+When we allocate new page tables under memory
+pressure we should not evict old ones.
+
+Signed-off-by: Christian König <christian.koenig@amd.com>
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+index bea6f298dfdc5..0ff786dec8c4a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+@@ -421,7 +421,8 @@ static int amdgpu_bo_do_create(struct amdgpu_device *adev,
+ 		.interruptible = (bp->type != ttm_bo_type_kernel),
+ 		.no_wait_gpu = false,
+ 		.resv = bp->resv,
+-		.flags = TTM_OPT_FLAG_ALLOW_RES_EVICT
++		.flags = bp->type != ttm_bo_type_kernel ?
++			TTM_OPT_FLAG_ALLOW_RES_EVICT : 0
+ 	};
+ 	struct amdgpu_bo *bo;
+ 	unsigned long page_align, size = bp->size;
+-- 
+2.20.1
