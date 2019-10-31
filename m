@@ -1,117 +1,128 @@
-From: Harry Wentland <hwentlan-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 01/11] drm/amdgpu: Add ucode support for DMCUB
-Date: Thu, 31 Oct 2019 15:51:28 +0000
-Message-ID: <11411112-52e1-6246-8961-21149a0b0a06@amd.com>
-References: <20191028140837.7908-1-nicholas.kazlauskas@amd.com>
- <20191028140837.7908-2-nicholas.kazlauskas@amd.com>
- <BL0PR12MB28206F7609F85CC61124168689630@BL0PR12MB2820.namprd12.prod.outlook.com>
+From: Will Deacon <will@kernel.org>
+Subject: Re: [PATCH] drm/radeon: Handle workqueue allocation failure
+Date: Thu, 31 Oct 2019 16:54:51 +0000
+Message-ID: <20191031165450.GA28461@willie-the-truck>
+References: <20191025110450.10474-1-will@kernel.org>
+ <5d6a88a2-2719-a859-04df-10b0d893ff39@daenzer.net>
+ <20191025161804.GA12335@willie-the-truck>
+ <e2f87ecc-0a8e-253d-107c-5cf6486c4b6a@daenzer.net>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <BL0PR12MB28206F7609F85CC61124168689630-b4cIHhjg/p+sXtSDH/k0iAdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
-Content-Language: en-US
-Content-ID: <5AB06958CD29744DB9FCF19C7EC9341D-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Li, Roman" <Roman.Li-5C7GfCeVMHo@public.gmane.org>, "Kazlauskas, Nicholas" <Nicholas.Kazlauskas-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Wu, Hersen" <hersenxs.wu-5C7GfCeVMHo@public.gmane.org>
-Cc: "Wentland, Harry" <Harry.Wentland-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset=iso-8859-1
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Content-Disposition: inline
+In-Reply-To: <e2f87ecc-0a8e-253d-107c-5cf6486c4b6a@daenzer.net>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Michel =?iso-8859-1?Q?D=E4nzer?= <michel@daenzer.net>
+Cc: amd-gfx@lists.freedesktop.org, David Airlie <airlied@linux.ie>, linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, Nicolas Waisman <nico@semmle.com>, Alex Deucher <alexander.deucher@amd.com>, Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
-DQoNCk9uIDIwMTktMTAtMzEgMTE6NDAgYS5tLiwgTGksIFJvbWFuIHdyb3RlOg0KPiBPbiBCZWhh
-bGYgIE9mOiBIZXJzZW4gV3UNCj4gU2VyaWVzIGlzOg0KPiBSZXZpZXdlZC1ieTogSGVyc2VuIFd1
-IDxoZXJzZW54cy53dUBhbWQuY29tPg0KDQpJIG9ubHkgbWFuYWdlZCB0byBza2ltIHRoZSBwYXRj
-aGVzIGJ1dCBpdCBsb29rcyByZWFzb25hYmxlLg0KU2VyaWVzIGlzDQpBY2tlZC1ieTogSGFycnkg
-V2VudGxhbmQgPGhhcnJ5LndlbnRsYW5kQGFtZC5jb20+DQoNCkhhcnJ5DQoNCj4gDQo+IC0tLS0t
-T3JpZ2luYWwgTWVzc2FnZS0tLS0tDQo+IEZyb206IGFtZC1nZnggPGFtZC1nZngtYm91bmNlc0Bs
-aXN0cy5mcmVlZGVza3RvcC5vcmc+IE9uIEJlaGFsZiBPZiBOaWNob2xhcyBLYXpsYXVza2FzDQo+
-IFNlbnQ6IE1vbmRheSwgT2N0b2JlciAyOCwgMjAxOSAxMDowOCBBTQ0KPiBUbzogYW1kLWdmeEBs
-aXN0cy5mcmVlZGVza3RvcC5vcmcNCj4gQ2M6IEthemxhdXNrYXMsIE5pY2hvbGFzIDxOaWNob2xh
-cy5LYXpsYXVza2FzQGFtZC5jb20+DQo+IFN1YmplY3Q6IFtQQVRDSCAwMS8xMV0gZHJtL2FtZGdw
-dTogQWRkIHVjb2RlIHN1cHBvcnQgZm9yIERNQ1VCDQo+IA0KPiBUaGUgRE1DVUIgaXMgYSBzZWNv
-bmRhcnkgRE1DVSAoRGlzcGxheSBNaWNyb0NvbnRyb2xsZXIgVW5pdCkgdGhhdCBoYXMgaXRzIG93
-biBzZXBhcmF0ZSBmaXJtd2FyZS4gSXQncyByZXF1aXJlZCBmb3IgRE1DVSBzdXBwb3J0IG9uIFJl
-bm9pci4NCj4gDQo+IFNpZ25lZC1vZmYtYnk6IE5pY2hvbGFzIEthemxhdXNrYXMgPG5pY2hvbGFz
-LmthemxhdXNrYXNAYW1kLmNvbT4NCj4gLS0tDQo+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
-dS9hbWRncHVfdWNvZGUuYyB8IDExICsrKysrKysrKystICBkcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
-ZGdwdS9hbWRncHVfdWNvZGUuaCB8ICA5ICsrKysrKysrKw0KPiAgMiBmaWxlcyBjaGFuZ2VkLCAx
-OSBpbnNlcnRpb25zKCspLCAxIGRlbGV0aW9uKC0pDQo+IA0KPiBkaWZmIC0tZ2l0IGEvZHJpdmVy
-cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Vjb2RlLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1k
-L2FtZGdwdS9hbWRncHVfdWNvZGUuYw0KPiBpbmRleCA4MzNmYzRiNjg5NDAuLjllZjMxMjQyODIz
-MSAxMDA2NDQNCj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Vjb2Rl
-LmMNCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Vjb2RlLmMNCj4g
-QEAgLTQ0Nyw2ICs0NDcsNyBAQCBzdGF0aWMgaW50IGFtZGdwdV91Y29kZV9pbml0X3NpbmdsZV9m
-dyhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwNCj4gIAljb25zdCBzdHJ1Y3QgY29tbW9uX2Zp
-cm13YXJlX2hlYWRlciAqaGVhZGVyID0gTlVMTDsNCj4gIAljb25zdCBzdHJ1Y3QgZ2Z4X2Zpcm13
-YXJlX2hlYWRlcl92MV8wICpjcF9oZHIgPSBOVUxMOw0KPiAgCWNvbnN0IHN0cnVjdCBkbWN1X2Zp
-cm13YXJlX2hlYWRlcl92MV8wICpkbWN1X2hkciA9IE5VTEw7DQo+ICsJY29uc3Qgc3RydWN0IGRt
-Y3ViX2Zpcm13YXJlX2hlYWRlcl92MV8wICpkbWN1Yl9oZHIgPSBOVUxMOw0KPiAgDQo+ICAJaWYg
-KE5VTEwgPT0gdWNvZGUtPmZ3KQ0KPiAgCQlyZXR1cm4gMDsNCj4gQEAgLTQ2MCw2ICs0NjEsNyBA
-QCBzdGF0aWMgaW50IGFtZGdwdV91Y29kZV9pbml0X3NpbmdsZV9mdyhzdHJ1Y3QgYW1kZ3B1X2Rl
-dmljZSAqYWRldiwNCj4gIAloZWFkZXIgPSAoY29uc3Qgc3RydWN0IGNvbW1vbl9maXJtd2FyZV9o
-ZWFkZXIgKil1Y29kZS0+ZnctPmRhdGE7DQo+ICAJY3BfaGRyID0gKGNvbnN0IHN0cnVjdCBnZnhf
-ZmlybXdhcmVfaGVhZGVyX3YxXzAgKil1Y29kZS0+ZnctPmRhdGE7DQo+ICAJZG1jdV9oZHIgPSAo
-Y29uc3Qgc3RydWN0IGRtY3VfZmlybXdhcmVfaGVhZGVyX3YxXzAgKil1Y29kZS0+ZnctPmRhdGE7
-DQo+ICsJZG1jdWJfaGRyID0gKGNvbnN0IHN0cnVjdCBkbWN1Yl9maXJtd2FyZV9oZWFkZXJfdjFf
-MCANCj4gKyopdWNvZGUtPmZ3LT5kYXRhOw0KPiAgDQo+ICAJaWYgKGFkZXYtPmZpcm13YXJlLmxv
-YWRfdHlwZSAhPSBBTURHUFVfRldfTE9BRF9QU1AgfHwNCj4gIAkgICAgKHVjb2RlLT51Y29kZV9p
-ZCAhPSBBTURHUFVfVUNPREVfSURfQ1BfTUVDMSAmJiBAQCAtNDcwLDcgKzQ3Miw4IEBAIHN0YXRp
-YyBpbnQgYW1kZ3B1X3Vjb2RlX2luaXRfc2luZ2xlX2Z3KHN0cnVjdCBhbWRncHVfZGV2aWNlICph
-ZGV2LA0KPiAgCSAgICAgdWNvZGUtPnVjb2RlX2lkICE9IEFNREdQVV9VQ09ERV9JRF9STENfUkVT
-VE9SRV9MSVNUX0dQTV9NRU0gJiYNCj4gIAkgICAgIHVjb2RlLT51Y29kZV9pZCAhPSBBTURHUFVf
-VUNPREVfSURfUkxDX1JFU1RPUkVfTElTVF9TUk1fTUVNICYmDQo+ICAJCSB1Y29kZS0+dWNvZGVf
-aWQgIT0gQU1ER1BVX1VDT0RFX0lEX0RNQ1VfRVJBTSAmJg0KPiAtCQkgdWNvZGUtPnVjb2RlX2lk
-ICE9IEFNREdQVV9VQ09ERV9JRF9ETUNVX0lOVFYpKSB7DQo+ICsJCSB1Y29kZS0+dWNvZGVfaWQg
-IT0gQU1ER1BVX1VDT0RFX0lEX0RNQ1VfSU5UViAmJg0KPiArCQkgdWNvZGUtPnVjb2RlX2lkICE9
-IEFNREdQVV9VQ09ERV9JRF9ETUNVQikpIHsNCj4gIAkJdWNvZGUtPnVjb2RlX3NpemUgPSBsZTMy
-X3RvX2NwdShoZWFkZXItPnVjb2RlX3NpemVfYnl0ZXMpOw0KPiAgDQo+ICAJCW1lbWNweSh1Y29k
-ZS0+a2FkZHIsICh2b2lkICopKCh1aW50OF90ICopdWNvZGUtPmZ3LT5kYXRhICsgQEAgLTUwNiw2
-ICs1MDksMTIgQEAgc3RhdGljIGludCBhbWRncHVfdWNvZGVfaW5pdF9zaW5nbGVfZncoc3RydWN0
-IGFtZGdwdV9kZXZpY2UgKmFkZXYsDQo+ICAJCQkJCSAgICAgIGxlMzJfdG9fY3B1KGhlYWRlci0+
-dWNvZGVfYXJyYXlfb2Zmc2V0X2J5dGVzKSArDQo+ICAJCQkJCSAgICAgIGxlMzJfdG9fY3B1KGRt
-Y3VfaGRyLT5pbnR2X29mZnNldF9ieXRlcykpLA0KPiAgCQkgICAgICAgdWNvZGUtPnVjb2RlX3Np
-emUpOw0KPiArCX0gZWxzZSBpZiAodWNvZGUtPnVjb2RlX2lkID09IEFNREdQVV9VQ09ERV9JRF9E
-TUNVQikgew0KPiArCQl1Y29kZS0+dWNvZGVfc2l6ZSA9IGxlMzJfdG9fY3B1KGRtY3ViX2hkci0+
-aW5zdF9jb25zdF9ieXRlcyk7DQo+ICsJCW1lbWNweSh1Y29kZS0+a2FkZHIsDQo+ICsJCSAgICAg
-ICAodm9pZCAqKSgodWludDhfdCAqKXVjb2RlLT5mdy0+ZGF0YSArDQo+ICsJCQkJbGUzMl90b19j
-cHUoaGVhZGVyLT51Y29kZV9hcnJheV9vZmZzZXRfYnl0ZXMpKSwNCj4gKwkJICAgICAgIHVjb2Rl
-LT51Y29kZV9zaXplKTsNCj4gIAl9IGVsc2UgaWYgKHVjb2RlLT51Y29kZV9pZCA9PSBBTURHUFVf
-VUNPREVfSURfUkxDX1JFU1RPUkVfTElTVF9DTlRMKSB7DQo+ICAJCXVjb2RlLT51Y29kZV9zaXpl
-ID0gYWRldi0+Z2Z4LnJsYy5zYXZlX3Jlc3RvcmVfbGlzdF9jbnRsX3NpemVfYnl0ZXM7DQo+ICAJ
-CW1lbWNweSh1Y29kZS0+a2FkZHIsIGFkZXYtPmdmeC5ybGMuc2F2ZV9yZXN0b3JlX2xpc3RfY250
-bCwNCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV91Y29k
-ZS5oIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Vjb2RlLmgNCj4gaW5kZXgg
-NDEwNTg3Yjk1MGYzLi5lYWYyZDViOWM5MmYgMTAwNjQ0DQo+IC0tLSBhL2RyaXZlcnMvZ3B1L2Ry
-bS9hbWQvYW1kZ3B1L2FtZGdwdV91Y29kZS5oDQo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-YW1kZ3B1L2FtZGdwdV91Y29kZS5oDQo+IEBAIC0yNTEsNiArMjUxLDEzIEBAIHN0cnVjdCBkbWN1
-X2Zpcm13YXJlX2hlYWRlcl92MV8wIHsNCj4gIAl1aW50MzJfdCBpbnR2X3NpemVfYnl0ZXM7ICAv
-KiBzaXplIG9mIGludGVycnVwdCB2ZWN0b3JzLCBpbiBieXRlcyAqLyAgfTsNCj4gIA0KPiArLyog
-dmVyc2lvbl9tYWpvcj0xLCB2ZXJzaW9uX21pbm9yPTAgKi8NCj4gK3N0cnVjdCBkbWN1Yl9maXJt
-d2FyZV9oZWFkZXJfdjFfMCB7DQo+ICsJc3RydWN0IGNvbW1vbl9maXJtd2FyZV9oZWFkZXIgaGVh
-ZGVyOw0KPiArCXVpbnQzMl90IGluc3RfY29uc3RfYnl0ZXM7IC8qIHNpemUgb2YgaW5zdHJ1Y3Rp
-b24gcmVnaW9uLCBpbiBieXRlcyAqLw0KPiArCXVpbnQzMl90IGJzc19kYXRhX2J5dGVzOyAvKiBz
-aXplIG9mIGJzcy9kYXRhIHJlZ2lvbiwgaW4gYnl0ZXMgKi8gfTsNCj4gKw0KPiAgLyogaGVhZGVy
-IGlzIGZpeGVkIHNpemUgKi8NCj4gIHVuaW9uIGFtZGdwdV9maXJtd2FyZV9oZWFkZXIgew0KPiAg
-CXN0cnVjdCBjb21tb25fZmlybXdhcmVfaGVhZGVyIGNvbW1vbjsNCj4gQEAgLTI2OCw2ICsyNzUs
-NyBAQCB1bmlvbiBhbWRncHVfZmlybXdhcmVfaGVhZGVyIHsNCj4gIAlzdHJ1Y3Qgc2RtYV9maXJt
-d2FyZV9oZWFkZXJfdjFfMSBzZG1hX3YxXzE7DQo+ICAJc3RydWN0IGdwdV9pbmZvX2Zpcm13YXJl
-X2hlYWRlcl92MV8wIGdwdV9pbmZvOw0KPiAgCXN0cnVjdCBkbWN1X2Zpcm13YXJlX2hlYWRlcl92
-MV8wIGRtY3U7DQo+ICsJc3RydWN0IGRtY3ViX2Zpcm13YXJlX2hlYWRlcl92MV8wIGRtY3ViOw0K
-PiAgCXVpbnQ4X3QgcmF3WzB4MTAwXTsNCj4gIH07DQo+ICANCj4gQEAgLTMwNyw2ICszMTUsNyBA
-QCBlbnVtIEFNREdQVV9VQ09ERV9JRCB7DQo+ICAJQU1ER1BVX1VDT0RFX0lEX0RNQ1VfSU5UViwN
-Cj4gIAlBTURHUFVfVUNPREVfSURfVkNOMF9SQU0sDQo+ICAJQU1ER1BVX1VDT0RFX0lEX1ZDTjFf
-UkFNLA0KPiArCUFNREdQVV9VQ09ERV9JRF9ETUNVQiwNCj4gIAlBTURHUFVfVUNPREVfSURfTUFY
-SU1VTSwNCj4gIH07DQo+ICANCj4gLS0NCj4gMi4yMC4xDQo+IA0KPiBfX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXw0KPiBhbWQtZ2Z4IG1haWxpbmcgbGlzdA0K
-PiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0KPiBodHRwczovL2xpc3RzLmZyZWVkZXNr
-dG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngNCj4gDQpfX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4
-QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWls
-bWFuL2xpc3RpbmZvL2FtZC1nZng=
+On Fri, Oct 25, 2019 at 06:20:01PM +0200, Michel Dänzer wrote:
+> On 2019-10-25 6:18 p.m., Will Deacon wrote:
+> > On Fri, Oct 25, 2019 at 06:06:26PM +0200, Michel Dänzer wrote:
+> >> On 2019-10-25 1:04 p.m., Will Deacon wrote:
+> >>> In the highly unlikely event that we fail to allocate the "radeon-crtc"
+> >>> workqueue, we should bail cleanly rather than blindly march on with a
+> >>> NULL pointer installed for the 'flip_queue' field of the 'radeon_crtc'
+> >>> structure.
+> >>>
+> >>> This was reported previously by Nicolas, but I don't think his fix was
+> >>> correct:
+> >>
+> >> Neither is this one I'm afraid. See my feedback on
+> >> https://patchwork.freedesktop.org/patch/331534/ .
+> > 
+> > Thanks. Although I agree with you wrt the original patch, I don't think
+> > the workqueue allocation failure is distinguishable from the CRTC allocation
+> > failure with my patch. Are you saying that the error path there is broken
+> > too?
+> 
+> The driver won't actually work if radeon_crtc_init bails silently, it'll
+> just fall over at some later point.
+
+Ok, so how about fleshing it out as per below?
+
+Will
+
+--->8
+
+diff --git a/drivers/gpu/drm/radeon/radeon_display.c b/drivers/gpu/drm/radeon/radeon_display.c
+index e81b01f8db90..177acee06620 100644
+--- a/drivers/gpu/drm/radeon/radeon_display.c
++++ b/drivers/gpu/drm/radeon/radeon_display.c
+@@ -668,21 +668,29 @@ static const struct drm_crtc_funcs radeon_crtc_funcs = {
+ 	.page_flip_target = radeon_crtc_page_flip_target,
+ };
+ 
+-static void radeon_crtc_init(struct drm_device *dev, int index)
++static int radeon_crtc_init(struct drm_device *dev, int index)
+ {
+ 	struct radeon_device *rdev = dev->dev_private;
+ 	struct radeon_crtc *radeon_crtc;
++	struct workqueue_struct *wq;
+ 	int i;
+ 
+ 	radeon_crtc = kzalloc(sizeof(struct radeon_crtc) + (RADEONFB_CONN_LIMIT * sizeof(struct drm_connector *)), GFP_KERNEL);
+ 	if (radeon_crtc == NULL)
+-		return;
++		return -ENOMEM;
++
++	wq = alloc_workqueue("radeon-crtc", WQ_HIGHPRI, 0);
++	if (unlikely(!wq)) {
++		kfree(radeon_crtc);
++		return - ENOMEM;
++	}
+ 
+ 	drm_crtc_init(dev, &radeon_crtc->base, &radeon_crtc_funcs);
+ 
+ 	drm_mode_crtc_set_gamma_size(&radeon_crtc->base, 256);
+ 	radeon_crtc->crtc_id = index;
+-	radeon_crtc->flip_queue = alloc_workqueue("radeon-crtc", WQ_HIGHPRI, 0);
++	radeon_crtc->flip_queue = wq;
++
+ 	rdev->mode_info.crtcs[index] = radeon_crtc;
+ 
+ 	if (rdev->family >= CHIP_BONAIRE) {
+@@ -711,6 +719,8 @@ static void radeon_crtc_init(struct drm_device *dev, int index)
+ 		radeon_atombios_init_crtc(dev, radeon_crtc);
+ 	else
+ 		radeon_legacy_init_crtc(dev, radeon_crtc);
++
++	return 0;
+ }
+ 
+ static const char *encoder_names[38] = {
+@@ -1602,9 +1612,8 @@ int radeon_modeset_init(struct radeon_device *rdev)
+ 	rdev->ddev->mode_config.fb_base = rdev->mc.aper_base;
+ 
+ 	ret = radeon_modeset_create_props(rdev);
+-	if (ret) {
+-		return ret;
+-	}
++	if (ret)
++		goto err_drm_mode_config_cleanup;
+ 
+ 	/* init i2c buses */
+ 	radeon_i2c_init(rdev);
+@@ -1617,7 +1626,9 @@ int radeon_modeset_init(struct radeon_device *rdev)
+ 
+ 	/* allocate crtcs */
+ 	for (i = 0; i < rdev->num_crtc; i++) {
+-		radeon_crtc_init(rdev->ddev, i);
++		ret = radeon_crtc_init(rdev->ddev, i);
++		if (ret)
++			goto err_drm_mode_config_cleanup;
+ 	}
+ 
+ 	/* okay we should have all the bios connectors */
+@@ -1645,6 +1656,10 @@ int radeon_modeset_init(struct radeon_device *rdev)
+ 	ret = radeon_pm_late_init(rdev);
+ 
+ 	return 0;
++
++err_drm_mode_config_cleanup:
++	drm_mode_config_cleanup(rdev->ddev);
++	return ret;
+ }
+ 
+ void radeon_modeset_fini(struct radeon_device *rdev)
