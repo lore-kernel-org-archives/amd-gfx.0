@@ -1,13 +1,14 @@
-From: Kyle Mahlkuch <kmahlkuc-23VcF4HTsmIX0ybBhKVfKdBPR1lH4CV8@public.gmane.org>
-Subject: Re: [PATCH v3] drm/radeon: Fix EEH during kexec
-Date: Thu, 31 Oct 2019 10:24:53 -0500
-Message-ID: <412d6237-d5d7-cd4b-d227-0c84e776fae8@linux.vnet.ibm.com>
-References: <1572036050-18945-1-git-send-email-kmahlkuc@linux.vnet.ibm.com>
- <87o8xyfrmp.fsf@mpe.ellerman.id.au>
+From: "Li, Roman" <Roman.Li-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: [PATCH 01/11] drm/amdgpu: Add ucode support for DMCUB
+Date: Thu, 31 Oct 2019 15:40:13 +0000
+Message-ID: <BL0PR12MB28206F7609F85CC61124168689630@BL0PR12MB2820.namprd12.prod.outlook.com>
+References: <20191028140837.7908-1-nicholas.kazlauskas@amd.com>
+ <20191028140837.7908-2-nicholas.kazlauskas@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1229226286=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <87o8xyfrmp.fsf-exYd9J+JjbNEdatCaa6vohCuuivNXqWP@public.gmane.org>
+In-Reply-To: <20191028140837.7908-2-nicholas.kazlauskas-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -19,223 +20,90 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Michael Ellerman <mpe-Gsx/Oe8HsFggBc27wqDAHg@public.gmane.org>, alexander.deucher-5C7GfCeVMHo@public.gmane.org
-Cc: linuxppc-dev-uLR06cmDAlY/bJ5BZ2RsiQ@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Wu, Hersen" <hersenxs.wu-5C7GfCeVMHo@public.gmane.org>
+Cc: "Wentland, Harry" <Harry.Wentland-5C7GfCeVMHo@public.gmane.org>, "Kazlauskas,
+ Nicholas" <Nicholas.Kazlauskas-5C7GfCeVMHo@public.gmane.org>
 
-This is a multi-part message in MIME format.
---===============1229226286==
-Content-Type: multipart/alternative;
- boundary="------------1BFA037AD571F71D234D7E5D"
-Content-Language: en-US
-
-This is a multi-part message in MIME format.
---------------1BFA037AD571F71D234D7E5D
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
-
-On 10/30/19 5:35 AM, Michael Ellerman wrote:
-
-> Hi Kyle,
->
-> KyleMahlkuch <kmahlkuc-23VcF4HTsmIX0ybBhKVfKdBPR1lH4CV8@public.gmane.org> writes:
->> From: Kyle Mahlkuch <kmahlkuc-23VcF4HTsmIX0ybBhKVfKdBPR1lH4CV8@public.gmane.org>
->>
->> During kexec some adapters hit an EEH since they are not properly
->> shut down in the radeon_pci_shutdown() function. Adding
->> radeon_suspend_kms() fixes this issue.
->> Enabled only on PPC because this patch causes issues on some other
->> boards.
-> Which adapters hit the issues?
->
-> And do we know why they're not shut down correctly in
-> radeon_pci_shutdown()? That seems like the root cause no?
-
-Hi Michael,
-This is hit by the Caicos (edwards2) adapter that I have on ppc. It is not hit
-on the Cedar (FirePro) adapter - though I haven't tested this one recently. I'm
-not able to test any other adapters. As far as "why", I'm unsure. During
-initialization after the kexec we hit an EEH. There could be another point in
-the shutdown / start up process where something doesn't get reset correctly.
-I'm open to other ideas if you have any.
-
->> diff --git a/drivers/gpu/drm/radeon/radeon_drv.c b/drivers/gpu/drm/radeon/radeon_drv.c
->> index 9e55076..4528f4d 100644
->> --- a/drivers/gpu/drm/radeon/radeon_drv.c
->> +++ b/drivers/gpu/drm/radeon/radeon_drv.c
->> @@ -379,11 +379,25 @@ static int radeon_pci_probe(struct pci_dev *pdev,
->>   static void
->>   radeon_pci_shutdown(struct pci_dev *pdev)
->>   {
->> +#ifdef CONFIG_PPC64
->> +	struct drm_device *ddev = pci_get_drvdata(pdev);
->> +#endif
-> This local serves no real purpose and could be avoided, which would also
-> avoid this ifdef.
->
->>   	/* if we are running in a VM, make sure the device
->>   	 * torn down properly on reboot/shutdown
->>   	 */
->>   	if (radeon_device_is_virtual())
->>   		radeon_pci_remove(pdev);
->> +
->> +#ifdef CONFIG_PPC64
->> +	/* Some adapters need to be suspended before a
-> AFAIK drm uses normal kernel comment style, so this should be:
->
-> 	/*
-> 	 * Some adapters need to be suspended before a
->> +	 * shutdown occurs in order to prevent an error
->> +	 * during kexec.
->> +	 * Make this power specific becauase it breaks
->> +	 * some non-power boards.
->> +	 */
->> +	radeon_suspend_kms(ddev, true, true, false);
-> ie, instead do:
->
-> 	radeon_suspend_kms(pci_get_drvdata(pdev), true, true, false);
-
-I agree, this is a cleaner way to write this patch. I'll update the comment as
-well. Thanks for the help.
-
->> +#endif
->>   }
->>   
->>   static int radeon_pmops_suspend(struct device *dev)
->> -- 
->> 1.8.3.1
-> cheers
->
-
---------------1BFA037AD571F71D234D7E5D
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: 7bit
-
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body text="#000000" bgcolor="#FFFFFF">
-    <pre>
-</pre>
-    <div class="moz-cite-prefix">
-      <pre>On 10/30/19 5:35 AM, Michael Ellerman wrote:</pre>
-    </div>
-    <blockquote type="cite" cite="mid:87o8xyfrmp.fsf-exYd9J+JjbNEdatCaa6vohCuuivNXqWP@public.gmane.org">
-      <pre class="moz-quote-pre" wrap="">Hi Kyle,
-
-KyleMahlkuch <a class="moz-txt-link-rfc2396E" href="mailto:kmahlkuc-23VcF4HTsmIX0ybBhKVfKdBPR1lH4CV8@public.gmane.org">&lt;kmahlkuc-23VcF4HTsmIX0ybBhKVfKdBPR1lH4CV8@public.gmane.org&gt;</a> writes:
-</pre>
-      <blockquote type="cite">
-        <pre class="moz-quote-pre" wrap="">From: Kyle Mahlkuch <a class="moz-txt-link-rfc2396E" href="mailto:kmahlkuc-23VcF4HTsmIX0ybBhKVfKdBPR1lH4CV8@public.gmane.org">&lt;kmahlkuc-23VcF4HTsmIX0ybBhKVfKdBPR1lH4CV8@public.gmane.org&gt;</a>
-
-During kexec some adapters hit an EEH since they are not properly
-shut down in the radeon_pci_shutdown() function. Adding
-radeon_suspend_kms() fixes this issue.
-Enabled only on PPC because this patch causes issues on some other
-boards.
-</pre>
-      </blockquote>
-      <pre class="moz-quote-pre" wrap="">
-Which adapters hit the issues?
-
-And do we know why they're not shut down correctly in
-radeon_pci_shutdown()? That seems like the root cause no?</pre>
-    </blockquote>
-    <pre class="moz-quote-pre" wrap="">Hi Michael,
-This is hit by the Caicos (edwards2) adapter that I have on ppc. It is not hit
-on the Cedar (FirePro) adapter - though I haven't tested this one recently. I'm
-not able to test any other adapters. As far as "why", I'm unsure. During
-initialization after the kexec we hit an EEH. There could be another point in
-the shutdown / start up process where something doesn't get reset correctly.
-I'm open to other ideas if you have any.
-
-</pre>
-    <blockquote type="cite" cite="mid:87o8xyfrmp.fsf-exYd9J+JjbNEdatCaa6vohCuuivNXqWP@public.gmane.org">
-      <blockquote type="cite">
-        <pre class="moz-quote-pre" wrap="">diff --git a/drivers/gpu/drm/radeon/radeon_drv.c b/drivers/gpu/drm/radeon/radeon_drv.c
-index 9e55076..4528f4d 100644
---- a/drivers/gpu/drm/radeon/radeon_drv.c
-+++ b/drivers/gpu/drm/radeon/radeon_drv.c
-@@ -379,11 +379,25 @@ static int radeon_pci_probe(struct pci_dev *pdev,
- static void
- radeon_pci_shutdown(struct pci_dev *pdev)
- {
-+#ifdef CONFIG_PPC64
-+	struct drm_device *ddev = pci_get_drvdata(pdev);
-+#endif
-</pre>
-      </blockquote>
-      <pre class="moz-quote-pre" wrap="">
-This local serves no real purpose and could be avoided, which would also
-avoid this ifdef.
-
-</pre>
-      <blockquote type="cite">
-        <pre class="moz-quote-pre" wrap=""> 	/* if we are running in a VM, make sure the device
- 	 * torn down properly on reboot/shutdown
- 	 */
- 	if (radeon_device_is_virtual())
- 		radeon_pci_remove(pdev);
-+
-+#ifdef CONFIG_PPC64
-+	/* Some adapters need to be suspended before a
-</pre>
-      </blockquote>
-      <pre class="moz-quote-pre" wrap="">
-AFAIK drm uses normal kernel comment style, so this should be:
-
-	/*
-	 * Some adapters need to be suspended before a
-</pre>
-      <blockquote type="cite">
-        <pre class="moz-quote-pre" wrap="">+	 * shutdown occurs in order to prevent an error
-+	 * during kexec.
-+	 * Make this power specific becauase it breaks
-+	 * some non-power boards.
-+	 */
-+	radeon_suspend_kms(ddev, true, true, false);
-</pre>
-      </blockquote>
-      <pre class="moz-quote-pre" wrap="">
-ie, instead do:
-
-	radeon_suspend_kms(pci_get_drvdata(pdev), true, true, false);</pre>
-    </blockquote>
-    <pre class="moz-quote-pre" wrap="">I agree, this is a cleaner way to write this patch. I'll update the comment as
-well. Thanks for the help. 
-
-</pre>
-    <blockquote type="cite" cite="mid:87o8xyfrmp.fsf-exYd9J+JjbNEdatCaa6vohCuuivNXqWP@public.gmane.org">
-      <blockquote type="cite">
-        <pre class="moz-quote-pre" wrap="">+#endif
- }
- 
- static int radeon_pmops_suspend(struct device *dev)
--- 
-1.8.3.1
-</pre>
-      </blockquote>
-      <pre class="moz-quote-pre" wrap="">
-cheers
-</pre>
-      <pre>
-
-</pre>
-    </blockquote>
-  </body>
-</html>
-
---------------1BFA037AD571F71D234D7E5D--
-
-
---===============1229226286==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
-
---===============1229226286==--
+T24gQmVoYWxmICBPZjogSGVyc2VuIFd1DQpTZXJpZXMgaXM6DQpSZXZpZXdlZC1ieTogSGVyc2Vu
+IFd1IDxoZXJzZW54cy53dUBhbWQuY29tPg0KDQotLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0K
+RnJvbTogYW1kLWdmeCA8YW1kLWdmeC1ib3VuY2VzQGxpc3RzLmZyZWVkZXNrdG9wLm9yZz4gT24g
+QmVoYWxmIE9mIE5pY2hvbGFzIEthemxhdXNrYXMNClNlbnQ6IE1vbmRheSwgT2N0b2JlciAyOCwg
+MjAxOSAxMDowOCBBTQ0KVG86IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnDQpDYzogS2F6
+bGF1c2thcywgTmljaG9sYXMgPE5pY2hvbGFzLkthemxhdXNrYXNAYW1kLmNvbT4NClN1YmplY3Q6
+IFtQQVRDSCAwMS8xMV0gZHJtL2FtZGdwdTogQWRkIHVjb2RlIHN1cHBvcnQgZm9yIERNQ1VCDQoN
+ClRoZSBETUNVQiBpcyBhIHNlY29uZGFyeSBETUNVIChEaXNwbGF5IE1pY3JvQ29udHJvbGxlciBV
+bml0KSB0aGF0IGhhcyBpdHMgb3duIHNlcGFyYXRlIGZpcm13YXJlLiBJdCdzIHJlcXVpcmVkIGZv
+ciBETUNVIHN1cHBvcnQgb24gUmVub2lyLg0KDQpTaWduZWQtb2ZmLWJ5OiBOaWNob2xhcyBLYXps
+YXVza2FzIDxuaWNob2xhcy5rYXpsYXVza2FzQGFtZC5jb20+DQotLS0NCiBkcml2ZXJzL2dwdS9k
+cm0vYW1kL2FtZGdwdS9hbWRncHVfdWNvZGUuYyB8IDExICsrKysrKysrKystICBkcml2ZXJzL2dw
+dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdWNvZGUuaCB8ICA5ICsrKysrKysrKw0KIDIgZmlsZXMg
+Y2hhbmdlZCwgMTkgaW5zZXJ0aW9ucygrKSwgMSBkZWxldGlvbigtKQ0KDQpkaWZmIC0tZ2l0IGEv
+ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Vjb2RlLmMgYi9kcml2ZXJzL2dwdS9k
+cm0vYW1kL2FtZGdwdS9hbWRncHVfdWNvZGUuYw0KaW5kZXggODMzZmM0YjY4OTQwLi45ZWYzMTI0
+MjgyMzEgMTAwNjQ0DQotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdWNv
+ZGUuYw0KKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Vjb2RlLmMNCkBA
+IC00NDcsNiArNDQ3LDcgQEAgc3RhdGljIGludCBhbWRncHVfdWNvZGVfaW5pdF9zaW5nbGVfZnco
+c3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsDQogCWNvbnN0IHN0cnVjdCBjb21tb25fZmlybXdh
+cmVfaGVhZGVyICpoZWFkZXIgPSBOVUxMOw0KIAljb25zdCBzdHJ1Y3QgZ2Z4X2Zpcm13YXJlX2hl
+YWRlcl92MV8wICpjcF9oZHIgPSBOVUxMOw0KIAljb25zdCBzdHJ1Y3QgZG1jdV9maXJtd2FyZV9o
+ZWFkZXJfdjFfMCAqZG1jdV9oZHIgPSBOVUxMOw0KKwljb25zdCBzdHJ1Y3QgZG1jdWJfZmlybXdh
+cmVfaGVhZGVyX3YxXzAgKmRtY3ViX2hkciA9IE5VTEw7DQogDQogCWlmIChOVUxMID09IHVjb2Rl
+LT5mdykNCiAJCXJldHVybiAwOw0KQEAgLTQ2MCw2ICs0NjEsNyBAQCBzdGF0aWMgaW50IGFtZGdw
+dV91Y29kZV9pbml0X3NpbmdsZV9mdyhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwNCiAJaGVh
+ZGVyID0gKGNvbnN0IHN0cnVjdCBjb21tb25fZmlybXdhcmVfaGVhZGVyICopdWNvZGUtPmZ3LT5k
+YXRhOw0KIAljcF9oZHIgPSAoY29uc3Qgc3RydWN0IGdmeF9maXJtd2FyZV9oZWFkZXJfdjFfMCAq
+KXVjb2RlLT5mdy0+ZGF0YTsNCiAJZG1jdV9oZHIgPSAoY29uc3Qgc3RydWN0IGRtY3VfZmlybXdh
+cmVfaGVhZGVyX3YxXzAgKil1Y29kZS0+ZnctPmRhdGE7DQorCWRtY3ViX2hkciA9IChjb25zdCBz
+dHJ1Y3QgZG1jdWJfZmlybXdhcmVfaGVhZGVyX3YxXzAgDQorKil1Y29kZS0+ZnctPmRhdGE7DQog
+DQogCWlmIChhZGV2LT5maXJtd2FyZS5sb2FkX3R5cGUgIT0gQU1ER1BVX0ZXX0xPQURfUFNQIHx8
+DQogCSAgICAodWNvZGUtPnVjb2RlX2lkICE9IEFNREdQVV9VQ09ERV9JRF9DUF9NRUMxICYmIEBA
+IC00NzAsNyArNDcyLDggQEAgc3RhdGljIGludCBhbWRncHVfdWNvZGVfaW5pdF9zaW5nbGVfZnco
+c3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsDQogCSAgICAgdWNvZGUtPnVjb2RlX2lkICE9IEFN
+REdQVV9VQ09ERV9JRF9STENfUkVTVE9SRV9MSVNUX0dQTV9NRU0gJiYNCiAJICAgICB1Y29kZS0+
+dWNvZGVfaWQgIT0gQU1ER1BVX1VDT0RFX0lEX1JMQ19SRVNUT1JFX0xJU1RfU1JNX01FTSAmJg0K
+IAkJIHVjb2RlLT51Y29kZV9pZCAhPSBBTURHUFVfVUNPREVfSURfRE1DVV9FUkFNICYmDQotCQkg
+dWNvZGUtPnVjb2RlX2lkICE9IEFNREdQVV9VQ09ERV9JRF9ETUNVX0lOVFYpKSB7DQorCQkgdWNv
+ZGUtPnVjb2RlX2lkICE9IEFNREdQVV9VQ09ERV9JRF9ETUNVX0lOVFYgJiYNCisJCSB1Y29kZS0+
+dWNvZGVfaWQgIT0gQU1ER1BVX1VDT0RFX0lEX0RNQ1VCKSkgew0KIAkJdWNvZGUtPnVjb2RlX3Np
+emUgPSBsZTMyX3RvX2NwdShoZWFkZXItPnVjb2RlX3NpemVfYnl0ZXMpOw0KIA0KIAkJbWVtY3B5
+KHVjb2RlLT5rYWRkciwgKHZvaWQgKikoKHVpbnQ4X3QgKil1Y29kZS0+ZnctPmRhdGEgKyBAQCAt
+NTA2LDYgKzUwOSwxMiBAQCBzdGF0aWMgaW50IGFtZGdwdV91Y29kZV9pbml0X3NpbmdsZV9mdyhz
+dHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwNCiAJCQkJCSAgICAgIGxlMzJfdG9fY3B1KGhlYWRl
+ci0+dWNvZGVfYXJyYXlfb2Zmc2V0X2J5dGVzKSArDQogCQkJCQkgICAgICBsZTMyX3RvX2NwdShk
+bWN1X2hkci0+aW50dl9vZmZzZXRfYnl0ZXMpKSwNCiAJCSAgICAgICB1Y29kZS0+dWNvZGVfc2l6
+ZSk7DQorCX0gZWxzZSBpZiAodWNvZGUtPnVjb2RlX2lkID09IEFNREdQVV9VQ09ERV9JRF9ETUNV
+Qikgew0KKwkJdWNvZGUtPnVjb2RlX3NpemUgPSBsZTMyX3RvX2NwdShkbWN1Yl9oZHItPmluc3Rf
+Y29uc3RfYnl0ZXMpOw0KKwkJbWVtY3B5KHVjb2RlLT5rYWRkciwNCisJCSAgICAgICAodm9pZCAq
+KSgodWludDhfdCAqKXVjb2RlLT5mdy0+ZGF0YSArDQorCQkJCWxlMzJfdG9fY3B1KGhlYWRlci0+
+dWNvZGVfYXJyYXlfb2Zmc2V0X2J5dGVzKSksDQorCQkgICAgICAgdWNvZGUtPnVjb2RlX3NpemUp
+Ow0KIAl9IGVsc2UgaWYgKHVjb2RlLT51Y29kZV9pZCA9PSBBTURHUFVfVUNPREVfSURfUkxDX1JF
+U1RPUkVfTElTVF9DTlRMKSB7DQogCQl1Y29kZS0+dWNvZGVfc2l6ZSA9IGFkZXYtPmdmeC5ybGMu
+c2F2ZV9yZXN0b3JlX2xpc3RfY250bF9zaXplX2J5dGVzOw0KIAkJbWVtY3B5KHVjb2RlLT5rYWRk
+ciwgYWRldi0+Z2Z4LnJsYy5zYXZlX3Jlc3RvcmVfbGlzdF9jbnRsLA0KZGlmZiAtLWdpdCBhL2Ry
+aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV91Y29kZS5oIGIvZHJpdmVycy9ncHUvZHJt
+L2FtZC9hbWRncHUvYW1kZ3B1X3Vjb2RlLmgNCmluZGV4IDQxMDU4N2I5NTBmMy4uZWFmMmQ1Yjlj
+OTJmIDEwMDY0NA0KLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Vjb2Rl
+LmgNCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV91Y29kZS5oDQpAQCAt
+MjUxLDYgKzI1MSwxMyBAQCBzdHJ1Y3QgZG1jdV9maXJtd2FyZV9oZWFkZXJfdjFfMCB7DQogCXVp
+bnQzMl90IGludHZfc2l6ZV9ieXRlczsgIC8qIHNpemUgb2YgaW50ZXJydXB0IHZlY3RvcnMsIGlu
+IGJ5dGVzICovICB9Ow0KIA0KKy8qIHZlcnNpb25fbWFqb3I9MSwgdmVyc2lvbl9taW5vcj0wICov
+DQorc3RydWN0IGRtY3ViX2Zpcm13YXJlX2hlYWRlcl92MV8wIHsNCisJc3RydWN0IGNvbW1vbl9m
+aXJtd2FyZV9oZWFkZXIgaGVhZGVyOw0KKwl1aW50MzJfdCBpbnN0X2NvbnN0X2J5dGVzOyAvKiBz
+aXplIG9mIGluc3RydWN0aW9uIHJlZ2lvbiwgaW4gYnl0ZXMgKi8NCisJdWludDMyX3QgYnNzX2Rh
+dGFfYnl0ZXM7IC8qIHNpemUgb2YgYnNzL2RhdGEgcmVnaW9uLCBpbiBieXRlcyAqLyB9Ow0KKw0K
+IC8qIGhlYWRlciBpcyBmaXhlZCBzaXplICovDQogdW5pb24gYW1kZ3B1X2Zpcm13YXJlX2hlYWRl
+ciB7DQogCXN0cnVjdCBjb21tb25fZmlybXdhcmVfaGVhZGVyIGNvbW1vbjsNCkBAIC0yNjgsNiAr
+Mjc1LDcgQEAgdW5pb24gYW1kZ3B1X2Zpcm13YXJlX2hlYWRlciB7DQogCXN0cnVjdCBzZG1hX2Zp
+cm13YXJlX2hlYWRlcl92MV8xIHNkbWFfdjFfMTsNCiAJc3RydWN0IGdwdV9pbmZvX2Zpcm13YXJl
+X2hlYWRlcl92MV8wIGdwdV9pbmZvOw0KIAlzdHJ1Y3QgZG1jdV9maXJtd2FyZV9oZWFkZXJfdjFf
+MCBkbWN1Ow0KKwlzdHJ1Y3QgZG1jdWJfZmlybXdhcmVfaGVhZGVyX3YxXzAgZG1jdWI7DQogCXVp
+bnQ4X3QgcmF3WzB4MTAwXTsNCiB9Ow0KIA0KQEAgLTMwNyw2ICszMTUsNyBAQCBlbnVtIEFNREdQ
+VV9VQ09ERV9JRCB7DQogCUFNREdQVV9VQ09ERV9JRF9ETUNVX0lOVFYsDQogCUFNREdQVV9VQ09E
+RV9JRF9WQ04wX1JBTSwNCiAJQU1ER1BVX1VDT0RFX0lEX1ZDTjFfUkFNLA0KKwlBTURHUFVfVUNP
+REVfSURfRE1DVUIsDQogCUFNREdQVV9VQ09ERV9JRF9NQVhJTVVNLA0KIH07DQogDQotLQ0KMi4y
+MC4xDQoNCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fDQph
+bWQtZ2Z4IG1haWxpbmcgbGlzdA0KYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCmh0dHBz
+Oi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA0KX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5n
+IGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVz
+a3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
