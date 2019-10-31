@@ -1,15 +1,22 @@
-From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 3/3] drm/amd/powerplay: support xgmi pstate setting on
- powerplay routine V2
-Date: Thu, 31 Oct 2019 14:23:28 +0000
-Message-ID: <BN6SPR00MB1827F35F7FC4DC953BB9758F7630@BN6SPR00MB182.namprd12.prod.outlook.com>
-References: <20191031072205.27537-1-evan.quan@amd.com>,
- <20191031072205.27537-3-evan.quan@amd.com>
+From: "Huang, JinHuiEric" <JinHuiEric.Huang-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu: remove PT BOs when unmapping
+Date: Thu, 31 Oct 2019 14:33:31 +0000
+Message-ID: <795a33e9-92d0-d7f5-3448-24350cc20d1b@amd.com>
+References: <3f4b6803-ec66-44ca-b55a-8bccf4236632@email.android.com>
+ <b8ad3c90-42d0-512d-5ba0-af330eab30a1@amd.com>
+ <b5d9309e-a32b-8243-8c4d-cfd4e77e09e1@amd.com>
+ <461cc802-e7c5-f968-1cb4-5e55a306e780@gmail.com>
+ <d2d9f2a2-5a79-8fd4-f6ee-5ce2dc6cfbd9@amd.com>
+ <3f62c442-ed58-d8b8-faac-9289c83fd0da@amd.com>
+ <68bc3b87-cd95-83c1-162b-61ad3d5979dd@amd.com>
+ <90bf5487-96cc-9971-332f-a97ab3e5ccc9@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1062293775=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20191031072205.27537-3-evan.quan-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <90bf5487-96cc-9971-332f-a97ab3e5ccc9-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
+Content-ID: <DA8D6B4885AD3345BF9CD22C5B503AFC-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -20,507 +27,289 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Quan, Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Kim, Jonathan" <Jonathan.Kim-5C7GfCeVMHo@public.gmane.org>
+To: "Elder, Christina" <Christina.Elder-5C7GfCeVMHo@public.gmane.org>
+Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============1062293775==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_BN6SPR00MB1827F35F7FC4DC953BB9758F7630BN6SPR00MB182namp_"
-
---_000_BN6SPR00MB1827F35F7FC4DC953BB9758F7630BN6SPR00MB182namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-Series is:
-Reviewed-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-________________________________
-From: Quan, Evan <Evan.Quan-5C7GfCeVMHo@public.gmane.org>
-Sent: Thursday, October 31, 2019 3:22 AM
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: Kim, Jonathan <Jonathan.Kim-5C7GfCeVMHo@public.gmane.org>; Deucher, Alexander <Alexander.Deu=
-cher-5C7GfCeVMHo@public.gmane.org>; Quan, Evan <Evan.Quan-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH 3/3] drm/amd/powerplay: support xgmi pstate setting on powe=
-rplay routine V2
-
-Add xgmi pstate setting on powerplay routine.
-
-Change-Id: If1a49aa14c16f133e43ac1298c6b14eaeb44d79d
-Signed-off-by: Evan Quan <evan.quan-5C7GfCeVMHo@public.gmane.org>
-Reviewed-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-
-V2: split the change of is_support_sw_smu_xgmi into a separate patch
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c       |  5 +++++
- drivers/gpu/drm/amd/include/kgd_pp_interface.h |  4 ++++
- drivers/gpu/drm/amd/powerplay/amd_powerplay.c  | 18 ++++++++++++++++++
- .../gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c | 15 +++++++++++++++
- drivers/gpu/drm/amd/powerplay/inc/hwmgr.h      |  1 +
- drivers/gpu/drm/amd/powerplay/smu_v11_0.c      |  5 +----
- 6 files changed, 44 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c b/drivers/gpu/drm/amd=
-/amdgpu/amdgpu_xgmi.c
-index 00371713c671..167d9fbd2c4f 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
-@@ -285,6 +285,11 @@ int amdgpu_xgmi_set_pstate(struct amdgpu_device *adev,=
- int pstate)
-
-         if (is_support_sw_smu_xgmi(adev))
-                 ret =3D smu_set_xgmi_pstate(&adev->smu, pstate);
-+       else if (adev->powerplay.pp_funcs &&
-+                adev->powerplay.pp_funcs->set_xgmi_pstate)
-+               ret =3D adev->powerplay.pp_funcs->set_xgmi_pstate(adev->pow=
-erplay.pp_handle,
-+                                                               pstate);
-+
-         if (ret)
-                 dev_err(adev->dev,
-                         "XGMI: Set pstate failure on device %llx, hive %ll=
-x, ret %d",
-diff --git a/drivers/gpu/drm/amd/include/kgd_pp_interface.h b/drivers/gpu/d=
-rm/amd/include/kgd_pp_interface.h
-index 5902f80d1fce..a7f92d0b3a90 100644
---- a/drivers/gpu/drm/amd/include/kgd_pp_interface.h
-+++ b/drivers/gpu/drm/amd/include/kgd_pp_interface.h
-@@ -220,6 +220,9 @@ enum pp_df_cstate {
-                 ((group) << PP_GROUP_SHIFT | (block) << PP_BLOCK_SHIFT | \
-                 (support) << PP_STATE_SUPPORT_SHIFT | (state) << PP_STATE_=
-SHIFT)
-
-+#define XGMI_MODE_PSTATE_D3 0
-+#define XGMI_MODE_PSTATE_D0 1
-+
- struct seq_file;
- enum amd_pp_clock_type;
- struct amd_pp_simple_clock_info;
-@@ -318,6 +321,7 @@ struct amd_pm_funcs {
-         int (*set_ppfeature_status)(void *handle, uint64_t ppfeature_masks=
-);
-         int (*asic_reset_mode_2)(void *handle);
-         int (*set_df_cstate)(void *handle, enum pp_df_cstate state);
-+       int (*set_xgmi_pstate)(void *handle, uint32_t pstate);
- };
-
- #endif
-diff --git a/drivers/gpu/drm/amd/powerplay/amd_powerplay.c b/drivers/gpu/dr=
-m/amd/powerplay/amd_powerplay.c
-index f4ff15378e61..031447675203 100644
---- a/drivers/gpu/drm/amd/powerplay/amd_powerplay.c
-+++ b/drivers/gpu/drm/amd/powerplay/amd_powerplay.c
-@@ -1566,6 +1566,23 @@ static int pp_set_df_cstate(void *handle, enum pp_df=
-_cstate state)
-         return 0;
- }
-
-+static int pp_set_xgmi_pstate(void *handle, uint32_t pstate)
-+{
-+       struct pp_hwmgr *hwmgr =3D handle;
-+
-+       if (!hwmgr)
-+               return -EINVAL;
-+
-+       if (!hwmgr->pm_en || !hwmgr->hwmgr_func->set_xgmi_pstate)
-+               return 0;
-+
-+       mutex_lock(&hwmgr->smu_lock);
-+       hwmgr->hwmgr_func->set_xgmi_pstate(hwmgr, pstate);
-+       mutex_unlock(&hwmgr->smu_lock);
-+
-+       return 0;
-+}
-+
- static const struct amd_pm_funcs pp_dpm_funcs =3D {
-         .load_firmware =3D pp_dpm_load_fw,
-         .wait_for_fw_loading_complete =3D pp_dpm_fw_loading_complete,
-@@ -1625,4 +1642,5 @@ static const struct amd_pm_funcs pp_dpm_funcs =3D {
-         .asic_reset_mode_2 =3D pp_asic_reset_mode_2,
-         .smu_i2c_bus_access =3D pp_smu_i2c_bus_access,
-         .set_df_cstate =3D pp_set_df_cstate,
-+       .set_xgmi_pstate =3D pp_set_xgmi_pstate,
- };
-diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c b/drivers/g=
-pu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c
-index 9295bd90b792..5bcf0d684151 100644
---- a/drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c
-+++ b/drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c
-@@ -4176,6 +4176,20 @@ static int vega20_set_df_cstate(struct pp_hwmgr *hwm=
-gr,
-         return ret;
- }
-
-+static int vega20_set_xgmi_pstate(struct pp_hwmgr *hwmgr,
-+                                 uint32_t pstate)
-+{
-+       int ret;
-+
-+       ret =3D smum_send_msg_to_smc_with_parameter(hwmgr,
-+                                                 PPSMC_MSG_SetXgmiMode,
-+                                                 pstate ? XGMI_MODE_PSTATE=
-_D0 : XGMI_MODE_PSTATE_D3);
-+       if (ret)
-+               pr_err("SetXgmiPstate failed!\n");
-+
-+       return ret;
-+}
-+
- static const struct pp_hwmgr_func vega20_hwmgr_funcs =3D {
-         /* init/fini related */
-         .backend_init =3D vega20_hwmgr_backend_init,
-@@ -4245,6 +4259,7 @@ static const struct pp_hwmgr_func vega20_hwmgr_funcs =
-=3D {
-         .set_mp1_state =3D vega20_set_mp1_state,
-         .smu_i2c_bus_access =3D vega20_smu_i2c_bus_access,
-         .set_df_cstate =3D vega20_set_df_cstate,
-+       .set_xgmi_pstate =3D vega20_set_xgmi_pstate,
- };
-
- int vega20_hwmgr_init(struct pp_hwmgr *hwmgr)
-diff --git a/drivers/gpu/drm/amd/powerplay/inc/hwmgr.h b/drivers/gpu/drm/am=
-d/powerplay/inc/hwmgr.h
-index bd8c922dfd3e..40403bc76f1b 100644
---- a/drivers/gpu/drm/amd/powerplay/inc/hwmgr.h
-+++ b/drivers/gpu/drm/amd/powerplay/inc/hwmgr.h
-@@ -356,6 +356,7 @@ struct pp_hwmgr_func {
-         int (*asic_reset)(struct pp_hwmgr *hwmgr, enum SMU_ASIC_RESET_MODE=
- mode);
-         int (*smu_i2c_bus_access)(struct pp_hwmgr *hwmgr, bool aquire);
-         int (*set_df_cstate)(struct pp_hwmgr *hwmgr, enum pp_df_cstate sta=
-te);
-+       int (*set_xgmi_pstate)(struct pp_hwmgr *hwmgr, uint32_t pstate);
- };
-
- struct pp_table_func {
-diff --git a/drivers/gpu/drm/amd/powerplay/smu_v11_0.c b/drivers/gpu/drm/am=
-d/powerplay/smu_v11_0.c
-index 7e882999abad..5877857760be 100644
---- a/drivers/gpu/drm/amd/powerplay/smu_v11_0.c
-+++ b/drivers/gpu/drm/amd/powerplay/smu_v11_0.c
-@@ -1463,16 +1463,13 @@ int smu_v11_0_set_fan_speed_rpm(struct smu_context =
-*smu,
-         return ret;
- }
-
--#define XGMI_STATE_D0 1
--#define XGMI_STATE_D3 0
--
- int smu_v11_0_set_xgmi_pstate(struct smu_context *smu,
-                                      uint32_t pstate)
- {
-         int ret =3D 0;
-         ret =3D smu_send_smc_msg_with_param(smu,
-                                           SMU_MSG_SetXgmiMode,
--                                         pstate ? XGMI_STATE_D0 : XGMI_STA=
-TE_D3);
-+                                         pstate ? XGMI_MODE_PSTATE_D0 : XG=
-MI_MODE_PSTATE_D3);
-         return ret;
- }
-
---
-2.23.0
-
-
---_000_BN6SPR00MB1827F35F7FC4DC953BB9758F7630BN6SPR00MB182namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Series is:</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Reviewed-by: Alex Deucher &lt;alexander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
-</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Quan, Evan &lt;Evan.Q=
-uan-5C7GfCeVMHo@public.gmane.org&gt;<br>
-<b>Sent:</b> Thursday, October 31, 2019 3:22 AM<br>
-<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org &lt;amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&=
-gt;<br>
-<b>Cc:</b> Kim, Jonathan &lt;Jonathan.Kim-5C7GfCeVMHo@public.gmane.org&gt;; Deucher, Alexander &=
-lt;Alexander.Deucher-5C7GfCeVMHo@public.gmane.org&gt;; Quan, Evan &lt;Evan.Quan-5C7GfCeVMHo@public.gmane.org&gt;<br>
-<b>Subject:</b> [PATCH 3/3] drm/amd/powerplay: support xgmi pstate setting =
-on powerplay routine V2</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">Add xgmi pstate setting on powerplay routine.<br>
-<br>
-Change-Id: If1a49aa14c16f133e43ac1298c6b14eaeb44d79d<br>
-Signed-off-by: Evan Quan &lt;evan.quan-5C7GfCeVMHo@public.gmane.org&gt;<br>
-Reviewed-by: Alex Deucher &lt;alexander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
-<br>
-V2: split the change of is_support_sw_smu_xgmi into a separate patch<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; |&nbsp; 5 &#43;&#43;&#43;&#43;&#43;<br>
-&nbsp;drivers/gpu/drm/amd/include/kgd_pp_interface.h |&nbsp; 4 &#43;&#43;&#=
-43;&#43;<br>
-&nbsp;drivers/gpu/drm/amd/powerplay/amd_powerplay.c&nbsp; | 18 &#43;&#43;&#=
-43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#=
-43;<br>
-&nbsp;.../gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c | 15 &#43;&#43;&#43;&#=
-43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;<br>
-&nbsp;drivers/gpu/drm/amd/powerplay/inc/hwmgr.h&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p; |&nbsp; 1 &#43;<br>
-&nbsp;drivers/gpu/drm/amd/powerplay/smu_v11_0.c&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p; |&nbsp; 5 &#43;----<br>
-&nbsp;6 files changed, 44 insertions(&#43;), 4 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c b/drivers/gpu/drm/amd=
-/amdgpu/amdgpu_xgmi.c<br>
-index 00371713c671..167d9fbd2c4f 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c<br>
-@@ -285,6 &#43;285,11 @@ int amdgpu_xgmi_set_pstate(struct amdgpu_device *a=
-dev, int pstate)<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (is_support_sw_smu_xgmi=
-(adev))<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; ret =3D smu_set_xgmi_pstate(&amp;adev-&gt;smu, pstate=
-);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else if (adev-&gt;powerplay.pp_fu=
-ncs &amp;&amp;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp; adev-&gt;powerplay.pp_funcs-&gt;set_xgmi_pstate)<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; ret =3D adev-&gt;powerplay.pp_funcs-&gt;set_xgmi_pstate(adev=
--&gt;powerplay.pp_handle,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p; pstate);<br>
-&#43;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ret)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; dev_err(adev-&gt;dev,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot=
-;XGMI: Set pstate failure on device %llx, hive %llx, ret %d&quot;,<br>
-diff --git a/drivers/gpu/drm/amd/include/kgd_pp_interface.h b/drivers/gpu/d=
-rm/amd/include/kgd_pp_interface.h<br>
-index 5902f80d1fce..a7f92d0b3a90 100644<br>
---- a/drivers/gpu/drm/amd/include/kgd_pp_interface.h<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/include/kgd_pp_interface.h<br>
-@@ -220,6 &#43;220,9 @@ enum pp_df_cstate {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; ((group) &lt;&lt; PP_GROUP_SHIFT | (block) &lt;&lt; P=
-P_BLOCK_SHIFT | \<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; (support) &lt;&lt; PP_STATE_SUPPORT_SHIFT | (state) &=
-lt;&lt; PP_STATE_SHIFT)<br>
-&nbsp;<br>
-&#43;#define XGMI_MODE_PSTATE_D3 0<br>
-&#43;#define XGMI_MODE_PSTATE_D0 1<br>
-&#43;<br>
-&nbsp;struct seq_file;<br>
-&nbsp;enum amd_pp_clock_type;<br>
-&nbsp;struct amd_pp_simple_clock_info;<br>
-@@ -318,6 &#43;321,7 @@ struct amd_pm_funcs {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int (*set_ppfeature_status=
-)(void *handle, uint64_t ppfeature_masks);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int (*asic_reset_mode_2)(v=
-oid *handle);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int (*set_df_cstate)(void =
-*handle, enum pp_df_cstate state);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int (*set_xgmi_pstate)(void *hand=
-le, uint32_t pstate);<br>
-&nbsp;};<br>
-&nbsp;<br>
-&nbsp;#endif<br>
-diff --git a/drivers/gpu/drm/amd/powerplay/amd_powerplay.c b/drivers/gpu/dr=
-m/amd/powerplay/amd_powerplay.c<br>
-index f4ff15378e61..031447675203 100644<br>
---- a/drivers/gpu/drm/amd/powerplay/amd_powerplay.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/amd_powerplay.c<br>
-@@ -1566,6 &#43;1566,23 @@ static int pp_set_df_cstate(void *handle, enum p=
-p_df_cstate state)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
-&nbsp;}<br>
-&nbsp;<br>
-&#43;static int pp_set_xgmi_pstate(void *handle, uint32_t pstate)<br>
-&#43;{<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct pp_hwmgr *hwmgr =3D handle=
-;<br>
-&#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!hwmgr)<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; return -EINVAL;<br>
-&#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!hwmgr-&gt;pm_en || !hwmgr-&g=
-t;hwmgr_func-&gt;set_xgmi_pstate)<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; return 0;<br>
-&#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_lock(&amp;hwmgr-&gt;smu_loc=
-k);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; hwmgr-&gt;hwmgr_func-&gt;set_xgmi=
-_pstate(hwmgr, pstate);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_unlock(&amp;hwmgr-&gt;smu_l=
-ock);<br>
-&#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
-&#43;}<br>
-&#43;<br>
-&nbsp;static const struct amd_pm_funcs pp_dpm_funcs =3D {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .load_firmware =3D pp_dpm_=
-load_fw,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .wait_for_fw_loading_compl=
-ete =3D pp_dpm_fw_loading_complete,<br>
-@@ -1625,4 &#43;1642,5 @@ static const struct amd_pm_funcs pp_dpm_funcs =3D=
- {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .asic_reset_mode_2 =3D pp_=
-asic_reset_mode_2,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .smu_i2c_bus_access =3D pp=
-_smu_i2c_bus_access,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .set_df_cstate =3D pp_set_=
-df_cstate,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .set_xgmi_pstate =3D pp_set_xgmi_=
-pstate,<br>
-&nbsp;};<br>
-diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c b/drivers/g=
-pu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c<br>
-index 9295bd90b792..5bcf0d684151 100644<br>
---- a/drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c<br>
-@@ -4176,6 &#43;4176,20 @@ static int vega20_set_df_cstate(struct pp_hwmgr =
-*hwmgr,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret;<br>
-&nbsp;}<br>
-&nbsp;<br>
-&#43;static int vega20_set_xgmi_pstate(struct pp_hwmgr *hwmgr,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t pstate)<br>
-&#43;{<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int ret;<br>
-&#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D smum_send_msg_to_smc_with=
-_parameter(hwmgr,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PPSMC_=
-MSG_SetXgmiMode,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pstate=
- ? XGMI_MODE_PSTATE_D0 : XGMI_MODE_PSTATE_D3);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ret)<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; pr_err(&quot;SetXgmiPstate failed!\n&quot;);<br>
-&#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret;<br>
-&#43;}<br>
-&#43;<br>
-&nbsp;static const struct pp_hwmgr_func vega20_hwmgr_funcs =3D {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* init/fini related */<br=
->
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .backend_init =3D vega20_h=
-wmgr_backend_init,<br>
-@@ -4245,6 &#43;4259,7 @@ static const struct pp_hwmgr_func vega20_hwmgr_fu=
-ncs =3D {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .set_mp1_state =3D vega20_=
-set_mp1_state,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .smu_i2c_bus_access =3D ve=
-ga20_smu_i2c_bus_access,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .set_df_cstate =3D vega20_=
-set_df_cstate,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .set_xgmi_pstate =3D vega20_set_x=
-gmi_pstate,<br>
-&nbsp;};<br>
-&nbsp;<br>
-&nbsp;int vega20_hwmgr_init(struct pp_hwmgr *hwmgr)<br>
-diff --git a/drivers/gpu/drm/amd/powerplay/inc/hwmgr.h b/drivers/gpu/drm/am=
-d/powerplay/inc/hwmgr.h<br>
-index bd8c922dfd3e..40403bc76f1b 100644<br>
---- a/drivers/gpu/drm/amd/powerplay/inc/hwmgr.h<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/inc/hwmgr.h<br>
-@@ -356,6 &#43;356,7 @@ struct pp_hwmgr_func {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int (*asic_reset)(struct p=
-p_hwmgr *hwmgr, enum SMU_ASIC_RESET_MODE mode);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int (*smu_i2c_bus_access)(=
-struct pp_hwmgr *hwmgr, bool aquire);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int (*set_df_cstate)(struc=
-t pp_hwmgr *hwmgr, enum pp_df_cstate state);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int (*set_xgmi_pstate)(struct pp_=
-hwmgr *hwmgr, uint32_t pstate);<br>
-&nbsp;};<br>
-&nbsp;<br>
-&nbsp;struct pp_table_func {<br>
-diff --git a/drivers/gpu/drm/amd/powerplay/smu_v11_0.c b/drivers/gpu/drm/am=
-d/powerplay/smu_v11_0.c<br>
-index 7e882999abad..5877857760be 100644<br>
---- a/drivers/gpu/drm/amd/powerplay/smu_v11_0.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/smu_v11_0.c<br>
-@@ -1463,16 &#43;1463,13 @@ int smu_v11_0_set_fan_speed_rpm(struct smu_cont=
-ext *smu,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret;<br>
-&nbsp;}<br>
-&nbsp;<br>
--#define XGMI_STATE_D0 1<br>
--#define XGMI_STATE_D3 0<br>
--<br>
-&nbsp;int smu_v11_0_set_xgmi_pstate(struct smu_context *smu,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ui=
-nt32_t pstate)<br>
-&nbsp;{<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int ret =3D 0;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D smu_send_smc_msg_w=
-ith_param(smu,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp; SMU_MSG_SetXgmiMode,<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp; pstate ? XGMI_STATE_D0 : XGMI_STATE_D3);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp; pstate ? XGMI_MODE_PSTATE_D0 : XGMI_MODE_PSTATE_D3);<b=
-r>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret;<br>
-&nbsp;}<br>
-&nbsp;<br>
--- <br>
-2.23.0<br>
-<br>
-</div>
-</span></font></div>
-</body>
-</html>
-
---_000_BN6SPR00MB1827F35F7FC4DC953BB9758F7630BN6SPR00MB182namp_--
-
---===============1062293775==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
-
---===============1062293775==--
+VGhlIGhhcmR3YXJlIGlzIHZlZ2ExMCBhbmQgdGVzdCBpcyBLRkRNZW1vcnlUZXN0LkJpZ0J1ZmZl
+clN0cmVzc1Rlc3QuIA0KTW9yZSBkZXRhaWwgaXMgb24gSmlyYSBTV0RFVi0yMDE0NDMuDQoNClJl
+Z2FyZHMsDQoNCkVyaWMNCg0KT24gMjAxOS0xMC0zMSAxMDowOCBhLm0uLCBTdERlbmlzLCBUb20g
+d3JvdGU6DQo+IEkgY291bGQgdHJ5IGl0IG9uIG15IGNhcnJpem8vcG9sYXJpcyBzZXR1cC7CoCBJ
+cyB0aGVyZSBhIHRlc3QgcHJvY2VkdXJlIEkNCj4gY291bGQgZm9sbGxvdyB0byB0cmlnZ2VyIHRo
+ZSBjaGFuZ2VkIGNvZGUgcGF0aHM/DQo+DQo+DQo+IFRvbQ0KPg0KPiBPbiAyMDE5LTEwLTMxIDY6
+NDEgYS5tLiwgS29lbmlnLCBDaHJpc3RpYW4gd3JvdGU6DQo+PiBKdXN0IHRlc3RlZCB0aGlzIGFu
+ZCBhbWRncHVfdm1fdXBkYXRlX3B0ZXMoKSBpbmRlZWQgd29ya3MgYXMgZXhwZWN0ZWQuDQo+Pg0K
+Pj4gV2hlbiB5b3UgZnJlZSBhdCBsZWFzdCBhIDJNQiB0aGUgbG93ZXN0IGxldmVsIG9mIHBhZ2Ug
+dGFibGVzIGlzIGZyZWVkDQo+PiB1cCBhZ2Fpbi4NCj4+DQo+PiBCVFc6IFdoYXQgaGFyZHdhcmUg
+aGF2ZSB5b3UgdGVzdGVkIHRoaXMgb24/IE9uIGdmeDggYW5kIG9sZGVyIGl0IGlzDQo+PiBleHBl
+Y3RlZCB0aGF0IHBhZ2UgdGFibGVzIGFyZSBuZXZlciBmcmVlZC4NCj4+DQo+PiBSZWdhcmRzLA0K
+Pj4gQ2hyaXN0aWFuLg0KPj4NCj4+IEFtIDMwLjEwLjE5IHVtIDE5OjExIHNjaHJpZWIgQ2hyaXN0
+aWFuIEvDtm5pZzoNCj4+PiBUaGVuIEkgZG9uJ3Qgc2VlIGhvdyB0aGlzIHBhdGNoIGFjdHVhbGx5
+IGNoYW5nZXMgYW55dGhpbmcuDQo+Pj4NCj4+PiBDb3VsZCBvbmx5IGJlIGEgYnVnIGluIGFtZGdw
+dV92bV91cGRhdGVfcHRlcygpLiBHb2luZyB0byBpbnZlc3RpZ2F0ZQ0KPj4+IHRoaXMsIGJ1dCBJ
+IHdvbid0IGhhdmUgdGltZSB0byBsb29rIGludG8gdGhlIHRpY2tldCBpbiBkZXRhaWwuDQo+Pj4N
+Cj4+PiBSZWdhcmRzLA0KPj4+IENocmlzdGlhbi4NCj4+Pg0KPj4+IEFtIDMwLjEwLjE5IHVtIDE5
+OjAwIHNjaHJpZWIgSHVhbmcsIEppbkh1aUVyaWM6DQo+Pj4+IEFjdHVhbGx5IEkgZG8gcHJldmVu
+dCB0byByZW1vdmUgaW4tdXNlIHB0cyBieSB0aGlzOg0KPj4+Pg0KPj4+PiArwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoCByID0gYW1kZ3B1X3ZtX3JlbW92ZV9wdGVzKGFkZXYsIHZtLA0KPj4+
+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgIChtYXBwaW5nLT5zdGFydCArIDB4MWZmKSAmICh+MHgxZmZsbCksDQo+Pj4+ICvCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAg
+KG1hcHBpbmctPmxhc3QgKyAxKSAmICh+MHgxZmZsbCkpOw0KPj4+Pg0KPj4+PiBXaGljaCBpcyBv
+bmx5IHJlbW92aW5nIGFsaWduZWQgcGFnZSB0YWJsZSBmb3IgMk0uIEFuZCBJIGhhdmUgdGVzdGVk
+DQo+Pj4+IGl0IGF0IGxlYXN0IG9uIEtGRCB0ZXN0cyB3aXRob3V0IGFueXRoaW5nIGJyb2tlbi4N
+Cj4+Pj4NCj4+Pj4gQnkgdGhlIHdheSwgSSBhbSBub3QgZmFtaWxpYXIgd2l0aCBtZW1vcnkgc3Rh
+ZmYuIFRoaXMgcGF0Y2ggaXMgdGhlDQo+Pj4+IGJlc3QgSSBjYW4gZG8gZm9yIG5vdy4gQ291bGQg
+eW91IHRha2UgYSBsb29rIGF0IHRoZSBKaXJhIHRpY2tldA0KPj4+PiBTV0RFVi0yMDE0NDMgPyBh
+bmQgZmluZCB0aGUgYmV0dGVyIHNvbHV0aW9uLiBUaGFua3MhDQo+Pj4+DQo+Pj4+IFJlZ2FyZHMs
+DQo+Pj4+DQo+Pj4+IEVyaWMNCj4+Pj4NCj4+Pj4gT24gMjAxOS0xMC0zMCAxOjU3IHAubS4sIENo
+cmlzdGlhbiBLw7ZuaWcgd3JvdGU6DQo+Pj4+PiBPbmUgdGhpbmcgSSd2ZSBmb3Jnb3R0ZW46DQo+
+Pj4+Pg0KPj4+Pj4gV2hhdCB5b3UgY291bGQgbWF5YmUgZG8gdG8gaW1wcm92ZSB0aGUgc2l0dWF0
+aW9uIGlzIHRvIGpvaW4NCj4+Pj4+IGFkamFjZW50IHJhbmdlcyBpbiBhbWRncHVfdm1fY2xlYXJf
+ZnJlZWQoKSwgYnV0IEknbSBub3Qgc3VyZSBob3cNCj4+Pj4+IHRoZSBjaGFuY2VzIGFyZSB0aGF0
+IHRoZSByYW5nZXMgYXJlIGZyZWVkIGFsbCB0b2dldGhlci4NCj4+Pj4+DQo+Pj4+PiBUaGUgb25s
+eSBvdGhlciBhbHRlcm5hdGl2ZSBJIGNhbiBzZWUgd291bGQgYmUgdG8gY2hlY2sgdGhlIG1hcHBp
+bmdzDQo+Pj4+PiBvZiBhIHJhbmdlIGluIGFtZGdwdV91cGRhdGVfcHRlcygpIGFuZCBzZWUgaWYg
+eW91IGNvdWxkIHdhbGsgdGhlDQo+Pj4+PiB0cmVlIHVwIGlmIHRoZSB2YWxpZCBmbGFnIGlzIG5v
+dCBzZXQgYW5kIHRoZXJlIGFyZSBubyBtYXBwaW5ncyBsZWZ0DQo+Pj4+PiBmb3IgYSBwYWdlIHRh
+YmxlLg0KPj4+Pj4NCj4+Pj4+IFJlZ2FyZHMsDQo+Pj4+PiBDaHJpc3RpYW4uDQo+Pj4+Pg0KPj4+
+Pj4gQW0gMzAuMTAuMTkgdW0gMTg6NDIgc2NocmllYiBLb2VuaWcsIENocmlzdGlhbjoNCj4+Pj4+
+Pj4gVGhlIHZhaWxkIGZsYWcgZG9lc24ndCB0YWtlIGVmZmVjdCBpbiB0aGlzIGZ1bmN0aW9uLg0K
+Pj4+Pj4+IFRoYXQncyBpcnJlbGV2YW50Lg0KPj4+Pj4+DQo+Pj4+Pj4gU2VlIHdoYXQgYW1kZ3B1
+X3ZtX3VwZGF0ZV9wdGVzKCkgZG9lcyBpcyB0byBmaXJzdCBkZXRlcm1pbmUgdGhlDQo+Pj4+Pj4g
+ZnJhZ21lbnQgc2l6ZToNCj4+Pj4+Pj4gYW1kZ3B1X3ZtX2ZyYWdtZW50KHBhcmFtcywgZnJhZ19z
+dGFydCwgZW5kLCBmbGFncywgJmZyYWcsICZmcmFnX2VuZCk7DQo+Pj4+Pj4gVGhlbiB3ZSB3YWxr
+IGRvd24gdGhlIHRyZWU6DQo+Pj4+Pj4+ICDCoMKgwqDCoMKgwqDCoCBhbWRncHVfdm1fcHRfc3Rh
+cnQoYWRldiwgcGFyYW1zLT52bSwgc3RhcnQsICZjdXJzb3IpOw0KPj4+Pj4+PiAgwqDCoMKgwqDC
+oMKgwqAgd2hpbGUgKGN1cnNvci5wZm4gPCBlbmQpIHsNCj4+Pj4+PiBBbmQgbWFrZSBzdXJlIHRo
+YXQgdGhlIHBhZ2UgdGFibGVzIGNvdmVyaW5nIHRoZSBhZGRyZXNzIHJhbmdlIGFyZQ0KPj4+Pj4+
+IGFjdHVhbGx5IGFsbG9jYXRlZDoNCj4+Pj4+Pj4gIMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoCByID0gYW1kZ3B1X3ZtX2FsbG9jX3B0cyhwYXJhbXMtPmFkZXYsIHBhcmFtcy0+dm0sDQo+
+Pj4+Pj4+ICZjdXJzb3IpOw0KPj4+Pj4+IFRoZW4gd2UgdXBkYXRlIHRoZSB0YWJsZXMgd2l0aCB0
+aGUgZmxhZ3MgYW5kIGFkZHJlc3NlcyBhbmQgZnJlZSB1cA0KPj4+Pj4+IHN1YnNlcXVlbnQgdGFi
+bGVzIGluIHRoZSBjYXNlIG9mIGh1Z2UgcGFnZXMgb3IgZnJlZWQgdXAgYXJlYXM6DQo+Pj4+Pj4+
+ICDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIC8qIEZyZWUg
+YWxsIGNoaWxkIGVudHJpZXMgKi8NCj4+Pj4+Pj4gIMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqAgd2hpbGUgKGN1cnNvci5wZm4gPCBmcmFnX3N0YXJ0KSB7DQo+
+Pj4+Pj4+IGFtZGdwdV92bV9mcmVlX3B0cyhhZGV2LCBwYXJhbXMtPnZtLCAmY3Vyc29yKTsNCj4+
+Pj4+Pj4gYW1kZ3B1X3ZtX3B0X25leHQoYWRldiwgJmN1cnNvcik7DQo+Pj4+Pj4+ICDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIH0NCj4+Pj4+PiBUaGlzIGlz
+IHRoZSBtYXhpbXVtIHlvdSBjYW4gZnJlZSwgY2F1c2UgYWxsIG90aGVyIHBhZ2UgdGFibGVzIGFy
+ZQ0KPj4+Pj4+IG5vdCBjb21wbGV0ZWx5IGNvdmVyZWQgYnkgdGhlIHJhbmdlIGFuZCBzbyBwb3Rl
+bnRpYWxseSBzdGlsbCBpbiB1c2UuDQo+Pj4+Pj4NCj4+Pj4+PiBBbmQgSSBoYXZlIHRoZSBzdHJv
+bmcgc3VzcGljaW9uIHRoYXQgdGhpcyBpcyB3aGF0IHlvdXIgcGF0Y2ggaXMNCj4+Pj4+PiBhY3R1
+YWxseSBkb2luZyB3cm9uZy4gSW4gb3RoZXIgd29yZHMgeW91IGFyZSBhbHNvIGZyZWVpbmcgcGFn
+ZQ0KPj4+Pj4+IHRhYmxlcyB3aGljaCBhcmUgb25seSBwYXJ0aWFsbHkgY292ZXJlZCBieSB0aGUg
+cmFuZ2UgYW5kIHNvDQo+Pj4+Pj4gcG90ZW50aWFsbHkgc3RpbGwgaW4gdXNlLg0KPj4+Pj4+DQo+
+Pj4+Pj4gU2luY2Ugd2UgZG9uJ3QgaGF2ZSBhbnkgdHJhY2tpbmcgaG93IG1hbnkgZW50cmllcyBp
+biBhIHBhZ2UgdGFibGUNCj4+Pj4+PiBhcmUgY3VycmVudGx5IHZhbGlkIGFuZCBob3cgbWFueSBh
+cmUgaW52YWxpZCB3ZSBhY3R1YWxseSBjYW4ndA0KPj4+Pj4+IGltcGxlbWVudCB3aGF0IHlvdSBh
+cmUgdHJ5aW5nIHRvIGRvIGhlcmUuIFNvIHRoZSBwYXRjaCBpcw0KPj4+Pj4+IGRlZmluaXRlbHkg
+c29tZWhvdyBicm9rZW4uDQo+Pj4+Pj4NCj4+Pj4+PiBSZWdhcmRzLA0KPj4+Pj4+IENocmlzdGlh
+bi4NCj4+Pj4+Pg0KPj4+Pj4+IEFtIDMwLjEwLjE5IHVtIDE3OjU1IHNjaHJpZWIgSHVhbmcsIEpp
+bkh1aUVyaWM6DQo+Pj4+Pj4+IFRoZSB2YWlsZCBmbGFnIGRvZXNuJ3QgdGFrZSBlZmZlY3QgaW4g
+dGhpcyBmdW5jdGlvbi4NCj4+Pj4+Pj4gYW1kZ3B1X3ZtX2FsbG9jX3B0cygpIGlzIGFsd2F5cyBl
+eGVjdXRlZCB0aGF0IG9ubHkgZGVwZW5kZWQgb24NCj4+Pj4+Pj4gImN1cnNvci5wZm4gPCBlbmQi
+LiBUaGUgdmFsaWQgZmxhZyBoYXMgb25seSBiZWVuIGNoZWNrZWQgb24gaGVyZQ0KPj4+Pj4+PiBm
+b3IgYXNpYyBiZWxvdyBHTUMgdjk6DQo+Pj4+Pj4+DQo+Pj4+Pj4+IGlmIChhZGV2LT5hc2ljX3R5
+cGUgPCBDSElQX1ZFR0ExMCAmJg0KPj4+Pj4+PiAgwqDCoMKgIMKgwqDCoCDCoMKgwqAgKGZsYWdz
+ICYgQU1ER1BVX1BURV9WQUxJRCkpLi4uDQo+Pj4+Pj4+DQo+Pj4+Pj4+IFJlZ2FyZHMsDQo+Pj4+
+Pj4+DQo+Pj4+Pj4+IEVyaWMNCj4+Pj4+Pj4NCj4+Pj4+Pj4gT24gMjAxOS0xMC0zMCAxMjozMCBw
+Lm0uLCBLb2VuaWcsIENocmlzdGlhbiB3cm90ZToNCj4+Pj4+Pj4+DQo+Pj4+Pj4+PiBBbSAzMC4x
+MC4yMDE5IDE3OjE5IHNjaHJpZWIgIkh1YW5nLCBKaW5IdWlFcmljIg0KPj4+Pj4+Pj4gPEppbkh1
+aUVyaWMuSHVhbmdAYW1kLmNvbT46DQo+Pj4+Pj4+Pg0KPj4+Pj4+Pj4gICAgICBJIHRlc3RlZCBp
+dCB0aGF0IGl0IHNhdmVzIGEgbG90IG9mIHZyYW0gb24gS0ZEIGJpZyBidWZmZXINCj4+Pj4+Pj4+
+ICAgICAgc3RyZXNzIHRlc3QuIEkgdGhpbmsgdGhlcmUgYXJlIHR3byByZWFzb25zOg0KPj4+Pj4+
+Pj4NCj4+Pj4+Pj4+ICAgICAgMS4gQ2FsbGluZyBhbWRncHVfdm1fdXBkYXRlX3B0ZXMoKSBkdXJp
+bmcgdW5tYXBwaW5nIHdpbGwNCj4+Pj4+Pj4+ICAgICAgYWxsb2NhdGUgdW5uZWNlc3NhcnkgcHRz
+LCBiZWNhdXNlIHRoZXJlIGlzIG5vIGZsYWcgdG8NCj4+Pj4+Pj4+ICAgICAgZGV0ZXJtaW5lIGlm
+IHRoZSBWQSBpcyBtYXBwaW5nIG9yIHVubWFwcGluZyBpbiBmdW5jdGlvbg0KPj4+Pj4+Pj4gICAg
+ICBhbWRncHVfdm1fdXBkYXRlX3B0ZXMoKS4gSXQgc2F2ZXMgdGhlIG1vc3Qgb2YgbWVtb3J5Lg0K
+Pj4+Pj4+Pj4NCj4+Pj4+Pj4+IFRoYXQncyBub3QgY29ycmVjdC4gVGhlIHZhbGlkIGZsYWcgaXMg
+dXNlZCBmb3IgdGhpcy4NCj4+Pj4+Pj4+DQo+Pj4+Pj4+PiAgICAgIDIuIEludGVudGlvbmFsbHkg
+cmVtb3ZpbmcgdGhvc2UgdW5tYXBwaW5nIHB0cyBpcyBsb2dpY2FsDQo+Pj4+Pj4+PiAgICAgIGV4
+cGVjdGF0aW9uLCBhbHRob3VnaCBpdCBpcyBub3QgcmVtb3Zpbmcgc28gbXVjaCBwdHMuDQo+Pj4+
+Pj4+Pg0KPj4+Pj4+Pj4gV2VsbCBJIGFjdHVhbGx5IGRvbid0IHNlZSBhIGNoYW5nZSB0byB3aGF0
+IHVwZGF0ZV9wdGVzIGlzIGRvaW5nDQo+Pj4+Pj4+PiBhbmQgaGF2ZSB0aGUgc3Ryb25nIHN1c3Bp
+Y2lvbiB0aGF0IHRoZSBwYXRjaCBpcyBzaW1wbHkgYnJva2VuLg0KPj4+Pj4+Pj4NCj4+Pj4+Pj4+
+IFlvdSBlaXRoZXIgZnJlZSBwYWdlIHRhYmxlcyB3aGljaCBhcmUgcG90ZW50aWFsbHkgc3RpbGwg
+aW4gdXNlDQo+Pj4+Pj4+PiBvciB1cGRhdGVfcHRlIGRvZXNuJ3QgZnJlZSBwYWdlIHRhYmxlcyB3
+aGVuIHRoZSB2YWxpZCBidXQgaXMgbm90DQo+Pj4+Pj4+PiBzZXQuDQo+Pj4+Pj4+Pg0KPj4+Pj4+
+Pj4gUmVnYXJkcywNCj4+Pj4+Pj4+IENocmlzdGlhbi4NCj4+Pj4+Pj4+DQo+Pj4+Pj4+Pg0KPj4+
+Pj4+Pj4NCj4+Pj4+Pj4+ICAgICAgUmVnYXJkcywNCj4+Pj4+Pj4+DQo+Pj4+Pj4+PiAgICAgIEVy
+aWMNCj4+Pj4+Pj4+DQo+Pj4+Pj4+PiAgICAgIE9uIDIwMTktMTAtMzAgMTE6NTcgYS5tLiwgS29l
+bmlnLCBDaHJpc3RpYW4gd3JvdGU6DQo+Pj4+Pj4+Pg0KPj4+Pj4+Pj4NCj4+Pj4+Pj4+DQo+Pj4+
+Pj4+PiAgICAgICAgICBBbSAzMC4xMC4yMDE5IDE2OjQ3IHNjaHJpZWIgIkt1ZWhsaW5nLCBGZWxp
+eCINCj4+Pj4+Pj4+ICAgICAgICAgIDxGZWxpeC5LdWVobGluZ0BhbWQuY29tPiA8bWFpbHRvOkZl
+bGl4Lkt1ZWhsaW5nQGFtZC5jb20+Og0KPj4+Pj4+Pj4NCj4+Pj4+Pj4+ICAgICAgICAgICAgICBP
+biAyMDE5LTEwLTMwIDk6NTIgYS5tLiwgQ2hyaXN0aWFuIEvDtm5pZyB3cm90ZToNCj4+Pj4+Pj4+
+ICAgICAgICAgICAgICA+IEFtIDI5LjEwLjE5IHVtIDIxOjA2IHNjaHJpZWIgSHVhbmcsIEppbkh1
+aUVyaWM6DQo+Pj4+Pj4+PiAgICAgICAgICAgICAgPj4gVGhlIGlzc3VlIGlzIFBUIEJPcyBhcmUg
+bm90IGZyZWVkIHdoZW4gdW5tYXBwaW5nIFZBLA0KPj4+Pj4+Pj4gICAgICAgICAgICAgID4+IHdo
+aWNoIGNhdXNlcyB2cmFtIHVzYWdlIGFjY3VtdWxhdGVkIGlzIGh1Z2UgaW4gc29tZQ0KPj4+Pj4+
+Pj4gICAgICAgICAgICAgID4+IG1lbW9yeSBzdHJlc3MgdGVzdCwgc3VjaCBhcyBrZmQgYmlnIGJ1
+ZmZlciBzdHJlc3MNCj4+Pj4+Pj4+ICAgICAgICAgICAgICB0ZXN0Lg0KPj4+Pj4+Pj4gICAgICAg
+ICAgICAgID4+IEZ1bmN0aW9uIGFtZGdwdV92bV9ib191cGRhdGVfbWFwcGluZygpIGlzIGNhbGxl
+ZA0KPj4+Pj4+Pj4gICAgICAgICAgICAgIGJ5IGJvdGgNCj4+Pj4+Pj4+ICAgICAgICAgICAgICA+
+PiBhbWRncHVfdm1fYm9fdXBkYXRlKCkgYW5kDQo+Pj4+Pj4+PiAgICAgICAgICAgICAgYW1kZ3B1
+X3ZtX2NsZWFyX2ZyZWVkKCkuIFRoZQ0KPj4+Pj4+Pj4gICAgICAgICAgICAgID4+IHNvbHV0aW9u
+IGlzIHJlcGxhY2luZw0KPj4+Pj4+Pj4gICAgICAgICAgICAgIGFtZGdwdV92bV9ib191cGRhdGVf
+bWFwcGluZygpIGluDQo+Pj4+Pj4+PiAgICAgICAgICAgICAgPj4gYW1kZ3B1X3ZtX2NsZWFyX2Zy
+ZWVkKCkgd2l0aCByZW1vdmluZyBQVCBCT3MgZnVuY3Rpb24NCj4+Pj4+Pj4+ICAgICAgICAgICAg
+ICA+PiB0byBzYXZlIHZyYW0gdXNhZ2UuDQo+Pj4+Pj4+PiAgICAgICAgICAgICAgPg0KPj4+Pj4+
+Pj4gICAgICAgICAgICAgID4gTkFLLCB0aGF0IGlzIGludGVudGlvbmFsIGJlaGF2aW9yLg0KPj4+
+Pj4+Pj4gICAgICAgICAgICAgID4NCj4+Pj4+Pj4+ICAgICAgICAgICAgICA+IE90aGVyd2lzZSB3
+ZSBjYW4gcnVuIGludG8gb3V0IG9mIG1lbW9yeSBzaXR1YXRpb25zDQo+Pj4+Pj4+PiAgICAgICAg
+ICAgICAgd2hlbiBwYWdlIHRhYmxlcw0KPj4+Pj4+Pj4gICAgICAgICAgICAgID4gbmVlZCB0byBi
+ZSBhbGxvY2F0ZWQgYWdhaW4gdW5kZXIgc3RyZXNzLg0KPj4+Pj4+Pj4NCj4+Pj4+Pj4+ICAgICAg
+ICAgICAgICBUaGF0J3MgYSBiaXQgYXJiaXRyYXJ5IGFuZCBpbmNvbnNpc3RlbnQuIFdlIGFyZQ0K
+Pj4+Pj4+Pj4gICAgICAgICAgICAgIGZyZWVpbmcgcGFnZSB0YWJsZXMgaW4NCj4+Pj4+Pj4+ICAg
+ICAgICAgICAgICBvdGhlciBzaXR1YXRpb25zLCB3aGVuIGEgbWFwcGluZyB1c2VzIGh1Z2UgcGFn
+ZXMgaW4NCj4+Pj4+Pj4+ICAgICAgICAgICAgICBhbWRncHVfdm1fdXBkYXRlX3B0ZXMuIFdoeSBu
+b3Qgd2hlbiBhIG1hcHBpbmcgaXMNCj4+Pj4+Pj4+ICAgICAgICAgICAgICBkZXN0cm95ZWQgY29t
+cGxldGVseT8NCj4+Pj4+Pj4+DQo+Pj4+Pj4+PiAgICAgICAgICAgICAgSSdtIGFjdHVhbGx5IGEg
+Yml0IHN1cnByaXNlZCB0aGF0IHRoZSBodWdlLXBhZ2UNCj4+Pj4+Pj4+ICAgICAgICAgICAgICBo
+YW5kbGluZyBpbg0KPj4+Pj4+Pj4gICAgICAgICAgICAgIGFtZGdwdV92bV91cGRhdGVfcHRlcyBp
+c24ndCBraWNraW5nIGluIHRvIGZyZWUgdXANCj4+Pj4+Pj4+ICAgICAgICAgICAgICBsb3dlci1s
+ZXZlbCBwYWdlDQo+Pj4+Pj4+PiAgICAgICAgICAgICAgdGFibGVzIHdoZW4gYSBCTyBpcyB1bm1h
+cHBlZC4NCj4+Pj4+Pj4+DQo+Pj4+Pj4+Pg0KPj4+Pj4+Pj4gICAgICAgICAgV2VsbCBpdCBkb2Vz
+IGZyZWUgdGhlIGxvd2VyIGxldmVsLCBhbmQgdGhhdCBpcyBhbHJlYWR5DQo+Pj4+Pj4+PiAgICAg
+ICAgICBjYXVzaW5nIHByb2JsZW1zICh0aGF0J3Mgd2h5IEkgYWRkZWQgdGhlIHJlc2VydmVkIHNw
+YWNlKS4NCj4+Pj4+Pj4+DQo+Pj4+Pj4+PiAgICAgICAgICBXaGF0IHdlIGRvbid0IGRvIGlzIGZy
+ZWVpbmcgdGhlIGhpZ2hlciBsZXZlbHMuDQo+Pj4+Pj4+Pg0KPj4+Pj4+Pj4gICAgICAgICAgRS5n
+LiB3aGVuIHlvdSBmcmVlIGEgMk1CIEJPIHdlIGZyZWUgdGhlIGxvd2VzdCBsZXZlbCwgaWYNCj4+
+Pj4+Pj4+ICAgICAgICAgIHdlIGZyZWUgYSAxR0IgQk8gd2UgZnJlZSB0aGUgdHdvIGxvd2VzdCBs
+ZXZlbHMgZXRjLi4uDQo+Pj4+Pj4+Pg0KPj4+Pj4+Pj4gICAgICAgICAgVGhlIHByb2JsZW0gd2l0
+aCBmcmVlaW5nIHRoZSBoaWdoZXIgbGV2ZWxzIGlzIHRoYXQgeW91DQo+Pj4+Pj4+PiAgICAgICAg
+ICBkb24ndCBrbm93IHdobyBpcyBhbHNvIHVzaW5nIHRoaXMuIEUuZy4gd2Ugd291bGQgbmVlZCB0
+bw0KPj4+Pj4+Pj4gICAgICAgICAgY2hlY2sgYWxsIGVudHJpZXMgd2hlbiB3ZSB1bm1hcCBvbmUu
+DQo+Pj4+Pj4+Pg0KPj4+Pj4+Pj4gICAgICAgICAgSXQncyBzaW1wbHkgbm90IHdvcnRoIGl0IGZv
+ciBhIG1heGltdW0gc2F2aW5nIG9mIDJNQiBwZXIgVk0uDQo+Pj4+Pj4+Pg0KPj4+Pj4+Pj4gICAg
+ICAgICAgV3JpdGluZyB0aGlzIEknbSBhY3R1YWxseSB3b25kZXJpbmcgaG93IHlvdSBlbmRlZCB1
+cCBpbg0KPj4+Pj4+Pj4gICAgICAgICAgdGhpcyBpc3N1ZT8gVGhlcmUgc2hvdWxkbid0IGJlIG11
+Y2ggc2F2aW5ncyBmcm9tIHRoaXMuDQo+Pj4+Pj4+Pg0KPj4+Pj4+Pj4gICAgICAgICAgUmVnYXJk
+cywNCj4+Pj4+Pj4+ICAgICAgICAgIENocmlzdGlhbi4NCj4+Pj4+Pj4+DQo+Pj4+Pj4+Pg0KPj4+
+Pj4+Pj4gICAgICAgICAgICAgIFJlZ2FyZHMsDQo+Pj4+Pj4+PiAgICAgICAgICAgICAgwqDCoCBG
+ZWxpeA0KPj4+Pj4+Pj4NCj4+Pj4+Pj4+DQo+Pj4+Pj4+PiAgICAgICAgICAgICAgPg0KPj4+Pj4+
+Pj4gICAgICAgICAgICAgID4gUmVnYXJkcywNCj4+Pj4+Pj4+ICAgICAgICAgICAgICA+IENocmlz
+dGlhbi4NCj4+Pj4+Pj4+ICAgICAgICAgICAgICA+DQo+Pj4+Pj4+PiAgICAgICAgICAgICAgPj4N
+Cj4+Pj4+Pj4+ICAgICAgICAgICAgICA+PiBDaGFuZ2UtSWQ6IEljMjRlMzViZmY4Y2E4NTI2NWI0
+MThhNjQyMzczZjE4OWQ5NzJhOTI0DQo+Pj4+Pj4+PiAgICAgICAgICAgICAgPj4gU2lnbmVkLW9m
+Zi1ieTogRXJpYyBIdWFuZw0KPj4+Pj4+Pj4gICAgICAgICAgICAgIDxKaW5odWlFcmljLkh1YW5n
+QGFtZC5jb20+DQo+Pj4+Pj4+PiAgICAgICAgICAgICAgPG1haWx0bzpKaW5odWlFcmljLkh1YW5n
+QGFtZC5jb20+DQo+Pj4+Pj4+PiAgICAgICAgICAgICAgPj4gLS0tDQo+Pj4+Pj4+PiAgICAgICAg
+ICAgICAgPj4gZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMgfCA1Ng0KPj4+
+Pj4+Pj4gICAgICAgICAgICAgID4+ICsrKysrKysrKysrKysrKysrKysrKysrKysrKysrLS0tLS0N
+Cj4+Pj4+Pj4+ICAgICAgICAgICAgICA+PiDCoCAxIGZpbGUgY2hhbmdlZCwgNDggaW5zZXJ0aW9u
+cygrKSwgOCBkZWxldGlvbnMoLSkNCj4+Pj4+Pj4+ICAgICAgICAgICAgICA+Pg0KPj4+Pj4+Pj4g
+ICAgICAgICAgICAgID4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
+bWRncHVfdm0uYw0KPj4+Pj4+Pj4gICAgICAgICAgICAgID4+IGIvZHJpdmVycy9ncHUvZHJtL2Ft
+ZC9hbWRncHUvYW1kZ3B1X3ZtLmMNCj4+Pj4+Pj4+ICAgICAgICAgICAgICA+PiBpbmRleCAwZjRj
+M2IyLi44YTQ4MGM3IDEwMDY0NA0KPj4+Pj4+Pj4gICAgICAgICAgICAgID4+IC0tLSBhL2RyaXZl
+cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5jDQo+Pj4+Pj4+PiAgICAgICAgICAgICAg
+Pj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMNCj4+Pj4+Pj4+
+ICAgICAgICAgICAgICA+PiBAQCAtMTkzMCw2ICsxOTMwLDUxIEBAIHN0YXRpYyB2b2lkDQo+Pj4+
+Pj4+PiAgICAgICAgICAgICAgYW1kZ3B1X3ZtX3BydF9maW5pKHN0cnVjdA0KPj4+Pj4+Pj4gICAg
+ICAgICAgICAgID4+IGFtZGdwdV9kZXZpY2UgKmFkZXYsIHN0cnVjdCBhbWRncHVfdm0gKnZtKQ0K
+Pj4+Pj4+Pj4gICAgICAgICAgICAgID4+IMKgIH0NCj4+Pj4+Pj4+ICAgICAgICAgICAgICA+PiDC
+oCDCoCAvKioNCj4+Pj4+Pj4+ICAgICAgICAgICAgICA+PiArICogYW1kZ3B1X3ZtX3JlbW92ZV9w
+dGVzIC0gZnJlZSBQVCBCT3MNCj4+Pj4+Pj4+ICAgICAgICAgICAgICA+PiArICoNCj4+Pj4+Pj4+
+ICAgICAgICAgICAgICA+PiArICogQGFkZXY6IGFtZGdwdSBkZXZpY2Ugc3RydWN0dXJlDQo+Pj4+
+Pj4+PiAgICAgICAgICAgICAgPj4gKyAqIEB2bTogYW1kZ3B1IHZtIHN0cnVjdHVyZQ0KPj4+Pj4+
+Pj4gICAgICAgICAgICAgID4+ICsgKiBAc3RhcnQ6IHN0YXJ0IG9mIG1hcHBlZCByYW5nZQ0KPj4+
+Pj4+Pj4gICAgICAgICAgICAgID4+ICsgKiBAZW5kOiBlbmQgb2YgbWFwcGVkIGVudHJ5DQo+Pj4+
+Pj4+PiAgICAgICAgICAgICAgPj4gKyAqDQo+Pj4+Pj4+PiAgICAgICAgICAgICAgPj4gKyAqIEZy
+ZWUgdGhlIHBhZ2UgdGFibGUgbGV2ZWwuDQo+Pj4+Pj4+PiAgICAgICAgICAgICAgPj4gKyAqLw0K
+Pj4+Pj4+Pj4gICAgICAgICAgICAgID4+ICtzdGF0aWMgaW50IGFtZGdwdV92bV9yZW1vdmVfcHRl
+cyhzdHJ1Y3QNCj4+Pj4+Pj4+ICAgICAgICAgICAgICBhbWRncHVfZGV2aWNlICphZGV2LA0KPj4+
+Pj4+Pj4gICAgICAgICAgICAgID4+ICsgc3RydWN0IGFtZGdwdV92bSAqdm0sIHVpbnQ2NF90IHN0
+YXJ0LCB1aW50NjRfdCBlbmQpDQo+Pj4+Pj4+PiAgICAgICAgICAgICAgPj4gK3sNCj4+Pj4+Pj4+
+ICAgICAgICAgICAgICA+PiArwqDCoMKgIHN0cnVjdCBhbWRncHVfdm1fcHRfY3Vyc29yIGN1cnNv
+cjsNCj4+Pj4+Pj4+ICAgICAgICAgICAgICA+PiArwqDCoMKgIHVuc2lnbmVkIHNoaWZ0LCBudW1f
+ZW50cmllczsNCj4+Pj4+Pj4+ICAgICAgICAgICAgICA+PiArDQo+Pj4+Pj4+PiAgICAgICAgICAg
+ICAgPj4gKyBhbWRncHVfdm1fcHRfc3RhcnQoYWRldiwgdm0sIHN0YXJ0LCAmY3Vyc29yKTsNCj4+
+Pj4+Pj4+ICAgICAgICAgICAgICA+PiArwqDCoMKgIHdoaWxlIChjdXJzb3IubGV2ZWwgPCBBTURH
+UFVfVk1fUFRCKSB7DQo+Pj4+Pj4+PiAgICAgICAgICAgICAgPj4gK8KgwqDCoMKgwqDCoMKgIGlm
+ICghYW1kZ3B1X3ZtX3B0X2Rlc2NlbmRhbnQoYWRldiwgJmN1cnNvcikpDQo+Pj4+Pj4+PiAgICAg
+ICAgICAgICAgPj4gKyByZXR1cm4gLUVOT0VOVDsNCj4+Pj4+Pj4+ICAgICAgICAgICAgICA+PiAr
+wqDCoMKgIH0NCj4+Pj4+Pj4+ICAgICAgICAgICAgICA+PiArDQo+Pj4+Pj4+PiAgICAgICAgICAg
+ICAgPj4gK8KgwqDCoCB3aGlsZSAoY3Vyc29yLnBmbiA8IGVuZCkgew0KPj4+Pj4+Pj4gICAgICAg
+ICAgICAgID4+ICsgYW1kZ3B1X3ZtX2ZyZWVfdGFibGUoY3Vyc29yLmVudHJ5KTsNCj4+Pj4+Pj4+
+ICAgICAgICAgICAgICA+PiArIG51bV9lbnRyaWVzID0gYW1kZ3B1X3ZtX251bV9lbnRyaWVzKGFk
+ZXYsDQo+Pj4+Pj4+PiAgICAgICAgICAgICAgY3Vyc29yLmxldmVsIC0gMSk7DQo+Pj4+Pj4+PiAg
+ICAgICAgICAgICAgPj4gKw0KPj4+Pj4+Pj4gICAgICAgICAgICAgID4+ICvCoMKgwqDCoMKgwqDC
+oCBpZiAoY3Vyc29yLmVudHJ5ICE9DQo+Pj4+Pj4+PiAgICAgICAgICAgICAgJmN1cnNvci5wYXJl
+bnQtPmVudHJpZXNbbnVtX2VudHJpZXMgLSAxXSkgew0KPj4+Pj4+Pj4gICAgICAgICAgICAgID4+
+ICsgLyogTmV4dCBwdGIgZW50cnkgKi8NCj4+Pj4+Pj4+ICAgICAgICAgICAgICA+PiArIHNoaWZ0
+ID0gYW1kZ3B1X3ZtX2xldmVsX3NoaWZ0KGFkZXYsDQo+Pj4+Pj4+PiAgICAgICAgICAgICAgY3Vy
+c29yLmxldmVsIC0gMSk7DQo+Pj4+Pj4+PiAgICAgICAgICAgICAgPj4gKyBjdXJzb3IucGZuICs9
+IDFVTEwgPDwgc2hpZnQ7DQo+Pj4+Pj4+PiAgICAgICAgICAgICAgPj4gKyBjdXJzb3IucGZuICY9
+IH4oKDFVTEwgPDwgc2hpZnQpIC0gMSk7DQo+Pj4+Pj4+PiAgICAgICAgICAgICAgPj4gKyBjdXJz
+b3IuZW50cnkrKzsNCj4+Pj4+Pj4+ICAgICAgICAgICAgICA+PiArwqDCoMKgwqDCoMKgwqAgfSBl
+bHNlIHsNCj4+Pj4+Pj4+ICAgICAgICAgICAgICA+PiArIC8qIE5leHQgcHRiIGVudHJ5IGluIG5l
+eHQgcGQwIGVudHJ5ICovDQo+Pj4+Pj4+PiAgICAgICAgICAgICAgPj4gKyBhbWRncHVfdm1fcHRf
+YW5jZXN0b3IoJmN1cnNvcik7DQo+Pj4+Pj4+PiAgICAgICAgICAgICAgPj4gKyBzaGlmdCA9IGFt
+ZGdwdV92bV9sZXZlbF9zaGlmdChhZGV2LA0KPj4+Pj4+Pj4gICAgICAgICAgICAgIGN1cnNvci5s
+ZXZlbCAtIDEpOw0KPj4+Pj4+Pj4gICAgICAgICAgICAgID4+ICsgY3Vyc29yLnBmbiArPSAxVUxM
+IDw8IHNoaWZ0Ow0KPj4+Pj4+Pj4gICAgICAgICAgICAgID4+ICsgY3Vyc29yLnBmbiAmPSB+KCgx
+VUxMIDw8IHNoaWZ0KSAtIDEpOw0KPj4+Pj4+Pj4gICAgICAgICAgICAgID4+ICsgYW1kZ3B1X3Zt
+X3B0X2Rlc2NlbmRhbnQoYWRldiwgJmN1cnNvcik7DQo+Pj4+Pj4+PiAgICAgICAgICAgICAgPj4g
+K8KgwqDCoMKgwqDCoMKgIH0NCj4+Pj4+Pj4+ICAgICAgICAgICAgICA+PiArwqDCoMKgIH0NCj4+
+Pj4+Pj4+ICAgICAgICAgICAgICA+PiArDQo+Pj4+Pj4+PiAgICAgICAgICAgICAgPj4gK8KgwqDC
+oCByZXR1cm4gMDsNCj4+Pj4+Pj4+ICAgICAgICAgICAgICA+PiArfQ0KPj4+Pj4+Pj4gICAgICAg
+ICAgICAgID4+ICsNCj4+Pj4+Pj4+ICAgICAgICAgICAgICA+PiArLyoqDQo+Pj4+Pj4+PiAgICAg
+ICAgICAgICAgPj4gwqDCoCAqIGFtZGdwdV92bV9jbGVhcl9mcmVlZCAtIGNsZWFyIGZyZWVkIEJP
+cyBpbg0KPj4+Pj4+Pj4gICAgICAgICAgICAgIHRoZSBQVA0KPj4+Pj4+Pj4gICAgICAgICAgICAg
+ID4+IMKgwqAgKg0KPj4+Pj4+Pj4gICAgICAgICAgICAgID4+IMKgwqAgKiBAYWRldjogYW1kZ3B1
+X2RldmljZSBwb2ludGVyDQo+Pj4+Pj4+PiAgICAgICAgICAgICAgPj4gQEAgLTE5NDksNyArMTk5
+NCw2IEBAIGludA0KPj4+Pj4+Pj4gICAgICAgICAgICAgIGFtZGdwdV92bV9jbGVhcl9mcmVlZChz
+dHJ1Y3QgYW1kZ3B1X2RldmljZQ0KPj4+Pj4+Pj4gICAgICAgICAgICAgID4+ICphZGV2LA0KPj4+
+Pj4+Pj4gICAgICAgICAgICAgID4+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBzdHJ1
+Y3QgZG1hX2ZlbmNlICoqZmVuY2UpDQo+Pj4+Pj4+PiAgICAgICAgICAgICAgPj4gwqAgew0KPj4+
+Pj4+Pj4gICAgICAgICAgICAgID4+IMKgwqDCoMKgwqAgc3RydWN0IGFtZGdwdV9ib192YV9tYXBw
+aW5nICptYXBwaW5nOw0KPj4+Pj4+Pj4gICAgICAgICAgICAgID4+IC3CoMKgwqAgdWludDY0X3Qg
+aW5pdF9wdGVfdmFsdWUgPSAwOw0KPj4+Pj4+Pj4gICAgICAgICAgICAgID4+IMKgwqDCoMKgwqAg
+c3RydWN0IGRtYV9mZW5jZSAqZiA9IE5VTEw7DQo+Pj4+Pj4+PiAgICAgICAgICAgICAgPj4gwqDC
+oMKgwqDCoCBpbnQgcjsNCj4+Pj4+Pj4+ICAgICAgICAgICAgICA+PiDCoCBAQCAtMTk1OCwxMyAr
+MjAwMiwxMCBAQCBpbnQNCj4+Pj4+Pj4+ICAgICAgICAgICAgICBhbWRncHVfdm1fY2xlYXJfZnJl
+ZWQoc3RydWN0DQo+Pj4+Pj4+PiAgICAgICAgICAgICAgPj4gYW1kZ3B1X2RldmljZSAqYWRldiwN
+Cj4+Pj4+Pj4+ICAgICAgICAgICAgICA+PiBzdHJ1Y3QgYW1kZ3B1X2JvX3ZhX21hcHBpbmcsIGxp
+c3QpOw0KPj4+Pj4+Pj4gICAgICAgICAgICAgID4+IGxpc3RfZGVsKCZtYXBwaW5nLT5saXN0KTsN
+Cj4+Pj4+Pj4+ICAgICAgICAgICAgICA+PiDCoCAtwqDCoMKgwqDCoMKgwqAgaWYgKHZtLT5wdGVf
+c3VwcG9ydF9hdHMgJiYNCj4+Pj4+Pj4+ICAgICAgICAgICAgICA+PiAtIG1hcHBpbmctPnN0YXJ0
+IDwgQU1ER1BVX0dNQ19IT0xFX1NUQVJUKQ0KPj4+Pj4+Pj4gICAgICAgICAgICAgID4+IC0gaW5p
+dF9wdGVfdmFsdWUgPSBBTURHUFVfUFRFX0RFRkFVTFRfQVRDOw0KPj4+Pj4+Pj4gICAgICAgICAg
+ICAgID4+ICvCoMKgwqDCoMKgwqDCoCByID0gYW1kZ3B1X3ZtX3JlbW92ZV9wdGVzKGFkZXYsIHZt
+LA0KPj4+Pj4+Pj4gICAgICAgICAgICAgID4+ICsgKG1hcHBpbmctPnN0YXJ0ICsgMHgxZmYpICYg
+KH4weDFmZmxsKSwNCj4+Pj4+Pj4+ICAgICAgICAgICAgICA+PiArIChtYXBwaW5nLT5sYXN0ICsg
+MSkgJiAofjB4MWZmbGwpKTsNCj4+Pj4+Pj4+ICAgICAgICAgICAgICA+PiDCoCAtwqDCoMKgwqDC
+oMKgwqAgciA9IGFtZGdwdV92bV9ib191cGRhdGVfbWFwcGluZyhhZGV2LA0KPj4+Pj4+Pj4gICAg
+ICAgICAgICAgIHZtLCBmYWxzZSwgTlVMTCwNCj4+Pj4+Pj4+ICAgICAgICAgICAgICA+PiAtIG1h
+cHBpbmctPnN0YXJ0LCBtYXBwaW5nLT5sYXN0LA0KPj4+Pj4+Pj4gICAgICAgICAgICAgID4+IC0g
+aW5pdF9wdGVfdmFsdWUsIDAsIE5VTEwsICZmKTsNCj4+Pj4+Pj4+ICAgICAgICAgICAgICA+PiBh
+bWRncHVfdm1fZnJlZV9tYXBwaW5nKGFkZXYsIHZtLCBtYXBwaW5nLCBmKTsNCj4+Pj4+Pj4+ICAg
+ICAgICAgICAgICA+PiDCoMKgwqDCoMKgwqDCoMKgwqAgaWYgKHIpIHsNCj4+Pj4+Pj4+ICAgICAg
+ICAgICAgICA+PiBkbWFfZmVuY2VfcHV0KGYpOw0KPj4+Pj4+Pj4gICAgICAgICAgICAgID4+IEBA
+IC0xOTgwLDcgKzIwMjEsNiBAQCBpbnQNCj4+Pj4+Pj4+ICAgICAgICAgICAgICBhbWRncHVfdm1f
+Y2xlYXJfZnJlZWQoc3RydWN0IGFtZGdwdV9kZXZpY2UNCj4+Pj4+Pj4+ICAgICAgICAgICAgICA+
+PiAqYWRldiwNCj4+Pj4+Pj4+ICAgICAgICAgICAgICA+PiDCoMKgwqDCoMKgIH0NCj4+Pj4+Pj4+
+ICAgICAgICAgICAgICA+PiByZXR1cm4gMDsNCj4+Pj4+Pj4+ICAgICAgICAgICAgICA+PiAtDQo+
+Pj4+Pj4+PiAgICAgICAgICAgICAgPj4gwqAgfQ0KPj4+Pj4+Pj4gICAgICAgICAgICAgID4+IMKg
+IMKgIC8qKg0KPj4+Pj4+Pj4gICAgICAgICAgICAgID4NCj4+Pj4+Pj4+ICAgICAgICAgICAgICA+
+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fDQo+Pj4+Pj4+
+PiAgICAgICAgICAgICAgPiBhbWQtZ2Z4IG1haWxpbmcgbGlzdA0KPj4+Pj4+Pj4gICAgICAgICAg
+ICAgID4gYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCj4+Pj4+Pj4+ICAgICAgICAgICAg
+ICA8bWFpbHRvOmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnPg0KPj4+Pj4+Pj4gICAgICAg
+ICAgICAgID4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9h
+bWQtZ2Z4DQo+Pj4+Pj4+Pg0KPj4+Pj4+Pj4NCj4+Pj4+Pj4+DQo+Pj4+Pj4NCj4+Pj4+PiBfX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXw0KPj4+Pj4+IGFtZC1n
+ZnggbWFpbGluZyBsaXN0DQo+Pj4+Pj4gYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCj4+
+Pj4+PiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1n
+ZngNCj4+DQo+PiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+Xw0KPj4gYW1kLWdmeCBtYWlsaW5nIGxpc3QNCj4+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Au
+b3JnDQo+PiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2Ft
+ZC1nZngNCj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18N
+Cj4gYW1kLWdmeCBtYWlsaW5nIGxpc3QNCj4gYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcN
+Cj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+DQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4
+IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3Rz
+LmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
