@@ -1,41 +1,83 @@
-From: Jaskaran Singh <jaskaransingh7654321@gmail.com>
-Subject: [PATCH] drivers: gpu: amdgpu: Remove @dev from
- amdgpu_gem_prime_export documentation
-Date: Fri, 1 Nov 2019 21:33:12 +0530
-Message-ID: <20191101160312.GA11047@localhost.localdomain>
+From: Jason Gunthorpe <jgg@mellanox.com>
+Subject: Re: [PATCH v2 14/15] drm/amdgpu: Use mmu_range_notifier
+ instead of hmm_mirror
+Date: Fri, 1 Nov 2019 17:42:32 +0000
+Message-ID: <20191101174221.GO22766@mellanox.com>
+References: <20191028201032.6352-1-jgg@ziepe.ca>
+ <20191028201032.6352-15-jgg@ziepe.ca>
+ <a456ebd0-28cf-997b-31ff-72d9077a9b8e@amd.com>
+ <20191029192544.GU22766@mellanox.com>
+ <30b2f569-bf7a-5166-c98d-4a4a13d1351f@amd.com>
+ <20191101151222.GN22766@mellanox.com>
+ <8280fb65-a897-3d71-79f9-9f80d9e474e9@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Content-Disposition: inline
-Sender: linux-kernel-owner@vger.kernel.org
-To: linux-kernel@vger.kernel.org
-Cc: alexander.deucher@amd.com, christian.koenig@amd.com, David1.Zhou@amd.com, airlied@linux.ie, daniel@ffwll.ch, kraxel@redhat.com, chris@chris-wilson.co.uk, emil.velikov@collabora.com, Felix.Kuehling@amd.com, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <xen-devel-bounces@lists.xenproject.org>
+In-Reply-To: <8280fb65-a897-3d71-79f9-9f80d9e474e9@amd.com>
+Content-Language: en-US
+Content-ID: <AF9CCF2DA50D054FAB60B8932C09BE36@eurprd05.prod.outlook.com>
+List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
+ <mailto:xen-devel-request@lists.xenproject.org?subject=unsubscribe>
+List-Post: <mailto:xen-devel@lists.xenproject.org>
+List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
+List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
+ <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
+Errors-To: xen-devel-bounces@lists.xenproject.org
+Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
+To: "Yang, Philip" <Philip.Yang@amd.com>
+Cc: "nouveau@lists.freedesktop.org" <nouveau@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "linux-mm@kvack.org" <linux-mm@kvack.org>, "Zhou,
+ David(ChunMing)" <David1.Zhou@amd.com>, Stefano Stabellini <sstabellini@kernel.org>, Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>, "linux-rdma@vger.kernel.org" <linux-rdma@vger.kernel.org>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, Christoph Hellwig <hch@infradead.org>, Ben Skeggs <bskeggs@redhat.com>, "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Ralph Campbell <rcampbell@nvidia.com>, John Hubbard <jhubbard@nvidia.com>, Jerome Glisse <jglisse@redhat.com>, Dennis Dalessandro <dennis.dalessandro@intel.com>, Boris Ostrovsky <boris.ostrovsky@oracle.com>, Petr Cvek <petrcvekcz@gmail.com>, Juergen Gross <jgross@suse.com>, Mike
 List-Id: amd-gfx.lists.freedesktop.org
 
-The function does not have a "dev" argument, so remove it from
-the documentation. This fixes the following documentation
-build warning:
-
-./drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c:335:
-	warning: Excess function parameter 'dev' description in
-	'amdgpu_gem_prime_export'
-
-Signed-off-by: Jaskaran Singh <jaskaransingh7654321@gmail.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c | 1 -
- 1 file changed, 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
-index 61f108ec2b5c..4917b548b7f2 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
-@@ -321,7 +321,6 @@ const struct dma_buf_ops amdgpu_dmabuf_ops = {
- 
- /**
-  * amdgpu_gem_prime_export - &drm_driver.gem_prime_export implementation
-- * @dev: DRM device
-  * @gobj: GEM BO
-  * @flags: Flags such as DRM_CLOEXEC and DRM_RDWR.
-  *
--- 
-2.21.0
+T24gRnJpLCBOb3YgMDEsIDIwMTkgYXQgMDM6NTk6MjZQTSArMDAwMCwgWWFuZywgUGhpbGlwIHdy
+b3RlOgo+ID4gVGhpcyB0ZXN0IGZvciByYW5nZV9ibG9ja2FibGUgc2hvdWxkIGJlIGJlZm9yZSBt
+dXRleF9sb2NrLCBJIGNhbiBtb3ZlCj4gPiBpdCB1cAo+ID4gCj4geWVzLCB0aGFua3MuCgpPa2F5
+LCBJIHdyb3RlIGl0IGxpa2UgdGhpczoKCglpZiAobW11X25vdGlmaWVyX3JhbmdlX2Jsb2NrYWJs
+ZShyYW5nZSkpCgkJbXV0ZXhfbG9jaygmYWRldi0+bm90aWZpZXJfbG9jayk7CgllbHNlIGlmICgh
+bXV0ZXhfdHJ5bG9jaygmYWRldi0+bm90aWZpZXJfbG9jaykpCgkJcmV0dXJuIGZhbHNlOwoKPiA+
+IEFsc28sIGRvIHlvdSBrbm93IGlmIG5vdGlmaWVyX2xvY2sgaXMgaGVsZCB3aGlsZSBjYWxsaW5n
+Cj4gPiBhbWRncHVfdHRtX3R0X2dldF91c2VyX3BhZ2VzX2RvbmUoKT8gQ2FuIHdlIGFkZCBhICds
+b2NrIGFzc2VydCBoZWxkJwo+ID4gdG8gYW1kZ3B1X3R0bV90dF9nZXRfdXNlcl9wYWdlc19kb25l
+KCk/Cj4gCj4gZ3B1IHNpZGUgaG9sZCBub3RpZmllcl9sb2NrIGJ1dCBrZmQgc2lkZSBkb2Vzbid0
+LiBrZmQgc2lkZSBkb2Vzbid0IGNoZWNrIAo+IGFtZGdwdV90dG1fdHRfZ2V0X3VzZXJfcGFnZXNf
+ZG9uZS9tbXVfcmFuZ2VfcmVhZF9yZXRyeSByZXR1cm4gdmFsdWUgYnV0IAo+IGNoZWNrIG1lbS0+
+aW52YWxpZCBmbGFnIHdoaWNoIGlzIHVwZGF0ZWQgZnJvbSBpbnZhbGlkYXRlIGNhbGxiYWNrLiBJ
+dCAKPiB0YWtlcyBtb3JlIHRpbWUgdG8gY2hhbmdlLCBJIHdpbGwgY29tZSB0byBhbm90aGVyIHBh
+dGNoIHRvIGZpeCBpdCBsYXRlci4KCkFoLi4gY29uZnVzaW5nLCBPSywgSSdsbCBsZXQgeW91IHNv
+cnQgdGhhdAoKPiA+IEhvd2V2ZXIsIHRoaXMgaXMgYWxsIHByZS1leGlzdGluZyBidWdzLCBzbyBJ
+J20gT0sgZ28gYWhlYWQgd2l0aCB0aGlzCj4gPiBwYXRjaCBhcyBtb2RpZmllZC4gSSBhZHZpc2Ug
+QU1EIHRvIG1ha2UgYSBmb2xsb3d1cCBwYXRjaCAuLgo+ID4gCj4geWVzLCBJIHdpbGwuCgpXaGls
+ZSB5b3UgYXJlIGhlcmUsIHRoaXMgaXMgYWxzbyB3cm9uZzoKCmludCBhbWRncHVfdHRtX3R0X2dl
+dF91c2VyX3BhZ2VzKHN0cnVjdCBhbWRncHVfYm8gKmJvLCBzdHJ1Y3QgcGFnZSAqKnBhZ2VzKQp7
+Cglkb3duX3JlYWQoJm1tLT5tbWFwX3NlbSk7CglyID0gaG1tX3JhbmdlX2ZhdWx0KHJhbmdlLCAw
+KTsKCXVwX3JlYWQoJm1tLT5tbWFwX3NlbSk7CglpZiAodW5saWtlbHkociA8PSAwKSkgewoJCWlm
+ICgociA9PSAwIHx8IHIgPT0gLUVCVVNZKSAmJiAhdGltZV9hZnRlcihqaWZmaWVzLCB0aW1lb3V0
+KSkKCQkJZ290byByZXRyeTsKCQlnb3RvIG91dF9mcmVlX3BmbnM7Cgl9CgoJZm9yIChpID0gMDsg
+aSA8IHR0bS0+bnVtX3BhZ2VzOyBpKyspIHsKCQlwYWdlc1tpXSA9IGhtbV9kZXZpY2VfZW50cnlf
+dG9fcGFnZShyYW5nZSwgcmFuZ2UtPnBmbnNbaV0pOwoKSXQgaXMgbm90IGFsbG93ZWQgdG8gcmVh
+ZCB0aGUgcmVzdWx0cyBvZiBobW1fcmFuZ2VfZmF1bHQoKSBvdXRzaWRlCmxvY2tpbmcsIGFuZCBp
+biBwYXJ0aWN1bGFyLCB3ZSBjYW4ndCBjb252ZXJ0IHRvIGEgc3RydWN0IHBhZ2UuCgpUaGlzIG11
+c3QgYmUgZG9uZSBpbnNpZGUgdGhlIG5vdGlmaWVyX2xvY2ssIGFmdGVyIGNoZWNraW5nCm1tdV9y
+YW5nZV9yZWFkX3JldHJ5KCksIGFsbCBoYW5kbGluZyBvZiB0aGUgc3RydWN0IHBhZ2UgbXVzdCBi
+ZQpzdHJ1Y3R1cmVkIGxpa2UgdGhhdC4KCj4gPj4gQEAgLTk5NywxMCArMTAwNCwxOCBAQCBzdGF0
+aWMgdm9pZCBhbWRncHVfdHRtX3R0X3VucGluX3VzZXJwdHIoc3RydWN0IHR0bV90dCAqdHRtKQo+
+ID4+ICAgCXNnX2ZyZWVfdGFibGUodHRtLT5zZyk7Cj4gPj4gICAKPiA+PiAgICNpZiBJU19FTkFC
+TEVEKENPTkZJR19EUk1fQU1ER1BVX1VTRVJQVFIpCj4gPj4gLQlpZiAoZ3R0LT5yYW5nZSAmJgo+
+ID4+IC0JICAgIHR0bS0+cGFnZXNbMF0gPT0gaG1tX2RldmljZV9lbnRyeV90b19wYWdlKGd0dC0+
+cmFuZ2UsCj4gPj4gLQkJCQkJCSAgICAgIGd0dC0+cmFuZ2UtPnBmbnNbMF0pKQo+ID4+IC0JCVdB
+Uk5fT05DRSgxLCAiTWlzc2luZyBnZXRfdXNlcl9wYWdlX2RvbmVcbiIpOwo+ID4+ICsJaWYgKGd0
+dC0+cmFuZ2UpIHsKPiA+PiArCQl1bnNpZ25lZCBsb25nIGk7Cj4gPj4gKwo+ID4+ICsJCWZvciAo
+aSA9IDA7IGkgPCB0dG0tPm51bV9wYWdlczsgaSsrKSB7Cj4gPj4gKwkJCWlmICh0dG0tPnBhZ2Vz
+W2ldICE9Cj4gPj4gKwkJCQlobW1fZGV2aWNlX2VudHJ5X3RvX3BhZ2UoZ3R0LT5yYW5nZSwKPiA+
+PiArCQkJCQkgICAgICBndHQtPnJhbmdlLT5wZm5zW2ldKSkKPiA+PiArCQkJCWJyZWFrOwo+ID4+
+ICsJCX0KPiA+PiArCj4gPj4gKwkJV0FSTigoaSA9PSB0dG0tPm51bV9wYWdlcyksICJNaXNzaW5n
+IGdldF91c2VyX3BhZ2VfZG9uZVxuIik7Cj4gPj4gKwl9Cj4gPiAKPiA+IElzIHRoaXMgcmVsYXRl
+ZC9uZWNlc3Nhcnk/IEkgY2FuIHB1dCBpdCBpbiBhbm90aGVyIHBhdGNoIGlmIGl0IGlzIGp1c3QK
+PiA+IGRlYnVnZ2luZyBpbXByb3ZlbWVudD8gUGxlYXNlIGFkdmlzZQo+ID4gCj4gSSBzZWUgdGhp
+cyBXQVJOIGJhY2t0cmFjZSBub3csIGJ1dCBJIGRpZG4ndCBzZWUgaXQgYmVmb3JlLiBUaGlzIGlz
+IAo+IHNvbWVob3cgcmVsYXRlZC4KCkhtLCBtaWdodCBiZSBpbnN0cnVjdGl2ZSB0byBsZWFybiB3
+aGF0IGlzIGdvaW5nIG9uLi4KClRoYW5rcywKSmFzb24KCl9fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fClhlbi1kZXZlbCBtYWlsaW5nIGxpc3QKWGVuLWRldmVs
+QGxpc3RzLnhlbnByb2plY3Qub3JnCmh0dHBzOi8vbGlzdHMueGVucHJvamVjdC5vcmcvbWFpbG1h
+bi9saXN0aW5mby94ZW4tZGV2ZWw=
