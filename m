@@ -1,15 +1,16 @@
-From: "Zhao, Yong" <Yong.Zhao-5C7GfCeVMHo@public.gmane.org>
+From: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
 Subject: Re: [PATCH] drm/amdkfd: Simplify the mmap offset related bit
  operations
-Date: Fri, 1 Nov 2019 22:20:32 +0000
-Message-ID: <DM6PR12MB2778C939A102478FF10F39ADF0620@DM6PR12MB2778.namprd12.prod.outlook.com>
-References: <20191101204818.8125-1-Yong.Zhao@amd.com>,
- <c237f5bf-6638-2d90-3f94-e1eca2c22780@amd.com>
+Date: Fri, 1 Nov 2019 22:48:01 +0000
+Message-ID: <2d2985b2-bcd2-3f56-918e-948020c61993@amd.com>
+References: <20191101204818.8125-1-Yong.Zhao@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0915769850=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <c237f5bf-6638-2d90-3f94-e1eca2c22780-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <20191101204818.8125-1-Yong.Zhao-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
+Content-ID: <7BE631ABD25DB44987B6C1032511A1D8-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -20,489 +21,105 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Zhao, Yong" <Yong.Zhao-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============0915769850==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_DM6PR12MB2778C939A102478FF10F39ADF0620DM6PR12MB2778namp_"
-
---_000_DM6PR12MB2778C939A102478FF10F39ADF0620DM6PR12MB2778namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-Hi Felix,
-
-The PAGE_SHIFT was not deleted but merged into the KFD_*_SHIFT in kfd_priv.=
-h. Because of that, this change is actually transparent to the thunk, and i=
-t only straightens up the bit shift operations in most cases.
-
-Regards,
-Yong
-________________________________
-From: Kuehling, Felix <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
-Sent: Friday, November 1, 2019 5:13 PM
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>; Zhao, Yo=
-ng <Yong.Zhao-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdkfd: Simplify the mmap offset related bit opera=
-tions
-
-NAK. This won't work for several reasons.
-
-The mmap_offset is used as offset parameter in the mmap system call. If
-you check the man page of mmap, you'll see that "offset must be a
-multiple of the page size". Therefore the PAGE_SHIFT is necessary.
-
-In the case of doorbell offsets, the offset is parsed and processed by
-the Thunk in user mode. On GFX9 GPUs the lower bits are used for the
-offset of the doorbell within the doorbell page. On GFX8 the queue ID
-was used, but on GFX9 we had to decoupled the doorbell ID from the queue
-ID. If you remove the PAGE_SHIFT, you'll need to put those bits
-somewhere else. But that change in the encoding would break the ABI with
-the Thunk.
-
-Regards,
-   Felix
-
-On 2019-11-01 4:48 p.m., Zhao, Yong wrote:
-> The new code is much cleaner and results in better readability.
->
-> Change-Id: I0c1f7cca7e24ddb7b4ffe1cb0fa71943828ae373
-> Signed-off-by: Yong Zhao <Yong.Zhao-5C7GfCeVMHo@public.gmane.org>
-> ---
->   drivers/gpu/drm/amd/amdkfd/kfd_chardev.c | 13 +++++++------
->   drivers/gpu/drm/amd/amdkfd/kfd_events.c  |  1 -
->   drivers/gpu/drm/amd/amdkfd/kfd_priv.h    |  9 +++------
->   drivers/gpu/drm/amd/amdkfd/kfd_process.c |  3 +--
->   4 files changed, 11 insertions(+), 15 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/a=
-md/amdkfd/kfd_chardev.c
-> index b91993753b82..590138727ca9 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-> @@ -298,7 +298,6 @@ static int kfd_ioctl_create_queue(struct file *filep,=
- struct kfd_process *p,
->        /* Return gpu_id as doorbell offset for mmap usage */
->        args->doorbell_offset =3D KFD_MMAP_TYPE_DOORBELL;
->        args->doorbell_offset |=3D KFD_MMAP_GPU_ID(args->gpu_id);
-> -     args->doorbell_offset <<=3D PAGE_SHIFT;
->        if (KFD_IS_SOC15(dev->device_info->asic_family))
->                /* On SOC15 ASICs, include the doorbell offset within the
->                 * process doorbell frame, which could be 1 page or 2 page=
-s.
-> @@ -1938,20 +1937,22 @@ static int kfd_mmap(struct file *filp, struct vm_=
-area_struct *vma)
->   {
->        struct kfd_process *process;
->        struct kfd_dev *dev =3D NULL;
-> -     unsigned long vm_pgoff;
-> +     unsigned long mmap_offset;
->        unsigned int gpu_id;
->
->        process =3D kfd_get_process(current);
->        if (IS_ERR(process))
->                return PTR_ERR(process);
->
-> -     vm_pgoff =3D vma->vm_pgoff;
-> -     vma->vm_pgoff =3D KFD_MMAP_OFFSET_VALUE_GET(vm_pgoff);
-> -     gpu_id =3D KFD_MMAP_GPU_ID_GET(vm_pgoff);
-> +     mmap_offset =3D vma->vm_pgoff << PAGE_SHIFT;
-> +     gpu_id =3D KFD_MMAP_GET_GPU_ID(mmap_offset);
->        if (gpu_id)
->                dev =3D kfd_device_by_id(gpu_id);
->
-> -     switch (vm_pgoff & KFD_MMAP_TYPE_MASK) {
-> +     /* only leave the offset segment */
-> +     vma->vm_pgoff &=3D (1ULL << (KFD_MMAP_GPU_ID_SHIFT - PAGE_SHIFT)) -=
- 1;
-> +
-> +     switch (mmap_offset & KFD_MMAP_TYPE_MASK) {
->        case KFD_MMAP_TYPE_DOORBELL:
->                if (!dev)
->                        return -ENODEV;
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_events.c b/drivers/gpu/drm/am=
-d/amdkfd/kfd_events.c
-> index 908081c85de1..1f8365575b12 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_events.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_events.c
-> @@ -346,7 +346,6 @@ int kfd_event_create(struct file *devkfd, struct kfd_=
-process *p,
->                ret =3D create_signal_event(devkfd, p, ev);
->                if (!ret) {
->                        *event_page_offset =3D KFD_MMAP_TYPE_EVENTS;
-> -                     *event_page_offset <<=3D PAGE_SHIFT;
->                        *event_slot_index =3D ev->event_id;
->                }
->                break;
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/=
-amdkfd/kfd_priv.h
-> index 66bae8f2dad1..8eecd2cd1fd2 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-> @@ -59,24 +59,21 @@
->    * NOTE: struct vm_area_struct.vm_pgoff uses offset in pages. Hence, th=
-ese
->    *  defines are w.r.t to PAGE_SIZE
->    */
-> -#define KFD_MMAP_TYPE_SHIFT  (62 - PAGE_SHIFT)
-> +#define KFD_MMAP_TYPE_SHIFT  (62)
->   #define KFD_MMAP_TYPE_MASK  (0x3ULL << KFD_MMAP_TYPE_SHIFT)
->   #define KFD_MMAP_TYPE_DOORBELL      (0x3ULL << KFD_MMAP_TYPE_SHIFT)
->   #define KFD_MMAP_TYPE_EVENTS        (0x2ULL << KFD_MMAP_TYPE_SHIFT)
->   #define KFD_MMAP_TYPE_RESERVED_MEM  (0x1ULL << KFD_MMAP_TYPE_SHIFT)
->   #define KFD_MMAP_TYPE_MMIO  (0x0ULL << KFD_MMAP_TYPE_SHIFT)
->
-> -#define KFD_MMAP_GPU_ID_SHIFT (46 - PAGE_SHIFT)
-> +#define KFD_MMAP_GPU_ID_SHIFT (46)
->   #define KFD_MMAP_GPU_ID_MASK (((1ULL << KFD_GPU_ID_HASH_WIDTH) - 1) \
->                                << KFD_MMAP_GPU_ID_SHIFT)
->   #define KFD_MMAP_GPU_ID(gpu_id) ((((uint64_t)gpu_id) << KFD_MMAP_GPU_ID=
-_SHIFT)\
->                                & KFD_MMAP_GPU_ID_MASK)
-> -#define KFD_MMAP_GPU_ID_GET(offset)    ((offset & KFD_MMAP_GPU_ID_MASK) =
-\
-> +#define KFD_MMAP_GET_GPU_ID(offset)    ((offset & KFD_MMAP_GPU_ID_MASK) =
-\
->                                >> KFD_MMAP_GPU_ID_SHIFT)
->
-> -#define KFD_MMAP_OFFSET_VALUE_MASK   (0x3FFFFFFFFFFFULL >> PAGE_SHIFT)
-> -#define KFD_MMAP_OFFSET_VALUE_GET(offset) (offset & KFD_MMAP_OFFSET_VALU=
-E_MASK)
-> -
->   /*
->    * When working with cp scheduler we should assign the HIQ manually or =
-via
->    * the amdgpu driver to a fixed hqd slot, here are the fixed HIQ hqd sl=
-ot
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/a=
-md/amdkfd/kfd_process.c
-> index 6abfb77ae540..39dc49b8fd85 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-> @@ -554,8 +554,7 @@ static int kfd_process_init_cwsr_apu(struct kfd_proce=
-ss *p, struct file *filep)
->                if (!dev->cwsr_enabled || qpd->cwsr_kaddr || qpd->cwsr_bas=
-e)
->                        continue;
->
-> -             offset =3D (KFD_MMAP_TYPE_RESERVED_MEM | KFD_MMAP_GPU_ID(de=
-v->id))
-> -                     << PAGE_SHIFT;
-> +             offset =3D KFD_MMAP_TYPE_RESERVED_MEM | KFD_MMAP_GPU_ID(dev=
-->id);
->                qpd->tba_addr =3D (int64_t)vm_mmap(filep, 0,
->                        KFD_CWSR_TBA_TMA_SIZE, PROT_READ | PROT_EXEC,
->                        MAP_SHARED, offset);
-
---_000_DM6PR12MB2778C939A102478FF10F39ADF0620DM6PR12MB2778namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Hi Felix,</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-The&nbsp;<span style=3D"color: rgb(32, 31, 30); font-family: &quot;Segoe UI=
-&quot;, &quot;Segoe UI Web (West European)&quot;, &quot;Segoe UI&quot;, -ap=
-ple-system, BlinkMacSystemFont, Roboto, &quot;Helvetica Neue&quot;, sans-se=
-rif; font-size: 14.6667px; background-color: rgb(255, 255, 255); display: i=
-nline !important">PAGE_SHIFT
- was not deleted but merged into the&nbsp;<span style=3D"font-family: &quot=
-;Segoe UI&quot;, &quot;Segoe UI Web (West European)&quot;, &quot;Segoe UI&q=
-uot;, -apple-system, BlinkMacSystemFont, Roboto, &quot;Helvetica Neue&quot;=
-, sans-serif; background-color: rgb(255, 255, 255); display: inline !import=
-ant">KFD_*_SHIFT
- in kfd_priv.h. Because of that, this change is actually transparent to the=
- thunk, and it only straightens up the bit shift operations in most cases.<=
-/span></span></div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<span style=3D"color: rgb(32, 31, 30); font-family: &quot;Segoe UI&quot;, &=
-quot;Segoe UI Web (West European)&quot;, &quot;Segoe UI&quot;, -apple-syste=
-m, BlinkMacSystemFont, Roboto, &quot;Helvetica Neue&quot;, sans-serif; font=
--size: 14.6667px; background-color: rgb(255, 255, 255); display: inline !im=
-portant"><span style=3D"font-family: &quot;Segoe UI&quot;, &quot;Segoe UI W=
-eb (West European)&quot;, &quot;Segoe UI&quot;, -apple-system, BlinkMacSyst=
-emFont, Roboto, &quot;Helvetica Neue&quot;, sans-serif; background-color: r=
-gb(255, 255, 255); display: inline !important"><br>
-</span></span></div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<span style=3D"color: rgb(32, 31, 30); font-family: &quot;Segoe UI&quot;, &=
-quot;Segoe UI Web (West European)&quot;, &quot;Segoe UI&quot;, -apple-syste=
-m, BlinkMacSystemFont, Roboto, &quot;Helvetica Neue&quot;, sans-serif; font=
--size: 14.6667px; background-color: rgb(255, 255, 255); display: inline !im=
-portant"><span style=3D"font-family: &quot;Segoe UI&quot;, &quot;Segoe UI W=
-eb (West European)&quot;, &quot;Segoe UI&quot;, -apple-system, BlinkMacSyst=
-emFont, Roboto, &quot;Helvetica Neue&quot;, sans-serif; background-color: r=
-gb(255, 255, 255); display: inline !important">Regards,</span></span></div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<span style=3D"color: rgb(32, 31, 30); font-family: &quot;Segoe UI&quot;, &=
-quot;Segoe UI Web (West European)&quot;, &quot;Segoe UI&quot;, -apple-syste=
-m, BlinkMacSystemFont, Roboto, &quot;Helvetica Neue&quot;, sans-serif; font=
--size: 14.6667px; background-color: rgb(255, 255, 255); display: inline !im=
-portant"><span style=3D"font-family: &quot;Segoe UI&quot;, &quot;Segoe UI W=
-eb (West European)&quot;, &quot;Segoe UI&quot;, -apple-system, BlinkMacSyst=
-emFont, Roboto, &quot;Helvetica Neue&quot;, sans-serif; background-color: r=
-gb(255, 255, 255); display: inline !important">Yong</span></span></div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Kuehling, Felix &lt;F=
-elix.Kuehling-5C7GfCeVMHo@public.gmane.org&gt;<br>
-<b>Sent:</b> Friday, November 1, 2019 5:13 PM<br>
-<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org &lt;amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&=
-gt;; Zhao, Yong &lt;Yong.Zhao-5C7GfCeVMHo@public.gmane.org&gt;<br>
-<b>Subject:</b> Re: [PATCH] drm/amdkfd: Simplify the mmap offset related bi=
-t operations</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">NAK. This won't work for several reasons.<br>
-<br>
-The mmap_offset is used as offset parameter in the mmap system call. If <br=
->
-you check the man page of mmap, you'll see that &quot;offset must be a <br>
-multiple of the page size&quot;. Therefore the PAGE_SHIFT is necessary.<br>
-<br>
-In the case of doorbell offsets, the offset is parsed and processed by <br>
-the Thunk in user mode. On GFX9 GPUs the lower bits are used for the <br>
-offset of the doorbell within the doorbell page. On GFX8 the queue ID <br>
-was used, but on GFX9 we had to decoupled the doorbell ID from the queue <b=
-r>
-ID. If you remove the PAGE_SHIFT, you'll need to put those bits <br>
-somewhere else. But that change in the encoding would break the ABI with <b=
-r>
-the Thunk.<br>
-<br>
-Regards,<br>
-&nbsp;&nbsp; Felix<br>
-<br>
-On 2019-11-01 4:48 p.m., Zhao, Yong wrote:<br>
-&gt; The new code is much cleaner and results in better readability.<br>
-&gt;<br>
-&gt; Change-Id: I0c1f7cca7e24ddb7b4ffe1cb0fa71943828ae373<br>
-&gt; Signed-off-by: Yong Zhao &lt;Yong.Zhao-5C7GfCeVMHo@public.gmane.org&gt;<br>
-&gt; ---<br>
-&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdkfd/kfd_chardev.c | 13 &#43;&#43;&#=
-43;&#43;&#43;&#43;&#43;------<br>
-&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdkfd/kfd_events.c&nbsp; |&nbsp; 1 -<=
-br>
-&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdkfd/kfd_priv.h&nbsp;&nbsp;&nbsp; |&=
-nbsp; 9 &#43;&#43;&#43;------<br>
-&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdkfd/kfd_process.c |&nbsp; 3 &#43;--=
-<br>
-&gt;&nbsp;&nbsp; 4 files changed, 11 insertions(&#43;), 15 deletions(-)<br>
-&gt;<br>
-&gt; diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/dr=
-m/amd/amdkfd/kfd_chardev.c<br>
-&gt; index b91993753b82..590138727ca9 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c<br>
-&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c<br>
-&gt; @@ -298,7 &#43;298,6 @@ static int kfd_ioctl_create_queue(struct file =
-*filep, struct kfd_process *p,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Return gpu_id as doorbell=
- offset for mmap usage */<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; args-&gt;doorbell_offset =3D=
- KFD_MMAP_TYPE_DOORBELL;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; args-&gt;doorbell_offset |=
-=3D KFD_MMAP_GPU_ID(args-&gt;gpu_id);<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; args-&gt;doorbell_offset &lt;&lt;=3D PAGE_SH=
-IFT;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (KFD_IS_SOC15(dev-&gt;dev=
-ice_info-&gt;asic_family))<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; /* On SOC15 ASICs, include the doorbell offset within t=
-he<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp; * process doorbell frame, which could be 1 page o=
-r 2 pages.<br>
-&gt; @@ -1938,20 &#43;1937,22 @@ static int kfd_mmap(struct file *filp, str=
-uct vm_area_struct *vma)<br>
-&gt;&nbsp;&nbsp; {<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct kfd_process *process;=
-<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct kfd_dev *dev =3D NULL=
-;<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; unsigned long vm_pgoff;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; unsigned long mmap_offset;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unsigned int gpu_id;<br>
-&gt;&nbsp;&nbsp; <br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; process =3D kfd_get_process(=
-current);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (IS_ERR(process))<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; return PTR_ERR(process);<br>
-&gt;&nbsp;&nbsp; <br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; vm_pgoff =3D vma-&gt;vm_pgoff;<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; vma-&gt;vm_pgoff =3D KFD_MMAP_OFFSET_VALUE_G=
-ET(vm_pgoff);<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; gpu_id =3D KFD_MMAP_GPU_ID_GET(vm_pgoff);<br=
->
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; mmap_offset =3D vma-&gt;vm_pgoff &lt;&lt=
-; PAGE_SHIFT;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; gpu_id =3D KFD_MMAP_GET_GPU_ID(mmap_offs=
-et);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (gpu_id)<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; dev =3D kfd_device_by_id(gpu_id);<br>
-&gt;&nbsp;&nbsp; <br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; switch (vm_pgoff &amp; KFD_MMAP_TYPE_MASK) {=
-<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; /* only leave the offset segment */<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; vma-&gt;vm_pgoff &amp;=3D (1ULL &lt;&lt;=
- (KFD_MMAP_GPU_ID_SHIFT - PAGE_SHIFT)) - 1;<br>
-&gt; &#43;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; switch (mmap_offset &amp; KFD_MMAP_TYPE_=
-MASK) {<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case KFD_MMAP_TYPE_DOORBELL:=
-<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; if (!dev)<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return =
--ENODEV;<br>
-&gt; diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_events.c b/drivers/gpu/drm=
-/amd/amdkfd/kfd_events.c<br>
-&gt; index 908081c85de1..1f8365575b12 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/amdkfd/kfd_events.c<br>
-&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdkfd/kfd_events.c<br>
-&gt; @@ -346,7 &#43;346,6 @@ int kfd_event_create(struct file *devkfd, stru=
-ct kfd_process *p,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; ret =3D create_signal_event(devkfd, p, ev);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; if (!ret) {<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *event_=
-page_offset =3D KFD_MMAP_TYPE_EVENTS;<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *event_page_offset &lt;=
-&lt;=3D PAGE_SHIFT;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *event_=
-slot_index =3D ev-&gt;event_id;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; }<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; break;<br>
-&gt; diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/a=
-md/amdkfd/kfd_priv.h<br>
-&gt; index 66bae8f2dad1..8eecd2cd1fd2 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h<br>
-&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h<br>
-&gt; @@ -59,24 &#43;59,21 @@<br>
-&gt;&nbsp;&nbsp;&nbsp; * NOTE: struct vm_area_struct.vm_pgoff uses offset i=
-n pages. Hence, these<br>
-&gt;&nbsp;&nbsp;&nbsp; *&nbsp; defines are w.r.t to PAGE_SIZE<br>
-&gt;&nbsp;&nbsp;&nbsp; */<br>
-&gt; -#define KFD_MMAP_TYPE_SHIFT&nbsp; (62 - PAGE_SHIFT)<br>
-&gt; &#43;#define KFD_MMAP_TYPE_SHIFT&nbsp; (62)<br>
-&gt;&nbsp;&nbsp; #define KFD_MMAP_TYPE_MASK&nbsp; (0x3ULL &lt;&lt; KFD_MMAP=
-_TYPE_SHIFT)<br>
-&gt;&nbsp;&nbsp; #define KFD_MMAP_TYPE_DOORBELL&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p; (0x3ULL &lt;&lt; KFD_MMAP_TYPE_SHIFT)<br>
-&gt;&nbsp;&nbsp; #define KFD_MMAP_TYPE_EVENTS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp; (0x2ULL &lt;&lt; KFD_MMAP_TYPE_SHIFT)<br>
-&gt;&nbsp;&nbsp; #define KFD_MMAP_TYPE_RESERVED_MEM&nbsp; (0x1ULL &lt;&lt; =
-KFD_MMAP_TYPE_SHIFT)<br>
-&gt;&nbsp;&nbsp; #define KFD_MMAP_TYPE_MMIO&nbsp; (0x0ULL &lt;&lt; KFD_MMAP=
-_TYPE_SHIFT)<br>
-&gt;&nbsp;&nbsp; <br>
-&gt; -#define KFD_MMAP_GPU_ID_SHIFT (46 - PAGE_SHIFT)<br>
-&gt; &#43;#define KFD_MMAP_GPU_ID_SHIFT (46)<br>
-&gt;&nbsp;&nbsp; #define KFD_MMAP_GPU_ID_MASK (((1ULL &lt;&lt; KFD_GPU_ID_H=
-ASH_WIDTH) - 1) \<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;&lt; KFD_MMAP_GPU_ID_SHIFT)<br=
->
-&gt;&nbsp;&nbsp; #define KFD_MMAP_GPU_ID(gpu_id) ((((uint64_t)gpu_id) &lt;&=
-lt; KFD_MMAP_GPU_ID_SHIFT)\<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &amp; KFD_MMAP_GPU_ID_MASK)<br>
-&gt; -#define KFD_MMAP_GPU_ID_GET(offset)&nbsp;&nbsp;&nbsp; ((offset &amp; =
-KFD_MMAP_GPU_ID_MASK) \<br>
-&gt; &#43;#define KFD_MMAP_GET_GPU_ID(offset)&nbsp;&nbsp;&nbsp; ((offset &a=
-mp; KFD_MMAP_GPU_ID_MASK) \<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &gt;&gt; KFD_MMAP_GPU_ID_SHIFT)<br=
->
-&gt;&nbsp;&nbsp; <br>
-&gt; -#define KFD_MMAP_OFFSET_VALUE_MASK&nbsp;&nbsp; (0x3FFFFFFFFFFFULL &gt=
-;&gt; PAGE_SHIFT)<br>
-&gt; -#define KFD_MMAP_OFFSET_VALUE_GET(offset) (offset &amp; KFD_MMAP_OFFS=
-ET_VALUE_MASK)<br>
-&gt; -<br>
-&gt;&nbsp;&nbsp; /*<br>
-&gt;&nbsp;&nbsp;&nbsp; * When working with cp scheduler we should assign th=
-e HIQ manually or via<br>
-&gt;&nbsp;&nbsp;&nbsp; * the amdgpu driver to a fixed hqd slot, here are th=
-e fixed HIQ hqd slot<br>
-&gt; diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/dr=
-m/amd/amdkfd/kfd_process.c<br>
-&gt; index 6abfb77ae540..39dc49b8fd85 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c<br>
-&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdkfd/kfd_process.c<br>
-&gt; @@ -554,8 &#43;554,7 @@ static int kfd_process_init_cwsr_apu(struct kf=
-d_process *p, struct file *filep)<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; if (!dev-&gt;cwsr_enabled || qpd-&gt;cwsr_kaddr || qpd-=
-&gt;cwsr_base)<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; continu=
-e;<br>
-&gt;&nbsp;&nbsp; <br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; offset =3D (KFD_MMAP_TYPE_RESERVED_MEM | KFD_MMAP_GPU_ID(dev-&gt;id))<b=
-r>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;&lt; PAGE_SHIFT;<br=
->
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; offset =3D KFD_MMAP_TYPE_RESERVED_MEM | KFD_MMAP_GPU_ID(dev-&gt;id)=
-;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; qpd-&gt;tba_addr =3D (int64_t)vm_mmap(filep, 0,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; KFD_CWS=
-R_TBA_TMA_SIZE, PROT_READ | PROT_EXEC,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MAP_SHA=
-RED, offset);<br>
-</div>
-</span></font></div>
-</body>
-</html>
-
---_000_DM6PR12MB2778C939A102478FF10F39ADF0620DM6PR12MB2778namp_--
-
---===============0915769850==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
-
---===============0915769850==--
+T24gMjAxOS0xMS0wMSA0OjQ4IHAubS4sIFpoYW8sIFlvbmcgd3JvdGU6DQo+IFRoZSBuZXcgY29k
+ZSBpcyBtdWNoIGNsZWFuZXIgYW5kIHJlc3VsdHMgaW4gYmV0dGVyIHJlYWRhYmlsaXR5Lg0KPg0K
+PiBDaGFuZ2UtSWQ6IEkwYzFmN2NjYTdlMjRkZGI3YjRmZmUxY2IwZmE3MTk0MzgyOGFlMzczDQo+
+IFNpZ25lZC1vZmYtYnk6IFlvbmcgWmhhbyA8WW9uZy5aaGFvQGFtZC5jb20+DQo+IC0tLQ0KPiAg
+IGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9jaGFyZGV2LmMgfCAxMyArKysrKysrLS0t
+LS0tDQo+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX2V2ZW50cy5jICB8ICAxIC0N
+Cj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfcHJpdi5oICAgIHwgIDkgKysrLS0t
+LS0tDQo+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX3Byb2Nlc3MuYyB8ICAzICst
+LQ0KPiAgIDQgZmlsZXMgY2hhbmdlZCwgMTEgaW5zZXJ0aW9ucygrKSwgMTUgZGVsZXRpb25zKC0p
+DQo+DQo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfY2hhcmRl
+di5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX2NoYXJkZXYuYw0KPiBpbmRleCBi
+OTE5OTM3NTNiODIuLjU5MDEzODcyN2NhOSAxMDA2NDQNCj4gLS0tIGEvZHJpdmVycy9ncHUvZHJt
+L2FtZC9hbWRrZmQva2ZkX2NoYXJkZXYuYw0KPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
+ZGtmZC9rZmRfY2hhcmRldi5jDQo+IEBAIC0yOTgsNyArMjk4LDYgQEAgc3RhdGljIGludCBrZmRf
+aW9jdGxfY3JlYXRlX3F1ZXVlKHN0cnVjdCBmaWxlICpmaWxlcCwgc3RydWN0IGtmZF9wcm9jZXNz
+ICpwLA0KPiAgIAkvKiBSZXR1cm4gZ3B1X2lkIGFzIGRvb3JiZWxsIG9mZnNldCBmb3IgbW1hcCB1
+c2FnZSAqLw0KPiAgIAlhcmdzLT5kb29yYmVsbF9vZmZzZXQgPSBLRkRfTU1BUF9UWVBFX0RPT1JC
+RUxMOw0KPiAgIAlhcmdzLT5kb29yYmVsbF9vZmZzZXQgfD0gS0ZEX01NQVBfR1BVX0lEKGFyZ3Mt
+PmdwdV9pZCk7DQo+IC0JYXJncy0+ZG9vcmJlbGxfb2Zmc2V0IDw8PSBQQUdFX1NISUZUOw0KPiAg
+IAlpZiAoS0ZEX0lTX1NPQzE1KGRldi0+ZGV2aWNlX2luZm8tPmFzaWNfZmFtaWx5KSkNCj4gICAJ
+CS8qIE9uIFNPQzE1IEFTSUNzLCBpbmNsdWRlIHRoZSBkb29yYmVsbCBvZmZzZXQgd2l0aGluIHRo
+ZQ0KPiAgIAkJICogcHJvY2VzcyBkb29yYmVsbCBmcmFtZSwgd2hpY2ggY291bGQgYmUgMSBwYWdl
+IG9yIDIgcGFnZXMuDQo+IEBAIC0xOTM4LDIwICsxOTM3LDIyIEBAIHN0YXRpYyBpbnQga2ZkX21t
+YXAoc3RydWN0IGZpbGUgKmZpbHAsIHN0cnVjdCB2bV9hcmVhX3N0cnVjdCAqdm1hKQ0KPiAgIHsN
+Cj4gICAJc3RydWN0IGtmZF9wcm9jZXNzICpwcm9jZXNzOw0KPiAgIAlzdHJ1Y3Qga2ZkX2RldiAq
+ZGV2ID0gTlVMTDsNCj4gLQl1bnNpZ25lZCBsb25nIHZtX3Bnb2ZmOw0KPiArCXVuc2lnbmVkIGxv
+bmcgbW1hcF9vZmZzZXQ7DQo+ICAgCXVuc2lnbmVkIGludCBncHVfaWQ7DQo+ICAgDQo+ICAgCXBy
+b2Nlc3MgPSBrZmRfZ2V0X3Byb2Nlc3MoY3VycmVudCk7DQo+ICAgCWlmIChJU19FUlIocHJvY2Vz
+cykpDQo+ICAgCQlyZXR1cm4gUFRSX0VSUihwcm9jZXNzKTsNCj4gICANCj4gLQl2bV9wZ29mZiA9
+IHZtYS0+dm1fcGdvZmY7DQo+IC0Jdm1hLT52bV9wZ29mZiA9IEtGRF9NTUFQX09GRlNFVF9WQUxV
+RV9HRVQodm1fcGdvZmYpOw0KPiAtCWdwdV9pZCA9IEtGRF9NTUFQX0dQVV9JRF9HRVQodm1fcGdv
+ZmYpOw0KPiArCW1tYXBfb2Zmc2V0ID0gdm1hLT52bV9wZ29mZiA8PCBQQUdFX1NISUZUOw0KPiAr
+CWdwdV9pZCA9IEtGRF9NTUFQX0dFVF9HUFVfSUQobW1hcF9vZmZzZXQpOw0KPiAgIAlpZiAoZ3B1
+X2lkKQ0KPiAgIAkJZGV2ID0ga2ZkX2RldmljZV9ieV9pZChncHVfaWQpOw0KPiAgIA0KPiAtCXN3
+aXRjaCAodm1fcGdvZmYgJiBLRkRfTU1BUF9UWVBFX01BU0spIHsNCj4gKwkvKiBvbmx5IGxlYXZl
+IHRoZSBvZmZzZXQgc2VnbWVudCAqLw0KPiArCXZtYS0+dm1fcGdvZmYgJj0gKDFVTEwgPDwgKEtG
+RF9NTUFQX0dQVV9JRF9TSElGVCAtIFBBR0VfU0hJRlQpKSAtIDE7DQoNCllvdSdyZSBub3cgb3Bl
+bi1jb2Rpbmcgd2hhdCB1c2VkIHRvIGJlIGRvbmUgYnkgdGhlIA0KS0ZEX01NQVBfT0ZGU0VUX1ZB
+TFVFX0dFVCBtYWNyby4gSSBkb24ndCBzZWUgaG93IHRoaXMgaXMgYW4gaW1wcm92ZW1lbnQuIA0K
+TWF5YmUgYmV0dGVyIHRvIHVwZGF0ZSB0aGUgbWFjcm8gdG8gZG8gdGhpcy4NCg0KDQo+ICsNCj4g
+Kwlzd2l0Y2ggKG1tYXBfb2Zmc2V0ICYgS0ZEX01NQVBfVFlQRV9NQVNLKSB7DQo+ICAgCWNhc2Ug
+S0ZEX01NQVBfVFlQRV9ET09SQkVMTDoNCj4gICAJCWlmICghZGV2KQ0KPiAgIAkJCXJldHVybiAt
+RU5PREVWOw0KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX2V2
+ZW50cy5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX2V2ZW50cy5jDQo+IGluZGV4
+IDkwODA4MWM4NWRlMS4uMWY4MzY1NTc1YjEyIDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJzL2dwdS9k
+cm0vYW1kL2FtZGtmZC9rZmRfZXZlbnRzLmMNCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9h
+bWRrZmQva2ZkX2V2ZW50cy5jDQo+IEBAIC0zNDYsNyArMzQ2LDYgQEAgaW50IGtmZF9ldmVudF9j
+cmVhdGUoc3RydWN0IGZpbGUgKmRldmtmZCwgc3RydWN0IGtmZF9wcm9jZXNzICpwLA0KPiAgIAkJ
+cmV0ID0gY3JlYXRlX3NpZ25hbF9ldmVudChkZXZrZmQsIHAsIGV2KTsNCj4gICAJCWlmICghcmV0
+KSB7DQo+ICAgCQkJKmV2ZW50X3BhZ2Vfb2Zmc2V0ID0gS0ZEX01NQVBfVFlQRV9FVkVOVFM7DQo+
+IC0JCQkqZXZlbnRfcGFnZV9vZmZzZXQgPDw9IFBBR0VfU0hJRlQ7DQo+ICAgCQkJKmV2ZW50X3Ns
+b3RfaW5kZXggPSBldi0+ZXZlbnRfaWQ7DQo+ICAgCQl9DQo+ICAgCQlicmVhazsNCj4gZGlmZiAt
+LWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9wcml2LmggYi9kcml2ZXJzL2dw
+dS9kcm0vYW1kL2FtZGtmZC9rZmRfcHJpdi5oDQo+IGluZGV4IDY2YmFlOGYyZGFkMS4uOGVlY2Qy
+Y2QxZmQyIDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfcHJp
+di5oDQo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9wcml2LmgNCj4gQEAg
+LTU5LDI0ICs1OSwyMSBAQA0KPiAgICAqIE5PVEU6IHN0cnVjdCB2bV9hcmVhX3N0cnVjdC52bV9w
+Z29mZiB1c2VzIG9mZnNldCBpbiBwYWdlcy4gSGVuY2UsIHRoZXNlDQo+ICAgICogIGRlZmluZXMg
+YXJlIHcuci50IHRvIFBBR0VfU0laRQ0KPiAgICAqLw0KPiAtI2RlZmluZSBLRkRfTU1BUF9UWVBF
+X1NISUZUCSg2MiAtIFBBR0VfU0hJRlQpDQo+ICsjZGVmaW5lIEtGRF9NTUFQX1RZUEVfU0hJRlQJ
+KDYyKQ0KPiAgICNkZWZpbmUgS0ZEX01NQVBfVFlQRV9NQVNLCSgweDNVTEwgPDwgS0ZEX01NQVBf
+VFlQRV9TSElGVCkNCj4gICAjZGVmaW5lIEtGRF9NTUFQX1RZUEVfRE9PUkJFTEwJKDB4M1VMTCA8
+PCBLRkRfTU1BUF9UWVBFX1NISUZUKQ0KPiAgICNkZWZpbmUgS0ZEX01NQVBfVFlQRV9FVkVOVFMJ
+KDB4MlVMTCA8PCBLRkRfTU1BUF9UWVBFX1NISUZUKQ0KPiAgICNkZWZpbmUgS0ZEX01NQVBfVFlQ
+RV9SRVNFUlZFRF9NRU0JKDB4MVVMTCA8PCBLRkRfTU1BUF9UWVBFX1NISUZUKQ0KPiAgICNkZWZp
+bmUgS0ZEX01NQVBfVFlQRV9NTUlPCSgweDBVTEwgPDwgS0ZEX01NQVBfVFlQRV9TSElGVCkNCj4g
+ICANCj4gLSNkZWZpbmUgS0ZEX01NQVBfR1BVX0lEX1NISUZUICg0NiAtIFBBR0VfU0hJRlQpDQo+
+ICsjZGVmaW5lIEtGRF9NTUFQX0dQVV9JRF9TSElGVCAoNDYpDQo+ICAgI2RlZmluZSBLRkRfTU1B
+UF9HUFVfSURfTUFTSyAoKCgxVUxMIDw8IEtGRF9HUFVfSURfSEFTSF9XSURUSCkgLSAxKSBcDQo+
+ICAgCQkJCTw8IEtGRF9NTUFQX0dQVV9JRF9TSElGVCkNCj4gICAjZGVmaW5lIEtGRF9NTUFQX0dQ
+VV9JRChncHVfaWQpICgoKCh1aW50NjRfdClncHVfaWQpIDw8IEtGRF9NTUFQX0dQVV9JRF9TSElG
+VClcDQo+ICAgCQkJCSYgS0ZEX01NQVBfR1BVX0lEX01BU0spDQo+IC0jZGVmaW5lIEtGRF9NTUFQ
+X0dQVV9JRF9HRVQob2Zmc2V0KSAgICAoKG9mZnNldCAmIEtGRF9NTUFQX0dQVV9JRF9NQVNLKSBc
+DQo+ICsjZGVmaW5lIEtGRF9NTUFQX0dFVF9HUFVfSUQob2Zmc2V0KSAgICAoKG9mZnNldCAmIEtG
+RF9NTUFQX0dQVV9JRF9NQVNLKSBcDQo+ICAgCQkJCT4+IEtGRF9NTUFQX0dQVV9JRF9TSElGVCkN
+Cj4gICANCj4gLSNkZWZpbmUgS0ZEX01NQVBfT0ZGU0VUX1ZBTFVFX01BU0sJKDB4M0ZGRkZGRkZG
+RkZGVUxMID4+IFBBR0VfU0hJRlQpDQo+IC0jZGVmaW5lIEtGRF9NTUFQX09GRlNFVF9WQUxVRV9H
+RVQob2Zmc2V0KSAob2Zmc2V0ICYgS0ZEX01NQVBfT0ZGU0VUX1ZBTFVFX01BU0spDQoNClRoaXMg
+bWFjcm8gaXMgc3RpbGwgdXNlZnVsLiBTZWUgYWJvdmUuIEkgdGhpbmsgeW91IHNob3VsZCBqdXN0
+IHVwZGF0ZSANCnRoZSBtYXNrIGFuZCBjb250aW51ZSB1c2luZyBpdCBmb3IgY2xhcml0eS4NCg0K
+UmVnYXJkcywNCiDCoCBGZWxpeA0KDQoNCj4gLQ0KPiAgIC8qDQo+ICAgICogV2hlbiB3b3JraW5n
+IHdpdGggY3Agc2NoZWR1bGVyIHdlIHNob3VsZCBhc3NpZ24gdGhlIEhJUSBtYW51YWxseSBvciB2
+aWENCj4gICAgKiB0aGUgYW1kZ3B1IGRyaXZlciB0byBhIGZpeGVkIGhxZCBzbG90LCBoZXJlIGFy
+ZSB0aGUgZml4ZWQgSElRIGhxZCBzbG90DQo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0v
+YW1kL2FtZGtmZC9rZmRfcHJvY2Vzcy5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2Zk
+X3Byb2Nlc3MuYw0KPiBpbmRleCA2YWJmYjc3YWU1NDAuLjM5ZGM0OWI4ZmQ4NSAxMDA2NDQNCj4g
+LS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX3Byb2Nlc3MuYw0KPiArKysgYi9k
+cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfcHJvY2Vzcy5jDQo+IEBAIC01NTQsOCArNTU0
+LDcgQEAgc3RhdGljIGludCBrZmRfcHJvY2Vzc19pbml0X2N3c3JfYXB1KHN0cnVjdCBrZmRfcHJv
+Y2VzcyAqcCwgc3RydWN0IGZpbGUgKmZpbGVwKQ0KPiAgIAkJaWYgKCFkZXYtPmN3c3JfZW5hYmxl
+ZCB8fCBxcGQtPmN3c3Jfa2FkZHIgfHwgcXBkLT5jd3NyX2Jhc2UpDQo+ICAgCQkJY29udGludWU7
+DQo+ICAgDQo+IC0JCW9mZnNldCA9IChLRkRfTU1BUF9UWVBFX1JFU0VSVkVEX01FTSB8IEtGRF9N
+TUFQX0dQVV9JRChkZXYtPmlkKSkNCj4gLQkJCTw8IFBBR0VfU0hJRlQ7DQo+ICsJCW9mZnNldCA9
+IEtGRF9NTUFQX1RZUEVfUkVTRVJWRURfTUVNIHwgS0ZEX01NQVBfR1BVX0lEKGRldi0+aWQpOw0K
+PiAgIAkJcXBkLT50YmFfYWRkciA9IChpbnQ2NF90KXZtX21tYXAoZmlsZXAsIDAsDQo+ICAgCQkJ
+S0ZEX0NXU1JfVEJBX1RNQV9TSVpFLCBQUk9UX1JFQUQgfCBQUk9UX0VYRUMsDQo+ICAgCQkJTUFQ
+X1NIQVJFRCwgb2Zmc2V0KTsNCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Au
+b3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdm
+eA==
