@@ -2,104 +2,98 @@ Return-Path: <SRS0=MAwf=YZ=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.2 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-6.7 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
+	HTML_MESSAGE,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,
+	SPF_PASS autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7B7D8CA9ECF
-	for <amd-gfx@archiver.kernel.org>; Fri,  1 Nov 2019 21:13:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 21335CA9ECF
+	for <amd-gfx@archiver.kernel.org>; Fri,  1 Nov 2019 22:20:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4158821734
-	for <amd-gfx@archiver.kernel.org>; Fri,  1 Nov 2019 21:13:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4158821734
+	by mail.kernel.org (Postfix) with ESMTPS id D74E020659
+	for <amd-gfx@archiver.kernel.org>; Fri,  1 Nov 2019 22:20:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D74E020659
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E5C676F87B;
-	Fri,  1 Nov 2019 21:13:19 +0000 (UTC)
-Received: from NAM04-BN3-obe.outbound.protection.outlook.com
- (mail-bn3nam04on0617.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:fe4e::617])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7680E6E320
- for <amd-gfx@lists.freedesktop.org>; Fri,  1 Nov 2019 21:13:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 731EF6E25D;
+	Fri,  1 Nov 2019 22:20:36 +0000 (UTC)
+Received: from NAM05-DM3-obe.outbound.protection.outlook.com
+ (mail-eopbgr730062.outbound.protection.outlook.com [40.107.73.62])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B879E6E25D
+ for <amd-gfx@lists.freedesktop.org>; Fri,  1 Nov 2019 22:20:34 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=euk40xKmzN+rmZIXFiwvywADPTNfAeOEnzPtSkZiJkRduLH2sJfCddgVVOg5DqPqGBiX6e6VOn241vqemdvJl6ibEPoNJCM+ij4UGFoTpqfnEnWYeMGBolCdPtzZ8EQJ47LRO2XlLNoJIba3SmmWDf0nxwQh3HZY2SzFcHXWsxM+5eoDKgBeuPR0XL9wQTLzZ5i20/kR/L0ml/teFf6eReSzsMljfodAs0nyYAkTqYnYgyhAjAXsWisV4nANFdUvrT0cfv7YRQgw9FYs25raIbWosYMvs/6aRc5yH6iu1nL3rhdtu3GFqInE0BkTz+iQsVLQ2m58z2GHCwFg9C8HbA==
+ b=eUKOfDek3xjev00hgiBkDk2OX++ZDslEDtm9/qvpzpaZZYmmde1ZBCHMOMDybnm/+cE5y6/rJEWsqfxhksuV50OwCLIAAU7uIpsqYWhX81bV5+nCsU1Jkyu+BEB2XUAD/Y9Mx+TDITnPNT7r7ds4xSqwj+UF8Cuvw2j8HyTvmumQOvk8nOFU2jr3J3w0dGsMmxLqOiijdfqiqwsF62TIBOLbnIRLtkd50tOe4KqsJ14qwBmeTPsAktbayeI/RaUKt4kgIp1SlXFfIt0SRV856NTr0lAwmJom2mdHbQc76yNj+kZlo+238yIT8hFmnZIVoDMzzZLIE4Zd+hKLwQ6FKw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=s3DrkzxE9fo23+AGEpZ6hyrTX/SGDoaLo9UHrHT6QcU=;
- b=f4W+V5GQ+K8Mno1FP22YE4dMcBqmek6iYwSS9sDfZ2aafSBs3d8w/hbMwp98GbnyhdvFuI450r47XsMrNvZl/ZZG6DkRsJi2UguGFV1YANSSMCx6wOXDywTSKF2cAM07DY8PeB2l+BE/EMoqHIF8PTt9dumbMvQmtYUn4Sip4B/53MrwJXq0gxte5BZwS/FtR6OnZd/7Q4bsIfIkgA6VXvfkpuwXNmd3LbU/0zfLtbiKXw+n1jLGxckJjM4hS1VIvzLaf57CCaQo7pJiJcHBGW/PEGeBCSRGZsZ1tyPX3+0/H3YF+sXoV3V8+PoVfnXhuyq4XLskTzyMYV+JaGh7Ww==
+ bh=UpeSOEA7VKCLArkwhH544iYEeO9DZ41OLTEu7Y9EYjo=;
+ b=BP47J+6b6c6roVr0L+4rcslVcRsUNrz7zZlURq/MjTYOVRBNLDkor75lcFf+kNPovtDtIfakgP8OD208AJjY2spqRPP3C1vpBTECK3YaLLGloY6l5DiIgEAt95hQIULn6UpAxmgEVG6wKEGsfwJ2lfFPxcX6uFAzce+PsBU4SVsV32c8TNAa21lnK4GOngzMG0dT4XkYF3WZ8ue8AQ9eDY4eKbAiOGvScbyNV+a3qLaubuYfP1lPLSR7HDywyoKSxFu7Www7gmrFFwMJwFEgnWMdWV1y+3B+O06QuKGqB4UaN/Qts0iKZJR6RWQJV9TkGqgjrK7eBxMFcP6H/uwnmw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
-Received: from DM6PR12MB3947.namprd12.prod.outlook.com (10.255.174.156) by
- DM6PR12MB2826.namprd12.prod.outlook.com (20.177.221.161) with Microsoft SMTP
+Received: from DM6PR12MB2778.namprd12.prod.outlook.com (20.176.114.145) by
+ DM6PR12MB3388.namprd12.prod.outlook.com (20.178.198.83) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2408.18; Fri, 1 Nov 2019 21:13:16 +0000
-Received: from DM6PR12MB3947.namprd12.prod.outlook.com
- ([fe80::288c:66ec:203d:aede]) by DM6PR12MB3947.namprd12.prod.outlook.com
- ([fe80::288c:66ec:203d:aede%4]) with mapi id 15.20.2387.028; Fri, 1 Nov 2019
- 21:13:16 +0000
-From: "Kuehling, Felix" <Felix.Kuehling@amd.com>
-To: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Zhao,
- Yong" <Yong.Zhao@amd.com>
+ 15.20.2387.24; Fri, 1 Nov 2019 22:20:32 +0000
+Received: from DM6PR12MB2778.namprd12.prod.outlook.com
+ ([fe80::b411:7d2c:8848:1f6e]) by DM6PR12MB2778.namprd12.prod.outlook.com
+ ([fe80::b411:7d2c:8848:1f6e%7]) with mapi id 15.20.2387.028; Fri, 1 Nov 2019
+ 22:20:32 +0000
+From: "Zhao, Yong" <Yong.Zhao@amd.com>
+To: "Kuehling, Felix" <Felix.Kuehling@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
 Subject: Re: [PATCH] drm/amdkfd: Simplify the mmap offset related bit
  operations
 Thread-Topic: [PATCH] drm/amdkfd: Simplify the mmap offset related bit
  operations
-Thread-Index: AQHVkPW3xyVHQwVd5kGLa7uEKtffqqd20G6A
-Date: Fri, 1 Nov 2019 21:13:16 +0000
-Message-ID: <c237f5bf-6638-2d90-3f94-e1eca2c22780@amd.com>
-References: <20191101204818.8125-1-Yong.Zhao@amd.com>
-In-Reply-To: <20191101204818.8125-1-Yong.Zhao@amd.com>
+Thread-Index: AQHVkPW3xyVHQwVd5kGLa7uEKtffqqd20G6AgAARgC8=
+Date: Fri, 1 Nov 2019 22:20:32 +0000
+Message-ID:
+ <DM6PR12MB2778C939A102478FF10F39ADF0620@DM6PR12MB2778.namprd12.prod.outlook.com>
+References: <20191101204818.8125-1-Yong.Zhao@amd.com>,
+ <c237f5bf-6638-2d90-3f94-e1eca2c22780@amd.com>
+In-Reply-To: <c237f5bf-6638-2d90-3f94-e1eca2c22780@amd.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-x-originating-ip: [165.204.55.251]
-user-agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.9.0
-x-clientproxiedby: YT1PR01CA0009.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01::22)
- To DM6PR12MB3947.namprd12.prod.outlook.com
- (2603:10b6:5:1cb::28)
-x-ms-exchange-messagesentrepresentingtype: 1
+x-originating-ip: [2607:fea8:209f:ebca:3c32:f60f:1ad3:cb3]
 x-ms-publictraffictype: Email
 x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: 1981733b-99bc-406c-a55f-08d75f105004
-x-ms-traffictypediagnostic: DM6PR12MB2826:
+x-ms-office365-filtering-correlation-id: 2382cf68-d998-4b76-b05e-08d75f19b5fa
+x-ms-traffictypediagnostic: DM6PR12MB3388:
 x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <DM6PR12MB28266CA6A7BC5CB79573CBB892620@DM6PR12MB2826.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:7219;
+x-microsoft-antispam-prvs: <DM6PR12MB3388DE8B031294C60CD14C10F0620@DM6PR12MB3388.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:8882;
 x-forefront-prvs: 020877E0CB
 x-forefront-antispam-report: SFV:NSPM;
- SFS:(10009020)(4636009)(376002)(396003)(39860400002)(346002)(136003)(366004)(199004)(189003)(102836004)(65956001)(52116002)(26005)(6506007)(6246003)(2501003)(11346002)(478600001)(65806001)(6486002)(6636002)(99286004)(66066001)(5660300002)(31696002)(86362001)(229853002)(186003)(53546011)(305945005)(386003)(76176011)(6512007)(6436002)(2616005)(8676002)(8936002)(58126008)(31686004)(81156014)(81166006)(36756003)(64756008)(486006)(6116002)(446003)(2906002)(3846002)(7736002)(476003)(110136005)(256004)(25786009)(71190400001)(14454004)(66476007)(66446008)(66556008)(66946007)(71200400001)(316002);
- DIR:OUT; SFP:1101; SCL:1; SRVR:DM6PR12MB2826;
- H:DM6PR12MB3947.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; A:1; MX:1; 
+ SFS:(10009020)(4636009)(396003)(136003)(376002)(39860400002)(366004)(346002)(189003)(199004)(81156014)(76176011)(25786009)(52536014)(7736002)(186003)(478600001)(105004)(102836004)(66946007)(76116006)(7696005)(55016002)(446003)(54896002)(2501003)(33656002)(19627405001)(9686003)(486006)(53546011)(46003)(6246003)(229853002)(66476007)(6436002)(66556008)(6506007)(99286004)(64756008)(66446008)(14454004)(110136005)(11346002)(316002)(74316002)(476003)(86362001)(8676002)(256004)(6116002)(71190400001)(71200400001)(81166006)(8936002)(2906002)(5660300002);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:DM6PR12MB3388;
+ H:DM6PR12MB2778.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; MX:1; A:1; 
 received-spf: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
 x-ms-exchange-senderadcheck: 1
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: yFAin0cCGaattUEafzLExHHGM2+YFqwq2UluvfUQ3eFccGR3rtv6/zVdXY4ZiXllkAo+fQ9e3Nhac03PVYqQwQ3IcjSQGJjjJkg1mug7cgOYyCQxzlkhe6Vz07RitQ5ldM5tGieo61YsrvLuchjEtoOJQC2TSn7/fQJXwgQjg6MsmxX/J6Kyy5RjRuJwDgWp1rFdgaDpcVSEV4Gj+thVByQkKXv3w9grR0J1xSvqMMkmODmGiFCNO0C/oksSHmImCijaaCrPlMzbx+Ty2cAiJgD7iucJiFtRav1ERye5rFbE8R1Pz4daHPDtNu2y8PbVCK/0sAFDuGZEtKAugbRlEMZ650Ms5nzRLgQm8MqktUvYQaXnXFzIL3z77bW6XVGDXM43gkTIL5rcAmDAIh+tV+xOUWXqRQEUQ50hL0RkvQoDWxvp/2O0m4TVzCxO0F9a
-Content-ID: <92F339DDFB9ABE4CB822A38C1719D22D@namprd12.prod.outlook.com>
+x-microsoft-antispam-message-info: NN5SdznwXqjOHX2zrh1f7KYphiuW3dUl8y9GgrE6iW242GJJW/tNdFSHzaa7mNbwG1dM5RX1kW5JR64yjJP7vx/Nqy+W1rL4998LS78BX6+KZC7ILLrxQFHcJNJ1gLt9bUZqSE72pGB62ZIZ1fIeJ2lL+CHECNbv0cNyIHz7+9nM8qqQjRNDQ/91x9FC86W6yucudOCV5jg3DL4VWeRqqrkgIi0+rjn84iIOBvBeUT1UFtr9dFjaSte5ElYQlmlbiebZQcXAGZ2eIS5g9Pl7KB0bAoh3FsjG4kNr3QIVkMtM490jSEA1B5Tv+y8JAPXsyV80ZE76PI2fAZ76Hp1DeIyh5OPsTALgB4fpmD5xaDXFt/pm0dLIu4w/gKS0y/eT2+qlusoocm39fMMsDbcNKllPvQ2SiDsCyLbt19wx/0jwwufXhJsohgi5Q+91Kpnw
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1981733b-99bc-406c-a55f-08d75f105004
-X-MS-Exchange-CrossTenant-originalarrivaltime: 01 Nov 2019 21:13:16.5500 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2382cf68-d998-4b76-b05e-08d75f19b5fa
+X-MS-Exchange-CrossTenant-originalarrivaltime: 01 Nov 2019 22:20:32.6841 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: MD86nOSScZXq/h7Px5i3oSPLFpy2bx24gInEqY7H0yp+SUXzkN0hDKGBLaA8SullAfDoPmwosE81AFw0UeK6Uw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB2826
+X-MS-Exchange-CrossTenant-userprincipalname: n5GSwWQOfPq2NA1tTxnVz+W4yk3G6UHjdmxqOvNGw4THlMVSAjl/e07JWB36b5jE
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3388
 X-Mailman-Original-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=s3DrkzxE9fo23+AGEpZ6hyrTX/SGDoaLo9UHrHT6QcU=;
- b=dsPFj08OUGzgJe/rit0v9GUwvfktRjTU5a18Fr03Z/dHNfQzTyL0ChimByInhdRRLwF3unBfxZW4ygv4JMcVVR1/IkmNFKvhP1wcelPwWevNsxQ2m/jwJ8JLX7mTVhAgeoZWzkz2BUsd7dc+lHbSsYEMOZ7KMAFQRy952gdLQ2I=
+ bh=UpeSOEA7VKCLArkwhH544iYEeO9DZ41OLTEu7Y9EYjo=;
+ b=YxsjTCCltJdl5/Jq1MffsygKunFLLLf6v53KL2zjAr0wHc44SjXCQaVzAl/rzJW0Cf2ST3v/6bgv5vEhHcHLoQieUbqXhzWftTGEc8Lwn1tJKC3jhu5n7asZ06YtgiiGzuzl3McHxUXocPbL+BBGtHsYkQiQekDKEakx4vvQQ1U=
 X-Mailman-Original-Authentication-Results: spf=none (sender IP is )
- smtp.mailfrom=Felix.Kuehling@amd.com; 
+ smtp.mailfrom=Yong.Zhao@amd.com; 
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -111,116 +105,492 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0915769850=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-Message-ID: <20191101211316.uk_1J9h97E0HykLDeSF9K34zriROPtuXBeN69ZZE5zg@z>
+Message-ID: <20191101222032.PnxY7M3Oy-36wFiUoC-gKykx0AVUGvlMBMXO38g57z4@z>
 
-TkFLLiBUaGlzIHdvbid0IHdvcmsgZm9yIHNldmVyYWwgcmVhc29ucy4NCg0KVGhlIG1tYXBfb2Zm
-c2V0IGlzIHVzZWQgYXMgb2Zmc2V0IHBhcmFtZXRlciBpbiB0aGUgbW1hcCBzeXN0ZW0gY2FsbC4g
-SWYgDQp5b3UgY2hlY2sgdGhlIG1hbiBwYWdlIG9mIG1tYXAsIHlvdSdsbCBzZWUgdGhhdCAib2Zm
-c2V0IG11c3QgYmUgYSANCm11bHRpcGxlIG9mIHRoZSBwYWdlIHNpemUiLiBUaGVyZWZvcmUgdGhl
-IFBBR0VfU0hJRlQgaXMgbmVjZXNzYXJ5Lg0KDQpJbiB0aGUgY2FzZSBvZiBkb29yYmVsbCBvZmZz
-ZXRzLCB0aGUgb2Zmc2V0IGlzIHBhcnNlZCBhbmQgcHJvY2Vzc2VkIGJ5IA0KdGhlIFRodW5rIGlu
-IHVzZXIgbW9kZS4gT24gR0ZYOSBHUFVzIHRoZSBsb3dlciBiaXRzIGFyZSB1c2VkIGZvciB0aGUg
-DQpvZmZzZXQgb2YgdGhlIGRvb3JiZWxsIHdpdGhpbiB0aGUgZG9vcmJlbGwgcGFnZS4gT24gR0ZY
-OCB0aGUgcXVldWUgSUQgDQp3YXMgdXNlZCwgYnV0IG9uIEdGWDkgd2UgaGFkIHRvIGRlY291cGxl
-ZCB0aGUgZG9vcmJlbGwgSUQgZnJvbSB0aGUgcXVldWUgDQpJRC4gSWYgeW91IHJlbW92ZSB0aGUg
-UEFHRV9TSElGVCwgeW91J2xsIG5lZWQgdG8gcHV0IHRob3NlIGJpdHMgDQpzb21ld2hlcmUgZWxz
-ZS4gQnV0IHRoYXQgY2hhbmdlIGluIHRoZSBlbmNvZGluZyB3b3VsZCBicmVhayB0aGUgQUJJIHdp
-dGggDQp0aGUgVGh1bmsuDQoNClJlZ2FyZHMsDQogwqAgRmVsaXgNCg0KT24gMjAxOS0xMS0wMSA0
-OjQ4IHAubS4sIFpoYW8sIFlvbmcgd3JvdGU6DQo+IFRoZSBuZXcgY29kZSBpcyBtdWNoIGNsZWFu
-ZXIgYW5kIHJlc3VsdHMgaW4gYmV0dGVyIHJlYWRhYmlsaXR5Lg0KPg0KPiBDaGFuZ2UtSWQ6IEkw
-YzFmN2NjYTdlMjRkZGI3YjRmZmUxY2IwZmE3MTk0MzgyOGFlMzczDQo+IFNpZ25lZC1vZmYtYnk6
-IFlvbmcgWmhhbyA8WW9uZy5aaGFvQGFtZC5jb20+DQo+IC0tLQ0KPiAgIGRyaXZlcnMvZ3B1L2Ry
-bS9hbWQvYW1ka2ZkL2tmZF9jaGFyZGV2LmMgfCAxMyArKysrKysrLS0tLS0tDQo+ICAgZHJpdmVy
-cy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX2V2ZW50cy5jICB8ICAxIC0NCj4gICBkcml2ZXJzL2dw
-dS9kcm0vYW1kL2FtZGtmZC9rZmRfcHJpdi5oICAgIHwgIDkgKysrLS0tLS0tDQo+ICAgZHJpdmVy
-cy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX3Byb2Nlc3MuYyB8ICAzICstLQ0KPiAgIDQgZmlsZXMg
-Y2hhbmdlZCwgMTEgaW5zZXJ0aW9ucygrKSwgMTUgZGVsZXRpb25zKC0pDQo+DQo+IGRpZmYgLS1n
-aXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfY2hhcmRldi5jIGIvZHJpdmVycy9n
-cHUvZHJtL2FtZC9hbWRrZmQva2ZkX2NoYXJkZXYuYw0KPiBpbmRleCBiOTE5OTM3NTNiODIuLjU5
-MDEzODcyN2NhOSAxMDA2NDQNCj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2Zk
-X2NoYXJkZXYuYw0KPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfY2hhcmRl
-di5jDQo+IEBAIC0yOTgsNyArMjk4LDYgQEAgc3RhdGljIGludCBrZmRfaW9jdGxfY3JlYXRlX3F1
-ZXVlKHN0cnVjdCBmaWxlICpmaWxlcCwgc3RydWN0IGtmZF9wcm9jZXNzICpwLA0KPiAgIAkvKiBS
-ZXR1cm4gZ3B1X2lkIGFzIGRvb3JiZWxsIG9mZnNldCBmb3IgbW1hcCB1c2FnZSAqLw0KPiAgIAlh
-cmdzLT5kb29yYmVsbF9vZmZzZXQgPSBLRkRfTU1BUF9UWVBFX0RPT1JCRUxMOw0KPiAgIAlhcmdz
-LT5kb29yYmVsbF9vZmZzZXQgfD0gS0ZEX01NQVBfR1BVX0lEKGFyZ3MtPmdwdV9pZCk7DQo+IC0J
-YXJncy0+ZG9vcmJlbGxfb2Zmc2V0IDw8PSBQQUdFX1NISUZUOw0KPiAgIAlpZiAoS0ZEX0lTX1NP
-QzE1KGRldi0+ZGV2aWNlX2luZm8tPmFzaWNfZmFtaWx5KSkNCj4gICAJCS8qIE9uIFNPQzE1IEFT
-SUNzLCBpbmNsdWRlIHRoZSBkb29yYmVsbCBvZmZzZXQgd2l0aGluIHRoZQ0KPiAgIAkJICogcHJv
-Y2VzcyBkb29yYmVsbCBmcmFtZSwgd2hpY2ggY291bGQgYmUgMSBwYWdlIG9yIDIgcGFnZXMuDQo+
-IEBAIC0xOTM4LDIwICsxOTM3LDIyIEBAIHN0YXRpYyBpbnQga2ZkX21tYXAoc3RydWN0IGZpbGUg
-KmZpbHAsIHN0cnVjdCB2bV9hcmVhX3N0cnVjdCAqdm1hKQ0KPiAgIHsNCj4gICAJc3RydWN0IGtm
-ZF9wcm9jZXNzICpwcm9jZXNzOw0KPiAgIAlzdHJ1Y3Qga2ZkX2RldiAqZGV2ID0gTlVMTDsNCj4g
-LQl1bnNpZ25lZCBsb25nIHZtX3Bnb2ZmOw0KPiArCXVuc2lnbmVkIGxvbmcgbW1hcF9vZmZzZXQ7
-DQo+ICAgCXVuc2lnbmVkIGludCBncHVfaWQ7DQo+ICAgDQo+ICAgCXByb2Nlc3MgPSBrZmRfZ2V0
-X3Byb2Nlc3MoY3VycmVudCk7DQo+ICAgCWlmIChJU19FUlIocHJvY2VzcykpDQo+ICAgCQlyZXR1
-cm4gUFRSX0VSUihwcm9jZXNzKTsNCj4gICANCj4gLQl2bV9wZ29mZiA9IHZtYS0+dm1fcGdvZmY7
-DQo+IC0Jdm1hLT52bV9wZ29mZiA9IEtGRF9NTUFQX09GRlNFVF9WQUxVRV9HRVQodm1fcGdvZmYp
-Ow0KPiAtCWdwdV9pZCA9IEtGRF9NTUFQX0dQVV9JRF9HRVQodm1fcGdvZmYpOw0KPiArCW1tYXBf
-b2Zmc2V0ID0gdm1hLT52bV9wZ29mZiA8PCBQQUdFX1NISUZUOw0KPiArCWdwdV9pZCA9IEtGRF9N
-TUFQX0dFVF9HUFVfSUQobW1hcF9vZmZzZXQpOw0KPiAgIAlpZiAoZ3B1X2lkKQ0KPiAgIAkJZGV2
-ID0ga2ZkX2RldmljZV9ieV9pZChncHVfaWQpOw0KPiAgIA0KPiAtCXN3aXRjaCAodm1fcGdvZmYg
-JiBLRkRfTU1BUF9UWVBFX01BU0spIHsNCj4gKwkvKiBvbmx5IGxlYXZlIHRoZSBvZmZzZXQgc2Vn
-bWVudCAqLw0KPiArCXZtYS0+dm1fcGdvZmYgJj0gKDFVTEwgPDwgKEtGRF9NTUFQX0dQVV9JRF9T
-SElGVCAtIFBBR0VfU0hJRlQpKSAtIDE7DQo+ICsNCj4gKwlzd2l0Y2ggKG1tYXBfb2Zmc2V0ICYg
-S0ZEX01NQVBfVFlQRV9NQVNLKSB7DQo+ICAgCWNhc2UgS0ZEX01NQVBfVFlQRV9ET09SQkVMTDoN
-Cj4gICAJCWlmICghZGV2KQ0KPiAgIAkJCXJldHVybiAtRU5PREVWOw0KPiBkaWZmIC0tZ2l0IGEv
-ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX2V2ZW50cy5jIGIvZHJpdmVycy9ncHUvZHJt
-L2FtZC9hbWRrZmQva2ZkX2V2ZW50cy5jDQo+IGluZGV4IDkwODA4MWM4NWRlMS4uMWY4MzY1NTc1
-YjEyIDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfZXZlbnRz
-LmMNCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX2V2ZW50cy5jDQo+IEBA
-IC0zNDYsNyArMzQ2LDYgQEAgaW50IGtmZF9ldmVudF9jcmVhdGUoc3RydWN0IGZpbGUgKmRldmtm
-ZCwgc3RydWN0IGtmZF9wcm9jZXNzICpwLA0KPiAgIAkJcmV0ID0gY3JlYXRlX3NpZ25hbF9ldmVu
-dChkZXZrZmQsIHAsIGV2KTsNCj4gICAJCWlmICghcmV0KSB7DQo+ICAgCQkJKmV2ZW50X3BhZ2Vf
-b2Zmc2V0ID0gS0ZEX01NQVBfVFlQRV9FVkVOVFM7DQo+IC0JCQkqZXZlbnRfcGFnZV9vZmZzZXQg
-PDw9IFBBR0VfU0hJRlQ7DQo+ICAgCQkJKmV2ZW50X3Nsb3RfaW5kZXggPSBldi0+ZXZlbnRfaWQ7
-DQo+ICAgCQl9DQo+ICAgCQlicmVhazsNCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9h
-bWQvYW1ka2ZkL2tmZF9wcml2LmggYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfcHJp
-di5oDQo+IGluZGV4IDY2YmFlOGYyZGFkMS4uOGVlY2QyY2QxZmQyIDEwMDY0NA0KPiAtLS0gYS9k
-cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfcHJpdi5oDQo+ICsrKyBiL2RyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1ka2ZkL2tmZF9wcml2LmgNCj4gQEAgLTU5LDI0ICs1OSwyMSBAQA0KPiAgICAq
-IE5PVEU6IHN0cnVjdCB2bV9hcmVhX3N0cnVjdC52bV9wZ29mZiB1c2VzIG9mZnNldCBpbiBwYWdl
-cy4gSGVuY2UsIHRoZXNlDQo+ICAgICogIGRlZmluZXMgYXJlIHcuci50IHRvIFBBR0VfU0laRQ0K
-PiAgICAqLw0KPiAtI2RlZmluZSBLRkRfTU1BUF9UWVBFX1NISUZUCSg2MiAtIFBBR0VfU0hJRlQp
-DQo+ICsjZGVmaW5lIEtGRF9NTUFQX1RZUEVfU0hJRlQJKDYyKQ0KPiAgICNkZWZpbmUgS0ZEX01N
-QVBfVFlQRV9NQVNLCSgweDNVTEwgPDwgS0ZEX01NQVBfVFlQRV9TSElGVCkNCj4gICAjZGVmaW5l
-IEtGRF9NTUFQX1RZUEVfRE9PUkJFTEwJKDB4M1VMTCA8PCBLRkRfTU1BUF9UWVBFX1NISUZUKQ0K
-PiAgICNkZWZpbmUgS0ZEX01NQVBfVFlQRV9FVkVOVFMJKDB4MlVMTCA8PCBLRkRfTU1BUF9UWVBF
-X1NISUZUKQ0KPiAgICNkZWZpbmUgS0ZEX01NQVBfVFlQRV9SRVNFUlZFRF9NRU0JKDB4MVVMTCA8
-PCBLRkRfTU1BUF9UWVBFX1NISUZUKQ0KPiAgICNkZWZpbmUgS0ZEX01NQVBfVFlQRV9NTUlPCSgw
-eDBVTEwgPDwgS0ZEX01NQVBfVFlQRV9TSElGVCkNCj4gICANCj4gLSNkZWZpbmUgS0ZEX01NQVBf
-R1BVX0lEX1NISUZUICg0NiAtIFBBR0VfU0hJRlQpDQo+ICsjZGVmaW5lIEtGRF9NTUFQX0dQVV9J
-RF9TSElGVCAoNDYpDQo+ICAgI2RlZmluZSBLRkRfTU1BUF9HUFVfSURfTUFTSyAoKCgxVUxMIDw8
-IEtGRF9HUFVfSURfSEFTSF9XSURUSCkgLSAxKSBcDQo+ICAgCQkJCTw8IEtGRF9NTUFQX0dQVV9J
-RF9TSElGVCkNCj4gICAjZGVmaW5lIEtGRF9NTUFQX0dQVV9JRChncHVfaWQpICgoKCh1aW50NjRf
-dClncHVfaWQpIDw8IEtGRF9NTUFQX0dQVV9JRF9TSElGVClcDQo+ICAgCQkJCSYgS0ZEX01NQVBf
-R1BVX0lEX01BU0spDQo+IC0jZGVmaW5lIEtGRF9NTUFQX0dQVV9JRF9HRVQob2Zmc2V0KSAgICAo
-KG9mZnNldCAmIEtGRF9NTUFQX0dQVV9JRF9NQVNLKSBcDQo+ICsjZGVmaW5lIEtGRF9NTUFQX0dF
-VF9HUFVfSUQob2Zmc2V0KSAgICAoKG9mZnNldCAmIEtGRF9NTUFQX0dQVV9JRF9NQVNLKSBcDQo+
-ICAgCQkJCT4+IEtGRF9NTUFQX0dQVV9JRF9TSElGVCkNCj4gICANCj4gLSNkZWZpbmUgS0ZEX01N
-QVBfT0ZGU0VUX1ZBTFVFX01BU0sJKDB4M0ZGRkZGRkZGRkZGVUxMID4+IFBBR0VfU0hJRlQpDQo+
-IC0jZGVmaW5lIEtGRF9NTUFQX09GRlNFVF9WQUxVRV9HRVQob2Zmc2V0KSAob2Zmc2V0ICYgS0ZE
-X01NQVBfT0ZGU0VUX1ZBTFVFX01BU0spDQo+IC0NCj4gICAvKg0KPiAgICAqIFdoZW4gd29ya2lu
-ZyB3aXRoIGNwIHNjaGVkdWxlciB3ZSBzaG91bGQgYXNzaWduIHRoZSBISVEgbWFudWFsbHkgb3Ig
-dmlhDQo+ICAgICogdGhlIGFtZGdwdSBkcml2ZXIgdG8gYSBmaXhlZCBocWQgc2xvdCwgaGVyZSBh
-cmUgdGhlIGZpeGVkIEhJUSBocWQgc2xvdA0KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJt
-L2FtZC9hbWRrZmQva2ZkX3Byb2Nlc3MuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tm
-ZF9wcm9jZXNzLmMNCj4gaW5kZXggNmFiZmI3N2FlNTQwLi4zOWRjNDliOGZkODUgMTAwNjQ0DQo+
-IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9wcm9jZXNzLmMNCj4gKysrIGIv
-ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX3Byb2Nlc3MuYw0KPiBAQCAtNTU0LDggKzU1
-NCw3IEBAIHN0YXRpYyBpbnQga2ZkX3Byb2Nlc3NfaW5pdF9jd3NyX2FwdShzdHJ1Y3Qga2ZkX3By
-b2Nlc3MgKnAsIHN0cnVjdCBmaWxlICpmaWxlcCkNCj4gICAJCWlmICghZGV2LT5jd3NyX2VuYWJs
-ZWQgfHwgcXBkLT5jd3NyX2thZGRyIHx8IHFwZC0+Y3dzcl9iYXNlKQ0KPiAgIAkJCWNvbnRpbnVl
-Ow0KPiAgIA0KPiAtCQlvZmZzZXQgPSAoS0ZEX01NQVBfVFlQRV9SRVNFUlZFRF9NRU0gfCBLRkRf
-TU1BUF9HUFVfSUQoZGV2LT5pZCkpDQo+IC0JCQk8PCBQQUdFX1NISUZUOw0KPiArCQlvZmZzZXQg
-PSBLRkRfTU1BUF9UWVBFX1JFU0VSVkVEX01FTSB8IEtGRF9NTUFQX0dQVV9JRChkZXYtPmlkKTsN
-Cj4gICAJCXFwZC0+dGJhX2FkZHIgPSAoaW50NjRfdCl2bV9tbWFwKGZpbGVwLCAwLA0KPiAgIAkJ
-CUtGRF9DV1NSX1RCQV9UTUFfU0laRSwgUFJPVF9SRUFEIHwgUFJPVF9FWEVDLA0KPiAgIAkJCU1B
-UF9TSEFSRUQsIG9mZnNldCk7DQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9w
-Lm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1n
-Zng=
+--===============0915769850==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_DM6PR12MB2778C939A102478FF10F39ADF0620DM6PR12MB2778namp_"
+
+--_000_DM6PR12MB2778C939A102478FF10F39ADF0620DM6PR12MB2778namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+Hi Felix,
+
+The PAGE_SHIFT was not deleted but merged into the KFD_*_SHIFT in kfd_priv.=
+h. Because of that, this change is actually transparent to the thunk, and i=
+t only straightens up the bit shift operations in most cases.
+
+Regards,
+Yong
+________________________________
+From: Kuehling, Felix <Felix.Kuehling@amd.com>
+Sent: Friday, November 1, 2019 5:13 PM
+To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>; Zhao, Yo=
+ng <Yong.Zhao@amd.com>
+Subject: Re: [PATCH] drm/amdkfd: Simplify the mmap offset related bit opera=
+tions
+
+NAK. This won't work for several reasons.
+
+The mmap_offset is used as offset parameter in the mmap system call. If
+you check the man page of mmap, you'll see that "offset must be a
+multiple of the page size". Therefore the PAGE_SHIFT is necessary.
+
+In the case of doorbell offsets, the offset is parsed and processed by
+the Thunk in user mode. On GFX9 GPUs the lower bits are used for the
+offset of the doorbell within the doorbell page. On GFX8 the queue ID
+was used, but on GFX9 we had to decoupled the doorbell ID from the queue
+ID. If you remove the PAGE_SHIFT, you'll need to put those bits
+somewhere else. But that change in the encoding would break the ABI with
+the Thunk.
+
+Regards,
+   Felix
+
+On 2019-11-01 4:48 p.m., Zhao, Yong wrote:
+> The new code is much cleaner and results in better readability.
+>
+> Change-Id: I0c1f7cca7e24ddb7b4ffe1cb0fa71943828ae373
+> Signed-off-by: Yong Zhao <Yong.Zhao@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdkfd/kfd_chardev.c | 13 +++++++------
+>   drivers/gpu/drm/amd/amdkfd/kfd_events.c  |  1 -
+>   drivers/gpu/drm/amd/amdkfd/kfd_priv.h    |  9 +++------
+>   drivers/gpu/drm/amd/amdkfd/kfd_process.c |  3 +--
+>   4 files changed, 11 insertions(+), 15 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/a=
+md/amdkfd/kfd_chardev.c
+> index b91993753b82..590138727ca9 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+> @@ -298,7 +298,6 @@ static int kfd_ioctl_create_queue(struct file *filep,=
+ struct kfd_process *p,
+>        /* Return gpu_id as doorbell offset for mmap usage */
+>        args->doorbell_offset =3D KFD_MMAP_TYPE_DOORBELL;
+>        args->doorbell_offset |=3D KFD_MMAP_GPU_ID(args->gpu_id);
+> -     args->doorbell_offset <<=3D PAGE_SHIFT;
+>        if (KFD_IS_SOC15(dev->device_info->asic_family))
+>                /* On SOC15 ASICs, include the doorbell offset within the
+>                 * process doorbell frame, which could be 1 page or 2 page=
+s.
+> @@ -1938,20 +1937,22 @@ static int kfd_mmap(struct file *filp, struct vm_=
+area_struct *vma)
+>   {
+>        struct kfd_process *process;
+>        struct kfd_dev *dev =3D NULL;
+> -     unsigned long vm_pgoff;
+> +     unsigned long mmap_offset;
+>        unsigned int gpu_id;
+>
+>        process =3D kfd_get_process(current);
+>        if (IS_ERR(process))
+>                return PTR_ERR(process);
+>
+> -     vm_pgoff =3D vma->vm_pgoff;
+> -     vma->vm_pgoff =3D KFD_MMAP_OFFSET_VALUE_GET(vm_pgoff);
+> -     gpu_id =3D KFD_MMAP_GPU_ID_GET(vm_pgoff);
+> +     mmap_offset =3D vma->vm_pgoff << PAGE_SHIFT;
+> +     gpu_id =3D KFD_MMAP_GET_GPU_ID(mmap_offset);
+>        if (gpu_id)
+>                dev =3D kfd_device_by_id(gpu_id);
+>
+> -     switch (vm_pgoff & KFD_MMAP_TYPE_MASK) {
+> +     /* only leave the offset segment */
+> +     vma->vm_pgoff &=3D (1ULL << (KFD_MMAP_GPU_ID_SHIFT - PAGE_SHIFT)) -=
+ 1;
+> +
+> +     switch (mmap_offset & KFD_MMAP_TYPE_MASK) {
+>        case KFD_MMAP_TYPE_DOORBELL:
+>                if (!dev)
+>                        return -ENODEV;
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_events.c b/drivers/gpu/drm/am=
+d/amdkfd/kfd_events.c
+> index 908081c85de1..1f8365575b12 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_events.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_events.c
+> @@ -346,7 +346,6 @@ int kfd_event_create(struct file *devkfd, struct kfd_=
+process *p,
+>                ret =3D create_signal_event(devkfd, p, ev);
+>                if (!ret) {
+>                        *event_page_offset =3D KFD_MMAP_TYPE_EVENTS;
+> -                     *event_page_offset <<=3D PAGE_SHIFT;
+>                        *event_slot_index =3D ev->event_id;
+>                }
+>                break;
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/=
+amdkfd/kfd_priv.h
+> index 66bae8f2dad1..8eecd2cd1fd2 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+> @@ -59,24 +59,21 @@
+>    * NOTE: struct vm_area_struct.vm_pgoff uses offset in pages. Hence, th=
+ese
+>    *  defines are w.r.t to PAGE_SIZE
+>    */
+> -#define KFD_MMAP_TYPE_SHIFT  (62 - PAGE_SHIFT)
+> +#define KFD_MMAP_TYPE_SHIFT  (62)
+>   #define KFD_MMAP_TYPE_MASK  (0x3ULL << KFD_MMAP_TYPE_SHIFT)
+>   #define KFD_MMAP_TYPE_DOORBELL      (0x3ULL << KFD_MMAP_TYPE_SHIFT)
+>   #define KFD_MMAP_TYPE_EVENTS        (0x2ULL << KFD_MMAP_TYPE_SHIFT)
+>   #define KFD_MMAP_TYPE_RESERVED_MEM  (0x1ULL << KFD_MMAP_TYPE_SHIFT)
+>   #define KFD_MMAP_TYPE_MMIO  (0x0ULL << KFD_MMAP_TYPE_SHIFT)
+>
+> -#define KFD_MMAP_GPU_ID_SHIFT (46 - PAGE_SHIFT)
+> +#define KFD_MMAP_GPU_ID_SHIFT (46)
+>   #define KFD_MMAP_GPU_ID_MASK (((1ULL << KFD_GPU_ID_HASH_WIDTH) - 1) \
+>                                << KFD_MMAP_GPU_ID_SHIFT)
+>   #define KFD_MMAP_GPU_ID(gpu_id) ((((uint64_t)gpu_id) << KFD_MMAP_GPU_ID=
+_SHIFT)\
+>                                & KFD_MMAP_GPU_ID_MASK)
+> -#define KFD_MMAP_GPU_ID_GET(offset)    ((offset & KFD_MMAP_GPU_ID_MASK) =
+\
+> +#define KFD_MMAP_GET_GPU_ID(offset)    ((offset & KFD_MMAP_GPU_ID_MASK) =
+\
+>                                >> KFD_MMAP_GPU_ID_SHIFT)
+>
+> -#define KFD_MMAP_OFFSET_VALUE_MASK   (0x3FFFFFFFFFFFULL >> PAGE_SHIFT)
+> -#define KFD_MMAP_OFFSET_VALUE_GET(offset) (offset & KFD_MMAP_OFFSET_VALU=
+E_MASK)
+> -
+>   /*
+>    * When working with cp scheduler we should assign the HIQ manually or =
+via
+>    * the amdgpu driver to a fixed hqd slot, here are the fixed HIQ hqd sl=
+ot
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/a=
+md/amdkfd/kfd_process.c
+> index 6abfb77ae540..39dc49b8fd85 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+> @@ -554,8 +554,7 @@ static int kfd_process_init_cwsr_apu(struct kfd_proce=
+ss *p, struct file *filep)
+>                if (!dev->cwsr_enabled || qpd->cwsr_kaddr || qpd->cwsr_bas=
+e)
+>                        continue;
+>
+> -             offset =3D (KFD_MMAP_TYPE_RESERVED_MEM | KFD_MMAP_GPU_ID(de=
+v->id))
+> -                     << PAGE_SHIFT;
+> +             offset =3D KFD_MMAP_TYPE_RESERVED_MEM | KFD_MMAP_GPU_ID(dev=
+->id);
+>                qpd->tba_addr =3D (int64_t)vm_mmap(filep, 0,
+>                        KFD_CWSR_TBA_TMA_SIZE, PROT_READ | PROT_EXEC,
+>                        MAP_SHARED, offset);
+
+--_000_DM6PR12MB2778C939A102478FF10F39ADF0620DM6PR12MB2778namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Hi Felix,</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+The&nbsp;<span style=3D"color: rgb(32, 31, 30); font-family: &quot;Segoe UI=
+&quot;, &quot;Segoe UI Web (West European)&quot;, &quot;Segoe UI&quot;, -ap=
+ple-system, BlinkMacSystemFont, Roboto, &quot;Helvetica Neue&quot;, sans-se=
+rif; font-size: 14.6667px; background-color: rgb(255, 255, 255); display: i=
+nline !important">PAGE_SHIFT
+ was not deleted but merged into the&nbsp;<span style=3D"font-family: &quot=
+;Segoe UI&quot;, &quot;Segoe UI Web (West European)&quot;, &quot;Segoe UI&q=
+uot;, -apple-system, BlinkMacSystemFont, Roboto, &quot;Helvetica Neue&quot;=
+, sans-serif; background-color: rgb(255, 255, 255); display: inline !import=
+ant">KFD_*_SHIFT
+ in kfd_priv.h. Because of that, this change is actually transparent to the=
+ thunk, and it only straightens up the bit shift operations in most cases.<=
+/span></span></div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<span style=3D"color: rgb(32, 31, 30); font-family: &quot;Segoe UI&quot;, &=
+quot;Segoe UI Web (West European)&quot;, &quot;Segoe UI&quot;, -apple-syste=
+m, BlinkMacSystemFont, Roboto, &quot;Helvetica Neue&quot;, sans-serif; font=
+-size: 14.6667px; background-color: rgb(255, 255, 255); display: inline !im=
+portant"><span style=3D"font-family: &quot;Segoe UI&quot;, &quot;Segoe UI W=
+eb (West European)&quot;, &quot;Segoe UI&quot;, -apple-system, BlinkMacSyst=
+emFont, Roboto, &quot;Helvetica Neue&quot;, sans-serif; background-color: r=
+gb(255, 255, 255); display: inline !important"><br>
+</span></span></div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<span style=3D"color: rgb(32, 31, 30); font-family: &quot;Segoe UI&quot;, &=
+quot;Segoe UI Web (West European)&quot;, &quot;Segoe UI&quot;, -apple-syste=
+m, BlinkMacSystemFont, Roboto, &quot;Helvetica Neue&quot;, sans-serif; font=
+-size: 14.6667px; background-color: rgb(255, 255, 255); display: inline !im=
+portant"><span style=3D"font-family: &quot;Segoe UI&quot;, &quot;Segoe UI W=
+eb (West European)&quot;, &quot;Segoe UI&quot;, -apple-system, BlinkMacSyst=
+emFont, Roboto, &quot;Helvetica Neue&quot;, sans-serif; background-color: r=
+gb(255, 255, 255); display: inline !important">Regards,</span></span></div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<span style=3D"color: rgb(32, 31, 30); font-family: &quot;Segoe UI&quot;, &=
+quot;Segoe UI Web (West European)&quot;, &quot;Segoe UI&quot;, -apple-syste=
+m, BlinkMacSystemFont, Roboto, &quot;Helvetica Neue&quot;, sans-serif; font=
+-size: 14.6667px; background-color: rgb(255, 255, 255); display: inline !im=
+portant"><span style=3D"font-family: &quot;Segoe UI&quot;, &quot;Segoe UI W=
+eb (West European)&quot;, &quot;Segoe UI&quot;, -apple-system, BlinkMacSyst=
+emFont, Roboto, &quot;Helvetica Neue&quot;, sans-serif; background-color: r=
+gb(255, 255, 255); display: inline !important">Yong</span></span></div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Kuehling, Felix &lt;F=
+elix.Kuehling@amd.com&gt;<br>
+<b>Sent:</b> Friday, November 1, 2019 5:13 PM<br>
+<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
+gt;; Zhao, Yong &lt;Yong.Zhao@amd.com&gt;<br>
+<b>Subject:</b> Re: [PATCH] drm/amdkfd: Simplify the mmap offset related bi=
+t operations</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">NAK. This won't work for several reasons.<br>
+<br>
+The mmap_offset is used as offset parameter in the mmap system call. If <br=
+>
+you check the man page of mmap, you'll see that &quot;offset must be a <br>
+multiple of the page size&quot;. Therefore the PAGE_SHIFT is necessary.<br>
+<br>
+In the case of doorbell offsets, the offset is parsed and processed by <br>
+the Thunk in user mode. On GFX9 GPUs the lower bits are used for the <br>
+offset of the doorbell within the doorbell page. On GFX8 the queue ID <br>
+was used, but on GFX9 we had to decoupled the doorbell ID from the queue <b=
+r>
+ID. If you remove the PAGE_SHIFT, you'll need to put those bits <br>
+somewhere else. But that change in the encoding would break the ABI with <b=
+r>
+the Thunk.<br>
+<br>
+Regards,<br>
+&nbsp;&nbsp; Felix<br>
+<br>
+On 2019-11-01 4:48 p.m., Zhao, Yong wrote:<br>
+&gt; The new code is much cleaner and results in better readability.<br>
+&gt;<br>
+&gt; Change-Id: I0c1f7cca7e24ddb7b4ffe1cb0fa71943828ae373<br>
+&gt; Signed-off-by: Yong Zhao &lt;Yong.Zhao@amd.com&gt;<br>
+&gt; ---<br>
+&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdkfd/kfd_chardev.c | 13 &#43;&#43;&#=
+43;&#43;&#43;&#43;&#43;------<br>
+&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdkfd/kfd_events.c&nbsp; |&nbsp; 1 -<=
+br>
+&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdkfd/kfd_priv.h&nbsp;&nbsp;&nbsp; |&=
+nbsp; 9 &#43;&#43;&#43;------<br>
+&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdkfd/kfd_process.c |&nbsp; 3 &#43;--=
+<br>
+&gt;&nbsp;&nbsp; 4 files changed, 11 insertions(&#43;), 15 deletions(-)<br>
+&gt;<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/dr=
+m/amd/amdkfd/kfd_chardev.c<br>
+&gt; index b91993753b82..590138727ca9 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c<br>
+&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c<br>
+&gt; @@ -298,7 &#43;298,6 @@ static int kfd_ioctl_create_queue(struct file =
+*filep, struct kfd_process *p,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Return gpu_id as doorbell=
+ offset for mmap usage */<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; args-&gt;doorbell_offset =3D=
+ KFD_MMAP_TYPE_DOORBELL;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; args-&gt;doorbell_offset |=
+=3D KFD_MMAP_GPU_ID(args-&gt;gpu_id);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; args-&gt;doorbell_offset &lt;&lt;=3D PAGE_SH=
+IFT;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (KFD_IS_SOC15(dev-&gt;dev=
+ice_info-&gt;asic_family))<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; /* On SOC15 ASICs, include the doorbell offset within t=
+he<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; * process doorbell frame, which could be 1 page o=
+r 2 pages.<br>
+&gt; @@ -1938,20 &#43;1937,22 @@ static int kfd_mmap(struct file *filp, str=
+uct vm_area_struct *vma)<br>
+&gt;&nbsp;&nbsp; {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct kfd_process *process;=
+<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct kfd_dev *dev =3D NULL=
+;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; unsigned long vm_pgoff;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; unsigned long mmap_offset;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unsigned int gpu_id;<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; process =3D kfd_get_process(=
+current);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (IS_ERR(process))<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; return PTR_ERR(process);<br>
+&gt;&nbsp;&nbsp; <br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; vm_pgoff =3D vma-&gt;vm_pgoff;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; vma-&gt;vm_pgoff =3D KFD_MMAP_OFFSET_VALUE_G=
+ET(vm_pgoff);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; gpu_id =3D KFD_MMAP_GPU_ID_GET(vm_pgoff);<br=
+>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; mmap_offset =3D vma-&gt;vm_pgoff &lt;&lt=
+; PAGE_SHIFT;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; gpu_id =3D KFD_MMAP_GET_GPU_ID(mmap_offs=
+et);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (gpu_id)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; dev =3D kfd_device_by_id(gpu_id);<br>
+&gt;&nbsp;&nbsp; <br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; switch (vm_pgoff &amp; KFD_MMAP_TYPE_MASK) {=
+<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; /* only leave the offset segment */<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; vma-&gt;vm_pgoff &amp;=3D (1ULL &lt;&lt;=
+ (KFD_MMAP_GPU_ID_SHIFT - PAGE_SHIFT)) - 1;<br>
+&gt; &#43;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; switch (mmap_offset &amp; KFD_MMAP_TYPE_=
+MASK) {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case KFD_MMAP_TYPE_DOORBELL:=
+<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; if (!dev)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return =
+-ENODEV;<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_events.c b/drivers/gpu/drm=
+/amd/amdkfd/kfd_events.c<br>
+&gt; index 908081c85de1..1f8365575b12 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdkfd/kfd_events.c<br>
+&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdkfd/kfd_events.c<br>
+&gt; @@ -346,7 &#43;346,6 @@ int kfd_event_create(struct file *devkfd, stru=
+ct kfd_process *p,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; ret =3D create_signal_event(devkfd, p, ev);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; if (!ret) {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *event_=
+page_offset =3D KFD_MMAP_TYPE_EVENTS;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *event_page_offset &lt;=
+&lt;=3D PAGE_SHIFT;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *event_=
+slot_index =3D ev-&gt;event_id;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; }<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; break;<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/a=
+md/amdkfd/kfd_priv.h<br>
+&gt; index 66bae8f2dad1..8eecd2cd1fd2 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h<br>
+&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h<br>
+&gt; @@ -59,24 &#43;59,21 @@<br>
+&gt;&nbsp;&nbsp;&nbsp; * NOTE: struct vm_area_struct.vm_pgoff uses offset i=
+n pages. Hence, these<br>
+&gt;&nbsp;&nbsp;&nbsp; *&nbsp; defines are w.r.t to PAGE_SIZE<br>
+&gt;&nbsp;&nbsp;&nbsp; */<br>
+&gt; -#define KFD_MMAP_TYPE_SHIFT&nbsp; (62 - PAGE_SHIFT)<br>
+&gt; &#43;#define KFD_MMAP_TYPE_SHIFT&nbsp; (62)<br>
+&gt;&nbsp;&nbsp; #define KFD_MMAP_TYPE_MASK&nbsp; (0x3ULL &lt;&lt; KFD_MMAP=
+_TYPE_SHIFT)<br>
+&gt;&nbsp;&nbsp; #define KFD_MMAP_TYPE_DOORBELL&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p; (0x3ULL &lt;&lt; KFD_MMAP_TYPE_SHIFT)<br>
+&gt;&nbsp;&nbsp; #define KFD_MMAP_TYPE_EVENTS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp; (0x2ULL &lt;&lt; KFD_MMAP_TYPE_SHIFT)<br>
+&gt;&nbsp;&nbsp; #define KFD_MMAP_TYPE_RESERVED_MEM&nbsp; (0x1ULL &lt;&lt; =
+KFD_MMAP_TYPE_SHIFT)<br>
+&gt;&nbsp;&nbsp; #define KFD_MMAP_TYPE_MMIO&nbsp; (0x0ULL &lt;&lt; KFD_MMAP=
+_TYPE_SHIFT)<br>
+&gt;&nbsp;&nbsp; <br>
+&gt; -#define KFD_MMAP_GPU_ID_SHIFT (46 - PAGE_SHIFT)<br>
+&gt; &#43;#define KFD_MMAP_GPU_ID_SHIFT (46)<br>
+&gt;&nbsp;&nbsp; #define KFD_MMAP_GPU_ID_MASK (((1ULL &lt;&lt; KFD_GPU_ID_H=
+ASH_WIDTH) - 1) \<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;&lt; KFD_MMAP_GPU_ID_SHIFT)<br=
+>
+&gt;&nbsp;&nbsp; #define KFD_MMAP_GPU_ID(gpu_id) ((((uint64_t)gpu_id) &lt;&=
+lt; KFD_MMAP_GPU_ID_SHIFT)\<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &amp; KFD_MMAP_GPU_ID_MASK)<br>
+&gt; -#define KFD_MMAP_GPU_ID_GET(offset)&nbsp;&nbsp;&nbsp; ((offset &amp; =
+KFD_MMAP_GPU_ID_MASK) \<br>
+&gt; &#43;#define KFD_MMAP_GET_GPU_ID(offset)&nbsp;&nbsp;&nbsp; ((offset &a=
+mp; KFD_MMAP_GPU_ID_MASK) \<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &gt;&gt; KFD_MMAP_GPU_ID_SHIFT)<br=
+>
+&gt;&nbsp;&nbsp; <br>
+&gt; -#define KFD_MMAP_OFFSET_VALUE_MASK&nbsp;&nbsp; (0x3FFFFFFFFFFFULL &gt=
+;&gt; PAGE_SHIFT)<br>
+&gt; -#define KFD_MMAP_OFFSET_VALUE_GET(offset) (offset &amp; KFD_MMAP_OFFS=
+ET_VALUE_MASK)<br>
+&gt; -<br>
+&gt;&nbsp;&nbsp; /*<br>
+&gt;&nbsp;&nbsp;&nbsp; * When working with cp scheduler we should assign th=
+e HIQ manually or via<br>
+&gt;&nbsp;&nbsp;&nbsp; * the amdgpu driver to a fixed hqd slot, here are th=
+e fixed HIQ hqd slot<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/dr=
+m/amd/amdkfd/kfd_process.c<br>
+&gt; index 6abfb77ae540..39dc49b8fd85 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c<br>
+&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdkfd/kfd_process.c<br>
+&gt; @@ -554,8 &#43;554,7 @@ static int kfd_process_init_cwsr_apu(struct kf=
+d_process *p, struct file *filep)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; if (!dev-&gt;cwsr_enabled || qpd-&gt;cwsr_kaddr || qpd-=
+&gt;cwsr_base)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; continu=
+e;<br>
+&gt;&nbsp;&nbsp; <br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; offset =3D (KFD_MMAP_TYPE_RESERVED_MEM | KFD_MMAP_GPU_ID(dev-&gt;id))<b=
+r>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;&lt; PAGE_SHIFT;<br=
+>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; offset =3D KFD_MMAP_TYPE_RESERVED_MEM | KFD_MMAP_GPU_ID(dev-&gt;id)=
+;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; qpd-&gt;tba_addr =3D (int64_t)vm_mmap(filep, 0,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; KFD_CWS=
+R_TBA_TMA_SIZE, PROT_READ | PROT_EXEC,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MAP_SHA=
+RED, offset);<br>
+</div>
+</span></font></div>
+</body>
+</html>
+
+--_000_DM6PR12MB2778C939A102478FF10F39ADF0620DM6PR12MB2778namp_--
+
+--===============0915769850==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+
+--===============0915769850==--
