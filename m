@@ -1,128 +1,120 @@
-From: Will Deacon <will@kernel.org>
-Subject: Re: [PATCH] drm/radeon: Handle workqueue allocation failure
-Date: Thu, 31 Oct 2019 16:54:51 +0000
-Message-ID: <20191031165450.GA28461@willie-the-truck>
-References: <20191025110450.10474-1-will@kernel.org>
- <5d6a88a2-2719-a859-04df-10b0d893ff39@daenzer.net>
- <20191025161804.GA12335@willie-the-truck>
- <e2f87ecc-0a8e-253d-107c-5cf6486c4b6a@daenzer.net>
+From: "Tuikov, Luben" <Luben.Tuikov-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu: implement TMZ accessor
+Date: Fri, 1 Nov 2019 00:15:09 +0000
+Message-ID: <ad0649b5-44e9-055a-04a1-ca26fc588316@amd.com>
+References: <20191030234233.9896-1-luben.tuikov@amd.com>
+ <2723dbff-806b-542f-4ed1-0e9fc807ca15@gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Transfer-Encoding: 8bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Content-Disposition: inline
-In-Reply-To: <e2f87ecc-0a8e-253d-107c-5cf6486c4b6a@daenzer.net>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Michel =?iso-8859-1?Q?D=E4nzer?= <michel@daenzer.net>
-Cc: amd-gfx@lists.freedesktop.org, David Airlie <airlied@linux.ie>, linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, Nicolas Waisman <nico@semmle.com>, Alex Deucher <alexander.deucher@amd.com>, Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <2723dbff-806b-542f-4ed1-0e9fc807ca15-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Content-Language: en-US
+Content-ID: <CC83EC58B7A13247AC3F79600798D826-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
 
-On Fri, Oct 25, 2019 at 06:20:01PM +0200, Michel Dänzer wrote:
-> On 2019-10-25 6:18 p.m., Will Deacon wrote:
-> > On Fri, Oct 25, 2019 at 06:06:26PM +0200, Michel Dänzer wrote:
-> >> On 2019-10-25 1:04 p.m., Will Deacon wrote:
-> >>> In the highly unlikely event that we fail to allocate the "radeon-crtc"
-> >>> workqueue, we should bail cleanly rather than blindly march on with a
-> >>> NULL pointer installed for the 'flip_queue' field of the 'radeon_crtc'
-> >>> structure.
-> >>>
-> >>> This was reported previously by Nicolas, but I don't think his fix was
-> >>> correct:
-> >>
-> >> Neither is this one I'm afraid. See my feedback on
-> >> https://patchwork.freedesktop.org/patch/331534/ .
-> > 
-> > Thanks. Although I agree with you wrt the original patch, I don't think
-> > the workqueue allocation failure is distinguishable from the CRTC allocation
-> > failure with my patch. Are you saying that the error path there is broken
-> > too?
-> 
-> The driver won't actually work if radeon_crtc_init bails silently, it'll
-> just fall over at some later point.
-
-Ok, so how about fleshing it out as per below?
-
-Will
-
---->8
-
-diff --git a/drivers/gpu/drm/radeon/radeon_display.c b/drivers/gpu/drm/radeon/radeon_display.c
-index e81b01f8db90..177acee06620 100644
---- a/drivers/gpu/drm/radeon/radeon_display.c
-+++ b/drivers/gpu/drm/radeon/radeon_display.c
-@@ -668,21 +668,29 @@ static const struct drm_crtc_funcs radeon_crtc_funcs = {
- 	.page_flip_target = radeon_crtc_page_flip_target,
- };
- 
--static void radeon_crtc_init(struct drm_device *dev, int index)
-+static int radeon_crtc_init(struct drm_device *dev, int index)
- {
- 	struct radeon_device *rdev = dev->dev_private;
- 	struct radeon_crtc *radeon_crtc;
-+	struct workqueue_struct *wq;
- 	int i;
- 
- 	radeon_crtc = kzalloc(sizeof(struct radeon_crtc) + (RADEONFB_CONN_LIMIT * sizeof(struct drm_connector *)), GFP_KERNEL);
- 	if (radeon_crtc == NULL)
--		return;
-+		return -ENOMEM;
-+
-+	wq = alloc_workqueue("radeon-crtc", WQ_HIGHPRI, 0);
-+	if (unlikely(!wq)) {
-+		kfree(radeon_crtc);
-+		return - ENOMEM;
-+	}
- 
- 	drm_crtc_init(dev, &radeon_crtc->base, &radeon_crtc_funcs);
- 
- 	drm_mode_crtc_set_gamma_size(&radeon_crtc->base, 256);
- 	radeon_crtc->crtc_id = index;
--	radeon_crtc->flip_queue = alloc_workqueue("radeon-crtc", WQ_HIGHPRI, 0);
-+	radeon_crtc->flip_queue = wq;
-+
- 	rdev->mode_info.crtcs[index] = radeon_crtc;
- 
- 	if (rdev->family >= CHIP_BONAIRE) {
-@@ -711,6 +719,8 @@ static void radeon_crtc_init(struct drm_device *dev, int index)
- 		radeon_atombios_init_crtc(dev, radeon_crtc);
- 	else
- 		radeon_legacy_init_crtc(dev, radeon_crtc);
-+
-+	return 0;
- }
- 
- static const char *encoder_names[38] = {
-@@ -1602,9 +1612,8 @@ int radeon_modeset_init(struct radeon_device *rdev)
- 	rdev->ddev->mode_config.fb_base = rdev->mc.aper_base;
- 
- 	ret = radeon_modeset_create_props(rdev);
--	if (ret) {
--		return ret;
--	}
-+	if (ret)
-+		goto err_drm_mode_config_cleanup;
- 
- 	/* init i2c buses */
- 	radeon_i2c_init(rdev);
-@@ -1617,7 +1626,9 @@ int radeon_modeset_init(struct radeon_device *rdev)
- 
- 	/* allocate crtcs */
- 	for (i = 0; i < rdev->num_crtc; i++) {
--		radeon_crtc_init(rdev->ddev, i);
-+		ret = radeon_crtc_init(rdev->ddev, i);
-+		if (ret)
-+			goto err_drm_mode_config_cleanup;
- 	}
- 
- 	/* okay we should have all the bios connectors */
-@@ -1645,6 +1656,10 @@ int radeon_modeset_init(struct radeon_device *rdev)
- 	ret = radeon_pm_late_init(rdev);
- 
- 	return 0;
-+
-+err_drm_mode_config_cleanup:
-+	drm_mode_config_cleanup(rdev->ddev);
-+	return ret;
- }
- 
- void radeon_modeset_fini(struct radeon_device *rdev)
+T24gMjAxOS0xMC0zMSAzOjI5IGEubS4sIENocmlzdGlhbiBLw7ZuaWcgd3JvdGU6DQo+IEFtIDMx
+LjEwLjE5IHVtIDAwOjQzIHNjaHJpZWIgVHVpa292LCBMdWJlbjoNCj4+IEltcGxlbWVudCBhbiBh
+Y2Nlc3NvciBvZiBhZGV2LT50bXouZW5hYmxlZC4gTGV0IG5vdA0KPj4gY29kZSBhcm91bmQgYWNj
+ZXNzIGl0IGFzICJpZiAoYWRldi0+dG16LmVuYWJsZWQpIg0KPj4gYXMgdGhlIG9yZ2FuaXphdGlv
+biBtYXkgY2hhbmdlLiBJbnN0ZWFkLi4uDQo+Pg0KPj4gUmVjcnVpdCAiYm9vbCBhbWRncHVfaXNf
+dG16KGFkZXYpIiB0byByZXR1cm4NCj4+IGV4YWN0bHkgdGhpcyBCb29sZWFuIHZhbHVlLiBUaGF0
+IGlzLCB0aGlzIGZ1bmN0aW9uDQo+PiBpcyBub3cgYW4gYWNjZXNzb3Igb2YgYW4gYWxyZWFkeSBp
+bml0aWFsaXplZCBhbmQNCj4+IHNldCBhZGV2IGFuZCBhZGV2LT50bXouDQo+Pg0KPj4gQWRkICJ2
+b2lkIGFtZGdwdV90bXpfc2V0KGFkZXYpIiB0byBjaGVjayBhbmQgc2V0DQo+PiBhZGV2LT50bXou
+KiBhdCBpbml0aWFsaXphdGlvbiB0aW1lLiBBZnRlciB3aGljaA0KPj4gb25lIHVzZXMgImJvb2wg
+YW1kZ3B1X2lzX3RteihhZGV2KSIgdG8gcXVlcnkNCj4+IHdoZXRoZXIgYWRldiBzdXBwb3J0cyBU
+TVouDQo+IA0KPiBBY3R1YWxseSBJIHdvdWxkIHJhdGhlciBjb21wbGV0ZWx5IHJlbW92ZSB0aGUg
+YW1kZ3B1X3Rtei5baGNdIGZpbGVzLiBTZWUgDQo+IFRNWiBpcyBhIGZlYXR1cmUgYW5kIG5vdCBh
+IGhhcmR3YXJlIGJsb2NrLg0KPiANCj4gQWxsIHRoYXQgc3R1ZmYgc2hvdWxkIHByb2JhYmx5IG1v
+dmVkIGludG8gdGhlIFBTUCBoYW5kbGluZywgc2luY2UgdGhlIA0KPiBjb250cm9sIG9mIFRNWiBp
+cyBlbmFibGVkIG9yIGRpc2FibGVkIGluIHRoZSBoYXJkd2FyZSBpcyB0aGVyZS4NCg0KSGkgQ2hy
+aXN0aWFuLA0KDQpUaGFua3MgZm9yIHJldmlld2luZyB0aGlzLiBTdXJlLCB3ZSBjYW4gZG8gdGhh
+dCBhcyB3ZWxsLCBzaG91bGQNCnRoZXJlIGJlIGNvbnNlbnN1cyBvbiBpdC4NCg0KSSBqdXN0IHNh
+dyBteXNlbGYgbmVlZGluZyB0byBrbm93IGlmIHRoZSBkZXZpY2UgaXMgVE1aIChhcyB3ZWxsDQph
+cyBpZiBhIGJ1ZmZlciBpcyBUTVogZm9yIHdoaWNoIEkgdXNlZCBhbWRncHVfYm9fZW5jcnlwdGVk
+KCkpDQphbmQgc28gaXQgYmVjYW1lIG5hdHVyYWwgdG8gd3JpdGUgKGFmdGVyIHRoaXMgcGF0Y2gp
+Og0KDQppZiAoIWFtZGdwdV9ib19lbmNyeXB0ZWQoYWJvKSB8fCAhYW1kZ3B1X2lzX3RteihhZGV2
+KSkgew0KCS8qIG5vcm1hbCBwcm9jZXNzaW5nICovDQp9IGVsc2Ugew0KCS8qIFRNWiBwcm9jZXNz
+aW5nICovDQp9DQoNCkJUVywgc2hvdWxkIHdlIHByb2NlZWQgYXMgeW91IHN1Z2dlc3RlZCwgZG8g
+eW91IHNlZQ0KdGhvc2UgcHJpbWl0aXZlcyBnb2luZyBpbnRvIHBzcF92MTJfMC5jPw0KDQpSZWdh
+cmRzLA0KTHViZW4NCg0KPiANCj4gUmVnYXJkcywNCj4gQ2hyaXN0aWFuLg0KPiANCj4+DQo+PiBB
+bHNvLCByZW1vdmUgY2lyY3VsYXIgaGVhZGVyIGZpbGUgaW5jbHVkZS4NCj4+DQo+PiBTaWduZWQt
+b2ZmLWJ5OiBMdWJlbiBUdWlrb3YgPGx1YmVuLnR1aWtvdkBhbWQuY29tPg0KPj4gLS0tDQo+PiAg
+IGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5oICAgICAgICB8ICA1ICsrKysrDQo+
+PiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYyB8ICAyICstDQo+
+PiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV90bXouYyAgICB8IDIzICsrKysr
+KysrKysrLS0tLS0tLS0tLS0NCj4+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
+X3Rtei5oICAgIHwgIDcgKystLS0tLQ0KPj4gICA0IGZpbGVzIGNoYW5nZWQsIDE5IGluc2VydGlv
+bnMoKyksIDE4IGRlbGV0aW9ucygtKQ0KPj4NCj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9k
+cm0vYW1kL2FtZGdwdS9hbWRncHUuaCBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdw
+dS5oDQo+PiBpbmRleCA3ZDFlNTI4Y2M3ODMuLjIzYmQ4MWE3NjU3MCAxMDA2NDQNCj4+IC0tLSBh
+L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5oDQo+PiArKysgYi9kcml2ZXJzL2dw
+dS9kcm0vYW1kL2FtZGdwdS9hbWRncHUuaA0KPj4gQEAgLTEyNDksNSArMTI0OSwxMCBAQCBfbmFt
+ZSMjX3Nob3coc3RydWN0IGRldmljZSAqZGV2LAkJCQkJXA0KPj4gICAJCQkJCQkJCQlcDQo+PiAg
+IHN0YXRpYyBzdHJ1Y3QgZGV2aWNlX2F0dHJpYnV0ZSBwbXVfYXR0cl8jI19uYW1lID0gX19BVFRS
+X1JPKF9uYW1lKQ0KPj4gICANCj4+ICtzdGF0aWMgaW5saW5lIGJvb2wgYW1kZ3B1X2lzX3Rteihz
+dHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikNCj4+ICt7DQo+PiArCXJldHVybiBhZGV2LT50bXou
+ZW5hYmxlZDsNCj4+ICt9DQo+PiArDQo+PiAgICNlbmRpZg0KPj4gICANCj4+IGRpZmYgLS1naXQg
+YS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMgYi9kcml2ZXJzL2dw
+dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMNCj4+IGluZGV4IDRlZWU0MGI5ZDBiMC4u
+ZjEyYjgxNzQ4MGJiIDEwMDY0NA0KPj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
+YW1kZ3B1X2RldmljZS5jDQo+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
+cHVfZGV2aWNlLmMNCj4+IEBAIC0xMDU4LDcgKzEwNTgsNyBAQCBzdGF0aWMgaW50IGFtZGdwdV9k
+ZXZpY2VfY2hlY2tfYXJndW1lbnRzKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQ0KPj4gICAN
+Cj4+ICAgCWFkZXYtPmZpcm13YXJlLmxvYWRfdHlwZSA9IGFtZGdwdV91Y29kZV9nZXRfbG9hZF90
+eXBlKGFkZXYsIGFtZGdwdV9md19sb2FkX3R5cGUpOw0KPj4gICANCj4+IC0JYWRldi0+dG16LmVu
+YWJsZWQgPSBhbWRncHVfaXNfdG16KGFkZXYpOw0KPj4gKwlhbWRncHVfdG16X3NldChhZGV2KTsN
+Cj4+ICAgDQo+PiAgIAlyZXR1cm4gcmV0Ow0KPj4gICB9DQo+PiBkaWZmIC0tZ2l0IGEvZHJpdmVy
+cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Rtei5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9h
+bWRncHUvYW1kZ3B1X3Rtei5jDQo+PiBpbmRleCA4MjM1MjdhMGZhNDcuLjUxOGI5ZDMzNTU1MCAx
+MDA2NDQNCj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV90bXouYw0K
+Pj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Rtei5jDQo+PiBAQCAt
+MjcsMjYgKzI3LDI1IEBADQo+PiAgICNpbmNsdWRlICJhbWRncHUuaCINCj4+ICAgI2luY2x1ZGUg
+ImFtZGdwdV90bXouaCINCj4+ICAgDQo+PiAtDQo+PiAgIC8qKg0KPj4gLSAqIGFtZGdwdV9pc190
+bXogLSB2YWxpZGF0ZSB0cnVzdCBtZW1vcnkgem9uZQ0KPj4gLSAqDQo+PiArICogYW1kZ3B1X3Rt
+el9zZXQgLS0gY2hlY2sgYW5kIHNldCBpZiBhIGRldmljZSBzdXBwb3J0cyBUTVoNCj4+ICAgICog
+QGFkZXY6IGFtZGdwdV9kZXZpY2UgcG9pbnRlcg0KPj4gICAgKg0KPj4gLSAqIFJldHVybiB0cnVl
+IGlmIEBkZXYgc3VwcG9ydHMgdHJ1c3RlZCBtZW1vcnkgem9uZXMgKFRNWiksIGFuZCByZXR1cm4g
+ZmFsc2UgaWYNCj4+IC0gKiBAZGV2IGRvZXMgbm90IHN1cHBvcnQgVE1aLg0KPj4gKyAqIENoZWNr
+IGFuZCBzZXQgaWYgYW4gdGhlIGRldmljZSBAYWRldiBzdXBwb3J0cyBUcnVzdGVkIE1lbW9yeQ0K
+Pj4gKyAqIFpvbmVzIChUTVopLg0KPj4gICAgKi8NCj4+IC1ib29sIGFtZGdwdV9pc190bXooc3Ry
+dWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpDQo+PiArdm9pZCBhbWRncHVfdG16X3NldChzdHJ1Y3Qg
+YW1kZ3B1X2RldmljZSAqYWRldikNCj4+ICAgew0KPj4gICAJaWYgKCFhbWRncHVfdG16KQ0KPj4g
+LQkJcmV0dXJuIGZhbHNlOw0KPj4gKwkJcmV0dXJuOw0KPj4gICANCj4+IC0JaWYgKGFkZXYtPmFz
+aWNfdHlwZSA8IENISVBfUkFWRU4gfHwgYWRldi0+YXNpY190eXBlID09IENISVBfQVJDVFVSVVMp
+IHsNCj4+IC0JCWRldl93YXJuKGFkZXYtPmRldiwgImRvZXNuJ3Qgc3VwcG9ydCB0cnVzdGVkIG1l
+bW9yeSB6b25lcyAoVE1aKVxuIik7DQo+PiAtCQlyZXR1cm4gZmFsc2U7DQo+PiArCWlmIChhZGV2
+LT5hc2ljX3R5cGUgPCBDSElQX1JBVkVOIHx8DQo+PiArCSAgICBhZGV2LT5hc2ljX3R5cGUgPT0g
+Q0hJUF9BUkNUVVJVUykgew0KPj4gKwkJZGV2X3dhcm4oYWRldi0+ZGV2LCAiVHJ1c3RlZCBNZW1v
+cnkgWm9uZSAoVE1aKSBmZWF0dXJlIG5vdCBzdXBwb3J0ZWRcbiIpOw0KPj4gKwkJcmV0dXJuOw0K
+Pj4gICAJfQ0KPj4gICANCj4+IC0JZGV2X2luZm8oYWRldi0+ZGV2LCAiVE1aIGZlYXR1cmUgaXMg
+ZW5hYmxlZFxuIik7DQo+PiArCWFkZXYtPnRtei5lbmFibGVkID0gdHJ1ZTsNCj4+ICAgDQo+PiAt
+CXJldHVybiB0cnVlOw0KPj4gKwlkZXZfaW5mbyhhZGV2LT5kZXYsICJUcnVzdGVkIE1lbW9yeSBa
+b25lIChUTVopIGZlYXR1cmUgc3VwcG9ydGVkIGFuZCBlbmFibGVkXG4iKTsNCj4+ICAgfQ0KPj4g
+ZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV90bXouaCBiL2Ry
+aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV90bXouaA0KPj4gaW5kZXggMjhlMDUxNzdm
+Yjg5Li5hZDNhZDhjMDExZjkgMTAwNjQ0DQo+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
+ZGdwdS9hbWRncHVfdG16LmgNCj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
+ZGdwdV90bXouaA0KPj4gQEAgLTI0LDE2ICsyNCwxMyBAQA0KPj4gICAjaWZuZGVmIF9fQU1ER1BV
+X1RNWl9IX18NCj4+ICAgI2RlZmluZSBfX0FNREdQVV9UTVpfSF9fDQo+PiAgIA0KPj4gLSNpbmNs
+dWRlICJhbWRncHUuaCINCj4+IC0NCj4+ICAgLyoNCj4+IC0gKiBUcnVzdCBtZW1vcnkgem9uZSBz
+dHVmZg0KPj4gKyAqIFRydXN0ZWQgTWVtb3J5IFpvbmUgcGFydGljdWxhcnMNCj4+ICAgICovDQo+
+PiAgIHN0cnVjdCBhbWRncHVfdG16IHsNCj4+ICAgCWJvb2wJZW5hYmxlZDsNCj4+ICAgfTsNCj4+
+ICAgDQo+PiAtDQo+PiAtZXh0ZXJuIGJvb2wgYW1kZ3B1X2lzX3RteihzdHJ1Y3QgYW1kZ3B1X2Rl
+dmljZSAqYWRldik7DQo+PiArZXh0ZXJuIHZvaWQgYW1kZ3B1X3Rtel9zZXQoc3RydWN0IGFtZGdw
+dV9kZXZpY2UgKmFkZXYpOw0KPj4gICANCj4+ICAgI2VuZGlmDQo+IA0KDQpfX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAph
+bWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9y
+Zy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
