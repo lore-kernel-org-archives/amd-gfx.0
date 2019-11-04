@@ -1,67 +1,37 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH v2] drm/sched: Fix passing zero to 'PTR_ERR' warning
-Date: Mon, 4 Nov 2019 13:15:34 +0100
-Message-ID: <7e09156c-db05-ca46-08f0-c871c2ada43f@gmail.com>
-References: <1572372468-20569-1-git-send-email-andrey.grodzovsky@amd.com>
- <MN2PR12MB29755DDF54361142B8340FEF8F7F0@MN2PR12MB2975.namprd12.prod.outlook.com>
-Reply-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
+From: yu kuai <yukuai3@huawei.com>
+Subject: [PATCH 0/7] fix various gcc warnings
+Date: Mon, 4 Nov 2019 21:27:19 +0800
+Message-ID: <1572874046-30996-1-git-send-email-yukuai3@huawei.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <MN2PR12MB29755DDF54361142B8340FEF8F7F0-rweVpJHSKToFlvJWC7EAqwdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Deng, Emily" <Emily.Deng-5C7GfCeVMHo@public.gmane.org>, "Grodzovsky, Andrey" <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>, "dan.carpenter-QHcLZuEGTsvQT0dZR+AlfA@public.gmane.org" <dan.carpenter-QHcLZuEGTsvQT0dZR+AlfA@public.gmane.org>
-Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: alexander.deucher@amd.com, christian.koenig@amd.com, David1.Zhou@amd.com, airlied@linux.ie, daniel@ffwll.ch, Jammy.Zhou@amd.com, tianci.yin@amd.com, sam@ravnborg.org, luben.tuikov@amd.com
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, yukuai3@huawei.com, zhengbin13@huawei.com, yi.zhang@huawei.com
+List-Id: amd-gfx.lists.freedesktop.org
 
-UmV2aWV3ZWQtYnk6IENocmlzdGlhbiBLw7ZuaWcgPGNocmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4K
-CkFtIDA0LjExLjE5IHVtIDA0OjM3IHNjaHJpZWIgRGVuZywgRW1pbHk6Cj4gUmV2aWV3ZWQtYnk6
-IEVtaWx5IERlbmcgPEVtaWx5LkRlbmdAYW1kLmNvbT4KPgo+PiAtLS0tLU9yaWdpbmFsIE1lc3Nh
-Z2UtLS0tLQo+PiBGcm9tOiBhbWQtZ2Z4IDxhbWQtZ2Z4LWJvdW5jZXNAbGlzdHMuZnJlZWRlc2t0
-b3Aub3JnPiBPbiBCZWhhbGYgT2YKPj4gQW5kcmV5IEdyb2R6b3Zza3kKPj4gU2VudDogV2VkbmVz
-ZGF5LCBPY3RvYmVyIDMwLCAyMDE5IDI6MDggQU0KPj4gVG86IGRhbi5jYXJwZW50ZXJAb3JhY2xl
-LmNvbQo+PiBDYzogR3JvZHpvdnNreSwgQW5kcmV5IDxBbmRyZXkuR3JvZHpvdnNreUBhbWQuY29t
-PjsgYW1kLQo+PiBnZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnOyBkcmktZGV2ZWxAbGlzdHMuZnJl
-ZWRlc2t0b3Aub3JnCj4+IFN1YmplY3Q6IFtQQVRDSCB2Ml0gZHJtL3NjaGVkOiBGaXggcGFzc2lu
-ZyB6ZXJvIHRvICdQVFJfRVJSJyB3YXJuaW5nCj4+Cj4+IEZpeCBhIHN0YXRpYyBjb2RlIGNoZWNr
-ZXIgd2FybmluZy4KPj4KPj4gdjI6IERyb3AgUFRSX0VSUl9PUl9aRVJPLgo+Pgo+PiBTaWduZWQt
-b2ZmLWJ5OiBBbmRyZXkgR3JvZHpvdnNreSA8YW5kcmV5Lmdyb2R6b3Zza3lAYW1kLmNvbT4KPj4g
-LS0tCj4+IGRyaXZlcnMvZ3B1L2RybS9zY2hlZHVsZXIvc2NoZWRfbWFpbi5jIHwgNyArKysrKy0t
-Cj4+IDEgZmlsZSBjaGFuZ2VkLCA1IGluc2VydGlvbnMoKyksIDIgZGVsZXRpb25zKC0pCj4+Cj4+
-IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vc2NoZWR1bGVyL3NjaGVkX21haW4uYwo+PiBi
-L2RyaXZlcnMvZ3B1L2RybS9zY2hlZHVsZXIvc2NoZWRfbWFpbi5jCj4+IGluZGV4IGYzOWI5N2Uu
-LmRiYTQzOTAgMTAwNjQ0Cj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9zY2hlZHVsZXIvc2NoZWRf
-bWFpbi5jCj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9zY2hlZHVsZXIvc2NoZWRfbWFpbi5jCj4+
-IEBAIC00OTYsOCArNDk2LDEwIEBAIHZvaWQgZHJtX3NjaGVkX3Jlc3VibWl0X2pvYnMoc3RydWN0
-Cj4+IGRybV9ncHVfc2NoZWR1bGVyICpzY2hlZCkKPj4gCQlmZW5jZSA9IHNjaGVkLT5vcHMtPnJ1
-bl9qb2Ioc19qb2IpOwo+Pgo+PiAJCWlmIChJU19FUlJfT1JfTlVMTChmZW5jZSkpIHsKPj4gKwkJ
-CWlmIChJU19FUlIoZmVuY2UpKQo+PiArCQkJCWRtYV9mZW5jZV9zZXRfZXJyb3IoJnNfZmVuY2Ut
-PmZpbmlzaGVkLAo+PiBQVFJfRVJSKGZlbmNlKSk7Cj4+ICsKPj4gCQkJc19qb2ItPnNfZmVuY2Ut
-PnBhcmVudCA9IE5VTEw7Cj4+IC0JCQlkbWFfZmVuY2Vfc2V0X2Vycm9yKCZzX2ZlbmNlLT5maW5p
-c2hlZCwKPj4gUFRSX0VSUihmZW5jZSkpOwo+PiAJCX0gZWxzZSB7Cj4+IAkJCXNfam9iLT5zX2Zl
-bmNlLT5wYXJlbnQgPSBmZW5jZTsKPj4gCQl9Cj4+IEBAIC03NDEsOCArNzQzLDkgQEAgc3RhdGlj
-IGludCBkcm1fc2NoZWRfbWFpbih2b2lkICpwYXJhbSkKPj4gCQkJCQkgIHIpOwo+PiAJCQlkbWFf
-ZmVuY2VfcHV0KGZlbmNlKTsKPj4gCQl9IGVsc2Ugewo+PiArCQkJaWYgKElTX0VSUihmZW5jZSkp
-Cj4+ICsJCQkJZG1hX2ZlbmNlX3NldF9lcnJvcigmc19mZW5jZS0+ZmluaXNoZWQsCj4+IFBUUl9F
-UlIoZmVuY2UpKTsKPj4KPj4gLQkJCWRtYV9mZW5jZV9zZXRfZXJyb3IoJnNfZmVuY2UtPmZpbmlz
-aGVkLAo+PiBQVFJfRVJSKGZlbmNlKSk7Cj4+IAkJCWRybV9zY2hlZF9wcm9jZXNzX2pvYihOVUxM
-LCAmc2NoZWRfam9iLT5jYik7Cj4+IAkJfQo+Pgo+PiAtLQo+PiAyLjcuNAo+Pgo+PiBfX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwo+PiBhbWQtZ2Z4IG1haWxp
-bmcgbGlzdAo+PiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+PiBodHRwczovL2xpc3Rz
-LmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngKPiBfX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwo+IGFtZC1nZnggbWFpbGluZyBsaXN0
-Cj4gYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPiBodHRwczovL2xpc3RzLmZyZWVkZXNr
-dG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngKCl9fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlz
-dHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4v
-bGlzdGluZm8vYW1kLWdmeA==
+This patch set fixes various gcc warnings. 
+
+yu kuai (7):
+  drm/amdgpu: remove 4 set but not used variable in
+    amdgpu_atombios_get_connector_info_from_object_table
+  drm/amdgpu: add function parameter description in
+    'amdgpu_device_set_cg_state'
+  drm/amdgpu: add function parameter description in 'amdgpu_gart_bind'
+  drm/amdgpu: remove set but not used variable 'dig_connector'
+  drm/amdgpu: remove set but not used variable 'dig'
+  drm/amdgpu: remove always false comparison in
+    'amdgpu_atombios_i2c_process_i2c_ch'
+  drm/amdgpu: remove set but not used variable 'mc_shared_chmap'
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c | 20 ++------------------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c   |  1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c     |  1 +
+ drivers/gpu/drm/amd/amdgpu/atombios_dp.c     |  5 -----
+ drivers/gpu/drm/amd/amdgpu/atombios_i2c.c    |  5 -----
+ drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c        |  3 +--
+ 6 files changed, 5 insertions(+), 30 deletions(-)
+
+-- 
+2.7.4
