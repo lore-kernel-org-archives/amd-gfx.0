@@ -2,100 +2,102 @@ Return-Path: <SRS0=U5eA=Y5=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.7 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
-	HTML_MESSAGE,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,
-	SPF_PASS autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-0.8 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E18A5C010CF
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E9894FA372C
 	for <amd-gfx@archiver.kernel.org>; Tue,  5 Nov 2019 12:43:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 8F8B3217F4
+	by mail.kernel.org (Postfix) with ESMTPS id C9DF32190F
 	for <amd-gfx@archiver.kernel.org>; Tue,  5 Nov 2019 12:43:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8F8B3217F4
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C9DF32190F
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=mellanox.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CD0976EA38;
+	by gabe.freedesktop.org (Postfix) with ESMTP id DF88A6EA39;
 	Tue,  5 Nov 2019 12:43:47 +0000 (UTC)
-Received: from NAM03-CO1-obe.outbound.protection.outlook.com
- (mail-eopbgr790045.outbound.protection.outlook.com [40.107.79.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E5C078975F
- for <amd-gfx@lists.freedesktop.org>; Mon,  4 Nov 2019 20:47:32 +0000 (UTC)
+Received: from EUR03-VE1-obe.outbound.protection.outlook.com
+ (mail-ve1eur03on0604.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:fe09::604])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4813F6E8DC;
+ Tue,  5 Nov 2019 02:31:16 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=XbrK/g+7gpOyD2RQVkwMDZHSr0n+sXtaq6T3JvTDBDGb7qssYGumyOqFMWFw05FYL52n6kvj17R51cyPzVoMtNh801QyuEFwQ1cF1wKzFWVPlhFwcAPyRtoIkl7Rck0r967b9x6o5nxHZ7lTLrnppwJY3oLgEtGo8+OjP4k5fqcwdMNxUNq8irO+sQjUdj/qdTOTv3e+N3sqRyGjzYnWXIePMq+5FSpE1zn1jHuCOmBtSJg+zTvNRQDRwmYNiTmq4kAVG4Y2wiDvrlrASLVhZasKNSWQZjEb6001oIeGp/mJGBEFxKyvqyh+BpXE4TW8s8lXcxZGYGQl0f7OTsM8Cw==
+ b=i6T8ZDZCa0l7TqARLqpUnP2WA+rkJ7MKKSBPo97L7ijY6iBwWIXwecihxwgnyYODpzPI0hOKme5LGTXAh1WZxdWzg1/1cXFsnzQ4gdd1gzGAm5BXJP8PDwTb2NY6JptTs1L55RJrOLsQq4QbiZnss5ALGhye9kQnp1hALdyWIy55VrSilMXPZF2CIGYaAOWzenF/uc1jmKesCJcQ4UqdVKbUOtLkzjssh8fCLDJ80j71RYDIwfN8FJTaQeVSUvtMH6f1Mls4AARjMf852FYsDnKkPjKV43lQawMcAxTQDmlBtsowJUS7IM1N/SBET4xADRmPUgRXtsRW3RhOdGw7dg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=u0Uk2SwNOyu6ZxtKcLuiJZoF3a1vDmMnOL14CVEfxfs=;
- b=l+LjzyCr9iGWpvj6VvvTb74Lr0dcNaaoTYspjqqsjRy1sIaKYqRrLok22sph5fnTmjCJVxRnmVbFiZ4n6RuIWNb1J+6qOSsbioE1fMTDE4yMtLH1s2s748554Me90htVzgTppqvANBp9C20n5u5csgDOt4759qRTvmuOUV6MbwOroWf2GI6xgg3xBTlmphnhh3z64d1EqUpEeNXmEt8/JpI4GebifCWmzX8Q8ti5fq8WwCi7bHVWXaCielKW5fqA08RyATxUWJ8SbJWguGUjN0hczPkl8faHOOECzSN2mZRlY3AIFMdW5Q7N4DUOIuUTbXbqy7Jpm18sPLmGZqsFfQ==
+ bh=Y+7IscvhUZj8/JgUgTQRqK5pwqwTaSdwn71ra60cQpg=;
+ b=GZ5hV82Td+nLE4WXjRiU/4YkN9lZPKC4FUvMFwkq1OFscb6XTkbrH8Dj81+Ex9xAP4cqwHiYsC4jm0Ezo0gnqf18cpT5JGsAqsMdQy3J/I+6qOPxKQc6T8FSFpqLIoNQ6fRa+LCOOM1+OdYHAhzJiUBNLtIN9kadIiEKzloaRH0AGxwMhT+qtRIeKVnRSZ5JLH1XvyFnFlOq1rqn9UlsvlV5TfLLdpPsL8lt2wnTJl9ealPRMUbTJUQ/F7Cql6l0tB/LHfLbuHRIyWUnZv9PAzLkZTL3c7wW29lbIzBvkoyYQx/3HseId/Sf1MoEQZ82qAtwBWdTFpIK7TIqPKR4aw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-Received: from DM6PR12MB3209.namprd12.prod.outlook.com (20.179.105.33) by
- DM6PR12MB2764.namprd12.prod.outlook.com (20.176.116.30) with Microsoft SMTP
+ smtp.mailfrom=mellanox.com; dmarc=pass action=none header.from=mellanox.com;
+ dkim=pass header.d=mellanox.com; arc=none
+Received: from VI1PR05MB4141.eurprd05.prod.outlook.com (52.133.14.15) by
+ VI1PR05MB4973.eurprd05.prod.outlook.com (20.177.52.18) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2387.22; Mon, 4 Nov 2019 20:47:22 +0000
-Received: from DM6PR12MB3209.namprd12.prod.outlook.com
- ([fe80::55f2:726e:999c:7e09]) by DM6PR12MB3209.namprd12.prod.outlook.com
- ([fe80::55f2:726e:999c:7e09%5]) with mapi id 15.20.2408.024; Mon, 4 Nov 2019
- 20:47:22 +0000
-From: "Olsak, Marek" <Marek.Olsak@amd.com>
-To: "Zhu, Changfeng" <Changfeng.Zhu@amd.com>, "Cui, Flora"
- <Flora.Cui@amd.com>, brahma_sw_dev <brahma_sw_dev@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Subject: Re: enable dispatch/draw tests for renoir
-Thread-Topic: enable dispatch/draw tests for renoir
-Thread-Index: AdWSw7GK0JE71IjRTyi8wkFIW/O8egAC/XGgAANzMJAAHOPEuw==
-Date: Mon, 4 Nov 2019 20:47:22 +0000
-Message-ID:
- <DM6PR12MB32092334B0641855B23E119BF97F0@DM6PR12MB3209.namprd12.prod.outlook.com>
-References: <MN2PR12MB2896FFB89D75369FBFADF7B8FD7F0@MN2PR12MB2896.namprd12.prod.outlook.com>
- <MN2PR12MB331266B0D149CE141977414DFA7F0@MN2PR12MB3312.namprd12.prod.outlook.com>,
- <MN2PR12MB289663A2B6D972B2FBADB261FD7F0@MN2PR12MB2896.namprd12.prod.outlook.com>
-In-Reply-To: <MN2PR12MB289663A2B6D972B2FBADB261FD7F0@MN2PR12MB2896.namprd12.prod.outlook.com>
-Accept-Language: en-CA, en-US
-Content-Language: en-CA
+ 15.20.2408.24; Tue, 5 Nov 2019 02:31:12 +0000
+Received: from VI1PR05MB4141.eurprd05.prod.outlook.com
+ ([fe80::b179:e8bf:22d4:bf8d]) by VI1PR05MB4141.eurprd05.prod.outlook.com
+ ([fe80::b179:e8bf:22d4:bf8d%5]) with mapi id 15.20.2408.024; Tue, 5 Nov 2019
+ 02:31:12 +0000
+From: Jason Gunthorpe <jgg@mellanox.com>
+To: Boris Ostrovsky <boris.ostrovsky@oracle.com>
+Subject: Re: [PATCH v2 09/15] xen/gntdev: use mmu_range_notifier_insert
+Thread-Topic: [PATCH v2 09/15] xen/gntdev: use mmu_range_notifier_insert
+Thread-Index: AQHVjcvKV253DVP8r0WB5NYgPgZcBad7m8uAgABKxgA=
+Date: Tue, 5 Nov 2019 02:31:12 +0000
+Message-ID: <20191105023108.GN22766@mellanox.com>
+References: <20191028201032.6352-1-jgg@ziepe.ca>
+ <20191028201032.6352-10-jgg@ziepe.ca>
+ <3938b588-c6c5-3bd1-8ea9-47e4d5b2045c@oracle.com>
+In-Reply-To: <3938b588-c6c5-3bd1-8ea9-47e4d5b2045c@oracle.com>
+Accept-Language: en-US
+Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-x-originating-ip: [165.204.55.251]
+x-clientproxiedby: MN2PR05CA0023.namprd05.prod.outlook.com
+ (2603:10b6:208:c0::36) To VI1PR05MB4141.eurprd05.prod.outlook.com
+ (2603:10a6:803:44::15)
+x-ms-exchange-messagesentrepresentingtype: 1
+x-originating-ip: [142.162.113.180]
 x-ms-publictraffictype: Email
 x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: 3ba9e3c7-f1eb-4715-9d43-08d761683153
-x-ms-traffictypediagnostic: DM6PR12MB2764:
-x-ld-processed: 3dd8961f-e488-4e60-8e11-a82d994e183d,ExtAddr
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <DM6PR12MB2764503E85E0E594A02CF521F97F0@DM6PR12MB2764.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:565;
-x-forefront-prvs: 0211965D06
+x-ms-office365-filtering-correlation-id: a5aff1ba-e389-4613-96b3-08d761983919
+x-ms-traffictypediagnostic: VI1PR05MB4973:
+x-microsoft-antispam-prvs: <VI1PR05MB4973FE948FB772C4420372EFCF7E0@VI1PR05MB4973.eurprd05.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:9508;
+x-forefront-prvs: 0212BDE3BE
 x-forefront-antispam-report: SFV:NSPM;
- SFS:(10009020)(4636009)(39860400002)(346002)(396003)(136003)(366004)(376002)(199004)(189003)(7736002)(54906003)(11346002)(64756008)(446003)(7696005)(476003)(81156014)(110136005)(14454004)(66066001)(8936002)(9686003)(55016002)(26005)(76116006)(236005)(54896002)(91956017)(105004)(6246003)(256004)(6436002)(53546011)(6506007)(33656002)(5660300002)(19627405001)(66446008)(3846002)(102836004)(6116002)(186003)(2906002)(316002)(81166006)(71190400001)(86362001)(25786009)(76176011)(99286004)(52536014)(66946007)(66476007)(229853002)(4326008)(478600001)(19627235002)(2501003)(486006)(74316002)(71200400001)(8676002)(66556008);
- DIR:OUT; SFP:1101; SCL:1; SRVR:DM6PR12MB2764;
- H:DM6PR12MB3209.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; A:1; MX:1; 
-received-spf: None (protection.outlook.com: amd.com does not designate
+ SFS:(10009020)(4636009)(396003)(39860400002)(136003)(366004)(346002)(376002)(189003)(199004)(36756003)(6486002)(256004)(52116002)(486006)(14444005)(478600001)(86362001)(14454004)(186003)(305945005)(7416002)(2906002)(102836004)(7736002)(6116002)(26005)(66476007)(66556008)(66446008)(64756008)(66946007)(76176011)(11346002)(99286004)(71190400001)(316002)(2616005)(71200400001)(8936002)(6436002)(33656002)(3846002)(25786009)(6916009)(6506007)(53546011)(386003)(66066001)(6512007)(81166006)(446003)(229853002)(54906003)(4326008)(81156014)(6246003)(5660300002)(1076003)(476003)(8676002);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:VI1PR05MB4973;
+ H:VI1PR05MB4141.eurprd05.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; MX:1; A:1; 
+received-spf: None (protection.outlook.com: mellanox.com does not designate
  permitted sender hosts)
 x-ms-exchange-senderadcheck: 1
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: xBTuURZUejIsMvnatbrh9SnyJI1In6fM/1BC8aFm64MHxDFQis1IslEHAUDHjb1HtbJYzk8u6ZIIm6dErfLODh1LnQBYiMqYGzsqzz9JxPof16uoQCsq/+++9lkDomMIBMEumc3ZUKVopDYX4UkhZNajxAML3TP7OeVOZT2jInMGNwGqTmWcbJFdUsvvPvPIcKdFMaCXwNO+RK6Z7BceATgGRRRBVZi2NIKpdTSp8GUbOnC80HSkiYHMmb4RkLj7wlrIgfNPO+yq/VvJt+Juy966YI6LsHhWFMNvUHfd962z4gMvC3gMZCFO5W7R82wDU9G1tQQqpcJCc7KByPC9AHkIHAZ5NiE3duggouqLgmSGUaBUO8pLo5aEd+IuFhnqIiS0Y/ZQJSOs3BoEez1qiwYAgEPci52fl4L0umjLjZQPbfVRXtKbL2acrd1isojs
+x-microsoft-antispam-message-info: vBZ0Z2NhVzsjJAe7Kq9mS/lVT87prjRY2DebHQtJLF8qghumsbIK3H9j8SO5o9fRUHiDj4VrpWRspleFcQEM/exPW99z+IuP8gqlla+63kdrBW88TKbquJmgA6qGVWIPYh9wMiekbatqIReFH3LF66Qg20Oo26z+uEoyRtEdqPvPRoNgTV3Pd6hqVMX4MdMBlFJpshWk0Z8fucylMQgeAUbEZ46pUaaz1mXI430lroI5SQ3jYp/3WvSgOr9aLqwFg8Hhvig3+KCaaS5G++dwOVy4/xNG/Swl4kR5pVVDkbD2VlNVK8NjsBFRMPfuFdClo/rob/sGbRw6HbEn/mhc7rylSKwPO2pVON6XMKiPL7VWwbM36Hs00yub8qItDx8QrLh06/VvDEkaQgAPe3It7rfei9KmuGwOlFIxkYQDqQnfppA1iusicblqmMJldO24
+x-ms-exchange-transport-forked: True
+Content-ID: <27A5E315F0FBE349AC48D47C02A20B09@eurprd05.prod.outlook.com>
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3ba9e3c7-f1eb-4715-9d43-08d761683153
-X-MS-Exchange-CrossTenant-originalarrivaltime: 04 Nov 2019 20:47:22.6661 (UTC)
+X-OriginatorOrg: Mellanox.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a5aff1ba-e389-4613-96b3-08d761983919
+X-MS-Exchange-CrossTenant-originalarrivaltime: 05 Nov 2019 02:31:12.3841 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-id: a652971c-7d2e-4d9b-a6a4-d149256f461b
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: V5Ts0oMmu+3ErgMTstyuqV4mDEIJPivERthGaFGcirbNB7Pv/iGtnUhAoAFdsTJA
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB2764
-X-Mailman-Approved-At: Tue, 05 Nov 2019 12:43:46 +0000
+X-MS-Exchange-CrossTenant-userprincipalname: x4a6UsdCOfg0iur9gbQw05+LLww53hTdCx+jkPZ/cAoDUgl4GRRDrh+zIq3jbBkkF7kv+st9bYwT7/EoofKpRg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR05MB4973
+X-Mailman-Approved-At: Tue, 05 Nov 2019 12:43:47 +0000
 X-Mailman-Original-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ d=Mellanox.com; s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=u0Uk2SwNOyu6ZxtKcLuiJZoF3a1vDmMnOL14CVEfxfs=;
- b=Vt+QfVviRWwjfRMwvV6BZGZpZPkKCx79kVAOkD/tnUdKYoM1UFQxIq62ki5I8DHgUEAJEkVMagTvtnHxndErdKyYS9iPE7M0HZqNjYpVd+PsWjqc30A2EzM8SEqp4NEl0J9pL4bI6BdyoJIFeiEgwr0HHCQKOq5kBr/EWCQZNWo=
+ bh=Y+7IscvhUZj8/JgUgTQRqK5pwqwTaSdwn71ra60cQpg=;
+ b=gngE79Bvs6Y7fWPbu2HwcUVZXIRq+STpf3YQMv6nnYymT/BpwH991WBvAH3txZKcL2qiSyKK7iokps6gruyEskBHs+G68r4Y7WYvM2J8qUwCuYacdFwMx4j/Rsre1M4Oz19ZpuimvqIII12/PGfhl5Sn5V2sKpby2C8EVxA1wU4=
 X-Mailman-Original-Authentication-Results: spf=none (sender IP is )
- smtp.mailfrom=Marek.Olsak@amd.com; 
+ smtp.mailfrom=jgg@mellanox.com; 
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -107,516 +109,53 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Huang,
- Shimmer" <Xinmei.Huang@amd.com>, "Huang, Ray" <Ray.Huang@amd.com>, "Liu,
- Aaron" <Aaron.Liu@amd.com>, "Zhang, Hawking" <Hawking.Zhang@amd.com>
-Content-Type: multipart/mixed; boundary="===============0977274414=="
+Cc: Juergen Gross <jgross@suse.com>, David Zhou <David1.Zhou@amd.com>,
+ Ralph Campbell <rcampbell@nvidia.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
+ "linux-rdma@vger.kernel.org" <linux-rdma@vger.kernel.org>,
+ John Hubbard <jhubbard@nvidia.com>,
+ "Felix.Kuehling@amd.com" <Felix.Kuehling@amd.com>,
+ Mike Marciniszyn <mike.marciniszyn@intel.com>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ Christoph Hellwig <hch@infradead.org>,
+ "linux-mm@kvack.org" <linux-mm@kvack.org>, Jerome Glisse <jglisse@redhat.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "nouveau@lists.freedesktop.org" <nouveau@lists.freedesktop.org>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Dennis Dalessandro <dennis.dalessandro@intel.com>,
+ Petr Cvek <petrcvekcz@gmail.com>,
+ =?iso-8859-1?Q?Christian_K=F6nig?= <christian.koenig@amd.com>,
+ Ben Skeggs <bskeggs@redhat.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-Message-ID: <20191104204722.Mebm0NKT_-b9-EhNy8Zmf4SDzDKY1AOeINlItqsDAQY@z>
-
---===============0977274414==
-Content-Language: en-CA
-Content-Type: multipart/alternative;
-	boundary="_000_DM6PR12MB32092334B0641855B23E119BF97F0DM6PR12MB3209namp_"
-
---_000_DM6PR12MB32092334B0641855B23E119BF97F0DM6PR12MB3209namp_
-Content-Type: text/plain; charset="Windows-1252"
-Content-Transfer-Encoding: quoted-printable
-
-Reviewed-by: Marek Ol=9A=E1k <marek.olsak@amd.com>
-
-Marek
-________________________________
-From: Zhu, Changfeng <Changfeng.Zhu@amd.com>
-Sent: November 4, 2019 02:07
-To: Cui, Flora <Flora.Cui@amd.com>; brahma_sw_dev <brahma_sw_dev@amd.com>; =
-amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
-Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Liu, Aaron <Aaron.Liu@a=
-md.com>; Zhang, Hawking <Hawking.Zhang@amd.com>; Huang, Ray <Ray.Huang@amd.=
-com>; Huang, Shimmer <Xinmei.Huang@amd.com>; Deucher, Alexander <Alexander.=
-Deucher@amd.com>; Olsak, Marek <Marek.Olsak@amd.com>
-Subject: RE: enable dispatch/draw tests for renoir
-
-
-Thanks for review, Flora.
-
-
-
-Hi Alex & Marek,
-
-
-
-Here is a libdrm patch for Renoir dispatch/draw tests.
-
-
-
-Could you please help review it? It needs to be upstream.
-
-
-
-BR,
-
-Changfeng.
-
-
-
-From: Cui, Flora <Flora.Cui@amd.com>
-Sent: Monday, November 4, 2019 1:21 PM
-To: Zhu, Changfeng <Changfeng.Zhu@amd.com>; brahma_sw_dev <brahma_sw_dev@am=
-d.com>
-Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Liu, Aaron <Aaron.Liu@a=
-md.com>; Zhang, Hawking <Hawking.Zhang@amd.com>; Huang, Ray <Ray.Huang@amd.=
-com>; Huang, Shimmer <Xinmei.Huang@amd.com>
-Subject: RE: enable dispatch/draw tests for renoir
-
-
-
-Good catch. rb
-
-
-
-From: Zhu, Changfeng <Changfeng.Zhu@amd.com<mailto:Changfeng.Zhu@amd.com>>
-Sent: Monday, November 4, 2019 11:59 AM
-To: brahma_sw_dev <brahma_sw_dev@amd.com<mailto:brahma_sw_dev@amd.com>>
-Cc: Deucher, Alexander <Alexander.Deucher@amd.com<mailto:Alexander.Deucher@=
-amd.com>>; Liu, Aaron <Aaron.Liu@amd.com<mailto:Aaron.Liu@amd.com>>; Cui, F=
-lora <Flora.Cui@amd.com<mailto:Flora.Cui@amd.com>>; Zhang, Hawking <Hawking=
-.Zhang@amd.com<mailto:Hawking.Zhang@amd.com>>; Huang, Ray <Ray.Huang@amd.co=
-m<mailto:Ray.Huang@amd.com>>; Huang, Shimmer <Xinmei.Huang@amd.com<mailto:X=
-inmei.Huang@amd.com>>
-Subject: enable dispatch/draw tests for renoir
-
-
-
-Hi Ray & Flora,
-
-
-
-It can run dispatch/draw tests on new Renoir chips. So we can take back dis=
-patch/draw tests for Renoir.
-
-
-
-Could you please help review this patch?
-
-
-
-From 793b7fd4dd1580f29e27bd2a90da787535abee14 Mon Sep 17 00:00:00 2001
-
-From: changzhu <Changfeng.Zhu@amd.com<mailto:Changfeng.Zhu@amd.com>>
-
-Date: Mon, 4 Nov 2019 11:48:19 +0800
-
-Subject: [PATCH libdrm] tests/amdgpu: enable dispatch/draw tests for Renoir
-
-
-
-It can run dispatch/draw tests on new renoir chips. So it needs to
-
-enable dispatch/draw tests for Renoir again.
-
-
-
-Change-Id: I3a72a4bbfe0fc663ee0e3e58d8e9c304f513e568
-
-Signed-off-by: changzhu <Changfeng.Zhu@amd.com<mailto:Changfeng.Zhu@amd.com=
->>
-
----
-
-tests/amdgpu/basic_tests.c | 16 +---------------
-
-1 file changed, 1 insertion(+), 15 deletions(-)
-
-
-
-diff --git a/tests/amdgpu/basic_tests.c b/tests/amdgpu/basic_tests.c
-
-index e75b9d0d..a57dcbb4 100644
-
---- a/tests/amdgpu/basic_tests.c
-
-+++ b/tests/amdgpu/basic_tests.c
-
-@@ -592,20 +592,6 @@ int suite_basic_tests_init(void)
-
-
-
-              family_id =3D gpu_info.family_id;
-
-
-
--             if (gpu_info.asic_id =3D=3D 0x1636) {
-
--                           if (amdgpu_set_test_active("Basic Tests",
-
--                                                                          =
-"Dispatch Test",
-
--                                                                          =
-CU_FALSE))
-
--                                          fprintf(stderr, "test deactivati=
-on failed - %s\n",
-
--                                                        CU_get_error_msg()=
-);
-
--
-
--                           if (amdgpu_set_test_active("Basic Tests",
-
--                                                                          =
-"Draw Test",
-
--                                                                          =
-CU_FALSE))
-
--                                          fprintf(stderr, "test deactivati=
-on failed - %s\n",
-
--                                                        CU_get_error_msg()=
-);
-
--             }
-
--
-
-             return CUE_SUCCESS;
-
-}
-
-
-
-@@ -2992,7 +2978,7 @@ void amdgpu_memset_draw(amdgpu_device_handle device_h=
-andle,
-
-             resources[1] =3D bo_shader_ps;
-
-             resources[2] =3D bo_shader_vs;
-
-             resources[3] =3D bo_cmd;
-
--             r =3D amdgpu_bo_list_create(device_handle, 3, resources, NULL=
-, &bo_list);
-
-+            r =3D amdgpu_bo_list_create(device_handle, 4, resources, NULL,=
- &bo_list);
-
-             CU_ASSERT_EQUAL(r, 0);
-
-
-
-              ib_info.ib_mc_address =3D mc_address_cmd;
-
---
-
-2.17.1
-
-
-
-
-
-BR,
-
-Changfeng.
-
---_000_DM6PR12MB32092334B0641855B23E119BF97F0DM6PR12MB3209namp_
-Content-Type: text/html; charset="Windows-1252"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3DWindows-1=
-252">
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Reviewed-by: Marek Ol=9A=E1k &lt;marek.olsak@amd.com&gt;</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Marek<br>
-</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Zhu, Changfeng &lt;Ch=
-angfeng.Zhu@amd.com&gt;<br>
-<b>Sent:</b> November 4, 2019 02:07<br>
-<b>To:</b> Cui, Flora &lt;Flora.Cui@amd.com&gt;; brahma_sw_dev &lt;brahma_s=
-w_dev@amd.com&gt;; amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesk=
-top.org&gt;<br>
-<b>Cc:</b> Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;; Liu, Aaron=
- &lt;Aaron.Liu@amd.com&gt;; Zhang, Hawking &lt;Hawking.Zhang@amd.com&gt;; H=
-uang, Ray &lt;Ray.Huang@amd.com&gt;; Huang, Shimmer &lt;Xinmei.Huang@amd.co=
-m&gt;; Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;; Olsak,
- Marek &lt;Marek.Olsak@amd.com&gt;<br>
-<b>Subject:</b> RE: enable dispatch/draw tests for renoir</font>
-<div>&nbsp;</div>
-</div>
-<style>
-<!--
-@font-face
-	{font-family:"Cambria Math"}
-@font-face
-	{font-family:DengXian}
-@font-face
-	{font-family:Calibri}
-@font-face
-	{}
-p.x_MsoNormal, li.x_MsoNormal, div.x_MsoNormal
-	{margin:0in;
-	margin-bottom:.0001pt;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif}
-p.x_MsoDate, li.x_MsoDate, div.x_MsoDate
-	{margin:0in;
-	margin-bottom:.0001pt;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif}
-a:link, span.x_MsoHyperlink
-	{color:#0563C1;
-	text-decoration:underline}
-a:visited, span.x_MsoHyperlinkFollowed
-	{color:#954F72;
-	text-decoration:underline}
-p.x_msonormal0, li.x_msonormal0, div.x_msonormal0
-	{margin-right:0in;
-	margin-left:0in;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif}
-span.x_DateChar
-	{}
-span.x_EmailStyle20
-	{font-family:"Calibri",sans-serif;
-	color:windowtext}
-span.x_EmailStyle21
-	{font-family:"Calibri",sans-serif;
-	color:windowtext}
-span.x_EmailStyle22
-	{font-family:"Calibri",sans-serif;
-	color:windowtext}
-span.x_EmailStyle23
-	{font-family:"Calibri",sans-serif;
-	color:windowtext}
-.x_MsoChpDefault
-	{font-size:10.0pt}
-@page WordSection1
-	{margin:1.0in 1.0in 1.0in 1.0in}
-div.x_WordSection1
-	{}
--->
-</style>
-<div lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72">
-<div class=3D"x_WordSection1">
-<p class=3D"x_MsoNormal">Thanks for review, Flora.</p>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-<p class=3D"x_MsoNormal">Hi Alex &amp; Marek,</p>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-<p class=3D"x_MsoNormal">Here is a libdrm patch for Renoir dispatch/draw te=
-sts.</p>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-<p class=3D"x_MsoNormal">Could you please help review it? It needs to be up=
-stream.</p>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-<p class=3D"x_MsoNormal">BR,</p>
-<p class=3D"x_MsoNormal">Changfeng.</p>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-<div>
-<div style=3D"border:none; border-top:solid #E1E1E1 1.0pt; padding:3.0pt 0i=
-n 0in 0in">
-<p class=3D"x_MsoNormal"><b>From:</b> Cui, Flora &lt;Flora.Cui@amd.com&gt; =
-<br>
-<b>Sent:</b> Monday, November 4, 2019 1:21 PM<br>
-<b>To:</b> Zhu, Changfeng &lt;Changfeng.Zhu@amd.com&gt;; brahma_sw_dev &lt;=
-brahma_sw_dev@amd.com&gt;<br>
-<b>Cc:</b> Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;; Liu, Aaron=
- &lt;Aaron.Liu@amd.com&gt;; Zhang, Hawking &lt;Hawking.Zhang@amd.com&gt;; H=
-uang, Ray &lt;Ray.Huang@amd.com&gt;; Huang, Shimmer &lt;Xinmei.Huang@amd.co=
-m&gt;<br>
-<b>Subject:</b> RE: enable dispatch/draw tests for renoir</p>
-</div>
-</div>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-<p class=3D"x_MsoNormal">Good catch. rb</p>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-<div>
-<div style=3D"border:none; border-top:solid #E1E1E1 1.0pt; padding:3.0pt 0i=
-n 0in 0in">
-<p class=3D"x_MsoNormal"><b>From:</b> Zhu, Changfeng &lt;<a href=3D"mailto:=
-Changfeng.Zhu@amd.com">Changfeng.Zhu@amd.com</a>&gt;
-<br>
-<b>Sent:</b> Monday, November 4, 2019 11:59 AM<br>
-<b>To:</b> brahma_sw_dev &lt;<a href=3D"mailto:brahma_sw_dev@amd.com">brahm=
-a_sw_dev@amd.com</a>&gt;<br>
-<b>Cc:</b> Deucher, Alexander &lt;<a href=3D"mailto:Alexander.Deucher@amd.c=
-om">Alexander.Deucher@amd.com</a>&gt;; Liu, Aaron &lt;<a href=3D"mailto:Aar=
-on.Liu@amd.com">Aaron.Liu@amd.com</a>&gt;; Cui, Flora &lt;<a href=3D"mailto=
-:Flora.Cui@amd.com">Flora.Cui@amd.com</a>&gt;; Zhang, Hawking
- &lt;<a href=3D"mailto:Hawking.Zhang@amd.com">Hawking.Zhang@amd.com</a>&gt;=
-; Huang, Ray &lt;<a href=3D"mailto:Ray.Huang@amd.com">Ray.Huang@amd.com</a>=
-&gt;; Huang, Shimmer &lt;<a href=3D"mailto:Xinmei.Huang@amd.com">Xinmei.Hua=
-ng@amd.com</a>&gt;<br>
-<b>Subject:</b> enable dispatch/draw tests for renoir</p>
-</div>
-</div>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-<p class=3D"x_MsoNormal">Hi Ray &amp; Flora,</p>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-<p class=3D"x_MsoNormal">It can run dispatch/draw tests on new Renoir chips=
-. So we can take back dispatch/draw tests for Renoir.</p>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-<p class=3D"x_MsoNormal">Could you please help review this patch?</p>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-<p class=3D"x_MsoNormal">From 793b7fd4dd1580f29e27bd2a90da787535abee14 Mon =
-Sep 17 00:00:00 2001</p>
-<p class=3D"x_MsoNormal">From: changzhu &lt;<a href=3D"mailto:Changfeng.Zhu=
-@amd.com">Changfeng.Zhu@amd.com</a>&gt;</p>
-<p class=3D"x_MsoNormal">Date: Mon, 4 Nov 2019 11:48:19 &#43;0800</p>
-<p class=3D"x_MsoNormal">Subject: [PATCH libdrm] tests/amdgpu: enable dispa=
-tch/draw tests for Renoir</p>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-<p class=3D"x_MsoNormal">It can run dispatch/draw tests on new renoir chips=
-. So it needs to</p>
-<p class=3D"x_MsoNormal">enable dispatch/draw tests for Renoir again.</p>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-<p class=3D"x_MsoNormal">Change-Id: I3a72a4bbfe0fc663ee0e3e58d8e9c304f513e5=
-68</p>
-<p class=3D"x_MsoNormal">Signed-off-by: changzhu &lt;<a href=3D"mailto:Chan=
-gfeng.Zhu@amd.com">Changfeng.Zhu@amd.com</a>&gt;</p>
-<p class=3D"x_MsoNormal">---</p>
-<p class=3D"x_MsoNormal">tests/amdgpu/basic_tests.c | 16 &#43;-------------=
---</p>
-<p class=3D"x_MsoNormal">1 file changed, 1 insertion(&#43;), 15 deletions(-=
-)</p>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-<p class=3D"x_MsoNormal">diff --git a/tests/amdgpu/basic_tests.c b/tests/am=
-dgpu/basic_tests.c</p>
-<p class=3D"x_MsoNormal">index e75b9d0d..a57dcbb4 100644</p>
-<p class=3D"x_MsoNormal">--- a/tests/amdgpu/basic_tests.c</p>
-<p class=3D"x_MsoNormal">&#43;&#43;&#43; b/tests/amdgpu/basic_tests.c</p>
-<p class=3D"x_MsoNormal">@@ -592,20 &#43;592,6 @@ int suite_basic_tests_ini=
-t(void)</p>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-<p class=3D"x_MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp; family_id =3D gpu_info.family_id;</p>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-<p class=3D"x_MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp; if (gpu_info.asic_id =3D=3D 0x1636) {</p>
-<p class=3D"x_MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_set_test_active(&quot;Basic Tes=
-ts&quot;,</p>
-<p class=3D"x_MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nb=
-sp;&nbsp; &quot;Dispatch Test&quot;,</p>
-<p class=3D"x_MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nb=
-sp;&nbsp; CU_FALSE))</p>
-<p class=3D"x_MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; fprintf(stderr, &quot;test =
-deactivation failed - %s\n&quot;,</p>
-<p class=3D"x_MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; CU_get_error_msg()=
-);</p>
-<p class=3D"x_MsoNormal">-</p>
-<p class=3D"x_MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_set_test_active(&quot;Basic Tes=
-ts&quot;,</p>
-<p class=3D"x_MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nb=
-sp;&nbsp; &quot;Draw Test&quot;,</p>
-<p class=3D"x_MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nb=
-sp;&nbsp; CU_FALSE))</p>
-<p class=3D"x_MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; fprintf(stderr, &quot;test =
-deactivation failed - %s\n&quot;,</p>
-<p class=3D"x_MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; CU_get_error_msg()=
-);</p>
-<p class=3D"x_MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp; }</p>
-<p class=3D"x_MsoNormal">-</p>
-<p class=3D"x_MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp; return CUE_SUCCESS;</p>
-<p class=3D"x_MsoNormal">}</p>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-<p class=3D"x_MsoNormal">@@ -2992,7 &#43;2978,7 @@ void amdgpu_memset_draw(=
-amdgpu_device_handle device_handle,</p>
-<p class=3D"x_MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp; resources[1] =3D bo_shader_ps;</p>
-<p class=3D"x_MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp; resources[2] =3D bo_shader_vs;</p>
-<p class=3D"x_MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp; resources[3] =3D bo_cmd;</p>
-<p class=3D"x_MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_bo_list_create(device_handle, 3, resou=
-rces, NULL, &amp;bo_list);</p>
-<p class=3D"x_MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_bo_list_create(device_handle, 4, resourc=
-es, NULL, &amp;bo_list);</p>
-<p class=3D"x_MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp; CU_ASSERT_EQUAL(r, 0);</p>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-<p class=3D"x_MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp; ib_info.ib_mc_address =3D mc_address_cmd;</p>
-<p class=3D"x_MsoNormal">-- </p>
-<p class=3D"x_MsoNormal">2.17.1</p>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-<p class=3D"x_MsoNormal">BR,</p>
-<p class=3D"x_MsoNormal">Changfeng.</p>
-</div>
-</div>
-</body>
-</html>
-
---_000_DM6PR12MB32092334B0641855B23E119BF97F0DM6PR12MB3209namp_--
-
---===============0977274414==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
-
---===============0977274414==--
+Message-ID: <20191105023112.lOxbQY1HNgCp8lSvR4Vl4OXQykcaoMuafopqUtFbUmE@z>
+
+T24gTW9uLCBOb3YgMDQsIDIwMTkgYXQgMDU6MDM6MzFQTSAtMDUwMCwgQm9yaXMgT3N0cm92c2t5
+IHdyb3RlOgo+IE9uIDEwLzI4LzE5IDQ6MTAgUE0sIEphc29uIEd1bnRob3JwZSB3cm90ZToKPiA+
+IEBAIC00NDUsMTcgKzQzOCw5IEBAIHN0YXRpYyB2b2lkIGdudGRldl92bWFfY2xvc2Uoc3RydWN0
+IHZtX2FyZWFfc3RydWN0ICp2bWEpCj4gPiAgCXN0cnVjdCBnbnRkZXZfcHJpdiAqcHJpdiA9IGZp
+bGUtPnByaXZhdGVfZGF0YTsKPiA+ICAKPiA+ICAJcHJfZGVidWcoImdudGRldl92bWFfY2xvc2Ug
+JXBcbiIsIHZtYSk7Cj4gPiAtCWlmICh1c2VfcHRlbW9kKSB7Cj4gPiAtCQkvKiBJdCBpcyBwb3Nz
+aWJsZSB0aGF0IGFuIG1tdSBub3RpZmllciBjb3VsZCBiZSBydW5uaW5nCj4gPiAtCQkgKiBjb25j
+dXJyZW50bHksIHNvIHRha2UgcHJpdi0+bG9jayB0byBlbnN1cmUgdGhhdCB0aGUgdm1hIHdvbid0
+Cj4gPiAtCQkgKiB2YW5pc2hpbmcgZHVyaW5nIHRoZSB1bm1hcF9ncmFudF9wYWdlcyBjYWxsLCBz
+aW5jZSB3ZSB3aWxsCj4gPiAtCQkgKiBzcGluIGhlcmUgdW50aWwgdGhhdCBjb21wbGV0ZXMuIFN1
+Y2ggYSBjb25jdXJyZW50IGNhbGwgd2lsbAo+ID4gLQkJICogbm90IGRvIGFueSB1bm1hcHBpbmcs
+IHNpbmNlIHRoYXQgaGFzIGJlZW4gZG9uZSBwcmlvciB0bwo+ID4gLQkJICogY2xvc2luZyB0aGUg
+dm1hLCBidXQgaXQgbWF5IHN0aWxsIGl0ZXJhdGUgdGhlIHVubWFwX29wcyBsaXN0Lgo+ID4gLQkJ
+ICovCj4gPiAtCQltdXRleF9sb2NrKCZwcml2LT5sb2NrKTsKPiA+ICsJaWYgKHVzZV9wdGVtb2Qg
+JiYgbWFwLT52bWEgPT0gdm1hKSB7Cj4gCj4gCj4gSXMgaXQgcG9zc2libGUgZm9yIG1hcC0+dm1h
+IG5vdCB0byBiZSBlcXVhbCB0byB2bWE/CgpJdCBjb3VsZCBiZSBOVUxMIGF0IGxlYXN0IGlmIHVz
+ZV9wdGVtb2QgaXMgbm90IHNldC4KCk90aGVyd2lzZSwgSSdtIG5vdCBzdXJlLCB0aGUgY29uZnVz
+aW5nIGJpdCBpcyB0aGF0IHRoZSBtYXAgY29tZXMgZnJvbQpoZXJlOgoKICAgICAgICBtYXAgPSBn
+bnRkZXZfZmluZF9tYXBfaW5kZXgocHJpdiwgaW5kZXgsIGNvdW50KTsKCkl0IGxvb2tzIGxpa2Ug
+dGhlIGludGVudCBpcyB0aGF0IHRoZSBtYXAtPnZtYSBpcyBhbHdheXMgc2V0IHRvIHRoZQpvbmx5
+IHZtYSB0aGF0IGhhcyB0aGUgbWFwIGFzIHByaXZhdGVfZGF0YS4KClNvLCBJIHN1cHBvc2UgaXQg
+Y2FuIGJlIHJlbGF4ZWQgdG8gYSBudWxsIHRlc3QgYW5kIGEgV0FSTl9PTiB0aGF0IGl0Cmhhc24n
+dCBjaGFuZ2VkPwoKSmFzb24KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5v
+cmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
