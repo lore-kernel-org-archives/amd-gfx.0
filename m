@@ -1,46 +1,67 @@
-From: Raul E Rangel <rrangel@chromium.org>
-Subject: [PATCH] drm/amd/powerplay: fix struct init in renoir_print_clk_levels
-Date: Tue,  5 Nov 2019 15:58:02 -0700
-Message-ID: <20191105155734.1.If8740b4a5095031f2c00746fbc3224be9849d76b@changeid>
+From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu: change read of GPU clock counter on Vega10 VF
+Date: Tue, 5 Nov 2019 18:06:08 -0500
+Message-ID: <CADnq5_NDEXUD84z8srp8NNMNvDVwLNZsZUSek=U2hMwkDKxaNw@mail.gmail.com>
+References: <1572992808-20397-1-git-send-email-JinhuiEric.Huang@amd.com>
 Mime-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Sender: linux-kernel-owner@vger.kernel.org
-To: alexander.deucher@amd.com
-Cc: Raul E Rangel <rrangel@chromium.org>, David Airlie <airlied@linux.ie>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, Rex Zhu <rex.zhu@amd.com>, linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, Evan Quan <evan.quan@amd.com>, Daniel Vetter <daniel@ffwll.ch>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <1572992808-20397-1-git-send-email-JinhuiEric.Huang-5C7GfCeVMHo@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Huang, JinHuiEric" <JinHuiEric.Huang-5C7GfCeVMHo@public.gmane.org>
+Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-drivers/gpu/drm/amd/powerplay/renoir_ppt.c:186:2: error: missing braces
-around initializer [-Werror=missing-braces]
-  SmuMetrics_t metrics = {0};
-    ^
-
-Fixes: 8b8031703bd7 ("drm/amd/powerplay: implement sysfs for getting dpm clock")
-
-Signed-off-by: Raul E Rangel <rrangel@chromium.org>
----
-
- drivers/gpu/drm/amd/powerplay/renoir_ppt.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/powerplay/renoir_ppt.c b/drivers/gpu/drm/amd/powerplay/renoir_ppt.c
-index e62bfba51562..e5283dafc414 100644
---- a/drivers/gpu/drm/amd/powerplay/renoir_ppt.c
-+++ b/drivers/gpu/drm/amd/powerplay/renoir_ppt.c
-@@ -183,11 +183,13 @@ static int renoir_print_clk_levels(struct smu_context *smu,
- 	int i, size = 0, ret = 0;
- 	uint32_t cur_value = 0, value = 0, count = 0, min = 0, max = 0;
- 	DpmClocks_t *clk_table = smu->smu_table.clocks_table;
--	SmuMetrics_t metrics = {0};
-+	SmuMetrics_t metrics;
- 
- 	if (!clk_table || clk_type >= SMU_CLK_COUNT)
- 		return -EINVAL;
- 
-+	memset(&metrics, 0, sizeof(metrics));
-+
- 	ret = smu_update_table(smu, SMU_TABLE_SMU_METRICS, 0,
- 			       (void *)&metrics, false);
- 	if (ret)
--- 
-2.24.0.rc1.363.gb1bccd3e3d-goog
+T24gVHVlLCBOb3YgNSwgMjAxOSBhdCA1OjI2IFBNIEh1YW5nLCBKaW5IdWlFcmljCjxKaW5IdWlF
+cmljLkh1YW5nQGFtZC5jb20+IHdyb3RlOgo+Cj4gVXNpbmcgdW5pZmllZCBWQklPUyBoYXMgcGVy
+Zm9ybWFuY2UgZHJvcCBpbiBzcmlvdiBlbnZpcm9ubWVudC4KPiBUaGUgZml4IGlzIHN3aXRjaGlu
+ZyB0byBhbm90aGVyIHJlZ2lzdGVyIGluc3RlYWQuCj4KPiBTaWduZWQtb2ZmLWJ5OiBFcmljIEh1
+YW5nIDxKaW5odWlFcmljLkh1YW5nQGFtZC5jb20+Cj4gLS0tCj4gIGRyaXZlcnMvZ3B1L2RybS9h
+bWQvYW1kZ3B1L2dmeF92OV8wLmMgfCAxOSArKysrKysrKysrKysrKysrLS0tCj4gIDEgZmlsZSBj
+aGFuZ2VkLCAxNiBpbnNlcnRpb25zKCspLCAzIGRlbGV0aW9ucygtKQo+Cj4gZGlmZiAtLWdpdCBh
+L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92OV8wLmMgYi9kcml2ZXJzL2dwdS9kcm0v
+YW1kL2FtZGdwdS9nZnhfdjlfMC5jCj4gaW5kZXggODI5ZDYyMy4uZTQ0YTNlYSAxMDA2NDQKPiAt
+LS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjlfMC5jCj4gKysrIGIvZHJpdmVy
+cy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y5XzAuYwo+IEBAIC0zODg1LDkgKzM4ODUsMjIgQEAg
+c3RhdGljIHVpbnQ2NF90IGdmeF92OV8wX2dldF9ncHVfY2xvY2tfY291bnRlcihzdHJ1Y3QgYW1k
+Z3B1X2RldmljZSAqYWRldikKPiAgICAgICAgIHVpbnQ2NF90IGNsb2NrOwo+Cj4gICAgICAgICBt
+dXRleF9sb2NrKCZhZGV2LT5nZnguZ3B1X2Nsb2NrX211dGV4KTsKPiAtICAgICAgIFdSRUczMl9T
+T0MxNShHQywgMCwgbW1STENfQ0FQVFVSRV9HUFVfQ0xPQ0tfQ09VTlQsIDEpOwo+IC0gICAgICAg
+Y2xvY2sgPSAodWludDY0X3QpUlJFRzMyX1NPQzE1KEdDLCAwLCBtbVJMQ19HUFVfQ0xPQ0tfQ09V
+TlRfTFNCKSB8Cj4gLSAgICAgICAgICAgICAgICgodWludDY0X3QpUlJFRzMyX1NPQzE1KEdDLCAw
+LCBtbVJMQ19HUFVfQ0xPQ0tfQ09VTlRfTVNCKSA8PCAzMlVMTCk7Cj4gKyAgICAgICBpZiAoYWRl
+di0+YXNpY190eXBlID09IENISVBfVkVHQTEwICYmIGFtZGdwdV9zcmlvdl9ydW50aW1lKGFkZXYp
+KSB7Cj4gKyAgICAgICAgICAgICAgIHVpbnQzMl90IHRtcCwgbHNiLCBtc2IsIGkgPSAwOwo+ICsg
+ICAgICAgICAgICAgICBkbyB7Cj4gKyAgICAgICAgICAgICAgICAgICAgICAgaWYgKGkgIT0gMCkK
+PiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHVkZWxheSgxKTsKPiArICAgICAgICAg
+ICAgICAgICAgICAgICB0bXAgPSBSUkVHMzJfU09DMTUoR0MsIDAsIG1tUkxDX1JFRkNMT0NLX1RJ
+TUVTVEFNUF9NU0IpOwo+ICsgICAgICAgICAgICAgICAgICAgICAgIGxzYiA9IFJSRUczMl9TT0Mx
+NShHQywgMCwgbW1STENfUkVGQ0xPQ0tfVElNRVNUQU1QX0xTQik7Cj4gKyAgICAgICAgICAgICAg
+ICAgICAgICAgbXNiID0gUlJFRzMyX1NPQzE1KEdDLCAwLCBtbVJMQ19SRUZDTE9DS19USU1FU1RB
+TVBfTVNCKTsKPiArICAgICAgICAgICAgICAgICAgICAgICBpKys7Cj4gKyAgICAgICAgICAgICAg
+IH0gd2hpbGUgKHVubGlrZWx5KHRtcCAhPSBtc2IpICYmIChpIDwgYWRldi0+dXNlY190aW1lb3V0
+KSk7Cj4gKyAgICAgICAgICAgICAgIGNsb2NrID0gKHVpbnQ2NF90KWxzYiB8ICgodWludDY0X3Qp
+bXNiIDw8IDMyVUxMKTsKPiArICAgICAgIH0gZWxzZSB7Cj4gKyAgICAgICAgICAgICAgIFdSRUcz
+Ml9TT0MxNShHQywgMCwgbW1STENfQ0FQVFVSRV9HUFVfQ0xPQ0tfQ09VTlQsIDEpOwo+ICsgICAg
+ICAgICAgICAgICBjbG9jayA9ICh1aW50NjRfdClSUkVHMzJfU09DMTUoR0MsIDAsIG1tUkxDX0dQ
+VV9DTE9DS19DT1VOVF9MU0IpIHwKPiArICAgICAgICAgICAgICAgICAgICAgICAoKHVpbnQ2NF90
+KVJSRUczMl9TT0MxNShHQywgMCwgbW1STENfR1BVX0NMT0NLX0NPVU5UX01TQikgPDwgMzJVTEwp
+Owo+ICsgICAgICAgfQoKSXMgdGhlcmUgYSByZWFzb24gd2UgY2FuJ3QgdXNlIHRoZSBzYW1lIHJl
+Z3Mgb24gYmFyZSBtZXRhbCBhbmQgU1ItSU9WPwogSSdkIGxpa2UgdG8gbWluaW1pemUgdGhlIGRl
+bHRhcyBpZiBwb3NzaWJsZS4KCkFsZXgKCj4gICAgICAgICBtdXRleF91bmxvY2soJmFkZXYtPmdm
+eC5ncHVfY2xvY2tfbXV0ZXgpOwo+ICAgICAgICAgcmV0dXJuIGNsb2NrOwo+ICB9Cj4gLS0KPiAy
+LjcuNAo+Cj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18K
+PiBhbWQtZ2Z4IG1haWxpbmcgbGlzdAo+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4g
+aHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cl9f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFp
+bGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJl
+ZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
