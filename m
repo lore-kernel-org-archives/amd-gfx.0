@@ -1,532 +1,231 @@
-From: "Olsak, Marek" <Marek.Olsak-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: enable dispatch/draw tests for renoir
-Date: Mon, 4 Nov 2019 20:47:22 +0000
-Message-ID: <DM6PR12MB32092334B0641855B23E119BF97F0@DM6PR12MB3209.namprd12.prod.outlook.com>
-References: <MN2PR12MB2896FFB89D75369FBFADF7B8FD7F0@MN2PR12MB2896.namprd12.prod.outlook.com>
- <MN2PR12MB331266B0D149CE141977414DFA7F0@MN2PR12MB3312.namprd12.prod.outlook.com>,
- <MN2PR12MB289663A2B6D972B2FBADB261FD7F0@MN2PR12MB2896.namprd12.prod.outlook.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Subject: Re: drm/amd/display: Add HDCP module - static analysis bug report
+Date: Tue, 5 Nov 2019 07:51:53 -0500
+Message-ID: <CADnq5_NUAfeWscsnj07MpReM3LNwHPSPq3pQDe0waMi4OCatUg@mail.gmail.com>
+References: <951eb7dc-bebe-5049-4998-f199e18b0bf3@canonical.com>
+ <20191009163235.GT16989@phenom.ffwll.local> <a0d5f3a3-a2b3-5367-42f9-bde514571e25@amd.com>
+ <CAKMK7uEtJRDhibWDv2TB2WrFzFooMWPSbveDD2N-rudAwvzVFA@mail.gmail.com>
+ <c8f96b46-e81e-1e41-aafc-5f6ec236d66f@amd.com> <CAKMK7uHr3aeJRqJAscDDfsuBBnVXCeN9SS36-1UGuK84NyOD5Q@mail.gmail.com>
+ <CAKMK7uH6EoY9MkzjSjU+Fe=E-XB4Tf9d2VsW=Tr=tFy1J-dJgg@mail.gmail.com>
+ <53bf910b-5f9c-946b-17ee-602c24c0fa96@amd.com> <20191104165457.GH10326@phenom.ffwll.local>
+ <CADnq5_PxMQ_AkBCHXU_YUAMWaPcH-nkOJNGNKnUOJWSTYV6X+A@mail.gmail.com> <20191104172434.GJ10326@phenom.ffwll.local>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0977274414=="
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <MN2PR12MB289663A2B6D972B2FBADB261FD7F0-rweVpJHSKToIQ/pRnFqe/QdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
-Content-Language: en-CA
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Zhu, Changfeng" <Changfeng.Zhu-5C7GfCeVMHo@public.gmane.org>, "Cui, Flora" <Flora.Cui-5C7GfCeVMHo@public.gmane.org>, brahma_sw_dev <brahma_sw_dev-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Huang,
- Shimmer" <Xinmei.Huang-5C7GfCeVMHo@public.gmane.org>, "Huang, Ray" <Ray.Huang-5C7GfCeVMHo@public.gmane.org>, "Liu,
- Aaron" <Aaron.Liu-5C7GfCeVMHo@public.gmane.org>, "Zhang, Hawking" <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>
-
---===============0977274414==
-Content-Language: en-CA
-Content-Type: multipart/alternative;
-	boundary="_000_DM6PR12MB32092334B0641855B23E119BF97F0DM6PR12MB3209namp_"
-
---_000_DM6PR12MB32092334B0641855B23E119BF97F0DM6PR12MB3209namp_
-Content-Type: text/plain; charset="Windows-1252"
-Content-Transfer-Encoding: quoted-printable
-
-Reviewed-by: Marek Ol=9A=E1k <marek.olsak-5C7GfCeVMHo@public.gmane.org>
-
-Marek
-________________________________
-From: Zhu, Changfeng <Changfeng.Zhu-5C7GfCeVMHo@public.gmane.org>
-Sent: November 4, 2019 02:07
-To: Cui, Flora <Flora.Cui-5C7GfCeVMHo@public.gmane.org>; brahma_sw_dev <brahma_sw_dev-5C7GfCeVMHo@public.gmane.org>; =
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: Deucher, Alexander <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>; Liu, Aaron <Aaron.Liu@a=
-md.com>; Zhang, Hawking <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>; Huang, Ray <Ray.Huang@amd.=
-com>; Huang, Shimmer <Xinmei.Huang-5C7GfCeVMHo@public.gmane.org>; Deucher, Alexander <Alexander.=
-Deucher-5C7GfCeVMHo@public.gmane.org>; Olsak, Marek <Marek.Olsak-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: enable dispatch/draw tests for renoir
-
-
-Thanks for review, Flora.
-
-
-
-Hi Alex & Marek,
-
-
-
-Here is a libdrm patch for Renoir dispatch/draw tests.
-
-
-
-Could you please help review it? It needs to be upstream.
-
-
-
-BR,
-
-Changfeng.
-
-
-
-From: Cui, Flora <Flora.Cui-5C7GfCeVMHo@public.gmane.org>
-Sent: Monday, November 4, 2019 1:21 PM
-To: Zhu, Changfeng <Changfeng.Zhu-5C7GfCeVMHo@public.gmane.org>; brahma_sw_dev <brahma_sw_dev@am=
-d.com>
-Cc: Deucher, Alexander <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>; Liu, Aaron <Aaron.Liu@a=
-md.com>; Zhang, Hawking <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>; Huang, Ray <Ray.Huang@amd.=
-com>; Huang, Shimmer <Xinmei.Huang-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: enable dispatch/draw tests for renoir
-
-
-
-Good catch. rb
-
-
-
-From: Zhu, Changfeng <Changfeng.Zhu-5C7GfCeVMHo@public.gmane.org<mailto:Changfeng.Zhu-5C7GfCeVMHo@public.gmane.org>>
-Sent: Monday, November 4, 2019 11:59 AM
-To: brahma_sw_dev <brahma_sw_dev-5C7GfCeVMHo@public.gmane.org<mailto:brahma_sw_dev-5C7GfCeVMHo@public.gmane.org>>
-Cc: Deucher, Alexander <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org<mailto:Alexander.Deucher@=
-amd.com>>; Liu, Aaron <Aaron.Liu-5C7GfCeVMHo@public.gmane.org<mailto:Aaron.Liu-5C7GfCeVMHo@public.gmane.org>>; Cui, F=
-lora <Flora.Cui-5C7GfCeVMHo@public.gmane.org<mailto:Flora.Cui-5C7GfCeVMHo@public.gmane.org>>; Zhang, Hawking <Hawking=
-.Zhang-5C7GfCeVMHo@public.gmane.org<mailto:Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>>; Huang, Ray <Ray.Huang-urvtwAKJhsc@public.gmane.org=
-m<mailto:Ray.Huang-5C7GfCeVMHo@public.gmane.org>>; Huang, Shimmer <Xinmei.Huang-5C7GfCeVMHo@public.gmane.org<mailto:X=
-inmei.Huang-5C7GfCeVMHo@public.gmane.org>>
-Subject: enable dispatch/draw tests for renoir
-
-
-
-Hi Ray & Flora,
-
-
-
-It can run dispatch/draw tests on new Renoir chips. So we can take back dis=
-patch/draw tests for Renoir.
-
-
-
-Could you please help review this patch?
-
-
-
->From 793b7fd4dd1580f29e27bd2a90da787535abee14 Mon Sep 17 00:00:00 2001
-
-From: changzhu <Changfeng.Zhu-5C7GfCeVMHo@public.gmane.org<mailto:Changfeng.Zhu-5C7GfCeVMHo@public.gmane.org>>
-
-Date: Mon, 4 Nov 2019 11:48:19 +0800
-
-Subject: [PATCH libdrm] tests/amdgpu: enable dispatch/draw tests for Renoir
-
-
-
-It can run dispatch/draw tests on new renoir chips. So it needs to
-
-enable dispatch/draw tests for Renoir again.
-
-
-
-Change-Id: I3a72a4bbfe0fc663ee0e3e58d8e9c304f513e568
-
-Signed-off-by: changzhu <Changfeng.Zhu-5C7GfCeVMHo@public.gmane.org<mailto:Changfeng.Zhu-5C7GfCeVMHo@public.gmane.org=
->>
-
----
-
-tests/amdgpu/basic_tests.c | 16 +---------------
-
-1 file changed, 1 insertion(+), 15 deletions(-)
-
-
-
-diff --git a/tests/amdgpu/basic_tests.c b/tests/amdgpu/basic_tests.c
-
-index e75b9d0d..a57dcbb4 100644
-
---- a/tests/amdgpu/basic_tests.c
-
-+++ b/tests/amdgpu/basic_tests.c
-
-@@ -592,20 +592,6 @@ int suite_basic_tests_init(void)
-
-
-
-              family_id =3D gpu_info.family_id;
-
-
-
--             if (gpu_info.asic_id =3D=3D 0x1636) {
-
--                           if (amdgpu_set_test_active("Basic Tests",
-
--                                                                          =
-"Dispatch Test",
-
--                                                                          =
-CU_FALSE))
-
--                                          fprintf(stderr, "test deactivati=
-on failed - %s\n",
-
--                                                        CU_get_error_msg()=
-);
-
--
-
--                           if (amdgpu_set_test_active("Basic Tests",
-
--                                                                          =
-"Draw Test",
-
--                                                                          =
-CU_FALSE))
-
--                                          fprintf(stderr, "test deactivati=
-on failed - %s\n",
-
--                                                        CU_get_error_msg()=
-);
-
--             }
-
--
-
-             return CUE_SUCCESS;
-
-}
-
-
-
-@@ -2992,7 +2978,7 @@ void amdgpu_memset_draw(amdgpu_device_handle device_h=
-andle,
-
-             resources[1] =3D bo_shader_ps;
-
-             resources[2] =3D bo_shader_vs;
-
-             resources[3] =3D bo_cmd;
-
--             r =3D amdgpu_bo_list_create(device_handle, 3, resources, NULL=
-, &bo_list);
-
-+            r =3D amdgpu_bo_list_create(device_handle, 4, resources, NULL,=
- &bo_list);
-
-             CU_ASSERT_EQUAL(r, 0);
-
-
-
-              ib_info.ib_mc_address =3D mc_address_cmd;
-
---
-
-2.17.1
-
-
-
-
-
-BR,
-
-Changfeng.
-
---_000_DM6PR12MB32092334B0641855B23E119BF97F0DM6PR12MB3209namp_
-Content-Type: text/html; charset="Windows-1252"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3DWindows-1=
-252">
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Reviewed-by: Marek Ol=9A=E1k &lt;marek.olsak-5C7GfCeVMHo@public.gmane.org&gt;</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Marek<br>
-</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Zhu, Changfeng &lt;Ch=
-angfeng.Zhu-5C7GfCeVMHo@public.gmane.org&gt;<br>
-<b>Sent:</b> November 4, 2019 02:07<br>
-<b>To:</b> Cui, Flora &lt;Flora.Cui-5C7GfCeVMHo@public.gmane.org&gt;; brahma_sw_dev &lt;brahma_s=
-w_dev-5C7GfCeVMHo@public.gmane.org&gt;; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org &lt;amd-gfx-PD4FTy7X32lzq7FAFJ/aeQ@public.gmane.org=
-top.org&gt;<br>
-<b>Cc:</b> Deucher, Alexander &lt;Alexander.Deucher-5C7GfCeVMHo@public.gmane.org&gt;; Liu, Aaron=
- &lt;Aaron.Liu-5C7GfCeVMHo@public.gmane.org&gt;; Zhang, Hawking &lt;Hawking.Zhang-5C7GfCeVMHo@public.gmane.org&gt;; H=
-uang, Ray &lt;Ray.Huang-5C7GfCeVMHo@public.gmane.org&gt;; Huang, Shimmer &lt;Xinmei.Huang-urvtwAKJhsc@public.gmane.org=
-m&gt;; Deucher, Alexander &lt;Alexander.Deucher-5C7GfCeVMHo@public.gmane.org&gt;; Olsak,
- Marek &lt;Marek.Olsak-5C7GfCeVMHo@public.gmane.org&gt;<br>
-<b>Subject:</b> RE: enable dispatch/draw tests for renoir</font>
-<div>&nbsp;</div>
-</div>
-<style>
-<!--
-@font-face
-	{font-family:"Cambria Math"}
-@font-face
-	{font-family:DengXian}
-@font-face
-	{font-family:Calibri}
-@font-face
-	{}
-p.x_MsoNormal, li.x_MsoNormal, div.x_MsoNormal
-	{margin:0in;
-	margin-bottom:.0001pt;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif}
-p.x_MsoDate, li.x_MsoDate, div.x_MsoDate
-	{margin:0in;
-	margin-bottom:.0001pt;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif}
-a:link, span.x_MsoHyperlink
-	{color:#0563C1;
-	text-decoration:underline}
-a:visited, span.x_MsoHyperlinkFollowed
-	{color:#954F72;
-	text-decoration:underline}
-p.x_msonormal0, li.x_msonormal0, div.x_msonormal0
-	{margin-right:0in;
-	margin-left:0in;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif}
-span.x_DateChar
-	{}
-span.x_EmailStyle20
-	{font-family:"Calibri",sans-serif;
-	color:windowtext}
-span.x_EmailStyle21
-	{font-family:"Calibri",sans-serif;
-	color:windowtext}
-span.x_EmailStyle22
-	{font-family:"Calibri",sans-serif;
-	color:windowtext}
-span.x_EmailStyle23
-	{font-family:"Calibri",sans-serif;
-	color:windowtext}
-.x_MsoChpDefault
-	{font-size:10.0pt}
-@page WordSection1
-	{margin:1.0in 1.0in 1.0in 1.0in}
-div.x_WordSection1
-	{}
--->
-</style>
-<div lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72">
-<div class=3D"x_WordSection1">
-<p class=3D"x_MsoNormal">Thanks for review, Flora.</p>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-<p class=3D"x_MsoNormal">Hi Alex &amp; Marek,</p>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-<p class=3D"x_MsoNormal">Here is a libdrm patch for Renoir dispatch/draw te=
-sts.</p>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-<p class=3D"x_MsoNormal">Could you please help review it? It needs to be up=
-stream.</p>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-<p class=3D"x_MsoNormal">BR,</p>
-<p class=3D"x_MsoNormal">Changfeng.</p>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-<div>
-<div style=3D"border:none; border-top:solid #E1E1E1 1.0pt; padding:3.0pt 0i=
-n 0in 0in">
-<p class=3D"x_MsoNormal"><b>From:</b> Cui, Flora &lt;Flora.Cui-5C7GfCeVMHo@public.gmane.org&gt; =
-<br>
-<b>Sent:</b> Monday, November 4, 2019 1:21 PM<br>
-<b>To:</b> Zhu, Changfeng &lt;Changfeng.Zhu-5C7GfCeVMHo@public.gmane.org&gt;; brahma_sw_dev &lt;=
-brahma_sw_dev-5C7GfCeVMHo@public.gmane.org&gt;<br>
-<b>Cc:</b> Deucher, Alexander &lt;Alexander.Deucher-5C7GfCeVMHo@public.gmane.org&gt;; Liu, Aaron=
- &lt;Aaron.Liu-5C7GfCeVMHo@public.gmane.org&gt;; Zhang, Hawking &lt;Hawking.Zhang-5C7GfCeVMHo@public.gmane.org&gt;; H=
-uang, Ray &lt;Ray.Huang-5C7GfCeVMHo@public.gmane.org&gt;; Huang, Shimmer &lt;Xinmei.Huang-urvtwAKJhsc@public.gmane.org=
-m&gt;<br>
-<b>Subject:</b> RE: enable dispatch/draw tests for renoir</p>
-</div>
-</div>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-<p class=3D"x_MsoNormal">Good catch. rb</p>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-<div>
-<div style=3D"border:none; border-top:solid #E1E1E1 1.0pt; padding:3.0pt 0i=
-n 0in 0in">
-<p class=3D"x_MsoNormal"><b>From:</b> Zhu, Changfeng &lt;<a href=3D"mailto:=
-Changfeng.Zhu-5C7GfCeVMHo@public.gmane.org">Changfeng.Zhu-5C7GfCeVMHo@public.gmane.org</a>&gt;
-<br>
-<b>Sent:</b> Monday, November 4, 2019 11:59 AM<br>
-<b>To:</b> brahma_sw_dev &lt;<a href=3D"mailto:brahma_sw_dev-5C7GfCeVMHo@public.gmane.org">brahm=
-a_sw_dev-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
-<b>Cc:</b> Deucher, Alexander &lt;<a href=3D"mailto:Alexander.Deucher@amd.c=
-om">Alexander.Deucher-5C7GfCeVMHo@public.gmane.org</a>&gt;; Liu, Aaron &lt;<a href=3D"mailto:Aar=
-on.Liu-5C7GfCeVMHo@public.gmane.org">Aaron.Liu-5C7GfCeVMHo@public.gmane.org</a>&gt;; Cui, Flora &lt;<a href=3D"mailto=
-:Flora.Cui-5C7GfCeVMHo@public.gmane.org">Flora.Cui-5C7GfCeVMHo@public.gmane.org</a>&gt;; Zhang, Hawking
- &lt;<a href=3D"mailto:Hawking.Zhang-5C7GfCeVMHo@public.gmane.org">Hawking.Zhang-5C7GfCeVMHo@public.gmane.org</a>&gt;=
-; Huang, Ray &lt;<a href=3D"mailto:Ray.Huang-5C7GfCeVMHo@public.gmane.org">Ray.Huang-5C7GfCeVMHo@public.gmane.org</a>=
-&gt;; Huang, Shimmer &lt;<a href=3D"mailto:Xinmei.Huang-5C7GfCeVMHo@public.gmane.org">Xinmei.Hua=
-ng-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
-<b>Subject:</b> enable dispatch/draw tests for renoir</p>
-</div>
-</div>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-<p class=3D"x_MsoNormal">Hi Ray &amp; Flora,</p>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-<p class=3D"x_MsoNormal">It can run dispatch/draw tests on new Renoir chips=
-. So we can take back dispatch/draw tests for Renoir.</p>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-<p class=3D"x_MsoNormal">Could you please help review this patch?</p>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-<p class=3D"x_MsoNormal">From 793b7fd4dd1580f29e27bd2a90da787535abee14 Mon =
-Sep 17 00:00:00 2001</p>
-<p class=3D"x_MsoNormal">From: changzhu &lt;<a href=3D"mailto:Changfeng.Zhu=
-@amd.com">Changfeng.Zhu-5C7GfCeVMHo@public.gmane.org</a>&gt;</p>
-<p class=3D"x_MsoNormal">Date: Mon, 4 Nov 2019 11:48:19 &#43;0800</p>
-<p class=3D"x_MsoNormal">Subject: [PATCH libdrm] tests/amdgpu: enable dispa=
-tch/draw tests for Renoir</p>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-<p class=3D"x_MsoNormal">It can run dispatch/draw tests on new renoir chips=
-. So it needs to</p>
-<p class=3D"x_MsoNormal">enable dispatch/draw tests for Renoir again.</p>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-<p class=3D"x_MsoNormal">Change-Id: I3a72a4bbfe0fc663ee0e3e58d8e9c304f513e5=
-68</p>
-<p class=3D"x_MsoNormal">Signed-off-by: changzhu &lt;<a href=3D"mailto:Chan=
-gfeng.Zhu-5C7GfCeVMHo@public.gmane.org">Changfeng.Zhu-5C7GfCeVMHo@public.gmane.org</a>&gt;</p>
-<p class=3D"x_MsoNormal">---</p>
-<p class=3D"x_MsoNormal">tests/amdgpu/basic_tests.c | 16 &#43;-------------=
---</p>
-<p class=3D"x_MsoNormal">1 file changed, 1 insertion(&#43;), 15 deletions(-=
-)</p>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-<p class=3D"x_MsoNormal">diff --git a/tests/amdgpu/basic_tests.c b/tests/am=
-dgpu/basic_tests.c</p>
-<p class=3D"x_MsoNormal">index e75b9d0d..a57dcbb4 100644</p>
-<p class=3D"x_MsoNormal">--- a/tests/amdgpu/basic_tests.c</p>
-<p class=3D"x_MsoNormal">&#43;&#43;&#43; b/tests/amdgpu/basic_tests.c</p>
-<p class=3D"x_MsoNormal">@@ -592,20 &#43;592,6 @@ int suite_basic_tests_ini=
-t(void)</p>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-<p class=3D"x_MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp; family_id =3D gpu_info.family_id;</p>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-<p class=3D"x_MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp; if (gpu_info.asic_id =3D=3D 0x1636) {</p>
-<p class=3D"x_MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_set_test_active(&quot;Basic Tes=
-ts&quot;,</p>
-<p class=3D"x_MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nb=
-sp;&nbsp; &quot;Dispatch Test&quot;,</p>
-<p class=3D"x_MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nb=
-sp;&nbsp; CU_FALSE))</p>
-<p class=3D"x_MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; fprintf(stderr, &quot;test =
-deactivation failed - %s\n&quot;,</p>
-<p class=3D"x_MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; CU_get_error_msg()=
-);</p>
-<p class=3D"x_MsoNormal">-</p>
-<p class=3D"x_MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_set_test_active(&quot;Basic Tes=
-ts&quot;,</p>
-<p class=3D"x_MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nb=
-sp;&nbsp; &quot;Draw Test&quot;,</p>
-<p class=3D"x_MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nb=
-sp;&nbsp; CU_FALSE))</p>
-<p class=3D"x_MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; fprintf(stderr, &quot;test =
-deactivation failed - %s\n&quot;,</p>
-<p class=3D"x_MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; CU_get_error_msg()=
-);</p>
-<p class=3D"x_MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp; }</p>
-<p class=3D"x_MsoNormal">-</p>
-<p class=3D"x_MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp; return CUE_SUCCESS;</p>
-<p class=3D"x_MsoNormal">}</p>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-<p class=3D"x_MsoNormal">@@ -2992,7 &#43;2978,7 @@ void amdgpu_memset_draw(=
-amdgpu_device_handle device_handle,</p>
-<p class=3D"x_MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp; resources[1] =3D bo_shader_ps;</p>
-<p class=3D"x_MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp; resources[2] =3D bo_shader_vs;</p>
-<p class=3D"x_MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp; resources[3] =3D bo_cmd;</p>
-<p class=3D"x_MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_bo_list_create(device_handle, 3, resou=
-rces, NULL, &amp;bo_list);</p>
-<p class=3D"x_MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_bo_list_create(device_handle, 4, resourc=
-es, NULL, &amp;bo_list);</p>
-<p class=3D"x_MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp; CU_ASSERT_EQUAL(r, 0);</p>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-<p class=3D"x_MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp; ib_info.ib_mc_address =3D mc_address_cmd;</p>
-<p class=3D"x_MsoNormal">-- </p>
-<p class=3D"x_MsoNormal">2.17.1</p>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-<p class=3D"x_MsoNormal">BR,</p>
-<p class=3D"x_MsoNormal">Changfeng.</p>
-</div>
-</div>
-</body>
-</html>
-
---_000_DM6PR12MB32092334B0641855B23E119BF97F0DM6PR12MB3209namp_--
-
---===============0977274414==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
-
---===============0977274414==--
+Content-Type: text/plain; charset="UTF-8"
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20191104172434.GJ10326@phenom.ffwll.local>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Daniel Vetter <daniel@ffwll.ch>
+Cc: Harry Wentland <hwentlan@amd.com>, "Zhou, David(ChunMing)" <David1.Zhou@amd.com>, "Li, Sun peng (Leo)" <Sunpeng.Li@amd.com>, "Wentland, Harry" <Harry.Wentland@amd.com>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, amd-gfx mailing list <amd-gfx@lists.freedesktop.org>, David Airlie <airlied@linux.ie>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "Deucher, Alexander" <Alexander.Deucher@amd.com>, Colin Ian King <colin.king@canonical.com>, "Lakha, Bhawanpreet" <Bhawanpreet.Lakha@amd.com>, "Koenig, Christian" <Christian.Koenig@amd.com>
+List-Id: amd-gfx.lists.freedesktop.org
+
+On Mon, Nov 4, 2019 at 12:24 PM Daniel Vetter <daniel@ffwll.ch> wrote:
+>
+> On Mon, Nov 04, 2019 at 12:05:40PM -0500, Alex Deucher wrote:
+> > On Mon, Nov 4, 2019 at 11:55 AM Daniel Vetter <daniel@ffwll.ch> wrote:
+> > >
+> > > On Mon, Nov 04, 2019 at 03:23:09PM +0000, Harry Wentland wrote:
+> > > > On 2019-11-04 5:53 a.m., Daniel Vetter wrote:
+> > > > > On Wed, Oct 9, 2019 at 10:58 PM Daniel Vetter <daniel@ffwll.ch> wrote:
+> > > > >> On Wed, Oct 9, 2019 at 10:46 PM Lakha, Bhawanpreet
+> > > > >> <Bhawanpreet.Lakha@amd.com> wrote:
+> > > > >>>
+> > > > >>> I misunderstood and was talking about the ksv validation specifically
+> > > > >>> (usage of drm_hdcp_check_ksvs_revoked()).
+> > > > >>
+> > > > >> Hm for that specifically I think you want to do both, i.e. both
+> > > > >> consult your psp, but also check for revoked ksvs with the core
+> > > > >> helper. At least on some platforms only the core helper might have the
+> > > > >> updated revoke list.
+> > > > >>
+> > > >
+> > > > I think it's an either/or. Either we use an HDCP implementation that's
+> > > > fully running in x86 kernel space (still not sure how that's compliant)
+> > > > or we fully rely on our PSP FW to do what it's designed to do. I don't
+> > > > think it makes sense to mix and match here.
+> > >
+> > > Then you need to somehow tie the revoke list that's in the psp to the
+> > > revoke list update logic we have. That's what we've done for hdcp2 (which
+> > > is similarly to yours implemented in hw). The point is that on linux we
+> > > now have a standard way to get these revoke lists updated/handled.
+> > >
+> > > I guess it wasn't clear how exactly I think you're supposed to combine
+> > > them?
+> >
+> > There's no driver sw required at all for our implementation and as far
+> > as I know, HDCP 2.x requires that all of the key revoke handling be
+> > handled in a secure processor rather than than on the host processor,
+> > so I'm not sure how we make use if it.  All the driver sw is
+> > responsible for doing is saving/restoring the potentially updated srm
+> > at suspend/resume/etc.
+>
+> Uh, you don't have a permanent store on the chip? I thought another
+> requirement is that you can't downgrade.
+
+Right.  That's why the driver has to save and restore the srm when the
+GPU is powered down.  I guess that part can be done by the host
+processor as long as the srm is signed properly.
+
+>
+> And for hw solutions all you do with the updated revoke cert is stuff it
+> into the hw, it's purely for updating it. And those updates need to come
+> from somewhere else (usually in the media you play), the kernel can't
+> fetch them over the internet itself. I thought we already had the function
+> to give you the srm directly so you can stuff it into the hw, but looks
+> like that part isn't there (yet).
+
+IIRC, the revoke stuff gets gleaned from the stream by the secure
+processor somehow when you play back secure content.  I'm not entirely
+clear on the details, but from the design, the driver doesn't have to
+do anything in our case other than saving and restoring the srm from
+the secure processor.
+
+Alex
+
+> -Daniel
+>
+> >
+> > Alex
+> >
+> > > -Daniel
+> > >
+> > >
+> > > >
+> > > > >>> For the defines I will create patches to use drm_hdcp where it is usable.
+> > > > >>
+> > > > >> Thanks a lot. Ime once we have shared definitions it's much easier to
+> > > > >> also share some helpers, where it makes sense.
+> > > > >>
+> > > > >> Aside I think the hdcp code could also use a bit of demidlayering. At
+> > > > >> least I'm not understanding why you add a 2nd abstraction layer for
+> > > > >> i2c/dpcd, dm_helper already has that. That seems like one abstraction
+> > > > >> layer too much.
+> > > > >
+> > > > > I haven't seen anything fly by or in the latest pull request ... you
+> > > > > folks still working on this or more put on the "maybe, probably never"
+> > > > > pile?
+> > > > >
+> > > >
+> > > > Following up with Bhawan.
+> > > >
+> > > > Harry
+> > > >
+> > > > > -Daniel
+> > > > >
+> > > > >
+> > > > >> -Daniel
+> > > > >>
+> > > > >>>
+> > > > >>>
+> > > > >>> Bhawan
+> > > > >>>
+> > > > >>> On 2019-10-09 2:43 p.m., Daniel Vetter wrote:
+> > > > >>>> On Wed, Oct 9, 2019 at 8:23 PM Lakha, Bhawanpreet
+> > > > >>>> <Bhawanpreet.Lakha@amd.com> wrote:
+> > > > >>>>> Hi,
+> > > > >>>>>
+> > > > >>>>> The reason we don't use drm_hdcp is because our policy is to do hdcp
+> > > > >>>>> verification using PSP/HW (onboard secure processor).
+> > > > >>>> i915 also uses hw to auth, we still use the parts from drm_hdcp ...
+> > > > >>>> Did you actually look at what's in there? It's essentially just shared
+> > > > >>>> defines and data structures from the standard, plus a few minimal
+> > > > >>>> helpers to en/decode some bits. Just from a quick read the entire
+> > > > >>>> patch very much looks like midlayer everywhere design that we
+> > > > >>>> discussed back when DC landed ...
+> > > > >>>> -Daniel
+> > > > >>>>
+> > > > >>>>> Bhawan
+> > > > >>>>>
+> > > > >>>>> On 2019-10-09 12:32 p.m., Daniel Vetter wrote:
+> > > > >>>>>> On Thu, Oct 03, 2019 at 11:08:03PM +0100, Colin Ian King wrote:
+> > > > >>>>>>> Hi,
+> > > > >>>>>>>
+> > > > >>>>>>> Static analysis with Coverity has detected a potential issue with
+> > > > >>>>>>> function validate_bksv in
+> > > > >>>>>>> drivers/gpu/drm/amd/display/modules/hdcp/hdcp1_execution.c with recent
+> > > > >>>>>>> commit:
+> > > > >>>>>>>
+> > > > >>>>>>> commit ed9d8e2bcb003ec94658cafe9b1bb3960e2139ec
+> > > > >>>>>>> Author: Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>
+> > > > >>>>>>> Date:   Tue Aug 6 17:52:01 2019 -0400
+> > > > >>>>>>>
+> > > > >>>>>>>       drm/amd/display: Add HDCP module
+> > > > >>>>>> I think the real question here is ... why is this not using drm_hdcp?
+> > > > >>>>>> -Daniel
+> > > > >>>>>>
+> > > > >>>>>>> The analysis is as follows:
+> > > > >>>>>>>
+> > > > >>>>>>>    28 static inline enum mod_hdcp_status validate_bksv(struct mod_hdcp *hdcp)
+> > > > >>>>>>>    29 {
+> > > > >>>>>>>
+> > > > >>>>>>> CID 89852 (#1 of 1): Out-of-bounds read (OVERRUN)
+> > > > >>>>>>>
+> > > > >>>>>>> 1. overrun-local:
+> > > > >>>>>>> Overrunning array of 5 bytes at byte offset 7 by dereferencing pointer
+> > > > >>>>>>> (uint64_t *)hdcp->auth.msg.hdcp1.bksv.
+> > > > >>>>>>>
+> > > > >>>>>>>    30        uint64_t n = *(uint64_t *)hdcp->auth.msg.hdcp1.bksv;
+> > > > >>>>>>>    31        uint8_t count = 0;
+> > > > >>>>>>>    32
+> > > > >>>>>>>    33        while (n) {
+> > > > >>>>>>>    34                count++;
+> > > > >>>>>>>    35                n &= (n - 1);
+> > > > >>>>>>>    36        }
+> > > > >>>>>>>
+> > > > >>>>>>> hdcp->auth.msg.hdcp1.bksv is an array of 5 uint8_t as defined in
+> > > > >>>>>>> drivers/gpu/drm/amd/display/modules/hdcp/hdcp.h as follows:
+> > > > >>>>>>>
+> > > > >>>>>>> struct mod_hdcp_message_hdcp1 {
+> > > > >>>>>>>           uint8_t         an[8];
+> > > > >>>>>>>           uint8_t         aksv[5];
+> > > > >>>>>>>           uint8_t         ainfo;
+> > > > >>>>>>>           uint8_t         bksv[5];
+> > > > >>>>>>>           uint16_t        r0p;
+> > > > >>>>>>>           uint8_t         bcaps;
+> > > > >>>>>>>           uint16_t        bstatus;
+> > > > >>>>>>>           uint8_t         ksvlist[635];
+> > > > >>>>>>>           uint16_t        ksvlist_size;
+> > > > >>>>>>>           uint8_t         vp[20];
+> > > > >>>>>>>
+> > > > >>>>>>>           uint16_t        binfo_dp;
+> > > > >>>>>>> };
+> > > > >>>>>>>
+> > > > >>>>>>> variable n is going to contain the contains of r0p and bcaps. I'm not
+> > > > >>>>>>> sure if that is intentional. If not, then the count is going to be
+> > > > >>>>>>> incorrect if these are non-zero.
+> > > > >>>>>>>
+> > > > >>>>>>> Colin
+> > > > >>>>> _______________________________________________
+> > > > >>>>> dri-devel mailing list
+> > > > >>>>> dri-devel@lists.freedesktop.org
+> > > > >>>>> https://lists.freedesktop.org/mailman/listinfo/dri-devel
+> > > > >>>>
+> > > > >>>>
+> > > > >>
+> > > > >>
+> > > > >>
+> > > > >> --
+> > > > >> Daniel Vetter
+> > > > >> Software Engineer, Intel Corporation
+> > > > >> +41 (0) 79 365 57 48 - http://blog.ffwll.ch
+> > > > >
+> > > > >
+> > > > >
+> > > > > --
+> > > > > Daniel Vetter
+> > > > > Software Engineer, Intel Corporation
+> > > > > +41 (0) 79 365 57 48 - http://blog.ffwll.ch
+> > > > >
+> > >
+> > > --
+> > > Daniel Vetter
+> > > Software Engineer, Intel Corporation
+> > > http://blog.ffwll.ch
+> > > _______________________________________________
+> > > amd-gfx mailing list
+> > > amd-gfx@lists.freedesktop.org
+> > > https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+>
+> --
+> Daniel Vetter
+> Software Engineer, Intel Corporation
+> http://blog.ffwll.ch
