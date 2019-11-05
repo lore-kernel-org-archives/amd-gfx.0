@@ -1,11 +1,13 @@
-From: "Huang, JinHuiEric" <JinHuiEric.Huang-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH] drm/amdgpu: change read of GPU clock counter on Vega10 VF
-Date: Tue, 5 Nov 2019 22:26:51 +0000
-Message-ID: <1572992808-20397-1-git-send-email-JinhuiEric.Huang@amd.com>
+From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu: register gpu instance before fan boost
+ feature enablment
+Date: Tue, 5 Nov 2019 22:29:47 +0000
+Message-ID: <CY4PR12MB1813DF71A6EC7517CAB8CEDEF77E0@CY4PR12MB1813.namprd12.prod.outlook.com>
+References: <20191105101755.16511-1-evan.quan@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0555058840=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20191105101755.16511-1-evan.quan-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -17,37 +19,187 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Huang, JinHuiEric" <JinHuiEric.Huang-5C7GfCeVMHo@public.gmane.org>
+To: "Quan, Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-VXNpbmcgdW5pZmllZCBWQklPUyBoYXMgcGVyZm9ybWFuY2UgZHJvcCBpbiBzcmlvdiBlbnZpcm9u
-bWVudC4KVGhlIGZpeCBpcyBzd2l0Y2hpbmcgdG8gYW5vdGhlciByZWdpc3RlciBpbnN0ZWFkLgoK
-U2lnbmVkLW9mZi1ieTogRXJpYyBIdWFuZyA8SmluaHVpRXJpYy5IdWFuZ0BhbWQuY29tPgotLS0K
-IGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92OV8wLmMgfCAxOSArKysrKysrKysrKysr
-KysrLS0tCiAxIGZpbGUgY2hhbmdlZCwgMTYgaW5zZXJ0aW9ucygrKSwgMyBkZWxldGlvbnMoLSkK
-CmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjlfMC5jIGIvZHJp
-dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y5XzAuYwppbmRleCA4MjlkNjIzLi5lNDRhM2Vh
-IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjlfMC5jCisrKyBi
-L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92OV8wLmMKQEAgLTM4ODUsOSArMzg4NSwy
-MiBAQCBzdGF0aWMgdWludDY0X3QgZ2Z4X3Y5XzBfZ2V0X2dwdV9jbG9ja19jb3VudGVyKHN0cnVj
-dCBhbWRncHVfZGV2aWNlICphZGV2KQogCXVpbnQ2NF90IGNsb2NrOwogCiAJbXV0ZXhfbG9jaygm
-YWRldi0+Z2Z4LmdwdV9jbG9ja19tdXRleCk7Ci0JV1JFRzMyX1NPQzE1KEdDLCAwLCBtbVJMQ19D
-QVBUVVJFX0dQVV9DTE9DS19DT1VOVCwgMSk7Ci0JY2xvY2sgPSAodWludDY0X3QpUlJFRzMyX1NP
-QzE1KEdDLCAwLCBtbVJMQ19HUFVfQ0xPQ0tfQ09VTlRfTFNCKSB8Ci0JCSgodWludDY0X3QpUlJF
-RzMyX1NPQzE1KEdDLCAwLCBtbVJMQ19HUFVfQ0xPQ0tfQ09VTlRfTVNCKSA8PCAzMlVMTCk7CisJ
-aWYgKGFkZXYtPmFzaWNfdHlwZSA9PSBDSElQX1ZFR0ExMCAmJiBhbWRncHVfc3Jpb3ZfcnVudGlt
-ZShhZGV2KSkgeworCQl1aW50MzJfdCB0bXAsIGxzYiwgbXNiLCBpID0gMDsKKwkJZG8geworCQkJ
-aWYgKGkgIT0gMCkKKwkJCQl1ZGVsYXkoMSk7CisJCQl0bXAgPSBSUkVHMzJfU09DMTUoR0MsIDAs
-IG1tUkxDX1JFRkNMT0NLX1RJTUVTVEFNUF9NU0IpOworCQkJbHNiID0gUlJFRzMyX1NPQzE1KEdD
-LCAwLCBtbVJMQ19SRUZDTE9DS19USU1FU1RBTVBfTFNCKTsKKwkJCW1zYiA9IFJSRUczMl9TT0Mx
-NShHQywgMCwgbW1STENfUkVGQ0xPQ0tfVElNRVNUQU1QX01TQik7CisJCQlpKys7CisJCX0gd2hp
-bGUgKHVubGlrZWx5KHRtcCAhPSBtc2IpICYmIChpIDwgYWRldi0+dXNlY190aW1lb3V0KSk7CisJ
-CWNsb2NrID0gKHVpbnQ2NF90KWxzYiB8ICgodWludDY0X3QpbXNiIDw8IDMyVUxMKTsKKwl9IGVs
-c2UgeworCQlXUkVHMzJfU09DMTUoR0MsIDAsIG1tUkxDX0NBUFRVUkVfR1BVX0NMT0NLX0NPVU5U
-LCAxKTsKKwkJY2xvY2sgPSAodWludDY0X3QpUlJFRzMyX1NPQzE1KEdDLCAwLCBtbVJMQ19HUFVf
-Q0xPQ0tfQ09VTlRfTFNCKSB8CisJCQkoKHVpbnQ2NF90KVJSRUczMl9TT0MxNShHQywgMCwgbW1S
-TENfR1BVX0NMT0NLX0NPVU5UX01TQikgPDwgMzJVTEwpOworCX0KIAltdXRleF91bmxvY2soJmFk
-ZXYtPmdmeC5ncHVfY2xvY2tfbXV0ZXgpOwogCXJldHVybiBjbG9jazsKIH0KLS0gCjIuNy40Cgpf
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1h
-aWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZy
-ZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
+--===============0555058840==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_CY4PR12MB1813DF71A6EC7517CAB8CEDEF77E0CY4PR12MB1813namp_"
+
+--_000_CY4PR12MB1813DF71A6EC7517CAB8CEDEF77E0CY4PR12MB1813namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+Reviewed-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+________________________________
+From: Quan, Evan <Evan.Quan-5C7GfCeVMHo@public.gmane.org>
+Sent: Tuesday, November 5, 2019 5:18 AM
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: Deucher, Alexander <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>; Quan, Evan <Evan.Quan@a=
+md.com>
+Subject: [PATCH] drm/amdgpu: register gpu instance before fan boost feature=
+ enablment
+
+Otherwise, the feature enablement will be skipped due to wrong count.
+Caused by "drm/amdgpu: fix a race in GPU reset with IB test (v2)".
+
+Change-Id: Id576090d7ce7645a5c98ac160e0af730a51526b0
+Signed-off-by: Evan Quan <evan.quan-5C7GfCeVMHo@public.gmane.org>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 7 +++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c    | 1 -
+ 2 files changed, 7 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_device.c
+index 2d72d206cead..02ccadbfd89f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -3087,6 +3087,13 @@ int amdgpu_device_init(struct amdgpu_device *adev,
+                         DRM_INFO("amdgpu: acceleration disabled, skipping =
+benchmarks\n");
+         }
+
++       /*
++        * Register gpu instance before amdgpu_device_enable_mgpu_fan_boost=
+.
++        * Otherwise the mgpu fan boost feature will be skipped due to the
++        * gpu instance is counted less.
++        */
++       amdgpu_register_gpu_instance(adev);
++
+         /* enable clockgating, etc. after ib tests, etc. since some blocks=
+ require
+          * explicit gating rather than handling it automatically.
+          */
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_kms.c
+index 688bb4abccf5..cbd4a5709470 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+@@ -204,7 +204,6 @@ int amdgpu_driver_load_kms(struct drm_device *dev, unsi=
+gned long flags)
+                 pm_runtime_put_autosuspend(dev->dev);
+         }
+
+-       amdgpu_register_gpu_instance(adev);
+ out:
+         if (r) {
+                 /* balance pm_runtime_get_sync in amdgpu_driver_unload_kms=
+ */
+--
+2.23.0
+
+
+--_000_CY4PR12MB1813DF71A6EC7517CAB8CEDEF77E0CY4PR12MB1813namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Reviewed-by: Alex Deucher &lt;alexander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
+</div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Quan, Evan &lt;Evan.Q=
+uan-5C7GfCeVMHo@public.gmane.org&gt;<br>
+<b>Sent:</b> Tuesday, November 5, 2019 5:18 AM<br>
+<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org &lt;amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&=
+gt;<br>
+<b>Cc:</b> Deucher, Alexander &lt;Alexander.Deucher-5C7GfCeVMHo@public.gmane.org&gt;; Quan, Evan=
+ &lt;Evan.Quan-5C7GfCeVMHo@public.gmane.org&gt;<br>
+<b>Subject:</b> [PATCH] drm/amdgpu: register gpu instance before fan boost =
+feature enablment</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">Otherwise, the feature enablement will be skipped =
+due to wrong count.<br>
+Caused by &quot;drm/amdgpu: fix a race in GPU reset with IB test (v2)&quot;=
+.<br>
+<br>
+Change-Id: Id576090d7ce7645a5c98ac160e0af730a51526b0<br>
+Signed-off-by: Evan Quan &lt;evan.quan-5C7GfCeVMHo@public.gmane.org&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 7 &#43;&#43;&#43;&#43;&#=
+43;&#43;&#43;<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c&nbsp;&nbsp;&nbsp; | 1 -<br>
+&nbsp;2 files changed, 7 insertions(&#43;), 1 deletion(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_device.c<br>
+index 2d72d206cead..02ccadbfd89f 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
+@@ -3087,6 &#43;3087,13 @@ int amdgpu_device_init(struct amdgpu_device *ade=
+v,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DRM_I=
+NFO(&quot;amdgpu: acceleration disabled, skipping benchmarks\n&quot;);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /*<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * Register gpu instance bef=
+ore amdgpu_device_enable_mgpu_fan_boost.<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * Otherwise the mgpu fan bo=
+ost feature will be skipped due to the<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * gpu instance is counted l=
+ess.<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_register_gpu_instance(adev=
+);<br>
+&#43;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* enable clockgating, etc=
+. after ib tests, etc. since some blocks require<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * explicit gating ra=
+ther than handling it automatically.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_kms.c<br>
+index 688bb4abccf5..cbd4a5709470 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c<br>
+@@ -204,7 &#43;204,6 @@ int amdgpu_driver_load_kms(struct drm_device *dev, =
+unsigned long flags)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; pm_runtime_put_autosuspend(dev-&gt;dev);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_register_gpu_instance(adev);<b=
+r>
+&nbsp;out:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; /* balance pm_runtime_get_sync in amdgpu_driver_unloa=
+d_kms */<br>
+-- <br>
+2.23.0<br>
+<br>
+</div>
+</span></font></div>
+</body>
+</html>
+
+--_000_CY4PR12MB1813DF71A6EC7517CAB8CEDEF77E0CY4PR12MB1813namp_--
+
+--===============0555058840==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+
+--===============0555058840==--
