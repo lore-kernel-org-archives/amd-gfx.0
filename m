@@ -1,59 +1,46 @@
-From: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: change read of GPU clock counter on Vega10 VF
-Date: Tue, 5 Nov 2019 22:36:54 +0000
-Message-ID: <175c5d68-f245-ba76-e635-a1abe2136981@amd.com>
-References: <1572992808-20397-1-git-send-email-JinhuiEric.Huang@amd.com>
+From: Raul E Rangel <rrangel@chromium.org>
+Subject: [PATCH] drm/amd/powerplay: fix struct init in renoir_print_clk_levels
+Date: Tue,  5 Nov 2019 15:58:02 -0700
+Message-ID: <20191105155734.1.If8740b4a5095031f2c00746fbc3224be9849d76b@changeid>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1572992808-20397-1-git-send-email-JinhuiEric.Huang-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-Content-ID: <E590EE3A4E84CE4B8FF86520A9A1086C-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Huang, JinHuiEric" <JinHuiEric.Huang-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: alexander.deucher@amd.com
+Cc: Raul E Rangel <rrangel@chromium.org>, David Airlie <airlied@linux.ie>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, Rex Zhu <rex.zhu@amd.com>, linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, Evan Quan <evan.quan@amd.com>, Daniel Vetter <daniel@ffwll.ch>
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gMjAxOS0xMS0wNSA1OjI2IHAubS4sIEh1YW5nLCBKaW5IdWlFcmljIHdyb3RlOg0KPiBVc2lu
-ZyB1bmlmaWVkIFZCSU9TIGhhcyBwZXJmb3JtYW5jZSBkcm9wIGluIHNyaW92IGVudmlyb25tZW50
-Lg0KPiBUaGUgZml4IGlzIHN3aXRjaGluZyB0byBhbm90aGVyIHJlZ2lzdGVyIGluc3RlYWQuDQo+
-DQo+IFNpZ25lZC1vZmYtYnk6IEVyaWMgSHVhbmcgPEppbmh1aUVyaWMuSHVhbmdAYW1kLmNvbT4N
-Cg0KUmV2aWV3ZWQtYnk6IEZlbGl4IEt1ZWhsaW5nIDxGZWxpeC5LdWVobGluZ0BhbWQuY29tPg0K
-DQoNCj4gLS0tDQo+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y5XzAuYyB8IDE5
-ICsrKysrKysrKysrKysrKystLS0NCj4gICAxIGZpbGUgY2hhbmdlZCwgMTYgaW5zZXJ0aW9ucygr
-KSwgMyBkZWxldGlvbnMoLSkNCj4NCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-YW1kZ3B1L2dmeF92OV8wLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjlfMC5j
-DQo+IGluZGV4IDgyOWQ2MjMuLmU0NGEzZWEgMTAwNjQ0DQo+IC0tLSBhL2RyaXZlcnMvZ3B1L2Ry
-bS9hbWQvYW1kZ3B1L2dmeF92OV8wLmMNCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
-cHUvZ2Z4X3Y5XzAuYw0KPiBAQCAtMzg4NSw5ICszODg1LDIyIEBAIHN0YXRpYyB1aW50NjRfdCBn
-ZnhfdjlfMF9nZXRfZ3B1X2Nsb2NrX2NvdW50ZXIoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYp
-DQo+ICAgCXVpbnQ2NF90IGNsb2NrOw0KPiAgIA0KPiAgIAltdXRleF9sb2NrKCZhZGV2LT5nZngu
-Z3B1X2Nsb2NrX211dGV4KTsNCj4gLQlXUkVHMzJfU09DMTUoR0MsIDAsIG1tUkxDX0NBUFRVUkVf
-R1BVX0NMT0NLX0NPVU5ULCAxKTsNCj4gLQljbG9jayA9ICh1aW50NjRfdClSUkVHMzJfU09DMTUo
-R0MsIDAsIG1tUkxDX0dQVV9DTE9DS19DT1VOVF9MU0IpIHwNCj4gLQkJKCh1aW50NjRfdClSUkVH
-MzJfU09DMTUoR0MsIDAsIG1tUkxDX0dQVV9DTE9DS19DT1VOVF9NU0IpIDw8IDMyVUxMKTsNCj4g
-KwlpZiAoYWRldi0+YXNpY190eXBlID09IENISVBfVkVHQTEwICYmIGFtZGdwdV9zcmlvdl9ydW50
-aW1lKGFkZXYpKSB7DQo+ICsJCXVpbnQzMl90IHRtcCwgbHNiLCBtc2IsIGkgPSAwOw0KPiArCQlk
-byB7DQo+ICsJCQlpZiAoaSAhPSAwKQ0KPiArCQkJCXVkZWxheSgxKTsNCj4gKwkJCXRtcCA9IFJS
-RUczMl9TT0MxNShHQywgMCwgbW1STENfUkVGQ0xPQ0tfVElNRVNUQU1QX01TQik7DQo+ICsJCQls
-c2IgPSBSUkVHMzJfU09DMTUoR0MsIDAsIG1tUkxDX1JFRkNMT0NLX1RJTUVTVEFNUF9MU0IpOw0K
-PiArCQkJbXNiID0gUlJFRzMyX1NPQzE1KEdDLCAwLCBtbVJMQ19SRUZDTE9DS19USU1FU1RBTVBf
-TVNCKTsNCj4gKwkJCWkrKzsNCj4gKwkJfSB3aGlsZSAodW5saWtlbHkodG1wICE9IG1zYikgJiYg
-KGkgPCBhZGV2LT51c2VjX3RpbWVvdXQpKTsNCj4gKwkJY2xvY2sgPSAodWludDY0X3QpbHNiIHwg
-KCh1aW50NjRfdCltc2IgPDwgMzJVTEwpOw0KPiArCX0gZWxzZSB7DQo+ICsJCVdSRUczMl9TT0Mx
-NShHQywgMCwgbW1STENfQ0FQVFVSRV9HUFVfQ0xPQ0tfQ09VTlQsIDEpOw0KPiArCQljbG9jayA9
-ICh1aW50NjRfdClSUkVHMzJfU09DMTUoR0MsIDAsIG1tUkxDX0dQVV9DTE9DS19DT1VOVF9MU0Ip
-IHwNCj4gKwkJCSgodWludDY0X3QpUlJFRzMyX1NPQzE1KEdDLCAwLCBtbVJMQ19HUFVfQ0xPQ0tf
-Q09VTlRfTVNCKSA8PCAzMlVMTCk7DQo+ICsJfQ0KPiAgIAltdXRleF91bmxvY2soJmFkZXYtPmdm
-eC5ncHVfY2xvY2tfbXV0ZXgpOw0KPiAgIAlyZXR1cm4gY2xvY2s7DQo+ICAgfQ0KX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxp
-c3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3Rv
-cC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+drivers/gpu/drm/amd/powerplay/renoir_ppt.c:186:2: error: missing braces
+around initializer [-Werror=missing-braces]
+  SmuMetrics_t metrics = {0};
+    ^
+
+Fixes: 8b8031703bd7 ("drm/amd/powerplay: implement sysfs for getting dpm clock")
+
+Signed-off-by: Raul E Rangel <rrangel@chromium.org>
+---
+
+ drivers/gpu/drm/amd/powerplay/renoir_ppt.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/powerplay/renoir_ppt.c b/drivers/gpu/drm/amd/powerplay/renoir_ppt.c
+index e62bfba51562..e5283dafc414 100644
+--- a/drivers/gpu/drm/amd/powerplay/renoir_ppt.c
++++ b/drivers/gpu/drm/amd/powerplay/renoir_ppt.c
+@@ -183,11 +183,13 @@ static int renoir_print_clk_levels(struct smu_context *smu,
+ 	int i, size = 0, ret = 0;
+ 	uint32_t cur_value = 0, value = 0, count = 0, min = 0, max = 0;
+ 	DpmClocks_t *clk_table = smu->smu_table.clocks_table;
+-	SmuMetrics_t metrics = {0};
++	SmuMetrics_t metrics;
+ 
+ 	if (!clk_table || clk_type >= SMU_CLK_COUNT)
+ 		return -EINVAL;
+ 
++	memset(&metrics, 0, sizeof(metrics));
++
+ 	ret = smu_update_table(smu, SMU_TABLE_SMU_METRICS, 0,
+ 			       (void *)&metrics, false);
+ 	if (ret)
+-- 
+2.24.0.rc1.363.gb1bccd3e3d-goog
