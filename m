@@ -2,96 +2,97 @@ Return-Path: <SRS0=U5eA=Y5=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.8 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-6.7 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
+	HTML_MESSAGE,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,
+	SPF_PASS autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8D531C5DF60
-	for <amd-gfx@archiver.kernel.org>; Tue,  5 Nov 2019 22:26:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E750EC5DF60
+	for <amd-gfx@archiver.kernel.org>; Tue,  5 Nov 2019 22:29:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 30295204EC
-	for <amd-gfx@archiver.kernel.org>; Tue,  5 Nov 2019 22:26:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 30295204EC
+	by mail.kernel.org (Postfix) with ESMTPS id 96E16204EC
+	for <amd-gfx@archiver.kernel.org>; Tue,  5 Nov 2019 22:29:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 96E16204EC
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0BD276EB75;
-	Tue,  5 Nov 2019 22:26:57 +0000 (UTC)
-Received: from NAM03-DM3-obe.outbound.protection.outlook.com
- (mail-eopbgr800088.outbound.protection.outlook.com [40.107.80.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B3B256EB75
- for <amd-gfx@lists.freedesktop.org>; Tue,  5 Nov 2019 22:26:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7EE5B6E15D;
+	Tue,  5 Nov 2019 22:29:51 +0000 (UTC)
+Received: from NAM01-BN3-obe.outbound.protection.outlook.com
+ (mail-eopbgr740057.outbound.protection.outlook.com [40.107.74.57])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5A6106E15D
+ for <amd-gfx@lists.freedesktop.org>; Tue,  5 Nov 2019 22:29:49 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=gWPWgBYLJhN7x2LdSg6Yutw+8r0hR/4yodreUgqgNYOr+OOeAuyDMOe8JBeVIfv/IsbV1UABnzuFv2tEX+Gqf8wKXcuofY/xvideHekD+m2t3rPLadiy0F0KDxc8cBtlJgu0wTvWiB4qJZsbVhAyqZxKO6wGVgk7p901DJYJpDODARngWOgn5laXQZffdrpSCTb3mX0OIUvzcirbjlXmCrl8dRBO6Drxqr80S9lhUwL1QqgW2/i16HUGSEY1JcKVFfjwUUFuuUb6QKzWlheuFksshxPmDTnEHq1zUOsqIn3zUVVnBoqy2Y0E9VmEg4YVjBzLK6psbip6zroqZp7sug==
+ b=VbjHmzYF8hx9ZEOwhT/pwPygPWgox1Nprm3iutQxRCF5CNMPtZTzoTeGYDiE4Z9bJLtbqbFqVzp0LFPthHxVtqbze35ylfnQWQ6cdLkzTEy0tb6UFlkepZ5vdtURqbnPdYKBU/PVsHSqoA11JF8nntbZ1xYLwHfhyIJk98vvmZay7B4sM2tbusVbxo8JmPNkZWtLLitSgIJoQZHofX3O10UkesvO7xxjTFpG7/wINSfsXAfCI0CnsxEHIuSANszdIhqcON5/G3KKSjNSn2E/red2begTJ+AHeQ5giki4ChstxlXZ7mY18b3Mac9GHnNKxIvsIX90b/MTeeKrCkgBKg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=WlUo/yGx9Fy/vxXLJqG2d9dIm88SLt0bVnmRSzEllTw=;
- b=bqH5pk3+M3AdiDSlwtt/VPf44ZZkAHgb+qzyXUI23GY1Kddr8XDvlIAufdnubiFxwjXBK4oyk2Dg//gR0K1CidB7pPgsg4zSMkfM4oMiKDP9zaNKCmcC+vKW3PoPIjiIyZeci8lDQEX71RXzG2CMN89orob1kXJqXMPKtw3U52drKU2RhG7+664qk4w9EkwGIFtZkW+8u4QUQ2fRAetKVSHpYPssNBBGRPDITdrltJdjVRQhEup8J+OuQHZ59SuJuZvAIh6lhvQ0TgjqZtfK2N+1h8YAFX1am0GQZ9BXxBbe+ycq78VR2lhLs+LjTUzrhRUR8JopO/0sjVvQ01P9MA==
+ bh=UocORJWM8VqfFQPJfaKo1UPR7HK7JL0l9RrYqiUC/ek=;
+ b=NsuGDl4pasoXniz9+xNrwtLwE3TF4f6xr1HKQl+UDmWmZGLYv86AR4UJo7vtbJyg9S8XEIoBxPyl6cswg6McmIbRSISosJNA/IXabi8t8JKissj5/JeDmnMJVHETkswcgaeIKoX7Yk/KKUc5EuRvhvvjk8nRnnqBoO/VrYJLF9wc8emAng45jQG7K+a6NMFc3OTdumrW7DE6RcFEEVGjUQHHSvbzkmVNGGpc+uJXCEDw+Zhn2ImJuUDk/kmipDgP4V7JraUV/YBCMeOkHhOY7xqlSSREu4nNLnuirnC83B0DINaLwvsdZxLh/fUVmFj2g6OFC2JW01cf4JHFzjUbUg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
-Received: from CY4PR12MB1159.namprd12.prod.outlook.com (10.168.163.145) by
- CY4PR12MB1207.namprd12.prod.outlook.com (10.168.165.7) with Microsoft SMTP
+Received: from CY4PR12MB1813.namprd12.prod.outlook.com (10.175.80.21) by
+ CY4PR12MB1701.namprd12.prod.outlook.com (10.175.62.135) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2408.24; Tue, 5 Nov 2019 22:26:52 +0000
-Received: from CY4PR12MB1159.namprd12.prod.outlook.com
- ([fe80::cde1:b263:67e2:94]) by CY4PR12MB1159.namprd12.prod.outlook.com
- ([fe80::cde1:b263:67e2:94%2]) with mapi id 15.20.2430.020; Tue, 5 Nov 2019
- 22:26:52 +0000
-From: "Huang, JinHuiEric" <JinHuiEric.Huang@amd.com>
-To: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amdgpu: change read of GPU clock counter on Vega10 VF
-Thread-Topic: [PATCH] drm/amdgpu: change read of GPU clock counter on Vega10 VF
-Thread-Index: AQHVlCgfmdBRrOtnp0CjqhT72Mz92Q==
-Date: Tue, 5 Nov 2019 22:26:51 +0000
-Message-ID: <1572992808-20397-1-git-send-email-JinhuiEric.Huang@amd.com>
+ 15.20.2408.24; Tue, 5 Nov 2019 22:29:47 +0000
+Received: from CY4PR12MB1813.namprd12.prod.outlook.com
+ ([fe80::dc23:193b:9619:a4fc]) by CY4PR12MB1813.namprd12.prod.outlook.com
+ ([fe80::dc23:193b:9619:a4fc%4]) with mapi id 15.20.2408.024; Tue, 5 Nov 2019
+ 22:29:47 +0000
+From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
+To: "Quan, Evan" <Evan.Quan@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: Re: [PATCH] drm/amdgpu: register gpu instance before fan boost
+ feature enablment
+Thread-Topic: [PATCH] drm/amdgpu: register gpu instance before fan boost
+ feature enablment
+Thread-Index: AQHVk8JWWrJMFrql3UuN7eSaSxL7H6d9KXf0
+Date: Tue, 5 Nov 2019 22:29:47 +0000
+Message-ID:
+ <CY4PR12MB1813DF71A6EC7517CAB8CEDEF77E0@CY4PR12MB1813.namprd12.prod.outlook.com>
+References: <20191105101755.16511-1-evan.quan@amd.com>
+In-Reply-To: <20191105101755.16511-1-evan.quan@amd.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-x-originating-ip: [165.204.55.251]
-x-clientproxiedby: YTXPR0101CA0015.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b00::28) To CY4PR12MB1159.namprd12.prod.outlook.com
- (2603:10b6:903:36::17)
-x-ms-exchange-messagesentrepresentingtype: 1
-x-mailer: git-send-email 2.7.4
+x-originating-ip: [172.58.219.229]
 x-ms-publictraffictype: Email
 x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: 5bb3c6dc-926b-45df-e23a-08d7623f417d
-x-ms-traffictypediagnostic: CY4PR12MB1207:
+x-ms-office365-filtering-correlation-id: 2ed25bf6-494c-4130-cc3d-08d7623faa24
+x-ms-traffictypediagnostic: CY4PR12MB1701:
 x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <CY4PR12MB120717D5D7A3C99B4673B2A6827E0@CY4PR12MB1207.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:1169;
+x-microsoft-antispam-prvs: <CY4PR12MB1701498C3F9D70EBE153B7AFF77E0@CY4PR12MB1701.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:6790;
 x-forefront-prvs: 0212BDE3BE
 x-forefront-antispam-report: SFV:NSPM;
- SFS:(10009020)(4636009)(366004)(346002)(39860400002)(396003)(136003)(376002)(189003)(199004)(386003)(26005)(6506007)(8936002)(71190400001)(6116002)(2501003)(81156014)(52116002)(2351001)(7736002)(86362001)(478600001)(3846002)(305945005)(6512007)(5640700003)(476003)(486006)(4326008)(6916009)(5660300002)(81166006)(66066001)(50226002)(316002)(14444005)(14454004)(256004)(2616005)(36756003)(102836004)(186003)(66556008)(25786009)(99286004)(71200400001)(66946007)(6486002)(66476007)(6436002)(8676002)(66446008)(2906002)(64756008);
- DIR:OUT; SFP:1101; SCL:1; SRVR:CY4PR12MB1207;
- H:CY4PR12MB1159.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; MX:3; A:1; 
+ SFS:(10009020)(4636009)(376002)(39860400002)(136003)(396003)(346002)(366004)(189003)(199004)(110136005)(486006)(446003)(86362001)(105004)(229853002)(11346002)(6436002)(14454004)(71190400001)(81156014)(74316002)(256004)(81166006)(71200400001)(66066001)(25786009)(5660300002)(3846002)(6116002)(52536014)(2906002)(476003)(102836004)(186003)(8676002)(8936002)(7736002)(478600001)(19627405001)(33656002)(55016002)(99286004)(76116006)(2501003)(9686003)(6246003)(316002)(54896002)(66476007)(66556008)(66446008)(64756008)(66946007)(76176011)(6506007)(53546011)(26005)(7696005)(14444005);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:CY4PR12MB1701;
+ H:CY4PR12MB1813.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; MX:1; A:1; 
 received-spf: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
 x-ms-exchange-senderadcheck: 1
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: JgABpd+pmtNxc1E5huDVJdirxWXqs1RA8rtSO9t2JDCkIESntD/GCbT7Y0wgIbhTQXhXlLXwTuXO+AMuiS3nKLMMCR8Vrc/igof2tDkIii9cunMB0HJrrLlvXCa7vS+IRNv6L6fcaEtSah7Ua1eArNYPSTCuxcSzez3Q31bd6vLb9GjI4CVHoiE4OWRSwbj7PNsfYB8VMLBEG0xROs9QCYDZ+dzMMm6hhiEVpg6cpNBnkl1OzFVgI3yoe+1TxAsBSHeK4f5CHbkPk/UETZs5fdOrTBVVgrEz5Ow5mDaq7GRGuO74t7xzWEmR8Inc9gjI+H0bXmpE9mDgRIaG6+mQ7+7rqjz8lM5XrGHFzVQsNlfXXSvY5dDQd8PuZk5F0sZ/5z6JBW5BFSNiJijpb7uG8uJa3Hy3KJaYvH7NLJRJ0rcK808sozTp5YNlEu/Kxemk
+x-microsoft-antispam-message-info: 0OsHoJRy05pPvcjDVoQGQXdFoUSzc2HyOUtobZJTqAPyyjqV1ii96W66kQPN6bk7rUp/83VS99o08WA1Lz9/Jh8J3MVBtRGdAADthk7ylGeXRp1vW2vA3egPuYBqVAncIB6VO235F2SBTPGkHEZsr63tzJCWgTTLlnM796b0xAeA3xEwaaG7JtOT/A3jPvIjjgBFQrCIjqia2u8zeITap1ELRgBBV/DIg/4H/ep2IAAkNWouMj31e9yEL6NkKr5uAp6ysjw4/OPabP9djz9wUPY7ElLvgA4UtydirmxNwFIeuatdOM6jaMxjTKU5IoMb8GCfVD9Jw5TmZ5IvwXCxF7Hxiw2IFmwOUxV34Xgwq3VS0XwClG+I1ZPkn/lp/avCbhMOCGLer/tg3TU4v35A6tpTsoFQc9M+jrpK8H2H9jlloxKeHKXn8HfoQICBJU9F
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5bb3c6dc-926b-45df-e23a-08d7623f417d
-X-MS-Exchange-CrossTenant-originalarrivaltime: 05 Nov 2019 22:26:51.9004 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2ed25bf6-494c-4130-cc3d-08d7623faa24
+X-MS-Exchange-CrossTenant-originalarrivaltime: 05 Nov 2019 22:29:47.2374 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: PSAPRpXv4naQ9h/OE8shLPUwiAuRu192RhXRQF1Vt6O9NrtDTHjTo6vdxw7KziizhSAqHSxb+s99tFQzx5u3aw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR12MB1207
+X-MS-Exchange-CrossTenant-userprincipalname: 4Q5V55ajfn5mDd0u96lDQMGf0qG8SmI0Gz4Y98II+pWpfr4ZEazHGSLNoP+4pCifcd4yPYc0Y6OP57dQBe9XPQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR12MB1701
 X-Mailman-Original-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=WlUo/yGx9Fy/vxXLJqG2d9dIm88SLt0bVnmRSzEllTw=;
- b=RGjES0lvgcGTMnfV66cwVwCH8B3L38SHIkusjJEC+nc9ACdaBBtVOkMnxdpqOnWRzRjc2qA7vuV/Np4+lU5XgVrBhvws7TZKnBGEHd9q6534Jiv2gPI5Y4PDMg1GbYORtrXbzXzH6H78GGmbojMbAWMBoYb+VSUlcilYrg9ef6Y=
+ bh=UocORJWM8VqfFQPJfaKo1UPR7HK7JL0l9RrYqiUC/ek=;
+ b=gffNBrGp+8G49B5SvcJDUJojDElU50A8lFODnas5QYH+xr/YabzXds+4gLHKHLy5IOWLprmy2uIMFvKXgCxkEGSqGj3k6trpCB3+quZaUrXwZcFDK4TUQS0v0kl6rn4rTHL3DGkD3dqhnpSthwhgbtbxLTTa4uFmzKvsuHFBWlw=
 X-Mailman-Original-Authentication-Results: spf=none (sender IP is )
- smtp.mailfrom=JinHuiEric.Huang@amd.com; 
+ smtp.mailfrom=Alexander.Deucher@amd.com; 
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -103,41 +104,190 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Huang, JinHuiEric" <JinHuiEric.Huang@amd.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0555058840=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-Message-ID: <20191105222651.UFRHm1a1qSdHWZwxq46eng9Z8YUeAaRP28nwvP8RASc@z>
+Message-ID: <20191105222947.mP183p1htqjqkkcZTEuOD0sFGkpfQ34ML4wPhijjpEM@z>
 
-VXNpbmcgdW5pZmllZCBWQklPUyBoYXMgcGVyZm9ybWFuY2UgZHJvcCBpbiBzcmlvdiBlbnZpcm9u
-bWVudC4KVGhlIGZpeCBpcyBzd2l0Y2hpbmcgdG8gYW5vdGhlciByZWdpc3RlciBpbnN0ZWFkLgoK
-U2lnbmVkLW9mZi1ieTogRXJpYyBIdWFuZyA8SmluaHVpRXJpYy5IdWFuZ0BhbWQuY29tPgotLS0K
-IGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92OV8wLmMgfCAxOSArKysrKysrKysrKysr
-KysrLS0tCiAxIGZpbGUgY2hhbmdlZCwgMTYgaW5zZXJ0aW9ucygrKSwgMyBkZWxldGlvbnMoLSkK
-CmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjlfMC5jIGIvZHJp
-dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y5XzAuYwppbmRleCA4MjlkNjIzLi5lNDRhM2Vh
-IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjlfMC5jCisrKyBi
-L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92OV8wLmMKQEAgLTM4ODUsOSArMzg4NSwy
-MiBAQCBzdGF0aWMgdWludDY0X3QgZ2Z4X3Y5XzBfZ2V0X2dwdV9jbG9ja19jb3VudGVyKHN0cnVj
-dCBhbWRncHVfZGV2aWNlICphZGV2KQogCXVpbnQ2NF90IGNsb2NrOwogCiAJbXV0ZXhfbG9jaygm
-YWRldi0+Z2Z4LmdwdV9jbG9ja19tdXRleCk7Ci0JV1JFRzMyX1NPQzE1KEdDLCAwLCBtbVJMQ19D
-QVBUVVJFX0dQVV9DTE9DS19DT1VOVCwgMSk7Ci0JY2xvY2sgPSAodWludDY0X3QpUlJFRzMyX1NP
-QzE1KEdDLCAwLCBtbVJMQ19HUFVfQ0xPQ0tfQ09VTlRfTFNCKSB8Ci0JCSgodWludDY0X3QpUlJF
-RzMyX1NPQzE1KEdDLCAwLCBtbVJMQ19HUFVfQ0xPQ0tfQ09VTlRfTVNCKSA8PCAzMlVMTCk7CisJ
-aWYgKGFkZXYtPmFzaWNfdHlwZSA9PSBDSElQX1ZFR0ExMCAmJiBhbWRncHVfc3Jpb3ZfcnVudGlt
-ZShhZGV2KSkgeworCQl1aW50MzJfdCB0bXAsIGxzYiwgbXNiLCBpID0gMDsKKwkJZG8geworCQkJ
-aWYgKGkgIT0gMCkKKwkJCQl1ZGVsYXkoMSk7CisJCQl0bXAgPSBSUkVHMzJfU09DMTUoR0MsIDAs
-IG1tUkxDX1JFRkNMT0NLX1RJTUVTVEFNUF9NU0IpOworCQkJbHNiID0gUlJFRzMyX1NPQzE1KEdD
-LCAwLCBtbVJMQ19SRUZDTE9DS19USU1FU1RBTVBfTFNCKTsKKwkJCW1zYiA9IFJSRUczMl9TT0Mx
-NShHQywgMCwgbW1STENfUkVGQ0xPQ0tfVElNRVNUQU1QX01TQik7CisJCQlpKys7CisJCX0gd2hp
-bGUgKHVubGlrZWx5KHRtcCAhPSBtc2IpICYmIChpIDwgYWRldi0+dXNlY190aW1lb3V0KSk7CisJ
-CWNsb2NrID0gKHVpbnQ2NF90KWxzYiB8ICgodWludDY0X3QpbXNiIDw8IDMyVUxMKTsKKwl9IGVs
-c2UgeworCQlXUkVHMzJfU09DMTUoR0MsIDAsIG1tUkxDX0NBUFRVUkVfR1BVX0NMT0NLX0NPVU5U
-LCAxKTsKKwkJY2xvY2sgPSAodWludDY0X3QpUlJFRzMyX1NPQzE1KEdDLCAwLCBtbVJMQ19HUFVf
-Q0xPQ0tfQ09VTlRfTFNCKSB8CisJCQkoKHVpbnQ2NF90KVJSRUczMl9TT0MxNShHQywgMCwgbW1S
-TENfR1BVX0NMT0NLX0NPVU5UX01TQikgPDwgMzJVTEwpOworCX0KIAltdXRleF91bmxvY2soJmFk
-ZXYtPmdmeC5ncHVfY2xvY2tfbXV0ZXgpOwogCXJldHVybiBjbG9jazsKIH0KLS0gCjIuNy40Cgpf
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1h
-aWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZy
-ZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
+--===============0555058840==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_CY4PR12MB1813DF71A6EC7517CAB8CEDEF77E0CY4PR12MB1813namp_"
+
+--_000_CY4PR12MB1813DF71A6EC7517CAB8CEDEF77E0CY4PR12MB1813namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+________________________________
+From: Quan, Evan <Evan.Quan@amd.com>
+Sent: Tuesday, November 5, 2019 5:18 AM
+To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
+Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Quan, Evan <Evan.Quan@a=
+md.com>
+Subject: [PATCH] drm/amdgpu: register gpu instance before fan boost feature=
+ enablment
+
+Otherwise, the feature enablement will be skipped due to wrong count.
+Caused by "drm/amdgpu: fix a race in GPU reset with IB test (v2)".
+
+Change-Id: Id576090d7ce7645a5c98ac160e0af730a51526b0
+Signed-off-by: Evan Quan <evan.quan@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 7 +++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c    | 1 -
+ 2 files changed, 7 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_device.c
+index 2d72d206cead..02ccadbfd89f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -3087,6 +3087,13 @@ int amdgpu_device_init(struct amdgpu_device *adev,
+                         DRM_INFO("amdgpu: acceleration disabled, skipping =
+benchmarks\n");
+         }
+
++       /*
++        * Register gpu instance before amdgpu_device_enable_mgpu_fan_boost=
+.
++        * Otherwise the mgpu fan boost feature will be skipped due to the
++        * gpu instance is counted less.
++        */
++       amdgpu_register_gpu_instance(adev);
++
+         /* enable clockgating, etc. after ib tests, etc. since some blocks=
+ require
+          * explicit gating rather than handling it automatically.
+          */
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_kms.c
+index 688bb4abccf5..cbd4a5709470 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+@@ -204,7 +204,6 @@ int amdgpu_driver_load_kms(struct drm_device *dev, unsi=
+gned long flags)
+                 pm_runtime_put_autosuspend(dev->dev);
+         }
+
+-       amdgpu_register_gpu_instance(adev);
+ out:
+         if (r) {
+                 /* balance pm_runtime_get_sync in amdgpu_driver_unload_kms=
+ */
+--
+2.23.0
+
+
+--_000_CY4PR12MB1813DF71A6EC7517CAB8CEDEF77E0CY4PR12MB1813namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Reviewed-by: Alex Deucher &lt;alexander.deucher@amd.com&gt;<br>
+</div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Quan, Evan &lt;Evan.Q=
+uan@amd.com&gt;<br>
+<b>Sent:</b> Tuesday, November 5, 2019 5:18 AM<br>
+<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
+gt;<br>
+<b>Cc:</b> Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;; Quan, Evan=
+ &lt;Evan.Quan@amd.com&gt;<br>
+<b>Subject:</b> [PATCH] drm/amdgpu: register gpu instance before fan boost =
+feature enablment</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">Otherwise, the feature enablement will be skipped =
+due to wrong count.<br>
+Caused by &quot;drm/amdgpu: fix a race in GPU reset with IB test (v2)&quot;=
+.<br>
+<br>
+Change-Id: Id576090d7ce7645a5c98ac160e0af730a51526b0<br>
+Signed-off-by: Evan Quan &lt;evan.quan@amd.com&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 7 &#43;&#43;&#43;&#43;&#=
+43;&#43;&#43;<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c&nbsp;&nbsp;&nbsp; | 1 -<br>
+&nbsp;2 files changed, 7 insertions(&#43;), 1 deletion(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_device.c<br>
+index 2d72d206cead..02ccadbfd89f 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
+@@ -3087,6 &#43;3087,13 @@ int amdgpu_device_init(struct amdgpu_device *ade=
+v,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DRM_I=
+NFO(&quot;amdgpu: acceleration disabled, skipping benchmarks\n&quot;);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /*<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * Register gpu instance bef=
+ore amdgpu_device_enable_mgpu_fan_boost.<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * Otherwise the mgpu fan bo=
+ost feature will be skipped due to the<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * gpu instance is counted l=
+ess.<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_register_gpu_instance(adev=
+);<br>
+&#43;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* enable clockgating, etc=
+. after ib tests, etc. since some blocks require<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * explicit gating ra=
+ther than handling it automatically.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_kms.c<br>
+index 688bb4abccf5..cbd4a5709470 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c<br>
+@@ -204,7 &#43;204,6 @@ int amdgpu_driver_load_kms(struct drm_device *dev, =
+unsigned long flags)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; pm_runtime_put_autosuspend(dev-&gt;dev);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_register_gpu_instance(adev);<b=
+r>
+&nbsp;out:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; /* balance pm_runtime_get_sync in amdgpu_driver_unloa=
+d_kms */<br>
+-- <br>
+2.23.0<br>
+<br>
+</div>
+</span></font></div>
+</body>
+</html>
+
+--_000_CY4PR12MB1813DF71A6EC7517CAB8CEDEF77E0CY4PR12MB1813namp_--
+
+--===============0555058840==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+
+--===============0555058840==--
