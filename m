@@ -1,16 +1,17 @@
 From: "Kim, Jonathan" <Jonathan.Kim-5C7GfCeVMHo@public.gmane.org>
 Subject: RE: [PATCH 2/2] drm/amdgpu: perform p-state switch after the whole
  hive initialized
-Date: Tue, 5 Nov 2019 16:41:30 +0000
-Message-ID: <CH2PR12MB3831D16D352FA009002800CC857E0@CH2PR12MB3831.namprd12.prod.outlook.com>
+Date: Tue, 5 Nov 2019 17:07:26 +0000
+Message-ID: <CH2PR12MB3831868F2A7B4A8BCCBA24F7857E0@CH2PR12MB3831.namprd12.prod.outlook.com>
 References: <20191105102310.16657-1-evan.quan@amd.com>
  <20191105102310.16657-2-evan.quan@amd.com>,
  <CH2PR12MB3831CEABDD4CBA2FEB8DEFEB857E0@CH2PR12MB3831.namprd12.prod.outlook.com>
  <DM5PR12MB248696FDB2D0E563221E7CDFE87E0@DM5PR12MB2486.namprd12.prod.outlook.com>
+ <CH2PR12MB3831D16D352FA009002800CC857E0@CH2PR12MB3831.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1263206366=="
+Content-Type: multipart/mixed; boundary="===============0035759899=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <DM5PR12MB248696FDB2D0E563221E7CDFE87E0-2J9CzHegvk8hnZ7s9K7NnwdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
+In-Reply-To: <CH2PR12MB3831D16D352FA009002800CC857E0-rV3HgkLYx2Wb1l0FfFgDpQdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -24,23 +25,45 @@ Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 To: "Strawbridge, Michael" <Michael.Strawbridge-5C7GfCeVMHo@public.gmane.org>, "Quan, Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============1263206366==
+--===============0035759899==
 Content-Language: en-US
 Content-Type: multipart/alternative;
-	boundary="_000_CH2PR12MB3831D16D352FA009002800CC857E0CH2PR12MB3831namp_"
+	boundary="_000_CH2PR12MB3831868F2A7B4A8BCCBA24F7857E0CH2PR12MB3831namp_"
 
---_000_CH2PR12MB3831D16D352FA009002800CC857E0CH2PR12MB3831namp_
+--_000_CH2PR12MB3831868F2A7B4A8BCCBA24F7857E0CH2PR12MB3831namp_
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
+
++                       for (i =3D 0; i < mgpu_info.num_gpu; i++) {
+Also while num_physical_nodes should be used here instead.  It doesn't make=
+ sense to have a pre-condition check i.e. (if (mgpu_info.num_dgpu =3D=3D ad=
+ev->gmc.xgmi.num_physical_nodes - 1) ) against the total number of nodes wh=
+ile the loop checks for the current num gpus from mgpu_info.  This will fai=
+l to set the last node to low pstate for the same 0-indexing issue once the=
+ pre-condition passes.
+
++                               gpu_instance =3D &(mgpu_info.gpu_ins[i]);
++                               if (gpu_instance->adev->flags & AMD_IS_APU)
++                                       continue;
++
+
+From: Kim, Jonathan
+Sent: Tuesday, November 5, 2019 11:42 AM
+To: Strawbridge, Michael <Michael.Strawbridge-5C7GfCeVMHo@public.gmane.org>; Quan, Evan <Evan.Qu=
+an-5C7GfCeVMHo@public.gmane.org>; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Subject: RE: [PATCH 2/2] drm/amdgpu: perform p-state switch after the whole=
+ hive initialized
 
 Yes that's correct.  This should fix the issue.
 
 Jon
 
-From: Strawbridge, Michael <Michael.Strawbridge-5C7GfCeVMHo@public.gmane.org>
+From: Strawbridge, Michael <Michael.Strawbridge-5C7GfCeVMHo@public.gmane.org<mailto:Michael.Stra=
+wbridge-5C7GfCeVMHo@public.gmane.org>>
 Sent: Tuesday, November 5, 2019 11:40 AM
-To: Kim, Jonathan <Jonathan.Kim-5C7GfCeVMHo@public.gmane.org>; Quan, Evan <Evan.Quan-5C7GfCeVMHo@public.gmane.org>; a=
-md-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: Kim, Jonathan <Jonathan.Kim-5C7GfCeVMHo@public.gmane.org<mailto:Jonathan.Kim-5C7GfCeVMHo@public.gmane.org>>; Quan=
+, Evan <Evan.Quan-5C7GfCeVMHo@public.gmane.org<mailto:Evan.Quan-5C7GfCeVMHo@public.gmane.org>>; amd-gfx-PD4FTy7X32mqWrfYKbYh0A@public.gmane.org=
+ktop.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 Subject: Re: [PATCH 2/2] drm/amdgpu: perform p-state switch after the whole=
  hive initialized
 
@@ -175,7 +198,7 @@ struct work_struct *work)
 --
 2.23.0
 
---_000_CH2PR12MB3831D16D352FA009002800CC857E0CH2PR12MB3831namp_
+--_000_CH2PR12MB3831868F2A7B4A8BCCBA24F7857E0CH2PR12MB3831namp_
 Content-Type: text/html; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
@@ -222,7 +245,11 @@ p.msonormal0, li.msonormal0, div.msonormal0
 	margin-bottom:.0001pt;
 	font-size:11.0pt;
 	font-family:"Calibri",sans-serif;}
-span.EmailStyle20
+span.EmailStyle18
+	{mso-style-type:personal;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
+span.EmailStyle19
 	{mso-style-type:personal-reply;
 	font-family:"Calibri",sans-serif;
 	color:windowtext;}
@@ -243,6 +270,47 @@ div.WordSection1
 </head>
 <body lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72">
 <div class=3D"WordSection1">
+<p class=3D"MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; for (i =3D 0; i &lt; mgpu_info.num_gpu; i&#43;&#43;) {<o:p></o:p=
+></p>
+<p class=3D"MsoNormal">Also while num_physical_nodes should be used here in=
+stead.&nbsp; It doesn&#8217;t make sense to have a pre-condition check i.e.=
+ (<span style=3D"font-family:&quot;Segoe UI&quot;,sans-serif;color:black;ba=
+ckground:white">if (mgpu_info.num_dgpu =3D=3D adev-&gt;gmc.xgmi.num_physica=
+l_nodes<b>
+ - 1</b>) ) </span>against the total number of nodes while the loop checks =
+for the current num gpus from mgpu_info.&nbsp; This will fail to set the la=
+st node to low pstate for the same 0-indexing issue once the pre-condition =
+passes.
+<o:p></o:p></p>
+<p class=3D"MsoNormal"><br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gpu_instance =3D &amp;(mgpu_info.gpu_in=
+s[i]);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (gpu_instance-&gt;adev-&gt;flags &am=
+p; AMD_IS_APU)<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp; continue;<br>
+&#43;<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<div>
+<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
+0in 0in">
+<p class=3D"MsoNormal"><b>From:</b> Kim, Jonathan <br>
+<b>Sent:</b> Tuesday, November 5, 2019 11:42 AM<br>
+<b>To:</b> Strawbridge, Michael &lt;Michael.Strawbridge-5C7GfCeVMHo@public.gmane.org&gt;; Quan, =
+Evan &lt;Evan.Quan-5C7GfCeVMHo@public.gmane.org&gt;; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>Subject:</b> RE: [PATCH 2/2] drm/amdgpu: perform p-state switch after th=
+e whole hive initialized<o:p></o:p></p>
+</div>
+</div>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
 <p class=3D"MsoNormal">Yes that&#8217;s correct.&nbsp; This should fix the =
 issue.<o:p></o:p></p>
 <p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
@@ -251,12 +319,15 @@ issue.<o:p></o:p></p>
 <div>
 <div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
 0in 0in">
-<p class=3D"MsoNormal"><b>From:</b> Strawbridge, Michael &lt;Michael.Strawb=
-ridge-5C7GfCeVMHo@public.gmane.org&gt;
+<p class=3D"MsoNormal"><b>From:</b> Strawbridge, Michael &lt;<a href=3D"mai=
+lto:Michael.Strawbridge-5C7GfCeVMHo@public.gmane.org">Michael.Strawbridge-5C7GfCeVMHo@public.gmane.org</a>&gt;
 <br>
 <b>Sent:</b> Tuesday, November 5, 2019 11:40 AM<br>
-<b>To:</b> Kim, Jonathan &lt;Jonathan.Kim-5C7GfCeVMHo@public.gmane.org&gt;; Quan, Evan &lt;Evan.=
-Quan-5C7GfCeVMHo@public.gmane.org&gt;; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>To:</b> Kim, Jonathan &lt;<a href=3D"mailto:Jonathan.Kim-5C7GfCeVMHo@public.gmane.org">Jonath=
+an.Kim-5C7GfCeVMHo@public.gmane.org</a>&gt;; Quan, Evan &lt;<a href=3D"mailto:Evan.Quan-5C7GfCeVMHo@public.gmane.org"=
+>Evan.Quan-5C7GfCeVMHo@public.gmane.org</a>&gt;;
+<a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9/rsn8yoX9R0@public.gmane.org=
+org</a><br>
 <b>Subject:</b> Re: [PATCH 2/2] drm/amdgpu: perform p-state switch after th=
 e whole hive initialized<o:p></o:p></p>
 </div>
@@ -302,16 +373,18 @@ bsp;</o:p></span></p>
 </div>
 <div id=3D"divRplyFwdMsg">
 <p class=3D"MsoNormal"><b><span style=3D"color:black">From:</span></b><span=
- style=3D"color:black"> Kim, Jonathan &lt;<a href=3D"mailto:Jonathan.Kim@am=
-d.com">Jonathan.Kim-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
+ style=3D"color:black"> Kim, Jonathan &lt;</span><a href=3D"mailto:Jonathan=
+.Kim-5C7GfCeVMHo@public.gmane.org">Jonathan.Kim-5C7GfCeVMHo@public.gmane.org</a><span style=3D"color:black">&gt;<br>
 <b>Sent:</b> 05 November 2019 11:32 AM<br>
-<b>To:</b> Quan, Evan &lt;<a href=3D"mailto:Evan.Quan-5C7GfCeVMHo@public.gmane.org">Evan.Quan@am=
-d.com</a>&gt;;
-<a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9/rsn8yoX9R0@public.gmane.org=
-org</a> &lt;<a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx@lists.=
-freedesktop.org</a>&gt;<br>
-<b>Cc:</b> Strawbridge, Michael &lt;<a href=3D"mailto:Michael.Strawbridge@a=
-md.com">Michael.Strawbridge-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
+<b>To:</b> Quan, Evan &lt;</span><a href=3D"mailto:Evan.Quan-5C7GfCeVMHo@public.gmane.org">Evan.=
+Quan-5C7GfCeVMHo@public.gmane.org</a><span style=3D"color:black">&gt;;
+</span><a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32mMSPqsTGOZug@public.gmane.org=
+esktop.org</a><span style=3D"color:black"> &lt;</span><a href=3D"mailto:amd=
+-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><span style=3D=
+"color:black">&gt;<br>
+<b>Cc:</b> Strawbridge, Michael &lt;</span><a href=3D"mailto:Michael.Strawb=
+ridge-5C7GfCeVMHo@public.gmane.org">Michael.Strawbridge-5C7GfCeVMHo@public.gmane.org</a><span style=3D"color:black">&=
+gt;<br>
 <b>Subject:</b> RE: [PATCH 2/2] drm/amdgpu: perform p-state switch after th=
 e whole hive initialized</span>
 <o:p></o:p></p>
@@ -501,9 +574,9 @@ rk)<br>
 </body>
 </html>
 
---_000_CH2PR12MB3831D16D352FA009002800CC857E0CH2PR12MB3831namp_--
+--_000_CH2PR12MB3831868F2A7B4A8BCCBA24F7857E0CH2PR12MB3831namp_--
 
---===============1263206366==
+--===============0035759899==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -513,4 +586,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
 
---===============1263206366==--
+--===============0035759899==--
