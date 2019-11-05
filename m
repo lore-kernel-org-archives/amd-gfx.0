@@ -1,231 +1,41 @@
-From: Alex Deucher <alexdeucher@gmail.com>
-Subject: Re: drm/amd/display: Add HDCP module - static analysis bug report
-Date: Tue, 5 Nov 2019 07:51:53 -0500
-Message-ID: <CADnq5_NUAfeWscsnj07MpReM3LNwHPSPq3pQDe0waMi4OCatUg@mail.gmail.com>
-References: <951eb7dc-bebe-5049-4998-f199e18b0bf3@canonical.com>
- <20191009163235.GT16989@phenom.ffwll.local> <a0d5f3a3-a2b3-5367-42f9-bde514571e25@amd.com>
- <CAKMK7uEtJRDhibWDv2TB2WrFzFooMWPSbveDD2N-rudAwvzVFA@mail.gmail.com>
- <c8f96b46-e81e-1e41-aafc-5f6ec236d66f@amd.com> <CAKMK7uHr3aeJRqJAscDDfsuBBnVXCeN9SS36-1UGuK84NyOD5Q@mail.gmail.com>
- <CAKMK7uH6EoY9MkzjSjU+Fe=E-XB4Tf9d2VsW=Tr=tFy1J-dJgg@mail.gmail.com>
- <53bf910b-5f9c-946b-17ee-602c24c0fa96@amd.com> <20191104165457.GH10326@phenom.ffwll.local>
- <CADnq5_PxMQ_AkBCHXU_YUAMWaPcH-nkOJNGNKnUOJWSTYV6X+A@mail.gmail.com> <20191104172434.GJ10326@phenom.ffwll.local>
+From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [amd-staging-drm-nex] Planned move to 5.4-rc6+ soon?
+Date: Tue, 5 Nov 2019 08:01:19 -0500
+Message-ID: <CADnq5_MiiwVGd-enbECue41mS72v0qaOmz6R7QsCbf5UMM9J+A@mail.gmail.com>
+References: <fa2e4af9689cc1fd566876ff8438a90f@nuetzel-hh.de>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20191104172434.GJ10326@phenom.ffwll.local>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Daniel Vetter <daniel@ffwll.ch>
-Cc: Harry Wentland <hwentlan@amd.com>, "Zhou, David(ChunMing)" <David1.Zhou@amd.com>, "Li, Sun peng (Leo)" <Sunpeng.Li@amd.com>, "Wentland, Harry" <Harry.Wentland@amd.com>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, amd-gfx mailing list <amd-gfx@lists.freedesktop.org>, David Airlie <airlied@linux.ie>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "Deucher, Alexander" <Alexander.Deucher@amd.com>, Colin Ian King <colin.king@canonical.com>, "Lakha, Bhawanpreet" <Bhawanpreet.Lakha@amd.com>, "Koenig, Christian" <Christian.Koenig@amd.com>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <fa2e4af9689cc1fd566876ff8438a90f-0hun7QTegEsDD4udEopG9Q@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: =?UTF-8?Q?Dieter_N=C3=BCtzel?= <Dieter-0hun7QTegEsDD4udEopG9Q@public.gmane.org>
+Cc: amd-devel <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-On Mon, Nov 4, 2019 at 12:24 PM Daniel Vetter <daniel@ffwll.ch> wrote:
->
-> On Mon, Nov 04, 2019 at 12:05:40PM -0500, Alex Deucher wrote:
-> > On Mon, Nov 4, 2019 at 11:55 AM Daniel Vetter <daniel@ffwll.ch> wrote:
-> > >
-> > > On Mon, Nov 04, 2019 at 03:23:09PM +0000, Harry Wentland wrote:
-> > > > On 2019-11-04 5:53 a.m., Daniel Vetter wrote:
-> > > > > On Wed, Oct 9, 2019 at 10:58 PM Daniel Vetter <daniel@ffwll.ch> wrote:
-> > > > >> On Wed, Oct 9, 2019 at 10:46 PM Lakha, Bhawanpreet
-> > > > >> <Bhawanpreet.Lakha@amd.com> wrote:
-> > > > >>>
-> > > > >>> I misunderstood and was talking about the ksv validation specifically
-> > > > >>> (usage of drm_hdcp_check_ksvs_revoked()).
-> > > > >>
-> > > > >> Hm for that specifically I think you want to do both, i.e. both
-> > > > >> consult your psp, but also check for revoked ksvs with the core
-> > > > >> helper. At least on some platforms only the core helper might have the
-> > > > >> updated revoke list.
-> > > > >>
-> > > >
-> > > > I think it's an either/or. Either we use an HDCP implementation that's
-> > > > fully running in x86 kernel space (still not sure how that's compliant)
-> > > > or we fully rely on our PSP FW to do what it's designed to do. I don't
-> > > > think it makes sense to mix and match here.
-> > >
-> > > Then you need to somehow tie the revoke list that's in the psp to the
-> > > revoke list update logic we have. That's what we've done for hdcp2 (which
-> > > is similarly to yours implemented in hw). The point is that on linux we
-> > > now have a standard way to get these revoke lists updated/handled.
-> > >
-> > > I guess it wasn't clear how exactly I think you're supposed to combine
-> > > them?
-> >
-> > There's no driver sw required at all for our implementation and as far
-> > as I know, HDCP 2.x requires that all of the key revoke handling be
-> > handled in a secure processor rather than than on the host processor,
-> > so I'm not sure how we make use if it.  All the driver sw is
-> > responsible for doing is saving/restoring the potentially updated srm
-> > at suspend/resume/etc.
->
-> Uh, you don't have a permanent store on the chip? I thought another
-> requirement is that you can't downgrade.
-
-Right.  That's why the driver has to save and restore the srm when the
-GPU is powered down.  I guess that part can be done by the host
-processor as long as the srm is signed properly.
-
->
-> And for hw solutions all you do with the updated revoke cert is stuff it
-> into the hw, it's purely for updating it. And those updates need to come
-> from somewhere else (usually in the media you play), the kernel can't
-> fetch them over the internet itself. I thought we already had the function
-> to give you the srm directly so you can stuff it into the hw, but looks
-> like that part isn't there (yet).
-
-IIRC, the revoke stuff gets gleaned from the stream by the secure
-processor somehow when you play back secure content.  I'm not entirely
-clear on the details, but from the design, the driver doesn't have to
-do anything in our case other than saving and restoring the srm from
-the secure processor.
-
-Alex
-
-> -Daniel
->
-> >
-> > Alex
-> >
-> > > -Daniel
-> > >
-> > >
-> > > >
-> > > > >>> For the defines I will create patches to use drm_hdcp where it is usable.
-> > > > >>
-> > > > >> Thanks a lot. Ime once we have shared definitions it's much easier to
-> > > > >> also share some helpers, where it makes sense.
-> > > > >>
-> > > > >> Aside I think the hdcp code could also use a bit of demidlayering. At
-> > > > >> least I'm not understanding why you add a 2nd abstraction layer for
-> > > > >> i2c/dpcd, dm_helper already has that. That seems like one abstraction
-> > > > >> layer too much.
-> > > > >
-> > > > > I haven't seen anything fly by or in the latest pull request ... you
-> > > > > folks still working on this or more put on the "maybe, probably never"
-> > > > > pile?
-> > > > >
-> > > >
-> > > > Following up with Bhawan.
-> > > >
-> > > > Harry
-> > > >
-> > > > > -Daniel
-> > > > >
-> > > > >
-> > > > >> -Daniel
-> > > > >>
-> > > > >>>
-> > > > >>>
-> > > > >>> Bhawan
-> > > > >>>
-> > > > >>> On 2019-10-09 2:43 p.m., Daniel Vetter wrote:
-> > > > >>>> On Wed, Oct 9, 2019 at 8:23 PM Lakha, Bhawanpreet
-> > > > >>>> <Bhawanpreet.Lakha@amd.com> wrote:
-> > > > >>>>> Hi,
-> > > > >>>>>
-> > > > >>>>> The reason we don't use drm_hdcp is because our policy is to do hdcp
-> > > > >>>>> verification using PSP/HW (onboard secure processor).
-> > > > >>>> i915 also uses hw to auth, we still use the parts from drm_hdcp ...
-> > > > >>>> Did you actually look at what's in there? It's essentially just shared
-> > > > >>>> defines and data structures from the standard, plus a few minimal
-> > > > >>>> helpers to en/decode some bits. Just from a quick read the entire
-> > > > >>>> patch very much looks like midlayer everywhere design that we
-> > > > >>>> discussed back when DC landed ...
-> > > > >>>> -Daniel
-> > > > >>>>
-> > > > >>>>> Bhawan
-> > > > >>>>>
-> > > > >>>>> On 2019-10-09 12:32 p.m., Daniel Vetter wrote:
-> > > > >>>>>> On Thu, Oct 03, 2019 at 11:08:03PM +0100, Colin Ian King wrote:
-> > > > >>>>>>> Hi,
-> > > > >>>>>>>
-> > > > >>>>>>> Static analysis with Coverity has detected a potential issue with
-> > > > >>>>>>> function validate_bksv in
-> > > > >>>>>>> drivers/gpu/drm/amd/display/modules/hdcp/hdcp1_execution.c with recent
-> > > > >>>>>>> commit:
-> > > > >>>>>>>
-> > > > >>>>>>> commit ed9d8e2bcb003ec94658cafe9b1bb3960e2139ec
-> > > > >>>>>>> Author: Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>
-> > > > >>>>>>> Date:   Tue Aug 6 17:52:01 2019 -0400
-> > > > >>>>>>>
-> > > > >>>>>>>       drm/amd/display: Add HDCP module
-> > > > >>>>>> I think the real question here is ... why is this not using drm_hdcp?
-> > > > >>>>>> -Daniel
-> > > > >>>>>>
-> > > > >>>>>>> The analysis is as follows:
-> > > > >>>>>>>
-> > > > >>>>>>>    28 static inline enum mod_hdcp_status validate_bksv(struct mod_hdcp *hdcp)
-> > > > >>>>>>>    29 {
-> > > > >>>>>>>
-> > > > >>>>>>> CID 89852 (#1 of 1): Out-of-bounds read (OVERRUN)
-> > > > >>>>>>>
-> > > > >>>>>>> 1. overrun-local:
-> > > > >>>>>>> Overrunning array of 5 bytes at byte offset 7 by dereferencing pointer
-> > > > >>>>>>> (uint64_t *)hdcp->auth.msg.hdcp1.bksv.
-> > > > >>>>>>>
-> > > > >>>>>>>    30        uint64_t n = *(uint64_t *)hdcp->auth.msg.hdcp1.bksv;
-> > > > >>>>>>>    31        uint8_t count = 0;
-> > > > >>>>>>>    32
-> > > > >>>>>>>    33        while (n) {
-> > > > >>>>>>>    34                count++;
-> > > > >>>>>>>    35                n &= (n - 1);
-> > > > >>>>>>>    36        }
-> > > > >>>>>>>
-> > > > >>>>>>> hdcp->auth.msg.hdcp1.bksv is an array of 5 uint8_t as defined in
-> > > > >>>>>>> drivers/gpu/drm/amd/display/modules/hdcp/hdcp.h as follows:
-> > > > >>>>>>>
-> > > > >>>>>>> struct mod_hdcp_message_hdcp1 {
-> > > > >>>>>>>           uint8_t         an[8];
-> > > > >>>>>>>           uint8_t         aksv[5];
-> > > > >>>>>>>           uint8_t         ainfo;
-> > > > >>>>>>>           uint8_t         bksv[5];
-> > > > >>>>>>>           uint16_t        r0p;
-> > > > >>>>>>>           uint8_t         bcaps;
-> > > > >>>>>>>           uint16_t        bstatus;
-> > > > >>>>>>>           uint8_t         ksvlist[635];
-> > > > >>>>>>>           uint16_t        ksvlist_size;
-> > > > >>>>>>>           uint8_t         vp[20];
-> > > > >>>>>>>
-> > > > >>>>>>>           uint16_t        binfo_dp;
-> > > > >>>>>>> };
-> > > > >>>>>>>
-> > > > >>>>>>> variable n is going to contain the contains of r0p and bcaps. I'm not
-> > > > >>>>>>> sure if that is intentional. If not, then the count is going to be
-> > > > >>>>>>> incorrect if these are non-zero.
-> > > > >>>>>>>
-> > > > >>>>>>> Colin
-> > > > >>>>> _______________________________________________
-> > > > >>>>> dri-devel mailing list
-> > > > >>>>> dri-devel@lists.freedesktop.org
-> > > > >>>>> https://lists.freedesktop.org/mailman/listinfo/dri-devel
-> > > > >>>>
-> > > > >>>>
-> > > > >>
-> > > > >>
-> > > > >>
-> > > > >> --
-> > > > >> Daniel Vetter
-> > > > >> Software Engineer, Intel Corporation
-> > > > >> +41 (0) 79 365 57 48 - http://blog.ffwll.ch
-> > > > >
-> > > > >
-> > > > >
-> > > > > --
-> > > > > Daniel Vetter
-> > > > > Software Engineer, Intel Corporation
-> > > > > +41 (0) 79 365 57 48 - http://blog.ffwll.ch
-> > > > >
-> > >
-> > > --
-> > > Daniel Vetter
-> > > Software Engineer, Intel Corporation
-> > > http://blog.ffwll.ch
-> > > _______________________________________________
-> > > amd-gfx mailing list
-> > > amd-gfx@lists.freedesktop.org
-> > > https://lists.freedesktop.org/mailman/listinfo/amd-gfx
->
-> --
-> Daniel Vetter
-> Software Engineer, Intel Corporation
-> http://blog.ffwll.ch
+T24gTW9uLCBOb3YgNCwgMjAxOSBhdCA2OjA0IFBNIERpZXRlciBOw7x0emVsIDxEaWV0ZXJAbnVl
+dHplbC1oaC5kZT4gd3JvdGU6Cj4KPiBIZWxsbyBBbGV4LAo+Cj4gbGlrZSBBTUQuLi47LSkKPgo+
+IFtXaHldCj4gNS4zLXJjWCAoLXJjMykKPiAtIGhhcyBicm9rZW4gKHJlZ3Jlc3NlZCkgYmxvY2sg
+bGF5ZXIgKENEL0RWRCwgZ2FtZXMuLi4pIC0gZml4ZWQgaW4gNS4zCj4gZmluYWwKPiAtIEFDUEkg
+KHBvd2VyIG1hbmFnZW1lbnQpIHJlZ3Jlc3Npb24gLSBmaXhlZCBpbiA1LjMgZmluYWwKPiAtIFVT
+QiAzLjEvMy4yIHJlZ3Jlc3Npb24gKDUuMDAwIHZzIDEwLjAwMCBNYml0L3MgbW9kZSwgaW4gdXNl
+IGhlYXZpbHkKPiBoZXJlKQo+ICAgICBldmVuIHdpdGggQU1EJ3MgcGFydG5lciBBU01lZGlhIChB
+U00gMjE0MisgY2hpcHMpIC0gZml4ZWQgaW4gNS40LXJjCj4gKCEhISkKPiAtIE5hdmkgcHJvYmxl
+bXMgKGUuZy4gU0RNQSkgc29tZSBwcm9ncmVzcy9taXRpZ2F0aW9uIHdpdGggNS40LXJjCj4KPiBb
+SG93XQo+IFN3aXRjaCB0byA1LjQtcmM0IChvciBiZXR0ZXIgLXJjNikgYXMgc29vbiBhcyBwb3Nz
+aWJsZQo+CgpJdCdzIGJhc2VkIG9uIERhdmUncyBkcm0tbmV4dCB0cmVlIHNvIGl0IG1vdmVzIGZv
+cndhcmQgYXMgdGhhdCB0cmVlCm1vdmVzIGZvcndhcmQuICBGcm9tIHRoZSBkcml2ZXIncyBwZXJz
+cGVjdGl2ZSwgaXQgaGFzIGFsbCB0aGUgZHJpdmVyCnBhdGNoZXMgc28gdGhlcmUgaXMgbm90aGlu
+ZyBtaXNzaW5nIGZyb20gdGhhdCBicmFuY2ggcmVsYXRpdmUgdG8gNS40LgpJZiB5b3Ugd2FudCBh
+biB1cGRhdGVkIGJhc2Uga2VybmVsIHRyZWUgdXNlIG15IGRybS1uZXh0IGJyYW5jaC4KCkFsZXgK
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
