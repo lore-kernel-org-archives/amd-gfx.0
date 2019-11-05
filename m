@@ -1,18 +1,17 @@
-From: "Kim, Jonathan" <Jonathan.Kim-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH 2/2] drm/amdgpu: perform p-state switch after the whole
- hive initialized
-Date: Tue, 5 Nov 2019 17:07:26 +0000
-Message-ID: <CH2PR12MB3831868F2A7B4A8BCCBA24F7857E0@CH2PR12MB3831.namprd12.prod.outlook.com>
-References: <20191105102310.16657-1-evan.quan@amd.com>
- <20191105102310.16657-2-evan.quan@amd.com>,
- <CH2PR12MB3831CEABDD4CBA2FEB8DEFEB857E0@CH2PR12MB3831.namprd12.prod.outlook.com>
- <DM5PR12MB248696FDB2D0E563221E7CDFE87E0@DM5PR12MB2486.namprd12.prod.outlook.com>
- <CH2PR12MB3831D16D352FA009002800CC857E0@CH2PR12MB3831.namprd12.prod.outlook.com>
+From: "Li, Sun peng (Leo)" <Sunpeng.Li-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 1/2] drm/amd/display: Send vblank and user events at
+ vsartup for DCN
+Date: Tue, 5 Nov 2019 18:32:06 +0000
+Message-ID: <ed7b7f5e-4a53-f3e1-912f-e0ae5181288c@amd.com>
+References: <20191105153416.32049-1-sunpeng.li@amd.com>
+ <c93c503d-48dc-1ea5-19f7-42ff9392e162@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0035759899=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CH2PR12MB3831D16D352FA009002800CC857E0-rV3HgkLYx2Wb1l0FfFgDpQdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
+In-Reply-To: <c93c503d-48dc-1ea5-19f7-42ff9392e162-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
+Content-ID: <211D0A82163B714C868F5E156B242601-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -23,567 +22,97 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Strawbridge, Michael" <Michael.Strawbridge-5C7GfCeVMHo@public.gmane.org>, "Quan, Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Kazlauskas, Nicholas" <Nicholas.Kazlauskas-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "mario.kleiner.de-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org" <mario.kleiner.de-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "Wentland,
+ Harry" <Harry.Wentland-5C7GfCeVMHo@public.gmane.org>
 
---===============0035759899==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_CH2PR12MB3831868F2A7B4A8BCCBA24F7857E0CH2PR12MB3831namp_"
-
---_000_CH2PR12MB3831868F2A7B4A8BCCBA24F7857E0CH2PR12MB3831namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-+                       for (i =3D 0; i < mgpu_info.num_gpu; i++) {
-Also while num_physical_nodes should be used here instead.  It doesn't make=
- sense to have a pre-condition check i.e. (if (mgpu_info.num_dgpu =3D=3D ad=
-ev->gmc.xgmi.num_physical_nodes - 1) ) against the total number of nodes wh=
-ile the loop checks for the current num gpus from mgpu_info.  This will fai=
-l to set the last node to low pstate for the same 0-indexing issue once the=
- pre-condition passes.
-
-+                               gpu_instance =3D &(mgpu_info.gpu_ins[i]);
-+                               if (gpu_instance->adev->flags & AMD_IS_APU)
-+                                       continue;
-+
-
-From: Kim, Jonathan
-Sent: Tuesday, November 5, 2019 11:42 AM
-To: Strawbridge, Michael <Michael.Strawbridge-5C7GfCeVMHo@public.gmane.org>; Quan, Evan <Evan.Qu=
-an-5C7GfCeVMHo@public.gmane.org>; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Subject: RE: [PATCH 2/2] drm/amdgpu: perform p-state switch after the whole=
- hive initialized
-
-Yes that's correct.  This should fix the issue.
-
-Jon
-
-From: Strawbridge, Michael <Michael.Strawbridge-5C7GfCeVMHo@public.gmane.org<mailto:Michael.Stra=
-wbridge-5C7GfCeVMHo@public.gmane.org>>
-Sent: Tuesday, November 5, 2019 11:40 AM
-To: Kim, Jonathan <Jonathan.Kim-5C7GfCeVMHo@public.gmane.org<mailto:Jonathan.Kim-5C7GfCeVMHo@public.gmane.org>>; Quan=
-, Evan <Evan.Quan-5C7GfCeVMHo@public.gmane.org<mailto:Evan.Quan-5C7GfCeVMHo@public.gmane.org>>; amd-gfx-PD4FTy7X32mqWrfYKbYh0A@public.gmane.org=
-ktop.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Subject: Re: [PATCH 2/2] drm/amdgpu: perform p-state switch after the whole=
- hive initialized
-
-Hi Jon,
-
-Does that mean we can simply use this instead?
-
-+               if (mgpu_info.num_dgpu =3D=3D adev->gmc.xgmi.num_physical_n=
-odes - 1) {
-
-Thanks,
-Michael
-________________________________
-From: Kim, Jonathan <Jonathan.Kim-5C7GfCeVMHo@public.gmane.org<mailto:Jonathan.Kim-5C7GfCeVMHo@public.gmane.org>>
-Sent: 05 November 2019 11:32 AM
-To: Quan, Evan <Evan.Quan-5C7GfCeVMHo@public.gmane.org<mailto:Evan.Quan-5C7GfCeVMHo@public.gmane.org>>; amd-gfx@lists=
-.freedesktop.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> <amd-gfx-PD4FTy7X32mMSPqsTGOZug@public.gmane.org=
-esktop.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>>
-Cc: Strawbridge, Michael <Michael.Strawbridge-5C7GfCeVMHo@public.gmane.org<mailto:Michael.Strawb=
-ridge-5C7GfCeVMHo@public.gmane.org>>
-Subject: RE: [PATCH 2/2] drm/amdgpu: perform p-state switch after the whole=
- hive initialized
-
-Please see inline.
-
-Jon
-
------Original Message-----
-From: Quan, Evan <Evan.Quan-5C7GfCeVMHo@public.gmane.org<mailto:Evan.Quan-5C7GfCeVMHo@public.gmane.org>>
-Sent: Tuesday, November 5, 2019 5:24 AM
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: Kim, Jonathan <Jonathan.Kim-5C7GfCeVMHo@public.gmane.org<mailto:Jonathan.Kim-5C7GfCeVMHo@public.gmane.org>>; Stra=
-wbridge, Michael <Michael.Strawbridge-5C7GfCeVMHo@public.gmane.org<mailto:Michael.Strawbridge@am=
-d.com>>; Quan, Evan <Evan.Quan-5C7GfCeVMHo@public.gmane.org<mailto:Evan.Quan-5C7GfCeVMHo@public.gmane.org>>
-Subject: [PATCH 2/2] drm/amdgpu: perform p-state switch after the whole hiv=
-e initialized
-
-P-state switch should be performed after all devices from the hive get init=
-ialized.
-
-Change-Id: Ifc7cac9ef0cf250447d2a412da35d601e2ac79ec
-Signed-off-by: Evan Quan <evan.quan-5C7GfCeVMHo@public.gmane.org<mailto:evan.quan-5C7GfCeVMHo@public.gmane.org>>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 47 ++++++++++++++++------
- 1 file changed, 35 insertions(+), 12 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_device.c
-index e6ce949670e5..2d72d206cead 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -2090,6 +2090,7 @@ static int amdgpu_device_enable_mgpu_fan_boost(void)
-  */
- static int amdgpu_device_ip_late_init(struct amdgpu_device *adev)  {
-+       struct amdgpu_gpu_instance *gpu_instance;
-         int i =3D 0, r;
-
-         for (i =3D 0; i < adev->num_ip_blocks; i++) { @@ -2115,6 +2116,40 =
-@@ static int amdgpu_device_ip_late_init(struct amdgpu_device *adev)
-         if (r)
-                 DRM_ERROR("enable mgpu fan boost failed (%d).\n", r);
-
-+
-+       if (adev->gmc.xgmi.num_physical_nodes > 1) {
-+               mutex_lock(&mgpu_info.mutex);
-+
-+               /*
-+                * Reset device p-state to low as this was booted with high=
-.
-+                *
-+                * This should be performed only after all devices from the=
- same
-+                * hive get initialized.
-+                *
-+                * However, it's unknown how many device in the hive in adv=
-ance.
-+                * As this is counted one by one during devices initializat=
-ions.
-+                *
-+                * So, we wait for all XGMI interlinked devices initialized=
-.
-+                * This may bring some delays as those devices may come fro=
-m
-+                * different hives. But that should be OK.
-+                */
-+               if (mgpu_info.num_dgpu =3D=3D adev->gmc.xgmi.num_physical_n=
-odes) {
-[JK] This condition will never succeed.  mgpu_info.num_dgpu is 0-indexed wh=
-ile num_physical_nodes give total nodes.
-
-+                       for (i =3D 0; i < mgpu_info.num_gpu; i++) {
-+                               gpu_instance =3D &(mgpu_info.gpu_ins[i]);
-+                               if (gpu_instance->adev->flags & AMD_IS_APU)
-+                                       continue;
-+
-+                               r =3D amdgpu_xgmi_set_pstate(gpu_instance->=
-adev, 0);
-+                               if (r) {
-+                                       DRM_ERROR("pstate setting failed (%=
-d).\n", r);
-+                                       break;
-+                               }
-+                       }
-+               }
-+
-+               mutex_unlock(&mgpu_info.mutex);
-+       }
-+
-         return 0;
- }
-
-@@ -2227,18 +2262,6 @@ static void amdgpu_device_delayed_init_work_handler(=
-struct work_struct *work)
-         r =3D amdgpu_ib_ring_tests(adev);
-         if (r)
-                 DRM_ERROR("ib ring test failed (%d).\n", r);
--
--       /*
--        * set to low pstate by default
--        * This should be performed after all devices from
--        * XGMI finish their initializations. Thus it's moved
--        * to here.
--        * The time delay is 2S. TODO: confirm whether that
--        * is enough for all possible XGMI setups.
--        */
--       r =3D amdgpu_xgmi_set_pstate(adev, 0);
--       if (r)
--               DRM_ERROR("pstate setting failed (%d).\n", r);
- }
-
- static void amdgpu_device_delay_enable_gfx_off(struct work_struct *work)
---
-2.23.0
-
---_000_CH2PR12MB3831868F2A7B4A8BCCBA24F7857E0CH2PR12MB3831namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
-osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
-xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
-//www.w3.org/TR/REC-html40">
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
-<!--[if !mso]><style>v\:* {behavior:url(#default#VML);}
-o\:* {behavior:url(#default#VML);}
-w\:* {behavior:url(#default#VML);}
-.shape {behavior:url(#default#VML);}
-</style><![endif]--><style><!--
-/* Font Definitions */
-@font-face
-	{font-family:"Cambria Math";
-	panose-1:2 4 5 3 5 4 6 3 2 4;}
-@font-face
-	{font-family:Calibri;
-	panose-1:2 15 5 2 2 2 4 3 2 4;}
-@font-face
-	{font-family:"Segoe UI";
-	panose-1:2 11 5 2 4 2 4 2 2 3;}
-/* Style Definitions */
-p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin:0in;
-	margin-bottom:.0001pt;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif;}
-a:link, span.MsoHyperlink
-	{mso-style-priority:99;
-	color:#0563C1;
-	text-decoration:underline;}
-a:visited, span.MsoHyperlinkFollowed
-	{mso-style-priority:99;
-	color:#954F72;
-	text-decoration:underline;}
-p.msonormal0, li.msonormal0, div.msonormal0
-	{mso-style-name:msonormal;
-	margin:0in;
-	margin-bottom:.0001pt;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif;}
-span.EmailStyle18
-	{mso-style-type:personal;
-	font-family:"Calibri",sans-serif;
-	color:windowtext;}
-span.EmailStyle19
-	{mso-style-type:personal-reply;
-	font-family:"Calibri",sans-serif;
-	color:windowtext;}
-.MsoChpDefault
-	{mso-style-type:export-only;
-	font-size:10.0pt;}
-@page WordSection1
-	{size:8.5in 11.0in;
-	margin:1.0in 1.0in 1.0in 1.0in;}
-div.WordSection1
-	{page:WordSection1;}
---></style><!--[if gte mso 9]><xml>
-<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
-</xml><![endif]--><!--[if gte mso 9]><xml>
-<o:shapelayout v:ext=3D"edit">
-<o:idmap v:ext=3D"edit" data=3D"1" />
-</o:shapelayout></xml><![endif]-->
-</head>
-<body lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72">
-<div class=3D"WordSection1">
-<p class=3D"MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; for (i =3D 0; i &lt; mgpu_info.num_gpu; i&#43;&#43;) {<o:p></o:p=
-></p>
-<p class=3D"MsoNormal">Also while num_physical_nodes should be used here in=
-stead.&nbsp; It doesn&#8217;t make sense to have a pre-condition check i.e.=
- (<span style=3D"font-family:&quot;Segoe UI&quot;,sans-serif;color:black;ba=
-ckground:white">if (mgpu_info.num_dgpu =3D=3D adev-&gt;gmc.xgmi.num_physica=
-l_nodes<b>
- - 1</b>) ) </span>against the total number of nodes while the loop checks =
-for the current num gpus from mgpu_info.&nbsp; This will fail to set the la=
-st node to low pstate for the same 0-indexing issue once the pre-condition =
-passes.
-<o:p></o:p></p>
-<p class=3D"MsoNormal"><br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gpu_instance =3D &amp;(mgpu_info.gpu_in=
-s[i]);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (gpu_instance-&gt;adev-&gt;flags &am=
-p; AMD_IS_APU)<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp; continue;<br>
-&#43;<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<div>
-<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
-0in 0in">
-<p class=3D"MsoNormal"><b>From:</b> Kim, Jonathan <br>
-<b>Sent:</b> Tuesday, November 5, 2019 11:42 AM<br>
-<b>To:</b> Strawbridge, Michael &lt;Michael.Strawbridge-5C7GfCeVMHo@public.gmane.org&gt;; Quan, =
-Evan &lt;Evan.Quan-5C7GfCeVMHo@public.gmane.org&gt;; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Subject:</b> RE: [PATCH 2/2] drm/amdgpu: perform p-state switch after th=
-e whole hive initialized<o:p></o:p></p>
-</div>
-</div>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">Yes that&#8217;s correct.&nbsp; This should fix the =
-issue.<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">Jon<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<div>
-<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
-0in 0in">
-<p class=3D"MsoNormal"><b>From:</b> Strawbridge, Michael &lt;<a href=3D"mai=
-lto:Michael.Strawbridge-5C7GfCeVMHo@public.gmane.org">Michael.Strawbridge-5C7GfCeVMHo@public.gmane.org</a>&gt;
-<br>
-<b>Sent:</b> Tuesday, November 5, 2019 11:40 AM<br>
-<b>To:</b> Kim, Jonathan &lt;<a href=3D"mailto:Jonathan.Kim-5C7GfCeVMHo@public.gmane.org">Jonath=
-an.Kim-5C7GfCeVMHo@public.gmane.org</a>&gt;; Quan, Evan &lt;<a href=3D"mailto:Evan.Quan-5C7GfCeVMHo@public.gmane.org"=
->Evan.Quan-5C7GfCeVMHo@public.gmane.org</a>&gt;;
-<a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9/rsn8yoX9R0@public.gmane.org=
-org</a><br>
-<b>Subject:</b> Re: [PATCH 2/2] drm/amdgpu: perform p-state switch after th=
-e whole hive initialized<o:p></o:p></p>
-</div>
-</div>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<div>
-<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">Hi Jon,=
-<o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black"><o:p>&n=
-bsp;</o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">Does th=
-at mean we can simply use this instead?<o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black"><o:p>&n=
-bsp;</o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Segoe UI&quot;,sans=
--serif;color:black;background:white">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (mgpu_info.num_dgpu =
-=3D=3D adev-&gt;gmc.xgmi.num_physical_nodes<b> - 1</b>) {</span><span style=
-=3D"font-size:12.0pt;color:black"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black"><o:p>&n=
-bsp;</o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal"><span style=3D"color:black">Thanks,<o:p></o:p></span=
-></p>
-</div>
-<div>
-<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">Michael=
-<o:p></o:p></span></p>
-</div>
-<div class=3D"MsoNormal" align=3D"center" style=3D"text-align:center">
-<hr size=3D"2" width=3D"98%" align=3D"center">
-</div>
-<div id=3D"divRplyFwdMsg">
-<p class=3D"MsoNormal"><b><span style=3D"color:black">From:</span></b><span=
- style=3D"color:black"> Kim, Jonathan &lt;</span><a href=3D"mailto:Jonathan=
-.Kim-5C7GfCeVMHo@public.gmane.org">Jonathan.Kim-5C7GfCeVMHo@public.gmane.org</a><span style=3D"color:black">&gt;<br>
-<b>Sent:</b> 05 November 2019 11:32 AM<br>
-<b>To:</b> Quan, Evan &lt;</span><a href=3D"mailto:Evan.Quan-5C7GfCeVMHo@public.gmane.org">Evan.=
-Quan-5C7GfCeVMHo@public.gmane.org</a><span style=3D"color:black">&gt;;
-</span><a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32mMSPqsTGOZug@public.gmane.org=
-esktop.org</a><span style=3D"color:black"> &lt;</span><a href=3D"mailto:amd=
--gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><span style=3D=
-"color:black">&gt;<br>
-<b>Cc:</b> Strawbridge, Michael &lt;</span><a href=3D"mailto:Michael.Strawb=
-ridge-5C7GfCeVMHo@public.gmane.org">Michael.Strawbridge-5C7GfCeVMHo@public.gmane.org</a><span style=3D"color:black">&=
-gt;<br>
-<b>Subject:</b> RE: [PATCH 2/2] drm/amdgpu: perform p-state switch after th=
-e whole hive initialized</span>
-<o:p></o:p></p>
-<div>
-<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
-</div>
-</div>
-<div>
-<div>
-<p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt">Please see inline.<br=
->
-<br>
-Jon<br>
-<br>
------Original Message-----<br>
-From: Quan, Evan &lt;<a href=3D"mailto:Evan.Quan-5C7GfCeVMHo@public.gmane.org">Evan.Quan-5C7GfCeVMHo@public.gmane.org=
-</a>&gt; <br>
-Sent: Tuesday, November 5, 2019 5:24 AM<br>
-To: <a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lzq7FAFJ/aeQ@public.gmane.org=
-top.org</a><br>
-Cc: Kim, Jonathan &lt;<a href=3D"mailto:Jonathan.Kim-5C7GfCeVMHo@public.gmane.org">Jonathan.Kim@=
-amd.com</a>&gt;; Strawbridge, Michael &lt;<a href=3D"mailto:Michael.Strawbr=
-idge-5C7GfCeVMHo@public.gmane.org">Michael.Strawbridge-5C7GfCeVMHo@public.gmane.org</a>&gt;; Quan, Evan &lt;<a href=
-=3D"mailto:Evan.Quan-5C7GfCeVMHo@public.gmane.org">Evan.Quan-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
-Subject: [PATCH 2/2] drm/amdgpu: perform p-state switch after the whole hiv=
-e initialized<br>
-<br>
-P-state switch should be performed after all devices from the hive get init=
-ialized.<br>
-<br>
-Change-Id: Ifc7cac9ef0cf250447d2a412da35d601e2ac79ec<br>
-Signed-off-by: Evan Quan &lt;<a href=3D"mailto:evan.quan-5C7GfCeVMHo@public.gmane.org">evan.quan=
-@amd.com</a>&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 47 &#43;&#43;&#43;&#43;&=
-#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;------<br>
-&nbsp;1 file changed, 35 insertions(&#43;), 12 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_device.c<br>
-index e6ce949670e5..2d72d206cead 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
-@@ -2090,6 &#43;2090,7 @@ static int amdgpu_device_enable_mgpu_fan_boost(vo=
-id)<br>
-&nbsp; */<br>
-&nbsp;static int amdgpu_device_ip_late_init(struct amdgpu_device *adev)&nbs=
-p; {<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_gpu_instance *gpu_i=
-nstance;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int i =3D 0, r;<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (i =3D 0; i &lt; adev-=
-&gt;num_ip_blocks; i&#43;&#43;) { @@ -2115,6 &#43;2116,40 @@ static int amd=
-gpu_device_ip_late_init(struct amdgpu_device *adev)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; DRM_ERROR(&quot;enable mgpu fan boost failed (%d).\n&=
-quot;, r);<br>
-&nbsp;<br>
-&#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;gmc.xgmi.num_physica=
-l_nodes &gt; 1) {<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; mutex_lock(&amp;mgpu_info.mutex);<br>
-&#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; /*<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp; * Reset device p-state to low as this was booted with =
-high.<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp; *<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp; * This should be performed only after all devices from=
- the same<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp; * hive get initialized.<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp; *<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp; * However, it's unknown how many device in the hive in=
- advance.<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp; * As this is counted one by one during devices initial=
-izations.<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp; *<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp; * So, we wait for all XGMI interlinked devices initial=
-ized.<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp; * This may bring some delays as those devices may come=
- from<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp; * different hives. But that should be OK.<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp; */<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; if (mgpu_info.num_dgpu =3D=3D adev-&gt;gmc.xgmi.num_physical=
-_nodes) {<br>
-[JK] This condition will never succeed.&nbsp; mgpu_info.num_dgpu is 0-index=
-ed while num_physical_nodes give total nodes.<br>
-<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (i =3D 0=
-; i &lt; mgpu_info.num_gpu; i&#43;&#43;) {<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gpu_instance =3D &amp;(mgpu_info.gpu_in=
-s[i]);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (gpu_instance-&gt;adev-&gt;flags &am=
-p; AMD_IS_APU)<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp; continue;<br>
-&#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_xgmi_set_pstate(gpu_instan=
-ce-&gt;adev, 0);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r) {<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp; DRM_ERROR(&quot;pstate setting failed (%d).\n&quot;, r);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp; break;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; }<br>
-&#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; mutex_unlock(&amp;mgpu_info.mutex);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&#43;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
-&nbsp;}<br>
-&nbsp;<br>
-@@ -2227,18 &#43;2262,6 @@ static void amdgpu_device_delayed_init_work_hand=
-ler(struct work_struct *work)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_ib_ring_tests=
-(adev);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; DRM_ERROR(&quot;ib ring test failed (%d).\n&quot;, r)=
-;<br>
--<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /*<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * set to low pstate by default<=
-br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * This should be performed afte=
-r all devices from<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * XGMI finish their initializat=
-ions. Thus it's moved<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * to here.<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * The time delay is 2S. TODO: c=
-onfirm whether that<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * is enough for all possible XG=
-MI setups.<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_xgmi_set_pstate(adev, 0)=
-;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r)<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; DRM_ERROR(&quot;pstate setting failed (%d).\n&quot;, r);<br>
-&nbsp;}<br>
-&nbsp;<br>
-&nbsp;static void amdgpu_device_delay_enable_gfx_off(struct work_struct *wo=
-rk)<br>
---<br>
-2.23.0<o:p></o:p></p>
-</div>
-</div>
-</div>
-</body>
-</html>
-
---_000_CH2PR12MB3831868F2A7B4A8BCCBA24F7857E0CH2PR12MB3831namp_--
-
---===============0035759899==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
-
---===============0035759899==--
+DQoNCk9uIDIwMTktMTEtMDUgMTE6MTUgYS5tLiwgS2F6bGF1c2thcywgTmljaG9sYXMgd3JvdGU6
+DQo+IE9uIDIwMTktMTEtMDUgMTA6MzQgYS5tLiwgc3VucGVuZy5saUBhbWQuY29tIHdyb3RlOg0K
+Pj4gRnJvbTogTGVvIExpIDxzdW5wZW5nLmxpQGFtZC5jb20+DQo+Pg0KPj4gW1doeV0NCj4+DQo+
+PiBGb3IgRENOIGhhcmR3YXJlLCB0aGUgY3J0Y19oaWdoX2lycSBoYW5kbGVyIGlzIGFzc2lnbmVk
+IHRvIHRoZSB2c3RhcnR1cA0KPj4gaW50ZXJydXB0LiBUaGlzIGlzIGRpZmZlcmVudCBmcm9tIERD
+RSwgd2hpY2ggaGFzIGl0IGFzc2lnbmVkIHRvIHZibGFuaw0KPj4gc3RhcnQuDQo+Pg0KPj4gV2Un
+ZCBsaWtlIHRvIHNlbmQgdmJsYW5rIGFuZCB1c2VyIGV2ZW50cyBhdCB2c3RhcnR1cCBiZWNhdXNl
+Og0KPj4NCj4+ICogSXQgaGFwcGVucyBjbG9zZSBlbm91Z2ggdG8gdnVwZGF0ZSAtIHRoZSBwb2lu
+dCBvZiBubyByZXR1cm4gZm9yIEhXLg0KPj4NCj4+ICogSXQgaXMgcHJvZ3JhbW1lZCBhcyBsaW5l
+cyByZWxhdGl2ZSB0byB2YmxhbmsgZW5kIC0gaS5lLiBpdCBpcyBub3QgaW4NCj4+ICAgIHRoZSB2
+YXJpYWJsZSBwb3J0aW9uIHdoZW4gVlJSIGlzIGVuYWJsZWQuIFdlIHNob3VsZCBzaWduYWwgdXNl
+cg0KPj4gICAgZXZlbnRzIGhlcmUuDQo+Pg0KPj4gKiBUaGUgcGZsaXAgaW50ZXJydXB0IHJlc3Bv
+bnNpYmxlIGZvciBzZW5kaW5nIHVzZXIgZXZlbnRzIHRvZGF5IG9ubHkNCj4+ICAgIGZpcmVzIGlm
+IHRoZSBEQ0ggSFVCUCBjb21wb25lbnQgaXMgbm90IGNsb2NrIGdhdGVkLiBJbiBzaXR1YXRpb25z
+DQo+PiAgICB3aGVyZSBwbGFuZXMgYXJlIGRpc2FibGVkIC0gYnV0IHRoZSBDUlRDIGlzIGVuYWJs
+ZWQgLSB1c2VyIGV2ZW50cyB3b24ndA0KPj4gICAgYmUgc2VudCBvdXQsIGxlYWRpbmcgdG8gZmxp
+cCBkb25lIHRpbWVvdXRzLg0KPj4NCj4+IENvbnNlcXVlbnRseSwgdGhpcyBtYWtlcyB2dXBkYXRl
+IG9uIERDTiBoYXJkd2FyZSByZWR1bmRhbnQuIEl0IHdpbGwgYmUNCj4+IHJlbW92ZWQgaW4gdGhl
+IG5leHQgY2hhbmdlLg0KPj4NCj4+IFtIb3ddDQo+Pg0KPj4gQWRkIGEgRENOLXNwZWNpZmljIGNy
+dGNfaGlnaF9pcnEgaGFuZGxlciwgYW5kIGhvb2sgaXQgdG8gdGhlIFZTdGFydHVwDQo+PiBzaWdu
+YWwuIEluc2lkZSB0aGUgRENOIGhhbmRsZXIsIHdlIHNlbmQgb2ZmIHVzZXIgZXZlbnRzIGlmIHRo
+ZSBwZmxpcA0KPj4gaGFuZGxlciBoYXNuJ3QgYWxyZWFkeSBkb25lIHNvLg0KPj4NCj4+IFNpZ25l
+ZC1vZmYtYnk6IExlbyBMaSA8c3VucGVuZy5saUBhbWQuY29tPg0KPj4gLS0tDQo+PiAgIC4uLi9n
+cHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG0uYyB8IDY1ICsrKysrKysrKysr
+KysrKysrKy0NCj4+ICAgMSBmaWxlIGNoYW5nZWQsIDY0IGluc2VydGlvbnMoKyksIDEgZGVsZXRp
+b24oLSkNCj4+DQo+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2Ft
+ZGdwdV9kbS9hbWRncHVfZG0uYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVf
+ZG0vYW1kZ3B1X2RtLmMNCj4+IGluZGV4IDAwMDE3YjkxYzkxYS4uMjU2YTIzYTBlYzI4IDEwMDY0
+NA0KPj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVf
+ZG0uYw0KPj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRn
+cHVfZG0uYw0KPj4gQEAgLTQ4NSw2ICs0ODUsNjkgQEAgc3RhdGljIHZvaWQgZG1fY3J0Y19oaWdo
+X2lycSh2b2lkICppbnRlcnJ1cHRfcGFyYW1zKQ0KPj4gICAJfQ0KPj4gICB9DQo+Pg0KPj4gKw0K
+Pj4gKy8qKg0KPj4gKyAqIGRtX2Rjbl9jcnRjX2hpZ2hfaXJxKCkgLSBIYW5kbGVzIFZTdGFydHVw
+IGludGVycnVwdCBmb3IgRENOIGdlbmVyYXRpb24gQVNJQ3MNCj4+ICsgKiBAaW50ZXJydXB0IHBh
+cmFtcyAtIGludGVycnVwdCBwYXJhbWV0ZXJzDQo+PiArICoNCj4+ICsgKiBOb3RpZnkgRFJNJ3Mg
+dmJsYW5rIGV2ZW50IGhhbmRsZXIgYXQgVlNUQVJUVVANCj4+ICsgKg0KPj4gKyAqIFVubGlrZSBE
+Q0UgaGFyZHdhcmUsIHdlIHRyaWdnZXIgdGhlIGhhbmRsZXIgYXQgVlNUQVJUVVAuIGF0IHdoaWNo
+Og0KPj4gKyAqICogV2UgYXJlIGNsb3NlIGVub3VnaCB0byBWVVBEQVRFIC0gdGhlIHBvaW50IG9m
+IG5vIHJldHVybiBmb3IgaHcNCj4+ICsgKiAqIFdlIGFyZSBpbiB0aGUgZml4ZWQgcG9ydGlvbiBv
+ZiB2YXJpYWJsZSBmcm9udCBwb3JjaCB3aGVuIHZyciBpcyBlbmFibGVkDQo+PiArICogKiBXZSBh
+cmUgYmVmb3JlIFZVUERBVEUsIHdoZXJlIGRvdWJsZS1idWZmZXJlZCB2cnIgcmVnaXN0ZXJzIGFy
+ZSBzd2FwcGVkDQo+PiArICoNCj4+ICsgKiBJdCBpcyB0aGVyZWZvcmUgdGhlIGNvcnJlY3QgcGxh
+Y2UgdG8gc2lnbmFsIHZibGFuaywgc2VuZCB1c2VyIGZsaXAgZXZlbnRzLA0KPj4gKyAqIGFuZCB1
+cGRhdGUgVlJSLg0KPj4gKyAqLw0KPj4gK3N0YXRpYyB2b2lkIGRtX2Rjbl9jcnRjX2hpZ2hfaXJx
+KHZvaWQgKmludGVycnVwdF9wYXJhbXMpDQo+PiArew0KPj4gKwlzdHJ1Y3QgY29tbW9uX2lycV9w
+YXJhbXMgKmlycV9wYXJhbXMgPSBpbnRlcnJ1cHRfcGFyYW1zOw0KPj4gKwlzdHJ1Y3QgYW1kZ3B1
+X2RldmljZSAqYWRldiA9IGlycV9wYXJhbXMtPmFkZXY7DQo+PiArCXN0cnVjdCBhbWRncHVfY3J0
+YyAqYWNydGM7DQo+PiArCXN0cnVjdCBkbV9jcnRjX3N0YXRlICphY3J0Y19zdGF0ZTsNCj4+ICsJ
+dW5zaWduZWQgbG9uZyBmbGFnczsNCj4+ICsNCj4+ICsJYWNydGMgPSBnZXRfY3J0Y19ieV9vdGdf
+aW5zdChhZGV2LCBpcnFfcGFyYW1zLT5pcnFfc3JjIC0gSVJRX1RZUEVfVkJMQU5LKTsNCj4+ICsN
+Cj4+ICsJaWYgKCFhY3J0YykNCj4+ICsJCXJldHVybjsNCj4+ICsNCj4+ICsJYWNydGNfc3RhdGUg
+PSB0b19kbV9jcnRjX3N0YXRlKGFjcnRjLT5iYXNlLnN0YXRlKTsNCj4+ICsNCj4+ICsJRFJNX0RF
+QlVHX0RSSVZFUigiY3J0YzolZCwgdnVwZGF0ZS12cnI6JWRcbiIsIGFjcnRjLT5jcnRjX2lkLA0K
+Pj4gKwkJCQlhbWRncHVfZG1fdnJyX2FjdGl2ZShhY3J0Y19zdGF0ZSkpOw0KPj4gKw0KPj4gKwlh
+bWRncHVfZG1fY3J0Y19oYW5kbGVfY3JjX2lycSgmYWNydGMtPmJhc2UpOw0KPj4gKwlkcm1fY3J0
+Y19oYW5kbGVfdmJsYW5rKCZhY3J0Yy0+YmFzZSk7DQo+IA0KPiBTaG91bGRuJ3QgdGhpcyBiZSB0
+aGUgb3RoZXIgd2F5IGFyb3VuZD8gRG9uJ3Qgd2Ugd2FudCB0aGUgQ1JDIHNlbnQgYmFjayANCj4g
+dG8gdXNlcnNwYWNlIHRvIGhhdmUgdGhlIHVwZGF0ZWQgdmJsYW5rIGNvdW50ZXI/DQo+IA0KPiBU
+aGlzIGlzIGhvdyBpdCB3b3JrZWQgYmVmb3JlIGF0IGxlYXN0Lg0KPiANCj4gT3RoZXIgdGhhbiB0
+aGF0LCB0aGlzIHBhdGNoIGxvb2tzIGZpbmUgdG8gbWUuDQo+IA0KPiBOaWNob2xhcyBLYXpsYXVz
+a2FzDQoNCg0KTG9va3MgbGlrZSB3ZSdyZSBkb2luZyBhIGNydGNfYWNjdXJhdGVfdmJsYW5rX2Nv
+dW50KCkgaW5zaWRlIHRoZSBjcmMgaGFuZGxlciwNCnNvIEkgZG9uJ3QgdGhpbmsgb3JkZXIgbWF0
+dGVycyBoZXJlLg0KDQpMZW8NCg0KPiANCj4+ICsNCj4+ICsJc3Bpbl9sb2NrX2lycXNhdmUoJmFk
+ZXYtPmRkZXYtPmV2ZW50X2xvY2ssIGZsYWdzKTsNCj4+ICsNCj4+ICsJaWYgKGFjcnRjX3N0YXRl
+LT52cnJfcGFyYW1zLnN1cHBvcnRlZCAmJg0KPj4gKwkgICAgYWNydGNfc3RhdGUtPmZyZWVzeW5j
+X2NvbmZpZy5zdGF0ZSA9PSBWUlJfU1RBVEVfQUNUSVZFX1ZBUklBQkxFKSB7DQo+PiArCQltb2Rf
+ZnJlZXN5bmNfaGFuZGxlX3ZfdXBkYXRlKA0KPj4gKwkJYWRldi0+ZG0uZnJlZXN5bmNfbW9kdWxl
+LA0KPj4gKwkJYWNydGNfc3RhdGUtPnN0cmVhbSwNCj4+ICsJCSZhY3J0Y19zdGF0ZS0+dnJyX3Bh
+cmFtcyk7DQo+PiArDQo+PiArCQlkY19zdHJlYW1fYWRqdXN0X3ZtaW5fdm1heCgNCj4+ICsJCQlh
+ZGV2LT5kbS5kYywNCj4+ICsJCQlhY3J0Y19zdGF0ZS0+c3RyZWFtLA0KPj4gKwkJCSZhY3J0Y19z
+dGF0ZS0+dnJyX3BhcmFtcy5hZGp1c3QpOw0KPj4gKwl9DQo+PiArDQo+PiArCWlmIChhY3J0Yy0+
+cGZsaXBfc3RhdHVzID09IEFNREdQVV9GTElQX1NVQk1JVFRFRCkgew0KPj4gKwkJaWYgKGFjcnRj
+LT5ldmVudCkgew0KPj4gKwkJCWRybV9jcnRjX3NlbmRfdmJsYW5rX2V2ZW50KCZhY3J0Yy0+YmFz
+ZSwgYWNydGMtPmV2ZW50KTsNCj4+ICsJCQlhY3J0Yy0+ZXZlbnQgPSBOVUxMOw0KPj4gKwkJCWRy
+bV9jcnRjX3ZibGFua19wdXQoJmFjcnRjLT5iYXNlKTsNCj4+ICsJCX0NCj4+ICsJCWFjcnRjLT5w
+ZmxpcF9zdGF0dXMgPSBBTURHUFVfRkxJUF9OT05FOw0KPj4gKwl9DQo+PiArDQo+PiArCXNwaW5f
+dW5sb2NrX2lycXJlc3RvcmUoJmFkZXYtPmRkZXYtPmV2ZW50X2xvY2ssIGZsYWdzKTsNCj4+ICt9
+DQo+PiArDQo+PiAgIHN0YXRpYyBpbnQgZG1fc2V0X2Nsb2NrZ2F0aW5nX3N0YXRlKHZvaWQgKmhh
+bmRsZSwNCj4+ICAgCQkgIGVudW0gYW1kX2Nsb2NrZ2F0aW5nX3N0YXRlIHN0YXRlKQ0KPj4gICB7
+DQo+PiBAQCAtMjE3NSw3ICsyMjM4LDcgQEAgc3RhdGljIGludCBkY24xMF9yZWdpc3Rlcl9pcnFf
+aGFuZGxlcnMoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpDQo+PiAgIAkJY19pcnFfcGFyYW1z
+LT5pcnFfc3JjID0gaW50X3BhcmFtcy5pcnFfc291cmNlOw0KPj4NCj4+ICAgCQlhbWRncHVfZG1f
+aXJxX3JlZ2lzdGVyX2ludGVycnVwdChhZGV2LCAmaW50X3BhcmFtcywNCj4+IC0JCQkJZG1fY3J0
+Y19oaWdoX2lycSwgY19pcnFfcGFyYW1zKTsNCj4+ICsJCQkJZG1fZGNuX2NydGNfaGlnaF9pcnEs
+IGNfaXJxX3BhcmFtcyk7DQo+PiAgIAl9DQo+Pg0KPj4gICAJLyogVXNlIFZVUERBVEVfTk9fTE9D
+SyBpbnRlcnJ1cHQgb24gRENOLCB3aGljaCBzZWVtcyB0byBjb3JyZXNwb25kIHRvDQo+PiAtLQ0K
+Pj4gMi4yMy4wDQo+Pg0KPiANCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Au
+b3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdm
+eA==
