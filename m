@@ -1,75 +1,97 @@
-From: "Quan, Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH 2/2] drm/amdgpu: perform p-state switch after the whole hive
- initialized
-Date: Tue, 5 Nov 2019 10:23:40 +0000
-Message-ID: <20191105102310.16657-2-evan.quan@amd.com>
-References: <20191105102310.16657-1-evan.quan@amd.com>
+From: "Rafael J. Wysocki" <rjw@rjwysocki.net>
+Subject: [PATCH 4/5] PCI: PM: Avoid exporting __pci_complete_power_transition()
+Date: Tue, 05 Nov 2019 11:30:36 +0100
+Message-ID: <1731661.ykamz2Tiuf@kreacher>
+References: <2771503.n70vfTtcVb@kreacher>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20191105102310.16657-1-evan.quan-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Strawbridge, Michael" <Michael.Strawbridge-5C7GfCeVMHo@public.gmane.org>, "Kim,
- Jonathan" <Jonathan.Kim-5C7GfCeVMHo@public.gmane.org>, "Quan, Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7Bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <2771503.n70vfTtcVb@kreacher>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Bjorn Helgaas <helgaas@kernel.org>
+Cc: LKML <linux-kernel@vger.kernel.org>, Linux PCI <linux-pci@vger.kernel.org>, Linux PM <linux-pm@vger.kernel.org>, Mika Westerberg <mika.westerberg@linux.intel.com>, Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-UC1zdGF0ZSBzd2l0Y2ggc2hvdWxkIGJlIHBlcmZvcm1lZCBhZnRlciBhbGwgZGV2aWNlcyBmcm9t
-IHRoZSBoaXZlCmdldCBpbml0aWFsaXplZC4KCkNoYW5nZS1JZDogSWZjN2NhYzllZjBjZjI1MDQ0
-N2QyYTQxMmRhMzVkNjAxZTJhYzc5ZWMKU2lnbmVkLW9mZi1ieTogRXZhbiBRdWFuIDxldmFuLnF1
-YW5AYW1kLmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNl
-LmMgfCA0NyArKysrKysrKysrKysrKysrLS0tLS0tCiAxIGZpbGUgY2hhbmdlZCwgMzUgaW5zZXJ0
-aW9ucygrKSwgMTIgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
-Z3B1X2RldmljZS5jCmluZGV4IGU2Y2U5NDk2NzBlNS4uMmQ3MmQyMDZjZWFkIDEwMDY0NAotLS0g
-YS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMKKysrIGIvZHJpdmVy
-cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jCkBAIC0yMDkwLDYgKzIwOTAsNyBA
-QCBzdGF0aWMgaW50IGFtZGdwdV9kZXZpY2VfZW5hYmxlX21ncHVfZmFuX2Jvb3N0KHZvaWQpCiAg
-Ki8KIHN0YXRpYyBpbnQgYW1kZ3B1X2RldmljZV9pcF9sYXRlX2luaXQoc3RydWN0IGFtZGdwdV9k
-ZXZpY2UgKmFkZXYpCiB7CisJc3RydWN0IGFtZGdwdV9ncHVfaW5zdGFuY2UgKmdwdV9pbnN0YW5j
-ZTsKIAlpbnQgaSA9IDAsIHI7CiAKIAlmb3IgKGkgPSAwOyBpIDwgYWRldi0+bnVtX2lwX2Jsb2Nr
-czsgaSsrKSB7CkBAIC0yMTE1LDYgKzIxMTYsNDAgQEAgc3RhdGljIGludCBhbWRncHVfZGV2aWNl
-X2lwX2xhdGVfaW5pdChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikKIAlpZiAocikKIAkJRFJN
-X0VSUk9SKCJlbmFibGUgbWdwdSBmYW4gYm9vc3QgZmFpbGVkICglZCkuXG4iLCByKTsKIAorCisJ
-aWYgKGFkZXYtPmdtYy54Z21pLm51bV9waHlzaWNhbF9ub2RlcyA+IDEpIHsKKwkJbXV0ZXhfbG9j
-aygmbWdwdV9pbmZvLm11dGV4KTsKKworCQkvKgorCQkgKiBSZXNldCBkZXZpY2UgcC1zdGF0ZSB0
-byBsb3cgYXMgdGhpcyB3YXMgYm9vdGVkIHdpdGggaGlnaC4KKwkJICoKKwkJICogVGhpcyBzaG91
-bGQgYmUgcGVyZm9ybWVkIG9ubHkgYWZ0ZXIgYWxsIGRldmljZXMgZnJvbSB0aGUgc2FtZQorCQkg
-KiBoaXZlIGdldCBpbml0aWFsaXplZC4KKwkJICoKKwkJICogSG93ZXZlciwgaXQncyB1bmtub3du
-IGhvdyBtYW55IGRldmljZSBpbiB0aGUgaGl2ZSBpbiBhZHZhbmNlLgorCQkgKiBBcyB0aGlzIGlz
-IGNvdW50ZWQgb25lIGJ5IG9uZSBkdXJpbmcgZGV2aWNlcyBpbml0aWFsaXphdGlvbnMuCisJCSAq
-CisJCSAqIFNvLCB3ZSB3YWl0IGZvciBhbGwgWEdNSSBpbnRlcmxpbmtlZCBkZXZpY2VzIGluaXRp
-YWxpemVkLgorCQkgKiBUaGlzIG1heSBicmluZyBzb21lIGRlbGF5cyBhcyB0aG9zZSBkZXZpY2Vz
-IG1heSBjb21lIGZyb20KKwkJICogZGlmZmVyZW50IGhpdmVzLiBCdXQgdGhhdCBzaG91bGQgYmUg
-T0suCisJCSAqLworCQlpZiAobWdwdV9pbmZvLm51bV9kZ3B1ID09IGFkZXYtPmdtYy54Z21pLm51
-bV9waHlzaWNhbF9ub2RlcykgeworCQkJZm9yIChpID0gMDsgaSA8IG1ncHVfaW5mby5udW1fZ3B1
-OyBpKyspIHsKKwkJCQlncHVfaW5zdGFuY2UgPSAmKG1ncHVfaW5mby5ncHVfaW5zW2ldKTsKKwkJ
-CQlpZiAoZ3B1X2luc3RhbmNlLT5hZGV2LT5mbGFncyAmIEFNRF9JU19BUFUpCisJCQkJCWNvbnRp
-bnVlOworCisJCQkJciA9IGFtZGdwdV94Z21pX3NldF9wc3RhdGUoZ3B1X2luc3RhbmNlLT5hZGV2
-LCAwKTsKKwkJCQlpZiAocikgeworCQkJCQlEUk1fRVJST1IoInBzdGF0ZSBzZXR0aW5nIGZhaWxl
-ZCAoJWQpLlxuIiwgcik7CisJCQkJCWJyZWFrOworCQkJCX0KKwkJCX0KKwkJfQorCisJCW11dGV4
-X3VubG9jaygmbWdwdV9pbmZvLm11dGV4KTsKKwl9CisKIAlyZXR1cm4gMDsKIH0KIApAQCAtMjIy
-NywxOCArMjI2Miw2IEBAIHN0YXRpYyB2b2lkIGFtZGdwdV9kZXZpY2VfZGVsYXllZF9pbml0X3dv
-cmtfaGFuZGxlcihzdHJ1Y3Qgd29ya19zdHJ1Y3QgKndvcmspCiAJciA9IGFtZGdwdV9pYl9yaW5n
-X3Rlc3RzKGFkZXYpOwogCWlmIChyKQogCQlEUk1fRVJST1IoImliIHJpbmcgdGVzdCBmYWlsZWQg
-KCVkKS5cbiIsIHIpOwotCi0JLyoKLQkgKiBzZXQgdG8gbG93IHBzdGF0ZSBieSBkZWZhdWx0Ci0J
-ICogVGhpcyBzaG91bGQgYmUgcGVyZm9ybWVkIGFmdGVyIGFsbCBkZXZpY2VzIGZyb20KLQkgKiBY
-R01JIGZpbmlzaCB0aGVpciBpbml0aWFsaXphdGlvbnMuIFRodXMgaXQncyBtb3ZlZAotCSAqIHRv
-IGhlcmUuCi0JICogVGhlIHRpbWUgZGVsYXkgaXMgMlMuIFRPRE86IGNvbmZpcm0gd2hldGhlciB0
-aGF0Ci0JICogaXMgZW5vdWdoIGZvciBhbGwgcG9zc2libGUgWEdNSSBzZXR1cHMuCi0JICovCi0J
-ciA9IGFtZGdwdV94Z21pX3NldF9wc3RhdGUoYWRldiwgMCk7Ci0JaWYgKHIpCi0JCURSTV9FUlJP
-UigicHN0YXRlIHNldHRpbmcgZmFpbGVkICglZCkuXG4iLCByKTsKIH0KIAogc3RhdGljIHZvaWQg
-YW1kZ3B1X2RldmljZV9kZWxheV9lbmFibGVfZ2Z4X29mZihzdHJ1Y3Qgd29ya19zdHJ1Y3QgKndv
-cmspCi0tIAoyLjIzLjAKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
-Cmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
+From: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+
+Notice that radeon_set_suspend(), which is the only caller of
+__pci_complete_power_transition() outside of pci.c, really only
+cares about the pci_platform_power_transition() invoked by it,
+so export the latter instead of it, update the radeon driver to
+call pci_platform_power_transition() directly and make
+__pci_complete_power_transition() static.
+
+Code rearrangement, no intentional functional impact.
+
+Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+---
+ drivers/pci/pci.c                   |    6 +++---
+ drivers/video/fbdev/aty/radeon_pm.c |    2 +-
+ include/linux/pci.h                 |    2 +-
+ 3 files changed, 5 insertions(+), 5 deletions(-)
+
+Index: linux-pm/drivers/pci/pci.c
+===================================================================
+--- linux-pm.orig/drivers/pci/pci.c
++++ linux-pm/drivers/pci/pci.c
+@@ -963,7 +963,7 @@ void pci_refresh_power_state(struct pci_
+  * @dev: PCI device to handle.
+  * @state: State to put the device into.
+  */
+-static int pci_platform_power_transition(struct pci_dev *dev, pci_power_t state)
++int pci_platform_power_transition(struct pci_dev *dev, pci_power_t state)
+ {
+ 	int error;
+ 
+@@ -979,6 +979,7 @@ static int pci_platform_power_transition
+ 
+ 	return error;
+ }
++EXPORT_SYMBOL_GPL(pci_platform_power_transition);
+ 
+ /**
+  * pci_wakeup - Wake up a PCI device
+@@ -1061,7 +1062,7 @@ void pci_bus_set_current_state(struct pc
+  *
+  * This function should not be called directly by device drivers.
+  */
+-int __pci_complete_power_transition(struct pci_dev *dev, pci_power_t state)
++static int __pci_complete_power_transition(struct pci_dev *dev, pci_power_t state)
+ {
+ 	int ret;
+ 
+@@ -1073,7 +1074,6 @@ int __pci_complete_power_transition(stru
+ 		pci_bus_set_current_state(dev->subordinate, PCI_D3cold);
+ 	return ret;
+ }
+-EXPORT_SYMBOL_GPL(__pci_complete_power_transition);
+ 
+ /**
+  * pci_set_power_state - Set the power state of a PCI device
+Index: linux-pm/drivers/video/fbdev/aty/radeon_pm.c
+===================================================================
+--- linux-pm.orig/drivers/video/fbdev/aty/radeon_pm.c
++++ linux-pm/drivers/video/fbdev/aty/radeon_pm.c
+@@ -2593,7 +2593,7 @@ static void radeon_set_suspend(struct ra
+ 		 * calling pci_set_power_state()
+ 		 */
+ 		radeonfb_whack_power_state(rinfo, PCI_D2);
+-		__pci_complete_power_transition(rinfo->pdev, PCI_D2);
++		pci_platform_power_transition(rinfo->pdev, PCI_D2);
+ 	} else {
+ 		printk(KERN_DEBUG "radeonfb (%s): switching to D0 state...\n",
+ 		       pci_name(rinfo->pdev));
+Index: linux-pm/include/linux/pci.h
+===================================================================
+--- linux-pm.orig/include/linux/pci.h
++++ linux-pm/include/linux/pci.h
+@@ -1232,7 +1232,7 @@ struct pci_cap_saved_state *pci_find_sav
+ int pci_add_cap_save_buffer(struct pci_dev *dev, char cap, unsigned int size);
+ int pci_add_ext_cap_save_buffer(struct pci_dev *dev,
+ 				u16 cap, unsigned int size);
+-int __pci_complete_power_transition(struct pci_dev *dev, pci_power_t state);
++int pci_platform_power_transition(struct pci_dev *dev, pci_power_t state);
+ int pci_set_power_state(struct pci_dev *dev, pci_power_t state);
+ pci_power_t pci_choose_state(struct pci_dev *dev, pm_message_t state);
+ bool pci_pme_capable(struct pci_dev *dev, pci_power_t state);
