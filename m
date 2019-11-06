@@ -1,56 +1,60 @@
 From: Alex Deucher <alexdeucher@gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: fix potential double drop fence reference
-Date: Wed, 6 Nov 2019 12:19:43 -0500
-Message-ID: <CADnq5_NogpdgxHhm-QnJmLBiVFOrjVRSAzfAr1U1YVuSz5CyOA@mail.gmail.com>
-References: <1573031685-25969-1-git-send-email-bianpan2016@163.com>
- <52555cc3-b8ea-63c0-1c8c-ae8318c4f469@amd.com>
+Subject: Re: [PATCH] drm/amd/powerplay: fix struct init in renoir_print_clk_levels
+Date: Wed, 6 Nov 2019 12:20:42 -0500
+Message-ID: <CADnq5_O2wgq6YDXJXZizSKKmAbLDxRkQaSwAjofTS3pbTiPc2Q@mail.gmail.com>
+References: <20191105155734.1.If8740b4a5095031f2c00746fbc3224be9849d76b@changeid>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-In-Reply-To: <52555cc3-b8ea-63c0-1c8c-ae8318c4f469@amd.com>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: "Koenig, Christian" <Christian.Koenig@amd.com>
-Cc: David Airlie <airlied@linux.ie>, Pan Bian <bianpan2016@163.com>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Deucher,
- Alexander" <Alexander.Deucher@amd.com>, Sam Ravnborg <sam@ravnborg.org>
+Content-Type: text/plain; charset="UTF-8"
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20191105155734.1.If8740b4a5095031f2c00746fbc3224be9849d76b@changeid>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Raul E Rangel <rrangel@chromium.org>
+Cc: "Deucher, Alexander" <alexander.deucher@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, LKML <linux-kernel@vger.kernel.org>, Maling list - DRI developers <dri-devel@lists.freedesktop.org>, amd-gfx list <amd-gfx@lists.freedesktop.org>, Daniel Vetter <daniel@ffwll.ch>, Evan Quan <evan.quan@amd.com>, Rex Zhu <rex.zhu@amd.com>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
 List-Id: amd-gfx.lists.freedesktop.org
 
-T24gV2VkLCBOb3YgNiwgMjAxOSBhdCA0OjM5IEFNIEtvZW5pZywgQ2hyaXN0aWFuCjxDaHJpc3Rp
-YW4uS29lbmlnQGFtZC5jb20+IHdyb3RlOgo+Cj4gQW0gMDYuMTEuMTkgdW0gMTA6MTQgc2Nocmll
-YiBQYW4gQmlhbjoKPiA+IFRoZSBvYmplY3QgZmVuY2UgaXMgbm90IHNldCB0byBOVUxMIGFmdGVy
-IGl0cyByZWZlcmVuY2UgaXMgZHJvcHBlZC4gQXMgYQo+ID4gcmVzdWx0LCBpdHMgcmVmZXJlbmNl
-IG1heSBiZSBkcm9wcGVkIGFnYWluIGlmIGVycm9yIG9jY3VycyBhZnRlciB0aGF0LAo+ID4gd2hp
-Y2ggbWF5IGxlYWQgdG8gYSB1c2UgYWZ0ZXIgZnJlZSBidWcuIFRvIGF2b2lkIHRoZSBpc3N1ZSwg
-ZmVuY2UgaXMKPiA+IGV4cGxpY2l0bHkgc2V0IHRvIE5VTEwgYWZ0ZXIgZHJvcHBpbmcgaXRzIHJl
-ZmVyZW5jZS4KPiA+Cj4gPiBTaWduZWQtb2ZmLWJ5OiBQYW4gQmlhbiA8YmlhbnBhbjIwMTZAMTYz
-LmNvbT4KPgo+IEFja2VkLWJ5OiBDaHJpc3RpYW4gS8O2bmlnIDxjaHJpc3RpYW4ua29lbmlnQGFt
-ZC5jb20+CgpBcHBsaWVkLiAgdGhhbmtzIQoKQWxleAoKPgo+ID4gLS0tCj4gPiAgIGRyaXZlcnMv
-Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV90ZXN0LmMgfCAyICsrCj4gPiAgIDEgZmlsZSBjaGFu
-Z2VkLCAyIGluc2VydGlvbnMoKykKPiA+Cj4gPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJt
-L2FtZC9hbWRncHUvYW1kZ3B1X3Rlc3QuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
-ZGdwdV90ZXN0LmMKPiA+IGluZGV4IGI2NmQyOWQ1ZmZhMi4uYjE1ODIzMGFmOGRiIDEwMDY0NAo+
-ID4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Rlc3QuYwo+ID4gKysr
-IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Rlc3QuYwo+ID4gQEAgLTEzOCw2
-ICsxMzgsNyBAQCBzdGF0aWMgdm9pZCBhbWRncHVfZG9fdGVzdF9tb3ZlcyhzdHJ1Y3QgYW1kZ3B1
-X2RldmljZSAqYWRldikKPiA+ICAgICAgICAgICAgICAgfQo+ID4KPiA+ICAgICAgICAgICAgICAg
-ZG1hX2ZlbmNlX3B1dChmZW5jZSk7Cj4gPiArICAgICAgICAgICAgIGZlbmNlID0gTlVMTDsKPiA+
-Cj4gPiAgICAgICAgICAgICAgIHIgPSBhbWRncHVfYm9fa21hcCh2cmFtX29iaiwgJnZyYW1fbWFw
-KTsKPiA+ICAgICAgICAgICAgICAgaWYgKHIpIHsKPiA+IEBAIC0xODMsNiArMTg0LDcgQEAgc3Rh
-dGljIHZvaWQgYW1kZ3B1X2RvX3Rlc3RfbW92ZXMoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYp
-Cj4gPiAgICAgICAgICAgICAgIH0KPiA+Cj4gPiAgICAgICAgICAgICAgIGRtYV9mZW5jZV9wdXQo
-ZmVuY2UpOwo+ID4gKyAgICAgICAgICAgICBmZW5jZSA9IE5VTEw7Cj4gPgo+ID4gICAgICAgICAg
-ICAgICByID0gYW1kZ3B1X2JvX2ttYXAoZ3R0X29ialtpXSwgJmd0dF9tYXApOwo+ID4gICAgICAg
-ICAgICAgICBpZiAocikgewo+Cj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX18KPiBhbWQtZ2Z4IG1haWxpbmcgbGlzdAo+IGFtZC1nZnhAbGlzdHMuZnJlZWRl
-c2t0b3Aub3JnCj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5m
-by9hbWQtZ2Z4Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-CmRyaS1kZXZlbCBtYWlsaW5nIGxpc3QKZHJpLWRldmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpo
-dHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2RyaS1kZXZlbA==
+On Tue, Nov 5, 2019 at 6:10 PM Raul E Rangel <rrangel@chromium.org> wrote:
+>
+> drivers/gpu/drm/amd/powerplay/renoir_ppt.c:186:2: error: missing braces
+> around initializer [-Werror=missing-braces]
+>   SmuMetrics_t metrics = {0};
+>     ^
+>
+> Fixes: 8b8031703bd7 ("drm/amd/powerplay: implement sysfs for getting dpm clock")
+>
+> Signed-off-by: Raul E Rangel <rrangel@chromium.org>
+
+Applied.  thanks!
+
+Alex
+
+> ---
+>
+>  drivers/gpu/drm/amd/powerplay/renoir_ppt.c | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/powerplay/renoir_ppt.c b/drivers/gpu/drm/amd/powerplay/renoir_ppt.c
+> index e62bfba51562..e5283dafc414 100644
+> --- a/drivers/gpu/drm/amd/powerplay/renoir_ppt.c
+> +++ b/drivers/gpu/drm/amd/powerplay/renoir_ppt.c
+> @@ -183,11 +183,13 @@ static int renoir_print_clk_levels(struct smu_context *smu,
+>         int i, size = 0, ret = 0;
+>         uint32_t cur_value = 0, value = 0, count = 0, min = 0, max = 0;
+>         DpmClocks_t *clk_table = smu->smu_table.clocks_table;
+> -       SmuMetrics_t metrics = {0};
+> +       SmuMetrics_t metrics;
+>
+>         if (!clk_table || clk_type >= SMU_CLK_COUNT)
+>                 return -EINVAL;
+>
+> +       memset(&metrics, 0, sizeof(metrics));
+> +
+>         ret = smu_update_table(smu, SMU_TABLE_SMU_METRICS, 0,
+>                                (void *)&metrics, false);
+>         if (ret)
+> --
+> 2.24.0.rc1.363.gb1bccd3e3d-goog
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
