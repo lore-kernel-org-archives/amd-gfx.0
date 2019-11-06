@@ -1,81 +1,42 @@
-From: "Quan, Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH] drm/amd/powerplay: Protect backend resource when unload
- driver
-Date: Wed, 6 Nov 2019 09:13:12 +0000
-Message-ID: <MN2PR12MB3344E5BA8192D27C0A9D61B0E4790@MN2PR12MB3344.namprd12.prod.outlook.com>
-References: <1573021862-10078-1-git-send-email-zhexi.zhang@amd.com>
-Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1573021862-10078-1-git-send-email-zhexi.zhang-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Zhang, Zhexi (Jesse)" <Zhexi.Zhang-5C7GfCeVMHo@public.gmane.org>
+From: Pan Bian <bianpan2016@163.com>
+Subject: [PATCH] drm/amdgpu: fix potential double drop fence reference
+Date: Wed,  6 Nov 2019 17:14:45 +0800
+Message-ID: <1573031685-25969-1-git-send-email-bianpan2016@163.com>
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Alex Deucher <alexander.deucher@amd.com>, christian.koenig@amd.com, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, Sam Ravnborg <sam@ravnborg.org>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, Pan Bian <bianpan2016@163.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
-SSBraW5kIG9mIGZlZWxpbmcgdGhlIGNoYW5nZXMgb2YgVkNFIGFuZCBVVkQob2YgdmVnYTEwX2h3
-bWdyLmMpIGFyZSBub3QgbmVlZGVkIGFzIHRoZXJlIGlzIGFscmVhZHkgbG9jayBwcm90ZWN0aW9u
-IGluIHBwX2RwbV9wb3dlcmdhdGVfdXZkL3ZjZS4NCkNhbiB5b3UgaGVscCB0byBjb25maXJtIHRo
-YXQ/DQoNClJlZ2FyZHMsDQpFdmFuDQo+IC0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQo+IEZy
-b206IGFtZC1nZnggPGFtZC1nZngtYm91bmNlc0BsaXN0cy5mcmVlZGVza3RvcC5vcmc+IE9uIEJl
-aGFsZiBPZiBKZXNzZQ0KPiBaaGFuZw0KPiBTZW50OiBXZWRuZXNkYXksIE5vdmVtYmVyIDYsIDIw
-MTkgMjozMSBQTQ0KPiBUbzogYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCj4gQ2M6IFpo
-YW5nLCBaaGV4aSAoSmVzc2UpIDxaaGV4aS5aaGFuZ0BhbWQuY29tPg0KPiBTdWJqZWN0OiBbUEFU
-Q0hdIGRybS9hbWQvcG93ZXJwbGF5OiBQcm90ZWN0IGJhY2tlbmQgcmVzb3VyY2Ugd2hlbiB1bmxv
-YWQNCj4gZHJpdmVyDQo+IA0KPiBHdWVzdCBkcml2ZXIgY2FuIGJlIHVubG9hZGVkIHdoaWxlIGVu
-Z2luZXMgc3RpbGwgdXNpbmcgc29tZSBiYWNrZW5kIHJlc291cmNlcw0KPiB3aGljaCB3aG91bGQg
-bGVhZCB0byBndWVzdCBkcml2ZXIgdW5sb2FkIGZhaWx1cmUuDQo+IA0KPiBOZWVkIHRvIGFkZCBt
-dXRleCBsb2NrIHRvIHByb3RlY3QgYmFja2VuZCByZXNvdXJjZXMgZnJvbSBjb25jdXJyZW50DQo+
-IG9wZXJhdGlvbnMNCj4gDQo+IEJlZm9yZSBlbnRlcmluZyBwb3dlcmdhdGluZyBtb2RlLCBWQ0Ug
-YW5kIFVWRCBuZWVkIHRvIGNoZWNrIGlmIGJhY2tlbmQNCj4gcmVzb3VyY2VzIGFyZSBzdGlsbCBh
-dmFpbGFibGUuDQo+IA0KPiBDaGFuZ2UtSWQ6IEljYzM0ZjkzODE4NzQzODU2YzRlZmJiYmY5NDgw
-ZTRkOWYyZTBkMWUxDQo+IFNpZ25lZC1vZmYtYnk6IEplc3NlIFpoYW5nIDx6aGV4aS56aGFuZ0Bh
-bWQuY29tPg0KPiAtLS0NCj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2FtZF9wb3dl
-cnBsYXkuYyAgICAgIHwgNCArKysrDQo+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9o
-d21nci92ZWdhMTBfaHdtZ3IuYyB8IDYgKysrKysrDQo+ICAyIGZpbGVzIGNoYW5nZWQsIDEwIGlu
-c2VydGlvbnMoKykNCj4gDQo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2Vy
-cGxheS9hbWRfcG93ZXJwbGF5LmMNCj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9h
-bWRfcG93ZXJwbGF5LmMNCj4gaW5kZXggMDMxNDQ3Ni4uYzgyNTcwYiAxMDA2NDQNCj4gLS0tIGEv
-ZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvYW1kX3Bvd2VycGxheS5jDQo+ICsrKyBiL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2FtZF9wb3dlcnBsYXkuYw0KPiBAQCAtMTM0LDcg
-KzEzNCw5IEBAIHN0YXRpYyBpbnQgcHBfaHdfZmluaSh2b2lkICpoYW5kbGUpDQo+ICAJc3RydWN0
-IGFtZGdwdV9kZXZpY2UgKmFkZXYgPSBoYW5kbGU7DQo+ICAJc3RydWN0IHBwX2h3bWdyICpod21n
-ciA9IGFkZXYtPnBvd2VycGxheS5wcF9oYW5kbGU7DQo+IA0KPiArCW11dGV4X2xvY2soJmh3bWdy
-LT5zbXVfbG9jayk7DQo+ICAJaHdtZ3JfaHdfZmluaShod21ncik7DQo+ICsJbXV0ZXhfdW5sb2Nr
-KCZod21nci0+c211X2xvY2spOw0KPiANCj4gIAlyZXR1cm4gMDsNCj4gIH0NCj4gQEAgLTY2Miw3
-ICs2NjQsOSBAQCBzdGF0aWMgaW50IGFtZF9wb3dlcnBsYXlfcmVzZXQodm9pZCAqaGFuZGxlKQ0K
-PiAgCXN0cnVjdCBwcF9od21nciAqaHdtZ3IgPSBoYW5kbGU7DQo+ICAJaW50IHJldDsNCj4gDQo+
-ICsJbXV0ZXhfbG9jaygmaHdtZ3ItPnNtdV9sb2NrKTsNCj4gIAlyZXQgPSBod21ncl9od19maW5p
-KGh3bWdyKTsNCj4gKwltdXRleF91bmxvY2soJmh3bWdyLT5zbXVfbG9jayk7DQo+ICAJaWYgKHJl
-dCkNCj4gIAkJcmV0dXJuIHJldDsNCj4gDQo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0v
-YW1kL3Bvd2VycGxheS9od21nci92ZWdhMTBfaHdtZ3IuYw0KPiBiL2RyaXZlcnMvZ3B1L2RybS9h
-bWQvcG93ZXJwbGF5L2h3bWdyL3ZlZ2ExMF9od21nci5jDQo+IGluZGV4IDQ2NTM4MjMzLi5mNzJi
-YTcwIDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci92
-ZWdhMTBfaHdtZ3IuYw0KPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21n
-ci92ZWdhMTBfaHdtZ3IuYw0KPiBAQCAtNDYxNiw2ICs0NjE2LDkgQEAgc3RhdGljIHZvaWQgdmVn
-YTEwX3Bvd2VyX2dhdGVfdmNlKHN0cnVjdA0KPiBwcF9od21nciAqaHdtZ3IsIGJvb2wgYmdhdGUp
-DQo+ICB7DQo+ICAJc3RydWN0IHZlZ2ExMF9od21nciAqZGF0YSA9IGh3bWdyLT5iYWNrZW5kOw0K
-PiANCj4gKwlpZiAoIWRhdGEpDQo+ICsJCXJldHVybjsNCj4gKw0KPiAgCWRhdGEtPnZjZV9wb3dl
-cl9nYXRlZCA9IGJnYXRlOw0KPiAgCXZlZ2ExMF9lbmFibGVfZGlzYWJsZV92Y2VfZHBtKGh3bWdy
-LCAhYmdhdGUpOw0KPiAgfQ0KPiBAQCAtNDYyNCw2ICs0NjI3LDkgQEAgc3RhdGljIHZvaWQgdmVn
-YTEwX3Bvd2VyX2dhdGVfdXZkKHN0cnVjdA0KPiBwcF9od21nciAqaHdtZ3IsIGJvb2wgYmdhdGUp
-DQo+ICB7DQo+ICAJc3RydWN0IHZlZ2ExMF9od21nciAqZGF0YSA9IGh3bWdyLT5iYWNrZW5kOw0K
-PiANCj4gKwlpZiAoIWRhdGEpDQo+ICsJCXJldHVybjsNCj4gKw0KPiAgCWRhdGEtPnV2ZF9wb3dl
-cl9nYXRlZCA9IGJnYXRlOw0KPiAgCXZlZ2ExMF9lbmFibGVfZGlzYWJsZV91dmRfZHBtKGh3bWdy
-LCAhYmdhdGUpOw0KPiAgfQ0KPiAtLQ0KPiAyLjcuNA0KPiANCj4gX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX18NCj4gYW1kLWdmeCBtYWlsaW5nIGxpc3QNCj4g
-YW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3Rv
-cC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4DQpfX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3Rz
-LmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xp
-c3RpbmZvL2FtZC1nZng=
+The object fence is not set to NULL after its reference is dropped. As a
+result, its reference may be dropped again if error occurs after that,
+which may lead to a use after free bug. To avoid the issue, fence is
+explicitly set to NULL after dropping its reference.
+
+Signed-off-by: Pan Bian <bianpan2016@163.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_test.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_test.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_test.c
+index b66d29d5ffa2..b158230af8db 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_test.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_test.c
+@@ -138,6 +138,7 @@ static void amdgpu_do_test_moves(struct amdgpu_device *adev)
+ 		}
+ 
+ 		dma_fence_put(fence);
++		fence = NULL;
+ 
+ 		r = amdgpu_bo_kmap(vram_obj, &vram_map);
+ 		if (r) {
+@@ -183,6 +184,7 @@ static void amdgpu_do_test_moves(struct amdgpu_device *adev)
+ 		}
+ 
+ 		dma_fence_put(fence);
++		fence = NULL;
+ 
+ 		r = amdgpu_bo_kmap(gtt_obj[i], &gtt_map);
+ 		if (r) {
+-- 
+2.7.4
