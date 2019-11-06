@@ -6,99 +6,101 @@ X-Spam-Status: No, score=-6.7 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
 	HTML_MESSAGE,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,
 	SPF_PASS autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id EB828C5DF60
-	for <amd-gfx@archiver.kernel.org>; Wed,  6 Nov 2019 02:17:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A6B05C47E49
+	for <amd-gfx@archiver.kernel.org>; Wed,  6 Nov 2019 03:10:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 743692087E
-	for <amd-gfx@archiver.kernel.org>; Wed,  6 Nov 2019 02:17:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 743692087E
+	by mail.kernel.org (Postfix) with ESMTPS id 93631217F4
+	for <amd-gfx@archiver.kernel.org>; Wed,  6 Nov 2019 03:10:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 93631217F4
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2A5156E162;
-	Wed,  6 Nov 2019 02:17:41 +0000 (UTC)
-Received: from NAM05-DM3-obe.outbound.protection.outlook.com
- (mail-eopbgr730054.outbound.protection.outlook.com [40.107.73.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C1C916E162
- for <amd-gfx@lists.freedesktop.org>; Wed,  6 Nov 2019 02:17:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 97E8C6E10E;
+	Wed,  6 Nov 2019 03:10:49 +0000 (UTC)
+Received: from NAM04-CO1-obe.outbound.protection.outlook.com
+ (mail-eopbgr690081.outbound.protection.outlook.com [40.107.69.81])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0CFD46E10E
+ for <amd-gfx@lists.freedesktop.org>; Wed,  6 Nov 2019 03:10:48 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=AUe7P1dpNpak0HQ3rpJ0TBWs8wOqA28T83J1lr7dBV/zMacrZ9R1K0F9rMJhgIAK8W+/TrtMsAIgsHriCrX7wOc1VpMB/S3dy7eOYGjG1EdFOT9LA/POV5fsjryQV8I0dNzdjXoz4okwH5OEKDLNixyPDLG3dmic6u6FLNm++eFyVm2t8QlR8UPM1iXSNgnxNnxRAMZF9SHgS8j2xzDmSS2s4uGu7d9C+OHK6Pe97SzIz7U21AEDAvq0R0/vdL5VBt4wOIANgf3abc7M5uFSu/G9tdD7fqCAfooeB5TiLk8N31O9t9uMF2uwyy+ymWgLwr0mcENPyipIw/quTNKAzg==
+ b=QD32dKQzyeKdtEUUDRboOMr/1LtYw9j5GDnXwDb3rSyQHQUE6s6LyWi3GuhzXBYVdfnqeNoOkWnrKFLa5y3vcOxnpTBlO1eaQbOT4pYmxsGpEe4RnyqJVrasGYjQApRSFbzjK+1Bv/fTiTm7bJCDCwcBU4vovmOc0zy/d1phEaiP0PXUHx8/bbLWboUXwFPkYczQb/WHq/l9M9BsjLQYLCbqv1fgFJSOd+bVfiOu4hCmdpafGUdhd7IOON1/Xc2b/RwU2ZPhud7hcCG743XCoWyRlil+cE3oQj349DitkLO5GuJpMOgpaJY48B5GxbbNKJLPFu/se2qRAXqMM2l92g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=MUKIkUpm47HvSVvA+ELkJiVpx+31B0o+Uuuy+SRCT7U=;
- b=CyAnttkzHgMKV4GGS2VzQIJa1pOvpvSvbc8+cEJ8+1Yox/TPaezGJJzXeVkoU6IxzGR26v6zCYTuSI4XbskaG9KlHsNQrWA5w/dvWHdakHFYnh46Q7Xwo7D55hmct80EE9ccBUB1yCge6R+OlosLPjXsjNdgGF3lXEGtmWkH21tVWAgv1kDNBNHx1mOB92TlErAcb0+9hm1u3C+fIpQrzIKEiM+Zdx5lcs1H+NoZwl3IVvE/+WL6bxiqUN7bBmzem3kcIY0COUV20QOHm1RxpmQzVXpQyViNLbALpYv7VLFyiMUc0k3C6GTWfz5fCd2Jv5ECnHfH7dOPPNLeHQyTVQ==
+ bh=JClCd7CS1pwH1JtVrT098pyCBK9qqE5qWD5eipQftcg=;
+ b=cLog1AvMKAQcchRIvYalfwPFfDhbWfXi2LbiEtnil7EzoutcNR8oKtc01wqE6f+AWBmEv+FjtkfT3aLVV339U0NJWhEIAK+3EVKHghXESATW4vitfgexPwR2hKasZ/qGi+u1Sg1eANfpamtwH+lrAGIhZ74soTAf4wjIBPvIzLdzy/QKI6MDAhD7OvW5qT+Kw1K9fTlv2No7tTZm++I4xwDOz787YYRy9XR+Kl18DVDUFN1Jo/ROCQP3RycC7xk7gbO07HNSkxwWfpQsbLIdG06Nyg7T9CIlYj71Q7uJGFLeOh7cFGuCJp971NVeLNK8+LTQyEeXcuDHc7JdAA+9rg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
-Received: from CH2PR12MB3831.namprd12.prod.outlook.com (52.132.245.141) by
- CH2PR12MB4056.namprd12.prod.outlook.com (20.180.5.211) with Microsoft SMTP
+Received: from MN2PR12MB3344.namprd12.prod.outlook.com (20.178.241.74) by
+ MN2PR12MB3999.namprd12.prod.outlook.com (10.255.239.219) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2430.20; Wed, 6 Nov 2019 02:17:38 +0000
-Received: from CH2PR12MB3831.namprd12.prod.outlook.com
- ([fe80::4403:1c3c:efc8:6155]) by CH2PR12MB3831.namprd12.prod.outlook.com
- ([fe80::4403:1c3c:efc8:6155%3]) with mapi id 15.20.2408.024; Wed, 6 Nov 2019
- 02:17:38 +0000
-From: "Kim, Jonathan" <Jonathan.Kim@amd.com>
-To: "Strawbridge, Michael" <Michael.Strawbridge@amd.com>, "Quan, Evan"
- <Evan.Quan@amd.com>, "amd-gfx@lists.freedesktop.org"
+ 15.20.2430.20; Wed, 6 Nov 2019 03:10:46 +0000
+Received: from MN2PR12MB3344.namprd12.prod.outlook.com
+ ([fe80::5895:bbd8:c1d6:1587]) by MN2PR12MB3344.namprd12.prod.outlook.com
+ ([fe80::5895:bbd8:c1d6:1587%7]) with mapi id 15.20.2430.020; Wed, 6 Nov 2019
+ 03:10:46 +0000
+From: "Quan, Evan" <Evan.Quan@amd.com>
+To: "Kim, Jonathan" <Jonathan.Kim@amd.com>, "Strawbridge, Michael"
+ <Michael.Strawbridge@amd.com>, "amd-gfx@lists.freedesktop.org"
  <amd-gfx@lists.freedesktop.org>
 Subject: RE: [PATCH 2/2] drm/amdgpu: perform p-state switch after the whole
  hive initialized
 Thread-Topic: [PATCH 2/2] drm/amdgpu: perform p-state switch after the whole
  hive initialized
-Thread-Index: AQHVk8MYT24KBLC33UeKj0lVihThZKd8xQIwgAACsgCAAABkwIAAAvbAgACcvlA=
-Date: Wed, 6 Nov 2019 02:17:37 +0000
+Thread-Index: AQHVk8MXX98TBsaKs0mPZR5S38P8Sad8xcyAgAAB6ACAAACFAIAABz8AgACZuICAAA4S0A==
+Date: Wed, 6 Nov 2019 03:10:46 +0000
 Message-ID:
- <CH2PR12MB383150DB7FA13B7E5472A37085790@CH2PR12MB3831.namprd12.prod.outlook.com>
+ <MN2PR12MB3344BF9A70FE63F2D5E4AE63E4790@MN2PR12MB3344.namprd12.prod.outlook.com>
 References: <20191105102310.16657-1-evan.quan@amd.com>
  <20191105102310.16657-2-evan.quan@amd.com>,
  <CH2PR12MB3831CEABDD4CBA2FEB8DEFEB857E0@CH2PR12MB3831.namprd12.prod.outlook.com>
  <DM5PR12MB248696FDB2D0E563221E7CDFE87E0@DM5PR12MB2486.namprd12.prod.outlook.com>
  <CH2PR12MB3831D16D352FA009002800CC857E0@CH2PR12MB3831.namprd12.prod.outlook.com>
  <CH2PR12MB3831868F2A7B4A8BCCBA24F7857E0@CH2PR12MB3831.namprd12.prod.outlook.com>
-In-Reply-To: <CH2PR12MB3831868F2A7B4A8BCCBA24F7857E0@CH2PR12MB3831.namprd12.prod.outlook.com>
-Accept-Language: en-US
+ <CH2PR12MB383150DB7FA13B7E5472A37085790@CH2PR12MB3831.namprd12.prod.outlook.com>
+In-Reply-To: <CH2PR12MB383150DB7FA13B7E5472A37085790@CH2PR12MB3831.namprd12.prod.outlook.com>
+Accept-Language: en-US, zh-CN
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-x-originating-ip: [165.204.54.211]
+x-originating-ip: [180.167.199.189]
 x-ms-publictraffictype: Email
 x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: f176b204-760c-4164-6223-08d7625f7e85
-x-ms-traffictypediagnostic: CH2PR12MB4056:
+x-ms-office365-filtering-correlation-id: a0564a67-9a04-48b6-ffe2-08d76266eb15
+x-ms-traffictypediagnostic: MN2PR12MB3999:
+x-ms-exchange-purlcount: 1
 x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <CH2PR12MB4056A9BD0C7BA476EABC3C2585790@CH2PR12MB4056.namprd12.prod.outlook.com>
+x-microsoft-antispam-prvs: <MN2PR12MB3999B26F61A52C5324C7A690E4790@MN2PR12MB3999.namprd12.prod.outlook.com>
 x-ms-oob-tlc-oobclassifiers: OLM:9508;
 x-forefront-prvs: 02135EB356
 x-forefront-antispam-report: SFV:NSPM;
- SFS:(10009020)(4636009)(376002)(366004)(136003)(346002)(39860400002)(396003)(189003)(199004)(13464003)(26005)(99286004)(256004)(102836004)(33656002)(14444005)(52536014)(5660300002)(6506007)(7696005)(53546011)(66556008)(6306002)(76176011)(66476007)(9686003)(229853002)(66446008)(64756008)(236005)(54896002)(55016002)(66066001)(6116002)(3846002)(2906002)(790700001)(66946007)(76116006)(6246003)(186003)(14454004)(478600001)(2501003)(316002)(6436002)(110136005)(74316002)(7736002)(8676002)(486006)(476003)(25786009)(81166006)(81156014)(86362001)(11346002)(446003)(71200400001)(71190400001)(8936002);
- DIR:OUT; SFP:1101; SCL:1; SRVR:CH2PR12MB4056;
- H:CH2PR12MB3831.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; MX:1; A:1; 
+ SFS:(10001)(10009020)(4636009)(346002)(376002)(136003)(396003)(366004)(39860400002)(199004)(189003)(13464003)(476003)(186003)(14444005)(7736002)(66066001)(81166006)(81156014)(71200400001)(74316002)(99286004)(21615005)(71190400001)(486006)(25786009)(86362001)(446003)(11346002)(478600001)(76176011)(6246003)(6506007)(316002)(76116006)(66446008)(2906002)(606006)(110136005)(66556008)(33656002)(256004)(8936002)(66476007)(2501003)(64756008)(966005)(54896002)(8676002)(5660300002)(6306002)(55016002)(6436002)(3846002)(52536014)(9686003)(14454004)(236005)(7696005)(6116002)(790700001)(229853002)(53546011)(26005)(66946007)(102836004);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:MN2PR12MB3999;
+ H:MN2PR12MB3344.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; A:1; MX:1; 
 received-spf: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
 x-ms-exchange-senderadcheck: 1
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: ZMyljpu+4/T+FTnWSUkazM87bFwaFu6BEyCfObpyE99A6iPACiJrclJAGORU34EOhfg40S8IUKAmpiWJMaSlv+LaDws5V+VCLtQ3qZvxOax2Wh78F/mh+avM/P/McKLaC9wqNTHPMfpsYJIsoMKd4R2YoaVjzipjc1/f3rrxsd8mo4o0wIBa4rQr4Sy7jUige2qhYs/EtSW+gx6YnyiDLVuX7ChzajJ8Oq6IiNbh4bkm/knS5scvw2VhGDMh/gT36mgUmuvaPd7+dl9oddJ0t4d0csIv6n55dtPyeOkeZ02pDEu0XbPI4O7v8Vy4U0y/lTmDUZd4t35DXmsWDc0NNXq9+bF8SAaNo/ukog8MdG5o/krGUjPVz1fCMHDpmUlgn7GXlUz7pm1sZRzBs24hpRq7BhqpkKPC82ft2wGPhLdmzZ7L7WmfzQAu+vYt5ZHt
+x-microsoft-antispam-message-info: oIZUB8quKspCiJ85rvTCSOJ3FxRNg9zYFzW1is3otm0DdmdA7eJNUGnfVUgKQn7FwkdkrjMJIR99dovjCDXJluJfR3d+rmUTxCKddxhKsvc+EG4ZjvDeh8QA3rj3IvEjiutJX0p7vZ+1MDuPHy6vZFS/tX3VSjvBxdg/N61Q0bhyqwjKVTBavSD4twQXpAVdchcmRjMGae7V2OnuYKi78pNhHMTwDVJ/m13CIE+8S5Tl5f+kd4i6aPYZXwHvzn4Afufe9vQ1Y15TAjevC/8KvNlB7tnnhWyKgl/+/X6KIed/mSeRsbmbwkOv/zF3rlEUPIvJYerOS9G7JJipSNuO5YxIMAydrnAAILJAS1yk31cR57lU/jLW5ws5IxEm/7JePGxtyXkeFutAL9DRUq/sNz7ve7nfK2DfmPN7PVXEGV9hbrL1rU+5bHPVHXZuD9iwtsNLdHtuUvhL3ZLwaSLlko/ijbUNBdCfvJeR496dofvXn63OSkImgdGwrXquCL4y426tAgljZr1LbD9vf7ZEED7y/k1T7FZKcvhjnfQz3TyOynQ+Dw5MUlrrSOyeXVSi
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f176b204-760c-4164-6223-08d7625f7e85
-X-MS-Exchange-CrossTenant-originalarrivaltime: 06 Nov 2019 02:17:37.8831 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a0564a67-9a04-48b6-ffe2-08d76266eb15
+X-MS-Exchange-CrossTenant-originalarrivaltime: 06 Nov 2019 03:10:46.5748 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: EXQMCmeDPUgP2TAFx4tmzO4mskEMgYldADGeh2mWYKxCLTiTirZ5guR/E2xkVeii
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4056
+X-MS-Exchange-CrossTenant-userprincipalname: spBpAULcUgk/NGRcYF+J+E3qHGKmwnQGP1qyyPhBDMuherxdvqK7wFPdOy8cuLMf
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3999
 X-Mailman-Original-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=MUKIkUpm47HvSVvA+ELkJiVpx+31B0o+Uuuy+SRCT7U=;
- b=wwUKrTIoK6pPDhf8dCZWwQsHAE19nfa2Qfn3jDS/Tezxsh5wL7kWJbhSfRa/TtPrzT9BQagkmKYSYZ9uXO4QRZVMT1V0pieDk9WU3ChTAahJxyOFnAwIujuSKZ08H+ByaLmZrvEgn6BXftNN8GRQbRA5EomUMEk2qBjGLpfeWCg=
+ bh=JClCd7CS1pwH1JtVrT098pyCBK9qqE5qWD5eipQftcg=;
+ b=ND87tcG6Y1VEMwUadiJM9j9LJH49Kqn3yuUYJiB1oHIGfO9uIXNR/ifI4WzGe7lAJ98AV/ukRqY8lTKmPymCLaeE6gKb4MkD4yYhpyDlDWpZkek8IReswvHCMUXHNIz29224YjxeaAiwVc4A1QLns5MFoPYkGeG/Zs/NTCQYr/g=
 X-Mailman-Original-Authentication-Results: spf=none (sender IP is )
- smtp.mailfrom=Jonathan.Kim@amd.com; 
+ smtp.mailfrom=Evan.Quan@amd.com; 
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -110,19 +112,34 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============1843229056=="
+Content-Type: multipart/mixed; boundary="===============0067761756=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-Message-ID: <20191106021737.GCh6UxKGcNKSL7-m78sUXLwuVztRAdNj_0qDxy2ecf8@z>
+Message-ID: <20191106031046.haRLMXROu6OEIRH9DBR-SAx05ye1bKrf6HdP8VcAZhg@z>
 
---===============1843229056==
+--===============0067761756==
 Content-Language: en-US
 Content-Type: multipart/alternative;
-	boundary="_000_CH2PR12MB383150DB7FA13B7E5472A37085790CH2PR12MB3831namp_"
+	boundary="_000_MN2PR12MB3344BF9A70FE63F2D5E4AE63E4790MN2PR12MB3344namp_"
 
---_000_CH2PR12MB383150DB7FA13B7E5472A37085790CH2PR12MB3831namp_
+--_000_MN2PR12MB3344BF9A70FE63F2D5E4AE63E4790MN2PR12MB3344namp_
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
+
+Thanks Jon.
+Per discussed in another mail thread, this should be applied after the patc=
+h below
+https://lists.freedesktop.org/archives/amd-gfx/2019-November/042160.html
+Sorry for missing this important information.
+
+Regards,
+Evan
+From: Kim, Jonathan <Jonathan.Kim@amd.com>
+Sent: Wednesday, November 6, 2019 10:18 AM
+To: Strawbridge, Michael <Michael.Strawbridge@amd.com>; Quan, Evan <Evan.Qu=
+an@amd.com>; amd-gfx@lists.freedesktop.org
+Subject: RE: [PATCH 2/2] drm/amdgpu: perform p-state switch after the whole=
+ hive initialized
 
 Taking a look at this again, it's not an indexing issue, it's a placement p=
 roblem.  I don't think this solution will work if we expect to pstate switc=
@@ -134,8 +151,9 @@ init.  This means we'll never reach mgpu_info.num_gpu =3D=3D adev->gmc.xgmi=
 
 From: Kim, Jonathan
 Sent: Tuesday, November 5, 2019 12:07 PM
-To: Strawbridge, Michael <Michael.Strawbridge@amd.com>; Quan, Evan <Evan.Qu=
-an@amd.com>; amd-gfx@lists.freedesktop.org
+To: Strawbridge, Michael <Michael.Strawbridge@amd.com<mailto:Michael.Strawb=
+ridge@amd.com>>; Quan, Evan <Evan.Quan@amd.com<mailto:Evan.Quan@amd.com>>; =
+amd-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org>
 Subject: RE: [PATCH 2/2] drm/amdgpu: perform p-state switch after the whole=
  hive initialized
 
@@ -304,7 +322,7 @@ struct work_struct *work)
 --
 2.23.0
 
---_000_CH2PR12MB383150DB7FA13B7E5472A37085790CH2PR12MB3831namp_
+--_000_MN2PR12MB3344BF9A70FE63F2D5E4AE63E4790MN2PR12MB3344namp_
 Content-Type: text/html; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
@@ -326,8 +344,14 @@ w\:* {behavior:url(#default#VML);}
 	{font-family:"Cambria Math";
 	panose-1:2 4 5 3 5 4 6 3 2 4;}
 @font-face
+	{font-family:DengXian;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
 	{font-family:Calibri;
 	panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:DengXian;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
 @font-face
 	{font-family:"Segoe UI";
 	panose-1:2 11 5 2 4 2 4 2 2 3;}
@@ -359,7 +383,11 @@ span.EmailStyle19
 	{mso-style-type:personal;
 	font-family:"Calibri",sans-serif;
 	color:windowtext;}
-span.EmailStyle21
+span.EmailStyle20
+	{mso-style-type:personal;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
+span.EmailStyle22
 	{mso-style-type:personal-reply;
 	font-family:"Calibri",sans-serif;
 	color:windowtext;}
@@ -380,6 +408,32 @@ div.WordSection1
 </head>
 <body lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72">
 <div class=3D"WordSection1">
+<p class=3D"MsoNormal">Thanks Jon.<o:p></o:p></p>
+<p class=3D"MsoNormal">Per discussed in another mail thread, this should be=
+ applied after the patch below<o:p></o:p></p>
+<p class=3D"MsoNormal"><a href=3D"https://lists.freedesktop.org/archives/am=
+d-gfx/2019-November/042160.html">https://lists.freedesktop.org/archives/amd=
+-gfx/2019-November/042160.html</a><o:p></o:p></p>
+<p class=3D"MsoNormal">Sorry for missing this important information.<o:p></=
+o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Regards,<o:p></o:p></p>
+<p class=3D"MsoNormal">Evan<o:p></o:p></p>
+<div style=3D"border:none;border-left:solid blue 1.5pt;padding:0in 0in 0in =
+4.0pt">
+<div>
+<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
+0in 0in">
+<p class=3D"MsoNormal"><b>From:</b> Kim, Jonathan &lt;Jonathan.Kim@amd.com&=
+gt; <br>
+<b>Sent:</b> Wednesday, November 6, 2019 10:18 AM<br>
+<b>To:</b> Strawbridge, Michael &lt;Michael.Strawbridge@amd.com&gt;; Quan, =
+Evan &lt;Evan.Quan@amd.com&gt;; amd-gfx@lists.freedesktop.org<br>
+<b>Subject:</b> RE: [PATCH 2/2] drm/amdgpu: perform p-state switch after th=
+e whole hive initialized<o:p></o:p></p>
+</div>
+</div>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
 <p class=3D"MsoNormal">Taking a look at this again, it&#8217;s not an index=
 ing issue, it&#8217;s a placement problem. &nbsp;I don&#8217;t think this s=
 olution will work if we expect to pstate switch all gpus.<o:p></o:p></p>
@@ -394,8 +448,11 @@ mgpu_info.num_gpu =3D=3D adev-&gt;gmc.xgmi.num_physical_nodes until in this=
 0in 0in">
 <p class=3D"MsoNormal"><b>From:</b> Kim, Jonathan <br>
 <b>Sent:</b> Tuesday, November 5, 2019 12:07 PM<br>
-<b>To:</b> Strawbridge, Michael &lt;Michael.Strawbridge@amd.com&gt;; Quan, =
-Evan &lt;Evan.Quan@amd.com&gt;; amd-gfx@lists.freedesktop.org<br>
+<b>To:</b> Strawbridge, Michael &lt;<a href=3D"mailto:Michael.Strawbridge@a=
+md.com">Michael.Strawbridge@amd.com</a>&gt;; Quan, Evan &lt;<a href=3D"mail=
+to:Evan.Quan@amd.com">Evan.Quan@amd.com</a>&gt;;
+<a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.=
+org</a><br>
 <b>Subject:</b> RE: [PATCH 2/2] drm/amdgpu: perform p-state switch after th=
 e whole hive initialized<o:p></o:p></p>
 </div>
@@ -705,12 +762,13 @@ rk)<br>
 </div>
 </div>
 </div>
+</div>
 </body>
 </html>
 
---_000_CH2PR12MB383150DB7FA13B7E5472A37085790CH2PR12MB3831namp_--
+--_000_MN2PR12MB3344BF9A70FE63F2D5E4AE63E4790MN2PR12MB3344namp_--
 
---===============1843229056==
+--===============0067761756==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -720,4 +778,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
 
---===============1843229056==--
+--===============0067761756==--
