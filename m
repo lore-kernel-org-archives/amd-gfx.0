@@ -1,15 +1,16 @@
-From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: change read of GPU clock counter on Vega10 VF
-Date: Wed, 6 Nov 2019 14:09:49 +0000
-Message-ID: <CY4PR12MB1813EEC3C3C3B0DA5CF0DECBF7790@CY4PR12MB1813.namprd12.prod.outlook.com>
+From: "Jiang, Jerry (SW)" <Jerry.Jiang-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: [PATCH] drm/amdgpu: change read of GPU clock counter on Vega10 VF
+Date: Wed, 6 Nov 2019 14:43:34 +0000
+Message-ID: <SN1PR12MB251192B770A0D1906C9B56C9EE790@SN1PR12MB2511.namprd12.prod.outlook.com>
 References: <1572992808-20397-1-git-send-email-JinhuiEric.Huang@amd.com>
  <CADnq5_NDEXUD84z8srp8NNMNvDVwLNZsZUSek=U2hMwkDKxaNw@mail.gmail.com>
  <968d3fe1-4faf-f003-3ec4-10fd5c35cdd8@amd.com>,
  <BL0PR12MB250054D0D1FE729D1E0E15D3EE790@BL0PR12MB2500.namprd12.prod.outlook.com>
+ <CY4PR12MB1813EEC3C3C3B0DA5CF0DECBF7790@CY4PR12MB1813.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0599352257=="
+Content-Type: multipart/mixed; boundary="===============1088048292=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <BL0PR12MB250054D0D1FE729D1E0E15D3EE790-b4cIHhjg/p89/wkoUb0eEAdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
+In-Reply-To: <CY4PR12MB1813EEC3C3C3B0DA5CF0DECBF7790-rpdhrqHFk05Nhq0cRkx5WwdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -21,29 +22,50 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Jiang, Jerry (SW)" <Jerry.Jiang-5C7GfCeVMHo@public.gmane.org>, "Huang, JinHuiEric" <JinHuiEric.Huang-5C7GfCeVMHo@public.gmane.org>, Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+To: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Huang, JinHuiEric" <JinHuiEric.Huang-5C7GfCeVMHo@public.gmane.org>, Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "Namin,
+ Ashkan" <Ashkan.Namin-5C7GfCeVMHo@public.gmane.org>
 Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============0599352257==
+--===============1088048292==
 Content-Language: en-US
 Content-Type: multipart/alternative;
-	boundary="_000_CY4PR12MB1813EEC3C3C3B0DA5CF0DECBF7790CY4PR12MB1813namp_"
+	boundary="_000_SN1PR12MB251192B770A0D1906C9B56C9EE790SN1PR12MB2511namp_"
 
---_000_CY4PR12MB1813EEC3C3C3B0DA5CF0DECBF7790CY4PR12MB1813namp_
+--_000_SN1PR12MB251192B770A0D1906C9B56C9EE790SN1PR12MB2511namp_
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
+
+Ashkan,
+
+Can you comment on the observation from Alex regarding RLC_GPU_CLOCK_COUNT_=
+LSB/MSB register with GFXoff and GPU reset?
+
+If the statement from Alex is the real situation, we can simply our change.
+
+Jerry
+
+
+From: Deucher, Alexander <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Sent: Wednesday, November 6, 2019 9:10 AM
+To: Jiang, Jerry (SW) <Jerry.Jiang-5C7GfCeVMHo@public.gmane.org>; Huang, JinHuiEric <JinHuiEric.=
+Huang-5C7GfCeVMHo@public.gmane.org>; Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Subject: Re: [PATCH] drm/amdgpu: change read of GPU clock counter on Vega10=
+ VF
 
 The current bare metal registers also get reset with gfxoff and GPU reset.
 
 Alex
 
 ________________________________
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Jiang, J=
-erry (SW) <Jerry.Jiang-5C7GfCeVMHo@public.gmane.org>
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-bounces=
+@lists.freedesktop.org>> on behalf of Jiang, Jerry (SW) <Jerry.Jiang-urvtwAKJhsc@public.gmane.org=
+m<mailto:Jerry.Jiang-5C7GfCeVMHo@public.gmane.org>>
 Sent: Tuesday, November 5, 2019 7:04 PM
-To: Huang, JinHuiEric <JinHuiEric.Huang-5C7GfCeVMHo@public.gmane.org>; Alex Deucher <alexdeucher=
-@gmail.com>
-Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Huang, JinHuiEric <JinHuiEric.Huang-5C7GfCeVMHo@public.gmane.org<mailto:JinHuiEric.Huang@amd=
+.com>>; Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org<mailto:alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>>
+Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> <am=
+d-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>>
 Subject: RE: [PATCH] drm/amdgpu: change read of GPU clock counter on Vega10=
  VF
 
@@ -69,21 +91,24 @@ Jerry
 
 
 -----Original Message-----
-From: Huang, JinHuiEric <JinHuiEric.Huang-5C7GfCeVMHo@public.gmane.org>
+From: Huang, JinHuiEric <JinHuiEric.Huang-5C7GfCeVMHo@public.gmane.org<mailto:JinHuiEric.Huang@a=
+md.com>>
 Sent: Tuesday, November 5, 2019 6:48 PM
-To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; Jiang, Jerry (SW) <Jerry.Jiang-5C7GfCeVMHo@public.gmane.org>
+To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org<mailto:alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>>
+Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>; Ji=
+ang, Jerry (SW) <Jerry.Jiang-5C7GfCeVMHo@public.gmane.org<mailto:Jerry.Jiang-5C7GfCeVMHo@public.gmane.org>>
 Subject: Re: [PATCH] drm/amdgpu: change read of GPU clock counter on Vega10=
  VF
 
 
 On 2019-11-05 6:06 p.m., Alex Deucher wrote:
 > On Tue, Nov 5, 2019 at 5:26 PM Huang, JinHuiEric
-> <JinHuiEric.Huang-5C7GfCeVMHo@public.gmane.org> wrote:
+> <JinHuiEric.Huang-5C7GfCeVMHo@public.gmane.org<mailto:JinHuiEric.Huang-5C7GfCeVMHo@public.gmane.org>> wrote:
 >> Using unified VBIOS has performance drop in sriov environment.
 >> The fix is switching to another register instead.
 >>
->> Signed-off-by: Eric Huang <JinhuiEric.Huang-5C7GfCeVMHo@public.gmane.org>
+>> Signed-off-by: Eric Huang <JinhuiEric.Huang-5C7GfCeVMHo@public.gmane.org<mailto:JinhuiEric.Hu=
+ang-5C7GfCeVMHo@public.gmane.org>>
 >> ---
 >>   drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c | 19 ++++++++++++++++---
 >>   1 file changed, 16 insertions(+), 3 deletions(-)
@@ -145,58 +170,158 @@ Eric
 >>
 >> _______________________________________________
 >> amd-gfx mailing list
->> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+>> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 >> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 _______________________________________________
 amd-gfx mailing list
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 
---_000_CY4PR12MB1813EEC3C3C3B0DA5CF0DECBF7790CY4PR12MB1813namp_
+--_000_SN1PR12MB251192B770A0D1906C9B56C9EE790SN1PR12MB2511namp_
 Content-Type: text/html; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
-<html>
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40">
 <head>
 <meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
 >
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
+<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
+<!--[if !mso]><style>v\:* {behavior:url(#default#VML);}
+o\:* {behavior:url(#default#VML);}
+w\:* {behavior:url(#default#VML);}
+.shape {behavior:url(#default#VML);}
+</style><![endif]--><style><!--
+/* Font Definitions */
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:DengXian;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:"\@DengXian";
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:blue;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{mso-style-priority:99;
+	color:purple;
+	text-decoration:underline;}
+p.msonormal0, li.msonormal0, div.msonormal0
+	{mso-style-name:msonormal;
+	margin:0in;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+span.EmailStyle20
+	{mso-style-type:personal;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
+span.EmailStyle21
+	{mso-style-type:personal-compose;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-size:10.0pt;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.0in 1.0in 1.0in;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
 </head>
-<body dir=3D"ltr">
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-The current bare metal registers also get reset with gfxoff and GPU reset.<=
-/div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
+<body lang=3D"EN-US" link=3D"blue" vlink=3D"purple">
+<div class=3D"WordSection1">
+<p class=3D"MsoNormal">Ashkan,<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Can you comment on the observation from Alex regardi=
+ng RLC_GPU_CLOCK_COUNT_LSB/MSB register with GFXoff and GPU reset?<o:p></o:=
+p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">If the statement from Alex is the real situation, we=
+ can simply our change.<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Jerry<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<div>
+<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
+0in 0in">
+<p class=3D"MsoNormal"><b>From:</b> Deucher, Alexander &lt;Alexander.Deuche=
+r@amd.com&gt; <br>
+<b>Sent:</b> Wednesday, November 6, 2019 9:10 AM<br>
+<b>To:</b> Jiang, Jerry (SW) &lt;Jerry.Jiang-5C7GfCeVMHo@public.gmane.org&gt;; Huang, JinHuiEric=
+ &lt;JinHuiEric.Huang-5C7GfCeVMHo@public.gmane.org&gt;; Alex Deucher &lt;alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&g=
+t;<br>
+<b>Cc:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>Subject:</b> Re: [PATCH] drm/amdgpu: change read of GPU clock counter on=
+ Vega10 VF<o:p></o:p></p>
 </div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Alex</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
 </div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
-ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Jiang, Jerry (SW) &lt;Jerry.J=
-iang-5C7GfCeVMHo@public.gmane.org&gt;<br>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">The cur=
+rent bare metal registers also get reset with gfxoff and GPU reset.<o:p></o=
+:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black"><o:p>&n=
+bsp;</o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">Alex<o:=
+p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black"><o:p>&n=
+bsp;</o:p></span></p>
+</div>
+<div class=3D"MsoNormal" align=3D"center" style=3D"text-align:center">
+<hr size=3D"2" width=3D"98%" align=3D"center">
+</div>
+<div id=3D"divRplyFwdMsg">
+<p class=3D"MsoNormal"><b><span style=3D"color:black">From:</span></b><span=
+ style=3D"color:black"> amd-gfx &lt;<a href=3D"mailto:amd-gfx-bounces@lists=
+.freedesktop.org">amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>&gt; on behalf o=
+f Jiang, Jerry (SW) &lt;<a href=3D"mailto:Jerry.Jiang-5C7GfCeVMHo@public.gmane.org">Jerry.Jiang@=
+amd.com</a>&gt;<br>
 <b>Sent:</b> Tuesday, November 5, 2019 7:04 PM<br>
-<b>To:</b> Huang, JinHuiEric &lt;JinHuiEric.Huang-5C7GfCeVMHo@public.gmane.org&gt;; Alex Deucher=
- &lt;alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;<br>
-<b>Cc:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org &lt;amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&=
-gt;<br>
+<b>To:</b> Huang, JinHuiEric &lt;<a href=3D"mailto:JinHuiEric.Huang-5C7GfCeVMHo@public.gmane.org=
+">JinHuiEric.Huang-5C7GfCeVMHo@public.gmane.org</a>&gt;; Alex Deucher &lt;<a href=3D"mailto:alex=
+deucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org">alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt;<br>
+<b>Cc:</b> <a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx@lists.f=
+reedesktop.org</a> &lt;<a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd=
+-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>&gt;<br>
 <b>Subject:</b> RE: [PATCH] drm/amdgpu: change read of GPU clock counter on=
- Vega10 VF</font>
-<div>&nbsp;</div>
+ Vega10 VF</span>
+<o:p></o:p></p>
+<div>
+<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
 </div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">Hi Alex,<br>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal">Hi Alex,<br>
 <br>
 Under the SRIOV mode, the L1 policy prevent the write to mmRLC_CAPTURE_GPU_=
 CLOCK_COUNT on VF, so the RLC_GPU_CLOCK_COUNT_LSB/MSB doesn't get updated f=
@@ -220,22 +345,28 @@ Jerry<br>
 <br>
 <br>
 -----Original Message-----<br>
-From: Huang, JinHuiEric &lt;JinHuiEric.Huang-5C7GfCeVMHo@public.gmane.org&gt; <br>
+From: Huang, JinHuiEric &lt;<a href=3D"mailto:JinHuiEric.Huang-5C7GfCeVMHo@public.gmane.org">Jin=
+HuiEric.Huang-5C7GfCeVMHo@public.gmane.org</a>&gt;
+<br>
 Sent: Tuesday, November 5, 2019 6:48 PM<br>
-To: Alex Deucher &lt;alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;<br>
-Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; Jiang, Jerry (SW) &lt;Jerry.Jiang-urvtwAKJhsc@public.gmane.org=
-m&gt;<br>
+To: Alex Deucher &lt;<a href=3D"mailto:alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org">alexdeucher@g=
+mail.com</a>&gt;<br>
+Cc: <a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lzq7FAFJ/aeQ@public.gmane.org=
+top.org</a>; Jiang, Jerry (SW) &lt;<a href=3D"mailto:Jerry.Jiang-5C7GfCeVMHo@public.gmane.org">J=
+erry.Jiang-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
 Subject: Re: [PATCH] drm/amdgpu: change read of GPU clock counter on Vega10=
  VF<br>
 <br>
 <br>
 On 2019-11-05 6:06 p.m., Alex Deucher wrote:<br>
 &gt; On Tue, Nov 5, 2019 at 5:26 PM Huang, JinHuiEric <br>
-&gt; &lt;JinHuiEric.Huang-5C7GfCeVMHo@public.gmane.org&gt; wrote:<br>
+&gt; &lt;<a href=3D"mailto:JinHuiEric.Huang-5C7GfCeVMHo@public.gmane.org">JinHuiEric.Huang@amd.c=
+om</a>&gt; wrote:<br>
 &gt;&gt; Using unified VBIOS has performance drop in sriov environment.<br>
 &gt;&gt; The fix is switching to another register instead.<br>
 &gt;&gt;<br>
-&gt;&gt; Signed-off-by: Eric Huang &lt;JinhuiEric.Huang-5C7GfCeVMHo@public.gmane.org&gt;<br>
+&gt;&gt; Signed-off-by: Eric Huang &lt;<a href=3D"mailto:JinhuiEric.Huang@a=
+md.com">JinhuiEric.Huang-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
 &gt;&gt; ---<br>
 &gt;&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c | 19 &#43;&#43;&=
 #43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;---<br=
@@ -325,21 +456,25 @@ Eric<br>
 &gt;&gt;<br>
 &gt;&gt; _______________________________________________<br>
 &gt;&gt; amd-gfx mailing list<br>
-&gt;&gt; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+&gt;&gt; <a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32mzQB+pC5nmwQ@public.gmane.org=
+edesktop.org</a><br>
 &gt;&gt; <a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx"=
 >https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
 _______________________________________________<br>
 amd-gfx mailing list<br>
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9/rsn8yoX9R0@public.gmane.org=
+org</a><br>
 <a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
-lists.freedesktop.org/mailman/listinfo/amd-gfx</a></div>
-</span></font></div>
+lists.freedesktop.org/mailman/listinfo/amd-gfx</a><o:p></o:p></p>
+</div>
+</div>
+</div>
 </body>
 </html>
 
---_000_CY4PR12MB1813EEC3C3C3B0DA5CF0DECBF7790CY4PR12MB1813namp_--
+--_000_SN1PR12MB251192B770A0D1906C9B56C9EE790SN1PR12MB2511namp_--
 
---===============0599352257==
+--===============1088048292==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -349,4 +484,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
 
---===============0599352257==--
+--===============1088048292==--
