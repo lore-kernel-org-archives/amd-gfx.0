@@ -1,8 +1,8 @@
-From: "Quan, Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>
+From: "Kim, Jonathan" <Jonathan.Kim-5C7GfCeVMHo@public.gmane.org>
 Subject: RE: [PATCH 2/2] drm/amdgpu: perform p-state switch after the whole
  hive initialized
-Date: Wed, 6 Nov 2019 03:10:46 +0000
-Message-ID: <MN2PR12MB3344BF9A70FE63F2D5E4AE63E4790@MN2PR12MB3344.namprd12.prod.outlook.com>
+Date: Wed, 6 Nov 2019 03:49:06 +0000
+Message-ID: <CH2PR12MB3831E6D9F295D7E03C2F5BE385790@CH2PR12MB3831.namprd12.prod.outlook.com>
 References: <20191105102310.16657-1-evan.quan@amd.com>
  <20191105102310.16657-2-evan.quan@amd.com>,
  <CH2PR12MB3831CEABDD4CBA2FEB8DEFEB857E0@CH2PR12MB3831.namprd12.prod.outlook.com>
@@ -10,10 +10,11 @@ References: <20191105102310.16657-1-evan.quan@amd.com>
  <CH2PR12MB3831D16D352FA009002800CC857E0@CH2PR12MB3831.namprd12.prod.outlook.com>
  <CH2PR12MB3831868F2A7B4A8BCCBA24F7857E0@CH2PR12MB3831.namprd12.prod.outlook.com>
  <CH2PR12MB383150DB7FA13B7E5472A37085790@CH2PR12MB3831.namprd12.prod.outlook.com>
+ <MN2PR12MB3344BF9A70FE63F2D5E4AE63E4790@MN2PR12MB3344.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0067761756=="
+Content-Type: multipart/mixed; boundary="===============1040984902=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CH2PR12MB383150DB7FA13B7E5472A37085790-rV3HgkLYx2Wb1l0FfFgDpQdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
+In-Reply-To: <MN2PR12MB3344BF9A70FE63F2D5E4AE63E4790-rweVpJHSKToDMgCC8P//OwdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -25,16 +26,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Kim, Jonathan" <Jonathan.Kim-5C7GfCeVMHo@public.gmane.org>, "Strawbridge, Michael" <Michael.Strawbridge-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Quan, Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>, "Strawbridge, Michael" <Michael.Strawbridge-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============0067761756==
+--===============1040984902==
 Content-Language: en-US
 Content-Type: multipart/alternative;
-	boundary="_000_MN2PR12MB3344BF9A70FE63F2D5E4AE63E4790MN2PR12MB3344namp_"
+	boundary="_000_CH2PR12MB3831E6D9F295D7E03C2F5BE385790CH2PR12MB3831namp_"
 
---_000_MN2PR12MB3344BF9A70FE63F2D5E4AE63E4790MN2PR12MB3344namp_
+--_000_CH2PR12MB3831E6D9F295D7E03C2F5BE385790CH2PR12MB3831namp_
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
+
+No problem.  With the incoming patch referenced below, this patch should be=
+ ok since it doesn't break the build.
+
+Reviewed-by:  Jonathan Kim <Jonathan.Kim-5C7GfCeVMHo@public.gmane.org>
+
+From: Quan, Evan <Evan.Quan-5C7GfCeVMHo@public.gmane.org>
+Sent: Tuesday, November 5, 2019 10:11 PM
+To: Kim, Jonathan <Jonathan.Kim-5C7GfCeVMHo@public.gmane.org>; Strawbridge, Michael <Michael.Str=
+awbridge-5C7GfCeVMHo@public.gmane.org>; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Subject: RE: [PATCH 2/2] drm/amdgpu: perform p-state switch after the whole=
+ hive initialized
 
 Thanks Jon.
 Per discussed in another mail thread, this should be applied after the patc=
@@ -44,10 +57,11 @@ Sorry for missing this important information.
 
 Regards,
 Evan
-From: Kim, Jonathan <Jonathan.Kim-5C7GfCeVMHo@public.gmane.org>
+From: Kim, Jonathan <Jonathan.Kim-5C7GfCeVMHo@public.gmane.org<mailto:Jonathan.Kim-5C7GfCeVMHo@public.gmane.org>>
 Sent: Wednesday, November 6, 2019 10:18 AM
-To: Strawbridge, Michael <Michael.Strawbridge-5C7GfCeVMHo@public.gmane.org>; Quan, Evan <Evan.Qu=
-an-5C7GfCeVMHo@public.gmane.org>; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: Strawbridge, Michael <Michael.Strawbridge-5C7GfCeVMHo@public.gmane.org<mailto:Michael.Strawb=
+ridge-5C7GfCeVMHo@public.gmane.org>>; Quan, Evan <Evan.Quan-5C7GfCeVMHo@public.gmane.org<mailto:Evan.Quan-5C7GfCeVMHo@public.gmane.org>>; =
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 Subject: RE: [PATCH 2/2] drm/amdgpu: perform p-state switch after the whole=
  hive initialized
 
@@ -232,7 +246,7 @@ struct work_struct *work)
 --
 2.23.0
 
---_000_MN2PR12MB3344BF9A70FE63F2D5E4AE63E4790MN2PR12MB3344namp_
+--_000_CH2PR12MB3831E6D9F295D7E03C2F5BE385790CH2PR12MB3831namp_
 Content-Type: text/html; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
@@ -254,14 +268,8 @@ w\:* {behavior:url(#default#VML);}
 	{font-family:"Cambria Math";
 	panose-1:2 4 5 3 5 4 6 3 2 4;}
 @font-face
-	{font-family:DengXian;
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-@font-face
 	{font-family:Calibri;
 	panose-1:2 15 5 2 2 2 4 3 2 4;}
-@font-face
-	{font-family:DengXian;
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
 @font-face
 	{font-family:"Segoe UI";
 	panose-1:2 11 5 2 4 2 4 2 2 3;}
@@ -297,8 +305,16 @@ span.EmailStyle20
 	{mso-style-type:personal;
 	font-family:"Calibri",sans-serif;
 	color:windowtext;}
-span.EmailStyle22
-	{mso-style-type:personal-reply;
+span.EmailStyle21
+	{mso-style-type:personal;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
+span.EmailStyle23
+	{mso-style-type:personal;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
+span.EmailStyle24
+	{mso-style-type:personal-compose;
 	font-family:"Calibri",sans-serif;
 	color:windowtext;}
 .MsoChpDefault
@@ -318,6 +334,26 @@ div.WordSection1
 </head>
 <body lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72">
 <div class=3D"WordSection1">
+<p class=3D"MsoNormal">No problem. &nbsp;With the incoming patch referenced=
+ below, this patch should be ok since it doesn&#8217;t break the build.<o:p=
+></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Reviewed-by:&nbsp; Jonathan Kim &lt;Jonathan.Kim@amd=
+.com&gt;<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<div>
+<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
+0in 0in">
+<p class=3D"MsoNormal"><b>From:</b> Quan, Evan &lt;Evan.Quan-5C7GfCeVMHo@public.gmane.org&gt; <b=
+r>
+<b>Sent:</b> Tuesday, November 5, 2019 10:11 PM<br>
+<b>To:</b> Kim, Jonathan &lt;Jonathan.Kim-5C7GfCeVMHo@public.gmane.org&gt;; Strawbridge, Michael=
+ &lt;Michael.Strawbridge-5C7GfCeVMHo@public.gmane.org&gt;; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>Subject:</b> RE: [PATCH 2/2] drm/amdgpu: perform p-state switch after th=
+e whole hive initialized<o:p></o:p></p>
+</div>
+</div>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
 <p class=3D"MsoNormal">Thanks Jon.<o:p></o:p></p>
 <p class=3D"MsoNormal">Per discussed in another mail thread, this should be=
  applied after the patch below<o:p></o:p></p>
@@ -334,11 +370,15 @@ o:p></p>
 <div>
 <div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
 0in 0in">
-<p class=3D"MsoNormal"><b>From:</b> Kim, Jonathan &lt;Jonathan.Kim-5C7GfCeVMHo@public.gmane.org&=
-gt; <br>
+<p class=3D"MsoNormal"><b>From:</b> Kim, Jonathan &lt;<a href=3D"mailto:Jon=
+athan.Kim-5C7GfCeVMHo@public.gmane.org">Jonathan.Kim-5C7GfCeVMHo@public.gmane.org</a>&gt;
+<br>
 <b>Sent:</b> Wednesday, November 6, 2019 10:18 AM<br>
-<b>To:</b> Strawbridge, Michael &lt;Michael.Strawbridge-5C7GfCeVMHo@public.gmane.org&gt;; Quan, =
-Evan &lt;Evan.Quan-5C7GfCeVMHo@public.gmane.org&gt;; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>To:</b> Strawbridge, Michael &lt;<a href=3D"mailto:Michael.Strawbridge@a=
+md.com">Michael.Strawbridge-5C7GfCeVMHo@public.gmane.org</a>&gt;; Quan, Evan &lt;<a href=3D"mail=
+to:Evan.Quan-5C7GfCeVMHo@public.gmane.org">Evan.Quan-5C7GfCeVMHo@public.gmane.org</a>&gt;;
+<a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9/rsn8yoX9R0@public.gmane.org=
+org</a><br>
 <b>Subject:</b> RE: [PATCH 2/2] drm/amdgpu: perform p-state switch after th=
 e whole hive initialized<o:p></o:p></p>
 </div>
@@ -676,9 +716,9 @@ rk)<br>
 </body>
 </html>
 
---_000_MN2PR12MB3344BF9A70FE63F2D5E4AE63E4790MN2PR12MB3344namp_--
+--_000_CH2PR12MB3831E6D9F295D7E03C2F5BE385790CH2PR12MB3831namp_--
 
---===============0067761756==
+--===============1040984902==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -688,4 +728,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
 
---===============0067761756==--
+--===============1040984902==--
