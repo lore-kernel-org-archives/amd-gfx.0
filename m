@@ -1,21 +1,16 @@
-From: "Kim, Jonathan" <Jonathan.Kim-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH 2/2] drm/amdgpu: perform p-state switch after the whole
- hive initialized
-Date: Wed, 6 Nov 2019 03:49:06 +0000
-Message-ID: <CH2PR12MB3831E6D9F295D7E03C2F5BE385790@CH2PR12MB3831.namprd12.prod.outlook.com>
-References: <20191105102310.16657-1-evan.quan@amd.com>
- <20191105102310.16657-2-evan.quan@amd.com>,
- <CH2PR12MB3831CEABDD4CBA2FEB8DEFEB857E0@CH2PR12MB3831.namprd12.prod.outlook.com>
- <DM5PR12MB248696FDB2D0E563221E7CDFE87E0@DM5PR12MB2486.namprd12.prod.outlook.com>
- <CH2PR12MB3831D16D352FA009002800CC857E0@CH2PR12MB3831.namprd12.prod.outlook.com>
- <CH2PR12MB3831868F2A7B4A8BCCBA24F7857E0@CH2PR12MB3831.namprd12.prod.outlook.com>
- <CH2PR12MB383150DB7FA13B7E5472A37085790@CH2PR12MB3831.namprd12.prod.outlook.com>
- <MN2PR12MB3344BF9A70FE63F2D5E4AE63E4790@MN2PR12MB3344.namprd12.prod.outlook.com>
+From: Julien Isorce <julien.isorce-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH] drm/amd/display: Use pixel encoding 444 for dongle usb-c
+ to hdmi
+Date: Tue, 5 Nov 2019 21:07:51 -0800
+Message-ID: <CAHWPjbUOnSeYhAVi0BYZNb6SEq3ud8CpdJAjqB1iQvMNTHiQBg@mail.gmail.com>
+References: <20191001222123.2392-1-jisorce@oblong.com>
+ <CAHWPjbWcdhnewEN8OEUgDu5aBpYBW5tUggA_KJ_BUR8JLvCsQw@mail.gmail.com>
+ <4610d814-6c54-982e-ecc6-716cc42b5e68@amd.com>
+ <CAHWPjbXPL9NsT0yXb8_wkodT18TEBcgf81tY49GP+U=SGZ26YQ@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1040984902=="
+Content-Type: multipart/mixed; boundary="===============1722581037=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <MN2PR12MB3344BF9A70FE63F2D5E4AE63E4790-rweVpJHSKToDMgCC8P//OwdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
-Content-Language: en-US
+In-Reply-To: <CAHWPjbXPL9NsT0yXb8_wkodT18TEBcgf81tY49GP+U=SGZ26YQ-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -26,699 +21,294 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Quan, Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>, "Strawbridge, Michael" <Michael.Strawbridge-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Harry Wentland <hwentlan-5C7GfCeVMHo@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
 
---===============1040984902==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_CH2PR12MB3831E6D9F295D7E03C2F5BE385790CH2PR12MB3831namp_"
+--===============1722581037==
+Content-Type: multipart/alternative; boundary="00000000000088d6270596a688e4"
 
---_000_CH2PR12MB3831E6D9F295D7E03C2F5BE385790CH2PR12MB3831namp_
-Content-Type: text/plain; charset="us-ascii"
+--00000000000088d6270596a688e4
+Content-Type: text/plain; charset="UTF-8"
+
+Hi, gentle ping ? Thx in advance.
+
+On Tue, Oct 8, 2019 at 11:15 AM Julien Isorce <julien.isorce-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+wrote:
+
+> Hi Harry,
+>
+> I can reproduce on LG, Samsung and NEC monitors.
+>
+> "Have you checked whether the driver picks RGB or YCBCR420 without your
+> patch?" -> it was selecting RGB .
+>
+> For example on https://commons.wikimedia.org/wiki/File:Gray_scale.jpg ,
+> the second band from the left, will be entirely pinkish.
+> Since the issue also happens without dongle, so with a direct cable from
+> the miniDP from the graphic card to DisplayPort on the screen I think there
+> is more serious issue with RGB output in amdgpu. But it is not easy to
+> reproduce, you should try on above image.
+>
+> In any case, the goal with the patch is just to get the same output when
+> using 2 screens at the same time, one connected to hdmi output of the
+> graphic card and one connected  to usb-c to graphic card (hdmi cable with
+> dongle). So prior this patch, the first one would use YCbCr 444 and the
+> second would use RGB.
+> After this patch, both will use YCbCr 444 (both are hdmi).
+> The patch does not change the case for miniDP to DisplayPort, the driver
+> will still use RGB. Because maybe the RGB issue is also specific to that
+> graphic card which
+> is VEGA"M". So that is why the patch only tries to match hdmi cases
+> together, whether it is direct connection or through usb-c.
+>
+> -
+> Julien
+>
+>
+>
+> On Tue, Oct 8, 2019 at 10:44 AM Harry Wentland <hwentlan-5C7GfCeVMHo@public.gmane.org> wrote:
+>
+>> Hi Julien,
+>>
+>> curious which monitor you're using.
+>>
+>> Have you checked whether the driver picks RGB or YCBCR420 without your
+>> patch?
+>>
+>> I'm not sure I understand how the pinkish color issue looks. Do you see
+>> a pinkish color at the transition from grey to another color? Or is the
+>> entire grey area pinkish?
+>>
+>> Thanks,
+>> Harry
+>>
+>> On 2019-10-08 12:06 p.m., Julien Isorce wrote:
+>> > Hi,
+>> >
+>> > Gentle ping ?
+>> >
+>> > Thx
+>> > Julien
+>> >
+>> > On Tue, Oct 1, 2019 at 3:21 PM Julien Isorce <julien.isorce-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org
+>> > <mailto:julien.isorce-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>> wrote:
+>> >
+>> >     Fix pinkish color issue around grey areas. This also happens
+>> >     when not using any dongle so directly with a usb-c to Display
+>> >     Port cable. Meaning there is something wrong when using pixel
+>> >     encoding RGB with amd driver in the general case. In the meantime
+>> >     just use the same pixel encoding as when using HDMI without dongle.
+>> >     This way users will see the same thing on 2 identical screens when
+>> >     one is connected with hdmi-to-hdmi and the other is connected with
+>> >     usb-c-to-hdmi.
+>> >
+>> >     Signed-off-by: Julien Isorce <jisorce-bXq66PvbRDbQT0dZR+AlfA@public.gmane.org
+>> >     <mailto:jisorce-bXq66PvbRDbQT0dZR+AlfA@public.gmane.org>>
+>> >     ---
+>> >      drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 5 +++++
+>> >      1 file changed, 5 insertions(+)
+>> >
+>> >     diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>> >     b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>> >     index d3f404f097eb..8139dcc0bfba 100644
+>> >     --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>> >     +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>> >     @@ -3313,6 +3313,7 @@ static void
+>> >     fill_stream_properties_from_drm_display_mode(
+>> >      {
+>> >             struct dc_crtc_timing *timing_out = &stream->timing;
+>> >             const struct drm_display_info *info =
+>> &connector->display_info;
+>> >     +       const struct dc_link *link = stream->sink->link;
+>> >
+>> >             memset(timing_out, 0, sizeof(struct dc_crtc_timing));
+>> >
+>> >     @@ -3327,6 +3328,10 @@ static void
+>> >     fill_stream_properties_from_drm_display_mode(
+>> >             else if ((connector->display_info.color_formats &
+>> >     DRM_COLOR_FORMAT_YCRCB444)
+>> >                             && stream->signal ==
+>> SIGNAL_TYPE_HDMI_TYPE_A)
+>> >                     timing_out->pixel_encoding =
+>> PIXEL_ENCODING_YCBCR444;
+>> >     +       else if ((connector->display_info.color_formats &
+>> >     DRM_COLOR_FORMAT_YCRCB444)
+>> >     +                       && stream->sink->sink_signal ==
+>> >     SIGNAL_TYPE_DISPLAY_PORT
+>> >     +                       && link->dpcd_caps.dongle_type ==
+>> >     DISPLAY_DONGLE_DP_HDMI_CONVERTER)
+>> >     +               timing_out->pixel_encoding =
+>> PIXEL_ENCODING_YCBCR444;
+>> >             else
+>> >                     timing_out->pixel_encoding = PIXEL_ENCODING_RGB;
+>> >
+>> >     --
+>> >     2.17.1
+>> >
+>> >
+>> > _______________________________________________
+>> > amd-gfx mailing list
+>> > amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+>> > https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+>> >
+>>
+>
+
+--00000000000088d6270596a688e4
+Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-No problem.  With the incoming patch referenced below, this patch should be=
- ok since it doesn't break the build.
-
-Reviewed-by:  Jonathan Kim <Jonathan.Kim-5C7GfCeVMHo@public.gmane.org>
-
-From: Quan, Evan <Evan.Quan-5C7GfCeVMHo@public.gmane.org>
-Sent: Tuesday, November 5, 2019 10:11 PM
-To: Kim, Jonathan <Jonathan.Kim-5C7GfCeVMHo@public.gmane.org>; Strawbridge, Michael <Michael.Str=
-awbridge-5C7GfCeVMHo@public.gmane.org>; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Subject: RE: [PATCH 2/2] drm/amdgpu: perform p-state switch after the whole=
- hive initialized
-
-Thanks Jon.
-Per discussed in another mail thread, this should be applied after the patc=
-h below
-https://lists.freedesktop.org/archives/amd-gfx/2019-November/042160.html
-Sorry for missing this important information.
-
-Regards,
-Evan
-From: Kim, Jonathan <Jonathan.Kim-5C7GfCeVMHo@public.gmane.org<mailto:Jonathan.Kim-5C7GfCeVMHo@public.gmane.org>>
-Sent: Wednesday, November 6, 2019 10:18 AM
-To: Strawbridge, Michael <Michael.Strawbridge-5C7GfCeVMHo@public.gmane.org<mailto:Michael.Strawb=
-ridge-5C7GfCeVMHo@public.gmane.org>>; Quan, Evan <Evan.Quan-5C7GfCeVMHo@public.gmane.org<mailto:Evan.Quan-5C7GfCeVMHo@public.gmane.org>>; =
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Subject: RE: [PATCH 2/2] drm/amdgpu: perform p-state switch after the whole=
- hive initialized
-
-Taking a look at this again, it's not an indexing issue, it's a placement p=
-roblem.  I don't think this solution will work if we expect to pstate switc=
-h all gpus.
-
->From amdgpu_kms.c,  amdgpu_register_gpu_instance comes after amdgpu_device_=
-init.  This means we'll never reach mgpu_info.num_gpu =3D=3D adev->gmc.xgmi=
-.num_physical_nodes until in this code path.
-
-From: Kim, Jonathan
-Sent: Tuesday, November 5, 2019 12:07 PM
-To: Strawbridge, Michael <Michael.Strawbridge-5C7GfCeVMHo@public.gmane.org<mailto:Michael.Strawb=
-ridge-5C7GfCeVMHo@public.gmane.org>>; Quan, Evan <Evan.Quan-5C7GfCeVMHo@public.gmane.org<mailto:Evan.Quan-5C7GfCeVMHo@public.gmane.org>>; =
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Subject: RE: [PATCH 2/2] drm/amdgpu: perform p-state switch after the whole=
- hive initialized
-
-+                       for (i =3D 0; i < mgpu_info.num_gpu; i++) {
-Also while num_physical_nodes should be used here instead.  It doesn't make=
- sense to have a pre-condition check i.e. (if (mgpu_info.num_dgpu =3D=3D ad=
-ev->gmc.xgmi.num_physical_nodes - 1) ) against the total number of nodes wh=
-ile the loop checks for the current num gpus from mgpu_info.  This will fai=
-l to set the last node to low pstate for the same 0-indexing issue once the=
- pre-condition passes.
-
-+                               gpu_instance =3D &(mgpu_info.gpu_ins[i]);
-+                               if (gpu_instance->adev->flags & AMD_IS_APU)
-+                                       continue;
-+
-
-From: Kim, Jonathan
-Sent: Tuesday, November 5, 2019 11:42 AM
-To: Strawbridge, Michael <Michael.Strawbridge-5C7GfCeVMHo@public.gmane.org<mailto:Michael.Strawb=
-ridge-5C7GfCeVMHo@public.gmane.org>>; Quan, Evan <Evan.Quan-5C7GfCeVMHo@public.gmane.org<mailto:Evan.Quan-5C7GfCeVMHo@public.gmane.org>>; =
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Subject: RE: [PATCH 2/2] drm/amdgpu: perform p-state switch after the whole=
- hive initialized
-
-Yes that's correct.  This should fix the issue.
-
-Jon
-
-From: Strawbridge, Michael <Michael.Strawbridge-5C7GfCeVMHo@public.gmane.org<mailto:Michael.Stra=
-wbridge-5C7GfCeVMHo@public.gmane.org>>
-Sent: Tuesday, November 5, 2019 11:40 AM
-To: Kim, Jonathan <Jonathan.Kim-5C7GfCeVMHo@public.gmane.org<mailto:Jonathan.Kim-5C7GfCeVMHo@public.gmane.org>>; Quan=
-, Evan <Evan.Quan-5C7GfCeVMHo@public.gmane.org<mailto:Evan.Quan-5C7GfCeVMHo@public.gmane.org>>; amd-gfx-PD4FTy7X32mqWrfYKbYh0A@public.gmane.org=
-ktop.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Subject: Re: [PATCH 2/2] drm/amdgpu: perform p-state switch after the whole=
- hive initialized
-
-Hi Jon,
-
-Does that mean we can simply use this instead?
-
-+               if (mgpu_info.num_dgpu =3D=3D adev->gmc.xgmi.num_physical_n=
-odes - 1) {
-
-Thanks,
-Michael
-________________________________
-From: Kim, Jonathan <Jonathan.Kim-5C7GfCeVMHo@public.gmane.org<mailto:Jonathan.Kim-5C7GfCeVMHo@public.gmane.org>>
-Sent: 05 November 2019 11:32 AM
-To: Quan, Evan <Evan.Quan-5C7GfCeVMHo@public.gmane.org<mailto:Evan.Quan-5C7GfCeVMHo@public.gmane.org>>; amd-gfx@lists=
-.freedesktop.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> <amd-gfx-PD4FTy7X32mMSPqsTGOZug@public.gmane.org=
-esktop.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>>
-Cc: Strawbridge, Michael <Michael.Strawbridge-5C7GfCeVMHo@public.gmane.org<mailto:Michael.Strawb=
-ridge-5C7GfCeVMHo@public.gmane.org>>
-Subject: RE: [PATCH 2/2] drm/amdgpu: perform p-state switch after the whole=
- hive initialized
-
-Please see inline.
-
-Jon
-
------Original Message-----
-From: Quan, Evan <Evan.Quan-5C7GfCeVMHo@public.gmane.org<mailto:Evan.Quan-5C7GfCeVMHo@public.gmane.org>>
-Sent: Tuesday, November 5, 2019 5:24 AM
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: Kim, Jonathan <Jonathan.Kim-5C7GfCeVMHo@public.gmane.org<mailto:Jonathan.Kim-5C7GfCeVMHo@public.gmane.org>>; Stra=
-wbridge, Michael <Michael.Strawbridge-5C7GfCeVMHo@public.gmane.org<mailto:Michael.Strawbridge@am=
-d.com>>; Quan, Evan <Evan.Quan-5C7GfCeVMHo@public.gmane.org<mailto:Evan.Quan-5C7GfCeVMHo@public.gmane.org>>
-Subject: [PATCH 2/2] drm/amdgpu: perform p-state switch after the whole hiv=
-e initialized
-
-P-state switch should be performed after all devices from the hive get init=
-ialized.
-
-Change-Id: Ifc7cac9ef0cf250447d2a412da35d601e2ac79ec
-Signed-off-by: Evan Quan <evan.quan-5C7GfCeVMHo@public.gmane.org<mailto:evan.quan-5C7GfCeVMHo@public.gmane.org>>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 47 ++++++++++++++++------
- 1 file changed, 35 insertions(+), 12 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_device.c
-index e6ce949670e5..2d72d206cead 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -2090,6 +2090,7 @@ static int amdgpu_device_enable_mgpu_fan_boost(void)
-  */
- static int amdgpu_device_ip_late_init(struct amdgpu_device *adev)  {
-+       struct amdgpu_gpu_instance *gpu_instance;
-         int i =3D 0, r;
-
-         for (i =3D 0; i < adev->num_ip_blocks; i++) { @@ -2115,6 +2116,40 =
-@@ static int amdgpu_device_ip_late_init(struct amdgpu_device *adev)
-         if (r)
-                 DRM_ERROR("enable mgpu fan boost failed (%d).\n", r);
-
-+
-+       if (adev->gmc.xgmi.num_physical_nodes > 1) {
-+               mutex_lock(&mgpu_info.mutex);
-+
-+               /*
-+                * Reset device p-state to low as this was booted with high=
-.
-+                *
-+                * This should be performed only after all devices from the=
- same
-+                * hive get initialized.
-+                *
-+                * However, it's unknown how many device in the hive in adv=
-ance.
-+                * As this is counted one by one during devices initializat=
-ions.
-+                *
-+                * So, we wait for all XGMI interlinked devices initialized=
-.
-+                * This may bring some delays as those devices may come fro=
-m
-+                * different hives. But that should be OK.
-+                */
-+               if (mgpu_info.num_dgpu =3D=3D adev->gmc.xgmi.num_physical_n=
-odes) {
-[JK] This condition will never succeed.  mgpu_info.num_dgpu is 0-indexed wh=
-ile num_physical_nodes give total nodes.
-
-+                       for (i =3D 0; i < mgpu_info.num_gpu; i++) {
-+                               gpu_instance =3D &(mgpu_info.gpu_ins[i]);
-+                               if (gpu_instance->adev->flags & AMD_IS_APU)
-+                                       continue;
-+
-+                               r =3D amdgpu_xgmi_set_pstate(gpu_instance->=
-adev, 0);
-+                               if (r) {
-+                                       DRM_ERROR("pstate setting failed (%=
-d).\n", r);
-+                                       break;
-+                               }
-+                       }
-+               }
-+
-+               mutex_unlock(&mgpu_info.mutex);
-+       }
-+
-         return 0;
- }
-
-@@ -2227,18 +2262,6 @@ static void amdgpu_device_delayed_init_work_handler(=
-struct work_struct *work)
-         r =3D amdgpu_ib_ring_tests(adev);
-         if (r)
-                 DRM_ERROR("ib ring test failed (%d).\n", r);
--
--       /*
--        * set to low pstate by default
--        * This should be performed after all devices from
--        * XGMI finish their initializations. Thus it's moved
--        * to here.
--        * The time delay is 2S. TODO: confirm whether that
--        * is enough for all possible XGMI setups.
--        */
--       r =3D amdgpu_xgmi_set_pstate(adev, 0);
--       if (r)
--               DRM_ERROR("pstate setting failed (%d).\n", r);
- }
-
- static void amdgpu_device_delay_enable_gfx_off(struct work_struct *work)
---
-2.23.0
-
---_000_CH2PR12MB3831E6D9F295D7E03C2F5BE385790CH2PR12MB3831namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
-osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
-xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
-//www.w3.org/TR/REC-html40">
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
-<!--[if !mso]><style>v\:* {behavior:url(#default#VML);}
-o\:* {behavior:url(#default#VML);}
-w\:* {behavior:url(#default#VML);}
-.shape {behavior:url(#default#VML);}
-</style><![endif]--><style><!--
-/* Font Definitions */
-@font-face
-	{font-family:"Cambria Math";
-	panose-1:2 4 5 3 5 4 6 3 2 4;}
-@font-face
-	{font-family:Calibri;
-	panose-1:2 15 5 2 2 2 4 3 2 4;}
-@font-face
-	{font-family:"Segoe UI";
-	panose-1:2 11 5 2 4 2 4 2 2 3;}
-/* Style Definitions */
-p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin:0in;
-	margin-bottom:.0001pt;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif;}
-a:link, span.MsoHyperlink
-	{mso-style-priority:99;
-	color:#0563C1;
-	text-decoration:underline;}
-a:visited, span.MsoHyperlinkFollowed
-	{mso-style-priority:99;
-	color:#954F72;
-	text-decoration:underline;}
-p.msonormal0, li.msonormal0, div.msonormal0
-	{mso-style-name:msonormal;
-	margin:0in;
-	margin-bottom:.0001pt;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif;}
-span.EmailStyle18
-	{mso-style-type:personal;
-	font-family:"Calibri",sans-serif;
-	color:windowtext;}
-span.EmailStyle19
-	{mso-style-type:personal;
-	font-family:"Calibri",sans-serif;
-	color:windowtext;}
-span.EmailStyle20
-	{mso-style-type:personal;
-	font-family:"Calibri",sans-serif;
-	color:windowtext;}
-span.EmailStyle21
-	{mso-style-type:personal;
-	font-family:"Calibri",sans-serif;
-	color:windowtext;}
-span.EmailStyle23
-	{mso-style-type:personal;
-	font-family:"Calibri",sans-serif;
-	color:windowtext;}
-span.EmailStyle24
-	{mso-style-type:personal-compose;
-	font-family:"Calibri",sans-serif;
-	color:windowtext;}
-.MsoChpDefault
-	{mso-style-type:export-only;
-	font-size:10.0pt;}
-@page WordSection1
-	{size:8.5in 11.0in;
-	margin:1.0in 1.0in 1.0in 1.0in;}
-div.WordSection1
-	{page:WordSection1;}
---></style><!--[if gte mso 9]><xml>
-<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
-</xml><![endif]--><!--[if gte mso 9]><xml>
-<o:shapelayout v:ext=3D"edit">
-<o:idmap v:ext=3D"edit" data=3D"1" />
-</o:shapelayout></xml><![endif]-->
-</head>
-<body lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72">
-<div class=3D"WordSection1">
-<p class=3D"MsoNormal">No problem. &nbsp;With the incoming patch referenced=
- below, this patch should be ok since it doesn&#8217;t break the build.<o:p=
-></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">Reviewed-by:&nbsp; Jonathan Kim &lt;Jonathan.Kim@amd=
-.com&gt;<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<div>
-<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
-0in 0in">
-<p class=3D"MsoNormal"><b>From:</b> Quan, Evan &lt;Evan.Quan-5C7GfCeVMHo@public.gmane.org&gt; <b=
-r>
-<b>Sent:</b> Tuesday, November 5, 2019 10:11 PM<br>
-<b>To:</b> Kim, Jonathan &lt;Jonathan.Kim-5C7GfCeVMHo@public.gmane.org&gt;; Strawbridge, Michael=
- &lt;Michael.Strawbridge-5C7GfCeVMHo@public.gmane.org&gt;; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Subject:</b> RE: [PATCH 2/2] drm/amdgpu: perform p-state switch after th=
-e whole hive initialized<o:p></o:p></p>
-</div>
-</div>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">Thanks Jon.<o:p></o:p></p>
-<p class=3D"MsoNormal">Per discussed in another mail thread, this should be=
- applied after the patch below<o:p></o:p></p>
-<p class=3D"MsoNormal"><a href=3D"https://lists.freedesktop.org/archives/am=
-d-gfx/2019-November/042160.html">https://lists.freedesktop.org/archives/amd=
--gfx/2019-November/042160.html</a><o:p></o:p></p>
-<p class=3D"MsoNormal">Sorry for missing this important information.<o:p></=
-o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">Regards,<o:p></o:p></p>
-<p class=3D"MsoNormal">Evan<o:p></o:p></p>
-<div style=3D"border:none;border-left:solid blue 1.5pt;padding:0in 0in 0in =
-4.0pt">
-<div>
-<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
-0in 0in">
-<p class=3D"MsoNormal"><b>From:</b> Kim, Jonathan &lt;<a href=3D"mailto:Jon=
-athan.Kim-5C7GfCeVMHo@public.gmane.org">Jonathan.Kim-5C7GfCeVMHo@public.gmane.org</a>&gt;
+<div dir=3D"ltr"><div>Hi, gentle ping ? Thx in advance.</div><br><div class=
+=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr">On Tue, Oct 8, 2019 =
+at 11:15 AM Julien Isorce &lt;<a href=3D"mailto:julien.isorce-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org">ju=
+lien.isorce-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt; wrote:<br></div><blockquote class=3D"gmail_qu=
+ote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,20=
+4);padding-left:1ex"><div dir=3D"ltr">Hi Harry,<div><br></div><div>I can re=
+produce on LG, Samsung and NEC monitors.</div><div><br></div><div>&quot;Hav=
+e you checked whether the driver picks RGB or YCBCR420 without your<br>patc=
+h?&quot; -&gt; it was selecting RGB .<br></div><div><br></div><div>For exam=
+ple on <a href=3D"https://commons.wikimedia.org/wiki/File:Gray_scale.jpg" t=
+arget=3D"_blank">https://commons.wikimedia.org/wiki/File:Gray_scale.jpg</a>=
+ , the second band from the left, will be entirely pinkish.<br></div><div>S=
+ince the issue also happens without dongle, so with a direct cable from the=
+ miniDP from the graphic card to DisplayPort on the screen I think there is=
+ more serious issue with RGB output in amdgpu. But it is not easy to reprod=
+uce, you should try on above image.</div><div><br></div><div>In any case, t=
+he goal with the patch is just to get the same output when using 2 screens =
+at the same time, one connected to hdmi output of the graphic card and one =
+connected=C2=A0 to usb-c to graphic card (hdmi cable with dongle). So prior=
+ this patch, the first one would use YCbCr 444 and the second would use RGB=
+.</div><div>After this patch, both will use=C2=A0YCbCr 444 (both are hdmi).=
+</div><div>The patch does not change the case for miniDP to DisplayPort, th=
+e driver will still use RGB. Because maybe the RGB issue is also specific t=
+o that graphic card which</div><div>is=C2=A0VEGA&quot;M&quot;. So that is w=
+hy the patch only tries to match hdmi cases together, whether it is direct =
+connection or through usb-c.</div><div><br></div><div>-</div><div>Julien</d=
+iv><div><br></div><div><br></div></div><br><div class=3D"gmail_quote"><div =
+dir=3D"ltr" class=3D"gmail_attr">On Tue, Oct 8, 2019 at 10:44 AM Harry Went=
+land &lt;<a href=3D"mailto:hwentlan-5C7GfCeVMHo@public.gmane.org" target=3D"_blank">hwentlan@amd=
+.com</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"mar=
+gin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1=
+ex">Hi Julien,<br>
 <br>
-<b>Sent:</b> Wednesday, November 6, 2019 10:18 AM<br>
-<b>To:</b> Strawbridge, Michael &lt;<a href=3D"mailto:Michael.Strawbridge@a=
-md.com">Michael.Strawbridge-5C7GfCeVMHo@public.gmane.org</a>&gt;; Quan, Evan &lt;<a href=3D"mail=
-to:Evan.Quan-5C7GfCeVMHo@public.gmane.org">Evan.Quan-5C7GfCeVMHo@public.gmane.org</a>&gt;;
-<a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9/rsn8yoX9R0@public.gmane.org=
-org</a><br>
-<b>Subject:</b> RE: [PATCH 2/2] drm/amdgpu: perform p-state switch after th=
-e whole hive initialized<o:p></o:p></p>
-</div>
-</div>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">Taking a look at this again, it&#8217;s not an index=
-ing issue, it&#8217;s a placement problem. &nbsp;I don&#8217;t think this s=
-olution will work if we expect to pstate switch all gpus.<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">From amdgpu_kms.c,&nbsp; amdgpu_register_gpu_instanc=
-e comes after amdgpu_device_init.&nbsp; This means we&#8217;ll never reach =
-mgpu_info.num_gpu =3D=3D adev-&gt;gmc.xgmi.num_physical_nodes until in this=
- code path.<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<div>
-<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
-0in 0in">
-<p class=3D"MsoNormal"><b>From:</b> Kim, Jonathan <br>
-<b>Sent:</b> Tuesday, November 5, 2019 12:07 PM<br>
-<b>To:</b> Strawbridge, Michael &lt;<a href=3D"mailto:Michael.Strawbridge@a=
-md.com">Michael.Strawbridge-5C7GfCeVMHo@public.gmane.org</a>&gt;; Quan, Evan &lt;<a href=3D"mail=
-to:Evan.Quan-5C7GfCeVMHo@public.gmane.org">Evan.Quan-5C7GfCeVMHo@public.gmane.org</a>&gt;;
-<a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9/rsn8yoX9R0@public.gmane.org=
-org</a><br>
-<b>Subject:</b> RE: [PATCH 2/2] drm/amdgpu: perform p-state switch after th=
-e whole hive initialized<o:p></o:p></p>
-</div>
-</div>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; for (i =3D 0; i &lt; mgpu_info.num_gpu; i&#43;&#43;) {<o:p></o:p=
-></p>
-<p class=3D"MsoNormal">Also while num_physical_nodes should be used here in=
-stead.&nbsp; It doesn&#8217;t make sense to have a pre-condition check i.e.=
- (<span style=3D"font-family:&quot;Segoe UI&quot;,sans-serif;color:black;ba=
-ckground:white">if (mgpu_info.num_dgpu =3D=3D adev-&gt;gmc.xgmi.num_physica=
-l_nodes<b>
- - 1</b>) ) </span>against the total number of nodes while the loop checks =
-for the current num gpus from mgpu_info.&nbsp; This will fail to set the la=
-st node to low pstate for the same 0-indexing issue once the pre-condition =
-passes.
-<o:p></o:p></p>
-<p class=3D"MsoNormal"><br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gpu_instance =3D &amp;(mgpu_info.gpu_in=
-s[i]);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (gpu_instance-&gt;adev-&gt;flags &am=
-p; AMD_IS_APU)<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp; continue;<br>
-&#43;<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<div>
-<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
-0in 0in">
-<p class=3D"MsoNormal"><b>From:</b> Kim, Jonathan <br>
-<b>Sent:</b> Tuesday, November 5, 2019 11:42 AM<br>
-<b>To:</b> Strawbridge, Michael &lt;<a href=3D"mailto:Michael.Strawbridge@a=
-md.com">Michael.Strawbridge-5C7GfCeVMHo@public.gmane.org</a>&gt;; Quan, Evan &lt;<a href=3D"mail=
-to:Evan.Quan-5C7GfCeVMHo@public.gmane.org">Evan.Quan-5C7GfCeVMHo@public.gmane.org</a>&gt;;
-<a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9/rsn8yoX9R0@public.gmane.org=
-org</a><br>
-<b>Subject:</b> RE: [PATCH 2/2] drm/amdgpu: perform p-state switch after th=
-e whole hive initialized<o:p></o:p></p>
-</div>
-</div>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">Yes that&#8217;s correct.&nbsp; This should fix the =
-issue.<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">Jon<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<div>
-<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
-0in 0in">
-<p class=3D"MsoNormal"><b>From:</b> Strawbridge, Michael &lt;<a href=3D"mai=
-lto:Michael.Strawbridge-5C7GfCeVMHo@public.gmane.org">Michael.Strawbridge-5C7GfCeVMHo@public.gmane.org</a>&gt;
+curious which monitor you&#39;re using.<br>
 <br>
-<b>Sent:</b> Tuesday, November 5, 2019 11:40 AM<br>
-<b>To:</b> Kim, Jonathan &lt;<a href=3D"mailto:Jonathan.Kim-5C7GfCeVMHo@public.gmane.org">Jonath=
-an.Kim-5C7GfCeVMHo@public.gmane.org</a>&gt;; Quan, Evan &lt;<a href=3D"mailto:Evan.Quan-5C7GfCeVMHo@public.gmane.org"=
->Evan.Quan-5C7GfCeVMHo@public.gmane.org</a>&gt;;
-<a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9/rsn8yoX9R0@public.gmane.org=
-org</a><br>
-<b>Subject:</b> Re: [PATCH 2/2] drm/amdgpu: perform p-state switch after th=
-e whole hive initialized<o:p></o:p></p>
-</div>
-</div>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<div>
-<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">Hi Jon,=
-<o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black"><o:p>&n=
-bsp;</o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">Does th=
-at mean we can simply use this instead?<o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black"><o:p>&n=
-bsp;</o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Segoe UI&quot;,sans=
--serif;color:black;background:white">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (mgpu_info.num_dgpu =
-=3D=3D adev-&gt;gmc.xgmi.num_physical_nodes<b> - 1</b>) {</span><span style=
-=3D"font-size:12.0pt;color:black"><o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black"><o:p>&n=
-bsp;</o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal"><span style=3D"color:black">Thanks,<o:p></o:p></span=
-></p>
-</div>
-<div>
-<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">Michael=
-<o:p></o:p></span></p>
-</div>
-<div class=3D"MsoNormal" align=3D"center" style=3D"text-align:center">
-<hr size=3D"2" width=3D"98%" align=3D"center">
-</div>
-<div id=3D"divRplyFwdMsg">
-<p class=3D"MsoNormal"><b><span style=3D"color:black">From:</span></b><span=
- style=3D"color:black"> Kim, Jonathan &lt;</span><a href=3D"mailto:Jonathan=
-.Kim-5C7GfCeVMHo@public.gmane.org">Jonathan.Kim-5C7GfCeVMHo@public.gmane.org</a><span style=3D"color:black">&gt;<br>
-<b>Sent:</b> 05 November 2019 11:32 AM<br>
-<b>To:</b> Quan, Evan &lt;</span><a href=3D"mailto:Evan.Quan-5C7GfCeVMHo@public.gmane.org">Evan.=
-Quan-5C7GfCeVMHo@public.gmane.org</a><span style=3D"color:black">&gt;;
-</span><a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32mMSPqsTGOZug@public.gmane.org=
-esktop.org</a><span style=3D"color:black"> &lt;</span><a href=3D"mailto:amd=
--gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><span style=3D=
-"color:black">&gt;<br>
-<b>Cc:</b> Strawbridge, Michael &lt;</span><a href=3D"mailto:Michael.Strawb=
-ridge-5C7GfCeVMHo@public.gmane.org">Michael.Strawbridge-5C7GfCeVMHo@public.gmane.org</a><span style=3D"color:black">&=
-gt;<br>
-<b>Subject:</b> RE: [PATCH 2/2] drm/amdgpu: perform p-state switch after th=
-e whole hive initialized</span>
-<o:p></o:p></p>
-<div>
-<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
-</div>
-</div>
-<div>
-<div>
-<p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt">Please see inline.<br=
->
+Have you checked whether the driver picks RGB or YCBCR420 without your<br>
+patch?<br>
 <br>
-Jon<br>
+I&#39;m not sure I understand how the pinkish color issue looks. Do you see=
 <br>
------Original Message-----<br>
-From: Quan, Evan &lt;<a href=3D"mailto:Evan.Quan-5C7GfCeVMHo@public.gmane.org">Evan.Quan-5C7GfCeVMHo@public.gmane.org=
-</a>&gt; <br>
-Sent: Tuesday, November 5, 2019 5:24 AM<br>
-To: <a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lzq7FAFJ/aeQ@public.gmane.org=
-top.org</a><br>
-Cc: Kim, Jonathan &lt;<a href=3D"mailto:Jonathan.Kim-5C7GfCeVMHo@public.gmane.org">Jonathan.Kim@=
-amd.com</a>&gt;; Strawbridge, Michael &lt;<a href=3D"mailto:Michael.Strawbr=
-idge-5C7GfCeVMHo@public.gmane.org">Michael.Strawbridge-5C7GfCeVMHo@public.gmane.org</a>&gt;; Quan, Evan &lt;<a href=
-=3D"mailto:Evan.Quan-5C7GfCeVMHo@public.gmane.org">Evan.Quan-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
-Subject: [PATCH 2/2] drm/amdgpu: perform p-state switch after the whole hiv=
-e initialized<br>
+a pinkish color at the transition from grey to another color? Or is the<br>
+entire grey area pinkish?<br>
 <br>
-P-state switch should be performed after all devices from the hive get init=
-ialized.<br>
+Thanks,<br>
+Harry<br>
 <br>
-Change-Id: Ifc7cac9ef0cf250447d2a412da35d601e2ac79ec<br>
-Signed-off-by: Evan Quan &lt;<a href=3D"mailto:evan.quan-5C7GfCeVMHo@public.gmane.org">evan.quan=
-@amd.com</a>&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 47 &#43;&#43;&#43;&#43;&=
-#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;------<br>
-&nbsp;1 file changed, 35 insertions(&#43;), 12 deletions(-)<br>
+On 2019-10-08 12:06 p.m., Julien Isorce wrote:<br>
+&gt; Hi,<br>
+&gt; <br>
+&gt; Gentle ping ?<br>
+&gt; <br>
+&gt; Thx<br>
+&gt; Julien<br>
+&gt; <br>
+&gt; On Tue, Oct 1, 2019 at 3:21 PM Julien Isorce &lt;<a href=3D"mailto:jul=
+ien.isorce-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org" target=3D"_blank">julien.isorce-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a><br>
+&gt; &lt;mailto:<a href=3D"mailto:julien.isorce-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org" target=3D"_blank=
+">julien.isorce-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt;&gt; wrote:<br>
+&gt; <br>
+&gt;=C2=A0 =C2=A0 =C2=A0Fix pinkish color issue around grey areas. This als=
+o happens<br>
+&gt;=C2=A0 =C2=A0 =C2=A0when not using any dongle so directly with a usb-c =
+to Display<br>
+&gt;=C2=A0 =C2=A0 =C2=A0Port cable. Meaning there is something wrong when u=
+sing pixel<br>
+&gt;=C2=A0 =C2=A0 =C2=A0encoding RGB with amd driver in the general case. I=
+n the meantime<br>
+&gt;=C2=A0 =C2=A0 =C2=A0just use the same pixel encoding as when using HDMI=
+ without dongle.<br>
+&gt;=C2=A0 =C2=A0 =C2=A0This way users will see the same thing on 2 identic=
+al screens when<br>
+&gt;=C2=A0 =C2=A0 =C2=A0one is connected with hdmi-to-hdmi and the other is=
+ connected with<br>
+&gt;=C2=A0 =C2=A0 =C2=A0usb-c-to-hdmi.<br>
+&gt; <br>
+&gt;=C2=A0 =C2=A0 =C2=A0Signed-off-by: Julien Isorce &lt;<a href=3D"mailto:=
+jisorce-bXq66PvbRDbQT0dZR+AlfA@public.gmane.org" target=3D"_blank">jisorce-bXq66PvbRDbQT0dZR+AlfA@public.gmane.org</a><br>
+&gt;=C2=A0 =C2=A0 =C2=A0&lt;mailto:<a href=3D"mailto:jisorce-bXq66PvbRDbQT0dZR+AlfA@public.gmane.org" ta=
+rget=3D"_blank">jisorce-bXq66PvbRDbQT0dZR+AlfA@public.gmane.org</a>&gt;&gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0---<br>
+&gt;=C2=A0 =C2=A0 =C2=A0=C2=A0drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_=
+dm.c | 5 +++++<br>
+&gt;=C2=A0 =C2=A0 =C2=A0=C2=A01 file changed, 5 insertions(+)<br>
+&gt; <br>
+&gt;=C2=A0 =C2=A0 =C2=A0diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/=
+amdgpu_dm.c<br>
+&gt;=C2=A0 =C2=A0 =C2=A0b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c=
 <br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_device.c<br>
-index e6ce949670e5..2d72d206cead 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
-@@ -2090,6 &#43;2090,7 @@ static int amdgpu_device_enable_mgpu_fan_boost(vo=
-id)<br>
-&nbsp; */<br>
-&nbsp;static int amdgpu_device_ip_late_init(struct amdgpu_device *adev)&nbs=
-p; {<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_gpu_instance *gpu_i=
-nstance;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int i =3D 0, r;<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (i =3D 0; i &lt; adev-=
-&gt;num_ip_blocks; i&#43;&#43;) { @@ -2115,6 &#43;2116,40 @@ static int amd=
-gpu_device_ip_late_init(struct amdgpu_device *adev)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; DRM_ERROR(&quot;enable mgpu fan boost failed (%d).\n&=
-quot;, r);<br>
-&nbsp;<br>
-&#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;gmc.xgmi.num_physica=
-l_nodes &gt; 1) {<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; mutex_lock(&amp;mgpu_info.mutex);<br>
-&#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; /*<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp; * Reset device p-state to low as this was booted with =
-high.<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp; *<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp; * This should be performed only after all devices from=
- the same<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp; * hive get initialized.<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp; *<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp; * However, it's unknown how many device in the hive in=
- advance.<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp; * As this is counted one by one during devices initial=
-izations.<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp; *<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp; * So, we wait for all XGMI interlinked devices initial=
-ized.<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp; * This may bring some delays as those devices may come=
- from<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp; * different hives. But that should be OK.<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp; */<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; if (mgpu_info.num_dgpu =3D=3D adev-&gt;gmc.xgmi.num_physical=
-_nodes) {<br>
-[JK] This condition will never succeed.&nbsp; mgpu_info.num_dgpu is 0-index=
-ed while num_physical_nodes give total nodes.<br>
-<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (i =3D 0=
-; i &lt; mgpu_info.num_gpu; i&#43;&#43;) {<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gpu_instance =3D &amp;(mgpu_info.gpu_in=
-s[i]);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (gpu_instance-&gt;adev-&gt;flags &am=
-p; AMD_IS_APU)<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp; continue;<br>
-&#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_xgmi_set_pstate(gpu_instan=
-ce-&gt;adev, 0);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r) {<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp; DRM_ERROR(&quot;pstate setting failed (%d).\n&quot;, r);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp; break;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; }<br>
-&#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; mutex_unlock(&amp;mgpu_info.mutex);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&#43;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
-&nbsp;}<br>
-&nbsp;<br>
-@@ -2227,18 &#43;2262,6 @@ static void amdgpu_device_delayed_init_work_hand=
-ler(struct work_struct *work)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_ib_ring_tests=
-(adev);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; DRM_ERROR(&quot;ib ring test failed (%d).\n&quot;, r)=
-;<br>
--<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /*<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * set to low pstate by default<=
-br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * This should be performed afte=
-r all devices from<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * XGMI finish their initializat=
-ions. Thus it's moved<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * to here.<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * The time delay is 2S. TODO: c=
-onfirm whether that<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * is enough for all possible XG=
-MI setups.<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_xgmi_set_pstate(adev, 0)=
-;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r)<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; DRM_ERROR(&quot;pstate setting failed (%d).\n&quot;, r);<br>
-&nbsp;}<br>
-&nbsp;<br>
-&nbsp;static void amdgpu_device_delay_enable_gfx_off(struct work_struct *wo=
-rk)<br>
---<br>
-2.23.0<o:p></o:p></p>
-</div>
-</div>
-</div>
-</div>
-</body>
-</html>
+&gt;=C2=A0 =C2=A0 =C2=A0index d3f404f097eb..8139dcc0bfba 100644<br>
+&gt;=C2=A0 =C2=A0 =C2=A0--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_=
+dm.c<br>
+&gt;=C2=A0 =C2=A0 =C2=A0+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_=
+dm.c<br>
+&gt;=C2=A0 =C2=A0 =C2=A0@@ -3313,6 +3313,7 @@ static void<br>
+&gt;=C2=A0 =C2=A0 =C2=A0fill_stream_properties_from_drm_display_mode(<br>
+&gt;=C2=A0 =C2=A0 =C2=A0=C2=A0{<br>
+&gt;=C2=A0 =C2=A0 =C2=A0=C2=A0 =C2=A0 =C2=A0 =C2=A0 struct dc_crtc_timing *=
+timing_out =3D &amp;stream-&gt;timing;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0=C2=A0 =C2=A0 =C2=A0 =C2=A0 const struct drm_displa=
+y_info *info =3D &amp;connector-&gt;display_info;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0+=C2=A0 =C2=A0 =C2=A0 =C2=A0const struct dc_link *l=
+ink =3D stream-&gt;sink-&gt;link;<br>
+&gt; <br>
+&gt;=C2=A0 =C2=A0 =C2=A0=C2=A0 =C2=A0 =C2=A0 =C2=A0 memset(timing_out, 0, s=
+izeof(struct dc_crtc_timing));<br>
+&gt; <br>
+&gt;=C2=A0 =C2=A0 =C2=A0@@ -3327,6 +3328,10 @@ static void<br>
+&gt;=C2=A0 =C2=A0 =C2=A0fill_stream_properties_from_drm_display_mode(<br>
+&gt;=C2=A0 =C2=A0 =C2=A0=C2=A0 =C2=A0 =C2=A0 =C2=A0 else if ((connector-&gt=
+;display_info.color_formats &amp;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0DRM_COLOR_FORMAT_YCRCB444)<br>
+&gt;=C2=A0 =C2=A0 =C2=A0=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 &amp;&amp; stream-&gt;signal =3D=3D SIGN=
+AL_TYPE_HDMI_TYPE_A)<br>
+&gt;=C2=A0 =C2=A0 =C2=A0=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 timing_out-&gt;pixel_encoding =3D PIXEL_ENCODING_YCBCR444;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0+=C2=A0 =C2=A0 =C2=A0 =C2=A0else if ((connector-&gt=
+;display_info.color_formats &amp;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0DRM_COLOR_FORMAT_YCRCB444)<br>
+&gt;=C2=A0 =C2=A0 =C2=A0+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&amp;&amp; stream-&gt;sink-&gt;sink_signa=
+l =3D=3D<br>
+&gt;=C2=A0 =C2=A0 =C2=A0SIGNAL_TYPE_DISPLAY_PORT<br>
+&gt;=C2=A0 =C2=A0 =C2=A0+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&amp;&amp; link-&gt;dpcd_caps.dongle_type=
+ =3D=3D<br>
+&gt;=C2=A0 =C2=A0 =C2=A0DISPLAY_DONGLE_DP_HDMI_CONVERTER)<br>
+&gt;=C2=A0 =C2=A0 =C2=A0+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0timing_out-&gt;pixel_encoding =3D PIXEL_ENCODING_YCBCR444;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0=C2=A0 =C2=A0 =C2=A0 =C2=A0 else<br>
+&gt;=C2=A0 =C2=A0 =C2=A0=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 timing_out-&gt;pixel_encoding =3D PIXEL_ENCODING_RGB;<br>
+&gt; <br>
+&gt;=C2=A0 =C2=A0 =C2=A0-- <br>
+&gt;=C2=A0 =C2=A0 =C2=A02.17.1<br>
+&gt; <br>
+&gt; <br>
+&gt; _______________________________________________<br>
+&gt; amd-gfx mailing list<br>
+&gt; <a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" target=3D"_blank">amd=
+-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
+&gt; <a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" rel=
+=3D"noreferrer" target=3D"_blank">https://lists.freedesktop.org/mailman/lis=
+tinfo/amd-gfx</a><br>
+&gt; <br>
+</blockquote></div>
+</blockquote></div></div>
 
---_000_CH2PR12MB3831E6D9F295D7E03C2F5BE385790CH2PR12MB3831namp_--
+--00000000000088d6270596a688e4--
 
---===============1040984902==
+--===============1722581037==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -728,4 +318,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
 
---===============1040984902==--
+--===============1722581037==--
