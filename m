@@ -1,60 +1,64 @@
-From: Alex Deucher <alexdeucher@gmail.com>
-Subject: Re: [PATCH] drm/amd/powerplay: fix struct init in renoir_print_clk_levels
-Date: Wed, 6 Nov 2019 12:20:42 -0500
-Message-ID: <CADnq5_O2wgq6YDXJXZizSKKmAbLDxRkQaSwAjofTS3pbTiPc2Q@mail.gmail.com>
-References: <20191105155734.1.If8740b4a5095031f2c00746fbc3224be9849d76b@changeid>
+From: "Zeng, Oak" <Oak.Zeng-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH] drm/amdgpu: Add comments to gmc structure
+Date: Wed, 6 Nov 2019 17:21:43 +0000
+Message-ID: <1573060895-13033-1-git-send-email-Oak.Zeng@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20191105155734.1.If8740b4a5095031f2c00746fbc3224be9849d76b@changeid>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Raul E Rangel <rrangel@chromium.org>
-Cc: "Deucher, Alexander" <alexander.deucher@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, LKML <linux-kernel@vger.kernel.org>, Maling list - DRI developers <dri-devel@lists.freedesktop.org>, amd-gfx list <amd-gfx@lists.freedesktop.org>, Daniel Vetter <daniel@ffwll.ch>, Evan Quan <evan.quan@amd.com>, Rex Zhu <rex.zhu@amd.com>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>, "Zeng, Oak" <Oak.Zeng-5C7GfCeVMHo@public.gmane.org>, "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
 
-On Tue, Nov 5, 2019 at 6:10 PM Raul E Rangel <rrangel@chromium.org> wrote:
->
-> drivers/gpu/drm/amd/powerplay/renoir_ppt.c:186:2: error: missing braces
-> around initializer [-Werror=missing-braces]
->   SmuMetrics_t metrics = {0};
->     ^
->
-> Fixes: 8b8031703bd7 ("drm/amd/powerplay: implement sysfs for getting dpm clock")
->
-> Signed-off-by: Raul E Rangel <rrangel@chromium.org>
-
-Applied.  thanks!
-
-Alex
-
-> ---
->
->  drivers/gpu/drm/amd/powerplay/renoir_ppt.c | 4 +++-
->  1 file changed, 3 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/powerplay/renoir_ppt.c b/drivers/gpu/drm/amd/powerplay/renoir_ppt.c
-> index e62bfba51562..e5283dafc414 100644
-> --- a/drivers/gpu/drm/amd/powerplay/renoir_ppt.c
-> +++ b/drivers/gpu/drm/amd/powerplay/renoir_ppt.c
-> @@ -183,11 +183,13 @@ static int renoir_print_clk_levels(struct smu_context *smu,
->         int i, size = 0, ret = 0;
->         uint32_t cur_value = 0, value = 0, count = 0, min = 0, max = 0;
->         DpmClocks_t *clk_table = smu->smu_table.clocks_table;
-> -       SmuMetrics_t metrics = {0};
-> +       SmuMetrics_t metrics;
->
->         if (!clk_table || clk_type >= SMU_CLK_COUNT)
->                 return -EINVAL;
->
-> +       memset(&metrics, 0, sizeof(metrics));
-> +
->         ret = smu_update_table(smu, SMU_TABLE_SMU_METRICS, 0,
->                                (void *)&metrics, false);
->         if (ret)
-> --
-> 2.24.0.rc1.363.gb1bccd3e3d-goog
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+RXhwbGFpbiBmaWVsZHMgbGlrZSBhcGVyX2Jhc2UsIGFncF9zdGFydCBldGMuIFRoZSBkZWZpbml0
+aW9uCm9mIHRob3NlIGZpZWxkcyBhcmUgY29uZnVzaW5nIGFzIHRoZXkgYXJlIGZyb20gZGlmZmVy
+ZW50IHZpZXcKKENQVSBvciBHUFUpLiBBZGQgY29tbWVudHMgZm9yIGVhc2llciB1bmRlcnN0YW5k
+LgoKQ2hhbmdlLUlkOiBJMDJjMmEyN2NkMGRiYzIwNTQ5OGViODZhYWZhNzIyZjJlMGMyNWZlNgpT
+aWduZWQtb2ZmLWJ5OiBPYWsgWmVuZyA8T2FrLlplbmdAYW1kLmNvbT4KLS0tCiBkcml2ZXJzL2dw
+dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZ21jLmggfCAyNSArKysrKysrKysrKysrKysrKysrKysr
+KysrCiAxIGZpbGUgY2hhbmdlZCwgMjUgaW5zZXJ0aW9ucygrKQoKZGlmZiAtLWdpdCBhL2RyaXZl
+cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9nbWMuaCBiL2RyaXZlcnMvZ3B1L2RybS9hbWQv
+YW1kZ3B1L2FtZGdwdV9nbWMuaAppbmRleCA1NTVkOGU1Li44MDAzMjAxIDEwMDY0NAotLS0gYS9k
+cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZ21jLmgKKysrIGIvZHJpdmVycy9ncHUv
+ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2dtYy5oCkBAIC0xMjcsMTggKzEyNyw0MyBAQCBzdHJ1Y3Qg
+YW1kZ3B1X3hnbWkgewogfTsKIAogc3RydWN0IGFtZGdwdV9nbWMgeworCS8qIEZCJ3MgcGh5c2lj
+YWwgYWRkcmVzcyBpbiBNTUlPIHNwYWNlIChmb3IgQ1BVIHRvCisJICogbWFwIEZCKS4gVGhpcyBp
+cyBkaWZmZXJlbnQgY29tcGFyZWQgdG8gdGhlIGFwZy8KKwkgKiBnYXJ0L3ZyYW1fc3RhcnQvZW5k
+IGZpZWxkIGFzIHRoZSBsYXRlciBpcyBmcm9tCisJICogR1BVJ3MgdmlldyBhbmQgYXBlcl9iYXNl
+IGlzIGZyb20gQ1BVJ3Mgdmlldy4KKwkgKi8KIAlyZXNvdXJjZV9zaXplX3QJCWFwZXJfc2l6ZTsK
+IAlyZXNvdXJjZV9zaXplX3QJCWFwZXJfYmFzZTsKIAkvKiBmb3Igc29tZSBjaGlwcyB3aXRoIDw9
+IDMyTUIgd2UgbmVlZCB0byBsaWUKIAkgKiBhYm91dCB2cmFtIHNpemUgbmVhciBtYyBmYiBsb2Nh
+dGlvbiAqLwogCXU2NAkJCW1jX3ZyYW1fc2l6ZTsKIAl1NjQJCQl2aXNpYmxlX3ZyYW1fc2l6ZTsK
+KwkvKiBBUEcgYXBlcnR1cmUgc3RhcnQgYW5kIGVuZCBpbiBNQyBhZGRyZXNzIHNwYWNlCisJICog
+RHJpdmVyIGZpbmQgYSBob2xlIGluIHRoZSBNQyBhZGRyZXNzIHNwYWNlCisJICogdG8gcGxhY2Ug
+QUdQIGJ5IHNldHRpbmcgTUNfVk1fQUdQX0JPVC9UT1AgcmVnaXN0ZXJzCisJICogVW5kZXIgVk1J
+RDAsIGxvZ2ljYWwgYWRkcmVzcyA9PSBNQyBhZGRyZXNzCisJICogQUdQIGFwZXJ0dXJlIGlzIHVz
+ZWQgdG8gc2ltdWxhdGUgRkIgaW4gWkZCIGNhc2UKKwkgKi8KIAl1NjQJCQlhZ3Bfc2l6ZTsKIAl1
+NjQJCQlhZ3Bfc3RhcnQ7CiAJdTY0CQkJYWdwX2VuZDsKKwkvKiBHQVJUIGFwZXJ0dXJlIHN0YXJ0
+IGFuZCBlbmQgaW4gTUMgYWRkcmVzcyBzcGFjZQorCSAqIERyaXZlciBmaW5kIGEgaG9sZSBpbiB0
+aGUgTUMgYWRkcmVzcyBzcGFjZQorCSAqIHRvIHBsYWNlIEdBUlQgYnkgc2V0dGluZyBWTV9DT05U
+RVhUMF9QQUdFX1RBQkxFX1NUQVJUL0VORF9BRERSCisJICogcmVnaXN0ZXJzCisJICogVW5kZXIg
+Vk1JRDAsIGxvZ2ljYWwgYWRkcmVzcyBpbnNpZGUgR0FSVCBhcGVydHVyZSB3aWxsCisJICogYmUg
+dHJhbnNsYXRlZCB0aHJvdWdoIGdwdXZtIGdhcnQgcGFnZSB0YWJsZSB0byBhY2Nlc3MKKwkgKiBw
+YWdlZCBzeXN0ZW0gbWVtb3J5CisJICovCiAJdTY0CQkJZ2FydF9zaXplOwogCXU2NAkJCWdhcnRf
+c3RhcnQ7CiAJdTY0CQkJZ2FydF9lbmQ7CisJLyogRnJhbWUgYnVmZmVyIGFwZXJ0dXJlIG9mIHRo
+aXMgR1BVIGRldmljZS4gRGlmZmVyZW50IGZyb20KKwkgKiBmYl9zdGFydCAoc2VlIGJlbG93KSwg
+dGhpcyBvbmx5IGNvdmVycyB0aGUgbG9jYWwgR1BVIGRldmljZS4KKwkgKiBEcml2ZXIgZ2V0IGZi
+X3N0YXJ0IGZyb20gTUNfVk1fRkJfTE9DQVRJT05fQkFTRSAoc2V0IGJ5IHZiaW9zKQorCSAqIGFu
+ZCBjYWxjdWxhdGUgdnJhbV9zdGFydCBvZiB0aGlzIGxvY2FsIGRldmljZSBieSBhZGRpbmcgYW4K
+KwkgKiBvZmZzZXQgaW5zaWRlIHRoZSBYR01JIGhpdmUuCisJICovCiAJdTY0CQkJdnJhbV9zdGFy
+dDsKIAl1NjQJCQl2cmFtX2VuZDsKIAkvKiBGQiByZWdpb24gLCBpdCdzIHNhbWUgYXMgbG9jYWwg
+dnJhbSByZWdpb24gaW4gc2luZ2xlIEdQVSwgaW4gWEdNSQotLSAKMi43LjQKCl9fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0
+CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Au
+b3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
