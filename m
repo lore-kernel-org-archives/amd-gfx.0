@@ -1,99 +1,31 @@
-From: Bjorn Helgaas <helgaas-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org>
-Subject: [PATCH 2/2] drm: replace Target Link Speed magic numbers with
+From: Ilia Mirkin <imirkin@alum.mit.edu>
+Subject: Re: [PATCH 1/2] drm: replace Compliance/Margin magic numbers with
  PCI_EXP_LNKCTL2 definitions
-Date: Thu,  7 Nov 2019 16:20:47 -0600
-Message-ID: <20191107222047.125496-3-helgaas@kernel.org>
-References: <20191107222047.125496-1-helgaas@kernel.org>
+Date: Thu, 7 Nov 2019 17:30:00 -0500
+Message-ID: <CAKb7Uvjj+18cAFW+yBEHWkJLXVTHVMW=zJ-V+uqpzdbcEKsHrQ@mail.gmail.com>
+References: <20191107222047.125496-1-helgaas@kernel.org> <20191107222047.125496-2-helgaas@kernel.org>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20191107222047.125496-1-helgaas-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>, David Zhou <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, David Airlie <airlied-cv59FeDIM0c@public.gmane.org>, Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>
-Cc: Bjorn Helgaas <bhelgaas-hpIqsD4AKlfQT0dZR+AlfA@public.gmane.org>, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Frederick Lawler <fred-AA42j+p7l0JWk0Htik3J/w@public.gmane.org>, linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org
+Content-Type: text/plain; charset="UTF-8"
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20191107222047.125496-2-helgaas@kernel.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Bjorn Helgaas <helgaas@kernel.org>
+Cc: Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, David Zhou <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, Frederick Lawler <fred@fredlawl.com>, amd-gfx mailing list <amd-gfx@lists.freedesktop.org>, dri-devel <dri-devel@lists.freedesktop.org>, LKML <linux-kernel@vger.kernel.org>, Bjorn Helgaas <bhelgaas@google.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
-RnJvbTogQmpvcm4gSGVsZ2FhcyA8YmhlbGdhYXNAZ29vZ2xlLmNvbT4KClJlcGxhY2UgaGFyZC1j
-b2RlZCBtYWdpYyBudW1iZXJzIHdpdGggdGhlIGRlc2NyaXB0IFBDSV9FWFBfTE5LQ1RMMgpkZWZp
-bml0aW9ucy4gIE5vIGZ1bmN0aW9uYWwgY2hhbmdlIGludGVuZGVkLgotLS0KIGRyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1kZ3B1L2Npay5jIHwgOCArKysrLS0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9h
-bWRncHUvc2kuYyAgfCA4ICsrKystLS0tCiBkcml2ZXJzL2dwdS9kcm0vcmFkZW9uL2Npay5jICAg
-ICB8IDggKysrKy0tLS0KIGRyaXZlcnMvZ3B1L2RybS9yYWRlb24vc2kuYyAgICAgIHwgOCArKysr
-LS0tLQogNCBmaWxlcyBjaGFuZ2VkLCAxNiBpbnNlcnRpb25zKCspLCAxNiBkZWxldGlvbnMoLSkK
-CmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9jaWsuYyBiL2RyaXZlcnMv
-Z3B1L2RybS9hbWQvYW1kZ3B1L2Npay5jCmluZGV4IGU0YTU5NWNkZDRjMS4uMzA2N2JiODc0MDMy
-IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9jaWsuYworKysgYi9kcml2
-ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9jaWsuYwpAQCAtMTUyNywxMyArMTUyNywxMyBAQCBzdGF0
-aWMgdm9pZCBjaWtfcGNpZV9nZW4zX2VuYWJsZShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikK
-IAlXUkVHMzJfUENJRShpeFBDSUVfTENfU1BFRURfQ05UTCwgc3BlZWRfY250bCk7CiAKIAlwY2lf
-cmVhZF9jb25maWdfd29yZChhZGV2LT5wZGV2LCBncHVfcG9zICsgUENJX0VYUF9MTktDVEwyLCAm
-dG1wMTYpOwotCXRtcDE2ICY9IH4weGY7CisJdG1wMTYgJj0gflBDSV9FWFBfTE5LQ1RMMl9UTFM7
-CiAJaWYgKGFkZXYtPnBtLnBjaWVfZ2VuX21hc2sgJiBDQUlMX1BDSUVfTElOS19TUEVFRF9TVVBQ
-T1JUX0dFTjMpCi0JCXRtcDE2IHw9IDM7IC8qIGdlbjMgKi8KKwkJdG1wMTYgfD0gUENJX0VYUF9M
-TktDVEwyX1RMU184XzBHVDsgLyogZ2VuMyAqLwogCWVsc2UgaWYgKGFkZXYtPnBtLnBjaWVfZ2Vu
-X21hc2sgJiBDQUlMX1BDSUVfTElOS19TUEVFRF9TVVBQT1JUX0dFTjIpCi0JCXRtcDE2IHw9IDI7
-IC8qIGdlbjIgKi8KKwkJdG1wMTYgfD0gUENJX0VYUF9MTktDVEwyX1RMU181XzBHVDsgLyogZ2Vu
-MiAqLwogCWVsc2UKLQkJdG1wMTYgfD0gMTsgLyogZ2VuMSAqLworCQl0bXAxNiB8PSBQQ0lfRVhQ
-X0xOS0NUTDJfVExTXzJfNUdUOyAvKiBnZW4xICovCiAJcGNpX3dyaXRlX2NvbmZpZ193b3JkKGFk
-ZXYtPnBkZXYsIGdwdV9wb3MgKyBQQ0lfRVhQX0xOS0NUTDIsIHRtcDE2KTsKIAogCXNwZWVkX2Nu
-dGwgPSBSUkVHMzJfUENJRShpeFBDSUVfTENfU1BFRURfQ05UTCk7CmRpZmYgLS1naXQgYS9kcml2
-ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9zaS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
-c2kuYwppbmRleCBjZjU0MzQxMGE0MjQuLmQ1YzgzZDgyMDYzYiAxMDA2NDQKLS0tIGEvZHJpdmVy
-cy9ncHUvZHJtL2FtZC9hbWRncHUvc2kuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
-dS9zaS5jCkBAIC0xNzYyLDEzICsxNzYyLDEzIEBAIHN0YXRpYyB2b2lkIHNpX3BjaWVfZ2VuM19l
-bmFibGUoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpCiAJV1JFRzMyX1BDSUVfUE9SVChQQ0lF
-X0xDX1NQRUVEX0NOVEwsIHNwZWVkX2NudGwpOwogCiAJcGNpX3JlYWRfY29uZmlnX3dvcmQoYWRl
-di0+cGRldiwgZ3B1X3BvcyArIFBDSV9FWFBfTE5LQ1RMMiwgJnRtcDE2KTsKLQl0bXAxNiAmPSB+
-MHhmOworCXRtcDE2ICY9IH5QQ0lfRVhQX0xOS0NUTDJfVExTOwogCWlmIChhZGV2LT5wbS5wY2ll
-X2dlbl9tYXNrICYgQ0FJTF9QQ0lFX0xJTktfU1BFRURfU1VQUE9SVF9HRU4zKQotCQl0bXAxNiB8
-PSAzOworCQl0bXAxNiB8PSBQQ0lfRVhQX0xOS0NUTDJfVExTXzhfMEdUOyAvKiBnZW4zICovCiAJ
-ZWxzZSBpZiAoYWRldi0+cG0ucGNpZV9nZW5fbWFzayAmIENBSUxfUENJRV9MSU5LX1NQRUVEX1NV
-UFBPUlRfR0VOMikKLQkJdG1wMTYgfD0gMjsKKwkJdG1wMTYgfD0gUENJX0VYUF9MTktDVEwyX1RM
-U181XzBHVDsgLyogZ2VuMiAqLwogCWVsc2UKLQkJdG1wMTYgfD0gMTsKKwkJdG1wMTYgfD0gUENJ
-X0VYUF9MTktDVEwyX1RMU18yXzVHVDsgLyogZ2VuMSAqLwogCXBjaV93cml0ZV9jb25maWdfd29y
-ZChhZGV2LT5wZGV2LCBncHVfcG9zICsgUENJX0VYUF9MTktDVEwyLCB0bXAxNik7CiAKIAlzcGVl
-ZF9jbnRsID0gUlJFRzMyX1BDSUVfUE9SVChQQ0lFX0xDX1NQRUVEX0NOVEwpOwpkaWZmIC0tZ2l0
-IGEvZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9jaWsuYyBiL2RyaXZlcnMvZ3B1L2RybS9yYWRlb24v
-Y2lrLmMKaW5kZXggOTVmZmEwYmZmMmQ4Li5hMjgwNDQyYzgxYWEgMTAwNjQ0Ci0tLSBhL2RyaXZl
-cnMvZ3B1L2RybS9yYWRlb24vY2lrLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9jaWsu
-YwpAQCAtOTY0NywxMyArOTY0NywxMyBAQCBzdGF0aWMgdm9pZCBjaWtfcGNpZV9nZW4zX2VuYWJs
-ZShzdHJ1Y3QgcmFkZW9uX2RldmljZSAqcmRldikKIAlXUkVHMzJfUENJRV9QT1JUKFBDSUVfTENf
-U1BFRURfQ05UTCwgc3BlZWRfY250bCk7CiAKIAlwY2lfcmVhZF9jb25maWdfd29yZChyZGV2LT5w
-ZGV2LCBncHVfcG9zICsgUENJX0VYUF9MTktDVEwyLCAmdG1wMTYpOwotCXRtcDE2ICY9IH4weGY7
-CisJdG1wMTYgJj0gflBDSV9FWFBfTE5LQ1RMMl9UTFM7CiAJaWYgKHNwZWVkX2NhcCA9PSBQQ0lF
-X1NQRUVEXzhfMEdUKQotCQl0bXAxNiB8PSAzOyAvKiBnZW4zICovCisJCXRtcDE2IHw9IFBDSV9F
-WFBfTE5LQ1RMMl9UTFNfOF8wR1Q7IC8qIGdlbjMgKi8KIAllbHNlIGlmIChzcGVlZF9jYXAgPT0g
-UENJRV9TUEVFRF81XzBHVCkKLQkJdG1wMTYgfD0gMjsgLyogZ2VuMiAqLworCQl0bXAxNiB8PSBQ
-Q0lfRVhQX0xOS0NUTDJfVExTXzVfMEdUOyAvKiBnZW4yICovCiAJZWxzZQotCQl0bXAxNiB8PSAx
-OyAvKiBnZW4xICovCisJCXRtcDE2IHw9IFBDSV9FWFBfTE5LQ1RMMl9UTFNfMl81R1Q7IC8qIGdl
-bjEgKi8KIAlwY2lfd3JpdGVfY29uZmlnX3dvcmQocmRldi0+cGRldiwgZ3B1X3BvcyArIFBDSV9F
-WFBfTE5LQ1RMMiwgdG1wMTYpOwogCiAJc3BlZWRfY250bCA9IFJSRUczMl9QQ0lFX1BPUlQoUENJ
-RV9MQ19TUEVFRF9DTlRMKTsKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9yYWRlb24vc2ku
-YyBiL2RyaXZlcnMvZ3B1L2RybS9yYWRlb24vc2kuYwppbmRleCA2OTk5M2QzNGQxZTkuLjUyOWU3
-MGE0MjAxOSAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9zaS5jCisrKyBiL2Ry
-aXZlcnMvZ3B1L2RybS9yYWRlb24vc2kuYwpAQCAtNzIzMCwxMyArNzIzMCwxMyBAQCBzdGF0aWMg
-dm9pZCBzaV9wY2llX2dlbjNfZW5hYmxlKHN0cnVjdCByYWRlb25fZGV2aWNlICpyZGV2KQogCVdS
-RUczMl9QQ0lFX1BPUlQoUENJRV9MQ19TUEVFRF9DTlRMLCBzcGVlZF9jbnRsKTsKIAogCXBjaV9y
-ZWFkX2NvbmZpZ193b3JkKHJkZXYtPnBkZXYsIGdwdV9wb3MgKyBQQ0lfRVhQX0xOS0NUTDIsICZ0
-bXAxNik7Ci0JdG1wMTYgJj0gfjB4ZjsKKwl0bXAxNiAmPSB+UENJX0VYUF9MTktDVEwyX1RMUzsK
-IAlpZiAoc3BlZWRfY2FwID09IFBDSUVfU1BFRURfOF8wR1QpCi0JCXRtcDE2IHw9IDM7IC8qIGdl
-bjMgKi8KKwkJdG1wMTYgfD0gUENJX0VYUF9MTktDVEwyX1RMU184XzBHVDsgLyogZ2VuMyAqLwog
-CWVsc2UgaWYgKHNwZWVkX2NhcCA9PSBQQ0lFX1NQRUVEXzVfMEdUKQotCQl0bXAxNiB8PSAyOyAv
-KiBnZW4yICovCisJCXRtcDE2IHw9IFBDSV9FWFBfTE5LQ1RMMl9UTFNfNV8wR1Q7IC8qIGdlbjIg
-Ki8KIAllbHNlCi0JCXRtcDE2IHw9IDE7IC8qIGdlbjEgKi8KKwkJdG1wMTYgfD0gUENJX0VYUF9M
-TktDVEwyX1RMU18yXzVHVDsgLyogZ2VuMSAqLwogCXBjaV93cml0ZV9jb25maWdfd29yZChyZGV2
-LT5wZGV2LCBncHVfcG9zICsgUENJX0VYUF9MTktDVEwyLCB0bXAxNik7CiAKIAlzcGVlZF9jbnRs
-ID0gUlJFRzMyX1BDSUVfUE9SVChQQ0lFX0xDX1NQRUVEX0NOVEwpOwotLSAKMi4yNC4wLnJjMS4z
-NjMuZ2IxYmNjZDNlM2QtZ29vZwoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3Rv
-cC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQt
-Z2Z4
+On Thu, Nov 7, 2019 at 5:21 PM Bjorn Helgaas <helgaas@kernel.org> wrote:
+> diff --git a/include/uapi/linux/pci_regs.h b/include/uapi/linux/pci_regs.h
+> index 29d6e93fd15e..03446be8a7be 100644
+> --- a/include/uapi/linux/pci_regs.h
+> +++ b/include/uapi/linux/pci_regs.h
+> @@ -673,6 +673,8 @@
+>  #define  PCI_EXP_LNKCTL2_TLS_8_0GT     0x0003 /* Supported Speed 8GT/s */
+>  #define  PCI_EXP_LNKCTL2_TLS_16_0GT    0x0004 /* Supported Speed 16GT/s */
+>  #define  PCI_EXP_LNKCTL2_TLS_32_0GT    0x0005 /* Supported Speed 32GT/s */
+> +#define  PCI_EXP_LNKCTL2_ENTER_COMP    0x0010 /* Enter Compliance */
+> +#define  PCI_EXP_LNKCTL2_TX_MARGIN     0x0380 /* Enter Compliance */
+
+Without commenting on the meat of the patch, this comment should
+probably read "Transmit Margin" or something along those lines?
+
+  -ilia
