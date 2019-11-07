@@ -1,1005 +1,341 @@
-From: "Zhao, Yong" <Yong.Zhao-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 2/3] drm/amdkfd: only keep release_mem function for Hawaii
-Date: Thu, 7 Nov 2019 19:40:36 +0000
-Message-ID: <DM6PR12MB2778CD10620AEDD371AC088EF0780@DM6PR12MB2778.namprd12.prod.outlook.com>
-References: <20191031001739.10764-1-Yong.Zhao@amd.com>
- <20191031001739.10764-2-Yong.Zhao@amd.com>
- <31102345-20f7-1b0e-dd2a-f7984b253a07@amd.com>
- <DM6PR12MB2778C141CFEA0006DA2CEC6DF0780@DM6PR12MB2778.namprd12.prod.outlook.com>
- <CY4PR1201MB2533087B346C4619F461FF3185780@CY4PR1201MB2533.namprd12.prod.outlook.com>
- <41a6b535-ab7a-44f4-2899-f211f5ddc296@amd.com>
- <85fd399c-5fa9-bdef-cdf6-433e80ba6407@amd.com>
- <CADnq5_Og4AWKdYFpa8hvmd2XXjr1Wzb_a26gqsq1H6c7NkWmMA@mail.gmail.com>
- <DM6PR12MB2778007D58A5332F6A030DA3F0780@DM6PR12MB2778.namprd12.prod.outlook.com>,
- <b4a76aeb-4d2c-c348-01bd-a40124930241@amd.com>
+From: Jason Gunthorpe <jgg@mellanox.com>
+Subject: Re: [PATCH v2 02/15] mm/mmu_notifier: add an interval
+ tree notifier
+Date: Thu, 7 Nov 2019 20:06:08 +0000
+Message-ID: <20191107200604.GB21728@mellanox.com>
+References: <20191028201032.6352-1-jgg@ziepe.ca>
+ <20191028201032.6352-3-jgg@ziepe.ca>
+ <35c2b322-004e-0e18-87e4-1920dc71bfd5@nvidia.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============2012038382=="
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <b4a76aeb-4d2c-c348-01bd-a40124930241-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>, Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: "Russell, Kent" <Kent.Russell-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-
---===============2012038382==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_DM6PR12MB2778CD10620AEDD371AC088EF0780DM6PR12MB2778namp_"
-
---_000_DM6PR12MB2778CD10620AEDD371AC088EF0780DM6PR12MB2778namp_
-Content-Type: text/plain; charset="Windows-1252"
-Content-Transfer-Encoding: quoted-printable
-
-Hi Felix,
-
-The code working fine is true except that all not new features after this d=
-uplication are broken. If I want to make all GFX10 feature complete, I have=
- to either manually adapt several duplications to the GFX10 file or do this=
- consolidation. From this perspective and ease of my work, it is a must.
-
-Regards,
-Yong
-
-________________________________
-From: Kuehling, Felix <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
-Sent: Thursday, November 7, 2019 2:12 PM
-To: Zhao, Yong <Yong.Zhao-5C7GfCeVMHo@public.gmane.org>; Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: Russell, Kent <Kent.Russell-5C7GfCeVMHo@public.gmane.org>; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org <am=
-d-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Subject: Re: [PATCH 2/3] drm/amdkfd: only keep release_mem function for Haw=
-aii
-
-On 2019-11-07 13:54, Zhao, Yong wrote:
-Hi Kent,
-
-This consolidation is a must, because we should not have duplicated it in t=
-he first place.
-
-The code is working fine with the duplication. You disagree with duplicatin=
-g the code in the first place. But that's just your opinion. It's not a mus=
-t in any objective sense.
-
-
-
-The kernel queue functions by design are generic. The reasson why GFX8 and =
-GFX9 are different is because GFX9 is SOC15 where packet formats and doorbe=
-ll size changed.  On the other hand, kfd_kernel_queue_v7.c file is pretty m=
-uch empty by reusing v8 functions, even though it is there. Furthermore, in=
- my opinion kfd_kernel_queue_v7.c should be merged into v8 counterpart, Fro=
-m GFX9 onwards, packet formats should stay the same. For kernel queues, we =
-should be able to differentiate it by pre SOC15 or not, and I have an impre=
-ssion that MEC firmware agrees to maintain the kernel queue interface stabl=
-e across generations most of time.
-
-OK, you're making assumptions about PM4 packets on future ASIC generations.=
- It's true that the transition to SOC15 with 64-bit doorbells and read/writ=
-e-pointers was particularly disruptive. Your assumption will hold until it =
-gets broken by some other disruptive change.
-
-
-For now, if you want clear naming, we could call the GFXv7/8 packet manager=
- functions "pre-SOC15" or "legacy" and the GFXv9/10 and future functions "S=
-OC15". This may work for a while. But I suspect at some point something is =
-going to change and we'll need to create a new version for a newer ASIC gen=
-eration. You already have a small taste of that with the different TBA-enab=
-le bit in the MAP_PROCESS packet in GFXv10.
-
-
-Regards,
-
-  Felix
-
-
-Regards,
-Yong
-________________________________
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org><mailto:alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Sent: Thursday, November 7, 2019 1:32 PM
-To: Kuehling, Felix <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org><mailto:Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
-Cc: Zhao, Yong <Yong.Zhao-5C7GfCeVMHo@public.gmane.org><mailto:Yong.Zhao-5C7GfCeVMHo@public.gmane.org>; Russell, Kent=
- <Kent.Russell-5C7GfCeVMHo@public.gmane.org><mailto:Kent.Russell-5C7GfCeVMHo@public.gmane.org>; amd-gfx-PD4FTy7X32mqWrfYKbYh0A@public.gmane.org=
-ktop.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> <amd-gfx-PD4FTy7X32lNgt0PjOBp93rCq3LdnpKM@public.gmane.org=
-rg><mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Subject: Re: [PATCH 2/3] drm/amdkfd: only keep release_mem function for Haw=
-aii
-
-On Thu, Nov 7, 2019 at 12:47 PM Kuehling, Felix <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org><ma=
-ilto:Felix.Kuehling-5C7GfCeVMHo@public.gmane.org> wrote:
->
-> No, please lets not add a new nomenclature for PM4 packet versions. GFX v=
-ersions are agreed on between hardware, firmware, and software and it's gen=
-erally understood what they mean. If we add a new PM4 packet versioning sch=
-eme on our own, then this will add a lot of confusion when talking to firmw=
-are teams.
->
-> You know, this would all be more straight forward if we accepted a little=
- bit of code duplication and had packet writing functions per GFX version. =
-You'll see this pattern a lot in the amdgpu driver where each IP version du=
-plicates a bunch of code. In many cases you may be able to save a few lines=
- of code by sharing functions between IP versions. But you'll add some conf=
-usion and burden on future maintenance.
->
-> This is the price we pay for micro-optimizing minor code duplication.
-
-What we've tried to do in amdgpu is to break out shared code in to
-common helpers that are not IP specific and use that in each IP module
-(e.g., amdgpu_uvd.c amdgpu_gfx.c, etc.).  Sometimes we can use a
-particular chunk of code across multiple generations.  E.g., the uvd
-stuff is a good example.  We have shared generic uvd helpers that work
-for most UVD IP versions, and then if we need an IP specific version,
-we override that in the callbacks with a version specific one.  E.g.,
-for the video decode engines we use the generic helpers for a number
-of ring functions:
-
-static const struct amdgpu_ring_funcs uvd_v7_0_ring_vm_funcs =3D {
-...
-    .test_ring =3D uvd_v7_0_ring_test_ring,
-        .test_ib =3D amdgpu_uvd_ring_test_ib,
-        .insert_nop =3D uvd_v7_0_ring_insert_nop,
-        .pad_ib =3D amdgpu_ring_generic_pad_ib,
-        .begin_use =3D amdgpu_uvd_ring_begin_use,
-        .end_use =3D amdgpu_uvd_ring_end_use,
-...
-};
-
-while we override more of them for the video encode engines:
-
-static const struct amdgpu_ring_funcs uvd_v7_0_enc_ring_vm_funcs =3D {
-...
-    .test_ring =3D uvd_v7_0_enc_ring_test_ring,
-        .test_ib =3D uvd_v7_0_enc_ring_test_ib,
-        .insert_nop =3D amdgpu_ring_insert_nop,
-    .insert_end =3D uvd_v7_0_enc_ring_insert_end,
-        .pad_ib =3D amdgpu_ring_generic_pad_ib,
-        .begin_use =3D amdgpu_uvd_ring_begin_use,
-        .end_use =3D amdgpu_uvd_ring_end_use,
-...
-};
-
-But still maintain IP specific components.
-
-Alex
-
->
-> Regards,
->   Felix
->
-> On 2019-11-07 12:39, Zhao, Yong wrote:
->
-> Hi Kent,
->
-> I can't agree more on this. Also, the same applies to the file names. Def=
-initely we need to agree on the naming scheme before making it happen.
->
-> Yong
->
-> On 2019-11-07 12:33 p.m., Russell, Kent wrote:
->
-> I think that the versioning is getting a little confusing since we=92re u=
-sing the old GFX versions, but not really sticking to it due to the shareab=
-ility of certain managers and shaders. Could we look into doing something l=
-ike gen1 or gen2, or some other more ambiguous non-GFX-related versioning? =
-Otherwise we=92ll keep having these questions of =93why is Hawaii GFX8=94, =
-=93why is Arcturus GFX9=94, etc. Then if things change, we just up the valu=
-e concretely, instead of maybe doing a v11 if GFX11 changes things, and onl=
-y GFX11 ASICs use those functions/variables.
->
->
->
-> Obviously not high-priority, but maybe something to consider as you conti=
-nue to consolidate and remove duplicate code.
->
->
->
-> Kent
->
->
->
-> From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org><mailto:amd-gfx-boun=
-ces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> On Behalf Of Zhao, Yong
-> Sent: Thursday, November 7, 2019 11:57 AM
-> To: Kuehling, Felix <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org><mailto:Felix.Kuehling-urvtwAKJhsc@public.gmane.org=
-m>; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-> Subject: Re: [PATCH 2/3] drm/amdkfd: only keep release_mem function for H=
-awaii
->
->
->
-> Hi Felix,
->
->
->
-> That's because v8 and v7 share the same packet_manager_funcs. In this cas=
-e, it is better to keep it as it is.
->
->
->
-> Regards,
->
-> Yong
->
-> ________________________________
->
-> From: Kuehling, Felix <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org><mailto:Felix.Kuehling@amd.=
-com>
-> Sent: Wednesday, November 6, 2019 11:45 PM
-> To: Zhao, Yong <Yong.Zhao-5C7GfCeVMHo@public.gmane.org><mailto:Yong.Zhao-5C7GfCeVMHo@public.gmane.org>; amd-gfx@lis=
-ts.freedesktop.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> <amd-gfx-PD4FTy7X32mzQB+pC5nmwQ@public.gmane.org=
-edesktop.org><mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-> Subject: Re: [PATCH 2/3] drm/amdkfd: only keep release_mem function for H=
-awaii
->
->
->
-> On 2019-10-30 20:17, Zhao, Yong wrote:
-> > release_mem won't be used at all on GFX9 and GFX10, so delete it.
->
-> Hawaii was GFXv7. So we're not using the release_mem packet on GFXv8
-> either. Why arbitrarily limit this change to GFXv9 and 10?
->
-> Regards,
->    Felix
->
-> >
-> > Change-Id: I13787a8a29b83e7516c582a7401f2e14721edf5f
-> > Signed-off-by: Yong Zhao <Yong.Zhao-5C7GfCeVMHo@public.gmane.org><mailto:Yong.Zhao-5C7GfCeVMHo@public.gmane.org>
-> > ---
-> >   .../gpu/drm/amd/amdkfd/kfd_kernel_queue_v10.c | 35 ++----------------=
--
-> >   .../gpu/drm/amd/amdkfd/kfd_kernel_queue_v9.c  | 33 ++---------------
-> >   2 files changed, 4 insertions(+), 64 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue_v10.c b/driver=
-s/gpu/drm/amd/amdkfd/kfd_kernel_queue_v10.c
-> > index aed32ab7102e..bfd6221acae9 100644
-> > --- a/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue_v10.c
-> > +++ b/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue_v10.c
-> > @@ -298,37 +298,6 @@ static int pm_query_status_v10(struct packet_manag=
-er *pm, uint32_t *buffer,
-> >        return 0;
-> >   }
-> >
-> > -
-> > -static int pm_release_mem_v10(uint64_t gpu_addr, uint32_t *buffer)
-> > -{
-> > -     struct pm4_mec_release_mem *packet;
-> > -
-> > -     WARN_ON(!buffer);
-> > -
-> > -     packet =3D (struct pm4_mec_release_mem *)buffer;
-> > -     memset(buffer, 0, sizeof(struct pm4_mec_release_mem));
-> > -
-> > -     packet->header.u32All =3D pm_build_pm4_header(IT_RELEASE_MEM,
-> > -                                     sizeof(struct pm4_mec_release_mem=
-));
-> > -
-> > -     packet->bitfields2.event_type =3D CACHE_FLUSH_AND_INV_TS_EVENT;
-> > -     packet->bitfields2.event_index =3D event_index__mec_release_mem__=
-end_of_pipe;
-> > -     packet->bitfields2.tcl1_action_ena =3D 1;
-> > -     packet->bitfields2.tc_action_ena =3D 1;
-> > -     packet->bitfields2.cache_policy =3D cache_policy__mec_release_mem=
-__lru;
-> > -
-> > -     packet->bitfields3.data_sel =3D data_sel__mec_release_mem__send_3=
-2_bit_low;
-> > -     packet->bitfields3.int_sel =3D
-> > -             int_sel__mec_release_mem__send_interrupt_after_write_conf=
-irm;
-> > -
-> > -     packet->bitfields4.address_lo_32b =3D (gpu_addr & 0xffffffff) >> =
-2;
-> > -     packet->address_hi =3D upper_32_bits(gpu_addr);
-> > -
-> > -     packet->data_lo =3D 0;
-> > -
-> > -     return sizeof(struct pm4_mec_release_mem) / sizeof(unsigned int);
-> > -}
-> > -
-> >   const struct packet_manager_funcs kfd_v10_pm_funcs =3D {
-> >        .map_process                    =3D pm_map_process_v10,
-> >        .runlist                        =3D pm_runlist_v10,
-> > @@ -336,13 +305,13 @@ const struct packet_manager_funcs kfd_v10_pm_func=
-s =3D {
-> >        .map_queues                     =3D pm_map_queues_v10,
-> >        .unmap_queues                   =3D pm_unmap_queues_v10,
-> >        .query_status                   =3D pm_query_status_v10,
-> > -     .release_mem                    =3D pm_release_mem_v10,
-> > +     .release_mem                    =3D NULL,
-> >        .map_process_size               =3D sizeof(struct pm4_mes_map_pr=
-ocess),
-> >        .runlist_size                   =3D sizeof(struct pm4_mes_runlis=
-t),
-> >        .set_resources_size             =3D sizeof(struct pm4_mes_set_re=
-sources),
-> >        .map_queues_size                =3D sizeof(struct pm4_mes_map_qu=
-eues),
-> >        .unmap_queues_size              =3D sizeof(struct pm4_mes_unmap_=
-queues),
-> >        .query_status_size              =3D sizeof(struct pm4_mes_query_=
-status),
-> > -     .release_mem_size               =3D sizeof(struct pm4_mec_release=
-_mem)
-> > +     .release_mem_size               =3D 0,
-> >   };
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue_v9.c b/drivers=
-/gpu/drm/amd/amdkfd/kfd_kernel_queue_v9.c
-> > index 3b5ca2b1d7a6..f0e4910a8865 100644
-> > --- a/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue_v9.c
-> > +++ b/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue_v9.c
-> > @@ -336,35 +336,6 @@ static int pm_query_status_v9(struct packet_manage=
-r *pm, uint32_t *buffer,
-> >        return 0;
-> >   }
-> >
-> > -
-> > -static int pm_release_mem_v9(uint64_t gpu_addr, uint32_t *buffer)
-> > -{
-> > -     struct pm4_mec_release_mem *packet;
-> > -
-> > -     packet =3D (struct pm4_mec_release_mem *)buffer;
-> > -     memset(buffer, 0, sizeof(struct pm4_mec_release_mem));
-> > -
-> > -     packet->header.u32All =3D pm_build_pm4_header(IT_RELEASE_MEM,
-> > -                                     sizeof(struct pm4_mec_release_mem=
-));
-> > -
-> > -     packet->bitfields2.event_type =3D CACHE_FLUSH_AND_INV_TS_EVENT;
-> > -     packet->bitfields2.event_index =3D event_index__mec_release_mem__=
-end_of_pipe;
-> > -     packet->bitfields2.tcl1_action_ena =3D 1;
-> > -     packet->bitfields2.tc_action_ena =3D 1;
-> > -     packet->bitfields2.cache_policy =3D cache_policy__mec_release_mem=
-__lru;
-> > -
-> > -     packet->bitfields3.data_sel =3D data_sel__mec_release_mem__send_3=
-2_bit_low;
-> > -     packet->bitfields3.int_sel =3D
-> > -             int_sel__mec_release_mem__send_interrupt_after_write_conf=
-irm;
-> > -
-> > -     packet->bitfields4.address_lo_32b =3D (gpu_addr & 0xffffffff) >> =
-2;
-> > -     packet->address_hi =3D upper_32_bits(gpu_addr);
-> > -
-> > -     packet->data_lo =3D 0;
-> > -
-> > -     return 0;
-> > -}
-> > -
-> >   const struct packet_manager_funcs kfd_v9_pm_funcs =3D {
-> >        .map_process            =3D pm_map_process_v9,
-> >        .runlist                =3D pm_runlist_v9,
-> > @@ -372,12 +343,12 @@ const struct packet_manager_funcs kfd_v9_pm_funcs=
- =3D {
-> >        .map_queues             =3D pm_map_queues_v9,
-> >        .unmap_queues           =3D pm_unmap_queues_v9,
-> >        .query_status           =3D pm_query_status_v9,
-> > -     .release_mem            =3D pm_release_mem_v9,
-> > +     .release_mem            =3D NULL,
-> >        .map_process_size       =3D sizeof(struct pm4_mes_map_process),
-> >        .runlist_size           =3D sizeof(struct pm4_mes_runlist),
-> >        .set_resources_size     =3D sizeof(struct pm4_mes_set_resources)=
-,
-> >        .map_queues_size        =3D sizeof(struct pm4_mes_map_queues),
-> >        .unmap_queues_size      =3D sizeof(struct pm4_mes_unmap_queues),
-> >        .query_status_size      =3D sizeof(struct pm4_mes_query_status),
-> > -     .release_mem_size       =3D sizeof(struct pm4_mec_release_mem)
-> > +     .release_mem_size       =3D 0,
-> >   };
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---_000_DM6PR12MB2778CD10620AEDD371AC088EF0780DM6PR12MB2778namp_
-Content-Type: text/html; charset="Windows-1252"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3DWindows-1=
-252">
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Hi Felix,</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<span style=3D"color: rgb(50, 49, 48); font-family: &quot;Segoe UI&quot;, &=
-quot;Segoe UI Web (West European)&quot;, &quot;Segoe UI&quot;, -apple-syste=
-m, BlinkMacSystemFont, Roboto, &quot;Helvetica Neue&quot;, sans-serif; back=
-ground-color: rgb(255, 255, 255); display: inline !important">The code work=
-ing
- fine is true except that all not new features after this duplication are b=
-roken. If I want to make all GFX10 feature complete, I have to either manua=
-lly adapt several duplications to the GFX10 file or do this consolidation. =
->From this perspective and ease of
- my work, it is a must.</span><br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<span style=3D"color: rgb(50, 49, 48); font-family: &quot;Segoe UI&quot;, &=
-quot;Segoe UI Web (West European)&quot;, &quot;Segoe UI&quot;, -apple-syste=
-m, BlinkMacSystemFont, Roboto, &quot;Helvetica Neue&quot;, sans-serif; back=
-ground-color: rgb(255, 255, 255); display: inline !important"><br>
-</span></div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<span style=3D"color: rgb(50, 49, 48); font-family: &quot;Segoe UI&quot;, &=
-quot;Segoe UI Web (West European)&quot;, &quot;Segoe UI&quot;, -apple-syste=
-m, BlinkMacSystemFont, Roboto, &quot;Helvetica Neue&quot;, sans-serif; back=
-ground-color: rgb(255, 255, 255); display: inline !important">Regards,</spa=
-n></div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<span style=3D"color: rgb(50, 49, 48); font-family: &quot;Segoe UI&quot;, &=
-quot;Segoe UI Web (West European)&quot;, &quot;Segoe UI&quot;, -apple-syste=
-m, BlinkMacSystemFont, Roboto, &quot;Helvetica Neue&quot;, sans-serif; back=
-ground-color: rgb(255, 255, 255); display: inline !important">Yong</span></=
-div>
-<div id=3D"appendonsend"></div>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
-t; color:rgb(0,0,0)">
-<br>
-</div>
-<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" co=
-lor=3D"#000000" style=3D"font-size:11pt"><b>From:</b> Kuehling, Felix &lt;F=
-elix.Kuehling-5C7GfCeVMHo@public.gmane.org&gt;<br>
-<b>Sent:</b> Thursday, November 7, 2019 2:12 PM<br>
-<b>To:</b> Zhao, Yong &lt;Yong.Zhao-5C7GfCeVMHo@public.gmane.org&gt;; Alex Deucher &lt;alexdeuch=
-er-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;<br>
-<b>Cc:</b> Russell, Kent &lt;Kent.Russell-5C7GfCeVMHo@public.gmane.org&gt;; amd-gfx-PD4FTy7X32lMiVNPc3mojA@public.gmane.org=
-sktop.org &lt;amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt;<br>
-<b>Subject:</b> Re: [PATCH 2/3] drm/amdkfd: only keep release_mem function =
-for Hawaii</font>
-<div>&nbsp;</div>
-</div>
-<div style=3D"background-color:#FFFFFF">
-<div class=3D"x_moz-cite-prefix">On 2019-11-07 13:54, Zhao, Yong wrote:<br>
-</div>
-<blockquote type=3D"cite">
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
-t; color:rgb(0,0,0)">
-Hi Kent,</div>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
-t; color:rgb(0,0,0)">
-<br>
-</div>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
-t; color:rgb(0,0,0)">
-This <span style=3D"font-family:Calibri,sans-serif; font-size:14.6667px; ba=
-ckground-color:rgb(255,255,255); display:inline!important">
-consolidation is a must, because we should not have duplicated it in the fi=
-rst place.</span></div>
-</blockquote>
-<p style=3D"margin-top: 0px; margin-bottom: 0px;">The code is working fine =
-with the duplication. You disagree with duplicating the code in the first p=
-lace. But that's just your opinion. It's not a must in any objective sense.=
-<br>
-</p>
-<p style=3D"margin-top: 0px; margin-bottom: 0px;"><br>
-</p>
-<p style=3D"margin-top: 0px; margin-bottom: 0px;"><br>
-</p>
-<blockquote type=3D"cite">
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
-t; color:rgb(0,0,0)">
-<span style=3D"font-family:Calibri,sans-serif; font-size:14.6667px; backgro=
-und-color:rgb(255,255,255); display:inline!important">The kernel queue func=
-tions by design are generic. The reasson why GFX8 and GFX9 are different is=
- because GFX9 is SOC15 where packet
- formats and doorbell size changed.&nbsp; On the other hand, kfd_kernel_que=
-ue_v7.c file is pretty much empty by reusing v8 functions, even though it i=
-s there. Furthermore, in my opinion&nbsp;<span style=3D"font-family:Calibri=
-,sans-serif; background-color:rgb(255,255,255); display:inline!important">k=
-fd_kernel_queue_v7.c
- should be merged into v8 counterpart</span>, From GFX9 onwards,&nbsp;<span=
- style=3D"font-family:Calibri,sans-serif; background-color:rgb(255,255,255)=
-; display:inline!important">packet formats should stay the same. For kernel=
- queues, we should be able to differentiate
- it by pre SOC15 or not, and I have an impression that MEC firmware agrees =
-to maintain the kernel queue interface stable across generations most of ti=
-me.</span></span></div>
-</blockquote>
-<p style=3D"margin-top: 0px; margin-bottom: 0px;">OK, you're making assumpt=
-ions about PM4 packets on future ASIC generations. It's true that the trans=
-ition to SOC15 with 64-bit doorbells and read/write-pointers was particular=
-ly disruptive. Your assumption will
- hold until it gets broken by some other disruptive change.</p>
-<p style=3D"margin-top: 0px; margin-bottom: 0px;"><br>
-</p>
-<p style=3D"margin-top: 0px; margin-bottom: 0px;">For now, if you want clea=
-r naming, we could call the GFXv7/8 packet manager functions &quot;pre-SOC1=
-5&quot; or &quot;legacy&quot; and the GFXv9/10 and future functions &quot;S=
-OC15&quot;. This may work for a while. But I suspect at some point
- something is going to change and we'll need to create a new version for a =
-newer ASIC generation. You already have a small taste of that with the diff=
-erent TBA-enable bit in the MAP_PROCESS packet in GFXv10.</p>
-<p style=3D"margin-top: 0px; margin-bottom: 0px;"><br>
-</p>
-<p style=3D"margin-top: 0px; margin-bottom: 0px;">Regards,</p>
-<p style=3D"margin-top: 0px; margin-bottom: 0px;">&nbsp; Felix<br>
-</p>
-<p style=3D"margin-top: 0px; margin-bottom: 0px;"><br>
-</p>
-<blockquote type=3D"cite">
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
-t; color:rgb(0,0,0)">
-<span style=3D"font-family:Calibri,sans-serif; font-size:14.6667px; backgro=
-und-color:rgb(255,255,255); display:inline!important"><span style=3D"font-f=
-amily:Calibri,sans-serif; background-color:rgb(255,255,255); display:inline=
-!important"><br>
-</span></span></div>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
-t; color:rgb(0,0,0)">
-<span style=3D"font-family:Calibri,sans-serif; font-size:14.6667px; backgro=
-und-color:rgb(255,255,255); display:inline!important"><span style=3D"font-f=
-amily:Calibri,sans-serif; background-color:rgb(255,255,255); display:inline=
-!important">Regards,</span></span></div>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
-t; color:rgb(0,0,0)">
-<span style=3D"font-family:Calibri,sans-serif; font-size:14.6667px; backgro=
-und-color:rgb(255,255,255); display:inline!important"><span style=3D"font-f=
-amily:Calibri,sans-serif; background-color:rgb(255,255,255); display:inline=
-!important">Yong</span></span></div>
-<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
-<div id=3D"x_divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" =
-color=3D"#000000" style=3D"font-size:11pt"><b>From:</b> Alex Deucher
-<a class=3D"x_moz-txt-link-rfc2396E" href=3D"mailto:alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org">=
-&lt;alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;</a><br>
-<b>Sent:</b> Thursday, November 7, 2019 1:32 PM<br>
-<b>To:</b> Kuehling, Felix <a class=3D"x_moz-txt-link-rfc2396E" href=3D"mai=
-lto:Felix.Kuehling-5C7GfCeVMHo@public.gmane.org">
-&lt;Felix.Kuehling-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
-<b>Cc:</b> Zhao, Yong <a class=3D"x_moz-txt-link-rfc2396E" href=3D"mailto:Y=
-ong.Zhao-5C7GfCeVMHo@public.gmane.org">
-&lt;Yong.Zhao-5C7GfCeVMHo@public.gmane.org&gt;</a>; Russell, Kent <a class=3D"x_moz-txt-link-rfc=
-2396E" href=3D"mailto:Kent.Russell-5C7GfCeVMHo@public.gmane.org">
-&lt;Kent.Russell-5C7GfCeVMHo@public.gmane.org&gt;</a>; <a class=3D"x_moz-txt-link-abbreviated" h=
-ref=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a> <a class=3D"x_moz-txt-link-rfc2396E" href=
-=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">
-&lt;amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt;</a><br>
-<b>Subject:</b> Re: [PATCH 2/3] drm/amdkfd: only keep release_mem function =
-for Hawaii</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"x_BodyFragment"><font size=3D"2"><span style=3D"font-size:11p=
-t">
-<div class=3D"x_PlainText">On Thu, Nov 7, 2019 at 12:47 PM Kuehling, Felix =
-<a class=3D"x_moz-txt-link-rfc2396E" href=3D"mailto:Felix.Kuehling-5C7GfCeVMHo@public.gmane.org"=
->
-&lt;Felix.Kuehling-5C7GfCeVMHo@public.gmane.org&gt;</a> wrote:<br>
-&gt;<br>
-&gt; No, please lets not add a new nomenclature for PM4 packet versions. GF=
-X versions are agreed on between hardware, firmware, and software and it's =
-generally understood what they mean. If we add a new PM4 packet versioning =
-scheme on our own, then this will add
- a lot of confusion when talking to firmware teams.<br>
-&gt;<br>
-&gt; You know, this would all be more straight forward if we accepted a lit=
-tle bit of code duplication and had packet writing functions per GFX versio=
-n. You'll see this pattern a lot in the amdgpu driver where each IP version=
- duplicates a bunch of code. In many
- cases you may be able to save a few lines of code by sharing functions bet=
-ween IP versions. But you'll add some confusion and burden on future mainte=
-nance.<br>
-&gt;<br>
-&gt; This is the price we pay for micro-optimizing minor code duplication.<=
-br>
-<br>
-What we've tried to do in amdgpu is to break out shared code in to<br>
-common helpers that are not IP specific and use that in each IP module<br>
-(e.g., amdgpu_uvd.c amdgpu_gfx.c, etc.).&nbsp; Sometimes we can use a<br>
-particular chunk of code across multiple generations.&nbsp; E.g., the uvd<b=
-r>
-stuff is a good example.&nbsp; We have shared generic uvd helpers that work=
-<br>
-for most UVD IP versions, and then if we need an IP specific version,<br>
-we override that in the callbacks with a version specific one.&nbsp; E.g.,<=
-br>
-for the video decode engines we use the generic helpers for a number<br>
-of ring functions:<br>
-<br>
-static const struct amdgpu_ring_funcs uvd_v7_0_ring_vm_funcs =3D {<br>
-...<br>
-&nbsp;&nbsp;&nbsp; .test_ring =3D uvd_v7_0_ring_test_ring,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .test_ib =3D amdgpu_uvd_ring_tes=
-t_ib,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .insert_nop =3D uvd_v7_0_ring_in=
-sert_nop,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .pad_ib =3D amdgpu_ring_generic_=
-pad_ib,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .begin_use =3D amdgpu_uvd_ring_b=
-egin_use,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .end_use =3D amdgpu_uvd_ring_end=
-_use,<br>
-...<br>
-};<br>
-<br>
-while we override more of them for the video encode engines:<br>
-<br>
-static const struct amdgpu_ring_funcs uvd_v7_0_enc_ring_vm_funcs =3D {<br>
-...<br>
-&nbsp;&nbsp;&nbsp; .test_ring =3D uvd_v7_0_enc_ring_test_ring,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .test_ib =3D uvd_v7_0_enc_ring_t=
-est_ib,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .insert_nop =3D amdgpu_ring_inse=
-rt_nop,<br>
-&nbsp;&nbsp;&nbsp; .insert_end =3D uvd_v7_0_enc_ring_insert_end,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .pad_ib =3D amdgpu_ring_generic_=
-pad_ib,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .begin_use =3D amdgpu_uvd_ring_b=
-egin_use,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .end_use =3D amdgpu_uvd_ring_end=
-_use,<br>
-...<br>
-};<br>
-<br>
-But still maintain IP specific components.<br>
-<br>
-Alex<br>
-<br>
-&gt;<br>
-&gt; Regards,<br>
-&gt;&nbsp;&nbsp; Felix<br>
-&gt;<br>
-&gt; On 2019-11-07 12:39, Zhao, Yong wrote:<br>
-&gt;<br>
-&gt; Hi Kent,<br>
-&gt;<br>
-&gt; I can't agree more on this. Also, the same applies to the file names. =
-Definitely we need to agree on the naming scheme before making it happen.<b=
-r>
-&gt;<br>
-&gt; Yong<br>
-&gt;<br>
-&gt; On 2019-11-07 12:33 p.m., Russell, Kent wrote:<br>
-&gt;<br>
-&gt; I think that the versioning is getting a little confusing since we=92r=
-e using the old GFX versions, but not really sticking to it due to the shar=
-eability of certain managers and shaders. Could we look into doing somethin=
-g like gen1 or gen2, or some other more
- ambiguous non-GFX-related versioning? Otherwise we=92ll keep having these =
-questions of =93why is Hawaii GFX8=94, =93why is Arcturus GFX9=94, etc. The=
-n if things change, we just up the value concretely, instead of maybe doing=
- a v11 if GFX11 changes things, and only GFX11
- ASICs use those functions/variables.<br>
-&gt;<br>
-&gt;<br>
-&gt;<br>
-&gt; Obviously not high-priority, but maybe something to consider as you co=
-ntinue to consolidate and remove duplicate code.<br>
-&gt;<br>
-&gt;<br>
-&gt;<br>
-&gt; Kent<br>
-&gt;<br>
-&gt;<br>
-&gt;<br>
-&gt; From: amd-gfx <a class=3D"x_moz-txt-link-rfc2396E" href=3D"mailto:amd-=
-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">
-&lt;amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt;</a> On Behalf Of Zhao, Yong<b=
-r>
-&gt; Sent: Thursday, November 7, 2019 11:57 AM<br>
-&gt; To: Kuehling, Felix <a class=3D"x_moz-txt-link-rfc2396E" href=3D"mailt=
-o:Felix.Kuehling-5C7GfCeVMHo@public.gmane.org">
-&lt;Felix.Kuehling-5C7GfCeVMHo@public.gmane.org&gt;</a>; <a class=3D"x_moz-txt-link-abbreviated"=
- href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
-&gt; Subject: Re: [PATCH 2/3] drm/amdkfd: only keep release_mem function fo=
-r Hawaii<br>
-&gt;<br>
-&gt;<br>
-&gt;<br>
-&gt; Hi Felix,<br>
-&gt;<br>
-&gt;<br>
-&gt;<br>
-&gt; That's because v8 and v7 share the same packet_manager_funcs. In this =
-case, it is better to keep it as it is.<br>
-&gt;<br>
-&gt;<br>
-&gt;<br>
-&gt; Regards,<br>
-&gt;<br>
-&gt; Yong<br>
-&gt;<br>
-&gt; ________________________________<br>
-&gt;<br>
-&gt; From: Kuehling, Felix <a class=3D"x_moz-txt-link-rfc2396E" href=3D"mai=
-lto:Felix.Kuehling-5C7GfCeVMHo@public.gmane.org">
-&lt;Felix.Kuehling-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
-&gt; Sent: Wednesday, November 6, 2019 11:45 PM<br>
-&gt; To: Zhao, Yong <a class=3D"x_moz-txt-link-rfc2396E" href=3D"mailto:Yon=
-g.Zhao-5C7GfCeVMHo@public.gmane.org">
-&lt;Yong.Zhao-5C7GfCeVMHo@public.gmane.org&gt;</a>; <a class=3D"x_moz-txt-link-abbreviated" href=
-=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a> <a class=3D"x_moz-txt-link-rfc2396E" href=
-=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">
-&lt;amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt;</a><br>
-&gt; Subject: Re: [PATCH 2/3] drm/amdkfd: only keep release_mem function fo=
-r Hawaii<br>
-&gt;<br>
-&gt;<br>
-&gt;<br>
-&gt; On 2019-10-30 20:17, Zhao, Yong wrote:<br>
-&gt; &gt; release_mem won't be used at all on GFX9 and GFX10, so delete it.=
-<br>
-&gt;<br>
-&gt; Hawaii was GFXv7. So we're not using the release_mem packet on GFXv8<b=
-r>
-&gt; either. Why arbitrarily limit this change to GFXv9 and 10?<br>
-&gt;<br>
-&gt; Regards,<br>
-&gt;&nbsp;&nbsp;&nbsp; Felix<br>
-&gt;<br>
-&gt; &gt;<br>
-&gt; &gt; Change-Id: I13787a8a29b83e7516c582a7401f2e14721edf5f<br>
-&gt; &gt; Signed-off-by: Yong Zhao <a class=3D"x_moz-txt-link-rfc2396E" hre=
-f=3D"mailto:Yong.Zhao-5C7GfCeVMHo@public.gmane.org">
-&lt;Yong.Zhao-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
-&gt; &gt; ---<br>
-&gt; &gt;&nbsp;&nbsp; .../gpu/drm/amd/amdkfd/kfd_kernel_queue_v10.c | 35 &#=
-43;&#43;-----------------<br>
-&gt; &gt;&nbsp;&nbsp; .../gpu/drm/amd/amdkfd/kfd_kernel_queue_v9.c&nbsp; | =
-33 &#43;&#43;---------------<br>
-&gt; &gt;&nbsp;&nbsp; 2 files changed, 4 insertions(&#43;), 64 deletions(-)=
-<br>
-&gt; &gt;<br>
-&gt; &gt; diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue_v10.c b/=
-drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue_v10.c<br>
-&gt; &gt; index aed32ab7102e..bfd6221acae9 100644<br>
-&gt; &gt; --- a/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue_v10.c<br>
-&gt; &gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue_v10=
-.c<br>
-&gt; &gt; @@ -298,37 &#43;298,6 @@ static int pm_query_status_v10(struct pa=
-cket_manager *pm, uint32_t *buffer,<br>
-&gt; &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
-&gt; &gt;&nbsp;&nbsp; }<br>
-&gt; &gt;<br>
-&gt; &gt; -<br>
-&gt; &gt; -static int pm_release_mem_v10(uint64_t gpu_addr, uint32_t *buffe=
-r)<br>
-&gt; &gt; -{<br>
-&gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp; struct pm4_mec_release_mem *packet;<br>
-&gt; &gt; -<br>
-&gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp; WARN_ON(!buffer);<br>
-&gt; &gt; -<br>
-&gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp; packet =3D (struct pm4_mec_release_mem =
-*)buffer;<br>
-&gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp; memset(buffer, 0, sizeof(struct pm4_mec=
-_release_mem));<br>
-&gt; &gt; -<br>
-&gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp; packet-&gt;header.u32All =3D pm_build_p=
-m4_header(IT_RELEASE_MEM,<br>
-&gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p; sizeof(struct pm4_mec_release_mem));<br>
-&gt; &gt; -<br>
-&gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp; packet-&gt;bitfields2.event_type =3D CA=
-CHE_FLUSH_AND_INV_TS_EVENT;<br>
-&gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp; packet-&gt;bitfields2.event_index =3D e=
-vent_index__mec_release_mem__end_of_pipe;<br>
-&gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp; packet-&gt;bitfields2.tcl1_action_ena =
-=3D 1;<br>
-&gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp; packet-&gt;bitfields2.tc_action_ena =3D=
- 1;<br>
-&gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp; packet-&gt;bitfields2.cache_policy =3D =
-cache_policy__mec_release_mem__lru;<br>
-&gt; &gt; -<br>
-&gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp; packet-&gt;bitfields3.data_sel =3D data=
-_sel__mec_release_mem__send_32_bit_low;<br>
-&gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp; packet-&gt;bitfields3.int_sel =3D<br>
-&gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp; int_sel__mec_release_mem__send_interrupt_after_write_confirm;<br>
-&gt; &gt; -<br>
-&gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp; packet-&gt;bitfields4.address_lo_32b =
-=3D (gpu_addr &amp; 0xffffffff) &gt;&gt; 2;<br>
-&gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp; packet-&gt;address_hi =3D upper_32_bits=
-(gpu_addr);<br>
-&gt; &gt; -<br>
-&gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp; packet-&gt;data_lo =3D 0;<br>
-&gt; &gt; -<br>
-&gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp; return sizeof(struct pm4_mec_release_me=
-m) / sizeof(unsigned int);<br>
-&gt; &gt; -}<br>
-&gt; &gt; -<br>
-&gt; &gt;&nbsp;&nbsp; const struct packet_manager_funcs kfd_v10_pm_funcs =
-=3D {<br>
-&gt; &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .map_process&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp; =3D pm_map_process_v10,<br>
-&gt; &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .runlist&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =3D pm_runlist_v10,<br>
-&gt; &gt; @@ -336,13 &#43;305,13 @@ const struct packet_manager_funcs kfd_v=
-10_pm_funcs =3D {<br>
-&gt; &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .map_queues&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =3D pm_map_queues_v10,<br>
-&gt; &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .unmap_queues&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp; =3D pm_unmap_queues_v10,<br>
-&gt; &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .query_status&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp; =3D pm_query_status_v10,<br>
-&gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp; .release_mem&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp; =3D pm_release_mem_v10,<br>
-&gt; &gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; .release_mem&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp; =3D NULL,<br>
-&gt; &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .map_process_size&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; =3D sizeof(struct pm4_mes_map_process),<br>
-&gt; &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .runlist_size&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp; =3D sizeof(struct pm4_mes_runlist),<br>
-&gt; &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .set_resources_size&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =3D si=
-zeof(struct pm4_mes_set_resources),<br>
-&gt; &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .map_queues_size&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp; =3D sizeof(struct pm4_mes_map_queues),<br>
-&gt; &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .unmap_queues_size&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =
-=3D sizeof(struct pm4_mes_unmap_queues),<br>
-&gt; &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .query_status_size&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =
-=3D sizeof(struct pm4_mes_query_status),<br>
-&gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp; .release_mem_size&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =3D sizeof(s=
-truct pm4_mec_release_mem)<br>
-&gt; &gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; .release_mem_size&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =3D 0,<b=
-r>
-&gt; &gt;&nbsp;&nbsp; };<br>
-&gt; &gt;<br>
-&gt; &gt; diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue_v9.c b/d=
-rivers/gpu/drm/amd/amdkfd/kfd_kernel_queue_v9.c<br>
-&gt; &gt; index 3b5ca2b1d7a6..f0e4910a8865 100644<br>
-&gt; &gt; --- a/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue_v9.c<br>
-&gt; &gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue_v9.=
-c<br>
-&gt; &gt; @@ -336,35 &#43;336,6 @@ static int pm_query_status_v9(struct pac=
-ket_manager *pm, uint32_t *buffer,<br>
-&gt; &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
-&gt; &gt;&nbsp;&nbsp; }<br>
-&gt; &gt;<br>
-&gt; &gt; -<br>
-&gt; &gt; -static int pm_release_mem_v9(uint64_t gpu_addr, uint32_t *buffer=
-)<br>
-&gt; &gt; -{<br>
-&gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp; struct pm4_mec_release_mem *packet;<br>
-&gt; &gt; -<br>
-&gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp; packet =3D (struct pm4_mec_release_mem =
-*)buffer;<br>
-&gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp; memset(buffer, 0, sizeof(struct pm4_mec=
-_release_mem));<br>
-&gt; &gt; -<br>
-&gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp; packet-&gt;header.u32All =3D pm_build_p=
-m4_header(IT_RELEASE_MEM,<br>
-&gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p; sizeof(struct pm4_mec_release_mem));<br>
-&gt; &gt; -<br>
-&gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp; packet-&gt;bitfields2.event_type =3D CA=
-CHE_FLUSH_AND_INV_TS_EVENT;<br>
-&gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp; packet-&gt;bitfields2.event_index =3D e=
-vent_index__mec_release_mem__end_of_pipe;<br>
-&gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp; packet-&gt;bitfields2.tcl1_action_ena =
-=3D 1;<br>
-&gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp; packet-&gt;bitfields2.tc_action_ena =3D=
- 1;<br>
-&gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp; packet-&gt;bitfields2.cache_policy =3D =
-cache_policy__mec_release_mem__lru;<br>
-&gt; &gt; -<br>
-&gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp; packet-&gt;bitfields3.data_sel =3D data=
-_sel__mec_release_mem__send_32_bit_low;<br>
-&gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp; packet-&gt;bitfields3.int_sel =3D<br>
-&gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp; int_sel__mec_release_mem__send_interrupt_after_write_confirm;<br>
-&gt; &gt; -<br>
-&gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp; packet-&gt;bitfields4.address_lo_32b =
-=3D (gpu_addr &amp; 0xffffffff) &gt;&gt; 2;<br>
-&gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp; packet-&gt;address_hi =3D upper_32_bits=
-(gpu_addr);<br>
-&gt; &gt; -<br>
-&gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp; packet-&gt;data_lo =3D 0;<br>
-&gt; &gt; -<br>
-&gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
-&gt; &gt; -}<br>
-&gt; &gt; -<br>
-&gt; &gt;&nbsp;&nbsp; const struct packet_manager_funcs kfd_v9_pm_funcs =3D=
- {<br>
-&gt; &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .map_process&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =3D pm_map_process_=
-v9,<br>
-&gt; &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .runlist&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
- =3D pm_runlist_v9,<br>
-&gt; &gt; @@ -372,12 &#43;343,12 @@ const struct packet_manager_funcs kfd_v=
-9_pm_funcs =3D {<br>
-&gt; &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .map_queues&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =3D pm_map_que=
-ues_v9,<br>
-&gt; &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .unmap_queues&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =3D pm_unmap_queues_v9,<=
-br>
-&gt; &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .query_status&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =3D pm_query_status_v9,<=
-br>
-&gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp; .release_mem&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =3D pm_release_mem_v9,<br>
-&gt; &gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; .release_mem&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =3D NULL,<br>
-&gt; &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .map_process_size&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =3D sizeof(struct pm4_mes_map_process),<br>
-&gt; &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .runlist_size&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =3D sizeof(struct pm4_me=
-s_runlist),<br>
-&gt; &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .set_resources_size&nbs=
-p;&nbsp;&nbsp;&nbsp; =3D sizeof(struct pm4_mes_set_resources),<br>
-&gt; &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .map_queues_size&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =3D sizeof(struct pm4_mes_map_queues),<=
-br>
-&gt; &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .unmap_queues_size&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp; =3D sizeof(struct pm4_mes_unmap_queues),<br>
-&gt; &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .query_status_size&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp; =3D sizeof(struct pm4_mes_query_status),<br>
-&gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp; .release_mem_size&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; =3D sizeof(struct pm4_mec_release_mem)<br>
-&gt; &gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; .release_mem_size&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp; =3D 0,<br>
-&gt; &gt;&nbsp;&nbsp; };<br>
-&gt;<br>
-&gt; _______________________________________________<br>
-&gt; amd-gfx mailing list<br>
-&gt; <a class=3D"x_moz-txt-link-abbreviated" href=3D"mailto:amd-gfx@lists.f=
-reedesktop.org">
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
-&gt; <a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">htt=
-ps://lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
-</div>
-</span></font></div>
-</blockquote>
-</div>
-</body>
-</html>
-
---_000_DM6PR12MB2778CD10620AEDD371AC088EF0780DM6PR12MB2778namp_--
-
---===============2012038382==
 Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
 Content-Transfer-Encoding: base64
-Content-Disposition: inline
+Return-path: <xen-devel-bounces@lists.xenproject.org>
+In-Reply-To: <35c2b322-004e-0e18-87e4-1920dc71bfd5@nvidia.com>
+Content-Language: en-US
+Content-ID: <6113418291CBA3499D9869CD0CC8D233@eurprd05.prod.outlook.com>
+List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
+ <mailto:xen-devel-request@lists.xenproject.org?subject=unsubscribe>
+List-Post: <mailto:xen-devel@lists.xenproject.org>
+List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
+List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
+ <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
+Errors-To: xen-devel-bounces@lists.xenproject.org
+Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
+To: John Hubbard <jhubbard@nvidia.com>
+Cc: "nouveau@lists.freedesktop.org" <nouveau@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, Michal Hocko <mhocko@kernel.org>, "linux-mm@kvack.org" <linux-mm@kvack.org>, Andrea Arcangeli <aarcange@redhat.com>, David Zhou <David1.Zhou@amd.com>, Stefano Stabellini <sstabellini@kernel.org>, Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>, "linux-rdma@vger.kernel.org" <linux-rdma@vger.kernel.org>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, Christoph Hellwig <hch@infradead.org>, Ben Skeggs <bskeggs@redhat.com>, "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Ralph Campbell <rcampbell@nvidia.com>, Jerome Glisse <jglisse@redhat.com>, Boris Ostrovsky <boris.ostrovsky@oracle.com>, Petr Cvek <petrcvekcz@gmail.com>, Juergen Gross <jgross@suse.com>, Mike Marciniszyn <mike.marciniszyn@intel.co>
+List-Id: amd-gfx.lists.freedesktop.org
 
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
-
---===============2012038382==--
+T24gV2VkLCBOb3YgMDYsIDIwMTkgYXQgMDQ6MjM6MjFQTSAtMDgwMCwgSm9obiBIdWJiYXJkIHdy
+b3RlOgogCj4gTmljZSBkZXNpZ24sIEkgbG92ZSB0aGUgc2VxIGZvdW5kYXRpb24hIFNvIGZhciwg
+SSdtIG5vdCBhYmxlIHRvIHNwb3QgYW55dGhpbmcKPiBhY3R1YWxseSB3cm9uZyB3aXRoIHRoZSBp
+bXBsZW1lbnRhdGlvbiwgc29ycnkgYWJvdXQgdGhhdC4gCgpBbGFzIDooIEkgZmVlbCB0aGVyZSBt
+dXN0IGJlIGEgYnVnIGluIGhlcmUgc3RpbGwsIGJ1dCBvbndhcmRzIQoKT25lIG9mIHRoZSBtYWlu
+IHNhZCBwb2ludHMgd2FzIGl0IGRpZG4ndCBtYWtlIHNlbnNlIHRvIHVzZSB0aGUKZXhpc3Rpbmcg
+c2VxbG9jay9zZXFjb3VudCBwcmltaXRpdmVzIGFzIHRoZXkgaGF2ZSBib3RoIHRoZSB3cm9uZyB3
+cml0ZQpjb25jdXJyYW5jeSBtb2RlbCBhbmQgZXh0cmEgYmFycmllcnMgdGhhdCBhcmUgbm90IG5l
+ZWRlZCB3aGVuIGl0IGlzCmFsd2F5cyBtYW5pcHVsYXRlZCB1bmRlciBhIHNwaW5sb2NrCiAKPiAx
+LiBUaGVyZSBpcyBhIHJhdGhlciBzZXZlcmUgbmFtaW5nIG92ZXJsYXAgKG5vdCB0ZWNobmljYWxs
+eSBhIG5hbWluZyBjb25mbGljdCwKPiBidXQgc3RpbGwpIHdpdGggZXhpc3RpbmcgbW1uIHdvcmss
+IHdoaWNoIGFscmVhZHkgaGFzLCBmb3IgZXhhbXBsZToKPiAKPiAgICAgc3RydWN0IG1tdV9ub3Rp
+Zmllcl9yYW5nZQo+IAo+IC4uLmFuZCB5b3UncmUgYWRkaW5nOgo+IAo+ICAgICBzdHJ1Y3QgbW11
+X3JhbmdlX25vdGlmaWVyCj4gCj4gLi4uc28gSSdsbCB0cnkgdG8gaGVscCBzb3J0IHRoYXQgb3V0
+LgoKWWVzLCBJJ3ZlIGJlZW4gc2FkIGFib3V0IHRoaXMgdG9vLgoKPiBTbyB0aGlzIHNob3VsZCBy
+ZWFkOgo+IAo+IGVudW0gbW11X3JhbmdlX25vdGlmaWVyX2V2ZW50IHsKPiAJTU1VX05PVElGWV9S
+RUxFQVNFLAo+IH07Cj4gCj4gLi4uYXNzdW1pbmcgdGhhdCB3ZSBzdGF5IHdpdGggIm1tdV9yYW5n
+ZV9ub3RpZmllciIgYXMgYSBjb3JlIG5hbWUgZm9yIHRoaXMgCj4gd2hvbGUgdGhpbmcuCj4gCj4g
+QWxzbywgaXQgaXMgYmVzdCBtb3ZlZCBkb3duIHRvIGJlIG5leHQgdG8gdGhlIG5ldyBNTlIgc3Ry
+dWN0cywgc28gdGhhdCBhbGwgdGhlCj4gTU5SIHN0dWZmIGlzIGluIG9uZSBncm91cC4KCkkgYWdy
+ZWUgd2l0aCBKZXJvbWUsIHRoaXMgZW51bSBpcyBwYXJ0IG9mIHRoZSAnc3RydWN0Cm1tdV9ub3Rp
+Zmllcl9yYW5nZScgKGllIHRoZSBkZXNjcmlwdGlvbiBvZiB0aGUgaW52YWxpZGF0aW9uKSBhbmQg
+aXQKZG9lc24ndCByZWFsbHkgbWF0dGVyIHRoYXQgb25seSB0aGVzZSBuZXcgbm90aWZpZXJzIGNh
+biBiZSBjYWxsZWQgd2l0aAp0aGlzIHR5cGUsIGl0IGlzIHN0aWxsIHBhcnQgb2YgdGhlIG1tdV9u
+b3RpZmllcl9yYW5nZS4KClRoZSBjb21tZW50IGFscmVhZHkgc2F5cyBpdCBvbmx5IGFwcGxpZXMg
+dG8gdGhlIG1tdV9yYW5nZV9ub3RpZmllcgpzY2hlbWUuLgoKPiA+ICAjZGVmaW5lIE1NVV9OT1RJ
+RklFUl9SQU5HRV9CTE9DS0FCTEUgKDEgPDwgMCkKPiA+IEBAIC0yMjIsNiArMjI4LDI2IEBAIHN0
+cnVjdCBtbXVfbm90aWZpZXIgewo+ID4gIAl1bnNpZ25lZCBpbnQgdXNlcnM7Cj4gPiAgfTsKPiA+
+ICAKPiAKPiBUaGF0IHNob3VsZCBhbHNvIGJlIG1vdmVkIGRvd24sIG5leHQgdG8gdGhlIG5ldyBz
+dHJ1Y3RzLgoKV2hpY2ggdGhpcz8KCj4gPiArLyoqCj4gPiArICogc3RydWN0IG1tdV9yYW5nZV9u
+b3RpZmllcl9vcHMKPiA+ICsgKiBAaW52YWxpZGF0ZTogVXBvbiByZXR1cm4gdGhlIGNhbGxlciBt
+dXN0IHN0b3AgdXNpbmcgYW55IFNQVEVzIHdpdGhpbiB0aGlzCj4gPiArICogICAgICAgICAgICAg
+IHJhbmdlLCB0aGlzIGZ1bmN0aW9uIGNhbiBzbGVlcC4gUmV0dXJuIGZhbHNlIGlmIGJsb2NraW5n
+IHdhcwo+ID4gKyAqICAgICAgICAgICAgICByZXF1aXJlZCBidXQgcmFuZ2UgaXMgbm9uLWJsb2Nr
+aW5nCj4gPiArICovCj4gCj4gSG93IGFib3V0IHRoaXMgKEknbSBub3Qgc3VyZSBJIGZ1bGx5IHVu
+ZGVyc3RhbmQgdGhlIHJldHVybiB2YWx1ZSwgdGhvdWdoKToKPiAKPiAvKioKPiAgKiBzdHJ1Y3Qg
+bW11X3JhbmdlX25vdGlmaWVyX29wcwo+ICAqIEBpbnZhbGlkYXRlOiBVcG9uIHJldHVybiB0aGUg
+Y2FsbGVyIG11c3Qgc3RvcCB1c2luZyBhbnkgU1BURXMgd2l0aGluIHRoaXMKPiAgKiAJCXJhbmdl
+Lgo+ICAqCj4gICogCQlUaGlzIGZ1bmN0aW9uIGlzIHBlcm1pdHRlZCB0byBzbGVlcC4KPiAgKgo+
+ICAqICAgICAgCUBSZXR1cm46IGZhbHNlIGlmIGJsb2NraW5nIHdhcyByZXF1aXJlZCwgYnV0IEBy
+YW5nZSBpcwo+ICAqCQkJbm9uLWJsb2NraW5nLgo+ICAqCj4gICovCgpJcyB0aGlzIGtkb2MgZm9y
+bWF0IGZvciBmdW5jdGlvbiBwb2ludGVycz8KIAo+IAo+ID4gK3N0cnVjdCBtbXVfcmFuZ2Vfbm90
+aWZpZXJfb3BzIHsKPiA+ICsJYm9vbCAoKmludmFsaWRhdGUpKHN0cnVjdCBtbXVfcmFuZ2Vfbm90
+aWZpZXIgKm1ybiwKPiA+ICsJCQkgICBjb25zdCBzdHJ1Y3QgbW11X25vdGlmaWVyX3JhbmdlICpy
+YW5nZSwKPiA+ICsJCQkgICB1bnNpZ25lZCBsb25nIGN1cl9zZXEpOwo+ID4gK307Cj4gPiArCj4g
+PiArc3RydWN0IG1tdV9yYW5nZV9ub3RpZmllciB7Cj4gPiArCXN0cnVjdCBpbnRlcnZhbF90cmVl
+X25vZGUgaW50ZXJ2YWxfdHJlZTsKPiA+ICsJY29uc3Qgc3RydWN0IG1tdV9yYW5nZV9ub3RpZmll
+cl9vcHMgKm9wczsKPiA+ICsJc3RydWN0IGhsaXN0X25vZGUgZGVmZXJyZWRfaXRlbTsKPiA+ICsJ
+dW5zaWduZWQgbG9uZyBpbnZhbGlkYXRlX3NlcTsKPiA+ICsJc3RydWN0IG1tX3N0cnVjdCAqbW07
+Cj4gPiArfTsKPiA+ICsKPiAKPiBBZ2Fpbiwgbm93IHdlIGhhdmUgdGhlIG5ldyBzdHJ1Y3QgbW11
+X3JhbmdlX25vdGlmaWVyLCBhbmQgdGhlIG9sZCAKPiBzdHJ1Y3QgbW11X25vdGlmaWVyX3Jhbmdl
+LCBhbmQgaXQncyBub3QgZ29vZC4KPiAKPiBJZGVhczoKPiAKPiBhKSBMaXZlIHdpdGggaXQuCj4g
+Cj4gYikgKERpc2NhcmRlZCwgdG9vIG1hbnkgY2FsbGVycyk6IHJlbmFtZSBvbGQgb25lLiBOb3Bl
+Lgo+IAo+IGMpIFJlbmFtZSBuZXcgb25lLiBJZGVhczoKPiAKPiAgICAgc3RydWN0IG1tdV9pbnRl
+cnZhbF9ub3RpZmllcgo+ICAgICBzdHJ1Y3QgbW11X3JhbmdlX2ludGVyc2VjdGlvbgo+ICAgICAu
+Li5vdGhlciBpZGVhcz8KClRoaXMgb2RkIGR1YWxpdHkgaGFzIGFscmVhZHkgY2F1c2Ugc29tZSBj
+b25mdXNpb24sIGJ1dCBuYW1lcyBoZXJlIGFyZQpoYXJkLiAgbW11X2ludGVydmFsX25vdGlmaWVy
+IGlzIHRoZSBiZXN0IGFsdGVybmF0aXZlIEkndmUgaGVhcmQuCgpDaGFuZ2luZyB0aGlzIG5hbWUg
+aXMgYSBsb3Qgb2Ygd29yayAtIGFyZSB3ZSBoYXBweQonbW11X2ludGVydmFsX25vdGlmaWVyJyBp
+cyB0aGUgcmlnaHQgY2hvaWNlPwoKPiA+ICsvKioKPiA+ICsgKiBtbXVfcmFuZ2Vfc2V0X3NlcSAt
+IFNhdmUgdGhlIGludmFsaWRhdGlvbiBzZXF1ZW5jZQo+IAo+IEhvdyBhYm91dDoKPiAKPiAgKiBt
+bXVfcmFuZ2Vfc2V0X3NlcSAtIFNldCB0aGUgLmludmFsaWRhdGVfc2VxIHRvIGEgbmV3IHZhbHVl
+LgoKSXQgaXMgbm90IGEgJ25ldyB2YWx1ZScsIGl0IGlzIGEgdmFsdWUgdGhhdCBpcyBwcm92aWRl
+ZCB0byB0aGUKaW52YWxpZGF0ZSBjYWxsYmFjawoKPiAKPiA+ICsgKiBAbXJuIC0gVGhlIG1ybiBw
+YXNzZWQgdG8gaW52YWxpZGF0ZQo+ID4gKyAqIEBjdXJfc2VxIC0gVGhlIGN1cl9zZXEgcGFzc2Vk
+IHRvIGludmFsaWRhdGUKPiA+ICsgKgo+ID4gKyAqIFRoaXMgbXVzdCBiZSBjYWxsZWQgdW5jb25k
+aXRpb25hbGx5IGZyb20gdGhlIGludmFsaWRhdGUgY2FsbGJhY2sgb2YgYQo+ID4gKyAqIHN0cnVj
+dCBtbXVfcmFuZ2Vfbm90aWZpZXJfb3BzIHVuZGVyIHRoZSBzYW1lIGxvY2sgdGhhdCBpcyB1c2Vk
+IHRvIGNhbGwKPiA+ICsgKiBtbXVfcmFuZ2VfcmVhZF9yZXRyeSgpLiBJdCB1cGRhdGVzIHRoZSBz
+ZXF1ZW5jZSBudW1iZXIgZm9yIGxhdGVyIHVzZSBieQo+ID4gKyAqIG1tdV9yYW5nZV9yZWFkX3Jl
+dHJ5KCkuCj4gPiArICoKPiA+ICsgKiBJZiB0aGUgdXNlciBkb2VzIG5vdCBjYWxsIG1tdV9yYW5n
+ZV9yZWFkX2JlZ2luKCkgb3IgbW11X3JhbmdlX3JlYWRfcmV0cnkoKQo+IAo+IG5pdDogImNhbGxl
+ciIgaXMgYmV0dGVyIHRoYW4gInVzZXIiLCB3aGVuIHJlZmVycmluZyB0by4uLndlbGwsIGNhbGxl
+cnMuICJ1c2VyIiAKPiBtb3N0IG9mdGVuIHJlZmVycyB0byB1c2VyIHNwYWNlLCB3aGVyZWFzIGEg
+Y2FsbCBzdGFjayBhbmQgZnVuY3Rpb24gY2FsbGluZyBpcyAKPiBjbGVhcmx5IHdoYXQgeW91J3Jl
+IHJlZmVycmluZyB0byBoZXJlIChhbmQgaW4gb3RoZXIgcGxhY2VzLCBlc3BlY2lhbGx5ICJ1c2Vy
+IGxvY2siKS4KCkRvbmUKCj4gPiArLyoqCj4gPiArICogbW11X3JhbmdlX2NoZWNrX3JldHJ5IC0g
+VGVzdCBpZiBhIGNvbGxpc2lvbiBoYXMgb2NjdXJyZWQKPiA+ICsgKiBtcm46IFRoZSByYW5nZSB1
+bmRlciBsb2NrCj4gPiArICogc2VxOiBUaGUgcmV0dXJuIG9mIHRoZSBtYXRjaGluZyBtbXVfcmFu
+Z2VfcmVhZF9iZWdpbigpCj4gPiArICoKPiA+ICsgKiBUaGlzIGNhbiBiZSB1c2VkIGluIHRoZSBj
+cml0aWNhbCBzZWN0aW9uIGJldHdlZW4gbW11X3JhbmdlX3JlYWRfYmVnaW4oKSBhbmQKPiA+ICsg
+KiBtbXVfcmFuZ2VfcmVhZF9yZXRyeSgpLiAgQSByZXR1cm4gb2YgdHJ1ZSBpbmRpY2F0ZXMgYW4g
+aW52YWxpZGF0aW9uIGhhcwo+ID4gKyAqIGNvbGxpZGVkIHdpdGggdGhpcyBsb2NrIGFuZCBhIGZ1
+dHVyZSBtbXVfcmFuZ2VfcmVhZF9yZXRyeSgpIHdpbGwgcmV0dXJuCj4gPiArICogdHJ1ZS4KPiA+
+ICsgKgo+ID4gKyAqIEZhbHNlIGlzIG5vdCByZWxpYWJsZSBhbmQgb25seSBzdWdnZXN0cyBhIGNv
+bGxpc2lvbiBoYXMgbm90IGhhcHBlbmVkLiBJdAo+IAo+IGxldCdzIHNheSAic3VnZ2VzdHMgdGhh
+dCBhIGNvbGxpc2lvbiAqbWF5KiBub3QgaGF2ZSBvY2N1cnJlZC4iICAKClN1cmUKCj4gPiArLyoK
+PiA+ICsgKiBUaGlzIGlzIGEgY29sbGlzaW9uLXJldHJ5IHJlYWQtc2lkZS93cml0ZS1zaWRlICds
+b2NrJywgYSBsb3QgbGlrZSBhCj4gPiArICogc2VxY291bnQsIGhvd2V2ZXIgdGhpcyBhbGxvd3Mg
+bXVsdGlwbGUgd3JpdGUtc2lkZXMgdG8gaG9sZCBpdCBhdAo+ID4gKyAqIG9uY2UuIENvbmNlcHR1
+YWxseSB0aGUgd3JpdGUgc2lkZSBpcyBwcm90ZWN0aW5nIHRoZSB2YWx1ZXMgb2YgdGhlIFBURXMg
+aW4KPiA+ICsgKiB0aGlzIG1tLCBzdWNoIHRoYXQgUFRFUyBjYW5ub3QgYmUgcmVhZCBpbnRvIFNQ
+VEVzIHdoaWxlIGFueSB3cml0ZXIgZXhpc3RzLgo+IAo+IEp1c3QgdG8gYmUga2luZCwgY2FuIHdl
+IHNheSAiU1BURXMgKHNoYWRvdyBQVEVzKSIsIGp1c3QgdGhpcyBvbmNlPyA6KQoKSGFoYSwgc3Vy
+ZSwgd2h5IG5vdAoKPiA+ICsgKiBUaGUgd3JpdGUgc2lkZSBoYXMgdHdvIHN0YXRlcywgZnVsbHkg
+ZXhjbHVkZWQ6Cj4gPiArICogIC0gbW0tPmFjdGl2ZV9pbnZhbGlkYXRlX3JhbmdlcyAhPSAwCj4g
+PiArICogIC0gbW5uLT5pbnZhbGlkYXRlX3NlcSAmIDEgPT0gVHJ1ZQo+ID4gKyAqICAtIHNvbWUg
+cmFuZ2Ugb24gdGhlIG1tX3N0cnVjdCBpcyBiZWluZyBpbnZhbGlkYXRlZAo+ID4gKyAqICAtIHRo
+ZSBpdHJlZSBpcyBub3QgYWxsb3dlZCB0byBjaGFuZ2UKPiA+ICsgKgo+ID4gKyAqIEFuZCBwYXJ0
+aWFsbHkgZXhjbHVkZWQ6Cj4gPiArICogIC0gbW0tPmFjdGl2ZV9pbnZhbGlkYXRlX3JhbmdlcyAh
+PSAwCj4gCj4gSSBhc3N1bWUgdGhpcyBpbXBsaWVzIG1ubi0+aW52YWxpZGF0ZV9zZXEgJiAxID09
+IEZhbHNlIGluIHRoaXMgY2FzZT8gSWYgc28sCj4gbGV0J3Mgc2F5IHNvLiBJJ20gcHJvYmFibHkg
+Z2V0dGluZyB0aGF0IHdyb25nLCB0b28uCgpZZXMgdGhhdCBpcyByaWdodCwgZG9uZQoKPiAKPiA+
+ICsgKiAgLSBzb21lIHJhbmdlIG9uIHRoZSBtbV9zdHJ1Y3QgaXMgYmVpbmcgaW52YWxpZGF0ZWQK
+PiA+ICsgKiAgLSB0aGUgaXRyZWUgaXMgYWxsb3dlZCB0byBjaGFuZ2UKPiA+ICsgKgo+ID4gKyAq
+IFRoZSBsYXRlciBzdGF0ZSBhdm9pZHMgc29tZSBleHBlbnNpdmUgd29yayBvbiBpbnZfZW5kIGlu
+IHRoZSBjb21tb24gY2FzZSBvZgo+ID4gKyAqIG5vIG1ybiBtb25pdG9yaW5nIHRoZSBWQS4KPiA+
+ICsgKi8KPiA+ICtzdGF0aWMgYm9vbCBtbl9pdHJlZV9pc19pbnZhbGlkYXRpbmcoc3RydWN0IG1t
+dV9ub3RpZmllcl9tbSAqbW1uX21tKQo+ID4gK3sKPiA+ICsJbG9ja2RlcF9hc3NlcnRfaGVsZCgm
+bW1uX21tLT5sb2NrKTsKPiA+ICsJcmV0dXJuIG1tbl9tbS0+aW52YWxpZGF0ZV9zZXEgJiAxOwo+
+ID4gK30KPiA+ICsKPiA+ICtzdGF0aWMgc3RydWN0IG1tdV9yYW5nZV9ub3RpZmllciAqCj4gPiAr
+bW5faXRyZWVfaW52X3N0YXJ0X3JhbmdlKHN0cnVjdCBtbXVfbm90aWZpZXJfbW0gKm1tbl9tbSwK
+PiA+ICsJCQkgY29uc3Qgc3RydWN0IG1tdV9ub3RpZmllcl9yYW5nZSAqcmFuZ2UsCj4gPiArCQkJ
+IHVuc2lnbmVkIGxvbmcgKnNlcSkKPiA+ICt7Cj4gPiArCXN0cnVjdCBpbnRlcnZhbF90cmVlX25v
+ZGUgKm5vZGU7Cj4gPiArCXN0cnVjdCBtbXVfcmFuZ2Vfbm90aWZpZXIgKnJlcyA9IE5VTEw7Cj4g
+PiArCj4gPiArCXNwaW5fbG9jaygmbW1uX21tLT5sb2NrKTsKPiA+ICsJbW1uX21tLT5hY3RpdmVf
+aW52YWxpZGF0ZV9yYW5nZXMrKzsKPiA+ICsJbm9kZSA9IGludGVydmFsX3RyZWVfaXRlcl9maXJz
+dCgmbW1uX21tLT5pdHJlZSwgcmFuZ2UtPnN0YXJ0LAo+ID4gKwkJCQkJcmFuZ2UtPmVuZCAtIDEp
+Owo+ID4gKwlpZiAobm9kZSkgewo+ID4gKwkJbW1uX21tLT5pbnZhbGlkYXRlX3NlcSB8PSAxOwo+
+IAo+IAo+IE9LLCB0aGlzIGVpdGhlciBuZWVkcyBtb3JlIGRvY3VtZW50YXRpb24gYW5kIGFzc2Vy
+dGlvbnMsIG9yIGEgZGlmZmVyZW50Cj4gYXBwcm9hY2guIEJlY2F1c2UgSSBzZWUgYWRkaXRpb24s
+IHN1YnRyYWN0aW9uLCBBTkQsIE9SIGFuZCBib29sZWFucwo+IGFsbCBiZWluZyBhcHBsaWVkIHRv
+IHRoaXMgZmllbGQsIGFuZCBpdCdzIGRhcm4gbmVhciBob3BlbGVzcyB0byBmaWd1cmUKPiBvdXQg
+d2hldGhlciBvciBub3QgaXQgcmVhbGx5IGlzIGV2ZW4gb3Igb2RkIGF0IHRoZSByaWdodCB0aW1l
+cy4KClRoaXMgaXMgYSBzdGFuZGFyZCBkZXNpZ24gZm9yIGEgc2VxbG9jayBzY2hlbWUgYW5kIGZv
+bGxvd3MgdGhlCmV4aXN0aW5nIGRlc2lnbiBvZiB0aGUgbGludXggc2VxIGxvY2suCgpUaGUgbG93
+ZXIgYml0IGluZGljYXRlcyB0aGUgbG9jaydkIHN0YXRlIGFuZCB0aGUgdXBwZXIgYml0cyBpbmRp
+Y2F0ZQp0aGUgZ2VuZXJhdGlvbiBvZiB0aGUgbG9jawoKVGhlIG9wZXJhdGlvbnMgb24gdGhlIGxv
+Y2sgaXRzZWxmIGFyZSB0aGVuOgogICBzZXEgfD0gMSAgIyBUYWtlIHRoZSBsb2NrCiAgIHNlcSsr
+ICAgICAjIFJlbGVhc2UgYW4gYWNxdWlyZWQgbG9jawogICBzZXEgJiAxICAgIyBUcnVlIGlmIGxv
+Y2tlZAoKV2hpY2ggaXMgaG93IHRoaXMgaXMgd3JpdHRlbgoKPiBEaWZmZXJlbnQgYXBwcm9hY2g6
+IHdoeSBub3QganVzdCBhZGQgYSBtbW5fbW0tPmlzX2ludmFsaWRhdGluZyAKPiBtZW1iZXIgdmFy
+aWFibGU/IEl0J3Mgbm90IGxpa2UgeW91J3JlIHNob3J0IG9mIHNwYWNlIGluIHRoYXQgc3RydWN0
+LgoKU3BsaXR0aW5nIGl0IG1ha2VzIGFsb3Qgb2Ygc3R1ZmYgbW9yZSBjb21wbGV4IGFuZCB1bm5h
+dHVyYWwuCgpUaGUgb3BzIGFib3ZlIGNvdWxkIGJlIHB1dCBpbiBpbmxpbmUgd3JhcHBlcnMsIGJ1
+dCB0aGV5IG9ubHkgb2NjdXIKb25seSBpbiBmdW5jdGlvbnMgYWxyZWFkeSBjYWxsZWQgbW5faXRy
+ZWVfaW52X3N0YXJ0X3JhbmdlKCkgYW5kCm1uX2l0cmVlX2ludl9lbmQoKSBhbmQgbW5faXRyZWVf
+aXNfaW52YWxpZGF0aW5nKCkuCgpUaGVyZSBpcyB0aGUgb25lICd0YWtlIHRoZSBsb2NrJyBvdXRs
+aWVyIGluCl9fbW11X3JhbmdlX25vdGlmaWVyX2luc2VydCgpIHRob3VnaAoKPiA+ICtzdGF0aWMg
+dm9pZCBtbl9pdHJlZV9pbnZfZW5kKHN0cnVjdCBtbXVfbm90aWZpZXJfbW0gKm1tbl9tbSkKPiA+
+ICt7Cj4gPiArCXN0cnVjdCBtbXVfcmFuZ2Vfbm90aWZpZXIgKm1ybjsKPiA+ICsJc3RydWN0IGhs
+aXN0X25vZGUgKm5leHQ7Cj4gPiArCWJvb2wgbmVlZF93YWtlID0gZmFsc2U7Cj4gPiArCj4gPiAr
+CXNwaW5fbG9jaygmbW1uX21tLT5sb2NrKTsKPiA+ICsJaWYgKC0tbW1uX21tLT5hY3RpdmVfaW52
+YWxpZGF0ZV9yYW5nZXMgfHwKPiA+ICsJICAgICFtbl9pdHJlZV9pc19pbnZhbGlkYXRpbmcobW1u
+X21tKSkgewo+ID4gKwkJc3Bpbl91bmxvY2soJm1tbl9tbS0+bG9jayk7Cj4gPiArCQlyZXR1cm47
+Cj4gPiArCX0KPiA+ICsKPiA+ICsJbW1uX21tLT5pbnZhbGlkYXRlX3NlcSsrOwo+IAo+IElzIHRo
+aXMgdGhlIHJpZ2h0IHBsYWNlIGZvciBhbiBhc3NlcnRpb24gdGhhdCB0aGlzIGlzIG5vdyBhbiBl
+dmVuIHZhbHVlPwoKWWVzLCBidXQgSSdtIHJlbHVjdGFudCB0byBhZGQgc3VjaCBhIHJ1bnRpbWUg
+Y2hlY2sgb24gdGhpcyBmYXN0aXNoIHBhdGguLgpIb3cgYWJvdXQgYSBjb21tZW50PwoKPiA+ICsJ
+bmVlZF93YWtlID0gdHJ1ZTsKPiA+ICsKPiA+ICsJLyoKPiA+ICsJICogVGhlIGludl9lbmQgaW5j
+b3Jwb3JhdGVzIGEgZGVmZXJyZWQgbWVjaGFuaXNtIGxpa2UKPiA+ICsJICogcnRubF9sb2NrKCku
+IEFkZHMgYW5kIHJlbW92ZXMgYXJlIHF1ZXVlZCB1bnRpbCB0aGUgZmluYWwgaW52X2VuZAo+IAo+
+IExldCBtZSBwb2ludCBvdXQgdGhhdCBydG5sX2xvY2soKSBpdHNlbGYgaXMgYSBvbmUtbGluZXIg
+dGhhdCBjYWxscyBtdXRleF9sb2NrKCkuCj4gQnV0IEkgc3VwcG9zZSBpZiBvbmUgc3R1ZGllcyB0
+aGF0IGZpbGUgY2xvc2VseSB0aGVyZSBpcyBtb3JlLiA6KQoKTGV0cyBjaGFuZ2UgdGhhdCB0byBy
+dG5sX3VubG9jaygpIHRoZW4KCj4gPiArCXNwaW5fbG9jaygmbW1uX21tLT5sb2NrKTsKPiA+ICsJ
+LyogUGFpcnMgd2l0aCB0aGUgV1JJVEVfT05DRSBpbiBtbXVfcmFuZ2Vfc2V0X3NlcSgpICovCj4g
+PiArCXNlcSA9IFJFQURfT05DRShtcm4tPmludmFsaWRhdGVfc2VxKTsKPiA+ICsJaXNfaW52YWxp
+ZGF0aW5nID0gc2VxID09IG1tbl9tbS0+aW52YWxpZGF0ZV9zZXE7Cj4gPiArCXNwaW5fdW5sb2Nr
+KCZtbW5fbW0tPmxvY2spOwo+ID4gKwo+ID4gKwkvKgo+ID4gKwkgKiBtcm4tPmludmFsaWRhdGVf
+c2VxIGlzIGFsd2F5cyBzZXQgdG8gYW4gb2RkIHZhbHVlLiBUaGlzIGVuc3VyZXMKPiAKPiBUaGlz
+IGNsYWltIGp1c3QgbG9va3Mgd3JvbmcgdGhlIGZpcnN0IE4gdGltZXMgb25lIHJlYWRzIHRoZSBj
+b2RlLCBnaXZlbiB0aGF0Cj4gdGhlcmUgaXMgbW11X3JhbmdlX3NldF9zZXEoKSB0byBzZXQgaXQg
+dG8gYW4gYXJiaXRyYXJ5IHZhbHVlISAgTWF5YmUKPiB5b3UgbWVhbgoKbW11X3JhbmdlX3NldF9z
+ZXEoKSBpcyBOT1QgdG8gYmUgdXNlZCB0byBzZXQgdG8gYW4gYXJiaXRhcnkgdmFsdWUsIGl0Cm11
+c3Qgb25seSBiZSB1c2VkIHRvIHNldCB0byB0aGUgdmFsdWUgcHJvdmlkZWQgaW4gdGhlIGludmFs
+aWRhdGUoKQpjYWxsYmFjayBhbmQgdGhhdCB2YWx1ZSBpcyBhbHdheXMgb2RkLiBMZXRzIG1ha2Ug
+dGhpcyBzdXBlciBjbGVhcjoKCgkvKgoJICogbXJuLT5pbnZhbGlkYXRlX3NlcSBtdXN0IGFsd2F5
+cyBiZSBzZXQgdG8gYW4gb2RkIHZhbHVlIHZpYQoJICogbW11X3JhbmdlX3NldF9zZXEoKSB1c2lu
+ZyB0aGUgcHJvdmlkZWQgY3VyX3NlcSBmcm9tCgkgKiBtbl9pdHJlZV9pbnZfc3RhcnRfcmFuZ2Uo
+KS4gVGhpcyBlbnN1cmVzIHRoYXQgaWYgc2VxIGRvZXMgd3JhcCB3ZQoJICogd2lsbCBhbHdheXMg
+Y2xlYXIgdGhlIGJlbG93IHNsZWVwIGluIHNvbWUgcmVhc29uYWJsZSB0aW1lIGFzCgkgKiBtbW5f
+bW0tPmludmFsaWRhdGVfc2VxIGlzIGV2ZW4gaW4gdGhlIGlkbGUgc3RhdGUuCgkgKi8KClRoZSBp
+bnZhcmllbnQgaXMgdGhhdCB0aGUgJ3N0cnVjdCBtbXVfcmFuZ2Vfbm90aWZpZXInIGFsd2F5cyBo
+YXMgYW4Kb2RkICdzZXEnCgo+ID4gKwkgKiB0aGF0IGlmIHNlcSBkb2VzIHdyYXAgd2Ugd2lsbCBh
+bHdheXMgY2xlYXIgdGhlIGJlbG93IHNsZWVwIGluIHNvbWUKPiA+ICsJICogcmVhc29uYWJsZSB0
+aW1lIGFzIG1tbl9tbS0+aW52YWxpZGF0ZV9zZXEgaXMgZXZlbiBpbiB0aGUgaWRsZQo+ID4gKwkg
+KiBzdGF0ZS4KPiA+ICsJICovCj4gCj4gTGV0J3MgbW92ZSB0aGF0IGNvbW1lbnQgaGlnaGVyIHVw
+LiBUaGUgY29kZSB0aGF0IGZvbGxvd3MgaXQgaGFzIG5vdGhpbmcgdG8KPiBkbyB3aXRoIGl0LCBz
+byBpdCdzIGNvbmZ1c2luZyBoZXJlLgoKVGhlIGNvbW1lbnQgaXMgZXhwbGFpbmluZyB3aHkgdGhl
+IHdhaXRfZXZlbnQgaXMgc2FmZSwgZXZlbiBpZiB3ZSB3cmFwCnRoZSBzZXF1ZW5jZSBudW1iZXIs
+IHdoaWNoIGlzIGEgc2lnbmlmaWNhbnQgYW5kIHZlcnkgc3VidGxlIGNvcm5lcgpjYXNlLiBUaGlz
+IGlzIHJlYWxseSB3aHkgd2UgaGF2ZSB0aGUgZXZlbi9vZGQgdGhpbmcgYXQgYWxsLgoKPiA+ICsJ
+c3Bpbl9sb2NrKCZtbW5fbW0tPmxvY2spOwo+ID4gKwlpZiAobW1uX21tLT5hY3RpdmVfaW52YWxp
+ZGF0ZV9yYW5nZXMpIHsKPiA+ICsJCWlmIChtbl9pdHJlZV9pc19pbnZhbGlkYXRpbmcobW1uX21t
+KSkKPiA+ICsJCQlobGlzdF9hZGRfaGVhZCgmbXJuLT5kZWZlcnJlZF9pdGVtLAo+ID4gKwkJCQkg
+ICAgICAgJm1tbl9tbS0+ZGVmZXJyZWRfbGlzdCk7Cj4gPiArCQllbHNlIHsKPiA+ICsJCQltbW5f
+bW0tPmludmFsaWRhdGVfc2VxIHw9IDE7Cj4gPiArCQkJaW50ZXJ2YWxfdHJlZV9pbnNlcnQoJm1y
+bi0+aW50ZXJ2YWxfdHJlZSwKPiA+ICsJCQkJCSAgICAgJm1tbl9tbS0+aXRyZWUpOwo+ID4gKwkJ
+fQo+ID4gKwkJbXJuLT5pbnZhbGlkYXRlX3NlcSA9IG1tbl9tbS0+aW52YWxpZGF0ZV9zZXE7Cj4g
+PiArCX0gZWxzZSB7Cj4gPiArCQlXQVJOX09OKG1uX2l0cmVlX2lzX2ludmFsaWRhdGluZyhtbW5f
+bW0pKTsKPiA+ICsJCW1ybi0+aW52YWxpZGF0ZV9zZXEgPSBtbW5fbW0tPmludmFsaWRhdGVfc2Vx
+IC0gMTsKPiAKPiBPaGhoLCBjaGVja21hdGUuIEkgbG9zZS4gV2h5IGlzICpzdWJ0cmFjdGluZyog
+dGhlIHJpZ2h0IHRoaW5nIHRvIGRvCj4gZm9yIHNlcSBudW1iZXJzIGhlcmU/ICBJJ20gYWN1dGVs
+eSB1bmhhcHB5IHRyeWluZyB0byBmaWd1cmUgdGhpcyBvdXQuCj4gSSBzdXNwZWN0IGl0J3MgYW5v
+dGhlciB1bmZvcnR1bmF0ZSBzaWRlIGVmZmVjdCBvZiB0cnlpbmcgdG8gdXNlIHRoZQo+IGxvd2Vy
+IGJpdCBvZiB0aGUgc2VxIG51bWJlciAoZXZlbi9vZGQpIGZvciBzb21ldGhpbmcgZWxzZS4KCk5v
+LCB0aGlzIGlzIGFjdHVhbGx5IGRvbmUgZm9yIHRoZSBzZXEgbnVtYmVyIGl0c2VsZi4gV2UgbmVl
+ZCB0bwpnZW5lcmF0ZSBhIHNlcSBudW1iZXIgdGhhdCBpcyAhPSB0aGUgY3VycmVudCBpbnZhbGlk
+YXRlX3NlcSBhcyB0aGlzCm5ldyBtcm4gaXMgbm90IGludmFsaWRhdGluZy4KClRoZSBiZXN0IHNl
+cSB0byB1c2UgaXMgb25lIHRoYXQgdGhlIGludmFsaWRhdGVfc2VxIHdpbGwgbm90IHJlYWNoIGZv
+cgphIGxvbmcgdGltZSwgaWUgJ2ludmFsaWRhdGVfc2VxICsgTUFYJyB3aGljaCBpcyBleHByZXNz
+ZWQgYXMgLTEKClRoZSBldmVuL29kZCB0aGluZyBqdXN0IHRha2VzIGNhcmUgb2YgaXRzZWxmIG5h
+dHVyYWxseSBoZXJlIGFzCmludmFsaWRhdGVfc2VxIGlzIGd1YXJlbnRlZWQgZXZlbiBhbmQgLTEg
+Y3JlYXRlcyBib3RoIGFuIG9kZCBtcm4gdmFsdWUKYW5kIGEgZ29vZCBzZXEgbnVtYmVyLgoKVGhl
+IGFsZ29yaXRobSB3b3VsZCBhY3R1YWxseSB3b3JrIGNvcnJlY3RseSBpZiB0aGlzIHdhcwonbXJu
+LT5pbnZhbGlkYXRlX3NlcSA9IDEnLCBidXQgb2NjYXNpb25hbGx5IHRoaW5ncyB3b3VsZCBibG9j
+ayB3aGVuCnRoZXkgZG9uJ3QgbmVlZCB0byBibG9jay4KCkxldHMgYWRkIGEgY29tbWVudDoKCgkJ
+LyoKCQkgKiBUaGUgc3RhcnRpbmcgc2VxIGZvciBhIG1ybiBub3QgdW5kZXIgaW52YWxpZGF0aW9u
+IHNob3VsZCBiZQoJCSAqIG9kZCwgbm90IGVxdWFsIHRvIHRoZSBjdXJyZW50IGludmFsaWRhdGVf
+c2VxIGFuZAoJCSAqIGludmFsaWRhdGVfc2VxIHNob3VsZCBub3QgJ3dyYXAnIHRvIHRoZSBuZXcg
+c2VxIGFueSB0aW1lCgkJICogc29vbi4KCQkgKi8KCj4gPiAraW50IG1tdV9yYW5nZV9ub3RpZmll
+cl9pbnNlcnQoc3RydWN0IG1tdV9yYW5nZV9ub3RpZmllciAqbXJuLAo+ID4gKwkJCSAgICAgIHVu
+c2lnbmVkIGxvbmcgc3RhcnQsIHVuc2lnbmVkIGxvbmcgbGVuZ3RoLAo+ID4gKwkJCSAgICAgIHN0
+cnVjdCBtbV9zdHJ1Y3QgKm1tKQo+ID4gK3sKPiA+ICsJc3RydWN0IG1tdV9ub3RpZmllcl9tbSAq
+bW1uX21tOwo+ID4gKwlpbnQgcmV0Owo+IAo+IEhtbW0sIEkgdGhpbmsgYSBsYXRlciBwYXRjaCBp
+bXByb3Blcmx5IGNoYW5nZXMgdGhlIGFib3ZlIHRvICJpbnQgcmV0ID0gMDsiLgo+IEknbGwgY2hl
+Y2sgb24gdGhhdC4gSXQncyBjb3JyZWN0IGhlcmUsIHRob3VnaC4KCkxvb2tzIE9LIGluIG15IHRy
+ZWU/Cgo+ID4gKwltaWdodF9sb2NrKCZtbS0+bW1hcF9zZW0pOwo+ID4gKwo+ID4gKwltbW5fbW0g
+PSBzbXBfbG9hZF9hY3F1aXJlKCZtbS0+bW11X25vdGlmaWVyX21tKTsKPiAKPiBXaGF0IGRvZXMg
+dGhlIGFib3ZlIHBhaXIgd2l0aD8gU2hvdWxkIGhhdmUgYSBjb21tZW50IHRoYXQgc3BlY2lmaWVz
+IHRoYXQuCgpzbXBfbG9hZF9hY3F1aXJlKCkgYWx3YXlzIHBhaXJzIHdpdGggc21wX3N0b3JlX3Jl
+bGVhc2UoKSB0byB0aGUgc2FtZQptZW1vcnksIHRoZXJlIGlzIG9ubHkgb25lIHN0b3JlLCBpcyBh
+IGNvbW1lbnQgcmVhbGx5IG5lZWRlZD8KCkJlbG93IGFyZSB0aGUgY29tbWVudCB1cGRhdGVzIEkg
+bWFkZSwgdGhhbmtzIQoKSmFzb24KCmRpZmYgLS1naXQgYS9pbmNsdWRlL2xpbnV4L21tdV9ub3Rp
+Zmllci5oIGIvaW5jbHVkZS9saW51eC9tbXVfbm90aWZpZXIuaAppbmRleCA1MWI5MmJhMDEzZGRj
+ZS4uMDY1Yzk1MDAyZTk2MDIgMTAwNjQ0Ci0tLSBhL2luY2x1ZGUvbGludXgvbW11X25vdGlmaWVy
+LmgKKysrIGIvaW5jbHVkZS9saW51eC9tbXVfbm90aWZpZXIuaApAQCAtMzAyLDE1ICszMDIsMTUg
+QEAgdm9pZCBtbXVfcmFuZ2Vfbm90aWZpZXJfcmVtb3ZlKHN0cnVjdCBtbXVfcmFuZ2Vfbm90aWZp
+ZXIgKm1ybik7CiAvKioKICAqIG1tdV9yYW5nZV9zZXRfc2VxIC0gU2F2ZSB0aGUgaW52YWxpZGF0
+aW9uIHNlcXVlbmNlCiAgKiBAbXJuIC0gVGhlIG1ybiBwYXNzZWQgdG8gaW52YWxpZGF0ZQotICog
+QGN1cl9zZXEgLSBUaGUgY3VyX3NlcSBwYXNzZWQgdG8gaW52YWxpZGF0ZQorICogQGN1cl9zZXEg
+LSBUaGUgY3VyX3NlcSBwYXNzZWQgdG8gdGhlIGludmFsaWRhdGUoKSBjYWxsYmFjawogICoKICAq
+IFRoaXMgbXVzdCBiZSBjYWxsZWQgdW5jb25kaXRpb25hbGx5IGZyb20gdGhlIGludmFsaWRhdGUg
+Y2FsbGJhY2sgb2YgYQogICogc3RydWN0IG1tdV9yYW5nZV9ub3RpZmllcl9vcHMgdW5kZXIgdGhl
+IHNhbWUgbG9jayB0aGF0IGlzIHVzZWQgdG8gY2FsbAogICogbW11X3JhbmdlX3JlYWRfcmV0cnko
+KS4gSXQgdXBkYXRlcyB0aGUgc2VxdWVuY2UgbnVtYmVyIGZvciBsYXRlciB1c2UgYnkKLSAqIG1t
+dV9yYW5nZV9yZWFkX3JldHJ5KCkuCisgKiBtbXVfcmFuZ2VfcmVhZF9yZXRyeSgpLiBUaGUgcHJv
+dmlkZWQgY3VyX3NlcSB3aWxsIGFsd2F5cyBiZSBvZGQuCiAgKgotICogSWYgdGhlIHVzZXIgZG9l
+cyBub3QgY2FsbCBtbXVfcmFuZ2VfcmVhZF9iZWdpbigpIG9yIG1tdV9yYW5nZV9yZWFkX3JldHJ5
+KCkKLSAqIHRoZW4gdGhpcyBjYWxsIGlzIG5vdCByZXF1aXJlZC4KKyAqIElmIHRoZSBjYWxsZXIg
+ZG9lcyBub3QgY2FsbCBtbXVfcmFuZ2VfcmVhZF9iZWdpbigpIG9yCisgKiBtbXVfcmFuZ2VfcmVh
+ZF9yZXRyeSgpIHRoZW4gdGhpcyBjYWxsIGlzIG5vdCByZXF1aXJlZC4KICAqLwogc3RhdGljIGlu
+bGluZSB2b2lkIG1tdV9yYW5nZV9zZXRfc2VxKHN0cnVjdCBtbXVfcmFuZ2Vfbm90aWZpZXIgKm1y
+biwKIAkJCQkgICAgIHVuc2lnbmVkIGxvbmcgY3VyX3NlcSkKQEAgLTM0OCw4ICszNDgsOSBAQCBz
+dGF0aWMgaW5saW5lIGJvb2wgbW11X3JhbmdlX3JlYWRfcmV0cnkoc3RydWN0IG1tdV9yYW5nZV9u
+b3RpZmllciAqbXJuLAogICogY29sbGlkZWQgd2l0aCB0aGlzIGxvY2sgYW5kIGEgZnV0dXJlIG1t
+dV9yYW5nZV9yZWFkX3JldHJ5KCkgd2lsbCByZXR1cm4KICAqIHRydWUuCiAgKgotICogRmFsc2Ug
+aXMgbm90IHJlbGlhYmxlIGFuZCBvbmx5IHN1Z2dlc3RzIGEgY29sbGlzaW9uIGhhcyBub3QgaGFw
+cGVuZWQuIEl0Ci0gKiBjYW4gYmUgY2FsbGVkIG1hbnkgdGltZXMgYW5kIGRvZXMgbm90IGhhdmUg
+dG8gaG9sZCB0aGUgdXNlciBwcm92aWRlZCBsb2NrLgorICogRmFsc2UgaXMgbm90IHJlbGlhYmxl
+IGFuZCBvbmx5IHN1Z2dlc3RzIGEgY29sbGlzaW9uIG1heSBub3QgaGF2ZQorICogb2NjdXJlZC4g
+SXQgY2FuIGJlIGNhbGxlZCBtYW55IHRpbWVzIGFuZCBkb2VzIG5vdCBoYXZlIHRvIGhvbGQgdGhl
+IHVzZXIKKyAqIHByb3ZpZGVkIGxvY2suCiAgKgogICogVGhpcyBjYWxsIGNhbiBiZSB1c2VkIGFz
+IHBhcnQgb2YgbG9vcHMgYW5kIG90aGVyIGV4cGVuc2l2ZSBvcGVyYXRpb25zIHRvCiAgKiBleHBl
+ZGl0ZSBhIHJldHJ5LgpkaWZmIC0tZ2l0IGEvbW0vbW11X25vdGlmaWVyLmMgYi9tbS9tbXVfbm90
+aWZpZXIuYwppbmRleCAyYjc0ODU5MTllY2ZlYi4uYWZlMWUyZDk0MTgzZjggMTAwNjQ0Ci0tLSBh
+L21tL21tdV9ub3RpZmllci5jCisrKyBiL21tL21tdV9ub3RpZmllci5jCkBAIC01MSw3ICs1MSw4
+IEBAIHN0cnVjdCBtbXVfbm90aWZpZXJfbW0gewogICogVGhpcyBpcyBhIGNvbGxpc2lvbi1yZXRy
+eSByZWFkLXNpZGUvd3JpdGUtc2lkZSAnbG9jaycsIGEgbG90IGxpa2UgYQogICogc2VxY291bnQs
+IGhvd2V2ZXIgdGhpcyBhbGxvd3MgbXVsdGlwbGUgd3JpdGUtc2lkZXMgdG8gaG9sZCBpdCBhdAog
+ICogb25jZS4gQ29uY2VwdHVhbGx5IHRoZSB3cml0ZSBzaWRlIGlzIHByb3RlY3RpbmcgdGhlIHZh
+bHVlcyBvZiB0aGUgUFRFcyBpbgotICogdGhpcyBtbSwgc3VjaCB0aGF0IFBURVMgY2Fubm90IGJl
+IHJlYWQgaW50byBTUFRFcyB3aGlsZSBhbnkgd3JpdGVyIGV4aXN0cy4KKyAqIHRoaXMgbW0sIHN1
+Y2ggdGhhdCBQVEVTIGNhbm5vdCBiZSByZWFkIGludG8gU1BURXMgKHNoYWRvdyBQVEVzKSB3aGls
+ZSBhbnkKKyAqIHdyaXRlciBleGlzdHMuCiAgKgogICogTm90ZSB0aGF0IHRoZSBjb3JlIG1tIGNy
+ZWF0ZXMgbmVzdGVkIGludmFsaWRhdGVfcmFuZ2Vfc3RhcnQoKS9lbmQoKSByZWdpb25zCiAgKiB3
+aXRoaW4gdGhlIHNhbWUgdGhyZWFkLCBhbmQgcnVucyBpbnZhbGlkYXRlX3JhbmdlX3N0YXJ0KCkv
+ZW5kKCkgaW4gcGFyYWxsZWwKQEAgLTY0LDEyICs2NSwxMyBAQCBzdHJ1Y3QgbW11X25vdGlmaWVy
+X21tIHsKICAqCiAgKiBUaGUgd3JpdGUgc2lkZSBoYXMgdHdvIHN0YXRlcywgZnVsbHkgZXhjbHVk
+ZWQ6CiAgKiAgLSBtbS0+YWN0aXZlX2ludmFsaWRhdGVfcmFuZ2VzICE9IDAKLSAqICAtIG1ubi0+
+aW52YWxpZGF0ZV9zZXEgJiAxID09IFRydWUKKyAqICAtIG1ubi0+aW52YWxpZGF0ZV9zZXEgJiAx
+ID09IFRydWUgKG9kZCkKICAqICAtIHNvbWUgcmFuZ2Ugb24gdGhlIG1tX3N0cnVjdCBpcyBiZWlu
+ZyBpbnZhbGlkYXRlZAogICogIC0gdGhlIGl0cmVlIGlzIG5vdCBhbGxvd2VkIHRvIGNoYW5nZQog
+ICoKICAqIEFuZCBwYXJ0aWFsbHkgZXhjbHVkZWQ6CiAgKiAgLSBtbS0+YWN0aXZlX2ludmFsaWRh
+dGVfcmFuZ2VzICE9IDAKKyAqICAtIG1ubi0+aW52YWxpZGF0ZV9zZXEgJiAxID09IEZhbHNlIChl
+dmVuKQogICogIC0gc29tZSByYW5nZSBvbiB0aGUgbW1fc3RydWN0IGlzIGJlaW5nIGludmFsaWRh
+dGVkCiAgKiAgLSB0aGUgaXRyZWUgaXMgYWxsb3dlZCB0byBjaGFuZ2UKICAqCkBAIC0xMzEsMTIg
+KzEzMywxMyBAQCBzdGF0aWMgdm9pZCBtbl9pdHJlZV9pbnZfZW5kKHN0cnVjdCBtbXVfbm90aWZp
+ZXJfbW0gKm1tbl9tbSkKIAkJcmV0dXJuOwogCX0KIAorCS8qIE1ha2UgaW52YWxpZGF0ZV9zZXEg
+ZXZlbiAqLwogCW1tbl9tbS0+aW52YWxpZGF0ZV9zZXErKzsKIAluZWVkX3dha2UgPSB0cnVlOwog
+CiAJLyoKIAkgKiBUaGUgaW52X2VuZCBpbmNvcnBvcmF0ZXMgYSBkZWZlcnJlZCBtZWNoYW5pc20g
+bGlrZQotCSAqIHJ0bmxfbG9jaygpLiBBZGRzIGFuZCByZW1vdmVzIGFyZSBxdWV1ZWQgdW50aWwg
+dGhlIGZpbmFsIGludl9lbmQKKwkgKiBydG5sX3VubG9jaygpLiBBZGRzIGFuZCByZW1vdmVzIGFy
+ZSBxdWV1ZWQgdW50aWwgdGhlIGZpbmFsIGludl9lbmQKIAkgKiBoYXBwZW5zIHRoZW4gdGhleSBh
+cmUgcHJvZ3Jlc3NlZC4gVGhpcyBhcnJhbmdlbWVudCBmb3IgdHJlZSB1cGRhdGVzCiAJICogaXMg
+dXNlZCB0byBhdm9pZCB1c2luZyBhIGJsb2NraW5nIGxvY2sgZHVyaW5nCiAJICogaW52YWxpZGF0
+ZV9yYW5nZV9zdGFydC4KQEAgLTIzMCwxMCArMjMzLDExIEBAIHVuc2lnbmVkIGxvbmcgbW11X3Jh
+bmdlX3JlYWRfYmVnaW4oc3RydWN0IG1tdV9yYW5nZV9ub3RpZmllciAqbXJuKQogCXNwaW5fdW5s
+b2NrKCZtbW5fbW0tPmxvY2spOwogCiAJLyoKLQkgKiBtcm4tPmludmFsaWRhdGVfc2VxIGlzIGFs
+d2F5cyBzZXQgdG8gYW4gb2RkIHZhbHVlLiBUaGlzIGVuc3VyZXMKLQkgKiB0aGF0IGlmIHNlcSBk
+b2VzIHdyYXAgd2Ugd2lsbCBhbHdheXMgY2xlYXIgdGhlIGJlbG93IHNsZWVwIGluIHNvbWUKLQkg
+KiByZWFzb25hYmxlIHRpbWUgYXMgbW1uX21tLT5pbnZhbGlkYXRlX3NlcSBpcyBldmVuIGluIHRo
+ZSBpZGxlCi0JICogc3RhdGUuCisJICogbXJuLT5pbnZhbGlkYXRlX3NlcSBtdXN0IGFsd2F5cyBi
+ZSBzZXQgdG8gYW4gb2RkIHZhbHVlIHZpYQorCSAqIG1tdV9yYW5nZV9zZXRfc2VxKCkgdXNpbmcg
+dGhlIHByb3ZpZGVkIGN1cl9zZXEgZnJvbQorCSAqIG1uX2l0cmVlX2ludl9zdGFydF9yYW5nZSgp
+LiBUaGlzIGVuc3VyZXMgdGhhdCBpZiBzZXEgZG9lcyB3cmFwIHdlCisJICogd2lsbCBhbHdheXMg
+Y2xlYXIgdGhlIGJlbG93IHNsZWVwIGluIHNvbWUgcmVhc29uYWJsZSB0aW1lIGFzCisJICogbW1u
+X21tLT5pbnZhbGlkYXRlX3NlcSBpcyBldmVuIGluIHRoZSBpZGxlIHN0YXRlLgogCSAqLwogCWxv
+Y2tfbWFwX2FjcXVpcmUoJl9fbW11X25vdGlmaWVyX2ludmFsaWRhdGVfcmFuZ2Vfc3RhcnRfbWFw
+KTsKIAlsb2NrX21hcF9yZWxlYXNlKCZfX21tdV9ub3RpZmllcl9pbnZhbGlkYXRlX3JhbmdlX3N0
+YXJ0X21hcCk7CkBAIC04OTIsNiArODk2LDEyIEBAIHN0YXRpYyBpbnQgX19tbXVfcmFuZ2Vfbm90
+aWZpZXJfaW5zZXJ0KHN0cnVjdCBtbXVfcmFuZ2Vfbm90aWZpZXIgKm1ybiwKIAkJbXJuLT5pbnZh
+bGlkYXRlX3NlcSA9IG1tbl9tbS0+aW52YWxpZGF0ZV9zZXE7CiAJfSBlbHNlIHsKIAkJV0FSTl9P
+Tihtbl9pdHJlZV9pc19pbnZhbGlkYXRpbmcobW1uX21tKSk7CisJCS8qCisJCSAqIFRoZSBzdGFy
+dGluZyBzZXEgZm9yIGEgbXJuIG5vdCB1bmRlciBpbnZhbGlkYXRpb24gc2hvdWxkIGJlCisJCSAq
+IG9kZCwgbm90IGVxdWFsIHRvIHRoZSBjdXJyZW50IGludmFsaWRhdGVfc2VxIGFuZAorCQkgKiBp
+bnZhbGlkYXRlX3NlcSBzaG91bGQgbm90ICd3cmFwJyB0byB0aGUgbmV3IHNlcSBhbnkgdGltZQor
+CQkgKiBzb29uLgorCQkgKi8KIAkJbXJuLT5pbnZhbGlkYXRlX3NlcSA9IG1tbl9tbS0+aW52YWxp
+ZGF0ZV9zZXEgLSAxOwogCQlpbnRlcnZhbF90cmVlX2luc2VydCgmbXJuLT5pbnRlcnZhbF90cmVl
+LCAmbW1uX21tLT5pdHJlZSk7CiAJfQoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX18KWGVuLWRldmVsIG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVu
+cHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZv
+L3hlbi1kZXZlbA==
