@@ -2,103 +2,109 @@ Return-Path: <SRS0=ouc1=Y7=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.6 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
+X-Spam-Status: No, score=-8.1 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
 	HTML_MESSAGE,INCLUDES_PATCH,MAILING_LIST_MULTI,MIME_HTML_MOSTLY,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.0
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 36995C5DF60
-	for <amd-gfx@archiver.kernel.org>; Thu,  7 Nov 2019 18:54:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8D490C43331
+	for <amd-gfx@archiver.kernel.org>; Thu,  7 Nov 2019 19:12:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 16E0421882
-	for <amd-gfx@archiver.kernel.org>; Thu,  7 Nov 2019 18:54:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 16E0421882
+	by mail.kernel.org (Postfix) with ESMTPS id 669F82085B
+	for <amd-gfx@archiver.kernel.org>; Thu,  7 Nov 2019 19:12:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 669F82085B
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A5BA6886DC;
-	Thu,  7 Nov 2019 18:54:13 +0000 (UTC)
-Received: from NAM05-CO1-obe.outbound.protection.outlook.com
- (mail-eopbgr720073.outbound.protection.outlook.com [40.107.72.73])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B8EAE89255
- for <amd-gfx@lists.freedesktop.org>; Thu,  7 Nov 2019 18:54:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EC6F26E0C1;
+	Thu,  7 Nov 2019 19:12:28 +0000 (UTC)
+Received: from NAM01-SN1-obe.outbound.protection.outlook.com
+ (mail-eopbgr820071.outbound.protection.outlook.com [40.107.82.71])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 607BB6E0C1
+ for <amd-gfx@lists.freedesktop.org>; Thu,  7 Nov 2019 19:12:27 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=e0n2gGPa6m3vsfXA7ZxyFr9OpPzjxISA8BMIqsyjISVWJqsE79WMa1V0Mc8JpNXjIyd5K94Ip/BJkn5GQseWpW2vZ1Cb4lbNz6izbX+6YFoiDhQAwfgmkf9B703QM6gWF3dfGxrTI7+iH7fsOGFsss71DdGrkyXMQtRKhxLJJn9VaEosghwH2IX1fP55MmDo1qEHTG2EVZp+Sps/Aen1N4JLPxNsCCLsOIIqoHekVR3DqRoULHl1u+4ipi3FcPPk9MnuNhSP5Y82pnBRHLUk0YkclYX5TJLxuYHxsA2zvWPp+Htkz0inE/og0rz4Aa/1Y+jkAi6l1pMUbsC93QzDVg==
+ b=kcOTz1BeUxmMBOyYcuFosuAEGGHglfUBSMAZJnd6P1LNcqWTstdbjVY2gDiqZlUzdzBbAvQk+52Vaw+LFK3MOvOCfNo5pUoP9llwdQZfI3oHeQgOiQMpT6pBwSx1qB55YK+EL6A7+ZqLwCs5KMh4UxwS9DPTQfeCG1sFc1JM3FKSnIVF6KhmlFrwPp9B+BP0aGhbxsHffduZU0hwF5o8z/KNcOxDXIsl4g5NoHG1vfbJ7MKbSYFQgB/JE/on0/iL3o37CwxTRgSKLKuw+Gmv13EAqqoHSZWvuFI6ZM3clEH1GSU1GKO0jf23Suk8h8VjTSSH1DawLSJuy/vZ5F7S7w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4ifrcE9y8ZqzHw1C7Iv69AzIj9+q2n3LOpaohSHInr4=;
- b=Rtt8wxB/nPCrOtSvUIQSjR3hVA/GiLFj/lV47XDhmYeBRRydcEAD9lIXXZtJ0KzA1NZ3hyTjDvOgcgVmG/V+BM+KX1aaRGP7l4G6jFG8K1U5TAXnXH5QkMOso75Lm8/ZiydGMegfjwTk8V2VFufrSfXmGJ4FljrELAU6qgjiPRFMxxm7CfyBUCU6U6ArmD0Q/X2U1BTMkRcSkbV3+k91Wy41VBFLsrWrJu2uIs3LAy+66icNYUdn5qFdy1x9OnOM1oL2LiZHcTKXgOSQnfod2tNPkiY/r7JSyY9+ugC9BJ3CHzRFCHLhIBNM+6ijjhfiyPri+cAXlYHBSgMZhtQA4w==
+ bh=0B4Rtnyf0oc21AFzCahI3I45e0aaoRIgHtjFyp2IIHY=;
+ b=auZRsiKGTFxrKrcu9zmZAyvVK/zuudXmOudgPAKaUXlQA6UxXvSa0N1Jc230P0T/sdPhcUnladMJ0y5RjYEVKA6QlOPZmyO3xWoVDt9Wx1a8EgUXVh3BUKO2eDZ/07FX8WECNGAMHP/+D238y7hZJD3ubppFVTy2GYZs6kpyQ09b47Wr4KLiyrprrJiDhWI6elHusuehiy0INLfvJzl8yspPbPXQsbPvp08P5ruOBSQp7eDvUuD4Vp51nVN0mLMcs0k2Bqs2vHkOr+de3/bBTypy0lyqiLpwS1+EjL6cAFtulS/2A9qFtwoI2GmpnCnYJKTe8tZjizCMxOfy+NHfEQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
-Received: from DM6PR12MB2778.namprd12.prod.outlook.com (20.176.114.145) by
- DM6PR12MB3292.namprd12.prod.outlook.com (20.179.106.80) with Microsoft SMTP
+Received: from DM6PR12MB3947.namprd12.prod.outlook.com (10.255.174.156) by
+ DM6PR12MB4169.namprd12.prod.outlook.com (10.141.185.86) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2408.24; Thu, 7 Nov 2019 18:54:11 +0000
-Received: from DM6PR12MB2778.namprd12.prod.outlook.com
- ([fe80::304d:db58:2aa:d69e]) by DM6PR12MB2778.namprd12.prod.outlook.com
- ([fe80::304d:db58:2aa:d69e%6]) with mapi id 15.20.2430.020; Thu, 7 Nov 2019
- 18:54:11 +0000
-From: "Zhao, Yong" <Yong.Zhao@amd.com>
-To: Alex Deucher <alexdeucher@gmail.com>, "Kuehling, Felix"
- <Felix.Kuehling@amd.com>
+ 15.20.2430.24; Thu, 7 Nov 2019 19:12:25 +0000
+Received: from DM6PR12MB3947.namprd12.prod.outlook.com
+ ([fe80::288c:66ec:203d:aede]) by DM6PR12MB3947.namprd12.prod.outlook.com
+ ([fe80::288c:66ec:203d:aede%4]) with mapi id 15.20.2408.024; Thu, 7 Nov 2019
+ 19:12:25 +0000
+From: "Kuehling, Felix" <Felix.Kuehling@amd.com>
+To: "Zhao, Yong" <Yong.Zhao@amd.com>, Alex Deucher <alexdeucher@gmail.com>
 Subject: Re: [PATCH 2/3] drm/amdkfd: only keep release_mem function for Hawaii
 Thread-Topic: [PATCH 2/3] drm/amdkfd: only keep release_mem function for Hawaii
-Thread-Index: AQHVj4CkSMtAMFLs5U2ND/zZPFxaw6d/LUyAgADMBUqAAAqagIAAAcsAgAACGwCAAAyFAIAAAlr2
-Date: Thu, 7 Nov 2019 18:54:11 +0000
-Message-ID:
- <DM6PR12MB2778007D58A5332F6A030DA3F0780@DM6PR12MB2778.namprd12.prod.outlook.com>
+Thread-Index: AQHVj4Cnk6bDefnEn0qwGZufIzY7Wqd/LUeAgADMdQCAAAovgIAAAc4AgAACFYCAAAyIAIAABiSAgAAFFoA=
+Date: Thu, 7 Nov 2019 19:12:25 +0000
+Message-ID: <b4a76aeb-4d2c-c348-01bd-a40124930241@amd.com>
 References: <20191031001739.10764-1-Yong.Zhao@amd.com>
  <20191031001739.10764-2-Yong.Zhao@amd.com>
  <31102345-20f7-1b0e-dd2a-f7984b253a07@amd.com>
  <DM6PR12MB2778C141CFEA0006DA2CEC6DF0780@DM6PR12MB2778.namprd12.prod.outlook.com>
  <CY4PR1201MB2533087B346C4619F461FF3185780@CY4PR1201MB2533.namprd12.prod.outlook.com>
  <41a6b535-ab7a-44f4-2899-f211f5ddc296@amd.com>
- <85fd399c-5fa9-bdef-cdf6-433e80ba6407@amd.com>,
+ <85fd399c-5fa9-bdef-cdf6-433e80ba6407@amd.com>
  <CADnq5_Og4AWKdYFpa8hvmd2XXjr1Wzb_a26gqsq1H6c7NkWmMA@mail.gmail.com>
-In-Reply-To: <CADnq5_Og4AWKdYFpa8hvmd2XXjr1Wzb_a26gqsq1H6c7NkWmMA@mail.gmail.com>
+ <DM6PR12MB2778007D58A5332F6A030DA3F0780@DM6PR12MB2778.namprd12.prod.outlook.com>
+In-Reply-To: <DM6PR12MB2778007D58A5332F6A030DA3F0780@DM6PR12MB2778.namprd12.prod.outlook.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-x-originating-ip: [165.204.54.211]
+x-originating-ip: [142.116.193.252]
+user-agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:60.0) Gecko/20100101
+ Thunderbird/60.9.0
+x-clientproxiedby: YTBPR01CA0015.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:14::28) To DM6PR12MB3947.namprd12.prod.outlook.com
+ (2603:10b6:5:1cb::28)
+x-ms-exchange-messagesentrepresentingtype: 1
 x-ms-publictraffictype: Email
 x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: 5911dfa7-9889-48fa-f91c-08d763b3e076
-x-ms-traffictypediagnostic: DM6PR12MB3292:
+x-ms-office365-filtering-correlation-id: 199b0d05-cf7d-41d7-6472-08d763b66c55
+x-ms-traffictypediagnostic: DM6PR12MB4169:
 x-ms-exchange-purlcount: 1
 x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <DM6PR12MB329294CA118D6D8098ABE9CAF0780@DM6PR12MB3292.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:6430;
+x-microsoft-antispam-prvs: <DM6PR12MB41690D6B8D739583CEA740EF92780@DM6PR12MB4169.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:3276;
 x-forefront-prvs: 0214EB3F68
 x-forefront-antispam-report: SFV:NSPM;
- SFS:(10009020)(4636009)(396003)(346002)(376002)(39860400002)(366004)(136003)(199004)(189003)(51444003)(52536014)(55016002)(6636002)(33656002)(5660300002)(256004)(86362001)(3846002)(7736002)(6116002)(71190400001)(14444005)(71200400001)(54906003)(74316002)(316002)(105004)(26005)(229853002)(66066001)(606006)(4326008)(476003)(110136005)(25786009)(486006)(102836004)(9686003)(236005)(6246003)(54896002)(478600001)(30864003)(4001150100001)(7696005)(76176011)(966005)(446003)(14454004)(53546011)(91956017)(66446008)(64756008)(66556008)(66476007)(66946007)(76116006)(6506007)(11346002)(99286004)(6306002)(8676002)(19627405001)(2906002)(81156014)(81166006)(186003)(6436002)(8936002);
- DIR:OUT; SFP:1101; SCL:1; SRVR:DM6PR12MB3292;
- H:DM6PR12MB2778.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ SFS:(10009020)(4636009)(366004)(396003)(376002)(39860400002)(346002)(136003)(199004)(189003)(51444003)(71200400001)(71190400001)(7736002)(14444005)(256004)(5660300002)(6116002)(6436002)(31686004)(99286004)(229853002)(25786009)(66446008)(64756008)(66556008)(58126008)(54906003)(54896002)(66946007)(66476007)(86362001)(316002)(6306002)(4326008)(4001150100001)(3846002)(236005)(110136005)(31696002)(6512007)(65806001)(65956001)(386003)(6506007)(14454004)(478600001)(76176011)(19627405001)(6246003)(30864003)(186003)(36756003)(26005)(52116002)(81166006)(102836004)(8936002)(2906002)(53546011)(81156014)(8676002)(606006)(966005)(2616005)(476003)(6486002)(66066001)(446003)(105004)(11346002)(486006);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:DM6PR12MB4169;
+ H:DM6PR12MB3947.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
  PTR:InfoNoRecords; A:1; MX:1; 
 received-spf: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
 x-ms-exchange-senderadcheck: 1
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: g99pduH0Fbx6+BWy/l6cZQIbpR9sWJsKTtLZwMvnEtP/gxpSwHbvAReLm6f8m58kXRSU4xmXleO0gOIeSaPZlvqTh17bLeQFoCK7yr4l1I/X+/UXyNwcgLlpyoEbN+HLt63fSdzeULWEPpcWqVYVFDEcie4OrHXEVLZ0lEAprOykgdyLspMPhSKUhYQUJyODY81TViiSZxzlI2iqUY1qIfC9BhI7R6bWi1WhZ3vQLZ5npbMgPlmCSEfM43xv7oBwLs8Vf5PgzsYLeRORTXoIAUBd5QwO1hJvN/yR3a1fn5qcES4niIYDWGN0STJ1tfSO5ai41AUJn7aM6cO/2FxcktdF1DcJxILKaCY2Y5u8mNhQz+p19FVZWlUuesI6LV2pTKJL2iW2nM0AYhBnH8haM5yjOAIzXwbCo8lGWh9IHP+gpsMrhrosOuNFyaStP3rMpvEC8bLNw7a9P/XCw3Pj7z3aiq3ZIDo81vS8T1omcCs=
+x-microsoft-antispam-message-info: w3Lust4gGKd8ErbbH8ggNZUChAENXq6Wo0hv7rsAo+pOOEKRHuDd8lEHWECq6iAiYVEiH6TRZjbBrIybjyVSco+xD8o3pYsyTkz783JSJeiH/ge5tJ+p9Me4YajzXDRKB//TxXgN4dHTDid6HBFkXQ5aOR1PhIFgZmfTArqfIfuPfIBg/SGwSoVQAo52O7ynJP/Td8pyjfKu5t+lo2NvnkIbPkbninBEa8FDrOMUiwT5DdcLeKSDEBhs/CYGu5LEX5EykNKIeVoouthh+RKWH8GQ9tF8gSSUJczN7NUbjP085F4wdGVQYrR/YAk2ofWlqspEb6bY6uKNr1CnRwAOYgyhUej9hY9JufQecFzMAcrhsqV4hR52MFymC9VYaOMpPwY2hDht0P2dfJ3uDJx4+wmfyR/04iPMCVcrlsGP2BDr4XvazUMKP3Zxk/oFsmdtDSg5I6DklIdBLES7Qj+HLZTAGl9SukWy2lC9PfLymn0=
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5911dfa7-9889-48fa-f91c-08d763b3e076
-X-MS-Exchange-CrossTenant-originalarrivaltime: 07 Nov 2019 18:54:11.1364 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 199b0d05-cf7d-41d7-6472-08d763b66c55
+X-MS-Exchange-CrossTenant-originalarrivaltime: 07 Nov 2019 19:12:25.1386 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: jzqc7FxITtc+8S5LddToE+p9ukaOrxBib8/Vf+YPnd0Dsj1kyU375Spu8wd2w/4h
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3292
+X-MS-Exchange-CrossTenant-userprincipalname: YtroorH8IFxoe22OFWoz+dlAcjaOvM9Uo8LYObalmlkD5O7BntLXy3zvj3dmidf+xDBmErOV90z0735xiKtoNg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4169
 X-Mailman-Original-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4ifrcE9y8ZqzHw1C7Iv69AzIj9+q2n3LOpaohSHInr4=;
- b=th7OWuYfXRfmNvDDuQ9T9A1Inot84OmltNCVqjfNWQIkOZDJc7LcMvDbQ/6FeJcvMpi++P11GsDDE5na5JrQ0nApVwFNvHO1aNkI/wQZ8A9Ai982n6GewWpsToG/kV74O9LlQ0mqQpcpptjrtpSqV0r00gTmFZKtE+e73NeHRng=
+ bh=0B4Rtnyf0oc21AFzCahI3I45e0aaoRIgHtjFyp2IIHY=;
+ b=lGS8Axffv+C99bXAxYNgmav9hjTPVjQoQxC7FF70Edi2t1fDIoUgY62IrgNyk4QCsbjh6FXOk+PzIfUwy3EdGkLaKhVproldsgvAlVS380ZmogAoroT+qz6eLsxnY3/jVnSY0kEnLgqAhX7IiplJi8lq3UBioIfUSXQPVee8Q4A=
 X-Mailman-Original-Authentication-Results: spf=none (sender IP is )
- smtp.mailfrom=Yong.Zhao@amd.com; 
+ smtp.mailfrom=Felix.Kuehling@amd.com; 
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -112,46 +118,75 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: "Russell, Kent" <Kent.Russell@amd.com>,
  "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Content-Type: multipart/mixed; boundary="===============0859267297=="
+Content-Type: multipart/mixed; boundary="===============0519163289=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-Message-ID: <20191107185411.j72ddvB_K8MXDop_MgM_9RSXLeWZz8j3UomIHvt9GZM@z>
+Message-ID: <20191107191225.lvgTtORwC3qsrCIXznQGQb3NOXIPMOLZOAZNkuppoOw@z>
 
---===============0859267297==
+--===============0519163289==
 Content-Language: en-US
 Content-Type: multipart/alternative;
-	boundary="_000_DM6PR12MB2778007D58A5332F6A030DA3F0780DM6PR12MB2778namp_"
+	boundary="_000_b4a76aeb4d2cc34801bda40124930241amdcom_"
 
---_000_DM6PR12MB2778007D58A5332F6A030DA3F0780DM6PR12MB2778namp_
+--_000_b4a76aeb4d2cc34801bda40124930241amdcom_
 Content-Type: text/plain; charset="Windows-1252"
 Content-Transfer-Encoding: quoted-printable
 
+On 2019-11-07 13:54, Zhao, Yong wrote:
 Hi Kent,
 
 This consolidation is a must, because we should not have duplicated it in t=
-he first place. The kernel queue functions by design are generic. The reass=
-on why GFX8 and GFX9 are different is because GFX9 is SOC15 where packet fo=
-rmats and doorbell size changed.  On the other hand, kfd_kernel_queue_v7.c =
-file is pretty much empty by reusing v8 functions, even though it is there.=
- Furthermore, in my opinion kfd_kernel_queue_v7.c should be merged into v8 =
-counterpart, From GFX9 onwards, packet formats should stay the same. For ke=
-rnel queues, we should be able to differentiate it by pre SOC15 or not, and=
- I have an impression that MEC firmware agrees to maintain the kernel queue=
- interface stable across generations most of time.
+he first place.
+
+The code is working fine with the duplication. You disagree with duplicatin=
+g the code in the first place. But that's just your opinion. It's not a mus=
+t in any objective sense.
+
+
+The kernel queue functions by design are generic. The reasson why GFX8 and =
+GFX9 are different is because GFX9 is SOC15 where packet formats and doorbe=
+ll size changed.  On the other hand, kfd_kernel_queue_v7.c file is pretty m=
+uch empty by reusing v8 functions, even though it is there. Furthermore, in=
+ my opinion kfd_kernel_queue_v7.c should be merged into v8 counterpart, Fro=
+m GFX9 onwards, packet formats should stay the same. For kernel queues, we =
+should be able to differentiate it by pre SOC15 or not, and I have an impre=
+ssion that MEC firmware agrees to maintain the kernel queue interface stabl=
+e across generations most of time.
+
+OK, you're making assumptions about PM4 packets on future ASIC generations.=
+ It's true that the transition to SOC15 with 64-bit doorbells and read/writ=
+e-pointers was particularly disruptive. Your assumption will hold until it =
+gets broken by some other disruptive change.
+
+
+For now, if you want clear naming, we could call the GFXv7/8 packet manager=
+ functions "pre-SOC15" or "legacy" and the GFXv9/10 and future functions "S=
+OC15". This may work for a while. But I suspect at some point something is =
+going to change and we'll need to create a new version for a newer ASIC gen=
+eration. You already have a small taste of that with the different TBA-enab=
+le bit in the MAP_PROCESS packet in GFXv10.
+
+
+Regards,
+
+  Felix
+
 
 Regards,
 Yong
 ________________________________
-From: Alex Deucher <alexdeucher@gmail.com>
+From: Alex Deucher <alexdeucher@gmail.com><mailto:alexdeucher@gmail.com>
 Sent: Thursday, November 7, 2019 1:32 PM
-To: Kuehling, Felix <Felix.Kuehling@amd.com>
-Cc: Zhao, Yong <Yong.Zhao@amd.com>; Russell, Kent <Kent.Russell@amd.com>; a=
-md-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
+To: Kuehling, Felix <Felix.Kuehling@amd.com><mailto:Felix.Kuehling@amd.com>
+Cc: Zhao, Yong <Yong.Zhao@amd.com><mailto:Yong.Zhao@amd.com>; Russell, Kent=
+ <Kent.Russell@amd.com><mailto:Kent.Russell@amd.com>; amd-gfx@lists.freedes=
+ktop.org<mailto:amd-gfx@lists.freedesktop.org> <amd-gfx@lists.freedesktop.o=
+rg><mailto:amd-gfx@lists.freedesktop.org>
 Subject: Re: [PATCH 2/3] drm/amdkfd: only keep release_mem function for Haw=
 aii
 
-On Thu, Nov 7, 2019 at 12:47 PM Kuehling, Felix <Felix.Kuehling@amd.com> wr=
-ote:
+On Thu, Nov 7, 2019 at 12:47 PM Kuehling, Felix <Felix.Kuehling@amd.com><ma=
+ilto:Felix.Kuehling@amd.com> wrote:
 >
 > No, please lets not add a new nomenclature for PM4 packet versions. GFX v=
 ersions are agreed on between hardware, firmware, and software and it's gen=
@@ -242,11 +277,11 @@ nue to consolidate and remove duplicate code.
 >
 >
 >
-> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Zhao, =
-Yong
+> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org><mailto:amd-gfx-boun=
+ces@lists.freedesktop.org> On Behalf Of Zhao, Yong
 > Sent: Thursday, November 7, 2019 11:57 AM
-> To: Kuehling, Felix <Felix.Kuehling@amd.com>; amd-gfx@lists.freedesktop.o=
-rg
+> To: Kuehling, Felix <Felix.Kuehling@amd.com><mailto:Felix.Kuehling@amd.co=
+m>; amd-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org>
 > Subject: Re: [PATCH 2/3] drm/amdkfd: only keep release_mem function for H=
 awaii
 >
@@ -267,10 +302,12 @@ e, it is better to keep it as it is.
 >
 > ________________________________
 >
-> From: Kuehling, Felix <Felix.Kuehling@amd.com>
+> From: Kuehling, Felix <Felix.Kuehling@amd.com><mailto:Felix.Kuehling@amd.=
+com>
 > Sent: Wednesday, November 6, 2019 11:45 PM
-> To: Zhao, Yong <Yong.Zhao@amd.com>; amd-gfx@lists.freedesktop.org <amd-gf=
-x@lists.freedesktop.org>
+> To: Zhao, Yong <Yong.Zhao@amd.com><mailto:Yong.Zhao@amd.com>; amd-gfx@lis=
+ts.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org> <amd-gfx@lists.fre=
+edesktop.org><mailto:amd-gfx@lists.freedesktop.org>
 > Subject: Re: [PATCH 2/3] drm/amdkfd: only keep release_mem function for H=
 awaii
 >
@@ -287,7 +324,7 @@ awaii
 >
 > >
 > > Change-Id: I13787a8a29b83e7516c582a7401f2e14721edf5f
-> > Signed-off-by: Yong Zhao <Yong.Zhao@amd.com>
+> > Signed-off-by: Yong Zhao <Yong.Zhao@amd.com><mailto:Yong.Zhao@amd.com>
 > > ---
 > >   .../gpu/drm/amd/amdkfd/kfd_kernel_queue_v10.c | 35 ++----------------=
 -
@@ -436,84 +473,142 @@ irm;
 >
 > _______________________________________________
 > amd-gfx mailing list
-> amd-gfx@lists.freedesktop.org
+> amd-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org>
 > https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 
---_000_DM6PR12MB2778007D58A5332F6A030DA3F0780DM6PR12MB2778namp_
+--_000_b4a76aeb4d2cc34801bda40124930241amdcom_
 Content-Type: text/html; charset="Windows-1252"
+Content-ID: <7F9EFAFB4D4E1A4A821696F9942A907E@namprd12.prod.outlook.com>
 Content-Transfer-Encoding: quoted-printable
 
 <html>
 <head>
 <meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3DWindows-1=
 252">
+</head>
+<body text=3D"#000000" bgcolor=3D"#FFFFFF">
+<div class=3D"moz-cite-prefix">On 2019-11-07 13:54, Zhao, Yong wrote:<br>
+</div>
+<blockquote type=3D"cite" cite=3D"mid:DM6PR12MB2778007D58A5332F6A030DA3F078=
+0@DM6PR12MB2778.namprd12.prod.outlook.com">
 <style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
 ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif;
+        font-size: 12pt; color: rgb(0, 0, 0);">
 Hi Kent,</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif;
+        font-size: 12pt; color: rgb(0, 0, 0);">
 <br>
 </div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-This <span style=3D"font-family: Calibri, sans-serif; font-size: 14.6667px;=
- background-color: rgb(255, 255, 255); display: inline !important">
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif;
+        font-size: 12pt; color: rgb(0, 0, 0);">
+This <span style=3D"font-family: Calibri, sans-serif; font-size: 14.6667px;
+          background-color: rgb(255, 255, 255); display: inline
+          !important">
 consolidation is a must, because we should not have duplicated it in the fi=
-rst place. The kernel queue functions by design are generic. The reasson wh=
-y GFX8 and GFX9 are different is because GFX9 is SOC15 where packet formats=
- and doorbell size changed.&nbsp; On
- the other hand, kfd_kernel_queue_v7.c file is pretty much empty by reusing=
- v8 functions, even though it is there. Furthermore, in my opinion&nbsp;<sp=
-an style=3D"font-family: Calibri, sans-serif; background-color: rgb(255, 25=
-5, 255); display: inline !important">kfd_kernel_queue_v7.c
+rst place.</span></div>
+</blockquote>
+<p>The code is working fine with the duplication. You disagree with duplica=
+ting the code in the first place. But that's just your opinion. It's not a =
+must in any objective sense.<br>
+</p>
+<p><br>
+</p>
+<blockquote type=3D"cite" cite=3D"mid:DM6PR12MB2778007D58A5332F6A030DA3F078=
+0@DM6PR12MB2778.namprd12.prod.outlook.com">
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif;
+        font-size: 12pt; color: rgb(0, 0, 0);">
+<span style=3D"font-family:
+          Calibri, sans-serif; font-size: 14.6667px; background-color:
+          rgb(255, 255, 255); display: inline !important">The kernel queue =
+functions by design are generic. The reasson why GFX8 and GFX9 are differen=
+t is because
+ GFX9 is SOC15 where packet formats and doorbell size changed.&nbsp; On the=
+ other hand, kfd_kernel_queue_v7.c file is pretty much empty by reusing v8 =
+functions, even though it is there. Furthermore, in my opinion&nbsp;<span s=
+tyle=3D"font-family: Calibri, sans-serif;
+            background-color: rgb(255, 255, 255); display: inline
+            !important">kfd_kernel_queue_v7.c
  should be merged into v8 counterpart</span>, From GFX9 onwards,&nbsp;<span=
- style=3D"font-family: Calibri, sans-serif; background-color: rgb(255, 255,=
- 255); display: inline !important">packet formats should stay the same. For=
- kernel queues, we should be able to differentiate
- it by pre SOC15 or not, and I have an impression that MEC firmware agrees =
-to maintain the kernel queue interface stable across generations most of ti=
-me.</span></span></div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<span style=3D"font-family: Calibri, sans-serif; font-size: 14.6667px; back=
-ground-color: rgb(255, 255, 255); display: inline !important"><span style=
-=3D"font-family: Calibri, sans-serif; background-color: rgb(255, 255, 255);=
- display: inline !important"><br>
+ style=3D"font-family: Calibri, sans-serif; background-color:
+            rgb(255, 255, 255); display: inline !important">packet formats =
+should stay the same. For kernel queues, we should
+ be able to differentiate it by pre SOC15 or not, and I have an impression =
+that MEC firmware agrees to maintain the kernel queue interface stable acro=
+ss generations most of time.</span></span></div>
+</blockquote>
+<p>OK, you're making assumptions about PM4 packets on future ASIC generatio=
+ns. It's true that the transition to SOC15 with 64-bit doorbells and read/w=
+rite-pointers was particularly disruptive. Your assumption will hold until =
+it gets broken by some other disruptive
+ change.</p>
+<p><br>
+</p>
+<p>For now, if you want clear naming, we could call the GFXv7/8 packet mana=
+ger functions &quot;pre-SOC15&quot; or &quot;legacy&quot; and the GFXv9/10 =
+and future functions &quot;SOC15&quot;. This may work for a while. But I su=
+spect at some point something is going to change and we'll need
+ to create a new version for a newer ASIC generation. You already have a sm=
+all taste of that with the different TBA-enable bit in the MAP_PROCESS pack=
+et in GFXv10.</p>
+<p><br>
+</p>
+<p>Regards,</p>
+<p>&nbsp; Felix<br>
+</p>
+<p><br>
+</p>
+<blockquote type=3D"cite" cite=3D"mid:DM6PR12MB2778007D58A5332F6A030DA3F078=
+0@DM6PR12MB2778.namprd12.prod.outlook.com">
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif;
+        font-size: 12pt; color: rgb(0, 0, 0);">
+<span style=3D"font-family: Calibri, sans-serif; font-size:
+          14.6667px; background-color: rgb(255, 255, 255); display:
+          inline !important"><span style=3D"font-family: Calibri,
+            sans-serif; background-color: rgb(255, 255, 255); display:
+            inline !important"><br>
 </span></span></div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<span style=3D"font-family: Calibri, sans-serif; font-size: 14.6667px; back=
-ground-color: rgb(255, 255, 255); display: inline !important"><span style=
-=3D"font-family: Calibri, sans-serif; background-color: rgb(255, 255, 255);=
- display: inline !important">Regards,</span></span></div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<span style=3D"font-family: Calibri, sans-serif; font-size: 14.6667px; back=
-ground-color: rgb(255, 255, 255); display: inline !important"><span style=
-=3D"font-family: Calibri, sans-serif; background-color: rgb(255, 255, 255);=
- display: inline !important">Yong</span></span></div>
-<div id=3D"appendonsend"></div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif;
+        font-size: 12pt; color: rgb(0, 0, 0);">
+<span style=3D"font-family: Calibri, sans-serif; font-size:
+          14.6667px; background-color: rgb(255, 255, 255); display:
+          inline !important"><span style=3D"font-family: Calibri,
+            sans-serif; background-color: rgb(255, 255, 255); display:
+            inline !important">Regards,</span></span></div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif;
+        font-size: 12pt; color: rgb(0, 0, 0);">
+<span style=3D"font-family: Calibri, sans-serif; font-size:
+          14.6667px; background-color: rgb(255, 255, 255); display:
+          inline !important"><span style=3D"font-family: Calibri,
+            sans-serif; background-color: rgb(255, 255, 255); display:
+            inline !important">Yong</span></span></div>
 <hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Alex Deucher &lt;alex=
-deucher@gmail.com&gt;<br>
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font style=3D"font-size:11pt" face=
+=3D"Calibri, sans-serif" color=3D"#000000"><b>From:</b> Alex Deucher
+<a class=3D"moz-txt-link-rfc2396E" href=3D"mailto:alexdeucher@gmail.com">&l=
+t;alexdeucher@gmail.com&gt;</a><br>
 <b>Sent:</b> Thursday, November 7, 2019 1:32 PM<br>
-<b>To:</b> Kuehling, Felix &lt;Felix.Kuehling@amd.com&gt;<br>
-<b>Cc:</b> Zhao, Yong &lt;Yong.Zhao@amd.com&gt;; Russell, Kent &lt;Kent.Rus=
-sell@amd.com&gt;; amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedeskt=
-op.org&gt;<br>
+<b>To:</b> Kuehling, Felix <a class=3D"moz-txt-link-rfc2396E" href=3D"mailt=
+o:Felix.Kuehling@amd.com">
+&lt;Felix.Kuehling@amd.com&gt;</a><br>
+<b>Cc:</b> Zhao, Yong <a class=3D"moz-txt-link-rfc2396E" href=3D"mailto:Yon=
+g.Zhao@amd.com">
+&lt;Yong.Zhao@amd.com&gt;</a>; Russell, Kent <a class=3D"moz-txt-link-rfc23=
+96E" href=3D"mailto:Kent.Russell@amd.com">
+&lt;Kent.Russell@amd.com&gt;</a>; <a class=3D"moz-txt-link-abbreviated" hre=
+f=3D"mailto:amd-gfx@lists.freedesktop.org">
+amd-gfx@lists.freedesktop.org</a> <a class=3D"moz-txt-link-rfc2396E" href=
+=3D"mailto:amd-gfx@lists.freedesktop.org">
+&lt;amd-gfx@lists.freedesktop.org&gt;</a><br>
 <b>Subject:</b> Re: [PATCH 2/3] drm/amdkfd: only keep release_mem function =
 for Hawaii</font>
 <div>&nbsp;</div>
 </div>
 <div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
 ">
-<div class=3D"PlainText">On Thu, Nov 7, 2019 at 12:47 PM Kuehling, Felix &l=
-t;Felix.Kuehling@amd.com&gt; wrote:<br>
+<div class=3D"PlainText">On Thu, Nov 7, 2019 at 12:47 PM Kuehling, Felix <a=
+ class=3D"moz-txt-link-rfc2396E" href=3D"mailto:Felix.Kuehling@amd.com">
+&lt;Felix.Kuehling@amd.com&gt;</a> wrote:<br>
 &gt;<br>
 &gt; No, please lets not add a new nomenclature for PM4 packet versions. GF=
 X versions are agreed on between hardware, firmware, and software and it's =
@@ -621,11 +716,16 @@ ntinue to consolidate and remove duplicate code.<br>
 &gt;<br>
 &gt;<br>
 &gt;<br>
-&gt; From: amd-gfx &lt;amd-gfx-bounces@lists.freedesktop.org&gt; On Behalf =
-Of Zhao, Yong<br>
+&gt; From: amd-gfx <a class=3D"moz-txt-link-rfc2396E" href=3D"mailto:amd-gf=
+x-bounces@lists.freedesktop.org">
+&lt;amd-gfx-bounces@lists.freedesktop.org&gt;</a> On Behalf Of Zhao, Yong<b=
+r>
 &gt; Sent: Thursday, November 7, 2019 11:57 AM<br>
-&gt; To: Kuehling, Felix &lt;Felix.Kuehling@amd.com&gt;; amd-gfx@lists.free=
-desktop.org<br>
+&gt; To: Kuehling, Felix <a class=3D"moz-txt-link-rfc2396E" href=3D"mailto:=
+Felix.Kuehling@amd.com">
+&lt;Felix.Kuehling@amd.com&gt;</a>; <a class=3D"moz-txt-link-abbreviated" h=
+ref=3D"mailto:amd-gfx@lists.freedesktop.org">
+amd-gfx@lists.freedesktop.org</a><br>
 &gt; Subject: Re: [PATCH 2/3] drm/amdkfd: only keep release_mem function fo=
 r Hawaii<br>
 &gt;<br>
@@ -646,10 +746,17 @@ case, it is better to keep it as it is.<br>
 &gt;<br>
 &gt; ________________________________<br>
 &gt;<br>
-&gt; From: Kuehling, Felix &lt;Felix.Kuehling@amd.com&gt;<br>
+&gt; From: Kuehling, Felix <a class=3D"moz-txt-link-rfc2396E" href=3D"mailt=
+o:Felix.Kuehling@amd.com">
+&lt;Felix.Kuehling@amd.com&gt;</a><br>
 &gt; Sent: Wednesday, November 6, 2019 11:45 PM<br>
-&gt; To: Zhao, Yong &lt;Yong.Zhao@amd.com&gt;; amd-gfx@lists.freedesktop.or=
-g &lt;amd-gfx@lists.freedesktop.org&gt;<br>
+&gt; To: Zhao, Yong <a class=3D"moz-txt-link-rfc2396E" href=3D"mailto:Yong.=
+Zhao@amd.com">
+&lt;Yong.Zhao@amd.com&gt;</a>; <a class=3D"moz-txt-link-abbreviated" href=
+=3D"mailto:amd-gfx@lists.freedesktop.org">
+amd-gfx@lists.freedesktop.org</a> <a class=3D"moz-txt-link-rfc2396E" href=
+=3D"mailto:amd-gfx@lists.freedesktop.org">
+&lt;amd-gfx@lists.freedesktop.org&gt;</a><br>
 &gt; Subject: Re: [PATCH 2/3] drm/amdkfd: only keep release_mem function fo=
 r Hawaii<br>
 &gt;<br>
@@ -668,7 +775,9 @@ r>
 &gt;<br>
 &gt; &gt;<br>
 &gt; &gt; Change-Id: I13787a8a29b83e7516c582a7401f2e14721edf5f<br>
-&gt; &gt; Signed-off-by: Yong Zhao &lt;Yong.Zhao@amd.com&gt;<br>
+&gt; &gt; Signed-off-by: Yong Zhao <a class=3D"moz-txt-link-rfc2396E" href=
+=3D"mailto:Yong.Zhao@amd.com">
+&lt;Yong.Zhao@amd.com&gt;</a><br>
 &gt; &gt; ---<br>
 &gt; &gt;&nbsp;&nbsp; .../gpu/drm/amd/amdkfd/kfd_kernel_queue_v10.c | 35 &#=
 43;&#43;-----------------<br>
@@ -888,17 +997,21 @@ p;&nbsp;&nbsp; =3D sizeof(struct pm4_mec_release_mem)<br>
 &gt;<br>
 &gt; _______________________________________________<br>
 &gt; amd-gfx mailing list<br>
-&gt; amd-gfx@lists.freedesktop.org<br>
-&gt; <a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">htt=
-ps://lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
+&gt; <a class=3D"moz-txt-link-abbreviated" href=3D"mailto:amd-gfx@lists.fre=
+edesktop.org">
+amd-gfx@lists.freedesktop.org</a><br>
+&gt; <a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" moz=
+-do-not-send=3D"true">
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
 </div>
 </span></font></div>
+</blockquote>
 </body>
 </html>
 
---_000_DM6PR12MB2778007D58A5332F6A030DA3F0780DM6PR12MB2778namp_--
+--_000_b4a76aeb4d2cc34801bda40124930241amdcom_--
 
---===============0859267297==
+--===============0519163289==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -908,4 +1021,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
 
---===============0859267297==--
+--===============0519163289==--
