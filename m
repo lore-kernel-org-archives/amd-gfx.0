@@ -1,35 +1,50 @@
-From: Bjorn Helgaas <bjorn.helgaas@gmail.com>
-Subject: Re: [PATCH 1/2] drm: replace Compliance/Margin magic numbers with
- PCI_EXP_LNKCTL2 definitions
-Date: Thu, 7 Nov 2019 16:49:17 -0600
-Message-ID: <CABhMZUWFZ7M1wpnWaTs3+OsWqN8Nq6c8zyCCSxXbq0qZSjvgnw@mail.gmail.com>
-References: <20191107222047.125496-1-helgaas@kernel.org> <20191107222047.125496-2-helgaas@kernel.org>
- <CAKb7Uvjj+18cAFW+yBEHWkJLXVTHVMW=zJ-V+uqpzdbcEKsHrQ@mail.gmail.com>
-Reply-To: bjorn@helgaas.com
+From: Boris Ostrovsky <boris.ostrovsky@oracle.com>
+Subject: Re: [PATCH v2 09/15] xen/gntdev: use mmu_range_notifier_insert
+Date: Thu, 7 Nov 2019 17:54:52 -0500
+Message-ID: <4a68acc6-3ce7-e26b-2c98-774867288410@oracle.com>
+References: <20191028201032.6352-1-jgg@ziepe.ca>
+ <20191028201032.6352-10-jgg@ziepe.ca>
+ <3938b588-c6c5-3bd1-8ea9-47e4d5b2045c@oracle.com>
+ <20191105023108.GN22766@mellanox.com>
+ <a62e58f6-d98b-1feb-d0ca-fb8210f3e831@oracle.com>
+ <20191107203629.GF6730@ziepe.ca>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <CAKb7Uvjj+18cAFW+yBEHWkJLXVTHVMW=zJ-V+uqpzdbcEKsHrQ@mail.gmail.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Ilia Mirkin <imirkin@alum.mit.edu>
-Cc: Bjorn Helgaas <helgaas@kernel.org>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, David Zhou <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, Frederick Lawler <fred@fredlawl.com>, amd-gfx mailing list <amd-gfx@lists.freedesktop.org>, dri-devel <dri-devel@lists.freedesktop.org>, LKML <linux-kernel@vger.kernel.org>, Bjorn Helgaas <bhelgaas@google.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+In-Reply-To: <20191107203629.GF6730@ziepe.ca>
+Content-Language: en-US
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: Jason Gunthorpe <jgg@ziepe.ca>
+Cc: Juergen Gross <jgross@suse.com>, Ralph Campbell <rcampbell@nvidia.com>, Stefano Stabellini <sstabellini@kernel.org>, Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>, "linux-rdma@vger.kernel.org" <linux-rdma@vger.kernel.org>, John Hubbard <jhubbard@nvidia.com>, "Felix.Kuehling@amd.com" <Felix.Kuehling@amd.com>, Mike Marciniszyn <mike.marciniszyn@intel.com>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, Christoph Hellwig <hch@infradead.org>, "linux-mm@kvack.org" <linux-mm@kvack.org>, Jerome Glisse <jglisse@redhat.com>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "nouveau@lists.freedesktop.org" <nouveau@lists.freedesktop.org>, Alex Deucher <alexander.deucher@amd.com>, "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Dennis Dalessandro <dennis.dalessandro@intel.com>, Petr Cvek <petrcvekcz@gmail.com>
 List-Id: amd-gfx.lists.freedesktop.org
 
-On Thu, Nov 7, 2019 at 4:30 PM Ilia Mirkin <imirkin@alum.mit.edu> wrote:
->
-> On Thu, Nov 7, 2019 at 5:21 PM Bjorn Helgaas <helgaas@kernel.org> wrote:
-> > diff --git a/include/uapi/linux/pci_regs.h b/include/uapi/linux/pci_regs.h
-> > index 29d6e93fd15e..03446be8a7be 100644
-> > --- a/include/uapi/linux/pci_regs.h
-> > +++ b/include/uapi/linux/pci_regs.h
-> > @@ -673,6 +673,8 @@
-> >  #define  PCI_EXP_LNKCTL2_TLS_8_0GT     0x0003 /* Supported Speed 8GT/s */
-> >  #define  PCI_EXP_LNKCTL2_TLS_16_0GT    0x0004 /* Supported Speed 16GT/s */
-> >  #define  PCI_EXP_LNKCTL2_TLS_32_0GT    0x0005 /* Supported Speed 32GT/s */
-> > +#define  PCI_EXP_LNKCTL2_ENTER_COMP    0x0010 /* Enter Compliance */
-> > +#define  PCI_EXP_LNKCTL2_TX_MARGIN     0x0380 /* Enter Compliance */
->
-> Without commenting on the meat of the patch, this comment should
-> probably read "Transmit Margin" or something along those lines?
-
-Indeed, thank you!
+T24gMTEvNy8xOSAzOjM2IFBNLCBKYXNvbiBHdW50aG9ycGUgd3JvdGU6Cj4gT24gVHVlLCBOb3Yg
+MDUsIDIwMTkgYXQgMTA6MTY6NDZBTSAtMDUwMCwgQm9yaXMgT3N0cm92c2t5IHdyb3RlOgo+Cj4+
+PiBTbywgSSBzdXBwb3NlIGl0IGNhbiBiZSByZWxheGVkIHRvIGEgbnVsbCB0ZXN0IGFuZCBhIFdB
+Uk5fT04gdGhhdCBpdAo+Pj4gaGFzbid0IGNoYW5nZWQ/Cj4+IFlvdSBtZWFuCj4+Cj4+IGlmICh1
+c2VfcHRlbW9kKSB7Cj4+IMKgwqDCoMKgwqDCoMKgIFdBUk5fT04obWFwLT52bWEgIT0gdm1hKTsK
+Pj4gwqDCoMKgwqDCoMKgwqAgLi4uCj4+Cj4+Cj4+IFllcywgdGhhdCBzb3VuZHMgZ29vZC4KPiBJ
+IGFtZW5kZWQgbXkgY29weSBvZiB0aGUgcGF0Y2ggd2l0aCB0aGUgYWJvdmUsIGhhcyB0aGlzIHJl
+d29yayBzaG93bgo+IHNpZ25zIG9mIHdvcmtpbmc/CgpZZXMsIGl0IHdvcmtzIGZpbmUuCgpCdXQg
+cGxlYXNlIGRvbid0IGZvcmdldCBub3RpZmllciBvcHMgaW5pdGlhbGl6YXRpb24uCgpXaXRoIHRo
+b3NlIHR3byBjaGFuZ2VzLAoKUmV2aWV3ZWQtYnk6IEJvcmlzIE9zdHJvdnNreSA8Ym9yaXMub3N0
+cm92c2t5QG9yYWNsZS5jb20+Cgo+Cj4gQEAgLTQzNiw3ICs0MzYsOCBAQCBzdGF0aWMgdm9pZCBn
+bnRkZXZfdm1hX2Nsb3NlKHN0cnVjdCB2bV9hcmVhX3N0cnVjdCAqdm1hKQo+ICAgICAgICAgc3Ry
+dWN0IGdudGRldl9wcml2ICpwcml2ID0gZmlsZS0+cHJpdmF0ZV9kYXRhOwo+ICAKPiAgICAgICAg
+IHByX2RlYnVnKCJnbnRkZXZfdm1hX2Nsb3NlICVwXG4iLCB2bWEpOwo+IC0gICAgICAgaWYgKHVz
+ZV9wdGVtb2QgJiYgbWFwLT52bWEgPT0gdm1hKSB7Cj4gKyAgICAgICBpZiAodXNlX3B0ZW1vZCkg
+ewo+ICsgICAgICAgICAgICAgICBXQVJOX09OKG1hcC0+dm1hICE9IHZtYSk7Cj4gICAgICAgICAg
+ICAgICAgIG1tdV9yYW5nZV9ub3RpZmllcl9yZW1vdmUoJm1hcC0+bm90aWZpZXIpOwo+ICAgICAg
+ICAgICAgICAgICBtYXAtPnZtYSA9IE5VTEw7Cj4gICAgICAgICB9Cj4KPiBKYXNvbgoKX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KZHJpLWRldmVsIG1haWxp
+bmcgbGlzdApkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJl
+ZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVs
