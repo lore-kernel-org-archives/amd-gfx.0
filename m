@@ -1,15 +1,14 @@
-From: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
+From: "Zhao, Yong" <Yong.Zhao-5C7GfCeVMHo@public.gmane.org>
 Subject: Re: [PATCH] drm/amdkfd: Use kernel queue v9 functions for v10 (ver2)
-Date: Thu, 7 Nov 2019 21:07:10 +0000
-Message-ID: <f27d6f58-bb85-4431-7fbc-be7c9a6b7dbd@amd.com>
-References: <20191107203349.31805-1-Yong.Zhao@amd.com>
+Date: Thu, 7 Nov 2019 21:49:00 +0000
+Message-ID: <DM6PR12MB2778273C513A51D90A0109CCF0780@DM6PR12MB2778.namprd12.prod.outlook.com>
+References: <20191107203349.31805-1-Yong.Zhao@amd.com>,
+ <f27d6f58-bb85-4431-7fbc-be7c9a6b7dbd@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0828746311=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20191107203349.31805-1-Yong.Zhao-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <f27d6f58-bb85-4431-7fbc-be7c9a6b7dbd-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
-Content-ID: <FAAC5F7DE29B974187F60DD6F1608548-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -20,334 +19,1403 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Zhao, Yong" <Yong.Zhao-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-QXJlIHlvdSBzdXJlIHRoYXQgc2V0dGluZyB0aGUgU1FfU0hBREVSX1RCQV9ISV9fVFJBUF9FTiBi
-aXQgb24gR0ZYdjkgaXMgDQpjb21wbGV0ZWx5IGhhcm1sZXNzPyBJZiB0aGUgZmllbGQgaXMgbm90
-IGRlZmluZWQsIG1heWJlIHNldHRpbmcgdGhlIGJpdCANCm1ha2VzIHRoZSBhZGRyZXNzIGludmFs
-aWQuIEl0J3MgcHJvYmFibHkgd29ydGggcnVubmluZyB0aGF0IHRocm91Z2ggYSANClBTREIsIHdo
-aWNoIHdvdWxkIGNvdmVyIFZlZ2ExMCwgVmVnYTIwIGFuZCBBcmN0dXJ1cy4NCg0KSWYgaXQgYWN0
-dWFsbHkgd29ya3MsIHRoZSBwYXRjaCBpcw0KDQpSZXZpZXdlZC1ieTogRmVsaXggS3VlaGxpbmcg
-PEZlbGl4Lkt1ZWhsaW5nQGFtZC5jb20+DQoNClJlZ2FyZHMsDQogwqAgRmVsaXgNCg0KT24gMjAx
-OS0xMS0wNyAxNTozNCwgWmhhbywgWW9uZyB3cm90ZToNCj4gVGhlIGtlcm5lbCBxdWV1ZSBmdW5j
-dGlvbnMgZm9yIHY5IGFuZCB2MTAgYXJlIHRoZSBzYW1lIGV4Y2VwdA0KPiBwbV9tYXBfcHJvY2Vz
-c192KiB3aGljaCBoYXZlIHNtYWxsIGRpZmZlcmVuY2UsIHNvIHRoZXkgc2hvdWxkIGJlIHJldXNl
-ZC4NCj4gVGhpcyBlbGltaW5hdGVzIHRoZSBuZWVkIG9mIHJlYXBwbHlpbmcgc2V2ZXJhbCBwYXRj
-aGVzIHdoaWNoIHdlcmUNCj4gYXBwbGllZCBvbiB2OSBidXQgbm90IG9uIHYxMCwgc3VjaCBhcyBi
-aWdnZXIgR1dTIGFuZCBtb3JlIHRoYW4gMg0KPiBTRE1BIGVuZ2luZSBzdXBwb3J0IHdoaWNoIHdl
-cmUgaW50cm9kdWNlZCBvbiBBcmN0dXJ1cy4NCj4NCj4gQ2hhbmdlLUlkOiBJMmQzODU5NjFlM2M4
-ODRkYjE0ZTMwYjVhZmM5OGQwZDllNGNiMTgwMg0KPiBTaWduZWQtb2ZmLWJ5OiBZb25nIFpoYW8g
-PFlvbmcuWmhhb0BhbWQuY29tPg0KPiAtLS0NCj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtm
-ZC9NYWtlZmlsZSAgICAgICAgICAgfCAgIDEgLQ0KPiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
-a2ZkL2tmZF9rZXJuZWxfcXVldWUuYyB8ICAgNCArLQ0KPiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQv
-YW1ka2ZkL2tmZF9rZXJuZWxfcXVldWUuaCB8ICAgMSAtDQo+ICAgLi4uL2dwdS9kcm0vYW1kL2Ft
-ZGtmZC9rZmRfa2VybmVsX3F1ZXVlX3YxMC5jIHwgMzE3IC0tLS0tLS0tLS0tLS0tLS0tLQ0KPiAg
-IC4uLi9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX2tlcm5lbF9xdWV1ZV92OS5jICB8ICAxNiArLQ0K
-PiAgIC4uLi9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX3BhY2tldF9tYW5hZ2VyLmMgICB8ICAgNCAr
-LQ0KPiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9wcml2LmggICAgICAgICB8ICAg
-NCAtDQo+ICAgNyBmaWxlcyBjaGFuZ2VkLCAxNCBpbnNlcnRpb25zKCspLCAzMzMgZGVsZXRpb25z
-KC0pDQo+ICAgZGVsZXRlIG1vZGUgMTAwNjQ0IGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tm
-ZF9rZXJuZWxfcXVldWVfdjEwLmMNCj4NCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9h
-bWQvYW1ka2ZkL01ha2VmaWxlIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQvTWFrZWZpbGUN
-Cj4gaW5kZXggNDgxNTUwNjBhNTdjLi4wMTdhOGI3MTU2ZGEgMTAwNjQ0DQo+IC0tLSBhL2RyaXZl
-cnMvZ3B1L2RybS9hbWQvYW1ka2ZkL01ha2VmaWxlDQo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9h
-bWQvYW1ka2ZkL01ha2VmaWxlDQo+IEBAIC00MSw3ICs0MSw2IEBAIEFNREtGRF9GSUxFUwk6PSAk
-KEFNREtGRF9QQVRIKS9rZmRfbW9kdWxlLm8gXA0KPiAgIAkJJChBTURLRkRfUEFUSCkva2ZkX2tl
-cm5lbF9xdWV1ZV9jaWsubyBcDQo+ICAgCQkkKEFNREtGRF9QQVRIKS9rZmRfa2VybmVsX3F1ZXVl
-X3ZpLm8gXA0KPiAgIAkJJChBTURLRkRfUEFUSCkva2ZkX2tlcm5lbF9xdWV1ZV92OS5vIFwNCj4g
-LQkJJChBTURLRkRfUEFUSCkva2ZkX2tlcm5lbF9xdWV1ZV92MTAubyBcDQo+ICAgCQkkKEFNREtG
-RF9QQVRIKS9rZmRfcGFja2V0X21hbmFnZXIubyBcDQo+ICAgCQkkKEFNREtGRF9QQVRIKS9rZmRf
-cHJvY2Vzc19xdWV1ZV9tYW5hZ2VyLm8gXA0KPiAgIAkJJChBTURLRkRfUEFUSCkva2ZkX2Rldmlj
-ZV9xdWV1ZV9tYW5hZ2VyLm8gXA0KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9h
-bWRrZmQva2ZkX2tlcm5lbF9xdWV1ZS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2Zk
-X2tlcm5lbF9xdWV1ZS5jDQo+IGluZGV4IDExZDI0NDg5MTM5My4uMGQ5NjY0MDhlYTg3IDEwMDY0
-NA0KPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfa2VybmVsX3F1ZXVlLmMN
-Cj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX2tlcm5lbF9xdWV1ZS5jDQo+
-IEBAIC0zMzIsMTIgKzMzMiwxMCBAQCBzdHJ1Y3Qga2VybmVsX3F1ZXVlICprZXJuZWxfcXVldWVf
-aW5pdChzdHJ1Y3Qga2ZkX2RldiAqZGV2LA0KPiAgIAljYXNlIENISVBfUkFWRU46DQo+ICAgCWNh
-c2UgQ0hJUF9SRU5PSVI6DQo+ICAgCWNhc2UgQ0hJUF9BUkNUVVJVUzoNCj4gLQkJa2VybmVsX3F1
-ZXVlX2luaXRfdjkoJmtxLT5vcHNfYXNpY19zcGVjaWZpYyk7DQo+IC0JCWJyZWFrOw0KPiAgIAlj
-YXNlIENISVBfTkFWSTEwOg0KPiAgIAljYXNlIENISVBfTkFWSTEyOg0KPiAgIAljYXNlIENISVBf
-TkFWSTE0Og0KPiAtCQlrZXJuZWxfcXVldWVfaW5pdF92MTAoJmtxLT5vcHNfYXNpY19zcGVjaWZp
-Yyk7DQo+ICsJCWtlcm5lbF9xdWV1ZV9pbml0X3Y5KCZrcS0+b3BzX2FzaWNfc3BlY2lmaWMpOw0K
-PiAgIAkJYnJlYWs7DQo+ICAgCWRlZmF1bHQ6DQo+ICAgCQlXQVJOKDEsICJVbmV4cGVjdGVkIEFT
-SUMgZmFtaWx5ICV1IiwNCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2Zk
-L2tmZF9rZXJuZWxfcXVldWUuaCBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9rZXJu
-ZWxfcXVldWUuaA0KPiBpbmRleCAzNjVmYzY3NGZlYTQuLmE3MTE2YTkzOTAyOSAxMDA2NDQNCj4g
-LS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX2tlcm5lbF9xdWV1ZS5oDQo+ICsr
-KyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9rZXJuZWxfcXVldWUuaA0KPiBAQCAt
-MTAyLDYgKzEwMiw1IEBAIHN0cnVjdCBrZXJuZWxfcXVldWUgew0KPiAgIHZvaWQga2VybmVsX3F1
-ZXVlX2luaXRfY2lrKHN0cnVjdCBrZXJuZWxfcXVldWVfb3BzICpvcHMpOw0KPiAgIHZvaWQga2Vy
-bmVsX3F1ZXVlX2luaXRfdmkoc3RydWN0IGtlcm5lbF9xdWV1ZV9vcHMgKm9wcyk7DQo+ICAgdm9p
-ZCBrZXJuZWxfcXVldWVfaW5pdF92OShzdHJ1Y3Qga2VybmVsX3F1ZXVlX29wcyAqb3BzKTsNCj4g
-LXZvaWQga2VybmVsX3F1ZXVlX2luaXRfdjEwKHN0cnVjdCBrZXJuZWxfcXVldWVfb3BzICpvcHMp
-Ow0KPiAgIA0KPiAgICNlbmRpZiAvKiBLRkRfS0VSTkVMX1FVRVVFX0hfICovDQo+IGRpZmYgLS1n
-aXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfa2VybmVsX3F1ZXVlX3YxMC5jIGIv
-ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX2tlcm5lbF9xdWV1ZV92MTAuYw0KPiBkZWxl
-dGVkIGZpbGUgbW9kZSAxMDA2NDQNCj4gaW5kZXggYmZkNjIyMWFjYWU5Li4wMDAwMDAwMDAwMDAN
-Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX2tlcm5lbF9xdWV1ZV92MTAu
-Yw0KPiArKysgL2Rldi9udWxsDQo+IEBAIC0xLDMxNyArMCwwIEBADQo+IC0vKg0KPiAtICogQ29w
-eXJpZ2h0IDIwMTggQWR2YW5jZWQgTWljcm8gRGV2aWNlcywgSW5jLg0KPiAtICoNCj4gLSAqIFBl
-cm1pc3Npb24gaXMgaGVyZWJ5IGdyYW50ZWQsIGZyZWUgb2YgY2hhcmdlLCB0byBhbnkgcGVyc29u
-IG9idGFpbmluZyBhDQo+IC0gKiBjb3B5IG9mIHRoaXMgc29mdHdhcmUgYW5kIGFzc29jaWF0ZWQg
-ZG9jdW1lbnRhdGlvbiBmaWxlcyAodGhlICJTb2Z0d2FyZSIpLA0KPiAtICogdG8gZGVhbCBpbiB0
-aGUgU29mdHdhcmUgd2l0aG91dCByZXN0cmljdGlvbiwgaW5jbHVkaW5nIHdpdGhvdXQgbGltaXRh
-dGlvbg0KPiAtICogdGhlIHJpZ2h0cyB0byB1c2UsIGNvcHksIG1vZGlmeSwgbWVyZ2UsIHB1Ymxp
-c2gsIGRpc3RyaWJ1dGUsIHN1YmxpY2Vuc2UsDQo+IC0gKiBhbmQvb3Igc2VsbCBjb3BpZXMgb2Yg
-dGhlIFNvZnR3YXJlLCBhbmQgdG8gcGVybWl0IHBlcnNvbnMgdG8gd2hvbSB0aGUNCj4gLSAqIFNv
-ZnR3YXJlIGlzIGZ1cm5pc2hlZCB0byBkbyBzbywgc3ViamVjdCB0byB0aGUgZm9sbG93aW5nIGNv
-bmRpdGlvbnM6DQo+IC0gKg0KPiAtICogVGhlIGFib3ZlIGNvcHlyaWdodCBub3RpY2UgYW5kIHRo
-aXMgcGVybWlzc2lvbiBub3RpY2Ugc2hhbGwgYmUgaW5jbHVkZWQgaW4NCj4gLSAqIGFsbCBjb3Bp
-ZXMgb3Igc3Vic3RhbnRpYWwgcG9ydGlvbnMgb2YgdGhlIFNvZnR3YXJlLg0KPiAtICoNCj4gLSAq
-IFRIRSBTT0ZUV0FSRSBJUyBQUk9WSURFRCAiQVMgSVMiLCBXSVRIT1VUIFdBUlJBTlRZIE9GIEFO
-WSBLSU5ELCBFWFBSRVNTIE9SDQo+IC0gKiBJTVBMSUVELCBJTkNMVURJTkcgQlVUIE5PVCBMSU1J
-VEVEIFRPIFRIRSBXQVJSQU5USUVTIE9GIE1FUkNIQU5UQUJJTElUWSwNCj4gLSAqIEZJVE5FU1Mg
-Rk9SIEEgUEFSVElDVUxBUiBQVVJQT1NFIEFORCBOT05JTkZSSU5HRU1FTlQuICBJTiBOTyBFVkVO
-VCBTSEFMTA0KPiAtICogVEhFIENPUFlSSUdIVCBIT0xERVIoUykgT1IgQVVUSE9SKFMpIEJFIExJ
-QUJMRSBGT1IgQU5ZIENMQUlNLCBEQU1BR0VTIE9SDQo+IC0gKiBPVEhFUiBMSUFCSUxJVFksIFdI
-RVRIRVIgSU4gQU4gQUNUSU9OIE9GIENPTlRSQUNULCBUT1JUIE9SIE9USEVSV0lTRSwNCj4gLSAq
-IEFSSVNJTkcgRlJPTSwgT1VUIE9GIE9SIElOIENPTk5FQ1RJT04gV0lUSCBUSEUgU09GVFdBUkUg
-T1IgVEhFIFVTRSBPUg0KPiAtICogT1RIRVIgREVBTElOR1MgSU4gVEhFIFNPRlRXQVJFLg0KPiAt
-ICoNCj4gLSAqLw0KPiAtDQo+IC0jaW5jbHVkZSAia2ZkX2tlcm5lbF9xdWV1ZS5oIg0KPiAtI2lu
-Y2x1ZGUgImtmZF9kZXZpY2VfcXVldWVfbWFuYWdlci5oIg0KPiAtI2luY2x1ZGUgImtmZF9wbTRf
-aGVhZGVyc19haS5oIg0KPiAtI2luY2x1ZGUgImtmZF9wbTRfb3Bjb2Rlcy5oIg0KPiAtI2luY2x1
-ZGUgImdjL2djXzEwXzFfMF9zaF9tYXNrLmgiDQo+IC0NCj4gLXN0YXRpYyBib29sIGluaXRpYWxp
-emVfdjEwKHN0cnVjdCBrZXJuZWxfcXVldWUgKmtxLCBzdHJ1Y3Qga2ZkX2RldiAqZGV2LA0KPiAt
-CQkJZW51bSBrZmRfcXVldWVfdHlwZSB0eXBlLCB1bnNpZ25lZCBpbnQgcXVldWVfc2l6ZSk7DQo+
-IC1zdGF0aWMgdm9pZCB1bmluaXRpYWxpemVfdjEwKHN0cnVjdCBrZXJuZWxfcXVldWUgKmtxKTsN
-Cj4gLXN0YXRpYyB2b2lkIHN1Ym1pdF9wYWNrZXRfdjEwKHN0cnVjdCBrZXJuZWxfcXVldWUgKmtx
-KTsNCj4gLQ0KPiAtdm9pZCBrZXJuZWxfcXVldWVfaW5pdF92MTAoc3RydWN0IGtlcm5lbF9xdWV1
-ZV9vcHMgKm9wcykNCj4gLXsNCj4gLQlvcHMtPmluaXRpYWxpemUgPSBpbml0aWFsaXplX3YxMDsN
-Cj4gLQlvcHMtPnVuaW5pdGlhbGl6ZSA9IHVuaW5pdGlhbGl6ZV92MTA7DQo+IC0Jb3BzLT5zdWJt
-aXRfcGFja2V0ID0gc3VibWl0X3BhY2tldF92MTA7DQo+IC19DQo+IC0NCj4gLXN0YXRpYyBib29s
-IGluaXRpYWxpemVfdjEwKHN0cnVjdCBrZXJuZWxfcXVldWUgKmtxLCBzdHJ1Y3Qga2ZkX2RldiAq
-ZGV2LA0KPiAtCQkJZW51bSBrZmRfcXVldWVfdHlwZSB0eXBlLCB1bnNpZ25lZCBpbnQgcXVldWVf
-c2l6ZSkNCj4gLXsNCj4gLQlpbnQgcmV0dmFsOw0KPiAtDQo+IC0JcmV0dmFsID0ga2ZkX2d0dF9z
-YV9hbGxvY2F0ZShkZXYsIFBBR0VfU0laRSwgJmtxLT5lb3BfbWVtKTsNCj4gLQlpZiAocmV0dmFs
-ICE9IDApDQo+IC0JCXJldHVybiBmYWxzZTsNCj4gLQ0KPiAtCWtxLT5lb3BfZ3B1X2FkZHIgPSBr
-cS0+ZW9wX21lbS0+Z3B1X2FkZHI7DQo+IC0Ja3EtPmVvcF9rZXJuZWxfYWRkciA9IGtxLT5lb3Bf
-bWVtLT5jcHVfcHRyOw0KPiAtDQo+IC0JbWVtc2V0KGtxLT5lb3Bfa2VybmVsX2FkZHIsIDAsIFBB
-R0VfU0laRSk7DQo+IC0NCj4gLQlyZXR1cm4gdHJ1ZTsNCj4gLX0NCj4gLQ0KPiAtc3RhdGljIHZv
-aWQgdW5pbml0aWFsaXplX3YxMChzdHJ1Y3Qga2VybmVsX3F1ZXVlICprcSkNCj4gLXsNCj4gLQlr
-ZmRfZ3R0X3NhX2ZyZWUoa3EtPmRldiwga3EtPmVvcF9tZW0pOw0KPiAtfQ0KPiAtDQo+IC1zdGF0
-aWMgdm9pZCBzdWJtaXRfcGFja2V0X3YxMChzdHJ1Y3Qga2VybmVsX3F1ZXVlICprcSkNCj4gLXsN
-Cj4gLQkqa3EtPndwdHI2NF9rZXJuZWwgPSBrcS0+cGVuZGluZ193cHRyNjQ7DQo+IC0Jd3JpdGVf
-a2VybmVsX2Rvb3JiZWxsNjQoa3EtPnF1ZXVlLT5wcm9wZXJ0aWVzLmRvb3JiZWxsX3B0ciwNCj4g
-LQkJCQlrcS0+cGVuZGluZ193cHRyNjQpOw0KPiAtfQ0KPiAtDQo+IC1zdGF0aWMgaW50IHBtX21h
-cF9wcm9jZXNzX3YxMChzdHJ1Y3QgcGFja2V0X21hbmFnZXIgKnBtLA0KPiAtCQl1aW50MzJfdCAq
-YnVmZmVyLCBzdHJ1Y3QgcWNtX3Byb2Nlc3NfZGV2aWNlICpxcGQpDQo+IC17DQo+IC0Jc3RydWN0
-IHBtNF9tZXNfbWFwX3Byb2Nlc3MgKnBhY2tldDsNCj4gLQl1aW50NjRfdCB2bV9wYWdlX3RhYmxl
-X2Jhc2VfYWRkciA9IHFwZC0+cGFnZV90YWJsZV9iYXNlOw0KPiAtDQo+IC0JcGFja2V0ID0gKHN0
-cnVjdCBwbTRfbWVzX21hcF9wcm9jZXNzICopYnVmZmVyOw0KPiAtCW1lbXNldChidWZmZXIsIDAs
-IHNpemVvZihzdHJ1Y3QgcG00X21lc19tYXBfcHJvY2VzcykpOw0KPiAtDQo+IC0JcGFja2V0LT5o
-ZWFkZXIudTMyQWxsID0gcG1fYnVpbGRfcG00X2hlYWRlcihJVF9NQVBfUFJPQ0VTUywNCj4gLQkJ
-CQkJc2l6ZW9mKHN0cnVjdCBwbTRfbWVzX21hcF9wcm9jZXNzKSk7DQo+IC0JcGFja2V0LT5iaXRm
-aWVsZHMyLmRpcV9lbmFibGUgPSAocXBkLT5pc19kZWJ1ZykgPyAxIDogMDsNCj4gLQlwYWNrZXQt
-PmJpdGZpZWxkczIucHJvY2Vzc19xdWFudHVtID0gMTsNCj4gLQlwYWNrZXQtPmJpdGZpZWxkczIu
-cGFzaWQgPSBxcGQtPnBxbS0+cHJvY2Vzcy0+cGFzaWQ7DQo+IC0JcGFja2V0LT5iaXRmaWVsZHMx
-NC5nZHNfc2l6ZSA9IHFwZC0+Z2RzX3NpemU7DQo+IC0JcGFja2V0LT5iaXRmaWVsZHMxNC5udW1f
-Z3dzID0gcXBkLT5udW1fZ3dzOw0KPiAtCXBhY2tldC0+Yml0ZmllbGRzMTQubnVtX29hYyA9IHFw
-ZC0+bnVtX29hYzsNCj4gLQlwYWNrZXQtPmJpdGZpZWxkczE0LnNkbWFfZW5hYmxlID0gMTsNCj4g
-LQ0KPiAtCXBhY2tldC0+Yml0ZmllbGRzMTQubnVtX3F1ZXVlcyA9IChxcGQtPmlzX2RlYnVnKSA/
-IDAgOiBxcGQtPnF1ZXVlX2NvdW50Ow0KPiAtDQo+IC0JcGFja2V0LT5zaF9tZW1fY29uZmlnID0g
-cXBkLT5zaF9tZW1fY29uZmlnOw0KPiAtCXBhY2tldC0+c2hfbWVtX2Jhc2VzID0gcXBkLT5zaF9t
-ZW1fYmFzZXM7DQo+IC0JaWYgKHFwZC0+dGJhX2FkZHIpIHsNCj4gLQkJcGFja2V0LT5zcV9zaGFk
-ZXJfdGJhX2xvID0gbG93ZXJfMzJfYml0cyhxcGQtPnRiYV9hZGRyID4+IDgpOw0KPiAtCQlwYWNr
-ZXQtPnNxX3NoYWRlcl90YmFfaGkgPSAoMSA8PCBTUV9TSEFERVJfVEJBX0hJX19UUkFQX0VOX19T
-SElGVCkgfA0KPiAtCQkJdXBwZXJfMzJfYml0cyhxcGQtPnRiYV9hZGRyID4+IDgpOw0KPiAtCQlw
-YWNrZXQtPnNxX3NoYWRlcl90bWFfbG8gPSBsb3dlcl8zMl9iaXRzKHFwZC0+dG1hX2FkZHIgPj4g
-OCk7DQo+IC0JCXBhY2tldC0+c3Ffc2hhZGVyX3RtYV9oaSA9IHVwcGVyXzMyX2JpdHMocXBkLT50
-bWFfYWRkciA+PiA4KTsNCj4gLQl9DQo+IC0NCj4gLQlwYWNrZXQtPmdkc19hZGRyX2xvID0gbG93
-ZXJfMzJfYml0cyhxcGQtPmdkc19jb250ZXh0X2FyZWEpOw0KPiAtCXBhY2tldC0+Z2RzX2FkZHJf
-aGkgPSB1cHBlcl8zMl9iaXRzKHFwZC0+Z2RzX2NvbnRleHRfYXJlYSk7DQo+IC0NCj4gLQlwYWNr
-ZXQtPnZtX2NvbnRleHRfcGFnZV90YWJsZV9iYXNlX2FkZHJfbG8zMiA9DQo+IC0JCQlsb3dlcl8z
-Ml9iaXRzKHZtX3BhZ2VfdGFibGVfYmFzZV9hZGRyKTsNCj4gLQlwYWNrZXQtPnZtX2NvbnRleHRf
-cGFnZV90YWJsZV9iYXNlX2FkZHJfaGkzMiA9DQo+IC0JCQl1cHBlcl8zMl9iaXRzKHZtX3BhZ2Vf
-dGFibGVfYmFzZV9hZGRyKTsNCj4gLQ0KPiAtCXJldHVybiAwOw0KPiAtfQ0KPiAtDQo+IC1zdGF0
-aWMgaW50IHBtX3J1bmxpc3RfdjEwKHN0cnVjdCBwYWNrZXRfbWFuYWdlciAqcG0sIHVpbnQzMl90
-ICpidWZmZXIsDQo+IC0JCQl1aW50NjRfdCBpYiwgc2l6ZV90IGliX3NpemVfaW5fZHdvcmRzLCBi
-b29sIGNoYWluKQ0KPiAtew0KPiAtCXN0cnVjdCBwbTRfbWVzX3J1bmxpc3QgKnBhY2tldDsNCj4g
-LQ0KPiAtCWludCBjb25jdXJyZW50X3Byb2NfY250ID0gMDsNCj4gLQlzdHJ1Y3Qga2ZkX2RldiAq
-a2ZkID0gcG0tPmRxbS0+ZGV2Ow0KPiAtDQo+IC0JLyogRGV0ZXJtaW5lIHRoZSBudW1iZXIgb2Yg
-cHJvY2Vzc2VzIHRvIG1hcCB0b2dldGhlciB0byBIVzoNCj4gLQkgKiBpdCBjYW4gbm90IGV4Y2Vl
-ZCB0aGUgbnVtYmVyIG9mIFZNSURzIGF2YWlsYWJsZSB0byB0aGUNCj4gLQkgKiBzY2hlZHVsZXIs
-IGFuZCBpdCBpcyBkZXRlcm1pbmVkIGJ5IHRoZSBzbWFsbGVyIG9mIHRoZSBudW1iZXINCj4gLQkg
-KiBvZiBwcm9jZXNzZXMgaW4gdGhlIHJ1bmxpc3QgYW5kIGtmZCBtb2R1bGUgcGFyYW1ldGVyDQo+
-IC0JICogaHdzX21heF9jb25jX3Byb2MuDQo+IC0JICogTm90ZTogdGhlIGFyYml0cmF0aW9uIGJl
-dHdlZW4gdGhlIG51bWJlciBvZiBWTUlEcyBhbmQNCj4gLQkgKiBod3NfbWF4X2NvbmNfcHJvYyBo
-YXMgYmVlbiBkb25lIGluDQo+IC0JICoga2dkMmtmZF9kZXZpY2VfaW5pdCgpLg0KPiAtCSAqLw0K
-PiAtCWNvbmN1cnJlbnRfcHJvY19jbnQgPSBtaW4ocG0tPmRxbS0+cHJvY2Vzc2VzX2NvdW50LA0K
-PiAtCQkJa2ZkLT5tYXhfcHJvY19wZXJfcXVhbnR1bSk7DQo+IC0NCj4gLQ0KPiAtCXBhY2tldCA9
-IChzdHJ1Y3QgcG00X21lc19ydW5saXN0ICopYnVmZmVyOw0KPiAtDQo+IC0JbWVtc2V0KGJ1ZmZl
-ciwgMCwgc2l6ZW9mKHN0cnVjdCBwbTRfbWVzX3J1bmxpc3QpKTsNCj4gLQlwYWNrZXQtPmhlYWRl
-ci51MzJBbGwgPSBwbV9idWlsZF9wbTRfaGVhZGVyKElUX1JVTl9MSVNULA0KPiAtCQkJCQkJc2l6
-ZW9mKHN0cnVjdCBwbTRfbWVzX3J1bmxpc3QpKTsNCj4gLQ0KPiAtCXBhY2tldC0+Yml0ZmllbGRz
-NC5pYl9zaXplID0gaWJfc2l6ZV9pbl9kd29yZHM7DQo+IC0JcGFja2V0LT5iaXRmaWVsZHM0LmNo
-YWluID0gY2hhaW4gPyAxIDogMDsNCj4gLQlwYWNrZXQtPmJpdGZpZWxkczQub2ZmbG9hZF9wb2xs
-aW5nID0gMDsNCj4gLQlwYWNrZXQtPmJpdGZpZWxkczQudmFsaWQgPSAxOw0KPiAtCXBhY2tldC0+
-Yml0ZmllbGRzNC5wcm9jZXNzX2NudCA9IGNvbmN1cnJlbnRfcHJvY19jbnQ7DQo+IC0JcGFja2V0
-LT5vcmRpbmFsMiA9IGxvd2VyXzMyX2JpdHMoaWIpOw0KPiAtCXBhY2tldC0+aWJfYmFzZV9oaSA9
-IHVwcGVyXzMyX2JpdHMoaWIpOw0KPiAtDQo+IC0JcmV0dXJuIDA7DQo+IC19DQo+IC0NCj4gLXN0
-YXRpYyBpbnQgcG1fbWFwX3F1ZXVlc192MTAoc3RydWN0IHBhY2tldF9tYW5hZ2VyICpwbSwgdWlu
-dDMyX3QgKmJ1ZmZlciwNCj4gLQkJc3RydWN0IHF1ZXVlICpxLCBib29sIGlzX3N0YXRpYykNCj4g
-LXsNCj4gLQlzdHJ1Y3QgcG00X21lc19tYXBfcXVldWVzICpwYWNrZXQ7DQo+IC0JYm9vbCB1c2Vf
-c3RhdGljID0gaXNfc3RhdGljOw0KPiAtDQo+IC0JcGFja2V0ID0gKHN0cnVjdCBwbTRfbWVzX21h
-cF9xdWV1ZXMgKilidWZmZXI7DQo+IC0JbWVtc2V0KGJ1ZmZlciwgMCwgc2l6ZW9mKHN0cnVjdCBw
-bTRfbWVzX21hcF9xdWV1ZXMpKTsNCj4gLQ0KPiAtCXBhY2tldC0+aGVhZGVyLnUzMkFsbCA9IHBt
-X2J1aWxkX3BtNF9oZWFkZXIoSVRfTUFQX1FVRVVFUywNCj4gLQkJCQkJc2l6ZW9mKHN0cnVjdCBw
-bTRfbWVzX21hcF9xdWV1ZXMpKTsNCj4gLQlwYWNrZXQtPmJpdGZpZWxkczIubnVtX3F1ZXVlcyA9
-IDE7DQo+IC0JcGFja2V0LT5iaXRmaWVsZHMyLnF1ZXVlX3NlbCA9DQo+IC0JCXF1ZXVlX3NlbF9f
-bWVzX21hcF9xdWV1ZXNfX21hcF90b19od3NfZGV0ZXJtaW5lZF9xdWV1ZV9zbG90c192aTsNCj4g
-LQ0KPiAtCXBhY2tldC0+Yml0ZmllbGRzMi5lbmdpbmVfc2VsID0NCj4gLQkJZW5naW5lX3NlbF9f
-bWVzX21hcF9xdWV1ZXNfX2NvbXB1dGVfdmk7DQo+IC0JcGFja2V0LT5iaXRmaWVsZHMyLnF1ZXVl
-X3R5cGUgPQ0KPiAtCQlxdWV1ZV90eXBlX19tZXNfbWFwX3F1ZXVlc19fbm9ybWFsX2NvbXB1dGVf
-dmk7DQo+IC0NCj4gLQlzd2l0Y2ggKHEtPnByb3BlcnRpZXMudHlwZSkgew0KPiAtCWNhc2UgS0ZE
-X1FVRVVFX1RZUEVfQ09NUFVURToNCj4gLQkJaWYgKHVzZV9zdGF0aWMpDQo+IC0JCQlwYWNrZXQt
-PmJpdGZpZWxkczIucXVldWVfdHlwZSA9DQo+IC0JCXF1ZXVlX3R5cGVfX21lc19tYXBfcXVldWVz
-X19ub3JtYWxfbGF0ZW5jeV9zdGF0aWNfcXVldWVfdmk7DQo+IC0JCWJyZWFrOw0KPiAtCWNhc2Ug
-S0ZEX1FVRVVFX1RZUEVfRElROg0KPiAtCQlwYWNrZXQtPmJpdGZpZWxkczIucXVldWVfdHlwZSA9
-DQo+IC0JCQlxdWV1ZV90eXBlX19tZXNfbWFwX3F1ZXVlc19fZGVidWdfaW50ZXJmYWNlX3F1ZXVl
-X3ZpOw0KPiAtCQlicmVhazsNCj4gLQljYXNlIEtGRF9RVUVVRV9UWVBFX1NETUE6DQo+IC0JY2Fz
-ZSBLRkRfUVVFVUVfVFlQRV9TRE1BX1hHTUk6DQo+IC0JCXBhY2tldC0+Yml0ZmllbGRzMi5lbmdp
-bmVfc2VsID0gcS0+cHJvcGVydGllcy5zZG1hX2VuZ2luZV9pZCArDQo+IC0JCQkJZW5naW5lX3Nl
-bF9fbWVzX21hcF9xdWV1ZXNfX3NkbWEwX3ZpOw0KPiAtCQl1c2Vfc3RhdGljID0gZmFsc2U7IC8q
-IG5vIHN0YXRpYyBxdWV1ZXMgdW5kZXIgU0RNQSAqLw0KPiAtCQlicmVhazsNCj4gLQlkZWZhdWx0
-Og0KPiAtCQlXQVJOKDEsICJxdWV1ZSB0eXBlICVkXG4iLCBxLT5wcm9wZXJ0aWVzLnR5cGUpOw0K
-PiAtCQlyZXR1cm4gLUVJTlZBTDsNCj4gLQl9DQo+IC0JcGFja2V0LT5iaXRmaWVsZHMzLmRvb3Ji
-ZWxsX29mZnNldCA9DQo+IC0JCQlxLT5wcm9wZXJ0aWVzLmRvb3JiZWxsX29mZjsNCj4gLQ0KPiAt
-CXBhY2tldC0+bXFkX2FkZHJfbG8gPQ0KPiAtCQkJbG93ZXJfMzJfYml0cyhxLT5nYXJ0X21xZF9h
-ZGRyKTsNCj4gLQ0KPiAtCXBhY2tldC0+bXFkX2FkZHJfaGkgPQ0KPiAtCQkJdXBwZXJfMzJfYml0
-cyhxLT5nYXJ0X21xZF9hZGRyKTsNCj4gLQ0KPiAtCXBhY2tldC0+d3B0cl9hZGRyX2xvID0NCj4g
-LQkJCWxvd2VyXzMyX2JpdHMoKHVpbnQ2NF90KXEtPnByb3BlcnRpZXMud3JpdGVfcHRyKTsNCj4g
-LQ0KPiAtCXBhY2tldC0+d3B0cl9hZGRyX2hpID0NCj4gLQkJCXVwcGVyXzMyX2JpdHMoKHVpbnQ2
-NF90KXEtPnByb3BlcnRpZXMud3JpdGVfcHRyKTsNCj4gLQ0KPiAtCXJldHVybiAwOw0KPiAtfQ0K
-PiAtDQo+IC1zdGF0aWMgaW50IHBtX3VubWFwX3F1ZXVlc192MTAoc3RydWN0IHBhY2tldF9tYW5h
-Z2VyICpwbSwgdWludDMyX3QgKmJ1ZmZlciwNCj4gLQkJCWVudW0ga2ZkX3F1ZXVlX3R5cGUgdHlw
-ZSwNCj4gLQkJCWVudW0ga2ZkX3VubWFwX3F1ZXVlc19maWx0ZXIgZmlsdGVyLA0KPiAtCQkJdWlu
-dDMyX3QgZmlsdGVyX3BhcmFtLCBib29sIHJlc2V0LA0KPiAtCQkJdW5zaWduZWQgaW50IHNkbWFf
-ZW5naW5lKQ0KPiAtew0KPiAtCXN0cnVjdCBwbTRfbWVzX3VubWFwX3F1ZXVlcyAqcGFja2V0Ow0K
-PiAtDQo+IC0JcGFja2V0ID0gKHN0cnVjdCBwbTRfbWVzX3VubWFwX3F1ZXVlcyAqKWJ1ZmZlcjsN
-Cj4gLQltZW1zZXQoYnVmZmVyLCAwLCBzaXplb2Yoc3RydWN0IHBtNF9tZXNfdW5tYXBfcXVldWVz
-KSk7DQo+IC0NCj4gLQlwYWNrZXQtPmhlYWRlci51MzJBbGwgPSBwbV9idWlsZF9wbTRfaGVhZGVy
-KElUX1VOTUFQX1FVRVVFUywNCj4gLQkJCQkJc2l6ZW9mKHN0cnVjdCBwbTRfbWVzX3VubWFwX3F1
-ZXVlcykpOw0KPiAtCXN3aXRjaCAodHlwZSkgew0KPiAtCWNhc2UgS0ZEX1FVRVVFX1RZUEVfQ09N
-UFVURToNCj4gLQljYXNlIEtGRF9RVUVVRV9UWVBFX0RJUToNCj4gLQkJcGFja2V0LT5iaXRmaWVs
-ZHMyLmVuZ2luZV9zZWwgPQ0KPiAtCQkJZW5naW5lX3NlbF9fbWVzX3VubWFwX3F1ZXVlc19fY29t
-cHV0ZTsNCj4gLQkJYnJlYWs7DQo+IC0JY2FzZSBLRkRfUVVFVUVfVFlQRV9TRE1BOg0KPiAtCWNh
-c2UgS0ZEX1FVRVVFX1RZUEVfU0RNQV9YR01JOg0KPiAtCQlwYWNrZXQtPmJpdGZpZWxkczIuZW5n
-aW5lX3NlbCA9DQo+IC0JCQllbmdpbmVfc2VsX19tZXNfdW5tYXBfcXVldWVzX19zZG1hMCArIHNk
-bWFfZW5naW5lOw0KPiAtCQlicmVhazsNCj4gLQlkZWZhdWx0Og0KPiAtCQlXQVJOKDEsICJxdWV1
-ZSB0eXBlICVkXG4iLCB0eXBlKTsNCj4gLQkJYnJlYWs7DQo+IC0JfQ0KPiAtDQo+IC0JaWYgKHJl
-c2V0KQ0KPiAtCQlwYWNrZXQtPmJpdGZpZWxkczIuYWN0aW9uID0NCj4gLQkJCWFjdGlvbl9fbWVz
-X3VubWFwX3F1ZXVlc19fcmVzZXRfcXVldWVzOw0KPiAtCWVsc2UNCj4gLQkJcGFja2V0LT5iaXRm
-aWVsZHMyLmFjdGlvbiA9DQo+IC0JCQlhY3Rpb25fX21lc191bm1hcF9xdWV1ZXNfX3ByZWVtcHRf
-cXVldWVzOw0KPiAtDQo+IC0Jc3dpdGNoIChmaWx0ZXIpIHsNCj4gLQljYXNlIEtGRF9VTk1BUF9R
-VUVVRVNfRklMVEVSX1NJTkdMRV9RVUVVRToNCj4gLQkJcGFja2V0LT5iaXRmaWVsZHMyLnF1ZXVl
-X3NlbCA9DQo+IC0JCQlxdWV1ZV9zZWxfX21lc191bm1hcF9xdWV1ZXNfX3BlcmZvcm1fcmVxdWVz
-dF9vbl9zcGVjaWZpZWRfcXVldWVzOw0KPiAtCQlwYWNrZXQtPmJpdGZpZWxkczIubnVtX3F1ZXVl
-cyA9IDE7DQo+IC0JCXBhY2tldC0+Yml0ZmllbGRzM2IuZG9vcmJlbGxfb2Zmc2V0MCA9IGZpbHRl
-cl9wYXJhbTsNCj4gLQkJYnJlYWs7DQo+IC0JY2FzZSBLRkRfVU5NQVBfUVVFVUVTX0ZJTFRFUl9C
-WV9QQVNJRDoNCj4gLQkJcGFja2V0LT5iaXRmaWVsZHMyLnF1ZXVlX3NlbCA9DQo+IC0JCQlxdWV1
-ZV9zZWxfX21lc191bm1hcF9xdWV1ZXNfX3BlcmZvcm1fcmVxdWVzdF9vbl9wYXNpZF9xdWV1ZXM7
-DQo+IC0JCXBhY2tldC0+Yml0ZmllbGRzM2EucGFzaWQgPSBmaWx0ZXJfcGFyYW07DQo+IC0JCWJy
-ZWFrOw0KPiAtCWNhc2UgS0ZEX1VOTUFQX1FVRVVFU19GSUxURVJfQUxMX1FVRVVFUzoNCj4gLQkJ
-cGFja2V0LT5iaXRmaWVsZHMyLnF1ZXVlX3NlbCA9DQo+IC0JCQlxdWV1ZV9zZWxfX21lc191bm1h
-cF9xdWV1ZXNfX3VubWFwX2FsbF9xdWV1ZXM7DQo+IC0JCWJyZWFrOw0KPiAtCWNhc2UgS0ZEX1VO
-TUFQX1FVRVVFU19GSUxURVJfRFlOQU1JQ19RVUVVRVM6DQo+IC0JCS8qIGluIHRoaXMgY2FzZSwg
-d2UgZG8gbm90IHByZWVtcHQgc3RhdGljIHF1ZXVlcyAqLw0KPiAtCQlwYWNrZXQtPmJpdGZpZWxk
-czIucXVldWVfc2VsID0NCj4gLQkJCXF1ZXVlX3NlbF9fbWVzX3VubWFwX3F1ZXVlc19fdW5tYXBf
-YWxsX25vbl9zdGF0aWNfcXVldWVzOw0KPiAtCQlicmVhazsNCj4gLQlkZWZhdWx0Og0KPiAtCQlX
-QVJOKDEsICJmaWx0ZXIgJWRcbiIsIGZpbHRlcik7DQo+IC0JCWJyZWFrOw0KPiAtCX0NCj4gLQ0K
-PiAtCXJldHVybiAwOw0KPiAtDQo+IC19DQo+IC0NCj4gLXN0YXRpYyBpbnQgcG1fcXVlcnlfc3Rh
-dHVzX3YxMChzdHJ1Y3QgcGFja2V0X21hbmFnZXIgKnBtLCB1aW50MzJfdCAqYnVmZmVyLA0KPiAt
-CQkJdWludDY0X3QgZmVuY2VfYWRkcmVzcywJdWludDMyX3QgZmVuY2VfdmFsdWUpDQo+IC17DQo+
-IC0Jc3RydWN0IHBtNF9tZXNfcXVlcnlfc3RhdHVzICpwYWNrZXQ7DQo+IC0NCj4gLQlwYWNrZXQg
-PSAoc3RydWN0IHBtNF9tZXNfcXVlcnlfc3RhdHVzICopYnVmZmVyOw0KPiAtCW1lbXNldChidWZm
-ZXIsIDAsIHNpemVvZihzdHJ1Y3QgcG00X21lc19xdWVyeV9zdGF0dXMpKTsNCj4gLQ0KPiAtDQo+
-IC0JcGFja2V0LT5oZWFkZXIudTMyQWxsID0gcG1fYnVpbGRfcG00X2hlYWRlcihJVF9RVUVSWV9T
-VEFUVVMsDQo+IC0JCQkJCXNpemVvZihzdHJ1Y3QgcG00X21lc19xdWVyeV9zdGF0dXMpKTsNCj4g
-LQ0KPiAtCXBhY2tldC0+Yml0ZmllbGRzMi5jb250ZXh0X2lkID0gMDsNCj4gLQlwYWNrZXQtPmJp
-dGZpZWxkczIuaW50ZXJydXB0X3NlbCA9DQo+IC0JCQlpbnRlcnJ1cHRfc2VsX19tZXNfcXVlcnlf
-c3RhdHVzX19jb21wbGV0aW9uX3N0YXR1czsNCj4gLQlwYWNrZXQtPmJpdGZpZWxkczIuY29tbWFu
-ZCA9DQo+IC0JCQljb21tYW5kX19tZXNfcXVlcnlfc3RhdHVzX19mZW5jZV9vbmx5X2FmdGVyX3dy
-aXRlX2FjazsNCj4gLQ0KPiAtCXBhY2tldC0+YWRkcl9oaSA9IHVwcGVyXzMyX2JpdHMoKHVpbnQ2
-NF90KWZlbmNlX2FkZHJlc3MpOw0KPiAtCXBhY2tldC0+YWRkcl9sbyA9IGxvd2VyXzMyX2JpdHMo
-KHVpbnQ2NF90KWZlbmNlX2FkZHJlc3MpOw0KPiAtCXBhY2tldC0+ZGF0YV9oaSA9IHVwcGVyXzMy
-X2JpdHMoKHVpbnQ2NF90KWZlbmNlX3ZhbHVlKTsNCj4gLQlwYWNrZXQtPmRhdGFfbG8gPSBsb3dl
-cl8zMl9iaXRzKCh1aW50NjRfdClmZW5jZV92YWx1ZSk7DQo+IC0NCj4gLQlyZXR1cm4gMDsNCj4g
-LX0NCj4gLQ0KPiAtY29uc3Qgc3RydWN0IHBhY2tldF9tYW5hZ2VyX2Z1bmNzIGtmZF92MTBfcG1f
-ZnVuY3MgPSB7DQo+IC0JLm1hcF9wcm9jZXNzCQkJPSBwbV9tYXBfcHJvY2Vzc192MTAsDQo+IC0J
-LnJ1bmxpc3QJCQk9IHBtX3J1bmxpc3RfdjEwLA0KPiAtCS5zZXRfcmVzb3VyY2VzCQkJPSBwbV9z
-ZXRfcmVzb3VyY2VzX3ZpLA0KPiAtCS5tYXBfcXVldWVzCQkJPSBwbV9tYXBfcXVldWVzX3YxMCwN
-Cj4gLQkudW5tYXBfcXVldWVzCQkJPSBwbV91bm1hcF9xdWV1ZXNfdjEwLA0KPiAtCS5xdWVyeV9z
-dGF0dXMJCQk9IHBtX3F1ZXJ5X3N0YXR1c192MTAsDQo+IC0JLnJlbGVhc2VfbWVtCQkJPSBOVUxM
-LA0KPiAtCS5tYXBfcHJvY2Vzc19zaXplCQk9IHNpemVvZihzdHJ1Y3QgcG00X21lc19tYXBfcHJv
-Y2VzcyksDQo+IC0JLnJ1bmxpc3Rfc2l6ZQkJCT0gc2l6ZW9mKHN0cnVjdCBwbTRfbWVzX3J1bmxp
-c3QpLA0KPiAtCS5zZXRfcmVzb3VyY2VzX3NpemUJCT0gc2l6ZW9mKHN0cnVjdCBwbTRfbWVzX3Nl
-dF9yZXNvdXJjZXMpLA0KPiAtCS5tYXBfcXVldWVzX3NpemUJCT0gc2l6ZW9mKHN0cnVjdCBwbTRf
-bWVzX21hcF9xdWV1ZXMpLA0KPiAtCS51bm1hcF9xdWV1ZXNfc2l6ZQkJPSBzaXplb2Yoc3RydWN0
-IHBtNF9tZXNfdW5tYXBfcXVldWVzKSwNCj4gLQkucXVlcnlfc3RhdHVzX3NpemUJCT0gc2l6ZW9m
-KHN0cnVjdCBwbTRfbWVzX3F1ZXJ5X3N0YXR1cyksDQo+IC0JLnJlbGVhc2VfbWVtX3NpemUJCT0g
-MCwNCj4gLX07DQo+IC0NCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2Zk
-L2tmZF9rZXJuZWxfcXVldWVfdjkuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9r
-ZXJuZWxfcXVldWVfdjkuYw0KPiBpbmRleCBmMGU0OTEwYTg4NjUuLjllMGVhZjQ0NmJhYiAxMDA2
-NDQNCj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX2tlcm5lbF9xdWV1ZV92
-OS5jDQo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9rZXJuZWxfcXVldWVf
-djkuYw0KPiBAQCAtMjUsNiArMjUsNyBAQA0KPiAgICNpbmNsdWRlICJrZmRfZGV2aWNlX3F1ZXVl
-X21hbmFnZXIuaCINCj4gICAjaW5jbHVkZSAia2ZkX3BtNF9oZWFkZXJzX2FpLmgiDQo+ICAgI2lu
-Y2x1ZGUgImtmZF9wbTRfb3Bjb2Rlcy5oIg0KPiArI2luY2x1ZGUgImdjL2djXzEwXzFfMF9zaF9t
-YXNrLmgiDQo+ICAgDQo+ICAgc3RhdGljIGJvb2wgaW5pdGlhbGl6ZV92OShzdHJ1Y3Qga2VybmVs
-X3F1ZXVlICprcSwgc3RydWN0IGtmZF9kZXYgKmRldiwNCj4gICAJCQllbnVtIGtmZF9xdWV1ZV90
-eXBlIHR5cGUsIHVuc2lnbmVkIGludCBxdWV1ZV9zaXplKQ0KPiBAQCAtODUsMTAgKzg2LDE3IEBA
-IHN0YXRpYyBpbnQgcG1fbWFwX3Byb2Nlc3Nfdjkoc3RydWN0IHBhY2tldF9tYW5hZ2VyICpwbSwN
-Cj4gICANCj4gICAJcGFja2V0LT5zaF9tZW1fY29uZmlnID0gcXBkLT5zaF9tZW1fY29uZmlnOw0K
-PiAgIAlwYWNrZXQtPnNoX21lbV9iYXNlcyA9IHFwZC0+c2hfbWVtX2Jhc2VzOw0KPiAtCXBhY2tl
-dC0+c3Ffc2hhZGVyX3RiYV9sbyA9IGxvd2VyXzMyX2JpdHMocXBkLT50YmFfYWRkciA+PiA4KTsN
-Cj4gLQlwYWNrZXQtPnNxX3NoYWRlcl90YmFfaGkgPSB1cHBlcl8zMl9iaXRzKHFwZC0+dGJhX2Fk
-ZHIgPj4gOCk7DQo+IC0JcGFja2V0LT5zcV9zaGFkZXJfdG1hX2xvID0gbG93ZXJfMzJfYml0cyhx
-cGQtPnRtYV9hZGRyID4+IDgpOw0KPiAtCXBhY2tldC0+c3Ffc2hhZGVyX3RtYV9oaSA9IHVwcGVy
-XzMyX2JpdHMocXBkLT50bWFfYWRkciA+PiA4KTsNCj4gKwlpZiAocXBkLT50YmFfYWRkcikgew0K
-PiArCQlwYWNrZXQtPnNxX3NoYWRlcl90YmFfbG8gPSBsb3dlcl8zMl9iaXRzKHFwZC0+dGJhX2Fk
-ZHIgPj4gOCk7DQo+ICsJCS8qIE9uIEdGWDksIHVubGlrZSBHRlgxMCwgYml0IFRSQVBfRU4gb2Yg
-U1FfU0hBREVSX1RCQV9ISSBpcw0KPiArCQkgKiBub3QgZGVmaW5lZCwgc28gc2V0dGluZyBpdCB3
-b24ndCBkbyBhbnkgaGFybS4NCj4gKwkJICovDQo+ICsJCXBhY2tldC0+c3Ffc2hhZGVyX3RiYV9o
-aSA9IHVwcGVyXzMyX2JpdHMocXBkLT50YmFfYWRkciA+PiA4KQ0KPiArCQkJCXwgMSA8PCBTUV9T
-SEFERVJfVEJBX0hJX19UUkFQX0VOX19TSElGVDsNCj4gKw0KPiArCQlwYWNrZXQtPnNxX3NoYWRl
-cl90bWFfbG8gPSBsb3dlcl8zMl9iaXRzKHFwZC0+dG1hX2FkZHIgPj4gOCk7DQo+ICsJCXBhY2tl
-dC0+c3Ffc2hhZGVyX3RtYV9oaSA9IHVwcGVyXzMyX2JpdHMocXBkLT50bWFfYWRkciA+PiA4KTsN
-Cj4gKwl9DQo+ICAgDQo+ICAgCXBhY2tldC0+Z2RzX2FkZHJfbG8gPSBsb3dlcl8zMl9iaXRzKHFw
-ZC0+Z2RzX2NvbnRleHRfYXJlYSk7DQo+ICAgCXBhY2tldC0+Z2RzX2FkZHJfaGkgPSB1cHBlcl8z
-Ml9iaXRzKHFwZC0+Z2RzX2NvbnRleHRfYXJlYSk7DQo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dw
-dS9kcm0vYW1kL2FtZGtmZC9rZmRfcGFja2V0X21hbmFnZXIuYyBiL2RyaXZlcnMvZ3B1L2RybS9h
-bWQvYW1ka2ZkL2tmZF9wYWNrZXRfbWFuYWdlci5jDQo+IGluZGV4IDgzZWY0YjNkZDJmYi4uNzAw
-YmU0ZjgwODY3IDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRf
-cGFja2V0X21hbmFnZXIuYw0KPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRf
-cGFja2V0X21hbmFnZXIuYw0KPiBAQCAtMjQxLDEyICsyNDEsMTAgQEAgaW50IHBtX2luaXQoc3Ry
-dWN0IHBhY2tldF9tYW5hZ2VyICpwbSwgc3RydWN0IGRldmljZV9xdWV1ZV9tYW5hZ2VyICpkcW0p
-DQo+ICAgCWNhc2UgQ0hJUF9SQVZFTjoNCj4gICAJY2FzZSBDSElQX1JFTk9JUjoNCj4gICAJY2Fz
-ZSBDSElQX0FSQ1RVUlVTOg0KPiAtCQlwbS0+cG1mID0gJmtmZF92OV9wbV9mdW5jczsNCj4gLQkJ
-YnJlYWs7DQo+ICAgCWNhc2UgQ0hJUF9OQVZJMTA6DQo+ICAgCWNhc2UgQ0hJUF9OQVZJMTI6DQo+
-ICAgCWNhc2UgQ0hJUF9OQVZJMTQ6DQo+IC0JCXBtLT5wbWYgPSAma2ZkX3YxMF9wbV9mdW5jczsN
-Cj4gKwkJcG0tPnBtZiA9ICZrZmRfdjlfcG1fZnVuY3M7DQo+ICAgCQlicmVhazsNCj4gICAJZGVm
-YXVsdDoNCj4gICAJCVdBUk4oMSwgIlVuZXhwZWN0ZWQgQVNJQyBmYW1pbHkgJXUiLA0KPiBkaWZm
-IC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX3ByaXYuaCBiL2RyaXZlcnMv
-Z3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9wcml2LmgNCj4gaW5kZXggNjJkYjRkMjBlZDMyLi5mMjA3
-OGJmYjhhZTEgMTAwNjQ0DQo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9w
-cml2LmgNCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX3ByaXYuaA0KPiBA
-QCAtOTc3LDcgKzk3Nyw2IEBAIHN0cnVjdCBwYWNrZXRfbWFuYWdlcl9mdW5jcyB7DQo+ICAgDQo+
-ICAgZXh0ZXJuIGNvbnN0IHN0cnVjdCBwYWNrZXRfbWFuYWdlcl9mdW5jcyBrZmRfdmlfcG1fZnVu
-Y3M7DQo+ICAgZXh0ZXJuIGNvbnN0IHN0cnVjdCBwYWNrZXRfbWFuYWdlcl9mdW5jcyBrZmRfdjlf
-cG1fZnVuY3M7DQo+IC1leHRlcm4gY29uc3Qgc3RydWN0IHBhY2tldF9tYW5hZ2VyX2Z1bmNzIGtm
-ZF92MTBfcG1fZnVuY3M7DQo+ICAgDQo+ICAgaW50IHBtX2luaXQoc3RydWN0IHBhY2tldF9tYW5h
-Z2VyICpwbSwgc3RydWN0IGRldmljZV9xdWV1ZV9tYW5hZ2VyICpkcW0pOw0KPiAgIHZvaWQgcG1f
-dW5pbml0KHN0cnVjdCBwYWNrZXRfbWFuYWdlciAqcG0pOw0KPiBAQCAtOTk2LDkgKzk5NSw2IEBA
-IHZvaWQgcG1fcmVsZWFzZV9pYihzdHJ1Y3QgcGFja2V0X21hbmFnZXIgKnBtKTsNCj4gICANCj4g
-ICAvKiBGb2xsb3dpbmcgUE0gZnVuY3MgY2FuIGJlIHNoYXJlZCBhbW9uZyBWSSBhbmQgQUkgKi8N
-Cj4gICB1bnNpZ25lZCBpbnQgcG1fYnVpbGRfcG00X2hlYWRlcih1bnNpZ25lZCBpbnQgb3Bjb2Rl
-LCBzaXplX3QgcGFja2V0X3NpemUpOw0KPiAtaW50IHBtX3NldF9yZXNvdXJjZXNfdmkoc3RydWN0
-IHBhY2tldF9tYW5hZ2VyICpwbSwgdWludDMyX3QgKmJ1ZmZlciwNCj4gLQkJCXN0cnVjdCBzY2hl
-ZHVsaW5nX3Jlc291cmNlcyAqcmVzKTsNCj4gLQ0KPiAgIA0KPiAgIHVpbnQ2NF90IGtmZF9nZXRf
-bnVtYmVyX2VsZW1zKHN0cnVjdCBrZmRfZGV2ICprZmQpOw0KPiAgIA0KX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1k
-LWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcv
-bWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+--===============0828746311==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_DM6PR12MB2778273C513A51D90A0109CCF0780DM6PR12MB2778namp_"
+
+--_000_DM6PR12MB2778273C513A51D90A0109CCF0780DM6PR12MB2778namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+Okay. I submitted a PSDB. Meanwhile, I got the answer from FW and SQ HW con=
+tact that nothing bad will happen on GFX9 by writing 1 to TRAP_EN.
+
+Regards,
+Yong
+________________________________
+From: Kuehling, Felix <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
+Sent: Thursday, November 7, 2019 4:07 PM
+To: Zhao, Yong <Yong.Zhao-5C7GfCeVMHo@public.gmane.org>; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org <amd-gfx@=
+lists.freedesktop.org>
+Subject: Re: [PATCH] drm/amdkfd: Use kernel queue v9 functions for v10 (ver=
+2)
+
+Are you sure that setting the SQ_SHADER_TBA_HI__TRAP_EN bit on GFXv9 is
+completely harmless? If the field is not defined, maybe setting the bit
+makes the address invalid. It's probably worth running that through a
+PSDB, which would cover Vega10, Vega20 and Arcturus.
+
+If it actually works, the patch is
+
+Reviewed-by: Felix Kuehling <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
+
+Regards,
+   Felix
+
+On 2019-11-07 15:34, Zhao, Yong wrote:
+> The kernel queue functions for v9 and v10 are the same except
+> pm_map_process_v* which have small difference, so they should be reused.
+> This eliminates the need of reapplying several patches which were
+> applied on v9 but not on v10, such as bigger GWS and more than 2
+> SDMA engine support which were introduced on Arcturus.
+>
+> Change-Id: I2d385961e3c884db14e30b5afc98d0d9e4cb1802
+> Signed-off-by: Yong Zhao <Yong.Zhao-5C7GfCeVMHo@public.gmane.org>
+> ---
+>   drivers/gpu/drm/amd/amdkfd/Makefile           |   1 -
+>   drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.c |   4 +-
+>   drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.h |   1 -
+>   .../gpu/drm/amd/amdkfd/kfd_kernel_queue_v10.c | 317 ------------------
+>   .../gpu/drm/amd/amdkfd/kfd_kernel_queue_v9.c  |  16 +-
+>   .../gpu/drm/amd/amdkfd/kfd_packet_manager.c   |   4 +-
+>   drivers/gpu/drm/amd/amdkfd/kfd_priv.h         |   4 -
+>   7 files changed, 14 insertions(+), 333 deletions(-)
+>   delete mode 100644 drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue_v10.c
+>
+> diff --git a/drivers/gpu/drm/amd/amdkfd/Makefile b/drivers/gpu/drm/amd/am=
+dkfd/Makefile
+> index 48155060a57c..017a8b7156da 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/Makefile
+> +++ b/drivers/gpu/drm/amd/amdkfd/Makefile
+> @@ -41,7 +41,6 @@ AMDKFD_FILES        :=3D $(AMDKFD_PATH)/kfd_module.o \
+>                $(AMDKFD_PATH)/kfd_kernel_queue_cik.o \
+>                $(AMDKFD_PATH)/kfd_kernel_queue_vi.o \
+>                $(AMDKFD_PATH)/kfd_kernel_queue_v9.o \
+> -             $(AMDKFD_PATH)/kfd_kernel_queue_v10.o \
+>                $(AMDKFD_PATH)/kfd_packet_manager.o \
+>                $(AMDKFD_PATH)/kfd_process_queue_manager.o \
+>                $(AMDKFD_PATH)/kfd_device_queue_manager.o \
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.c b/drivers/gpu/=
+drm/amd/amdkfd/kfd_kernel_queue.c
+> index 11d244891393..0d966408ea87 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.c
+> @@ -332,12 +332,10 @@ struct kernel_queue *kernel_queue_init(struct kfd_d=
+ev *dev,
+>        case CHIP_RAVEN:
+>        case CHIP_RENOIR:
+>        case CHIP_ARCTURUS:
+> -             kernel_queue_init_v9(&kq->ops_asic_specific);
+> -             break;
+>        case CHIP_NAVI10:
+>        case CHIP_NAVI12:
+>        case CHIP_NAVI14:
+> -             kernel_queue_init_v10(&kq->ops_asic_specific);
+> +             kernel_queue_init_v9(&kq->ops_asic_specific);
+>                break;
+>        default:
+>                WARN(1, "Unexpected ASIC family %u",
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.h b/drivers/gpu/=
+drm/amd/amdkfd/kfd_kernel_queue.h
+> index 365fc674fea4..a7116a939029 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.h
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.h
+> @@ -102,6 +102,5 @@ struct kernel_queue {
+>   void kernel_queue_init_cik(struct kernel_queue_ops *ops);
+>   void kernel_queue_init_vi(struct kernel_queue_ops *ops);
+>   void kernel_queue_init_v9(struct kernel_queue_ops *ops);
+> -void kernel_queue_init_v10(struct kernel_queue_ops *ops);
+>
+>   #endif /* KFD_KERNEL_QUEUE_H_ */
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue_v10.c b/drivers/=
+gpu/drm/amd/amdkfd/kfd_kernel_queue_v10.c
+> deleted file mode 100644
+> index bfd6221acae9..000000000000
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue_v10.c
+> +++ /dev/null
+> @@ -1,317 +0,0 @@
+> -/*
+> - * Copyright 2018 Advanced Micro Devices, Inc.
+> - *
+> - * Permission is hereby granted, free of charge, to any person obtaining=
+ a
+> - * copy of this software and associated documentation files (the "Softwa=
+re"),
+> - * to deal in the Software without restriction, including without limita=
+tion
+> - * the rights to use, copy, modify, merge, publish, distribute, sublicen=
+se,
+> - * and/or sell copies of the Software, and to permit persons to whom the
+> - * Software is furnished to do so, subject to the following conditions:
+> - *
+> - * The above copyright notice and this permission notice shall be includ=
+ed in
+> - * all copies or substantial portions of the Software.
+> - *
+> - * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRE=
+SS OR
+> - * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILI=
+TY,
+> - * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SH=
+ALL
+> - * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES=
+ OR
+> - * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+> - * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+> - * OTHER DEALINGS IN THE SOFTWARE.
+> - *
+> - */
+> -
+> -#include "kfd_kernel_queue.h"
+> -#include "kfd_device_queue_manager.h"
+> -#include "kfd_pm4_headers_ai.h"
+> -#include "kfd_pm4_opcodes.h"
+> -#include "gc/gc_10_1_0_sh_mask.h"
+> -
+> -static bool initialize_v10(struct kernel_queue *kq, struct kfd_dev *dev,
+> -                     enum kfd_queue_type type, unsigned int queue_size);
+> -static void uninitialize_v10(struct kernel_queue *kq);
+> -static void submit_packet_v10(struct kernel_queue *kq);
+> -
+> -void kernel_queue_init_v10(struct kernel_queue_ops *ops)
+> -{
+> -     ops->initialize =3D initialize_v10;
+> -     ops->uninitialize =3D uninitialize_v10;
+> -     ops->submit_packet =3D submit_packet_v10;
+> -}
+> -
+> -static bool initialize_v10(struct kernel_queue *kq, struct kfd_dev *dev,
+> -                     enum kfd_queue_type type, unsigned int queue_size)
+> -{
+> -     int retval;
+> -
+> -     retval =3D kfd_gtt_sa_allocate(dev, PAGE_SIZE, &kq->eop_mem);
+> -     if (retval !=3D 0)
+> -             return false;
+> -
+> -     kq->eop_gpu_addr =3D kq->eop_mem->gpu_addr;
+> -     kq->eop_kernel_addr =3D kq->eop_mem->cpu_ptr;
+> -
+> -     memset(kq->eop_kernel_addr, 0, PAGE_SIZE);
+> -
+> -     return true;
+> -}
+> -
+> -static void uninitialize_v10(struct kernel_queue *kq)
+> -{
+> -     kfd_gtt_sa_free(kq->dev, kq->eop_mem);
+> -}
+> -
+> -static void submit_packet_v10(struct kernel_queue *kq)
+> -{
+> -     *kq->wptr64_kernel =3D kq->pending_wptr64;
+> -     write_kernel_doorbell64(kq->queue->properties.doorbell_ptr,
+> -                             kq->pending_wptr64);
+> -}
+> -
+> -static int pm_map_process_v10(struct packet_manager *pm,
+> -             uint32_t *buffer, struct qcm_process_device *qpd)
+> -{
+> -     struct pm4_mes_map_process *packet;
+> -     uint64_t vm_page_table_base_addr =3D qpd->page_table_base;
+> -
+> -     packet =3D (struct pm4_mes_map_process *)buffer;
+> -     memset(buffer, 0, sizeof(struct pm4_mes_map_process));
+> -
+> -     packet->header.u32All =3D pm_build_pm4_header(IT_MAP_PROCESS,
+> -                                     sizeof(struct pm4_mes_map_process))=
+;
+> -     packet->bitfields2.diq_enable =3D (qpd->is_debug) ? 1 : 0;
+> -     packet->bitfields2.process_quantum =3D 1;
+> -     packet->bitfields2.pasid =3D qpd->pqm->process->pasid;
+> -     packet->bitfields14.gds_size =3D qpd->gds_size;
+> -     packet->bitfields14.num_gws =3D qpd->num_gws;
+> -     packet->bitfields14.num_oac =3D qpd->num_oac;
+> -     packet->bitfields14.sdma_enable =3D 1;
+> -
+> -     packet->bitfields14.num_queues =3D (qpd->is_debug) ? 0 : qpd->queue=
+_count;
+> -
+> -     packet->sh_mem_config =3D qpd->sh_mem_config;
+> -     packet->sh_mem_bases =3D qpd->sh_mem_bases;
+> -     if (qpd->tba_addr) {
+> -             packet->sq_shader_tba_lo =3D lower_32_bits(qpd->tba_addr >>=
+ 8);
+> -             packet->sq_shader_tba_hi =3D (1 << SQ_SHADER_TBA_HI__TRAP_E=
+N__SHIFT) |
+> -                     upper_32_bits(qpd->tba_addr >> 8);
+> -             packet->sq_shader_tma_lo =3D lower_32_bits(qpd->tma_addr >>=
+ 8);
+> -             packet->sq_shader_tma_hi =3D upper_32_bits(qpd->tma_addr >>=
+ 8);
+> -     }
+> -
+> -     packet->gds_addr_lo =3D lower_32_bits(qpd->gds_context_area);
+> -     packet->gds_addr_hi =3D upper_32_bits(qpd->gds_context_area);
+> -
+> -     packet->vm_context_page_table_base_addr_lo32 =3D
+> -                     lower_32_bits(vm_page_table_base_addr);
+> -     packet->vm_context_page_table_base_addr_hi32 =3D
+> -                     upper_32_bits(vm_page_table_base_addr);
+> -
+> -     return 0;
+> -}
+> -
+> -static int pm_runlist_v10(struct packet_manager *pm, uint32_t *buffer,
+> -                     uint64_t ib, size_t ib_size_in_dwords, bool chain)
+> -{
+> -     struct pm4_mes_runlist *packet;
+> -
+> -     int concurrent_proc_cnt =3D 0;
+> -     struct kfd_dev *kfd =3D pm->dqm->dev;
+> -
+> -     /* Determine the number of processes to map together to HW:
+> -      * it can not exceed the number of VMIDs available to the
+> -      * scheduler, and it is determined by the smaller of the number
+> -      * of processes in the runlist and kfd module parameter
+> -      * hws_max_conc_proc.
+> -      * Note: the arbitration between the number of VMIDs and
+> -      * hws_max_conc_proc has been done in
+> -      * kgd2kfd_device_init().
+> -      */
+> -     concurrent_proc_cnt =3D min(pm->dqm->processes_count,
+> -                     kfd->max_proc_per_quantum);
+> -
+> -
+> -     packet =3D (struct pm4_mes_runlist *)buffer;
+> -
+> -     memset(buffer, 0, sizeof(struct pm4_mes_runlist));
+> -     packet->header.u32All =3D pm_build_pm4_header(IT_RUN_LIST,
+> -                                             sizeof(struct pm4_mes_runli=
+st));
+> -
+> -     packet->bitfields4.ib_size =3D ib_size_in_dwords;
+> -     packet->bitfields4.chain =3D chain ? 1 : 0;
+> -     packet->bitfields4.offload_polling =3D 0;
+> -     packet->bitfields4.valid =3D 1;
+> -     packet->bitfields4.process_cnt =3D concurrent_proc_cnt;
+> -     packet->ordinal2 =3D lower_32_bits(ib);
+> -     packet->ib_base_hi =3D upper_32_bits(ib);
+> -
+> -     return 0;
+> -}
+> -
+> -static int pm_map_queues_v10(struct packet_manager *pm, uint32_t *buffer=
+,
+> -             struct queue *q, bool is_static)
+> -{
+> -     struct pm4_mes_map_queues *packet;
+> -     bool use_static =3D is_static;
+> -
+> -     packet =3D (struct pm4_mes_map_queues *)buffer;
+> -     memset(buffer, 0, sizeof(struct pm4_mes_map_queues));
+> -
+> -     packet->header.u32All =3D pm_build_pm4_header(IT_MAP_QUEUES,
+> -                                     sizeof(struct pm4_mes_map_queues));
+> -     packet->bitfields2.num_queues =3D 1;
+> -     packet->bitfields2.queue_sel =3D
+> -             queue_sel__mes_map_queues__map_to_hws_determined_queue_slot=
+s_vi;
+> -
+> -     packet->bitfields2.engine_sel =3D
+> -             engine_sel__mes_map_queues__compute_vi;
+> -     packet->bitfields2.queue_type =3D
+> -             queue_type__mes_map_queues__normal_compute_vi;
+> -
+> -     switch (q->properties.type) {
+> -     case KFD_QUEUE_TYPE_COMPUTE:
+> -             if (use_static)
+> -                     packet->bitfields2.queue_type =3D
+> -             queue_type__mes_map_queues__normal_latency_static_queue_vi;
+> -             break;
+> -     case KFD_QUEUE_TYPE_DIQ:
+> -             packet->bitfields2.queue_type =3D
+> -                     queue_type__mes_map_queues__debug_interface_queue_v=
+i;
+> -             break;
+> -     case KFD_QUEUE_TYPE_SDMA:
+> -     case KFD_QUEUE_TYPE_SDMA_XGMI:
+> -             packet->bitfields2.engine_sel =3D q->properties.sdma_engine=
+_id +
+> -                             engine_sel__mes_map_queues__sdma0_vi;
+> -             use_static =3D false; /* no static queues under SDMA */
+> -             break;
+> -     default:
+> -             WARN(1, "queue type %d\n", q->properties.type);
+> -             return -EINVAL;
+> -     }
+> -     packet->bitfields3.doorbell_offset =3D
+> -                     q->properties.doorbell_off;
+> -
+> -     packet->mqd_addr_lo =3D
+> -                     lower_32_bits(q->gart_mqd_addr);
+> -
+> -     packet->mqd_addr_hi =3D
+> -                     upper_32_bits(q->gart_mqd_addr);
+> -
+> -     packet->wptr_addr_lo =3D
+> -                     lower_32_bits((uint64_t)q->properties.write_ptr);
+> -
+> -     packet->wptr_addr_hi =3D
+> -                     upper_32_bits((uint64_t)q->properties.write_ptr);
+> -
+> -     return 0;
+> -}
+> -
+> -static int pm_unmap_queues_v10(struct packet_manager *pm, uint32_t *buff=
+er,
+> -                     enum kfd_queue_type type,
+> -                     enum kfd_unmap_queues_filter filter,
+> -                     uint32_t filter_param, bool reset,
+> -                     unsigned int sdma_engine)
+> -{
+> -     struct pm4_mes_unmap_queues *packet;
+> -
+> -     packet =3D (struct pm4_mes_unmap_queues *)buffer;
+> -     memset(buffer, 0, sizeof(struct pm4_mes_unmap_queues));
+> -
+> -     packet->header.u32All =3D pm_build_pm4_header(IT_UNMAP_QUEUES,
+> -                                     sizeof(struct pm4_mes_unmap_queues)=
+);
+> -     switch (type) {
+> -     case KFD_QUEUE_TYPE_COMPUTE:
+> -     case KFD_QUEUE_TYPE_DIQ:
+> -             packet->bitfields2.engine_sel =3D
+> -                     engine_sel__mes_unmap_queues__compute;
+> -             break;
+> -     case KFD_QUEUE_TYPE_SDMA:
+> -     case KFD_QUEUE_TYPE_SDMA_XGMI:
+> -             packet->bitfields2.engine_sel =3D
+> -                     engine_sel__mes_unmap_queues__sdma0 + sdma_engine;
+> -             break;
+> -     default:
+> -             WARN(1, "queue type %d\n", type);
+> -             break;
+> -     }
+> -
+> -     if (reset)
+> -             packet->bitfields2.action =3D
+> -                     action__mes_unmap_queues__reset_queues;
+> -     else
+> -             packet->bitfields2.action =3D
+> -                     action__mes_unmap_queues__preempt_queues;
+> -
+> -     switch (filter) {
+> -     case KFD_UNMAP_QUEUES_FILTER_SINGLE_QUEUE:
+> -             packet->bitfields2.queue_sel =3D
+> -                     queue_sel__mes_unmap_queues__perform_request_on_spe=
+cified_queues;
+> -             packet->bitfields2.num_queues =3D 1;
+> -             packet->bitfields3b.doorbell_offset0 =3D filter_param;
+> -             break;
+> -     case KFD_UNMAP_QUEUES_FILTER_BY_PASID:
+> -             packet->bitfields2.queue_sel =3D
+> -                     queue_sel__mes_unmap_queues__perform_request_on_pas=
+id_queues;
+> -             packet->bitfields3a.pasid =3D filter_param;
+> -             break;
+> -     case KFD_UNMAP_QUEUES_FILTER_ALL_QUEUES:
+> -             packet->bitfields2.queue_sel =3D
+> -                     queue_sel__mes_unmap_queues__unmap_all_queues;
+> -             break;
+> -     case KFD_UNMAP_QUEUES_FILTER_DYNAMIC_QUEUES:
+> -             /* in this case, we do not preempt static queues */
+> -             packet->bitfields2.queue_sel =3D
+> -                     queue_sel__mes_unmap_queues__unmap_all_non_static_q=
+ueues;
+> -             break;
+> -     default:
+> -             WARN(1, "filter %d\n", filter);
+> -             break;
+> -     }
+> -
+> -     return 0;
+> -
+> -}
+> -
+> -static int pm_query_status_v10(struct packet_manager *pm, uint32_t *buff=
+er,
+> -                     uint64_t fence_address, uint32_t fence_value)
+> -{
+> -     struct pm4_mes_query_status *packet;
+> -
+> -     packet =3D (struct pm4_mes_query_status *)buffer;
+> -     memset(buffer, 0, sizeof(struct pm4_mes_query_status));
+> -
+> -
+> -     packet->header.u32All =3D pm_build_pm4_header(IT_QUERY_STATUS,
+> -                                     sizeof(struct pm4_mes_query_status)=
+);
+> -
+> -     packet->bitfields2.context_id =3D 0;
+> -     packet->bitfields2.interrupt_sel =3D
+> -                     interrupt_sel__mes_query_status__completion_status;
+> -     packet->bitfields2.command =3D
+> -                     command__mes_query_status__fence_only_after_write_a=
+ck;
+> -
+> -     packet->addr_hi =3D upper_32_bits((uint64_t)fence_address);
+> -     packet->addr_lo =3D lower_32_bits((uint64_t)fence_address);
+> -     packet->data_hi =3D upper_32_bits((uint64_t)fence_value);
+> -     packet->data_lo =3D lower_32_bits((uint64_t)fence_value);
+> -
+> -     return 0;
+> -}
+> -
+> -const struct packet_manager_funcs kfd_v10_pm_funcs =3D {
+> -     .map_process                    =3D pm_map_process_v10,
+> -     .runlist                        =3D pm_runlist_v10,
+> -     .set_resources                  =3D pm_set_resources_vi,
+> -     .map_queues                     =3D pm_map_queues_v10,
+> -     .unmap_queues                   =3D pm_unmap_queues_v10,
+> -     .query_status                   =3D pm_query_status_v10,
+> -     .release_mem                    =3D NULL,
+> -     .map_process_size               =3D sizeof(struct pm4_mes_map_proce=
+ss),
+> -     .runlist_size                   =3D sizeof(struct pm4_mes_runlist),
+> -     .set_resources_size             =3D sizeof(struct pm4_mes_set_resou=
+rces),
+> -     .map_queues_size                =3D sizeof(struct pm4_mes_map_queue=
+s),
+> -     .unmap_queues_size              =3D sizeof(struct pm4_mes_unmap_que=
+ues),
+> -     .query_status_size              =3D sizeof(struct pm4_mes_query_sta=
+tus),
+> -     .release_mem_size               =3D 0,
+> -};
+> -
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue_v9.c b/drivers/g=
+pu/drm/amd/amdkfd/kfd_kernel_queue_v9.c
+> index f0e4910a8865..9e0eaf446bab 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue_v9.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue_v9.c
+> @@ -25,6 +25,7 @@
+>   #include "kfd_device_queue_manager.h"
+>   #include "kfd_pm4_headers_ai.h"
+>   #include "kfd_pm4_opcodes.h"
+> +#include "gc/gc_10_1_0_sh_mask.h"
+>
+>   static bool initialize_v9(struct kernel_queue *kq, struct kfd_dev *dev,
+>                        enum kfd_queue_type type, unsigned int queue_size)
+> @@ -85,10 +86,17 @@ static int pm_map_process_v9(struct packet_manager *p=
+m,
+>
+>        packet->sh_mem_config =3D qpd->sh_mem_config;
+>        packet->sh_mem_bases =3D qpd->sh_mem_bases;
+> -     packet->sq_shader_tba_lo =3D lower_32_bits(qpd->tba_addr >> 8);
+> -     packet->sq_shader_tba_hi =3D upper_32_bits(qpd->tba_addr >> 8);
+> -     packet->sq_shader_tma_lo =3D lower_32_bits(qpd->tma_addr >> 8);
+> -     packet->sq_shader_tma_hi =3D upper_32_bits(qpd->tma_addr >> 8);
+> +     if (qpd->tba_addr) {
+> +             packet->sq_shader_tba_lo =3D lower_32_bits(qpd->tba_addr >>=
+ 8);
+> +             /* On GFX9, unlike GFX10, bit TRAP_EN of SQ_SHADER_TBA_HI i=
+s
+> +              * not defined, so setting it won't do any harm.
+> +              */
+> +             packet->sq_shader_tba_hi =3D upper_32_bits(qpd->tba_addr >>=
+ 8)
+> +                             | 1 << SQ_SHADER_TBA_HI__TRAP_EN__SHIFT;
+> +
+> +             packet->sq_shader_tma_lo =3D lower_32_bits(qpd->tma_addr >>=
+ 8);
+> +             packet->sq_shader_tma_hi =3D upper_32_bits(qpd->tma_addr >>=
+ 8);
+> +     }
+>
+>        packet->gds_addr_lo =3D lower_32_bits(qpd->gds_context_area);
+>        packet->gds_addr_hi =3D upper_32_bits(qpd->gds_context_area);
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager.c b/drivers/gp=
+u/drm/amd/amdkfd/kfd_packet_manager.c
+> index 83ef4b3dd2fb..700be4f80867 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager.c
+> @@ -241,12 +241,10 @@ int pm_init(struct packet_manager *pm, struct devic=
+e_queue_manager *dqm)
+>        case CHIP_RAVEN:
+>        case CHIP_RENOIR:
+>        case CHIP_ARCTURUS:
+> -             pm->pmf =3D &kfd_v9_pm_funcs;
+> -             break;
+>        case CHIP_NAVI10:
+>        case CHIP_NAVI12:
+>        case CHIP_NAVI14:
+> -             pm->pmf =3D &kfd_v10_pm_funcs;
+> +             pm->pmf =3D &kfd_v9_pm_funcs;
+>                break;
+>        default:
+>                WARN(1, "Unexpected ASIC family %u",
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/=
+amdkfd/kfd_priv.h
+> index 62db4d20ed32..f2078bfb8ae1 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+> @@ -977,7 +977,6 @@ struct packet_manager_funcs {
+>
+>   extern const struct packet_manager_funcs kfd_vi_pm_funcs;
+>   extern const struct packet_manager_funcs kfd_v9_pm_funcs;
+> -extern const struct packet_manager_funcs kfd_v10_pm_funcs;
+>
+>   int pm_init(struct packet_manager *pm, struct device_queue_manager *dqm=
+);
+>   void pm_uninit(struct packet_manager *pm);
+> @@ -996,9 +995,6 @@ void pm_release_ib(struct packet_manager *pm);
+>
+>   /* Following PM funcs can be shared among VI and AI */
+>   unsigned int pm_build_pm4_header(unsigned int opcode, size_t packet_siz=
+e);
+> -int pm_set_resources_vi(struct packet_manager *pm, uint32_t *buffer,
+> -                     struct scheduling_resources *res);
+> -
+>
+>   uint64_t kfd_get_number_elems(struct kfd_dev *kfd);
+>
+
+--_000_DM6PR12MB2778273C513A51D90A0109CCF0780DM6PR12MB2778namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Okay. I submitted a PSDB. Meanwhile, I got the answer from FW and SQ HW con=
+tact that nothing bad will happen on GFX9 by writing 1 to&nbsp;<span style=
+=3D"color: rgb(32, 31, 30); font-family: &quot;Segoe UI&quot;, &quot;Segoe =
+UI Web (West European)&quot;, &quot;Segoe UI&quot;, -apple-system, BlinkMac=
+SystemFont, Roboto, &quot;Helvetica Neue&quot;, sans-serif; font-size: 14.6=
+667px; background-color: rgb(255, 255, 255); display: inline !important">TR=
+AP_EN.</span></div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<span style=3D"color: rgb(32, 31, 30); font-family: &quot;Segoe UI&quot;, &=
+quot;Segoe UI Web (West European)&quot;, &quot;Segoe UI&quot;, -apple-syste=
+m, BlinkMacSystemFont, Roboto, &quot;Helvetica Neue&quot;, sans-serif; font=
+-size: 14.6667px; background-color: rgb(255, 255, 255); display: inline !im=
+portant"><br>
+</span></div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<span style=3D"color: rgb(32, 31, 30); font-family: &quot;Segoe UI&quot;, &=
+quot;Segoe UI Web (West European)&quot;, &quot;Segoe UI&quot;, -apple-syste=
+m, BlinkMacSystemFont, Roboto, &quot;Helvetica Neue&quot;, sans-serif; font=
+-size: 14.6667px; background-color: rgb(255, 255, 255); display: inline !im=
+portant">Regards,</span></div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<span style=3D"color: rgb(32, 31, 30); font-family: &quot;Segoe UI&quot;, &=
+quot;Segoe UI Web (West European)&quot;, &quot;Segoe UI&quot;, -apple-syste=
+m, BlinkMacSystemFont, Roboto, &quot;Helvetica Neue&quot;, sans-serif; font=
+-size: 14.6667px; background-color: rgb(255, 255, 255); display: inline !im=
+portant">Yong</span></div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Kuehling, Felix &lt;F=
+elix.Kuehling-5C7GfCeVMHo@public.gmane.org&gt;<br>
+<b>Sent:</b> Thursday, November 7, 2019 4:07 PM<br>
+<b>To:</b> Zhao, Yong &lt;Yong.Zhao-5C7GfCeVMHo@public.gmane.org&gt;; amd-gfx-PD4FTy7X32lNgt0PjOBp9/rsn8yoX9R0@public.gmane.org=
+org &lt;amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt;<br>
+<b>Subject:</b> Re: [PATCH] drm/amdkfd: Use kernel queue v9 functions for v=
+10 (ver2)</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">Are you sure that setting the SQ_SHADER_TBA_HI__TR=
+AP_EN bit on GFXv9 is
+<br>
+completely harmless? If the field is not defined, maybe setting the bit <br=
+>
+makes the address invalid. It's probably worth running that through a <br>
+PSDB, which would cover Vega10, Vega20 and Arcturus.<br>
+<br>
+If it actually works, the patch is<br>
+<br>
+Reviewed-by: Felix Kuehling &lt;Felix.Kuehling-5C7GfCeVMHo@public.gmane.org&gt;<br>
+<br>
+Regards,<br>
+&nbsp;&nbsp; Felix<br>
+<br>
+On 2019-11-07 15:34, Zhao, Yong wrote:<br>
+&gt; The kernel queue functions for v9 and v10 are the same except<br>
+&gt; pm_map_process_v* which have small difference, so they should be reuse=
+d.<br>
+&gt; This eliminates the need of reapplying several patches which were<br>
+&gt; applied on v9 but not on v10, such as bigger GWS and more than 2<br>
+&gt; SDMA engine support which were introduced on Arcturus.<br>
+&gt;<br>
+&gt; Change-Id: I2d385961e3c884db14e30b5afc98d0d9e4cb1802<br>
+&gt; Signed-off-by: Yong Zhao &lt;Yong.Zhao-5C7GfCeVMHo@public.gmane.org&gt;<br>
+&gt; ---<br>
+&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdkfd/Makefile&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp; 1 -<br>
+&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.c |&nbsp;&nbsp=
+; 4 &#43;-<br>
+&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.h |&nbsp;&nbsp=
+; 1 -<br>
+&gt;&nbsp;&nbsp; .../gpu/drm/amd/amdkfd/kfd_kernel_queue_v10.c | 317 ------=
+------------<br>
+&gt;&nbsp;&nbsp; .../gpu/drm/amd/amdkfd/kfd_kernel_queue_v9.c&nbsp; |&nbsp;=
+ 16 &#43;-<br>
+&gt;&nbsp;&nbsp; .../gpu/drm/amd/amdkfd/kfd_packet_manager.c&nbsp;&nbsp; |&=
+nbsp;&nbsp; 4 &#43;-<br>
+&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdkfd/kfd_priv.h&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp; 4 -<br>
+&gt;&nbsp;&nbsp; 7 files changed, 14 insertions(&#43;), 333 deletions(-)<br=
+>
+&gt;&nbsp;&nbsp; delete mode 100644 drivers/gpu/drm/amd/amdkfd/kfd_kernel_q=
+ueue_v10.c<br>
+&gt;<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdkfd/Makefile b/drivers/gpu/drm/amd=
+/amdkfd/Makefile<br>
+&gt; index 48155060a57c..017a8b7156da 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdkfd/Makefile<br>
+&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdkfd/Makefile<br>
+&gt; @@ -41,7 &#43;41,6 @@ AMDKFD_FILES&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp; :=3D $(AMDKFD_PATH)/kfd_module.o \<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; $(AMDKFD_PATH)/kfd_kernel_queue_cik.o \<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; $(AMDKFD_PATH)/kfd_kernel_queue_vi.o \<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; $(AMDKFD_PATH)/kfd_kernel_queue_v9.o \<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; $(AMDKFD_PATH)/kfd_kernel_queue_v10.o \<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; $(AMDKFD_PATH)/kfd_packet_manager.o \<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; $(AMDKFD_PATH)/kfd_process_queue_manager.o \<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; $(AMDKFD_PATH)/kfd_device_queue_manager.o \<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.c b/drivers/g=
+pu/drm/amd/amdkfd/kfd_kernel_queue.c<br>
+&gt; index 11d244891393..0d966408ea87 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.c<br>
+&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.c<br>
+&gt; @@ -332,12 &#43;332,10 @@ struct kernel_queue *kernel_queue_init(struc=
+t kfd_dev *dev,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_RAVEN:<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_RENOIR:<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_ARCTURUS:<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; kernel_queue_init_v9(&amp;kq-&gt;ops_asic_specific);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; break;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_NAVI10:<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_NAVI12:<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_NAVI14:<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; kernel_queue_init_v10(&amp;kq-&gt;ops_asic_specific);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; kernel_queue_init_v9(&amp;kq-&gt;ops_asic_specific);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; break;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; default:<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; WARN(1, &quot;Unexpected ASIC family %u&quot;,<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.h b/drivers/g=
+pu/drm/amd/amdkfd/kfd_kernel_queue.h<br>
+&gt; index 365fc674fea4..a7116a939029 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.h<br>
+&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.h<br>
+&gt; @@ -102,6 &#43;102,5 @@ struct kernel_queue {<br>
+&gt;&nbsp;&nbsp; void kernel_queue_init_cik(struct kernel_queue_ops *ops);<=
+br>
+&gt;&nbsp;&nbsp; void kernel_queue_init_vi(struct kernel_queue_ops *ops);<b=
+r>
+&gt;&nbsp;&nbsp; void kernel_queue_init_v9(struct kernel_queue_ops *ops);<b=
+r>
+&gt; -void kernel_queue_init_v10(struct kernel_queue_ops *ops);<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp; #endif /* KFD_KERNEL_QUEUE_H_ */<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue_v10.c b/drive=
+rs/gpu/drm/amd/amdkfd/kfd_kernel_queue_v10.c<br>
+&gt; deleted file mode 100644<br>
+&gt; index bfd6221acae9..000000000000<br>
+&gt; --- a/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue_v10.c<br>
+&gt; &#43;&#43;&#43; /dev/null<br>
+&gt; @@ -1,317 &#43;0,0 @@<br>
+&gt; -/*<br>
+&gt; - * Copyright 2018 Advanced Micro Devices, Inc.<br>
+&gt; - *<br>
+&gt; - * Permission is hereby granted, free of charge, to any person obtain=
+ing a<br>
+&gt; - * copy of this software and associated documentation files (the &quo=
+t;Software&quot;),<br>
+&gt; - * to deal in the Software without restriction, including without lim=
+itation<br>
+&gt; - * the rights to use, copy, modify, merge, publish, distribute, subli=
+cense,<br>
+&gt; - * and/or sell copies of the Software, and to permit persons to whom =
+the<br>
+&gt; - * Software is furnished to do so, subject to the following condition=
+s:<br>
+&gt; - *<br>
+&gt; - * The above copyright notice and this permission notice shall be inc=
+luded in<br>
+&gt; - * all copies or substantial portions of the Software.<br>
+&gt; - *<br>
+&gt; - * THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF AN=
+Y KIND, EXPRESS OR<br>
+&gt; - * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTAB=
+ILITY,<br>
+&gt; - * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.&nbsp; IN NO =
+EVENT SHALL<br>
+&gt; - * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMA=
+GES OR<br>
+&gt; - * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWI=
+SE,<br>
+&gt; - * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE=
+ OR<br>
+&gt; - * OTHER DEALINGS IN THE SOFTWARE.<br>
+&gt; - *<br>
+&gt; - */<br>
+&gt; -<br>
+&gt; -#include &quot;kfd_kernel_queue.h&quot;<br>
+&gt; -#include &quot;kfd_device_queue_manager.h&quot;<br>
+&gt; -#include &quot;kfd_pm4_headers_ai.h&quot;<br>
+&gt; -#include &quot;kfd_pm4_opcodes.h&quot;<br>
+&gt; -#include &quot;gc/gc_10_1_0_sh_mask.h&quot;<br>
+&gt; -<br>
+&gt; -static bool initialize_v10(struct kernel_queue *kq, struct kfd_dev *d=
+ev,<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; enum kfd_queue_type typ=
+e, unsigned int queue_size);<br>
+&gt; -static void uninitialize_v10(struct kernel_queue *kq);<br>
+&gt; -static void submit_packet_v10(struct kernel_queue *kq);<br>
+&gt; -<br>
+&gt; -void kernel_queue_init_v10(struct kernel_queue_ops *ops)<br>
+&gt; -{<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; ops-&gt;initialize =3D initialize_v10;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; ops-&gt;uninitialize =3D uninitialize_v10;<b=
+r>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; ops-&gt;submit_packet =3D submit_packet_v10;=
+<br>
+&gt; -}<br>
+&gt; -<br>
+&gt; -static bool initialize_v10(struct kernel_queue *kq, struct kfd_dev *d=
+ev,<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; enum kfd_queue_type typ=
+e, unsigned int queue_size)<br>
+&gt; -{<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; int retval;<br>
+&gt; -<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; retval =3D kfd_gtt_sa_allocate(dev, PAGE_SIZ=
+E, &amp;kq-&gt;eop_mem);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; if (retval !=3D 0)<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; return false;<br>
+&gt; -<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; kq-&gt;eop_gpu_addr =3D kq-&gt;eop_mem-&gt;g=
+pu_addr;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; kq-&gt;eop_kernel_addr =3D kq-&gt;eop_mem-&g=
+t;cpu_ptr;<br>
+&gt; -<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; memset(kq-&gt;eop_kernel_addr, 0, PAGE_SIZE)=
+;<br>
+&gt; -<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; return true;<br>
+&gt; -}<br>
+&gt; -<br>
+&gt; -static void uninitialize_v10(struct kernel_queue *kq)<br>
+&gt; -{<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; kfd_gtt_sa_free(kq-&gt;dev, kq-&gt;eop_mem);=
+<br>
+&gt; -}<br>
+&gt; -<br>
+&gt; -static void submit_packet_v10(struct kernel_queue *kq)<br>
+&gt; -{<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; *kq-&gt;wptr64_kernel =3D kq-&gt;pending_wpt=
+r64;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; write_kernel_doorbell64(kq-&gt;queue-&gt;pro=
+perties.doorbell_ptr,<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp; kq-&gt;pending_wptr64);<br>
+&gt; -}<br>
+&gt; -<br>
+&gt; -static int pm_map_process_v10(struct packet_manager *pm,<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; uint32_t *buffer, struct qcm_process_device *qpd)<br>
+&gt; -{<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; struct pm4_mes_map_process *packet;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; uint64_t vm_page_table_base_addr =3D qpd-&gt=
+;page_table_base;<br>
+&gt; -<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; packet =3D (struct pm4_mes_map_process *)buf=
+fer;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; memset(buffer, 0, sizeof(struct pm4_mes_map_=
+process));<br>
+&gt; -<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; packet-&gt;header.u32All =3D pm_build_pm4_he=
+ader(IT_MAP_PROCESS,<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; si=
+zeof(struct pm4_mes_map_process));<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; packet-&gt;bitfields2.diq_enable =3D (qpd-&g=
+t;is_debug) ? 1 : 0;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; packet-&gt;bitfields2.process_quantum =3D 1;=
+<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; packet-&gt;bitfields2.pasid =3D qpd-&gt;pqm-=
+&gt;process-&gt;pasid;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; packet-&gt;bitfields14.gds_size =3D qpd-&gt;=
+gds_size;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; packet-&gt;bitfields14.num_gws =3D qpd-&gt;n=
+um_gws;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; packet-&gt;bitfields14.num_oac =3D qpd-&gt;n=
+um_oac;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; packet-&gt;bitfields14.sdma_enable =3D 1;<br=
+>
+&gt; -<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; packet-&gt;bitfields14.num_queues =3D (qpd-&=
+gt;is_debug) ? 0 : qpd-&gt;queue_count;<br>
+&gt; -<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; packet-&gt;sh_mem_config =3D qpd-&gt;sh_mem_=
+config;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; packet-&gt;sh_mem_bases =3D qpd-&gt;sh_mem_b=
+ases;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; if (qpd-&gt;tba_addr) {<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; packet-&gt;sq_shader_tba_lo =3D lower_32_bits(qpd-&gt;tba_addr &gt;&gt;=
+ 8);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; packet-&gt;sq_shader_tba_hi =3D (1 &lt;&lt; SQ_SHADER_TBA_HI__TRAP_EN__=
+SHIFT) |<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; upper_32_bits(qpd-&gt;t=
+ba_addr &gt;&gt; 8);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; packet-&gt;sq_shader_tma_lo =3D lower_32_bits(qpd-&gt;tma_addr &gt;&gt;=
+ 8);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; packet-&gt;sq_shader_tma_hi =3D upper_32_bits(qpd-&gt;tma_addr &gt;&gt;=
+ 8);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt; -<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; packet-&gt;gds_addr_lo =3D lower_32_bits(qpd=
+-&gt;gds_context_area);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; packet-&gt;gds_addr_hi =3D upper_32_bits(qpd=
+-&gt;gds_context_area);<br>
+&gt; -<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; packet-&gt;vm_context_page_table_base_addr_l=
+o32 =3D<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; lower_32_bits(vm_page_t=
+able_base_addr);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; packet-&gt;vm_context_page_table_base_addr_h=
+i32 =3D<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; upper_32_bits(vm_page_t=
+able_base_addr);<br>
+&gt; -<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+&gt; -}<br>
+&gt; -<br>
+&gt; -static int pm_runlist_v10(struct packet_manager *pm, uint32_t *buffer=
+,<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint64_t ib, size_t ib_=
+size_in_dwords, bool chain)<br>
+&gt; -{<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; struct pm4_mes_runlist *packet;<br>
+&gt; -<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; int concurrent_proc_cnt =3D 0;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; struct kfd_dev *kfd =3D pm-&gt;dqm-&gt;dev;<=
+br>
+&gt; -<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; /* Determine the number of processes to map =
+together to HW:<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * it can not exceed the number of VMID=
+s available to the<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * scheduler, and it is determined by t=
+he smaller of the number<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * of processes in the runlist and kfd =
+module parameter<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * hws_max_conc_proc.<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * Note: the arbitration between the nu=
+mber of VMIDs and<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * hws_max_conc_proc has been done in<b=
+r>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * kgd2kfd_device_init().<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; concurrent_proc_cnt =3D min(pm-&gt;dqm-&gt;p=
+rocesses_count,<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfd-&gt;max_proc_per_qu=
+antum);<br>
+&gt; -<br>
+&gt; -<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; packet =3D (struct pm4_mes_runlist *)buffer;=
+<br>
+&gt; -<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; memset(buffer, 0, sizeof(struct pm4_mes_runl=
+ist));<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; packet-&gt;header.u32All =3D pm_build_pm4_he=
+ader(IT_RUN_LIST,<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; sizeof(struct pm4_mes_runlist=
+));<br>
+&gt; -<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; packet-&gt;bitfields4.ib_size =3D ib_size_in=
+_dwords;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; packet-&gt;bitfields4.chain =3D chain ? 1 : =
+0;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; packet-&gt;bitfields4.offload_polling =3D 0;=
+<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; packet-&gt;bitfields4.valid =3D 1;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; packet-&gt;bitfields4.process_cnt =3D concur=
+rent_proc_cnt;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; packet-&gt;ordinal2 =3D lower_32_bits(ib);<b=
+r>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; packet-&gt;ib_base_hi =3D upper_32_bits(ib);=
+<br>
+&gt; -<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+&gt; -}<br>
+&gt; -<br>
+&gt; -static int pm_map_queues_v10(struct packet_manager *pm, uint32_t *buf=
+fer,<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; struct queue *q, bool is_static)<br>
+&gt; -{<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; struct pm4_mes_map_queues *packet;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; bool use_static =3D is_static;<br>
+&gt; -<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; packet =3D (struct pm4_mes_map_queues *)buff=
+er;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; memset(buffer, 0, sizeof(struct pm4_mes_map_=
+queues));<br>
+&gt; -<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; packet-&gt;header.u32All =3D pm_build_pm4_he=
+ader(IT_MAP_QUEUES,<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; si=
+zeof(struct pm4_mes_map_queues));<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; packet-&gt;bitfields2.num_queues =3D 1;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; packet-&gt;bitfields2.queue_sel =3D<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; queue_sel__mes_map_queues__map_to_hws_determined_queue_slots_vi;<br>
+&gt; -<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; packet-&gt;bitfields2.engine_sel =3D<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; engine_sel__mes_map_queues__compute_vi;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; packet-&gt;bitfields2.queue_type =3D<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; queue_type__mes_map_queues__normal_compute_vi;<br>
+&gt; -<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; switch (q-&gt;properties.type) {<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; case KFD_QUEUE_TYPE_COMPUTE:<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; if (use_static)<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; packet-&gt;bitfields2.q=
+ueue_type =3D<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; queue_type__mes_map_queues__normal_latency_static_queue_vi;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; break;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; case KFD_QUEUE_TYPE_DIQ:<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; packet-&gt;bitfields2.queue_type =3D<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; queue_type__mes_map_que=
+ues__debug_interface_queue_vi;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; break;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; case KFD_QUEUE_TYPE_SDMA:<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; case KFD_QUEUE_TYPE_SDMA_XGMI:<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; packet-&gt;bitfields2.engine_sel =3D q-&gt;properties.sdma_engine_id &#=
+43;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp; engine_sel__mes_map_queues__sdma0_vi;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; use_static =3D false; /* no static queues under SDMA */<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; break;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; default:<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; WARN(1, &quot;queue type %d\n&quot;, q-&gt;properties.type);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; return -EINVAL;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; packet-&gt;bitfields3.doorbell_offset =3D<br=
+>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; q-&gt;properties.doorbe=
+ll_off;<br>
+&gt; -<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; packet-&gt;mqd_addr_lo =3D<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; lower_32_bits(q-&gt;gar=
+t_mqd_addr);<br>
+&gt; -<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; packet-&gt;mqd_addr_hi =3D<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; upper_32_bits(q-&gt;gar=
+t_mqd_addr);<br>
+&gt; -<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; packet-&gt;wptr_addr_lo =3D<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; lower_32_bits((uint64_t=
+)q-&gt;properties.write_ptr);<br>
+&gt; -<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; packet-&gt;wptr_addr_hi =3D<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; upper_32_bits((uint64_t=
+)q-&gt;properties.write_ptr);<br>
+&gt; -<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+&gt; -}<br>
+&gt; -<br>
+&gt; -static int pm_unmap_queues_v10(struct packet_manager *pm, uint32_t *b=
+uffer,<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; enum kfd_queue_type typ=
+e,<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; enum kfd_unmap_queues_f=
+ilter filter,<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t filter_param, =
+bool reset,<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unsigned int sdma_engin=
+e)<br>
+&gt; -{<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; struct pm4_mes_unmap_queues *packet;<br>
+&gt; -<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; packet =3D (struct pm4_mes_unmap_queues *)bu=
+ffer;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; memset(buffer, 0, sizeof(struct pm4_mes_unma=
+p_queues));<br>
+&gt; -<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; packet-&gt;header.u32All =3D pm_build_pm4_he=
+ader(IT_UNMAP_QUEUES,<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; si=
+zeof(struct pm4_mes_unmap_queues));<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; switch (type) {<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; case KFD_QUEUE_TYPE_COMPUTE:<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; case KFD_QUEUE_TYPE_DIQ:<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; packet-&gt;bitfields2.engine_sel =3D<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; engine_sel__mes_unmap_q=
+ueues__compute;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; break;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; case KFD_QUEUE_TYPE_SDMA:<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; case KFD_QUEUE_TYPE_SDMA_XGMI:<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; packet-&gt;bitfields2.engine_sel =3D<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; engine_sel__mes_unmap_q=
+ueues__sdma0 &#43; sdma_engine;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; break;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; default:<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; WARN(1, &quot;queue type %d\n&quot;, type);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; break;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt; -<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; if (reset)<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; packet-&gt;bitfields2.action =3D<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; action__mes_unmap_queue=
+s__reset_queues;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; else<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; packet-&gt;bitfields2.action =3D<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; action__mes_unmap_queue=
+s__preempt_queues;<br>
+&gt; -<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; switch (filter) {<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; case KFD_UNMAP_QUEUES_FILTER_SINGLE_QUEUE:<b=
+r>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; packet-&gt;bitfields2.queue_sel =3D<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; queue_sel__mes_unmap_qu=
+eues__perform_request_on_specified_queues;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; packet-&gt;bitfields2.num_queues =3D 1;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; packet-&gt;bitfields3b.doorbell_offset0 =3D filter_param;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; break;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; case KFD_UNMAP_QUEUES_FILTER_BY_PASID:<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; packet-&gt;bitfields2.queue_sel =3D<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; queue_sel__mes_unmap_qu=
+eues__perform_request_on_pasid_queues;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; packet-&gt;bitfields3a.pasid =3D filter_param;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; break;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; case KFD_UNMAP_QUEUES_FILTER_ALL_QUEUES:<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; packet-&gt;bitfields2.queue_sel =3D<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; queue_sel__mes_unmap_qu=
+eues__unmap_all_queues;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; break;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; case KFD_UNMAP_QUEUES_FILTER_DYNAMIC_QUEUES:=
+<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; /* in this case, we do not preempt static queues */<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; packet-&gt;bitfields2.queue_sel =3D<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; queue_sel__mes_unmap_qu=
+eues__unmap_all_non_static_queues;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; break;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; default:<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; WARN(1, &quot;filter %d\n&quot;, filter);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; break;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt; -<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+&gt; -<br>
+&gt; -}<br>
+&gt; -<br>
+&gt; -static int pm_query_status_v10(struct packet_manager *pm, uint32_t *b=
+uffer,<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint64_t fence_address,=
+ uint32_t fence_value)<br>
+&gt; -{<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; struct pm4_mes_query_status *packet;<br>
+&gt; -<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; packet =3D (struct pm4_mes_query_status *)bu=
+ffer;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; memset(buffer, 0, sizeof(struct pm4_mes_quer=
+y_status));<br>
+&gt; -<br>
+&gt; -<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; packet-&gt;header.u32All =3D pm_build_pm4_he=
+ader(IT_QUERY_STATUS,<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; si=
+zeof(struct pm4_mes_query_status));<br>
+&gt; -<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; packet-&gt;bitfields2.context_id =3D 0;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; packet-&gt;bitfields2.interrupt_sel =3D<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; interrupt_sel__mes_quer=
+y_status__completion_status;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; packet-&gt;bitfields2.command =3D<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; command__mes_query_stat=
+us__fence_only_after_write_ack;<br>
+&gt; -<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; packet-&gt;addr_hi =3D upper_32_bits((uint64=
+_t)fence_address);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; packet-&gt;addr_lo =3D lower_32_bits((uint64=
+_t)fence_address);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; packet-&gt;data_hi =3D upper_32_bits((uint64=
+_t)fence_value);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; packet-&gt;data_lo =3D lower_32_bits((uint64=
+_t)fence_value);<br>
+&gt; -<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+&gt; -}<br>
+&gt; -<br>
+&gt; -const struct packet_manager_funcs kfd_v10_pm_funcs =3D {<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; .map_process&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; =3D pm_map_process_v10,<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; .runlist&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp; =3D pm_runlist_v10,<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; .set_resources&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =
+=3D pm_set_resources_vi,<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; .map_queues&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp; =3D pm_map_queues_v10,<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; .unmap_queues&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p; =3D pm_unmap_queues_v10,<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; .query_status&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p; =3D pm_query_status_v10,<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; .release_mem&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; =3D NULL,<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; .map_process_size&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =3D sizeof(struct=
+ pm4_mes_map_process),<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; .runlist_size&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p; =3D sizeof(struct pm4_mes_runlist),<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; .set_resources_size&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =3D sizeof(struct pm4_mes_s=
+et_resources),<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; .map_queues_size&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =3D sizeof(s=
+truct pm4_mes_map_queues),<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; .unmap_queues_size&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =3D sizeof(struct pm4_=
+mes_unmap_queues),<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; .query_status_size&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =3D sizeof(struct pm4_=
+mes_query_status),<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; .release_mem_size&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =3D 0,<br>
+&gt; -};<br>
+&gt; -<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue_v9.c b/driver=
+s/gpu/drm/amd/amdkfd/kfd_kernel_queue_v9.c<br>
+&gt; index f0e4910a8865..9e0eaf446bab 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue_v9.c<br>
+&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue_v9.c<br>
+&gt; @@ -25,6 &#43;25,7 @@<br>
+&gt;&nbsp;&nbsp; #include &quot;kfd_device_queue_manager.h&quot;<br>
+&gt;&nbsp;&nbsp; #include &quot;kfd_pm4_headers_ai.h&quot;<br>
+&gt;&nbsp;&nbsp; #include &quot;kfd_pm4_opcodes.h&quot;<br>
+&gt; &#43;#include &quot;gc/gc_10_1_0_sh_mask.h&quot;<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp; static bool initialize_v9(struct kernel_queue *kq, struct =
+kfd_dev *dev,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; enum kf=
+d_queue_type type, unsigned int queue_size)<br>
+&gt; @@ -85,10 &#43;86,17 @@ static int pm_map_process_v9(struct packet_man=
+ager *pm,<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; packet-&gt;sh_mem_config =3D=
+ qpd-&gt;sh_mem_config;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; packet-&gt;sh_mem_bases =3D =
+qpd-&gt;sh_mem_bases;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; packet-&gt;sq_shader_tba_lo =3D lower_32_bit=
+s(qpd-&gt;tba_addr &gt;&gt; 8);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; packet-&gt;sq_shader_tba_hi =3D upper_32_bit=
+s(qpd-&gt;tba_addr &gt;&gt; 8);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; packet-&gt;sq_shader_tma_lo =3D lower_32_bit=
+s(qpd-&gt;tma_addr &gt;&gt; 8);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; packet-&gt;sq_shader_tma_hi =3D upper_32_bit=
+s(qpd-&gt;tma_addr &gt;&gt; 8);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; if (qpd-&gt;tba_addr) {<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; packet-&gt;sq_shader_tba_lo =3D lower_32_bits(qpd-&gt;tba_addr &gt;=
+&gt; 8);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; /* On GFX9, unlike GFX10, bit TRAP_EN of SQ_SHADER_TBA_HI is<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; * not defined, so setting it won't do any harm.<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; */<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; packet-&gt;sq_shader_tba_hi =3D upper_32_bits(qpd-&gt;tba_addr &gt;=
+&gt; 8)<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp; | 1 &lt;&lt; SQ_SHADER_TBA_HI__TRAP_EN__SHIFT;=
+<br>
+&gt; &#43;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; packet-&gt;sq_shader_tma_lo =3D lower_32_bits(qpd-&gt;tma_addr &gt;=
+&gt; 8);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; packet-&gt;sq_shader_tma_hi =3D upper_32_bits(qpd-&gt;tma_addr &gt;=
+&gt; 8);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; packet-&gt;gds_addr_lo =3D l=
+ower_32_bits(qpd-&gt;gds_context_area);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; packet-&gt;gds_addr_hi =3D u=
+pper_32_bits(qpd-&gt;gds_context_area);<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager.c b/drivers=
+/gpu/drm/amd/amdkfd/kfd_packet_manager.c<br>
+&gt; index 83ef4b3dd2fb..700be4f80867 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager.c<br>
+&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager.c<br>
+&gt; @@ -241,12 &#43;241,10 @@ int pm_init(struct packet_manager *pm, struc=
+t device_queue_manager *dqm)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_RAVEN:<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_RENOIR:<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_ARCTURUS:<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; pm-&gt;pmf =3D &amp;kfd_v9_pm_funcs;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; break;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_NAVI10:<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_NAVI12:<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_NAVI14:<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; pm-&gt;pmf =3D &amp;kfd_v10_pm_funcs;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; pm-&gt;pmf =3D &amp;kfd_v9_pm_funcs;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; break;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; default:<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; WARN(1, &quot;Unexpected ASIC family %u&quot;,<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/a=
+md/amdkfd/kfd_priv.h<br>
+&gt; index 62db4d20ed32..f2078bfb8ae1 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h<br>
+&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h<br>
+&gt; @@ -977,7 &#43;977,6 @@ struct packet_manager_funcs {<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp; extern const struct packet_manager_funcs kfd_vi_pm_funcs;<=
+br>
+&gt;&nbsp;&nbsp; extern const struct packet_manager_funcs kfd_v9_pm_funcs;<=
+br>
+&gt; -extern const struct packet_manager_funcs kfd_v10_pm_funcs;<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp; int pm_init(struct packet_manager *pm, struct device_queue=
+_manager *dqm);<br>
+&gt;&nbsp;&nbsp; void pm_uninit(struct packet_manager *pm);<br>
+&gt; @@ -996,9 &#43;995,6 @@ void pm_release_ib(struct packet_manager *pm);=
+<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp; /* Following PM funcs can be shared among VI and AI */<br>
+&gt;&nbsp;&nbsp; unsigned int pm_build_pm4_header(unsigned int opcode, size=
+_t packet_size);<br>
+&gt; -int pm_set_resources_vi(struct packet_manager *pm, uint32_t *buffer,<=
+br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct scheduling_resou=
+rces *res);<br>
+&gt; -<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp; uint64_t kfd_get_number_elems(struct kfd_dev *kfd);<br>
+&gt;&nbsp;&nbsp; <br>
+</div>
+</span></font></div>
+</body>
+</html>
+
+--_000_DM6PR12MB2778273C513A51D90A0109CCF0780DM6PR12MB2778namp_--
+
+--===============0828746311==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+
+--===============0828746311==--
