@@ -2,103 +2,97 @@ Return-Path: <SRS0=ouc1=Y7=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.2 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-6.7 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
+	HTML_MESSAGE,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,
+	SPF_PASS autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 674B0FC6195
-	for <amd-gfx@archiver.kernel.org>; Thu,  7 Nov 2019 17:48:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id CC954C43331
+	for <amd-gfx@archiver.kernel.org>; Thu,  7 Nov 2019 18:02:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 47E25218AE
-	for <amd-gfx@archiver.kernel.org>; Thu,  7 Nov 2019 17:48:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 47E25218AE
+	by mail.kernel.org (Postfix) with ESMTPS id A26A32178F
+	for <amd-gfx@archiver.kernel.org>; Thu,  7 Nov 2019 18:02:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A26A32178F
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 16B336F76B;
-	Thu,  7 Nov 2019 17:48:04 +0000 (UTC)
-Received: from NAM01-SN1-obe.outbound.protection.outlook.com
- (mail-eopbgr820075.outbound.protection.outlook.com [40.107.82.75])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E132B6F76B
- for <amd-gfx@lists.freedesktop.org>; Thu,  7 Nov 2019 17:48:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6107F6F772;
+	Thu,  7 Nov 2019 18:02:10 +0000 (UTC)
+Received: from NAM05-CO1-obe.outbound.protection.outlook.com
+ (mail-eopbgr720052.outbound.protection.outlook.com [40.107.72.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 224F26F771
+ for <amd-gfx@lists.freedesktop.org>; Thu,  7 Nov 2019 18:02:09 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=E4FbEB0oZ9i9A/khJ4sneotfyVNlsJbczR3FAEHuo0CtpX90uKAadDSX2KqaQRVQa7tHThF6kK8AX6hkmVHu46a31VXqF/Bvf8fv5jTI25OGj9mnyHJzKRU37t2UD4wtIg5sZ6p1CqwtqKMcx8zWs4pb+Yxp6vopaYgSJ8/VDmvgklwY0mAzSaB6Q4J3sAN6u1Trm02DNz0Fb9dSnMrnGa/t1JmWvrZwr8gADnp5nrMptjQBvpqeASZNNHIkSfIurqEGOeddfx98NbKvQEzbzjeg4uE1Mx/HfnI9C2VJaYDIBcxZbN0iQF2KWvsHLbcP6nrVUADDW4HyRsUOOBzGaA==
+ b=KoJrPFc6a4pieMFKoxYsPGE/rcip4lLw+WXn/79XHa1CG1seUGkDeh6T52VKVYVz7qkzv5ywMRsOW6Yk9b6rkE1RFYaWLwsTU/VAxTGIMVYwFxm0qcqKfy62xYRCDdgzOzSkiSbrReVRVulKNVEq4vr/OuKqpqcWip+Vd3iA55Ed3kiWPFWu/OkguMgucvUMCDQ4OO/5VNFA0c2Vz41CA3VdfWRd1eYdJ0jizqENdmZNWBhSQ+SwN6OL0RtQmVczZibhvsjLM3uwY1lqySaYK+jeLocYqflon6l/NsRLbEo68v1b7Ed/40NUzwkwh1UMjXLMvliLGvc76xzkC/5bEg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=siLbj/lnujxe+c8yl9ioSt7N0AF/E0EQ7wNkDNNF6h8=;
- b=J8auFMpsiRkkrxf09szhuVGqo76IGC5PB0Spda3Rx/MkBFNlrRf70Hyvtp1V43tBKM+4gTRHPfA7yIU7jTtC+jRmDSFGbBMiPQJJHcc5IVjrD8mvU6GA89Ms2vbSEgCaSMgW2/nrJH35hMzDDkaRHMgUD+sihgah89zytMYiTkn31e/zcJsV40CAt6hHusuV/rIDrXrWWn6YOc/b5pyPS2jU7A+mEK+uK83LGyYtnjwpBE7dqATugj4d8LJfrc0oGsWl15/jg/5kb6iEPXZ1IobdO4DTi7evhMAXuUnx8H71EUKEaqDrq4WiCIoPzcT5JN4Py5WDQQWGF9ubeslv/Q==
+ bh=9iMJR/f6qvJICOaULxrKdtGzHcCIi4SM2IYfYMz1dWo=;
+ b=eRFsXaUmASh7sXcUb/KJ5555N6X+RpxHiZyG/DxgvCVO7cBLj1ICrBZZvhXNYKrt75NHMcsvfT7aIGfZyGzy/J7j3RBxm0eaPdqiq9k8RI8wWL4Mta5hxyOIZVnBvD8DcZrtS6sgKvhDUn+fXW9HLUvS5FtefmNHVkXbF/2fHYDfzVRMqtJtFYyHxu7TusSbN+FO8Ke0Nx/RLOGAdXr+03VUv2NBD2pSe2SnG8jR+o854ynsenvmGuUeaEIOX71zpioakdVO1QlosaVL5PPQzCPLhAVb9+OtmSWLgdumBzRsrQYFM12Yaqu2EfYakrQdIKBxav7vqXvaE1VKNrIUzA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
-Received: from DM6PR12MB3947.namprd12.prod.outlook.com (10.255.174.156) by
- DM6PR12MB2732.namprd12.prod.outlook.com (20.176.116.26) with Microsoft SMTP
+Received: from BL0PR12MB2580.namprd12.prod.outlook.com (52.132.27.147) by
+ BL0PR12MB2435.namprd12.prod.outlook.com (52.132.8.145) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2408.24; Thu, 7 Nov 2019 17:48:01 +0000
-Received: from DM6PR12MB3947.namprd12.prod.outlook.com
- ([fe80::288c:66ec:203d:aede]) by DM6PR12MB3947.namprd12.prod.outlook.com
- ([fe80::288c:66ec:203d:aede%4]) with mapi id 15.20.2408.024; Thu, 7 Nov 2019
- 17:48:01 +0000
-From: "Kuehling, Felix" <Felix.Kuehling@amd.com>
-To: "Zhao, Yong" <Yong.Zhao@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: Re: [PATCH] drm/amdkfd: Simplify the mmap offset related bit
- operations
-Thread-Topic: [PATCH] drm/amdkfd: Simplify the mmap offset related bit
- operations
-Thread-Index: AQHVlZGAfmrIt3RmZEW8tSKMosYzE6d/+9mA
-Date: Thu, 7 Nov 2019 17:48:01 +0000
-Message-ID: <2bec1af9-92e6-09f0-89e8-6d0f04993195@amd.com>
-References: <20191107173330.20703-1-Yong.Zhao@amd.com>
-In-Reply-To: <20191107173330.20703-1-Yong.Zhao@amd.com>
+ 15.20.2430.20; Thu, 7 Nov 2019 18:02:07 +0000
+Received: from BL0PR12MB2580.namprd12.prod.outlook.com
+ ([fe80::55f1:f8d5:e7d0:f595]) by BL0PR12MB2580.namprd12.prod.outlook.com
+ ([fe80::55f1:f8d5:e7d0:f595%2]) with mapi id 15.20.2430.020; Thu, 7 Nov 2019
+ 18:02:07 +0000
+From: "Zeng, Oak" <Oak.Zeng@amd.com>
+To: "Zhao, Yong" <Yong.Zhao@amd.com>, Alex Deucher <alexdeucher@gmail.com>
+Subject: RE: [PATCH] drm/amdgpu: Add comments to gmc structure
+Thread-Topic: [PATCH] drm/amdgpu: Add comments to gmc structure
+Thread-Index: AQHVlMdj9LKXevQ1Yk2iPklewez+uqd/vo0AgAA1ThSAAAZqEA==
+Date: Thu, 7 Nov 2019 18:02:07 +0000
+Message-ID:
+ <BL0PR12MB25808E11A26B24C319F3121080780@BL0PR12MB2580.namprd12.prod.outlook.com>
+References: <1573061209-13148-1-git-send-email-Oak.Zeng@amd.com>,
+ <CADnq5_OinRnn+39TiX2SQkoBwwMPRO2vt0nTSLkwSBq-Mw2vBQ@mail.gmail.com>
+ <DM6PR12MB2778E5EB97BBDE1FBFB3DA12F0780@DM6PR12MB2778.namprd12.prod.outlook.com>
+In-Reply-To: <DM6PR12MB2778E5EB97BBDE1FBFB3DA12F0780@DM6PR12MB2778.namprd12.prod.outlook.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-x-originating-ip: [142.116.193.252]
-user-agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:60.0) Gecko/20100101
- Thunderbird/60.9.0
-x-clientproxiedby: YT1PR01CA0019.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01::32)
- To DM6PR12MB3947.namprd12.prod.outlook.com
- (2603:10b6:5:1cb::28)
-x-ms-exchange-messagesentrepresentingtype: 1
+x-originating-ip: [2607:fea8:3c80:2a5:1494:4858:7bdd:b07b]
 x-ms-publictraffictype: Email
 x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: 0437ec4f-241a-4f15-c92c-08d763aaa236
-x-ms-traffictypediagnostic: DM6PR12MB2732:
+x-ms-office365-filtering-correlation-id: 736e2530-0b01-4bfc-cdc8-08d763ac9aa8
+x-ms-traffictypediagnostic: BL0PR12MB2435:
+x-ms-exchange-purlcount: 1
 x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <DM6PR12MB273289D2F7BD05861CAB8C9592780@DM6PR12MB2732.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:4941;
+x-microsoft-antispam-prvs: <BL0PR12MB24356951B59E26A30A9A49E580780@BL0PR12MB2435.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:6108;
 x-forefront-prvs: 0214EB3F68
 x-forefront-antispam-report: SFV:NSPM;
- SFS:(10009020)(979002)(4636009)(39860400002)(376002)(396003)(136003)(346002)(366004)(189003)(199004)(486006)(52116002)(386003)(66556008)(26005)(8936002)(65956001)(66476007)(65806001)(66066001)(102836004)(36756003)(71190400001)(71200400001)(446003)(8676002)(6512007)(7736002)(53546011)(478600001)(81156014)(305945005)(476003)(2616005)(81166006)(6436002)(6486002)(2501003)(5660300002)(110136005)(99286004)(229853002)(11346002)(186003)(58126008)(86362001)(256004)(6506007)(31696002)(6246003)(66946007)(2906002)(316002)(31686004)(25786009)(76176011)(64756008)(3846002)(66446008)(14454004)(6116002)(969003)(989001)(999001)(1009001)(1019001);
- DIR:OUT; SFP:1101; SCL:1; SRVR:DM6PR12MB2732;
- H:DM6PR12MB3947.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ SFS:(10009020)(4636009)(396003)(39860400002)(366004)(136003)(376002)(346002)(189003)(199004)(14454004)(229853002)(790700001)(71190400001)(6436002)(66556008)(486006)(46003)(476003)(4326008)(52536014)(11346002)(478600001)(446003)(6116002)(9686003)(71200400001)(54896002)(64756008)(53546011)(186003)(6506007)(86362001)(66446008)(6306002)(102836004)(316002)(5660300002)(606006)(99286004)(33656002)(55016002)(14444005)(236005)(74316002)(81166006)(81156014)(966005)(110136005)(76116006)(6246003)(54906003)(2906002)(66946007)(7736002)(66476007)(8936002)(25786009)(7696005)(76176011)(9326002)(8676002)(256004);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:BL0PR12MB2435;
+ H:BL0PR12MB2580.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
  PTR:InfoNoRecords; MX:1; A:1; 
 received-spf: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
 x-ms-exchange-senderadcheck: 1
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: N1BWBtbSBBSigzRmSabdXBhc4fEZ4G/VJ82Sf0qD3WrLEBlZBzt0sa+yrLX3jwKEZfPHr252USNaDCwvJ5el8D+n9Sn5/8KR5Of+fGQfjAWSqXxaRYNccEZ25I0UZrBOIygcVu2n3ffp8NKhntfcrS1UbaGywD8Y8rvlQL+sRPb0TShRpbPgt2KSzPVDga35NE8VthMkDbmHXoqdniT/0lONzUri0dW4NndSCHtokm1ifwSjQB3J3AHVVHWxs28a/8iyjmJe0/48HWKWkLystb8VUTvr4HWMw8R2l2CsHSbUrlGWTYz6eCrCs7BIfs5y4IxaXdmnD2jBw6CHlpq7I7qaxxsSjb1tbUWuVR7HeC9yJjzvLT66sJhTeDL3Gy+5+lOAQEsUyY89pvJ43cYNbL+f29vvU5mrEGhxsR26TvJ54VGA4ywUyHvtf99vU9ip
-Content-ID: <4B564DCF796BBB44A2E267E658E7DDB4@namprd12.prod.outlook.com>
+x-microsoft-antispam-message-info: ekVfRYArlyvL4EOhoYRUs9LQNBtwsE5TyBPyWDK384kQAjm1ky05FOM7SOhaPqiHg0GIJPX6sCADulZ6Ir4M2Ej27pikZbmFDNcod1Q0UVu2SULAMaUl2S88OlTkUZ9ZiLZ4zuHplg3OIU2TPR498GcIsxp2q5mg/bTb5QSLSQTqYCTRHcarbdrlNWFeKsEeBA9wOC56RoZVvK0NMxobUO2mjh/K+Dhxvw2r+sYLHhdhf8ie01xbfFlIpS0H+1ND3mmWrMj+I5KjHVDRXp8MY4v1oXHh9932BWNqBnRwNJ+uIc00oL9WztWx8FsfPfgP4BbpfNdO3tBCzkwuHx8gXTl2Jutqq1QDmHkBsoe+HuW9Yt483hclhQ9GdWrmT0mUHcK3kdZptNyo+7GvLl77cO1VQVVld+4KdEKRCGzhx9WpEcRgIIHQtzcb0TVKLhyXexTMQlfJ6TlbL6TWhghnB7QpSryuRQjD3AC6dY1/wKs=
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0437ec4f-241a-4f15-c92c-08d763aaa236
-X-MS-Exchange-CrossTenant-originalarrivaltime: 07 Nov 2019 17:48:01.4893 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 736e2530-0b01-4bfc-cdc8-08d763ac9aa8
+X-MS-Exchange-CrossTenant-originalarrivaltime: 07 Nov 2019 18:02:07.4194 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: zktbxThZdRtDn2m9FIE31VXqu1c19oBkzSK0yrMj8V9Z6yokMtFZA2GhRdQFUyFAC97jZdf0d/nmO55YSbi9JQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB2732
+X-MS-Exchange-CrossTenant-userprincipalname: RsN4mGFnpvz5NbeDXo+xzqc69KgoJ0GtZzMwCjSrU0tNFuidLcGjjFL1gcExjx0r
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB2435
 X-Mailman-Original-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=siLbj/lnujxe+c8yl9ioSt7N0AF/E0EQ7wNkDNNF6h8=;
- b=r9lZFJhhqms23bDQ96406u94lvArtMvCe4lb4eekgfrxULDHcRBrpXqT+bCvTgiyo3p2ZNlI12GiFDKvcU16an7ptLOzFc2jPFg07IzAEBwOoTznB/wR0duE3ShiagdShncofTgGOc/d4alCALJKQvDpetK82g4ETxDGxNUc0xc=
+ bh=9iMJR/f6qvJICOaULxrKdtGzHcCIi4SM2IYfYMz1dWo=;
+ b=wGsq/pEoVi+c5GmokgFNTu9vXp/NayVccudwQeLBTtVP/08EJXPjWPd1U5u8XOrj2OgA9cBRP9/lMBtXSO5qx+5zPdIfV0GburRDivcmKPjr0bufEWUxdhnE/DdbXtfd5fTrNtM5k0o66M5AOa4u5KavdAywWV+L+VVuobctILQ=
 X-Mailman-Original-Authentication-Results: spf=none (sender IP is )
- smtp.mailfrom=Felix.Kuehling@amd.com; 
+ smtp.mailfrom=Oak.Zeng@amd.com; 
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -110,111 +104,476 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: "Kuehling, Felix" <Felix.Kuehling@amd.com>, "Koenig,
+ Christian" <Christian.Koenig@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Content-Type: multipart/mixed; boundary="===============0008490919=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-Message-ID: <20191107174801.1bO7r7Gki12-Uu8IG1jZd3GmA4NWS_fYplwrubfUliE@z>
+Message-ID: <20191107180207.3ka2VjW9P9bMKUY-AkxNneJIAygN0jgVoFcbLmcr-bw@z>
 
-T24gMjAxOS0xMS0wNyAxMjozMywgWmhhbywgWW9uZyB3cm90ZToNCj4gVGhlIG5ldyBjb2RlIHVz
-ZXMgc3RyYWlnaHRmb3J3YXJkIGJpdCBzaGlmdHMgYW5kIHRodXMgaGFzIGJldHRlciByZWFkYWJp
-bGl0eS4NCj4NCj4gQ2hhbmdlLUlkOiBJMGMxZjdjY2E3ZTI0ZGRiN2I0ZmZlMWNiMGZhNzE5NDM4
-MjhhZTM3Mw0KPiBTaWduZWQtb2ZmLWJ5OiBZb25nIFpoYW8gPFlvbmcuWmhhb0BhbWQuY29tPg0K
-DQpSZXZpZXdlZC1ieTogRmVsaXggS3VlaGxpbmcgPEZlbGl4Lkt1ZWhsaW5nQGFtZC5jb20+DQoN
-Cg0KPiAtLS0NCj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfY2hhcmRldi5jIHwg
-MTcgKysrKysrKy0tLS0tLS0tLS0NCj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRf
-ZXZlbnRzLmMgIHwgIDEgLQ0KPiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9wcml2
-LmggICAgfCAgOSArKystLS0tLS0NCj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRf
-cHJvY2Vzcy5jIHwgIDMgKy0tDQo+ICAgNCBmaWxlcyBjaGFuZ2VkLCAxMSBpbnNlcnRpb25zKCsp
-LCAxOSBkZWxldGlvbnMoLSkNCj4NCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-YW1ka2ZkL2tmZF9jaGFyZGV2LmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfY2hh
-cmRldi5jDQo+IGluZGV4IGI5MTk5Mzc1M2I4Mi4uZTU5YzIyOTg2MWU2IDEwMDY0NA0KPiAtLS0g
-YS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfY2hhcmRldi5jDQo+ICsrKyBiL2RyaXZl
-cnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9jaGFyZGV2LmMNCj4gQEAgLTI5OCw3ICsyOTgsNiBA
-QCBzdGF0aWMgaW50IGtmZF9pb2N0bF9jcmVhdGVfcXVldWUoc3RydWN0IGZpbGUgKmZpbGVwLCBz
-dHJ1Y3Qga2ZkX3Byb2Nlc3MgKnAsDQo+ICAgCS8qIFJldHVybiBncHVfaWQgYXMgZG9vcmJlbGwg
-b2Zmc2V0IGZvciBtbWFwIHVzYWdlICovDQo+ICAgCWFyZ3MtPmRvb3JiZWxsX29mZnNldCA9IEtG
-RF9NTUFQX1RZUEVfRE9PUkJFTEw7DQo+ICAgCWFyZ3MtPmRvb3JiZWxsX29mZnNldCB8PSBLRkRf
-TU1BUF9HUFVfSUQoYXJncy0+Z3B1X2lkKTsNCj4gLQlhcmdzLT5kb29yYmVsbF9vZmZzZXQgPDw9
-IFBBR0VfU0hJRlQ7DQo+ICAgCWlmIChLRkRfSVNfU09DMTUoZGV2LT5kZXZpY2VfaW5mby0+YXNp
-Y19mYW1pbHkpKQ0KPiAgIAkJLyogT24gU09DMTUgQVNJQ3MsIGluY2x1ZGUgdGhlIGRvb3JiZWxs
-IG9mZnNldCB3aXRoaW4gdGhlDQo+ICAgCQkgKiBwcm9jZXNzIGRvb3JiZWxsIGZyYW1lLCB3aGlj
-aCBjb3VsZCBiZSAxIHBhZ2Ugb3IgMiBwYWdlcy4NCj4gQEAgLTEzMTIsMTAgKzEzMTEsOSBAQCBz
-dGF0aWMgaW50IGtmZF9pb2N0bF9hbGxvY19tZW1vcnlfb2ZfZ3B1KHN0cnVjdCBmaWxlICpmaWxl
-cCwNCj4gICAJLyogTU1JTyBpcyBtYXBwZWQgdGhyb3VnaCBrZmQgZGV2aWNlDQo+ICAgCSAqIEdl
-bmVyYXRlIGEga2ZkIG1tYXAgb2Zmc2V0DQo+ICAgCSAqLw0KPiAtCWlmIChmbGFncyAmIEtGRF9J
-T0NfQUxMT0NfTUVNX0ZMQUdTX01NSU9fUkVNQVApIHsNCj4gLQkJYXJncy0+bW1hcF9vZmZzZXQg
-PSBLRkRfTU1BUF9UWVBFX01NSU8gfCBLRkRfTU1BUF9HUFVfSUQoYXJncy0+Z3B1X2lkKTsNCj4g
-LQkJYXJncy0+bW1hcF9vZmZzZXQgPDw9IFBBR0VfU0hJRlQ7DQo+IC0JfQ0KPiArCWlmIChmbGFn
-cyAmIEtGRF9JT0NfQUxMT0NfTUVNX0ZMQUdTX01NSU9fUkVNQVApDQo+ICsJCWFyZ3MtPm1tYXBf
-b2Zmc2V0ID0gS0ZEX01NQVBfVFlQRV9NTUlPDQo+ICsJCQkJCXwgS0ZEX01NQVBfR1BVX0lEKGFy
-Z3MtPmdwdV9pZCk7DQo+ICAgDQo+ICAgCXJldHVybiAwOw0KPiAgIA0KPiBAQCAtMTkzOCwyMCAr
-MTkzNiwxOSBAQCBzdGF0aWMgaW50IGtmZF9tbWFwKHN0cnVjdCBmaWxlICpmaWxwLCBzdHJ1Y3Qg
-dm1fYXJlYV9zdHJ1Y3QgKnZtYSkNCj4gICB7DQo+ICAgCXN0cnVjdCBrZmRfcHJvY2VzcyAqcHJv
-Y2VzczsNCj4gICAJc3RydWN0IGtmZF9kZXYgKmRldiA9IE5VTEw7DQo+IC0JdW5zaWduZWQgbG9u
-ZyB2bV9wZ29mZjsNCj4gKwl1bnNpZ25lZCBsb25nIG1tYXBfb2Zmc2V0Ow0KPiAgIAl1bnNpZ25l
-ZCBpbnQgZ3B1X2lkOw0KPiAgIA0KPiAgIAlwcm9jZXNzID0ga2ZkX2dldF9wcm9jZXNzKGN1cnJl
-bnQpOw0KPiAgIAlpZiAoSVNfRVJSKHByb2Nlc3MpKQ0KPiAgIAkJcmV0dXJuIFBUUl9FUlIocHJv
-Y2Vzcyk7DQo+ICAgDQo+IC0Jdm1fcGdvZmYgPSB2bWEtPnZtX3Bnb2ZmOw0KPiAtCXZtYS0+dm1f
-cGdvZmYgPSBLRkRfTU1BUF9PRkZTRVRfVkFMVUVfR0VUKHZtX3Bnb2ZmKTsNCj4gLQlncHVfaWQg
-PSBLRkRfTU1BUF9HUFVfSURfR0VUKHZtX3Bnb2ZmKTsNCj4gKwltbWFwX29mZnNldCA9IHZtYS0+
-dm1fcGdvZmYgPDwgUEFHRV9TSElGVDsNCj4gKwlncHVfaWQgPSBLRkRfTU1BUF9HRVRfR1BVX0lE
-KG1tYXBfb2Zmc2V0KTsNCj4gICAJaWYgKGdwdV9pZCkNCj4gICAJCWRldiA9IGtmZF9kZXZpY2Vf
-YnlfaWQoZ3B1X2lkKTsNCj4gICANCj4gLQlzd2l0Y2ggKHZtX3Bnb2ZmICYgS0ZEX01NQVBfVFlQ
-RV9NQVNLKSB7DQo+ICsJc3dpdGNoIChtbWFwX29mZnNldCAmIEtGRF9NTUFQX1RZUEVfTUFTSykg
-ew0KPiAgIAljYXNlIEtGRF9NTUFQX1RZUEVfRE9PUkJFTEw6DQo+ICAgCQlpZiAoIWRldikNCj4g
-ICAJCQlyZXR1cm4gLUVOT0RFVjsNCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-YW1ka2ZkL2tmZF9ldmVudHMuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9ldmVu
-dHMuYw0KPiBpbmRleCA5MDgwODFjODVkZTEuLjFmODM2NTU3NWIxMiAxMDA2NDQNCj4gLS0tIGEv
-ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX2V2ZW50cy5jDQo+ICsrKyBiL2RyaXZlcnMv
-Z3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9ldmVudHMuYw0KPiBAQCAtMzQ2LDcgKzM0Niw2IEBAIGlu
-dCBrZmRfZXZlbnRfY3JlYXRlKHN0cnVjdCBmaWxlICpkZXZrZmQsIHN0cnVjdCBrZmRfcHJvY2Vz
-cyAqcCwNCj4gICAJCXJldCA9IGNyZWF0ZV9zaWduYWxfZXZlbnQoZGV2a2ZkLCBwLCBldik7DQo+
-ICAgCQlpZiAoIXJldCkgew0KPiAgIAkJCSpldmVudF9wYWdlX29mZnNldCA9IEtGRF9NTUFQX1RZ
-UEVfRVZFTlRTOw0KPiAtCQkJKmV2ZW50X3BhZ2Vfb2Zmc2V0IDw8PSBQQUdFX1NISUZUOw0KPiAg
-IAkJCSpldmVudF9zbG90X2luZGV4ID0gZXYtPmV2ZW50X2lkOw0KPiAgIAkJfQ0KPiAgIAkJYnJl
-YWs7DQo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfcHJpdi5o
-IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX3ByaXYuaA0KPiBpbmRleCA2NmJhZThm
-MmRhZDEuLjhlZWNkMmNkMWZkMiAxMDA2NDQNCj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9h
-bWRrZmQva2ZkX3ByaXYuaA0KPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRf
-cHJpdi5oDQo+IEBAIC01OSwyNCArNTksMjEgQEANCj4gICAgKiBOT1RFOiBzdHJ1Y3Qgdm1fYXJl
-YV9zdHJ1Y3Qudm1fcGdvZmYgdXNlcyBvZmZzZXQgaW4gcGFnZXMuIEhlbmNlLCB0aGVzZQ0KPiAg
-ICAqICBkZWZpbmVzIGFyZSB3LnIudCB0byBQQUdFX1NJWkUNCj4gICAgKi8NCj4gLSNkZWZpbmUg
-S0ZEX01NQVBfVFlQRV9TSElGVAkoNjIgLSBQQUdFX1NISUZUKQ0KPiArI2RlZmluZSBLRkRfTU1B
-UF9UWVBFX1NISUZUCSg2MikNCj4gICAjZGVmaW5lIEtGRF9NTUFQX1RZUEVfTUFTSwkoMHgzVUxM
-IDw8IEtGRF9NTUFQX1RZUEVfU0hJRlQpDQo+ICAgI2RlZmluZSBLRkRfTU1BUF9UWVBFX0RPT1JC
-RUxMCSgweDNVTEwgPDwgS0ZEX01NQVBfVFlQRV9TSElGVCkNCj4gICAjZGVmaW5lIEtGRF9NTUFQ
-X1RZUEVfRVZFTlRTCSgweDJVTEwgPDwgS0ZEX01NQVBfVFlQRV9TSElGVCkNCj4gICAjZGVmaW5l
-IEtGRF9NTUFQX1RZUEVfUkVTRVJWRURfTUVNCSgweDFVTEwgPDwgS0ZEX01NQVBfVFlQRV9TSElG
-VCkNCj4gICAjZGVmaW5lIEtGRF9NTUFQX1RZUEVfTU1JTwkoMHgwVUxMIDw8IEtGRF9NTUFQX1RZ
-UEVfU0hJRlQpDQo+ICAgDQo+IC0jZGVmaW5lIEtGRF9NTUFQX0dQVV9JRF9TSElGVCAoNDYgLSBQ
-QUdFX1NISUZUKQ0KPiArI2RlZmluZSBLRkRfTU1BUF9HUFVfSURfU0hJRlQgKDQ2KQ0KPiAgICNk
-ZWZpbmUgS0ZEX01NQVBfR1BVX0lEX01BU0sgKCgoMVVMTCA8PCBLRkRfR1BVX0lEX0hBU0hfV0lE
-VEgpIC0gMSkgXA0KPiAgIAkJCQk8PCBLRkRfTU1BUF9HUFVfSURfU0hJRlQpDQo+ICAgI2RlZmlu
-ZSBLRkRfTU1BUF9HUFVfSUQoZ3B1X2lkKSAoKCgodWludDY0X3QpZ3B1X2lkKSA8PCBLRkRfTU1B
-UF9HUFVfSURfU0hJRlQpXA0KPiAgIAkJCQkmIEtGRF9NTUFQX0dQVV9JRF9NQVNLKQ0KPiAtI2Rl
-ZmluZSBLRkRfTU1BUF9HUFVfSURfR0VUKG9mZnNldCkgICAgKChvZmZzZXQgJiBLRkRfTU1BUF9H
-UFVfSURfTUFTSykgXA0KPiArI2RlZmluZSBLRkRfTU1BUF9HRVRfR1BVX0lEKG9mZnNldCkgICAg
-KChvZmZzZXQgJiBLRkRfTU1BUF9HUFVfSURfTUFTSykgXA0KPiAgIAkJCQk+PiBLRkRfTU1BUF9H
-UFVfSURfU0hJRlQpDQo+ICAgDQo+IC0jZGVmaW5lIEtGRF9NTUFQX09GRlNFVF9WQUxVRV9NQVNL
-CSgweDNGRkZGRkZGRkZGRlVMTCA+PiBQQUdFX1NISUZUKQ0KPiAtI2RlZmluZSBLRkRfTU1BUF9P
-RkZTRVRfVkFMVUVfR0VUKG9mZnNldCkgKG9mZnNldCAmIEtGRF9NTUFQX09GRlNFVF9WQUxVRV9N
-QVNLKQ0KPiAtDQo+ICAgLyoNCj4gICAgKiBXaGVuIHdvcmtpbmcgd2l0aCBjcCBzY2hlZHVsZXIg
-d2Ugc2hvdWxkIGFzc2lnbiB0aGUgSElRIG1hbnVhbGx5IG9yIHZpYQ0KPiAgICAqIHRoZSBhbWRn
-cHUgZHJpdmVyIHRvIGEgZml4ZWQgaHFkIHNsb3QsIGhlcmUgYXJlIHRoZSBmaXhlZCBISVEgaHFk
-IHNsb3QNCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9wcm9j
-ZXNzLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfcHJvY2Vzcy5jDQo+IGluZGV4
-IDZhYmZiNzdhZTU0MC4uMzlkYzQ5YjhmZDg1IDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJzL2dwdS9k
-cm0vYW1kL2FtZGtmZC9rZmRfcHJvY2Vzcy5jDQo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-YW1ka2ZkL2tmZF9wcm9jZXNzLmMNCj4gQEAgLTU1NCw4ICs1NTQsNyBAQCBzdGF0aWMgaW50IGtm
-ZF9wcm9jZXNzX2luaXRfY3dzcl9hcHUoc3RydWN0IGtmZF9wcm9jZXNzICpwLCBzdHJ1Y3QgZmls
-ZSAqZmlsZXApDQo+ICAgCQlpZiAoIWRldi0+Y3dzcl9lbmFibGVkIHx8IHFwZC0+Y3dzcl9rYWRk
-ciB8fCBxcGQtPmN3c3JfYmFzZSkNCj4gICAJCQljb250aW51ZTsNCj4gICANCj4gLQkJb2Zmc2V0
-ID0gKEtGRF9NTUFQX1RZUEVfUkVTRVJWRURfTUVNIHwgS0ZEX01NQVBfR1BVX0lEKGRldi0+aWQp
-KQ0KPiAtCQkJPDwgUEFHRV9TSElGVDsNCj4gKwkJb2Zmc2V0ID0gS0ZEX01NQVBfVFlQRV9SRVNF
-UlZFRF9NRU0gfCBLRkRfTU1BUF9HUFVfSUQoZGV2LT5pZCk7DQo+ICAgCQlxcGQtPnRiYV9hZGRy
-ID0gKGludDY0X3Qpdm1fbW1hcChmaWxlcCwgMCwNCj4gICAJCQlLRkRfQ1dTUl9UQkFfVE1BX1NJ
-WkUsIFBST1RfUkVBRCB8IFBST1RfRVhFQywNCj4gICAJCQlNQVBfU0hBUkVELCBvZmZzZXQpOw0K
+--===============0008490919==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_BL0PR12MB25808E11A26B24C319F3121080780BL0PR12MB2580namp_"
+
+--_000_BL0PR12MB25808E11A26B24C319F3121080780BL0PR12MB2580namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+Hi Yong,
+
+That has been submitted.
+
+MC address is the address sent to memory controller bus to address the phys=
+ical memory. In many places it is also called physical address.
+
+Logical address is the address before it is translated to physical address.=
+ The translation can be either linear or through page table. Under VMID0, l=
+ogical address of some apertures (AGP, FB) are linearly mapped to MC addres=
+s. (I think in our driver implementation, logical address =3D=3D MC address=
+). But Gart aperture is mapped through gpuvm (gart) page table - the mapped=
+ address can also be called virtual address.
+
+Under VMID1~15, it is user space virtual address (can also be called logica=
+l address), mapped through gpuvm page tables.
+
+So virtual address is one type of logical address. Virtual address is usual=
+ly mapped through page table/vm.
+
+Just my understanding.
+
+Regards,
+Oak
+
+From: Zhao, Yong <Yong.Zhao@amd.com>
+Sent: Thursday, November 7, 2019 12:16 PM
+To: Alex Deucher <alexdeucher@gmail.com>; Zeng, Oak <Oak.Zeng@amd.com>
+Cc: Kuehling, Felix <Felix.Kuehling@amd.com>; Koenig, Christian <Christian.=
+Koenig@amd.com>; amd-gfx@lists.freedesktop.org
+Subject: Re: [PATCH] drm/amdgpu: Add comments to gmc structure
+
+If this is not submitted, I would like to see some comments regarding the e=
+xplanation of MC address and logical address, which I prefer to mention as =
+GPU physical/virtual address.
+
+Regards,
+Yong
+
+
+________________________________
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org<mailto:amd-gfx-bounces=
+@lists.freedesktop.org>> on behalf of Alex Deucher <alexdeucher@gmail.com<m=
+ailto:alexdeucher@gmail.com>>
+Sent: Thursday, November 7, 2019 9:02 AM
+To: Zeng, Oak <Oak.Zeng@amd.com<mailto:Oak.Zeng@amd.com>>
+Cc: Kuehling, Felix <Felix.Kuehling@amd.com<mailto:Felix.Kuehling@amd.com>>=
+; Koenig, Christian <Christian.Koenig@amd.com<mailto:Christian.Koenig@amd.c=
+om>>; amd-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org> <=
+amd-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org>>
+Subject: Re: [PATCH] drm/amdgpu: Add comments to gmc structure
+
+On Wed, Nov 6, 2019 at 12:27 PM Zeng, Oak <Oak.Zeng@amd.com<mailto:Oak.Zeng=
+@amd.com>> wrote:
+>
+> Explain fields like aper_base, agp_start etc. The definition
+> of those fields are confusing as they are from different view
+> (CPU or GPU). Add comments for easier understand.
+>
+> Change-Id: I02c2a27cd0dbc205498eb86aafa722f2e0c25fe6
+> Signed-off-by: Oak Zeng <Oak.Zeng@amd.com<mailto:Oak.Zeng@amd.com>>
+
+Same comments as the previous version.  With those addressed,
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com<mailto:alexander.deuch=
+er@amd.com>>
+
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h | 26 ++++++++++++++++++++++++++
+>  1 file changed, 26 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_gmc.h
+> index 555d8e5..1356ff9 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
+> @@ -127,18 +127,44 @@ struct amdgpu_xgmi {
+>  };
+>
+>  struct amdgpu_gmc {
+> +       /* FB's physical address in MMIO space (for CPU to
+> +        * map FB). This is different compared to the apg/
+> +        * gart/vram_start/end field as the later is from
+> +        * GPU's view and aper_base is from CPU's view.
+> +        */
+>         resource_size_t         aper_size;
+>         resource_size_t         aper_base;
+>         /* for some chips with <=3D 32MB we need to lie
+>          * about vram size near mc fb location */
+>         u64                     mc_vram_size;
+>         u64                     visible_vram_size;
+> +       /* APG aperture start and end in MC address space
+> +        * Driver find a hole in the MC address space
+> +        * to place AGP by setting MC_VM_AGP_BOT/TOP registers
+> +        * Under VMID0, logical address =3D=3D MC address
+> +        * AGP aperture is used to simulate FB in ZFB case
+> +        */
+>         u64                     agp_size;
+>         u64                     agp_start;
+>         u64                     agp_end;
+> +       /* GART aperture start and end in MC address space
+> +        * Driver find a hole in the MC address space
+> +        * to place GART by setting VM_CONTEXT0_PAGE_TABLE_START/END_ADDR
+> +        * registers
+> +        * Under VMID0, logical address inside GART aperture will
+> +        * be translated through gpuvm gart page table to access
+> +        * paged system memory
+> +        */
+>         u64                     gart_size;
+>         u64                     gart_start;
+>         u64                     gart_end;
+> +       /* Frame buffer aperture of this GPU device. Different from
+> +        * fb_start (see below), this only covers the local GPU device.
+> +        * Driver get fb_start from MC_VM_FB_LOCATION_BASE (set by vbios)
+> +        * and calculate vram_start of this local device by adding an
+> +        * offset inside the XGMI hive.
+> +        * Under VMID0, logical address =3D=3D MC address
+> +        */
+>         u64                     vram_start;
+>         u64                     vram_end;
+>         /* FB region , it's same as local vram region in single GPU, in X=
+GMI
+> --
+> 2.7.4
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org>
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org>
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--_000_BL0PR12MB25808E11A26B24C319F3121080780BL0PR12MB2580namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40">
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
+<!--[if !mso]><style>v\:* {behavior:url(#default#VML);}
+o\:* {behavior:url(#default#VML);}
+w\:* {behavior:url(#default#VML);}
+.shape {behavior:url(#default#VML);}
+</style><![endif]--><style><!--
+/* Font Definitions */
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:DengXian;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:"\@DengXian";
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:blue;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{mso-style-priority:99;
+	color:purple;
+	text-decoration:underline;}
+p.msonormal0, li.msonormal0, div.msonormal0
+	{mso-style-name:msonormal;
+	margin:0in;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+span.EmailStyle18
+	{mso-style-type:personal-reply;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-size:10.0pt;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.0in 1.0in 1.0in;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
+</head>
+<body lang=3D"EN-US" link=3D"blue" vlink=3D"purple">
+<div class=3D"WordSection1">
+<p class=3D"MsoNormal">Hi Yong,<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">That has been submitted. <o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">MC address is the address sent to memory controller =
+bus to address the physical memory. In many places it is also called physic=
+al address.<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Logical address is the address before it is translat=
+ed to physical address. The translation can be either linear or through pag=
+e table. Under VMID0, logical address of some apertures (AGP, FB) are linea=
+rly mapped to MC address. (I think
+ in our driver implementation, logical address =3D=3D MC address). But Gart=
+ aperture is mapped through gpuvm (gart) page table &#8211; the mapped addr=
+ess can also be called virtual address.<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Under VMID1~15, it is user space virtual address (ca=
+n also be called logical address), mapped through gpuvm page tables.
+<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">So virtual address is one type of logical address. V=
+irtual address is usually mapped through page table/vm.<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Just my understanding.<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<div>
+<p class=3D"MsoNormal">Regards,<o:p></o:p></p>
+<p class=3D"MsoNormal">Oak<o:p></o:p></p>
+</div>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<div>
+<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
+0in 0in">
+<p class=3D"MsoNormal"><b>From:</b> Zhao, Yong &lt;Yong.Zhao@amd.com&gt; <b=
+r>
+<b>Sent:</b> Thursday, November 7, 2019 12:16 PM<br>
+<b>To:</b> Alex Deucher &lt;alexdeucher@gmail.com&gt;; Zeng, Oak &lt;Oak.Ze=
+ng@amd.com&gt;<br>
+<b>Cc:</b> Kuehling, Felix &lt;Felix.Kuehling@amd.com&gt;; Koenig, Christia=
+n &lt;Christian.Koenig@amd.com&gt;; amd-gfx@lists.freedesktop.org<br>
+<b>Subject:</b> Re: [PATCH] drm/amdgpu: Add comments to gmc structure<o:p><=
+/o:p></p>
+</div>
+</div>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">If this=
+ is not submitted, I would like to see some comments regarding the explanat=
+ion of MC address and logical address, which I prefer to mention as GPU phy=
+sical/virtual address.<o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black"><o:p>&n=
+bsp;</o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">Regards=
+,<o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">Yong<o:=
+p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black"><o:p>&n=
+bsp;</o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black"><o:p>&n=
+bsp;</o:p></span></p>
+</div>
+<div class=3D"MsoNormal" align=3D"center" style=3D"text-align:center">
+<hr size=3D"2" width=3D"98%" align=3D"center">
+</div>
+<div id=3D"divRplyFwdMsg">
+<p class=3D"MsoNormal"><b><span style=3D"color:black">From:</span></b><span=
+ style=3D"color:black"> amd-gfx &lt;</span><a href=3D"mailto:amd-gfx-bounce=
+s@lists.freedesktop.org">amd-gfx-bounces@lists.freedesktop.org</a><span sty=
+le=3D"color:black">&gt; on behalf of Alex Deucher
+ &lt;</span><a href=3D"mailto:alexdeucher@gmail.com">alexdeucher@gmail.com<=
+/a><span style=3D"color:black">&gt;<br>
+<b>Sent:</b> Thursday, November 7, 2019 9:02 AM<br>
+<b>To:</b> Zeng, Oak &lt;</span><a href=3D"mailto:Oak.Zeng@amd.com">Oak.Zen=
+g@amd.com</a><span style=3D"color:black">&gt;<br>
+<b>Cc:</b> Kuehling, Felix &lt;</span><a href=3D"mailto:Felix.Kuehling@amd.=
+com">Felix.Kuehling@amd.com</a><span style=3D"color:black">&gt;; Koenig, Ch=
+ristian &lt;</span><a href=3D"mailto:Christian.Koenig@amd.com">Christian.Ko=
+enig@amd.com</a><span style=3D"color:black">&gt;;
+</span><a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freed=
+esktop.org</a><span style=3D"color:black"> &lt;</span><a href=3D"mailto:amd=
+-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.org</a><span style=3D=
+"color:black">&gt;<br>
+<b>Subject:</b> Re: [PATCH] drm/amdgpu: Add comments to gmc structure</span=
+> <o:p>
+</o:p></p>
+<div>
+<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal">On Wed, Nov 6, 2019 at 12:27 PM Zeng, Oak &lt;<a hre=
+f=3D"mailto:Oak.Zeng@amd.com">Oak.Zeng@amd.com</a>&gt; wrote:<br>
+&gt;<br>
+&gt; Explain fields like aper_base, agp_start etc. The definition<br>
+&gt; of those fields are confusing as they are from different view<br>
+&gt; (CPU or GPU). Add comments for easier understand.<br>
+&gt;<br>
+&gt; Change-Id: I02c2a27cd0dbc205498eb86aafa722f2e0c25fe6<br>
+&gt; Signed-off-by: Oak Zeng &lt;<a href=3D"mailto:Oak.Zeng@amd.com">Oak.Ze=
+ng@amd.com</a>&gt;<br>
+<br>
+Same comments as the previous version.&nbsp; With those addressed,<br>
+Reviewed-by: Alex Deucher &lt;<a href=3D"mailto:alexander.deucher@amd.com">=
+alexander.deucher@amd.com</a>&gt;<br>
+<br>
+&gt; ---<br>
+&gt;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h | 26 &#43;&#43;&#43;&#43=
+;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43=
+;&#43;&#43;&#43;&#43;&#43;&#43;&#43;<br>
+&gt;&nbsp; 1 file changed, 26 insertions(&#43;)<br>
+&gt;<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h b/drivers/gpu/drm=
+/amd/amdgpu/amdgpu_gmc.h<br>
+&gt; index 555d8e5..1356ff9 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h<br>
+&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h<br>
+&gt; @@ -127,18 &#43;127,44 @@ struct amdgpu_xgmi {<br>
+&gt;&nbsp; };<br>
+&gt;<br>
+&gt;&nbsp; struct amdgpu_gmc {<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* FB's physical address in =
+MMIO space (for CPU to<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * map FB). This is dif=
+ferent compared to the apg/<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * gart/vram_start/end =
+field as the later is from<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * GPU's view and aper_=
+base is from CPU's view.<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; resource_size_t&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; aper_size;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; resource_size_t&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; aper_base;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* for some chips with=
+ &lt;=3D 32MB we need to lie<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * about vram siz=
+e near mc fb location */<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u64&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp; mc_vram_size;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u64&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp; visible_vram_size;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* APG aperture start and en=
+d in MC address space<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * Driver find a hole i=
+n the MC address space<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * to place AGP by sett=
+ing MC_VM_AGP_BOT/TOP registers<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * Under VMID0, logical=
+ address =3D=3D MC address<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * AGP aperture is used=
+ to simulate FB in ZFB case<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u64&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp; agp_size;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u64&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp; agp_start;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u64&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp; agp_end;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* GART aperture start and e=
+nd in MC address space<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * Driver find a hole i=
+n the MC address space<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * to place GART by set=
+ting VM_CONTEXT0_PAGE_TABLE_START/END_ADDR<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * registers<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * Under VMID0, logical=
+ address inside GART aperture will<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * be translated throug=
+h gpuvm gart page table to access<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * paged system memory<=
+br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u64&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp; gart_size;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u64&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp; gart_start;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u64&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp; gart_end;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Frame buffer aperture of =
+this GPU device. Different from<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * fb_start (see below)=
+, this only covers the local GPU device.<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * Driver get fb_start =
+from MC_VM_FB_LOCATION_BASE (set by vbios)<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * and calculate vram_s=
+tart of this local device by adding an<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * offset inside the XG=
+MI hive.<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * Under VMID0, logical=
+ address =3D=3D MC address<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u64&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp; vram_start;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u64&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp; vram_end;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* FB region , it's sa=
+me as local vram region in single GPU, in XGMI<br>
+&gt; --<br>
+&gt; 2.7.4<br>
+&gt;<br>
+&gt; _______________________________________________<br>
+&gt; amd-gfx mailing list<br>
+&gt; <a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedes=
+ktop.org</a><br>
+&gt; <a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">htt=
+ps://lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
+_______________________________________________<br>
+amd-gfx mailing list<br>
+<a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.=
+org</a><br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
+lists.freedesktop.org/mailman/listinfo/amd-gfx</a><o:p></o:p></p>
+</div>
+</div>
+</div>
+</body>
+</html>
+
+--_000_BL0PR12MB25808E11A26B24C319F3121080780BL0PR12MB2580namp_--
+
+--===============0008490919==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
 X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+
+--===============0008490919==--
