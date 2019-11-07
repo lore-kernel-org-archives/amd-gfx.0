@@ -2,103 +2,97 @@ Return-Path: <SRS0=ouc1=Y7=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.2 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.9 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
+	HTML_MESSAGE,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,
+	SPF_PASS,UNWANTED_LANGUAGE_BODY autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 87351C43331
-	for <amd-gfx@archiver.kernel.org>; Thu,  7 Nov 2019 16:24:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E8D8FC43331
+	for <amd-gfx@archiver.kernel.org>; Thu,  7 Nov 2019 16:57:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 55009206DF
-	for <amd-gfx@archiver.kernel.org>; Thu,  7 Nov 2019 16:24:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 55009206DF
+	by mail.kernel.org (Postfix) with ESMTPS id B556D2077C
+	for <amd-gfx@archiver.kernel.org>; Thu,  7 Nov 2019 16:57:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B556D2077C
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 035F96F744;
-	Thu,  7 Nov 2019 16:24:33 +0000 (UTC)
-Received: from NAM03-CO1-obe.outbound.protection.outlook.com
- (mail-eopbgr790055.outbound.protection.outlook.com [40.107.79.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7F0786F744
- for <amd-gfx@lists.freedesktop.org>; Thu,  7 Nov 2019 16:24:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6FBE96F74E;
+	Thu,  7 Nov 2019 16:57:03 +0000 (UTC)
+Received: from NAM04-SN1-obe.outbound.protection.outlook.com
+ (mail-eopbgr700089.outbound.protection.outlook.com [40.107.70.89])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3CEC36F74E
+ for <amd-gfx@lists.freedesktop.org>; Thu,  7 Nov 2019 16:57:02 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=chp1b0UMjEVTBcRuuY4Cd+L3fbBsYEkTbdpk70jwSDkz9Go7Cs9tiI+wqpsV+mPizymoclW/TH8sMKLRdnEM6hPGMItIZlZLCfIha4zkzOygh1aUIqTNjUfJ54Nj6oRWGNxOu/PP8FW3ye9X7+lcbZBw+8/U7ETSkC3WAnK0rAq1RnUFk/aIyjFJdBxImYL6RTuMJc8qIRZ6x6C2dXD33wVrLuKaTuhPD+juivK9szySkwNSIGcevr3ZlcHbr4lBbtEjj1bRUKcivGqbMtu4NtL+5LcL5Appv3sfco1Kv+zUmJ2QVW4BDUDw2BIVy0c6xM/WIpclS8ymQIGwDgd3Rg==
+ b=AAe8GukvOOtawSwoE2o1A5vRv19S58d/ygbTpL0ANhYV6InkvVYVAhxOSVwyK3cn/Y7n0br3tNtl8/2CDriei7CNcpzA5c0ZiggwK6n9nrWVim5CtoQAuZRQstcYPsGrDTOA34+4F7SyECmZvRK9OwDL8bF/za4G51VAkvQl3AowxNX53hXIJKwWMu6I3l46r7W83qnWwM9Egzv3xrnsLibMWWY0pApIbT6T4i94HhuJIYr0hZxDsQ2oTyJwc/QOag9kjU0DzHHE469EQ90DUx4efUVUFAAFrc4M4tHnELO53tT/9n61YgLzJ080en5aLX+Jl2BWQA4cPF2IxVnO5g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=gFxKcCguc5yZGC1Ia0MMSLfkDfeTDx8YHZIeA32I0I0=;
- b=g3DkKX7i3W3dMDctqLJRLPRAsZH1RrIbKEU04gAk5VTWSZ/nYI9LAzZjrxVnslO3zcW8vGRTRFsa+XCPFRNL7IakldQ4UHOHMRdIcB07STJhJGRsS2ypG3i+Qsdy4JUI+X1lXzvBcWlWqSSffJlpej3S+VFoLG7VI5r31Q8Lo+QB3lDDyQ7mUfV0GmlumqVb5RUjwPdJTKhBGNwHPEUjrid9ec+YXRhdQol9/G12X+kx7HN5nMyq2En8MvjtG0h/Tx63IebEh4t6/vKKcbMOKH2NoZXPp1aot5nloIOX1J47qmwBYvpf5rh9QYv5JMTVIrrwJuQH76/du2rBJ1syqQ==
+ bh=pm18Fn3iFegnzC3MPEjWVDuYr8mcddmHWRcyra3D4yU=;
+ b=XEeXcOfJX5uqRCs2feSHGxHnl5DQ2pMviS0bGfnXHXm1YsYzWzPkiXbIILSiQPtY12eHeguw38TufqEpoN4qOybDnrEVspzJ8BD9Va6Nw+MzfxCOGD4SthiCKxcROXPI7uzdghimHdepSAovQkuJCuI8W1M81Kih5SResJ9omXEjGBjNSpGjkAJ7VjHrbb8FUlsCf+NKepYRWSJ/KiQ7Bg5yq8SSJYxBFKygkka4iDUirjXC8mlXePsZj93e/3DkSdS+Bi4JLdVpluYx+LKd8W5Q1vSW9jspQ9Cacin3G3C2ecD6EHB78/ybWavAtHi06vxUpJIyFwJR/MCx6uqWFw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
-Received: from CY4PR1201MB0230.namprd12.prod.outlook.com (10.172.79.7) by
- CY4PR1201MB2549.namprd12.prod.outlook.com (10.172.121.10) with Microsoft SMTP
+Received: from DM6PR12MB2778.namprd12.prod.outlook.com (20.176.114.145) by
+ DM6PR12MB3355.namprd12.prod.outlook.com (20.178.29.90) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2430.24; Thu, 7 Nov 2019 16:24:30 +0000
-Received: from CY4PR1201MB0230.namprd12.prod.outlook.com
- ([fe80::449d:52a8:2761:9195]) by CY4PR1201MB0230.namprd12.prod.outlook.com
- ([fe80::449d:52a8:2761:9195%5]) with mapi id 15.20.2430.020; Thu, 7 Nov 2019
- 16:24:30 +0000
-From: Harry Wentland <hwentlan@amd.com>
-To: Alex Deucher <alexdeucher@gmail.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: Re: [PATCH] drm/amdgpu/display: fix the build when
- CONFIG_DRM_AMD_DC_DCN is not set
-Thread-Topic: [PATCH] drm/amdgpu/display: fix the build when
- CONFIG_DRM_AMD_DC_DCN is not set
-Thread-Index: AQHVlQ4gjveQQF7GI0Kwyt7iyBE8H6d/5YmA
-Date: Thu, 7 Nov 2019 16:24:30 +0000
-Message-ID: <53bfdfcf-1387-881b-298b-f826d57f2263@amd.com>
-References: <20191107015258.807545-1-alexander.deucher@amd.com>
-In-Reply-To: <20191107015258.807545-1-alexander.deucher@amd.com>
+ 15.20.2430.24; Thu, 7 Nov 2019 16:57:00 +0000
+Received: from DM6PR12MB2778.namprd12.prod.outlook.com
+ ([fe80::304d:db58:2aa:d69e]) by DM6PR12MB2778.namprd12.prod.outlook.com
+ ([fe80::304d:db58:2aa:d69e%6]) with mapi id 15.20.2430.020; Thu, 7 Nov 2019
+ 16:57:00 +0000
+From: "Zhao, Yong" <Yong.Zhao@amd.com>
+To: "Kuehling, Felix" <Felix.Kuehling@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Subject: Re: [PATCH 2/3] drm/amdkfd: only keep release_mem function for Hawaii
+Thread-Topic: [PATCH 2/3] drm/amdkfd: only keep release_mem function for Hawaii
+Thread-Index: AQHVj4CkSMtAMFLs5U2ND/zZPFxaw6d/LUyAgADMBUo=
+Date: Thu, 7 Nov 2019 16:57:00 +0000
+Message-ID:
+ <DM6PR12MB2778C141CFEA0006DA2CEC6DF0780@DM6PR12MB2778.namprd12.prod.outlook.com>
+References: <20191031001739.10764-1-Yong.Zhao@amd.com>
+ <20191031001739.10764-2-Yong.Zhao@amd.com>,
+ <31102345-20f7-1b0e-dd2a-f7984b253a07@amd.com>
+In-Reply-To: <31102345-20f7-1b0e-dd2a-f7984b253a07@amd.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-x-originating-ip: [165.204.55.250]
-user-agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.2.1
-x-clientproxiedby: YTXPR0101CA0061.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b00:1::38) To CY4PR1201MB0230.namprd12.prod.outlook.com
- (2603:10b6:910:1e::7)
-x-ms-exchange-messagesentrepresentingtype: 1
+x-originating-ip: [165.204.54.211]
 x-ms-publictraffictype: Email
 x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: e4138ff8-a4d3-4296-880c-08d7639ef71f
-x-ms-traffictypediagnostic: CY4PR1201MB2549:
+x-ms-office365-filtering-correlation-id: 106c9088-d7c5-4a31-1972-08d763a381a7
+x-ms-traffictypediagnostic: DM6PR12MB3355:
 x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <CY4PR1201MB25496C2A927F4A6FA9CBD81D8C780@CY4PR1201MB2549.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:480;
+x-microsoft-antispam-prvs: <DM6PR12MB335566399D68AC5DDA0C06DDF0780@DM6PR12MB3355.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:8882;
 x-forefront-prvs: 0214EB3F68
 x-forefront-antispam-report: SFV:NSPM;
- SFS:(10009020)(4636009)(366004)(39860400002)(376002)(396003)(346002)(136003)(199004)(189003)(26005)(6246003)(36756003)(186003)(65806001)(52116002)(2501003)(14454004)(6506007)(386003)(65956001)(76176011)(478600001)(6486002)(486006)(66066001)(11346002)(446003)(2616005)(8676002)(81156014)(8936002)(81166006)(102836004)(53546011)(2906002)(476003)(99286004)(66946007)(25786009)(229853002)(3846002)(6116002)(6436002)(66476007)(31686004)(66556008)(64756008)(66446008)(7736002)(71190400001)(71200400001)(256004)(14444005)(5660300002)(6512007)(31696002)(4326008)(58126008)(110136005)(316002)(305945005);
- DIR:OUT; SFP:1101; SCL:1; SRVR:CY4PR1201MB2549;
- H:CY4PR1201MB0230.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ SFS:(10009020)(4636009)(136003)(346002)(376002)(39860400002)(396003)(366004)(199004)(189003)(478600001)(229853002)(81156014)(14444005)(76116006)(91956017)(81166006)(86362001)(9686003)(54896002)(6436002)(55016002)(256004)(4001150100001)(66446008)(14454004)(6246003)(25786009)(2501003)(8676002)(52536014)(66946007)(66556008)(64756008)(66476007)(186003)(486006)(316002)(19627405001)(110136005)(66066001)(33656002)(74316002)(26005)(7696005)(102836004)(7736002)(446003)(11346002)(76176011)(53546011)(6506007)(476003)(8936002)(3846002)(6116002)(5660300002)(2906002)(99286004)(105004)(71200400001)(71190400001);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:DM6PR12MB3355;
+ H:DM6PR12MB2778.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
  PTR:InfoNoRecords; A:1; MX:1; 
 received-spf: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
 x-ms-exchange-senderadcheck: 1
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: CyzXs5ynFGktdSPNkL/e+Doz389XZeAnAe6cVarpaaV/iBPXFpZKv98G/6mu5jPB+SxzXUCPB1suzLeOYtAMeJxdJau4npUIez7NpSRSrpgfoyiHpygaQZI48Lu1EMwVPTEOp3uEpg3+Wv5vZiRiOnnuTPvyiv9h/kTMjoRUkdfhDF2lJIftBY6eZE0lmPAQhEAcsO0JY1hHBzNkbI3JFL5SZXeKM/6T5JLa7H+2wxhUEIrVvYuzfeYVDLrzWt8n2nU0wlbaIvFz3b3zfuHVZrXwygbKEFJwu9iqD4bZj+vAlju9TrRB8YDlP+9ZQbx/rz01QVTjFKgB1OA0bG65OiCloLmtUGyCd5w6EUREIvWniZRscOt0G8uODuEUNihE/lKC46pAGXhEG1Lcf7qDxtpBNB2ey5IvXInHd2TBcIQAZ2DPq8KuvdtefnXFe5AK
-Content-ID: <71A488A47803124EB125789035FBF1DB@namprd12.prod.outlook.com>
+x-microsoft-antispam-message-info: 7eYkjQbbpaT5O8IdHik0VSIQle6jqi7Q/ECw2NXa1eFTiGO+vsajv+Vd3DRCDRS1G5m9NRjtHqyvpZtAegiUmepLCv0F445dSXbMpawanAHK7y7IgeNYMs0k+S3sklYAk1V1BjqvYjZjBkJlaffuWdDUZ6yr5HJjmoTanOKuHSYYAiDXzSU8FquHLdf4D2GkzRaxVU+RR2MP/JK6g65spQ0APpHezmqTcV4drEpwIo5Tjl/2GZE3cAQoT5rESPK8Hr5ecNuwf2FCENNzVAFnsm7hOTDesdEP/gQkYniR46mAZq38wJ27Xg7ZKpRm6q9+UE5oBHCT2CJB0CNM2BtH5+FWS9gZ1nUsFu91m62fu2OJjCf0E4ikHGJj/DwUp/3LF+XT3LUYBTn0fjX9X9tDmDuqV7C1AfxeLvLkL44KqGP1CsnXZHDt/erxQqVBXaVT
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e4138ff8-a4d3-4296-880c-08d7639ef71f
-X-MS-Exchange-CrossTenant-originalarrivaltime: 07 Nov 2019 16:24:30.0834 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 106c9088-d7c5-4a31-1972-08d763a381a7
+X-MS-Exchange-CrossTenant-originalarrivaltime: 07 Nov 2019 16:57:00.0766 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 1a+gddtzmieDfOORTSmla1qP4geSoeSCNnjnhuOpN8E56pp9MusQoInr7+ia4Sh6D+k7GaJHVubN778HdVbBpw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR1201MB2549
+X-MS-Exchange-CrossTenant-userprincipalname: 82x14QgfPis0wKYN7esrny3p8S16pbI3OJLJc8D6J4i1u1gpMGBq9oYRgZolCfTR
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3355
 X-Mailman-Original-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=gFxKcCguc5yZGC1Ia0MMSLfkDfeTDx8YHZIeA32I0I0=;
- b=Y8YPvHi5ZzyRdMwhBdeHIxv3JuzhBcBRVcIlTKIe5W9wBnfaWqXhB29s61ZrjxowEBxCya9jq4SSDjuYOWlwiFRJSL9jW/sG/JbJaMuWSzNIWiCHldCf4OgkR70zTDsCYnN2/GG7nGZDgyXSGZb09n6E/GoRjAal8BlS94lEEKk=
+ bh=pm18Fn3iFegnzC3MPEjWVDuYr8mcddmHWRcyra3D4yU=;
+ b=xFRAIIGrO0nIuOzF3xhDEPrkHaHE8GIHzynQthBkvViUbxvWkCqwuIweVjBzNvXtOvmmpQC3WbyBChVhD1zPwOHm45JTc+MwUAnslWh8KRadmjlDkRwJCY9I8dOEEX80WSzqJH7jkehfOVhpbr3fmNTRixuGVSHfDO/njR68MSg=
 X-Mailman-Original-Authentication-Results: spf=none (sender IP is )
- smtp.mailfrom=Harry.Wentland@amd.com; 
+ smtp.mailfrom=Yong.Zhao@amd.com; 
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -110,49 +104,488 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0676136989=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-Message-ID: <20191107162430.Q0YlvVsmGiY4d5g7d23Oh15C_rgExawjC97Iu3CMDvg@z>
+Message-ID: <20191107165700.YxKdbIa8RmGqhcl1EEcIQUKsBwFRbcGg7tcF9TYWjQY@z>
 
-T24gMjAxOS0xMS0wNiA4OjUyIHAubS4sIEFsZXggRGV1Y2hlciB3cm90ZToNCj4gTmVlZCB0byBw
-cm90ZWN0IHNvbWUgRFNDIGZ1bmN0aW9ucy4NCj4gDQo+IFNpZ25lZC1vZmYtYnk6IEFsZXggRGV1
-Y2hlciA8YWxleGFuZGVyLmRldWNoZXJAYW1kLmNvbT4NCg0KUmV2aWV3ZWQtYnk6IEhhcnJ5IFdl
-bnRsYW5kIDxoYXJyeS53ZW50bGFuZEBhbWQuY29tPg0KDQpIYXJyeQ0KDQo+IC0tLQ0KPiAgZHJp
-dmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG0uYyB8IDYgKysrKysr
-DQo+ICAxIGZpbGUgY2hhbmdlZCwgNiBpbnNlcnRpb25zKCspDQo+IA0KPiBkaWZmIC0tZ2l0IGEv
-ZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG0uYyBiL2RyaXZl
-cnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtLmMNCj4gaW5kZXggYTFi
-ZGQ1MWM1MGY3Li5mY2JjZjUyYTc3ZTAgMTAwNjQ0DQo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9h
-bWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtLmMNCj4gKysrIGIvZHJpdmVycy9ncHUvZHJt
-L2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG0uYw0KPiBAQCAtMzg5MSw3ICszODkxLDkg
-QEAgY3JlYXRlX3N0cmVhbV9mb3Jfc2luayhzdHJ1Y3QgYW1kZ3B1X2RtX2Nvbm5lY3RvciAqYWNv
-bm5lY3RvciwNCj4gIAlib29sIHNjYWxlID0gZG1fc3RhdGUgPyAoZG1fc3RhdGUtPnNjYWxpbmcg
-IT0gUk1YX09GRikgOiBmYWxzZTsNCj4gIAlpbnQgbW9kZV9yZWZyZXNoOw0KPiAgCWludCBwcmVm
-ZXJyZWRfcmVmcmVzaCA9IDA7DQo+ICsjaWYgZGVmaW5lZChDT05GSUdfRFJNX0FNRF9EQ19EQ04p
-DQo+ICAJc3RydWN0IGRzY19kZWNfZHBjZF9jYXBzIGRzY19jYXBzOw0KPiArI2VuZGlmDQo+ICAJ
-dWludDMyX3QgbGlua19iYW5kd2lkdGhfa2JwczsNCj4gIA0KPiAgCXN0cnVjdCBkY19zaW5rICpz
-aW5rID0gTlVMTDsNCj4gQEAgLTM5NzAsMTIgKzM5NzIsMTUgQEAgY3JlYXRlX3N0cmVhbV9mb3Jf
-c2luayhzdHJ1Y3QgYW1kZ3B1X2RtX2Nvbm5lY3RvciAqYWNvbm5lY3RvciwNCj4gIAlzdHJlYW0t
-PnRpbWluZy5mbGFncy5EU0MgPSAwOw0KPiAgDQo+ICAJaWYgKGFjb25uZWN0b3ItPmRjX2xpbmsg
-JiYgc2luay0+c2lua19zaWduYWwgPT0gU0lHTkFMX1RZUEVfRElTUExBWV9QT1JUKSB7DQo+ICsj
-aWYgZGVmaW5lZChDT05GSUdfRFJNX0FNRF9EQ19EQ04pDQo+ICAJCWRjX2RzY19wYXJzZV9kc2Nf
-ZHBjZChhY29ubmVjdG9yLT5kY19saW5rLT5kcGNkX2NhcHMuZHNjX2NhcHMuZHNjX2Jhc2ljX2Nh
-cHMucmF3LA0KPiAgCQkJCSAgICAgIGFjb25uZWN0b3ItPmRjX2xpbmstPmRwY2RfY2Fwcy5kc2Nf
-Y2Fwcy5kc2NfZXh0X2NhcHMucmF3LA0KPiAgCQkJCSAgICAgICZkc2NfY2Fwcyk7DQo+ICsjZW5k
-aWYNCj4gIAkJbGlua19iYW5kd2lkdGhfa2JwcyA9IGRjX2xpbmtfYmFuZHdpZHRoX2ticHMoYWNv
-bm5lY3Rvci0+ZGNfbGluaywNCj4gIAkJCQkJCQkgICAgIGRjX2xpbmtfZ2V0X2xpbmtfY2FwKGFj
-b25uZWN0b3ItPmRjX2xpbmspKTsNCj4gIA0KPiArI2lmIGRlZmluZWQoQ09ORklHX0RSTV9BTURf
-RENfRENOKQ0KPiAgCQlpZiAoZHNjX2NhcHMuaXNfZHNjX3N1cHBvcnRlZCkNCj4gIAkJCWlmIChk
-Y19kc2NfY29tcHV0ZV9jb25maWcoYWNvbm5lY3Rvci0+ZGNfbGluay0+Y3R4LT5kYy0+cmVzX3Bv
-b2wtPmRzY3NbMF0sDQo+ICAJCQkJCQkgICZkc2NfY2FwcywNCj4gQEAgLTM5ODQsNiArMzk4OSw3
-IEBAIGNyZWF0ZV9zdHJlYW1fZm9yX3Npbmsoc3RydWN0IGFtZGdwdV9kbV9jb25uZWN0b3IgKmFj
-b25uZWN0b3IsDQo+ICAJCQkJCQkgICZzdHJlYW0tPnRpbWluZywNCj4gIAkJCQkJCSAgJnN0cmVh
-bS0+dGltaW5nLmRzY19jZmcpKQ0KPiAgCQkJCXN0cmVhbS0+dGltaW5nLmZsYWdzLkRTQyA9IDE7
-DQo+ICsjZW5kaWYNCj4gIAl9DQo+ICANCj4gIAl1cGRhdGVfc3RyZWFtX3NjYWxpbmdfc2V0dGlu
-Z3MoJm1vZGUsIGRtX3N0YXRlLCBzdHJlYW0pOw0KPiANCl9fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlz
-dHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4v
-bGlzdGluZm8vYW1kLWdmeA==
+--===============0676136989==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_DM6PR12MB2778C141CFEA0006DA2CEC6DF0780DM6PR12MB2778namp_"
+
+--_000_DM6PR12MB2778C141CFEA0006DA2CEC6DF0780DM6PR12MB2778namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+Hi Felix,
+
+That's because v8 and v7 share the same packet_manager_funcs. In this case,=
+ it is better to keep it as it is.
+
+Regards,
+Yong
+________________________________
+From: Kuehling, Felix <Felix.Kuehling@amd.com>
+Sent: Wednesday, November 6, 2019 11:45 PM
+To: Zhao, Yong <Yong.Zhao@amd.com>; amd-gfx@lists.freedesktop.org <amd-gfx@=
+lists.freedesktop.org>
+Subject: Re: [PATCH 2/3] drm/amdkfd: only keep release_mem function for Haw=
+aii
+
+On 2019-10-30 20:17, Zhao, Yong wrote:
+> release_mem won't be used at all on GFX9 and GFX10, so delete it.
+
+Hawaii was GFXv7. So we're not using the release_mem packet on GFXv8
+either. Why arbitrarily limit this change to GFXv9 and 10?
+
+Regards,
+   Felix
+
+>
+> Change-Id: I13787a8a29b83e7516c582a7401f2e14721edf5f
+> Signed-off-by: Yong Zhao <Yong.Zhao@amd.com>
+> ---
+>   .../gpu/drm/amd/amdkfd/kfd_kernel_queue_v10.c | 35 ++-----------------
+>   .../gpu/drm/amd/amdkfd/kfd_kernel_queue_v9.c  | 33 ++---------------
+>   2 files changed, 4 insertions(+), 64 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue_v10.c b/drivers/=
+gpu/drm/amd/amdkfd/kfd_kernel_queue_v10.c
+> index aed32ab7102e..bfd6221acae9 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue_v10.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue_v10.c
+> @@ -298,37 +298,6 @@ static int pm_query_status_v10(struct packet_manager=
+ *pm, uint32_t *buffer,
+>        return 0;
+>   }
+>
+> -
+> -static int pm_release_mem_v10(uint64_t gpu_addr, uint32_t *buffer)
+> -{
+> -     struct pm4_mec_release_mem *packet;
+> -
+> -     WARN_ON(!buffer);
+> -
+> -     packet =3D (struct pm4_mec_release_mem *)buffer;
+> -     memset(buffer, 0, sizeof(struct pm4_mec_release_mem));
+> -
+> -     packet->header.u32All =3D pm_build_pm4_header(IT_RELEASE_MEM,
+> -                                     sizeof(struct pm4_mec_release_mem))=
+;
+> -
+> -     packet->bitfields2.event_type =3D CACHE_FLUSH_AND_INV_TS_EVENT;
+> -     packet->bitfields2.event_index =3D event_index__mec_release_mem__en=
+d_of_pipe;
+> -     packet->bitfields2.tcl1_action_ena =3D 1;
+> -     packet->bitfields2.tc_action_ena =3D 1;
+> -     packet->bitfields2.cache_policy =3D cache_policy__mec_release_mem__=
+lru;
+> -
+> -     packet->bitfields3.data_sel =3D data_sel__mec_release_mem__send_32_=
+bit_low;
+> -     packet->bitfields3.int_sel =3D
+> -             int_sel__mec_release_mem__send_interrupt_after_write_confir=
+m;
+> -
+> -     packet->bitfields4.address_lo_32b =3D (gpu_addr & 0xffffffff) >> 2;
+> -     packet->address_hi =3D upper_32_bits(gpu_addr);
+> -
+> -     packet->data_lo =3D 0;
+> -
+> -     return sizeof(struct pm4_mec_release_mem) / sizeof(unsigned int);
+> -}
+> -
+>   const struct packet_manager_funcs kfd_v10_pm_funcs =3D {
+>        .map_process                    =3D pm_map_process_v10,
+>        .runlist                        =3D pm_runlist_v10,
+> @@ -336,13 +305,13 @@ const struct packet_manager_funcs kfd_v10_pm_funcs =
+=3D {
+>        .map_queues                     =3D pm_map_queues_v10,
+>        .unmap_queues                   =3D pm_unmap_queues_v10,
+>        .query_status                   =3D pm_query_status_v10,
+> -     .release_mem                    =3D pm_release_mem_v10,
+> +     .release_mem                    =3D NULL,
+>        .map_process_size               =3D sizeof(struct pm4_mes_map_proc=
+ess),
+>        .runlist_size                   =3D sizeof(struct pm4_mes_runlist)=
+,
+>        .set_resources_size             =3D sizeof(struct pm4_mes_set_reso=
+urces),
+>        .map_queues_size                =3D sizeof(struct pm4_mes_map_queu=
+es),
+>        .unmap_queues_size              =3D sizeof(struct pm4_mes_unmap_qu=
+eues),
+>        .query_status_size              =3D sizeof(struct pm4_mes_query_st=
+atus),
+> -     .release_mem_size               =3D sizeof(struct pm4_mec_release_m=
+em)
+> +     .release_mem_size               =3D 0,
+>   };
+>
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue_v9.c b/drivers/g=
+pu/drm/amd/amdkfd/kfd_kernel_queue_v9.c
+> index 3b5ca2b1d7a6..f0e4910a8865 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue_v9.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue_v9.c
+> @@ -336,35 +336,6 @@ static int pm_query_status_v9(struct packet_manager =
+*pm, uint32_t *buffer,
+>        return 0;
+>   }
+>
+> -
+> -static int pm_release_mem_v9(uint64_t gpu_addr, uint32_t *buffer)
+> -{
+> -     struct pm4_mec_release_mem *packet;
+> -
+> -     packet =3D (struct pm4_mec_release_mem *)buffer;
+> -     memset(buffer, 0, sizeof(struct pm4_mec_release_mem));
+> -
+> -     packet->header.u32All =3D pm_build_pm4_header(IT_RELEASE_MEM,
+> -                                     sizeof(struct pm4_mec_release_mem))=
+;
+> -
+> -     packet->bitfields2.event_type =3D CACHE_FLUSH_AND_INV_TS_EVENT;
+> -     packet->bitfields2.event_index =3D event_index__mec_release_mem__en=
+d_of_pipe;
+> -     packet->bitfields2.tcl1_action_ena =3D 1;
+> -     packet->bitfields2.tc_action_ena =3D 1;
+> -     packet->bitfields2.cache_policy =3D cache_policy__mec_release_mem__=
+lru;
+> -
+> -     packet->bitfields3.data_sel =3D data_sel__mec_release_mem__send_32_=
+bit_low;
+> -     packet->bitfields3.int_sel =3D
+> -             int_sel__mec_release_mem__send_interrupt_after_write_confir=
+m;
+> -
+> -     packet->bitfields4.address_lo_32b =3D (gpu_addr & 0xffffffff) >> 2;
+> -     packet->address_hi =3D upper_32_bits(gpu_addr);
+> -
+> -     packet->data_lo =3D 0;
+> -
+> -     return 0;
+> -}
+> -
+>   const struct packet_manager_funcs kfd_v9_pm_funcs =3D {
+>        .map_process            =3D pm_map_process_v9,
+>        .runlist                =3D pm_runlist_v9,
+> @@ -372,12 +343,12 @@ const struct packet_manager_funcs kfd_v9_pm_funcs =
+=3D {
+>        .map_queues             =3D pm_map_queues_v9,
+>        .unmap_queues           =3D pm_unmap_queues_v9,
+>        .query_status           =3D pm_query_status_v9,
+> -     .release_mem            =3D pm_release_mem_v9,
+> +     .release_mem            =3D NULL,
+>        .map_process_size       =3D sizeof(struct pm4_mes_map_process),
+>        .runlist_size           =3D sizeof(struct pm4_mes_runlist),
+>        .set_resources_size     =3D sizeof(struct pm4_mes_set_resources),
+>        .map_queues_size        =3D sizeof(struct pm4_mes_map_queues),
+>        .unmap_queues_size      =3D sizeof(struct pm4_mes_unmap_queues),
+>        .query_status_size      =3D sizeof(struct pm4_mes_query_status),
+> -     .release_mem_size       =3D sizeof(struct pm4_mec_release_mem)
+> +     .release_mem_size       =3D 0,
+>   };
+
+--_000_DM6PR12MB2778C141CFEA0006DA2CEC6DF0780DM6PR12MB2778namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Hi Felix,</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+That's because v8 and v7 share the same <span style=3D"font-family: &quot;S=
+egoe UI&quot;, &quot;Segoe UI Web (West European)&quot;, &quot;Segoe UI&quo=
+t;, -apple-system, BlinkMacSystemFont, Roboto, &quot;Helvetica Neue&quot;, =
+sans-serif; font-size: 14.6667px; background-color: rgb(255, 255, 255); dis=
+play: inline !important">
+packet_manager_funcs. In this case, it is better to keep it as it is.</span=
+></div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<span style=3D"font-family: &quot;Segoe UI&quot;, &quot;Segoe UI Web (West =
+European)&quot;, &quot;Segoe UI&quot;, -apple-system, BlinkMacSystemFont, R=
+oboto, &quot;Helvetica Neue&quot;, sans-serif; font-size: 14.6667px; backgr=
+ound-color: rgb(255, 255, 255); display: inline !important"><br>
+</span></div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<span style=3D"font-family: &quot;Segoe UI&quot;, &quot;Segoe UI Web (West =
+European)&quot;, &quot;Segoe UI&quot;, -apple-system, BlinkMacSystemFont, R=
+oboto, &quot;Helvetica Neue&quot;, sans-serif; font-size: 14.6667px; backgr=
+ound-color: rgb(255, 255, 255); display: inline !important">Regards,</span>=
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<span style=3D"font-family: &quot;Segoe UI&quot;, &quot;Segoe UI Web (West =
+European)&quot;, &quot;Segoe UI&quot;, -apple-system, BlinkMacSystemFont, R=
+oboto, &quot;Helvetica Neue&quot;, sans-serif; font-size: 14.6667px; backgr=
+ound-color: rgb(255, 255, 255); display: inline !important">Yong</span></di=
+v>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Kuehling, Felix &lt;F=
+elix.Kuehling@amd.com&gt;<br>
+<b>Sent:</b> Wednesday, November 6, 2019 11:45 PM<br>
+<b>To:</b> Zhao, Yong &lt;Yong.Zhao@amd.com&gt;; amd-gfx@lists.freedesktop.=
+org &lt;amd-gfx@lists.freedesktop.org&gt;<br>
+<b>Subject:</b> Re: [PATCH 2/3] drm/amdkfd: only keep release_mem function =
+for Hawaii</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">On 2019-10-30 20:17, Zhao, Yong wrote:<br>
+&gt; release_mem won't be used at all on GFX9 and GFX10, so delete it.<br>
+<br>
+Hawaii was GFXv7. So we're not using the release_mem packet on GFXv8 <br>
+either. Why arbitrarily limit this change to GFXv9 and 10?<br>
+<br>
+Regards,<br>
+&nbsp;&nbsp; Felix<br>
+<br>
+&gt;<br>
+&gt; Change-Id: I13787a8a29b83e7516c582a7401f2e14721edf5f<br>
+&gt; Signed-off-by: Yong Zhao &lt;Yong.Zhao@amd.com&gt;<br>
+&gt; ---<br>
+&gt;&nbsp;&nbsp; .../gpu/drm/amd/amdkfd/kfd_kernel_queue_v10.c | 35 &#43;&#=
+43;-----------------<br>
+&gt;&nbsp;&nbsp; .../gpu/drm/amd/amdkfd/kfd_kernel_queue_v9.c&nbsp; | 33 &#=
+43;&#43;---------------<br>
+&gt;&nbsp;&nbsp; 2 files changed, 4 insertions(&#43;), 64 deletions(-)<br>
+&gt;<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue_v10.c b/drive=
+rs/gpu/drm/amd/amdkfd/kfd_kernel_queue_v10.c<br>
+&gt; index aed32ab7102e..bfd6221acae9 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue_v10.c<br>
+&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue_v10.c<br=
+>
+&gt; @@ -298,37 &#43;298,6 @@ static int pm_query_status_v10(struct packet_=
+manager *pm, uint32_t *buffer,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+&gt;&nbsp;&nbsp; }<br>
+&gt;&nbsp;&nbsp; <br>
+&gt; -<br>
+&gt; -static int pm_release_mem_v10(uint64_t gpu_addr, uint32_t *buffer)<br=
+>
+&gt; -{<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; struct pm4_mec_release_mem *packet;<br>
+&gt; -<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; WARN_ON(!buffer);<br>
+&gt; -<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; packet =3D (struct pm4_mec_release_mem *)buf=
+fer;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; memset(buffer, 0, sizeof(struct pm4_mec_rele=
+ase_mem));<br>
+&gt; -<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; packet-&gt;header.u32All =3D pm_build_pm4_he=
+ader(IT_RELEASE_MEM,<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; si=
+zeof(struct pm4_mec_release_mem));<br>
+&gt; -<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; packet-&gt;bitfields2.event_type =3D CACHE_F=
+LUSH_AND_INV_TS_EVENT;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; packet-&gt;bitfields2.event_index =3D event_=
+index__mec_release_mem__end_of_pipe;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; packet-&gt;bitfields2.tcl1_action_ena =3D 1;=
+<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; packet-&gt;bitfields2.tc_action_ena =3D 1;<b=
+r>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; packet-&gt;bitfields2.cache_policy =3D cache=
+_policy__mec_release_mem__lru;<br>
+&gt; -<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; packet-&gt;bitfields3.data_sel =3D data_sel_=
+_mec_release_mem__send_32_bit_low;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; packet-&gt;bitfields3.int_sel =3D<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; int_sel__mec_release_mem__send_interrupt_after_write_confirm;<br>
+&gt; -<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; packet-&gt;bitfields4.address_lo_32b =3D (gp=
+u_addr &amp; 0xffffffff) &gt;&gt; 2;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; packet-&gt;address_hi =3D upper_32_bits(gpu_=
+addr);<br>
+&gt; -<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; packet-&gt;data_lo =3D 0;<br>
+&gt; -<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; return sizeof(struct pm4_mec_release_mem) / =
+sizeof(unsigned int);<br>
+&gt; -}<br>
+&gt; -<br>
+&gt;&nbsp;&nbsp; const struct packet_manager_funcs kfd_v10_pm_funcs =3D {<b=
+r>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .map_process&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp; =3D pm_map_process_v10,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .runlist&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =3D pm_runlist_v10,<br>
+&gt; @@ -336,13 &#43;305,13 @@ const struct packet_manager_funcs kfd_v10_pm=
+_funcs =3D {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .map_queues&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp; =3D pm_map_queues_v10,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .unmap_queues&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp; =3D pm_unmap_queues_v10,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .query_status&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp; =3D pm_query_status_v10,<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; .release_mem&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; =3D pm_release_mem_v10,<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; .release_mem&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp; =3D NULL,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .map_process_size&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =
+=3D sizeof(struct pm4_mes_map_process),<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .runlist_size&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp; =3D sizeof(struct pm4_mes_runlist),<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .set_resources_size&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =3D sizeof(=
+struct pm4_mes_set_resources),<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .map_queues_size&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; =3D sizeof(struct pm4_mes_map_queues),<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .unmap_queues_size&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =3D si=
+zeof(struct pm4_mes_unmap_queues),<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .query_status_size&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =3D si=
+zeof(struct pm4_mes_query_status),<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; .release_mem_size&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =3D sizeof(struct=
+ pm4_mec_release_mem)<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; .release_mem_size&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =3D 0,<br>
+&gt;&nbsp;&nbsp; };<br>
+&gt;&nbsp;&nbsp; <br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue_v9.c b/driver=
+s/gpu/drm/amd/amdkfd/kfd_kernel_queue_v9.c<br>
+&gt; index 3b5ca2b1d7a6..f0e4910a8865 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue_v9.c<br>
+&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue_v9.c<br>
+&gt; @@ -336,35 &#43;336,6 @@ static int pm_query_status_v9(struct packet_m=
+anager *pm, uint32_t *buffer,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+&gt;&nbsp;&nbsp; }<br>
+&gt;&nbsp;&nbsp; <br>
+&gt; -<br>
+&gt; -static int pm_release_mem_v9(uint64_t gpu_addr, uint32_t *buffer)<br>
+&gt; -{<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; struct pm4_mec_release_mem *packet;<br>
+&gt; -<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; packet =3D (struct pm4_mec_release_mem *)buf=
+fer;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; memset(buffer, 0, sizeof(struct pm4_mec_rele=
+ase_mem));<br>
+&gt; -<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; packet-&gt;header.u32All =3D pm_build_pm4_he=
+ader(IT_RELEASE_MEM,<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; si=
+zeof(struct pm4_mec_release_mem));<br>
+&gt; -<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; packet-&gt;bitfields2.event_type =3D CACHE_F=
+LUSH_AND_INV_TS_EVENT;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; packet-&gt;bitfields2.event_index =3D event_=
+index__mec_release_mem__end_of_pipe;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; packet-&gt;bitfields2.tcl1_action_ena =3D 1;=
+<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; packet-&gt;bitfields2.tc_action_ena =3D 1;<b=
+r>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; packet-&gt;bitfields2.cache_policy =3D cache=
+_policy__mec_release_mem__lru;<br>
+&gt; -<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; packet-&gt;bitfields3.data_sel =3D data_sel_=
+_mec_release_mem__send_32_bit_low;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; packet-&gt;bitfields3.int_sel =3D<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; int_sel__mec_release_mem__send_interrupt_after_write_confirm;<br>
+&gt; -<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; packet-&gt;bitfields4.address_lo_32b =3D (gp=
+u_addr &amp; 0xffffffff) &gt;&gt; 2;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; packet-&gt;address_hi =3D upper_32_bits(gpu_=
+addr);<br>
+&gt; -<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; packet-&gt;data_lo =3D 0;<br>
+&gt; -<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+&gt; -}<br>
+&gt; -<br>
+&gt;&nbsp;&nbsp; const struct packet_manager_funcs kfd_v9_pm_funcs =3D {<br=
+>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .map_process&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =3D pm_map_process_v9,<b=
+r>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .runlist&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =3D =
+pm_runlist_v9,<br>
+&gt; @@ -372,12 &#43;343,12 @@ const struct packet_manager_funcs kfd_v9_pm_=
+funcs =3D {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .map_queues&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =3D pm_map_queues_v=
+9,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .unmap_queues&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =3D pm_unmap_queues_v9,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .query_status&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =3D pm_query_status_v9,<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; .release_mem&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =3D pm_release_mem_v9,<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; .release_mem&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =3D NULL,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .map_process_size&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; =3D sizeof(struct pm4_mes_map_process),<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .runlist_size&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =3D sizeof(struct pm4_mes_run=
+list),<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .set_resources_size&nbsp;&nb=
+sp;&nbsp;&nbsp; =3D sizeof(struct pm4_mes_set_resources),<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .map_queues_size&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =3D sizeof(struct pm4_mes_map_queues),<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .unmap_queues_size&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp; =3D sizeof(struct pm4_mes_unmap_queues),<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .query_status_size&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp; =3D sizeof(struct pm4_mes_query_status),<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; .release_mem_size&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp; =3D sizeof(struct pm4_mec_release_mem)<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; .release_mem_size&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; =3D 0,<br>
+&gt;&nbsp;&nbsp; };<br>
+</div>
+</span></font></div>
+</body>
+</html>
+
+--_000_DM6PR12MB2778C141CFEA0006DA2CEC6DF0780DM6PR12MB2778namp_--
+
+--===============0676136989==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+
+--===============0676136989==--
