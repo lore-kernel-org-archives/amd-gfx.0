@@ -6,94 +6,95 @@ X-Spam-Status: No, score=-6.7 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
 	HTML_MESSAGE,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,
 	SPF_PASS autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6D988C43331
-	for <amd-gfx@archiver.kernel.org>; Thu,  7 Nov 2019 17:31:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C088DC43331
+	for <amd-gfx@archiver.kernel.org>; Thu,  7 Nov 2019 17:33:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3967D2085B
-	for <amd-gfx@archiver.kernel.org>; Thu,  7 Nov 2019 17:31:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3967D2085B
+	by mail.kernel.org (Postfix) with ESMTPS id 9AC812085B
+	for <amd-gfx@archiver.kernel.org>; Thu,  7 Nov 2019 17:33:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9AC812085B
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0ABC86E4D7;
-	Thu,  7 Nov 2019 17:31:24 +0000 (UTC)
-Received: from NAM01-SN1-obe.outbound.protection.outlook.com
- (mail-eopbgr820082.outbound.protection.outlook.com [40.107.82.82])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8B0A06E4D7
- for <amd-gfx@lists.freedesktop.org>; Thu,  7 Nov 2019 17:31:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 62E436F75E;
+	Thu,  7 Nov 2019 17:33:32 +0000 (UTC)
+Received: from NAM04-BN3-obe.outbound.protection.outlook.com
+ (mail-eopbgr680075.outbound.protection.outlook.com [40.107.68.75])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 129186F75B
+ for <amd-gfx@lists.freedesktop.org>; Thu,  7 Nov 2019 17:33:30 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=i5FMBy4ZTWlwumAm+5LqCp6ZeEdQ6KYn5kipceDpkBg8/NkQrTWNSNVZZZnY3epPZKoS4tqTkVdQPbUvZnagmXHu2bblZNhVonoiZndMdirFIinJ9TfDFBgPwc96fcpMWk30STRsIoHcQbFB4PnWEbZfR4Vcl0Joo7v3JoEvkkizl9cSXMFK7VFHHTjSz+NWQcAi1LZ8Sku7XAvhzbsswk7R5Dals7bSwozq7n0aKJycVW6XS4jJN3/Jz0eexF6fpFF6pYTpQK2MxWVWauo1tN3pPyJ6zm0B4hAigEV6B/w4wKJ9z7BbU2oT6iqfPEGwKdrDqNFwzpLXp2iUF5T0kg==
+ b=m1gk/RDReBkMnmMuX9pZEqO6EusgbEQIR00hTMeplsscLAe5MOeQ9UE9nn60cIKhjEPe2BrNh5YWGetAd5rZC5lW8pqk+0AZqG1glOC8j/8f9N22LqrdTA9Xu68Lk5tIOWfyGyqZpPqKuZtSRLxxt12t/khptoAuaRYvs4w3ME9NcAX1funGDQAPpQGH1ILKeTmiI5ffrgp591nObB+ardBup7/K3fsLWTAk2YmHPQ4F4y779XIKpdIpBhWQYoYz+fQWohbpwt8KFvCluw2wouJ9sJJCmimBwgATecSFrK0EV/e6m7ZNcWXFkHJ+8wJ0ax3jZAcv+Borxmh26GJoMQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PZFB83NpTChJxhNyUfgfdj8zeS4vEqHVk93Qn+l3IYo=;
- b=Y4Ei9jm+Q6160FRZP09O6+522YiDDLEketKodV0SIXcdORNkFwfxBeDduncqZgv8FnmjiNGNVMizzd/KNUz0UIYjE6Ris66Xd2XOXo7+5ow0l3DlkGbaqs639NkABELyrbRrBNsx37GpaEl56S9x4QIJmBM8B5BMzReBzoj+4NFUbIfSClcJfR1Zve2N/pZpE6Xvrf0p6qTfFOj5JI0sKdlf2PORcp5uWn1IQY2KUYjyrINExIqbMq/nOjHEwvgaShMd0QsIcDTnWr2yTgzRdhKgejDPs3lP1aU5LBLPLmWPt2TyQdZyC4WMePixEx1U+ms5WlwLGfcheyAN/40XRg==
+ bh=vGPs7DzTSkfssEZJSMSRxCruRqc4lzI7PC8R/1zJsh0=;
+ b=CwQ9UbpdrqeFA/kRK+ypki6MxmsJDnTeF1TsjMSPPZgCJr6o6j2OQXPGXhZyS3rwTEI3hPlltPgDRCPT6Ge7icObkF3TzNBQMndzwFObWIQzraig732OUp9THEtgA9qfYeZ5vSEDzG6Jcf2/tsbXttatSfcCACgU+8rmvGEg9XptL1LrTj9NFV4mKxgdU7NNPD88ITlJcybCgztt7aZkdG6jbbYLhh3L+PLoDoUROYLOfmjaNtNRZGRcJvArC3m6PoNOR8/j7/ykDM0HNS2w6mIO4NAJUrsGuM8c+J2Jdlfl8BvHXDdYltHuFc2jkz+E5IO8TcLnWaPozcwejKY7IQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
-Received: from DM6PR12MB2778.namprd12.prod.outlook.com (20.176.114.145) by
- DM6PR12MB3067.namprd12.prod.outlook.com (20.178.30.149) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2430.20; Thu, 7 Nov 2019 17:31:22 +0000
-Received: from DM6PR12MB2778.namprd12.prod.outlook.com
- ([fe80::304d:db58:2aa:d69e]) by DM6PR12MB2778.namprd12.prod.outlook.com
- ([fe80::304d:db58:2aa:d69e%6]) with mapi id 15.20.2430.020; Thu, 7 Nov 2019
- 17:31:22 +0000
-From: "Zhao, Yong" <Yong.Zhao@amd.com>
-To: "Kuehling, Felix" <Felix.Kuehling@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Subject: Re: [PATCH] drm/amdkfd: Simplify the mmap offset related bit
- operations
-Thread-Topic: [PATCH] drm/amdkfd: Simplify the mmap offset related bit
- operations
-Thread-Index: AQHVlC9KsVca0NKFMUCOBwbcLRM7OKd/KaMAgADP88E=
-Date: Thu, 7 Nov 2019 17:31:21 +0000
+Received: from CY4PR1201MB2533.namprd12.prod.outlook.com (10.172.120.151) by
+ CY4PR1201MB0006.namprd12.prod.outlook.com (10.172.117.151) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2387.24; Thu, 7 Nov 2019 17:33:27 +0000
+Received: from CY4PR1201MB2533.namprd12.prod.outlook.com
+ ([fe80::7d54:3475:ff9b:694b]) by CY4PR1201MB2533.namprd12.prod.outlook.com
+ ([fe80::7d54:3475:ff9b:694b%10]) with mapi id 15.20.2430.020; Thu, 7 Nov 2019
+ 17:33:27 +0000
+From: "Russell, Kent" <Kent.Russell@amd.com>
+To: "Zhao, Yong" <Yong.Zhao@amd.com>, "Kuehling, Felix"
+ <Felix.Kuehling@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH 2/3] drm/amdkfd: only keep release_mem function for Hawaii
+Thread-Topic: [PATCH 2/3] drm/amdkfd: only keep release_mem function for Hawaii
+Thread-Index: AQHVj4CooXRVzQZmH0qiYB3kyba1qqd/LUyAgADMcACAAAlP0A==
+Date: Thu, 7 Nov 2019 17:33:27 +0000
 Message-ID:
- <DM6PR12MB277821CD762FCC79DB3B4B6AF0780@DM6PR12MB2778.namprd12.prod.outlook.com>
-References: <20191105231759.19850-1-Yong.Zhao@amd.com>,
- <38503488-c676-9e61-3e09-c27b1dd18e26@amd.com>
-In-Reply-To: <38503488-c676-9e61-3e09-c27b1dd18e26@amd.com>
+ <CY4PR1201MB2533087B346C4619F461FF3185780@CY4PR1201MB2533.namprd12.prod.outlook.com>
+References: <20191031001739.10764-1-Yong.Zhao@amd.com>
+ <20191031001739.10764-2-Yong.Zhao@amd.com>,
+ <31102345-20f7-1b0e-dd2a-f7984b253a07@amd.com>
+ <DM6PR12MB2778C141CFEA0006DA2CEC6DF0780@DM6PR12MB2778.namprd12.prod.outlook.com>
+In-Reply-To: <DM6PR12MB2778C141CFEA0006DA2CEC6DF0780@DM6PR12MB2778.namprd12.prod.outlook.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-x-originating-ip: [165.204.54.211]
+x-originating-ip: [2607:fea8:1c80:d46:25:1c12:1491:5915]
 x-ms-publictraffictype: Email
 x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: 11b87fe9-f40b-43e7-9dda-08d763a84e9f
-x-ms-traffictypediagnostic: DM6PR12MB3067:
+x-ms-office365-filtering-correlation-id: 9bb2098e-d152-4eff-c586-08d763a89986
+x-ms-traffictypediagnostic: CY4PR1201MB0006:
 x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <DM6PR12MB306777ED67D6D883C6A2761AF0780@DM6PR12MB3067.namprd12.prod.outlook.com>
+x-microsoft-antispam-prvs: <CY4PR1201MB000624BA53099E892EDBA56585780@CY4PR1201MB0006.namprd12.prod.outlook.com>
 x-ms-oob-tlc-oobclassifiers: OLM:8273;
 x-forefront-prvs: 0214EB3F68
 x-forefront-antispam-report: SFV:NSPM;
- SFS:(10009020)(4636009)(366004)(136003)(396003)(376002)(39860400002)(346002)(189003)(199004)(446003)(6246003)(7736002)(74316002)(76116006)(64756008)(91956017)(66556008)(66476007)(66946007)(486006)(186003)(81156014)(8936002)(476003)(14454004)(33656002)(19627405001)(105004)(81166006)(26005)(8676002)(11346002)(478600001)(52536014)(86362001)(53546011)(6506007)(5660300002)(66066001)(2501003)(71190400001)(2906002)(76176011)(102836004)(71200400001)(6116002)(7696005)(6436002)(66446008)(54896002)(229853002)(55016002)(9686003)(99286004)(25786009)(110136005)(256004)(3846002)(316002);
- DIR:OUT; SFP:1101; SCL:1; SRVR:DM6PR12MB3067;
- H:DM6PR12MB2778.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; MX:1; A:1; 
+ SFS:(10009020)(4636009)(396003)(376002)(39860400002)(346002)(136003)(366004)(51444003)(199004)(189003)(110136005)(14444005)(71200400001)(71190400001)(256004)(5660300002)(76176011)(316002)(64756008)(86362001)(102836004)(53546011)(76116006)(4001150100001)(66946007)(66476007)(66556008)(6506007)(99286004)(81156014)(14454004)(81166006)(8676002)(8936002)(7696005)(236005)(2501003)(6246003)(33656002)(9686003)(74316002)(2906002)(476003)(11346002)(52536014)(66446008)(25786009)(446003)(486006)(790700001)(229853002)(55016002)(6116002)(6306002)(6436002)(478600001)(54896002)(7736002)(46003)(186003);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:CY4PR1201MB0006;
+ H:CY4PR1201MB2533.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; A:1; MX:1; 
 received-spf: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
 x-ms-exchange-senderadcheck: 1
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: jPkKEs2r7FPw7dB9jUZjNxOzqwV3c4uXwQ9XVRCvEYAsHgWM8IdOHmvEURwX0wwjFO/yBK92l+KfoIAE1051MiQf6Kz49SsE0zKd/G+HV0tlTBBpVTFPYxw4gMRnTliC435X7BKL0Arm4ktq0IsJAxCxpIhbRU+scqUDiGl8umB2sFMUegUA81XsD6r66EgYFFM0nTmUuxnjXAmk25hhqL85ST3X2aN0GDTH96hnkK69OqS3c053Bu4gcVRi2daXVEeJbs10vuNS96WEYdOn5oZ/QgNa886NULUeIsc0YzXiLLDpBrB7vMF+3FHg+JRDDMLe1/2amT4op16XX8B8KvDJS2ggrt0kczXo7aZi12hl7gJuOofEusIUyxBikRwui7FWOIL0QnoVl/tAwrnK/8aubKVGJjqdM+Fldw+b7ptiZYOj8A47A+dWulUe7h+7
+x-microsoft-antispam-message-info: GLR4aeHyrEj9xrUxkcKxB8X3XtxN/GN4MuL5LceAgxw060fBrBm5wrYeOZnnPwu8s1UhJNeQE3/mJbSYVPtsyu9Gs6xVyV2gdopNM8TV/ubkyhmYcNCoipWRMii838NUxY6ZkILXrd9XfQ8Z0TAn5jOKWKUDJ19yGXzieH7SAgigzEzVeCMsm24T+GqToYErN0OiSrIum7RRw/pgeG3m7YYXS+3GQOyM8Hbv7sFybx1ceXsael2Pd3IvNUtN8MaWXOJ9yrr9JnqMdRw7dr4T5NGbKfQuoSXsIyuPeOdMP2P3GwpWH/JT4FtD2MYhCY5UOf/7xbpD4iOJS5t3ja0Ygs/IhDdFKjcOfdEWueTmDDUATrlyFv53QjuLnsKP8sVekYYFQ1bf9waXRjm8fk7nvpBjX9agxdvYucSZVsdxLQ8ZAhlg1Pq1Po167Zd9iVsB
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 11b87fe9-f40b-43e7-9dda-08d763a84e9f
-X-MS-Exchange-CrossTenant-originalarrivaltime: 07 Nov 2019 17:31:21.9344 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9bb2098e-d152-4eff-c586-08d763a89986
+X-MS-Exchange-CrossTenant-originalarrivaltime: 07 Nov 2019 17:33:27.5747 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: pu4lp29P+dwFz1qogSurwczRm1WkYvw/wRm4hdf0G+bYJKWMytiC9P9gQYjL6u/h
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3067
+X-MS-Exchange-CrossTenant-userprincipalname: ba+BjtkMU5wI3hhpJ0UHY5XrSg2y+hNArjhIBIe+mKSdYoEOGjZ1ACG0Nn3x5tVO4m26detjoSxmr1aF6MjFpw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR1201MB0006
 X-Mailman-Original-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PZFB83NpTChJxhNyUfgfdj8zeS4vEqHVk93Qn+l3IYo=;
- b=ZCUBpM0eTOnPC3fQIcA5MAo28jRW4oKehG3+1OxAUD4yTafN6hG2Fnn9PPm8GeP6O+Nq5VpsxoZCrs8kyTf22ZwOJouTTtoa1RvsBQycoNHuw0DMngPdXW1Qq+EIrpr7qToyEAkO+3d3T14EX0Pm5zzGRj+MhaS+84MTTFtshLo=
+ bh=vGPs7DzTSkfssEZJSMSRxCruRqc4lzI7PC8R/1zJsh0=;
+ b=yb3OvRny63Idp3MF8vdCynTiT0CdYvr4PlS9ATe8i+xfx/5qXYVjkYmjFPMpUVaJr58U2VPcfkMFqv9+qal33GbF7xLAgaE4LUXZ+nFe2qZ7uL4QiMmJT+WM86o34yjHCqaAQ9CM07ewHfyO6y80+rQXn8ivFIKhG1fonlYRwtc=
 X-Mailman-Original-Authentication-Results: spf=none (sender IP is )
- smtp.mailfrom=Yong.Zhao@amd.com; 
+ smtp.mailfrom=Kent.Russell@amd.com; 
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -105,376 +106,594 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============1587693292=="
+Content-Type: multipart/mixed; boundary="===============0961424190=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-Message-ID: <20191107173121.eLNFOD66GH25uz8sQp5OdlZvQZS0ZA180sOWjz0K75c@z>
+Message-ID: <20191107173327.ggjZ3dzZpsLB0aT_uwQtcEx9hmQk2wGmdyE0oVt9GXQ@z>
 
---===============1587693292==
+--===============0961424190==
 Content-Language: en-US
 Content-Type: multipart/alternative;
-	boundary="_000_DM6PR12MB277821CD762FCC79DB3B4B6AF0780DM6PR12MB2778namp_"
+	boundary="_000_CY4PR1201MB2533087B346C4619F461FF3185780CY4PR1201MB2533_"
 
---_000_DM6PR12MB277821CD762FCC79DB3B4B6AF0780DM6PR12MB2778namp_
+--_000_CY4PR1201MB2533087B346C4619F461FF3185780CY4PR1201MB2533_
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
-True. Thank you for spotting that. MMAP-related code was added after I init=
-itally drafted this change earlier this year.
+I think that the versioning is getting a little confusing since we're using=
+ the old GFX versions, but not really sticking to it due to the shareabilit=
+y of certain managers and shaders. Could we look into doing something like =
+gen1 or gen2, or some other more ambiguous non-GFX-related versioning? Othe=
+rwise we'll keep having these questions of "why is Hawaii GFX8", "why is Ar=
+cturus GFX9", etc. Then if things change, we just up the value concretely, =
+instead of maybe doing a v11 if GFX11 changes things, and only GFX11 ASICs =
+use those functions/variables.
+
+Obviously not high-priority, but maybe something to consider as you continu=
+e to consolidate and remove duplicate code.
+
+Kent
+
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Zhao, Yo=
+ng
+Sent: Thursday, November 7, 2019 11:57 AM
+To: Kuehling, Felix <Felix.Kuehling@amd.com>; amd-gfx@lists.freedesktop.org
+Subject: Re: [PATCH 2/3] drm/amdkfd: only keep release_mem function for Haw=
+aii
+
+Hi Felix,
+
+That's because v8 and v7 share the same packet_manager_funcs. In this case,=
+ it is better to keep it as it is.
 
 Regards,
 Yong
 ________________________________
-From: Kuehling, Felix <Felix.Kuehling@amd.com>
-Sent: Thursday, November 7, 2019 12:05 AM
-To: Zhao, Yong <Yong.Zhao@amd.com>; amd-gfx@lists.freedesktop.org <amd-gfx@=
-lists.freedesktop.org>
-Subject: Re: [PATCH] drm/amdkfd: Simplify the mmap offset related bit opera=
-tions
+From: Kuehling, Felix <Felix.Kuehling@amd.com<mailto:Felix.Kuehling@amd.com=
+>>
+Sent: Wednesday, November 6, 2019 11:45 PM
+To: Zhao, Yong <Yong.Zhao@amd.com<mailto:Yong.Zhao@amd.com>>; amd-gfx@lists=
+.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org> <amd-gfx@lists.freed=
+esktop.org<mailto:amd-gfx@lists.freedesktop.org>>
+Subject: Re: [PATCH 2/3] drm/amdkfd: only keep release_mem function for Haw=
+aii
 
-On 2019-11-05 18:18, Zhao, Yong wrote:
-> The new code uses straightforward bit shifts and thus has better
-> readability.
+On 2019-10-30 20:17, Zhao, Yong wrote:
+> release_mem won't be used at all on GFX9 and GFX10, so delete it.
 
-You're missing the MMAP-related code for mmio remapping. In
-kfd_ioctl_alloc_memory_of_gpu:
-
-         /* MMIO is mapped through kfd device
-          * Generate a kfd mmap offset
-          */
-         if (flags & KFD_IOC_ALLOC_MEM_FLAGS_MMIO_REMAP) {
-                 args->mmap_offset =3D KFD_MMAP_TYPE_MMIO |
-KFD_MMAP_GPU_ID(args->gpu_id);
-                 args->mmap_offset <<=3D PAGE_SHIFT;
-         }
+Hawaii was GFXv7. So we're not using the release_mem packet on GFXv8
+either. Why arbitrarily limit this change to GFXv9 and 10?
 
 Regards,
    Felix
 
 >
-> Change-Id: I0c1f7cca7e24ddb7b4ffe1cb0fa71943828ae373
-> Signed-off-by: Yong Zhao <Yong.Zhao@amd.com>
+> Change-Id: I13787a8a29b83e7516c582a7401f2e14721edf5f
+> Signed-off-by: Yong Zhao <Yong.Zhao@amd.com<mailto:Yong.Zhao@amd.com>>
 > ---
-> drivers/gpu/drm/amd/amdkfd/kfd_chardev.c | 10 ++++------
-> drivers/gpu/drm/amd/amdkfd/kfd_events.c | 1 -
-> drivers/gpu/drm/amd/amdkfd/kfd_priv.h | 9 +++------
-> drivers/gpu/drm/amd/amdkfd/kfd_process.c | 3 +--
-> 4 files changed, 8 insertions(+), 15 deletions(-)
+>   .../gpu/drm/amd/amdkfd/kfd_kernel_queue_v10.c | 35 ++-----------------
+>   .../gpu/drm/amd/amdkfd/kfd_kernel_queue_v9.c  | 33 ++---------------
+>   2 files changed, 4 insertions(+), 64 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-> b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-> index b91993753b82..34078df36621 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-> @@ -298,7 +298,6 @@ static int kfd_ioctl_create_queue(struct file
-> *filep, struct kfd_process *p,
-> /* Return gpu_id as doorbell offset for mmap usage */
-> args->doorbell_offset =3D KFD_MMAP_TYPE_DOORBELL;
-> args->doorbell_offset |=3D KFD_MMAP_GPU_ID(args->gpu_id);
-> - args->doorbell_offset <<=3D PAGE_SHIFT;
-> if (KFD_IS_SOC15(dev->device_info->asic_family))
-> /* On SOC15 ASICs, include the doorbell offset within the
-> * process doorbell frame, which could be 1 page or 2 pages.
-> @@ -1938,20 +1937,19 @@ static int kfd_mmap(struct file *filp, struct
-> vm_area_struct *vma)
-> {
-> struct kfd_process *process;
-> struct kfd_dev *dev =3D NULL;
-> - unsigned long vm_pgoff;
-> + unsigned long mmap_offset;
-> unsigned int gpu_id;
-> process =3D kfd_get_process(current);
-> if (IS_ERR(process))
-> return PTR_ERR(process);
-> - vm_pgoff =3D vma->vm_pgoff;
-> - vma->vm_pgoff =3D KFD_MMAP_OFFSET_VALUE_GET(vm_pgoff);
-> - gpu_id =3D KFD_MMAP_GPU_ID_GET(vm_pgoff);
-> + mmap_offset =3D vma->vm_pgoff << PAGE_SHIFT;
-> + gpu_id =3D KFD_MMAP_GET_GPU_ID(mmap_offset);
-> if (gpu_id)
-> dev =3D kfd_device_by_id(gpu_id);
-> - switch (vm_pgoff & KFD_MMAP_TYPE_MASK) {
-> + switch (mmap_offset & KFD_MMAP_TYPE_MASK) {
-> case KFD_MMAP_TYPE_DOORBELL:
-> if (!dev)
-> return -ENODEV;
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_events.c
-> b/drivers/gpu/drm/amd/amdkfd/kfd_events.c
-> index 908081c85de1..1f8365575b12 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_events.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_events.c
-> @@ -346,7 +346,6 @@ int kfd_event_create(struct file *devkfd, struct
-> kfd_process *p,
-> ret =3D create_signal_event(devkfd, p, ev);
-> if (!ret) {
-> *event_page_offset =3D KFD_MMAP_TYPE_EVENTS;
-> - *event_page_offset <<=3D PAGE_SHIFT;
-> *event_slot_index =3D ev->event_id;
-> }
-> break;
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-> b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-> index 66bae8f2dad1..8eecd2cd1fd2 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-> @@ -59,24 +59,21 @@
-> * NOTE: struct vm_area_struct.vm_pgoff uses offset in pages. Hence, these
-> * defines are w.r.t to PAGE_SIZE
-> */
-> -#define KFD_MMAP_TYPE_SHIFT (62 - PAGE_SHIFT)
-> +#define KFD_MMAP_TYPE_SHIFT (62)
-> #define KFD_MMAP_TYPE_MASK (0x3ULL << KFD_MMAP_TYPE_SHIFT)
-> #define KFD_MMAP_TYPE_DOORBELL (0x3ULL << KFD_MMAP_TYPE_SHIFT)
-> #define KFD_MMAP_TYPE_EVENTS (0x2ULL << KFD_MMAP_TYPE_SHIFT)
-> #define KFD_MMAP_TYPE_RESERVED_MEM (0x1ULL << KFD_MMAP_TYPE_SHIFT)
-> #define KFD_MMAP_TYPE_MMIO (0x0ULL << KFD_MMAP_TYPE_SHIFT)
-> -#define KFD_MMAP_GPU_ID_SHIFT (46 - PAGE_SHIFT)
-> +#define KFD_MMAP_GPU_ID_SHIFT (46)
-> #define KFD_MMAP_GPU_ID_MASK (((1ULL << KFD_GPU_ID_HASH_WIDTH) - 1) \
-> << KFD_MMAP_GPU_ID_SHIFT)
-> #define KFD_MMAP_GPU_ID(gpu_id) ((((uint64_t)gpu_id) <<
-> KFD_MMAP_GPU_ID_SHIFT)\
-> & KFD_MMAP_GPU_ID_MASK)
-> -#define KFD_MMAP_GPU_ID_GET(offset) ((offset & KFD_MMAP_GPU_ID_MASK) \
-> +#define KFD_MMAP_GET_GPU_ID(offset) ((offset & KFD_MMAP_GPU_ID_MASK) \
-> >> KFD_MMAP_GPU_ID_SHIFT)
-> -#define KFD_MMAP_OFFSET_VALUE_MASK (0x3FFFFFFFFFFFULL >> PAGE_SHIFT)
-> -#define KFD_MMAP_OFFSET_VALUE_GET(offset) (offset &
-> KFD_MMAP_OFFSET_VALUE_MASK)
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue_v10.c b/drivers/=
+gpu/drm/amd/amdkfd/kfd_kernel_queue_v10.c
+> index aed32ab7102e..bfd6221acae9 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue_v10.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue_v10.c
+> @@ -298,37 +298,6 @@ static int pm_query_status_v10(struct packet_manager=
+ *pm, uint32_t *buffer,
+>        return 0;
+>   }
+>
 > -
-> /*
-> * When working with cp scheduler we should assign the HIQ manually or via
-> * the amdgpu driver to a fixed hqd slot, here are the fixed HIQ hqd slot
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-> b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-> index 6abfb77ae540..39dc49b8fd85 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-> @@ -554,8 +554,7 @@ static int kfd_process_init_cwsr_apu(struct
-> kfd_process *p, struct file *filep)
-> if (!dev->cwsr_enabled || qpd->cwsr_kaddr || qpd->cwsr_base)
-> continue;
-> - offset =3D (KFD_MMAP_TYPE_RESERVED_MEM | KFD_MMAP_GPU_ID(dev->id))
-> - << PAGE_SHIFT;
-> + offset =3D KFD_MMAP_TYPE_RESERVED_MEM | KFD_MMAP_GPU_ID(dev->id);
-> qpd->tba_addr =3D (int64_t)vm_mmap(filep, 0,
-> KFD_CWSR_TBA_TMA_SIZE, PROT_READ | PROT_EXEC,
-> MAP_SHARED, offset);
+> -static int pm_release_mem_v10(uint64_t gpu_addr, uint32_t *buffer)
+> -{
+> -     struct pm4_mec_release_mem *packet;
+> -
+> -     WARN_ON(!buffer);
+> -
+> -     packet =3D (struct pm4_mec_release_mem *)buffer;
+> -     memset(buffer, 0, sizeof(struct pm4_mec_release_mem));
+> -
+> -     packet->header.u32All =3D pm_build_pm4_header(IT_RELEASE_MEM,
+> -                                     sizeof(struct pm4_mec_release_mem))=
+;
+> -
+> -     packet->bitfields2.event_type =3D CACHE_FLUSH_AND_INV_TS_EVENT;
+> -     packet->bitfields2.event_index =3D event_index__mec_release_mem__en=
+d_of_pipe;
+> -     packet->bitfields2.tcl1_action_ena =3D 1;
+> -     packet->bitfields2.tc_action_ena =3D 1;
+> -     packet->bitfields2.cache_policy =3D cache_policy__mec_release_mem__=
+lru;
+> -
+> -     packet->bitfields3.data_sel =3D data_sel__mec_release_mem__send_32_=
+bit_low;
+> -     packet->bitfields3.int_sel =3D
+> -             int_sel__mec_release_mem__send_interrupt_after_write_confir=
+m;
+> -
+> -     packet->bitfields4.address_lo_32b =3D (gpu_addr & 0xffffffff) >> 2;
+> -     packet->address_hi =3D upper_32_bits(gpu_addr);
+> -
+> -     packet->data_lo =3D 0;
+> -
+> -     return sizeof(struct pm4_mec_release_mem) / sizeof(unsigned int);
+> -}
+> -
+>   const struct packet_manager_funcs kfd_v10_pm_funcs =3D {
+>        .map_process                    =3D pm_map_process_v10,
+>        .runlist                        =3D pm_runlist_v10,
+> @@ -336,13 +305,13 @@ const struct packet_manager_funcs kfd_v10_pm_funcs =
+=3D {
+>        .map_queues                     =3D pm_map_queues_v10,
+>        .unmap_queues                   =3D pm_unmap_queues_v10,
+>        .query_status                   =3D pm_query_status_v10,
+> -     .release_mem                    =3D pm_release_mem_v10,
+> +     .release_mem                    =3D NULL,
+>        .map_process_size               =3D sizeof(struct pm4_mes_map_proc=
+ess),
+>        .runlist_size                   =3D sizeof(struct pm4_mes_runlist)=
+,
+>        .set_resources_size             =3D sizeof(struct pm4_mes_set_reso=
+urces),
+>        .map_queues_size                =3D sizeof(struct pm4_mes_map_queu=
+es),
+>        .unmap_queues_size              =3D sizeof(struct pm4_mes_unmap_qu=
+eues),
+>        .query_status_size              =3D sizeof(struct pm4_mes_query_st=
+atus),
+> -     .release_mem_size               =3D sizeof(struct pm4_mec_release_m=
+em)
+> +     .release_mem_size               =3D 0,
+>   };
+>
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue_v9.c b/drivers/g=
+pu/drm/amd/amdkfd/kfd_kernel_queue_v9.c
+> index 3b5ca2b1d7a6..f0e4910a8865 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue_v9.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue_v9.c
+> @@ -336,35 +336,6 @@ static int pm_query_status_v9(struct packet_manager =
+*pm, uint32_t *buffer,
+>        return 0;
+>   }
+>
+> -
+> -static int pm_release_mem_v9(uint64_t gpu_addr, uint32_t *buffer)
+> -{
+> -     struct pm4_mec_release_mem *packet;
+> -
+> -     packet =3D (struct pm4_mec_release_mem *)buffer;
+> -     memset(buffer, 0, sizeof(struct pm4_mec_release_mem));
+> -
+> -     packet->header.u32All =3D pm_build_pm4_header(IT_RELEASE_MEM,
+> -                                     sizeof(struct pm4_mec_release_mem))=
+;
+> -
+> -     packet->bitfields2.event_type =3D CACHE_FLUSH_AND_INV_TS_EVENT;
+> -     packet->bitfields2.event_index =3D event_index__mec_release_mem__en=
+d_of_pipe;
+> -     packet->bitfields2.tcl1_action_ena =3D 1;
+> -     packet->bitfields2.tc_action_ena =3D 1;
+> -     packet->bitfields2.cache_policy =3D cache_policy__mec_release_mem__=
+lru;
+> -
+> -     packet->bitfields3.data_sel =3D data_sel__mec_release_mem__send_32_=
+bit_low;
+> -     packet->bitfields3.int_sel =3D
+> -             int_sel__mec_release_mem__send_interrupt_after_write_confir=
+m;
+> -
+> -     packet->bitfields4.address_lo_32b =3D (gpu_addr & 0xffffffff) >> 2;
+> -     packet->address_hi =3D upper_32_bits(gpu_addr);
+> -
+> -     packet->data_lo =3D 0;
+> -
+> -     return 0;
+> -}
+> -
+>   const struct packet_manager_funcs kfd_v9_pm_funcs =3D {
+>        .map_process            =3D pm_map_process_v9,
+>        .runlist                =3D pm_runlist_v9,
+> @@ -372,12 +343,12 @@ const struct packet_manager_funcs kfd_v9_pm_funcs =
+=3D {
+>        .map_queues             =3D pm_map_queues_v9,
+>        .unmap_queues           =3D pm_unmap_queues_v9,
+>        .query_status           =3D pm_query_status_v9,
+> -     .release_mem            =3D pm_release_mem_v9,
+> +     .release_mem            =3D NULL,
+>        .map_process_size       =3D sizeof(struct pm4_mes_map_process),
+>        .runlist_size           =3D sizeof(struct pm4_mes_runlist),
+>        .set_resources_size     =3D sizeof(struct pm4_mes_set_resources),
+>        .map_queues_size        =3D sizeof(struct pm4_mes_map_queues),
+>        .unmap_queues_size      =3D sizeof(struct pm4_mes_unmap_queues),
+>        .query_status_size      =3D sizeof(struct pm4_mes_query_status),
+> -     .release_mem_size       =3D sizeof(struct pm4_mec_release_mem)
+> +     .release_mem_size       =3D 0,
+>   };
 
---_000_DM6PR12MB277821CD762FCC79DB3B4B6AF0780DM6PR12MB2778namp_
+--_000_CY4PR1201MB2533087B346C4619F461FF3185780CY4PR1201MB2533_
 Content-Type: text/html; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
-<html>
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40">
 <head>
 <meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
 >
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
+<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
+<!--[if !mso]><style>v\:* {behavior:url(#default#VML);}
+o\:* {behavior:url(#default#VML);}
+w\:* {behavior:url(#default#VML);}
+.shape {behavior:url(#default#VML);}
+</style><![endif]--><style><!--
+/* Font Definitions */
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:"Segoe UI";
+	panose-1:2 11 5 2 4 2 4 2 2 3;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:#0563C1;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{mso-style-priority:99;
+	color:#954F72;
+	text-decoration:underline;}
+p.msonormal0, li.msonormal0, div.msonormal0
+	{mso-style-name:msonormal;
+	margin:0in;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+span.EmailStyle20
+	{mso-style-type:personal-reply;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-size:10.0pt;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.0in 1.0in 1.0in;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
 </head>
-<body dir=3D"ltr">
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-True. Thank you for spotting that.&nbsp;<span style=3D"font-family: &quot;S=
-egoe UI&quot;, &quot;Segoe UI Web (West European)&quot;, &quot;Segoe UI&quo=
-t;, -apple-system, BlinkMacSystemFont, Roboto, &quot;Helvetica Neue&quot;, =
-sans-serif; font-size: 14.6667px; background-color: rgb(255, 255, 255); dis=
-play: inline !important">MMAP-related
- code was added after I inititally drafted this change earlier this year.</=
-span></div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<span style=3D"font-family: &quot;Segoe UI&quot;, &quot;Segoe UI Web (West =
-European)&quot;, &quot;Segoe UI&quot;, -apple-system, BlinkMacSystemFont, R=
-oboto, &quot;Helvetica Neue&quot;, sans-serif; font-size: 14.6667px; backgr=
-ound-color: rgb(255, 255, 255); display: inline !important"><br>
-</span></div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<span style=3D"font-family: &quot;Segoe UI&quot;, &quot;Segoe UI Web (West =
-European)&quot;, &quot;Segoe UI&quot;, -apple-system, BlinkMacSystemFont, R=
-oboto, &quot;Helvetica Neue&quot;, sans-serif; font-size: 14.6667px; backgr=
-ound-color: rgb(255, 255, 255); display: inline !important">Regards,</span>=
+<body lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72">
+<div class=3D"WordSection1">
+<p class=3D"MsoNormal">I think that the versioning is getting a little conf=
+using since we&#8217;re using the old GFX versions, but not really sticking=
+ to it due to the shareability of certain managers and shaders. Could we lo=
+ok into doing something like gen1 or gen2,
+ or some other more ambiguous non-GFX-related versioning? Otherwise we&#821=
+7;ll keep having these questions of &#8220;why is Hawaii GFX8&#8221;, &#822=
+0;why is Arcturus GFX9&#8221;, etc. Then if things change, we just up the v=
+alue concretely, instead of maybe doing a v11 if GFX11 changes
+ things, and only GFX11 ASICs use those functions/variables. <o:p></o:p></p=
+>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Obviously not high-priority, but maybe something to =
+consider as you continue to consolidate and remove duplicate code.<o:p></o:=
+p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Kent<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<div>
+<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
+0in 0in">
+<p class=3D"MsoNormal"><b>From:</b> amd-gfx &lt;amd-gfx-bounces@lists.freed=
+esktop.org&gt;
+<b>On Behalf Of </b>Zhao, Yong<br>
+<b>Sent:</b> Thursday, November 7, 2019 11:57 AM<br>
+<b>To:</b> Kuehling, Felix &lt;Felix.Kuehling@amd.com&gt;; amd-gfx@lists.fr=
+eedesktop.org<br>
+<b>Subject:</b> Re: [PATCH 2/3] drm/amdkfd: only keep release_mem function =
+for Hawaii<o:p></o:p></p>
 </div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<span style=3D"font-family: &quot;Segoe UI&quot;, &quot;Segoe UI Web (West =
-European)&quot;, &quot;Segoe UI&quot;, -apple-system, BlinkMacSystemFont, R=
-oboto, &quot;Helvetica Neue&quot;, sans-serif; font-size: 14.6667px; backgr=
-ound-color: rgb(255, 255, 255); display: inline !important">Yong</span></di=
-v>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Kuehling, Felix &lt;F=
-elix.Kuehling@amd.com&gt;<br>
-<b>Sent:</b> Thursday, November 7, 2019 12:05 AM<br>
-<b>To:</b> Zhao, Yong &lt;Yong.Zhao@amd.com&gt;; amd-gfx@lists.freedesktop.=
-org &lt;amd-gfx@lists.freedesktop.org&gt;<br>
-<b>Subject:</b> Re: [PATCH] drm/amdkfd: Simplify the mmap offset related bi=
-t operations</font>
-<div>&nbsp;</div>
 </div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">On 2019-11-05 18:18, Zhao, Yong wrote:<br>
-&gt; The new code uses straightforward bit shifts and thus has better <br>
-&gt; readability.<br>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">Hi Feli=
+x,<o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black"><o:p>&n=
+bsp;</o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">That's =
+because v8 and v7 share the same
+</span><span style=3D"font-family:&quot;Segoe UI&quot;,sans-serif;color:bla=
+ck;background:white">packet_manager_funcs. In this case, it is better to ke=
+ep it as it is.</span><span style=3D"font-size:12.0pt;color:black"><o:p></o=
+:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black"><o:p>&n=
+bsp;</o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Segoe UI&quot;,sans=
+-serif;color:black;background:white">Regards,</span><span style=3D"font-siz=
+e:12.0pt;color:black"><o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Segoe UI&quot;,sans=
+-serif;color:black;background:white">Yong</span><span style=3D"font-size:12=
+.0pt;color:black"><o:p></o:p></span></p>
+</div>
+<div class=3D"MsoNormal" align=3D"center" style=3D"text-align:center">
+<hr size=3D"2" width=3D"98%" align=3D"center">
+</div>
+<div id=3D"divRplyFwdMsg">
+<p class=3D"MsoNormal"><b><span style=3D"color:black">From:</span></b><span=
+ style=3D"color:black"> Kuehling, Felix &lt;<a href=3D"mailto:Felix.Kuehlin=
+g@amd.com">Felix.Kuehling@amd.com</a>&gt;<br>
+<b>Sent:</b> Wednesday, November 6, 2019 11:45 PM<br>
+<b>To:</b> Zhao, Yong &lt;<a href=3D"mailto:Yong.Zhao@amd.com">Yong.Zhao@am=
+d.com</a>&gt;;
+<a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.=
+org</a> &lt;<a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.=
+freedesktop.org</a>&gt;<br>
+<b>Subject:</b> Re: [PATCH 2/3] drm/amdkfd: only keep release_mem function =
+for Hawaii</span>
+<o:p></o:p></p>
+<div>
+<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal">On 2019-10-30 20:17, Zhao, Yong wrote:<br>
+&gt; release_mem won't be used at all on GFX9 and GFX10, so delete it.<br>
 <br>
-You're missing the MMAP-related code for mmio remapping. In <br>
-kfd_ioctl_alloc_memory_of_gpu:<br>
-<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* MMIO is mapped through =
-kfd device<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * Generate a kfd mma=
-p offset<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (flags &amp; KFD_IOC_AL=
-LOC_MEM_FLAGS_MMIO_REMAP) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; args-&gt;mmap_offset =3D KFD_MMAP_TYPE_MMIO | <br>
-KFD_MMAP_GPU_ID(args-&gt;gpu_id);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; args-&gt;mmap_offset &lt;&lt;=3D PAGE_SHIFT;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+Hawaii was GFXv7. So we're not using the release_mem packet on GFXv8 <br>
+either. Why arbitrarily limit this change to GFXv9 and 10?<br>
 <br>
 Regards,<br>
 &nbsp;&nbsp; Felix<br>
 <br>
 &gt;<br>
-&gt; Change-Id: I0c1f7cca7e24ddb7b4ffe1cb0fa71943828ae373<br>
-&gt; Signed-off-by: Yong Zhao &lt;Yong.Zhao@amd.com&gt;<br>
+&gt; Change-Id: I13787a8a29b83e7516c582a7401f2e14721edf5f<br>
+&gt; Signed-off-by: Yong Zhao &lt;<a href=3D"mailto:Yong.Zhao@amd.com">Yong=
+.Zhao@amd.com</a>&gt;<br>
 &gt; ---<br>
-&gt; drivers/gpu/drm/amd/amdkfd/kfd_chardev.c | 10 &#43;&#43;&#43;&#43;----=
---<br>
-&gt; drivers/gpu/drm/amd/amdkfd/kfd_events.c | 1 -<br>
-&gt; drivers/gpu/drm/amd/amdkfd/kfd_priv.h | 9 &#43;&#43;&#43;------<br>
-&gt; drivers/gpu/drm/amd/amdkfd/kfd_process.c | 3 &#43;--<br>
-&gt; 4 files changed, 8 insertions(&#43;), 15 deletions(-)<br>
+&gt;&nbsp;&nbsp; .../gpu/drm/amd/amdkfd/kfd_kernel_queue_v10.c | 35 &#43;&#=
+43;-----------------<br>
+&gt;&nbsp;&nbsp; .../gpu/drm/amd/amdkfd/kfd_kernel_queue_v9.c&nbsp; | 33 &#=
+43;&#43;---------------<br>
+&gt;&nbsp;&nbsp; 2 files changed, 4 insertions(&#43;), 64 deletions(-)<br>
 &gt;<br>
-&gt; diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c <br>
-&gt; b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c<br>
-&gt; index b91993753b82..34078df36621 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c<br>
-&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c<br>
-&gt; @@ -298,7 &#43;298,6 @@ static int kfd_ioctl_create_queue(struct file =
-<br>
-&gt; *filep, struct kfd_process *p,<br>
-&gt; /* Return gpu_id as doorbell offset for mmap usage */<br>
-&gt; args-&gt;doorbell_offset =3D KFD_MMAP_TYPE_DOORBELL;<br>
-&gt; args-&gt;doorbell_offset |=3D KFD_MMAP_GPU_ID(args-&gt;gpu_id);<br>
-&gt; - args-&gt;doorbell_offset &lt;&lt;=3D PAGE_SHIFT;<br>
-&gt; if (KFD_IS_SOC15(dev-&gt;device_info-&gt;asic_family))<br>
-&gt; /* On SOC15 ASICs, include the doorbell offset within the<br>
-&gt; * process doorbell frame, which could be 1 page or 2 pages.<br>
-&gt; @@ -1938,20 &#43;1937,19 @@ static int kfd_mmap(struct file *filp, str=
-uct <br>
-&gt; vm_area_struct *vma)<br>
-&gt; {<br>
-&gt; struct kfd_process *process;<br>
-&gt; struct kfd_dev *dev =3D NULL;<br>
-&gt; - unsigned long vm_pgoff;<br>
-&gt; &#43; unsigned long mmap_offset;<br>
-&gt; unsigned int gpu_id;<br>
-&gt; process =3D kfd_get_process(current);<br>
-&gt; if (IS_ERR(process))<br>
-&gt; return PTR_ERR(process);<br>
-&gt; - vm_pgoff =3D vma-&gt;vm_pgoff;<br>
-&gt; - vma-&gt;vm_pgoff =3D KFD_MMAP_OFFSET_VALUE_GET(vm_pgoff);<br>
-&gt; - gpu_id =3D KFD_MMAP_GPU_ID_GET(vm_pgoff);<br>
-&gt; &#43; mmap_offset =3D vma-&gt;vm_pgoff &lt;&lt; PAGE_SHIFT;<br>
-&gt; &#43; gpu_id =3D KFD_MMAP_GET_GPU_ID(mmap_offset);<br>
-&gt; if (gpu_id)<br>
-&gt; dev =3D kfd_device_by_id(gpu_id);<br>
-&gt; - switch (vm_pgoff &amp; KFD_MMAP_TYPE_MASK) {<br>
-&gt; &#43; switch (mmap_offset &amp; KFD_MMAP_TYPE_MASK) {<br>
-&gt; case KFD_MMAP_TYPE_DOORBELL:<br>
-&gt; if (!dev)<br>
-&gt; return -ENODEV;<br>
-&gt; diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_events.c <br>
-&gt; b/drivers/gpu/drm/amd/amdkfd/kfd_events.c<br>
-&gt; index 908081c85de1..1f8365575b12 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/amdkfd/kfd_events.c<br>
-&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdkfd/kfd_events.c<br>
-&gt; @@ -346,7 &#43;346,6 @@ int kfd_event_create(struct file *devkfd, stru=
-ct <br>
-&gt; kfd_process *p,<br>
-&gt; ret =3D create_signal_event(devkfd, p, ev);<br>
-&gt; if (!ret) {<br>
-&gt; *event_page_offset =3D KFD_MMAP_TYPE_EVENTS;<br>
-&gt; - *event_page_offset &lt;&lt;=3D PAGE_SHIFT;<br>
-&gt; *event_slot_index =3D ev-&gt;event_id;<br>
-&gt; }<br>
-&gt; break;<br>
-&gt; diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h <br>
-&gt; b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h<br>
-&gt; index 66bae8f2dad1..8eecd2cd1fd2 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h<br>
-&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h<br>
-&gt; @@ -59,24 &#43;59,21 @@<br>
-&gt; * NOTE: struct vm_area_struct.vm_pgoff uses offset in pages. Hence, th=
-ese<br>
-&gt; * defines are w.r.t to PAGE_SIZE<br>
-&gt; */<br>
-&gt; -#define KFD_MMAP_TYPE_SHIFT (62 - PAGE_SHIFT)<br>
-&gt; &#43;#define KFD_MMAP_TYPE_SHIFT (62)<br>
-&gt; #define KFD_MMAP_TYPE_MASK (0x3ULL &lt;&lt; KFD_MMAP_TYPE_SHIFT)<br>
-&gt; #define KFD_MMAP_TYPE_DOORBELL (0x3ULL &lt;&lt; KFD_MMAP_TYPE_SHIFT)<b=
-r>
-&gt; #define KFD_MMAP_TYPE_EVENTS (0x2ULL &lt;&lt; KFD_MMAP_TYPE_SHIFT)<br>
-&gt; #define KFD_MMAP_TYPE_RESERVED_MEM (0x1ULL &lt;&lt; KFD_MMAP_TYPE_SHIF=
-T)<br>
-&gt; #define KFD_MMAP_TYPE_MMIO (0x0ULL &lt;&lt; KFD_MMAP_TYPE_SHIFT)<br>
-&gt; -#define KFD_MMAP_GPU_ID_SHIFT (46 - PAGE_SHIFT)<br>
-&gt; &#43;#define KFD_MMAP_GPU_ID_SHIFT (46)<br>
-&gt; #define KFD_MMAP_GPU_ID_MASK (((1ULL &lt;&lt; KFD_GPU_ID_HASH_WIDTH) -=
- 1) \<br>
-&gt; &lt;&lt; KFD_MMAP_GPU_ID_SHIFT)<br>
-&gt; #define KFD_MMAP_GPU_ID(gpu_id) ((((uint64_t)gpu_id) &lt;&lt; <br>
-&gt; KFD_MMAP_GPU_ID_SHIFT)\<br>
-&gt; &amp; KFD_MMAP_GPU_ID_MASK)<br>
-&gt; -#define KFD_MMAP_GPU_ID_GET(offset) ((offset &amp; KFD_MMAP_GPU_ID_MA=
-SK) \<br>
-&gt; &#43;#define KFD_MMAP_GET_GPU_ID(offset) ((offset &amp; KFD_MMAP_GPU_I=
-D_MASK) \<br>
-&gt; &gt;&gt; KFD_MMAP_GPU_ID_SHIFT)<br>
-&gt; -#define KFD_MMAP_OFFSET_VALUE_MASK (0x3FFFFFFFFFFFULL &gt;&gt; PAGE_S=
-HIFT)<br>
-&gt; -#define KFD_MMAP_OFFSET_VALUE_GET(offset) (offset &amp; <br>
-&gt; KFD_MMAP_OFFSET_VALUE_MASK)<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue_v10.c b/drive=
+rs/gpu/drm/amd/amdkfd/kfd_kernel_queue_v10.c<br>
+&gt; index aed32ab7102e..bfd6221acae9 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue_v10.c<br>
+&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue_v10.c<br=
+>
+&gt; @@ -298,37 &#43;298,6 @@ static int pm_query_status_v10(struct packet_=
+manager *pm, uint32_t *buffer,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+&gt;&nbsp;&nbsp; }<br>
+&gt;&nbsp;&nbsp; <br>
 &gt; -<br>
-&gt; /*<br>
-&gt; * When working with cp scheduler we should assign the HIQ manually or =
-via<br>
-&gt; * the amdgpu driver to a fixed hqd slot, here are the fixed HIQ hqd sl=
-ot<br>
-&gt; diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c <br>
-&gt; b/drivers/gpu/drm/amd/amdkfd/kfd_process.c<br>
-&gt; index 6abfb77ae540..39dc49b8fd85 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c<br>
-&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdkfd/kfd_process.c<br>
-&gt; @@ -554,8 &#43;554,7 @@ static int kfd_process_init_cwsr_apu(struct <b=
+&gt; -static int pm_release_mem_v10(uint64_t gpu_addr, uint32_t *buffer)<br=
+>
+&gt; -{<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; struct pm4_mec_release_mem *packet;<br>
+&gt; -<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; WARN_ON(!buffer);<br>
+&gt; -<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; packet =3D (struct pm4_mec_release_mem *)buf=
+fer;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; memset(buffer, 0, sizeof(struct pm4_mec_rele=
+ase_mem));<br>
+&gt; -<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; packet-&gt;header.u32All =3D pm_build_pm4_he=
+ader(IT_RELEASE_MEM,<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; si=
+zeof(struct pm4_mec_release_mem));<br>
+&gt; -<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; packet-&gt;bitfields2.event_type =3D CACHE_F=
+LUSH_AND_INV_TS_EVENT;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; packet-&gt;bitfields2.event_index =3D event_=
+index__mec_release_mem__end_of_pipe;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; packet-&gt;bitfields2.tcl1_action_ena =3D 1;=
+<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; packet-&gt;bitfields2.tc_action_ena =3D 1;<b=
 r>
-&gt; kfd_process *p, struct file *filep)<br>
-&gt; if (!dev-&gt;cwsr_enabled || qpd-&gt;cwsr_kaddr || qpd-&gt;cwsr_base)<=
-br>
-&gt; continue;<br>
-&gt; - offset =3D (KFD_MMAP_TYPE_RESERVED_MEM | KFD_MMAP_GPU_ID(dev-&gt;id)=
-)<br>
-&gt; - &lt;&lt; PAGE_SHIFT;<br>
-&gt; &#43; offset =3D KFD_MMAP_TYPE_RESERVED_MEM | KFD_MMAP_GPU_ID(dev-&gt;=
-id);<br>
-&gt; qpd-&gt;tba_addr =3D (int64_t)vm_mmap(filep, 0,<br>
-&gt; KFD_CWSR_TBA_TMA_SIZE, PROT_READ | PROT_EXEC,<br>
-&gt; MAP_SHARED, offset);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; packet-&gt;bitfields2.cache_policy =3D cache=
+_policy__mec_release_mem__lru;<br>
+&gt; -<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; packet-&gt;bitfields3.data_sel =3D data_sel_=
+_mec_release_mem__send_32_bit_low;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; packet-&gt;bitfields3.int_sel =3D<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; int_sel__mec_release_mem__send_interrupt_after_write_confirm;<br>
+&gt; -<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; packet-&gt;bitfields4.address_lo_32b =3D (gp=
+u_addr &amp; 0xffffffff) &gt;&gt; 2;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; packet-&gt;address_hi =3D upper_32_bits(gpu_=
+addr);<br>
+&gt; -<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; packet-&gt;data_lo =3D 0;<br>
+&gt; -<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; return sizeof(struct pm4_mec_release_mem) / =
+sizeof(unsigned int);<br>
+&gt; -}<br>
+&gt; -<br>
+&gt;&nbsp;&nbsp; const struct packet_manager_funcs kfd_v10_pm_funcs =3D {<b=
+r>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .map_process&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp; =3D pm_map_process_v10,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .runlist&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =3D pm_runlist_v10,<br>
+&gt; @@ -336,13 &#43;305,13 @@ const struct packet_manager_funcs kfd_v10_pm=
+_funcs =3D {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .map_queues&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp; =3D pm_map_queues_v10,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .unmap_queues&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp; =3D pm_unmap_queues_v10,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .query_status&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp; =3D pm_query_status_v10,<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; .release_mem&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; =3D pm_release_mem_v10,<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; .release_mem&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp; =3D NULL,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .map_process_size&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =
+=3D sizeof(struct pm4_mes_map_process),<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .runlist_size&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp; =3D sizeof(struct pm4_mes_runlist),<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .set_resources_size&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =3D sizeof(=
+struct pm4_mes_set_resources),<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .map_queues_size&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; =3D sizeof(struct pm4_mes_map_queues),<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .unmap_queues_size&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =3D si=
+zeof(struct pm4_mes_unmap_queues),<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .query_status_size&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =3D si=
+zeof(struct pm4_mes_query_status),<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; .release_mem_size&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =3D sizeof(struct=
+ pm4_mec_release_mem)<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; .release_mem_size&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =3D 0,<br>
+&gt;&nbsp;&nbsp; };<br>
+&gt;&nbsp;&nbsp; <br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue_v9.c b/driver=
+s/gpu/drm/amd/amdkfd/kfd_kernel_queue_v9.c<br>
+&gt; index 3b5ca2b1d7a6..f0e4910a8865 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue_v9.c<br>
+&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue_v9.c<br>
+&gt; @@ -336,35 &#43;336,6 @@ static int pm_query_status_v9(struct packet_m=
+anager *pm, uint32_t *buffer,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+&gt;&nbsp;&nbsp; }<br>
+&gt;&nbsp;&nbsp; <br>
+&gt; -<br>
+&gt; -static int pm_release_mem_v9(uint64_t gpu_addr, uint32_t *buffer)<br>
+&gt; -{<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; struct pm4_mec_release_mem *packet;<br>
+&gt; -<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; packet =3D (struct pm4_mec_release_mem *)buf=
+fer;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; memset(buffer, 0, sizeof(struct pm4_mec_rele=
+ase_mem));<br>
+&gt; -<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; packet-&gt;header.u32All =3D pm_build_pm4_he=
+ader(IT_RELEASE_MEM,<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; si=
+zeof(struct pm4_mec_release_mem));<br>
+&gt; -<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; packet-&gt;bitfields2.event_type =3D CACHE_F=
+LUSH_AND_INV_TS_EVENT;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; packet-&gt;bitfields2.event_index =3D event_=
+index__mec_release_mem__end_of_pipe;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; packet-&gt;bitfields2.tcl1_action_ena =3D 1;=
+<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; packet-&gt;bitfields2.tc_action_ena =3D 1;<b=
+r>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; packet-&gt;bitfields2.cache_policy =3D cache=
+_policy__mec_release_mem__lru;<br>
+&gt; -<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; packet-&gt;bitfields3.data_sel =3D data_sel_=
+_mec_release_mem__send_32_bit_low;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; packet-&gt;bitfields3.int_sel =3D<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; int_sel__mec_release_mem__send_interrupt_after_write_confirm;<br>
+&gt; -<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; packet-&gt;bitfields4.address_lo_32b =3D (gp=
+u_addr &amp; 0xffffffff) &gt;&gt; 2;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; packet-&gt;address_hi =3D upper_32_bits(gpu_=
+addr);<br>
+&gt; -<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; packet-&gt;data_lo =3D 0;<br>
+&gt; -<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+&gt; -}<br>
+&gt; -<br>
+&gt;&nbsp;&nbsp; const struct packet_manager_funcs kfd_v9_pm_funcs =3D {<br=
+>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .map_process&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =3D pm_map_process_v9,<b=
+r>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .runlist&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =3D =
+pm_runlist_v9,<br>
+&gt; @@ -372,12 &#43;343,12 @@ const struct packet_manager_funcs kfd_v9_pm_=
+funcs =3D {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .map_queues&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =3D pm_map_queues_v=
+9,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .unmap_queues&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =3D pm_unmap_queues_v9,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .query_status&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =3D pm_query_status_v9,<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; .release_mem&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =3D pm_release_mem_v9,<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; .release_mem&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =3D NULL,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .map_process_size&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; =3D sizeof(struct pm4_mes_map_process),<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .runlist_size&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =3D sizeof(struct pm4_mes_run=
+list),<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .set_resources_size&nbsp;&nb=
+sp;&nbsp;&nbsp; =3D sizeof(struct pm4_mes_set_resources),<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .map_queues_size&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =3D sizeof(struct pm4_mes_map_queues),<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .unmap_queues_size&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp; =3D sizeof(struct pm4_mes_unmap_queues),<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .query_status_size&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp; =3D sizeof(struct pm4_mes_query_status),<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; .release_mem_size&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp; =3D sizeof(struct pm4_mec_release_mem)<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; .release_mem_size&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; =3D 0,<br>
+&gt;&nbsp;&nbsp; };<o:p></o:p></p>
 </div>
-</span></font></div>
+</div>
+</div>
 </body>
 </html>
 
---_000_DM6PR12MB277821CD762FCC79DB3B4B6AF0780DM6PR12MB2778namp_--
+--_000_CY4PR1201MB2533087B346C4619F461FF3185780CY4PR1201MB2533_--
 
---===============1587693292==
+--===============0961424190==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -484,4 +703,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
 
---===============1587693292==--
+--===============0961424190==--
