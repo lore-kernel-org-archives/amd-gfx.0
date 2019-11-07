@@ -1,7 +1,7 @@
-From: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
+From: "Zhao, Yong" <Yong.Zhao-5C7GfCeVMHo@public.gmane.org>
 Subject: Re: [PATCH 2/3] drm/amdkfd: only keep release_mem function for Hawaii
-Date: Thu, 7 Nov 2019 19:12:25 +0000
-Message-ID: <b4a76aeb-4d2c-c348-01bd-a40124930241@amd.com>
+Date: Thu, 7 Nov 2019 19:40:36 +0000
+Message-ID: <DM6PR12MB2778CD10620AEDD371AC088EF0780@DM6PR12MB2778.namprd12.prod.outlook.com>
 References: <20191031001739.10764-1-Yong.Zhao@amd.com>
  <20191031001739.10764-2-Yong.Zhao@amd.com>
  <31102345-20f7-1b0e-dd2a-f7984b253a07@amd.com>
@@ -10,11 +10,12 @@ References: <20191031001739.10764-1-Yong.Zhao@amd.com>
  <41a6b535-ab7a-44f4-2899-f211f5ddc296@amd.com>
  <85fd399c-5fa9-bdef-cdf6-433e80ba6407@amd.com>
  <CADnq5_Og4AWKdYFpa8hvmd2XXjr1Wzb_a26gqsq1H6c7NkWmMA@mail.gmail.com>
- <DM6PR12MB2778007D58A5332F6A030DA3F0780@DM6PR12MB2778.namprd12.prod.outlook.com>
+ <DM6PR12MB2778007D58A5332F6A030DA3F0780@DM6PR12MB2778.namprd12.prod.outlook.com>,
+ <b4a76aeb-4d2c-c348-01bd-a40124930241@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0519163289=="
+Content-Type: multipart/mixed; boundary="===============2012038382=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <DM6PR12MB2778007D58A5332F6A030DA3F0780-lmeGfMZKVrFSet88YzIdmgdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
+In-Reply-To: <b4a76aeb-4d2c-c348-01bd-a40124930241-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -26,17 +27,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Zhao, Yong" <Yong.Zhao-5C7GfCeVMHo@public.gmane.org>, Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+To: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>, Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 Cc: "Russell, Kent" <Kent.Russell-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============0519163289==
+--===============2012038382==
 Content-Language: en-US
 Content-Type: multipart/alternative;
-	boundary="_000_b4a76aeb4d2cc34801bda40124930241amdcom_"
+	boundary="_000_DM6PR12MB2778CD10620AEDD371AC088EF0780DM6PR12MB2778namp_"
 
---_000_b4a76aeb4d2cc34801bda40124930241amdcom_
+--_000_DM6PR12MB2778CD10620AEDD371AC088EF0780DM6PR12MB2778namp_
 Content-Type: text/plain; charset="Windows-1252"
 Content-Transfer-Encoding: quoted-printable
+
+Hi Felix,
+
+The code working fine is true except that all not new features after this d=
+uplication are broken. If I want to make all GFX10 feature complete, I have=
+ to either manually adapt several duplications to the GFX10 file or do this=
+ consolidation. From this perspective and ease of my work, it is a must.
+
+Regards,
+Yong
+
+________________________________
+From: Kuehling, Felix <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
+Sent: Thursday, November 7, 2019 2:12 PM
+To: Zhao, Yong <Yong.Zhao-5C7GfCeVMHo@public.gmane.org>; Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Cc: Russell, Kent <Kent.Russell-5C7GfCeVMHo@public.gmane.org>; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org <am=
+d-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Subject: Re: [PATCH 2/3] drm/amdkfd: only keep release_mem function for Haw=
+aii
 
 On 2019-11-07 13:54, Zhao, Yong wrote:
 Hi Kent,
@@ -47,6 +67,7 @@ he first place.
 The code is working fine with the duplication. You disagree with duplicatin=
 g the code in the first place. But that's just your opinion. It's not a mus=
 t in any objective sense.
+
 
 
 The kernel queue functions by design are generic. The reasson why GFX8 and =
@@ -382,138 +403,192 @@ irm;
 > amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 > https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 
---_000_b4a76aeb4d2cc34801bda40124930241amdcom_
+--_000_DM6PR12MB2778CD10620AEDD371AC088EF0780DM6PR12MB2778namp_
 Content-Type: text/html; charset="Windows-1252"
-Content-ID: <7F9EFAFB4D4E1A4A821696F9942A907E-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
 Content-Transfer-Encoding: quoted-printable
 
 <html>
 <head>
 <meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3DWindows-1=
 252">
-</head>
-<body text=3D"#000000" bgcolor=3D"#FFFFFF">
-<div class=3D"moz-cite-prefix">On 2019-11-07 13:54, Zhao, Yong wrote:<br>
-</div>
-<blockquote type=3D"cite" cite=3D"mid:DM6PR12MB2778007D58A5332F6A030DA3F078=
-0@DM6PR12MB2778.namprd12.prod.outlook.com">
 <style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
 ttom:0;} </style>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif;
-        font-size: 12pt; color: rgb(0, 0, 0);">
-Hi Kent,</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif;
-        font-size: 12pt; color: rgb(0, 0, 0);">
+</head>
+<body dir=3D"ltr">
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Hi Felix,</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
 <br>
 </div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif;
-        font-size: 12pt; color: rgb(0, 0, 0);">
-This <span style=3D"font-family: Calibri, sans-serif; font-size: 14.6667px;
-          background-color: rgb(255, 255, 255); display: inline
-          !important">
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<span style=3D"color: rgb(50, 49, 48); font-family: &quot;Segoe UI&quot;, &=
+quot;Segoe UI Web (West European)&quot;, &quot;Segoe UI&quot;, -apple-syste=
+m, BlinkMacSystemFont, Roboto, &quot;Helvetica Neue&quot;, sans-serif; back=
+ground-color: rgb(255, 255, 255); display: inline !important">The code work=
+ing
+ fine is true except that all not new features after this duplication are b=
+roken. If I want to make all GFX10 feature complete, I have to either manua=
+lly adapt several duplications to the GFX10 file or do this consolidation. =
+>From this perspective and ease of
+ my work, it is a must.</span><br>
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<span style=3D"color: rgb(50, 49, 48); font-family: &quot;Segoe UI&quot;, &=
+quot;Segoe UI Web (West European)&quot;, &quot;Segoe UI&quot;, -apple-syste=
+m, BlinkMacSystemFont, Roboto, &quot;Helvetica Neue&quot;, sans-serif; back=
+ground-color: rgb(255, 255, 255); display: inline !important"><br>
+</span></div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<span style=3D"color: rgb(50, 49, 48); font-family: &quot;Segoe UI&quot;, &=
+quot;Segoe UI Web (West European)&quot;, &quot;Segoe UI&quot;, -apple-syste=
+m, BlinkMacSystemFont, Roboto, &quot;Helvetica Neue&quot;, sans-serif; back=
+ground-color: rgb(255, 255, 255); display: inline !important">Regards,</spa=
+n></div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<span style=3D"color: rgb(50, 49, 48); font-family: &quot;Segoe UI&quot;, &=
+quot;Segoe UI Web (West European)&quot;, &quot;Segoe UI&quot;, -apple-syste=
+m, BlinkMacSystemFont, Roboto, &quot;Helvetica Neue&quot;, sans-serif; back=
+ground-color: rgb(255, 255, 255); display: inline !important">Yong</span></=
+div>
+<div id=3D"appendonsend"></div>
+<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
+t; color:rgb(0,0,0)">
+<br>
+</div>
+<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" co=
+lor=3D"#000000" style=3D"font-size:11pt"><b>From:</b> Kuehling, Felix &lt;F=
+elix.Kuehling-5C7GfCeVMHo@public.gmane.org&gt;<br>
+<b>Sent:</b> Thursday, November 7, 2019 2:12 PM<br>
+<b>To:</b> Zhao, Yong &lt;Yong.Zhao-5C7GfCeVMHo@public.gmane.org&gt;; Alex Deucher &lt;alexdeuch=
+er-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;<br>
+<b>Cc:</b> Russell, Kent &lt;Kent.Russell-5C7GfCeVMHo@public.gmane.org&gt;; amd-gfx-PD4FTy7X32lMiVNPc3mojA@public.gmane.org=
+sktop.org &lt;amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt;<br>
+<b>Subject:</b> Re: [PATCH 2/3] drm/amdkfd: only keep release_mem function =
+for Hawaii</font>
+<div>&nbsp;</div>
+</div>
+<div style=3D"background-color:#FFFFFF">
+<div class=3D"x_moz-cite-prefix">On 2019-11-07 13:54, Zhao, Yong wrote:<br>
+</div>
+<blockquote type=3D"cite">
+<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
+t; color:rgb(0,0,0)">
+Hi Kent,</div>
+<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
+t; color:rgb(0,0,0)">
+<br>
+</div>
+<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
+t; color:rgb(0,0,0)">
+This <span style=3D"font-family:Calibri,sans-serif; font-size:14.6667px; ba=
+ckground-color:rgb(255,255,255); display:inline!important">
 consolidation is a must, because we should not have duplicated it in the fi=
 rst place.</span></div>
 </blockquote>
-<p>The code is working fine with the duplication. You disagree with duplica=
-ting the code in the first place. But that's just your opinion. It's not a =
-must in any objective sense.<br>
+<p style=3D"margin-top: 0px; margin-bottom: 0px;">The code is working fine =
+with the duplication. You disagree with duplicating the code in the first p=
+lace. But that's just your opinion. It's not a must in any objective sense.=
+<br>
 </p>
-<p><br>
+<p style=3D"margin-top: 0px; margin-bottom: 0px;"><br>
 </p>
-<blockquote type=3D"cite" cite=3D"mid:DM6PR12MB2778007D58A5332F6A030DA3F078=
-0@DM6PR12MB2778.namprd12.prod.outlook.com">
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif;
-        font-size: 12pt; color: rgb(0, 0, 0);">
-<span style=3D"font-family:
-          Calibri, sans-serif; font-size: 14.6667px; background-color:
-          rgb(255, 255, 255); display: inline !important">The kernel queue =
-functions by design are generic. The reasson why GFX8 and GFX9 are differen=
-t is because
- GFX9 is SOC15 where packet formats and doorbell size changed.&nbsp; On the=
- other hand, kfd_kernel_queue_v7.c file is pretty much empty by reusing v8 =
-functions, even though it is there. Furthermore, in my opinion&nbsp;<span s=
-tyle=3D"font-family: Calibri, sans-serif;
-            background-color: rgb(255, 255, 255); display: inline
-            !important">kfd_kernel_queue_v7.c
+<p style=3D"margin-top: 0px; margin-bottom: 0px;"><br>
+</p>
+<blockquote type=3D"cite">
+<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
+t; color:rgb(0,0,0)">
+<span style=3D"font-family:Calibri,sans-serif; font-size:14.6667px; backgro=
+und-color:rgb(255,255,255); display:inline!important">The kernel queue func=
+tions by design are generic. The reasson why GFX8 and GFX9 are different is=
+ because GFX9 is SOC15 where packet
+ formats and doorbell size changed.&nbsp; On the other hand, kfd_kernel_que=
+ue_v7.c file is pretty much empty by reusing v8 functions, even though it i=
+s there. Furthermore, in my opinion&nbsp;<span style=3D"font-family:Calibri=
+,sans-serif; background-color:rgb(255,255,255); display:inline!important">k=
+fd_kernel_queue_v7.c
  should be merged into v8 counterpart</span>, From GFX9 onwards,&nbsp;<span=
- style=3D"font-family: Calibri, sans-serif; background-color:
-            rgb(255, 255, 255); display: inline !important">packet formats =
-should stay the same. For kernel queues, we should
- be able to differentiate it by pre SOC15 or not, and I have an impression =
-that MEC firmware agrees to maintain the kernel queue interface stable acro=
-ss generations most of time.</span></span></div>
+ style=3D"font-family:Calibri,sans-serif; background-color:rgb(255,255,255)=
+; display:inline!important">packet formats should stay the same. For kernel=
+ queues, we should be able to differentiate
+ it by pre SOC15 or not, and I have an impression that MEC firmware agrees =
+to maintain the kernel queue interface stable across generations most of ti=
+me.</span></span></div>
 </blockquote>
-<p>OK, you're making assumptions about PM4 packets on future ASIC generatio=
-ns. It's true that the transition to SOC15 with 64-bit doorbells and read/w=
-rite-pointers was particularly disruptive. Your assumption will hold until =
-it gets broken by some other disruptive
- change.</p>
-<p><br>
+<p style=3D"margin-top: 0px; margin-bottom: 0px;">OK, you're making assumpt=
+ions about PM4 packets on future ASIC generations. It's true that the trans=
+ition to SOC15 with 64-bit doorbells and read/write-pointers was particular=
+ly disruptive. Your assumption will
+ hold until it gets broken by some other disruptive change.</p>
+<p style=3D"margin-top: 0px; margin-bottom: 0px;"><br>
 </p>
-<p>For now, if you want clear naming, we could call the GFXv7/8 packet mana=
-ger functions &quot;pre-SOC15&quot; or &quot;legacy&quot; and the GFXv9/10 =
-and future functions &quot;SOC15&quot;. This may work for a while. But I su=
-spect at some point something is going to change and we'll need
- to create a new version for a newer ASIC generation. You already have a sm=
-all taste of that with the different TBA-enable bit in the MAP_PROCESS pack=
-et in GFXv10.</p>
-<p><br>
+<p style=3D"margin-top: 0px; margin-bottom: 0px;">For now, if you want clea=
+r naming, we could call the GFXv7/8 packet manager functions &quot;pre-SOC1=
+5&quot; or &quot;legacy&quot; and the GFXv9/10 and future functions &quot;S=
+OC15&quot;. This may work for a while. But I suspect at some point
+ something is going to change and we'll need to create a new version for a =
+newer ASIC generation. You already have a small taste of that with the diff=
+erent TBA-enable bit in the MAP_PROCESS packet in GFXv10.</p>
+<p style=3D"margin-top: 0px; margin-bottom: 0px;"><br>
 </p>
-<p>Regards,</p>
-<p>&nbsp; Felix<br>
+<p style=3D"margin-top: 0px; margin-bottom: 0px;">Regards,</p>
+<p style=3D"margin-top: 0px; margin-bottom: 0px;">&nbsp; Felix<br>
 </p>
-<p><br>
+<p style=3D"margin-top: 0px; margin-bottom: 0px;"><br>
 </p>
-<blockquote type=3D"cite" cite=3D"mid:DM6PR12MB2778007D58A5332F6A030DA3F078=
-0@DM6PR12MB2778.namprd12.prod.outlook.com">
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif;
-        font-size: 12pt; color: rgb(0, 0, 0);">
-<span style=3D"font-family: Calibri, sans-serif; font-size:
-          14.6667px; background-color: rgb(255, 255, 255); display:
-          inline !important"><span style=3D"font-family: Calibri,
-            sans-serif; background-color: rgb(255, 255, 255); display:
-            inline !important"><br>
+<blockquote type=3D"cite">
+<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
+t; color:rgb(0,0,0)">
+<span style=3D"font-family:Calibri,sans-serif; font-size:14.6667px; backgro=
+und-color:rgb(255,255,255); display:inline!important"><span style=3D"font-f=
+amily:Calibri,sans-serif; background-color:rgb(255,255,255); display:inline=
+!important"><br>
 </span></span></div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif;
-        font-size: 12pt; color: rgb(0, 0, 0);">
-<span style=3D"font-family: Calibri, sans-serif; font-size:
-          14.6667px; background-color: rgb(255, 255, 255); display:
-          inline !important"><span style=3D"font-family: Calibri,
-            sans-serif; background-color: rgb(255, 255, 255); display:
-            inline !important">Regards,</span></span></div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif;
-        font-size: 12pt; color: rgb(0, 0, 0);">
-<span style=3D"font-family: Calibri, sans-serif; font-size:
-          14.6667px; background-color: rgb(255, 255, 255); display:
-          inline !important"><span style=3D"font-family: Calibri,
-            sans-serif; background-color: rgb(255, 255, 255); display:
-            inline !important">Yong</span></span></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font style=3D"font-size:11pt" face=
-=3D"Calibri, sans-serif" color=3D"#000000"><b>From:</b> Alex Deucher
-<a class=3D"moz-txt-link-rfc2396E" href=3D"mailto:alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org">&l=
-t;alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;</a><br>
+<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
+t; color:rgb(0,0,0)">
+<span style=3D"font-family:Calibri,sans-serif; font-size:14.6667px; backgro=
+und-color:rgb(255,255,255); display:inline!important"><span style=3D"font-f=
+amily:Calibri,sans-serif; background-color:rgb(255,255,255); display:inline=
+!important">Regards,</span></span></div>
+<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
+t; color:rgb(0,0,0)">
+<span style=3D"font-family:Calibri,sans-serif; font-size:14.6667px; backgro=
+und-color:rgb(255,255,255); display:inline!important"><span style=3D"font-f=
+amily:Calibri,sans-serif; background-color:rgb(255,255,255); display:inline=
+!important">Yong</span></span></div>
+<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
+<div id=3D"x_divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" =
+color=3D"#000000" style=3D"font-size:11pt"><b>From:</b> Alex Deucher
+<a class=3D"x_moz-txt-link-rfc2396E" href=3D"mailto:alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org">=
+&lt;alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;</a><br>
 <b>Sent:</b> Thursday, November 7, 2019 1:32 PM<br>
-<b>To:</b> Kuehling, Felix <a class=3D"moz-txt-link-rfc2396E" href=3D"mailt=
-o:Felix.Kuehling-5C7GfCeVMHo@public.gmane.org">
+<b>To:</b> Kuehling, Felix <a class=3D"x_moz-txt-link-rfc2396E" href=3D"mai=
+lto:Felix.Kuehling-5C7GfCeVMHo@public.gmane.org">
 &lt;Felix.Kuehling-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
-<b>Cc:</b> Zhao, Yong <a class=3D"moz-txt-link-rfc2396E" href=3D"mailto:Yon=
-g.Zhao-5C7GfCeVMHo@public.gmane.org">
-&lt;Yong.Zhao-5C7GfCeVMHo@public.gmane.org&gt;</a>; Russell, Kent <a class=3D"moz-txt-link-rfc23=
-96E" href=3D"mailto:Kent.Russell-5C7GfCeVMHo@public.gmane.org">
-&lt;Kent.Russell-5C7GfCeVMHo@public.gmane.org&gt;</a>; <a class=3D"moz-txt-link-abbreviated" hre=
-f=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a> <a class=3D"moz-txt-link-rfc2396E" href=
+<b>Cc:</b> Zhao, Yong <a class=3D"x_moz-txt-link-rfc2396E" href=3D"mailto:Y=
+ong.Zhao-5C7GfCeVMHo@public.gmane.org">
+&lt;Yong.Zhao-5C7GfCeVMHo@public.gmane.org&gt;</a>; Russell, Kent <a class=3D"x_moz-txt-link-rfc=
+2396E" href=3D"mailto:Kent.Russell-5C7GfCeVMHo@public.gmane.org">
+&lt;Kent.Russell-5C7GfCeVMHo@public.gmane.org&gt;</a>; <a class=3D"x_moz-txt-link-abbreviated" h=
+ref=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a> <a class=3D"x_moz-txt-link-rfc2396E" href=
 =3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">
 &lt;amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt;</a><br>
 <b>Subject:</b> Re: [PATCH 2/3] drm/amdkfd: only keep release_mem function =
 for Hawaii</font>
 <div>&nbsp;</div>
 </div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">On Thu, Nov 7, 2019 at 12:47 PM Kuehling, Felix <a=
- class=3D"moz-txt-link-rfc2396E" href=3D"mailto:Felix.Kuehling-5C7GfCeVMHo@public.gmane.org">
+<div class=3D"x_BodyFragment"><font size=3D"2"><span style=3D"font-size:11p=
+t">
+<div class=3D"x_PlainText">On Thu, Nov 7, 2019 at 12:47 PM Kuehling, Felix =
+<a class=3D"x_moz-txt-link-rfc2396E" href=3D"mailto:Felix.Kuehling-5C7GfCeVMHo@public.gmane.org"=
+>
 &lt;Felix.Kuehling-5C7GfCeVMHo@public.gmane.org&gt;</a> wrote:<br>
 &gt;<br>
 &gt; No, please lets not add a new nomenclature for PM4 packet versions. GF=
@@ -622,15 +697,15 @@ ntinue to consolidate and remove duplicate code.<br>
 &gt;<br>
 &gt;<br>
 &gt;<br>
-&gt; From: amd-gfx <a class=3D"moz-txt-link-rfc2396E" href=3D"mailto:amd-gf=
-x-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">
+&gt; From: amd-gfx <a class=3D"x_moz-txt-link-rfc2396E" href=3D"mailto:amd-=
+gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">
 &lt;amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt;</a> On Behalf Of Zhao, Yong<b=
 r>
 &gt; Sent: Thursday, November 7, 2019 11:57 AM<br>
-&gt; To: Kuehling, Felix <a class=3D"moz-txt-link-rfc2396E" href=3D"mailto:=
-Felix.Kuehling-5C7GfCeVMHo@public.gmane.org">
-&lt;Felix.Kuehling-5C7GfCeVMHo@public.gmane.org&gt;</a>; <a class=3D"moz-txt-link-abbreviated" h=
-ref=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">
+&gt; To: Kuehling, Felix <a class=3D"x_moz-txt-link-rfc2396E" href=3D"mailt=
+o:Felix.Kuehling-5C7GfCeVMHo@public.gmane.org">
+&lt;Felix.Kuehling-5C7GfCeVMHo@public.gmane.org&gt;</a>; <a class=3D"x_moz-txt-link-abbreviated"=
+ href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">
 amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
 &gt; Subject: Re: [PATCH 2/3] drm/amdkfd: only keep release_mem function fo=
 r Hawaii<br>
@@ -652,15 +727,15 @@ case, it is better to keep it as it is.<br>
 &gt;<br>
 &gt; ________________________________<br>
 &gt;<br>
-&gt; From: Kuehling, Felix <a class=3D"moz-txt-link-rfc2396E" href=3D"mailt=
-o:Felix.Kuehling-5C7GfCeVMHo@public.gmane.org">
+&gt; From: Kuehling, Felix <a class=3D"x_moz-txt-link-rfc2396E" href=3D"mai=
+lto:Felix.Kuehling-5C7GfCeVMHo@public.gmane.org">
 &lt;Felix.Kuehling-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
 &gt; Sent: Wednesday, November 6, 2019 11:45 PM<br>
-&gt; To: Zhao, Yong <a class=3D"moz-txt-link-rfc2396E" href=3D"mailto:Yong.=
-Zhao-5C7GfCeVMHo@public.gmane.org">
-&lt;Yong.Zhao-5C7GfCeVMHo@public.gmane.org&gt;</a>; <a class=3D"moz-txt-link-abbreviated" href=
+&gt; To: Zhao, Yong <a class=3D"x_moz-txt-link-rfc2396E" href=3D"mailto:Yon=
+g.Zhao-5C7GfCeVMHo@public.gmane.org">
+&lt;Yong.Zhao-5C7GfCeVMHo@public.gmane.org&gt;</a>; <a class=3D"x_moz-txt-link-abbreviated" href=
 =3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a> <a class=3D"moz-txt-link-rfc2396E" href=
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a> <a class=3D"x_moz-txt-link-rfc2396E" href=
 =3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">
 &lt;amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt;</a><br>
 &gt; Subject: Re: [PATCH 2/3] drm/amdkfd: only keep release_mem function fo=
@@ -681,8 +756,8 @@ r>
 &gt;<br>
 &gt; &gt;<br>
 &gt; &gt; Change-Id: I13787a8a29b83e7516c582a7401f2e14721edf5f<br>
-&gt; &gt; Signed-off-by: Yong Zhao <a class=3D"moz-txt-link-rfc2396E" href=
-=3D"mailto:Yong.Zhao-5C7GfCeVMHo@public.gmane.org">
+&gt; &gt; Signed-off-by: Yong Zhao <a class=3D"x_moz-txt-link-rfc2396E" hre=
+f=3D"mailto:Yong.Zhao-5C7GfCeVMHo@public.gmane.org">
 &lt;Yong.Zhao-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
 &gt; &gt; ---<br>
 &gt; &gt;&nbsp;&nbsp; .../gpu/drm/amd/amdkfd/kfd_kernel_queue_v10.c | 35 &#=
@@ -903,21 +978,21 @@ p;&nbsp;&nbsp; =3D sizeof(struct pm4_mec_release_mem)<br>
 &gt;<br>
 &gt; _______________________________________________<br>
 &gt; amd-gfx mailing list<br>
-&gt; <a class=3D"moz-txt-link-abbreviated" href=3D"mailto:amd-gfx-PD4FTy7X32mzQB+pC5nmwQ@public.gmane.org=
-edesktop.org">
+&gt; <a class=3D"x_moz-txt-link-abbreviated" href=3D"mailto:amd-gfx@lists.f=
+reedesktop.org">
 amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
-&gt; <a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" moz=
--do-not-send=3D"true">
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
+&gt; <a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">htt=
+ps://lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
 </div>
 </span></font></div>
 </blockquote>
+</div>
 </body>
 </html>
 
---_000_b4a76aeb4d2cc34801bda40124930241amdcom_--
+--_000_DM6PR12MB2778CD10620AEDD371AC088EF0780DM6PR12MB2778namp_--
 
---===============0519163289==
+--===============2012038382==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -927,4 +1002,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
 
---===============0519163289==--
+--===============2012038382==--
