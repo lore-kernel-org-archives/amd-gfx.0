@@ -2,128 +2,98 @@ Return-Path: <SRS0=5//3=ZA=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.2 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
+X-Spam-Status: No, score=-9.8 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 981DDC5DF60
-	for <amd-gfx@archiver.kernel.org>; Fri,  8 Nov 2019 00:24:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7BB4AC43331
+	for <amd-gfx@archiver.kernel.org>; Fri,  8 Nov 2019 01:55:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5A0EC21D6C
-	for <amd-gfx@archiver.kernel.org>; Fri,  8 Nov 2019 00:24:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5A0EC21D6C
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=samsung.com
+	by mail.kernel.org (Postfix) with ESMTPS id 31CFE21882
+	for <amd-gfx@archiver.kernel.org>; Fri,  8 Nov 2019 01:55:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 31CFE21882
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3CA6D6E0BE;
-	Fri,  8 Nov 2019 00:24:58 +0000 (UTC)
-X-Greylist: delayed 332 seconds by postgrey-1.36 at gabe;
- Fri, 08 Nov 2019 00:24:56 UTC
-Received: from mailout1.samsung.com (mailout1.samsung.com [203.254.224.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 665026E057;
- Fri,  8 Nov 2019 00:24:56 +0000 (UTC)
-Received: from epcas1p4.samsung.com (unknown [182.195.41.48])
- by mailout1.samsung.com (KnoxPortal) with ESMTP id
- 20191108001921epoutp013babeddf529ed9798f6bc726b4cfdca7~VB_1_IrDJ2404224042epoutp011;
- Fri,  8 Nov 2019 00:19:21 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.samsung.com
- 20191108001921epoutp013babeddf529ed9798f6bc726b4cfdca7~VB_1_IrDJ2404224042epoutp011
-Received: from epsnrtp3.localdomain (unknown [182.195.42.164]) by
- epcas1p1.samsung.com (KnoxPortal) with ESMTP id
- 20191108001920epcas1p1ef074f39297da6debe112c0542d276b5~VB_1DVTd30181501815epcas1p11;
- Fri,  8 Nov 2019 00:19:20 +0000 (GMT)
-Received: from epsmges1p4.samsung.com (unknown [182.195.40.157]) by
- epsnrtp3.localdomain (Postfix) with ESMTP id 478LVX0T1kzMqYkd; Fri,  8 Nov
- 2019 00:19:16 +0000 (GMT)
-Received: from epcas1p2.samsung.com ( [182.195.41.46]) by
- epsmges1p4.samsung.com (Symantec Messaging Gateway) with SMTP id
- B0.DE.04224.384B4CD5; Fri,  8 Nov 2019 09:19:15 +0900 (KST)
-Received: from epsmtrp2.samsung.com (unknown [182.195.40.14]) by
- epcas1p4.samsung.com (KnoxPortal) with ESMTPA id
- 20191108001915epcas1p4916381c427c32987c7284b9fa394849a~VB_wYUkXC1771717717epcas1p4n;
- Fri,  8 Nov 2019 00:19:15 +0000 (GMT)
-Received: from epsmgms1p2new.samsung.com (unknown [182.195.42.42]) by
- epsmtrp2.samsung.com (KnoxPortal) with ESMTP id
- 20191108001915epsmtrp2a5d14cbda2ce7681131d383ee7df382e~VB_wWbnlp1445614456epsmtrp2A;
- Fri,  8 Nov 2019 00:19:15 +0000 (GMT)
-X-AuditID: b6c32a38-d5bff70000001080-36-5dc4b483760b
-Received: from epsmtip2.samsung.com ( [182.195.34.31]) by
- epsmgms1p2new.samsung.com (Symantec Messaging Gateway) with SMTP id
- 8D.F5.25663.384B4CD5; Fri,  8 Nov 2019 09:19:15 +0900 (KST)
-Received: from [10.113.221.211] (unknown [10.113.221.211]) by
- epsmtip2.samsung.com (KnoxPortal) with ESMTPA id
- 20191108001914epsmtip28c8523b1bba1fedf40581cbdac4f3a37~VB_vvB-fs3242332423epsmtip2a;
- Fri,  8 Nov 2019 00:19:14 +0000 (GMT)
-Subject: Re: [PATCH 03/13] drm/exynos: Provide ddc symlink in connector's sysfs
-To: Andrzej Pietrasiewicz <andrzej.p@collabora.com>,
- dri-devel@lists.freedesktop.org
-From: Inki Dae <inki.dae@samsung.com>
-Message-ID: <79da80ba-aa5b-7c09-c702-df78a22a968c@samsung.com>
-Date: Fri, 8 Nov 2019 09:22:17 +0900
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.8.0
-MIME-Version: 1.0
-In-Reply-To: <613c1c09ff7db5be60ef86f930b45b3f56b4838d.1564591626.git.andrzej.p@collabora.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id EF5696F829;
+	Fri,  8 Nov 2019 01:54:59 +0000 (UTC)
+Received: from NAM05-CO1-obe.outbound.protection.outlook.com
+ (mail-eopbgr720065.outbound.protection.outlook.com [40.107.72.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D75D16F82B
+ for <amd-gfx@lists.freedesktop.org>; Fri,  8 Nov 2019 01:54:57 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=gonTyHTMq/uDqBqVAwPs64oUxhspMMRhbWDm/0Id7AwfnzboCqEPM4d3qjv1Otfb9bP/7RbC4QbKjuPAm95W8gM0Y3Tea+MMI7ZWAOC/zg3gnzUjNuUyQbbU2tns8WxxaimfBp9OX1Ev3wK+Pid+fzpH55H73R7DJS1I05pIvJtKxc/Jdx2J2zuR2NeE0qVn8nHcbXymePyCzmGbjF/qnyJsAt5cddT+IVzrSd6JH47oFkEadjg4m8BzkGw3ZpCpGF/fGB8mRkdw89CzY1fpY9HPAtFHV1/n6rMkK5taUz27dDkmw3/kWphQQwssYemiXwwLddaBsxMtsAWy+pK33g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Hkgkw9cSJSP1EKe2OZbLdrmDiR3AwrVnW/j/p3zfPlc=;
+ b=Ptp3RVTSlE/IkHWqvqYZwGnEQmKMLFKVPcnvcqpj+JON+S9giNfnDnCBZWljlJhneR1F9Z+tWH7SyAIkAHTHtqLzK1I1WfGVZwV8aC74R102YDBFXOwmTLHM0SxX236kujCx7/efFTXCSICpbjt8VcATWo8NfMTN4PdBQMvcHhBvOrn7gRbzzx0PbyiXfMyA4lMSBP6a5N7BcRX0tk6LENrEGOAnbN7FLbmTQjn4cGIIKzGaWIxYXNXzWCL+/duJAsaIIhXguAWwX+NNhaAq24GyeXAGPCqCGM7fITtYoOKS9FdgBkf9eubh6BqXGZZNeXafp+8v58SIjY4VUmh17Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+Received: from MN2PR12MB2896.namprd12.prod.outlook.com (20.179.80.214) by
+ MN2PR12MB3663.namprd12.prod.outlook.com (10.255.239.86) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2408.24; Fri, 8 Nov 2019 01:54:56 +0000
+Received: from MN2PR12MB2896.namprd12.prod.outlook.com
+ ([fe80::9821:4373:684f:f580]) by MN2PR12MB2896.namprd12.prod.outlook.com
+ ([fe80::9821:4373:684f:f580%6]) with mapi id 15.20.2430.023; Fri, 8 Nov 2019
+ 01:54:56 +0000
+From: "Zhu, Changfeng" <Changfeng.Zhu@amd.com>
+To: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Zhang,
+ Hawking" <Hawking.Zhang@amd.com>, "Huang, Ray" <Ray.Huang@amd.com>
+Subject: [PATCH] drm/amdgpu: allow direct upload save restore list for raven2
+Thread-Topic: [PATCH] drm/amdgpu: allow direct upload save restore list for
+ raven2
+Thread-Index: AQHVldeFrE70cIKU1UicTyTAEATq3w==
+Date: Fri, 8 Nov 2019 01:54:56 +0000
+Message-ID: <20191108015432.11840-1-changfeng.zhu@amd.com>
+Accept-Language: en-US
 Content-Language: en-US
-X-Brightmail-Tracker: H4sIAAAAAAAAA02Ue1DUVRTHu/t77EKu8xMU7mzNhL/RCgpkBexo4Jgx9av8A8MpY4Zoh/0N
- MMCy7YKJo8VjVR5SLBTZsrwK5TESBkg8Q4HBkNiNUIb3QwgiBQRhtWmQdvnhxH+fe873zPec
- e+ZeCeHQIZFJIlSxvEaliGJpe7K2zdXDPbmmPdgzt8wXMkydIsgZbqTgUmWiGC5PjpLQOpBM
- QUvJTwgGJropmBuzZhMba8WwVqsnoMHQQEPxspmC2ysLNPyZNkfD9cReBMaZbgT3sySwdvce
- BXlZZ2AgsVEEuZnVIijprUSgM3xPQnORCNJTUyj4a7SHhGrTBQq+mrxHgNl8VQzdSffFUDXZ
- R4G+pVsMvQ1GGnqTexAsja8RcNH8iwhSlw00FC1eI6Fi9TIBCYbzYkjSeUGpyUjByOivJMzU
- XxXBTNFjAloMfWIYyW5HkDz1pdWxxhlqBu9QcDF7lobqqm8I+Kchn4Qm/aQYKgsGaXj0pEh0
- CLizf6zSXNJCB82VPXDj6kaKEddsKSS5esOImPuhaVbEVZWn0txwXxPNzZtMYu5nyzjF5Xce
- 5cbSb4q46uIvOF1nC8llPpijA3BQpG84r1DyGhdeFRqjjFCF+bHvBYa8GeKzz1PuLt8Pr7Eu
- KkU078f6Hwlwfysiyror1uWEIirOGgpQaLXsnoO+mpi4WN4lPEYb68fyamWUer/aQ6uI1sap
- wjxCY6IPyD099/pYhZ9Ehj8qTSDVOvuTQ20ZdAK6IklDdhLMeOP6CaPIxg5MHcLnp4LTkL2V
- lxD+sbOCFBIWhL+tiH9asFh9lhJEzQjf6M/aOCwgPNY2S6QhicSROYoz0g/bCrYzH+CSpa51
- DcHMMTjjug7ZEjSzG+tLx2gbS5mDuDgtlbAxyezCI8by9ZZ2MMfx0ngbJWi24c7vptY7smM+
- xsl5c+tMMM54cKpAJPALOPlaLmEzw4zFDt+6kk8JbftjXfb0Bjviv2/WiAWW4YfzzbTAn+Hp
- +WnSNgBmTmNL3kkBvXBPqdKGBOOKKxv2COKduP7fPCS4bsXzKxcoQS3FKeccBAmLO3r6kcAY
- /16s3/Dh8NqNNSoT7TRsmsuwaRbDplkM/xsXIrIcOfFqbXQYr5WrvTdvugqtv2E3qENNpiOt
- iJEgdov0+PPtwQ6U4oQ2ProVYQnBbpfa6awhqVIRf4rXxIRo4qJ4bSvysV67npDtCI2x/giq
- 2BC5z14vLy/wlu/zkctZZ+kbJZeCHZgwRSwfyfNqXvO0TiSxkyWgltPvFLZPHisvmKW9pX6G
- vKC3XZeNnuZnv75j/xEzcSrxrm9RYPgZmaT5w47Hh+0zPh1qSMkLiHqRfMj99v7q60Fq5XP9
- u+YnnHYnaf0jLUNhx26z5w7VlinjnHKebFObPJ5ZecW9/aVbmns576qHA7pCDa8OmGcOdH0u
- 2+IYuLh12f9lltSGK+RuhEar+A9Q2tpb2QQAAA==
-X-Brightmail-Tracker: H4sIAAAAAAAAA02SbUxTZxTH99yX5166NbkrOB5fIlmnW2yiTvTDyebY5MvuPm3MZHEmvlS9
- AQNtWa+gaCYvrZkUmSC64BVRFBWabbC2vBUUpMhgG+2kjgVsi64QMFCFxek25hi1WcK3X87/
- /zvny+FpTR1exu83HpDMRn2WFquYZo82aa3F1bPjzYkrApR6+yn4KtDOwpWGQg6uhkMMdA9b
- WOi89h2C4fsDLERGF9LC9mYO5pvLaXArbgy1j30s3PnjEYZxWwRDV6EfQdXEAILpUzzM/zbF
- wvlTn8NwYTsF58qcFFzzNyCwKpcYuF5DQUnxcRYmQ7cZcHpPsHAyPEWDz9fIwUDRNAeO8BAL
- 5Z0DHPjdVRj8ltsIfr83T0Ol7wYFxY8VDDWzTQx88+wqDQXKFxwUWTdCnbeKhWCoj4GJtkYK
- Jmr+pKFTGeIgWNGDwDL25cJFVyK4Rn5hobLiAQan4wwNf7mrGegoD3PQcGEEw9N/a6j3QDw2
- +AyLRY96sVg/oxNbg7VIvP7kIiO2KUFOvNzxgBId9mIsBoY6sPjQ6+XElif3WLG6P00cLfme
- Ep21+aK1v5MRy2Yi+COyXbV5n5S1P1cyr0/Zrcp4WlfAZFtVh+56SnEB+pq3oTieCJvIrPMY
- a0MqXiO0IzLbFaJsiF8ICHE18TGMJx6PHKtEEAl9a2ei83ghjZSWpEbXJAifEMdMC4p2aGFO
- ID32KS4mVFKk8de/2WgLC6tJed0ojrJaSCG1tmI6yoywigSr7FSUlwjbiKdVQbHOy6T/7BgT
- 5ThhJ7GcjzxnWniD/FM9SMc4kYyMXaBinEQsTefoMqRRFunKIkVZpCiLlIuIsaOlUrZsSDfI
- G7KTjdLBdbLeIOcY09ftNRkc6Pn/6nStqK9vVzcSeKR9Sb1tRc8ODavPlfMM3YjwtDZBHWdd
- GKn36fMOS2bTLnNOliR3o+U8o01UJ5l6P9UI6foDUqYkZUvm/1OKj1tWgD64OxR85YUpqFi6
- 56dXB01rApOfrfgxofeWb/zyD6fzc1Yd2ZyZvFJXVBIxHI5f3pJx9K3xOx/2Em0ABy65tx9J
- XjnXlfh+WnjLmdTSQ6enj9LJWzbtvTk5PZpffyL39Y9nHaZ3MlMebvz5pN8y5wrtrk+1u7au
- PbvkeNtr9SbLu8a3X8zTMnKGfoOONsv6/wCmHKUWuwMAAA==
-X-CMS-MailID: 20191108001915epcas1p4916381c427c32987c7284b9fa394849a
-X-Msg-Generator: CA
-X-Sendblock-Type: SVC_REQ_APPROVE
-CMS-TYPE: 101P
-DLP-Filter: Pass
-X-CFilter-Loop: Reflected
-X-CMS-RootMailID: 20190731165921epcas3p4cdba522c2fc78c188075427c064fea5e
-References: <65481afa-1104-4ee9-e53d-f2732a10d4b9@baylibre.com>
- <cover.1564591626.git.andrzej.p@collabora.com>
- <CGME20190731165921epcas3p4cdba522c2fc78c188075427c064fea5e@epcas3p4.samsung.com>
- <613c1c09ff7db5be60ef86f930b45b3f56b4838d.1564591626.git.andrzej.p@collabora.com>
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-clientproxiedby: HK0PR03CA0009.apcprd03.prod.outlook.com
+ (2603:1096:203:2e::21) To MN2PR12MB2896.namprd12.prod.outlook.com
+ (2603:10b6:208:ab::22)
+x-ms-exchange-messagesentrepresentingtype: 1
+x-mailer: git-send-email 2.17.1
+x-originating-ip: [180.167.199.189]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-ht: Tenant
+x-ms-office365-filtering-correlation-id: 289a168e-858e-4e36-70c4-08d763eea74e
+x-ms-traffictypediagnostic: MN2PR12MB3663:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <MN2PR12MB3663B8DB82C0EDBB14305CE2FD7B0@MN2PR12MB3663.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:3513;
+x-forefront-prvs: 0215D7173F
+x-forefront-antispam-report: SFV:NSPM;
+ SFS:(10009020)(4636009)(136003)(376002)(366004)(39860400002)(346002)(396003)(189003)(199004)(66066001)(86362001)(316002)(186003)(110136005)(66946007)(64756008)(4326008)(66556008)(6116002)(2906002)(3846002)(36756003)(6636002)(2501003)(486006)(66446008)(5660300002)(99286004)(4744005)(1076003)(25786009)(476003)(26005)(14444005)(71190400001)(305945005)(6506007)(2616005)(7736002)(386003)(66476007)(71200400001)(81166006)(8676002)(52116002)(6486002)(81156014)(102836004)(256004)(50226002)(478600001)(6436002)(8936002)(6512007)(14454004);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:MN2PR12MB3663;
+ H:MN2PR12MB2896.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; MX:1; A:1; 
+received-spf: None (protection.outlook.com: amd.com does not designate
+ permitted sender hosts)
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: Ii2ixZIovf5RPquSVNUjJ/MtfNruYNEZovInF4WalfUg3rUXmv7anf3dxuePKwPpPPOkVQvuVuds4ekqJMR5lhmTR29yzkDe2ar/xLKyXemaShn4VaiGmj3y0/k5L9tHXhRbuPzpXIW9DfkHJoddAj0K2ogOpLmzk+qlEVYvnOcLvJNe9rzdbLlJ4wTMSrCIhn03llaOqmDEoLpY0EpBX+AymP2709FNlP94YDiOWgngncoMQsh6/2PVTFZF+KYdbZCFjd+vqfd3cePe/U7Pn+eLXr3WA6EsXjuIc/Cd0lwNr+oKA9UETRNcGoDjKQdV/q0gcJIEIXwJWYXd7PvwxJYnZp3muPc1rgKuuklDOm6dwPqoPD9E+7GsiKKO3B+Qh/gUKLBGCbhPf/0saIwRLVzjRTRm63mDHaHalnIOGBhT1wzoO7F6n63oZpIOH3yC
+MIME-Version: 1.0
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 289a168e-858e-4e36-70c4-08d763eea74e
+X-MS-Exchange-CrossTenant-originalarrivaltime: 08 Nov 2019 01:54:56.2473 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: SUGPNd0Hw0xl88ifOScVn10EXrcrMg6MJ+wijPMreSYrkGAzQfsWXM+gexB+BjHz+tlXrmVo6Iq/8kWXW9bBdQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3663
 X-Mailman-Original-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=samsung.com; 
- s=mail20170921; t=1573172361;
- bh=Qx6JJUOeIPxCw2Lg01fwba3w5G0slgAeqvLXgAErFlI=;
- h=Subject:To:Cc:From:Date:In-Reply-To:References:From;
- b=czf5GlW1UCGN045boMR2uzQ3uT1E9CFgWWdKNgQ3QZTtNtP657/YvjzhvaHCAQpOK
- DNj+LSRNpOUp69yrnO0Bwx27/By2qHY5ysnpQc4J/fEwa1FCyoffUEM14Vm/QLgt5g
- ILM9fl2zJ9xwQLkiN6rrRYVd6MHaVLmPFpr4/4Gg=
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Hkgkw9cSJSP1EKe2OZbLdrmDiR3AwrVnW/j/p3zfPlc=;
+ b=oLV10+kkpSWwiNwKhZRiZRg6i+KikFyZPELgBZxTvFj/dpaZ88tfKYMBde3AcxtEuHyGFnRahJoQ7iejEvjDmSRrvGuJqpcJqxcPCe5+r83O5tVg8Rmfe1nhdjpRvAwliKantmjg1xZBGe1tJQqxoYaCH25BgiEJjScARYb2Rfs=
+X-Mailman-Original-Authentication-Results: spf=none (sender IP is )
+ smtp.mailfrom=Changfeng.Zhu@amd.com; 
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -135,70 +105,32 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: =?UTF-8?Q?Heiko_St=c3=bcbner?= <heiko@sntech.de>,
- David Airlie <airlied@linux.ie>, Ramalingam C <ramalingam.c@intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Chris Wilson <chris@chris-wilson.co.uk>,
- Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>, Eric Anholt <eric@anholt.net>,
- Thierry Reding <thierry.reding@gmail.com>,
- Mamta Shukla <mamtashukla555@gmail.com>, kernel@collabora.com,
- Anthony Koo <Anthony.Koo@amd.com>,
- =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
- Emil Velikov <emil.velikov@collabora.com>, "David
- \(ChunMing\) Zhou" <David1.Zhou@amd.com>,
- Mario Kleiner <mario.kleiner.de@gmail.com>, linux-samsung-soc@vger.kernel.org,
- Joonyoung Shim <jy0922.shim@samsung.com>,
- Tomi Valkeinen <tomi.valkeinen@ti.com>, David Francis <David.Francis@amd.com>,
- Kyungmin Park <kyungmin.park@samsung.com>,
- Krzysztof Kozlowski <krzk@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>,
- linux-rockchip@lists.infradead.org, Kukjin Kim <kgene@kernel.org>,
- linux-arm-msm@vger.kernel.org, CK Hu <ck.hu@mediatek.com>,
- Harry Wentland <harry.wentland@amd.com>,
- Shashank Sharma <shashank.sharma@intel.com>, freedreno@lists.freedesktop.org,
- linux-tegra@vger.kernel.org, Philipp Zabel <p.zabel@pengutronix.de>,
- Leo Li <sunpeng.li@amd.com>, linux-kernel@vger.kernel.org,
- intel-gfx@lists.freedesktop.org,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Jani Nikula <jani.nikula@linux.intel.com>, linux-mediatek@lists.infradead.org,
- Jyri Sarha <jsarha@ti.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- Thomas Gleixner <tglx@linutronix.de>, Sean Paul <sean@poorly.run>,
- linux-arm-kernel@lists.infradead.org, amd-gfx@lists.freedesktop.org,
- Enrico Weigelt <info@metux.net>, Seung-Woo Kim <sw0312.kim@samsung.com>,
- Sandy Huang <hjc@rock-chips.com>,
- Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
- Todor Tomov <todor.tomov@linaro.org>, Rob Clark <robdclark@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
- Shawn Guo <shawnguo@kernel.org>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+Cc: "Zhu, Changfeng" <Changfeng.Zhu@amd.com>
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-Message-ID: <20191108002217.1asDcMH6X9lO6B97RDOnjhVd53AA0utXlOE5kclGOKw@z>
+Message-ID: <20191108015456.pBbhtTvXs8T9eh4D-8aVmYcrn9VKJaFuDGPoOyFM9pg@z>
 
-CgoxOS4gOC4gMS4g7Jik7KCEIDE6NTjsl5AgQW5kcnplaiBQaWV0cmFzaWV3aWN6IOydtCjqsIAp
-IOyTtCDquIA6Cj4gU3dpdGNoIHRvIHVzaW5nIHRoZSBkZGMgcHJvdmlkZWQgYnkgdGhlIGdlbmVy
-aWMgY29ubmVjdG9yLgo+IAo+IFNpZ25lZC1vZmYtYnk6IEFuZHJ6ZWogUGlldHJhc2lld2ljeiA8
-YW5kcnplai5wQGNvbGxhYm9yYS5jb20+Cj4gQWNrZWQtYnk6IFNhbSBSYXZuYm9yZyA8c2FtQHJh
-dm5ib3JnLm9yZz4KPiBSZXZpZXdlZC1ieTogRW1pbCBWZWxpa292IDxlbWlsLnZlbGlrb3ZAY29s
-bGFib3JhLmNvbT4KCkFja2VkLWJ5OiBJbmtpIERhZSA8aW5raS5kYWVAc2Ftc3VuZy5jb20+CgpU
-aGFua3MsCklua2kgRGFlCgo+IC0tLQo+ICBkcml2ZXJzL2dwdS9kcm0vZXh5bm9zL2V4eW5vc19o
-ZG1pLmMgfCA2ICsrKystLQo+ICAxIGZpbGUgY2hhbmdlZCwgNCBpbnNlcnRpb25zKCspLCAyIGRl
-bGV0aW9ucygtKQo+IAo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vZXh5bm9zL2V4eW5v
-c19oZG1pLmMgYi9kcml2ZXJzL2dwdS9kcm0vZXh5bm9zL2V4eW5vc19oZG1pLmMKPiBpbmRleCBi
-YzE1NjVmMTgyMmEuLmQ0YTljOWUxNzQzNiAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0v
-ZXh5bm9zL2V4eW5vc19oZG1pLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vZXh5bm9zL2V4eW5v
-c19oZG1pLmMKPiBAQCAtOTQwLDggKzk0MCwxMCBAQCBzdGF0aWMgaW50IGhkbWlfY3JlYXRlX2Nv
-bm5lY3RvcihzdHJ1Y3QgZHJtX2VuY29kZXIgKmVuY29kZXIpCj4gIAljb25uZWN0b3ItPmludGVy
-bGFjZV9hbGxvd2VkID0gdHJ1ZTsKPiAgCWNvbm5lY3Rvci0+cG9sbGVkID0gRFJNX0NPTk5FQ1RP
-Ul9QT0xMX0hQRDsKPiAgCj4gLQlyZXQgPSBkcm1fY29ubmVjdG9yX2luaXQoaGRhdGEtPmRybV9k
-ZXYsIGNvbm5lY3RvciwKPiAtCQkJJmhkbWlfY29ubmVjdG9yX2Z1bmNzLCBEUk1fTU9ERV9DT05O
-RUNUT1JfSERNSUEpOwo+ICsJcmV0ID0gZHJtX2Nvbm5lY3Rvcl9pbml0X3dpdGhfZGRjKGhkYXRh
-LT5kcm1fZGV2LCBjb25uZWN0b3IsCj4gKwkJCQkJICAmaGRtaV9jb25uZWN0b3JfZnVuY3MsCj4g
-KwkJCQkJICBEUk1fTU9ERV9DT05ORUNUT1JfSERNSUEsCj4gKwkJCQkJICBoZGF0YS0+ZGRjX2Fk
-cHQpOwo+ICAJaWYgKHJldCkgewo+ICAJCURSTV9ERVZfRVJST1IoaGRhdGEtPmRldiwKPiAgCQkJ
-ICAgICAgIkZhaWxlZCB0byBpbml0aWFsaXplIGNvbm5lY3RvciB3aXRoIGRybVxuIik7Cj4gCl9f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFp
-bGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJl
-ZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
+RnJvbTogY2hhbmd6aHUgPENoYW5nZmVuZy5aaHVAYW1kLmNvbT4KCkl0IHdpbGwgY2F1c2UgbW9k
+cHJvYmUgYXRvbWJpb3Mgc3R1Y2sgcHJvYmxlbSBpbiByYXZlbjIgaWYgaXQgZG9lc24ndAphbGxv
+dyBkaXJlY3QgdXBsb2FkIHNhdmUgcmVzdG9yZSBsaXN0IGZyb20gZ2Z4IGRyaXZlci4KU28gaXQg
+bmVlZHMgdG8gYWxsb3cgZGlyZWN0IHVwbG9hZCBzYXZlIHJlc3RvcmUgbGlzdCBmb3IgcmF2ZW4y
+CnRlbXBvcmFyaWx5LgoKQ2hhbmdlLUlkOiBJMWZlY2UxYjljNjFmN2ExM2VlYzk0OGYzNGViNjBh
+OTEyMDA0NmJjMgpTaWduZWQtb2ZmLWJ5OiBjaGFuZ3podSA8Q2hhbmdmZW5nLlpodUBhbWQuY29t
+PgotLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92OV8wLmMgfCA0ICsrKy0KIDEg
+ZmlsZSBjaGFuZ2VkLCAzIGluc2VydGlvbnMoKyksIDEgZGVsZXRpb24oLSkKCmRpZmYgLS1naXQg
+YS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjlfMC5jIGIvZHJpdmVycy9ncHUvZHJt
+L2FtZC9hbWRncHUvZ2Z4X3Y5XzAuYwppbmRleCA0ZWQzMWU5YTM5OGMuLmRkZTk3MTNjMWQ2NyAx
+MDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y5XzAuYworKysgYi9k
+cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjlfMC5jCkBAIC0yNzI5LDcgKzI3MjksOSBA
+QCBzdGF0aWMgdm9pZCBnZnhfdjlfMF9pbml0X3BnKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2
+KQogCSAqIEFuZCBpdCdzIG5lZWRlZCBieSBnZnhvZmYgZmVhdHVyZS4KIAkgKi8KIAlpZiAoYWRl
+di0+Z2Z4LnJsYy5pc19ybGNfdjJfMSkgewotCQlpZiAoYWRldi0+YXNpY190eXBlID09IENISVBf
+VkVHQTEyKQorCQlpZiAoYWRldi0+YXNpY190eXBlID09IENISVBfVkVHQTEyIHx8CisJCSAgICAo
+YWRldi0+YXNpY190eXBlID09IENISVBfUkFWRU4gJiYKKwkJICAgICBhZGV2LT5yZXZfaWQgPj0g
+OCkpCiAJCQlnZnhfdjlfMV9pbml0X3JsY19zYXZlX3Jlc3RvcmVfbGlzdChhZGV2KTsKIAkJZ2Z4
+X3Y5XzBfZW5hYmxlX3NhdmVfcmVzdG9yZV9tYWNoaW5lKGFkZXYpOwogCX0KLS0gCjIuMTcuMQoK
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
