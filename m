@@ -1,132 +1,129 @@
-Return-Path: <SRS0=ouc1=Y7=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
+Return-Path: <SRS0=5//3=ZA=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.2 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,UNPARSEABLE_RELAY,USER_AGENT_SANE_1
-	autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-8.2 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6339DC5DF60
-	for <amd-gfx@archiver.kernel.org>; Thu,  7 Nov 2019 22:59:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 981DDC5DF60
+	for <amd-gfx@archiver.kernel.org>; Fri,  8 Nov 2019 00:24:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3C5F82178F
-	for <amd-gfx@archiver.kernel.org>; Thu,  7 Nov 2019 22:59:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3C5F82178F
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=oracle.com
+	by mail.kernel.org (Postfix) with ESMTPS id 5A0EC21D6C
+	for <amd-gfx@archiver.kernel.org>; Fri,  8 Nov 2019 00:24:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5A0EC21D6C
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=samsung.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C06106F7F6;
-	Thu,  7 Nov 2019 22:59:48 +0000 (UTC)
-Received: from userp2130.oracle.com (userp2130.oracle.com [156.151.31.86])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D3CAE6E038;
- Thu,  7 Nov 2019 22:55:25 +0000 (UTC)
-Received: from pps.filterd (userp2130.oracle.com [127.0.0.1])
- by userp2130.oracle.com (8.16.0.27/8.16.0.27) with SMTP id xA7Mrwxg095680;
- Thu, 7 Nov 2019 22:55:01 GMT
-Received: from userp3030.oracle.com (userp3030.oracle.com [156.151.31.80])
- by userp2130.oracle.com with ESMTP id 2w41w19j03-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Thu, 07 Nov 2019 22:55:01 +0000
-Received: from pps.filterd (userp3030.oracle.com [127.0.0.1])
- by userp3030.oracle.com (8.16.0.27/8.16.0.27) with SMTP id xA7MsD57138401;
- Thu, 7 Nov 2019 22:55:01 GMT
-Received: from userv0122.oracle.com (userv0122.oracle.com [156.151.31.75])
- by userp3030.oracle.com with ESMTP id 2w41wb0f8s-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Thu, 07 Nov 2019 22:55:01 +0000
-Received: from abhmp0018.oracle.com (abhmp0018.oracle.com [141.146.116.24])
- by userv0122.oracle.com (8.14.4/8.14.4) with ESMTP id xA7Msu67017548;
- Thu, 7 Nov 2019 22:54:56 GMT
-Received: from bostrovs-us.us.oracle.com (/10.152.32.65)
- by default (Oracle Beehive Gateway v4.0)
- with ESMTP ; Thu, 07 Nov 2019 14:54:56 -0800
-Subject: Re: [PATCH v2 09/15] xen/gntdev: use mmu_range_notifier_insert
-To: Jason Gunthorpe <jgg@ziepe.ca>
-References: <20191028201032.6352-1-jgg@ziepe.ca>
- <20191028201032.6352-10-jgg@ziepe.ca>
- <3938b588-c6c5-3bd1-8ea9-47e4d5b2045c@oracle.com>
- <20191105023108.GN22766@mellanox.com>
- <a62e58f6-d98b-1feb-d0ca-fb8210f3e831@oracle.com>
- <20191107203629.GF6730@ziepe.ca>
-From: Boris Ostrovsky <boris.ostrovsky@oracle.com>
-Autocrypt: addr=boris.ostrovsky@oracle.com; prefer-encrypt=mutual; keydata=
- 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
- Jg6OxFYd01z+a+oL
-Message-ID: <4a68acc6-3ce7-e26b-2c98-774867288410@oracle.com>
-Date: Thu, 7 Nov 2019 17:54:52 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.1.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3CA6D6E0BE;
+	Fri,  8 Nov 2019 00:24:58 +0000 (UTC)
+X-Greylist: delayed 332 seconds by postgrey-1.36 at gabe;
+ Fri, 08 Nov 2019 00:24:56 UTC
+Received: from mailout1.samsung.com (mailout1.samsung.com [203.254.224.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 665026E057;
+ Fri,  8 Nov 2019 00:24:56 +0000 (UTC)
+Received: from epcas1p4.samsung.com (unknown [182.195.41.48])
+ by mailout1.samsung.com (KnoxPortal) with ESMTP id
+ 20191108001921epoutp013babeddf529ed9798f6bc726b4cfdca7~VB_1_IrDJ2404224042epoutp011;
+ Fri,  8 Nov 2019 00:19:21 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.samsung.com
+ 20191108001921epoutp013babeddf529ed9798f6bc726b4cfdca7~VB_1_IrDJ2404224042epoutp011
+Received: from epsnrtp3.localdomain (unknown [182.195.42.164]) by
+ epcas1p1.samsung.com (KnoxPortal) with ESMTP id
+ 20191108001920epcas1p1ef074f39297da6debe112c0542d276b5~VB_1DVTd30181501815epcas1p11;
+ Fri,  8 Nov 2019 00:19:20 +0000 (GMT)
+Received: from epsmges1p4.samsung.com (unknown [182.195.40.157]) by
+ epsnrtp3.localdomain (Postfix) with ESMTP id 478LVX0T1kzMqYkd; Fri,  8 Nov
+ 2019 00:19:16 +0000 (GMT)
+Received: from epcas1p2.samsung.com ( [182.195.41.46]) by
+ epsmges1p4.samsung.com (Symantec Messaging Gateway) with SMTP id
+ B0.DE.04224.384B4CD5; Fri,  8 Nov 2019 09:19:15 +0900 (KST)
+Received: from epsmtrp2.samsung.com (unknown [182.195.40.14]) by
+ epcas1p4.samsung.com (KnoxPortal) with ESMTPA id
+ 20191108001915epcas1p4916381c427c32987c7284b9fa394849a~VB_wYUkXC1771717717epcas1p4n;
+ Fri,  8 Nov 2019 00:19:15 +0000 (GMT)
+Received: from epsmgms1p2new.samsung.com (unknown [182.195.42.42]) by
+ epsmtrp2.samsung.com (KnoxPortal) with ESMTP id
+ 20191108001915epsmtrp2a5d14cbda2ce7681131d383ee7df382e~VB_wWbnlp1445614456epsmtrp2A;
+ Fri,  8 Nov 2019 00:19:15 +0000 (GMT)
+X-AuditID: b6c32a38-d5bff70000001080-36-5dc4b483760b
+Received: from epsmtip2.samsung.com ( [182.195.34.31]) by
+ epsmgms1p2new.samsung.com (Symantec Messaging Gateway) with SMTP id
+ 8D.F5.25663.384B4CD5; Fri,  8 Nov 2019 09:19:15 +0900 (KST)
+Received: from [10.113.221.211] (unknown [10.113.221.211]) by
+ epsmtip2.samsung.com (KnoxPortal) with ESMTPA id
+ 20191108001914epsmtip28c8523b1bba1fedf40581cbdac4f3a37~VB_vvB-fs3242332423epsmtip2a;
+ Fri,  8 Nov 2019 00:19:14 +0000 (GMT)
+Subject: Re: [PATCH 03/13] drm/exynos: Provide ddc symlink in connector's sysfs
+To: Andrzej Pietrasiewicz <andrzej.p@collabora.com>,
+ dri-devel@lists.freedesktop.org
+From: Inki Dae <inki.dae@samsung.com>
+Message-ID: <79da80ba-aa5b-7c09-c702-df78a22a968c@samsung.com>
+Date: Fri, 8 Nov 2019 09:22:17 +0900
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.8.0
 MIME-Version: 1.0
-In-Reply-To: <20191107203629.GF6730@ziepe.ca>
+In-Reply-To: <613c1c09ff7db5be60ef86f930b45b3f56b4838d.1564591626.git.andrzej.p@collabora.com>
 Content-Language: en-US
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9434
- signatures=668685
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=0
- malwarescore=0
- phishscore=0 bulkscore=0 spamscore=0 mlxscore=0 mlxlogscore=999
- adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.0.1-1910280000 definitions=main-1911070210
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9434
- signatures=668685
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0
- priorityscore=1501 malwarescore=0
- suspectscore=0 phishscore=0 bulkscore=0 spamscore=0 clxscore=1015
- lowpriorityscore=0 mlxscore=0 impostorscore=0 mlxlogscore=999 adultscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1910280000
- definitions=main-1911070210
-X-Mailman-Approved-At: Thu, 07 Nov 2019 22:59:46 +0000
+X-Brightmail-Tracker: H4sIAAAAAAAAA02Ue1DUVRTHu/t77EKu8xMU7mzNhL/RCgpkBexo4Jgx9av8A8MpY4Zoh/0N
+ MMCy7YKJo8VjVR5SLBTZsrwK5TESBkg8Q4HBkNiNUIb3QwgiBQRhtWmQdvnhxH+fe873zPec
+ e+ZeCeHQIZFJIlSxvEaliGJpe7K2zdXDPbmmPdgzt8wXMkydIsgZbqTgUmWiGC5PjpLQOpBM
+ QUvJTwgGJropmBuzZhMba8WwVqsnoMHQQEPxspmC2ysLNPyZNkfD9cReBMaZbgT3sySwdvce
+ BXlZZ2AgsVEEuZnVIijprUSgM3xPQnORCNJTUyj4a7SHhGrTBQq+mrxHgNl8VQzdSffFUDXZ
+ R4G+pVsMvQ1GGnqTexAsja8RcNH8iwhSlw00FC1eI6Fi9TIBCYbzYkjSeUGpyUjByOivJMzU
+ XxXBTNFjAloMfWIYyW5HkDz1pdWxxhlqBu9QcDF7lobqqm8I+Kchn4Qm/aQYKgsGaXj0pEh0
+ CLizf6zSXNJCB82VPXDj6kaKEddsKSS5esOImPuhaVbEVZWn0txwXxPNzZtMYu5nyzjF5Xce
+ 5cbSb4q46uIvOF1nC8llPpijA3BQpG84r1DyGhdeFRqjjFCF+bHvBYa8GeKzz1PuLt8Pr7Eu
+ KkU078f6Hwlwfysiyror1uWEIirOGgpQaLXsnoO+mpi4WN4lPEYb68fyamWUer/aQ6uI1sap
+ wjxCY6IPyD099/pYhZ9Ehj8qTSDVOvuTQ20ZdAK6IklDdhLMeOP6CaPIxg5MHcLnp4LTkL2V
+ lxD+sbOCFBIWhL+tiH9asFh9lhJEzQjf6M/aOCwgPNY2S6QhicSROYoz0g/bCrYzH+CSpa51
+ DcHMMTjjug7ZEjSzG+tLx2gbS5mDuDgtlbAxyezCI8by9ZZ2MMfx0ngbJWi24c7vptY7smM+
+ xsl5c+tMMM54cKpAJPALOPlaLmEzw4zFDt+6kk8JbftjXfb0Bjviv2/WiAWW4YfzzbTAn+Hp
+ +WnSNgBmTmNL3kkBvXBPqdKGBOOKKxv2COKduP7fPCS4bsXzKxcoQS3FKeccBAmLO3r6kcAY
+ /16s3/Dh8NqNNSoT7TRsmsuwaRbDplkM/xsXIrIcOfFqbXQYr5WrvTdvugqtv2E3qENNpiOt
+ iJEgdov0+PPtwQ6U4oQ2ProVYQnBbpfa6awhqVIRf4rXxIRo4qJ4bSvysV67npDtCI2x/giq
+ 2BC5z14vLy/wlu/zkctZZ+kbJZeCHZgwRSwfyfNqXvO0TiSxkyWgltPvFLZPHisvmKW9pX6G
+ vKC3XZeNnuZnv75j/xEzcSrxrm9RYPgZmaT5w47Hh+0zPh1qSMkLiHqRfMj99v7q60Fq5XP9
+ u+YnnHYnaf0jLUNhx26z5w7VlinjnHKebFObPJ5ZecW9/aVbmns576qHA7pCDa8OmGcOdH0u
+ 2+IYuLh12f9lltSGK+RuhEar+A9Q2tpb2QQAAA==
+X-Brightmail-Tracker: H4sIAAAAAAAAA02SbUxTZxTH99yX5166NbkrOB5fIlmnW2yiTvTDyebY5MvuPm3MZHEmvlS9
+ AQNtWa+gaCYvrZkUmSC64BVRFBWabbC2vBUUpMhgG+2kjgVsi64QMFCFxek25hi1WcK3X87/
+ /zvny+FpTR1exu83HpDMRn2WFquYZo82aa3F1bPjzYkrApR6+yn4KtDOwpWGQg6uhkMMdA9b
+ WOi89h2C4fsDLERGF9LC9mYO5pvLaXArbgy1j30s3PnjEYZxWwRDV6EfQdXEAILpUzzM/zbF
+ wvlTn8NwYTsF58qcFFzzNyCwKpcYuF5DQUnxcRYmQ7cZcHpPsHAyPEWDz9fIwUDRNAeO8BAL
+ 5Z0DHPjdVRj8ltsIfr83T0Ol7wYFxY8VDDWzTQx88+wqDQXKFxwUWTdCnbeKhWCoj4GJtkYK
+ Jmr+pKFTGeIgWNGDwDL25cJFVyK4Rn5hobLiAQan4wwNf7mrGegoD3PQcGEEw9N/a6j3QDw2
+ +AyLRY96sVg/oxNbg7VIvP7kIiO2KUFOvNzxgBId9mIsBoY6sPjQ6+XElif3WLG6P00cLfme
+ Ep21+aK1v5MRy2Yi+COyXbV5n5S1P1cyr0/Zrcp4WlfAZFtVh+56SnEB+pq3oTieCJvIrPMY
+ a0MqXiO0IzLbFaJsiF8ICHE18TGMJx6PHKtEEAl9a2ei83ghjZSWpEbXJAifEMdMC4p2aGFO
+ ID32KS4mVFKk8de/2WgLC6tJed0ojrJaSCG1tmI6yoywigSr7FSUlwjbiKdVQbHOy6T/7BgT
+ 5ThhJ7GcjzxnWniD/FM9SMc4kYyMXaBinEQsTefoMqRRFunKIkVZpCiLlIuIsaOlUrZsSDfI
+ G7KTjdLBdbLeIOcY09ftNRkc6Pn/6nStqK9vVzcSeKR9Sb1tRc8ODavPlfMM3YjwtDZBHWdd
+ GKn36fMOS2bTLnNOliR3o+U8o01UJ5l6P9UI6foDUqYkZUvm/1OKj1tWgD64OxR85YUpqFi6
+ 56dXB01rApOfrfgxofeWb/zyD6fzc1Yd2ZyZvFJXVBIxHI5f3pJx9K3xOx/2Em0ABy65tx9J
+ XjnXlfh+WnjLmdTSQ6enj9LJWzbtvTk5PZpffyL39Y9nHaZ3MlMebvz5pN8y5wrtrk+1u7au
+ PbvkeNtr9SbLu8a3X8zTMnKGfoOONsv6/wCmHKUWuwMAAA==
+X-CMS-MailID: 20191108001915epcas1p4916381c427c32987c7284b9fa394849a
+X-Msg-Generator: CA
+X-Sendblock-Type: SVC_REQ_APPROVE
+CMS-TYPE: 101P
+DLP-Filter: Pass
+X-CFilter-Loop: Reflected
+X-CMS-RootMailID: 20190731165921epcas3p4cdba522c2fc78c188075427c064fea5e
+References: <65481afa-1104-4ee9-e53d-f2732a10d4b9@baylibre.com>
+ <cover.1564591626.git.andrzej.p@collabora.com>
+ <CGME20190731165921epcas3p4cdba522c2fc78c188075427c064fea5e@epcas3p4.samsung.com>
+ <613c1c09ff7db5be60ef86f930b45b3f56b4838d.1564591626.git.andrzej.p@collabora.com>
 X-Mailman-Original-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oracle.com; h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=corp-2019-08-05;
- bh=60X7G2O/H2Ie6ncfeMx8Ob3wXcGtmtnZWeKikSe9Ne8=;
- b=O8mwsL5EO7M0XJcYtsEq6zB2/913YB7f1hpaGCTWTeITKl67jeHcS7VR3H0W5KcVAuVA
- o48UXEo7BjSWQLHzpKTo82CD7qQagMNohhTp0+IYaAxa/o/d6tzUgUejZ4tGIGbCOOYY
- qmvyP4i5SYt+CMZY6otCjFIbNHrBVzkmWG/BPyqsx2pn2FYF1C1kNPBSQ9zBP04Sy8Ll
- 77ylXspK8Z84wmj86qUyKtSfLgUjkgyEgqIU3Xr+Qh+gutcUnhGSrc3OCHgnNHPjGe2U
- vxPZQSNWATUiJz7n+aKJUjCMxFF4/dgIkVnM2lJPH6SXaMNgl7sDWfLRSmhrXFbuAjOS Gg== 
+ d=samsung.com; 
+ s=mail20170921; t=1573172361;
+ bh=Qx6JJUOeIPxCw2Lg01fwba3w5G0slgAeqvLXgAErFlI=;
+ h=Subject:To:Cc:From:Date:In-Reply-To:References:From;
+ b=czf5GlW1UCGN045boMR2uzQ3uT1E9CFgWWdKNgQ3QZTtNtP657/YvjzhvaHCAQpOK
+ DNj+LSRNpOUp69yrnO0Bwx27/By2qHY5ysnpQc4J/fEwa1FCyoffUEM14Vm/QLgt5g
+ ILM9fl2zJ9xwQLkiN6rrRYVd6MHaVLmPFpr4/4Gg=
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -138,49 +135,70 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Juergen Gross <jgross@suse.com>, David Zhou <David1.Zhou@amd.com>,
- Ralph Campbell <rcampbell@nvidia.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
- "linux-rdma@vger.kernel.org" <linux-rdma@vger.kernel.org>,
- John Hubbard <jhubbard@nvidia.com>,
- "Felix.Kuehling@amd.com" <Felix.Kuehling@amd.com>,
- Mike Marciniszyn <mike.marciniszyn@intel.com>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- Christoph Hellwig <hch@infradead.org>,
- "linux-mm@kvack.org" <linux-mm@kvack.org>, Jerome Glisse <jglisse@redhat.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "nouveau@lists.freedesktop.org" <nouveau@lists.freedesktop.org>,
- Alex Deucher <alexander.deucher@amd.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Dennis Dalessandro <dennis.dalessandro@intel.com>,
- Petr Cvek <petrcvekcz@gmail.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- Ben Skeggs <bskeggs@redhat.com>
+Cc: =?UTF-8?Q?Heiko_St=c3=bcbner?= <heiko@sntech.de>,
+ David Airlie <airlied@linux.ie>, Ramalingam C <ramalingam.c@intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Chris Wilson <chris@chris-wilson.co.uk>,
+ Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>, Eric Anholt <eric@anholt.net>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Mamta Shukla <mamtashukla555@gmail.com>, kernel@collabora.com,
+ Anthony Koo <Anthony.Koo@amd.com>,
+ =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
+ Emil Velikov <emil.velikov@collabora.com>, "David
+ \(ChunMing\) Zhou" <David1.Zhou@amd.com>,
+ Mario Kleiner <mario.kleiner.de@gmail.com>, linux-samsung-soc@vger.kernel.org,
+ Joonyoung Shim <jy0922.shim@samsung.com>,
+ Tomi Valkeinen <tomi.valkeinen@ti.com>, David Francis <David.Francis@amd.com>,
+ Kyungmin Park <kyungmin.park@samsung.com>,
+ Krzysztof Kozlowski <krzk@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>,
+ linux-rockchip@lists.infradead.org, Kukjin Kim <kgene@kernel.org>,
+ linux-arm-msm@vger.kernel.org, CK Hu <ck.hu@mediatek.com>,
+ Harry Wentland <harry.wentland@amd.com>,
+ Shashank Sharma <shashank.sharma@intel.com>, freedreno@lists.freedesktop.org,
+ linux-tegra@vger.kernel.org, Philipp Zabel <p.zabel@pengutronix.de>,
+ Leo Li <sunpeng.li@amd.com>, linux-kernel@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>, linux-mediatek@lists.infradead.org,
+ Jyri Sarha <jsarha@ti.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ Thomas Gleixner <tglx@linutronix.de>, Sean Paul <sean@poorly.run>,
+ linux-arm-kernel@lists.infradead.org, amd-gfx@lists.freedesktop.org,
+ Enrico Weigelt <info@metux.net>, Seung-Woo Kim <sw0312.kim@samsung.com>,
+ Sandy Huang <hjc@rock-chips.com>,
+ Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
+ Todor Tomov <todor.tomov@linaro.org>, Rob Clark <robdclark@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
+ Shawn Guo <shawnguo@kernel.org>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-Message-ID: <20191107225452.9dIM6MQc2tgGCEn0TP57T8ILB2Vhdvvt-ZOVEZIgAmA@z>
+Message-ID: <20191108002217.1asDcMH6X9lO6B97RDOnjhVd53AA0utXlOE5kclGOKw@z>
 
-T24gMTEvNy8xOSAzOjM2IFBNLCBKYXNvbiBHdW50aG9ycGUgd3JvdGU6Cj4gT24gVHVlLCBOb3Yg
-MDUsIDIwMTkgYXQgMTA6MTY6NDZBTSAtMDUwMCwgQm9yaXMgT3N0cm92c2t5IHdyb3RlOgo+Cj4+
-PiBTbywgSSBzdXBwb3NlIGl0IGNhbiBiZSByZWxheGVkIHRvIGEgbnVsbCB0ZXN0IGFuZCBhIFdB
-Uk5fT04gdGhhdCBpdAo+Pj4gaGFzbid0IGNoYW5nZWQ/Cj4+IFlvdSBtZWFuCj4+Cj4+IGlmICh1
-c2VfcHRlbW9kKSB7Cj4+IMKgwqDCoMKgwqDCoMKgIFdBUk5fT04obWFwLT52bWEgIT0gdm1hKTsK
-Pj4gwqDCoMKgwqDCoMKgwqAgLi4uCj4+Cj4+Cj4+IFllcywgdGhhdCBzb3VuZHMgZ29vZC4KPiBJ
-IGFtZW5kZWQgbXkgY29weSBvZiB0aGUgcGF0Y2ggd2l0aCB0aGUgYWJvdmUsIGhhcyB0aGlzIHJl
-d29yayBzaG93bgo+IHNpZ25zIG9mIHdvcmtpbmc/CgpZZXMsIGl0IHdvcmtzIGZpbmUuCgpCdXQg
-cGxlYXNlIGRvbid0IGZvcmdldCBub3RpZmllciBvcHMgaW5pdGlhbGl6YXRpb24uCgpXaXRoIHRo
-b3NlIHR3byBjaGFuZ2VzLAoKUmV2aWV3ZWQtYnk6IEJvcmlzIE9zdHJvdnNreSA8Ym9yaXMub3N0
-cm92c2t5QG9yYWNsZS5jb20+Cgo+Cj4gQEAgLTQzNiw3ICs0MzYsOCBAQCBzdGF0aWMgdm9pZCBn
-bnRkZXZfdm1hX2Nsb3NlKHN0cnVjdCB2bV9hcmVhX3N0cnVjdCAqdm1hKQo+ICAgICAgICAgc3Ry
-dWN0IGdudGRldl9wcml2ICpwcml2ID0gZmlsZS0+cHJpdmF0ZV9kYXRhOwo+ICAKPiAgICAgICAg
-IHByX2RlYnVnKCJnbnRkZXZfdm1hX2Nsb3NlICVwXG4iLCB2bWEpOwo+IC0gICAgICAgaWYgKHVz
-ZV9wdGVtb2QgJiYgbWFwLT52bWEgPT0gdm1hKSB7Cj4gKyAgICAgICBpZiAodXNlX3B0ZW1vZCkg
-ewo+ICsgICAgICAgICAgICAgICBXQVJOX09OKG1hcC0+dm1hICE9IHZtYSk7Cj4gICAgICAgICAg
-ICAgICAgIG1tdV9yYW5nZV9ub3RpZmllcl9yZW1vdmUoJm1hcC0+bm90aWZpZXIpOwo+ICAgICAg
-ICAgICAgICAgICBtYXAtPnZtYSA9IE5VTEw7Cj4gICAgICAgICB9Cj4KPiBKYXNvbgoKX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5n
-IGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVz
-a3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+CgoxOS4gOC4gMS4g7Jik7KCEIDE6NTjsl5AgQW5kcnplaiBQaWV0cmFzaWV3aWN6IOydtCjqsIAp
+IOyTtCDquIA6Cj4gU3dpdGNoIHRvIHVzaW5nIHRoZSBkZGMgcHJvdmlkZWQgYnkgdGhlIGdlbmVy
+aWMgY29ubmVjdG9yLgo+IAo+IFNpZ25lZC1vZmYtYnk6IEFuZHJ6ZWogUGlldHJhc2lld2ljeiA8
+YW5kcnplai5wQGNvbGxhYm9yYS5jb20+Cj4gQWNrZWQtYnk6IFNhbSBSYXZuYm9yZyA8c2FtQHJh
+dm5ib3JnLm9yZz4KPiBSZXZpZXdlZC1ieTogRW1pbCBWZWxpa292IDxlbWlsLnZlbGlrb3ZAY29s
+bGFib3JhLmNvbT4KCkFja2VkLWJ5OiBJbmtpIERhZSA8aW5raS5kYWVAc2Ftc3VuZy5jb20+CgpU
+aGFua3MsCklua2kgRGFlCgo+IC0tLQo+ICBkcml2ZXJzL2dwdS9kcm0vZXh5bm9zL2V4eW5vc19o
+ZG1pLmMgfCA2ICsrKystLQo+ICAxIGZpbGUgY2hhbmdlZCwgNCBpbnNlcnRpb25zKCspLCAyIGRl
+bGV0aW9ucygtKQo+IAo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vZXh5bm9zL2V4eW5v
+c19oZG1pLmMgYi9kcml2ZXJzL2dwdS9kcm0vZXh5bm9zL2V4eW5vc19oZG1pLmMKPiBpbmRleCBi
+YzE1NjVmMTgyMmEuLmQ0YTljOWUxNzQzNiAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0v
+ZXh5bm9zL2V4eW5vc19oZG1pLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vZXh5bm9zL2V4eW5v
+c19oZG1pLmMKPiBAQCAtOTQwLDggKzk0MCwxMCBAQCBzdGF0aWMgaW50IGhkbWlfY3JlYXRlX2Nv
+bm5lY3RvcihzdHJ1Y3QgZHJtX2VuY29kZXIgKmVuY29kZXIpCj4gIAljb25uZWN0b3ItPmludGVy
+bGFjZV9hbGxvd2VkID0gdHJ1ZTsKPiAgCWNvbm5lY3Rvci0+cG9sbGVkID0gRFJNX0NPTk5FQ1RP
+Ul9QT0xMX0hQRDsKPiAgCj4gLQlyZXQgPSBkcm1fY29ubmVjdG9yX2luaXQoaGRhdGEtPmRybV9k
+ZXYsIGNvbm5lY3RvciwKPiAtCQkJJmhkbWlfY29ubmVjdG9yX2Z1bmNzLCBEUk1fTU9ERV9DT05O
+RUNUT1JfSERNSUEpOwo+ICsJcmV0ID0gZHJtX2Nvbm5lY3Rvcl9pbml0X3dpdGhfZGRjKGhkYXRh
+LT5kcm1fZGV2LCBjb25uZWN0b3IsCj4gKwkJCQkJICAmaGRtaV9jb25uZWN0b3JfZnVuY3MsCj4g
+KwkJCQkJICBEUk1fTU9ERV9DT05ORUNUT1JfSERNSUEsCj4gKwkJCQkJICBoZGF0YS0+ZGRjX2Fk
+cHQpOwo+ICAJaWYgKHJldCkgewo+ICAJCURSTV9ERVZfRVJST1IoaGRhdGEtPmRldiwKPiAgCQkJ
+ICAgICAgIkZhaWxlZCB0byBpbml0aWFsaXplIGNvbm5lY3RvciB3aXRoIGRybVxuIik7Cj4gCl9f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFp
+bGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJl
+ZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
