@@ -1,11 +1,13 @@
-From: Bhawanpreet Lakha <Bhawanpreet.Lakha-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH] drm/amd/display: Load TA firmware for navi10/12/14
-Date: Fri, 8 Nov 2019 16:57:21 -0500
-Message-ID: <20191108215721.13316-1-Bhawanpreet.Lakha@amd.com>
+From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amd/display: Load TA firmware for navi10/12/14
+Date: Fri, 8 Nov 2019 22:01:26 +0000
+Message-ID: <DM5PR12MB1820C10A42B4FFC83A093710F77B0@DM5PR12MB1820.namprd12.prod.outlook.com>
+References: <20191108215721.13316-1-Bhawanpreet.Lakha@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============2022114789=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20191108215721.13316-1-Bhawanpreet.Lakha-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -16,41 +18,242 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Bhawanpreet Lakha <Bhawanpreet.Lakha-5C7GfCeVMHo@public.gmane.org>
+To: "Lakha, Bhawanpreet" <Bhawanpreet.Lakha-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-bG9hZCB0aGUgdGEgZmlybXdhcmUgZm9yIG5hdmkxMC8xMi8xNC4KVGhpcyBpcyBhbHJlYWR5IGJl
-aW5nIGRvbmUgZm9yIHJhdmVuL3BpY2Fzc28gYW5kCmlzIG5lZWRlZCBmb3Igc3VwcG9ydGluZyBo
-ZGNwIG9uIG5hdmkKClNpZ25lZC1vZmYtYnk6IEJoYXdhbnByZWV0IExha2hhIDxCaGF3YW5wcmVl
-dC5MYWtoYUBhbWQuY29tPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3BzcF92MTFf
-MC5jIHwgMjUgKysrKysrKysrKysrKysrKysrKysrKysrKwogMSBmaWxlIGNoYW5nZWQsIDI1IGlu
-c2VydGlvbnMoKykKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9wc3Bf
-djExXzAuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3BzcF92MTFfMC5jCmluZGV4IGZm
-ZWFhMmY1NTg4ZC4uZGFmMTFiZTU0MTZmIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1k
-L2FtZGdwdS9wc3BfdjExXzAuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9wc3Bf
-djExXzAuYwpAQCAtMTg2LDYgKzE4NiwzMSBAQCBzdGF0aWMgaW50IHBzcF92MTFfMF9pbml0X21p
-Y3JvY29kZShzdHJ1Y3QgcHNwX2NvbnRleHQgKnBzcCkKIAljYXNlIENISVBfTkFWSTEwOgogCWNh
-c2UgQ0hJUF9OQVZJMTQ6CiAJY2FzZSBDSElQX05BVkkxMjoKKwkJc25wcmludGYoZndfbmFtZSwg
-c2l6ZW9mKGZ3X25hbWUpLCAiYW1kZ3B1LyVzX3RhLmJpbiIsIGNoaXBfbmFtZSk7CisJCWVyciA9
-IHJlcXVlc3RfZmlybXdhcmUoJmFkZXYtPnBzcC50YV9mdywgZndfbmFtZSwgYWRldi0+ZGV2KTsK
-KwkJaWYgKGVycikgeworCQkJcmVsZWFzZV9maXJtd2FyZShhZGV2LT5wc3AudGFfZncpOworCQkJ
-YWRldi0+cHNwLnRhX2Z3ID0gTlVMTDsKKwkJCWRldl9pbmZvKGFkZXYtPmRldiwKKwkJCQkgInBz
-cCB2MTEuMDogRmFpbGVkIHRvIGxvYWQgZmlybXdhcmUgXCIlc1wiXG4iLCBmd19uYW1lKTsKKwkJ
-fSBlbHNlIHsKKwkJCWVyciA9IGFtZGdwdV91Y29kZV92YWxpZGF0ZShhZGV2LT5wc3AudGFfZncp
-OworCQkJaWYgKGVycikKKwkJCQlnb3RvIG91dDI7CisKKwkJCXRhX2hkciA9IChjb25zdCBzdHJ1
-Y3QgdGFfZmlybXdhcmVfaGVhZGVyX3YxXzAgKilhZGV2LT5wc3AudGFfZnctPmRhdGE7CisJCQlh
-ZGV2LT5wc3AudGFfaGRjcF91Y29kZV92ZXJzaW9uID0gbGUzMl90b19jcHUodGFfaGRyLT50YV9o
-ZGNwX3Vjb2RlX3ZlcnNpb24pOworCQkJYWRldi0+cHNwLnRhX2hkY3BfdWNvZGVfc2l6ZSA9IGxl
-MzJfdG9fY3B1KHRhX2hkci0+dGFfaGRjcF9zaXplX2J5dGVzKTsKKwkJCWFkZXYtPnBzcC50YV9o
-ZGNwX3N0YXJ0X2FkZHIgPSAodWludDhfdCAqKXRhX2hkciArCisJCQkJbGUzMl90b19jcHUodGFf
-aGRyLT5oZWFkZXIudWNvZGVfYXJyYXlfb2Zmc2V0X2J5dGVzKTsKKworCQkJYWRldi0+cHNwLnRh
-X2Z3X3ZlcnNpb24gPSBsZTMyX3RvX2NwdSh0YV9oZHItPmhlYWRlci51Y29kZV92ZXJzaW9uKTsK
-KworCQkJYWRldi0+cHNwLnRhX2R0bV91Y29kZV92ZXJzaW9uID0gbGUzMl90b19jcHUodGFfaGRy
-LT50YV9kdG1fdWNvZGVfdmVyc2lvbik7CisJCQlhZGV2LT5wc3AudGFfZHRtX3Vjb2RlX3NpemUg
-PSBsZTMyX3RvX2NwdSh0YV9oZHItPnRhX2R0bV9zaXplX2J5dGVzKTsKKwkJCWFkZXYtPnBzcC50
-YV9kdG1fc3RhcnRfYWRkciA9ICh1aW50OF90ICopYWRldi0+cHNwLnRhX2hkY3Bfc3RhcnRfYWRk
-ciArCisJCQkJbGUzMl90b19jcHUodGFfaGRyLT50YV9kdG1fb2Zmc2V0X2J5dGVzKTsKKwkJfQog
-CQlicmVhazsKIAlkZWZhdWx0OgogCQlCVUcoKTsKLS0gCjIuMTcuMQoKX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1k
-LWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcv
-bWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+--===============2022114789==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_DM5PR12MB1820C10A42B4FFC83A093710F77B0DM5PR12MB1820namp_"
+
+--_000_DM5PR12MB1820C10A42B4FFC83A093710F77B0DM5PR12MB1820namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+Acked-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+________________________________
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Bhawanpr=
+eet Lakha <Bhawanpreet.Lakha-5C7GfCeVMHo@public.gmane.org>
+Sent: Friday, November 8, 2019 4:57 PM
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: Lakha, Bhawanpreet <Bhawanpreet.Lakha-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH] drm/amd/display: Load TA firmware for navi10/12/14
+
+load the ta firmware for navi10/12/14.
+This is already being done for raven/picasso and
+is needed for supporting hdcp on navi
+
+Signed-off-by: Bhawanpreet Lakha <Bhawanpreet.Lakha-5C7GfCeVMHo@public.gmane.org>
+---
+ drivers/gpu/drm/amd/amdgpu/psp_v11_0.c | 25 +++++++++++++++++++++++++
+ 1 file changed, 25 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c b/drivers/gpu/drm/amd/a=
+mdgpu/psp_v11_0.c
+index ffeaa2f5588d..daf11be5416f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c
+@@ -186,6 +186,31 @@ static int psp_v11_0_init_microcode(struct psp_context=
+ *psp)
+         case CHIP_NAVI10:
+         case CHIP_NAVI14:
+         case CHIP_NAVI12:
++               snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_ta.bin", chip=
+_name);
++               err =3D request_firmware(&adev->psp.ta_fw, fw_name, adev->d=
+ev);
++               if (err) {
++                       release_firmware(adev->psp.ta_fw);
++                       adev->psp.ta_fw =3D NULL;
++                       dev_info(adev->dev,
++                                "psp v11.0: Failed to load firmware \"%s\"=
+\n", fw_name);
++               } else {
++                       err =3D amdgpu_ucode_validate(adev->psp.ta_fw);
++                       if (err)
++                               goto out2;
++
++                       ta_hdr =3D (const struct ta_firmware_header_v1_0 *)=
+adev->psp.ta_fw->data;
++                       adev->psp.ta_hdcp_ucode_version =3D le32_to_cpu(ta_=
+hdr->ta_hdcp_ucode_version);
++                       adev->psp.ta_hdcp_ucode_size =3D le32_to_cpu(ta_hdr=
+->ta_hdcp_size_bytes);
++                       adev->psp.ta_hdcp_start_addr =3D (uint8_t *)ta_hdr =
++
++                               le32_to_cpu(ta_hdr->header.ucode_array_offs=
+et_bytes);
++
++                       adev->psp.ta_fw_version =3D le32_to_cpu(ta_hdr->hea=
+der.ucode_version);
++
++                       adev->psp.ta_dtm_ucode_version =3D le32_to_cpu(ta_h=
+dr->ta_dtm_ucode_version);
++                       adev->psp.ta_dtm_ucode_size =3D le32_to_cpu(ta_hdr-=
+>ta_dtm_size_bytes);
++                       adev->psp.ta_dtm_start_addr =3D (uint8_t *)adev->ps=
+p.ta_hdcp_start_addr +
++                               le32_to_cpu(ta_hdr->ta_dtm_offset_bytes);
++               }
+                 break;
+         default:
+                 BUG();
+--
+2.17.1
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--_000_DM5PR12MB1820C10A42B4FFC83A093710F77B0DM5PR12MB1820namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Acked-by: Alex Deucher &lt;alexander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
+</div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
+ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Bhawanpreet Lakha &lt;Bhawanp=
+reet.Lakha-5C7GfCeVMHo@public.gmane.org&gt;<br>
+<b>Sent:</b> Friday, November 8, 2019 4:57 PM<br>
+<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org &lt;amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&=
+gt;<br>
+<b>Cc:</b> Lakha, Bhawanpreet &lt;Bhawanpreet.Lakha-5C7GfCeVMHo@public.gmane.org&gt;<br>
+<b>Subject:</b> [PATCH] drm/amd/display: Load TA firmware for navi10/12/14<=
+/font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">load the ta firmware for navi10/12/14.<br>
+This is already being done for raven/picasso and<br>
+is needed for supporting hdcp on navi<br>
+<br>
+Signed-off-by: Bhawanpreet Lakha &lt;Bhawanpreet.Lakha-5C7GfCeVMHo@public.gmane.org&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/psp_v11_0.c | 25 &#43;&#43;&#43;&#43;&#43;=
+&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;=
+&#43;&#43;&#43;&#43;&#43;<br>
+&nbsp;1 file changed, 25 insertions(&#43;)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c b/drivers/gpu/drm/amd/a=
+mdgpu/psp_v11_0.c<br>
+index ffeaa2f5588d..daf11be5416f 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c<br>
+@@ -186,6 &#43;186,31 @@ static int psp_v11_0_init_microcode(struct psp_con=
+text *psp)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_NAVI10:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_NAVI14:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_NAVI12:<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; snprintf(fw_name, sizeof(fw_name), &quot;amdgpu/%s_ta.bin&qu=
+ot;, chip_name);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; err =3D request_firmware(&amp;adev-&gt;psp.ta_fw, fw_name, a=
+dev-&gt;dev);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; if (err) {<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; release_firm=
+ware(adev-&gt;psp.ta_fw);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;psp=
+.ta_fw =3D NULL;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dev_info(ade=
+v-&gt;dev,<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;psp v11.0: Failed to load f=
+irmware \&quot;%s\&quot;\n&quot;, fw_name);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; } else {<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; err =3D amdg=
+pu_ucode_validate(adev-&gt;psp.ta_fw);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (err)<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; goto out2;<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ta_hdr =3D (=
+const struct ta_firmware_header_v1_0 *)adev-&gt;psp.ta_fw-&gt;data;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;psp=
+.ta_hdcp_ucode_version =3D le32_to_cpu(ta_hdr-&gt;ta_hdcp_ucode_version);<b=
+r>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;psp=
+.ta_hdcp_ucode_size =3D le32_to_cpu(ta_hdr-&gt;ta_hdcp_size_bytes);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;psp=
+.ta_hdcp_start_addr =3D (uint8_t *)ta_hdr &#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; le32_to_cpu(ta_hdr-&gt;header.ucode_arr=
+ay_offset_bytes);<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;psp=
+.ta_fw_version =3D le32_to_cpu(ta_hdr-&gt;header.ucode_version);<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;psp=
+.ta_dtm_ucode_version =3D le32_to_cpu(ta_hdr-&gt;ta_dtm_ucode_version);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;psp=
+.ta_dtm_ucode_size =3D le32_to_cpu(ta_hdr-&gt;ta_dtm_size_bytes);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;psp=
+.ta_dtm_start_addr =3D (uint8_t *)adev-&gt;psp.ta_hdcp_start_addr &#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; le32_to_cpu(ta_hdr-&gt;ta_dtm_offset_by=
+tes);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; break;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; default:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; BUG();<br>
+-- <br>
+2.17.1<br>
+<br>
+_______________________________________________<br>
+amd-gfx mailing list<br>
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
+lists.freedesktop.org/mailman/listinfo/amd-gfx</a></div>
+</span></font></div>
+</body>
+</html>
+
+--_000_DM5PR12MB1820C10A42B4FFC83A093710F77B0DM5PR12MB1820namp_--
+
+--===============2022114789==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+
+--===============2022114789==--
