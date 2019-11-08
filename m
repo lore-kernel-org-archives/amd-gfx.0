@@ -1,13 +1,11 @@
-From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amd/display: Load TA firmware for navi10/12/14
-Date: Fri, 8 Nov 2019 22:01:26 +0000
-Message-ID: <DM5PR12MB1820C10A42B4FFC83A093710F77B0@DM5PR12MB1820.namprd12.prod.outlook.com>
-References: <20191108215721.13316-1-Bhawanpreet.Lakha@amd.com>
+From: Matt Coffin <mcoffin13-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: [PATCH] drm/amdgpu/smu_v11: Unify and fix power limits
+Date: Fri,  8 Nov 2019 16:54:26 -0700
+Message-ID: <69784d7f8e90e3b012452f4ce2a3ea04690c292f.1573257165.git.mcoffin13@gmail.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============2022114789=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20191108215721.13316-1-Bhawanpreet.Lakha-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,242 +16,207 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Lakha, Bhawanpreet" <Bhawanpreet.Lakha-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Matt Coffin <mcoffin13-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 
---===============2022114789==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_DM5PR12MB1820C10A42B4FFC83A093710F77B0DM5PR12MB1820namp_"
-
---_000_DM5PR12MB1820C10A42B4FFC83A093710F77B0DM5PR12MB1820namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-Acked-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-________________________________
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Bhawanpr=
-eet Lakha <Bhawanpreet.Lakha-5C7GfCeVMHo@public.gmane.org>
-Sent: Friday, November 8, 2019 4:57 PM
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: Lakha, Bhawanpreet <Bhawanpreet.Lakha-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH] drm/amd/display: Load TA firmware for navi10/12/14
-
-load the ta firmware for navi10/12/14.
-This is already being done for raven/picasso and
-is needed for supporting hdcp on navi
-
-Signed-off-by: Bhawanpreet Lakha <Bhawanpreet.Lakha-5C7GfCeVMHo@public.gmane.org>
----
- drivers/gpu/drm/amd/amdgpu/psp_v11_0.c | 25 +++++++++++++++++++++++++
- 1 file changed, 25 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c b/drivers/gpu/drm/amd/a=
-mdgpu/psp_v11_0.c
-index ffeaa2f5588d..daf11be5416f 100644
---- a/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c
-@@ -186,6 +186,31 @@ static int psp_v11_0_init_microcode(struct psp_context=
- *psp)
-         case CHIP_NAVI10:
-         case CHIP_NAVI14:
-         case CHIP_NAVI12:
-+               snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_ta.bin", chip=
-_name);
-+               err =3D request_firmware(&adev->psp.ta_fw, fw_name, adev->d=
-ev);
-+               if (err) {
-+                       release_firmware(adev->psp.ta_fw);
-+                       adev->psp.ta_fw =3D NULL;
-+                       dev_info(adev->dev,
-+                                "psp v11.0: Failed to load firmware \"%s\"=
-\n", fw_name);
-+               } else {
-+                       err =3D amdgpu_ucode_validate(adev->psp.ta_fw);
-+                       if (err)
-+                               goto out2;
-+
-+                       ta_hdr =3D (const struct ta_firmware_header_v1_0 *)=
-adev->psp.ta_fw->data;
-+                       adev->psp.ta_hdcp_ucode_version =3D le32_to_cpu(ta_=
-hdr->ta_hdcp_ucode_version);
-+                       adev->psp.ta_hdcp_ucode_size =3D le32_to_cpu(ta_hdr=
-->ta_hdcp_size_bytes);
-+                       adev->psp.ta_hdcp_start_addr =3D (uint8_t *)ta_hdr =
-+
-+                               le32_to_cpu(ta_hdr->header.ucode_array_offs=
-et_bytes);
-+
-+                       adev->psp.ta_fw_version =3D le32_to_cpu(ta_hdr->hea=
-der.ucode_version);
-+
-+                       adev->psp.ta_dtm_ucode_version =3D le32_to_cpu(ta_h=
-dr->ta_dtm_ucode_version);
-+                       adev->psp.ta_dtm_ucode_size =3D le32_to_cpu(ta_hdr-=
->ta_dtm_size_bytes);
-+                       adev->psp.ta_dtm_start_addr =3D (uint8_t *)adev->ps=
-p.ta_hdcp_start_addr +
-+                               le32_to_cpu(ta_hdr->ta_dtm_offset_bytes);
-+               }
-                 break;
-         default:
-                 BUG();
---
-2.17.1
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---_000_DM5PR12MB1820C10A42B4FFC83A093710F77B0DM5PR12MB1820namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Acked-by: Alex Deucher &lt;alexander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
-</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
-ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Bhawanpreet Lakha &lt;Bhawanp=
-reet.Lakha-5C7GfCeVMHo@public.gmane.org&gt;<br>
-<b>Sent:</b> Friday, November 8, 2019 4:57 PM<br>
-<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org &lt;amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&=
-gt;<br>
-<b>Cc:</b> Lakha, Bhawanpreet &lt;Bhawanpreet.Lakha-5C7GfCeVMHo@public.gmane.org&gt;<br>
-<b>Subject:</b> [PATCH] drm/amd/display: Load TA firmware for navi10/12/14<=
-/font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">load the ta firmware for navi10/12/14.<br>
-This is already being done for raven/picasso and<br>
-is needed for supporting hdcp on navi<br>
-<br>
-Signed-off-by: Bhawanpreet Lakha &lt;Bhawanpreet.Lakha-5C7GfCeVMHo@public.gmane.org&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/psp_v11_0.c | 25 &#43;&#43;&#43;&#43;&#43;=
-&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;=
-&#43;&#43;&#43;&#43;&#43;<br>
-&nbsp;1 file changed, 25 insertions(&#43;)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c b/drivers/gpu/drm/amd/a=
-mdgpu/psp_v11_0.c<br>
-index ffeaa2f5588d..daf11be5416f 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c<br>
-@@ -186,6 &#43;186,31 @@ static int psp_v11_0_init_microcode(struct psp_con=
-text *psp)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_NAVI10:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_NAVI14:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_NAVI12:<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; snprintf(fw_name, sizeof(fw_name), &quot;amdgpu/%s_ta.bin&qu=
-ot;, chip_name);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; err =3D request_firmware(&amp;adev-&gt;psp.ta_fw, fw_name, a=
-dev-&gt;dev);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; if (err) {<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; release_firm=
-ware(adev-&gt;psp.ta_fw);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;psp=
-.ta_fw =3D NULL;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dev_info(ade=
-v-&gt;dev,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;psp v11.0: Failed to load f=
-irmware \&quot;%s\&quot;\n&quot;, fw_name);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; } else {<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; err =3D amdg=
-pu_ucode_validate(adev-&gt;psp.ta_fw);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (err)<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; goto out2;<br>
-&#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ta_hdr =3D (=
-const struct ta_firmware_header_v1_0 *)adev-&gt;psp.ta_fw-&gt;data;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;psp=
-.ta_hdcp_ucode_version =3D le32_to_cpu(ta_hdr-&gt;ta_hdcp_ucode_version);<b=
-r>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;psp=
-.ta_hdcp_ucode_size =3D le32_to_cpu(ta_hdr-&gt;ta_hdcp_size_bytes);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;psp=
-.ta_hdcp_start_addr =3D (uint8_t *)ta_hdr &#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; le32_to_cpu(ta_hdr-&gt;header.ucode_arr=
-ay_offset_bytes);<br>
-&#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;psp=
-.ta_fw_version =3D le32_to_cpu(ta_hdr-&gt;header.ucode_version);<br>
-&#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;psp=
-.ta_dtm_ucode_version =3D le32_to_cpu(ta_hdr-&gt;ta_dtm_ucode_version);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;psp=
-.ta_dtm_ucode_size =3D le32_to_cpu(ta_hdr-&gt;ta_dtm_size_bytes);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;psp=
-.ta_dtm_start_addr =3D (uint8_t *)adev-&gt;psp.ta_hdcp_start_addr &#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; le32_to_cpu(ta_hdr-&gt;ta_dtm_offset_by=
-tes);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; }<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; break;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; default:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; BUG();<br>
--- <br>
-2.17.1<br>
-<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
-lists.freedesktop.org/mailman/listinfo/amd-gfx</a></div>
-</span></font></div>
-</body>
-</html>
-
---_000_DM5PR12MB1820C10A42B4FFC83A093710F77B0DM5PR12MB1820namp_--
-
---===============2022114789==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
-
---===============2022114789==--
+W1doeV0KT24gTmF2aTEwLCBhbmQgcHJlc3VtYWJseSBhcmN0ZXJ1cywgdXBkYXRpbmcgcHBfdGFi
+bGUgdmlhIHN5c2ZzIHdvdWxkCm5vdCByZS1zY2FsZSB0aGUgbWF4aW11bSBwb3NzaWJsZSBwb3dl
+ciBsaW1pdCBvbmUgY2FuIHNldC4gT24gbmF2aTEwLAp0aGUgU01VIGNvZGUgaWdub3JlZCB0aGUg
+cG93ZXIgcGVyY2VudGFnZSBvdmVyZHJpdmUgc2V0dGluZyBlbnRpcmVseSwKYW5kIHdvdWxkIG5v
+dCBhbGxvdyB5b3UgdG8gZXhjZWVkIHRoZSBkZWZhdWx0IHBvd2VyIGxpbWl0IGF0IGFsbC4KCltI
+b3ddCkFkZGluZyBhIGZ1bmN0aW9uIHRvIHRoZSBTTVUgaW50ZXJmYWNlIHRvIGdldCB0aGUgcHB0
+YWJsZSB2ZXJzaW9uIG9mIHRoZQpkZWZhdWx0IHBvd2VyIGxpbWl0IGFsbG93cyBBU0lDLXNwZWNp
+ZmljIGNvZGUgdG8gcHJvdmlkZSB0aGUgY29ycmVjdAptYXhpbXVtLXNldHRhYmxlIHBvd2VyIGxp
+bWl0IGZvciB0aGUgY3VycmVudCBwcHRhYmxlLgotLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvcG93
+ZXJwbGF5L2FtZGdwdV9zbXUuYyAgICB8IDE4ICsrKysrKysrLQogZHJpdmVycy9ncHUvZHJtL2Ft
+ZC9wb3dlcnBsYXkvYXJjdHVydXNfcHB0LmMgIHwgMjIgKysrKystLS0tLQogLi4uL2dwdS9kcm0v
+YW1kL3Bvd2VycGxheS9pbmMvYW1kZ3B1X3NtdS5oICAgIHwgIDQgKy0KIGRyaXZlcnMvZ3B1L2Ry
+bS9hbWQvcG93ZXJwbGF5L2luYy9zbXVfdjExXzAuaCB8ICAyICsKIC4uLi9kcm0vYW1kL3Bvd2Vy
+cGxheS9pbmMvc211X3YxMV8wX3BwdGFibGUuaCB8ICAyICsKIGRyaXZlcnMvZ3B1L2RybS9hbWQv
+cG93ZXJwbGF5L25hdmkxMF9wcHQuYyAgICB8IDIyICsrKysrLS0tLS0KIGRyaXZlcnMvZ3B1L2Ry
+bS9hbWQvcG93ZXJwbGF5L3NtdV92MTFfMC5jICAgICB8IDQwICsrKysrKysrKysrKysrKysrLS0K
+IGRyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L3ZlZ2EyMF9wcHQuYyAgICB8ICAxIC0KIDgg
+ZmlsZXMgY2hhbmdlZCwgODMgaW5zZXJ0aW9ucygrKSwgMjggZGVsZXRpb25zKC0pCgpkaWZmIC0t
+Z2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvYW1kZ3B1X3NtdS5jIGIvZHJpdmVy
+cy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvYW1kZ3B1X3NtdS5jCmluZGV4IDY2ZmFlYTY2YThlOS4u
+NmJmOTQwZjFlZGZiIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9h
+bWRncHVfc211LmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvYW1kZ3B1X3Nt
+dS5jCkBAIC0xMTA3LDcgKzExMDcsNyBAQCBzdGF0aWMgaW50IHNtdV9zbWNfdGFibGVfaHdfaW5p
+dChzdHJ1Y3Qgc211X2NvbnRleHQgKnNtdSwKIAkJaWYgKHJldCkKIAkJCXJldHVybiByZXQ7CiAK
+LQkJcmV0ID0gc211X2dldF9wb3dlcl9saW1pdChzbXUsICZzbXUtPmRlZmF1bHRfcG93ZXJfbGlt
+aXQsIHRydWUsIGZhbHNlKTsKKwkJcmV0ID0gc211X2dldF9wb3dlcl9saW1pdChzbXUsICZzbXUt
+PmRlZmF1bHRfcG93ZXJfbGltaXQsIGZhbHNlLCBmYWxzZSk7CiAJCWlmIChyZXQpCiAJCQlyZXR1
+cm4gcmV0OwogCX0KQEAgLTI1MDksMyArMjUwOSwxOSBAQCBpbnQgc211X2dldF9kcG1fY2xvY2tf
+dGFibGUoc3RydWN0IHNtdV9jb250ZXh0ICpzbXUsCiAKIAlyZXR1cm4gcmV0OwogfQorCit1aW50
+MzJfdCBzbXVfZ2V0X3BwdGFibGVfcG93ZXJfbGltaXQoc3RydWN0IHNtdV9jb250ZXh0ICpzbXUs
+IGJvb2wgbG9ja19uZWVkZWQpCit7CisJdWludDMyX3QgcmV0ID0gMDsKKworCWlmIChsb2NrX25l
+ZWRlZCkKKwkJbXV0ZXhfbG9jaygmc211LT5tdXRleCk7CisKKwlpZiAoc211LT5wcHRfZnVuY3Mt
+PmdldF9wcHRhYmxlX3Bvd2VyX2xpbWl0KQorCQlyZXQgPSBzbXUtPnBwdF9mdW5jcy0+Z2V0X3Bw
+dGFibGVfcG93ZXJfbGltaXQoc211KTsKKworCWlmIChsb2NrX25lZWRlZCkKKwkJbXV0ZXhfdW5s
+b2NrKCZzbXUtPm11dGV4KTsKKworCXJldHVybiByZXQ7Cit9CmRpZmYgLS1naXQgYS9kcml2ZXJz
+L2dwdS9kcm0vYW1kL3Bvd2VycGxheS9hcmN0dXJ1c19wcHQuYyBiL2RyaXZlcnMvZ3B1L2RybS9h
+bWQvcG93ZXJwbGF5L2FyY3R1cnVzX3BwdC5jCmluZGV4IDMwOTlhYzI1NmJkMy4uZWJiOWM4MDY0
+ODY3IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9hcmN0dXJ1c19w
+cHQuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9hcmN0dXJ1c19wcHQuYwpA
+QCAtMTI2MSwxNSArMTI2MSwxNCBAQCBhcmN0dXJ1c19nZXRfcHJvZmlsaW5nX2Nsa19tYXNrKHN0
+cnVjdCBzbXVfY29udGV4dCAqc211LAogCiBzdGF0aWMgaW50IGFyY3R1cnVzX2dldF9wb3dlcl9s
+aW1pdChzdHJ1Y3Qgc211X2NvbnRleHQgKnNtdSwKIAkJCQkgICAgIHVpbnQzMl90ICpsaW1pdCwK
+LQkJCQkgICAgIGJvb2wgYXNpY19kZWZhdWx0KQorCQkJCSAgICAgYm9vbCBjYXApCiB7CiAJUFBU
+YWJsZV90ICpwcHRhYmxlID0gc211LT5zbXVfdGFibGUuZHJpdmVyX3BwdGFibGU7CiAJdWludDMy
+X3QgYXNpY19kZWZhdWx0X3Bvd2VyX2xpbWl0ID0gMDsKIAlpbnQgcmV0ID0gMDsKIAlpbnQgcG93
+ZXJfc3JjOwogCi0JaWYgKCFzbXUtPmRlZmF1bHRfcG93ZXJfbGltaXQgfHwKLQkgICAgIXNtdS0+
+cG93ZXJfbGltaXQpIHsKKwlpZiAoIXNtdS0+cG93ZXJfbGltaXQpIHsKIAkJaWYgKHNtdV9mZWF0
+dXJlX2lzX2VuYWJsZWQoc211LCBTTVVfRkVBVFVSRV9QUFRfQklUKSkgewogCQkJcG93ZXJfc3Jj
+ID0gc211X3Bvd2VyX2dldF9pbmRleChzbXUsIFNNVV9QT1dFUl9TT1VSQ0VfQUMpOwogCQkJaWYg
+KHBvd2VyX3NyYyA8IDApCkBAIC0xMjkyLDE3ICsxMjkxLDExIEBAIHN0YXRpYyBpbnQgYXJjdHVy
+dXNfZ2V0X3Bvd2VyX2xpbWl0KHN0cnVjdCBzbXVfY29udGV4dCAqc211LAogCQkJCXBwdGFibGUt
+PlNvY2tldFBvd2VyTGltaXRBY1tQUFRfVEhST1RUTEVSX1BQVDBdOwogCQl9CiAKLQkJaWYgKHNt
+dS0+b2RfZW5hYmxlZCkgewotCQkJYXNpY19kZWZhdWx0X3Bvd2VyX2xpbWl0ICo9ICgxMDAgKyBz
+bXUtPnNtdV90YWJsZS5URFBPRExpbWl0KTsKLQkJCWFzaWNfZGVmYXVsdF9wb3dlcl9saW1pdCAv
+PSAxMDA7Ci0JCX0KLQotCQlzbXUtPmRlZmF1bHRfcG93ZXJfbGltaXQgPSBhc2ljX2RlZmF1bHRf
+cG93ZXJfbGltaXQ7CiAJCXNtdS0+cG93ZXJfbGltaXQgPSBhc2ljX2RlZmF1bHRfcG93ZXJfbGlt
+aXQ7CiAJfQogCi0JaWYgKGFzaWNfZGVmYXVsdCkKLQkJKmxpbWl0ID0gc211LT5kZWZhdWx0X3Bv
+d2VyX2xpbWl0OworCWlmIChjYXApCisJCSpsaW1pdCA9IHNtdV92MTFfMF9nZXRfbWF4X3Bvd2Vy
+X2xpbWl0KHNtdSk7CiAJZWxzZQogCQkqbGltaXQgPSBzbXUtPnBvd2VyX2xpbWl0OwogCkBAIC0y
+MDcwLDYgKzIwNjMsMTIgQEAgc3RhdGljIHZvaWQgYXJjdHVydXNfaTJjX2VlcHJvbV9jb250cm9s
+X2Zpbmkoc3RydWN0IGkyY19hZGFwdGVyICpjb250cm9sKQogCWkyY19kZWxfYWRhcHRlcihjb250
+cm9sKTsKIH0KIAorc3RhdGljIHVpbnQzMl90IGFyY3RlcnVzX2dldF9wcHRhYmxlX3Bvd2VyX2xp
+bWl0KHN0cnVjdCBzbXVfY29udGV4dCAqc211KQoreworCVBQVGFibGVfdCAqcHB0YWJsZSA9IHNt
+dS0+c211X3RhYmxlLmRyaXZlcl9wcHRhYmxlOworCXJldHVybiBwcHRhYmxlLT5Tb2NrZXRQb3dl
+ckxpbWl0QWNbUFBUX1RIUk9UVExFUl9QUFQwXTsKK30KKwogc3RhdGljIGNvbnN0IHN0cnVjdCBw
+cHRhYmxlX2Z1bmNzIGFyY3R1cnVzX3BwdF9mdW5jcyA9IHsKIAkvKiB0cmFuc2xhdGUgc211IGlu
+ZGV4IGludG8gYXJjdHVydXMgc3BlY2lmaWMgaW5kZXggKi8KIAkuZ2V0X3NtdV9tc2dfaW5kZXgg
+PSBhcmN0dXJ1c19nZXRfc211X21zZ19pbmRleCwKQEAgLTIxNjAsNiArMjE1OSw3IEBAIHN0YXRp
+YyBjb25zdCBzdHJ1Y3QgcHB0YWJsZV9mdW5jcyBhcmN0dXJ1c19wcHRfZnVuY3MgPSB7CiAJLmdl
+dF9kcG1fdWx0aW1hdGVfZnJlcSA9IHNtdV92MTFfMF9nZXRfZHBtX3VsdGltYXRlX2ZyZXEsCiAJ
+LnNldF9zb2Z0X2ZyZXFfbGltaXRlZF9yYW5nZSA9IHNtdV92MTFfMF9zZXRfc29mdF9mcmVxX2xp
+bWl0ZWRfcmFuZ2UsCiAJLm92ZXJyaWRlX3BjaWVfcGFyYW1ldGVycyA9IHNtdV92MTFfMF9vdmVy
+cmlkZV9wY2llX3BhcmFtZXRlcnMsCisJLmdldF9wcHRhYmxlX3Bvd2VyX2xpbWl0ID0gYXJjdGVy
+dXNfZ2V0X3BwdGFibGVfcG93ZXJfbGltaXQsCiB9OwogCiB2b2lkIGFyY3R1cnVzX3NldF9wcHRf
+ZnVuY3Moc3RydWN0IHNtdV9jb250ZXh0ICpzbXUpCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9k
+cm0vYW1kL3Bvd2VycGxheS9pbmMvYW1kZ3B1X3NtdS5oIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9w
+b3dlcnBsYXkvaW5jL2FtZGdwdV9zbXUuaAppbmRleCA4MTIwZTc1ODc1ODUuLjlkMDE5MzU2OWIw
+NSAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaW5jL2FtZGdwdV9z
+bXUuaAorKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9pbmMvYW1kZ3B1X3NtdS5o
+CkBAIC0yNjEsNyArMjYxLDYgQEAgc3RydWN0IHNtdV90YWJsZV9jb250ZXh0CiAJc3RydWN0IHNt
+dV90YWJsZQkJKnRhYmxlczsKIAlzdHJ1Y3Qgc211X3RhYmxlCQltZW1vcnlfcG9vbDsKIAl1aW50
+OF90ICAgICAgICAgICAgICAgICAgICAgICAgIHRoZXJtYWxfY29udHJvbGxlcl90eXBlOwotCXVp
+bnQxNl90CQkJVERQT0RMaW1pdDsKIAogCXZvaWQJCQkJKm92ZXJkcml2ZV90YWJsZTsKIH07CkBA
+IC01NDgsNiArNTQ3LDcgQEAgc3RydWN0IHBwdGFibGVfZnVuY3MgewogCWludCAoKmdldF9kcG1f
+dWx0aW1hdGVfZnJlcSkoc3RydWN0IHNtdV9jb250ZXh0ICpzbXUsIGVudW0gc211X2Nsa190eXBl
+IGNsa190eXBlLCB1aW50MzJfdCAqbWluLCB1aW50MzJfdCAqbWF4KTsKIAlpbnQgKCpzZXRfc29m
+dF9mcmVxX2xpbWl0ZWRfcmFuZ2UpKHN0cnVjdCBzbXVfY29udGV4dCAqc211LCBlbnVtIHNtdV9j
+bGtfdHlwZSBjbGtfdHlwZSwgdWludDMyX3QgbWluLCB1aW50MzJfdCBtYXgpOwogCWludCAoKm92
+ZXJyaWRlX3BjaWVfcGFyYW1ldGVycykoc3RydWN0IHNtdV9jb250ZXh0ICpzbXUpOworCXVpbnQz
+Ml90ICgqZ2V0X3BwdGFibGVfcG93ZXJfbGltaXQpKHN0cnVjdCBzbXVfY29udGV4dCAqc211KTsK
+IH07CiAKIGludCBzbXVfbG9hZF9taWNyb2NvZGUoc3RydWN0IHNtdV9jb250ZXh0ICpzbXUpOwpA
+QCAtNzE3LDQgKzcxNyw2IEBAIGludCBzbXVfZ2V0X3VjbGtfZHBtX3N0YXRlcyhzdHJ1Y3Qgc211
+X2NvbnRleHQgKnNtdSwKIGludCBzbXVfZ2V0X2RwbV9jbG9ja190YWJsZShzdHJ1Y3Qgc211X2Nv
+bnRleHQgKnNtdSwKIAkJCSAgICBzdHJ1Y3QgZHBtX2Nsb2NrcyAqY2xvY2tfdGFibGUpOwogCit1
+aW50MzJfdCBzbXVfZ2V0X3BwdGFibGVfcG93ZXJfbGltaXQoc3RydWN0IHNtdV9jb250ZXh0ICpz
+bXUsIGJvb2wgbG9ja19uZWVkZWQpOworCiAjZW5kaWYKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1
+L2RybS9hbWQvcG93ZXJwbGF5L2luYy9zbXVfdjExXzAuaCBiL2RyaXZlcnMvZ3B1L2RybS9hbWQv
+cG93ZXJwbGF5L2luYy9zbXVfdjExXzAuaAppbmRleCAxNTRiNTdhNGRiYmIuLjBiYTdhNzI5MmJl
+YSAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaW5jL3NtdV92MTFf
+MC5oCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2luYy9zbXVfdjExXzAuaApA
+QCAtMjUyLDQgKzI1Miw2IEBAIGludCBzbXVfdjExXzBfb3ZlcnJpZGVfcGNpZV9wYXJhbWV0ZXJz
+KHN0cnVjdCBzbXVfY29udGV4dCAqc211KTsKIAogaW50IHNtdV92MTFfMF9zZXRfZGVmYXVsdF9v
+ZF9zZXR0aW5ncyhzdHJ1Y3Qgc211X2NvbnRleHQgKnNtdSwgYm9vbCBpbml0aWFsaXplLCBzaXpl
+X3Qgb3ZlcmRyaXZlX3RhYmxlX3NpemUpOwogCit1aW50MzJfdCBzbXVfdjExXzBfZ2V0X21heF9w
+b3dlcl9saW1pdChzdHJ1Y3Qgc211X2NvbnRleHQgKnNtdSk7CisKICNlbmRpZgpkaWZmIC0tZ2l0
+IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaW5jL3NtdV92MTFfMF9wcHRhYmxlLmgg
+Yi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9pbmMvc211X3YxMV8wX3BwdGFibGUuaApp
+bmRleCA4NmNkYzMzOTNlYWMuLmIyZjk2YTEwMTEyNCAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUv
+ZHJtL2FtZC9wb3dlcnBsYXkvaW5jL3NtdV92MTFfMF9wcHRhYmxlLmgKKysrIGIvZHJpdmVycy9n
+cHUvZHJtL2FtZC9wb3dlcnBsYXkvaW5jL3NtdV92MTFfMF9wcHRhYmxlLmgKQEAgLTE0MSw3ICsx
+NDEsOSBAQCBzdHJ1Y3Qgc211XzExXzBfcG93ZXJwbGF5X3RhYmxlCiAgICAgICBzdHJ1Y3Qgc211
+XzExXzBfcG93ZXJfc2F2aW5nX2Nsb2NrX3RhYmxlICAgICAgcG93ZXJfc2F2aW5nX2Nsb2NrOwog
+ICAgICAgc3RydWN0IHNtdV8xMV8wX292ZXJkcml2ZV90YWJsZSAgICAgICAgICAgICAgIG92ZXJk
+cml2ZV90YWJsZTsKIAorI2lmbmRlZiBTTVVfMTFfMF9QQVJUSUFMX1BQVEFCTEUKICAgICAgIFBQ
+VGFibGVfdCBzbWNfcHB0YWJsZTsgICAgICAgICAgICAgICAgICAgICAgICAvL1BQVGFibGVfdCBp
+biBzbXUxMV9kcml2ZXJfaWYuaAorI2VuZGlmCiB9IF9fYXR0cmlidXRlX18oKHBhY2tlZCkpOwog
+CiAjZW5kaWYKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L25hdmkx
+MF9wcHQuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L25hdmkxMF9wcHQuYwppbmRl
+eCA0ZmJkZjBlNTA3ZjMuLjM2Y2YzMTM3NTRlNCAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJt
+L2FtZC9wb3dlcnBsYXkvbmF2aTEwX3BwdC5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93
+ZXJwbGF5L25hdmkxMF9wcHQuYwpAQCAtMTYzMywxNyArMTYzMywyMiBAQCBzdGF0aWMgaW50IG5h
+dmkxMF9kaXNwbGF5X2Rpc2FibGVfbWVtb3J5X2Nsb2NrX3N3aXRjaChzdHJ1Y3Qgc211X2NvbnRl
+eHQgKnNtdSwKIAlyZXR1cm4gcmV0OwogfQogCitzdGF0aWMgdWludDMyX3QgbmF2aTEwX2dldF9w
+cHRhYmxlX3Bvd2VyX2xpbWl0KHN0cnVjdCBzbXVfY29udGV4dCAqc211KQoreworCVBQVGFibGVf
+dCAqcHB0YWJsZSA9IHNtdS0+c211X3RhYmxlLmRyaXZlcl9wcHRhYmxlOworCXJldHVybiBwcHRh
+YmxlLT5Tb2NrZXRQb3dlckxpbWl0QWNbUFBUX1RIUk9UVExFUl9QUFQwXTsKK30KKwogc3RhdGlj
+IGludCBuYXZpMTBfZ2V0X3Bvd2VyX2xpbWl0KHN0cnVjdCBzbXVfY29udGV4dCAqc211LAogCQkJ
+CSAgICAgdWludDMyX3QgKmxpbWl0LAotCQkJCSAgICAgYm9vbCBhc2ljX2RlZmF1bHQpCisJCQkJ
+ICAgICBib29sIGNhcCkKIHsKIAlQUFRhYmxlX3QgKnBwdGFibGUgPSBzbXUtPnNtdV90YWJsZS5k
+cml2ZXJfcHB0YWJsZTsKIAl1aW50MzJfdCBhc2ljX2RlZmF1bHRfcG93ZXJfbGltaXQgPSAwOwog
+CWludCByZXQgPSAwOwogCWludCBwb3dlcl9zcmM7CiAKLQlpZiAoIXNtdS0+ZGVmYXVsdF9wb3dl
+cl9saW1pdCB8fAotCSAgICAhc211LT5wb3dlcl9saW1pdCkgeworCWlmICghc211LT5wb3dlcl9s
+aW1pdCkgewogCQlpZiAoc211X2ZlYXR1cmVfaXNfZW5hYmxlZChzbXUsIFNNVV9GRUFUVVJFX1BQ
+VF9CSVQpKSB7CiAJCQlwb3dlcl9zcmMgPSBzbXVfcG93ZXJfZ2V0X2luZGV4KHNtdSwgU01VX1BP
+V0VSX1NPVVJDRV9BQyk7CiAJCQlpZiAocG93ZXJfc3JjIDwgMCkKQEAgLTE2NjYsMTcgKzE2NzEs
+MTEgQEAgc3RhdGljIGludCBuYXZpMTBfZ2V0X3Bvd2VyX2xpbWl0KHN0cnVjdCBzbXVfY29udGV4
+dCAqc211LAogCQkJCXBwdGFibGUtPlNvY2tldFBvd2VyTGltaXRBY1tQUFRfVEhST1RUTEVSX1BQ
+VDBdOwogCQl9CiAKLQkJaWYgKHNtdS0+b2RfZW5hYmxlZCkgewotCQkJYXNpY19kZWZhdWx0X3Bv
+d2VyX2xpbWl0ICo9ICgxMDAgKyBzbXUtPnNtdV90YWJsZS5URFBPRExpbWl0KTsKLQkJCWFzaWNf
+ZGVmYXVsdF9wb3dlcl9saW1pdCAvPSAxMDA7Ci0JCX0KLQotCQlzbXUtPmRlZmF1bHRfcG93ZXJf
+bGltaXQgPSBhc2ljX2RlZmF1bHRfcG93ZXJfbGltaXQ7CiAJCXNtdS0+cG93ZXJfbGltaXQgPSBh
+c2ljX2RlZmF1bHRfcG93ZXJfbGltaXQ7CiAJfQogCi0JaWYgKGFzaWNfZGVmYXVsdCkKLQkJKmxp
+bWl0ID0gc211LT5kZWZhdWx0X3Bvd2VyX2xpbWl0OworCWlmIChjYXApCisJCSpsaW1pdCA9IHNt
+dV92MTFfMF9nZXRfbWF4X3Bvd2VyX2xpbWl0KHNtdSk7CiAJZWxzZQogCQkqbGltaXQgPSBzbXUt
+PnBvd2VyX2xpbWl0OwogCkBAIC0yMDI0LDYgKzIwMjMsNyBAQCBzdGF0aWMgY29uc3Qgc3RydWN0
+IHBwdGFibGVfZnVuY3MgbmF2aTEwX3BwdF9mdW5jcyA9IHsKIAkub3ZlcnJpZGVfcGNpZV9wYXJh
+bWV0ZXJzID0gc211X3YxMV8wX292ZXJyaWRlX3BjaWVfcGFyYW1ldGVycywKIAkuc2V0X2RlZmF1
+bHRfb2Rfc2V0dGluZ3MgPSBuYXZpMTBfc2V0X2RlZmF1bHRfb2Rfc2V0dGluZ3MsCiAJLm9kX2Vk
+aXRfZHBtX3RhYmxlID0gbmF2aTEwX29kX2VkaXRfZHBtX3RhYmxlLAorCS5nZXRfcHB0YWJsZV9w
+b3dlcl9saW1pdCA9IG5hdmkxMF9nZXRfcHB0YWJsZV9wb3dlcl9saW1pdCwKIH07CiAKIHZvaWQg
+bmF2aTEwX3NldF9wcHRfZnVuY3Moc3RydWN0IHNtdV9jb250ZXh0ICpzbXUpCmRpZmYgLS1naXQg
+YS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9zbXVfdjExXzAuYyBiL2RyaXZlcnMvZ3B1
+L2RybS9hbWQvcG93ZXJwbGF5L3NtdV92MTFfMC5jCmluZGV4IGM0ZjY3ZWU4ODQwZS4uODE0ZDIy
+NTZmZjhlIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9zbXVfdjEx
+XzAuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9zbXVfdjExXzAuYwpAQCAt
+MjQsNiArMjQsOCBAQAogI2luY2x1ZGUgPGxpbnV4L21vZHVsZS5oPgogI2luY2x1ZGUgPGxpbnV4
+L3BjaS5oPgogCisjZGVmaW5lIFNNVV8xMV8wX1BBUlRJQUxfUFBUQUJMRQorCiAjaW5jbHVkZSAi
+cHBfZGVidWcuaCIKICNpbmNsdWRlICJhbWRncHUuaCIKICNpbmNsdWRlICJhbWRncHVfc211Lmgi
+CkBAIC0zMSw2ICszMyw3IEBACiAjaW5jbHVkZSAiYXRvbWZpcm13YXJlLmgiCiAjaW5jbHVkZSAi
+YW1kZ3B1X2F0b21maXJtd2FyZS5oIgogI2luY2x1ZGUgInNtdV92MTFfMC5oIgorI2luY2x1ZGUg
+InNtdV92MTFfMF9wcHRhYmxlLmgiCiAjaW5jbHVkZSAic29jMTVfY29tbW9uLmgiCiAjaW5jbHVk
+ZSAiYXRvbS5oIgogI2luY2x1ZGUgImFtZF9wY2llLmgiCkBAIC0xMDQ1LDEzICsxMDQ4LDQ0IEBA
+IGludCBzbXVfdjExXzBfaW5pdF9tYXhfc3VzdGFpbmFibGVfY2xvY2tzKHN0cnVjdCBzbXVfY29u
+dGV4dCAqc211KQogCXJldHVybiAwOwogfQogCit1aW50MzJfdCBzbXVfdjExXzBfZ2V0X21heF9w
+b3dlcl9saW1pdChzdHJ1Y3Qgc211X2NvbnRleHQgKnNtdSkgeworCXVpbnQzMl90IG9kX2xpbWl0
+LCBtYXhfcG93ZXJfbGltaXQ7CisJc3RydWN0IHNtdV8xMV8wX3Bvd2VycGxheV90YWJsZSAqcG93
+ZXJwbGF5X3RhYmxlID0gTlVMTDsKKwlzdHJ1Y3Qgc211X3RhYmxlX2NvbnRleHQgKnRhYmxlX2Nv
+bnRleHQgPSAmc211LT5zbXVfdGFibGU7CisJcG93ZXJwbGF5X3RhYmxlID0gdGFibGVfY29udGV4
+dC0+cG93ZXJfcGxheV90YWJsZTsKKworCW1heF9wb3dlcl9saW1pdCA9IHNtdV9nZXRfcHB0YWJs
+ZV9wb3dlcl9saW1pdChzbXUsIGZhbHNlKTsKKworCWlmICghbWF4X3Bvd2VyX2xpbWl0KSB7CisJ
+CS8vIElmIHdlIGNvdWxkbid0IGdldCB0aGUgdGFibGUgbGltaXQsIGZhbGwgYmFjayBvbiBmaXJz
+dC1yZWFkIHZhbHVlCisJCWlmICghc211LT5kZWZhdWx0X3Bvd2VyX2xpbWl0KQorCQkJc211LT5k
+ZWZhdWx0X3Bvd2VyX2xpbWl0ID0gc211LT5wb3dlcl9saW1pdDsKKwkJbWF4X3Bvd2VyX2xpbWl0
+ID0gc211LT5kZWZhdWx0X3Bvd2VyX2xpbWl0OworCX0KKworCWlmIChzbXUtPm9kX2VuYWJsZWQp
+IHsKKwkJb2RfbGltaXQgPSBsZTMyX3RvX2NwdShwb3dlcnBsYXlfdGFibGUtPm92ZXJkcml2ZV90
+YWJsZS5tYXhbU01VXzExXzBfT0RTRVRUSU5HX1BPV0VSUEVSQ0VOVEFHRV0pOworCisJCXByX2Rl
+YnVnKCJPRFNFVFRJTkdfUE9XRVJQRVJDRU5UQUdFOiAlZCAoZGVmYXVsdDogJWQpXG4iLCBvZF9s
+aW1pdCwgc211LT5kZWZhdWx0X3Bvd2VyX2xpbWl0KTsKKworCQltYXhfcG93ZXJfbGltaXQgKj0g
+KDEwMCArIG9kX2xpbWl0KTsKKwkJbWF4X3Bvd2VyX2xpbWl0IC89IDEwMDsKKwl9CisKKwlyZXR1
+cm4gbWF4X3Bvd2VyX2xpbWl0OworfQorCiBpbnQgc211X3YxMV8wX3NldF9wb3dlcl9saW1pdChz
+dHJ1Y3Qgc211X2NvbnRleHQgKnNtdSwgdWludDMyX3QgbikKIHsKIAlpbnQgcmV0ID0gMDsKKwl1
+aW50MzJfdCBtYXhfcG93ZXJfbGltaXQ7CisKKwltYXhfcG93ZXJfbGltaXQgPSBzbXVfdjExXzBf
+Z2V0X21heF9wb3dlcl9saW1pdChzbXUpOwogCi0JaWYgKG4gPiBzbXUtPmRlZmF1bHRfcG93ZXJf
+bGltaXQpIHsKLQkJcHJfZXJyKCJOZXcgcG93ZXIgbGltaXQgaXMgb3ZlciB0aGUgbWF4IGFsbG93
+ZWQgJWRcbiIsCi0JCQkJc211LT5kZWZhdWx0X3Bvd2VyX2xpbWl0KTsKKwlpZiAobiA+IG1heF9w
+b3dlcl9saW1pdCkgeworCQlwcl9lcnIoIk5ldyBwb3dlciBsaW1pdCAoJWQpIGlzIG92ZXIgdGhl
+IG1heCBhbGxvd2VkICVkXG4iLAorCQkJCW4sCisJCQkJbWF4X3Bvd2VyX2xpbWl0KTsKIAkJcmV0
+dXJuIC1FSU5WQUw7CiAJfQogCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2Vy
+cGxheS92ZWdhMjBfcHB0LmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS92ZWdhMjBf
+cHB0LmMKaW5kZXggNWIyMTM4NmY1NThkLi4wYjQ4OTI4MzM4MDggMTAwNjQ0Ci0tLSBhL2RyaXZl
+cnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L3ZlZ2EyMF9wcHQuYworKysgYi9kcml2ZXJzL2dwdS9k
+cm0vYW1kL3Bvd2VycGxheS92ZWdhMjBfcHB0LmMKQEAgLTQ2Niw3ICs0NjYsNiBAQCBzdGF0aWMg
+aW50IHZlZ2EyMF9zdG9yZV9wb3dlcnBsYXlfdGFibGUoc3RydWN0IHNtdV9jb250ZXh0ICpzbXUp
+CiAJICAgICAgIHNpemVvZihQUFRhYmxlX3QpKTsKIAogCXRhYmxlX2NvbnRleHQtPnRoZXJtYWxf
+Y29udHJvbGxlcl90eXBlID0gcG93ZXJwbGF5X3RhYmxlLT51Y1RoZXJtYWxDb250cm9sbGVyVHlw
+ZTsKLQl0YWJsZV9jb250ZXh0LT5URFBPRExpbWl0ID0gbGUzMl90b19jcHUocG93ZXJwbGF5X3Rh
+YmxlLT5PdmVyRHJpdmU4VGFibGUuT0RTZXR0aW5nc01heFtBVE9NX1ZFR0EyMF9PRFNFVFRJTkdf
+UE9XRVJQRVJDRU5UQUdFXSk7CiAKIAlyZXR1cm4gMDsKIH0KLS0gCjIuMjMuMAoKX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxp
+c3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3Rv
+cC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
