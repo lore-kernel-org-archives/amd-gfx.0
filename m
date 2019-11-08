@@ -2,102 +2,96 @@ Return-Path: <SRS0=5//3=ZA=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.8 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-6.7 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
+	HTML_MESSAGE,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,
+	SPF_PASS autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3EFAEFC6196
-	for <amd-gfx@archiver.kernel.org>; Fri,  8 Nov 2019 21:57:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 74CFAFC6196
+	for <amd-gfx@archiver.kernel.org>; Fri,  8 Nov 2019 22:01:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id DA8A1215EA
-	for <amd-gfx@archiver.kernel.org>; Fri,  8 Nov 2019 21:57:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DA8A1215EA
+	by mail.kernel.org (Postfix) with ESMTPS id 4D1F820679
+	for <amd-gfx@archiver.kernel.org>; Fri,  8 Nov 2019 22:01:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4D1F820679
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A0E866FA9A;
-	Fri,  8 Nov 2019 21:57:30 +0000 (UTC)
-Received: from NAM03-DM3-obe.outbound.protection.outlook.com
- (mail-eopbgr800040.outbound.protection.outlook.com [40.107.80.40])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1F9E26FA9A
- for <amd-gfx@lists.freedesktop.org>; Fri,  8 Nov 2019 21:57:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 12D566FA97;
+	Fri,  8 Nov 2019 22:01:47 +0000 (UTC)
+Received: from NAM02-SN1-obe.outbound.protection.outlook.com
+ (mail-eopbgr770078.outbound.protection.outlook.com [40.107.77.78])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 644CC6FA97
+ for <amd-gfx@lists.freedesktop.org>; Fri,  8 Nov 2019 22:01:43 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=jrtzbPtsqkjF1OqDeNhdNof0fY2lEoll9dqA/qCKFBXPY0hykU7iMQjK71X3hskhBppnat/ryZvABo0KsZKdHK+KydTi6j3WylE/jIFfpIJ+ckTLIIIpjlIwBwYzL7Dp8K8uaqtkYJYfv9GjOUVTic7dCUoMjIrrReKAYbIlvA1Hlfb9sIGCFnoL+YUQyn8kL32fSzyjpeG01bMrs1Sl4FIi0h5jUUOVw8Q7VS6SZkyCnltLSIOA79QYBF8Gioe+l67IzAMythUpyfeKFjA1sI/0vJv9ldYKbvBdBTQBPjJKcHm/Nh094Pia+TajwNCdrG6m1LfeWO+eJnbc9PIhPA==
+ b=l9J+wp9d8EX0rDdGztMy647P8eKICedVQniek4rr9N9nK/ahlIc1vhbprL9TXd6Wp6NK5LrMfn7CCwTxY3tRaPlcfyMCm2B0IaA3n/PwRj6kT1ab/vMSTMaQadGpOIbtDmcMIJ5LP3pLsEUdzEezPkpfSwXlVlQIDX3bBLT/lylnj2XMmpQw2EblvEVbuowshfNpz7pFFrcghexjk+4iEUUQOkWFAZG0vXOqZffwIaa8Psi79qzNmhdP5GGywF4k4Ij0WdW8PumLp3fGUx3GsCHh36Ij7Ob+bxFg4gFmAxua34dwSH34IJpa7IhGdqAhIJ73ZXFxoAfUem4bPxk52w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=MD3aWyMmT/oCk0bVsBtNdOVfiRaqANDvIbrWy1wC6Ok=;
- b=UDhEf9bci7p7nxincpp62IS20hbI/v1lVMtXjWNRc82ypyZiqaJ+sws1mo3dIsRDCvgctOzCxAbcbR7YYwInTXQqrt0PKHlEXgj4IULeur9aSbetjZbVuo388xee06IDQlBcRe6okuoRmGPO1wZ+LIvynRX4D5/FNKiMjJBi2gsD8laMXNHGFRO1IkSeajFNOlrYubKp1HbpYHDkyMuwPd6gl673WhiFLKVN0s5UMZh40wqmvX/22wCg8WICDG5N8eHALj1tfasGs9VDquw4a/4VI4wKDgfr0cr+GcIGbaazoc6cS4KIc0nAakIdqaGcgnUJ3aUfoBez5SVsywPfPQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=permerror action=none header.from=amd.com; dkim=none (message not
- signed); arc=none
-Received: from DM3PR12CA0137.namprd12.prod.outlook.com (2603:10b6:0:51::33) by
- BYAPR12MB3398.namprd12.prod.outlook.com (2603:10b6:a03:aa::24) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2430.22; Fri, 8 Nov 2019 21:57:24 +0000
-Received: from DM3NAM03FT022.eop-NAM03.prod.protection.outlook.com
- (2a01:111:f400:7e49::209) by DM3PR12CA0137.outlook.office365.com
- (2603:10b6:0:51::33) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2430.20 via Frontend
- Transport; Fri, 8 Nov 2019 21:57:24 +0000
-Received-SPF: None (protection.outlook.com: amd.com does not designate
+ bh=mtyDP9hKXzOHnKPEsfhCpqDIEWJ8eVmqtLMvpmMM+f8=;
+ b=mEv/Vb9hybsCtgURF758YQ3q1yTBZi++t4Hbw0hvcXnmd81dHhuXnqoNAi0iZu2TZONqyPAgwRCD9vnWvQlGOcAUaOrxpqSGwrF5WSDPLGHVTF972ZEgnZFh9ZYoaf8L9j1bA/sbSZBGZsYMtWDb7BizO7tkGbbw/cGzwjvEMDmMSJnZGOvd8r254L5bal6vBOqNTpYHPN2whE18DRgHYbDWQ86AHbhTWgjYb9bZY/qSmvgiR78xeyp8I2uFR65Ig1IG66BvDiQAO4c9krgpiAGUc0BfXW1Krv6CsHW3/u38BvRa8jkcolHzuM2BG82Afad5CU9hid/Qzkd6yzFG4w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+Received: from DM5PR12MB1820.namprd12.prod.outlook.com (10.175.88.143) by
+ DM5PR12MB2374.namprd12.prod.outlook.com (52.132.141.15) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2430.20; Fri, 8 Nov 2019 22:01:37 +0000
+Received: from DM5PR12MB1820.namprd12.prod.outlook.com
+ ([fe80::a0bb:dcbd:9ae:7807]) by DM5PR12MB1820.namprd12.prod.outlook.com
+ ([fe80::a0bb:dcbd:9ae:7807%5]) with mapi id 15.20.2430.020; Fri, 8 Nov 2019
+ 22:01:27 +0000
+From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
+To: "Lakha, Bhawanpreet" <Bhawanpreet.Lakha@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Subject: Re: [PATCH] drm/amd/display: Load TA firmware for navi10/12/14
+Thread-Topic: [PATCH] drm/amd/display: Load TA firmware for navi10/12/14
+Thread-Index: AQHVln+GUIdZboeXIEOcfDvJhQhcqqeB0wfR
+Date: Fri, 8 Nov 2019 22:01:26 +0000
+Message-ID:
+ <DM5PR12MB1820C10A42B4FFC83A093710F77B0@DM5PR12MB1820.namprd12.prod.outlook.com>
+References: <20191108215721.13316-1-Bhawanpreet.Lakha@amd.com>
+In-Reply-To: <20191108215721.13316-1-Bhawanpreet.Lakha@amd.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [71.219.59.120]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-ht: Tenant
+x-ms-office365-filtering-correlation-id: 15c8829b-0bd8-4f6b-8523-08d764973406
+x-ms-traffictypediagnostic: DM5PR12MB2374:
+x-ms-exchange-purlcount: 1
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <DM5PR12MB2374935BAD6583889A662FD4F77B0@DM5PR12MB2374.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:517;
+x-forefront-prvs: 0215D7173F
+x-forefront-antispam-report: SFV:NSPM;
+ SFS:(10009020)(4636009)(366004)(376002)(136003)(39860400002)(346002)(396003)(199004)(189003)(33656002)(55016002)(8936002)(316002)(2906002)(105004)(53546011)(66066001)(74316002)(7696005)(486006)(476003)(71200400001)(19627405001)(52536014)(6506007)(2501003)(236005)(54896002)(186003)(71190400001)(76176011)(6306002)(5660300002)(6246003)(229853002)(966005)(6436002)(3846002)(14444005)(7736002)(606006)(86362001)(64756008)(11346002)(66476007)(66556008)(9686003)(66946007)(76116006)(14454004)(25786009)(66446008)(81166006)(26005)(446003)(110136005)(256004)(6116002)(102836004)(81156014)(478600001)(99286004)(8676002);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:DM5PR12MB2374;
+ H:DM5PR12MB1820.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; A:1; MX:1; 
+received-spf: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
-Received: from SATLEXMB02.amd.com (165.204.84.17) by
- DM3NAM03FT022.mail.protection.outlook.com (10.152.82.180) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.2430.20 via Frontend Transport; Fri, 8 Nov 2019 21:57:24 +0000
-Received: from SATLEXMB02.amd.com (10.181.40.143) by SATLEXMB02.amd.com
- (10.181.40.143) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Fri, 8 Nov 2019
- 15:57:23 -0600
-Received: from blakha.amd.com (10.180.168.240) by SATLEXMB02.amd.com
- (10.181.40.143) with Microsoft SMTP Server id 15.1.1713.5 via Frontend
- Transport; Fri, 8 Nov 2019 15:57:23 -0600
-From: Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amd/display: Load TA firmware for navi10/12/14
-Date: Fri, 8 Nov 2019 16:57:21 -0500
-Message-ID: <20191108215721.13316-1-Bhawanpreet.Lakha@amd.com>
-X-Mailer: git-send-email 2.17.1
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: Lu1c8naInvY7BLqt3aRg6Owul9ZezN8VLyFAqYG/ARYkehIAQSJqwnUg4iPizP67fKwSuofKp1GL4QRdgBkZQCapjiQf2r0U8UVVtwfGPpQDXBKLkTry85QsbsjzkJFeyUdKNKi/pr0lXuqJlXKdvUzgOFMETmSnw3xb2xE+u/mZZIj7k0H6p2R+ZHQsmHMkph/2+6jmTQ+5xXukwnIMfvUJdZtzOIKlPMpvAjOCcVGMUVyjdEL47TTxr4yOXp1Oy9I+f6e21F314PSyEc/YlQAu0Spo0CX/Twlxqubv7kTdD2au8e1oahhdCBXkts3Ek3bNrRUk41Qw2fPk3op0fea6eZ4o+4SkS74hsBHpOZEpRxCmvCUliCS5sp4F641LN40dWBCzA2cE4vIne0M6Y43yTtpPKECUkFBYj18e3Ti5sM+Uj7UEOobin9o2TxOgp3MY1CFpu7GMLGtuX7HXfY/EcKELXusYmmsdpuF9j5Q=
 MIME-Version: 1.0
-X-EOPAttributedMessage: 0
-X-MS-Office365-Filtering-HT: Tenant
-X-Forefront-Antispam-Report: CIP:165.204.84.17; IPV:NLI; CTRY:US; EFV:NLI;
- SFV:NSPM;
- SFS:(10009020)(4636009)(396003)(376002)(346002)(39860400002)(136003)(428003)(189003)(199004)(70586007)(5660300002)(70206006)(476003)(305945005)(86362001)(356004)(50226002)(2616005)(126002)(51416003)(8676002)(81166006)(81156014)(426003)(1076003)(486006)(7696005)(2351001)(16586007)(336012)(47776003)(4326008)(36756003)(48376002)(478600001)(6916009)(8936002)(53416004)(26005)(50466002)(186003)(14444005)(2906002)(316002);
- DIR:OUT; SFP:1101; SCL:1; SRVR:BYAPR12MB3398; H:SATLEXMB02.amd.com; FPR:;
- SPF:None; LANG:en; PTR:InfoDomainNonexistent; MX:1; A:1; 
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 71f6c105-d366-4d29-a743-08d76496a379
-X-MS-TrafficTypeDiagnostic: BYAPR12MB3398:
-X-Microsoft-Antispam-PRVS: <BYAPR12MB339812318E2C611A93F803EAF97B0@BYAPR12MB3398.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:478;
-X-Forefront-PRVS: 0215D7173F
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: jIDdTjfrSIJV33zz7C7GtIYTIsgUhXmgkFkNujUrIVXOgM7S+QBZbplO7a6QICIcD/wGrciQ+sIIc4C+1oHArnkYWXUIfhsZy7s3tdT7XaNnfuZ8iOrHY0vXqEJJoMkhfUXFaK0EkgWYDmmMCNYD2gYQSyEHZiL6s0uNWjtqAk7ghXbyYYoSXc/r/TS7Zk3+rm2QxK5Q1s7qhWUdEd/xoMVSTnM8vuw2IiRlW6yb2lSI0sn3abA1Pz2TLKMY/kT1wGF6ObrSrH2dY1P9l8JwFydQ0YxugCEZi9G/HTY6q4YQ82EENUQxdCwkw+WVoKOvb0n5ikvSRHL8yEasuQlhnIUTVRdhF13As4ZkE8YhJAz6mYmpwItL4icR+HHlHt3wJy/SnXqo6Eh9w+mA63r8exzKM4SLdErTlC+KXYYp72npbhoJHrewsXfhWfxz+/rY
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Nov 2019 21:57:24.5853 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 71f6c105-d366-4d29-a743-08d76496a379
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB02.amd.com]
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB3398
+X-MS-Exchange-CrossTenant-Network-Message-Id: 15c8829b-0bd8-4f6b-8523-08d764973406
+X-MS-Exchange-CrossTenant-originalarrivaltime: 08 Nov 2019 22:01:27.0207 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: YePZVJo6Wboa20E/6/YJuK5fJypDVG5hqy+2DhfV6NIzYsidCCRql86gmzvOw0dTKJO5lNxfPS4wLpET8B0EsQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB2374
 X-Mailman-Original-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=MD3aWyMmT/oCk0bVsBtNdOVfiRaqANDvIbrWy1wC6Ok=;
- b=3XPn2ofY6z7PzK/9peyu9TtlamAbASj9aZuV8LuovByvl+pgNUBOgsT4ZN9D1i7CQb7fSK5OYU/z45NLhnrZnbFarQ2sWar4qp2CgEYbzBFSQkFCyOLJX6M6f3XkjubJQXRMrCYwFYIRxHtgFoSQGUtqqeLHP1ONzATcBV4dzC0=
-X-Mailman-Original-Authentication-Results: spf=none (sender IP is
- 165.204.84.17)
- smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
- header.d=none;lists.freedesktop.org; dmarc=permerror action=none
- header.from=amd.com;
+ bh=mtyDP9hKXzOHnKPEsfhCpqDIEWJ8eVmqtLMvpmMM+f8=;
+ b=JZur/BmcgI0eY6+oG/lqt+31dMkf69ReyVEqS69nMuN47AdFwLLwMJ2AId6pPhIghMcaNZ6yweWD/82pHN7Ld/8vW+y/OvhOPEBcFsZCc/EK10zjmQFoGMQKDwafPrFMlm2ZfKC9mfzqPQ160rWuuWw8hf2UWrj6fWH/K0d83Gs=
+X-Mailman-Original-Authentication-Results: spf=none (sender IP is )
+ smtp.mailfrom=Alexander.Deucher@amd.com; 
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -109,45 +103,245 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============2022114789=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-Message-ID: <20191108215721.j3Cxvt5JbLbPu-qgjVaGUAWptuShato2zCrAzsO6w24@z>
+Message-ID: <20191108220126.4fSCEHaxhcNmeq7HltRte421_ro4Ua7eG9mQVkOwOVU@z>
 
-bG9hZCB0aGUgdGEgZmlybXdhcmUgZm9yIG5hdmkxMC8xMi8xNC4KVGhpcyBpcyBhbHJlYWR5IGJl
-aW5nIGRvbmUgZm9yIHJhdmVuL3BpY2Fzc28gYW5kCmlzIG5lZWRlZCBmb3Igc3VwcG9ydGluZyBo
-ZGNwIG9uIG5hdmkKClNpZ25lZC1vZmYtYnk6IEJoYXdhbnByZWV0IExha2hhIDxCaGF3YW5wcmVl
-dC5MYWtoYUBhbWQuY29tPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3BzcF92MTFf
-MC5jIHwgMjUgKysrKysrKysrKysrKysrKysrKysrKysrKwogMSBmaWxlIGNoYW5nZWQsIDI1IGlu
-c2VydGlvbnMoKykKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9wc3Bf
-djExXzAuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3BzcF92MTFfMC5jCmluZGV4IGZm
-ZWFhMmY1NTg4ZC4uZGFmMTFiZTU0MTZmIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1k
-L2FtZGdwdS9wc3BfdjExXzAuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9wc3Bf
-djExXzAuYwpAQCAtMTg2LDYgKzE4NiwzMSBAQCBzdGF0aWMgaW50IHBzcF92MTFfMF9pbml0X21p
-Y3JvY29kZShzdHJ1Y3QgcHNwX2NvbnRleHQgKnBzcCkKIAljYXNlIENISVBfTkFWSTEwOgogCWNh
-c2UgQ0hJUF9OQVZJMTQ6CiAJY2FzZSBDSElQX05BVkkxMjoKKwkJc25wcmludGYoZndfbmFtZSwg
-c2l6ZW9mKGZ3X25hbWUpLCAiYW1kZ3B1LyVzX3RhLmJpbiIsIGNoaXBfbmFtZSk7CisJCWVyciA9
-IHJlcXVlc3RfZmlybXdhcmUoJmFkZXYtPnBzcC50YV9mdywgZndfbmFtZSwgYWRldi0+ZGV2KTsK
-KwkJaWYgKGVycikgeworCQkJcmVsZWFzZV9maXJtd2FyZShhZGV2LT5wc3AudGFfZncpOworCQkJ
-YWRldi0+cHNwLnRhX2Z3ID0gTlVMTDsKKwkJCWRldl9pbmZvKGFkZXYtPmRldiwKKwkJCQkgInBz
-cCB2MTEuMDogRmFpbGVkIHRvIGxvYWQgZmlybXdhcmUgXCIlc1wiXG4iLCBmd19uYW1lKTsKKwkJ
-fSBlbHNlIHsKKwkJCWVyciA9IGFtZGdwdV91Y29kZV92YWxpZGF0ZShhZGV2LT5wc3AudGFfZncp
-OworCQkJaWYgKGVycikKKwkJCQlnb3RvIG91dDI7CisKKwkJCXRhX2hkciA9IChjb25zdCBzdHJ1
-Y3QgdGFfZmlybXdhcmVfaGVhZGVyX3YxXzAgKilhZGV2LT5wc3AudGFfZnctPmRhdGE7CisJCQlh
-ZGV2LT5wc3AudGFfaGRjcF91Y29kZV92ZXJzaW9uID0gbGUzMl90b19jcHUodGFfaGRyLT50YV9o
-ZGNwX3Vjb2RlX3ZlcnNpb24pOworCQkJYWRldi0+cHNwLnRhX2hkY3BfdWNvZGVfc2l6ZSA9IGxl
-MzJfdG9fY3B1KHRhX2hkci0+dGFfaGRjcF9zaXplX2J5dGVzKTsKKwkJCWFkZXYtPnBzcC50YV9o
-ZGNwX3N0YXJ0X2FkZHIgPSAodWludDhfdCAqKXRhX2hkciArCisJCQkJbGUzMl90b19jcHUodGFf
-aGRyLT5oZWFkZXIudWNvZGVfYXJyYXlfb2Zmc2V0X2J5dGVzKTsKKworCQkJYWRldi0+cHNwLnRh
-X2Z3X3ZlcnNpb24gPSBsZTMyX3RvX2NwdSh0YV9oZHItPmhlYWRlci51Y29kZV92ZXJzaW9uKTsK
-KworCQkJYWRldi0+cHNwLnRhX2R0bV91Y29kZV92ZXJzaW9uID0gbGUzMl90b19jcHUodGFfaGRy
-LT50YV9kdG1fdWNvZGVfdmVyc2lvbik7CisJCQlhZGV2LT5wc3AudGFfZHRtX3Vjb2RlX3NpemUg
-PSBsZTMyX3RvX2NwdSh0YV9oZHItPnRhX2R0bV9zaXplX2J5dGVzKTsKKwkJCWFkZXYtPnBzcC50
-YV9kdG1fc3RhcnRfYWRkciA9ICh1aW50OF90ICopYWRldi0+cHNwLnRhX2hkY3Bfc3RhcnRfYWRk
-ciArCisJCQkJbGUzMl90b19jcHUodGFfaGRyLT50YV9kdG1fb2Zmc2V0X2J5dGVzKTsKKwkJfQog
-CQlicmVhazsKIAlkZWZhdWx0OgogCQlCVUcoKTsKLS0gCjIuMTcuMQoKX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1k
-LWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcv
-bWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+--===============2022114789==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_DM5PR12MB1820C10A42B4FFC83A093710F77B0DM5PR12MB1820namp_"
+
+--_000_DM5PR12MB1820C10A42B4FFC83A093710F77B0DM5PR12MB1820namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
+________________________________
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> on behalf of Bhawanpr=
+eet Lakha <Bhawanpreet.Lakha@amd.com>
+Sent: Friday, November 8, 2019 4:57 PM
+To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
+Cc: Lakha, Bhawanpreet <Bhawanpreet.Lakha@amd.com>
+Subject: [PATCH] drm/amd/display: Load TA firmware for navi10/12/14
+
+load the ta firmware for navi10/12/14.
+This is already being done for raven/picasso and
+is needed for supporting hdcp on navi
+
+Signed-off-by: Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/psp_v11_0.c | 25 +++++++++++++++++++++++++
+ 1 file changed, 25 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c b/drivers/gpu/drm/amd/a=
+mdgpu/psp_v11_0.c
+index ffeaa2f5588d..daf11be5416f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c
+@@ -186,6 +186,31 @@ static int psp_v11_0_init_microcode(struct psp_context=
+ *psp)
+         case CHIP_NAVI10:
+         case CHIP_NAVI14:
+         case CHIP_NAVI12:
++               snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_ta.bin", chip=
+_name);
++               err =3D request_firmware(&adev->psp.ta_fw, fw_name, adev->d=
+ev);
++               if (err) {
++                       release_firmware(adev->psp.ta_fw);
++                       adev->psp.ta_fw =3D NULL;
++                       dev_info(adev->dev,
++                                "psp v11.0: Failed to load firmware \"%s\"=
+\n", fw_name);
++               } else {
++                       err =3D amdgpu_ucode_validate(adev->psp.ta_fw);
++                       if (err)
++                               goto out2;
++
++                       ta_hdr =3D (const struct ta_firmware_header_v1_0 *)=
+adev->psp.ta_fw->data;
++                       adev->psp.ta_hdcp_ucode_version =3D le32_to_cpu(ta_=
+hdr->ta_hdcp_ucode_version);
++                       adev->psp.ta_hdcp_ucode_size =3D le32_to_cpu(ta_hdr=
+->ta_hdcp_size_bytes);
++                       adev->psp.ta_hdcp_start_addr =3D (uint8_t *)ta_hdr =
++
++                               le32_to_cpu(ta_hdr->header.ucode_array_offs=
+et_bytes);
++
++                       adev->psp.ta_fw_version =3D le32_to_cpu(ta_hdr->hea=
+der.ucode_version);
++
++                       adev->psp.ta_dtm_ucode_version =3D le32_to_cpu(ta_h=
+dr->ta_dtm_ucode_version);
++                       adev->psp.ta_dtm_ucode_size =3D le32_to_cpu(ta_hdr-=
+>ta_dtm_size_bytes);
++                       adev->psp.ta_dtm_start_addr =3D (uint8_t *)adev->ps=
+p.ta_hdcp_start_addr +
++                               le32_to_cpu(ta_hdr->ta_dtm_offset_bytes);
++               }
+                 break;
+         default:
+                 BUG();
+--
+2.17.1
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--_000_DM5PR12MB1820C10A42B4FFC83A093710F77B0DM5PR12MB1820namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Acked-by: Alex Deucher &lt;alexander.deucher@amd.com&gt;<br>
+</div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
+ounces@lists.freedesktop.org&gt; on behalf of Bhawanpreet Lakha &lt;Bhawanp=
+reet.Lakha@amd.com&gt;<br>
+<b>Sent:</b> Friday, November 8, 2019 4:57 PM<br>
+<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
+gt;<br>
+<b>Cc:</b> Lakha, Bhawanpreet &lt;Bhawanpreet.Lakha@amd.com&gt;<br>
+<b>Subject:</b> [PATCH] drm/amd/display: Load TA firmware for navi10/12/14<=
+/font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">load the ta firmware for navi10/12/14.<br>
+This is already being done for raven/picasso and<br>
+is needed for supporting hdcp on navi<br>
+<br>
+Signed-off-by: Bhawanpreet Lakha &lt;Bhawanpreet.Lakha@amd.com&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/psp_v11_0.c | 25 &#43;&#43;&#43;&#43;&#43;=
+&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;=
+&#43;&#43;&#43;&#43;&#43;<br>
+&nbsp;1 file changed, 25 insertions(&#43;)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c b/drivers/gpu/drm/amd/a=
+mdgpu/psp_v11_0.c<br>
+index ffeaa2f5588d..daf11be5416f 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c<br>
+@@ -186,6 &#43;186,31 @@ static int psp_v11_0_init_microcode(struct psp_con=
+text *psp)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_NAVI10:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_NAVI14:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_NAVI12:<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; snprintf(fw_name, sizeof(fw_name), &quot;amdgpu/%s_ta.bin&qu=
+ot;, chip_name);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; err =3D request_firmware(&amp;adev-&gt;psp.ta_fw, fw_name, a=
+dev-&gt;dev);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; if (err) {<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; release_firm=
+ware(adev-&gt;psp.ta_fw);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;psp=
+.ta_fw =3D NULL;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dev_info(ade=
+v-&gt;dev,<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;psp v11.0: Failed to load f=
+irmware \&quot;%s\&quot;\n&quot;, fw_name);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; } else {<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; err =3D amdg=
+pu_ucode_validate(adev-&gt;psp.ta_fw);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (err)<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; goto out2;<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ta_hdr =3D (=
+const struct ta_firmware_header_v1_0 *)adev-&gt;psp.ta_fw-&gt;data;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;psp=
+.ta_hdcp_ucode_version =3D le32_to_cpu(ta_hdr-&gt;ta_hdcp_ucode_version);<b=
+r>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;psp=
+.ta_hdcp_ucode_size =3D le32_to_cpu(ta_hdr-&gt;ta_hdcp_size_bytes);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;psp=
+.ta_hdcp_start_addr =3D (uint8_t *)ta_hdr &#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; le32_to_cpu(ta_hdr-&gt;header.ucode_arr=
+ay_offset_bytes);<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;psp=
+.ta_fw_version =3D le32_to_cpu(ta_hdr-&gt;header.ucode_version);<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;psp=
+.ta_dtm_ucode_version =3D le32_to_cpu(ta_hdr-&gt;ta_dtm_ucode_version);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;psp=
+.ta_dtm_ucode_size =3D le32_to_cpu(ta_hdr-&gt;ta_dtm_size_bytes);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;psp=
+.ta_dtm_start_addr =3D (uint8_t *)adev-&gt;psp.ta_hdcp_start_addr &#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; le32_to_cpu(ta_hdr-&gt;ta_dtm_offset_by=
+tes);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; break;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; default:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; BUG();<br>
+-- <br>
+2.17.1<br>
+<br>
+_______________________________________________<br>
+amd-gfx mailing list<br>
+amd-gfx@lists.freedesktop.org<br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
+lists.freedesktop.org/mailman/listinfo/amd-gfx</a></div>
+</span></font></div>
+</body>
+</html>
+
+--_000_DM5PR12MB1820C10A42B4FFC83A093710F77B0DM5PR12MB1820namp_--
+
+--===============2022114789==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+
+--===============2022114789==--
