@@ -1,29 +1,58 @@
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Subject: Re: [PATCH 4/5] power: avs: smartreflex: Remove superfluous cast in
- debugfs_create_file() call
-Date: Fri, 8 Nov 2019 12:37:05 +0100
-Message-ID: <20191108113705.GA721212@kroah.com>
-References: <20191021145149.31657-1-geert+renesas@glider.be>
- <20191021145149.31657-5-geert+renesas@glider.be>
- <4367615.jSCgeRn5tF@kreacher>
+From: Emil Velikov <emil.l.velikov-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH 5/5] drm: drop DRM_AUTH from PRIME_TO/FROM_HANDLE ioctls
+Date: Fri, 8 Nov 2019 13:11:26 +0000
+Message-ID: <CACvgo50f6DTV+U1HVKM9dcDAhbbBVb=nZjF3+KZ2iLH7Gwu5-A@mail.gmail.com>
+References: <20191101130313.8862-1-emil.l.velikov@gmail.com>
+ <20191101130313.8862-5-emil.l.velikov@gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Content-Disposition: inline
-In-Reply-To: <4367615.jSCgeRn5tF@kreacher>
-Sender: linux-kernel-owner@vger.kernel.org
-To: "Rafael J. Wysocki" <rjw@rjwysocki.net>
-Cc: Geert Uytterhoeven <geert+renesas@glider.be>, Breno =?iso-8859-1?Q?Leit=E3o?= <leitao@debian.org>, Nayna Jain <nayna@linux.ibm.com>, Paulo Flabiano Smorigo <pfsmorigo@gmail.com>, Benjamin Herrenschmidt <benh@kernel.crashing.org>, Paul Mackerras <paulus@samba.org>, Michael Ellerman <mpe@ellerman.id.au>, Herbert Xu <herbert@gondor.apana.org.au>, "David S . Miller" <davem@davemloft.net>, Alex Deucher <alexander.deucher@amd.com>, Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, David@rox.of.borg, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, Casey Leedom <leedom@chelsio.com>, Shannon Nelson <snelson@pensando.io>, Pensando Drivers <drivers@pensando.io>, Kevin Hilman <khilman@kernel.org>, Nishanth Menon <nm@ti.com>, linux-
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20191101130313.8862-5-emil.l.velikov-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: ML dri-devel <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, Sean Paul <sean-p7yTbzM4H96eqtR555YLDQ@public.gmane.org>, Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>, amd-gfx mailing list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-On Fri, Nov 08, 2019 at 12:24:42PM +0100, Rafael J. Wysocki wrote:
-> On Monday, October 21, 2019 4:51:48 PM CET Geert Uytterhoeven wrote:
-> > There is no need to cast a typed pointer to a void pointer when calling
-> > a function that accepts the latter.  Remove it, as the cast prevents
-> > further compiler checks.
-> > 
-> > Signed-off-by: Geert Uytterhoeven <geert+renesas@glider.be>
-> 
-> Greg, have you taken this one by any chance?
-
-Nope, it's all yours!  :)
+T24gRnJpLCAxIE5vdiAyMDE5IGF0IDEzOjA1LCBFbWlsIFZlbGlrb3YgPGVtaWwubC52ZWxpa292
+QGdtYWlsLmNvbT4gd3JvdGU6Cj4KPiBGcm9tOiBFbWlsIFZlbGlrb3YgPGVtaWwudmVsaWtvdkBj
+b2xsYWJvcmEuY29tPgo+Cj4gQXMgbWVudGlvbmVkIGJ5IENocmlzdGlhbiwgZm9yIGRyaXZlcnMg
+d2hpY2ggc3VwcG9ydCBvbmx5IHByaW1hcnkgbm9kZXMKPiB0aGlzIGNoYW5nZXMgdGhlIHJldHVy
+bmVkIGVycm9yIGZyb20gLUVBQ0NFUyBpbnRvIC1FT1BOT1RTVVBQLy1FTk9TWVMuCj4KPiBGb3Ig
+b3RoZXJzLCB0aGlzIGNoZWNrIGluIHBhcnRpY3VsYXIgd2lsbCBiZSBhIG5vb3AuIFNvIGxldCdz
+IHJlbW92ZSBpdAo+IGFzIHN1Z2dlc3RlZCBieSBDaHJpc3RpYW4uCj4KPiBDYzogQWxleCBEZXVj
+aGVyIDxhbGV4YW5kZXIuZGV1Y2hlckBhbWQuY29tPgo+IENjOiBhbWQtZ2Z4QGxpc3RzLmZyZWVk
+ZXNrdG9wLm9yZwo+IENjOiBEYW5pZWwgVmV0dGVyIDxkYW5pZWxAZmZ3bGwuY2g+Cj4gQ2M6IFNl
+YW4gUGF1bCA8c2VhbkBwb29ybHkucnVuPgo+IEFja2VkLWJ5OiBDaHJpc3RpYW4gS8O2bmlnIDxj
+aHJpc3RpYW4ua29lbmlnQGFtZC5jb20+Cj4gU2lnbmVkLW9mZi1ieTogRW1pbCBWZWxpa292IDxl
+bWlsLnZlbGlrb3ZAY29sbGFib3JhLmNvbT4KPiAtLS0KPiAgZHJpdmVycy9ncHUvZHJtL2RybV9p
+b2N0bC5jIHwgNCArKy0tCj4gIDEgZmlsZSBjaGFuZ2VkLCAyIGluc2VydGlvbnMoKyksIDIgZGVs
+ZXRpb25zKC0pCj4KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2RybV9pb2N0bC5jIGIv
+ZHJpdmVycy9ncHUvZHJtL2RybV9pb2N0bC5jCj4gaW5kZXggZmNkNzI4ZDdjZjcyLi41YWZiMzk2
+ODhiNTUgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2RybV9pb2N0bC5jCj4gKysrIGIv
+ZHJpdmVycy9ncHUvZHJtL2RybV9pb2N0bC5jCj4gQEAgLTY1Miw4ICs2NTIsOCBAQCBzdGF0aWMg
+Y29uc3Qgc3RydWN0IGRybV9pb2N0bF9kZXNjIGRybV9pb2N0bHNbXSA9IHsKPgo+ICAgICAgICAg
+RFJNX0lPQ1RMX0RFRihEUk1fSU9DVExfTU9ERV9HRVRSRVNPVVJDRVMsIGRybV9tb2RlX2dldHJl
+c291cmNlcywgMCksCj4KPiAtICAgICAgIERSTV9JT0NUTF9ERUYoRFJNX0lPQ1RMX1BSSU1FX0hB
+TkRMRV9UT19GRCwgZHJtX3ByaW1lX2hhbmRsZV90b19mZF9pb2N0bCwgRFJNX0FVVEh8RFJNX1JF
+TkRFUl9BTExPVyksCj4gLSAgICAgICBEUk1fSU9DVExfREVGKERSTV9JT0NUTF9QUklNRV9GRF9U
+T19IQU5ETEUsIGRybV9wcmltZV9mZF90b19oYW5kbGVfaW9jdGwsIERSTV9BVVRIfERSTV9SRU5E
+RVJfQUxMT1cpLAo+ICsgICAgICAgRFJNX0lPQ1RMX0RFRihEUk1fSU9DVExfUFJJTUVfSEFORExF
+X1RPX0ZELCBkcm1fcHJpbWVfaGFuZGxlX3RvX2ZkX2lvY3RsLCBEUk1fUkVOREVSX0FMTE9XKSwK
+PiArICAgICAgIERSTV9JT0NUTF9ERUYoRFJNX0lPQ1RMX1BSSU1FX0ZEX1RPX0hBTkRMRSwgZHJt
+X3ByaW1lX2ZkX3RvX2hhbmRsZV9pb2N0bCwgRFJNX1JFTkRFUl9BTExPVyksCj4KPiAgICAgICAg
+IERSTV9JT0NUTF9ERUYoRFJNX0lPQ1RMX01PREVfR0VUUExBTkVSRVNPVVJDRVMsIGRybV9tb2Rl
+X2dldHBsYW5lX3JlcywgMCksCj4gICAgICAgICBEUk1fSU9DVExfREVGKERSTV9JT0NUTF9NT0RF
+X0dFVENSVEMsIGRybV9tb2RlX2dldGNydGMsIDApLAo+IC0tCkh1bWJsZSBwb2tlPyBTZWFuLCBv
+dGhlcnM/CgpUaGFua3MKRW1pbApfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9w
+Lm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1n
+Zng=
