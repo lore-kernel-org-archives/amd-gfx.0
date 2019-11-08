@@ -1,69 +1,51 @@
-From: Alex Deucher <alexdeucher@gmail.com>
-Subject: Re: [PATCH][next] drm/amd/display: fix dereference of pointer
- aconnector when it is null
-Date: Fri, 8 Nov 2019 11:33:16 -0500
-Message-ID: <CADnq5_OgwugkJAkHvcdMsKGvdL_jYxS5g8L-697cWQwh-Wy-mg@mail.gmail.com>
-References: <20191108143814.118856-1-colin.king@canonical.com> <7155ecfc-1aff-002d-9cc6-e097525e7cb6@amd.com>
+From: "Kazlauskas, Nicholas" <Nicholas.Kazlauskas-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu/display: fix warning when
+ CONFIG_DRM_AMD_DC_DCN is not set
+Date: Fri, 8 Nov 2019 16:34:17 +0000
+Message-ID: <95cb7a97-f8a2-19b9-5365-bca74d08cf42@amd.com>
+References: <20191108162425.2150451-1-alexander.deucher@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <7155ecfc-1aff-002d-9cc6-e097525e7cb6@amd.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Mikita Lipski <mlipski@amd.com>
-Cc: Colin King <colin.king@canonical.com>, "Wentland, Harry" <Harry.Wentland@amd.com>, "Li, Sun peng (Leo)" <Sunpeng.Li@amd.com>, "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Koenig, Christian" <Christian.Koenig@amd.com>, "Zhou, David(ChunMing)" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, Lyude Paul <lyude@redhat.com>, "Kazlauskas, Nicholas" <Nicholas.Kazlauskas@amd.com>, "Lipski, Mikita" <Mikita.Lipski@amd.com>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "kernel-janitors@vger.kernel.org" <kernel-janitors@vger.kernel.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20191108162425.2150451-1-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
+Content-ID: <ED5F0D5F81417D48ABE968647B55D1CD-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
 
-Applied.  thanks!
-
-Alex
-
-On Fri, Nov 8, 2019 at 9:42 AM Mikita Lipski <mlipski@amd.com> wrote:
->
-> Thanks!
->
-> Reviewed-by: Mikita Lipski <mikita.lipski@amd.com>
->
-> On 08.11.2019 9:38, Colin King wrote:
-> > From: Colin Ian King <colin.king@canonical.com>
-> >
-> > Currently pointer aconnector is being dereferenced by the call to
-> > to_dm_connector_state before it is being null checked, this could
-> > lead to a null pointer dereference.  Fix this by checking that
-> > aconnector is null before dereferencing it.
-> >
-> > Addresses-Coverity: ("Dereference before null check")
-> > Fixes: 5133c6241d9c ("drm/amd/display: Add MST atomic routines")
-> > Signed-off-by: Colin Ian King <colin.king@canonical.com>
-> > ---
-> >   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c | 5 ++---
-> >   1 file changed, 2 insertions(+), 3 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-> > index e3cda6984d28..72e677796a48 100644
-> > --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-> > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-> > @@ -193,12 +193,11 @@ bool dm_helpers_dp_mst_write_payload_allocation_table(
-> >        * that blocks before commit guaranteeing that the state
-> >        * is not gonna be swapped while still in use in commit tail */
-> >
-> > -     dm_conn_state = to_dm_connector_state(aconnector->base.state);
-> > -
-> > -
-> >       if (!aconnector || !aconnector->mst_port)
-> >               return false;
-> >
-> > +     dm_conn_state = to_dm_connector_state(aconnector->base.state);
-> > +
-> >       mst_mgr = &aconnector->mst_port->mst_mgr;
-> >
-> >       if (!mst_mgr->mst_state)
-> >
->
-> --
-> Thanks,
-> Mikita Lipski
-> mikita.lipski@amd.com
-> _______________________________________________
-> dri-devel mailing list
-> dri-devel@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/dri-devel
+T24gMjAxOS0xMS0wOCAxMToyNCBhLm0uLCBBbGV4IERldWNoZXIgd3JvdGU6DQo+IGRtX2Rjbl9j
+cnRjX2hpZ2hfaXJxKCkgaXMgb25seSB1c2VkIHdoZW4gQ09ORklHX0RSTV9BTURfRENfRENOIGlz
+IHNldC4NCj4gDQo+IFNpZ25lZC1vZmYtYnk6IEFsZXggRGV1Y2hlciA8YWxleGFuZGVyLmRldWNo
+ZXJAYW1kLmNvbT4NCg0KUmV2aWV3ZWQtYnk6IE5pY2hvbGFzIEthemxhdXNrYXMgPG5pY2hvbGFz
+LmthemxhdXNrYXNAYW1kLmNvbT4NCg0KVGhhbmtzIQ0KDQo+IC0tLQ0KPiAgIGRyaXZlcnMvZ3B1
+L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtLmMgfCAzICsrLQ0KPiAgIDEgZmls
+ZSBjaGFuZ2VkLCAyIGluc2VydGlvbnMoKyksIDEgZGVsZXRpb24oLSkNCj4gDQo+IGRpZmYgLS1n
+aXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5jIGIv
+ZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG0uYw0KPiBpbmRl
+eCBkMmMyMzY5NDY5MDkuLmVmNDBhZGYxODdmNiAxMDA2NDQNCj4gLS0tIGEvZHJpdmVycy9ncHUv
+ZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG0uYw0KPiArKysgYi9kcml2ZXJzL2dw
+dS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5jDQo+IEBAIC00ODUsNyArNDg1
+LDcgQEAgc3RhdGljIHZvaWQgZG1fY3J0Y19oaWdoX2lycSh2b2lkICppbnRlcnJ1cHRfcGFyYW1z
+KQ0KPiAgIAl9DQo+ICAgfQ0KPiAgIA0KPiAtDQo+ICsjaWYgZGVmaW5lZChDT05GSUdfRFJNX0FN
+RF9EQ19EQ04pDQo+ICAgLyoqDQo+ICAgICogZG1fZGNuX2NydGNfaGlnaF9pcnEoKSAtIEhhbmRs
+ZXMgVlN0YXJ0dXAgaW50ZXJydXB0IGZvciBEQ04gZ2VuZXJhdGlvbiBBU0lDcw0KPiAgICAqIEBp
+bnRlcnJ1cHQgcGFyYW1zIC0gaW50ZXJydXB0IHBhcmFtZXRlcnMNCj4gQEAgLTU0Nyw2ICs1NDcs
+NyBAQCBzdGF0aWMgdm9pZCBkbV9kY25fY3J0Y19oaWdoX2lycSh2b2lkICppbnRlcnJ1cHRfcGFy
+YW1zKQ0KPiAgIA0KPiAgIAlzcGluX3VubG9ja19pcnFyZXN0b3JlKCZhZGV2LT5kZGV2LT5ldmVu
+dF9sb2NrLCBmbGFncyk7DQo+ICAgfQ0KPiArI2VuZGlmDQo+ICAgDQo+ICAgc3RhdGljIGludCBk
+bV9zZXRfY2xvY2tnYXRpbmdfc3RhdGUodm9pZCAqaGFuZGxlLA0KPiAgIAkJICBlbnVtIGFtZF9j
+bG9ja2dhdGluZ19zdGF0ZSBzdGF0ZSkNCj4gDQoNCl9fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMu
+ZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlz
+dGluZm8vYW1kLWdmeA==
