@@ -1,81 +1,119 @@
-From: Jason Gunthorpe <jgg@mellanox.com>
-Subject: Re: [PATCH v2 02/15] mm/mmu_notifier: add an interval
- tree notifier
-Date: Fri, 8 Nov 2019 15:26:03 +0000
-Message-ID: <20191108152558.GG21728@mellanox.com>
-References: <20191028201032.6352-1-jgg@ziepe.ca>
- <20191028201032.6352-3-jgg@ziepe.ca>
- <35c2b322-004e-0e18-87e4-1920dc71bfd5@nvidia.com>
- <20191107200604.GB21728@mellanox.com>
- <9dc2b3c7-f945-b645-b3a3-313a21d2fdfc@nvidia.com>
+From: Will Deacon <will@kernel.org>
+Subject: [PATCH v2] drm/radeon: Handle workqueue allocation failure
+Date: Fri,  8 Nov 2019 15:34:46 +0000
+Message-ID: <20191108153446.21244-1-will@kernel.org>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <xen-devel-bounces@lists.xenproject.org>
-In-Reply-To: <9dc2b3c7-f945-b645-b3a3-313a21d2fdfc@nvidia.com>
-Content-Language: en-US
-Content-ID: <8E8D480DDF199A4F8FA32DCA04F55AF3@eurprd05.prod.outlook.com>
-List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
- <mailto:xen-devel-request@lists.xenproject.org?subject=unsubscribe>
-List-Post: <mailto:xen-devel@lists.xenproject.org>
-List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
-List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
- <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Errors-To: xen-devel-bounces@lists.xenproject.org
-Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-To: John Hubbard <jhubbard@nvidia.com>
-Cc: "nouveau@lists.freedesktop.org" <nouveau@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, Michal Hocko <mhocko@kernel.org>, "linux-mm@kvack.org" <linux-mm@kvack.org>, Andrea Arcangeli <aarcange@redhat.com>, David Zhou <David1.Zhou@amd.com>, Stefano Stabellini <sstabellini@kernel.org>, Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>, "linux-rdma@vger.kernel.org" <linux-rdma@vger.kernel.org>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, Christoph Hellwig <hch@infradead.org>, Ben Skeggs <bskeggs@redhat.com>, "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Ralph Campbell <rcampbell@nvidia.com>, Jerome Glisse <jglisse@redhat.com>, Boris Ostrovsky <boris.ostrovsky@oracle.com>, Petr Cvek <petrcvekcz@gmail.com>, Juergen Gross <jgross@suse.com>, Mike Marciniszyn <mike.marciniszyn@intel.co>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: amd-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, Will Deacon <will@kernel.org>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, =?UTF-8?q?Michel=20D=C3=A4nzer?= <michel@daenzer.net>, Nicolas Waisman <nico@semmle.com>
 List-Id: amd-gfx.lists.freedesktop.org
 
-T24gVGh1LCBOb3YgMDcsIDIwMTkgYXQgMTI6NTM6NTZQTSAtMDgwMCwgSm9obiBIdWJiYXJkIHdy
-b3RlOgo+ID4gPiA+ICsvKioKPiA+ID4gPiArICogc3RydWN0IG1tdV9yYW5nZV9ub3RpZmllcl9v
-cHMKPiA+ID4gPiArICogQGludmFsaWRhdGU6IFVwb24gcmV0dXJuIHRoZSBjYWxsZXIgbXVzdCBz
-dG9wIHVzaW5nIGFueSBTUFRFcyB3aXRoaW4gdGhpcwo+ID4gPiA+ICsgKiAgICAgICAgICAgICAg
-cmFuZ2UsIHRoaXMgZnVuY3Rpb24gY2FuIHNsZWVwLiBSZXR1cm4gZmFsc2UgaWYgYmxvY2tpbmcg
-d2FzCj4gPiA+ID4gKyAqICAgICAgICAgICAgICByZXF1aXJlZCBidXQgcmFuZ2UgaXMgbm9uLWJs
-b2NraW5nCj4gPiA+ID4gKyAqLwo+ID4gPiAKPiA+ID4gSG93IGFib3V0IHRoaXMgKEknbSBub3Qg
-c3VyZSBJIGZ1bGx5IHVuZGVyc3RhbmQgdGhlIHJldHVybiB2YWx1ZSwgdGhvdWdoKToKPiA+ID4g
-Cj4gPiA+IC8qKgo+ID4gPiAgICogc3RydWN0IG1tdV9yYW5nZV9ub3RpZmllcl9vcHMKPiA+ID4g
-ICAqIEBpbnZhbGlkYXRlOiBVcG9uIHJldHVybiB0aGUgY2FsbGVyIG11c3Qgc3RvcCB1c2luZyBh
-bnkgU1BURXMgd2l0aGluIHRoaXMKPiA+ID4gICAqIAkJcmFuZ2UuCj4gPiA+ICAgKgo+ID4gPiAg
-ICogCQlUaGlzIGZ1bmN0aW9uIGlzIHBlcm1pdHRlZCB0byBzbGVlcC4KPiA+ID4gICAqCj4gPiA+
-ICAgKiAgICAgIAlAUmV0dXJuOiBmYWxzZSBpZiBibG9ja2luZyB3YXMgcmVxdWlyZWQsIGJ1dCBA
-cmFuZ2UgaXMKPiA+ID4gICAqCQkJbm9uLWJsb2NraW5nLgo+ID4gPiAgICoKPiA+ID4gICAqLwo+
-ID4gCj4gPiBJcyB0aGlzIGtkb2MgZm9ybWF0IGZvciBmdW5jdGlvbiBwb2ludGVycz8KPiAKPiBo
-ZWgsIEknbSBzb3J0IG9mIHdpbmdpbmcgaXQsIEknbSBub3Qgc3VyZSBob3cgZnVuY3Rpb24gcG9p
-bnRlcnMgYXJlIHN1cHBvc2VkCj4gdG8gYmUgZG9jdW1lbnRlZCBpbiBrZG9jLiBBY3R1YWxseSB0
-aGUgb25seSBrZXkgdGFrZS1hd2F5IGhlcmUgaXMgdG8gd3JpdGUKPiAKPiAiVGhpcyBmdW5jdGlv
-biBjYW4gc2xlZXAiCj4gCj4gYXMgYSBzZXBhcmF0ZSBzZW50ZW5jZS4uCgpTdXJlCgo+ID4gVGhp
-cyBvZGQgZHVhbGl0eSBoYXMgYWxyZWFkeSBjYXVzZSBzb21lIGNvbmZ1c2lvbiwgYnV0IG5hbWVz
-IGhlcmUgYXJlCj4gPiBoYXJkLiAgbW11X2ludGVydmFsX25vdGlmaWVyIGlzIHRoZSBiZXN0IGFs
-dGVybmF0aXZlIEkndmUgaGVhcmQuCj4gPiAKPiA+IENoYW5naW5nIHRoaXMgbmFtZSBpcyBhIGxv
-dCBvZiB3b3JrIC0gYXJlIHdlIGhhcHB5Cj4gPiAnbW11X2ludGVydmFsX25vdGlmaWVyJyBpcyB0
-aGUgcmlnaHQgY2hvaWNlPyAKPiAKPiBZZXMsIGl0J3MgbXkgZmF2b3JpdGUgdG9vLiBJJ2Qgdm90
-ZSBmb3IgZ29pbmcgd2l0aCB0aGF0LgoKT2theSwgbGV0cyBnaXZlIGl0IGEgZ28KCj4gVmVyeSBu
-aWNlLCB3b3VsZCB5b3UgYmUgb3BlbiB0byBwdXR0aW5nIHRoYXQgaW50byAoYW55KSBvbmUgb2Yg
-dGhlIGNvbW1lbnQKPiBoZWFkZXJzPyBUaGF0J3MgYW4gdW51c3VhbGx5IGNsZWFyIGFuZCBjb25j
-aXNlIGRlc2NyaXB0aW9uOgoKWWVwLCBkb25lCgo+ID4gPiA+ICtpbnQgbW11X3JhbmdlX25vdGlm
-aWVyX2luc2VydChzdHJ1Y3QgbW11X3JhbmdlX25vdGlmaWVyICptcm4sCj4gPiA+ID4gKwkJCSAg
-ICAgIHVuc2lnbmVkIGxvbmcgc3RhcnQsIHVuc2lnbmVkIGxvbmcgbGVuZ3RoLAo+ID4gPiA+ICsJ
-CQkgICAgICBzdHJ1Y3QgbW1fc3RydWN0ICptbSkKPiA+ID4gPiArewo+ID4gPiA+ICsJc3RydWN0
-IG1tdV9ub3RpZmllcl9tbSAqbW1uX21tOwo+ID4gPiA+ICsJaW50IHJldDsKPiA+ID4gCj4gPiA+
-IEhtbW0sIEkgdGhpbmsgYSBsYXRlciBwYXRjaCBpbXByb3Blcmx5IGNoYW5nZXMgdGhlIGFib3Zl
-IHRvICJpbnQgcmV0ID0gMDsiLgo+ID4gPiBJJ2xsIGNoZWNrIG9uIHRoYXQuIEl0J3MgY29ycmVj
-dCBoZXJlLCB0aG91Z2guCj4gPiAKPiA+IExvb2tzIE9LIGluIG15IHRyZWU/Cj4gCj4gTm9wZSwg
-dGhhdCdzIGhvdyBJIGZvdW5kIGl0LiBUaGUgdG9wIG9mIHlvdXIgbW11X25vdGlmaWVyIGJyYW5j
-aCBoYXMgdGhpczoKPiAKPiBpbnQgX19tbXVfbm90aWZpZXJfaW52YWxpZGF0ZV9yYW5nZV9zdGFy
-dChzdHJ1Y3QgbW11X25vdGlmaWVyX3JhbmdlICpyYW5nZSkKPiB7Cj4gICAgICAgICBzdHJ1Y3Qg
-bW11X25vdGlmaWVyX21tICptbW5fbW0gPSByYW5nZS0+bW0tPm1tdV9ub3RpZmllcl9tbTsKPiAg
-ICAgICAgIGludCByZXQgPSAwOwo+IAo+ICAgICAgICAgaWYgKG1tbl9tbS0+aGFzX2ludGVydmFs
-KSB7Cj4gICAgICAgICAgICAgICAgIHJldCA9IG1uX2l0cmVlX2ludmFsaWRhdGUobW1uX21tLCBy
-YW5nZSk7Cj4gICAgICAgICAgICAgICAgIGlmIChyZXQpCj4gICAgICAgICAgICAgICAgICAgICAg
-ICAgcmV0dXJuIHJldDsKPiAgICAgICAgIH0KPiAgICAgICAgIGlmICghaGxpc3RfZW1wdHkoJm1t
-bl9tbS0+bGlzdCkpCj4gICAgICAgICAgICAgICAgIHJldHVybiBtbl9obGlzdF9pbnZhbGlkYXRl
-X3JhbmdlX3N0YXJ0KG1tbl9tbSwgcmFuZ2UpOwo+ICAgICAgICAgcmV0dXJuIDA7Cj4gfQoKQWgs
-IHRoYXQgaXMgYSBkaWZmZXJlbnQgZnVuY3Rpb24gOikgRml4ZWQKCj4gTG9va3MgZ29vZC4gV2Un
-cmUganVzdCBwb2xpc2hpbmcgdXAgbWlub3IgcG9pbnRzIG5vdywgc28geW91IGNhbiBhZGQ6Cj4g
-Cj4gUmV2aWV3ZWQtYnk6IEpvaG4gSHViYmFyZCA8amh1YmJhcmRAbnZpZGlhLmNvbT4KCkdyZWF0
-LCB0aGFua3MsIEknbGwgcG9zdCBhIHYzIHdpdGggdGhlIHJlbmFtZQoKSmFzb24KCl9fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fClhlbi1kZXZlbCBtYWlsaW5n
-IGxpc3QKWGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnCmh0dHBzOi8vbGlzdHMueGVucHJv
-amVjdC5vcmcvbWFpbG1hbi9saXN0aW5mby94ZW4tZGV2ZWw=
+In the highly unlikely event that we fail to allocate the "radeon-crtc"
+workqueue, we should bail cleanly rather than blindly marching on with a
+NULL pointer installed for the 'flip_queue' field of the 'radeon_crtc'
+structure.
+
+This was reported previously by Nicolas, but I don't think his fix was
+correct.
+
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: "Christian König" <christian.koenig@amd.com>
+Cc: "David (ChunMing) Zhou" <David1.Zhou@amd.com>
+Cc: David Airlie <airlied@linux.ie>
+Cc: Daniel Vetter <daniel@ffwll.ch>
+Cc: Michel Dänzer <michel@daenzer.net>
+Reported-by: Nicolas Waisman <nico@semmle.com>
+Link: https://lore.kernel.org/lkml/CADJ_3a8WFrs5NouXNqS5WYe7rebFP+_A5CheeqAyD_p7DFJJcg@mail.gmail.com/
+Signed-off-by: Will Deacon <will@kernel.org>
+---
+
+v2: Add failure path to radeon_modeset_init(). Compile-tested only.
+
+ drivers/gpu/drm/radeon/radeon_display.c | 29 +++++++++++++++++++------
+ 1 file changed, 22 insertions(+), 7 deletions(-)
+
+diff --git a/drivers/gpu/drm/radeon/radeon_display.c b/drivers/gpu/drm/radeon/radeon_display.c
+index e81b01f8db90..177acee06620 100644
+--- a/drivers/gpu/drm/radeon/radeon_display.c
++++ b/drivers/gpu/drm/radeon/radeon_display.c
+@@ -668,21 +668,29 @@ static const struct drm_crtc_funcs radeon_crtc_funcs = {
+ 	.page_flip_target = radeon_crtc_page_flip_target,
+ };
+ 
+-static void radeon_crtc_init(struct drm_device *dev, int index)
++static int radeon_crtc_init(struct drm_device *dev, int index)
+ {
+ 	struct radeon_device *rdev = dev->dev_private;
+ 	struct radeon_crtc *radeon_crtc;
++	struct workqueue_struct *wq;
+ 	int i;
+ 
+ 	radeon_crtc = kzalloc(sizeof(struct radeon_crtc) + (RADEONFB_CONN_LIMIT * sizeof(struct drm_connector *)), GFP_KERNEL);
+ 	if (radeon_crtc == NULL)
+-		return;
++		return -ENOMEM;
++
++	wq = alloc_workqueue("radeon-crtc", WQ_HIGHPRI, 0);
++	if (unlikely(!wq)) {
++		kfree(radeon_crtc);
++		return - ENOMEM;
++	}
+ 
+ 	drm_crtc_init(dev, &radeon_crtc->base, &radeon_crtc_funcs);
+ 
+ 	drm_mode_crtc_set_gamma_size(&radeon_crtc->base, 256);
+ 	radeon_crtc->crtc_id = index;
+-	radeon_crtc->flip_queue = alloc_workqueue("radeon-crtc", WQ_HIGHPRI, 0);
++	radeon_crtc->flip_queue = wq;
++
+ 	rdev->mode_info.crtcs[index] = radeon_crtc;
+ 
+ 	if (rdev->family >= CHIP_BONAIRE) {
+@@ -711,6 +719,8 @@ static void radeon_crtc_init(struct drm_device *dev, int index)
+ 		radeon_atombios_init_crtc(dev, radeon_crtc);
+ 	else
+ 		radeon_legacy_init_crtc(dev, radeon_crtc);
++
++	return 0;
+ }
+ 
+ static const char *encoder_names[38] = {
+@@ -1602,9 +1612,8 @@ int radeon_modeset_init(struct radeon_device *rdev)
+ 	rdev->ddev->mode_config.fb_base = rdev->mc.aper_base;
+ 
+ 	ret = radeon_modeset_create_props(rdev);
+-	if (ret) {
+-		return ret;
+-	}
++	if (ret)
++		goto err_drm_mode_config_cleanup;
+ 
+ 	/* init i2c buses */
+ 	radeon_i2c_init(rdev);
+@@ -1617,7 +1626,9 @@ int radeon_modeset_init(struct radeon_device *rdev)
+ 
+ 	/* allocate crtcs */
+ 	for (i = 0; i < rdev->num_crtc; i++) {
+-		radeon_crtc_init(rdev->ddev, i);
++		ret = radeon_crtc_init(rdev->ddev, i);
++		if (ret)
++			goto err_drm_mode_config_cleanup;
+ 	}
+ 
+ 	/* okay we should have all the bios connectors */
+@@ -1645,6 +1656,10 @@ int radeon_modeset_init(struct radeon_device *rdev)
+ 	ret = radeon_pm_late_init(rdev);
+ 
+ 	return 0;
++
++err_drm_mode_config_cleanup:
++	drm_mode_config_cleanup(rdev->ddev);
++	return ret;
+ }
+ 
+ void radeon_modeset_fini(struct radeon_device *rdev)
+-- 
+2.24.0.rc1.363.gb1bccd3e3d-goog
