@@ -1,59 +1,49 @@
 From: "Kazlauskas, Nicholas" <nicholas.kazlauskas@amd.com>
-Subject: Re: [PATCH][next] drm/amd/display: fix spelling mistake "exeuction"
- -> "execution"
-Date: Mon, 11 Nov 2019 08:37:31 -0500
-Message-ID: <633bbabf-56d4-ad4a-9d4e-9562e7122d17@amd.com>
-References: <20191109194923.231655-1-colin.king@canonical.com>
+Subject: Re: [PATCH] drm/amd/display: remove duplicated comparison expression
+Date: Mon, 11 Nov 2019 08:37:56 -0500
+Message-ID: <0700f347-8590-7ab7-411d-0ae08fe9263d@amd.com>
+References: <20191109154921.223093-1-colin.king@canonical.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-In-Reply-To: <20191109194923.231655-1-colin.king@canonical.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20191109154921.223093-1-colin.king@canonical.com>
 Content-Language: en-US
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: Colin King <colin.king@canonical.com>, Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>, David Zhou <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Sender: linux-kernel-owner@vger.kernel.org
+To: Colin King <colin.king@canonical.com>, Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>, David Zhou <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, Charlene Liu <Charlene.Liu@amd.com>, Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
 Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
 List-Id: amd-gfx.lists.freedesktop.org
 
-T24gMjAxOS0xMS0wOSAyOjQ5IHAubS4sIENvbGluIEtpbmcgd3JvdGU6Cj4gRnJvbTogQ29saW4g
-SWFuIEtpbmcgPGNvbGluLmtpbmdAY2Fub25pY2FsLmNvbT4KPiAKPiBUaGVyZSBhcmUgc3BlbGxp
-bmcgbWlzdGFrZXMgaW4gYSBEQ19FUlJPUiBtZXNzYWdlIGFuZCBhIGNvbW1lbnQuCj4gRml4IHRo
-ZXNlLgo+IAo+IFNpZ25lZC1vZmYtYnk6IENvbGluIElhbiBLaW5nIDxjb2xpbi5raW5nQGNhbm9u
-aWNhbC5jb20+CgpSZXZpZXdlZC1ieTogTmljaG9sYXMgS2F6bGF1c2thcyA8bmljaG9sYXMua2F6
-bGF1c2thc0BhbWQuY29tPgoKVGhhbmtzIQoKTmljaG9sYXMgS2F6bGF1c2thcwoKPiAtLS0KPiAg
-IGRyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9kY19kbXViX3Nydi5jICAgIHwgMiArLQo+
-ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RtdWIvaW5jL2RtdWJfc3J2LmggfCAyICst
-Cj4gICAyIGZpbGVzIGNoYW5nZWQsIDIgaW5zZXJ0aW9ucygrKSwgMiBkZWxldGlvbnMoLSkKPiAK
-PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2RjX2RtdWJfc3J2
-LmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvZGNfZG11Yl9zcnYuYwo+IGluZGV4
-IDYxY2VmZTBhMzc5MC4uYjY1YjY2MDI1MjY3IDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2Ry
-bS9hbWQvZGlzcGxheS9kYy9kY19kbXViX3Nydi5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9kaXNwbGF5L2RjL2RjX2RtdWJfc3J2LmMKPiBAQCAtOTIsNyArOTIsNyBAQCB2b2lkIGRjX2Rt
-dWJfc3J2X2NtZF9leGVjdXRlKHN0cnVjdCBkY19kbXViX3NydiAqZGNfZG11Yl9zcnYpCj4gICAK
-PiAgIAlzdGF0dXMgPSBkbXViX3Nydl9jbWRfZXhlY3V0ZShkbXViKTsKPiAgIAlpZiAoc3RhdHVz
-ICE9IERNVUJfU1RBVFVTX09LKQo+IC0JCURDX0VSUk9SKCJFcnJvciBzdGFydGluZyBETVVCIGV4
-ZXVjdGlvbjogc3RhdHVzPSVkXG4iLCBzdGF0dXMpOwo+ICsJCURDX0VSUk9SKCJFcnJvciBzdGFy
-dGluZyBETVVCIGV4ZWN1dGlvbjogc3RhdHVzPSVkXG4iLCBzdGF0dXMpOwo+ICAgfQo+ICAgCj4g
-ICB2b2lkIGRjX2RtdWJfc3J2X3dhaXRfaWRsZShzdHJ1Y3QgZGNfZG11Yl9zcnYgKmRjX2RtdWJf
-c3J2KQo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZG11Yi9pbmMv
-ZG11Yl9zcnYuaCBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kbXViL2luYy9kbXViX3Ny
-di5oCj4gaW5kZXggYWE4ZjAzOTY2MTZkLi40NWU0MjdkMTk1MmUgMTAwNjQ0Cj4gLS0tIGEvZHJp
-dmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RtdWIvaW5jL2RtdWJfc3J2LmgKPiArKysgYi9kcml2
-ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZG11Yi9pbmMvZG11Yl9zcnYuaAo+IEBAIC00MTYsNyAr
-NDE2LDcgQEAgZW51bSBkbXViX3N0YXR1cyBkbXViX3Nydl9jbWRfcXVldWUoc3RydWN0IGRtdWJf
-c3J2ICpkbXViLAo+ICAgICogZG11Yl9zcnZfY21kX2V4ZWN1dGUoKSAtIEV4ZWN1dGVzIGEgcXVl
-dWVkIHNlcXVlbmNlIHRvIHRoZSBkbXViCj4gICAgKiBAZG11YjogdGhlIGRtdWIgc2VydmljZQo+
-ICAgICoKPiAtICogQmVnaW5zIGV4ZXVjdGlvbiBvZiBxdWV1ZWQgY29tbWFuZHMgb24gdGhlIGRt
-dWIuCj4gKyAqIEJlZ2lucyBleGVjdXRpb24gb2YgcXVldWVkIGNvbW1hbmRzIG9uIHRoZSBkbXVi
-Lgo+ICAgICoKPiAgICAqIFJldHVybjoKPiAgICAqICAgRE1VQl9TVEFUVVNfT0sgLSBzdWNjZXNz
-Cj4gCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpkcmkt
-ZGV2ZWwgbWFpbGluZyBsaXN0CmRyaS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6
-Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9kcmktZGV2ZWw=
+On 2019-11-09 10:49 a.m., Colin King wrote:
+> From: Colin Ian King <colin.king@canonical.com>
+> 
+> There is comparison expression that is duplicated and hence one
+> of the expressions can be removed.  Remove it.
+> 
+> Addresses-Coverity: ("Same on both sides")
+> Fixes: 12e2b2d4c65f ("drm/amd/display: add dcc programming for dual plane")
+> Signed-off-by: Colin Ian King <colin.king@canonical.com>
+
+Reviewed-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+
+Thanks!
+
+Nicholas Kazlauskas
+
+> ---
+>   drivers/gpu/drm/amd/display/dc/core/dc.c | 1 -
+>   1 file changed, 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
+> index 1fdba13b3d0f..1fa255e077d0 100644
+> --- a/drivers/gpu/drm/amd/display/dc/core/dc.c
+> +++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
+> @@ -1491,7 +1491,6 @@ static enum surface_update_type get_plane_info_update_type(const struct dc_surfa
+>   	}
+>   
+>   	if (u->plane_info->plane_size.surface_pitch != u->surface->plane_size.surface_pitch
+> -			|| u->plane_info->plane_size.surface_pitch != u->surface->plane_size.surface_pitch
+>   			|| u->plane_info->plane_size.chroma_pitch != u->surface->plane_size.chroma_pitch) {
+>   		update_flags->bits.plane_size_change = 1;
+>   		elevate_update_type(&update_type, UPDATE_TYPE_MED);
+> 
