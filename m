@@ -1,83 +1,63 @@
 From: Alex Deucher <alexdeucher@gmail.com>
-Subject: Re: [PATCH] drm/amd/powerplay: remove set but not used variable
- 'threshold', 'state'
-Date: Mon, 11 Nov 2019 12:56:53 -0500
-Message-ID: <CADnq5_OAt6NEoqeTsfDLB7OGrm--ywOFFtjuCtd+vcYRRq4DbA@mail.gmail.com>
-References: <1573445368-132319-1-git-send-email-zhengbin13@huawei.com>
+Subject: Re: [PATCH -next] drm/amd/display: remove set but not used variable 'ds_port'
+Date: Mon, 11 Nov 2019 12:57:49 -0500
+Message-ID: <CADnq5_PcSdTm9yKdbv=QHFtGeO58a30wZ0KxjQUNqy3Aax9thg@mail.gmail.com>
+References: <20191109093725.42364-1-yuehaibing@huawei.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-In-Reply-To: <1573445368-132319-1-git-send-email-zhengbin13@huawei.com>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: zhengbin <zhengbin13@huawei.com>
-Cc: Dave Airlie <airlied@linux.ie>, amd-gfx list <amd-gfx@lists.freedesktop.org>, Maling list - DRI developers <dri-devel@lists.freedesktop.org>, "Deucher,
- Alexander" <alexander.deucher@amd.com>, "Quan, Evan" <evan.quan@amd.com>, Rex Zhu <rex.zhu@amd.com>, Christian Koenig <christian.koenig@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20191109093725.42364-1-yuehaibing@huawei.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: YueHaibing <yuehaibing@huawei.com>
+Cc: "Wentland, Harry" <harry.wentland@amd.com>, "Leo (Sunpeng) Li" <sunpeng.li@amd.com>, "Deucher, Alexander" <alexander.deucher@amd.com>, Christian Koenig <christian.koenig@amd.com>, Chunming Zhou <David1.Zhou@amd.com>, Dave Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>, Maling list - DRI developers <dri-devel@lists.freedesktop.org>, amd-gfx list <amd-gfx@lists.freedesktop.org>, LKML <linux-kernel@vger.kernel.org>
 List-Id: amd-gfx.lists.freedesktop.org
 
-QXBwbGllZC4gIFRoYW5rcyEKCkFsZXgKCk9uIE1vbiwgTm92IDExLCAyMDE5IGF0IDM6MDcgQU0g
-emhlbmdiaW4gPHpoZW5nYmluMTNAaHVhd2VpLmNvbT4gd3JvdGU6Cj4KPiBGaXhlcyBnY2MgJy1X
-dW51c2VkLWJ1dC1zZXQtdmFyaWFibGUnIHdhcm5pbmc6Cj4KPiBkcml2ZXJzL2dwdS9kcm0vYW1k
-L3Bvd2VycGxheS9zbXVtZ3IvZmlqaV9zbXVtZ3IuYzogSW4gZnVuY3Rpb24gZmlqaV9wb3B1bGF0
-ZV9zaW5nbGVfZ3JhcGhpY19sZXZlbDoKPiBkcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9z
-bXVtZ3IvZmlqaV9zbXVtZ3IuYzo5NDM6MTE6IHdhcm5pbmc6IHZhcmlhYmxlIHRocmVzaG9sZCBz
-ZXQgYnV0IG5vdCB1c2VkIFstV3VudXNlZC1idXQtc2V0LXZhcmlhYmxlXQo+IGRyaXZlcnMvZ3B1
-L2RybS9hbWQvcG93ZXJwbGF5L3NtdW1nci9maWppX3NtdW1nci5jOiBJbiBmdW5jdGlvbiBmaWpp
-X3BvcHVsYXRlX21lbW9yeV90aW1pbmdfcGFyYW1ldGVyczoKPiBkcml2ZXJzL2dwdS9kcm0vYW1k
-L3Bvd2VycGxheS9zbXVtZ3IvZmlqaV9zbXVtZ3IuYzoxNTA0Ojg6IHdhcm5pbmc6IHZhcmlhYmxl
-IHN0YXRlIHNldCBidXQgbm90IHVzZWQgWy1XdW51c2VkLWJ1dC1zZXQtdmFyaWFibGVdCj4KPiBU
-aGV5IGFyZSBpbnRyb2R1Y2VkIGJ5IGNvbW1pdCAyZTExMmI0YWUzYmEgKCJkcm0vYW1kL3BwOgo+
-IHJlbW92ZSBmaWppX3NtYy9zbXVtZ3Igc3BsaXQuIiksIGJ1dCBuZXZlciB1c2VkLAo+IHNvIHJl
-bW92ZSBpdC4KPgo+IFJlcG9ydGVkLWJ5OiBIdWxrIFJvYm90IDxodWxrY2lAaHVhd2VpLmNvbT4K
-PiBTaWduZWQtb2ZmLWJ5OiB6aGVuZ2JpbiA8emhlbmdiaW4xM0BodWF3ZWkuY29tPgo+IC0tLQo+
-ICBkcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9zbXVtZ3IvZmlqaV9zbXVtZ3IuYyB8IDcg
-KystLS0tLQo+ICAxIGZpbGUgY2hhbmdlZCwgMiBpbnNlcnRpb25zKCspLCA1IGRlbGV0aW9ucygt
-KQo+Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L3NtdW1nci9m
-aWppX3NtdW1nci5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvc211bWdyL2Zpamlf
-c211bWdyLmMKPiBpbmRleCBkYTAyNWIxLi4zMmViYjM4IDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMv
-Z3B1L2RybS9hbWQvcG93ZXJwbGF5L3NtdW1nci9maWppX3NtdW1nci5jCj4gKysrIGIvZHJpdmVy
-cy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvc211bWdyL2Zpamlfc211bWdyLmMKPiBAQCAtOTQwLDcg
-Kzk0MCw3IEBAIHN0YXRpYyBpbnQgZmlqaV9wb3B1bGF0ZV9zaW5nbGVfZ3JhcGhpY19sZXZlbChz
-dHJ1Y3QgcHBfaHdtZ3IgKmh3bWdyLAo+ICB7Cj4gICAgICAgICBpbnQgcmVzdWx0Owo+ICAgICAg
-ICAgLyogUFBfQ2xvY2tzIG1pbkNsb2NrczsgKi8KPiAtICAgICAgIHVpbnQzMl90IHRocmVzaG9s
-ZCwgbXZkZDsKPiArICAgICAgIHVpbnQzMl90IG12ZGQ7Cj4gICAgICAgICBzdHJ1Y3Qgc211N19o
-d21nciAqZGF0YSA9IChzdHJ1Y3Qgc211N19od21nciAqKShod21nci0+YmFja2VuZCk7Cj4gICAg
-ICAgICBzdHJ1Y3QgcGhtX3BwdF92MV9pbmZvcm1hdGlvbiAqdGFibGVfaW5mbyA9Cj4gICAgICAg
-ICAgICAgICAgICAgICAgICAgKHN0cnVjdCBwaG1fcHB0X3YxX2luZm9ybWF0aW9uICopKGh3bWdy
-LT5wcHRhYmxlKTsKPiBAQCAtOTczLDggKzk3Myw2IEBAIHN0YXRpYyBpbnQgZmlqaV9wb3B1bGF0
-ZV9zaW5nbGVfZ3JhcGhpY19sZXZlbChzdHJ1Y3QgcHBfaHdtZ3IgKmh3bWdyLAo+ICAgICAgICAg
-bGV2ZWwtPlZvbHRhZ2VEb3duSHlzdCA9IDA7Cj4gICAgICAgICBsZXZlbC0+UG93ZXJUaHJvdHRs
-ZSA9IDA7Cj4KPiAtICAgICAgIHRocmVzaG9sZCA9IGNsb2NrICogZGF0YS0+ZmFzdF93YXRlcm1h
-cmtfdGhyZXNob2xkIC8gMTAwOwo+IC0KPiAgICAgICAgIGRhdGEtPmRpc3BsYXlfdGltaW5nLm1p
-bl9jbG9ja19pbl9zciA9IGh3bWdyLT5kaXNwbGF5X2NvbmZpZy0+bWluX2NvcmVfc2V0X2Nsb2Nr
-X2luX3NyOwo+Cj4gICAgICAgICBpZiAocGhtX2NhcF9lbmFibGVkKGh3bWdyLT5wbGF0Zm9ybV9k
-ZXNjcmlwdG9yLnBsYXRmb3JtQ2FwcywgUEhNX1BsYXRmb3JtQ2Fwc19TY2xrRGVlcFNsZWVwKSkK
-PiBAQCAtMTUwMSw3ICsxNDk5LDcgQEAgc3RhdGljIGludCBmaWppX3BvcHVsYXRlX21lbW9yeV90
-aW1pbmdfcGFyYW1ldGVycyhzdHJ1Y3QgcHBfaHdtZ3IgKmh3bWdyLAo+ICAgICAgICAgdWludDMy
-X3QgZHJhbV90aW1pbmc7Cj4gICAgICAgICB1aW50MzJfdCBkcmFtX3RpbWluZzI7Cj4gICAgICAg
-ICB1aW50MzJfdCBidXJzdFRpbWU7Cj4gLSAgICAgICBVTE9ORyBzdGF0ZSwgdHJyZHMsIHRycmRs
-Owo+ICsgICAgICAgVUxPTkcgdHJyZHMsIHRycmRsOwo+ICAgICAgICAgaW50IHJlc3VsdDsKPgo+
-ICAgICAgICAgcmVzdWx0ID0gYXRvbWN0cmxfc2V0X2VuZ2luZV9kcmFtX3RpbWluZ3NfcnY3NzAo
-aHdtZ3IsCj4gQEAgLTE1MTMsNyArMTUxMSw2IEBAIHN0YXRpYyBpbnQgZmlqaV9wb3B1bGF0ZV9t
-ZW1vcnlfdGltaW5nX3BhcmFtZXRlcnMoc3RydWN0IHBwX2h3bWdyICpod21nciwKPiAgICAgICAg
-IGRyYW1fdGltaW5nMiA9IGNnc19yZWFkX3JlZ2lzdGVyKGh3bWdyLT5kZXZpY2UsIG1tTUNfQVJC
-X0RSQU1fVElNSU5HMik7Cj4gICAgICAgICBidXJzdFRpbWUgPSBjZ3NfcmVhZF9yZWdpc3Rlciho
-d21nci0+ZGV2aWNlLCBtbU1DX0FSQl9CVVJTVF9USU1FKTsKPgo+IC0gICAgICAgc3RhdGUgPSBQ
-SE1fR0VUX0ZJRUxEKGJ1cnN0VGltZSwgTUNfQVJCX0JVUlNUX1RJTUUsIFNUQVRFMCk7Cj4gICAg
-ICAgICB0cnJkcyA9IFBITV9HRVRfRklFTEQoYnVyc3RUaW1lLCBNQ19BUkJfQlVSU1RfVElNRSwg
-VFJSRFMwKTsKPiAgICAgICAgIHRycmRsID0gUEhNX0dFVF9GSUVMRChidXJzdFRpbWUsIE1DX0FS
-Ql9CVVJTVF9USU1FLCBUUlJETDApOwo+Cj4gLS0KPiAyLjcuNAo+Cj4gX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KPiBkcmktZGV2ZWwgbWFpbGluZyBsaXN0
-Cj4gZHJpLWRldmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+IGh0dHBzOi8vbGlzdHMuZnJlZWRl
-c2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVsCl9fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fCmRyaS1kZXZlbCBtYWlsaW5nIGxpc3QKZHJpLWRl
-dmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9t
-YWlsbWFuL2xpc3RpbmZvL2RyaS1kZXZlbA==
+Applied.  thanks!
+
+Alex
+
+On Sun, Nov 10, 2019 at 9:29 PM YueHaibing <yuehaibing@huawei.com> wrote:
+>
+> Fixes gcc '-Wunused-but-set-variable' warning:
+>
+> drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc_link_dp.c: In function dp_wa_power_up_0010FA:
+> drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc_link_dp.c:2320:35: warning:
+>  variable ds_port set but not used [-Wunused-but-set-variable]
+>
+> It is never used, so can be removed.
+>
+> Signed-off-by: YueHaibing <yuehaibing@huawei.com>
+> ---
+>  drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c | 4 ----
+>  1 file changed, 4 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
+> index 65de32f..b814b74 100644
+> --- a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
+> +++ b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
+> @@ -2910,7 +2910,6 @@ static void dp_wa_power_up_0010FA(struct dc_link *link, uint8_t *dpcd_data,
+>                 int length)
+>  {
+>         int retry = 0;
+> -       union dp_downstream_port_present ds_port = { 0 };
+>
+>         if (!link->dpcd_caps.dpcd_rev.raw) {
+>                 do {
+> @@ -2923,9 +2922,6 @@ static void dp_wa_power_up_0010FA(struct dc_link *link, uint8_t *dpcd_data,
+>                 } while (retry++ < 4 && !link->dpcd_caps.dpcd_rev.raw);
+>         }
+>
+> -       ds_port.byte = dpcd_data[DP_DOWNSTREAMPORT_PRESENT -
+> -                                DP_DPCD_REV];
+> -
+>         if (link->dpcd_caps.dongle_type == DISPLAY_DONGLE_DP_VGA_CONVERTER) {
+>                 switch (link->dpcd_caps.branch_dev_id) {
+>                 /* 0010FA active dongles (DP-VGA, DP-DLDVI converters) power down
+> --
+> 2.7.4
+>
+>
+> _______________________________________________
+> dri-devel mailing list
+> dri-devel@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/dri-devel
