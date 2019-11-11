@@ -1,60 +1,56 @@
-From: Alex Deucher <alexdeucher@gmail.com>
-Subject: Re: [PATCH -next] drm/amd/display: remove set but not used variable 'bpc'
-Date: Mon, 11 Nov 2019 13:01:11 -0500
-Message-ID: <CADnq5_O7JwQd4+ncEe+KusqNqPBGXgkcUBX6VHP5OjhNwUseWg@mail.gmail.com>
-References: <20191109093538.23964-1-yuehaibing@huawei.com>
+From: Yong Zhao <yong.zhao-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amdkfd: Rename create_cp_queue() to init_user_queue()
+Date: Mon, 11 Nov 2019 13:03:51 -0500
+Message-ID: <021b5a52-5559-4c8f-3127-b7590caf372a@amd.com>
+References: <20191101201216.6205-1-Yong.Zhao@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20191109093538.23964-1-yuehaibing@huawei.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: YueHaibing <yuehaibing@huawei.com>
-Cc: "Wentland, Harry" <harry.wentland@amd.com>, "Leo (Sunpeng) Li" <sunpeng.li@amd.com>, "Deucher, Alexander" <alexander.deucher@amd.com>, Christian Koenig <christian.koenig@amd.com>, Chunming Zhou <David1.Zhou@amd.com>, Dave Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>, Jun Lei <Jun.Lei@amd.com>, Anthony Koo <Anthony.Koo@amd.com>, Zhan Liu <Zhan.Liu@amd.com>, Maling list - DRI developers <dri-devel@lists.freedesktop.org>, amd-gfx list <amd-gfx@lists.freedesktop.org>, LKML <linux-kernel@vger.kernel.org>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20191101201216.6205-1-Yong.Zhao-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Zhao, Yong" <Yong.Zhao-5C7GfCeVMHo@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-Applied.  Thanks!
-
-Alex
-
-On Sun, Nov 10, 2019 at 9:30 PM YueHaibing <yuehaibing@huawei.com> wrote:
->
-> Fixes gcc '-Wunused-but-set-variable' warning:
->
-> drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc_link.c: In function get_pbn_from_timing:
-> drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc_link.c:2364:11: warning:
->  variable bpc set but not used [-Wunused-but-set-variable]
->
-> It is not used since commit e49f69363adf ("drm/amd/display: use
-> proper formula to calculate bandwidth from timing")
->
-> Signed-off-by: YueHaibing <yuehaibing@huawei.com>
-> ---
->  drivers/gpu/drm/amd/display/dc/core/dc_link.c | 2 --
->  1 file changed, 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link.c b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-> index bdc8be3..53394e2 100644
-> --- a/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-> +++ b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-> @@ -2653,13 +2653,11 @@ static int get_color_depth(enum dc_color_depth color_depth)
->
->  static struct fixed31_32 get_pbn_from_timing(struct pipe_ctx *pipe_ctx)
->  {
-> -       uint32_t bpc;
->         uint64_t kbps;
->         struct fixed31_32 peak_kbps;
->         uint32_t numerator;
->         uint32_t denominator;
->
-> -       bpc = get_color_depth(pipe_ctx->stream_res.pix_clk_params.color_depth);
->         kbps = dc_bandwidth_in_kbps_from_timing(&pipe_ctx->stream->timing);
->
->         /*
-> --
-> 2.7.4
->
->
-> _______________________________________________
-> dri-devel mailing list
-> dri-devel@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/dri-devel
+cGluZwoKT24gMjAxOS0xMS0wMSA0OjEyIHAubS4sIFpoYW8sIFlvbmcgd3JvdGU6Cj4gY3JlYXRl
+X2NwX3F1ZXVlKCkgY291bGQgYWxzbyB3b3JrIHdpdGggU0RNQSBxdWV1ZXMsIHNvIHdlIHNob3Vs
+ZCByZW5hbWUKPiBpdC4KPgo+IENoYW5nZS1JZDogSTc2Y2JhZWQ4ZmE5NWRkOTA2MmQ3ODZjYmMx
+ZGQwMzdmZjA0MWRhOWQKPiBTaWduZWQtb2ZmLWJ5OiBZb25nIFpoYW8gPFlvbmcuWmhhb0BhbWQu
+Y29tPgo+IC0tLQo+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX3Byb2Nlc3NfcXVl
+dWVfbWFuYWdlci5jIHwgNiArKystLS0KPiAgIDEgZmlsZSBjaGFuZ2VkLCAzIGluc2VydGlvbnMo
+KyksIDMgZGVsZXRpb25zKC0pCj4KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9h
+bWRrZmQva2ZkX3Byb2Nlc3NfcXVldWVfbWFuYWdlci5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9h
+bWRrZmQva2ZkX3Byb2Nlc3NfcXVldWVfbWFuYWdlci5jCj4gaW5kZXggNDgxODVkMjk1N2U5Li5l
+YmIyZjY5YjQzOGMgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2Zk
+X3Byb2Nlc3NfcXVldWVfbWFuYWdlci5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRr
+ZmQva2ZkX3Byb2Nlc3NfcXVldWVfbWFuYWdlci5jCj4gQEAgLTE2Miw3ICsxNjIsNyBAQCB2b2lk
+IHBxbV91bmluaXQoc3RydWN0IHByb2Nlc3NfcXVldWVfbWFuYWdlciAqcHFtKQo+ICAgCXBxbS0+
+cXVldWVfc2xvdF9iaXRtYXAgPSBOVUxMOwo+ICAgfQo+ICAgCj4gLXN0YXRpYyBpbnQgY3JlYXRl
+X2NwX3F1ZXVlKHN0cnVjdCBwcm9jZXNzX3F1ZXVlX21hbmFnZXIgKnBxbSwKPiArc3RhdGljIGlu
+dCBpbml0X3VzZXJfcXVldWUoc3RydWN0IHByb2Nlc3NfcXVldWVfbWFuYWdlciAqcHFtLAo+ICAg
+CQkJCXN0cnVjdCBrZmRfZGV2ICpkZXYsIHN0cnVjdCBxdWV1ZSAqKnEsCj4gICAJCQkJc3RydWN0
+IHF1ZXVlX3Byb3BlcnRpZXMgKnFfcHJvcGVydGllcywKPiAgIAkJCQlzdHJ1Y3QgZmlsZSAqZiwg
+dW5zaWduZWQgaW50IHFpZCkKPiBAQCAtMjUxLDcgKzI1MSw3IEBAIGludCBwcW1fY3JlYXRlX3F1
+ZXVlKHN0cnVjdCBwcm9jZXNzX3F1ZXVlX21hbmFnZXIgKnBxbSwKPiAgIAkJCWdvdG8gZXJyX2Ny
+ZWF0ZV9xdWV1ZTsKPiAgIAkJfQo+ICAgCj4gLQkJcmV0dmFsID0gY3JlYXRlX2NwX3F1ZXVlKHBx
+bSwgZGV2LCAmcSwgcHJvcGVydGllcywgZiwgKnFpZCk7Cj4gKwkJcmV0dmFsID0gaW5pdF91c2Vy
+X3F1ZXVlKHBxbSwgZGV2LCAmcSwgcHJvcGVydGllcywgZiwgKnFpZCk7Cj4gICAJCWlmIChyZXR2
+YWwgIT0gMCkKPiAgIAkJCWdvdG8gZXJyX2NyZWF0ZV9xdWV1ZTsKPiAgIAkJcHFuLT5xID0gcTsK
+PiBAQCAtMjcyLDcgKzI3Miw3IEBAIGludCBwcW1fY3JlYXRlX3F1ZXVlKHN0cnVjdCBwcm9jZXNz
+X3F1ZXVlX21hbmFnZXIgKnBxbSwKPiAgIAkJCWdvdG8gZXJyX2NyZWF0ZV9xdWV1ZTsKPiAgIAkJ
+fQo+ICAgCj4gLQkJcmV0dmFsID0gY3JlYXRlX2NwX3F1ZXVlKHBxbSwgZGV2LCAmcSwgcHJvcGVy
+dGllcywgZiwgKnFpZCk7Cj4gKwkJcmV0dmFsID0gaW5pdF91c2VyX3F1ZXVlKHBxbSwgZGV2LCAm
+cSwgcHJvcGVydGllcywgZiwgKnFpZCk7Cj4gICAJCWlmIChyZXR2YWwgIT0gMCkKPiAgIAkJCWdv
+dG8gZXJyX2NyZWF0ZV9xdWV1ZTsKPiAgIAkJcHFuLT5xID0gcTsKX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdm
+eEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFp
+bG1hbi9saXN0aW5mby9hbWQtZ2Z4
