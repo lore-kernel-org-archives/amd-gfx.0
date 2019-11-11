@@ -1,63 +1,53 @@
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH -next] drm/amd/display: remove set but not used variable
- 'bpc'
-Date: Mon, 11 Nov 2019 15:27:45 -0500
-Message-ID: <CADnq5_NoPmDe-aVZbk5H-212C=hPDytZ35DrOi5k_rU671_LaA@mail.gmail.com>
-References: <20191109093538.23964-1-yuehaibing@huawei.com>
- <CADnq5_O7JwQd4+ncEe+KusqNqPBGXgkcUBX6VHP5OjhNwUseWg@mail.gmail.com>
-Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CADnq5_O7JwQd4+ncEe+KusqNqPBGXgkcUBX6VHP5OjhNwUseWg-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: YueHaibing <yuehaibing-hv44wF8Li93QT0dZR+AlfA@public.gmane.org>
-Cc: Chunming Zhou <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, "Leo (Sunpeng) Li" <sunpeng.li-5C7GfCeVMHo@public.gmane.org>, Bhawanpreet Lakha <Bhawanpreet.Lakha-5C7GfCeVMHo@public.gmane.org>, Zhan Liu <Zhan.Liu-5C7GfCeVMHo@public.gmane.org>, LKML <linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, Maling list - DRI developers <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Dave Airlie <airlied-cv59FeDIM0c@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>, "Deucher,
- Alexander" <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, Jun Lei <Jun.Lei-5C7GfCeVMHo@public.gmane.org>, "Wentland,
- Harry" <harry.wentland-5C7GfCeVMHo@public.gmane.org>, Christian Koenig <christian.koenig-5C7GfCeVMHo@public.gmane.org>, Anthony Koo <Anthony.Koo-5C7GfCeVMHo@public.gmane.org>
+From: Kyle Mahlkuch <kmahlkuc@linux.vnet.ibm.com>
+Subject: [PATCH] drm/radeon: Clean up code in radeon_pci_shutdown()
+Date: Mon, 11 Nov 2019 14:27:58 -0600
+Message-ID: <1573504078-7691-1-git-send-email-kmahlkuc@linux.vnet.ibm.com>
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Sender: linux-kernel-owner@vger.kernel.org
+Cc: alexander.deucher@amd.com, christian.koenig@amd.com, David1.Zhou@amd.com, amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org, KyleMahlkuch <kmahlkuc@linux.vnet.ibm.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gTW9uLCBOb3YgMTEsIDIwMTkgYXQgMTowMSBQTSBBbGV4IERldWNoZXIgPGFsZXhkZXVjaGVy
-QGdtYWlsLmNvbT4gd3JvdGU6Cj4KPiBBcHBsaWVkLiAgVGhhbmtzIQoKSSd2ZSBkcm9wcGVkIHRo
-aXMgYXMgaXQgbGVhZHMgdG8gYSB3YXJuaW5nIGluIHRoZSBjb2RlIHNpbmNlCmdldF9jb2xvcl9k
-ZXB0aCBpcyBubyBsb25nZXIgdXNlZC4gIENhcmUgdG8gZml4IHRoYXQgdXAgYXMgd2VsbD8KClRo
-YW5rcyEKCkFsZXgKCj4KPiBBbGV4Cj4KPiBPbiBTdW4sIE5vdiAxMCwgMjAxOSBhdCA5OjMwIFBN
-IFl1ZUhhaWJpbmcgPHl1ZWhhaWJpbmdAaHVhd2VpLmNvbT4gd3JvdGU6Cj4gPgo+ID4gRml4ZXMg
-Z2NjICctV3VudXNlZC1idXQtc2V0LXZhcmlhYmxlJyB3YXJuaW5nOgo+ID4KPiA+IGRyaXZlcnMv
-Z3B1L2RybS9hbWQvYW1kZ3B1Ly4uL2Rpc3BsYXkvZGMvY29yZS9kY19saW5rLmM6IEluIGZ1bmN0
-aW9uIGdldF9wYm5fZnJvbV90aW1pbmc6Cj4gPiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS8u
-Li9kaXNwbGF5L2RjL2NvcmUvZGNfbGluay5jOjIzNjQ6MTE6IHdhcm5pbmc6Cj4gPiAgdmFyaWFi
-bGUgYnBjIHNldCBidXQgbm90IHVzZWQgWy1XdW51c2VkLWJ1dC1zZXQtdmFyaWFibGVdCj4gPgo+
-ID4gSXQgaXMgbm90IHVzZWQgc2luY2UgY29tbWl0IGU0OWY2OTM2M2FkZiAoImRybS9hbWQvZGlz
-cGxheTogdXNlCj4gPiBwcm9wZXIgZm9ybXVsYSB0byBjYWxjdWxhdGUgYmFuZHdpZHRoIGZyb20g
-dGltaW5nIikKPiA+Cj4gPiBTaWduZWQtb2ZmLWJ5OiBZdWVIYWliaW5nIDx5dWVoYWliaW5nQGh1
-YXdlaS5jb20+Cj4gPiAtLS0KPiA+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvY29y
-ZS9kY19saW5rLmMgfCAyIC0tCj4gPiAgMSBmaWxlIGNoYW5nZWQsIDIgZGVsZXRpb25zKC0pCj4g
-Pgo+ID4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9jb3JlL2Rj
-X2xpbmsuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9jb3JlL2RjX2xpbmsuYwo+
-ID4gaW5kZXggYmRjOGJlMy4uNTMzOTRlMiAxMDA2NDQKPiA+IC0tLSBhL2RyaXZlcnMvZ3B1L2Ry
-bS9hbWQvZGlzcGxheS9kYy9jb3JlL2RjX2xpbmsuYwo+ID4gKysrIGIvZHJpdmVycy9ncHUvZHJt
-L2FtZC9kaXNwbGF5L2RjL2NvcmUvZGNfbGluay5jCj4gPiBAQCAtMjY1MywxMyArMjY1MywxMSBA
-QCBzdGF0aWMgaW50IGdldF9jb2xvcl9kZXB0aChlbnVtIGRjX2NvbG9yX2RlcHRoIGNvbG9yX2Rl
-cHRoKQo+ID4KPiA+ICBzdGF0aWMgc3RydWN0IGZpeGVkMzFfMzIgZ2V0X3Bibl9mcm9tX3RpbWlu
-ZyhzdHJ1Y3QgcGlwZV9jdHggKnBpcGVfY3R4KQo+ID4gIHsKPiA+IC0gICAgICAgdWludDMyX3Qg
-YnBjOwo+ID4gICAgICAgICB1aW50NjRfdCBrYnBzOwo+ID4gICAgICAgICBzdHJ1Y3QgZml4ZWQz
-MV8zMiBwZWFrX2ticHM7Cj4gPiAgICAgICAgIHVpbnQzMl90IG51bWVyYXRvcjsKPiA+ICAgICAg
-ICAgdWludDMyX3QgZGVub21pbmF0b3I7Cj4gPgo+ID4gLSAgICAgICBicGMgPSBnZXRfY29sb3Jf
-ZGVwdGgocGlwZV9jdHgtPnN0cmVhbV9yZXMucGl4X2Nsa19wYXJhbXMuY29sb3JfZGVwdGgpOwo+
-ID4gICAgICAgICBrYnBzID0gZGNfYmFuZHdpZHRoX2luX2ticHNfZnJvbV90aW1pbmcoJnBpcGVf
-Y3R4LT5zdHJlYW0tPnRpbWluZyk7Cj4gPgo+ID4gICAgICAgICAvKgo+ID4gLS0KPiA+IDIuNy40
-Cj4gPgo+ID4KPiA+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fCj4gPiBkcmktZGV2ZWwgbWFpbGluZyBsaXN0Cj4gPiBkcmktZGV2ZWxAbGlzdHMuZnJlZWRl
-c2t0b3Aub3JnCj4gPiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3Rp
-bmZvL2RyaS1kZXZlbApfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpo
-dHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
+From: KyleMahlkuch <kmahlkuc@linux.vnet.ibm.com>
+
+This fixes the formatting on one comment and consolidates the
+pci_get_drvdata() into the radeon_suspend_kms().
+
+Signed-off-by: Kyle Mahlkuch <kmahlkuc@linux.vnet.ibm.com>
+---
+ drivers/gpu/drm/radeon/radeon_drv.c | 9 +++------
+ 1 file changed, 3 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/gpu/drm/radeon/radeon_drv.c b/drivers/gpu/drm/radeon/radeon_drv.c
+index 4528f4d..357d29a 100644
+--- a/drivers/gpu/drm/radeon/radeon_drv.c
++++ b/drivers/gpu/drm/radeon/radeon_drv.c
+@@ -379,10 +379,6 @@ static int radeon_pci_probe(struct pci_dev *pdev,
+ static void
+ radeon_pci_shutdown(struct pci_dev *pdev)
+ {
+-#ifdef CONFIG_PPC64
+-	struct drm_device *ddev = pci_get_drvdata(pdev);
+-#endif
+-
+ 	/* if we are running in a VM, make sure the device
+ 	 * torn down properly on reboot/shutdown
+ 	 */
+@@ -390,13 +386,14 @@ static int radeon_pci_probe(struct pci_dev *pdev,
+ 		radeon_pci_remove(pdev);
+ 
+ #ifdef CONFIG_PPC64
+-	/* Some adapters need to be suspended before a
++	/*
++	 * Some adapters need to be suspended before a
+ 	 * shutdown occurs in order to prevent an error
+ 	 * during kexec.
+ 	 * Make this power specific becauase it breaks
+ 	 * some non-power boards.
+ 	 */
+-	radeon_suspend_kms(ddev, true, true, false);
++	radeon_suspend_kms(pci_get_drvdata(pdev), true, true, false);
+ #endif
+ }
+ 
+-- 
+1.8.3.1
