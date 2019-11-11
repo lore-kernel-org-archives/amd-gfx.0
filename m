@@ -1,46 +1,78 @@
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: [PATCH] drm/amdgpu/soc15: move struct definition around to align with
- other soc15 asics
-Date: Mon, 11 Nov 2019 17:21:02 -0500
-Message-ID: <20191111222102.876704-1-alexander.deucher@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Subject: Re: [PATCH] drm/amd/display: Fix unsigned variable compared to less
+ than zero
+Date: Mon, 11 Nov 2019 17:39:34 -0500
+Message-ID: <CADnq5_NmfCaQ=6to+ng81=qV0mp7Vo-ugKPTF__5JMAmjP13Kw@mail.gmail.com>
+References: <20191111172543.GA31748@embeddedor> <b5b41653-3536-b0f0-2f49-2c010370ec99@amd.com>
+ <cf7d4cfe-be29-39d8-8a5e-bac217475597@embeddedor.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset="UTF-8"
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <cf7d4cfe-be29-39d8-8a5e-bac217475597@embeddedor.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: "Gustavo A. R. Silva" <gustavo@embeddedor.com>
+Cc: Mikita Lipski <mlipski@amd.com>, Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, Mikita Lipski <mikita.lipski@amd.com>, Lyude Paul <lyude@redhat.com>, Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>, Maling list - DRI developers <dri-devel@lists.freedesktop.org>, amd-gfx list <amd-gfx@lists.freedesktop.org>, LKML <linux-kernel@vger.kernel.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-TW92ZSByZXNldF9tZXRob2QgbmV4dCB0byByZXNldCBjYWxsYmFjayB0byBtYXRjaCB0aGUgc3Ry
-dWN0IGxheW91dCBhbmQKdGhlIG90aGVyIGRlZmluaXRpb24gaW4gdGhpcyBmaWxlLgoKU2lnbmVk
-LW9mZi1ieTogQWxleCBEZXVjaGVyIDxhbGV4YW5kZXIuZGV1Y2hlckBhbWQuY29tPgotLS0KIGRy
-aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3NvYzE1LmMgfCAyICstCiAxIGZpbGUgY2hhbmdlZCwg
-MSBpbnNlcnRpb24oKyksIDEgZGVsZXRpb24oLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9k
-cm0vYW1kL2FtZGdwdS9zb2MxNS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvc29jMTUu
-YwppbmRleCA4ZTE2NDBiYzA3YWYuLjMwNWFkM2VlYzk4NyAxMDA2NDQKLS0tIGEvZHJpdmVycy9n
-cHUvZHJtL2FtZC9hbWRncHUvc29jMTUuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
-dS9zb2MxNS5jCkBAIC0xMDA3LDYgKzEwMDcsNyBAQCBzdGF0aWMgY29uc3Qgc3RydWN0IGFtZGdw
-dV9hc2ljX2Z1bmNzIHZlZ2EyMF9hc2ljX2Z1bmNzID0KIAkucmVhZF9iaW9zX2Zyb21fcm9tID0g
-JnNvYzE1X3JlYWRfYmlvc19mcm9tX3JvbSwKIAkucmVhZF9yZWdpc3RlciA9ICZzb2MxNV9yZWFk
-X3JlZ2lzdGVyLAogCS5yZXNldCA9ICZzb2MxNV9hc2ljX3Jlc2V0LAorCS5yZXNldF9tZXRob2Qg
-PSAmc29jMTVfYXNpY19yZXNldF9tZXRob2QsCiAJLnNldF92Z2Ffc3RhdGUgPSAmc29jMTVfdmdh
-X3NldF9zdGF0ZSwKIAkuZ2V0X3hjbGsgPSAmc29jMTVfZ2V0X3hjbGssCiAJLnNldF91dmRfY2xv
-Y2tzID0gJnNvYzE1X3NldF91dmRfY2xvY2tzLApAQCAtMTAxOSw3ICsxMDIwLDYgQEAgc3RhdGlj
-IGNvbnN0IHN0cnVjdCBhbWRncHVfYXNpY19mdW5jcyB2ZWdhMjBfYXNpY19mdW5jcyA9CiAJLmdl
-dF9wY2llX3VzYWdlID0gJnZlZ2EyMF9nZXRfcGNpZV91c2FnZSwKIAkubmVlZF9yZXNldF9vbl9p
-bml0ID0gJnNvYzE1X25lZWRfcmVzZXRfb25faW5pdCwKIAkuZ2V0X3BjaWVfcmVwbGF5X2NvdW50
-ID0gJnNvYzE1X2dldF9wY2llX3JlcGxheV9jb3VudCwKLQkucmVzZXRfbWV0aG9kID0gJnNvYzE1
-X2FzaWNfcmVzZXRfbWV0aG9kCiB9OwogCiBzdGF0aWMgaW50IHNvYzE1X2NvbW1vbl9lYXJseV9p
-bml0KHZvaWQgKmhhbmRsZSkKLS0gCjIuMjMuMAoKX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5m
-cmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0
-aW5mby9hbWQtZ2Z4
+Applied.  Thanks!
+
+Alex
+
+On Mon, Nov 11, 2019 at 2:44 PM Gustavo A. R. Silva
+<gustavo@embeddedor.com> wrote:
+>
+>
+>
+> On 11/11/19 11:46, Mikita Lipski wrote:
+> >
+> > Thanks for catching it!
+> >
+>
+> Glad to help out. :)
+>
+> > Reviewed-by: Mikita Lipski <mikita.lipski@amd.com>
+> >
+>
+> Thanks
+> --
+> Gustavo
+>
+> >
+> > On 11.11.2019 12:25, Gustavo A. R. Silva wrote:
+> >> Currenly, the error check below on variable*vcpi_slots*  is always
+> >> false because it is a uint64_t type variable, hence, the values
+> >> this variable can hold are never less than zero:
+> >>
+> >> drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c:
+> >> 4870         if (dm_new_connector_state->vcpi_slots < 0) {
+> >> 4871                 DRM_DEBUG_ATOMIC("failed finding vcpi slots: %d\n", (int)dm_new_connector_stat     e->vcpi_slots);
+> >> 4872                 return dm_new_connector_state->vcpi_slots;
+> >> 4873         }
+> >>
+> >> Fix this by making*vcpi_slots*  of int type
+> >>
+> >> Addresses-Coverity: 1487838 ("Unsigned compared against 0")
+> >> Fixes: b4c578f08378 ("drm/amd/display: Add MST atomic routines")
+> >> Signed-off-by: Gustavo A. R. Silva<gustavo@embeddedor.com>
+> >> ---
+> >>   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h | 2 +-
+> >>   1 file changed, 1 insertion(+), 1 deletion(-)
+> >>
+> >> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+> >> index 6db07e9e33ab..a8fc90a927d6 100644
+> >> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+> >> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+> >> @@ -403,7 +403,7 @@ struct dm_connector_state {
+> >>       bool underscan_enable;
+> >>       bool freesync_capable;
+> >>       uint8_t abm_level;
+> >> -    uint64_t vcpi_slots;
+> >> +    int vcpi_slots;
+> >>       uint64_t pbn;
+> >>   };
+> >>   -- 2.23.0
+> >
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
