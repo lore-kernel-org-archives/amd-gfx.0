@@ -1,15 +1,17 @@
-From: Felix Kuehling <felix.kuehling-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 2/2] drm/amdkfd: Avoid using doorbell_off as offset in
- process doorbell pages
-Date: Mon, 11 Nov 2019 15:51:41 -0500
-Message-ID: <78f9e381-e490-5555-c84d-ca76dcee7c83@amd.com>
-References: <20191101201016.5973-1-Yong.Zhao@amd.com>
- <20191101201016.5973-2-Yong.Zhao@amd.com>
- <a21e8321-51bf-f840-f891-2335be774131@amd.com>
+From: Harry Wentland <hwentlan-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amd/display: Use pixel encoding 444 for dongle usb-c
+ to hdmi
+Date: Mon, 11 Nov 2019 16:11:08 -0500
+Message-ID: <c501ea8d-21d9-61ce-dafb-ef45c1701a1f@amd.com>
+References: <20191001222123.2392-1-jisorce@oblong.com>
+ <CAHWPjbWcdhnewEN8OEUgDu5aBpYBW5tUggA_KJ_BUR8JLvCsQw@mail.gmail.com>
+ <4610d814-6c54-982e-ecc6-716cc42b5e68@amd.com>
+ <CAHWPjbXPL9NsT0yXb8_wkodT18TEBcgf81tY49GP+U=SGZ26YQ@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1118907235=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <a21e8321-51bf-f840-f891-2335be774131-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <CAHWPjbXPL9NsT0yXb8_wkodT18TEBcgf81tY49GP+U=SGZ26YQ-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -21,337 +23,112 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Zhao, Yong" <Yong.Zhao-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Julien Isorce <julien.isorce-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============1118907235==
-Content-Type: multipart/alternative;
- boundary="------------73D544273117CC1468E49BC0"
-Content-Language: en-US
-
---------------73D544273117CC1468E49BC0
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-
-On 2019-11-11 15:43, Felix Kuehling wrote:
-> On 2019-11-01 16:10, Zhao, Yong wrote:
->> dorbell_off in the queue properties is mainly used for the doorbell dw
->> offset in pci bar. We should not set it to the doorbell byte offset in
->> process doorbell pages. This makes the code much easier to read.
->
-> I kind of agree. I think what's confusing is that the queue_properties 
-> structure is used for two different purposes.
->
->  1. For storing queue properties provided by user mode through KFD ioctls
->  2. A subset of struct queue passed to mqd_manager and elsewhere
->     (that's why some driver state is creeping into it)
->
-> Maybe a follow-up could cleanly separate the queue properties from the 
-> queue driver state. That would probably change some internal 
-> interfaces to use struct queue instead of queue_properties.
->
-> Anyway, this patch is
->
-> Reviewed-by: Felix Kuehling <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
->
-I pointed out a missing NULL pointer check inline near the end of the 
-patch. I should have mentioned it here. Please fix that before you submit.
-
-Thanks,
-   Felix
-
-
->> Change-Id: I553045ff9fcb3676900c92d10426f2ceb3660005
->> Signed-off-by: Yong Zhao<Yong.Zhao-5C7GfCeVMHo@public.gmane.org>
->> ---
->>   drivers/gpu/drm/amd/amdkfd/kfd_chardev.c             | 12 ++++++------
->>   drivers/gpu/drm/amd/amdkfd/kfd_dbgdev.c              |  2 +-
->>   drivers/gpu/drm/amd/amdkfd/kfd_priv.h                |  3 ++-
->>   .../gpu/drm/amd/amdkfd/kfd_process_queue_manager.c   |  8 ++++++--
->>   4 files changed, 15 insertions(+), 10 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
->> index d9e36dbf13d5..b91993753b82 100644
->> --- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
->> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
->> @@ -258,6 +258,7 @@ static int kfd_ioctl_create_queue(struct file *filep, struct kfd_process *p,
->>   	unsigned int queue_id;
->>   	struct kfd_process_device *pdd;
->>   	struct queue_properties q_properties;
->> +	uint32_t doorbell_offset_in_process = 0;
->>   
->>   	memset(&q_properties, 0, sizeof(struct queue_properties));
->>   
->> @@ -286,7 +287,8 @@ static int kfd_ioctl_create_queue(struct file *filep, struct kfd_process *p,
->>   			p->pasid,
->>   			dev->id);
->>   
->> -	err = pqm_create_queue(&p->pqm, dev, filep, &q_properties, &queue_id);
->> +	err = pqm_create_queue(&p->pqm, dev, filep, &q_properties, &queue_id,
->> +			&doorbell_offset_in_process);
->>   	if (err != 0)
->>   		goto err_create_queue;
->>   
->> @@ -298,12 +300,10 @@ static int kfd_ioctl_create_queue(struct file *filep, struct kfd_process *p,
->>   	args->doorbell_offset |= KFD_MMAP_GPU_ID(args->gpu_id);
->>   	args->doorbell_offset <<= PAGE_SHIFT;
->>   	if (KFD_IS_SOC15(dev->device_info->asic_family))
->> -		/* On SOC15 ASICs, doorbell allocation must be
->> -		 * per-device, and independent from the per-process
->> -		 * queue_id. Return the doorbell offset within the
->> -		 * doorbell aperture to user mode.
->> +		/* On SOC15 ASICs, include the doorbell offset within the
->> +		 * process doorbell frame, which could be 1 page or 2 pages.
->>   		 */
->> -		args->doorbell_offset |= q_properties.doorbell_off;
->> +		args->doorbell_offset |= doorbell_offset_in_process;
->>   
->>   	mutex_unlock(&p->mutex);
->>   
->> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_dbgdev.c b/drivers/gpu/drm/amd/amdkfd/kfd_dbgdev.c
->> index d59f2cd056c6..1d33c4f25263 100644
->> --- a/drivers/gpu/drm/amd/amdkfd/kfd_dbgdev.c
->> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_dbgdev.c
->> @@ -185,7 +185,7 @@ static int dbgdev_register_diq(struct kfd_dbgdev *dbgdev)
->>   	properties.type = KFD_QUEUE_TYPE_DIQ;
->>   
->>   	status = pqm_create_queue(dbgdev->pqm, dbgdev->dev, NULL,
->> -				&properties, &qid);
->> +				&properties, &qid, NULL);
->>   
->>   	if (status) {
->>   		pr_err("Failed to create DIQ\n");
->> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
->> index 7c561c98f2e2..66bae8f2dad1 100644
->> --- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
->> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
->> @@ -907,7 +907,8 @@ int pqm_create_queue(struct process_queue_manager *pqm,
->>   			    struct kfd_dev *dev,
->>   			    struct file *f,
->>   			    struct queue_properties *properties,
->> -			    unsigned int *qid);
->> +			    unsigned int *qid,
->> +			    uint32_t *p_doorbell_offset_in_process);
->>   int pqm_destroy_queue(struct process_queue_manager *pqm, unsigned int qid);
->>   int pqm_update_queue(struct process_queue_manager *pqm, unsigned int qid,
->>   			struct queue_properties *p);
->> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
->> index 8509814a6ff0..48185d2957e9 100644
->> --- a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
->> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
->> @@ -192,7 +192,8 @@ int pqm_create_queue(struct process_queue_manager *pqm,
->>   			    struct kfd_dev *dev,
->>   			    struct file *f,
->>   			    struct queue_properties *properties,
->> -			    unsigned int *qid)
->> +			    unsigned int *qid,
->> +			    uint32_t *p_doorbell_offset_in_process)
->>   {
->>   	int retval;
->>   	struct kfd_process_device *pdd;
->> @@ -307,8 +308,11 @@ int pqm_create_queue(struct process_queue_manager *pqm,
->>   		/* Return the doorbell offset within the doorbell page
->>   		 * to the caller so it can be passed up to user mode
->>   		 * (in bytes).
->> +		 * There are always 1024 doorbells per process, so in case
->> +		 * of 8-byte doorbells, there are two doorbell pages per
->> +		 * process.
->>   		 */
->> -		properties->doorbell_off =
->> 		*p_doorbell_offset_in_process =
->
-> You need a NULL pointer check here because you call this with a NULL 
-> pointer from the DIQ code.
->
->
->>   			(q->properties.doorbell_off * sizeof(uint32_t)) &
->>   			(kfd_doorbell_process_slice(dev) - 1);
->>   
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---------------73D544273117CC1468E49BC0
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: 8bit
-
-<html><head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body text="#000000" bgcolor="#FFFFFF">
-    <div class="moz-cite-prefix">On 2019-11-11 15:43, Felix Kuehling
-      wrote:<br>
-    </div>
-    <blockquote type="cite" cite="mid:a21e8321-51bf-f840-f891-2335be774131-5C7GfCeVMHo@public.gmane.org">
-      
-      <div class="moz-cite-prefix">On 2019-11-01 16:10, Zhao, Yong
-        wrote:<br>
-      </div>
-      <blockquote type="cite" cite="mid:20191101201016.5973-2-Yong.Zhao-5C7GfCeVMHo@public.gmane.org">
-        <pre class="moz-quote-pre" wrap="">dorbell_off in the queue properties is mainly used for the doorbell dw
-offset in pci bar. We should not set it to the doorbell byte offset in
-process doorbell pages. This makes the code much easier to read.</pre>
-      </blockquote>
-      <p>I kind of agree. I think what's confusing is that the
-        queue_properties structure is used for two different purposes.</p>
-      <ol>
-        <li>For storing queue properties provided by user mode through
-          KFD ioctls</li>
-        <li>A subset of struct queue passed to mqd_manager and elsewhere
-          (that's why some driver state is creeping into it)<br>
-        </li>
-      </ol>
-      <p>Maybe a follow-up could cleanly separate the queue properties
-        from the queue driver state. That would probably change some
-        internal interfaces to use struct queue instead of
-        queue_properties.<br>
-      </p>
-      <p>Anyway, this patch is</p>
-      <p>Reviewed-by: Felix Kuehling <a class="moz-txt-link-rfc2396E" href="mailto:Felix.Kuehling-5C7GfCeVMHo@public.gmane.org" moz-do-not-send="true">&lt;Felix.Kuehling-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
-      </p>
-    </blockquote>
-    <p>I pointed out a missing NULL pointer check inline near the end of
-      the patch. I should have mentioned it here. Please fix that before
-      you submit.</p>
-    <p>Thanks,<br>
-      &nbsp; Felix<br>
-    </p>
-    <p><br>
-    </p>
-    <blockquote type="cite" cite="mid:a21e8321-51bf-f840-f891-2335be774131-5C7GfCeVMHo@public.gmane.org">
-      <p> </p>
-      <blockquote type="cite" cite="mid:20191101201016.5973-2-Yong.Zhao-5C7GfCeVMHo@public.gmane.org">
-        <pre class="moz-quote-pre" wrap="">Change-Id: I553045ff9fcb3676900c92d10426f2ceb3660005
-Signed-off-by: Yong Zhao <a class="moz-txt-link-rfc2396E" href="mailto:Yong.Zhao-5C7GfCeVMHo@public.gmane.org" moz-do-not-send="true">&lt;Yong.Zhao-5C7GfCeVMHo@public.gmane.org&gt;</a>
----
- drivers/gpu/drm/amd/amdkfd/kfd_chardev.c             | 12 &#43;&#43;&#43;&#43;&#43;&#43;------
- drivers/gpu/drm/amd/amdkfd/kfd_dbgdev.c              |  2 &#43;-
- drivers/gpu/drm/amd/amdkfd/kfd_priv.h                |  3 &#43;&#43;-
- .../gpu/drm/amd/amdkfd/kfd_process_queue_manager.c   |  8 &#43;&#43;&#43;&#43;&#43;&#43;--
- 4 files changed, 15 insertions(&#43;), 10 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-index d9e36dbf13d5..b91993753b82 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-@@ -258,6 &#43;258,7 @@ static int kfd_ioctl_create_queue(struct file *filep, struct kfd_process *p,
- 	unsigned int queue_id;
- 	struct kfd_process_device *pdd;
- 	struct queue_properties q_properties;
-&#43;	uint32_t doorbell_offset_in_process = 0;
- 
- 	memset(&amp;q_properties, 0, sizeof(struct queue_properties));
- 
-@@ -286,7 &#43;287,8 @@ static int kfd_ioctl_create_queue(struct file *filep, struct kfd_process *p,
- 			p-&gt;pasid,
- 			dev-&gt;id);
- 
--	err = pqm_create_queue(&amp;p-&gt;pqm, dev, filep, &amp;q_properties, &amp;queue_id);
-&#43;	err = pqm_create_queue(&amp;p-&gt;pqm, dev, filep, &amp;q_properties, &amp;queue_id,
-&#43;			&amp;doorbell_offset_in_process);
- 	if (err != 0)
- 		goto err_create_queue;
- 
-@@ -298,12 &#43;300,10 @@ static int kfd_ioctl_create_queue(struct file *filep, struct kfd_process *p,
- 	args-&gt;doorbell_offset |= KFD_MMAP_GPU_ID(args-&gt;gpu_id);
- 	args-&gt;doorbell_offset &lt;&lt;= PAGE_SHIFT;
- 	if (KFD_IS_SOC15(dev-&gt;device_info-&gt;asic_family))
--		/* On SOC15 ASICs, doorbell allocation must be
--		 * per-device, and independent from the per-process
--		 * queue_id. Return the doorbell offset within the
--		 * doorbell aperture to user mode.
-&#43;		/* On SOC15 ASICs, include the doorbell offset within the
-&#43;		 * process doorbell frame, which could be 1 page or 2 pages.
- 		 */
--		args-&gt;doorbell_offset |= q_properties.doorbell_off;
-&#43;		args-&gt;doorbell_offset |= doorbell_offset_in_process;
- 
- 	mutex_unlock(&amp;p-&gt;mutex);
- 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_dbgdev.c b/drivers/gpu/drm/amd/amdkfd/kfd_dbgdev.c
-index d59f2cd056c6..1d33c4f25263 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_dbgdev.c
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdkfd/kfd_dbgdev.c
-@@ -185,7 &#43;185,7 @@ static int dbgdev_register_diq(struct kfd_dbgdev *dbgdev)
- 	properties.type = KFD_QUEUE_TYPE_DIQ;
- 
- 	status = pqm_create_queue(dbgdev-&gt;pqm, dbgdev-&gt;dev, NULL,
--				&amp;properties, &amp;qid);
-&#43;				&amp;properties, &amp;qid, NULL);
- 
- 	if (status) {
- 		pr_err(&quot;Failed to create DIQ\n&quot;);
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-index 7c561c98f2e2..66bae8f2dad1 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-@@ -907,7 &#43;907,8 @@ int pqm_create_queue(struct process_queue_manager *pqm,
- 			    struct kfd_dev *dev,
- 			    struct file *f,
- 			    struct queue_properties *properties,
--			    unsigned int *qid);
-&#43;			    unsigned int *qid,
-&#43;			    uint32_t *p_doorbell_offset_in_process);
- int pqm_destroy_queue(struct process_queue_manager *pqm, unsigned int qid);
- int pqm_update_queue(struct process_queue_manager *pqm, unsigned int qid,
- 			struct queue_properties *p);
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
-index 8509814a6ff0..48185d2957e9 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
-@@ -192,7 &#43;192,8 @@ int pqm_create_queue(struct process_queue_manager *pqm,
- 			    struct kfd_dev *dev,
- 			    struct file *f,
- 			    struct queue_properties *properties,
--			    unsigned int *qid)
-&#43;			    unsigned int *qid,
-&#43;			    uint32_t *p_doorbell_offset_in_process)
- {
- 	int retval;
- 	struct kfd_process_device *pdd;
-@@ -307,8 &#43;308,11 @@ int pqm_create_queue(struct process_queue_manager *pqm,
- 		/* Return the doorbell offset within the doorbell page
- 		 * to the caller so it can be passed up to user mode
- 		 * (in bytes).
-&#43;		 * There are always 1024 doorbells per process, so in case
-&#43;		 * of 8-byte doorbells, there are two doorbell pages per
-&#43;		 * process.
- 		 */
--		properties-&gt;doorbell_off =
-		*p_doorbell_offset_in_process =</pre>
-      </blockquote>
-      <p>You need a NULL pointer check here because you call this with a
-        NULL pointer from the DIQ code.<br>
-      </p>
-      <p><br>
-      </p>
-      <blockquote type="cite" cite="mid:20191101201016.5973-2-Yong.Zhao-5C7GfCeVMHo@public.gmane.org">
-        <pre class="moz-quote-pre" wrap=""> 			(q-&gt;properties.doorbell_off * sizeof(uint32_t)) &amp;
- 			(kfd_doorbell_process_slice(dev) - 1);
- 
-</pre>
-      </blockquote>
-      <br>
-      <fieldset class="mimeAttachmentHeader"></fieldset>
-      <pre class="moz-quote-pre" wrap="">_______________________________________________
-amd-gfx mailing list
-<a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>
-<a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a></pre>
-    </blockquote>
-  </body>
-</html>
-
---------------73D544273117CC1468E49BC0--
-
---===============1118907235==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
-
---===============1118907235==--
+T24gMjAxOS0xMC0wOCAyOjE1IHAubS4sIEp1bGllbiBJc29yY2Ugd3JvdGU6Cj4gSGkgSGFycnks
+Cj4gCj4gSSBjYW4gcmVwcm9kdWNlIG9uIExHLCBTYW1zdW5nIGFuZCBORUMgbW9uaXRvcnMuCj4g
+Cj4gIkhhdmUgeW91IGNoZWNrZWQgd2hldGhlciB0aGUgZHJpdmVyIHBpY2tzIFJHQiBvciBZQ0JD
+UjQyMCB3aXRob3V0IHlvdXIKPiBwYXRjaD8iIC0+IGl0IHdhcyBzZWxlY3RpbmcgUkdCIC4KPiAK
+PiBGb3IgZXhhbXBsZSBvbiBodHRwczovL2NvbW1vbnMud2lraW1lZGlhLm9yZy93aWtpL0ZpbGU6
+R3JheV9zY2FsZS5qcGcgLAo+IHRoZSBzZWNvbmQgYmFuZCBmcm9tIHRoZSBsZWZ0LCB3aWxsIGJl
+IGVudGlyZWx5IHBpbmtpc2guCj4gU2luY2UgdGhlIGlzc3VlIGFsc28gaGFwcGVucyB3aXRob3V0
+IGRvbmdsZSwgc28gd2l0aCBhIGRpcmVjdCBjYWJsZSBmcm9tCj4gdGhlIG1pbmlEUCBmcm9tIHRo
+ZSBncmFwaGljIGNhcmQgdG8gRGlzcGxheVBvcnQgb24gdGhlIHNjcmVlbiBJIHRoaW5rCj4gdGhl
+cmUgaXMgbW9yZSBzZXJpb3VzIGlzc3VlIHdpdGggUkdCIG91dHB1dCBpbiBhbWRncHUuIEJ1dCBp
+dCBpcyBub3QKPiBlYXN5IHRvIHJlcHJvZHVjZSwgeW91IHNob3VsZCB0cnkgb24gYWJvdmUgaW1h
+Z2UuCj4gCgpJIGhhdmVuJ3QgaGFkIHRpbWUgdG8gcmVwcm8gdGhpcyBpc3N1ZS4gQ2FuIHlvdSBw
+b3N0IGEgcGljdHVyZSBvZiB0aGlzCnByb2JsZW0gc29tZXdoZXJlPyBJZGVhbGx5IHdpdGggYSBi
+dWcgZGVzY3JpcHRpb24gYXQKaHR0cHM6Ly9naXRsYWIuZnJlZWRlc2t0b3Aub3JnL2RybS9hbWQv
+aXNzdWVzCgo+IEluIGFueSBjYXNlLCB0aGUgZ29hbCB3aXRoIHRoZSBwYXRjaCBpcyBqdXN0IHRv
+IGdldCB0aGUgc2FtZSBvdXRwdXQgd2hlbgo+IHVzaW5nIDIgc2NyZWVucyBhdCB0aGUgc2FtZSB0
+aW1lLCBvbmUgY29ubmVjdGVkIHRvIGhkbWkgb3V0cHV0IG9mIHRoZQo+IGdyYXBoaWMgY2FyZCBh
+bmQgb25lIGNvbm5lY3RlZMKgIHRvIHVzYi1jIHRvIGdyYXBoaWMgY2FyZCAoaGRtaSBjYWJsZQo+
+IHdpdGggZG9uZ2xlKS4gU28gcHJpb3IgdGhpcyBwYXRjaCwgdGhlIGZpcnN0IG9uZSB3b3VsZCB1
+c2UgWUNiQ3IgNDQ0IGFuZAo+IHRoZSBzZWNvbmQgd291bGQgdXNlIFJHQi4KPiBBZnRlciB0aGlz
+IHBhdGNoLCBib3RoIHdpbGwgdXNlwqBZQ2JDciA0NDQgKGJvdGggYXJlIGhkbWkpLgoKSSd2ZSBi
+ZWVuIGhlc2l0YW50IGFib3V0IHRoaXMgcGF0Y2ggc2luY2UgaXQgY2hhbmdlcyBkcml2ZXIgcG9s
+aWN5IHdoaWNoCmlzIG5vdCBzb21ldGhpbmcgSSBsaWtlIHRvIGRvIHdpdGhvdXQgdmVyeSBnb29k
+IHJlYXNvbiBhbmQgdW5kZXJzdGFuZGluZwphbGwgdGhlIGltcGxpY2F0aW9ucy4KClRoYXQgc2Fp
+ZCwgdHJlYXRpbmcgYW4gRFAtSERNSSBhZGFwdGVyIGxpa2UgYSBuYXRpdmUgSERNSSBjb25uZWN0
+aW9uCnJhdGhlciB0aGFuIERQIGlzIG5vdCB1bnJlYXNvbmFibGUuIEknbSBzdGlsbCBjdXJpb3Vz
+LCB0aG91Z2gsIHdoeSB0aGlzCmlzIHJlcXVpcmVkIGF0IGFsbC4gQXMgbWVudGlvbmVkIGFib3Zl
+IGEgcGljdHVyZSBvZiB0aGUgcHJvYmxlbSAoaWRlYWxseQpzaG93aW5nIHRoZSBtb25pdG9ycyBz
+aWRlLWJ5LXNpZGUpIHdvdWxkIGhlbHAuCgpIYXJyeQoKCj4gVGhlIHBhdGNoIGRvZXMgbm90IGNo
+YW5nZSB0aGUgY2FzZSBmb3IgbWluaURQIHRvIERpc3BsYXlQb3J0LCB0aGUgZHJpdmVyCj4gd2ls
+bCBzdGlsbCB1c2UgUkdCLiBCZWNhdXNlIG1heWJlIHRoZSBSR0IgaXNzdWUgaXMgYWxzbyBzcGVj
+aWZpYyB0byB0aGF0Cj4gZ3JhcGhpYyBjYXJkIHdoaWNoCj4gaXPCoFZFR0EiTSIuIFNvIHRoYXQg
+aXMgd2h5IHRoZSBwYXRjaCBvbmx5IHRyaWVzIHRvIG1hdGNoIGhkbWkgY2FzZXMKPiB0b2dldGhl
+ciwgd2hldGhlciBpdCBpcyBkaXJlY3QgY29ubmVjdGlvbiBvciB0aHJvdWdoIHVzYi1jLgo+IAo+
+IC0KPiBKdWxpZW4KPiAKPiAKPiAKPiBPbiBUdWUsIE9jdCA4LCAyMDE5IGF0IDEwOjQ0IEFNIEhh
+cnJ5IFdlbnRsYW5kIDxod2VudGxhbkBhbWQuY29tCj4gPG1haWx0bzpod2VudGxhbkBhbWQuY29t
+Pj4gd3JvdGU6Cj4gCj4gICAgIEhpIEp1bGllbiwKPiAKPiAgICAgY3VyaW91cyB3aGljaCBtb25p
+dG9yIHlvdSdyZSB1c2luZy4KPiAKPiAgICAgSGF2ZSB5b3UgY2hlY2tlZCB3aGV0aGVyIHRoZSBk
+cml2ZXIgcGlja3MgUkdCIG9yIFlDQkNSNDIwIHdpdGhvdXQgeW91cgo+ICAgICBwYXRjaD8KPiAK
+PiAgICAgSSdtIG5vdCBzdXJlIEkgdW5kZXJzdGFuZCBob3cgdGhlIHBpbmtpc2ggY29sb3IgaXNz
+dWUgbG9va3MuIERvIHlvdSBzZWUKPiAgICAgYSBwaW5raXNoIGNvbG9yIGF0IHRoZSB0cmFuc2l0
+aW9uIGZyb20gZ3JleSB0byBhbm90aGVyIGNvbG9yPyBPciBpcyB0aGUKPiAgICAgZW50aXJlIGdy
+ZXkgYXJlYSBwaW5raXNoPwo+IAo+ICAgICBUaGFua3MsCj4gICAgIEhhcnJ5Cj4gCj4gICAgIE9u
+IDIwMTktMTAtMDggMTI6MDYgcC5tLiwgSnVsaWVuIElzb3JjZSB3cm90ZToKPiAgICAgPiBIaSwK
+PiAgICAgPgo+ICAgICA+IEdlbnRsZSBwaW5nID8KPiAgICAgPgo+ICAgICA+IFRoeAo+ICAgICA+
+IEp1bGllbgo+ICAgICA+Cj4gICAgID4gT24gVHVlLCBPY3QgMSwgMjAxOSBhdCAzOjIxIFBNIEp1
+bGllbiBJc29yY2UKPiAgICAgPGp1bGllbi5pc29yY2VAZ21haWwuY29tIDxtYWlsdG86anVsaWVu
+Lmlzb3JjZUBnbWFpbC5jb20+Cj4gICAgID4gPG1haWx0bzpqdWxpZW4uaXNvcmNlQGdtYWlsLmNv
+bSA8bWFpbHRvOmp1bGllbi5pc29yY2VAZ21haWwuY29tPj4+Cj4gICAgIHdyb3RlOgo+ICAgICA+
+Cj4gICAgID7CoCDCoCDCoEZpeCBwaW5raXNoIGNvbG9yIGlzc3VlIGFyb3VuZCBncmV5IGFyZWFz
+LiBUaGlzIGFsc28gaGFwcGVucwo+ICAgICA+wqAgwqAgwqB3aGVuIG5vdCB1c2luZyBhbnkgZG9u
+Z2xlIHNvIGRpcmVjdGx5IHdpdGggYSB1c2ItYyB0byBEaXNwbGF5Cj4gICAgID7CoCDCoCDCoFBv
+cnQgY2FibGUuIE1lYW5pbmcgdGhlcmUgaXMgc29tZXRoaW5nIHdyb25nIHdoZW4gdXNpbmcgcGl4
+ZWwKPiAgICAgPsKgIMKgIMKgZW5jb2RpbmcgUkdCIHdpdGggYW1kIGRyaXZlciBpbiB0aGUgZ2Vu
+ZXJhbCBjYXNlLiBJbiB0aGUgbWVhbnRpbWUKPiAgICAgPsKgIMKgIMKganVzdCB1c2UgdGhlIHNh
+bWUgcGl4ZWwgZW5jb2RpbmcgYXMgd2hlbiB1c2luZyBIRE1JIHdpdGhvdXQKPiAgICAgZG9uZ2xl
+Lgo+ICAgICA+wqAgwqAgwqBUaGlzIHdheSB1c2VycyB3aWxsIHNlZSB0aGUgc2FtZSB0aGluZyBv
+biAyIGlkZW50aWNhbCBzY3JlZW5zIHdoZW4KPiAgICAgPsKgIMKgIMKgb25lIGlzIGNvbm5lY3Rl
+ZCB3aXRoIGhkbWktdG8taGRtaSBhbmQgdGhlIG90aGVyIGlzIGNvbm5lY3RlZCB3aXRoCj4gICAg
+ID7CoCDCoCDCoHVzYi1jLXRvLWhkbWkuCj4gICAgID4KPiAgICAgPsKgIMKgIMKgU2lnbmVkLW9m
+Zi1ieTogSnVsaWVuIElzb3JjZSA8amlzb3JjZUBvYmxvbmcuY29tCj4gICAgIDxtYWlsdG86amlz
+b3JjZUBvYmxvbmcuY29tPgo+ICAgICA+wqAgwqAgwqA8bWFpbHRvOmppc29yY2VAb2Jsb25nLmNv
+bSA8bWFpbHRvOmppc29yY2VAb2Jsb25nLmNvbT4+Pgo+ICAgICA+wqAgwqAgwqAtLS0KPiAgICAg
+PsKgIMKgIMKgwqBkcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9k
+bS5jIHwgNSArKysrKwo+ICAgICA+wqAgwqAgwqDCoDEgZmlsZSBjaGFuZ2VkLCA1IGluc2VydGlv
+bnMoKykKPiAgICAgPgo+ICAgICA+wqAgwqAgwqBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJt
+L2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG0uYwo+ICAgICA+wqAgwqAgwqBiL2RyaXZl
+cnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtLmMKPiAgICAgPsKgIMKg
+IMKgaW5kZXggZDNmNDA0ZjA5N2ViLi44MTM5ZGNjMGJmYmEgMTAwNjQ0Cj4gICAgID7CoCDCoCDC
+oC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtLmMK
+PiAgICAgPsKgIMKgIMKgKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9k
+bS9hbWRncHVfZG0uYwo+ICAgICA+wqAgwqAgwqBAQCAtMzMxMyw2ICszMzEzLDcgQEAgc3RhdGlj
+IHZvaWQKPiAgICAgPsKgIMKgIMKgZmlsbF9zdHJlYW1fcHJvcGVydGllc19mcm9tX2RybV9kaXNw
+bGF5X21vZGUoCj4gICAgID7CoCDCoCDCoMKgewo+ICAgICA+wqAgwqAgwqDCoCDCoCDCoCDCoCBz
+dHJ1Y3QgZGNfY3J0Y190aW1pbmcgKnRpbWluZ19vdXQgPSAmc3RyZWFtLT50aW1pbmc7Cj4gICAg
+ID7CoCDCoCDCoMKgIMKgIMKgIMKgIGNvbnN0IHN0cnVjdCBkcm1fZGlzcGxheV9pbmZvICppbmZv
+ID0KPiAgICAgJmNvbm5lY3Rvci0+ZGlzcGxheV9pbmZvOwo+ICAgICA+wqAgwqAgwqArwqAgwqAg
+wqAgwqBjb25zdCBzdHJ1Y3QgZGNfbGluayAqbGluayA9IHN0cmVhbS0+c2luay0+bGluazsKPiAg
+ICAgPgo+ICAgICA+wqAgwqAgwqDCoCDCoCDCoCDCoCBtZW1zZXQodGltaW5nX291dCwgMCwgc2l6
+ZW9mKHN0cnVjdCBkY19jcnRjX3RpbWluZykpOwo+ICAgICA+Cj4gICAgID7CoCDCoCDCoEBAIC0z
+MzI3LDYgKzMzMjgsMTAgQEAgc3RhdGljIHZvaWQKPiAgICAgPsKgIMKgIMKgZmlsbF9zdHJlYW1f
+cHJvcGVydGllc19mcm9tX2RybV9kaXNwbGF5X21vZGUoCj4gICAgID7CoCDCoCDCoMKgIMKgIMKg
+IMKgIGVsc2UgaWYgKChjb25uZWN0b3ItPmRpc3BsYXlfaW5mby5jb2xvcl9mb3JtYXRzICYKPiAg
+ICAgPsKgIMKgIMKgRFJNX0NPTE9SX0ZPUk1BVF9ZQ1JDQjQ0NCkKPiAgICAgPsKgIMKgIMKgwqAg
+wqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgJiYgc3RyZWFtLT5zaWduYWwgPT0KPiAg
+ICAgU0lHTkFMX1RZUEVfSERNSV9UWVBFX0EpCj4gICAgID7CoCDCoCDCoMKgIMKgIMKgIMKgIMKg
+IMKgIMKgIMKgIHRpbWluZ19vdXQtPnBpeGVsX2VuY29kaW5nID0KPiAgICAgUElYRUxfRU5DT0RJ
+TkdfWUNCQ1I0NDQ7Cj4gICAgID7CoCDCoCDCoCvCoCDCoCDCoCDCoGVsc2UgaWYgKChjb25uZWN0
+b3ItPmRpc3BsYXlfaW5mby5jb2xvcl9mb3JtYXRzICYKPiAgICAgPsKgIMKgIMKgRFJNX0NPTE9S
+X0ZPUk1BVF9ZQ1JDQjQ0NCkKPiAgICAgPsKgIMKgIMKgK8KgIMKgIMKgIMKgIMKgIMKgIMKgIMKg
+IMKgIMKgIMKgIMKgJiYgc3RyZWFtLT5zaW5rLT5zaW5rX3NpZ25hbCA9PQo+ICAgICA+wqAgwqAg
+wqBTSUdOQUxfVFlQRV9ESVNQTEFZX1BPUlQKPiAgICAgPsKgIMKgIMKgK8KgIMKgIMKgIMKgIMKg
+IMKgIMKgIMKgIMKgIMKgIMKgIMKgJiYgbGluay0+ZHBjZF9jYXBzLmRvbmdsZV90eXBlID09Cj4g
+ICAgID7CoCDCoCDCoERJU1BMQVlfRE9OR0xFX0RQX0hETUlfQ09OVkVSVEVSKQo+ICAgICA+wqAg
+wqAgwqArwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqB0aW1pbmdfb3V0LT5waXhlbF9lbmNvZGluZyA9
+Cj4gICAgIFBJWEVMX0VOQ09ESU5HX1lDQkNSNDQ0Owo+ICAgICA+wqAgwqAgwqDCoCDCoCDCoCDC
+oCBlbHNlCj4gICAgID7CoCDCoCDCoMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIHRpbWluZ19vdXQt
+PnBpeGVsX2VuY29kaW5nID0gUElYRUxfRU5DT0RJTkdfUkdCOwo+ICAgICA+Cj4gICAgID7CoCDC
+oCDCoC0tCj4gICAgID7CoCDCoCDCoDIuMTcuMQo+ICAgICA+Cj4gICAgID4KPiAgICAgPiBfX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwo+ICAgICA+IGFtZC1n
+ZnggbWFpbGluZyBsaXN0Cj4gICAgID4gYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcgPG1h
+aWx0bzphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZz4KPiAgICAgPiBodHRwczovL2xpc3Rz
+LmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngKPiAgICAgPgo+IApfX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxp
+bmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVk
+ZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
