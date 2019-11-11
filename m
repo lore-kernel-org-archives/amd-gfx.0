@@ -1,7 +1,7 @@
 From: Hawking Zhang <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>
 Subject: [PATCH] drm/amdgpu: avoid upload corrupted ta ucode to psp
-Date: Mon, 11 Nov 2019 12:41:57 +0800
-Message-ID: <20191111044157.11356-1-Hawking.Zhang@amd.com>
+Date: Mon, 11 Nov 2019 12:44:02 +0800
+Message-ID: <20191111044402.11408-1-Hawking.Zhang@amd.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
@@ -16,7 +16,7 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, Clements John <clements.john-5C7GfCeVMHo@public.gmane.org>, Le Ma <Le.Ma-5C7GfCeVMHo@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, John Clements <john.clements-5C7GfCeVMHo@public.gmane.org>, Le Ma <Le.Ma-5C7GfCeVMHo@public.gmane.org>
 Cc: Hawking Zhang <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>
 
 eGdtaSwgcmFzLCBoZGNwIGFuZCBkdG0gdGEgYXJlIGFjdHVhbGx5IHNlcGFyYXRlZCB1Y29kZSBh
