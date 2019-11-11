@@ -2,47 +2,43 @@ Return-Path: <SRS0=+iNy=ZD=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.8 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-0.7 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
+	HTML_MESSAGE,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A65C6C43331
-	for <amd-gfx@archiver.kernel.org>; Mon, 11 Nov 2019 08:09:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 40101C17441
+	for <amd-gfx@archiver.kernel.org>; Mon, 11 Nov 2019 08:09:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 8601820818
+	by mail.kernel.org (Postfix) with ESMTPS id 20BEC20818
 	for <amd-gfx@archiver.kernel.org>; Mon, 11 Nov 2019 08:09:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8601820818
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=huawei.com
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 20BEC20818
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=universe2.us
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F0B756E855;
-	Mon, 11 Nov 2019 08:09:42 +0000 (UTC)
-Received: from huawei.com (szxga06-in.huawei.com [45.249.212.32])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 970236E111;
- Mon, 11 Nov 2019 03:38:44 +0000 (UTC)
-Received: from DGGEMS414-HUB.china.huawei.com (unknown [172.30.72.58])
- by Forcepoint Email with ESMTP id 08A98DFEDDAA9A8ACA21;
- Mon, 11 Nov 2019 11:38:41 +0800 (CST)
-Received: from huawei.com (10.90.53.225) by DGGEMS414-HUB.china.huawei.com
- (10.3.19.214) with Microsoft SMTP Server id 14.3.439.0; Mon, 11 Nov 2019
- 11:38:32 +0800
-From: zhengbin <zhengbin13@huawei.com>
-To: <rex.zhu@amd.com>, <evan.quan@amd.com>, <alexander.deucher@amd.com>,
- <christian.koenig@amd.com>, <David1.Zhou@amd.com>, <airlied@linux.ie>,
- <daniel@ffwll.ch>, <amd-gfx@lists.freedesktop.org>,
- <dri-devel@lists.freedesktop.org>
-Subject: [PATCH 1/2] drm/amd/powerplay: remove set but not used variable
- 'vbios_version', 'data'
-Date: Mon, 11 Nov 2019 11:45:55 +0800
-Message-ID: <1573443956-76489-2-git-send-email-zhengbin13@huawei.com>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1573443956-76489-1-git-send-email-zhengbin13@huawei.com>
-References: <1573443956-76489-1-git-send-email-zhengbin13@huawei.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 245856E857;
+	Mon, 11 Nov 2019 08:09:43 +0000 (UTC)
+X-Greylist: delayed 598 seconds by postgrey-1.36 at gabe;
+ Mon, 11 Nov 2019 00:10:15 UTC
+Received: from universe2.us (65-101-31-211.dia.static.qwest.net
+ [65.101.31.211])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 01BA26E0BC
+ for <amd-gfx@lists.freedesktop.org>; Mon, 11 Nov 2019 00:10:15 +0000 (UTC)
+Received: by universe2.us (Postfix, from userid 1003)
+ id CC167385233; Mon, 11 Nov 2019 00:00:15 +0000 (UTC)
+Received: from mail.universe2.us (localhost.localdomain [127.0.0.1])
+ (Authenticated sender: subsentient@universe2.us)
+ by universe2.us (Postfix) with ESMTPA id 18325385226
+ for <amd-gfx@lists.freedesktop.org>; Sun, 10 Nov 2019 17:00:14 -0700 (MST)
 MIME-Version: 1.0
-X-Originating-IP: [10.90.53.225]
-X-CFilter-Loop: Reflected
+Date: Sun, 10 Nov 2019 17:00:13 -0700
+From: Subsentient <subsentient@universe2.us>
+To: amd-gfx@lists.freedesktop.org
+Subject: AMDGPU bug
+Message-ID: <8a4cb7112cf6ed44581c838e84306e9c@universe2.us>
+X-Sender: subsentient@universe2.us
+User-Agent: Roundcube Webmail/1.3.6
 X-Mailman-Approved-At: Mon, 11 Nov 2019 08:09:41 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.23
@@ -55,51 +51,63 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: zhengbin13@huawei.com
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0301415929=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-Message-ID: <20191111034555.x0HUZxpT2k2FPN2gJhCpxl5ePO6zO_c4uNx5NkwS02I@z>
+Message-ID: <20191111000013.b-p82yNBDcr4xv4jJuZdIsKjlcSCSdRRxk7zKAhLmMc@z>
 
-Rml4ZXMgZ2NjICctV3VudXNlZC1idXQtc2V0LXZhcmlhYmxlJyB3YXJuaW5nOgoKZHJpdmVycy9n
-cHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3Ivc211N19od21nci5jOiBJbiBmdW5jdGlvbiBzbXU3
-X2NoZWNrX21jX2Zpcm13YXJlOgpkcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci9z
-bXU3X2h3bWdyLmM6NDIxNToxMTogd2FybmluZzogdmFyaWFibGUgdmJpb3NfdmVyc2lvbiBzZXQg
-YnV0IG5vdCB1c2VkIFstV3VudXNlZC1idXQtc2V0LXZhcmlhYmxlXQpkcml2ZXJzL2dwdS9kcm0v
-YW1kL3Bvd2VycGxheS9od21nci9zbXU3X2h3bWdyLmM6IEluIGZ1bmN0aW9uIHNtdTdfZ2V0X3Bl
-cmZvcm1hbmNlX2xldmVsOgpkcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci9zbXU3
-X2h3bWdyLmM6NTA1NDoyMTogd2FybmluZzogdmFyaWFibGUgZGF0YSBzZXQgYnV0IG5vdCB1c2Vk
-IFstV3VudXNlZC1idXQtc2V0LXZhcmlhYmxlXQoKJ3ZiaW9zX3ZlcnNpb24nIGlzIGludHJvZHVj
-ZWQgYnkgY29tbWl0IDU5OWE3ZTlmZTFiNiAoImRybS9hbWQvcG93ZXJwbGF5OgppbXBsZW1lbnQg
-c211NyBod21nciB0byBtYW5hZ2VyIGFzaWNzIHdpdGggc211IGlwIHZlcnNpb24gNy4iKSwKYnV0
-IG5ldmVyIHVzZWQsIHNvIHJlbW92ZSBpdC4KCidkYXRhJyBpcyBpbnRyb2R1Y2VkIGJ5IGNvbW1p
-dCBmNjg4YjYxNGI2NDMgKCJkcm0vYW1kL3BwOgpJbXBsZW1lbnQgZ2V0X3BlcmZvcm1hbmNlX2xl
-dmVsIGZvciBsZWdhY3kgZGdwdSIpLCBidXQgbmV2ZXIgdXNlZCwKc28gcmVtb3ZlIGl0LgoKUmVw
-b3J0ZWQtYnk6IEh1bGsgUm9ib3QgPGh1bGtjaUBodWF3ZWkuY29tPgpTaWduZWQtb2ZmLWJ5OiB6
-aGVuZ2JpbiA8emhlbmdiaW4xM0BodWF3ZWkuY29tPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQv
-cG93ZXJwbGF5L2h3bWdyL3NtdTdfaHdtZ3IuYyB8IDQgLS0tLQogMSBmaWxlIGNoYW5nZWQsIDQg
-ZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkv
-aHdtZ3Ivc211N19od21nci5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3Iv
-c211N19od21nci5jCmluZGV4IGM4MDVjNmYuLjc3NTM2NmEgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMv
-Z3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL3NtdTdfaHdtZ3IuYworKysgYi9kcml2ZXJzL2dw
-dS9kcm0vYW1kL3Bvd2VycGxheS9od21nci9zbXU3X2h3bWdyLmMKQEAgLTQyMTgsNyArNDIxOCw2
-IEBAIHN0YXRpYyBpbnQgc211N19jaGVja19tY19maXJtd2FyZShzdHJ1Y3QgcHBfaHdtZ3IgKmh3
-bWdyKQogewogCXN0cnVjdCBzbXU3X2h3bWdyICpkYXRhID0gKHN0cnVjdCBzbXU3X2h3bWdyICop
-KGh3bWdyLT5iYWNrZW5kKTsKCi0JdWludDMyX3QgdmJpb3NfdmVyc2lvbjsKIAl1aW50MzJfdCB0
-bXA7CgogCS8qIFJlYWQgTUMgaW5kaXJlY3QgcmVnaXN0ZXIgb2Zmc2V0IDB4OUYgYml0cyBbMzow
-XSB0byBzZWUKQEAgLTQyMjcsNyArNDIyNiw2IEBAIHN0YXRpYyBpbnQgc211N19jaGVja19tY19m
-aXJtd2FyZShzdHJ1Y3QgcHBfaHdtZ3IgKmh3bWdyKQogCSAqLwoKIAlzbXU3X2dldF9tY19taWNy
-b2NvZGVfdmVyc2lvbihod21ncik7Ci0JdmJpb3NfdmVyc2lvbiA9IGh3bWdyLT5taWNyb2NvZGVf
-dmVyc2lvbl9pbmZvLk1DICYgMHhmOwoKIAlkYXRhLT5uZWVkX2xvbmdfbWVtb3J5X3RyYWluaW5n
-ID0gZmFsc2U7CgpAQCAtNTA1NywxMyArNTA1NSwxMSBAQCBzdGF0aWMgaW50IHNtdTdfZ2V0X3Bl
-cmZvcm1hbmNlX2xldmVsKHN0cnVjdCBwcF9od21nciAqaHdtZ3IsIGNvbnN0IHN0cnVjdCBwcF9o
-dwogCQkJCVBITV9QZXJmb3JtYW5jZUxldmVsICpsZXZlbCkKIHsKIAljb25zdCBzdHJ1Y3Qgc211
-N19wb3dlcl9zdGF0ZSAqcHM7Ci0Jc3RydWN0IHNtdTdfaHdtZ3IgKmRhdGE7CiAJdWludDMyX3Qg
-aTsKCiAJaWYgKGxldmVsID09IE5VTEwgfHwgaHdtZ3IgPT0gTlVMTCB8fCBzdGF0ZSA9PSBOVUxM
-KQogCQlyZXR1cm4gLUVJTlZBTDsKCi0JZGF0YSA9IGh3bWdyLT5iYWNrZW5kOwogCXBzID0gY2Fz
-dF9jb25zdF9waHdfc211N19wb3dlcl9zdGF0ZShzdGF0ZSk7CgogCWkgPSBpbmRleCA+IHBzLT5w
-ZXJmb3JtYW5jZV9sZXZlbF9jb3VudCAtIDEgPwotLQoyLjcuNAoKX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdm
-eEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFp
-bG1hbi9saXN0aW5mby9hbWQtZ2Z4
+--===============0301415929==
+Content-Type: multipart/alternative;
+ boundary="=_cff9e4b02e6db70b83fa734ee10aa7f1"
+
+--=_cff9e4b02e6db70b83fa734ee10aa7f1
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=US-ASCII
+
+Hi, I've been experiencing a bug on kernels 5.2 and up that apparently
+is uncommon and/or unimportant enough to have both threads mentioning it
+die. 
+
+On a Ryzen 3 2200G, the amdgpu driver fails upon lightdm login: 
+
+https://bugzilla.redhat.com/show_bug.cgi?id=1752188 
+
+I thought I'd bring this to your attention as the others reporting this
+bug have so far been met with silence, and this has trapped me and
+others on the unsupported kernel 5.1.21. 
+
+Thanks for your time.
+--=_cff9e4b02e6db70b83fa734ee10aa7f1
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/html; charset=UTF-8
+
+<html><head><meta http-equiv=3D"Content-Type" content=3D"text/html; charset=
+=3DUTF-8" /></head><body style=3D'font-size: 10pt; font-family: Verdana,Gen=
+eva,sans-serif'>
+<p>Hi, I've been experiencing a bug on kernels 5.2 and up that apparently i=
+s uncommon and/or unimportant enough to have both threads mentioning it die=
+=2E</p>
+<p>On a Ryzen 3 2200G, the amdgpu driver fails upon lightdm login:</p>
+<p><a href=3D"https://bugzilla.redhat.com/show_bug.cgi?id=3D1752188">https:=
+//bugzilla.redhat.com/show_bug.cgi?id=3D1752188</a></p>
+<p>I thought I'd bring this to your attention as the others reporting this =
+bug have so far been met with silence, and this has trapped me and others o=
+n the unsupported kernel 5.1.21.</p>
+<p>Thanks for your time.</p>
+<p><br /></p>
+
+</body></html>
+
+--=_cff9e4b02e6db70b83fa734ee10aa7f1--
+
+--===============0301415929==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+
+--===============0301415929==--
