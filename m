@@ -1,71 +1,78 @@
-From: Alex Deucher <alexdeucher@gmail.com>
-Subject: Re: [PATCH] drm/radeon: Clean up code in radeon_pci_shutdown()
-Date: Mon, 11 Nov 2019 15:35:58 -0500
-Message-ID: <CADnq5_PL1y0O=w6DcZ4uq7B8tJxFx-KpTEr+m2-vVz+d64sVbQ@mail.gmail.com>
-References: <1573504078-7691-1-git-send-email-kmahlkuc@linux.vnet.ibm.com>
+From: Harry Wentland <hwentlan-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 00/14] HDCP 2 Content Protection v2
+Date: Mon, 11 Nov 2019 15:38:02 -0500
+Message-ID: <09579fab-e12a-161b-fd92-74c4c4bb182f@amd.com>
+References: <20191107155628.19446-1-Bhawanpreet.Lakha@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <1573504078-7691-1-git-send-email-kmahlkuc@linux.vnet.ibm.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Kyle Mahlkuch <kmahlkuc@linux.vnet.ibm.com>
-Cc: Chunming Zhou <David1.Zhou@amd.com>, LKML <linux-kernel@vger.kernel.org>, amd-gfx list <amd-gfx@lists.freedesktop.org>, "Deucher, Alexander" <alexander.deucher@amd.com>, Christian Koenig <christian.koenig@amd.com>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20191107155628.19446-1-Bhawanpreet.Lakha-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Bhawanpreet Lakha <Bhawanpreet.Lakha-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Wenjing.Liu-5C7GfCeVMHo@public.gmane.org, harry.wentland-5C7GfCeVMHo@public.gmane.org
 
-On Mon, Nov 11, 2019 at 3:29 PM Kyle Mahlkuch
-<kmahlkuc@linux.vnet.ibm.com> wrote:
->
-> From: KyleMahlkuch <kmahlkuc@linux.vnet.ibm.com>
->
-> This fixes the formatting on one comment and consolidates the
-> pci_get_drvdata() into the radeon_suspend_kms().
->
-> Signed-off-by: Kyle Mahlkuch <kmahlkuc@linux.vnet.ibm.com>
-
-Applied.  Thanks!
-
-Alex
-
-> ---
->  drivers/gpu/drm/radeon/radeon_drv.c | 9 +++------
->  1 file changed, 3 insertions(+), 6 deletions(-)
->
-> diff --git a/drivers/gpu/drm/radeon/radeon_drv.c b/drivers/gpu/drm/radeon/radeon_drv.c
-> index 4528f4d..357d29a 100644
-> --- a/drivers/gpu/drm/radeon/radeon_drv.c
-> +++ b/drivers/gpu/drm/radeon/radeon_drv.c
-> @@ -379,10 +379,6 @@ static int radeon_pci_probe(struct pci_dev *pdev,
->  static void
->  radeon_pci_shutdown(struct pci_dev *pdev)
->  {
-> -#ifdef CONFIG_PPC64
-> -       struct drm_device *ddev = pci_get_drvdata(pdev);
-> -#endif
-> -
->         /* if we are running in a VM, make sure the device
->          * torn down properly on reboot/shutdown
->          */
-> @@ -390,13 +386,14 @@ static int radeon_pci_probe(struct pci_dev *pdev,
->                 radeon_pci_remove(pdev);
->
->  #ifdef CONFIG_PPC64
-> -       /* Some adapters need to be suspended before a
-> +       /*
-> +        * Some adapters need to be suspended before a
->          * shutdown occurs in order to prevent an error
->          * during kexec.
->          * Make this power specific becauase it breaks
->          * some non-power boards.
->          */
-> -       radeon_suspend_kms(ddev, true, true, false);
-> +       radeon_suspend_kms(pci_get_drvdata(pdev), true, true, false);
->  #endif
->  }
->
-> --
-> 1.8.3.1
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+T24gMjAxOS0xMS0wNyAxMDo1NiBhLm0uLCBCaGF3YW5wcmVldCBMYWtoYSB3cm90ZToKPiBKdXN0
+IGxpa2Ugd2l0aCB0aGUgMS40IHNlcmllcyBvZiBwYXRjaGVzIFRoaXMgb25seSBpbnRyb2R1Y2Vz
+IHRoZQo+IGFiaWxpdHkgdG8gYXV0aGVudGljYXRlIGFuZCBlbmNyeXB0IHRoZSBsaW5rLiBUaGVz
+ZSBwYXRjaGVzIGJ5Cj4gdGhlbXNlbHZlcyBkb24ndCBjb25zdGl0dXRlIGEgY29tcGxldGUgYW5k
+IGNvbXBsaWFudCBIRENQIGNvbnRlbnQKPiBwcm90ZWN0aW9uIHNvbHV0aW9uIGJ1dCBhcmUgYSBy
+ZXF1aXJlbWVudCBmb3Igc3VjaCBhIHNvbHV0aW9uLgo+IAo+IFN1bW1hcnkgb2YgdGhlIGNoYW5n
+ZXMKPiAqQWRkcyAyLjIgY29kZSB0byB0aGUgbW9kdWxlCj4gKkVuYWJsZWQgSERDUCAyLjIgYXV0
+aGVudGljYXRpb24vZW5jcnlwdGlvbgo+ICpBZGQgdHlwZTAvMSBzZWxlY3Rpb24gZm9yIDIuMgo+
+ICpBZGQgTVNUIHN1cHBvcnQgKE9ubHkgdGVzdGVkIHNpbmdsZSBkYWlzeSBjaGFpbiB1c2VjYXNl
+KQo+ICp1c2UgZHJtX2hkY3AuaCBmb3IgbWFjcm9zL2RlZmluZXMKPiAqZml4IHN0YXRpYyBhbmFs
+eXNpcyBidWcKPiAKPiB2MjoKPiAgIC11c2UgbWFjcm9zL2RlZmluZXMgZnJvbSBkcm1faGRjcC5o
+Cj4gICAJZHJtL2FtZC9kaXNwbGF5OiBhZGQgYW5kIHVzZSBkZWZpbmVzIGZyb20gZHJtX2hkY3Au
+aAo+IAlkcm0vYW1kL2Rpc3BsYXk6IHVzZSBkcm0gZGVmaW5lcyBmb3IgTUFYIENBU0NBREUgTUFT
+Swo+IAlkcm0vYW1kL2Rpc3BsYXk6IHNwbGl0IHJ4c3RhdHVzIGZvciBoZG1pIGFuZCBkcAo+ICAg
+LWZpeCBzdGF0aWMgYW5hbHlzaXMgYnVnCj4gCWRybS9hbWQvZGlzcGxheTogRml4IHN0YXRpYyBh
+bmFseXNpcyBidWcgaW4gdmFsaWRhdGVfYmtzdgo+IAoKQ2hhbmdlcyBhcmUKUmV2aWV3ZWQtYnk6
+IEhhcnJ5IFdlbnRsYW5kIDxoYXJyeS53ZW50bGFuZEBhbWQuY29tPgoKSGFycnkKCj4gCj4gQmhh
+d2FucHJlZXQgTGFraGEgKDE0KToKPiAgIGRybS9hbWQvZGlzcGxheTogQWRkIFBTUCBibG9jayB0
+byB2ZXJpZnkgSERDUDIuMiBzdGVwcwo+ICAgZHJtL2FtZC9kaXNwbGF5OiBBZGQgRERDIGhhbmRs
+ZXMgZm9yIEhEQ1AyLjIKPiAgIGRybS9hbWQvZGlzcGxheTogQWRkIGV4ZWN1dGlvbiBhbmQgdHJh
+bnNpdGlvbiBzdGF0ZXMgZm9yIEhEQ1AyLjIKPiAgIGRybS9hbWQvZGlzcGxheTogQWRkIGxvZ2dp
+bmcgZm9yIEhEQ1AyLjIKPiAgIGRybS9hbWQvZGlzcGxheTogQ2hhbmdlIEVSUk9SIHRvIFdBUk4g
+Zm9yIEhEQ1AgbW9kdWxlCj4gICBkcm0vYW1kL2Rpc3BsYXk6IEVuYWJsZSBIRENQIDIuMgo+ICAg
+ZHJtL2FtZC9kaXNwbGF5OiBIYW5kbGUgaGRjcDIuMiB0eXBlMC8xIGluIGRtCj4gICBkcm0vYW1k
+L2Rpc3BsYXk6IFJlZmFjdG9yIEhEQ1AgdG8gaGFuZGxlIG11bHRpcGxlIGRpc3BsYXlzIHBlciBs
+aW5rCj4gICBkcm0vYW1kL2Rpc3BsYXk6IGFkZCBmb3JjZSBUeXBlMC8xIGZsYWcKPiAgIGRybS9h
+bWQvZGlzcGxheTogUmVmYWN0b3IgSERDUCBlbmNyeXB0aW9uIHN0YXR1cyB1cGRhdGUKPiAgIGRy
+bS9hbWQvZGlzcGxheTogYWRkIGFuZCB1c2UgZGVmaW5lcyBmcm9tIGRybV9oZGNwLmgKPiAgIGRy
+bS9hbWQvZGlzcGxheTogdXNlIGRybSBkZWZpbmVzIGZvciBNQVggQ0FTQ0FERSBNQVNLCj4gICBk
+cm0vYW1kL2Rpc3BsYXk6IHNwbGl0IHJ4c3RhdHVzIGZvciBoZG1pIGFuZCBkcAo+ICAgZHJtL2Ft
+ZC9kaXNwbGF5OiBGaXggc3RhdGljIGFuYWx5c2lzIGJ1ZyBpbiB2YWxpZGF0ZV9ia3N2Cj4gCj4g
+IC4uLi9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG0uYyB8ICAyNiArLQo+
+ICAuLi4vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbV9oZGNwLmMgICAgfCAgNjQgKy0K
+PiAgLi4uL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG1faGRjcC5oICAgIHwgICA5ICst
+Cj4gIC4uLi9ncHUvZHJtL2FtZC9kaXNwbGF5L21vZHVsZXMvaGRjcC9NYWtlZmlsZSB8ICAgMyAr
+LQo+ICAuLi4vZ3B1L2RybS9hbWQvZGlzcGxheS9tb2R1bGVzL2hkY3AvaGRjcC5jICAgfCAxMDEg
+Ky0KPiAgLi4uL2dwdS9kcm0vYW1kL2Rpc3BsYXkvbW9kdWxlcy9oZGNwL2hkY3AuaCAgIHwgMTk3
+ICsrKy0KPiAgLi4uL2Rpc3BsYXkvbW9kdWxlcy9oZGNwL2hkY3AxX2V4ZWN1dGlvbi5jICAgIHwg
+IDQwICstCj4gIC4uLi9kaXNwbGF5L21vZHVsZXMvaGRjcC9oZGNwMl9leGVjdXRpb24uYyAgICB8
+IDg4NCArKysrKysrKysrKysrKysrKysKPiAgLi4uL2Rpc3BsYXkvbW9kdWxlcy9oZGNwL2hkY3Ay
+X3RyYW5zaXRpb24uYyAgIHwgNjc0ICsrKysrKysrKysrKysKPiAgLi4uL2RybS9hbWQvZGlzcGxh
+eS9tb2R1bGVzL2hkY3AvaGRjcF9kZGMuYyAgIHwgMzI2ICsrKysrKysKPiAgLi4uL2RybS9hbWQv
+ZGlzcGxheS9tb2R1bGVzL2hkY3AvaGRjcF9sb2cuYyAgIHwgMTE4ICsrKwo+ICAuLi4vZHJtL2Ft
+ZC9kaXNwbGF5L21vZHVsZXMvaGRjcC9oZGNwX2xvZy5oICAgfCAgOTggKy0KPiAgLi4uL2RybS9h
+bWQvZGlzcGxheS9tb2R1bGVzL2hkY3AvaGRjcF9wc3AuYyAgIHwgNTExICsrKysrKysrKy0KPiAg
+Li4uL2RybS9hbWQvZGlzcGxheS9tb2R1bGVzL2hkY3AvaGRjcF9wc3AuaCAgIHwgMTk0ICsrKysK
+PiAgLi4uL2RybS9hbWQvZGlzcGxheS9tb2R1bGVzL2luYy9tb2RfaGRjcC5oICAgIHwgIDE1ICst
+Cj4gIDE1IGZpbGVzIGNoYW5nZWQsIDMxMzcgaW5zZXJ0aW9ucygrKSwgMTIzIGRlbGV0aW9ucygt
+KQo+ICBjcmVhdGUgbW9kZSAxMDA2NDQgZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L21vZHVs
+ZXMvaGRjcC9oZGNwMl9leGVjdXRpb24uYwo+ICBjcmVhdGUgbW9kZSAxMDA2NDQgZHJpdmVycy9n
+cHUvZHJtL2FtZC9kaXNwbGF5L21vZHVsZXMvaGRjcC9oZGNwMl90cmFuc2l0aW9uLmMKPiAKX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWls
+aW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVl
+ZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
