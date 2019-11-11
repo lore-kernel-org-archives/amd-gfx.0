@@ -1,7 +1,7 @@
 From: Bjorn Helgaas <helgaas@kernel.org>
-Subject: [PATCH 1/2] drm: replace incorrect Compliance/Margin magic numbers with PCI_EXP_LNKCTL2 definitions
-Date: Mon, 11 Nov 2019 13:29:31 -0600
-Message-ID: <20191111192932.36048-2-helgaas@kernel.org>
+Subject: [PATCH 2/2] drm: replace Target Link Speed magic numbers with PCI_EXP_LNKCTL2 definitions
+Date: Mon, 11 Nov 2019 13:29:32 -0600
+Message-ID: <20191111192932.36048-3-helgaas@kernel.org>
 References: <20191111192932.36048-1-helgaas@kernel.org>
 Mime-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -14,148 +14,105 @@ List-Id: amd-gfx.lists.freedesktop.org
 
 From: Bjorn Helgaas <bhelgaas@google.com>
 
-Add definitions for these PCIe Link Control 2 register fields:
-
-  Enter Compliance
-  Transmit Margin
-
-and use them in amdgpu and radeon.
-
-NOTE: This is a functional change because "7 << 9" was apparently a typo.
-That mask included the high order bit of Transmit Margin, the Enter
-Modified Compliance bit, and the Compliance SOS bit, but I think what
-was intended was the 3-bit Transmit Margin field at bits 9:7.
+Replace hard-coded magic numbers with the descript PCI_EXP_LNKCTL2
+definitions.  No functional change intended.
 
 Signed-off-by: Bjorn Helgaas <bhelgaas@google.com>
 Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/cik.c | 14 ++++++++++----
- drivers/gpu/drm/amd/amdgpu/si.c  | 10 +++++++---
- drivers/gpu/drm/radeon/cik.c     | 14 ++++++++++----
- drivers/gpu/drm/radeon/si.c      | 14 ++++++++++----
- include/uapi/linux/pci_regs.h    |  2 ++
- 5 files changed, 39 insertions(+), 15 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/cik.c | 8 ++++----
+ drivers/gpu/drm/amd/amdgpu/si.c  | 8 ++++----
+ drivers/gpu/drm/radeon/cik.c     | 8 ++++----
+ drivers/gpu/drm/radeon/si.c      | 8 ++++----
+ 4 files changed, 16 insertions(+), 16 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/cik.c b/drivers/gpu/drm/amd/amdgpu/cik.c
-index b81bb414fcb3..e4a595cdd4c1 100644
+index e4a595cdd4c1..3067bb874032 100644
 --- a/drivers/gpu/drm/amd/amdgpu/cik.c
 +++ b/drivers/gpu/drm/amd/amdgpu/cik.c
-@@ -1498,13 +1498,19 @@ static void cik_pcie_gen3_enable(struct amdgpu_device *adev)
+@@ -1527,13 +1527,13 @@ static void cik_pcie_gen3_enable(struct amdgpu_device *adev)
+ 	WREG32_PCIE(ixPCIE_LC_SPEED_CNTL, speed_cntl);
  
- 				/* linkctl2 */
- 				pci_read_config_word(root, bridge_pos + PCI_EXP_LNKCTL2, &tmp16);
--				tmp16 &= ~((1 << 4) | (7 << 9));
--				tmp16 |= (bridge_cfg2 & ((1 << 4) | (7 << 9)));
-+				tmp16 &= ~(PCI_EXP_LNKCTL2_ENTER_COMP |
-+					   PCI_EXP_LNKCTL2_TX_MARGIN);
-+				tmp16 |= (bridge_cfg2 &
-+					  (PCI_EXP_LNKCTL2_ENTER_COMP |
-+					   PCI_EXP_LNKCTL2_TX_MARGIN));
- 				pci_write_config_word(root, bridge_pos + PCI_EXP_LNKCTL2, tmp16);
+ 	pci_read_config_word(adev->pdev, gpu_pos + PCI_EXP_LNKCTL2, &tmp16);
+-	tmp16 &= ~0xf;
++	tmp16 &= ~PCI_EXP_LNKCTL2_TLS;
+ 	if (adev->pm.pcie_gen_mask & CAIL_PCIE_LINK_SPEED_SUPPORT_GEN3)
+-		tmp16 |= 3; /* gen3 */
++		tmp16 |= PCI_EXP_LNKCTL2_TLS_8_0GT; /* gen3 */
+ 	else if (adev->pm.pcie_gen_mask & CAIL_PCIE_LINK_SPEED_SUPPORT_GEN2)
+-		tmp16 |= 2; /* gen2 */
++		tmp16 |= PCI_EXP_LNKCTL2_TLS_5_0GT; /* gen2 */
+ 	else
+-		tmp16 |= 1; /* gen1 */
++		tmp16 |= PCI_EXP_LNKCTL2_TLS_2_5GT; /* gen1 */
+ 	pci_write_config_word(adev->pdev, gpu_pos + PCI_EXP_LNKCTL2, tmp16);
  
- 				pci_read_config_word(adev->pdev, gpu_pos + PCI_EXP_LNKCTL2, &tmp16);
--				tmp16 &= ~((1 << 4) | (7 << 9));
--				tmp16 |= (gpu_cfg2 & ((1 << 4) | (7 << 9)));
-+				tmp16 &= ~(PCI_EXP_LNKCTL2_ENTER_COMP |
-+					   PCI_EXP_LNKCTL2_TX_MARGIN);
-+				tmp16 |= (gpu_cfg2 &
-+					  (PCI_EXP_LNKCTL2_ENTER_COMP |
-+					   PCI_EXP_LNKCTL2_TX_MARGIN));
- 				pci_write_config_word(adev->pdev, gpu_pos + PCI_EXP_LNKCTL2, tmp16);
- 
- 				tmp = RREG32_PCIE(ixPCIE_LC_CNTL4);
+ 	speed_cntl = RREG32_PCIE(ixPCIE_LC_SPEED_CNTL);
 diff --git a/drivers/gpu/drm/amd/amdgpu/si.c b/drivers/gpu/drm/amd/amdgpu/si.c
-index 493af42152f2..cf543410a424 100644
+index cf543410a424..d5c83d82063b 100644
 --- a/drivers/gpu/drm/amd/amdgpu/si.c
 +++ b/drivers/gpu/drm/amd/amdgpu/si.c
-@@ -1737,12 +1737,16 @@ static void si_pcie_gen3_enable(struct amdgpu_device *adev)
- 				pci_write_config_word(adev->pdev, gpu_pos + PCI_EXP_LNKCTL, tmp16);
+@@ -1762,13 +1762,13 @@ static void si_pcie_gen3_enable(struct amdgpu_device *adev)
+ 	WREG32_PCIE_PORT(PCIE_LC_SPEED_CNTL, speed_cntl);
  
- 				pci_read_config_word(root, bridge_pos + PCI_EXP_LNKCTL2, &tmp16);
--				tmp16 &= ~((1 << 4) | (7 << 9));
--				tmp16 |= (bridge_cfg2 & ((1 << 4) | (7 << 9)));
-+				tmp16 &= ~(PCI_EXP_LNKCTL2_ENTER_COMP |
-+					   PCI_EXP_LNKCTL2_TX_MARGIN);
-+				tmp16 |= (bridge_cfg2 &
-+					  (PCI_EXP_LNKCTL2_ENTER_COMP |
-+					   PCI_EXP_LNKCTL2_TX_MARGIN));
- 				pci_write_config_word(root, bridge_pos + PCI_EXP_LNKCTL2, tmp16);
+ 	pci_read_config_word(adev->pdev, gpu_pos + PCI_EXP_LNKCTL2, &tmp16);
+-	tmp16 &= ~0xf;
++	tmp16 &= ~PCI_EXP_LNKCTL2_TLS;
+ 	if (adev->pm.pcie_gen_mask & CAIL_PCIE_LINK_SPEED_SUPPORT_GEN3)
+-		tmp16 |= 3;
++		tmp16 |= PCI_EXP_LNKCTL2_TLS_8_0GT; /* gen3 */
+ 	else if (adev->pm.pcie_gen_mask & CAIL_PCIE_LINK_SPEED_SUPPORT_GEN2)
+-		tmp16 |= 2;
++		tmp16 |= PCI_EXP_LNKCTL2_TLS_5_0GT; /* gen2 */
+ 	else
+-		tmp16 |= 1;
++		tmp16 |= PCI_EXP_LNKCTL2_TLS_2_5GT; /* gen1 */
+ 	pci_write_config_word(adev->pdev, gpu_pos + PCI_EXP_LNKCTL2, tmp16);
  
- 				pci_read_config_word(adev->pdev, gpu_pos + PCI_EXP_LNKCTL2, &tmp16);
--				tmp16 &= ~((1 << 4) | (7 << 9));
-+				tmp16 &= ~(PCI_EXP_LNKCTL2_ENTER_COMP |
-+					   PCI_EXP_LNKCTL2_TX_MARGIN);
- 				tmp16 |= (gpu_cfg2 & ((1 << 4) | (7 << 9)));
- 				pci_write_config_word(adev->pdev, gpu_pos + PCI_EXP_LNKCTL2, tmp16);
- 
+ 	speed_cntl = RREG32_PCIE_PORT(PCIE_LC_SPEED_CNTL);
 diff --git a/drivers/gpu/drm/radeon/cik.c b/drivers/gpu/drm/radeon/cik.c
-index 62eab82a64f9..95ffa0bff2d8 100644
+index 95ffa0bff2d8..a280442c81aa 100644
 --- a/drivers/gpu/drm/radeon/cik.c
 +++ b/drivers/gpu/drm/radeon/cik.c
-@@ -9619,13 +9619,19 @@ static void cik_pcie_gen3_enable(struct radeon_device *rdev)
+@@ -9647,13 +9647,13 @@ static void cik_pcie_gen3_enable(struct radeon_device *rdev)
+ 	WREG32_PCIE_PORT(PCIE_LC_SPEED_CNTL, speed_cntl);
  
- 				/* linkctl2 */
- 				pci_read_config_word(root, bridge_pos + PCI_EXP_LNKCTL2, &tmp16);
--				tmp16 &= ~((1 << 4) | (7 << 9));
--				tmp16 |= (bridge_cfg2 & ((1 << 4) | (7 << 9)));
-+				tmp16 &= ~(PCI_EXP_LNKCTL2_ENTER_COMP |
-+					   PCI_EXP_LNKCTL2_TX_MARGIN);
-+				tmp16 |= (bridge_cfg2 &
-+					  (PCI_EXP_LNKCTL2_ENTER_COMP |
-+					   PCI_EXP_LNKCTL2_TX_MARGIN));
- 				pci_write_config_word(root, bridge_pos + PCI_EXP_LNKCTL2, tmp16);
+ 	pci_read_config_word(rdev->pdev, gpu_pos + PCI_EXP_LNKCTL2, &tmp16);
+-	tmp16 &= ~0xf;
++	tmp16 &= ~PCI_EXP_LNKCTL2_TLS;
+ 	if (speed_cap == PCIE_SPEED_8_0GT)
+-		tmp16 |= 3; /* gen3 */
++		tmp16 |= PCI_EXP_LNKCTL2_TLS_8_0GT; /* gen3 */
+ 	else if (speed_cap == PCIE_SPEED_5_0GT)
+-		tmp16 |= 2; /* gen2 */
++		tmp16 |= PCI_EXP_LNKCTL2_TLS_5_0GT; /* gen2 */
+ 	else
+-		tmp16 |= 1; /* gen1 */
++		tmp16 |= PCI_EXP_LNKCTL2_TLS_2_5GT; /* gen1 */
+ 	pci_write_config_word(rdev->pdev, gpu_pos + PCI_EXP_LNKCTL2, tmp16);
  
- 				pci_read_config_word(rdev->pdev, gpu_pos + PCI_EXP_LNKCTL2, &tmp16);
--				tmp16 &= ~((1 << 4) | (7 << 9));
--				tmp16 |= (gpu_cfg2 & ((1 << 4) | (7 << 9)));
-+				tmp16 &= ~(PCI_EXP_LNKCTL2_ENTER_COMP |
-+					   PCI_EXP_LNKCTL2_TX_MARGIN);
-+				tmp16 |= (gpu_cfg2 &
-+					  (PCI_EXP_LNKCTL2_ENTER_COMP |
-+					   PCI_EXP_LNKCTL2_TX_MARGIN));
- 				pci_write_config_word(rdev->pdev, gpu_pos + PCI_EXP_LNKCTL2, tmp16);
- 
- 				tmp = RREG32_PCIE_PORT(PCIE_LC_CNTL4);
+ 	speed_cntl = RREG32_PCIE_PORT(PCIE_LC_SPEED_CNTL);
 diff --git a/drivers/gpu/drm/radeon/si.c b/drivers/gpu/drm/radeon/si.c
-index 05894d198a79..69993d34d1e9 100644
+index 69993d34d1e9..529e70a42019 100644
 --- a/drivers/gpu/drm/radeon/si.c
 +++ b/drivers/gpu/drm/radeon/si.c
-@@ -7202,13 +7202,19 @@ static void si_pcie_gen3_enable(struct radeon_device *rdev)
+@@ -7230,13 +7230,13 @@ static void si_pcie_gen3_enable(struct radeon_device *rdev)
+ 	WREG32_PCIE_PORT(PCIE_LC_SPEED_CNTL, speed_cntl);
  
- 				/* linkctl2 */
- 				pci_read_config_word(root, bridge_pos + PCI_EXP_LNKCTL2, &tmp16);
--				tmp16 &= ~((1 << 4) | (7 << 9));
--				tmp16 |= (bridge_cfg2 & ((1 << 4) | (7 << 9)));
-+				tmp16 &= ~(PCI_EXP_LNKCTL2_ENTER_COMP |
-+					   PCI_EXP_LNKCTL2_TX_MARGIN);
-+				tmp16 |= (bridge_cfg2 &
-+					  (PCI_EXP_LNKCTL2_ENTER_COMP |
-+					   PCI_EXP_LNKCTL2_TX_MARGIN));
- 				pci_write_config_word(root, bridge_pos + PCI_EXP_LNKCTL2, tmp16);
+ 	pci_read_config_word(rdev->pdev, gpu_pos + PCI_EXP_LNKCTL2, &tmp16);
+-	tmp16 &= ~0xf;
++	tmp16 &= ~PCI_EXP_LNKCTL2_TLS;
+ 	if (speed_cap == PCIE_SPEED_8_0GT)
+-		tmp16 |= 3; /* gen3 */
++		tmp16 |= PCI_EXP_LNKCTL2_TLS_8_0GT; /* gen3 */
+ 	else if (speed_cap == PCIE_SPEED_5_0GT)
+-		tmp16 |= 2; /* gen2 */
++		tmp16 |= PCI_EXP_LNKCTL2_TLS_5_0GT; /* gen2 */
+ 	else
+-		tmp16 |= 1; /* gen1 */
++		tmp16 |= PCI_EXP_LNKCTL2_TLS_2_5GT; /* gen1 */
+ 	pci_write_config_word(rdev->pdev, gpu_pos + PCI_EXP_LNKCTL2, tmp16);
  
- 				pci_read_config_word(rdev->pdev, gpu_pos + PCI_EXP_LNKCTL2, &tmp16);
--				tmp16 &= ~((1 << 4) | (7 << 9));
--				tmp16 |= (gpu_cfg2 & ((1 << 4) | (7 << 9)));
-+				tmp16 &= ~(PCI_EXP_LNKCTL2_ENTER_COMP |
-+					   PCI_EXP_LNKCTL2_TX_MARGIN);
-+				tmp16 |= (gpu_cfg2 &
-+					  (PCI_EXP_LNKCTL2_ENTER_COMP |
-+					   PCI_EXP_LNKCTL2_TX_MARGIN));
- 				pci_write_config_word(rdev->pdev, gpu_pos + PCI_EXP_LNKCTL2, tmp16);
- 
- 				tmp = RREG32_PCIE_PORT(PCIE_LC_CNTL4);
-diff --git a/include/uapi/linux/pci_regs.h b/include/uapi/linux/pci_regs.h
-index 29d6e93fd15e..5869e5778a05 100644
---- a/include/uapi/linux/pci_regs.h
-+++ b/include/uapi/linux/pci_regs.h
-@@ -673,6 +673,8 @@
- #define  PCI_EXP_LNKCTL2_TLS_8_0GT	0x0003 /* Supported Speed 8GT/s */
- #define  PCI_EXP_LNKCTL2_TLS_16_0GT	0x0004 /* Supported Speed 16GT/s */
- #define  PCI_EXP_LNKCTL2_TLS_32_0GT	0x0005 /* Supported Speed 32GT/s */
-+#define  PCI_EXP_LNKCTL2_ENTER_COMP	0x0010 /* Enter Compliance */
-+#define  PCI_EXP_LNKCTL2_TX_MARGIN	0x0380 /* Transmit Margin */
- #define PCI_EXP_LNKSTA2		50	/* Link Status 2 */
- #define PCI_CAP_EXP_ENDPOINT_SIZEOF_V2	52	/* v2 endpoints with link end here */
- #define PCI_EXP_SLTCAP2		52	/* Slot Capabilities 2 */
+ 	speed_cntl = RREG32_PCIE_PORT(PCIE_LC_SPEED_CNTL);
 -- 
 2.24.0.rc1.363.gb1bccd3e3d-goog
