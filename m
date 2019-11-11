@@ -1,30 +1,74 @@
-From: zhengbin <zhengbin13@huawei.com>
-Subject: [PATCH 0/2] remove some set but not used variables in hwmgr
-Date: Mon, 11 Nov 2019 11:45:54 +0800
-Message-ID: <1573443956-76489-1-git-send-email-zhengbin13@huawei.com>
+From: Subsentient <subsentient-Nyw9WiXk/RKDdBA3jUUj6Q@public.gmane.org>
+Subject: AMDGPU bug
+Date: Sun, 10 Nov 2019 17:00:13 -0700
+Message-ID: <8a4cb7112cf6ed44581c838e84306e9c@universe2.us>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: rex.zhu@amd.com, evan.quan@amd.com, alexander.deucher@amd.com, christian.koenig@amd.com, David1.Zhou@amd.com, airlied@linux.ie, daniel@ffwll.ch, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Cc: zhengbin13@huawei.com
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: multipart/mixed; boundary="===============0301415929=="
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-emhlbmdiaW4gKDIpOgogIGRybS9hbWQvcG93ZXJwbGF5OiByZW1vdmUgc2V0IGJ1dCBub3QgdXNl
-ZCB2YXJpYWJsZQogICAgJ3ZiaW9zX3ZlcnNpb24nLCdkYXRhJwogIGRybS9hbWQvcG93ZXJwbGF5
-OiByZW1vdmUgc2V0IGJ1dCBub3QgdXNlZCB2YXJpYWJsZSAnZGF0YScKCiBkcml2ZXJzL2dwdS9k
-cm0vYW1kL3Bvd2VycGxheS9od21nci9zbXU3X2h3bWdyLmMgICB8IDQgLS0tLQogZHJpdmVycy9n
-cHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3IvdmVnYTEwX2h3bWdyLmMgfCAyIC0tCiAyIGZpbGVz
-IGNoYW5nZWQsIDYgZGVsZXRpb25zKC0pCgotLQoyLjcuNAoKX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX18KZHJpLWRldmVsIG1haWxpbmcgbGlzdApkcmktZGV2
-ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21h
-aWxtYW4vbGlzdGluZm8vZHJpLWRldmVs
+--===============0301415929==
+Content-Type: multipart/alternative;
+ boundary="=_cff9e4b02e6db70b83fa734ee10aa7f1"
+
+--=_cff9e4b02e6db70b83fa734ee10aa7f1
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=US-ASCII
+
+Hi, I've been experiencing a bug on kernels 5.2 and up that apparently
+is uncommon and/or unimportant enough to have both threads mentioning it
+die. 
+
+On a Ryzen 3 2200G, the amdgpu driver fails upon lightdm login: 
+
+https://bugzilla.redhat.com/show_bug.cgi?id=1752188 
+
+I thought I'd bring this to your attention as the others reporting this
+bug have so far been met with silence, and this has trapped me and
+others on the unsupported kernel 5.1.21. 
+
+Thanks for your time.
+--=_cff9e4b02e6db70b83fa734ee10aa7f1
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/html; charset=UTF-8
+
+<html><head><meta http-equiv=3D"Content-Type" content=3D"text/html; charset=
+=3DUTF-8" /></head><body style=3D'font-size: 10pt; font-family: Verdana,Gen=
+eva,sans-serif'>
+<p>Hi, I've been experiencing a bug on kernels 5.2 and up that apparently i=
+s uncommon and/or unimportant enough to have both threads mentioning it die=
+=2E</p>
+<p>On a Ryzen 3 2200G, the amdgpu driver fails upon lightdm login:</p>
+<p><a href=3D"https://bugzilla.redhat.com/show_bug.cgi?id=3D1752188">https:=
+//bugzilla.redhat.com/show_bug.cgi?id=3D1752188</a></p>
+<p>I thought I'd bring this to your attention as the others reporting this =
+bug have so far been met with silence, and this has trapped me and others o=
+n the unsupported kernel 5.1.21.</p>
+<p>Thanks for your time.</p>
+<p><br /></p>
+
+</body></html>
+
+--=_cff9e4b02e6db70b83fa734ee10aa7f1--
+
+--===============0301415929==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+
+--===============0301415929==--
