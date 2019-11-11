@@ -1,83 +1,59 @@
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH] drm/amd/powerplay: avoid DPM reenable process on Navi1x
- ASICs
-Date: Mon, 11 Nov 2019 12:33:31 -0500
-Message-ID: <CADnq5_OhXnzYx6EgMM87dh1jgUi6Br86Axwi_KfvLjXuO2+gxw@mail.gmail.com>
-References: <20191111092506.18913-1-evan.quan@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Subject: Re: [PATCH] drm/amd/display: remove duplicated comparison expression
+Date: Mon, 11 Nov 2019 12:35:10 -0500
+Message-ID: <CADnq5_MKFh3v+qnjO-bmpepTc_XTgEKTomP0PLRJu==_UBTkZA@mail.gmail.com>
+References: <20191109154921.223093-1-colin.king@canonical.com> <0700f347-8590-7ab7-411d-0ae08fe9263d@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20191111092506.18913-1-evan.quan-5C7GfCeVMHo@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Evan Quan <evan.quan-5C7GfCeVMHo@public.gmane.org>
-Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Type: text/plain; charset="UTF-8"
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <0700f347-8590-7ab7-411d-0ae08fe9263d@amd.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: "Kazlauskas, Nicholas" <nicholas.kazlauskas@amd.com>
+Cc: Colin King <colin.king@canonical.com>, Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, David Zhou <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, Charlene Liu <Charlene.Liu@amd.com>, Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>, amd-gfx list <amd-gfx@lists.freedesktop.org>, Maling list - DRI developers <dri-devel@lists.freedesktop.org>, kernel-janitors@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gTW9uLCBOb3YgMTEsIDIwMTkgYXQgNDoyNSBBTSBFdmFuIFF1YW4gPGV2YW4ucXVhbkBhbWQu
-Y29tPiB3cm90ZToKPgo+IE90aGVyd2lzZSwgd2l0aG91dCBSTEMgcmVpbml0aWFsaXphdGlvbiwg
-dGhlIERQTSByZWVuYWJsZW1lbnQKPiB3aWxsIGZhaWwuIFRoYXQgYWZmZWN0cyB0aGUgY3VzdG9t
-IHBwdGFibGUgdXBsb2FkaW5nLgo+Cj4gQ2hhbmdlLUlkOiBJNmZlMmVkNWNlMjNmMmE1YjY2ZjM3
-MWMwYjZkMWY5MjQ4MzdlNWFmNgo+IFNpZ25lZC1vZmYtYnk6IEV2YW4gUXVhbiA8ZXZhbi5xdWFu
-QGFtZC5jb20+Cj4gLS0tCj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2FtZGdwdV9z
-bXUuYyAgICB8IDMyICsrKysrKysrKysrKysrKy0tLS0KPiAgLi4uL2dwdS9kcm0vYW1kL3Bvd2Vy
-cGxheS9pbmMvYW1kZ3B1X3NtdS5oICAgIHwgIDEgKwo+ICAyIGZpbGVzIGNoYW5nZWQsIDI2IGlu
-c2VydGlvbnMoKyksIDcgZGVsZXRpb25zKC0pCj4KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUv
-ZHJtL2FtZC9wb3dlcnBsYXkvYW1kZ3B1X3NtdS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dl
-cnBsYXkvYW1kZ3B1X3NtdS5jCj4gaW5kZXggNzZhNDE1NGIzYmUyLi5hNGQ2N2IzMGZkNzIgMTAw
-NjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvYW1kZ3B1X3NtdS5jCj4g
-KysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvYW1kZ3B1X3NtdS5jCj4gQEAgLTEy
-OTMsMTAgKzEyOTMsMjUgQEAgc3RhdGljIGludCBzbXVfaHdfZmluaSh2b2lkICpoYW5kbGUpCj4g
-ICAgICAgICAgICAgICAgIHJldHVybiByZXQ7Cj4gICAgICAgICB9Cj4KPiAtICAgICAgIHJldCA9
-IHNtdV9zdG9wX2RwbXMoc211KTsKPiAtICAgICAgIGlmIChyZXQpIHsKPiAtICAgICAgICAgICAg
-ICAgcHJfd2FybigiRmFpbCB0byBzdG9wIERwbXMhXG4iKTsKPiAtICAgICAgICAgICAgICAgcmV0
-dXJuIHJldDsKPiArICAgICAgIC8qCj4gKyAgICAgICAgKiBGb3IgY3VzdG9tIHBwdGFibGUgdXBs
-b2FkaW5nLCBza2lwIHRoZSBEUE0gZmVhdHVyZXMKPiArICAgICAgICAqIGRpc2FibGUgcHJvY2Vz
-cyBvbiBOYXZpMXggQVNJQ3MuCj4gKyAgICAgICAgKiAgIC0gQXMgdGhlIGdmeCByZWxhdGVkIGZl
-YXR1cmVzIGFyZSB1bmRlciBjb250cm9sIG9mCj4gKyAgICAgICAgKiAgICAgUkxDIG9uIHRob3Nl
-IEFTSUNzLiBSTEMgcmVpbml0aWFsaXphdGlvbiB3aWxsIGJlCj4gKyAgICAgICAgKiAgICAgbmVl
-ZGVkIHRvIHJlZW5hYmxlIHRoZW0uIFRoYXQgd2lsbCBjb3N0IG11Y2ggbW9yZQo+ICsgICAgICAg
-ICogICAgIGVmZm9ydHMuCj4gKyAgICAgICAgKgo+ICsgICAgICAgICogICAtIFNNVSBmaXJtd2Fy
-ZSBjYW4gaGFuZGxlIHRoZSBEUE0gcmVlbmFibGVtZW50Cj4gKyAgICAgICAgKiAgICAgcHJvcGVy
-bHkuCj4gKyAgICAgICAgKi8KPiArICAgICAgIGlmICghc211LT51cGxvYWRpbmdfY3VzdG9tX3Bw
-X3RhYmxlIHx8Cj4gKyAgICAgICAgICAgISgoYWRldi0+YXNpY190eXBlID49IENISVBfTkFWSTEw
-KSAmJgo+ICsgICAgICAgICAgICAgKGFkZXYtPmFzaWNfdHlwZSA8PSBDSElQX05BVkkxMikpKSB7
-Cj4gKyAgICAgICAgICAgICAgIHJldCA9IHNtdV9zdG9wX2RwbXMoc211KTsKPiArICAgICAgICAg
-ICAgICAgaWYgKHJldCkgewo+ICsgICAgICAgICAgICAgICAgICAgICAgIHByX3dhcm4oIkZhaWwg
-dG8gc3RvcCBEcG1zIVxuIik7Cj4gKyAgICAgICAgICAgICAgICAgICAgICAgcmV0dXJuIHJldDsK
-PiArICAgICAgICAgICAgICAgfQo+ICAgICAgICAgfQo+Cj4gICAgICAgICBrZnJlZSh0YWJsZV9j
-b250ZXh0LT5kcml2ZXJfcHB0YWJsZSk7Cj4gQEAgLTEzMjQsMTMgKzEzMzksMTYgQEAgaW50IHNt
-dV9yZXNldChzdHJ1Y3Qgc211X2NvbnRleHQgKnNtdSkKPiAgICAgICAgIHN0cnVjdCBhbWRncHVf
-ZGV2aWNlICphZGV2ID0gc211LT5hZGV2Owo+ICAgICAgICAgaW50IHJldCA9IDA7Cj4KPiArICAg
-ICAgIHNtdS0+dXBsb2FkaW5nX2N1c3RvbV9wcF90YWJsZSA9IHRydWU7Cj4gKwoKRG8gd2UgbmVl
-ZCB0byBkaWZmZXJlbnRpYXRlIGJldHdlZW4gcmVsb2FkaW5nIGZvciBhIHBwdGFibGUgdXBkYXRl
-IGFuZApyZWxvYWRpbmcgZm9yIGEgZ3B1IHJlc2V0IG9yIHN1c3BlbmQvcmVzdW1lIG9yIGlzIHRo
-YXQgYWxyZWFkeQpoYW5kbGVkPwpTaG91bGRuJ3Qgd2UgYmUgc2V0dGluZy9jbGVhcmluZyB1cGxv
-YWRpbmdfY3VzdG9tX3BwX3RhYmxlIGluCnNtdV9zeXNfc2V0X3BwX3RhYmxlKCkgYXJvdW5kIHRo
-ZSBjYWxsIHRvIHNtdV9yZXNldCgpPwoKQWxleAoKPiAgICAgICAgIHJldCA9IHNtdV9od19maW5p
-KGFkZXYpOwo+ICAgICAgICAgaWYgKHJldCkKPiAtICAgICAgICAgICAgICAgcmV0dXJuIHJldDsK
-PiArICAgICAgICAgICAgICAgZ290byBvdXQ7Cj4KPiAgICAgICAgIHJldCA9IHNtdV9od19pbml0
-KGFkZXYpOwo+IC0gICAgICAgaWYgKHJldCkKPiAtICAgICAgICAgICAgICAgcmV0dXJuIHJldDsK
-PiArCj4gK291dDoKPiArICAgICAgIHNtdS0+dXBsb2FkaW5nX2N1c3RvbV9wcF90YWJsZSA9IGZh
-bHNlOwo+Cj4gICAgICAgICByZXR1cm4gcmV0Owo+ICB9Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMv
-Z3B1L2RybS9hbWQvcG93ZXJwbGF5L2luYy9hbWRncHVfc211LmggYi9kcml2ZXJzL2dwdS9kcm0v
-YW1kL3Bvd2VycGxheS9pbmMvYW1kZ3B1X3NtdS5oCj4gaW5kZXggODEyMGU3NTg3NTg1Li4yMTU4
-NDFmNWZiOTMgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaW5j
-L2FtZGdwdV9zbXUuaAo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2luYy9h
-bWRncHVfc211LmgKPiBAQCAtMzkxLDYgKzM5MSw3IEBAIHN0cnVjdCBzbXVfY29udGV4dAo+Cj4g
-ICAgICAgICB1aW50MzJfdCBzbWNfaWZfdmVyc2lvbjsKPgo+ICsgICAgICAgYm9vbCB1cGxvYWRp
-bmdfY3VzdG9tX3BwX3RhYmxlOwo+ICB9Owo+Cj4gIHN0cnVjdCBpMmNfYWRhcHRlcjsKPiAtLQo+
-IDIuMjQuMAo+Cj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X18KPiBhbWQtZ2Z4IG1haWxpbmcgbGlzdAo+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
-Cj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
-Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZngg
-bWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMu
-ZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
+Applied.  Thanks!
+
+Alex
+
+On Mon, Nov 11, 2019 at 8:38 AM Kazlauskas, Nicholas
+<nicholas.kazlauskas@amd.com> wrote:
+>
+> On 2019-11-09 10:49 a.m., Colin King wrote:
+> > From: Colin Ian King <colin.king@canonical.com>
+> >
+> > There is comparison expression that is duplicated and hence one
+> > of the expressions can be removed.  Remove it.
+> >
+> > Addresses-Coverity: ("Same on both sides")
+> > Fixes: 12e2b2d4c65f ("drm/amd/display: add dcc programming for dual plane")
+> > Signed-off-by: Colin Ian King <colin.king@canonical.com>
+>
+> Reviewed-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+>
+> Thanks!
+>
+> Nicholas Kazlauskas
+>
+> > ---
+> >   drivers/gpu/drm/amd/display/dc/core/dc.c | 1 -
+> >   1 file changed, 1 deletion(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
+> > index 1fdba13b3d0f..1fa255e077d0 100644
+> > --- a/drivers/gpu/drm/amd/display/dc/core/dc.c
+> > +++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
+> > @@ -1491,7 +1491,6 @@ static enum surface_update_type get_plane_info_update_type(const struct dc_surfa
+> >       }
+> >
+> >       if (u->plane_info->plane_size.surface_pitch != u->surface->plane_size.surface_pitch
+> > -                     || u->plane_info->plane_size.surface_pitch != u->surface->plane_size.surface_pitch
+> >                       || u->plane_info->plane_size.chroma_pitch != u->surface->plane_size.chroma_pitch) {
+> >               update_flags->bits.plane_size_change = 1;
+> >               elevate_update_type(&update_type, UPDATE_TYPE_MED);
+> >
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
