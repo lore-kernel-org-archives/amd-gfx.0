@@ -1,59 +1,55 @@
-From: Alex Deucher <alexdeucher@gmail.com>
-Subject: Re: [PATCH] drm/amd/display: remove duplicated comparison expression
-Date: Mon, 11 Nov 2019 12:35:10 -0500
-Message-ID: <CADnq5_MKFh3v+qnjO-bmpepTc_XTgEKTomP0PLRJu==_UBTkZA@mail.gmail.com>
-References: <20191109154921.223093-1-colin.king@canonical.com> <0700f347-8590-7ab7-411d-0ae08fe9263d@amd.com>
+From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH v2 0/3] navi10: Implement overdrive pp_od_clk_voltage
+Date: Mon, 11 Nov 2019 12:39:40 -0500
+Message-ID: <CADnq5_MXWLkDoAwc8w=jB4uRuyd=JSuW=f0BbFXs1Dx8LwKh6g@mail.gmail.com>
+References: <cover.1573248368.git.mcoffin13@gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <0700f347-8590-7ab7-411d-0ae08fe9263d@amd.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: "Kazlauskas, Nicholas" <nicholas.kazlauskas@amd.com>
-Cc: Colin King <colin.king@canonical.com>, Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, David Zhou <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, Charlene Liu <Charlene.Liu@amd.com>, Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>, amd-gfx list <amd-gfx@lists.freedesktop.org>, Maling list - DRI developers <dri-devel@lists.freedesktop.org>, kernel-janitors@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <cover.1573248368.git.mcoffin13-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Matt Coffin <mcoffin13-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Quan,
+ Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-Applied.  Thanks!
-
-Alex
-
-On Mon, Nov 11, 2019 at 8:38 AM Kazlauskas, Nicholas
-<nicholas.kazlauskas@amd.com> wrote:
->
-> On 2019-11-09 10:49 a.m., Colin King wrote:
-> > From: Colin Ian King <colin.king@canonical.com>
-> >
-> > There is comparison expression that is duplicated and hence one
-> > of the expressions can be removed.  Remove it.
-> >
-> > Addresses-Coverity: ("Same on both sides")
-> > Fixes: 12e2b2d4c65f ("drm/amd/display: add dcc programming for dual plane")
-> > Signed-off-by: Colin Ian King <colin.king@canonical.com>
->
-> Reviewed-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
->
-> Thanks!
->
-> Nicholas Kazlauskas
->
-> > ---
-> >   drivers/gpu/drm/amd/display/dc/core/dc.c | 1 -
-> >   1 file changed, 1 deletion(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
-> > index 1fdba13b3d0f..1fa255e077d0 100644
-> > --- a/drivers/gpu/drm/amd/display/dc/core/dc.c
-> > +++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
-> > @@ -1491,7 +1491,6 @@ static enum surface_update_type get_plane_info_update_type(const struct dc_surfa
-> >       }
-> >
-> >       if (u->plane_info->plane_size.surface_pitch != u->surface->plane_size.surface_pitch
-> > -                     || u->plane_info->plane_size.surface_pitch != u->surface->plane_size.surface_pitch
-> >                       || u->plane_info->plane_size.chroma_pitch != u->surface->plane_size.chroma_pitch) {
-> >               update_flags->bits.plane_size_change = 1;
-> >               elevate_update_type(&update_type, UPDATE_TYPE_MED);
-> >
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+UGF0Y2hlcyBhcmUgbWlzc2luZyB5b3VyIFNpZ25lZC1vZmYtYnkuICBQbGVhc2UgZm9sbG93IHVw
+IHdpdGggdGhhdAphbmQgSSdsbCBhcHBseSB0aGVtLgoKVGhhbmtzIQoKQWxleAoKT24gRnJpLCBO
+b3YgOCwgMjAxOSBhdCA0OjI4IFBNIE1hdHQgQ29mZmluIDxtY29mZmluMTNAZ21haWwuY29tPiB3
+cm90ZToKPgo+IFtXaHldCj4gQmVmb3JlIHRoaXMgcGF0Y2hzZXQsIG5hdmkxMCB1c2VycyBjb3Vs
+ZCBub3QgdXRpbGl6ZSB0aGUgb3ZlcmRyaXZlCj4gZnVuY3Rpb25hbGl0eS4gVGhpcyBwcmV2ZW50
+ZWQgdGhlbSBmcm9tIG92ZXJjbG9ja2luZywgb3ZlcnZvbHRpbmcsIG9yCj4gdW5kZXJ2b2x0aW5n
+IHRoZWlyIGNhcmRzLgo+Cj4gW0hvd10KPiBTaW1pbGFyIHRvIHRoZSB2ZWdhMjAgaW1wbGVtZW50
+YXRpb24sIGFkZCB0aGUgcHBfb2RfY2xrX3ZvbHRhZ2UKPiBpbnRlcmZhY2UgdG8gdGhlIG5hdmkx
+MCBwb3dlcnBsYXkgdGFibGUuCj4KPiBbUG9zc2libGUgQWx0ZXJuYXRpdmVzXQo+IFRoaXMgY291
+bGQgYWxzbyBiZSBkb25lIG1vcmUgZ2VuZXJpY2FsbHkgaW4gc211X3YxMV8wIGNvZGUsIGJ1dCB3
+b3VsZAo+IHJlcXVpcmUgbW9yZSBzaWduaWZpY2FudCBjaGFuZ2VzIHRvIHRoZSB2ZWdhMjAgY29k
+ZSwgYW5kIGZlYXR1cmUtZ2F0aW5nCj4gYmFzZWQgb24gY2hpcCBjYXBhYmlsaXRpZXMgaW4gdGhl
+IHNtdSB0byBkaXNhYmxlIG92ZXJkcml2ZSBmb3IgYXJjdGVydXMuCj4gSSBjaG9zZSB0aGlzIHBh
+dGggc28gYXMgbm90IHRvIGNvbXBsZXRlbHkgcmVmYWN0b3IgdGhlIHZlZ2EyMCBzaWRlIG9mCj4g
+dGhpbmdzLCBhbmQgaW50cm9kdWNlIFNNVSBjb2RlIHdoaWNoIHdvdWxkIG5vdCBwbGF5IG5pY2Vs
+eSB3aXRoIG5ldwo+IEFTSUNzLgo+Cj4gdjI6IHJlYmFzZSBvZmYgbGF0ZXN0IGNvZGUsIGFuZCBy
+ZW1vdmUgYW4gaW5jb3JyZWN0IGJvdW5kcyBjaGVjawo+Cj4gTWF0dCBDb2ZmaW4gKDMpOgo+ICAg
+ZHJtL2FtZGdwdS9uYXZpMTA6IGltcGxlbWVudCBzY2xrL21jbGsgT0QgdmlhIHBwX29kX2Nsa192
+b2x0YWdlCj4gICBkcm0vYW1kZ3B1L25hdmkxMDogaW1wbGVtZW50IEdGWENMS19DVVJWRSBvdmVy
+ZHJpdmUKPiAgIGRybS9hbWRncHUvbmF2aTEwOiBJbXBsZW1lbnQgb2QgY2xrIHByaW50aW5nCj4K
+PiAgZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaW5jL3NtdV92MTFfMC5oIHwgICAyICsK
+PiAgZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvbmF2aTEwX3BwdC5jICAgIHwgMjgyICsr
+KysrKysrKysrKysrKysrKwo+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9uYXZpMTBf
+cHB0LmggICAgfCAgIDIgKwo+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9zbXVfdjEx
+XzAuYyAgICAgfCAgMjcgKysKPiAgNCBmaWxlcyBjaGFuZ2VkLCAzMTMgaW5zZXJ0aW9ucygrKQo+
+Cj4gLS0KPiAyLjIzLjAKPgo+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fCj4gYW1kLWdmeCBtYWlsaW5nIGxpc3QKPiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNr
+dG9wLm9yZwo+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8v
+YW1kLWdmeApfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwph
+bWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczov
+L2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
