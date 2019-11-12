@@ -1,109 +1,214 @@
 From: Bjorn Helgaas <helgaas@kernel.org>
-Subject: [PATCH 2/3] drm: correct Transmit Margin masks
-Date: Tue, 12 Nov 2019 11:35:02 -0600
-Message-ID: <20191112173503.176611-3-helgaas@kernel.org>
+Subject: [PATCH 3/3] drm: replace numbers with PCI_EXP_LNKCTL2 definitions
+Date: Tue, 12 Nov 2019 11:35:03 -0600
+Message-ID: <20191112173503.176611-4-helgaas@kernel.org>
 References: <20191112173503.176611-1-helgaas@kernel.org>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
 In-Reply-To: <20191112173503.176611-1-helgaas@kernel.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+Sender: linux-kernel-owner@vger.kernel.org
 To: Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, David Zhou <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>
-Cc: Frederick Lawler <fred@fredlawl.com>, linux-pci@vger.kernel.org, =?UTF-8?q?Michel=20D=C3=A4nzer?= <michel@daenzer.net>, linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, Bjorn Helgaas <bhelgaas@google.com>
+Cc: Frederick Lawler <fred@fredlawl.com>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, Ilia Mirkin <imirkin@alum.mit.edu>, linux-pci@vger.kernel.org, =?UTF-8?q?Michel=20D=C3=A4nzer?= <michel@daenzer.net>, Bjorn Helgaas <bhelgaas@google.com>
 List-Id: amd-gfx.lists.freedesktop.org
 
-RnJvbTogQmpvcm4gSGVsZ2FhcyA8YmhlbGdhYXNAZ29vZ2xlLmNvbT4KClByZXZpb3VzbHkgd2Ug
-bWFza2VkIFBDSWUgTGluayBDb250cm9sIDIgcmVnaXN0ZXIgdmFsdWVzIHdpdGggIjcgPDwgOSIs
-CndoaWNoIHdhcyBhcHBhcmVudGx5IGludGVuZGVkIHRvIGJlIHRoZSBUcmFuc21pdCBNYXJnaW4g
-ZmllbGQsIGJ1dCBpbnN0ZWFkCndhcyB0aGUgaGlnaCBvcmRlciBiaXQgb2YgVHJhbnNtaXQgTWFy
-Z2luLCB0aGUgRW50ZXIgTW9kaWZpZWQgQ29tcGxpYW5jZQpiaXQsIGFuZCB0aGUgQ29tcGxpYW5j
-ZSBTT1MgYml0LgoKQ29ycmVjdCB0aGUgbWFzayB0byAiNyA8PCA3Iiwgd2hpY2ggaXMgdGhlIFRy
-YW5zbWl0IE1hcmdpbiBmaWVsZC4KClNpZ25lZC1vZmYtYnk6IEJqb3JuIEhlbGdhYXMgPGJoZWxn
-YWFzQGdvb2dsZS5jb20+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvY2lrLmMgfCA4
-ICsrKystLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9zaS5jICB8IDggKysrKy0tLS0K
-IGRyaXZlcnMvZ3B1L2RybS9yYWRlb24vY2lrLmMgICAgIHwgOCArKysrLS0tLQogZHJpdmVycy9n
-cHUvZHJtL3JhZGVvbi9zaS5jICAgICAgfCA4ICsrKystLS0tCiA0IGZpbGVzIGNoYW5nZWQsIDE2
-IGluc2VydGlvbnMoKyksIDE2IGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1kZ3B1L2Npay5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvY2lrLmMK
-aW5kZXggYjgxYmI0MTRmY2IzLi4xM2E1Njk2ZDJhNmEgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1kZ3B1L2Npay5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Np
-ay5jCkBAIC0xNDk4LDEzICsxNDk4LDEzIEBAIHN0YXRpYyB2b2lkIGNpa19wY2llX2dlbjNfZW5h
-YmxlKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQogCiAJCQkJLyogbGlua2N0bDIgKi8KIAkJ
-CQlwY2lfcmVhZF9jb25maWdfd29yZChyb290LCBicmlkZ2VfcG9zICsgUENJX0VYUF9MTktDVEwy
-LCAmdG1wMTYpOwotCQkJCXRtcDE2ICY9IH4oKDEgPDwgNCkgfCAoNyA8PCA5KSk7Ci0JCQkJdG1w
-MTYgfD0gKGJyaWRnZV9jZmcyICYgKCgxIDw8IDQpIHwgKDcgPDwgOSkpKTsKKwkJCQl0bXAxNiAm
-PSB+KCgxIDw8IDQpIHwgKDcgPDwgNykpOworCQkJCXRtcDE2IHw9IChicmlkZ2VfY2ZnMiAmICgo
-MSA8PCA0KSB8ICg3IDw8IDcpKSk7CiAJCQkJcGNpX3dyaXRlX2NvbmZpZ193b3JkKHJvb3QsIGJy
-aWRnZV9wb3MgKyBQQ0lfRVhQX0xOS0NUTDIsIHRtcDE2KTsKIAogCQkJCXBjaV9yZWFkX2NvbmZp
-Z193b3JkKGFkZXYtPnBkZXYsIGdwdV9wb3MgKyBQQ0lfRVhQX0xOS0NUTDIsICZ0bXAxNik7Ci0J
-CQkJdG1wMTYgJj0gfigoMSA8PCA0KSB8ICg3IDw8IDkpKTsKLQkJCQl0bXAxNiB8PSAoZ3B1X2Nm
-ZzIgJiAoKDEgPDwgNCkgfCAoNyA8PCA5KSkpOworCQkJCXRtcDE2ICY9IH4oKDEgPDwgNCkgfCAo
-NyA8PCA3KSk7CisJCQkJdG1wMTYgfD0gKGdwdV9jZmcyICYgKCgxIDw8IDQpIHwgKDcgPDwgNykp
-KTsKIAkJCQlwY2lfd3JpdGVfY29uZmlnX3dvcmQoYWRldi0+cGRldiwgZ3B1X3BvcyArIFBDSV9F
-WFBfTE5LQ1RMMiwgdG1wMTYpOwogCiAJCQkJdG1wID0gUlJFRzMyX1BDSUUoaXhQQ0lFX0xDX0NO
-VEw0KTsKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3NpLmMgYi9kcml2
-ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9zaS5jCmluZGV4IDQ5M2FmNDIxNTJmMi4uMWUzNTAxNzJk
-YzdiIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9zaS5jCisrKyBiL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3NpLmMKQEAgLTE3MzcsMTMgKzE3MzcsMTMgQEAgc3Rh
-dGljIHZvaWQgc2lfcGNpZV9nZW4zX2VuYWJsZShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikK
-IAkJCQlwY2lfd3JpdGVfY29uZmlnX3dvcmQoYWRldi0+cGRldiwgZ3B1X3BvcyArIFBDSV9FWFBf
-TE5LQ1RMLCB0bXAxNik7CiAKIAkJCQlwY2lfcmVhZF9jb25maWdfd29yZChyb290LCBicmlkZ2Vf
-cG9zICsgUENJX0VYUF9MTktDVEwyLCAmdG1wMTYpOwotCQkJCXRtcDE2ICY9IH4oKDEgPDwgNCkg
-fCAoNyA8PCA5KSk7Ci0JCQkJdG1wMTYgfD0gKGJyaWRnZV9jZmcyICYgKCgxIDw8IDQpIHwgKDcg
-PDwgOSkpKTsKKwkJCQl0bXAxNiAmPSB+KCgxIDw8IDQpIHwgKDcgPDwgNykpOworCQkJCXRtcDE2
-IHw9IChicmlkZ2VfY2ZnMiAmICgoMSA8PCA0KSB8ICg3IDw8IDcpKSk7CiAJCQkJcGNpX3dyaXRl
-X2NvbmZpZ193b3JkKHJvb3QsIGJyaWRnZV9wb3MgKyBQQ0lfRVhQX0xOS0NUTDIsIHRtcDE2KTsK
-IAogCQkJCXBjaV9yZWFkX2NvbmZpZ193b3JkKGFkZXYtPnBkZXYsIGdwdV9wb3MgKyBQQ0lfRVhQ
-X0xOS0NUTDIsICZ0bXAxNik7Ci0JCQkJdG1wMTYgJj0gfigoMSA8PCA0KSB8ICg3IDw8IDkpKTsK
-LQkJCQl0bXAxNiB8PSAoZ3B1X2NmZzIgJiAoKDEgPDwgNCkgfCAoNyA8PCA5KSkpOworCQkJCXRt
-cDE2ICY9IH4oKDEgPDwgNCkgfCAoNyA8PCA3KSk7CisJCQkJdG1wMTYgfD0gKGdwdV9jZmcyICYg
-KCgxIDw8IDQpIHwgKDcgPDwgNykpKTsKIAkJCQlwY2lfd3JpdGVfY29uZmlnX3dvcmQoYWRldi0+
-cGRldiwgZ3B1X3BvcyArIFBDSV9FWFBfTE5LQ1RMMiwgdG1wMTYpOwogCiAJCQkJdG1wID0gUlJF
-RzMyX1BDSUVfUE9SVChQQ0lFX0xDX0NOVEw0KTsKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2Ry
-bS9yYWRlb24vY2lrLmMgYi9kcml2ZXJzL2dwdS9kcm0vcmFkZW9uL2Npay5jCmluZGV4IDYyZWFi
-ODJhNjRmOS4uMTRjZGZkZjc4YmRlIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vcmFkZW9u
-L2Npay5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9yYWRlb24vY2lrLmMKQEAgLTk2MTksMTMgKzk2
-MTksMTMgQEAgc3RhdGljIHZvaWQgY2lrX3BjaWVfZ2VuM19lbmFibGUoc3RydWN0IHJhZGVvbl9k
-ZXZpY2UgKnJkZXYpCiAKIAkJCQkvKiBsaW5rY3RsMiAqLwogCQkJCXBjaV9yZWFkX2NvbmZpZ193
-b3JkKHJvb3QsIGJyaWRnZV9wb3MgKyBQQ0lfRVhQX0xOS0NUTDIsICZ0bXAxNik7Ci0JCQkJdG1w
-MTYgJj0gfigoMSA8PCA0KSB8ICg3IDw8IDkpKTsKLQkJCQl0bXAxNiB8PSAoYnJpZGdlX2NmZzIg
-JiAoKDEgPDwgNCkgfCAoNyA8PCA5KSkpOworCQkJCXRtcDE2ICY9IH4oKDEgPDwgNCkgfCAoNyA8
-PCA3KSk7CisJCQkJdG1wMTYgfD0gKGJyaWRnZV9jZmcyICYgKCgxIDw8IDQpIHwgKDcgPDwgNykp
-KTsKIAkJCQlwY2lfd3JpdGVfY29uZmlnX3dvcmQocm9vdCwgYnJpZGdlX3BvcyArIFBDSV9FWFBf
-TE5LQ1RMMiwgdG1wMTYpOwogCiAJCQkJcGNpX3JlYWRfY29uZmlnX3dvcmQocmRldi0+cGRldiwg
-Z3B1X3BvcyArIFBDSV9FWFBfTE5LQ1RMMiwgJnRtcDE2KTsKLQkJCQl0bXAxNiAmPSB+KCgxIDw8
-IDQpIHwgKDcgPDwgOSkpOwotCQkJCXRtcDE2IHw9IChncHVfY2ZnMiAmICgoMSA8PCA0KSB8ICg3
-IDw8IDkpKSk7CisJCQkJdG1wMTYgJj0gfigoMSA8PCA0KSB8ICg3IDw8IDcpKTsKKwkJCQl0bXAx
-NiB8PSAoZ3B1X2NmZzIgJiAoKDEgPDwgNCkgfCAoNyA8PCA3KSkpOwogCQkJCXBjaV93cml0ZV9j
-b25maWdfd29yZChyZGV2LT5wZGV2LCBncHVfcG9zICsgUENJX0VYUF9MTktDVEwyLCB0bXAxNik7
-CiAKIAkJCQl0bXAgPSBSUkVHMzJfUENJRV9QT1JUKFBDSUVfTENfQ05UTDQpOwpkaWZmIC0tZ2l0
-IGEvZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9zaS5jIGIvZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9z
-aS5jCmluZGV4IDA1ODk0ZDE5OGE3OS4uOWI3MDQyZDNlZjFiIDEwMDY0NAotLS0gYS9kcml2ZXJz
-L2dwdS9kcm0vcmFkZW9uL3NpLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9zaS5jCkBA
-IC03MjAyLDEzICs3MjAyLDEzIEBAIHN0YXRpYyB2b2lkIHNpX3BjaWVfZ2VuM19lbmFibGUoc3Ry
-dWN0IHJhZGVvbl9kZXZpY2UgKnJkZXYpCiAKIAkJCQkvKiBsaW5rY3RsMiAqLwogCQkJCXBjaV9y
-ZWFkX2NvbmZpZ193b3JkKHJvb3QsIGJyaWRnZV9wb3MgKyBQQ0lfRVhQX0xOS0NUTDIsICZ0bXAx
-Nik7Ci0JCQkJdG1wMTYgJj0gfigoMSA8PCA0KSB8ICg3IDw8IDkpKTsKLQkJCQl0bXAxNiB8PSAo
-YnJpZGdlX2NmZzIgJiAoKDEgPDwgNCkgfCAoNyA8PCA5KSkpOworCQkJCXRtcDE2ICY9IH4oKDEg
-PDwgNCkgfCAoNyA8PCA3KSk7CisJCQkJdG1wMTYgfD0gKGJyaWRnZV9jZmcyICYgKCgxIDw8IDQp
-IHwgKDcgPDwgNykpKTsKIAkJCQlwY2lfd3JpdGVfY29uZmlnX3dvcmQocm9vdCwgYnJpZGdlX3Bv
-cyArIFBDSV9FWFBfTE5LQ1RMMiwgdG1wMTYpOwogCiAJCQkJcGNpX3JlYWRfY29uZmlnX3dvcmQo
-cmRldi0+cGRldiwgZ3B1X3BvcyArIFBDSV9FWFBfTE5LQ1RMMiwgJnRtcDE2KTsKLQkJCQl0bXAx
-NiAmPSB+KCgxIDw8IDQpIHwgKDcgPDwgOSkpOwotCQkJCXRtcDE2IHw9IChncHVfY2ZnMiAmICgo
-MSA8PCA0KSB8ICg3IDw8IDkpKSk7CisJCQkJdG1wMTYgJj0gfigoMSA8PCA0KSB8ICg3IDw8IDcp
-KTsKKwkJCQl0bXAxNiB8PSAoZ3B1X2NmZzIgJiAoKDEgPDwgNCkgfCAoNyA8PCA3KSkpOwogCQkJ
-CXBjaV93cml0ZV9jb25maWdfd29yZChyZGV2LT5wZGV2LCBncHVfcG9zICsgUENJX0VYUF9MTktD
-VEwyLCB0bXAxNik7CiAKIAkJCQl0bXAgPSBSUkVHMzJfUENJRV9QT1JUKFBDSUVfTENfQ05UTDQp
-OwotLSAKMi4yNC4wLnJjMS4zNjMuZ2IxYmNjZDNlM2QtZ29vZwoKX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX18KZHJpLWRldmVsIG1haWxpbmcgbGlzdApkcmkt
-ZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
-L21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVs
+From: Bjorn Helgaas <bhelgaas@google.com>
+
+Replace hard-coded magic numbers with the descriptive PCI_EXP_LNKCTL2
+definitions.  No functional change intended.
+
+Signed-off-by: Bjorn Helgaas <bhelgaas@google.com>
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/cik.c | 22 ++++++++++++++--------
+ drivers/gpu/drm/amd/amdgpu/si.c  | 22 ++++++++++++++--------
+ drivers/gpu/drm/radeon/cik.c     | 22 ++++++++++++++--------
+ drivers/gpu/drm/radeon/si.c      | 22 ++++++++++++++--------
+ 4 files changed, 56 insertions(+), 32 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/cik.c b/drivers/gpu/drm/amd/amdgpu/cik.c
+index 13a5696d2a6a..3067bb874032 100644
+--- a/drivers/gpu/drm/amd/amdgpu/cik.c
++++ b/drivers/gpu/drm/amd/amdgpu/cik.c
+@@ -1498,13 +1498,19 @@ static void cik_pcie_gen3_enable(struct amdgpu_device *adev)
+ 
+ 				/* linkctl2 */
+ 				pci_read_config_word(root, bridge_pos + PCI_EXP_LNKCTL2, &tmp16);
+-				tmp16 &= ~((1 << 4) | (7 << 7));
+-				tmp16 |= (bridge_cfg2 & ((1 << 4) | (7 << 7)));
++				tmp16 &= ~(PCI_EXP_LNKCTL2_ENTER_COMP |
++					   PCI_EXP_LNKCTL2_TX_MARGIN);
++				tmp16 |= (bridge_cfg2 &
++					  (PCI_EXP_LNKCTL2_ENTER_COMP |
++					   PCI_EXP_LNKCTL2_TX_MARGIN));
+ 				pci_write_config_word(root, bridge_pos + PCI_EXP_LNKCTL2, tmp16);
+ 
+ 				pci_read_config_word(adev->pdev, gpu_pos + PCI_EXP_LNKCTL2, &tmp16);
+-				tmp16 &= ~((1 << 4) | (7 << 7));
+-				tmp16 |= (gpu_cfg2 & ((1 << 4) | (7 << 7)));
++				tmp16 &= ~(PCI_EXP_LNKCTL2_ENTER_COMP |
++					   PCI_EXP_LNKCTL2_TX_MARGIN);
++				tmp16 |= (gpu_cfg2 &
++					  (PCI_EXP_LNKCTL2_ENTER_COMP |
++					   PCI_EXP_LNKCTL2_TX_MARGIN));
+ 				pci_write_config_word(adev->pdev, gpu_pos + PCI_EXP_LNKCTL2, tmp16);
+ 
+ 				tmp = RREG32_PCIE(ixPCIE_LC_CNTL4);
+@@ -1521,13 +1527,13 @@ static void cik_pcie_gen3_enable(struct amdgpu_device *adev)
+ 	WREG32_PCIE(ixPCIE_LC_SPEED_CNTL, speed_cntl);
+ 
+ 	pci_read_config_word(adev->pdev, gpu_pos + PCI_EXP_LNKCTL2, &tmp16);
+-	tmp16 &= ~0xf;
++	tmp16 &= ~PCI_EXP_LNKCTL2_TLS;
+ 	if (adev->pm.pcie_gen_mask & CAIL_PCIE_LINK_SPEED_SUPPORT_GEN3)
+-		tmp16 |= 3; /* gen3 */
++		tmp16 |= PCI_EXP_LNKCTL2_TLS_8_0GT; /* gen3 */
+ 	else if (adev->pm.pcie_gen_mask & CAIL_PCIE_LINK_SPEED_SUPPORT_GEN2)
+-		tmp16 |= 2; /* gen2 */
++		tmp16 |= PCI_EXP_LNKCTL2_TLS_5_0GT; /* gen2 */
+ 	else
+-		tmp16 |= 1; /* gen1 */
++		tmp16 |= PCI_EXP_LNKCTL2_TLS_2_5GT; /* gen1 */
+ 	pci_write_config_word(adev->pdev, gpu_pos + PCI_EXP_LNKCTL2, tmp16);
+ 
+ 	speed_cntl = RREG32_PCIE(ixPCIE_LC_SPEED_CNTL);
+diff --git a/drivers/gpu/drm/amd/amdgpu/si.c b/drivers/gpu/drm/amd/amdgpu/si.c
+index 1e350172dc7b..a7dcb0d0f039 100644
+--- a/drivers/gpu/drm/amd/amdgpu/si.c
++++ b/drivers/gpu/drm/amd/amdgpu/si.c
+@@ -1737,13 +1737,19 @@ static void si_pcie_gen3_enable(struct amdgpu_device *adev)
+ 				pci_write_config_word(adev->pdev, gpu_pos + PCI_EXP_LNKCTL, tmp16);
+ 
+ 				pci_read_config_word(root, bridge_pos + PCI_EXP_LNKCTL2, &tmp16);
+-				tmp16 &= ~((1 << 4) | (7 << 7));
+-				tmp16 |= (bridge_cfg2 & ((1 << 4) | (7 << 7)));
++				tmp16 &= ~(PCI_EXP_LNKCTL2_ENTER_COMP |
++					   PCI_EXP_LNKCTL2_TX_MARGIN);
++				tmp16 |= (bridge_cfg2 &
++					  (PCI_EXP_LNKCTL2_ENTER_COMP |
++					   PCI_EXP_LNKCTL2_TX_MARGIN));
+ 				pci_write_config_word(root, bridge_pos + PCI_EXP_LNKCTL2, tmp16);
+ 
+ 				pci_read_config_word(adev->pdev, gpu_pos + PCI_EXP_LNKCTL2, &tmp16);
+-				tmp16 &= ~((1 << 4) | (7 << 7));
+-				tmp16 |= (gpu_cfg2 & ((1 << 4) | (7 << 7)));
++				tmp16 &= ~(PCI_EXP_LNKCTL2_ENTER_COMP |
++					   PCI_EXP_LNKCTL2_TX_MARGIN);
++				tmp16 |= (gpu_cfg2 &
++					  (PCI_EXP_LNKCTL2_ENTER_COMP |
++					   PCI_EXP_LNKCTL2_TX_MARGIN));
+ 				pci_write_config_word(adev->pdev, gpu_pos + PCI_EXP_LNKCTL2, tmp16);
+ 
+ 				tmp = RREG32_PCIE_PORT(PCIE_LC_CNTL4);
+@@ -1758,13 +1764,13 @@ static void si_pcie_gen3_enable(struct amdgpu_device *adev)
+ 	WREG32_PCIE_PORT(PCIE_LC_SPEED_CNTL, speed_cntl);
+ 
+ 	pci_read_config_word(adev->pdev, gpu_pos + PCI_EXP_LNKCTL2, &tmp16);
+-	tmp16 &= ~0xf;
++	tmp16 &= ~PCI_EXP_LNKCTL2_TLS;
+ 	if (adev->pm.pcie_gen_mask & CAIL_PCIE_LINK_SPEED_SUPPORT_GEN3)
+-		tmp16 |= 3;
++		tmp16 |= PCI_EXP_LNKCTL2_TLS_8_0GT; /* gen3 */
+ 	else if (adev->pm.pcie_gen_mask & CAIL_PCIE_LINK_SPEED_SUPPORT_GEN2)
+-		tmp16 |= 2;
++		tmp16 |= PCI_EXP_LNKCTL2_TLS_5_0GT; /* gen2 */
+ 	else
+-		tmp16 |= 1;
++		tmp16 |= PCI_EXP_LNKCTL2_TLS_2_5GT; /* gen1 */
+ 	pci_write_config_word(adev->pdev, gpu_pos + PCI_EXP_LNKCTL2, tmp16);
+ 
+ 	speed_cntl = RREG32_PCIE_PORT(PCIE_LC_SPEED_CNTL);
+diff --git a/drivers/gpu/drm/radeon/cik.c b/drivers/gpu/drm/radeon/cik.c
+index 14cdfdf78bde..a280442c81aa 100644
+--- a/drivers/gpu/drm/radeon/cik.c
++++ b/drivers/gpu/drm/radeon/cik.c
+@@ -9619,13 +9619,19 @@ static void cik_pcie_gen3_enable(struct radeon_device *rdev)
+ 
+ 				/* linkctl2 */
+ 				pci_read_config_word(root, bridge_pos + PCI_EXP_LNKCTL2, &tmp16);
+-				tmp16 &= ~((1 << 4) | (7 << 7));
+-				tmp16 |= (bridge_cfg2 & ((1 << 4) | (7 << 7)));
++				tmp16 &= ~(PCI_EXP_LNKCTL2_ENTER_COMP |
++					   PCI_EXP_LNKCTL2_TX_MARGIN);
++				tmp16 |= (bridge_cfg2 &
++					  (PCI_EXP_LNKCTL2_ENTER_COMP |
++					   PCI_EXP_LNKCTL2_TX_MARGIN));
+ 				pci_write_config_word(root, bridge_pos + PCI_EXP_LNKCTL2, tmp16);
+ 
+ 				pci_read_config_word(rdev->pdev, gpu_pos + PCI_EXP_LNKCTL2, &tmp16);
+-				tmp16 &= ~((1 << 4) | (7 << 7));
+-				tmp16 |= (gpu_cfg2 & ((1 << 4) | (7 << 7)));
++				tmp16 &= ~(PCI_EXP_LNKCTL2_ENTER_COMP |
++					   PCI_EXP_LNKCTL2_TX_MARGIN);
++				tmp16 |= (gpu_cfg2 &
++					  (PCI_EXP_LNKCTL2_ENTER_COMP |
++					   PCI_EXP_LNKCTL2_TX_MARGIN));
+ 				pci_write_config_word(rdev->pdev, gpu_pos + PCI_EXP_LNKCTL2, tmp16);
+ 
+ 				tmp = RREG32_PCIE_PORT(PCIE_LC_CNTL4);
+@@ -9641,13 +9647,13 @@ static void cik_pcie_gen3_enable(struct radeon_device *rdev)
+ 	WREG32_PCIE_PORT(PCIE_LC_SPEED_CNTL, speed_cntl);
+ 
+ 	pci_read_config_word(rdev->pdev, gpu_pos + PCI_EXP_LNKCTL2, &tmp16);
+-	tmp16 &= ~0xf;
++	tmp16 &= ~PCI_EXP_LNKCTL2_TLS;
+ 	if (speed_cap == PCIE_SPEED_8_0GT)
+-		tmp16 |= 3; /* gen3 */
++		tmp16 |= PCI_EXP_LNKCTL2_TLS_8_0GT; /* gen3 */
+ 	else if (speed_cap == PCIE_SPEED_5_0GT)
+-		tmp16 |= 2; /* gen2 */
++		tmp16 |= PCI_EXP_LNKCTL2_TLS_5_0GT; /* gen2 */
+ 	else
+-		tmp16 |= 1; /* gen1 */
++		tmp16 |= PCI_EXP_LNKCTL2_TLS_2_5GT; /* gen1 */
+ 	pci_write_config_word(rdev->pdev, gpu_pos + PCI_EXP_LNKCTL2, tmp16);
+ 
+ 	speed_cntl = RREG32_PCIE_PORT(PCIE_LC_SPEED_CNTL);
+diff --git a/drivers/gpu/drm/radeon/si.c b/drivers/gpu/drm/radeon/si.c
+index 9b7042d3ef1b..529e70a42019 100644
+--- a/drivers/gpu/drm/radeon/si.c
++++ b/drivers/gpu/drm/radeon/si.c
+@@ -7202,13 +7202,19 @@ static void si_pcie_gen3_enable(struct radeon_device *rdev)
+ 
+ 				/* linkctl2 */
+ 				pci_read_config_word(root, bridge_pos + PCI_EXP_LNKCTL2, &tmp16);
+-				tmp16 &= ~((1 << 4) | (7 << 7));
+-				tmp16 |= (bridge_cfg2 & ((1 << 4) | (7 << 7)));
++				tmp16 &= ~(PCI_EXP_LNKCTL2_ENTER_COMP |
++					   PCI_EXP_LNKCTL2_TX_MARGIN);
++				tmp16 |= (bridge_cfg2 &
++					  (PCI_EXP_LNKCTL2_ENTER_COMP |
++					   PCI_EXP_LNKCTL2_TX_MARGIN));
+ 				pci_write_config_word(root, bridge_pos + PCI_EXP_LNKCTL2, tmp16);
+ 
+ 				pci_read_config_word(rdev->pdev, gpu_pos + PCI_EXP_LNKCTL2, &tmp16);
+-				tmp16 &= ~((1 << 4) | (7 << 7));
+-				tmp16 |= (gpu_cfg2 & ((1 << 4) | (7 << 7)));
++				tmp16 &= ~(PCI_EXP_LNKCTL2_ENTER_COMP |
++					   PCI_EXP_LNKCTL2_TX_MARGIN);
++				tmp16 |= (gpu_cfg2 &
++					  (PCI_EXP_LNKCTL2_ENTER_COMP |
++					   PCI_EXP_LNKCTL2_TX_MARGIN));
+ 				pci_write_config_word(rdev->pdev, gpu_pos + PCI_EXP_LNKCTL2, tmp16);
+ 
+ 				tmp = RREG32_PCIE_PORT(PCIE_LC_CNTL4);
+@@ -7224,13 +7230,13 @@ static void si_pcie_gen3_enable(struct radeon_device *rdev)
+ 	WREG32_PCIE_PORT(PCIE_LC_SPEED_CNTL, speed_cntl);
+ 
+ 	pci_read_config_word(rdev->pdev, gpu_pos + PCI_EXP_LNKCTL2, &tmp16);
+-	tmp16 &= ~0xf;
++	tmp16 &= ~PCI_EXP_LNKCTL2_TLS;
+ 	if (speed_cap == PCIE_SPEED_8_0GT)
+-		tmp16 |= 3; /* gen3 */
++		tmp16 |= PCI_EXP_LNKCTL2_TLS_8_0GT; /* gen3 */
+ 	else if (speed_cap == PCIE_SPEED_5_0GT)
+-		tmp16 |= 2; /* gen2 */
++		tmp16 |= PCI_EXP_LNKCTL2_TLS_5_0GT; /* gen2 */
+ 	else
+-		tmp16 |= 1; /* gen1 */
++		tmp16 |= PCI_EXP_LNKCTL2_TLS_2_5GT; /* gen1 */
+ 	pci_write_config_word(rdev->pdev, gpu_pos + PCI_EXP_LNKCTL2, tmp16);
+ 
+ 	speed_cntl = RREG32_PCIE_PORT(PCIE_LC_SPEED_CNTL);
+-- 
+2.24.0.rc1.363.gb1bccd3e3d-goog
