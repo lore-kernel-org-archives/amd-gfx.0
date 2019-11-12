@@ -1,46 +1,72 @@
 From: Harry Wentland <hwentlan@amd.com>
 Subject: Re: [PATCH -next] drm/amd/display: Fix old-style declaration
-Date: Tue, 12 Nov 2019 15:18:45 -0500
-Message-ID: <6172e74c-6e85-f904-4284-2ebf9a308d4d@amd.com>
+Date: Tue, 12 Nov 2019 15:19:02 -0500
+Message-ID: <e59cbdf4-ac9e-dda7-f1c3-fdd148ddeeea@amd.com>
 References: <20191111122801.18584-1-yuehaibing@huawei.com>
+ <01c630e6d4c58b3f6184603e158f53fb9aaeae7d.camel@perches.com>
+ <3361b760-fe4f-87e8-b0a4-ebda390aa492@huawei.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20191111122801.18584-1-yuehaibing@huawei.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+In-Reply-To: <3361b760-fe4f-87e8-b0a4-ebda390aa492@huawei.com>
 Content-Language: en-US
-Sender: linux-kernel-owner@vger.kernel.org
-To: YueHaibing <yuehaibing@huawei.com>, harry.wentland@amd.com, sunpeng.li@amd.com, alexander.deucher@amd.com, christian.koenig@amd.com, David1.Zhou@amd.com, airlied@linux.ie, daniel@ffwll.ch, Bhawanpreet.Lakha@amd.com, Jun.Lei@amd.com, David.Francis@amd.com, Dmytro.Laktyushkin@amd.com, nicholas.kazlauskas@amd.com, martin.leung@amd.com, Chris.Park@amd.com
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: Yuehaibing <yuehaibing@huawei.com>, Joe Perches <joe@perches.com>, harry.wentland@amd.com, sunpeng.li@amd.com, alexander.deucher@amd.com, christian.koenig@amd.com, David1.Zhou@amd.com, airlied@linux.ie, daniel@ffwll.ch, Bhawanpreet.Lakha@amd.com, Jun.Lei@amd.com, David.Francis@amd.com, Dmytro.Laktyushkin@amd.com, nicholas.kazlauskas@amd.com, martin.leung@amd.com, Chris.Park@amd.com
+Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
 List-Id: amd-gfx.lists.freedesktop.org
 
-On 2019-11-11 7:28 a.m., YueHaibing wrote:
-> Fix a build warning:
-> 
-> drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc.c:75:1:
->  warning: 'static' is not at beginning of declaration [-Wold-style-declaration]
-> 
-> Signed-off-by: YueHaibing <yuehaibing@huawei.com>
-
-Reviewed-by: Harry Wentland <harry.wentland@amd.com>
-
-Harry
-
-> ---
->  drivers/gpu/drm/amd/display/dc/core/dc.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
-> index 1fdba13..0d8c663 100644
-> --- a/drivers/gpu/drm/amd/display/dc/core/dc.c
-> +++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
-> @@ -69,7 +69,7 @@
->  #define DC_LOGGER \
->  	dc->ctx->logger
->  
-> -const static char DC_BUILD_ID[] = "production-build";
-> +static const char DC_BUILD_ID[] = "production-build";
->  
->  /**
->   * DOC: Overview
-> 
+T24gMjAxOS0xMS0xMiAyOjUxIGEubS4sIFl1ZWhhaWJpbmcgd3JvdGU6Cj4gT24gMjAxOS8xMS8x
+MiAxMDozOSwgSm9lIFBlcmNoZXMgd3JvdGU6Cj4+IE9uIE1vbiwgMjAxOS0xMS0xMSBhdCAyMDoy
+OCArMDgwMCwgWXVlSGFpYmluZyB3cm90ZToKPj4+IEZpeCBhIGJ1aWxkIHdhcm5pbmc6Cj4+Pgo+
+Pj4gZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvLi4vZGlzcGxheS9kYy9jb3JlL2RjLmM6NzU6
+MToKPj4+ICB3YXJuaW5nOiAnc3RhdGljJyBpcyBub3QgYXQgYmVnaW5uaW5nIG9mIGRlY2xhcmF0
+aW9uIFstV29sZC1zdHlsZS1kZWNsYXJhdGlvbl0KPj4gW10KPj4+IGRpZmYgLS1naXQgYS9kcml2
+ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvY29yZS9kYy5jIGIvZHJpdmVycy9ncHUvZHJtL2Ft
+ZC9kaXNwbGF5L2RjL2NvcmUvZGMuYwo+PiBbXQo+Pj4gQEAgLTY5LDcgKzY5LDcgQEAKPj4+ICAj
+ZGVmaW5lIERDX0xPR0dFUiBcCj4+PiAgCWRjLT5jdHgtPmxvZ2dlcgo+Pj4gIAo+Pj4gLWNvbnN0
+IHN0YXRpYyBjaGFyIERDX0JVSUxEX0lEW10gPSAicHJvZHVjdGlvbi1idWlsZCI7Cj4+PiArc3Rh
+dGljIGNvbnN0IGNoYXIgRENfQlVJTERfSURbXSA9ICJwcm9kdWN0aW9uLWJ1aWxkIjsKPj4KPj4g
+RENfQlVJTERfSUQgaXMgdXNlZCBleGFjdGx5IG9uY2UuCj4+IE1heWJlIGp1c3QgdXNlIGl0IGRp
+cmVjdGx5IGFuZCByZW1vdmUgRENfQlVJTERfSUQgaW5zdGVhZD8KPiAKPiBjb21taXQgYmU2MWRm
+NTc0MjU2YWU4YzBkYmQ0NWFjMTQ4Y2E3MjYwYTA0ODNjMAo+IEF1dGhvcjogSnVuIExlaSA8SnVu
+LkxlaUBhbWQuY29tPgo+IERhdGU6ICAgVGh1IFNlcCAxMyAwOTozMjoyNiAyMDE4IC0wNDAwCj4g
+Cj4gICAgIGRybS9hbWQvZGlzcGxheTogQWRkIERDIGJ1aWxkX2lkIHRvIGRldGVybWluZSBidWls
+ZCB0eXBlCj4gCj4gICAgIFt3aHldCj4gICAgIFNvbWV0aW1lcyB0aGVyZSBhcmUgaW5kaWNhdGlv
+bnMgdGhhdCB0aGUgaW5jb3JyZWN0IGRyaXZlciBpcyBiZWluZwo+ICAgICBsb2FkZWQgaW4gYXV0
+b21hdGVkIHRlc3RzLiBUaGlzIGNoYW5nZSBhZGRzIHRoZSBhYmlsaXR5IGZvciBidWlsZHMgdG8K
+PiAgICAgYmUgdGFnZ2VkIHdpdGggYSBzdHJpbmcsIGFuZCBwaWNrZWQgdXAgYnkgdGhlIHRlc3Qg
+aW5mcmFzdHJ1Y3R1cmUuCj4gCj4gICAgIFtob3ddCj4gICAgIGRjLmMgd2lsbCBhbGxvY2F0ZSBj
+b25zdCBmb3IgYnVpbGQgaWQsIHdoaWNoIGlzIGluaXQtZWQgd2l0aCBkZWZhdWx0Cj4gICAgIHZh
+bHVlLCBpbmRpY2F0aW5nIHByb2R1Y3Rpb24gYnVpbGQuIEZvciB0ZXN0IGJ1aWxkcywgYnVpbGQg
+c2VydmVyIHdpbGwKPiAgICAgZmluZC9yZXBsYWNlIHRoaXMgdmFsdWUuIFRoZSB0ZXN0IG1hY2hp
+bmUgd2lsbCB0aGVuIHZlcmlmeSB0aGlzIHZhbHVlLgo+IAo+IEl0IHNlZW1zIERDX0JVSUxEX0lE
+IGlzIHVzZWQgYnkgdGhlIGJ1aWxkIHNlcnZlciwgc28gbWF5YmUgd2Ugc2hvdWxkIGtlZXAgaXQu
+CgpUaGFua3MsIEhhaWJpbmcuIFllcywgd2UnbGwgd2FudCB0byBrZWVwIGl0IGZvciBidWlsZCBw
+dXJwb3Nlcy4KCkhhcnJ5Cgo+IAo+Pgo+PiAtLS0KPj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvZGlz
+cGxheS9kYy9jb3JlL2RjLmMgfCA0ICstLS0KPj4gIDEgZmlsZSBjaGFuZ2VkLCAxIGluc2VydGlv
+bigrKSwgMyBkZWxldGlvbnMoLSkKPj4KPj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9h
+bWQvZGlzcGxheS9kYy9jb3JlL2RjLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMv
+Y29yZS9kYy5jCj4+IGluZGV4IDFmZGJhMTMuLjgwM2RjMTQgMTAwNjQ0Cj4+IC0tLSBhL2RyaXZl
+cnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9jb3JlL2RjLmMKPj4gKysrIGIvZHJpdmVycy9ncHUv
+ZHJtL2FtZC9kaXNwbGF5L2RjL2NvcmUvZGMuYwo+PiBAQCAtNjksOCArNjksNiBAQAo+PiAgI2Rl
+ZmluZSBEQ19MT0dHRVIgXAo+PiAgCWRjLT5jdHgtPmxvZ2dlcgo+PiAgCj4+IC1jb25zdCBzdGF0
+aWMgY2hhciBEQ19CVUlMRF9JRFtdID0gInByb2R1Y3Rpb24tYnVpbGQiOwo+PiAtCj4+ICAvKioK
+Pj4gICAqIERPQzogT3ZlcnZpZXcKPj4gICAqCj4+IEBAIC04MTUsNyArODEzLDcgQEAgc3RydWN0
+IGRjICpkY19jcmVhdGUoY29uc3Qgc3RydWN0IGRjX2luaXRfZGF0YSAqaW5pdF9wYXJhbXMpCj4+
+ICAJaWYgKGRjLT5yZXNfcG9vbC0+ZG1jdSAhPSBOVUxMKQo+PiAgCQlkYy0+dmVyc2lvbnMuZG1j
+dV92ZXJzaW9uID0gZGMtPnJlc19wb29sLT5kbWN1LT5kbWN1X3ZlcnNpb247Cj4+ICAKPj4gLQlk
+Yy0+YnVpbGRfaWQgPSBEQ19CVUlMRF9JRDsKPj4gKwlkYy0+YnVpbGRfaWQgPSAicHJvZHVjdGlv
+bi1idWlsZCI7Cj4+ICAKPj4gIAlEQ19MT0dfREMoIkRpc3BsYXkgQ29yZSBpbml0aWFsaXplZFxu
+Iik7Cj4+ICAKPj4KPj4KPj4KPj4gLgo+Pgo+IApfX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fXwpkcmktZGV2ZWwgbWFpbGluZyBsaXN0CmRyaS1kZXZlbEBsaXN0
+cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9s
+aXN0aW5mby9kcmktZGV2ZWw=
