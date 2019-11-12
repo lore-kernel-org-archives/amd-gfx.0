@@ -1,85 +1,120 @@
-From: Yuehaibing <yuehaibing@huawei.com>
-Subject: Re: [PATCH -next] drm/amd/display: Fix old-style declaration
-Date: Tue, 12 Nov 2019 15:51:33 +0800
-Message-ID: <3361b760-fe4f-87e8-b0a4-ebda390aa492@huawei.com>
-References: <20191111122801.18584-1-yuehaibing@huawei.com>
- <01c630e6d4c58b3f6184603e158f53fb9aaeae7d.camel@perches.com>
+From: Wayne Lin <Wayne.Lin-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH 1/2] drm/edid: Add aspect ratios to HDMI 4K modes
+Date: Tue, 12 Nov 2019 15:53:06 +0800
+Message-ID: <20191112075307.12574-1-Wayne.Lin@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="windows-1252"
-Content-Transfer-Encoding: 7bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <01c630e6d4c58b3f6184603e158f53fb9aaeae7d.camel@perches.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Joe Perches <joe@perches.com>, harry.wentland@amd.com, sunpeng.li@amd.com, alexander.deucher@amd.com, christian.koenig@amd.com, David1.Zhou@amd.com, airlied@linux.ie, daniel@ffwll.ch, Bhawanpreet.Lakha@amd.com, Jun.Lei@amd.com, David.Francis@amd.com, Dmytro.Laktyushkin@amd.com, nicholas.kazlauskas@amd.com, martin.leung@amd.com, Chris.Park@amd.com
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: ville.syrjala-VuQAYsv1563Yd54FQh9/CA@public.gmane.org, Wayne Lin <Wayne.Lin-5C7GfCeVMHo@public.gmane.org>
 
-On 2019/11/12 10:39, Joe Perches wrote:
-> On Mon, 2019-11-11 at 20:28 +0800, YueHaibing wrote:
->> Fix a build warning:
->>
->> drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc.c:75:1:
->>  warning: 'static' is not at beginning of declaration [-Wold-style-declaration]
-> []
->> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
-> []
->> @@ -69,7 +69,7 @@
->>  #define DC_LOGGER \
->>  	dc->ctx->logger
->>  
->> -const static char DC_BUILD_ID[] = "production-build";
->> +static const char DC_BUILD_ID[] = "production-build";
-> 
-> DC_BUILD_ID is used exactly once.
-> Maybe just use it directly and remove DC_BUILD_ID instead?
-
-commit be61df574256ae8c0dbd45ac148ca7260a0483c0
-Author: Jun Lei <Jun.Lei@amd.com>
-Date:   Thu Sep 13 09:32:26 2018 -0400
-
-    drm/amd/display: Add DC build_id to determine build type
-
-    [why]
-    Sometimes there are indications that the incorrect driver is being
-    loaded in automated tests. This change adds the ability for builds to
-    be tagged with a string, and picked up by the test infrastructure.
-
-    [how]
-    dc.c will allocate const for build id, which is init-ed with default
-    value, indicating production build. For test builds, build server will
-    find/replace this value. The test machine will then verify this value.
-
-It seems DC_BUILD_ID is used by the build server, so maybe we should keep it.
-
-> 
-> ---
->  drivers/gpu/drm/amd/display/dc/core/dc.c | 4 +---
->  1 file changed, 1 insertion(+), 3 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
-> index 1fdba13..803dc14 100644
-> --- a/drivers/gpu/drm/amd/display/dc/core/dc.c
-> +++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
-> @@ -69,8 +69,6 @@
->  #define DC_LOGGER \
->  	dc->ctx->logger
->  
-> -const static char DC_BUILD_ID[] = "production-build";
-> -
->  /**
->   * DOC: Overview
->   *
-> @@ -815,7 +813,7 @@ struct dc *dc_create(const struct dc_init_data *init_params)
->  	if (dc->res_pool->dmcu != NULL)
->  		dc->versions.dmcu_version = dc->res_pool->dmcu->dmcu_version;
->  
-> -	dc->build_id = DC_BUILD_ID;
-> +	dc->build_id = "production-build";
->  
->  	DC_LOG_DC("Display Core initialized\n");
->  
-> 
-> 
-> 
-> .
-> 
+W1doeV0KSERNSSAyLjAgYWRkcyBhc3BlY3QgcmF0aW8gYXR0cmlidXRlIHRvIGRpc3Rpbmd1aXNo
+IGRpZmZlcmVudAo0ayBtb2Rlcy4gQWNjb3JkaW5nIHRvIEFwcGVuZGl4IEUgb2YgSERNSSAyLjAg
+c3BlYywgc291cmNlIHNob3VsZAp1c2UgVlNJRiB0byBpbmRpY2F0ZSB2aWRlbyBtb2RlIG9ubHkg
+d2hlbiB0aGUgbW9kZSBpcyBvbmUgZGVmaW5lZAppbiBIRE1JIDEuNGIgNEsgbW9kZXMuIE90aGVy
+d2lzZSwgdXNlIEFWSSBpbmZvZnJhbWVzIHRvIGNvbnZleSBWSUMuCgpDdXJyZW50IGNvZGUgZG9l
+c24ndCB0YWtlIGFzcGVjdCByYXRpbyBpbnRvIGNvbnNpZGVyYXRpb24gd2hpbGUKY29uc3RydWN0
+aW5nIGF2aSBpbmZvZnJhbWUuIFNob3VsZCBtb2RpZnkgdGhhdC4KCltIb3ddCkluaGVyaXQgVmls
+bGUgU3lyasOkbMOkJ3Mgd29yawoiZHJtL2VkaWQ6IFByZXAgZm9yIEhETUkgVklDIGFzcGVjdCBy
+YXRpbyIgYXQKaHR0cHM6Ly9wYXRjaHdvcmsua2VybmVsLm9yZy9wYXRjaC8xMTE3NDYzOS8KCkFk
+ZCBwaWN0dXJlX2FzcGVjdF9yYXRpbyBhdHRyaWJ1dGVzIHRvIGVkaWRfNGtfbW9kZXNbXSBhbmQK
+Y29uc3RydWN0IFZJQyBhbmQgSERNSV9WSUMgYnkgdGFraW5nIGFzcGVjdCByYXRpbyBpbnRvCmNv
+bnNpZGVyYXRpb24uCgpTaWduZWQtb2ZmLWJ5OiBXYXluZSBMaW4gPFdheW5lLkxpbkBhbWQuY29t
+PgotLS0KIGRyaXZlcnMvZ3B1L2RybS9kcm1fZWRpZC5jIHwgNDUgKysrKysrKysrKysrKysrKysr
+KysrKysrKysrKystLS0tLS0tLS0KIDEgZmlsZSBjaGFuZ2VkLCAzNSBpbnNlcnRpb25zKCspLCAx
+MCBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vZHJtX2VkaWQuYyBi
+L2RyaXZlcnMvZ3B1L2RybS9kcm1fZWRpZC5jCmluZGV4IDc3YTM5ZmM3NjA0NS4uZmNkN2FlMjkw
+NDlkIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vZHJtX2VkaWQuYworKysgYi9kcml2ZXJz
+L2dwdS9kcm0vZHJtX2VkaWQuYwpAQCAtMTI4OCwyNSArMTI4OCwyNSBAQCBzdGF0aWMgY29uc3Qg
+c3RydWN0IGRybV9kaXNwbGF5X21vZGUgZWRpZF80a19tb2Rlc1tdID0gewogCQkgICAzODQwLCA0
+MDE2LCA0MTA0LCA0NDAwLCAwLAogCQkgICAyMTYwLCAyMTY4LCAyMTc4LCAyMjUwLCAwLAogCQkg
+ICBEUk1fTU9ERV9GTEFHX1BIU1lOQyB8IERSTV9NT0RFX0ZMQUdfUFZTWU5DKSwKLQkgIC52cmVm
+cmVzaCA9IDMwLCB9LAorCSAgLnZyZWZyZXNoID0gMzAsIC5waWN0dXJlX2FzcGVjdF9yYXRpbyA9
+IEhETUlfUElDVFVSRV9BU1BFQ1RfMTZfOSwgfSwKIAkvKiAyIC0gMzg0MHgyMTYwQDI1SHogKi8K
+IAl7IERSTV9NT0RFKCIzODQweDIxNjAiLCBEUk1fTU9ERV9UWVBFX0RSSVZFUiwgMjk3MDAwLAog
+CQkgICAzODQwLCA0ODk2LCA0OTg0LCA1MjgwLCAwLAogCQkgICAyMTYwLCAyMTY4LCAyMTc4LCAy
+MjUwLCAwLAogCQkgICBEUk1fTU9ERV9GTEFHX1BIU1lOQyB8IERSTV9NT0RFX0ZMQUdfUFZTWU5D
+KSwKLQkgIC52cmVmcmVzaCA9IDI1LCB9LAorCSAgLnZyZWZyZXNoID0gMjUsIC5waWN0dXJlX2Fz
+cGVjdF9yYXRpbyA9IEhETUlfUElDVFVSRV9BU1BFQ1RfMTZfOSwgfSwKIAkvKiAzIC0gMzg0MHgy
+MTYwQDI0SHogKi8KIAl7IERSTV9NT0RFKCIzODQweDIxNjAiLCBEUk1fTU9ERV9UWVBFX0RSSVZF
+UiwgMjk3MDAwLAogCQkgICAzODQwLCA1MTE2LCA1MjA0LCA1NTAwLCAwLAogCQkgICAyMTYwLCAy
+MTY4LCAyMTc4LCAyMjUwLCAwLAogCQkgICBEUk1fTU9ERV9GTEFHX1BIU1lOQyB8IERSTV9NT0RF
+X0ZMQUdfUFZTWU5DKSwKLQkgIC52cmVmcmVzaCA9IDI0LCB9LAorCSAgLnZyZWZyZXNoID0gMjQs
+IC5waWN0dXJlX2FzcGVjdF9yYXRpbyA9IEhETUlfUElDVFVSRV9BU1BFQ1RfMTZfOSwgfSwKIAkv
+KiA0IC0gNDA5NngyMTYwQDI0SHogKFNNUFRFKSAqLwogCXsgRFJNX01PREUoIjQwOTZ4MjE2MCIs
+IERSTV9NT0RFX1RZUEVfRFJJVkVSLCAyOTcwMDAsCiAJCSAgIDQwOTYsIDUxMTYsIDUyMDQsIDU1
+MDAsIDAsCiAJCSAgIDIxNjAsIDIxNjgsIDIxNzgsIDIyNTAsIDAsCiAJCSAgIERSTV9NT0RFX0ZM
+QUdfUEhTWU5DIHwgRFJNX01PREVfRkxBR19QVlNZTkMpLAotCSAgLnZyZWZyZXNoID0gMjQsIH0s
+CisJICAudnJlZnJlc2ggPSAyNCwgSERNSV9QSUNUVVJFX0FTUEVDVF8yNTZfMTM1fSwKIH07CiAK
+IC8qKiogRERDIGZldGNoIGFuZCBibG9jayB2YWxpZGF0aW9uICoqKi8KQEAgLTMxMTAsNiArMzEx
+MCwxMSBAQCBzdGF0aWMgZW51bSBoZG1pX3BpY3R1cmVfYXNwZWN0IGRybV9nZXRfY2VhX2FzcGVj
+dF9yYXRpbyhjb25zdCB1OCB2aWRlb19jb2RlKQogCXJldHVybiBlZGlkX2NlYV9tb2Rlc1t2aWRl
+b19jb2RlXS5waWN0dXJlX2FzcGVjdF9yYXRpbzsKIH0KIAorc3RhdGljIGVudW0gaGRtaV9waWN0
+dXJlX2FzcGVjdCBkcm1fZ2V0X2hkbWlfYXNwZWN0X3JhdGlvKGNvbnN0IHU4IHZpZGVvX2NvZGUp
+Cit7CisJcmV0dXJuIGVkaWRfNGtfbW9kZXNbdmlkZW9fY29kZV0ucGljdHVyZV9hc3BlY3RfcmF0
+aW87Cit9CisKIC8qCiAgKiBDYWxjdWxhdGUgdGhlIGFsdGVybmF0ZSBjbG9jayBmb3IgSERNSSBt
+b2RlcyAodGhvc2UgZnJvbSB0aGUgSERNSSB2ZW5kb3IKICAqIHNwZWNpZmljIGJsb2NrKS4KQEAg
+LTMxMzYsNiArMzE0MSw5IEBAIHN0YXRpYyB1OCBkcm1fbWF0Y2hfaGRtaV9tb2RlX2Nsb2NrX3Rv
+bGVyYW5jZShjb25zdCBzdHJ1Y3QgZHJtX2Rpc3BsYXlfbW9kZSAqdG9fCiAJaWYgKCF0b19tYXRj
+aC0+Y2xvY2spCiAJCXJldHVybiAwOwogCisJaWYgKHRvX21hdGNoLT5waWN0dXJlX2FzcGVjdF9y
+YXRpbykKKwkJbWF0Y2hfZmxhZ3MgfD0gRFJNX01PREVfTUFUQ0hfQVNQRUNUX1JBVElPOworCiAJ
+Zm9yICh2aWMgPSAxOyB2aWMgPCBBUlJBWV9TSVpFKGVkaWRfNGtfbW9kZXMpOyB2aWMrKykgewog
+CQljb25zdCBzdHJ1Y3QgZHJtX2Rpc3BsYXlfbW9kZSAqaGRtaV9tb2RlID0gJmVkaWRfNGtfbW9k
+ZXNbdmljXTsKIAkJdW5zaWduZWQgaW50IGNsb2NrMSwgY2xvY2syOwpAQCAtMzE3MSw2ICszMTc5
+LDkgQEAgc3RhdGljIHU4IGRybV9tYXRjaF9oZG1pX21vZGUoY29uc3Qgc3RydWN0IGRybV9kaXNw
+bGF5X21vZGUgKnRvX21hdGNoKQogCWlmICghdG9fbWF0Y2gtPmNsb2NrKQogCQlyZXR1cm4gMDsK
+IAorCWlmICh0b19tYXRjaC0+cGljdHVyZV9hc3BlY3RfcmF0aW8pCisJCW1hdGNoX2ZsYWdzIHw9
+IERSTV9NT0RFX01BVENIX0FTUEVDVF9SQVRJTzsKKwogCWZvciAodmljID0gMTsgdmljIDwgQVJS
+QVlfU0laRShlZGlkXzRrX21vZGVzKTsgdmljKyspIHsKIAkJY29uc3Qgc3RydWN0IGRybV9kaXNw
+bGF5X21vZGUgKmhkbWlfbW9kZSA9ICZlZGlkXzRrX21vZGVzW3ZpY107CiAJCXVuc2lnbmVkIGlu
+dCBjbG9jazEsIGNsb2NrMjsKQEAgLTUxMTgsNiArNTEyOSw3IEBAIGRybV9oZG1pX2F2aV9pbmZv
+ZnJhbWVfZnJvbV9kaXNwbGF5X21vZGUoc3RydWN0IGhkbWlfYXZpX2luZm9mcmFtZSAqZnJhbWUs
+CiAJCQkJCSBjb25zdCBzdHJ1Y3QgZHJtX2Rpc3BsYXlfbW9kZSAqbW9kZSkKIHsKIAllbnVtIGhk
+bWlfcGljdHVyZV9hc3BlY3QgcGljdHVyZV9hc3BlY3Q7CisJdTggdmljLCBoZG1pX3ZpYzsKIAlp
+bnQgZXJyOwogCiAJaWYgKCFmcmFtZSB8fCAhbW9kZSkKQEAgLTUxMzAsNyArNTE0Miw4IEBAIGRy
+bV9oZG1pX2F2aV9pbmZvZnJhbWVfZnJvbV9kaXNwbGF5X21vZGUoc3RydWN0IGhkbWlfYXZpX2lu
+Zm9mcmFtZSAqZnJhbWUsCiAJaWYgKG1vZGUtPmZsYWdzICYgRFJNX01PREVfRkxBR19EQkxDTEsp
+CiAJCWZyYW1lLT5waXhlbF9yZXBlYXQgPSAxOwogCi0JZnJhbWUtPnZpZGVvX2NvZGUgPSBkcm1f
+bW9kZV9jZWFfdmljKGNvbm5lY3RvciwgbW9kZSk7CisJdmljID0gZHJtX21vZGVfY2VhX3ZpYyhj
+b25uZWN0b3IsIG1vZGUpOworCWhkbWlfdmljID0gZHJtX21vZGVfaGRtaV92aWMoY29ubmVjdG9y
+LCBtb2RlKTsKIAogCWZyYW1lLT5waWN0dXJlX2FzcGVjdCA9IEhETUlfUElDVFVSRV9BU1BFQ1Rf
+Tk9ORTsKIApAQCAtNTE0NCwxMSArNTE1NywxNSBAQCBkcm1faGRtaV9hdmlfaW5mb2ZyYW1lX2Zy
+b21fZGlzcGxheV9tb2RlKHN0cnVjdCBoZG1pX2F2aV9pbmZvZnJhbWUgKmZyYW1lLAogCiAJLyoK
+IAkgKiBQb3B1bGF0ZSBwaWN0dXJlIGFzcGVjdCByYXRpbyBmcm9tIGVpdGhlcgotCSAqIHVzZXIg
+aW5wdXQgKGlmIHNwZWNpZmllZCkgb3IgZnJvbSB0aGUgQ0VBIG1vZGUgbGlzdC4KKwkgKiB1c2Vy
+IGlucHV0IChpZiBzcGVjaWZpZWQpIG9yIGZyb20gdGhlIENFQS9IRE1JIG1vZGUgbGlzdHMuCiAJ
+ICovCiAJcGljdHVyZV9hc3BlY3QgPSBtb2RlLT5waWN0dXJlX2FzcGVjdF9yYXRpbzsKLQlpZiAo
+cGljdHVyZV9hc3BlY3QgPT0gSERNSV9QSUNUVVJFX0FTUEVDVF9OT05FKQotCQlwaWN0dXJlX2Fz
+cGVjdCA9IGRybV9nZXRfY2VhX2FzcGVjdF9yYXRpbyhmcmFtZS0+dmlkZW9fY29kZSk7CisJaWYg
+KHBpY3R1cmVfYXNwZWN0ID09IEhETUlfUElDVFVSRV9BU1BFQ1RfTk9ORSkgeworCQlpZiAodmlj
+KQorCQkJcGljdHVyZV9hc3BlY3QgPSBkcm1fZ2V0X2NlYV9hc3BlY3RfcmF0aW8odmljKTsKKwkJ
+ZWxzZSBpZiAoaGRtaV92aWMpCisJCQlwaWN0dXJlX2FzcGVjdCA9IGRybV9nZXRfaGRtaV9hc3Bl
+Y3RfcmF0aW8oaGRtaV92aWMpOworCX0KIAogCS8qCiAJICogVGhlIGluZm9mcmFtZSBjYW4ndCBj
+b252ZXkgYW55dGhpbmcgYnV0IG5vbmUsIDQ6MwpAQCAtNTE1NiwxMiArNTE3MywyMCBAQCBkcm1f
+aGRtaV9hdmlfaW5mb2ZyYW1lX2Zyb21fZGlzcGxheV9tb2RlKHN0cnVjdCBoZG1pX2F2aV9pbmZv
+ZnJhbWUgKmZyYW1lLAogCSAqIHdlIGNhbiBvbmx5IHNhdGlzZnkgaXQgYnkgc3BlY2lmeWluZyB0
+aGUgcmlnaHQgVklDLgogCSAqLwogCWlmIChwaWN0dXJlX2FzcGVjdCA+IEhETUlfUElDVFVSRV9B
+U1BFQ1RfMTZfOSkgewotCQlpZiAocGljdHVyZV9hc3BlY3QgIT0KLQkJICAgIGRybV9nZXRfY2Vh
+X2FzcGVjdF9yYXRpbyhmcmFtZS0+dmlkZW9fY29kZSkpCisJCWlmICh2aWMpIHsKKwkJCWlmIChw
+aWN0dXJlX2FzcGVjdCAhPSBkcm1fZ2V0X2NlYV9hc3BlY3RfcmF0aW8odmljKSkKKwkJCQlyZXR1
+cm4gLUVJTlZBTDsKKwkJfSBlbHNlIGlmIChoZG1pX3ZpYykgeworCQkJaWYgKHBpY3R1cmVfYXNw
+ZWN0ICE9IGRybV9nZXRfaGRtaV9hc3BlY3RfcmF0aW8oaGRtaV92aWMpKQorCQkJCXJldHVybiAt
+RUlOVkFMOworCQl9IGVsc2UgewogCQkJcmV0dXJuIC1FSU5WQUw7CisJCX0KKwogCQlwaWN0dXJl
+X2FzcGVjdCA9IEhETUlfUElDVFVSRV9BU1BFQ1RfTk9ORTsKIAl9CiAKKwlmcmFtZS0+dmlkZW9f
+Y29kZSA9IHZpYzsKIAlmcmFtZS0+cGljdHVyZV9hc3BlY3QgPSBwaWN0dXJlX2FzcGVjdDsKIAlm
+cmFtZS0+YWN0aXZlX2FzcGVjdCA9IEhETUlfQUNUSVZFX0FTUEVDVF9QSUNUVVJFOwogCWZyYW1l
+LT5zY2FuX21vZGUgPSBIRE1JX1NDQU5fTU9ERV9VTkRFUlNDQU47Ci0tIAoyLjE3LjEKCl9fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGlu
+ZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRl
+c2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
