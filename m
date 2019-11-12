@@ -2,97 +2,88 @@ Return-Path: <SRS0=8kND=ZE=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.7 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
-	HTML_MESSAGE,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,
-	SPF_PASS autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-9.8 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2DECFC43331
-	for <amd-gfx@archiver.kernel.org>; Tue, 12 Nov 2019 21:14:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id ECF06C43331
+	for <amd-gfx@archiver.kernel.org>; Tue, 12 Nov 2019 21:26:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E588220818
-	for <amd-gfx@archiver.kernel.org>; Tue, 12 Nov 2019 21:14:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E588220818
+	by mail.kernel.org (Postfix) with ESMTPS id C48D52084E
+	for <amd-gfx@archiver.kernel.org>; Tue, 12 Nov 2019 21:26:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C48D52084E
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5AB256E527;
-	Tue, 12 Nov 2019 21:14:53 +0000 (UTC)
-Received: from NAM03-DM3-obe.outbound.protection.outlook.com
- (mail-eopbgr800058.outbound.protection.outlook.com [40.107.80.58])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 442FE6E527
- for <amd-gfx@lists.freedesktop.org>; Tue, 12 Nov 2019 21:14:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5F4116EBF3;
+	Tue, 12 Nov 2019 21:26:57 +0000 (UTC)
+Received: from NAM05-CO1-obe.outbound.protection.outlook.com
+ (mail-eopbgr720085.outbound.protection.outlook.com [40.107.72.85])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 00D196EBF3
+ for <amd-gfx@lists.freedesktop.org>; Tue, 12 Nov 2019 21:26:55 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Okxrx428SvCT4CdOCge7KnlvjlFUwwh+xLzldkISZEAInNwaf1+3w5bfFbBn5+9GfKpaF4DQ7Ixq5rf6jLy8kd+VWCRknvwY6nJGBqD3BrENlmpItpuqcv9zIL42d2B3cgnq5gEngxj3/lPwirauZaR7qvsIdG5Zn1DltUAj9iRC5DTLnbYm4sl+3MTsBVbLGl5g+km5ArAA0BKhKf4f8CJXzAQGamdRJeVWczF9wNH0XHqrHLii9b63vMrrNB9/IdtsWEsgURA3N9dDACOmb5s3ZR7JR1X5MDgTCeP3JKY8/VM3uRmtbTIZOMccJF0u4QpVO4f1J6NicObz7RPoyQ==
+ b=J4BVMfxczQxMEoRDAG3fwIk40mkFf21j7tE1jAc7haFur6H3fM57UswOmDXYT0mM9OP7hRQ6RT/6BLzeGqOEVw5mJ0whwwaA0Z8EYD0DzkWSkDDlPrqGVvh+OrKegshHzP55lncJ8twCcsyd1iAgJHYs5bckk4hh6WUnPRruoVzzWYDWCx5e2Rk5okN4J3EUdQw3BaxSJrvBPo/6Qjy0Aqk48Q0ikmwnhC4NonfnA04r0/saa33lkirbLaWoTtd8LmgTA0YJFOXu2tgZzrKzlULh3KTx8WwedAeIHdMlmKxx0gmiawIqhZMJ1iwuj1SdY3ecIrw20gpCHlL4auu0Pg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=WRFh7Dct9XHwc5jj6qK+teAGyNILfwxyYEtFIfWsp8E=;
- b=YfF7daAH1YiGXMGEYvfw/XhznIt62377w8FFQCtbA66NhKfZlwwvT56nh9b0Q3n3EPJvFGNG9S+Xa6WGZtAAlsUryyvGCyzWjywjwDvqlhDxZ+Z0EcmkfPZl8daOHHlgbPzRq+sNSeh8T3d+KMD9dN5qNfopGjdMjxGv/AUsCbvMqCWyJYiWxchC2QHTxdAk96cna33NN6njQhZO1g+WhrpBQk90pnfdh2Nn8ZuJe7cSacZovVbSa6G9oSvzT5UvjhHaC4dcsJXisBV/JTepcc/9uJ9YEsHjwvElCBpC6iGATRsPBSJd5VAWPMYJQDuE7f9ktRXkQ6570Cmw3MtFEA==
+ bh=I3trUSGMphifyegkpL+ML0WDXALcvA99mV8cQ+pOkKg=;
+ b=A80Iz6BphKX/qsyrcTsKHP3ixROjsW8uCaYabb5xF8jG8CbOYcDi5tjYxIYAAPc2Dn/wMCP9+WYOJPeV4g9JgzZFMdMhAV40e+OGCBpsn3prOhQmDP+5n7Fwh0Zi2iCbDQVtLh8Y3lV4WmdvaSuLOEv4v/6Ku8IfrZTMMEtURYTqDAXpnrXTTtnXhzdeDUH3R5T9W49tH6Qdfv2mKTRfwsnVWNY8Y9+6Rv63ltlHPp4+n1E5ASMUfDPCmMatdiU3Rri1zEyduSmkDLsgreelnanhees2MNj61mH2h0USZ2V4S5SumFCFlU4nqmxMaLghrYkRUy93I0mWfB2/hjmktw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 Received: from DM6PR12MB2778.namprd12.prod.outlook.com (20.176.114.145) by
- DM6PR12MB3450.namprd12.prod.outlook.com (20.178.29.148) with Microsoft SMTP
+ DM6PR12MB3723.namprd12.prod.outlook.com (10.255.172.84) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2451.23; Tue, 12 Nov 2019 21:14:50 +0000
+ 15.20.2430.24; Tue, 12 Nov 2019 21:26:54 +0000
 Received: from DM6PR12MB2778.namprd12.prod.outlook.com
  ([fe80::304d:db58:2aa:d69e]) by DM6PR12MB2778.namprd12.prod.outlook.com
  ([fe80::304d:db58:2aa:d69e%6]) with mapi id 15.20.2430.027; Tue, 12 Nov 2019
- 21:14:50 +0000
-From: "Zhao, Yong" <Yong.Zhao@amd.com>
-To: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "Cornwall, Jay" <Jay.Cornwall@amd.com>, "Morichetti, Laurent"
- <Laurent.Morichetti@amd.com>
-Subject: Re: [PATCH 3/3] drm/amdkfd: Fix a bug when calculating
- save_area_used_size
-Thread-Topic: [PATCH 3/3] drm/amdkfd: Fix a bug when calculating
- save_area_used_size
-Thread-Index: AQHVmOdULwq1UzJ3KEqMtTnktpSy96eICohl
-Date: Tue, 12 Nov 2019 21:14:50 +0000
-Message-ID:
- <DM6PR12MB277837E8CD2700465A7AFE1CF0770@DM6PR12MB2778.namprd12.prod.outlook.com>
-References: <20191111232521.10528-1-Yong.Zhao@amd.com>,
- <20191111232521.10528-3-Yong.Zhao@amd.com>
-In-Reply-To: <20191111232521.10528-3-Yong.Zhao@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [165.204.54.211]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: fdcb1339-3201-441c-91a8-08d767b55ac6
-x-ms-traffictypediagnostic: DM6PR12MB3450:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <DM6PR12MB34508BD95FD82C91D27DBFD5F0770@DM6PR12MB3450.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:1775;
-x-forefront-prvs: 021975AE46
-x-forefront-antispam-report: SFV:NSPM;
- SFS:(10009020)(4636009)(396003)(376002)(136003)(39860400002)(346002)(366004)(199004)(189003)(66476007)(66556008)(53546011)(6116002)(3846002)(66946007)(8936002)(6506007)(99286004)(256004)(2906002)(102836004)(33656002)(66446008)(91956017)(14444005)(76116006)(71200400001)(71190400001)(486006)(2501003)(19627405001)(76176011)(64756008)(81166006)(26005)(8676002)(74316002)(52536014)(7696005)(7736002)(81156014)(186003)(110136005)(5660300002)(66066001)(316002)(86362001)(55016002)(478600001)(54896002)(9686003)(105004)(11346002)(229853002)(6636002)(446003)(6436002)(25786009)(476003)(6246003)(14454004);
- DIR:OUT; SFP:1101; SCL:1; SRVR:DM6PR12MB3450;
+ 21:26:54 +0000
+From: Yong Zhao <Yong.Zhao@amd.com>
+To: amd-gfx@lists.freedesktop.org
+Subject: [PATCH 1/2] drm/amdkfd: Use QUEUE_IS_ACTIVE macro in mqd v10
+Date: Tue, 12 Nov 2019 16:26:40 -0500
+Message-Id: <20191112212641.4643-1-Yong.Zhao@amd.com>
+X-Mailer: git-send-email 2.17.1
+X-ClientProxiedBy: YT1PR01CA0002.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01::15)
+ To DM6PR12MB2778.namprd12.prod.outlook.com
+ (2603:10b6:5:50::17)
+MIME-Version: 1.0
+X-Mailer: git-send-email 2.17.1
+X-Originating-IP: [165.204.55.251]
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: 4bce3cd6-1e2a-4c6d-b83f-08d767b70a08
+X-MS-TrafficTypeDiagnostic: DM6PR12MB3723:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <DM6PR12MB3723305E0D2666022202E7A7F0770@DM6PR12MB3723.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:82;
+X-Forefront-PRVS: 021975AE46
+X-Forefront-Antispam-Report: SFV:NSPM;
+ SFS:(10009020)(4636009)(346002)(376002)(136003)(396003)(366004)(39860400002)(199004)(189003)(4326008)(66476007)(6512007)(2351001)(47776003)(478600001)(6666004)(66066001)(51416003)(52116002)(6916009)(14454004)(305945005)(7736002)(486006)(476003)(386003)(6506007)(2616005)(186003)(26005)(25786009)(14444005)(2361001)(36756003)(86362001)(3846002)(6116002)(99286004)(16586007)(66556008)(66946007)(2906002)(8936002)(50226002)(6486002)(81166006)(81156014)(6436002)(8676002)(50466002)(5660300002)(1076003)(48376002)(316002);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:DM6PR12MB3723;
  H:DM6PR12MB2778.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
  PTR:InfoNoRecords; A:1; MX:1; 
-received-spf: None (protection.outlook.com: amd.com does not designate
+Received-SPF: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: ZB+JPH67UZz7aEiQE/uJlEQprkIBVz070JaJd07JZIXXjNehQxdcWfBorIevdHK4vMjkuenSJ1l5OMbeYnv38r46r2siDsXH/sR68LwoWXqReNwBXHD7J0M7CvzpAtfiytQp7xMUzguUhu7iZHEiz8+4cyFhfwz5la6KpbZ8i2txRpUTTDVG4VFv2Onn8iyl629CbHV98g3eSNDpHNQUitJdAfnZkifmxT3I/NBhLACtczNc/um2cys0HYaGn9LDRAKev6mJPWfpp5bfn32LncrMNyQ+Ud62XZ85inykZMkLbQtdd8Knw75HikAxOmt3EITZLxe0sZk5kQI7Fifs/EPoMXz6j4R3+qwDITjMlMyCtdFO72zAkIQKNI87gXQd4DViw5hoUW2CQsF6XOCpBytl2dMxrV4f1n/uHivdcpNyN3p40hp2CLggzws4w1o9
-MIME-Version: 1.0
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: h1LWa5955jH91SD/58bJDIIw9M/Iptgn/1bZDkOK6b3lENma2kamXW+SoqAoq5MWHT6cUtJgTyshBMjwO0oSfSjQDtMXDyBgiGE6ciH+XLDXtKnNET1NWNeXCMS6+50SSiiv8IXFDUm82frTD8E31Sn/YRJnapbrZ0ge3ujRUVFn33Lm7/sQ9iU1eeX8FNPDxHu8IYdlD+Un3bhss5Af3obpOZYlrQICbbrNACTumhux3CmsaxgFafCTnqVcJw1okYIfpCpTG/DxVziTOT6KF19qIoAOKVn8YL93T4iw3syZ9/VE2S1w4Qsu5e8Rp0i4EyewZ1TNqq1dimIeiaFEcjNfeTvc/E7FXvuL4V1VO9ORMXzvwpj8E7y4yd0WlmAXyo31JzICNa44Epb9WMESIk39CaGItYwzTpH9sitgJ4LgaexYQm0eKQg8c0yxHrfz
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: fdcb1339-3201-441c-91a8-08d767b55ac6
-X-MS-Exchange-CrossTenant-originalarrivaltime: 12 Nov 2019 21:14:50.3989 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: mW+waso5CjkNbIQPfsrpG9C6tnqCRxnNxhuF/va4luIjww5HIBQ+AbmMYBnFufMm
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3450
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4bce3cd6-1e2a-4c6d-b83f-08d767b70a08
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Nov 2019 21:26:54.3482 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: DkgRIIldXG9d7kXeSrCQPopBhiXcaaWBJiKJXjC3tvg5OrmA4wQxDfPCxzxSByC1
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3723
 X-Mailman-Original-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=WRFh7Dct9XHwc5jj6qK+teAGyNILfwxyYEtFIfWsp8E=;
- b=r5ACwSE1logpkPIYysrjh6l8P6g4xtBb2WbXDfoTl783a6CmsVZvnIf4qRQ11WRFjgi2/8jELc7cKLV+z4Jsgm7Fr5ULmlqfumnqHMgbHrGUeziE28SoBdSX/Q8Az965e3cst4/s82Lz+/lRIULnt8+mfr3h6wazJufraishjqI=
+ bh=I3trUSGMphifyegkpL+ML0WDXALcvA99mV8cQ+pOkKg=;
+ b=xrG57REqpPsMntDSMHCNoFFhaw3Mpn4cbLHR+5vJnFXokwYrnL2AZrwMwsqttkOrpt3/1zr2sT6TJYdL/aF/tVQMe2Fl40i15ywtWV/kd+oqfelGfVnDh+4XgLCgpKi0NjW9hcLSp1kh2M7hTnHH26V7MVlCQ4JNjEvcXY6JAqM=
 X-Mailman-Original-Authentication-Results: spf=none (sender IP is )
  smtp.mailfrom=Yong.Zhao@amd.com; 
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -106,141 +97,35 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============0408743451=="
+Cc: Yong Zhao <Yong.Zhao@amd.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-Message-ID: <20191112211450.1s_tOpg-MFIkj48cBQcvw5-Cx3sfhspNsIuOVExZluU@z>
+Message-ID: <20191112212640.BKJ9-kMTi4fIkcX1rv0YbX-kG7yj6tGsxRk8KIKYOKI@z>
 
---===============0408743451==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_DM6PR12MB277837E8CD2700465A7AFE1CF0770DM6PR12MB2778namp_"
-
---_000_DM6PR12MB277837E8CD2700465A7AFE1CF0770DM6PR12MB2778namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-+ Laurent
-________________________________
-From: Zhao, Yong <Yong.Zhao@amd.com>
-Sent: Monday, November 11, 2019 6:25 PM
-To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>; Cornwall=
-, Jay <Jay.Cornwall@amd.com>
-Cc: Zhao, Yong <Yong.Zhao@amd.com>
-Subject: [PATCH 3/3] drm/amdkfd: Fix a bug when calculating save_area_used_=
-size
-
-workgroup context data writes from m->cp_hqd_cntl_stack_size, so we
-should deduct it when calculating the used size.
-
-Change-Id: I5252e25662c3b8221f451c39115bf084d1911eae
-Signed-off-by: Yong Zhao <Yong.Zhao@amd.com>
----
- drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c b/drivers/gpu/=
-drm/amd/amdkfd/kfd_mqd_manager_v9.c
-index d3380c5bdbde..3a2ee1f01aae 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
-@@ -302,7 +302,8 @@ static int get_wave_state(struct mqd_manager *mm, void =
-*mqd,
-
-         *ctl_stack_used_size =3D m->cp_hqd_cntl_stack_size -
-                 m->cp_hqd_cntl_stack_offset;
--       *save_area_used_size =3D m->cp_hqd_wg_state_offset;
-+       *save_area_used_size =3D m->cp_hqd_wg_state_offset -
-+               m->cp_hqd_cntl_stack_size;;
-
-         if (copy_to_user(ctl_stack, mqd_ctl_stack, m->cp_hqd_cntl_stack_si=
-ze))
-                 return -EFAULT;
---
-2.17.1
-
-
---_000_DM6PR12MB277837E8CD2700465A7AFE1CF0770DM6PR12MB2778namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-&#43; Laurent</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Zhao, Yong &lt;Yong.Z=
-hao@amd.com&gt;<br>
-<b>Sent:</b> Monday, November 11, 2019 6:25 PM<br>
-<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
-gt;; Cornwall, Jay &lt;Jay.Cornwall@amd.com&gt;<br>
-<b>Cc:</b> Zhao, Yong &lt;Yong.Zhao@amd.com&gt;<br>
-<b>Subject:</b> [PATCH 3/3] drm/amdkfd: Fix a bug when calculating save_are=
-a_used_size</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">workgroup context data writes from m-&gt;cp_hqd_cn=
-tl_stack_size, so we<br>
-should deduct it when calculating the used size.<br>
-<br>
-Change-Id: I5252e25662c3b8221f451c39115bf084d1911eae<br>
-Signed-off-by: Yong Zhao &lt;Yong.Zhao@amd.com&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c | 3 &#43;&#43;-<br>
-&nbsp;1 file changed, 2 insertions(&#43;), 1 deletion(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c b/drivers/gpu/=
-drm/amd/amdkfd/kfd_mqd_manager_v9.c<br>
-index d3380c5bdbde..3a2ee1f01aae 100644<br>
---- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c<br>
-@@ -302,7 &#43;302,8 @@ static int get_wave_state(struct mqd_manager *mm, v=
-oid *mqd,<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *ctl_stack_used_size =3D m=
--&gt;cp_hqd_cntl_stack_size -<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; m-&gt;cp_hqd_cntl_stack_offset;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *save_area_used_size =3D m-&gt;cp_hqd=
-_wg_state_offset;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *save_area_used_size =3D m-&gt;cp=
-_hqd_wg_state_offset -<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; m-&gt;cp_hqd_cntl_stack_size;;<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (copy_to_user(ctl_stack=
-, mqd_ctl_stack, m-&gt;cp_hqd_cntl_stack_size))<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; return -EFAULT;<br>
--- <br>
-2.17.1<br>
-<br>
-</div>
-</span></font></div>
-</body>
-</html>
-
---_000_DM6PR12MB277837E8CD2700465A7AFE1CF0770DM6PR12MB2778namp_--
-
---===============0408743451==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
-
---===============0408743451==--
+VGhpcyBpcyBkb25lIGZvciBvdGhlciBHRlggaW4gY29tbWl0IGJiMmQyMTI4YTU0YzQuIFBvcnQg
+aXQgdG8gR0ZYMTAuCgpDaGFuZ2UtSWQ6IEk5ZTA0ODcyYmUzYWYwZTkwZjVmNjkzMDIyNjg5NmIx
+ZWE1NDVmM2Q5ClNpZ25lZC1vZmYtYnk6IFlvbmcgWmhhbyA8WW9uZy5aaGFvQGFtZC5jb20+Ci0t
+LQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX21xZF9tYW5hZ2VyX3YxMC5jIHwgMTEg
+KystLS0tLS0tLS0KIDEgZmlsZSBjaGFuZ2VkLCAyIGluc2VydGlvbnMoKyksIDkgZGVsZXRpb25z
+KC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX21xZF9tYW5h
+Z2VyX3YxMC5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX21xZF9tYW5hZ2VyX3Yx
+MC5jCmluZGV4IDk1NGRjOGFjNGZmMS4uNDZkZGIzM2I2MjRhIDEwMDY0NAotLS0gYS9kcml2ZXJz
+L2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfbXFkX21hbmFnZXJfdjEwLmMKKysrIGIvZHJpdmVycy9n
+cHUvZHJtL2FtZC9hbWRrZmQva2ZkX21xZF9tYW5hZ2VyX3YxMC5jCkBAIC0yMTMsMTAgKzIxMyw3
+IEBAIHN0YXRpYyB2b2lkIHVwZGF0ZV9tcWQoc3RydWN0IG1xZF9tYW5hZ2VyICptbSwgdm9pZCAq
+bXFkLAogCXVwZGF0ZV9jdV9tYXNrKG1tLCBtcWQsIHEpOwogCXNldF9wcmlvcml0eShtLCBxKTsK
+IAotCXEtPmlzX2FjdGl2ZSA9IChxLT5xdWV1ZV9zaXplID4gMCAmJgotCQkJcS0+cXVldWVfYWRk
+cmVzcyAhPSAwICYmCi0JCQlxLT5xdWV1ZV9wZXJjZW50ID4gMCAmJgotCQkJIXEtPmlzX2V2aWN0
+ZWQpOworCXEtPmlzX2FjdGl2ZSA9IFFVRVVFX0lTX0FDVElWRSgqcSk7CiB9CiAKIHN0YXRpYyBp
+bnQgZGVzdHJveV9tcWQoc3RydWN0IG1xZF9tYW5hZ2VyICptbSwgdm9pZCAqbXFkLApAQCAtMzQ4
+LDExICszNDUsNyBAQCBzdGF0aWMgdm9pZCB1cGRhdGVfbXFkX3NkbWEoc3RydWN0IG1xZF9tYW5h
+Z2VyICptbSwgdm9pZCAqbXFkLAogCW0tPnNkbWFfcXVldWVfaWQgPSBxLT5zZG1hX3F1ZXVlX2lk
+OwogCW0tPnNkbWF4X3JsY3hfZHVtbXlfcmVnID0gU0RNQV9STENfRFVNTVlfREVGQVVMVDsKIAot
+Ci0JcS0+aXNfYWN0aXZlID0gKHEtPnF1ZXVlX3NpemUgPiAwICYmCi0JCQlxLT5xdWV1ZV9hZGRy
+ZXNzICE9IDAgJiYKLQkJCXEtPnF1ZXVlX3BlcmNlbnQgPiAwICYmCi0JCQkhcS0+aXNfZXZpY3Rl
+ZCk7CisJcS0+aXNfYWN0aXZlID0gUVVFVUVfSVNfQUNUSVZFKCpxKTsKIH0KIAogLyoKLS0gCjIu
+MTcuMQoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1k
+LWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9s
+aXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
