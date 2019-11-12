@@ -1,41 +1,43 @@
 From: Bjorn Helgaas <helgaas@kernel.org>
-Subject: Re: [PATCH 1/2] drm: replace incorrect Compliance/Margin magic
- numbers with PCI_EXP_LNKCTL2 definitions
-Date: Tue, 12 Nov 2019 11:19:15 -0600
-Message-ID: <20191112171915.GA167243@google.com>
-References: <6d86246e-504a-b762-aff8-0449dd6f3d31@daenzer.net>
+Subject: [PATCH V3 0/3] drm: replace magic numbers
+Date: Tue, 12 Nov 2019 11:35:00 -0600
+Message-ID: <20191112173503.176611-1-helgaas@kernel.org>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
 Content-Transfer-Encoding: 8bit
 Return-path: <linux-kernel-owner@vger.kernel.org>
-Content-Disposition: inline
-In-Reply-To: <6d86246e-504a-b762-aff8-0449dd6f3d31@daenzer.net>
 Sender: linux-kernel-owner@vger.kernel.org
-To: Michel =?iso-8859-1?Q?D=E4nzer?= <michel@daenzer.net>
-Cc: Alex Deucher <alexander.deucher@amd.com>, Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, David Zhou <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, Frederick Lawler <fred@fredlawl.com>, linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+To: Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, David Zhou <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>
+Cc: Frederick Lawler <fred@fredlawl.com>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, Ilia Mirkin <imirkin@alum.mit.edu>, linux-pci@vger.kernel.org, =?UTF-8?q?Michel=20D=C3=A4nzer?= <michel@daenzer.net>, Bjorn Helgaas <bhelgaas@google.com>
 List-Id: amd-gfx.lists.freedesktop.org
 
-On Tue, Nov 12, 2019 at 05:45:15PM +0100, Michel Dänzer wrote:
-> On 2019-11-11 8:29 p.m., Bjorn Helgaas wrote:
-> > From: Bjorn Helgaas <bhelgaas@google.com>
-> > 
-> > Add definitions for these PCIe Link Control 2 register fields:
-> > 
-> >   Enter Compliance
-> >   Transmit Margin
-> > 
-> > and use them in amdgpu and radeon.
-> > 
-> > NOTE: This is a functional change because "7 << 9" was apparently a typo.
-> > That mask included the high order bit of Transmit Margin, the Enter
-> > Modified Compliance bit, and the Compliance SOS bit, but I think what
-> > was intended was the 3-bit Transmit Margin field at bits 9:7.
-> 
-> Can you split out the functional change into a separate patch 1? That
-> could make things easier for anyone who bisects the functional change
-> for whatever reason.
+From: Bjorn Helgaas <bhelgaas@google.com>
 
-Great idea, thanks!  Wish I'd thought of that.
+amdgpu and radeon do a bit of mucking with the PCIe Link Control 2
+register, some of it using hard-coded magic numbers.  The idea here is to
+replace those with #defines.
 
-While fixing that, I also noticed I missed one case in
-amdgpu/si.c.  I'll post a v3.
+Since v2:
+  - Fix a gpu_cfg2 case in amdgpu/si.c that I had missed
+  - Separate out the functional changes for better bisection (thanks,
+    Michel!)
+  - Add #defines in a patch by themselves (so a GPU revert wouldn't break
+    other potential users)
+  - Squash all the magic number -> #define changes into one patch
+
+Since v1:
+  - Add my signed-off-by and Alex's reviewed-by.
+
+Bjorn Helgaas (3):
+  PCI: Add #defines for Enter Compliance, Transmit Margin
+  drm: correct Transmit Margin masks
+  drm: replace numbers with PCI_EXP_LNKCTL2 definitions
+
+ drivers/gpu/drm/amd/amdgpu/cik.c | 22 ++++++++++++++--------
+ drivers/gpu/drm/amd/amdgpu/si.c  | 22 ++++++++++++++--------
+ drivers/gpu/drm/radeon/cik.c     | 22 ++++++++++++++--------
+ drivers/gpu/drm/radeon/si.c      | 22 ++++++++++++++--------
+ include/uapi/linux/pci_regs.h    |  2 ++
+ 5 files changed, 58 insertions(+), 32 deletions(-)
+
+-- 
+2.24.0.rc1.363.gb1bccd3e3d-goog
