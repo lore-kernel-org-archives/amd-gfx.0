@@ -1,18 +1,14 @@
-From: Leo Liu <leo.liu-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 00/21] Separate JPEG from VCN
-Date: Tue, 12 Nov 2019 15:37:28 -0500
-Message-ID: <524ed49b-1f55-eb6d-3903-81964b33baac@amd.com>
-References: <20191112180329.3927-1-leo.liu@amd.com>
- <CADnq5_NVBemrfE5OB=NBeb5XM5HPWdnhjaWM0KjdDyb6+pm9zA@mail.gmail.com>
- <171a5818-a2b5-6e91-ac35-050b43963988@amd.com>
- <CADnq5_MRfvfE1D5SPOWTyWZFnLZezZ3N61QXvrwnLFssM++LrA@mail.gmail.com>
- <bf523547-408a-536d-5f61-226691058a7b@amd.com>
- <CADnq5_NjNPZC=2xt5Qft6_jiZnbdtR+LqogTWdfty_N_zWR_uA@mail.gmail.com>
+From: "Zhao, Yong" <Yong.Zhao-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 3/3] drm/amdkfd: Fix a bug when calculating
+ save_area_used_size
+Date: Tue, 12 Nov 2019 21:14:50 +0000
+Message-ID: <DM6PR12MB277837E8CD2700465A7AFE1CF0770@DM6PR12MB2778.namprd12.prod.outlook.com>
+References: <20191111232521.10528-1-Yong.Zhao@amd.com>,
+ <20191111232521.10528-3-Yong.Zhao@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0408743451=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CADnq5_NjNPZC=2xt5Qft6_jiZnbdtR+LqogTWdfty_N_zWR_uA-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
+In-Reply-To: <20191111232521.10528-3-Yong.Zhao-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -24,115 +20,138 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Cornwall, Jay" <Jay.Cornwall-5C7GfCeVMHo@public.gmane.org>, "Morichetti, Laurent" <Laurent.Morichetti-5C7GfCeVMHo@public.gmane.org>
 
-Ck9uIDIwMTktMTEtMTIgMzozNCBwLm0uLCBBbGV4IERldWNoZXIgd3JvdGU6Cj4gT24gVHVlLCBO
-b3YgMTIsIDIwMTkgYXQgMzoxNiBQTSBMZW8gTGl1IDxsZW8ubGl1QGFtZC5jb20+IHdyb3RlOgo+
-Pgo+PiBPbiAyMDE5LTExLTEyIDM6MTIgcC5tLiwgQWxleCBEZXVjaGVyIHdyb3RlOgo+Pj4gT24g
-VHVlLCBOb3YgMTIsIDIwMTkgYXQgMjo1NyBQTSBMZW8gTGl1IDxsZW8ubGl1QGFtZC5jb20+IHdy
-b3RlOgo+Pj4+IE9uIDIwMTktMTEtMTIgMjo0OSBwLm0uLCBBbGV4IERldWNoZXIgd3JvdGU6Cj4+
-Pj4+IE9uIFR1ZSwgTm92IDEyLCAyMDE5IGF0IDE6MDMgUE0gTGVvIExpdSA8bGVvLmxpdUBhbWQu
-Y29tPiB3cm90ZToKPj4+Pj4+ICAgIEZyb20gSlBFRzIuMCwgSlBFRyBpcyBhIHNlcGFyYXRlZCBJ
-UCBibG9jaywgYW5kIGhhcyBpdCBvd24gUEcvQ0csCj4+Pj4+PiBhbmQgcG93ZXIgbWFuYWdlbWVu
-dC4gSXQgZG9lc24ndCByZXF1aXJlIEZXLCBzbyBpbmRlcGVkZW50IGZyb20gRlcKPj4+Pj4+IGxv
-YWRpbmcgYXMgd2VsbC4KPj4+Pj4+Cj4+Pj4+PiBQYXRjaCAxLTQ6IFNlcGFyYXRlIEpQRUcxLjAg
-ZnJvbSBTVyB3aXNlLCBzaW5jZSBKUEVHMS4wIGlzIHN0aWxsCj4+Pj4+PiBjb21iaW5lZCB3aXRo
-IFZDTjEuMCBlc3AuIGluIHBvd2VyIG1hbmFnZW1lbnQ7Cj4+Pj4+PiBQYXRjaCA1LTEwOiBTZXBh
-cmF0ZSBKUEVHMi4wIGFzIGFuIGluZGVwZW5kZW50IElQIHdpdGggUEcvQ0c7Cj4+Pj4+PiBQYXRj
-aCAxMS0xNTogQWRkIHBvd2VyIG1hbmFnZW1lbnQgZm9yIEpQRUcgb2YgTmF2aTF4IGFuZCBSZW5v
-aXI7Cj4+Pj4+PiBQYXRjaCAxNjogRW5hYmxlIEpQRUcyLjA7Cj4+Pj4+PiBQYXRjaCAxNy0yMDog
-U2VwYXJhdGUgSlBFRzIuNSBmcm9tIFZDTjIuNTsKPj4+Pj4+IFBhdGNoIDIxOiBFbmFibGUgSlBF
-RzIuNQo+Pj4+Pj4KPj4+Pj4gSXMgdGhlIGpwZWcgcG93ZXJnYXRpbmcgZHluYW1pYyBvciBkbyB3
-ZSBuZWVkIGEgaWRsZSB3b3JrIHRocmVhZCB0bwo+Pj4+PiB0dXJuIGl0IG9mZiBsaWtlIHdlIGRv
-IGZvciB2Y24/Cj4+Pj4gSXQgaGFzIHN0YXRpYyBQRy9DRyBmb3IgSlBFRzIuMCBhbmQgc3RhdGlj
-IENHIGZvciBKUEVHMi41Lgo+Pj4+Cj4+Pj4gSXQgYWxzbyBoYXMgRFBNIGZvciBKUEVHMi4wLiBT
-byB3ZSBuZWVkIGlkbGUgd29yayB0aHJlYWQgYW5kIGJlZ2luX3VzZQo+Pj4+IGxpa2UgVkNOIHRv
-IGluaXQvZGVpbml0IEpQRUcgYW5kIHR1cm4gb24vb2ZmIEpQRUcgcG93ZXIgdGhyb3VnaCBTTVUK
-Pj4+PiBtZXNzYWdlcyBzdWNoIGFzIFBvd2VyVVBKcGVnIGFuZCBQb3dlckRvd25KcGVnLgo+Pj4g
-T2ssIHNvIHRoYXQgc3RpbGwgaGFzIHRvIGJlIGltcGxlbWVudGVkIHRoZW4uICBJIGRpZG4ndCBz
-ZWUgdGhhdCBpbgo+Pj4gdGhlIHBhdGNoIHNldC4KPj4gImFtZGdwdV9qcGVnX2lkbGVfd29ya19o
-YW5kbGVyIiBpcyBpbiBwYXRjaCA2LCBhbmQgY2FsbGluZyB0aG9zZSBTTVUgbWVzc2FnZXMgYXJl
-IGluIHRob3NlIHBvd2VycGxheSBwYXRjaGVzLgo+Pgo+PiBUaGUgc2V0IGlzIGNvbXBsZXRlIGZv
-ciBhbGwgSlBFR3MKPiBBaCwgeWVhaCwgSSBtaXNzZWQgdGhhdCBwYXRjaCB0aGUgZmlyc3QgdGlt
-ZSBhcm91bmQuICBUaGFua3MhCgpZZWFoLCB0aGUgc2V0IGlzIHRvbyBiaWcuIFNvcnJ5IGFib3V0
-IHRoYXQuIFNob3VsZCBkbyB0aGlzIGNoYW5nZXMgCmVhcmxpZXIswqAgYnV0IGp1c3QgZ2V0IGFy
-b3VuZCB0byBpdDotKQoKTGVvCgoKPgo+IEFsZXgKPgo+PiBUaGFua3MsCj4+IExlbwo+Pgo+Pgo+
-Pj4gVGhhbmtzLAo+Pj4KPj4+IEFsZXgKPj4+Cj4+Pj4gVGhhbmtzLAo+Pj4+IExlbwo+Pj4+Cj4+
-Pj4KPj4+Pj4gQWxleAo+Pj4+Pgo+Pj4+Pj4gTGVvIExpdSAoMjEpOgo+Pj4+Pj4gICAgICBkcm0v
-YW1kZ3B1OiBhZGQgSlBFRyBIVyBJUCBhbmQgU1cgc3RydWN0dXJlcwo+Pj4+Pj4gICAgICBkcm0v
-YW1kZ3B1OiBhZGQgYW1kZ3B1X2pwZWcgYW5kIEpQRUcgdGVzdHMKPj4+Pj4+ICAgICAgZHJtL2Ft
-ZGdwdTogc2VwYXJhdGUgSlBFRzEuMCBjb2RlIG91dCBmcm9tIFZDTjEuMAo+Pj4+Pj4gICAgICBk
-cm0vYW1kZ3B1OiB1c2UgdGhlIEpQRUcgc3RydWN0dXJlIGZvciBnZW5lcmFsIGRyaXZlciBzdXBw
-b3J0Cj4+Pj4+PiAgICAgIGRybS9hbWRncHU6IGFkZCBKUEVHIElQIGJsb2NrIHR5cGUKPj4+Pj4+
-ICAgICAgZHJtL2FtZGdwdTogYWRkIEpQRUcgY29tbW9uIGZ1bmN0aW9ucyB0byBhbWRncHVfanBl
-Zwo+Pj4+Pj4gICAgICBkcm0vYW1kZ3B1OiBhZGQgSlBFRyB2Mi4wIGZ1bmN0aW9uIHN1cHBvcnRz
-Cj4+Pj4+PiAgICAgIGRybS9hbWRncHU6IHJlbW92ZSB1bm5lY2Vzc2FyeSBKUEVHMi4wIGNvZGUg
-ZnJvbSBWQ04yLjAKPj4+Pj4+ICAgICAgZHJtL2FtZGdwdTogYWRkIEpQRUcgUEcgYW5kIENHIGlu
-dGVyZmFjZQo+Pj4+Pj4gICAgICBkcm0vYW1kZ3B1OiBhZGQgUEcgYW5kIENHIGZvciBKUEVHMi4w
-Cj4+Pj4+PiAgICAgIGRybS9hbWQvcG93ZXJwbGF5OiBhZGQgSlBFRyBQb3dlcnBsYXkgaW50ZXJm
-YWNlCj4+Pj4+PiAgICAgIGRybS9hbWQvcG93ZXJwbGF5OiBhZGQgSlBFRyBwb3dlciBjb250cm9s
-IGZvciBOYXZpMXgKPj4+Pj4+ICAgICAgZHJtL2FtZC9wb3dlcnBsYXk6IGFkZCBQb3dlcmdhdGUg
-SlBFRyBmb3IgUmVub2lyCj4+Pj4+PiAgICAgIGRybS9hbWQvcG93ZXJwbGF5OiBhZGQgSlBFRyBw
-b3dlciBjb250cm9sIGZvciBSZW5vaXIKPj4+Pj4+ICAgICAgZHJtL2FtZC9wb3dlcnBsYXk6IHNl
-dCBKUEVHIHRvIFNNVSBkcG0KPj4+Pj4+ICAgICAgZHJtL2FtZGdwdTogZW5hYmxlIEpQRUcyLjAg
-ZHBtCj4+Pj4+PiAgICAgIGRybS9hbWRncHU6IGFkZCBkcml2ZXIgc3VwcG9ydCBmb3IgSlBFRzIu
-MCBhbmQgYWJvdmUKPj4+Pj4+ICAgICAgZHJtL2FtZGdwdTogZW5hYmxlIEpQRUcyLjAgZm9yIE5h
-dmkxeCBhbmQgUmVub2lyCj4+Pj4+PiAgICAgIGRybS9hbWRncHU6IG1vdmUgSlBFRzIuNSBvdXQg
-ZnJvbSBWQ04yLjUKPj4+Pj4+ICAgICAgZHJtL2FtZGdwdTogZW5hYmxlIEFyY3R1cnVzIENHIGZv
-ciBWQ04gYW5kIEpQRUcgYmxvY2tzCj4+Pj4+PiAgICAgIGRybS9hbWRncHU6IGVuYWJsZSBBcmN0
-dXJ1cyBKUEVHMi41IGJsb2NrCj4+Pj4+Pgo+Pj4+Pj4gICAgIGRyaXZlcnMvZ3B1L2RybS9hbWQv
-YW1kZ3B1L01ha2VmaWxlICAgICAgICAgICB8ICAgOCArLQo+Pj4+Pj4gICAgIGRyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5oICAgICAgICAgICB8ICAgNSArCj4+Pj4+PiAgICAgZHJp
-dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2N0eC5jICAgICAgIHwgICA0ICstCj4+Pj4+
-PiAgICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jICAgIHwgICAy
-ICsKPj4+Pj4+ICAgICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfanBlZy5jICAg
-ICAgfCAyMTUgKysrKysKPj4+Pj4+ICAgICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
-cHVfanBlZy5oICAgICAgfCAgNjIgKysKPj4+Pj4+ICAgICBkcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
-ZGdwdS9hbWRncHVfa21zLmMgICAgICAgfCAgMTUgKy0KPj4+Pj4+ICAgICBkcml2ZXJzL2dwdS9k
-cm0vYW1kL2FtZGdwdS9hbWRncHVfcG0uYyAgICAgICAgfCAgIDggKwo+Pj4+Pj4gICAgIGRyaXZl
-cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9wbS5oICAgICAgICB8ICAgMSArCj4+Pj4+PiAg
-ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Zjbi5jICAgICAgIHwgMTEzICst
-LQo+Pj4+Pj4gICAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92Y24uaCAgICAg
-ICB8ICAgNSAtCj4+Pj4+PiAgICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvanBlZ192MV8w
-LmMgICAgICAgIHwgNTg0ICsrKysrKysrKysrKysKPj4+Pj4+ICAgICBkcml2ZXJzL2dwdS9kcm0v
-YW1kL2FtZGdwdS9qcGVnX3YxXzAuaCAgICAgICAgfCAgMzIgKwo+Pj4+Pj4gICAgIGRyaXZlcnMv
-Z3B1L2RybS9hbWQvYW1kZ3B1L2pwZWdfdjJfMC5jICAgICAgICB8IDgyNyArKysrKysrKysrKysr
-KysrKysKPj4+Pj4+ICAgICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9qcGVnX3YyXzAuaCAg
-ICAgICAgfCAgNDIgKwo+Pj4+Pj4gICAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2pwZWdf
-djJfNS5jICAgICAgICB8IDY0MSArKysrKysrKysrKysrKwo+Pj4+Pj4gICAgIGRyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1kZ3B1L2pwZWdfdjJfNS5oICAgICAgICB8ICAyOSArCj4+Pj4+PiAgICAgZHJp
-dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvbnYuYyAgICAgICAgICAgICAgIHwgIDExICstCj4+Pj4+
-PiAgICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvc29jMTUuYyAgICAgICAgICAgIHwgIDEw
-ICstCj4+Pj4+PiAgICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvdmNuX3YxXzAuYyAgICAg
-ICAgIHwgNDgxICstLS0tLS0tLS0KPj4+Pj4+ICAgICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
-dS92Y25fdjJfMC5jICAgICAgICAgfCA0OTYgKy0tLS0tLS0tLS0KPj4+Pj4+ICAgICBkcml2ZXJz
-L2dwdS9kcm0vYW1kL2FtZGdwdS92Y25fdjJfMC5oICAgICAgICAgfCAgMTMgLQo+Pj4+Pj4gICAg
-IGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3Zjbl92Ml81LmMgICAgICAgICB8IDI0NiArLS0t
-LS0KPj4+Pj4+ICAgICBkcml2ZXJzL2dwdS9kcm0vYW1kL2luY2x1ZGUvYW1kX3NoYXJlZC5oICAg
-ICAgfCAgIDUgKy0KPj4+Pj4+ICAgICBkcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9hbWRn
-cHVfc211LmMgICAgfCAgIDUgKwo+Pj4+Pj4gICAgIC4uLi9ncHUvZHJtL2FtZC9wb3dlcnBsYXkv
-aW5jL2FtZGdwdV9zbXUuaCAgICB8ICAgMyArCj4+Pj4+PiAgICAgZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9wb3dlcnBsYXkvaW5jL3NtdV92MTJfMC5oIHwgICAyICsKPj4+Pj4+ICAgICBkcml2ZXJzL2dw
-dS9kcm0vYW1kL3Bvd2VycGxheS9uYXZpMTBfcHB0LmMgICAgfCAgMzIgKy0KPj4+Pj4+ICAgICBk
-cml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9yZW5vaXJfcHB0LmMgICAgfCAgMjcgKwo+Pj4+
-Pj4gICAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L3NtdV9pbnRlcm5hbC5oICB8ICAg
-NCArCj4+Pj4+PiAgICAgZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvc211X3YxMl8wLmMg
-ICAgIHwgIDExICsKPj4+Pj4+ICAgICAzMSBmaWxlcyBjaGFuZ2VkLCAyNTkzIGluc2VydGlvbnMo
-KyksIDEzNDYgZGVsZXRpb25zKC0pCj4+Pj4+PiAgICAgY3JlYXRlIG1vZGUgMTAwNjQ0IGRyaXZl
-cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9qcGVnLmMKPj4+Pj4+ICAgICBjcmVhdGUgbW9k
-ZSAxMDA2NDQgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2pwZWcuaAo+Pj4+Pj4g
-ICAgIGNyZWF0ZSBtb2RlIDEwMDY0NCBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9qcGVnX3Yx
-XzAuYwo+Pj4+Pj4gICAgIGNyZWF0ZSBtb2RlIDEwMDY0NCBkcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
-ZGdwdS9qcGVnX3YxXzAuaAo+Pj4+Pj4gICAgIGNyZWF0ZSBtb2RlIDEwMDY0NCBkcml2ZXJzL2dw
-dS9kcm0vYW1kL2FtZGdwdS9qcGVnX3YyXzAuYwo+Pj4+Pj4gICAgIGNyZWF0ZSBtb2RlIDEwMDY0
-NCBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9qcGVnX3YyXzAuaAo+Pj4+Pj4gICAgIGNyZWF0
-ZSBtb2RlIDEwMDY0NCBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9qcGVnX3YyXzUuYwo+Pj4+
-Pj4gICAgIGNyZWF0ZSBtb2RlIDEwMDY0NCBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9qcGVn
-X3YyXzUuaAo+Pj4+Pj4KPj4+Pj4+IC0tCj4+Pj4+PiAyLjE3LjEKPj4+Pj4+Cj4+Pj4+PiBfX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwo+Pj4+Pj4gYW1kLWdm
-eCBtYWlsaW5nIGxpc3QKPj4+Pj4+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4+Pj4+
-PiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+--===============0408743451==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_DM6PR12MB277837E8CD2700465A7AFE1CF0770DM6PR12MB2778namp_"
+
+--_000_DM6PR12MB277837E8CD2700465A7AFE1CF0770DM6PR12MB2778namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
++ Laurent
+________________________________
+From: Zhao, Yong <Yong.Zhao-5C7GfCeVMHo@public.gmane.org>
+Sent: Monday, November 11, 2019 6:25 PM
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>; Cornwall=
+, Jay <Jay.Cornwall-5C7GfCeVMHo@public.gmane.org>
+Cc: Zhao, Yong <Yong.Zhao-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH 3/3] drm/amdkfd: Fix a bug when calculating save_area_used_=
+size
+
+workgroup context data writes from m->cp_hqd_cntl_stack_size, so we
+should deduct it when calculating the used size.
+
+Change-Id: I5252e25662c3b8221f451c39115bf084d1911eae
+Signed-off-by: Yong Zhao <Yong.Zhao-5C7GfCeVMHo@public.gmane.org>
+---
+ drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c b/drivers/gpu/=
+drm/amd/amdkfd/kfd_mqd_manager_v9.c
+index d3380c5bdbde..3a2ee1f01aae 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
+@@ -302,7 +302,8 @@ static int get_wave_state(struct mqd_manager *mm, void =
+*mqd,
+
+         *ctl_stack_used_size =3D m->cp_hqd_cntl_stack_size -
+                 m->cp_hqd_cntl_stack_offset;
+-       *save_area_used_size =3D m->cp_hqd_wg_state_offset;
++       *save_area_used_size =3D m->cp_hqd_wg_state_offset -
++               m->cp_hqd_cntl_stack_size;;
+
+         if (copy_to_user(ctl_stack, mqd_ctl_stack, m->cp_hqd_cntl_stack_si=
+ze))
+                 return -EFAULT;
+--
+2.17.1
+
+
+--_000_DM6PR12MB277837E8CD2700465A7AFE1CF0770DM6PR12MB2778namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+&#43; Laurent</div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Zhao, Yong &lt;Yong.Z=
+hao-5C7GfCeVMHo@public.gmane.org&gt;<br>
+<b>Sent:</b> Monday, November 11, 2019 6:25 PM<br>
+<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org &lt;amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&=
+gt;; Cornwall, Jay &lt;Jay.Cornwall-5C7GfCeVMHo@public.gmane.org&gt;<br>
+<b>Cc:</b> Zhao, Yong &lt;Yong.Zhao-5C7GfCeVMHo@public.gmane.org&gt;<br>
+<b>Subject:</b> [PATCH 3/3] drm/amdkfd: Fix a bug when calculating save_are=
+a_used_size</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">workgroup context data writes from m-&gt;cp_hqd_cn=
+tl_stack_size, so we<br>
+should deduct it when calculating the used size.<br>
+<br>
+Change-Id: I5252e25662c3b8221f451c39115bf084d1911eae<br>
+Signed-off-by: Yong Zhao &lt;Yong.Zhao-5C7GfCeVMHo@public.gmane.org&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c | 3 &#43;&#43;-<br>
+&nbsp;1 file changed, 2 insertions(&#43;), 1 deletion(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c b/drivers/gpu/=
+drm/amd/amdkfd/kfd_mqd_manager_v9.c<br>
+index d3380c5bdbde..3a2ee1f01aae 100644<br>
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c<br>
+@@ -302,7 &#43;302,8 @@ static int get_wave_state(struct mqd_manager *mm, v=
+oid *mqd,<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *ctl_stack_used_size =3D m=
+-&gt;cp_hqd_cntl_stack_size -<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; m-&gt;cp_hqd_cntl_stack_offset;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *save_area_used_size =3D m-&gt;cp_hqd=
+_wg_state_offset;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *save_area_used_size =3D m-&gt;cp=
+_hqd_wg_state_offset -<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; m-&gt;cp_hqd_cntl_stack_size;;<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (copy_to_user(ctl_stack=
+, mqd_ctl_stack, m-&gt;cp_hqd_cntl_stack_size))<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; return -EFAULT;<br>
+-- <br>
+2.17.1<br>
+<br>
+</div>
+</span></font></div>
+</body>
+</html>
+
+--_000_DM6PR12MB277837E8CD2700465A7AFE1CF0770DM6PR12MB2778namp_--
+
+--===============0408743451==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
 X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+
+--===============0408743451==--
