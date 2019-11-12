@@ -1,57 +1,41 @@
-From: "Kazlauskas, Nicholas" <nicholas.kazlauskas-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 1/2] drm/amd/display: Return correct error value
-Date: Tue, 12 Nov 2019 11:08:18 -0500
-Message-ID: <f2eed143-4767-81b2-2de9-e89631c7bd5a@amd.com>
-References: <20191112151628.8267-1-mikita.lipski@amd.com>
+From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel@daenzer.net>
+Subject: Re: [PATCH 1/2] drm: replace incorrect Compliance/Margin magic
+ numbers with PCI_EXP_LNKCTL2 definitions
+Date: Tue, 12 Nov 2019 17:45:15 +0100
+Message-ID: <6d86246e-504a-b762-aff8-0449dd6f3d31@daenzer.net>
+References: <20191111192932.36048-1-helgaas@kernel.org>
+ <20191111192932.36048-2-helgaas@kernel.org>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20191112151628.8267-1-mikita.lipski-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: mikita.lipski-5C7GfCeVMHo@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, harry.wentland-5C7GfCeVMHo@public.gmane.org
-Cc: alexander.deucher-5C7GfCeVMHo@public.gmane.org
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20191111192932.36048-2-helgaas@kernel.org>
+Content-Language: en-CA
+Sender: linux-kernel-owner@vger.kernel.org
+To: Bjorn Helgaas <helgaas@kernel.org>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>, David Zhou <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>
+Cc: Frederick Lawler <fred@fredlawl.com>, linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, Bjorn Helgaas <bhelgaas@google.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gMjAxOS0xMS0xMiAxMDoxNiBhLm0uLCBtaWtpdGEubGlwc2tpQGFtZC5jb20gd3JvdGU6Cj4g
-RnJvbTogTWlraXRhIExpcHNraSA8bWlraXRhLmxpcHNraUBhbWQuY29tPgo+IAo+IFt3aHldCj4g
-VGhlIGZ1bmN0aW9uIGlzIGV4cGVjdGVkIHRvIHJldHVybiBpbnN0YW5jZSBvZiB0aGUgdGltaW5n
-IGdlbmVyYXRvcgo+IHRoZXJlZm9yZSB3ZSBzaG91bGRuJ3QgYmUgcmV0dXJuaW5nIGJvb2xlYW4g
-aW4gaW50ZWdlciBmdW5jdGlvbiwKPiBhbmQgd2Ugc2hvdWxkbid0IGJlIHJldHVybmluZyB6ZXJv
-IHNvIGNoYW5naW5nIGl0IHRvIC0xLgo+IAo+IFNpZ25lZC1vZmYtYnk6IE1pa2l0YSBMaXBza2kg
-PG1pa2l0YS5saXBza2lAYW1kLmNvbT4KCkkgd29uZGVyIGlmIHNvbWUgb2YgdGhlc2Ugd2VyZSBp
-bnRlbnRpb25hbCBmb3IgcmV0dXJuaW5nIDAuIFRoZXNlIGxpbmVzIAp3ZXJlIG9yaWdpbmFsbHkg
-aW50cm9kdWNlZCBmb3IgZW5hYmxpbmcgc2VhbWxlc3MgYm9vdCBzdXBwb3J0IHdpdGggZURQIAph
-bmQgSSB0aGluayB5b3UncmUgZ3VhcmFudGVlZCB0byBoYXZlIHRob3NlIHJlc291cmNlcyBhcyBp
-bnN0YW5jZSAwLgoKTmljaG9sYXMgS2F6bGF1c2thcwoKPiAtLS0KPiAgIGRyaXZlcnMvZ3B1L2Ry
-bS9hbWQvZGlzcGxheS9kYy9jb3JlL2RjX3Jlc291cmNlLmMgfCA2ICsrKy0tLQo+ICAgMSBmaWxl
-IGNoYW5nZWQsIDMgaW5zZXJ0aW9ucygrKSwgMyBkZWxldGlvbnMoLSkKPiAKPiBkaWZmIC0tZ2l0
-IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2NvcmUvZGNfcmVzb3VyY2UuYyBiL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9jb3JlL2RjX3Jlc291cmNlLmMKPiBpbmRleCA4
-OWI1Zjg2Y2Q0MGIuLjc1Y2M1OGVjZjY0NyAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0v
-YW1kL2Rpc3BsYXkvZGMvY29yZS9kY19yZXNvdXJjZS5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJt
-L2FtZC9kaXNwbGF5L2RjL2NvcmUvZGNfcmVzb3VyY2UuYwo+IEBAIC0xODY2LDcgKzE4NjYsNyBA
-QCBzdGF0aWMgaW50IGFjcXVpcmVfcmVzb3VyY2VfZnJvbV9od19lbmFibGVkX3N0YXRlKAo+ICAg
-CWluc3QgPSBsaW5rLT5saW5rX2VuYy0+ZnVuY3MtPmdldF9kaWdfZnJvbnRlbmQobGluay0+bGlu
-a19lbmMpOwo+ICAgCj4gICAJaWYgKGluc3QgPT0gRU5HSU5FX0lEX1VOS05PV04pCj4gLQkJcmV0
-dXJuIGZhbHNlOwo+ICsJCXJldHVybiAtMTsKPiAgIAo+ICAgCWZvciAoaSA9IDA7IGkgPCBwb29s
-LT5zdHJlYW1fZW5jX2NvdW50OyBpKyspIHsKPiAgIAkJaWYgKHBvb2wtPnN0cmVhbV9lbmNbaV0t
-PmlkID09IGluc3QpIHsKPiBAQCAtMTg3OCwxMCArMTg3OCwxMCBAQCBzdGF0aWMgaW50IGFjcXVp
-cmVfcmVzb3VyY2VfZnJvbV9od19lbmFibGVkX3N0YXRlKAo+ICAgCj4gICAJLy8gdGdfaW5zdCBu
-b3QgZm91bmQKPiAgIAlpZiAoaSA9PSBwb29sLT5zdHJlYW1fZW5jX2NvdW50KQo+IC0JCXJldHVy
-biBmYWxzZTsKPiArCQlyZXR1cm4gLTE7Cj4gICAKPiAgIAlpZiAodGdfaW5zdCA+PSBwb29sLT50
-aW1pbmdfZ2VuZXJhdG9yX2NvdW50KQo+IC0JCXJldHVybiBmYWxzZTsKPiArCQlyZXR1cm4gLTE7
-Cj4gICAKPiAgIAlpZiAoIXJlc19jdHgtPnBpcGVfY3R4W3RnX2luc3RdLnN0cmVhbSkgewo+ICAg
-CQlzdHJ1Y3QgcGlwZV9jdHggKnBpcGVfY3R4ID0gJnJlc19jdHgtPnBpcGVfY3R4W3RnX2luc3Rd
-Owo+IAoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1k
-LWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9s
-aXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+On 2019-11-11 8:29 p.m., Bjorn Helgaas wrote:
+> From: Bjorn Helgaas <bhelgaas@google.com>
+> 
+> Add definitions for these PCIe Link Control 2 register fields:
+> 
+>   Enter Compliance
+>   Transmit Margin
+> 
+> and use them in amdgpu and radeon.
+> 
+> NOTE: This is a functional change because "7 << 9" was apparently a typo.
+> That mask included the high order bit of Transmit Margin, the Enter
+> Modified Compliance bit, and the Compliance SOS bit, but I think what
+> was intended was the 3-bit Transmit Margin field at bits 9:7.
+
+Can you split out the functional change into a separate patch 1? That
+could make things easier for anyone who bisects the functional change
+for whatever reason.
+
+
+-- 
+Earthling Michel Dänzer               |               https://redhat.com
+Libre software enthusiast             |             Mesa and X developer
