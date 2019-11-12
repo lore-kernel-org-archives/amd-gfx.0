@@ -1,66 +1,50 @@
-From: YueHaibing <yuehaibing@huawei.com>
-Subject: [PATCH v2 -next] drm/amd/display: remove set but not used variable 'bpc'
-Date: Tue, 12 Nov 2019 10:10:50 +0800
-Message-ID: <20191112021050.13128-1-yuehaibing@huawei.com>
-References: <20191109093538.23964-1-yuehaibing@huawei.com>
+From: Joe Perches <joe@perches.com>
+Subject: Re: [PATCH -next] drm/amd/display: Fix old-style declaration
+Date: Mon, 11 Nov 2019 18:39:15 -0800
+Message-ID: <01c630e6d4c58b3f6184603e158f53fb9aaeae7d.camel@perches.com>
+References: <20191111122801.18584-1-yuehaibing@huawei.com>
 Mime-Version: 1.0
-Content-Type: text/plain
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20191109093538.23964-1-yuehaibing@huawei.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: harry.wentland@amd.com, sunpeng.li@amd.com, alexander.deucher@amd.com, christian.koenig@amd.com, David1.Zhou@amd.com, airlied@linux.ie, daniel@ffwll.ch, Bhawanpreet.Lakha@amd.com, Jun.Lei@amd.com, Anthony.Koo@amd.com, Zhan.Liu@amd.com
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, YueHaibing <yuehaibing@huawei.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+In-Reply-To: <20191111122801.18584-1-yuehaibing@huawei.com>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: YueHaibing <yuehaibing@huawei.com>, harry.wentland@amd.com, sunpeng.li@amd.com, alexander.deucher@amd.com, christian.koenig@amd.com, David1.Zhou@amd.com, airlied@linux.ie, daniel@ffwll.ch, Bhawanpreet.Lakha@amd.com, Jun.Lei@amd.com, David.Francis@amd.com, Dmytro.Laktyushkin@amd.com, nicholas.kazlauskas@amd.com, martin.leung@amd.com, Chris.Park@amd.com
+Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
 List-Id: amd-gfx.lists.freedesktop.org
 
-Fixes gcc '-Wunused-but-set-variable' warning:
-
-drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc_link.c: In function get_pbn_from_timing:
-drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc_link.c:2364:11: warning:
- variable bpc set but not used [-Wunused-but-set-variable]
-
-It is not used since commit e49f69363adf ("drm/amd/display: use
-proper formula to calculate bandwidth from timing"), this also
-remove get_color_depth(), which is only used here.
-
-Signed-off-by: YueHaibing <yuehaibing@huawei.com>
----
-v2: also remove unused get_color_depth()
----
- drivers/gpu/drm/amd/display/dc/core/dc_link.c | 15 ---------------
- 1 file changed, 15 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link.c b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-index bdc8be3..1be4277 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-@@ -2638,28 +2638,13 @@ static struct fixed31_32 get_pbn_per_slot(struct dc_stream_state *stream)
- 	return dc_fixpt_div_int(mbytes_per_sec, 54);
- }
- 
--static int get_color_depth(enum dc_color_depth color_depth)
--{
--	switch (color_depth) {
--	case COLOR_DEPTH_666: return 6;
--	case COLOR_DEPTH_888: return 8;
--	case COLOR_DEPTH_101010: return 10;
--	case COLOR_DEPTH_121212: return 12;
--	case COLOR_DEPTH_141414: return 14;
--	case COLOR_DEPTH_161616: return 16;
--	default: return 0;
--	}
--}
--
- static struct fixed31_32 get_pbn_from_timing(struct pipe_ctx *pipe_ctx)
- {
--	uint32_t bpc;
- 	uint64_t kbps;
- 	struct fixed31_32 peak_kbps;
- 	uint32_t numerator;
- 	uint32_t denominator;
- 
--	bpc = get_color_depth(pipe_ctx->stream_res.pix_clk_params.color_depth);
- 	kbps = dc_bandwidth_in_kbps_from_timing(&pipe_ctx->stream->timing);
- 
- 	/*
--- 
-2.7.4
+T24gTW9uLCAyMDE5LTExLTExIGF0IDIwOjI4ICswODAwLCBZdWVIYWliaW5nIHdyb3RlOgo+IEZp
+eCBhIGJ1aWxkIHdhcm5pbmc6Cj4gCj4gZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvLi4vZGlz
+cGxheS9kYy9jb3JlL2RjLmM6NzU6MToKPiAgd2FybmluZzogJ3N0YXRpYycgaXMgbm90IGF0IGJl
+Z2lubmluZyBvZiBkZWNsYXJhdGlvbiBbLVdvbGQtc3R5bGUtZGVjbGFyYXRpb25dCltdCj4gZGlm
+ZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9jb3JlL2RjLmMgYi9kcml2
+ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvY29yZS9kYy5jCltdCj4gQEAgLTY5LDcgKzY5LDcg
+QEAKPiAgI2RlZmluZSBEQ19MT0dHRVIgXAo+ICAJZGMtPmN0eC0+bG9nZ2VyCj4gIAo+IC1jb25z
+dCBzdGF0aWMgY2hhciBEQ19CVUlMRF9JRFtdID0gInByb2R1Y3Rpb24tYnVpbGQiOwo+ICtzdGF0
+aWMgY29uc3QgY2hhciBEQ19CVUlMRF9JRFtdID0gInByb2R1Y3Rpb24tYnVpbGQiOwoKRENfQlVJ
+TERfSUQgaXMgdXNlZCBleGFjdGx5IG9uY2UuCk1heWJlIGp1c3QgdXNlIGl0IGRpcmVjdGx5IGFu
+ZCByZW1vdmUgRENfQlVJTERfSUQgaW5zdGVhZD8KCi0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9k
+aXNwbGF5L2RjL2NvcmUvZGMuYyB8IDQgKy0tLQogMSBmaWxlIGNoYW5nZWQsIDEgaW5zZXJ0aW9u
+KCspLCAzIGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlz
+cGxheS9kYy9jb3JlL2RjLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvY29yZS9k
+Yy5jCmluZGV4IDFmZGJhMTMuLjgwM2RjMTQgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9h
+bWQvZGlzcGxheS9kYy9jb3JlL2RjLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5
+L2RjL2NvcmUvZGMuYwpAQCAtNjksOCArNjksNiBAQAogI2RlZmluZSBEQ19MT0dHRVIgXAogCWRj
+LT5jdHgtPmxvZ2dlcgogCi1jb25zdCBzdGF0aWMgY2hhciBEQ19CVUlMRF9JRFtdID0gInByb2R1
+Y3Rpb24tYnVpbGQiOwotCiAvKioKICAqIERPQzogT3ZlcnZpZXcKICAqCkBAIC04MTUsNyArODEz
+LDcgQEAgc3RydWN0IGRjICpkY19jcmVhdGUoY29uc3Qgc3RydWN0IGRjX2luaXRfZGF0YSAqaW5p
+dF9wYXJhbXMpCiAJaWYgKGRjLT5yZXNfcG9vbC0+ZG1jdSAhPSBOVUxMKQogCQlkYy0+dmVyc2lv
+bnMuZG1jdV92ZXJzaW9uID0gZGMtPnJlc19wb29sLT5kbWN1LT5kbWN1X3ZlcnNpb247CiAKLQlk
+Yy0+YnVpbGRfaWQgPSBEQ19CVUlMRF9JRDsKKwlkYy0+YnVpbGRfaWQgPSAicHJvZHVjdGlvbi1i
+dWlsZCI7CiAKIAlEQ19MT0dfREMoIkRpc3BsYXkgQ29yZSBpbml0aWFsaXplZFxuIik7CiAKCgpf
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpkcmktZGV2ZWwg
+bWFpbGluZyBsaXN0CmRyaS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0
+cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9kcmktZGV2ZWw=
