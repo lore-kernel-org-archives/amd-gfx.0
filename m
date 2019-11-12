@@ -1,77 +1,78 @@
-From: Felix Kuehling <felix.kuehling-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 2/2] drm/amdkfd: Stop using GFP_NOIO explicitly for GFX10
-Date: Tue, 12 Nov 2019 16:46:48 -0500
-Message-ID: <8e94cf6d-c2bd-46d6-87e2-9663aacd33da@amd.com>
-References: <20191112212641.4643-1-Yong.Zhao@amd.com>
- <20191112212641.4643-2-Yong.Zhao@amd.com>
- <4e5a3723-4b61-e76c-dc96-dafdec51f099@amd.com>
- <e585e540-5edf-52b1-4fcf-48f1e98a2dd2@amd.com>
+From: Bjorn Helgaas <helgaas@kernel.org>
+Subject: Re: [PATCH V3 0/3] drm: replace magic numbers
+Date: Tue, 12 Nov 2019 15:52:49 -0600
+Message-ID: <20191112215249.GA214212@google.com>
+References: <CY4PR12MB1813200B2297DB19D1921A83F7770@CY4PR12MB1813.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <e585e540-5edf-52b1-4fcf-48f1e98a2dd2-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Yong Zhao <yong.zhao-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Content-Type: text/plain; charset=iso-8859-1
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Content-Disposition: inline
+In-Reply-To: <CY4PR12MB1813200B2297DB19D1921A83F7770@CY4PR12MB1813.namprd12.prod.outlook.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: "Deucher, Alexander" <Alexander.Deucher@amd.com>
+Cc: "Koenig, Christian" <Christian.Koenig@amd.com>, "Zhou, David(ChunMing)" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, Frederick Lawler <fred@fredlawl.com>, "linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>, Michel =?iso-8859-1?Q?D=E4nzer?= <michel@daenzer.net>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, Ilia Mirkin <imirkin@alum.mit.edu>
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gMjAxOS0xMS0xMiA0OjM1IHAubS4sIFlvbmcgWmhhbyB3cm90ZToKPiBIaSBGZWxpeCwKPgo+
-IFNlZSBvbmUgdGhpbmcgaW5saW5lIEkgYW0gbm90IHRvbyBzdXJlLgo+Cj4gWW9uZwo+Cj4gT24g
-MjAxOS0xMS0xMiA0OjMwIHAubS4sIEZlbGl4IEt1ZWhsaW5nIHdyb3RlOgo+PiBPbiAyMDE5LTEx
-LTEyIDQ6MjYgcC5tLiwgWW9uZyBaaGFvIHdyb3RlOgo+Pj4gQWRhcHQgdGhlIGNoYW5nZSBmcm9t
-IDFjZDEwNmVjZmMxZjA0Cj4+Pgo+Pj4gVGhlIGNoYW5nZSBpczoKPj4+Cj4+PiDCoMKgwqDCoCBk
-cm0vYW1ka2ZkOiBTdG9wIHVzaW5nIEdGUF9OT0lPIGV4cGxpY2l0bHkKPj4+Cj4+PiDCoMKgwqDC
-oCBUaGlzIGlzIG5vIGxvbmdlciBuZWVkZWQgd2l0aCB0aGUgbWVtYWxsb2Nfbm9mc19zYXZlL3Jl
-c3RvcmUgaW4KPj4+IMKgwqDCoMKgIGRxbV9sb2NrL3VubG9jawo+Pj4KPj4+IENoYW5nZS1JZDog
-STQyNDUwYjJjMTQ5ZDJiMTg0MmJlOTlhOGYzNTVjODI5YTAwNzllN2MKPj4+IFNpZ25lZC1vZmYt
-Ynk6IFlvbmcgWmhhbyA8WW9uZy5aaGFvQGFtZC5jb20+Cj4+Cj4+IFRoZSBzZXJpZXMgaXMKPj4K
-Pj4gUmV2aWV3ZWQtYnk6IEZlbGl4IEt1ZWhsaW5nIDxGZWxpeC5LdWVobGluZ0BhbWQuY29tPgo+
-Pgo+Pgo+Pj4gLS0tCj4+PiDCoCBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfbXFkX21h
-bmFnZXJfdjEwLmMgfCAyICstCj4+PiDCoCBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRf
-bXFkX21hbmFnZXJfdjkuY8KgIHwgMiArLQo+Pj4gwqAgMiBmaWxlcyBjaGFuZ2VkLCAyIGluc2Vy
-dGlvbnMoKyksIDIgZGVsZXRpb25zKC0pCj4+Pgo+Pj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1ka2ZkL2tmZF9tcWRfbWFuYWdlcl92MTAuYyAKPj4+IGIvZHJpdmVycy9ncHUv
-ZHJtL2FtZC9hbWRrZmQva2ZkX21xZF9tYW5hZ2VyX3YxMC5jCj4+PiBpbmRleCA0NmRkYjMzYjYy
-NGEuLjU3OWM1ZmZjZmE3OSAxMDA2NDQKPj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
-a2ZkL2tmZF9tcWRfbWFuYWdlcl92MTAuYwo+Pj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9h
-bWRrZmQva2ZkX21xZF9tYW5hZ2VyX3YxMC5jCj4+PiBAQCAtMzkzLDcgKzM5Myw3IEBAIHN0cnVj
-dCBtcWRfbWFuYWdlciAqbXFkX21hbmFnZXJfaW5pdF92MTAoZW51bSAKPj4+IEtGRF9NUURfVFlQ
-RSB0eXBlLAo+Pj4gwqDCoMKgwqDCoCBpZiAoV0FSTl9PTih0eXBlID49IEtGRF9NUURfVFlQRV9N
-QVgpKQo+Pj4gwqDCoMKgwqDCoMKgwqDCoMKgIHJldHVybiBOVUxMOwo+Pj4gwqAgLcKgwqDCoCBt
-cWQgPSBremFsbG9jKHNpemVvZigqbXFkKSwgR0ZQX05PSU8pOwo+Pj4gK8KgwqDCoCBtcWQgPSBr
-emFsbG9jKHNpemVvZigqbXFkKSwgR0ZQX0tFUk5FTCk7Cj4+PiDCoMKgwqDCoMKgIGlmICghbXFk
-KQo+Pj4gwqDCoMKgwqDCoMKgwqDCoMKgIHJldHVybiBOVUxMOwo+Pj4gwqAgZGlmZiAtLWdpdCBh
-L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9tcWRfbWFuYWdlcl92OS5jIAo+Pj4gYi9k
-cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfbXFkX21hbmFnZXJfdjkuYwo+Pj4gaW5kZXgg
-YmUyN2ZmMDFjZGI4Li4yMmE4MTljODg4ZDggMTAwNjQ0Cj4+PiAtLS0gYS9kcml2ZXJzL2dwdS9k
-cm0vYW1kL2FtZGtmZC9rZmRfbXFkX21hbmFnZXJfdjkuYwo+Pj4gKysrIGIvZHJpdmVycy9ncHUv
-ZHJtL2FtZC9hbWRrZmQva2ZkX21xZF9tYW5hZ2VyX3Y5LmMKPj4+IEBAIC05Miw3ICs5Miw3IEBA
-IHN0YXRpYyBzdHJ1Y3Qga2ZkX21lbV9vYmogKmFsbG9jYXRlX21xZChzdHJ1Y3QgCj4+PiBrZmRf
-ZGV2ICprZmQsCj4+PiDCoMKgwqDCoMKgwqAgKiBpbnN0ZWFkIG9mIHN1Yi1hbGxvY2F0aW9uIGZ1
-bmN0aW9uLgo+Pj4gwqDCoMKgwqDCoMKgICovCj4+PiDCoMKgwqDCoMKgIGlmIChrZmQtPmN3c3Jf
-ZW5hYmxlZCAmJiAocS0+dHlwZSA9PSBLRkRfUVVFVUVfVFlQRV9DT01QVVRFKSkgewo+Pj4gLcKg
-wqDCoMKgwqDCoMKgIG1xZF9tZW1fb2JqID0ga3phbGxvYyhzaXplb2Yoc3RydWN0IGtmZF9tZW1f
-b2JqKSwgR0ZQX05PSU8pOwo+Pj4gK8KgwqDCoMKgwqDCoMKgIG1xZF9tZW1fb2JqID0ga3phbGxv
-YyhzaXplb2Yoc3RydWN0IGtmZF9tZW1fb2JqKSwgR0ZQX0tFUk5FTCk7Cj4gW3l6XSBUaGlzIHNo
-b3VsZCBiZSBrZXB0IHByb2JhYmx5LiBXaXRoIHRoZSBsYXRlc3QgY29kZSwgCj4gYWxsb2NhdGVf
-bXFkKCkgaXMgY2FsbGVkIG91dHNpZGUgb2YgdGhlIGRxbS4gU28gbm93IHRoZSBzaXR1YXRpb24g
-aXMgCj4gZGlmZmVyZW50IGZyb20gdGhlIG9yaWdpbmFsIG9uZS4KCk1lbW9yeSBhbGxvY2F0aW9u
-cyBvdXRzaWRlIHRoZSBEUU0gbG9jayBhcmUgbm90IHByb2JsZW1hdGljLiBPbmx5IG1lbW9yeSAK
-YWxsb2NhdGlvbnMgdW5kZXIgdGhlIERRTSBsb2NrIG5lZWQgdG8gYmUgY2FyZWZ1bCB0byBhdm9p
-ZCBGUyByZWNsYWltLCAKYmVjYXVzZSB0aGF0IGNhbiBsZWFkIHRvIGRlYWRsb2NrcyB3aXRoIE1N
-VSBub3RpZmllcnMuIEdGUF9OT0lPIGlzIG5vIApsb25nZXIgbmVlZGVkIGZvciB0aGF0LgoKUmVn
-YXJkcywKIMKgIEZlbGl4Cgo+Pj4gwqDCoMKgwqDCoMKgwqDCoMKgIGlmICghbXFkX21lbV9vYmop
-Cj4+PiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCByZXR1cm4gTlVMTDsKPj4+IMKgwqDCoMKg
-wqDCoMKgwqDCoCByZXR2YWwgPSBhbWRncHVfYW1ka2ZkX2FsbG9jX2d0dF9tZW0oa2ZkLT5rZ2Qs
-Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZngg
-bWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMu
-ZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
+On Tue, Nov 12, 2019 at 07:35:53PM +0000, Deucher, Alexander wrote:
+> > -----Original Message-----
+> > From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of
+> > Bjorn Helgaas
+> > Sent: Tuesday, November 12, 2019 12:35 PM
+> > To: Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian
+> > <Christian.Koenig@amd.com>; Zhou, David(ChunMing)
+> > <David1.Zhou@amd.com>; David Airlie <airlied@linux.ie>; Daniel Vetter
+> > <daniel@ffwll.ch>
+> > Cc: Frederick Lawler <fred@fredlawl.com>; linux-pci@vger.kernel.org;
+> > Michel Dänzer <michel@daenzer.net>; linux-kernel@vger.kernel.org; dri-
+> > devel@lists.freedesktop.org; amd-gfx@lists.freedesktop.org; Bjorn Helgaas
+> > <bhelgaas@google.com>; Ilia Mirkin <imirkin@alum.mit.edu>
+> > Subject: [PATCH V3 0/3] drm: replace magic numbers
+> > 
+> > From: Bjorn Helgaas <bhelgaas@google.com>
+> > 
+> > amdgpu and radeon do a bit of mucking with the PCIe Link Control 2 register,
+> > some of it using hard-coded magic numbers.  The idea here is to replace
+> > those with #defines.
+> > 
+> > Since v2:
+> >   - Fix a gpu_cfg2 case in amdgpu/si.c that I had missed
+> >   - Separate out the functional changes for better bisection (thanks,
+> >     Michel!)
+> >   - Add #defines in a patch by themselves (so a GPU revert wouldn't break
+> >     other potential users)
+> >   - Squash all the magic number -> #define changes into one patch
+> > 
+> > Since v1:
+> >   - Add my signed-off-by and Alex's reviewed-by.
+> > 
+> 
+> Series is:
+> Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+> 
+> I'm happy to have it go through whatever tree is easiest for you.
+
+OK, thanks!  I applied your reviewed-by and put these on my pci/misc
+branch for v5.5, in hopes that we might get a followup patch from Fred
+along the lines of 6133b9204c0a ("cxgb4: Prefer
+pcie_capability_read_word()")
+
+> > Bjorn Helgaas (3):
+> >   PCI: Add #defines for Enter Compliance, Transmit Margin
+> >   drm: correct Transmit Margin masks
+> >   drm: replace numbers with PCI_EXP_LNKCTL2 definitions
+> > 
+> >  drivers/gpu/drm/amd/amdgpu/cik.c | 22 ++++++++++++++--------
+> > drivers/gpu/drm/amd/amdgpu/si.c  | 22 ++++++++++++++--------
+> >  drivers/gpu/drm/radeon/cik.c     | 22 ++++++++++++++--------
+> >  drivers/gpu/drm/radeon/si.c      | 22 ++++++++++++++--------
+> >  include/uapi/linux/pci_regs.h    |  2 ++
+> >  5 files changed, 58 insertions(+), 32 deletions(-)
+> > 
+> > --
+> > 2.24.0.rc1.363.gb1bccd3e3d-goog
+> > 
+> > _______________________________________________
+> > amd-gfx mailing list
+> > amd-gfx@lists.freedesktop.org
+> > https://lists.freedesktop.org/mailman/listinfo/amd-gfx
