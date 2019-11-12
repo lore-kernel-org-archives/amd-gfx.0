@@ -1,71 +1,66 @@
-From: Evan Quan <evan.quan-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH] drm/amd/powerplay: avoid DPM reenable process on Navi1x ASICs
- V2
-Date: Tue, 12 Nov 2019 09:46:53 +0800
-Message-ID: <20191112014653.21325-1-evan.quan@amd.com>
+From: YueHaibing <yuehaibing@huawei.com>
+Subject: [PATCH v2 -next] drm/amd/display: remove set but not used variable 'bpc'
+Date: Tue, 12 Nov 2019 10:10:50 +0800
+Message-ID: <20191112021050.13128-1-yuehaibing@huawei.com>
+References: <20191109093538.23964-1-yuehaibing@huawei.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org, Matt Coffin <mcoffin13-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, Evan Quan <evan.quan-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20191109093538.23964-1-yuehaibing@huawei.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: harry.wentland@amd.com, sunpeng.li@amd.com, alexander.deucher@amd.com, christian.koenig@amd.com, David1.Zhou@amd.com, airlied@linux.ie, daniel@ffwll.ch, Bhawanpreet.Lakha@amd.com, Jun.Lei@amd.com, Anthony.Koo@amd.com, Zhan.Liu@amd.com
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, YueHaibing <yuehaibing@huawei.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
-T3RoZXJ3aXNlLCB3aXRob3V0IFJMQyByZWluaXRpYWxpemF0aW9uLCB0aGUgRFBNIHJlZW5hYmxl
-bWVudAp3aWxsIGZhaWwuIFRoYXQgYWZmZWN0cyB0aGUgY3VzdG9tIHBwdGFibGUgdXBsb2FkaW5n
-LgoKVjI6IHNldHRpbmcvY2xlYXJpbmcgdXBsb2FkaW5nX2N1c3RvbV9wcF90YWJsZSBpbgogICAg
-c211X3N5c19zZXRfcHBfdGFibGUoKQoKQ2hhbmdlLUlkOiBJNmZlMmVkNWNlMjNmMmE1YjY2ZjM3
-MWMwYjZkMWY5MjQ4MzdlNWFmNgpSZXBvcnRlZC1ieTogTWF0dCBDb2ZmaW4gPG1jb2ZmaW4xM0Bn
-bWFpbC5jb20+ClNpZ25lZC1vZmYtYnk6IEV2YW4gUXVhbiA8ZXZhbi5xdWFuQGFtZC5jb20+ClRl
-c3RlZC1ieTogTWF0dCBDb2ZmaW4gPG1jb2ZmaW4xM0BnbWFpbC5jb20+Ci0tLQogZHJpdmVycy9n
-cHUvZHJtL2FtZC9wb3dlcnBsYXkvYW1kZ3B1X3NtdS5jICAgIHwgMzEgKysrKysrKysrKysrKysr
-Ky0tLQogLi4uL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9pbmMvYW1kZ3B1X3NtdS5oICAgIHwgIDEg
-KwogMiBmaWxlcyBjaGFuZ2VkLCAyOCBpbnNlcnRpb25zKCspLCA0IGRlbGV0aW9ucygtKQoKZGlm
-ZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2FtZGdwdV9zbXUuYyBiL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2FtZGdwdV9zbXUuYwppbmRleCA3NmE0MTU0YjNi
-ZTIuLjU0YzIxZjVhMTg2MSAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBs
-YXkvYW1kZ3B1X3NtdS5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2FtZGdw
-dV9zbXUuYwpAQCAtNTkxLDEwICs1OTEsMTggQEAgaW50IHNtdV9zeXNfc2V0X3BwX3RhYmxlKHN0
-cnVjdCBzbXVfY29udGV4dCAqc211LCAgdm9pZCAqYnVmLCBzaXplX3Qgc2l6ZSkKIAlzbXVfdGFi
-bGUtPnBvd2VyX3BsYXlfdGFibGUgPSBzbXVfdGFibGUtPmhhcmRjb2RlX3BwdGFibGU7CiAJc211
-X3RhYmxlLT5wb3dlcl9wbGF5X3RhYmxlX3NpemUgPSBzaXplOwogCisJLyoKKwkgKiBTcGVjaWFs
-IGh3X2ZpbmkgYWN0aW9uKGZvciBOYXZpMXgsIHRoZSBEUE1zIGRpc2FibGVtZW50IHdpbGwgYmUK
-KwkgKiBza2lwcGVkKSBtYXkgYmUgbmVlZGVkIGZvciBjdXN0b20gcHB0YWJsZSB1cGxvYWRpbmcu
-CisJICovCisJc211LT51cGxvYWRpbmdfY3VzdG9tX3BwX3RhYmxlID0gdHJ1ZTsKKwogCXJldCA9
-IHNtdV9yZXNldChzbXUpOwogCWlmIChyZXQpCiAJCXByX2luZm8oInNtdSByZXNldCBmYWlsZWQs
-IHJldCA9ICVkXG4iLCByZXQpOwogCisJc211LT51cGxvYWRpbmdfY3VzdG9tX3BwX3RhYmxlID0g
-ZmFsc2U7CisKIGZhaWxlZDoKIAltdXRleF91bmxvY2soJnNtdS0+bXV0ZXgpOwogCXJldHVybiBy
-ZXQ7CkBAIC0xMjkzLDEwICsxMzAxLDI1IEBAIHN0YXRpYyBpbnQgc211X2h3X2Zpbmkodm9pZCAq
-aGFuZGxlKQogCQlyZXR1cm4gcmV0OwogCX0KIAotCXJldCA9IHNtdV9zdG9wX2RwbXMoc211KTsK
-LQlpZiAocmV0KSB7Ci0JCXByX3dhcm4oIkZhaWwgdG8gc3RvcCBEcG1zIVxuIik7Ci0JCXJldHVy
-biByZXQ7CisJLyoKKwkgKiBGb3IgY3VzdG9tIHBwdGFibGUgdXBsb2FkaW5nLCBza2lwIHRoZSBE
-UE0gZmVhdHVyZXMKKwkgKiBkaXNhYmxlIHByb2Nlc3Mgb24gTmF2aTF4IEFTSUNzLgorCSAqICAg
-LSBBcyB0aGUgZ2Z4IHJlbGF0ZWQgZmVhdHVyZXMgYXJlIHVuZGVyIGNvbnRyb2wgb2YKKwkgKiAg
-ICAgUkxDIG9uIHRob3NlIEFTSUNzLiBSTEMgcmVpbml0aWFsaXphdGlvbiB3aWxsIGJlCisJICog
-ICAgIG5lZWRlZCB0byByZWVuYWJsZSB0aGVtLiBUaGF0IHdpbGwgY29zdCBtdWNoIG1vcmUKKwkg
-KiAgICAgZWZmb3J0cy4KKwkgKgorCSAqICAgLSBTTVUgZmlybXdhcmUgY2FuIGhhbmRsZSB0aGUg
-RFBNIHJlZW5hYmxlbWVudAorCSAqICAgICBwcm9wZXJseS4KKwkgKi8KKwlpZiAoIXNtdS0+dXBs
-b2FkaW5nX2N1c3RvbV9wcF90YWJsZSB8fAorCSAgICAhKChhZGV2LT5hc2ljX3R5cGUgPj0gQ0hJ
-UF9OQVZJMTApICYmCisJICAgICAgKGFkZXYtPmFzaWNfdHlwZSA8PSBDSElQX05BVkkxMikpKSB7
-CisJCXJldCA9IHNtdV9zdG9wX2RwbXMoc211KTsKKwkJaWYgKHJldCkgeworCQkJcHJfd2Fybigi
-RmFpbCB0byBzdG9wIERwbXMhXG4iKTsKKwkJCXJldHVybiByZXQ7CisJCX0KIAl9CiAKIAlrZnJl
-ZSh0YWJsZV9jb250ZXh0LT5kcml2ZXJfcHB0YWJsZSk7CmRpZmYgLS1naXQgYS9kcml2ZXJzL2dw
-dS9kcm0vYW1kL3Bvd2VycGxheS9pbmMvYW1kZ3B1X3NtdS5oIGIvZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9wb3dlcnBsYXkvaW5jL2FtZGdwdV9zbXUuaAppbmRleCA4MTIwZTc1ODc1ODUuLjIxNTg0MWY1
-ZmI5MyAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaW5jL2FtZGdw
-dV9zbXUuaAorKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9pbmMvYW1kZ3B1X3Nt
-dS5oCkBAIC0zOTEsNiArMzkxLDcgQEAgc3RydWN0IHNtdV9jb250ZXh0CiAKIAl1aW50MzJfdCBz
-bWNfaWZfdmVyc2lvbjsKIAorCWJvb2wgdXBsb2FkaW5nX2N1c3RvbV9wcF90YWJsZTsKIH07CiAK
-IHN0cnVjdCBpMmNfYWRhcHRlcjsKLS0gCjIuMjQuMAoKX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0
-cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9s
-aXN0aW5mby9hbWQtZ2Z4
+Fixes gcc '-Wunused-but-set-variable' warning:
+
+drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc_link.c: In function get_pbn_from_timing:
+drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc_link.c:2364:11: warning:
+ variable bpc set but not used [-Wunused-but-set-variable]
+
+It is not used since commit e49f69363adf ("drm/amd/display: use
+proper formula to calculate bandwidth from timing"), this also
+remove get_color_depth(), which is only used here.
+
+Signed-off-by: YueHaibing <yuehaibing@huawei.com>
+---
+v2: also remove unused get_color_depth()
+---
+ drivers/gpu/drm/amd/display/dc/core/dc_link.c | 15 ---------------
+ 1 file changed, 15 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link.c b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
+index bdc8be3..1be4277 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_link.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
+@@ -2638,28 +2638,13 @@ static struct fixed31_32 get_pbn_per_slot(struct dc_stream_state *stream)
+ 	return dc_fixpt_div_int(mbytes_per_sec, 54);
+ }
+ 
+-static int get_color_depth(enum dc_color_depth color_depth)
+-{
+-	switch (color_depth) {
+-	case COLOR_DEPTH_666: return 6;
+-	case COLOR_DEPTH_888: return 8;
+-	case COLOR_DEPTH_101010: return 10;
+-	case COLOR_DEPTH_121212: return 12;
+-	case COLOR_DEPTH_141414: return 14;
+-	case COLOR_DEPTH_161616: return 16;
+-	default: return 0;
+-	}
+-}
+-
+ static struct fixed31_32 get_pbn_from_timing(struct pipe_ctx *pipe_ctx)
+ {
+-	uint32_t bpc;
+ 	uint64_t kbps;
+ 	struct fixed31_32 peak_kbps;
+ 	uint32_t numerator;
+ 	uint32_t denominator;
+ 
+-	bpc = get_color_depth(pipe_ctx->stream_res.pix_clk_params.color_depth);
+ 	kbps = dc_bandwidth_in_kbps_from_timing(&pipe_ctx->stream->timing);
+ 
+ 	/*
+-- 
+2.7.4
