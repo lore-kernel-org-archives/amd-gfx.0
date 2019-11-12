@@ -1,15 +1,11 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu/vcn: finish delay work before release resources
-Date: Mon, 11 Nov 2019 22:12:15 +0100
-Message-ID: <71f34fcd-5d68-3064-7f9a-54e3d46e064a@gmail.com>
-References: <20191111204938.836819-1-alexander.deucher@amd.com>
-Reply-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
+From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: [PATCH] drm/amdgpu: don't read registers if gfxoff is enabled
+Date: Tue, 12 Nov 2019 09:55:02 -0500
+Message-ID: <20191112145502.65217-1-alexander.deucher@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20191111204938.836819-1-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -20,24 +16,24 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
 
-QW0gMTEuMTEuMTkgdW0gMjE6NDkgc2NocmllYiBBbGV4IERldWNoZXI6Cj4gZmx1c2gvY2FuY2Vs
-IGRlbGF5ZWQgd29ya3MgYmVmb3JlIGRvaW5nIGZpbmFsaXphdGlvbgo+IHRvIGF2b2lkIGNvbmN1
-cnJlbnRseSByZXF1ZXN0cy4KPgo+IFNpZ25lZC1vZmYtYnk6IEFsZXggRGV1Y2hlciA8YWxleGFu
-ZGVyLmRldWNoZXJAYW1kLmNvbT4KClJldmlld2VkLWJ5OiBDaHJpc3RpYW4gS8O2bmlnIDxjaHJp
-c3RpYW4ua29lbmlnQGFtZC5jb20+Cgo+IC0tLQo+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
-cHUvYW1kZ3B1X3Zjbi5jIHwgMiArKwo+ICAgMSBmaWxlIGNoYW5nZWQsIDIgaW5zZXJ0aW9ucygr
-KQo+Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92Y24u
-YyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92Y24uYwo+IGluZGV4IDMxOTll
-NGE1ZmYxMi4uOWQ4NzA0NDRkN2Q2IDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-YW1kZ3B1L2FtZGdwdV92Y24uYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
-ZGdwdV92Y24uYwo+IEBAIC0xOTMsNiArMTkzLDggQEAgaW50IGFtZGdwdV92Y25fc3dfZmluaShz
-dHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikKPiAgIHsKPiAgIAlpbnQgaSwgajsKPiAgIAo+ICsJ
-Y2FuY2VsX2RlbGF5ZWRfd29ya19zeW5jKCZhZGV2LT52Y24uaWRsZV93b3JrKTsKPiArCj4gICAJ
-aWYgKGFkZXYtPnZjbi5pbmRpcmVjdF9zcmFtKSB7Cj4gICAJCWFtZGdwdV9ib19mcmVlX2tlcm5l
-bCgmYWRldi0+dmNuLmRwZ19zcmFtX2JvLAo+ICAgCQkJCSAgICAgICZhZGV2LT52Y24uZHBnX3Ny
-YW1fZ3B1X2FkZHIsCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpo
-dHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
+V2hlbiBnZnhvZmYgaXMgZW5hYmxlZCwgYWNjZXNzaW5nIGdmeCByZWdpc3RlcnMgdmlhIE1NSU8K
+Y2FuIGxlYWQgdG8gYSBoYW5nLgoKQnVnOiBodHRwczovL2J1Z3ppbGxhLmtlcm5lbC5vcmcvc2hv
+d19idWcuY2dpP2lkPTIwNTQ5NwpTaWduZWQtb2ZmLWJ5OiBBbGV4IERldWNoZXIgPGFsZXhhbmRl
+ci5kZXVjaGVyQGFtZC5jb20+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
+X2ttcy5jIHwgMyArKysKIDEgZmlsZSBjaGFuZ2VkLCAzIGluc2VydGlvbnMoKykKCmRpZmYgLS1n
+aXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfa21zLmMgYi9kcml2ZXJzL2dw
+dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfa21zLmMKaW5kZXggYzk3NWNhOTJlOGZhLi4wOGM0Y2Rh
+M2E1NjkgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9rbXMu
+YworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfa21zLmMKQEAgLTY2NSw2
+ICs2NjUsOSBAQCBzdGF0aWMgaW50IGFtZGdwdV9pbmZvX2lvY3RsKHN0cnVjdCBkcm1fZGV2aWNl
+ICpkZXYsIHZvaWQgKmRhdGEsIHN0cnVjdCBkcm1fZmlsZQogCQlpZiAoaW5mby0+cmVhZF9tbXJf
+cmVnLmNvdW50ID4gMTI4KQogCQkJcmV0dXJuIC1FSU5WQUw7CiAKKwkJaWYgKGFkZXYtPnBtLnBw
+X2ZlYXR1cmUgJiBQUF9HRlhPRkZfTUFTSykKKwkJCXJldHVybiAtRUlOVkFMOworCiAJCXJlZ3Mg
+PSBrbWFsbG9jX2FycmF5KGluZm8tPnJlYWRfbW1yX3JlZy5jb3VudCwgc2l6ZW9mKCpyZWdzKSwg
+R0ZQX0tFUk5FTCk7CiAJCWlmICghcmVncykKIAkJCXJldHVybiAtRU5PTUVNOwotLSAKMi4yMy4w
+CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4
+IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3Rz
+LmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
