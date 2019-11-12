@@ -1,78 +1,60 @@
-From: Bjorn Helgaas <helgaas@kernel.org>
-Subject: Re: [PATCH V3 0/3] drm: replace magic numbers
-Date: Tue, 12 Nov 2019 15:52:49 -0600
-Message-ID: <20191112215249.GA214212@google.com>
-References: <CY4PR12MB1813200B2297DB19D1921A83F7770@CY4PR12MB1813.namprd12.prod.outlook.com>
+From: Felix Kuehling <felix.kuehling-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 2/3] drm/amdkfd: Update get_wave_state() for GFX10
+Date: Tue, 12 Nov 2019 16:52:57 -0500
+Message-ID: <17259af0-575b-ff9f-2252-29dd9424664b@amd.com>
+References: <20191111232521.10528-1-Yong.Zhao@amd.com>
+ <20191111232521.10528-2-Yong.Zhao@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Transfer-Encoding: 8bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Content-Disposition: inline
-In-Reply-To: <CY4PR12MB1813200B2297DB19D1921A83F7770@CY4PR12MB1813.namprd12.prod.outlook.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-Cc: "Koenig, Christian" <Christian.Koenig@amd.com>, "Zhou, David(ChunMing)" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, Frederick Lawler <fred@fredlawl.com>, "linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>, Michel =?iso-8859-1?Q?D=E4nzer?= <michel@daenzer.net>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, Ilia Mirkin <imirkin@alum.mit.edu>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20191111232521.10528-2-Yong.Zhao-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Yong Zhao <Yong.Zhao-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Jay.Cornwall-5C7GfCeVMHo@public.gmane.org
 
-On Tue, Nov 12, 2019 at 07:35:53PM +0000, Deucher, Alexander wrote:
-> > -----Original Message-----
-> > From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of
-> > Bjorn Helgaas
-> > Sent: Tuesday, November 12, 2019 12:35 PM
-> > To: Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian
-> > <Christian.Koenig@amd.com>; Zhou, David(ChunMing)
-> > <David1.Zhou@amd.com>; David Airlie <airlied@linux.ie>; Daniel Vetter
-> > <daniel@ffwll.ch>
-> > Cc: Frederick Lawler <fred@fredlawl.com>; linux-pci@vger.kernel.org;
-> > Michel Dänzer <michel@daenzer.net>; linux-kernel@vger.kernel.org; dri-
-> > devel@lists.freedesktop.org; amd-gfx@lists.freedesktop.org; Bjorn Helgaas
-> > <bhelgaas@google.com>; Ilia Mirkin <imirkin@alum.mit.edu>
-> > Subject: [PATCH V3 0/3] drm: replace magic numbers
-> > 
-> > From: Bjorn Helgaas <bhelgaas@google.com>
-> > 
-> > amdgpu and radeon do a bit of mucking with the PCIe Link Control 2 register,
-> > some of it using hard-coded magic numbers.  The idea here is to replace
-> > those with #defines.
-> > 
-> > Since v2:
-> >   - Fix a gpu_cfg2 case in amdgpu/si.c that I had missed
-> >   - Separate out the functional changes for better bisection (thanks,
-> >     Michel!)
-> >   - Add #defines in a patch by themselves (so a GPU revert wouldn't break
-> >     other potential users)
-> >   - Squash all the magic number -> #define changes into one patch
-> > 
-> > Since v1:
-> >   - Add my signed-off-by and Alex's reviewed-by.
-> > 
-> 
-> Series is:
-> Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-> 
-> I'm happy to have it go through whatever tree is easiest for you.
-
-OK, thanks!  I applied your reviewed-by and put these on my pci/misc
-branch for v5.5, in hopes that we might get a followup patch from Fred
-along the lines of 6133b9204c0a ("cxgb4: Prefer
-pcie_capability_read_word()")
-
-> > Bjorn Helgaas (3):
-> >   PCI: Add #defines for Enter Compliance, Transmit Margin
-> >   drm: correct Transmit Margin masks
-> >   drm: replace numbers with PCI_EXP_LNKCTL2 definitions
-> > 
-> >  drivers/gpu/drm/amd/amdgpu/cik.c | 22 ++++++++++++++--------
-> > drivers/gpu/drm/amd/amdgpu/si.c  | 22 ++++++++++++++--------
-> >  drivers/gpu/drm/radeon/cik.c     | 22 ++++++++++++++--------
-> >  drivers/gpu/drm/radeon/si.c      | 22 ++++++++++++++--------
-> >  include/uapi/linux/pci_regs.h    |  2 ++
-> >  5 files changed, 58 insertions(+), 32 deletions(-)
-> > 
-> > --
-> > 2.24.0.rc1.363.gb1bccd3e3d-goog
-> > 
-> > _______________________________________________
-> > amd-gfx mailing list
-> > amd-gfx@lists.freedesktop.org
-> > https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+T24gMjAxOS0xMS0xMSA2OjI1IHAubS4sIFlvbmcgWmhhbyB3cm90ZToKPiBHaXZlbiBjb250cm9s
+IHN0YWNrIGlzIG5vdyBpbiB0aGUgdXNlcnNwYWNlIGNvbnRleHQgc2F2ZSByZXN0b3JlIGFyZWEK
+PiBvbiBHRlgxMCwgdGhlIHNhbWUgYXMgR0ZYOCwgaXQgaXMgbm90IG5lZWRlZCB0byBjb3B5IGl0
+IGJhY2sgdG8gdXNlcnNwYWNlLgo+Cj4gQ2hhbmdlLUlkOiBJMDYzZGRjMzAyNmVlZmE1NzcxM2Vj
+NDdiNDY2YTkwZjliZjlkNDliOAo+IFNpZ25lZC1vZmYtYnk6IFlvbmcgWmhhbyA8WW9uZy5aaGFv
+QGFtZC5jb20+ClBhdGNoZXMgMSBhbmQgMiBhcmUKClJldmlld2VkLWJ5OiBGZWxpeCBLdWVobGlu
+ZyA8RmVsaXguS3VlaGxpbmdAYW1kLmNvbT4KCgpQYXRjaCAzIHNob3VsZCBhcmd1YWJseSBub3Qg
+YmUgcGFydCBvZiB0aGlzIHNlcmllcywgYmVjYXVzZSBpdCBkb2VzIG5vdCAKYWZmZWN0IEdGWHYx
+MC4KClJlZ2FyZHMsCiDCoCBGZWxpeAoKCgo+IC0tLQo+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9h
+bWRrZmQva2ZkX21xZF9tYW5hZ2VyX3YxMC5jIHwgMTQgKysrKysrKysrLS0tLS0KPiAgIDEgZmls
+ZSBjaGFuZ2VkLCA5IGluc2VydGlvbnMoKyksIDUgZGVsZXRpb25zKC0pCj4KPiBkaWZmIC0tZ2l0
+IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX21xZF9tYW5hZ2VyX3YxMC5jIGIvZHJp
+dmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX21xZF9tYW5hZ2VyX3YxMC5jCj4gaW5kZXggNDg4
+NGNkNmM2NWNlLi45NTRkYzhhYzRmZjEgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2Ft
+ZC9hbWRrZmQva2ZkX21xZF9tYW5hZ2VyX3YxMC5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2Ft
+ZC9hbWRrZmQva2ZkX21xZF9tYW5hZ2VyX3YxMC5jCj4gQEAgLTI1MSwxOCArMjUxLDIyIEBAIHN0
+YXRpYyBpbnQgZ2V0X3dhdmVfc3RhdGUoc3RydWN0IG1xZF9tYW5hZ2VyICptbSwgdm9pZCAqbXFk
+LAo+ICAgewo+ICAgCXN0cnVjdCB2MTBfY29tcHV0ZV9tcWQgKm07Cj4gICAKPiAtCS8qIENvbnRy
+b2wgc3RhY2sgaXMgbG9jYXRlZCBvbmUgcGFnZSBhZnRlciBNUUQuICovCj4gLQl2b2lkICptcWRf
+Y3RsX3N0YWNrID0gKHZvaWQgKikoKHVpbnRwdHJfdCltcWQgKyBQQUdFX1NJWkUpOwo+IC0KPiAg
+IAltID0gZ2V0X21xZChtcWQpOwo+ICAgCj4gKwkvKiBDb250cm9sIHN0YWNrIGlzIHdyaXR0ZW4g
+YmFja3dhcmRzLCB3aGlsZSB3b3JrZ3JvdXAgY29udGV4dCBkYXRhCj4gKwkgKiBpcyB3cml0dGVu
+IGZvcndhcmRzLiBCb3RoIHN0YXJ0cyBmcm9tIG0tPmNwX2hxZF9jbnRsX3N0YWNrX3NpemUuCj4g
+KwkgKiBDdXJyZW50IHBvc2l0aW9uIGlzIGF0IG0tPmNwX2hxZF9jbnRsX3N0YWNrX29mZnNldCBh
+bmQKPiArCSAqIG0tPmNwX2hxZF93Z19zdGF0ZV9vZmZzZXQsIHJlc3BlY3RpdmVseS4KPiArCSAq
+Lwo+ICAgCSpjdGxfc3RhY2tfdXNlZF9zaXplID0gbS0+Y3BfaHFkX2NudGxfc3RhY2tfc2l6ZSAt
+Cj4gICAJCW0tPmNwX2hxZF9jbnRsX3N0YWNrX29mZnNldDsKPiAgIAkqc2F2ZV9hcmVhX3VzZWRf
+c2l6ZSA9IG0tPmNwX2hxZF93Z19zdGF0ZV9vZmZzZXQgLQo+ICAgCQltLT5jcF9ocWRfY250bF9z
+dGFja19zaXplOwo+ICAgCj4gLQlpZiAoY29weV90b191c2VyKGN0bF9zdGFjaywgbXFkX2N0bF9z
+dGFjaywgbS0+Y3BfaHFkX2NudGxfc3RhY2tfc2l6ZSkpCj4gLQkJcmV0dXJuIC1FRkFVTFQ7Cj4g
+KwkvKiBDb250cm9sIHN0YWNrIGlzIG5vdCBjb3BpZWQgdG8gdXNlciBtb2RlIGZvciBHRlh2MTAg
+YmVjYXVzZQo+ICsJICogaXQncyBwYXJ0IG9mIHRoZSBjb250ZXh0IHNhdmUgYXJlYSB0aGF0IGlz
+IGFscmVhZHkKPiArCSAqIGFjY2Vzc2libGUgdG8gdXNlciBtb2RlCj4gKwkgKi8KPiAgIAo+ICAg
+CXJldHVybiAwOwo+ICAgfQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9y
+ZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
