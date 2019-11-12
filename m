@@ -1,46 +1,85 @@
-From: Evan Quan <evan.quan-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH] drm/amd/powerplay: issue BTC on Navi during SMU setup
-Date: Tue, 12 Nov 2019 14:36:54 +0800
-Message-ID: <20191112063654.5360-1-evan.quan@amd.com>
+From: Yuehaibing <yuehaibing@huawei.com>
+Subject: Re: [PATCH -next] drm/amd/display: Fix old-style declaration
+Date: Tue, 12 Nov 2019 15:51:33 +0800
+Message-ID: <3361b760-fe4f-87e8-b0a4-ebda390aa492@huawei.com>
+References: <20191111122801.18584-1-yuehaibing@huawei.com>
+ <01c630e6d4c58b3f6184603e158f53fb9aaeae7d.camel@perches.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Evan Quan <evan.quan-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset="windows-1252"
+Content-Transfer-Encoding: 7bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <01c630e6d4c58b3f6184603e158f53fb9aaeae7d.camel@perches.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Joe Perches <joe@perches.com>, harry.wentland@amd.com, sunpeng.li@amd.com, alexander.deucher@amd.com, christian.koenig@amd.com, David1.Zhou@amd.com, airlied@linux.ie, daniel@ffwll.ch, Bhawanpreet.Lakha@amd.com, Jun.Lei@amd.com, David.Francis@amd.com, Dmytro.Laktyushkin@amd.com, nicholas.kazlauskas@amd.com, martin.leung@amd.com, Chris.Park@amd.com
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-UnVuQlRDIGlzIGFkZGVkIGZvciBOYXZpIEFTSUMgb24gaGFyZHdhcmUgc2V0dXAuCgpDaGFuZ2Ut
-SWQ6IEkxYzA0YjQ4MWVkMTRkNWYxMmMyMGI3YjBkNTkyYjYyYTY1ODg5ZTRhClNpZ25lZC1vZmYt
-Ynk6IEV2YW4gUXVhbiA8ZXZhbi5xdWFuQGFtZC5jb20+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9wb3dlcnBsYXkvbmF2aTEwX3BwdC5jIHwgMTEgKysrKysrKysrKysKIDEgZmlsZSBjaGFuZ2Vk
-LCAxMSBpbnNlcnRpb25zKCspCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dl
-cnBsYXkvbmF2aTEwX3BwdC5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvbmF2aTEw
-X3BwdC5jCmluZGV4IDAxMGJlMjFiZWU1Yi4uNDMzYWNiMGY0NTlkIDEwMDY0NAotLS0gYS9kcml2
-ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9uYXZpMTBfcHB0LmMKKysrIGIvZHJpdmVycy9ncHUv
-ZHJtL2FtZC9wb3dlcnBsYXkvbmF2aTEwX3BwdC5jCkBAIC0xNjUyLDYgKzE2NTIsMTYgQEAgc3Rh
-dGljIGludCBuYXZpMTBfdXBkYXRlX3BjaWVfcGFyYW1ldGVycyhzdHJ1Y3Qgc211X2NvbnRleHQg
-KnNtdSwKIAlyZXR1cm4gcmV0OwogfQogCitzdGF0aWMgaW50IG5hdmkxMF9ydW5fYnRjKHN0cnVj
-dCBzbXVfY29udGV4dCAqc211KQoreworCWludCByZXQgPSAwOworCisJcmV0ID0gc211X3NlbmRf
-c21jX21zZyhzbXUsIFNNVV9NU0dfUnVuQnRjKTsKKwlpZiAocmV0KQorCQlwcl9lcnIoIlJ1bkJ0
-YyBmYWlsZWQhXG4iKTsKKworCXJldHVybiByZXQ7Cit9CiAKIHN0YXRpYyBjb25zdCBzdHJ1Y3Qg
-cHB0YWJsZV9mdW5jcyBuYXZpMTBfcHB0X2Z1bmNzID0gewogCS50YWJsZXNfaW5pdCA9IG5hdmkx
-MF90YWJsZXNfaW5pdCwKQEAgLTE3NDEsNiArMTc1MSw3IEBAIHN0YXRpYyBjb25zdCBzdHJ1Y3Qg
-cHB0YWJsZV9mdW5jcyBuYXZpMTBfcHB0X2Z1bmNzID0gewogCS5nZXRfZHBtX3VsdGltYXRlX2Zy
-ZXEgPSBzbXVfdjExXzBfZ2V0X2RwbV91bHRpbWF0ZV9mcmVxLAogCS5zZXRfc29mdF9mcmVxX2xp
-bWl0ZWRfcmFuZ2UgPSBzbXVfdjExXzBfc2V0X3NvZnRfZnJlcV9saW1pdGVkX3JhbmdlLAogCS5v
-dmVycmlkZV9wY2llX3BhcmFtZXRlcnMgPSBzbXVfdjExXzBfb3ZlcnJpZGVfcGNpZV9wYXJhbWV0
-ZXJzLAorCS5ydW5fYnRjID0gbmF2aTEwX3J1bl9idGMsCiB9OwogCiB2b2lkIG5hdmkxMF9zZXRf
-cHB0X2Z1bmNzKHN0cnVjdCBzbXVfY29udGV4dCAqc211KQotLSAKMi4yNC4wCgpfX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlz
-dAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9w
-Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
+On 2019/11/12 10:39, Joe Perches wrote:
+> On Mon, 2019-11-11 at 20:28 +0800, YueHaibing wrote:
+>> Fix a build warning:
+>>
+>> drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc.c:75:1:
+>>  warning: 'static' is not at beginning of declaration [-Wold-style-declaration]
+> []
+>> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
+> []
+>> @@ -69,7 +69,7 @@
+>>  #define DC_LOGGER \
+>>  	dc->ctx->logger
+>>  
+>> -const static char DC_BUILD_ID[] = "production-build";
+>> +static const char DC_BUILD_ID[] = "production-build";
+> 
+> DC_BUILD_ID is used exactly once.
+> Maybe just use it directly and remove DC_BUILD_ID instead?
+
+commit be61df574256ae8c0dbd45ac148ca7260a0483c0
+Author: Jun Lei <Jun.Lei@amd.com>
+Date:   Thu Sep 13 09:32:26 2018 -0400
+
+    drm/amd/display: Add DC build_id to determine build type
+
+    [why]
+    Sometimes there are indications that the incorrect driver is being
+    loaded in automated tests. This change adds the ability for builds to
+    be tagged with a string, and picked up by the test infrastructure.
+
+    [how]
+    dc.c will allocate const for build id, which is init-ed with default
+    value, indicating production build. For test builds, build server will
+    find/replace this value. The test machine will then verify this value.
+
+It seems DC_BUILD_ID is used by the build server, so maybe we should keep it.
+
+> 
+> ---
+>  drivers/gpu/drm/amd/display/dc/core/dc.c | 4 +---
+>  1 file changed, 1 insertion(+), 3 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
+> index 1fdba13..803dc14 100644
+> --- a/drivers/gpu/drm/amd/display/dc/core/dc.c
+> +++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
+> @@ -69,8 +69,6 @@
+>  #define DC_LOGGER \
+>  	dc->ctx->logger
+>  
+> -const static char DC_BUILD_ID[] = "production-build";
+> -
+>  /**
+>   * DOC: Overview
+>   *
+> @@ -815,7 +813,7 @@ struct dc *dc_create(const struct dc_init_data *init_params)
+>  	if (dc->res_pool->dmcu != NULL)
+>  		dc->versions.dmcu_version = dc->res_pool->dmcu->dmcu_version;
+>  
+> -	dc->build_id = DC_BUILD_ID;
+> +	dc->build_id = "production-build";
+>  
+>  	DC_LOG_DC("Display Core initialized\n");
+>  
+> 
+> 
+> 
+> .
+> 
