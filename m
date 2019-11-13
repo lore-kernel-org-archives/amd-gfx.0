@@ -1,7 +1,7 @@
 From: yu kuai <yukuai3@huawei.com>
-Subject: [PATCH 2/7] drm/amdgpu: remove set but not used variable 'amdgpu_connector'
-Date: Wed, 13 Nov 2019 20:44:29 +0800
-Message-ID: <1573649074-72589-3-git-send-email-yukuai3@huawei.com>
+Subject: [PATCH 3/7] drm/amdgpu: remove set but not used variable 'count'
+Date: Wed, 13 Nov 2019 20:44:30 +0800
+Message-ID: <1573649074-72589-4-git-send-email-yukuai3@huawei.com>
 References: <1573649074-72589-1-git-send-email-yukuai3@huawei.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="UTF-8"
@@ -15,36 +15,41 @@ List-Id: amd-gfx.lists.freedesktop.org
 
 Fixes gcc '-Wunused-but-set-variable' warning:
 
-drivers/gpu/drm/amd/amdgpu/amdgpu_display.c: In function
-‘amdgpu_display_crtc_scaling_mode_fixup’:
-drivers/gpu/drm/amd/amdgpu/amdgpu_display.c:693:27: warning: variable
-‘amdgpu_connector’ set but not used [-Wunused-but-set-variable]
+drivers/gpu/drm/amd/amdkfd/kfd_device.c: In function
+‘kgd2kfd_post_reset’:
+drivers/gpu/drm/amd/amdkfd/kfd_device.c:745:11: warning:
+variable ‘count’ set but not used [-Wunused-but-set-variable]
 
-Fixes: d38ceaf99ed0 ("drm/amdgpu: add core driver (v4)")
+'count' is never used, so can be removed. Thus 'atomic_dec_return'
+can be replaced as 'atomic_dec'
+
+Fixes: e42051d2133b ("drm/amdkfd: Implement GPU reset handlers in KFD")
 Signed-off-by: yu kuai <yukuai3@huawei.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_display.c | 2 --
- 1 file changed, 2 deletions(-)
+ drivers/gpu/drm/amd/amdkfd/kfd_device.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-index d2dd59a..6a27027 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-@@ -690,7 +690,6 @@ bool amdgpu_display_crtc_scaling_mode_fixup(struct drm_crtc *crtc,
- 	struct amdgpu_crtc *amdgpu_crtc = to_amdgpu_crtc(crtc);
- 	struct amdgpu_encoder *amdgpu_encoder;
- 	struct drm_connector *connector;
--	struct amdgpu_connector *amdgpu_connector;
- 	u32 src_v = 1, dst_v = 1;
- 	u32 src_h = 1, dst_h = 1;
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device.c b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
+index 4fa8834..209bfc8 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
+@@ -742,7 +742,7 @@ int kgd2kfd_pre_reset(struct kfd_dev *kfd)
  
-@@ -702,7 +701,6 @@ bool amdgpu_display_crtc_scaling_mode_fixup(struct drm_crtc *crtc,
- 			continue;
- 		amdgpu_encoder = to_amdgpu_encoder(encoder);
- 		connector = amdgpu_get_connector_for_encoder(encoder);
--		amdgpu_connector = to_amdgpu_connector(connector);
+ int kgd2kfd_post_reset(struct kfd_dev *kfd)
+ {
+-	int ret, count;
++	int ret;
  
- 		/* set scaling */
- 		if (amdgpu_encoder->rmx_type == RMX_OFF)
+ 	if (!kfd->init_complete)
+ 		return 0;
+@@ -750,7 +750,7 @@ int kgd2kfd_post_reset(struct kfd_dev *kfd)
+ 	ret = kfd_resume(kfd);
+ 	if (ret)
+ 		return ret;
+-	count = atomic_dec_return(&kfd_locked);
++	atomic_dec(&kfd_locked);
+ 
+ 	atomic_set(&kfd->sram_ecc_flag, 0);
+ 
 -- 
 2.7.4
