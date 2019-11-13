@@ -2,98 +2,97 @@ Return-Path: <SRS0=4UxD=ZF=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.2 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-6.7 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
+	HTML_MESSAGE,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,
+	SPF_PASS autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C41C4C43331
-	for <amd-gfx@archiver.kernel.org>; Wed, 13 Nov 2019 13:51:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9A3B5C43331
+	for <amd-gfx@archiver.kernel.org>; Wed, 13 Nov 2019 13:54:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 78C58222BD
-	for <amd-gfx@archiver.kernel.org>; Wed, 13 Nov 2019 13:51:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 78C58222BD
+	by mail.kernel.org (Postfix) with ESMTPS id 7798B207FC
+	for <amd-gfx@archiver.kernel.org>; Wed, 13 Nov 2019 13:54:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7798B207FC
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2E18C6ED10;
-	Wed, 13 Nov 2019 13:51:06 +0000 (UTC)
-Received: from NAM05-CO1-obe.outbound.protection.outlook.com
- (mail-eopbgr720080.outbound.protection.outlook.com [40.107.72.80])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 879856ED10
- for <amd-gfx@lists.freedesktop.org>; Wed, 13 Nov 2019 13:51:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1EE066ED16;
+	Wed, 13 Nov 2019 13:54:47 +0000 (UTC)
+Received: from NAM05-DM3-obe.outbound.protection.outlook.com
+ (mail-eopbgr730053.outbound.protection.outlook.com [40.107.73.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 37B726ED15
+ for <amd-gfx@lists.freedesktop.org>; Wed, 13 Nov 2019 13:54:45 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Asx3HdbKEha3gq+FeEVAU2FDsz6X/0NNhvRqx6SHNV4Hjudlo99brRgomaEe95RcpTQXLuEjm2yvqqUegbwnL/6oQ0FSZpJdvnSzY5ULdvJV50JNVkWDdwX3EI4RJP0vO8gcxfIGBYZwHQaLoQxJt/NIvUSRrpkqW6b6+CEY9O4MVikDhflLRpz/r0NxEBvHTM6RlAWZiobV18rzqsAVK5jMyxd3k7V8AeOFWaPHCAJYidy3GmxHSgEvicFcrQpFYMHl1IN7CqlAQvdmwzbse/SCukK/pS8yRcgp74XYL8X3qsV8D+dC9u2qafpu8AJ6v3hGDEs+Ln9t/qeotA29dg==
+ b=I1K8ykFF+YiENSTahxuMNLI1yWLX6VK71keTa5RyGJoZJZAKRV4Y8z7tZYsC3EFskYICIwv2ocMpzsom4G1E4waBuMCOXBADJIYSdoxj3XMAeINNp9jvaepBuhGZXkXwIx+XlHjHCEZrxs8QwVfJKbYfS97mWpOgp//fYdsaNv4QNq4cUx4ZbxecUGg1N0+sWMa9rzXaqWwUaeLPkmcdSNgwcZh49M8uYbuYKRGixNFKHd4umrQyr1UTi0z2x2uopu7ZgZAwAZC8Ly/KB7jHGsN0cmQWEDeqyhnWO6HEydApC5Qeub0d3xRZBs89U7d4JckR6HJf5sni8lk7k0VXSw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=R/X2O24gxucPkAKVXlD+wuL8zV/qtT8KkOIJklaMSPM=;
- b=gd8ngyaXkrya32zSYeEh8H0gTRLPrcFaY+Sd4W4jEECXtViLxMl9w9FKoRyrPCDbe/GYFRWS3qJa3KRSHIgu9k+iBOvFgrfwRw6tcDOn54ecp2y8imJSzwWRRlT5UXap2CfjrrutsVE1r9mMPBZn7CKEI93Z+AwV8xkVnLTck5sdnPvPr/3UDv47T+V7M6j9BbOLn0YJKSxMZPsVmBsomD8mXPmB1hrVY07FtbFyNSvT07PFIpJAV2039bHAJAjfK6pAXFIxW9RFBrGThf0dWqBcvNi6r63lhXXy8rjgFfV9P7DjjUBGb7EIXj4QAM7wX4cjkYGzi3L7ZZvpLcGidg==
+ bh=aSjIMvAdIv4RUPofRttRoq03Y7kceH47m4hFtJMtN5U=;
+ b=BOMHVR2G2JCm/T8LCPdUeJv+ip7I7+MYVlVzU+wPyYmYYU8qLyeNrr5JXH7wae6RTSt+ALq4AdffZIeN3dyT/O4ssL1Q6rg4JS1UMtxZTtlSEvQz5tZBnvKV03lle1NQKHL2dVGRX4N2GiBYaEQb6rKEfUZOmbcrochCTjMF+qDE9+Ub8u3Hb7EDx81RAZQ2XAJaLlx6jgarV7zi6LpyZogfpzVpYaTyTdtKMdyh2fEi47rG6ZRdMVY0Snp+MgEA9/XmEEqXIlJhqV2JB9PMl2kq2i+kUve4MYcmauRWDtauOLMSvQ6hciHiGtKOv/eD/KInxqJdV9a5OUiJqNKcpg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
-Received: from DM5PR12MB2456.namprd12.prod.outlook.com (52.132.141.37) by
- DM5PR12MB1674.namprd12.prod.outlook.com (10.172.40.143) with Microsoft SMTP
+Received: from CY4PR12MB1813.namprd12.prod.outlook.com (10.175.80.21) by
+ CY4PR12MB1302.namprd12.prod.outlook.com (10.168.164.148) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2430.24; Wed, 13 Nov 2019 13:51:01 +0000
-Received: from DM5PR12MB2456.namprd12.prod.outlook.com
- ([fe80::75bf:bd52:2f61:656b]) by DM5PR12MB2456.namprd12.prod.outlook.com
- ([fe80::75bf:bd52:2f61:656b%7]) with mapi id 15.20.2451.023; Wed, 13 Nov 2019
- 13:51:01 +0000
-Subject: Re: [PATCH 12/21] drm/amd/powerplay: add JPEG power control for Navi1x
-To: "Quan, Evan" <Evan.Quan@amd.com>,
+ 15.20.2451.23; Wed, 13 Nov 2019 13:54:42 +0000
+Received: from CY4PR12MB1813.namprd12.prod.outlook.com
+ ([fe80::dc23:193b:9619:a4fc]) by CY4PR12MB1813.namprd12.prod.outlook.com
+ ([fe80::dc23:193b:9619:a4fc%4]) with mapi id 15.20.2430.027; Wed, 13 Nov 2019
+ 13:54:42 +0000
+From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
+To: "Quan, Evan" <Evan.Quan@amd.com>, Alex Deucher <alexdeucher@gmail.com>,
  "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-References: <20191112180329.3927-1-leo.liu@amd.com>
- <20191112180329.3927-13-leo.liu@amd.com>
- <MN2PR12MB334438FF2957ED7C7C8E226FE4760@MN2PR12MB3344.namprd12.prod.outlook.com>
-From: Leo Liu <leo.liu@amd.com>
-Organization: AMD
-Message-ID: <23b6dccd-da81-5b02-4d27-1be119ff06b7@amd.com>
-Date: Wed, 13 Nov 2019 08:50:59 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.1.2
-In-Reply-To: <MN2PR12MB334438FF2957ED7C7C8E226FE4760@MN2PR12MB3344.namprd12.prod.outlook.com>
+Subject: Re: [PATCH] drm/amdgpu: don't read registers if gfxoff is enabled (v2)
+Thread-Topic: [PATCH] drm/amdgpu: don't read registers if gfxoff is enabled
+ (v2)
+Thread-Index: AQHVmWvCnB2nGLHPsEuvKO9VPAVEqaeIW+UAgADFAFg=
+Date: Wed, 13 Nov 2019 13:54:41 +0000
+Message-ID:
+ <CY4PR12MB1813FAB578D07C4FB3C30320F7760@CY4PR12MB1813.namprd12.prod.outlook.com>
+References: <20191112151327.108438-1-alexander.deucher@amd.com>,
+ <MN2PR12MB3344C97B5167EAC63AF5796FE4760@MN2PR12MB3344.namprd12.prod.outlook.com>
+In-Reply-To: <MN2PR12MB3344C97B5167EAC63AF5796FE4760@MN2PR12MB3344.namprd12.prod.outlook.com>
+Accept-Language: en-US
 Content-Language: en-US
-X-ClientProxiedBy: YTOPR0101CA0004.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b00:15::17) To DM5PR12MB2456.namprd12.prod.outlook.com
- (2603:10b6:4:b4::37)
-MIME-Version: 1.0
-X-Originating-IP: [165.204.55.251]
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: af2e70c5-2c64-4a86-1e22-08d7684084ee
-X-MS-TrafficTypeDiagnostic: DM5PR12MB1674:
-X-MS-Exchange-PUrlCount: 1
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM5PR12MB16741E5B6D6DA3563A23C73EE5760@DM5PR12MB1674.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:3044;
-X-Forefront-PRVS: 0220D4B98D
-X-Forefront-Antispam-Report: SFV:NSPM;
- SFS:(10009020)(4636009)(136003)(346002)(376002)(39860400002)(396003)(366004)(13464003)(199004)(189003)(2906002)(3846002)(66066001)(230700001)(47776003)(65806001)(66476007)(66556008)(66946007)(229853002)(6116002)(8936002)(8676002)(81156014)(81166006)(6246003)(31686004)(476003)(2616005)(65956001)(11346002)(446003)(486006)(25786009)(6436002)(44832011)(76176011)(6506007)(6486002)(386003)(23676004)(53546011)(52116002)(2486003)(36916002)(6512007)(6306002)(186003)(36756003)(14454004)(5660300002)(26005)(316002)(110136005)(58126008)(305945005)(7736002)(99286004)(31696002)(4001150100001)(966005)(50466002)(478600001)(2501003)(86362001)(32563001);
- DIR:OUT; SFP:1101; SCL:1; SRVR:DM5PR12MB1674;
- H:DM5PR12MB2456.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; A:1; MX:1; 
-Received-SPF: None (protection.outlook.com: amd.com does not designate
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [71.219.59.120]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-ht: Tenant
+x-ms-office365-filtering-correlation-id: 30b908b6-0f41-4c25-e44a-08d76841087f
+x-ms-traffictypediagnostic: CY4PR12MB1302:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <CY4PR12MB13028FDCF6776F6E24CA019BF7760@CY4PR12MB1302.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:4125;
+x-forefront-prvs: 0220D4B98D
+x-forefront-antispam-report: SFV:NSPM;
+ SFS:(10009020)(4636009)(376002)(396003)(366004)(346002)(136003)(39860400002)(13464003)(189003)(199004)(25786009)(105004)(446003)(14454004)(26005)(966005)(606006)(6436002)(236005)(99286004)(9686003)(33656002)(6246003)(11346002)(71200400001)(66066001)(110136005)(186003)(71190400001)(229853002)(256004)(76116006)(316002)(478600001)(7736002)(3846002)(6116002)(81166006)(81156014)(2501003)(486006)(86362001)(55016002)(102836004)(8936002)(74316002)(5660300002)(6506007)(66556008)(64756008)(66446008)(53546011)(19627405001)(6306002)(54896002)(76176011)(2906002)(66476007)(8676002)(66946007)(7696005)(52536014)(476003);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:CY4PR12MB1302;
+ H:CY4PR12MB1813.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; MX:1; A:1; 
+received-spf: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: qPqXMchb1jYCpR97K+WUP6aMviLj159pANTUuQex37JxdtuSxzXNmaObznqHkGZSiIwCHw7eCFHMNoWt7E+EUQEIJ2xb2egBU3ccSiTiukKeYROrSvcyFTRkLM/7eQgA496vb/rppWnrpe+N/InI0sG06KoBoL5mMPmw+W4xh7cR8pf0bcXUem7cnOlPiMXjAuAtzUZmeLjFZ2d5PmRtvAMCEgLprD8gddNHilw/nICY28KsyCzqlnuiA7EGm12Qg/s313o5DTqsh0bJu9df0CmL/DoO5KmTb04V0YCMfv1p9y1JiEalcAyrCuBEBUeutVTkn8XZDTuPrhTw+SseCGWWi/L1k4UeT3wZ4yvhppQHU32iq0713C4YoVP5Yu3cX/QVHptF4kaJI4PAhUNmFs/RnNizN5nSkR89kGY6CJYl1dEFL9Q02MUnSTlk0pqCWIjjhtB60G35w4tfdzjrd4U2RBf8Tpa8Ya3CFdgZZVo=
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: ho/aHarvPMlDcxQ+6TZaA3NtajYnnE9toqDphaizE/9Ln2QGPLQnyKj7zEJr7+JylXOP63SpadHLdZL/Yq+unQ+iAdo1nRsAVpCc3juaueyInoqYvMAAir/w66mrwDp/0qYKWLSKXnujXWizPJ0KxPeFb87a7CBkK49UnlEIUSrCGQkjCb34ccw7sc4bX60gLLb8v4uycB04BSIB2WY+cUuyj6mPYT1YeuIcFEMbKnyVezyqYufGn8u4fjJVdES6hyUlTkPqyJKtSftXUBmR5iDwV3vMHgep6EuhTwT/gKKlFMLw1fANF5N6xcSWD1RRiHqMR1yFBBCvYgbNcDZ0fweo7eR0ehM5+Xp3hfziZR+tkFG8Foh9UR1M53WpRBq3d8ci2fRgpYozaq/tcFUawqJoqugFJ3Ylo+9heFsppogcZYEaG4Apqy7oyKLIPguM
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: af2e70c5-2c64-4a86-1e22-08d7684084ee
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Nov 2019 13:51:01.6796 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 591zEcf2PkMCo3nqwd/camhJX09n8gEKnFE1Pb5fABvdOJrAywXlfgkRhA6kCn+B
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1674
+X-MS-Exchange-CrossTenant-Network-Message-Id: 30b908b6-0f41-4c25-e44a-08d76841087f
+X-MS-Exchange-CrossTenant-originalarrivaltime: 13 Nov 2019 13:54:41.9007 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 9uDgR8p6UaxJQrBdMrRX5KDhniqDAzsKCWUcw7yNHLEkjT/HfTe8JO3McruWFDw6HsA3pCQd6oHfcBoKbOTIgw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR12MB1302
 X-Mailman-Original-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=R/X2O24gxucPkAKVXlD+wuL8zV/qtT8KkOIJklaMSPM=;
- b=KFiNvdtDgsfcB51eyaRbCiHnusEYB6CDydLZoSlYH15GpMYovuauN9XTApyENdFVkETNMZsCzFf7sUCv9UP7zmLbm9b7dhivhmh1jnbzro6YiPcnUxIxw3L1MM5zdHPBkRiVYayChrvfjIp96dm5LoVNKV9ccdV+1Ta5TWOj8FI=
+ bh=aSjIMvAdIv4RUPofRttRoq03Y7kceH47m4hFtJMtN5U=;
+ b=WJ8vhGGNsPyoRMCiYS/Uts/U55GNW0Yrn4Sfq5l5CrnLQP0GIU+rLgb/ha2a427x4aVGicdL6Y1+6/PXeq5UpGBhewaPpqusVeRu9stfZf6nM7STqh+RGkFzp7HjlRB4nsg7A+6i0n6Cy1oVGSQV0MvEEoVPAXXHAsbzcZnd2L4=
 X-Mailman-Original-Authentication-Results: spf=none (sender IP is )
- smtp.mailfrom=Leo.Liu@amd.com; 
+ smtp.mailfrom=Alexander.Deucher@amd.com; 
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -105,72 +104,521 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: multipart/mixed; boundary="===============1161191373=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-Message-ID: <20191113135059.C3b5iBlO48oqJwC0jnBYJcMDwfER1IG3AJ3787xaeag@z>
+Message-ID: <20191113135441.8VHBtyl_s8-HmJDlsVAzz7X0OoaaF031QN65C66jOYc@z>
 
-Ck9uIDIwMTktMTEtMTIgMTA6NTAgcC5tLiwgUXVhbiwgRXZhbiB3cm90ZToKPiBGb3IgTmF2aTEw
-LCBTTVVfTVNHX1Bvd2VyVXBKcGVnIG1lc3NhZ2UgZG9lcyBub3QgbmVlZCBhbiBhcmd1bWVudC4K
-ClRoZSBmaXhlcyBmb3IgdGhpcyBhbmQgb3RoZXJzIHdpbGwgYmUgaW4gdjIuIFRoYW5rcyBmb3Ig
-cG9pbnRpbmcgdGhpcyBvdXQuCgpSZWdhcmRzLAoKTGVvCgoKPgo+PiAtLS0tLU9yaWdpbmFsIE1l
-c3NhZ2UtLS0tLQo+PiBGcm9tOiBhbWQtZ2Z4IDxhbWQtZ2Z4LWJvdW5jZXNAbGlzdHMuZnJlZWRl
-c2t0b3Aub3JnPiBPbiBCZWhhbGYgT2YgTGVvIExpdQo+PiBTZW50OiBXZWRuZXNkYXksIE5vdmVt
-YmVyIDEzLCAyMDE5IDI6MDMgQU0KPj4gVG86IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
-Cj4+IENjOiBMaXUsIExlbyA8TGVvLkxpdUBhbWQuY29tPgo+PiBTdWJqZWN0OiBbUEFUQ0ggMTIv
-MjFdIGRybS9hbWQvcG93ZXJwbGF5OiBhZGQgSlBFRyBwb3dlciBjb250cm9sIGZvcgo+PiBOYXZp
-MXgKPj4KPj4gQnkgc2VwYXJhdGluZyB0aGUgSlBFRyBwb3dlciBmZWF0dXJlLCBhbmQgdXNpbmcg
-aXRzIG93biBQb3dlclVwIGFuZAo+PiBQb3dlckRvd24gbWVzc2FnZXMKPj4KPj4gU2lnbmVkLW9m
-Zi1ieTogTGVvIExpdSA8bGVvLmxpdUBhbWQuY29tPgo+PiAtLS0KPj4gICBkcml2ZXJzL2dwdS9k
-cm0vYW1kL3Bvd2VycGxheS9uYXZpMTBfcHB0LmMgfCAzMiArKysrKysrKysrKysrKysrKysrKy0t
-Cj4+ICAgMSBmaWxlIGNoYW5nZWQsIDMwIGluc2VydGlvbnMoKyksIDIgZGVsZXRpb25zKC0pCj4+
-Cj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9uYXZpMTBfcHB0
-LmMKPj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9uYXZpMTBfcHB0LmMKPj4gaW5k
-ZXggYWViOWMxZTM0MWM3Li43NjA1NjhkZWJlNmMgMTAwNjQ0Cj4+IC0tLSBhL2RyaXZlcnMvZ3B1
-L2RybS9hbWQvcG93ZXJwbGF5L25hdmkxMF9wcHQuYwo+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0v
-YW1kL3Bvd2VycGxheS9uYXZpMTBfcHB0LmMKPj4gQEAgLTM4NCw4ICszODQsMTAgQEAgbmF2aTEw
-X2dldF9hbGxvd2VkX2ZlYXR1cmVfbWFzayhzdHJ1Y3QKPj4gc211X2NvbnRleHQgKnNtdSwKPj4g
-ICAJCSoodWludDY0X3QgKilmZWF0dXJlX21hc2sgfD0KPj4gRkVBVFVSRV9NQVNLKEZFQVRVUkVf
-QVRIVUJfUEdfQklUKTsKPj4KPj4gICAJaWYgKHNtdS0+YWRldi0+cGdfZmxhZ3MgJiBBTURfUEdf
-U1VQUE9SVF9WQ04pCj4+IC0JCSoodWludDY0X3QgKilmZWF0dXJlX21hc2sgfD0KPj4gRkVBVFVS
-RV9NQVNLKEZFQVRVUkVfVkNOX1BHX0JJVCkKPj4gLQkJCQl8IEZFQVRVUkVfTUFTSyhGRUFUVVJF
-X0pQRUdfUEdfQklUKTsKPj4gKwkJKih1aW50NjRfdCAqKWZlYXR1cmVfbWFzayB8PQo+PiBGRUFU
-VVJFX01BU0soRkVBVFVSRV9WQ05fUEdfQklUKTsKPj4gKwo+PiArCWlmIChzbXUtPmFkZXYtPnBn
-X2ZsYWdzICYgQU1EX1BHX1NVUFBPUlRfSlBFRykKPj4gKwkJKih1aW50NjRfdCAqKWZlYXR1cmVf
-bWFzayB8PQo+PiBGRUFUVVJFX01BU0soRkVBVFVSRV9KUEVHX1BHX0JJVCk7Cj4+Cj4+ICAgCS8q
-IGRpc2FibGUgRFBNIFVDTEsgYW5kIERTIFNPQ0NMSyBvbiBuYXZpMTAgQTAgc2VjdXJlIGJvYXJk
-ICovCj4+ICAgCWlmIChpc19hc2ljX3NlY3VyZShzbXUpKSB7Cj4+IEBAIC02NjUsNiArNjY3LDMx
-IEBAIHN0YXRpYyBpbnQgbmF2aTEwX2RwbV9zZXRfdXZkX2VuYWJsZShzdHJ1Y3QKPj4gc211X2Nv
-bnRleHQgKnNtdSwgYm9vbCBlbmFibGUpCj4+ICAgCXJldHVybiByZXQ7Cj4+ICAgfQo+Pgo+PiAr
-c3RhdGljIGludCBuYXZpMTBfZHBtX3NldF9qcGVnX2VuYWJsZShzdHJ1Y3Qgc211X2NvbnRleHQg
-KnNtdSwgYm9vbAo+PiArZW5hYmxlKSB7Cj4+ICsJc3RydWN0IHNtdV9wb3dlcl9jb250ZXh0ICpz
-bXVfcG93ZXIgPSAmc211LT5zbXVfcG93ZXI7Cj4+ICsJc3RydWN0IHNtdV9wb3dlcl9nYXRlICpw
-b3dlcl9nYXRlID0gJnNtdV9wb3dlci0+cG93ZXJfZ2F0ZTsKPj4gKwlpbnQgcmV0ID0gMDsKPj4g
-Kwo+PiArCWlmIChlbmFibGUpIHsKPj4gKwkJaWYgKHNtdV9mZWF0dXJlX2lzX2VuYWJsZWQoc211
-LAo+PiBTTVVfRkVBVFVSRV9KUEVHX1BHX0JJVCkpIHsKPj4gKwkJCXJldCA9IHNtdV9zZW5kX3Nt
-Y19tc2dfd2l0aF9wYXJhbShzbXUsCj4+IFNNVV9NU0dfUG93ZXJVcEpwZWcsIDEpOwo+PiArCQkJ
-aWYgKHJldCkKPj4gKwkJCQlyZXR1cm4gcmV0Owo+PiArCQl9Cj4+ICsJCXBvd2VyX2dhdGUtPmpw
-ZWdfZ2F0ZWQgPSBmYWxzZTsKPj4gKwl9IGVsc2Ugewo+PiArCQlpZiAoc211X2ZlYXR1cmVfaXNf
-ZW5hYmxlZChzbXUsCj4+IFNNVV9GRUFUVVJFX0pQRUdfUEdfQklUKSkgewo+PiArCQkJcmV0ID0g
-c211X3NlbmRfc21jX21zZyhzbXUsCj4+IFNNVV9NU0dfUG93ZXJEb3duSnBlZyk7Cj4+ICsJCQlp
-ZiAocmV0KQo+PiArCQkJCXJldHVybiByZXQ7Cj4+ICsJCX0KPj4gKwkJcG93ZXJfZ2F0ZS0+anBl
-Z19nYXRlZCA9IHRydWU7Cj4+ICsJfQo+PiArCj4+ICsJcmV0dXJuIHJldDsKPj4gK30KPj4gKwo+
-PiAgIHN0YXRpYyBpbnQgbmF2aTEwX2dldF9jdXJyZW50X2Nsa19mcmVxX2J5X3RhYmxlKHN0cnVj
-dCBzbXVfY29udGV4dCAqc211LAo+PiAgIAkJCQkgICAgICAgZW51bSBzbXVfY2xrX3R5cGUgY2xr
-X3R5cGUsCj4+ICAgCQkJCSAgICAgICB1aW50MzJfdCAqdmFsdWUpCj4+IEBAIC0xOTk2LDYgKzIw
-MjMsNyBAQCBzdGF0aWMgY29uc3Qgc3RydWN0IHBwdGFibGVfZnVuY3MgbmF2aTEwX3BwdF9mdW5j
-cyA9Cj4+IHsKPj4gICAJLmdldF9hbGxvd2VkX2ZlYXR1cmVfbWFzayA9IG5hdmkxMF9nZXRfYWxs
-b3dlZF9mZWF0dXJlX21hc2ssCj4+ICAgCS5zZXRfZGVmYXVsdF9kcG1fdGFibGUgPSBuYXZpMTBf
-c2V0X2RlZmF1bHRfZHBtX3RhYmxlLAo+PiAgIAkuZHBtX3NldF91dmRfZW5hYmxlID0gbmF2aTEw
-X2RwbV9zZXRfdXZkX2VuYWJsZSwKPj4gKwkuZHBtX3NldF9qcGVnX2VuYWJsZSA9IG5hdmkxMF9k
-cG1fc2V0X2pwZWdfZW5hYmxlLAo+PiAgIAkuZ2V0X2N1cnJlbnRfY2xrX2ZyZXFfYnlfdGFibGUg
-PQo+PiBuYXZpMTBfZ2V0X2N1cnJlbnRfY2xrX2ZyZXFfYnlfdGFibGUsCj4+ICAgCS5wcmludF9j
-bGtfbGV2ZWxzID0gbmF2aTEwX3ByaW50X2Nsa19sZXZlbHMsCj4+ICAgCS5mb3JjZV9jbGtfbGV2
-ZWxzID0gbmF2aTEwX2ZvcmNlX2Nsa19sZXZlbHMsCj4+IC0tCj4+IDIuMTcuMQo+Pgo+PiBfX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwo+PiBhbWQtZ2Z4IG1h
-aWxpbmcgbGlzdAo+PiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+PiBodHRwczovL2xp
-c3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngKX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QK
-YW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5v
-cmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+--===============1161191373==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_CY4PR12MB1813FAB578D07C4FB3C30320F7760CY4PR12MB1813namp_"
+
+--_000_CY4PR12MB1813FAB578D07C4FB3C30320F7760CY4PR12MB1813namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+I can send a patch for that.  Thanks!
+
+Alex
+________________________________
+From: Quan, Evan <Evan.Quan@amd.com>
+Sent: Tuesday, November 12, 2019 9:09 PM
+To: Alex Deucher <alexdeucher@gmail.com>; amd-gfx@lists.freedesktop.org <am=
+d-gfx@lists.freedesktop.org>
+Cc: Deucher, Alexander <Alexander.Deucher@amd.com>
+Subject: RE: [PATCH] drm/amdgpu: don't read registers if gfxoff is enabled =
+(v2)
+
+This patch is reviewed-by: Evan Quan <evan.quan@amd.com>
+However, i just find we need a separate patch to clear PP_GFXOFF_MASK suppo=
+rt from Arcturus.
+Can you do that or you want me to do that?
+
+> -----Original Message-----
+> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Alex
+> Deucher
+> Sent: Tuesday, November 12, 2019 11:13 PM
+> To: amd-gfx@lists.freedesktop.org
+> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>
+> Subject: [PATCH] drm/amdgpu: don't read registers if gfxoff is enabled (v=
+2)
+>
+> When gfxoff is enabled, accessing gfx registers via MMIO
+> can lead to a hang.
+>
+> v2: return cached registers properly.
+>
+> Bug: https://bugzilla.kernel.org/show_bug.cgi?id=3D205497
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/nv.c    | 27 ++++++++++++++++----------
+>  drivers/gpu/drm/amd/amdgpu/soc15.c | 31 ++++++++++++++++++------------
+>  2 files changed, 36 insertions(+), 22 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/nv.c
+> b/drivers/gpu/drm/amd/amdgpu/nv.c
+> index af68f9815f28..7283d6198b89 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/nv.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/nv.c
+> @@ -201,17 +201,25 @@ static uint32_t nv_read_indexed_register(struct
+> amdgpu_device *adev, u32 se_num,
+>        return val;
+>  }
+>
+> -static uint32_t nv_get_register_value(struct amdgpu_device *adev,
+> +static int nv_get_register_value(struct amdgpu_device *adev,
+>                                      bool indexed, u32 se_num,
+> -                                   u32 sh_num, u32 reg_offset)
+> +                                   u32 sh_num, u32 reg_offset,
+> +                                   u32 *value)
+>  {
+>        if (indexed) {
+> -             return nv_read_indexed_register(adev, se_num, sh_num,
+> reg_offset);
+> +             if (adev->pm.pp_feature & PP_GFXOFF_MASK)
+> +                     return -EINVAL;
+> +             *value =3D nv_read_indexed_register(adev, se_num, sh_num,
+> reg_offset);
+>        } else {
+> -             if (reg_offset =3D=3D SOC15_REG_OFFSET(GC, 0,
+> mmGB_ADDR_CONFIG))
+> -                     return adev->gfx.config.gb_addr_config;
+> -             return RREG32(reg_offset);
+> +             if (reg_offset =3D=3D SOC15_REG_OFFSET(GC, 0,
+> mmGB_ADDR_CONFIG)) {
+> +                     *value =3D adev->gfx.config.gb_addr_config;
+> +             } else {
+> +                     if (adev->pm.pp_feature & PP_GFXOFF_MASK)
+> +                             return -EINVAL;
+> +                     *value =3D RREG32(reg_offset);
+> +             }
+>        }
+> +     return 0;
+>  }
+>
+>  static int nv_read_register(struct amdgpu_device *adev, u32 se_num,
+> @@ -227,10 +235,9 @@ static int nv_read_register(struct amdgpu_device
+> *adev, u32 se_num,
+>                    (adev->reg_offset[en->hwip][en->inst][en->seg] + en-
+> >reg_offset))
+>                        continue;
+>
+> -             *value =3D nv_get_register_value(adev,
+> -
+> nv_allowed_read_registers[i].grbm_indexed,
+> -                                            se_num, sh_num, reg_offset);
+> -             return 0;
+> +             return nv_get_register_value(adev,
+> +
+> nv_allowed_read_registers[i].grbm_indexed,
+> +                                          se_num, sh_num, reg_offset, va=
+lue);
+>        }
+>        return -EINVAL;
+>  }
+> diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c
+> b/drivers/gpu/drm/amd/amdgpu/soc15.c
+> index 305ad3eec987..2cc16e9f39fb 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/soc15.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/soc15.c
+> @@ -363,19 +363,27 @@ static uint32_t soc15_read_indexed_register(struct
+> amdgpu_device *adev, u32 se_n
+>        return val;
+>  }
+>
+> -static uint32_t soc15_get_register_value(struct amdgpu_device *adev,
+> +static int soc15_get_register_value(struct amdgpu_device *adev,
+>                                         bool indexed, u32 se_num,
+> -                                      u32 sh_num, u32 reg_offset)
+> +                                      u32 sh_num, u32 reg_offset,
+> +                                      u32 *value)
+>  {
+>        if (indexed) {
+> -             return soc15_read_indexed_register(adev, se_num, sh_num,
+> reg_offset);
+> +             if (adev->pm.pp_feature & PP_GFXOFF_MASK)
+> +                     return -EINVAL;
+> +             *value =3D soc15_read_indexed_register(adev, se_num, sh_num=
+,
+> reg_offset);
+>        } else {
+> -             if (reg_offset =3D=3D SOC15_REG_OFFSET(GC, 0,
+> mmGB_ADDR_CONFIG))
+> -                     return adev->gfx.config.gb_addr_config;
+> -             else if (reg_offset =3D=3D SOC15_REG_OFFSET(GC, 0,
+> mmDB_DEBUG2))
+> -                     return adev->gfx.config.db_debug2;
+> -             return RREG32(reg_offset);
+> +             if (reg_offset =3D=3D SOC15_REG_OFFSET(GC, 0,
+> mmGB_ADDR_CONFIG)) {
+> +                     *value =3D adev->gfx.config.gb_addr_config;
+> +             } else if (reg_offset =3D=3D SOC15_REG_OFFSET(GC, 0,
+> mmDB_DEBUG2)) {
+> +                     *value =3D adev->gfx.config.db_debug2;
+> +             } else {
+> +                     if (adev->pm.pp_feature & PP_GFXOFF_MASK)
+> +                             return -EINVAL;
+> +                     *value =3D RREG32(reg_offset);
+> +             }
+>        }
+> +     return 0;
+>  }
+>
+>  static int soc15_read_register(struct amdgpu_device *adev, u32 se_num,
+> @@ -391,10 +399,9 @@ static int soc15_read_register(struct amdgpu_device
+> *adev, u32 se_num,
+>                                        + en->reg_offset))
+>                        continue;
+>
+> -             *value =3D soc15_get_register_value(adev,
+> -
+> soc15_allowed_read_registers[i].grbm_indexed,
+> -                                               se_num, sh_num, reg_offse=
+t);
+> -             return 0;
+> +             return soc15_get_register_value(adev,
+> +
+>        soc15_allowed_read_registers[i].grbm_indexed,
+> +                                             se_num, sh_num, reg_offset,
+> value);
+>        }
+>        return -EINVAL;
+>  }
+> --
+> 2.23.0
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--_000_CY4PR12MB1813FAB578D07C4FB3C30320F7760CY4PR12MB1813namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+I can send a patch for that.&nbsp; Thanks!</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Alex<br>
+</div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Quan, Evan &lt;Evan.Q=
+uan@amd.com&gt;<br>
+<b>Sent:</b> Tuesday, November 12, 2019 9:09 PM<br>
+<b>To:</b> Alex Deucher &lt;alexdeucher@gmail.com&gt;; amd-gfx@lists.freede=
+sktop.org &lt;amd-gfx@lists.freedesktop.org&gt;<br>
+<b>Cc:</b> Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;<br>
+<b>Subject:</b> RE: [PATCH] drm/amdgpu: don't read registers if gfxoff is e=
+nabled (v2)</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">This patch is reviewed-by: Evan Quan &lt;evan.quan=
+@amd.com&gt;<br>
+However, i just find we need a separate patch to clear PP_GFXOFF_MASK suppo=
+rt from Arcturus.<br>
+Can you do that or you want me to do that?<br>
+<br>
+&gt; -----Original Message-----<br>
+&gt; From: amd-gfx &lt;amd-gfx-bounces@lists.freedesktop.org&gt; On Behalf =
+Of Alex<br>
+&gt; Deucher<br>
+&gt; Sent: Tuesday, November 12, 2019 11:13 PM<br>
+&gt; To: amd-gfx@lists.freedesktop.org<br>
+&gt; Cc: Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;<br>
+&gt; Subject: [PATCH] drm/amdgpu: don't read registers if gfxoff is enabled=
+ (v2)<br>
+&gt; <br>
+&gt; When gfxoff is enabled, accessing gfx registers via MMIO<br>
+&gt; can lead to a hang.<br>
+&gt; <br>
+&gt; v2: return cached registers properly.<br>
+&gt; <br>
+&gt; Bug: <a href=3D"https://bugzilla.kernel.org/show_bug.cgi?id=3D205497">=
+https://bugzilla.kernel.org/show_bug.cgi?id=3D205497</a><br>
+&gt; Signed-off-by: Alex Deucher &lt;alexander.deucher@amd.com&gt;<br>
+&gt; ---<br>
+&gt;&nbsp; drivers/gpu/drm/amd/amdgpu/nv.c&nbsp;&nbsp;&nbsp; | 27 &#43;&#43=
+;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;----=
+------<br>
+&gt;&nbsp; drivers/gpu/drm/amd/amdgpu/soc15.c | 31 &#43;&#43;&#43;&#43;&#43=
+;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;---------=
+---<br>
+&gt;&nbsp; 2 files changed, 36 insertions(&#43;), 22 deletions(-)<br>
+&gt; <br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/nv.c<br>
+&gt; b/drivers/gpu/drm/amd/amdgpu/nv.c<br>
+&gt; index af68f9815f28..7283d6198b89 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdgpu/nv.c<br>
+&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/nv.c<br>
+&gt; @@ -201,17 &#43;201,25 @@ static uint32_t nv_read_indexed_register(str=
+uct<br>
+&gt; amdgpu_device *adev, u32 se_num,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return val;<br>
+&gt;&nbsp; }<br>
+&gt; <br>
+&gt; -static uint32_t nv_get_register_value(struct amdgpu_device *adev,<br>
+&gt; &#43;static int nv_get_register_value(struct amdgpu_device *adev,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+; bool indexed, u32 se_num,<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u32 sh_num, u3=
+2 reg_offset)<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u32 sh_num=
+, u32 reg_offset,<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u32 *value=
+)<br>
+&gt;&nbsp; {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (indexed) {<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; return nv_read_indexed_register(adev, se_num, sh_num,<br>
+&gt; reg_offset);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; if (adev-&gt;pm.pp_feature &amp; PP_GFXOFF_MASK)<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return -EINVAL;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; *value =3D nv_read_indexed_register(adev, se_num, sh_num,<br>
+&gt; reg_offset);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else {<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; if (reg_offset =3D=3D SOC15_REG_OFFSET(GC, 0,<br>
+&gt; mmGB_ADDR_CONFIG))<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return adev-&gt;gfx.con=
+fig.gb_addr_config;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; return RREG32(reg_offset);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; if (reg_offset =3D=3D SOC15_REG_OFFSET(GC, 0,<br>
+&gt; mmGB_ADDR_CONFIG)) {<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *value =3D adev-&gt=
+;gfx.config.gb_addr_config;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; } else {<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;pm.pp_=
+feature &amp; PP_GFXOFF_MASK)<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp; return -EINVAL;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *value =3D RREG32(r=
+eg_offset);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; }<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+&gt;&nbsp; }<br>
+&gt; <br>
+&gt;&nbsp; static int nv_read_register(struct amdgpu_device *adev, u32 se_n=
+um,<br>
+&gt; @@ -227,10 &#43;235,9 @@ static int nv_read_register(struct amdgpu_dev=
+ice<br>
+&gt; *adev, u32 se_num,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (adev-&gt;reg_offset[en-&gt;hwi=
+p][en-&gt;inst][en-&gt;seg] &#43; en-<br>
+&gt; &gt;reg_offset))<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; continu=
+e;<br>
+&gt; <br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; *value =3D nv_get_register_value(adev,<br>
+&gt; -<br>
+&gt; nv_allowed_read_registers[i].grbm_indexed,<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; se_num, sh_num, reg_offset);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; return 0;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; return nv_get_register_value(adev,<br>
+&gt; &#43;<br>
+&gt; nv_allowed_read_registers[i].grbm_indexed,<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; se_num, sh_num, reg_offset, value);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return -EINVAL;<br>
+&gt;&nbsp; }<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c<br>
+&gt; b/drivers/gpu/drm/amd/amdgpu/soc15.c<br>
+&gt; index 305ad3eec987..2cc16e9f39fb 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdgpu/soc15.c<br>
+&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/soc15.c<br>
+&gt; @@ -363,19 &#43;363,27 @@ static uint32_t soc15_read_indexed_register(=
+struct<br>
+&gt; amdgpu_device *adev, u32 se_n<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return val;<br>
+&gt;&nbsp; }<br>
+&gt; <br>
+&gt; -static uint32_t soc15_get_register_value(struct amdgpu_device *adev,<=
+br>
+&gt; &#43;static int soc15_get_register_value(struct amdgpu_device *adev,<b=
+r>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; bool indexed, u32 se_num,<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; u32 sh_num, u32 reg_offset)<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; u32 sh_num, u32 reg_offset,<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; u32 *value)<br>
+&gt;&nbsp; {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (indexed) {<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; return soc15_read_indexed_register(adev, se_num, sh_num,<br>
+&gt; reg_offset);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; if (adev-&gt;pm.pp_feature &amp; PP_GFXOFF_MASK)<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return -EINVAL;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; *value =3D soc15_read_indexed_register(adev, se_num, sh_num,<br>
+&gt; reg_offset);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else {<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; if (reg_offset =3D=3D SOC15_REG_OFFSET(GC, 0,<br>
+&gt; mmGB_ADDR_CONFIG))<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return adev-&gt;gfx.con=
+fig.gb_addr_config;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; else if (reg_offset =3D=3D SOC15_REG_OFFSET(GC, 0,<br>
+&gt; mmDB_DEBUG2))<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return adev-&gt;gfx.con=
+fig.db_debug2;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; return RREG32(reg_offset);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; if (reg_offset =3D=3D SOC15_REG_OFFSET(GC, 0,<br>
+&gt; mmGB_ADDR_CONFIG)) {<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *value =3D adev-&gt=
+;gfx.config.gb_addr_config;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; } else if (reg_offset =3D=3D SOC15_REG_OFFSET(GC, 0,<br>
+&gt; mmDB_DEBUG2)) {<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *value =3D adev-&gt=
+;gfx.config.db_debug2;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; } else {<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;pm.pp_=
+feature &amp; PP_GFXOFF_MASK)<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp; return -EINVAL;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *value =3D RREG32(r=
+eg_offset);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; }<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+&gt;&nbsp; }<br>
+&gt; <br>
+&gt;&nbsp; static int soc15_read_register(struct amdgpu_device *adev, u32 s=
+e_num,<br>
+&gt; @@ -391,10 &#43;399,9 @@ static int soc15_read_register(struct amdgpu_=
+device<br>
+&gt; *adev, u32 se_num,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; &#43; en-&gt;reg_offset))<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; continu=
+e;<br>
+&gt; <br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; *value =3D soc15_get_register_value(adev,<br>
+&gt; -<br>
+&gt; soc15_allowed_read_registers[i].grbm_indexed,<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; se_num, sh_num, r=
+eg_offset);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; return 0;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; return soc15_get_register_value(adev,<br>
+&gt; &#43;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; soc15_allowed_read_registers=
+[i].grbm_indexed,<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; se_num, sh_num, reg_offse=
+t,<br>
+&gt; value);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return -EINVAL;<br>
+&gt;&nbsp; }<br>
+&gt; --<br>
+&gt; 2.23.0<br>
+&gt; <br>
+&gt; _______________________________________________<br>
+&gt; amd-gfx mailing list<br>
+&gt; amd-gfx@lists.freedesktop.org<br>
+&gt; <a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">htt=
+ps://lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
+</div>
+</span></font></div>
+</body>
+</html>
+
+--_000_CY4PR12MB1813FAB578D07C4FB3C30320F7760CY4PR12MB1813namp_--
+
+--===============1161191373==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+
+--===============1161191373==--
