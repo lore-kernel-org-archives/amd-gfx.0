@@ -1,7 +1,7 @@
 From: yu kuai <yukuai3@huawei.com>
-Subject: [PATCH 4/7] drm/amdgpu: remove set but not used variable 'invalid'
-Date: Wed, 13 Nov 2019 20:44:31 +0800
-Message-ID: <1573649074-72589-5-git-send-email-yukuai3@huawei.com>
+Subject: [PATCH 5/7] drm/amd/powerplay: remove set but not used variable 'threshold'
+Date: Wed, 13 Nov 2019 20:44:32 +0800
+Message-ID: <1573649074-72589-6-git-send-email-yukuai3@huawei.com>
 References: <1573649074-72589-1-git-send-email-yukuai3@huawei.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="UTF-8"
@@ -15,36 +15,41 @@ List-Id: amd-gfx.lists.freedesktop.org
 
 Fixes gcc '-Wunused-but-set-variable' warning:
 
-drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c: In function
-‘amdgpu_amdkfd_evict_userptr’:
-drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c:1665:6: warning:
-variable ‘invalid’ set but not used [-Wunused-but-set-variable]
+drivers/gpu/drm/amd/powerplay/smumgr/fiji_smumgr.c: In
+function ‘fiji_populate_single_graphic_level’:
+drivers/gpu/drm/amd/powerplay/smumgr/fiji_smumgr.c:943:11:
+warning: variable ‘threshold’ set but not used
+[-Wunused-but-set-variable]
 
-'invalid' is never used, so can be removed. Thus 'atomic_inc_return'
-can be replaced as 'atomic_inc'
+It is never used, so can be removed.
 
-Fixes: 5ae0283e831a ("drm/amdgpu: Add userptr support for KFD")
+Fixes: 2e112b4ae3ba ("drm/amd/pp: remove fiji_smc/smumgr split.")
 Signed-off-by: yu kuai <yukuai3@huawei.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/powerplay/smumgr/fiji_smumgr.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-index ae6f544..a1ed8a8e 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-@@ -1662,10 +1662,10 @@ int amdgpu_amdkfd_evict_userptr(struct kgd_mem *mem,
- 				struct mm_struct *mm)
+diff --git a/drivers/gpu/drm/amd/powerplay/smumgr/fiji_smumgr.c b/drivers/gpu/drm/amd/powerplay/smumgr/fiji_smumgr.c
+index da025b1..c3df3a3 100644
+--- a/drivers/gpu/drm/amd/powerplay/smumgr/fiji_smumgr.c
++++ b/drivers/gpu/drm/amd/powerplay/smumgr/fiji_smumgr.c
+@@ -940,7 +940,7 @@ static int fiji_populate_single_graphic_level(struct pp_hwmgr *hwmgr,
  {
- 	struct amdkfd_process_info *process_info = mem->process_info;
--	int invalid, evicted_bos;
-+	int evicted_bos;
- 	int r = 0;
+ 	int result;
+ 	/* PP_Clocks minClocks; */
+-	uint32_t threshold, mvdd;
++	uint32_t mvdd;
+ 	struct smu7_hwmgr *data = (struct smu7_hwmgr *)(hwmgr->backend);
+ 	struct phm_ppt_v1_information *table_info =
+ 			(struct phm_ppt_v1_information *)(hwmgr->pptable);
+@@ -973,8 +973,6 @@ static int fiji_populate_single_graphic_level(struct pp_hwmgr *hwmgr,
+ 	level->VoltageDownHyst = 0;
+ 	level->PowerThrottle = 0;
  
--	invalid = atomic_inc_return(&mem->invalid);
-+	atomic_inc(&mem->invalid);
- 	evicted_bos = atomic_inc_return(&process_info->evicted_bos);
- 	if (evicted_bos == 1) {
- 		/* First eviction, stop the queues */
+-	threshold = clock * data->fast_watermark_threshold / 100;
+-
+ 	data->display_timing.min_clock_in_sr = hwmgr->display_config->min_core_set_clock_in_sr;
+ 
+ 	if (phm_cap_enabled(hwmgr->platform_descriptor.platformCaps, PHM_PlatformCaps_SclkDeepSleep))
 -- 
 2.7.4
