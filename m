@@ -1,56 +1,52 @@
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH 2/2] drm/amdgpu: init umc functions for arcturus umc ras
-Date: Wed, 13 Nov 2019 10:04:36 -0500
-Message-ID: <CADnq5_Pr_Ug5G_r8zNz4zoHj8si78TsU7EgL=JBY4E86-e_OZg@mail.gmail.com>
-References: <20191113145705.12298-1-Hawking.Zhang@amd.com>
- <20191113145705.12298-2-Hawking.Zhang@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Subject: Re: [PATCH 0/7] various '-Wunused-but-set-variable' gcc warning fixes
+Date: Wed, 13 Nov 2019 10:24:07 -0500
+Message-ID: <CADnq5_P38AfOHtRAAYXHVmjPPS9ot4NTGX-dQXgeUiGUjYUCHw@mail.gmail.com>
+References: <1573649074-72589-1-git-send-email-yukuai3@huawei.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20191113145705.12298-2-Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Hawking Zhang <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>
-Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, John Clements <John.Clements-5C7GfCeVMHo@public.gmane.org>, Dennis Li <Dennis.Li-5C7GfCeVMHo@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Type: text/plain; charset="UTF-8"
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <1573649074-72589-1-git-send-email-yukuai3@huawei.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: yu kuai <yukuai3@huawei.com>
+Cc: "Deucher, Alexander" <alexander.deucher@amd.com>, "Kuehling, Felix" <Felix.Kuehling@amd.com>, Christian Koenig <christian.koenig@amd.com>, Chunming Zhou <David1.Zhou@amd.com>, Dave Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, Rex Zhu <Rex.Zhu@amd.com>, "Quan, Evan" <evan.quan@amd.com>, yi.zhang@huawei.com, LKML <linux-kernel@vger.kernel.org>, amd-gfx list <amd-gfx@lists.freedesktop.org>, zhengbin <zhengbin13@huawei.com>, Maling list - DRI developers <dri-devel@lists.freedesktop.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gV2VkLCBOb3YgMTMsIDIwMTkgYXQgOTo1NyBBTSBIYXdraW5nIFpoYW5nIDxIYXdraW5nLlpo
-YW5nQGFtZC5jb20+IHdyb3RlOgo+Cj4gcmV1c2UgdmcyMCB1bWMgZnVuY3Rpb25zIGZvciBhcmN0
-dXJ1cyB1bWMgcmFzCj4KPiBDaGFuZ2UtSWQ6IElhOGFmM2MyMGE3MTdjNzZlYzE4YWE1ZmEzMzJj
-ZmQ4MWNhNjBmZjY5Cj4gU2lnbmVkLW9mZi1ieTogSGF3a2luZyBaaGFuZyA8SGF3a2luZy5aaGFu
-Z0BhbWQuY29tPgoKU2VyaWVzIGlzOgpSZXZpZXdlZC1ieTogQWxleCBEZXVjaGVyIDxhbGV4YW5k
-ZXIuZGV1Y2hlckBhbWQuY29tPgoKPiAtLS0KPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
-Z21jX3Y5XzAuYyB8IDIgKysKPiAgMSBmaWxlIGNoYW5nZWQsIDIgaW5zZXJ0aW9ucygrKQo+Cj4g
-ZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192OV8wLmMgYi9kcml2
-ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNfdjlfMC5jCj4gaW5kZXggMzc4NGI2MjIwMWIwLi44
-YTViNzIyY2U1YjcgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ21j
-X3Y5XzAuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192OV8wLmMKPiBA
-QCAtNjM1LDYgKzYzNSw3IEBAIHN0YXRpYyB2b2lkIGdtY192OV8wX3NldF91bWNfZnVuY3Moc3Ry
-dWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpCj4gICAgICAgICAgICAgICAgIGFkZXYtPnVtYy5mdW5j
-cyA9ICZ1bWNfdjZfMF9mdW5jczsKPiAgICAgICAgICAgICAgICAgYnJlYWs7Cj4gICAgICAgICBj
-YXNlIENISVBfVkVHQTIwOgo+ICsgICAgICAgY2FzZSBDSElQX0FSQ1RVUlVTOgo+ICAgICAgICAg
-ICAgICAgICBhZGV2LT51bWMubWF4X3Jhc19lcnJfY250X3Blcl9xdWVyeSA9IFVNQ19WNl8xX1RP
-VEFMX0NIQU5ORUxfTlVNOwo+ICAgICAgICAgICAgICAgICBhZGV2LT51bWMuY2hhbm5lbF9pbnN0
-X251bSA9IFVNQ19WNl8xX0NIQU5ORUxfSU5TVEFOQ0VfTlVNOwo+ICAgICAgICAgICAgICAgICBh
-ZGV2LT51bWMudW1jX2luc3RfbnVtID0gVU1DX1Y2XzFfVU1DX0lOU1RBTkNFX05VTTsKPiBAQCAt
-NzQ4LDYgKzc0OSw3IEBAIHN0YXRpYyBpbnQgZ21jX3Y5XzBfbGF0ZV9pbml0KHZvaWQgKmhhbmRs
-ZSkKPiAgICAgICAgICAgICAgICAgc3dpdGNoIChhZGV2LT5hc2ljX3R5cGUpIHsKPiAgICAgICAg
-ICAgICAgICAgY2FzZSBDSElQX1ZFR0ExMDoKPiAgICAgICAgICAgICAgICAgY2FzZSBDSElQX1ZF
-R0EyMDoKPiArICAgICAgICAgICAgICAgY2FzZSBDSElQX0FSQ1RVUlVTOgo+ICAgICAgICAgICAg
-ICAgICAgICAgICAgIHIgPSBhbWRncHVfYXRvbWZpcm13YXJlX21lbV9lY2Nfc3VwcG9ydGVkKGFk
-ZXYpOwo+ICAgICAgICAgICAgICAgICAgICAgICAgIGlmICghcikgewo+ICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgRFJNX0lORk8oIkVDQyBpcyBub3QgcHJlc2VudC5cbiIpOwo+IC0t
-Cj4gMi4xNy4xCj4KPiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fXwo+IGFtZC1nZnggbWFpbGluZyBsaXN0Cj4gYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5v
-cmcKPiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1n
-ZngKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdm
-eCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0
-cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+Applied the series, although a couple of the patches were already
+applied from a previous patch set.
+
+Thanks,
+
+Alex
+
+On Wed, Nov 13, 2019 at 9:12 AM yu kuai <yukuai3@huawei.com> wrote:
+>
+> This patch set fixes various unrelated gcc '-Wunused-but-set-variable'
+> warnings.
+>
+> yu kuai (7):
+>   drm/amdgpu: remove set but not used variable 'mc_shared_chmap' from
+>     'gfx_v6_0.c' and 'gfx_v7_0.c'
+>   drm/amdgpu: remove set but not used variable 'amdgpu_connector'
+>   drm/amdgpu: remove set but not used variable 'count'
+>   drm/amdgpu: remove set but not used variable 'invalid'
+>   drm/amdgpu: remove set but not used variable 'threshold'
+>   drm/amdgpu: remove set but not used variable 'state'
+>   drm/amdgpu: remove set but not used variable 'us_mvdd'
+>
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c    |  4 ++--
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_display.c         |  2 --
+>  drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c               |  3 +--
+>  drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c               |  3 +--
+>  drivers/gpu/drm/amd/amdkfd/kfd_device.c             |  4 ++--
+>  drivers/gpu/drm/amd/powerplay/smumgr/fiji_smumgr.c  |  7 ++-----
+>  drivers/gpu/drm/amd/powerplay/smumgr/vegam_smumgr.c | 12 ------------
+>  7 files changed, 8 insertions(+), 27 deletions(-)
+>
+> --
+> 2.7.4
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
