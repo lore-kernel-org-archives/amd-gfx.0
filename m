@@ -1,53 +1,59 @@
-From: Joe Perches <joe@perches.com>
-Subject: Re: [PATCH 1/7] drm/amdgpu: remove set but not used variable
- 'mc_shared_chmap' from 'gfx_v6_0.c' and 'gfx_v7_0.c'
-Date: Wed, 13 Nov 2019 08:55:47 -0800
-Message-ID: <ac4566662a04e0c25039df7ed30789d0792885cd.camel@perches.com>
-References: <1573649074-72589-1-git-send-email-yukuai3@huawei.com>
-         <1573649074-72589-2-git-send-email-yukuai3@huawei.com>
+From: Dan Carpenter <dan.carpenter-QHcLZuEGTsvQT0dZR+AlfA@public.gmane.org>
+Subject: [bug report] drm/amd/display: Add MST atomic routines
+Date: Wed, 13 Nov 2019 21:28:49 +0300
+Message-ID: <20191113182849.7qzsh2odtr6dw2u3@kili.mountain>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <1573649074-72589-2-git-send-email-yukuai3@huawei.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: yu kuai <yukuai3@huawei.com>, alexander.deucher@amd.com, Felix.Kuehling@amd.com, christian.koenig@amd.com, David1.Zhou@amd.com, airlied@linux.ie, daniel@ffwll.ch, Rex.Zhu@amd.com, evan.quan@amd.com
-Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, zhengbin13@huawei.com, yi.zhang@huawei.com
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Disposition: inline
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: mikita.lipski-5C7GfCeVMHo@public.gmane.org
+Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-On Wed, 2019-11-13 at 20:44 +0800, yu kuai wrote:
-> Fixes gcc '-Wunused-but-set-variable' warning:
-> 
-> drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c: In function
-> ‘gfx_v6_0_constants_init’:
-> drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c:1579:6: warning: variable
-> ‘mc_shared_chmap’ set but not used [-Wunused-but-set-variable]
-[]
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c
-[]
-> @@ -1678,7 +1678,6 @@ static void gfx_v6_0_constants_init(struct amdgpu_device *adev)
->  
->  	WREG32(mmBIF_FB_EN, BIF_FB_EN__FB_READ_EN_MASK | BIF_FB_EN__FB_WRITE_EN_MASK);
->  
-> -	mc_shared_chmap = RREG32(mmMC_SHARED_CHMAP);
-
-I do not know the hardware but frequently hardware like
-this has read ordering requirements and various registers
-can not be read in a random order.
-
-Does removing this read have no effect on the hardware?
-
->  	adev->gfx.config.mc_arb_ramcfg = RREG32(mmMC_ARB_RAMCFG);
->  	mc_arb_ramcfg = adev->gfx.config.mc_arb_ramcfg;
->  
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
-[]
-> @@ -4336,7 +4336,6 @@ static void gfx_v7_0_gpu_early_init(struct amdgpu_device *adev)
->  		break;
->  	}
->  
-> -	mc_shared_chmap = RREG32(mmMC_SHARED_CHMAP);
->  	adev->gfx.config.mc_arb_ramcfg = RREG32(mmMC_ARB_RAMCFG);
->  	mc_arb_ramcfg = adev->gfx.config.mc_arb_ramcfg;
-
-Same question.
+SGVsbG8gTWlraXRhIExpcHNraSwKClRoZSBwYXRjaCBiNGM1NzhmMDgzNzg6ICJkcm0vYW1kL2Rp
+c3BsYXk6IEFkZCBNU1QgYXRvbWljIHJvdXRpbmVzIgpmcm9tIE5vdiA2LCAyMDE5LCBsZWFkcyB0
+byB0aGUgZm9sbG93aW5nIHN0YXRpYyBjaGVja2VyIHdhcm5pbmc6CgoJZHJpdmVycy9ncHUvZHJt
+L2FtZC9hbWRncHUvLi4vZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtLmM6NDg3MCBkbV9lbmNv
+ZGVyX2hlbHBlcl9hdG9taWNfY2hlY2soKQoJd2FybjogdW5zaWduZWQgJ2RtX25ld19jb25uZWN0
+b3Jfc3RhdGUtPnZjcGlfc2xvdHMnIGlzIG5ldmVyIGxlc3MgdGhhbiB6ZXJvLgoKZHJpdmVycy9n
+cHUvZHJtL2FtZC9hbWRncHUvLi4vZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtLmMKICA0ODUx
+ICAgICAgICAgIGlmICghYWNvbm5lY3Rvci0+cG9ydCB8fCAhYWNvbm5lY3Rvci0+ZGNfc2luaykK
+ICA0ODUyICAgICAgICAgICAgICAgICAgcmV0dXJuIDA7CiAgNDg1MyAgCiAgNDg1NCAgICAgICAg
+ICBtc3RfcG9ydCA9IGFjb25uZWN0b3ItPnBvcnQ7CiAgNDg1NSAgICAgICAgICBtc3RfbWdyID0g
+JmFjb25uZWN0b3ItPm1zdF9wb3J0LT5tc3RfbWdyOwogIDQ4NTYgIAogIDQ4NTcgICAgICAgICAg
+aWYgKCFjcnRjX3N0YXRlLT5jb25uZWN0b3JzX2NoYW5nZWQgJiYgIWNydGNfc3RhdGUtPm1vZGVf
+Y2hhbmdlZCkKICA0ODU4ICAgICAgICAgICAgICAgICAgcmV0dXJuIDA7CiAgNDg1OSAgCiAgNDg2
+MCAgICAgICAgICBpZiAoIXN0YXRlLT5kdXBsaWNhdGVkKSB7CiAgNDg2MSAgICAgICAgICAgICAg
+ICAgIGNvbG9yX2RlcHRoID0gY29udmVydF9jb2xvcl9kZXB0aF9mcm9tX2Rpc3BsYXlfaW5mbyhj
+b25uZWN0b3IsIGNvbm5fc3RhdGUpOwogIDQ4NjIgICAgICAgICAgICAgICAgICBicHAgPSBjb252
+ZXJ0X2RjX2NvbG9yX2RlcHRoX2ludG9fYnBjKGNvbG9yX2RlcHRoKSAqIDM7CiAgNDg2MyAgICAg
+ICAgICAgICAgICAgIGNsb2NrID0gYWRqdXN0ZWRfbW9kZS0+Y2xvY2s7CiAgNDg2NCAgICAgICAg
+ICAgICAgICAgIGRtX25ld19jb25uZWN0b3Jfc3RhdGUtPnBibiA9IGRybV9kcF9jYWxjX3Bibl9t
+b2RlKGNsb2NrLCBicHApOwogIDQ4NjUgICAgICAgICAgfQogIDQ4NjYgICAgICAgICAgZG1fbmV3
+X2Nvbm5lY3Rvcl9zdGF0ZS0+dmNwaV9zbG90cyA9IGRybV9kcF9hdG9taWNfZmluZF92Y3BpX3Ns
+b3RzKHN0YXRlLAogIDQ4NjcgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIG1zdF9tZ3IsCiAgNDg2OCAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgbXN0X3BvcnQsCiAgNDg2OSAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgZG1fbmV3
+X2Nvbm5lY3Rvcl9zdGF0ZS0+cGJuKTsKICA0ODcwICAgICAgICAgIGlmIChkbV9uZXdfY29ubmVj
+dG9yX3N0YXRlLT52Y3BpX3Nsb3RzIDwgMCkgewogICAgICAgICAgICAgICAgICAgIF5eXl5eXl5e
+Xl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eCkltcG9zc2libGUgY29uZGl0aW9uLgoKICA0
+ODcxICAgICAgICAgICAgICAgICAgRFJNX0RFQlVHX0FUT01JQygiZmFpbGVkIGZpbmRpbmcgdmNw
+aSBzbG90czogJWRcbiIsIChpbnQpZG1fbmV3X2Nvbm5lY3Rvcl9zdGF0ZS0+dmNwaV9zbG90cyk7
+CiAgNDg3MiAgICAgICAgICAgICAgICAgIHJldHVybiBkbV9uZXdfY29ubmVjdG9yX3N0YXRlLT52
+Y3BpX3Nsb3RzOwogIDQ4NzMgICAgICAgICAgfQogIDQ4NzQgICAgICAgICAgcmV0dXJuIDA7CiAg
+NDg3NSAgfQoKcmVnYXJkcywKZGFuIGNhcnBlbnRlcgpfX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3Rz
+LmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xp
+c3RpbmZvL2FtZC1nZng=
