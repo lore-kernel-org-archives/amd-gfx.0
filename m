@@ -1,81 +1,53 @@
-From: Jason Gunthorpe <jgg@mellanox.com>
-Subject: Re: [PATCH v3 02/14] mm/mmu_notifier: add an interval
- tree notifier
-Date: Wed, 13 Nov 2019 16:46:24 +0000
-Message-ID: <20191113164620.GG21728@mellanox.com>
-References: <20191112202231.3856-1-jgg@ziepe.ca>
- <20191112202231.3856-3-jgg@ziepe.ca> <20191113135952.GB20531@infradead.org>
+From: Joe Perches <joe@perches.com>
+Subject: Re: [PATCH 1/7] drm/amdgpu: remove set but not used variable
+ 'mc_shared_chmap' from 'gfx_v6_0.c' and 'gfx_v7_0.c'
+Date: Wed, 13 Nov 2019 08:55:47 -0800
+Message-ID: <ac4566662a04e0c25039df7ed30789d0792885cd.camel@perches.com>
+References: <1573649074-72589-1-git-send-email-yukuai3@huawei.com>
+         <1573649074-72589-2-git-send-email-yukuai3@huawei.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <xen-devel-bounces@lists.xenproject.org>
-In-Reply-To: <20191113135952.GB20531@infradead.org>
-Content-Language: en-US
-Content-ID: <677ADF67690D0A479A50627A2BA23A42@eurprd05.prod.outlook.com>
-List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
- <mailto:xen-devel-request@lists.xenproject.org?subject=unsubscribe>
-List-Post: <mailto:xen-devel@lists.xenproject.org>
-List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
-List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
- <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Errors-To: xen-devel-bounces@lists.xenproject.org
-Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-To: Christoph Hellwig <hch@infradead.org>
-Cc: "nouveau@lists.freedesktop.org" <nouveau@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "linux-mm@kvack.org" <linux-mm@kvack.org>, David Zhou <David1.Zhou@amd.com>, Stefano Stabellini <sstabellini@kernel.org>, Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>, "linux-rdma@vger.kernel.org" <linux-rdma@vger.kernel.org>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, Ben Skeggs <bskeggs@redhat.com>, "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Philip Yang <Philip.Yang@amd.com>, Ralph Campbell <rcampbell@nvidia.com>, John Hubbard <jhubbard@nvidia.com>, Jerome Glisse <jglisse@redhat.com>, Boris Ostrovsky <boris.ostrovsky@oracle.com>, Petr Cvek <petrcvekcz@gmail.com>, Juergen Gross <jgross@suse.com>, Mike Marciniszyn <mike.marciniszyn@intel.com>, "Felix.Kuehling@amd.com" <Felix.Kuehl>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <1573649074-72589-2-git-send-email-yukuai3@huawei.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: yu kuai <yukuai3@huawei.com>, alexander.deucher@amd.com, Felix.Kuehling@amd.com, christian.koenig@amd.com, David1.Zhou@amd.com, airlied@linux.ie, daniel@ffwll.ch, Rex.Zhu@amd.com, evan.quan@amd.com
+Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, zhengbin13@huawei.com, yi.zhang@huawei.com
 List-Id: amd-gfx.lists.freedesktop.org
 
-T24gV2VkLCBOb3YgMTMsIDIwMTkgYXQgMDU6NTk6NTJBTSAtMDgwMCwgQ2hyaXN0b3BoIEhlbGx3
-aWcgd3JvdGU6Cj4gPiAraW50IG1tdV9pbnRlcnZhbF9ub3RpZmllcl9pbnNlcnQoc3RydWN0IG1t
-dV9pbnRlcnZhbF9ub3RpZmllciAqbW5pLAo+ID4gKwkJCQkgICAgICBzdHJ1Y3QgbW1fc3RydWN0
-ICptbSwgdW5zaWduZWQgbG9uZyBzdGFydCwKPiA+ICsJCQkJICAgICAgdW5zaWduZWQgbG9uZyBs
-ZW5ndGgsCj4gPiArCQkJCSAgICAgIGNvbnN0IHN0cnVjdCBtbXVfaW50ZXJ2YWxfbm90aWZpZXJf
-b3BzICpvcHMpOwo+ID4gK2ludCBtbXVfaW50ZXJ2YWxfbm90aWZpZXJfaW5zZXJ0X2xvY2tlZCgK
-PiA+ICsJc3RydWN0IG1tdV9pbnRlcnZhbF9ub3RpZmllciAqbW5pLCBzdHJ1Y3QgbW1fc3RydWN0
-ICptbSwKPiA+ICsJdW5zaWduZWQgbG9uZyBzdGFydCwgdW5zaWduZWQgbG9uZyBsZW5ndGgsCj4g
-PiArCWNvbnN0IHN0cnVjdCBtbXVfaW50ZXJ2YWxfbm90aWZpZXJfb3BzICpvcHMpOwo+IAo+IFZl
-cnkgaW5jb25zaXN0ZW50IGluZGVudGF0aW9uIGJldHdlZW4gdGhlc2UgdHdvIHJlbGF0ZWQgZnVu
-Y3Rpb25zLgoKY2xhbmctZm9ybWF0Li4gVGhlIGtlcm5lbCBjb25maWcgaXMgc2V0IHRvIHByZWZl
-ciBhIGxpbmUgdXAgdW5kZXIgdGhlCiggaWYgYWxsIHRoZSBhcmd1bWVudHMgd2lsbCBmaXQgd2l0
-aGluIHRoZSA4MCBjb2xzIG90aGVyd2lzZSBpdCBkb2VzIGEKMSB0YWIgY29udGludWF0aW9uIGlu
-ZGVudC4KCj4gPiArCS8qCj4gPiArCSAqIFRoZSBpbnZfZW5kIGluY29ycG9yYXRlcyBhIGRlZmVy
-cmVkIG1lY2hhbmlzbSBsaWtlCj4gPiArCSAqIHJ0bmxfdW5sb2NrKCkuIEFkZHMgYW5kIHJlbW92
-ZXMgYXJlIHF1ZXVlZCB1bnRpbCB0aGUgZmluYWwgaW52X2VuZAo+ID4gKwkgKiBoYXBwZW5zIHRo
-ZW4gdGhleSBhcmUgcHJvZ3Jlc3NlZC4gVGhpcyBhcnJhbmdlbWVudCBmb3IgdHJlZSB1cGRhdGVz
-Cj4gPiArCSAqIGlzIHVzZWQgdG8gYXZvaWQgdXNpbmcgYSBibG9ja2luZyBsb2NrIGR1cmluZwo+
-ID4gKwkgKiBpbnZhbGlkYXRlX3JhbmdlX3N0YXJ0Lgo+IAo+IE5pdHBpY2s6ICBUaGF0IGNvbW1l
-bnQgY2FuIGJlIGNvbmRlbnNlZCBpbnRvIG9uZSBsZXNzIGxpbmU6CgpUaGUgcnRubF91bmxvY2sg
-Y2FuIG1vdmUgdXAgYSBsaW5lIHRvby4gTXkgZWRpdG9yIGlzIGZhaWxpbmcgbWUgb24KdGhpcy4K
-Cj4gPiArCS8qCj4gPiArCSAqIFRPRE86IFNpbmNlIHdlIGFscmVhZHkgaGF2ZSBhIHNwaW5sb2Nr
-IGFib3ZlLCB0aGlzIHdvdWxkIGJlIGZhc3Rlcgo+ID4gKwkgKiBhcyB3YWtlX3VwX3EKPiA+ICsJ
-ICovCj4gPiArCWlmIChuZWVkX3dha2UpCj4gPiArCQl3YWtlX3VwX2FsbCgmbW1uX21tLT53cSk7
-Cj4gCj4gU28gd2h5IGlzIHRoaXMgaW1wb3J0YW50IGVub3VnaCBmb3IgYSBUT0RPIGNvbW1lbnQs
-IGJ1dCBub3QgaW1wb3J0YW50Cj4gZW5vdWdoIHRvIGRvIHJpZ2h0IGF3YXk/CgpMZXRzIGRyb3Ag
-dGhlIGNvbW1lbnQsIEknbSBub3RvIHN1cmUgd2FrZV91cF9xIGlzIGV2ZW4gYSBmdW5jdGlvbiB0
-aGlzCmxheWVyIHNob3VsZCBiZSBjYWxsaW5nLgogCj4gPiArCSAqIHJlbGVhc2Ugc2VtYW50aWNz
-IG9uIHRoZSBpbml0aWFsaXphdGlvbiBvZiB0aGUgbW11X25vdGlmaWVyX21tJ3MKPiA+ICsgICAg
-ICAgICAqIGNvbnRlbnRzIGFyZSBwcm92aWRlZCBmb3IgdW5sb2NrZWQgcmVhZGVycy4gIGFjcXVp
-cmUgY2FuIG9ubHkgYmUKPiA+ICsgICAgICAgICAqIHVzZWQgd2hpbGUgaG9sZGluZyB0aGUgbW1n
-cmFiIG9yIG1tZ2V0LCBhbmQgaXMgc2FmZSBiZWNhdXNlIG9uY2UKPiA+ICsgICAgICAgICAqIGNy
-ZWF0ZWQgdGhlIG1tdV9ub3RpZmlmZXJfbW0gaXMgbm90IGZyZWVkIHVudGlsIHRoZSBtbSBpcwo+
-ID4gKyAgICAgICAgICogZGVzdHJveWVkLiAgQXMgYWJvdmUsIHVzZXJzIGhvbGRpbmcgdGhlIG1t
-YXBfc2VtIG9yIG9uZSBvZiB0aGUKPiA+ICsgICAgICAgICAqIG1tX3Rha2VfYWxsX2xvY2tzKCkg
-ZG8gbm90IG5lZWQgdG8gdXNlIGFjcXVpcmUgc2VtYW50aWNzLgo+ID4gIAkgKi8KPiAKPiBTb21l
-IHNwYWNlcyBpbnN0ZWFkIG9mIHRhYnMgaGVyZS4KCkdvdCBpdAoKPiA+ICtzdGF0aWMgaW50IF9f
-bW11X2ludGVydmFsX25vdGlmaWVyX2luc2VydCgKPiA+ICsJc3RydWN0IG1tdV9pbnRlcnZhbF9u
-b3RpZmllciAqbW5pLCBzdHJ1Y3QgbW1fc3RydWN0ICptbSwKPiA+ICsJc3RydWN0IG1tdV9ub3Rp
-Zmllcl9tbSAqbW1uX21tLCB1bnNpZ25lZCBsb25nIHN0YXJ0LAo+ID4gKwl1bnNpZ25lZCBsb25n
-IGxlbmd0aCwgY29uc3Qgc3RydWN0IG1tdV9pbnRlcnZhbF9ub3RpZmllcl9vcHMgKm9wcykKPiAK
-PiBPZGQgaW5kZW50YXRpb24gLSB3ZSB1c3VhbGwgZG8gdHdvIHRhYnMgKG15IHByZWZlcmVuY2Up
-IG9yIGFsaWduIGFmdGVyCj4gdGhlIG9wZW5pbmcgYnJhY2UuCgpUaGlzIGlzIG9uZSB0YWIuIEkg
-ZG9uJ3QgdGhpbmsgb25lIHRhYiBpcyBvZGQsIGl0IHNlZW1zIHByZXR0eSBwb3B1bGFyCmV2ZW4g
-anVzdCBpbiBtbS8uCgpCdXQgdHdvIHRhYnMgaXMgY29uc2lkZXJlZCB1c3VhbD8gSSBkaWRuJ3Qg
-ZXZlbiBrbm93IHRoYXQuCgo+ID4gKyAqIFRoaXMgZnVuY3Rpb24gbXVzdCBiZSBwYWlyZWQgd2l0
-aCBtbXVfaW50ZXJ2YWxfbm90aWZpZXJfaW5zZXJ0KCkuIEl0IGNhbm5vdCBiZQo+IAo+IGxpbmUg
-PiA4MCBjaGFycy4KCmdvdCBpdCwgd2FzIG1pc3NlZCBkdXJpbmcgdGhlIHJlbmFtZQoKPiBPdGhl
-cndpc2UgdGhpcyBsb29rcyBnb29kIGFuZCB2ZXJ5IHNpbWlsYXIgdG8gd2hhdCBJIHJldmlld2Vk
-IGVhcmxpZXI6Cj4gCj4gUmV2aWV3ZWQtYnk6IENocmlzdG9waCBIZWxsd2lnIDxoY2hAbHN0LmRl
-PgoKVGhhbmtzIGEgYnVuY2gsIHlvdXIgY29tbWVudHMgaGF2ZSBiZWVuIHZlcnkgaGVscGZ1bCBv
-biB0aGlzIHNlcmllcyEKCkphc29uCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fXwpYZW4tZGV2ZWwgbWFpbGluZyBsaXN0Clhlbi1kZXZlbEBsaXN0cy54ZW5w
-cm9qZWN0Lm9yZwpodHRwczovL2xpc3RzLnhlbnByb2plY3Qub3JnL21haWxtYW4vbGlzdGluZm8v
-eGVuLWRldmVs
+On Wed, 2019-11-13 at 20:44 +0800, yu kuai wrote:
+> Fixes gcc '-Wunused-but-set-variable' warning:
+> 
+> drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c: In function
+> ‘gfx_v6_0_constants_init’:
+> drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c:1579:6: warning: variable
+> ‘mc_shared_chmap’ set but not used [-Wunused-but-set-variable]
+[]
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c
+[]
+> @@ -1678,7 +1678,6 @@ static void gfx_v6_0_constants_init(struct amdgpu_device *adev)
+>  
+>  	WREG32(mmBIF_FB_EN, BIF_FB_EN__FB_READ_EN_MASK | BIF_FB_EN__FB_WRITE_EN_MASK);
+>  
+> -	mc_shared_chmap = RREG32(mmMC_SHARED_CHMAP);
+
+I do not know the hardware but frequently hardware like
+this has read ordering requirements and various registers
+can not be read in a random order.
+
+Does removing this read have no effect on the hardware?
+
+>  	adev->gfx.config.mc_arb_ramcfg = RREG32(mmMC_ARB_RAMCFG);
+>  	mc_arb_ramcfg = adev->gfx.config.mc_arb_ramcfg;
+>  
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
+[]
+> @@ -4336,7 +4336,6 @@ static void gfx_v7_0_gpu_early_init(struct amdgpu_device *adev)
+>  		break;
+>  	}
+>  
+> -	mc_shared_chmap = RREG32(mmMC_SHARED_CHMAP);
+>  	adev->gfx.config.mc_arb_ramcfg = RREG32(mmMC_ARB_RAMCFG);
+>  	mc_arb_ramcfg = adev->gfx.config.mc_arb_ramcfg;
+
+Same question.
