@@ -2,112 +2,71 @@ Return-Path: <SRS0=uNvg=ZG=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.2 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-6.5 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
+	FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
+	HTML_MESSAGE,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,
+	SPF_PASS autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 44C60C432C3
-	for <amd-gfx@archiver.kernel.org>; Thu, 14 Nov 2019 22:14:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8E881C432C3
+	for <amd-gfx@archiver.kernel.org>; Thu, 14 Nov 2019 23:57:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 17D25206E6
-	for <amd-gfx@archiver.kernel.org>; Thu, 14 Nov 2019 22:14:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 17D25206E6
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id 6B3B8206E5
+	for <amd-gfx@archiver.kernel.org>; Thu, 14 Nov 2019 23:57:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6B3B8206E5
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BCAD46EF40;
-	Thu, 14 Nov 2019 22:14:28 +0000 (UTC)
-Received: from NAM04-BN3-obe.outbound.protection.outlook.com
- (mail-eopbgr680065.outbound.protection.outlook.com [40.107.68.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9E3D06EF40
- for <amd-gfx@lists.freedesktop.org>; Thu, 14 Nov 2019 22:14:27 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=PF6y+JLOPrO0uosrvb3dO1OBLoT9U33gEPNFVGTeBxBxIudmmv97oXL95RKCJ1EGnyhElPIYAiTS1SR1kEjEizRUEq31In/3PD+MQQT4a66gzu+cK5FomGm8S0FIg75259WaiRN0tRL5K+4fnsL6o/CU4+/HhpaxUdEHVLQSptgaFdXcaO0RPa15XD/+/+KBO5mCpiyNU1g4qXepVzqQtS3omwEO9YAg9BnWo9zYFMb/2qazo8bZhoU8IZBV+vQVqmDkSJHE6ylIQmAxaS43ZEloHR4dmz4d2Vm2v4ywuVUX0s9ytaupZnY5fH/nARMTJDCbcNbjjus6G844rpVPPA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=wufHlxG3pGqLLUhr3KWvenVh//8oe7kdnpP3SZZKQUk=;
- b=QGFqCy8ZPixDmeRrQlWDxc4iXYgXbGe6Fe//3+cDyRAZTYp1IudPTQk9ZVviOXP2rbkddVmNyL3NG7DuSxmRf5nwNZWW/QtSybfDKKsxvKmIQIjcOqO8VJ69ybWBhfpOk31kBwPLZ2j3oe2uVlawiYvIEfHnCTRw7+N2GRNybfPYEOzUvBh48eU2bAhlmIKccndQhXkab3/m9blAcrsbD355jPgCXt91IzfhmTIHzkFfC0rHd5n3YegXEwZ6bvvPa0S06bJu0eXGhMFAQh/9uF70kzd9MkAXHTfR/gT57dfVr+vnjqmUBeZi1aPARRvREcCAVeZVfmzmn9M4f1nOIQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-Received: from MWHPR12MB1453.namprd12.prod.outlook.com (10.172.55.22) by
- MWHPR12MB1280.namprd12.prod.outlook.com (10.169.206.14) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2451.23; Thu, 14 Nov 2019 22:14:24 +0000
-Received: from MWHPR12MB1453.namprd12.prod.outlook.com
- ([fe80::514b:dbf8:d19f:a80]) by MWHPR12MB1453.namprd12.prod.outlook.com
- ([fe80::514b:dbf8:d19f:a80%12]) with mapi id 15.20.2451.023; Thu, 14 Nov 2019
- 22:14:23 +0000
-Subject: Re: [PATCH] drm/amdgpu: Fix the null pointer issue for tdr
-To: christian.koenig@amd.com, "Deng, Emily" <Emily.Deng@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-References: <1573122349-22080-1-git-send-email-Emily.Deng@amd.com>
- <70c2c1cc-40b8-30da-7aee-f59fbc4d0d42@amd.com>
- <DM6PR12MB2971859C1BF16EE7E65B35B18F7B0@DM6PR12MB2971.namprd12.prod.outlook.com>
- <d6f9c508-3c23-c797-1cbc-7502dc4c0b13@amd.com>
- <DM6PR12MB29714AB9AD16FA3ABD7D62C28F7B0@DM6PR12MB2971.namprd12.prod.outlook.com>
- <dcc1124b-5e19-b018-7449-659a8b7d74ea@amd.com>
- <DM6PR12MB29710DFE90F22F5903499AFE8F7B0@DM6PR12MB2971.namprd12.prod.outlook.com>
- <91f4a0c4-23e3-a399-5cb1-fb01da922784@amd.com>
- <MWHPR12MB1453817C6F05A57FD431E159EA770@MWHPR12MB1453.namprd12.prod.outlook.com>
- <MN2PR12MB29750EDB35E27DF9CD63152C8F770@MN2PR12MB2975.namprd12.prod.outlook.com>
- <2f035f22-4057-dd9e-27ef-0f5612113e29@amd.com>
- <9269d447-ed32-81f7-ab43-cb16139096e2@amd.com>
- <33ffe2f1-32b6-a238-3752-cee67cd9e141@gmail.com>
- <40bb3114-d996-10af-3140-51a4f7c212d6@amd.com>
- <0858ea1b-d205-006d-a6ec-24b78b33e45b@amd.com>
- <c784ef0a-2cd7-d4b1-0581-356d8c401102@amd.com>
- <088fb2bc-b401-17cc-4d7c-001705ee1eb9@gmail.com>
-From: Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>
-Message-ID: <e267429b-9c80-a9e7-7ffd-75ec439ed759@amd.com>
-Date: Thu, 14 Nov 2019 17:14:20 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.4.0
-In-Reply-To: <088fb2bc-b401-17cc-4d7c-001705ee1eb9@gmail.com>
-Content-Type: multipart/mixed; boundary="------------C51FE0116A9075E0A86FF8EC"
-Content-Language: en-US
-X-ClientProxiedBy: BN8PR03CA0007.namprd03.prod.outlook.com
- (2603:10b6:408:94::20) To MWHPR12MB1453.namprd12.prod.outlook.com
- (2603:10b6:301:e::22)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4CDCC6F37F;
+	Thu, 14 Nov 2019 23:57:17 +0000 (UTC)
+Received: from mail-yb1-xb31.google.com (mail-yb1-xb31.google.com
+ [IPv6:2607:f8b0:4864:20::b31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D94B86F37F
+ for <amd-gfx@lists.freedesktop.org>; Thu, 14 Nov 2019 23:57:15 +0000 (UTC)
+Received: by mail-yb1-xb31.google.com with SMTP id g38so3323001ybe.11
+ for <amd-gfx@lists.freedesktop.org>; Thu, 14 Nov 2019 15:57:15 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=GvwHB7a9fwWaiweIkRg6ThAxSJnVV62xOLu32yjQgXE=;
+ b=bgoa7E8zS12Ok+2r1Ovu+lzHeA49+OEYbKDTH0u7yUuxfjMS2LUnvkizgeya1sI8Ci
+ rDDfci+2bkKsS82LFdgGLDV+NdS7NdEsJIH+zVWboWv3oNkwYe8dIcBUogemMXVciEPh
+ ZsQHaGTDzOrYuwrfyhIGIgXYcUeyKxbuVMKpzG+M/EGbin7SsBnPJhjUHhfoEV1lPVLu
+ iuv+34dvdXsCqnEsxK2z4sDJXhNabl+REKYEmtCrwmgu17H4l2C/Xla6lDBx2PZUEIvi
+ mbKdW1blW54kybD5Mr17op1Fnk38kvYHhGCoihH52peWdYINFzWNBn6Fe74usYSIWvJJ
+ 2ypw==
+X-Gm-Message-State: APjAAAU50q5Z8/1fwQtuw+faw1g8VlOe1otUqrt3XiRpfCdD8b0KqHmP
+ n1mKIQ0lKEl3TV66XI2ghoVYq2/uKKthZO44b5obt+rMFuk=
+X-Google-Smtp-Source: APXvYqxfMxkR5Fpj8eByZrapAMn3ZVsRJlclnMP5B6w0vlp8wMsF1tKAfDnXB4qYC5IUwNvJ5DdJI6yqecTeawjuN84=
+X-Received: by 2002:a25:7182:: with SMTP id m124mr8874357ybc.487.1573775834962; 
+ Thu, 14 Nov 2019 15:57:14 -0800 (PST)
 MIME-Version: 1.0
-X-Originating-IP: [2607:fea8:3edf:e127:bc3b:ed63:d5af:25ce]
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 4e84c30a-19af-42aa-1ad1-08d769500105
-X-MS-TrafficTypeDiagnostic: MWHPR12MB1280:
-X-MS-Exchange-PUrlCount: 1
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <MWHPR12MB1280136CA2E117DAFDE72013EA710@MWHPR12MB1280.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:4502;
-X-Forefront-PRVS: 02213C82F8
-X-Forefront-Antispam-Report: SFV:NSPM;
- SFS:(10009020)(4636009)(39860400002)(396003)(366004)(346002)(376002)(136003)(51234002)(13464003)(54094003)(189003)(199004)(30864003)(6246003)(71190400001)(16586007)(58126008)(110136005)(37036004)(46003)(99286004)(66946007)(316002)(14444005)(86362001)(66556008)(7736002)(66476007)(14454004)(66574012)(66616009)(305945005)(65956001)(2476003)(966005)(5024004)(65806001)(446003)(6436002)(229853002)(6512007)(235185007)(568964002)(6116002)(478600001)(5660300002)(31696002)(6306002)(36756003)(186003)(476003)(486006)(386003)(81166006)(53546011)(6506007)(2501003)(33964004)(6486002)(8936002)(8676002)(76176011)(11346002)(52116002)(25786009)(2906002)(31686004)(2616005)(81156014);
- DIR:OUT; SFP:1101; SCL:1; SRVR:MWHPR12MB1280;
- H:MWHPR12MB1453.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; MX:1; A:1; 
-Received-SPF: None (protection.outlook.com: amd.com does not designate
- permitted sender hosts)
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: vok26NP+25+N12J05r/uLvxJPO7/6u5Qf0XoaKnjKlGzFN/ZyvqJ0UOY7zzs0p3aKVbILXlRbZYP40bRWXLCOAJWqo53KYhCct/6iU36sss8UivSmcgLMVFUSigk7VZQ5xUoPIJ9ezh09ZjGbXGQ85x66aa3qAu5I+0WSuj+pKVptAhxcVVKrHxr6uH49WII/gbkJokCZVq8cqX4d1PrnlBmiHdHvHaFIrtcfTPJFnBq+wQRw7QkGlQLgHX8iJqYyS+/MHoNv38xMVr4WfW0uzGLY2yQ/OEXhtZ+kS2ZcXwMdFlz9vg7tfpfN82WwZ/Mckq0fUDUlhgfyk9L4IL24ax9iWh2XhEgRKUmxvI1TmHIkixitwb0mzAEKZ/xDrZUsVtERALKj81RkOiFWGlCXwapQME02KGZMI9LEWXdz93moFuiHIc9ZquHG75zCztmSIvKiehCSpCSLOpOO+C9sVcvYTtc4JJY0y+NL7iziSQ=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4e84c30a-19af-42aa-1ad1-08d769500105
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Nov 2019 22:14:23.7993 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: nV6520m7gm5y8U6rhiNnlUfdHIG+qzeKgEEOoqhjm6j/A4cYToIBgbzQ1qnM1AW3M3Z+xVob5xLPM2jcNtpq4w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR12MB1280
+References: <20191001222123.2392-1-jisorce@oblong.com>
+ <CAHWPjbWcdhnewEN8OEUgDu5aBpYBW5tUggA_KJ_BUR8JLvCsQw@mail.gmail.com>
+ <4610d814-6c54-982e-ecc6-716cc42b5e68@amd.com>
+ <CAHWPjbXPL9NsT0yXb8_wkodT18TEBcgf81tY49GP+U=SGZ26YQ@mail.gmail.com>
+ <c501ea8d-21d9-61ce-dafb-ef45c1701a1f@amd.com>
+In-Reply-To: <c501ea8d-21d9-61ce-dafb-ef45c1701a1f@amd.com>
+From: Julien Isorce <julien.isorce@gmail.com>
+Date: Thu, 14 Nov 2019 15:57:04 -0800
+Message-ID:
+ <CAHWPjbXYkpW+HQaCzL6XNtp9HH2Dgq=+=XxRWc0iXLsSPdKw-Q@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/display: Use pixel encoding 444 for dongle usb-c
+ to hdmi
+To: Harry Wentland <hwentlan@amd.com>
 X-Mailman-Original-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=wufHlxG3pGqLLUhr3KWvenVh//8oe7kdnpP3SZZKQUk=;
- b=if2HWwuqIRkWjDlIwLxzdqZfqgf3WJn8y19DPqTzb99igUp2VN6ywdhTlqynAgmIZ9++ntd7QpVJCXaCRP0+r7AKsBfsjhea7fuuIkf/ekTCpQENrd4H4bN+Ky0EcF1Ijcja2BK1X+pKwHHutkrhKtT5EbDOB3zRiLF8Xwagd/0=
-X-Mailman-Original-Authentication-Results: spf=none (sender IP is )
- smtp.mailfrom=Andrey.Grodzovsky@amd.com; 
+ d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc;
+ bh=GvwHB7a9fwWaiweIkRg6ThAxSJnVV62xOLu32yjQgXE=;
+ b=hCnC95hyCc12H2BgaPxDGiD7lzNPW1MiKu59HT1I7mSHE6QHOo3ymKeKYLHeCAxdDT
+ ud6fW96o5QvAH1b1nSrnmWJ8h9fMvLEjgskUvTZnFbk/Cg4iNHw/Ds9Cd+UvNpvHk135
+ Ccs9GglFEkqaHBW4cVfV+tAEQuE841J180lGEyyt00RDo9SiI8u2siN8bJ8OdN4bXJDB
+ DM7VezFMEPtcIg8h5rGc4KQa6S8FsUaB9I6O/8hLR/tlbJClaBxM635lIRS6Ah+JpPXj
+ Y0465eRjQKep28lrr110EQjivpUVth19vMQzk/JTTYI3FguL81uUL7EnZl7khFZWSIcS
+ 1+Fw==
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -119,798 +78,421 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>
+Content-Type: multipart/mixed; boundary="===============1817925350=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-Message-ID: <20191114221420.eCWnWNCg1D4Wxcz1TRo6kM7Qv83uwV7wt1Y0tXiFOrA@z>
+Message-ID: <20191114235704.CyQijGmCB9KBa0BLBX8amqsnbjtmPwasJadk-S8xC1M@z>
 
---------------C51FE0116A9075E0A86FF8EC
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
+--===============1817925350==
+Content-Type: multipart/alternative; boundary="000000000000995e460597573dff"
 
-Attached.
+--000000000000995e460597573dff
+Content-Type: text/plain; charset="UTF-8"
 
-Emily - can you give it a try ?
+Hi Harry,
 
-Andrey
+As suggested I created the issue here
+https://gitlab.freedesktop.org/drm/amd/issues/2 with a picture of the
+problem attached.
 
-On 11/14/19 3:12 AM, Christian König wrote:
->> What about instead of peeking at the job to actually remove it from 
->> ring_mirror_list right there,
-> Also an interesting idea. We would need to protect the mirror list 
-> with a lock again, but that should be the lesser evil.
+Please take a look, thx!
+Julien
+
+
+On Mon, Nov 11, 2019 at 1:11 PM Harry Wentland <hwentlan@amd.com> wrote:
+
+> On 2019-10-08 2:15 p.m., Julien Isorce wrote:
+> > Hi Harry,
+> >
+> > I can reproduce on LG, Samsung and NEC monitors.
+> >
+> > "Have you checked whether the driver picks RGB or YCBCR420 without your
+> > patch?" -> it was selecting RGB .
+> >
+> > For example on https://commons.wikimedia.org/wiki/File:Gray_scale.jpg ,
+> > the second band from the left, will be entirely pinkish.
+> > Since the issue also happens without dongle, so with a direct cable from
+> > the miniDP from the graphic card to DisplayPort on the screen I think
+> > there is more serious issue with RGB output in amdgpu. But it is not
+> > easy to reproduce, you should try on above image.
+> >
 >
-> Maybe prototype that and see if it works or not.
+> I haven't had time to repro this issue. Can you post a picture of this
+> problem somewhere? Ideally with a bug description at
+> https://gitlab.freedesktop.org/drm/amd/issues
 >
-> Regards,
-> Christian.
+> > In any case, the goal with the patch is just to get the same output when
+> > using 2 screens at the same time, one connected to hdmi output of the
+> > graphic card and one connected  to usb-c to graphic card (hdmi cable
+> > with dongle). So prior this patch, the first one would use YCbCr 444 and
+> > the second would use RGB.
+> > After this patch, both will use YCbCr 444 (both are hdmi).
 >
-> Am 13.11.19 um 17:00 schrieb Andrey Grodzovsky:
->>
->>
->> On 11/13/19 9:20 AM, Christian König wrote:
->>> Another more fundamental question: Could we get rid of the timeout 
->>> job at all?
->>
->>
->> There are other stuff there besides picking the first unfinished job 
->> which is common for all the drivers - such as freeing guilty signaled 
->> job and rearming the timeout work timer.
->>
->>
->>>
->>> I mean we used to give this as parameter to the scheduler callback 
->>> because we had the timeout worker in the job, but that is no longer 
->>> the case.
->>>
->>> E.g. in drm_sched_job_timedout() we do the following:
->>>>         job = list_first_entry_or_null(&sched->ring_mirror_list,
->>>>                                        struct drm_sched_job, node);
->>>
->>> Why don't we just remove that here and only get the first job after 
->>> we have stopped the scheduler?
->>
->>
->> Should be ok since we have the extra check for __kthread_should_park 
->> in drm_sched_cleanup_jobs which will protect us in this case from a 
->> wakeup of sched thread and execution of in drm_sched_cleanup_jobs 
->> after we already parked it. The problem here is we need the 
->> drm_sched_job to access the private data for each client driver (see 
->> amdgpu_job_timedout for example). What about instead of peeking at 
->> the job to actually remove it from ring_mirror_list right there, go 
->> ahead with it through the reset routine, if it's signaled in the 
->> meanwhile that great - release it, otherwise put it back into 
->> ring_mirror_list in drm_sched_resubmit_jobs.
->>
->> Andrey
->>
->>
->>>
->>> Regards,
->>> Christian.
->>>
->>> Am 13.11.19 um 15:12 schrieb Andrey Grodzovsky:
->>>>
->>>> This why I asked for a trace with timer enabled, but since there is 
->>>> a finite number of places we touch the timer Emily can just put 
->>>> prints there. Also, I wonder if this temp fix helps her with the 
->>>> issue or not.
->>>>
->>>> Andrey
->>>>
->>>> On 11/13/19 2:36 AM, Christian König wrote:
->>>>> The question is where do we rearm the timer for this problem to 
->>>>> occur?
->>>>>
->>>>> Regards,
->>>>> Christian.
->>>>>
->>>>> Am 12.11.19 um 20:21 schrieb Andrey Grodzovsky:
->>>>>>
->>>>>> I was able to reproduce the crash by using the attached 
->>>>>> simulate_crash.patch - waiting on guilty job to signal in reset 
->>>>>> work and artificially rearming the timeout timer just before the 
->>>>>> check for !cancel_delayed_work(&sched->work_tdr)  in 
->>>>>> drm_sched_cleanup_jobs - crash log attached in crash.log. This I 
->>>>>> think confirms my theory i described earlier in this thread.
->>>>>>
->>>>>> basic_fix.patch handles this by testing whether another timer 
->>>>>> already armed ob this scheduler or is there a timeout work in 
->>>>>> execution right now (see documentation for work_busy) - 
->>>>>> obviously  this is not a full solution as this will not protect 
->>>>>> from races if for example there is immediate work scheduling such 
->>>>>> as in drm_sched_fault -  so we probably need to account for this 
->>>>>> by making drm_sched_cleanup_jobs (at least in the part where it 
->>>>>> iterates ring mirror list and frees jobs) and GPU reset really 
->>>>>> mutually exclusive and not like now.
->>>>>>
->>>>>> Andrey
->>>>>>
->>>>>>
->>>>>> On 11/11/19 4:11 PM, Christian König wrote:
->>>>>>> Hi Emily,
->>>>>>>
->>>>>>> you need to print which scheduler instance is freeing the jobs 
->>>>>>> and which one is triggering the reset. The TID and PID is 
->>>>>>> completely meaningless here since we are called from different 
->>>>>>> worker threads and the TID/PID can change on each call.
->>>>>>>
->>>>>>> Apart from that I will look into this a bit deeper when I have 
->>>>>>> time.
->>>>>>>
->>>>>>> Regards,
->>>>>>> Christian.
->>>>>>>
->>>>>>> Am 12.11.19 um 07:02 schrieb Deng, Emily:
->>>>>>>> Hi Christian,
->>>>>>>>     I add the follow print in function drm_sched_cleanup_jobs. 
->>>>>>>> From the log it shows that only use cancel_delayed_work could 
->>>>>>>> not avoid to free job when the sched is in reset. But don’t 
->>>>>>>> know exactly where it is wrong about the driver. Do you have 
->>>>>>>> any suggestion about this?
->>>>>>>> + printk("Emily:drm_sched_cleanup_jobs:begin,tid:%lu, 
->>>>>>>> pid:%lu\n", current->tgid, current->pid);
->>>>>>>>         /*
->>>>>>>>          * Don't destroy jobs while the timeout worker is 
->>>>>>>> running  OR thread
->>>>>>>>          * is being parked and hence assumed to not touch 
->>>>>>>> ring_mirror_list
->>>>>>>>          */
->>>>>>>>          if ((sched->timeout != MAX_SCHEDULE_TIMEOUT &&
->>>>>>>> !cancel_delayed_work(&sched->work_tdr)))
->>>>>>>>                 return;
->>>>>>>> + printk("Emily:drm_sched_cleanup_jobs,tid:%lu, pid:%lu\n", 
->>>>>>>> current->tgid, current->pid);
->>>>>>>> Best wishes
->>>>>>>> Emily Deng
->>>>>>>> Nov 12 12:58:20 ubuntu-drop-August-2018-rc2-gpu0-vf02 kernel: 
->>>>>>>> [11380.695091] Emily:drm_sched_cleanup_jobs:begin,tid:2262, 
->>>>>>>> pid:2262
->>>>>>>> Nov 12 12:58:20 ubuntu-drop-August-2018-rc2-gpu0-vf02 kernel: 
->>>>>>>> [11380.695104] Emily:drm_sched_cleanup_jobs:begin,tid:2262, 
->>>>>>>> pid:2262
->>>>>>>> Nov 12 12:58:20 ubuntu-drop-August-2018-rc2-gpu0-vf02 kernel: 
->>>>>>>> [11380.695105] Emily:drm_sched_cleanup_jobs,tid:2262, pid:2262
->>>>>>>> Nov 12 12:58:20 ubuntu-drop-August-2018-rc2-gpu0-vf02 kernel: 
->>>>>>>> [11380.695107] Emily:drm_sched_cleanup_jobs:begin,tid:2262, 
->>>>>>>> pid:2262
->>>>>>>> Nov 12 12:58:20 ubuntu-drop-August-2018-rc2-gpu0-vf02 kernel: 
->>>>>>>> [11380.695107] Emily:drm_sched_cleanup_jobs,tid:2262, pid:2262
->>>>>>>> Nov 12 12:58:20 ubuntu-drop-August-2018-rc2-gpu0-vf02 kernel: 
->>>>>>>> [11381.222954] [drm:amdgpu_job_timedout [amdgpu]] *ERROR* ring 
->>>>>>>> sdma0 timeout, signaled seq=78585, emitted seq=78587
->>>>>>>> Nov 12 12:58:20 ubuntu-drop-August-2018-rc2-gpu0-vf02 kernel: 
->>>>>>>> [11381.224275] [drm:amdgpu_job_timedout [amdgpu]] *ERROR* 
->>>>>>>> Process information: process pid 0 thread pid 0, 
->>>>>>>> s_job:00000000fe75ab36,tid=15603, pid=15603
->>>>>>>> Nov 12 12:58:20 ubuntu-drop-August-2018-rc2-gpu0-vf02 kernel: 
->>>>>>>> [11381.225413] amdgpu 0000:00:08.0: GPU reset begin!
->>>>>>>> Nov 12 12:58:20 ubuntu-drop-August-2018-rc2-gpu0-vf02 kernel: 
->>>>>>>> [11381.225417] Emily:drm_sched_cleanup_jobs:begin,tid:2262, 
->>>>>>>> pid:2262
->>>>>>>> Nov 12 12:58:20 ubuntu-drop-August-2018-rc2-gpu0-vf02 kernel: 
->>>>>>>> [11381.225425] Emily:drm_sched_cleanup_jobs:begin,tid:2262, 
->>>>>>>> pid:2262
->>>>>>>> Nov 12 12:58:20 ubuntu-drop-August-2018-rc2-gpu0-vf02 kernel: 
->>>>>>>> [11381.225425] Emily:drm_sched_cleanup_jobs,tid:2262, pid:2262
->>>>>>>> Nov 12 12:58:20 ubuntu-drop-August-2018-rc2-gpu0-vf02 kernel: 
->>>>>>>> [11381.225428] Emily:amdgpu_job_free_cb,Process information: 
->>>>>>>> process  pid 0 thread  pid 0, s_job:00000000fe75ab36, tid:2262, 
->>>>>>>> pid:2262
->>>>>>>> Nov 12 12:58:20 ubuntu-drop-August-2018-rc2-gpu0-vf02 kernel: 
->>>>>>>> [11381.225429] Emily:drm_sched_cleanup_jobs:begin,tid:2262, 
->>>>>>>> pid:2262
->>>>>>>> Nov 12 12:58:20 ubuntu-drop-August-2018-rc2-gpu0-vf02 kernel: 
->>>>>>>> [11381.225430] Emily:drm_sched_cleanup_jobs,tid:2262, pid:2262
->>>>>>>> Nov 12 12:58:20 ubuntu-drop-August-2018-rc2-gpu0-vf02 kernel: 
->>>>>>>> [11381.225473] Emily:drm_sched_cleanup_jobs:begin,tid:2253, 
->>>>>>>> pid:2253
->>>>>>>> Nov 12 12:58:20 ubuntu-drop-August-2018-rc2-gpu0-vf02 kernel: 
->>>>>>>> [11381.225486] Emily:drm_sched_cleanup_jobs:begin,tid:2262, 
->>>>>>>> pid:2262
->>>>>>>> Nov 12 12:58:20 ubuntu-drop-August-2018-rc2-gpu0-vf02 kernel: 
->>>>>>>> [11381.225489] Emily:drm_sched_cleanup_jobs,tid:2262, pid:2262
->>>>>>>> Nov 12 12:58:20 ubuntu-drop-August-2018-rc2-gpu0-vf02 kernel: 
->>>>>>>> [11381.225494] Emily:amdgpu_job_free_cb,Process information: 
->>>>>>>> process  pid 0 thread  pid 0, s_job:00000000f086ec84, tid:2262, 
->>>>>>>> pid:2262
->>>>>>>> >-----Original Message-----
->>>>>>>> >From: Grodzovsky, Andrey <Andrey.Grodzovsky@amd.com>
->>>>>>>> >Sent: Tuesday, November 12, 2019 11:28 AM
->>>>>>>> >To: Koenig, Christian <Christian.Koenig@amd.com>; Deng, Emily
->>>>>>>> ><Emily.Deng@amd.com>; amd-gfx@lists.freedesktop.org
->>>>>>>> >Subject: Re: [PATCH] drm/amdgpu: Fix the null pointer issue 
->>>>>>>> for tdr
->>>>>>>> >
->>>>>>>> >Thinking more about this claim - we assume here that if 
->>>>>>>> cancel_delayed_work
->>>>>>>> >returned true it guarantees that timeout work is not running 
->>>>>>>> but, it merely
->>>>>>>> >means there was a pending timeout work which was removed from the
->>>>>>>> >workqueue before it's timer elapsed and so it didn't have a 
->>>>>>>> chance to be
->>>>>>>> >dequeued and executed, it doesn't cover already executing 
->>>>>>>> work. So there is a
->>>>>>>> >possibility where while timeout work started executing another 
->>>>>>>> timeout work
->>>>>>>> >already got enqueued (maybe through earlier cleanup jobs or 
->>>>>>>> through
->>>>>>>> >drm_sched_fault) and if at this point another 
->>>>>>>> drm_sched_cleanup_jobs runs
->>>>>>>> >cancel_delayed_work(&sched->work_tdr) will return true even 
->>>>>>>> while there is a
->>>>>>>> >timeout job in progress.
->>>>>>>> >Unfortunately we cannot change cancel_delayed_work to
->>>>>>>> >cancel_delayed_work_sync to flush the timeout work as timeout 
->>>>>>>> work itself
->>>>>>>> >waits for schedule thread  to be parked again when calling 
->>>>>>>> park_thread.
->>>>>>>> >
->>>>>>>> >Andrey
->>>>>>>> >
->>>>>>>> >________________________________________
->>>>>>>> >From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> on 
->>>>>>>> behalf of
->>>>>>>> >Koenig, Christian <Christian.Koenig@amd.com>
->>>>>>>> >Sent: 08 November 2019 05:35:18
->>>>>>>> >To: Deng, Emily; amd-gfx@lists.freedesktop.org
->>>>>>>> >Subject: Re: [PATCH] drm/amdgpu: Fix the null pointer issue 
->>>>>>>> for tdr
->>>>>>>> >
->>>>>>>> >Hi Emily,
->>>>>>>> >
->>>>>>>> >exactly that can't happen. See here:
->>>>>>>> >
->>>>>>>> >>         /* Don't destroy jobs while the timeout worker is 
->>>>>>>> running */
->>>>>>>> >>         if (sched->timeout != MAX_SCHEDULE_TIMEOUT &&
->>>>>>>> >> !cancel_delayed_work(&sched->work_tdr))
->>>>>>>> >>                 return NULL;
->>>>>>>> >
->>>>>>>> >We never free jobs while the timeout working is running to 
->>>>>>>> prevent exactly
->>>>>>>> >that issue.
->>>>>>>> >
->>>>>>>> >Regards,
->>>>>>>> >Christian.
->>>>>>>> >
->>>>>>>> >Am 08.11.19 um 11:32 schrieb Deng, Emily:
->>>>>>>> >> Hi Christian,
->>>>>>>> >>       The drm_sched_job_timedout-> amdgpu_job_timedout call
->>>>>>>> >amdgpu_device_gpu_recover. I mean the main scheduler free the 
->>>>>>>> jobs while
->>>>>>>> >in amdgpu_device_gpu_recover, and before calling drm_sched_stop.
->>>>>>>> >>
->>>>>>>> >> Best wishes
->>>>>>>> >> Emily Deng
->>>>>>>> >>
->>>>>>>> >>
->>>>>>>> >>
->>>>>>>> >>> -----Original Message-----
->>>>>>>> >>> From: Koenig, Christian <Christian.Koenig@amd.com>
->>>>>>>> >>> Sent: Friday, November 8, 2019 6:26 PM
->>>>>>>> >>> To: Deng, Emily <Emily.Deng@amd.com>; 
->>>>>>>> amd-gfx@lists.freedesktop.org
->>>>>>>> >>> Subject: Re: [PATCH] drm/amdgpu: Fix the null pointer issue 
->>>>>>>> for tdr
->>>>>>>> >>>
->>>>>>>> >>> Hi Emily,
->>>>>>>> >>>
->>>>>>>> >>> well who is calling amdgpu_device_gpu_recover() in this case?
->>>>>>>> >>>
->>>>>>>> >>> When it's not the scheduler we shouldn't have a guilty job 
->>>>>>>> in the first place.
->>>>>>>> >>>
->>>>>>>> >>> Regards,
->>>>>>>> >>> Christian.
->>>>>>>> >>>
->>>>>>>> >>> Am 08.11.19 um 11:22 schrieb Deng, Emily:
->>>>>>>> >>>> Hi Chrisitan,
->>>>>>>> >>>>        No, I am with the new branch and also has the 
->>>>>>>> patch. Even it
->>>>>>>> >>>> are freed by
->>>>>>>> >>> main scheduler, how we could avoid main scheduler to free 
->>>>>>>> jobs while
->>>>>>>> >>> enter to function amdgpu_device_gpu_recover?
->>>>>>>> >>>> Best wishes
->>>>>>>> >>>> Emily Deng
->>>>>>>> >>>>
->>>>>>>> >>>>
->>>>>>>> >>>>
->>>>>>>> >>>>> -----Original Message-----
->>>>>>>> >>>>> From: Koenig, Christian <Christian.Koenig@amd.com>
->>>>>>>> >>>>> Sent: Friday, November 8, 2019 6:15 PM
->>>>>>>> >>>>> To: Deng, Emily <Emily.Deng@amd.com>; amd-
->>>>>>>> >gfx@lists.freedesktop.org
->>>>>>>> >>>>> Subject: Re: [PATCH] drm/amdgpu: Fix the null pointer 
->>>>>>>> issue for tdr
->>>>>>>> >>>>>
->>>>>>>> >>>>> Hi Emily,
->>>>>>>> >>>>>
->>>>>>>> >>>>> in this case you are on an old code branch.
->>>>>>>> >>>>>
->>>>>>>> >>>>> Jobs are freed now by the main scheduler thread and only 
->>>>>>>> if no
->>>>>>>> >>>>> timeout handler is running.
->>>>>>>> >>>>>
->>>>>>>> >>>>> See this patch here:
->>>>>>>> >>>>>> commit 5918045c4ed492fb5813f980dcf89a90fefd0a4e
->>>>>>>> >>>>>> Author: Christian König <christian.koenig@amd.com>
->>>>>>>> >>>>>> Date:   Thu Apr 18 11:00:21 2019 -0400
->>>>>>>> >>>>>>
->>>>>>>> >>>>>>       drm/scheduler: rework job destruction
->>>>>>>> >>>>> Regards,
->>>>>>>> >>>>> Christian.
->>>>>>>> >>>>>
->>>>>>>> >>>>> Am 08.11.19 um 11:11 schrieb Deng, Emily:
->>>>>>>> >>>>>> Hi Christian,
->>>>>>>> >>>>>>         Please refer to follow log, when it enter to
->>>>>>>> >>>>>> amdgpu_device_gpu_recover
->>>>>>>> >>>>> function, the bad job 000000005086879e is freeing in 
->>>>>>>> function
->>>>>>>> >>>>> amdgpu_job_free_cb  at the same time, because of the 
->>>>>>>> hardware fence
->>>>>>>> >>> signal.
->>>>>>>> >>>>> But amdgpu_device_gpu_recover goes faster, at this case, the
->>>>>>>> >>>>> s_fence is already freed, but job is not freed in time. 
->>>>>>>> Then this issue
->>>>>>>> >occurs.
->>>>>>>> >>>>>> [  449.792189] [drm:amdgpu_job_timedout [amdgpu]] 
->>>>>>>> *ERROR* ring
->>>>>>>> >>> sdma0
->>>>>>>> >>>>>> timeout, signaled seq=2481, emitted seq=2483 [  449.793202]
->>>>>>>> >>>>>> [drm:amdgpu_job_timedout [amdgpu]] *ERROR* Process 
->>>>>>>> information:
->>>>>>>> >>>>> process  pid 0 thread pid 0, s_job:000000005086879e [  
->>>>>>>> 449.794163]
->>>>>>>> >>>>> amdgpu
->>>>>>>> >>>>> 0000:00:08.0: GPU reset begin!
->>>>>>>> >>>>>> [  449.794175] Emily:amdgpu_job_free_cb,Process 
->>>>>>>> information:
->>>>>>>> >>>>>> process pid 0 thread  pid 0, s_job:000000005086879e [ 
->>>>>>>> 449.794221]
->>>>>>>> >>>>>> Emily:amdgpu_job_free_cb,Process information: process  
->>>>>>>> pid 0
->>>>>>>> >>>>>> thread pid 0, s_job:0000000066eb74ab [  449.794222]
->>>>>>>> >>>>>> Emily:amdgpu_job_free_cb,Process information: process  
->>>>>>>> pid 0
->>>>>>>> >>>>>> thread pid 0, s_job:00000000d4438ad9 [  449.794255]
->>>>>>>> >>>>>> Emily:amdgpu_job_free_cb,Process information: process  
->>>>>>>> pid 0
->>>>>>>> >>>>>> thread pid 0, s_job:00000000b6d69c65 [  449.794257]
->>>>>>>> >>>>>> Emily:amdgpu_job_free_cb,Process information: process  
->>>>>>>> pid 0
->>>>>>>> >>>>>> thread pid 0,
->>>>>>>> >>>>> s_job:00000000ea85e922 [ 449.794287]
->>>>>>>> >>>>> Emily:amdgpu_job_free_cb,Process
->>>>>>>> >>>>> information: process pid 0 thread  pid 0, 
->>>>>>>> s_job:00000000ed3a5ac6 [
->>>>>>>> >>>>> 449.794366] BUG: unable to handle kernel NULL pointer 
->>>>>>>> dereference
->>>>>>>> >>>>> at
->>>>>>>> >>>>> 00000000000000c0 [ 449.800818] PGD 0 P4D 0 [  449.801040] 
->>>>>>>> Oops:
->>>>>>>> >>>>> 0000 [#1] SMP PTI
->>>>>>>> >>>>>> [  449.801338] CPU: 3 PID: 55 Comm: kworker/3:1 Tainted: 
->>>>>>>> G OE
->>>>>>>> >>>>> 4.18.0-15-generic #16~18.04.1-Ubuntu
->>>>>>>> >>>>>> [  449.802157] Hardware name: QEMU Standard PC (i440FX + 
->>>>>>>> PIIX,
->>>>>>>> >>>>>> 1996), BIOS Ubuntu-1.8.2-1ubuntu1 04/01/2014 [  449.802944]
->>>>>>>> >>>>>> Workqueue: events drm_sched_job_timedout [amd_sched] [
->>>>>>>> >>>>>> 449.803488]
->>>>>>>> >>> RIP:
->>>>>>>> >>>>> 0010:amdgpu_device_gpu_recover+0x1da/0xb60 [amdgpu]
->>>>>>>> >>>>>> [  449.804020] Code: dd ff ff 49 39 c5 48 89 55 a8 0f 85 
->>>>>>>> 56 ff ff
->>>>>>>> >>>>>> ff
->>>>>>>> >>>>>> 45 85 e4 0f
->>>>>>>> >>>>> 85 a1 00 00 00 48 8b 45 b0 48 85 c0 0f 84 60 01 00 00 48 
->>>>>>>> 8b 40 10
->>>>>>>> >>>>> <48> 8b
->>>>>>>> >>> 98
->>>>>>>> >>>>> c0 00         00 00 48 85 db 0f 84 4c 01 00 00 48 8b 43 
->>>>>>>> 48 a8 01
->>>>>>>> >>>>>> [  449.805593] RSP: 0018:ffffb4c7c08f7d68 EFLAGS: 
->>>>>>>> 00010286 [
->>>>>>>> >>>>>> 449.806032] RAX: 0000000000000000 RBX: 0000000000000000 
->>>>>>>> RCX:
->>>>>>>> >>>>>> 0000000000000000 [ 449.806625] RDX: ffffb4c7c08f5ac0 RSI:
->>>>>>>> >>>>>> 0000000fffffffe0 RDI: 0000000000000246 [  449.807224] RBP:
->>>>>>>> >>>>>> ffffb4c7c08f7de0 R08: 00000068b9d54000 R09: 
->>>>>>>> 0000000000000000 [
->>>>>>>> >>>>>> 449.807818] R10: 0000000000000000 R11: 0000000000000148 
->>>>>>>> R12:
->>>>>>>> >>>>>> 0000000000000000 [ 449.808411] R13: ffffb4c7c08f7da0 R14:
->>>>>>>> >>>>>> ffff8d82b8525d40 R15: ffff8d82b8525d40 [  449.809004] FS:
->>>>>>>> >>>>>> 0000000000000000(0000) GS:ffff8d82bfd80000(0000)
->>>>>>>> >>>>>> knlGS:0000000000000000 [ 449.809674] CS:  0010 DS: 0000 
->>>>>>>> ES: 0000
->>>>>>>> >CR0:
->>>>>>>> >>>>>> 0000000080050033 [ 449.810153] CR2: 00000000000000c0 CR3:
->>>>>>>> >>>>>> 000000003cc0a001 CR4: 00000000003606e0 [  449.810747] DR0:
->>>>>>>> >>>>> 0000000000000000 DR1: 0000000000000000 DR2: 
->>>>>>>> 0000000000000000 [
->>>>>>>> >>>>> 449.811344] DR3: 0000000000000000 DR6: 00000000fffe0ff0 DR7:
->>>>>>>> >>>>> 0000000000000400 [ 449.811937] Call Trace:
->>>>>>>> >>>>>> [  449.812206] amdgpu_job_timedout+0x114/0x140 [amdgpu] [
->>>>>>>> >>>>>> 449.812635] drm_sched_job_timedout+0x44/0x90 [amd_sched] [
->>>>>>>> >>>>>> 449.813139]  ? amdgpu_cgs_destroy_device+0x10/0x10 
->>>>>>>> [amdgpu] [
->>>>>>>> >>>>>> 449.813609]  ? drm_sched_job_timedout+0x44/0x90 
->>>>>>>> [amd_sched] [
->>>>>>>> >>>>>> 449.814077] process_one_work+0x1fd/0x3f0 [  449.814417]
->>>>>>>> >>>>>> worker_thread+0x34/0x410 [ 449.814728] 
->>>>>>>> kthread+0x121/0x140 [
->>>>>>>> >>>>>> 449.815004]  ? process_one_work+0x3f0/0x3f0 [  
->>>>>>>> 449.815374]  ?
->>>>>>>> >>>>>> kthread_create_worker_on_cpu+0x70/0x70
->>>>>>>> >>>>>> [  449.815799] ret_from_fork+0x35/0x40
->>>>>>>> >>>>>>
->>>>>>>> >>>>>>> -----Original Message-----
->>>>>>>> >>>>>>> From: Koenig, Christian <Christian.Koenig@amd.com>
->>>>>>>> >>>>>>> Sent: Friday, November 8, 2019 5:43 PM
->>>>>>>> >>>>>>> To: Deng, Emily <Emily.Deng@amd.com>; amd-
->>>>>>>> >>> gfx@lists.freedesktop.org
->>>>>>>> >>>>>>> Subject: Re: [PATCH] drm/amdgpu: Fix the null pointer 
->>>>>>>> issue for
->>>>>>>> >>>>>>> tdr
->>>>>>>> >>>>>>>
->>>>>>>> >>>>>>> Am 08.11.19 um 10:39 schrieb Deng, Emily:
->>>>>>>> >>>>>>>> Sorry, please take your time.
->>>>>>>> >>>>>>> Have you seen my other response a bit below?
->>>>>>>> >>>>>>>
->>>>>>>> >>>>>>> I can't follow how it would be possible for 
->>>>>>>> job->s_fence to be
->>>>>>>> >>>>>>> NULL without the job also being freed.
->>>>>>>> >>>>>>>
->>>>>>>> >>>>>>> So it looks like this patch is just papering over some 
->>>>>>>> bigger issues.
->>>>>>>> >>>>>>>
->>>>>>>> >>>>>>> Regards,
->>>>>>>> >>>>>>> Christian.
->>>>>>>> >>>>>>>
->>>>>>>> >>>>>>>> Best wishes
->>>>>>>> >>>>>>>> Emily Deng
->>>>>>>> >>>>>>>>
->>>>>>>> >>>>>>>>
->>>>>>>> >>>>>>>>
->>>>>>>> >>>>>>>>> -----Original Message-----
->>>>>>>> >>>>>>>>> From: Koenig, Christian <Christian.Koenig@amd.com>
->>>>>>>> >>>>>>>>> Sent: Friday, November 8, 2019 5:08 PM
->>>>>>>> >>>>>>>>> To: Deng, Emily <Emily.Deng@amd.com>; amd-
->>>>>>>> >>>>> gfx@lists.freedesktop.org
->>>>>>>> >>>>>>>>> Subject: Re: [PATCH] drm/amdgpu: Fix the null pointer 
->>>>>>>> issue for
->>>>>>>> >>>>>>>>> tdr
->>>>>>>> >>>>>>>>>
->>>>>>>> >>>>>>>>> Am 08.11.19 um 09:52 schrieb Deng, Emily:
->>>>>>>> >>>>>>>>>> Ping.....
->>>>>>>> >>>>>>>>> You need to give me at least enough time to wake up :)
->>>>>>>> >>>>>>>>>
->>>>>>>> >>>>>>>>>> Best wishes
->>>>>>>> >>>>>>>>>> Emily Deng
->>>>>>>> >>>>>>>>>>
->>>>>>>> >>>>>>>>>>
->>>>>>>> >>>>>>>>>>
->>>>>>>> >>>>>>>>>>> -----Original Message-----
->>>>>>>> >>>>>>>>>>> From: amd-gfx 
->>>>>>>> <amd-gfx-bounces@lists.freedesktop.org> On
->>>>>>>> >>> Behalf
->>>>>>>> >>>>>>>>>>> Of Deng, Emily
->>>>>>>> >>>>>>>>>>> Sent: Friday, November 8, 2019 10:56 AM
->>>>>>>> >>>>>>>>>>> To: Koenig, Christian <Christian.Koenig@amd.com>; amd-
->>>>>>>> >>>>>>>>>>> gfx@lists.freedesktop.org
->>>>>>>> >>>>>>>>>>> Subject: RE: [PATCH] drm/amdgpu: Fix the null 
->>>>>>>> pointer issue
->>>>>>>> >>>>>>>>>>> for tdr
->>>>>>>> >>>>>>>>>>>
->>>>>>>> >>>>>>>>>>>> -----Original Message-----
->>>>>>>> >>>>>>>>>>>> From: Christian König 
->>>>>>>> <ckoenig.leichtzumerken@gmail.com>
->>>>>>>> >>>>>>>>>>>> Sent: Thursday, November 7, 2019 7:28 PM
->>>>>>>> >>>>>>>>>>>> To: Deng, Emily <Emily.Deng@amd.com>;
->>>>>>>> >>>>>>>>>>>> amd-gfx@lists.freedesktop.org
->>>>>>>> >>>>>>>>>>>> Subject: Re: [PATCH] drm/amdgpu: Fix the null 
->>>>>>>> pointer issue
->>>>>>>> >>>>>>>>>>>> for tdr
->>>>>>>> >>>>>>>>>>>>
->>>>>>>> >>>>>>>>>>>> Am 07.11.19 um 11:25 schrieb Emily Deng:
->>>>>>>> >>>>>>>>>>>>> When the job is already signaled, the s_fence is 
->>>>>>>> freed.
->>>>>>>> >>>>>>>>>>>>> Then it will has null pointer in 
->>>>>>>> amdgpu_device_gpu_recover.
->>>>>>>> >>>>>>>>>>>> NAK, the s_fence is only set to NULL when the job 
->>>>>>>> is destroyed.
->>>>>>>> >>>>>>>>>>>> See drm_sched_job_cleanup().
->>>>>>>> >>>>>>>>>>> I know it is set to NULL in drm_sched_job_cleanup. 
->>>>>>>> But in one
->>>>>>>> >>>>>>>>>>> case, when it enter into the 
->>>>>>>> amdgpu_device_gpu_recover, it
->>>>>>>> >>>>>>>>>>> already in drm_sched_job_cleanup, and at this time, 
->>>>>>>> it will
->>>>>>>> >>>>>>>>>>> go to free
->>>>>>>> >>>>> job.
->>>>>>>> >>>>>>>>>>> But the amdgpu_device_gpu_recover sometimes is 
->>>>>>>> faster. At
->>>>>>>> >>>>>>>>>>> that time, job is not freed, but s_fence is already 
->>>>>>>> NULL.
->>>>>>>> >>>>>>>>> No, that case can't happen. See here:
->>>>>>>> >>>>>>>>>
->>>>>>>> >>>>>>>>>> drm_sched_job_cleanup(s_job);
->>>>>>>> >>>>>>>>>>
->>>>>>>> >>>>>>>>>> amdgpu_ring_priority_put(ring, s_job->s_priority);
->>>>>>>> >>>>>>>>>> dma_fence_put(job->fence);
->>>>>>>> >>>>>>>>>> amdgpu_sync_free(&job->sync);
->>>>>>>> >>>>>>>>>> amdgpu_sync_free(&job->sched_sync);
->>>>>>>> >>>>>>>>>> kfree(job);
->>>>>>>> >>>>>>>>> The job itself is freed up directly after freeing the 
->>>>>>>> reference
->>>>>>>> >>>>>>>>> to the
->>>>>>>> >>>>> s_fence.
->>>>>>>> >>>>>>>>> So you are just papering over a much bigger problem 
->>>>>>>> here. This
->>>>>>>> >>>>>>>>> patch is a clear NAK.
->>>>>>>> >>>>>>>>>
->>>>>>>> >>>>>>>>> Regards,
->>>>>>>> >>>>>>>>> Christian.
->>>>>>>> >>>>>>>>>
->>>>>>>> >>>>>>>>>>>> When you see a job without an s_fence then that 
->>>>>>>> means the
->>>>>>>> >>>>>>>>>>>> problem is somewhere else.
->>>>>>>> >>>>>>>>>>>>
->>>>>>>> >>>>>>>>>>>> Regards,
->>>>>>>> >>>>>>>>>>>> Christian.
->>>>>>>> >>>>>>>>>>>>
->>>>>>>> >>>>>>>>>>>>> Signed-off-by: Emily Deng <Emily.Deng@amd.com>
->>>>>>>> >>>>>>>>>>>>> ---
->>>>>>>> >>>>>>>>>>>>> drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  2 +-
->>>>>>>> >>>>>>>>>>>>> drivers/gpu/drm/scheduler/sched_main.c     | 11 
->>>>>>>> ++++++---
->>>>>>>> >--
->>>>>>>> >>>>>>>>>>>>>       2 files changed, 7 insertions(+), 6 
->>>>>>>> deletions(-)
->>>>>>>> >>>>>>>>>>>>>
->>>>>>>> >>>>>>>>>>>>> diff --git 
->>>>>>>> a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->>>>>>>> >>>>>>>>>>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->>>>>>>> >>>>>>>>>>>>> index e6ce949..5a8f08e 100644
->>>>>>>> >>>>>>>>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->>>>>>>> >>>>>>>>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->>>>>>>> >>>>>>>>>>>>> @@ -4075,7 +4075,7 @@ int
->>>>>>>> >>> amdgpu_device_gpu_recover(struct
->>>>>>>> >>>>>>>>>>>> amdgpu_device *adev,
->>>>>>>> >>>>>>>>>>>>>            *
->>>>>>>> >>>>>>>>>>>>>            * job->base holds a reference to 
->>>>>>>> parent fence
->>>>>>>> >>>>>>>>>>>>>            */
->>>>>>>> >>>>>>>>>>>>> -  if (job && job->base.s_fence->parent &&
->>>>>>>> >>>>>>>>>>>>> +  if (job && job->base.s_fence &&
->>>>>>>> >>>>>>>>>>>>> + job->base.s_fence->parent
->>>>>>>> >>>>>>> &&
->>>>>>>> >>>>>>>>>>>>> dma_fence_is_signaled(job->base.s_fence->parent))
->>>>>>>> >>>>>>>>>>>>> job_signaled = true;
->>>>>>>> >>>>>>>>>>>>>
->>>>>>>> >>>>>>>>>>>>> diff --git a/drivers/gpu/drm/scheduler/sched_main.c
->>>>>>>> >>>>>>>>>>>>> b/drivers/gpu/drm/scheduler/sched_main.c
->>>>>>>> >>>>>>>>>>>>> index 31809ca..56cc10e 100644
->>>>>>>> >>>>>>>>>>>>> --- a/drivers/gpu/drm/scheduler/sched_main.c
->>>>>>>> >>>>>>>>>>>>> +++ b/drivers/gpu/drm/scheduler/sched_main.c
->>>>>>>> >>>>>>>>>>>>> @@ -334,8 +334,8 @@ void
->>>>>>>> >drm_sched_increase_karma(struct
->>>>>>>> >>>>>>>>>>>> drm_sched_job
->>>>>>>> >>>>>>>>>>>>> *bad)
->>>>>>>> >>>>>>>>>>>>>
->>>>>>>> >>>>>>>>>>>>> spin_lock(&rq->lock);
->>>>>>>> >>>>>>>>>>>>> list_for_each_entry_safe(entity,
->>>>>>>> >>>>>>>>>>>>> tmp,
->>>>>>>> >>> &rq-
->>>>>>>> >>>>>>>> entities,
->>>>>>>> >>>>>>>>>>>> list) {
->>>>>>>> >>>>>>>>>>>>> -                          if 
->>>>>>>> (bad->s_fence->scheduled.context
->>>>>>>> >>>>>>> ==
->>>>>>>> >>>>>>>>>>>>> - entity->fence_context) {
->>>>>>>> >>>>>>>>>>>>> +                          if (bad->s_fence &&
->>>>>>>> >>>>>>>>>>>>> + (bad->s_fence-
->>>>>>>> >>>>>>>>>>>>> scheduled.context ==
->>>>>>>> >>>>>>>>>>>>> + entity->fence_context)) {
->>>>>>>> >>>>>>>>>>>>> if
->>>>>>>> >>>>>>>>>>>>> (atomic_read(&bad-
->>>>>>>> >>>>>>>> karma) >
->>>>>>>> >>>>>>>>>>>>> bad->sched-
->>>>>>>> >>>> hang_limit)
->>>>>>>> >>>>>>>>>>>>> if
->>>>>>>> >>>>>>>>>>>>> (entity-
->>>>>>>> >>>> guilty) @@ -376,7 +376,7 @@ void
->>>>>>>> >>>>>>>>>>>>> drm_sched_stop(struct
->>>>>>>> >>>>>>> drm_gpu_scheduler
->>>>>>>> >>>>>>>>>>>> *sched, struct drm_sched_job *bad)
->>>>>>>> >>>>>>>>>>>>>            * This iteration is thread safe as 
->>>>>>>> sched thread
->>>>>>>> >>>>>>>>>>>>> is
->>>>>>>> >>> stopped.
->>>>>>>> >>>>>>>>>>>>>            */
->>>>>>>> >>>>>>>>>>>>> list_for_each_entry_safe_reverse(s_job, tmp,
->>>>>>>> >>>>>>>>>>>>> &sched- ring_mirror_list, node) {
->>>>>>>> >>>>>>>>>>>>> -          if (s_job->s_fence->parent &&
->>>>>>>> >>>>>>>>>>>>> +          if (s_job->s_fence && 
->>>>>>>> s_job->s_fence->parent &&
->>>>>>>> >>>>>>>>>>>>> dma_fence_remove_callback(s_job-
->>>>>>>> >>>> s_fence-
->>>>>>>> >>>>>>>> parent,
->>>>>>>> >>>>>>>>>>>>> &s_job->cb)) {
->>>>>>>> >>>>>>>>>>>>> atomic_dec(&sched->hw_rq_count);
->>>>>>>> >>> @@ -
->>>>>>>> >>>>>>> 395,7
->>>>>>>> >>>>>>>>>>> +395,8 @@ void
->>>>>>>> >>>>>>>>>>>>> drm_sched_stop(struct drm_gpu_scheduler
->>>>>>>> >>>>>>>>>>>> *sched, struct drm_sched_job *bad)
->>>>>>>> >>>>>>>>>>>>> *
->>>>>>>> >>>>>>>>>>>>> * Job is still alive so fence
->>>>>>>> >>>>>>>>>>>>> refcount at
->>>>>>>> >>> least 1
->>>>>>>> >>>>>>>>>>>>> */
->>>>>>>> >>>>>>>>>>>>> - dma_fence_wait(&s_job->s_fence->finished,
->>>>>>>> >>>>>>> false);
->>>>>>>> >>>>>>>>>>>>> +                  if (s_job->s_fence)
->>>>>>>> >>>>>>>>>>>>> + dma_fence_wait(&s_job->s_fence-
->>>>>>>> >>>>>>>> finished,
->>>>>>>> >>>>>>>>>>>> false);
->>>>>>>> >>>>>>>>>>>>> /*
->>>>>>>> >>>>>>>>>>>>> * We must keep bad job alive
->>>>>>>> >>>>>>>>>>>>> for later
->>>>>>>> >>> use
->>>>>>>> >>>>>>> during @@
->>>>>>>> >>>>>>>>>>>> -438,7
->>>>>>>> >>>>>>>>>>>>> +439,7 @@ void drm_sched_start(struct 
->>>>>>>> drm_gpu_scheduler
->>>>>>>> >>>>> *sched,
->>>>>>>> >>>>>>>>>>>>> +bool
->>>>>>>> >>>>>>>>>>>> full_recovery)
->>>>>>>> >>>>>>>>>>>>>            * GPU recovers can't run in parallel.
->>>>>>>> >>>>>>>>>>>>>            */
->>>>>>>> >>>>>>>>>>>>> list_for_each_entry_safe(s_job, tmp,
->>>>>>>> >>>>>>>>>>>>> &sched->ring_mirror_list,
->>>>>>>> >>>>>>>>>>>>> node)
->>>>>>>> >>>>>>>>>>>> {
->>>>>>>> >>>>>>>>>>>>> -          struct dma_fence *fence = 
->>>>>>>> s_job->s_fence->parent;
->>>>>>>> >>>>>>>>>>>>> +          struct dma_fence *fence = 
->>>>>>>> s_job->s_fence ?
->>>>>>>> >>>>>>>>>>>>> + s_job-
->>>>>>>> >>>>>>>> s_fence-
->>>>>>>> >>>>>>>>>>>>> parent :
->>>>>>>> >>>>>>>>>>>>> +NULL;
->>>>>>>> >>>>>>>>>>>>>
->>>>>>>> >>>>>>>>>>>>> atomic_inc(&sched->hw_rq_count);
->>>>>>>> >>>>>>>>>>>>>
->>>>>>>> >>>>>>>>>>> _______________________________________________
->>>>>>>> >>>>>>>>>>> amd-gfx mailing list
->>>>>>>> >>>>>>>>>>> amd-gfx@lists.freedesktop.org
->>>>>>>> >>>>>>>>>>> 
->>>>>>>> https://lists.freedesktop.org/mailman/listinfo/amd-gfx 
->>>>>>>> <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>
->>>>>>>> >
->>>>>>>> >_______________________________________________
->>>>>>>> >amd-gfx mailing list
->>>>>>>> >amd-gfx@lists.freedesktop.org
->>>>>>>> >https://lists.freedesktop.org/mailman/listinfo/amd-gfx
->>>>>>>
->>>>>>
->>>>>> _______________________________________________
->>>>>> amd-gfx mailing list
->>>>>> amd-gfx@lists.freedesktop.org
->>>>>> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
->>>>>
->>>
->>
->> _______________________________________________
->> amd-gfx mailing list
->> amd-gfx@lists.freedesktop.org
->> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+> I've been hesitant about this patch since it changes driver policy which
+> is not something I like to do without very good reason and understanding
+> all the implications.
+>
+> That said, treating an DP-HDMI adapter like a native HDMI connection
+> rather than DP is not unreasonable. I'm still curious, though, why this
+> is required at all. As mentioned above a picture of the problem (ideally
+> showing the monitors side-by-side) would help.
+>
+> Harry
+>
+>
+> > The patch does not change the case for miniDP to DisplayPort, the driver
+> > will still use RGB. Because maybe the RGB issue is also specific to that
+> > graphic card which
+> > is VEGA"M". So that is why the patch only tries to match hdmi cases
+> > together, whether it is direct connection or through usb-c.
+> >
+> > -
+> > Julien
+> >
+> >
+> >
+> > On Tue, Oct 8, 2019 at 10:44 AM Harry Wentland <hwentlan@amd.com
+> > <mailto:hwentlan@amd.com>> wrote:
+> >
+> >     Hi Julien,
+> >
+> >     curious which monitor you're using.
+> >
+> >     Have you checked whether the driver picks RGB or YCBCR420 without
+> your
+> >     patch?
+> >
+> >     I'm not sure I understand how the pinkish color issue looks. Do you
+> see
+> >     a pinkish color at the transition from grey to another color? Or is
+> the
+> >     entire grey area pinkish?
+> >
+> >     Thanks,
+> >     Harry
+> >
+> >     On 2019-10-08 12:06 p.m., Julien Isorce wrote:
+> >     > Hi,
+> >     >
+> >     > Gentle ping ?
+> >     >
+> >     > Thx
+> >     > Julien
+> >     >
+> >     > On Tue, Oct 1, 2019 at 3:21 PM Julien Isorce
+> >     <julien.isorce@gmail.com <mailto:julien.isorce@gmail.com>
+> >     > <mailto:julien.isorce@gmail.com <mailto:julien.isorce@gmail.com>>>
+> >     wrote:
+> >     >
+> >     >     Fix pinkish color issue around grey areas. This also happens
+> >     >     when not using any dongle so directly with a usb-c to Display
+> >     >     Port cable. Meaning there is something wrong when using pixel
+> >     >     encoding RGB with amd driver in the general case. In the
+> meantime
+> >     >     just use the same pixel encoding as when using HDMI without
+> >     dongle.
+> >     >     This way users will see the same thing on 2 identical screens
+> when
+> >     >     one is connected with hdmi-to-hdmi and the other is connected
+> with
+> >     >     usb-c-to-hdmi.
+> >     >
+> >     >     Signed-off-by: Julien Isorce <jisorce@oblong.com
+> >     <mailto:jisorce@oblong.com>
+> >     >     <mailto:jisorce@oblong.com <mailto:jisorce@oblong.com>>>
+> >     >     ---
+> >     >      drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 5 +++++
+> >     >      1 file changed, 5 insertions(+)
+> >     >
+> >     >     diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> >     >     b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> >     >     index d3f404f097eb..8139dcc0bfba 100644
+> >     >     --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> >     >     +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> >     >     @@ -3313,6 +3313,7 @@ static void
+> >     >     fill_stream_properties_from_drm_display_mode(
+> >     >      {
+> >     >             struct dc_crtc_timing *timing_out = &stream->timing;
+> >     >             const struct drm_display_info *info =
+> >     &connector->display_info;
+> >     >     +       const struct dc_link *link = stream->sink->link;
+> >     >
+> >     >             memset(timing_out, 0, sizeof(struct dc_crtc_timing));
+> >     >
+> >     >     @@ -3327,6 +3328,10 @@ static void
+> >     >     fill_stream_properties_from_drm_display_mode(
+> >     >             else if ((connector->display_info.color_formats &
+> >     >     DRM_COLOR_FORMAT_YCRCB444)
+> >     >                             && stream->signal ==
+> >     SIGNAL_TYPE_HDMI_TYPE_A)
+> >     >                     timing_out->pixel_encoding =
+> >     PIXEL_ENCODING_YCBCR444;
+> >     >     +       else if ((connector->display_info.color_formats &
+> >     >     DRM_COLOR_FORMAT_YCRCB444)
+> >     >     +                       && stream->sink->sink_signal ==
+> >     >     SIGNAL_TYPE_DISPLAY_PORT
+> >     >     +                       && link->dpcd_caps.dongle_type ==
+> >     >     DISPLAY_DONGLE_DP_HDMI_CONVERTER)
+> >     >     +               timing_out->pixel_encoding =
+> >     PIXEL_ENCODING_YCBCR444;
+> >     >             else
+> >     >                     timing_out->pixel_encoding =
+> PIXEL_ENCODING_RGB;
+> >     >
+> >     >     --
+> >     >     2.17.1
+> >     >
+> >     >
+> >     > _______________________________________________
+> >     > amd-gfx mailing list
+> >     > amd-gfx@lists.freedesktop.org <mailto:
+> amd-gfx@lists.freedesktop.org>
+> >     > https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+> >     >
+> >
 >
 
---------------C51FE0116A9075E0A86FF8EC
-Content-Type: text/x-patch;
- name="0001-drm-scheduler-Avoid-accessing-freed-bad-job.patch"
-Content-Transfer-Encoding: 7bit
-Content-Disposition: attachment;
- filename="0001-drm-scheduler-Avoid-accessing-freed-bad-job.patch"
+--000000000000995e460597573dff
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From 8471644911cc7e300b08874ebb482d4e8c599904 Mon Sep 17 00:00:00 2001
-From: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
-Date: Thu, 14 Nov 2019 16:04:49 -0500
-Subject: drm/scheduler: Avoid accessing freed bad job.
+<div dir=3D"ltr">Hi Harry,<div><br></div><div>As suggested I created the is=
+sue here=C2=A0<a href=3D"https://gitlab.freedesktop.org/drm/amd/issues/2">h=
+ttps://gitlab.freedesktop.org/drm/amd/issues/2</a> with a picture of the pr=
+oblem attached.</div><div><br></div><div>Please take a look, thx!</div><div=
+>Julien</div><div><br></div></div><br><div class=3D"gmail_quote"><div dir=
+=3D"ltr" class=3D"gmail_attr">On Mon, Nov 11, 2019 at 1:11 PM Harry Wentlan=
+d &lt;<a href=3D"mailto:hwentlan@amd.com">hwentlan@amd.com</a>&gt; wrote:<b=
+r></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex=
+;border-left:1px solid rgb(204,204,204);padding-left:1ex">On 2019-10-08 2:1=
+5 p.m., Julien Isorce wrote:<br>
+&gt; Hi Harry,<br>
+&gt; <br>
+&gt; I can reproduce on LG, Samsung and NEC monitors.<br>
+&gt; <br>
+&gt; &quot;Have you checked whether the driver picks RGB or YCBCR420 withou=
+t your<br>
+&gt; patch?&quot; -&gt; it was selecting RGB .<br>
+&gt; <br>
+&gt; For example on <a href=3D"https://commons.wikimedia.org/wiki/File:Gray=
+_scale.jpg" rel=3D"noreferrer" target=3D"_blank">https://commons.wikimedia.=
+org/wiki/File:Gray_scale.jpg</a> ,<br>
+&gt; the second band from the left, will be entirely pinkish.<br>
+&gt; Since the issue also happens without dongle, so with a direct cable fr=
+om<br>
+&gt; the miniDP from the graphic card to DisplayPort on the screen I think<=
+br>
+&gt; there is more serious issue with RGB output in amdgpu. But it is not<b=
+r>
+&gt; easy to reproduce, you should try on above image.<br>
+&gt; <br>
+<br>
+I haven&#39;t had time to repro this issue. Can you post a picture of this<=
+br>
+problem somewhere? Ideally with a bug description at<br>
+<a href=3D"https://gitlab.freedesktop.org/drm/amd/issues" rel=3D"noreferrer=
+" target=3D"_blank">https://gitlab.freedesktop.org/drm/amd/issues</a><br>
+<br>
+&gt; In any case, the goal with the patch is just to get the same output wh=
+en<br>
+&gt; using 2 screens at the same time, one connected to hdmi output of the<=
+br>
+&gt; graphic card and one connected=C2=A0 to usb-c to graphic card (hdmi ca=
+ble<br>
+&gt; with dongle). So prior this patch, the first one would use YCbCr 444 a=
+nd<br>
+&gt; the second would use RGB.<br>
+&gt; After this patch, both will use=C2=A0YCbCr 444 (both are hdmi).<br>
+<br>
+I&#39;ve been hesitant about this patch since it changes driver policy whic=
+h<br>
+is not something I like to do without very good reason and understanding<br=
+>
+all the implications.<br>
+<br>
+That said, treating an DP-HDMI adapter like a native HDMI connection<br>
+rather than DP is not unreasonable. I&#39;m still curious, though, why this=
+<br>
+is required at all. As mentioned above a picture of the problem (ideally<br=
+>
+showing the monitors side-by-side) would help.<br>
+<br>
+Harry<br>
+<br>
+<br>
+&gt; The patch does not change the case for miniDP to DisplayPort, the driv=
+er<br>
+&gt; will still use RGB. Because maybe the RGB issue is also specific to th=
+at<br>
+&gt; graphic card which<br>
+&gt; is=C2=A0VEGA&quot;M&quot;. So that is why the patch only tries to matc=
+h hdmi cases<br>
+&gt; together, whether it is direct connection or through usb-c.<br>
+&gt; <br>
+&gt; -<br>
+&gt; Julien<br>
+&gt; <br>
+&gt; <br>
+&gt; <br>
+&gt; On Tue, Oct 8, 2019 at 10:44 AM Harry Wentland &lt;<a href=3D"mailto:h=
+wentlan@amd.com" target=3D"_blank">hwentlan@amd.com</a><br>
+&gt; &lt;mailto:<a href=3D"mailto:hwentlan@amd.com" target=3D"_blank">hwent=
+lan@amd.com</a>&gt;&gt; wrote:<br>
+&gt; <br>
+&gt;=C2=A0 =C2=A0 =C2=A0Hi Julien,<br>
+&gt; <br>
+&gt;=C2=A0 =C2=A0 =C2=A0curious which monitor you&#39;re using.<br>
+&gt; <br>
+&gt;=C2=A0 =C2=A0 =C2=A0Have you checked whether the driver picks RGB or YC=
+BCR420 without your<br>
+&gt;=C2=A0 =C2=A0 =C2=A0patch?<br>
+&gt; <br>
+&gt;=C2=A0 =C2=A0 =C2=A0I&#39;m not sure I understand how the pinkish color=
+ issue looks. Do you see<br>
+&gt;=C2=A0 =C2=A0 =C2=A0a pinkish color at the transition from grey to anot=
+her color? Or is the<br>
+&gt;=C2=A0 =C2=A0 =C2=A0entire grey area pinkish?<br>
+&gt; <br>
+&gt;=C2=A0 =C2=A0 =C2=A0Thanks,<br>
+&gt;=C2=A0 =C2=A0 =C2=A0Harry<br>
+&gt; <br>
+&gt;=C2=A0 =C2=A0 =C2=A0On 2019-10-08 12:06 p.m., Julien Isorce wrote:<br>
+&gt;=C2=A0 =C2=A0 =C2=A0&gt; Hi,<br>
+&gt;=C2=A0 =C2=A0 =C2=A0&gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0&gt; Gentle ping ?<br>
+&gt;=C2=A0 =C2=A0 =C2=A0&gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0&gt; Thx<br>
+&gt;=C2=A0 =C2=A0 =C2=A0&gt; Julien<br>
+&gt;=C2=A0 =C2=A0 =C2=A0&gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0&gt; On Tue, Oct 1, 2019 at 3:21 PM Julien Isorce<b=
+r>
+&gt;=C2=A0 =C2=A0 =C2=A0&lt;<a href=3D"mailto:julien.isorce@gmail.com" targ=
+et=3D"_blank">julien.isorce@gmail.com</a> &lt;mailto:<a href=3D"mailto:juli=
+en.isorce@gmail.com" target=3D"_blank">julien.isorce@gmail.com</a>&gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0&gt; &lt;mailto:<a href=3D"mailto:julien.isorce@gma=
+il.com" target=3D"_blank">julien.isorce@gmail.com</a> &lt;mailto:<a href=3D=
+"mailto:julien.isorce@gmail.com" target=3D"_blank">julien.isorce@gmail.com<=
+/a>&gt;&gt;&gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0wrote:<br>
+&gt;=C2=A0 =C2=A0 =C2=A0&gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0&gt;=C2=A0 =C2=A0 =C2=A0Fix pinkish color issue aro=
+und grey areas. This also happens<br>
+&gt;=C2=A0 =C2=A0 =C2=A0&gt;=C2=A0 =C2=A0 =C2=A0when not using any dongle s=
+o directly with a usb-c to Display<br>
+&gt;=C2=A0 =C2=A0 =C2=A0&gt;=C2=A0 =C2=A0 =C2=A0Port cable. Meaning there i=
+s something wrong when using pixel<br>
+&gt;=C2=A0 =C2=A0 =C2=A0&gt;=C2=A0 =C2=A0 =C2=A0encoding RGB with amd drive=
+r in the general case. In the meantime<br>
+&gt;=C2=A0 =C2=A0 =C2=A0&gt;=C2=A0 =C2=A0 =C2=A0just use the same pixel enc=
+oding as when using HDMI without<br>
+&gt;=C2=A0 =C2=A0 =C2=A0dongle.<br>
+&gt;=C2=A0 =C2=A0 =C2=A0&gt;=C2=A0 =C2=A0 =C2=A0This way users will see the=
+ same thing on 2 identical screens when<br>
+&gt;=C2=A0 =C2=A0 =C2=A0&gt;=C2=A0 =C2=A0 =C2=A0one is connected with hdmi-=
+to-hdmi and the other is connected with<br>
+&gt;=C2=A0 =C2=A0 =C2=A0&gt;=C2=A0 =C2=A0 =C2=A0usb-c-to-hdmi.<br>
+&gt;=C2=A0 =C2=A0 =C2=A0&gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0&gt;=C2=A0 =C2=A0 =C2=A0Signed-off-by: Julien Isorc=
+e &lt;<a href=3D"mailto:jisorce@oblong.com" target=3D"_blank">jisorce@oblon=
+g.com</a><br>
+&gt;=C2=A0 =C2=A0 =C2=A0&lt;mailto:<a href=3D"mailto:jisorce@oblong.com" ta=
+rget=3D"_blank">jisorce@oblong.com</a>&gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0&gt;=C2=A0 =C2=A0 =C2=A0&lt;mailto:<a href=3D"mailt=
+o:jisorce@oblong.com" target=3D"_blank">jisorce@oblong.com</a> &lt;mailto:<=
+a href=3D"mailto:jisorce@oblong.com" target=3D"_blank">jisorce@oblong.com</=
+a>&gt;&gt;&gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0&gt;=C2=A0 =C2=A0 =C2=A0---<br>
+&gt;=C2=A0 =C2=A0 =C2=A0&gt;=C2=A0 =C2=A0 =C2=A0=C2=A0drivers/gpu/drm/amd/d=
+isplay/amdgpu_dm/amdgpu_dm.c | 5 +++++<br>
+&gt;=C2=A0 =C2=A0 =C2=A0&gt;=C2=A0 =C2=A0 =C2=A0=C2=A01 file changed, 5 ins=
+ertions(+)<br>
+&gt;=C2=A0 =C2=A0 =C2=A0&gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0&gt;=C2=A0 =C2=A0 =C2=A0diff --git a/drivers/gpu/dr=
+m/amd/display/amdgpu_dm/amdgpu_dm.c<br>
+&gt;=C2=A0 =C2=A0 =C2=A0&gt;=C2=A0 =C2=A0 =C2=A0b/drivers/gpu/drm/amd/displ=
+ay/amdgpu_dm/amdgpu_dm.c<br>
+&gt;=C2=A0 =C2=A0 =C2=A0&gt;=C2=A0 =C2=A0 =C2=A0index d3f404f097eb..8139dcc=
+0bfba 100644<br>
+&gt;=C2=A0 =C2=A0 =C2=A0&gt;=C2=A0 =C2=A0 =C2=A0--- a/drivers/gpu/drm/amd/d=
+isplay/amdgpu_dm/amdgpu_dm.c<br>
+&gt;=C2=A0 =C2=A0 =C2=A0&gt;=C2=A0 =C2=A0 =C2=A0+++ b/drivers/gpu/drm/amd/d=
+isplay/amdgpu_dm/amdgpu_dm.c<br>
+&gt;=C2=A0 =C2=A0 =C2=A0&gt;=C2=A0 =C2=A0 =C2=A0@@ -3313,6 +3313,7 @@ stati=
+c void<br>
+&gt;=C2=A0 =C2=A0 =C2=A0&gt;=C2=A0 =C2=A0 =C2=A0fill_stream_properties_from=
+_drm_display_mode(<br>
+&gt;=C2=A0 =C2=A0 =C2=A0&gt;=C2=A0 =C2=A0 =C2=A0=C2=A0{<br>
+&gt;=C2=A0 =C2=A0 =C2=A0&gt;=C2=A0 =C2=A0 =C2=A0=C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ struct dc_crtc_timing *timing_out =3D &amp;stream-&gt;timing;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0&gt;=C2=A0 =C2=A0 =C2=A0=C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ const struct drm_display_info *info =3D<br>
+&gt;=C2=A0 =C2=A0 =C2=A0&amp;connector-&gt;display_info;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0&gt;=C2=A0 =C2=A0 =C2=A0+=C2=A0 =C2=A0 =C2=A0 =C2=
+=A0const struct dc_link *link =3D stream-&gt;sink-&gt;link;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0&gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0&gt;=C2=A0 =C2=A0 =C2=A0=C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ memset(timing_out, 0, sizeof(struct dc_crtc_timing));<br>
+&gt;=C2=A0 =C2=A0 =C2=A0&gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0&gt;=C2=A0 =C2=A0 =C2=A0@@ -3327,6 +3328,10 @@ stat=
+ic void<br>
+&gt;=C2=A0 =C2=A0 =C2=A0&gt;=C2=A0 =C2=A0 =C2=A0fill_stream_properties_from=
+_drm_display_mode(<br>
+&gt;=C2=A0 =C2=A0 =C2=A0&gt;=C2=A0 =C2=A0 =C2=A0=C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ else if ((connector-&gt;display_info.color_formats &amp;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0&gt;=C2=A0 =C2=A0 =C2=A0DRM_COLOR_FORMAT_YCRCB444)<=
+br>
+&gt;=C2=A0 =C2=A0 =C2=A0&gt;=C2=A0 =C2=A0 =C2=A0=C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 &amp;&amp; stream-=
+&gt;signal =3D=3D<br>
+&gt;=C2=A0 =C2=A0 =C2=A0SIGNAL_TYPE_HDMI_TYPE_A)<br>
+&gt;=C2=A0 =C2=A0 =C2=A0&gt;=C2=A0 =C2=A0 =C2=A0=C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 timing_out-&gt;pixel_encoding =3D<br>
+&gt;=C2=A0 =C2=A0 =C2=A0PIXEL_ENCODING_YCBCR444;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0&gt;=C2=A0 =C2=A0 =C2=A0+=C2=A0 =C2=A0 =C2=A0 =C2=
+=A0else if ((connector-&gt;display_info.color_formats &amp;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0&gt;=C2=A0 =C2=A0 =C2=A0DRM_COLOR_FORMAT_YCRCB444)<=
+br>
+&gt;=C2=A0 =C2=A0 =C2=A0&gt;=C2=A0 =C2=A0 =C2=A0+=C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&amp;&amp; strea=
+m-&gt;sink-&gt;sink_signal =3D=3D<br>
+&gt;=C2=A0 =C2=A0 =C2=A0&gt;=C2=A0 =C2=A0 =C2=A0SIGNAL_TYPE_DISPLAY_PORT<br=
+>
+&gt;=C2=A0 =C2=A0 =C2=A0&gt;=C2=A0 =C2=A0 =C2=A0+=C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&amp;&amp; link-=
+&gt;dpcd_caps.dongle_type =3D=3D<br>
+&gt;=C2=A0 =C2=A0 =C2=A0&gt;=C2=A0 =C2=A0 =C2=A0DISPLAY_DONGLE_DP_HDMI_CONV=
+ERTER)<br>
+&gt;=C2=A0 =C2=A0 =C2=A0&gt;=C2=A0 =C2=A0 =C2=A0+=C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0timing_out-&gt;pixel_encoding =3D<br>
+&gt;=C2=A0 =C2=A0 =C2=A0PIXEL_ENCODING_YCBCR444;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0&gt;=C2=A0 =C2=A0 =C2=A0=C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ else<br>
+&gt;=C2=A0 =C2=A0 =C2=A0&gt;=C2=A0 =C2=A0 =C2=A0=C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 timing_out-&gt;pixel_encoding =3D PIXEL_ENCODI=
+NG_RGB;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0&gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0&gt;=C2=A0 =C2=A0 =C2=A0--<br>
+&gt;=C2=A0 =C2=A0 =C2=A0&gt;=C2=A0 =C2=A0 =C2=A02.17.1<br>
+&gt;=C2=A0 =C2=A0 =C2=A0&gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0&gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0&gt; ______________________________________________=
+_<br>
+&gt;=C2=A0 =C2=A0 =C2=A0&gt; amd-gfx mailing list<br>
+&gt;=C2=A0 =C2=A0 =C2=A0&gt; <a href=3D"mailto:amd-gfx@lists.freedesktop.or=
+g" target=3D"_blank">amd-gfx@lists.freedesktop.org</a> &lt;mailto:<a href=
+=3D"mailto:amd-gfx@lists.freedesktop.org" target=3D"_blank">amd-gfx@lists.f=
+reedesktop.org</a>&gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0&gt; <a href=3D"https://lists.freedesktop.org/mailm=
+an/listinfo/amd-gfx" rel=3D"noreferrer" target=3D"_blank">https://lists.fre=
+edesktop.org/mailman/listinfo/amd-gfx</a><br>
+&gt;=C2=A0 =C2=A0 =C2=A0&gt;<br>
+&gt; <br>
+</blockquote></div>
 
-Problem:
-Due to a race between drm_sched_cleanup_jobs in sched thread and
-drm_sched_job_timedout in timeout work there is a possiblity that
-bad job was already freed while still being accessed from the
-timeout thread.
+--000000000000995e460597573dff--
 
-Fix:
-Instead of just peeking at the bad job in the mirror list
-remove it from the list under lock and then put it back later when
-we are garanteed no race with main sched thread is possible which
-is after the thread is parked.
-
-Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
----
- drivers/gpu/drm/scheduler/sched_main.c | 31 ++++++++++++++++++++++++++++++-
- 1 file changed, 30 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/scheduler/sched_main.c
-index 80ddbdf..c2a6108 100644
---- a/drivers/gpu/drm/scheduler/sched_main.c
-+++ b/drivers/gpu/drm/scheduler/sched_main.c
-@@ -287,10 +287,24 @@ static void drm_sched_job_timedout(struct work_struct *work)
- 	unsigned long flags;
- 
- 	sched = container_of(work, struct drm_gpu_scheduler, work_tdr.work);
-+
-+	/*
-+	 * Protects against concurrent deletion in drm_sched_cleanup_jobs that
-+	 * is already in progress.
-+	 */
-+	spin_lock_irqsave(&sched->job_list_lock, flags);
- 	job = list_first_entry_or_null(&sched->ring_mirror_list,
- 				       struct drm_sched_job, node);
- 
- 	if (job) {
-+		/*
-+		 * Remove the bad job so it cannot be freed by already in progress
-+		 * drm_sched_cleanup_jobs. It will be reinsrted back after sched->thread
-+		 * is parked at which point it's safe.
-+		 */
-+		list_del_init(&job->node);
-+		spin_unlock_irqrestore(&sched->job_list_lock, flags);
-+
- 		job->sched->ops->timedout_job(job);
- 
- 		/*
-@@ -302,6 +316,8 @@ static void drm_sched_job_timedout(struct work_struct *work)
- 			sched->free_guilty = false;
- 		}
- 	}
-+	else
-+		spin_unlock_irqrestore(&sched->job_list_lock, flags);
- 
- 	spin_lock_irqsave(&sched->job_list_lock, flags);
- 	drm_sched_start_timeout(sched);
-@@ -373,6 +389,19 @@ void drm_sched_stop(struct drm_gpu_scheduler *sched, struct drm_sched_job *bad)
- 	kthread_park(sched->thread);
- 
- 	/*
-+	 * Reinsert back the bad job here - now it's safe as drm_sched_cleanup_jobs
-+	 * cannot race against us and release the bad job at this point - we parked
-+	 * (waited for) any in progress (earlier) cleanups and any later ones will
-+	 * bail out due to sched->thread being parked.
-+	 */
-+	if (bad && bad->sched == sched)
-+		/*
-+		 * Add at the head of the queue to reflect it was the earliest
-+		 * job extracted.
-+		 */
-+		list_add(&bad->node, &sched->ring_mirror_list);
-+
-+	/*
- 	 * Iterate the job list from later to  earlier one and either deactive
- 	 * their HW callbacks or remove them from mirror list if they already
- 	 * signaled.
-@@ -657,7 +686,7 @@ static void drm_sched_cleanup_jobs(struct drm_gpu_scheduler *sched)
- 		return;
- 
- 
--	while (!list_empty(&sched->ring_mirror_list)) {
-+	while (!list_empty_careful(&sched->ring_mirror_list)) {
- 		struct drm_sched_job *job;
- 
- 		job = list_first_entry(&sched->ring_mirror_list,
--- 
-2.7.4
-
-
---------------C51FE0116A9075E0A86FF8EC
+--===============1817925350==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -920,4 +502,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
 
---------------C51FE0116A9075E0A86FF8EC--
+--===============1817925350==--
