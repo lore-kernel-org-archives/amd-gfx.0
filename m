@@ -6,55 +6,56 @@ X-Spam-Status: No, score=-6.7 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
 	HTML_MESSAGE,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,
 	SPF_PASS autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id CC3EFC432C3
-	for <amd-gfx@archiver.kernel.org>; Fri, 15 Nov 2019 19:34:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C776FC432C3
+	for <amd-gfx@archiver.kernel.org>; Fri, 15 Nov 2019 19:52:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A133D206D9
-	for <amd-gfx@archiver.kernel.org>; Fri, 15 Nov 2019 19:34:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A133D206D9
+	by mail.kernel.org (Postfix) with ESMTPS id A26B520733
+	for <amd-gfx@archiver.kernel.org>; Fri, 15 Nov 2019 19:52:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A26B520733
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4244A6EA35;
-	Fri, 15 Nov 2019 19:34:28 +0000 (UTC)
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com
- (mail-eopbgr770050.outbound.protection.outlook.com [40.107.77.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E94E06EA35
- for <amd-gfx@lists.freedesktop.org>; Fri, 15 Nov 2019 19:34:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4EDA96E7B4;
+	Fri, 15 Nov 2019 19:52:59 +0000 (UTC)
+Received: from NAM01-BN3-obe.outbound.protection.outlook.com
+ (mail-eopbgr740075.outbound.protection.outlook.com [40.107.74.75])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7BE1A6E7B4
+ for <amd-gfx@lists.freedesktop.org>; Fri, 15 Nov 2019 19:52:58 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=i7C2v2Y7wQ97ENPXghPNfTgJNMv0nusTz3cNT5YQD836wbsQ4+Ibw3zqWWtZZXsqeDyuXjv7yEITBVpQ1XRKgTDBfFKL4DwESMt8HMggzU+icwFT7IDiGWCxvemphba42Ce+p0knf8gbn3ryBXm2bPU+fhEq+YLeR+g3D6zsV1MUGpXEMZ9byBixkEITBj5sa8IwNce6VsweC7Qgz6abXUXMXaJ3RHkGihfWPqR1g3A/mgLpkztGwF1IQsfvUio591SuIUxtYh8Wctg8YpdKtONxb08dg1Ex1uFLxmneFMtdyTwjHEH0EGYK3mr1hNEmDqMGDwm8aOkDJCqf+W6lWQ==
+ b=f5EmOWeJZR4Oa+4BRTxiBWOYID/5YcWxmb32/M0wJ0wowqOQwLIMgI7hivHLAEIX6RQqwSGM/RgTv8QRcBxnmDJPy7hou2gvx0Exaqr6aigMFaA/WhFmvg1GHMUEprKfCAICY2p5wF24l2HzeTHn02/D7ROEjn7xeDJPjDJvjJtRRtrGoJTDlCwlPgpV2fMm4IPdZfugp/sVFXYmamEDeE541NVmSSkxxSoQUEtizK1yZvWnQqPXQWcg6s0GRTdeX1/It93BCmRQIRuz53sOvvtX7ySfLcLMvLgHKOxeGlGqwp41X/aEVkC4NcQxX7wgEJvZW4yEGrtSQ+iQJv1i6g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ap+9gesWmSYFwck8lBL3ElxiXLUA6Oo6WPvh//Pb4h0=;
- b=cJYoXOT4RMcN88Ccf6mx4VHvJzlSXJU6aXTRtQvkkJ4qAyV1VuISzPBeEu7GbikmJqCyFNIUbrUMdAPmUDFfNnEmLMIOB/fPwhPt8prWQhrfEuEOxr8+4BwTKKjS/TaJ1AdhcVq6iwkAFM13Sw78J3obwg8A4nZ+wL+ap2VdIQm+PkeYRwX9rhL2HeVAXWApu4TL+RlXBgbE9w9r08nBfF+RTdz+Sl1QdQ5n3RghvZaG5ePKzabXJyYOP4Kj7QgI1bZYzFF8enQZGhOJp6SGH94w/eioiWG9wVMBW6FUl44yiD63kZbQHD1TyXBlI8ZvlpJOzo4Ba/87MqJWYkbMhg==
+ bh=zzdpZFnBGkpxSwfENoPyMv5mm7yPHDwNYIsdYfkNxXk=;
+ b=EDqqgjVSzZzKonjuF2S7/IdvTghRqXJj/sPrKYkEvdNiBDHkbKoOkH5F7xogL+/VFljIZ1JuVyUPz3Q0ian6Bt1ZqZ1AT5xBAdaASX4Z7DpoZyeoeKX6x5ufgVf0BRpZ1Z1c8V6jg+XqF6CRPX0WPwCfKCGdgxFfqhDplLBIr9Ic9ovR1GdlBbk1FfKOIpyYQ5zd3RzZGyJMXD973cZrKZLMJiciX7AGWUjxwJnKuIC+yzkf6OoO7K99eTKwkEw7cxQ/7hlRU7qQ2SkuR7uH+rhqebKo3TEmvvoFZegXRfN/y61V6MVFBfFpE9Nni4+NSnCzoU1GwlplndNfejxWfw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 Received: from DM6PR12MB3209.namprd12.prod.outlook.com (20.179.105.33) by
- DM6PR12MB2761.namprd12.prod.outlook.com (20.176.118.91) with Microsoft SMTP
+ DM6PR12MB2793.namprd12.prod.outlook.com (20.176.114.219) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2451.29; Fri, 15 Nov 2019 19:34:23 +0000
+ 15.20.2451.22; Fri, 15 Nov 2019 19:52:56 +0000
 Received: from DM6PR12MB3209.namprd12.prod.outlook.com
  ([fe80::55f2:726e:999c:7e09]) by DM6PR12MB3209.namprd12.prod.outlook.com
  ([fe80::55f2:726e:999c:7e09%5]) with mapi id 15.20.2451.027; Fri, 15 Nov 2019
- 19:34:23 +0000
+ 19:52:56 +0000
 From: "Olsak, Marek" <Marek.Olsak@amd.com>
 To: "Koenig, Christian" <Christian.Koenig@amd.com>, "Deucher, Alexander"
  <Alexander.Deucher@amd.com>
 Subject: Re: [PATCH 01/12] amdgpu: add UAPI for creating encrypted buffers
 Thread-Topic: [PATCH 01/12] amdgpu: add UAPI for creating encrypted buffers
-Thread-Index: AQHVm2WxLYEG+ywCwEWIkBwjXJ6Cf6eMMV+AgAAfr4CAAAUYgIAASZqd
-Date: Fri, 15 Nov 2019 19:34:22 +0000
+Thread-Index: AQHVm2WxLYEG+ywCwEWIkBwjXJ6Cf6eMMV+AgAAfr4CAAAUYgIAASZqdgAAFWdY=
+Date: Fri, 15 Nov 2019 19:52:56 +0000
 Message-ID:
- <DM6PR12MB32097BA0BE4D40FF431A6E11F9700@DM6PR12MB3209.namprd12.prod.outlook.com>
+ <DM6PR12MB3209676F6F84150C08400C93F9700@DM6PR12MB3209.namprd12.prod.outlook.com>
 References: <1573788895-3936-1-git-send-email-aaron.liu@amd.com>,
  <06a979a0-0795-88cb-f1d9-80255165f0e4@gmail.com>,
  <DM5PR12MB182063DB1ACAD38C768ECAC3F7700@DM5PR12MB1820.namprd12.prod.outlook.com>,
- <1f6819bc-cf46-4f34-a569-9ba39a9c6559@email.android.com>
-In-Reply-To: <1f6819bc-cf46-4f34-a569-9ba39a9c6559@email.android.com>
+ <1f6819bc-cf46-4f34-a569-9ba39a9c6559@email.android.com>,
+ <DM6PR12MB32097BA0BE4D40FF431A6E11F9700@DM6PR12MB3209.namprd12.prod.outlook.com>
+In-Reply-To: <DM6PR12MB32097BA0BE4D40FF431A6E11F9700@DM6PR12MB3209.namprd12.prod.outlook.com>
 Accept-Language: en-CA, en-US
 Content-Language: en-CA
 X-MS-Has-Attach: 
@@ -62,36 +63,36 @@ X-MS-TNEF-Correlator:
 x-originating-ip: [165.204.55.251]
 x-ms-publictraffictype: Email
 x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: 4fe045fc-27fa-4ee7-5c8d-08d76a02d15d
-x-ms-traffictypediagnostic: DM6PR12MB2761:
+x-ms-office365-filtering-correlation-id: 79c021d5-1e31-4d6d-956b-08d76a05692c
+x-ms-traffictypediagnostic: DM6PR12MB2793:
 x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <DM6PR12MB2761A0C9A773A6FA3964F887F9700@DM6PR12MB2761.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:8273;
+x-microsoft-antispam-prvs: <DM6PR12MB2793E40E021581E4133D9D8CF9700@DM6PR12MB2793.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:8882;
 x-forefront-prvs: 02229A4115
 x-forefront-antispam-report: SFV:NSPM;
- SFS:(10009020)(4636009)(376002)(136003)(39860400002)(396003)(366004)(346002)(189003)(199004)(74316002)(99286004)(486006)(7736002)(6436002)(186003)(14454004)(3846002)(446003)(33656002)(66446008)(64756008)(66556008)(66476007)(52536014)(66946007)(6116002)(105004)(229853002)(91956017)(478600001)(5660300002)(11346002)(19627405001)(2906002)(76116006)(66574012)(86362001)(476003)(66066001)(8676002)(81156014)(81166006)(54896002)(8936002)(4326008)(14444005)(110136005)(25786009)(54906003)(256004)(26005)(6506007)(316002)(7696005)(53546011)(55016002)(6246003)(76176011)(102836004)(71200400001)(71190400001)(6636002)(9686003);
- DIR:OUT; SFP:1101; SCL:1; SRVR:DM6PR12MB2761;
+ SFS:(10009020)(4636009)(136003)(396003)(346002)(376002)(366004)(39860400002)(189003)(199004)(66574012)(54906003)(110136005)(64756008)(33656002)(66476007)(74316002)(229853002)(316002)(7736002)(256004)(14444005)(4326008)(3846002)(66946007)(76176011)(71190400001)(6246003)(71200400001)(2940100002)(91956017)(19627405001)(66446008)(76116006)(6116002)(99286004)(2906002)(14454004)(7696005)(8676002)(86362001)(102836004)(25786009)(486006)(53546011)(66556008)(476003)(6506007)(6436002)(186003)(66066001)(5660300002)(52536014)(55016002)(11346002)(105004)(9686003)(446003)(54896002)(81156014)(26005)(81166006)(478600001)(8936002)(6636002);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:DM6PR12MB2793;
  H:DM6PR12MB3209.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
  PTR:InfoNoRecords; MX:1; A:1; 
 received-spf: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
 x-ms-exchange-senderadcheck: 1
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: DquFLq3XxzJCDVpAdbH04e3zeqCeRXvNcl3wrc9RURL0DvSluHDLZqnxpLxnkvg+lUXKnExZ1PNbRmt2fzxom2KrCdOC5pceVO5XYo40NVMpS5xa8W0/WmaXWcDezI4ksl/KvlTqjyZYqbdeBp7x0QeEe+dYIlmYpIuob4O1IilE0/BYM1UIW7OnLvHWWbsIHAVYmDcDlSFHVvc4TV9P/L4zI/fSGFw9BxrWYsnCEbwVDdCKW0mm+h5blg0nBXwbbyd1Yw9o7f9pgEeXfRJO0+iJAdn/+NgdcdcA0kSeiHmN/UsTVZa/JYRCDS5wKws0jZh/g+/512NahzjDQKd4ztwxzHPF8vCSHxyKP7s8Jhz3pR5cpHsRPuH7sgUrmNApZ8i76Akw69ieleu4NCzU8Kot8quQWy/cx9tiMnInNXWDmeL6v7ajIM1FS36rsAHn
+x-microsoft-antispam-message-info: BUvFQn60xPLBCHSrRaEj9QV2LTyC+gnIdRVnEA84KVMeB6fgSyURW+4ItKz8dZaGABCaBzwLHfioWXYsAPfnDLyYy5ZF/QlEP/Y8P82CZGbwEhgBk4Zv3myn/xxvQGBEANn6p0sy6vvqFvY/1vnmgwBGwK/4rH53K49CcZkQhQJyjqakVgAEzce3wJFyRAYXKJnRnqsqvkmypQhlnzQT0ObtH7R4smkjkIuBi++mHCXdCDdqGu8ags9Xtmea9XbsGYBC2dcduRHE6BNu2VRZaI6yY1Y1XZQMlWjsb6rupFiGw03eXu4BugWO4bcdwRohd2M6ooK48xoBzy0jWpJihw06zL5fUnilsdYU0KudMBePTtIvlMlHveASCn00vqoHUzp61PpTUob8YGTC0hdrzN6kx8UFS+wce3iiZojDrHj9AcviXQlMR/csmnuSHKO8
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4fe045fc-27fa-4ee7-5c8d-08d76a02d15d
-X-MS-Exchange-CrossTenant-originalarrivaltime: 15 Nov 2019 19:34:22.9980 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 79c021d5-1e31-4d6d-956b-08d76a05692c
+X-MS-Exchange-CrossTenant-originalarrivaltime: 15 Nov 2019 19:52:56.6425 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: dI3fTmcROJPaQvl5FoZHFW4h9Jo2YKwx/5HvZA6iQTuY2Sjc8iN0lADOK2o5DnBi
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB2761
+X-MS-Exchange-CrossTenant-userprincipalname: 1n+Z5wv0fbgbVqdFKY/QV3EOepnvvOZS7e5SrHw/d1gzLU7KfsF+8cmcdXjDmyUZ
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB2793
 X-Mailman-Original-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ap+9gesWmSYFwck8lBL3ElxiXLUA6Oo6WPvh//Pb4h0=;
- b=gazr2XcyG/eTkXk01VECPb1/y5hRL+3IBq5rTPct8T6nq62wt+YqxPI5oLlDTtIFOBE0HJ6FWPVXj1TsmpySAzLq7wPUoFwBIyR1Hqe0HC74jJymRnLxzJw5Q2L3V8NGc8JCjvDPZdbmxSWvAMcvb3LcOLjGJJjijLlPxs2WoAE=
+ bh=zzdpZFnBGkpxSwfENoPyMv5mm7yPHDwNYIsdYfkNxXk=;
+ b=n/8mjhjRkvqqdzRTU0b1WPg4PNro14SipzkJQCCZXVaQc6UytL/ShuQynEo3kv9xHMoO84wHKFofx/In3DGnwkx1THd8kyKeQOXIYR+ArDv5ZteUtVocDg4/AfavvllSluXEwJJbLfFX3F14RM14Z0QNRFCXgm2bCNd+rZ5CNyw=
 X-Mailman-Original-Authentication-Results: spf=none (sender IP is )
  smtp.mailfrom=Marek.Olsak@amd.com; 
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -109,19 +110,36 @@ Cc: =?iso-8859-1?Q?Christian_K=F6nig?= <ckoenig.leichtzumerken@gmail.com>,
  "Huang, Ray" <Ray.Huang@amd.com>, "Liu, Aaron" <Aaron.Liu@amd.com>,
  "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Tuikov, 
  Luben" <Luben.Tuikov@amd.com>, "Liu, Leo" <Leo.Liu@amd.com>
-Content-Type: multipart/mixed; boundary="===============0302910783=="
+Content-Type: multipart/mixed; boundary="===============0039210668=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-Message-ID: <20191115193422.aSQby9CbA4OVSk8hTqokZFLXv4zb9cG8KBnXoDIXKVU@z>
+Message-ID: <20191115195256.Eh8IAhmht8ns8SB0t8O6aF2JTI6WMAqxQnHF7hCNFIY@z>
 
---===============0302910783==
+--===============0039210668==
 Content-Language: en-CA
 Content-Type: multipart/alternative;
-	boundary="_000_DM6PR12MB32097BA0BE4D40FF431A6E11F9700DM6PR12MB3209namp_"
+	boundary="_000_DM6PR12MB3209676F6F84150C08400C93F9700DM6PR12MB3209namp_"
 
---_000_DM6PR12MB32097BA0BE4D40FF431A6E11F9700DM6PR12MB3209namp_
+--_000_DM6PR12MB3209676F6F84150C08400C93F9700DM6PR12MB3209namp_
 Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
+
+The way this is upstreamed is that you submit the kernel and userspace patc=
+hes for review at the same time. When they see the userspace patches, the k=
+ernel patches will be accepted. When the kernel patches land in the Dave's =
+or Linus's tree, the userspace patches can be pushed.
+
+Marek
+________________________________
+From: Olsak, Marek <Marek.Olsak@amd.com>
+Sent: November 15, 2019 14:34
+To: Koenig, Christian <Christian.Koenig@amd.com>; Deucher, Alexander <Alexa=
+nder.Deucher@amd.com>
+Cc: Christian K=F6nig <ckoenig.leichtzumerken@gmail.com>; Liu, Aaron <Aaron=
+.Liu@amd.com>; amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org=
+>; Huang, Ray <Ray.Huang@amd.com>; Tuikov, Luben <Luben.Tuikov@amd.com>; Li=
+u, Leo <Leo.Liu@amd.com>
+Subject: Re: [PATCH 01/12] amdgpu: add UAPI for creating encrypted buffers
 
 In the kernel tree, you need to do "make headers_install". Then copy amdgpu=
 _drm.h from ./usr/ to the libdrm tree and discard parts that we can't upstr=
@@ -208,7 +226,7 @@ Christian.
 >   /* Flag that the memory allocation should be from top of domain */
 
 
---_000_DM6PR12MB32097BA0BE4D40FF431A6E11F9700DM6PR12MB3209namp_
+--_000_DM6PR12MB3209676F6F84150C08400C93F9700DM6PR12MB3209namp_
 Content-Type: text/html; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
 
@@ -222,9 +240,12 @@ ttom:0;} </style>
 <body dir=3D"ltr">
 <div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
 : 12pt; color: rgb(0, 0, 0);">
-In the kernel tree, you need to do &quot;make headers_install&quot;. Then c=
-opy amdgpu_drm.h from ./usr/ to the libdrm tree and discard parts that we c=
-an't upstream (freesync).</div>
+The way this is upstreamed is that you submit the kernel and userspace patc=
+hes for review at the same time. When they see the userspace patches, the k=
+ernel patches will be accepted. When the kernel patches land in the Dave's =
+or Linus's tree, the userspace patches
+ can be pushed.<br>
+</div>
 <div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
 : 12pt; color: rgb(0, 0, 0);">
 <br>
@@ -236,8 +257,45 @@ Marek<br>
 <div id=3D"appendonsend"></div>
 <hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
 <div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Koenig, Christian &lt=
-;Christian.Koenig@amd.com&gt;<br>
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Olsak, Marek &lt;Mare=
+k.Olsak@amd.com&gt;<br>
+<b>Sent:</b> November 15, 2019 14:34<br>
+<b>To:</b> Koenig, Christian &lt;Christian.Koenig@amd.com&gt;; Deucher, Ale=
+xander &lt;Alexander.Deucher@amd.com&gt;<br>
+<b>Cc:</b> Christian K=F6nig &lt;ckoenig.leichtzumerken@gmail.com&gt;; Liu,=
+ Aaron &lt;Aaron.Liu@amd.com&gt;; amd-gfx@lists.freedesktop.org &lt;amd-gfx=
+@lists.freedesktop.org&gt;; Huang, Ray &lt;Ray.Huang@amd.com&gt;; Tuikov, L=
+uben &lt;Luben.Tuikov@amd.com&gt;; Liu, Leo &lt;Leo.Liu@amd.com&gt;<br>
+<b>Subject:</b> Re: [PATCH 01/12] amdgpu: add UAPI for creating encrypted b=
+uffers</font>
+<div>&nbsp;</div>
+</div>
+<style type=3D"text/css" style=3D"display:none">
+<!--
+p
+	{margin-top:0;
+	margin-bottom:0}
+-->
+</style>
+<div dir=3D"ltr">
+<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
+t; color:rgb(0,0,0)">
+In the kernel tree, you need to do &quot;make headers_install&quot;. Then c=
+opy amdgpu_drm.h from ./usr/ to the libdrm tree and discard parts that we c=
+an't upstream (freesync).</div>
+<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
+t; color:rgb(0,0,0)">
+<br>
+</div>
+<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
+t; color:rgb(0,0,0)">
+Marek<br>
+</div>
+<div id=3D"x_appendonsend"></div>
+<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
+<div id=3D"x_divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" =
+color=3D"#000000" style=3D"font-size:11pt"><b>From:</b> Koenig, Christian &=
+lt;Christian.Koenig@amd.com&gt;<br>
 <b>Sent:</b> November 15, 2019 10:08<br>
 <b>To:</b> Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;<br>
 <b>Cc:</b> Christian K=F6nig &lt;ckoenig.leichtzumerken@gmail.com&gt;; Liu,=
@@ -268,9 +326,9 @@ ating libdrm.
 </div>
 <div dir=3D"auto">Christian.</div>
 </div>
-<div class=3D"x_gmail_extra"><br>
-<div class=3D"x_gmail_quote">Am 15.11.2019 15:49 schrieb &quot;Deucher, Ale=
-xander&quot; &lt;Alexander.Deucher@amd.com&gt;:<br type=3D"attribution">
+<div class=3D"x_x_gmail_extra"><br>
+<div class=3D"x_x_gmail_quote">Am 15.11.2019 15:49 schrieb &quot;Deucher, A=
+lexander&quot; &lt;Alexander.Deucher@amd.com&gt;:<br type=3D"attribution">
 </div>
 </div>
 <div>
@@ -289,15 +347,15 @@ Alex</div>
 t; color:rgb(0,0,0)">
 <br>
 </div>
-<div id=3D"x_appendonsend"></div>
+<div id=3D"x_x_appendonsend"></div>
 <div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
 t; color:rgb(0,0,0)">
 <br>
 </div>
 <hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
-<div id=3D"x_divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" =
-color=3D"#000000" style=3D"font-size:11pt"><b>From:</b> Christian K=F6nig &=
-lt;ckoenig.leichtzumerken@gmail.com&gt;<br>
+<div id=3D"x_x_divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif=
+" color=3D"#000000" style=3D"font-size:11pt"><b>From:</b> Christian K=F6nig=
+ &lt;ckoenig.leichtzumerken@gmail.com&gt;<br>
 <b>Sent:</b> Friday, November 15, 2019 7:56 AM<br>
 <b>To:</b> Liu, Aaron &lt;Aaron.Liu@amd.com&gt;; amd-gfx@lists.freedesktop.=
 org &lt;amd-gfx@lists.freedesktop.org&gt;<br>
@@ -309,9 +367,9 @@ enig, Christian &lt;Christian.Koenig@amd.com&gt;<br>
 uffers</font>
 <div>&nbsp;</div>
 </div>
-<div class=3D"x_BodyFragment"><font size=3D"2"><span style=3D"font-size:11p=
-t">
-<div class=3D"x_PlainText">Am 15.11.19 um 04:34 schrieb Aaron Liu:<br>
+<div class=3D"x_x_BodyFragment"><font size=3D"2"><span style=3D"font-size:1=
+1pt">
+<div class=3D"x_x_PlainText">Am 15.11.19 um 04:34 schrieb Aaron Liu:<br>
 &gt; From: Huang Rui &lt;ray.huang@amd.com&gt;<br>
 &gt;<br>
 &gt; To align the kernel uapi change from Alex:<br>
@@ -365,12 +423,13 @@ omain */<br>
 </span></font></div>
 </div>
 </div>
+</div>
 </body>
 </html>
 
---_000_DM6PR12MB32097BA0BE4D40FF431A6E11F9700DM6PR12MB3209namp_--
+--_000_DM6PR12MB3209676F6F84150C08400C93F9700DM6PR12MB3209namp_--
 
---===============0302910783==
+--===============0039210668==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -380,4 +439,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
 
---===============0302910783==--
+--===============0039210668==--
