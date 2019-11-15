@@ -1,50 +1,67 @@
-From: Colin King <colin.king@canonical.com>
-Subject: [PATCH][next] drm/amdgpu/powerplay: fix dereference before null check of pointer hwmgr
-Date: Fri, 15 Nov 2019 09:47:54 +0000
-Message-ID: <20191115094754.40920-1-colin.king@canonical.com>
+From: "Huang, Ray" <Ray.Huang-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 08/12] tests/amdgpu: expand secure param for exec_cs_helper
+Date: Fri, 15 Nov 2019 09:55:27 +0000
+Message-ID: <MN2PR12MB33093E5ED305A790F3D328E6EC700@MN2PR12MB3309.namprd12.prod.outlook.com>
+References: <1573788895-3936-1-git-send-email-aaron.liu@amd.com>
+ <1573788895-3936-8-git-send-email-aaron.liu@amd.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Rex Zhu <rex.zhu@amd.com>, Evan Quan <evan.quan@amd.com>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, David Zhou <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <1573788895-3936-8-git-send-email-aaron.liu-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
+Content-ID: <BE7734A18FDD6F418A17857ACB62F7C1-t0aD9ArCiwdO0n7uQEQMm4CZgX+1HZI1@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Liu, Aaron" <Aaron.Liu-5C7GfCeVMHo@public.gmane.org>
+Cc: "Olsak, Marek" <Marek.Olsak-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Tuikov,
+ Luben" <Luben.Tuikov-5C7GfCeVMHo@public.gmane.org>, "Deucher,
+ Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Liu, Leo" <Leo.Liu-5C7GfCeVMHo@public.gmane.org>, "Koenig,
+ Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
 
-From: Colin Ian King <colin.king@canonical.com>
-
-The assignment of adev dereferences pointer hwmgr before hwmgr is null
-checked, hence there is a potential null pointer deference issue. Fix
-this by assigning adev after the null check.
-
-Addresses-Coverity: ("Dereference before null check")
-Fixes: 0896d2f7ba4d ("drm/amdgpu/powerplay: properly set PP_GFXOFF_MASK")
-Signed-off-by: Colin Ian King <colin.king@canonical.com>
----
- drivers/gpu/drm/amd/powerplay/hwmgr/hwmgr.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/hwmgr.c b/drivers/gpu/drm/amd/powerplay/hwmgr/hwmgr.c
-index 443625c83ec9..d2909c91d65b 100644
---- a/drivers/gpu/drm/amd/powerplay/hwmgr/hwmgr.c
-+++ b/drivers/gpu/drm/amd/powerplay/hwmgr/hwmgr.c
-@@ -81,7 +81,7 @@ static void hwmgr_init_workload_prority(struct pp_hwmgr *hwmgr)
- 
- int hwmgr_early_init(struct pp_hwmgr *hwmgr)
- {
--	struct amdgpu_device *adev = hwmgr->adev;
-+	struct amdgpu_device *adev;
- 
- 	if (!hwmgr)
- 		return -EINVAL;
-@@ -96,6 +96,8 @@ int hwmgr_early_init(struct pp_hwmgr *hwmgr)
- 	hwmgr_init_workload_prority(hwmgr);
- 	hwmgr->gfxoff_state_changed_by_workload = false;
- 
-+	adev = hwmgr->adev;
-+
- 	switch (hwmgr->chip_family) {
- 	case AMDGPU_FAMILY_CI:
- 		adev->pm.pp_feature &= ~PP_GFXOFF_MASK;
--- 
-2.20.1
+T24gRnJpLCBOb3YgMTUsIDIwMTkgYXQgMTE6MzQ6NTFBTSArMDgwMCwgTGl1LCBBYXJvbiB3cm90
+ZToKPiBUaGlzIHBhdGNoIGV4cGFuZHMgc2VjdXJlIHBhcmFtIGZvciBhbWRncHVfdGVzdF9leGVj
+X2NzX2hlbHBlcl9yYXcuCj4gVGhlIGZsYWcgaXMgdHJhbnNmZXJlZCB0byBrZXJuZWwgd2l0aCBj
+cy4KPiAKPiBTaWduZWQtb2ZmLWJ5OiBBYXJvbiBMaXUgPGFhcm9uLmxpdUBhbWQuY29tPgoKQWNr
+ZWQtYnk6IEh1YW5nIFJ1aSA8cmF5Lmh1YW5nQGFtZC5jb20+Cgo+IC0tLQo+ICB0ZXN0cy9hbWRn
+cHUvYmFzaWNfdGVzdHMuYyB8IDggKysrKystLS0KPiAgMSBmaWxlIGNoYW5nZWQsIDUgaW5zZXJ0
+aW9ucygrKSwgMyBkZWxldGlvbnMoLSkKPiAKPiBkaWZmIC0tZ2l0IGEvdGVzdHMvYW1kZ3B1L2Jh
+c2ljX3Rlc3RzLmMgYi90ZXN0cy9hbWRncHUvYmFzaWNfdGVzdHMuYwo+IGluZGV4IDUxNTQ4MTIu
+Ljk1NmJlOTMgMTAwNjQ0Cj4gLS0tIGEvdGVzdHMvYW1kZ3B1L2Jhc2ljX3Rlc3RzLmMKPiArKysg
+Yi90ZXN0cy9hbWRncHUvYmFzaWNfdGVzdHMuYwo+IEBAIC0xMjkwLDcgKzEyOTAsOCBAQCBhbWRn
+cHVfdGVzdF9leGVjX2NzX2hlbHBlcl9yYXcoYW1kZ3B1X2RldmljZV9oYW5kbGUgZGV2aWNlX2hh
+bmRsZSwKPiAgCQkJICAgICAgIHVpbnQzMl90ICpwbTRfc3JjLCBpbnQgcmVzX2NudCwKPiAgCQkJ
+ICAgICAgIGFtZGdwdV9ib19oYW5kbGUgKnJlc291cmNlcywKPiAgCQkJICAgICAgIHN0cnVjdCBh
+bWRncHVfY3NfaWJfaW5mbyAqaWJfaW5mbywKPiAtCQkJICAgICAgIHN0cnVjdCBhbWRncHVfY3Nf
+cmVxdWVzdCAqaWJzX3JlcXVlc3QpCj4gKwkJCSAgICAgICBzdHJ1Y3QgYW1kZ3B1X2NzX3JlcXVl
+c3QgKmlic19yZXF1ZXN0LAo+ICsJCQkgICAgICAgYm9vbCBzZWN1cmUpCj4gIHsKPiAgCWludCBy
+Owo+ICAJdWludDMyX3QgZXhwaXJlZDsKPiBAQCAtMTMyNCw2ICsxMzI1LDcgQEAgYW1kZ3B1X3Rl
+c3RfZXhlY19jc19oZWxwZXJfcmF3KGFtZGdwdV9kZXZpY2VfaGFuZGxlIGRldmljZV9oYW5kbGUs
+Cj4gIAlpYl9pbmZvLT5zaXplID0gcG00X2R3Owo+ICAKPiAgCWlic19yZXF1ZXN0LT5pcF90eXBl
+ID0gaXBfdHlwZTsKPiArCWlic19yZXF1ZXN0LT5mbGFncyA9IHNlY3VyZSA/IDEgOiAwOwo+ICAJ
+aWJzX3JlcXVlc3QtPnJpbmcgPSBpbnN0YW5jZTsKPiAgCWlic19yZXF1ZXN0LT5udW1iZXJfb2Zf
+aWJzID0gMTsKPiAgCWlic19yZXF1ZXN0LT5pYnMgPSBpYl9pbmZvOwo+IEBAIC0xMzc0LDcgKzEz
+NzYsNyBAQCBhbWRncHVfdGVzdF9leGVjX2NzX2hlbHBlcihhbWRncHVfY29udGV4dF9oYW5kbGUg
+Y29udGV4dF9oYW5kbGUsCj4gIAlhbWRncHVfdGVzdF9leGVjX2NzX2hlbHBlcl9yYXcoZGV2aWNl
+X2hhbmRsZSwgY29udGV4dF9oYW5kbGUsCj4gIAkJCQkgICAgICAgaXBfdHlwZSwgaW5zdGFuY2Us
+IHBtNF9kdywgcG00X3NyYywKPiAgCQkJCSAgICAgICByZXNfY250LCByZXNvdXJjZXMsIGliX2lu
+Zm8sCj4gLQkJCQkgICAgICAgaWJzX3JlcXVlc3QpOwo+ICsJCQkJICAgICAgIGlic19yZXF1ZXN0
+LCBmYWxzZSk7Cj4gIH0KPiAgCj4gIHZvaWQKPiBAQCAtMTQ2Niw3ICsxNDY4LDcgQEAgYW1kZ3B1
+X2NvbW1hbmRfc3VibWlzc2lvbl93cml0ZV9saW5lYXJfaGVscGVyX3dpdGhfc2VjdXJlKGFtZGdw
+dV9kZXZpY2VfaGFuZGxlCj4gIAkJCWFtZGdwdV90ZXN0X2V4ZWNfY3NfaGVscGVyX3JhdyhkZXZp
+Y2UsIGNvbnRleHRfaGFuZGxlLAo+ICAJCQkJCQkgICAgICAgaXBfdHlwZSwgcmluZ19pZCwgaSwg
+cG00LAo+ICAJCQkJCQkgICAgICAgMSwgcmVzb3VyY2VzLCBpYl9pbmZvLAo+IC0JCQkJCQkgICAg
+ICAgaWJzX3JlcXVlc3QpOwo+ICsJCQkJCQkgICAgICAgaWJzX3JlcXVlc3QsIHNlY3VyZSk7Cj4g
+IAo+ICAJCQkvKiB2ZXJpZnkgaWYgU0RNQSB0ZXN0IHJlc3VsdCBtZWV0cyB3aXRoIGV4cGVjdGVk
+ICovCj4gIAkJCWkgPSAwOwo+IC0tIAo+IDIuNy40Cj4gCl9fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlz
+dHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4v
+bGlzdGluZm8vYW1kLWdmeA==
