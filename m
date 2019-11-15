@@ -1,14 +1,15 @@
-From: "Zhao, Yong" <Yong.Zhao-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu/soc15: move struct definition around to align
- with other soc15 asics
-Date: Fri, 15 Nov 2019 16:43:00 +0000
-Message-ID: <DM6PR12MB277836449EE0C8E5F07D02AFF0700@DM6PR12MB2778.namprd12.prod.outlook.com>
-References: <20191111222102.876704-1-alexander.deucher@amd.com>,
- <CADnq5_PRwkMfe3iN_6wD_HMZ1qFSb-vru0gYhYyK+6cjNNHQsg@mail.gmail.com>
+From: "Yuan, Xiaojie" <Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 2/2] drm/amdgpu: disable gfxoff when using register read
+ interface
+Date: Fri, 15 Nov 2019 16:46:47 +0000
+Message-ID: <93CD6C6F-21F7-4BCA-AC65-FDC37AF896E3@amd.com>
+References: <20191114164148.2304223-1-alexander.deucher@amd.com>,
+ <20191114164148.2304223-2-alexander.deucher@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============2063422928=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CADnq5_PRwkMfe3iN_6wD_HMZ1qFSb-vru0gYhYyK+6cjNNHQsg-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
+In-Reply-To: <20191114164148.2304223-2-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -20,177 +21,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============2063422928==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_DM6PR12MB277836449EE0C8E5F07D02AFF0700DM6PR12MB2778namp_"
-
---_000_DM6PR12MB277836449EE0C8E5F07D02AFF0700DM6PR12MB2778namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-Reviewed-by: Yong Zhao <Yong.Zhao-5C7GfCeVMHo@public.gmane.org>
-________________________________
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Alex Deu=
-cher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Sent: Friday, November 15, 2019 11:13 AM
-To: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: Deucher, Alexander <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu/soc15: move struct definition around to ali=
-gn with other soc15 asics
-
-Ping?
-
-On Mon, Nov 11, 2019 at 5:21 PM Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org> wrote:
->
-> Move reset_method next to reset callback to match the struct layout and
-> the other definition in this file.
->
-> Signed-off-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-> ---
->  drivers/gpu/drm/amd/amdgpu/soc15.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c b/drivers/gpu/drm/amd/amd=
-gpu/soc15.c
-> index 8e1640bc07af..305ad3eec987 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/soc15.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/soc15.c
-> @@ -1007,6 +1007,7 @@ static const struct amdgpu_asic_funcs vega20_asic_f=
-uncs =3D
->         .read_bios_from_rom =3D &soc15_read_bios_from_rom,
->         .read_register =3D &soc15_read_register,
->         .reset =3D &soc15_asic_reset,
-> +       .reset_method =3D &soc15_asic_reset_method,
->         .set_vga_state =3D &soc15_vga_set_state,
->         .get_xclk =3D &soc15_get_xclk,
->         .set_uvd_clocks =3D &soc15_set_uvd_clocks,
-> @@ -1019,7 +1020,6 @@ static const struct amdgpu_asic_funcs vega20_asic_f=
-uncs =3D
->         .get_pcie_usage =3D &vega20_get_pcie_usage,
->         .need_reset_on_init =3D &soc15_need_reset_on_init,
->         .get_pcie_replay_count =3D &soc15_get_pcie_replay_count,
-> -       .reset_method =3D &soc15_asic_reset_method
->  };
->
->  static int soc15_common_early_init(void *handle)
-> --
-> 2.23.0
->
-_______________________________________________
-amd-gfx mailing list
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---_000_DM6PR12MB277836449EE0C8E5F07D02AFF0700DM6PR12MB2778namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<span style=3D"color: rgb(32, 31, 30); font-family: &quot;Segoe UI&quot;, &=
-quot;Segoe UI Web (West European)&quot;, &quot;Segoe UI&quot;, -apple-syste=
-m, BlinkMacSystemFont, Roboto, &quot;Helvetica Neue&quot;, sans-serif; font=
--size: 14.6667px; background-color: rgb(255, 255, 255); display: inline !im=
-portant">Reviewed-by:
- Yong Zhao &lt;Yong.Zhao-5C7GfCeVMHo@public.gmane.org&gt;</span><br>
-</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
-ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Alex Deucher &lt;alexdeucher@=
-gmail.com&gt;<br>
-<b>Sent:</b> Friday, November 15, 2019 11:13 AM<br>
-<b>To:</b> amd-gfx list &lt;amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt;<br>
-<b>Cc:</b> Deucher, Alexander &lt;Alexander.Deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
-<b>Subject:</b> Re: [PATCH] drm/amdgpu/soc15: move struct definition around=
- to align with other soc15 asics</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">Ping?<br>
-<br>
-On Mon, Nov 11, 2019 at 5:21 PM Alex Deucher &lt;alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt; =
-wrote:<br>
-&gt;<br>
-&gt; Move reset_method next to reset callback to match the struct layout an=
-d<br>
-&gt; the other definition in this file.<br>
-&gt;<br>
-&gt; Signed-off-by: Alex Deucher &lt;alexander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
-&gt; ---<br>
-&gt;&nbsp; drivers/gpu/drm/amd/amdgpu/soc15.c | 2 &#43;-<br>
-&gt;&nbsp; 1 file changed, 1 insertion(&#43;), 1 deletion(-)<br>
-&gt;<br>
-&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c b/drivers/gpu/drm/amd/=
-amdgpu/soc15.c<br>
-&gt; index 8e1640bc07af..305ad3eec987 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/amdgpu/soc15.c<br>
-&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/soc15.c<br>
-&gt; @@ -1007,6 &#43;1007,7 @@ static const struct amdgpu_asic_funcs vega20=
-_asic_funcs =3D<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .read_bios_from_rom =
-=3D &amp;soc15_read_bios_from_rom,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .read_register =3D &am=
-p;soc15_read_register,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .reset =3D &amp;soc15_=
-asic_reset,<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .reset_method =3D &amp;soc15=
-_asic_reset_method,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .set_vga_state =3D &am=
-p;soc15_vga_set_state,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .get_xclk =3D &amp;soc=
-15_get_xclk,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .set_uvd_clocks =3D &a=
-mp;soc15_set_uvd_clocks,<br>
-&gt; @@ -1019,7 &#43;1020,6 @@ static const struct amdgpu_asic_funcs vega20=
-_asic_funcs =3D<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .get_pcie_usage =3D &a=
-mp;vega20_get_pcie_usage,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .need_reset_on_init =
-=3D &amp;soc15_need_reset_on_init,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .get_pcie_replay_count=
- =3D &amp;soc15_get_pcie_replay_count,<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .reset_method =3D &amp;soc15_asi=
-c_reset_method<br>
-&gt;&nbsp; };<br>
-&gt;<br>
-&gt;&nbsp; static int soc15_common_early_init(void *handle)<br>
-&gt; --<br>
-&gt; 2.23.0<br>
-&gt;<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
-lists.freedesktop.org/mailman/listinfo/amd-gfx</a></div>
-</span></font></div>
-</body>
-</html>
-
---_000_DM6PR12MB277836449EE0C8E5F07D02AFF0700DM6PR12MB2778namp_--
-
---===============2063422928==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
-
---===============2063422928==--
+SGkgQWxleCwKCklNSE8sIGRyaXZlciBzZW5kaW5nIERpc2FsbG93X0dmeG9mZiBtZXNzYWdlIHRv
+IFNNVSBkb2Vzbid0IG1lYW4gZ2Z4IGJsb2NrIHdpbGwgYmUgaW1tZWRpYXRlbHkgcG93ZXJlZCB1
+cCwgc28gSSdtIG5vdCBzdXJlIE1NSU8gcmVnaXN0ZXIgYWNjZXNzIHdpbGwgYmUgc3VjY2Vzc2Z1
+bCB3aXRoaW4gdGhpcyB0aW1lIHdpbmRvdyhtYXliZSBHUkJNIGFjY2VzcyB3aWxsIGJlIHBlbmRp
+bmcgdW50aWwgZ2Z4IGJsb2NrIGlzIHBvd2VyZWQgdXA/KQoKSWYgeW91IGFyZSBub3QgaW4gYSBo
+dXJyeSB0byBjb21taXQgdGhpcyBmaXgsIEkgY2FuIHZlcmlmeSBvbiBteSBOYXZpIGJvYXJkcyBu
+ZXh0IE1vbmRheS4KCkJSLApYaWFvamllCgo+IE9uIE5vdiAxNSwgMjAxOSwgYXQgMTI6NDQgQU0s
+IEFsZXggRGV1Y2hlciA8YWxleGRldWNoZXJAZ21haWwuY29tPiB3cm90ZToKPiAKPiBXaGVuIGdm
+eG9mZiBpcyBlbmFibGVkLCBhY2Nlc3NpbmcgZ2Z4IHJlZ2lzdGVycyB2aWEgTU1JTwo+IGNhbiBs
+ZWFkIHRvIGEgaGFuZy4KPiAKPiBCdWc6IGh0dHBzOi8vYnVnemlsbGEua2VybmVsLm9yZy9zaG93
+X2J1Zy5jZ2k/aWQ9MjA1NDk3Cj4gU2lnbmVkLW9mZi1ieTogQWxleCBEZXVjaGVyIDxhbGV4YW5k
+ZXIuZGV1Y2hlckBhbWQuY29tPgo+IC0tLQo+IGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
+ZGdwdV9rbXMuYyB8IDYgKysrKystCj4gMSBmaWxlIGNoYW5nZWQsIDUgaW5zZXJ0aW9ucygrKSwg
+MSBkZWxldGlvbigtKQo+IAo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
+dS9hbWRncHVfa21zLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfa21zLmMK
+PiBpbmRleCA2ZGRlYTc2MDdhZDAuLjVmM2IzYTcwNWIyOSAxMDA2NDQKPiAtLS0gYS9kcml2ZXJz
+L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfa21zLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0v
+YW1kL2FtZGdwdS9hbWRncHVfa21zLmMKPiBAQCAtNjU5LDE1ICs2NTksMTkgQEAgc3RhdGljIGlu
+dCBhbWRncHVfaW5mb19pb2N0bChzdHJ1Y3QgZHJtX2RldmljZSAqZGV2LCB2b2lkICpkYXRhLCBz
+dHJ1Y3QgZHJtX2ZpbGUKPiAgICAgICAgICAgIHJldHVybiAtRU5PTUVNOwo+ICAgICAgICBhbGxv
+Y19zaXplID0gaW5mby0+cmVhZF9tbXJfcmVnLmNvdW50ICogc2l6ZW9mKCpyZWdzKTsKPiAKPiAt
+ICAgICAgICBmb3IgKGkgPSAwOyBpIDwgaW5mby0+cmVhZF9tbXJfcmVnLmNvdW50OyBpKyspCj4g
+KyAgICAgICAgYW1kZ3B1X2dmeF9vZmZfY3RybChhZGV2LCBmYWxzZSk7Cj4gKyAgICAgICAgZm9y
+IChpID0gMDsgaSA8IGluZm8tPnJlYWRfbW1yX3JlZy5jb3VudDsgaSsrKSB7Cj4gICAgICAgICAg
+ICBpZiAoYW1kZ3B1X2FzaWNfcmVhZF9yZWdpc3RlcihhZGV2LCBzZV9udW0sIHNoX251bSwKPiAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgIGluZm8tPnJlYWRfbW1yX3JlZy5kd29yZF9vZmZz
+ZXQgKyBpLAo+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgJnJlZ3NbaV0pKSB7Cj4gICAg
+ICAgICAgICAgICAgRFJNX0RFQlVHX0tNUygidW5hbGxvd2VkIG9mZnNldCAlI3hcbiIsCj4gICAg
+ICAgICAgICAgICAgICAgICAgICAgIGluZm8tPnJlYWRfbW1yX3JlZy5kd29yZF9vZmZzZXQgKyBp
+KTsKPiAgICAgICAgICAgICAgICBrZnJlZShyZWdzKTsKPiArICAgICAgICAgICAgICAgIGFtZGdw
+dV9nZnhfb2ZmX2N0cmwoYWRldiwgdHJ1ZSk7Cj4gICAgICAgICAgICAgICAgcmV0dXJuIC1FRkFV
+TFQ7Cj4gICAgICAgICAgICB9Cj4gKyAgICAgICAgfQo+ICsgICAgICAgIGFtZGdwdV9nZnhfb2Zm
+X2N0cmwoYWRldiwgdHJ1ZSk7Cj4gICAgICAgIG4gPSBjb3B5X3RvX3VzZXIob3V0LCByZWdzLCBt
+aW4oc2l6ZSwgYWxsb2Nfc2l6ZSkpOwo+ICAgICAgICBrZnJlZShyZWdzKTsKPiAgICAgICAgcmV0
+dXJuIG4gPyAtRUZBVUxUIDogMDsKPiAtLSAKPiAyLjIzLjAKPiAKPiBfX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwo+IGFtZC1nZnggbWFpbGluZyBsaXN0Cj4g
+YW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9w
+Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngKX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5m
+cmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0
+aW5mby9hbWQtZ2Z4
