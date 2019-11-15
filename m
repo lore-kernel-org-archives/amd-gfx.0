@@ -1,7 +1,7 @@
 From: "Huang, Ray" <Ray.Huang-5C7GfCeVMHo@public.gmane.org>
 Subject: Re: [PATCH 08/12] tests/amdgpu: expand secure param for exec_cs_helper
-Date: Fri, 15 Nov 2019 09:55:27 +0000
-Message-ID: <MN2PR12MB33093E5ED305A790F3D328E6EC700@MN2PR12MB3309.namprd12.prod.outlook.com>
+Date: Fri, 15 Nov 2019 09:56:46 +0000
+Message-ID: <MN2PR12MB33095349A96C23BC1862AC96EC700@MN2PR12MB3309.namprd12.prod.outlook.com>
 References: <1573788895-3936-1-git-send-email-aaron.liu@amd.com>
  <1573788895-3936-8-git-send-email-aaron.liu@amd.com>
 Mime-Version: 1.0
@@ -10,7 +10,7 @@ Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 In-Reply-To: <1573788895-3936-8-git-send-email-aaron.liu-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
-Content-ID: <BE7734A18FDD6F418A17857ACB62F7C1-t0aD9ArCiwdO0n7uQEQMm4CZgX+1HZI1@public.gmane.org>
+Content-ID: <20D1C2DAE195DF43A16197553C4B4649-t0aD9ArCiwdO0n7uQEQMm4CZgX+1HZI1@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
