@@ -1,16 +1,10 @@
-From: "Zhou1, Tao" <Tao.Zhou1-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH 1/2] drm/amdgpu/ras: Extract amdgpu_ras_save_bad_pages
- from amdgpu_ras_reserve_bad_pages
-Date: Fri, 15 Nov 2019 02:42:17 +0000
-Message-ID: <MN2PR12MB30546DEFBB6F72CE7C09EAC0B0700@MN2PR12MB3054.namprd12.prod.outlook.com>
-References: <1573685125-2335-1-git-send-email-andrey.grodzovsky@amd.com>
- <MN2PR12MB3054761DA7F4EDEC9975F8AAB0710@MN2PR12MB3054.namprd12.prod.outlook.com>
- <63578cfb-83c2-6887-b7da-7715ef6ed3a9@amd.com>
+From: "Liu, Aaron" <Aaron.Liu-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH 00/12] Initial TMZ support for libdrm and amdgpu_test
+Date: Fri, 15 Nov 2019 03:34:41 +0000
+Message-ID: <MN2PR12MB3838F61E68479F97A65B7E6EF0700@MN2PR12MB3838.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0698823465=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <63578cfb-83c2-6887-b7da-7715ef6ed3a9-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -22,132 +16,221 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Grodzovsky, Andrey" <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Koenig,
+To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Olsak, Marek" <Marek.Olsak-5C7GfCeVMHo@public.gmane.org>, "Huang, Ray" <Ray.Huang-5C7GfCeVMHo@public.gmane.org>, "Tuikov, Luben" <Luben.Tuikov-5C7GfCeVMHo@public.gmane.org>, "Deucher,
+ Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Liu, Leo" <Leo.Liu-5C7GfCeVMHo@public.gmane.org>, "Koenig,
  Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
-Cc: "alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org" <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "Chen,
- Guchun" <Guchun.Chen-5C7GfCeVMHo@public.gmane.org>, "Zhang, Hawking" <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>
 
-U29ycnksIEkgY29uZnVzZWQgcmVzZXJ2ZV9iYWRfcGFnZXMgd2l0aCBhZGRfYmFkX3BhZ2VzLCB5
-b3UncmUgcmlnaHQuDQoNCklmIHZyYW0gYWxsb2NhdGVkIGluZm8gY291bGQgYmUgcmVzZXJ2ZWQg
-YWZ0ZXIgZ3B1IHJlc2V0LCBpdCBzZWVtcyB5b3VyIHBhdGNoIGlzIHVubmVjZXNzYXJ5Lg0KSWYg
-dGhlcmUgaXMgYSByaXNrIHRoYXQgdGhlIGluZm8gaXMgbG9zdCwgSSB0aGluayBbZGF0YS0+MCwg
-ZGF0YS0+Y291bnQpIHBhZ2VzIGluc3RlYWQgb2Ygb25seSBbZGF0YS0+bGFzdF9yZXNlcnZlZCwg
-ZGF0YS0+Y291bnQpIHBhZ2VzIHNob3VsZCBiZSByZXNlcnZlZC4NCg0KVGFvDQoNCj4gLS0tLS1P
-cmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4gRnJvbTogR3JvZHpvdnNreSwgQW5kcmV5IDxBbmRyZXku
-R3JvZHpvdnNreUBhbWQuY29tPg0KPiBTZW50OiAyMDE55bm0MTHmnIgxNeaXpSAwOjQyDQo+IFRv
-OiBaaG91MSwgVGFvIDxUYW8uWmhvdTFAYW1kLmNvbT47IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0
-b3Aub3JnOw0KPiBLb2VuaWcsIENocmlzdGlhbiA8Q2hyaXN0aWFuLktvZW5pZ0BhbWQuY29tPg0K
-PiBDYzogYWxleGRldWNoZXJAZ21haWwuY29tOyBDaGVuLCBHdWNodW4gPEd1Y2h1bi5DaGVuQGFt
-ZC5jb20+Ow0KPiBaaGFuZywgSGF3a2luZyA8SGF3a2luZy5aaGFuZ0BhbWQuY29tPg0KPiBTdWJq
-ZWN0OiBSZTogW1BBVENIIDEvMl0gZHJtL2FtZGdwdS9yYXM6IEV4dHJhY3QNCj4gYW1kZ3B1X3Jh
-c19zYXZlX2JhZF9wYWdlcyBmcm9tIGFtZGdwdV9yYXNfcmVzZXJ2ZV9iYWRfcGFnZXMNCj4gDQo+
-IA0KPiBPbiAxMS8xMy8xOSAxMDowOSBQTSwgWmhvdTEsIFRhbyB3cm90ZToNCj4gPiBUd28gcXVl
-c3Rpb25zOg0KPiA+DQo+ID4gMS4gIndlIGxvc2UgYWxsIHJlc2VydmF0aW9uIGR1cmluZyBBU0lD
-IHJlc2V0Ig0KPiA+IEFyZSB5b3Ugc3VyZSBvZiBpdD8gSSByZW1lbWJlciB0aGUgY29udGVudCBv
-ZiB2cmFtIG1heSBiZSBsb3N0IGFmdGVyIHJlc2V0DQo+IGJ1dCB0aGUgYWxsb2NhdGVkIHN0YXR1
-cyBjb3VsZCBiZSByZXNlcnZlZC4NCj4gDQo+IFllYSwgbm93IHRoYXQgSSBhbSB0aGlua2luZyBv
-ZiBpdCBJIHRoaW5rIGkgbWlnaHQgaGF2ZSBjb25mdXNlZCBpdCB3aXRoIEJPDQo+IGNvbnRlbnQg
-cmVjb3ZlcnkgaW4gYW1kZ3B1X2RldmljZV9yZWNvdmVyX3ZyYW0gZm9yIHNoYWRvdyBidWZmZXJz
-IHdoaWNoDQo+IGFyZSBwYWdlIHRhYmxlcyBvbmx5IGJ1dCBqdXN0IGZvciBWUkFNIHJlc2VydmF0
-aW9uwqAgc3RhdHVzIHRoaXMgbWlnaHQgYmUNCj4gaXJyZWxldmFudC4uLiBDaHJpc3RpYW4gLSBj
-YW4geW91IGNvbmZpcm0gVGFvIGlzIGNvcnJlY3Qgb24gdGhpcyA/DQo+IA0KPiA+DQo+ID4gMi4g
-WW91IGNoYW5nZSB0aGUgYmFkIHBhZ2UgaGFuZGxlIGZsb3cgZnJvbToNCj4gPg0KPiA+IGRldGVj
-dCBiYWQgcGFnZSAtPiByZXNlcnZlIHZyYW0gZm9yIGJhZCBwYWdlIC0+IHNhdmUgYmFkIHBhZ2Ug
-aW5mbyB0bw0KPiA+IGVlcHJvbSAtPiBncHUgcmVzZXQNCj4gPg0KPiA+IHRvOg0KPiA+DQo+ID4g
-ZGV0ZWN0IGJhZCBwYWdlICh0aGlzIHRpbWUpIC0+IHNhdmUgYmFkIHBhZ2UgKGxhc3QgdGltZSkg
-aW5mbyB0bw0KPiA+IGVlcHJvbSAtPiBncHUgcmVzZXQgLT4gcmVzZXJ2ZSB2cmFtIGZvciBiYWQg
-cGFnZSAodGhpcyB0aW1lKQ0KPiANCj4gRXZlbiB0aG91Z2ggaWYgSSBhbSB3cm9uZyBvbiB0aGUg
-Zmlyc3QgcG9pbnQgdGhpcyBpcyBpcnJlbGV2YW50IGJ1dCBzdGlsbCAtIFdoeQ0KPiBzYXZpbmcg
-YmFkIHBhZ2UgaXMgZnJvbSBsYXN0IHRpbWUgPyBTZWUNCj4gaHR0cHM6Ly9jZ2l0LmZyZWVkZXNr
-dG9wLm9yZy9+YWdkNWYvbGludXgvdHJlZS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGcNCj4gcHUv
-YW1kZ3B1X3Jhcy5jP2g9YW1kLXN0YWdpbmctZHJtLW5leHQjbjE0MzYNCj4gLSB0aGUgc2F2ZSBj
-b3VudCBpcyB0aGUgbGF0ZXN0IHNvIGFzIHRoZSBjb250ZW50IG9mDQo+IGRhdGEtPmJwc1tjb250
-cm9sLT5udW1fcmVjc10gdXAgdG8gZGF0YS0+YnBzW2NvbnRyb2wtPm51bV9yZWNzICsNCj4gc2F2
-ZV9jb3VudF0gYXMgdGhvc2UgYXJlIHVwZGF0ZWQgaW4NCj4gYW1kZ3B1X3VtY19wcm9jZXNzX3Jh
-c19kYXRhX2NiLT5hbWRncHVfcmFzX2FkZF9iYWRfcGFnZXMgd2hpY2ggaXMNCj4gY2FsbGVkIHJp
-Z2h0IEJFRk9SRSBhbWRncHVfcmFzX3Jlc2V0X2dwdS0+YW1kZ3B1X3Jhc19zYXZlX2JhZF9wYWdl
-cw0KPiBpbiB0aGUgaW50ZXJydXB0IHNlcXVlbmNlDQo+IA0KPiBBbmRyZXkNCj4gDQo+IA0KPiA+
-DQo+ID4gSXMgdGhhdCByaWdodD8gIFNhdmluZyBiYWQgcGFnZSAodGhpcyB0aW1lKSBpbmZvIHRv
-IGVlcHJvbSBpcyBkZWxheWVkIHRvIHRoZQ0KPiBuZXh0IHRpbWUgdGhhdCBiYWQgcGFnZSBpcyBk
-ZXRlY3RlZD8gQnV0IHRoZSB0aW1lIG9mIGRldGVjdGluZyBiYWQgcGFnZSBpcw0KPiByYW5kb20u
-DQo+ID4gSSB0aGluayB0aGUgYmFkIHBhZ2UgaW5mbyB3b3VsZCBiZSBsb3N0IHdpdGhvdXQgc2F2
-aW5nIHRvIGVlcHJvbSBpZiBwb3dlcg0KPiBvZmYgb2NjdXJzLg0KPiA+DQo+ID4gZGV0ZWN0IGJh
-ZCBwYWdlICh0aGlzIHRpbWUpIC0+IHNhdmUgYmFkIHBhZ2UgKGxhc3QgdGltZSkgaW5mbyB0bw0K
-PiA+IGVlcHJvbSAtPiBncHUgcmVzZXQgLT4gcmVzZXJ2ZSB2cmFtIGZvciBiYWQgcGFnZSAodGhp
-cyB0aW1lKSAtPg0KPiA+IHBvd2Vyb2ZmL3N5c3RlbSByZXNldCAoYW5kIGJhZCBwYWdlIGluZm8g
-KHRoaXMgdGltZSkgaXMgbG9zdCkNCj4gPg0KPiA+IFRhbw0KPiA+DQo+ID4+IC0tLS0tT3JpZ2lu
-YWwgTWVzc2FnZS0tLS0tDQo+ID4+IEZyb206IGFtZC1nZnggPGFtZC1nZngtYm91bmNlc0BsaXN0
-cy5mcmVlZGVza3RvcC5vcmc+IE9uIEJlaGFsZiBPZg0KPiA+PiBBbmRyZXkgR3JvZHpvdnNreQ0K
-PiA+PiBTZW50OiAyMDE55bm0MTHmnIgxNOaXpSA2OjQ1DQo+ID4+IFRvOiBhbWQtZ2Z4QGxpc3Rz
-LmZyZWVkZXNrdG9wLm9yZw0KPiA+PiBDYzogYWxleGRldWNoZXJAZ21haWwuY29tOyBHcm9kem92
-c2t5LCBBbmRyZXkNCj4gPj4gPEFuZHJleS5Hcm9kem92c2t5QGFtZC5jb20+OyBDaGVuLCBHdWNo
-dW4NCj4gPEd1Y2h1bi5DaGVuQGFtZC5jb20+Ow0KPiA+PiBaaGFuZywgSGF3a2luZyA8SGF3a2lu
-Zy5aaGFuZ0BhbWQuY29tPg0KPiA+PiBTdWJqZWN0OiBbUEFUQ0ggMS8yXSBkcm0vYW1kZ3B1L3Jh
-czogRXh0cmFjdA0KPiA+PiBhbWRncHVfcmFzX3NhdmVfYmFkX3BhZ2VzIGZyb20gYW1kZ3B1X3Jh
-c19yZXNlcnZlX2JhZF9wYWdlcw0KPiA+Pg0KPiA+PiBXZSB3YW50IHRvIGJlIGJlIGFibGUgdG8g
-Y2FsbCB0aGVtIGluZGVwZW5kZW50bHkgZnJvbSBvbmUgYW5vdGhlciBzbw0KPiA+PiB0aGF0IGJl
-Zm9yZSBHUFUgcmVzZXQganVzdCBhbWRncHVfcmFzX3NhdmVfYmFkX3BhZ2VzIGlzIGNhbGxlZC4N
-Cj4gPj4NCj4gPj4gU2lnbmVkLW9mZi1ieTogQW5kcmV5IEdyb2R6b3Zza3kgPGFuZHJleS5ncm9k
-em92c2t5QGFtZC5jb20+DQo+ID4+IC0tLQ0KPiA+PiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
-Z3B1L2FtZGdwdV9yYXMuYyB8IDE0ICsrKystLS0tLS0tLS0tDQo+ID4+IGRyaXZlcnMvZ3B1L2Ry
-bS9hbWQvYW1kZ3B1L2FtZGdwdV9yYXMuaCB8ICA0ICsrKy0NCj4gPj4gICAyIGZpbGVzIGNoYW5n
-ZWQsIDcgaW5zZXJ0aW9ucygrKSwgMTEgZGVsZXRpb25zKC0pDQo+ID4+DQo+ID4+IGRpZmYgLS1n
-aXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcmFzLmMNCj4gPj4gYi9kcml2
-ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcmFzLmMNCj4gPj4gaW5kZXggNDA0NDgzNC4u
-NjAwYTg2ZCAxMDA2NDQNCj4gPj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
-Z3B1X3Jhcy5jDQo+ID4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9y
-YXMuYw0KPiA+PiBAQCAtMTQyMSw3ICsxNDIxLDcgQEAgaW50IGFtZGdwdV9yYXNfYWRkX2JhZF9w
-YWdlcyhzdHJ1Y3QNCj4gPj4gYW1kZ3B1X2RldmljZSAqYWRldiwNCj4gPj4gICAgKiB3cml0ZSBl
-cnJvciByZWNvcmQgYXJyYXkgdG8gZWVwcm9tLCB0aGUgZnVuY3Rpb24gc2hvdWxkIGJlDQo+ID4+
-ICAgICogcHJvdGVjdGVkIGJ5IHJlY292ZXJ5X2xvY2sNCj4gPj4gICAgKi8NCj4gPj4gLXN0YXRp
-YyBpbnQgYW1kZ3B1X3Jhc19zYXZlX2JhZF9wYWdlcyhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRl
-dikNCj4gPj4gK2ludCBhbWRncHVfcmFzX3NhdmVfYmFkX3BhZ2VzKHN0cnVjdCBhbWRncHVfZGV2
-aWNlICphZGV2KQ0KPiA+PiAgIHsNCj4gPj4gICAJc3RydWN0IGFtZGdwdV9yYXMgKmNvbiA9IGFt
-ZGdwdV9yYXNfZ2V0X2NvbnRleHQoYWRldik7DQo+ID4+ICAgCXN0cnVjdCByYXNfZXJyX2hhbmRs
-ZXJfZGF0YSAqZGF0YTsgQEAgLTE1MjAsNyArMTUyMCw3IEBAIGludA0KPiA+PiBhbWRncHVfcmFz
-X3Jlc2VydmVfYmFkX3BhZ2VzKHN0cnVjdA0KPiA+PiBhbWRncHVfZGV2aWNlICphZGV2KQ0KPiA+
-PiAgIAlzdHJ1Y3QgcmFzX2Vycl9oYW5kbGVyX2RhdGEgKmRhdGE7DQo+ID4+ICAgCXVpbnQ2NF90
-IGJwOw0KPiA+PiAgIAlzdHJ1Y3QgYW1kZ3B1X2JvICpibyA9IE5VTEw7DQo+ID4+IC0JaW50IGks
-IHJldCA9IDA7DQo+ID4+ICsJaW50IGk7DQo+ID4+DQo+ID4+ICAgCWlmICghY29uIHx8ICFjb24t
-PmVoX2RhdGEpDQo+ID4+ICAgCQlyZXR1cm4gMDsNCj4gPj4gQEAgLTE1NDgsMTIgKzE1NDgsOSBA
-QCBpbnQgYW1kZ3B1X3Jhc19yZXNlcnZlX2JhZF9wYWdlcyhzdHJ1Y3QNCj4gPj4gYW1kZ3B1X2Rl
-dmljZSAqYWRldikNCj4gPj4gICAJCWRhdGEtPmxhc3RfcmVzZXJ2ZWQgPSBpICsgMTsNCj4gPj4g
-ICAJCWJvID0gTlVMTDsNCj4gPj4gICAJfQ0KPiA+PiAtDQo+ID4+IC0JLyogY29udGludWUgdG8g
-c2F2ZSBiYWQgcGFnZXMgdG8gZWVwcm9tIGV2ZW4gcmVlc3J2ZV92cmFtIGZhaWxzICovDQo+ID4+
-IC0JcmV0ID0gYW1kZ3B1X3Jhc19zYXZlX2JhZF9wYWdlcyhhZGV2KTsNCj4gPj4gICBvdXQ6DQo+
-ID4+ICAgCW11dGV4X3VubG9jaygmY29uLT5yZWNvdmVyeV9sb2NrKTsNCj4gPj4gLQlyZXR1cm4g
-cmV0Ow0KPiA+PiArCXJldHVybiAwOw0KPiA+PiAgIH0NCj4gPj4NCj4gPj4gICAvKiBjYWxsZWQg
-d2hlbiBkcml2ZXIgdW5sb2FkICovDQo+ID4+IEBAIC0xNjE1LDE0ICsxNjEyLDExIEBAIGludCBh
-bWRncHVfcmFzX3JlY292ZXJ5X2luaXQoc3RydWN0DQo+ID4+IGFtZGdwdV9kZXZpY2UgKmFkZXYp
-DQo+ID4+ICAgCQlyZXQgPSBhbWRncHVfcmFzX2xvYWRfYmFkX3BhZ2VzKGFkZXYpOw0KPiA+PiAg
-IAkJaWYgKHJldCkNCj4gPj4gICAJCQlnb3RvIGZyZWU7DQo+ID4+IC0JCXJldCA9IGFtZGdwdV9y
-YXNfcmVzZXJ2ZV9iYWRfcGFnZXMoYWRldik7DQo+ID4+IC0JCWlmIChyZXQpDQo+ID4+IC0JCQln
-b3RvIHJlbGVhc2U7DQo+ID4+ICsJCWFtZGdwdV9yYXNfcmVzZXJ2ZV9iYWRfcGFnZXMoYWRldik7
-DQo+ID4+ICAgCX0NCj4gPj4NCj4gPj4gICAJcmV0dXJuIDA7DQo+ID4+DQo+ID4+IC1yZWxlYXNl
-Og0KPiA+PiAgIAlhbWRncHVfcmFzX3JlbGVhc2VfYmFkX3BhZ2VzKGFkZXYpOw0KPiA+PiAgIGZy
-ZWU6DQo+ID4+ICAgCWtmcmVlKCgqZGF0YSktPmJwcyk7DQo+ID4+IGRpZmYgLS1naXQgYS9kcml2
-ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcmFzLmgNCj4gPj4gYi9kcml2ZXJzL2dwdS9k
-cm0vYW1kL2FtZGdwdS9hbWRncHVfcmFzLmgNCj4gPj4gaW5kZXggZjgwZmQzNC4uMTJiMDc5NyAx
-MDA2NDQNCj4gPj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Jhcy5o
-DQo+ID4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9yYXMuaA0KPiA+
-PiBAQCAtNDkyLDYgKzQ5Miw4IEBAIHVuc2lnbmVkIGxvbmcNCj4gPj4gYW1kZ3B1X3Jhc19xdWVy
-eV9lcnJvcl9jb3VudChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwgIGludA0KPiA+PiBhbWRn
-cHVfcmFzX2FkZF9iYWRfcGFnZXMoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsDQo+ID4+ICAg
-CQlzdHJ1Y3QgZWVwcm9tX3RhYmxlX3JlY29yZCAqYnBzLCBpbnQgcGFnZXMpOw0KPiA+Pg0KPiA+
-PiAraW50IGFtZGdwdV9yYXNfc2F2ZV9iYWRfcGFnZXMoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFk
-ZXYpOw0KPiA+PiArDQo+ID4+ICAgaW50IGFtZGdwdV9yYXNfcmVzZXJ2ZV9iYWRfcGFnZXMoc3Ry
-dWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpOw0KPiA+Pg0KPiA+PiAgIHN0YXRpYyBpbmxpbmUgaW50
-IGFtZGdwdV9yYXNfcmVzZXRfZ3B1KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LA0KPiA+PiBA
-QCAtDQo+ID4+IDUwMyw3ICs1MDUsNyBAQCBzdGF0aWMgaW5saW5lIGludCBhbWRncHVfcmFzX3Jl
-c2V0X2dwdShzdHJ1Y3QNCj4gPj4gYW1kZ3B1X2RldmljZSAqYWRldiwNCj4gPj4gICAJICogaTJj
-IG1heSBiZSB1bnN0YWJsZSBpbiBncHUgcmVzZXQNCj4gPj4gICAJICovDQo+ID4+ICAgCWlmIChp
-bl90YXNrKCkpDQo+ID4+IC0JCWFtZGdwdV9yYXNfcmVzZXJ2ZV9iYWRfcGFnZXMoYWRldik7DQo+
-ID4+ICsJCWFtZGdwdV9yYXNfc2F2ZV9iYWRfcGFnZXMoYWRldik7DQo+ID4+DQo+ID4+ICAgCWlm
-IChhdG9taWNfY21weGNoZygmcmFzLT5pbl9yZWNvdmVyeSwgMCwgMSkgPT0gMCkNCj4gPj4gICAJ
-CXNjaGVkdWxlX3dvcmsoJnJhcy0+cmVjb3Zlcnlfd29yayk7DQo+ID4+IC0tDQo+ID4+IDIuNy40
-DQo+ID4+DQo+ID4+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fDQo+ID4+IGFtZC1nZnggbWFpbGluZyBsaXN0DQo+ID4+IGFtZC1nZnhAbGlzdHMuZnJlZWRl
-c2t0b3Aub3JnDQo+ID4+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlz
-dGluZm8vYW1kLWdmeA0KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcK
-aHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+--===============0698823465==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_MN2PR12MB3838F61E68479F97A65B7E6EF0700MN2PR12MB3838namp_"
+
+--_000_MN2PR12MB3838F61E68479F97A65B7E6EF0700MN2PR12MB3838namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+These series of patches are to initial TMZ support for libdrm and amdgpu_te=
+st. They are based on amd-staging-hybrid-master20190125 branch. So far, gfx=
+/sdma TMZ tests are passed on Raven.
+
+Please review them.
+
+
+
+Thanks,
+
+Aaron
+
+Aaron Liu (6):
+  amdgpu: using IB flags for TMZ or non-TMZ
+  tests/amdgpu: expand secure param for exec_cs_helper
+  tests/amdgpu: add atomic_mem cp_packet to verify the secure buffer
+  tests/amdgpu: add test to submit a gfx command with secure context
+  tests/amdgpu: add atomic dma command to verify the secure buffer
+  tests/amdgpu: add test to submit a sdma command with secure context
+
+Huang Rui (6):
+  amdgpu: add UAPI for creating encrypted buffers
+  tests/amdgpu: add security test suite (v2)
+  tests/amdgpu: add secure buffer allocation test for system memory
+  tests/amdgpu: add secure buffer allocation test for invisible VRAM
+  tests/amdgpu: expand write linear helper for security (v3)
+  tests/amdgpu: add device handle as input param for exec_cs_helper and
+    write_linear_helper (v4)
+
+amdgpu/amdgpu.h               |   4 +-
+amdgpu/amdgpu_cs.c            |   4 ++
+include/drm/amdgpu_drm.h      |   5 ++
+tests/amdgpu/amdgpu_test.c    |   7 ++
+tests/amdgpu/amdgpu_test.h    |  27 +++++++
+tests/amdgpu/basic_tests.c    | 161 ++++++++++++++++++++++++++++++++++++---=
+---
+tests/amdgpu/meson.build      |   2 +-
+tests/amdgpu/security_tests.c | 134 +++++++++++++++++++++++++++++++++++
+8 files changed, 322 insertions(+), 22 deletions(-)
+create mode 100644 tests/amdgpu/security_tests.c
+
+BR,
+Aaron Liu
+
+
+--_000_MN2PR12MB3838F61E68479F97A65B7E6EF0700MN2PR12MB3838namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:x=3D"urn:schemas-microsoft-com:office:excel" xmlns:m=3D"http://schema=
+s.microsoft.com/office/2004/12/omml" xmlns=3D"http://www.w3.org/TR/REC-html=
+40">
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
+<style><!--
+/* Font Definitions */
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:DengXian;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:"\@DengXian";
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:#0563C1;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{mso-style-priority:99;
+	color:#954F72;
+	text-decoration:underline;}
+p.MsoPlainText, li.MsoPlainText, div.MsoPlainText
+	{mso-style-priority:99;
+	mso-style-link:"Plain Text Char";
+	margin:0in;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+span.EmailStyle17
+	{mso-style-type:personal-compose;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
+span.PlainTextChar
+	{mso-style-name:"Plain Text Char";
+	mso-style-priority:99;
+	mso-style-link:"Plain Text";
+	font-family:"Calibri",sans-serif;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-family:"Calibri",sans-serif;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.0in 1.0in 1.0in;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
+</head>
+<body lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72">
+<div class=3D"WordSection1">
+<p class=3D"MsoPlainText">These series of patches are to initial TMZ suppor=
+t for libdrm and amdgpu_test. They are based on amd-staging-hybrid-master20=
+190125 branch. So far, gfx/sdma TMZ tests are passed on Raven.<o:p></o:p></=
+p>
+<p class=3D"MsoPlainText">Please review them.<o:p></o:p></p>
+<p class=3D"MsoPlainText"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoPlainText">Thanks,<o:p></o:p></p>
+<p class=3D"MsoPlainText">Aaron<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Aaron Liu (6):<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp; amdgpu: using IB flags for TMZ or non-TMZ<o:p=
+></o:p></p>
+<p class=3D"MsoNormal">&nbsp; tests/amdgpu: expand secure param for exec_cs=
+_helper<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp; tests/amdgpu: add atomic_mem cp_packet to ver=
+ify the secure buffer<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp; tests/amdgpu: add test to submit a gfx comman=
+d with secure context<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp; tests/amdgpu: add atomic dma command to verif=
+y the secure buffer<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp; tests/amdgpu: add test to submit a sdma comma=
+nd with secure context<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Huang Rui (6):<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp; amdgpu: add UAPI for creating encrypted buffe=
+rs<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp; tests/amdgpu: add security test suite (v2)<o:=
+p></o:p></p>
+<p class=3D"MsoNormal">&nbsp; tests/amdgpu: add secure buffer allocation te=
+st for system memory<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp; tests/amdgpu: add secure buffer allocation te=
+st for invisible VRAM<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp; tests/amdgpu: expand write linear helper for =
+security (v3)<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp; tests/amdgpu: add device handle as input para=
+m for exec_cs_helper and<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp; write_linear_helper (v4)<o:p></o:=
+p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">amdgpu/amdgpu.h&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp; 4 &#43;-<o:p>=
+</o:p></p>
+<p class=3D"MsoNormal">amdgpu/amdgpu_cs.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp; 4 &#43;&#43;<o:p></o:p></p>
+<p class=3D"MsoNormal">include/drm/amdgpu_drm.h&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p; |&nbsp;&nbsp; 5 &#43;&#43;<o:p></o:p></p>
+<p class=3D"MsoNormal">tests/amdgpu/amdgpu_test.c&nbsp;&nbsp;&nbsp; |&nbsp;=
+&nbsp; 7 &#43;&#43;<o:p></o:p></p>
+<p class=3D"MsoNormal">tests/amdgpu/amdgpu_test.h&nbsp;&nbsp;&nbsp; |&nbsp;=
+ 27 &#43;&#43;&#43;&#43;&#43;&#43;&#43;<o:p></o:p></p>
+<p class=3D"MsoNormal">tests/amdgpu/basic_tests.c&nbsp;&nbsp;&nbsp; | 161 &=
+#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&=
+#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&=
+#43;&#43;&#43;&#43;&#43;&#43;------<o:p></o:p></p>
+<p class=3D"MsoNormal">tests/amdgpu/meson.build&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p; |&nbsp;&nbsp; 2 &#43;-<o:p></o:p></p>
+<p class=3D"MsoNormal">tests/amdgpu/security_tests.c | 134 &#43;&#43;&#43;&=
+#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&=
+#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&=
+#43;&#43;<o:p></o:p></p>
+<p class=3D"MsoNormal">8 files changed, 322 insertions(&#43;), 22 deletions=
+(-)<o:p></o:p></p>
+<p class=3D"MsoNormal">create mode 100644 tests/amdgpu/security_tests.c<o:p=
+></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">BR,<o:p></o:p></p>
+<p class=3D"MsoNormal">Aaron Liu<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+</div>
+</body>
+</html>
+
+--_000_MN2PR12MB3838F61E68479F97A65B7E6EF0700MN2PR12MB3838namp_--
+
+--===============0698823465==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+
+--===============0698823465==--
