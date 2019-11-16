@@ -1,55 +1,53 @@
-From: Chen Wandun <chenwandun@huawei.com>
-Subject: [PATCH] drm/amd/powerplay: remove variable 'result' set but not used
-Date: Sat, 16 Nov 2019 11:43:19 +0800
-Message-ID: <1573875799-83572-1-git-send-email-chenwandun@huawei.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH 1/2] drm/amdgpu: disable gfxoff on original raven
+Date: Sat, 16 Nov 2019 10:28:35 +0100
+Message-ID: <efa13d7c-5748-50c0-226a-5e5b5984c686@gmail.com>
+References: <20191115152850.618879-1-alexander.deucher@amd.com>
+Reply-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
 Mime-Version: 1.0
-Content-Type: text/plain
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Sender: linux-kernel-owner@vger.kernel.org
-To: alexander.deucher@amd.com, evan.quan@amd.com, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Cc: chenwandun@huawei.com
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20191115152850.618879-1-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
 
-Fixes gcc '-Wunused-but-set-variable' warning:
-
-drivers/gpu/drm/amd/amdgpu/../powerplay/smumgr/vegam_smumgr.c: In function vegam_populate_smc_boot_level:
-drivers/gpu/drm/amd/amdgpu/../powerplay/smumgr/vegam_smumgr.c:1364:6: warning: variable result set but not used [-Wunused-but-set-variable]
-
-Signed-off-by: Chen Wandun <chenwandun@huawei.com>
----
- drivers/gpu/drm/amd/powerplay/smumgr/vegam_smumgr.c | 13 ++++++-------
- 1 file changed, 6 insertions(+), 7 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/powerplay/smumgr/vegam_smumgr.c b/drivers/gpu/drm/amd/powerplay/smumgr/vegam_smumgr.c
-index 2068eb0..fad78bf 100644
---- a/drivers/gpu/drm/amd/powerplay/smumgr/vegam_smumgr.c
-+++ b/drivers/gpu/drm/amd/powerplay/smumgr/vegam_smumgr.c
-@@ -1361,20 +1361,19 @@ static int vegam_populate_smc_uvd_level(struct pp_hwmgr *hwmgr,
- static int vegam_populate_smc_boot_level(struct pp_hwmgr *hwmgr,
- 		struct SMU75_Discrete_DpmTable *table)
- {
--	int result = 0;
- 	struct smu7_hwmgr *data = (struct smu7_hwmgr *)(hwmgr->backend);
- 
- 	table->GraphicsBootLevel = 0;
- 	table->MemoryBootLevel = 0;
- 
- 	/* find boot level from dpm table */
--	result = phm_find_boot_level(&(data->dpm_table.sclk_table),
--			data->vbios_boot_state.sclk_bootup_value,
--			(uint32_t *)&(table->GraphicsBootLevel));
-+	phm_find_boot_level(&(data->dpm_table.sclk_table),
-+			    data->vbios_boot_state.sclk_bootup_value,
-+			    (uint32_t *)&(table->GraphicsBootLevel));
- 
--	result = phm_find_boot_level(&(data->dpm_table.mclk_table),
--			data->vbios_boot_state.mclk_bootup_value,
--			(uint32_t *)&(table->MemoryBootLevel));
-+	phm_find_boot_level(&(data->dpm_table.mclk_table),
-+			    data->vbios_boot_state.mclk_bootup_value,
-+			    (uint32_t *)&(table->MemoryBootLevel));
- 
- 	table->BootVddc  = data->vbios_boot_state.vddc_bootup_value *
- 			VOLTAGE_SCALE;
--- 
-2.7.4
+QW0gMTUuMTEuMTkgdW0gMTY6Mjggc2NocmllYiBBbGV4IERldWNoZXI6Cj4gVGhlcmUgYXJlIHN0
+aWxsIGNvbWJpbmF0aW9ucyBvZiBzYmlvcyBhbmQgZmlybXdhcmUgdGhhdAo+IGFyZSBub3Qgc3Rh
+YmxlLgo+Cj4gQnVnOiBodHRwczovL2J1Z3ppbGxhLmtlcm5lbC5vcmcvc2hvd19idWcuY2dpP2lk
+PTIwNDY4OQo+IFNpZ25lZC1vZmYtYnk6IEFsZXggRGV1Y2hlciA8YWxleGFuZGVyLmRldWNoZXJA
+YW1kLmNvbT4KCkFja2VkLWJ5OiBDaHJpc3RpYW4gS8O2bmlnIDxjaHJpc3RpYW4ua29lbmlnQGFt
+ZC5jb20+IGZvciB0aGUgc2VyaWVzLgoKPiAtLS0KPiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
+Z3B1L2dmeF92OV8wLmMgfCA5ICsrKysrKystLQo+ICAgMSBmaWxlIGNoYW5nZWQsIDcgaW5zZXJ0
+aW9ucygrKSwgMiBkZWxldGlvbnMoLSkKPgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0v
+YW1kL2FtZGdwdS9nZnhfdjlfMC5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y5
+XzAuYwo+IGluZGV4IGM3YWU2ODVkNmY3NC4uYTcwMzRhZjFjNDFlIDEwMDY0NAo+IC0tLSBhL2Ry
+aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92OV8wLmMKPiArKysgYi9kcml2ZXJzL2dwdS9k
+cm0vYW1kL2FtZGdwdS9nZnhfdjlfMC5jCj4gQEAgLTEwNTEsOCArMTA1MSwxMyBAQCBzdGF0aWMg
+dm9pZCBnZnhfdjlfMF9jaGVja19pZl9uZWVkX2dmeG9mZihzdHJ1Y3QgYW1kZ3B1X2RldmljZSAq
+YWRldikKPiAgIAljYXNlIENISVBfVkVHQTIwOgo+ICAgCQlicmVhazsKPiAgIAljYXNlIENISVBf
+UkFWRU46Cj4gLQkJaWYgKCEoYWRldi0+cmV2X2lkID49IDB4OCB8fCBhZGV2LT5wZGV2LT5kZXZp
+Y2UgPT0gMHgxNWQ4KQo+IC0JCQkmJigoYWRldi0+Z2Z4LnJsY19md192ZXJzaW9uICE9IDEwNiAm
+Jgo+ICsJCS8qIERpc2FibGUgR0ZYT0ZGIG9uIG9yaWdpbmFsIHJhdmVuLiAgVGhlcmUgYXJlIGNv
+bWJpbmF0aW9ucwo+ICsJCSAqIG9mIHNiaW9zIGFuZCBwbGF0Zm9ybXMgdGhhdCBhcmUgbm90IHN0
+YWJsZS4KPiArCQkgKi8KPiArCQlpZiAoIShhZGV2LT5yZXZfaWQgPj0gMHg4IHx8IGFkZXYtPnBk
+ZXYtPmRldmljZSA9PSAweDE1ZDgpKQo+ICsJCQlhZGV2LT5wbS5wcF9mZWF0dXJlICY9IH5QUF9H
+RlhPRkZfTUFTSzsKPiArCQllbHNlIGlmICghKGFkZXYtPnJldl9pZCA+PSAweDggfHwgYWRldi0+
+cGRldi0+ZGV2aWNlID09IDB4MTVkOCkKPiArCQkJICYmKChhZGV2LT5nZngucmxjX2Z3X3ZlcnNp
+b24gIT0gMTA2ICYmCj4gICAJCQkgICAgIGFkZXYtPmdmeC5ybGNfZndfdmVyc2lvbiA8IDUzMSkg
+fHwKPiAgIAkJCSAgICAoYWRldi0+Z2Z4LnJsY19md192ZXJzaW9uID09IDUzODE1KSB8fAo+ICAg
+CQkJICAgIChhZGV2LT5nZngucmxjX2ZlYXR1cmVfdmVyc2lvbiA8IDEpIHx8CgpfX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlz
+dAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9w
+Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
