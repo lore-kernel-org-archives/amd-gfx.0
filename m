@@ -1,121 +1,91 @@
-From: Emmanuel Vadot <manu@bidouilliste.com>
-Subject: Re: drm core/helpers and MIT license
-Date: Sat, 16 Nov 2019 13:12:50 +0100
-Message-ID: <20191116131250.babc76e47c8aacc0f9e1cdbd@bidouilliste.com>
-References: <CAKMK7uH-8+tbKsAoiChsxELEc_77RVVxP2wapHWhqB+0Viifog@mail.gmail.com>
+From: Iago Abal <iago.abal-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Potential BUG: [PATCH 2/8] drm/amdgpu: add a generic fb accessing
+ helper function(v3)
+Date: Sat, 16 Nov 2019 17:21:37 +0100
+Message-ID: <CAGbDTvpmPfrK=7a=mbnR-gKgi2ah+w6AeGYDU+9M9JOnWTzhBQ@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-In-Reply-To: <CAKMK7uH-8+tbKsAoiChsxELEc_77RVVxP2wapHWhqB+0Viifog@mail.gmail.com>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: Daniel Vetter <daniel.vetter@ffwll.ch>
-Cc: Thomas Hellstrom <thellstrom@vmware.com>, intel-gfx <intel-gfx@lists.freedesktop.org>, amd-gfx list <amd-gfx@lists.freedesktop.org>, VMware Graphics <linux-graphics-maintainer@vmware.com>, dri-devel <dri-devel@lists.freedesktop.org>, Rodrigo Vivi <rodrigo.vivi@intel.com>, Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: multipart/mixed; boundary="===============0846713704=="
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Tianci.Yin" <tianci.yin-5C7GfCeVMHo@public.gmane.org>, Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, Luben Tuikov <luben.tuikov-5C7GfCeVMHo@public.gmane.org>
+Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-CiBIaSBEYW5pZWwsCgpPbiBUdWUsIDEyIE5vdiAyMDE5IDE2OjAzOjMzICswMTAwCkRhbmllbCBW
-ZXR0ZXIgPGRhbmllbC52ZXR0ZXJAZmZ3bGwuY2g+IHdyb3RlOgoKPiBIaSBhbGwsCj4gCj4gRGF2
-ZSBhbmQgbWUgY2hhdHRlZCBhYm91dCB0aGlzIGxhc3Qgd2VlayBvbiBpcmMuIEVzc2VudGlhbGx5
-IHdlIGhhdmU6Cj4gCj4gJCBnaXQgZ3JlcCBTUERYLipHUEwgLS0gJzooZ2xvYilkcml2ZXJzL2dw
-dS9kcm0vKmMnCj4gZHJpdmVycy9ncHUvZHJtL2RybV9jbGllbnQuYzovLyBTUERYLUxpY2Vuc2Ut
-SWRlbnRpZmllcjogR1BMLTIuMAo+IGRyaXZlcnMvZ3B1L2RybS9kcm1fZGFtYWdlX2hlbHBlci5j
-Oi8vIFNQRFgtTGljZW5zZS1JZGVudGlmaWVyOiBHUEwtMi4wIE9SIE1JVAo+IGRyaXZlcnMvZ3B1
-L2RybS9kcm1fZHBfY2VjLmM6Ly8gU1BEWC1MaWNlbnNlLUlkZW50aWZpZXI6IEdQTC0yLjAKPiBk
-cml2ZXJzL2dwdS9kcm0vZHJtX2VkaWRfbG9hZC5jOi8vIFNQRFgtTGljZW5zZS1JZGVudGlmaWVy
-OiBHUEwtMi4wLW9yLWxhdGVyCj4gZHJpdmVycy9ncHUvZHJtL2RybV9mYl9jbWFfaGVscGVyLmM6
-Ly8gU1BEWC1MaWNlbnNlLUlkZW50aWZpZXI6IEdQTC0yLjAtb3ItbGF0ZXIKPiBkcml2ZXJzL2dw
-dS9kcm0vZHJtX2Zvcm1hdF9oZWxwZXIuYzovKiBTUERYLUxpY2Vuc2UtSWRlbnRpZmllcjogR1BM
-LTIuMCAqLwo+IGRyaXZlcnMvZ3B1L2RybS9kcm1fZ2VtX2NtYV9oZWxwZXIuYzovLyBTUERYLUxp
-Y2Vuc2UtSWRlbnRpZmllcjoKPiBHUEwtMi4wLW9yLWxhdGVyCj4gZHJpdmVycy9ncHUvZHJtL2Ry
-bV9nZW1fZnJhbWVidWZmZXJfaGVscGVyLmM6Ly8KPiBTUERYLUxpY2Vuc2UtSWRlbnRpZmllcjog
-R1BMLTIuMC1vci1sYXRlcgo+IGRyaXZlcnMvZ3B1L2RybS9kcm1fZ2VtX3NobWVtX2hlbHBlci5j
-Oi8vIFNQRFgtTGljZW5zZS1JZGVudGlmaWVyOiBHUEwtMi4wCj4gZHJpdmVycy9ncHUvZHJtL2Ry
-bV9nZW1fdHRtX2hlbHBlci5jOi8vIFNQRFgtTGljZW5zZS1JZGVudGlmaWVyOgo+IEdQTC0yLjAt
-b3ItbGF0ZXIKPiBkcml2ZXJzL2dwdS9kcm0vZHJtX2dlbV92cmFtX2hlbHBlci5jOi8vIFNQRFgt
-TGljZW5zZS1JZGVudGlmaWVyOgo+IEdQTC0yLjAtb3ItbGF0ZXIKPiBkcml2ZXJzL2dwdS9kcm0v
-ZHJtX2hkY3AuYzovLyBTUERYLUxpY2Vuc2UtSWRlbnRpZmllcjogR1BMLTIuMAo+IGRyaXZlcnMv
-Z3B1L2RybS9kcm1fbGVhc2UuYzovLyBTUERYLUxpY2Vuc2UtSWRlbnRpZmllcjogR1BMLTIuMC1v
-ci1sYXRlcgo+IGRyaXZlcnMvZ3B1L2RybS9kcm1fbWlwaV9kYmkuYzovLyBTUERYLUxpY2Vuc2Ut
-SWRlbnRpZmllcjogR1BMLTIuMC1vci1sYXRlcgo+IGRyaXZlcnMvZ3B1L2RybS9kcm1fb2YuYzov
-LyBTUERYLUxpY2Vuc2UtSWRlbnRpZmllcjogR1BMLTIuMC1vbmx5Cj4gZHJpdmVycy9ncHUvZHJt
-L2RybV9zaW1wbGVfa21zX2hlbHBlci5jOi8vIFNQRFgtTGljZW5zZS1JZGVudGlmaWVyOgo+IEdQ
-TC0yLjAtb3ItbGF0ZXIKPiBkcml2ZXJzL2dwdS9kcm0vZHJtX3N5c2ZzLmM6Ly8gU1BEWC1MaWNl
-bnNlLUlkZW50aWZpZXI6IEdQTC0yLjAtb25seQo+IGRyaXZlcnMvZ3B1L2RybS9kcm1fdm1hX21h
-bmFnZXIuYzovLyBTUERYLUxpY2Vuc2UtSWRlbnRpZmllcjogR1BMLTIuMCBPUiBNSVQKPiBkcml2
-ZXJzL2dwdS9kcm0vZHJtX3ZyYW1faGVscGVyX2NvbW1vbi5jOi8vIFNQRFgtTGljZW5zZS1JZGVu
-dGlmaWVyOgo+IEdQTC0yLjAtb3ItbGF0ZXIKPiBkcml2ZXJzL2dwdS9kcm0vZHJtX3dyaXRlYmFj
-ay5jOi8vIFNQRFgtTGljZW5zZS1JZGVudGlmaWVyOiBHUEwtMi4wCj4gCj4gT25lIGlzIEdQTCtN
-SVQsIHNvIG9rLCBhbmQgb25lIGlzIGEgZGVmYXVsdCBHUEwtb25seSBoZWFkZXIgZnJvbQo+IEdy
-ZWcncyBpbmZhbW91cyBwYXRjaCAoc28gY291bGQgcHJvYmFibHkgYmUgY2hhbmdlZCB0byBNSVQg
-bGljZW5zZQo+IGhlYWRlcikuIEkgb25seSBsb29rZWQgYXQgLmMgc291cmNlcywgc2luY2UgaGVh
-ZGVycyBhcmUgd29yc2Ugd3J0Cj4gaGF2aW5nIHF1ZXN0aW9uYWJsZSBkZWZhdWx0IGhlYWRlcnMu
-IFNvIGFib3V0IDE4IGZpbGVzIHdpdGggY2xlYXIgR1BMCj4gbGljZW5zZXMgdGh1cyBmYXIgaW4g
-ZHJtIGNvcmUvaGVscGVycy4KPiAKPiBMb29raW5nIGF0IHdoZXJlIHRoYXQgY29kZSBjYW1lIGZy
-b20sIGl0IGlzIG1vc3RseSBmcm9tIEdQTC1vbmx5Cj4gZHJpdmVycyAod2UgaGF2ZSBhIGxvdCBv
-ZiB0aG9zZSBub3dhZGF5cyksIHNvIHNlZW1zIGxlZ2l0IG5vbi1NSVQKPiBsaWNlbnNlZC4gUXVl
-c3Rpb24gaXMgbm93IHdoYXQgZG8gd2UgZG86Cj4gCj4gLSBOb3RoaW5nLCB3aGljaCBtZWFucyBH
-UEwgd2lsbCBzbG93bHkgZW5jcm9hY2ggb24gZHJtIGNvcmUvaGVscGVycywKPiB3aGljaCBpcyBy
-b3VnaGx5IHRoZSBzYW1lIGFzIC4uLgo+IAo+IC0gVGhyb3cgaW4gdGhlIHRvd2VsIG9uIE1JVCBk
-cm0gY29yZSBvZmZpY2lhbGx5LiBTYW1lIGFzIGFib3ZlLCBleGNlcHQKPiBsZXRzIGp1c3QgbWFr
-ZSBpdCBvZmZpY2lhbC4KPiAKPiAtIFRyeSB0byBjb3VudGVyIHRoaXMsIHdoaWNoIG1lYW5zIGF0
-IGxlYXN0IGEpIHJlbGljZW5zaW5nIGEgYnVuY2ggb2YKPiBzdHVmZiBiKSByZXdyaXRpbmcgYSBi
-dW5jaCBvZiBzdHVmZiBjKSBtYWtpbmcgc3VyZSB0aGF0J3Mgb2sgd2l0aAo+IGV2ZXJ5b25lLCB0
-aGVyZSdzIGEgbG90IG9mIEdQTC1ieS1kZWZhdWx0IGZvciB0aGUga2VybmVsICh0aGF0J3MgaG93
-Cj4gd2UgZ290IG1vc3Qgb2YgdGhlIGFib3ZlIGNvZGUgdGhyb3VnaCBtZXJnZWQgZHJpdmVycyBJ
-IHRoaW5rKS4gSQo+IHN1c3BlY3QgdGhhdCB3aG9tZXZlciBjYXJlcyB3aWxsIG5lZWQgdG8gcHV0
-IGluIHRoZSB3b3JrIHRvIG1ha2UgdGhpcwo+IGhhcHBlbiAoc2luY2UgaXQgd2lsbCBuZWVkIGEg
-cGlsZSBvZiBhY3RpdmUgcmVzaXN0YW5jZSBhdCBsZWFzdCkuCj4gCj4gQ2MgbWFpbnRhaW5lcnMv
-ZHJpdmVyIHRlYW1zIHdobyBtaWdodCBjYXJlIG1vc3QgYWJvdXQgdGhpcy4KPiAKPiBBbHNvIGlm
-IHBlb3BsZSBjb3VsZCBjYyAqYnNkLCB0aGV5IHByb2JhYmx5IGNhcmUgYW5kIEkgZG9uJ3Qga25v
-dyBiZXN0Cj4gY29udGFjdHMgZm9yIGdyYXBoaWNzIHN0dWZmIChvciBhbnl0aGluZyBlbHNlIHJl
-YWxseSBhdCBhbGwpLgo+IAo+IENoZWVycywgRGFuaWVsCgogRmlyc3Qgb2YgYWxsIHRoYW5rcyBm
-b3Igc2VuZGluZyB0aGlzIG1haWwuCgogSSdtIG9mIGNvdXJzZSBub3Qgc3BlYWtpbmcgZm9yIHRo
-ZSB3aG9sZSBGcmVlQlNEIHByb2plY3QgYnV0IGJlaW5nCm9uZSBvZiB0aGUgcGVyc29ucyB0aGF0
-IGlzIGN1cnJlbnRseSB0cnlpbmcgdG8gZmluaXNoIGEgY2xlYW4gdXBkYXRlIG9mCkRSTSBmb3Ig
-aXQgdG8gZmluYWxseSBoYXZlIERSTSBkcml2ZXJzIGZvciBhcm0vYXJtNjQgaGVyZSBpcyBteSB2
-aWV3IDoKCiBJIHdvdWxkIGxvdmUgdG8gaGF2ZSBhbGwgdGhlIGhlbHBlciBNSVQgb3IgZHVhbCBs
-aWNlbmNlIHNvIEkgZG9uJ3QKbmVlZCB0byBjb21tZW50IHBhcnQgb2YgRFJNIGNvZGUgKHdoaWNo
-IGlzIG9rIG9uIHNvbWUgcGFydCBidXQgd3Jvbmcgb24KbW9zdCkgb3IgcmUtaW1wbGVtZW50IHRo
-ZW0uIFRoZXJlIGlzIGFscmVhZHkgdG9vIG11Y2ggY29kZSB0aGF0IHJlYWxseQpuZWVkIGEgcmV3
-cml0ZSBmb3IgRnJlZUJTRCAoZG1hLWJ1ZnMsIHN5bmNvYmpzIGFuZCBhIGxvdCBvZiBvdGhlcnMg
-bGludXgKa2VybmVsIHN1YnN5c3RlbXMpIHRoYXQgYWRkaW5nIGRybSBoZWxwZXJzIHRvIHRoZSBs
-aXN0IG1ha2VzIGl0IHJlYWxseQpoYXJkIGZvciBtZS4KIEZyb20gdGhlIGxpc3QgeW91J3ZlIHNl
-bmQgaGVyZSBhcmUgdGhlIG1vc3QgcHJvYmxlbWF0aWMgZmlsZXMgZm9yIG1lLApmb3Igbm93IEkn
-dmUgc2ltcGx5IG5vdCBpbXBvcnQgdGhlbSBhbmQgaGFjayBhcm91bmQgdGhlIGNvZGUgdGhhdCBj
-YWxscwpmdW5jdGlvbnMgZnJvbSB0aGVtIDoKZHJpdmVycy9ncHUvZHJtL2RybV9jbGllbnQuYyBJ
-dCdzIG5vdyByZWFsbHkgdGllZCBpbnRvIHRoZSBkcm0Kc3Vic3lzdGVtIHNvIGl0J3MgaGFyZCB0
-byBpZ25vcmUgaXQsIGZvciBub3cgbm90IG1lcmdpbmcgdGhlIGxhdGVzdApwYXRjaGVzIGZyb20g
-NS40IG1ha2VzIGl0IG9rLWlzaCB0byBpZ25vcmUgaXQuCmRyaXZlcnMvZ3B1L2RybS9kcm1fbGVh
-c2UuYyBJIGNhbiBoYWNrIGFyb3VuZCBpdCBidXQgSSB3b3VsZCBwcmVmZXIgdG8KaW5jbHVkZSBp
-dCBhbmQgc3RvcCBteSBoYWNrcy4KZHJpdmVycy9ncHUvZHJtL2RybV9mb3JtYXRfaGVscGVyLmMg
-YSBsb3Qgb2YgaGVscGVycyBhcmUgaGVyZSBhbmQKbmVlZGVkLCBmb3Igbm93IEknbSB1c2luZyB0
-aGUgb2xkIGZ1bmN0aW9ucyB0aGF0IHdlcmUgTUlUIGxpY2VuY2VkIGJ1dAppdCdzIGtpbmRhIHdy
-b25nIHRvIGRvIGl0IHRoaXMgd2F5LgoKIEZvciB0aGUgZ2VtX2NtYS9nZW1fZnJhbWVidWZmZXIv
-Z2VtX2V0YyAuLi4gd2UgaGF2ZSBvdXIgb3duCmltcGxlbWVudGF0aW9uIHdoZW4gd2UgbmVlZCBv
-bmUsIHRob3NlIGZpbGUgYXJlIHRvbyBjbG9zZSB0byB0aGUgdm0Kc3Vic3lzdGVtIHRvIGJlIHBv
-cnRhYmxlIGFueXdheSBzbyBJIGRvbid0IHJlYWxseSBjYXJlIGlmIHRoZXkgc3RheQpHUExlZC4K
-IEZvciB0aGUgcmVzdCBvZiB0aGUgZmlsZXMgZWl0aGVyIEkgZG9uJ3Qgd2FudCB0aGVtIChfc3lz
-ZnMgYW5kIF9vZiBmb3IKZXhhbXBsZSkgYmVjYXVzZSBpdCBkb24ndCBtYWtlIHNlbnNlIGZvciB1
-cyB0byBoYXZlIHRoZW0gKHN5c2ZzKSBvciB0aGUKc3Vic3lzdGVtIGlzIHRvbyBkaWZmZXJlbnQg
-YmV0d2VlbiBGcmVlQlNELUxpbnV4IChvZikgb3IgSSB0aGUgY3VycmVudApkcml2ZXJzIHRoYXQg
-d2UgaGF2ZSBkb24ndCBuZWVkIHRoZW0gZm9yIG5vdyAod3JpdGViYWNrLCBoZGNwIGV0YyAuLi4p
-CgogVG8gZmluaXNoIHRoaXMgbWFpbCwgSSdkIGxpa2UgdG8gc2F5IHRoYXQgSSB3b3VsZCBsb3Zl
-IHRvIGNvbnRyaWJ1dGUKdG8gRFJNIGFuZCBzb21lIGRyaXZlcnMgKGxpbWEvcGFuZnJvc3QgbW9z
-dGx5KSBidXQgZm9yIG5vdyBJIG5lZWQgdG8Ka2VlcCBpbiBzeW5jIHdpdGggTGludXggYW5kIGZp
-bmlzaCBteSB3b3JrIHNvIEkgY2FuIGNvbW1pdCBpdCBpbnRvIHRoZQpGcmVlQlNEIGtlcm5lbC4g
-S25vd2luZyB0aGF0IGZ1dHVyZSB1cGRhdGVzIHdpbGwgYmUgZWFzaWVyIGZvciBtZQpiZWNhdXNl
-IG9mIGEgbGljZW5jZSBpc3N1ZSB3b3VsZCBiZSBncmVhdCB0byBrbm93IG90aGVyd2lzZSBJIHRo
-aW5rCnRoYXQgYWxsIHRoZSBhdmFpbGFibGUgdGltZSB0aGF0IEkgaGF2ZSBmb3IgRFJNIG9uIEZy
-ZWVCU0Qgd2lsbCBiZSAxMDAlCnJld3JpdHRpbmcgY29tcGF0aWJpbGl0eSBsYXllcnMuCgogQ2hl
-ZXJzLAoKLS0gCkVtbWFudWVsIFZhZG90IDxtYW51QGJpZG91aWxsaXN0ZS5jb20+Cl9fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmRyaS1kZXZlbCBtYWlsaW5n
-IGxpc3QKZHJpLWRldmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVk
-ZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2RyaS1kZXZlbA==
+--===============0846713704==
+Content-Type: multipart/alternative; boundary="000000000000f84ab90597791de4"
+
+--000000000000f84ab90597791de4
+Content-Type: text/plain; charset="UTF-8"
+
+Hi,
+
+With the help of a static bug finder (EBA - https://github.com/IagoAbal/eba)
+I have found a potential double lock in Linux Next tag next-20191115, file
+drivers/gpu/drm/amd/amdgpu/amdgpu_device.c.
+
+This bug seems to be introduced by commit
+e35e2b117f4 ("drm/amdgpu: add a generic fb accessing helper function(v3)").
+
+The steps to reproduce it would be:
+
+1. Start in function `amdgpu_device_vram_access`.
+2. Enter for-loop `for (last += pos; pos <= last; pos += 4)`.
+3. First lock: `spin_lock_irqsave(&adev->mmio_idx_lock, flags)`.
+4. Call to `WREG32_NO_KIQ(mmMM_INDEX, ((uint32_t)pos) | 0x80000000)`.
+   5. Note `#define WREG32_NO_KIQ(reg, v) amdgpu_mm_wreg(adev, (reg), (v),
+AMDGPU_REGS_NO_KIQ)`.
+   6. Continue in function `amdgpu_mm_wreg`.
+   7. Take else-branch in the third if-statement.
+   8. Double lock: `spin_lock_irqsave(&adev->mmio_idx_lock, flags)`.
+
+I think the control flow could reach that second lock, but you may know
+better.
+
+Hope it helps!
+
+-- iago
+
+--000000000000f84ab90597791de4
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Hi,<br><br>With the help of a static bug finder (EBA - <a =
+href=3D"https://github.com/IagoAbal/eba">https://github.com/IagoAbal/eba</a=
+>) I have found a potential double lock in Linux Next tag next-20191115, fi=
+le drivers/gpu/drm/amd/amdgpu/amdgpu_device.c.<br><br>This bug seems to be =
+introduced by commit<br>e35e2b117f4 (&quot;drm/amdgpu: add a generic fb acc=
+essing helper function(v3)&quot;).<br><br>The steps to reproduce it would b=
+e:<br><br>1. Start in function `amdgpu_device_vram_access`.<br>2. Enter for=
+-loop `for (last +=3D pos; pos &lt;=3D last; pos +=3D 4)`.<br>3. First lock=
+: `spin_lock_irqsave(&amp;adev-&gt;mmio_idx_lock, flags)`.<br>4. Call to `W=
+REG32_NO_KIQ(mmMM_INDEX, ((uint32_t)pos) | 0x80000000)`.<br>=C2=A0 =C2=A05.=
+ Note `#define WREG32_NO_KIQ(reg, v) amdgpu_mm_wreg(adev, (reg), (v), AMDGP=
+U_REGS_NO_KIQ)`.<br>=C2=A0 =C2=A06. Continue in function `amdgpu_mm_wreg`.<=
+div>=C2=A0 =C2=A07. Take else-branch in the third if-statement.<br>=C2=A0 =
+=C2=A08. Double lock: `spin_lock_irqsave(&amp;adev-&gt;mmio_idx_lock, flags=
+)`.<br><br>I think the control flow could reach that second lock, but you m=
+ay know better.</div><div><br>Hope it helps!<br clear=3D"all"><div><div dir=
+=3D"ltr" class=3D"gmail_signature" data-smartmail=3D"gmail_signature"><br>-=
+- iago</div></div></div></div>
+
+--000000000000f84ab90597791de4--
+
+--===============0846713704==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+
+--===============0846713704==--
