@@ -1,58 +1,55 @@
-From: "Yuan, Xiaojie" <Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: remove experimental flag for Navi14
-Date: Sat, 16 Nov 2019 03:27:35 +0000
-Message-ID: <9EF5D42F-686F-4867-ADBE-29FF357F8EB9@amd.com>
-References: <20191115145146.387393-1-alexander.deucher@amd.com>
+From: Chen Wandun <chenwandun@huawei.com>
+Subject: [PATCH] drm/amd/powerplay: remove variable 'result' set but not used
+Date: Sat, 16 Nov 2019 11:43:19 +0800
+Message-ID: <1573875799-83572-1-git-send-email-chenwandun@huawei.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20191115145146.387393-1-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Type: text/plain
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: alexander.deucher@amd.com, evan.quan@amd.com, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Cc: chenwandun@huawei.com
+List-Id: amd-gfx.lists.freedesktop.org
 
-UmV2aWV3ZWQtYnk6IFhpYW9qaWUgWXVhbiA8eGlhb2ppZS55dWFuQGFtZC5jb20+CgpCUiwKWGlh
-b2ppZQoKPiBPbiBOb3YgMTUsIDIwMTksIGF0IDEwOjUxIFBNLCBBbGV4IERldWNoZXIgPGFsZXhk
-ZXVjaGVyQGdtYWlsLmNvbT4gd3JvdGU6Cj4gCj4gNS40IGFuZCBuZXdlciB3b3JrcyBmaW5lIHdp
-dGggbmF2aTE0Lgo+IAo+IFNpZ25lZC1vZmYtYnk6IEFsZXggRGV1Y2hlciA8YWxleGFuZGVyLmRl
-dWNoZXJAYW1kLmNvbT4KPiAtLS0KPiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
-ZHJ2LmMgfCA4ICsrKystLS0tCj4gMSBmaWxlIGNoYW5nZWQsIDQgaW5zZXJ0aW9ucygrKSwgNCBk
-ZWxldGlvbnMoLSkKPiAKPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
-YW1kZ3B1X2Rydi5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rydi5jCj4g
-aW5kZXggZTFjMTU3MjE2MTFhLi5iMTkxNTdiMTlmYTAgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9n
-cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rydi5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9hbWRncHUvYW1kZ3B1X2Rydi5jCj4gQEAgLTEwMTMsMTAgKzEwMTMsMTAgQEAgc3RhdGljIGNv
-bnN0IHN0cnVjdCBwY2lfZGV2aWNlX2lkIHBjaWlkbGlzdFtdID0gewo+ICAgIHsweDEwMDIsIDB4
-NzMxQiwgUENJX0FOWV9JRCwgUENJX0FOWV9JRCwgMCwgMCwgQ0hJUF9OQVZJMTB9LAo+ICAgIHsw
-eDEwMDIsIDB4NzMxRiwgUENJX0FOWV9JRCwgUENJX0FOWV9JRCwgMCwgMCwgQ0hJUF9OQVZJMTB9
-LAo+ICAgIC8qIE5hdmkxNCAqLwo+IC0gICAgezB4MTAwMiwgMHg3MzQwLCBQQ0lfQU5ZX0lELCBQ
-Q0lfQU5ZX0lELCAwLCAwLCBDSElQX05BVkkxNHxBTURfRVhQX0hXX1NVUFBPUlR9LAo+IC0gICAg
-ezB4MTAwMiwgMHg3MzQxLCBQQ0lfQU5ZX0lELCBQQ0lfQU5ZX0lELCAwLCAwLCBDSElQX05BVkkx
-NHxBTURfRVhQX0hXX1NVUFBPUlR9LAo+IC0gICAgezB4MTAwMiwgMHg3MzQ3LCBQQ0lfQU5ZX0lE
-LCBQQ0lfQU5ZX0lELCAwLCAwLCBDSElQX05BVkkxNHxBTURfRVhQX0hXX1NVUFBPUlR9LAo+IC0g
-ICAgezB4MTAwMiwgMHg3MzRGLCBQQ0lfQU5ZX0lELCBQQ0lfQU5ZX0lELCAwLCAwLCBDSElQX05B
-VkkxNHxBTURfRVhQX0hXX1NVUFBPUlR9LAo+ICsgICAgezB4MTAwMiwgMHg3MzQwLCBQQ0lfQU5Z
-X0lELCBQQ0lfQU5ZX0lELCAwLCAwLCBDSElQX05BVkkxNH0sCj4gKyAgICB7MHgxMDAyLCAweDcz
-NDEsIFBDSV9BTllfSUQsIFBDSV9BTllfSUQsIDAsIDAsIENISVBfTkFWSTE0fSwKPiArICAgIHsw
-eDEwMDIsIDB4NzM0NywgUENJX0FOWV9JRCwgUENJX0FOWV9JRCwgMCwgMCwgQ0hJUF9OQVZJMTR9
-LAo+ICsgICAgezB4MTAwMiwgMHg3MzRGLCBQQ0lfQU5ZX0lELCBQQ0lfQU5ZX0lELCAwLCAwLCBD
-SElQX05BVkkxNH0sCj4gCj4gICAgLyogUmVub2lyICovCj4gICAgezB4MTAwMiwgMHgxNjM2LCBQ
-Q0lfQU5ZX0lELCBQQ0lfQU5ZX0lELCAwLCAwLCBDSElQX1JFTk9JUnxBTURfSVNfQVBVfEFNRF9F
-WFBfSFdfU1VQUE9SVH0sCj4gLS0gCj4gMi4yMy4wCj4gCj4gX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX18KPiBhbWQtZ2Z4IG1haWxpbmcgbGlzdAo+IGFtZC1n
-ZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcv
-bWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRl
-c2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8v
-YW1kLWdmeA==
+Fixes gcc '-Wunused-but-set-variable' warning:
+
+drivers/gpu/drm/amd/amdgpu/../powerplay/smumgr/vegam_smumgr.c: In function vegam_populate_smc_boot_level:
+drivers/gpu/drm/amd/amdgpu/../powerplay/smumgr/vegam_smumgr.c:1364:6: warning: variable result set but not used [-Wunused-but-set-variable]
+
+Signed-off-by: Chen Wandun <chenwandun@huawei.com>
+---
+ drivers/gpu/drm/amd/powerplay/smumgr/vegam_smumgr.c | 13 ++++++-------
+ 1 file changed, 6 insertions(+), 7 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/powerplay/smumgr/vegam_smumgr.c b/drivers/gpu/drm/amd/powerplay/smumgr/vegam_smumgr.c
+index 2068eb0..fad78bf 100644
+--- a/drivers/gpu/drm/amd/powerplay/smumgr/vegam_smumgr.c
++++ b/drivers/gpu/drm/amd/powerplay/smumgr/vegam_smumgr.c
+@@ -1361,20 +1361,19 @@ static int vegam_populate_smc_uvd_level(struct pp_hwmgr *hwmgr,
+ static int vegam_populate_smc_boot_level(struct pp_hwmgr *hwmgr,
+ 		struct SMU75_Discrete_DpmTable *table)
+ {
+-	int result = 0;
+ 	struct smu7_hwmgr *data = (struct smu7_hwmgr *)(hwmgr->backend);
+ 
+ 	table->GraphicsBootLevel = 0;
+ 	table->MemoryBootLevel = 0;
+ 
+ 	/* find boot level from dpm table */
+-	result = phm_find_boot_level(&(data->dpm_table.sclk_table),
+-			data->vbios_boot_state.sclk_bootup_value,
+-			(uint32_t *)&(table->GraphicsBootLevel));
++	phm_find_boot_level(&(data->dpm_table.sclk_table),
++			    data->vbios_boot_state.sclk_bootup_value,
++			    (uint32_t *)&(table->GraphicsBootLevel));
+ 
+-	result = phm_find_boot_level(&(data->dpm_table.mclk_table),
+-			data->vbios_boot_state.mclk_bootup_value,
+-			(uint32_t *)&(table->MemoryBootLevel));
++	phm_find_boot_level(&(data->dpm_table.mclk_table),
++			    data->vbios_boot_state.mclk_bootup_value,
++			    (uint32_t *)&(table->MemoryBootLevel));
+ 
+ 	table->BootVddc  = data->vbios_boot_state.vddc_bootup_value *
+ 			VOLTAGE_SCALE;
+-- 
+2.7.4
