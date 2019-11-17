@@ -1,33 +1,36 @@
-From: Luya Tshimbalanga <luya-rxtnV0ftBwyoClj4AeEUq9i2O/JbrIOy@public.gmane.org>
-Subject: [Follow-Up] Status of AMD Sensor Fusion hub
-Date: Sun, 17 Nov 2019 00:32:26 -0800
-Message-ID: <dee5370f-bd93-cc77-d2db-ab99fa09c0b4@fedoraproject.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Content-Language: en-CA
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+From: Aditya Pakki <pakki001@umn.edu>
+Subject: [PATCH] drm/amd/display: Fix error returned by program_hpd_filter
+Date: Sun, 17 Nov 2019 11:22:34 -0600
+Message-ID: <20191117172236.2140-1-pakki001@umn.edu>
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: pakki001@umn.edu
+Cc: kjlu@umn.edu, Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>, Anthony Koo <Anthony.Koo@amd.com>, Jun Lei <Jun.Lei@amd.com>, David Francis <David.Francis@amd.com>, Eric Yang <Eric.Yang2@amd.com>, Nikola Cornij <nikola.cornij@amd.com>, Eric Bernstein <eric.bernstein@amd.com>, Chris Park <Chris.Park@amd.com>, Wenjing Liu <Wenjing.Liu@amd.com>, David Galiffi <david.galiffi@amd.com>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.or
+List-Id: amd-gfx.lists.freedesktop.org
 
-SGVsbG8gdGVhbSwKCldoYXQgaXMgdGhlIGN1cnJlbnQgc3RhdHVzIG9mIEFNRCBTZW5zb3VyIEZ1
-c2lvbiBodWIgZHJpdmVyIGZvciB0aGUgCkxpbnV4IGtlcm5lbC4gTGFzdCBtb250aCBzdW1tYXJ5
-IHdhcyB0aGUgRkNIIHRlYW0gcmVzdHJ1Y3R1cmVkIHRoZSBjb2RlIAphbmQgdGhlIGluaXRpYWwg
-aW1wbGVtZW50YXRpb24gc2hvdWxkIGJlIHJlYWR5LgoKSSBsb29rZWQgYXQgdGhlIExpbnV4IElJ
-TyBwYXRjaHdvcmsgbWFpbGluZyBsaXN0IFsxXSB0byB0cnkgaXQgYW5kIApwcm92aWRlIGEgZmVl
-ZGJhY2sgZm9yIHRoZSBzZW5zb3IgZnVzaW9uIHRvIG5vdCBhdmFpbGFibGUuCgpUaGFua3MgaW4g
-YWR2YW5jZSBmb3IgdGhlIHVwZGF0ZS4KCgpSZWZlcmVuY2UKCi0tLS0tLS0tLS0tLS0tLQoKWzFd
-IGh0dHBzOi8vcGF0Y2h3b3JrLmtlcm5lbC5vcmcvcHJvamVjdC9saW51eC1paW8vbGlzdC8KCi0t
-IApMdXlhIFRzaGltYmFsYW5nYQpGZWRvcmEgRGVzaWduIFRlYW0KRmVkb3JhIERlc2lnbiBTdWl0
-ZSBtYWludGFpbmVyCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpo
-dHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
+program_hpd_filter() currently fails to check for the errors
+returned in construct(). This patch returns error in
+case of failure.
+
+Signed-off-by: Aditya Pakki <pakki001@umn.edu>
+---
+ drivers/gpu/drm/amd/display/dc/core/dc_link.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link.c b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
+index ca20b150afcc..bbb648a50c41 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_link.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
+@@ -1379,9 +1379,8 @@ static bool construct(
+ 	 * If GPIO isn't programmed correctly HPD might not rise or drain
+ 	 * fast enough, leading to bounces.
+ 	 */
+-	program_hpd_filter(link);
++	return program_hpd_filter(link);
+ 
+-	return true;
+ device_tag_fail:
+ 	link->link_enc->funcs->destroy(&link->link_enc);
+ link_enc_create_fail:
+-- 
+2.17.1
