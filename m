@@ -1,36 +1,630 @@
-From: Aditya Pakki <pakki001@umn.edu>
-Subject: [PATCH] drm/amd/display: Fix error returned by program_hpd_filter
-Date: Sun, 17 Nov 2019 11:22:34 -0600
-Message-ID: <20191117172236.2140-1-pakki001@umn.edu>
+From: Frederick Lawler <fred@fredlawl.com>
+Subject: [PATCH v2 1/1] drm: Prefer pcie_capability_read_word()
+Date: Sun, 17 Nov 2019 18:35:13 -0600
+Message-ID: <20191118003513.10852-1-fred@fredlawl.com>
+Mime-Version: 1.0
+Content-Transfer-Encoding: 8bit
 Return-path: <linux-kernel-owner@vger.kernel.org>
 Sender: linux-kernel-owner@vger.kernel.org
-To: pakki001@umn.edu
-Cc: kjlu@umn.edu, Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>, Anthony Koo <Anthony.Koo@amd.com>, Jun Lei <Jun.Lei@amd.com>, David Francis <David.Francis@amd.com>, Eric Yang <Eric.Yang2@amd.com>, Nikola Cornij <nikola.cornij@amd.com>, Eric Bernstein <eric.bernstein@amd.com>, Chris Park <Chris.Park@amd.com>, Wenjing Liu <Wenjing.Liu@amd.com>, David Galiffi <david.galiffi@amd.com>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.or
+To: alexander.deucher@amd.com, christian.koenig@amd.com, David1.Zhou@amd.com, airlied@linux.ie, daniel@ffwll.ch, bhelgaas@google.com
+Cc: Frederick Lawler <fred@fredlawl.com>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, linux-pci@vger.kernel.org, imirkin@alum.mit.edu
 List-Id: amd-gfx.lists.freedesktop.org
 
-program_hpd_filter() currently fails to check for the errors
-returned in construct(). This patch returns error in
-case of failure.
+Commit 8c0d3a02c130 ("PCI: Add accessors for PCI Express Capability")
+added accessors for the PCI Express Capability so that drivers didn't
+need to be aware of differences between v1 and v2 of the PCI
+Express Capability.
 
-Signed-off-by: Aditya Pakki <pakki001@umn.edu>
+Replace pci_read_config_word() and pci_write_config_word() calls with
+pcie_capability_read_word() and pcie_capability_write_word().
+
+Signed-off-by: Frederick Lawler <fred@fredlawl.com>
+
 ---
- drivers/gpu/drm/amd/display/dc/core/dc_link.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+V2
+- Squash both drm commits into one
+- Rebase ontop of d46eac1e658b
+---
+ drivers/gpu/drm/amd/amdgpu/cik.c | 63 ++++++++++++++++-----------
+ drivers/gpu/drm/amd/amdgpu/si.c  | 71 +++++++++++++++++++------------
+ drivers/gpu/drm/radeon/cik.c     | 70 ++++++++++++++++++------------
+ drivers/gpu/drm/radeon/si.c      | 73 ++++++++++++++++++++------------
+ 4 files changed, 174 insertions(+), 103 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link.c b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-index ca20b150afcc..bbb648a50c41 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-@@ -1379,9 +1379,8 @@ static bool construct(
- 	 * If GPIO isn't programmed correctly HPD might not rise or drain
- 	 * fast enough, leading to bounces.
- 	 */
--	program_hpd_filter(link);
-+	return program_hpd_filter(link);
+diff --git a/drivers/gpu/drm/amd/amdgpu/cik.c b/drivers/gpu/drm/amd/amdgpu/cik.c
+index 3067bb874032..f369e3408ed2 100644
+--- a/drivers/gpu/drm/amd/amdgpu/cik.c
++++ b/drivers/gpu/drm/amd/amdgpu/cik.c
+@@ -1384,7 +1384,6 @@ static int cik_set_vce_clocks(struct amdgpu_device *adev, u32 evclk, u32 ecclk)
+ static void cik_pcie_gen3_enable(struct amdgpu_device *adev)
+ {
+ 	struct pci_dev *root = adev->pdev->bus->self;
+-	int bridge_pos, gpu_pos;
+ 	u32 speed_cntl, current_data_rate;
+ 	int i;
+ 	u16 tmp16;
+@@ -1419,12 +1418,7 @@ static void cik_pcie_gen3_enable(struct amdgpu_device *adev)
+ 		DRM_INFO("enabling PCIE gen 2 link speeds, disable with amdgpu.pcie_gen2=0\n");
+ 	}
  
--	return true;
- device_tag_fail:
- 	link->link_enc->funcs->destroy(&link->link_enc);
- link_enc_create_fail:
+-	bridge_pos = pci_pcie_cap(root);
+-	if (!bridge_pos)
+-		return;
+-
+-	gpu_pos = pci_pcie_cap(adev->pdev);
+-	if (!gpu_pos)
++	if (!pci_is_pcie(root) || !pci_is_pcie(adev->pdev))
+ 		return;
+ 
+ 	if (adev->pm.pcie_gen_mask & CAIL_PCIE_LINK_SPEED_SUPPORT_GEN3) {
+@@ -1434,14 +1428,17 @@ static void cik_pcie_gen3_enable(struct amdgpu_device *adev)
+ 			u16 bridge_cfg2, gpu_cfg2;
+ 			u32 max_lw, current_lw, tmp;
+ 
+-			pci_read_config_word(root, bridge_pos + PCI_EXP_LNKCTL, &bridge_cfg);
+-			pci_read_config_word(adev->pdev, gpu_pos + PCI_EXP_LNKCTL, &gpu_cfg);
++			pcie_capability_read_word(root, PCI_EXP_LNKCTL,
++						  &bridge_cfg);
++			pcie_capability_read_word(adev->pdev, PCI_EXP_LNKCTL,
++						  &gpu_cfg);
+ 
+ 			tmp16 = bridge_cfg | PCI_EXP_LNKCTL_HAWD;
+-			pci_write_config_word(root, bridge_pos + PCI_EXP_LNKCTL, tmp16);
++			pcie_capability_write_word(root, PCI_EXP_LNKCTL, tmp16);
+ 
+ 			tmp16 = gpu_cfg | PCI_EXP_LNKCTL_HAWD;
+-			pci_write_config_word(adev->pdev, gpu_pos + PCI_EXP_LNKCTL, tmp16);
++			pcie_capability_write_word(adev->pdev, PCI_EXP_LNKCTL,
++						   tmp16);
+ 
+ 			tmp = RREG32_PCIE(ixPCIE_LC_STATUS1);
+ 			max_lw = (tmp & PCIE_LC_STATUS1__LC_DETECTED_LINK_WIDTH_MASK) >>
+@@ -1465,15 +1462,23 @@ static void cik_pcie_gen3_enable(struct amdgpu_device *adev)
+ 
+ 			for (i = 0; i < 10; i++) {
+ 				/* check status */
+-				pci_read_config_word(adev->pdev, gpu_pos + PCI_EXP_DEVSTA, &tmp16);
++				pcie_capability_read_word(adev->pdev,
++							  PCI_EXP_DEVSTA,
++							  &tmp16);
+ 				if (tmp16 & PCI_EXP_DEVSTA_TRPND)
+ 					break;
+ 
+-				pci_read_config_word(root, bridge_pos + PCI_EXP_LNKCTL, &bridge_cfg);
+-				pci_read_config_word(adev->pdev, gpu_pos + PCI_EXP_LNKCTL, &gpu_cfg);
++				pcie_capability_read_word(root, PCI_EXP_LNKCTL,
++							  &bridge_cfg);
++				pcie_capability_read_word(adev->pdev,
++							  PCI_EXP_LNKCTL,
++							  &gpu_cfg);
+ 
+-				pci_read_config_word(root, bridge_pos + PCI_EXP_LNKCTL2, &bridge_cfg2);
+-				pci_read_config_word(adev->pdev, gpu_pos + PCI_EXP_LNKCTL2, &gpu_cfg2);
++				pcie_capability_read_word(root, PCI_EXP_LNKCTL2,
++							  &bridge_cfg2);
++				pcie_capability_read_word(adev->pdev,
++							  PCI_EXP_LNKCTL2,
++							  &gpu_cfg2);
+ 
+ 				tmp = RREG32_PCIE(ixPCIE_LC_CNTL4);
+ 				tmp |= PCIE_LC_CNTL4__LC_SET_QUIESCE_MASK;
+@@ -1486,18 +1491,25 @@ static void cik_pcie_gen3_enable(struct amdgpu_device *adev)
+ 				msleep(100);
+ 
+ 				/* linkctl */
+-				pci_read_config_word(root, bridge_pos + PCI_EXP_LNKCTL, &tmp16);
++				pcie_capability_read_word(root, PCI_EXP_LNKCTL,
++							  &tmp16);
+ 				tmp16 &= ~PCI_EXP_LNKCTL_HAWD;
+ 				tmp16 |= (bridge_cfg & PCI_EXP_LNKCTL_HAWD);
+-				pci_write_config_word(root, bridge_pos + PCI_EXP_LNKCTL, tmp16);
++				pcie_capability_write_word(root, PCI_EXP_LNKCTL,
++							   tmp16);
+ 
+-				pci_read_config_word(adev->pdev, gpu_pos + PCI_EXP_LNKCTL, &tmp16);
++				pcie_capability_read_word(adev->pdev,
++							  PCI_EXP_LNKCTL,
++							  &tmp16);
+ 				tmp16 &= ~PCI_EXP_LNKCTL_HAWD;
+ 				tmp16 |= (gpu_cfg & PCI_EXP_LNKCTL_HAWD);
+-				pci_write_config_word(adev->pdev, gpu_pos + PCI_EXP_LNKCTL, tmp16);
++				pcie_capability_write_word(adev->pdev,
++							   PCI_EXP_LNKCTL,
++							   tmp16);
+ 
+ 				/* linkctl2 */
+-				pci_read_config_word(root, bridge_pos + PCI_EXP_LNKCTL2, &tmp16);
++				pcie_capability_read_word(root, PCI_EXP_LNKCTL2,
++							  &tmp16);
+ 				tmp16 &= ~(PCI_EXP_LNKCTL2_ENTER_COMP |
+ 					   PCI_EXP_LNKCTL2_TX_MARGIN);
+ 				tmp16 |= (bridge_cfg2 &
+@@ -1511,7 +1523,9 @@ static void cik_pcie_gen3_enable(struct amdgpu_device *adev)
+ 				tmp16 |= (gpu_cfg2 &
+ 					  (PCI_EXP_LNKCTL2_ENTER_COMP |
+ 					   PCI_EXP_LNKCTL2_TX_MARGIN));
+-				pci_write_config_word(adev->pdev, gpu_pos + PCI_EXP_LNKCTL2, tmp16);
++				pcie_capability_write_word(adev->pdev,
++							   PCI_EXP_LNKCTL2,
++							   tmp16);
+ 
+ 				tmp = RREG32_PCIE(ixPCIE_LC_CNTL4);
+ 				tmp &= ~PCIE_LC_CNTL4__LC_SET_QUIESCE_MASK;
+@@ -1526,15 +1540,16 @@ static void cik_pcie_gen3_enable(struct amdgpu_device *adev)
+ 	speed_cntl &= ~PCIE_LC_SPEED_CNTL__LC_FORCE_DIS_SW_SPEED_CHANGE_MASK;
+ 	WREG32_PCIE(ixPCIE_LC_SPEED_CNTL, speed_cntl);
+ 
+-	pci_read_config_word(adev->pdev, gpu_pos + PCI_EXP_LNKCTL2, &tmp16);
++	pcie_capability_read_word(adev->pdev, PCI_EXP_LNKCTL2, &tmp16);
+ 	tmp16 &= ~PCI_EXP_LNKCTL2_TLS;
++
+ 	if (adev->pm.pcie_gen_mask & CAIL_PCIE_LINK_SPEED_SUPPORT_GEN3)
+ 		tmp16 |= PCI_EXP_LNKCTL2_TLS_8_0GT; /* gen3 */
+ 	else if (adev->pm.pcie_gen_mask & CAIL_PCIE_LINK_SPEED_SUPPORT_GEN2)
+ 		tmp16 |= PCI_EXP_LNKCTL2_TLS_5_0GT; /* gen2 */
+ 	else
+ 		tmp16 |= PCI_EXP_LNKCTL2_TLS_2_5GT; /* gen1 */
+-	pci_write_config_word(adev->pdev, gpu_pos + PCI_EXP_LNKCTL2, tmp16);
++	pcie_capability_write_word(adev->pdev, PCI_EXP_LNKCTL2, tmp16);
+ 
+ 	speed_cntl = RREG32_PCIE(ixPCIE_LC_SPEED_CNTL);
+ 	speed_cntl |= PCIE_LC_SPEED_CNTL__LC_INITIATE_LINK_SPEED_CHANGE_MASK;
+diff --git a/drivers/gpu/drm/amd/amdgpu/si.c b/drivers/gpu/drm/amd/amdgpu/si.c
+index a7dcb0d0f039..9f82be879224 100644
+--- a/drivers/gpu/drm/amd/amdgpu/si.c
++++ b/drivers/gpu/drm/amd/amdgpu/si.c
+@@ -1633,7 +1633,6 @@ static void si_init_golden_registers(struct amdgpu_device *adev)
+ static void si_pcie_gen3_enable(struct amdgpu_device *adev)
+ {
+ 	struct pci_dev *root = adev->pdev->bus->self;
+-	int bridge_pos, gpu_pos;
+ 	u32 speed_cntl, current_data_rate;
+ 	int i;
+ 	u16 tmp16;
+@@ -1668,12 +1667,7 @@ static void si_pcie_gen3_enable(struct amdgpu_device *adev)
+ 		DRM_INFO("enabling PCIE gen 2 link speeds, disable with amdgpu.pcie_gen2=0\n");
+ 	}
+ 
+-	bridge_pos = pci_pcie_cap(root);
+-	if (!bridge_pos)
+-		return;
+-
+-	gpu_pos = pci_pcie_cap(adev->pdev);
+-	if (!gpu_pos)
++	if (!pci_is_pcie(root) || !pci_is_pcie(adev->pdev))
+ 		return;
+ 
+ 	if (adev->pm.pcie_gen_mask & CAIL_PCIE_LINK_SPEED_SUPPORT_GEN3) {
+@@ -1682,14 +1676,17 @@ static void si_pcie_gen3_enable(struct amdgpu_device *adev)
+ 			u16 bridge_cfg2, gpu_cfg2;
+ 			u32 max_lw, current_lw, tmp;
+ 
+-			pci_read_config_word(root, bridge_pos + PCI_EXP_LNKCTL, &bridge_cfg);
+-			pci_read_config_word(adev->pdev, gpu_pos + PCI_EXP_LNKCTL, &gpu_cfg);
++			pcie_capability_read_word(root, PCI_EXP_LNKCTL,
++						  &bridge_cfg);
++			pcie_capability_read_word(adev->pdev, PCI_EXP_LNKCTL,
++						  &gpu_cfg);
+ 
+ 			tmp16 = bridge_cfg | PCI_EXP_LNKCTL_HAWD;
+-			pci_write_config_word(root, bridge_pos + PCI_EXP_LNKCTL, tmp16);
++			pcie_capability_write_word(root, PCI_EXP_LNKCTL, tmp16);
+ 
+ 			tmp16 = gpu_cfg | PCI_EXP_LNKCTL_HAWD;
+-			pci_write_config_word(adev->pdev, gpu_pos + PCI_EXP_LNKCTL, tmp16);
++			pcie_capability_write_word(adev->pdev, PCI_EXP_LNKCTL,
++						   tmp16);
+ 
+ 			tmp = RREG32_PCIE(PCIE_LC_STATUS1);
+ 			max_lw = (tmp & LC_DETECTED_LINK_WIDTH_MASK) >> LC_DETECTED_LINK_WIDTH_SHIFT;
+@@ -1706,15 +1703,23 @@ static void si_pcie_gen3_enable(struct amdgpu_device *adev)
+ 			}
+ 
+ 			for (i = 0; i < 10; i++) {
+-				pci_read_config_word(adev->pdev, gpu_pos + PCI_EXP_DEVSTA, &tmp16);
++				pcie_capability_read_word(adev->pdev,
++							  PCI_EXP_DEVSTA,
++							  &tmp16);
+ 				if (tmp16 & PCI_EXP_DEVSTA_TRPND)
+ 					break;
+ 
+-				pci_read_config_word(root, bridge_pos + PCI_EXP_LNKCTL, &bridge_cfg);
+-				pci_read_config_word(adev->pdev, gpu_pos + PCI_EXP_LNKCTL, &gpu_cfg);
++				pcie_capability_read_word(root, PCI_EXP_LNKCTL,
++							  &bridge_cfg);
++				pcie_capability_read_word(adev->pdev,
++							  PCI_EXP_LNKCTL,
++							  &gpu_cfg);
+ 
+-				pci_read_config_word(root, bridge_pos + PCI_EXP_LNKCTL2, &bridge_cfg2);
+-				pci_read_config_word(adev->pdev, gpu_pos + PCI_EXP_LNKCTL2, &gpu_cfg2);
++				pcie_capability_read_word(root, PCI_EXP_LNKCTL2,
++							  &bridge_cfg2);
++				pcie_capability_read_word(adev->pdev,
++							  PCI_EXP_LNKCTL2,
++							  &gpu_cfg2);
+ 
+ 				tmp = RREG32_PCIE_PORT(PCIE_LC_CNTL4);
+ 				tmp |= LC_SET_QUIESCE;
+@@ -1726,31 +1731,44 @@ static void si_pcie_gen3_enable(struct amdgpu_device *adev)
+ 
+ 				mdelay(100);
+ 
+-				pci_read_config_word(root, bridge_pos + PCI_EXP_LNKCTL, &tmp16);
++				pcie_capability_read_word(root, PCI_EXP_LNKCTL,
++							  &tmp16);
+ 				tmp16 &= ~PCI_EXP_LNKCTL_HAWD;
+ 				tmp16 |= (bridge_cfg & PCI_EXP_LNKCTL_HAWD);
+-				pci_write_config_word(root, bridge_pos + PCI_EXP_LNKCTL, tmp16);
++				pcie_capability_write_word(root, PCI_EXP_LNKCTL,
++							   tmp16);
+ 
+-				pci_read_config_word(adev->pdev, gpu_pos + PCI_EXP_LNKCTL, &tmp16);
++				pcie_capability_read_word(adev->pdev,
++							  PCI_EXP_LNKCTL,
++							  &tmp16);
+ 				tmp16 &= ~PCI_EXP_LNKCTL_HAWD;
+ 				tmp16 |= (gpu_cfg & PCI_EXP_LNKCTL_HAWD);
+-				pci_write_config_word(adev->pdev, gpu_pos + PCI_EXP_LNKCTL, tmp16);
++				pcie_capability_write_word(adev->pdev,
++							   PCI_EXP_LNKCTL,
++							   tmp16);
+ 
+-				pci_read_config_word(root, bridge_pos + PCI_EXP_LNKCTL2, &tmp16);
++				pcie_capability_read_word(root, PCI_EXP_LNKCTL2,
++							  &tmp16);
+ 				tmp16 &= ~(PCI_EXP_LNKCTL2_ENTER_COMP |
+ 					   PCI_EXP_LNKCTL2_TX_MARGIN);
+ 				tmp16 |= (bridge_cfg2 &
+ 					  (PCI_EXP_LNKCTL2_ENTER_COMP |
+ 					   PCI_EXP_LNKCTL2_TX_MARGIN));
+-				pci_write_config_word(root, bridge_pos + PCI_EXP_LNKCTL2, tmp16);
++				pcie_capability_write_word(root,
++							   PCI_EXP_LNKCTL2,
++							   tmp16);
+ 
+-				pci_read_config_word(adev->pdev, gpu_pos + PCI_EXP_LNKCTL2, &tmp16);
++				pcie_capability_read_word(adev->pdev,
++							  PCI_EXP_LNKCTL2,
++							  &tmp16);
+ 				tmp16 &= ~(PCI_EXP_LNKCTL2_ENTER_COMP |
+ 					   PCI_EXP_LNKCTL2_TX_MARGIN);
+ 				tmp16 |= (gpu_cfg2 &
+ 					  (PCI_EXP_LNKCTL2_ENTER_COMP |
+ 					   PCI_EXP_LNKCTL2_TX_MARGIN));
+-				pci_write_config_word(adev->pdev, gpu_pos + PCI_EXP_LNKCTL2, tmp16);
++				pcie_capability_write_word(adev->pdev,
++							   PCI_EXP_LNKCTL2,
++							   tmp16);
+ 
+ 				tmp = RREG32_PCIE_PORT(PCIE_LC_CNTL4);
+ 				tmp &= ~LC_SET_QUIESCE;
+@@ -1763,15 +1781,16 @@ static void si_pcie_gen3_enable(struct amdgpu_device *adev)
+ 	speed_cntl &= ~LC_FORCE_DIS_SW_SPEED_CHANGE;
+ 	WREG32_PCIE_PORT(PCIE_LC_SPEED_CNTL, speed_cntl);
+ 
+-	pci_read_config_word(adev->pdev, gpu_pos + PCI_EXP_LNKCTL2, &tmp16);
++	pcie_capability_read_word(adev->pdev, PCI_EXP_LNKCTL2, &tmp16);
+ 	tmp16 &= ~PCI_EXP_LNKCTL2_TLS;
++
+ 	if (adev->pm.pcie_gen_mask & CAIL_PCIE_LINK_SPEED_SUPPORT_GEN3)
+ 		tmp16 |= PCI_EXP_LNKCTL2_TLS_8_0GT; /* gen3 */
+ 	else if (adev->pm.pcie_gen_mask & CAIL_PCIE_LINK_SPEED_SUPPORT_GEN2)
+ 		tmp16 |= PCI_EXP_LNKCTL2_TLS_5_0GT; /* gen2 */
+ 	else
+ 		tmp16 |= PCI_EXP_LNKCTL2_TLS_2_5GT; /* gen1 */
+-	pci_write_config_word(adev->pdev, gpu_pos + PCI_EXP_LNKCTL2, tmp16);
++	pcie_capability_write_word(adev->pdev, PCI_EXP_LNKCTL2, tmp16);
+ 
+ 	speed_cntl = RREG32_PCIE_PORT(PCIE_LC_SPEED_CNTL);
+ 	speed_cntl |= LC_INITIATE_LINK_SPEED_CHANGE;
+diff --git a/drivers/gpu/drm/radeon/cik.c b/drivers/gpu/drm/radeon/cik.c
+index a280442c81aa..09a4709e67f0 100644
+--- a/drivers/gpu/drm/radeon/cik.c
++++ b/drivers/gpu/drm/radeon/cik.c
+@@ -9504,7 +9504,6 @@ static void cik_pcie_gen3_enable(struct radeon_device *rdev)
+ {
+ 	struct pci_dev *root = rdev->pdev->bus->self;
+ 	enum pci_bus_speed speed_cap;
+-	int bridge_pos, gpu_pos;
+ 	u32 speed_cntl, current_data_rate;
+ 	int i;
+ 	u16 tmp16;
+@@ -9546,12 +9545,7 @@ static void cik_pcie_gen3_enable(struct radeon_device *rdev)
+ 		DRM_INFO("enabling PCIE gen 2 link speeds, disable with radeon.pcie_gen2=0\n");
+ 	}
+ 
+-	bridge_pos = pci_pcie_cap(root);
+-	if (!bridge_pos)
+-		return;
+-
+-	gpu_pos = pci_pcie_cap(rdev->pdev);
+-	if (!gpu_pos)
++	if (!pci_is_pcie(root) || !pci_is_pcie(rdev->pdev))
+ 		return;
+ 
+ 	if (speed_cap == PCIE_SPEED_8_0GT) {
+@@ -9561,14 +9555,17 @@ static void cik_pcie_gen3_enable(struct radeon_device *rdev)
+ 			u16 bridge_cfg2, gpu_cfg2;
+ 			u32 max_lw, current_lw, tmp;
+ 
+-			pci_read_config_word(root, bridge_pos + PCI_EXP_LNKCTL, &bridge_cfg);
+-			pci_read_config_word(rdev->pdev, gpu_pos + PCI_EXP_LNKCTL, &gpu_cfg);
++			pcie_capability_read_word(root, PCI_EXP_LNKCTL,
++						  &bridge_cfg);
++			pcie_capability_read_word(rdev->pdev, PCI_EXP_LNKCTL,
++						  &gpu_cfg);
+ 
+ 			tmp16 = bridge_cfg | PCI_EXP_LNKCTL_HAWD;
+-			pci_write_config_word(root, bridge_pos + PCI_EXP_LNKCTL, tmp16);
++			pcie_capability_write_word(root, PCI_EXP_LNKCTL, tmp16);
+ 
+ 			tmp16 = gpu_cfg | PCI_EXP_LNKCTL_HAWD;
+-			pci_write_config_word(rdev->pdev, gpu_pos + PCI_EXP_LNKCTL, tmp16);
++			pcie_capability_write_word(rdev->pdev, PCI_EXP_LNKCTL,
++						   tmp16);
+ 
+ 			tmp = RREG32_PCIE_PORT(PCIE_LC_STATUS1);
+ 			max_lw = (tmp & LC_DETECTED_LINK_WIDTH_MASK) >> LC_DETECTED_LINK_WIDTH_SHIFT;
+@@ -9586,15 +9583,23 @@ static void cik_pcie_gen3_enable(struct radeon_device *rdev)
+ 
+ 			for (i = 0; i < 10; i++) {
+ 				/* check status */
+-				pci_read_config_word(rdev->pdev, gpu_pos + PCI_EXP_DEVSTA, &tmp16);
++				pcie_capability_read_word(rdev->pdev,
++							  PCI_EXP_DEVSTA,
++							  &tmp16);
+ 				if (tmp16 & PCI_EXP_DEVSTA_TRPND)
+ 					break;
+ 
+-				pci_read_config_word(root, bridge_pos + PCI_EXP_LNKCTL, &bridge_cfg);
+-				pci_read_config_word(rdev->pdev, gpu_pos + PCI_EXP_LNKCTL, &gpu_cfg);
++				pcie_capability_read_word(root, PCI_EXP_LNKCTL,
++							  &bridge_cfg);
++				pcie_capability_read_word(rdev->pdev,
++							  PCI_EXP_LNKCTL,
++							  &gpu_cfg);
+ 
+-				pci_read_config_word(root, bridge_pos + PCI_EXP_LNKCTL2, &bridge_cfg2);
+-				pci_read_config_word(rdev->pdev, gpu_pos + PCI_EXP_LNKCTL2, &gpu_cfg2);
++				pcie_capability_read_word(root, PCI_EXP_LNKCTL2,
++							  &bridge_cfg2);
++				pcie_capability_read_word(rdev->pdev,
++							  PCI_EXP_LNKCTL2,
++							  &gpu_cfg2);
+ 
+ 				tmp = RREG32_PCIE_PORT(PCIE_LC_CNTL4);
+ 				tmp |= LC_SET_QUIESCE;
+@@ -9607,32 +9612,45 @@ static void cik_pcie_gen3_enable(struct radeon_device *rdev)
+ 				msleep(100);
+ 
+ 				/* linkctl */
+-				pci_read_config_word(root, bridge_pos + PCI_EXP_LNKCTL, &tmp16);
++				pcie_capability_read_word(root, PCI_EXP_LNKCTL,
++							  &tmp16);
+ 				tmp16 &= ~PCI_EXP_LNKCTL_HAWD;
+ 				tmp16 |= (bridge_cfg & PCI_EXP_LNKCTL_HAWD);
+-				pci_write_config_word(root, bridge_pos + PCI_EXP_LNKCTL, tmp16);
++				pcie_capability_write_word(root, PCI_EXP_LNKCTL,
++							   tmp16);
+ 
+-				pci_read_config_word(rdev->pdev, gpu_pos + PCI_EXP_LNKCTL, &tmp16);
++				pcie_capability_read_word(rdev->pdev,
++							  PCI_EXP_LNKCTL,
++							  &tmp16);
+ 				tmp16 &= ~PCI_EXP_LNKCTL_HAWD;
+ 				tmp16 |= (gpu_cfg & PCI_EXP_LNKCTL_HAWD);
+-				pci_write_config_word(rdev->pdev, gpu_pos + PCI_EXP_LNKCTL, tmp16);
++				pcie_capability_write_word(rdev->pdev,
++							   PCI_EXP_LNKCTL,
++							   tmp16);
+ 
+ 				/* linkctl2 */
+-				pci_read_config_word(root, bridge_pos + PCI_EXP_LNKCTL2, &tmp16);
++				pcie_capability_read_word(root, PCI_EXP_LNKCTL2,
++							  &tmp16);
+ 				tmp16 &= ~(PCI_EXP_LNKCTL2_ENTER_COMP |
+ 					   PCI_EXP_LNKCTL2_TX_MARGIN);
+ 				tmp16 |= (bridge_cfg2 &
+ 					  (PCI_EXP_LNKCTL2_ENTER_COMP |
+ 					   PCI_EXP_LNKCTL2_TX_MARGIN));
+-				pci_write_config_word(root, bridge_pos + PCI_EXP_LNKCTL2, tmp16);
++				pcie_capability_write_word(root,
++							   PCI_EXP_LNKCTL2,
++							   tmp16);
+ 
+-				pci_read_config_word(rdev->pdev, gpu_pos + PCI_EXP_LNKCTL2, &tmp16);
++				pcie_capability_read_word(rdev->pdev,
++							  PCI_EXP_LNKCTL2,
++							  &tmp16);
+ 				tmp16 &= ~(PCI_EXP_LNKCTL2_ENTER_COMP |
+ 					   PCI_EXP_LNKCTL2_TX_MARGIN);
+ 				tmp16 |= (gpu_cfg2 &
+ 					  (PCI_EXP_LNKCTL2_ENTER_COMP |
+ 					   PCI_EXP_LNKCTL2_TX_MARGIN));
+-				pci_write_config_word(rdev->pdev, gpu_pos + PCI_EXP_LNKCTL2, tmp16);
++				pcie_capability_write_word(rdev->pdev,
++							   PCI_EXP_LNKCTL2,
++							   tmp16);
+ 
+ 				tmp = RREG32_PCIE_PORT(PCIE_LC_CNTL4);
+ 				tmp &= ~LC_SET_QUIESCE;
+@@ -9646,7 +9664,7 @@ static void cik_pcie_gen3_enable(struct radeon_device *rdev)
+ 	speed_cntl &= ~LC_FORCE_DIS_SW_SPEED_CHANGE;
+ 	WREG32_PCIE_PORT(PCIE_LC_SPEED_CNTL, speed_cntl);
+ 
+-	pci_read_config_word(rdev->pdev, gpu_pos + PCI_EXP_LNKCTL2, &tmp16);
++	pcie_capability_read_word(rdev->pdev, PCI_EXP_LNKCTL2, &tmp16);
+ 	tmp16 &= ~PCI_EXP_LNKCTL2_TLS;
+ 	if (speed_cap == PCIE_SPEED_8_0GT)
+ 		tmp16 |= PCI_EXP_LNKCTL2_TLS_8_0GT; /* gen3 */
+@@ -9654,7 +9672,7 @@ static void cik_pcie_gen3_enable(struct radeon_device *rdev)
+ 		tmp16 |= PCI_EXP_LNKCTL2_TLS_5_0GT; /* gen2 */
+ 	else
+ 		tmp16 |= PCI_EXP_LNKCTL2_TLS_2_5GT; /* gen1 */
+-	pci_write_config_word(rdev->pdev, gpu_pos + PCI_EXP_LNKCTL2, tmp16);
++	pcie_capability_write_word(rdev->pdev, PCI_EXP_LNKCTL2, tmp16);
+ 
+ 	speed_cntl = RREG32_PCIE_PORT(PCIE_LC_SPEED_CNTL);
+ 	speed_cntl |= LC_INITIATE_LINK_SPEED_CHANGE;
+diff --git a/drivers/gpu/drm/radeon/si.c b/drivers/gpu/drm/radeon/si.c
+index 529e70a42019..67a98b3370d1 100644
+--- a/drivers/gpu/drm/radeon/si.c
++++ b/drivers/gpu/drm/radeon/si.c
+@@ -3257,7 +3257,7 @@ static void si_gpu_init(struct radeon_device *rdev)
+ 		/* XXX what about 12? */
+ 		rdev->config.si.tile_config |= (3 << 0);
+ 		break;
+-	}	
++	}
+ 	switch ((mc_arb_ramcfg & NOOFBANK_MASK) >> NOOFBANK_SHIFT) {
+ 	case 0: /* four banks */
+ 		rdev->config.si.tile_config |= 0 << 4;
+@@ -7087,7 +7087,6 @@ static void si_pcie_gen3_enable(struct radeon_device *rdev)
+ {
+ 	struct pci_dev *root = rdev->pdev->bus->self;
+ 	enum pci_bus_speed speed_cap;
+-	int bridge_pos, gpu_pos;
+ 	u32 speed_cntl, current_data_rate;
+ 	int i;
+ 	u16 tmp16;
+@@ -7129,12 +7128,7 @@ static void si_pcie_gen3_enable(struct radeon_device *rdev)
+ 		DRM_INFO("enabling PCIE gen 2 link speeds, disable with radeon.pcie_gen2=0\n");
+ 	}
+ 
+-	bridge_pos = pci_pcie_cap(root);
+-	if (!bridge_pos)
+-		return;
+-
+-	gpu_pos = pci_pcie_cap(rdev->pdev);
+-	if (!gpu_pos)
++	if (!pci_is_pcie(root) || !pci_is_pcie(rdev->pdev))
+ 		return;
+ 
+ 	if (speed_cap == PCIE_SPEED_8_0GT) {
+@@ -7144,14 +7138,17 @@ static void si_pcie_gen3_enable(struct radeon_device *rdev)
+ 			u16 bridge_cfg2, gpu_cfg2;
+ 			u32 max_lw, current_lw, tmp;
+ 
+-			pci_read_config_word(root, bridge_pos + PCI_EXP_LNKCTL, &bridge_cfg);
+-			pci_read_config_word(rdev->pdev, gpu_pos + PCI_EXP_LNKCTL, &gpu_cfg);
++			pcie_capability_read_word(root, PCI_EXP_LNKCTL,
++						  &bridge_cfg);
++			pcie_capability_read_word(rdev->pdev, PCI_EXP_LNKCTL,
++						  &gpu_cfg);
+ 
+ 			tmp16 = bridge_cfg | PCI_EXP_LNKCTL_HAWD;
+-			pci_write_config_word(root, bridge_pos + PCI_EXP_LNKCTL, tmp16);
++			pcie_capability_write_word(root, PCI_EXP_LNKCTL, tmp16);
+ 
+ 			tmp16 = gpu_cfg | PCI_EXP_LNKCTL_HAWD;
+-			pci_write_config_word(rdev->pdev, gpu_pos + PCI_EXP_LNKCTL, tmp16);
++			pcie_capability_write_word(rdev->pdev, PCI_EXP_LNKCTL,
++						   tmp16);
+ 
+ 			tmp = RREG32_PCIE(PCIE_LC_STATUS1);
+ 			max_lw = (tmp & LC_DETECTED_LINK_WIDTH_MASK) >> LC_DETECTED_LINK_WIDTH_SHIFT;
+@@ -7169,15 +7166,23 @@ static void si_pcie_gen3_enable(struct radeon_device *rdev)
+ 
+ 			for (i = 0; i < 10; i++) {
+ 				/* check status */
+-				pci_read_config_word(rdev->pdev, gpu_pos + PCI_EXP_DEVSTA, &tmp16);
++				pcie_capability_read_word(rdev->pdev,
++							  PCI_EXP_DEVSTA,
++							  &tmp16);
+ 				if (tmp16 & PCI_EXP_DEVSTA_TRPND)
+ 					break;
+ 
+-				pci_read_config_word(root, bridge_pos + PCI_EXP_LNKCTL, &bridge_cfg);
+-				pci_read_config_word(rdev->pdev, gpu_pos + PCI_EXP_LNKCTL, &gpu_cfg);
++				pcie_capability_read_word(root, PCI_EXP_LNKCTL,
++							  &bridge_cfg);
++				pcie_capability_read_word(rdev->pdev,
++							  PCI_EXP_LNKCTL,
++							  &gpu_cfg);
+ 
+-				pci_read_config_word(root, bridge_pos + PCI_EXP_LNKCTL2, &bridge_cfg2);
+-				pci_read_config_word(rdev->pdev, gpu_pos + PCI_EXP_LNKCTL2, &gpu_cfg2);
++				pcie_capability_read_word(root, PCI_EXP_LNKCTL2,
++							  &bridge_cfg2);
++				pcie_capability_read_word(rdev->pdev,
++							  PCI_EXP_LNKCTL2,
++							  &gpu_cfg2);
+ 
+ 				tmp = RREG32_PCIE_PORT(PCIE_LC_CNTL4);
+ 				tmp |= LC_SET_QUIESCE;
+@@ -7190,32 +7195,46 @@ static void si_pcie_gen3_enable(struct radeon_device *rdev)
+ 				msleep(100);
+ 
+ 				/* linkctl */
+-				pci_read_config_word(root, bridge_pos + PCI_EXP_LNKCTL, &tmp16);
++				pcie_capability_read_word(root, PCI_EXP_LNKCTL,
++							  &tmp16);
+ 				tmp16 &= ~PCI_EXP_LNKCTL_HAWD;
+ 				tmp16 |= (bridge_cfg & PCI_EXP_LNKCTL_HAWD);
+-				pci_write_config_word(root, bridge_pos + PCI_EXP_LNKCTL, tmp16);
++				pcie_capability_write_word(root,
++							   PCI_EXP_LNKCTL,
++							   tmp16);
+ 
+-				pci_read_config_word(rdev->pdev, gpu_pos + PCI_EXP_LNKCTL, &tmp16);
++				pcie_capability_read_word(rdev->pdev,
++							  PCI_EXP_LNKCTL,
++							  &tmp16);
+ 				tmp16 &= ~PCI_EXP_LNKCTL_HAWD;
+ 				tmp16 |= (gpu_cfg & PCI_EXP_LNKCTL_HAWD);
+-				pci_write_config_word(rdev->pdev, gpu_pos + PCI_EXP_LNKCTL, tmp16);
++				pcie_capability_write_word(rdev->pdev,
++							   PCI_EXP_LNKCTL,
++							   tmp16);
+ 
+ 				/* linkctl2 */
+-				pci_read_config_word(root, bridge_pos + PCI_EXP_LNKCTL2, &tmp16);
++				pcie_capability_read_word(root, PCI_EXP_LNKCTL2,
++							  &tmp16);
+ 				tmp16 &= ~(PCI_EXP_LNKCTL2_ENTER_COMP |
+ 					   PCI_EXP_LNKCTL2_TX_MARGIN);
+ 				tmp16 |= (bridge_cfg2 &
+ 					  (PCI_EXP_LNKCTL2_ENTER_COMP |
+ 					   PCI_EXP_LNKCTL2_TX_MARGIN));
+-				pci_write_config_word(root, bridge_pos + PCI_EXP_LNKCTL2, tmp16);
++				pcie_capability_write_word(root,
++							   PCI_EXP_LNKCTL2,
++							   tmp16);
+ 
+-				pci_read_config_word(rdev->pdev, gpu_pos + PCI_EXP_LNKCTL2, &tmp16);
++				pcie_capability_read_word(rdev->pdev,
++							  PCI_EXP_LNKCTL2,
++							  &tmp16);
+ 				tmp16 &= ~(PCI_EXP_LNKCTL2_ENTER_COMP |
+ 					   PCI_EXP_LNKCTL2_TX_MARGIN);
+ 				tmp16 |= (gpu_cfg2 &
+ 					  (PCI_EXP_LNKCTL2_ENTER_COMP |
+ 					   PCI_EXP_LNKCTL2_TX_MARGIN));
+-				pci_write_config_word(rdev->pdev, gpu_pos + PCI_EXP_LNKCTL2, tmp16);
++				pcie_capability_write_word(rdev->pdev,
++							   PCI_EXP_LNKCTL2,
++							   tmp16);
+ 
+ 				tmp = RREG32_PCIE_PORT(PCIE_LC_CNTL4);
+ 				tmp &= ~LC_SET_QUIESCE;
+@@ -7229,7 +7248,7 @@ static void si_pcie_gen3_enable(struct radeon_device *rdev)
+ 	speed_cntl &= ~LC_FORCE_DIS_SW_SPEED_CHANGE;
+ 	WREG32_PCIE_PORT(PCIE_LC_SPEED_CNTL, speed_cntl);
+ 
+-	pci_read_config_word(rdev->pdev, gpu_pos + PCI_EXP_LNKCTL2, &tmp16);
++	pcie_capability_read_word(rdev->pdev, PCI_EXP_LNKCTL2, &tmp16);
+ 	tmp16 &= ~PCI_EXP_LNKCTL2_TLS;
+ 	if (speed_cap == PCIE_SPEED_8_0GT)
+ 		tmp16 |= PCI_EXP_LNKCTL2_TLS_8_0GT; /* gen3 */
+@@ -7237,7 +7256,7 @@ static void si_pcie_gen3_enable(struct radeon_device *rdev)
+ 		tmp16 |= PCI_EXP_LNKCTL2_TLS_5_0GT; /* gen2 */
+ 	else
+ 		tmp16 |= PCI_EXP_LNKCTL2_TLS_2_5GT; /* gen1 */
+-	pci_write_config_word(rdev->pdev, gpu_pos + PCI_EXP_LNKCTL2, tmp16);
++	pcie_capability_write_word(rdev->pdev, PCI_EXP_LNKCTL2, tmp16);
+ 
+ 	speed_cntl = RREG32_PCIE_PORT(PCIE_LC_SPEED_CNTL);
+ 	speed_cntl |= LC_INITIATE_LINK_SPEED_CHANGE;
 -- 
-2.17.1
+2.20.1
