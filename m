@@ -1,102 +1,77 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH v2] drm/scheduler: Avoid accessing freed bad job.
-Date: Mon, 18 Nov 2019 21:04:09 +0100
-Message-ID: <56c4b6e9-8aa8-9c55-4443-70bc869115a0@gmail.com>
-References: <1574099545-20430-1-git-send-email-andrey.grodzovsky@amd.com>
-Reply-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
+From: Alex Deucher <alexdeucher@gmail.com>
+Subject: Re: [PATCH v2] drm/amd/powerplay: return errno code to caller when
+ error occur
+Date: Mon, 18 Nov 2019 15:24:13 -0500
+Message-ID: <CADnq5_OYLYxwDsiqmDn0tJqrvdHc119LOGPSLuG=g2ShL4_oFQ@mail.gmail.com>
+References: <1573875799-83572-1-git-send-email-chenwandun@huawei.com>
+ <1574064214-109525-1-git-send-email-chenwandun@huawei.com> <MN2PR12MB3344BBBA7F72F9625D71329EE44D0@MN2PR12MB3344.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1574099545-20430-1-git-send-email-andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Andrey Grodzovsky <andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>
-Cc: Emily.Deng-5C7GfCeVMHo@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Christian.Koenig-5C7GfCeVMHo@public.gmane.org
+Content-Type: text/plain; charset="UTF-8"
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <MN2PR12MB3344BBBA7F72F9625D71329EE44D0@MN2PR12MB3344.namprd12.prod.outlook.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: "Quan, Evan" <Evan.Quan@amd.com>
+Cc: Chen Wandun <chenwandun@huawei.com>, "Deucher, Alexander" <Alexander.Deucher@amd.com>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-QW0gMTguMTEuMTkgdW0gMTg6NTIgc2NocmllYiBBbmRyZXkgR3JvZHpvdnNreToKPiBQcm9ibGVt
-Ogo+IER1ZSB0byBhIHJhY2UgYmV0d2VlbiBkcm1fc2NoZWRfY2xlYW51cF9qb2JzIGluIHNjaGVk
-IHRocmVhZCBhbmQKPiBkcm1fc2NoZWRfam9iX3RpbWVkb3V0IGluIHRpbWVvdXQgd29yayB0aGVy
-ZSBpcyBhIHBvc3NpYmxpdHkgdGhhdAo+IGJhZCBqb2Igd2FzIGFscmVhZHkgZnJlZWQgd2hpbGUg
-c3RpbGwgYmVpbmcgYWNjZXNzZWQgZnJvbSB0aGUKPiB0aW1lb3V0IHRocmVhZC4KPgo+IEZpeDoK
-PiBJbnN0ZWFkIG9mIGp1c3QgcGVla2luZyBhdCB0aGUgYmFkIGpvYiBpbiB0aGUgbWlycm9yIGxp
-c3QKPiByZW1vdmUgaXQgZnJvbSB0aGUgbGlzdCB1bmRlciBsb2NrIGFuZCB0aGVuIHB1dCBpdCBi
-YWNrIGxhdGVyIHdoZW4KPiB3ZSBhcmUgZ2FyYW50ZWVkIG5vIHJhY2Ugd2l0aCBtYWluIHNjaGVk
-IHRocmVhZCBpcyBwb3NzaWJsZSB3aGljaAo+IGlzIGFmdGVyIHRoZSB0aHJlYWQgaXMgcGFya2Vk
-Lgo+Cj4gdjI6IExvY2sgYXJvdW5kIHByb2Nlc3NpbmcgcmluZ19taXJyb3JfbGlzdCBpbiBkcm1f
-c2NoZWRfY2xlYW51cF9qb2JzLgo+Cj4gU2lnbmVkLW9mZi1ieTogQW5kcmV5IEdyb2R6b3Zza3kg
-PGFuZHJleS5ncm9kem92c2t5QGFtZC5jb20+CgpQbGVhc2UgcmViYXNlIG9uIHRvcCBvZiB0aGUg
-Y2hhbmdlcyBpbiBkcm0tbWlzYy1uZXh0LgoKQXBhcnQgZnJvbSB0aGF0IG9uZSBtaW5vciBjb2Rp
-bmcgc3R5bGUgbml0IHBpY2sgYmVsb3cuCgo+IC0tLQo+ICAgZHJpdmVycy9ncHUvZHJtL3NjaGVk
-dWxlci9zY2hlZF9tYWluLmMgfCA0NCArKysrKysrKysrKysrKysrKysrKysrKysrKysrKy0tLS0t
-Cj4gICAxIGZpbGUgY2hhbmdlZCwgMzggaW5zZXJ0aW9ucygrKSwgNiBkZWxldGlvbnMoLSkKPgo+
-IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vc2NoZWR1bGVyL3NjaGVkX21haW4uYyBiL2Ry
-aXZlcnMvZ3B1L2RybS9zY2hlZHVsZXIvc2NoZWRfbWFpbi5jCj4gaW5kZXggODBkZGJkZi4uYjA1
-YjIxMCAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vc2NoZWR1bGVyL3NjaGVkX21haW4u
-Ywo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9zY2hlZHVsZXIvc2NoZWRfbWFpbi5jCj4gQEAgLTI4
-NywxMCArMjg3LDI0IEBAIHN0YXRpYyB2b2lkIGRybV9zY2hlZF9qb2JfdGltZWRvdXQoc3RydWN0
-IHdvcmtfc3RydWN0ICp3b3JrKQo+ICAgCXVuc2lnbmVkIGxvbmcgZmxhZ3M7Cj4gICAKPiAgIAlz
-Y2hlZCA9IGNvbnRhaW5lcl9vZih3b3JrLCBzdHJ1Y3QgZHJtX2dwdV9zY2hlZHVsZXIsIHdvcmtf
-dGRyLndvcmspOwo+ICsKPiArCS8qCj4gKwkgKiBQcm90ZWN0cyBhZ2FpbnN0IGNvbmN1cnJlbnQg
-ZGVsZXRpb24gaW4gZHJtX3NjaGVkX2NsZWFudXBfam9icyB0aGF0Cj4gKwkgKiBpcyBhbHJlYWR5
-IGluIHByb2dyZXNzLgo+ICsJICovCj4gKwlzcGluX2xvY2tfaXJxc2F2ZSgmc2NoZWQtPmpvYl9s
-aXN0X2xvY2ssIGZsYWdzKTsKPiAgIAlqb2IgPSBsaXN0X2ZpcnN0X2VudHJ5X29yX251bGwoJnNj
-aGVkLT5yaW5nX21pcnJvcl9saXN0LAo+ICAgCQkJCSAgICAgICBzdHJ1Y3QgZHJtX3NjaGVkX2pv
-Yiwgbm9kZSk7Cj4gICAKPiAgIAlpZiAoam9iKSB7Cj4gKwkJLyoKPiArCQkgKiBSZW1vdmUgdGhl
-IGJhZCBqb2Igc28gaXQgY2Fubm90IGJlIGZyZWVkIGJ5IGFscmVhZHkgaW4gcHJvZ3Jlc3MKPiAr
-CQkgKiBkcm1fc2NoZWRfY2xlYW51cF9qb2JzLiBJdCB3aWxsIGJlIHJlaW5zcnRlZCBiYWNrIGFm
-dGVyIHNjaGVkLT50aHJlYWQKPiArCQkgKiBpcyBwYXJrZWQgYXQgd2hpY2ggcG9pbnQgaXQncyBz
-YWZlLgo+ICsJCSAqLwo+ICsJCWxpc3RfZGVsX2luaXQoJmpvYi0+bm9kZSk7Cj4gKwkJc3Bpbl91
-bmxvY2tfaXJxcmVzdG9yZSgmc2NoZWQtPmpvYl9saXN0X2xvY2ssIGZsYWdzKTsKPiArCj4gICAJ
-CWpvYi0+c2NoZWQtPm9wcy0+dGltZWRvdXRfam9iKGpvYik7Cj4gICAKPiAgIAkJLyoKPiBAQCAt
-MzAyLDYgKzMxNiw4IEBAIHN0YXRpYyB2b2lkIGRybV9zY2hlZF9qb2JfdGltZWRvdXQoc3RydWN0
-IHdvcmtfc3RydWN0ICp3b3JrKQo+ICAgCQkJc2NoZWQtPmZyZWVfZ3VpbHR5ID0gZmFsc2U7Cj4g
-ICAJCX0KPiAgIAl9Cj4gKwllbHNlCgpQbGVhc2UgdXNlICJ9IGVsc2UgeyIgaW5zdGVhZCwgd2Ug
-aGF2ZSBhdXRvbWF0ZWQgdGVzdHMgd2hpY2ggY29tcGxhaW4gCmFib3V0IHRoYXQgbm93LgoKQ2hy
-aXN0aWFuLgoKPiArCQlzcGluX3VubG9ja19pcnFyZXN0b3JlKCZzY2hlZC0+am9iX2xpc3RfbG9j
-aywgZmxhZ3MpOwo+ICAgCj4gICAJc3Bpbl9sb2NrX2lycXNhdmUoJnNjaGVkLT5qb2JfbGlzdF9s
-b2NrLCBmbGFncyk7Cj4gICAJZHJtX3NjaGVkX3N0YXJ0X3RpbWVvdXQoc2NoZWQpOwo+IEBAIC0z
-NzMsNiArMzg5LDE5IEBAIHZvaWQgZHJtX3NjaGVkX3N0b3Aoc3RydWN0IGRybV9ncHVfc2NoZWR1
-bGVyICpzY2hlZCwgc3RydWN0IGRybV9zY2hlZF9qb2IgKmJhZCkKPiAgIAlrdGhyZWFkX3Bhcmso
-c2NoZWQtPnRocmVhZCk7Cj4gICAKPiAgIAkvKgo+ICsJICogUmVpbnNlcnQgYmFjayB0aGUgYmFk
-IGpvYiBoZXJlIC0gbm93IGl0J3Mgc2FmZSBhcyBkcm1fc2NoZWRfY2xlYW51cF9qb2JzCj4gKwkg
-KiBjYW5ub3QgcmFjZSBhZ2FpbnN0IHVzIGFuZCByZWxlYXNlIHRoZSBiYWQgam9iIGF0IHRoaXMg
-cG9pbnQgLSB3ZSBwYXJrZWQKPiArCSAqICh3YWl0ZWQgZm9yKSBhbnkgaW4gcHJvZ3Jlc3MgKGVh
-cmxpZXIpIGNsZWFudXBzIGFuZCBhbnkgbGF0ZXIgb25lcyB3aWxsCj4gKwkgKiBiYWlsIG91dCBk
-dWUgdG8gc2NoZWQtPnRocmVhZCBiZWluZyBwYXJrZWQuCj4gKwkgKi8KPiArCWlmIChiYWQgJiYg
-YmFkLT5zY2hlZCA9PSBzY2hlZCkKPiArCQkvKgo+ICsJCSAqIEFkZCBhdCB0aGUgaGVhZCBvZiB0
-aGUgcXVldWUgdG8gcmVmbGVjdCBpdCB3YXMgdGhlIGVhcmxpZXN0Cj4gKwkJICogam9iIGV4dHJh
-Y3RlZC4KPiArCQkgKi8KPiArCQlsaXN0X2FkZCgmYmFkLT5ub2RlLCAmc2NoZWQtPnJpbmdfbWly
-cm9yX2xpc3QpOwo+ICsKPiArCS8qCj4gICAJICogSXRlcmF0ZSB0aGUgam9iIGxpc3QgZnJvbSBs
-YXRlciB0byAgZWFybGllciBvbmUgYW5kIGVpdGhlciBkZWFjdGl2ZQo+ICAgCSAqIHRoZWlyIEhX
-IGNhbGxiYWNrcyBvciByZW1vdmUgdGhlbSBmcm9tIG1pcnJvciBsaXN0IGlmIHRoZXkgYWxyZWFk
-eQo+ICAgCSAqIHNpZ25hbGVkLgo+IEBAIC02NTYsMTYgKzY4NSwxOSBAQCBzdGF0aWMgdm9pZCBk
-cm1fc2NoZWRfY2xlYW51cF9qb2JzKHN0cnVjdCBkcm1fZ3B1X3NjaGVkdWxlciAqc2NoZWQpCj4g
-ICAJICAgIF9fa3RocmVhZF9zaG91bGRfcGFyayhzY2hlZC0+dGhyZWFkKSkKPiAgIAkJcmV0dXJu
-Owo+ICAgCj4gLQo+IC0Jd2hpbGUgKCFsaXN0X2VtcHR5KCZzY2hlZC0+cmluZ19taXJyb3JfbGlz
-dCkpIHsKPiArCS8qIFNlZSBkcm1fc2NoZWRfam9iX3RpbWVkb3V0IGZvciB3aHkgdGhlIGxvY2tp
-bmcgaXMgaGVyZSAqLwo+ICsJd2hpbGUgKHRydWUpIHsKPiAgIAkJc3RydWN0IGRybV9zY2hlZF9q
-b2IgKmpvYjsKPiAgIAo+IC0JCWpvYiA9IGxpc3RfZmlyc3RfZW50cnkoJnNjaGVkLT5yaW5nX21p
-cnJvcl9saXN0LAo+IC0JCQkJICAgICAgIHN0cnVjdCBkcm1fc2NoZWRfam9iLCBub2RlKTsKPiAt
-CQlpZiAoIWRtYV9mZW5jZV9pc19zaWduYWxlZCgmam9iLT5zX2ZlbmNlLT5maW5pc2hlZCkpCj4g
-KwkJc3Bpbl9sb2NrX2lycXNhdmUoJnNjaGVkLT5qb2JfbGlzdF9sb2NrLCBmbGFncyk7Cj4gKwkJ
-am9iID0gbGlzdF9maXJzdF9lbnRyeV9vcl9udWxsKCZzY2hlZC0+cmluZ19taXJyb3JfbGlzdCwK
-PiArCQkJCQkgICAgICAgc3RydWN0IGRybV9zY2hlZF9qb2IsIG5vZGUpOwo+ICsKPiArCQlpZiAo
-IWpvYiB8fCAhZG1hX2ZlbmNlX2lzX3NpZ25hbGVkKCZqb2ItPnNfZmVuY2UtPmZpbmlzaGVkKSkg
-ewo+ICsJCQlzcGluX3VubG9ja19pcnFyZXN0b3JlKCZzY2hlZC0+am9iX2xpc3RfbG9jaywgZmxh
-Z3MpOwo+ICAgCQkJYnJlYWs7Cj4gKwkJfQo+ICAgCj4gLQkJc3Bpbl9sb2NrX2lycXNhdmUoJnNj
-aGVkLT5qb2JfbGlzdF9sb2NrLCBmbGFncyk7Cj4gICAJCS8qIHJlbW92ZSBqb2IgZnJvbSByaW5n
-X21pcnJvcl9saXN0ICovCj4gICAJCWxpc3RfZGVsX2luaXQoJmpvYi0+bm9kZSk7Cj4gICAJCXNw
-aW5fdW5sb2NrX2lycXJlc3RvcmUoJnNjaGVkLT5qb2JfbGlzdF9sb2NrLCBmbGFncyk7CgpfX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxp
-bmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVk
-ZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
+Applied.  Thanks!
+
+Alex
+
+On Mon, Nov 18, 2019 at 3:15 AM Quan, Evan <Evan.Quan@amd.com> wrote:
+>
+> Reviewed-by: Evan Quan <evan.quan@amd.com>
+>
+> > -----Original Message-----
+> > From: Chen Wandun <chenwandun@huawei.com>
+> > Sent: Monday, November 18, 2019 4:04 PM
+> > To: Quan, Evan <Evan.Quan@amd.com>; Deucher, Alexander
+> > <Alexander.Deucher@amd.com>; amd-gfx@lists.freedesktop.org; linux-
+> > kernel@vger.kernel.org; dri-devel@lists.freedesktop.org
+> > Cc: chenwandun@huawei.com
+> > Subject: [PATCH v2] drm/amd/powerplay: return errno code to caller when
+> > error occur
+> >
+> > return errno code to caller when error occur, and meanwhile remove gcc '-
+> > Wunused-but-set-variable' warning.
+> >
+> > drivers/gpu/drm/amd/amdgpu/../powerplay/smumgr/vegam_smumgr.c: In
+> > function vegam_populate_smc_boot_level:
+> > drivers/gpu/drm/amd/amdgpu/../powerplay/smumgr/vegam_smumgr.c:1364:
+> > 6: warning: variable result set but not used [-Wunused-but-set-variable]
+> >
+> > Signed-off-by: Chen Wandun <chenwandun@huawei.com>
+> > ---
+> >  drivers/gpu/drm/amd/powerplay/smumgr/vegam_smumgr.c | 5 +++++
+> >  1 file changed, 5 insertions(+)
+> >
+> > diff --git a/drivers/gpu/drm/amd/powerplay/smumgr/vegam_smumgr.c
+> > b/drivers/gpu/drm/amd/powerplay/smumgr/vegam_smumgr.c
+> > index 2068eb0..50896e9 100644
+> > --- a/drivers/gpu/drm/amd/powerplay/smumgr/vegam_smumgr.c
+> > +++ b/drivers/gpu/drm/amd/powerplay/smumgr/vegam_smumgr.c
+> > @@ -1371,11 +1371,16 @@ static int vegam_populate_smc_boot_level(struct
+> > pp_hwmgr *hwmgr,
+> >       result = phm_find_boot_level(&(data->dpm_table.sclk_table),
+> >                       data->vbios_boot_state.sclk_bootup_value,
+> >                       (uint32_t *)&(table->GraphicsBootLevel));
+> > +     if (result)
+> > +             return result;
+> >
+> >       result = phm_find_boot_level(&(data->dpm_table.mclk_table),
+> >                       data->vbios_boot_state.mclk_bootup_value,
+> >                       (uint32_t *)&(table->MemoryBootLevel));
+> >
+> > +     if (result)
+> > +             return result;
+> > +
+> >       table->BootVddc  = data->vbios_boot_state.vddc_bootup_value *
+> >                       VOLTAGE_SCALE;
+> >       table->BootVddci = data->vbios_boot_state.vddci_bootup_value *
+> > --
+> > 2.7.4
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
