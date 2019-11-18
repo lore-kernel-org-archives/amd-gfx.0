@@ -1,63 +1,77 @@
-From: "Quan, Evan" <Evan.Quan@amd.com>
-Subject: RE: [PATCH][next] drm/amdgpu/powerplay: fix dereference before null
- check of pointer hwmgr
-Date: Mon, 18 Nov 2019 06:56:43 +0000
-Message-ID: <MN2PR12MB3344F8D7498FC9DA8302AD05E44D0@MN2PR12MB3344.namprd12.prod.outlook.com>
-References: <20191115094754.40920-1-colin.king@canonical.com>
+From: Chen Wandun <chenwandun@huawei.com>
+Subject: Re: [PATCH] drm/amd/powerplay: remove variable 'result' set but not
+ used
+Date: Mon, 18 Nov 2019 15:16:32 +0800
+Message-ID: <71d72dc4-5dae-2ae4-9f10-89cca72458da@huawei.com>
+References: <1573875799-83572-1-git-send-email-chenwandun@huawei.com>
+ <MN2PR12MB3344A9DA952F41ADDAD6142AE44D0@MN2PR12MB3344.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-In-Reply-To: <20191115094754.40920-1-colin.king@canonical.com>
+Content-Type: text/plain; charset="utf-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <MN2PR12MB3344A9DA952F41ADDAD6142AE44D0@MN2PR12MB3344.namprd12.prod.outlook.com>
 Content-Language: en-US
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: Colin King <colin.king@canonical.com>, Rex Zhu <rex.zhu@amd.com>, "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Koenig, Christian" <Christian.Koenig@amd.com>, "Zhou, David(ChunMing)" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>
-Cc: "kernel-janitors@vger.kernel.org" <kernel-janitors@vger.kernel.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: "Quan, Evan" <Evan.Quan@amd.com>, "Deucher, Alexander" <Alexander.Deucher@amd.com>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
 List-Id: amd-gfx.lists.freedesktop.org
 
-UmV2aWV3ZWQtYnk6IEV2YW4gUXVhbiA8ZXZhbi5xdWFuQGFtZC5jb20+DQoNCi0tLS0tT3JpZ2lu
-YWwgTWVzc2FnZS0tLS0tDQpGcm9tOiBDb2xpbiBLaW5nIDxjb2xpbi5raW5nQGNhbm9uaWNhbC5j
-b20+IA0KU2VudDogRnJpZGF5LCBOb3ZlbWJlciAxNSwgMjAxOSA1OjQ4IFBNDQpUbzogUmV4IFpo
-dSA8cmV4LnpodUBhbWQuY29tPjsgUXVhbiwgRXZhbiA8RXZhbi5RdWFuQGFtZC5jb20+OyBEZXVj
-aGVyLCBBbGV4YW5kZXIgPEFsZXhhbmRlci5EZXVjaGVyQGFtZC5jb20+OyBLb2VuaWcsIENocmlz
-dGlhbiA8Q2hyaXN0aWFuLktvZW5pZ0BhbWQuY29tPjsgWmhvdSwgRGF2aWQoQ2h1bk1pbmcpIDxE
-YXZpZDEuWmhvdUBhbWQuY29tPjsgRGF2aWQgQWlybGllIDxhaXJsaWVkQGxpbnV4LmllPjsgRGFu
-aWVsIFZldHRlciA8ZGFuaWVsQGZmd2xsLmNoPjsgYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5v
-cmc7IGRyaS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCkNjOiBrZXJuZWwtamFuaXRvcnNA
-dmdlci5rZXJuZWwub3JnOyBsaW51eC1rZXJuZWxAdmdlci5rZXJuZWwub3JnDQpTdWJqZWN0OiBb
-UEFUQ0hdW25leHRdIGRybS9hbWRncHUvcG93ZXJwbGF5OiBmaXggZGVyZWZlcmVuY2UgYmVmb3Jl
-IG51bGwgY2hlY2sgb2YgcG9pbnRlciBod21ncg0KDQpGcm9tOiBDb2xpbiBJYW4gS2luZyA8Y29s
-aW4ua2luZ0BjYW5vbmljYWwuY29tPg0KDQpUaGUgYXNzaWdubWVudCBvZiBhZGV2IGRlcmVmZXJl
-bmNlcyBwb2ludGVyIGh3bWdyIGJlZm9yZSBod21nciBpcyBudWxsIGNoZWNrZWQsIGhlbmNlIHRo
-ZXJlIGlzIGEgcG90ZW50aWFsIG51bGwgcG9pbnRlciBkZWZlcmVuY2UgaXNzdWUuIEZpeCB0aGlz
-IGJ5IGFzc2lnbmluZyBhZGV2IGFmdGVyIHRoZSBudWxsIGNoZWNrLg0KDQpBZGRyZXNzZXMtQ292
-ZXJpdHk6ICgiRGVyZWZlcmVuY2UgYmVmb3JlIG51bGwgY2hlY2siKQ0KRml4ZXM6IDA4OTZkMmY3
-YmE0ZCAoImRybS9hbWRncHUvcG93ZXJwbGF5OiBwcm9wZXJseSBzZXQgUFBfR0ZYT0ZGX01BU0si
-KQ0KU2lnbmVkLW9mZi1ieTogQ29saW4gSWFuIEtpbmcgPGNvbGluLmtpbmdAY2Fub25pY2FsLmNv
-bT4NCi0tLQ0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL2h3bWdyLmMgfCA0
-ICsrKy0NCiAxIGZpbGUgY2hhbmdlZCwgMyBpbnNlcnRpb25zKCspLCAxIGRlbGV0aW9uKC0pDQoN
-CmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci9od21nci5j
-IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3IvaHdtZ3IuYw0KaW5kZXggNDQz
-NjI1YzgzZWM5Li5kMjkwOWM5MWQ2NWIgMTAwNjQ0DQotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1k
-L3Bvd2VycGxheS9od21nci9od21nci5jDQorKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2Vy
-cGxheS9od21nci9od21nci5jDQpAQCAtODEsNyArODEsNyBAQCBzdGF0aWMgdm9pZCBod21ncl9p
-bml0X3dvcmtsb2FkX3Byb3JpdHkoc3RydWN0IHBwX2h3bWdyICpod21ncikNCiANCiBpbnQgaHdt
-Z3JfZWFybHlfaW5pdChzdHJ1Y3QgcHBfaHdtZ3IgKmh3bWdyKSAgew0KLQlzdHJ1Y3QgYW1kZ3B1
-X2RldmljZSAqYWRldiA9IGh3bWdyLT5hZGV2Ow0KKwlzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRl
-djsNCiANCiAJaWYgKCFod21ncikNCiAJCXJldHVybiAtRUlOVkFMOw0KQEAgLTk2LDYgKzk2LDgg
-QEAgaW50IGh3bWdyX2Vhcmx5X2luaXQoc3RydWN0IHBwX2h3bWdyICpod21ncikNCiAJaHdtZ3Jf
-aW5pdF93b3JrbG9hZF9wcm9yaXR5KGh3bWdyKTsNCiAJaHdtZ3ItPmdmeG9mZl9zdGF0ZV9jaGFu
-Z2VkX2J5X3dvcmtsb2FkID0gZmFsc2U7DQogDQorCWFkZXYgPSBod21nci0+YWRldjsNCisNCiAJ
-c3dpdGNoIChod21nci0+Y2hpcF9mYW1pbHkpIHsNCiAJY2FzZSBBTURHUFVfRkFNSUxZX0NJOg0K
-IAkJYWRldi0+cG0ucHBfZmVhdHVyZSAmPSB+UFBfR0ZYT0ZGX01BU0s7DQotLQ0KMi4yMC4xDQoN
-Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmRyaS1kZXZl
-bCBtYWlsaW5nIGxpc3QKZHJpLWRldmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xp
-c3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2RyaS1kZXZlbA==
+OK, it indeed should return the 'result' to caller,
+I will make a modification and repost the patch.
+
+Thanks
+Chen Wandun
+
+On 2019/11/18 14:50, Quan, Evan wrote:
+> Thanks. But it's better to return the 'result' out on 'result != 0'.
+> 
+> Regards,
+> Evan
+> -----Original Message-----
+> From: Chen Wandun <chenwandun@huawei.com>
+> Sent: Saturday, November 16, 2019 11:43 AM
+> To: Deucher, Alexander <Alexander.Deucher@amd.com>; Quan, Evan <Evan.Quan@amd.com>; amd-gfx@lists.freedesktop.org; dri-devel@lists.freedesktop.org; linux-kernel@vger.kernel.org
+> Cc: chenwandun@huawei.com
+> Subject: [PATCH] drm/amd/powerplay: remove variable 'result' set but not used
+> 
+> Fixes gcc '-Wunused-but-set-variable' warning:
+> 
+> drivers/gpu/drm/amd/amdgpu/../powerplay/smumgr/vegam_smumgr.c: In function vegam_populate_smc_boot_level:
+> drivers/gpu/drm/amd/amdgpu/../powerplay/smumgr/vegam_smumgr.c:1364:6: warning: variable result set but not used [-Wunused-but-set-variable]
+> 
+> Signed-off-by: Chen Wandun <chenwandun@huawei.com>
+> ---
+>   drivers/gpu/drm/amd/powerplay/smumgr/vegam_smumgr.c | 13 ++++++-------
+>   1 file changed, 6 insertions(+), 7 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/powerplay/smumgr/vegam_smumgr.c b/drivers/gpu/drm/amd/powerplay/smumgr/vegam_smumgr.c
+> index 2068eb0..fad78bf 100644
+> --- a/drivers/gpu/drm/amd/powerplay/smumgr/vegam_smumgr.c
+> +++ b/drivers/gpu/drm/amd/powerplay/smumgr/vegam_smumgr.c
+> @@ -1361,20 +1361,19 @@ static int vegam_populate_smc_uvd_level(struct pp_hwmgr *hwmgr,
+>   static int vegam_populate_smc_boot_level(struct pp_hwmgr *hwmgr,
+>   		struct SMU75_Discrete_DpmTable *table)
+>   {
+> -	int result = 0;
+>   	struct smu7_hwmgr *data = (struct smu7_hwmgr *)(hwmgr->backend);
+>   
+>   	table->GraphicsBootLevel = 0;
+>   	table->MemoryBootLevel = 0;
+>   
+>   	/* find boot level from dpm table */
+> -	result = phm_find_boot_level(&(data->dpm_table.sclk_table),
+> -			data->vbios_boot_state.sclk_bootup_value,
+> -			(uint32_t *)&(table->GraphicsBootLevel));
+> +	phm_find_boot_level(&(data->dpm_table.sclk_table),
+> +			    data->vbios_boot_state.sclk_bootup_value,
+> +			    (uint32_t *)&(table->GraphicsBootLevel));
+>   
+> -	result = phm_find_boot_level(&(data->dpm_table.mclk_table),
+> -			data->vbios_boot_state.mclk_bootup_value,
+> -			(uint32_t *)&(table->MemoryBootLevel));
+> +	phm_find_boot_level(&(data->dpm_table.mclk_table),
+> +			    data->vbios_boot_state.mclk_bootup_value,
+> +			    (uint32_t *)&(table->MemoryBootLevel));
+>   
+>   	table->BootVddc  = data->vbios_boot_state.vddc_bootup_value *
+>   			VOLTAGE_SCALE;
+> 
