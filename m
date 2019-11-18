@@ -1,17 +1,14 @@
-From: "Liu, Aaron" <Aaron.Liu-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH 01/12] amdgpu: add UAPI for creating encrypted buffers
-Date: Mon, 18 Nov 2019 09:28:57 +0000
-Message-ID: <MN2PR12MB3838E0228F0AB2E58DB9109DF04D0@MN2PR12MB3838.namprd12.prod.outlook.com>
-References: <1573788895-3936-1-git-send-email-aaron.liu@amd.com>,
- <06a979a0-0795-88cb-f1d9-80255165f0e4@gmail.com>,
- <DM5PR12MB182063DB1ACAD38C768ECAC3F7700@DM5PR12MB1820.namprd12.prod.outlook.com>,
- <1f6819bc-cf46-4f34-a569-9ba39a9c6559@email.android.com>,
- <DM6PR12MB32097BA0BE4D40FF431A6E11F9700@DM6PR12MB3209.namprd12.prod.outlook.com>
- <DM6PR12MB3209676F6F84150C08400C93F9700@DM6PR12MB3209.namprd12.prod.outlook.com>
+From: "Zhang, Hawking" <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: [PATCH 2/2] drm/amd/powerplay: add Arcturus baco reset support
+Date: Mon, 18 Nov 2019 09:50:44 +0000
+Message-ID: <DM5PR12MB1418A9E4BEDD3B3D07176F8DFC4D0@DM5PR12MB1418.namprd12.prod.outlook.com>
+References: <20191118092019.11127-1-evan.quan@amd.com>
+ <20191118092019.11127-2-evan.quan@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0839607660=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <DM6PR12MB3209676F6F84150C08400C93F9700-lmeGfMZKVrEA9tGwT7oCEgdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
+In-Reply-To: <20191118092019.11127-2-evan.quan-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -23,511 +20,74 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Olsak, Marek" <Marek.Olsak-5C7GfCeVMHo@public.gmane.org>, "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Cc: =?iso-8859-1?Q?Christian_K=F6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "Huang, Ray" <Ray.Huang-5C7GfCeVMHo@public.gmane.org>, "Liu, Leo" <Leo.Liu-5C7GfCeVMHo@public.gmane.org>, "Tuikov,
- Luben" <Luben.Tuikov-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Quan, Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>
 
---===============0839607660==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_MN2PR12MB3838E0228F0AB2E58DB9109DF04D0MN2PR12MB3838namp_"
-
---_000_MN2PR12MB3838E0228F0AB2E58DB9109DF04D0MN2PR12MB3838namp_
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-Thanks for reviews.
-
-As Christian's suggestion, I added drm_version checking, for the older driv=
-er, security test suites are disabled.
-I create a remote branch for libdrm: remotes/origin/aaliu/for-tmz-support
-
-BR,
-Aaron Liu
-
-From: Olsak, Marek <Marek.Olsak-5C7GfCeVMHo@public.gmane.org>
-Sent: Saturday, November 16, 2019 3:53 AM
-To: Koenig, Christian <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>; Deucher, Alexander <Alexa=
-nder.Deucher-5C7GfCeVMHo@public.gmane.org>
-Cc: Christian K=F6nig <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>; Liu, Aaron <Aaron=
-.Liu-5C7GfCeVMHo@public.gmane.org>; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; Huang, Ray <Ray.Huang-5C7GfCeVMHo@public.gmane.org=
->; Tuikov, Luben <Luben.Tuikov-5C7GfCeVMHo@public.gmane.org>; Liu, Leo <Leo.Liu-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 01/12] amdgpu: add UAPI for creating encrypted buffers
-
-The way this is upstreamed is that you submit the kernel and userspace patc=
-hes for review at the same time. When they see the userspace patches, the k=
-ernel patches will be accepted. When the kernel patches land in the Dave's =
-or Linus's tree, the userspace patches can be pushed.
-
-Marek
-________________________________
-From: Olsak, Marek <Marek.Olsak-5C7GfCeVMHo@public.gmane.org<mailto:Marek.Olsak-5C7GfCeVMHo@public.gmane.org>>
-Sent: November 15, 2019 14:34
-To: Koenig, Christian <Christian.Koenig-5C7GfCeVMHo@public.gmane.org<mailto:Christian.Koenig@amd=
-.com>>; Deucher, Alexander <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org<mailto:Alexander.Deuc=
-her-5C7GfCeVMHo@public.gmane.org>>
-Cc: Christian K=F6nig <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org<mailto:ckoenig.leic=
-htzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>>; Liu, Aaron <Aaron.Liu-5C7GfCeVMHo@public.gmane.org<mailto:Aaron.Liu@amd.=
-com>>; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> =
-<amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>>; Huan=
-g, Ray <Ray.Huang-5C7GfCeVMHo@public.gmane.org<mailto:Ray.Huang-5C7GfCeVMHo@public.gmane.org>>; Tuikov, Luben <Luben.=
-Tuikov-5C7GfCeVMHo@public.gmane.org<mailto:Luben.Tuikov-5C7GfCeVMHo@public.gmane.org>>; Liu, Leo <Leo.Liu-5C7GfCeVMHo@public.gmane.org<mai=
-lto:Leo.Liu-5C7GfCeVMHo@public.gmane.org>>
-Subject: Re: [PATCH 01/12] amdgpu: add UAPI for creating encrypted buffers
-
-In the kernel tree, you need to do "make headers_install". Then copy amdgpu=
-_drm.h from ./usr/ to the libdrm tree and discard parts that we can't upstr=
-eam (freesync).
-
-Marek
-________________________________
-From: Koenig, Christian <Christian.Koenig-5C7GfCeVMHo@public.gmane.org<mailto:Christian.Koenig@a=
-md.com>>
-Sent: November 15, 2019 10:08
-To: Deucher, Alexander <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org<mailto:Alexander.Deucher@=
-amd.com>>
-Cc: Christian K=F6nig <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org<mailto:ckoenig.leic=
-htzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>>; Liu, Aaron <Aaron.Liu-5C7GfCeVMHo@public.gmane.org<mailto:Aaron.Liu@amd.=
-com>>; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> =
-<amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>>; Olsa=
-k, Marek <Marek.Olsak-5C7GfCeVMHo@public.gmane.org<mailto:Marek.Olsak-5C7GfCeVMHo@public.gmane.org>>; Huang, Ray <Ray=
-.Huang-5C7GfCeVMHo@public.gmane.org<mailto:Ray.Huang-5C7GfCeVMHo@public.gmane.org>>; Tuikov, Luben <Luben.Tuikov@amd.=
-com<mailto:Luben.Tuikov-5C7GfCeVMHo@public.gmane.org>>; Liu, Leo <Leo.Liu-5C7GfCeVMHo@public.gmane.org<mailto:Leo.Liu=
-@amd.com>>
-Subject: Re: [PATCH 01/12] amdgpu: add UAPI for creating encrypted buffers
-
-I know, that's the usual chicken and egg problem with updating libdrm.
-
-But we should update the file with the kernel version and not pick all chan=
-ges line by line.
-
-Christian.
-
-Am 15.11.2019 15:49 schrieb "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org=
-<mailto:Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>>:
-We can't land the kernel side until we have real userspace (e.g., Mesa) tha=
-t uses the TMZ interfaces.  The unit tests are not enough.
-
-Alex
-
-
-________________________________
-From: Christian K=F6nig <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org<mailto:ckoenig.le=
-ichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>>
-Sent: Friday, November 15, 2019 7:56 AM
-To: Liu, Aaron <Aaron.Liu-5C7GfCeVMHo@public.gmane.org<mailto:Aaron.Liu-5C7GfCeVMHo@public.gmane.org>>; amd-gfx@lists=
-.freedesktop.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> <amd-gfx-PD4FTy7X32mMSPqsTGOZug@public.gmane.org=
-esktop.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>>
-Cc: Olsak, Marek <Marek.Olsak-5C7GfCeVMHo@public.gmane.org<mailto:Marek.Olsak-5C7GfCeVMHo@public.gmane.org>>; Huang, =
-Ray <Ray.Huang-5C7GfCeVMHo@public.gmane.org<mailto:Ray.Huang-5C7GfCeVMHo@public.gmane.org>>; Tuikov, Luben <Luben.Tui=
-kov-5C7GfCeVMHo@public.gmane.org<mailto:Luben.Tuikov-5C7GfCeVMHo@public.gmane.org>>; Deucher, Alexander <Alexander.De=
-ucher-5C7GfCeVMHo@public.gmane.org<mailto:Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>>; Liu, Leo <Leo.Liu-5C7GfCeVMHo@public.gmane.org=
-<mailto:Leo.Liu-5C7GfCeVMHo@public.gmane.org>>; Koenig, Christian <Christian.Koenig-5C7GfCeVMHo@public.gmane.org<mail=
-to:Christian.Koenig-5C7GfCeVMHo@public.gmane.org>>
-Subject: Re: [PATCH 01/12] amdgpu: add UAPI for creating encrypted buffers
-
-Am 15.11.19 um 04:34 schrieb Aaron Liu:
-> From: Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org<mailto:ray.huang-5C7GfCeVMHo@public.gmane.org>>
->
-> To align the kernel uapi change from Alex:
->
-> "Add a flag to the GEM_CREATE ioctl to create encrypted buffers. Buffers =
-with
-> this flag set will be created with the TMZ bit set in the PTEs or engines
-> accessing them. This is required in order to properly access the data fro=
-m the
-> engines."
->
-> We will use GEM_CREATE_ENCRYPTED flag for secure buffer allocation.
->
-> Signed-off-by: Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org<mailto:ray.huang-5C7GfCeVMHo@public.gmane.org>>
-> Reviewed-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org<mailto:alexander.deu=
-cher-5C7GfCeVMHo@public.gmane.org>>
-
-Please read up on how amdpu_drm.h is updated. The change must first land
-upstream and then the file is synced up somehow semi-automatic.
-
-Christian.
-
-> ---
->   include/drm/amdgpu_drm.h | 5 +++++
->   1 file changed, 5 insertions(+)
->
-> diff --git a/include/drm/amdgpu_drm.h b/include/drm/amdgpu_drm.h
-> index 5c28aa7..1a95e37 100644
-> --- a/include/drm/amdgpu_drm.h
-> +++ b/include/drm/amdgpu_drm.h
-> @@ -141,6 +141,11 @@ extern "C" {
->    * releasing the memory
->    */
->   #define AMDGPU_GEM_CREATE_VRAM_WIPE_ON_RELEASE      (1 << 9)
-> +/* Flag that BO will be encrypted and that the TMZ bit should be
-> + * set in the PTEs when mapping this buffer via GPUVM or
-> + * accessing it with various hw blocks
-> + */
-> +#define AMDGPU_GEM_CREATE_ENCRYPTED          (1 << 10)
->
->   /* Hybrid specific */
->   /* Flag that the memory allocation should be from top of domain */
-
---_000_MN2PR12MB3838E0228F0AB2E58DB9109DF04D0MN2PR12MB3838namp_
-Content-Type: text/html; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
-osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
-xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
-//www.w3.org/TR/REC-html40">
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
-<!--[if !mso]><style>v\:* {behavior:url(#default#VML);}
-o\:* {behavior:url(#default#VML);}
-w\:* {behavior:url(#default#VML);}
-.shape {behavior:url(#default#VML);}
-</style><![endif]--><style><!--
-/* Font Definitions */
-@font-face
-	{font-family:"Cambria Math";
-	panose-1:2 4 5 3 5 4 6 3 2 4;}
-@font-face
-	{font-family:DengXian;
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-@font-face
-	{font-family:Calibri;
-	panose-1:2 15 5 2 2 2 4 3 2 4;}
-@font-face
-	{font-family:"\@DengXian";
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-/* Style Definitions */
-p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin:0in;
-	margin-bottom:.0001pt;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif;}
-a:link, span.MsoHyperlink
-	{mso-style-priority:99;
-	color:#0563C1;
-	text-decoration:underline;}
-a:visited, span.MsoHyperlinkFollowed
-	{mso-style-priority:99;
-	color:#954F72;
-	text-decoration:underline;}
-p.msonormal0, li.msonormal0, div.msonormal0
-	{mso-style-name:msonormal;
-	margin:0in;
-	margin-bottom:.0001pt;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif;}
-span.EmailStyle18
-	{mso-style-type:personal-reply;
-	font-family:"Calibri",sans-serif;
-	color:windowtext;}
-.MsoChpDefault
-	{mso-style-type:export-only;
-	font-size:10.0pt;}
-@page WordSection1
-	{size:8.5in 11.0in;
-	margin:1.0in 1.0in 1.0in 1.0in;}
-div.WordSection1
-	{page:WordSection1;}
---></style><!--[if gte mso 9]><xml>
-<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
-</xml><![endif]--><!--[if gte mso 9]><xml>
-<o:shapelayout v:ext=3D"edit">
-<o:idmap v:ext=3D"edit" data=3D"1" />
-</o:shapelayout></xml><![endif]-->
-</head>
-<body lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72">
-<div class=3D"WordSection1">
-<p class=3D"MsoNormal">Thanks for reviews.<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">As Christian&#8217;s suggestion, I added drm_version=
- checking, for the older driver, security test suites are disabled.<o:p></o=
-:p></p>
-<p class=3D"MsoNormal">I create a remote branch for libdrm: <span style=3D"=
-color:red">
-remotes/origin/aaliu/for-tmz-support</span><o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<div>
-<p class=3D"MsoNormal">BR,<o:p></o:p></p>
-<p class=3D"MsoNormal">Aaron Liu<o:p></o:p></p>
-</div>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<div style=3D"border:none;border-left:solid blue 1.5pt;padding:0in 0in 0in =
-4.0pt">
-<div>
-<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
-0in 0in">
-<p class=3D"MsoNormal"><b>From:</b> Olsak, Marek &lt;Marek.Olsak-5C7GfCeVMHo@public.gmane.org&gt=
-; <br>
-<b>Sent:</b> Saturday, November 16, 2019 3:53 AM<br>
-<b>To:</b> Koenig, Christian &lt;Christian.Koenig-5C7GfCeVMHo@public.gmane.org&gt;; Deucher, Ale=
-xander &lt;Alexander.Deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
-<b>Cc:</b> Christian K=F6nig &lt;ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;; Liu,=
- Aaron &lt;Aaron.Liu-5C7GfCeVMHo@public.gmane.org&gt;; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; Huang, Ray=
- &lt;Ray.Huang-5C7GfCeVMHo@public.gmane.org&gt;; Tuikov, Luben &lt;Luben.Tuikov-5C7GfCeVMHo@public.gmane.org&gt;; Liu=
-, Leo &lt;Leo.Liu-5C7GfCeVMHo@public.gmane.org&gt;<br>
-<b>Subject:</b> Re: [PATCH 01/12] amdgpu: add UAPI for creating encrypted b=
-uffers<o:p></o:p></p>
-</div>
-</div>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<div>
-<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">The way=
- this is upstreamed is that you submit the kernel and userspace patches for=
- review at the same time. When they see the userspace patches, the kernel p=
-atches will be accepted. When the kernel
- patches land in the Dave's or Linus's tree, the userspace patches can be p=
-ushed.<o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black"><o:p>&n=
-bsp;</o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">Marek<o=
-:p></o:p></span></p>
-</div>
-<div class=3D"MsoNormal" align=3D"center" style=3D"text-align:center">
-<hr size=3D"2" width=3D"98%" align=3D"center">
-</div>
-<div id=3D"divRplyFwdMsg">
-<p class=3D"MsoNormal"><b><span style=3D"color:black">From:</span></b><span=
- style=3D"color:black"> Olsak, Marek &lt;</span><a href=3D"mailto:Marek.Ols=
-ak-5C7GfCeVMHo@public.gmane.org">Marek.Olsak-5C7GfCeVMHo@public.gmane.org</a><span style=3D"color:black">&gt;<br>
-<b>Sent:</b> November 15, 2019 14:34<br>
-<b>To:</b> Koenig, Christian &lt;</span><a href=3D"mailto:Christian.Koenig@=
-amd.com">Christian.Koenig-5C7GfCeVMHo@public.gmane.org</a><span style=3D"color:black">&gt;; Deuc=
-her, Alexander &lt;</span><a href=3D"mailto:Alexander.Deucher-5C7GfCeVMHo@public.gmane.org">Alex=
-ander.Deucher-5C7GfCeVMHo@public.gmane.org</a><span style=3D"color:black">&gt;<br>
-<b>Cc:</b> Christian K=F6nig &lt;</span><a href=3D"mailto:ckoenig.leichtzum=
-erken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org">ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a><span style=3D"color:b=
-lack">&gt;; Liu, Aaron &lt;</span><a href=3D"mailto:Aaron.Liu-5C7GfCeVMHo@public.gmane.org">Aaro=
-n.Liu-5C7GfCeVMHo@public.gmane.org</a><span style=3D"color:black">&gt;;
-</span><a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32mMSPqsTGOZug@public.gmane.org=
-esktop.org</a><span style=3D"color:black"> &lt;</span><a href=3D"mailto:amd=
--gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><span style=3D=
-"color:black">&gt;; Huang, Ray &lt;</span><a href=3D"mailto:Ray.Huang@amd.c=
-om">Ray.Huang-5C7GfCeVMHo@public.gmane.org</a><span style=3D"color:black">&gt;;
- Tuikov, Luben &lt;</span><a href=3D"mailto:Luben.Tuikov-5C7GfCeVMHo@public.gmane.org">Luben.Tui=
-kov-5C7GfCeVMHo@public.gmane.org</a><span style=3D"color:black">&gt;; Liu, Leo &lt;</span><a hre=
-f=3D"mailto:Leo.Liu-5C7GfCeVMHo@public.gmane.org">Leo.Liu-5C7GfCeVMHo@public.gmane.org</a><span style=3D"color:black"=
->&gt;<br>
-<b>Subject:</b> Re: [PATCH 01/12] amdgpu: add UAPI for creating encrypted b=
-uffers</span>
-<o:p></o:p></p>
-<div>
-<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
-</div>
-</div>
-<div>
-<div>
-<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">In the =
-kernel tree, you need to do &quot;make headers_install&quot;. Then copy amd=
-gpu_drm.h from ./usr/ to the libdrm tree and discard parts that we can't up=
-stream (freesync).<o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black"><o:p>&n=
-bsp;</o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">Marek<o=
-:p></o:p></span></p>
-</div>
-<div class=3D"MsoNormal" align=3D"center" style=3D"text-align:center">
-<hr size=3D"2" width=3D"98%" align=3D"center">
-</div>
-<div id=3D"x_divRplyFwdMsg">
-<p class=3D"MsoNormal"><b><span style=3D"color:black">From:</span></b><span=
- style=3D"color:black"> Koenig, Christian &lt;</span><a href=3D"mailto:Chri=
-stian.Koenig-5C7GfCeVMHo@public.gmane.org">Christian.Koenig-5C7GfCeVMHo@public.gmane.org</a><span style=3D"color:blac=
-k">&gt;<br>
-<b>Sent:</b> November 15, 2019 10:08<br>
-<b>To:</b> Deucher, Alexander &lt;</span><a href=3D"mailto:Alexander.Deuche=
-r@amd.com">Alexander.Deucher-5C7GfCeVMHo@public.gmane.org</a><span style=3D"color:black">&gt;<br=
->
-<b>Cc:</b> Christian K=F6nig &lt;</span><a href=3D"mailto:ckoenig.leichtzum=
-erken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org">ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a><span style=3D"color:b=
-lack">&gt;; Liu, Aaron &lt;</span><a href=3D"mailto:Aaron.Liu-5C7GfCeVMHo@public.gmane.org">Aaro=
-n.Liu-5C7GfCeVMHo@public.gmane.org</a><span style=3D"color:black">&gt;;
-</span><a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32mMSPqsTGOZug@public.gmane.org=
-esktop.org</a><span style=3D"color:black"> &lt;</span><a href=3D"mailto:amd=
--gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><span style=3D=
-"color:black">&gt;; Olsak, Marek &lt;</span><a href=3D"mailto:Marek.Olsak@a=
-md.com">Marek.Olsak-5C7GfCeVMHo@public.gmane.org</a><span style=3D"color:black">&gt;;
- Huang, Ray &lt;</span><a href=3D"mailto:Ray.Huang-5C7GfCeVMHo@public.gmane.org">Ray.Huang@amd.c=
-om</a><span style=3D"color:black">&gt;; Tuikov, Luben &lt;</span><a href=3D=
-"mailto:Luben.Tuikov-5C7GfCeVMHo@public.gmane.org">Luben.Tuikov-5C7GfCeVMHo@public.gmane.org</a><span style=3D"color:=
-black">&gt;; Liu, Leo &lt;</span><a href=3D"mailto:Leo.Liu-5C7GfCeVMHo@public.gmane.org">Leo.Liu=
-@amd.com</a><span style=3D"color:black">&gt;<br>
-<b>Subject:</b> Re: [PATCH 01/12] amdgpu: add UAPI for creating encrypted b=
-uffers</span>
-<o:p></o:p></p>
-<div>
-<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
-</div>
-</div>
-<div>
-<div>
-<p class=3D"MsoNormal">I know, that's the usual chicken and egg problem wit=
-h updating libdrm.
-<o:p></o:p></p>
-<div>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-</div>
-<div>
-<p class=3D"MsoNormal">But we should update the file with the kernel versio=
-n and not pick all changes line by line.<o:p></o:p></p>
-</div>
-<div>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-</div>
-<div>
-<p class=3D"MsoNormal">Christian.<o:p></o:p></p>
-</div>
-</div>
-<div>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<div>
-<p class=3D"MsoNormal">Am 15.11.2019 15:49 schrieb &quot;Deucher, Alexander=
-&quot; &lt;<a href=3D"mailto:Alexander.Deucher-5C7GfCeVMHo@public.gmane.org">Alexander.Deucher@a=
-md.com</a>&gt;:<o:p></o:p></p>
-</div>
-</div>
-<div>
-<div>
-<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">We can'=
-t land the kernel side until we have real userspace (e.g., Mesa) that uses =
-the TMZ interfaces.&nbsp; The unit tests are not enough.<o:p></o:p></span><=
-/p>
-</div>
-<div>
-<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black"><o:p>&n=
-bsp;</o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">Alex<o:=
-p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black"><o:p>&n=
-bsp;</o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black"><o:p>&n=
-bsp;</o:p></span></p>
-</div>
-<div class=3D"MsoNormal" align=3D"center" style=3D"text-align:center">
-<hr size=3D"2" width=3D"98%" align=3D"center">
-</div>
-<div id=3D"x_x_divRplyFwdMsg">
-<p class=3D"MsoNormal"><b><span style=3D"color:black">From:</span></b><span=
- style=3D"color:black"> Christian K=F6nig &lt;</span><a href=3D"mailto:ckoe=
-nig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org">ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a><span sty=
-le=3D"color:black">&gt;<br>
-<b>Sent:</b> Friday, November 15, 2019 7:56 AM<br>
-<b>To:</b> Liu, Aaron &lt;</span><a href=3D"mailto:Aaron.Liu-5C7GfCeVMHo@public.gmane.org">Aaron=
-.Liu-5C7GfCeVMHo@public.gmane.org</a><span style=3D"color:black">&gt;;
-</span><a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32mMSPqsTGOZug@public.gmane.org=
-esktop.org</a><span style=3D"color:black"> &lt;</span><a href=3D"mailto:amd=
--gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><span style=3D=
-"color:black">&gt;<br>
-<b>Cc:</b> Olsak, Marek &lt;</span><a href=3D"mailto:Marek.Olsak-5C7GfCeVMHo@public.gmane.org">M=
-arek.Olsak-5C7GfCeVMHo@public.gmane.org</a><span style=3D"color:black">&gt;; Huang, Ray &lt;</sp=
-an><a href=3D"mailto:Ray.Huang-5C7GfCeVMHo@public.gmane.org">Ray.Huang-5C7GfCeVMHo@public.gmane.org</a><span style=3D=
-"color:black">&gt;; Tuikov, Luben &lt;</span><a href=3D"mailto:Luben.Tuikov=
-@amd.com">Luben.Tuikov-5C7GfCeVMHo@public.gmane.org</a><span style=3D"color:black">&gt;;
- Deucher, Alexander &lt;</span><a href=3D"mailto:Alexander.Deucher-5C7GfCeVMHo@public.gmane.org"=
->Alexander.Deucher-5C7GfCeVMHo@public.gmane.org</a><span style=3D"color:black">&gt;; Liu, Leo &l=
-t;</span><a href=3D"mailto:Leo.Liu-5C7GfCeVMHo@public.gmane.org">Leo.Liu-5C7GfCeVMHo@public.gmane.org</a><span style=
-=3D"color:black">&gt;; Koenig, Christian &lt;</span><a href=3D"mailto:Chris=
-tian.Koenig-5C7GfCeVMHo@public.gmane.org">Christian.Koenig-5C7GfCeVMHo@public.gmane.org</a><span style=3D"color:black=
-">&gt;<br>
-<b>Subject:</b> Re: [PATCH 01/12] amdgpu: add UAPI for creating encrypted b=
-uffers</span>
-<o:p></o:p></p>
-<div>
-<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
-</div>
-</div>
-<div>
-<div>
-<p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt">Am 15.11.19 um 04:34 =
-schrieb Aaron Liu:<br>
-&gt; From: Huang Rui &lt;<a href=3D"mailto:ray.huang-5C7GfCeVMHo@public.gmane.org">ray.huang@amd=
-.com</a>&gt;<br>
-&gt;<br>
-&gt; To align the kernel uapi change from Alex:<br>
-&gt;<br>
-&gt; &quot;Add a flag to the GEM_CREATE ioctl to create encrypted buffers. =
-Buffers with<br>
-&gt; this flag set will be created with the TMZ bit set in the PTEs or engi=
-nes<br>
-&gt; accessing them. This is required in order to properly access the data =
-from the<br>
-&gt; engines.&quot;<br>
-&gt;<br>
-&gt; We will use GEM_CREATE_ENCRYPTED flag for secure buffer allocation.<br=
->
-&gt;<br>
-&gt; Signed-off-by: Huang Rui &lt;<a href=3D"mailto:ray.huang-5C7GfCeVMHo@public.gmane.org">ray.=
-huang-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
-&gt; Reviewed-by: Alex Deucher &lt;<a href=3D"mailto:alexander.deucher@amd.=
-com">alexander.deucher-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
-<br>
-Please read up on how amdpu_drm.h is updated. The change must first land <b=
-r>
-upstream and then the file is synced up somehow semi-automatic.<br>
-<br>
-Christian.<br>
-<br>
-&gt; ---<br>
-&gt;&nbsp;&nbsp; include/drm/amdgpu_drm.h | 5 &#43;&#43;&#43;&#43;&#43;<br>
-&gt;&nbsp;&nbsp; 1 file changed, 5 insertions(&#43;)<br>
-&gt;<br>
-&gt; diff --git a/include/drm/amdgpu_drm.h b/include/drm/amdgpu_drm.h<br>
-&gt; index 5c28aa7..1a95e37 100644<br>
-&gt; --- a/include/drm/amdgpu_drm.h<br>
-&gt; &#43;&#43;&#43; b/include/drm/amdgpu_drm.h<br>
-&gt; @@ -141,6 &#43;141,11 @@ extern &quot;C&quot; {<br>
-&gt;&nbsp;&nbsp;&nbsp; * releasing the memory<br>
-&gt;&nbsp;&nbsp;&nbsp; */<br>
-&gt;&nbsp;&nbsp; #define AMDGPU_GEM_CREATE_VRAM_WIPE_ON_RELEASE&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp; (1 &lt;&lt; 9)<br>
-&gt; &#43;/* Flag that BO will be encrypted and that the TMZ bit should be<=
-br>
-&gt; &#43; * set in the PTEs when mapping this buffer via GPUVM or<br>
-&gt; &#43; * accessing it with various hw blocks<br>
-&gt; &#43; */<br>
-&gt; &#43;#define AMDGPU_GEM_CREATE_ENCRYPTED&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp; (1 &lt;&lt; 10)<br>
-&gt;&nbsp;&nbsp; <br>
-&gt;&nbsp;&nbsp; /* Hybrid specific */<br>
-&gt;&nbsp;&nbsp; /* Flag that the memory allocation should be from top of d=
-omain */<o:p></o:p></p>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</body>
-</html>
-
---_000_MN2PR12MB3838E0228F0AB2E58DB9109DF04D0MN2PR12MB3838namp_--
-
---===============0839607660==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
-
---===============0839607660==--
+U2VyaWVzIGlzDQpSZXZpZXdlZC1ieTogSGF3a2luZyBaaGFuZyA8SGF3a2luZy5aaGFuZ0BhbWQu
+Y29tPg0KDQpSZWdhcmRzLA0KSGF3a2luZw0KLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCkZy
+b206IGFtZC1nZnggPGFtZC1nZngtYm91bmNlc0BsaXN0cy5mcmVlZGVza3RvcC5vcmc+IE9uIEJl
+aGFsZiBPZiBFdmFuIFF1YW4NClNlbnQ6IDIwMTnlubQxMeaciDE45pelIDE3OjIwDQpUbzogYW1k
+LWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCkNjOiBRdWFuLCBFdmFuIDxFdmFuLlF1YW5AYW1k
+LmNvbT4NClN1YmplY3Q6IFtQQVRDSCAyLzJdIGRybS9hbWQvcG93ZXJwbGF5OiBhZGQgQXJjdHVy
+dXMgYmFjbyByZXNldCBzdXBwb3J0DQoNCkVuYWJsZSBiYWNvIHJlc2V0IHN1cHBvcnQgb24gQXJj
+dHVydXMuDQoNCkNoYW5nZS1JZDogSTdiNjkwMTZlZTBkMjM4ZTBmY2IzMjNhYTEwMjE1ZTI5OTI0
+YTZjYTYNClNpZ25lZC1vZmYtYnk6IEV2YW4gUXVhbiA8ZXZhbi5xdWFuQGFtZC5jb20+DQotLS0N
+CiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9zb2MxNS5jICAgICAgICAgICB8ICAxICsNCiBk
+cml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9hcmN0dXJ1c19wcHQuYyB8ICA3ICsrKysrKysN
+CiBkcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9zbXVfdjExXzAuYyAgICB8IDE0ICsrKysr
+KysrKystLS0tDQogMyBmaWxlcyBjaGFuZ2VkLCAxOCBpbnNlcnRpb25zKCspLCA0IGRlbGV0aW9u
+cygtKQ0KDQpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvc29jMTUuYyBi
+L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3NvYzE1LmMNCmluZGV4IGIyNWU5ZWNhNWQzMS4u
+ODZjZmVlNTI4ZDNiIDEwMDY0NA0KLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvc29j
+MTUuYw0KKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvc29jMTUuYw0KQEAgLTU2NSw2
+ICs1NjUsNyBAQCBzb2MxNV9hc2ljX3Jlc2V0X21ldGhvZChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAq
+YWRldikNCiAJCXJldHVybiBBTURfUkVTRVRfTUVUSE9EX01PREUyOw0KIAljYXNlIENISVBfVkVH
+QTEwOg0KIAljYXNlIENISVBfVkVHQTEyOg0KKwljYXNlIENISVBfQVJDVFVSVVM6DQogCQlzb2Mx
+NV9hc2ljX2dldF9iYWNvX2NhcGFiaWxpdHkoYWRldiwgJmJhY29fcmVzZXQpOw0KIAkJYnJlYWs7
+DQogCWNhc2UgQ0hJUF9WRUdBMjA6DQpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9w
+b3dlcnBsYXkvYXJjdHVydXNfcHB0LmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9h
+cmN0dXJ1c19wcHQuYw0KaW5kZXggNThjN2M0YTMwNTNlLi4xYWYwYjFhYjZmNzAgMTAwNjQ0DQot
+LS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9hcmN0dXJ1c19wcHQuYw0KKysrIGIv
+ZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvYXJjdHVydXNfcHB0LmMNCkBAIC00OTUsNiAr
+NDk1LDcgQEAgc3RhdGljIGludCBhcmN0dXJ1c19zdG9yZV9wb3dlcnBsYXlfdGFibGUoc3RydWN0
+IHNtdV9jb250ZXh0ICpzbXUpICB7DQogCXN0cnVjdCBzbXVfMTFfMF9wb3dlcnBsYXlfdGFibGUg
+KnBvd2VycGxheV90YWJsZSA9IE5VTEw7DQogCXN0cnVjdCBzbXVfdGFibGVfY29udGV4dCAqdGFi
+bGVfY29udGV4dCA9ICZzbXUtPnNtdV90YWJsZTsNCisJc3RydWN0IHNtdV9iYWNvX2NvbnRleHQg
+KnNtdV9iYWNvID0gJnNtdS0+c211X2JhY287DQogCWludCByZXQgPSAwOw0KIA0KIAlpZiAoIXRh
+YmxlX2NvbnRleHQtPnBvd2VyX3BsYXlfdGFibGUpDQpAQCAtNTA3LDYgKzUwOCwxMiBAQCBzdGF0
+aWMgaW50IGFyY3R1cnVzX3N0b3JlX3Bvd2VycGxheV90YWJsZShzdHJ1Y3Qgc211X2NvbnRleHQg
+KnNtdSkNCiANCiAJdGFibGVfY29udGV4dC0+dGhlcm1hbF9jb250cm9sbGVyX3R5cGUgPSBwb3dl
+cnBsYXlfdGFibGUtPnRoZXJtYWxfY29udHJvbGxlcl90eXBlOw0KIA0KKwltdXRleF9sb2NrKCZz
+bXVfYmFjby0+bXV0ZXgpOw0KKwlpZiAocG93ZXJwbGF5X3RhYmxlLT5wbGF0Zm9ybV9jYXBzICYg
+U01VXzExXzBfUFBfUExBVEZPUk1fQ0FQX0JBQ08gfHwNCisJICAgIHBvd2VycGxheV90YWJsZS0+
+cGxhdGZvcm1fY2FwcyAmIFNNVV8xMV8wX1BQX1BMQVRGT1JNX0NBUF9NQUNPKQ0KKwkJc211X2Jh
+Y28tPnBsYXRmb3JtX3N1cHBvcnQgPSB0cnVlOw0KKwltdXRleF91bmxvY2soJnNtdV9iYWNvLT5t
+dXRleCk7DQorDQogCXJldHVybiByZXQ7DQogfQ0KIA0KZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1
+L2RybS9hbWQvcG93ZXJwbGF5L3NtdV92MTFfMC5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dl
+cnBsYXkvc211X3YxMV8wLmMNCmluZGV4IDcxZTJiYmUyNWNmNi4uMjM4ZDU4NDgwNWIzIDEwMDY0
+NA0KLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvc211X3YxMV8wLmMNCisrKyBi
+L2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L3NtdV92MTFfMC5jDQpAQCAtMTY0MSw3ICsx
+NjQxLDkgQEAgYm9vbCBzbXVfdjExXzBfYmFjb19pc19zdXBwb3J0KHN0cnVjdCBzbXVfY29udGV4
+dCAqc211KQ0KIAlpZiAoIWJhY29fc3VwcG9ydCkNCiAJCXJldHVybiBmYWxzZTsNCiANCi0JaWYg
+KCFzbXVfZmVhdHVyZV9pc19lbmFibGVkKHNtdSwgU01VX0ZFQVRVUkVfQkFDT19CSVQpKQ0KKwkv
+KiBBcmN0dXJ1cyBkb2VzIG5vdCBzdXBwb3J0IHRoaXMgYml0IG1hc2sgKi8NCisJaWYgKHNtdV9m
+ZWF0dXJlX2lzX3N1cHBvcnRlZChzbXUsIFNNVV9GRUFUVVJFX0JBQ09fQklUKSAmJg0KKwkgICAh
+c211X2ZlYXR1cmVfaXNfZW5hYmxlZChzbXUsIFNNVV9GRUFUVVJFX0JBQ09fQklUKSkNCiAJCXJl
+dHVybiBmYWxzZTsNCiANCiAJdmFsID0gUlJFRzMyX1NPQzE1KE5CSU8sIDAsIG1tUkNDX0JJRl9T
+VFJBUDApOyBAQCAtMTcxMywxMSArMTcxNSwxNSBAQCBpbnQgc211X3YxMV8wX2JhY29fc2V0X3N0
+YXRlKHN0cnVjdCBzbXVfY29udGV4dCAqc211LCBlbnVtIHNtdV9iYWNvX3N0YXRlIHN0YXRlKQ0K
+IA0KIGludCBzbXVfdjExXzBfYmFjb19yZXNldChzdHJ1Y3Qgc211X2NvbnRleHQgKnNtdSkgIHsN
+CisJc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYgPSBzbXUtPmFkZXY7DQogCWludCByZXQgPSAw
+Ow0KIA0KLQlyZXQgPSBzbXVfdjExXzBfYmFjb19zZXRfYXJtZDNfc2VxdWVuY2Uoc211LCBCQUNP
+X1NFUV9CQUNPKTsNCi0JaWYgKHJldCkNCi0JCXJldHVybiByZXQ7DQorCS8qIEFyY3R1cnVzIGRv
+ZXMgbm90IG5lZWQgdGhpcyBhdWRpbyB3b3JrYXJvdW5kICovDQorCWlmIChhZGV2LT5hc2ljX3R5
+cGUgIT0gQ0hJUF9BUkNUVVJVUykgew0KKwkJcmV0ID0gc211X3YxMV8wX2JhY29fc2V0X2FybWQz
+X3NlcXVlbmNlKHNtdSwgQkFDT19TRVFfQkFDTyk7DQorCQlpZiAocmV0KQ0KKwkJCXJldHVybiBy
+ZXQ7DQorCX0NCiANCiAJcmV0ID0gc211X3YxMV8wX2JhY29fc2V0X3N0YXRlKHNtdSwgU01VX0JB
+Q09fU1RBVEVfRU5URVIpOw0KIAlpZiAocmV0KQ0KLS0NCjIuMjQuMA0KDQpfX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXw0KYW1kLWdmeCBtYWlsaW5nIGxpc3QN
+CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnDQpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9w
+Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngNCl9fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMu
+ZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlz
+dGluZm8vYW1kLWdmeA==
