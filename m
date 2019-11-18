@@ -1,149 +1,77 @@
-From: "Huang, Ray" <Ray.Huang-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 1/5] drm/amdgpu: expand sdma copy_buffer interface with
- tmz parameter
-Date: Mon, 18 Nov 2019 06:16:05 +0000
-Message-ID: <MN2PR12MB33099524D1B8A33AE796E138EC4D0@MN2PR12MB3309.namprd12.prod.outlook.com>
-References: <1574054316-2802-1-git-send-email-aaron.liu@amd.com>
+From: "Quan, Evan" <Evan.Quan@amd.com>
+Subject: RE: [PATCH] drm/amd/powerplay: remove variable 'result' set but not
+ used
+Date: Mon, 18 Nov 2019 06:50:58 +0000
+Message-ID: <MN2PR12MB3344A9DA952F41ADDAD6142AE44D0@MN2PR12MB3344.namprd12.prod.outlook.com>
+References: <1573875799-83572-1-git-send-email-chenwandun@huawei.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1574054316-2802-1-git-send-email-aaron.liu-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <1573875799-83572-1-git-send-email-chenwandun@huawei.com>
 Content-Language: en-US
-Content-ID: <757380BF643C6E43A9B8A1515E62A30F-t0aD9ArCiwdO0n7uQEQMm4CZgX+1HZI1@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Liu, Aaron" <Aaron.Liu-5C7GfCeVMHo@public.gmane.org>
-Cc: "Deucher,
- Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Tuikov, Luben" <Luben.Tuikov-5C7GfCeVMHo@public.gmane.org>, "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Chen Wandun <chenwandun@huawei.com>, "Deucher, Alexander" <Alexander.Deucher@amd.com>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-ClNlcmllcyBhcmUgUmV2aWV3ZWQtYnk6IEh1YW5nIFJ1aSA8cmF5Lmh1YW5nQGFtZC5jb20+CgpP
-biBNb24sIE5vdiAxOCwgMjAxOSBhdCAwMToxODozMlBNICswODAwLCBMaXUsIEFhcm9uIHdyb3Rl
-Ogo+IFRoaXMgcGF0Y2ggZXhwYW5kcyBzZG1hIGNvcHlfYnVmZmVyIGludGVyZmFjZSB3aXRoIHRt
-eiBwYXJhbWV0ZXIuCj4gCj4gU2lnbmVkLW9mZi1ieTogQWFyb24gTGl1IDxhYXJvbi5saXVAYW1k
-LmNvbT4KPiBSZXZpZXdlZC1ieTogQ2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0Bh
-bWQuY29tPgo+IC0tLQo+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfc2RtYS5o
-IHwgNSArKystLQo+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdHRtLmMgIHwg
-NCArKy0tCj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Npa19zZG1hLmMgICAgfCAzICsr
-LQo+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9zZG1hX3YyXzQuYyAgIHwgMyArKy0KPiAg
-ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvc2RtYV92M18wLmMgICB8IDMgKystCj4gIGRyaXZl
-cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3NkbWFfdjRfMC5jICAgfCAzICsrLQo+ICBkcml2ZXJzL2dw
-dS9kcm0vYW1kL2FtZGdwdS9zZG1hX3Y1XzAuYyAgIHwgMyArKy0KPiAgZHJpdmVycy9ncHUvZHJt
-L2FtZC9hbWRncHUvc2lfZG1hLmMgICAgICB8IDMgKystCj4gIDggZmlsZXMgY2hhbmdlZCwgMTcg
-aW5zZXJ0aW9ucygrKSwgMTAgZGVsZXRpb25zKC0pCj4gCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMv
-Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9zZG1hLmggYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
-ZGdwdS9hbWRncHVfc2RtYS5oCj4gaW5kZXggNzYxZmY4Yi4uYjMxMzQ2NSAxMDA2NDQKPiAtLS0g
-YS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfc2RtYS5oCj4gKysrIGIvZHJpdmVy
-cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3NkbWEuaAo+IEBAIC03OSw3ICs3OSw4IEBAIHN0
-cnVjdCBhbWRncHVfYnVmZmVyX2Z1bmNzIHsKPiAgCQkJCSAvKiBkc3QgYWRkciBpbiBieXRlcyAq
-Lwo+ICAJCQkJIHVpbnQ2NF90IGRzdF9vZmZzZXQsCj4gIAkJCQkgLyogbnVtYmVyIG9mIGJ5dGUg
-dG8gdHJhbnNmZXIgKi8KPiAtCQkJCSB1aW50MzJfdCBieXRlX2NvdW50KTsKPiArCQkJCSB1aW50
-MzJfdCBieXRlX2NvdW50LAo+ICsJCQkJIGJvb2wgdG16KTsKPiAgCj4gIAkvKiBtYXhpbXVtIGJ5
-dGVzIGluIGEgc2luZ2xlIG9wZXJhdGlvbiAqLwo+ICAJdWludDMyX3QJZmlsbF9tYXhfYnl0ZXM7
-Cj4gQEAgLTk3LDcgKzk4LDcgQEAgc3RydWN0IGFtZGdwdV9idWZmZXJfZnVuY3Mgewo+ICAJCQkJ
-IHVpbnQzMl90IGJ5dGVfY291bnQpOwo+ICB9Owo+ICAKPiAtI2RlZmluZSBhbWRncHVfZW1pdF9j
-b3B5X2J1ZmZlcihhZGV2LCBpYiwgcywgZCwgYikgKGFkZXYpLT5tbWFuLmJ1ZmZlcl9mdW5jcy0+
-ZW1pdF9jb3B5X2J1ZmZlcigoaWIpLCAgKHMpLCAoZCksIChiKSkKPiArI2RlZmluZSBhbWRncHVf
-ZW1pdF9jb3B5X2J1ZmZlcihhZGV2LCBpYiwgcywgZCwgYiwgdCkgKGFkZXYpLT5tbWFuLmJ1ZmZl
-cl9mdW5jcy0+ZW1pdF9jb3B5X2J1ZmZlcigoaWIpLCAgKHMpLCAoZCksIChiKSwgKHQpKQo+ICAj
-ZGVmaW5lIGFtZGdwdV9lbWl0X2ZpbGxfYnVmZmVyKGFkZXYsIGliLCBzLCBkLCBiKSAoYWRldikt
-Pm1tYW4uYnVmZmVyX2Z1bmNzLT5lbWl0X2ZpbGxfYnVmZmVyKChpYiksIChzKSwgKGQpLCAoYikp
-Cj4gIAo+ICBzdHJ1Y3QgYW1kZ3B1X3NkbWFfaW5zdGFuY2UgKgo+IGRpZmYgLS1naXQgYS9kcml2
-ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdHRtLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1k
-L2FtZGdwdS9hbWRncHVfdHRtLmMKPiBpbmRleCAzMzkwODhkLi5jMDhjMTVlIDEwMDY0NAo+IC0t
-LSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV90dG0uYwo+ICsrKyBiL2RyaXZl
-cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV90dG0uYwo+IEBAIC0yMDIyLDcgKzIwMjIsNyBA
-QCBzdGF0aWMgaW50IGFtZGdwdV9tYXBfYnVmZmVyKHN0cnVjdCB0dG1fYnVmZmVyX29iamVjdCAq
-Ym8sCj4gIAlkc3RfYWRkciA9IGFtZGdwdV9ib19ncHVfb2Zmc2V0KGFkZXYtPmdhcnQuYm8pOwo+
-ICAJZHN0X2FkZHIgKz0gd2luZG93ICogQU1ER1BVX0dUVF9NQVhfVFJBTlNGRVJfU0laRSAqIDg7
-Cj4gIAlhbWRncHVfZW1pdF9jb3B5X2J1ZmZlcihhZGV2LCAmam9iLT5pYnNbMF0sIHNyY19hZGRy
-LAo+IC0JCQkJZHN0X2FkZHIsIG51bV9ieXRlcyk7Cj4gKwkJCQlkc3RfYWRkciwgbnVtX2J5dGVz
-LCBmYWxzZSk7Cj4gIAo+ICAJYW1kZ3B1X3JpbmdfcGFkX2liKHJpbmcsICZqb2ItPmlic1swXSk7
-Cj4gIAlXQVJOX09OKGpvYi0+aWJzWzBdLmxlbmd0aF9kdyA+IG51bV9kdyk7Cj4gQEAgLTIwOTMs
-NyArMjA5Myw3IEBAIGludCBhbWRncHVfY29weV9idWZmZXIoc3RydWN0IGFtZGdwdV9yaW5nICpy
-aW5nLCB1aW50NjRfdCBzcmNfb2Zmc2V0LAo+ICAJCXVpbnQzMl90IGN1cl9zaXplX2luX2J5dGVz
-ID0gbWluKGJ5dGVfY291bnQsIG1heF9ieXRlcyk7Cj4gIAo+ICAJCWFtZGdwdV9lbWl0X2NvcHlf
-YnVmZmVyKGFkZXYsICZqb2ItPmlic1swXSwgc3JjX29mZnNldCwKPiAtCQkJCQlkc3Rfb2Zmc2V0
-LCBjdXJfc2l6ZV9pbl9ieXRlcyk7Cj4gKwkJCQkJZHN0X29mZnNldCwgY3VyX3NpemVfaW5fYnl0
-ZXMsIGZhbHNlKTsKPiAgCj4gIAkJc3JjX29mZnNldCArPSBjdXJfc2l6ZV9pbl9ieXRlczsKPiAg
-CQlkc3Rfb2Zmc2V0ICs9IGN1cl9zaXplX2luX2J5dGVzOwo+IGRpZmYgLS1naXQgYS9kcml2ZXJz
-L2dwdS9kcm0vYW1kL2FtZGdwdS9jaWtfc2RtYS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
-cHUvY2lrX3NkbWEuYwo+IGluZGV4IGM0NTMwNGYuLjgyY2RiOGYgMTAwNjQ0Cj4gLS0tIGEvZHJp
-dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvY2lrX3NkbWEuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2Ry
-bS9hbWQvYW1kZ3B1L2Npa19zZG1hLmMKPiBAQCAtMTMxMyw3ICsxMzEzLDggQEAgc3RhdGljIHZv
-aWQgY2lrX3NkbWFfc2V0X2lycV9mdW5jcyhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikKPiAg
-c3RhdGljIHZvaWQgY2lrX3NkbWFfZW1pdF9jb3B5X2J1ZmZlcihzdHJ1Y3QgYW1kZ3B1X2liICpp
-YiwKPiAgCQkJCSAgICAgIHVpbnQ2NF90IHNyY19vZmZzZXQsCj4gIAkJCQkgICAgICB1aW50NjRf
-dCBkc3Rfb2Zmc2V0LAo+IC0JCQkJICAgICAgdWludDMyX3QgYnl0ZV9jb3VudCkKPiArCQkJCSAg
-ICAgIHVpbnQzMl90IGJ5dGVfY291bnQsCj4gKwkJCQkgICAgICBib29sIHRteikKPiAgewo+ICAJ
-aWItPnB0cltpYi0+bGVuZ3RoX2R3KytdID0gU0RNQV9QQUNLRVQoU0RNQV9PUENPREVfQ09QWSwg
-U0RNQV9DT1BZX1NVQl9PUENPREVfTElORUFSLCAwKTsKPiAgCWliLT5wdHJbaWItPmxlbmd0aF9k
-dysrXSA9IGJ5dGVfY291bnQ7Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
-Z3B1L3NkbWFfdjJfNC5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvc2RtYV92Ml80LmMK
-PiBpbmRleCBhMTAxNzU4Li44OWU4Yzc0IDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9h
-bWQvYW1kZ3B1L3NkbWFfdjJfNC5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
-c2RtYV92Ml80LmMKPiBAQCAtMTIwMCw3ICsxMjAwLDggQEAgc3RhdGljIHZvaWQgc2RtYV92Ml80
-X3NldF9pcnFfZnVuY3Moc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpCj4gIHN0YXRpYyB2b2lk
-IHNkbWFfdjJfNF9lbWl0X2NvcHlfYnVmZmVyKHN0cnVjdCBhbWRncHVfaWIgKmliLAo+ICAJCQkJ
-ICAgICAgIHVpbnQ2NF90IHNyY19vZmZzZXQsCj4gIAkJCQkgICAgICAgdWludDY0X3QgZHN0X29m
-ZnNldCwKPiAtCQkJCSAgICAgICB1aW50MzJfdCBieXRlX2NvdW50KQo+ICsJCQkJICAgICAgIHVp
-bnQzMl90IGJ5dGVfY291bnQsCj4gKwkJCQkgICAgICAgYm9vbCB0bXopCj4gIHsKPiAgCWliLT5w
-dHJbaWItPmxlbmd0aF9kdysrXSA9IFNETUFfUEtUX0hFQURFUl9PUChTRE1BX09QX0NPUFkpIHwK
-PiAgCQlTRE1BX1BLVF9IRUFERVJfU1VCX09QKFNETUFfU1VCT1BfQ09QWV9MSU5FQVIpOwo+IGRp
-ZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9zZG1hX3YzXzAuYyBiL2RyaXZl
-cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3NkbWFfdjNfMC5jCj4gaW5kZXggNWY0ZTJjNi4uMDExZmQx
-MiAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9zZG1hX3YzXzAuYwo+
-ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3NkbWFfdjNfMC5jCj4gQEAgLTE2Mzgs
-NyArMTYzOCw4IEBAIHN0YXRpYyB2b2lkIHNkbWFfdjNfMF9zZXRfaXJxX2Z1bmNzKHN0cnVjdCBh
-bWRncHVfZGV2aWNlICphZGV2KQo+ICBzdGF0aWMgdm9pZCBzZG1hX3YzXzBfZW1pdF9jb3B5X2J1
-ZmZlcihzdHJ1Y3QgYW1kZ3B1X2liICppYiwKPiAgCQkJCSAgICAgICB1aW50NjRfdCBzcmNfb2Zm
-c2V0LAo+ICAJCQkJICAgICAgIHVpbnQ2NF90IGRzdF9vZmZzZXQsCj4gLQkJCQkgICAgICAgdWlu
-dDMyX3QgYnl0ZV9jb3VudCkKPiArCQkJCSAgICAgICB1aW50MzJfdCBieXRlX2NvdW50LAo+ICsJ
-CQkJICAgICAgIGJvb2wgdG16KQo+ICB7Cj4gIAlpYi0+cHRyW2liLT5sZW5ndGhfZHcrK10gPSBT
-RE1BX1BLVF9IRUFERVJfT1AoU0RNQV9PUF9DT1BZKSB8Cj4gIAkJU0RNQV9QS1RfSEVBREVSX1NV
-Ql9PUChTRE1BX1NVQk9QX0NPUFlfTElORUFSKTsKPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUv
-ZHJtL2FtZC9hbWRncHUvc2RtYV92NF8wLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9z
-ZG1hX3Y0XzAuYwo+IGluZGV4IDQ1YmQ1MzguLjExMDQ0OWEgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVy
-cy9ncHUvZHJtL2FtZC9hbWRncHUvc2RtYV92NF8wLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0v
-YW1kL2FtZGdwdS9zZG1hX3Y0XzAuYwo+IEBAIC0yMzM4LDcgKzIzMzgsOCBAQCBzdGF0aWMgdm9p
-ZCBzZG1hX3Y0XzBfc2V0X2lycV9mdW5jcyhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikKPiAg
-c3RhdGljIHZvaWQgc2RtYV92NF8wX2VtaXRfY29weV9idWZmZXIoc3RydWN0IGFtZGdwdV9pYiAq
-aWIsCj4gIAkJCQkgICAgICAgdWludDY0X3Qgc3JjX29mZnNldCwKPiAgCQkJCSAgICAgICB1aW50
-NjRfdCBkc3Rfb2Zmc2V0LAo+IC0JCQkJICAgICAgIHVpbnQzMl90IGJ5dGVfY291bnQpCj4gKwkJ
-CQkgICAgICAgdWludDMyX3QgYnl0ZV9jb3VudCwKPiArCQkJCSAgICAgICBib29sIHRteikKPiAg
-ewo+ICAJaWItPnB0cltpYi0+bGVuZ3RoX2R3KytdID0gU0RNQV9QS1RfSEVBREVSX09QKFNETUFf
-T1BfQ09QWSkgfAo+ICAJCVNETUFfUEtUX0hFQURFUl9TVUJfT1AoU0RNQV9TVUJPUF9DT1BZX0xJ
-TkVBUik7Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3NkbWFfdjVf
-MC5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvc2RtYV92NV8wLmMKPiBpbmRleCBmNGFk
-Mjk5Li5iNmE3MWE3IDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3Nk
-bWFfdjVfMC5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvc2RtYV92NV8wLmMK
-PiBAQCAtMTY2MCw3ICsxNjYwLDggQEAgc3RhdGljIHZvaWQgc2RtYV92NV8wX3NldF9pcnFfZnVu
-Y3Moc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpCj4gIHN0YXRpYyB2b2lkIHNkbWFfdjVfMF9l
-bWl0X2NvcHlfYnVmZmVyKHN0cnVjdCBhbWRncHVfaWIgKmliLAo+ICAJCQkJICAgICAgIHVpbnQ2
-NF90IHNyY19vZmZzZXQsCj4gIAkJCQkgICAgICAgdWludDY0X3QgZHN0X29mZnNldCwKPiAtCQkJ
-CSAgICAgICB1aW50MzJfdCBieXRlX2NvdW50KQo+ICsJCQkJICAgICAgIHVpbnQzMl90IGJ5dGVf
-Y291bnQsCj4gKwkJCQkgICAgICAgYm9vbCB0bXopCj4gIHsKPiAgCWliLT5wdHJbaWItPmxlbmd0
-aF9kdysrXSA9IFNETUFfUEtUX0hFQURFUl9PUChTRE1BX09QX0NPUFkpIHwKPiAgCQlTRE1BX1BL
-VF9IRUFERVJfU1VCX09QKFNETUFfU1VCT1BfQ09QWV9MSU5FQVIpOwo+IGRpZmYgLS1naXQgYS9k
-cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9zaV9kbWEuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-YW1kZ3B1L3NpX2RtYS5jCj4gaW5kZXggYmRkYThiNC4uMTIyZGYwNyAxMDA2NDQKPiAtLS0gYS9k
-cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9zaV9kbWEuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2Ry
-bS9hbWQvYW1kZ3B1L3NpX2RtYS5jCj4gQEAgLTc3NSw3ICs3NzUsOCBAQCBzdGF0aWMgdm9pZCBz
-aV9kbWFfc2V0X2lycV9mdW5jcyhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikKPiAgc3RhdGlj
-IHZvaWQgc2lfZG1hX2VtaXRfY29weV9idWZmZXIoc3RydWN0IGFtZGdwdV9pYiAqaWIsCj4gIAkJ
-CQkgICAgICAgdWludDY0X3Qgc3JjX29mZnNldCwKPiAgCQkJCSAgICAgICB1aW50NjRfdCBkc3Rf
-b2Zmc2V0LAo+IC0JCQkJICAgICAgIHVpbnQzMl90IGJ5dGVfY291bnQpCj4gKwkJCQkgICAgICAg
-dWludDMyX3QgYnl0ZV9jb3VudCwKPiArCQkJCSAgICAgICBib29sIHRteikKPiAgewo+ICAJaWIt
-PnB0cltpYi0+bGVuZ3RoX2R3KytdID0gRE1BX1BBQ0tFVChETUFfUEFDS0VUX0NPUFksCj4gIAkJ
-CQkJICAgICAgMSwgMCwgMCwgYnl0ZV9jb3VudCk7Cj4gLS0gCj4gMi43LjQKPiAKX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxp
-c3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3Rv
-cC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+Thanks. But it's better to return the 'result' out on 'result !=3D 0'.
+
+Regards,
+Evan
+-----Original Message-----
+From: Chen Wandun <chenwandun@huawei.com>=20
+Sent: Saturday, November 16, 2019 11:43 AM
+To: Deucher, Alexander <Alexander.Deucher@amd.com>; Quan, Evan <Evan.Quan@a=
+md.com>; amd-gfx@lists.freedesktop.org; dri-devel@lists.freedesktop.org; li=
+nux-kernel@vger.kernel.org
+Cc: chenwandun@huawei.com
+Subject: [PATCH] drm/amd/powerplay: remove variable 'result' set but not us=
+ed
+
+Fixes gcc '-Wunused-but-set-variable' warning:
+
+drivers/gpu/drm/amd/amdgpu/../powerplay/smumgr/vegam_smumgr.c: In function =
+vegam_populate_smc_boot_level:
+drivers/gpu/drm/amd/amdgpu/../powerplay/smumgr/vegam_smumgr.c:1364:6: warni=
+ng: variable result set but not used [-Wunused-but-set-variable]
+
+Signed-off-by: Chen Wandun <chenwandun@huawei.com>
+---
+ drivers/gpu/drm/amd/powerplay/smumgr/vegam_smumgr.c | 13 ++++++-------
+ 1 file changed, 6 insertions(+), 7 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/powerplay/smumgr/vegam_smumgr.c b/drivers/=
+gpu/drm/amd/powerplay/smumgr/vegam_smumgr.c
+index 2068eb0..fad78bf 100644
+--- a/drivers/gpu/drm/amd/powerplay/smumgr/vegam_smumgr.c
++++ b/drivers/gpu/drm/amd/powerplay/smumgr/vegam_smumgr.c
+@@ -1361,20 +1361,19 @@ static int vegam_populate_smc_uvd_level(struct pp_h=
+wmgr *hwmgr,
+ static int vegam_populate_smc_boot_level(struct pp_hwmgr *hwmgr,
+ 		struct SMU75_Discrete_DpmTable *table)
+ {
+-	int result =3D 0;
+ 	struct smu7_hwmgr *data =3D (struct smu7_hwmgr *)(hwmgr->backend);
+=20
+ 	table->GraphicsBootLevel =3D 0;
+ 	table->MemoryBootLevel =3D 0;
+=20
+ 	/* find boot level from dpm table */
+-	result =3D phm_find_boot_level(&(data->dpm_table.sclk_table),
+-			data->vbios_boot_state.sclk_bootup_value,
+-			(uint32_t *)&(table->GraphicsBootLevel));
++	phm_find_boot_level(&(data->dpm_table.sclk_table),
++			    data->vbios_boot_state.sclk_bootup_value,
++			    (uint32_t *)&(table->GraphicsBootLevel));
+=20
+-	result =3D phm_find_boot_level(&(data->dpm_table.mclk_table),
+-			data->vbios_boot_state.mclk_bootup_value,
+-			(uint32_t *)&(table->MemoryBootLevel));
++	phm_find_boot_level(&(data->dpm_table.mclk_table),
++			    data->vbios_boot_state.mclk_bootup_value,
++			    (uint32_t *)&(table->MemoryBootLevel));
+=20
+ 	table->BootVddc  =3D data->vbios_boot_state.vddc_bootup_value *
+ 			VOLTAGE_SCALE;
+--=20
+2.7.4
