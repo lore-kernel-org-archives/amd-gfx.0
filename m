@@ -1,48 +1,62 @@
-From: Chen Wandun <chenwandun@huawei.com>
-Subject: [PATCH v2] drm/amd/powerplay: return errno code to caller when error occur
-Date: Mon, 18 Nov 2019 16:03:34 +0800
-Message-ID: <1574064214-109525-1-git-send-email-chenwandun@huawei.com>
+From: "Quan, Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: [PATCH v2] drm/amd/powerplay: return errno code to caller when
+ error occur
+Date: Mon, 18 Nov 2019 08:15:38 +0000
+Message-ID: <MN2PR12MB3344BBBA7F72F9625D71329EE44D0@MN2PR12MB3344.namprd12.prod.outlook.com>
 References: <1573875799-83572-1-git-send-email-chenwandun@huawei.com>
+ <1574064214-109525-1-git-send-email-chenwandun@huawei.com>
 Mime-Version: 1.0
-Content-Type: text/plain
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <1573875799-83572-1-git-send-email-chenwandun@huawei.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: evan.quan@amd.com, alexander.deucher@amd.com, amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org
-Cc: chenwandun@huawei.com
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <1574064214-109525-1-git-send-email-chenwandun-hv44wF8Li93QT0dZR+AlfA@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Chen Wandun <chenwandun-hv44wF8Li93QT0dZR+AlfA@public.gmane.org>, "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org" <linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, "dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-return errno code to caller when error occur, and meanwhile
-remove gcc '-Wunused-but-set-variable' warning.
-
-drivers/gpu/drm/amd/amdgpu/../powerplay/smumgr/vegam_smumgr.c: In function vegam_populate_smc_boot_level:
-drivers/gpu/drm/amd/amdgpu/../powerplay/smumgr/vegam_smumgr.c:1364:6: warning: variable result set but not used [-Wunused-but-set-variable]
-
-Signed-off-by: Chen Wandun <chenwandun@huawei.com>
----
- drivers/gpu/drm/amd/powerplay/smumgr/vegam_smumgr.c | 5 +++++
- 1 file changed, 5 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/powerplay/smumgr/vegam_smumgr.c b/drivers/gpu/drm/amd/powerplay/smumgr/vegam_smumgr.c
-index 2068eb0..50896e9 100644
---- a/drivers/gpu/drm/amd/powerplay/smumgr/vegam_smumgr.c
-+++ b/drivers/gpu/drm/amd/powerplay/smumgr/vegam_smumgr.c
-@@ -1371,11 +1371,16 @@ static int vegam_populate_smc_boot_level(struct pp_hwmgr *hwmgr,
- 	result = phm_find_boot_level(&(data->dpm_table.sclk_table),
- 			data->vbios_boot_state.sclk_bootup_value,
- 			(uint32_t *)&(table->GraphicsBootLevel));
-+	if (result)
-+		return result;
- 
- 	result = phm_find_boot_level(&(data->dpm_table.mclk_table),
- 			data->vbios_boot_state.mclk_bootup_value,
- 			(uint32_t *)&(table->MemoryBootLevel));
- 
-+	if (result)
-+		return result;
-+
- 	table->BootVddc  = data->vbios_boot_state.vddc_bootup_value *
- 			VOLTAGE_SCALE;
- 	table->BootVddci = data->vbios_boot_state.vddci_bootup_value *
--- 
-2.7.4
+UmV2aWV3ZWQtYnk6IEV2YW4gUXVhbiA8ZXZhbi5xdWFuQGFtZC5jb20+Cgo+IC0tLS0tT3JpZ2lu
+YWwgTWVzc2FnZS0tLS0tCj4gRnJvbTogQ2hlbiBXYW5kdW4gPGNoZW53YW5kdW5AaHVhd2VpLmNv
+bT4KPiBTZW50OiBNb25kYXksIE5vdmVtYmVyIDE4LCAyMDE5IDQ6MDQgUE0KPiBUbzogUXVhbiwg
+RXZhbiA8RXZhbi5RdWFuQGFtZC5jb20+OyBEZXVjaGVyLCBBbGV4YW5kZXIKPiA8QWxleGFuZGVy
+LkRldWNoZXJAYW1kLmNvbT47IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnOyBsaW51eC0K
+PiBrZXJuZWxAdmdlci5rZXJuZWwub3JnOyBkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
+Cj4gQ2M6IGNoZW53YW5kdW5AaHVhd2VpLmNvbQo+IFN1YmplY3Q6IFtQQVRDSCB2Ml0gZHJtL2Ft
+ZC9wb3dlcnBsYXk6IHJldHVybiBlcnJubyBjb2RlIHRvIGNhbGxlciB3aGVuCj4gZXJyb3Igb2Nj
+dXIKPiAKPiByZXR1cm4gZXJybm8gY29kZSB0byBjYWxsZXIgd2hlbiBlcnJvciBvY2N1ciwgYW5k
+IG1lYW53aGlsZSByZW1vdmUgZ2NjICctCj4gV3VudXNlZC1idXQtc2V0LXZhcmlhYmxlJyB3YXJu
+aW5nLgo+IAo+IGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1Ly4uL3Bvd2VycGxheS9zbXVtZ3Iv
+dmVnYW1fc211bWdyLmM6IEluCj4gZnVuY3Rpb24gdmVnYW1fcG9wdWxhdGVfc21jX2Jvb3RfbGV2
+ZWw6Cj4gZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvLi4vcG93ZXJwbGF5L3NtdW1nci92ZWdh
+bV9zbXVtZ3IuYzoxMzY0Ogo+IDY6IHdhcm5pbmc6IHZhcmlhYmxlIHJlc3VsdCBzZXQgYnV0IG5v
+dCB1c2VkIFstV3VudXNlZC1idXQtc2V0LXZhcmlhYmxlXQo+IAo+IFNpZ25lZC1vZmYtYnk6IENo
+ZW4gV2FuZHVuIDxjaGVud2FuZHVuQGh1YXdlaS5jb20+Cj4gLS0tCj4gIGRyaXZlcnMvZ3B1L2Ry
+bS9hbWQvcG93ZXJwbGF5L3NtdW1nci92ZWdhbV9zbXVtZ3IuYyB8IDUgKysrKysKPiAgMSBmaWxl
+IGNoYW5nZWQsIDUgaW5zZXJ0aW9ucygrKQo+IAo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9k
+cm0vYW1kL3Bvd2VycGxheS9zbXVtZ3IvdmVnYW1fc211bWdyLmMKPiBiL2RyaXZlcnMvZ3B1L2Ry
+bS9hbWQvcG93ZXJwbGF5L3NtdW1nci92ZWdhbV9zbXVtZ3IuYwo+IGluZGV4IDIwNjhlYjAuLjUw
+ODk2ZTkgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvc211bWdy
+L3ZlZ2FtX3NtdW1nci5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvc211
+bWdyL3ZlZ2FtX3NtdW1nci5jCj4gQEAgLTEzNzEsMTEgKzEzNzEsMTYgQEAgc3RhdGljIGludCB2
+ZWdhbV9wb3B1bGF0ZV9zbWNfYm9vdF9sZXZlbChzdHJ1Y3QKPiBwcF9od21nciAqaHdtZ3IsCj4g
+IAlyZXN1bHQgPSBwaG1fZmluZF9ib290X2xldmVsKCYoZGF0YS0+ZHBtX3RhYmxlLnNjbGtfdGFi
+bGUpLAo+ICAJCQlkYXRhLT52Ymlvc19ib290X3N0YXRlLnNjbGtfYm9vdHVwX3ZhbHVlLAo+ICAJ
+CQkodWludDMyX3QgKikmKHRhYmxlLT5HcmFwaGljc0Jvb3RMZXZlbCkpOwo+ICsJaWYgKHJlc3Vs
+dCkKPiArCQlyZXR1cm4gcmVzdWx0Owo+IAo+ICAJcmVzdWx0ID0gcGhtX2ZpbmRfYm9vdF9sZXZl
+bCgmKGRhdGEtPmRwbV90YWJsZS5tY2xrX3RhYmxlKSwKPiAgCQkJZGF0YS0+dmJpb3NfYm9vdF9z
+dGF0ZS5tY2xrX2Jvb3R1cF92YWx1ZSwKPiAgCQkJKHVpbnQzMl90ICopJih0YWJsZS0+TWVtb3J5
+Qm9vdExldmVsKSk7Cj4gCj4gKwlpZiAocmVzdWx0KQo+ICsJCXJldHVybiByZXN1bHQ7Cj4gKwo+
+ICAJdGFibGUtPkJvb3RWZGRjICA9IGRhdGEtPnZiaW9zX2Jvb3Rfc3RhdGUudmRkY19ib290dXBf
+dmFsdWUgKgo+ICAJCQlWT0xUQUdFX1NDQUxFOwo+ICAJdGFibGUtPkJvb3RWZGRjaSA9IGRhdGEt
+PnZiaW9zX2Jvb3Rfc3RhdGUudmRkY2lfYm9vdHVwX3ZhbHVlICoKPiAtLQo+IDIuNy40CgpfX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxp
+bmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVk
+ZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
