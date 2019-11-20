@@ -1,16 +1,10 @@
-From: Luben Tuikov <luben.tuikov-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 01/12] amdgpu: add UAPI for creating encrypted buffers
-Date: Wed, 20 Nov 2019 11:49:30 -0500
-Message-ID: <60f3793f-c568-798c-a516-870d2d20d8d8@amd.com>
-References: <1573788895-3936-1-git-send-email-aaron.liu@amd.com>
- <6cba1e53-1c0d-d408-4d16-cae93ec9e62e@amd.com>
- <CAAxE2A6ZdjfV1vWh1KQmTR+gVFq0n098Gg8bWjprwdqvUQGQoQ@mail.gmail.com>
+From: =?UTF-8?Q?Yusuf_Alt=C4=B1parmak?= <yusufalti1997-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: AMD e9171 linux driver
+Date: Wed, 20 Nov 2019 20:04:17 +0300
+Message-ID: <CAGzVRjwf9Zo+i_L7rgZKV2oEXqXbMNK1e-z41Tpu+TzsyzfVOQ@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1033552520=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CAAxE2A6ZdjfV1vWh1KQmTR+gVFq0n098Gg8bWjprwdqvUQGQoQ-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
-Content-Language: en-CA
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -21,66 +15,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <Marek.Olsak-5C7GfCeVMHo@public.gmane.org>, Aaron Liu <aaron.liu-5C7GfCeVMHo@public.gmane.org>, amd-gfx mailing list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Huang Rui <Ray.Huang-5C7GfCeVMHo@public.gmane.org>, "Deucher,
- Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, Leo Liu <Leo.Liu-5C7GfCeVMHo@public.gmane.org>, =?UTF-8?Q?Christian_K=c3=b6nig?= <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-T24gMjAxOS0xMS0xOSAyMTo0MSwgTWFyZWsgT2zFocOhayB3cm90ZToKPiBPbiBUdWUsIE5vdiAx
-OSwgMjAxOSBhdCA4OjUyIFBNIEx1YmVuIFR1aWtvdiA8bHViZW4udHVpa292QGFtZC5jb20gPG1h
-aWx0bzpsdWJlbi50dWlrb3ZAYW1kLmNvbT4+IHdyb3RlOgo+IAo+ICAgICBPbiAyMDE5LTExLTE0
-IDEwOjM0IHAubS4sIEFhcm9uIExpdSB3cm90ZToKPiAgICAgPiBGcm9tOiBIdWFuZyBSdWkgPHJh
-eS5odWFuZ0BhbWQuY29tIDxtYWlsdG86cmF5Lmh1YW5nQGFtZC5jb20+Pgo+ICAgICA+Cj4gICAg
-ID4gVG8gYWxpZ24gdGhlIGtlcm5lbCB1YXBpIGNoYW5nZSBmcm9tIEFsZXg6Cj4gICAgID4KPiAg
-ICAgPiAiQWRkIGEgZmxhZyB0byB0aGUgR0VNX0NSRUFURSBpb2N0bCB0byBjcmVhdGUgZW5jcnlw
-dGVkIGJ1ZmZlcnMuIEJ1ZmZlcnMgd2l0aAo+ICAgICA+IHRoaXMgZmxhZyBzZXQgd2lsbCBiZSBj
-cmVhdGVkIHdpdGggdGhlIFRNWiBiaXQgc2V0IGluIHRoZSBQVEVzIG9yIGVuZ2luZXMKPiAgICAg
-PiBhY2Nlc3NpbmcgdGhlbS4gVGhpcyBpcyByZXF1aXJlZCBpbiBvcmRlciB0byBwcm9wZXJseSBh
-Y2Nlc3MgdGhlIGRhdGEgZnJvbSB0aGUKPiAgICAgPiBlbmdpbmVzLiIKPiAgICAgPgo+ICAgICA+
-IFdlIHdpbGwgdXNlIEdFTV9DUkVBVEVfRU5DUllQVEVEIGZsYWcgZm9yIHNlY3VyZSBidWZmZXIg
-YWxsb2NhdGlvbi4KPiAgICAgPgo+ICAgICA+IFNpZ25lZC1vZmYtYnk6IEh1YW5nIFJ1aSA8cmF5
-Lmh1YW5nQGFtZC5jb20gPG1haWx0bzpyYXkuaHVhbmdAYW1kLmNvbT4+Cj4gICAgID4gUmV2aWV3
-ZWQtYnk6IEFsZXggRGV1Y2hlciA8YWxleGFuZGVyLmRldWNoZXJAYW1kLmNvbSA8bWFpbHRvOmFs
-ZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+Pgo+ICAgICA+IC0tLQo+ICAgICA+wqAgaW5jbHVkZS9k
-cm0vYW1kZ3B1X2RybS5oIHwgNSArKysrKwo+ICAgICA+wqAgMSBmaWxlIGNoYW5nZWQsIDUgaW5z
-ZXJ0aW9ucygrKQo+ICAgICA+Cj4gICAgID4gZGlmZiAtLWdpdCBhL2luY2x1ZGUvZHJtL2FtZGdw
-dV9kcm0uaCBiL2luY2x1ZGUvZHJtL2FtZGdwdV9kcm0uaAo+ICAgICA+IGluZGV4IDVjMjhhYTcu
-LjFhOTVlMzcgMTAwNjQ0Cj4gICAgID4gLS0tIGEvaW5jbHVkZS9kcm0vYW1kZ3B1X2RybS5oCj4g
-ICAgID4gKysrIGIvaW5jbHVkZS9kcm0vYW1kZ3B1X2RybS5oCj4gICAgID4gQEAgLTE0MSw2ICsx
-NDEsMTEgQEAgZXh0ZXJuICJDIiB7Cj4gICAgID7CoCDCoCogcmVsZWFzaW5nIHRoZSBtZW1vcnkK
-PiAgICAgPsKgIMKgKi8KPiAgICAgPsKgICNkZWZpbmUgQU1ER1BVX0dFTV9DUkVBVEVfVlJBTV9X
-SVBFX09OX1JFTEVBU0XCoCDCoCDCoCDCoCgxIDw8IDkpCj4gICAgID4gKy8qIEZsYWcgdGhhdCBC
-TyB3aWxsIGJlIGVuY3J5cHRlZCBhbmQgdGhhdCB0aGUgVE1aIGJpdCBzaG91bGQgYmUKPiAgICAg
-PiArICogc2V0IGluIHRoZSBQVEVzIHdoZW4gbWFwcGluZyB0aGlzIGJ1ZmZlciB2aWEgR1BVVk0g
-b3IKPiAgICAgPiArICogYWNjZXNzaW5nIGl0IHdpdGggdmFyaW91cyBodyBibG9ja3MKPiAgICAg
-PiArICovCj4gICAgID4gKyNkZWZpbmUgQU1ER1BVX0dFTV9DUkVBVEVfRU5DUllQVEVEwqAgwqAg
-wqAgwqAgwqAgKDEgPDwgMTApCj4gCj4gICAgIFN0eWxlIQo+ICAgICBUQUIgY2hhcj8hCj4gCj4g
-ICAgIFlvdSBoYXZlIGEgVEFCIGNoYXIgYmV0d2VlbiAiLi5fRU5DUllQVEVEIiBhbmQgIigxIDw8
-IDEwKSIKPiAgICAgRG8gTk9UIGFkZC9pbnNlcnQgVEFCIGNoYXJzIGluc3RlYWQgb2Ygc3BhY2Ug
-dG8gYWxpZ24gY29sdW5tbnMhCj4gICAgIElmIHdoZW4geW91IHByZXNzIFRhYiBrZXkgYSB0YWIg
-aXMgaW5zZXJ0ZWQsIGFzIG9wcG9zZWQgdG8gdGhlIGxpbmUKPiAgICAgaW5kZW50ZWQsIHRoZW4g
-RE8gTk9UIHVzZSB0aGlzIGVkaXRvci4KPiAgICAgVGhlIFRhYiBrZXkgc2hvdWxkICJpbmRlbnQg
-YWNjb3JkaW5nIHRvIG1vZGUiIGJ5IGluc2VydGluZyBUQUIgY2hhcnMuCj4gICAgIElmIHRoZSBs
-aW5lIGlzIGFscmVhZHkgaW5kZW50ZWQsIGFzIHRoaXMgb25lIGlzLCB0aGVuIGl0IHNob3VsZCBk
-byBub3RoaW5nLgo+IAo+IAo+IEkgZGlzYWdyZWUgd2l0aCB0aGlzIDEwMCUuIFRhYnMgb3Igc3Bh
-Y2VzIGRvbid0IG1hdHRlciBoZXJlIGZyb20gbXkgcGVyc3BlY3RpdmUuIEkgYWxzbyBkaXNhZ3Jl
-ZSB3aXRoIHlvdXIgbGFuZ3VhZ2UuIEl0J3Mgb3Zlcmx5IGltcG9saXRlLgoKQnV0IGl0J3MgdGhl
-IGNvZGluZyBzdHlsZSBvZiBMaW51eDogbGVhZGluZyB0YWJzIG9ubHkuIFRyeSBpdCB3aXRoIEVt
-YWNzIGFzIGRlc2NyaWJlZCBhbmQgZ2l2ZW4gaW4KCmxpbnV4L0RvY3VtZW50YXRpb24vcHJvY2Vz
-cy9jb2Rpbmctc3R5bGUucnN0CgpzdGFydGluZyBhdCBsaW5lIDU4OS4gQW5kIHByZXNzIHRoZSBU
-YWIga2V5IG9uIGFuIGFscmVhZHkgaW5kZW50ZWQgbGluZS0tbm90aGluZyB3aWxsIGhhcHBlbi4g
-TGludXggaGFzIHRyYWRpdGlvbmFsbHkKc2h1bm5lZCBmcm9tIGxvb3NlIFRBQiBjaGFycyBpbiBh
-bHJlYWR5IGluZGVudGVkIGxpbmVzOiBsZWFkaW5nIHRhYnMgb25seSBtb2RlLiBJbiBhIHByb3Bl
-ciBjb2RlIGVkaXRvcgpwcmVzc2luZyB0aGUgVGFiIGtleSBvbmx5IGluZGVudHMgYWNjb3JkaW5n
-IHRvIGJ1ZmZlciBtb2RlLCBpdCBzaG91bGRuJ3QgaW5zZXJ0IGEgVGFiIGNoYXIgd2lsbHktbmls
-bHkuClBlb3BsZSBtYXkgc2V0IHRoZWlyIHRhYiBzdG9wcyBkaWZmZXJlbnRseSBmb3IgZGlmZmVy
-ZW50IHRhYiBwb3NpdGlvbnMgYW5kIGluc2VydGluZyBhIHRhYiBjaGFyIG1heSBkaXNwbGF5Cmlu
-Y29ycmVjdGx5LiBUaGUgbW9zdCBwb3J0YWJsZSB3YXkgdG8gYWxpZ24gY29sdW1ucyBpbiBhbiBh
-bHJlYWR5IGluZGVudGVkLWFjY29yZGluZy10by1tb2RlIGxpbmUsIGlzCnVzaW5nIHNwYWNlcy4g
-KE9mIGNvdXJzZSB0aGlzIGRvZXNuJ3QgbWF0dGVyIHdoZW4gdXNpbmcgc3BhY2VzIHRvIGluZGVu
-dCwgYnV0IExpbnV4IHVzZXMgaGFyZCBUQUIgY2hhcnMKdG8gaW5kZW50OiBsaW51eC9Eb2N1bWVu
-dGF0aW9uL3Byb2Nlc3MvY29kaW5nLXN0eWxlLnJzdC4gKHdoaWNoIGFsc28gc2VlbSB0byBiZSBz
-ZXQgdG8gOCBjaGFycykpCgpJdCdzIGEgY29kZSByZXZpZXcsIHRoZXJlIGlzIG5vICJsYW5ndWFn
-ZSIuCgpSZWdhcmRzLApMdWJlbgoKPiAKPiBNYXJlawoKX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0
-cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9s
-aXN0aW5mby9hbWQtZ2Z4
+--===============1033552520==
+Content-Type: multipart/alternative; boundary="000000000000483d4b0597ca2c27"
+
+--000000000000483d4b0597ca2c27
+Content-Type: text/plain; charset="UTF-8"
+
+Hello,
+
+I have simple question. I want to use e9171 with my embedded t1042d4rdb-64b
+board. Does linux kernel provide a driver for e9171? More specific, does
+'amdgpu'(https://github.com/torvalds/linux/tree/master/drivers/gpu/drm/amd)
+provides driver for e9171 ?
+
+Best regards
+
+--000000000000483d4b0597ca2c27
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Hello,<div><br></div><div>I have simple question. I want t=
+o use e9171 with my embedded t1042d4rdb-64b board. Does linux kernel provid=
+e a driver for e9171? More specific, does &#39;amdgpu&#39;(<a href=3D"https=
+://github.com/torvalds/linux/tree/master/drivers/gpu/drm/amd">https://githu=
+b.com/torvalds/linux/tree/master/drivers/gpu/drm/amd</a>) provides driver f=
+or e9171 ?</div><div><br></div><div>Best regards</div></div>
+
+--000000000000483d4b0597ca2c27--
+
+--===============1033552520==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+
+--===============1033552520==--
