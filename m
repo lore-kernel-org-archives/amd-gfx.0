@@ -1,13 +1,13 @@
-From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amd/display: Change mmhub_9_4_0_ headers to
- mmhub_1_0_ ones.
-Date: Wed, 20 Nov 2019 19:48:35 +0000
-Message-ID: <CY4PR12MB181368C333873890203006A6F74F0@CY4PR12MB1813.namprd12.prod.outlook.com>
-References: <20191120194345.10267-1-zhan.liu@amd.com>
+From: "Zeng, Oak" <Oak.Zeng-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: [PATCH] drm/amdkfd: DIQ should not use HIQ way to allocate memory
+Date: Wed, 20 Nov 2019 22:22:45 +0000
+Message-ID: <BL0PR12MB25801D7351D491613F7354A3804F0@BL0PR12MB2580.namprd12.prod.outlook.com>
+References: <20191115160929.2017-1-Yong.Zhao@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0183788549=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20191120194345.10267-1-zhan.liu-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <20191115160929.2017-1-Yong.Zhao-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -19,154 +19,69 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Liu, Zhan" <Zhan.Liu-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Li, Dennis" <Dennis.Li-5C7GfCeVMHo@public.gmane.org>, "Zhang,
- Hawking" <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>, "Zhou1, Tao" <Tao.Zhou1-5C7GfCeVMHo@public.gmane.org>
+To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Zhao, Yong" <Yong.Zhao-5C7GfCeVMHo@public.gmane.org>
 
---===============0183788549==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_CY4PR12MB181368C333873890203006A6F74F0CY4PR12MB1813namp_"
-
---_000_CY4PR12MB181368C333873890203006A6F74F0CY4PR12MB1813namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-Reviewed-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-________________________________
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Zhan Liu=
- <zhan.liu-5C7GfCeVMHo@public.gmane.org>
-Sent: Wednesday, November 20, 2019 2:43 PM
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>; Liu, Zha=
-n <Zhan.Liu-5C7GfCeVMHo@public.gmane.org>; Li, Dennis <Dennis.Li-5C7GfCeVMHo@public.gmane.org>; Zhang, Hawking <Hawki=
-ng.Zhang-5C7GfCeVMHo@public.gmane.org>; Zhou1, Tao <Tao.Zhou1-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH] drm/amd/display: Change mmhub_9_4_0_ headers to mmhub_1_0_=
- ones.
-
-[Why]
-Kernal won't compile without this patch. That is because
-mmhub_9_4_0_ headers are obsolete. All contents within
-mmhub_9_4_0_ headers are inherited by their corresponding
-mmhub_1_0_ ones.
-
-[How]
-Change mmhub_9_4_0_ headers to their corresponding mmhub_1_0_ ones.
-
-Signed-off-by: Zhan Liu <zhan.liu-5C7GfCeVMHo@public.gmane.org>
----
- drivers/gpu/drm/amd/display/dc/dce120/dce120_resource.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/dc/dce120/dce120_resource.c b/driv=
-ers/gpu/drm/amd/display/dc/dce120/dce120_resource.c
-index 305bb0841563..53ab88ef71f5 100644
---- a/drivers/gpu/drm/amd/display/dc/dce120/dce120_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/dce120/dce120_resource.c
-@@ -63,8 +63,8 @@
- #include "soc15_hw_ip.h"
- #include "vega10_ip_offset.h"
- #include "nbio/nbio_6_1_offset.h"
--#include "mmhub/mmhub_9_4_0_offset.h"
--#include "mmhub/mmhub_9_4_0_sh_mask.h"
-+#include "mmhub/mmhub_1_0_offset.h"
-+#include "mmhub/mmhub_1_0_sh_mask.h"
- #include "reg_helper.h"
-
- #include "dce100/dce100_resource.h"
---
-2.17.1
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---_000_CY4PR12MB181368C333873890203006A6F74F0CY4PR12MB1813namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Reviewed-by: Alex Deucher &lt;alexander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
-</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
-ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Zhan Liu &lt;zhan.liu-5C7GfCeVMHo@public.gmane.org=
-&gt;<br>
-<b>Sent:</b> Wednesday, November 20, 2019 2:43 PM<br>
-<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org &lt;amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&=
-gt;; Liu, Zhan &lt;Zhan.Liu-5C7GfCeVMHo@public.gmane.org&gt;; Li, Dennis &lt;Dennis.Li-5C7GfCeVMHo@public.gmane.org&g=
-t;; Zhang, Hawking &lt;Hawking.Zhang-5C7GfCeVMHo@public.gmane.org&gt;; Zhou1, Tao &lt;Tao.Zhou1@=
-amd.com&gt;<br>
-<b>Subject:</b> [PATCH] drm/amd/display: Change mmhub_9_4_0_ headers to mmh=
-ub_1_0_ ones.</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">[Why]<br>
-Kernal won't compile without this patch. That is because<br>
-mmhub_9_4_0_ headers are obsolete. All contents within<br>
-mmhub_9_4_0_ headers are inherited by their corresponding<br>
-mmhub_1_0_ ones.<br>
-<br>
-[How]<br>
-Change mmhub_9_4_0_ headers to their corresponding mmhub_1_0_ ones.<br>
-<br>
-Signed-off-by: Zhan Liu &lt;zhan.liu-5C7GfCeVMHo@public.gmane.org&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/display/dc/dce120/dce120_resource.c | 4 &#43;&#43=
-;--<br>
-&nbsp;1 file changed, 2 insertions(&#43;), 2 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/display/dc/dce120/dce120_resource.c b/driv=
-ers/gpu/drm/amd/display/dc/dce120/dce120_resource.c<br>
-index 305bb0841563..53ab88ef71f5 100644<br>
---- a/drivers/gpu/drm/amd/display/dc/dce120/dce120_resource.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/display/dc/dce120/dce120_resource.c<b=
-r>
-@@ -63,8 &#43;63,8 @@<br>
-&nbsp;#include &quot;soc15_hw_ip.h&quot;<br>
-&nbsp;#include &quot;vega10_ip_offset.h&quot;<br>
-&nbsp;#include &quot;nbio/nbio_6_1_offset.h&quot;<br>
--#include &quot;mmhub/mmhub_9_4_0_offset.h&quot;<br>
--#include &quot;mmhub/mmhub_9_4_0_sh_mask.h&quot;<br>
-&#43;#include &quot;mmhub/mmhub_1_0_offset.h&quot;<br>
-&#43;#include &quot;mmhub/mmhub_1_0_sh_mask.h&quot;<br>
-&nbsp;#include &quot;reg_helper.h&quot;<br>
-&nbsp;<br>
-&nbsp;#include &quot;dce100/dce100_resource.h&quot;<br>
--- <br>
-2.17.1<br>
-<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
-lists.freedesktop.org/mailman/listinfo/amd-gfx</a></div>
-</span></font></div>
-</body>
-</html>
-
---_000_CY4PR12MB181368C333873890203006A6F74F0CY4PR12MB1813namp_--
-
---===============0183788549==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
-
---===============0183788549==--
+VGhhbmtzIGZvciBjYXB0dXJlIHRoaXMuIFRoaXMgaXMgc29tZXRoaW5nIEkgZm9yZ2V0IHRvIGRv
+IHdoZW4gSSByZS1vcmdlZCB0aGUgbXFkIG1hbmFnZXIgY29kZXMuDQoNClJldmlld2VkLWJ5OiBP
+YWsgWmVuZyA8T2FrLlplbmdAYW1kLmNvbT4NCg0KT2FrDQoNCi0tLS0tT3JpZ2luYWwgTWVzc2Fn
+ZS0tLS0tDQpGcm9tOiBhbWQtZ2Z4IDxhbWQtZ2Z4LWJvdW5jZXNAbGlzdHMuZnJlZWRlc2t0b3Au
+b3JnPiBPbiBCZWhhbGYgT2YgWW9uZyBaaGFvDQpTZW50OiBGcmlkYXksIE5vdmVtYmVyIDE1LCAy
+MDE5IDExOjA5IEFNDQpUbzogYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCkNjOiBaaGFv
+LCBZb25nIDxZb25nLlpoYW9AYW1kLmNvbT4NClN1YmplY3Q6IFtQQVRDSF0gZHJtL2FtZGtmZDog
+RElRIHNob3VsZCBub3QgdXNlIEhJUSB3YXkgdG8gYWxsb2NhdGUgbWVtb3J5DQoNCkluIHRoZSBt
+cWRfZGlxX3NkbWEgYnVmZmVyLCB0aGVyZSBzaG91bGQgYmUgb25seSBvbmUgSElRIG1xZC4gQWxs
+IERJUXMgc2hvdWxkIGJlIGFsbG9jYXRlIHVzaW5nIHRoZSByZWd1bGFyIHdheS4NCg0KQ2hhbmdl
+LUlkOiBJYmYzZWIzMzYwNGQwZWMzMDUwMWMyNDQyMjhjZGIzYjI0NjE1YjY5OQ0KU2lnbmVkLW9m
+Zi1ieTogWW9uZyBaaGFvIDxZb25nLlpoYW9AYW1kLmNvbT4NCi0tLQ0KIGRyaXZlcnMvZ3B1L2Ry
+bS9hbWQvYW1ka2ZkL2tmZF9tcWRfbWFuYWdlcl9jaWsuYyB8IDIgKy0gIGRyaXZlcnMvZ3B1L2Ry
+bS9hbWQvYW1ka2ZkL2tmZF9tcWRfbWFuYWdlcl92MTAuYyB8IDIgKy0gIGRyaXZlcnMvZ3B1L2Ry
+bS9hbWQvYW1ka2ZkL2tmZF9tcWRfbWFuYWdlcl92OS5jICB8IDIgKy0gIGRyaXZlcnMvZ3B1L2Ry
+bS9hbWQvYW1ka2ZkL2tmZF9tcWRfbWFuYWdlcl92aS5jICB8IDIgKy0NCiA0IGZpbGVzIGNoYW5n
+ZWQsIDQgaW5zZXJ0aW9ucygrKSwgNCBkZWxldGlvbnMoLSkNCg0KZGlmZiAtLWdpdCBhL2RyaXZl
+cnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9tcWRfbWFuYWdlcl9jaWsuYyBiL2RyaXZlcnMvZ3B1
+L2RybS9hbWQvYW1ka2ZkL2tmZF9tcWRfbWFuYWdlcl9jaWsuYw0KaW5kZXggYjA4Njk0ZWM2NWQ3
+Li4xOWYwZmU1NDdjNTcgMTAwNjQ0DQotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9r
+ZmRfbXFkX21hbmFnZXJfY2lrLmMNCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tm
+ZF9tcWRfbWFuYWdlcl9jaWsuYw0KQEAgLTQwMCw3ICs0MDAsNyBAQCBzdHJ1Y3QgbXFkX21hbmFn
+ZXIgKm1xZF9tYW5hZ2VyX2luaXRfY2lrKGVudW0gS0ZEX01RRF9UWVBFIHR5cGUsICAjZW5kaWYN
+CiAJCWJyZWFrOw0KIAljYXNlIEtGRF9NUURfVFlQRV9ESVE6DQotCQltcWQtPmFsbG9jYXRlX21x
+ZCA9IGFsbG9jYXRlX2hpcV9tcWQ7DQorCQltcWQtPmFsbG9jYXRlX21xZCA9IGFsbG9jYXRlX21x
+ZDsNCiAJCW1xZC0+aW5pdF9tcWQgPSBpbml0X21xZF9oaXE7DQogCQltcWQtPmZyZWVfbXFkID0g
+ZnJlZV9tcWQ7DQogCQltcWQtPmxvYWRfbXFkID0gbG9hZF9tcWQ7DQpkaWZmIC0tZ2l0IGEvZHJp
+dmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX21xZF9tYW5hZ2VyX3YxMC5jIGIvZHJpdmVycy9n
+cHUvZHJtL2FtZC9hbWRrZmQva2ZkX21xZF9tYW5hZ2VyX3YxMC5jDQppbmRleCA1YTBlMzA0NDFi
+ZTguLjhkMjEzMjViNWNiYiAxMDA2NDQNCi0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2Zk
+L2tmZF9tcWRfbWFuYWdlcl92MTAuYw0KKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQv
+a2ZkX21xZF9tYW5hZ2VyX3YxMC5jDQpAQCAtNDMyLDcgKzQzMiw3IEBAIHN0cnVjdCBtcWRfbWFu
+YWdlciAqbXFkX21hbmFnZXJfaW5pdF92MTAoZW51bSBLRkRfTVFEX1RZUEUgdHlwZSwNCiAJCXBy
+X2RlYnVnKCIlc0AlaVxuIiwgX19mdW5jX18sIF9fTElORV9fKTsNCiAJCWJyZWFrOw0KIAljYXNl
+IEtGRF9NUURfVFlQRV9ESVE6DQotCQltcWQtPmFsbG9jYXRlX21xZCA9IGFsbG9jYXRlX2hpcV9t
+cWQ7DQorCQltcWQtPmFsbG9jYXRlX21xZCA9IGFsbG9jYXRlX21xZDsNCiAJCW1xZC0+aW5pdF9t
+cWQgPSBpbml0X21xZF9oaXE7DQogCQltcWQtPmZyZWVfbXFkID0gZnJlZV9tcWQ7DQogCQltcWQt
+PmxvYWRfbXFkID0gbG9hZF9tcWQ7DQpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9h
+bWRrZmQva2ZkX21xZF9tYW5hZ2VyX3Y5LmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9r
+ZmRfbXFkX21hbmFnZXJfdjkuYw0KaW5kZXggYmRiY2VhMjJhZDEyLi5kZjc3ZDY3ZWM5YWEgMTAw
+NjQ0DQotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfbXFkX21hbmFnZXJfdjku
+Yw0KKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX21xZF9tYW5hZ2VyX3Y5LmMN
+CkBAIC00NzEsNyArNDcxLDcgQEAgc3RydWN0IG1xZF9tYW5hZ2VyICptcWRfbWFuYWdlcl9pbml0
+X3Y5KGVudW0gS0ZEX01RRF9UWVBFIHR5cGUsICAjZW5kaWYNCiAJCWJyZWFrOw0KIAljYXNlIEtG
+RF9NUURfVFlQRV9ESVE6DQotCQltcWQtPmFsbG9jYXRlX21xZCA9IGFsbG9jYXRlX2hpcV9tcWQ7
+DQorCQltcWQtPmFsbG9jYXRlX21xZCA9IGFsbG9jYXRlX21xZDsNCiAJCW1xZC0+aW5pdF9tcWQg
+PSBpbml0X21xZF9oaXE7DQogCQltcWQtPmZyZWVfbXFkID0gZnJlZV9tcWQ7DQogCQltcWQtPmxv
+YWRfbXFkID0gbG9hZF9tcWQ7DQpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRr
+ZmQva2ZkX21xZF9tYW5hZ2VyX3ZpLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRf
+bXFkX21hbmFnZXJfdmkuYw0KaW5kZXggYzllMTE1MWI1YTU3Li4zYjZiNTY3MTk2NGMgMTAwNjQ0
+DQotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfbXFkX21hbmFnZXJfdmkuYw0K
+KysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX21xZF9tYW5hZ2VyX3ZpLmMNCkBA
+IC00NTIsNyArNDUyLDcgQEAgc3RydWN0IG1xZF9tYW5hZ2VyICptcWRfbWFuYWdlcl9pbml0X3Zp
+KGVudW0gS0ZEX01RRF9UWVBFIHR5cGUsICAjZW5kaWYNCiAJCWJyZWFrOw0KIAljYXNlIEtGRF9N
+UURfVFlQRV9ESVE6DQotCQltcWQtPmFsbG9jYXRlX21xZCA9IGFsbG9jYXRlX2hpcV9tcWQ7DQor
+CQltcWQtPmFsbG9jYXRlX21xZCA9IGFsbG9jYXRlX21xZDsNCiAJCW1xZC0+aW5pdF9tcWQgPSBp
+bml0X21xZF9oaXE7DQogCQltcWQtPmZyZWVfbXFkID0gZnJlZV9tcWQ7DQogCQltcWQtPmxvYWRf
+bXFkID0gbG9hZF9tcWQ7DQotLQ0KMi4xNy4xDQoNCl9fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fDQphbWQtZ2Z4IG1haWxpbmcgbGlzdA0KYW1kLWdmeEBsaXN0
+cy5mcmVlZGVza3RvcC5vcmcNCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4v
+bGlzdGluZm8vYW1kLWdmeA0KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5v
+cmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
