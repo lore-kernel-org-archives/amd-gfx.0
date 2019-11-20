@@ -1,101 +1,115 @@
-From: yu kuai <yukuai3@huawei.com>
-Subject: [PATCH] drm/amd/display: make various variable in fixed31_32.h 'global' instead of 'static'
-Date: Wed, 20 Nov 2019 21:15:33 +0800
-Message-ID: <20191120131533.12720-3-yukuai3@huawei.com>
-References: <20191120131533.12720-1-yukuai3@huawei.com>
+From: "Liu, Monk" <Monk.Liu-5C7GfCeVMHo@public.gmane.org>
+Subject: =?utf-8?B?562U5aSNOiBbUEFUQ0ggMS8yXSBkcm0vYW1kZ3B1OiBpbnZhbGlkYXRlIG1t?=
+ =?utf-8?Q?hub_semphore_workaround_in_amdgpu=5Fvirt?=
+Date: Wed, 20 Nov 2019 13:18:14 +0000
+Message-ID: <MN2PR12MB3933863C8DFCE1F68A44EFFA844F0@MN2PR12MB3933.namprd12.prod.outlook.com>
+References: <20191120091418.26526-1-changfeng.zhu@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20191120131533.12720-1-yukuai3@huawei.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: alexander.deucher@amd.com, christian.koenig@amd.com, David1.Zhou@amd.com, airlied@linux.ie, daniel@ffwll.ch, Jammy.Zhou@amd.com, tianci.yin@amd.com, sam@ravnborg.org, luben.tuikov@amd.com
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, yukuai3@huawei.com, zhengbin13@huawei.com, yi.zhang@huawei.com
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20191120091418.26526-1-changfeng.zhu-5C7GfCeVMHo@public.gmane.org>
+Content-Language: zh-CN
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "Xiao, Jack" <Jack.Xiao-5C7GfCeVMHo@public.gmane.org>, "Zhou1, Tao" <Tao.Zhou1-5C7GfCeVMHo@public.gmane.org>, "Huang, Ray" <Ray.Huang-5C7GfCeVMHo@public.gmane.org>, "Huang, Shimmer" <Xinmei.Huang-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Zhu, Changfeng" <Changfeng.Zhu-5C7GfCeVMHo@public.gmane.org>
 
-fixed31_32.h declare various variables 'static const', it's very ugly and
-waste of memory.
-
-All files that including the header file will have a copy of those
-variables of their own. And that's the reason why there will be numerous
-gcc '-Wunused-but-set-variable' warnings related to the variables.
-
-Fix it by initializing the variables in a new file "fixed31_32.c", and
-declare them 'extern' in "fixed31_32.h".
-
-Fixes: eb0e515464e4 ("drm/amd/display: get rid of 32.32 unsigned fixed point")
-Signed-off-by: yu kuai <yukuai3@huawei.com>
----
-
-BTW, this is the best I can think of, there may be better sulotion.
-
- drivers/gpu/drm/amd/display/amdgpu_dm/Makefile  |  2 +-
- .../gpu/drm/amd/display/amdgpu_dm/fixed31_32.c  | 17 +++++++++++++++++
- .../gpu/drm/amd/display/include/fixed31_32.h    | 16 ++++++++--------
- 3 files changed, 26 insertions(+), 9 deletions(-)
- create mode 100644 drivers/gpu/drm/amd/display/amdgpu_dm/fixed31_32.c
-
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/Makefile b/drivers/gpu/drm/amd/display/amdgpu_dm/Makefile
-index 9a3b7bf8ab0b..8ce291a0279b 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/Makefile
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/Makefile
-@@ -25,7 +25,7 @@
- 
- 
- 
--AMDGPUDM = amdgpu_dm.o amdgpu_dm_irq.o amdgpu_dm_mst_types.o amdgpu_dm_color.o
-+AMDGPUDM = amdgpu_dm.o amdgpu_dm_irq.o amdgpu_dm_mst_types.o amdgpu_dm_color.o fixed31_32.o
- 
- ifneq ($(CONFIG_DRM_AMD_DC),)
- AMDGPUDM += amdgpu_dm_services.o amdgpu_dm_helpers.o amdgpu_dm_pp_smu.o
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/fixed31_32.c b/drivers/gpu/drm/amd/display/amdgpu_dm/fixed31_32.c
-new file mode 100644
-index 000000000000..1f51587e342b
---- /dev/null
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/fixed31_32.c
-@@ -0,0 +1,17 @@
-+/*
-+ * Author: yu kuai <yukuai3@huawei.com>
-+ */
-+
-+struct fixed31_32 {
-+	long long value;
-+};
-+
-+const struct fixed31_32 dc_fixpt_zero = { 0 };
-+const struct fixed31_32 dc_fixpt_epsilon = { 1LL };
-+const struct fixed31_32 dc_fixpt_half = { 0x80000000LL };
-+const struct fixed31_32 dc_fixpt_one = { 0x100000000LL };
-+
-+const struct fixed31_32 dc_fixpt_two_pi = { 26986075409LL };
-+const struct fixed31_32 dc_fixpt_ln2 = { 2977044471LL };
-+const struct fixed31_32 dc_fixpt_ln2_div_2 = { 1488522236LL };
-+
-diff --git a/drivers/gpu/drm/amd/display/include/fixed31_32.h b/drivers/gpu/drm/amd/display/include/fixed31_32.h
-index 291215362e3f..d8dbe96f9b19 100644
---- a/drivers/gpu/drm/amd/display/include/fixed31_32.h
-+++ b/drivers/gpu/drm/amd/display/include/fixed31_32.h
-@@ -64,14 +64,14 @@ struct fixed31_32 {
-  * Useful constants
-  */
- 
--static const struct fixed31_32 dc_fixpt_zero = { 0 };
--static const struct fixed31_32 dc_fixpt_epsilon = { 1LL };
--static const struct fixed31_32 dc_fixpt_half = { 0x80000000LL };
--static const struct fixed31_32 dc_fixpt_one = { 0x100000000LL };
--
--static const struct fixed31_32 dc_fixpt_two_pi = { 26986075409LL };
--static const struct fixed31_32 dc_fixpt_ln2 = { 2977044471LL };
--static const struct fixed31_32 dc_fixpt_ln2_div_2 = { 1488522236LL };
-+extern const struct fixed31_32 dc_fixpt_zero;
-+extern const struct fixed31_32 dc_fixpt_epsilon;
-+extern const struct fixed31_32 dc_fixpt_half;
-+extern const struct fixed31_32 dc_fixpt_one;
-+
-+extern const struct fixed31_32 dc_fixpt_two_pi;
-+extern const struct fixed31_32 dc_fixpt_ln2;
-+extern const struct fixed31_32 dc_fixpt_ln2_div_2;
- 
- /*
-  * @brief
--- 
-2.17.2
+SGkgQ2hhbmdmZW5nIA0KDQpGaXJzIG9mIGFsbCwgdGhlcmUgaXMgbm8gcG93ZXItZ2F0aW5nIG9m
+ZiBjaXJjbGUgaW52b2x2ZWQgaW4gQU1ER1BVIFNSSU9WLCBzaW5jZSB3ZSBkb24ndCBhbGxvdyBW
+Ri9WTSBkbyBzdWNoIHRoaW5ncyBzbyBJIGRvIGZlZWwgc3RyYW5nZSB3aHkgeW91IHBvc3Qgc29t
+ZXRoaW5nIGxpa2UgdGhpcyANCkVzcGVjaWFsbHkgb24gVkVHQTEwIHNlcmlhbHMgd2hpY2ggbG9v
+a3MgZG9lc24ndCBoYXZlIGFueSBpc3N1ZSBvbiB0aG9zZSBncHVfZmx1c2ggcGFydCANCg0KSGVy
+ZSBpcyBteSBxdWVzdGlvbnMgZm9yIHlvdToNCjEpIENhbiB5b3UgcG9pbnQgbWUgd2hhdCBpc3N1
+ZSBoYWQgeW91IGJlZW4gZXhwZXJpZW5jZWQgPyBhbmQgaG93IHRvIHJlcHJvIHRoZSBidWcNCjIp
+IGlmIHlvdSBkbyBoaXQgc29tZSBpc3N1ZXMsIGRpZCB5b3UgdmVyaWZpZWQgdGhhdCB5b3VyIHBh
+dGNoIGNhbiBmaXggaXQgPw0KDQpiZXNpZGVzDQoNCi9Nb25rDQoNCi0tLS0t6YKu5Lu25Y6f5Lu2
+LS0tLS0NCuWPkeS7tuS6ujogYW1kLWdmeCA8YW1kLWdmeC1ib3VuY2VzQGxpc3RzLmZyZWVkZXNr
+dG9wLm9yZz4g5Luj6KGoIENoYW5nZmVuZy5aaHUNCuWPkemAgeaXtumXtDogMjAxOeW5tDEx5pyI
+MjDml6UgMTc6MTQNCuaUtuS7tuS6ujogS29lbmlnLCBDaHJpc3RpYW4gPENocmlzdGlhbi5Lb2Vu
+aWdAYW1kLmNvbT47IFhpYW8sIEphY2sgPEphY2suWGlhb0BhbWQuY29tPjsgWmhvdTEsIFRhbyA8
+VGFvLlpob3UxQGFtZC5jb20+OyBIdWFuZywgUmF5IDxSYXkuSHVhbmdAYW1kLmNvbT47IEh1YW5n
+LCBTaGltbWVyIDxYaW5tZWkuSHVhbmdAYW1kLmNvbT47IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0
+b3Aub3JnDQrmioTpgIE6IFpodSwgQ2hhbmdmZW5nIDxDaGFuZ2ZlbmcuWmh1QGFtZC5jb20+DQrk
+uLvpopg6IFtQQVRDSCAxLzJdIGRybS9hbWRncHU6IGludmFsaWRhdGUgbW1odWIgc2VtcGhvcmUg
+d29ya2Fyb3VuZCBpbiBhbWRncHVfdmlydA0KDQpGcm9tOiBjaGFuZ3podSA8Q2hhbmdmZW5nLlpo
+dUBhbWQuY29tPg0KDQpJdCBtYXkgbG9zZSBncHV2bSBpbnZhbGlkYXRlIGFja25vd2xkZWdlIHN0
+YXRlIGFjcm9zcyBwb3dlci1nYXRpbmcgb2ZmIGN5Y2xlLiBUbyBhdm9pZCB0aGlzIGlzc3VlIGlu
+IHZpcnQgaW52YWxpZGF0aW9uLCBhZGQgc2VtYXBob3JlIGFjcXVpcmUgYmVmb3JlIGludmFsaWRh
+dGlvbiBhbmQgc2VtYXBob3JlIHJlbGVhc2UgYWZ0ZXIgaW52YWxpZGF0aW9uLg0KDQpDaGFuZ2Ut
+SWQ6IEllOTgzMDRlNDc1MTY2YjUzZWVkMDMzNDYyZDc2NDIzYjZiMGZjMjViDQpTaWduZWQtb2Zm
+LWJ5OiBjaGFuZ3podSA8Q2hhbmdmZW5nLlpodUBhbWQuY29tPg0KLS0tDQogZHJpdmVycy9ncHUv
+ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZpcnQuYyB8IDI2ICsrKysrKysrKysrKysrKysrKysrKyst
+LSAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZpcnQuaCB8ICAzICsrLQ0KIGRy
+aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192OV8wLmMgICAgfCAgMyArKy0NCiAzIGZpbGVz
+IGNoYW5nZWQsIDI4IGluc2VydGlvbnMoKyksIDQgZGVsZXRpb25zKC0pDQoNCmRpZmYgLS1naXQg
+YS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdmlydC5jIGIvZHJpdmVycy9ncHUv
+ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZpcnQuYw0KaW5kZXggZjA0ZWIxYTY0MjcxLi43MGZmYWY5
+MWNkMTIgMTAwNjQ0DQotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdmly
+dC5jDQorKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdmlydC5jDQpAQCAt
+MTM1LDcgKzEzNSw4IEBAIHZvaWQgYW1kZ3B1X3ZpcnRfa2lxX3dyZWcoc3RydWN0IGFtZGdwdV9k
+ZXZpY2UgKmFkZXYsIHVpbnQzMl90IHJlZywgdWludDMyX3QgdikNCiANCiB2b2lkIGFtZGdwdV92
+aXJ0X2tpcV9yZWdfd3JpdGVfcmVnX3dhaXQoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsDQog
+CQkJCQl1aW50MzJfdCByZWcwLCB1aW50MzJfdCByZWcxLA0KLQkJCQkJdWludDMyX3QgcmVmLCB1
+aW50MzJfdCBtYXNrKQ0KKwkJCQkJdWludDMyX3QgcmVmLCB1aW50MzJfdCBtYXNrLA0KKwkJCQkJ
+dWludDMyX3Qgc2VtKQ0KIHsNCiAJc3RydWN0IGFtZGdwdV9raXEgKmtpcSA9ICZhZGV2LT5nZngu
+a2lxOw0KIAlzdHJ1Y3QgYW1kZ3B1X3JpbmcgKnJpbmcgPSAma2lxLT5yaW5nOyBAQCAtMTQ0LDkg
+KzE0NSwzMCBAQCB2b2lkIGFtZGdwdV92aXJ0X2tpcV9yZWdfd3JpdGVfcmVnX3dhaXQoc3RydWN0
+IGFtZGdwdV9kZXZpY2UgKmFkZXYsDQogCXVpbnQzMl90IHNlcTsNCiANCiAJc3Bpbl9sb2NrX2ly
+cXNhdmUoJmtpcS0+cmluZ19sb2NrLCBmbGFncyk7DQotCWFtZGdwdV9yaW5nX2FsbG9jKHJpbmcs
+IDMyKTsNCisJYW1kZ3B1X3JpbmdfYWxsb2MocmluZywgNjApOw0KKw0KKwkvKg0KKwkgKiBJdCBt
+YXkgbG9zZSBncHV2bSBpbnZhbGlkYXRlIGFja25vd2xkZWdlIHN0YXRlIGFjcm9zcyBwb3dlci1n
+YXRpbmcNCisJICogb2ZmIGN5Y2xlLCBhZGQgc2VtYXBob3JlIGFjcXVpcmUgYmVmb3JlIGludmFs
+aWRhdGlvbiBhbmQgc2VtYXBob3JlDQorCSAqIHJlbGVhc2UgYWZ0ZXIgaW52YWxpZGF0aW9uIHRv
+IGF2b2lkIGVudGVyaW5nIHBvd2VyIGdhdGVkIHN0YXRlDQorCSAqIHRvIFdBIHRoZSBJc3N1ZQ0K
+KwkgKi8NCisNCisJLyogYSByZWFkIHJldHVybiB2YWx1ZSBvZiAxIG1lYW5zIHNlbWFwaG9yZSBh
+Y3VxaXJlICovDQorCWlmIChyaW5nLT5mdW5jcy0+dm1odWIgPT0gQU1ER1BVX01NSFVCXzAgfHwN
+CisJICAgIHJpbmctPmZ1bmNzLT52bWh1YiA9PSBBTURHUFVfTU1IVUJfMSkNCisJYW1kZ3B1X3Jp
+bmdfZW1pdF9yZWdfd2FpdChyaW5nLCBzZW0sIDB4MSwgMHgxKTsNCisNCiAJYW1kZ3B1X3Jpbmdf
+ZW1pdF9yZWdfd3JpdGVfcmVnX3dhaXQocmluZywgcmVnMCwgcmVnMSwNCiAJCQkJCSAgICByZWYs
+IG1hc2spOw0KKwkvKg0KKwkgKiBhZGQgc2VtYXBob3JlIHJlbGVhc2UgYWZ0ZXIgaW52YWxpZGF0
+aW9uLA0KKwkgKiB3cml0ZSB3aXRoIDAgbWVhbnMgc2VtYXBob3JlIHJlbGVhc2UNCisJICovDQor
+CWlmIChyaW5nLT5mdW5jcy0+dm1odWIgPT0gQU1ER1BVX01NSFVCXzAgfHwNCisJICAgIHJpbmct
+PmZ1bmNzLT52bWh1YiA9PSBBTURHUFVfTU1IVUJfMSkNCisJYW1kZ3B1X3JpbmdfZW1pdF93cmVn
+KHJpbmcsIHNlbSwgMCk7DQorDQogCWFtZGdwdV9mZW5jZV9lbWl0X3BvbGxpbmcocmluZywgJnNl
+cSk7DQogCWFtZGdwdV9yaW5nX2NvbW1pdChyaW5nKTsNCiAJc3Bpbl91bmxvY2tfaXJxcmVzdG9y
+ZSgma2lxLT5yaW5nX2xvY2ssIGZsYWdzKTsgZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9h
+bWQvYW1kZ3B1L2FtZGdwdV92aXJ0LmggYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
+cHVfdmlydC5oDQppbmRleCBiMGIyYmRjNzUwZGYuLmJkYTZhMmYzN2RjMCAxMDA2NDQNCi0tLSBh
+L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92aXJ0LmgNCisrKyBiL2RyaXZlcnMv
+Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92aXJ0LmgNCkBAIC0yOTUsNyArMjk1LDggQEAgdWlu
+dDMyX3QgYW1kZ3B1X3ZpcnRfa2lxX3JyZWcoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsIHVp
+bnQzMl90IHJlZyk7ICB2b2lkIGFtZGdwdV92aXJ0X2tpcV93cmVnKHN0cnVjdCBhbWRncHVfZGV2
+aWNlICphZGV2LCB1aW50MzJfdCByZWcsIHVpbnQzMl90IHYpOyAgdm9pZCBhbWRncHVfdmlydF9r
+aXFfcmVnX3dyaXRlX3JlZ193YWl0KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LA0KIAkJCQkJ
+dWludDMyX3QgcmVnMCwgdWludDMyX3QgcnJlZzEsDQotCQkJCQl1aW50MzJfdCByZWYsIHVpbnQz
+Ml90IG1hc2spOw0KKwkJCQkJdWludDMyX3QgcmVmLCB1aW50MzJfdCBtYXNrLA0KKwkJCQkJdWlu
+dDMyX3Qgc2VtKTsNCiBpbnQgYW1kZ3B1X3ZpcnRfcmVxdWVzdF9mdWxsX2dwdShzdHJ1Y3QgYW1k
+Z3B1X2RldmljZSAqYWRldiwgYm9vbCBpbml0KTsgIGludCBhbWRncHVfdmlydF9yZWxlYXNlX2Z1
+bGxfZ3B1KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LCBib29sIGluaXQpOyAgaW50IGFtZGdw
+dV92aXJ0X3Jlc2V0X2dwdShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldik7IGRpZmYgLS1naXQg
+YS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNfdjlfMC5jIGIvZHJpdmVycy9ncHUvZHJt
+L2FtZC9hbWRncHUvZ21jX3Y5XzAuYw0KaW5kZXggZjI1Y2Q5N2JhNWYyLi4xYWU1OWFmNzgzNmEg
+MTAwNjQ0DQotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNfdjlfMC5jDQorKysg
+Yi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNfdjlfMC5jDQpAQCAtNDQ4LDkgKzQ0OCwx
+MCBAQCBzdGF0aWMgdm9pZCBnbWNfdjlfMF9mbHVzaF9ncHVfdGxiKHN0cnVjdCBhbWRncHVfZGV2
+aWNlICphZGV2LCB1aW50MzJfdCB2bWlkLA0KIAkJCSFhZGV2LT5pbl9ncHVfcmVzZXQpIHsNCiAJ
+CXVpbnQzMl90IHJlcSA9IGh1Yi0+dm1faW52X2VuZzBfcmVxICsgZW5nOw0KIAkJdWludDMyX3Qg
+YWNrID0gaHViLT52bV9pbnZfZW5nMF9hY2sgKyBlbmc7DQorCQl1aW50MzJfdCBzZW0gPSBodWIt
+PnZtX2ludl9lbmcwX3NlbSArIGVuZzsNCiANCiAJCWFtZGdwdV92aXJ0X2tpcV9yZWdfd3JpdGVf
+cmVnX3dhaXQoYWRldiwgcmVxLCBhY2ssIHRtcCwNCi0JCQkJMSA8PCB2bWlkKTsNCisJCQkJCQkg
+ICAxIDw8IHZtaWQsIHNlbSk7DQogCQlyZXR1cm47DQogCX0NCiANCi0tDQoyLjE3LjENCg0KX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18NCmFtZC1nZnggbWFp
+bGluZyBsaXN0DQphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0KaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4DQpfX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQt
+Z2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9t
+YWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
