@@ -1,20 +1,12 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH 01/12] amdgpu: add UAPI for creating encrypted buffers
-Date: Wed, 20 Nov 2019 19:40:27 +0100
-Message-ID: <069abbd5-564d-aca7-ddfb-2336d56982eb@gmail.com>
-References: <1573788895-3936-1-git-send-email-aaron.liu@amd.com>
- <6cba1e53-1c0d-d408-4d16-cae93ec9e62e@amd.com>
- <CAAxE2A6ZdjfV1vWh1KQmTR+gVFq0n098Gg8bWjprwdqvUQGQoQ@mail.gmail.com>
- <60f3793f-c568-798c-a516-870d2d20d8d8@amd.com>
- <cac7e351-dba8-125b-dc5d-b2fdec77731b@gmail.com>
- <0622cbcb-9b04-eed3-ad1e-7a40cc03c73a@amd.com>
- <31a1cde2-18ab-96f5-47a4-6f113cbc9e4a@amd.com>
-Reply-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
+From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: AMD e9171 linux driver
+Date: Wed, 20 Nov 2019 18:49:52 +0000
+Message-ID: <CY4PR12MB18133FB0A527DCF440ABD5A4F74F0@CY4PR12MB1813.namprd12.prod.outlook.com>
+References: <CAGzVRjwf9Zo+i_L7rgZKV2oEXqXbMNK1e-z41Tpu+TzsyzfVOQ@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1391841496=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <31a1cde2-18ab-96f5-47a4-6f113cbc9e4a-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <CAGzVRjwf9Zo+i_L7rgZKV2oEXqXbMNK1e-z41Tpu+TzsyzfVOQ-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -26,122 +18,99 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Luben Tuikov <luben.tuikov-5C7GfCeVMHo@public.gmane.org>, =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>, =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <Marek.Olsak-5C7GfCeVMHo@public.gmane.org>, Aaron Liu <aaron.liu-5C7GfCeVMHo@public.gmane.org>, amd-gfx mailing list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Huang Rui <Ray.Huang-5C7GfCeVMHo@public.gmane.org>, "Deucher,
- Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, Leo Liu <Leo.Liu-5C7GfCeVMHo@public.gmane.org>
+To: =?iso-8859-3?Q?Yusuf_Alt=B9parmak?= <yusufalti1997-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-QW0gMjAuMTEuMTkgdW0gMTg6NTAgc2NocmllYiBMdWJlbiBUdWlrb3Y6Cj4gT24gMjAxOS0xMS0y
-MCAxMjoyNCwgQ2hyaXN0aWFuIEvDtm5pZyB3cm90ZToKPj4gQW0gMjAuMTEuMTkgdW0gMTg6MTYg
-c2NocmllYiBDaHJpc3RpYW4gS8O2bmlnOgo+Pj4gQW0gMjAuMTEuMTkgdW0gMTc6NDkgc2Nocmll
-YiBMdWJlbiBUdWlrb3Y6Cj4+Pj4gT24gMjAxOS0xMS0xOSAyMTo0MSwgTWFyZWsgT2zFocOhayB3
-cm90ZToKPj4+Pj4gT24gVHVlLCBOb3YgMTksIDIwMTkgYXQgODo1MiBQTSBMdWJlbiBUdWlrb3Yg
-PGx1YmVuLnR1aWtvdkBhbWQuY29tCj4+Pj4+IDxtYWlsdG86bHViZW4udHVpa292QGFtZC5jb20+
-PiB3cm90ZToKPj4+Pj4KPj4+Pj4gIMKgwqDCoMKgIE9uIDIwMTktMTEtMTQgMTA6MzQgcC5tLiwg
-QWFyb24gTGl1IHdyb3RlOgo+Pj4+PiAgwqDCoMKgwqAgPiBGcm9tOiBIdWFuZyBSdWkgPHJheS5o
-dWFuZ0BhbWQuY29tIDxtYWlsdG86cmF5Lmh1YW5nQGFtZC5jb20+Pgo+Pj4+PiAgwqDCoMKgwqAg
-Pgo+Pj4+PiAgwqDCoMKgwqAgPiBUbyBhbGlnbiB0aGUga2VybmVsIHVhcGkgY2hhbmdlIGZyb20g
-QWxleDoKPj4+Pj4gIMKgwqDCoMKgID4KPj4+Pj4gIMKgwqDCoMKgID4gIkFkZCBhIGZsYWcgdG8g
-dGhlIEdFTV9DUkVBVEUgaW9jdGwgdG8gY3JlYXRlIGVuY3J5cHRlZAo+Pj4+PiBidWZmZXJzLiBC
-dWZmZXJzIHdpdGgKPj4+Pj4gIMKgwqDCoMKgID4gdGhpcyBmbGFnIHNldCB3aWxsIGJlIGNyZWF0
-ZWQgd2l0aCB0aGUgVE1aIGJpdCBzZXQgaW4gdGhlCj4+Pj4+IFBURXMgb3IgZW5naW5lcwo+Pj4+
-PiAgwqDCoMKgwqAgPiBhY2Nlc3NpbmcgdGhlbS4gVGhpcyBpcyByZXF1aXJlZCBpbiBvcmRlciB0
-byBwcm9wZXJseSBhY2Nlc3MKPj4+Pj4gdGhlIGRhdGEgZnJvbSB0aGUKPj4+Pj4gIMKgwqDCoMKg
-ID4gZW5naW5lcy4iCj4+Pj4+ICDCoMKgwqDCoCA+Cj4+Pj4+ICDCoMKgwqDCoCA+IFdlIHdpbGwg
-dXNlIEdFTV9DUkVBVEVfRU5DUllQVEVEIGZsYWcgZm9yIHNlY3VyZSBidWZmZXIKPj4+Pj4gYWxs
-b2NhdGlvbi4KPj4+Pj4gIMKgwqDCoMKgID4KPj4+Pj4gIMKgwqDCoMKgID4gU2lnbmVkLW9mZi1i
-eTogSHVhbmcgUnVpIDxyYXkuaHVhbmdAYW1kLmNvbQo+Pj4+PiA8bWFpbHRvOnJheS5odWFuZ0Bh
-bWQuY29tPj4KPj4+Pj4gIMKgwqDCoMKgID4gUmV2aWV3ZWQtYnk6IEFsZXggRGV1Y2hlciA8YWxl
-eGFuZGVyLmRldWNoZXJAYW1kLmNvbQo+Pj4+PiA8bWFpbHRvOmFsZXhhbmRlci5kZXVjaGVyQGFt
-ZC5jb20+Pgo+Pj4+PiAgwqDCoMKgwqAgPiAtLS0KPj4+Pj4gIMKgwqDCoMKgID7CoCBpbmNsdWRl
-L2RybS9hbWRncHVfZHJtLmggfCA1ICsrKysrCj4+Pj4+ICDCoMKgwqDCoCA+wqAgMSBmaWxlIGNo
-YW5nZWQsIDUgaW5zZXJ0aW9ucygrKQo+Pj4+PiAgwqDCoMKgwqAgPgo+Pj4+PiAgwqDCoMKgwqAg
-PiBkaWZmIC0tZ2l0IGEvaW5jbHVkZS9kcm0vYW1kZ3B1X2RybS5oIGIvaW5jbHVkZS9kcm0vYW1k
-Z3B1X2RybS5oCj4+Pj4+ICDCoMKgwqDCoCA+IGluZGV4IDVjMjhhYTcuLjFhOTVlMzcgMTAwNjQ0
-Cj4+Pj4+ICDCoMKgwqDCoCA+IC0tLSBhL2luY2x1ZGUvZHJtL2FtZGdwdV9kcm0uaAo+Pj4+PiAg
-wqDCoMKgwqAgPiArKysgYi9pbmNsdWRlL2RybS9hbWRncHVfZHJtLmgKPj4+Pj4gIMKgwqDCoMKg
-ID4gQEAgLTE0MSw2ICsxNDEsMTEgQEAgZXh0ZXJuICJDIiB7Cj4+Pj4+ICDCoMKgwqDCoCA+wqAg
-wqAqIHJlbGVhc2luZyB0aGUgbWVtb3J5Cj4+Pj4+ICDCoMKgwqDCoCA+wqAgwqAqLwo+Pj4+PiAg
-wqDCoMKgwqAgPsKgICNkZWZpbmUgQU1ER1BVX0dFTV9DUkVBVEVfVlJBTV9XSVBFX09OX1JFTEVB
-U0UgwqAoMSA8PCA5KQo+Pj4+PiAgwqDCoMKgwqAgPiArLyogRmxhZyB0aGF0IEJPIHdpbGwgYmUg
-ZW5jcnlwdGVkIGFuZCB0aGF0IHRoZSBUTVogYml0Cj4+Pj4+IHNob3VsZCBiZQo+Pj4+PiAgwqDC
-oMKgwqAgPiArICogc2V0IGluIHRoZSBQVEVzIHdoZW4gbWFwcGluZyB0aGlzIGJ1ZmZlciB2aWEg
-R1BVVk0gb3IKPj4+Pj4gIMKgwqDCoMKgID4gKyAqIGFjY2Vzc2luZyBpdCB3aXRoIHZhcmlvdXMg
-aHcgYmxvY2tzCj4+Pj4+ICDCoMKgwqDCoCA+ICsgKi8KPj4+Pj4gIMKgwqDCoMKgID4gKyNkZWZp
-bmUgQU1ER1BVX0dFTV9DUkVBVEVfRU5DUllQVEVEwqAgwqAgwqAgwqAgwqAgKDEgPDwgMTApCj4+
-Pj4+Cj4+Pj4+ICDCoMKgwqDCoCBTdHlsZSEKPj4+Pj4gIMKgwqDCoMKgIFRBQiBjaGFyPyEKPj4+
-Pj4KPj4+Pj4gIMKgwqDCoMKgIFlvdSBoYXZlIGEgVEFCIGNoYXIgYmV0d2VlbiAiLi5fRU5DUllQ
-VEVEIiBhbmQgIigxIDw8IDEwKSIKPj4+Pj4gIMKgwqDCoMKgIERvIE5PVCBhZGQvaW5zZXJ0IFRB
-QiBjaGFycyBpbnN0ZWFkIG9mIHNwYWNlIHRvIGFsaWduIGNvbHVubW5zIQo+Pj4+PiAgwqDCoMKg
-wqAgSWYgd2hlbiB5b3UgcHJlc3MgVGFiIGtleSBhIHRhYiBpcyBpbnNlcnRlZCwgYXMgb3Bwb3Nl
-ZCB0byB0aGUKPj4+Pj4gbGluZQo+Pj4+PiAgwqDCoMKgwqAgaW5kZW50ZWQsIHRoZW4gRE8gTk9U
-IHVzZSB0aGlzIGVkaXRvci4KPj4+Pj4gIMKgwqDCoMKgIFRoZSBUYWIga2V5IHNob3VsZCAiaW5k
-ZW50IGFjY29yZGluZyB0byBtb2RlIiBieSBpbnNlcnRpbmcgVEFCCj4+Pj4+IGNoYXJzLgo+Pj4+
-PiAgwqDCoMKgwqAgSWYgdGhlIGxpbmUgaXMgYWxyZWFkeSBpbmRlbnRlZCwgYXMgdGhpcyBvbmUg
-aXMsIHRoZW4gaXQgc2hvdWxkCj4+Pj4+IGRvIG5vdGhpbmcuCj4+Pj4+Cj4+Pj4+Cj4+Pj4+IEkg
-ZGlzYWdyZWUgd2l0aCB0aGlzIDEwMCUuIFRhYnMgb3Igc3BhY2VzIGRvbid0IG1hdHRlciBoZXJl
-IGZyb20gbXkKPj4+Pj4gcGVyc3BlY3RpdmUuIEkgYWxzbyBkaXNhZ3JlZSB3aXRoIHlvdXIgbGFu
-Z3VhZ2UuIEl0J3Mgb3Zlcmx5IGltcG9saXRlLgo+Pj4+IEJ1dCBpdCdzIHRoZSBjb2Rpbmcgc3R5
-bGUgb2YgTGludXg6IGxlYWRpbmcgdGFicyBvbmx5LiBUcnkgaXQgd2l0aAo+Pj4+IEVtYWNzIGFz
-IGRlc2NyaWJlZCBhbmQgZ2l2ZW4gaW4KPj4+Pgo+Pj4+IGxpbnV4L0RvY3VtZW50YXRpb24vcHJv
-Y2Vzcy9jb2Rpbmctc3R5bGUucnN0Cj4+Pj4KPj4+PiBzdGFydGluZyBhdCBsaW5lIDU4OS4gQW5k
-IHByZXNzIHRoZSBUYWIga2V5IG9uIGFuIGFscmVhZHkgaW5kZW50ZWQKPj4+PiBsaW5lLS1ub3Ro
-aW5nIHdpbGwgaGFwcGVuLiBMaW51eCBoYXMgdHJhZGl0aW9uYWxseQo+Pj4+IHNodW5uZWQgZnJv
-bSBsb29zZSBUQUIgY2hhcnMgaW4gYWxyZWFkeSBpbmRlbnRlZCBsaW5lczogbGVhZGluZyB0YWJz
-Cj4+Pj4gb25seSBtb2RlLiBJbiBhIHByb3BlciBjb2RlIGVkaXRvcgo+Pj4+IHByZXNzaW5nIHRo
-ZSBUYWIga2V5IG9ubHkgaW5kZW50cyBhY2NvcmRpbmcgdG8gYnVmZmVyIG1vZGUsIGl0Cj4+Pj4g
-c2hvdWxkbid0IGluc2VydCBhIFRhYiBjaGFyIHdpbGx5LW5pbGx5Lgo+Pj4+IFBlb3BsZSBtYXkg
-c2V0IHRoZWlyIHRhYiBzdG9wcyBkaWZmZXJlbnRseSBmb3IgZGlmZmVyZW50IHRhYgo+Pj4+IHBv
-c2l0aW9ucyBhbmQgaW5zZXJ0aW5nIGEgdGFiIGNoYXIgbWF5IGRpc3BsYXkKPj4+PiBpbmNvcnJl
-Y3RseS4gVGhlIG1vc3QgcG9ydGFibGUgd2F5IHRvIGFsaWduIGNvbHVtbnMgaW4gYW4gYWxyZWFk
-eQo+Pj4+IGluZGVudGVkLWFjY29yZGluZy10by1tb2RlIGxpbmUsIGlzCj4+Pj4gdXNpbmcgc3Bh
-Y2VzLiAoT2YgY291cnNlIHRoaXMgZG9lc24ndCBtYXR0ZXIgd2hlbiB1c2luZyBzcGFjZXMgdG8K
-Pj4+PiBpbmRlbnQsIGJ1dCBMaW51eCB1c2VzIGhhcmQgVEFCIGNoYXJzCj4+Pj4gdG8gaW5kZW50
-OiBsaW51eC9Eb2N1bWVudGF0aW9uL3Byb2Nlc3MvY29kaW5nLXN0eWxlLnJzdC4gKHdoaWNoIGFs
-c28KPj4+PiBzZWVtIHRvIGJlIHNldCB0byA4IGNoYXJzKSkKPj4+Pgo+Pj4+IEl0J3MgYSBjb2Rl
-IHJldmlldywgdGhlcmUgaXMgbm8gImxhbmd1YWdlIi4KPj4+IFdlbGwgdGhlIHNlY3Rpb24geW91
-IG5vdGVkIGFsc28gc3VnZ2VzdCB0byBlaXRoZXIgZ2V0IHJpZCBvZiBlbWFjcyBvcgo+Pj4gY2hh
-bmdlIGl0IHRvIHVzZSBzb21lIHNhbmVyIGRlZmF1bHQgdmFsdWVzLiBXZSBqdXN0IGdvdCByaWQg
-b2YgZW1hY3MuCj4gWWVzLCBpdCBzYXlzIHRoaXMsIHF1b3RlIChmb3IgdGhvc2Ugd2hvIGRpZG4n
-dCBvcGVuIHRoZSBmaWxlKToKPgo+IC0tODwtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0KPgo+IFRoYXQncyBPSywgd2Ug
-YWxsIGRvLiAgWW91J3ZlIHByb2JhYmx5IGJlZW4gdG9sZCBieSB5b3VyIGxvbmctdGltZSBVbml4
-Cj4gdXNlciBoZWxwZXIgdGhhdCBgYEdOVSBlbWFjc2BgIGF1dG9tYXRpY2FsbHkgZm9ybWF0cyB0
-aGUgQyBzb3VyY2VzIGZvcgo+IHlvdSwgYW5kIHlvdSd2ZSBub3RpY2VkIHRoYXQgeWVzLCBpdCBk
-b2VzIGRvIHRoYXQsIGJ1dCB0aGUgZGVmYXVsdHMgaXQKPiB1c2VzIGFyZSBsZXNzIHRoYW4gZGVz
-aXJhYmxlIChpbiBmYWN0LCB0aGV5IGFyZSB3b3JzZSB0aGFuIHJhbmRvbQo+IHR5cGluZyAtIGFu
-IGluZmluaXRlIG51bWJlciBvZiBtb25rZXlzIHR5cGluZyBpbnRvIEdOVSBlbWFjcyB3b3VsZCBu
-ZXZlcgo+IG1ha2UgYSBnb29kIHByb2dyYW0pLgo+Cj4gU28sIHlvdSBjYW4gZWl0aGVyIGdldCBy
-aWQgb2YgR05VIGVtYWNzLCBvciBjaGFuZ2UgaXQgdG8gdXNlIHNhbmVyCj4gdmFsdWVzLiAgVG8g
-ZG8gdGhlIGxhdHRlciwgeW91IGNhbiBzdGljayB0aGUgZm9sbG93aW5nIGluIHlvdXIgLmVtYWNz
-IGZpbGU6Cj4KPiAtLTg8LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0KPgo+Pj4gUmVnYXJkaW5nIHRhYnMgYWZ0ZXIgdGhl
-IGluaXRpYWwgaW5kZW50YXRpb24sIEkndmUganVzdCBkb25lIGEgcXVpY2sKPj4+IGdyZXAgYW5k
-IGFyb3VuZCAxNCUgb2YgYWxsIGRlZmluZXMgdW5kZXIgaW5jbHVkZS8gdXNlcyB0aGF0IHNvIEkg
-d291bGQKPj4+IHNheSB0aGF0IHRoaXMgaXMgcGVyZmVjdGx5IGZpbmUuCj4+IEZhc3QgdHlwaW5n
-IHdpdGggbGF6eSBleWVzLCB0aGF0IHNob3VsZCByZWFkICJhcm91bmQgNzElIG9mIGFsbCBkZWZp
-bmVzIi4KPiBIbW0sIHRoYXQncyBpbnRlcmVzdGluZy4gSXMgdGhhdCBpbiBsaW51eC9pbmNsdWRl
-IG9yIGFtZGdwdS9pbmNsdWRlPwoKbGludXgvaW5jbHVkZQoKPgo+IEkndmUgYmVlbiBtZWFuaW5n
-IHRvIGRvIG15IG93biBleHRlbmRlZCByZWdleCB0byBjYXRjaCB0aG9zZSwgYWx0aG91Z2gKPiBJ
-J20gdXNpbmcgRW1hY3MgYW5kIHByZXNzaW5nIFRhYiBrZXkgb25seSBpbmRlbnRzIGFuZCB3b3Vs
-ZCBub3QgaW5zZXJ0Cj4gYSBUYWIgY2hhciBpZiBhbHJlYWR5IGluZGVudGVkLiAoU28gYXBwbHlp
-bmcgdGhpcyByZWdleCBpbnRvIHRoZSBwcmUtY29tbWl0Cj4gaG9vayBvZiBhbGwgb2YgbXkgR2l0
-IHJlcG9zIHdvdWxkIG5ldmVyIHRyaWdnZXIuKQo+Cj4gSSByZW1lbWJlciBvZiBvbGRlbiBkYXlz
-LCBjaXJjYSAyMDAwIHdoZW4gSSBmaXJzdCBnb3QgaW52b2x2ZWQgd2l0aCBMaW51eCwKPiBMS01M
-IGRpZG4ndCBsaWtlIGxvb3NlIHRhYnMuIEFsc28gbGVhZCBrZXJuZWwgZGV2ZWxvcGVycyBhcmUg
-dXNpbmcgRW1hY3MsCj4gc28gaXQncyBiZWVuIG15IGNob2ljZSBvZiBlZGl0b3Igc2luY2UgY2ly
-Y2EgMTk5NCAoc3dpdGNoZWQgZnJvbSB2aSB0byBFbWFjcwo+IGxhcmdlbHkgZHVlIHRvIHRoZSBp
-bmZsdWVuY2Ugb2YgYSBncmFwaGljcyBwcm9mIEkgaGFkIGluIG15IHNlbmlvdXIgeWVhciBvZiB1
-bmksCj4gYW5kIHBhcnQgZHVlIHRvIExLTUwuKQoKV2VsbCBJJ3ZlIGJlZW4gd29ya2luZyB3aXRo
-IHRoZSBMaW51eCBrZXJuZWwgc2luY2UgdGhlIG1pZCA5MHRocyBhbmQgCm5ldmVyIGV2ZXIgaGVh
-cmQgb2YgdGhhdC4KCkNocmlzdGlhbi4KCj4KPiBUaGFua3MgZm9yIGNoaW1pbmcgaW4gQ2hyaXN0
-aWFuIQo+Cj4gUmVnYXJkcywKPiBMdWJlbgo+Cj4+IFNvcnJ5LAo+PiBDaHJpc3RpYW4uCj4+Cj4+
-PiBSZWdhcmRzLAo+Pj4gQ2hyaXN0aWFuLgo+Pj4KPj4+PiBSZWdhcmRzLAo+Pj4+IEx1YmVuCj4+
-Pj4KPj4+Pj4gTWFyZWsKPj4+PiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fXwo+Pj4+IGFtZC1nZnggbWFpbGluZyBsaXN0Cj4+Pj4gYW1kLWdmeEBsaXN0cy5m
-cmVlZGVza3RvcC5vcmcKPj4+PiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFu
-L2xpc3RpbmZvL2FtZC1nZngKPiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fXwo+IGFtZC1nZnggbWFpbGluZyBsaXN0Cj4gYW1kLWdmeEBsaXN0cy5mcmVlZGVz
-a3RvcC5vcmcKPiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZv
-L2FtZC1nZngKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-CmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBz
-Oi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
+--===============1391841496==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_CY4PR12MB18133FB0A527DCF440ABD5A4F74F0CY4PR12MB1813namp_"
+
+--_000_CY4PR12MB18133FB0A527DCF440ABD5A4F74F0CY4PR12MB1813namp_
+Content-Type: text/plain; charset="iso-8859-3"
+Content-Transfer-Encoding: quoted-printable
+
+Yes amdgpu will work.  the e9171 is polaris based.
+
+Alex
+________________________________
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Yusuf Al=
+t=B9parmak <yusufalti1997-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Sent: Wednesday, November 20, 2019 12:04 PM
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Subject: AMD e9171 linux driver
+
+Hello,
+
+I have simple question. I want to use e9171 with my embedded t1042d4rdb-64b=
+ board. Does linux kernel provide a driver for e9171? More specific, does '=
+amdgpu'(https://github.com/torvalds/linux/tree/master/drivers/gpu/drm/amd) =
+provides driver for e9171 ?
+
+Best regards
+
+--_000_CY4PR12MB18133FB0A527DCF440ABD5A4F74F0CY4PR12MB1813namp_
+Content-Type: text/html; charset="iso-8859-3"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+3">
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Yes amdgpu will work.&nbsp; the e9171 is polaris based.</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Alex<br>
+</div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
+ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Yusuf Alt=B9parmak &lt;yusufa=
+lti1997-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;<br>
+<b>Sent:</b> Wednesday, November 20, 2019 12:04 PM<br>
+<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org &lt;amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&=
+gt;<br>
+<b>Subject:</b> AMD e9171 linux driver</font>
+<div>&nbsp;</div>
+</div>
+<div>
+<div dir=3D"ltr">Hello,
+<div><br>
+</div>
+<div>I have simple question. I want to use e9171 with my embedded t1042d4rd=
+b-64b board. Does linux kernel provide a driver for e9171? More specific, d=
+oes 'amdgpu'(<a href=3D"https://github.com/torvalds/linux/tree/master/drive=
+rs/gpu/drm/amd">https://github.com/torvalds/linux/tree/master/drivers/gpu/d=
+rm/amd</a>)
+ provides driver for e9171 ?</div>
+<div><br>
+</div>
+<div>Best regards</div>
+</div>
+</div>
+</body>
+</html>
+
+--_000_CY4PR12MB18133FB0A527DCF440ABD5A4F74F0CY4PR12MB1813namp_--
+
+--===============1391841496==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+
+--===============1391841496==--
