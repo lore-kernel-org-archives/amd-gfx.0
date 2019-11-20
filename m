@@ -1,16 +1,13 @@
-From: Luben Tuikov <luben.tuikov-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 06/12] tests/amdgpu: add device handle as input param for
- exec_cs_helper and write_linear_helper (v4)
-Date: Tue, 19 Nov 2019 21:00:11 -0500
-Message-ID: <68a8a4a0-a59d-e721-ac4e-6e64b5838007@amd.com>
+From: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH 01/12] amdgpu: add UAPI for creating encrypted buffers
+Date: Tue, 19 Nov 2019 21:41:24 -0500
+Message-ID: <CAAxE2A6ZdjfV1vWh1KQmTR+gVFq0n098Gg8bWjprwdqvUQGQoQ@mail.gmail.com>
 References: <1573788895-3936-1-git-send-email-aaron.liu@amd.com>
- <1573788895-3936-6-git-send-email-aaron.liu@amd.com>
+ <6cba1e53-1c0d-d408-4d16-cae93ec9e62e@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1592762865=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1573788895-3936-6-git-send-email-aaron.liu-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-CA
+In-Reply-To: <6cba1e53-1c0d-d408-4d16-cae93ec9e62e-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -21,108 +18,144 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Aaron Liu <aaron.liu-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Alexander.Deucher-5C7GfCeVMHo@public.gmane.org, Marek.Olsak-5C7GfCeVMHo@public.gmane.org, Ray.Huang-5C7GfCeVMHo@public.gmane.org, Leo.Liu-5C7GfCeVMHo@public.gmane.org, Christian.Koenig-5C7GfCeVMHo@public.gmane.org
+To: Luben Tuikov <luben.tuikov-5C7GfCeVMHo@public.gmane.org>
+Cc: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <Marek.Olsak-5C7GfCeVMHo@public.gmane.org>, Aaron Liu <aaron.liu-5C7GfCeVMHo@public.gmane.org>, amd-gfx mailing list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Huang Rui <Ray.Huang-5C7GfCeVMHo@public.gmane.org>, "Deucher,
+ Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, Leo Liu <Leo.Liu-5C7GfCeVMHo@public.gmane.org>, =?UTF-8?Q?Christian_K=C3=B6nig?= <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
 
-T24gMjAxOS0xMS0xNCAxMDozNCBwLm0uLCBBYXJvbiBMaXUgd3JvdGU6Cj4gRnJvbTogSHVhbmcg
-UnVpIDxyYXkuaHVhbmdAYW1kLmNvbT4KPiAKPiBUaGlzIHBhdGNoIGlzIHRvIGFkZCBhZGQgZGV2
-aWNlIGhhbmRsZSBhcyBpbnB1dCBwYXJhbSBmb3IgZXhlY19jc19oZWxwZXIKPiBhbmQgd3JpdGVf
-bGluZWFyX2hlbHBlci4KPiAKPiBCZWNhdXNlIHRoZXkgYXJlIG5lZWRlZCBpbiBzZWN1cml0eSB0
-ZXN0cy4KPiAKPiB2MjogZml4IHR5cG8gdGhhdCBiYXNpYyB0ZXN0cyBzaG91bGQgYmUgdW4tc2Vj
-dXJlLgo+IHYzOiByZWZpbmUgdGhlIGZ1bmN0aW9uIGltcGxlbWVudGF0aW9uLgo+IHY0OiByZW1v
-dmUgYW1kZ3B1X2NzX2N0eF9jcmVhdGUzIGNhbGxpbmcuCj4gCj4gU2lnbmVkLW9mZi1ieTogSHVh
-bmcgUnVpIDxyYXkuaHVhbmdAYW1kLmNvbT4KPiBTaWduZWQtb2ZmLWJ5OiBBYXJvbiBMaXUgPGFh
-cm9uLmxpdUBhbWQuY29tPgo+IFJldmlld2VkLWJ5OiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5k
-ZXVjaGVyQGFtZC5jb20+Cj4gLS0tCj4gIHRlc3RzL2FtZGdwdS9hbWRncHVfdGVzdC5oIHwgIDQg
-KysrLQo+ICB0ZXN0cy9hbWRncHUvYmFzaWNfdGVzdHMuYyB8IDUyICsrKysrKysrKysrKysrKysr
-KysrKysrKysrKysrKystLS0tLS0tLS0tLS0tLS0KPiAgMiBmaWxlcyBjaGFuZ2VkLCAzOCBpbnNl
-cnRpb25zKCspLCAxOCBkZWxldGlvbnMoLSkKPiAKPiBkaWZmIC0tZ2l0IGEvdGVzdHMvYW1kZ3B1
-L2FtZGdwdV90ZXN0LmggYi90ZXN0cy9hbWRncHUvYW1kZ3B1X3Rlc3QuaAo+IGluZGV4IDY3YmU0
-MzcuLjE2YzJkYTAgMTAwNjQ0Cj4gLS0tIGEvdGVzdHMvYW1kZ3B1L2FtZGdwdV90ZXN0LmgKPiAr
-KysgYi90ZXN0cy9hbWRncHUvYW1kZ3B1X3Rlc3QuaAo+IEBAIC0yNjMsNyArMjYzLDkgQEAgQ1Vf
-Qk9PTCBzdWl0ZV9zZWN1cml0eV90ZXN0c19lbmFibGUodm9pZCk7Cj4gIGV4dGVybiBDVV9UZXN0
-SW5mbyBzZWN1cml0eV90ZXN0c1tdOwo+ICAKPiAgZXh0ZXJuIHZvaWQKPiAtYW1kZ3B1X2NvbW1h
-bmRfc3VibWlzc2lvbl93cml0ZV9saW5lYXJfaGVscGVyX3dpdGhfc2VjdXJlKHVuc2lnbmVkIGlw
-X3R5cGUsCj4gK2FtZGdwdV9jb21tYW5kX3N1Ym1pc3Npb25fd3JpdGVfbGluZWFyX2hlbHBlcl93
-aXRoX3NlY3VyZShhbWRncHVfZGV2aWNlX2hhbmRsZQo+ICsJCQkJCQkJICBkZXZpY2UsCj4gKwkJ
-CQkJCQkgIHVuc2lnbmVkIGlwX3R5cGUsCj4gIAkJCQkJCQkgIGJvb2wgc2VjdXJlKTsKPiAgCgpX
-YXNuJ3QgdGhpcyBhbHJlYWR5IGRvbmUgaW4gcGF0Y2ggNT8KSWYgeWVzLCB0aGVuIGl0IHNob3Vs
-ZG4ndCBiZSBkb25lIGhlcmUgYW5kIG9ubHkgYSBzaW5nbGUgaGVhZGVyIGZpbGUKc2hvdWxkIGNv
-bnRhaW4gdGhlIHRydXRoLgpJZiBubywgdGhlbiB3aHkgYXJlIHR3byBoZWFkZXIgZmlsZXMgZGVj
-bGFyaW5nIHRoaXMgZXh0ZXJuPwpTaG91bGQgYmUgb25seSBvbmUuCgpSZWdhcmRzLApMdWJlbgoK
-PiAgLyoqCj4gZGlmZiAtLWdpdCBhL3Rlc3RzL2FtZGdwdS9iYXNpY190ZXN0cy5jIGIvdGVzdHMv
-YW1kZ3B1L2Jhc2ljX3Rlc3RzLmMKPiBpbmRleCAzMWM5YTU0Li41MTU0ODEyIDEwMDY0NAo+IC0t
-LSBhL3Rlc3RzL2FtZGdwdS9iYXNpY190ZXN0cy5jCj4gKysrIGIvdGVzdHMvYW1kZ3B1L2Jhc2lj
-X3Rlc3RzLmMKPiBAQCAtMTI4MywxMiArMTI4MywxNCBAQCBzdGF0aWMgdm9pZCBhbWRncHVfY29t
-bWFuZF9zdWJtaXNzaW9uX2NvbXB1dGUodm9pZCkKPiAgICogcG00X3NyYywgcmVzb3VyY2VzLCBp
-Yl9pbmZvLCBhbmQgaWJzX3JlcXVlc3QKPiAgICogc3VibWl0IGNvbW1hbmQgc3RyZWFtIGRlc2Ny
-aWJlZCBpbiBpYnNfcmVxdWVzdCBhbmQgd2FpdCBmb3IgdGhpcyBJQiBhY2NvbXBsaXNoZWQKPiAg
-ICovCj4gLXN0YXRpYyB2b2lkIGFtZGdwdV90ZXN0X2V4ZWNfY3NfaGVscGVyKGFtZGdwdV9jb250
-ZXh0X2hhbmRsZSBjb250ZXh0X2hhbmRsZSwKPiAtCQkJCSAgICAgICB1bnNpZ25lZCBpcF90eXBl
-LAo+IC0JCQkJICAgICAgIGludCBpbnN0YW5jZSwgaW50IHBtNF9kdywgdWludDMyX3QgKnBtNF9z
-cmMsCj4gLQkJCQkgICAgICAgaW50IHJlc19jbnQsIGFtZGdwdV9ib19oYW5kbGUgKnJlc291cmNl
-cywKPiAtCQkJCSAgICAgICBzdHJ1Y3QgYW1kZ3B1X2NzX2liX2luZm8gKmliX2luZm8sCj4gLQkJ
-CQkgICAgICAgc3RydWN0IGFtZGdwdV9jc19yZXF1ZXN0ICppYnNfcmVxdWVzdCkKPiArc3RhdGlj
-IHZvaWQKPiArYW1kZ3B1X3Rlc3RfZXhlY19jc19oZWxwZXJfcmF3KGFtZGdwdV9kZXZpY2VfaGFu
-ZGxlIGRldmljZV9oYW5kbGUsCj4gKwkJCSAgICAgICBhbWRncHVfY29udGV4dF9oYW5kbGUgY29u
-dGV4dF9oYW5kbGUsCj4gKwkJCSAgICAgICB1bnNpZ25lZCBpcF90eXBlLCBpbnQgaW5zdGFuY2Us
-IGludCBwbTRfZHcsCj4gKwkJCSAgICAgICB1aW50MzJfdCAqcG00X3NyYywgaW50IHJlc19jbnQs
-Cj4gKwkJCSAgICAgICBhbWRncHVfYm9faGFuZGxlICpyZXNvdXJjZXMsCj4gKwkJCSAgICAgICBz
-dHJ1Y3QgYW1kZ3B1X2NzX2liX2luZm8gKmliX2luZm8sCj4gKwkJCSAgICAgICBzdHJ1Y3QgYW1k
-Z3B1X2NzX3JlcXVlc3QgKmlic19yZXF1ZXN0KQo+ICB7Cj4gIAlpbnQgcjsKPiAgCXVpbnQzMl90
-IGV4cGlyZWQ7Cj4gQEAgLTEzNjEsOCArMTM2MywyNCBAQCBzdGF0aWMgdm9pZCBhbWRncHVfdGVz
-dF9leGVjX2NzX2hlbHBlcihhbWRncHVfY29udGV4dF9oYW5kbGUgY29udGV4dF9oYW5kbGUsCj4g
-IAlDVV9BU1NFUlRfRVFVQUwociwgMCk7Cj4gIH0KPiAgCj4gLXZvaWQgYW1kZ3B1X2NvbW1hbmRf
-c3VibWlzc2lvbl93cml0ZV9saW5lYXJfaGVscGVyX3dpdGhfc2VjdXJlKHVuc2lnbmVkIGlwX3R5
-cGUsCj4gLQkJCQkJCQkgICAgICAgYm9vbCBzZWN1cmUpCj4gK3N0YXRpYyB2b2lkCj4gK2FtZGdw
-dV90ZXN0X2V4ZWNfY3NfaGVscGVyKGFtZGdwdV9jb250ZXh0X2hhbmRsZSBjb250ZXh0X2hhbmRs
-ZSwKPiArCQkJICAgdW5zaWduZWQgaXBfdHlwZSwgaW50IGluc3RhbmNlLCBpbnQgcG00X2R3LAo+
-ICsJCQkgICB1aW50MzJfdCAqcG00X3NyYywgaW50IHJlc19jbnQsCj4gKwkJCSAgIGFtZGdwdV9i
-b19oYW5kbGUgKnJlc291cmNlcywKPiArCQkJICAgc3RydWN0IGFtZGdwdV9jc19pYl9pbmZvICpp
-Yl9pbmZvLAo+ICsJCQkgICBzdHJ1Y3QgYW1kZ3B1X2NzX3JlcXVlc3QgKmlic19yZXF1ZXN0KQo+
-ICt7Cj4gKwlhbWRncHVfdGVzdF9leGVjX2NzX2hlbHBlcl9yYXcoZGV2aWNlX2hhbmRsZSwgY29u
-dGV4dF9oYW5kbGUsCj4gKwkJCQkgICAgICAgaXBfdHlwZSwgaW5zdGFuY2UsIHBtNF9kdywgcG00
-X3NyYywKPiArCQkJCSAgICAgICByZXNfY250LCByZXNvdXJjZXMsIGliX2luZm8sCj4gKwkJCQkg
-ICAgICAgaWJzX3JlcXVlc3QpOwo+ICt9Cj4gKwo+ICt2b2lkCj4gK2FtZGdwdV9jb21tYW5kX3N1
-Ym1pc3Npb25fd3JpdGVfbGluZWFyX2hlbHBlcl93aXRoX3NlY3VyZShhbWRncHVfZGV2aWNlX2hh
-bmRsZQo+ICsJCQkJCQkJICBkZXZpY2UsIHVuc2lnbmVkCj4gKwkJCQkJCQkgIGlwX3R5cGUsIGJv
-b2wgc2VjdXJlKQo+ICB7Cj4gIAljb25zdCBpbnQgc2RtYV93cml0ZV9sZW5ndGggPSAxMjg7Cj4g
-IAljb25zdCBpbnQgcG00X2R3ID0gMjU2Owo+IEBAIC0xMzg4LDEzICsxNDA2LDEzIEBAIHZvaWQg
-YW1kZ3B1X2NvbW1hbmRfc3VibWlzc2lvbl93cml0ZV9saW5lYXJfaGVscGVyX3dpdGhfc2VjdXJl
-KHVuc2lnbmVkIGlwX3R5cGUsCj4gIAlpYnNfcmVxdWVzdCA9IGNhbGxvYygxLCBzaXplb2YoKmli
-c19yZXF1ZXN0KSk7Cj4gIAlDVV9BU1NFUlRfTk9UX0VRVUFMKGlic19yZXF1ZXN0LCBOVUxMKTsK
-PiAgCj4gLQlyID0gYW1kZ3B1X3F1ZXJ5X2h3X2lwX2luZm8oZGV2aWNlX2hhbmRsZSwgaXBfdHlw
-ZSwgMCwgJmh3X2lwX2luZm8pOwo+ICsJciA9IGFtZGdwdV9xdWVyeV9od19pcF9pbmZvKGRldmlj
-ZSwgaXBfdHlwZSwgMCwgJmh3X2lwX2luZm8pOwo+ICAJQ1VfQVNTRVJUX0VRVUFMKHIsIDApOwo+
-ICAKPiAgCWZvciAoaSA9IDA7IHNlY3VyZSAmJiAoaSA8IDIpOyBpKyspCj4gIAkJZ3R0X2ZsYWdz
-W2ldIHw9IEFNREdQVV9HRU1fQ1JFQVRFX0VOQ1JZUFRFRDsKPiAgCj4gLQlyID0gYW1kZ3B1X2Nz
-X2N0eF9jcmVhdGUoZGV2aWNlX2hhbmRsZSwgJmNvbnRleHRfaGFuZGxlKTsKPiArCXIgPSBhbWRn
-cHVfY3NfY3R4X2NyZWF0ZShkZXZpY2UsICZjb250ZXh0X2hhbmRsZSk7Cj4gIAo+ICAJQ1VfQVNT
-RVJUX0VRVUFMKHIsIDApOwo+ICAKPiBAQCAtMTQwNiw3ICsxNDI0LDcgQEAgdm9pZCBhbWRncHVf
-Y29tbWFuZF9zdWJtaXNzaW9uX3dyaXRlX2xpbmVhcl9oZWxwZXJfd2l0aF9zZWN1cmUodW5zaWdu
-ZWQgaXBfdHlwZSwKPiAgCQlsb29wID0gMDsKPiAgCQl3aGlsZShsb29wIDwgMikgewo+ICAJCQkv
-KiBhbGxvY2F0ZSBVQyBibyBmb3Igc0RNQSB1c2UgKi8KPiAtCQkJciA9IGFtZGdwdV9ib19hbGxv
-Y19hbmRfbWFwKGRldmljZV9oYW5kbGUsCj4gKwkJCXIgPSBhbWRncHVfYm9fYWxsb2NfYW5kX21h
-cChkZXZpY2UsCj4gIAkJCQkJCSAgICBzZG1hX3dyaXRlX2xlbmd0aCAqIHNpemVvZih1aW50MzJf
-dCksCj4gIAkJCQkJCSAgICA0MDk2LCBBTURHUFVfR0VNX0RPTUFJTl9HVFQsCj4gIAkJCQkJCSAg
-ICBndHRfZmxhZ3NbbG9vcF0sICZibywgKHZvaWQqKikmYm9fY3B1LAo+IEBAIC0xNDQ1LDExICsx
-NDYzLDEwIEBAIHZvaWQgYW1kZ3B1X2NvbW1hbmRfc3VibWlzc2lvbl93cml0ZV9saW5lYXJfaGVs
-cGVyX3dpdGhfc2VjdXJlKHVuc2lnbmVkIGlwX3R5cGUsCj4gIAkJCQkJcG00W2krK10gPSAweGRl
-YWRiZWFmOwo+ICAJCQl9Cj4gIAo+IC0JCQlhbWRncHVfdGVzdF9leGVjX2NzX2hlbHBlcihjb250
-ZXh0X2hhbmRsZSwKPiAtCQkJCQkJICAgaXBfdHlwZSwgcmluZ19pZCwKPiAtCQkJCQkJICAgaSwg
-cG00LAo+IC0JCQkJCQkgICAxLCByZXNvdXJjZXMsCj4gLQkJCQkJCSAgIGliX2luZm8sIGlic19y
-ZXF1ZXN0KTsKPiArCQkJYW1kZ3B1X3Rlc3RfZXhlY19jc19oZWxwZXJfcmF3KGRldmljZSwgY29u
-dGV4dF9oYW5kbGUsCj4gKwkJCQkJCSAgICAgICBpcF90eXBlLCByaW5nX2lkLCBpLCBwbTQsCj4g
-KwkJCQkJCSAgICAgICAxLCByZXNvdXJjZXMsIGliX2luZm8sCj4gKwkJCQkJCSAgICAgICBpYnNf
-cmVxdWVzdCk7Cj4gIAo+ICAJCQkvKiB2ZXJpZnkgaWYgU0RNQSB0ZXN0IHJlc3VsdCBtZWV0cyB3
-aXRoIGV4cGVjdGVkICovCj4gIAkJCWkgPSAwOwo+IEBAIC0xNDc2LDcgKzE0OTMsOCBAQCB2b2lk
-IGFtZGdwdV9jb21tYW5kX3N1Ym1pc3Npb25fd3JpdGVfbGluZWFyX2hlbHBlcl93aXRoX3NlY3Vy
-ZSh1bnNpZ25lZCBpcF90eXBlLAo+ICAKPiAgc3RhdGljIHZvaWQgYW1kZ3B1X2NvbW1hbmRfc3Vi
-bWlzc2lvbl93cml0ZV9saW5lYXJfaGVscGVyKHVuc2lnbmVkIGlwX3R5cGUpCj4gIHsKPiAtCWFt
-ZGdwdV9jb21tYW5kX3N1Ym1pc3Npb25fd3JpdGVfbGluZWFyX2hlbHBlcl93aXRoX3NlY3VyZShp
-cF90eXBlLAo+ICsJYW1kZ3B1X2NvbW1hbmRfc3VibWlzc2lvbl93cml0ZV9saW5lYXJfaGVscGVy
-X3dpdGhfc2VjdXJlKGRldmljZV9oYW5kbGUsCj4gKwkJCQkJCQkJICBpcF90eXBlLAo+ICAJCQkJ
-CQkJCSAgZmFsc2UpOwo+ICB9Cj4gIAo+IAoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVl
-ZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5m
-by9hbWQtZ2Z4
+--===============1592762865==
+Content-Type: multipart/alternative; boundary="0000000000000929110597be2086"
+
+--0000000000000929110597be2086
+Content-Type: text/plain; charset="UTF-8"
+
+On Tue, Nov 19, 2019 at 8:52 PM Luben Tuikov <luben.tuikov-5C7GfCeVMHo@public.gmane.org> wrote:
+
+> On 2019-11-14 10:34 p.m., Aaron Liu wrote:
+> > From: Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org>
+> >
+> > To align the kernel uapi change from Alex:
+> >
+> > "Add a flag to the GEM_CREATE ioctl to create encrypted buffers. Buffers
+> with
+> > this flag set will be created with the TMZ bit set in the PTEs or engines
+> > accessing them. This is required in order to properly access the data
+> from the
+> > engines."
+> >
+> > We will use GEM_CREATE_ENCRYPTED flag for secure buffer allocation.
+> >
+> > Signed-off-by: Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org>
+> > Reviewed-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+> > ---
+> >  include/drm/amdgpu_drm.h | 5 +++++
+> >  1 file changed, 5 insertions(+)
+> >
+> > diff --git a/include/drm/amdgpu_drm.h b/include/drm/amdgpu_drm.h
+> > index 5c28aa7..1a95e37 100644
+> > --- a/include/drm/amdgpu_drm.h
+> > +++ b/include/drm/amdgpu_drm.h
+> > @@ -141,6 +141,11 @@ extern "C" {
+> >   * releasing the memory
+> >   */
+> >  #define AMDGPU_GEM_CREATE_VRAM_WIPE_ON_RELEASE       (1 << 9)
+> > +/* Flag that BO will be encrypted and that the TMZ bit should be
+> > + * set in the PTEs when mapping this buffer via GPUVM or
+> > + * accessing it with various hw blocks
+> > + */
+> > +#define AMDGPU_GEM_CREATE_ENCRYPTED          (1 << 10)
+>
+> Style!
+> TAB char?!
+>
+> You have a TAB char between ".._ENCRYPTED" and "(1 << 10)"
+> Do NOT add/insert TAB chars instead of space to align colunmns!
+> If when you press Tab key a tab is inserted, as opposed to the line
+> indented, then DO NOT use this editor.
+> The Tab key should "indent according to mode" by inserting TAB chars.
+> If the line is already indented, as this one is, then it should do nothing.
+>
+
+I disagree with this 100%. Tabs or spaces don't matter here from my
+perspective. I also disagree with your language. It's overly impolite.
+
+Marek
+
+--0000000000000929110597be2086
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail=
+_attr">On Tue, Nov 19, 2019 at 8:52 PM Luben Tuikov &lt;<a href=3D"mailto:l=
+uben.tuikov-5C7GfCeVMHo@public.gmane.org" target=3D"_blank">luben.tuikov-5C7GfCeVMHo@public.gmane.org</a>&gt; wrote:<=
+br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8e=
+x;border-left:1px solid rgb(204,204,204);padding-left:1ex">On 2019-11-14 10=
+:34 p.m., Aaron Liu wrote:<br>
+&gt; From: Huang Rui &lt;<a href=3D"mailto:ray.huang-5C7GfCeVMHo@public.gmane.org" target=3D"_bl=
+ank">ray.huang-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
+&gt; <br>
+&gt; To align the kernel uapi change from Alex:<br>
+&gt; <br>
+&gt; &quot;Add a flag to the GEM_CREATE ioctl to create encrypted buffers. =
+Buffers with<br>
+&gt; this flag set will be created with the TMZ bit set in the PTEs or engi=
+nes<br>
+&gt; accessing them. This is required in order to properly access the data =
+from the<br>
+&gt; engines.&quot;<br>
+&gt; <br>
+&gt; We will use GEM_CREATE_ENCRYPTED flag for secure buffer allocation.<br=
+>
+&gt; <br>
+&gt; Signed-off-by: Huang Rui &lt;<a href=3D"mailto:ray.huang-5C7GfCeVMHo@public.gmane.org" targ=
+et=3D"_blank">ray.huang-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
+&gt; Reviewed-by: Alex Deucher &lt;<a href=3D"mailto:alexander.deucher@amd.=
+com" target=3D"_blank">alexander.deucher-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
+&gt; ---<br>
+&gt;=C2=A0 include/drm/amdgpu_drm.h | 5 +++++<br>
+&gt;=C2=A0 1 file changed, 5 insertions(+)<br>
+&gt; <br>
+&gt; diff --git a/include/drm/amdgpu_drm.h b/include/drm/amdgpu_drm.h<br>
+&gt; index 5c28aa7..1a95e37 100644<br>
+&gt; --- a/include/drm/amdgpu_drm.h<br>
+&gt; +++ b/include/drm/amdgpu_drm.h<br>
+&gt; @@ -141,6 +141,11 @@ extern &quot;C&quot; {<br>
+&gt;=C2=A0 =C2=A0* releasing the memory<br>
+&gt;=C2=A0 =C2=A0*/<br>
+&gt;=C2=A0 #define AMDGPU_GEM_CREATE_VRAM_WIPE_ON_RELEASE=C2=A0 =C2=A0 =C2=
+=A0 =C2=A0(1 &lt;&lt; 9)<br>
+&gt; +/* Flag that BO will be encrypted and that the TMZ bit should be<br>
+&gt; + * set in the PTEs when mapping this buffer via GPUVM or<br>
+&gt; + * accessing it with various hw blocks<br>
+&gt; + */<br>
+&gt; +#define AMDGPU_GEM_CREATE_ENCRYPTED=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ (1 &lt;&lt; 10)<br>
+<br>
+Style!<br>
+TAB char?!<br>
+<br>
+You have a TAB char between &quot;.._ENCRYPTED&quot; and &quot;(1 &lt;&lt; =
+10)&quot;<br>
+Do NOT add/insert TAB chars instead of space to align colunmns!<br>
+If when you press Tab key a tab is inserted, as opposed to the line<br>
+indented, then DO NOT use this editor.<br>
+The Tab key should &quot;indent according to mode&quot; by inserting TAB ch=
+ars.<br>
+If the line is already indented, as this one is, then it should do nothing.=
+<br></blockquote><div><br></div><div>I disagree with this 100%. Tabs or spa=
+ces don&#39;t matter here from my perspective. I also disagree with your la=
+nguage. It&#39;s overly impolite.<br></div><div><br></div><div>Marek</div><=
+/div></div>
+
+--0000000000000929110597be2086--
+
+--===============1592762865==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+
+--===============1592762865==--
