@@ -1,13 +1,21 @@
-From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: AMD e9171 linux driver
-Date: Wed, 20 Nov 2019 18:49:52 +0000
-Message-ID: <CY4PR12MB18133FB0A527DCF440ABD5A4F74F0@CY4PR12MB1813.namprd12.prod.outlook.com>
-References: <CAGzVRjwf9Zo+i_L7rgZKV2oEXqXbMNK1e-z41Tpu+TzsyzfVOQ@mail.gmail.com>
+From: Luben Tuikov <luben.tuikov-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 01/12] amdgpu: add UAPI for creating encrypted buffers
+Date: Wed, 20 Nov 2019 14:08:40 -0500
+Message-ID: <6ddda4a0-ed0e-eb29-e2f2-ba1e5cdbde1b@amd.com>
+References: <1573788895-3936-1-git-send-email-aaron.liu@amd.com>
+ <6cba1e53-1c0d-d408-4d16-cae93ec9e62e@amd.com>
+ <CAAxE2A6ZdjfV1vWh1KQmTR+gVFq0n098Gg8bWjprwdqvUQGQoQ@mail.gmail.com>
+ <60f3793f-c568-798c-a516-870d2d20d8d8@amd.com>
+ <cac7e351-dba8-125b-dc5d-b2fdec77731b@gmail.com>
+ <0622cbcb-9b04-eed3-ad1e-7a40cc03c73a@amd.com>
+ <31a1cde2-18ab-96f5-47a4-6f113cbc9e4a@amd.com>
+ <069abbd5-564d-aca7-ddfb-2336d56982eb@gmail.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1391841496=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CAGzVRjwf9Zo+i_L7rgZKV2oEXqXbMNK1e-z41Tpu+TzsyzfVOQ-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
-Content-Language: en-US
+In-Reply-To: <069abbd5-564d-aca7-ddfb-2336d56982eb-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Content-Language: en-CA
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,99 +26,134 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?iso-8859-3?Q?Yusuf_Alt=B9parmak?= <yusufalti1997-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: christian.koenig-5C7GfCeVMHo@public.gmane.org, =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Cc: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <Marek.Olsak-5C7GfCeVMHo@public.gmane.org>, Aaron Liu <aaron.liu-5C7GfCeVMHo@public.gmane.org>, amd-gfx mailing list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Huang Rui <Ray.Huang-5C7GfCeVMHo@public.gmane.org>, "Deucher,
+ Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, Leo Liu <Leo.Liu-5C7GfCeVMHo@public.gmane.org>
 
---===============1391841496==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_CY4PR12MB18133FB0A527DCF440ABD5A4F74F0CY4PR12MB1813namp_"
-
---_000_CY4PR12MB18133FB0A527DCF440ABD5A4F74F0CY4PR12MB1813namp_
-Content-Type: text/plain; charset="iso-8859-3"
-Content-Transfer-Encoding: quoted-printable
-
-Yes amdgpu will work.  the e9171 is polaris based.
-
-Alex
-________________________________
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Yusuf Al=
-t=B9parmak <yusufalti1997-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Sent: Wednesday, November 20, 2019 12:04 PM
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Subject: AMD e9171 linux driver
-
-Hello,
-
-I have simple question. I want to use e9171 with my embedded t1042d4rdb-64b=
- board. Does linux kernel provide a driver for e9171? More specific, does '=
-amdgpu'(https://github.com/torvalds/linux/tree/master/drivers/gpu/drm/amd) =
-provides driver for e9171 ?
-
-Best regards
-
---_000_CY4PR12MB18133FB0A527DCF440ABD5A4F74F0CY4PR12MB1813namp_
-Content-Type: text/html; charset="iso-8859-3"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-3">
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Yes amdgpu will work.&nbsp; the e9171 is polaris based.</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Alex<br>
-</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
-ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Yusuf Alt=B9parmak &lt;yusufa=
-lti1997-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;<br>
-<b>Sent:</b> Wednesday, November 20, 2019 12:04 PM<br>
-<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org &lt;amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&=
-gt;<br>
-<b>Subject:</b> AMD e9171 linux driver</font>
-<div>&nbsp;</div>
-</div>
-<div>
-<div dir=3D"ltr">Hello,
-<div><br>
-</div>
-<div>I have simple question. I want to use e9171 with my embedded t1042d4rd=
-b-64b board. Does linux kernel provide a driver for e9171? More specific, d=
-oes 'amdgpu'(<a href=3D"https://github.com/torvalds/linux/tree/master/drive=
-rs/gpu/drm/amd">https://github.com/torvalds/linux/tree/master/drivers/gpu/d=
-rm/amd</a>)
- provides driver for e9171 ?</div>
-<div><br>
-</div>
-<div>Best regards</div>
-</div>
-</div>
-</body>
-</html>
-
---_000_CY4PR12MB18133FB0A527DCF440ABD5A4F74F0CY4PR12MB1813namp_--
-
---===============1391841496==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
-
---===============1391841496==--
+T24gMjAxOS0xMS0yMCAxMzo0MCwgQ2hyaXN0aWFuIEvDtm5pZyB3cm90ZToKPiBBbSAyMC4xMS4x
+OSB1bSAxODo1MCBzY2hyaWViIEx1YmVuIFR1aWtvdjoKPj4gT24gMjAxOS0xMS0yMCAxMjoyNCwg
+Q2hyaXN0aWFuIEvDtm5pZyB3cm90ZToKPj4+IEFtIDIwLjExLjE5IHVtIDE4OjE2IHNjaHJpZWIg
+Q2hyaXN0aWFuIEvDtm5pZzoKPj4+PiBBbSAyMC4xMS4xOSB1bSAxNzo0OSBzY2hyaWViIEx1YmVu
+IFR1aWtvdjoKPj4+Pj4gT24gMjAxOS0xMS0xOSAyMTo0MSwgTWFyZWsgT2zFocOhayB3cm90ZToK
+Pj4+Pj4+IE9uIFR1ZSwgTm92IDE5LCAyMDE5IGF0IDg6NTIgUE0gTHViZW4gVHVpa292IDxsdWJl
+bi50dWlrb3ZAYW1kLmNvbQo+Pj4+Pj4gPG1haWx0bzpsdWJlbi50dWlrb3ZAYW1kLmNvbT4+IHdy
+b3RlOgo+Pj4+Pj4KPj4+Pj4+ICDCoMKgwqDCoCBPbiAyMDE5LTExLTE0IDEwOjM0IHAubS4sIEFh
+cm9uIExpdSB3cm90ZToKPj4+Pj4+ICDCoMKgwqDCoCA+IEZyb206IEh1YW5nIFJ1aSA8cmF5Lmh1
+YW5nQGFtZC5jb20gPG1haWx0bzpyYXkuaHVhbmdAYW1kLmNvbT4+Cj4+Pj4+PiAgwqDCoMKgwqAg
+Pgo+Pj4+Pj4gIMKgwqDCoMKgID4gVG8gYWxpZ24gdGhlIGtlcm5lbCB1YXBpIGNoYW5nZSBmcm9t
+IEFsZXg6Cj4+Pj4+PiAgwqDCoMKgwqAgPgo+Pj4+Pj4gIMKgwqDCoMKgID4gIkFkZCBhIGZsYWcg
+dG8gdGhlIEdFTV9DUkVBVEUgaW9jdGwgdG8gY3JlYXRlIGVuY3J5cHRlZAo+Pj4+Pj4gYnVmZmVy
+cy4gQnVmZmVycyB3aXRoCj4+Pj4+PiAgwqDCoMKgwqAgPiB0aGlzIGZsYWcgc2V0IHdpbGwgYmUg
+Y3JlYXRlZCB3aXRoIHRoZSBUTVogYml0IHNldCBpbiB0aGUKPj4+Pj4+IFBURXMgb3IgZW5naW5l
+cwo+Pj4+Pj4gIMKgwqDCoMKgID4gYWNjZXNzaW5nIHRoZW0uIFRoaXMgaXMgcmVxdWlyZWQgaW4g
+b3JkZXIgdG8gcHJvcGVybHkgYWNjZXNzCj4+Pj4+PiB0aGUgZGF0YSBmcm9tIHRoZQo+Pj4+Pj4g
+IMKgwqDCoMKgID4gZW5naW5lcy4iCj4+Pj4+PiAgwqDCoMKgwqAgPgo+Pj4+Pj4gIMKgwqDCoMKg
+ID4gV2Ugd2lsbCB1c2UgR0VNX0NSRUFURV9FTkNSWVBURUQgZmxhZyBmb3Igc2VjdXJlIGJ1ZmZl
+cgo+Pj4+Pj4gYWxsb2NhdGlvbi4KPj4+Pj4+ICDCoMKgwqDCoCA+Cj4+Pj4+PiAgwqDCoMKgwqAg
+PiBTaWduZWQtb2ZmLWJ5OiBIdWFuZyBSdWkgPHJheS5odWFuZ0BhbWQuY29tCj4+Pj4+PiA8bWFp
+bHRvOnJheS5odWFuZ0BhbWQuY29tPj4KPj4+Pj4+ICDCoMKgwqDCoCA+IFJldmlld2VkLWJ5OiBB
+bGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5jb20KPj4+Pj4+IDxtYWlsdG86YWxl
+eGFuZGVyLmRldWNoZXJAYW1kLmNvbT4+Cj4+Pj4+PiAgwqDCoMKgwqAgPiAtLS0KPj4+Pj4+ICDC
+oMKgwqDCoCA+wqAgaW5jbHVkZS9kcm0vYW1kZ3B1X2RybS5oIHwgNSArKysrKwo+Pj4+Pj4gIMKg
+wqDCoMKgID7CoCAxIGZpbGUgY2hhbmdlZCwgNSBpbnNlcnRpb25zKCspCj4+Pj4+PiAgwqDCoMKg
+wqAgPgo+Pj4+Pj4gIMKgwqDCoMKgID4gZGlmZiAtLWdpdCBhL2luY2x1ZGUvZHJtL2FtZGdwdV9k
+cm0uaCBiL2luY2x1ZGUvZHJtL2FtZGdwdV9kcm0uaAo+Pj4+Pj4gIMKgwqDCoMKgID4gaW5kZXgg
+NWMyOGFhNy4uMWE5NWUzNyAxMDA2NDQKPj4+Pj4+ICDCoMKgwqDCoCA+IC0tLSBhL2luY2x1ZGUv
+ZHJtL2FtZGdwdV9kcm0uaAo+Pj4+Pj4gIMKgwqDCoMKgID4gKysrIGIvaW5jbHVkZS9kcm0vYW1k
+Z3B1X2RybS5oCj4+Pj4+PiAgwqDCoMKgwqAgPiBAQCAtMTQxLDYgKzE0MSwxMSBAQCBleHRlcm4g
+IkMiIHsKPj4+Pj4+ICDCoMKgwqDCoCA+wqAgwqAqIHJlbGVhc2luZyB0aGUgbWVtb3J5Cj4+Pj4+
+PiAgwqDCoMKgwqAgPsKgIMKgKi8KPj4+Pj4+ICDCoMKgwqDCoCA+wqAgI2RlZmluZSBBTURHUFVf
+R0VNX0NSRUFURV9WUkFNX1dJUEVfT05fUkVMRUFTRSDCoCgxIDw8IDkpCj4+Pj4+PiAgwqDCoMKg
+wqAgPiArLyogRmxhZyB0aGF0IEJPIHdpbGwgYmUgZW5jcnlwdGVkIGFuZCB0aGF0IHRoZSBUTVog
+Yml0Cj4+Pj4+PiBzaG91bGQgYmUKPj4+Pj4+ICDCoMKgwqDCoCA+ICsgKiBzZXQgaW4gdGhlIFBU
+RXMgd2hlbiBtYXBwaW5nIHRoaXMgYnVmZmVyIHZpYSBHUFVWTSBvcgo+Pj4+Pj4gIMKgwqDCoMKg
+ID4gKyAqIGFjY2Vzc2luZyBpdCB3aXRoIHZhcmlvdXMgaHcgYmxvY2tzCj4+Pj4+PiAgwqDCoMKg
+wqAgPiArICovCj4+Pj4+PiAgwqDCoMKgwqAgPiArI2RlZmluZSBBTURHUFVfR0VNX0NSRUFURV9F
+TkNSWVBURUTCoCDCoCDCoCDCoCDCoCAoMSA8PCAxMCkKPj4+Pj4+Cj4+Pj4+PiAgwqDCoMKgwqAg
+U3R5bGUhCj4+Pj4+PiAgwqDCoMKgwqAgVEFCIGNoYXI/IQo+Pj4+Pj4KPj4+Pj4+ICDCoMKgwqDC
+oCBZb3UgaGF2ZSBhIFRBQiBjaGFyIGJldHdlZW4gIi4uX0VOQ1JZUFRFRCIgYW5kICIoMSA8PCAx
+MCkiCj4+Pj4+PiAgwqDCoMKgwqAgRG8gTk9UIGFkZC9pbnNlcnQgVEFCIGNoYXJzIGluc3RlYWQg
+b2Ygc3BhY2UgdG8gYWxpZ24gY29sdW5tbnMhCj4+Pj4+PiAgwqDCoMKgwqAgSWYgd2hlbiB5b3Ug
+cHJlc3MgVGFiIGtleSBhIHRhYiBpcyBpbnNlcnRlZCwgYXMgb3Bwb3NlZCB0byB0aGUKPj4+Pj4+
+IGxpbmUKPj4+Pj4+ICDCoMKgwqDCoCBpbmRlbnRlZCwgdGhlbiBETyBOT1QgdXNlIHRoaXMgZWRp
+dG9yLgo+Pj4+Pj4gIMKgwqDCoMKgIFRoZSBUYWIga2V5IHNob3VsZCAiaW5kZW50IGFjY29yZGlu
+ZyB0byBtb2RlIiBieSBpbnNlcnRpbmcgVEFCCj4+Pj4+PiBjaGFycy4KPj4+Pj4+ICDCoMKgwqDC
+oCBJZiB0aGUgbGluZSBpcyBhbHJlYWR5IGluZGVudGVkLCBhcyB0aGlzIG9uZSBpcywgdGhlbiBp
+dCBzaG91bGQKPj4+Pj4+IGRvIG5vdGhpbmcuCj4+Pj4+Pgo+Pj4+Pj4KPj4+Pj4+IEkgZGlzYWdy
+ZWUgd2l0aCB0aGlzIDEwMCUuIFRhYnMgb3Igc3BhY2VzIGRvbid0IG1hdHRlciBoZXJlIGZyb20g
+bXkKPj4+Pj4+IHBlcnNwZWN0aXZlLiBJIGFsc28gZGlzYWdyZWUgd2l0aCB5b3VyIGxhbmd1YWdl
+LiBJdCdzIG92ZXJseSBpbXBvbGl0ZS4KPj4+Pj4gQnV0IGl0J3MgdGhlIGNvZGluZyBzdHlsZSBv
+ZiBMaW51eDogbGVhZGluZyB0YWJzIG9ubHkuIFRyeSBpdCB3aXRoCj4+Pj4+IEVtYWNzIGFzIGRl
+c2NyaWJlZCBhbmQgZ2l2ZW4gaW4KPj4+Pj4KPj4+Pj4gbGludXgvRG9jdW1lbnRhdGlvbi9wcm9j
+ZXNzL2NvZGluZy1zdHlsZS5yc3QKPj4+Pj4KPj4+Pj4gc3RhcnRpbmcgYXQgbGluZSA1ODkuIEFu
+ZCBwcmVzcyB0aGUgVGFiIGtleSBvbiBhbiBhbHJlYWR5IGluZGVudGVkCj4+Pj4+IGxpbmUtLW5v
+dGhpbmcgd2lsbCBoYXBwZW4uIExpbnV4IGhhcyB0cmFkaXRpb25hbGx5Cj4+Pj4+IHNodW5uZWQg
+ZnJvbSBsb29zZSBUQUIgY2hhcnMgaW4gYWxyZWFkeSBpbmRlbnRlZCBsaW5lczogbGVhZGluZyB0
+YWJzCj4+Pj4+IG9ubHkgbW9kZS4gSW4gYSBwcm9wZXIgY29kZSBlZGl0b3IKPj4+Pj4gcHJlc3Np
+bmcgdGhlIFRhYiBrZXkgb25seSBpbmRlbnRzIGFjY29yZGluZyB0byBidWZmZXIgbW9kZSwgaXQK
+Pj4+Pj4gc2hvdWxkbid0IGluc2VydCBhIFRhYiBjaGFyIHdpbGx5LW5pbGx5Lgo+Pj4+PiBQZW9w
+bGUgbWF5IHNldCB0aGVpciB0YWIgc3RvcHMgZGlmZmVyZW50bHkgZm9yIGRpZmZlcmVudCB0YWIK
+Pj4+Pj4gcG9zaXRpb25zIGFuZCBpbnNlcnRpbmcgYSB0YWIgY2hhciBtYXkgZGlzcGxheQo+Pj4+
+PiBpbmNvcnJlY3RseS4gVGhlIG1vc3QgcG9ydGFibGUgd2F5IHRvIGFsaWduIGNvbHVtbnMgaW4g
+YW4gYWxyZWFkeQo+Pj4+PiBpbmRlbnRlZC1hY2NvcmRpbmctdG8tbW9kZSBsaW5lLCBpcwo+Pj4+
+PiB1c2luZyBzcGFjZXMuIChPZiBjb3Vyc2UgdGhpcyBkb2Vzbid0IG1hdHRlciB3aGVuIHVzaW5n
+IHNwYWNlcyB0bwo+Pj4+PiBpbmRlbnQsIGJ1dCBMaW51eCB1c2VzIGhhcmQgVEFCIGNoYXJzCj4+
+Pj4+IHRvIGluZGVudDogbGludXgvRG9jdW1lbnRhdGlvbi9wcm9jZXNzL2NvZGluZy1zdHlsZS5y
+c3QuICh3aGljaCBhbHNvCj4+Pj4+IHNlZW0gdG8gYmUgc2V0IHRvIDggY2hhcnMpKQo+Pj4+Pgo+
+Pj4+PiBJdCdzIGEgY29kZSByZXZpZXcsIHRoZXJlIGlzIG5vICJsYW5ndWFnZSIuCj4+Pj4gV2Vs
+bCB0aGUgc2VjdGlvbiB5b3Ugbm90ZWQgYWxzbyBzdWdnZXN0IHRvIGVpdGhlciBnZXQgcmlkIG9m
+IGVtYWNzIG9yCj4+Pj4gY2hhbmdlIGl0IHRvIHVzZSBzb21lIHNhbmVyIGRlZmF1bHQgdmFsdWVz
+LiBXZSBqdXN0IGdvdCByaWQgb2YgZW1hY3MuCj4+IFllcywgaXQgc2F5cyB0aGlzLCBxdW90ZSAo
+Zm9yIHRob3NlIHdobyBkaWRuJ3Qgb3BlbiB0aGUgZmlsZSk6Cj4+Cj4+IC0tODwtLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0KPj4KPj4gVGhhdCdzIE9LLCB3ZSBhbGwgZG8uICBZb3UndmUgcHJvYmFibHkgYmVlbiB0b2xk
+IGJ5IHlvdXIgbG9uZy10aW1lIFVuaXgKPj4gdXNlciBoZWxwZXIgdGhhdCBgYEdOVSBlbWFjc2Bg
+IGF1dG9tYXRpY2FsbHkgZm9ybWF0cyB0aGUgQyBzb3VyY2VzIGZvcgo+PiB5b3UsIGFuZCB5b3Un
+dmUgbm90aWNlZCB0aGF0IHllcywgaXQgZG9lcyBkbyB0aGF0LCBidXQgdGhlIGRlZmF1bHRzIGl0
+Cj4+IHVzZXMgYXJlIGxlc3MgdGhhbiBkZXNpcmFibGUgKGluIGZhY3QsIHRoZXkgYXJlIHdvcnNl
+IHRoYW4gcmFuZG9tCj4+IHR5cGluZyAtIGFuIGluZmluaXRlIG51bWJlciBvZiBtb25rZXlzIHR5
+cGluZyBpbnRvIEdOVSBlbWFjcyB3b3VsZCBuZXZlcgo+PiBtYWtlIGEgZ29vZCBwcm9ncmFtKS4K
+Pj4KPj4gU28sIHlvdSBjYW4gZWl0aGVyIGdldCByaWQgb2YgR05VIGVtYWNzLCBvciBjaGFuZ2Ug
+aXQgdG8gdXNlIHNhbmVyCj4+IHZhbHVlcy4gIFRvIGRvIHRoZSBsYXR0ZXIsIHlvdSBjYW4gc3Rp
+Y2sgdGhlIGZvbGxvd2luZyBpbiB5b3VyIC5lbWFjcyBmaWxlOgo+Pgo+PiAtLTg8LS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0KPj4KPj4+PiBSZWdhcmRpbmcgdGFicyBhZnRlciB0aGUgaW5pdGlhbCBpbmRlbnRhdGlvbiwg
+SSd2ZSBqdXN0IGRvbmUgYSBxdWljawo+Pj4+IGdyZXAgYW5kIGFyb3VuZCAxNCUgb2YgYWxsIGRl
+ZmluZXMgdW5kZXIgaW5jbHVkZS8gdXNlcyB0aGF0IHNvIEkgd291bGQKPj4+PiBzYXkgdGhhdCB0
+aGlzIGlzIHBlcmZlY3RseSBmaW5lLgo+Pj4gRmFzdCB0eXBpbmcgd2l0aCBsYXp5IGV5ZXMsIHRo
+YXQgc2hvdWxkIHJlYWQgImFyb3VuZCA3MSUgb2YgYWxsIGRlZmluZXMiLgo+PiBIbW0sIHRoYXQn
+cyBpbnRlcmVzdGluZy4gSXMgdGhhdCBpbiBsaW51eC9pbmNsdWRlIG9yIGFtZGdwdS9pbmNsdWRl
+Pwo+IAo+IGxpbnV4L2luY2x1ZGUKPiAKPj4KPj4gSSd2ZSBiZWVuIG1lYW5pbmcgdG8gZG8gbXkg
+b3duIGV4dGVuZGVkIHJlZ2V4IHRvIGNhdGNoIHRob3NlLCBhbHRob3VnaAo+PiBJJ20gdXNpbmcg
+RW1hY3MgYW5kIHByZXNzaW5nIFRhYiBrZXkgb25seSBpbmRlbnRzIGFuZCB3b3VsZCBub3QgaW5z
+ZXJ0Cj4+IGEgVGFiIGNoYXIgaWYgYWxyZWFkeSBpbmRlbnRlZC4gKFNvIGFwcGx5aW5nIHRoaXMg
+cmVnZXggaW50byB0aGUgcHJlLWNvbW1pdAo+PiBob29rIG9mIGFsbCBvZiBteSBHaXQgcmVwb3Mg
+d291bGQgbmV2ZXIgdHJpZ2dlci4pCj4+Cj4+IEkgcmVtZW1iZXIgb2Ygb2xkZW4gZGF5cywgY2ly
+Y2EgMjAwMCB3aGVuIEkgZmlyc3QgZ290IGludm9sdmVkIHdpdGggTGludXgsCj4+IExLTUwgZGlk
+bid0IGxpa2UgbG9vc2UgdGFicy4gQWxzbyBsZWFkIGtlcm5lbCBkZXZlbG9wZXJzIGFyZSB1c2lu
+ZyBFbWFjcywKPj4gc28gaXQncyBiZWVuIG15IGNob2ljZSBvZiBlZGl0b3Igc2luY2UgY2lyY2Eg
+MTk5NCAoc3dpdGNoZWQgZnJvbSB2aSB0byBFbWFjcwo+PiBsYXJnZWx5IGR1ZSB0byB0aGUgaW5m
+bHVlbmNlIG9mIGEgZ3JhcGhpY3MgcHJvZiBJIGhhZCBpbiBteSBzZW5pb3VyIHllYXIgb2YgdW5p
+LAo+PiBhbmQgcGFydCBkdWUgdG8gTEtNTC4pCj4gCj4gV2VsbCBJJ3ZlIGJlZW4gd29ya2luZyB3
+aXRoIHRoZSBMaW51eCBrZXJuZWwgc2luY2UgdGhlIG1pZCA5MHRocyBhbmQgCj4gbmV2ZXIgZXZl
+ciBoZWFyZCBvZiB0aGF0LgoKSSBzZWUuIEhtbSwgaW50ZXJlc3RpbmcuIE15IGV4cGVyaWVuY2Ug
+ZGlmZmVycy4KClJlZ2FyZGxlc3MsIGhlcmUgaXMgdGhlIHF1ZXN0aW9uOgoKSXMgaXQgdGhlbiBv
+a2F5IHRvIGVtYmVkIGhhcmQgVEFCIGNoYXIgYW55d2hlcmUgaW4gYW4gYWxyZWFkeSBpbmRlbnRl
+ZApsaW5lIG9mIGNvZGU/CgpGb3IgaW5zdGFuY2U6CgoJZm9yIChpID0gMDsgaSA8XHQxMDsgaSsr
+KSB7CgppbnQgdGFibGVbXVszXSA9IHsKCXsgMixcdDMsICAgICAgNSB9LAoJeyAyLCAgICA0LFx0
+NiB9LAoJeyAxLFx0MSxcdDIgfSwKfTsKCkJlY2F1c2UgaXQgd291bGQgcmVuZGVyIGNvcnJlY3Qg
+b24gYW4gOC10YWIgc3RvcCBjb25maWd1cmVkIGVkaXRvci4KCklzIHRoaXMgb2theSwgYW5kIGFj
+Y2VwdGFibGUsIGFjY29yZGluZyB0byB0aGUgTEtDUyAobGludXgvRG9jdW1lbnRhdGlvbi9wcm9j
+ZXNzL2NvZGluZy1zdHlsZS5yc3QpPwoKUmVnYXJkcywKTHViZW4KCj4gCj4gQ2hyaXN0aWFuLgo+
+IAo+Pgo+PiBUaGFua3MgZm9yIGNoaW1pbmcgaW4gQ2hyaXN0aWFuIQo+Pgo+PiBSZWdhcmRzLAo+
+PiBMdWJlbgo+Pgo+Pj4gU29ycnksCj4+PiBDaHJpc3RpYW4uCj4+Pgo+Pj4+IFJlZ2FyZHMsCj4+
+Pj4gQ2hyaXN0aWFuLgo+Pj4+Cj4+Pj4+IFJlZ2FyZHMsCj4+Pj4+IEx1YmVuCj4+Pj4+Cj4+Pj4+
+PiBNYXJlawo+Pj4+PiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fXwo+Pj4+PiBhbWQtZ2Z4IG1haWxpbmcgbGlzdAo+Pj4+PiBhbWQtZ2Z4QGxpc3RzLmZyZWVk
+ZXNrdG9wLm9yZwo+Pj4+PiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xp
+c3RpbmZvL2FtZC1nZngKPj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX18KPj4gYW1kLWdmeCBtYWlsaW5nIGxpc3QKPj4gYW1kLWdmeEBsaXN0cy5mcmVlZGVz
+a3RvcC5vcmcKPj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5m
+by9hbWQtZ2Z4Cj4gCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpo
+dHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
