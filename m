@@ -2,107 +2,97 @@ Return-Path: <SRS0=Di3h=ZM=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.8 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-6.7 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
+	HTML_MESSAGE,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,
+	SPF_PASS autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4A11CC432C0
-	for <amd-gfx@archiver.kernel.org>; Wed, 20 Nov 2019 14:18:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 843EAC432C0
+	for <amd-gfx@archiver.kernel.org>; Wed, 20 Nov 2019 14:27:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 227D72230F
-	for <amd-gfx@archiver.kernel.org>; Wed, 20 Nov 2019 14:18:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 227D72230F
+	by mail.kernel.org (Postfix) with ESMTPS id 5518E2070B
+	for <amd-gfx@archiver.kernel.org>; Wed, 20 Nov 2019 14:27:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5518E2070B
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E4EF16E2FF;
-	Wed, 20 Nov 2019 14:18:18 +0000 (UTC)
-Received: from NAM01-SN1-obe.outbound.protection.outlook.com
- (mail-eopbgr820053.outbound.protection.outlook.com [40.107.82.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2E5A36E2FF
- for <amd-gfx@lists.freedesktop.org>; Wed, 20 Nov 2019 14:18:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 217876EA64;
+	Wed, 20 Nov 2019 14:27:57 +0000 (UTC)
+Received: from NAM03-CO1-obe.outbound.protection.outlook.com
+ (mail-eopbgr790074.outbound.protection.outlook.com [40.107.79.74])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 796166EA60
+ for <amd-gfx@lists.freedesktop.org>; Wed, 20 Nov 2019 14:27:55 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=AKm0S4yhB+f0tqCpFoZbF+VM0x5OgrrNafQ/Uz30lDPa31BTzajWtxkznUUkZv+DJGBx397J818rr6vwcCP2yVktJXrvtsMS5wuBmpAT/gFoIOAGI3skLrlAAQ/u3imoHuxuDqx7mQqgfOhE0HURUeLR1ZvDfhRNYOlSkMoHDqnox9gRkQ3NIPFcF6jkk+vqBsex+FZT6NrlD8VXdMxXzPV273vmEY4Rd7w74NzJ7ImidadywRrTzJxBG9sKNn9Y+DWPUfvoinsexy/MJAsCOIw26V0YsodtG18bGUHYNOeweaOSV3CBtb6VIIW9Y0D5cCiSWFgQfQCjx/oxnHA1LQ==
+ b=Zz49UjAMtOr2llaI/vs9DxMZwgKoAy9CRvztzeBZ+sOVNnPNo5oxQmGxlKoov/3hPvhHgAn8xDYgyISkcRq2lhZcTnGTJAXDeNi3zTQgHpeqDqvRIWsquii711ISGu+aFQof8KVf6LtpyHFv9mhXAdoJOepg12qoEn6xQvfRb6x5R3pBtCW/R6n2Co7K8PN3BT6SVRf3INC+Zht5s5wtAYkbQTEOlWQIp9LgpfRGPSnFhN6+pAmhTxlVezJX/pqYTMD75OqysDB2/1HKA3n+xx+e4R3s9pzUna/GKeOMI0scna9M+Vm1XtPlY+FXehTLU35QDE7Jy7zz+iFUJRmhzg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8nfn8QW3ikbt7xZU+zHABo1gwQ/Bfw4WK5fVCQfHEo0=;
- b=g5TT6cGfr7r2jctdUFPCca9wmfQUCvXjOg1JdISJUsMGbKDLuHD1AgxCrWYjCmBKdv2Yzb6MF0FJ7rIuFDZZi6VVbgz+WysrmvzvLQuTBCHXsptILq0+mG6i8C4zoR1SJkWYAymwKOFFlZAbJ77OBXcq7VJVhz2vY3WLy4RWhnamNuzNP/uRN8p8Y9d4C6NYRVNFa/xvUAD5gM19irykvABuCbJdRdXosILHbLsRgoexl4c0g1BgW32OjNPnosSn946RKdw3VA8YqN5WMRJqx4ZvkcjyGXH5fRdmfr401pUSn5e/yV1nrtvQMFxJ5bliKaTLrheALTrKXSIoUw7+Ww==
+ bh=m1YRwnBXoV/PpzGPESwhSTrSsjtInKDBVTuvTT9aXWg=;
+ b=CBluztIreV0nUblAomUWYQ+/2iaQFwBcV5KC4Ihyd+P/Gutk17iZddJhIs0go5PWxPOD6ZOmB8cVAm3rJ1zvbEvh4K/EtMSRebgxnzCqzr9ocOg6Itb0aStKZiYf4pJ1fTwdPJ62nOt2gT0RD0VFqAP4wES9HEtF8GbHzvVytfP64NtMxK+vcsbHKMYCVdvKdaPS79KrXutq41KL7KA30HQtA3PcTI1vh7KibJrJFZBXDsvi0q10RfUr6Nfxhc+YBf5JuWJoftJXqUFgRukjfto7qfsX7FpJzXbeJji2vipkSYtLlKAr8+0iCdc0nZBLwpiP+z5HI7OXpyIF/PisWg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
-Received: from MN2PR12MB3933.namprd12.prod.outlook.com (10.255.236.82) by
- MN2PR12MB4014.namprd12.prod.outlook.com (10.255.239.31) with Microsoft SMTP
+Received: from CY4PR12MB1813.namprd12.prod.outlook.com (10.175.80.21) by
+ CY4PR12MB1432.namprd12.prod.outlook.com (10.168.170.139) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2451.22; Wed, 20 Nov 2019 14:18:16 +0000
-Received: from MN2PR12MB3933.namprd12.prod.outlook.com
- ([fe80::bc8a:52c5:e1d:e90d]) by MN2PR12MB3933.namprd12.prod.outlook.com
- ([fe80::bc8a:52c5:e1d:e90d%3]) with mapi id 15.20.2451.029; Wed, 20 Nov 2019
- 14:18:16 +0000
-From: "Liu, Monk" <Monk.Liu@amd.com>
-To: "Koenig, Christian" <Christian.Koenig@amd.com>, "Zhu, Changfeng"
- <Changfeng.Zhu@amd.com>, "Xiao, Jack" <Jack.Xiao@amd.com>, "Zhou1, Tao"
- <Tao.Zhou1@amd.com>, "Huang, Ray" <Ray.Huang@amd.com>, "Huang, Shimmer"
- <Xinmei.Huang@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: =?utf-8?B?562U5aSNOiDnrZTlpI06IOetlOWkjTogW1BBVENIIDEvMl0gZHJtL2FtZGdw?=
- =?utf-8?B?dTogaW52YWxpZGF0ZSBtbWh1YiBzZW1waG9yZSB3b3JrYXJvdW5kIGluIGFt?=
- =?utf-8?Q?dgpu=5Fvirt?=
-Thread-Topic: =?utf-8?B?562U5aSNOiDnrZTlpI06IFtQQVRDSCAxLzJdIGRybS9hbWRncHU6IGludmFs?=
- =?utf-8?B?aWRhdGUgbW1odWIgc2VtcGhvcmUgd29ya2Fyb3VuZCBpbiBhbWRncHVfdmly?=
- =?utf-8?Q?t?=
-Thread-Index: AQHVn4cQABau01mATkmxBHHNdjn5AaeUCOKAgAACuICAAAjacIAAAiaAgAABwfA=
-Date: Wed, 20 Nov 2019 14:18:15 +0000
+ 15.20.2451.23; Wed, 20 Nov 2019 14:27:53 +0000
+Received: from CY4PR12MB1813.namprd12.prod.outlook.com
+ ([fe80::dc23:193b:9619:a4fc]) by CY4PR12MB1813.namprd12.prod.outlook.com
+ ([fe80::dc23:193b:9619:a4fc%4]) with mapi id 15.20.2451.031; Wed, 20 Nov 2019
+ 14:27:53 +0000
+From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
+To: "Li, Dennis" <Dennis.Li@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>, "Zhou1, Tao" <Tao.Zhou1@amd.com>, "Zhang,
+ Hawking" <Hawking.Zhang@amd.com>, "Chen, Guchun" <Guchun.Chen@amd.com>
+Subject: Re: [PATCH v2 1/3] drm/amdgpu: define soc15_ras_field_entry for reuse
+Thread-Topic: [PATCH v2 1/3] drm/amdgpu: define soc15_ras_field_entry for reuse
+Thread-Index: AQHVn5A922jqmfM1Z0q/ca+Cmm0FKqeUHi1o
+Date: Wed, 20 Nov 2019 14:27:53 +0000
 Message-ID:
- <MN2PR12MB39334A2F98ECB9C45B14D0D4844F0@MN2PR12MB3933.namprd12.prod.outlook.com>
-References: <20191120091418.26526-1-changfeng.zhu@amd.com>
- <MN2PR12MB3933863C8DFCE1F68A44EFFA844F0@MN2PR12MB3933.namprd12.prod.outlook.com>
- <1d7cd15c-f529-93da-c15e-a1fde745e6c5@amd.com>
- <MN2PR12MB39330A0D6169250A0B75700D844F0@MN2PR12MB3933.namprd12.prod.outlook.com>
- <2d410370-01d0-c845-1229-529610898604@gmail.com>
-In-Reply-To: <2d410370-01d0-c845-1229-529610898604@gmail.com>
-Accept-Language: en-US, zh-CN
-Content-Language: zh-CN
+ <CY4PR12MB1813C8B5B9072C875E0DFD6AF74F0@CY4PR12MB1813.namprd12.prod.outlook.com>
+References: <20191120104932.16257-1-Dennis.Li@amd.com>,
+ <20191120104932.16257-2-Dennis.Li@amd.com>
+In-Reply-To: <20191120104932.16257-2-Dennis.Li@amd.com>
+Accept-Language: en-US
+Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-x-originating-ip: [180.167.199.185]
+x-originating-ip: [71.219.59.120]
 x-ms-publictraffictype: Email
 x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: 12960a2a-9256-41aa-ef45-08d76dc47c67
-x-ms-traffictypediagnostic: MN2PR12MB4014:
-x-ms-exchange-purlcount: 1
+x-ms-office365-filtering-correlation-id: 207dbe74-e8e2-4c9a-1e0e-08d76dc5d425
+x-ms-traffictypediagnostic: CY4PR12MB1432:
 x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <MN2PR12MB40147532CEE530E729615C0E844F0@MN2PR12MB4014.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:10000;
+x-microsoft-antispam-prvs: <CY4PR12MB1432EFA880F3F271459FB327F74F0@CY4PR12MB1432.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:565;
 x-forefront-prvs: 02272225C5
 x-forefront-antispam-report: SFV:NSPM;
- SFS:(10009020)(4636009)(396003)(376002)(346002)(39860400002)(366004)(136003)(189003)(199004)(2906002)(6506007)(99286004)(8936002)(110136005)(5660300002)(71200400001)(76116006)(66446008)(71190400001)(66556008)(316002)(186003)(76176011)(66946007)(81166006)(14454004)(81156014)(476003)(256004)(6116002)(3846002)(64756008)(14444005)(11346002)(52536014)(486006)(26005)(66476007)(7696005)(102836004)(224303003)(6436002)(25786009)(66066001)(33656002)(966005)(446003)(55016002)(478600001)(7736002)(86362001)(66574012)(305945005)(2501003)(6306002)(74316002)(9686003)(921003)(1121003);
- DIR:OUT; SFP:1101; SCL:1; SRVR:MN2PR12MB4014;
- H:MN2PR12MB3933.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; MX:1; A:1; 
+ SFS:(10009020)(4636009)(136003)(376002)(396003)(366004)(346002)(39860400002)(199004)(189003)(55016002)(33656002)(5660300002)(53546011)(76176011)(476003)(105004)(6246003)(6636002)(446003)(478600001)(2906002)(66476007)(81156014)(229853002)(81166006)(9686003)(54896002)(25786009)(6116002)(3846002)(6436002)(8676002)(14454004)(186003)(76116006)(7736002)(7696005)(6506007)(26005)(102836004)(11346002)(486006)(8936002)(99286004)(52536014)(110136005)(66446008)(66556008)(74316002)(64756008)(256004)(66946007)(2501003)(71190400001)(316002)(19627405001)(71200400001)(66066001)(86362001);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:CY4PR12MB1432;
+ H:CY4PR12MB1813.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; A:1; MX:1; 
 received-spf: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
 x-ms-exchange-senderadcheck: 1
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 5W5QkqbbMH+Ef5sJi9Z6UPe9H0V6EzWnpWttqgIZhs915kJ3LcndJ10Bhe1OqbQ0aMXshgIwZEgYXfU0FJ66F2N238XNlt08nUAAkdRueJxWIg6W0QlCAwonn0oENekoknEtx+lk9A3pQ4OqyNRlJIF0tTvLvhSNBqM7Idg42msNvpNka1rFB+lOv8x0YZeD1cFctXAtSp7n/QY0bidK60UiUNXCVvNIb6560p9Xppxgu+qylm15F1oee7yPGkwvxO6pSMslq9Mb/EA3iKvqL/xzDbDRipnI5eFFNf1ZumsF8bIslMfSvK4cXGusB9y8mRkSG5QzPU6MGqIQPmy2UjfW8RoNXtopAviBQoA+/ZZkP2rWDmtims+EaoTff9wDHdaZRPJWg1Qnp6zU+shQqZb18rESm1ak22aG1mIHaBtHtNsQqEMJ4PHaoRRmhMb8nzh4rN+FtrAYy2f+c8U+b0NlHeGyY1kv9y42JTZIjAk=
+x-microsoft-antispam-message-info: bIAgD0LBH2XYHFjqYf/aFJA36zOeIwAfKqppWjGAnv0IX2mDt5PA0SdoWH11BCHNcWO9ttKtoGWfjvqSxTvcD2Pg/ZTxr2PRHj+N7dDP2d/5dXwLnqjmoKFcajQD7nHTwtbH35MkvQekP5se2bla4c4xmX0LDKNy4n76pwXP6hKsJ/Zp/JlBuTRkRga+lUr+LnidzQIzM7DD+z3Jt5YyOGhptIYSveATb/MRal+Jeg5xA5CCE2YFhZQUKaCE7UW3xwtbHv1r34cR6snLGT0TwORRc7LVw9gAGK9fmEaAAjP7pmZO65qf94z6aruefKbn9Wn54fG+so6uJfmOb/DWxBH8Jk71la1534AF/B/VITnledtX+MjjSzBxboM3UMdb+GfUBFSJe6WrnkYru73n7IXlHHYkvZLB3WCXkLK0rl7Pfl99LcFpioAcz+JtGD9a
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 12960a2a-9256-41aa-ef45-08d76dc47c67
-X-MS-Exchange-CrossTenant-originalarrivaltime: 20 Nov 2019 14:18:16.1639 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 207dbe74-e8e2-4c9a-1e0e-08d76dc5d425
+X-MS-Exchange-CrossTenant-originalarrivaltime: 20 Nov 2019 14:27:53.0582 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 5TrNIcyygSCxHeEAVfshsSend03NRHTxCXlL6g7UEPgKdGfJexzLXbwy8Cu4445+
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4014
+X-MS-Exchange-CrossTenant-userprincipalname: cSOlOl9x2IajaJxAcJ/1PamHm3IOVGF53akFUHrstyX0WmsHNCxnneO09SW0YXaq6/h2ECK/UW3IrQmiY3MMlg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR12MB1432
 X-Mailman-Original-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8nfn8QW3ikbt7xZU+zHABo1gwQ/Bfw4WK5fVCQfHEo0=;
- b=yY9cZq7Z+ebOsGmu/Nzw4wTEassy57c5tRBnVBHGO7ctoPZ+rlpuGqtJQMNDMl5yTeo4pkxNBzBep+A/qqlDppw3gUbxpnckHrSWCSGNJv9FD/BtNkVgWgH7t9Jahk+vxDKlnF83EnVgoBMufujsG43pfyFNEbL+TYrfiXlRtso=
+ bh=m1YRwnBXoV/PpzGPESwhSTrSsjtInKDBVTuvTT9aXWg=;
+ b=fU1xbhEHfLHKvXW1F5rbRnM+eOU6xA0NWT4LBPAoclIKOmmZB2NlEnXmr5E/uXPKGC6Cn9zqInRX/DJXHvTAWiyvfnt7SE4W7Bo0O3snUKOpEjO+zTf8+6+h+gYuCN1lszfOuGkTq60l2j4Hq6I4H3c6FEAmHwd2cqgb0sVr7Yk=
 X-Mailman-Original-Authentication-Results: spf=none (sender IP is )
- smtp.mailfrom=Monk.Liu@amd.com; 
+ smtp.mailfrom=Alexander.Deucher@amd.com; 
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -114,177 +104,409 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0903227820=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-Message-ID: <20191120141815.2-0qT14allUMyIwkMWRRXIexPcrO37niRjw78NXm2aI@z>
+Message-ID: <20191120142753.k6QfnshjgAe7lsjrGaxKHuPT_GZf4R81aHxXta1PDUg@z>
 
-Pj4gUXVlc3Rpb24gaXMgZG9lcyB0aGUgZXh0cmEgc2VtYXBob3JlIGFjcXVpcmUgaGFzIHNvbWUg
-bmVnYXRpdmUgZWZmZWN0IG9uIFNSSU9WPw0KDQpISSBDaHJpc3RpYW4NCg0KV2l0aCBtb3JlIHRo
-b3VnaHQgSSB0aGluayBpbnRyb2R1Y2Ugc2VtYXBob3JlIGdldC9wdXQgYnkga2lxIGJlZm9yZS9h
-ZnRlciB0aGUgdm0gaW52YWxpZGF0ZSBsb29rcyB3b24ndCBpbnRyb2R1Y2Ugd29ybGQgc3dpdGNo
-IGlzc3VlLCBiZWNhdXNlIHRoZSB3b3JsZCBzd2l0Y2ggcnVpbiBWTSBpbnZhbGlkYXRlIG9ubHkg
-aGFwcGVucyBpZiB0aGUgd29ybGQgc3dpdGNoDQpPY2N1cnJlZCBpbiB0aGUgbWlkZGxlIG9mIFZN
-IGludmFsaWRhdGUgaXRzZWxmIC4uLiBzbyBpZiB0aGUgVkYgaXMgcHJlZW1wdGVkIGFmdGVyIHNl
-bWFwaG9yZSByZWFkLCB0aGVuIGl0J3MgZmluZSBzaW5jZSBWTSBpbnZhbGlkYXRlIGlzIG5vdCBl
-dmVuIGJlZ2luIC4uLg0KDQpCdXQgcmVnYXJkaW5nIHRoaXMgcGF0Y2hlcyAsIEkgaGF2ZSBzb21l
-dGhpbmcgbm90IGNsZWFyOg0KDQo+PiAgICAJc3RydWN0IGFtZGdwdV9raXEgKmtpcSA9ICZhZGV2
-LT5nZngua2lxOw0KPj4gICAgCXN0cnVjdCBhbWRncHVfcmluZyAqcmluZyA9ICZraXEtPnJpbmc7
-IEBAIC0xNDQsOSArMTQ1LDMwIEBAIHZvaWQgYW1kZ3B1X3ZpcnRfa2lxX3JlZ193cml0ZV9yZWdf
-d2FpdChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwNCj4+ICAgIAl1aW50MzJfdCBzZXE7DQo+
-PiAgICANCj4+ICAgIAlzcGluX2xvY2tfaXJxc2F2ZSgma2lxLT5yaW5nX2xvY2ssIGZsYWdzKTsN
-Cj4+IC0JYW1kZ3B1X3JpbmdfYWxsb2MocmluZywgMzIpOw0KPj4gKwlhbWRncHVfcmluZ19hbGxv
-YyhyaW5nLCA2MCk7DQo+PiArDQo+PiArCS8qDQo+PiArCSAqIEl0IG1heSBsb3NlIGdwdXZtIGlu
-dmFsaWRhdGUgYWNrbm93bGRlZ2Ugc3RhdGUgYWNyb3NzIHBvd2VyLWdhdGluZw0KPj4gKwkgKiBv
-ZmYgY3ljbGUsIGFkZCBzZW1hcGhvcmUgYWNxdWlyZSBiZWZvcmUgaW52YWxpZGF0aW9uIGFuZCBz
-ZW1hcGhvcmUNCj4+ICsJICogcmVsZWFzZSBhZnRlciBpbnZhbGlkYXRpb24gdG8gYXZvaWQgZW50
-ZXJpbmcgcG93ZXIgZ2F0ZWQgc3RhdGUNCj4+ICsJICogdG8gV0EgdGhlIElzc3VlDQo+PiArCSAq
-Lw0KPj4gKw0KPj4gKwkvKiBhIHJlYWQgcmV0dXJuIHZhbHVlIG9mIDEgbWVhbnMgc2VtYXBob3Jl
-IGFjdXFpcmUgKi8NCj4+ICsJaWYgKHJpbmctPmZ1bmNzLT52bWh1YiA9PSBBTURHUFVfTU1IVUJf
-MCB8fA0KPj4gKwkgICAgcmluZy0+ZnVuY3MtPnZtaHViID09IEFNREdQVV9NTUhVQl8xKQ0KPj4g
-KwlhbWRncHVfcmluZ19lbWl0X3JlZ193YWl0KHJpbmcsIHNlbSwgMHgxLCAweDEpOw0KDQpTZWUg
-dGhhdCB0aGUgcmluZyBpcyAma2lxLT5yaW5nLCBzbyB3aHkgaXQgbmVlZCB0byBjaGVjayAiaWYg
-KHJpbmctPmZ1bmNzLT52bWh1YiA9PSBBTURHUFVfTU1IVUJfMCIgPyBraXEgb2J2aW91c2x5IGlz
-IG5vdCBNTVVCLCBidXQgR0ZYSFVCLi4uDQoNCkJlc2lkZXMsIHdoeSB0aGUgc2VtYXBob3JlIHJl
-YWQgYmVmb3JlIFZOIGludmFsaWRhdGUgY2FuIHByZXZlbnQgcG93ZXIgZ2F0aW5nID8/IEkgZGlk
-bid0IHRlbGwgZnJvbSB0aGUgcGF0Y2ggLCANCmlzIHRoZXJlIGFub3RoZXIgY2hhbmdlIHRoYXQg
-dXNlIEtJUSB0byBncmFiIHRoZSBzZW1hcGhvcmUgYmVmb3JlIHRyeWluZyB0byBkbyBwb3dlciBn
-YXRpbmcgIGFzIHdlbGwgPw0KDQoNCnRoYW5rcyANCg0KLS0tLS3pgq7ku7bljp/ku7YtLS0tLQ0K
-5Y+R5Lu25Lq6OiBDaHJpc3RpYW4gS8O2bmlnIDxja29lbmlnLmxlaWNodHp1bWVya2VuQGdtYWls
-LmNvbT4gDQrlj5HpgIHml7bpl7Q6IDIwMTnlubQxMeaciDIw5pelIDIyOjAwDQrmlLbku7bkuro6
-IExpdSwgTW9uayA8TW9uay5MaXVAYW1kLmNvbT47IEtvZW5pZywgQ2hyaXN0aWFuIDxDaHJpc3Rp
-YW4uS29lbmlnQGFtZC5jb20+OyBaaHUsIENoYW5nZmVuZyA8Q2hhbmdmZW5nLlpodUBhbWQuY29t
-PjsgWGlhbywgSmFjayA8SmFjay5YaWFvQGFtZC5jb20+OyBaaG91MSwgVGFvIDxUYW8uWmhvdTFA
-YW1kLmNvbT47IEh1YW5nLCBSYXkgPFJheS5IdWFuZ0BhbWQuY29tPjsgSHVhbmcsIFNoaW1tZXIg
-PFhpbm1laS5IdWFuZ0BhbWQuY29tPjsgYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCuS4
-u+mimDogUmU6IOetlOWkjTog562U5aSNOiBbUEFUQ0ggMS8yXSBkcm0vYW1kZ3B1OiBpbnZhbGlk
-YXRlIG1taHViIHNlbXBob3JlIHdvcmthcm91bmQgaW4gYW1kZ3B1X3ZpcnQNCg0KPiBEaWQgQ2hh
-bmdmZW5nIGFscmVhZHkgaGl0IHRoaXMgaXNzdWUgdW5kZXIgU1JJT1YgPw0KSSBkb24ndCB0aGlu
-ayBzbywgYnV0IENoYW5nZmVuZyBuZWVkcyB0byBhbnN3ZXIgdGhpcy4NCg0KUXVlc3Rpb24gaXMg
-ZG9lcyB0aGUgZXh0cmEgc2VtYXBob3JlIGFjcXVpcmUgaGFzIHNvbWUgbmVnYXRpdmUgZWZmZWN0
-IG9uIFNSSU9WPw0KDQpJIHdvdWxkIGxpa2UgdG8gYXZvaWQgaGF2aW5nIGV2ZW4gbW9yZSBTUklP
-ViBzcGVjaWZpYyBoYW5kbGluZyBpbiBoZXJlIHdoaWNoIHdlIGNhbid0IHJlYWxseSB0ZXN0IG9u
-IGJhcmUgbWV0YWwuDQoNCkNocmlzdGlhbi4NCg0KQW0gMjAuMTEuMTkgdW0gMTQ6NTQgc2Nocmll
-YiBMaXUsIE1vbms6DQo+IEhhaCwgYnV0IGluIFNSSU9WIGNhc2UsIG91ciBndWVzdCBLTUQgZHJp
-dmVyIGlzIG5vdCBhbGxvd2VkIHRvIGRvIHN1Y2ggDQo+IHRoaW5ncyAuLi4uIChhbmQgZXZlbiB0
-aGVyZSBpcyBhIGJ1ZyB0aGF0IEtNRCB0cnkgdG8gcG93ZXIgZ2F0ZSwgdGhlIA0KPiBTTVUgZmly
-bXdhcmUgd291bGQgbm90IHJlYWxseSBkbyB0aGUgam9icyBzaW5jZSBXZSBoYXZlIFBTUCBMMSBw
-b2xpY3kgDQo+IHRvIHByZXZlbnQgdGhvc2UgZGFuZ2VyIG9wZXJhdGlvbnMgKQ0KPg0KPiBEaWQg
-Q2hhbmdmZW5nIGFscmVhZHkgaGl0IHRoaXMgaXNzdWUgdW5kZXIgU1JJT1YgPz8/DQo+DQo+IC0t
-LS0t6YKu5Lu25Y6f5Lu2LS0tLS0NCj4g5Y+R5Lu25Lq6OiBLb2VuaWcsIENocmlzdGlhbiA8Q2hy
-aXN0aWFuLktvZW5pZ0BhbWQuY29tPg0KPiDlj5HpgIHml7bpl7Q6IDIwMTnlubQxMeaciDIw5pel
-IDIxOjIxDQo+IOaUtuS7tuS6ujogTGl1LCBNb25rIDxNb25rLkxpdUBhbWQuY29tPjsgWmh1LCBD
-aGFuZ2ZlbmcgDQo+IDxDaGFuZ2ZlbmcuWmh1QGFtZC5jb20+OyBYaWFvLCBKYWNrIDxKYWNrLlhp
-YW9AYW1kLmNvbT47IFpob3UxLCBUYW8gDQo+IDxUYW8uWmhvdTFAYW1kLmNvbT47IEh1YW5nLCBS
-YXkgPFJheS5IdWFuZ0BhbWQuY29tPjsgSHVhbmcsIFNoaW1tZXIgDQo+IDxYaW5tZWkuSHVhbmdA
-YW1kLmNvbT47IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnDQo+IOS4u+mimDogUmU6IOet
-lOWkjTogW1BBVENIIDEvMl0gZHJtL2FtZGdwdTogaW52YWxpZGF0ZSBtbWh1YiBzZW1waG9yZSAN
-Cj4gd29ya2Fyb3VuZCBpbiBhbWRncHVfdmlydA0KPg0KPiBIaSBNb25rLA0KPg0KPiB0aGlzIGlz
-IGEgZml4IGZvciBwb3dlciBnYXRpbmcgdGhlIE1NSFVCLg0KPg0KPiBCYXNpYyBwcm9ibGVtIGlz
-IHRoYXQgdGhlIE1NSFVCIGNhbiBwb3dlciBnYXRlIHdoaWxlIGFuIGludmFsaWRhdGlvbiBpcyBp
-biBwcm9ncmVzcyB3aGljaCBsb29zZXMgYWxsIGJpdHMgaW4gdGhlIEFDSyByZWdpc3RlciBhbmQg
-c28gZGVhZGxvY2tzIHRoZSBlbmdpbmUgd2FpdGluZyBmb3IgdGhlIGludmFsaWRhdGlvbiB0byBm
-aW5pc2guDQo+DQo+IFRoaXMgYnVnIGlzIGhpdCBpbW1lZGlhdGVseSB3aGVuIHdlIGVuYWJsZSBw
-b3dlciBnYXRpbmcgb2YgdGhlIE1NSFVCLg0KPg0KPiBSZWdhcmRzLA0KPiBDaHJpc3RpYW4uDQo+
-DQo+IEFtIDIwLjExLjE5IHVtIDE0OjE4IHNjaHJpZWIgTGl1LCBNb25rOg0KPj4gSGkgQ2hhbmdm
-ZW5nDQo+Pg0KPj4gRmlycyBvZiBhbGwsIHRoZXJlIGlzIG5vIHBvd2VyLWdhdGluZyBvZmYgY2ly
-Y2xlIGludm9sdmVkIGluIEFNREdQVSANCj4+IFNSSU9WLCBzaW5jZSB3ZSBkb24ndCBhbGxvdyBW
-Ri9WTSBkbyBzdWNoIHRoaW5ncyBzbyBJIGRvIGZlZWwgc3RyYW5nZSANCj4+IHdoeSB5b3UgcG9z
-dCBzb21ldGhpbmcgbGlrZSB0aGlzIEVzcGVjaWFsbHkgb24gVkVHQTEwIHNlcmlhbHMgd2hpY2gg
-DQo+PiBsb29rcyBkb2Vzbid0IGhhdmUgYW55IGlzc3VlIG9uIHRob3NlIGdwdV9mbHVzaCBwYXJ0
-DQo+Pg0KPj4gSGVyZSBpcyBteSBxdWVzdGlvbnMgZm9yIHlvdToNCj4+IDEpIENhbiB5b3UgcG9p
-bnQgbWUgd2hhdCBpc3N1ZSBoYWQgeW91IGJlZW4gZXhwZXJpZW5jZWQgPyBhbmQgaG93IHRvIA0K
-Pj4gcmVwcm8gdGhlIGJ1Zw0KPj4gMikgaWYgeW91IGRvIGhpdCBzb21lIGlzc3VlcywgZGlkIHlv
-dSB2ZXJpZmllZCB0aGF0IHlvdXIgcGF0Y2ggY2FuIGZpeCBpdCA/DQo+Pg0KPj4gYmVzaWRlcw0K
-Pj4NCj4+IC9Nb25rDQo+Pg0KPj4gLS0tLS3pgq7ku7bljp/ku7YtLS0tLQ0KPj4g5Y+R5Lu25Lq6
-OiBhbWQtZ2Z4IDxhbWQtZ2Z4LWJvdW5jZXNAbGlzdHMuZnJlZWRlc2t0b3Aub3JnPiDku6Pooagg
-Q2hhbmdmZW5nLlpodQ0KPj4g5Y+R6YCB5pe26Ze0OiAyMDE55bm0MTHmnIgyMOaXpSAxNzoxNA0K
-Pj4g5pS25Lu25Lq6OiBLb2VuaWcsIENocmlzdGlhbiA8Q2hyaXN0aWFuLktvZW5pZ0BhbWQuY29t
-PjsgWGlhbywgSmFjayANCj4+IDxKYWNrLlhpYW9AYW1kLmNvbT47IFpob3UxLCBUYW8gPFRhby5a
-aG91MUBhbWQuY29tPjsgSHVhbmcsIFJheSANCj4+IDxSYXkuSHVhbmdAYW1kLmNvbT47IEh1YW5n
-LCBTaGltbWVyIDxYaW5tZWkuSHVhbmdAYW1kLmNvbT47IA0KPj4gYW1kLWdmeEBsaXN0cy5mcmVl
-ZGVza3RvcC5vcmcNCj4+IOaKhOmAgTogWmh1LCBDaGFuZ2ZlbmcgPENoYW5nZmVuZy5aaHVAYW1k
-LmNvbT4NCj4+IOS4u+mimDogW1BBVENIIDEvMl0gZHJtL2FtZGdwdTogaW52YWxpZGF0ZSBtbWh1
-YiBzZW1waG9yZSB3b3JrYXJvdW5kIGluIA0KPj4gYW1kZ3B1X3ZpcnQNCj4+DQo+PiBGcm9tOiBj
-aGFuZ3podSA8Q2hhbmdmZW5nLlpodUBhbWQuY29tPg0KPj4NCj4+IEl0IG1heSBsb3NlIGdwdXZt
-IGludmFsaWRhdGUgYWNrbm93bGRlZ2Ugc3RhdGUgYWNyb3NzIHBvd2VyLWdhdGluZyBvZmYgY3lj
-bGUuIFRvIGF2b2lkIHRoaXMgaXNzdWUgaW4gdmlydCBpbnZhbGlkYXRpb24sIGFkZCBzZW1hcGhv
-cmUgYWNxdWlyZSBiZWZvcmUgaW52YWxpZGF0aW9uIGFuZCBzZW1hcGhvcmUgcmVsZWFzZSBhZnRl
-ciBpbnZhbGlkYXRpb24uDQo+Pg0KPj4gQ2hhbmdlLUlkOiBJZTk4MzA0ZTQ3NTE2NmI1M2VlZDAz
-MzQ2MmQ3NjQyM2I2YjBmYzI1Yg0KPj4gU2lnbmVkLW9mZi1ieTogY2hhbmd6aHUgPENoYW5nZmVu
-Zy5aaHVAYW1kLmNvbT4NCj4+IC0tLQ0KPj4gICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
-YW1kZ3B1X3ZpcnQuYyB8IDI2ICsrKysrKysrKysrKysrKysrKysrKystLSAgZHJpdmVycy9ncHUv
-ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZpcnQuaCB8ICAzICsrLQ0KPj4gICAgZHJpdmVycy9ncHUv
-ZHJtL2FtZC9hbWRncHUvZ21jX3Y5XzAuYyAgICB8ICAzICsrLQ0KPj4gICAgMyBmaWxlcyBjaGFu
-Z2VkLCAyOCBpbnNlcnRpb25zKCspLCA0IGRlbGV0aW9ucygtKQ0KPj4NCj4+IGRpZmYgLS1naXQg
-YS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdmlydC5jDQo+PiBiL2RyaXZlcnMv
-Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92aXJ0LmMNCj4+IGluZGV4IGYwNGViMWE2NDI3MS4u
-NzBmZmFmOTFjZDEyIDEwMDY0NA0KPj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
-YW1kZ3B1X3ZpcnQuYw0KPj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
-X3ZpcnQuYw0KPj4gQEAgLTEzNSw3ICsxMzUsOCBAQCB2b2lkIGFtZGdwdV92aXJ0X2tpcV93cmVn
-KHN0cnVjdCBhbWRncHVfZGV2aWNlIA0KPj4gKmFkZXYsIHVpbnQzMl90IHJlZywgdWludDMyX3Qg
-dikNCj4+ICAgIA0KPj4gICAgdm9pZCBhbWRncHVfdmlydF9raXFfcmVnX3dyaXRlX3JlZ193YWl0
-KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LA0KPj4gICAgCQkJCQl1aW50MzJfdCByZWcwLCB1
-aW50MzJfdCByZWcxLA0KPj4gLQkJCQkJdWludDMyX3QgcmVmLCB1aW50MzJfdCBtYXNrKQ0KPj4g
-KwkJCQkJdWludDMyX3QgcmVmLCB1aW50MzJfdCBtYXNrLA0KPj4gKwkJCQkJdWludDMyX3Qgc2Vt
-KQ0KPj4gICAgew0KPj4gICAgCXN0cnVjdCBhbWRncHVfa2lxICpraXEgPSAmYWRldi0+Z2Z4Lmtp
-cTsNCj4+ICAgIAlzdHJ1Y3QgYW1kZ3B1X3JpbmcgKnJpbmcgPSAma2lxLT5yaW5nOyBAQCAtMTQ0
-LDkgKzE0NSwzMCBAQCB2b2lkIGFtZGdwdV92aXJ0X2tpcV9yZWdfd3JpdGVfcmVnX3dhaXQoc3Ry
-dWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsDQo+PiAgICAJdWludDMyX3Qgc2VxOw0KPj4gICAgDQo+
-PiAgICAJc3Bpbl9sb2NrX2lycXNhdmUoJmtpcS0+cmluZ19sb2NrLCBmbGFncyk7DQo+PiAtCWFt
-ZGdwdV9yaW5nX2FsbG9jKHJpbmcsIDMyKTsNCj4+ICsJYW1kZ3B1X3JpbmdfYWxsb2MocmluZywg
-NjApOw0KPj4gKw0KPj4gKwkvKg0KPj4gKwkgKiBJdCBtYXkgbG9zZSBncHV2bSBpbnZhbGlkYXRl
-IGFja25vd2xkZWdlIHN0YXRlIGFjcm9zcyBwb3dlci1nYXRpbmcNCj4+ICsJICogb2ZmIGN5Y2xl
-LCBhZGQgc2VtYXBob3JlIGFjcXVpcmUgYmVmb3JlIGludmFsaWRhdGlvbiBhbmQgc2VtYXBob3Jl
-DQo+PiArCSAqIHJlbGVhc2UgYWZ0ZXIgaW52YWxpZGF0aW9uIHRvIGF2b2lkIGVudGVyaW5nIHBv
-d2VyIGdhdGVkIHN0YXRlDQo+PiArCSAqIHRvIFdBIHRoZSBJc3N1ZQ0KPj4gKwkgKi8NCj4+ICsN
-Cj4+ICsJLyogYSByZWFkIHJldHVybiB2YWx1ZSBvZiAxIG1lYW5zIHNlbWFwaG9yZSBhY3VxaXJl
-ICovDQo+PiArCWlmIChyaW5nLT5mdW5jcy0+dm1odWIgPT0gQU1ER1BVX01NSFVCXzAgfHwNCj4+
-ICsJICAgIHJpbmctPmZ1bmNzLT52bWh1YiA9PSBBTURHUFVfTU1IVUJfMSkNCj4+ICsJYW1kZ3B1
-X3JpbmdfZW1pdF9yZWdfd2FpdChyaW5nLCBzZW0sIDB4MSwgMHgxKTsNCj4+ICsNCj4+ICAgIAlh
-bWRncHVfcmluZ19lbWl0X3JlZ193cml0ZV9yZWdfd2FpdChyaW5nLCByZWcwLCByZWcxLA0KPj4g
-ICAgCQkJCQkgICAgcmVmLCBtYXNrKTsNCj4+ICsJLyoNCj4+ICsJICogYWRkIHNlbWFwaG9yZSBy
-ZWxlYXNlIGFmdGVyIGludmFsaWRhdGlvbiwNCj4+ICsJICogd3JpdGUgd2l0aCAwIG1lYW5zIHNl
-bWFwaG9yZSByZWxlYXNlDQo+PiArCSAqLw0KPj4gKwlpZiAocmluZy0+ZnVuY3MtPnZtaHViID09
-IEFNREdQVV9NTUhVQl8wIHx8DQo+PiArCSAgICByaW5nLT5mdW5jcy0+dm1odWIgPT0gQU1ER1BV
-X01NSFVCXzEpDQo+PiArCWFtZGdwdV9yaW5nX2VtaXRfd3JlZyhyaW5nLCBzZW0sIDApOw0KPj4g
-Kw0KPj4gICAgCWFtZGdwdV9mZW5jZV9lbWl0X3BvbGxpbmcocmluZywgJnNlcSk7DQo+PiAgICAJ
-YW1kZ3B1X3JpbmdfY29tbWl0KHJpbmcpOw0KPj4gICAgCXNwaW5fdW5sb2NrX2lycXJlc3RvcmUo
-JmtpcS0+cmluZ19sb2NrLCBmbGFncyk7IGRpZmYgLS1naXQgDQo+PiBhL2RyaXZlcnMvZ3B1L2Ry
-bS9hbWQvYW1kZ3B1L2FtZGdwdV92aXJ0LmgNCj4+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
-cHUvYW1kZ3B1X3ZpcnQuaA0KPj4gaW5kZXggYjBiMmJkYzc1MGRmLi5iZGE2YTJmMzdkYzAgMTAw
-NjQ0DQo+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdmlydC5oDQo+
-PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdmlydC5oDQo+PiBAQCAt
-Mjk1LDcgKzI5NSw4IEBAIHVpbnQzMl90IGFtZGdwdV92aXJ0X2tpcV9ycmVnKHN0cnVjdCBhbWRn
-cHVfZGV2aWNlICphZGV2LCB1aW50MzJfdCByZWcpOyAgdm9pZCBhbWRncHVfdmlydF9raXFfd3Jl
-ZyhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwgdWludDMyX3QgcmVnLCB1aW50MzJfdCB2KTsg
-IHZvaWQgYW1kZ3B1X3ZpcnRfa2lxX3JlZ193cml0ZV9yZWdfd2FpdChzdHJ1Y3QgYW1kZ3B1X2Rl
-dmljZSAqYWRldiwNCj4+ICAgIAkJCQkJdWludDMyX3QgcmVnMCwgdWludDMyX3QgcnJlZzEsDQo+
-PiAtCQkJCQl1aW50MzJfdCByZWYsIHVpbnQzMl90IG1hc2spOw0KPj4gKwkJCQkJdWludDMyX3Qg
-cmVmLCB1aW50MzJfdCBtYXNrLA0KPj4gKwkJCQkJdWludDMyX3Qgc2VtKTsNCj4+ICAgIGludCBh
-bWRncHVfdmlydF9yZXF1ZXN0X2Z1bGxfZ3B1KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LCBi
-b29sIA0KPj4gaW5pdCk7ICBpbnQgYW1kZ3B1X3ZpcnRfcmVsZWFzZV9mdWxsX2dwdShzdHJ1Y3Qg
-YW1kZ3B1X2RldmljZSAqYWRldiwgDQo+PiBib29sIGluaXQpOyAgaW50IGFtZGdwdV92aXJ0X3Jl
-c2V0X2dwdShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldik7IA0KPj4gZGlmZiAtLWdpdCBhL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192OV8wLmMNCj4+IGIvZHJpdmVycy9ncHUvZHJt
-L2FtZC9hbWRncHUvZ21jX3Y5XzAuYw0KPj4gaW5kZXggZjI1Y2Q5N2JhNWYyLi4xYWU1OWFmNzgz
-NmEgMTAwNjQ0DQo+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNfdjlfMC5j
-DQo+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNfdjlfMC5jDQo+PiBAQCAt
-NDQ4LDkgKzQ0OCwxMCBAQCBzdGF0aWMgdm9pZCBnbWNfdjlfMF9mbHVzaF9ncHVfdGxiKHN0cnVj
-dCBhbWRncHVfZGV2aWNlICphZGV2LCB1aW50MzJfdCB2bWlkLA0KPj4gICAgCQkJIWFkZXYtPmlu
-X2dwdV9yZXNldCkgew0KPj4gICAgCQl1aW50MzJfdCByZXEgPSBodWItPnZtX2ludl9lbmcwX3Jl
-cSArIGVuZzsNCj4+ICAgIAkJdWludDMyX3QgYWNrID0gaHViLT52bV9pbnZfZW5nMF9hY2sgKyBl
-bmc7DQo+PiArCQl1aW50MzJfdCBzZW0gPSBodWItPnZtX2ludl9lbmcwX3NlbSArIGVuZzsNCj4+
-ICAgIA0KPj4gICAgCQlhbWRncHVfdmlydF9raXFfcmVnX3dyaXRlX3JlZ193YWl0KGFkZXYsIHJl
-cSwgYWNrLCB0bXAsDQo+PiAtCQkJCTEgPDwgdm1pZCk7DQo+PiArCQkJCQkJICAgMSA8PCB2bWlk
-LCBzZW0pOw0KPj4gICAgCQlyZXR1cm47DQo+PiAgICAJfQ0KPj4gICAgDQo+PiAtLQ0KPj4gMi4x
-Ny4xDQo+Pg0KPj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X18NCj4+IGFtZC1nZnggbWFpbGluZyBsaXN0DQo+PiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9w
-Lm9yZw0KPj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9h
-bWQtZ2Z4DQo+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-DQo+IGFtZC1nZnggbWFpbGluZyBsaXN0DQo+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
-DQo+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdm
-eA0KDQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQt
-Z2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xp
-c3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
+--===============0903227820==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_CY4PR12MB1813C8B5B9072C875E0DFD6AF74F0CY4PR12MB1813namp_"
+
+--_000_CY4PR12MB1813C8B5B9072C875E0DFD6AF74F0CY4PR12MB1813namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+Series is:
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+________________________________
+From: Dennis Li <Dennis.Li@amd.com>
+Sent: Wednesday, November 20, 2019 5:49 AM
+To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>; Deucher,=
+ Alexander <Alexander.Deucher@amd.com>; Zhou1, Tao <Tao.Zhou1@amd.com>; Zha=
+ng, Hawking <Hawking.Zhang@amd.com>; Chen, Guchun <Guchun.Chen@amd.com>
+Cc: Li, Dennis <Dennis.Li@amd.com>; Li, Dennis <Dennis.Li@amd.com>
+Subject: [PATCH v2 1/3] drm/amdgpu: define soc15_ras_field_entry for reuse
+
+The struct soc15_ras_field_entry will be reused by
+other IPs, such as mmhub and gc
+
+v2: rename ras_subblock_regs to gc_ras_fields_vg20,
+because the future asic maybe have a different table.
+
+Change-Id: I6c3388a09b5fbf927ad90fcd626baa448d1681a6
+Signed-off-by: Dennis Li <dennis.li@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c | 34 +++++++++------------------
+ drivers/gpu/drm/amd/amdgpu/soc15.h    | 12 ++++++++++
+ 2 files changed, 23 insertions(+), 23 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/am=
+dgpu/gfx_v9_0.c
+index c7ae685d6f74..8073fcd4720e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+@@ -131,18 +131,6 @@ MODULE_FIRMWARE("amdgpu/renoir_rlc.bin");
+ #define mmTCP_CHAN_STEER_5_ARCT                                           =
+              0x0b0c
+ #define mmTCP_CHAN_STEER_5_ARCT_BASE_IDX                                  =
+                      0
+
+-struct ras_gfx_subblock_reg {
+-       const char *name;
+-       uint32_t hwip;
+-       uint32_t inst;
+-       uint32_t seg;
+-       uint32_t reg_offset;
+-       uint32_t sec_count_mask;
+-       uint32_t sec_count_shift;
+-       uint32_t ded_count_mask;
+-       uint32_t ded_count_shift;
+-};
+-
+ enum ta_ras_gfx_subblock {
+         /*CPC*/
+         TA_RAS_BLOCK__GFX_CPC_INDEX_START =3D 0,
+@@ -5487,7 +5475,7 @@ static int gfx_v9_0_priv_inst_irq(struct amdgpu_devic=
+e *adev,
+ }
+
+
+-static const struct ras_gfx_subblock_reg ras_subblock_regs[] =3D {
++static const struct soc15_ras_field_entry gc_ras_fields_vg20[] =3D {
+         { "CPC_SCRATCH", SOC15_REG_ENTRY(GC, 0, mmCPC_EDC_SCRATCH_CNT),
+           SOC15_REG_FIELD(CPC_EDC_SCRATCH_CNT, SEC_COUNT),
+           SOC15_REG_FIELD(CPC_EDC_SCRATCH_CNT, DED_COUNT)
+@@ -6146,29 +6134,29 @@ static int __get_ras_error_count(const struct soc15=
+_reg_entry *reg,
+         uint32_t i;
+         uint32_t sec_cnt, ded_cnt;
+
+-       for (i =3D 0; i < ARRAY_SIZE(ras_subblock_regs); i++) {
+-               if(ras_subblock_regs[i].reg_offset !=3D reg->reg_offset ||
+-                       ras_subblock_regs[i].seg !=3D reg->seg ||
+-                       ras_subblock_regs[i].inst !=3D reg->inst)
++       for (i =3D 0; i < ARRAY_SIZE(gc_ras_fields_vg20); i++) {
++               if(gc_ras_fields_vg20[i].reg_offset !=3D reg->reg_offset ||
++                       gc_ras_fields_vg20[i].seg !=3D reg->seg ||
++                       gc_ras_fields_vg20[i].inst !=3D reg->inst)
+                         continue;
+
+                 sec_cnt =3D (value &
+-                               ras_subblock_regs[i].sec_count_mask) >>
+-                               ras_subblock_regs[i].sec_count_shift;
++                               gc_ras_fields_vg20[i].sec_count_mask) >>
++                               gc_ras_fields_vg20[i].sec_count_shift;
+                 if (sec_cnt) {
+                         DRM_INFO("GFX SubBlock %s, Instance[%d][%d], SEC %=
+d\n",
+-                               ras_subblock_regs[i].name,
++                               gc_ras_fields_vg20[i].name,
+                                 se_id, inst_id,
+                                 sec_cnt);
+                         *sec_count +=3D sec_cnt;
+                 }
+
+                 ded_cnt =3D (value &
+-                               ras_subblock_regs[i].ded_count_mask) >>
+-                               ras_subblock_regs[i].ded_count_shift;
++                               gc_ras_fields_vg20[i].ded_count_mask) >>
++                               gc_ras_fields_vg20[i].ded_count_shift;
+                 if (ded_cnt) {
+                         DRM_INFO("GFX SubBlock %s, Instance[%d][%d], DED %=
+d\n",
+-                               ras_subblock_regs[i].name,
++                               gc_ras_fields_vg20[i].name,
+                                 se_id, inst_id,
+                                 ded_cnt);
+                         *ded_count +=3D ded_cnt;
+diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.h b/drivers/gpu/drm/amd/amdgp=
+u/soc15.h
+index 9af6c6ffbfa2..344280b869c4 100644
+--- a/drivers/gpu/drm/amd/amdgpu/soc15.h
++++ b/drivers/gpu/drm/amd/amdgpu/soc15.h
+@@ -60,6 +60,18 @@ struct soc15_allowed_register_entry {
+         bool grbm_indexed;
+ };
+
++struct soc15_ras_field_entry {
++       const char *name;
++       uint32_t hwip;
++       uint32_t inst;
++       uint32_t seg;
++       uint32_t reg_offset;
++       uint32_t sec_count_mask;
++       uint32_t sec_count_shift;
++       uint32_t ded_count_mask;
++       uint32_t ded_count_shift;
++};
++
+ #define SOC15_REG_ENTRY(ip, inst, reg)  ip##_HWIP, inst, reg##_BASE_IDX, r=
+eg
+
+ #define SOC15_REG_ENTRY_OFFSET(entry)   (adev->reg_offset[entry.hwip][entr=
+y.inst][entry.seg] + entry.reg_offset)
+--
+2.17.1
+
+
+--_000_CY4PR12MB1813C8B5B9072C875E0DFD6AF74F0CY4PR12MB1813namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Series is:</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Reviewed-by: Alex Deucher &lt;alexander.deucher@amd.com&gt;<br>
+</div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Dennis Li &lt;Dennis.=
+Li@amd.com&gt;<br>
+<b>Sent:</b> Wednesday, November 20, 2019 5:49 AM<br>
+<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
+gt;; Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;; Zhou1, Tao &lt;T=
+ao.Zhou1@amd.com&gt;; Zhang, Hawking &lt;Hawking.Zhang@amd.com&gt;; Chen, G=
+uchun &lt;Guchun.Chen@amd.com&gt;<br>
+<b>Cc:</b> Li, Dennis &lt;Dennis.Li@amd.com&gt;; Li, Dennis &lt;Dennis.Li@a=
+md.com&gt;<br>
+<b>Subject:</b> [PATCH v2 1/3] drm/amdgpu: define soc15_ras_field_entry for=
+ reuse</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">The struct soc15_ras_field_entry will be reused by=
+<br>
+other IPs, such as mmhub and gc<br>
+<br>
+v2: rename ras_subblock_regs to gc_ras_fields_vg20,<br>
+because the future asic maybe have a different table.<br>
+<br>
+Change-Id: I6c3388a09b5fbf927ad90fcd626baa448d1681a6<br>
+Signed-off-by: Dennis Li &lt;dennis.li@amd.com&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c | 34 &#43;&#43;&#43;&#43;&#43;&=
+#43;&#43;&#43;&#43;------------------<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/soc15.h&nbsp;&nbsp;&nbsp; | 12 &#43;&#43;&=
+#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;<br>
+&nbsp;2 files changed, 23 insertions(&#43;), 23 deletions(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/am=
+dgpu/gfx_v9_0.c<br>
+index c7ae685d6f74..8073fcd4720e 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c<br>
+@@ -131,18 &#43;131,6 @@ MODULE_FIRMWARE(&quot;amdgpu/renoir_rlc.bin&quot;)=
+;<br>
+&nbsp;#define mmTCP_CHAN_STEER_5_ARCT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0=
+x0b0c<br>
+&nbsp;#define mmTCP_CHAN_STEER_5_ARCT_BASE_IDX&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+; 0<br>
+&nbsp;<br>
+-struct ras_gfx_subblock_reg {<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; const char *name;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t hwip;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t inst;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t seg;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t reg_offset;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t sec_count_mask;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t sec_count_shift;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t ded_count_mask;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t ded_count_shift;<br>
+-};<br>
+-<br>
+&nbsp;enum ta_ras_gfx_subblock {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /*CPC*/<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TA_RAS_BLOCK__GFX_CPC_INDE=
+X_START =3D 0,<br>
+@@ -5487,7 &#43;5475,7 @@ static int gfx_v9_0_priv_inst_irq(struct amdgpu_d=
+evice *adev,<br>
+&nbsp;}<br>
+&nbsp;<br>
+&nbsp;<br>
+-static const struct ras_gfx_subblock_reg ras_subblock_regs[] =3D {<br>
+&#43;static const struct soc15_ras_field_entry gc_ras_fields_vg20[] =3D {<b=
+r>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; { &quot;CPC_SCRATCH&quot;,=
+ SOC15_REG_ENTRY(GC, 0, mmCPC_EDC_SCRATCH_CNT),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SOC15_REG_FIEL=
+D(CPC_EDC_SCRATCH_CNT, SEC_COUNT),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SOC15_REG_FIEL=
+D(CPC_EDC_SCRATCH_CNT, DED_COUNT)<br>
+@@ -6146,29 &#43;6134,29 @@ static int __get_ras_error_count(const struct s=
+oc15_reg_entry *reg,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t i;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t sec_cnt, ded_cnt;=
+<br>
+&nbsp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (i =3D 0; i &lt; ARRAY_SIZE(ras_s=
+ubblock_regs); i&#43;&#43;) {<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; if(ras_subblock_regs[i].reg_offset !=3D reg-&gt;reg_offset ||<br=
+>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ras_subblock_reg=
+s[i].seg !=3D reg-&gt;seg ||<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ras_subblock_reg=
+s[i].inst !=3D reg-&gt;inst)<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (i =3D 0; i &lt; ARRAY_SIZE(g=
+c_ras_fields_vg20); i&#43;&#43;) {<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; if(gc_ras_fields_vg20[i].reg_offset !=3D reg-&gt;reg_offset =
+||<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gc_ras_field=
+s_vg20[i].seg !=3D reg-&gt;seg ||<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gc_ras_field=
+s_vg20[i].inst !=3D reg-&gt;inst)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; conti=
+nue;<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; sec_cnt =3D (value &amp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ras_subblock_regs[i].sec_count_mask) &gt;&g=
+t;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ras_subblock_regs[i].sec_count_shift;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gc_ras_fields_vg20[i].sec_count_mask) &=
+gt;&gt;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gc_ras_fields_vg20[i].sec_count_shift;<=
+br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; if (sec_cnt) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DRM_I=
+NFO(&quot;GFX SubBlock %s, Instance[%d][%d], SEC %d\n&quot;,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ras_subblock_regs[i].name,<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gc_ras_fields_vg20[i].name,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; se_id, inst_id,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; sec_cnt);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *sec_=
+count &#43;=3D sec_cnt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; ded_cnt =3D (value &amp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ras_subblock_regs[i].ded_count_mask) &gt;&g=
+t;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ras_subblock_regs[i].ded_count_shift;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gc_ras_fields_vg20[i].ded_count_mask) &=
+gt;&gt;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gc_ras_fields_vg20[i].ded_count_shift;<=
+br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; if (ded_cnt) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DRM_I=
+NFO(&quot;GFX SubBlock %s, Instance[%d][%d], DED %d\n&quot;,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ras_subblock_regs[i].name,<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gc_ras_fields_vg20[i].name,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; se_id, inst_id,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ded_cnt);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *ded_=
+count &#43;=3D ded_cnt;<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.h b/drivers/gpu/drm/amd/amdgp=
+u/soc15.h<br>
+index 9af6c6ffbfa2..344280b869c4 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/soc15.h<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/soc15.h<br>
+@@ -60,6 &#43;60,18 @@ struct soc15_allowed_register_entry {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool grbm_indexed;<br>
+&nbsp;};<br>
+&nbsp;<br>
+&#43;struct soc15_ras_field_entry {<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; const char *name;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t hwip;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t inst;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t seg;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t reg_offset;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t sec_count_mask;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t sec_count_shift;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t ded_count_mask;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t ded_count_shift;<br>
+&#43;};<br>
+&#43;<br>
+&nbsp;#define SOC15_REG_ENTRY(ip, inst, reg)&nbsp; ip##_HWIP, inst, reg##_B=
+ASE_IDX, reg<br>
+&nbsp;<br>
+&nbsp;#define SOC15_REG_ENTRY_OFFSET(entry)&nbsp;&nbsp; (adev-&gt;reg_offse=
+t[entry.hwip][entry.inst][entry.seg] &#43; entry.reg_offset)<br>
+-- <br>
+2.17.1<br>
+<br>
+</div>
+</span></font></div>
+</body>
+</html>
+
+--_000_CY4PR12MB1813C8B5B9072C875E0DFD6AF74F0CY4PR12MB1813namp_--
+
+--===============0903227820==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+
+--===============0903227820==--
