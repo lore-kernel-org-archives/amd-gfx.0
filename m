@@ -1,43 +1,39 @@
-From: Hawking Zhang <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH] drm/amdgpu: apply gpr/gds workaround before enabling GFX EDC
- mode
-Date: Wed, 20 Nov 2019 20:36:43 +0800
-Message-ID: <20191120123643.16416-1-Hawking.Zhang@amd.com>
+From: yu kuai <yukuai3@huawei.com>
+Subject: [PATCH 1/2] drm/amd/display: remove set but not used variable 'dc_fixpt_e' and 'dc_fixpt_pi'
+Date: Wed, 20 Nov 2019 21:15:32 +0800
+Message-ID: <20191120131533.12720-2-yukuai3@huawei.com>
+References: <20191120131533.12720-1-yukuai3@huawei.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Guchun Chen <Guchun.Chen-5C7GfCeVMHo@public.gmane.org>, John
- Clements <John.Clements-5C7GfCeVMHo@public.gmane.org>, Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-Cc: Hawking Zhang <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20191120131533.12720-1-yukuai3@huawei.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: alexander.deucher@amd.com, christian.koenig@amd.com, David1.Zhou@amd.com, airlied@linux.ie, daniel@ffwll.ch, Jammy.Zhou@amd.com, tianci.yin@amd.com, sam@ravnborg.org, luben.tuikov@amd.com
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, yukuai3@huawei.com, zhengbin13@huawei.com, yi.zhang@huawei.com
+List-Id: amd-gfx.lists.freedesktop.org
 
-Z2Z4IG1lbW9yeSBzaG91bGQgYmUgaW5pdGlhbGl6ZWQgYmVmb3JlIGVuYWJsaW5nCkRFRCBhbmQg
-RlVFIGZpZWxkIGluIG1tR0JfRURDX01PREUKCkNoYW5nZS1JZDogSTI0OGEwODczNjRjYmQ5ODU4
-Y2JhMzJhNzBiZTQ1NmFmM2YwN2M5MGQKU2lnbmVkLW9mZi1ieTogSGF3a2luZyBaaGFuZyA8SGF3
-a2luZy5aaGFuZ0BhbWQuY29tPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92
-OV8wLmMgfCA4ICsrKystLS0tCiAxIGZpbGUgY2hhbmdlZCwgNCBpbnNlcnRpb25zKCspLCA0IGRl
-bGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92
-OV8wLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjlfMC5jCmluZGV4IDBkNjk2
-NWJhN2E4Ni4uNjgzNTkwNTllMzkwIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
-ZGdwdS9nZnhfdjlfMC5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92OV8w
-LmMKQEAgLTQyMTMsMTAgKzQyMTMsNiBAQCBzdGF0aWMgaW50IGdmeF92OV8wX2VjY19sYXRlX2lu
-aXQodm9pZCAqaGFuZGxlKQogCXN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2ID0gKHN0cnVjdCBh
-bWRncHVfZGV2aWNlICopaGFuZGxlOwogCWludCByOwogCi0JciA9IGFtZGdwdV9nZnhfcmFzX2xh
-dGVfaW5pdChhZGV2KTsKLQlpZiAocikKLQkJcmV0dXJuIHI7Ci0KIAlyID0gZ2Z4X3Y5XzBfZG9f
-ZWRjX2dkc193b3JrYXJvdW5kcyhhZGV2KTsKIAlpZiAocikKIAkJcmV0dXJuIHI7CkBAIC00MjI2
-LDYgKzQyMjIsMTAgQEAgc3RhdGljIGludCBnZnhfdjlfMF9lY2NfbGF0ZV9pbml0KHZvaWQgKmhh
-bmRsZSkKIAlpZiAocikKIAkJcmV0dXJuIHI7CiAKKwlyID0gYW1kZ3B1X2dmeF9yYXNfbGF0ZV9p
-bml0KGFkZXYpOworCWlmIChyKQorCQlyZXR1cm4gcjsKKwogCXJldHVybiAwOwogfQogCi0tIAoy
-LjE3LjEKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFt
-ZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8v
-bGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
+'dc_fixpt_e' and 'dc_fixpt_pi' are set in 'fixed31_32.h'. However, they
+are never used and so can be removed.
+
+Fixes: eb0e515464e4 ("drm/amd/display: get rid of 32.32 unsigned fixed point")
+Signed-off-by: yu kuai <yukuai3@huawei.com>
+---
+ drivers/gpu/drm/amd/display/include/fixed31_32.h | 2 --
+ 1 file changed, 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/include/fixed31_32.h b/drivers/gpu/drm/amd/display/include/fixed31_32.h
+index 89ef9f6860e5..291215362e3f 100644
+--- a/drivers/gpu/drm/amd/display/include/fixed31_32.h
++++ b/drivers/gpu/drm/amd/display/include/fixed31_32.h
+@@ -69,9 +69,7 @@ static const struct fixed31_32 dc_fixpt_epsilon = { 1LL };
+ static const struct fixed31_32 dc_fixpt_half = { 0x80000000LL };
+ static const struct fixed31_32 dc_fixpt_one = { 0x100000000LL };
+ 
+-static const struct fixed31_32 dc_fixpt_pi = { 13493037705LL };
+ static const struct fixed31_32 dc_fixpt_two_pi = { 26986075409LL };
+-static const struct fixed31_32 dc_fixpt_e = { 11674931555LL };
+ static const struct fixed31_32 dc_fixpt_ln2 = { 2977044471LL };
+ static const struct fixed31_32 dc_fixpt_ln2_div_2 = { 1488522236LL };
+ 
+-- 
+2.17.2
