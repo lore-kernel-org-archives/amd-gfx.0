@@ -1,13 +1,16 @@
-From: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH 01/12] amdgpu: add UAPI for creating encrypted buffers
-Date: Tue, 19 Nov 2019 21:41:24 -0500
-Message-ID: <CAAxE2A6ZdjfV1vWh1KQmTR+gVFq0n098Gg8bWjprwdqvUQGQoQ@mail.gmail.com>
-References: <1573788895-3936-1-git-send-email-aaron.liu@amd.com>
- <6cba1e53-1c0d-d408-4d16-cae93ec9e62e@amd.com>
+From: "Liu, Aaron" <Aaron.Liu-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: [PATCH 1/5] drm/amdgpu: expand sdma copy_buffer interface with
+ tmz parameter
+Date: Wed, 20 Nov 2019 03:06:40 +0000
+Message-ID: <MN2PR12MB3838DC6674DF376565BC805EF04F0@MN2PR12MB3838.namprd12.prod.outlook.com>
+References: <1574054316-2802-1-git-send-email-aaron.liu@amd.com>
+ <8edd5526-b762-59d2-7b02-cabe5f5658e9@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1592762865=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <6cba1e53-1c0d-d408-4d16-cae93ec9e62e-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <8edd5526-b762-59d2-7b02-cabe5f5658e9-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,144 +21,153 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Luben Tuikov <luben.tuikov-5C7GfCeVMHo@public.gmane.org>
-Cc: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <Marek.Olsak-5C7GfCeVMHo@public.gmane.org>, Aaron Liu <aaron.liu-5C7GfCeVMHo@public.gmane.org>, amd-gfx mailing list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Huang Rui <Ray.Huang-5C7GfCeVMHo@public.gmane.org>, "Deucher,
- Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, Leo Liu <Leo.Liu-5C7GfCeVMHo@public.gmane.org>, =?UTF-8?Q?Christian_K=C3=B6nig?= <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
+To: "Tuikov, Luben" <Luben.Tuikov-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Huang,
+ Ray" <Ray.Huang-5C7GfCeVMHo@public.gmane.org>, "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
 
---===============1592762865==
-Content-Type: multipart/alternative; boundary="0000000000000929110597be2086"
-
---0000000000000929110597be2086
-Content-Type: text/plain; charset="UTF-8"
-
-On Tue, Nov 19, 2019 at 8:52 PM Luben Tuikov <luben.tuikov-5C7GfCeVMHo@public.gmane.org> wrote:
-
-> On 2019-11-14 10:34 p.m., Aaron Liu wrote:
-> > From: Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org>
-> >
-> > To align the kernel uapi change from Alex:
-> >
-> > "Add a flag to the GEM_CREATE ioctl to create encrypted buffers. Buffers
-> with
-> > this flag set will be created with the TMZ bit set in the PTEs or engines
-> > accessing them. This is required in order to properly access the data
-> from the
-> > engines."
-> >
-> > We will use GEM_CREATE_ENCRYPTED flag for secure buffer allocation.
-> >
-> > Signed-off-by: Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org>
-> > Reviewed-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-> > ---
-> >  include/drm/amdgpu_drm.h | 5 +++++
-> >  1 file changed, 5 insertions(+)
-> >
-> > diff --git a/include/drm/amdgpu_drm.h b/include/drm/amdgpu_drm.h
-> > index 5c28aa7..1a95e37 100644
-> > --- a/include/drm/amdgpu_drm.h
-> > +++ b/include/drm/amdgpu_drm.h
-> > @@ -141,6 +141,11 @@ extern "C" {
-> >   * releasing the memory
-> >   */
-> >  #define AMDGPU_GEM_CREATE_VRAM_WIPE_ON_RELEASE       (1 << 9)
-> > +/* Flag that BO will be encrypted and that the TMZ bit should be
-> > + * set in the PTEs when mapping this buffer via GPUVM or
-> > + * accessing it with various hw blocks
-> > + */
-> > +#define AMDGPU_GEM_CREATE_ENCRYPTED          (1 << 10)
->
-> Style!
-> TAB char?!
->
-> You have a TAB char between ".._ENCRYPTED" and "(1 << 10)"
-> Do NOT add/insert TAB chars instead of space to align colunmns!
-> If when you press Tab key a tab is inserted, as opposed to the line
-> indented, then DO NOT use this editor.
-> The Tab key should "indent according to mode" by inserting TAB chars.
-> If the line is already indented, as this one is, then it should do nothing.
->
-
-I disagree with this 100%. Tabs or spaces don't matter here from my
-perspective. I also disagree with your language. It's overly impolite.
-
-Marek
-
---0000000000000929110597be2086
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail=
-_attr">On Tue, Nov 19, 2019 at 8:52 PM Luben Tuikov &lt;<a href=3D"mailto:l=
-uben.tuikov-5C7GfCeVMHo@public.gmane.org" target=3D"_blank">luben.tuikov-5C7GfCeVMHo@public.gmane.org</a>&gt; wrote:<=
-br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8e=
-x;border-left:1px solid rgb(204,204,204);padding-left:1ex">On 2019-11-14 10=
-:34 p.m., Aaron Liu wrote:<br>
-&gt; From: Huang Rui &lt;<a href=3D"mailto:ray.huang-5C7GfCeVMHo@public.gmane.org" target=3D"_bl=
-ank">ray.huang-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
-&gt; <br>
-&gt; To align the kernel uapi change from Alex:<br>
-&gt; <br>
-&gt; &quot;Add a flag to the GEM_CREATE ioctl to create encrypted buffers. =
-Buffers with<br>
-&gt; this flag set will be created with the TMZ bit set in the PTEs or engi=
-nes<br>
-&gt; accessing them. This is required in order to properly access the data =
-from the<br>
-&gt; engines.&quot;<br>
-&gt; <br>
-&gt; We will use GEM_CREATE_ENCRYPTED flag for secure buffer allocation.<br=
->
-&gt; <br>
-&gt; Signed-off-by: Huang Rui &lt;<a href=3D"mailto:ray.huang-5C7GfCeVMHo@public.gmane.org" targ=
-et=3D"_blank">ray.huang-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
-&gt; Reviewed-by: Alex Deucher &lt;<a href=3D"mailto:alexander.deucher@amd.=
-com" target=3D"_blank">alexander.deucher-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
-&gt; ---<br>
-&gt;=C2=A0 include/drm/amdgpu_drm.h | 5 +++++<br>
-&gt;=C2=A0 1 file changed, 5 insertions(+)<br>
-&gt; <br>
-&gt; diff --git a/include/drm/amdgpu_drm.h b/include/drm/amdgpu_drm.h<br>
-&gt; index 5c28aa7..1a95e37 100644<br>
-&gt; --- a/include/drm/amdgpu_drm.h<br>
-&gt; +++ b/include/drm/amdgpu_drm.h<br>
-&gt; @@ -141,6 +141,11 @@ extern &quot;C&quot; {<br>
-&gt;=C2=A0 =C2=A0* releasing the memory<br>
-&gt;=C2=A0 =C2=A0*/<br>
-&gt;=C2=A0 #define AMDGPU_GEM_CREATE_VRAM_WIPE_ON_RELEASE=C2=A0 =C2=A0 =C2=
-=A0 =C2=A0(1 &lt;&lt; 9)<br>
-&gt; +/* Flag that BO will be encrypted and that the TMZ bit should be<br>
-&gt; + * set in the PTEs when mapping this buffer via GPUVM or<br>
-&gt; + * accessing it with various hw blocks<br>
-&gt; + */<br>
-&gt; +#define AMDGPU_GEM_CREATE_ENCRYPTED=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- (1 &lt;&lt; 10)<br>
-<br>
-Style!<br>
-TAB char?!<br>
-<br>
-You have a TAB char between &quot;.._ENCRYPTED&quot; and &quot;(1 &lt;&lt; =
-10)&quot;<br>
-Do NOT add/insert TAB chars instead of space to align colunmns!<br>
-If when you press Tab key a tab is inserted, as opposed to the line<br>
-indented, then DO NOT use this editor.<br>
-The Tab key should &quot;indent according to mode&quot; by inserting TAB ch=
-ars.<br>
-If the line is already indented, as this one is, then it should do nothing.=
-<br></blockquote><div><br></div><div>I disagree with this 100%. Tabs or spa=
-ces don&#39;t matter here from my perspective. I also disagree with your la=
-nguage. It&#39;s overly impolite.<br></div><div><br></div><div>Marek</div><=
-/div></div>
-
---0000000000000929110597be2086--
-
---===============1592762865==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
-
---===============1592762865==--
+DQoNCkJSLA0KQWFyb24gTGl1DQoNCj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4gRnJv
+bTogVHVpa292LCBMdWJlbiA8THViZW4uVHVpa292QGFtZC5jb20+DQo+IFNlbnQ6IFdlZG5lc2Rh
+eSwgTm92ZW1iZXIgMjAsIDIwMTkgNzoxMiBBTQ0KPiBUbzogTGl1LCBBYXJvbiA8QWFyb24uTGl1
+QGFtZC5jb20+OyBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0KPiBDYzogRGV1Y2hlciwg
+QWxleGFuZGVyIDxBbGV4YW5kZXIuRGV1Y2hlckBhbWQuY29tPjsgSHVhbmcsIFJheQ0KPiA8UmF5
+Lkh1YW5nQGFtZC5jb20+OyBLb2VuaWcsIENocmlzdGlhbiA8Q2hyaXN0aWFuLktvZW5pZ0BhbWQu
+Y29tPg0KPiBTdWJqZWN0OiBSZTogW1BBVENIIDEvNV0gZHJtL2FtZGdwdTogZXhwYW5kIHNkbWEg
+Y29weV9idWZmZXIgaW50ZXJmYWNlDQo+IHdpdGggdG16IHBhcmFtZXRlcg0KPiANCj4gSSB3b25k
+ZXIgaWYgd2UgcmVhbGx5IGRvIG5lZWQgeWV0IGFub3RoZXIgZnVuY3Rpb24gYXJndW1lbnQsIHRo
+dXMgaW5jcmVhc2luZw0KPiB0aGUgYXJndW1lbnQgbGlzdCwgb3IgaWYgdGhlICJ0bXoiIGJvb2xl
+YW4gY2FuL2lzIGFscmVhZHkgYSBwcm9wZXJ0eSBvZiB0aGUNCj4gam9iL2NvbW1hbmQvaWIvZXRj
+LiwgYW5kIGlmIGl0IGNhbiBpbmRlZWQgYmUgaGFkIGZyb20gdGhlIGxhdHRlciBlbnRpdHkuLi4/
+DQo+IA0KSGkgTHViZW4sDQpJbiBmYWN0LCBJIGFsc28gdGhvdWdodCBhYm91dCBpdC4gQ29tcGFy
+ZWQgdG8gYWRkIHRoaXMgYXJndW1lbnQgdG8gb3RoZXIgZW50aXRpZXMsIHBlcmhhcHMgaXQgDQpp
+cyBtb3JlIGNsZWFybHkgYW5kIHNpbXBseS4gQW5vdGhlciByZWFzb24gaXMgdGhhdCBUTVogaXMg
+YSByZWxhdGl2ZWx5IGluZGVwZW5kZW50IHByb3BlcnR5Lg0KDQo+IFJlZ2FyZHMsDQo+IEx1YmVu
+DQo+IA0KPiBPbiAyMDE5LTExLTE4IDEyOjE4IGEubS4sIEFhcm9uIExpdSB3cm90ZToNCj4gPiBU
+aGlzIHBhdGNoIGV4cGFuZHMgc2RtYSBjb3B5X2J1ZmZlciBpbnRlcmZhY2Ugd2l0aCB0bXogcGFy
+YW1ldGVyLg0KPiA+DQo+ID4gU2lnbmVkLW9mZi1ieTogQWFyb24gTGl1IDxhYXJvbi5saXVAYW1k
+LmNvbT4NCj4gPiBSZXZpZXdlZC1ieTogQ2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5p
+Z0BhbWQuY29tPg0KPiA+IC0tLQ0KPiA+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
+cHVfc2RtYS5oIHwgNSArKystLQ0KPiA+IGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdw
+dV90dG0uYyAgfCA0ICsrLS0NCj4gPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvY2lrX3Nk
+bWEuYyAgICB8IDMgKystDQo+ID4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3NkbWFfdjJf
+NC5jICAgfCAzICsrLQ0KPiA+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9zZG1hX3YzXzAu
+YyAgIHwgMyArKy0NCj4gPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvc2RtYV92NF8wLmMg
+ICB8IDMgKystDQo+ID4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3NkbWFfdjVfMC5jICAg
+fCAzICsrLQ0KPiA+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9zaV9kbWEuYyAgICAgIHwg
+MyArKy0NCj4gPiAgOCBmaWxlcyBjaGFuZ2VkLCAxNyBpbnNlcnRpb25zKCspLCAxMCBkZWxldGlv
+bnMoLSkNCj4gPg0KPiA+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
+bWRncHVfc2RtYS5oDQo+ID4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfc2Rt
+YS5oDQo+ID4gaW5kZXggNzYxZmY4Yi4uYjMxMzQ2NSAxMDA2NDQNCj4gPiAtLS0gYS9kcml2ZXJz
+L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfc2RtYS5oDQo+ID4gKysrIGIvZHJpdmVycy9ncHUv
+ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3NkbWEuaA0KPiA+IEBAIC03OSw3ICs3OSw4IEBAIHN0cnVj
+dCBhbWRncHVfYnVmZmVyX2Z1bmNzIHsNCj4gPiAgCQkJCSAvKiBkc3QgYWRkciBpbiBieXRlcyAq
+Lw0KPiA+ICAJCQkJIHVpbnQ2NF90IGRzdF9vZmZzZXQsDQo+ID4gIAkJCQkgLyogbnVtYmVyIG9m
+IGJ5dGUgdG8gdHJhbnNmZXIgKi8NCj4gPiAtCQkJCSB1aW50MzJfdCBieXRlX2NvdW50KTsNCj4g
+PiArCQkJCSB1aW50MzJfdCBieXRlX2NvdW50LA0KPiA+ICsJCQkJIGJvb2wgdG16KTsNCj4gPg0K
+PiA+ICAJLyogbWF4aW11bSBieXRlcyBpbiBhIHNpbmdsZSBvcGVyYXRpb24gKi8NCj4gPiAgCXVp
+bnQzMl90CWZpbGxfbWF4X2J5dGVzOw0KPiA+IEBAIC05Nyw3ICs5OCw3IEBAIHN0cnVjdCBhbWRn
+cHVfYnVmZmVyX2Z1bmNzIHsNCj4gPiAgCQkJCSB1aW50MzJfdCBieXRlX2NvdW50KTsNCj4gPiAg
+fTsNCj4gPg0KPiA+IC0jZGVmaW5lIGFtZGdwdV9lbWl0X2NvcHlfYnVmZmVyKGFkZXYsIGliLCBz
+LCBkLCBiKQ0KPiA+IChhZGV2KS0+bW1hbi5idWZmZXJfZnVuY3MtPmVtaXRfY29weV9idWZmZXIo
+KGliKSwgIChzKSwgKGQpLCAoYikpDQo+ID4gKyNkZWZpbmUgYW1kZ3B1X2VtaXRfY29weV9idWZm
+ZXIoYWRldiwgaWIsIHMsIGQsIGIsIHQpDQo+ID4gKyhhZGV2KS0+bW1hbi5idWZmZXJfZnVuY3Mt
+PmVtaXRfY29weV9idWZmZXIoKGliKSwgIChzKSwgKGQpLCAoYiksDQo+ID4gKyh0KSkNCj4gPiAg
+I2RlZmluZSBhbWRncHVfZW1pdF9maWxsX2J1ZmZlcihhZGV2LCBpYiwgcywgZCwgYikNCj4gPiAo
+YWRldiktPm1tYW4uYnVmZmVyX2Z1bmNzLT5lbWl0X2ZpbGxfYnVmZmVyKChpYiksIChzKSwgKGQp
+LCAoYikpDQo+ID4NCj4gPiAgc3RydWN0IGFtZGdwdV9zZG1hX2luc3RhbmNlICoNCj4gPiBkaWZm
+IC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3R0bS5jDQo+ID4gYi9k
+cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdHRtLmMNCj4gPiBpbmRleCAzMzkwODhk
+Li5jMDhjMTVlIDEwMDY0NA0KPiA+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
+ZGdwdV90dG0uYw0KPiA+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV90
+dG0uYw0KPiA+IEBAIC0yMDIyLDcgKzIwMjIsNyBAQCBzdGF0aWMgaW50IGFtZGdwdV9tYXBfYnVm
+ZmVyKHN0cnVjdA0KPiB0dG1fYnVmZmVyX29iamVjdCAqYm8sDQo+ID4gIAlkc3RfYWRkciA9IGFt
+ZGdwdV9ib19ncHVfb2Zmc2V0KGFkZXYtPmdhcnQuYm8pOw0KPiA+ICAJZHN0X2FkZHIgKz0gd2lu
+ZG93ICogQU1ER1BVX0dUVF9NQVhfVFJBTlNGRVJfU0laRSAqIDg7DQo+ID4gIAlhbWRncHVfZW1p
+dF9jb3B5X2J1ZmZlcihhZGV2LCAmam9iLT5pYnNbMF0sIHNyY19hZGRyLA0KPiA+IC0JCQkJZHN0
+X2FkZHIsIG51bV9ieXRlcyk7DQo+ID4gKwkJCQlkc3RfYWRkciwgbnVtX2J5dGVzLCBmYWxzZSk7
+DQo+ID4NCj4gPiAgCWFtZGdwdV9yaW5nX3BhZF9pYihyaW5nLCAmam9iLT5pYnNbMF0pOw0KPiA+
+ICAJV0FSTl9PTihqb2ItPmlic1swXS5sZW5ndGhfZHcgPiBudW1fZHcpOyBAQCAtMjA5Myw3ICsy
+MDkzLDcNCj4gQEAgaW50DQo+ID4gYW1kZ3B1X2NvcHlfYnVmZmVyKHN0cnVjdCBhbWRncHVfcmlu
+ZyAqcmluZywgdWludDY0X3Qgc3JjX29mZnNldCwNCj4gPiAgCQl1aW50MzJfdCBjdXJfc2l6ZV9p
+bl9ieXRlcyA9IG1pbihieXRlX2NvdW50LCBtYXhfYnl0ZXMpOw0KPiA+DQo+ID4gIAkJYW1kZ3B1
+X2VtaXRfY29weV9idWZmZXIoYWRldiwgJmpvYi0+aWJzWzBdLCBzcmNfb2Zmc2V0LA0KPiA+IC0J
+CQkJCWRzdF9vZmZzZXQsIGN1cl9zaXplX2luX2J5dGVzKTsNCj4gPiArCQkJCQlkc3Rfb2Zmc2V0
+LCBjdXJfc2l6ZV9pbl9ieXRlcywgZmFsc2UpOw0KPiA+DQo+ID4gIAkJc3JjX29mZnNldCArPSBj
+dXJfc2l6ZV9pbl9ieXRlczsNCj4gPiAgCQlkc3Rfb2Zmc2V0ICs9IGN1cl9zaXplX2luX2J5dGVz
+Ow0KPiA+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9jaWtfc2RtYS5j
+DQo+ID4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9jaWtfc2RtYS5jDQo+ID4gaW5kZXgg
+YzQ1MzA0Zi4uODJjZGI4ZiAxMDA2NDQNCj4gPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
+ZGdwdS9jaWtfc2RtYS5jDQo+ID4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvY2lr
+X3NkbWEuYw0KPiA+IEBAIC0xMzEzLDcgKzEzMTMsOCBAQCBzdGF0aWMgdm9pZCBjaWtfc2RtYV9z
+ZXRfaXJxX2Z1bmNzKHN0cnVjdA0KPiA+IGFtZGdwdV9kZXZpY2UgKmFkZXYpICBzdGF0aWMgdm9p
+ZCBjaWtfc2RtYV9lbWl0X2NvcHlfYnVmZmVyKHN0cnVjdA0KPiBhbWRncHVfaWIgKmliLA0KPiA+
+ICAJCQkJICAgICAgdWludDY0X3Qgc3JjX29mZnNldCwNCj4gPiAgCQkJCSAgICAgIHVpbnQ2NF90
+IGRzdF9vZmZzZXQsDQo+ID4gLQkJCQkgICAgICB1aW50MzJfdCBieXRlX2NvdW50KQ0KPiA+ICsJ
+CQkJICAgICAgdWludDMyX3QgYnl0ZV9jb3VudCwNCj4gPiArCQkJCSAgICAgIGJvb2wgdG16KQ0K
+PiA+ICB7DQo+ID4gIAlpYi0+cHRyW2liLT5sZW5ndGhfZHcrK10gPSBTRE1BX1BBQ0tFVChTRE1B
+X09QQ09ERV9DT1BZLA0KPiBTRE1BX0NPUFlfU1VCX09QQ09ERV9MSU5FQVIsIDApOw0KPiA+ICAJ
+aWItPnB0cltpYi0+bGVuZ3RoX2R3KytdID0gYnl0ZV9jb3VudDsgZGlmZiAtLWdpdA0KPiA+IGEv
+ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvc2RtYV92Ml80LmMNCj4gPiBiL2RyaXZlcnMvZ3B1
+L2RybS9hbWQvYW1kZ3B1L3NkbWFfdjJfNC5jDQo+ID4gaW5kZXggYTEwMTc1OC4uODllOGM3NCAx
+MDA2NDQNCj4gPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9zZG1hX3YyXzQuYw0K
+PiA+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3NkbWFfdjJfNC5jDQo+ID4gQEAg
+LTEyMDAsNyArMTIwMCw4IEBAIHN0YXRpYyB2b2lkIHNkbWFfdjJfNF9zZXRfaXJxX2Z1bmNzKHN0
+cnVjdA0KPiA+IGFtZGdwdV9kZXZpY2UgKmFkZXYpICBzdGF0aWMgdm9pZCBzZG1hX3YyXzRfZW1p
+dF9jb3B5X2J1ZmZlcihzdHJ1Y3QNCj4gYW1kZ3B1X2liICppYiwNCj4gPiAgCQkJCSAgICAgICB1
+aW50NjRfdCBzcmNfb2Zmc2V0LA0KPiA+ICAJCQkJICAgICAgIHVpbnQ2NF90IGRzdF9vZmZzZXQs
+DQo+ID4gLQkJCQkgICAgICAgdWludDMyX3QgYnl0ZV9jb3VudCkNCj4gPiArCQkJCSAgICAgICB1
+aW50MzJfdCBieXRlX2NvdW50LA0KPiA+ICsJCQkJICAgICAgIGJvb2wgdG16KQ0KPiA+ICB7DQo+
+ID4gIAlpYi0+cHRyW2liLT5sZW5ndGhfZHcrK10gPSBTRE1BX1BLVF9IRUFERVJfT1AoU0RNQV9P
+UF9DT1BZKQ0KPiB8DQo+ID4gIAkJU0RNQV9QS1RfSEVBREVSX1NVQl9PUChTRE1BX1NVQk9QX0NP
+UFlfTElORUFSKTsNCj4gPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
+c2RtYV92M18wLmMNCj4gPiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3NkbWFfdjNfMC5j
+DQo+ID4gaW5kZXggNWY0ZTJjNi4uMDExZmQxMiAxMDA2NDQNCj4gPiAtLS0gYS9kcml2ZXJzL2dw
+dS9kcm0vYW1kL2FtZGdwdS9zZG1hX3YzXzAuYw0KPiA+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9h
+bWQvYW1kZ3B1L3NkbWFfdjNfMC5jDQo+ID4gQEAgLTE2MzgsNyArMTYzOCw4IEBAIHN0YXRpYyB2
+b2lkIHNkbWFfdjNfMF9zZXRfaXJxX2Z1bmNzKHN0cnVjdA0KPiA+IGFtZGdwdV9kZXZpY2UgKmFk
+ZXYpICBzdGF0aWMgdm9pZCBzZG1hX3YzXzBfZW1pdF9jb3B5X2J1ZmZlcihzdHJ1Y3QNCj4gYW1k
+Z3B1X2liICppYiwNCj4gPiAgCQkJCSAgICAgICB1aW50NjRfdCBzcmNfb2Zmc2V0LA0KPiA+ICAJ
+CQkJICAgICAgIHVpbnQ2NF90IGRzdF9vZmZzZXQsDQo+ID4gLQkJCQkgICAgICAgdWludDMyX3Qg
+Ynl0ZV9jb3VudCkNCj4gPiArCQkJCSAgICAgICB1aW50MzJfdCBieXRlX2NvdW50LA0KPiA+ICsJ
+CQkJICAgICAgIGJvb2wgdG16KQ0KPiA+ICB7DQo+ID4gIAlpYi0+cHRyW2liLT5sZW5ndGhfZHcr
+K10gPSBTRE1BX1BLVF9IRUFERVJfT1AoU0RNQV9PUF9DT1BZKQ0KPiB8DQo+ID4gIAkJU0RNQV9Q
+S1RfSEVBREVSX1NVQl9PUChTRE1BX1NVQk9QX0NPUFlfTElORUFSKTsNCj4gPiBkaWZmIC0tZ2l0
+IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvc2RtYV92NF8wLmMNCj4gPiBiL2RyaXZlcnMv
+Z3B1L2RybS9hbWQvYW1kZ3B1L3NkbWFfdjRfMC5jDQo+ID4gaW5kZXggNDViZDUzOC4uMTEwNDQ5
+YSAxMDA2NDQNCj4gPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9zZG1hX3Y0XzAu
+Yw0KPiA+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3NkbWFfdjRfMC5jDQo+ID4g
+QEAgLTIzMzgsNyArMjMzOCw4IEBAIHN0YXRpYyB2b2lkIHNkbWFfdjRfMF9zZXRfaXJxX2Z1bmNz
+KHN0cnVjdA0KPiA+IGFtZGdwdV9kZXZpY2UgKmFkZXYpICBzdGF0aWMgdm9pZCBzZG1hX3Y0XzBf
+ZW1pdF9jb3B5X2J1ZmZlcihzdHJ1Y3QNCj4gYW1kZ3B1X2liICppYiwNCj4gPiAgCQkJCSAgICAg
+ICB1aW50NjRfdCBzcmNfb2Zmc2V0LA0KPiA+ICAJCQkJICAgICAgIHVpbnQ2NF90IGRzdF9vZmZz
+ZXQsDQo+ID4gLQkJCQkgICAgICAgdWludDMyX3QgYnl0ZV9jb3VudCkNCj4gPiArCQkJCSAgICAg
+ICB1aW50MzJfdCBieXRlX2NvdW50LA0KPiA+ICsJCQkJICAgICAgIGJvb2wgdG16KQ0KPiA+ICB7
+DQo+ID4gIAlpYi0+cHRyW2liLT5sZW5ndGhfZHcrK10gPSBTRE1BX1BLVF9IRUFERVJfT1AoU0RN
+QV9PUF9DT1BZKQ0KPiB8DQo+ID4gIAkJU0RNQV9QS1RfSEVBREVSX1NVQl9PUChTRE1BX1NVQk9Q
+X0NPUFlfTElORUFSKTsNCj4gPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
+cHUvc2RtYV92NV8wLmMNCj4gPiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3NkbWFfdjVf
+MC5jDQo+ID4gaW5kZXggZjRhZDI5OS4uYjZhNzFhNyAxMDA2NDQNCj4gPiAtLS0gYS9kcml2ZXJz
+L2dwdS9kcm0vYW1kL2FtZGdwdS9zZG1hX3Y1XzAuYw0KPiA+ICsrKyBiL2RyaXZlcnMvZ3B1L2Ry
+bS9hbWQvYW1kZ3B1L3NkbWFfdjVfMC5jDQo+ID4gQEAgLTE2NjAsNyArMTY2MCw4IEBAIHN0YXRp
+YyB2b2lkIHNkbWFfdjVfMF9zZXRfaXJxX2Z1bmNzKHN0cnVjdA0KPiA+IGFtZGdwdV9kZXZpY2Ug
+KmFkZXYpICBzdGF0aWMgdm9pZCBzZG1hX3Y1XzBfZW1pdF9jb3B5X2J1ZmZlcihzdHJ1Y3QNCj4g
+YW1kZ3B1X2liICppYiwNCj4gPiAgCQkJCSAgICAgICB1aW50NjRfdCBzcmNfb2Zmc2V0LA0KPiA+
+ICAJCQkJICAgICAgIHVpbnQ2NF90IGRzdF9vZmZzZXQsDQo+ID4gLQkJCQkgICAgICAgdWludDMy
+X3QgYnl0ZV9jb3VudCkNCj4gPiArCQkJCSAgICAgICB1aW50MzJfdCBieXRlX2NvdW50LA0KPiA+
+ICsJCQkJICAgICAgIGJvb2wgdG16KQ0KPiA+ICB7DQo+ID4gIAlpYi0+cHRyW2liLT5sZW5ndGhf
+ZHcrK10gPSBTRE1BX1BLVF9IRUFERVJfT1AoU0RNQV9PUF9DT1BZKQ0KPiB8DQo+ID4gIAkJU0RN
+QV9QS1RfSEVBREVSX1NVQl9PUChTRE1BX1NVQk9QX0NPUFlfTElORUFSKTsNCj4gPiBkaWZmIC0t
+Z2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvc2lfZG1hLmMNCj4gPiBiL2RyaXZlcnMv
+Z3B1L2RybS9hbWQvYW1kZ3B1L3NpX2RtYS5jDQo+ID4gaW5kZXggYmRkYThiNC4uMTIyZGYwNyAx
+MDA2NDQNCj4gPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9zaV9kbWEuYw0KPiA+
+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3NpX2RtYS5jDQo+ID4gQEAgLTc3NSw3
+ICs3NzUsOCBAQCBzdGF0aWMgdm9pZCBzaV9kbWFfc2V0X2lycV9mdW5jcyhzdHJ1Y3QNCj4gPiBh
+bWRncHVfZGV2aWNlICphZGV2KSAgc3RhdGljIHZvaWQgc2lfZG1hX2VtaXRfY29weV9idWZmZXIo
+c3RydWN0DQo+IGFtZGdwdV9pYiAqaWIsDQo+ID4gIAkJCQkgICAgICAgdWludDY0X3Qgc3JjX29m
+ZnNldCwNCj4gPiAgCQkJCSAgICAgICB1aW50NjRfdCBkc3Rfb2Zmc2V0LA0KPiA+IC0JCQkJICAg
+ICAgIHVpbnQzMl90IGJ5dGVfY291bnQpDQo+ID4gKwkJCQkgICAgICAgdWludDMyX3QgYnl0ZV9j
+b3VudCwNCj4gPiArCQkJCSAgICAgICBib29sIHRteikNCj4gPiAgew0KPiA+ICAJaWItPnB0cltp
+Yi0+bGVuZ3RoX2R3KytdID0gRE1BX1BBQ0tFVChETUFfUEFDS0VUX0NPUFksDQo+ID4gIAkJCQkJ
+ICAgICAgMSwgMCwgMCwgYnl0ZV9jb3VudCk7DQo+ID4NCg0KX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBs
+aXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1h
+bi9saXN0aW5mby9hbWQtZ2Z4
