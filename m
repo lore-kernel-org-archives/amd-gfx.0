@@ -1,367 +1,178 @@
-From: "Zhang, Jack (Jian)" <Jack.Zhang1-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 2/2] drm/amd/amdgpu/sriov skip RLCG s/r list for arcturus
- VF.
-Date: Thu, 21 Nov 2019 16:04:56 +0000
-Message-ID: <CH2PR12MB3672D4DEA34F52AB2A5AF444BB4E0@CH2PR12MB3672.namprd12.prod.outlook.com>
-References: <20191121061707.25958-1-Jack.Zhang1@amd.com>
- <CADnq5_MrfFWAjC__9ccB46CYzdcLWP=DPKD70aXAm862DJLu1g@mail.gmail.com>,
- <CADnq5_OE8xi7TmgxWe2PiWVxM8pVhxAtYF=CTtT7AHOhrUhEyA@mail.gmail.com>,
- <CH2PR12MB3672F73E41AF7AEBCAC81053BB4E0@CH2PR12MB3672.namprd12.prod.outlook.com>,
- <CY4PR12MB181333EBFDD75B8664F319CAF74E0@CY4PR12MB1813.namprd12.prod.outlook.com>
+From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
+Subject: Re: [PATCH] drm/amd: Fix Kconfig indentation
+Date: Thu, 21 Nov 2019 16:13:22 +0000
+Message-ID: <CY4PR12MB1813D2AE8B11E5F190581995F74E0@CY4PR12MB1813.namprd12.prod.outlook.com>
+References: <20191121132930.29544-1-krzk@kernel.org>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1355808043=="
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CY4PR12MB181333EBFDD75B8664F319CAF74E0-rpdhrqHFk05Nhq0cRkx5WwdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
-Content-Language: zh-CN
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Type: multipart/mixed; boundary="===============0849829786=="
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+In-Reply-To: <20191121132930.29544-1-krzk@kernel.org>
+Content-Language: en-US
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: Krzysztof Kozlowski <krzk@kernel.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Cc: David Airlie <airlied@linux.ie>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Koenig,
+ Christian" <Christian.Koenig@amd.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
---===============1355808043==
-Content-Language: zh-CN
+--===============0849829786==
+Content-Language: en-US
 Content-Type: multipart/alternative;
-	boundary="_000_CH2PR12MB3672D4DEA34F52AB2A5AF444BB4E0CH2PR12MB3672namp_"
+	boundary="_000_CY4PR12MB1813D2AE8B11E5F190581995F74E0CY4PR12MB1813namp_"
 
---_000_CH2PR12MB3672D4DEA34F52AB2A5AF444BB4E0CH2PR12MB3672namp_
-Content-Type: text/plain; charset="iso-2022-jp"
+--_000_CY4PR12MB1813D2AE8B11E5F190581995F74E0CY4PR12MB1813namp_
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
-Sure=1B$B!$=1B(Bwill do that=1B$B!*=1B(B
-
-Thanks=1B$B!$=1B(B
-Jack
-
- Outlook for Android<https://aka.ms/ghei36>
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 ________________________________
-From: Deucher, Alexander <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Sent: Friday, November 22, 2019 12:00:04 AM
-To: Zhang, Jack (Jian) <Jack.Zhang1-5C7GfCeVMHo@public.gmane.org>; Alex Deucher <alexdeucher@gma=
-il.com>
-Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Subject: Re: [PATCH 2/2] drm/amd/amdgpu/sriov skip RLCG s/r list for arctur=
-us VF.
-
-You can have my RB on the first patch if you fix the compiler warnings.
-
-Alex
-________________________________
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Zhang, J=
-ack (Jian) <Jack.Zhang1-5C7GfCeVMHo@public.gmane.org>
-Sent: Thursday, November 21, 2019 10:58 AM
-To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Subject: Re: [PATCH 2/2] drm/amd/amdgpu/sriov skip RLCG s/r list for arctur=
-us VF.
-
-Thanks Alex for this review.
-
-Both of the two patches will not influence bare-metal code path.
-
-B. R.
-Jack
-
- Outlook for Android<https://nam11.safelinks.protection.outlook.com/?url=3D=
-https%3A%2F%2Faka.ms%2Fghei36&data=3D02%7C01%7Calexander.deucher%40amd.com%=
-7Cf350a586b8b840526a2c08d76e9bb538%7C3dd8961fe4884e608e11a82d994e183d%7C0%7=
-C0%7C637099487450051533&sdata=3DghsxwJqO5AO%2B2pBhPoQz70SkyYyeNCnA5FQMAHQVV=
-pI%3D&reserved=3D0>
-________________________________
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Sent: Thursday, November 21, 2019 11:26:37 PM
-To: Zhang, Jack (Jian) <Jack.Zhang1-5C7GfCeVMHo@public.gmane.org>
-Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Subject: Re: [PATCH 2/2] drm/amd/amdgpu/sriov skip RLCG s/r list for arctur=
-us VF.
-
-Nevermind.  I missed the sr-iov check. Patch is:
-Acked-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-
-On Thu, Nov 21, 2019 at 10:25 AM Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org> wrote=
-:
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Sent: Thursday, November 21, 2019 8:29 AM
+To: linux-kernel@vger.kernel.org <linux-kernel@vger.kernel.org>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>; Deucher, Alexander <Alexander.De=
+ucher@amd.com>; Koenig, Christian <Christian.Koenig@amd.com>; Zhou, David(C=
+hunMing) <David1.Zhou@amd.com>; David Airlie <airlied@linux.ie>; Daniel Vet=
+ter <daniel@ffwll.ch>; amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedes=
+ktop.org>; dri-devel@lists.freedesktop.org <dri-devel@lists.freedesktop.org=
 >
-> Won't this impact bare metal hw that needs this?
->
-> Alex
->
-> On Thu, Nov 21, 2019 at 1:17 AM Jack Zhang <Jack.Zhang1-5C7GfCeVMHo@public.gmane.org> wrote:
-> >
-> > After rlcg fw 2.1, kmd driver starts to load extra fw for
-> > LIST_CNTL,GPM_MEM,SRM_MEM. We needs to skip the three fw
-> > because all rlcg related fw have been loaded by host driver.
-> > Guest driver would load the three fw fail without this change.
-> >
-> > Signed-off-by: Jack Zhang <Jack.Zhang1-5C7GfCeVMHo@public.gmane.org>
-> > ---
-> >  drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c | 5 ++++-
-> >  1 file changed, 4 insertions(+), 1 deletion(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/=
-amd/amdgpu/amdgpu_psp.c
-> > index c3a42d3..eecde80 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-> > @@ -1470,7 +1470,10 @@ static int psp_np_fw_load(struct psp_context *ps=
-p)
-> >                     || ucode->ucode_id =3D=3D AMDGPU_UCODE_ID_SDMA5
-> >                     || ucode->ucode_id =3D=3D AMDGPU_UCODE_ID_SDMA6
-> >                     || ucode->ucode_id =3D=3D AMDGPU_UCODE_ID_SDMA7
-> > -                   || ucode->ucode_id =3D=3D AMDGPU_UCODE_ID_RLC_G))
-> > +                    || ucode->ucode_id =3D=3D AMDGPU_UCODE_ID_RLC_G
-> > +                   || ucode->ucode_id =3D=3D AMDGPU_UCODE_ID_RLC_RESTO=
-RE_LIST_CNTL
-> > +                   || ucode->ucode_id =3D=3D AMDGPU_UCODE_ID_RLC_RESTO=
-RE_LIST_GPM_MEM
-> > +                   || ucode->ucode_id =3D=3D AMDGPU_UCODE_ID_RLC_RESTO=
-RE_LIST_SRM_MEM))
-> >                         /*skip ucode loading in SRIOV VF */
-> >                         continue;
-> >
-> > --
-> > 2.7.4
-> >
-> > _______________________________________________
-> > amd-gfx mailing list
-> > amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-> > https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Flis=
-ts.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=3D02%7C01%7CJack=
-.Zhang1%40amd.com%7C62c30b71b3b8490862d808d76e973ae5%7C3dd8961fe4884e608e11=
-a82d994e183d%7C0%7C0%7C637099468112639673&amp;sdata=3DiC932sWNGrLeexp7wIDdr=
-Z7cjVBcFv5giOTC3uHdE%2Fk%3D&amp;reserved=3D0<https://nam11.safelinks.protec=
-tion.outlook.com/?url=3Dhttps%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flis=
-tinfo%2Famd-gfx&data=3D02%7C01%7Calexander.deucher%40amd.com%7Cf350a586b8b8=
-40526a2c08d76e9bb538%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637099487=
-450061527&sdata=3DFofOoED2ixVkMukh%2FOXH8mdtu%2B%2BwilXYGxbQVNRflUY%3D&rese=
-rved=3D0>
+Subject: [PATCH] drm/amd: Fix Kconfig indentation
 
---_000_CH2PR12MB3672D4DEA34F52AB2A5AF444BB4E0CH2PR12MB3672namp_
-Content-Type: text/html; charset="iso-2022-jp"
+Adjust indentation from spaces to tab (+optional two spaces) as in
+coding style with command like:
+        $ sed -e 's/^        /\t/' -i */Kconfig
+
+Signed-off-by: Krzysztof Kozlowski <krzk@kernel.org>
+---
+ drivers/gpu/drm/amd/acp/Kconfig | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/acp/Kconfig b/drivers/gpu/drm/amd/acp/Kcon=
+fig
+index d968c2471412..19bae9100da4 100644
+--- a/drivers/gpu/drm/amd/acp/Kconfig
++++ b/drivers/gpu/drm/amd/acp/Kconfig
+@@ -2,11 +2,11 @@
+ menu "ACP (Audio CoProcessor) Configuration"
+
+ config DRM_AMD_ACP
+-       bool "Enable AMD Audio CoProcessor IP support"
+-       depends on DRM_AMDGPU
+-       select MFD_CORE
+-       select PM_GENERIC_DOMAINS if PM
+-       help
++       bool "Enable AMD Audio CoProcessor IP support"
++       depends on DRM_AMDGPU
++       select MFD_CORE
++       select PM_GENERIC_DOMAINS if PM
++       help
+         Choose this option to enable ACP IP support for AMD SOCs.
+         This adds the ACP (Audio CoProcessor) IP driver and wires
+         it up into the amdgpu driver.  The ACP block provides the DMA
+--
+2.17.1
+
+
+--_000_CY4PR12MB1813D2AE8B11E5F190581995F74E0CY4PR12MB1813namp_
+Content-Type: text/html; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
 <html>
 <head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-2022-=
-jp">
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
 </head>
-<body>
-<div style=3D"color: rgb(33, 33, 33); background-color: rgb(255, 255, 255);=
- text-align: left;" dir=3D"auto">
-Sure=1B$B!$=1B(Bwill do that=1B$B!*=1B(B</div>
-<div style=3D"color: rgb(33, 33, 33); background-color: rgb(255, 255, 255);=
- text-align: left;" dir=3D"auto">
-<br>
+<body dir=3D"ltr">
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Reviewed-by: Alex Deucher &lt;alexander.deucher@amd.com&gt;<br>
 </div>
-<div style=3D"color: rgb(33, 33, 33); background-color: rgb(255, 255, 255);=
- text-align: left;" dir=3D"auto">
-Thanks=1B$B!$=1B(B</div>
-<div style=3D"color: rgb(33, 33, 33); background-color: rgb(255, 255, 255);=
- text-align: left;" dir=3D"auto">
-Jack</div>
-<div id=3D"ms-outlook-mobile-signature">
-<div><br>
-</div>
-&nbsp;<a href=3D"https://aka.ms/ghei36">Outlook for Android</a></div>
+<div id=3D"appendonsend"></div>
 <hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
 <div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Deucher, Alexander &l=
-t;Alexander.Deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
-<b>Sent:</b> Friday, November 22, 2019 12:00:04 AM<br>
-<b>To:</b> Zhang, Jack (Jian) &lt;Jack.Zhang1-5C7GfCeVMHo@public.gmane.org&gt;; Alex Deucher &lt=
-;alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;<br>
-<b>Cc:</b> amd-gfx list &lt;amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt;<br>
-<b>Subject:</b> Re: [PATCH 2/2] drm/amd/amdgpu/sriov skip RLCG s/r list for=
- arcturus VF.</font>
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Krzysztof Kozlowski &=
+lt;krzk@kernel.org&gt;<br>
+<b>Sent:</b> Thursday, November 21, 2019 8:29 AM<br>
+<b>To:</b> linux-kernel@vger.kernel.org &lt;linux-kernel@vger.kernel.org&gt=
+;<br>
+<b>Cc:</b> Krzysztof Kozlowski &lt;krzk@kernel.org&gt;; Deucher, Alexander =
+&lt;Alexander.Deucher@amd.com&gt;; Koenig, Christian &lt;Christian.Koenig@a=
+md.com&gt;; Zhou, David(ChunMing) &lt;David1.Zhou@amd.com&gt;; David Airlie=
+ &lt;airlied@linux.ie&gt;; Daniel Vetter &lt;daniel@ffwll.ch&gt;; amd-gfx@l=
+ists.freedesktop.org
+ &lt;amd-gfx@lists.freedesktop.org&gt;; dri-devel@lists.freedesktop.org &lt=
+;dri-devel@lists.freedesktop.org&gt;<br>
+<b>Subject:</b> [PATCH] drm/amd: Fix Kconfig indentation</font>
 <div>&nbsp;</div>
 </div>
-<style type=3D"text/css" style=3D"display:none">
-<!--
-p
-	{margin-top:0;
-	margin-bottom:0}
--->
-</style>
-<div dir=3D"ltr">
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
-t; color:rgb(0,0,0)">
-You can have my RB on the first patch if you fix the compiler warnings.</di=
-v>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
-t; color:rgb(0,0,0)">
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">Adjust indentation from spaces to tab (&#43;option=
+al two spaces) as in<br>
+coding style with command like:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; $ sed -e 's/^&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp; /\t/' -i */Kconfig<br>
 <br>
-</div>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
-t; color:rgb(0,0,0)">
-Alex<br>
-</div>
-<div id=3D"x_appendonsend"></div>
-<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
-<div id=3D"x_divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" =
-color=3D"#000000" style=3D"font-size:11pt"><b>From:</b> amd-gfx &lt;amd-gfx=
--bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Zhang, Jack (Jian) &lt;Jack=
-.Zhang1-5C7GfCeVMHo@public.gmane.org&gt;<br>
-<b>Sent:</b> Thursday, November 21, 2019 10:58 AM<br>
-<b>To:</b> Alex Deucher &lt;alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;<br>
-<b>Cc:</b> amd-gfx list &lt;amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt;<br>
-<b>Subject:</b> Re: [PATCH 2/2] drm/amd/amdgpu/sriov skip RLCG s/r list for=
- arcturus VF.</font>
-<div>&nbsp;</div>
-</div>
-<div>
-<div dir=3D"auto" style=3D"color:rgb(33,33,33); background-color:rgb(255,25=
-5,255); text-align:left">
-Thanks Alex for this review.&nbsp;</div>
-<div dir=3D"auto" style=3D"color:rgb(33,33,33); background-color:rgb(255,25=
-5,255); text-align:left">
+Signed-off-by: Krzysztof Kozlowski &lt;krzk@kernel.org&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/acp/Kconfig | 10 &#43;&#43;&#43;&#43;&#43;-----<b=
+r>
+&nbsp;1 file changed, 5 insertions(&#43;), 5 deletions(-)<br>
 <br>
-</div>
-<div dir=3D"auto" style=3D"color:rgb(33,33,33); background-color:rgb(255,25=
-5,255); text-align:left">
-Both of the two patches will not influence bare-metal code path.&nbsp;</div=
->
-<div dir=3D"auto" style=3D"color:rgb(33,33,33); background-color:rgb(255,25=
-5,255); text-align:left">
+diff --git a/drivers/gpu/drm/amd/acp/Kconfig b/drivers/gpu/drm/amd/acp/Kcon=
+fig<br>
+index d968c2471412..19bae9100da4 100644<br>
+--- a/drivers/gpu/drm/amd/acp/Kconfig<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/acp/Kconfig<br>
+@@ -2,11 &#43;2,11 @@<br>
+&nbsp;menu &quot;ACP (Audio CoProcessor) Configuration&quot;<br>
+&nbsp;<br>
+&nbsp;config DRM_AMD_ACP<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool &quot;Enable AMD Audio CoProcess=
+or IP support&quot;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; depends on DRM_AMDGPU<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; select MFD_CORE<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; select PM_GENERIC_DOMAINS if PM<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; help<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool &quot;Enable AMD Audio CoPro=
+cessor IP support&quot;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; depends on DRM_AMDGPU<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; select MFD_CORE<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; select PM_GENERIC_DOMAINS if PM<b=
+r>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; help<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Choose this option to enab=
+le ACP IP support for AMD SOCs.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; This adds the ACP (Audio C=
+oProcessor) IP driver and wires<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; it up into the amdgpu driv=
+er.&nbsp; The ACP block provides the DMA<br>
+-- <br>
+2.17.1<br>
 <br>
-</div>
-<div dir=3D"auto" style=3D"color:rgb(33,33,33); background-color:rgb(255,25=
-5,255); text-align:left">
-B. R.&nbsp;</div>
-<div dir=3D"auto" style=3D"color:rgb(33,33,33); background-color:rgb(255,25=
-5,255); text-align:left">
-Jack&nbsp;</div>
-<div id=3D"x_x_ms-outlook-mobile-signature">
-<div><br>
-</div>
-&nbsp;<a href=3D"https://nam11.safelinks.protection.outlook.com/?url=3Dhttp=
-s%3A%2F%2Faka.ms%2Fghei36&amp;data=3D02%7C01%7Calexander.deucher%40amd.com%=
-7Cf350a586b8b840526a2c08d76e9bb538%7C3dd8961fe4884e608e11a82d994e183d%7C0%7=
-C0%7C637099487450051533&amp;sdata=3DghsxwJqO5AO%2B2pBhPoQz70SkyYyeNCnA5FQMA=
-HQVVpI%3D&amp;reserved=3D0" originalsrc=3D"https://aka.ms/ghei36" shash=3D"=
-bHmwcig1c/ivEqfeQ&#43;XaQVVUj7qxHWBGX0ldZKiB9DSebI34lBdHcxM/Dv4d5JgvZCjm59f=
-MeIc1SzAHsirRMN2AZXVyZV&#43;f3SSQTlSvL09Z3BU7VECCkuGcwwRL&#43;6WRjaeE0tZw3&=
-#43;IZJB3cgsdVUZswyTbL/cnsG&#43;2zvEJDQk8=3D">Outlook
- for Android</a></div>
-<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
-<div id=3D"x_x_divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif=
-" color=3D"#000000" style=3D"font-size:11pt"><b>From:</b> Alex Deucher &lt;=
-alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;<br>
-<b>Sent:</b> Thursday, November 21, 2019 11:26:37 PM<br>
-<b>To:</b> Zhang, Jack (Jian) &lt;Jack.Zhang1-5C7GfCeVMHo@public.gmane.org&gt;<br>
-<b>Cc:</b> amd-gfx list &lt;amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt;<br>
-<b>Subject:</b> Re: [PATCH 2/2] drm/amd/amdgpu/sriov skip RLCG s/r list for=
- arcturus VF.</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"x_x_BodyFragment"><font size=3D"2"><span style=3D"font-size:1=
-1pt">
-<div class=3D"x_x_PlainText">Nevermind.&nbsp; I missed the sr-iov check. Pa=
-tch is:<br>
-Acked-by: Alex Deucher &lt;alexander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
-<br>
-On Thu, Nov 21, 2019 at 10:25 AM Alex Deucher &lt;alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;=
- wrote:<br>
-&gt;<br>
-&gt; Won't this impact bare metal hw that needs this?<br>
-&gt;<br>
-&gt; Alex<br>
-&gt;<br>
-&gt; On Thu, Nov 21, 2019 at 1:17 AM Jack Zhang &lt;Jack.Zhang1-5C7GfCeVMHo@public.gmane.org&gt;=
- wrote:<br>
-&gt; &gt;<br>
-&gt; &gt; After rlcg fw 2.1, kmd driver starts to load extra fw for<br>
-&gt; &gt; LIST_CNTL,GPM_MEM,SRM_MEM. We needs to skip the three fw<br>
-&gt; &gt; because all rlcg related fw have been loaded by host driver.<br>
-&gt; &gt; Guest driver would load the three fw fail without this change.<br=
->
-&gt; &gt;<br>
-&gt; &gt; Signed-off-by: Jack Zhang &lt;Jack.Zhang1-5C7GfCeVMHo@public.gmane.org&gt;<br>
-&gt; &gt; ---<br>
-&gt; &gt;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c | 5 &#43;&#43;&#43;=
-&#43;-<br>
-&gt; &gt;&nbsp; 1 file changed, 4 insertions(&#43;), 1 deletion(-)<br>
-&gt; &gt;<br>
-&gt; &gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gp=
-u/drm/amd/amdgpu/amdgpu_psp.c<br>
-&gt; &gt; index c3a42d3..eecde80 100644<br>
-&gt; &gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c<br>
-&gt; &gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c<br>
-&gt; &gt; @@ -1470,7 &#43;1470,10 @@ static int psp_np_fw_load(struct psp_c=
-ontext *psp)<br>
-&gt; &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; || ucode-&gt;ucode_i=
-d =3D=3D AMDGPU_UCODE_ID_SDMA5<br>
-&gt; &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; || ucode-&gt;ucode_i=
-d =3D=3D AMDGPU_UCODE_ID_SDMA6<br>
-&gt; &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; || ucode-&gt;ucode_i=
-d =3D=3D AMDGPU_UCODE_ID_SDMA7<br>
-&gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; || ucode-&gt;ucode_id =3D=3D A=
-MDGPU_UCODE_ID_RLC_G))<br>
-&gt; &gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; || ucode-&gt;ucode_i=
-d =3D=3D AMDGPU_UCODE_ID_RLC_G<br>
-&gt; &gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; || ucode-&gt;ucode_id =3D=
-=3D AMDGPU_UCODE_ID_RLC_RESTORE_LIST_CNTL<br>
-&gt; &gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; || ucode-&gt;ucode_id =3D=
-=3D AMDGPU_UCODE_ID_RLC_RESTORE_LIST_GPM_MEM<br>
-&gt; &gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; || ucode-&gt;ucode_id =3D=
-=3D AMDGPU_UCODE_ID_RLC_RESTORE_LIST_SRM_MEM))<br>
-&gt; &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; /*skip ucode loading in SRIOV VF */<br>
-&gt; &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; continue;<br>
-&gt; &gt;<br>
-&gt; &gt; --<br>
-&gt; &gt; 2.7.4<br>
-&gt; &gt;<br>
-&gt; &gt; _______________________________________________<br>
-&gt; &gt; amd-gfx mailing list<br>
-&gt; &gt; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-&gt; &gt; <a href=3D"https://nam11.safelinks.protection.outlook.com/?url=3D=
-https%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=
-=3D02%7C01%7Calexander.deucher%40amd.com%7Cf350a586b8b840526a2c08d76e9bb538=
-%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637099487450061527&amp;sdata=
-=3DFofOoED2ixVkMukh%2FOXH8mdtu%2B%2BwilXYGxbQVNRflUY%3D&amp;reserved=3D0" o=
-riginalsrc=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" shash=
-=3D"v1wCxGgg8h9LTcYJBtTSE1i9EQ0P8bypOgG8IUjTyL5b8gnqWtckORm0cOCP4ZsSuMlCGFP=
-0/KAzPSTzYHfZYt/EpzzHHQZAyKTUtPOQB1UIBUKYSv9OT7ETsISxGQV8lQDDptOXqvWD8VKJaA=
-WTW8Bn2p45WHhlCyoRPwKEISc=3D">
-https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Flists.f=
-reedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;amp;data=3D02%7C01%7CJack=
-.Zhang1%40amd.com%7C62c30b71b3b8490862d808d76e973ae5%7C3dd8961fe4884e608e11=
-a82d994e183d%7C0%7C0%7C637099468112639673&amp;amp;sdata=3DiC932sWNGrLeexp7w=
-IDdrZ7cjVBcFv5giOTC3uHdE%2Fk%3D&amp;amp;reserved=3D0</a><br>
 </div>
 </span></font></div>
-</div>
-</div>
 </body>
 </html>
 
---_000_CH2PR12MB3672D4DEA34F52AB2A5AF444BB4E0CH2PR12MB3672namp_--
+--_000_CY4PR12MB1813D2AE8B11E5F190581995F74E0CY4PR12MB1813namp_--
 
---===============1355808043==
+--===============0849829786==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
 Content-Disposition: inline
 
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KZHJpLWRldmVs
+IG1haWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
+dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVs
 
---===============1355808043==--
+--===============0849829786==--
