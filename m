@@ -1,17 +1,18 @@
-From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+From: "Zhang, Jack (Jian)" <Jack.Zhang1-5C7GfCeVMHo@public.gmane.org>
 Subject: Re: [PATCH 2/2] drm/amd/amdgpu/sriov skip RLCG s/r list for arcturus
  VF.
-Date: Thu, 21 Nov 2019 16:00:04 +0000
-Message-ID: <CY4PR12MB181333EBFDD75B8664F319CAF74E0@CY4PR12MB1813.namprd12.prod.outlook.com>
+Date: Thu, 21 Nov 2019 16:04:56 +0000
+Message-ID: <CH2PR12MB3672D4DEA34F52AB2A5AF444BB4E0@CH2PR12MB3672.namprd12.prod.outlook.com>
 References: <20191121061707.25958-1-Jack.Zhang1@amd.com>
  <CADnq5_MrfFWAjC__9ccB46CYzdcLWP=DPKD70aXAm862DJLu1g@mail.gmail.com>,
  <CADnq5_OE8xi7TmgxWe2PiWVxM8pVhxAtYF=CTtT7AHOhrUhEyA@mail.gmail.com>,
- <CH2PR12MB3672F73E41AF7AEBCAC81053BB4E0@CH2PR12MB3672.namprd12.prod.outlook.com>
+ <CH2PR12MB3672F73E41AF7AEBCAC81053BB4E0@CH2PR12MB3672.namprd12.prod.outlook.com>,
+ <CY4PR12MB181333EBFDD75B8664F319CAF74E0@CY4PR12MB1813.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1118050713=="
+Content-Type: multipart/mixed; boundary="===============1355808043=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CH2PR12MB3672F73E41AF7AEBCAC81053BB4E0-rV3HgkLYx2W31Hpknp8SDAdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
-Content-Language: en-US
+In-Reply-To: <CY4PR12MB181333EBFDD75B8664F319CAF74E0-rpdhrqHFk05Nhq0cRkx5WwdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
+Content-Language: zh-CN
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -22,17 +23,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Zhang, Jack (Jian)" <Jack.Zhang1-5C7GfCeVMHo@public.gmane.org>, Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+To: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============1118050713==
-Content-Language: en-US
+--===============1355808043==
+Content-Language: zh-CN
 Content-Type: multipart/alternative;
-	boundary="_000_CY4PR12MB181333EBFDD75B8664F319CAF74E0CY4PR12MB1813namp_"
+	boundary="_000_CH2PR12MB3672D4DEA34F52AB2A5AF444BB4E0CH2PR12MB3672namp_"
 
---_000_CY4PR12MB181333EBFDD75B8664F319CAF74E0CY4PR12MB1813namp_
-Content-Type: text/plain; charset="us-ascii"
+--_000_CH2PR12MB3672D4DEA34F52AB2A5AF444BB4E0CH2PR12MB3672namp_
+Content-Type: text/plain; charset="iso-2022-jp"
 Content-Transfer-Encoding: quoted-printable
+
+Sure=1B$B!$=1B(Bwill do that=1B$B!*=1B(B
+
+Thanks=1B$B!$=1B(B
+Jack
+
+ Outlook for Android<https://aka.ms/ghei36>
+________________________________
+From: Deucher, Alexander <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Sent: Friday, November 22, 2019 12:00:04 AM
+To: Zhang, Jack (Jian) <Jack.Zhang1-5C7GfCeVMHo@public.gmane.org>; Alex Deucher <alexdeucher@gma=
+il.com>
+Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Subject: Re: [PATCH 2/2] drm/amd/amdgpu/sriov skip RLCG s/r list for arctur=
+us VF.
 
 You can have my RB on the first patch if you fix the compiler warnings.
 
@@ -126,36 +142,71 @@ tinfo%2Famd-gfx&data=3D02%7C01%7Calexander.deucher%40amd.com%7Cf350a586b8b8=
 450061527&sdata=3DFofOoED2ixVkMukh%2FOXH8mdtu%2B%2BwilXYGxbQVNRflUY%3D&rese=
 rved=3D0>
 
---_000_CY4PR12MB181333EBFDD75B8664F319CAF74E0CY4PR12MB1813namp_
-Content-Type: text/html; charset="us-ascii"
+--_000_CH2PR12MB3672D4DEA34F52AB2A5AF444BB4E0CH2PR12MB3672namp_
+Content-Type: text/html; charset="iso-2022-jp"
 Content-Transfer-Encoding: quoted-printable
 
 <html>
 <head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-2022-=
+jp">
 </head>
-<body dir=3D"ltr">
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-You can have my RB on the first patch if you fix the compiler warnings.</di=
-v>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
+<body>
+<div style=3D"color: rgb(33, 33, 33); background-color: rgb(255, 255, 255);=
+ text-align: left;" dir=3D"auto">
+Sure=1B$B!$=1B(Bwill do that=1B$B!*=1B(B</div>
+<div style=3D"color: rgb(33, 33, 33); background-color: rgb(255, 255, 255);=
+ text-align: left;" dir=3D"auto">
 <br>
 </div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Alex<br>
+<div style=3D"color: rgb(33, 33, 33); background-color: rgb(255, 255, 255);=
+ text-align: left;" dir=3D"auto">
+Thanks=1B$B!$=1B(B</div>
+<div style=3D"color: rgb(33, 33, 33); background-color: rgb(255, 255, 255);=
+ text-align: left;" dir=3D"auto">
+Jack</div>
+<div id=3D"ms-outlook-mobile-signature">
+<div><br>
 </div>
-<div id=3D"appendonsend"></div>
+&nbsp;<a href=3D"https://aka.ms/ghei36">Outlook for Android</a></div>
 <hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
 <div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
-ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Zhang, Jack (Jian) &lt;Jack.Z=
-hang1-5C7GfCeVMHo@public.gmane.org&gt;<br>
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Deucher, Alexander &l=
+t;Alexander.Deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
+<b>Sent:</b> Friday, November 22, 2019 12:00:04 AM<br>
+<b>To:</b> Zhang, Jack (Jian) &lt;Jack.Zhang1-5C7GfCeVMHo@public.gmane.org&gt;; Alex Deucher &lt=
+;alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;<br>
+<b>Cc:</b> amd-gfx list &lt;amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt;<br>
+<b>Subject:</b> Re: [PATCH 2/2] drm/amd/amdgpu/sriov skip RLCG s/r list for=
+ arcturus VF.</font>
+<div>&nbsp;</div>
+</div>
+<style type=3D"text/css" style=3D"display:none">
+<!--
+p
+	{margin-top:0;
+	margin-bottom:0}
+-->
+</style>
+<div dir=3D"ltr">
+<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
+t; color:rgb(0,0,0)">
+You can have my RB on the first patch if you fix the compiler warnings.</di=
+v>
+<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
+t; color:rgb(0,0,0)">
+<br>
+</div>
+<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
+t; color:rgb(0,0,0)">
+Alex<br>
+</div>
+<div id=3D"x_appendonsend"></div>
+<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
+<div id=3D"x_divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" =
+color=3D"#000000" style=3D"font-size:11pt"><b>From:</b> amd-gfx &lt;amd-gfx=
+-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Zhang, Jack (Jian) &lt;Jack=
+.Zhang1-5C7GfCeVMHo@public.gmane.org&gt;<br>
 <b>Sent:</b> Thursday, November 21, 2019 10:58 AM<br>
 <b>To:</b> Alex Deucher &lt;alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;<br>
 <b>Cc:</b> amd-gfx list &lt;amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt;<br>
@@ -185,7 +236,7 @@ B. R.&nbsp;</div>
 <div dir=3D"auto" style=3D"color:rgb(33,33,33); background-color:rgb(255,25=
 5,255); text-align:left">
 Jack&nbsp;</div>
-<div id=3D"x_ms-outlook-mobile-signature">
+<div id=3D"x_x_ms-outlook-mobile-signature">
 <div><br>
 </div>
 &nbsp;<a href=3D"https://nam11.safelinks.protection.outlook.com/?url=3Dhttp=
@@ -198,9 +249,9 @@ MeIc1SzAHsirRMN2AZXVyZV&#43;f3SSQTlSvL09Z3BU7VECCkuGcwwRL&#43;6WRjaeE0tZw3&=
 #43;IZJB3cgsdVUZswyTbL/cnsG&#43;2zvEJDQk8=3D">Outlook
  for Android</a></div>
 <hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
-<div id=3D"x_divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" =
-color=3D"#000000" style=3D"font-size:11pt"><b>From:</b> Alex Deucher &lt;al=
-exdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;<br>
+<div id=3D"x_x_divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif=
+" color=3D"#000000" style=3D"font-size:11pt"><b>From:</b> Alex Deucher &lt;=
+alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;<br>
 <b>Sent:</b> Thursday, November 21, 2019 11:26:37 PM<br>
 <b>To:</b> Zhang, Jack (Jian) &lt;Jack.Zhang1-5C7GfCeVMHo@public.gmane.org&gt;<br>
 <b>Cc:</b> amd-gfx list &lt;amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt;<br>
@@ -208,10 +259,10 @@ exdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;<br>
  arcturus VF.</font>
 <div>&nbsp;</div>
 </div>
-<div class=3D"x_BodyFragment"><font size=3D"2"><span style=3D"font-size:11p=
-t">
-<div class=3D"x_PlainText">Nevermind.&nbsp; I missed the sr-iov check. Patc=
-h is:<br>
+<div class=3D"x_x_BodyFragment"><font size=3D"2"><span style=3D"font-size:1=
+1pt">
+<div class=3D"x_x_PlainText">Nevermind.&nbsp; I missed the sr-iov check. Pa=
+tch is:<br>
 Acked-by: Alex Deucher &lt;alexander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
 <br>
 On Thu, Nov 21, 2019 at 10:25 AM Alex Deucher &lt;alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;=
@@ -297,12 +348,13 @@ IDdrZ7cjVBcFv5giOTC3uHdE%2Fk%3D&amp;amp;reserved=3D0</a><br>
 </div>
 </span></font></div>
 </div>
+</div>
 </body>
 </html>
 
---_000_CY4PR12MB181333EBFDD75B8664F319CAF74E0CY4PR12MB1813namp_--
+--_000_CH2PR12MB3672D4DEA34F52AB2A5AF444BB4E0CH2PR12MB3672namp_--
 
---===============1118050713==
+--===============1355808043==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -312,4 +364,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
 
---===============1118050713==--
+--===============1355808043==--
