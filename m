@@ -1,52 +1,92 @@
-From: Alex Deucher <alexdeucher@gmail.com>
-Subject: Re: [PATCH][next] drm/amdgpu: remove redundant assignment to pointer write_frame
-Date: Thu, 21 Nov 2019 13:35:59 -0500
-Message-ID: <CADnq5_OGNUUvixju5qJf7Q_iYu--LAD3LWhXB4pkQFpjS5HpMQ@mail.gmail.com>
-References: <20191121165401.405845-1-colin.king@canonical.com>
+From: Dave Airlie <airlied-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu: move pci handling out of pm ops
+Date: Fri, 22 Nov 2019 05:53:10 +1000
+Message-ID: <CAPM=9twAwCJaXHS=cWNCihsyfydAKqQ1igjLt1g_vbFBL0bdMg@mail.gmail.com>
+References: <20191121165529.3941-1-alexander.deucher@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20191121165401.405845-1-colin.king@canonical.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Colin King <colin.king@canonical.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, David Zhou <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, amd-gfx list <amd-gfx@lists.freedesktop.org>, Maling list - DRI developers <dri-devel@lists.freedesktop.org>, kernel-janitors@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20191121165529.3941-1-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, amd-gfx mailing list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-Applied.  thanks!
-
-Alex
-
-On Thu, Nov 21, 2019 at 11:54 AM Colin King <colin.king@canonical.com> wrote:
->
-> From: Colin Ian King <colin.king@canonical.com>
->
-> The pointer write_frame is being initialized with a value that is
-> never read and it is being updated later with a new value. The
-> initialization is redundant and can be removed.
->
-> Addresses-Coverity: ("Unused value")
-> Signed-off-by: Colin Ian King <colin.king@canonical.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-> index 2a8a08aa6eaf..c02f9ffe5c6b 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-> @@ -1728,7 +1728,7 @@ int psp_ring_cmd_submit(struct psp_context *psp,
->                         int index)
->  {
->         unsigned int psp_write_ptr_reg = 0;
-> -       struct psp_gfx_rb_frame *write_frame = psp->km_ring.ring_mem;
-> +       struct psp_gfx_rb_frame *write_frame;
->         struct psp_ring *ring = &psp->km_ring;
->         struct psp_gfx_rb_frame *ring_buffer_start = ring->ring_mem;
->         struct psp_gfx_rb_frame *ring_buffer_end = ring_buffer_start +
-> --
-> 2.24.0
->
-> _______________________________________________
-> dri-devel mailing list
-> dri-devel@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/dri-devel
+T24gRnJpLCAyMiBOb3YgMjAxOSBhdCAwMjo1NSwgQWxleCBEZXVjaGVyIDxhbGV4ZGV1Y2hlckBn
+bWFpbC5jb20+IHdyb3RlOgo+Cj4gVGhlIGRvY3VtZW50YXRpb24gc2F5cyB0aGUgdGhhdCBQQ0kg
+Y29yZSBoYW5kbGVzIHRoaXMKPiBmb3IgeW91IHVubGVzcyB5b3UgY2hvb3NlIHRvIGltcGxlbWVu
+dCBpdC4gIEp1c3QgcmVseQo+IG9uIHRoZSBQQ0kgY29yZSB0byBoYW5kbGUgdGhlIHBjaSBzcGVj
+aWZpYyBiaXRzLgo+Cj4gU2lnbmVkLW9mZi1ieTogQWxleCBEZXVjaGVyIDxhbGV4YW5kZXIuZGV1
+Y2hlckBhbWQuY29tPgo+IC0tLQo+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHUu
+aCAgICAgICAgfCAgNCArLS0KPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rl
+dmljZS5jIHwgMzMgKysrKysrKysrLS0tLS0tLS0tLS0tLQo+ICBkcml2ZXJzL2dwdS9kcm0vYW1k
+L2FtZGdwdS9hbWRncHVfZHJ2LmMgICAgfCAxNiArKysrKy0tLS0tLQo+ICAzIGZpbGVzIGNoYW5n
+ZWQsIDI0IGluc2VydGlvbnMoKyksIDI5IGRlbGV0aW9ucygtKQo+Cj4gZGlmZiAtLWdpdCBhL2Ry
+aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5oIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9h
+bWRncHUvYW1kZ3B1LmgKPiBpbmRleCA5Nzg0MzQ2MmMyZmIuLjJlOWQwYmUwNWYyZiAxMDA2NDQK
+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHUuaAo+ICsrKyBiL2RyaXZl
+cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5oCj4gQEAgLTExOTEsOCArMTE5MSw4IEBAIGlu
+dCBhbWRncHVfZHJpdmVyX29wZW5fa21zKHN0cnVjdCBkcm1fZGV2aWNlICpkZXYsIHN0cnVjdCBk
+cm1fZmlsZSAqZmlsZV9wcml2KTsKPiAgdm9pZCBhbWRncHVfZHJpdmVyX3Bvc3RjbG9zZV9rbXMo
+c3RydWN0IGRybV9kZXZpY2UgKmRldiwKPiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICBzdHJ1Y3QgZHJtX2ZpbGUgKmZpbGVfcHJpdik7Cj4gIGludCBhbWRncHVfZGV2aWNlX2lwX3N1
+c3BlbmQoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpOwo+IC1pbnQgYW1kZ3B1X2RldmljZV9z
+dXNwZW5kKHN0cnVjdCBkcm1fZGV2aWNlICpkZXYsIGJvb2wgc3VzcGVuZCwgYm9vbCBmYmNvbik7
+Cj4gLWludCBhbWRncHVfZGV2aWNlX3Jlc3VtZShzdHJ1Y3QgZHJtX2RldmljZSAqZGV2LCBib29s
+IHJlc3VtZSwgYm9vbCBmYmNvbik7Cj4gK2ludCBhbWRncHVfZGV2aWNlX3N1c3BlbmQoc3RydWN0
+IGRybV9kZXZpY2UgKmRldiwgYm9vbCBmYmNvbik7Cj4gK2ludCBhbWRncHVfZGV2aWNlX3Jlc3Vt
+ZShzdHJ1Y3QgZHJtX2RldmljZSAqZGV2LCBib29sIGZiY29uKTsKPiAgdTMyIGFtZGdwdV9nZXRf
+dmJsYW5rX2NvdW50ZXJfa21zKHN0cnVjdCBkcm1fZGV2aWNlICpkZXYsIHVuc2lnbmVkIGludCBw
+aXBlKTsKPiAgaW50IGFtZGdwdV9lbmFibGVfdmJsYW5rX2ttcyhzdHJ1Y3QgZHJtX2RldmljZSAq
+ZGV2LCB1bnNpZ25lZCBpbnQgcGlwZSk7Cj4gIHZvaWQgYW1kZ3B1X2Rpc2FibGVfdmJsYW5rX2tt
+cyhzdHJ1Y3QgZHJtX2RldmljZSAqZGV2LCB1bnNpZ25lZCBpbnQgcGlwZSk7Cj4gZGlmZiAtLWdp
+dCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYyBiL2RyaXZlcnMv
+Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYwo+IGluZGV4IGIxNDA4YzVlNDY0MC4u
+ZDgzMmJkMjJiYTlkIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
+ZGdwdV9kZXZpY2UuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9k
+ZXZpY2UuYwo+IEBAIC0xMDkwLDYgKzEwOTAsNyBAQCBzdGF0aWMgaW50IGFtZGdwdV9kZXZpY2Vf
+Y2hlY2tfYXJndW1lbnRzKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQo+ICBzdGF0aWMgdm9p
+ZCBhbWRncHVfc3dpdGNoZXJvb19zZXRfc3RhdGUoc3RydWN0IHBjaV9kZXYgKnBkZXYsIGVudW0g
+dmdhX3N3aXRjaGVyb29fc3RhdGUgc3RhdGUpCj4gIHsKPiAgICAgICAgIHN0cnVjdCBkcm1fZGV2
+aWNlICpkZXYgPSBwY2lfZ2V0X2RydmRhdGEocGRldik7Cj4gKyAgICAgICBpbnQgcjsKPgo+ICAg
+ICAgICAgaWYgKGFtZGdwdV9kZXZpY2Vfc3VwcG9ydHNfYm9jbyhkZXYpICYmIHN0YXRlID09IFZH
+QV9TV0lUQ0hFUk9PX09GRikKPiAgICAgICAgICAgICAgICAgcmV0dXJuOwo+IEBAIC0xMDk5LDcg
+KzExMDAsMTIgQEAgc3RhdGljIHZvaWQgYW1kZ3B1X3N3aXRjaGVyb29fc2V0X3N0YXRlKHN0cnVj
+dCBwY2lfZGV2ICpwZGV2LCBlbnVtIHZnYV9zd2l0Y2hlcm8KPiAgICAgICAgICAgICAgICAgLyog
+ZG9uJ3Qgc3VzcGVuZCBvciByZXN1bWUgY2FyZCBub3JtYWxseSAqLwo+ICAgICAgICAgICAgICAg
+ICBkZXYtPnN3aXRjaF9wb3dlcl9zdGF0ZSA9IERSTV9TV0lUQ0hfUE9XRVJfQ0hBTkdJTkc7Cj4K
+PiAtICAgICAgICAgICAgICAgYW1kZ3B1X2RldmljZV9yZXN1bWUoZGV2LCB0cnVlLCB0cnVlKTsK
+PiArICAgICAgICAgICAgICAgcGNpX3NldF9wb3dlcl9zdGF0ZShkZXYtPnBkZXYsIFBDSV9EMCk7
+Cj4gKyAgICAgICAgICAgICAgIHBjaV9yZXN0b3JlX3N0YXRlKGRldi0+cGRldik7Cj4gKyAgICAg
+ICAgICAgICAgIHIgPSBwY2lfZW5hYmxlX2RldmljZShkZXYtPnBkZXYpOwo+ICsgICAgICAgICAg
+ICAgICBpZiAocikKPiArICAgICAgICAgICAgICAgICAgICAgICBEUk1fV0FSTigicGNpX2VuYWJs
+ZV9kZXZpY2UgZmFpbGVkICglZClcbiIsIHIpOwo+ICsgICAgICAgICAgICAgICBhbWRncHVfZGV2
+aWNlX3Jlc3VtZShkZXYsIHRydWUpOwo+Cj4gICAgICAgICAgICAgICAgIGRldi0+c3dpdGNoX3Bv
+d2VyX3N0YXRlID0gRFJNX1NXSVRDSF9QT1dFUl9PTjsKPiAgICAgICAgICAgICAgICAgZHJtX2tt
+c19oZWxwZXJfcG9sbF9lbmFibGUoZGV2KTsKPiBAQCAtMTEwNyw3ICsxMTEzLDExIEBAIHN0YXRp
+YyB2b2lkIGFtZGdwdV9zd2l0Y2hlcm9vX3NldF9zdGF0ZShzdHJ1Y3QgcGNpX2RldiAqcGRldiwg
+ZW51bSB2Z2Ffc3dpdGNoZXJvCj4gICAgICAgICAgICAgICAgIHByX2luZm8oImFtZGdwdTogc3dp
+dGNoZWQgb2ZmXG4iKTsKPiAgICAgICAgICAgICAgICAgZHJtX2ttc19oZWxwZXJfcG9sbF9kaXNh
+YmxlKGRldik7Cj4gICAgICAgICAgICAgICAgIGRldi0+c3dpdGNoX3Bvd2VyX3N0YXRlID0gRFJN
+X1NXSVRDSF9QT1dFUl9DSEFOR0lORzsKPiAtICAgICAgICAgICAgICAgYW1kZ3B1X2RldmljZV9z
+dXNwZW5kKGRldiwgdHJ1ZSwgdHJ1ZSk7Cj4gKyAgICAgICAgICAgICAgIGFtZGdwdV9kZXZpY2Vf
+c3VzcGVuZChkZXYsIHRydWUpOwo+ICsgICAgICAgICAgICAgICBwY2lfc2F2ZV9zdGF0ZShkZXYt
+PnBkZXYpOwo+ICsgICAgICAgICAgICAgICAvKiBTaHV0IGRvd24gdGhlIGRldmljZSAqLwo+ICsg
+ICAgICAgICAgICAgICBwY2lfZGlzYWJsZV9kZXZpY2UoZGV2LT5wZGV2KTsKPiArICAgICAgICAg
+ICAgICAgcGNpX3NldF9wb3dlcl9zdGF0ZShkZXYtPnBkZXYsIFBDSV9EM2NvbGQpOwoKCkkgdGhp
+bmsgdGhpcyB3aWxsIGJyZWFrIEQzIGNvbGQgb24gQVRQWCBzeXN0ZW1zIChpLmUuIGJlZm9yZSBQ
+Q0lFIGQzCmNvbGQgc3VwcG9ydCkuCgpJJ20gbm90IDEwMCUgc3VyZSBidXQgSSdkIHJlYWxseSBs
+aWtlIHRvIHRlc3QgaXQsIGFzIEkgZG9uJ3QgdGhpbmsgdGhlCmNvcmUgd2lsbCBwdXQgdGhlIGRl
+dmljZSBpbnRvIEQzY29sZCBmb3IgdXMgaGVyZS4KCkRhdmUuCl9fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhA
+bGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxt
+YW4vbGlzdGluZm8vYW1kLWdmeA==
