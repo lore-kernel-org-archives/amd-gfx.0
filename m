@@ -1,42 +1,70 @@
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Subject: [PATCH] drm/amd: Fix Kconfig indentation
-Date: Thu, 21 Nov 2019 21:29:30 +0800
-Message-ID: <20191121132930.29544-1-krzk@kernel.org>
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Sender: linux-kernel-owner@vger.kernel.org
-To: linux-kernel@vger.kernel.org
-Cc: Krzysztof Kozlowski <krzk@kernel.org>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-List-Id: amd-gfx.lists.freedesktop.org
+From: "Kazlauskas, Nicholas" <nicholas.kazlauskas-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH v2] drm/amd/display: Fix Apple dongle cannot be
+ successfully detected
+Date: Thu, 21 Nov 2019 08:40:53 -0500
+Message-ID: <3c30b486-7062-ade2-0dbd-7288fbf595c1@amd.com>
+References: <20191114034212.1106-1-Ching-shih.Li@amd.com>
+ <MN2PR12MB406250AEB8A10A080050D952AA4E0@MN2PR12MB4062.namprd12.prod.outlook.com>
+Mime-Version: 1.0
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <MN2PR12MB406250AEB8A10A080050D952AA4E0-rweVpJHSKTr3rx73VqdDCgdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Li, Ching-shih (Louis)" <Ching-shih.Li-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Wentland, Harry" <Harry.Wentland-5C7GfCeVMHo@public.gmane.org>
 
-Adjust indentation from spaces to tab (+optional two spaces) as in
-coding style with command like:
-	$ sed -e 's/^        /\t/' -i */Kconfig
-
-Signed-off-by: Krzysztof Kozlowski <krzk@kernel.org>
----
- drivers/gpu/drm/amd/acp/Kconfig | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/acp/Kconfig b/drivers/gpu/drm/amd/acp/Kconfig
-index d968c2471412..19bae9100da4 100644
---- a/drivers/gpu/drm/amd/acp/Kconfig
-+++ b/drivers/gpu/drm/amd/acp/Kconfig
-@@ -2,11 +2,11 @@
- menu "ACP (Audio CoProcessor) Configuration"
- 
- config DRM_AMD_ACP
--       bool "Enable AMD Audio CoProcessor IP support"
--       depends on DRM_AMDGPU
--       select MFD_CORE
--       select PM_GENERIC_DOMAINS if PM
--       help
-+	bool "Enable AMD Audio CoProcessor IP support"
-+	depends on DRM_AMDGPU
-+	select MFD_CORE
-+	select PM_GENERIC_DOMAINS if PM
-+	help
- 	Choose this option to enable ACP IP support for AMD SOCs.
- 	This adds the ACP (Audio CoProcessor) IP driver and wires
- 	it up into the amdgpu driver.  The ACP block provides the DMA
--- 
-2.17.1
+T24gMjAxOS0xMS0yMSAzOjMxIGEubS4sIExpLCBDaGluZy1zaGloIChMb3Vpcykgd3JvdGU6Cj4g
+SGkgcmV2aWV3ZXJzLAo+IAo+IFdoYXQgaXMgdGhlIHJldmlldyByZXN1bHQgZm9yIHRoaXMgcGF0
+Y2g/IEN1c3RvbWVyIGlzIHB1c2hpbmcgb24gdGhpcyBjaGFuZ2UgdG8gbWVyZ2UuIFRLUyBmb3Ig
+eW91ciBhdHRlbnRpb24uCj4gCj4gQlIsCj4gTG91aXMKPiAKPiAtLS0tLU9yaWdpbmFsIE1lc3Nh
+Z2UtLS0tLQo+IEZyb206IExvdWlzIExpIDxDaGluZy1zaGloLkxpQGFtZC5jb20+Cj4gU2VudDog
+VGh1cnNkYXksIE5vdmVtYmVyIDE0LCAyMDE5IDExOjQyIEFNCj4gVG86IGFtZC1nZnhAbGlzdHMu
+ZnJlZWRlc2t0b3Aub3JnCj4gQ2M6IEthemxhdXNrYXMsIE5pY2hvbGFzIDxOaWNob2xhcy5LYXps
+YXVza2FzQGFtZC5jb20+OyBXZW50bGFuZCwgSGFycnkgPEhhcnJ5LldlbnRsYW5kQGFtZC5jb20+
+OyBMaSwgQ2hpbmctc2hpaCAoTG91aXMpIDxDaGluZy1zaGloLkxpQGFtZC5jb20+Cj4gU3ViamVj
+dDogW1BBVENIIHYyXSBkcm0vYW1kL2Rpc3BsYXk6IEZpeCBBcHBsZSBkb25nbGUgY2Fubm90IGJl
+IHN1Y2Nlc3NmdWxseSBkZXRlY3RlZAo+IAo+IFtXaHldCj4gRXh0ZXJuYWwgbW9uaXRvciBjYW5u
+b3QgYmUgZGlzcGxheWVkIGNvbnNpc3RlbnRseSwgaWYgY29ubmVjdGluZyB2aWEgdGhpcyBBcHBs
+ZSBkb25nbGUgKEExNjIxLCBVU0IgVHlwZS1DIHRvIEhETUkpLgo+IEJ5IGV4cGVyaW1lbnRzLCBp
+dCBpcyBjb25maXJtZWQgdGhhdCB0aGUgZG9uZ2xlIG5lZWRzIDIwMG1zIGF0IGxlYXN0IHRvIGJl
+IHJlYWR5IGZvciBjb21tdW5pY2F0aW9uLCBhZnRlciBpdCBzZXRzIEhQRCBzaWduYWwgaGlnaC4K
+PiAKPiBbSG93XQo+IFdoZW4gcmVjZWl2aW5nIEhQRCBJUlEsIGRlbGF5IDMwMG1zIGF0IHRoZSBi
+ZWdpbm5pbmcgb2YgaGFuZGxlX2hwZF9pcnEoKS4KPiBUaGVuIHJ1biB0aGUgb3JpZ2luYWwgcHJv
+Y2VkdXJlLgo+IFdpdGggdGhpcyBwYXRjaCBhcHBsaWVkLCB0aGUgcHJvYmxlbSBjYW5ub3QgYmUg
+cmVwcm9kdWNlZC4KPiBXaXRoIG90aGVyIGRvbmdsZXMsIHRlc3QgcmVzdWx0cyBhcmUgUEFTUy4K
+PiBUZXN0IHJlc3VsdCBpcyBQQVNTIHRvIHBsdWcgaW4gSERNSSBjYWJsZSB3aGlsZSBwbGF5aW5n
+IHZpZGVvLCBhbmQgdGhlIHZpZGVvIGlzIGJlaW5nIHBsYXlpbmcgc21vb3RobHkuCj4gVGVzdCBy
+ZXN1bHQgaXMgUEFTUyBhZnRlciBzeXN0ZW0gcmVzdW1lcyBmcm9tIHN1c3BlbmQuCj4gCj4gU2ln
+bmVkLW9mZi1ieTogTG91aXMgTGkgPENoaW5nLXNoaWguTGlAYW1kLmNvbT4KClRoaXMgaXMgc3Rp
+bGwgYSBOQUsgZnJvbSBtZSBzaW5jZSB0aGUgbG9naWMgaGFzbid0IGNoYW5nZWQgZnJvbSB0aGUg
+CmZpcnN0IHBhdGNoLgoKU2xlZXBzIGRvbid0IGJlbG9uZyBpbiBJUlEgaGFuZGxlcnMuCgpSZWdh
+cmRzLApOaWNob2xhcyBLYXpsYXVza2FzCgo+IC0tLQo+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9k
+aXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG0uYyB8IDUgKysrKysKPiAgIDEgZmlsZSBjaGFuZ2Vk
+LCA1IGluc2VydGlvbnMoKykKPiAKPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9k
+aXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG0uYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxh
+eS9hbWRncHVfZG0vYW1kZ3B1X2RtLmMKPiBpbmRleCAwYWVmOTJiN2MwMzcuLjViODQ0YjZhNWE1
+OSAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2Ft
+ZGdwdV9kbS5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9h
+bWRncHVfZG0uYwo+IEBAIC0xMDI1LDYgKzEwMjUsMTEgQEAgc3RhdGljIHZvaWQgaGFuZGxlX2hw
+ZF9pcnEodm9pZCAqcGFyYW0pCj4gICAJc3RydWN0IGRybV9kZXZpY2UgKmRldiA9IGNvbm5lY3Rv
+ci0+ZGV2Owo+ICAgCWVudW0gZGNfY29ubmVjdGlvbl90eXBlIG5ld19jb25uZWN0aW9uX3R5cGUg
+PSBkY19jb25uZWN0aW9uX25vbmU7Cj4gICAKPiArCS8qIFNvbWUgbW9uaXRvcnMvZG9uZ2xlcyBu
+ZWVkIGFyb3VuZCAyMDBtcyB0byBiZSByZWFkeSBmb3IgY29tbXVuaWNhdGlvbgo+ICsJICogYWZ0
+ZXIgdGhvc2UgZGV2aWNlcyBkcml2ZSBIUEQgc2lnbmFsIGhpZ2guCj4gKwkgKi8KPiArCW1zbGVl
+cCgzMDApOwo+ICsKPiAgIAkvKiBJbiBjYXNlIG9mIGZhaWx1cmUgb3IgTVNUIG5vIG5lZWQgdG8g
+dXBkYXRlIGNvbm5lY3RvciBzdGF0dXMgb3Igbm90aWZ5IHRoZSBPUwo+ICAgCSAqIHNpbmNlIChm
+b3IgTVNUIGNhc2UpIE1TVCBkb2VzIHRoaXMgaW4gaXQncyBvd24gY29udGV4dC4KPiAgIAkgKi8K
+PiAtLQo+IDIuMjEuMAo+IAoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5v
+cmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
