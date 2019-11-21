@@ -1,41 +1,105 @@
-From: Bjorn Helgaas <helgaas@kernel.org>
-Subject: [PATCH 1/7] PCI: Add #defines for Enter Compliance, Transmit Margin
-Date: Thu, 21 Nov 2019 08:02:14 -0600
-Message-ID: <20191121140220.38030-2-helgaas@kernel.org>
+From: Bjorn Helgaas <helgaas-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org>
+Subject: [PATCH 3/7] drm/amdgpu: Replace numbers with PCI_EXP_LNKCTL2
+ definitions
+Date: Thu, 21 Nov 2019 08:02:16 -0600
+Message-ID: <20191121140220.38030-4-helgaas@kernel.org>
 References: <20191121140220.38030-1-helgaas@kernel.org>
 Mime-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20191121140220.38030-1-helgaas@kernel.org>
-Sender: linux-kernel-owner@vger.kernel.org
-To: linux-pci@vger.kernel.org
-Cc: Alex Deucher <alexdeucher@gmail.com>, Frederick Lawler <fred@fredlawl.com>, Christian Koenig <christian.koenig@amd.com>, Chunming Zhou <David1.Zhou@amd.com>, Dave Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, Bjorn Helgaas <bhelgaas@google.com>, Alex Deucher <alexander.deucher@amd.com>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20191121140220.38030-1-helgaas-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: linux-pci-u79uwXL29TY76Z2rM5mHXA@public.gmane.org
+Cc: Chunming Zhou <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, Frederick Lawler <fred-AA42j+p7l0JWk0Htik3J/w@public.gmane.org>, Dave Airlie <airlied-cv59FeDIM0c@public.gmane.org>, linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Bjorn Helgaas <bhelgaas-hpIqsD4AKlfQT0dZR+AlfA@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>, Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, Christian Koenig <christian.koenig-5C7GfCeVMHo@public.gmane.org>
 
-From: Bjorn Helgaas <bhelgaas@google.com>
-
-Add definitions for the Enter Compliance and Transmit Margin fields of the
-PCIe Link Control 2 register.
-
-Link: https://lore.kernel.org/r/20191112173503.176611-2-helgaas@kernel.org
-Signed-off-by: Bjorn Helgaas <bhelgaas@google.com>
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
----
- include/uapi/linux/pci_regs.h | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/include/uapi/linux/pci_regs.h b/include/uapi/linux/pci_regs.h
-index 29d6e93fd15e..5869e5778a05 100644
---- a/include/uapi/linux/pci_regs.h
-+++ b/include/uapi/linux/pci_regs.h
-@@ -673,6 +673,8 @@
- #define  PCI_EXP_LNKCTL2_TLS_8_0GT	0x0003 /* Supported Speed 8GT/s */
- #define  PCI_EXP_LNKCTL2_TLS_16_0GT	0x0004 /* Supported Speed 16GT/s */
- #define  PCI_EXP_LNKCTL2_TLS_32_0GT	0x0005 /* Supported Speed 32GT/s */
-+#define  PCI_EXP_LNKCTL2_ENTER_COMP	0x0010 /* Enter Compliance */
-+#define  PCI_EXP_LNKCTL2_TX_MARGIN	0x0380 /* Transmit Margin */
- #define PCI_EXP_LNKSTA2		50	/* Link Status 2 */
- #define PCI_CAP_EXP_ENDPOINT_SIZEOF_V2	52	/* v2 endpoints with link end here */
- #define PCI_EXP_SLTCAP2		52	/* Slot Capabilities 2 */
--- 
-2.24.0.432.g9d3f5f5b63-goog
+RnJvbTogQmpvcm4gSGVsZ2FhcyA8YmhlbGdhYXNAZ29vZ2xlLmNvbT4KClJlcGxhY2UgaGFyZC1j
+b2RlZCBtYWdpYyBudW1iZXJzIHdpdGggdGhlIGRlc2NyaXB0aXZlIFBDSV9FWFBfTE5LQ1RMMgpk
+ZWZpbml0aW9ucy4gIE5vIGZ1bmN0aW9uYWwgY2hhbmdlIGludGVuZGVkLgoKTGluazogaHR0cHM6
+Ly9sb3JlLmtlcm5lbC5vcmcvci8yMDE5MTExMjE3MzUwMy4xNzY2MTEtNC1oZWxnYWFzQGtlcm5l
+bC5vcmcKU2lnbmVkLW9mZi1ieTogQmpvcm4gSGVsZ2FhcyA8YmhlbGdhYXNAZ29vZ2xlLmNvbT4K
+UmV2aWV3ZWQtYnk6IEFsZXggRGV1Y2hlciA8YWxleGFuZGVyLmRldWNoZXJAYW1kLmNvbT4KLS0t
+CiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9jaWsuYyB8IDIyICsrKysrKysrKysrKysrLS0t
+LS0tLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3NpLmMgIHwgMjIgKysrKysrKysrKysr
+KystLS0tLS0tLQogMiBmaWxlcyBjaGFuZ2VkLCAyOCBpbnNlcnRpb25zKCspLCAxNiBkZWxldGlv
+bnMoLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9jaWsuYyBiL2Ry
+aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Npay5jCmluZGV4IDEzYTU2OTZkMmE2YS4uMzA2N2Ji
+ODc0MDMyIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9jaWsuYworKysg
+Yi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9jaWsuYwpAQCAtMTQ5OCwxMyArMTQ5OCwxOSBA
+QCBzdGF0aWMgdm9pZCBjaWtfcGNpZV9nZW4zX2VuYWJsZShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAq
+YWRldikKIAogCQkJCS8qIGxpbmtjdGwyICovCiAJCQkJcGNpX3JlYWRfY29uZmlnX3dvcmQocm9v
+dCwgYnJpZGdlX3BvcyArIFBDSV9FWFBfTE5LQ1RMMiwgJnRtcDE2KTsKLQkJCQl0bXAxNiAmPSB+
+KCgxIDw8IDQpIHwgKDcgPDwgNykpOwotCQkJCXRtcDE2IHw9IChicmlkZ2VfY2ZnMiAmICgoMSA8
+PCA0KSB8ICg3IDw8IDcpKSk7CisJCQkJdG1wMTYgJj0gfihQQ0lfRVhQX0xOS0NUTDJfRU5URVJf
+Q09NUCB8CisJCQkJCSAgIFBDSV9FWFBfTE5LQ1RMMl9UWF9NQVJHSU4pOworCQkJCXRtcDE2IHw9
+IChicmlkZ2VfY2ZnMiAmCisJCQkJCSAgKFBDSV9FWFBfTE5LQ1RMMl9FTlRFUl9DT01QIHwKKwkJ
+CQkJICAgUENJX0VYUF9MTktDVEwyX1RYX01BUkdJTikpOwogCQkJCXBjaV93cml0ZV9jb25maWdf
+d29yZChyb290LCBicmlkZ2VfcG9zICsgUENJX0VYUF9MTktDVEwyLCB0bXAxNik7CiAKIAkJCQlw
+Y2lfcmVhZF9jb25maWdfd29yZChhZGV2LT5wZGV2LCBncHVfcG9zICsgUENJX0VYUF9MTktDVEwy
+LCAmdG1wMTYpOwotCQkJCXRtcDE2ICY9IH4oKDEgPDwgNCkgfCAoNyA8PCA3KSk7Ci0JCQkJdG1w
+MTYgfD0gKGdwdV9jZmcyICYgKCgxIDw8IDQpIHwgKDcgPDwgNykpKTsKKwkJCQl0bXAxNiAmPSB+
+KFBDSV9FWFBfTE5LQ1RMMl9FTlRFUl9DT01QIHwKKwkJCQkJICAgUENJX0VYUF9MTktDVEwyX1RY
+X01BUkdJTik7CisJCQkJdG1wMTYgfD0gKGdwdV9jZmcyICYKKwkJCQkJICAoUENJX0VYUF9MTktD
+VEwyX0VOVEVSX0NPTVAgfAorCQkJCQkgICBQQ0lfRVhQX0xOS0NUTDJfVFhfTUFSR0lOKSk7CiAJ
+CQkJcGNpX3dyaXRlX2NvbmZpZ193b3JkKGFkZXYtPnBkZXYsIGdwdV9wb3MgKyBQQ0lfRVhQX0xO
+S0NUTDIsIHRtcDE2KTsKIAogCQkJCXRtcCA9IFJSRUczMl9QQ0lFKGl4UENJRV9MQ19DTlRMNCk7
+CkBAIC0xNTIxLDEzICsxNTI3LDEzIEBAIHN0YXRpYyB2b2lkIGNpa19wY2llX2dlbjNfZW5hYmxl
+KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQogCVdSRUczMl9QQ0lFKGl4UENJRV9MQ19TUEVF
+RF9DTlRMLCBzcGVlZF9jbnRsKTsKIAogCXBjaV9yZWFkX2NvbmZpZ193b3JkKGFkZXYtPnBkZXYs
+IGdwdV9wb3MgKyBQQ0lfRVhQX0xOS0NUTDIsICZ0bXAxNik7Ci0JdG1wMTYgJj0gfjB4ZjsKKwl0
+bXAxNiAmPSB+UENJX0VYUF9MTktDVEwyX1RMUzsKIAlpZiAoYWRldi0+cG0ucGNpZV9nZW5fbWFz
+ayAmIENBSUxfUENJRV9MSU5LX1NQRUVEX1NVUFBPUlRfR0VOMykKLQkJdG1wMTYgfD0gMzsgLyog
+Z2VuMyAqLworCQl0bXAxNiB8PSBQQ0lfRVhQX0xOS0NUTDJfVExTXzhfMEdUOyAvKiBnZW4zICov
+CiAJZWxzZSBpZiAoYWRldi0+cG0ucGNpZV9nZW5fbWFzayAmIENBSUxfUENJRV9MSU5LX1NQRUVE
+X1NVUFBPUlRfR0VOMikKLQkJdG1wMTYgfD0gMjsgLyogZ2VuMiAqLworCQl0bXAxNiB8PSBQQ0lf
+RVhQX0xOS0NUTDJfVExTXzVfMEdUOyAvKiBnZW4yICovCiAJZWxzZQotCQl0bXAxNiB8PSAxOyAv
+KiBnZW4xICovCisJCXRtcDE2IHw9IFBDSV9FWFBfTE5LQ1RMMl9UTFNfMl81R1Q7IC8qIGdlbjEg
+Ki8KIAlwY2lfd3JpdGVfY29uZmlnX3dvcmQoYWRldi0+cGRldiwgZ3B1X3BvcyArIFBDSV9FWFBf
+TE5LQ1RMMiwgdG1wMTYpOwogCiAJc3BlZWRfY250bCA9IFJSRUczMl9QQ0lFKGl4UENJRV9MQ19T
+UEVFRF9DTlRMKTsKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3NpLmMg
+Yi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9zaS5jCmluZGV4IDFlMzUwMTcyZGM3Yi4uYTdk
+Y2IwZDBmMDM5IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9zaS5jCisr
+KyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3NpLmMKQEAgLTE3MzcsMTMgKzE3MzcsMTkg
+QEAgc3RhdGljIHZvaWQgc2lfcGNpZV9nZW4zX2VuYWJsZShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAq
+YWRldikKIAkJCQlwY2lfd3JpdGVfY29uZmlnX3dvcmQoYWRldi0+cGRldiwgZ3B1X3BvcyArIFBD
+SV9FWFBfTE5LQ1RMLCB0bXAxNik7CiAKIAkJCQlwY2lfcmVhZF9jb25maWdfd29yZChyb290LCBi
+cmlkZ2VfcG9zICsgUENJX0VYUF9MTktDVEwyLCAmdG1wMTYpOwotCQkJCXRtcDE2ICY9IH4oKDEg
+PDwgNCkgfCAoNyA8PCA3KSk7Ci0JCQkJdG1wMTYgfD0gKGJyaWRnZV9jZmcyICYgKCgxIDw8IDQp
+IHwgKDcgPDwgNykpKTsKKwkJCQl0bXAxNiAmPSB+KFBDSV9FWFBfTE5LQ1RMMl9FTlRFUl9DT01Q
+IHwKKwkJCQkJICAgUENJX0VYUF9MTktDVEwyX1RYX01BUkdJTik7CisJCQkJdG1wMTYgfD0gKGJy
+aWRnZV9jZmcyICYKKwkJCQkJICAoUENJX0VYUF9MTktDVEwyX0VOVEVSX0NPTVAgfAorCQkJCQkg
+ICBQQ0lfRVhQX0xOS0NUTDJfVFhfTUFSR0lOKSk7CiAJCQkJcGNpX3dyaXRlX2NvbmZpZ193b3Jk
+KHJvb3QsIGJyaWRnZV9wb3MgKyBQQ0lfRVhQX0xOS0NUTDIsIHRtcDE2KTsKIAogCQkJCXBjaV9y
+ZWFkX2NvbmZpZ193b3JkKGFkZXYtPnBkZXYsIGdwdV9wb3MgKyBQQ0lfRVhQX0xOS0NUTDIsICZ0
+bXAxNik7Ci0JCQkJdG1wMTYgJj0gfigoMSA8PCA0KSB8ICg3IDw8IDcpKTsKLQkJCQl0bXAxNiB8
+PSAoZ3B1X2NmZzIgJiAoKDEgPDwgNCkgfCAoNyA8PCA3KSkpOworCQkJCXRtcDE2ICY9IH4oUENJ
+X0VYUF9MTktDVEwyX0VOVEVSX0NPTVAgfAorCQkJCQkgICBQQ0lfRVhQX0xOS0NUTDJfVFhfTUFS
+R0lOKTsKKwkJCQl0bXAxNiB8PSAoZ3B1X2NmZzIgJgorCQkJCQkgIChQQ0lfRVhQX0xOS0NUTDJf
+RU5URVJfQ09NUCB8CisJCQkJCSAgIFBDSV9FWFBfTE5LQ1RMMl9UWF9NQVJHSU4pKTsKIAkJCQlw
+Y2lfd3JpdGVfY29uZmlnX3dvcmQoYWRldi0+cGRldiwgZ3B1X3BvcyArIFBDSV9FWFBfTE5LQ1RM
+MiwgdG1wMTYpOwogCiAJCQkJdG1wID0gUlJFRzMyX1BDSUVfUE9SVChQQ0lFX0xDX0NOVEw0KTsK
+QEAgLTE3NTgsMTMgKzE3NjQsMTMgQEAgc3RhdGljIHZvaWQgc2lfcGNpZV9nZW4zX2VuYWJsZShz
+dHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikKIAlXUkVHMzJfUENJRV9QT1JUKFBDSUVfTENfU1BF
+RURfQ05UTCwgc3BlZWRfY250bCk7CiAKIAlwY2lfcmVhZF9jb25maWdfd29yZChhZGV2LT5wZGV2
+LCBncHVfcG9zICsgUENJX0VYUF9MTktDVEwyLCAmdG1wMTYpOwotCXRtcDE2ICY9IH4weGY7CisJ
+dG1wMTYgJj0gflBDSV9FWFBfTE5LQ1RMMl9UTFM7CiAJaWYgKGFkZXYtPnBtLnBjaWVfZ2VuX21h
+c2sgJiBDQUlMX1BDSUVfTElOS19TUEVFRF9TVVBQT1JUX0dFTjMpCi0JCXRtcDE2IHw9IDM7CisJ
+CXRtcDE2IHw9IFBDSV9FWFBfTE5LQ1RMMl9UTFNfOF8wR1Q7IC8qIGdlbjMgKi8KIAllbHNlIGlm
+IChhZGV2LT5wbS5wY2llX2dlbl9tYXNrICYgQ0FJTF9QQ0lFX0xJTktfU1BFRURfU1VQUE9SVF9H
+RU4yKQotCQl0bXAxNiB8PSAyOworCQl0bXAxNiB8PSBQQ0lfRVhQX0xOS0NUTDJfVExTXzVfMEdU
+OyAvKiBnZW4yICovCiAJZWxzZQotCQl0bXAxNiB8PSAxOworCQl0bXAxNiB8PSBQQ0lfRVhQX0xO
+S0NUTDJfVExTXzJfNUdUOyAvKiBnZW4xICovCiAJcGNpX3dyaXRlX2NvbmZpZ193b3JkKGFkZXYt
+PnBkZXYsIGdwdV9wb3MgKyBQQ0lfRVhQX0xOS0NUTDIsIHRtcDE2KTsKIAogCXNwZWVkX2NudGwg
+PSBSUkVHMzJfUENJRV9QT1JUKFBDSUVfTENfU1BFRURfQ05UTCk7Ci0tIAoyLjI0LjAuNDMyLmc5
+ZDNmNWY1YjYzLWdvb2cKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
+Cmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
