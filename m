@@ -1,65 +1,42 @@
-From: "Li, Ching-shih (Louis)" <Ching-shih.Li-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH v2] drm/amd/display: Fix Apple dongle cannot be
- successfully detected
-Date: Thu, 21 Nov 2019 08:31:34 +0000
-Message-ID: <MN2PR12MB406250AEB8A10A080050D952AA4E0@MN2PR12MB4062.namprd12.prod.outlook.com>
-References: <20191114034212.1106-1-Ching-shih.Li@amd.com>
-Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20191114034212.1106-1-Ching-shih.Li-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Li, Ching-shih (Louis)" <Ching-shih.Li-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Wentland, Harry" <Harry.Wentland-5C7GfCeVMHo@public.gmane.org>, "Kazlauskas,
- Nicholas" <Nicholas.Kazlauskas-5C7GfCeVMHo@public.gmane.org>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Subject: [PATCH] drm/amd: Fix Kconfig indentation
+Date: Thu, 21 Nov 2019 21:29:30 +0800
+Message-ID: <20191121132930.29544-1-krzk@kernel.org>
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: linux-kernel@vger.kernel.org
+Cc: Krzysztof Kozlowski <krzk@kernel.org>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-SGkgcmV2aWV3ZXJzLAoKV2hhdCBpcyB0aGUgcmV2aWV3IHJlc3VsdCBmb3IgdGhpcyBwYXRjaD8g
-Q3VzdG9tZXIgaXMgcHVzaGluZyBvbiB0aGlzIGNoYW5nZSB0byBtZXJnZS4gVEtTIGZvciB5b3Vy
-IGF0dGVudGlvbi4KCkJSLApMb3VpcwoKLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0KRnJvbTog
-TG91aXMgTGkgPENoaW5nLXNoaWguTGlAYW1kLmNvbT4gClNlbnQ6IFRodXJzZGF5LCBOb3ZlbWJl
-ciAxNCwgMjAxOSAxMTo0MiBBTQpUbzogYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKQ2M6
-IEthemxhdXNrYXMsIE5pY2hvbGFzIDxOaWNob2xhcy5LYXpsYXVza2FzQGFtZC5jb20+OyBXZW50
-bGFuZCwgSGFycnkgPEhhcnJ5LldlbnRsYW5kQGFtZC5jb20+OyBMaSwgQ2hpbmctc2hpaCAoTG91
-aXMpIDxDaGluZy1zaGloLkxpQGFtZC5jb20+ClN1YmplY3Q6IFtQQVRDSCB2Ml0gZHJtL2FtZC9k
-aXNwbGF5OiBGaXggQXBwbGUgZG9uZ2xlIGNhbm5vdCBiZSBzdWNjZXNzZnVsbHkgZGV0ZWN0ZWQK
-CltXaHldCkV4dGVybmFsIG1vbml0b3IgY2Fubm90IGJlIGRpc3BsYXllZCBjb25zaXN0ZW50bHks
-IGlmIGNvbm5lY3RpbmcgdmlhIHRoaXMgQXBwbGUgZG9uZ2xlIChBMTYyMSwgVVNCIFR5cGUtQyB0
-byBIRE1JKS4KQnkgZXhwZXJpbWVudHMsIGl0IGlzIGNvbmZpcm1lZCB0aGF0IHRoZSBkb25nbGUg
-bmVlZHMgMjAwbXMgYXQgbGVhc3QgdG8gYmUgcmVhZHkgZm9yIGNvbW11bmljYXRpb24sIGFmdGVy
-IGl0IHNldHMgSFBEIHNpZ25hbCBoaWdoLgoKW0hvd10KV2hlbiByZWNlaXZpbmcgSFBEIElSUSwg
-ZGVsYXkgMzAwbXMgYXQgdGhlIGJlZ2lubmluZyBvZiBoYW5kbGVfaHBkX2lycSgpLgpUaGVuIHJ1
-biB0aGUgb3JpZ2luYWwgcHJvY2VkdXJlLgpXaXRoIHRoaXMgcGF0Y2ggYXBwbGllZCwgdGhlIHBy
-b2JsZW0gY2Fubm90IGJlIHJlcHJvZHVjZWQuCldpdGggb3RoZXIgZG9uZ2xlcywgdGVzdCByZXN1
-bHRzIGFyZSBQQVNTLgpUZXN0IHJlc3VsdCBpcyBQQVNTIHRvIHBsdWcgaW4gSERNSSBjYWJsZSB3
-aGlsZSBwbGF5aW5nIHZpZGVvLCBhbmQgdGhlIHZpZGVvIGlzIGJlaW5nIHBsYXlpbmcgc21vb3Ro
-bHkuClRlc3QgcmVzdWx0IGlzIFBBU1MgYWZ0ZXIgc3lzdGVtIHJlc3VtZXMgZnJvbSBzdXNwZW5k
-LgoKU2lnbmVkLW9mZi1ieTogTG91aXMgTGkgPENoaW5nLXNoaWguTGlAYW1kLmNvbT4KLS0tCiBk
-cml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5jIHwgNSArKysr
-KwogMSBmaWxlIGNoYW5nZWQsIDUgaW5zZXJ0aW9ucygrKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMv
-Z3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtLmMgYi9kcml2ZXJzL2dwdS9k
-cm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5jCmluZGV4IDBhZWY5MmI3YzAzNy4u
-NWI4NDRiNmE1YTU5IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1k
-Z3B1X2RtL2FtZGdwdV9kbS5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRn
-cHVfZG0vYW1kZ3B1X2RtLmMKQEAgLTEwMjUsNiArMTAyNSwxMSBAQCBzdGF0aWMgdm9pZCBoYW5k
-bGVfaHBkX2lycSh2b2lkICpwYXJhbSkKIAlzdHJ1Y3QgZHJtX2RldmljZSAqZGV2ID0gY29ubmVj
-dG9yLT5kZXY7CiAJZW51bSBkY19jb25uZWN0aW9uX3R5cGUgbmV3X2Nvbm5lY3Rpb25fdHlwZSA9
-IGRjX2Nvbm5lY3Rpb25fbm9uZTsKIAorCS8qIFNvbWUgbW9uaXRvcnMvZG9uZ2xlcyBuZWVkIGFy
-b3VuZCAyMDBtcyB0byBiZSByZWFkeSBmb3IgY29tbXVuaWNhdGlvbgorCSAqIGFmdGVyIHRob3Nl
-IGRldmljZXMgZHJpdmUgSFBEIHNpZ25hbCBoaWdoLgorCSAqLworCW1zbGVlcCgzMDApOworCiAJ
-LyogSW4gY2FzZSBvZiBmYWlsdXJlIG9yIE1TVCBubyBuZWVkIHRvIHVwZGF0ZSBjb25uZWN0b3Ig
-c3RhdHVzIG9yIG5vdGlmeSB0aGUgT1MKIAkgKiBzaW5jZSAoZm9yIE1TVCBjYXNlKSBNU1QgZG9l
-cyB0aGlzIGluIGl0J3Mgb3duIGNvbnRleHQuCiAJICovCi0tCjIuMjEuMAoKX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QK
-YW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5v
-cmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+Adjust indentation from spaces to tab (+optional two spaces) as in
+coding style with command like:
+	$ sed -e 's/^        /\t/' -i */Kconfig
+
+Signed-off-by: Krzysztof Kozlowski <krzk@kernel.org>
+---
+ drivers/gpu/drm/amd/acp/Kconfig | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/acp/Kconfig b/drivers/gpu/drm/amd/acp/Kconfig
+index d968c2471412..19bae9100da4 100644
+--- a/drivers/gpu/drm/amd/acp/Kconfig
++++ b/drivers/gpu/drm/amd/acp/Kconfig
+@@ -2,11 +2,11 @@
+ menu "ACP (Audio CoProcessor) Configuration"
+ 
+ config DRM_AMD_ACP
+-       bool "Enable AMD Audio CoProcessor IP support"
+-       depends on DRM_AMDGPU
+-       select MFD_CORE
+-       select PM_GENERIC_DOMAINS if PM
+-       help
++	bool "Enable AMD Audio CoProcessor IP support"
++	depends on DRM_AMDGPU
++	select MFD_CORE
++	select PM_GENERIC_DOMAINS if PM
++	help
+ 	Choose this option to enable ACP IP support for AMD SOCs.
+ 	This adds the ACP (Audio CoProcessor) IP driver and wires
+ 	it up into the amdgpu driver.  The ACP block provides the DMA
+-- 
+2.17.1
