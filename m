@@ -2,106 +2,116 @@ Return-Path: <SRS0=j4R+=ZO=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.7 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
-	HTML_MESSAGE,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,
-	SPF_PASS autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-9.8 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6EE17C432C0
-	for <amd-gfx@archiver.kernel.org>; Fri, 22 Nov 2019 21:50:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9A584C432C0
+	for <amd-gfx@archiver.kernel.org>; Fri, 22 Nov 2019 22:56:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3D84A2071B
-	for <amd-gfx@archiver.kernel.org>; Fri, 22 Nov 2019 21:50:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3D84A2071B
+	by mail.kernel.org (Postfix) with ESMTPS id 736352070E
+	for <amd-gfx@archiver.kernel.org>; Fri, 22 Nov 2019 22:56:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 736352070E
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E41BF6E123;
-	Fri, 22 Nov 2019 21:50:57 +0000 (UTC)
-Received: from NAM04-BN3-obe.outbound.protection.outlook.com
- (mail-eopbgr680080.outbound.protection.outlook.com [40.107.68.80])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 62EFC6E123
- for <amd-gfx@lists.freedesktop.org>; Fri, 22 Nov 2019 21:50:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BC85C6E0DA;
+	Fri, 22 Nov 2019 22:56:00 +0000 (UTC)
+Received: from NAM01-BN3-obe.outbound.protection.outlook.com
+ (mail-eopbgr740041.outbound.protection.outlook.com [40.107.74.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EEFD06E0DA
+ for <amd-gfx@lists.freedesktop.org>; Fri, 22 Nov 2019 22:55:59 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=fIWuJnDI2JbQbs+xCqCcKlsm8Af3RP+wmKXfoBLDYJYZ6pbDsproE3vf8UuKmSPkLI7eDJ+TiPQnRNLWv9Mg6qkABvB0Xj39EN3OahQECU5vukh384m5EthAt+xvXNFuAueWfaAxZVOGCUqT3EqLzkg8oAIYQMNcvKIsIJi62EcRyb7CUQQab5vYwLkrmhnb9R0ftmxcAUxNgMYAoW2jWY/Lga07efkwRGHhbuOC/OqjYtbuJS6P7UL/vHpZHHXKMkDulsAUpAFggsMPGMkWSchlVltFgp0/tls6Dc5AW61R6/iB5OblNhzYywEhukaHxH7LYQNw5zZTE7kp9gTGdQ==
+ b=Bfl6W7ajyoCNhCI7EcA6j5kT22Pql/bDeUPJ00me4sCArOlNI+8OssKq7Q63ETPK0iPW6vSVf5UEHrHpQFdrcUY+HsvPVYO+mzisxVEqc9W6XgL+uJkF8VmBm/eI8REfMix9r5mFQfznNGvV3oGCl3ASazdbUQUOWScXiWMusiaC76QgIbErP1Wvv2MR95+PBM4taVSzEGn0DZPjoEFKNU46l4fyUIp+deQQx9UmP1O1w5xDvx9Tls+0ZLMkB4TL+wlG5+9w3QF2+kufqNUJ+V2NMFk3pJUAyRbtLYhQ7Nf+DUpPg+OkfrrBgZItDUYzaL8Gx021siQsVuIEyCqFvQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PxdpyJ86EUcT21lyDuHWhOmzDSoVD/mJhoeVEiGrX0g=;
- b=N1/QSt7aw5/IJlSS3rEiR4o7y/UYJO1cF9sWwcEptLdyPgBKA4q83rUVFTjHDr29gCXsUaF6fsJIWGAAiZPRAG/Enil+sQRrtPrz6/wGeHNfOdXWwLgUuYhvRX0ey9J/hu95St8bKT6j/IsXrxG87AHZztlxWYT8xFJNGgPa0NHdTfH+LJaN8dvB2ctPUHgMCSwzoZQIpsN/Q7+0yAKOmG3IEjCKO/hgV2B8aywD4ypc264bJ+w2aXpy4XB0r/db0JIp29SDf7pTWGkaKTHYIXiRnCbjtlkSUqiZKr7oNWtUnWgNX6klOQUDsStgqbYK7i2hrpwec1hw7NFSJF+t7Q==
+ bh=/kMwIBRtaqWYtWfoHDCcJJPqV/Wz9rmow6VdIFf/QD8=;
+ b=F7Ypun71QRMXTJcsU7oE1JwdrJfZerK0zkvCSzqFc/cPw8dNJ5NUjILNQJk64/+l7a+gQ+9pyrElB7lI3FZkikUjG3D0C7KRIigvlLWG3B1cUid8Lf2hVWkbGFAASu7p9rip4HvtcvRtPdYbbcGiRc8/xYBSq5QbtzaeSRkUd1TGJSkLtmDuspZt5mSGFH3KF05YphmpblQC6bcilVKXoZ7kkIvzWT3mjbScXcGeMv7JBs3+wPZUHwqIvQrkrS1DkKp8r+8+BvE0SZXe/tTMsjykYRGk1sc7JCwGovg2MsymmOAWv8K59dk+NaiX4zgcDc9TrS/Yz1RZMh3hfidpeQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
-Received: from DM6PR12MB2778.namprd12.prod.outlook.com (20.176.114.145) by
- DM6PR12MB2681.namprd12.prod.outlook.com (20.176.118.94) with Microsoft SMTP
+Received: from BL0PR12MB2580.namprd12.prod.outlook.com (52.132.27.147) by
+ BL0PR12MB2513.namprd12.prod.outlook.com (52.132.9.145) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2474.19; Fri, 22 Nov 2019 21:50:53 +0000
-Received: from DM6PR12MB2778.namprd12.prod.outlook.com
- ([fe80::304d:db58:2aa:d69e]) by DM6PR12MB2778.namprd12.prod.outlook.com
- ([fe80::304d:db58:2aa:d69e%6]) with mapi id 15.20.2451.031; Fri, 22 Nov 2019
- 21:50:53 +0000
-From: "Zhao, Yong" <Yong.Zhao@amd.com>
-To: "Kuehling, Felix" <Felix.Kuehling@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Subject: Re: [PATCH 2/2] drm/amdkfd: Move pm_create_runlist_ib() out of
- pm_send_runlist()
-Thread-Topic: [PATCH 2/2] drm/amdkfd: Move pm_create_runlist_ib() out of
- pm_send_runlist()
-Thread-Index: AQHVoLJjjqYGEybMRk2gOsfztpEcCqeXtDoAgAAE0DA=
-Date: Fri, 22 Nov 2019 21:50:53 +0000
-Message-ID:
- <DM6PR12MB2778563A27C80EED222CD177F0490@DM6PR12MB2778.namprd12.prod.outlook.com>
-References: <20191121212639.4057-1-Yong.Zhao@amd.com>
- <20191121212639.4057-2-Yong.Zhao@amd.com>,
- <529f5ed1-481c-4de3-763b-f70fa1e6080c@amd.com>
-In-Reply-To: <529f5ed1-481c-4de3-763b-f70fa1e6080c@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=True;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2019-11-22T21:50:52.587Z;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal
- Distribution
- Only; MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=0;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard; 
-x-originating-ip: [2607:fea8:209f:ebca:548c:d97:c095:3468]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: 3754c85d-eb09-44b9-a158-08d76f960bf2
-x-ms-traffictypediagnostic: DM6PR12MB2681:|DM6PR12MB2681:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <DM6PR12MB2681FA9C4BE41E34E30EBBBCF0490@DM6PR12MB2681.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:7691;
-x-forefront-prvs: 02296943FF
-x-forefront-antispam-report: SFV:NSPM;
- SFS:(10009020)(4636009)(136003)(396003)(376002)(39860400002)(346002)(366004)(189003)(199004)(64756008)(66446008)(66476007)(66946007)(66556008)(4001150100001)(14444005)(256004)(110136005)(99286004)(74316002)(76116006)(14454004)(316002)(7736002)(46003)(446003)(11346002)(86362001)(105004)(5660300002)(71200400001)(71190400001)(25786009)(53546011)(52536014)(54896002)(55016002)(81156014)(8676002)(7696005)(76176011)(102836004)(186003)(2501003)(9686003)(19627405001)(478600001)(229853002)(6246003)(6436002)(33656002)(81166006)(6506007)(8936002)(6116002)(2906002);
- DIR:OUT; SFP:1101; SCL:1; SRVR:DM6PR12MB2681;
- H:DM6PR12MB2778.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; MX:1; A:1; 
-received-spf: None (protection.outlook.com: amd.com does not designate
- permitted sender hosts)
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: to8tAvo0GHf6Z9Q2y0cz4SWLDBb92cjj8vltPnzrWib3pxF3/Sq4hCp4le1OwZ4SaF4dBBp5yTEPBB1UA1nJQ44k7Tf4dT3fk07oiKi6hBKQtYIWbi+KhxpFWqStpHH3QSPotdV3NFUg302e5645/8Z2QCL52N3Q7xYTxiKfLy7eVZ4i8PVTCbY8Sz1apuRcVIEd9SQ/siEIKHbBCc7mEFmB6ou3ZO05i0S5eAhIBUK28p6rCbpvc6emXJWphNiCVXXKKAxVQ9/a1O0nB1Fd9sT6T3CN2Wbs166ISSglHWcndZht0vnDCtgoFtHfrsRFqBVIdvFqgUFvu2CUICLbbjI1fpxBYB0Tey0bTplifsveToL6b/TQ5G/wSTMe4/UdchKi4MufxswN3wCy0DtCEO5plPVPiSDRO5ZDr6bWwAc6jWP8zUxP8ckljMSwhaC9
+ 15.20.2451.30; Fri, 22 Nov 2019 22:55:58 +0000
+Received: from BL0PR12MB2580.namprd12.prod.outlook.com
+ ([fe80::55f1:f8d5:e7d0:f595]) by BL0PR12MB2580.namprd12.prod.outlook.com
+ ([fe80::55f1:f8d5:e7d0:f595%2]) with mapi id 15.20.2474.019; Fri, 22 Nov 2019
+ 22:55:57 +0000
+From: Oak Zeng <Oak.Zeng@amd.com>
+To: amd-gfx@lists.freedesktop.org
+Subject: [PATCH] drm/amdgpu: Apply noretry setting for mmhub9.4
+Date: Fri, 22 Nov 2019 16:55:47 -0600
+Message-Id: <1574463347-27961-1-git-send-email-Oak.Zeng@amd.com>
+X-Mailer: git-send-email 2.7.4
+X-ClientProxiedBy: YTXPR0101CA0035.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b00::48) To BL0PR12MB2580.namprd12.prod.outlook.com
+ (2603:10b6:207:3e::19)
 MIME-Version: 1.0
+X-Mailer: git-send-email 2.7.4
+X-Originating-IP: [165.204.55.250]
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: 2884be34-e7a0-4d78-4a71-08d76f9f2314
+X-MS-TrafficTypeDiagnostic: BL0PR12MB2513:|BL0PR12MB2513:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <BL0PR12MB2513E1A6CEADC3AB983D13CF80490@BL0PR12MB2513.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:983;
+X-Forefront-PRVS: 02296943FF
+X-Forefront-Antispam-Report: SFV:NSPM;
+ SFS:(10009020)(4636009)(39860400002)(136003)(396003)(366004)(346002)(376002)(189003)(199004)(99286004)(50466002)(48376002)(7736002)(305945005)(5660300002)(66556008)(316002)(66946007)(6512007)(66476007)(36756003)(16586007)(50226002)(6436002)(14454004)(2361001)(6506007)(26005)(186003)(81156014)(81166006)(8936002)(6916009)(6116002)(3846002)(6486002)(51416003)(52116002)(2351001)(6666004)(66066001)(86362001)(25786009)(8676002)(2616005)(47776003)(2906002)(4326008)(386003)(478600001);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:BL0PR12MB2513;
+ H:BL0PR12MB2580.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; MX:1; A:1; 
+Received-SPF: None (protection.outlook.com: amd.com does not designate
+ permitted sender hosts)
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?mpzJbg39cu/vIIHzPd5d41VosEI9GZAXDKWlkC1+y1Ai24xAZpLXHXuVyKC/?=
+ =?us-ascii?Q?xteKHJOVnKicjKFeDmE6bvavzPWDYy4CD2yoU2haBaSLVu1WWNLapSjqx/cM?=
+ =?us-ascii?Q?TSkln/N6640Od8Co9QS2VmmonOPr0Zxg4P/+LYOu0G403K893srBTHGPOxC9?=
+ =?us-ascii?Q?yls8wzycMI+5G3QdJcDhTHjro5aslk1Oas4h63l17IBgeo8RnXD7EDGrBEQn?=
+ =?us-ascii?Q?sFDkYP4P5NfXTp8ivAN/vx/pXMxRH1RdOX3nAejWIJokGmsdrqvXGVP0P3Fh?=
+ =?us-ascii?Q?kT68LSwjPaHCo3izFghuVy0yhmyL5Xf/lBr0c2DSA5DFRrBWNe3qvxmRvLaJ?=
+ =?us-ascii?Q?dCXNf8/ZglTaQdoSWvUvbYRd4tujzPy5FBICAyIXGNMoeMTTENiaiQxRnCjk?=
+ =?us-ascii?Q?rPgwHJRiqniKFVTHr9apcMpxSVTOv52+OnDZ7v2oYxkJmNXN40lq8ApSSTZp?=
+ =?us-ascii?Q?ABgLdqCRmEIO6lYO7CK28+97/wPP08bUoBbr+XbR2KBVWIXOj16279FHuRqC?=
+ =?us-ascii?Q?yBYL+mksV/fIubFPqR5u95KdPlyENKPcrBQwMFyHAAhA5iXf/XqYa8XQ9Pm0?=
+ =?us-ascii?Q?Av3mEi3CMmW+EeIiS8b1jVYE3tuLQSRV0J7okXHilUd57g1x5iuvdqs0Q6zk?=
+ =?us-ascii?Q?6vh4dyNkZygkGmenk+MaILsFyGR6Btzz+o40qd6g3d+wcTxNPhTG/FdVWouT?=
+ =?us-ascii?Q?AARv9IAtQSy6aBFMLDGuEfXzmRqEKX8VOrd5tf6fo6HVqiTI8kxZw8zRMJa1?=
+ =?us-ascii?Q?fQKmxuwH116gauCg7EvomRPJwzlX9oaewMfbKSVFApBbDrfkPhKA5X9AF8FU?=
+ =?us-ascii?Q?S0CptMzjv9o5kiLAhg9tEHJFPbcXR0zlkd4ISuboEwZv6o/ewTw+dnE8Fdty?=
+ =?us-ascii?Q?/smCMssT0laL8HXxHtp+Up9BDQtTxg6Zbp7j8SLEeR0HWGN1NBIB5TCVx5tQ?=
+ =?us-ascii?Q?MO895BfaXipZS0IYr9/VX737fYE4l4nPmU9CdWAK8ZsALlMeo2F4uJ//ePnL?=
+ =?us-ascii?Q?9KgtqiRKPl+tYF1Sz6x/4Q6C4yzjnSZqwvW8s7eU8X4d0fL9k7jlsophAAma?=
+ =?us-ascii?Q?zZkSx7FaQg1RI/jBLQKHzxb0P8u98yThxtDOCgm8REn1gAH+Oxx4LAsw2lS8?=
+ =?us-ascii?Q?s7jadzFtn5wLCBozWU+83UwYzbBwSMyH7wqIZu7Nbpjn/Pt+IJ2rua7W1sft?=
+ =?us-ascii?Q?rax/o/67aLOWtaaendVie+Gm+FkCSKop+2zoqaFRFRxuzNhHbzrr2avhxOG+?=
+ =?us-ascii?Q?xrYscwwYrDz/NqIQvgx2WKG5fwBYiZMDeK260EbMpLC7Pelf2WqgSyeEYFnz?=
+ =?us-ascii?Q?HAvkPOGsBtBqGR9XmXCHnQdusl9swIJRf6e1xc/oGjhuzTgM+8gZfDa/d9eN?=
+ =?us-ascii?Q?RNAQnhS5cw8ofHG4Fjqx+U/ycOiZel15Hsc9oxiVZFX9FyZRPW+o7l9Ao7da?=
+ =?us-ascii?Q?sRO7uxxIxjxfks2yDFp3NU4skkjoTf0gQ4owRVaLtcWjOFP2zUDOMDlSKFG4?=
+ =?us-ascii?Q?KqCj6afJmH2e4azDAGBOtG+tCkTPl8JKyMtD4O5IzWhE9AV6v39bJRbXKXLO?=
+ =?us-ascii?Q?VVPKsppkdUmoIiLQwKXlEw6lbq+azwA2xZcRQ7FC?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3754c85d-eb09-44b9-a158-08d76f960bf2
-X-MS-Exchange-CrossTenant-originalarrivaltime: 22 Nov 2019 21:50:53.0773 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: /csa8zUp7szmKKWZ/fZ3Sq84s4LHZikscAOOe2jaJv+dORZop0vnI0f4KYR/aX6j
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB2681
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2884be34-e7a0-4d78-4a71-08d76f9f2314
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Nov 2019 22:55:57.7089 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 0HWMGUb+PhYenSL7R9j/GVP0LueBxxk8B1qBcosLmMFc1RIjKSVQkja56NGnuYKD
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB2513
 X-Mailman-Original-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PxdpyJ86EUcT21lyDuHWhOmzDSoVD/mJhoeVEiGrX0g=;
- b=ciErZArhaU42CHQnlb/3IWqGHy+wOE6h902Gxksb+gk8Vxx/vym8Ug+v4Dffn3NJ4qo0E2iJs4znIPjpNJijC1in9Ol4T2FagUWOzerIPa+gDvohN/640OzXHFtITh9ARgJXjkefPX8Slg+BkU9P9OUL4/HjPgr0Do9RDsgiQZM=
+ bh=/kMwIBRtaqWYtWfoHDCcJJPqV/Wz9rmow6VdIFf/QD8=;
+ b=XA4fgPmvZddvMiid948xHnufmbubpxPtNY+ostmsAXgEq6Cy5X8dy2OqlWJUOoVwYJ+ySHVLva5+mc7gG+OXDMgSlKR3VI07f4by3dMpMq85Rf19W+E1QJs9zQoONxhNlXpmppI5iHFUeaKU8NmNlPDWdZrZI+xJIsHpPJo5Fgs=
 X-Mailman-Original-Authentication-Results: spf=none (sender IP is )
- smtp.mailfrom=Yong.Zhao@amd.com; 
+ smtp.mailfrom=Oak.Zeng@amd.com; 
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -113,607 +123,37 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============1265983940=="
+Cc: Felix.Kuehling@amd.com, Jay.Cornwall@amd.com, Oak Zeng <Oak.Zeng@amd.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-Message-ID: <20191122215053.TSX6EpHLQysflP3UfWIvyCRV5srdp5QZZ6PeWP6LuKI@z>
+Message-ID: <20191122225547.DFV1-GzH3wTu8X9GGkmLhU1a6rHkeCZaFQnwxhgEDjU@z>
 
---===============1265983940==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_DM6PR12MB2778563A27C80EED222CD177F0490DM6PR12MB2778namp_"
-
---_000_DM6PR12MB2778563A27C80EED222CD177F0490DM6PR12MB2778namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-[AMD Official Use Only - Internal Distribution Only]
-
-Hi Felix,
-
-There is no big picture unfortunately, just some improvements that I came t=
-o when navigating the code.
-
-Regarding your suggestion, I have a concern. With the original code in unma=
-p_queues_cpsch(), if amdkfd_fence_wait_timeout() fails, we won't release th=
-e runlist ib. I am not sure it is by design or just a small bug. If it is b=
-y design (probably for debugging when HWS hang), merging pm_send_unmap_queu=
-e and pm_release_ib together will break the design.
-
-If we agree to move in that direction, I agree with the part of the name ch=
-anges because the original names are prone to cause confusion.
-
-Regards,
-Yong
-________________________________
-From: Kuehling, Felix <Felix.Kuehling@amd.com>
-Sent: Friday, November 22, 2019 4:21 PM
-To: Zhao, Yong <Yong.Zhao@amd.com>; amd-gfx@lists.freedesktop.org <amd-gfx@=
-lists.freedesktop.org>
-Subject: Re: [PATCH 2/2] drm/amdkfd: Move pm_create_runlist_ib() out of pm_=
-send_runlist()
-
-I'm not sure about this one. Looks like the interface is getting
-needlessly more complicated. Now the caller has to keep track of the
-runlist IB address and size just to pass those to another function. I
-could understand this if there was a use case that needs to separate the
-allocation of the runlist and sending it to the HW. But I don't see that.
-
-Some background for why I think the interface is the way it is: The
-runlist IB is continuously executed by the HWS firmware. If the runlist
-is oversubscribed, the HWS firmware will loop through it. So the IB must
-remain allocated until pm_send_unmap_queue is called. Currently
-pm_send_runlist creates the runlist IB and sends it to the HWS. You're
-separating that into creation and sending. Do you see a case where you
-need to send the same runlist multiple times? Or do something else
-between creating the runlist and sending it to the HWS?
-
-pm_release_ib releases the runlist IB, assuming that he HWS is no longer
-using it. Maybe this could be combined with pm_send_unmap_queue. I'm not
-100% sure because there are some filter parameters that may leave some
-queues mapped. If the two can be combined, I'd suggest the following
-name and interface changes to reflect how I think this is being used today:
-
-  * pm_send_runlist -> pm_create_and_send_runlist
-  * pm_send_unmap_queue + pm_release_ib -> pm_preempt_and_free_runlist
-
-I see you're doing a lot of cleanup and refactoring in this area of the
-code. Is there some bigger picture here, some idea of the end-state
-you're trying to get to? Knowing where you're going with this may make
-it easier to review the code.
-
-Regards,
-   Felix
-
-On 2019-11-21 4:26 p.m., Yong Zhao wrote:
-> This is consistent with the calling sequence in unmap_queues_cpsch().
->
-> Change-Id: Ieb6714422c812d4f6ebbece34e339871471e4b5e
-> Signed-off-by: Yong Zhao <Yong.Zhao@amd.com>
-> ---
->   .../drm/amd/amdkfd/kfd_device_queue_manager.c | 18 +++++++++++++++--
->   .../gpu/drm/amd/amdkfd/kfd_packet_manager.c   | 20 +++++--------------
->   drivers/gpu/drm/amd/amdkfd/kfd_priv.h         |  7 ++++++-
->   3 files changed, 27 insertions(+), 18 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/driv=
-ers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-> index 510f2d1bb8bb..fd7d90136b94 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-> @@ -1302,6 +1302,8 @@ static int unmap_sdma_queues(struct device_queue_ma=
-nager *dqm)
->   static int map_queues_cpsch(struct device_queue_manager *dqm)
->   {
->        int retval;
-> +     uint64_t rl_ib_gpu_addr;
-> +     size_t rl_ib_size;
->
->        if (!dqm->sched_running)
->                return 0;
-> @@ -1310,15 +1312,27 @@ static int map_queues_cpsch(struct device_queue_m=
-anager *dqm)
->        if (dqm->active_runlist)
->                return 0;
->
-> -     retval =3D pm_send_runlist(&dqm->packets, &dqm->queues);
-> +     retval =3D pm_create_runlist_ib(&dqm->packets, &dqm->queues,
-> +                             &rl_ib_gpu_addr, &rl_ib_size);
-> +     if (retval)
-> +             goto fail_create_runlist_ib;
-> +
-> +     pr_debug("runlist IB address: 0x%llX\n", rl_ib_gpu_addr);
-> +
-> +     retval =3D pm_send_runlist(&dqm->packets, &dqm->queues,
-> +                     rl_ib_gpu_addr, rl_ib_size);
->        pr_debug("%s sent runlist\n", __func__);
->        if (retval) {
->                pr_err("failed to execute runlist\n");
-> -             return retval;
-> +             goto fail_create_runlist_ib;
->        }
->        dqm->active_runlist =3D true;
->
->        return retval;
-> +
-> +fail_create_runlist_ib:
-> +     pm_destroy_runlist_ib(&dqm->packets);
-> +     return retval;
->   }
->
->   /* dqm->lock mutex has to be locked before calling this function */
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager.c b/drivers/gp=
-u/drm/amd/amdkfd/kfd_packet_manager.c
-> index 4a9433257428..6ec54e9f9392 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager.c
-> @@ -116,7 +116,7 @@ static int pm_allocate_runlist_ib(struct packet_manag=
-er *pm,
->        return retval;
->   }
->
-> -static int pm_create_runlist_ib(struct packet_manager *pm,
-> +int pm_create_runlist_ib(struct packet_manager *pm,
->                                struct list_head *queues,
->                                uint64_t *rl_gpu_addr,
->                                size_t *rl_size_bytes)
-> @@ -149,7 +149,6 @@ static int pm_create_runlist_ib(struct packet_manager=
- *pm,
->                /* build map process packet */
->                if (proccesses_mapped >=3D pm->dqm->processes_count) {
->                        pr_debug("Not enough space left in runlist IB\n");
-> -                     pm_destroy_runlist_ib(pm);
->                        return -ENOMEM;
->                }
->
-> @@ -299,20 +298,13 @@ int pm_send_set_resources(struct packet_manager *pm=
-,
->        return retval;
->   }
->
-> -int pm_send_runlist(struct packet_manager *pm, struct list_head *dqm_que=
-ues)
-> +int pm_send_runlist(struct packet_manager *pm, struct list_head *dqm_que=
-ues,
-> +                     uint64_t rl_ib_gpu_addr, size_t rl_ib_size)
->   {
-> -     uint64_t rl_gpu_ib_addr;
->        uint32_t *rl_buffer;
-> -     size_t rl_ib_size, packet_size_dwords;
-> +     size_t packet_size_dwords;
->        int retval;
->
-> -     retval =3D pm_create_runlist_ib(pm, dqm_queues, &rl_gpu_ib_addr,
-> -                                     &rl_ib_size);
-> -     if (retval)
-> -             goto fail_create_runlist_ib;
-> -
-> -     pr_debug("runlist IB address: 0x%llX\n", rl_gpu_ib_addr);
-> -
->        packet_size_dwords =3D pm->pmf->runlist_size / sizeof(uint32_t);
->        mutex_lock(&pm->lock);
->
-> @@ -321,7 +313,7 @@ int pm_send_runlist(struct packet_manager *pm, struct=
- list_head *dqm_queues)
->        if (retval)
->                goto fail_acquire_packet_buffer;
->
-> -     retval =3D pm->pmf->runlist(pm, rl_buffer, rl_gpu_ib_addr,
-> +     retval =3D pm->pmf->runlist(pm, rl_buffer, rl_ib_gpu_addr,
->                                        rl_ib_size / sizeof(uint32_t), fal=
-se);
->        if (retval)
->                goto fail_create_runlist;
-> @@ -336,8 +328,6 @@ int pm_send_runlist(struct packet_manager *pm, struct=
- list_head *dqm_queues)
->        kq_rollback_packet(pm->priv_queue);
->   fail_acquire_packet_buffer:
->        mutex_unlock(&pm->lock);
-> -fail_create_runlist_ib:
-> -     pm_destroy_runlist_ib(pm);
->        return retval;
->   }
->
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/=
-amdkfd/kfd_priv.h
-> index 389cda7c8f1a..6accb605b9f0 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-> @@ -980,7 +980,8 @@ int pm_init(struct packet_manager *pm, struct device_=
-queue_manager *dqm);
->   void pm_uninit(struct packet_manager *pm);
->   int pm_send_set_resources(struct packet_manager *pm,
->                                struct scheduling_resources *res);
-> -int pm_send_runlist(struct packet_manager *pm, struct list_head *dqm_que=
-ues);
-> +int pm_send_runlist(struct packet_manager *pm, struct list_head *dqm_que=
-ues,
-> +             uint64_t rl_ib_gpu_addr, size_t rl_ib_size);
->   int pm_send_query_status(struct packet_manager *pm, uint64_t fence_addr=
-ess,
->                                uint32_t fence_value);
->
-> @@ -989,6 +990,10 @@ int pm_send_unmap_queue(struct packet_manager *pm, e=
-num kfd_queue_type type,
->                        uint32_t filter_param, bool reset,
->                        unsigned int sdma_engine);
->
-> +int pm_create_runlist_ib(struct packet_manager *pm,
-> +                             struct list_head *queues,
-> +                             uint64_t *rl_gpu_addr,
-> +                             size_t *rl_size_bytes);
->   void pm_destroy_runlist_ib(struct packet_manager *pm);
->
->   /* Following PM funcs can be shared among VI and AI */
-
---_000_DM6PR12MB2778563A27C80EED222CD177F0490DM6PR12MB2778namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<p style=3D"font-family:Arial;font-size:10pt;color:#0078D7;margin:15pt;" al=
-ign=3D"Left">
-[AMD Official Use Only - Internal Distribution Only]<br>
-</p>
-<br>
-<div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Hi Felix,</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-There is no big picture unfortunately, just some improvements that I came t=
-o when navigating the code.&nbsp;</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Regarding your suggestion, I have a concern. With the original code in unma=
-p_queues_cpsch(), if amdkfd_fence_wait_timeout() fails, we won't release th=
-e runlist ib. I am not sure it is by design or just a small bug. If it is b=
-y design (probably for debugging
- when HWS hang), merging&nbsp;pm_send_unmap_queue and pm_release_ib togethe=
-r will break the design.&nbsp;</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-If we agree to move in that direction, I agree with the part of the name ch=
-anges because the original names are prone to cause confusion.</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Regards,</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Yong</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Kuehling, Felix &lt;F=
-elix.Kuehling@amd.com&gt;<br>
-<b>Sent:</b> Friday, November 22, 2019 4:21 PM<br>
-<b>To:</b> Zhao, Yong &lt;Yong.Zhao@amd.com&gt;; amd-gfx@lists.freedesktop.=
-org &lt;amd-gfx@lists.freedesktop.org&gt;<br>
-<b>Subject:</b> Re: [PATCH 2/2] drm/amdkfd: Move pm_create_runlist_ib() out=
- of pm_send_runlist()</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">I'm not sure about this one. Looks like the interf=
-ace is getting
-<br>
-needlessly more complicated. Now the caller has to keep track of the <br>
-runlist IB address and size just to pass those to another function. I <br>
-could understand this if there was a use case that needs to separate the <b=
-r>
-allocation of the runlist and sending it to the HW. But I don't see that.<b=
-r>
-<br>
-Some background for why I think the interface is the way it is: The <br>
-runlist IB is continuously executed by the HWS firmware. If the runlist <br=
->
-is oversubscribed, the HWS firmware will loop through it. So the IB must <b=
-r>
-remain allocated until pm_send_unmap_queue is called. Currently <br>
-pm_send_runlist creates the runlist IB and sends it to the HWS. You're <br>
-separating that into creation and sending. Do you see a case where you <br>
-need to send the same runlist multiple times? Or do something else <br>
-between creating the runlist and sending it to the HWS?<br>
-<br>
-pm_release_ib releases the runlist IB, assuming that he HWS is no longer <b=
-r>
-using it. Maybe this could be combined with pm_send_unmap_queue. I'm not <b=
-r>
-100% sure because there are some filter parameters that may leave some <br>
-queues mapped. If the two can be combined, I'd suggest the following <br>
-name and interface changes to reflect how I think this is being used today:=
-<br>
-<br>
-&nbsp; * pm_send_runlist -&gt; pm_create_and_send_runlist<br>
-&nbsp; * pm_send_unmap_queue &#43; pm_release_ib -&gt; pm_preempt_and_free_=
-runlist<br>
-<br>
-I see you're doing a lot of cleanup and refactoring in this area of the <br=
->
-code. Is there some bigger picture here, some idea of the end-state <br>
-you're trying to get to? Knowing where you're going with this may make <br>
-it easier to review the code.<br>
-<br>
-Regards,<br>
-&nbsp;&nbsp; Felix<br>
-<br>
-On 2019-11-21 4:26 p.m., Yong Zhao wrote:<br>
-&gt; This is consistent with the calling sequence in unmap_queues_cpsch().<=
-br>
-&gt;<br>
-&gt; Change-Id: Ieb6714422c812d4f6ebbece34e339871471e4b5e<br>
-&gt; Signed-off-by: Yong Zhao &lt;Yong.Zhao@amd.com&gt;<br>
-&gt; ---<br>
-&gt;&nbsp;&nbsp; .../drm/amd/amdkfd/kfd_device_queue_manager.c | 18 &#43;&#=
-43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;--<br>
-&gt;&nbsp;&nbsp; .../gpu/drm/amd/amdkfd/kfd_packet_manager.c&nbsp;&nbsp; | =
-20 &#43;&#43;&#43;&#43;&#43;--------------<br>
-&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdkfd/kfd_priv.h&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp; 7 &#43;&#43;&#43;&#43;&#43;&#43;-<br>
-&gt;&nbsp;&nbsp; 3 files changed, 27 insertions(&#43;), 18 deletions(-)<br>
-&gt;<br>
-&gt; diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/d=
-rivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c<br>
-&gt; index 510f2d1bb8bb..fd7d90136b94 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c<br>
-&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.=
-c<br>
-&gt; @@ -1302,6 &#43;1302,8 @@ static int unmap_sdma_queues(struct device_q=
-ueue_manager *dqm)<br>
-&gt;&nbsp;&nbsp; static int map_queues_cpsch(struct device_queue_manager *d=
-qm)<br>
-&gt;&nbsp;&nbsp; {<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int retval;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; uint64_t rl_ib_gpu_addr;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; size_t rl_ib_size;<br>
-&gt;&nbsp;&nbsp; <br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!dqm-&gt;sched_running)<=
-br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; return 0;<br>
-&gt; @@ -1310,15 &#43;1312,27 @@ static int map_queues_cpsch(struct device_=
-queue_manager *dqm)<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (dqm-&gt;active_runlist)<=
-br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; return 0;<br>
-&gt;&nbsp;&nbsp; <br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; retval =3D pm_send_runlist(&amp;dqm-&gt;pack=
-ets, &amp;dqm-&gt;queues);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; retval =3D pm_create_runlist_ib(&amp;dqm=
--&gt;packets, &amp;dqm-&gt;queues,<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp; &amp;rl_ib_gpu_addr, &amp;rl_ib_size);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; if (retval)<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; goto fail_create_runlist_ib;<br>
-&gt; &#43;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; pr_debug(&quot;runlist IB address: 0x%ll=
-X\n&quot;, rl_ib_gpu_addr);<br>
-&gt; &#43;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; retval =3D pm_send_runlist(&amp;dqm-&gt;=
-packets, &amp;dqm-&gt;queues,<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; rl_ib_gpu_addr, rl_=
-ib_size);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pr_debug(&quot;%s sent runli=
-st\n&quot;, __func__);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (retval) {<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; pr_err(&quot;failed to execute runlist\n&quot;);<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; return retval;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; goto fail_create_runlist_ib;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dqm-&gt;active_runlist =3D t=
-rue;<br>
-&gt;&nbsp;&nbsp; <br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return retval;<br>
-&gt; &#43;<br>
-&gt; &#43;fail_create_runlist_ib:<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; pm_destroy_runlist_ib(&amp;dqm-&gt;packe=
-ts);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; return retval;<br>
-&gt;&nbsp;&nbsp; }<br>
-&gt;&nbsp;&nbsp; <br>
-&gt;&nbsp;&nbsp; /* dqm-&gt;lock mutex has to be locked before calling this=
- function */<br>
-&gt; diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager.c b/drivers=
-/gpu/drm/amd/amdkfd/kfd_packet_manager.c<br>
-&gt; index 4a9433257428..6ec54e9f9392 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager.c<br>
-&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager.c<br>
-&gt; @@ -116,7 &#43;116,7 @@ static int pm_allocate_runlist_ib(struct packe=
-t_manager *pm,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return retval;<br>
-&gt;&nbsp;&nbsp; }<br>
-&gt;&nbsp;&nbsp; <br>
-&gt; -static int pm_create_runlist_ib(struct packet_manager *pm,<br>
-&gt; &#43;int pm_create_runlist_ib(struct packet_manager *pm,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct list_head *queues,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint64_t *rl_gpu_addr,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; size_t *rl_size_bytes)<br>
-&gt; @@ -149,7 &#43;149,6 @@ static int pm_create_runlist_ib(struct packet_=
-manager *pm,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; /* build map process packet */<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; if (proccesses_mapped &gt;=3D pm-&gt;dqm-&gt;processes_=
-count) {<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pr_debu=
-g(&quot;Not enough space left in runlist IB\n&quot;);<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pm_destroy_runlist_ib(p=
-m);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return =
--ENOMEM;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; }<br>
-&gt;&nbsp;&nbsp; <br>
-&gt; @@ -299,20 &#43;298,13 @@ int pm_send_set_resources(struct packet_mana=
-ger *pm,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return retval;<br>
-&gt;&nbsp;&nbsp; }<br>
-&gt;&nbsp;&nbsp; <br>
-&gt; -int pm_send_runlist(struct packet_manager *pm, struct list_head *dqm_=
-queues)<br>
-&gt; &#43;int pm_send_runlist(struct packet_manager *pm, struct list_head *=
-dqm_queues,<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint64_t rl_ib_gpu_=
-addr, size_t rl_ib_size)<br>
-&gt;&nbsp;&nbsp; {<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; uint64_t rl_gpu_ib_addr;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t *rl_buffer;<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; size_t rl_ib_size, packet_size_dwords;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; size_t packet_size_dwords;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int retval;<br>
-&gt;&nbsp;&nbsp; <br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; retval =3D pm_create_runlist_ib(pm, dqm_queu=
-es, &amp;rl_gpu_ib_addr,<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &a=
-mp;rl_ib_size);<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; if (retval)<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; goto fail_create_runlist_ib;<br>
-&gt; -<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; pr_debug(&quot;runlist IB address: 0x%llX\n&=
-quot;, rl_gpu_ib_addr);<br>
-&gt; -<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; packet_size_dwords =3D pm-&g=
-t;pmf-&gt;runlist_size / sizeof(uint32_t);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_lock(&amp;pm-&gt;lock)=
-;<br>
-&gt;&nbsp;&nbsp; <br>
-&gt; @@ -321,7 &#43;313,7 @@ int pm_send_runlist(struct packet_manager *pm,=
- struct list_head *dqm_queues)<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (retval)<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; goto fail_acquire_packet_buffer;<br>
-&gt;&nbsp;&nbsp; <br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; retval =3D pm-&gt;pmf-&gt;runlist(pm, rl_buf=
-fer, rl_gpu_ib_addr,<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; retval =3D pm-&gt;pmf-&gt;runlist(pm, rl=
-_buffer, rl_ib_gpu_addr,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp; rl_ib_size / sizeof(uint32_t), false);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (retval)<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; goto fail_create_runlist;<br>
-&gt; @@ -336,8 &#43;328,6 @@ int pm_send_runlist(struct packet_manager *pm,=
- struct list_head *dqm_queues)<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kq_rollback_packet(pm-&gt;pr=
-iv_queue);<br>
-&gt;&nbsp;&nbsp; fail_acquire_packet_buffer:<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_unlock(&amp;pm-&gt;loc=
-k);<br>
-&gt; -fail_create_runlist_ib:<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; pm_destroy_runlist_ib(pm);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return retval;<br>
-&gt;&nbsp;&nbsp; }<br>
-&gt;&nbsp;&nbsp; <br>
-&gt; diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/a=
-md/amdkfd/kfd_priv.h<br>
-&gt; index 389cda7c8f1a..6accb605b9f0 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h<br>
-&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h<br>
-&gt; @@ -980,7 &#43;980,8 @@ int pm_init(struct packet_manager *pm, struct =
-device_queue_manager *dqm);<br>
-&gt;&nbsp;&nbsp; void pm_uninit(struct packet_manager *pm);<br>
-&gt;&nbsp;&nbsp; int pm_send_set_resources(struct packet_manager *pm,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct scheduling_resources *res);=
-<br>
-&gt; -int pm_send_runlist(struct packet_manager *pm, struct list_head *dqm_=
-queues);<br>
-&gt; &#43;int pm_send_runlist(struct packet_manager *pm, struct list_head *=
-dqm_queues,<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; uint64_t rl_ib_gpu_addr, size_t rl_ib_size);<br>
-&gt;&nbsp;&nbsp; int pm_send_query_status(struct packet_manager *pm, uint64=
-_t fence_address,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t fence_value);<br>
-&gt;&nbsp;&nbsp; <br>
-&gt; @@ -989,6 &#43;990,10 @@ int pm_send_unmap_queue(struct packet_manager=
- *pm, enum kfd_queue_type type,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_=
-t filter_param, bool reset,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unsigne=
-d int sdma_engine);<br>
-&gt;&nbsp;&nbsp; <br>
-&gt; &#43;int pm_create_runlist_ib(struct packet_manager *pm,<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp; struct list_head *queues,<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp; uint64_t *rl_gpu_addr,<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp; size_t *rl_size_bytes);<br>
-&gt;&nbsp;&nbsp; void pm_destroy_runlist_ib(struct packet_manager *pm);<br>
-&gt;&nbsp;&nbsp; <br>
-&gt;&nbsp;&nbsp; /* Following PM funcs can be shared among VI and AI */<br>
-</div>
-</span></font></div>
-</div>
-</body>
-</html>
-
---_000_DM6PR12MB2778563A27C80EED222CD177F0490DM6PR12MB2778namp_--
-
---===============1265983940==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
+Q29uZmlnIHRoZSB0cmFuc2xhdGlvbiByZXRyeSBiZWhhdmlvciBhY2NvcmRpbmcgdG8gbm9yZXRy
+eQprZXJuZWwgcGFyYW1ldGVyCgpDaGFuZ2UtSWQ6IEk1YjkxZWE3NzcxNTEzN2NmOGNiODRlMjU4
+Y2NkZmJiMTljN2E0ZWQxClNpZ25lZC1vZmYtYnk6IE9hayBaZW5nIDxPYWsuWmVuZ0BhbWQuY29t
+PgpTdWdnZXN0ZWQtYnk6IEpheSBDb3Jud2FsbCA8SmF5LkNvcm53YWxsQGFtZC5jb20+Ci0tLQog
+ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvbW1odWJfdjlfNC5jIHwgNSArKystLQogMSBmaWxl
+IGNoYW5nZWQsIDMgaW5zZXJ0aW9ucygrKSwgMiBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9k
+cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9tbWh1Yl92OV80LmMgYi9kcml2ZXJzL2dwdS9kcm0v
+YW1kL2FtZGdwdS9tbWh1Yl92OV80LmMKaW5kZXggNzUzZWVhMi4uODU5OWJmZCAxMDA2NDQKLS0t
+IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvbW1odWJfdjlfNC5jCisrKyBiL2RyaXZlcnMv
+Z3B1L2RybS9hbWQvYW1kZ3B1L21taHViX3Y5XzQuYwpAQCAtMzE0LDcgKzMxNCw4IEBAIHN0YXRp
+YyB2b2lkIG1taHViX3Y5XzRfc2V0dXBfdm1pZF9jb25maWcoc3RydWN0IGFtZGdwdV9kZXZpY2Ug
+KmFkZXYsIGludCBodWJpZCkKIAkJCQkgICAgYWRldi0+dm1fbWFuYWdlci5ibG9ja19zaXplIC0g
+OSk7CiAJCS8qIFNlbmQgbm8tcmV0cnkgWE5BQ0sgb24gZmF1bHQgdG8gc3VwcHJlc3MgVk0gZmF1
+bHQgc3Rvcm0uICovCiAJCXRtcCA9IFJFR19TRVRfRklFTEQodG1wLCBWTUwyVkMwX1ZNX0NPTlRF
+WFQxX0NOVEwsCi0JCQkJICAgIFJFVFJZX1BFUk1JU1NJT05fT1JfSU5WQUxJRF9QQUdFX0ZBVUxU
+LCAwKTsKKwkJCQkgICAgUkVUUllfUEVSTUlTU0lPTl9PUl9JTlZBTElEX1BBR0VfRkFVTFQsCisJ
+CQkJICAgICFhbWRncHVfbm9yZXRyeSk7CiAJCVdSRUczMl9TT0MxNV9PRkZTRVQoTU1IVUIsIDAs
+IG1tVk1MMlZDMF9WTV9DT05URVhUMV9DTlRMLAogCQkJCSAgICBodWJpZCAqIE1NSFVCX0lOU1RB
+TkNFX1JFR0lTVEVSX09GRlNFVCArIGksCiAJCQkJICAgIHRtcCk7CkBAIC05MDUsNCArOTA2LDQg
+QEAgc3RhdGljIHZvaWQgbW1odWJfdjlfNF9xdWVyeV9yYXNfZXJyb3JfY291bnQoc3RydWN0IGFt
+ZGdwdV9kZXZpY2UgKmFkZXYsCiBjb25zdCBzdHJ1Y3QgYW1kZ3B1X21taHViX2Z1bmNzIG1taHVi
+X3Y5XzRfZnVuY3MgPSB7CiAJLnJhc19sYXRlX2luaXQgPSBhbWRncHVfbW1odWJfcmFzX2xhdGVf
+aW5pdCwKIAkucXVlcnlfcmFzX2Vycm9yX2NvdW50ID0gbW1odWJfdjlfNF9xdWVyeV9yYXNfZXJy
+b3JfY291bnQsCi19OwpcIE5vIG5ld2xpbmUgYXQgZW5kIG9mIGZpbGUKK307Ci0tIAoyLjcuNAoK
 X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
-
---===============1265983940==--
