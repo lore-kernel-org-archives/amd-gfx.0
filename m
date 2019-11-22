@@ -1,86 +1,40 @@
-From: "Zeng, Oak" <Oak.Zeng-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH] drm/amdgpu: Apply noretry setting for gfx10 and mmhub9.4
-Date: Fri, 22 Nov 2019 23:09:10 +0000
-Message-ID: <BL0PR12MB25807A3E37A18899CA5AA13880490@BL0PR12MB2580.namprd12.prod.outlook.com>
-References: <1574454197-13273-1-git-send-email-Oak.Zeng@amd.com>
- <b4dcc63c-e57e-30cb-06f2-11451c37a195@amd.com>
+From: Colin King <colin.king@canonical.com>
+Subject: [PATCH] drm/radeon: remove redundant assignment to variable ret
+Date: Fri, 22 Nov 2019 23:15:04 +0000
+Message-ID: <20191122231504.109948-1-colin.king@canonical.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <b4dcc63c-e57e-30cb-06f2-11451c37a195-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Cornwall, Jay" <Jay.Cornwall-5C7GfCeVMHo@public.gmane.org>
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, David Zhou <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-SSBkaWRuJ3QgaGF2ZSBuZXcgaW5mb3JtYXRpb24gYWJvdXQgdGhlIHJldHJ5X21vZGUgc2V0dGlu
-ZyBmb3IgZ2Z4MTAuIEkganVzdCBzYXcgdGhlIG5vcmV0cnkga2VybmVsIHBhcmFtZXRlciB3YXNu
-J3QgYXBwbGllZCB0byBnZngxMCBidXQgSSBkaWRuJ3Qga25vdyBnZngxMCBpcyBleGNsdWRlZCBw
-dXJwb3NlbHkuIExldCBtZSBkcm9wIHRoZSBnZngxMCBwYXJ0IGZvciBub3cuDQoNCk9haw0KDQot
-LS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KRnJvbTogS3VlaGxpbmcsIEZlbGl4IDxGZWxpeC5L
-dWVobGluZ0BhbWQuY29tPiANClNlbnQ6IEZyaWRheSwgTm92ZW1iZXIgMjIsIDIwMTkgMzo1MSBQ
-TQ0KVG86IFplbmcsIE9hayA8T2FrLlplbmdAYW1kLmNvbT47IGFtZC1nZnhAbGlzdHMuZnJlZWRl
-c2t0b3Aub3JnDQpDYzogQ29ybndhbGwsIEpheSA8SmF5LkNvcm53YWxsQGFtZC5jb20+DQpTdWJq
-ZWN0OiBSZTogW1BBVENIXSBkcm0vYW1kZ3B1OiBBcHBseSBub3JldHJ5IHNldHRpbmcgZm9yIGdm
-eDEwIGFuZCBtbWh1YjkuNA0KDQoNCk9uIDIwMTktMTEtMjIgMzoyMyBwLm0uLCBPYWsgWmVuZyB3
-cm90ZToNCj4gQ29uZmlnIHRoZSB0cmFuc2xhdGlvbiByZXRyeSBiZWhhdmlvciBhY2NvcmRpbmcg
-dG8gbm9yZXRyeSBrZXJuZWwgDQo+IHBhcmFtZXRlcg0KPg0KPiBDaGFuZ2UtSWQ6IEk1YjkxZWE3
-NzcxNTEzN2NmOGNiODRlMjU4Y2NkZmJiMTljN2E0ZWQxDQo+IFNpZ25lZC1vZmYtYnk6IE9hayBa
-ZW5nIDxPYWsuWmVuZ0BhbWQuY29tPg0KPiBTdWdnZXN0ZWQtYnk6IEpheSBDb3Jud2FsbCA8SmF5
-LkNvcm53YWxsQGFtZC5jb20+DQo+IC0tLQ0KPiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
-L2dmeF92MTBfMC5jICB8IDQgKysrLQ0KPiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L21t
-aHViX3Y5XzQuYyB8IDUgKysrLS0NCj4gICAyIGZpbGVzIGNoYW5nZWQsIDYgaW5zZXJ0aW9ucygr
-KSwgMyBkZWxldGlvbnMoLSkNCj4NCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-YW1kZ3B1L2dmeF92MTBfMC5jIA0KPiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92
-MTBfMC5jDQo+IGluZGV4IDRkNmRmMzUuLjc0MzU0ODcgMTAwNjQ0DQo+IC0tLSBhL2RyaXZlcnMv
-Z3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92MTBfMC5jDQo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9h
-bWQvYW1kZ3B1L2dmeF92MTBfMC5jDQo+IEBAIC0xNzUxLDcgKzE3NTEsOSBAQCBzdGF0aWMgdm9p
-ZCBnZnhfdjEwXzBfY29uc3RhbnRzX2luaXQoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpDQo+
-ICAgCWZvciAoaSA9IDA7IGkgPCBhZGV2LT52bV9tYW5hZ2VyLmlkX21ncltBTURHUFVfR0ZYSFVC
-XzBdLm51bV9pZHM7IGkrKykgew0KPiAgIAkJbnZfZ3JibV9zZWxlY3QoYWRldiwgMCwgMCwgMCwg
-aSk7DQo+ICAgCQkvKiBDUCBhbmQgc2hhZGVycyAqLw0KPiAtCQlXUkVHMzJfU09DMTUoR0MsIDAs
-IG1tU0hfTUVNX0NPTkZJRywgREVGQVVMVF9TSF9NRU1fQ09ORklHKTsNCj4gKwkJdG1wID0gUkVH
-X1NFVF9GSUVMRChERUZBVUxUX1NIX01FTV9DT05GSUcsIFNIX01FTV9DT05GSUcsDQo+ICsJCQkJ
-UkVUUllfTU9ERSwgYW1kZ3B1X25vcmV0cnkgPyAyIDogMCk7DQo+ICsJCVdSRUczMl9TT0MxNShH
-QywgMCwgbW1TSF9NRU1fQ09ORklHLCB0bXApOw0KSSBkaWRuJ3QgZml4IGdmeF92MTBfMCBvbiBw
-dXJwb3NlIGxhc3QgdGltZSBJIHdvcmtlZCBvbiB0aGlzDQooIjc1ZWU2NDg3NWU3NSBkcm0vYW1k
-a2ZkOiBDb25zaXN0ZW50bHkgYXBwbHkgbm9yZXRyeSBzZXR0aW5nIiksIGJlY2F1c2UgdGhlIHJl
-dHJ5IHdvcmtzIGRpZmZlcmVudGx5IG9uIEdGWHYxMC4gRG8geW91IGhhdmUgbmV3IGluZm9ybWF0
-aW9uIGFib3V0IGhvdyB0aGUgUkVUUllfTU9ERSBzZXR0aW5nIHdvcmtzIG9uIEdGWHYxMD8gRG9l
-cyBpdCBhZmZlY3QgcGVyZm9ybWFuY2U/DQoNCg0KPiAgIAkJaWYgKGkgIT0gMCkgew0KPiAgIAkJ
-CXRtcCA9IFJFR19TRVRfRklFTEQoMCwgU0hfTUVNX0JBU0VTLCBQUklWQVRFX0JBU0UsDQo+ICAg
-CQkJCShhZGV2LT5nbWMucHJpdmF0ZV9hcGVydHVyZV9zdGFydCA+PiA0OCkpOyBkaWZmIC0tZ2l0
-IA0KPiBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L21taHViX3Y5XzQuYyANCj4gYi9kcml2
-ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9tbWh1Yl92OV80LmMNCj4gaW5kZXggNzUzZWVhMi4uODU5
-OWJmZCAxMDA2NDQNCj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvbW1odWJfdjlf
-NC5jDQo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L21taHViX3Y5XzQuYw0KPiBA
-QCAtMzE0LDcgKzMxNCw4IEBAIHN0YXRpYyB2b2lkIG1taHViX3Y5XzRfc2V0dXBfdm1pZF9jb25m
-aWcoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsIGludCBodWJpZCkNCj4gICAJCQkJICAgIGFk
-ZXYtPnZtX21hbmFnZXIuYmxvY2tfc2l6ZSAtIDkpOw0KPiAgIAkJLyogU2VuZCBuby1yZXRyeSBY
-TkFDSyBvbiBmYXVsdCB0byBzdXBwcmVzcyBWTSBmYXVsdCBzdG9ybS4gKi8NCj4gICAJCXRtcCA9
-IFJFR19TRVRfRklFTEQodG1wLCBWTUwyVkMwX1ZNX0NPTlRFWFQxX0NOVEwsDQo+IC0JCQkJICAg
-IFJFVFJZX1BFUk1JU1NJT05fT1JfSU5WQUxJRF9QQUdFX0ZBVUxULCAwKTsNCj4gKwkJCQkgICAg
-UkVUUllfUEVSTUlTU0lPTl9PUl9JTlZBTElEX1BBR0VfRkFVTFQsDQo+ICsJCQkJICAgICFhbWRn
-cHVfbm9yZXRyeSk7DQoNClJpZ2h0LCB0aGlzIHdhcyBtaXNzZWQgaW4gbXkgcHJldmlvdXMgY29t
-bWl0IGJlY2F1c2UgbW1odWJfdjlfNCB3YXMgYWRkZWQgbGF0ZXIuDQoNClJlZ2FyZHMsDQogwqAg
-RmVsaXgNCg0KDQo+ICAgCQlXUkVHMzJfU09DMTVfT0ZGU0VUKE1NSFVCLCAwLCBtbVZNTDJWQzBf
-Vk1fQ09OVEVYVDFfQ05UTCwNCj4gICAJCQkJICAgIGh1YmlkICogTU1IVUJfSU5TVEFOQ0VfUkVH
-SVNURVJfT0ZGU0VUICsgaSwNCj4gICAJCQkJICAgIHRtcCk7DQo+IEBAIC05MDUsNCArOTA2LDQg
-QEAgc3RhdGljIHZvaWQgbW1odWJfdjlfNF9xdWVyeV9yYXNfZXJyb3JfY291bnQoc3RydWN0IGFt
-ZGdwdV9kZXZpY2UgKmFkZXYsDQo+ICAgY29uc3Qgc3RydWN0IGFtZGdwdV9tbWh1Yl9mdW5jcyBt
-bWh1Yl92OV80X2Z1bmNzID0gew0KPiAgIAkucmFzX2xhdGVfaW5pdCA9IGFtZGdwdV9tbWh1Yl9y
-YXNfbGF0ZV9pbml0LA0KPiAgIAkucXVlcnlfcmFzX2Vycm9yX2NvdW50ID0gbW1odWJfdjlfNF9x
-dWVyeV9yYXNfZXJyb3JfY291bnQsIC19OyBcIE5vIA0KPiBuZXdsaW5lIGF0IGVuZCBvZiBmaWxl
-DQo+ICt9Ow0KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18K
-YW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6
-Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+From: Colin Ian King <colin.king@canonical.com>
+
+The variable ret is being initialized with a value that is never
+read and it is being updated later with a new value. The
+initialization is redundant and can be removed.
+
+Addresses-Coverity: ("Unused value")
+Signed-off-by: Colin Ian King <colin.king@canonical.com>
+---
+ drivers/gpu/drm/radeon/si_dpm.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/radeon/si_dpm.c b/drivers/gpu/drm/radeon/si_dpm.c
+index 8148a7883de4..346315b3eebe 100644
+--- a/drivers/gpu/drm/radeon/si_dpm.c
++++ b/drivers/gpu/drm/radeon/si_dpm.c
+@@ -5899,7 +5899,7 @@ static int si_patch_single_dependency_table_based_on_leakage(struct radeon_devic
+ 
+ static int si_patch_dependency_tables_based_on_leakage(struct radeon_device *rdev)
+ {
+-	int ret = 0;
++	int ret;
+ 
+ 	ret = si_patch_single_dependency_table_based_on_leakage(rdev,
+ 								&rdev->pm.dpm.dyn_state.vddc_dependency_on_sclk);
+-- 
+2.24.0
