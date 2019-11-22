@@ -1,48 +1,42 @@
-From: Oak Zeng <Oak.Zeng-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH] drm/amdgpu: Apply noretry setting for mmhub9.4
-Date: Fri, 22 Nov 2019 16:55:47 -0600
-Message-ID: <1574463347-27961-1-git-send-email-Oak.Zeng@amd.com>
+From: Colin King <colin.king@canonical.com>
+Subject: [PATCH] drm/amd/powerplay: remove redundant assignment to variables HiSidd and LoSidd
+Date: Fri, 22 Nov 2019 23:04:07 +0000
+Message-ID: <20191122230407.109636-1-colin.king@canonical.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Felix.Kuehling-5C7GfCeVMHo@public.gmane.org, Jay.Cornwall-5C7GfCeVMHo@public.gmane.org, Oak Zeng <Oak.Zeng-5C7GfCeVMHo@public.gmane.org>
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Rex Zhu <rex.zhu@amd.com>, Evan Quan <evan.quan@amd.com>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, David Zhou <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-Q29uZmlnIHRoZSB0cmFuc2xhdGlvbiByZXRyeSBiZWhhdmlvciBhY2NvcmRpbmcgdG8gbm9yZXRy
-eQprZXJuZWwgcGFyYW1ldGVyCgpDaGFuZ2UtSWQ6IEk1YjkxZWE3NzcxNTEzN2NmOGNiODRlMjU4
-Y2NkZmJiMTljN2E0ZWQxClNpZ25lZC1vZmYtYnk6IE9hayBaZW5nIDxPYWsuWmVuZ0BhbWQuY29t
-PgpTdWdnZXN0ZWQtYnk6IEpheSBDb3Jud2FsbCA8SmF5LkNvcm53YWxsQGFtZC5jb20+Ci0tLQog
-ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvbW1odWJfdjlfNC5jIHwgNSArKystLQogMSBmaWxl
-IGNoYW5nZWQsIDMgaW5zZXJ0aW9ucygrKSwgMiBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9k
-cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9tbWh1Yl92OV80LmMgYi9kcml2ZXJzL2dwdS9kcm0v
-YW1kL2FtZGdwdS9tbWh1Yl92OV80LmMKaW5kZXggNzUzZWVhMi4uODU5OWJmZCAxMDA2NDQKLS0t
-IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvbW1odWJfdjlfNC5jCisrKyBiL2RyaXZlcnMv
-Z3B1L2RybS9hbWQvYW1kZ3B1L21taHViX3Y5XzQuYwpAQCAtMzE0LDcgKzMxNCw4IEBAIHN0YXRp
-YyB2b2lkIG1taHViX3Y5XzRfc2V0dXBfdm1pZF9jb25maWcoc3RydWN0IGFtZGdwdV9kZXZpY2Ug
-KmFkZXYsIGludCBodWJpZCkKIAkJCQkgICAgYWRldi0+dm1fbWFuYWdlci5ibG9ja19zaXplIC0g
-OSk7CiAJCS8qIFNlbmQgbm8tcmV0cnkgWE5BQ0sgb24gZmF1bHQgdG8gc3VwcHJlc3MgVk0gZmF1
-bHQgc3Rvcm0uICovCiAJCXRtcCA9IFJFR19TRVRfRklFTEQodG1wLCBWTUwyVkMwX1ZNX0NPTlRF
-WFQxX0NOVEwsCi0JCQkJICAgIFJFVFJZX1BFUk1JU1NJT05fT1JfSU5WQUxJRF9QQUdFX0ZBVUxU
-LCAwKTsKKwkJCQkgICAgUkVUUllfUEVSTUlTU0lPTl9PUl9JTlZBTElEX1BBR0VfRkFVTFQsCisJ
-CQkJICAgICFhbWRncHVfbm9yZXRyeSk7CiAJCVdSRUczMl9TT0MxNV9PRkZTRVQoTU1IVUIsIDAs
-IG1tVk1MMlZDMF9WTV9DT05URVhUMV9DTlRMLAogCQkJCSAgICBodWJpZCAqIE1NSFVCX0lOU1RB
-TkNFX1JFR0lTVEVSX09GRlNFVCArIGksCiAJCQkJICAgIHRtcCk7CkBAIC05MDUsNCArOTA2LDQg
-QEAgc3RhdGljIHZvaWQgbW1odWJfdjlfNF9xdWVyeV9yYXNfZXJyb3JfY291bnQoc3RydWN0IGFt
-ZGdwdV9kZXZpY2UgKmFkZXYsCiBjb25zdCBzdHJ1Y3QgYW1kZ3B1X21taHViX2Z1bmNzIG1taHVi
-X3Y5XzRfZnVuY3MgPSB7CiAJLnJhc19sYXRlX2luaXQgPSBhbWRncHVfbW1odWJfcmFzX2xhdGVf
-aW5pdCwKIAkucXVlcnlfcmFzX2Vycm9yX2NvdW50ID0gbW1odWJfdjlfNF9xdWVyeV9yYXNfZXJy
-b3JfY291bnQsCi19OwpcIE5vIG5ld2xpbmUgYXQgZW5kIG9mIGZpbGUKK307Ci0tIAoyLjcuNAoK
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+From: Colin Ian King <colin.king@canonical.com>
+
+The variables HiSidd and LoSidd are being initialized with values that
+are never read and are being updated a little later with a new value.
+The initialization is redundant and can be removed.
+
+Addresses-Coverity: ("Unused value")
+Signed-off-by: Colin Ian King <colin.king@canonical.com>
+---
+ drivers/gpu/drm/amd/powerplay/smumgr/ci_smumgr.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/powerplay/smumgr/ci_smumgr.c b/drivers/gpu/drm/amd/powerplay/smumgr/ci_smumgr.c
+index 15590fd86ef4..868e2d5f6e62 100644
+--- a/drivers/gpu/drm/amd/powerplay/smumgr/ci_smumgr.c
++++ b/drivers/gpu/drm/amd/powerplay/smumgr/ci_smumgr.c
+@@ -653,8 +653,8 @@ static int ci_min_max_v_gnbl_pm_lid_from_bapm_vddc(struct pp_hwmgr *hwmgr)
+ static int ci_populate_bapm_vddc_base_leakage_sidd(struct pp_hwmgr *hwmgr)
+ {
+ 	struct ci_smumgr *smu_data = (struct ci_smumgr *)(hwmgr->smu_backend);
+-	uint16_t HiSidd = smu_data->power_tune_table.BapmVddCBaseLeakageHiSidd;
+-	uint16_t LoSidd = smu_data->power_tune_table.BapmVddCBaseLeakageLoSidd;
++	uint16_t HiSidd;
++	uint16_t LoSidd;
+ 	struct phm_cac_tdp_table *cac_table = hwmgr->dyn_state.cac_dtp_table;
+ 
+ 	HiSidd = (uint16_t)(cac_table->usHighCACLeakage / 100 * 256);
+-- 
+2.24.0
