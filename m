@@ -1,40 +1,54 @@
-From: Colin King <colin.king@canonical.com>
-Subject: [PATCH] drm/radeon: remove redundant assignment to variable ret
-Date: Fri, 22 Nov 2019 23:15:04 +0000
-Message-ID: <20191122231504.109948-1-colin.king@canonical.com>
+From: Felix Kuehling <felix.kuehling-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu: Apply noretry setting for mmhub9.4
+Date: Fri, 22 Nov 2019 18:21:17 -0500
+Message-ID: <68bce28c-6b9d-8626-b2e0-09d6f4b3bb05@amd.com>
+References: <1574463347-27961-1-git-send-email-Oak.Zeng@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, David Zhou <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <1574463347-27961-1-git-send-email-Oak.Zeng-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Oak Zeng <Oak.Zeng-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Jay.Cornwall-5C7GfCeVMHo@public.gmane.org
 
-From: Colin Ian King <colin.king@canonical.com>
-
-The variable ret is being initialized with a value that is never
-read and it is being updated later with a new value. The
-initialization is redundant and can be removed.
-
-Addresses-Coverity: ("Unused value")
-Signed-off-by: Colin Ian King <colin.king@canonical.com>
----
- drivers/gpu/drm/radeon/si_dpm.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/radeon/si_dpm.c b/drivers/gpu/drm/radeon/si_dpm.c
-index 8148a7883de4..346315b3eebe 100644
---- a/drivers/gpu/drm/radeon/si_dpm.c
-+++ b/drivers/gpu/drm/radeon/si_dpm.c
-@@ -5899,7 +5899,7 @@ static int si_patch_single_dependency_table_based_on_leakage(struct radeon_devic
- 
- static int si_patch_dependency_tables_based_on_leakage(struct radeon_device *rdev)
- {
--	int ret = 0;
-+	int ret;
- 
- 	ret = si_patch_single_dependency_table_based_on_leakage(rdev,
- 								&rdev->pm.dpm.dyn_state.vddc_dependency_on_sclk);
--- 
-2.24.0
+T24gMjAxOS0xMS0yMiA1OjU1IHAubS4sIE9hayBaZW5nIHdyb3RlOgo+IENvbmZpZyB0aGUgdHJh
+bnNsYXRpb24gcmV0cnkgYmVoYXZpb3IgYWNjb3JkaW5nIHRvIG5vcmV0cnkKPiBrZXJuZWwgcGFy
+YW1ldGVyCj4KPiBDaGFuZ2UtSWQ6IEk1YjkxZWE3NzcxNTEzN2NmOGNiODRlMjU4Y2NkZmJiMTlj
+N2E0ZWQxCj4gU2lnbmVkLW9mZi1ieTogT2FrIFplbmcgPE9hay5aZW5nQGFtZC5jb20+Cj4gU3Vn
+Z2VzdGVkLWJ5OiBKYXkgQ29ybndhbGwgPEpheS5Db3Jud2FsbEBhbWQuY29tPgoKUmV2aWV3ZWQt
+Ynk6IEZlbGl4IEt1ZWhsaW5nIDxGZWxpeC5LdWVobGluZ0BhbWQuY29tPgoKCj4gLS0tCj4gICBk
+cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9tbWh1Yl92OV80LmMgfCA1ICsrKy0tCj4gICAxIGZp
+bGUgY2hhbmdlZCwgMyBpbnNlcnRpb25zKCspLCAyIGRlbGV0aW9ucygtKQo+Cj4gZGlmZiAtLWdp
+dCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L21taHViX3Y5XzQuYyBiL2RyaXZlcnMvZ3B1
+L2RybS9hbWQvYW1kZ3B1L21taHViX3Y5XzQuYwo+IGluZGV4IDc1M2VlYTIuLjg1OTliZmQgMTAw
+NjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvbW1odWJfdjlfNC5jCj4gKysr
+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvbW1odWJfdjlfNC5jCj4gQEAgLTMxNCw3ICsz
+MTQsOCBAQCBzdGF0aWMgdm9pZCBtbWh1Yl92OV80X3NldHVwX3ZtaWRfY29uZmlnKHN0cnVjdCBh
+bWRncHVfZGV2aWNlICphZGV2LCBpbnQgaHViaWQpCj4gICAJCQkJICAgIGFkZXYtPnZtX21hbmFn
+ZXIuYmxvY2tfc2l6ZSAtIDkpOwo+ICAgCQkvKiBTZW5kIG5vLXJldHJ5IFhOQUNLIG9uIGZhdWx0
+IHRvIHN1cHByZXNzIFZNIGZhdWx0IHN0b3JtLiAqLwo+ICAgCQl0bXAgPSBSRUdfU0VUX0ZJRUxE
+KHRtcCwgVk1MMlZDMF9WTV9DT05URVhUMV9DTlRMLAo+IC0JCQkJICAgIFJFVFJZX1BFUk1JU1NJ
+T05fT1JfSU5WQUxJRF9QQUdFX0ZBVUxULCAwKTsKPiArCQkJCSAgICBSRVRSWV9QRVJNSVNTSU9O
+X09SX0lOVkFMSURfUEFHRV9GQVVMVCwKPiArCQkJCSAgICAhYW1kZ3B1X25vcmV0cnkpOwo+ICAg
+CQlXUkVHMzJfU09DMTVfT0ZGU0VUKE1NSFVCLCAwLCBtbVZNTDJWQzBfVk1fQ09OVEVYVDFfQ05U
+TCwKPiAgIAkJCQkgICAgaHViaWQgKiBNTUhVQl9JTlNUQU5DRV9SRUdJU1RFUl9PRkZTRVQgKyBp
+LAo+ICAgCQkJCSAgICB0bXApOwo+IEBAIC05MDUsNCArOTA2LDQgQEAgc3RhdGljIHZvaWQgbW1o
+dWJfdjlfNF9xdWVyeV9yYXNfZXJyb3JfY291bnQoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYs
+Cj4gICBjb25zdCBzdHJ1Y3QgYW1kZ3B1X21taHViX2Z1bmNzIG1taHViX3Y5XzRfZnVuY3MgPSB7
+Cj4gICAJLnJhc19sYXRlX2luaXQgPSBhbWRncHVfbW1odWJfcmFzX2xhdGVfaW5pdCwKPiAgIAku
+cXVlcnlfcmFzX2Vycm9yX2NvdW50ID0gbW1odWJfdjlfNF9xdWVyeV9yYXNfZXJyb3JfY291bnQs
+Cj4gLX07Cj4gXCBObyBuZXdsaW5lIGF0IGVuZCBvZiBmaWxlCj4gK307Cl9fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFt
+ZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
+L21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
