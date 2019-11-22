@@ -1,121 +1,73 @@
-From: "Liu, Zhan" <Zhan.Liu-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH] drm/amdkfd: Remove duplicate functions update_mqd_hiq()
-Date: Fri, 22 Nov 2019 04:21:36 +0000
-Message-ID: <DM6PR12MB3466B2CDD1F0158C673AD87B9E490@DM6PR12MB3466.namprd12.prod.outlook.com>
-References: <20191121212524.3946-1-Yong.Zhao@amd.com>
-Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20191121212524.3946-1-Yong.Zhao-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Zhao, Yong" <Yong.Zhao-5C7GfCeVMHo@public.gmane.org>
+From: Gerd Hoffmann <kraxel@redhat.com>
+Subject: [PATCH v2 2/2] drm: share address space for dma bufs
+Date: Fri, 22 Nov 2019 07:37:49 +0100
+Message-ID: <20191122063749.27113-3-kraxel@redhat.com>
+References: <20191122063749.27113-1-kraxel@redhat.com>
+Content-Type: text/plain; charset=WINDOWS-1252
+Content-Transfer-Encoding: quoted-printable
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20191122063749.27113-1-kraxel@redhat.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: dri-devel@lists.freedesktop.org
+Cc: robh@kernel.org, intel-gfx@lists.freedesktop.org, Gerd Hoffmann <kraxel@redhat.com>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>, open list <linux-kernel@vger.kernel.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-TG9va3MgZ29vZCB0byBtZS4NCg0KUmV2aWV3ZWQtYnk6IFpoYW4gTGl1IDx6aGFuLmxpdUBhbWQu
-Y29tPg0KDQo+IC0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQo+IEZyb206IGFtZC1nZnggPGFt
-ZC1nZngtYm91bmNlc0BsaXN0cy5mcmVlZGVza3RvcC5vcmc+IE9uIEJlaGFsZiBPZg0KPiBZb25n
-IFpoYW8NCj4gU2VudDogMjAxOS9Ob3ZlbWJlci8yMSwgVGh1cnNkYXkgNDoyNSBQTQ0KPiBUbzog
-YW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCj4gQ2M6IFpoYW8sIFlvbmcgPFlvbmcuWmhh
-b0BhbWQuY29tPg0KPiBTdWJqZWN0OiBbUEFUQ0hdIGRybS9hbWRrZmQ6IFJlbW92ZSBkdXBsaWNh
-dGUgZnVuY3Rpb25zDQo+IHVwZGF0ZV9tcWRfaGlxKCkNCj4gDQo+IFRoZSBmdW5jdGlvbnMgYXJl
-IHRoZSBzYW1lIGFzIHVwZGF0ZV9tcWQoKS4NCj4gDQo+IENoYW5nZS1JZDogSWM4ZDhmMjNjZGRl
-NmI3ODA2YWI3NjZkZGYzZDcxZmE2NjhjY2E1ZmINCj4gU2lnbmVkLW9mZi1ieTogWW9uZyBaaGFv
-IDxZb25nLlpoYW9AYW1kLmNvbT4NCj4gLS0tDQo+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtm
-ZC9rZmRfbXFkX21hbmFnZXJfdjEwLmMgfCAxNiArKy0tLS0tLS0tLS0tLS0tDQo+IGRyaXZlcnMv
-Z3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9tcWRfbWFuYWdlcl92OS5jICB8IDE2ICsrLS0tLS0tLS0t
-LS0tLS0NCj4gZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX21xZF9tYW5hZ2VyX3ZpLmMg
-IHwgIDQgLS0tLQ0KPiAgMyBmaWxlcyBjaGFuZ2VkLCA0IGluc2VydGlvbnMoKyksIDMyIGRlbGV0
-aW9ucygtKQ0KPiANCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tm
-ZF9tcWRfbWFuYWdlcl92MTAuYw0KPiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9t
-cWRfbWFuYWdlcl92MTAuYw0KPiBpbmRleCA4ZDIxMzI1YjVjYmIuLjc4MzJlYzZlNDgwYiAxMDA2
-NDQNCj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX21xZF9tYW5hZ2VyX3Yx
-MC5jDQo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9tcWRfbWFuYWdlcl92
-MTAuYw0KPiBAQCAtMjgyLDE4ICsyODIsNiBAQCBzdGF0aWMgdm9pZCBpbml0X21xZF9oaXEoc3Ry
-dWN0IG1xZF9tYW5hZ2VyICptbSwNCj4gdm9pZCAqKm1xZCwNCj4gIAkJCTEgPDwgQ1BfSFFEX1BR
-X0NPTlRST0xfX0tNRF9RVUVVRV9fU0hJRlQ7DQo+ICB9DQo+IA0KPiAtc3RhdGljIHZvaWQgdXBk
-YXRlX21xZF9oaXEoc3RydWN0IG1xZF9tYW5hZ2VyICptbSwgdm9pZCAqbXFkLA0KPiAtCQkJc3Ry
-dWN0IHF1ZXVlX3Byb3BlcnRpZXMgKnEpDQo+IC17DQo+IC0Jc3RydWN0IHYxMF9jb21wdXRlX21x
-ZCAqbTsNCj4gLQ0KPiAtCXVwZGF0ZV9tcWQobW0sIG1xZCwgcSk7DQo+IC0NCj4gLQkvKiBUT0RP
-OiB3aGF0J3MgdGhlIHBvaW50PyB1cGRhdGVfbXFkIGFscmVhZHkgZG9lcyB0aGlzLiAqLw0KPiAt
-CW0gPSBnZXRfbXFkKG1xZCk7DQo+IC0JbS0+Y3BfaHFkX3ZtaWQgPSBxLT52bWlkOw0KPiAtfQ0K
-PiAtDQo+ICBzdGF0aWMgdm9pZCBpbml0X21xZF9zZG1hKHN0cnVjdCBtcWRfbWFuYWdlciAqbW0s
-IHZvaWQgKiptcWQsDQo+ICAJCXN0cnVjdCBrZmRfbWVtX29iaiAqbXFkX21lbV9vYmosIHVpbnQ2
-NF90ICpnYXJ0X2FkZHIsDQo+ICAJCXN0cnVjdCBxdWV1ZV9wcm9wZXJ0aWVzICpxKQ0KPiBAQCAt
-NDIyLDcgKzQxMCw3IEBAIHN0cnVjdCBtcWRfbWFuYWdlciAqbXFkX21hbmFnZXJfaW5pdF92MTAo
-ZW51bQ0KPiBLRkRfTVFEX1RZUEUgdHlwZSwNCj4gIAkJbXFkLT5pbml0X21xZCA9IGluaXRfbXFk
-X2hpcTsNCj4gIAkJbXFkLT5mcmVlX21xZCA9IGZyZWVfbXFkX2hpcV9zZG1hOw0KPiAgCQltcWQt
-PmxvYWRfbXFkID0gbG9hZF9tcWQ7DQo+IC0JCW1xZC0+dXBkYXRlX21xZCA9IHVwZGF0ZV9tcWRf
-aGlxOw0KPiArCQltcWQtPnVwZGF0ZV9tcWQgPSB1cGRhdGVfbXFkOw0KPiAgCQltcWQtPmRlc3Ry
-b3lfbXFkID0gZGVzdHJveV9tcWQ7DQo+ICAJCW1xZC0+aXNfb2NjdXBpZWQgPSBpc19vY2N1cGll
-ZDsNCj4gIAkJbXFkLT5tcWRfc2l6ZSA9IHNpemVvZihzdHJ1Y3QgdjEwX2NvbXB1dGVfbXFkKTsg
-QEAgLQ0KPiA0MzYsNyArNDI0LDcgQEAgc3RydWN0IG1xZF9tYW5hZ2VyICptcWRfbWFuYWdlcl9p
-bml0X3YxMChlbnVtDQo+IEtGRF9NUURfVFlQRSB0eXBlLA0KPiAgCQltcWQtPmluaXRfbXFkID0g
-aW5pdF9tcWRfaGlxOw0KPiAgCQltcWQtPmZyZWVfbXFkID0gZnJlZV9tcWQ7DQo+ICAJCW1xZC0+
-bG9hZF9tcWQgPSBsb2FkX21xZDsNCj4gLQkJbXFkLT51cGRhdGVfbXFkID0gdXBkYXRlX21xZF9o
-aXE7DQo+ICsJCW1xZC0+dXBkYXRlX21xZCA9IHVwZGF0ZV9tcWQ7DQo+ICAJCW1xZC0+ZGVzdHJv
-eV9tcWQgPSBkZXN0cm95X21xZDsNCj4gIAkJbXFkLT5pc19vY2N1cGllZCA9IGlzX29jY3VwaWVk
-Ow0KPiAgCQltcWQtPm1xZF9zaXplID0gc2l6ZW9mKHN0cnVjdCB2MTBfY29tcHV0ZV9tcWQpOyBk
-aWZmIC0tZ2l0DQo+IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX21xZF9tYW5hZ2Vy
-X3Y5LmMNCj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfbXFkX21hbmFnZXJfdjku
-Yw0KPiBpbmRleCBkZjc3ZDY3ZWM5YWEuLmFhOTAxMDk5NWVhZiAxMDA2NDQNCj4gLS0tIGEvZHJp
-dmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX21xZF9tYW5hZ2VyX3Y5LmMNCj4gKysrIGIvZHJp
-dmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX21xZF9tYW5hZ2VyX3Y5LmMNCj4gQEAgLTMyNSwx
-OCArMzI1LDYgQEAgc3RhdGljIHZvaWQgaW5pdF9tcWRfaGlxKHN0cnVjdCBtcWRfbWFuYWdlciAq
-bW0sDQo+IHZvaWQgKiptcWQsDQo+ICAJCQkxIDw8IENQX0hRRF9QUV9DT05UUk9MX19LTURfUVVF
-VUVfX1NISUZUOw0KPiAgfQ0KPiANCj4gLXN0YXRpYyB2b2lkIHVwZGF0ZV9tcWRfaGlxKHN0cnVj
-dCBtcWRfbWFuYWdlciAqbW0sIHZvaWQgKm1xZCwNCj4gLQkJCXN0cnVjdCBxdWV1ZV9wcm9wZXJ0
-aWVzICpxKQ0KPiAtew0KPiAtCXN0cnVjdCB2OV9tcWQgKm07DQo+IC0NCj4gLQl1cGRhdGVfbXFk
-KG1tLCBtcWQsIHEpOw0KPiAtDQo+IC0JLyogVE9ETzogd2hhdCdzIHRoZSBwb2ludD8gdXBkYXRl
-X21xZCBhbHJlYWR5IGRvZXMgdGhpcy4gKi8NCj4gLQltID0gZ2V0X21xZChtcWQpOw0KPiAtCW0t
-PmNwX2hxZF92bWlkID0gcS0+dm1pZDsNCj4gLX0NCj4gLQ0KPiAgc3RhdGljIHZvaWQgaW5pdF9t
-cWRfc2RtYShzdHJ1Y3QgbXFkX21hbmFnZXIgKm1tLCB2b2lkICoqbXFkLA0KPiAgCQlzdHJ1Y3Qg
-a2ZkX21lbV9vYmogKm1xZF9tZW1fb2JqLCB1aW50NjRfdCAqZ2FydF9hZGRyLA0KPiAgCQlzdHJ1
-Y3QgcXVldWVfcHJvcGVydGllcyAqcSkNCj4gQEAgLTQ2Miw3ICs0NTAsNyBAQCBzdHJ1Y3QgbXFk
-X21hbmFnZXIgKm1xZF9tYW5hZ2VyX2luaXRfdjkoZW51bQ0KPiBLRkRfTVFEX1RZUEUgdHlwZSwN
-Cj4gIAkJbXFkLT5pbml0X21xZCA9IGluaXRfbXFkX2hpcTsNCj4gIAkJbXFkLT5mcmVlX21xZCA9
-IGZyZWVfbXFkX2hpcV9zZG1hOw0KPiAgCQltcWQtPmxvYWRfbXFkID0gbG9hZF9tcWQ7DQo+IC0J
-CW1xZC0+dXBkYXRlX21xZCA9IHVwZGF0ZV9tcWRfaGlxOw0KPiArCQltcWQtPnVwZGF0ZV9tcWQg
-PSB1cGRhdGVfbXFkOw0KPiAgCQltcWQtPmRlc3Ryb3lfbXFkID0gZGVzdHJveV9tcWQ7DQo+ICAJ
-CW1xZC0+aXNfb2NjdXBpZWQgPSBpc19vY2N1cGllZDsNCj4gIAkJbXFkLT5tcWRfc2l6ZSA9IHNp
-emVvZihzdHJ1Y3QgdjlfbXFkKTsgQEAgLTQ3NSw3ICs0NjMsNw0KPiBAQCBzdHJ1Y3QgbXFkX21h
-bmFnZXIgKm1xZF9tYW5hZ2VyX2luaXRfdjkoZW51bSBLRkRfTVFEX1RZUEUNCj4gdHlwZSwNCj4g
-IAkJbXFkLT5pbml0X21xZCA9IGluaXRfbXFkX2hpcTsNCj4gIAkJbXFkLT5mcmVlX21xZCA9IGZy
-ZWVfbXFkOw0KPiAgCQltcWQtPmxvYWRfbXFkID0gbG9hZF9tcWQ7DQo+IC0JCW1xZC0+dXBkYXRl
-X21xZCA9IHVwZGF0ZV9tcWRfaGlxOw0KPiArCQltcWQtPnVwZGF0ZV9tcWQgPSB1cGRhdGVfbXFk
-Ow0KPiAgCQltcWQtPmRlc3Ryb3lfbXFkID0gZGVzdHJveV9tcWQ7DQo+ICAJCW1xZC0+aXNfb2Nj
-dXBpZWQgPSBpc19vY2N1cGllZDsNCj4gIAkJbXFkLT5tcWRfc2l6ZSA9IHNpemVvZihzdHJ1Y3Qg
-djlfbXFkKTsgZGlmZiAtLWdpdA0KPiBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9t
-cWRfbWFuYWdlcl92aS5jDQo+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX21xZF9t
-YW5hZ2VyX3ZpLmMNCj4gaW5kZXggM2I2YjU2NzE5NjRjLi5hNWU4ZmYxZTU5NDUgMTAwNjQ0DQo+
-IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9tcWRfbWFuYWdlcl92aS5jDQo+
-ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9tcWRfbWFuYWdlcl92aS5jDQo+
-IEBAIC0zMTIsMTEgKzMxMiw3IEBAIHN0YXRpYyB2b2lkIGluaXRfbXFkX2hpcShzdHJ1Y3QgbXFk
-X21hbmFnZXIgKm1tLA0KPiB2b2lkICoqbXFkLCAgc3RhdGljIHZvaWQgdXBkYXRlX21xZF9oaXEo
-c3RydWN0IG1xZF9tYW5hZ2VyICptbSwgdm9pZA0KPiAqbXFkLA0KPiAgCQkJc3RydWN0IHF1ZXVl
-X3Byb3BlcnRpZXMgKnEpDQo+ICB7DQo+IC0Jc3RydWN0IHZpX21xZCAqbTsNCj4gIAlfX3VwZGF0
-ZV9tcWQobW0sIG1xZCwgcSwgTVRZUEVfVUMsIDApOw0KPiAtDQo+IC0JbSA9IGdldF9tcWQobXFk
-KTsNCj4gLQltLT5jcF9ocWRfdm1pZCA9IHEtPnZtaWQ7DQo+ICB9DQo+IA0KPiAgc3RhdGljIHZv
-aWQgaW5pdF9tcWRfc2RtYShzdHJ1Y3QgbXFkX21hbmFnZXIgKm1tLCB2b2lkICoqbXFkLA0KPiAt
-LQ0KPiAyLjE3LjENCj4gDQo+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fDQo+IGFtZC1nZnggbWFpbGluZyBsaXN0DQo+IGFtZC1nZnhAbGlzdHMuZnJlZWRl
-c2t0b3Aub3JnDQo+IGh0dHBzOi8vbmFtMTEuc2FmZWxpbmtzLnByb3RlY3Rpb24ub3V0bG9vay5j
-b20vP3VybD1odHRwcyUzQSUyRiUyRmxpc3RzLg0KPiBmcmVlZGVza3RvcC5vcmclMkZtYWlsbWFu
-JTJGbGlzdGluZm8lMkZhbWQtDQo+IGdmeCZhbXA7ZGF0YT0wMiU3QzAxJTdDemhhbi5saXUlNDBh
-bWQuY29tJTdDMGUzYWIxYTFkMTFmNDg0NmQwMw0KPiBhMDhkNzZlYzk1ZGYzJTdDM2RkODk2MWZl
-NDg4NGU2MDhlMTFhODJkOTk0ZTE4M2QlN0MwJTdDMCU3QzYzNzANCj4gOTk2ODM1MTczMDI3MDIm
-YW1wO3NkYXRhPWptbXRkSHVnamw1QjZQJTJGUkFvanpQcUtQbEM4cyUyRjA3d21TDQo+IGtZODJp
-T1V2USUzRCZhbXA7cmVzZXJ2ZWQ9MA0KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVz
-a3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9h
-bWQtZ2Z4
+Use the shared address space of the drm device (see drm_open() in
+drm_file.c) for dma-bufs too.  That removes a difference betweem drm
+device mmap vmas and dma-buf mmap vmas and fixes corner cases like
+dropping ptes (using madvise(DONTNEED) for example) not working
+properly.
+
+Also remove amdgpu driver's private dmabuf update.  It is not needed
+any more now that we are doing this for everybody.
+
+Signed-off-by: Gerd Hoffmann <kraxel@redhat.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c | 4 +---
+ drivers/gpu/drm/drm_prime.c                 | 4 +++-
+ 2 files changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c b/drivers/gpu/drm/=
+amd/amdgpu/amdgpu_dma_buf.c
+index d5bcdfefbad6..586db4fb46bd 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
+@@ -361,10 +361,8 @@ struct dma_buf *amdgpu_gem_prime_export(struct drm_gem=
+_object *gobj,
+ =09=09return ERR_PTR(-EPERM);
+=20
+ =09buf =3D drm_gem_prime_export(gobj, flags);
+-=09if (!IS_ERR(buf)) {
+-=09=09buf->file->f_mapping =3D gobj->dev->anon_inode->i_mapping;
++=09if (!IS_ERR(buf))
+ =09=09buf->ops =3D &amdgpu_dmabuf_ops;
+-=09}
+=20
+ =09return buf;
+ }
+diff --git a/drivers/gpu/drm/drm_prime.c b/drivers/gpu/drm/drm_prime.c
+index a9633bd241bb..c3fc341453c0 100644
+--- a/drivers/gpu/drm/drm_prime.c
++++ b/drivers/gpu/drm/drm_prime.c
+@@ -240,6 +240,7 @@ void drm_prime_destroy_file_private(struct drm_prime_fi=
+le_private *prime_fpriv)
+ struct dma_buf *drm_gem_dmabuf_export(struct drm_device *dev,
+ =09=09=09=09      struct dma_buf_export_info *exp_info)
+ {
++=09struct drm_gem_object *obj =3D exp_info->priv;
+ =09struct dma_buf *dma_buf;
+=20
+ =09dma_buf =3D dma_buf_export(exp_info);
+@@ -247,7 +248,8 @@ struct dma_buf *drm_gem_dmabuf_export(struct drm_device=
+ *dev,
+ =09=09return dma_buf;
+=20
+ =09drm_dev_get(dev);
+-=09drm_gem_object_get(exp_info->priv);
++=09drm_gem_object_get(obj);
++=09dma_buf->file->f_mapping =3D obj->dev->anon_inode->i_mapping;
+=20
+ =09return dma_buf;
+ }
+--=20
+2.18.1
