@@ -1,55 +1,68 @@
-From: Nathan Chancellor <natechancellor-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [03/14] drm/amd/display: Add execution and transition states for
- HDCP2.2
-Date: Sat, 23 Nov 2019 10:17:31 -0700
-Message-ID: <20191123171731.GA1792@ubuntu-x2-xlarge-x86>
-References: <20191107155628.19446-4-Bhawanpreet.Lakha@amd.com>
+From: Nathan Chancellor <natechancellor@gmail.com>
+Subject: [PATCH] drm/amdgpu: Ensure ret is always initialized when using SOC15_WAIT_ON_RREG
+Date: Sat, 23 Nov 2019 12:23:36 -0700
+Message-ID: <20191123192336.11678-1-natechancellor@gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Content-Disposition: inline
-In-Reply-To: <20191107155628.19446-4-Bhawanpreet.Lakha-5C7GfCeVMHo@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Bhawanpreet Lakha <Bhawanpreet.Lakha-5C7GfCeVMHo@public.gmane.org>
-Cc: alexander.deucher-5C7GfCeVMHo@public.gmane.org, harry.wentland-5C7GfCeVMHo@public.gmane.org, Wenjing.Liu-5C7GfCeVMHo@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, Leo Liu <leo.liu@amd.com>, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, clang-built-linux@googlegroups.com, Nathan Chancellor <natechancellor@gmail.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gVGh1LCBOb3YgMDcsIDIwMTkgYXQgMTA6NTY6MTdBTSAtMDUwMCwgQmhhd2FucHJlZXQgTGFr
-aGEgd3JvdGU6Cj4gVGhlIG1vZHVsZSB3b3JrcyBsaWtlIGEgc3RhdGUgbWFjaGluZQo+IAo+ICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICstLS0tLS0tLS0tLS0tKwo+ICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAtLS0tLS0+IHwgRXhlY3V0aW9uLmMgfCAtLS0tLS0KPiAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgfCAgICAgICArLS0tLS0tLS0tLS0tLSsgICAgICAg
-fAo+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICB8ICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICBWCj4gICAgICstLS0tKyAgICAgICAgICAgICAgKy0tLS0tLS0tKyAgICAgICAgICAgICAg
-ICAgKy0tLS0tLS0tLS0tLS0tKwo+ICAgICB8IERNIHwgICAgLS0tLS0+ICAgIHwgSGRjcC5jIHwg
-IDwtLS0tLS0tLS0tLS0gIHwgVHJhbnNpdGlvbi5jIHwKPiAgICAgKy0tLS0rICAgIDwtLS0tLSAg
-ICArLS0tLS0tLS0rICAgICAgICAgICAgICAgICArLS0tLS0tLS0tLS0tLS0rCj4gCj4gVGhpcyBw
-YXRjaCBhZGRzIHRoZSBleGVjdXRpb24gYW5kIHRyYW5zaXRpb24gZmlsZXMgZm9yIDIuMgo+IAo+
-IEV4dGVuc2lvbiB0byAiNDBhNzAyZDQyNyBkcm0vYW1kL2Rpc3BsYXk6IEFkZCBIRENQIG1vZHVs
-ZSIgZm9yIDIuMgo+IAo+IFNpZ25lZC1vZmYtYnk6IEJoYXdhbnByZWV0IExha2hhIDxCaGF3YW5w
-cmVldC5MYWtoYUBhbWQuY29tPgoKVGhlIHZlcnNpb24gb2YgdGhpcyBwYXRjaCBpbiBsaW51eC1u
-ZXh0LCA1MTQ2NmIzZmQyNzIgKCJkcm0vYW1kL2Rpc3BsYXk6CkFkZCBleGVjdXRpb24gYW5kIHRy
-YW5zaXRpb24gc3RhdGVzIGZvciBIRENQMi4yIikgY2F1c2VzIHRoZSBmb2xsb3dpbmcKZXJyb3Ig
-b24gYXJtMzI6Cgphcm0tbGludXgtZ251ZWFiaS1sZDogZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNw
-bGF5L21vZHVsZXMvaGRjcC9oZGNwMl9leGVjdXRpb24ubzogaW4gZnVuY3Rpb24gYGxvY2FsaXR5
-X2NoZWNrJzoKaGRjcDJfZXhlY3V0aW9uLmM6KC50ZXh0KzB4ZDJjKTogdW5kZWZpbmVkIHJlZmVy
-ZW5jZSB0byBgX19iYWRfdWRlbGF5Jwphcm0tbGludXgtZ251ZWFiaS1sZDogZHJpdmVycy9ncHUv
-ZHJtL2FtZC9kaXNwbGF5L21vZHVsZXMvaGRjcC9oZGNwMl9leGVjdXRpb24ubzogaW4gZnVuY3Rp
-b24gYHBvbGxfbF9wcmltZV9hdmFpbGFibGUnOgpoZGNwMl9leGVjdXRpb24uYzooLnRleHQrMHhl
-NjQpOiB1bmRlZmluZWQgcmVmZXJlbmNlIHRvIGBfX2JhZF91ZGVsYXknCgpUaGVyZSBpcyBhIGxp
-bWl0IG9mIDIwMDB1cyBkZWxheXMgb24gYXJtOgpodHRwczovL2VsaXhpci5ib290bGluLmNvbS9s
-aW51eC92NS4zLjEyL3NvdXJjZS9hcmNoL2FybS9pbmNsdWRlL2FzbS9kZWxheS5oI0w2MAoKSWYg
-dGhpcyBmdW5jdGlvbiBkb2Vzbid0IHJ1biBpbiBhbiBhdG9taWMgY29udGV4dCwgSSBhc3N1bWUg
-bXNsZWVwCnNob3VsZCB3b3JrLgoKQ2hlZXJzLApOYXRoYW4KX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBs
-aXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1h
-bi9saXN0aW5mby9hbWQtZ2Z4
+Commit b0f3cd3191cd ("drm/amdgpu: remove unnecessary JPEG2.0 code from
+VCN2.0") introduced a new clang warning in the vcn_v2_0_stop function:
+
+../drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c:1082:2: warning: variable 'r'
+is used uninitialized whenever 'while' loop exits because its condition
+is false [-Wsometimes-uninitialized]
+        SOC15_WAIT_ON_RREG(VCN, 0, mmUVD_STATUS, UVD_STATUS__IDLE, 0x7, r);
+        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../drivers/gpu/drm/amd/amdgpu/../amdgpu/soc15_common.h:55:10: note:
+expanded from macro 'SOC15_WAIT_ON_RREG'
+                while ((tmp_ & (mask)) != (expected_value)) {   \
+                       ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c:1083:6: note: uninitialized use
+occurs here
+        if (r)
+            ^
+../drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c:1082:2: note: remove the
+condition if it is always true
+        SOC15_WAIT_ON_RREG(VCN, 0, mmUVD_STATUS, UVD_STATUS__IDLE, 0x7, r);
+        ^
+../drivers/gpu/drm/amd/amdgpu/../amdgpu/soc15_common.h:55:10: note:
+expanded from macro 'SOC15_WAIT_ON_RREG'
+                while ((tmp_ & (mask)) != (expected_value)) {   \
+                       ^
+../drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c:1072:7: note: initialize the
+variable 'r' to silence this warning
+        int r;
+             ^
+              = 0
+1 warning generated.
+
+To prevent warnings like this from happening in the future, make the
+SOC15_WAIT_ON_RREG macro initialize its ret variable before the while
+loop that can time out. This macro's return value is always checked so
+it should set ret in both the success and fail path.
+
+Link: https://github.com/ClangBuiltLinux/linux/issues/776
+Signed-off-by: Nathan Chancellor <natechancellor@gmail.com>
+---
+ drivers/gpu/drm/amd/amdgpu/soc15_common.h | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/soc15_common.h b/drivers/gpu/drm/amd/amdgpu/soc15_common.h
+index 839f186e1182..19e870c79896 100644
+--- a/drivers/gpu/drm/amd/amdgpu/soc15_common.h
++++ b/drivers/gpu/drm/amd/amdgpu/soc15_common.h
+@@ -52,6 +52,7 @@
+ 		uint32_t old_ = 0;	\
+ 		uint32_t tmp_ = RREG32(adev->reg_offset[ip##_HWIP][inst][reg##_BASE_IDX] + reg); \
+ 		uint32_t loop = adev->usec_timeout;		\
++		ret = 0;					\
+ 		while ((tmp_ & (mask)) != (expected_value)) {	\
+ 			if (old_ != tmp_) {			\
+ 				loop = adev->usec_timeout;	\
+-- 
+2.24.0
