@@ -1,157 +1,57 @@
-From: =?UTF-8?Q?Yusuf_Alt=C4=B1parmak?= <yusufalti1997-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [Error] amdgpu for powerpc64 on kernel version 4.19.26
-Date: Mon, 25 Nov 2019 19:34:08 +0300
-Message-ID: <CAGzVRjyJi6HTbjDUGco7a-M=9tL4m+Q_xPuBbK2or9=rdox9Jg@mail.gmail.com>
-References: <CAGzVRjyWG8mJKfn04=_KMPxB=YXnaSVC6yUwWy-0E0ndarJs0g@mail.gmail.com>
- <CADnq5_NEDJ18daPK-1sF5jHF8mD45W0RcGMzEDGSCnxH_qXbbQ@mail.gmail.com>
+From: Steven Price <steven.price@arm.com>
+Subject: Re: [PATCH v3 1/2] drm/sched: Avoid job cleanup if sched thread is
+ parked.
+Date: Mon, 25 Nov 2019 16:51:58 +0000
+Message-ID: <93c692cb-5306-e024-57f1-463402cb2c44@arm.com>
+References: <1574691041-5499-1-git-send-email-andrey.grodzovsky@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1882230614=="
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CADnq5_NEDJ18daPK-1sF5jHF8mD45W0RcGMzEDGSCnxH_qXbbQ-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-
---===============1882230614==
-Content-Type: multipart/alternative; boundary="000000000000d5943105982e55dc"
-
---000000000000d5943105982e55dc
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-25 Kas 2019 Pzt 17:44 tarihinde Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org> =C5=9F=
-unu
-yazd=C4=B1:
-
-> On Mon, Nov 25, 2019 at 8:55 AM Yusuf Alt=C4=B1parmak
-> <yusufalti1997-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org> wrote:
-> >
-> > Hello,
-> >
-> > I am trying to use AMD E9171 with T1042D4RDB-64B(
-> https://www.nxp.com/products/processors-and-microcontrollers/power-archit=
-ecture/qoriq-communication-processors/t-series/qoriq-t1042-and-t1022-multic=
-ore-communications-processors:T1042
-> ).
-> > Software documentation is here (
-> https://www.nxp.com/docs/en/supporting-information/QORIQ-SDK-2.0-IC-REV0.=
-pdf
-> ).
-> >
-> >
-> > I tried to compile 'amdgpu' in linux kernel.
-> >
-> > I successfully compiled linux kernel for powerpc e5500 architecture. I
-> enabled amdgpu and its prerequisites in menuconfig. All drivers compiled
-> successfully.
-> >
-> > But when I try to install 'amdgpu.ko' module, it's not initializing gpu
-> hardware. Console messages from 'dmesg' and U-boot is below. Hardware is
-> connected to board via PCI and connected to monitor via HDMI-DVI converte=
-r.
-> I am using HDMI port on monitor.
-> >
-> > Any suggestion/solutions for this situation?
->
-> The driver needs access to the PCI BARs for the device to initialize
-> it.  It looks like they are not getting allocated.  Maybe your
-> platform has limited MMIO space?  You need to fix that first.
->
-> Alex
->
->
-> >
-> > Regards.
->
-> > _______________________________________________
-> > amd-gfx mailing list
-> > amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-> > https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
-
-Okay, thank you Alex. I'll see what I can do.
-Regards
-
---000000000000d5943105982e55dc
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"auto"><div><br><br><div class=3D"gmail_quote">=
-<div dir=3D"ltr" class=3D"gmail_attr">25 Kas 2019 Pzt 17:44 tarihinde Alex =
-Deucher &lt;<a href=3D"mailto:alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org" target=3D"_blank">alex=
-deucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt; =C5=9Funu yazd=C4=B1:<br></div><blockquote class=
-=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padd=
-ing-left:1ex">On Mon, Nov 25, 2019 at 8:55 AM Yusuf Alt=C4=B1parmak<br>
-&lt;<a href=3D"mailto:yusufalti1997-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org" rel=3D"noreferrer" target=3D=
-"_blank">yusufalti1997-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt; wrote:<br>
-&gt;<br>
-&gt; Hello,<br>
-&gt;<br>
-&gt; I am trying to use AMD E9171 with T1042D4RDB-64B(<a href=3D"https://ww=
-w.nxp.com/products/processors-and-microcontrollers/power-architecture/qoriq=
--communication-processors/t-series/qoriq-t1042-and-t1022-multicore-communic=
-ations-processors:T1042" rel=3D"noreferrer noreferrer" target=3D"_blank">ht=
-tps://www.nxp.com/products/processors-and-microcontrollers/power-architectu=
-re/qoriq-communication-processors/t-series/qoriq-t1042-and-t1022-multicore-=
-communications-processors:T1042</a>).<br>
-&gt; Software documentation is here (<a href=3D"https://www.nxp.com/docs/en=
-/supporting-information/QORIQ-SDK-2.0-IC-REV0.pdf" rel=3D"noreferrer norefe=
-rrer" target=3D"_blank">https://www.nxp.com/docs/en/supporting-information/=
-QORIQ-SDK-2.0-IC-REV0.pdf</a>).<br>
-&gt;<br>
-&gt;<br>
-&gt; I tried to compile &#39;amdgpu&#39; in linux kernel.<br>
-&gt;<br>
-&gt; I successfully compiled linux kernel for powerpc e5500 architecture. I=
- enabled amdgpu and its prerequisites in menuconfig. All drivers compiled s=
-uccessfully.<br>
-&gt;<br>
-&gt; But when I try to install &#39;amdgpu.ko&#39; module, it&#39;s not ini=
-tializing gpu hardware. Console messages from &#39;dmesg&#39; and U-boot is=
- below. Hardware is connected to board via PCI and connected to monitor via=
- HDMI-DVI converter. I am using HDMI port on monitor.<br>
-&gt;<br>
-&gt; Any suggestion/solutions for this situation?<br>
-<br>
-The driver needs access to the PCI BARs for the device to initialize<br>
-it.=C2=A0 It looks like they are not getting allocated.=C2=A0 Maybe your<br=
->
-platform has limited MMIO space?=C2=A0 You need to fix that first.<br>
-<br>
-Alex<br>
-<br><br>
-&gt;<br>
-&gt; Regards.<br><br>
-&gt; _______________________________________________<br>
-&gt; amd-gfx mailing list<br>
-&gt; <a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" rel=3D"noreferrer" ta=
-rget=3D"_blank">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
-&gt; <a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" rel=
-=3D"noreferrer noreferrer" target=3D"_blank">https://lists.freedesktop.org/=
-mailman/listinfo/amd-gfx</a></blockquote><div><br></div><div>Okay, thank yo=
-u Alex. I&#39;ll see what I can do.=C2=A0</div><div>Regards=C2=A0</div></di=
-v></div></div>
-</div>
-
---000000000000d5943105982e55dc--
-
---===============1882230614==
 Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
 Content-Transfer-Encoding: base64
-Content-Disposition: inline
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+In-Reply-To: <1574691041-5499-1-git-send-email-andrey.grodzovsky@amd.com>
+Content-Language: en-US
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
+Cc: Emily.Deng@amd.com, dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, Christian.Koenig@amd.com
+List-Id: amd-gfx.lists.freedesktop.org
 
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
-
---===============1882230614==--
+T24gMjUvMTEvMjAxOSAxNDoxMCwgQW5kcmV5IEdyb2R6b3Zza3kgd3JvdGU6Cj4gV2hlbiB0aGUg
+c2NoZWQgdGhyZWFkIGlzIHBhcmtlZCB3ZSBhc3N1bWUgcmluZ19taXJyb3JfbGlzdCBpcwo+IG5v
+dCBhY2Nlc3NlZCBmcm9tIGhlcmUuCgpGV0lXIEkgZG9uJ3QgdGhpbmsgdGhpcyBpcyBuZWNlc3Nh
+cnkuIGt0aHJlYWRfcGFyaygpIHdpbGwgd2FpdCB1bnRpbCB0aGUKdGhyZWFkIGlzIHBhcmtlZCwg
+YXQgd2hpY2ggcG9pbnQgdGhlIHRocmVhZCBpcyBzdHVjayBpbiBrdGhyZWFkX3BhcmttZSgpCnVu
+dGlsIHVucGFya2VkLgoKU28gYWxsIHRoaXMgZG9lcyBpcyBhdm9pZCB3YWl0aW5nIGZvciBhbnkg
+Y2xlYW51cCBqb2JzIGJlZm9yZSBwYXJraW5nIC0Kd2hpY2ggbWlnaHQgYmUgYSByZWFzb25hYmxl
+IGdvYWwgaW4gaXRzZWxmLCBidXQgaWYgc28gbGV0cyBhdCBsZWFzdApkb2N1bWVudCB0aGF0LgoK
+U3RldmUKCj4gCj4gU2lnbmVkLW9mZi1ieTogQW5kcmV5IEdyb2R6b3Zza3kgPGFuZHJleS5ncm9k
+em92c2t5QGFtZC5jb20+Cj4gUmV2aWV3ZWQtYnk6IENocmlzdGlhbiBLw7ZuaWcgPGNocmlzdGlh
+bi5rb2VuaWdAYW1kLmNvbT4KPiAtLS0KPiAgZHJpdmVycy9ncHUvZHJtL3NjaGVkdWxlci9zY2hl
+ZF9tYWluLmMgfCAxMCArKysrKysrLS0tCj4gIDEgZmlsZSBjaGFuZ2VkLCA3IGluc2VydGlvbnMo
+KyksIDMgZGVsZXRpb25zKC0pCj4gCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9zY2hl
+ZHVsZXIvc2NoZWRfbWFpbi5jIGIvZHJpdmVycy9ncHUvZHJtL3NjaGVkdWxlci9zY2hlZF9tYWlu
+LmMKPiBpbmRleCBkNGNjNzI4Li42Nzc0OTU1IDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2Ry
+bS9zY2hlZHVsZXIvc2NoZWRfbWFpbi5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL3NjaGVkdWxl
+ci9zY2hlZF9tYWluLmMKPiBAQCAtNjM1LDkgKzYzNSwxMyBAQCBkcm1fc2NoZWRfZ2V0X2NsZWFu
+dXBfam9iKHN0cnVjdCBkcm1fZ3B1X3NjaGVkdWxlciAqc2NoZWQpCj4gIAlzdHJ1Y3QgZHJtX3Nj
+aGVkX2pvYiAqam9iOwo+ICAJdW5zaWduZWQgbG9uZyBmbGFnczsKPiAgCj4gLQkvKiBEb24ndCBk
+ZXN0cm95IGpvYnMgd2hpbGUgdGhlIHRpbWVvdXQgd29ya2VyIGlzIHJ1bm5pbmcgKi8KPiAtCWlm
+IChzY2hlZC0+dGltZW91dCAhPSBNQVhfU0NIRURVTEVfVElNRU9VVCAmJgo+IC0JICAgICFjYW5j
+ZWxfZGVsYXllZF93b3JrKCZzY2hlZC0+d29ya190ZHIpKQo+ICsJLyoKPiArCSogRG9uJ3QgZGVz
+dHJveSBqb2JzIHdoaWxlIHRoZSB0aW1lb3V0IHdvcmtlciBpcyBydW5uaW5nICBPUiB0aHJlYWQK
+PiArCSogaXMgYmVpbmcgcGFya2VkIGFuZCBoZW5jZSBhc3N1bWVkIHRvIG5vdCB0b3VjaCByaW5n
+X21pcnJvcl9saXN0Cj4gKwkqLwo+ICsJaWYgKChzY2hlZC0+dGltZW91dCAhPSBNQVhfU0NIRURV
+TEVfVElNRU9VVCAmJgo+ICsJICAgICAhY2FuY2VsX2RlbGF5ZWRfd29yaygmc2NoZWQtPndvcmtf
+dGRyKSkgfHwKPiArCSAgICAgX19rdGhyZWFkX3Nob3VsZF9wYXJrKHNjaGVkLT50aHJlYWQpKQo+
+ICAJCXJldHVybiBOVUxMOwo+ICAKPiAgCXNwaW5fbG9ja19pcnFzYXZlKCZzY2hlZC0+am9iX2xp
+c3RfbG9jaywgZmxhZ3MpOwo+IAoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX18KZHJpLWRldmVsIG1haWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMuZnJlZWRl
+c2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8v
+ZHJpLWRldmVs
