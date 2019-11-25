@@ -2,62 +2,67 @@ Return-Path: <SRS0=lTJr=ZR=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.4 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
+X-Spam-Status: No, score=-6.5 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
 	FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
-	HTML_MESSAGE,MAILING_LIST_MULTI,MIME_HTML_MOSTLY,SPF_HELO_NONE,SPF_PASS
-	autolearn=no autolearn_force=no version=3.4.0
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6AAA4C432C0
-	for <amd-gfx@archiver.kernel.org>; Mon, 25 Nov 2019 13:55:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 13A74C43141
+	for <amd-gfx@archiver.kernel.org>; Mon, 25 Nov 2019 14:08:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 483322071E
-	for <amd-gfx@archiver.kernel.org>; Mon, 25 Nov 2019 13:55:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 483322071E
+	by mail.kernel.org (Postfix) with ESMTPS id E438620878
+	for <amd-gfx@archiver.kernel.org>; Mon, 25 Nov 2019 14:08:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E438620878
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F393589E52;
-	Mon, 25 Nov 2019 13:55:08 +0000 (UTC)
-Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
- [IPv6:2a00:1450:4864:20::331])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2921A89E50
- for <amd-gfx@lists.freedesktop.org>; Mon, 25 Nov 2019 13:55:07 +0000 (UTC)
-Received: by mail-wm1-x331.google.com with SMTP id g206so15260221wme.1
- for <amd-gfx@lists.freedesktop.org>; Mon, 25 Nov 2019 05:55:07 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ACB0E89EAC;
+	Mon, 25 Nov 2019 14:08:53 +0000 (UTC)
+Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com
+ [IPv6:2a00:1450:4864:20::444])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C5D1589E5A;
+ Mon, 25 Nov 2019 14:08:51 +0000 (UTC)
+Received: by mail-wr1-x444.google.com with SMTP id y11so15096857wrt.6;
+ Mon, 25 Nov 2019 06:08:51 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
- bh=EPG6tsGXETYR2uOjDbsN7fGcjwgsVvWr2cl1hT6b+l8=;
- b=HYslIiFYuUhOj/cGnG/UOPkruhjva7/bIVtUyjQvRek5b5Ek5BUK9lLtjZeuPX8ch9
- +BuL82raFuCsQT7PBXTQ7ZE618/pJbcNDDVopaufxNSW8RmeNy8lEDgghF7KKqUif7Tp
- PbLpxd26QrcfDiivMnFZr1rF7MVTbR8PD2ddBD9VmuJ4BTtccNuWUVx69KOhwuIwXBKs
- R5UVjP1mmx30FaTj5LH4rdY0j14K+/DG0SklnJx+PEOrVApu8jA9P4qW9Awe79E0mKFW
- b1lEczuGCfiRomcFJTTux97utUshn/0UR5m5WGIdEYqq6qi9SdoQBppycqp5hli4VfWj
- GDwA==
-X-Gm-Message-State: APjAAAW987oA+XkyHvdUCJ04Wfi5TBNLmZkXL5y30Euw5syQ7VLauEMI
- PwyG77aBrgeYDmSgB75p+TQlQmHCHy3V75+Fqmorbvol
-X-Google-Smtp-Source: APXvYqz0EUkPMzz8E5ceHqYIs8RqiWhYAL5PYmL/3Rqu/Tc9gL9XNx4kuAqYdAUvk5RrGWIA7p80+LWfsNW9FBU4L1o=
-X-Received: by 2002:a7b:c3cc:: with SMTP id t12mr9442176wmj.27.1574690104957; 
- Mon, 25 Nov 2019 05:55:04 -0800 (PST)
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=iNWDGc0fQ00Ye1+fTt2khUxDXRk0OG4bs4g9Ax7i6qo=;
+ b=rnXqQ+7ypxKMexbBaDxRk1hL8h4ahcpb9VUgItyOazvbXH7JFqnvIaRvKnATLcNwfi
+ sgj6mcGEKuhT63Zf2zkmF20Zmgh03WoJs8YLsDaL5wocWEaRu5u4j1wEmyYJnvxfBRZ3
+ FGve/lLAAuXmYrV8L/NSoYBhxBTdrogqPxaiJ+p3umvtJlTwviaYIM+PhshLKobu3XnI
+ ttXdTuLSBn6l+AxdbnEEF5k+izPloKLUauCtAc81Z0WJ/31hNmrw41g9c8LMjklTiDM4
+ u1mwdQzaCJ/UW1QGclrp8Fkp2BC2Mqam990qm05fyq3eVnG4MVqfykRPGRLa6eCwvqNk
+ SbtQ==
+X-Gm-Message-State: APjAAAUB9L7bqWtI4vqLFWwxboDChloNqL7t0c0sMvDyH+W2K9vFaERE
+ gWQrYWvqUalR8G8kdEf8KKuKWNMtNkeJUhXgoCA=
+X-Google-Smtp-Source: APXvYqz1pQJymB1hAXfiA1XYcDD52P69YAb4gkZr7unmgvJbz4fYyaF1bNGVq89E29zTD9J5VL7DdxhiDF3l53RQSvQ=
+X-Received: by 2002:adf:9d87:: with SMTP id p7mr12042861wre.11.1574690930146; 
+ Mon, 25 Nov 2019 06:08:50 -0800 (PST)
 MIME-Version: 1.0
-From: =?UTF-8?Q?Yusuf_Alt=C4=B1parmak?= <yusufalti1997@gmail.com>
-Date: Mon, 25 Nov 2019 16:54:53 +0300
+References: <20191121132930.29544-1-krzk@kernel.org>
+ <CY4PR12MB1813D2AE8B11E5F190581995F74E0@CY4PR12MB1813.namprd12.prod.outlook.com>
+In-Reply-To: <CY4PR12MB1813D2AE8B11E5F190581995F74E0@CY4PR12MB1813.namprd12.prod.outlook.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 25 Nov 2019 09:08:37 -0500
 Message-ID:
- <CAGzVRjyWG8mJKfn04=_KMPxB=YXnaSVC6yUwWy-0E0ndarJs0g@mail.gmail.com>
-Subject: [Error] amdgpu for powerpc64 on kernel version 4.19.26
-To: amd-gfx@lists.freedesktop.org
+ <CADnq5_MFfCfsUiJ-jjZa-rMf1PDJ7v6jPzCXN9ZnCZEvSsU1-w@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd: Fix Kconfig indentation
+To: "Deucher, Alexander" <Alexander.Deucher@amd.com>
 X-Mailman-Original-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=gmail.com; s=20161025;
- h=mime-version:from:date:message-id:subject:to;
- bh=EPG6tsGXETYR2uOjDbsN7fGcjwgsVvWr2cl1hT6b+l8=;
- b=Ur109yVy5n1nobmXmUPYeO6woQjH1sS2tjCQbR92bIQiJKEr/7ZiqFW3AsQRNVKkOn
- sEEfpaqq6qK2mNaXZumqwef2/1Gmk2qaQYCPpL0XUuWQ9whvNlwNx+P2EuhtFohYVV0O
- lpYEHxR3wQaFCsyxKZ87x+09bcvVxpRNHGnZ1SjzdwXSwfexCG2XfBhEZftx93AhH/HS
- DWeeJmH40hdJIN9U7x1fLHUM6nHASypqErOklm4FKapny3x2hSjEqrM6z5RQvtYguVUc
- pejK67rw672tL5kl94qWp5aZ3bsyoxdgvF9YghJWoPyNCcgLf2eVBXX/1EJbWU0xICxD
- +TUA==
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=iNWDGc0fQ00Ye1+fTt2khUxDXRk0OG4bs4g9Ax7i6qo=;
+ b=P+3KoedA/0PLaVdbPw1oFWAjCaOhzr5tTq0ZarfinP2Ypvd8W1Nxi7yybCTNLi5zzA
+ vW4Qd5Lesxsgi3vla0+/c9gXMFwU9ks3J0zwZTKZOpiMZBPVsVsvdeza/41sSSjHVTid
+ o3qn/xkSM+yeggFbAkSOlPHSYl19wbGt/aCJACFgNb9d68eTSu+JpPlWYpCuAcYbL6hC
+ wGeqB0EaIQMAW7hMrmKbB2KRm38Df5+aCcD8yBiMuGXvM8dhsqOmDtO4z/Jj8bBpf0e9
+ 9i1hPhpULNpC2+vFzYDo2u+TifKgWBC9qXsZ1D6xfbmS+/UrHzgWxxLV4/TuTHyE0XnP
+ Dd/Q==
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -69,711 +74,55 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============0635624013=="
+Cc: Krzysztof Kozlowski <krzk@kernel.org>, David Airlie <airlied@linux.ie>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Koenig,
+ Christian" <Christian.Koenig@amd.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-Message-ID: <20191125135453.aesK4ZjZebcEW9sz-m1__MbMeEj7uy8BFXRgEtknMDQ@z>
+Message-ID: <20191125140837.X_-MnYRMOGICF9CR57TJDPj2dispLy1gj0DRhX3Aohk@z>
 
---===============0635624013==
-Content-Type: multipart/alternative; boundary="000000000000565e8b05982c1ce5"
-
---000000000000565e8b05982c1ce5
-Content-Type: text/plain; charset="UTF-8"
-
-Hello,
-
-I am trying to use AMD E9171 with T1042D4RDB-64B(
-https://www.nxp.com/products/processors-and-microcontrollers/power-architecture/qoriq-communication-processors/t-series/qoriq-t1042-and-t1022-multicore-communications-processors:T1042).
-
-Software documentation is here (
-https://www.nxp.com/docs/en/supporting-information/QORIQ-SDK-2.0-IC-REV0.pdf
-).
-
-
-*I tried to compile 'amdgpu' in linux kernel.*
-
-*I successfully compiled linux kernel for powerpc e5500 architecture. I
-enabled amdgpu and its prerequisites in menuconfig. All drivers compiled
-successfully.*
-
-
-*But when I try to install 'amdgpu.ko' module, it's not initializing gpu
-hardware. Console messages from 'dmesg' and U-boot is below. Hardware is
-connected to board via PCI and connected to monitor via HDMI-DVI converter.
-I am using HDMI port on monitor.*
-
-* Any suggestion/solutions for this situation?*
-
-Regards.
-
-
-
-Dmesg messages from linux about amdgpu:
-
-[5.866162] [drm] amdgpu kernel modesetting enabled.
-[5.870293] [drm] initializing kernel modesetting (POLARIS12 0x1002:0x6987
-0x1787:0x2389 0x80).
-
-[5.877719] amdgpu 0001:01:00.0: Fatal error during GPU init
-
-[5.882363] amdgpu: probe of 0001:01:00.0 failed with error -12
-
-
-'dmesg' messages from Linux
-
-
-[    0.464934] pci 0000:00:00.0: bridge configuration invalid ([bus
-00-00]), reconfiguring
-[    0.473580] pci 0000:00:00.0: PCI bridge to [bus 01-ff]
-[    0.477426] pci 0000:00:00.0:   bridge window [io
- 0x8000080000010000-0x8000080000010fff]
-[    0.477431] pci 0000:00:00.0:   bridge window [mem 0x00000000-0x000fffff]
-[    0.477438] pci 0000:00:00.0:   bridge window [mem 0x00000000-0x000fffff
-64bit pref]
-[    0.477451] pci_bus 0000:01: busn_res: [bus 01-ff] end is updated to 01
-[    0.477456] pci_bus 0000:00: busn_res: [bus 00-ff] end is updated to 01
-[    0.477584] fsl-pci ffe250000.pcie: PCI host bridge to bus 0001:00
-[    0.482383] pci_bus 0001:00: root bus resource [io
- 0x8000080000021000-0x8000080000030fff] (bus address [0x0000-0xffff])
-[    0.491940] pci_bus 0001:00: root bus resource [mem
-0xc10000000-0xc1fffffff] (bus address [0xe0000000-0xefffffff])
-[    0.500980] pci_bus 0001:00: root bus resource [bus 00-01]
-[    0.505153] pci_bus 0001:00: busn_res: [bus 00-01] end is updated to ff
-[    0.505172] pci 0001:00:00.0: [1957:0824] type 01 class 0x0b2000
-[    0.505191] pci 0001:00:00.0: reg 0x10: [mem 0xff000000-0xffffffff]
-[    0.505236] pci 0001:00:00.0: supports D1 D2
-[    0.505239] pci 0001:00:00.0: PME# supported from D0 D1 D2 D3hot D3cold
-[    0.505346] iommu: Removing device ffe250000.pcie from group 20
-[    0.509901] iommu: Adding device 0001:00:00.0 to group 19
-[    0.516106] pci 0001:01:00.0: [1002:6987] type 00 class 0x030000
-[    0.516160] pci 0001:01:00.0: reg 0x10: [mem 0xc10000000-0xc1fffffff
-64bit pref]
-[    0.516175] pci 0001:01:00.0: reg 0x18: [mem
-0x1000ffe00000-0x1000ffffffff 64bit pref]
-[    0.516186] pci 0001:01:00.0: reg 0x20: [io
- 0x8000080000022100-0x80000800000221ff]
-[    0.516196] pci 0001:01:00.0: reg 0x24: [mem 0xfffc0000-0xffffffff]
-[    0.516207] pci 0001:01:00.0: reg 0x30: [mem 0xfffe0000-0xffffffff pref]
-[    0.516219] pci 0001:01:00.0: enabling Extended Tags
-[    0.519920] pci 0001:01:00.0: supports D1 D2
-[    0.519923] pci 0001:01:00.0: PME# supported from D1 D2 D3hot D3cold
-[    0.519958] pci 0001:01:00.0: 4.000 Gb/s available PCIe bandwidth,
-limited by 5 GT/s x1 link at 0001:00:00.0 (capable of 63.008 Gb/s with 8
-GT/s x8 link)
-[    0.532404] iommu: Adding device 0001:01:00.0 to group 19
-[    0.536460] pci 0001:01:00.1: [1002:aae0] type 00 class 0x040300
-[    0.536500] pci 0001:01:00.1: reg 0x10: [mem
-0x1200ffffc000-0x1200ffffffff 64bit]
-[    0.536553] pci 0001:01:00.1: enabling Extended Tags
-[    0.540200] pci 0001:01:00.1: supports D1 D2
-[    0.540291] iommu: Adding device 0001:01:00.1 to group 19
-[    0.546301] pci 0001:00:00.0: PCI bridge to [bus 01-ff]
-[    0.550147] pci 0001:00:00.0:   bridge window [io
- 0x8000080000022000-0x8000080000022fff]
-[    0.550152] pci 0001:00:00.0:   bridge window [mem
-0xc10000000-0xc1fffffff]
-[    0.550235] pci_bus 0001:01: busn_res: [bus 01-ff] end is updated to 01
-[    0.550242] pci_bus 0001:00: busn_res: [bus 00-ff] end is updated to 01
-[    0.550376] fsl-pci ffe260000.pcie: PCI host bridge to bus 0002:00
-[    0.555177] pci_bus 0002:00: root bus resource [io
- 0x8000080000032000-0x8000080000041fff] (bus address [0x0000-0xffff])
-[    0.564732] pci_bus 0002:00: root bus resource [mem
-0xc20000000-0xc2fffffff] (bus address [0xe0000000-0xefffffff])
-[    0.573773] pci_bus 0002:00: root bus resource [bus 00]
-[    0.577680] pci_bus 0002:00: busn_res: [bus 00] end is updated to ff
-[    0.577698] pci 0002:00:00.0: [1957:0824] type 01 class 0x0b2000
-[    0.577718] pci 0002:00:00.0: reg 0x10: [mem 0xff000000-0xffffffff]
-[    0.577764] pci 0002:00:00.0: supports D1 D2
-[    0.577767] pci 0002:00:00.0: PME# supported from D0 D1 D2 D3hot D3cold
-[    0.577880] iommu: Removing device ffe260000.pcie from group 21
-[    0.582434] iommu: Adding device 0002:00:00.0 to group 20
-[    0.588545] pci 0002:00:00.0: bridge configuration invalid ([bus
-00-00]), reconfiguring
-[    0.597194] pci 0002:00:00.0: PCI bridge to [bus 01-ff]
-[    0.601040] pci 0002:00:00.0:   bridge window [io
- 0x8000080000032000-0x8000080000032fff]
-[    0.601045] pci 0002:00:00.0:   bridge window [mem 0x00000000-0x000fffff]
-[    0.601052] pci 0002:00:00.0:   bridge window
-Dmesg messages from linux about amdgpu:
-[5.866162] [drm] amdgpu kernel modesetting enabled.
-[5.870293] [drm] initializing kernel modesetting (POLARIS12 0x1002:0x6987
-0x1787:0x2389 0x80).
-
-[5.877719] amdgpu 0001:01:00.0: Fatal error during GPU init
-
-[5.882363] amdgpu: probe of 0001:01:00.0 failed with error -12 [mem
-0x00000000-0x000fffff 64bit pref]
-[    0.601064] pci_bus 0002:01: busn_res: [bus 01-ff] end is updated to 01
-[    0.601070] pci_bus 0002:00: busn_res: [bus 00-ff] end is updated to 01
-[    0.601197] fsl-pci ffe270000.pcie: PCI host bridge to bus 0003:00
-[    0.605995] pci_bus 0003:00: root bus resource [io
- 0x8000080000043000-0x8000080000052fff] (bus address [0x0000-0xffff])
-[    0.615553] pci_bus 0003:00: root bus resource [mem
-0xc30000000-0xc3fffffff] (bus address [0xe0000000-0xefffffff])
-[    0.624593] pci_bus 0003:00: root bus resource [bus 00]
-[    0.628501] pci_bus 0003:00: busn_res: [bus 00] end is updated to ff
-[    0.628519] pci 0003:00:00.0: [1957:0824] type 01 class 0x0b2000
-[    0.628538] pci 0003:00:00.0: reg 0x10: [mem 0xff000000-0xffffffff]
-[    0.628584] pci 0003:00:00.0: supports D1 D2
-[    0.628588] pci 0003:00:00.0: PME# supported from D0 D1 D2 D3hot D3cold
-[    0.628703] iommu: Removing device ffe270000.pcie from group 22
-[    0.633257] iommu: Adding device 0003:00:00.0 to group 21
-[    0.639362] pci 0003:00:00.0: bridge configuration invalid ([bus
-00-00]), reconfiguring
-Dmesg messages from linux about amdgpu:
-[5.866162] [drm] amdgpu kernel modesetting enabled.
-[5.870293] [drm] initializing kernel modesetting (POLARIS12 0x1002:0x6987
-0x1787:0x2389 0x80).
-
-[5.877719] amdgpu 0001:01:00.0: Fatal error during GPU init
-
-[5.882363] amdgpu: probe of 0001:01:00.0 failed with error -12[
- 0.648066] pci 0003:00:00.0: PCI bridge to [bus 01-ff]
-[    0.651912] pci 0003:00:00.0:   bridge window [io
- 0x8000080000043000-0x8000080000043fff]
-[    0.651917] pci 0003:00:00.0:   bridge window [mem 0x00000000-0x000fffff]
-[    0.651923] pci 0003:00:00.0:   bridge window [mem 0x00000000-0x000fffff
-64bit pref]
-[    0.651936] pci_bus 0003:01: busn_res: [bus 01-ff] end is updated to 01
-[    0.651942] pci_bus 0003:00: busn_res: [bus 00-ff] end is updated to 01
-[    0.651988] PCI: Cannot allocate resource region 0 of device
-0000:00:00.0, will remap
-[    0.658435] PCI: Cannot allocate resource region 0 of device
-0001:00:00.0, will remap
-[    0.664953] PCI: Cannot allocate resource region 2 of device
-0001:01:00.0, will remap
-[    0.671469] PCI: Cannot allocate resource region 5 of device
-0001:01:00.0, will remap
-[    0.677989] PCI: Cannot allocate resource region 6 of device
-0001:01:00.0, will remap
-[    0.684514] PCI: Cannot allocate resource region 0 of device
-0001:01:00.1, will remap
-[    0.691033] PCI: Cannot allocate resource region 0 of device
-0002:00:00.0, will remap
-[    0.697552] PCI: Cannot allocate resource region 0 of device
-0003:00:00.0, will remap
-[    0.704083] PCI 0000:00 Cannot reserve Legacy IO [io
- 0x8000080000010000-0x10fff]
-[    0.704086] PCI 0001:00 Cannot reserve Legacy IO [io
- 0x8000080000021000-0x21fff]
-[    0.704089] PCI 0002:00 Cannot reserve Legacy IO [io
- 0x8000080000032000-0x32fff]
-[    0.704092] PCI 0003:00 Cannot reserve Legacy IO [io
- 0x8000080000043000-0x43fff]
-[    0.704107] pci 0000:00:00.0: BAR 0: no space for [mem size 0x01000000]
-[    0.709375] pci 0000:00:00.0: BAR 0: failed to assign [mem size
-0x01000000]
-[    0.715026] pci 0000:00:00.0: PCI bridge to [bus 01]
-[    0.718673] pci 0000:00:00.0:   bridge window [io
- 0x8000080000010000-0x800008000001ffff]
-[    0.725545] pci 0000:00:00.0:   bridge window [mem
-0xc00000000-0xc0fffffff]
-[    0.731196] pci_bus 0000:00: Some PCI device resources are unassigned,
-try booting with pci=realloc
-[    0.738932] pci_bus 0000:00: resource 4 [io
- 0x8000080000010000-0x800008000001ffff]
-[    0.738935] pci_bus 0000:00: resource 5 [mem 0xc00000000-0xc0fffffff]
-[    0.738939] pci_bus 0000:01: resource 0 [io
- 0x8000080000010000-0x800008000001ffff]
-[    0.738942] pci_bus 0000:01: resource 1 [mem 0xc00000000-0xc0fffffff]
-[    0.738953] pci 0001:00:00.0: BAR 0: no space for [mem size 0x01000000]
-[    0.744235] pci 0001:00:00.0: BAR 0: failed to assign [mem size
-0x01000000]
-[    0.749887] pci 0001:00:00.0: BAR 9: no space for [mem size 0x00200000
-64bit pref]
-[    0.756144] pci 0001:00:00.0: BAR 9: failed to assign [mem size
-0x00200000 64bit pref]
-[    0.762754] pci 0001:01:00.0: BAR 2: no space for [mem size 0x00200000
-64bit pref]
-[    0.769010] pci 0001:01:00.0: BAR 2: failed to assign [mem size
-0x00200000 64bit pref]
-[    0.775617] pci 0001:01:00.0: BAR 5: no space for [mem size 0x00040000]
-[    0.780920] pci 0001:01:00.0: BAR 5: failed to assign [mem size
-0x00040000]
-[    0.786571] pci 0001:01:00.0: BAR 6: no space for [mem size 0x00020000
-pref]
-[    0.792308] pci 0001:01:00.0: BAR 6: failed to assign [mem size
-0x00020000 pref]
-[    0.798394] pci 0001:01:00.1: BAR 0: no space for [mem size 0x00004000
-64bit]
-[    0.804218] pci 0001:01:00.1: BAR 0: failed to assign [mem size
-0x00004000 64bit]
-[    0.810391] pci 0001:00:00.0: PCI bridge to [bus 01]
-[    0.814038] pci 0001:00:00.0:   bridge window [io
- 0x8000080000021000-0x8000080000030fff]
-[    0.820910] pci 0001:00:00.0:   bridge window [mem
-0xc10000000-0xc1fffffff]
-[    0.826561] pci_bus 0001:00: Some PCI device resources are unassigned,
-try booting with pci=realloc
-[    0.834298] pci_bus 0001:00: resource 4 [io
- 0x8000080000021000-0x8000080000030fff]
-[    0.834301] pci_bus 0001:00: resource 5 [mem 0xc10000000-0xc1fffffff]
-[    0.834305] pci_bus 0001:01: resource 0 [io
- 0x8000080000021000-0x8000080000030fff]
-[    0.834308] pci_bus 0001:01: resource 1 [mem 0xc10000000-0xc1fffffff]
-[    0.834318] pci 0002:00:00.0: BAR 0: no space for [mem size 0x01000000]
-[    0.839600] pci 0002:00:00.0: BAR 0: failed to assign [mem size
-0x01000000]
-[    0.845251] pci 0002:00:00.0: PCI bridge to [bus 01]
-[    0.848898] pci 0002:00:00.0:   bridge window [io
- 0x8000080000032000-0x8000080000041fff]
-[    0.855780] pci 0002:00:00.0:   bridge window [mem
-0xc20000000-0xc2fffffff]
-[    0.861422] pci_bus 0002:00: Some PCI device resources are unassigned,
-try booting with pci=realloc
-[    0.869158] pci_bus 0002:00: resource 4 [io
- 0x8000080000032000-0x8000080000041fff]
-[    0.869161] pci_bus 0002:00: resource 5 [mem 0xc20000000-0xc2fffffff]
-[    0.869165] pci_bus 0002:01: resource 0 [io
- 0x8000080000032000-0x8000080000041fff]
-[    0.869168] pci_bus 0002:01: resource 1 [mem 0xc20000000-0xc2fffffff]
-[    0.869178] pci 0003:00:00.0: BAR 0: no space for [mem size 0x01000000]
-[    0.874468] pci 0003:00:00.0: BAR 0: failed to assign [mem size
-0x01000000]
-[    0.880112] pci 0003:00:00.0: PCI bridge to [bus 01]
-[    0.883759] pci 0003:00:00.0:   bridge window [io
- 0x8000080000043000-0x8000080000052fff]
-[    0.890632] pci 0003:00:00.0:   bridge window [mem
-0xc30000000-0xc3fffffff]
-[    0.896284] pci_bus 0003:00: Some PCI device resources are unassigned,
-try booting with pci=realloc
-[    0.904018] pci_bus 0003:00: resource 4 [io
- 0x8000080000043000-0x8000080000052fff]
-[    0.904022] pci_bus 0003:00: resource 5 [mem 0xc30000000-0xc3fffffff]
-[    0.904025] pci_bus 0003:01: resource 0 [io
- 0x8000080000043000-0x8000080000052fff]
-[    0.904028] pci_bus 0003:01: resource 1 [mem 0xc30000000-0xc3fffffff]
-[    0.904030] PCI: Probing PCI hardware done
-
-
-
-PCI console messages from U-BOOT
-
-
-PCI: Probing PCI hardware
-fsl-pci ffe240000.pcie: PCI host bridge to bus 0000:00
-pci_bus 0000:00: root bus resource [io
- 0x8000080000010000-0x800008000001ffff] (bus address [0x0000-0xffff])
-pci_bus 0000:00: root bus resource [mem 0xc00000000-0xc0fffffff] (bus
-address [0xe0000000-0xefffffff])
-pci_bus 0000:00: root bus resource [bus 00]
-iommu: Removing device ffe240000.pcie from group 19
-iommu: Adding device 0000:00:00.0 to group 24
-pci 0000:00:00.0: bridge configuration invalid ([bus 00-00]), reconfiguring
-pci 0000:00:00.0: PCI bridge to [bus 01-ff]
-fsl-pci ffe250000.pcie: PCI host bridge to bus 0001:00
-pci_bus 0001:00: root bus resource [io
- 0x8000080000021000-0x8000080000030fff] (bus address [0x0000-0xffff])
-pci_bus 0001:00: root bus resource [mem 0xc10000000-0xc1fffffff] (bus
-address [0xe0000000-0xefffffff])
-pci_bus 0001:00: root bus resource [bus 00-01]
-iommu: Removing device ffe250000.pcie from group 20
-iommu: Adding device 0001:00:00.0 to group 19
-pci 0001:01:00.0: enabling Extended Tags
-pci 0001:01:00.0: 4.000 Gb/s available PCIe bandwidth, limited by 5 GT/s x1
-link at 0001:00:00.0 (capable of 63.008 Gb/s with 8 GT/s x8 link)
-iommu: Adding device 0001:01:00.0 to group 19
-pci 0001:01:00.1: enabling Extended Tags
-iommu: Adding device 0001:01:00.1 to group 19
-pci 0001:00:00.0: PCI bridge to [bus 01-ff]
-fsl-pci ffe260000.pcie: PCI host bridge to bus 0002:00
-pci_bus 0002:00: root bus resource [io
- 0x8000080000032000-0x8000080000041fff] (bus address [0x0000-0xffff])
-pci_bus 0002:00: root bus resource [mem 0xc20000000-0xc2fffffff] (bus
-address [0xe0000000-0xefffffff])
-pci_bus 0002:00: root bus resource [bus 00]
-iommu: Removing device ffe260000.pcie from group 21
-iommu: Adding device 0002:00:00.0 to group 20
-pci 0002:00:00.0: bridge configuration invalid ([bus 00-00]), reconfiguring
-pci 0002:00:00.0: PCI bridge to [bus 01-ff]
-fsl-pci ffe270000.pcie: PCI host bridge to bus 0003:00
-pci_bus 0003:00: root bus resource [io
- 0x8000080000043000-0x8000080000052fff] (bus address [0x0000-0xffff])
-pci_bus 0003:00: root bus resource [mem 0xc30000000-0xc3fffffff] (bus
-address [0xe0000000-0xefffffff])
-pci_bus 0003:00: root bus resource [bus 00]
-iommu: Removing device ffe270000.pcie from group 22
-iommu: Adding device 0003:00:00.0 to group 21
-pci 0003:00:00.0: bridge configuration invalid ([bus 00-00]), reconfiguring
-pci 0003:00:00.0: PCI bridge to [bus 01-ff]
-PCI: Cannot allocate resource region 0 of device 0000:00:00.0, will remap
-PCI: Cannot allocate resource region 0 of device 0001:00:00.0, will remap
-PCI: Cannot allocate resource region 2 of device 0001:01:00.0, will remap
-PCI: Cannot allocate resource region 5 of device 0001:01:00.0, will remap
-PCI: Cannot allocate resource region 6 of device 0001:01:00.0, will remap
-PCI: Cannot allocate resource region 0 of device 0001:01:00.1, will remap
-PCI: Cannot allocate resource region 0 of device 0002:00:00.0, will remap
-PCI: Cannot allocate resource region 0 of device 0003:00:00.0, will remap
-pci 0000:00:00.0: BAR 0: no space for [mem size 0x01000000]
-pci 0000:00:00.0: BAR 0: failed to assign [mem size 0x01000000]
-pci 0000:00:00.0: PCI bridge to [bus 01]
-pci 0000:00:00.0:   bridge window [io
- 0x8000080000010000-0x800008000001ffff]
-pci 0000:00:00.0:   bridge window [mem 0xc00000000-0xc0fffffff]
-pci_bus 0000:00: Some PCI device resources are unassigned, try booting with
-pci=realloc
-pci 0001:00:00.0: BAR 0: no space for [mem size 0x01000000]
-pci 0001:00:00.0: BAR 0: failed to assign [mem size 0x01000000]
-pci 0001:00:00.0: BAR 9: no space for [mem size 0x00200000 64bit pref]
-pci 0001:00:00.0: BAR 9: failed to assign [mem size 0x00200000 64bit pref]
-pci 0001:01:00.0: BAR 2: no space for [mem size 0x00200000 64bit pref]
-pci 0001:01:00.0: BAR 2: failed to assign [mem size 0x00200000 64bit pref]
-pci 0001:01:00.0: BAR 5: no space for [mem size 0x00040000]
-pci 0001:01:00.0: BAR 5: failed to assign [mem size 0x00040000]
-pci 0001:01:00.0: BAR 6: no space for [mem size 0x00020000 pref]
-pci 0001:01:00.0: BAR 6: failed to assign [mem size 0x00020000 pref]
-pci 0001:01:00.1: BAR 0: no space for [mem size 0x00004000 64bit]
-pci 0001:01:00.1: BAR 0: failed to assign [mem size 0x00004000 64bit]
-pci 0001:00:00.0: PCI bridge to [bus 01]
-pci 0001:00:00.0:   bridge window [io
- 0x8000080000021000-0x8000080000030fff]
-pci 0001:00:00.0:   bridge window [mem 0xc10000000-0xc1fffffff]
-pci_bus 0001:00: Some PCI device resources are unassigned, try booting with
-pci=realloc
-pci 0002:00:00.0: BAR 0: no space for [mem size 0x01000000]
-pci 0002:00:00.0: BAR 0: failed to assign [mem size 0x01000000]
-pci 0002:00:00.0: PCI bridge to [bus 01]
-pci 0002:00:00.0:   bridge window [io
- 0x8000080000032000-0x8000080000041fff]
-pci 0002:00:00.0:   bridge window [mem 0xc20000000-0xc2fffffff]
-pci_bus 0002:00: Some PCI device resources are unassigned, try booting with
-pci=realloc
-pci 0003:00:00.0: BAR 0: no space for [mem size 0x01000000]
-pci 0003:00:00.0: BAR 0: failed to assign [mem size 0x01000000]
-pci 0003:00:00.0: PCI bridge to [bus 01]
-pci 0003:00:00.0:   bridge window [io
- 0x8000080000043000-0x8000080000052fff]
-pci 0003:00:00.0:   bridge window [mem 0xc30000000-0xc3fffffff]
-pci_bus 0003:00: Some PCI device resources are unassigned, try booting with
-pci=realloc
-
---000000000000565e8b05982c1ce5
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div>Hello,</div><div><br></div><div> I am trying to use A=
-MD E9171 with T1042D4RDB-64B(<a href=3D"https://www.nxp.com/products/proces=
-sors-and-microcontrollers/power-architecture/qoriq-communication-processors=
-/t-series/qoriq-t1042-and-t1022-multicore-communications-processors:T1042">=
-https://www.nxp.com/products/processors-and-microcontrollers/power-architec=
-ture/qoriq-communication-processors/t-series/qoriq-t1042-and-t1022-multicor=
-e-communications-processors:T1042</a>). <br></div><div>Software documentati=
-on is here (<a href=3D"https://www.nxp.com/docs/en/supporting-information/Q=
-ORIQ-SDK-2.0-IC-REV0.pdf">https://www.nxp.com/docs/en/supporting-informatio=
-n/QORIQ-SDK-2.0-IC-REV0.pdf</a>).</div><div><br></div><div><br></div><div><=
-b><font size=3D"2">I tried to compile <u>&#39;amdgpu&#39; </u>in linux kern=
-el.</font></b></div><div><br></div><div><b>I successfully compiled linux ke=
-rnel for powerpc e5500 architecture. I enabled amdgpu and its prerequisites=
- in menuconfig. All drivers compiled successfully.</b></div><div><div><b></=
-b></div></div><div><br></div><div><b>But when I try to install <u>&#39;amdg=
-pu.ko&#39;</u> module, it&#39;s not initializing gpu hardware. Console mess=
-ages from &#39;dmesg&#39; and U-boot is below. Hardware is connected to boa=
-rd via PCI and connected to monitor via HDMI-DVI converter. I am using HDMI=
- port on monitor.<br></b></div><div><b><br></b></div><div><b> Any suggestio=
-n/solutions for this situation?</b></div><div><br></div><div>Regards.<br></=
-div><div><br></div><div><br><div><span style=3D"font-family:georgia,serif">=
-<br></span></div><div><font size=3D"4"><span style=3D"font-family:georgia,s=
-erif">Dmesg messages from linux about amdgpu:</span></font></div><div><br><=
-/div><div>[5.866162] [drm] amdgpu kernel modesetting enabled.=C2=A0=C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 </div=
->[5.870293] [drm] initializing kernel modesetting (POLARIS12 0x1002:0x6987 =
-0x1787:0x2389 0x80). =C2=A0 =C2=A0=C2=A0=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0=C2=A0 <br>[5.877719] amdgpu 0001:01:00.0: Fatal error during GPU init =
-=C2=A0=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 <br>[5.882363] amdgpu: probe of =
-0001:01:00.0 failed with error -12</div><div><br></div><div><div><br></div>=
-<div><font size=3D"4"><span style=3D"font-family:comic sans ms,sans-serif">=
-&#39;dmesg&#39; messages from Linux</span></font></div><div><br></div><div>=
-<br></div><div>[ =C2=A0 =C2=A00.464934] pci 0000:00:00.0: bridge configurat=
-ion invalid ([bus 00-00]), reconfiguring<br>[ =C2=A0 =C2=A00.473580] pci 00=
-00:00:00.0: PCI bridge to [bus 01-ff]<br>[ =C2=A0 =C2=A00.477426] pci 0000:=
-00:00.0: =C2=A0 bridge window [io =C2=A00x8000080000010000-0x8000080000010f=
-ff]<br>[ =C2=A0 =C2=A00.477431] pci 0000:00:00.0: =C2=A0 bridge window [mem=
- 0x00000000-0x000fffff]<br>[ =C2=A0 =C2=A00.477438] pci 0000:00:00.0: =C2=
-=A0 bridge window [mem 0x00000000-0x000fffff 64bit pref]<br>[ =C2=A0 =C2=A0=
-0.477451] pci_bus 0000:01: busn_res: [bus 01-ff] end is updated to 01<br>[ =
-=C2=A0 =C2=A00.477456] pci_bus 0000:00: busn_res: [bus 00-ff] end is update=
-d to 01<br>[ =C2=A0 =C2=A00.477584] fsl-pci ffe250000.pcie: PCI host bridge=
- to bus 0001:00<br>[ =C2=A0 =C2=A00.482383] pci_bus 0001:00: root bus resou=
-rce [io =C2=A00x8000080000021000-0x8000080000030fff] (bus address [0x0000-0=
-xffff])<br>[ =C2=A0 =C2=A00.491940] pci_bus 0001:00: root bus resource [mem=
- 0xc10000000-0xc1fffffff] (bus address [0xe0000000-0xefffffff])<br>[ =C2=A0=
- =C2=A00.500980] pci_bus 0001:00: root bus resource [bus 00-01]<br>[ =C2=A0=
- =C2=A00.505153] pci_bus 0001:00: busn_res: [bus 00-01] end is updated to f=
-f<br>[ =C2=A0 =C2=A00.505172] pci 0001:00:00.0: [1957:0824] type 01 class 0=
-x0b2000<br>[ =C2=A0 =C2=A00.505191] pci 0001:00:00.0: reg 0x10: [mem 0xff00=
-0000-0xffffffff]<br>[ =C2=A0 =C2=A00.505236] pci 0001:00:00.0: supports D1 =
-D2<br>[ =C2=A0 =C2=A00.505239] pci 0001:00:00.0: PME# supported from D0 D1 =
-D2 D3hot D3cold<br>[ =C2=A0 =C2=A00.505346] iommu: Removing device ffe25000=
-0.pcie from group 20<br>[ =C2=A0 =C2=A00.509901] iommu: Adding device 0001:=
-00:00.0 to group 19<br>[ =C2=A0 =C2=A00.516106] pci 0001:01:00.0: [1002:698=
-7] type 00 class 0x030000<br>[ =C2=A0 =C2=A00.516160] pci 0001:01:00.0: reg=
- 0x10: [mem 0xc10000000-0xc1fffffff 64bit pref]<br>[ =C2=A0 =C2=A00.516175]=
- pci 0001:01:00.0: reg 0x18: [mem 0x1000ffe00000-0x1000ffffffff 64bit pref]=
-<br>[ =C2=A0 =C2=A00.516186] pci 0001:01:00.0: reg 0x20: [io =C2=A00x800008=
-0000022100-0x80000800000221ff]<br>[ =C2=A0 =C2=A00.516196] pci 0001:01:00.0=
-: reg 0x24: [mem 0xfffc0000-0xffffffff]<br>[ =C2=A0 =C2=A00.516207] pci 000=
-1:01:00.0: reg 0x30: [mem 0xfffe0000-0xffffffff pref]<br>[ =C2=A0 =C2=A00.5=
-16219] pci 0001:01:00.0: enabling Extended Tags<br>[ =C2=A0 =C2=A00.519920]=
- pci 0001:01:00.0: supports D1 D2<br>[ =C2=A0 =C2=A00.519923] pci 0001:01:0=
-0.0: PME# supported from D1 D2 D3hot D3cold<br>[ =C2=A0 =C2=A00.519958] pci=
- 0001:01:00.0: 4.000 Gb/s available PCIe bandwidth, limited by 5 GT/s x1 li=
-nk at 0001:00:00.0 (capable of 63.008 Gb/s with 8 GT/s x8 link)<br>[ =C2=A0=
- =C2=A00.532404] iommu: Adding device 0001:01:00.0 to group 19<br>[ =C2=A0 =
-=C2=A00.536460] pci 0001:01:00.1: [1002:aae0] type 00 class 0x040300<br>[ =
-=C2=A0 =C2=A00.536500] pci 0001:01:00.1: reg 0x10: [mem 0x1200ffffc000-0x12=
-00ffffffff 64bit]<br>[ =C2=A0 =C2=A00.536553] pci 0001:01:00.1: enabling Ex=
-tended Tags<br>[ =C2=A0 =C2=A00.540200] pci 0001:01:00.1: supports D1 D2<br=
->[ =C2=A0 =C2=A00.540291] iommu: Adding device 0001:01:00.1 to group 19<br>=
-[ =C2=A0 =C2=A00.546301] pci 0001:00:00.0: PCI bridge to [bus 01-ff]<br>[ =
-=C2=A0 =C2=A00.550147] pci 0001:00:00.0: =C2=A0 bridge window [io =C2=A00x8=
-000080000022000-0x8000080000022fff]<br>[ =C2=A0 =C2=A00.550152] pci 0001:00=
-:00.0: =C2=A0 bridge window [mem 0xc10000000-0xc1fffffff]<br>[ =C2=A0 =C2=
-=A00.550235] pci_bus 0001:01: busn_res: [bus 01-ff] end is updated to 01<br=
->[ =C2=A0 =C2=A00.550242] pci_bus 0001:00: busn_res: [bus 00-ff] end is upd=
-ated to 01<br>[ =C2=A0 =C2=A00.550376] fsl-pci ffe260000.pcie: PCI host bri=
-dge to bus 0002:00<br>[ =C2=A0 =C2=A00.555177] pci_bus 0002:00: root bus re=
-source [io =C2=A00x8000080000032000-0x8000080000041fff] (bus address [0x000=
-0-0xffff])<br>[ =C2=A0 =C2=A00.564732] pci_bus 0002:00: root bus resource [=
-mem 0xc20000000-0xc2fffffff] (bus address [0xe0000000-0xefffffff])<br>[ =C2=
-=A0 =C2=A00.573773] pci_bus 0002:00: root bus resource [bus 00]<br>[ =C2=A0=
- =C2=A00.577680] pci_bus 0002:00: busn_res: [bus 00] end is updated to ff<b=
-r>[ =C2=A0 =C2=A00.577698] pci 0002:00:00.0: [1957:0824] type 01 class 0x0b=
-2000<br>[ =C2=A0 =C2=A00.577718] pci 0002:00:00.0: reg 0x10: [mem 0xff00000=
-0-0xffffffff]<br>[ =C2=A0 =C2=A00.577764] pci 0002:00:00.0: supports D1 D2<=
-br>[ =C2=A0 =C2=A00.577767] pci 0002:00:00.0: PME# supported from D0 D1 D2 =
-D3hot D3cold<br>[ =C2=A0 =C2=A00.577880] iommu: Removing device ffe260000.p=
-cie from group 21<br>[ =C2=A0 =C2=A00.582434] iommu: Adding device 0002:00:=
-00.0 to group 20<br>[ =C2=A0 =C2=A00.588545] pci 0002:00:00.0: bridge confi=
-guration invalid ([bus 00-00]), reconfiguring<br>[ =C2=A0 =C2=A00.597194] p=
-ci 0002:00:00.0: PCI bridge to [bus 01-ff]<br>[ =C2=A0 =C2=A00.601040] pci =
-0002:00:00.0: =C2=A0 bridge window [io =C2=A00x8000080000032000-0x800008000=
-0032fff]<br>[ =C2=A0 =C2=A00.601045] pci 0002:00:00.0: =C2=A0 bridge window=
- [mem 0x00000000-0x000fffff]<br>[ =C2=A0 =C2=A00.601052] pci 0002:00:00.0: =
-=C2=A0 bridge window<div>Dmesg messages from linux about amdgpu:<br></div><=
-div>[5.866162] [drm] amdgpu kernel modesetting enabled.=C2=A0=C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 </div>[5.870=
-293]
- [drm] initializing kernel modesetting (POLARIS12 0x1002:0x6987=20
-0x1787:0x2389 0x80). =C2=A0 =C2=A0=C2=A0=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0=C2=A0 <br>[5.877719] amdgpu 0001:01:00.0: Fatal error dur=
-ing GPU init =C2=A0=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 <br>[5.882363] amdg=
-pu: probe of 0001:01:00.0 failed with error -12 [mem 0x00000000-0x000fffff =
-64bit pref]<br>[ =C2=A0 =C2=A00.601064] pci_bus 0002:01: busn_res: [bus 01-=
-ff] end is updated to 01<br>[ =C2=A0 =C2=A00.601070] pci_bus 0002:00: busn_=
-res: [bus 00-ff] end is updated to 01<br>[ =C2=A0 =C2=A00.601197] fsl-pci f=
-fe270000.pcie: PCI host bridge to bus 0003:00<br>[ =C2=A0 =C2=A00.605995] p=
-ci_bus 0003:00: root bus resource [io =C2=A00x8000080000043000-0x8000080000=
-052fff] (bus address [0x0000-0xffff])<br>[ =C2=A0 =C2=A00.615553] pci_bus 0=
-003:00: root bus resource [mem 0xc30000000-0xc3fffffff] (bus address [0xe00=
-00000-0xefffffff])<br>[ =C2=A0 =C2=A00.624593] pci_bus 0003:00: root bus re=
-source [bus 00]<br>[ =C2=A0 =C2=A00.628501] pci_bus 0003:00: busn_res: [bus=
- 00] end is updated to ff<br>[ =C2=A0 =C2=A00.628519] pci 0003:00:00.0: [19=
-57:0824] type 01 class 0x0b2000<br>[ =C2=A0 =C2=A00.628538] pci 0003:00:00.=
-0: reg 0x10: [mem 0xff000000-0xffffffff]<br>[ =C2=A0 =C2=A00.628584] pci 00=
-03:00:00.0: supports D1 D2<br>[ =C2=A0 =C2=A00.628588] pci 0003:00:00.0: PM=
-E# supported from D0 D1 D2 D3hot D3cold<br>[ =C2=A0 =C2=A00.628703] iommu: =
-Removing device ffe270000.pcie from group 22<br>[ =C2=A0 =C2=A00.633257] io=
-mmu: Adding device 0003:00:00.0 to group 21<br>[ =C2=A0 =C2=A00.639362] pci=
- 0003:00:00.0: bridge configuration invalid ([bus 00-00]), reconfiguring<br=
-><div>Dmesg messages from linux about amdgpu:<br></div><div>[5.866162] [drm=
-] amdgpu kernel modesetting enabled.=C2=A0=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 </div>[5.870293]
- [drm] initializing kernel modesetting (POLARIS12 0x1002:0x6987=20
-0x1787:0x2389 0x80). =C2=A0 =C2=A0=C2=A0=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0=C2=A0 <br>[5.877719] amdgpu 0001:01:00.0: Fatal error dur=
-ing GPU init =C2=A0=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 <br>[5.882363] amdg=
-pu: probe of 0001:01:00.0 failed with error -12[ =C2=A0 =C2=A00.648066] pci=
- 0003:00:00.0: PCI bridge to [bus 01-ff]<br>[ =C2=A0 =C2=A00.651912] pci 00=
-03:00:00.0: =C2=A0 bridge window [io =C2=A00x8000080000043000-0x80000800000=
-43fff]<br>[ =C2=A0 =C2=A00.651917] pci 0003:00:00.0: =C2=A0 bridge window [=
-mem 0x00000000-0x000fffff]<br>[ =C2=A0 =C2=A00.651923] pci 0003:00:00.0: =
-=C2=A0 bridge window [mem 0x00000000-0x000fffff 64bit pref]<br>[ =C2=A0 =C2=
-=A00.651936] pci_bus 0003:01: busn_res: [bus 01-ff] end is updated to 01<br=
->[ =C2=A0 =C2=A00.651942] pci_bus 0003:00: busn_res: [bus 00-ff] end is upd=
-ated to 01<br>[ =C2=A0 =C2=A00.651988] PCI: Cannot allocate resource region=
- 0 of device 0000:00:00.0, will remap<br>[ =C2=A0 =C2=A00.658435] PCI: Cann=
-ot allocate resource region 0 of device 0001:00:00.0, will remap<br>[ =C2=
-=A0 =C2=A00.664953] PCI: Cannot allocate resource region 2 of device 0001:0=
-1:00.0, will remap<br>[ =C2=A0 =C2=A00.671469] PCI: Cannot allocate resourc=
-e region 5 of device 0001:01:00.0, will remap<br>[ =C2=A0 =C2=A00.677989] P=
-CI: Cannot allocate resource region 6 of device 0001:01:00.0, will remap<br=
->[ =C2=A0 =C2=A00.684514] PCI: Cannot allocate resource region 0 of device =
-0001:01:00.1, will remap<br>[ =C2=A0 =C2=A00.691033] PCI: Cannot allocate r=
-esource region 0 of device 0002:00:00.0, will remap<br>[ =C2=A0 =C2=A00.697=
-552] PCI: Cannot allocate resource region 0 of device 0003:00:00.0, will re=
-map<br>[ =C2=A0 =C2=A00.704083] PCI 0000:00 Cannot reserve Legacy IO [io =
-=C2=A00x8000080000010000-0x10fff]<br>[ =C2=A0 =C2=A00.704086] PCI 0001:00 C=
-annot reserve Legacy IO [io =C2=A00x8000080000021000-0x21fff]<br>[ =C2=A0 =
-=C2=A00.704089] PCI 0002:00 Cannot reserve Legacy IO [io =C2=A00x8000080000=
-032000-0x32fff]<br>[ =C2=A0 =C2=A00.704092] PCI 0003:00 Cannot reserve Lega=
-cy IO [io =C2=A00x8000080000043000-0x43fff]<br>[ =C2=A0 =C2=A00.704107] pci=
- 0000:00:00.0: BAR 0: no space for [mem size 0x01000000]<br>[ =C2=A0 =C2=A0=
-0.709375] pci 0000:00:00.0: BAR 0: failed to assign [mem size 0x01000000]<b=
-r>[ =C2=A0 =C2=A00.715026] pci 0000:00:00.0: PCI bridge to [bus 01]<br>[ =
-=C2=A0 =C2=A00.718673] pci 0000:00:00.0: =C2=A0 bridge window [io =C2=A00x8=
-000080000010000-0x800008000001ffff]<br>[ =C2=A0 =C2=A00.725545] pci 0000:00=
-:00.0: =C2=A0 bridge window [mem 0xc00000000-0xc0fffffff]<br>[ =C2=A0 =C2=
-=A00.731196] pci_bus 0000:00: Some PCI device resources are unassigned, try=
- booting with pci=3Drealloc<br>[ =C2=A0 =C2=A00.738932] pci_bus 0000:00: re=
-source 4 [io =C2=A00x8000080000010000-0x800008000001ffff]<br>[ =C2=A0 =C2=
-=A00.738935] pci_bus 0000:00: resource 5 [mem 0xc00000000-0xc0fffffff]<br>[=
- =C2=A0 =C2=A00.738939] pci_bus 0000:01: resource 0 [io =C2=A00x80000800000=
-10000-0x800008000001ffff]<br>[ =C2=A0 =C2=A00.738942] pci_bus 0000:01: reso=
-urce 1 [mem 0xc00000000-0xc0fffffff]<br>[ =C2=A0 =C2=A00.738953] pci 0001:0=
-0:00.0: BAR 0: no space for [mem size 0x01000000]<br>[ =C2=A0 =C2=A00.74423=
-5] pci 0001:00:00.0: BAR 0: failed to assign [mem size 0x01000000]<br>[ =C2=
-=A0 =C2=A00.749887] pci 0001:00:00.0: BAR 9: no space for [mem size 0x00200=
-000 64bit pref]<br>[ =C2=A0 =C2=A00.756144] pci 0001:00:00.0: BAR 9: failed=
- to assign [mem size 0x00200000 64bit pref]<br>[ =C2=A0 =C2=A00.762754] pci=
- 0001:01:00.0: BAR 2: no space for [mem size 0x00200000 64bit pref]<br>[ =
-=C2=A0 =C2=A00.769010] pci 0001:01:00.0: BAR 2: failed to assign [mem size =
-0x00200000 64bit pref]<br>[ =C2=A0 =C2=A00.775617] pci 0001:01:00.0: BAR 5:=
- no space for [mem size 0x00040000]<br>[ =C2=A0 =C2=A00.780920] pci 0001:01=
-:00.0: BAR 5: failed to assign [mem size 0x00040000]<br>[ =C2=A0 =C2=A00.78=
-6571] pci 0001:01:00.0: BAR 6: no space for [mem size 0x00020000 pref]<br>[=
- =C2=A0 =C2=A00.792308] pci 0001:01:00.0: BAR 6: failed to assign [mem size=
- 0x00020000 pref]<br>[ =C2=A0 =C2=A00.798394] pci 0001:01:00.1: BAR 0: no s=
-pace for [mem size 0x00004000 64bit]<br>[ =C2=A0 =C2=A00.804218] pci 0001:0=
-1:00.1: BAR 0: failed to assign [mem size 0x00004000 64bit]<br>[ =C2=A0 =C2=
-=A00.810391] pci 0001:00:00.0: PCI bridge to [bus 01]<br>[ =C2=A0 =C2=A00.8=
-14038] pci 0001:00:00.0: =C2=A0 bridge window [io =C2=A00x8000080000021000-=
-0x8000080000030fff]<br>[ =C2=A0 =C2=A00.820910] pci 0001:00:00.0: =C2=A0 br=
-idge window [mem 0xc10000000-0xc1fffffff]<br>[ =C2=A0 =C2=A00.826561] pci_b=
-us 0001:00: Some PCI device resources are unassigned, try booting with pci=
-=3Drealloc<br>[ =C2=A0 =C2=A00.834298] pci_bus 0001:00: resource 4 [io =C2=
-=A00x8000080000021000-0x8000080000030fff]<br>[ =C2=A0 =C2=A00.834301] pci_b=
-us 0001:00: resource 5 [mem 0xc10000000-0xc1fffffff]<br>[ =C2=A0 =C2=A00.83=
-4305] pci_bus 0001:01: resource 0 [io =C2=A00x8000080000021000-0x8000080000=
-030fff]<br>[ =C2=A0 =C2=A00.834308] pci_bus 0001:01: resource 1 [mem 0xc100=
-00000-0xc1fffffff]<br>[ =C2=A0 =C2=A00.834318] pci 0002:00:00.0: BAR 0: no =
-space for [mem size 0x01000000]<br>[ =C2=A0 =C2=A00.839600] pci 0002:00:00.=
-0: BAR 0: failed to assign [mem size 0x01000000]<br>[ =C2=A0 =C2=A00.845251=
-] pci 0002:00:00.0: PCI bridge to [bus 01]<br>[ =C2=A0 =C2=A00.848898] pci =
-0002:00:00.0: =C2=A0 bridge window [io =C2=A00x8000080000032000-0x800008000=
-0041fff]<br>[ =C2=A0 =C2=A00.855780] pci 0002:00:00.0: =C2=A0 bridge window=
- [mem 0xc20000000-0xc2fffffff]<br>[ =C2=A0 =C2=A00.861422] pci_bus 0002:00:=
- Some PCI device resources are unassigned, try booting with pci=3Drealloc<b=
-r>[ =C2=A0 =C2=A00.869158] pci_bus 0002:00: resource 4 [io =C2=A00x80000800=
-00032000-0x8000080000041fff]<br>[ =C2=A0 =C2=A00.869161] pci_bus 0002:00: r=
-esource 5 [mem 0xc20000000-0xc2fffffff]<br>[ =C2=A0 =C2=A00.869165] pci_bus=
- 0002:01: resource 0 [io =C2=A00x8000080000032000-0x8000080000041fff]<br>[ =
-=C2=A0 =C2=A00.869168] pci_bus 0002:01: resource 1 [mem 0xc20000000-0xc2fff=
-ffff]<br>[ =C2=A0 =C2=A00.869178] pci 0003:00:00.0: BAR 0: no space for [me=
-m size 0x01000000]<br>[ =C2=A0 =C2=A00.874468] pci 0003:00:00.0: BAR 0: fai=
-led to assign [mem size 0x01000000]<br>[ =C2=A0 =C2=A00.880112] pci 0003:00=
-:00.0: PCI bridge to [bus 01]<br>[ =C2=A0 =C2=A00.883759] pci 0003:00:00.0:=
- =C2=A0 bridge window [io =C2=A00x8000080000043000-0x8000080000052fff]<br>[=
- =C2=A0 =C2=A00.890632] pci 0003:00:00.0: =C2=A0 bridge window [mem 0xc3000=
-0000-0xc3fffffff]<br>[ =C2=A0 =C2=A00.896284] pci_bus 0003:00: Some PCI dev=
-ice resources are unassigned, try booting with pci=3Drealloc<br>[ =C2=A0 =
-=C2=A00.904018] pci_bus 0003:00: resource 4 [io =C2=A00x8000080000043000-0x=
-8000080000052fff]<br>[ =C2=A0 =C2=A00.904022] pci_bus 0003:00: resource 5 [=
-mem 0xc30000000-0xc3fffffff]<br>[ =C2=A0 =C2=A00.904025] pci_bus 0003:01: r=
-esource 0 [io =C2=A00x8000080000043000-0x8000080000052fff]<br>[ =C2=A0 =C2=
-=A00.904028] pci_bus 0003:01: resource 1 [mem 0xc30000000-0xc3fffffff]<br>[=
- =C2=A0 =C2=A00.904030] PCI: Probing PCI hardware done</div></div><div><br>=
-</div><div><br></div><div><br></div><div><font size=3D"4"><span style=3D"fo=
-nt-family:tahoma,sans-serif"><span style=3D"color:rgb(0,0,0)">PCI console m=
-essages from U-BOOT</span></span></font></div><div><br></div><div><br></div=
-><div>PCI: Probing PCI hardware<br>fsl-pci ffe240000.pcie: PCI host bridge =
-to bus 0000:00<br>pci_bus 0000:00: root bus resource [io =C2=A00x8000080000=
-010000-0x800008000001ffff] (bus address [0x0000-0xffff])<br>pci_bus 0000:00=
-: root bus resource [mem 0xc00000000-0xc0fffffff] (bus address [0xe0000000-=
-0xefffffff])<br>pci_bus 0000:00: root bus resource [bus 00]<br>iommu: Remov=
-ing device ffe240000.pcie from group 19<br>iommu: Adding device 0000:00:00.=
-0 to group 24<br>pci 0000:00:00.0: bridge configuration invalid ([bus 00-00=
-]), reconfiguring<br>pci 0000:00:00.0: PCI bridge to [bus 01-ff]<br>fsl-pci=
- ffe250000.pcie: PCI host bridge to bus 0001:00<br>pci_bus 0001:00: root bu=
-s resource [io =C2=A00x8000080000021000-0x8000080000030fff] (bus address [0=
-x0000-0xffff])<br>pci_bus 0001:00: root bus resource [mem 0xc10000000-0xc1f=
-ffffff] (bus address [0xe0000000-0xefffffff])<br>pci_bus 0001:00: root bus =
-resource [bus 00-01]<br>iommu: Removing device ffe250000.pcie from group 20=
-<br>iommu: Adding device 0001:00:00.0 to group 19<br>pci 0001:01:00.0: enab=
-ling Extended Tags<br>pci 0001:01:00.0: 4.000 Gb/s available PCIe bandwidth=
-, limited by 5 GT/s x1 link at 0001:00:00.0 (capable of 63.008 Gb/s with 8 =
-GT/s x8 link)<br>iommu: Adding device 0001:01:00.0 to group 19<br>pci 0001:=
-01:00.1: enabling Extended Tags<br>iommu: Adding device 0001:01:00.1 to gro=
-up 19<br>pci 0001:00:00.0: PCI bridge to [bus 01-ff]<br>fsl-pci ffe260000.p=
-cie: PCI host bridge to bus 0002:00<br>pci_bus 0002:00: root bus resource [=
-io =C2=A00x8000080000032000-0x8000080000041fff] (bus address [0x0000-0xffff=
-])<br>pci_bus 0002:00: root bus resource [mem 0xc20000000-0xc2fffffff] (bus=
- address [0xe0000000-0xefffffff])<br>pci_bus 0002:00: root bus resource [bu=
-s 00]<br>iommu: Removing device ffe260000.pcie from group 21<br>iommu: Addi=
-ng device 0002:00:00.0 to group 20<br>pci 0002:00:00.0: bridge configuratio=
-n invalid ([bus 00-00]), reconfiguring<br>pci 0002:00:00.0: PCI bridge to [=
-bus 01-ff]<br>fsl-pci ffe270000.pcie: PCI host bridge to bus 0003:00<br>pci=
-_bus 0003:00: root bus resource [io =C2=A00x8000080000043000-0x800008000005=
-2fff] (bus address [0x0000-0xffff])<br>pci_bus 0003:00: root bus resource [=
-mem 0xc30000000-0xc3fffffff] (bus address [0xe0000000-0xefffffff])<br>pci_b=
-us 0003:00: root bus resource [bus 00]<br>iommu: Removing device ffe270000.=
-pcie from group 22<br>iommu: Adding device 0003:00:00.0 to group 21<br>pci =
-0003:00:00.0: bridge configuration invalid ([bus 00-00]), reconfiguring<br>=
-pci 0003:00:00.0: PCI bridge to [bus 01-ff]<br>PCI: Cannot allocate resourc=
-e region 0 of device 0000:00:00.0, will remap<br>PCI: Cannot allocate resou=
-rce region 0 of device 0001:00:00.0, will remap<br>PCI: Cannot allocate res=
-ource region 2 of device 0001:01:00.0, will remap<br>PCI: Cannot allocate r=
-esource region 5 of device 0001:01:00.0, will remap<br>PCI: Cannot allocate=
- resource region 6 of device 0001:01:00.0, will remap<br>PCI: Cannot alloca=
-te resource region 0 of device 0001:01:00.1, will remap<br>PCI: Cannot allo=
-cate resource region 0 of device 0002:00:00.0, will remap<br>PCI: Cannot al=
-locate resource region 0 of device 0003:00:00.0, will remap<br>pci 0000:00:=
-00.0: BAR 0: no space for [mem size 0x01000000]<br>pci 0000:00:00.0: BAR 0:=
- failed to assign [mem size 0x01000000]<br>pci 0000:00:00.0: PCI bridge to =
-[bus 01]<br>pci 0000:00:00.0: =C2=A0 bridge window [io =C2=A00x800008000001=
-0000-0x800008000001ffff]<br>pci 0000:00:00.0: =C2=A0 bridge window [mem 0xc=
-00000000-0xc0fffffff]<br>pci_bus 0000:00: Some PCI device resources are una=
-ssigned, try booting with pci=3Drealloc<br>pci 0001:00:00.0: BAR 0: no spac=
-e for [mem size 0x01000000]<br>pci 0001:00:00.0: BAR 0: failed to assign [m=
-em size 0x01000000]<br>pci 0001:00:00.0: BAR 9: no space for [mem size 0x00=
-200000 64bit pref]<br>pci 0001:00:00.0: BAR 9: failed to assign [mem size 0=
-x00200000 64bit pref]<br>pci 0001:01:00.0: BAR 2: no space for [mem size 0x=
-00200000 64bit pref]<br>pci 0001:01:00.0: BAR 2: failed to assign [mem size=
- 0x00200000 64bit pref]<br>pci 0001:01:00.0: BAR 5: no space for [mem size =
-0x00040000]<br>pci 0001:01:00.0: BAR 5: failed to assign [mem size 0x000400=
-00]<br>pci 0001:01:00.0: BAR 6: no space for [mem size 0x00020000 pref]<br>=
-pci 0001:01:00.0: BAR 6: failed to assign [mem size 0x00020000 pref]<br>pci=
- 0001:01:00.1: BAR 0: no space for [mem size 0x00004000 64bit]<br>pci 0001:=
-01:00.1: BAR 0: failed to assign [mem size 0x00004000 64bit]<br>pci 0001:00=
-:00.0: PCI bridge to [bus 01]<br>pci 0001:00:00.0: =C2=A0 bridge window [io=
- =C2=A00x8000080000021000-0x8000080000030fff]<br>pci 0001:00:00.0: =C2=A0 b=
-ridge window [mem 0xc10000000-0xc1fffffff]<br>pci_bus 0001:00: Some PCI dev=
-ice resources are unassigned, try booting with pci=3Drealloc<br>pci 0002:00=
-:00.0: BAR 0: no space for [mem size 0x01000000]<br>pci 0002:00:00.0: BAR 0=
-: failed to assign [mem size 0x01000000]<br>pci 0002:00:00.0: PCI bridge to=
- [bus 01]<br>pci 0002:00:00.0: =C2=A0 bridge window [io =C2=A00x80000800000=
-32000-0x8000080000041fff]<br>pci 0002:00:00.0: =C2=A0 bridge window [mem 0x=
-c20000000-0xc2fffffff]<br>pci_bus 0002:00: Some PCI device resources are un=
-assigned, try booting with pci=3Drealloc<br>pci 0003:00:00.0: BAR 0: no spa=
-ce for [mem size 0x01000000]<br>pci 0003:00:00.0: BAR 0: failed to assign [=
-mem size 0x01000000]<br>pci 0003:00:00.0: PCI bridge to [bus 01]<br>pci 000=
-3:00:00.0: =C2=A0 bridge window [io =C2=A00x8000080000043000-0x800008000005=
-2fff]<br>pci 0003:00:00.0: =C2=A0 bridge window [mem 0xc30000000-0xc3ffffff=
-f]<br>pci_bus 0003:00: Some PCI device resources are unassigned, try bootin=
-g with pci=3Drealloc</div><div><br></div><div><br></div><div><br></div><div=
-><br></div></div>
-
---000000000000565e8b05982c1ce5--
-
---===============0635624013==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
-
---===============0635624013==--
+QXBwbGllZC4gIFRoYW5rcyEKCkFsZXgKCk9uIFRodSwgTm92IDIxLCAyMDE5IGF0IDExOjEzIEFN
+IERldWNoZXIsIEFsZXhhbmRlcgo8QWxleGFuZGVyLkRldWNoZXJAYW1kLmNvbT4gd3JvdGU6Cj4K
+PiBSZXZpZXdlZC1ieTogQWxleCBEZXVjaGVyIDxhbGV4YW5kZXIuZGV1Y2hlckBhbWQuY29tPgo+
+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCj4gRnJvbTogS3J6eXN6dG9mIEtvemxv
+d3NraSA8a3J6a0BrZXJuZWwub3JnPgo+IFNlbnQ6IFRodXJzZGF5LCBOb3ZlbWJlciAyMSwgMjAx
+OSA4OjI5IEFNCj4gVG86IGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmcgPGxpbnV4LWtlcm5l
+bEB2Z2VyLmtlcm5lbC5vcmc+Cj4gQ2M6IEtyenlzenRvZiBLb3psb3dza2kgPGtyemtAa2VybmVs
+Lm9yZz47IERldWNoZXIsIEFsZXhhbmRlciA8QWxleGFuZGVyLkRldWNoZXJAYW1kLmNvbT47IEtv
+ZW5pZywgQ2hyaXN0aWFuIDxDaHJpc3RpYW4uS29lbmlnQGFtZC5jb20+OyBaaG91LCBEYXZpZChD
+aHVuTWluZykgPERhdmlkMS5aaG91QGFtZC5jb20+OyBEYXZpZCBBaXJsaWUgPGFpcmxpZWRAbGlu
+dXguaWU+OyBEYW5pZWwgVmV0dGVyIDxkYW5pZWxAZmZ3bGwuY2g+OyBhbWQtZ2Z4QGxpc3RzLmZy
+ZWVkZXNrdG9wLm9yZyA8YW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmc+OyBkcmktZGV2ZWxA
+bGlzdHMuZnJlZWRlc2t0b3Aub3JnIDxkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnPgo+
+IFN1YmplY3Q6IFtQQVRDSF0gZHJtL2FtZDogRml4IEtjb25maWcgaW5kZW50YXRpb24KPgo+IEFk
+anVzdCBpbmRlbnRhdGlvbiBmcm9tIHNwYWNlcyB0byB0YWIgKCtvcHRpb25hbCB0d28gc3BhY2Vz
+KSBhcyBpbgo+IGNvZGluZyBzdHlsZSB3aXRoIGNvbW1hbmQgbGlrZToKPiAgICAgICAgICQgc2Vk
+IC1lICdzL14gICAgICAgIC9cdC8nIC1pICovS2NvbmZpZwo+Cj4gU2lnbmVkLW9mZi1ieTogS3J6
+eXN6dG9mIEtvemxvd3NraSA8a3J6a0BrZXJuZWwub3JnPgo+IC0tLQo+ICBkcml2ZXJzL2dwdS9k
+cm0vYW1kL2FjcC9LY29uZmlnIHwgMTAgKysrKystLS0tLQo+ICAxIGZpbGUgY2hhbmdlZCwgNSBp
+bnNlcnRpb25zKCspLCA1IGRlbGV0aW9ucygtKQo+Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1
+L2RybS9hbWQvYWNwL0tjb25maWcgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FjcC9LY29uZmlnCj4g
+aW5kZXggZDk2OGMyNDcxNDEyLi4xOWJhZTkxMDBkYTQgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9n
+cHUvZHJtL2FtZC9hY3AvS2NvbmZpZwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYWNwL0tj
+b25maWcKPiBAQCAtMiwxMSArMiwxMSBAQAo+ICBtZW51ICJBQ1AgKEF1ZGlvIENvUHJvY2Vzc29y
+KSBDb25maWd1cmF0aW9uIgo+Cj4gIGNvbmZpZyBEUk1fQU1EX0FDUAo+IC0gICAgICAgYm9vbCAi
+RW5hYmxlIEFNRCBBdWRpbyBDb1Byb2Nlc3NvciBJUCBzdXBwb3J0Igo+IC0gICAgICAgZGVwZW5k
+cyBvbiBEUk1fQU1ER1BVCj4gLSAgICAgICBzZWxlY3QgTUZEX0NPUkUKPiAtICAgICAgIHNlbGVj
+dCBQTV9HRU5FUklDX0RPTUFJTlMgaWYgUE0KPiAtICAgICAgIGhlbHAKPiArICAgICAgIGJvb2wg
+IkVuYWJsZSBBTUQgQXVkaW8gQ29Qcm9jZXNzb3IgSVAgc3VwcG9ydCIKPiArICAgICAgIGRlcGVu
+ZHMgb24gRFJNX0FNREdQVQo+ICsgICAgICAgc2VsZWN0IE1GRF9DT1JFCj4gKyAgICAgICBzZWxl
+Y3QgUE1fR0VORVJJQ19ET01BSU5TIGlmIFBNCj4gKyAgICAgICBoZWxwCj4gICAgICAgICAgQ2hv
+b3NlIHRoaXMgb3B0aW9uIHRvIGVuYWJsZSBBQ1AgSVAgc3VwcG9ydCBmb3IgQU1EIFNPQ3MuCj4g
+ICAgICAgICAgVGhpcyBhZGRzIHRoZSBBQ1AgKEF1ZGlvIENvUHJvY2Vzc29yKSBJUCBkcml2ZXIg
+YW5kIHdpcmVzCj4gICAgICAgICAgaXQgdXAgaW50byB0aGUgYW1kZ3B1IGRyaXZlci4gIFRoZSBB
+Q1AgYmxvY2sgcHJvdmlkZXMgdGhlIERNQQo+IC0tCj4gMi4xNy4xCj4KPiBfX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwo+IGRyaS1kZXZlbCBtYWlsaW5nIGxp
+c3QKPiBkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4gaHR0cHM6Ly9saXN0cy5mcmVl
+ZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9kcmktZGV2ZWwKX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdm
+eEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFp
+bG1hbi9saXN0aW5mby9hbWQtZ2Z4
