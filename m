@@ -1,53 +1,61 @@
-From: Alex Deucher <alexdeucher@gmail.com>
-Subject: Re: [PATCH] drm/radeon: remove redundant assignment to variable ret
-Date: Mon, 25 Nov 2019 09:57:20 -0500
-Message-ID: <CADnq5_OhXB-FC8ZGVUpv3LSk2WJ1RMymHfnv5ge0yiqErFxNUA@mail.gmail.com>
-References: <20191122231504.109948-1-colin.king@canonical.com>
+From: YueHaibing <yuehaibing@huawei.com>
+Subject: [PATCH -next] drm/amd/display: remove set but not used variable 'msg_out'
+Date: Mon, 25 Nov 2019 22:54:45 +0800
+Message-ID: <20191125145445.21648-1-yuehaibing@huawei.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain
 Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20191122231504.109948-1-colin.king@canonical.com>
 Sender: linux-kernel-owner@vger.kernel.org
-To: Colin King <colin.king@canonical.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, David Zhou <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, amd-gfx list <amd-gfx@lists.freedesktop.org>, Maling list - DRI developers <dri-devel@lists.freedesktop.org>, kernel-janitors@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>
+To: harry.wentland@amd.com, sunpeng.li@amd.com, alexander.deucher@amd.com, christian.koenig@amd.com, David1.Zhou@amd.com, airlied@linux.ie, daniel@ffwll.ch, Bhawanpreet.Lakha@amd.com, yuehaibing@huawei.com
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
 List-Id: amd-gfx.lists.freedesktop.org
 
-On Fri, Nov 22, 2019 at 6:15 PM Colin King <colin.king@canonical.com> wrote:
->
-> From: Colin Ian King <colin.king@canonical.com>
->
-> The variable ret is being initialized with a value that is never
-> read and it is being updated later with a new value. The
-> initialization is redundant and can be removed.
->
-> Addresses-Coverity: ("Unused value")
-> Signed-off-by: Colin Ian King <colin.king@canonical.com>
+drivers/gpu/drm/amd/amdgpu/../display/modules/hdcp/hdcp_psp.c: In function mod_hdcp_hdcp2_enable_encryption:
+drivers/gpu/drm/amd/amdgpu/../display/modules/hdcp/hdcp_psp.c:633:77: warning: variable msg_out set but not used [-Wunused-but-set-variable]
+drivers/gpu/drm/amd/amdgpu/../display/modules/hdcp/hdcp_psp.c: In function mod_hdcp_hdcp2_enable_dp_stream_encryption:
+drivers/gpu/drm/amd/amdgpu/../display/modules/hdcp/hdcp_psp.c:710:77: warning: variable msg_out set but not used [-Wunused-but-set-variable]
 
-Applied.  thanks!
+It is never used, so remove it.
 
-Alex
+Reported-by: Hulk Robot <hulkci@huawei.com>
+Signed-off-by: YueHaibing <yuehaibing@huawei.com>
+---
+ drivers/gpu/drm/amd/display/modules/hdcp/hdcp_psp.c | 4 ----
+ 1 file changed, 4 deletions(-)
 
-> ---
->  drivers/gpu/drm/radeon/si_dpm.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/radeon/si_dpm.c b/drivers/gpu/drm/radeon/si_dpm.c
-> index 8148a7883de4..346315b3eebe 100644
-> --- a/drivers/gpu/drm/radeon/si_dpm.c
-> +++ b/drivers/gpu/drm/radeon/si_dpm.c
-> @@ -5899,7 +5899,7 @@ static int si_patch_single_dependency_table_based_on_leakage(struct radeon_devic
->
->  static int si_patch_dependency_tables_based_on_leakage(struct radeon_device *rdev)
->  {
-> -       int ret = 0;
-> +       int ret;
->
->         ret = si_patch_single_dependency_table_based_on_leakage(rdev,
->                                                                 &rdev->pm.dpm.dyn_state.vddc_dependency_on_sclk);
-> --
-> 2.24.0
->
-> _______________________________________________
-> dri-devel mailing list
-> dri-devel@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/dri-devel
+diff --git a/drivers/gpu/drm/amd/display/modules/hdcp/hdcp_psp.c b/drivers/gpu/drm/amd/display/modules/hdcp/hdcp_psp.c
+index 2dd5fee..468f5e6 100644
+--- a/drivers/gpu/drm/amd/display/modules/hdcp/hdcp_psp.c
++++ b/drivers/gpu/drm/amd/display/modules/hdcp/hdcp_psp.c
+@@ -630,14 +630,12 @@ enum mod_hdcp_status mod_hdcp_hdcp2_enable_encryption(struct mod_hdcp *hdcp)
+ 	struct psp_context *psp = hdcp->config.psp.handle;
+ 	struct ta_hdcp_shared_memory *hdcp_cmd;
+ 	struct ta_hdcp_cmd_hdcp2_process_prepare_authentication_message_input_v2 *msg_in;
+-	struct ta_hdcp_cmd_hdcp2_process_prepare_authentication_message_output_v2 *msg_out;
+ 	struct mod_hdcp_display *display = get_first_added_display(hdcp);
+ 
+ 	hdcp_cmd = (struct ta_hdcp_shared_memory *)psp->hdcp_context.hdcp_shared_buf;
+ 	memset(hdcp_cmd, 0, sizeof(struct ta_hdcp_shared_memory));
+ 
+ 	msg_in = &hdcp_cmd->in_msg.hdcp2_prepare_process_authentication_message_v2;
+-	msg_out = &hdcp_cmd->out_msg.hdcp2_prepare_process_authentication_message_v2;
+ 
+ 	hdcp2_message_init(hdcp, msg_in);
+ 
+@@ -707,14 +705,12 @@ enum mod_hdcp_status mod_hdcp_hdcp2_enable_dp_stream_encryption(struct mod_hdcp
+ 	struct psp_context *psp = hdcp->config.psp.handle;
+ 	struct ta_hdcp_shared_memory *hdcp_cmd;
+ 	struct ta_hdcp_cmd_hdcp2_process_prepare_authentication_message_input_v2 *msg_in;
+-	struct ta_hdcp_cmd_hdcp2_process_prepare_authentication_message_output_v2 *msg_out;
+ 	uint8_t i;
+ 
+ 	hdcp_cmd = (struct ta_hdcp_shared_memory *)psp->hdcp_context.hdcp_shared_buf;
+ 	memset(hdcp_cmd, 0, sizeof(struct ta_hdcp_shared_memory));
+ 
+ 	msg_in = &hdcp_cmd->in_msg.hdcp2_prepare_process_authentication_message_v2;
+-	msg_out = &hdcp_cmd->out_msg.hdcp2_prepare_process_authentication_message_v2;
+ 
+ 	hdcp2_message_init(hdcp, msg_in);
+ 
+-- 
+2.7.4
