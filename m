@@ -1,69 +1,47 @@
-From: Alex Deucher <alexdeucher@gmail.com>
-Subject: Re: [PATCH -next] drm/amd/powerplay: remove set but not used variable 'stretch_amount2'
-Date: Mon, 25 Nov 2019 10:16:37 -0500
-Message-ID: <CADnq5_Mn1vsXzEGA254spvhaAaW+Q4y20orjWBbz2doVCvbYrw@mail.gmail.com>
-References: <20191125145843.15764-1-yuehaibing@huawei.com>
+From: Bhawanpreet Lakha <Bhawanpreet.Lakha-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH] drm/amd/display: Null check aconnector in
+ event_property_validate
+Date: Mon, 25 Nov 2019 10:40:24 -0500
+Message-ID: <20191125154024.21218-1-Bhawanpreet.Lakha@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20191125145843.15764-1-yuehaibing@huawei.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: YueHaibing <yuehaibing@huawei.com>
-Cc: "Quan, Evan" <evan.quan@amd.com>, "Deucher, Alexander" <alexander.deucher@amd.com>, Christian Koenig <christian.koenig@amd.com>, Chunming Zhou <David1.Zhou@amd.com>, Dave Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, Prike Liang <Prike.Liang@amd.com>, Chen Wandun <chenwandun@huawei.com>, yu kuai <yukuai3@huawei.com>, Maling list - DRI developers <dri-devel@lists.freedesktop.org>, amd-gfx list <amd-gfx@lists.freedesktop.org>, LKML <linux-kernel@vger.kernel.org>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Bhawanpreet Lakha <Bhawanpreet.Lakha-5C7GfCeVMHo@public.gmane.org>
 
-On Mon, Nov 25, 2019 at 10:00 AM YueHaibing <yuehaibing@huawei.com> wrote:
->
-> drivers/gpu/drm/amd/amdgpu/../powerplay/smumgr/vegam_smumgr.c:
->  In function vegam_populate_clock_stretcher_data_table:
-> drivers/gpu/drm/amd/amdgpu/../powerplay/smumgr/vegam_smumgr.c:1489:29:
->  warning: variable stretch_amount2 set but not used [-Wunused-but-set-variable]
->
-> It is never used, so can be removed.
->
-> Signed-off-by: YueHaibing <yuehaibing@huawei.com>
-
-Applied.  thanks!
-
-Alex
-
-> ---
->  drivers/gpu/drm/amd/powerplay/smumgr/vegam_smumgr.c | 10 ++++------
->  1 file changed, 4 insertions(+), 6 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/powerplay/smumgr/vegam_smumgr.c b/drivers/gpu/drm/amd/powerplay/smumgr/vegam_smumgr.c
-> index 50896e9..b0e0d67 100644
-> --- a/drivers/gpu/drm/amd/powerplay/smumgr/vegam_smumgr.c
-> +++ b/drivers/gpu/drm/amd/powerplay/smumgr/vegam_smumgr.c
-> @@ -1486,7 +1486,7 @@ static int vegam_populate_clock_stretcher_data_table(struct pp_hwmgr *hwmgr)
->         struct vegam_smumgr *smu_data =
->                         (struct vegam_smumgr *)(hwmgr->smu_backend);
->
-> -       uint8_t i, stretch_amount, stretch_amount2, volt_offset = 0;
-> +       uint8_t i, stretch_amount, volt_offset = 0;
->         struct phm_ppt_v1_information *table_info =
->                         (struct phm_ppt_v1_information *)(hwmgr->pptable);
->         struct phm_ppt_v1_clock_voltage_dependency_table *sclk_table =
-> @@ -1525,11 +1525,9 @@ static int vegam_populate_clock_stretcher_data_table(struct pp_hwmgr *hwmgr)
->                         (table_info->cac_dtp_table->ucCKS_LDO_REFSEL != 0) ?
->                         table_info->cac_dtp_table->ucCKS_LDO_REFSEL : 5;
->         /* Populate CKS Lookup Table */
-> -       if (stretch_amount == 1 || stretch_amount == 2 || stretch_amount == 5)
-> -               stretch_amount2 = 0;
-> -       else if (stretch_amount == 3 || stretch_amount == 4)
-> -               stretch_amount2 = 1;
-> -       else {
-> +       if (!(stretch_amount == 1 || stretch_amount == 2 ||
-> +             stretch_amount == 5 || stretch_amount == 3 ||
-> +             stretch_amount == 4)) {
->                 phm_cap_unset(hwmgr->platform_descriptor.platformCaps,
->                                 PHM_PlatformCaps_ClockStretcher);
->                 PP_ASSERT_WITH_CODE(false,
-> --
-> 2.7.4
->
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+W1doeV0KcHJldmlvdXNseSBldmVudF9wcm9wZXJ0eV92YWxpZGF0ZSB3YXMgb25seSBjYWxsZWQg
+YWZ0ZXIgd2UgZW5hYmxlZCB0aGUgZGlzcGxheS4KQnV0IGFmdGVyICJSZWZhY3RvciBIRENQIHRv
+IGhhbmRsZSBtdWx0aXBsZSBkaXNwbGF5cyBwZXIgbGluayIgdGhpcyBmdW5jdGlvbgpjYW4gYmUg
+Y2FsbGVkIGF0IGFueSB0aW1lLiBJbiBjZXJ0YWluIGNhc2VzIHdlIGRvbid0IGhhdmUgYSBhY29u
+bmVjdG9yCgpbSG93XQpOdWxsIGNoZWNrIGFjb25uZWN0b3IgYW5kIGV4aXQgZWFybHkuIFRoaXMg
+aXMgb2sgYmVjYXVzZSB3ZSBvbmx5IG5lZWQgdG8gY2hlY2sgdGhlCkVOQUJMRUQtPkRFU0lSRUQg
+dHJhbnNpdGlvbiBpZiBhIGNvbm5lY3RvciBleGlzdHMuCgpGaXhlcyA6Y2M1ZGFlOWY2Mjg2IGRy
+bS9hbWQvZGlzcGxheTogUmVmYWN0b3IgSERDUCB0byBoYW5kbGUgbXVsdGlwbGUgZGlzcGxheXMg
+cGVyIGxpbmsKU2lnbmVkLW9mZi1ieTogQmhhd2FucHJlZXQgTGFraGEgPEJoYXdhbnByZWV0Lkxh
+a2hhQGFtZC5jb20+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9h
+bWRncHVfZG1faGRjcC5jIHwgMyArKysKIDEgZmlsZSBjaGFuZ2VkLCAzIGluc2VydGlvbnMoKykK
+CmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdw
+dV9kbV9oZGNwLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdw
+dV9kbV9oZGNwLmMKaW5kZXggZjY4NjRhNTE4OTFhLi5hZTMyOTMzNWRmY2MgMTAwNjQ0Ci0tLSBh
+L2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtX2hkY3AuYwor
+KysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbV9oZGNw
+LmMKQEAgLTIyNSw2ICsyMjUsOSBAQCBzdGF0aWMgdm9pZCBldmVudF9wcm9wZXJ0eV92YWxpZGF0
+ZShzdHJ1Y3Qgd29ya19zdHJ1Y3QgKndvcmspCiAJc3RydWN0IG1vZF9oZGNwX2Rpc3BsYXlfcXVl
+cnkgcXVlcnk7CiAJc3RydWN0IGFtZGdwdV9kbV9jb25uZWN0b3IgKmFjb25uZWN0b3IgPSBoZGNw
+X3dvcmstPmFjb25uZWN0b3I7CiAKKwlpZiAoIWFjb25uZWN0b3IpCisJCXJldHVybjsKKwogCW11
+dGV4X2xvY2soJmhkY3Bfd29yay0+bXV0ZXgpOwogCiAJcXVlcnkuZW5jcnlwdGlvbl9zdGF0dXMg
+PSBNT0RfSERDUF9FTkNSWVBUSU9OX1NUQVRVU19IRENQX09GRjsKLS0gCjIuMTcuMQoKX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5n
+IGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVz
+a3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
