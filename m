@@ -1,12 +1,13 @@
-From: "Zhao, Yong" <Yong.Zhao-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 1/1] drm/amdgpu: Raise KFD unpinned system memory limit
-Date: Mon, 25 Nov 2019 23:19:06 +0000
-Message-ID: <DM6PR12MB277806E387DFC479BDD8AB47F04A0@DM6PR12MB2778.namprd12.prod.outlook.com>
-References: <20191125212819.21392-1-Felix.Kuehling@amd.com>
+From: Nirmoy <nirmodas-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [RFC PATCH] drm/amdgpu: allocate entities on demand
+Date: Tue, 26 Nov 2019 00:31:46 +0100
+Message-ID: <2e514ab3-1582-6508-d81a-cbc2d12f42d7@amd.com>
+References: <20191125231719.108949-1-nirmoy.das@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0857346548=="
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20191125212819.21392-1-Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <20191125231719.108949-1-nirmoy.das-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -18,179 +19,140 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Nirmoy Das <nirmoy.aiemd-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, alexander.deucher-5C7GfCeVMHo@public.gmane.org, kenny.ho-5C7GfCeVMHo@public.gmane.org, christian.koenig-5C7GfCeVMHo@public.gmane.org
+Cc: nirmoy.das-5C7GfCeVMHo@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
---===============0857346548==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_DM6PR12MB277806E387DFC479BDD8AB47F04A0DM6PR12MB2778namp_"
-
---_000_DM6PR12MB277806E387DFC479BDD8AB47F04A0DM6PR12MB2778namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-[AMD Official Use Only - Internal Distribution Only]
-
-Reviewed-by: Yong Zhao <Yong.Zhao-5C7GfCeVMHo@public.gmane.org>
-________________________________
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Felix Ku=
-ehling <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
-Sent: Monday, November 25, 2019 4:28 PM
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Subject: [PATCH 1/1] drm/amdgpu: Raise KFD unpinned system memory limit
-
-Allow KFD applications to use more unpinned system memory through
-HMM.
-
-Signed-off-by: Felix Kuehling <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu=
-/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-index e43a95514b41..b6d1958d514f 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-@@ -85,7 +85,7 @@ static bool check_if_add_bo_to_vm(struct amdgpu_vm *avm,
- }
-
- /* Set memory usage limits. Current, limits are
-- *  System (TTM + userptr) memory - 3/4th System RAM
-+ *  System (TTM + userptr) memory - 15/16th System RAM
-  *  TTM memory - 3/8th System RAM
-  */
- void amdgpu_amdkfd_gpuvm_init_mem_limits(void)
-@@ -98,7 +98,7 @@ void amdgpu_amdkfd_gpuvm_init_mem_limits(void)
-         mem *=3D si.mem_unit;
-
-         spin_lock_init(&kfd_mem_limit.mem_limit_lock);
--       kfd_mem_limit.max_system_mem_limit =3D (mem >> 1) + (mem >> 2);
-+       kfd_mem_limit.max_system_mem_limit =3D mem - (mem >> 4);
-         kfd_mem_limit.max_ttm_mem_limit =3D (mem >> 1) - (mem >> 3);
-         pr_debug("Kernel memory limit %lluM, TTM limit %lluM\n",
-                 (kfd_mem_limit.max_system_mem_limit >> 20),
---
-2.24.0
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Flists.f=
-reedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=3D02%7C01%7Cyong.zha=
-o%40amd.com%7C808d3732d1d74a7cd05208d771ee6f9b%7C3dd8961fe4884e608e11a82d99=
-4e183d%7C0%7C0%7C637103141200385929&amp;sdata=3DyywimvE%2FuidOPQb9IYLZi95Mb=
-fnFrW0Swmp11iYi4%2BI%3D&amp;reserved=3D0
-
---_000_DM6PR12MB277806E387DFC479BDD8AB47F04A0DM6PR12MB2778namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<p style=3D"font-family:Arial;font-size:10pt;color:#0078D7;margin:15pt;" al=
-ign=3D"Left">
-[AMD Official Use Only - Internal Distribution Only]<br>
-</p>
-<br>
-<div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<span style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; backgrou=
-nd-color: rgb(255, 255, 255); display: inline !important">Reviewed-by: Yong=
- Zhao &lt;Yong.Zhao-5C7GfCeVMHo@public.gmane.org&gt;</span><br>
-</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
-ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Felix Kuehling &lt;Felix.Kueh=
-ling-5C7GfCeVMHo@public.gmane.org&gt;<br>
-<b>Sent:</b> Monday, November 25, 2019 4:28 PM<br>
-<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org &lt;amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&=
-gt;<br>
-<b>Subject:</b> [PATCH 1/1] drm/amdgpu: Raise KFD unpinned system memory li=
-mit</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">Allow KFD applications to use more unpinned system=
- memory through<br>
-HMM.<br>
-<br>
-Signed-off-by: Felix Kuehling &lt;Felix.Kuehling-5C7GfCeVMHo@public.gmane.org&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c | 4 &#43;&#43;--<br>
-&nbsp;1 file changed, 2 insertions(&#43;), 2 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu=
-/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c<br>
-index e43a95514b41..b6d1958d514f 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c<br>
-@@ -85,7 &#43;85,7 @@ static bool check_if_add_bo_to_vm(struct amdgpu_vm *a=
-vm,<br>
-&nbsp;}<br>
-&nbsp;<br>
-&nbsp;/* Set memory usage limits. Current, limits are<br>
-- *&nbsp; System (TTM &#43; userptr) memory - 3/4th System RAM<br>
-&#43; *&nbsp; System (TTM &#43; userptr) memory - 15/16th System RAM<br>
-&nbsp; *&nbsp; TTM memory - 3/8th System RAM<br>
-&nbsp; */<br>
-&nbsp;void amdgpu_amdkfd_gpuvm_init_mem_limits(void)<br>
-@@ -98,7 &#43;98,7 @@ void amdgpu_amdkfd_gpuvm_init_mem_limits(void)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mem *=3D si.mem_unit;<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; spin_lock_init(&amp;kfd_me=
-m_limit.mem_limit_lock);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfd_mem_limit.max_system_mem_limit =
-=3D (mem &gt;&gt; 1) &#43; (mem &gt;&gt; 2);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfd_mem_limit.max_system_mem_limi=
-t =3D mem - (mem &gt;&gt; 4);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfd_mem_limit.max_ttm_mem_=
-limit =3D (mem &gt;&gt; 1) - (mem &gt;&gt; 3);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pr_debug(&quot;Kernel memo=
-ry limit %lluM, TTM limit %lluM\n&quot;,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; (kfd_mem_limit.max_system_mem_limit &gt;&gt; 20),<br>
--- <br>
-2.24.0<br>
-<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<a href=3D"https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2=
-F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;amp;data=3D02%=
-7C01%7Cyong.zhao%40amd.com%7C808d3732d1d74a7cd05208d771ee6f9b%7C3dd8961fe48=
-84e608e11a82d994e183d%7C0%7C0%7C637103141200385929&amp;amp;sdata=3DyywimvE%=
-2FuidOPQb9IYLZi95MbfnFrW0Swmp11iYi4%2BI%3D&amp;amp;reserved=3D0">https://na=
-m11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Flists.freedesktop=
-.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;amp;data=3D02%7C01%7Cyong.zhao%40am=
-d.com%7C808d3732d1d74a7cd05208d771ee6f9b%7C3dd8961fe4884e608e11a82d994e183d=
-%7C0%7C0%7C637103141200385929&amp;amp;sdata=3DyywimvE%2FuidOPQb9IYLZi95Mbfn=
-FrW0Swmp11iYi4%2BI%3D&amp;amp;reserved=3D0</a></div>
-</span></font></div>
-</div>
-</body>
-</html>
-
---_000_DM6PR12MB277806E387DFC479BDD8AB47F04A0DM6PR12MB2778namp_--
-
---===============0857346548==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
-
---===============0857346548==--
+UmFuIGFtZGdwdV90ZXN0KGRybSkgc3VjY2Vzc2Z1bGx5IG11bHRpcGxlIHRpbWVzIHRvIHRlc3Qg
+dGhpcy4gQnV0IEkgYW0gCnByZXR0eSBzdXJlIEkgYW0gbWlzc2luZyBzb21lIGNvcm5lciBjYXNl
+IGhlcmUuCgoKUmVnYXJkcywKCk5pcm1veQoKT24gMTEvMjYvMTkgMTI6MTcgQU0sIE5pcm1veSBE
+YXMgd3JvdGU6Cj4gQ3VycmVudGx5IHdlIHByZS1hbGxvY2F0ZSBlbnRpdGllcyBmb3IgYWxsIHRo
+ZSBIVyBJUHMgb24KPiBjb250ZXh0IGNyZWF0aW9uIGFuZCBzb21lIG9mIHdoaWNoIGFyZSBtaWdo
+dCBuZXZlciBiZSB1c2VkLgo+Cj4gVGhpcyBwYXRjaCB0cmllcyB0byByZXNvbHZlIGVudGl0eSB3
+YXN0YWdlIGJ5IGNyZWF0aW5nIGVudGl0aWVzCj4gZm9yIGEgSFcgSVAgb25seSB3aGVuIGl0IGlz
+IHJlcXVpcmVkLgo+Cj4gU2lnbmVkLW9mZi1ieTogTmlybW95IERhcyA8bmlybW95LmRhc0BhbWQu
+Y29tPgo+IC0tLQo+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2N0eC5jIHwg
+MTQyICsrKysrKysrKysrKysrLS0tLS0tLS0tLQo+ICAgMSBmaWxlIGNoYW5nZWQsIDgxIGluc2Vy
+dGlvbnMoKyksIDYxIGRlbGV0aW9ucygtKQo+Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2Ry
+bS9hbWQvYW1kZ3B1L2FtZGdwdV9jdHguYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
+ZGdwdV9jdHguYwo+IGluZGV4IGEwZDNkN2I3NTZlYi4uMGEzOTBlYmU4NzNmIDEwMDY0NAo+IC0t
+LSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9jdHguYwo+ICsrKyBiL2RyaXZl
+cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9jdHguYwo+IEBAIC03NCw3ICs3NCw3IEBAIHN0
+YXRpYyBpbnQgYW1kZ3B1X2N0eF9pbml0KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LAo+ICAg
+CQkJICAgc3RydWN0IGFtZGdwdV9jdHggKmN0eCkKPiAgIHsKPiAgIAl1bnNpZ25lZCBudW1fZW50
+aXRpZXMgPSBhbWRncHVfY3R4X3RvdGFsX251bV9lbnRpdGllcygpOwo+IC0JdW5zaWduZWQgaSwg
+aiwgazsKPiArCXVuc2lnbmVkIGk7Cj4gICAJaW50IHI7Cj4gICAKPiAgIAlpZiAocHJpb3JpdHkg
+PCAwIHx8IHByaW9yaXR5ID49IERSTV9TQ0hFRF9QUklPUklUWV9NQVgpCj4gQEAgLTEwMyw3ICsx
+MDMsNyBAQCBzdGF0aWMgaW50IGFtZGdwdV9jdHhfaW5pdChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAq
+YWRldiwKPiAgIAlmb3IgKGkgPSAwOyBpIDwgbnVtX2VudGl0aWVzOyArK2kpIHsKPiAgIAkJc3Ry
+dWN0IGFtZGdwdV9jdHhfZW50aXR5ICplbnRpdHkgPSAmY3R4LT5lbnRpdGllc1swXVtpXTsKPiAg
+IAo+IC0JCWVudGl0eS0+c2VxdWVuY2UgPSAxOwo+ICsJCWVudGl0eS0+c2VxdWVuY2UgPSAtMTsK
+PiAgIAkJZW50aXR5LT5mZW5jZXMgPSAmY3R4LT5mZW5jZXNbYW1kZ3B1X3NjaGVkX2pvYnMgKiBp
+XTsKPiAgIAl9Cj4gICAJZm9yIChpID0gMTsgaSA8IEFNREdQVV9IV19JUF9OVU07ICsraSkKPiBA
+QCAtMTIwLDI1ICsxMjAsNTkgQEAgc3RhdGljIGludCBhbWRncHVfY3R4X2luaXQoc3RydWN0IGFt
+ZGdwdV9kZXZpY2UgKmFkZXYsCj4gICAJY3R4LT5pbml0X3ByaW9yaXR5ID0gcHJpb3JpdHk7Cj4g
+ICAJY3R4LT5vdmVycmlkZV9wcmlvcml0eSA9IERSTV9TQ0hFRF9QUklPUklUWV9VTlNFVDsKPiAg
+IAo+IC0JZm9yIChpID0gMDsgaSA8IEFNREdQVV9IV19JUF9OVU07ICsraSkgewo+IC0JCXN0cnVj
+dCBhbWRncHVfcmluZyAqcmluZ3NbQU1ER1BVX01BWF9SSU5HU107Cj4gLQkJc3RydWN0IGRybV9z
+Y2hlZF9ycSAqcnFzW0FNREdQVV9NQVhfUklOR1NdOwo+IC0JCXVuc2lnbmVkIG51bV9yaW5ncyA9
+IDA7Cj4gLQkJdW5zaWduZWQgbnVtX3JxcyA9IDA7Cj4gKwlyZXR1cm4gMDsKPiArCj4gK2Vycm9y
+X2ZyZWVfZmVuY2VzOgo+ICsJa2ZyZWUoY3R4LT5mZW5jZXMpOwo+ICsJY3R4LT5mZW5jZXMgPSBO
+VUxMOwo+ICsJcmV0dXJuIHI7Cj4gK30KPiArCj4gK3N0YXRpYyB2b2lkIGFtZGdwdV9jdHhfZmlu
+aShzdHJ1Y3Qga3JlZiAqcmVmKQo+ICt7Cj4gKwlzdHJ1Y3QgYW1kZ3B1X2N0eCAqY3R4ID0gY29u
+dGFpbmVyX29mKHJlZiwgc3RydWN0IGFtZGdwdV9jdHgsIHJlZmNvdW50KTsKPiArCXVuc2lnbmVk
+IG51bV9lbnRpdGllcyA9IGFtZGdwdV9jdHhfdG90YWxfbnVtX2VudGl0aWVzKCk7Cj4gKwlzdHJ1
+Y3QgYW1kZ3B1X2RldmljZSAqYWRldiA9IGN0eC0+YWRldjsKPiArCXVuc2lnbmVkIGksIGo7Cj4g
+Kwo+ICsJaWYgKCFhZGV2KQo+ICsJCXJldHVybjsKPiArCj4gKwlmb3IgKGkgPSAwOyBpIDwgbnVt
+X2VudGl0aWVzOyArK2kpCj4gKwkJZm9yIChqID0gMDsgaiA8IGFtZGdwdV9zY2hlZF9qb2JzOyAr
+K2opCj4gKwkJCWRtYV9mZW5jZV9wdXQoY3R4LT5lbnRpdGllc1swXVtpXS5mZW5jZXNbal0pOwo+
+ICsJa2ZyZWUoY3R4LT5mZW5jZXMpOwo+ICsJa2ZyZWUoY3R4LT5lbnRpdGllc1swXSk7Cj4gKwo+
+ICsJbXV0ZXhfZGVzdHJveSgmY3R4LT5sb2NrKTsKPiArCj4gKwlrZnJlZShjdHgpOwo+ICt9Cj4g
+ICAKPiAtCQlzd2l0Y2ggKGkpIHsKPiArCj4gK2ludCBhbWRncHVfY3R4X2luaXRfZW50aXR5KHN0
+cnVjdCBhbWRncHVfY3R4ICpjdHgsIHUzMiBod19pcCkKVGhpcyBzaG91bGQgYmUgYSBzdGF0aWMg
+ZnVuY3Rpb24gd2hpY2ggSSBmb3Jnb3QgdG8gY2hhbmdlCj4gK3sKPiArCXN0cnVjdCBhbWRncHVf
+cmluZyAqcmluZ3NbQU1ER1BVX01BWF9SSU5HU107Cj4gKwlzdHJ1Y3QgZHJtX3NjaGVkX3JxICpy
+cXNbQU1ER1BVX01BWF9SSU5HU107Cj4gKwlzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiA9IGN0
+eC0+YWRldjsKPiArCXVuc2lnbmVkIG51bV9yaW5ncyA9IDA7Cj4gKwl1bnNpZ25lZCBudW1fcnFz
+ID0gMDsKPiArCXVuc2lnbmVkIGksIGo7Cj4gKwlpbnQgciA9IDA7Cj4gKwo+ICsJc3dpdGNoICho
+d19pcCkgewo+ICAgCQljYXNlIEFNREdQVV9IV19JUF9HRlg6Cj4gICAJCQlyaW5nc1swXSA9ICZh
+ZGV2LT5nZnguZ2Z4X3JpbmdbMF07Cj4gICAJCQludW1fcmluZ3MgPSAxOwo+ICAgCQkJYnJlYWs7
+Cj4gICAJCWNhc2UgQU1ER1BVX0hXX0lQX0NPTVBVVEU6Cj4gLQkJCWZvciAoaiA9IDA7IGogPCBh
+ZGV2LT5nZngubnVtX2NvbXB1dGVfcmluZ3M7ICsraikKPiAtCQkJCXJpbmdzW2pdID0gJmFkZXYt
+PmdmeC5jb21wdXRlX3Jpbmdbal07Cj4gKwkJCWZvciAoaSA9IDA7IGkgPCBhZGV2LT5nZngubnVt
+X2NvbXB1dGVfcmluZ3M7ICsraSkKPiArCQkJCXJpbmdzW2ldID0gJmFkZXYtPmdmeC5jb21wdXRl
+X3JpbmdbaV07Cj4gICAJCQludW1fcmluZ3MgPSBhZGV2LT5nZngubnVtX2NvbXB1dGVfcmluZ3M7
+Cj4gICAJCQlicmVhazsKPiAgIAkJY2FzZSBBTURHUFVfSFdfSVBfRE1BOgo+IC0JCQlmb3IgKGog
+PSAwOyBqIDwgYWRldi0+c2RtYS5udW1faW5zdGFuY2VzOyArK2opCj4gLQkJCQlyaW5nc1tqXSA9
+ICZhZGV2LT5zZG1hLmluc3RhbmNlW2pdLnJpbmc7Cj4gKwkJCWZvciAoaSA9IDA7IGkgPCBhZGV2
+LT5zZG1hLm51bV9pbnN0YW5jZXM7ICsraSkKPiArCQkJCXJpbmdzW2ldID0gJmFkZXYtPnNkbWEu
+aW5zdGFuY2VbaV0ucmluZzsKPiAgIAkJCW51bV9yaW5ncyA9IGFkZXYtPnNkbWEubnVtX2luc3Rh
+bmNlczsKPiAgIAkJCWJyZWFrOwo+ICAgCQljYXNlIEFNREdQVV9IV19JUF9VVkQ6Cj4gQEAgLTE1
+NCw4MCArMTg4LDU5IEBAIHN0YXRpYyBpbnQgYW1kZ3B1X2N0eF9pbml0KHN0cnVjdCBhbWRncHVf
+ZGV2aWNlICphZGV2LAo+ICAgCQkJbnVtX3JpbmdzID0gMTsKPiAgIAkJCWJyZWFrOwo+ICAgCQlj
+YXNlIEFNREdQVV9IV19JUF9WQ05fREVDOgo+IC0JCQlmb3IgKGogPSAwOyBqIDwgYWRldi0+dmNu
+Lm51bV92Y25faW5zdDsgKytqKSB7Cj4gLQkJCQlpZiAoYWRldi0+dmNuLmhhcnZlc3RfY29uZmln
+ICYgKDEgPDwgaikpCj4gKwkJCWZvciAoaSA9IDA7IGkgPCBhZGV2LT52Y24ubnVtX3Zjbl9pbnN0
+OyArK2kpIHsKPiArCQkJCWlmIChhZGV2LT52Y24uaGFydmVzdF9jb25maWcgJiAoMSA8PCBpKSkK
+PiAgIAkJCQkJY29udGludWU7Cj4gLQkJCQlyaW5nc1tudW1fcmluZ3MrK10gPSAmYWRldi0+dmNu
+Lmluc3Rbal0ucmluZ19kZWM7Cj4gKwkJCQlyaW5nc1tudW1fcmluZ3MrK10gPSAmYWRldi0+dmNu
+Lmluc3RbaV0ucmluZ19kZWM7Cj4gICAJCQl9Cj4gICAJCQlicmVhazsKPiAgIAkJY2FzZSBBTURH
+UFVfSFdfSVBfVkNOX0VOQzoKPiAtCQkJZm9yIChqID0gMDsgaiA8IGFkZXYtPnZjbi5udW1fdmNu
+X2luc3Q7ICsraikgewo+IC0JCQkJaWYgKGFkZXYtPnZjbi5oYXJ2ZXN0X2NvbmZpZyAmICgxIDw8
+IGopKQo+ICsJCQlmb3IgKGkgPSAwOyBpIDwgYWRldi0+dmNuLm51bV92Y25faW5zdDsgKytpKSB7
+Cj4gKwkJCQlpZiAoYWRldi0+dmNuLmhhcnZlc3RfY29uZmlnICYgKDEgPDwgaSkpCj4gICAJCQkJ
+CWNvbnRpbnVlOwo+IC0JCQkJZm9yIChrID0gMDsgayA8IGFkZXYtPnZjbi5udW1fZW5jX3Jpbmdz
+OyArK2spCj4gLQkJCQkJcmluZ3NbbnVtX3JpbmdzKytdID0gJmFkZXYtPnZjbi5pbnN0W2pdLnJp
+bmdfZW5jW2tdOwo+ICsJCQkJZm9yIChqID0gMDsgaiA8IGFkZXYtPnZjbi5udW1fZW5jX3Jpbmdz
+OyArK2opCj4gKwkJCQkJcmluZ3NbbnVtX3JpbmdzKytdID0gJmFkZXYtPnZjbi5pbnN0W2ldLnJp
+bmdfZW5jW2pdOwo+ICAgCQkJfQo+ICAgCQkJYnJlYWs7Cj4gICAJCWNhc2UgQU1ER1BVX0hXX0lQ
+X1ZDTl9KUEVHOgo+IC0JCQlmb3IgKGogPSAwOyBqIDwgYWRldi0+anBlZy5udW1fanBlZ19pbnN0
+OyArK2opIHsKPiAtCQkJCWlmIChhZGV2LT52Y24uaGFydmVzdF9jb25maWcgJiAoMSA8PCBqKSkK
+PiArCQkJZm9yIChpID0gMDsgaSA8IGFkZXYtPmpwZWcubnVtX2pwZWdfaW5zdDsgKytpKSB7Cj4g
+KwkJCQlpZiAoYWRldi0+dmNuLmhhcnZlc3RfY29uZmlnICYgKDEgPDwgaSkpCj4gICAJCQkJCWNv
+bnRpbnVlOwo+IC0JCQkJcmluZ3NbbnVtX3JpbmdzKytdID0gJmFkZXYtPmpwZWcuaW5zdFtqXS5y
+aW5nX2RlYzsKPiArCQkJCXJpbmdzW251bV9yaW5ncysrXSA9ICZhZGV2LT5qcGVnLmluc3RbaV0u
+cmluZ19kZWM7Cj4gICAJCQl9Cj4gICAJCQlicmVhazsKPiAtCQl9Cj4gLQo+IC0JCWZvciAoaiA9
+IDA7IGogPCBudW1fcmluZ3M7ICsraikgewo+IC0JCQlpZiAoIXJpbmdzW2pdLT5hZGV2KQo+IC0J
+CQkJY29udGludWU7Cj4gKwl9Cj4gICAKPiAtCQkJcnFzW251bV9ycXMrK10gPSAmcmluZ3Nbal0t
+PnNjaGVkLnNjaGVkX3JxW3ByaW9yaXR5XTsKPiAtCQl9Cj4gKwlmb3IgKGkgPSAwOyBpIDwgbnVt
+X3JpbmdzOyArK2kpIHsKPiArCQlpZiAoIXJpbmdzW2ldLT5hZGV2KQo+ICsJCQljb250aW51ZTsK
+PiAgIAo+IC0JCWZvciAoaiA9IDA7IGogPCBhbWRncHVfY3R4X251bV9lbnRpdGllc1tpXTsgKytq
+KQo+IC0JCQlyID0gZHJtX3NjaGVkX2VudGl0eV9pbml0KCZjdHgtPmVudGl0aWVzW2ldW2pdLmVu
+dGl0eSwKPiAtCQkJCQkJICBycXMsIG51bV9ycXMsICZjdHgtPmd1aWx0eSk7Cj4gLQkJaWYgKHIp
+Cj4gLQkJCWdvdG8gZXJyb3JfY2xlYW51cF9lbnRpdGllczsKPiArCQlycXNbbnVtX3JxcysrXSA9
+ICZyaW5nc1tpXS0+c2NoZWQuc2NoZWRfcnFbY3R4LT5pbml0X3ByaW9yaXR5XTsKPiAgIAl9Cj4g
+ICAKPiArCWZvciAoaSA9IDA7IGkgPCBhbWRncHVfY3R4X251bV9lbnRpdGllc1tod19pcF07ICsr
+aSkKPiArCQlyID0gZHJtX3NjaGVkX2VudGl0eV9pbml0KCZjdHgtPmVudGl0aWVzW2h3X2lwXVtp
+XS5lbnRpdHksCj4gKwkJCQlycXMsIG51bV9ycXMsICZjdHgtPmd1aWx0eSk7Cj4gKwlpZiAocikK
+PiArCQlnb3RvIGVycm9yX2NsZWFudXBfZW50aXRpZXM7Cj4gKwo+ICsJZm9yIChpID0gMDsgaSA8
+IGFtZGdwdV9jdHhfbnVtX2VudGl0aWVzW2h3X2lwXTsgKytpKQo+ICsJCWN0eC0+ZW50aXRpZXNb
+aHdfaXBdW2ldLnNlcXVlbmNlID0gMTsKPiArCj4gICAJcmV0dXJuIDA7Cj4gICAKPiAgIGVycm9y
+X2NsZWFudXBfZW50aXRpZXM6Cj4gLQlmb3IgKGkgPSAwOyBpIDwgbnVtX2VudGl0aWVzOyArK2kp
+Cj4gLQkJZHJtX3NjaGVkX2VudGl0eV9kZXN0cm95KCZjdHgtPmVudGl0aWVzWzBdW2ldLmVudGl0
+eSk7Cj4gLQlrZnJlZShjdHgtPmVudGl0aWVzWzBdKTsKPiArCWZvciAoaSA9IDA7IGkgPCBhbWRn
+cHVfY3R4X251bV9lbnRpdGllc1tod19pcF07ICsraSkKPiArCQlkcm1fc2NoZWRfZW50aXR5X2Rl
+c3Ryb3koJmN0eC0+ZW50aXRpZXNbaHdfaXBdW2ldLmVudGl0eSk7Cj4gICAKPiAtZXJyb3JfZnJl
+ZV9mZW5jZXM6Cj4gLQlrZnJlZShjdHgtPmZlbmNlcyk7Cj4gLQljdHgtPmZlbmNlcyA9IE5VTEw7
+Cj4gICAJcmV0dXJuIHI7Cj4gICB9Cj4gICAKPiAtc3RhdGljIHZvaWQgYW1kZ3B1X2N0eF9maW5p
+KHN0cnVjdCBrcmVmICpyZWYpCj4gLXsKPiAtCXN0cnVjdCBhbWRncHVfY3R4ICpjdHggPSBjb250
+YWluZXJfb2YocmVmLCBzdHJ1Y3QgYW1kZ3B1X2N0eCwgcmVmY291bnQpOwo+IC0JdW5zaWduZWQg
+bnVtX2VudGl0aWVzID0gYW1kZ3B1X2N0eF90b3RhbF9udW1fZW50aXRpZXMoKTsKPiAtCXN0cnVj
+dCBhbWRncHVfZGV2aWNlICphZGV2ID0gY3R4LT5hZGV2Owo+IC0JdW5zaWduZWQgaSwgajsKPiAt
+Cj4gLQlpZiAoIWFkZXYpCj4gLQkJcmV0dXJuOwo+IC0KPiAtCWZvciAoaSA9IDA7IGkgPCBudW1f
+ZW50aXRpZXM7ICsraSkKPiAtCQlmb3IgKGogPSAwOyBqIDwgYW1kZ3B1X3NjaGVkX2pvYnM7ICsr
+aikKPiAtCQkJZG1hX2ZlbmNlX3B1dChjdHgtPmVudGl0aWVzWzBdW2ldLmZlbmNlc1tqXSk7Cj4g
+LQlrZnJlZShjdHgtPmZlbmNlcyk7Cj4gLQlrZnJlZShjdHgtPmVudGl0aWVzWzBdKTsKPiAtCj4g
+LQltdXRleF9kZXN0cm95KCZjdHgtPmxvY2spOwo+IC0KPiAtCWtmcmVlKGN0eCk7Cj4gLX0KPiAt
+Cj4gICBpbnQgYW1kZ3B1X2N0eF9nZXRfZW50aXR5KHN0cnVjdCBhbWRncHVfY3R4ICpjdHgsIHUz
+MiBod19pcCwgdTMyIGluc3RhbmNlLAo+ICAgCQkJICB1MzIgcmluZywgc3RydWN0IGRybV9zY2hl
+ZF9lbnRpdHkgKiplbnRpdHkpCj4gICB7Cj4gKwlpbnQgcjsKPiArCj4gICAJaWYgKGh3X2lwID49
+IEFNREdQVV9IV19JUF9OVU0pIHsKPiAgIAkJRFJNX0VSUk9SKCJ1bmtub3duIEhXIElQIHR5cGU6
+ICVkXG4iLCBod19pcCk7Cj4gICAJCXJldHVybiAtRUlOVkFMOwo+IEBAIC0yNDQsNiArMjU3LDEz
+IEBAIGludCBhbWRncHVfY3R4X2dldF9lbnRpdHkoc3RydWN0IGFtZGdwdV9jdHggKmN0eCwgdTMy
+IGh3X2lwLCB1MzIgaW5zdGFuY2UsCj4gICAJCXJldHVybiAtRUlOVkFMOwo+ICAgCX0KPiAgIAo+
+ICsJaWYgKGN0eC0+ZW50aXRpZXNbaHdfaXBdW3JpbmddLnNlcXVlbmNlID09IC0xKSB7Cj4gKwkJ
+ciA9IGFtZGdwdV9jdHhfaW5pdF9lbnRpdHkoY3R4LCBod19pcCk7Cj4gKwo+ICsJCWlmIChyKQo+
+ICsJCQlyZXR1cm4gcjsKPiArCX0KPiArCj4gICAJKmVudGl0eSA9ICZjdHgtPmVudGl0aWVzW2h3
+X2lwXVtyaW5nXS5lbnRpdHk7Cj4gICAJcmV0dXJuIDA7Cj4gICB9Cl9fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1n
+ZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21h
+aWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
