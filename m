@@ -1,61 +1,54 @@
 From: YueHaibing <yuehaibing@huawei.com>
-Subject: [PATCH -next] drm/amd/display: remove set but not used variable 'msg_out'
-Date: Mon, 25 Nov 2019 22:54:45 +0800
-Message-ID: <20191125145445.21648-1-yuehaibing@huawei.com>
+Subject: [PATCH -next] drm/amd/powerplay: remove set but not used variable 'stretch_amount2'
+Date: Mon, 25 Nov 2019 22:58:43 +0800
+Message-ID: <20191125145843.15764-1-yuehaibing@huawei.com>
 Mime-Version: 1.0
 Content-Type: text/plain
 Return-path: <linux-kernel-owner@vger.kernel.org>
 Sender: linux-kernel-owner@vger.kernel.org
-To: harry.wentland@amd.com, sunpeng.li@amd.com, alexander.deucher@amd.com, christian.koenig@amd.com, David1.Zhou@amd.com, airlied@linux.ie, daniel@ffwll.ch, Bhawanpreet.Lakha@amd.com, yuehaibing@huawei.com
+To: evan.quan@amd.com, alexander.deucher@amd.com, christian.koenig@amd.com, David1.Zhou@amd.com, airlied@linux.ie, daniel@ffwll.ch, Prike.Liang@amd.com, yuehaibing@huawei.com, chenwandun@huawei.com, yukuai3@huawei.com
 Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
 List-Id: amd-gfx.lists.freedesktop.org
 
-drivers/gpu/drm/amd/amdgpu/../display/modules/hdcp/hdcp_psp.c: In function mod_hdcp_hdcp2_enable_encryption:
-drivers/gpu/drm/amd/amdgpu/../display/modules/hdcp/hdcp_psp.c:633:77: warning: variable msg_out set but not used [-Wunused-but-set-variable]
-drivers/gpu/drm/amd/amdgpu/../display/modules/hdcp/hdcp_psp.c: In function mod_hdcp_hdcp2_enable_dp_stream_encryption:
-drivers/gpu/drm/amd/amdgpu/../display/modules/hdcp/hdcp_psp.c:710:77: warning: variable msg_out set but not used [-Wunused-but-set-variable]
+drivers/gpu/drm/amd/amdgpu/../powerplay/smumgr/vegam_smumgr.c:
+ In function vegam_populate_clock_stretcher_data_table:
+drivers/gpu/drm/amd/amdgpu/../powerplay/smumgr/vegam_smumgr.c:1489:29:
+ warning: variable stretch_amount2 set but not used [-Wunused-but-set-variable]
 
-It is never used, so remove it.
+It is never used, so can be removed.
 
-Reported-by: Hulk Robot <hulkci@huawei.com>
 Signed-off-by: YueHaibing <yuehaibing@huawei.com>
 ---
- drivers/gpu/drm/amd/display/modules/hdcp/hdcp_psp.c | 4 ----
- 1 file changed, 4 deletions(-)
+ drivers/gpu/drm/amd/powerplay/smumgr/vegam_smumgr.c | 10 ++++------
+ 1 file changed, 4 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/modules/hdcp/hdcp_psp.c b/drivers/gpu/drm/amd/display/modules/hdcp/hdcp_psp.c
-index 2dd5fee..468f5e6 100644
---- a/drivers/gpu/drm/amd/display/modules/hdcp/hdcp_psp.c
-+++ b/drivers/gpu/drm/amd/display/modules/hdcp/hdcp_psp.c
-@@ -630,14 +630,12 @@ enum mod_hdcp_status mod_hdcp_hdcp2_enable_encryption(struct mod_hdcp *hdcp)
- 	struct psp_context *psp = hdcp->config.psp.handle;
- 	struct ta_hdcp_shared_memory *hdcp_cmd;
- 	struct ta_hdcp_cmd_hdcp2_process_prepare_authentication_message_input_v2 *msg_in;
--	struct ta_hdcp_cmd_hdcp2_process_prepare_authentication_message_output_v2 *msg_out;
- 	struct mod_hdcp_display *display = get_first_added_display(hdcp);
+diff --git a/drivers/gpu/drm/amd/powerplay/smumgr/vegam_smumgr.c b/drivers/gpu/drm/amd/powerplay/smumgr/vegam_smumgr.c
+index 50896e9..b0e0d67 100644
+--- a/drivers/gpu/drm/amd/powerplay/smumgr/vegam_smumgr.c
++++ b/drivers/gpu/drm/amd/powerplay/smumgr/vegam_smumgr.c
+@@ -1486,7 +1486,7 @@ static int vegam_populate_clock_stretcher_data_table(struct pp_hwmgr *hwmgr)
+ 	struct vegam_smumgr *smu_data =
+ 			(struct vegam_smumgr *)(hwmgr->smu_backend);
  
- 	hdcp_cmd = (struct ta_hdcp_shared_memory *)psp->hdcp_context.hdcp_shared_buf;
- 	memset(hdcp_cmd, 0, sizeof(struct ta_hdcp_shared_memory));
- 
- 	msg_in = &hdcp_cmd->in_msg.hdcp2_prepare_process_authentication_message_v2;
--	msg_out = &hdcp_cmd->out_msg.hdcp2_prepare_process_authentication_message_v2;
- 
- 	hdcp2_message_init(hdcp, msg_in);
- 
-@@ -707,14 +705,12 @@ enum mod_hdcp_status mod_hdcp_hdcp2_enable_dp_stream_encryption(struct mod_hdcp
- 	struct psp_context *psp = hdcp->config.psp.handle;
- 	struct ta_hdcp_shared_memory *hdcp_cmd;
- 	struct ta_hdcp_cmd_hdcp2_process_prepare_authentication_message_input_v2 *msg_in;
--	struct ta_hdcp_cmd_hdcp2_process_prepare_authentication_message_output_v2 *msg_out;
- 	uint8_t i;
- 
- 	hdcp_cmd = (struct ta_hdcp_shared_memory *)psp->hdcp_context.hdcp_shared_buf;
- 	memset(hdcp_cmd, 0, sizeof(struct ta_hdcp_shared_memory));
- 
- 	msg_in = &hdcp_cmd->in_msg.hdcp2_prepare_process_authentication_message_v2;
--	msg_out = &hdcp_cmd->out_msg.hdcp2_prepare_process_authentication_message_v2;
- 
- 	hdcp2_message_init(hdcp, msg_in);
- 
+-	uint8_t i, stretch_amount, stretch_amount2, volt_offset = 0;
++	uint8_t i, stretch_amount, volt_offset = 0;
+ 	struct phm_ppt_v1_information *table_info =
+ 			(struct phm_ppt_v1_information *)(hwmgr->pptable);
+ 	struct phm_ppt_v1_clock_voltage_dependency_table *sclk_table =
+@@ -1525,11 +1525,9 @@ static int vegam_populate_clock_stretcher_data_table(struct pp_hwmgr *hwmgr)
+ 			(table_info->cac_dtp_table->ucCKS_LDO_REFSEL != 0) ?
+ 			table_info->cac_dtp_table->ucCKS_LDO_REFSEL : 5;
+ 	/* Populate CKS Lookup Table */
+-	if (stretch_amount == 1 || stretch_amount == 2 || stretch_amount == 5)
+-		stretch_amount2 = 0;
+-	else if (stretch_amount == 3 || stretch_amount == 4)
+-		stretch_amount2 = 1;
+-	else {
++	if (!(stretch_amount == 1 || stretch_amount == 2 ||
++	      stretch_amount == 5 || stretch_amount == 3 ||
++	      stretch_amount == 4)) {
+ 		phm_cap_unset(hwmgr->platform_descriptor.platformCaps,
+ 				PHM_PlatformCaps_ClockStretcher);
+ 		PP_ASSERT_WITH_CODE(false,
 -- 
 2.7.4
