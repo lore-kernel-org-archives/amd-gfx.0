@@ -1,54 +1,46 @@
-From: YueHaibing <yuehaibing@huawei.com>
-Subject: [PATCH -next] drm/amd/powerplay: remove set but not used variable 'stretch_amount2'
-Date: Mon, 25 Nov 2019 22:58:43 +0800
-Message-ID: <20191125145843.15764-1-yuehaibing@huawei.com>
+From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH 1/1] amdgpu: Enable KFD on POWER systems
+Date: Mon, 25 Nov 2019 09:59:32 -0500
+Message-ID: <CADnq5_OTVUDrkBda-RtVpKdEY4vKZvq-fLfW0u71g9C4TWXHdQ@mail.gmail.com>
+References: <2068915477.1923611.1574622916022.JavaMail.zimbra@raptorengineeringinc.com>
 Mime-Version: 1.0
-Content-Type: text/plain
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Sender: linux-kernel-owner@vger.kernel.org
-To: evan.quan@amd.com, alexander.deucher@amd.com, christian.koenig@amd.com, David1.Zhou@amd.com, airlied@linux.ie, daniel@ffwll.ch, Prike.Liang@amd.com, yuehaibing@huawei.com, chenwandun@huawei.com, yukuai3@huawei.com
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <2068915477.1923611.1574622916022.JavaMail.zimbra-z0qzliK6Om0mgXJStvpl+u2xl0RS173n@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Timothy Pearson <tpearson-z0qzliK6Om0mgXJStvpl+vpXobYPEAuW@public.gmane.org>
+Cc: amd-gfx <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-drivers/gpu/drm/amd/amdgpu/../powerplay/smumgr/vegam_smumgr.c:
- In function vegam_populate_clock_stretcher_data_table:
-drivers/gpu/drm/amd/amdgpu/../powerplay/smumgr/vegam_smumgr.c:1489:29:
- warning: variable stretch_amount2 set but not used [-Wunused-but-set-variable]
-
-It is never used, so can be removed.
-
-Signed-off-by: YueHaibing <yuehaibing@huawei.com>
----
- drivers/gpu/drm/amd/powerplay/smumgr/vegam_smumgr.c | 10 ++++------
- 1 file changed, 4 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/powerplay/smumgr/vegam_smumgr.c b/drivers/gpu/drm/amd/powerplay/smumgr/vegam_smumgr.c
-index 50896e9..b0e0d67 100644
---- a/drivers/gpu/drm/amd/powerplay/smumgr/vegam_smumgr.c
-+++ b/drivers/gpu/drm/amd/powerplay/smumgr/vegam_smumgr.c
-@@ -1486,7 +1486,7 @@ static int vegam_populate_clock_stretcher_data_table(struct pp_hwmgr *hwmgr)
- 	struct vegam_smumgr *smu_data =
- 			(struct vegam_smumgr *)(hwmgr->smu_backend);
- 
--	uint8_t i, stretch_amount, stretch_amount2, volt_offset = 0;
-+	uint8_t i, stretch_amount, volt_offset = 0;
- 	struct phm_ppt_v1_information *table_info =
- 			(struct phm_ppt_v1_information *)(hwmgr->pptable);
- 	struct phm_ppt_v1_clock_voltage_dependency_table *sclk_table =
-@@ -1525,11 +1525,9 @@ static int vegam_populate_clock_stretcher_data_table(struct pp_hwmgr *hwmgr)
- 			(table_info->cac_dtp_table->ucCKS_LDO_REFSEL != 0) ?
- 			table_info->cac_dtp_table->ucCKS_LDO_REFSEL : 5;
- 	/* Populate CKS Lookup Table */
--	if (stretch_amount == 1 || stretch_amount == 2 || stretch_amount == 5)
--		stretch_amount2 = 0;
--	else if (stretch_amount == 3 || stretch_amount == 4)
--		stretch_amount2 = 1;
--	else {
-+	if (!(stretch_amount == 1 || stretch_amount == 2 ||
-+	      stretch_amount == 5 || stretch_amount == 3 ||
-+	      stretch_amount == 4)) {
- 		phm_cap_unset(hwmgr->platform_descriptor.platformCaps,
- 				PHM_PlatformCaps_ClockStretcher);
- 		PP_ASSERT_WITH_CODE(false,
--- 
-2.7.4
+T24gU3VuLCBOb3YgMjQsIDIwMTkgYXQgMjoxNSBQTSBUaW1vdGh5IFBlYXJzb24KPHRwZWFyc29u
+QHJhcHRvcmVuZ2luZWVyaW5nLmNvbT4gd3JvdGU6Cj4KPiBLRkQgaGFzIGJlZW4gdmVyaWZpZWQg
+dG8gZnVuY3Rpb24gb24gUE9XRVIgc3lzdGVtcyAoVGFsb3MgSUkgLyBWZWdhIDY0KS4KPiBJdCBz
+aG91bGQgYmUgYXZhaWxhYmxlIGFzIGEga2VybmVsIGNvbmZpZ3VyYXRpb24gb3B0aW9uIG9uIHRo
+ZXNlIHN5c3RlbXMuCj4KPiBTaWduZWQtb2ZmLWJ5OiBUaW1vdGh5IFBlYXJzb24gPHRwZWFyc29u
+QHJhcHRvcmVuZ2luZWVyaW5nLmNvbT4KCkFwcGxpZWQuICBUaGFua3MhCgpBbGV4Cgo+IC0tLQo+
+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9LY29uZmlnIHwgMiArLQo+ICAxIGZpbGUgY2hh
+bmdlZCwgMSBpbnNlcnRpb24oKyksIDEgZGVsZXRpb24oLSkKPgo+IGRpZmYgLS1naXQgYS9kcml2
+ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9LY29uZmlnIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRr
+ZmQvS2NvbmZpZwo+IGluZGV4IGExYTM1ZDRkNTk0Yi4uYmEwZTY4MDU3YTg5IDEwMDY0NAo+IC0t
+LSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL0tjb25maWcKPiArKysgYi9kcml2ZXJzL2dw
+dS9kcm0vYW1kL2FtZGtmZC9LY29uZmlnCj4gQEAgLTUsNyArNSw3IEBACj4KPiAgY29uZmlnIEhT
+QV9BTUQKPiAgICAgICAgIGJvb2wgIkhTQSBrZXJuZWwgZHJpdmVyIGZvciBBTUQgR1BVIGRldmlj
+ZXMiCj4gLSAgICAgICBkZXBlbmRzIG9uIERSTV9BTURHUFUgJiYgKFg4Nl82NCB8fCBBUk02NCkK
+PiArICAgICAgIGRlcGVuZHMgb24gRFJNX0FNREdQVSAmJiAoWDg2XzY0IHx8IEFSTTY0IHx8IFBQ
+QzY0KQo+ICAgICAgICAgaW1wbHkgQU1EX0lPTU1VX1YyIGlmIFg4Nl82NAo+ICAgICAgICAgc2Vs
+ZWN0IE1NVV9OT1RJRklFUgo+ICAgICAgICAgaGVscAo+IC0tCj4gMi4yMC4xCj4gX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KPiBhbWQtZ2Z4IG1haWxpbmcg
+bGlzdAo+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4gaHR0cHM6Ly9saXN0cy5mcmVl
+ZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cl9fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhA
+bGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxt
+YW4vbGlzdGluZm8vYW1kLWdmeA==
