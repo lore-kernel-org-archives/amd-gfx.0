@@ -2,78 +2,69 @@ Return-Path: <SRS0=NdEU=ZS=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.2 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,UNPARSEABLE_RELAY,USER_AGENT_SANE_1
-	autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-9.5 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
+	FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DDCEBC432C0
-	for <amd-gfx@archiver.kernel.org>; Tue, 26 Nov 2019 04:51:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3A381C432C3
+	for <amd-gfx@archiver.kernel.org>; Tue, 26 Nov 2019 08:16:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B274020637
-	for <amd-gfx@archiver.kernel.org>; Tue, 26 Nov 2019 04:51:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B274020637
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=oracle.com
+	by mail.kernel.org (Postfix) with ESMTPS id 187912073F
+	for <amd-gfx@archiver.kernel.org>; Tue, 26 Nov 2019 08:16:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 187912073F
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 566806E1F6;
-	Tue, 26 Nov 2019 04:51:16 +0000 (UTC)
-Received: from userp2120.oracle.com (userp2120.oracle.com [156.151.31.85])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3E70D6E1F6
- for <amd-gfx@lists.freedesktop.org>; Tue, 26 Nov 2019 04:51:15 +0000 (UTC)
-Received: from pps.filterd (userp2120.oracle.com [127.0.0.1])
- by userp2120.oracle.com (8.16.0.27/8.16.0.27) with SMTP id xAQ4nes6116453;
- Tue, 26 Nov 2019 04:51:10 GMT
-Received: from aserp3030.oracle.com (aserp3030.oracle.com [141.146.126.71])
- by userp2120.oracle.com with ESMTP id 2wewdr405f-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Tue, 26 Nov 2019 04:51:10 +0000
-Received: from pps.filterd (aserp3030.oracle.com [127.0.0.1])
- by aserp3030.oracle.com (8.16.0.27/8.16.0.27) with SMTP id xAQ4n97N178773;
- Tue, 26 Nov 2019 04:51:09 GMT
-Received: from userv0121.oracle.com (userv0121.oracle.com [156.151.31.72])
- by aserp3030.oracle.com with ESMTP id 2wfex7g9k8-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Tue, 26 Nov 2019 04:51:09 +0000
-Received: from abhmp0011.oracle.com (abhmp0011.oracle.com [141.146.116.17])
- by userv0121.oracle.com (8.14.4/8.13.8) with ESMTP id xAQ4p6ek017322;
- Tue, 26 Nov 2019 04:51:07 GMT
-Received: from kili.mountain (/129.205.23.165)
- by default (Oracle Beehive Gateway v4.0)
- with ESMTP ; Mon, 25 Nov 2019 20:51:05 -0800
-Date: Tue, 26 Nov 2019 07:50:59 +0300
-From: Dan Carpenter <dan.carpenter@oracle.com>
-To: christian.koenig@amd.com
-Subject: [bug report] drm/radeon: never unpin UVD bo v3
-Message-ID: <20191126045059.xod22qsrqrh3n22l@kili.mountain>
+	by gabe.freedesktop.org (Postfix) with ESMTP id C16756E266;
+	Tue, 26 Nov 2019 08:16:14 +0000 (UTC)
+Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com
+ [IPv6:2a00:1450:4864:20::443])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BA21B6E1B1;
+ Tue, 26 Nov 2019 00:35:32 +0000 (UTC)
+Received: by mail-wr1-x443.google.com with SMTP id s5so20348698wrw.2;
+ Mon, 25 Nov 2019 16:35:32 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=GDFio4Lhb0kKhPkBrIjIeoSXog1kC5Yksq1DrKHrUpU=;
+ b=A6s2hdGBnEOt2yqFcFJwzgiHedksl0NRbyH7zRmRFKW/qvRK1Q9oJu/d8vn/b2Murn
+ HbA4AIui5kKx9HG9hvn7+StbYVDS0pAo8jRbenqYPLDGMbsTRdDYr5FMz9EcgDaB/IK3
+ uGHJDuLR7sCje9jBcZSl49xYW0dpgujvfaQb0Hpe8RG//24tcklXdSnyNCO6RstS/N38
+ beVC05v8gKWYnT/m12yDQtqZZakORuLSSUTABDC8YCWKcDfde+j9UwgKNmAybnE+/CYd
+ 6gkF79WhC5/cwT7EMzPmrTy63+FFwy/ibTcdDM+ExWPFoN/AQ9JeSVJmpRBTZB/QWhw4
+ CFUg==
+X-Gm-Message-State: APjAAAXQnmciV1hMnZGKa1p9Q07YE+zT0ZRsXuCWE/voh3uJshC7VS8p
+ Ux9pCYtQDAyNvJQn0FdZvQ==
+X-Google-Smtp-Source: APXvYqyu132ZmglcrvSPz+8EVxEATNEzWOBwq3t6Y4W5mdmx+mzod7l10tqmW8Pwcy3RFUL83wVRgA==
+X-Received: by 2002:adf:db01:: with SMTP id s1mr32001656wri.372.1574728531157; 
+ Mon, 25 Nov 2019 16:35:31 -0800 (PST)
+Received: from ninjahub.lan (host-2-102-12-67.as13285.net. [2.102.12.67])
+ by smtp.googlemail.com with ESMTPSA id t14sm12159380wrw.87.2019.11.25.16.35.29
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 25 Nov 2019 16:35:30 -0800 (PST)
+From: Jules Irenge <jbi.octave@gmail.com>
+To: alexander.deucher@amd.com
+Subject: [PATCH] drm: radeon: replace 0 with NULL
+Date: Tue, 26 Nov 2019 00:35:14 +0000
+Message-Id: <20191126003514.133692-1-jbi.octave@gmail.com>
+X-Mailer: git-send-email 2.23.0
 MIME-Version: 1.0
-User-Agent: NeoMutt/20170113 (1.7.2)
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9452
- signatures=668685
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=1
- malwarescore=0
- phishscore=0 bulkscore=0 spamscore=0 mlxscore=0 mlxlogscore=270
- adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.0.1-1911140001 definitions=main-1911260039
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9452
- signatures=668685
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0
- priorityscore=1501 malwarescore=0
- suspectscore=1 phishscore=0 bulkscore=0 spamscore=0 clxscore=1015
- lowpriorityscore=0 mlxscore=0 impostorscore=0 mlxlogscore=325 adultscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1911140001
- definitions=main-1911260039
+X-Mailman-Approved-At: Tue, 26 Nov 2019 08:16:14 +0000
 X-Mailman-Original-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oracle.com; h=date : from : to : cc
- : subject : message-id : mime-version : content-type :
- content-transfer-encoding; s=corp-2019-08-05;
- bh=SJHnKpS6DIXYe2ph5SuxZ9ZVHhgeKakWyZ/2ZkFkwbs=;
- b=mJGO4OPz9zwGV5A/MB6s2pSJDNKExrsPKPRGlvjykbPtLtHODLV3B+vDYwNWv96pG6RL
- ZX5pRuX7Ox5iMH/sDDatLXVvK2Jl4qnJ2oPHXB7hrKj4rabWeYlIcwp3cmwkqQbhxBOU
- SF5Nl9Zi/eqNOS3VTBFhI9HbB0WxDHduOt4xgOZLuQHQNi8G1uPxxcF5+HmpnZwDdIdV
- ncSe/eWEcwDh7zvm5I0GMD1tBq9OFNJqkkm5tywN/V8wnJZ3V2cf6cm99IxWBRKoVYO+
- it2l70xOPZBx+W/C3vgYDbZRt+0G4mIHVBdkhNQipaLeCUM6hGgOOBi6PYj5FbamqgqF 7g== 
+ d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=GDFio4Lhb0kKhPkBrIjIeoSXog1kC5Yksq1DrKHrUpU=;
+ b=shvCV5hpquBUdbjLWkMX/ziKHTReuQPJ1XIUHiUBGiHEt4QY+rZ9xJyLIA5SxNKv9E
+ AGYuY2h8k29ml7h96ZPB7TggN266SvZSY7Y6DpFj6ltmmUJtFeUXfoxGMlexiCrpkBxp
+ xmuowIDQk1i1byxc+xFD0MacBpt+QBPACAMHGSEqqdTc6Dx1CB3GvJH5kvY1wp40TK7G
+ 51QQureKo/wpA5rywxNdU4nRAToqJ1WvUlcNhiu8WQMAUi4LjxDC6Gqvn1lHsvGCiHsv
+ d8AjhzrpUT6FV/aiYuDvDs+VIPFpg2YX/n8mWHANVrAxSCNIq6T5CdreKzesRxny1dT/
+ 3sIQ==
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -85,75 +76,28 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx@lists.freedesktop.org
-Content-Type: multipart/mixed; boundary="===============0315566366=="
+Cc: David1.Zhou@amd.com, Jules Irenge <jbi.octave@gmail.com>, airlied@linux.ie,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, daniel@ffwll.ch, christian.koenig@amd.com
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-Message-ID: <20191126045059.bU7qi17AR3lfN9N6DZQRa2mqcEtld2b9oKz3affxRwc@z>
+Message-ID: <20191126003514.x_50WX8hNcLrMLa7mSqHgbDA6eei99G7rqcrqSBrqy8@z>
 
---===============0315566366==
-Content-Type: text/plain; charset=unknown-8bit
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-
-Hello Christian König,
-
-The patch 9cc2e0e9f133: "drm/radeon: never unpin UVD bo v3" from Jul
-12, 2013, leads to the following static checker warning:
-
-	drivers/gpu/drm/radeon/radeon_uvd.c:225 radeon_uvd_init()
-	warn: inconsistent returns '*rdev->uvd.vcpu_bo->tbo.base.resv'.
-
-drivers/gpu/drm/radeon/radeon_uvd.c
-   195          r = radeon_bo_reserve(rdev->uvd.vcpu_bo, false);
-                ^^^^^^^^^^^^^^^^^^^^^^
-   196          if (r) {
-   197                  radeon_bo_unref(&rdev->uvd.vcpu_bo);
-   198                  dev_err(rdev->dev, "(%d) failed to reserve UVD bo\n", r);
-   199                  return r;
-   200          }
-   201  
-   202          r = radeon_bo_pin(rdev->uvd.vcpu_bo, RADEON_GEM_DOMAIN_VRAM,
-   203                            &rdev->uvd.gpu_addr);
-   204          if (r) {
-   205                  radeon_bo_unreserve(rdev->uvd.vcpu_bo);
-                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   206                  radeon_bo_unref(&rdev->uvd.vcpu_bo);
-   207                  dev_err(rdev->dev, "(%d) UVD bo pin failed\n", r);
-   208                  return r;
-   209          }
-   210  
-   211          r = radeon_bo_kmap(rdev->uvd.vcpu_bo, &rdev->uvd.cpu_addr);
-   212          if (r) {
-   213                  dev_err(rdev->dev, "(%d) UVD map failed\n", r);
-   214                  return r;
-                        ^^^^^^^^
-Do we have to unreserve this?
-
-   215          }
-   216  
-   217          radeon_bo_unreserve(rdev->uvd.vcpu_bo);
-   218  
-   219          for (i = 0; i < rdev->uvd.max_handles; ++i) {
-   220                  atomic_set(&rdev->uvd.handles[i], 0);
-   221                  rdev->uvd.filp[i] = NULL;
-   222                  rdev->uvd.img_size[i] = 0;
-   223          }
-   224  
-   225          return 0;
-
-
-regards,
-dan carpenter
-
---===============0315566366==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
-
---===============0315566366==--
+UmVwbGFjZSAwIHdpdGggTlVMTCB0byBmaXggc3BhcnNlIHRvb2wgIHdhcm5pbmcKIHdhcm5pbmc6
+IFVzaW5nIHBsYWluIGludGVnZXIgYXMgTlVMTCBwb2ludGVyCgpTaWduZWQtb2ZmLWJ5OiBKdWxl
+cyBJcmVuZ2UgPGpiaS5vY3RhdmVAZ21haWwuY29tPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9yYWRl
+b24vcmFkZW9uX2F1ZGlvLmMgfCAyICstCiAxIGZpbGUgY2hhbmdlZCwgMSBpbnNlcnRpb24oKyks
+IDEgZGVsZXRpb24oLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vcmFkZW9uL3JhZGVv
+bl9hdWRpby5jIGIvZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9yYWRlb25fYXVkaW8uYwppbmRleCBi
+OWFlYTU3NzZkM2QuLjIyNjljZmNlZDc4OCAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL3Jh
+ZGVvbi9yYWRlb25fYXVkaW8uYworKysgYi9kcml2ZXJzL2dwdS9kcm0vcmFkZW9uL3JhZGVvbl9h
+dWRpby5jCkBAIC0yODgsNyArMjg4LDcgQEAgc3RhdGljIHZvaWQgcmFkZW9uX2F1ZGlvX2ludGVy
+ZmFjZV9pbml0KHN0cnVjdCByYWRlb25fZGV2aWNlICpyZGV2KQogCX0gZWxzZSB7CiAJCXJkZXYt
+PmF1ZGlvLmZ1bmNzID0gJnI2MDBfZnVuY3M7CiAJCXJkZXYtPmF1ZGlvLmhkbWlfZnVuY3MgPSAm
+cjYwMF9oZG1pX2Z1bmNzOwotCQlyZGV2LT5hdWRpby5kcF9mdW5jcyA9IDA7CisJCXJkZXYtPmF1
+ZGlvLmRwX2Z1bmNzID0gTlVMTDsKIAl9CiB9CiAKLS0gCjIuMjMuMAoKX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1k
+LWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcv
+bWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
