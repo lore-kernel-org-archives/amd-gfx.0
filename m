@@ -1,104 +1,39 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Subject: Re: [PATCH v2 2/2] drm: share address space for dma bufs
-Date: Tue, 26 Nov 2019 12:15:02 +0100
-Message-ID: <805a875c-a43f-556d-db72-3af32e3061d6@gmail.com>
-References: <20191122063749.27113-1-kraxel@redhat.com>
- <20191122063749.27113-3-kraxel@redhat.com>
- <CAKMK7uFz3hmPT3OE8UtUQwmv+tXsjazUWT2RVHLxAq47X+EaXA@mail.gmail.com>
- <CADnq5_MvOE1Fw7-0g+Fo3Vvvu-c=Z9u+pZUEstv2cVXNKKL2=g@mail.gmail.com>
-Reply-To: christian.koenig@amd.com
+From: Monk Liu <Monk.Liu-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH 1/5] drm/amdgpu: fix GFX10 missing CSIB set
+Date: Tue, 26 Nov 2019 19:50:20 +0800
+Message-ID: <1574769024-30611-1-git-send-email-Monk.Liu@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <CADnq5_MvOE1Fw7-0g+Fo3Vvvu-c=Z9u+pZUEstv2cVXNKKL2=g@mail.gmail.com>
-Content-Language: en-US
-Sender: linux-kernel-owner@vger.kernel.org
-To: Alex Deucher <alexdeucher@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
-Cc: "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>, David Airlie <airlied@linux.ie>, intel-gfx <intel-gfx@lists.freedesktop.org>, open list <linux-kernel@vger.kernel.org>, dri-devel <dri-devel@lists.freedesktop.org>, Gerd Hoffmann <kraxel@redhat.com>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Monk Liu <Monk.Liu-5C7GfCeVMHo@public.gmane.org>
 
-Am 22.11.19 um 19:21 schrieb Alex Deucher:
-> On Fri, Nov 22, 2019 at 4:17 AM Daniel Vetter <daniel@ffwll.ch> wrote:
->> On Fri, Nov 22, 2019 at 7:37 AM Gerd Hoffmann <kraxel@redhat.com> wrote:
->>> Use the shared address space of the drm device (see drm_open() in
->>> drm_file.c) for dma-bufs too.  That removes a difference betweem drm
->>> device mmap vmas and dma-buf mmap vmas and fixes corner cases like
->>> dropping ptes (using madvise(DONTNEED) for example) not working
->>> properly.
->>>
->>> Also remove amdgpu driver's private dmabuf update.  It is not needed
->>> any more now that we are doing this for everybody.
->>>
->>> Signed-off-by: Gerd Hoffmann <kraxel@redhat.com>
->> Reviewed-by: Daniel Vetter <daniel.vetter@ffwll.ch>
->>
->> But I think you want at least an ack from amd guys for double checking here.
->> -Daniel
-> Looks correct to me.
->
-> Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-
-Reviewed-by: Christian König <christian.koenig@amd.com>
-
->
->
->>> ---
->>>   drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c | 4 +---
->>>   drivers/gpu/drm/drm_prime.c                 | 4 +++-
->>>   2 files changed, 4 insertions(+), 4 deletions(-)
->>>
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
->>> index d5bcdfefbad6..586db4fb46bd 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
->>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
->>> @@ -361,10 +361,8 @@ struct dma_buf *amdgpu_gem_prime_export(struct drm_gem_object *gobj,
->>>                  return ERR_PTR(-EPERM);
->>>
->>>          buf = drm_gem_prime_export(gobj, flags);
->>> -       if (!IS_ERR(buf)) {
->>> -               buf->file->f_mapping = gobj->dev->anon_inode->i_mapping;
->>> +       if (!IS_ERR(buf))
->>>                  buf->ops = &amdgpu_dmabuf_ops;
->>> -       }
->>>
->>>          return buf;
->>>   }
->>> diff --git a/drivers/gpu/drm/drm_prime.c b/drivers/gpu/drm/drm_prime.c
->>> index a9633bd241bb..c3fc341453c0 100644
->>> --- a/drivers/gpu/drm/drm_prime.c
->>> +++ b/drivers/gpu/drm/drm_prime.c
->>> @@ -240,6 +240,7 @@ void drm_prime_destroy_file_private(struct drm_prime_file_private *prime_fpriv)
->>>   struct dma_buf *drm_gem_dmabuf_export(struct drm_device *dev,
->>>                                        struct dma_buf_export_info *exp_info)
->>>   {
->>> +       struct drm_gem_object *obj = exp_info->priv;
->>>          struct dma_buf *dma_buf;
->>>
->>>          dma_buf = dma_buf_export(exp_info);
->>> @@ -247,7 +248,8 @@ struct dma_buf *drm_gem_dmabuf_export(struct drm_device *dev,
->>>                  return dma_buf;
->>>
->>>          drm_dev_get(dev);
->>> -       drm_gem_object_get(exp_info->priv);
->>> +       drm_gem_object_get(obj);
->>> +       dma_buf->file->f_mapping = obj->dev->anon_inode->i_mapping;
->>>
->>>          return dma_buf;
->>>   }
->>> --
->>> 2.18.1
->>>
->>
->> --
->> Daniel Vetter
->> Software Engineer, Intel Corporation
->> +41 (0) 79 365 57 48 - http://blog.ffwll.ch
->> _______________________________________________
->> dri-devel mailing list
->> dri-devel@lists.freedesktop.org
->> https://lists.freedesktop.org/mailman/listinfo/dri-devel
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+c3RpbGwgbmVlZCB0byBpbml0IGNzYiBldmVuIGZvciBTUklPVgoKU2lnbmVkLW9mZi1ieTogTW9u
+ayBMaXUgPE1vbmsuTGl1QGFtZC5jb20+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
+Z2Z4X3YxMF8wLmMgfCA4ICsrKysrLS0tCiAxIGZpbGUgY2hhbmdlZCwgNSBpbnNlcnRpb25zKCsp
+LCAzIGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
+L2dmeF92MTBfMC5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3YxMF8wLmMKaW5k
+ZXggNGQ2ZGYzNS4uODc5YzBhMSAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
+cHUvZ2Z4X3YxMF8wLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3YxMF8w
+LmMKQEAgLTE5MjYsMTQgKzE5MjYsMTYgQEAgc3RhdGljIGludCBnZnhfdjEwXzBfcmxjX3Jlc3Vt
+ZShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikKIHsKIAlpbnQgcjsKIAotCWlmIChhbWRncHVf
+c3Jpb3ZfdmYoYWRldikpCi0JCXJldHVybiAwOwotCiAJaWYgKGFkZXYtPmZpcm13YXJlLmxvYWRf
+dHlwZSA9PSBBTURHUFVfRldfTE9BRF9QU1ApIHsKIAkJciA9IGdmeF92MTBfMF93YWl0X2Zvcl9y
+bGNfYXV0b2xvYWRfY29tcGxldGUoYWRldik7CiAJCWlmIChyKQogCQkJcmV0dXJuIHI7CiAKKwkJ
+aWYgKGFtZGdwdV9zcmlvdl92ZihhZGV2KSkgeworCQkJZ2Z4X3YxMF8wX2luaXRfY3NiKGFkZXYp
+OworCQkJcmV0dXJuIDA7CisJCX0KKwogCQlyID0gZ2Z4X3YxMF8wX2luaXRfcGcoYWRldik7CiAJ
+CWlmIChyKQogCQkJcmV0dXJuIHI7Ci0tIAoyLjcuNAoKX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0
+cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9s
+aXN0aW5mby9hbWQtZ2Z4
