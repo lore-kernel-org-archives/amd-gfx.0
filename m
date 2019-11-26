@@ -1,35 +1,68 @@
-From: Jules Irenge <jbi.octave@gmail.com>
-Subject: [PATCH] drm: radeon: replace 0 with NULL
-Date: Tue, 26 Nov 2019 00:35:14 +0000
-Message-ID: <20191126003514.133692-1-jbi.octave@gmail.com>
+From: "Pan, Xinhui" <Xinhui.Pan-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: [PATCH 1/1] drm/amdgpu: Optimize KFD page table reservation
+Date: Tue, 26 Nov 2019 01:06:52 +0000
+Message-ID: <SN6PR12MB28005F46AE7B69AADAFE4F6D87450@SN6PR12MB2800.namprd12.prod.outlook.com>
+References: <20191125193526.19803-1-Felix.Kuehling@amd.com>
 Mime-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Sender: linux-kernel-owner@vger.kernel.org
-To: alexander.deucher@amd.com
-Cc: christian.koenig@amd.com, David1.Zhou@amd.com, linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, daniel@ffwll.ch, airlied@linux.ie, amd-gfx@lists.freedesktop.org, Jules Irenge <jbi.octave@gmail.com>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20191125193526.19803-1-Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-Replace 0 with NULL to fix sparse tool  warning
- warning: Using plain integer as NULL pointer
-
-Signed-off-by: Jules Irenge <jbi.octave@gmail.com>
----
- drivers/gpu/drm/radeon/radeon_audio.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/radeon/radeon_audio.c b/drivers/gpu/drm/radeon/radeon_audio.c
-index b9aea5776d3d..2269cfced788 100644
---- a/drivers/gpu/drm/radeon/radeon_audio.c
-+++ b/drivers/gpu/drm/radeon/radeon_audio.c
-@@ -288,7 +288,7 @@ static void radeon_audio_interface_init(struct radeon_device *rdev)
- 	} else {
- 		rdev->audio.funcs = &r600_funcs;
- 		rdev->audio.hdmi_funcs = &r600_hdmi_funcs;
--		rdev->audio.dp_funcs = 0;
-+		rdev->audio.dp_funcs = NULL;
- 	}
- }
- 
--- 
-2.23.0
+UmVhbGx5IGNvb2wgcGF0Y2ghDQoNClJldmlld2VkLWJ5OiB4aW5odWkgcGFuIDx4aW5odWkucGFu
+QGFtZC5jb20+DQoNCi0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQpGcm9tOiBLdWVobGluZywg
+RmVsaXggPEZlbGl4Lkt1ZWhsaW5nQGFtZC5jb20+IA0KU2VudDogMjAxOeW5tDEx5pyIMjbml6Ug
+MzozNQ0KVG86IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnOyBQYW4sIFhpbmh1aSA8WGlu
+aHVpLlBhbkBhbWQuY29tPg0KU3ViamVjdDogW1BBVENIIDEvMV0gZHJtL2FtZGdwdTogT3B0aW1p
+emUgS0ZEIHBhZ2UgdGFibGUgcmVzZXJ2YXRpb24NCg0KQmUgbGVzcyBwZXNzaW1pc3RpYyBhYm91
+dCBlc3RpbWF0ZWQgcGFnZSB0YWJsZSB1c2UgZm9yIEtGRC4gTW9zdCBhbGxvY2F0aW9ucyB1c2Ug
+Mk1CIHBhZ2VzIGFuZCB0aGVyZWZvcmUgbmVlZCBsZXNzIFZSQU0gZm9yIHBhZ2UgdGFibGVzLiBU
+aGlzIGFsbG93cyBtb3JlIFZSQU0gdG8gYmUgdXNlZCBmb3IgYXBwbGljYXRpb25zIGVzcGVjaWFs
+bHkgb24gbGFyZ2Ugc3lzdGVtcyB3aXRoIG1hbnkgR1BVcyBhbmQgaHVuZHJlZHMgb2YgR0Igb2Yg
+c3lzdGVtIG1lbW9yeS4NCg0KRXhhbXBsZTogOCBHUFVzIHdpdGggMzJHQiBWUkFNIGVhY2ggKyAy
+NTZHQiBzeXN0ZW0gbWVtb3J5ID0gNTEyR0IgT2xkIHBhZ2UgdGFibGUgcmVzZXJ2YXRpb24gcGVy
+IEdQVTogIDFHQiBOZXcgcGFnZSB0YWJsZSByZXNlcnZhdGlvbiBwZXIgR1BVOiAzMk1CDQoNClNp
+Z25lZC1vZmYtYnk6IEZlbGl4IEt1ZWhsaW5nIDxGZWxpeC5LdWVobGluZ0BhbWQuY29tPg0KLS0t
+DQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2FtZGtmZF9ncHV2bS5jIHwgMTUg
+KysrKysrKysrKysrKystDQogMSBmaWxlIGNoYW5nZWQsIDE0IGluc2VydGlvbnMoKyksIDEgZGVs
+ZXRpb24oLSkNCg0KZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdw
+dV9hbWRrZmRfZ3B1dm0uYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9hbWRr
+ZmRfZ3B1dm0uYw0KaW5kZXggYTFlZDhhOGUzNzUyLi5lNDNhOTU1MTRiNDEgMTAwNjQ0DQotLS0g
+YS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfYW1ka2ZkX2dwdXZtLmMNCisrKyBi
+L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9hbWRrZmRfZ3B1dm0uYw0KQEAgLTEw
+NSwxMSArMTA1LDI0IEBAIHZvaWQgYW1kZ3B1X2FtZGtmZF9ncHV2bV9pbml0X21lbV9saW1pdHMo
+dm9pZCkNCiAJCShrZmRfbWVtX2xpbWl0Lm1heF90dG1fbWVtX2xpbWl0ID4+IDIwKSk7ICB9DQog
+DQorLyogRXN0aW1hdGUgcGFnZSB0YWJsZSBzaXplIG5lZWRlZCB0byByZXByZXNlbnQgYSBnaXZl
+biBtZW1vcnkgc2l6ZQ0KKyAqDQorICogV2l0aCA0S0IgcGFnZXMsIHdlIG5lZWQgb25lIDggYnl0
+ZSBQVEUgZm9yIGVhY2ggNEtCIG9mIG1lbW9yeQ0KKyAqIChmYWN0b3IgNTEyLCA+PiA5KS4gV2l0
+aCAyTUIgcGFnZXMsIHdlIG5lZWQgb25lIDggYnl0ZSBQVEUgZm9yIDJNQg0KKyAqIG9mIG1lbW9y
+eSAoZmFjdG9yIDI1NkssID4+IDE4KS4gUk9DbSB1c2VyIG1vZGUgdHJpZXMgdG8gb3B0aW1pemUN
+CisgKiBmb3IgMk1CIHBhZ2VzIGZvciBUTEIgZWZmaWNpZW5jeS4gSG93ZXZlciwgc21hbGwgYWxs
+b2NhdGlvbnMgYW5kDQorICogZnJhZ21lbnRlZCBzeXN0ZW0gbWVtb3J5IHN0aWxsIG5lZWQgc29t
+ZSA0S0IgcGFnZXMuIFdlIGNob29zZSBhDQorICogY29tcHJvbWlzZSB0aGF0IHNob3VsZCB3b3Jr
+IGluIG1vc3QgY2FzZXMgd2l0aG91dCByZXNlcnZpbmcgdG9vDQorICogbXVjaCBtZW1vcnkgZm9y
+IHBhZ2UgdGFibGVzIHVubmVjZXNzYXJpbHkgKGZhY3RvciAxNkssID4+IDE0KS4NCisgKi8NCisj
+ZGVmaW5lIEVTVElNQVRFX1BUX1NJWkUobWVtX3NpemUpICgobWVtX3NpemUpID4+IDE0KQ0KKw0K
+IHN0YXRpYyBpbnQgYW1kZ3B1X2FtZGtmZF9yZXNlcnZlX21lbV9saW1pdChzdHJ1Y3QgYW1kZ3B1
+X2RldmljZSAqYWRldiwNCiAJCXVpbnQ2NF90IHNpemUsIHUzMiBkb21haW4sIGJvb2wgc2cpDQog
+ew0KKwl1aW50NjRfdCByZXNlcnZlZF9mb3JfcHQgPQ0KKwkJRVNUSU1BVEVfUFRfU0laRShhbWRn
+cHVfYW1ka2ZkX3RvdGFsX21lbV9zaXplKTsNCiAJc2l6ZV90IGFjY19zaXplLCBzeXN0ZW1fbWVt
+X25lZWRlZCwgdHRtX21lbV9uZWVkZWQsIHZyYW1fbmVlZGVkOw0KLQl1aW50NjRfdCByZXNlcnZl
+ZF9mb3JfcHQgPSBhbWRncHVfYW1ka2ZkX3RvdGFsX21lbV9zaXplID4+IDk7DQogCWludCByZXQg
+PSAwOw0KIA0KIAlhY2Nfc2l6ZSA9IHR0bV9ib19kbWFfYWNjX3NpemUoJmFkZXYtPm1tYW4uYmRl
+diwgc2l6ZSwNCi0tDQoyLjI0LjANCg0KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVz
+a3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9h
+bWQtZ2Z4
