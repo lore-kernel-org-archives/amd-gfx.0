@@ -6,32 +6,30 @@ X-Spam-Status: No, score=-9.8 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1FC08C432C0
-	for <amd-gfx@archiver.kernel.org>; Tue, 26 Nov 2019 14:47:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 45F20C432C0
+	for <amd-gfx@archiver.kernel.org>; Tue, 26 Nov 2019 14:47:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 0289A20656
-	for <amd-gfx@archiver.kernel.org>; Tue, 26 Nov 2019 14:47:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0289A20656
+	by mail.kernel.org (Postfix) with ESMTPS id 27BE920656
+	for <amd-gfx@archiver.kernel.org>; Tue, 26 Nov 2019 14:47:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 27BE920656
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BFCF96E40D;
-	Tue, 26 Nov 2019 14:47:00 +0000 (UTC)
-X-Greylist: delayed 58533 seconds by postgrey-1.36 at gabe;
- Tue, 26 Nov 2019 14:46:59 UTC
+	by gabe.freedesktop.org (Postfix) with ESMTP id CE79D6E415;
+	Tue, 26 Nov 2019 14:47:02 +0000 (UTC)
 Received: from mac1807s-mbp.amd.com (unknown [165.204.55.250])
- by gabe.freedesktop.org (Postfix) with ESMTP id AF2176E40D
+ by gabe.freedesktop.org (Postfix) with ESMTP id AFF326E415
  for <amd-gfx@lists.freedesktop.org>; Tue, 26 Nov 2019 14:46:59 +0000 (UTC)
 Received: by mac1807s-mbp.amd.com (Postfix, from userid 501)
- id EA1E2E39238; Mon, 25 Nov 2019 17:31:25 -0500 (EST)
+ id 22677E4DA74; Tue, 26 Nov 2019 09:46:58 -0500 (EST)
 From: Zhan liu <zhan.liu@amd.com>
 To: amd-gfx@lists.freedesktop.org,
 	zhan.liu@amd.com
-Subject: [PATCH v2] drm/amd/display: Modify comments to match the code
-Date: Mon, 25 Nov 2019 17:31:23 -0500
-Message-Id: <20191125223123.51204-1-zhan.liu@amd.com>
+Subject: drm/amd/display: Modify comments to match the code
+Date: Tue, 26 Nov 2019 09:46:56 -0500
+Message-Id: <20191126144656.55811-1-zhan.liu@amd.com>
 X-Mailer: git-send-email 2.21.0 (Apple Git-122.2)
 MIME-Version: 1.0
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -49,7 +47,7 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-Message-ID: <20191125223123.MIHKJeRPmvmgnD-WFako6d24R2EXPvu777Ay3LQAqho@z>
+Message-ID: <20191126144656.CVmZiIGWlgC8IgotAdo8A6DRgFh8eWk7DSay_zjq-xc@z>
 
 W1doeV0KVGhpcyBsaW5lIG9mIGNvZGUgd2FzIG1vZGlmaWVkLiBIb3dldmVyLCBjb21tZW50cwpy
 ZW1haW5lZCB1bmNoYW5nZWQuIEFzIGEgcmVzdWx0LCBjb21tZW50cyBhbmQgY29kZSBhcmUKbWlz
