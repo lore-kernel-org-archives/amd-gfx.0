@@ -1,7 +1,7 @@
 From: Zhan liu <zhan.liu-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH v2] drm/amd/display: Modify comments to match the code
-Date: Mon, 25 Nov 2019 17:31:23 -0500
-Message-ID: <20191125223123.51204-1-zhan.liu@amd.com>
+Subject: drm/amd/display: Modify comments to match the code
+Date: Tue, 26 Nov 2019 09:46:56 -0500
+Message-ID: <20191126144656.55811-1-zhan.liu@amd.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
