@@ -1,14 +1,10 @@
-From: "Quan, Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH] drm/amdgpu: flag vram lost on baco reset for VI/CIK
-Date: Tue, 26 Nov 2019 03:11:16 +0000
-Message-ID: <MN2PR12MB334444E864912858AB31DE4FE4450@MN2PR12MB3344.namprd12.prod.outlook.com>
-References: <20191125161239.347655-1-alexander.deucher@amd.com>
+From: Dan Carpenter <dan.carpenter-QHcLZuEGTsvQT0dZR+AlfA@public.gmane.org>
+Subject: [bug report] drm/radeon: never unpin UVD bo v3
+Date: Tue, 26 Nov 2019 07:50:59 +0300
+Message-ID: <20191126045059.xod22qsrqrh3n22l@kili.mountain>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0315566366=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20191125161239.347655-1-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -19,52 +15,72 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+To: christian.koenig-5C7GfCeVMHo@public.gmane.org
+Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-QWNrZWQtYnk6IEV2YW4gUXVhbiA8ZXZhbi5xdWFuQGFtZC5jb20+DQoNCj4gLS0tLS1PcmlnaW5h
-bCBNZXNzYWdlLS0tLS0NCj4gRnJvbTogYW1kLWdmeCA8YW1kLWdmeC1ib3VuY2VzQGxpc3RzLmZy
-ZWVkZXNrdG9wLm9yZz4gT24gQmVoYWxmIE9mIEFsZXgNCj4gRGV1Y2hlcg0KPiBTZW50OiBUdWVz
-ZGF5LCBOb3ZlbWJlciAyNiwgMjAxOSAxMjoxMyBBTQ0KPiBUbzogYW1kLWdmeEBsaXN0cy5mcmVl
-ZGVza3RvcC5vcmcNCj4gQ2M6IERldWNoZXIsIEFsZXhhbmRlciA8QWxleGFuZGVyLkRldWNoZXJA
-YW1kLmNvbT4NCj4gU3ViamVjdDogW1BBVENIXSBkcm0vYW1kZ3B1OiBmbGFnIHZyYW0gbG9zdCBv
-biBiYWNvIHJlc2V0IGZvciBWSS9DSUsNCj4gDQo+IFZJL0NJSyBCQUNPIHdhcyBpbmZsaWdodCB3
-aGVuIHRoaXMgZml4IGxhbmRlZCBmb3IgU09DMTUvTlYuDQo+IEFkZCB0aGUgZml4IHRvIFZJL0NJ
-SyBhcyB3ZWxsLg0KPiANCj4gU2lnbmVkLW9mZi1ieTogQWxleCBEZXVjaGVyIDxhbGV4YW5kZXIu
-ZGV1Y2hlckBhbWQuY29tPg0KPiAtLS0NCj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Np
-ay5jIHwgNyArKysrKy0tDQo+IGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3ZpLmMgIHwgNyAr
-KysrKy0tDQo+ICAyIGZpbGVzIGNoYW5nZWQsIDEwIGluc2VydGlvbnMoKyksIDQgZGVsZXRpb25z
-KC0pDQo+IA0KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvY2lrLmMN
-Cj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9jaWsuYw0KPiBpbmRleCA5NjhiYzcwNmI5
-NGQuLjFkZmU0YTEzMzdjZiAxMDA2NDQNCj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
-cHUvY2lrLmMNCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvY2lrLmMNCj4gQEAg
-LTEzNjMsMTAgKzEzNjMsMTMgQEAgc3RhdGljIGludCBjaWtfYXNpY19yZXNldChzdHJ1Y3QgYW1k
-Z3B1X2RldmljZQ0KPiAqYWRldikgIHsNCj4gIAlpbnQgcjsNCj4gDQo+IC0JaWYgKGNpa19hc2lj
-X3Jlc2V0X21ldGhvZChhZGV2KSA9PSBBTURfUkVTRVRfTUVUSE9EX0JBQ08pDQo+ICsJaWYgKGNp
-a19hc2ljX3Jlc2V0X21ldGhvZChhZGV2KSA9PSBBTURfUkVTRVRfTUVUSE9EX0JBQ08pIHsNCj4g
-KwkJaWYgKCFhZGV2LT5pbl9zdXNwZW5kKQ0KPiArCQkJYW1kZ3B1X2luY192cmFtX2xvc3QoYWRl
-dik7DQo+ICAJCXIgPSBzbXU3X2FzaWNfYmFjb19yZXNldChhZGV2KTsNCj4gLQllbHNlDQo+ICsJ
-fSBlbHNlIHsNCj4gIAkJciA9IGNpa19hc2ljX3BjaV9jb25maWdfcmVzZXQoYWRldik7DQo+ICsJ
-fQ0KPiANCj4gIAlyZXR1cm4gcjsNCj4gIH0NCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2Ry
-bS9hbWQvYW1kZ3B1L3ZpLmMNCj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS92aS5jIGlu
-ZGV4IDg3MWMwYjhjNmIwYi4uZTRmNDIwMWIzYzM0DQo+IDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJz
-L2dwdS9kcm0vYW1kL2FtZGdwdS92aS5jDQo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
-Z3B1L3ZpLmMNCj4gQEAgLTgwNCwxMCArODA0LDEzIEBAIHN0YXRpYyBpbnQgdmlfYXNpY19yZXNl
-dChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikNCj4gew0KPiAgCWludCByOw0KPiANCj4gLQlp
-ZiAodmlfYXNpY19yZXNldF9tZXRob2QoYWRldikgPT0gQU1EX1JFU0VUX01FVEhPRF9CQUNPKQ0K
-PiArCWlmICh2aV9hc2ljX3Jlc2V0X21ldGhvZChhZGV2KSA9PSBBTURfUkVTRVRfTUVUSE9EX0JB
-Q08pIHsNCj4gKwkJaWYgKCFhZGV2LT5pbl9zdXNwZW5kKQ0KPiArCQkJYW1kZ3B1X2luY192cmFt
-X2xvc3QoYWRldik7DQo+ICAJCXIgPSBzbXU3X2FzaWNfYmFjb19yZXNldChhZGV2KTsNCj4gLQll
-bHNlDQo+ICsJfSBlbHNlIHsNCj4gIAkJciA9IHZpX2FzaWNfcGNpX2NvbmZpZ19yZXNldChhZGV2
-KTsNCj4gKwl9DQo+IA0KPiAgCXJldHVybiByOw0KPiAgfQ0KPiAtLQ0KPiAyLjIzLjANCj4gDQo+
-IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fDQo+IGFtZC1n
-ZnggbWFpbGluZyBsaXN0DQo+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnDQo+IGh0dHBz
-Oi8vbmFtMTEuc2FmZWxpbmtzLnByb3RlY3Rpb24ub3V0bG9vay5jb20vP3VybD1odHRwcyUzQSUy
-RiUyRmxpc3RzLmZyZWUNCj4gZGVza3RvcC5vcmclMkZtYWlsbWFuJTJGbGlzdGluZm8lMkZhbWQt
-DQo+IGdmeCZhbXA7ZGF0YT0wMiU3QzAxJTdDZXZhbi5xdWFuJTQwYW1kLmNvbSU3QzhhNTgwMjZi
-NjZkMjQ4YjI3ZQ0KPiAyMjA4ZDc3MWMyNTUxOCU3QzNkZDg5NjFmZTQ4ODRlNjA4ZTExYTgyZDk5
-NGUxODNkJTdDMCU3QzElN0M2MzcNCj4gMTAyOTUxODE0MjAwNjE3JmFtcDtzZGF0YT03bEtOZkc4
-TnB6QktzbEtJb092c2V5bDJhd2xNMURjeFNObnR2JTJGDQo+IFVBQ2p3JTNEJmFtcDtyZXNlcnZl
-ZD0wDQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQt
-Z2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xp
-c3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
+--===============0315566366==
+Content-Type: text/plain; charset=unknown-8bit
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+
+Hello Christian König,
+
+The patch 9cc2e0e9f133: "drm/radeon: never unpin UVD bo v3" from Jul
+12, 2013, leads to the following static checker warning:
+
+	drivers/gpu/drm/radeon/radeon_uvd.c:225 radeon_uvd_init()
+	warn: inconsistent returns '*rdev->uvd.vcpu_bo->tbo.base.resv'.
+
+drivers/gpu/drm/radeon/radeon_uvd.c
+   195          r = radeon_bo_reserve(rdev->uvd.vcpu_bo, false);
+                ^^^^^^^^^^^^^^^^^^^^^^
+   196          if (r) {
+   197                  radeon_bo_unref(&rdev->uvd.vcpu_bo);
+   198                  dev_err(rdev->dev, "(%d) failed to reserve UVD bo\n", r);
+   199                  return r;
+   200          }
+   201  
+   202          r = radeon_bo_pin(rdev->uvd.vcpu_bo, RADEON_GEM_DOMAIN_VRAM,
+   203                            &rdev->uvd.gpu_addr);
+   204          if (r) {
+   205                  radeon_bo_unreserve(rdev->uvd.vcpu_bo);
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   206                  radeon_bo_unref(&rdev->uvd.vcpu_bo);
+   207                  dev_err(rdev->dev, "(%d) UVD bo pin failed\n", r);
+   208                  return r;
+   209          }
+   210  
+   211          r = radeon_bo_kmap(rdev->uvd.vcpu_bo, &rdev->uvd.cpu_addr);
+   212          if (r) {
+   213                  dev_err(rdev->dev, "(%d) UVD map failed\n", r);
+   214                  return r;
+                        ^^^^^^^^
+Do we have to unreserve this?
+
+   215          }
+   216  
+   217          radeon_bo_unreserve(rdev->uvd.vcpu_bo);
+   218  
+   219          for (i = 0; i < rdev->uvd.max_handles; ++i) {
+   220                  atomic_set(&rdev->uvd.handles[i], 0);
+   221                  rdev->uvd.filp[i] = NULL;
+   222                  rdev->uvd.img_size[i] = 0;
+   223          }
+   224  
+   225          return 0;
+
+
+regards,
+dan carpenter
+
+--===============0315566366==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+
+--===============0315566366==--
