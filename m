@@ -2,106 +2,94 @@ Return-Path: <SRS0=tLpO=ZT=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.8 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-0.7 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
+	HTML_MESSAGE,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 25BFEC432C0
-	for <amd-gfx@archiver.kernel.org>; Wed, 27 Nov 2019 14:00:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4804AC432C0
+	for <amd-gfx@archiver.kernel.org>; Wed, 27 Nov 2019 14:55:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 01E0120678
-	for <amd-gfx@archiver.kernel.org>; Wed, 27 Nov 2019 14:00:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 01E0120678
+	by mail.kernel.org (Postfix) with ESMTPS id 1B51420678
+	for <amd-gfx@archiver.kernel.org>; Wed, 27 Nov 2019 14:55:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1B51420678
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 94FD089346;
-	Wed, 27 Nov 2019 14:00:36 +0000 (UTC)
-Received: from NAM02-BL2-obe.outbound.protection.outlook.com
- (mail-eopbgr750072.outbound.protection.outlook.com [40.107.75.72])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0E5226E550
- for <amd-gfx@lists.freedesktop.org>; Wed, 27 Nov 2019 14:00:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C6F3F6E2E4;
+	Wed, 27 Nov 2019 14:55:27 +0000 (UTC)
+Received: from NAM03-CO1-obe.outbound.protection.outlook.com
+ (mail-eopbgr790049.outbound.protection.outlook.com [40.107.79.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B5FAC6E2E4
+ for <amd-gfx@lists.freedesktop.org>; Wed, 27 Nov 2019 14:55:25 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=UVIvnvnRpK9mdJxXWF8QeA7lJ2Hi8Jw2sW1rwf5gHdBfpEPSWdUMGm9ZxBXPSlr4ApgZpo3eQs2DphPMDDuh7M93lUFkdWwlWjD3wwvKQInzXcVtQxQxuki0XxZHe/oj5Kq1qGM6G9sBldiCJj4/Uj3ssgguA9ptUVuvzqV39LMVaqQ4/8SVXRw9nCtJ68T/IC0fLXaZIO7RW6KgCmhqxcUuu3k9+CP+6i3nTBS3sGgWBMzcuNWylQvxyW+WxNjjlVp5goDsTuT1Aorykru+BCsNM6ZshNoO3btR6QhpvV9a6VABUc4HsVvDst26RG2t4NvVV9Fgiytmo2nkRNlioA==
+ b=WGCjDGMozEYIkgajfFLZ0/BfoiwKSNxvrW6CTmOmd1PQ8wub4oRCeuU4zMaxZrNyNc+7PuHXkXEPgd9cBCHhzt3M0WsZmjW3hJ4Dx7D1ohnx8Kd/Kq0EF3mEc5FtUkm8i94qAwUyFWGisEvHI3gPfdAwqu5fSZXRCiut3ALqpXhTZxtLrF3lsGFXshwp4yJL+yPAPsYGTYKd2qHocwBTw0MSeQ1kdN6LCFPCbqVYb+7xVABbOYOXX3XWYphEgn0tFIUAl58b40vFk/bTIPuQs8e8po41cUsdAqij3If41tn0L0d9fIvZwcPR+tDmxFRvoW3oRXOGBJR/zYVwQxP70w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=DpQ1/xW1kC+YFun2DT8mYfOJcBNoQhbz2TeQlEN8Fz0=;
- b=er7JdLrYql9/ZdpP4hTL608ceC928EWd34r5+hGUSTwSgSkq4n4x3CYd4N4/xgEhCfGxgeAA33OtQHOvpnsDy3MELwgzG6z1QL9sViHjojwael3Hzs9PS6CRTi514yhym2R+GE5FfCKD4GPaJTC7YhP62+lLIdxkdwSS4viE+VD3WtpANHxbuvnafYODXiT1dCZJ8Rsj/9JH2gZ/BgKD5pxLm8hc1nZCXMbJQyx/45qyhH9C91yxSAHSKzeeBdZmz5vsdJkT5pxV4L9aco0kVRiPB0KHfAJlScIvAHW2c3hBdcypLV8TklfRh/0yRpqsH8IKXxhGBNt0tqCbDHjbUg==
+ bh=GxZqLJWfxtysKkjWqNiV4SYCnjdQg490Nct7f0JdDxQ=;
+ b=b/YNO8kWmrOWcVMJ8zhw5p1ByW6qUAd5yhamihkScdClOgkmncs/U4Lb0+dEXkS299NoH6LC2xKpCuzws3uSHGMIhunI4xFMlPexEfsmNi/u6JuUInQ0op7jnIY0DeLghhGEXrASWzd+bD0JBFnz4nVJApbdvTf0NHHY9W/APIFNafEG9Zsklzjr55QBhoV5J9TI+zeE8cUySUkE4z7Uix5yA03fRxq1kTf4IRc9+13hUAPosPjmVaQpIvl7vI8tg+Nia79wNMJzMWvUsxy9pQNColWshFs/vRKgEShF4qG8BEKoMeVt46g7JklMIj04bVYIDi1pp1tNWLBD7ZQ0MQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
-Received: from MN2PR12MB4285.namprd12.prod.outlook.com (52.135.49.140) by
- MN2PR12MB4269.namprd12.prod.outlook.com (52.135.48.199) with Microsoft SMTP
+Received: from SN6PR12MB2621.namprd12.prod.outlook.com (52.135.103.10) by
+ SN6PR12MB2814.namprd12.prod.outlook.com (52.135.107.151) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2495.18; Wed, 27 Nov 2019 14:00:33 +0000
-Received: from MN2PR12MB4285.namprd12.prod.outlook.com
- ([fe80::b4d9:8cb3:3876:ed5]) by MN2PR12MB4285.namprd12.prod.outlook.com
- ([fe80::b4d9:8cb3:3876:ed5%6]) with mapi id 15.20.2495.014; Wed, 27 Nov 2019
- 14:00:33 +0000
-From: "Ma, Le" <Le.Ma@amd.com>
-To: "Zhang, Hawking" <Hawking.Zhang@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH 06/10] drm/amdgpu: add condition to enable baco for
- xgmi/ras case
-Thread-Topic: [PATCH 06/10] drm/amdgpu: add condition to enable baco for
- xgmi/ras case
-Thread-Index: AQHVpQNF8p3JP+rj2kWZAyQf5kXx/6ee5GcAgAAQLmA=
-Date: Wed, 27 Nov 2019 14:00:33 +0000
+ 15.20.2474.16; Wed, 27 Nov 2019 14:55:24 +0000
+Received: from SN6PR12MB2621.namprd12.prod.outlook.com
+ ([fe80::ad84:4c30:78ae:4f30]) by SN6PR12MB2621.namprd12.prod.outlook.com
+ ([fe80::ad84:4c30:78ae:4f30%7]) with mapi id 15.20.2474.023; Wed, 27 Nov 2019
+ 14:55:24 +0000
+From: "Sierra Guiza, Alejandro (Alex)" <Alex.Sierra@amd.com>
+To: "Koenig, Christian" <Christian.Koenig@amd.com>, "Kuehling, Felix"
+ <Felix.Kuehling@amd.com>
+Subject: Deadlock on PTEs update for HMM
+Thread-Topic: Deadlock on PTEs update for HMM
+Thread-Index: AdWlMnOsNrqIwkHRSMuzwywKzOgYQQ==
+Date: Wed, 27 Nov 2019 14:55:24 +0000
 Message-ID:
- <MN2PR12MB4285C5E86B0E77D94DEE2525F6440@MN2PR12MB4285.namprd12.prod.outlook.com>
-References: <1574846129-4826-1-git-send-email-le.ma@amd.com>
- <1574846129-4826-5-git-send-email-le.ma@amd.com>
- <DM5PR12MB1418D76FD9E6E7748C2F9997FC440@DM5PR12MB1418.namprd12.prod.outlook.com>
-In-Reply-To: <DM5PR12MB1418D76FD9E6E7748C2F9997FC440@DM5PR12MB1418.namprd12.prod.outlook.com>
+ <SN6PR12MB26216A095D9839500242F489FD440@SN6PR12MB2621.namprd12.prod.outlook.com>
 Accept-Language: en-US
 Content-Language: en-US
+X-Mentions: Felix.Kuehling@amd.com
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Enabled=true;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SetDate=2019-11-27T11:35:06Z; 
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Method=Privileged;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Name=Public_0;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ActionId=5a3f667d-0c74-4872-8fe3-0000444d8756;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ContentBits=1
-x-originating-ip: [180.167.199.189]
+x-originating-ip: [136.49.240.9]
 x-ms-publictraffictype: Email
 x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: 46a2b391-bfac-45f2-68dd-08d773422bf4
-x-ms-traffictypediagnostic: MN2PR12MB4269:|MN2PR12MB4269:
+x-ms-office365-filtering-correlation-id: 0a97c586-ade6-45b9-93db-08d77349d51f
+x-ms-traffictypediagnostic: SN6PR12MB2814:|SN6PR12MB2814:
 x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <MN2PR12MB426977D89D5EE926CF3A56A6F6440@MN2PR12MB4269.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:9508;
+x-microsoft-antispam-prvs: <SN6PR12MB2814A23F92B9015632D98F46FD440@SN6PR12MB2814.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:10000;
 x-forefront-prvs: 023495660C
 x-forefront-antispam-report: SFV:NSPM;
- SFS:(10009020)(4636009)(376002)(346002)(136003)(366004)(39860400002)(396003)(13464003)(199004)(189003)(33656002)(99286004)(229853002)(2501003)(6246003)(8936002)(52536014)(25786009)(186003)(5660300002)(76176011)(86362001)(54906003)(7696005)(110136005)(7736002)(11346002)(478600001)(14444005)(316002)(26005)(9686003)(8676002)(102836004)(66066001)(81166006)(81156014)(14454004)(446003)(305945005)(71200400001)(53546011)(6506007)(6116002)(74316002)(55016002)(64756008)(2906002)(66946007)(66556008)(256004)(71190400001)(66476007)(76116006)(6436002)(4326008)(3846002)(66446008);
- DIR:OUT; SFP:1101; SCL:1; SRVR:MN2PR12MB4269;
- H:MN2PR12MB4285.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; A:1; MX:1; 
+ SFS:(10009020)(4636009)(366004)(136003)(396003)(346002)(39860400002)(376002)(51874003)(189003)(199004)(6436002)(25786009)(6306002)(9686003)(478600001)(14444005)(256004)(5660300002)(186003)(14454004)(55016002)(236005)(54896002)(7696005)(4326008)(74316002)(102836004)(6636002)(316002)(110136005)(6506007)(26005)(99286004)(52536014)(7736002)(66066001)(2906002)(15650500001)(2420400007)(71200400001)(9326002)(8936002)(8676002)(81156014)(81166006)(33656002)(7110500001)(86362001)(76116006)(66476007)(64756008)(66446008)(66556008)(66946007)(6116002)(3846002)(71190400001)(790700001);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:SN6PR12MB2814;
+ H:SN6PR12MB2621.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; MX:1; A:1; 
 received-spf: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
 x-ms-exchange-senderadcheck: 1
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: IhxUz0cb3djVcxyK8cKJDl+jsEld/+H3e7GyTIBJV5CF3UQzHok8DcMYqF+254Vj1JQ8Ke2Z++bLNQc5eDJ+aeN0Wh5eZDdcER3dsoHr6Kgq8vzKm7BgiHvAwVbkzfIIa4VkvLe1B3qI4E3ENSwqZGHPxuLsDZ16DGlYzWP4khSjTAZLBLZroYCV7ef9KB3P+Oo5nNThv5wg3iJO/Xmc/LwclS5zPLiinDdqHQmpxOu0zGBKGdu3y8GfefyEUZWI2iNZFK29P62RK+C4VpjhilZyyI37J0DpPG8W1THS3uM5uAiSY8rYqiN5yMQ5fi7ZXJrFoUI5KXh0YLCM+YwbWwrujJAoQE1pQyvlRyb6UurQL7udm2o5rLlHzUF/8vryWk3fFGzM1nKlmkMcyIC++FORFiOtC2/fFATW8S3aVAOMvWUQcUD/JwD3AEWHoqo5
+x-microsoft-antispam-message-info: pbcZzGRbCciCVr5or18/D0sOltSIJLZn9DYKdKKVKEIpTmg28xKKqUCq+BZwz6+vgvdTWGw6OmIvDia/lwNswgPX/YqHo7QJlHwW0j17PJrSkZkWuD8Gt8EccGUYse4jvBo1pL0ZOBmVnznWphg3GnsxjrmSW7KdFqTqN5w2virx+KdAM6LI9L23Djxh2KfzpUq2vs5u1G7Lg2WKe7xy+CdYUQ9h/9phuQeZ3PJF9uWiWRycCd3OzVHyvV//6pV16VUQAVvgh6tg++/RnLx6CePjst71GONolUPhesY02LOLk5vRHmQi119s9XkPH5d2L9F1LSl1geujEkAGlyEBSXlqyOxVG/hQKaQBDJ6O4X1raPC0NKZVNSuY8qfJ/E2W3Ip3NkfI9P4Ws0pwy0r6HCFYP/Xz/t3ea1OWDveVuUuWqTDTfNI5z7bY2FfEoTkh
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 46a2b391-bfac-45f2-68dd-08d773422bf4
-X-MS-Exchange-CrossTenant-originalarrivaltime: 27 Nov 2019 14:00:33.8160 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0a97c586-ade6-45b9-93db-08d77349d51f
+X-MS-Exchange-CrossTenant-originalarrivaltime: 27 Nov 2019 14:55:24.1238 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: PV2oQIYHC4A0TxqXpkgMy5HgPtci2R0GbyGU0IHbAHe5/r6us/jP1JcJf8kJ/xbw
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4269
+X-MS-Exchange-CrossTenant-userprincipalname: PEFZxG0H5zjyyzpfXNjnJhgjzikFzCiKxMrGvsMcAmPDykq4XPyDytuTm9IWytmkoQsO3XC76hifbVwXpU5Apw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN6PR12MB2814
 X-Mailman-Original-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=DpQ1/xW1kC+YFun2DT8mYfOJcBNoQhbz2TeQlEN8Fz0=;
- b=NhCfq60XslNKXDLg2PqnzBqSC8qEGKDHTuixJq/iMZCWyqVhRZII2j7MIOf61xQu9BQpD5SkiPwfAUx0F/Ks9em6xOMirNDF8Vk5LASWOne9QjM6hNHNNU3Upl31kvl3oVggUcB4LIAYQWD7rtIil92enNyIvS/QZb5DQJBw81k=
+ bh=GxZqLJWfxtysKkjWqNiV4SYCnjdQg490Nct7f0JdDxQ=;
+ b=XRUKtGXLR7f1YRMv8Uvw/QiLpyjPMI2zMmM3AAYBs4kT3cxeznYQG9F6bI2XDgnqoBU+QrXCPin14vt0DA21qzoKKIJsZFyLR6JmeTcTS9iHgQYGkTQNT6RoFvla2XBmUV1kE1XhHzMJ+HKKT0B6fTidrRP2K+n+/Ypv1k51uLw=
 X-Mailman-Original-Authentication-Results: spf=none (sender IP is )
- smtp.mailfrom=Le.Ma@amd.com; 
+ smtp.mailfrom=Alex.Sierra@amd.com; 
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -113,59 +101,157 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Zhou1,
- Tao" <Tao.Zhou1@amd.com>, "Li, Dennis" <Dennis.Li@amd.com>, "Chen,
- Guchun" <Guchun.Chen@amd.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Content-Type: multipart/mixed; boundary="===============0727936044=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-Message-ID: <20191127140033.NNfEbbL0L-e9Kra9PIqYyh6hBCV_vEAmQSOPgvBhTbg@z>
+Message-ID: <20191127145524.incToG12Kzh38ZnKvF4KbeawoFt4zaSi4l43mM9awgw@z>
 
-SGkgSGF3a2luZywKClBsZWFzZSBjaGVjayB0aGlzIHYyIHBhdGNoIHdoaWNoIGlzIGp1c3Qgc2Vu
-dCBvdXQuIEFuZCBhcyBkaXNjdXNzZWQsIHdlIGRlY2lkZSB0byBzdGlsbCBsZXZlcmFnZSB0aGUg
-Y3VycmVudCByZXNldF9tZXRob2QoKSBmdW5jdGlvbiB3aXRoIGZ1bmN0aW9uYWxpdHkvY2hhbmdl
-IHNjYWxlL2NvZGUgbWFpbnRhaW5hYmlsaXR5IGJhbGFuY2VkIC4gVGhhbmtzLgoKUmVnYXJkcywK
-TWEgTGUKCi0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tCkZyb206IFpoYW5nLCBIYXdraW5nIDxI
-YXdraW5nLlpoYW5nQGFtZC5jb20+IApTZW50OiBXZWRuZXNkYXksIE5vdmVtYmVyIDI3LCAyMDE5
-IDc6MzkgUE0KVG86IE1hLCBMZSA8TGUuTWFAYW1kLmNvbT47IGFtZC1nZnhAbGlzdHMuZnJlZWRl
-c2t0b3Aub3JnCkNjOiBDaGVuLCBHdWNodW4gPEd1Y2h1bi5DaGVuQGFtZC5jb20+OyBaaG91MSwg
-VGFvIDxUYW8uWmhvdTFAYW1kLmNvbT47IExpLCBEZW5uaXMgPERlbm5pcy5MaUBhbWQuY29tPjsg
-RGV1Y2hlciwgQWxleGFuZGVyIDxBbGV4YW5kZXIuRGV1Y2hlckBhbWQuY29tPjsgTWEsIExlIDxM
-ZS5NYUBhbWQuY29tPgpTdWJqZWN0OiBSRTogW1BBVENIIDA2LzEwXSBkcm0vYW1kZ3B1OiBhZGQg
-Y29uZGl0aW9uIHRvIGVuYWJsZSBiYWNvIGZvciB4Z21pL3JhcyBjYXNlCgpbQU1EIFB1YmxpYyBV
-c2VdCgpBbmQgSXQgaXMgc3RpbGwgbmVjZXNzYXJ5IHRvIHB1dCBhbGwgdGhlIGNvbmRpdGlvbiBj
-aGVjayBpbiBhIGZ1bmN0aW9uLiBJIG1lYW4gYSBmdW5jdGlvbiB0aGF0IGRlY2lkZSB0byBnbyBy
-YXMgcmVjb3Zlcnkgb3IgbGVnYWN5IGZhdGFsX2Vycm9yIGhhbmRsaW5nLiBUaGUgUE1GVyB2ZXJz
-aW9uIHRoYXQgc3VwcG9ydCBSQVMgcmVjb3Zlcnkgd2lsbCBiZSBkaWZmZXJlbnQgYW1vbmcgQVNJ
-Q3MuIEN1cnJlbnQgdmVyc2lvbiBjaGVjayBvbmx5IHdvcmtzIGZvciBWRzIwLiBJbiBmYWN0LCBv
-bmNlIHJhcy0+c3VwcG9ydGVkIGlzIHNldCBhbmQgcHJvcGVyIFBNRlcgaXMgZGV0ZWN0ZWQsIFJB
-UyByZWNvdmVyeSB3aWxsIGJlIHRoZSBiZXN0IGNob2ljZSBubyBtYXR0ZXIgaXQgaXMgc0dQVSBv
-ciBtR1BVLgoKUmVnYXJkcywKSGF3a2luZwoKLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0KRnJv
-bTogTGUgTWEgPGxlLm1hQGFtZC5jb20+IApTZW50OiAyMDE55bm0MTHmnIgyN+aXpSAxNzoxNQpU
-bzogYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKQ2M6IFpoYW5nLCBIYXdraW5nIDxIYXdr
-aW5nLlpoYW5nQGFtZC5jb20+OyBDaGVuLCBHdWNodW4gPEd1Y2h1bi5DaGVuQGFtZC5jb20+OyBa
-aG91MSwgVGFvIDxUYW8uWmhvdTFAYW1kLmNvbT47IExpLCBEZW5uaXMgPERlbm5pcy5MaUBhbWQu
-Y29tPjsgRGV1Y2hlciwgQWxleGFuZGVyIDxBbGV4YW5kZXIuRGV1Y2hlckBhbWQuY29tPjsgTWEs
-IExlIDxMZS5NYUBhbWQuY29tPgpTdWJqZWN0OiBbUEFUQ0ggMDYvMTBdIGRybS9hbWRncHU6IGFk
-ZCBjb25kaXRpb24gdG8gZW5hYmxlIGJhY28gZm9yIHhnbWkvcmFzIGNhc2UKCkF2b2lkIHRvIGNo
-YW5nZSBkZWZhdWx0IHJlc2V0IGJlaGF2aW9yIGZvciBwcm9kdWN0aW9uIGNhcmQgYnkgY2hlY2tp
-bmcgYW1kZ3B1X3Jhc19lbmFibGUgZXF1YWwgdG8gMi4gQW5kIG9ubHkgbmV3IGVub3VnaCBzbXUg
-dWNvZGUgY2FuIHN1cHBvcnQgYmFjbyBmb3IgeGdtaS9yYXMgY2FzZS4KCkNoYW5nZS1JZDogSTA3
-YzNlNjg2MmJlMDNlMDY4NzQ1YzczZGI4ZWE3MWY0MjhlY2JhNmIKU2lnbmVkLW9mZi1ieTogTGUg
-TWEgPGxlLm1hQGFtZC5jb20+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvc29jMTUu
-YyB8IDQgKysrLQogMSBmaWxlIGNoYW5nZWQsIDMgaW5zZXJ0aW9ucygrKSwgMSBkZWxldGlvbigt
-KQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3NvYzE1LmMgYi9kcml2
-ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9zb2MxNS5jCmluZGV4IDk1MTMyN2YuLjYyMDIzMzMgMTAw
-NjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3NvYzE1LmMKKysrIGIvZHJpdmVy
-cy9ncHUvZHJtL2FtZC9hbWRncHUvc29jMTUuYwpAQCAtNTc3LDcgKzU3Nyw5IEBAIHNvYzE1X2Fz
-aWNfcmVzZXRfbWV0aG9kKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQogCQkJc3RydWN0IGFt
-ZGdwdV9oaXZlX2luZm8gKmhpdmUgPSBhbWRncHVfZ2V0X3hnbWlfaGl2ZShhZGV2LCAwKTsKIAkJ
-CXN0cnVjdCBhbWRncHVfcmFzICpyYXMgPSBhbWRncHVfcmFzX2dldF9jb250ZXh0KGFkZXYpOwog
-Ci0JCQlpZiAoaGl2ZSB8fCAocmFzICYmIHJhcy0+c3VwcG9ydGVkKSkKKwkJCWlmICgoaGl2ZSB8
-fCAocmFzICYmIHJhcy0+c3VwcG9ydGVkKSkgJiYKKwkJCSAgICAoYW1kZ3B1X3Jhc19lbmFibGUg
-IT0gMiB8fAorCQkJICAgIGFkZXYtPnBtLmZ3X3ZlcnNpb24gPD0gMHgyODM0MDApKQogCQkJCWJh
-Y29fcmVzZXQgPSBmYWxzZTsKIAkJfQogCQlicmVhazsKLS0KMi43LjQKX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1k
-LWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcv
-bWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+--===============0727936044==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_SN6PR12MB26216A095D9839500242F489FD440SN6PR12MB2621namp_"
+
+--_000_SN6PR12MB26216A095D9839500242F489FD440SN6PR12MB2621namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+Hi Christian,
+As you know, we're working on the HMM enablement. Im working on the dGPU pa=
+ge table entries invalidation on the userptr mapping case. Currently, the M=
+MU notifiers handle stops all user mode queues, schedule a delayed worker t=
+o re-validate userptr mappings and restart the queues.
+Part of the HMM functionality, we need to invalidate the page table entries=
+ instead of stopping the queues. At the same time we need to move the reval=
+idation of the userptr mappings into the page fault handler.
+We're seeing a deadlock warning after we try to invalidate the PTEs inside =
+the MMU notifier handler. More specific, when we try to update the BOs to i=
+nvalidate PTEs using amdgpu_vm_bo_update. This uses kmalloc on the amdgpu_j=
+ob_alloc which seems to be causing this problem.
+Based on @Kuehling, Felix<mailto:Felix.Kuehling@amd.com> comments, kmalloc =
+without any special flags can cause memory reclaim. Doing that inside an MM=
+U notifier is problematic, because an MMU notifier may be called inside a m=
+emory-reclaim operation itself. That would result in recursion. Also, recla=
+im shouldn't be done while holding a lock that can be taken in an MMU notif=
+ier for the same reason. If you cause a reclaim while holding that lock, th=
+en an MMU notifier called by the reclaim can deadlock trying to take the sa=
+me lock.
+Please let us know if you have any advice to enable this the right way
+
+Thanks in advanced,
+Alejandro
+
+
+--_000_SN6PR12MB26216A095D9839500242F489FD440SN6PR12MB2621namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40">
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
+<style><!--
+/* Font Definitions */
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:"Segoe UI";
+	panose-1:2 11 5 2 4 2 4 2 2 3;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin-top:0in;
+	margin-right:0in;
+	margin-bottom:8.0pt;
+	margin-left:0in;
+	line-height:106%;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:#0563C1;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{mso-style-priority:99;
+	color:#954F72;
+	text-decoration:underline;}
+span.EmailStyle17
+	{mso-style-type:personal-compose;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-family:"Calibri",sans-serif;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.0in 1.0in 1.0in;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
+</head>
+<body lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72">
+<div class=3D"WordSection1">
+<p class=3D"MsoNormal">Hi Christian,<o:p></o:p></p>
+<p class=3D"MsoNormal">As you know, we&#8217;re working on the HMM enableme=
+nt. Im working on the dGPU page table entries invalidation on the userptr m=
+apping case. Currently, the MMU notifiers handle stops all user mode queues=
+, schedule a delayed worker to re-validate
+ userptr mappings and restart the queues. <o:p></o:p></p>
+<p class=3D"MsoNormal">Part of the HMM functionality, we need to invalidate=
+ the page table entries instead of stopping the queues. At the same time we=
+ need to move the revalidation of the userptr mappings into the page fault =
+handler.<o:p></o:p></p>
+<p class=3D"MsoNormal">We&#8217;re seeing a deadlock warning after we try t=
+o invalidate the PTEs inside the MMU notifier handler. More specific, when =
+we try to update the BOs to invalidate PTEs using amdgpu_vm_bo_update. This=
+ uses kmalloc on the amdgpu_job_alloc which
+ seems to be causing this problem.<o:p></o:p></p>
+<p class=3D"MsoNormal">Based on <a id=3D"OWAAMBC6F9A316D814AE993661FC111776=
+926" href=3D"mailto:Felix.Kuehling@amd.com">
+<span style=3D"font-family:&quot;Calibri&quot;,sans-serif;text-decoration:n=
+one">@Kuehling, Felix</span></a> comments,
+<span style=3D"font-size:10.5pt;line-height:106%;font-family:&quot;Segoe UI=
+&quot;,sans-serif">
+kmalloc without any special flags can cause memory reclaim. Doing that insi=
+de an MMU notifier is problematic, because an MMU notifier may be called in=
+side a memory-reclaim operation itself. That would result in recursion. Als=
+o, reclaim shouldn't be done while
+ holding a lock that can be taken in an MMU notifier for the same reason. I=
+f you cause a reclaim while holding that lock, then an&nbsp;MMU notifier ca=
+lled by the reclaim can&nbsp;deadlock trying to take the same lock.<o:p></o=
+:p></span></p>
+<p class=3D"MsoNormal">Please let us know if you have any advice to enable =
+this the right way<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Thanks in advanced,<o:p></o:p></p>
+<p class=3D"MsoNormal">Alejandro<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+</div>
+</body>
+</html>
+
+--_000_SN6PR12MB26216A095D9839500242F489FD440SN6PR12MB2621namp_--
+
+--===============0727936044==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+
+--===============0727936044==--
