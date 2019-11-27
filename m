@@ -1,12 +1,14 @@
-From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amd/display: Get NV14 specific ip params as needed
-Date: Tue, 26 Nov 2019 21:57:23 +0000
-Message-ID: <BN6PR12MB1809C6D92762CA1ADA8E6046F7450@BN6PR12MB1809.namprd12.prod.outlook.com>
-References: <20191126213222.17728-1-zhan.liu@amd.com>
+From: "Deng, Emily" <Emily.Deng-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: [PATCH v4] drm/scheduler: Avoid accessing freed bad job.
+Date: Wed, 27 Nov 2019 00:41:14 +0000
+Message-ID: <MN2PR12MB2975CA8858F21FDF325C33FE8F440@MN2PR12MB2975.namprd12.prod.outlook.com>
+References: <1574715089-14875-1-git-send-email-andrey.grodzovsky@amd.com>
+ <b8b716a7-e235-38b2-ea6d-0a21881fa64e@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1594095940=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20191126213222.17728-1-zhan.liu-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <b8b716a7-e235-38b2-ea6d-0a21881fa64e-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -18,164 +20,79 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Liu, Zhan" <Zhan.Liu-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Wu, Hersen" <hersenxs.wu-5C7GfCeVMHo@public.gmane.org>, "Siqueira, Rodrigo" <Rodrigo.Siqueira-5C7GfCeVMHo@public.gmane.org>
+To: "Grodzovsky, Andrey" <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>
+Cc: "steven.price-5wv7dgnIgG8@public.gmane.org" <steven.price-5wv7dgnIgG8@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Koenig,
+ Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
 
---===============1594095940==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_BN6PR12MB1809C6D92762CA1ADA8E6046F7450BN6PR12MB1809namp_"
-
---_000_BN6PR12MB1809C6D92762CA1ADA8E6046F7450BN6PR12MB1809namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-Acked-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-________________________________
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Zhan Liu=
- <zhan.liu-5C7GfCeVMHo@public.gmane.org>
-Sent: Tuesday, November 26, 2019 4:32 PM
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>; Wu, Hers=
-en <hersenxs.wu-5C7GfCeVMHo@public.gmane.org>; Siqueira, Rodrigo <Rodrigo.Siqueira-5C7GfCeVMHo@public.gmane.org>
-Cc: Liu, Zhan <Zhan.Liu-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH] drm/amd/display: Get NV14 specific ip params as needed
-
-[Why]
-NV14 is using its own ip params that's different from other
-DCN2.0 ASICs.
-
-[How]
-Add ASIC revision check to make sure NV14 gets correct
-ip params.
-
-Signed-off-by: Zhan Liu <zhan.liu-5C7GfCeVMHo@public.gmane.org>
----
- drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c b/driver=
-s/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
-index dbc0a4a7c284..3dd2b2429ae2 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
-@@ -3245,6 +3245,9 @@ static struct _vcs_dpi_soc_bounding_box_st *get_asic_=
-rev_soc_bb(
- static struct _vcs_dpi_ip_params_st *get_asic_rev_ip_params(
-         uint32_t hw_internal_rev)
- {
-+       if (ASICREV_IS_NAVI14_M(hw_internal_rev))
-+               return &dcn2_0_nv14_ip;
-+
-         /* NV12 and NV10 */
-         return &dcn2_0_ip;
- }
---
-2.17.1
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Flists.f=
-reedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=3D02%7C01%7Calexande=
-r.deucher%40amd.com%7Cbea3a51cb27f4ad9694e08d772b829b4%7C3dd8961fe4884e608e=
-11a82d994e183d%7C0%7C0%7C637104007649236121&amp;sdata=3Dp72lWgE%2FB63Exu9JF=
-i7eQ86mk%2FbBB8%2BE5BkBR0SUwqY%3D&amp;reserved=3D0
-
---_000_BN6PR12MB1809C6D92762CA1ADA8E6046F7450BN6PR12MB1809namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Acked-by: Alex Deucher &lt;alexander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
-</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
-ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Zhan Liu &lt;zhan.liu-5C7GfCeVMHo@public.gmane.org=
-&gt;<br>
-<b>Sent:</b> Tuesday, November 26, 2019 4:32 PM<br>
-<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org &lt;amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&=
-gt;; Wu, Hersen &lt;hersenxs.wu-5C7GfCeVMHo@public.gmane.org&gt;; Siqueira, Rodrigo &lt;Rodrigo.=
-Siqueira-5C7GfCeVMHo@public.gmane.org&gt;<br>
-<b>Cc:</b> Liu, Zhan &lt;Zhan.Liu-5C7GfCeVMHo@public.gmane.org&gt;<br>
-<b>Subject:</b> [PATCH] drm/amd/display: Get NV14 specific ip params as nee=
-ded</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">[Why]<br>
-NV14 is using its own ip params that's different from other<br>
-DCN2.0 ASICs.<br>
-<br>
-[How]<br>
-Add ASIC revision check to make sure NV14 gets correct<br>
-ip params.<br>
-<br>
-Signed-off-by: Zhan Liu &lt;zhan.liu-5C7GfCeVMHo@public.gmane.org&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c | 3 &#43;&#43;&=
-#43;<br>
-&nbsp;1 file changed, 3 insertions(&#43;)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c b/driver=
-s/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c<br>
-index dbc0a4a7c284..3dd2b2429ae2 100644<br>
---- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c<br>
-@@ -3245,6 &#43;3245,9 @@ static struct _vcs_dpi_soc_bounding_box_st *get_a=
-sic_rev_soc_bb(<br>
-&nbsp;static struct _vcs_dpi_ip_params_st *get_asic_rev_ip_params(<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t hw_internal_rev)<=
-br>
-&nbsp;{<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ASICREV_IS_NAVI14_M(hw_intern=
-al_rev))<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; return &amp;dcn2_0_nv14_ip;<br>
-&#43;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* NV12 and NV10 */<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return &amp;dcn2_0_ip;<br>
-&nbsp;}<br>
--- <br>
-2.17.1<br>
-<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<a href=3D"https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2=
-F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;amp;data=3D02%=
-7C01%7Calexander.deucher%40amd.com%7Cbea3a51cb27f4ad9694e08d772b829b4%7C3dd=
-8961fe4884e608e11a82d994e183d%7C0%7C0%7C637104007649236121&amp;amp;sdata=3D=
-p72lWgE%2FB63Exu9JFi7eQ86mk%2FbBB8%2BE5BkBR0SUwqY%3D&amp;amp;reserved=3D0">=
-https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Flists.f=
-reedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;amp;data=3D02%7C01%7Calex=
-ander.deucher%40amd.com%7Cbea3a51cb27f4ad9694e08d772b829b4%7C3dd8961fe4884e=
-608e11a82d994e183d%7C0%7C0%7C637104007649236121&amp;amp;sdata=3Dp72lWgE%2FB=
-63Exu9JFi7eQ86mk%2FbBB8%2BE5BkBR0SUwqY%3D&amp;amp;reserved=3D0</a></div>
-</span></font></div>
-</body>
-</html>
-
---_000_BN6PR12MB1809C6D92762CA1ADA8E6046F7450BN6PR12MB1809namp_--
-
---===============1594095940==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
-
---===============1594095940==--
+W0FNRCBPZmZpY2lhbCBVc2UgT25seSAtIEludGVybmFsIERpc3RyaWJ1dGlvbiBPbmx5XQ0KDQpS
+ZXZpZXdlZC1ieTogRW1pbHkgRGVuZyA8RW1pbHkuRGVuZ0BhbWQuY29tPg0KDQo+LS0tLS1Pcmln
+aW5hbCBNZXNzYWdlLS0tLS0NCj5Gcm9tOiBHcm9kem92c2t5LCBBbmRyZXkgPEFuZHJleS5Hcm9k
+em92c2t5QGFtZC5jb20+DQo+U2VudDogVHVlc2RheSwgTm92ZW1iZXIgMjYsIDIwMTkgNzozNyBB
+TQ0KPkNjOiBkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnOyBhbWQtZ2Z4QGxpc3RzLmZy
+ZWVkZXNrdG9wLm9yZzsgS29lbmlnLA0KPkNocmlzdGlhbiA8Q2hyaXN0aWFuLktvZW5pZ0BhbWQu
+Y29tPjsgRGVuZywgRW1pbHkNCj48RW1pbHkuRGVuZ0BhbWQuY29tPjsgc3RldmVuLnByaWNlQGFy
+bS5jb20NCj5TdWJqZWN0OiBSZTogW1BBVENIIHY0XSBkcm0vc2NoZWR1bGVyOiBBdm9pZCBhY2Nl
+c3NpbmcgZnJlZWQgYmFkIGpvYi4NCj4NCj5QaW5nDQo+DQo+QW5kcmV5DQo+DQo+T24gMTEvMjUv
+MTkgMzo1MSBQTSwgQW5kcmV5IEdyb2R6b3Zza3kgd3JvdGU6DQo+PiBQcm9ibGVtOg0KPj4gRHVl
+IHRvIGEgcmFjZSBiZXR3ZWVuIGRybV9zY2hlZF9jbGVhbnVwX2pvYnMgaW4gc2NoZWQgdGhyZWFk
+IGFuZA0KPj4gZHJtX3NjaGVkX2pvYl90aW1lZG91dCBpbiB0aW1lb3V0IHdvcmsgdGhlcmUgaXMg
+YSBwb3NzaWJsaXR5IHRoYXQgYmFkDQo+PiBqb2Igd2FzIGFscmVhZHkgZnJlZWQgd2hpbGUgc3Rp
+bGwgYmVpbmcgYWNjZXNzZWQgZnJvbSB0aGUgdGltZW91dA0KPj4gdGhyZWFkLg0KPj4NCj4+IEZp
+eDoNCj4+IEluc3RlYWQgb2YganVzdCBwZWVraW5nIGF0IHRoZSBiYWQgam9iIGluIHRoZSBtaXJy
+b3IgbGlzdCByZW1vdmUgaXQNCj4+IGZyb20gdGhlIGxpc3QgdW5kZXIgbG9jayBhbmQgdGhlbiBw
+dXQgaXQgYmFjayBsYXRlciB3aGVuIHdlIGFyZQ0KPj4gZ2FyYW50ZWVkIG5vIHJhY2Ugd2l0aCBt
+YWluIHNjaGVkIHRocmVhZCBpcyBwb3NzaWJsZSB3aGljaCBpcyBhZnRlcg0KPj4gdGhlIHRocmVh
+ZCBpcyBwYXJrZWQuDQo+Pg0KPj4gdjI6IExvY2sgYXJvdW5kIHByb2Nlc3NpbmcgcmluZ19taXJy
+b3JfbGlzdCBpbiBkcm1fc2NoZWRfY2xlYW51cF9qb2JzLg0KPj4NCj4+IHYzOiBSZWJhc2Ugb24g
+dG9wIG9mIGRybS1taXNjLW5leHQuIHYyIGlzIG5vdCBuZWVkZWQgYW55bW9yZSBhcw0KPj4gZHJt
+X3NjaGVkX2dldF9jbGVhbnVwX2pvYiBhbHJlYWR5IGhhcyBhIGxvY2sgdGhlcmUuDQo+Pg0KPj4g
+djQ6IEZpeCBjb21tZW50cyB0byByZWxmZWN0IGxhdGVzdCBjb2RlIGluIGRybS1taXNjLg0KPj4N
+Cj4+IFNpZ25lZC1vZmYtYnk6IEFuZHJleSBHcm9kem92c2t5IDxhbmRyZXkuZ3JvZHpvdnNreUBh
+bWQuY29tPg0KPj4gUmV2aWV3ZWQtYnk6IENocmlzdGlhbiBLw7ZuaWcgPGNocmlzdGlhbi5rb2Vu
+aWdAYW1kLmNvbT4NCj4+IFRlc3RlZC1ieTogRW1pbHkgRGVuZyA8RW1pbHkuRGVuZ0BhbWQuY29t
+Pg0KPj4gLS0tDQo+PiAgIGRyaXZlcnMvZ3B1L2RybS9zY2hlZHVsZXIvc2NoZWRfbWFpbi5jIHwg
+MjcNCj4rKysrKysrKysrKysrKysrKysrKysrKysrKysNCj4+ICAgMSBmaWxlIGNoYW5nZWQsIDI3
+IGluc2VydGlvbnMoKykNCj4+DQo+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL3NjaGVk
+dWxlci9zY2hlZF9tYWluLmMNCj4+IGIvZHJpdmVycy9ncHUvZHJtL3NjaGVkdWxlci9zY2hlZF9t
+YWluLmMNCj4+IGluZGV4IDY3NzQ5NTUuLjFiZjljNDAgMTAwNjQ0DQo+PiAtLS0gYS9kcml2ZXJz
+L2dwdS9kcm0vc2NoZWR1bGVyL3NjaGVkX21haW4uYw0KPj4gKysrIGIvZHJpdmVycy9ncHUvZHJt
+L3NjaGVkdWxlci9zY2hlZF9tYWluLmMNCj4+IEBAIC0yODQsMTAgKzI4NCwyMSBAQCBzdGF0aWMg
+dm9pZCBkcm1fc2NoZWRfam9iX3RpbWVkb3V0KHN0cnVjdA0KPndvcmtfc3RydWN0ICp3b3JrKQ0K
+Pj4gICAJdW5zaWduZWQgbG9uZyBmbGFnczsNCj4+DQo+PiAgIAlzY2hlZCA9IGNvbnRhaW5lcl9v
+Zih3b3JrLCBzdHJ1Y3QgZHJtX2dwdV9zY2hlZHVsZXIsDQo+PiB3b3JrX3Rkci53b3JrKTsNCj4+
+ICsNCj4+ICsJLyogUHJvdGVjdHMgYWdhaW5zdCBjb25jdXJyZW50IGRlbGV0aW9uIGluDQo+ZHJt
+X3NjaGVkX2dldF9jbGVhbnVwX2pvYiAqLw0KPj4gKwlzcGluX2xvY2tfaXJxc2F2ZSgmc2NoZWQt
+PmpvYl9saXN0X2xvY2ssIGZsYWdzKTsNCj4+ICAgCWpvYiA9IGxpc3RfZmlyc3RfZW50cnlfb3Jf
+bnVsbCgmc2NoZWQtPnJpbmdfbWlycm9yX2xpc3QsDQo+PiAgIAkJCQkgICAgICAgc3RydWN0IGRy
+bV9zY2hlZF9qb2IsIG5vZGUpOw0KPj4NCj4+ICAgCWlmIChqb2IpIHsNCj4+ICsJCS8qDQo+PiAr
+CQkgKiBSZW1vdmUgdGhlIGJhZCBqb2Igc28gaXQgY2Fubm90IGJlIGZyZWVkIGJ5IGNvbmN1cnJl
+bnQNCj4+ICsJCSAqIGRybV9zY2hlZF9jbGVhbnVwX2pvYnMuIEl0IHdpbGwgYmUgcmVpbnNlcnRl
+ZCBiYWNrIGFmdGVyDQo+c2NoZWQtPnRocmVhZA0KPj4gKwkJICogaXMgcGFya2VkIGF0IHdoaWNo
+IHBvaW50IGl0J3Mgc2FmZS4NCj4+ICsJCSAqLw0KPj4gKwkJbGlzdF9kZWxfaW5pdCgmam9iLT5u
+b2RlKTsNCj4+ICsJCXNwaW5fdW5sb2NrX2lycXJlc3RvcmUoJnNjaGVkLT5qb2JfbGlzdF9sb2Nr
+LCBmbGFncyk7DQo+PiArDQo+PiAgIAkJam9iLT5zY2hlZC0+b3BzLT50aW1lZG91dF9qb2Ioam9i
+KTsNCj4+DQo+PiAgIAkJLyoNCj4+IEBAIC0yOTgsNiArMzA5LDggQEAgc3RhdGljIHZvaWQgZHJt
+X3NjaGVkX2pvYl90aW1lZG91dChzdHJ1Y3QNCj53b3JrX3N0cnVjdCAqd29yaykNCj4+ICAgCQkJ
+am9iLT5zY2hlZC0+b3BzLT5mcmVlX2pvYihqb2IpOw0KPj4gICAJCQlzY2hlZC0+ZnJlZV9ndWls
+dHkgPSBmYWxzZTsNCj4+ICAgCQl9DQo+PiArCX0gZWxzZSB7DQo+PiArCQlzcGluX3VubG9ja19p
+cnFyZXN0b3JlKCZzY2hlZC0+am9iX2xpc3RfbG9jaywgZmxhZ3MpOw0KPj4gICAJfQ0KPj4NCj4+
+ICAgCXNwaW5fbG9ja19pcnFzYXZlKCZzY2hlZC0+am9iX2xpc3RfbG9jaywgZmxhZ3MpOyBAQCAt
+MzcwLDYgKzM4MywyMA0KPj4gQEAgdm9pZCBkcm1fc2NoZWRfc3RvcChzdHJ1Y3QgZHJtX2dwdV9z
+Y2hlZHVsZXIgKnNjaGVkLCBzdHJ1Y3QNCj5kcm1fc2NoZWRfam9iICpiYWQpDQo+PiAgIAlrdGhy
+ZWFkX3Bhcmsoc2NoZWQtPnRocmVhZCk7DQo+Pg0KPj4gICAJLyoNCj4+ICsJICogUmVpbnNlcnQg
+YmFjayB0aGUgYmFkIGpvYiBoZXJlIC0gbm93IGl0J3Mgc2FmZSBhcw0KPj4gKwkgKiBkcm1fc2No
+ZWRfZ2V0X2NsZWFudXBfam9iIGNhbm5vdCByYWNlIGFnYWluc3QgdXMgYW5kIHJlbGVhc2UgdGhl
+DQo+PiArCSAqIGJhZCBqb2IgYXQgdGhpcyBwb2ludCAtIHdlIHBhcmtlZCAod2FpdGVkIGZvcikg
+YW55IGluIHByb2dyZXNzDQo+PiArCSAqIChlYXJsaWVyKSBjbGVhbnVwcyBhbmQgZHJtX3NjaGVk
+X2dldF9jbGVhbnVwX2pvYiB3aWxsIG5vdCBiZQ0KPmNhbGxlZA0KPj4gKwkgKiBub3cgdW50aWwg
+dGhlIHNjaGVkdWxlciB0aHJlYWQgaXMgdW5wYXJrZWQuDQo+PiArCSAqLw0KPj4gKwlpZiAoYmFk
+ICYmIGJhZC0+c2NoZWQgPT0gc2NoZWQpDQo+PiArCQkvKg0KPj4gKwkJICogQWRkIGF0IHRoZSBo
+ZWFkIG9mIHRoZSBxdWV1ZSB0byByZWZsZWN0IGl0IHdhcyB0aGUgZWFybGllc3QNCj4+ICsJCSAq
+IGpvYiBleHRyYWN0ZWQuDQo+PiArCQkgKi8NCj4+ICsJCWxpc3RfYWRkKCZiYWQtPm5vZGUsICZz
+Y2hlZC0+cmluZ19taXJyb3JfbGlzdCk7DQo+PiArDQo+PiArCS8qDQo+PiAgIAkgKiBJdGVyYXRl
+IHRoZSBqb2IgbGlzdCBmcm9tIGxhdGVyIHRvICBlYXJsaWVyIG9uZSBhbmQgZWl0aGVyIGRlYWN0
+aXZlDQo+PiAgIAkgKiB0aGVpciBIVyBjYWxsYmFja3Mgb3IgcmVtb3ZlIHRoZW0gZnJvbSBtaXJy
+b3IgbGlzdCBpZiB0aGV5IGFscmVhZHkNCj4+ICAgCSAqIHNpZ25hbGVkLg0KX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QK
+YW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5v
+cmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
