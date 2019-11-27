@@ -1,16 +1,10 @@
-From: "Ma, Le" <Le.Ma-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH 06/10] drm/amdgpu: add condition to enable baco for
- xgmi/ras case
-Date: Wed, 27 Nov 2019 14:00:33 +0000
-Message-ID: <MN2PR12MB4285C5E86B0E77D94DEE2525F6440@MN2PR12MB4285.namprd12.prod.outlook.com>
-References: <1574846129-4826-1-git-send-email-le.ma@amd.com>
- <1574846129-4826-5-git-send-email-le.ma@amd.com>
- <DM5PR12MB1418D76FD9E6E7748C2F9997FC440@DM5PR12MB1418.namprd12.prod.outlook.com>
+From: "Sierra Guiza, Alejandro (Alex)" <Alex.Sierra-5C7GfCeVMHo@public.gmane.org>
+Subject: Deadlock on PTEs update for HMM
+Date: Wed, 27 Nov 2019 14:55:24 +0000
+Message-ID: <SN6PR12MB26216A095D9839500242F489FD440@SN6PR12MB2621.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0727936044=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <DM5PR12MB1418D76FD9E6E7748C2F9997FC440-2J9CzHegvk81aAVlcVN8UQdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -22,55 +16,154 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Zhang, Hawking" <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Zhou1,
- Tao" <Tao.Zhou1-5C7GfCeVMHo@public.gmane.org>, "Li, Dennis" <Dennis.Li-5C7GfCeVMHo@public.gmane.org>, "Chen,
- Guchun" <Guchun.Chen-5C7GfCeVMHo@public.gmane.org>
+To: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
+Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-SGkgSGF3a2luZywKClBsZWFzZSBjaGVjayB0aGlzIHYyIHBhdGNoIHdoaWNoIGlzIGp1c3Qgc2Vu
-dCBvdXQuIEFuZCBhcyBkaXNjdXNzZWQsIHdlIGRlY2lkZSB0byBzdGlsbCBsZXZlcmFnZSB0aGUg
-Y3VycmVudCByZXNldF9tZXRob2QoKSBmdW5jdGlvbiB3aXRoIGZ1bmN0aW9uYWxpdHkvY2hhbmdl
-IHNjYWxlL2NvZGUgbWFpbnRhaW5hYmlsaXR5IGJhbGFuY2VkIC4gVGhhbmtzLgoKUmVnYXJkcywK
-TWEgTGUKCi0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tCkZyb206IFpoYW5nLCBIYXdraW5nIDxI
-YXdraW5nLlpoYW5nQGFtZC5jb20+IApTZW50OiBXZWRuZXNkYXksIE5vdmVtYmVyIDI3LCAyMDE5
-IDc6MzkgUE0KVG86IE1hLCBMZSA8TGUuTWFAYW1kLmNvbT47IGFtZC1nZnhAbGlzdHMuZnJlZWRl
-c2t0b3Aub3JnCkNjOiBDaGVuLCBHdWNodW4gPEd1Y2h1bi5DaGVuQGFtZC5jb20+OyBaaG91MSwg
-VGFvIDxUYW8uWmhvdTFAYW1kLmNvbT47IExpLCBEZW5uaXMgPERlbm5pcy5MaUBhbWQuY29tPjsg
-RGV1Y2hlciwgQWxleGFuZGVyIDxBbGV4YW5kZXIuRGV1Y2hlckBhbWQuY29tPjsgTWEsIExlIDxM
-ZS5NYUBhbWQuY29tPgpTdWJqZWN0OiBSRTogW1BBVENIIDA2LzEwXSBkcm0vYW1kZ3B1OiBhZGQg
-Y29uZGl0aW9uIHRvIGVuYWJsZSBiYWNvIGZvciB4Z21pL3JhcyBjYXNlCgpbQU1EIFB1YmxpYyBV
-c2VdCgpBbmQgSXQgaXMgc3RpbGwgbmVjZXNzYXJ5IHRvIHB1dCBhbGwgdGhlIGNvbmRpdGlvbiBj
-aGVjayBpbiBhIGZ1bmN0aW9uLiBJIG1lYW4gYSBmdW5jdGlvbiB0aGF0IGRlY2lkZSB0byBnbyBy
-YXMgcmVjb3Zlcnkgb3IgbGVnYWN5IGZhdGFsX2Vycm9yIGhhbmRsaW5nLiBUaGUgUE1GVyB2ZXJz
-aW9uIHRoYXQgc3VwcG9ydCBSQVMgcmVjb3Zlcnkgd2lsbCBiZSBkaWZmZXJlbnQgYW1vbmcgQVNJ
-Q3MuIEN1cnJlbnQgdmVyc2lvbiBjaGVjayBvbmx5IHdvcmtzIGZvciBWRzIwLiBJbiBmYWN0LCBv
-bmNlIHJhcy0+c3VwcG9ydGVkIGlzIHNldCBhbmQgcHJvcGVyIFBNRlcgaXMgZGV0ZWN0ZWQsIFJB
-UyByZWNvdmVyeSB3aWxsIGJlIHRoZSBiZXN0IGNob2ljZSBubyBtYXR0ZXIgaXQgaXMgc0dQVSBv
-ciBtR1BVLgoKUmVnYXJkcywKSGF3a2luZwoKLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0KRnJv
-bTogTGUgTWEgPGxlLm1hQGFtZC5jb20+IApTZW50OiAyMDE55bm0MTHmnIgyN+aXpSAxNzoxNQpU
-bzogYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKQ2M6IFpoYW5nLCBIYXdraW5nIDxIYXdr
-aW5nLlpoYW5nQGFtZC5jb20+OyBDaGVuLCBHdWNodW4gPEd1Y2h1bi5DaGVuQGFtZC5jb20+OyBa
-aG91MSwgVGFvIDxUYW8uWmhvdTFAYW1kLmNvbT47IExpLCBEZW5uaXMgPERlbm5pcy5MaUBhbWQu
-Y29tPjsgRGV1Y2hlciwgQWxleGFuZGVyIDxBbGV4YW5kZXIuRGV1Y2hlckBhbWQuY29tPjsgTWEs
-IExlIDxMZS5NYUBhbWQuY29tPgpTdWJqZWN0OiBbUEFUQ0ggMDYvMTBdIGRybS9hbWRncHU6IGFk
-ZCBjb25kaXRpb24gdG8gZW5hYmxlIGJhY28gZm9yIHhnbWkvcmFzIGNhc2UKCkF2b2lkIHRvIGNo
-YW5nZSBkZWZhdWx0IHJlc2V0IGJlaGF2aW9yIGZvciBwcm9kdWN0aW9uIGNhcmQgYnkgY2hlY2tp
-bmcgYW1kZ3B1X3Jhc19lbmFibGUgZXF1YWwgdG8gMi4gQW5kIG9ubHkgbmV3IGVub3VnaCBzbXUg
-dWNvZGUgY2FuIHN1cHBvcnQgYmFjbyBmb3IgeGdtaS9yYXMgY2FzZS4KCkNoYW5nZS1JZDogSTA3
-YzNlNjg2MmJlMDNlMDY4NzQ1YzczZGI4ZWE3MWY0MjhlY2JhNmIKU2lnbmVkLW9mZi1ieTogTGUg
-TWEgPGxlLm1hQGFtZC5jb20+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvc29jMTUu
-YyB8IDQgKysrLQogMSBmaWxlIGNoYW5nZWQsIDMgaW5zZXJ0aW9ucygrKSwgMSBkZWxldGlvbigt
-KQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3NvYzE1LmMgYi9kcml2
-ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9zb2MxNS5jCmluZGV4IDk1MTMyN2YuLjYyMDIzMzMgMTAw
-NjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3NvYzE1LmMKKysrIGIvZHJpdmVy
-cy9ncHUvZHJtL2FtZC9hbWRncHUvc29jMTUuYwpAQCAtNTc3LDcgKzU3Nyw5IEBAIHNvYzE1X2Fz
-aWNfcmVzZXRfbWV0aG9kKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQogCQkJc3RydWN0IGFt
-ZGdwdV9oaXZlX2luZm8gKmhpdmUgPSBhbWRncHVfZ2V0X3hnbWlfaGl2ZShhZGV2LCAwKTsKIAkJ
-CXN0cnVjdCBhbWRncHVfcmFzICpyYXMgPSBhbWRncHVfcmFzX2dldF9jb250ZXh0KGFkZXYpOwog
-Ci0JCQlpZiAoaGl2ZSB8fCAocmFzICYmIHJhcy0+c3VwcG9ydGVkKSkKKwkJCWlmICgoaGl2ZSB8
-fCAocmFzICYmIHJhcy0+c3VwcG9ydGVkKSkgJiYKKwkJCSAgICAoYW1kZ3B1X3Jhc19lbmFibGUg
-IT0gMiB8fAorCQkJICAgIGFkZXYtPnBtLmZ3X3ZlcnNpb24gPD0gMHgyODM0MDApKQogCQkJCWJh
-Y29fcmVzZXQgPSBmYWxzZTsKIAkJfQogCQlicmVhazsKLS0KMi43LjQKX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1k
-LWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcv
-bWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+--===============0727936044==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_SN6PR12MB26216A095D9839500242F489FD440SN6PR12MB2621namp_"
+
+--_000_SN6PR12MB26216A095D9839500242F489FD440SN6PR12MB2621namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+Hi Christian,
+As you know, we're working on the HMM enablement. Im working on the dGPU pa=
+ge table entries invalidation on the userptr mapping case. Currently, the M=
+MU notifiers handle stops all user mode queues, schedule a delayed worker t=
+o re-validate userptr mappings and restart the queues.
+Part of the HMM functionality, we need to invalidate the page table entries=
+ instead of stopping the queues. At the same time we need to move the reval=
+idation of the userptr mappings into the page fault handler.
+We're seeing a deadlock warning after we try to invalidate the PTEs inside =
+the MMU notifier handler. More specific, when we try to update the BOs to i=
+nvalidate PTEs using amdgpu_vm_bo_update. This uses kmalloc on the amdgpu_j=
+ob_alloc which seems to be causing this problem.
+Based on @Kuehling, Felix<mailto:Felix.Kuehling-5C7GfCeVMHo@public.gmane.org> comments, kmalloc =
+without any special flags can cause memory reclaim. Doing that inside an MM=
+U notifier is problematic, because an MMU notifier may be called inside a m=
+emory-reclaim operation itself. That would result in recursion. Also, recla=
+im shouldn't be done while holding a lock that can be taken in an MMU notif=
+ier for the same reason. If you cause a reclaim while holding that lock, th=
+en an MMU notifier called by the reclaim can deadlock trying to take the sa=
+me lock.
+Please let us know if you have any advice to enable this the right way
+
+Thanks in advanced,
+Alejandro
+
+
+--_000_SN6PR12MB26216A095D9839500242F489FD440SN6PR12MB2621namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40">
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
+<style><!--
+/* Font Definitions */
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:"Segoe UI";
+	panose-1:2 11 5 2 4 2 4 2 2 3;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin-top:0in;
+	margin-right:0in;
+	margin-bottom:8.0pt;
+	margin-left:0in;
+	line-height:106%;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:#0563C1;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{mso-style-priority:99;
+	color:#954F72;
+	text-decoration:underline;}
+span.EmailStyle17
+	{mso-style-type:personal-compose;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-family:"Calibri",sans-serif;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.0in 1.0in 1.0in;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
+</head>
+<body lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72">
+<div class=3D"WordSection1">
+<p class=3D"MsoNormal">Hi Christian,<o:p></o:p></p>
+<p class=3D"MsoNormal">As you know, we&#8217;re working on the HMM enableme=
+nt. Im working on the dGPU page table entries invalidation on the userptr m=
+apping case. Currently, the MMU notifiers handle stops all user mode queues=
+, schedule a delayed worker to re-validate
+ userptr mappings and restart the queues. <o:p></o:p></p>
+<p class=3D"MsoNormal">Part of the HMM functionality, we need to invalidate=
+ the page table entries instead of stopping the queues. At the same time we=
+ need to move the revalidation of the userptr mappings into the page fault =
+handler.<o:p></o:p></p>
+<p class=3D"MsoNormal">We&#8217;re seeing a deadlock warning after we try t=
+o invalidate the PTEs inside the MMU notifier handler. More specific, when =
+we try to update the BOs to invalidate PTEs using amdgpu_vm_bo_update. This=
+ uses kmalloc on the amdgpu_job_alloc which
+ seems to be causing this problem.<o:p></o:p></p>
+<p class=3D"MsoNormal">Based on <a id=3D"OWAAMBC6F9A316D814AE993661FC111776=
+926" href=3D"mailto:Felix.Kuehling-5C7GfCeVMHo@public.gmane.org">
+<span style=3D"font-family:&quot;Calibri&quot;,sans-serif;text-decoration:n=
+one">@Kuehling, Felix</span></a> comments,
+<span style=3D"font-size:10.5pt;line-height:106%;font-family:&quot;Segoe UI=
+&quot;,sans-serif">
+kmalloc without any special flags can cause memory reclaim. Doing that insi=
+de an MMU notifier is problematic, because an MMU notifier may be called in=
+side a memory-reclaim operation itself. That would result in recursion. Als=
+o, reclaim shouldn't be done while
+ holding a lock that can be taken in an MMU notifier for the same reason. I=
+f you cause a reclaim while holding that lock, then an&nbsp;MMU notifier ca=
+lled by the reclaim can&nbsp;deadlock trying to take the same lock.<o:p></o=
+:p></span></p>
+<p class=3D"MsoNormal">Please let us know if you have any advice to enable =
+this the right way<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Thanks in advanced,<o:p></o:p></p>
+<p class=3D"MsoNormal">Alejandro<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+</div>
+</body>
+</html>
+
+--_000_SN6PR12MB26216A095D9839500242F489FD440SN6PR12MB2621namp_--
+
+--===============0727936044==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+
+--===============0727936044==--
