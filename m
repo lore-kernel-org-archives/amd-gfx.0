@@ -1,52 +1,77 @@
-From: Le Ma <le.ma-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH 09/10] drm/amdgpu: clear err_event_athub flag after reset exit
-Date: Wed, 27 Nov 2019 17:15:28 +0800
-Message-ID: <1574846129-4826-8-git-send-email-le.ma@amd.com>
-References: <1574846129-4826-1-git-send-email-le.ma@amd.com>
+From: Gerd Hoffmann <kraxel@redhat.com>
+Subject: [PATCH v3 2/2] drm: share address space for dma bufs
+Date: Wed, 27 Nov 2019 10:25:23 +0100
+Message-ID: <20191127092523.5620-3-kraxel@redhat.com>
+References: <20191127092523.5620-1-kraxel@redhat.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1574846129-4826-1-git-send-email-le.ma-5C7GfCeVMHo@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: guchun.chen-5C7GfCeVMHo@public.gmane.org, tao.zhou1-5C7GfCeVMHo@public.gmane.org, Le Ma <le.ma-5C7GfCeVMHo@public.gmane.org>, alexander.deucher-5C7GfCeVMHo@public.gmane.org, dennis.li-5C7GfCeVMHo@public.gmane.org, hawking.zhang-5C7GfCeVMHo@public.gmane.org
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20191127092523.5620-1-kraxel@redhat.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: dri-devel@lists.freedesktop.org
+Cc: robh@kernel.org, intel-gfx@lists.freedesktop.org, Gerd Hoffmann <kraxel@redhat.com>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>, open list <linux-kernel@vger.kernel.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-T3RoZXJ3aXNlIG5leHQgZXJyX2V2ZW50X2F0aHViIGVycm9yIGNhbm5vdCBjYWxsIGdwdSByZXNl
-dC4gQW5kIGZvbGxvd2luZwpyZXN1bWUgc2VxdWVuY2Ugd2lsbCBub3QgYmUgYWZmZWN0ZWQgYnkg
-dGhpcyBmbGFnLgoKdjI6IGNyZWF0ZSBmdW5jdGlvbiB0byBjbGVhciBhbWRncHVfcmFzX2luX2lu
-dHIgZm9yIG1vZHVsYXJpdHkgb2YgcmFzIGRyaXZlcgoKQ2hhbmdlLUlkOiBJNWNkMjkzZjMwZjIz
-ODc2YmYyYTE4NjA2ODFiY2I1MGY0NzcxM2VjZApTaWduZWQtb2ZmLWJ5OiBMZSBNYSA8bGUubWFA
-YW1kLmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMg
-fCAzICsrKwogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Jhcy5oICAgIHwgNSAr
-KysrKwogMiBmaWxlcyBjaGFuZ2VkLCA4IGluc2VydGlvbnMoKykKCmRpZmYgLS1naXQgYS9kcml2
-ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMgYi9kcml2ZXJzL2dwdS9kcm0v
-YW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMKaW5kZXggNTNlOTU5MC4uODM4N2I0NCAxMDA2NDQK
-LS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jCisrKyBiL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYwpAQCAtMzg5MCw2ICszODkw
-LDkgQEAgc3RhdGljIGludCBhbWRncHVfZG9fYXNpY19yZXNldChzdHJ1Y3QgYW1kZ3B1X2hpdmVf
-aW5mbyAqaGl2ZSwKIAkJfQogCX0KIAorCWlmICghciAmJiBhbWRncHVfcmFzX2ludHJfdHJpZ2dl
-cmVkKCkpCisJCWFtZGdwdV9yYXNfaW50cl9jbGVhcmVkKCk7CisKIAlsaXN0X2Zvcl9lYWNoX2Vu
-dHJ5KHRtcF9hZGV2LCBkZXZpY2VfbGlzdF9oYW5kbGUsIGdtYy54Z21pLmhlYWQpIHsKIAkJaWYg
-KG5lZWRfZnVsbF9yZXNldCkgewogCQkJLyogcG9zdCBjYXJkICovCmRpZmYgLS1naXQgYS9kcml2
-ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcmFzLmggYi9kcml2ZXJzL2dwdS9kcm0vYW1k
-L2FtZGdwdS9hbWRncHVfcmFzLmgKaW5kZXggYTJjMWFjMS4uZDRhZGU0NyAxMDA2NDQKLS0tIGEv
-ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Jhcy5oCisrKyBiL2RyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9yYXMuaApAQCAtNjIxLDYgKzYyMSwxMSBAQCBzdGF0aWMg
-aW5saW5lIGJvb2wgYW1kZ3B1X3Jhc19pbnRyX3RyaWdnZXJlZCh2b2lkKQogCXJldHVybiAhIWF0
-b21pY19yZWFkKCZhbWRncHVfcmFzX2luX2ludHIpOwogfQogCitzdGF0aWMgaW5saW5lIHZvaWQg
-YW1kZ3B1X3Jhc19pbnRyX2NsZWFyZWQodm9pZCkKK3sKKwlhdG9taWNfc2V0KCZhbWRncHVfcmFz
-X2luX2ludHIsIDApOworfQorCiB2b2lkIGFtZGdwdV9yYXNfZ2xvYmFsX3Jhc19pc3Ioc3RydWN0
-IGFtZGdwdV9kZXZpY2UgKmFkZXYpOwogCiAjZW5kaWYKLS0gCjIuNy40CgpfX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAph
-bWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9y
-Zy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
+Use the shared address space of the drm device (see drm_open() in
+drm_file.c) for dma-bufs too.  That removes a difference betweem drm
+device mmap vmas and dma-buf mmap vmas and fixes corner cases like
+dropping ptes (using madvise(DONTNEED) for example) not working
+properly.
+
+Also remove amdgpu driver's private dmabuf update.  It is not needed
+any more now that we are doing this for everybody.
+
+Signed-off-by: Gerd Hoffmann <kraxel@redhat.com>
+Reviewed-by: Daniel Vetter <daniel.vetter@ffwll.ch>
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+Reviewed-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c | 4 +---
+ drivers/gpu/drm/drm_prime.c                 | 4 +++-
+ 2 files changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c b/drivers/gpu/drm/=
+amd/amdgpu/amdgpu_dma_buf.c
+index d5bcdfefbad6..586db4fb46bd 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
+@@ -361,10 +361,8 @@ struct dma_buf *amdgpu_gem_prime_export(struct drm_gem=
+_object *gobj,
+ =09=09return ERR_PTR(-EPERM);
+=20
+ =09buf =3D drm_gem_prime_export(gobj, flags);
+-=09if (!IS_ERR(buf)) {
+-=09=09buf->file->f_mapping =3D gobj->dev->anon_inode->i_mapping;
++=09if (!IS_ERR(buf))
+ =09=09buf->ops =3D &amdgpu_dmabuf_ops;
+-=09}
+=20
+ =09return buf;
+ }
+diff --git a/drivers/gpu/drm/drm_prime.c b/drivers/gpu/drm/drm_prime.c
+index a0f929c7117b..86d9b0e45c8c 100644
+--- a/drivers/gpu/drm/drm_prime.c
++++ b/drivers/gpu/drm/drm_prime.c
+@@ -240,6 +240,7 @@ void drm_prime_destroy_file_private(struct drm_prime_fi=
+le_private *prime_fpriv)
+ struct dma_buf *drm_gem_dmabuf_export(struct drm_device *dev,
+ =09=09=09=09      struct dma_buf_export_info *exp_info)
+ {
++=09struct drm_gem_object *obj =3D exp_info->priv;
+ =09struct dma_buf *dma_buf;
+=20
+ =09dma_buf =3D dma_buf_export(exp_info);
+@@ -247,7 +248,8 @@ struct dma_buf *drm_gem_dmabuf_export(struct drm_device=
+ *dev,
+ =09=09return dma_buf;
+=20
+ =09drm_dev_get(dev);
+-=09drm_gem_object_get(exp_info->priv);
++=09drm_gem_object_get(obj);
++=09dma_buf->file->f_mapping =3D obj->dev->anon_inode->i_mapping;
+=20
+ =09return dma_buf;
+ }
+--=20
+2.18.1
