@@ -1,15 +1,15 @@
 From: "Ma, Le" <Le.Ma-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH 05/10] drm/amdgpu: enable/disable doorbell interrupt in
- baco entry/exit helper
-Date: Wed, 27 Nov 2019 12:14:02 +0000
-Message-ID: <MN2PR12MB4285A41D146EDAAE4918FB78F6440@MN2PR12MB4285.namprd12.prod.outlook.com>
+Subject: RE: [PATCH 06/10] drm/amdgpu: add condition to enable baco for
+ xgmi/ras case
+Date: Wed, 27 Nov 2019 12:35:57 +0000
+Message-ID: <MN2PR12MB4285E37DF7D44270D5CAD0E5F6440@MN2PR12MB4285.namprd12.prod.outlook.com>
 References: <1574846129-4826-1-git-send-email-le.ma@amd.com>
- <1574846129-4826-4-git-send-email-le.ma@amd.com>
- <DM5PR12MB14184CF08E965BAF369F4249FC440@DM5PR12MB1418.namprd12.prod.outlook.com>
+ <1574846129-4826-5-git-send-email-le.ma@amd.com>
+ <DM5PR12MB141825CB772FEEF1FD013EDBFC440@DM5PR12MB1418.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0521228470=="
+Content-Type: multipart/mixed; boundary="===============1598236071=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <DM5PR12MB14184CF08E965BAF369F4249FC440-2J9CzHegvk81aAVlcVN8UQdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
+In-Reply-To: <DM5PR12MB141825CB772FEEF1FD013EDBFC440-2J9CzHegvk81aAVlcVN8UQdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -26,223 +26,164 @@ Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Zhou
  Tao" <Tao.Zhou1-5C7GfCeVMHo@public.gmane.org>, "Li, Dennis" <Dennis.Li-5C7GfCeVMHo@public.gmane.org>, "Chen,
  Guchun" <Guchun.Chen-5C7GfCeVMHo@public.gmane.org>
 
---===============0521228470==
+--===============1598236071==
 Content-Language: en-US
 Content-Type: multipart/alternative;
-	boundary="_000_MN2PR12MB4285A41D146EDAAE4918FB78F6440MN2PR12MB4285namp_"
+	boundary="_000_MN2PR12MB4285E37DF7D44270D5CAD0E5F6440MN2PR12MB4285namp_"
 
---_000_MN2PR12MB4285A41D146EDAAE4918FB78F6440MN2PR12MB4285namp_
+--_000_MN2PR12MB4285E37DF7D44270D5CAD0E5F6440MN2PR12MB4285namp_
 Content-Type: text/plain; charset="iso-2022-jp"
 Content-Transfer-Encoding: quoted-printable
 
+Agree with your thoughts that we drop amdgpu_ras_enable=3D2 condition. The =
+only concern in my side is that besides fatal_error, another result may hap=
+pen that atombios_init timeout on xgmi by baco (not sure psp mode1 reset ca=
+uses this as well).
 
 
-From: Zhang, Hawking <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>
-Sent: Wednesday, November 27, 2019 8:04 PM
-To: Ma, Le <Le.Ma-5C7GfCeVMHo@public.gmane.org>; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Chen, Guchun <Guchun.Chen-5C7GfCeVMHo@public.gmane.org>; Zhou1, Tao <Tao.Zhou1-5C7GfCeVMHo@public.gmane.org>; Li,=
- Dennis <Dennis.Li-5C7GfCeVMHo@public.gmane.org>; Deucher, Alexander <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>=
-; Ma, Le <Le.Ma-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH 05/10] drm/amdgpu: enable/disable doorbell interrupt in=
- baco entry/exit helper
+
+Assuming no amdgpu_ras_enable=3D2 check, if PMFW > 40.52,  the use cases as=
+ my understanding includes:
+
+  1.  sGPU without RAS:
+     *   new: baco
+     *   old: baco
+  2.  sGPU with RAS:
+
+  *   new: baco
+  *   old: psp mode1 chain reset and legacy fatal_error handling
+
+  1.  XGMI with RAS: baco
+     *   new: baco
+     *   old: psp mode1 chain reset and legacy fatal_error handling
+  2.  XGMI without RAS: baco
+     *   new: baco
+     *   old: psp mode1 chain reset
 
 
-Please check my comments inline
+
+That is to say, all uses cases go on baco road when PMFW > 40.52.
 
 
 
 Regards,
-Hawking
+
+Ma Le
 
 
 
 -----Original Message-----
+From: Zhang, Hawking <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>
+Sent: Wednesday, November 27, 2019 7:28 PM
+To: Ma, Le <Le.Ma-5C7GfCeVMHo@public.gmane.org>; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Chen, Guchun <Guchun.Chen-5C7GfCeVMHo@public.gmane.org>; Zhou1, Tao <Tao.Zhou1-5C7GfCeVMHo@public.gmane.org>; Li,=
+ Dennis <Dennis.Li-5C7GfCeVMHo@public.gmane.org>; Deucher, Alexander <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>=
+; Ma, Le <Le.Ma-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: [PATCH 06/10] drm/amdgpu: add condition to enable baco for xgm=
+i/ras case
+
+
+
+[AMD Public Use]
+
+
+
+After thinking it a bit, I think we can just rely on PMFW version to decide=
+ to go RAS recovery or legacy fatal_error handling for the platforms that s=
+upport RAS. Leveraging amdgpu_ras_enable as a temporary solution seems not =
+necessary? Even baco ras recovery not stable, it is the same result as lega=
+cy fatal_error handling that user has to reboot the node manually.
+
+
+
+So the new soc reset use cases are:
+
+XGMI (without RAS): use PSP mode1 based chain reset, RAS enabled (with PMFW=
+ 40.52 and onwards): use BACO based RAS recovery, RAS enabled (with PMFW pr=
+ior to 40.52): use legacy fatal_error handling.
+
+Anything else?
+
+
+
+Regards,
+
+Hawking
+
+-----Original Message-----
+
 From: Le Ma <le.ma-5C7GfCeVMHo@public.gmane.org<mailto:le.ma-5C7GfCeVMHo@public.gmane.org>>
+
 Sent: 2019=1B$BG/=1B(B11=1B$B7n=1B(B27=1B$BF|=1B(B 17:15
+
 To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+
 Cc: Zhang, Hawking <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org<mailto:Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>>; C=
 hen, Guchun <Guchun.Chen-5C7GfCeVMHo@public.gmane.org<mailto:Guchun.Chen-5C7GfCeVMHo@public.gmane.org>>; Zhou1, Tao <=
 Tao.Zhou1-5C7GfCeVMHo@public.gmane.org<mailto:Tao.Zhou1-5C7GfCeVMHo@public.gmane.org>>; Li, Dennis <Dennis.Li-5C7GfCeVMHo@public.gmane.org=
 <mailto:Dennis.Li-5C7GfCeVMHo@public.gmane.org>>; Deucher, Alexander <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org<=
 mailto:Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>>; Ma, Le <Le.Ma-5C7GfCeVMHo@public.gmane.org<mailto:Le.Ma@amd.=
 com>>
-Subject: [PATCH 05/10] drm/amdgpu: enable/disable doorbell interrupt in bac=
-o entry/exit helper
+
+Subject: [PATCH 06/10] drm/amdgpu: add condition to enable baco for xgmi/ra=
+s case
 
 
 
-This operation is needed when baco entry/exit for ras recovery
+Avoid to change default reset behavior for production card by checking amdg=
+pu_ras_enable equal to 2. And only new enough smu ucode can support baco fo=
+r xgmi/ras case.
 
 
 
-Change-Id: I535c7231693f3138a8e3d5acd55672e2ac68232f
+Change-Id: I07c3e6862be03e068745c73db8ea71f428ecba6b
 
 Signed-off-by: Le Ma <le.ma-5C7GfCeVMHo@public.gmane.org<mailto:le.ma-5C7GfCeVMHo@public.gmane.org>>
 
 ---
 
-drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 19 ++++++++++++-------
+drivers/gpu/drm/amd/amdgpu/soc15.c | 4 +++-
 
-1 file changed, 12 insertions(+), 7 deletions(-)
+1 file changed, 3 insertions(+), 1 deletion(-)
 
 
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_device.c
+diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c b/drivers/gpu/drm/amd/amdgp=
+u/soc15.c
 
-index b1408c5..bd387bb 100644
+index 951327f..6202333 100644
 
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+--- a/drivers/gpu/drm/amd/amdgpu/soc15.c
 
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/soc15.c
 
-@@ -4308,10 +4308,14 @@ static void amdgpu_device_get_pcie_info(struct amdg=
-pu_device *adev)  int amdgpu_device_baco_enter(struct drm_device *dev)  {
+@@ -577,7 +577,9 @@ soc15_asic_reset_method(struct amdgpu_device *adev)
 
-               struct amdgpu_device *adev =3D dev->dev_private;
+                                   struct amdgpu_hive_info *hive =3D amdgpu=
+_get_xgmi_hive(adev, 0);
 
-+             struct amdgpu_ras *ras =3D amdgpu_ras_get_context(adev);
+                                   struct amdgpu_ras *ras =3D amdgpu_ras_ge=
+t_context(adev);
 
+-                                   if (hive || (ras && ras->supported))
 
++                                  if ((hive || (ras && ras->supported)) &&
 
-                if (!amdgpu_device_supports_baco(adev->ddev))
++                                      (amdgpu_ras_enable !=3D 2 ||
 
-                               return -ENOTSUPP;
++                                      adev->pm.fw_version <=3D 0x283400))
 
+                                               baco_reset =3D false;
 
+                       }
 
-+             if (ras && ras->supported)
-
-+                             adev->nbio.funcs->enable_doorbell_interrupt(a=
-dev, false);
-
-+
-
-               if (is_support_sw_smu(adev)) {
-
-                               struct smu_context *smu =3D &adev->smu;
-
-                               int ret;
-
-@@ -4319,8 +4323,6 @@ int amdgpu_device_baco_enter(struct drm_device *dev)
-
-                               ret =3D smu_baco_enter(smu);
-
-                               if (ret)
-
-                                               return ret;
-
--
-
--                              return 0;
-
-               } else {
-
-                               void *pp_handle =3D adev->powerplay.pp_handl=
-e;
-
-                               const struct amd_pm_funcs *pp_funcs =3D adev=
-->powerplay.pp_funcs; @@ -4331,14 +4333,15 @@ int amdgpu_device_baco_enter(=
-struct drm_device *dev)
-
-                               /* enter BACO state */
-
-                               if (pp_funcs->set_asic_baco_state(pp_handle,=
- 1))
-
-                                               return -EIO;
-
--
-
--                              return 0;
-
-               }
-
-+
-
-+             return 0;
-
-}
-
-
-
- int amdgpu_device_baco_exit(struct drm_device *dev)  {
-
-               struct amdgpu_device *adev =3D dev->dev_private;
-
-+             struct amdgpu_ras *ras =3D amdgpu_ras_get_context(adev);
-
-
-
-                if (!amdgpu_device_supports_baco(adev->ddev))
-
-                               return -ENOTSUPP;
-
-@@ -4351,7 +4354,6 @@ int amdgpu_device_baco_exit(struct drm_device *dev)
-
-                               if (ret)
-
-                                               return ret;
-
-
-
--                              return 0;
-
-               } else {
-
-                               void *pp_handle =3D adev->powerplay.pp_handl=
-e;
-
-                               const struct amd_pm_funcs *pp_funcs =3D adev=
-->powerplay.pp_funcs; @@ -4362,7 +4364,10 @@ int amdgpu_device_baco_exit(st=
-ruct drm_device *dev)
-
-                               /* exit BACO state */
-
-                               if (pp_funcs->set_asic_baco_state(pp_handle,=
- 0))
-
-                                               return -EIO;
-
--
-
--                              return 0;
-
-               }
-
-+
-
-+             if (ras && ras->supported)
-
-+                             adev->nbio.funcs->enable_doorbell_interrupt(a=
-dev, false);
-
-+
-
-
-
-
-
-[Hawking] Shouldn't be enabled doorbell interrupt after exit baco? Or do I =
-miss something?
-
-
-
-[Le]: Yes, the argument should be true. I made a typo here.
-
-
-
-+             return 0;
-
-}
+                       break;
 
 --
 
 2.7.4
 
-
-
---_000_MN2PR12MB4285A41D146EDAAE4918FB78F6440MN2PR12MB4285namp_
+--_000_MN2PR12MB4285E37DF7D44270D5CAD0E5F6440MN2PR12MB4285namp_
 Content-Type: text/html; charset="iso-2022-jp"
 Content-Transfer-Encoding: quoted-printable
 
@@ -257,8 +198,8 @@ jp">
 <style><!--
 /* Font Definitions */
 @font-face
-	{font-family:SimSun;
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
+	{font-family:Wingdings;
+	panose-1:5 0 0 0 0 0 0 0 0 0;}
 @font-face
 	{font-family:"Cambria Math";
 	panose-1:2 4 5 3 5 4 6 3 2 4;}
@@ -272,8 +213,10 @@ jp">
 	{font-family:"\@DengXian";
 	panose-1:2 1 6 0 3 1 1 1 1 1;}
 @font-face
-	{font-family:"\@SimSun";
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
+	{font-family:"Microsoft YaHei";
+	panose-1:2 11 5 3 2 2 4 2 2 4;}
+@font-face
+	{font-family:"\@Microsoft YaHei";}
 /* Style Definitions */
 p.MsoNormal, li.MsoNormal, div.MsoNormal
 	{margin:0in;
@@ -293,45 +236,160 @@ p.MsoPlainText, li.MsoPlainText, div.MsoPlainText
 	mso-style-link:"Plain Text Char";
 	margin:0in;
 	margin-bottom:.0001pt;
-	font-size:11.0pt;
+	font-size:14.0pt;
 	font-family:"Calibri",sans-serif;}
-p.msonormal0, li.msonormal0, div.msonormal0
-	{mso-style-name:msonormal;
-	mso-margin-top-alt:auto;
-	margin-right:0in;
-	mso-margin-bottom-alt:auto;
-	margin-left:0in;
-	font-size:12.0pt;
-	font-family:SimSun;}
 span.PlainTextChar
 	{mso-style-name:"Plain Text Char";
 	mso-style-priority:99;
 	mso-style-link:"Plain Text";
 	font-family:"Calibri",sans-serif;}
-p.msipheader4d0fcdd7, li.msipheader4d0fcdd7, div.msipheader4d0fcdd7
-	{mso-style-name:msipheader4d0fcdd7;
-	mso-margin-top-alt:auto;
-	margin-right:0in;
-	mso-margin-bottom-alt:auto;
-	margin-left:0in;
-	font-size:12.0pt;
-	font-family:SimSun;}
-span.EmailStyle21
-	{mso-style-type:personal;
-	font-family:"Arial",sans-serif;
-	color:#0078D7;}
-span.EmailStyle23
-	{mso-style-type:personal-reply;
-	font-family:"Calibri",sans-serif;
-	color:windowtext;}
 .MsoChpDefault
-	{mso-style-type:export-only;
-	font-size:10.0pt;}
+	{mso-style-type:export-only;}
 @page WordSection1
 	{size:8.5in 11.0in;
-	margin:1.0in 1.25in 1.0in 1.25in;}
+	margin:1.0in 1.0in 1.0in 1.0in;}
 div.WordSection1
 	{page:WordSection1;}
+/* List Definitions */
+@list l0
+	{mso-list-id:758333370;
+	mso-list-type:hybrid;
+	mso-list-template-ids:-1255109936 67698703 67698689 67698715 67698703 6769=
+8713 67698715 67698703 67698713 67698715;}
+@list l0:level1
+	{mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:39.0pt;
+	text-indent:-.25in;}
+@list l0:level2
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:75.0pt;
+	text-indent:-.25in;
+	font-family:Symbol;}
+@list l0:level3
+	{mso-level-number-format:roman-lower;
+	mso-level-tab-stop:none;
+	mso-level-number-position:right;
+	margin-left:111.0pt;
+	text-indent:-9.0pt;}
+@list l0:level4
+	{mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:147.0pt;
+	text-indent:-.25in;}
+@list l0:level5
+	{mso-level-number-format:alpha-lower;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:183.0pt;
+	text-indent:-.25in;}
+@list l0:level6
+	{mso-level-number-format:roman-lower;
+	mso-level-tab-stop:none;
+	mso-level-number-position:right;
+	margin-left:219.0pt;
+	text-indent:-9.0pt;}
+@list l0:level7
+	{mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:255.0pt;
+	text-indent:-.25in;}
+@list l0:level8
+	{mso-level-number-format:alpha-lower;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:291.0pt;
+	text-indent:-.25in;}
+@list l0:level9
+	{mso-level-number-format:roman-lower;
+	mso-level-tab-stop:none;
+	mso-level-number-position:right;
+	margin-left:327.0pt;
+	text-indent:-9.0pt;}
+@list l1
+	{mso-list-id:1100415748;
+	mso-list-type:hybrid;
+	mso-list-template-ids:-1587907358 67698689 67698691 67698693 67698689 6769=
+8691 67698693 67698689 67698691 67698693;}
+@list l1:level1
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:75.0pt;
+	text-indent:-.25in;
+	font-family:Symbol;}
+@list l1:level2
+	{mso-level-number-format:bullet;
+	mso-level-text:o;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:111.0pt;
+	text-indent:-.25in;
+	font-family:"Courier New";}
+@list l1:level3
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0A7;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:147.0pt;
+	text-indent:-.25in;
+	font-family:Wingdings;}
+@list l1:level4
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:183.0pt;
+	text-indent:-.25in;
+	font-family:Symbol;}
+@list l1:level5
+	{mso-level-number-format:bullet;
+	mso-level-text:o;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:219.0pt;
+	text-indent:-.25in;
+	font-family:"Courier New";}
+@list l1:level6
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0A7;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:255.0pt;
+	text-indent:-.25in;
+	font-family:Wingdings;}
+@list l1:level7
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:291.0pt;
+	text-indent:-.25in;
+	font-family:Symbol;}
+@list l1:level8
+	{mso-level-number-format:bullet;
+	mso-level-text:o;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:327.0pt;
+	text-indent:-.25in;
+	font-family:"Courier New";}
+@list l1:level9
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0A7;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:363.0pt;
+	text-indent:-.25in;
+	font-family:Wingdings;}
+ol
+	{margin-bottom:0in;}
+ul
+	{margin-bottom:0in;}
 --></style><!--[if gte mso 9]><xml>
 <o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
 </xml><![endif]--><!--[if gte mso 9]><xml>
@@ -341,263 +399,186 @@ div.WordSection1
 </head>
 <body lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72">
 <div class=3D"WordSection1">
-<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt"><o:p>&nbsp;</o:p></=
-span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt"><o:p>&nbsp;</o:p></=
-span></p>
-<div>
-<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
-0in 0in">
-<p class=3D"MsoNormal"><b>From:</b> Zhang, Hawking &lt;Hawking.Zhang-urvtwAKJhsc@public.gmane.org=
-m&gt; <br>
-<b>Sent:</b> Wednesday, November 27, 2019 8:04 PM<br>
-<b>To:</b> Ma, Le &lt;Le.Ma-5C7GfCeVMHo@public.gmane.org&gt;; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Cc:</b> Chen, Guchun &lt;Guchun.Chen-5C7GfCeVMHo@public.gmane.org&gt;; Zhou1, Tao &lt;Tao.Zho=
-u1-5C7GfCeVMHo@public.gmane.org&gt;; Li, Dennis &lt;Dennis.Li-5C7GfCeVMHo@public.gmane.org&gt;; Deucher, Alexander &l=
-t;Alexander.Deucher-5C7GfCeVMHo@public.gmane.org&gt;; Ma, Le &lt;Le.Ma-5C7GfCeVMHo@public.gmane.org&gt;<br>
-<b>Subject:</b> RE: [PATCH 05/10] drm/amdgpu: enable/disable doorbell inter=
-rupt in baco entry/exit helper<o:p></o:p></p>
-</div>
-</div>
-<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;font-family:SimSun">=
-<o:p>&nbsp;</o:p></span></p>
-<p class=3D"MsoPlainText">Please check my comments inline<o:p></o:p></p>
+<p class=3D"MsoPlainText">Agree with your thoughts that we drop amdgpu_ras_=
+enable=3D2 condition. The only concern in my side is that besides fatal_err=
+or, another result may happen that atombios_init timeout on xgmi by baco (n=
+ot sure psp mode1 reset causes this
+ as well). <o:p></o:p></p>
 <p class=3D"MsoPlainText"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoPlainText">Regards,<br>
-Hawking<o:p></o:p></p>
+<p class=3D"MsoPlainText">Assuming no amdgpu_ras_enable=3D2 check, if PMFW =
+&gt; 40.52, &nbsp;the use cases as my understanding includes:
+<o:p></o:p></p>
+<ol style=3D"margin-top:0in" start=3D"1" type=3D"1">
+<li class=3D"MsoPlainText" style=3D"margin-left:3.0pt;mso-list:l0 level1 lf=
+o1">sGPU without RAS:<o:p></o:p></li><ul style=3D"margin-top:0in" type=3D"d=
+isc">
+<li class=3D"MsoPlainText" style=3D"margin-left:3.0pt;mso-list:l0 level2 lf=
+o1">new: baco<o:p></o:p></li><li class=3D"MsoPlainText" style=3D"margin-lef=
+t:3.0pt;mso-list:l0 level2 lfo1">old: baco<o:p></o:p></li></ul>
+<li class=3D"MsoPlainText" style=3D"margin-left:3.0pt;mso-list:l0 level1 lf=
+o1">sGPU with RAS:<o:p></o:p></li></ol>
+<ul style=3D"margin-top:0in" type=3D"disc">
+<li class=3D"MsoPlainText" style=3D"margin-left:39.0pt;mso-list:l1 level1 l=
+fo2">new: baco<o:p></o:p></li><li class=3D"MsoPlainText" style=3D"margin-le=
+ft:39.0pt;mso-list:l1 level1 lfo2">old: psp mode1 chain reset and legacy fa=
+tal_error handling<o:p></o:p></li></ul>
+<ol style=3D"margin-top:0in" start=3D"3" type=3D"1">
+<li class=3D"MsoPlainText" style=3D"margin-left:3.0pt;mso-list:l0 level1 lf=
+o1">XGMI with RAS: baco<o:p></o:p></li><ul style=3D"margin-top:0in" type=3D=
+"disc">
+<li class=3D"MsoPlainText" style=3D"margin-left:3.0pt;mso-list:l0 level2 lf=
+o1">new: baco<o:p></o:p></li><li class=3D"MsoPlainText" style=3D"margin-lef=
+t:3.0pt;mso-list:l0 level2 lfo1">old: psp mode1 chain reset and legacy fata=
+l_error handling<o:p></o:p></li></ul>
+<li class=3D"MsoPlainText" style=3D"margin-left:3.0pt;mso-list:l0 level1 lf=
+o1">XGMI without RAS: baco<o:p></o:p></li><ul style=3D"margin-top:0in" type=
+=3D"disc">
+<li class=3D"MsoPlainText" style=3D"margin-left:3.0pt;mso-list:l0 level2 lf=
+o1">new: baco<o:p></o:p></li><li class=3D"MsoPlainText" style=3D"margin-lef=
+t:3.0pt;mso-list:l0 level2 lfo1">old: psp mode1 chain reset<o:p></o:p></li>=
+</ul>
+</ol>
+<p class=3D"MsoPlainText"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoPlainText">That is to say, all uses cases go on baco road wh=
+en PMFW &gt; 40.52.<o:p></o:p></p>
+<p class=3D"MsoPlainText"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoPlainText">Regards,<o:p></o:p></p>
+<p class=3D"MsoPlainText">Ma Le<o:p></o:p></p>
 <p class=3D"MsoPlainText"><o:p>&nbsp;</o:p></p>
 <p class=3D"MsoPlainText">-----Original Message-----<br>
-From: Le Ma &lt;<a href=3D"mailto:le.ma-5C7GfCeVMHo@public.gmane.org">le.ma-5C7GfCeVMHo@public.gmane.org</a>&gt; <br>
-Sent: 2019<span lang=3D"ZH-CN" style=3D"font-family:DengXian">=1B$BG/=1B(B<=
-/span>11<span lang=3D"ZH-CN" style=3D"font-family:DengXian">=1B$B7n=1B(B</s=
-pan>27<span lang=3D"ZH-CN" style=3D"font-family:DengXian">=1B$BF|=1B(B</spa=
-n> 17:15<br>
-To: <a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lzq7FAFJ/aeQ@public.gmane.org=
-top.org</a><br>
-Cc: Zhang, Hawking &lt;<a href=3D"mailto:Hawking.Zhang-5C7GfCeVMHo@public.gmane.org">Hawking.Zha=
-ng-5C7GfCeVMHo@public.gmane.org</a>&gt;; Chen, Guchun &lt;<a href=3D"mailto:Guchun.Chen-5C7GfCeVMHo@public.gmane.org"=
->Guchun.Chen-5C7GfCeVMHo@public.gmane.org</a>&gt;; Zhou1, Tao &lt;<a href=3D"mailto:Tao.Zhou1@am=
-d.com">Tao.Zhou1-5C7GfCeVMHo@public.gmane.org</a>&gt;; Li, Dennis &lt;<a href=3D"mailto:Dennis.L=
-i@amd.com">Dennis.Li-5C7GfCeVMHo@public.gmane.org</a>&gt;;
- Deucher, Alexander &lt;<a href=3D"mailto:Alexander.Deucher-5C7GfCeVMHo@public.gmane.org">Alexan=
-der.Deucher-5C7GfCeVMHo@public.gmane.org</a>&gt;; Ma, Le &lt;<a href=3D"mailto:Le.Ma-5C7GfCeVMHo@public.gmane.org">Le=
-.Ma-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
-Subject: [PATCH 05/10] drm/amdgpu: enable/disable doorbell interrupt in bac=
-o entry/exit helper<o:p></o:p></p>
+From: Zhang, Hawking &lt;Hawking.Zhang-5C7GfCeVMHo@public.gmane.org&gt; <br>
+Sent: Wednesday, November 27, 2019 7:28 PM<br>
+To: Ma, Le &lt;Le.Ma-5C7GfCeVMHo@public.gmane.org&gt;; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+Cc: Chen, Guchun &lt;Guchun.Chen-5C7GfCeVMHo@public.gmane.org&gt;; Zhou1, Tao &lt;Tao.Zhou1@amd.=
+com&gt;; Li, Dennis &lt;Dennis.Li-5C7GfCeVMHo@public.gmane.org&gt;; Deucher, Alexander &lt;Alexa=
+nder.Deucher-5C7GfCeVMHo@public.gmane.org&gt;; Ma, Le &lt;Le.Ma-5C7GfCeVMHo@public.gmane.org&gt;<br>
+Subject: RE: [PATCH 06/10] drm/amdgpu: add condition to enable baco for xgm=
+i/ras case</p>
 <p class=3D"MsoPlainText"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoPlainText">This operation is needed when baco entry/exit for=
- ras recovery<o:p></o:p></p>
+<p class=3D"MsoPlainText">[AMD Public Use]<o:p></o:p></p>
 <p class=3D"MsoPlainText"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoPlainText">Change-Id: I535c7231693f3138a8e3d5acd55672e2ac682=
-32f<o:p></o:p></p>
+<p class=3D"MsoPlainText">After thinking it a bit, I think we can just rely=
+ on PMFW version to decide to go RAS recovery or legacy fatal_error handlin=
+g for the platforms that support RAS. Leveraging amdgpu_ras_enable as a tem=
+porary solution seems not necessary?
+ Even baco ras recovery not stable, it is the same result as legacy fatal_e=
+rror handling that user has to reboot the node manually.
+<o:p></o:p></p>
+<p class=3D"MsoPlainText"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoPlainText">So the new soc reset use cases are:<o:p></o:p></p=
+>
+<p class=3D"MsoPlainText">XGMI (without RAS): use PSP mode1 based chain res=
+et, RAS enabled (with PMFW 40.52 and onwards): use BACO based RAS recovery,=
+ RAS enabled (with PMFW prior to 40.52): use legacy fatal_error handling.<o=
+:p></o:p></p>
+<p class=3D"MsoPlainText"><o:p></o:p></p>
+<p class=3D"MsoPlainText">Anything else?<o:p></o:p></p>
+<p class=3D"MsoPlainText"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoPlainText">Regards,<o:p></o:p></p>
+<p class=3D"MsoPlainText">Hawking<o:p></o:p></p>
+<p class=3D"MsoPlainText">-----Original Message-----<o:p></o:p></p>
+<p class=3D"MsoPlainText">From: Le Ma &lt;<a href=3D"mailto:le.ma-5C7GfCeVMHo@public.gmane.org">=
+<span style=3D"color:windowtext;text-decoration:none">le.ma-5C7GfCeVMHo@public.gmane.org</span><=
+/a>&gt;<o:p></o:p></p>
+<p class=3D"MsoPlainText">Sent: 2019<span lang=3D"ZH-CN" style=3D"font-fami=
+ly:&quot;Microsoft YaHei&quot;,sans-serif">=1B$BG/=1B(B</span>11<span lang=
+=3D"ZH-CN" style=3D"font-family:&quot;Microsoft YaHei&quot;,sans-serif">=1B=
+$B7n=1B(B</span>27<span lang=3D"ZH-CN" style=3D"font-family:&quot;Microsoft=
+ YaHei&quot;,sans-serif">=1B$BF|=1B(B</span>
+ 17:15<o:p></o:p></p>
+<p class=3D"MsoPlainText">To: <a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp93rCq3LdnpKM@public.gmane.org=
+rg"><span style=3D"color:windowtext;text-decoration:none">amd-gfx-PD4FTy7X32mzQB+pC5nmwQ@public.gmane.org=
+edesktop.org</span></a><o:p></o:p></p>
+<p class=3D"MsoPlainText">Cc: Zhang, Hawking &lt;<a href=3D"mailto:Hawking.=
+Zhang-5C7GfCeVMHo@public.gmane.org"><span style=3D"color:windowtext;text-decoration:none">Hawkin=
+g.Zhang-5C7GfCeVMHo@public.gmane.org</span></a>&gt;; Chen, Guchun &lt;<a href=3D"mailto:Guchun.C=
+hen-5C7GfCeVMHo@public.gmane.org"><span style=3D"color:windowtext;text-decoration:none">Guchun.C=
+hen-5C7GfCeVMHo@public.gmane.org</span></a>&gt;;
+ Zhou1, Tao &lt;<a href=3D"mailto:Tao.Zhou1-5C7GfCeVMHo@public.gmane.org"><span style=3D"color:w=
+indowtext;text-decoration:none">Tao.Zhou1-5C7GfCeVMHo@public.gmane.org</span></a>&gt;; Li, Denni=
+s &lt;<a href=3D"mailto:Dennis.Li-5C7GfCeVMHo@public.gmane.org"><span style=3D"color:windowtext;=
+text-decoration:none">Dennis.Li-5C7GfCeVMHo@public.gmane.org</span></a>&gt;;
+ Deucher, Alexander &lt;<a href=3D"mailto:Alexander.Deucher-5C7GfCeVMHo@public.gmane.org"><span =
+style=3D"color:windowtext;text-decoration:none">Alexander.Deucher-5C7GfCeVMHo@public.gmane.org</=
+span></a>&gt;; Ma, Le &lt;<a href=3D"mailto:Le.Ma-5C7GfCeVMHo@public.gmane.org"><span style=3D"c=
+olor:windowtext;text-decoration:none">Le.Ma-5C7GfCeVMHo@public.gmane.org</span></a>&gt;<o:p></o:=
+p></p>
+<p class=3D"MsoPlainText">Subject: [PATCH 06/10] drm/amdgpu: add condition =
+to enable baco for xgmi/ras case<o:p></o:p></p>
+<p class=3D"MsoPlainText"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoPlainText">Avoid to change default reset behavior for produc=
+tion card by checking amdgpu_ras_enable equal to 2. And only new enough smu=
+ ucode can support baco for xgmi/ras case.<o:p></o:p></p>
+<p class=3D"MsoPlainText"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoPlainText">Change-Id: I07c3e6862be03e068745c73db8ea71f428ecb=
+a6b<o:p></o:p></p>
 <p class=3D"MsoPlainText">Signed-off-by: Le Ma &lt;<a href=3D"mailto:le.ma@=
 amd.com"><span style=3D"color:windowtext;text-decoration:none">le.ma-urvtwAKJhsc@public.gmane.org=
 m</span></a>&gt;<o:p></o:p></p>
 <p class=3D"MsoPlainText">---<o:p></o:p></p>
-<p class=3D"MsoPlainText">drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 19 &=
-#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;-------<o:p></o:=
+<p class=3D"MsoPlainText">drivers/gpu/drm/amd/amdgpu/soc15.c | 4 &#43;&#43;=
+&#43;-<o:p></o:p></p>
+<p class=3D"MsoPlainText">1 file changed, 3 insertions(&#43;), 1 deletion(-=
+)<o:p></o:p></p>
+<p class=3D"MsoPlainText"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoPlainText">diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c b=
+/drivers/gpu/drm/amd/amdgpu/soc15.c<o:p></o:p></p>
+<p class=3D"MsoPlainText">index 951327f..6202333 100644<o:p></o:p></p>
+<p class=3D"MsoPlainText">--- a/drivers/gpu/drm/amd/amdgpu/soc15.c<o:p></o:=
 p></p>
-<p class=3D"MsoPlainText">1 file changed, 12 insertions(&#43;), 7 deletions=
-(-)<o:p></o:p></p>
-<p class=3D"MsoPlainText"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoPlainText">diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_de=
-vice.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<o:p></o:p></p>
-<p class=3D"MsoPlainText">index b1408c5..bd387bb 100644<o:p></o:p></p>
-<p class=3D"MsoPlainText">--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<=
-o:p></o:p></p>
-<p class=3D"MsoPlainText">&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdg=
-pu_device.c<o:p></o:p></p>
-<p class=3D"MsoPlainText">@@ -4308,10 &#43;4308,14 @@ static void amdgpu_de=
-vice_get_pcie_info(struct amdgpu_device *adev)&nbsp; int amdgpu_device_baco=
-_enter(struct drm_device *dev)&nbsp; {<o:p></o:p></p>
-<p class=3D"MsoPlainText">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev =3D dev-&gt;=
-dev_private;<o:p></o:p></p>
-<p class=3D"MsoPlainText">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_ras *ras =3D amdgpu_ras_get_cont=
-ext(adev);<o:p></o:p></p>
-<p class=3D"MsoPlainText"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoPlainText">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!amdgpu_device_supports_baco(=
-adev-&gt;ddev))<o:p></o:p></p>
+<p class=3D"MsoPlainText">&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/soc1=
+5.c<o:p></o:p></p>
+<p class=3D"MsoPlainText">@@ -577,7 &#43;577,9 @@ soc15_asic_reset_method(s=
+truct amdgpu_device *adev)<o:p></o:p></p>
 <p class=3D"MsoPlainText">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
 nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return -ENOTSUPP;<=
-o:p></o:p></p>
-<p class=3D"MsoPlainText"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoPlainText">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ras &amp;&amp; ras-&gt;supported)<o:p></o:=
-p></p>
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp; struct amdgpu_hive_info *hive =3D amdgpu_get_xgmi_hive(adev, 0);<o:p>=
+</o:p></p>
+<p class=3D"MsoPlainText">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp; struct amdgpu_ras *ras =3D amdgpu_ras_get_context(adev);<o:p></o:p></=
+p>
+<p class=3D"MsoPlainText"><o:p></o:p></p>
+<p class=3D"MsoPlainText">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp; if (hive || (ras &amp;&amp; ras-&gt;supported))<o:p></o:p></p>
 <p class=3D"MsoPlainText">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
 bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;nbio.funcs-&gt;e=
-nable_doorbell_interrupt(adev, false);<o:p></o:p></p>
-<p class=3D"MsoPlainText">&#43;<o:p></o:p></p>
-<p class=3D"MsoPlainText">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (is_support_sw_smu(adev)) {<o:p></o:=
-p></p>
-<p class=3D"MsoPlainText">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct smu_context=
- *smu =3D &amp;adev-&gt;smu;<o:p></o:p></p>
-<p class=3D"MsoPlainText">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int ret;<o:p></o:p=
-></p>
-<p class=3D"MsoPlainText">@@ -4319,8 &#43;4323,6 @@ int amdgpu_device_baco_=
-enter(struct drm_device *dev)<o:p></o:p></p>
-<p class=3D"MsoPlainText">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D smu_baco_e=
-nter(smu);<o:p></o:p></p>
-<p class=3D"MsoPlainText">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ret)<o:p></o:p=
-></p>
-<p class=3D"MsoPlainText">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p; return ret;<o:p></o:p></p>
-<p class=3D"MsoPlainText">-<o:p></o:p></p>
-<p class=3D"MsoPlainText">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<o:p></o:p></p=
->
-<p class=3D"MsoPlainText">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else {<o:p></o:p></p>
-<p class=3D"MsoPlainText">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; void *pp_handle =
-=3D adev-&gt;powerplay.pp_handle;<o:p></o:p></p>
-<p class=3D"MsoPlainText">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; const struct amd_p=
-m_funcs *pp_funcs =3D adev-&gt;powerplay.pp_funcs; @@ -4331,14 &#43;4333,15=
- @@ int amdgpu_device_baco_enter(struct drm_device *dev)<o:p></o:p></p>
-<p class=3D"MsoPlainText">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* enter BACO stat=
-e */<o:p></o:p></p>
-<p class=3D"MsoPlainText">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (pp_funcs-&gt;s=
-et_asic_baco_state(pp_handle, 1))<o:p></o:p></p>
-<p class=3D"MsoPlainText">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p; return -EIO;<o:p></o:p></p>
-<p class=3D"MsoPlainText">-<o:p></o:p></p>
-<p class=3D"MsoPlainText">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<o:p></o:p></p=
->
-<p class=3D"MsoPlainText">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<o:p></o:p></p>
-<p class=3D"MsoPlainText">&#43;<o:p></o:p></p>
-<p class=3D"MsoPlainText">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<o:p></o:p></p>
-<p class=3D"MsoPlainText">}<o:p></o:p></p>
-<p class=3D"MsoPlainText"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoPlainText">&nbsp;int amdgpu_device_baco_exit(struct drm_devi=
-ce *dev)&nbsp; {<o:p></o:p></p>
-<p class=3D"MsoPlainText">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev =3D dev-&gt;=
-dev_private;<o:p></o:p></p>
-<p class=3D"MsoPlainText">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_ras *ras =3D amdgpu_ras_get_cont=
-ext(adev);<o:p></o:p></p>
-<p class=3D"MsoPlainText"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoPlainText">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!amdgpu_device_supports_baco(=
-adev-&gt;ddev))<o:p></o:p></p>
-<p class=3D"MsoPlainText">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return -ENOTSUPP;<=
-o:p></o:p></p>
-<p class=3D"MsoPlainText">@@ -4351,7 &#43;4354,6 @@ int amdgpu_device_baco_=
-exit(struct drm_device *dev)<o:p></o:p></p>
-<p class=3D"MsoPlainText">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ret)<o:p></o:p=
-></p>
-<p class=3D"MsoPlainText">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p; return ret;<o:p></o:p></p>
-<p class=3D"MsoPlainText"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoPlainText">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<o:p></o:p></p=
->
-<p class=3D"MsoPlainText">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else {<o:p></o:p></p>
-<p class=3D"MsoPlainText">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; void *pp_handle =
-=3D adev-&gt;powerplay.pp_handle;<o:p></o:p></p>
-<p class=3D"MsoPlainText">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; const struct amd_p=
-m_funcs *pp_funcs =3D adev-&gt;powerplay.pp_funcs; @@ -4362,7 &#43;4364,10 =
-@@ int amdgpu_device_baco_exit(struct drm_device *dev)<o:p></o:p></p>
-<p class=3D"MsoPlainText">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* exit BACO state=
- */<o:p></o:p></p>
-<p class=3D"MsoPlainText">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (pp_funcs-&gt;s=
-et_asic_baco_state(pp_handle, 0))<o:p></o:p></p>
-<p class=3D"MsoPlainText">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p; return -EIO;<o:p></o:p></p>
-<p class=3D"MsoPlainText">-<o:p></o:p></p>
-<p class=3D"MsoPlainText">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<o:p></o:p></p=
->
-<p class=3D"MsoPlainText">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<o:p></o:p></p>
-<p class=3D"MsoPlainText">&#43;<o:p></o:p></p>
-<p class=3D"MsoPlainText">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ras &amp;&amp; ras-&gt;supported)<o:p></o:=
-p></p>
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp; if ((hive || (ras &amp;&amp; ras-&gt;supported)) &amp;&amp;<o:p></o:p>=
+</p>
 <p class=3D"MsoPlainText">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
 bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;nbio.funcs-&gt;e=
-nable_doorbell_interrupt(adev, false);<o:p></o:p></p>
-<p class=3D"MsoPlainText">&#43;<o:p></o:p></p>
-<p class=3D"MsoPlainText"><span style=3D"color:black"><o:p>&nbsp;</o:p></sp=
-an></p>
-<p class=3D"MsoPlainText"><span style=3D"color:black"><o:p>&nbsp;</o:p></sp=
-an></p>
-<p class=3D"MsoPlainText"><span style=3D"color:#2F5597">[Hawking] Shouldn't=
- be enabled doorbell interrupt after exit baco? Or do I miss something?<o:p=
-></o:p></span></p>
-<p class=3D"MsoPlainText"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoPlainText">[Le]: Yes, the argument should be true. I made a =
-typo here.
-<o:p></o:p></p>
-<p class=3D"MsoPlainText"><span style=3D"font-size:12.0pt"><o:p>&nbsp;</o:p=
-></span></p>
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp; &nbsp;&nbsp;&nbsp; (amdgpu_ras_enable !=3D 2 ||<o:p></o:p></p>
 <p class=3D"MsoPlainText">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<o:p></o:p></p>
-<p class=3D"MsoPlainText">}<o:p></o:p></p>
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp; &nbsp;&nbsp;&nbsp; adev-&gt;pm.fw_version &lt;=3D 0x283400))<o:p></o:p=
+></p>
+<p class=3D"MsoPlainText">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p; baco_reset =3D false;<o:p></o:p></p>
+<p class=3D"MsoPlainText">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp; }<o:p></o:p></p>
+<p class=3D"MsoPlainText">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp; break;<o:p></o:p></p>
 <p class=3D"MsoPlainText">--<o:p></o:p></p>
 <p class=3D"MsoPlainText">2.7.4<o:p></o:p></p>
-<p class=3D"MsoPlainText"><o:p>&nbsp;</o:p></p>
 </div>
 </body>
 </html>
 
---_000_MN2PR12MB4285A41D146EDAAE4918FB78F6440MN2PR12MB4285namp_--
+--_000_MN2PR12MB4285E37DF7D44270D5CAD0E5F6440MN2PR12MB4285namp_--
 
---===============0521228470==
+--===============1598236071==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -607,4 +588,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
 
---===============0521228470==--
+--===============1598236071==--
