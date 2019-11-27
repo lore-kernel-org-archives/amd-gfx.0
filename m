@@ -1,13 +1,12 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: Deadlock on PTEs update for HMM
-Date: Wed, 27 Nov 2019 16:02:00 +0100
-Message-ID: <10b23ec2-f91e-51db-6d31-ba8a654e78bb@amd.com>
-References: <SN6PR12MB26216A095D9839500242F489FD440@SN6PR12MB2621.namprd12.prod.outlook.com>
+From: Le Ma <le.ma-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH 07/10 v2] drm/amdgpu: add concurrent baco reset support for
+ XGMI
+Date: Wed, 27 Nov 2019 23:19:51 +0800
+Message-ID: <1574867991-30683-1-git-send-email-le.ma@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0874596129=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <SN6PR12MB26216A095D9839500242F489FD440-kxOKjb6HO/GMiSxbuvOENgdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
-Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,209 +17,112 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Sierra Guiza, Alejandro (Alex)" <Alex.Sierra-5C7GfCeVMHo@public.gmane.org>, "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
-Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: alexander.deucher-5C7GfCeVMHo@public.gmane.org, Le Ma <le.ma-5C7GfCeVMHo@public.gmane.org>, hawking.zhang-5C7GfCeVMHo@public.gmane.org
 
---===============0874596129==
-Content-Type: multipart/alternative;
- boundary="------------71D9C9EA1D2E0834E3097FCF"
-Content-Language: en-US
-
---------------71D9C9EA1D2E0834E3097FCF
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-
-Hi Alejandro,
-
-yes I'm very aware of this issue, but unfortunately can't give an easy 
-solution either.
-
-I'm working for over a year now on getting this fixed, but unfortunately 
-it turned out that this problem is much bigger than initially thought.
-
-Setting the appropriate GFP flags for the job allocation is actually the 
-trivial part.
-
-The really really hard thing is that we somehow need to add a lock to 
-prevent the page tables from being evicted. And as you also figured out 
-that lock can't be taken easily anywhere else.
-
-I've already wrote a prototype for this, but didn't had time to hammer 
-it into shape for upstreaming yet.
-
-Regards,
-Christian.
-
-Am 27.11.19 um 15:55 schrieb Sierra Guiza, Alejandro (Alex):
->
-> Hi Christian,
->
-> As you know, we’re working on the HMM enablement. Im working on the 
-> dGPU page table entries invalidation on the userptr mapping case. 
-> Currently, the MMU notifiers handle stops all user mode queues, 
-> schedule a delayed worker to re-validate userptr mappings and restart 
-> the queues.
->
-> Part of the HMM functionality, we need to invalidate the page table 
-> entries instead of stopping the queues. At the same time we need to 
-> move the revalidation of the userptr mappings into the page fault handler.
->
-> We’re seeing a deadlock warning after we try to invalidate the PTEs 
-> inside the MMU notifier handler. More specific, when we try to update 
-> the BOs to invalidate PTEs using amdgpu_vm_bo_update. This uses 
-> kmalloc on the amdgpu_job_alloc which seems to be causing this problem.
->
-> Based on @Kuehling, Felix <mailto:Felix.Kuehling-5C7GfCeVMHo@public.gmane.org> comments, 
-> kmalloc without any special flags can cause memory reclaim. Doing that 
-> inside an MMU notifier is problematic, because an MMU notifier may be 
-> called inside a memory-reclaim operation itself. That would result in 
-> recursion. Also, reclaim shouldn't be done while holding a lock that 
-> can be taken in an MMU notifier for the same reason. If you cause a 
-> reclaim while holding that lock, then an MMU notifier called by the 
-> reclaim can deadlock trying to take the same lock.
->
-> Please let us know if you have any advice to enable this the right way
->
-> Thanks in advanced,
->
-> Alejandro
->
-
-
---------------71D9C9EA1D2E0834E3097FCF
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: 8bit
-
-<html><head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body text="#000000" bgcolor="#FFFFFF">
-    <div class="moz-cite-prefix">Hi Alejandro,<br>
-      <br>
-      yes I'm very aware of this issue, but unfortunately can't give an
-      easy solution either.<br>
-      <br>
-      I'm working for over a year now on getting this fixed, but
-      unfortunately it turned out that this problem is much bigger than
-      initially thought.<br>
-      <br>
-      Setting the appropriate GFP flags for the job allocation is
-      actually the trivial part.<br>
-      <br>
-      The really really hard thing is that we somehow need to add a lock
-      to prevent the page tables from being evicted. And as you also
-      figured out that lock can't be taken easily anywhere else.<br>
-      <br>
-      I've already wrote a prototype for this, but didn't had time to
-      hammer it into shape for upstreaming yet.<br>
-      <br>
-      Regards,<br>
-      Christian.<br>
-      <br>
-      Am 27.11.19 um 15:55 schrieb Sierra Guiza, Alejandro (Alex):<br>
-    </div>
-    <blockquote type="cite" cite="mid:SN6PR12MB26216A095D9839500242F489FD440-kxOKjb6HO/GMiSxbuvOENgdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org">
-      
-      <meta name="Generator" content="Microsoft Word 15 (filtered
-        medium)">
-      <style><!--
-/* Font Definitions */
-@font-face
-	{font-family:"Cambria Math";
-	panose-1:2 4 5 3 5 4 6 3 2 4;}
-@font-face
-	{font-family:Calibri;
-	panose-1:2 15 5 2 2 2 4 3 2 4;}
-@font-face
-	{font-family:"Segoe UI";
-	panose-1:2 11 5 2 4 2 4 2 2 3;}
-/* Style Definitions */
-p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin-top:0in;
-	margin-right:0in;
-	margin-bottom:8.0pt;
-	margin-left:0in;
-	line-height:106%;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif;}
-a:link, span.MsoHyperlink
-	{mso-style-priority:99;
-	color:#0563C1;
-	text-decoration:underline;}
-a:visited, span.MsoHyperlinkFollowed
-	{mso-style-priority:99;
-	color:#954F72;
-	text-decoration:underline;}
-span.EmailStyle17
-	{mso-style-type:personal-compose;
-	font-family:"Calibri",sans-serif;
-	color:windowtext;}
-.MsoChpDefault
-	{mso-style-type:export-only;
-	font-family:"Calibri",sans-serif;}
-@page WordSection1
-	{size:8.5in 11.0in;
-	margin:1.0in 1.0in 1.0in 1.0in;}
-div.WordSection1
-	{page:WordSection1;}
---></style><!--[if gte mso 9]><xml>
-<o:shapedefaults v:ext="edit" spidmax="1026" />
-</xml><![endif]--><!--[if gte mso 9]><xml>
-<o:shapelayout v:ext="edit">
-<o:idmap v:ext="edit" data="1" />
-</o:shapelayout></xml><![endif]-->
-      <div class="WordSection1">
-        <p class="MsoNormal">Hi Christian,<o:p></o:p></p>
-        <p class="MsoNormal">As you know, we’re working on the HMM
-          enablement. Im working on the dGPU page table entries
-          invalidation on the userptr mapping case. Currently, the MMU
-          notifiers handle stops all user mode queues, schedule a
-          delayed worker to re-validate userptr mappings and restart the
-          queues. <o:p></o:p></p>
-        <p class="MsoNormal">Part of the HMM functionality, we need to
-          invalidate the page table entries instead of stopping the
-          queues. At the same time we need to move the revalidation of
-          the userptr mappings into the page fault handler.<o:p></o:p></p>
-        <p class="MsoNormal">We’re seeing a deadlock warning after we
-          try to invalidate the PTEs inside the MMU notifier handler.
-          More specific, when we try to update the BOs to invalidate
-          PTEs using amdgpu_vm_bo_update. This uses kmalloc on the
-          amdgpu_job_alloc which seems to be causing this problem.<o:p></o:p></p>
-        <p class="MsoNormal">Based on <a id="OWAAMBC6F9A316D814AE993661FC111776926" href="mailto:Felix.Kuehling-5C7GfCeVMHo@public.gmane.org" moz-do-not-send="true">
-            <span style="font-family:&quot;Calibri&quot;,sans-serif;text-decoration:none">@Kuehling,
-              Felix</span></a> comments,
-          <span style="font-size:10.5pt;line-height:106%;font-family:&quot;Segoe
-            UI&quot;,sans-serif">
-            kmalloc without any special flags can cause memory reclaim.
-            Doing that inside an MMU notifier is problematic, because an
-            MMU notifier may be called inside a memory-reclaim operation
-            itself. That would result in recursion. Also, reclaim
-            shouldn't be done while holding a lock that can be taken in
-            an MMU notifier for the same reason. If you cause a reclaim
-            while holding that lock, then an&nbsp;MMU notifier called by the
-            reclaim can&nbsp;deadlock trying to take the same lock.<o:p></o:p></span></p>
-        <p class="MsoNormal">Please let us know if you have any advice
-          to enable this the right way<o:p></o:p></p>
-        <p class="MsoNormal"><o:p>&nbsp;</o:p></p>
-        <p class="MsoNormal">Thanks in advanced,<o:p></o:p></p>
-        <p class="MsoNormal">Alejandro<o:p></o:p></p>
-        <p class="MsoNormal"><o:p>&nbsp;</o:p></p>
-      </div>
-    </blockquote>
-    <br>
-  </body>
-</html>
-
---------------71D9C9EA1D2E0834E3097FCF--
-
---===============0874596129==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
-
---===============0874596129==--
+Q3VycmVudGx5IGVhY2ggWEdNSSBub2RlIHJlc2V0IHdxIGRvZXMgbm90IHJ1biBpbiBwYXJyYWxs
+ZWwgYmVjYXVzZSBzYW1lIHdvcmsKaXRlbSBib3VuZCB0byBzYW1lIGNwdSBydW5zIGluIHNlcXVl
+bmNlLiBTbyBjaGFuZ2UgdG8gYm91bmQgdGhlIHhnbWlfcmVzZXRfd29yawppdGVtIHRvIGRpZmZl
+cmVudCBjcHVzLgoKWEdNSSByZXF1aXJlcyBhbGwgbm9kZXMgZW50ZXIgaW50byBiYWNvIHdpdGhp
+biB2ZXJ5IGNsb3NlIHByb3hpbWl0eSBiZWZvcmUKYW55IG5vZGUgZXhpdCBiYWNvLiBTbyBzY2hl
+ZHVsZSB0aGUgeGdtaV9yZXNldF93b3JrIHdxIHR3aWNlIGZvciBlbnRlci9leGl0CmJhY28gcmVz
+cGVjdGl2ZWx5LgoKVG8gdXNlIGJhY28gZm9yIFhHTUksIFBNRlcgc3VwcG9ydGVkIGZvciBiYWNv
+IG9uIFhHTUkgbmVlZHMgdG8gYmUgaW52b2x2ZWQuCgpUaGUgY2FzZSB0aGF0IFBTUCByZXNldCBh
+bmQgYmFjbyByZXNldCBjb2V4aXN0IHdpdGhpbiBhbiBYR01JIGhpdmUgbmV2ZXIgZXhpc3QKYW5k
+IGlzIG5vdCBpbiB0aGUgY29uc2lkZXJhdGlvbi4KCnYyOiBkZWZpbmUgdXNlX2JhY28gZmxhZyB0
+byBzaW1wbGlmeSB0aGUgY29kZSBmb3IgeGdtaSBiYWNvIHNlcXVlbmNlCgpDaGFuZ2UtSWQ6IEk5
+YzA4Y2Y5MDEzNGY5NDBiNDJlMjBkMjEyOWZmODdmYmE3NjFjNTMyClNpZ25lZC1vZmYtYnk6IExl
+IE1hIDxsZS5tYUBhbWQuY29tPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdw
+dS5oICAgICAgICB8ICAyICsKIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZp
+Y2UuYyB8IDgyICsrKysrKysrKysrKysrKysrKysrKysrKystLS0tLQogMiBmaWxlcyBjaGFuZ2Vk
+LCA3MiBpbnNlcnRpb25zKCspLCAxMiBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJz
+L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHUuaCBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
+L2FtZGdwdS5oCmluZGV4IGQxMjBmZTUuLjA4OTI5ZTYgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1
+L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5oCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
+L2FtZGdwdS5oCkBAIC05OTgsNiArOTk4LDggQEAgc3RydWN0IGFtZGdwdV9kZXZpY2UgewogCWlu
+dAkJCQlwc3RhdGU7CiAJLyogZW5hYmxlIHJ1bnRpbWUgcG0gb24gdGhlIGRldmljZSAqLwogCWJv
+b2wgICAgICAgICAgICAgICAgICAgICAgICAgICAgcnVucG07CisKKwlib29sCQkJCWluX2JhY287
+CiB9OwogCiBzdGF0aWMgaW5saW5lIHN0cnVjdCBhbWRncHVfZGV2aWNlICphbWRncHVfdHRtX2Fk
+ZXYoc3RydWN0IHR0bV9ib19kZXZpY2UgKmJkZXYpCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9k
+cm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
+dS9hbWRncHVfZGV2aWNlLmMKaW5kZXggYmQzODdiYi4uNTM2NzEzNCAxMDA2NDQKLS0tIGEvZHJp
+dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jCisrKyBiL2RyaXZlcnMvZ3B1
+L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYwpAQCAtMjY1NCw3ICsyNjU0LDEzIEBAIHN0
+YXRpYyB2b2lkIGFtZGdwdV9kZXZpY2VfeGdtaV9yZXNldF9mdW5jKHN0cnVjdCB3b3JrX3N0cnVj
+dCAqX193b3JrKQogCXN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2ID0KIAkJY29udGFpbmVyX29m
+KF9fd29yaywgc3RydWN0IGFtZGdwdV9kZXZpY2UsIHhnbWlfcmVzZXRfd29yayk7CiAKLQlhZGV2
+LT5hc2ljX3Jlc2V0X3JlcyA9ICBhbWRncHVfYXNpY19yZXNldChhZGV2KTsKKwlpZiAoYW1kZ3B1
+X2FzaWNfcmVzZXRfbWV0aG9kKGFkZXYpID09IEFNRF9SRVNFVF9NRVRIT0RfQkFDTykKKwkJYWRl
+di0+YXNpY19yZXNldF9yZXMgPSAoYWRldi0+aW5fYmFjbyA9PSBmYWxzZSkgPworCQkJCWFtZGdw
+dV9kZXZpY2VfYmFjb19lbnRlcihhZGV2LT5kZGV2KSA6CisJCQkJYW1kZ3B1X2RldmljZV9iYWNv
+X2V4aXQoYWRldi0+ZGRldik7CisJZWxzZQorCQlhZGV2LT5hc2ljX3Jlc2V0X3JlcyA9IGFtZGdw
+dV9hc2ljX3Jlc2V0KGFkZXYpOworCiAJaWYgKGFkZXYtPmFzaWNfcmVzZXRfcmVzKQogCQlEUk1f
+V0FSTigiQVNJQyByZXNldCBmYWlsZWQgd2l0aCBlcnJvciwgJWQgZm9yIGRybSBkZXYsICVzIiwK
+IAkJCSBhZGV2LT5hc2ljX3Jlc2V0X3JlcywgYWRldi0+ZGRldi0+dW5pcXVlKTsKQEAgLTM3ODks
+MTMgKzM3OTUsMTggQEAgc3RhdGljIGludCBhbWRncHVfZGV2aWNlX3ByZV9hc2ljX3Jlc2V0KHN0
+cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LAogCXJldHVybiByOwogfQogCi1zdGF0aWMgaW50IGFt
+ZGdwdV9kb19hc2ljX3Jlc2V0KHN0cnVjdCBhbWRncHVfaGl2ZV9pbmZvICpoaXZlLAorc3RhdGlj
+IGludCBhbWRncHVfZG9fYXNpY19yZXNldChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwKKwkJ
+CSAgICAgICBzdHJ1Y3QgYW1kZ3B1X2hpdmVfaW5mbyAqaGl2ZSwKIAkJCSAgICAgICBzdHJ1Y3Qg
+bGlzdF9oZWFkICpkZXZpY2VfbGlzdF9oYW5kbGUsCiAJCQkgICAgICAgYm9vbCAqbmVlZF9mdWxs
+X3Jlc2V0X2FyZykKIHsKIAlzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqdG1wX2FkZXYgPSBOVUxMOwog
+CWJvb2wgbmVlZF9mdWxsX3Jlc2V0ID0gKm5lZWRfZnVsbF9yZXNldF9hcmcsIHZyYW1fbG9zdCA9
+IGZhbHNlOwogCWludCByID0gMDsKKwlpbnQgY3B1ID0gc21wX3Byb2Nlc3Nvcl9pZCgpOworCWJv
+b2wgdXNlX2JhY28gPQorCQkoYW1kZ3B1X2FzaWNfcmVzZXRfbWV0aG9kKGFkZXYpID09IEFNRF9S
+RVNFVF9NRVRIT0RfQkFDTykgPworCQl0cnVlIDogZmFsc2U7CiAKIAkvKgogCSAqIEFTSUMgcmVz
+ZXQgaGFzIHRvIGJlIGRvbmUgb24gYWxsIEhHTUkgaGl2ZSBub2RlcyBBU0FQCkBAIC0zODAzLDIx
+ICszODE0LDI0IEBAIHN0YXRpYyBpbnQgYW1kZ3B1X2RvX2FzaWNfcmVzZXQoc3RydWN0IGFtZGdw
+dV9oaXZlX2luZm8gKmhpdmUsCiAJICovCiAJaWYgKG5lZWRfZnVsbF9yZXNldCkgewogCQlsaXN0
+X2Zvcl9lYWNoX2VudHJ5KHRtcF9hZGV2LCBkZXZpY2VfbGlzdF9oYW5kbGUsIGdtYy54Z21pLmhl
+YWQpIHsKLQkJCS8qIEZvciBYR01JIHJ1biBhbGwgcmVzZXRzIGluIHBhcmFsbGVsIHRvIHNwZWVk
+IHVwIHRoZSBwcm9jZXNzICovCisJCQkvKgorCQkJICogRm9yIFhHTUkgcnVuIGFsbCByZXNldHMg
+aW4gcGFyYWxsZWwgdG8gc3BlZWQgdXAgdGhlCisJCQkgKiBwcm9jZXNzIGJ5IHNjaGVkdWxpbmcg
+dGhlIGhpZ2hwcmkgd3Egb24gZGlmZmVyZW50CisJCQkgKiBjcHVzLiBGb3IgWEdNSSB3aXRoIGJh
+Y28gcmVzZXQsIGFsbCBub2RlcyBtdXN0IGVudGVyCisJCQkgKiBiYWNvIHdpdGhpbiBjbG9zZSBw
+cm94aW1pdHkgYmVmb3JlIGFueW9uZSBleGl0LgorCQkJICovCiAJCQlpZiAodG1wX2FkZXYtPmdt
+Yy54Z21pLm51bV9waHlzaWNhbF9ub2RlcyA+IDEpIHsKLQkJCQlpZiAoIXF1ZXVlX3dvcmsoc3lz
+dGVtX2hpZ2hwcmlfd3EsICZ0bXBfYWRldi0+eGdtaV9yZXNldF93b3JrKSkKKwkJCQlpZiAoIXF1
+ZXVlX3dvcmtfb24oY3B1LCBzeXN0ZW1faGlnaHByaV93cSwKKwkJCQkJCSAgICZ0bXBfYWRldi0+
+eGdtaV9yZXNldF93b3JrKSkKIAkJCQkJciA9IC1FQUxSRUFEWTsKKwkJCQljcHUgPSBjcHVtYXNr
+X25leHQoY3B1LCBjcHVfb25saW5lX21hc2spOwogCQkJfSBlbHNlCiAJCQkJciA9IGFtZGdwdV9h
+c2ljX3Jlc2V0KHRtcF9hZGV2KTsKLQotCQkJaWYgKHIpIHsKLQkJCQlEUk1fRVJST1IoIkFTSUMg
+cmVzZXQgZmFpbGVkIHdpdGggZXJyb3IsICVkIGZvciBkcm0gZGV2LCAlcyIsCi0JCQkJCSByLCB0
+bXBfYWRldi0+ZGRldi0+dW5pcXVlKTsKKwkJCWlmIChyKQogCQkJCWJyZWFrOwotCQkJfQogCQl9
+CiAKLQkJLyogRm9yIFhHTUkgd2FpdCBmb3IgYWxsIFBTUCByZXNldHMgdG8gY29tcGxldGUgYmVm
+b3JlIHByb2NlZWQgKi8KKwkJLyogRm9yIFhHTUkgd2FpdCBmb3IgYWxsIHdvcmsgdG8gY29tcGxl
+dGUgYmVmb3JlIHByb2NlZWQgKi8KIAkJaWYgKCFyKSB7CiAJCQlsaXN0X2Zvcl9lYWNoX2VudHJ5
+KHRtcF9hZGV2LCBkZXZpY2VfbGlzdF9oYW5kbGUsCiAJCQkJCSAgICBnbWMueGdtaS5oZWFkKSB7
+CkBAIC0zODI2LDExICszODQwLDU0IEBAIHN0YXRpYyBpbnQgYW1kZ3B1X2RvX2FzaWNfcmVzZXQo
+c3RydWN0IGFtZGdwdV9oaXZlX2luZm8gKmhpdmUsCiAJCQkJCXIgPSB0bXBfYWRldi0+YXNpY19y
+ZXNldF9yZXM7CiAJCQkJCWlmIChyKQogCQkJCQkJYnJlYWs7CisJCQkJCWlmICh1c2VfYmFjbykK
+KwkJCQkJCXRtcF9hZGV2LT5pbl9iYWNvID0gdHJ1ZTsKIAkJCQl9CiAJCQl9CiAJCX0KLQl9CiAK
+KwkJLyoKKwkJICogRm9yIFhHTUkgd2l0aCBiYWNvIHJlc2V0LCBuZWVkIGV4aXQgYmFjbyBwaGFz
+ZSBieSBzY2hlZHVsaW5nCisJCSAqIHhnbWlfcmVzZXRfd29yayBvbmUgbW9yZSB0aW1lLiBQU1Ag
+cmVzZXQgYW5kIHNHUFUgc2tpcHMgdGhpcworCQkgKiBwaGFzZS4gTm90IGFzc3VtZSB0aGUgc2l0
+dWF0aW9uIHRoYXQgUFNQIHJlc2V0IGFuZCBiYWNvIHJlc2V0CisJCSAqIGNvZXhpc3Qgd2l0aGlu
+IGFuIFhHTUkgaGl2ZS4KKwkJICovCisKKwkJaWYgKCFyICYmIHVzZV9iYWNvKSB7CisJCQljcHUg
+PSBzbXBfcHJvY2Vzc29yX2lkKCk7CisJCQlsaXN0X2Zvcl9lYWNoX2VudHJ5KHRtcF9hZGV2LCBk
+ZXZpY2VfbGlzdF9oYW5kbGUsCisJCQkJCSAgICBnbWMueGdtaS5oZWFkKSB7CisJCQkJaWYgKHRt
+cF9hZGV2LT5nbWMueGdtaS5udW1fcGh5c2ljYWxfbm9kZXMgPiAxKSB7CisJCQkJCWlmICghcXVl
+dWVfd29ya19vbihjcHUsCisJCQkJCQlzeXN0ZW1faGlnaHByaV93cSwKKwkJCQkJCSZ0bXBfYWRl
+di0+eGdtaV9yZXNldF93b3JrKSkKKwkJCQkJCXIgPSAtRUFMUkVBRFk7CisJCQkJCWlmIChyKQor
+CQkJCQkJYnJlYWs7CisJCQkJCWNwdSA9IGNwdW1hc2tfbmV4dChjcHUsIGNwdV9vbmxpbmVfbWFz
+ayk7CisJCQkJfQorCQkJfQorCQl9CisKKwkJaWYgKCFyICYmIHVzZV9iYWNvKSB7CisJCQlsaXN0
+X2Zvcl9lYWNoX2VudHJ5KHRtcF9hZGV2LCBkZXZpY2VfbGlzdF9oYW5kbGUsCisJCQkJCSAgICBn
+bWMueGdtaS5oZWFkKSB7CisJCQkJaWYgKHRtcF9hZGV2LT5nbWMueGdtaS5udW1fcGh5c2ljYWxf
+bm9kZXMgPiAxKSB7CisJCQkJCWZsdXNoX3dvcmsoJnRtcF9hZGV2LT54Z21pX3Jlc2V0X3dvcmsp
+OworCQkJCQlyID0gdG1wX2FkZXYtPmFzaWNfcmVzZXRfcmVzOworCQkJCQlpZiAocikKKwkJCQkJ
+CWJyZWFrOworCQkJCQl0bXBfYWRldi0+aW5fYmFjbyA9IGZhbHNlOworCQkJCX0KKwkJCX0KKwkJ
+fQorCisJCWlmIChyKSB7CisJCQlEUk1fRVJST1IoIkFTSUMgcmVzZXQgZmFpbGVkIHdpdGggZXJy
+b3IsICVkIGZvciBkcm0gZGV2LCAlcyIsCisJCQkJIHIsIHRtcF9hZGV2LT5kZGV2LT51bmlxdWUp
+OworCQkJZ290byBlbmQ7CisJCX0KKwl9CiAKIAlsaXN0X2Zvcl9lYWNoX2VudHJ5KHRtcF9hZGV2
+LCBkZXZpY2VfbGlzdF9oYW5kbGUsIGdtYy54Z21pLmhlYWQpIHsKIAkJaWYgKG5lZWRfZnVsbF9y
+ZXNldCkgewpAQCAtNDExNSw3ICs0MTcyLDggQEAgaW50IGFtZGdwdV9kZXZpY2VfZ3B1X3JlY292
+ZXIoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsCiAJCWlmIChyKQogCQkJYWRldi0+YXNpY19y
+ZXNldF9yZXMgPSByOwogCX0gZWxzZSB7Ci0JCXIgID0gYW1kZ3B1X2RvX2FzaWNfcmVzZXQoaGl2
+ZSwgZGV2aWNlX2xpc3RfaGFuZGxlLCAmbmVlZF9mdWxsX3Jlc2V0KTsKKwkJciAgPSBhbWRncHVf
+ZG9fYXNpY19yZXNldChhZGV2LCBoaXZlLCBkZXZpY2VfbGlzdF9oYW5kbGUsCisJCQkJCSAgJm5l
+ZWRfZnVsbF9yZXNldCk7CiAJCWlmIChyICYmIHIgPT0gLUVBR0FJTikKIAkJCWdvdG8gcmV0cnk7
+CiAJfQotLSAKMi43LjQKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
+Cmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
