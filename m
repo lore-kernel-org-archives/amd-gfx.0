@@ -1,14 +1,15 @@
-From: "Zhang, Hawking" <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>
+From: "Ma, Le" <Le.Ma-5C7GfCeVMHo@public.gmane.org>
 Subject: RE: [PATCH 05/10] drm/amdgpu: enable/disable doorbell interrupt in
  baco entry/exit helper
-Date: Wed, 27 Nov 2019 12:04:07 +0000
-Message-ID: <DM5PR12MB14184CF08E965BAF369F4249FC440@DM5PR12MB1418.namprd12.prod.outlook.com>
+Date: Wed, 27 Nov 2019 12:14:02 +0000
+Message-ID: <MN2PR12MB4285A41D146EDAAE4918FB78F6440@MN2PR12MB4285.namprd12.prod.outlook.com>
 References: <1574846129-4826-1-git-send-email-le.ma@amd.com>
  <1574846129-4826-4-git-send-email-le.ma@amd.com>
+ <DM5PR12MB14184CF08E965BAF369F4249FC440@DM5PR12MB1418.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1352113411=="
+Content-Type: multipart/mixed; boundary="===============0521228470=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1574846129-4826-4-git-send-email-le.ma-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <DM5PR12MB14184CF08E965BAF369F4249FC440-2J9CzHegvk81aAVlcVN8UQdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -20,95 +21,229 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Ma, Le" <Le.Ma-5C7GfCeVMHo@public.gmane.org>, "Zhou1, Tao" <Tao.Zhou1-5C7GfCeVMHo@public.gmane.org>, "Li, Dennis" <Dennis.Li-5C7GfCeVMHo@public.gmane.org>, "Chen,
+To: "Zhang, Hawking" <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Zhou1,
+ Tao" <Tao.Zhou1-5C7GfCeVMHo@public.gmane.org>, "Li, Dennis" <Dennis.Li-5C7GfCeVMHo@public.gmane.org>, "Chen,
  Guchun" <Guchun.Chen-5C7GfCeVMHo@public.gmane.org>
 
---===============1352113411==
+--===============0521228470==
 Content-Language: en-US
 Content-Type: multipart/alternative;
-	boundary="_000_DM5PR12MB14184CF08E965BAF369F4249FC440DM5PR12MB1418namp_"
+	boundary="_000_MN2PR12MB4285A41D146EDAAE4918FB78F6440MN2PR12MB4285namp_"
 
---_000_DM5PR12MB14184CF08E965BAF369F4249FC440DM5PR12MB1418namp_
-Content-Type: text/plain; charset="gb2312"
-Content-Transfer-Encoding: base64
+--_000_MN2PR12MB4285A41D146EDAAE4918FB78F6440MN2PR12MB4285namp_
+Content-Type: text/plain; charset="iso-2022-jp"
+Content-Transfer-Encoding: quoted-printable
 
-W0FNRCBPZmZpY2lhbCBVc2UgT25seSAtIEludGVybmFsIERpc3RyaWJ1dGlvbiBPbmx5XQ0KDQoN
-ClBsZWFzZSBjaGVjayBteSBjb21tZW50cyBpbmxpbmUNCg0KDQoNClJlZ2FyZHMsDQpIYXdraW5n
-DQoNCg0KDQotLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KRnJvbTogTGUgTWEgPGxlLm1hQGFt
-ZC5jb20+DQpTZW50OiAyMDE5xOoxMdTCMjfI1SAxNzoxNQ0KVG86IGFtZC1nZnhAbGlzdHMuZnJl
-ZWRlc2t0b3Aub3JnDQpDYzogWmhhbmcsIEhhd2tpbmcgPEhhd2tpbmcuWmhhbmdAYW1kLmNvbT47
-IENoZW4sIEd1Y2h1biA8R3VjaHVuLkNoZW5AYW1kLmNvbT47IFpob3UxLCBUYW8gPFRhby5aaG91
-MUBhbWQuY29tPjsgTGksIERlbm5pcyA8RGVubmlzLkxpQGFtZC5jb20+OyBEZXVjaGVyLCBBbGV4
-YW5kZXIgPEFsZXhhbmRlci5EZXVjaGVyQGFtZC5jb20+OyBNYSwgTGUgPExlLk1hQGFtZC5jb20+
-DQpTdWJqZWN0OiBbUEFUQ0ggMDUvMTBdIGRybS9hbWRncHU6IGVuYWJsZS9kaXNhYmxlIGRvb3Ji
-ZWxsIGludGVycnVwdCBpbiBiYWNvIGVudHJ5L2V4aXQgaGVscGVyDQoNCg0KDQpUaGlzIG9wZXJh
-dGlvbiBpcyBuZWVkZWQgd2hlbiBiYWNvIGVudHJ5L2V4aXQgZm9yIHJhcyByZWNvdmVyeQ0KDQoN
-Cg0KQ2hhbmdlLUlkOiBJNTM1YzcyMzE2OTNmMzEzOGE4ZTNkNWFjZDU1NjcyZTJhYzY4MjMyZg0K
-DQpTaWduZWQtb2ZmLWJ5OiBMZSBNYSA8bGUubWFAYW1kLmNvbTxtYWlsdG86bGUubWFAYW1kLmNv
-bT4+DQoNCi0tLQ0KDQpkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMg
-fCAxOSArKysrKysrKysrKystLS0tLS0tDQoNCjEgZmlsZSBjaGFuZ2VkLCAxMiBpbnNlcnRpb25z
-KCspLCA3IGRlbGV0aW9ucygtKQ0KDQoNCg0KZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9h
-bWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
-ZGdwdV9kZXZpY2UuYw0KDQppbmRleCBiMTQwOGM1Li5iZDM4N2JiIDEwMDY0NA0KDQotLS0gYS9k
-cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMNCg0KKysrIGIvZHJpdmVy
-cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jDQoNCkBAIC00MzA4LDEwICs0MzA4
-LDE0IEBAIHN0YXRpYyB2b2lkIGFtZGdwdV9kZXZpY2VfZ2V0X3BjaWVfaW5mbyhzdHJ1Y3QgYW1k
-Z3B1X2RldmljZSAqYWRldikgIGludCBhbWRncHVfZGV2aWNlX2JhY29fZW50ZXIoc3RydWN0IGRy
-bV9kZXZpY2UgKmRldikgIHsNCg0KICAgICAgICAgICAgICAgc3RydWN0IGFtZGdwdV9kZXZpY2Ug
-KmFkZXYgPSBkZXYtPmRldl9wcml2YXRlOw0KDQorICAgICAgICAgICAgIHN0cnVjdCBhbWRncHVf
-cmFzICpyYXMgPSBhbWRncHVfcmFzX2dldF9jb250ZXh0KGFkZXYpOw0KDQoNCg0KICAgICAgICAg
-ICAgICAgIGlmICghYW1kZ3B1X2RldmljZV9zdXBwb3J0c19iYWNvKGFkZXYtPmRkZXYpKQ0KDQog
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcmV0dXJuIC1FTk9UU1VQUDsNCg0KDQoNCisg
-ICAgICAgICAgICAgaWYgKHJhcyAmJiByYXMtPnN1cHBvcnRlZCkNCg0KKyAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgYWRldi0+bmJpby5mdW5jcy0+ZW5hYmxlX2Rvb3JiZWxsX2ludGVycnVw
-dChhZGV2LCBmYWxzZSk7DQoNCisNCg0KICAgICAgICAgICAgICAgaWYgKGlzX3N1cHBvcnRfc3df
-c211KGFkZXYpKSB7DQoNCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBzdHJ1Y3Qgc211
-X2NvbnRleHQgKnNtdSA9ICZhZGV2LT5zbXU7DQoNCiAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICBpbnQgcmV0Ow0KDQpAQCAtNDMxOSw4ICs0MzIzLDYgQEAgaW50IGFtZGdwdV9kZXZpY2Vf
-YmFjb19lbnRlcihzdHJ1Y3QgZHJtX2RldmljZSAqZGV2KQ0KDQogICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgcmV0ID0gc211X2JhY29fZW50ZXIoc211KTsNCg0KICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgIGlmIChyZXQpDQoNCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgcmV0dXJuIHJldDsNCg0KLQ0KDQotICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgcmV0dXJuIDA7DQoNCiAgICAgICAgICAgICAgIH0gZWxzZSB7DQoNCiAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICB2b2lkICpwcF9oYW5kbGUgPSBhZGV2LT5wb3dlcnBs
-YXkucHBfaGFuZGxlOw0KDQogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgY29uc3Qgc3Ry
-dWN0IGFtZF9wbV9mdW5jcyAqcHBfZnVuY3MgPSBhZGV2LT5wb3dlcnBsYXkucHBfZnVuY3M7IEBA
-IC00MzMxLDE0ICs0MzMzLDE1IEBAIGludCBhbWRncHVfZGV2aWNlX2JhY29fZW50ZXIoc3RydWN0
-IGRybV9kZXZpY2UgKmRldikNCg0KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIC8qIGVu
-dGVyIEJBQ08gc3RhdGUgKi8NCg0KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGlmIChw
-cF9mdW5jcy0+c2V0X2FzaWNfYmFjb19zdGF0ZShwcF9oYW5kbGUsIDEpKQ0KDQogICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHJldHVybiAtRUlPOw0KDQotDQoN
-Ci0gICAgICAgICAgICAgICAgICAgICAgICAgICAgICByZXR1cm4gMDsNCg0KICAgICAgICAgICAg
-ICAgfQ0KDQorDQoNCisgICAgICAgICAgICAgcmV0dXJuIDA7DQoNCn0NCg0KDQoNCiBpbnQgYW1k
-Z3B1X2RldmljZV9iYWNvX2V4aXQoc3RydWN0IGRybV9kZXZpY2UgKmRldikgIHsNCg0KICAgICAg
-ICAgICAgICAgc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYgPSBkZXYtPmRldl9wcml2YXRlOw0K
-DQorICAgICAgICAgICAgIHN0cnVjdCBhbWRncHVfcmFzICpyYXMgPSBhbWRncHVfcmFzX2dldF9j
-b250ZXh0KGFkZXYpOw0KDQoNCg0KICAgICAgICAgICAgICAgIGlmICghYW1kZ3B1X2RldmljZV9z
-dXBwb3J0c19iYWNvKGFkZXYtPmRkZXYpKQ0KDQogICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgcmV0dXJuIC1FTk9UU1VQUDsNCg0KQEAgLTQzNTEsNyArNDM1NCw2IEBAIGludCBhbWRncHVf
-ZGV2aWNlX2JhY29fZXhpdChzdHJ1Y3QgZHJtX2RldmljZSAqZGV2KQ0KDQogICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgaWYgKHJldCkNCg0KICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICByZXR1cm4gcmV0Ow0KDQoNCg0KLSAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgIHJldHVybiAwOw0KDQogICAgICAgICAgICAgICB9IGVsc2Ugew0KDQogICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgdm9pZCAqcHBfaGFuZGxlID0gYWRldi0+cG93ZXJw
-bGF5LnBwX2hhbmRsZTsNCg0KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGNvbnN0IHN0
-cnVjdCBhbWRfcG1fZnVuY3MgKnBwX2Z1bmNzID0gYWRldi0+cG93ZXJwbGF5LnBwX2Z1bmNzOyBA
-QCAtNDM2Miw3ICs0MzY0LDEwIEBAIGludCBhbWRncHVfZGV2aWNlX2JhY29fZXhpdChzdHJ1Y3Qg
-ZHJtX2RldmljZSAqZGV2KQ0KDQogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgLyogZXhp
-dCBCQUNPIHN0YXRlICovDQoNCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBpZiAocHBf
-ZnVuY3MtPnNldF9hc2ljX2JhY29fc3RhdGUocHBfaGFuZGxlLCAwKSkNCg0KICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICByZXR1cm4gLUVJTzsNCg0KLQ0KDQot
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcmV0dXJuIDA7DQoNCiAgICAgICAgICAgICAg
-IH0NCg0KKw0KDQorICAgICAgICAgICAgIGlmIChyYXMgJiYgcmFzLT5zdXBwb3J0ZWQpDQoNCisg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgIGFkZXYtPm5iaW8uZnVuY3MtPmVuYWJsZV9kb29y
-YmVsbF9pbnRlcnJ1cHQoYWRldiwgZmFsc2UpOw0KDQorDQoNCg0KDQoNCg0KW0hhd2tpbmddIFNo
-b3VsZG4ndCBiZSBlbmFibGVkIGRvb3JiZWxsIGludGVycnVwdCBhZnRlciBleGl0IGJhY28/IE9y
-IGRvIEkgbWlzcyBzb21ldGhpbmc/DQoNCg0KDQorICAgICAgICAgICAgIHJldHVybiAwOw0KDQp9
-DQoNCi0tDQoNCjIuNy40DQoNCg0K
 
---_000_DM5PR12MB14184CF08E965BAF369F4249FC440DM5PR12MB1418namp_
-Content-Type: text/html; charset="gb2312"
+
+From: Zhang, Hawking <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>
+Sent: Wednesday, November 27, 2019 8:04 PM
+To: Ma, Le <Le.Ma-5C7GfCeVMHo@public.gmane.org>; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Chen, Guchun <Guchun.Chen-5C7GfCeVMHo@public.gmane.org>; Zhou1, Tao <Tao.Zhou1-5C7GfCeVMHo@public.gmane.org>; Li,=
+ Dennis <Dennis.Li-5C7GfCeVMHo@public.gmane.org>; Deucher, Alexander <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>=
+; Ma, Le <Le.Ma-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: [PATCH 05/10] drm/amdgpu: enable/disable doorbell interrupt in=
+ baco entry/exit helper
+
+
+Please check my comments inline
+
+
+
+Regards,
+Hawking
+
+
+
+-----Original Message-----
+From: Le Ma <le.ma-5C7GfCeVMHo@public.gmane.org<mailto:le.ma-5C7GfCeVMHo@public.gmane.org>>
+Sent: 2019=1B$BG/=1B(B11=1B$B7n=1B(B27=1B$BF|=1B(B 17:15
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: Zhang, Hawking <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org<mailto:Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>>; C=
+hen, Guchun <Guchun.Chen-5C7GfCeVMHo@public.gmane.org<mailto:Guchun.Chen-5C7GfCeVMHo@public.gmane.org>>; Zhou1, Tao <=
+Tao.Zhou1-5C7GfCeVMHo@public.gmane.org<mailto:Tao.Zhou1-5C7GfCeVMHo@public.gmane.org>>; Li, Dennis <Dennis.Li-5C7GfCeVMHo@public.gmane.org=
+<mailto:Dennis.Li-5C7GfCeVMHo@public.gmane.org>>; Deucher, Alexander <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org<=
+mailto:Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>>; Ma, Le <Le.Ma-5C7GfCeVMHo@public.gmane.org<mailto:Le.Ma@amd.=
+com>>
+Subject: [PATCH 05/10] drm/amdgpu: enable/disable doorbell interrupt in bac=
+o entry/exit helper
+
+
+
+This operation is needed when baco entry/exit for ras recovery
+
+
+
+Change-Id: I535c7231693f3138a8e3d5acd55672e2ac68232f
+
+Signed-off-by: Le Ma <le.ma-5C7GfCeVMHo@public.gmane.org<mailto:le.ma-5C7GfCeVMHo@public.gmane.org>>
+
+---
+
+drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 19 ++++++++++++-------
+
+1 file changed, 12 insertions(+), 7 deletions(-)
+
+
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_device.c
+
+index b1408c5..bd387bb 100644
+
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+
+@@ -4308,10 +4308,14 @@ static void amdgpu_device_get_pcie_info(struct amdg=
+pu_device *adev)  int amdgpu_device_baco_enter(struct drm_device *dev)  {
+
+               struct amdgpu_device *adev =3D dev->dev_private;
+
++             struct amdgpu_ras *ras =3D amdgpu_ras_get_context(adev);
+
+
+
+                if (!amdgpu_device_supports_baco(adev->ddev))
+
+                               return -ENOTSUPP;
+
+
+
++             if (ras && ras->supported)
+
++                             adev->nbio.funcs->enable_doorbell_interrupt(a=
+dev, false);
+
++
+
+               if (is_support_sw_smu(adev)) {
+
+                               struct smu_context *smu =3D &adev->smu;
+
+                               int ret;
+
+@@ -4319,8 +4323,6 @@ int amdgpu_device_baco_enter(struct drm_device *dev)
+
+                               ret =3D smu_baco_enter(smu);
+
+                               if (ret)
+
+                                               return ret;
+
+-
+
+-                              return 0;
+
+               } else {
+
+                               void *pp_handle =3D adev->powerplay.pp_handl=
+e;
+
+                               const struct amd_pm_funcs *pp_funcs =3D adev=
+->powerplay.pp_funcs; @@ -4331,14 +4333,15 @@ int amdgpu_device_baco_enter(=
+struct drm_device *dev)
+
+                               /* enter BACO state */
+
+                               if (pp_funcs->set_asic_baco_state(pp_handle,=
+ 1))
+
+                                               return -EIO;
+
+-
+
+-                              return 0;
+
+               }
+
++
+
++             return 0;
+
+}
+
+
+
+ int amdgpu_device_baco_exit(struct drm_device *dev)  {
+
+               struct amdgpu_device *adev =3D dev->dev_private;
+
++             struct amdgpu_ras *ras =3D amdgpu_ras_get_context(adev);
+
+
+
+                if (!amdgpu_device_supports_baco(adev->ddev))
+
+                               return -ENOTSUPP;
+
+@@ -4351,7 +4354,6 @@ int amdgpu_device_baco_exit(struct drm_device *dev)
+
+                               if (ret)
+
+                                               return ret;
+
+
+
+-                              return 0;
+
+               } else {
+
+                               void *pp_handle =3D adev->powerplay.pp_handl=
+e;
+
+                               const struct amd_pm_funcs *pp_funcs =3D adev=
+->powerplay.pp_funcs; @@ -4362,7 +4364,10 @@ int amdgpu_device_baco_exit(st=
+ruct drm_device *dev)
+
+                               /* exit BACO state */
+
+                               if (pp_funcs->set_asic_baco_state(pp_handle,=
+ 0))
+
+                                               return -EIO;
+
+-
+
+-                              return 0;
+
+               }
+
++
+
++             if (ras && ras->supported)
+
++                             adev->nbio.funcs->enable_doorbell_interrupt(a=
+dev, false);
+
++
+
+
+
+
+
+[Hawking] Shouldn't be enabled doorbell interrupt after exit baco? Or do I =
+miss something?
+
+
+
+[Le]: Yes, the argument should be true. I made a typo here.
+
+
+
++             return 0;
+
+}
+
+--
+
+2.7.4
+
+
+
+--_000_MN2PR12MB4285A41D146EDAAE4918FB78F6440MN2PR12MB4285namp_
+Content-Type: text/html; charset="iso-2022-jp"
 Content-Transfer-Encoding: quoted-printable
 
 <html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
@@ -116,31 +251,32 @@ osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
 xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
 //www.w3.org/TR/REC-html40">
 <head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dgb2312">
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-2022-=
+jp">
 <meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
 <style><!--
 /* Font Definitions */
 @font-face
-	{font-family:=CB=CE=CC=E5;
+	{font-family:SimSun;
 	panose-1:2 1 6 0 3 1 1 1 1 1;}
 @font-face
 	{font-family:"Cambria Math";
 	panose-1:2 4 5 3 5 4 6 3 2 4;}
 @font-face
-	{font-family:=B5=C8=CF=DF;
+	{font-family:DengXian;
 	panose-1:2 1 6 0 3 1 1 1 1 1;}
 @font-face
 	{font-family:Calibri;
 	panose-1:2 15 5 2 2 2 4 3 2 4;}
 @font-face
-	{font-family:"\@=B5=C8=CF=DF";
+	{font-family:"\@DengXian";
 	panose-1:2 1 6 0 3 1 1 1 1 1;}
 @font-face
-	{font-family:"\@=CB=CE=CC=E5";
+	{font-family:"\@SimSun";
 	panose-1:2 1 6 0 3 1 1 1 1 1;}
 /* Style Definitions */
 p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin:0cm;
+	{margin:0in;
 	margin-bottom:.0001pt;
 	font-size:11.0pt;
 	font-family:"Calibri",sans-serif;}
@@ -155,18 +291,18 @@ a:visited, span.MsoHyperlinkFollowed
 p.MsoPlainText, li.MsoPlainText, div.MsoPlainText
 	{mso-style-priority:99;
 	mso-style-link:"Plain Text Char";
-	margin:0cm;
+	margin:0in;
 	margin-bottom:.0001pt;
 	font-size:11.0pt;
 	font-family:"Calibri",sans-serif;}
 p.msonormal0, li.msonormal0, div.msonormal0
 	{mso-style-name:msonormal;
 	mso-margin-top-alt:auto;
-	margin-right:0cm;
+	margin-right:0in;
 	mso-margin-bottom-alt:auto;
-	margin-left:0cm;
+	margin-left:0in;
 	font-size:12.0pt;
-	font-family:=CB=CE=CC=E5;}
+	font-family:SimSun;}
 span.PlainTextChar
 	{mso-style-name:"Plain Text Char";
 	mso-style-priority:99;
@@ -175,21 +311,25 @@ span.PlainTextChar
 p.msipheader4d0fcdd7, li.msipheader4d0fcdd7, div.msipheader4d0fcdd7
 	{mso-style-name:msipheader4d0fcdd7;
 	mso-margin-top-alt:auto;
-	margin-right:0cm;
+	margin-right:0in;
 	mso-margin-bottom-alt:auto;
-	margin-left:0cm;
+	margin-left:0in;
 	font-size:12.0pt;
-	font-family:=CB=CE=CC=E5;}
+	font-family:SimSun;}
 span.EmailStyle21
-	{mso-style-type:personal-compose;
+	{mso-style-type:personal;
 	font-family:"Arial",sans-serif;
 	color:#0078D7;}
+span.EmailStyle23
+	{mso-style-type:personal-reply;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
 .MsoChpDefault
 	{mso-style-type:export-only;
 	font-size:10.0pt;}
 @page WordSection1
-	{size:612.0pt 792.0pt;
-	margin:72.0pt 90.0pt 72.0pt 90.0pt;}
+	{size:8.5in 11.0in;
+	margin:1.0in 1.25in 1.0in 1.25in;}
 div.WordSection1
 	{page:WordSection1;}
 --></style><!--[if gte mso 9]><xml>
@@ -201,28 +341,47 @@ div.WordSection1
 </head>
 <body lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72">
 <div class=3D"WordSection1">
-<p class=3D"msipheader4d0fcdd7" style=3D"margin:0cm;margin-bottom:.0001pt">=
-<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif;co=
-lor:#0078D7">[AMD Official Use Only - Internal Distribution Only]</span><o:=
-p></o:p></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;font-family:=CB=CE=
-=CC=E5"><o:p>&nbsp;</o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt"><o:p>&nbsp;</o:p></=
+span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt"><o:p>&nbsp;</o:p></=
+span></p>
+<div>
+<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
+0in 0in">
+<p class=3D"MsoNormal"><b>From:</b> Zhang, Hawking &lt;Hawking.Zhang-urvtwAKJhsc@public.gmane.org=
+m&gt; <br>
+<b>Sent:</b> Wednesday, November 27, 2019 8:04 PM<br>
+<b>To:</b> Ma, Le &lt;Le.Ma-5C7GfCeVMHo@public.gmane.org&gt;; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>Cc:</b> Chen, Guchun &lt;Guchun.Chen-5C7GfCeVMHo@public.gmane.org&gt;; Zhou1, Tao &lt;Tao.Zho=
+u1-5C7GfCeVMHo@public.gmane.org&gt;; Li, Dennis &lt;Dennis.Li-5C7GfCeVMHo@public.gmane.org&gt;; Deucher, Alexander &l=
+t;Alexander.Deucher-5C7GfCeVMHo@public.gmane.org&gt;; Ma, Le &lt;Le.Ma-5C7GfCeVMHo@public.gmane.org&gt;<br>
+<b>Subject:</b> RE: [PATCH 05/10] drm/amdgpu: enable/disable doorbell inter=
+rupt in baco entry/exit helper<o:p></o:p></p>
+</div>
+</div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;font-family:SimSun">=
+<o:p>&nbsp;</o:p></span></p>
 <p class=3D"MsoPlainText">Please check my comments inline<o:p></o:p></p>
 <p class=3D"MsoPlainText"><o:p>&nbsp;</o:p></p>
 <p class=3D"MsoPlainText">Regards,<br>
 Hawking<o:p></o:p></p>
 <p class=3D"MsoPlainText"><o:p>&nbsp;</o:p></p>
 <p class=3D"MsoPlainText">-----Original Message-----<br>
-From: Le Ma &lt;le.ma-5C7GfCeVMHo@public.gmane.org&gt; <br>
-Sent: 2019<span lang=3D"ZH-CN" style=3D"font-family:=B5=C8=CF=DF">=C4=EA</s=
-pan>11<span lang=3D"ZH-CN" style=3D"font-family:=B5=C8=CF=DF">=D4=C2</span>=
-27<span lang=3D"ZH-CN" style=3D"font-family:=B5=C8=CF=DF">=C8=D5</span> 17:=
-15<br>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-Cc: Zhang, Hawking &lt;Hawking.Zhang-5C7GfCeVMHo@public.gmane.org&gt;; Chen, Guchun &lt;Guchun.C=
-hen-5C7GfCeVMHo@public.gmane.org&gt;; Zhou1, Tao &lt;Tao.Zhou1-5C7GfCeVMHo@public.gmane.org&gt;; Li, Dennis &lt;Denni=
-s.Li-5C7GfCeVMHo@public.gmane.org&gt;; Deucher, Alexander &lt;Alexander.Deucher-5C7GfCeVMHo@public.gmane.org&gt;; Ma,=
- Le &lt;Le.Ma-5C7GfCeVMHo@public.gmane.org&gt;<br>
+From: Le Ma &lt;<a href=3D"mailto:le.ma-5C7GfCeVMHo@public.gmane.org">le.ma-5C7GfCeVMHo@public.gmane.org</a>&gt; <br>
+Sent: 2019<span lang=3D"ZH-CN" style=3D"font-family:DengXian">=1B$BG/=1B(B<=
+/span>11<span lang=3D"ZH-CN" style=3D"font-family:DengXian">=1B$B7n=1B(B</s=
+pan>27<span lang=3D"ZH-CN" style=3D"font-family:DengXian">=1B$BF|=1B(B</spa=
+n> 17:15<br>
+To: <a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lzq7FAFJ/aeQ@public.gmane.org=
+top.org</a><br>
+Cc: Zhang, Hawking &lt;<a href=3D"mailto:Hawking.Zhang-5C7GfCeVMHo@public.gmane.org">Hawking.Zha=
+ng-5C7GfCeVMHo@public.gmane.org</a>&gt;; Chen, Guchun &lt;<a href=3D"mailto:Guchun.Chen-5C7GfCeVMHo@public.gmane.org"=
+>Guchun.Chen-5C7GfCeVMHo@public.gmane.org</a>&gt;; Zhou1, Tao &lt;<a href=3D"mailto:Tao.Zhou1@am=
+d.com">Tao.Zhou1-5C7GfCeVMHo@public.gmane.org</a>&gt;; Li, Dennis &lt;<a href=3D"mailto:Dennis.L=
+i@amd.com">Dennis.Li-5C7GfCeVMHo@public.gmane.org</a>&gt;;
+ Deucher, Alexander &lt;<a href=3D"mailto:Alexander.Deucher-5C7GfCeVMHo@public.gmane.org">Alexan=
+der.Deucher-5C7GfCeVMHo@public.gmane.org</a>&gt;; Ma, Le &lt;<a href=3D"mailto:Le.Ma-5C7GfCeVMHo@public.gmane.org">Le=
+.Ma-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
 Subject: [PATCH 05/10] drm/amdgpu: enable/disable doorbell interrupt in bac=
 o entry/exit helper<o:p></o:p></p>
 <p class=3D"MsoPlainText"><o:p>&nbsp;</o:p></p>
@@ -420,8 +579,12 @@ an></p>
 <p class=3D"MsoPlainText"><span style=3D"color:#2F5597">[Hawking] Shouldn't=
  be enabled doorbell interrupt after exit baco? Or do I miss something?<o:p=
 ></o:p></span></p>
-<p class=3D"MsoPlainText"><span style=3D"color:black"><o:p>&nbsp;</o:p></sp=
-an></p>
+<p class=3D"MsoPlainText"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoPlainText">[Le]: Yes, the argument should be true. I made a =
+typo here.
+<o:p></o:p></p>
+<p class=3D"MsoPlainText"><span style=3D"font-size:12.0pt"><o:p>&nbsp;</o:p=
+></span></p>
 <p class=3D"MsoPlainText">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
 bsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<o:p></o:p></p>
 <p class=3D"MsoPlainText">}<o:p></o:p></p>
@@ -432,9 +595,9 @@ bsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<o:p></o:p></p>
 </body>
 </html>
 
---_000_DM5PR12MB14184CF08E965BAF369F4249FC440DM5PR12MB1418namp_--
+--_000_MN2PR12MB4285A41D146EDAAE4918FB78F6440MN2PR12MB4285namp_--
 
---===============1352113411==
+--===============0521228470==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -444,4 +607,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
 
---===============1352113411==--
+--===============0521228470==--
