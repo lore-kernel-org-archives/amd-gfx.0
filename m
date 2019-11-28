@@ -1,13 +1,15 @@
-From: Bhawanpreet Lakha <Bhawanpreet.lakha-5C7GfCeVMHo@public.gmane.org>
+From: Harry Wentland <hwentlan-5C7GfCeVMHo@public.gmane.org>
 Subject: Re: [PATCH] drm/amd/display: Load TA firmware for navi10/12/14
-Date: Thu, 28 Nov 2019 15:20:07 -0500
-Message-ID: <e883aa84-0a91-d562-3501-927cba50f61d@amd.com>
+Date: Thu, 28 Nov 2019 15:23:12 -0500
+Message-ID: <709008a6-88fe-1238-7a75-5ef3ed9361a5@amd.com>
 References: <20191108215721.13316-1-Bhawanpreet.Lakha@amd.com>
  <DM5PR12MB1820C10A42B4FFC83A093710F77B0@DM5PR12MB1820.namprd12.prod.outlook.com>
+ <e883aa84-0a91-d562-3501-927cba50f61d@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============2016313954=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <DM5PR12MB1820C10A42B4FFC83A093710F77B0-2J9CzHegvk8qWyLXlBb1HgdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
+In-Reply-To: <e883aa84-0a91-d562-3501-927cba50f61d-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -19,218 +21,77 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Wentland, Harry" <Harry.Wentland-5C7GfCeVMHo@public.gmane.org>
+To: Bhawanpreet Lakha <Bhawanpreet.lakha-5C7GfCeVMHo@public.gmane.org>, "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Wentland, Harry" <Harry.Wentland-5C7GfCeVMHo@public.gmane.org>
 
---===============2016313954==
-Content-Type: multipart/alternative;
- boundary="------------EFBA3E412223238D312E71DD"
-Content-Language: en-US
-
---------------EFBA3E412223238D312E71DD
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-
-Hey Harry can you please take a look thanks
-
-On 2019-11-08 5:01 p.m., Deucher, Alexander wrote:
-> Acked-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-> ------------------------------------------------------------------------
-> *From:* amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of 
-> Bhawanpreet Lakha <Bhawanpreet.Lakha-5C7GfCeVMHo@public.gmane.org>
-> *Sent:* Friday, November 8, 2019 4:57 PM
-> *To:* amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-> *Cc:* Lakha, Bhawanpreet <Bhawanpreet.Lakha-5C7GfCeVMHo@public.gmane.org>
-> *Subject:* [PATCH] drm/amd/display: Load TA firmware for navi10/12/14
-> load the ta firmware for navi10/12/14.
-> This is already being done for raven/picasso and
-> is needed for supporting hdcp on navi
->
-> Signed-off-by: Bhawanpreet Lakha <Bhawanpreet.Lakha-5C7GfCeVMHo@public.gmane.org>
-> ---
->  drivers/gpu/drm/amd/amdgpu/psp_v11_0.c | 25 +++++++++++++++++++++++++
->  1 file changed, 25 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c 
-> b/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c
-> index ffeaa2f5588d..daf11be5416f 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c
-> @@ -186,6 +186,31 @@ static int psp_v11_0_init_microcode(struct 
-> psp_context *psp)
->          case CHIP_NAVI10:
->          case CHIP_NAVI14:
->          case CHIP_NAVI12:
-> +               snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_ta.bin", 
-> chip_name);
-> +               err = request_firmware(&adev->psp.ta_fw, fw_name, 
-> adev->dev);
-> +               if (err) {
-> + release_firmware(adev->psp.ta_fw);
-> +                       adev->psp.ta_fw = NULL;
-> +                       dev_info(adev->dev,
-> +                                "psp v11.0: Failed to load firmware 
-> \"%s\"\n", fw_name);
-> +               } else {
-> +                       err = amdgpu_ucode_validate(adev->psp.ta_fw);
-> +                       if (err)
-> +                               goto out2;
-> +
-> +                       ta_hdr = (const struct ta_firmware_header_v1_0 
-> *)adev->psp.ta_fw->data;
-> +                       adev->psp.ta_hdcp_ucode_version = 
-> le32_to_cpu(ta_hdr->ta_hdcp_ucode_version);
-> +                       adev->psp.ta_hdcp_ucode_size = 
-> le32_to_cpu(ta_hdr->ta_hdcp_size_bytes);
-> +                       adev->psp.ta_hdcp_start_addr = (uint8_t *)ta_hdr +
-> + le32_to_cpu(ta_hdr->header.ucode_array_offset_bytes);
-> +
-> +                       adev->psp.ta_fw_version = 
-> le32_to_cpu(ta_hdr->header.ucode_version);
-> +
-> +                       adev->psp.ta_dtm_ucode_version = 
-> le32_to_cpu(ta_hdr->ta_dtm_ucode_version);
-> +                       adev->psp.ta_dtm_ucode_size = 
-> le32_to_cpu(ta_hdr->ta_dtm_size_bytes);
-> +                       adev->psp.ta_dtm_start_addr = (uint8_t 
-> *)adev->psp.ta_hdcp_start_addr +
-> + le32_to_cpu(ta_hdr->ta_dtm_offset_bytes);
-> +               }
->                  break;
->          default:
->                  BUG();
-> -- 
-> 2.17.1
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---------------EFBA3E412223238D312E71DD
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: 8bit
-
-<html><head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body>
-    <div class="moz-cite-prefix">Hey Harry can you please take a look
-      thanks<br>
-    </div>
-    <div class="moz-cite-prefix"><br>
-    </div>
-    <div class="moz-cite-prefix">On 2019-11-08 5:01 p.m., Deucher,
-      Alexander wrote:<br>
-    </div>
-    <blockquote type="cite" cite="mid:DM5PR12MB1820C10A42B4FFC83A093710F77B0-2J9CzHegvk8qWyLXlBb1HgdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org">
-      
-      <style type="text/css" style="display:none;"> P {margin-top:0;margin-bottom:0;} </style>
-      <div style="font-family: Calibri, Arial, Helvetica, sans-serif;
-        font-size: 12pt; color: rgb(0, 0, 0);">
-        Acked-by: Alex Deucher <a class="moz-txt-link-rfc2396E" href="mailto:alexander.deucher-5C7GfCeVMHo@public.gmane.org">&lt;alexander.deucher-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
-      </div>
-      <hr style="display:inline-block;width:98%" tabindex="-1">
-      <div id="divRplyFwdMsg" dir="ltr"><font style="font-size:11pt" face="Calibri, sans-serif" color="#000000"><b>From:</b>
-          amd-gfx <a class="moz-txt-link-rfc2396E" href="mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">&lt;amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt;</a> on
-          behalf of Bhawanpreet Lakha <a class="moz-txt-link-rfc2396E" href="mailto:Bhawanpreet.Lakha-5C7GfCeVMHo@public.gmane.org">&lt;Bhawanpreet.Lakha-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
-          <b>Sent:</b> Friday, November 8, 2019 4:57 PM<br>
-          <b>To:</b> <a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>
-          <a class="moz-txt-link-rfc2396E" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">&lt;amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt;</a><br>
-          <b>Cc:</b> Lakha, Bhawanpreet
-          <a class="moz-txt-link-rfc2396E" href="mailto:Bhawanpreet.Lakha-5C7GfCeVMHo@public.gmane.org">&lt;Bhawanpreet.Lakha-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
-          <b>Subject:</b> [PATCH] drm/amd/display: Load TA firmware for
-          navi10/12/14</font>
-        <div>&nbsp;</div>
-      </div>
-      <div class="BodyFragment"><font size="2"><span style="font-size:11pt;">
-            <div class="PlainText">load the ta firmware for
-              navi10/12/14.<br>
-              This is already being done for raven/picasso and<br>
-              is needed for supporting hdcp on navi<br>
-              <br>
-              Signed-off-by: Bhawanpreet Lakha
-              <a class="moz-txt-link-rfc2396E" href="mailto:Bhawanpreet.Lakha-5C7GfCeVMHo@public.gmane.org">&lt;Bhawanpreet.Lakha-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
-              ---<br>
-              &nbsp;drivers/gpu/drm/amd/amdgpu/psp_v11_0.c | 25
-              &#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;<br>
-              &nbsp;1 file changed, 25 insertions(&#43;)<br>
-              <br>
-              diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c
-              b/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c<br>
-              index ffeaa2f5588d..daf11be5416f 100644<br>
-              --- a/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c<br>
-              &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c<br>
-              @@ -186,6 &#43;186,31 @@ static int
-              psp_v11_0_init_microcode(struct psp_context *psp)<br>
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_NAVI10:<br>
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_NAVI14:<br>
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_NAVI12:<br>
-              &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; snprintf(fw_name, sizeof(fw_name),
-              &quot;amdgpu/%s_ta.bin&quot;, chip_name);<br>
-              &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; err =
-              request_firmware(&amp;adev-&gt;psp.ta_fw, fw_name,
-              adev-&gt;dev);<br>
-              &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (err) {<br>
-              &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-              release_firmware(adev-&gt;psp.ta_fw);<br>
-              &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;psp.ta_fw = NULL;<br>
-              &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dev_info(adev-&gt;dev,<br>
-              &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;psp v11.0: Failed to
-              load firmware \&quot;%s\&quot;\n&quot;, fw_name);<br>
-              &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else {<br>
-              &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; err =
-              amdgpu_ucode_validate(adev-&gt;psp.ta_fw);<br>
-              &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (err)<br>
-              &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; goto out2;<br>
-              &#43;<br>
-              &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ta_hdr = (const struct
-              ta_firmware_header_v1_0 *)adev-&gt;psp.ta_fw-&gt;data;<br>
-              &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;psp.ta_hdcp_ucode_version
-              = le32_to_cpu(ta_hdr-&gt;ta_hdcp_ucode_version);<br>
-              &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;psp.ta_hdcp_ucode_size =
-              le32_to_cpu(ta_hdr-&gt;ta_hdcp_size_bytes);<br>
-              &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;psp.ta_hdcp_start_addr =
-              (uint8_t *)ta_hdr &#43;<br>
-              &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-              le32_to_cpu(ta_hdr-&gt;header.ucode_array_offset_bytes);<br>
-              &#43;<br>
-              &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;psp.ta_fw_version =
-              le32_to_cpu(ta_hdr-&gt;header.ucode_version);<br>
-              &#43;<br>
-              &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;psp.ta_dtm_ucode_version
-              = le32_to_cpu(ta_hdr-&gt;ta_dtm_ucode_version);<br>
-              &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;psp.ta_dtm_ucode_size =
-              le32_to_cpu(ta_hdr-&gt;ta_dtm_size_bytes);<br>
-              &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;psp.ta_dtm_start_addr =
-              (uint8_t *)adev-&gt;psp.ta_hdcp_start_addr &#43;<br>
-              &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-              le32_to_cpu(ta_hdr-&gt;ta_dtm_offset_bytes);<br>
-              &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; break;<br>
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; default:<br>
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; BUG();<br>
-              -- <br>
-              2.17.1<br>
-              <br>
-              _______________________________________________<br>
-              amd-gfx mailing list<br>
-              <a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
-              <a href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx" moz-do-not-send="true">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a></div>
-          </span></font></div>
-    </blockquote>
-  </body>
-</html>
-
---------------EFBA3E412223238D312E71DD--
-
---===============2016313954==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
-
---===============2016313954==--
+CgpPbiAyMDE5LTExLTI4IDM6MjAgcC5tLiwgQmhhd2FucHJlZXQgTGFraGEgd3JvdGU6Cj4gSGV5
+IEhhcnJ5IGNhbiB5b3UgcGxlYXNlIHRha2UgYSBsb29rIHRoYW5rcwo+IAo+IE9uIDIwMTktMTEt
+MDggNTowMSBwLm0uLCBEZXVjaGVyLCBBbGV4YW5kZXIgd3JvdGU6Cj4+IEFja2VkLWJ5OiBBbGV4
+IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+Cj4+IC0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQo+
+PiAqRnJvbToqIGFtZC1nZnggPGFtZC1nZngtYm91bmNlc0BsaXN0cy5mcmVlZGVza3RvcC5vcmc+
+IG9uIGJlaGFsZiBvZgo+PiBCaGF3YW5wcmVldCBMYWtoYSA8Qmhhd2FucHJlZXQuTGFraGFAYW1k
+LmNvbT4KPj4gKlNlbnQ6KiBGcmlkYXksIE5vdmVtYmVyIDgsIDIwMTkgNDo1NyBQTQo+PiAqVG86
+KiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZyA8YW1kLWdmeEBsaXN0cy5mcmVlZGVza3Rv
+cC5vcmc+Cj4+ICpDYzoqIExha2hhLCBCaGF3YW5wcmVldCA8Qmhhd2FucHJlZXQuTGFraGFAYW1k
+LmNvbT4KPj4gKlN1YmplY3Q6KiBbUEFUQ0hdIGRybS9hbWQvZGlzcGxheTogTG9hZCBUQSBmaXJt
+d2FyZSBmb3IgbmF2aTEwLzEyLzE0Cj4+IMKgCj4+IGxvYWQgdGhlIHRhIGZpcm13YXJlIGZvciBu
+YXZpMTAvMTIvMTQuCj4+IFRoaXMgaXMgYWxyZWFkeSBiZWluZyBkb25lIGZvciByYXZlbi9waWNh
+c3NvIGFuZAo+PiBpcyBuZWVkZWQgZm9yIHN1cHBvcnRpbmcgaGRjcCBvbiBuYXZpCj4+Cj4+IFNp
+Z25lZC1vZmYtYnk6IEJoYXdhbnByZWV0IExha2hhIDxCaGF3YW5wcmVldC5MYWtoYUBhbWQuY29t
+PgoKUmV2aWV3ZWQtYnk6IEhhcnJ5IFdlbnRsYW5kIDxoYXJyeS53ZW50bGFuZEBhbWQuY29tPgoK
+SGFycnkKCj4+IC0tLQo+PiDCoGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3BzcF92MTFfMC5j
+IHwgMjUgKysrKysrKysrKysrKysrKysrKysrKysrKwo+PiDCoDEgZmlsZSBjaGFuZ2VkLCAyNSBp
+bnNlcnRpb25zKCspCj4+Cj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
+dS9wc3BfdjExXzAuYwo+PiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3BzcF92MTFfMC5j
+Cj4+IGluZGV4IGZmZWFhMmY1NTg4ZC4uZGFmMTFiZTU0MTZmIDEwMDY0NAo+PiAtLS0gYS9kcml2
+ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9wc3BfdjExXzAuYwo+PiArKysgYi9kcml2ZXJzL2dwdS9k
+cm0vYW1kL2FtZGdwdS9wc3BfdjExXzAuYwo+PiBAQCAtMTg2LDYgKzE4NiwzMSBAQCBzdGF0aWMg
+aW50IHBzcF92MTFfMF9pbml0X21pY3JvY29kZShzdHJ1Y3QKPj4gcHNwX2NvbnRleHQgKnBzcCkK
+Pj4gwqDCoMKgwqDCoMKgwqDCoCBjYXNlIENISVBfTkFWSTEwOgo+PiDCoMKgwqDCoMKgwqDCoMKg
+IGNhc2UgQ0hJUF9OQVZJMTQ6Cj4+IMKgwqDCoMKgwqDCoMKgwqAgY2FzZSBDSElQX05BVkkxMjoK
+Pj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgc25wcmludGYoZndfbmFtZSwgc2l6ZW9m
+KGZ3X25hbWUpLCAiYW1kZ3B1LyVzX3RhLmJpbiIsCj4+IGNoaXBfbmFtZSk7Cj4+ICvCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgIGVyciA9IHJlcXVlc3RfZmlybXdhcmUoJmFkZXYtPnBzcC50
+YV9mdywgZndfbmFtZSwKPj4gYWRldi0+ZGV2KTsKPj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqAgaWYgKGVycikgewo+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqAgcmVsZWFzZV9maXJtd2FyZShhZGV2LT5wc3AudGFfZncpOwo+PiArwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgYWRldi0+cHNwLnRhX2Z3ID0gTlVM
+TDsKPj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGRldl9p
+bmZvKGFkZXYtPmRldiwKPj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgICJwc3AgdjExLjA6IEZhaWxlZCB0byBsb2FkIGZpcm13
+YXJlCj4+IFwiJXNcIlxuIiwgZndfbmFtZSk7Cj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgIH0gZWxzZSB7Cj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoCBlcnIgPSBhbWRncHVfdWNvZGVfdmFsaWRhdGUoYWRldi0+cHNwLnRhX2Z3KTsKPj4gK8Kg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGlmIChlcnIpCj4+ICvC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqAgZ290byBvdXQyOwo+PiArCj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoCB0YV9oZHIgPSAoY29uc3Qgc3RydWN0IHRhX2Zpcm13YXJlX2hlYWRlcl92MV8w
+Cj4+ICopYWRldi0+cHNwLnRhX2Z3LT5kYXRhOwo+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqAgYWRldi0+cHNwLnRhX2hkY3BfdWNvZGVfdmVyc2lvbiA9Cj4+
+IGxlMzJfdG9fY3B1KHRhX2hkci0+dGFfaGRjcF91Y29kZV92ZXJzaW9uKTsKPj4gK8KgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGFkZXYtPnBzcC50YV9oZGNwX3Vj
+b2RlX3NpemUgPQo+PiBsZTMyX3RvX2NwdSh0YV9oZHItPnRhX2hkY3Bfc2l6ZV9ieXRlcyk7Cj4+
+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBhZGV2LT5wc3Au
+dGFfaGRjcF9zdGFydF9hZGRyID0gKHVpbnQ4X3QgKil0YV9oZHIgKwo+PiArwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgCj4+IGxlMzJf
+dG9fY3B1KHRhX2hkci0+aGVhZGVyLnVjb2RlX2FycmF5X29mZnNldF9ieXRlcyk7Cj4+ICsKPj4g
+K8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGFkZXYtPnBzcC50
+YV9md192ZXJzaW9uID0KPj4gbGUzMl90b19jcHUodGFfaGRyLT5oZWFkZXIudWNvZGVfdmVyc2lv
+bik7Cj4+ICsKPj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+IGFkZXYtPnBzcC50YV9kdG1fdWNvZGVfdmVyc2lvbiA9Cj4+IGxlMzJfdG9fY3B1KHRhX2hkci0+
+dGFfZHRtX3Vjb2RlX3ZlcnNpb24pOwo+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqAgYWRldi0+cHNwLnRhX2R0bV91Y29kZV9zaXplID0KPj4gbGUzMl90b19j
+cHUodGFfaGRyLT50YV9kdG1fc2l6ZV9ieXRlcyk7Cj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBhZGV2LT5wc3AudGFfZHRtX3N0YXJ0X2FkZHIgPSAodWlu
+dDhfdAo+PiAqKWFkZXYtPnBzcC50YV9oZGNwX3N0YXJ0X2FkZHIgKwo+PiArwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGxlMzJfdG9f
+Y3B1KHRhX2hkci0+dGFfZHRtX29mZnNldF9ieXRlcyk7Cj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgIH0KPj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgYnJlYWs7Cj4+
+IMKgwqDCoMKgwqDCoMKgwqAgZGVmYXVsdDoKPj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqAgQlVHKCk7Cj4+IC0tIAo+PiAyLjE3LjEKPj4KPj4gX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX18KPj4gYW1kLWdmeCBtYWlsaW5nIGxpc3QKPj4gYW1k
+LWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5v
+cmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJl
+ZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGlu
+Zm8vYW1kLWdmeA==
