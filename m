@@ -2,51 +2,93 @@ Return-Path: <SRS0=OLW4=ZZ=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.8 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,PDS_BTC_ID,SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=-8.2 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
 	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3FCE4C432C3
-	for <amd-gfx@archiver.kernel.org>; Tue,  3 Dec 2019 21:09:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6670DC432C0
+	for <amd-gfx@archiver.kernel.org>; Tue,  3 Dec 2019 21:42:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 154C42080F
-	for <amd-gfx@archiver.kernel.org>; Tue,  3 Dec 2019 21:09:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 154C42080F
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 35DB02073B
+	for <amd-gfx@archiver.kernel.org>; Tue,  3 Dec 2019 21:42:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 35DB02073B
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AE8C26F409;
-	Tue,  3 Dec 2019 21:09:26 +0000 (UTC)
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D000C6E037;
- Tue,  3 Dec 2019 21:09:24 +0000 (UTC)
-X-Amp-Result: UNKNOWN
-X-Amp-Original-Verdict: FILE UNKNOWN
-X-Amp-File-Uploaded: False
-Received: from fmsmga004.fm.intel.com ([10.253.24.48])
- by fmsmga106.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 03 Dec 2019 13:09:24 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.69,274,1571727600"; 
- d="gz'50?scan'50,208,50";a="236024137"
-Received: from lkp-server01.sh.intel.com (HELO lkp-server01) ([10.239.97.150])
- by fmsmga004.fm.intel.com with ESMTP; 03 Dec 2019 13:09:22 -0800
-Received: from kbuild by lkp-server01 with local (Exim 4.89)
- (envelope-from <lkp@intel.com>)
- id 1icFQA-000D0O-E7; Wed, 04 Dec 2019 05:09:22 +0800
-Date: Wed, 4 Dec 2019 05:09:15 +0800
-From: kbuild test robot <lkp@intel.com>
-To: mikita.lipski@amd.com
-Subject: Re: [PATCH v8 02/17] drm/dp_mst: Parse FEC capability on MST ports
-Message-ID: <201912040558.F4w9BINB%lkp@intel.com>
-References: <20191203143530.27262-3-mikita.lipski@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id C8DE76F414;
+	Tue,  3 Dec 2019 21:42:43 +0000 (UTC)
+Received: from NAM01-SN1-obe.outbound.protection.outlook.com
+ (mail-eopbgr820083.outbound.protection.outlook.com [40.107.82.83])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5A6A46F414
+ for <amd-gfx@lists.freedesktop.org>; Tue,  3 Dec 2019 21:42:42 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=SSZrZFxediLjiREagz3zHZkV0lxKy11UuifBKAsn99QbHOSgS4wjo0SeVQRw9N813mwzIqqOC02mVihyw76SNSsbuoELVBJ80vZZGfN0lC/W1bAn5wYlTcCpOiK/VYyMoi/8n0N4qa1+Z6VjSaJ2Y7XCteUaW5j9dwf7R4wQXh9/sqhLXUy+P3NmKDGJS0xXiBf1utjX5XNixKq89UVU/RxMIDZiC3MqfneZz2+GTIpI9I1c2nEHgnPKtsmfANSJw26+gKoeQBzWrPNNFSPaeSguzBpXOuZtcwuxhU7vSG2BZSyxtKK4boZnIOeudIkvG/FImQIylbhMcnV+XxDkog==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=3g7jdSNTD4QmkaWl5F+ZV3CiFmyFTMYAe4FGOAbujFc=;
+ b=dyrzZQMdE52QIS6EU3dhAm4B/eZhBtHsSCV2R7MiY6VzTva4yEnr12Pg0pTzfTzi7HTbCVLi9so7B5mGN0l+ce9bOnFDDq9v0Hm3pBVdRVJDipgY9yLpsqEmkOGf2AKjXXFosqPyBVF7rSIzdlp4KtJ/dlHwMghFKmOeRlh5VaLd7wDPTx9MGLg+Nis0qZ9U8HdeprHUm10mi1V2eZhvv+Q3DPOCIwCfUsovOrhMBg1PZrvELNKB4kZqhVog4qe9mei59yH2/qMlLJ/fnb3PweTd9xjUbdP4N9lPCX3YZtv2VbJpkj5fa6mFzPet6IcXA0poyfVZldzZxJS//kBskg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+Received: from DM5PR1201MB0137.namprd12.prod.outlook.com (10.174.106.18) by
+ DM5PR1201MB2507.namprd12.prod.outlook.com (10.172.90.149) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2495.21; Tue, 3 Dec 2019 21:42:40 +0000
+Received: from DM5PR1201MB0137.namprd12.prod.outlook.com
+ ([fe80::5878:940a:dd61:4d22]) by DM5PR1201MB0137.namprd12.prod.outlook.com
+ ([fe80::5878:940a:dd61:4d22%9]) with mapi id 15.20.2495.014; Tue, 3 Dec 2019
+ 21:42:40 +0000
+Subject: Re: [PATCH] drm/amdgpu/gfx: Improvement on EDC GPR workarounds
+To: James Zhu <James.Zhu@amd.com>, amd-gfx@lists.freedesktop.org
+References: <1575405910-31409-1-git-send-email-James.Zhu@amd.com>
+From: Yong Zhao <yong.zhao@amd.com>
+Message-ID: <183ced13-0b6e-5421-3f33-ab677578299f@amd.com>
+Date: Tue, 3 Dec 2019 16:42:39 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.2.1
+In-Reply-To: <1575405910-31409-1-git-send-email-James.Zhu@amd.com>
+Content-Language: en-US
+X-ClientProxiedBy: YTXPR0101CA0046.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b00:1::23) To DM5PR1201MB0137.namprd12.prod.outlook.com
+ (2603:10b6:4:54::18)
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="wpymwtv44qr3bwti"
-Content-Disposition: inline
-In-Reply-To: <20191203143530.27262-3-mikita.lipski@amd.com>
-User-Agent: NeoMutt/20170113 (1.7.2)
+X-Originating-IP: [165.204.55.251]
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: d2152977-7fac-4d3c-34ab-08d77839b8c6
+X-MS-TrafficTypeDiagnostic: DM5PR1201MB2507:|DM5PR1201MB2507:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <DM5PR1201MB25072ACF07A03C3B430E80F7F0420@DM5PR1201MB2507.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:4941;
+X-Forefront-PRVS: 02408926C4
+X-Forefront-Antispam-Report: SFV:NSPM;
+ SFS:(10009020)(4636009)(136003)(366004)(346002)(39860400002)(376002)(396003)(199004)(189003)(14444005)(26005)(36756003)(6486002)(5660300002)(229853002)(86362001)(186003)(386003)(6506007)(478600001)(58126008)(316002)(99286004)(8936002)(81156014)(14454004)(50466002)(25786009)(2616005)(31696002)(446003)(2906002)(11346002)(81166006)(53546011)(3846002)(44832011)(8676002)(305945005)(66556008)(23676004)(2486003)(76176011)(6116002)(66476007)(31686004)(52116002)(7736002)(6436002)(4326008)(66946007)(6512007)(230700001)(6246003)(65956001);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:DM5PR1201MB2507;
+ H:DM5PR1201MB0137.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; A:1; MX:1; 
+Received-SPF: None (protection.outlook.com: amd.com does not designate
+ permitted sender hosts)
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: LGDMZGk8VQbU5vD78OfAtB1/p5CIQVVxLejc9iV9dj0a3/hfHH+YPip7X+4iWEkYj9L13loFQMeV+Bust8Ckk8W4PwBiCr5M1Pm2A2Te/gB5okTpP80QWIfWQ3vGfukkPTnTPL1xdXd+Tv8+uTpOK8Hyx2wN8IUaAPT8HhYuT1UOnJm+ZVI44Ii8iKEqiLx2REQ3HYq4IGz9xW+ckpTABh30aI0BkT2DDGFITVu9dH+HgP2IhX+d6DP/0UxtlwQ/r2lUN+dMwLTHnr00E5GGnSo5cOnyCsEtnIvWjBgBvLRPWcnrsF7B3peiS+KSOzF5/SrKi6il5RhSwRynVCRXomuM9u2Rb5Ye/gNCzZmb5yVDKlfBly19GowdCLB4qIVmXuQE1gibPh7boR6a3sgJXBIshYlSsu8uch2Va33Z4asdOzt3+HdO/3XHbTAVP/L1
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d2152977-7fac-4d3c-34ab-08d77839b8c6
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Dec 2019 21:42:40.6869 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: jIUWqk8D2hw5lSu5DMq7+EWLyvDzEUlVpaFHHblEsq2M6NALE2EpP37Uve6fbc0K
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR1201MB2507
+X-Mailman-Original-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=3g7jdSNTD4QmkaWl5F+ZV3CiFmyFTMYAe4FGOAbujFc=;
+ b=Gt0y5mPos8M7pQtNkLjxilZGIC66okIT04gUc9aaBeAYLQr4qq5vS5L7zX3g2yLnA7TjYmVkG81ht2samG/wBn+QyumGb7PjbFBG/BVxkHkk31lArbh1o9sYkwNGS2OJdI1utV7NNI/krjIcG18cg6hZzr0qbbjBtoPDgUj3miE=
+X-Mailman-Original-Authentication-Results: spf=none (sender IP is )
+ smtp.mailfrom=Yong.Zhao@amd.com; 
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -58,325 +100,147 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Francis <David.Francis@amd.com>,
- Mikita Lipski <mikita.lipski@amd.com>, kbuild-all@lists.01.org,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+Cc: jamesz@amd.com, hawking.zhang@amd.com
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-
---wpymwtv44qr3bwti
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-
-Hi,
-
-Thank you for the patch! Perhaps something to improve:
-
-[auto build test WARNING on next-20191203]
-[cannot apply to drm-intel/for-linux-next linus/master v5.4-rc8 v5.4]
-[if your patch is applied to the wrong git tree, please drop us a note to help
-improve the system. BTW, we also suggest to use '--base' option to specify the
-base tree in git format-patch, please see https://stackoverflow.com/a/37406982]
-
-url:    https://github.com/0day-ci/linux/commits/mikita-lipski-amd-com/DSC-MST-support-for-DRM-and-AMDGPU/20191204-020604
-base:    1ab75b2e415a29dba9aec94f203c6f88dbfc0ba0
-reproduce: make htmldocs
-
-If you fix the issue, kindly add following tag
-Reported-by: kbuild test robot <lkp@intel.com>
-
-All warnings (new ones prefixed by >>):
-
-   drivers/usb/typec/bus.c:1: warning: 'typec_altmode_unregister_driver' not found
-   drivers/usb/typec/bus.c:1: warning: 'typec_altmode_register_driver' not found
-   drivers/usb/typec/class.c:1: warning: 'typec_altmode_register_notifier' not found
-   drivers/usb/typec/class.c:1: warning: 'typec_altmode_unregister_notifier' not found
-   fs/posix_acl.c:647: warning: Function parameter or member 'inode' not described in 'posix_acl_update_mode'
-   fs/posix_acl.c:647: warning: Function parameter or member 'mode_p' not described in 'posix_acl_update_mode'
-   fs/posix_acl.c:647: warning: Function parameter or member 'acl' not described in 'posix_acl_update_mode'
-   sound/soc/soc-core.c:2509: warning: Function parameter or member 'legacy_dai_naming' not described in 'snd_soc_register_dai'
-   include/linux/regulator/machine.h:196: warning: Function parameter or member 'max_uV_step' not described in 'regulation_constraints'
-   include/linux/regulator/driver.h:223: warning: Function parameter or member 'resume' not described in 'regulator_ops'
-   include/linux/skbuff.h:888: warning: Function parameter or member 'dev_scratch' not described in 'sk_buff'
-   include/linux/skbuff.h:888: warning: Function parameter or member 'list' not described in 'sk_buff'
-   include/linux/skbuff.h:888: warning: Function parameter or member 'ip_defrag_offset' not described in 'sk_buff'
-   include/linux/skbuff.h:888: warning: Function parameter or member 'skb_mstamp_ns' not described in 'sk_buff'
-   include/linux/skbuff.h:888: warning: Function parameter or member '__cloned_offset' not described in 'sk_buff'
-   include/linux/skbuff.h:888: warning: Function parameter or member 'head_frag' not described in 'sk_buff'
-   include/linux/skbuff.h:888: warning: Function parameter or member '__pkt_type_offset' not described in 'sk_buff'
-   include/linux/skbuff.h:888: warning: Function parameter or member 'encapsulation' not described in 'sk_buff'
-   include/linux/skbuff.h:888: warning: Function parameter or member 'encap_hdr_csum' not described in 'sk_buff'
-   include/linux/skbuff.h:888: warning: Function parameter or member 'csum_valid' not described in 'sk_buff'
-   include/linux/skbuff.h:888: warning: Function parameter or member '__pkt_vlan_present_offset' not described in 'sk_buff'
-   include/linux/skbuff.h:888: warning: Function parameter or member 'vlan_present' not described in 'sk_buff'
-   include/linux/skbuff.h:888: warning: Function parameter or member 'csum_complete_sw' not described in 'sk_buff'
-   include/linux/skbuff.h:888: warning: Function parameter or member 'csum_level' not described in 'sk_buff'
-   include/linux/skbuff.h:888: warning: Function parameter or member 'inner_protocol_type' not described in 'sk_buff'
-   include/linux/skbuff.h:888: warning: Function parameter or member 'remcsum_offload' not described in 'sk_buff'
-   include/linux/skbuff.h:888: warning: Function parameter or member 'sender_cpu' not described in 'sk_buff'
-   include/linux/skbuff.h:888: warning: Function parameter or member 'reserved_tailroom' not described in 'sk_buff'
-   include/linux/skbuff.h:888: warning: Function parameter or member 'inner_ipproto' not described in 'sk_buff'
-   include/net/sock.h:232: warning: Function parameter or member 'skc_addrpair' not described in 'sock_common'
-   include/net/sock.h:232: warning: Function parameter or member 'skc_portpair' not described in 'sock_common'
-   include/net/sock.h:232: warning: Function parameter or member 'skc_ipv6only' not described in 'sock_common'
-   include/net/sock.h:232: warning: Function parameter or member 'skc_net_refcnt' not described in 'sock_common'
-   include/net/sock.h:232: warning: Function parameter or member 'skc_v6_daddr' not described in 'sock_common'
-   include/net/sock.h:232: warning: Function parameter or member 'skc_v6_rcv_saddr' not described in 'sock_common'
-   include/net/sock.h:232: warning: Function parameter or member 'skc_cookie' not described in 'sock_common'
-   include/net/sock.h:232: warning: Function parameter or member 'skc_listener' not described in 'sock_common'
-   include/net/sock.h:232: warning: Function parameter or member 'skc_tw_dr' not described in 'sock_common'
-   include/net/sock.h:232: warning: Function parameter or member 'skc_rcv_wnd' not described in 'sock_common'
-   include/net/sock.h:232: warning: Function parameter or member 'skc_tw_rcv_nxt' not described in 'sock_common'
-   include/net/sock.h:514: warning: Function parameter or member 'sk_rx_skb_cache' not described in 'sock'
-   include/net/sock.h:514: warning: Function parameter or member 'sk_wq_raw' not described in 'sock'
-   include/net/sock.h:514: warning: Function parameter or member 'tcp_rtx_queue' not described in 'sock'
-   include/net/sock.h:514: warning: Function parameter or member 'sk_tx_skb_cache' not described in 'sock'
-   include/net/sock.h:514: warning: Function parameter or member 'sk_route_forced_caps' not described in 'sock'
-   include/net/sock.h:514: warning: Function parameter or member 'sk_txtime_report_errors' not described in 'sock'
-   include/net/sock.h:514: warning: Function parameter or member 'sk_validate_xmit_skb' not described in 'sock'
-   include/net/sock.h:514: warning: Function parameter or member 'sk_bpf_storage' not described in 'sock'
-   include/net/sock.h:2454: warning: Function parameter or member 'tcp_rx_skb_cache_key' not described in 'DECLARE_STATIC_KEY_FALSE'
-   include/net/sock.h:2454: warning: Excess function parameter 'sk' description in 'DECLARE_STATIC_KEY_FALSE'
-   include/net/sock.h:2454: warning: Excess function parameter 'skb' description in 'DECLARE_STATIC_KEY_FALSE'
-   include/linux/netdevice.h:1779: warning: bad line: spinlock
-   include/linux/netdevice.h:2077: warning: Function parameter or member 'gso_partial_features' not described in 'net_device'
-   include/linux/netdevice.h:2077: warning: Function parameter or member 'l3mdev_ops' not described in 'net_device'
-   include/linux/netdevice.h:2077: warning: Function parameter or member 'xfrmdev_ops' not described in 'net_device'
-   include/linux/netdevice.h:2077: warning: Function parameter or member 'tlsdev_ops' not described in 'net_device'
-   include/linux/netdevice.h:2077: warning: Function parameter or member 'name_assign_type' not described in 'net_device'
-   include/linux/netdevice.h:2077: warning: Function parameter or member 'ieee802154_ptr' not described in 'net_device'
-   include/linux/netdevice.h:2077: warning: Function parameter or member 'mpls_ptr' not described in 'net_device'
-   include/linux/netdevice.h:2077: warning: Function parameter or member 'xdp_prog' not described in 'net_device'
-   include/linux/netdevice.h:2077: warning: Function parameter or member 'gro_flush_timeout' not described in 'net_device'
-   include/linux/netdevice.h:2077: warning: Function parameter or member 'nf_hooks_ingress' not described in 'net_device'
-   include/linux/netdevice.h:2077: warning: Function parameter or member 'qdisc_hash' not described in 'net_device'
-   include/linux/netdevice.h:2077: warning: Function parameter or member 'xps_cpus_map' not described in 'net_device'
-   include/linux/netdevice.h:2077: warning: Function parameter or member 'xps_rxqs_map' not described in 'net_device'
-   include/linux/phylink.h:56: warning: Function parameter or member '__ETHTOOL_DECLARE_LINK_MODE_MASK(advertising' not described in 'phylink_link_state'
-   include/linux/phylink.h:56: warning: Function parameter or member '__ETHTOOL_DECLARE_LINK_MODE_MASK(lp_advertising' not described in 'phylink_link_state'
-   include/linux/i2c.h:337: warning: Function parameter or member 'init_irq' not described in 'i2c_client'
-   drivers/infiniband/core/umem_odp.c:167: warning: Function parameter or member 'ops' not described in 'ib_umem_odp_alloc_child'
-   drivers/infiniband/core/umem_odp.c:217: warning: Function parameter or member 'ops' not described in 'ib_umem_odp_get'
-   drivers/infiniband/ulp/iser/iscsi_iser.h:401: warning: Function parameter or member 'all_list' not described in 'iser_fr_desc'
-   drivers/infiniband/ulp/iser/iscsi_iser.h:415: warning: Function parameter or member 'all_list' not described in 'iser_fr_pool'
-   drivers/infiniband/ulp/opa_vnic/opa_vnic_encap.h:148: warning: Function parameter or member 'rsvd0' not described in 'opa_vesw_info'
-   drivers/infiniband/ulp/opa_vnic/opa_vnic_encap.h:148: warning: Function parameter or member 'rsvd1' not described in 'opa_vesw_info'
-   drivers/infiniband/ulp/opa_vnic/opa_vnic_encap.h:148: warning: Function parameter or member 'rsvd2' not described in 'opa_vesw_info'
-   drivers/infiniband/ulp/opa_vnic/opa_vnic_encap.h:148: warning: Function parameter or member 'rsvd3' not described in 'opa_vesw_info'
-   drivers/infiniband/ulp/opa_vnic/opa_vnic_encap.h:148: warning: Function parameter or member 'rsvd4' not described in 'opa_vesw_info'
-   drivers/infiniband/ulp/opa_vnic/opa_vnic_encap.h:205: warning: Function parameter or member 'rsvd0' not described in 'opa_per_veswport_info'
-   drivers/infiniband/ulp/opa_vnic/opa_vnic_encap.h:205: warning: Function parameter or member 'rsvd1' not described in 'opa_per_veswport_info'
-   drivers/infiniband/ulp/opa_vnic/opa_vnic_encap.h:205: warning: Function parameter or member 'rsvd2' not described in 'opa_per_veswport_info'
-   drivers/infiniband/ulp/opa_vnic/opa_vnic_encap.h:205: warning: Function parameter or member 'rsvd3' not described in 'opa_per_veswport_info'
-   drivers/infiniband/ulp/opa_vnic/opa_vnic_encap.h:263: warning: Function parameter or member 'tbl_entries' not described in 'opa_veswport_mactable'
-   drivers/infiniband/ulp/opa_vnic/opa_vnic_encap.h:342: warning: Function parameter or member 'reserved' not described in 'opa_veswport_summary_counters'
-   drivers/infiniband/ulp/opa_vnic/opa_vnic_encap.h:394: warning: Function parameter or member 'rsvd0' not described in 'opa_veswport_error_counters'
-   drivers/infiniband/ulp/opa_vnic/opa_vnic_encap.h:394: warning: Function parameter or member 'rsvd1' not described in 'opa_veswport_error_counters'
-   drivers/infiniband/ulp/opa_vnic/opa_vnic_encap.h:394: warning: Function parameter or member 'rsvd2' not described in 'opa_veswport_error_counters'
-   drivers/infiniband/ulp/opa_vnic/opa_vnic_encap.h:394: warning: Function parameter or member 'rsvd3' not described in 'opa_veswport_error_counters'
-   drivers/infiniband/ulp/opa_vnic/opa_vnic_encap.h:394: warning: Function parameter or member 'rsvd4' not described in 'opa_veswport_error_counters'
-   drivers/infiniband/ulp/opa_vnic/opa_vnic_encap.h:394: warning: Function parameter or member 'rsvd5' not described in 'opa_veswport_error_counters'
-   drivers/infiniband/ulp/opa_vnic/opa_vnic_encap.h:394: warning: Function parameter or member 'rsvd6' not described in 'opa_veswport_error_counters'
-   drivers/infiniband/ulp/opa_vnic/opa_vnic_encap.h:394: warning: Function parameter or member 'rsvd7' not described in 'opa_veswport_error_counters'
-   drivers/infiniband/ulp/opa_vnic/opa_vnic_encap.h:394: warning: Function parameter or member 'rsvd8' not described in 'opa_veswport_error_counters'
-   drivers/infiniband/ulp/opa_vnic/opa_vnic_encap.h:394: warning: Function parameter or member 'rsvd9' not described in 'opa_veswport_error_counters'
-   drivers/infiniband/ulp/opa_vnic/opa_vnic_encap.h:460: warning: Function parameter or member 'reserved' not described in 'opa_vnic_vema_mad'
-   drivers/infiniband/ulp/opa_vnic/opa_vnic_encap.h:485: warning: Function parameter or member 'reserved' not described in 'opa_vnic_notice_attr'
-   drivers/infiniband/ulp/opa_vnic/opa_vnic_encap.h:500: warning: Function parameter or member 'reserved' not described in 'opa_vnic_vema_mad_trap'
-   include/linux/input/sparse-keymap.h:43: warning: Function parameter or member 'sw' not described in 'key_entry'
-   kernel/futex.c:1187: warning: Function parameter or member 'ret' not described in 'wait_for_owner_exiting'
-   include/drm/drm_modeset_helper_vtables.h:1052: warning: Function parameter or member 'prepare_writeback_job' not described in 'drm_connector_helper_funcs'
-   include/drm/drm_modeset_helper_vtables.h:1052: warning: Function parameter or member 'cleanup_writeback_job' not described in 'drm_connector_helper_funcs'
->> include/drm/drm_dp_mst_helper.h:162: warning: Function parameter or member 'fec_capable' not described in 'drm_dp_mst_port'
-   include/net/cfg80211.h:1189: warning: Function parameter or member 'txpwr' not described in 'station_parameters'
-   include/net/mac80211.h:4081: warning: Function parameter or member 'sta_set_txpwr' not described in 'ieee80211_ops'
-   include/net/mac80211.h:2036: warning: Function parameter or member 'txpwr' not described in 'ieee80211_sta'
-   include/linux/devfreq.h:181: warning: Function parameter or member 'last_status' not described in 'devfreq'
-   drivers/devfreq/devfreq.c:1708: warning: bad line: - Resource-managed devfreq_register_notifier()
-   drivers/devfreq/devfreq.c:1744: warning: bad line: - Resource-managed devfreq_unregister_notifier()
-   drivers/devfreq/devfreq-event.c:355: warning: Function parameter or member 'edev' not described in 'devfreq_event_remove_edev'
-   drivers/devfreq/devfreq-event.c:355: warning: Excess function parameter 'dev' description in 'devfreq_event_remove_edev'
-   Documentation/admin-guide/xfs.rst:257: WARNING: Block quote ends without a blank line; unexpected unindent.
-   Documentation/admin-guide/hw-vuln/tsx_async_abort.rst:142: WARNING: duplicate label virt_mechanism, other instance in Documentation/admin-guide/hw-vuln/mds.rst
-   Documentation/watch_queue.rst:166: WARNING: Inline literal start-string without end-string.
-   Documentation/watch_queue.rst:166: WARNING: Inline emphasis start-string without end-string.
-   Documentation/watch_queue.rst:166: WARNING: Inline emphasis start-string without end-string.
-   Documentation/watch_queue.rst:166: WARNING: Inline emphasis start-string without end-string.
-   Documentation/watch_queue.rst:243: WARNING: Inline literal start-string without end-string.
-   Documentation/watch_queue.rst:243: WARNING: Inline emphasis start-string without end-string.
-   Documentation/watch_queue.rst:242: WARNING: Inline emphasis start-string without end-string.
-   Documentation/admin-guide/ras.rst:358: WARNING: Definition list ends without a blank line; unexpected unindent.
-   Documentation/admin-guide/ras.rst:358: WARNING: Definition list ends without a blank line; unexpected unindent.
-   Documentation/admin-guide/ras.rst:363: WARNING: Definition list ends without a blank line; unexpected unindent.
-   Documentation/admin-guide/ras.rst:363: WARNING: Definition list ends without a blank line; unexpected unindent.
-   Documentation/admin-guide/sysctl/kernel.rst:397: WARNING: Title underline too short.
-
-vim +162 include/drm/drm_dp_mst_helper.h
-
-ad7f8a1f9ced7f Dave Airlie 2014-06-05 @162  
-
-:::::: The code at line 162 was first introduced by commit
-:::::: ad7f8a1f9ced7f049f9b66d588723f243a7034cd drm/helper: add Displayport multi-stream helper (v0.6)
-
-:::::: TO: Dave Airlie <airlied@redhat.com>
-:::::: CC: Dave Airlie <airlied@redhat.com>
-
----
-0-DAY kernel test infrastructure                 Open Source Technology Center
-https://lists.01.org/hyperkitty/list/kbuild-all@lists.01.org Intel Corporation
-
---wpymwtv44qr3bwti
-Content-Type: application/gzip
-Content-Disposition: attachment; filename=".config.gz"
-Content-Transfer-Encoding: base64
-
-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
-wqEZ7CkLNv7eMf9y0QYzbTv9B6u6aJCYagAA
-
---wpymwtv44qr3bwti
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
-
---wpymwtv44qr3bwti--
+Tm90IHN1cmUgd2hldGhlciB3ZSBzaG91bGQgYWRkIHRoZSBpc3N1ZSB0aWNrZXQgaW5mbyBoZXJl
+LgoKClJldmlld2VkLWJ5OiBZb25nIFpoYW8gPFlvbmcuWmhhb0BhbWQuY29tPgoKCgpPbiAyMDE5
+LTEyLTAzIDM6NDUgcC5tLiwgSmFtZXMgWmh1IHdyb3RlOgo+IFNQSSBsaW1pdHMgdG90YWwgQ1Mg
+d2F2ZXMgaW4gZmxpZ2h0IHBlciBTRSB0byBubyBtb3JlIHRoYW4gMzIgKiBudW1fY3UgYW5kCj4g
+d2UgbmVlZCB0byBzdHVmZiA0MCB3YXZlcyBvbiBhIENVIHRvIGNvbXBsZXRlbHkgY2xlYW4gdGhl
+IFNHUFIuIFRoaXMgaXMKPiBhY2NvbXBsaXNoZWQgaW4gdGhlIFdSIGJ5IGNsZWFuaW5nIHRoZSBT
+RSBpbiB0d28gc3RlcHMsIGhhbGYgb2YgdGhlIENVIHBlcgo+IHN0ZXAuCj4KPiBTaWduZWQtb2Zm
+LWJ5OiBKYW1lcyBaaHUgPEphbWVzLlpodUBhbWQuY29tPgo+IC0tLQo+ICAgZHJpdmVycy9ncHUv
+ZHJtL2FtZC9hbWRncHUvZ2Z4X3Y5XzAuYyB8IDgzICsrKysrKysrKysrKysrKysrKysrKysrKysr
+LS0tLS0tLS0tCj4gICAxIGZpbGUgY2hhbmdlZCwgNjMgaW5zZXJ0aW9ucygrKSwgMjAgZGVsZXRp
+b25zKC0pCj4KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y5
+XzAuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92OV8wLmMKPiBpbmRleCA2YTI1
+MWEzLi4xNDdjMDhmIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dm
+eF92OV8wLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjlfMC5jCj4g
+QEAgLTM5MzgsMjQgKzM5MzgsMzcgQEAgc3RhdGljIGNvbnN0IHN0cnVjdCBzb2MxNV9yZWdfZW50
+cnkgdmdwcl9pbml0X3JlZ3NbXSA9IHsKPiAgICAgIHsgU09DMTVfUkVHX0VOVFJZKEdDLCAwLCBt
+bUNPTVBVVEVfU1RBVElDX1RIUkVBRF9NR01UX1NFMSksIDB4ZmZmZmZmZmYgfSwKPiAgICAgIHsg
+U09DMTVfUkVHX0VOVFJZKEdDLCAwLCBtbUNPTVBVVEVfU1RBVElDX1RIUkVBRF9NR01UX1NFMiks
+IDB4ZmZmZmZmZmYgfSwKPiAgICAgIHsgU09DMTVfUkVHX0VOVFJZKEdDLCAwLCBtbUNPTVBVVEVf
+U1RBVElDX1RIUkVBRF9NR01UX1NFMyksIDB4ZmZmZmZmZmYgfSwKPiAtICAgeyBTT0MxNV9SRUdf
+RU5UUlkoR0MsIDAsIG1tQ09NUFVURV9SRVNPVVJDRV9MSU1JVFMpLCAweDEwMDAwMDAgfSwgLyog
+Q1VfR1JPVVBfQ09VTlQ9MSAqLwo+IC0gICB7IFNPQzE1X1JFR19FTlRSWShHQywgMCwgbW1DT01Q
+VVRFX05VTV9USFJFQURfWCksIDI1NioyIH0sCj4gLSAgIHsgU09DMTVfUkVHX0VOVFJZKEdDLCAw
+LCBtbUNPTVBVVEVfTlVNX1RIUkVBRF9ZKSwgMSB9LAo+ICsgICB7IFNPQzE1X1JFR19FTlRSWShH
+QywgMCwgbW1DT01QVVRFX1JFU09VUkNFX0xJTUlUUyksIDB4MDAwMDAwMCB9LAo+ICsgICB7IFNP
+QzE1X1JFR19FTlRSWShHQywgMCwgbW1DT01QVVRFX05VTV9USFJFQURfWCksIDB4NDAgfSwKPiAr
+ICAgeyBTT0MxNV9SRUdfRU5UUlkoR0MsIDAsIG1tQ09NUFVURV9OVU1fVEhSRUFEX1kpLCA0IH0s
+Cj4gICAgICB7IFNPQzE1X1JFR19FTlRSWShHQywgMCwgbW1DT01QVVRFX05VTV9USFJFQURfWiks
+IDEgfSwKPiAtICAgeyBTT0MxNV9SRUdfRU5UUlkoR0MsIDAsIG1tQ09NUFVURV9QR01fUlNSQzEp
+LCAweDEwMDAwN2YgfSwgLyogVkdQUlM9MTUgKDI1NiBsb2dpY2FsIFZHUFJzLCBTR1BSUz0xICgx
+NiBTR1BScywgQlVMS1k9MSAqLwo+ICsgICB7IFNPQzE1X1JFR19FTlRSWShHQywgMCwgbW1DT01Q
+VVRFX1BHTV9SU1JDMSksIDB4M2YgfSwKPiAgICAgIHsgU09DMTVfUkVHX0VOVFJZKEdDLCAwLCBt
+bUNPTVBVVEVfUEdNX1JTUkMyKSwgMHg0MDAwMDAgfSwgIC8qIDY0S0IgTERTICovCj4gICB9Owo+
+ICAgCj4gLXN0YXRpYyBjb25zdCBzdHJ1Y3Qgc29jMTVfcmVnX2VudHJ5IHNncHJfaW5pdF9yZWdz
+W10gPSB7Cj4gLSAgIHsgU09DMTVfUkVHX0VOVFJZKEdDLCAwLCBtbUNPTVBVVEVfU1RBVElDX1RI
+UkVBRF9NR01UX1NFMCksIDB4ZmZmZmZmZmYgfSwKPiAtICAgeyBTT0MxNV9SRUdfRU5UUlkoR0Ms
+IDAsIG1tQ09NUFVURV9TVEFUSUNfVEhSRUFEX01HTVRfU0UxKSwgMHhmZmZmZmZmZiB9LAo+IC0g
+ICB7IFNPQzE1X1JFR19FTlRSWShHQywgMCwgbW1DT01QVVRFX1NUQVRJQ19USFJFQURfTUdNVF9T
+RTIpLCAweGZmZmZmZmZmIH0sCj4gLSAgIHsgU09DMTVfUkVHX0VOVFJZKEdDLCAwLCBtbUNPTVBV
+VEVfU1RBVElDX1RIUkVBRF9NR01UX1NFMyksIDB4ZmZmZmZmZmYgfSwKPiAtICAgeyBTT0MxNV9S
+RUdfRU5UUlkoR0MsIDAsIG1tQ09NUFVURV9SRVNPVVJDRV9MSU1JVFMpLCAweDEwMDAwMDAgfSwg
+LyogQ1VfR1JPVVBfQ09VTlQ9MSAqLwo+IC0gICB7IFNPQzE1X1JFR19FTlRSWShHQywgMCwgbW1D
+T01QVVRFX05VTV9USFJFQURfWCksIDI1NioyIH0sCj4gLSAgIHsgU09DMTVfUkVHX0VOVFJZKEdD
+LCAwLCBtbUNPTVBVVEVfTlVNX1RIUkVBRF9ZKSwgMSB9LAo+ICtzdGF0aWMgY29uc3Qgc3RydWN0
+IHNvYzE1X3JlZ19lbnRyeSBzZ3ByMV9pbml0X3JlZ3NbXSA9IHsKPiArICAgeyBTT0MxNV9SRUdf
+RU5UUlkoR0MsIDAsIG1tQ09NUFVURV9TVEFUSUNfVEhSRUFEX01HTVRfU0UwKSwgMHgwMDAwMDBm
+ZiB9LAo+ICsgICB7IFNPQzE1X1JFR19FTlRSWShHQywgMCwgbW1DT01QVVRFX1NUQVRJQ19USFJF
+QURfTUdNVF9TRTEpLCAweDAwMDAwMGZmIH0sCj4gKyAgIHsgU09DMTVfUkVHX0VOVFJZKEdDLCAw
+LCBtbUNPTVBVVEVfU1RBVElDX1RIUkVBRF9NR01UX1NFMiksIDB4MDAwMDAwZmYgfSwKPiArICAg
+eyBTT0MxNV9SRUdfRU5UUlkoR0MsIDAsIG1tQ09NUFVURV9TVEFUSUNfVEhSRUFEX01HTVRfU0Uz
+KSwgMHgwMDAwMDBmZiB9LAo+ICsgICB7IFNPQzE1X1JFR19FTlRSWShHQywgMCwgbW1DT01QVVRF
+X1JFU09VUkNFX0xJTUlUUyksIDB4MDAwMDAwMCB9LAo+ICsgICB7IFNPQzE1X1JFR19FTlRSWShH
+QywgMCwgbW1DT01QVVRFX05VTV9USFJFQURfWCksIDB4NDAgfSwKPiArICAgeyBTT0MxNV9SRUdf
+RU5UUlkoR0MsIDAsIG1tQ09NUFVURV9OVU1fVEhSRUFEX1kpLCA4IH0sCj4gKyAgIHsgU09DMTVf
+UkVHX0VOVFJZKEdDLCAwLCBtbUNPTVBVVEVfTlVNX1RIUkVBRF9aKSwgMSB9LAo+ICsgICB7IFNP
+QzE1X1JFR19FTlRSWShHQywgMCwgbW1DT01QVVRFX1BHTV9SU1JDMSksIDB4MjQwIH0sIC8qICg4
+MCBHUFJTKSAqLwo+ICsgICB7IFNPQzE1X1JFR19FTlRSWShHQywgMCwgbW1DT01QVVRFX1BHTV9S
+U1JDMiksIDB4MCB9LAo+ICt9Owo+ICsKPiArc3RhdGljIGNvbnN0IHN0cnVjdCBzb2MxNV9yZWdf
+ZW50cnkgc2dwcjJfaW5pdF9yZWdzW10gPSB7Cj4gKyAgIHsgU09DMTVfUkVHX0VOVFJZKEdDLCAw
+LCBtbUNPTVBVVEVfU1RBVElDX1RIUkVBRF9NR01UX1NFMCksIDB4MDAwMGZmMDAgfSwKPiArICAg
+eyBTT0MxNV9SRUdfRU5UUlkoR0MsIDAsIG1tQ09NUFVURV9TVEFUSUNfVEhSRUFEX01HTVRfU0Ux
+KSwgMHgwMDAwZmYwMCB9LAo+ICsgICB7IFNPQzE1X1JFR19FTlRSWShHQywgMCwgbW1DT01QVVRF
+X1NUQVRJQ19USFJFQURfTUdNVF9TRTIpLCAweDAwMDBmZjAwIH0sCj4gKyAgIHsgU09DMTVfUkVH
+X0VOVFJZKEdDLCAwLCBtbUNPTVBVVEVfU1RBVElDX1RIUkVBRF9NR01UX1NFMyksIDB4MDAwMGZm
+MDAgfSwKPiArICAgeyBTT0MxNV9SRUdfRU5UUlkoR0MsIDAsIG1tQ09NUFVURV9SRVNPVVJDRV9M
+SU1JVFMpLCAweDAwMDAwMDAgfSwKPiArICAgeyBTT0MxNV9SRUdfRU5UUlkoR0MsIDAsIG1tQ09N
+UFVURV9OVU1fVEhSRUFEX1gpLCAweDQwIH0sCj4gKyAgIHsgU09DMTVfUkVHX0VOVFJZKEdDLCAw
+LCBtbUNPTVBVVEVfTlVNX1RIUkVBRF9ZKSwgOCB9LAo+ICAgICAgeyBTT0MxNV9SRUdfRU5UUlko
+R0MsIDAsIG1tQ09NUFVURV9OVU1fVEhSRUFEX1opLCAxIH0sCj4gLSAgIHsgU09DMTVfUkVHX0VO
+VFJZKEdDLCAwLCBtbUNPTVBVVEVfUEdNX1JTUkMxKSwgMHgzNDAgfSwgLyogU0dQUlM9MTMgKDEx
+MiBHUFJTKSAqLwo+ICsgICB7IFNPQzE1X1JFR19FTlRSWShHQywgMCwgbW1DT01QVVRFX1BHTV9S
+U1JDMSksIDB4MjQwIH0sIC8qICg4MCBHUFJTKSAqLwo+ICAgICAgeyBTT0MxNV9SRUdfRU5UUlko
+R0MsIDAsIG1tQ09NUFVURV9QR01fUlNSQzIpLCAweDAgfSwKPiAgIH07Cj4gICAKPiBAQCAtNDA2
+NSw3ICs0MDc4LDkgQEAgc3RhdGljIGludCBnZnhfdjlfMF9kb19lZGNfZ3ByX3dvcmthcm91bmRz
+KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQo+ICAgCXRvdGFsX3NpemUgPQo+ICAgCQkoKEFS
+UkFZX1NJWkUodmdwcl9pbml0X3JlZ3MpICogMykgKyA0ICsgNSArIDIpICogNDsKPiAgIAl0b3Rh
+bF9zaXplICs9Cj4gLQkJKChBUlJBWV9TSVpFKHNncHJfaW5pdF9yZWdzKSAqIDMpICsgNCArIDUg
+KyAyKSAqIDQ7Cj4gKwkJKChBUlJBWV9TSVpFKHNncHIxX2luaXRfcmVncykgKiAzKSArIDQgKyA1
+ICsgMikgKiA0Owo+ICsJdG90YWxfc2l6ZSArPQo+ICsJCSgoQVJSQVlfU0laRShzZ3ByMl9pbml0
+X3JlZ3MpICogMykgKyA0ICsgNSArIDIpICogNDsKPiAgIAl0b3RhbF9zaXplID0gQUxJR04odG90
+YWxfc2l6ZSwgMjU2KTsKPiAgIAl2Z3ByX29mZnNldCA9IHRvdGFsX3NpemU7Cj4gICAJdG90YWxf
+c2l6ZSArPSBBTElHTihzaXplb2Yodmdwcl9pbml0X2NvbXB1dGVfc2hhZGVyKSwgMjU2KTsKPiBA
+QCAtNDEwOCw3ICs0MTIzLDM1IEBAIHN0YXRpYyBpbnQgZ2Z4X3Y5XzBfZG9fZWRjX2dwcl93b3Jr
+YXJvdW5kcyhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikKPiAgIAo+ICAgCS8qIHdyaXRlIGRp
+c3BhdGNoIHBhY2tldCAqLwo+ICAgCWliLnB0cltpYi5sZW5ndGhfZHcrK10gPSBQQUNLRVQzKFBB
+Q0tFVDNfRElTUEFUQ0hfRElSRUNULCAzKTsKPiAtCWliLnB0cltpYi5sZW5ndGhfZHcrK10gPSAy
+NTY7IC8qIHggKi8KPiArCWliLnB0cltpYi5sZW5ndGhfZHcrK10gPSAweDQwKjI7IC8qIHggKi8K
+PiArCWliLnB0cltpYi5sZW5ndGhfZHcrK10gPSAxOyAvKiB5ICovCj4gKwlpYi5wdHJbaWIubGVu
+Z3RoX2R3KytdID0gMTsgLyogeiAqLwo+ICsJaWIucHRyW2liLmxlbmd0aF9kdysrXSA9Cj4gKwkJ
+UkVHX1NFVF9GSUVMRCgwLCBDT01QVVRFX0RJU1BBVENIX0lOSVRJQVRPUiwgQ09NUFVURV9TSEFE
+RVJfRU4sIDEpOwo+ICsKPiArCS8qIHdyaXRlIENTIHBhcnRpYWwgZmx1c2ggcGFja2V0ICovCj4g
+KwlpYi5wdHJbaWIubGVuZ3RoX2R3KytdID0gUEFDS0VUMyhQQUNLRVQzX0VWRU5UX1dSSVRFLCAw
+KTsKPiArCWliLnB0cltpYi5sZW5ndGhfZHcrK10gPSBFVkVOVF9UWVBFKDcpIHwgRVZFTlRfSU5E
+RVgoNCk7Cj4gKwo+ICsJLyogU0dQUjEgKi8KPiArCS8qIHdyaXRlIHRoZSByZWdpc3RlciBzdGF0
+ZSBmb3IgdGhlIGNvbXB1dGUgZGlzcGF0Y2ggKi8KPiArCWZvciAoaSA9IDA7IGkgPCBBUlJBWV9T
+SVpFKHNncHIxX2luaXRfcmVncyk7IGkrKykgewo+ICsJCWliLnB0cltpYi5sZW5ndGhfZHcrK10g
+PSBQQUNLRVQzKFBBQ0tFVDNfU0VUX1NIX1JFRywgMSk7Cj4gKwkJaWIucHRyW2liLmxlbmd0aF9k
+dysrXSA9IFNPQzE1X1JFR19FTlRSWV9PRkZTRVQoc2dwcjFfaW5pdF9yZWdzW2ldKQo+ICsJCQkJ
+CQkJCS0gUEFDS0VUM19TRVRfU0hfUkVHX1NUQVJUOwo+ICsJCWliLnB0cltpYi5sZW5ndGhfZHcr
+K10gPSBzZ3ByMV9pbml0X3JlZ3NbaV0ucmVnX3ZhbHVlOwo+ICsJfQo+ICsJLyogd3JpdGUgdGhl
+IHNoYWRlciBzdGFydCBhZGRyZXNzOiBtbUNPTVBVVEVfUEdNX0xPLCBtbUNPTVBVVEVfUEdNX0hJ
+ICovCj4gKwlncHVfYWRkciA9IChpYi5ncHVfYWRkciArICh1NjQpc2dwcl9vZmZzZXQpID4+IDg7
+Cj4gKwlpYi5wdHJbaWIubGVuZ3RoX2R3KytdID0gUEFDS0VUMyhQQUNLRVQzX1NFVF9TSF9SRUcs
+IDIpOwo+ICsJaWIucHRyW2liLmxlbmd0aF9kdysrXSA9IFNPQzE1X1JFR19PRkZTRVQoR0MsIDAs
+IG1tQ09NUFVURV9QR01fTE8pCj4gKwkJCQkJCQktIFBBQ0tFVDNfU0VUX1NIX1JFR19TVEFSVDsK
+PiArCWliLnB0cltpYi5sZW5ndGhfZHcrK10gPSBsb3dlcl8zMl9iaXRzKGdwdV9hZGRyKTsKPiAr
+CWliLnB0cltpYi5sZW5ndGhfZHcrK10gPSB1cHBlcl8zMl9iaXRzKGdwdV9hZGRyKTsKPiArCj4g
+KwkvKiB3cml0ZSBkaXNwYXRjaCBwYWNrZXQgKi8KPiArCWliLnB0cltpYi5sZW5ndGhfZHcrK10g
+PSBQQUNLRVQzKFBBQ0tFVDNfRElTUEFUQ0hfRElSRUNULCAzKTsKPiArCWliLnB0cltpYi5sZW5n
+dGhfZHcrK10gPSAweEEwKjI7IC8qIHggKi8KPiAgIAlpYi5wdHJbaWIubGVuZ3RoX2R3KytdID0g
+MTsgLyogeSAqLwo+ICAgCWliLnB0cltpYi5sZW5ndGhfZHcrK10gPSAxOyAvKiB6ICovCj4gICAJ
+aWIucHRyW2liLmxlbmd0aF9kdysrXSA9Cj4gQEAgLTQxMTgsMTMgKzQxNjEsMTMgQEAgc3RhdGlj
+IGludCBnZnhfdjlfMF9kb19lZGNfZ3ByX3dvcmthcm91bmRzKHN0cnVjdCBhbWRncHVfZGV2aWNl
+ICphZGV2KQo+ICAgCWliLnB0cltpYi5sZW5ndGhfZHcrK10gPSBQQUNLRVQzKFBBQ0tFVDNfRVZF
+TlRfV1JJVEUsIDApOwo+ICAgCWliLnB0cltpYi5sZW5ndGhfZHcrK10gPSBFVkVOVF9UWVBFKDcp
+IHwgRVZFTlRfSU5ERVgoNCk7Cj4gICAKPiAtCS8qIFNHUFIgKi8KPiArCS8qIFNHUFIyICovCj4g
+ICAJLyogd3JpdGUgdGhlIHJlZ2lzdGVyIHN0YXRlIGZvciB0aGUgY29tcHV0ZSBkaXNwYXRjaCAq
+Lwo+IC0JZm9yIChpID0gMDsgaSA8IEFSUkFZX1NJWkUoc2dwcl9pbml0X3JlZ3MpOyBpKyspIHsK
+PiArCWZvciAoaSA9IDA7IGkgPCBBUlJBWV9TSVpFKHNncHIyX2luaXRfcmVncyk7IGkrKykgewo+
+ICAgCQlpYi5wdHJbaWIubGVuZ3RoX2R3KytdID0gUEFDS0VUMyhQQUNLRVQzX1NFVF9TSF9SRUcs
+IDEpOwo+IC0JCWliLnB0cltpYi5sZW5ndGhfZHcrK10gPSBTT0MxNV9SRUdfRU5UUllfT0ZGU0VU
+KHNncHJfaW5pdF9yZWdzW2ldKQo+ICsJCWliLnB0cltpYi5sZW5ndGhfZHcrK10gPSBTT0MxNV9S
+RUdfRU5UUllfT0ZGU0VUKHNncHIyX2luaXRfcmVnc1tpXSkKPiAgIAkJCQkJCQkJLSBQQUNLRVQz
+X1NFVF9TSF9SRUdfU1RBUlQ7Cj4gLQkJaWIucHRyW2liLmxlbmd0aF9kdysrXSA9IHNncHJfaW5p
+dF9yZWdzW2ldLnJlZ192YWx1ZTsKPiArCQlpYi5wdHJbaWIubGVuZ3RoX2R3KytdID0gc2dwcjJf
+aW5pdF9yZWdzW2ldLnJlZ192YWx1ZTsKPiAgIAl9Cj4gICAJLyogd3JpdGUgdGhlIHNoYWRlciBz
+dGFydCBhZGRyZXNzOiBtbUNPTVBVVEVfUEdNX0xPLCBtbUNPTVBVVEVfUEdNX0hJICovCj4gICAJ
+Z3B1X2FkZHIgPSAoaWIuZ3B1X2FkZHIgKyAodTY0KXNncHJfb2Zmc2V0KSA+PiA4Owo+IEBAIC00
+MTM2LDcgKzQxNzksNyBAQCBzdGF0aWMgaW50IGdmeF92OV8wX2RvX2VkY19ncHJfd29ya2Fyb3Vu
+ZHMoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpCj4gICAKPiAgIAkvKiB3cml0ZSBkaXNwYXRj
+aCBwYWNrZXQgKi8KPiAgIAlpYi5wdHJbaWIubGVuZ3RoX2R3KytdID0gUEFDS0VUMyhQQUNLRVQz
+X0RJU1BBVENIX0RJUkVDVCwgMyk7Cj4gLQlpYi5wdHJbaWIubGVuZ3RoX2R3KytdID0gMjU2OyAv
+KiB4ICovCj4gKwlpYi5wdHJbaWIubGVuZ3RoX2R3KytdID0gMHhBMCoyOyAvKiB4ICovCj4gICAJ
+aWIucHRyW2liLmxlbmd0aF9kdysrXSA9IDE7IC8qIHkgKi8KPiAgIAlpYi5wdHJbaWIubGVuZ3Ro
+X2R3KytdID0gMTsgLyogeiAqLwo+ICAgCWliLnB0cltpYi5sZW5ndGhfZHcrK10gPQpfX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcg
+bGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNr
+dG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
