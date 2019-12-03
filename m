@@ -6,46 +6,47 @@ X-Spam-Status: No, score=-7.2 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
 	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,
 	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 98535C432C0
-	for <amd-gfx@archiver.kernel.org>; Tue,  3 Dec 2019 21:52:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 059C9C432C3
+	for <amd-gfx@archiver.kernel.org>; Tue,  3 Dec 2019 22:41:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6F5892073F
-	for <amd-gfx@archiver.kernel.org>; Tue,  3 Dec 2019 21:52:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6F5892073F
+	by mail.kernel.org (Postfix) with ESMTPS id D3C1A214AF
+	for <amd-gfx@archiver.kernel.org>; Tue,  3 Dec 2019 22:41:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D3C1A214AF
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3BAD46F419;
-	Tue,  3 Dec 2019 21:52:54 +0000 (UTC)
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2B4EF6F418;
- Tue,  3 Dec 2019 21:52:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C05F86F425;
+	Tue,  3 Dec 2019 22:41:12 +0000 (UTC)
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EADAF6E868;
+ Tue,  3 Dec 2019 22:41:10 +0000 (UTC)
 X-Amp-Result: UNKNOWN
 X-Amp-Original-Verdict: FILE UNKNOWN
 X-Amp-File-Uploaded: False
-Received: from fmsmga006.fm.intel.com ([10.253.24.20])
- by fmsmga106.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 03 Dec 2019 13:52:52 -0800
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by orsmga106.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 03 Dec 2019 14:41:09 -0800
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="5.69,275,1571727600"; 
- d="gz'50?scan'50,208,50";a="412348241"
+ d="gz'50?scan'50,208,50";a="262722588"
 Received: from lkp-server01.sh.intel.com (HELO lkp-server01) ([10.239.97.150])
- by fmsmga006.fm.intel.com with ESMTP; 03 Dec 2019 13:52:51 -0800
+ by FMSMGA003.fm.intel.com with ESMTP; 03 Dec 2019 14:41:08 -0800
 Received: from kbuild by lkp-server01 with local (Exim 4.89)
  (envelope-from <lkp@intel.com>)
- id 1icG6E-00014c-UN; Wed, 04 Dec 2019 05:52:50 +0800
-Date: Wed, 4 Dec 2019 05:52:29 +0800
+ id 1icGqx-000GLx-JE; Wed, 04 Dec 2019 06:41:07 +0800
+Date: Wed, 4 Dec 2019 06:40:52 +0800
 From: kbuild test robot <lkp@intel.com>
 To: mikita.lipski@amd.com
-Subject: Re: [PATCH v8 11/17] drm/dp_mst: Add DSC enablement helpers to DRM
-Message-ID: <201912040533.r3ZveD1B%lkp@intel.com>
-References: <20191203143530.27262-12-mikita.lipski@amd.com>
+Subject: Re: [PATCH v8 16/17] drm/dp_mst: Add helper to trigger modeset on
+ affected DSC MST CRTCs
+Message-ID: <201912040626.UZBB4mD5%lkp@intel.com>
+References: <20191203143530.27262-17-mikita.lipski@amd.com>
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="eya7qy52cziwccjx"
+Content-Type: multipart/mixed; boundary="yz7opsp6oj5svxih"
 Content-Disposition: inline
-In-Reply-To: <20191203143530.27262-12-mikita.lipski@amd.com>
+In-Reply-To: <20191203143530.27262-17-mikita.lipski@amd.com>
 User-Agent: NeoMutt/20170113 (1.7.2)
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.23
@@ -58,13 +59,14 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Mikita Lipski <mikita.lipski@amd.com>, kbuild-all@lists.01.org,
+Cc: Manasi Navare <manasi.d.navare@intel.com>,
+ Mikita Lipski <mikita.lipski@amd.com>, kbuild-all@lists.01.org,
  dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
---eya7qy52cziwccjx
+--yz7opsp6oj5svxih
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
@@ -87,8 +89,6 @@ Reported-by: kbuild test robot <lkp@intel.com>
 
 All warnings (new ones prefixed by >>):
 
-   drivers/usb/typec/class.c:1: warning: 'typec_altmode_register_notifier' not found
-   fs/posix_acl.c:647: warning: Function parameter or member 'inode' not described in 'posix_acl_update_mode'
    fs/posix_acl.c:647: warning: Function parameter or member 'mode_p' not described in 'posix_acl_update_mode'
    fs/posix_acl.c:647: warning: Function parameter or member 'acl' not described in 'posix_acl_update_mode'
    include/linux/regulator/machine.h:196: warning: Function parameter or member 'max_uV_step' not described in 'regulation_constraints'
@@ -184,12 +184,17 @@ All warnings (new ones prefixed by >>):
    kernel/futex.c:1187: warning: Function parameter or member 'ret' not described in 'wait_for_owner_exiting'
    include/drm/drm_modeset_helper_vtables.h:1052: warning: Function parameter or member 'prepare_writeback_job' not described in 'drm_connector_helper_funcs'
    include/drm/drm_modeset_helper_vtables.h:1052: warning: Function parameter or member 'cleanup_writeback_job' not described in 'drm_connector_helper_funcs'
-   drivers/gpu/drm/drm_dp_mst_topology.c:4763: warning: Excess function parameter 'pointer' description in 'drm_dp_mst_atomic_enable_dsc'
-   drivers/gpu/drm/drm_dp_mst_topology.c:4763: warning: Excess function parameter 'pointer' description in 'drm_dp_mst_atomic_enable_dsc'
+   drivers/gpu/drm/drm_dp_mst_topology.c:4819: warning: Excess function parameter 'port' description in 'drm_dp_mst_add_affected_dsc_crtcs'
+   drivers/gpu/drm/drm_dp_mst_topology.c:4885: warning: Excess function parameter 'pointer' description in 'drm_dp_mst_atomic_enable_dsc'
+   drivers/gpu/drm/drm_dp_mst_topology.c:4819: warning: Excess function parameter 'port' description in 'drm_dp_mst_add_affected_dsc_crtcs'
+   drivers/gpu/drm/drm_dp_mst_topology.c:4885: warning: Excess function parameter 'pointer' description in 'drm_dp_mst_atomic_enable_dsc'
    include/drm/drm_dp_mst_helper.h:162: warning: Function parameter or member 'fec_capable' not described in 'drm_dp_mst_port'
->> drivers/gpu/drm/drm_dp_mst_topology.c:4764: warning: Function parameter or member 'port' not described in 'drm_dp_mst_atomic_enable_dsc'
-   drivers/gpu/drm/drm_dp_mst_topology.c:4764: warning: Excess function parameter 'pointer' description in 'drm_dp_mst_atomic_enable_dsc'
-   drivers/gpu/drm/drm_dp_mst_topology.c:4763: warning: Excess function parameter 'pointer' description in 'drm_dp_mst_atomic_enable_dsc'
+>> drivers/gpu/drm/drm_dp_mst_topology.c:4820: warning: Function parameter or member 'mgr' not described in 'drm_dp_mst_add_affected_dsc_crtcs'
+   drivers/gpu/drm/drm_dp_mst_topology.c:4820: warning: Excess function parameter 'port' description in 'drm_dp_mst_add_affected_dsc_crtcs'
+   drivers/gpu/drm/drm_dp_mst_topology.c:4886: warning: Function parameter or member 'port' not described in 'drm_dp_mst_atomic_enable_dsc'
+   drivers/gpu/drm/drm_dp_mst_topology.c:4886: warning: Excess function parameter 'pointer' description in 'drm_dp_mst_atomic_enable_dsc'
+   drivers/gpu/drm/drm_dp_mst_topology.c:4819: warning: Excess function parameter 'port' description in 'drm_dp_mst_add_affected_dsc_crtcs'
+   drivers/gpu/drm/drm_dp_mst_topology.c:4885: warning: Excess function parameter 'pointer' description in 'drm_dp_mst_atomic_enable_dsc'
    include/net/cfg80211.h:1189: warning: Function parameter or member 'txpwr' not described in 'station_parameters'
    include/net/mac80211.h:4081: warning: Function parameter or member 'sta_set_txpwr' not described in 'ieee80211_ops'
    include/net/mac80211.h:2036: warning: Function parameter or member 'txpwr' not described in 'ieee80211_sta'
@@ -206,118 +211,82 @@ All warnings (new ones prefixed by >>):
    Documentation/admin-guide/ras.rst:363: WARNING: Definition list ends without a blank line; unexpected unindent.
    Documentation/admin-guide/sysctl/kernel.rst:397: WARNING: Title underline too short.
 
-vim +4764 drivers/gpu/drm/drm_dp_mst_topology.c
+vim +4820 drivers/gpu/drm/drm_dp_mst_topology.c
 
-  4744	
-  4745	/**
-  4746	 * drm_dp_mst_atomic_enable_dsc - Set DSC Enable Flag to On/Off
-  4747	 * @state: Pointer to the new drm_atomic_state
-  4748	 * @pointer: Pointer to the affected MST Port
-  4749	 * @pbn: Newly recalculated bw required for link with DSC enabled
-  4750	 * @pbn_div: Divider to calculate correct number of pbn per slot
-  4751	 * @enable: Boolean flag enabling or disabling DSC on the port
-  4752	 *
-  4753	 * This function enables DSC on the given Port
-  4754	 * by recalculating its vcpi from pbn provided
-  4755	 * and sets dsc_enable flag to keep track of which
-  4756	 * ports have DSC enabled
-  4757	 *
-  4758	 */
-  4759	int drm_dp_mst_atomic_enable_dsc(struct drm_atomic_state *state,
-  4760					 struct drm_dp_mst_port *port,
-  4761					 int pbn, int pbn_div,
-  4762					 bool enable)
-> 4763	{
-> 4764		struct drm_dp_mst_topology_state *mst_state;
-  4765		struct drm_dp_vcpi_allocation *pos;
-  4766		bool found = false;
-  4767		int vcpi = 0;
-  4768	
-  4769		mst_state = drm_atomic_get_mst_topology_state(state, port->mgr);
-  4770	
-  4771		if (IS_ERR(mst_state))
-  4772			return PTR_ERR(mst_state);
-  4773	
-  4774		list_for_each_entry(pos, &mst_state->vcpis, next) {
-  4775			if (pos->port == port) {
-  4776				found = true;
-  4777				break;
-  4778			}
-  4779		}
-  4780	
-  4781		if (!found) {
-  4782			DRM_DEBUG_ATOMIC("[MST PORT:%p] Couldn't find VCPI allocation in mst state %p\n",
-  4783					 port, mst_state);
-  4784			return -EINVAL;
-  4785		}
-  4786	
-  4787		if (pos->dsc_enabled == enable) {
-  4788			DRM_DEBUG_ATOMIC("[MST PORT:%p] DSC flag is already set to %d, returning %d VCPI slots\n",
-  4789					 port, enable, pos->vcpi);
-  4790			vcpi = pos->vcpi;
-  4791		}
-  4792	
-  4793		if (enable) {
-  4794			vcpi = drm_dp_atomic_find_vcpi_slots(state, port->mgr, port, pbn, pbn_div);
-  4795			DRM_DEBUG_ATOMIC("[MST PORT:%p] Enabling DSC flag, reallocating %d VCPI slots on the port\n",
-  4796					 port, vcpi);
-  4797			if (vcpi < 0)
-  4798				return -EINVAL;
-  4799		}
-  4800	
-  4801		pos->dsc_enabled = enable;
-  4802	
-  4803		return vcpi;
-  4804	}
-  4805	EXPORT_SYMBOL(drm_dp_mst_atomic_enable_dsc);
-  4806	/**
-  4807	 * drm_dp_mst_atomic_check - Check that the new state of an MST topology in an
-  4808	 * atomic update is valid
-  4809	 * @state: Pointer to the new &struct drm_dp_mst_topology_state
-  4810	 *
-  4811	 * Checks the given topology state for an atomic update to ensure that it's
-  4812	 * valid. This includes checking whether there's enough bandwidth to support
-  4813	 * the new VCPI allocations in the atomic update.
+  4804	
+  4805	/**
+  4806	 * drm_dp_mst_add_affected_dsc_crtcs
+  4807	 * @state: Pointer to the new &struct drm_dp_mst_topology_state
+  4808	 * @port: Pointer tothe port of connector with new state
+  4809	 *
+  4810	 * Whenever there is a change in mst topology
+  4811	 * DSC configuration would have to be recalculated
+  4812	 * therefore we need to trigger modeset on all affected
+  4813	 * CRTCs in that topology
   4814	 *
-  4815	 * Any atomic drivers supporting DP MST must make sure to call this after
-  4816	 * checking the rest of their state in their
-  4817	 * &drm_mode_config_funcs.atomic_check() callback.
-  4818	 *
-  4819	 * See also:
-  4820	 * drm_dp_atomic_find_vcpi_slots()
-  4821	 * drm_dp_atomic_release_vcpi_slots()
-  4822	 *
-  4823	 * Returns:
-  4824	 *
-  4825	 * 0 if the new state is valid, negative error code otherwise.
-  4826	 */
-  4827	int drm_dp_mst_atomic_check(struct drm_atomic_state *state)
-  4828	{
-  4829		struct drm_dp_mst_topology_mgr *mgr;
-  4830		struct drm_dp_mst_topology_state *mst_state;
-  4831		int i, ret = 0;
-  4832	
-  4833		for_each_new_mst_mgr_in_state(state, mgr, mst_state, i) {
-  4834			ret = drm_dp_mst_atomic_check_topology_state(mgr, mst_state);
-  4835			if (ret)
-  4836				break;
-  4837		}
-  4838	
-  4839		return ret;
-  4840	}
-  4841	EXPORT_SYMBOL(drm_dp_mst_atomic_check);
+  4815	 * See also:
+  4816	 * drm_dp_mst_atomic_enable_dsc()
+  4817	 */
+  4818	int drm_dp_mst_add_affected_dsc_crtcs(struct drm_atomic_state *state, struct drm_dp_mst_topology_mgr *mgr)
+> 4819	{
+> 4820		struct drm_dp_mst_topology_state *mst_state;
+  4821		struct drm_dp_vcpi_allocation *pos;
+  4822		struct drm_connector *connector;
+  4823		struct drm_connector_state *conn_state;
+  4824		struct drm_crtc *crtc;
+  4825		struct drm_crtc_state *crtc_state;
+  4826	
+  4827		if (!mgr) {
+  4828			DRM_DEBUG_ATOMIC("[MST MGR:%p] Passed Topology Manager pointer is pointing to NULL\n", mgr);
+  4829			return -EINVAL;
+  4830		}
+  4831	
+  4832		mst_state = drm_atomic_get_mst_topology_state(state, mgr);
+  4833	
+  4834		list_for_each_entry(pos, &mst_state->vcpis, next) {
+  4835	
+  4836			connector = pos->port->connector;
+  4837	
+  4838			if (!connector)
+  4839				return -EINVAL;
+  4840	
+  4841			conn_state = drm_atomic_get_connector_state(state, connector);
   4842	
+  4843			if (IS_ERR(conn_state))
+  4844				return PTR_ERR(conn_state);
+  4845	
+  4846			crtc = conn_state->crtc;
+  4847	
+  4848			if (!crtc)
+  4849				return -EINVAL;
+  4850	
+  4851			if (!drm_dp_mst_dsc_aux_for_port(pos->port))
+  4852				continue;
+  4853	
+  4854			crtc_state = drm_atomic_get_crtc_state(mst_state->base.state, crtc);
+  4855	
+  4856			if (IS_ERR(crtc_state))
+  4857				return PTR_ERR(crtc_state);
+  4858	
+  4859			DRM_DEBUG_ATOMIC("[MST MGR:%p] Setting mode_changed flag on CRTC %p\n", mgr, crtc);
+  4860	
+  4861			crtc_state->mode_changed = true;
+  4862		}
+  4863		return 0;
+  4864	}
+  4865	EXPORT_SYMBOL(drm_dp_mst_add_affected_dsc_crtcs);
+  4866	
 
 ---
 0-DAY kernel test infrastructure                 Open Source Technology Center
 https://lists.01.org/hyperkitty/list/kbuild-all@lists.01.org Intel Corporation
 
---eya7qy52cziwccjx
+--yz7opsp6oj5svxih
 Content-Type: application/gzip
 Content-Disposition: attachment; filename=".config.gz"
 Content-Transfer-Encoding: base64
 
-H4sICP3V5l0AAy5jb25maWcAlDzbcuO2ku/5ClZStZXUqZn4No6zW36AQFBEzNsQpCz5haXI
+H4sICMXg5l0AAy5jb25maWcAlDzbcuO2ku/5ClZStZXUqZn4No6zW36AQFBEzNsQpCz5haXI
 tEcVW/JKcjLz99sNkCJINjTZUyeJjW40bn3vpn/64SePvR+2r8vDerV8efnmPdeberc81I/e
 0/ql/h/PT70kLTzhy+IjIEfrzfvXX9eXN9fep49XH8+8u3q3qV88vt08rZ/fYeZ6u/nhpx/g
 /z/B4OsbENn9t/e8Wn34zfvZr/9cLzfebx8/fTz7cP6L+QFQeZoEclpxXklVTTm//dYOwS/V
@@ -455,7 +424,7 @@ oZwCQZ/ZWixHopS+tSklblM6T3p2Z6ghgPzL12/1Eddjfs6Xq7yEJhBXttYClFD58wx/LLmb
 LnVzgG8+YFaVvvzT7Dfb5uyXIP/VaS5ws6mn5t5XOhYgHTAjnwlTLAQhdYvebCb61TaShAoo
 wqEZ7CkLNv7eMf9y0QYzbTv9B6u6aJCYagAA
 
---eya7qy52cziwccjx
+--yz7opsp6oj5svxih
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -465,4 +434,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
 
---eya7qy52cziwccjx--
+--yz7opsp6oj5svxih--
