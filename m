@@ -2,99 +2,112 @@ Return-Path: <SRS0=Fyns=Z7=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-2.2 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
+	HTML_MESSAGE,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	T_KAM_HTML_FONT_INVALID,USER_AGENT_SANE_1 autolearn=no autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A8487C43603
-	for <amd-gfx@archiver.kernel.org>; Mon,  9 Dec 2019 15:37:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6A35DC43603
+	for <amd-gfx@archiver.kernel.org>; Mon,  9 Dec 2019 15:52:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 79A0A20726
-	for <amd-gfx@archiver.kernel.org>; Mon,  9 Dec 2019 15:37:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 79A0A20726
+	by mail.kernel.org (Postfix) with ESMTPS id 444F02077B
+	for <amd-gfx@archiver.kernel.org>; Mon,  9 Dec 2019 15:52:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 444F02077B
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2CBF66E4B0;
-	Mon,  9 Dec 2019 15:37:35 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2045.outbound.protection.outlook.com [40.107.244.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 434906E4B0
- for <amd-gfx@lists.freedesktop.org>; Mon,  9 Dec 2019 15:37:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DBC396E506;
+	Mon,  9 Dec 2019 15:52:20 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2043.outbound.protection.outlook.com [40.107.237.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A9B296E506
+ for <amd-gfx@lists.freedesktop.org>; Mon,  9 Dec 2019 15:52:19 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ayhLt5sAuCE2bZou9tbsfZFSy6XYiTTliW2qTw0yeccEw4xVXlTNEA138lrSpoLt+swzARhBrd6bArS6yaZCdYA+sxxHaZGNzYsIUMpql80Uu5EUJ2zXd6AD2qaxXuMZgFbW/xrQivuSnzsS87xfGH2eiz9t9/7uI/3ArZmlsQWrgBgmYN+Wnro3tnXhCd2vuMKzvFtpXSWoaV0LbKECU9X4Nd/Y4I/XdjQOKoaCVpqpvFW5/mdYllxaGfCf9o9Cm1vI0aQtrj9uMLGYKEDFX3zo8eybeyVFyjB4/zizm/MBJ6b/yFcGsjisvZQPTYzoVbuRG0KCH+KUZYuUZmgL1g==
+ b=OmYbHvTwazhm4iEvSlF7nwdG3Ns5WgcfxYG7IktFbfcsI6E4wWx/r5kGhHXlJamoJcJ/j7ncZntqLaIK/Mzl5l6yjOF+z8Aaip5UO//jZqEm9idP1f2wEiB8RN9l0jd/ZmyXKPm8PW02+XgEs8BB00q8IWqzd+aXLy0DMwORyjCHuwatxb5KUjVi9GaYwqP/Q6Ui7GPQfnO6ht2kQZHhXGuZH8tqb8zMQFFDOAXLlUUAuHfSdeQLd4NTRa8VY8FqTzO6XjPKnFeBkt8CK/AOebfoG3jaMeL0Lli3crC/l/j1NbcbCBxTvAqpKlkDEUgmB9GiJLAclAuSdgVHLusG2A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Cl0pRgdXIIpAsUJtSn5T5jRWt0IB3jFAIcV1BWnsHy0=;
- b=U8rpxoL0ajdlFScHUh7TXyQ9oVwR50Xt1rAo2TXH/ACuj5MaTJ40XmntVNpPgYnEvhzhsiwUGZlOM6Gx0XQMh7jumkvDt3QjeZoqTcRmtGbFxg91sqUUllV+ifCmSJwWAFf+kkNqzdkjVcBZSpNN3Ff3opBGHlXUazf9LrxWO/fpEeqq3zcxXEc8UWVThKWVQGTpUbWo4qggteZH7bE56mFbQ9Si22edP6y77nAnjjWHxLFFE6ng82paYpRxpM0GS3W0o7OWKq3QUrv01UVZklIJCuZe3pOCRA+3gr++L2BQCCxxWkrmymjF2h+WKJ5mEgkBGE3AZKN8oiIATksqtg==
+ bh=VABdf5TGd+gvgRxV3ICeaSVdAqffEC2j+rpJ47snE30=;
+ b=ggk1nxZBhXJglLxh2T7rJv3CD4Y763jyd2j7sxvB/xXgDTjLvdbEh2B+osxOoLzfHYYMoCW3RME0z/d1w36M/Ucg/DpQz3N4jsSSLYjDNRLaIxOK/xi10t/PKYyNE2MoMppz/2/QUm0PJF3S6H1o2sk9nO+VyVXEH47+0Jui/XIDaP/cIgEGIwmJAWPp6h7bc74DjOFWuCpzqGGFdbsLUju6LaeTwq7h/1EwRw0Oo2cqnY4l1Lcm6SKA/ock1yGuuGj4gX8za2TPiwJ4MsW0hMUY3K1zoN5NRhg+UkF1C02qwjBQ+JTtHWt8fbkObjQ6xZ40ABOY+JZXwPOkxvyxzA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
-Received: from DM5PR12MB1705.namprd12.prod.outlook.com (10.175.88.22) by
- DM5PR12MB2357.namprd12.prod.outlook.com (52.132.142.142) with Microsoft SMTP
+Received: from MWHPR12MB1453.namprd12.prod.outlook.com (10.172.55.22) by
+ MWHPR12MB1631.namprd12.prod.outlook.com (10.172.55.147) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2516.12; Mon, 9 Dec 2019 15:37:32 +0000
-Received: from DM5PR12MB1705.namprd12.prod.outlook.com
- ([fe80::80df:f8b:e547:df84]) by DM5PR12MB1705.namprd12.prod.outlook.com
- ([fe80::80df:f8b:e547:df84%12]) with mapi id 15.20.2516.018; Mon, 9 Dec 2019
- 15:37:32 +0000
-Subject: Re: [PATCH 4/4] drm/scheduler: do not keep a copy of sched list
-To: Nirmoy <nirmodas@amd.com>, alexander.deucher@amd.com, kenny.ho@amd.com
-References: <20191206173304.3025-1-nirmoy.das@amd.com>
- <20191206173304.3025-4-nirmoy.das@amd.com>
- <6cc23df3-97f7-f961-12f3-d99677cd5304@gmail.com>
- <c857555c-601e-04d1-adbf-f2219c3e4e11@amd.com>
- <86d30760-8f27-1c42-f914-b512c9a3a0f1@amd.com>
- <e08519b8-3288-3a30-a32e-60758a939eec@amd.com>
- <54cce83b-abfd-1a2e-67c5-5ba95a445e8f@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-Message-ID: <7a972370-ef7a-f1f8-e396-a5e059f44ee8@amd.com>
-Date: Mon, 9 Dec 2019 16:37:25 +0100
+ 15.20.2516.17; Mon, 9 Dec 2019 15:52:18 +0000
+Received: from MWHPR12MB1453.namprd12.prod.outlook.com
+ ([fe80::514b:dbf8:d19f:a80]) by MWHPR12MB1453.namprd12.prod.outlook.com
+ ([fe80::514b:dbf8:d19f:a80%12]) with mapi id 15.20.2516.018; Mon, 9 Dec 2019
+ 15:52:17 +0000
+Subject: Re: [PATCH 07/10] drm/amdgpu: add concurrent baco reset support for
+ XGMI
+To: "Ma, Le" <Le.Ma@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "Zhou1, Tao" <Tao.Zhou1@amd.com>,
+ "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ "Li, Dennis" <Dennis.Li@amd.com>, "Zhang, Hawking" <Hawking.Zhang@amd.com>
+References: <1574846129-4826-1-git-send-email-le.ma@amd.com>
+ <1574846129-4826-6-git-send-email-le.ma@amd.com>
+ <c09d7928-f864-3a80-40e2-b6116abe044c@amd.com>
+ <MN2PR12MB42859443EA78D08B295AFE0DF6470@MN2PR12MB4285.namprd12.prod.outlook.com>
+ <157d7671-803c-4f6e-f77c-9738f32905e3@amd.com>
+ <MN2PR12MB428532FA663C99770AA71263F6430@MN2PR12MB4285.namprd12.prod.outlook.com>
+ <5b505116-17aa-383d-5cdf-246663a1f4f9@amd.com>
+ <MN2PR12MB42855B198BB4064A0D311845F6420@MN2PR12MB4285.namprd12.prod.outlook.com>
+ <2c4dd3f3-e2ce-9843-312b-1e5c05a51521@amd.com>
+ <CH2PR12MB4278F9759EF24F29A85D7D23F65D0@CH2PR12MB4278.namprd12.prod.outlook.com>
+ <0cf9f58a-3ce4-2a9c-cb1a-db3cb13760b9@amd.com>
+ <MN2PR12MB42855296AE5C7EDA968AA442F65C0@MN2PR12MB4285.namprd12.prod.outlook.com>
+ <a38e95ac-ca7e-20fd-0c2a-4d4310e8599a@amd.com>
+ <MN2PR12MB428581A895E0C2B26542CC1DF6580@MN2PR12MB4285.namprd12.prod.outlook.com>
+From: Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>
+Message-ID: <b44fcb10-d1ed-c93a-8010-5b62aae74545@amd.com>
+Date: Mon, 9 Dec 2019 10:52:14 -0500
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.9.0
-In-Reply-To: <54cce83b-abfd-1a2e-67c5-5ba95a445e8f@amd.com>
+ Thunderbird/60.4.0
+In-Reply-To: <MN2PR12MB428581A895E0C2B26542CC1DF6580@MN2PR12MB4285.namprd12.prod.outlook.com>
 Content-Language: en-US
-X-ClientProxiedBy: AM0PR02CA0102.eurprd02.prod.outlook.com
- (2603:10a6:208:154::43) To DM5PR12MB1705.namprd12.prod.outlook.com
- (2603:10b6:3:10c::22)
+X-ClientProxiedBy: YTOPR0101CA0055.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b00:14::32) To MWHPR12MB1453.namprd12.prod.outlook.com
+ (2603:10b6:301:e::22)
 MIME-Version: 1.0
-X-Originating-IP: [2a02:908:1252:fb60:be8a:bd56:1f94:86e7]
+X-Originating-IP: [165.204.55.251]
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: b7780ec8-a390-4c31-efe8-08d77cbdb4f0
-X-MS-TrafficTypeDiagnostic: DM5PR12MB2357:|DM5PR12MB2357:
+X-MS-Office365-Filtering-Correlation-Id: 33cf54bb-72ac-46e4-e051-08d77cbfc48b
+X-MS-TrafficTypeDiagnostic: MWHPR12MB1631:|MWHPR12MB1631:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM5PR12MB2357EF9642063494CB00B71383580@DM5PR12MB2357.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
+X-Microsoft-Antispam-PRVS: <MWHPR12MB1631E01388F8A47431D8050AEA580@MWHPR12MB1631.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:6108;
 X-Forefront-PRVS: 02462830BE
 X-Forefront-Antispam-Report: SFV:NSPM;
- SFS:(10009020)(4636009)(346002)(376002)(396003)(136003)(39860400002)(366004)(189003)(199004)(54094003)(2616005)(36756003)(31686004)(6512007)(229853002)(305945005)(66556008)(86362001)(66946007)(66476007)(6486002)(31696002)(6666004)(478600001)(5660300002)(6506007)(316002)(8936002)(52116002)(6636002)(53546011)(186003)(8676002)(4326008)(2906002)(2870700001)(81166006)(81156014);
- DIR:OUT; SFP:1101; SCL:1; SRVR:DM5PR12MB2357;
- H:DM5PR12MB1705.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; MX:1; A:1; 
+ SFS:(10009020)(4636009)(346002)(396003)(39860400002)(136003)(366004)(376002)(199004)(189003)(52314003)(316002)(2906002)(4326008)(53546011)(71190400001)(186003)(6636002)(6506007)(229853002)(26005)(6486002)(86362001)(478600001)(8936002)(2616005)(110136005)(81166006)(31686004)(81156014)(8676002)(790700001)(6666004)(6512007)(52116002)(5660300002)(31696002)(33964004)(66946007)(36756003)(66476007)(66556008)(921003)(1121003);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:MWHPR12MB1631;
+ H:MWHPR12MB1453.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; A:1; MX:1; 
 Received-SPF: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: bCJf4ESopQNOLido8ycp0mCiIH9a+myhEA31dqlNFdjNtIKUYGwHeNN77Z+tl7AErXeQL6fvzqqM8hhaU8OG/9KgODI12m8KCowMy316jwjIIKuwgPBpQIeJNvZg9PLQqYdDShRQypA1I9IeLU6Uw+Y3/thUf6ktQNaML/0tb+uNPokgeLzqgY1WlRR20H5+9s1p7LzLZg+j4ayUf91gvZn/Zn6P1kU5LnT0u6LN5ERzNE477iOTctk8eP9BRO9Il/f8SsGEPElWT3NjyUSgCJggexOj4AG68RQT5Al8Q0In4sCT1aFwY1iup+rbCdGvQ8n0/A/Huikf4OZ5/e5L2glrkdKptXP0I6LNkyP0r1MmzJzGs141LumN9tG9/cFmCdJUjjJTkLfIRTdamZUOwKHO8NjiNVcJhuReMiVIy/hYM3ARB5MDJ5uHaawaMBmWOfhjPae6vEt1v/PCfVPxJS8wH8wbWCELd3VhYCF92NGA+MKmfu9WsnyGNURl7SEV
+X-Microsoft-Antispam-Message-Info: uxXnRlRHIyriJ9NNeaQApqHZcMtLyHfTSecAwrCHKgL4CEUeKkI0frzrq35E3m7XcAWTHy3w4qVbs+ji4pK4X50alZN1C1g88sHOvH6WhQs7tzwlam4wB2e9fApKaNRK9rWJnYJtJuRAF5s5TJe/HZvp1KkQcbS0nNz6ExprUZJPPe/yKPJbJNS0p3Fj5QJi4us6iPUrnVLzobnBYx4T2x/1yrowJA5X94YLeSyJLiUJhiRKr3mqiyeTxlIPQQsUZIfpn6KKlh09RU424JmL49Yyqw4j7sKj30pjfUCMIp/p4H+Re0vcxyykknthxw1FBMYvJ7z4tmVTlB7Ro0yJRUj/t+9quPmOgeQUM3WAkp0SeUxsbT6sjEoMPIFZsfRCw0koew042MK3yudG+v11Nr9hiQRvGdoTwMKXGmlKzxiOws6eKUEsGUT+FRK/XdUDj2DNlkTop0E5QWUDWkO/EUCnK2aP72uUhg+P0+xiQhu9Cvg+JYQ2ZqLk7xdW+9yyICsjVSOI82yYLciew5F55Q==
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b7780ec8-a390-4c31-efe8-08d77cbdb4f0
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Dec 2019 15:37:32.6634 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 33cf54bb-72ac-46e4-e051-08d77cbfc48b
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Dec 2019 15:52:17.6532 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: jDDlFGcqTYhF/CMwzclrmE7zb6Ky/vAnYgX25exRurkd/a0GP0zEBdiWmS7k2S8Q
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB2357
+X-MS-Exchange-CrossTenant-UserPrincipalName: v0zs2a6f8oxKLz2bSREtVn3ivxXFK1RBWloFmSeA5zOugvBWHxqXtwMUZw0mGVgWAxtO4E/3ESkfiIGpnYIMGw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR12MB1631
 X-Mailman-Original-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Cl0pRgdXIIpAsUJtSn5T5jRWt0IB3jFAIcV1BWnsHy0=;
- b=LgFc089Y+Xy7ctXDK0pCCON0VM5pCTkyFUf2UFWFe5P0gNL3LWpxUQarbcMJ7HCUFCx1PMDbJoXt0OPVmRm4XA3tMLDSOlVUCXF8lNpGWWO4ZLuC2vktMQNGQQF5Lm8lLS8slyi1SrgaNj/o/d08FpEaZxv5bvskqm808okwNdQ=
+ bh=VABdf5TGd+gvgRxV3ICeaSVdAqffEC2j+rpJ47snE30=;
+ b=PvrqdZq2wo6k7RFUPNxqVppSlyrySvzeUxOH9gsn+Ym3Je8ub2UpKUYIZJ236eYKeEExPNaWqenotGNKYEsA5fd0Mi3dzUe+r33ZuvuZT6tjjHQ9whdgfvUn3N8YwMuSrrh8u+GimLbvy8s324waoptrrJyfLoOPw506UnmlMjA=
 X-Mailman-Original-Authentication-Results: spf=none (sender IP is )
- smtp.mailfrom=Christian.Koenig@amd.com; 
+ smtp.mailfrom=Andrey.Grodzovsky@amd.com; 
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -106,152 +119,259 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: nirmoy.das@amd.com, amd-gfx@lists.freedesktop.org
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Cc: "Chen, Guchun" <Guchun.Chen@amd.com>
+Content-Type: multipart/mixed; boundary="===============1942912257=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-WWVhaCwgdGhhdCB3b24ndCB3b3JrIHZlcnkgd2VsbC4KCkR1cmluZyBicmluZy11cCB3ZSBhbHNv
-IG9mdGVuIGhhdmUgdGhlIGNhc2UgdGhhdCB3ZSBjYW4ndCBjb3JyZWN0bHkgCmluaXRpYWxpemUg
-YWxsIGVuZ2luZXMsIGUuZy4gb25seSB0aGUgZmlyc3QgU0RNQSBjb21lcyB1cCBldGMuCgpTbyBi
-ZXR0ZXIgc3RpY2sgd2l0aCB0aGUgaW5pdGlhbCBhcHByb2FjaCBvZiBjb25zdHJ1Y3RpbmcgdGhl
-IHNjaGVkdWxlciAKYXJyYXkgZm9yIGVhY2ggZW5naW5lIHR5cGUgd2hpY2ggbmVlZHMgaXQuCgpS
-ZWdhcmRzLApDaHJpc3RpYW4uCgpBbSAwOS4xMi4xOSB1bSAxNTowOSBzY2hyaWViIE5pcm1veToK
-PiBJIGNhbiBzZWUgb25lIGlzc3VlIHdpdGggdGhpcy4gSSBhbSBpZ25vcmluZy9yZW1vdmluZyBj
-aGFuZ2VzIGZyb20KPgo+IGNvbW1pdCAyYTg0ZTQ4ZTk3MTJlYTg1OTFhMTBkZDU5ZDU5Y2NhYjNk
-NTRlZmQ2IGRybS9hbWRncHU6IE9ubHkgYWRkIAo+IHJxcyBmb3IgaW5pdGlhbGl6ZWQgcmluZ3Mu
-Cj4KPiBJIHdvbmRlciBpZiB3ZSBjYW4gaGFuZGxlIHRoYXQgZGlmZmVyZW50bHkuCj4KPiBSZWdh
-cmRzLAo+Cj4gTmlybW95Cj4KPiBPbiAxMi85LzE5IDI6NTYgUE0sIE5pcm1veSB3cm90ZToKPj4g
-SGkgQ2hyaXN0aWFuLAo+Pgo+PiBJIGdvdCBhIGRpZmZlcmVudCBpZGVhLCBhIGJpdCBtb3JlIHNp
-bXBsZSBsZXQgbWUga25vdyB3aGF0IGRvIHlvdSAKPj4gdGhpbmsgYWJvdXQgaXQ6Cj4+Cj4+IGRp
-ZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHUuaCAKPj4gYi9kcml2
-ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHUuaAo+PiBpbmRleCA1MGJhYjMzY2JhMzkuLjhk
-ZTRkZTRmN2E0MyAxMDA2NDQKPj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
-Z3B1LmgKPj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1LmgKPj4gQEAg
-LTg3MCw2ICs4NzAsNyBAQCBzdHJ1Y3QgYW1kZ3B1X2RldmljZSB7Cj4+IMKgwqDCoMKgwqDCoMKg
-IHU2NMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgIGZlbmNlX2NvbnRleHQ7Cj4+IMKgwqDCoMKgwqDCoMKgIHVuc2lnbmVkwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBudW1fcmluZ3M7Cj4+IMKgwqDCoMKg
-wqDCoMKgIHN0cnVjdCBhbWRncHVfcmluZyAqcmluZ3NbQU1ER1BVX01BWF9SSU5HU107Cj4+ICvC
-oMKgwqDCoMKgIHN0cnVjdCBkcm1fZ3B1X3NjaGVkdWxlciAqcmluZ3Nfc2NoZWRfbGlzdFtBTURH
-UFVfTUFYX1JJTkdTXTsKPj4gwqDCoMKgwqDCoMKgwqAgYm9vbMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBpYl9wb29sX3JlYWR5Owo+PiDCoMKg
-wqDCoMKgwqDCoCBzdHJ1Y3QgYW1kZ3B1X3NhX21hbmFnZXLCoMKgwqDCoMKgwqDCoCByaW5nX3Rt
-cF9ibzsKPj4KPj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdw
-dV9jdHguYyAKPj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfY3R4LmMKPj4g
-aW5kZXggMWQ2ODUwYWY5OTA4Li41MmIzYTVkODVhMWQgMTAwNjQ0Cj4+IC0tLSBhL2RyaXZlcnMv
-Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9jdHguYwo+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0v
-YW1kL2FtZGdwdS9hbWRncHVfY3R4LmMKPj4gQEAgLTEyMiw5ICsxMjIsOCBAQCBzdGF0aWMgaW50
-IGFtZGdwdV9jdHhfaW5pdChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAKPj4gKmFkZXYsCj4+Cj4+IMKg
-wqDCoMKgwqDCoMKgIGZvciAoaSA9IDA7IGkgPCBBTURHUFVfSFdfSVBfTlVNOyArK2kpIHsKPj4g
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHN0cnVjdCBhbWRncHVfcmluZyAqcmluZ3Nb
-QU1ER1BVX01BWF9SSU5HU107Cj4+IC3CoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHN0cnVj
-dCBkcm1fZ3B1X3NjaGVkdWxlciAqc2NoZWRfbGlzdFtBTURHUFVfTUFYX1JJTkdTXQo+PiArwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgc3RydWN0IGRybV9ncHVfc2NoZWR1bGVyICoqc2NoZWRf
-bGlzdDsKPj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHVuc2lnbmVkIG51bV9yaW5n
-cyA9IDA7Cj4+IC3CoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHVuc2lnbmVkIG51bV9ycXMg
-PSAwOwo+Pgo+PiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgc3dpdGNoIChpKSB7Cj4+
-IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBjYXNlIEFNREdQVV9IV19JUF9HRlg6Cj4+
-IEBAIC0xNzcsMTcgKzE3NiwxMSBAQCBzdGF0aWMgaW50IGFtZGdwdV9jdHhfaW5pdChzdHJ1Y3Qg
-YW1kZ3B1X2RldmljZSAKPj4gKmFkZXYsCj4+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqAgYnJlYWs7Cj4+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oCB9Cj4+Cj4+IC3CoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGZvciAoaiA9IDA7IGogPCBu
-dW1fcmluZ3M7ICsraikgewo+PiAtwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqAgaWYgKCFyaW5nc1tqXS0+YWRldikKPj4gLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBjb250aW51ZTsKPj4gLQo+PiAt
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgc2NoZWRfbGlzdFtu
-dW1fcnFzKytdID0gJnJpbmdzW2pdLT5zY2hlZDsKPj4gLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqAgfQo+PiAtCj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBzY2hlZF9saXN0PSBh
-ZGV2LT5yaW5nc19zY2hlZF9saXN0K3JpbmdzWzBdLT5pZHg7Cj4+IMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoCBmb3IgKGogPSAwOyBqIDwgYW1kZ3B1X2N0eF9udW1fZW50aXRpZXNbaV07
-ICsraikKPj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBy
-ID0gCj4+IGRybV9zY2hlZF9lbnRpdHlfaW5pdCgmY3R4LT5lbnRpdGllc1tpXVtqXS5lbnRpdHks
-Cj4+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHByaW9yaXR5LCBz
-Y2hlZF9saXN0LAo+PiAtwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIG51
-bV9ycXMsIAo+PiAmY3R4LT5ndWlsdHkpOwo+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoCBudW1fcmluZ3MsIAo+PiAmY3R4LT5ndWlsdHkpOwo+PiDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqAgaWYgKHIpCj4+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqAgZ290byBlcnJvcl9jbGVhbnVwX2VudGl0aWVzOwo+PiDCoMKgwqDC
-oMKgwqDCoCB9Cj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
-cHVfZmVuY2UuYyAKPj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZmVuY2Uu
-Ywo+PiBpbmRleCAzNzdmZTIwYmNlMjMuLmU4Y2ZhMzU3ZTQ0NSAxMDA2NDQKPj4gLS0tIGEvZHJp
-dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2ZlbmNlLmMKPj4gKysrIGIvZHJpdmVycy9n
-cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2ZlbmNlLmMKPj4gQEAgLTQ4MCw2ICs0ODAsOCBAQCBp
-bnQgYW1kZ3B1X2ZlbmNlX2RyaXZlcl9pbml0X3Jpbmcoc3RydWN0IAo+PiBhbWRncHVfcmluZyAq
-cmluZywKPj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgIHJpbmctPm5hbWUpOwo+PiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHJldHVybiByOwo+PiDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqAgfQo+PiArCj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGFkZXYt
-PnJpbmdzX3NjaGVkX2xpc3RbcmluZy0+aWR4XSA9ICZyaW5nLT5zY2hlZDsKPj4gwqDCoMKgwqDC
-oMKgwqAgfQo+Pgo+PiDCoMKgwqDCoMKgwqDCoCByZXR1cm4gMDsKPj4gZGlmZiAtLWdpdCBhL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3NkbWFfdjRfMC5jIAo+PiBiL2RyaXZlcnMvZ3B1L2Ry
-bS9hbWQvYW1kZ3B1L3NkbWFfdjRfMC5jCj4+IGluZGV4IGJkOWVkMzNiYWI0My4uYmZlMzYxOTlm
-ZmVkIDEwMDY0NAo+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9zZG1hX3Y0XzAu
-Ywo+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9zZG1hX3Y0XzAuYwo+PiBAQCAt
-MTc0NCw4ICsxNzQ0LDExIEBAIHN0YXRpYyBpbnQgc2RtYV92NF8wX3N3X2luaXQodm9pZCAqaGFu
-ZGxlKQo+PiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgQU1ER1BVX1NETUFfSVJRX0lOU1RBTkNFMCArIGkpOwo+
-PiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgaWYgKHIpCj4+IMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgcmV0dXJuIHI7Cj4+ICvCoMKgwqDCoMKg
-wqAgfQo+PiArCj4+ICvCoMKgwqDCoMKgwqAgaWYgKGFkZXYtPnNkbWEuaGFzX3BhZ2VfcXVldWUp
-IHsKPj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgZm9yIChpID0gMDsgaSA8IGFkZXYt
-PnNkbWEubnVtX2luc3RhbmNlczsgaSsrKSB7Cj4+Cj4+IC3CoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgIGlmIChhZGV2LT5zZG1hLmhhc19wYWdlX3F1ZXVlKSB7Cj4+IMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgcmluZyA9ICZhZGV2LT5zZG1hLmluc3Rh
-bmNlW2ldLnBhZ2U7Cj4+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqAgcmluZy0+cmluZ19vYmogPSBOVUxMOwo+PiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgIHJpbmctPnVzZV9kb29yYmVsbCA9IHRydWU7Cj4+Cj4+IEl0
-IHJlbGllcyBvbiBjb250aWd1b3VzIHJpbmcgaW5pdGlhbGl6YXRpb24gdGhhdCdzIHdoeSBJIGhh
-ZCB0byAKPj4gY2hhbmdlwqAgc2RtYV92NF8wLmMgc28gdGhhdCB3ZSBkbyByaW5nX2luaXQoc2Rt
-YTAsIHNkbWExLCBwYWdlMCwgcGFnZTF9Cj4+Cj4+IGluc3RlYWQgb2YgcmluZ19pbml0e3NkbWEw
-LCBwYWdlMCwgc2RtYTEsIHBhZ2UxfQo+Pgo+Pgo+PiBSZWdhcmRzLAo+Pgo+PiBOaXJtb3kKPj4K
-Pj4gT24gMTIvOS8xOSAxOjIwIFBNLCBDaHJpc3RpYW4gS8O2bmlnIHdyb3RlOgo+Pj4gWWVzLCB5
-b3UgbmVlZCB0byBkbyB0aGlzIGZvciB0aGUgU0RNQSBhcyB3ZWxsIGJ1dCBpbiBnZW5lcmFsIHRo
-YXQgCj4+PiBsb29rcyBsaWtlIHRoZSBpZGVhIEkgaGFkIGluIG1pbmQgYXMgd2VsbC4KPj4+Cj4+
-PiBJIHdvdWxkIGRvIGl0IGxpa2UgdGhpczoKPj4+Cj4+PiAxLiBDaGFuZ2UgdGhlIHNwZWNpYWwg
-Y2FzZSB3aGVuIHlvdSBvbmx5IGdldCBvbmUgc2NoZWR1bGVyIGZvciBhbiAKPj4+IGVudGl0eSB0
-byBkcm9wIHRoZSBwb2ludGVyIHRvIHRoZSBzY2hlZHVsZXIgbGlzdC4KPj4+IMKgwqDCoCBUaGlz
-IHdheSB3ZSBhbHdheXMgdXNlIHRoZSBzYW1lIHNjaGVkdWxlciBmb3IgdGhlIGVudGl0eSBhbmQg
-Y2FuIAo+Pj4gcGFzcyBpbiB0aGUgYXJyYXkgb24gdGhlIHN0YWNrLgo+Pj4KPj4+IDIuIENoYW5n
-ZSBhbGwgY2FsbGVycyB3aGljaCB1c2UgbW9yZSB0aGFuIG9uZSBzY2hlZHVsZXIgaW4gdGhlIGxp
-c3QgCj4+PiB0byBwYXNzIGluIHBvaW50ZXJzIHdoaWNoIGFyZSBub3QgYWxsb2NhdGVkIG9uIHRo
-ZSBzdGFjay4KPj4+IMKgwqDCoCBUaGlzIG9idmlvdXNseSBhbHNvIG1lYW5zIHRoYXQgd2UgYnVp
-bGQgdGhlIGxpc3Qgb2Ygc2NoZWR1bGVycyAKPj4+IGZvciBlYWNoIHR5cGUgb25seSBvbmNlIGR1
-cmluZyBkZXZpY2UgaW5pdCBhbmQgbm90IGZvciBlYWNoIGNvbnRleHQgCj4+PiBpbml0Lgo+Pj4K
-Pj4+IDMuIE1ha2UgdGhlIHNjaGVkdWxlciBsaXN0IGNvbnN0IGFuZCBkcm9wIHRoZSBrY2FsbG9j
-KCkva2ZyZWUoKSBmcm9tIAo+Pj4gdGhlIGVudGl0eSBjb2RlLgo+Pj4KPj4+IFJlZ2FyZHMsCj4+
-PiBDaHJpc3RpYW4uCj4+Pgo+Pj4gQW0gMDguMTIuMTkgdW0gMjA6NTcgc2NocmllYiBOaXJtb3k6
-Cj4+Pj4KPj4+PiBPbiAxMi82LzE5IDg6NDEgUE0sIENocmlzdGlhbiBLw7ZuaWcgd3JvdGU6Cj4+
-Pj4+IEFtIDA2LjEyLjE5IHVtIDE4OjMzIHNjaHJpZWIgTmlybW95IERhczoKPj4+Pj4+IGVudGl0
-eSBzaG91bGQgbm90IGtlZXAgY29weSBhbmQgbWFpbnRhaW4gc2NoZWQgbGlzdCBmb3IKPj4+Pj4+
-IGl0c2VsZi4KPj4+Pj4KPj4+Pj4gVGhhdCBpcyBhIGdvb2Qgc3RlcCwgYnV0IHdlIG5lZWQgdG8g
-dGFrZSB0aGlzIGZ1cnRoZXIuCj4+Pj4KPj4+PiBIb3cgYWJvdXTCoCBzb21ldGhpbmcgbGlrZSA/
-Cj4+Pj4KPj4+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
-X2dmeC5oIAo+Pj4+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2dmeC5oCj4+
-Pj4gaW5kZXggMGFlMGEyNzE1YjBkLi5hNzFlZTA4NGI0N2EgMTAwNjQ0Cj4+Pj4gLS0tIGEvZHJp
-dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2dmeC5oCj4+Pj4gKysrIGIvZHJpdmVycy9n
-cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2dmeC5oCj4+Pj4gQEAgLTI2OSw4ICsyNjksMTAgQEAg
-c3RydWN0IGFtZGdwdV9nZnggewo+Pj4+IMKgwqDCoMKgwqDCoMKgIGJvb2zCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgbWVfZndfd3JpdGVfd2Fp
-dDsKPj4+PiDCoMKgwqDCoMKgwqDCoCBib29swqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGNwX2Z3X3dyaXRlX3dhaXQ7Cj4+Pj4gwqDCoMKgwqDC
-oMKgwqAgc3RydWN0IGFtZGdwdV9yaW5nIGdmeF9yaW5nW0FNREdQVV9NQVhfR0ZYX1JJTkdTXTsK
-Pj4+PiArwqDCoMKgwqDCoMKgIHN0cnVjdCBkcm1fZ3B1X3NjaGVkdWxlciAKPj4+PiAqZ2Z4X3Nj
-aGVkX2xpc3RbQU1ER1BVX01BWF9HRlhfUklOR1NdOwo+Pj4+IMKgwqDCoMKgwqDCoMKgIHVuc2ln
-bmVkwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBudW1fZ2Z4
-X3JpbmdzOwo+Pj4+IMKgwqDCoMKgwqDCoMKgIHN0cnVjdCBhbWRncHVfcmluZyBjb21wdXRlX3Jp
-bmdbQU1ER1BVX01BWF9DT01QVVRFX1JJTkdTXTsKPj4+PiArwqDCoMKgwqDCoMKgIHN0cnVjdCBk
-cm1fZ3B1X3NjaGVkdWxlciAKPj4+PiAqY29tcHV0ZV9zY2hlZF9saXN0W0FNREdQVV9NQVhfQ09N
-UFVURV9SSU5HU107Cj4+Pj4gwqDCoMKgwqDCoMKgwqAgdW5zaWduZWTCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIG51bV9jb21wdXRlX3JpbmdzOwo+Pj4+IMKg
-wqDCoMKgwqDCoMKgIHN0cnVjdCBhbWRncHVfaXJxX3NyY8KgwqDCoMKgwqDCoMKgwqDCoMKgIGVv
-cF9pcnE7Cj4+Pj4gwqDCoMKgwqDCoMKgwqAgc3RydWN0IGFtZGdwdV9pcnFfc3JjwqDCoMKgwqDC
-oMKgwqDCoMKgwqAgcHJpdl9yZWdfaXJxOwo+Pj4+Cj4+Pj4KPj4+PiBSZWdhcmRzLAo+Pj4+Cj4+
-Pj4gTmlybW95Cj4+Pj4KPj4+CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9w
-Lm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1n
-Zng=
+--===============1942912257==
+Content-Type: multipart/alternative;
+ boundary="------------BF766A78451A6146F08F7C6C"
+Content-Language: en-US
+
+--------------BF766A78451A6146F08F7C6C
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+
+Thanks a lot Ma for trying - I think I have to have my own system to 
+debug this so I will keep trying enabling XGMI - i still think the is 
+the right and the generic solution for multiple nodes reset 
+synchronization and in fact the barrier should also be used for 
+synchronizing PSP mode 1 XGMI reset too.
+
+Andrey
+
+On 12/9/19 6:34 AM, Ma, Le wrote:
+>
+> [AMD Official Use Only - Internal Distribution Only]
+>
+>
+> Hi Andrey,
+>
+> I tried your patches on my 2P XGMI platform. The baco can work at most 
+> time, and randomly got following error:
+>
+> [ 1701.542298] amdgpu: [powerplay] Failed to send message 0x25, 
+> response 0x0
+>
+> This error usually means some sync issue exist for xgmi baco case. 
+> Feel free to debug your patches on my XGMI platform.
+>
+> Regards,
+>
+> Ma Le
+>
+> *From:*Grodzovsky, Andrey <Andrey.Grodzovsky@amd.com>
+> *Sent:* Saturday, December 7, 2019 5:51 AM
+> *To:* Ma, Le <Le.Ma@amd.com>; amd-gfx@lists.freedesktop.org; Zhou1, 
+> Tao <Tao.Zhou1@amd.com>; Deucher, Alexander 
+> <Alexander.Deucher@amd.com>; Li, Dennis <Dennis.Li@amd.com>; Zhang, 
+> Hawking <Hawking.Zhang@amd.com>
+> *Cc:* Chen, Guchun <Guchun.Chen@amd.com>
+> *Subject:* Re: [PATCH 07/10] drm/amdgpu: add concurrent baco reset 
+> support for XGMI
+>
+> Hey Ma, attached a solution - it's just compiled as I still can't make 
+> my XGMI setup work (with bridge connected only one device is visible 
+> to the system while the other is not). Please try it on your system if 
+> you have a chance.
+>
+> Andrey
+>
+> On 12/4/19 10:14 PM, Ma, Le wrote:
+>
+>     AFAIK it's enough for even single one node in the hive to to fail
+>     the enter the BACO state on time to fail the entire hive reset
+>     procedure, no ?
+>
+>     [Le]: Yeah, agree that. I’ve been thinking that make all nodes
+>     entering baco simultaneously can reduce the possibility of node
+>     failure to enter/exit BACO risk. For example, in an XGMI hive with
+>     8 nodes, the total time interval of 8 nodes enter/exit BACO on 8
+>     CPUs is less than the interval that 8 nodes enter BACO serially
+>     and exit BACO serially depending on one CPU with yield capability.
+>     This interval is usually strict for BACO feature itself. Anyway,
+>     we need more looping test later on any method we will choose.
+>
+>     Any way - I see our discussion blocks your entire patch set - I
+>     think you can go ahead and commit yours way (I think you got an RB
+>     from Hawking) and I will look then and see if I can implement my
+>     method and if it works will just revert your patch.
+>
+>     [Le]: OK, fine.
+>
+>     Andrey
+>
+
+--------------BF766A78451A6146F08F7C6C
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: 8bit
+
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body text="#000000" bgcolor="#FFFFFF">
+    <p>Thanks a lot Ma for trying - I think I have to have my own system
+      to debug this so I will keep trying enabling XGMI - i still think
+      the is the right and the generic solution for multiple nodes reset
+      synchronization and in fact the barrier should also be used for
+      synchronizing PSP mode 1 XGMI reset too.</p>
+    <p>Andrey<br>
+    </p>
+    <div class="moz-cite-prefix">On 12/9/19 6:34 AM, Ma, Le wrote:<br>
+    </div>
+    <blockquote type="cite" cite="mid:MN2PR12MB428581A895E0C2B26542CC1DF6580@MN2PR12MB4285.namprd12.prod.outlook.com">
+      
+      <meta name="Generator" content="Microsoft Word 15 (filtered
+        medium)">
+      <style><!--
+/* Font Definitions */
+@font-face
+	{font-family:SimSun;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:DengXian;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:"\@DengXian";
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:"\@SimSun";
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;
+	color:black;}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:#0563C1;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{mso-style-priority:99;
+	color:#954F72;
+	text-decoration:underline;}
+p.msonormal0, li.msonormal0, div.msonormal0
+	{mso-style-name:msonormal;
+	mso-margin-top-alt:auto;
+	margin-right:0in;
+	mso-margin-bottom-alt:auto;
+	margin-left:0in;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;
+	color:black;}
+span.EmailStyle18
+	{mso-style-type:personal-reply;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-size:10.0pt;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.0in 1.0in 1.0in;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext="edit" spidmax="1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext="edit">
+<o:idmap v:ext="edit" data="1" />
+</o:shapelayout></xml><![endif]-->
+      <p class="msipheadera92e061b" style="margin:0" align="Left"><span style="font-size:10.0pt;font-family:Arial;color:#0078D7">[AMD
+          Official Use Only - Internal Distribution Only]</span></p>
+      <br>
+      <div class="WordSection1">
+        <p class="MsoNormal"><span style="font-size:12.0pt;color:windowtext">Hi Andrey,<o:p></o:p></span></p>
+        <p class="MsoNormal"><span style="font-size:12.0pt;color:windowtext"><o:p>&nbsp;</o:p></span></p>
+        <p class="MsoNormal"><span style="font-size:12.0pt;color:windowtext">I tried your
+            patches on my 2P XGMI platform. The baco can work at most
+            time, and randomly got following error:<o:p></o:p></span></p>
+        <p class="MsoNormal" style="margin-left:.5in"><span style="font-size:12.0pt;color:windowtext">[ 1701.542298]
+            amdgpu: [powerplay] Failed to send message 0x25, response
+            0x0<o:p></o:p></span></p>
+        <p class="MsoNormal"><span style="font-size:12.0pt;color:windowtext"><o:p>&nbsp;</o:p></span></p>
+        <p class="MsoNormal"><span style="font-size:12.0pt;color:windowtext">This error usually
+            means some sync issue exist for xgmi baco case. Feel free to
+            debug your patches on my XGMI platform.<o:p></o:p></span></p>
+        <p class="MsoNormal"><span style="font-size:12.0pt;color:windowtext"><o:p>&nbsp;</o:p></span></p>
+        <p class="MsoNormal"><span style="font-size:12.0pt;color:windowtext">Regards,<o:p></o:p></span></p>
+        <p class="MsoNormal"><span style="font-size:12.0pt;color:windowtext">Ma Le<o:p></o:p></span></p>
+        <p class="MsoNormal"><span style="font-size:12.0pt;color:windowtext"><o:p>&nbsp;</o:p></span></p>
+        <div>
+          <div style="border:none;border-top:solid #E1E1E1
+            1.0pt;padding:3.0pt 0in 0in 0in">
+            <p class="MsoNormal"><b><span style="color:windowtext">From:</span></b><span style="color:windowtext"> Grodzovsky, Andrey
+                <a class="moz-txt-link-rfc2396E" href="mailto:Andrey.Grodzovsky@amd.com">&lt;Andrey.Grodzovsky@amd.com&gt;</a>
+                <br>
+                <b>Sent:</b> Saturday, December 7, 2019 5:51 AM<br>
+                <b>To:</b> Ma, Le <a class="moz-txt-link-rfc2396E" href="mailto:Le.Ma@amd.com">&lt;Le.Ma@amd.com&gt;</a>;
+                <a class="moz-txt-link-abbreviated" href="mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.org</a>; Zhou1, Tao
+                <a class="moz-txt-link-rfc2396E" href="mailto:Tao.Zhou1@amd.com">&lt;Tao.Zhou1@amd.com&gt;</a>; Deucher, Alexander
+                <a class="moz-txt-link-rfc2396E" href="mailto:Alexander.Deucher@amd.com">&lt;Alexander.Deucher@amd.com&gt;</a>; Li, Dennis
+                <a class="moz-txt-link-rfc2396E" href="mailto:Dennis.Li@amd.com">&lt;Dennis.Li@amd.com&gt;</a>; Zhang, Hawking
+                <a class="moz-txt-link-rfc2396E" href="mailto:Hawking.Zhang@amd.com">&lt;Hawking.Zhang@amd.com&gt;</a><br>
+                <b>Cc:</b> Chen, Guchun <a class="moz-txt-link-rfc2396E" href="mailto:Guchun.Chen@amd.com">&lt;Guchun.Chen@amd.com&gt;</a><br>
+                <b>Subject:</b> Re: [PATCH 07/10] drm/amdgpu: add
+                concurrent baco reset support for XGMI<o:p></o:p></span></p>
+          </div>
+        </div>
+        <p class="MsoNormal"><o:p>&nbsp;</o:p></p>
+        <p>Hey Ma, attached a solution - it's just compiled as I still
+          can't make my XGMI setup work (with bridge connected only one
+          device is visible to the system while the other is not).
+          Please try it on your system if you have a chance.
+          <o:p></o:p></p>
+        <p>Andrey<o:p></o:p></p>
+        <div>
+          <p class="MsoNormal">On 12/4/19 10:14 PM, Ma, Le wrote:<o:p></o:p></p>
+        </div>
+        <blockquote style="margin-top:5.0pt;margin-bottom:5.0pt">
+          <p>AFAIK it's enough for even single one node in the hive to
+            to fail the enter the BACO state on time to fail the entire
+            hive reset procedure, no ?<o:p></o:p></p>
+          <p class="MsoNormal" style="mso-margin-top-alt:auto;mso-margin-bottom-alt:auto"><span style="font-size:12.0pt;color:#203864">[Le]: Yeah, agree
+              that. I’ve been thinking that make all nodes entering baco
+              simultaneously can reduce the possibility of node failure
+              to enter/exit BACO risk. For example, in an XGMI hive with
+              8 nodes, the total time interval of 8 nodes enter/exit
+              BACO on 8 CPUs is less than the interval that 8 nodes
+              enter BACO serially and exit BACO serially depending on
+              one CPU with yield capability. This interval is usually
+              strict for BACO feature itself. Anyway, we need more
+              looping test later on any method we will choose.</span><o:p></o:p></p>
+          <p>Any way - I see our discussion blocks your entire patch set
+            - I think you can go ahead and commit yours way (I think you
+            got an RB from Hawking) and I will look then and see if I
+            can implement my method and if it works will just revert
+            your patch.<o:p></o:p></p>
+          <p><span style="font-size:12.0pt;color:#203864">[Le]: OK,
+              fine.</span><o:p></o:p></p>
+          <p>Andrey<o:p></o:p></p>
+        </blockquote>
+      </div>
+    </blockquote>
+  </body>
+</html>
+
+--------------BF766A78451A6146F08F7C6C--
+
+--===============1942912257==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+
+--===============1942912257==--
