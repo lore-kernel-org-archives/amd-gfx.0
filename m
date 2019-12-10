@@ -6,44 +6,44 @@ X-Spam-Status: No, score=-9.8 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id CE5F7C00454
-	for <amd-gfx@archiver.kernel.org>; Tue, 10 Dec 2019 21:25:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C4A43C00454
+	for <amd-gfx@archiver.kernel.org>; Tue, 10 Dec 2019 21:25:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A3D52208C3
-	for <amd-gfx@archiver.kernel.org>; Tue, 10 Dec 2019 21:25:29 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 97D51214AF
+	for <amd-gfx@archiver.kernel.org>; Tue, 10 Dec 2019 21:25:33 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="nJ5qewbL"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A3D52208C3
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="ims8hFC1"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 97D51214AF
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7BB0E6E96F;
-	Tue, 10 Dec 2019 21:25:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E19636E977;
+	Tue, 10 Dec 2019 21:25:24 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DC6816E96F;
- Tue, 10 Dec 2019 21:25:19 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3BF836E977;
+ Tue, 10 Dec 2019 21:25:24 +0000 (UTC)
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id CE74F206D5;
- Tue, 10 Dec 2019 21:25:18 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 4CA4521D7D;
+ Tue, 10 Dec 2019 21:25:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1576013119;
- bh=SNku1A80aBY1NpeoUIxNgyT9QiMOSAAxcUYbnDY+Zp0=;
+ s=default; t=1576013124;
+ bh=YyPzPT3aJVPf7MSddQdNvkX3fuIxyFCU9WurLQdBgRg=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=nJ5qewbLBX5n0akdskl9TScv/rKJeYL4iX40J0jI/zlaZGHI3CB1+OR9TIJyiarmF
- oPxRSBkRgHDoGJX8tv+tmiyfM4ltAgaoyMmC/L3+viUHlYgeLNqVqbnwEh+jVzuWym
- hRwMBToM1xGQBw4+cyX2d5OOHUNcR4Oag/xUpBaE=
+ b=ims8hFC10XSfU4AOwHQHYXKyDwM/w9zt2fAB0IG8wJ6DuedKit/SKGpXd2NrPNdd3
+ 9Xrdi0oUh2gox0abTFIgMxwbrObKYm2E2OmUqzYVhTzunVzl4pQYCbrUEVlWEj5+Wo
+ hesumOoRaQh3+uV3P1WjHHvNrn0lU/T/9v8ms0dc=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.3 006/292] drm/amd/display: verify stream link
- before link test
-Date: Tue, 10 Dec 2019 16:20:25 -0500
-Message-Id: <20191210212511.11392-6-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.3 010/292] drm/amdgpu/sriov: add ring_stop before
+ ring_create in psp v11 code
+Date: Tue, 10 Dec 2019 16:20:29 -0500
+Message-Id: <20191210212511.11392-10-sashal@kernel.org>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20191210212511.11392-1-sashal@kernel.org>
 References: <20191210212511.11392-1-sashal@kernel.org>
@@ -61,49 +61,119 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, Jing Zhou <Jing.Zhou@amd.com>,
- Wenjing Liu <Wenjing.Liu@amd.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
- Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>
+Cc: Sasha Levin <sashal@kernel.org>, Jack Zhang <Jack.Zhang1@amd.com>,
+ Feifei Xu <Feifei.Xu@amd.com>, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Jing Zhou <Jing.Zhou@amd.com>
+From: Jack Zhang <Jack.Zhang1@amd.com>
 
-[ Upstream commit b131932215c993ea5adf8192d1de2e8d6b23048d ]
+[ Upstream commit 51c0f58e9f6af3a387d14608033e6796a7ad90ee ]
 
-[Why]
-DP1.2 LL CTS test failure.
+psp  v11 code missed ring stop in ring create function(VMR)
+while psp v3.1 code had the code. This will cause VM destroy1
+fail and psp ring create fail.
 
-[How]
-The failure is caused by not verify stream link is equal
-to link, only check stream and link is not null.
+For SIOV-VF, ring_stop should not be deleted in ring_create
+function.
 
-Signed-off-by: Jing Zhou <Jing.Zhou@amd.com>
-Reviewed-by: Wenjing Liu <Wenjing.Liu@amd.com>
-Acked-by: Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>
+Signed-off-by: Jack Zhang <Jack.Zhang1@amd.com>
+Reviewed-by: Feifei Xu <Feifei.Xu@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/display/dc/core/dc_link_hwss.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/psp_v11_0.c | 61 ++++++++++++++------------
+ 1 file changed, 34 insertions(+), 27 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_hwss.c b/drivers/gpu/drm/amd/display/dc/core/dc_link_hwss.c
-index a9135764e5806..767de9d6b07a7 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_link_hwss.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_link_hwss.c
-@@ -312,7 +312,8 @@ void dp_retrain_link_dp_test(struct dc_link *link,
- 		if (pipes[i].stream != NULL &&
- 			!pipes[i].top_pipe &&
- 			pipes[i].stream->link != NULL &&
--			pipes[i].stream_res.stream_enc != NULL) {
-+			pipes[i].stream_res.stream_enc != NULL &&
-+			pipes[i].stream->link == link) {
- 			udelay(100);
+diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c b/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c
+index 41b72588adcf5..68774524e58bb 100644
+--- a/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c
+@@ -373,6 +373,34 @@ static bool psp_v11_0_support_vmr_ring(struct psp_context *psp)
+ 	return false;
+ }
  
- 			pipes[i].stream_res.stream_enc->funcs->dp_blank(
++static int psp_v11_0_ring_stop(struct psp_context *psp,
++			      enum psp_ring_type ring_type)
++{
++	int ret = 0;
++	struct amdgpu_device *adev = psp->adev;
++
++	/* Write the ring destroy command*/
++	if (psp_v11_0_support_vmr_ring(psp))
++		WREG32_SOC15(MP0, 0, mmMP0_SMN_C2PMSG_101,
++				     GFX_CTRL_CMD_ID_DESTROY_GPCOM_RING);
++	else
++		WREG32_SOC15(MP0, 0, mmMP0_SMN_C2PMSG_64,
++				     GFX_CTRL_CMD_ID_DESTROY_RINGS);
++
++	/* there might be handshake issue with hardware which needs delay */
++	mdelay(20);
++
++	/* Wait for response flag (bit 31) */
++	if (psp_v11_0_support_vmr_ring(psp))
++		ret = psp_wait_for(psp, SOC15_REG_OFFSET(MP0, 0, mmMP0_SMN_C2PMSG_101),
++				   0x80000000, 0x80000000, false);
++	else
++		ret = psp_wait_for(psp, SOC15_REG_OFFSET(MP0, 0, mmMP0_SMN_C2PMSG_64),
++				   0x80000000, 0x80000000, false);
++
++	return ret;
++}
++
+ static int psp_v11_0_ring_create(struct psp_context *psp,
+ 				enum psp_ring_type ring_type)
+ {
+@@ -382,6 +410,12 @@ static int psp_v11_0_ring_create(struct psp_context *psp,
+ 	struct amdgpu_device *adev = psp->adev;
+ 
+ 	if (psp_v11_0_support_vmr_ring(psp)) {
++		ret = psp_v11_0_ring_stop(psp, ring_type);
++		if (ret) {
++			DRM_ERROR("psp_v11_0_ring_stop_sriov failed!\n");
++			return ret;
++		}
++
+ 		/* Write low address of the ring to C2PMSG_102 */
+ 		psp_ring_reg = lower_32_bits(ring->ring_mem_mc_addr);
+ 		WREG32_SOC15(MP0, 0, mmMP0_SMN_C2PMSG_102, psp_ring_reg);
+@@ -426,33 +460,6 @@ static int psp_v11_0_ring_create(struct psp_context *psp,
+ 	return ret;
+ }
+ 
+-static int psp_v11_0_ring_stop(struct psp_context *psp,
+-			      enum psp_ring_type ring_type)
+-{
+-	int ret = 0;
+-	struct amdgpu_device *adev = psp->adev;
+-
+-	/* Write the ring destroy command*/
+-	if (psp_v11_0_support_vmr_ring(psp))
+-		WREG32_SOC15(MP0, 0, mmMP0_SMN_C2PMSG_101,
+-				     GFX_CTRL_CMD_ID_DESTROY_GPCOM_RING);
+-	else
+-		WREG32_SOC15(MP0, 0, mmMP0_SMN_C2PMSG_64,
+-				     GFX_CTRL_CMD_ID_DESTROY_RINGS);
+-
+-	/* there might be handshake issue with hardware which needs delay */
+-	mdelay(20);
+-
+-	/* Wait for response flag (bit 31) */
+-	if (psp_v11_0_support_vmr_ring(psp))
+-		ret = psp_wait_for(psp, SOC15_REG_OFFSET(MP0, 0, mmMP0_SMN_C2PMSG_101),
+-				   0x80000000, 0x80000000, false);
+-	else
+-		ret = psp_wait_for(psp, SOC15_REG_OFFSET(MP0, 0, mmMP0_SMN_C2PMSG_64),
+-				   0x80000000, 0x80000000, false);
+-
+-	return ret;
+-}
+ 
+ static int psp_v11_0_ring_destroy(struct psp_context *psp,
+ 				 enum psp_ring_type ring_type)
 -- 
 2.20.1
 
