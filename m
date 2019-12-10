@@ -6,44 +6,44 @@ X-Spam-Status: No, score=-9.8 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id CDEDFC2D0C4
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 23AD3C2D0BF
 	for <amd-gfx@archiver.kernel.org>; Tue, 10 Dec 2019 21:17:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A2AA120652
-	for <amd-gfx@archiver.kernel.org>; Tue, 10 Dec 2019 21:17:43 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id ED50720652
+	for <amd-gfx@archiver.kernel.org>; Tue, 10 Dec 2019 21:17:42 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="0+/S+Lbx"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A2AA120652
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="fs8XgcAW"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org ED50720652
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CACC86E973;
-	Tue, 10 Dec 2019 21:17:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2CBCF6E976;
+	Tue, 10 Dec 2019 21:17:26 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 669C96E970
- for <amd-gfx@lists.freedesktop.org>; Tue, 10 Dec 2019 21:17:23 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 787886E97B;
+ Tue, 10 Dec 2019 21:17:23 +0000 (UTC)
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 7B9EE246BD;
- Tue, 10 Dec 2019 21:11:32 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id B7E2624688;
+ Tue, 10 Dec 2019 21:07:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1576012293;
- bh=H2GK/DUBBLyJIEm10deHjwmLeqHR0r/dzL9Ms9oZTUY=;
+ s=default; t=1576012069;
+ bh=LA4jwc5q3lPFXscqOD5f2qDp4cgi4LzaCbXLHdoRLws=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=0+/S+LbxZQNZt2eET1sT+IPf2mjqt3OtruNrK/yaZhnO5q4sctBRDUwYGGJBKJ8BP
- /76+LI1TFbP5+yuOGyUYzBP4XaMAxt+z+MZwSFBt46EJIjxzJMpJmugfO7C12/ZvBQ
- Co1LOEP3u18AFo/cP6pSyRqtzgf8cMm3dX7bpnMA=
+ b=fs8XgcAWKNtXJ7iyIL8R8dVSPwdloZclkp3no5L66TyR32mZX0oziEKCHxYs7p9vs
+ WXKeR0YlY0saTaYzN7QU05e9qkzj/FoB6xG2jjMqYt9Qe/YRG46xDJcK3ryH3QWhiC
+ f8K0hI1POx1IWOZdIMrfxTvB/7WpM5TaEFAcNRFA=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.4 232/350] drm/amdgpu: fix potential double drop
- fence reference
-Date: Tue, 10 Dec 2019 16:05:37 -0500
-Message-Id: <20191210210735.9077-193-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.4 050/350] drm/amd/display: Set number of pipes to 1
+ if the second pipe was disabled
+Date: Tue, 10 Dec 2019 16:02:35 -0500
+Message-Id: <20191210210735.9077-11-sashal@kernel.org>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20191210210735.9077-1-sashal@kernel.org>
 References: <20191210210735.9077-1-sashal@kernel.org>
@@ -61,38 +61,57 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, Pan Bian <bianpan2016@163.com>,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Sasha Levin <sashal@kernel.org>, Leo Li <sunpeng.li@amd.com>,
+ amd-gfx@lists.freedesktop.org, Nikola Cornij <nikola.cornij@amd.com>,
+ Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>,
+ dri-devel@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-RnJvbTogUGFuIEJpYW4gPGJpYW5wYW4yMDE2QDE2My5jb20+CgpbIFVwc3RyZWFtIGNvbW1pdCA5
-NDZhYjhkYjY5NTM1MzVhM2E4OGM5NTdkYjgzMjhiZWFjZGZlZDlkIF0KClRoZSBvYmplY3QgZmVu
-Y2UgaXMgbm90IHNldCB0byBOVUxMIGFmdGVyIGl0cyByZWZlcmVuY2UgaXMgZHJvcHBlZC4gQXMg
-YQpyZXN1bHQsIGl0cyByZWZlcmVuY2UgbWF5IGJlIGRyb3BwZWQgYWdhaW4gaWYgZXJyb3Igb2Nj
-dXJzIGFmdGVyIHRoYXQsCndoaWNoIG1heSBsZWFkIHRvIGEgdXNlIGFmdGVyIGZyZWUgYnVnLiBU
-byBhdm9pZCB0aGUgaXNzdWUsIGZlbmNlIGlzCmV4cGxpY2l0bHkgc2V0IHRvIE5VTEwgYWZ0ZXIg
-ZHJvcHBpbmcgaXRzIHJlZmVyZW5jZS4KCkFja2VkLWJ5OiBDaHJpc3RpYW4gS8O2bmlnIDxjaHJp
-c3RpYW4ua29lbmlnQGFtZC5jb20+ClNpZ25lZC1vZmYtYnk6IFBhbiBCaWFuIDxiaWFucGFuMjAx
-NkAxNjMuY29tPgpTaWduZWQtb2ZmLWJ5OiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVy
-QGFtZC5jb20+ClNpZ25lZC1vZmYtYnk6IFNhc2hhIExldmluIDxzYXNoYWxAa2VybmVsLm9yZz4K
-LS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdGVzdC5jIHwgMiArKwogMSBm
-aWxlIGNoYW5nZWQsIDIgaW5zZXJ0aW9ucygrKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2Ry
-bS9hbWQvYW1kZ3B1L2FtZGdwdV90ZXN0LmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
-bWRncHVfdGVzdC5jCmluZGV4IGI2NmQyOWQ1ZmZhMmMuLmIxNTgyMzBhZjhkYjcgMTAwNjQ0Ci0t
-LSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV90ZXN0LmMKKysrIGIvZHJpdmVy
-cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Rlc3QuYwpAQCAtMTM4LDYgKzEzOCw3IEBAIHN0
-YXRpYyB2b2lkIGFtZGdwdV9kb190ZXN0X21vdmVzKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2
-KQogCQl9CiAKIAkJZG1hX2ZlbmNlX3B1dChmZW5jZSk7CisJCWZlbmNlID0gTlVMTDsKIAogCQly
-ID0gYW1kZ3B1X2JvX2ttYXAodnJhbV9vYmosICZ2cmFtX21hcCk7CiAJCWlmIChyKSB7CkBAIC0x
-ODMsNiArMTg0LDcgQEAgc3RhdGljIHZvaWQgYW1kZ3B1X2RvX3Rlc3RfbW92ZXMoc3RydWN0IGFt
-ZGdwdV9kZXZpY2UgKmFkZXYpCiAJCX0KIAogCQlkbWFfZmVuY2VfcHV0KGZlbmNlKTsKKwkJZmVu
-Y2UgPSBOVUxMOwogCiAJCXIgPSBhbWRncHVfYm9fa21hcChndHRfb2JqW2ldLCAmZ3R0X21hcCk7
-CiAJCWlmIChyKSB7Ci0tIAoyLjIwLjEKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRl
-c2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8v
-YW1kLWdmeAo=
+From: Nikola Cornij <nikola.cornij@amd.com>
+
+[ Upstream commit 2fef0faa1cdc5d41ce3ef83f7b8f7e7ecb02d700 ]
+
+[why]
+Some ODM-related register settings are inconsistently updated by VBIOS, causing
+the state in DC to be invalid, which would then end up crashing in certain
+use-cases (such as disable/enable device).
+
+[how]
+Check the enabled status of the second pipe when determining the number of
+OPTC sources. If the second pipe is disabled, set the number of sources to 1
+regardless of other settings (that may not be updated correctly).
+
+Signed-off-by: Nikola Cornij <nikola.cornij@amd.com>
+Reviewed-by: Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>
+Acked-by: Leo Li <sunpeng.li@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/gpu/drm/amd/display/dc/dcn20/dcn20_optc.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_optc.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_optc.c
+index 2137e2be21404..dda90995ba933 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_optc.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_optc.c
+@@ -287,6 +287,10 @@ void optc2_get_optc_source(struct timing_generator *optc,
+ 		*num_of_src_opp = 2;
+ 	else
+ 		*num_of_src_opp = 1;
++
++	/* Work around VBIOS not updating OPTC_NUM_OF_INPUT_SEGMENT */
++	if (*src_opp_id_1 == 0xf)
++		*num_of_src_opp = 1;
+ }
+ 
+ void optc2_set_dwb_source(struct timing_generator *optc,
+-- 
+2.20.1
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
