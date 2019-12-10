@@ -6,47 +6,47 @@ X-Spam-Status: No, score=-9.8 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A9485C2D0C4
-	for <amd-gfx@archiver.kernel.org>; Tue, 10 Dec 2019 21:18:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id CE5F7C00454
+	for <amd-gfx@archiver.kernel.org>; Tue, 10 Dec 2019 21:25:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7674F206D5
-	for <amd-gfx@archiver.kernel.org>; Tue, 10 Dec 2019 21:18:00 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id A3D52208C3
+	for <amd-gfx@archiver.kernel.org>; Tue, 10 Dec 2019 21:25:29 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="FAxF2wFt"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7674F206D5
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="nJ5qewbL"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A3D52208C3
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 737CD6E98D;
-	Tue, 10 Dec 2019 21:17:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7BB0E6E96F;
+	Tue, 10 Dec 2019 21:25:21 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6745C6E972;
- Tue, 10 Dec 2019 21:17:23 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DC6816E96F;
+ Tue, 10 Dec 2019 21:25:19 +0000 (UTC)
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id F364E20652;
- Tue, 10 Dec 2019 21:08:45 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id CE74F206D5;
+ Tue, 10 Dec 2019 21:25:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1576012126;
- bh=4lvf0WVJkiCaK/sGncCOHh8sp07BDq1hgg2ES55yXR4=;
+ s=default; t=1576013119;
+ bh=SNku1A80aBY1NpeoUIxNgyT9QiMOSAAxcUYbnDY+Zp0=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=FAxF2wFt/YxO4vXdFAvoCNe9hOFY5tvSAClWo3rkIVnqb47LpS/O/h6fvlJ/7PU5r
- PKl52tZfxXUhI2PgUrvCL8XSiDVt9aXnoZHV8oW6XWMfdMbZtcwSpCh9EZJqsEfbNx
- mpgRa485iIc3hGPw9iBCW0vT7iYwMPavjB4iogMM=
+ b=nJ5qewbLBX5n0akdskl9TScv/rKJeYL4iX40J0jI/zlaZGHI3CB1+OR9TIJyiarmF
+ oPxRSBkRgHDoGJX8tv+tmiyfM4ltAgaoyMmC/L3+viUHlYgeLNqVqbnwEh+jVzuWym
+ hRwMBToM1xGQBw4+cyX2d5OOHUNcR4Oag/xUpBaE=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.4 096/350] drm/amd/display: wait for set pipe mcp
- command completion
-Date: Tue, 10 Dec 2019 16:03:21 -0500
-Message-Id: <20191210210735.9077-57-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.3 006/292] drm/amd/display: verify stream link
+ before link test
+Date: Tue, 10 Dec 2019 16:20:25 -0500
+Message-Id: <20191210212511.11392-6-sashal@kernel.org>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20191210210735.9077-1-sashal@kernel.org>
-References: <20191210210735.9077-1-sashal@kernel.org>
+In-Reply-To: <20191210212511.11392-1-sashal@kernel.org>
+References: <20191210212511.11392-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
@@ -61,8 +61,8 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, Josip Pavic <Josip.Pavic@amd.com>,
- Anthony Koo <Anthony.Koo@amd.com>, amd-gfx@lists.freedesktop.org,
+Cc: Sasha Levin <sashal@kernel.org>, Jing Zhou <Jing.Zhou@amd.com>,
+ Wenjing Liu <Wenjing.Liu@amd.com>, amd-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
  Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>
 Content-Type: text/plain; charset="us-ascii"
@@ -70,43 +70,40 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Josip Pavic <Josip.Pavic@amd.com>
+From: Jing Zhou <Jing.Zhou@amd.com>
 
-[ Upstream commit 15caeabc5787c15babad7ee444afe9c26df1c8b3 ]
+[ Upstream commit b131932215c993ea5adf8192d1de2e8d6b23048d ]
 
 [Why]
-When the driver sends a pipe set command to the DMCU FW, it does not wait
-for the command to complete. This can lead to unpredictable behavior if,
-for example, the driver were to request a pipe disable to the FW via MCP,
-then power down some hardware before the firmware has completed processing
-the command.
+DP1.2 LL CTS test failure.
 
 [How]
-Wait for the DMCU FW to finish processing set pipe commands
+The failure is caused by not verify stream link is equal
+to link, only check stream and link is not null.
 
-Signed-off-by: Josip Pavic <Josip.Pavic@amd.com>
-Reviewed-by: Anthony Koo <Anthony.Koo@amd.com>
+Signed-off-by: Jing Zhou <Jing.Zhou@amd.com>
+Reviewed-by: Wenjing Liu <Wenjing.Liu@amd.com>
 Acked-by: Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/display/dc/dce/dce_abm.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/gpu/drm/amd/display/dc/core/dc_link_hwss.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_abm.c b/drivers/gpu/drm/amd/display/dc/dce/dce_abm.c
-index 58bd131d5b484..7700a855d77ce 100644
---- a/drivers/gpu/drm/amd/display/dc/dce/dce_abm.c
-+++ b/drivers/gpu/drm/amd/display/dc/dce/dce_abm.c
-@@ -77,6 +77,9 @@ static bool dce_abm_set_pipe(struct abm *abm, uint32_t controller_id)
- 	/* notifyDMCUMsg */
- 	REG_UPDATE(MASTER_COMM_CNTL_REG, MASTER_COMM_INTERRUPT, 1);
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_hwss.c b/drivers/gpu/drm/amd/display/dc/core/dc_link_hwss.c
+index a9135764e5806..767de9d6b07a7 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_link_hwss.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_link_hwss.c
+@@ -312,7 +312,8 @@ void dp_retrain_link_dp_test(struct dc_link *link,
+ 		if (pipes[i].stream != NULL &&
+ 			!pipes[i].top_pipe &&
+ 			pipes[i].stream->link != NULL &&
+-			pipes[i].stream_res.stream_enc != NULL) {
++			pipes[i].stream_res.stream_enc != NULL &&
++			pipes[i].stream->link == link) {
+ 			udelay(100);
  
-+	REG_WAIT(MASTER_COMM_CNTL_REG, MASTER_COMM_INTERRUPT, 0,
-+			1, 80000);
-+
- 	return true;
- }
- 
+ 			pipes[i].stream_res.stream_enc->funcs->dp_blank(
 -- 
 2.20.1
 
