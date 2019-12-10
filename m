@@ -6,44 +6,44 @@ X-Spam-Status: No, score=-9.8 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C4A43C00454
-	for <amd-gfx@archiver.kernel.org>; Tue, 10 Dec 2019 21:25:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 53E41C2D0BF
+	for <amd-gfx@archiver.kernel.org>; Tue, 10 Dec 2019 21:25:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 97D51214AF
-	for <amd-gfx@archiver.kernel.org>; Tue, 10 Dec 2019 21:25:33 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 2892A214AF
+	for <amd-gfx@archiver.kernel.org>; Tue, 10 Dec 2019 21:25:34 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="ims8hFC1"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 97D51214AF
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="Fj5PVfx7"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2892A214AF
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E19636E977;
-	Tue, 10 Dec 2019 21:25:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 229AB6E979;
+	Tue, 10 Dec 2019 21:25:26 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3BF836E977;
- Tue, 10 Dec 2019 21:25:24 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 66DA56E979;
+ Tue, 10 Dec 2019 21:25:25 +0000 (UTC)
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 4CA4521D7D;
- Tue, 10 Dec 2019 21:25:23 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 7B22921556;
+ Tue, 10 Dec 2019 21:25:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1576013124;
- bh=YyPzPT3aJVPf7MSddQdNvkX3fuIxyFCU9WurLQdBgRg=;
+ s=default; t=1576013125;
+ bh=pfweuhzheRT+MBCmUjZdFceQheS50mACzk1KJkOnWKY=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=ims8hFC10XSfU4AOwHQHYXKyDwM/w9zt2fAB0IG8wJ6DuedKit/SKGpXd2NrPNdd3
- 9Xrdi0oUh2gox0abTFIgMxwbrObKYm2E2OmUqzYVhTzunVzl4pQYCbrUEVlWEj5+Wo
- hesumOoRaQh3+uV3P1WjHHvNrn0lU/T/9v8ms0dc=
+ b=Fj5PVfx7Brg76qVs9O6h6NNhNwU0N+QFbp4+Cke2SHSs670PE2s9rC5XxSjaLJwmR
+ mDa9LoB5Gp+R5viLZPB80/2NniCNiil2Z7H9SeuwWCU3j0cQApS7LM836dhnFV3HRs
+ cxgWff7TQXQ3VIujwbaQzAPNFKHsk0Lu2/14wR5Y=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.3 010/292] drm/amdgpu/sriov: add ring_stop before
- ring_create in psp v11 code
-Date: Tue, 10 Dec 2019 16:20:29 -0500
-Message-Id: <20191210212511.11392-10-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.3 011/292] drm/amdgpu: grab the id mgr lock while
+ accessing passid_mapping
+Date: Tue, 10 Dec 2019 16:20:30 -0500
+Message-Id: <20191210212511.11392-11-sashal@kernel.org>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20191210212511.11392-1-sashal@kernel.org>
 References: <20191210212511.11392-1-sashal@kernel.org>
@@ -61,123 +61,52 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, Jack Zhang <Jack.Zhang1@amd.com>,
- Feifei Xu <Feifei.Xu@amd.com>, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: Sasha Levin <sashal@kernel.org>, Chunming Zhou <david1.zhou@amd.com>,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Jack Zhang <Jack.Zhang1@amd.com>
-
-[ Upstream commit 51c0f58e9f6af3a387d14608033e6796a7ad90ee ]
-
-psp  v11 code missed ring stop in ring create function(VMR)
-while psp v3.1 code had the code. This will cause VM destroy1
-fail and psp ring create fail.
-
-For SIOV-VF, ring_stop should not be deleted in ring_create
-function.
-
-Signed-off-by: Jack Zhang <Jack.Zhang1@amd.com>
-Reviewed-by: Feifei Xu <Feifei.Xu@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/gpu/drm/amd/amdgpu/psp_v11_0.c | 61 ++++++++++++++------------
- 1 file changed, 34 insertions(+), 27 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c b/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c
-index 41b72588adcf5..68774524e58bb 100644
---- a/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c
-@@ -373,6 +373,34 @@ static bool psp_v11_0_support_vmr_ring(struct psp_context *psp)
- 	return false;
- }
- 
-+static int psp_v11_0_ring_stop(struct psp_context *psp,
-+			      enum psp_ring_type ring_type)
-+{
-+	int ret = 0;
-+	struct amdgpu_device *adev = psp->adev;
-+
-+	/* Write the ring destroy command*/
-+	if (psp_v11_0_support_vmr_ring(psp))
-+		WREG32_SOC15(MP0, 0, mmMP0_SMN_C2PMSG_101,
-+				     GFX_CTRL_CMD_ID_DESTROY_GPCOM_RING);
-+	else
-+		WREG32_SOC15(MP0, 0, mmMP0_SMN_C2PMSG_64,
-+				     GFX_CTRL_CMD_ID_DESTROY_RINGS);
-+
-+	/* there might be handshake issue with hardware which needs delay */
-+	mdelay(20);
-+
-+	/* Wait for response flag (bit 31) */
-+	if (psp_v11_0_support_vmr_ring(psp))
-+		ret = psp_wait_for(psp, SOC15_REG_OFFSET(MP0, 0, mmMP0_SMN_C2PMSG_101),
-+				   0x80000000, 0x80000000, false);
-+	else
-+		ret = psp_wait_for(psp, SOC15_REG_OFFSET(MP0, 0, mmMP0_SMN_C2PMSG_64),
-+				   0x80000000, 0x80000000, false);
-+
-+	return ret;
-+}
-+
- static int psp_v11_0_ring_create(struct psp_context *psp,
- 				enum psp_ring_type ring_type)
- {
-@@ -382,6 +410,12 @@ static int psp_v11_0_ring_create(struct psp_context *psp,
- 	struct amdgpu_device *adev = psp->adev;
- 
- 	if (psp_v11_0_support_vmr_ring(psp)) {
-+		ret = psp_v11_0_ring_stop(psp, ring_type);
-+		if (ret) {
-+			DRM_ERROR("psp_v11_0_ring_stop_sriov failed!\n");
-+			return ret;
-+		}
-+
- 		/* Write low address of the ring to C2PMSG_102 */
- 		psp_ring_reg = lower_32_bits(ring->ring_mem_mc_addr);
- 		WREG32_SOC15(MP0, 0, mmMP0_SMN_C2PMSG_102, psp_ring_reg);
-@@ -426,33 +460,6 @@ static int psp_v11_0_ring_create(struct psp_context *psp,
- 	return ret;
- }
- 
--static int psp_v11_0_ring_stop(struct psp_context *psp,
--			      enum psp_ring_type ring_type)
--{
--	int ret = 0;
--	struct amdgpu_device *adev = psp->adev;
--
--	/* Write the ring destroy command*/
--	if (psp_v11_0_support_vmr_ring(psp))
--		WREG32_SOC15(MP0, 0, mmMP0_SMN_C2PMSG_101,
--				     GFX_CTRL_CMD_ID_DESTROY_GPCOM_RING);
--	else
--		WREG32_SOC15(MP0, 0, mmMP0_SMN_C2PMSG_64,
--				     GFX_CTRL_CMD_ID_DESTROY_RINGS);
--
--	/* there might be handshake issue with hardware which needs delay */
--	mdelay(20);
--
--	/* Wait for response flag (bit 31) */
--	if (psp_v11_0_support_vmr_ring(psp))
--		ret = psp_wait_for(psp, SOC15_REG_OFFSET(MP0, 0, mmMP0_SMN_C2PMSG_101),
--				   0x80000000, 0x80000000, false);
--	else
--		ret = psp_wait_for(psp, SOC15_REG_OFFSET(MP0, 0, mmMP0_SMN_C2PMSG_64),
--				   0x80000000, 0x80000000, false);
--
--	return ret;
--}
- 
- static int psp_v11_0_ring_destroy(struct psp_context *psp,
- 				 enum psp_ring_type ring_type)
--- 
-2.20.1
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+RnJvbTogQ2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPgoKWyBVcHN0
+cmVhbSBjb21taXQgNjgxN2JmMjgzYjJiODUxMDk1ODI1ZWM3ZjBlOWYxMDM5OGUwOTEyNSBdCgpO
+ZWVkIHRvIG1ha2Ugc3VyZSB0aGF0IHdlIGFjdHVhbGx5IGRyb3BwaW5nIHRoZSByaWdodCBmZW5j
+ZS4KQ291bGQgYmUgZG9uZSB3aXRoIFJDVSBhcyB3ZWxsLCBidXQgdG8gY29tcGxpY2F0ZWQgZm9y
+IGEgZml4LgoKU2lnbmVkLW9mZi1ieTogQ2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5p
+Z0BhbWQuY29tPgpSZXZpZXdlZC1ieTogQ2h1bm1pbmcgWmhvdSA8ZGF2aWQxLnpob3VAYW1kLmNv
+bT4KU2lnbmVkLW9mZi1ieTogQWxleCBEZXVjaGVyIDxhbGV4YW5kZXIuZGV1Y2hlckBhbWQuY29t
+PgpTaWduZWQtb2ZmLWJ5OiBTYXNoYSBMZXZpbiA8c2FzaGFsQGtlcm5lbC5vcmc+Ci0tLQogZHJp
+dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMgfCAxMiArKysrKysrKystLS0KIDEg
+ZmlsZSBjaGFuZ2VkLCA5IGluc2VydGlvbnMoKyksIDMgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0
+IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMgYi9kcml2ZXJzL2dwdS9k
+cm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uYwppbmRleCAyNGMzYzA1ZTJmYjdkLi40YTdiMmZmZDNi
+ZmUzIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uYwor
+KysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uYwpAQCAtMTAzNiwxMCAr
+MTAzNiw4IEBAIGludCBhbWRncHVfdm1fZmx1c2goc3RydWN0IGFtZGdwdV9yaW5nICpyaW5nLCBz
+dHJ1Y3QgYW1kZ3B1X2pvYiAqam9iLCBib29sIG5lZWRfCiAJCWlkLT5vYV9iYXNlICE9IGpvYi0+
+b2FfYmFzZSB8fAogCQlpZC0+b2Ffc2l6ZSAhPSBqb2ItPm9hX3NpemUpOwogCWJvb2wgdm1fZmx1
+c2hfbmVlZGVkID0gam9iLT52bV9uZWVkc19mbHVzaDsKLQlib29sIHBhc2lkX21hcHBpbmdfbmVl
+ZGVkID0gaWQtPnBhc2lkICE9IGpvYi0+cGFzaWQgfHwKLQkJIWlkLT5wYXNpZF9tYXBwaW5nIHx8
+Ci0JCSFkbWFfZmVuY2VfaXNfc2lnbmFsZWQoaWQtPnBhc2lkX21hcHBpbmcpOwogCXN0cnVjdCBk
+bWFfZmVuY2UgKmZlbmNlID0gTlVMTDsKKwlib29sIHBhc2lkX21hcHBpbmdfbmVlZGVkOwogCXVu
+c2lnbmVkIHBhdGNoX29mZnNldCA9IDA7CiAJaW50IHI7CiAKQEAgLTEwNDksNiArMTA0NywxMiBA
+QCBpbnQgYW1kZ3B1X3ZtX2ZsdXNoKHN0cnVjdCBhbWRncHVfcmluZyAqcmluZywgc3RydWN0IGFt
+ZGdwdV9qb2IgKmpvYiwgYm9vbCBuZWVkXwogCQlwYXNpZF9tYXBwaW5nX25lZWRlZCA9IHRydWU7
+CiAJfQogCisJbXV0ZXhfbG9jaygmaWRfbWdyLT5sb2NrKTsKKwlpZiAoaWQtPnBhc2lkICE9IGpv
+Yi0+cGFzaWQgfHwgIWlkLT5wYXNpZF9tYXBwaW5nIHx8CisJICAgICFkbWFfZmVuY2VfaXNfc2ln
+bmFsZWQoaWQtPnBhc2lkX21hcHBpbmcpKQorCQlwYXNpZF9tYXBwaW5nX25lZWRlZCA9IHRydWU7
+CisJbXV0ZXhfdW5sb2NrKCZpZF9tZ3ItPmxvY2spOworCiAJZ2RzX3N3aXRjaF9uZWVkZWQgJj0g
+ISFyaW5nLT5mdW5jcy0+ZW1pdF9nZHNfc3dpdGNoOwogCXZtX2ZsdXNoX25lZWRlZCAmPSAhIXJp
+bmctPmZ1bmNzLT5lbWl0X3ZtX2ZsdXNoICAmJgogCQkJam9iLT52bV9wZF9hZGRyICE9IEFNREdQ
+VV9CT19JTlZBTElEX09GRlNFVDsKQEAgLTEwODgsOSArMTA5MiwxMSBAQCBpbnQgYW1kZ3B1X3Zt
+X2ZsdXNoKHN0cnVjdCBhbWRncHVfcmluZyAqcmluZywgc3RydWN0IGFtZGdwdV9qb2IgKmpvYiwg
+Ym9vbCBuZWVkXwogCX0KIAogCWlmIChwYXNpZF9tYXBwaW5nX25lZWRlZCkgeworCQltdXRleF9s
+b2NrKCZpZF9tZ3ItPmxvY2spOwogCQlpZC0+cGFzaWQgPSBqb2ItPnBhc2lkOwogCQlkbWFfZmVu
+Y2VfcHV0KGlkLT5wYXNpZF9tYXBwaW5nKTsKIAkJaWQtPnBhc2lkX21hcHBpbmcgPSBkbWFfZmVu
+Y2VfZ2V0KGZlbmNlKTsKKwkJbXV0ZXhfdW5sb2NrKCZpZF9tZ3ItPmxvY2spOwogCX0KIAlkbWFf
+ZmVuY2VfcHV0KGZlbmNlKTsKIAotLSAKMi4yMC4xCgpfX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3Rz
+LmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xp
+c3RpbmZvL2FtZC1nZngK
