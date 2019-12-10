@@ -2,54 +2,61 @@ Return-Path: <SRS0=thZ3=2A=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.8 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+X-Spam-Status: No, score=-9.8 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E55ADC2D0BF
-	for <amd-gfx@archiver.kernel.org>; Tue, 10 Dec 2019 21:35:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0A177C43603
+	for <amd-gfx@archiver.kernel.org>; Tue, 10 Dec 2019 21:36:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B9E012465E
-	for <amd-gfx@archiver.kernel.org>; Tue, 10 Dec 2019 21:35:56 +0000 (UTC)
-Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="tbB9XUZe"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B9E012465E
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
+	by mail.kernel.org (Postfix) with ESMTPS id DB1F02073B
+	for <amd-gfx@archiver.kernel.org>; Tue, 10 Dec 2019 21:36:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DB1F02073B
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=arndb.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8003E6E9A4;
-	Tue, 10 Dec 2019 21:35:56 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1B2736E96F;
- Tue, 10 Dec 2019 21:35:55 +0000 (UTC)
-Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
- [73.47.72.35])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 410852465C;
- Tue, 10 Dec 2019 21:35:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1576013755;
- bh=Kz+VTdyHuLcHr1NQf8pq/oqyn8JEvrQiywBbtOd6lUA=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=tbB9XUZeszhL6sNHtkY0hzf8wI9lV6YEV1rha6PrXtOWfGxKXwYwanqqwCcQdDN0S
- Ha3C5GQPJBxT/1cFuIb8IXZ9vBnwbiOIa6WWRr3bW3y4SHqA03AtojrRI4U+O4RJqu
- P5U1LmzxPyHy0HLhQn/+9MhurduteLH3JADq4aF0=
-From: Sasha Levin <sashal@kernel.org>
-To: linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 4.19 175/177] drm/amdgpu: fix bad DMA from
- INTERRUPT_CNTL2
-Date: Tue, 10 Dec 2019 16:32:19 -0500
-Message-Id: <20191210213221.11921-175-sashal@kernel.org>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20191210213221.11921-1-sashal@kernel.org>
-References: <20191210213221.11921-1-sashal@kernel.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id A82AF6E99C;
+	Tue, 10 Dec 2019 21:36:55 +0000 (UTC)
+X-Greylist: delayed 308 seconds by postgrey-1.36 at gabe;
+ Tue, 10 Dec 2019 20:04:56 UTC
+Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.126.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9AFF76E923
+ for <amd-gfx@lists.freedesktop.org>; Tue, 10 Dec 2019 20:04:56 +0000 (UTC)
+Received: from threadripper.lan ([149.172.19.189]) by mrelayeu.kundenserver.de
+ (mreue011 [212.227.15.129]) with ESMTPA (Nemesis) id
+ 1MjSPq-1htqK43Row-00l1Jv; Tue, 10 Dec 2019 20:59:42 +0100
+From: Arnd Bergmann <arnd@arndb.de>
+To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ "David (ChunMing) Zhou" <David1.Zhou@amd.com>,
+ David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>
+Subject: [PATCH] drm/amd/display: include linux/slab.h where needed
+Date: Tue, 10 Dec 2019 20:59:24 +0100
+Message-Id: <20191210195941.931745-1-arnd@arndb.de>
+X-Mailer: git-send-email 2.20.0
 MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
+X-Provags-ID: V03:K1:OrcnEQHu5wIVElyPLtj9cM/U8i3tJsEHQqMgWD9iAttxajBL+4Y
+ PRozQipVEPM78uWvddh6kjFJP0m9W7Xl2iyfwMr6le8zEOqtUcR3YqBbcY0m8NmbwLj4gij
+ nH91rockYuPliucDJPwxBaK0+/s8ZLF4ilxO0+TiyEzKKY8itGLkPD8DVvHiCm1DACaRXts
+ wksFhEsGXgNsaguRsbwew==
+X-UI-Out-Filterresults: notjunk:1;V03:K0:BOgTBsXjGhc=:em08V6fo6mQDzI2P/1XnQl
+ NYACd6z+rtbrlPACO4rOnJIL93HmbBqc2ef4o8GimHBrcMbiCpmj3swjYzLrkB6uwEsRi/Amg
+ yY5paBK6p7ttdviX9bWGmMZz9Q9TRLozNtJdJ22cLbL87keprpN79I388GwOOoZIGYeRBsDIc
+ yyhKF61U7zsNfhu6ZmXNSIftM0YLsCEEgwJly6rX7K5Olf2MfKxJ+1UjKC647cqmU1+4kNz+f
+ qNhwON3bmrcBdbRttsHpmCZMwlOO7E/9QGfqAh3dcTwVKsuJIBiEE0cQNzgR1u4HZfVDEtxYO
+ OeXs8U/qdKlPW2y9Xl1+huNT4X6n8LnMT3fwvdknhA7WNAbcJ9JD2ANShwFOd4kj4bMqZpcpV
+ 8BA2xjWDPascHT7GiHQUBLEXTS4ZTBtx00NfwVEZMheRAJ2yjne5sNQVsEHySvFqOoO4QKqg8
+ a4ddA9y7sYO6QPjpPiNZpQv3azlTZkc0ZPiFXUoN4uI2JNCj1zNJEvS2kWcmx6tiM6cRlmh5H
+ fUMEou0drdbfgIbXqPuQNELCfB6lkFmwHBmQ8mXtPcdkcceLWiLc4jaS1USUaO7pTCnZjFQIL
+ c2/4SU0KeKbubWEm7/JsDZj0D5DBthsRveDBXF5i5Rv8KJOIVe5EENgE6VD2j+6xGPT1kiAHv
+ tF9XXziHZSHoKlHf5ulJNm0unSodFb0oXsG4HKyaF9/YU6rJl6OCvYOEajGVYPj+CaatdCpaW
+ m8tUTCl0HLS5R/2p30PKDFTEhll/muN1O1IEBIXlm8Q4IUpCbKRQxsc0U5/ZC6/XqyXJ0J2OJ
+ MPUNQ4R/uDavnS9DApb8qjTQ6HaFnc/Z3nFJQmBpxVWZT89HUSsY3LU5Vx1i1xPX/p8PvN2Qd
+ oJyiy1KE19BpAS8W0qKg==
+X-Mailman-Approved-At: Tue, 10 Dec 2019 21:36:55 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,50 +68,45 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sam Bobroff <sbobroff@linux.ibm.com>,
- Alex Deucher <alexander.deucher@amd.com>, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, Sasha Levin <sashal@kernel.org>
+Cc: Eric Yang <Eric.Yang2@amd.com>, Arnd Bergmann <arnd@arndb.de>,
+ Roman Li <Roman.Li@amd.com>, amd-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Michael Strauss <michael.strauss@amd.com>,
+ dri-devel@lists.freedesktop.org, Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Sam Bobroff <sbobroff@linux.ibm.com>
+Calling kzalloc() and related functions requires the
+linux/slab.h header to be included:
 
-[ Upstream commit 3d0e3ce52ce3eb4b9de3caf9c38dbb5a4d3e13c3 ]
+drivers/gpu/drm/amd/amdgpu/../display/dc/dcn21/dcn21_resource.c: In function 'dcn21_ipp_create':
+drivers/gpu/drm/amd/amdgpu/../display/dc/dcn21/dcn21_resource.c:679:3: error: implicit declaration of function 'kzalloc'; did you mean 'd_alloc'? [-Werror=implicit-function-declaration]
+   kzalloc(sizeof(struct dcn10_ipp), GFP_KERNEL);
 
-The INTERRUPT_CNTL2 register expects a valid DMA address, but is
-currently set with a GPU MC address.  This can cause problems on
-systems that detect the resulting DMA read from an invalid address
-(found on a Power8 guest).
+A lot of other headers also miss a direct include in this file,
+but this is the only one that causes a problem for now.
 
-Instead, use the DMA address of the dummy page because it will always
-be safe.
-
-Fixes: 27ae10641e9c ("drm/amdgpu: add interupt handler implementation for si v3")
-Signed-off-by: Sam Bobroff <sbobroff@linux.ibm.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Arnd Bergmann <arnd@arndb.de>
 ---
- drivers/gpu/drm/amd/amdgpu/si_ih.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/si_ih.c b/drivers/gpu/drm/amd/amdgpu/si_ih.c
-index 60dad63098a2a..e40a3fbc3e760 100644
---- a/drivers/gpu/drm/amd/amdgpu/si_ih.c
-+++ b/drivers/gpu/drm/amd/amdgpu/si_ih.c
-@@ -62,7 +62,8 @@ static int si_ih_irq_init(struct amdgpu_device *adev)
- 	u64 wptr_off;
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c b/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c
+index 906c84e6b49b..af57885bbff2 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c
+@@ -23,6 +23,8 @@
+  *
+  */
  
- 	si_ih_disable_interrupts(adev);
--	WREG32(INTERRUPT_CNTL2, adev->irq.ih.gpu_addr >> 8);
-+	/* set dummy read address to dummy page address */
-+	WREG32(INTERRUPT_CNTL2, adev->dummy_page_addr >> 8);
- 	interrupt_cntl = RREG32(INTERRUPT_CNTL);
- 	interrupt_cntl &= ~IH_DUMMY_RD_OVERRIDE;
- 	interrupt_cntl &= ~IH_REQ_NONSNOOP_EN;
++#include <linux/slab.h>
++
+ #include "dm_services.h"
+ #include "dc.h"
+ 
 -- 
-2.20.1
+2.20.0
 
 _______________________________________________
 amd-gfx mailing list
