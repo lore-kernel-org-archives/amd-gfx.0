@@ -2,108 +2,115 @@ Return-Path: <SRS0=thZ3=2A=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-8.0 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,T_KAM_HTML_FONT_INVALID,
+	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C07A0C43603
-	for <amd-gfx@archiver.kernel.org>; Tue, 10 Dec 2019 19:05:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id DC47BC43603
+	for <amd-gfx@archiver.kernel.org>; Tue, 10 Dec 2019 19:55:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 71702205ED
-	for <amd-gfx@archiver.kernel.org>; Tue, 10 Dec 2019 19:05:22 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 751992077B
+	for <amd-gfx@archiver.kernel.org>; Tue, 10 Dec 2019 19:55:58 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="sVqEVaE0"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 71702205ED
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="nr5CVx1m"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 751992077B
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 106C56E150;
-	Tue, 10 Dec 2019 19:05:22 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2089.outbound.protection.outlook.com [40.107.220.89])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7C1DD6E150
- for <amd-gfx@lists.freedesktop.org>; Tue, 10 Dec 2019 19:05:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 29A726E91B;
+	Tue, 10 Dec 2019 19:55:58 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2048.outbound.protection.outlook.com [40.107.236.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C54E36E91B
+ for <amd-gfx@lists.freedesktop.org>; Tue, 10 Dec 2019 19:55:55 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=iP0hF8EoHB1jCyCDfCyhvaLONyGlBd58UZv9b/Eg68aozs0z3EiiuQw3gFGyFzPx43//e/0cfixVr/4EqzAdwEkbgqkzzPyY4GmOn/T1EPSjNCLCwiB29vuTl6cw1dmQ7a9wVX73VX18Ec31QmMJ3wcUCsPmdYj3QsxMbT7s9Jp45fwIO/hZKwa/8R1xpZrcr7cM/LnCsM5flO9w2d09iW/8/bhx6STBYsThHpGNB7qLzzStuMB5ySNJbrJ1t8FsZw75limOfb7DI0IE+p08uGGMUYQXVm/XgrVPX5sswcZyQl7lbV0n/3/p48SD9oZQxcIFN02JL/C39HWevyGdtg==
+ b=GxCW4kLXJKWXVWR+AhtaWb3IHzwyQSvLBLDBRZUSsrtASUz9QWk1hUtLNaNu6KSygMidAblAYSkkmZvHhIEbDcFz70ca+QHKH6g4sxhiS0X7MwyebEi2e+87iI8VlWf8TGEoTxR92EEtMYa3AgLeJ55Y3S/Xc2LHA0bz9451APhHJihHYDR1VKrIsAIdw6YNnRIgxXHhJo7PizrTi8ce9IH3blimLRAU9QTEuqJ0kkzrk1pDO3P+R9HweFv/1IXOVFmBlqtc2B5h2VNaxrTa+J9FsV2pD+zDIhhgJP6HCDVT0hk1eXE/8pUS+HY3o6WTeQTRAk0LlBJ9M+B3maA4nQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Xu1FMWb333PSGe+Uif64GjfWUz7x1kDXE3SQILTJIvc=;
- b=Sltgu3ex+8sGFta02ClTkS4FrUmNMZGFU4N7MabZHGpRLogdL19hmHd8bLGP/48HWbuvwcYuVl23/sDGkD4NNpf0F30YTvPDeCeeaOzyMC3aoH7CVyC/SUDFWC7sBLOr0R9WwUGZG8n0BDVLud0uan2rynexfCF2+o7G2N7lq8vko8LD+zAvGl50KIfKrfmDOqZzbLdW9rk+N/xUWIxM7dhNuG9wWFUoqJcGjwllkf8cGaA8f9gZPS8wHE4D6Twr8zqF5ITTUFNVuYbeKU0fCjZQK1+z8Hi8K3mj44e0JfhddpA0H9xbsNkW2bE0Wfk6+5G4Isln+33bbrhcW5SbVw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=permerror action=none header.from=amd.com; dkim=none (message not
- signed); arc=none
+ bh=NDmJXATldKrbnwflsnlKqiwsZLyXzsvl2dt2zqVaTWA=;
+ b=WuiJqtgQPO/lweD1/4FgZ6W1Vr21noFYpuWo83KqX2LgK/G23G9Mw13qdN0pXDmZXJemj8K/6GRpJUrzBhlMzru4XxnxkH4SrLiXxikkjW4noPOdgVZQV+f1Vbhp6vOyTMUybp3oADbDgcgaeahi55rFumEqTLRh7N8gnG7+boypFOjEVnpq4JL+A7vBz9fPFFnPK5ukOLoQ2GQ4dRXsBuNgHcgG+pvIa4GBKVSAqjr+uey1b4jMdIeS4+5ORVwese56CO3F4PgEv+175/1g4tUPao2/6mr49YKdtPL9YmCJdej+eLPCkbsw5hdDw60LJn+EizYuAJrYk3af0boOnQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Xu1FMWb333PSGe+Uif64GjfWUz7x1kDXE3SQILTJIvc=;
- b=sVqEVaE0txQRl4xPTIWvzV+QFPF0GopUw6cwzDsBiLhy/BIsjaAhdIExS1ohJFoOOFzYZT8dN/o6mruiJceCXB7gb7Sd84B/o1G1aThRzSZ/kGd+ca937uBGbumdx53ImCvHEON51MgjReYRSvo5HBFIjehWFlt3mkw12ELtx7c=
-Received: from BN6PR12CA0037.namprd12.prod.outlook.com (2603:10b6:405:70::23)
- by DM5PR1201MB2537.namprd12.prod.outlook.com (2603:10b6:3:eb::22)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2516.16; Tue, 10 Dec
- 2019 19:05:17 +0000
-Received: from DM6NAM11FT027.eop-nam11.prod.protection.outlook.com
- (2a01:111:f400:7eaa::206) by BN6PR12CA0037.outlook.office365.com
- (2603:10b6:405:70::23) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2538.15 via Frontend
- Transport; Tue, 10 Dec 2019 19:05:17 +0000
-Authentication-Results: spf=none (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
- header.d=none;lists.freedesktop.org; dmarc=permerror action=none
- header.from=amd.com;
+ bh=NDmJXATldKrbnwflsnlKqiwsZLyXzsvl2dt2zqVaTWA=;
+ b=nr5CVx1mBeDN6zhRk5O8bBbH/BXpAcjyWrCK4d0qvvZhnG/Z/CYJ6qVf0PgKZxNO5oL8DQgC/Cpizem3ztud93MwdQx4RXoiKO+MX/kT0SyB02QMv34eoT+5foq7/SK58nczXFbU9s/b/GZ1Bf8DRVNXgKNiOYppnPbWUB1+DUc=
+Authentication-Results: spf=none (sender IP is )
+ smtp.mailfrom=Andrey.Grodzovsky@amd.com; 
+Received: from MWHPR12MB1453.namprd12.prod.outlook.com (10.172.55.22) by
+ MWHPR12MB1872.namprd12.prod.outlook.com (10.175.52.151) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2516.14; Tue, 10 Dec 2019 19:55:52 +0000
+Received: from MWHPR12MB1453.namprd12.prod.outlook.com
+ ([fe80::514b:dbf8:d19f:a80]) by MWHPR12MB1453.namprd12.prod.outlook.com
+ ([fe80::514b:dbf8:d19f:a80%12]) with mapi id 15.20.2538.012; Tue, 10 Dec 2019
+ 19:55:52 +0000
+Subject: Re: [PATCH 07/10] drm/amdgpu: add concurrent baco reset support for
+ XGMI
+To: "Ma, Le" <Le.Ma@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "Zhou1, Tao" <Tao.Zhou1@amd.com>,
+ "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ "Li, Dennis" <Dennis.Li@amd.com>, "Zhang, Hawking" <Hawking.Zhang@amd.com>
+References: <1574846129-4826-1-git-send-email-le.ma@amd.com>
+ <c09d7928-f864-3a80-40e2-b6116abe044c@amd.com>
+ <MN2PR12MB42859443EA78D08B295AFE0DF6470@MN2PR12MB4285.namprd12.prod.outlook.com>
+ <157d7671-803c-4f6e-f77c-9738f32905e3@amd.com>
+ <MN2PR12MB428532FA663C99770AA71263F6430@MN2PR12MB4285.namprd12.prod.outlook.com>
+ <5b505116-17aa-383d-5cdf-246663a1f4f9@amd.com>
+ <MN2PR12MB42855B198BB4064A0D311845F6420@MN2PR12MB4285.namprd12.prod.outlook.com>
+ <2c4dd3f3-e2ce-9843-312b-1e5c05a51521@amd.com>
+ <CH2PR12MB4278F9759EF24F29A85D7D23F65D0@CH2PR12MB4278.namprd12.prod.outlook.com>
+ <0cf9f58a-3ce4-2a9c-cb1a-db3cb13760b9@amd.com>
+ <MN2PR12MB42855296AE5C7EDA968AA442F65C0@MN2PR12MB4285.namprd12.prod.outlook.com>
+ <a38e95ac-ca7e-20fd-0c2a-4d4310e8599a@amd.com>
+ <MN2PR12MB428581A895E0C2B26542CC1DF6580@MN2PR12MB4285.namprd12.prod.outlook.com>
+ <b44fcb10-d1ed-c93a-8010-5b62aae74545@amd.com>
+ <MN2PR12MB4285B04000E228E467F8004BF65B0@MN2PR12MB4285.namprd12.prod.outlook.com>
+From: Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>
+Message-ID: <6942e47f-fcb6-0fa4-fdf9-4c0ad936ef90@amd.com>
+Date: Tue, 10 Dec 2019 14:55:49 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.4.0
+In-Reply-To: <MN2PR12MB4285B04000E228E467F8004BF65B0@MN2PR12MB4285.namprd12.prod.outlook.com>
+Content-Type: multipart/mixed; boundary="------------50E3D602A9B73C0ABCC3BDFB"
+Content-Language: en-US
+X-ClientProxiedBy: SN2PR01CA0009.prod.exchangelabs.com (2603:10b6:804:2::19)
+ To MWHPR12MB1453.namprd12.prod.outlook.com (2603:10b6:301:e::22)
+MIME-Version: 1.0
+X-Originating-IP: [2607:fea8:3edf:e127:b190:b0bd:5040:9d08]
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: 76bf615a-a23c-4c98-9d2b-08d77daaf611
+X-MS-TrafficTypeDiagnostic: MWHPR12MB1872:|MWHPR12MB1872:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <MWHPR12MB1872B2DE08BB112437F44A71EA5B0@MWHPR12MB1872.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:3173;
+X-Forefront-PRVS: 02475B2A01
+X-Forefront-Antispam-Report: SFV:NSPM;
+ SFS:(10009020)(4636009)(396003)(39860400002)(346002)(376002)(136003)(366004)(199004)(189003)(52314003)(2906002)(33964004)(66946007)(52116002)(66576008)(66476007)(186003)(6486002)(110136005)(66556008)(31696002)(316002)(86362001)(2616005)(4326008)(6512007)(53546011)(81166006)(81156014)(478600001)(6506007)(36756003)(8676002)(235185007)(8936002)(6666004)(31686004)(6636002)(5660300002)(921003)(1121003);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:MWHPR12MB1872;
+ H:MWHPR12MB1453.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; A:1; MX:1; 
 Received-SPF: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
-Received: from SATLEXMB01.amd.com (165.204.84.17) by
- DM6NAM11FT027.mail.protection.outlook.com (10.13.172.205) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.2538.14 via Frontend Transport; Tue, 10 Dec 2019 19:05:17 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB01.amd.com
- (10.181.40.142) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Tue, 10 Dec
- 2019 12:50:10 -0600
-Received: from SATLEXMB02.amd.com (10.181.40.143) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Tue, 10 Dec
- 2019 12:50:10 -0600
-Received: from yttao-code-machine.amd.com (10.180.168.240) by
- SATLEXMB02.amd.com (10.181.40.143) with Microsoft SMTP Server id 15.1.1713.5
- via Frontend Transport; Tue, 10 Dec 2019 12:50:09 -0600
-From: Yintian Tao <yttao@amd.com>
-To: <Alexander.Deucher@amd.com>, <kenneth.feng@amd.com>
-Subject: [PATCH] drm/amd/powerplay: enable pp one vf mode for vega10
-Date: Wed, 11 Dec 2019 02:50:06 +0800
-Message-ID: <20191210185006.19253-1-yttao@amd.com>
-X-Mailer: git-send-email 2.17.1
-MIME-Version: 1.0
-X-EOPAttributedMessage: 0
-X-MS-Office365-Filtering-HT: Tenant
-X-Forefront-Antispam-Report: CIP:165.204.84.17; IPV:NLI; CTRY:US; EFV:NLI;
- SFV:NSPM;
- SFS:(10009020)(4636009)(39860400002)(136003)(376002)(346002)(396003)(428003)(189003)(199004)(356004)(70586007)(70206006)(6666004)(1076003)(30864003)(6636002)(36756003)(5660300002)(316002)(4326008)(8936002)(478600001)(336012)(8676002)(426003)(2616005)(186003)(81156014)(110136005)(7696005)(2906002)(54906003)(26005)(81166006)(559001)(579004);
- DIR:OUT; SFP:1101; SCL:1; SRVR:DM5PR1201MB2537; H:SATLEXMB01.amd.com; FPR:;
- SPF:None; LANG:en; PTR:InfoDomainNonexistent; MX:1; A:1; 
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 87a3f309-c26f-4857-a183-08d77da3e4fc
-X-MS-TrafficTypeDiagnostic: DM5PR1201MB2537:
-X-Microsoft-Antispam-PRVS: <DM5PR1201MB25370D296BD83C3A31D36B00E55B0@DM5PR1201MB2537.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:454;
-X-Forefront-PRVS: 02475B2A01
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: x/O5mQSR0EIUQR6zr4nsYq0ycI809PZaXbbqJQcPLuU5Usfm2Hus0Jazg5bihj4Tea+CwumTnp442iLX25JxCkb0A9o0+dn10VL0b1TDuIVm0q6zm+KQX/nhfBEpYzmHbV5ACnHEhWt+dnOsASzEb+16NGjYUMWt4XZAgmMuocuz90Z7lkyLPwUi+lDlncm6K/INFuMPM+hNKJXSRxtw1vEG5FVeAYsjh1Mv3eMCA+sA5tJqmlgCtCzy0WQPEK22IA5gACHnjHjOL47E4uyHtCOQTl9jEOoJYmzWQEXMoWf/jvdq/XxDzn0Yhq//lpAL9/c9BR1wMF4L9UbFWf8Zqzv3PdyWbcihFJX7zrM2ejweU1frKSURhLrzg8OSKxyur0lataNw4tbXRMMP3oa+G3lpNo3hNTA8TwCe5vu2eRVKnGjOkBNMlkxDGYGSk+u0
+X-Microsoft-Antispam-Message-Info: C6HeCanivXsqiNpnUAaCBTgk1Zse2ilRu5MQAii9ZMWD2ohmj8e+NhrymZSHaYCogPos05IHZXIM7wNuCywDeTXm04El3kJDWd0JMFlTkH5Mc05mXGUGsxrNv5GigWnDapYKuaob6doH81txxqCPomCK9HgKq4jgkBjDgKeVznjhHUYepcMgauFrjOGUqeZGdDCGKXJPK2mUoAfT3IHKlTO6kJA1r6+JdHVqD00ngUiP6UwzdsqS2dWWCoRe3Havyje4p4t56bJrOACeKVmkdx11+knDb3YSE39Gl8HFB1qzXipW6iqbYLl6R7UMx5Z/Vy02lHJ7Xf1QAScZtqc83DxsZ7SH+AARlcmEUW+nhk4+FxxTuYa9Bb0M1WNYqHtgzI9ZKCxCN7VdypuO+W/c+mhDDfZ9K4KYUca7jofW5fKMPlr3C0p7auZq7kxyUcWj+zwYTXZiH6ROoNUTdEamw97GR6n/MSWyH9bhlhL7ZYNNY81Uf+ycDyO1iZ6+sd7GRh7nF9K3V683NjU+ED+CUw==
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Dec 2019 19:05:17.0266 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 87a3f309-c26f-4857-a183-08d77da3e4fc
+X-MS-Exchange-CrossTenant-Network-Message-Id: 76bf615a-a23c-4c98-9d2b-08d77daaf611
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Dec 2019 19:55:52.6644 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB01.amd.com]
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR1201MB2537
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: xKh1gjxS9FjCKk88GL0Eg5wFZkipxsa08qIH42hmMLx2GsDD6ZhuDwMOXO+qshTpWLWj8xlQJLTVlUAWT5HsBQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR12MB1872
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,1458 +122,811 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx@lists.freedesktop.org, Yintian Tao <yttao@amd.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: "Chen, Guchun" <Guchun.Chen@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Originally, due to the restriction from PSP and SMU, VF has
-to send message to hypervisor driver to handle powerplay
-change which is complicated and redundant. Currently, SMU
-and PSP can support VF to directly handle powerplay
-change by itself. Therefore, the old code about the handshake
-between VF and PF to handle powerplay will be removed and VF
-will use new the registers below to handshake with SMU.
-mmMP1_SMN_C2PMSG_101: register to handle SMU message
-mmMP1_SMN_C2PMSG_102: register to handle SMU parameter
-mmMP1_SMN_C2PMSG_103: register to handle SMU response
+--------------50E3D602A9B73C0ABCC3BDFB
+Content-Type: multipart/alternative;
+ boundary="------------DEF9126046D3D5559DD77C0B"
 
-v2: remove module parameter pp_one_vf
-v3: fix the parens
-v4: forbid vf to change smu feature
-v5: use hwmon_attributes_visible to skip sepicified hwmon atrribute
+--------------DEF9126046D3D5559DD77C0B
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Signed-off-by: Yintian Tao <yttao@amd.com>
+I switched the workqueue we were using for xgmi_reset_work from 
+system_highpri_wq to system_unbound_wq - the difference is that workers 
+servicing the queue in system_unbound_wq are not bounded to specific CPU 
+and so the reset jobs for each XGMI node are getting scheduled to 
+different CPU while system_highpri_wq is a bounded work queue. I traced 
+it as bellow for 10 consecutive times and didn't see errors any more. 
+Also the time diff between BACO entries or exits was never more then 
+around 2 uS.
+
+Please give this updated patchset a try
+
+    kworker/u16:2-57    [004] ...1   243.276312: trace_code: func: 
+vega20_baco_set_state, line 91 <----- - Before BEACO enter
+            <...>-60    [007] ...1   243.276312: trace_code: func: 
+vega20_baco_set_state, line 91 <----- - Before BEACO enter
+    kworker/u16:2-57    [004] ...1   243.276384: trace_code: func: 
+vega20_baco_set_state, line 105 <----- - After BEACO enter done
+            <...>-60    [007] ...1   243.276392: trace_code: func: 
+vega20_baco_set_state, line 105 <----- - After BEACO enter done
+    kworker/u16:3-60    [007] ...1   243.276397: trace_code: func: 
+vega20_baco_set_state, line 108 <----- - Before BEACO exit
+    kworker/u16:2-57    [004] ...1   243.276399: trace_code: func: 
+vega20_baco_set_state, line 108 <----- - Before BEACO exit
+    kworker/u16:3-60    [007] ...1   243.288067: trace_code: func: 
+vega20_baco_set_state, line 114 <----- - After BEACO exit done
+    kworker/u16:2-57    [004] ...1   243.295624: trace_code: func: 
+vega20_baco_set_state, line 114 <----- - After BEACO exit done
+
+Andrey
+
+On 12/9/19 9:45 PM, Ma, Le wrote:
+>
+> [AMD Official Use Only - Internal Distribution Only]
+>
+>
+> I’m fine with your solution if synchronization time interval satisfies 
+> BACO requirements and loop test can pass on XGMI system.
+>
+> Regards,
+>
+> Ma Le
+>
+> *From:*Grodzovsky, Andrey <Andrey.Grodzovsky@amd.com>
+> *Sent:* Monday, December 9, 2019 11:52 PM
+> *To:* Ma, Le <Le.Ma@amd.com>; amd-gfx@lists.freedesktop.org; Zhou1, 
+> Tao <Tao.Zhou1@amd.com>; Deucher, Alexander 
+> <Alexander.Deucher@amd.com>; Li, Dennis <Dennis.Li@amd.com>; Zhang, 
+> Hawking <Hawking.Zhang@amd.com>
+> *Cc:* Chen, Guchun <Guchun.Chen@amd.com>
+> *Subject:* Re: [PATCH 07/10] drm/amdgpu: add concurrent baco reset 
+> support for XGMI
+>
+> Thanks a lot Ma for trying - I think I have to have my own system to 
+> debug this so I will keep trying enabling XGMI - i still think the is 
+> the right and the generic solution for multiple nodes reset 
+> synchronization and in fact the barrier should also be used for 
+> synchronizing PSP mode 1 XGMI reset too.
+>
+> Andrey
+>
+> On 12/9/19 6:34 AM, Ma, Le wrote:
+>
+>     [AMD Official Use Only - Internal Distribution Only]
+>
+>     Hi Andrey,
+>
+>     I tried your patches on my 2P XGMI platform. The baco can work at
+>     most time, and randomly got following error:
+>
+>     [ 1701.542298] amdgpu: [powerplay] Failed to send message 0x25,
+>     response 0x0
+>
+>     This error usually means some sync issue exist for xgmi baco case.
+>     Feel free to debug your patches on my XGMI platform.
+>
+>     Regards,
+>
+>     Ma Le
+>
+>     *From:*Grodzovsky, Andrey <Andrey.Grodzovsky@amd.com>
+>     <mailto:Andrey.Grodzovsky@amd.com>
+>     *Sent:* Saturday, December 7, 2019 5:51 AM
+>     *To:* Ma, Le <Le.Ma@amd.com> <mailto:Le.Ma@amd.com>;
+>     amd-gfx@lists.freedesktop.org
+>     <mailto:amd-gfx@lists.freedesktop.org>; Zhou1, Tao
+>     <Tao.Zhou1@amd.com> <mailto:Tao.Zhou1@amd.com>; Deucher, Alexander
+>     <Alexander.Deucher@amd.com> <mailto:Alexander.Deucher@amd.com>;
+>     Li, Dennis <Dennis.Li@amd.com> <mailto:Dennis.Li@amd.com>; Zhang,
+>     Hawking <Hawking.Zhang@amd.com> <mailto:Hawking.Zhang@amd.com>
+>     *Cc:* Chen, Guchun <Guchun.Chen@amd.com> <mailto:Guchun.Chen@amd.com>
+>     *Subject:* Re: [PATCH 07/10] drm/amdgpu: add concurrent baco reset
+>     support for XGMI
+>
+>     Hey Ma, attached a solution - it's just compiled as I still can't
+>     make my XGMI setup work (with bridge connected only one device is
+>     visible to the system while the other is not). Please try it on
+>     your system if you have a chance.
+>
+>     Andrey
+>
+>     On 12/4/19 10:14 PM, Ma, Le wrote:
+>
+>         AFAIK it's enough for even single one node in the hive to to
+>         fail the enter the BACO state on time to fail the entire hive
+>         reset procedure, no ?
+>
+>         [Le]: Yeah, agree that. I’ve been thinking that make all nodes
+>         entering baco simultaneously can reduce the possibility of
+>         node failure to enter/exit BACO risk. For example, in an XGMI
+>         hive with 8 nodes, the total time interval of 8 nodes
+>         enter/exit BACO on 8 CPUs is less than the interval that 8
+>         nodes enter BACO serially and exit BACO serially depending on
+>         one CPU with yield capability. This interval is usually strict
+>         for BACO feature itself. Anyway, we need more looping test
+>         later on any method we will choose.
+>
+>         Any way - I see our discussion blocks your entire patch set -
+>         I think you can go ahead and commit yours way (I think you got
+>         an RB from Hawking) and I will look then and see if I can
+>         implement my method and if it works will just revert your patch.
+>
+>         [Le]: OK, fine.
+>
+>         Andrey
+>
+
+--------------DEF9126046D3D5559DD77C0B
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: 8bit
+
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body text="#000000" bgcolor="#FFFFFF">
+    <p>I switched the workqueue we were using for xgmi_reset_work from
+      system_highpri_wq to system_unbound_wq - the difference is that
+      workers servicing the queue in system_unbound_wq are not bounded
+      to specific CPU and so the reset jobs for each XGMI node are
+      getting scheduled to different CPU while system_highpri_wq is a
+      bounded work queue. I traced it as bellow for 10 consecutive times
+      and didn't see errors any more. Also the time diff between BACO
+      entries or exits was never more then around 2 uS. <br>
+    </p>
+    <p>Please give this updated patchset a try</p>
+    <p>&nbsp;&nbsp; kworker/u16:2-57&nbsp;&nbsp;&nbsp; [004] ...1&nbsp;&nbsp; 243.276312: trace_code: func:
+      vega20_baco_set_state, line 91 &lt;----- - Before BEACO enter<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;...&gt;-60&nbsp;&nbsp;&nbsp; [007] ...1&nbsp;&nbsp; 243.276312: trace_code:
+      func: vega20_baco_set_state, line 91 &lt;----- - Before BEACO
+      enter<br>
+      &nbsp;&nbsp; kworker/u16:2-57&nbsp;&nbsp;&nbsp; [004] ...1&nbsp;&nbsp; 243.276384: trace_code: func:
+      vega20_baco_set_state, line 105 &lt;----- - After BEACO enter done<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;...&gt;-60&nbsp;&nbsp;&nbsp; [007] ...1&nbsp;&nbsp; 243.276392: trace_code:
+      func: vega20_baco_set_state, line 105 &lt;----- - After BEACO
+      enter done<br>
+      &nbsp;&nbsp; kworker/u16:3-60&nbsp;&nbsp;&nbsp; [007] ...1&nbsp;&nbsp; 243.276397: trace_code: func:
+      vega20_baco_set_state, line 108 &lt;----- - Before BEACO exit<br>
+      &nbsp;&nbsp; kworker/u16:2-57&nbsp;&nbsp;&nbsp; [004] ...1&nbsp;&nbsp; 243.276399: trace_code: func:
+      vega20_baco_set_state, line 108 &lt;----- - Before BEACO exit<br>
+      &nbsp;&nbsp; kworker/u16:3-60&nbsp;&nbsp;&nbsp; [007] ...1&nbsp;&nbsp; 243.288067: trace_code: func:
+      vega20_baco_set_state, line 114 &lt;----- - After BEACO exit done<br>
+      &nbsp;&nbsp; kworker/u16:2-57&nbsp;&nbsp;&nbsp; [004] ...1&nbsp;&nbsp; 243.295624: trace_code: func:
+      vega20_baco_set_state, line 114 &lt;----- - After BEACO exit done</p>
+    <p>Andrey<br>
+    </p>
+    <div class="moz-cite-prefix">On 12/9/19 9:45 PM, Ma, Le wrote:<br>
+    </div>
+    <blockquote type="cite" cite="mid:MN2PR12MB4285B04000E228E467F8004BF65B0@MN2PR12MB4285.namprd12.prod.outlook.com">
+      
+      <meta name="Generator" content="Microsoft Word 15 (filtered
+        medium)">
+      <style><!--
+/* Font Definitions */
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:DengXian;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:"\@DengXian";
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;
+	color:black;}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:#0563C1;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{mso-style-priority:99;
+	color:#954F72;
+	text-decoration:underline;}
+p.msonormal0, li.msonormal0, div.msonormal0
+	{mso-style-name:msonormal;
+	mso-margin-top-alt:auto;
+	margin-right:0in;
+	mso-margin-bottom-alt:auto;
+	margin-left:0in;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;
+	color:black;}
+p.msipheadera92e061b, li.msipheadera92e061b, div.msipheadera92e061b
+	{mso-style-name:msipheadera92e061b;
+	mso-margin-top-alt:auto;
+	margin-right:0in;
+	mso-margin-bottom-alt:auto;
+	margin-left:0in;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;
+	color:black;}
+span.EmailStyle19
+	{mso-style-type:personal;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
+span.EmailStyle20
+	{mso-style-type:personal-reply;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-size:10.0pt;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.0in 1.0in 1.0in;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext="edit" spidmax="1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext="edit">
+<o:idmap v:ext="edit" data="1" />
+</o:shapelayout></xml><![endif]-->
+      <p class="msipheadera92e061b" style="margin:0" align="Left"><span style="font-size:10.0pt;font-family:Arial;color:#0078D7">[AMD
+          Official Use Only - Internal Distribution Only]</span></p>
+      <br>
+      <div class="WordSection1">
+        <p class="MsoNormal"><span style="font-size:12.0pt;color:windowtext">I’m fine with your
+            solution if synchronization time interval satisfies BACO
+            requirements and loop test can pass on XGMI system.<o:p></o:p></span></p>
+        <p class="MsoNormal"><span style="font-size:12.0pt;color:windowtext"><o:p>&nbsp;</o:p></span></p>
+        <p class="MsoNormal"><span style="font-size:12.0pt;color:windowtext">Regards,<o:p></o:p></span></p>
+        <p class="MsoNormal"><span style="font-size:12.0pt;color:windowtext">Ma Le<o:p></o:p></span></p>
+        <p class="MsoNormal"><span style="font-size:12.0pt;color:windowtext"><o:p>&nbsp;</o:p></span></p>
+        <div>
+          <div style="border:none;border-top:solid #E1E1E1
+            1.0pt;padding:3.0pt 0in 0in 0in">
+            <p class="MsoNormal"><b><span style="color:windowtext">From:</span></b><span style="color:windowtext"> Grodzovsky, Andrey
+                <a class="moz-txt-link-rfc2396E" href="mailto:Andrey.Grodzovsky@amd.com">&lt;Andrey.Grodzovsky@amd.com&gt;</a>
+                <br>
+                <b>Sent:</b> Monday, December 9, 2019 11:52 PM<br>
+                <b>To:</b> Ma, Le <a class="moz-txt-link-rfc2396E" href="mailto:Le.Ma@amd.com">&lt;Le.Ma@amd.com&gt;</a>;
+                <a class="moz-txt-link-abbreviated" href="mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.org</a>; Zhou1, Tao
+                <a class="moz-txt-link-rfc2396E" href="mailto:Tao.Zhou1@amd.com">&lt;Tao.Zhou1@amd.com&gt;</a>; Deucher, Alexander
+                <a class="moz-txt-link-rfc2396E" href="mailto:Alexander.Deucher@amd.com">&lt;Alexander.Deucher@amd.com&gt;</a>; Li, Dennis
+                <a class="moz-txt-link-rfc2396E" href="mailto:Dennis.Li@amd.com">&lt;Dennis.Li@amd.com&gt;</a>; Zhang, Hawking
+                <a class="moz-txt-link-rfc2396E" href="mailto:Hawking.Zhang@amd.com">&lt;Hawking.Zhang@amd.com&gt;</a><br>
+                <b>Cc:</b> Chen, Guchun <a class="moz-txt-link-rfc2396E" href="mailto:Guchun.Chen@amd.com">&lt;Guchun.Chen@amd.com&gt;</a><br>
+                <b>Subject:</b> Re: [PATCH 07/10] drm/amdgpu: add
+                concurrent baco reset support for XGMI<o:p></o:p></span></p>
+          </div>
+        </div>
+        <p class="MsoNormal"><o:p>&nbsp;</o:p></p>
+        <p>Thanks a lot Ma for trying - I think I have to have my own
+          system to debug this so I will keep trying enabling XGMI - i
+          still think the is the right and the generic solution for
+          multiple nodes reset synchronization and in fact the barrier
+          should also be used for synchronizing PSP mode 1 XGMI reset
+          too.<o:p></o:p></p>
+        <p>Andrey<o:p></o:p></p>
+        <div>
+          <p class="MsoNormal">On 12/9/19 6:34 AM, Ma, Le wrote:<o:p></o:p></p>
+        </div>
+        <blockquote style="margin-top:5.0pt;margin-bottom:5.0pt">
+          <p class="msipheadera92e061b" style="margin:0in;margin-bottom:.0001pt"><span style="font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif;color:#0078D7">[AMD
+              Official Use Only - Internal Distribution Only]</span><o:p></o:p></p>
+          <p class="MsoNormal"><o:p>&nbsp;</o:p></p>
+          <p class="MsoNormal"><span style="font-size:12.0pt;color:windowtext">Hi Andrey,</span><o:p></o:p></p>
+          <p class="MsoNormal"><span style="font-size:12.0pt;color:windowtext">&nbsp;</span><o:p></o:p></p>
+          <p class="MsoNormal"><span style="font-size:12.0pt;color:windowtext">I tried your
+              patches on my 2P XGMI platform. The baco can work at most
+              time, and randomly got following error:</span><o:p></o:p></p>
+          <p class="MsoNormal" style="margin-left:.5in"><span style="font-size:12.0pt;color:windowtext">[ 1701.542298]
+              amdgpu: [powerplay] Failed to send message 0x25, response
+              0x0</span><o:p></o:p></p>
+          <p class="MsoNormal"><span style="font-size:12.0pt;color:windowtext">&nbsp;</span><o:p></o:p></p>
+          <p class="MsoNormal"><span style="font-size:12.0pt;color:windowtext">This error
+              usually means some sync issue exist for xgmi baco case.
+              Feel free to debug your patches on my XGMI platform.</span><o:p></o:p></p>
+          <p class="MsoNormal"><span style="font-size:12.0pt;color:windowtext">&nbsp;</span><o:p></o:p></p>
+          <p class="MsoNormal"><span style="font-size:12.0pt;color:windowtext">Regards,</span><o:p></o:p></p>
+          <p class="MsoNormal"><span style="font-size:12.0pt;color:windowtext">Ma Le</span><o:p></o:p></p>
+          <p class="MsoNormal"><span style="font-size:12.0pt;color:windowtext">&nbsp;</span><o:p></o:p></p>
+          <div>
+            <div style="border:none;border-top:solid #E1E1E1
+              1.0pt;padding:3.0pt 0in 0in 0in">
+              <p class="MsoNormal"><b><span style="color:windowtext">From:</span></b><span style="color:windowtext"> Grodzovsky, Andrey
+                </span><a href="mailto:Andrey.Grodzovsky@amd.com" moz-do-not-send="true">&lt;Andrey.Grodzovsky@amd.com&gt;</a><span style="color:windowtext">
+                  <br>
+                  <b>Sent:</b> Saturday, December 7, 2019 5:51 AM<br>
+                  <b>To:</b> Ma, Le </span><a href="mailto:Le.Ma@amd.com" moz-do-not-send="true">&lt;Le.Ma@amd.com&gt;</a><span style="color:windowtext">;
+                </span><a href="mailto:amd-gfx@lists.freedesktop.org" moz-do-not-send="true">amd-gfx@lists.freedesktop.org</a><span style="color:windowtext">; Zhou1, Tao
+                </span><a href="mailto:Tao.Zhou1@amd.com" moz-do-not-send="true">&lt;Tao.Zhou1@amd.com&gt;</a><span style="color:windowtext">; Deucher, Alexander
+                </span><a href="mailto:Alexander.Deucher@amd.com" moz-do-not-send="true">&lt;Alexander.Deucher@amd.com&gt;</a><span style="color:windowtext">; Li, Dennis
+                </span><a href="mailto:Dennis.Li@amd.com" moz-do-not-send="true">&lt;Dennis.Li@amd.com&gt;</a><span style="color:windowtext">; Zhang, Hawking
+                </span><a href="mailto:Hawking.Zhang@amd.com" moz-do-not-send="true">&lt;Hawking.Zhang@amd.com&gt;</a><span style="color:windowtext"><br>
+                  <b>Cc:</b> Chen, Guchun </span><a href="mailto:Guchun.Chen@amd.com" moz-do-not-send="true">&lt;Guchun.Chen@amd.com&gt;</a><span style="color:windowtext"><br>
+                  <b>Subject:</b> Re: [PATCH 07/10] drm/amdgpu: add
+                  concurrent baco reset support for XGMI</span><o:p></o:p></p>
+            </div>
+          </div>
+          <p class="MsoNormal">&nbsp;<o:p></o:p></p>
+          <p>Hey Ma, attached a solution - it's just compiled as I still
+            can't make my XGMI setup work (with bridge connected only
+            one device is visible to the system while the other is not).
+            Please try it on your system if you have a chance.
+            <o:p></o:p></p>
+          <p>Andrey<o:p></o:p></p>
+          <div>
+            <p class="MsoNormal">On 12/4/19 10:14 PM, Ma, Le wrote:<o:p></o:p></p>
+          </div>
+          <blockquote style="margin-top:5.0pt;margin-bottom:5.0pt">
+            <p>AFAIK it's enough for even single one node in the hive to
+              to fail the enter the BACO state on time to fail the
+              entire hive reset procedure, no ?<o:p></o:p></p>
+            <p class="MsoNormal" style="mso-margin-top-alt:auto;mso-margin-bottom-alt:auto"><span style="font-size:12.0pt;color:#203864">[Le]: Yeah, agree
+                that. I’ve been thinking that make all nodes entering
+                baco simultaneously can reduce the possibility of node
+                failure to enter/exit BACO risk. For example, in an XGMI
+                hive with 8 nodes, the total time interval of 8 nodes
+                enter/exit BACO on 8 CPUs is less than the interval that
+                8 nodes enter BACO serially and exit BACO serially
+                depending on one CPU with yield capability. This
+                interval is usually strict for BACO feature itself.
+                Anyway, we need more looping test later on any method we
+                will choose.</span><o:p></o:p></p>
+            <p>Any way - I see our discussion blocks your entire patch
+              set - I think you can go ahead and commit yours way (I
+              think you got an RB from Hawking) and I will look then and
+              see if I can implement my method and if it works will just
+              revert your patch.<o:p></o:p></p>
+            <p><span style="font-size:12.0pt;color:#203864">[Le]: OK,
+                fine.</span><o:p></o:p></p>
+            <p>Andrey<o:p></o:p></p>
+          </blockquote>
+        </blockquote>
+      </div>
+    </blockquote>
+  </body>
+</html>
+
+--------------DEF9126046D3D5559DD77C0B--
+
+--------------50E3D602A9B73C0ABCC3BDFB
+Content-Type: text/x-patch;
+ name="0003-drm-amdgpu-Redo-concurrent-support-of-BACO-reset-for.patch"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+ filename*0="0003-drm-amdgpu-Redo-concurrent-support-of-BACO-reset-for.pa";
+ filename*1="tch"
+
+From 8fcefad4194358ad55aba815cab437459f4bb0e4 Mon Sep 17 00:00:00 2001
+From: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
+Date: Fri, 6 Dec 2019 13:19:15 -0500
+Subject: drm/amdgpu: Redo concurrent support of BACO reset for XGMI V2
+
+Use task barrier in XGMI hive to synchronize BACO enter/exit
+across devices in XGMI hive.
+This also reverts commit b01245ff54db66073b104ac9d9fbefb7b264b36d.
+
+v2: Switch from system_highpri_wq to system_unbound_wq to avoid
+queueing jobs to same CPU.
+
+Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    |  16 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c       |   4 -
- drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c        | 182 ++++++++++++------
- drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c      |  51 -----
- drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h      |  14 +-
- drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c         |  78 --------
- drivers/gpu/drm/amd/amdgpu/mxgpu_ai.h         |   4 -
- drivers/gpu/drm/amd/amdgpu/soc15.c            |   8 +-
- drivers/gpu/drm/amd/powerplay/amd_powerplay.c |   4 +-
- .../drm/amd/powerplay/hwmgr/hardwaremanager.c |  15 +-
- drivers/gpu/drm/amd/powerplay/hwmgr/hwmgr.c   |  16 ++
- drivers/gpu/drm/amd/powerplay/hwmgr/pp_psm.c  |  30 +--
- .../drm/amd/powerplay/hwmgr/vega10_hwmgr.c    | 156 ++++++++++-----
- .../amd/powerplay/hwmgr/vega10_powertune.c    |   3 +
- drivers/gpu/drm/amd/powerplay/inc/hwmgr.h     |   1 +
- .../drm/amd/powerplay/smumgr/smu9_smumgr.c    |  56 ++++--
- .../drm/amd/powerplay/smumgr/vega10_smumgr.c  |  14 ++
- 17 files changed, 352 insertions(+), 300 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h        |   2 -
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 113 +++++++++++------------------
+ 2 files changed, 44 insertions(+), 71 deletions(-)
 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+index a78a363..50bab33 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+@@ -1001,8 +1001,6 @@ struct amdgpu_device {
+ 
+ 	bool                            pm_sysfs_en;
+ 	bool                            ucode_sysfs_en;
+-
+-	bool				in_baco;
+ };
+ 
+ static inline struct amdgpu_device *amdgpu_ttm_adev(struct ttm_bo_device *bdev)
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index 7324a5fc5ccb..47b4f359f07c 100644
+index 7324a5f..e2b4882 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -1880,6 +1880,9 @@ static int amdgpu_device_ip_init(struct amdgpu_device *adev)
- 		}
- 	}
+@@ -67,6 +67,7 @@
+ #include "amdgpu_tmz.h"
  
-+	if (amdgpu_sriov_vf(adev))
-+		amdgpu_virt_init_data_exchange(adev);
+ #include <linux/suspend.h>
++#include <drm/task_barrier.h>
+ 
+ MODULE_FIRMWARE("amdgpu/vega10_gpu_info.bin");
+ MODULE_FIRMWARE("amdgpu/vega12_gpu_info.bin");
+@@ -2664,13 +2665,39 @@ static void amdgpu_device_xgmi_reset_func(struct work_struct *__work)
+ 	struct amdgpu_device *adev =
+ 		container_of(__work, struct amdgpu_device, xgmi_reset_work);
+ 
+-	if (amdgpu_asic_reset_method(adev) == AMD_RESET_METHOD_BACO)
+-		adev->asic_reset_res = (adev->in_baco == false) ?
+-				amdgpu_device_baco_enter(adev->ddev) :
+-				amdgpu_device_baco_exit(adev->ddev);
+-	else
+-		adev->asic_reset_res = amdgpu_asic_reset(adev);
++	/*
++	 * Use task barrier to synchronize all xgmi reset works across the
++	 * hive.
++	 * task_barrier_enter and task_barrier_exit will block untill all the
++	 * threads running the xgmi reset works reach those points. I assume
++	 * guarantee of progress here for all the threads as the workqueue code
++	 * creates new worker threads as needed by amount of work items in queue
++	 * (see worker_thread) and also each thread sleeps in the barrir and by
++	 * this yielding the CPU for other work threads to make progress.
++	 */
++	if (amdgpu_asic_reset_method(adev) == AMD_RESET_METHOD_BACO) {
++		struct amdgpu_hive_info *hive = amdgpu_get_xgmi_hive(adev, 0);
 +
- 	r = amdgpu_ib_pool_init(adev);
- 	if (r) {
- 		dev_err(adev->dev, "IB initialization failed (%d).\n", r);
-@@ -1921,11 +1924,8 @@ static int amdgpu_device_ip_init(struct amdgpu_device *adev)
- 	amdgpu_amdkfd_device_init(adev);
++		if (hive)
++			task_barrier_enter(&hive->tb);
++
++		adev->asic_reset_res = amdgpu_device_baco_enter(adev->ddev);
++
++		if (adev->asic_reset_res)
++			goto fail;
  
- init_failed:
--	if (amdgpu_sriov_vf(adev)) {
--		if (!r)
--			amdgpu_virt_init_data_exchange(adev);
-+	if (amdgpu_sriov_vf(adev))
- 		amdgpu_virt_release_full_gpu(adev, true);
--	}
- 
++		if (hive)
++			task_barrier_exit(&hive->tb);
++
++		adev->asic_reset_res = amdgpu_device_baco_exit(adev->ddev);
++
++		if (adev->asic_reset_res)
++			goto fail;
++	} else {
++		adev->asic_reset_res =  amdgpu_asic_reset(adev);
++	}
++
++fail:
+ 	if (adev->asic_reset_res)
+ 		DRM_WARN("ASIC reset failed with error, %d for drm dev, %s",
+ 			 adev->asic_reset_res, adev->ddev->unique);
+@@ -3796,18 +3823,13 @@ static int amdgpu_device_pre_asic_reset(struct amdgpu_device *adev,
  	return r;
  }
-@@ -2825,7 +2825,6 @@ int amdgpu_device_init(struct amdgpu_device *adev,
- 	mutex_init(&adev->virt.vf_errors.lock);
- 	hash_init(adev->mn_hash);
- 	mutex_init(&adev->lock_reset);
--	mutex_init(&adev->virt.dpm_mutex);
- 	mutex_init(&adev->psp.mutex);
  
- 	r = amdgpu_device_check_arguments(adev);
-@@ -3044,9 +3043,6 @@ int amdgpu_device_init(struct amdgpu_device *adev,
+-static int amdgpu_do_asic_reset(struct amdgpu_device *adev,
+-			       struct amdgpu_hive_info *hive,
++static int amdgpu_do_asic_reset(struct amdgpu_hive_info *hive,
+ 			       struct list_head *device_list_handle,
+ 			       bool *need_full_reset_arg)
+ {
+ 	struct amdgpu_device *tmp_adev = NULL;
+ 	bool need_full_reset = *need_full_reset_arg, vram_lost = false;
+ 	int r = 0;
+-	int cpu = smp_processor_id();
+-	bool use_baco =
+-		(amdgpu_asic_reset_method(adev) == AMD_RESET_METHOD_BACO) ?
+-		true : false;
  
- 	amdgpu_fbdev_init(adev);
- 
--	if (amdgpu_sriov_vf(adev) && amdgim_is_hwperf(adev))
--		amdgpu_pm_virt_sysfs_init(adev);
--
- 	r = amdgpu_pm_sysfs_init(adev);
- 	if (r) {
- 		adev->pm_sysfs_en = false;
-@@ -3191,8 +3187,6 @@ void amdgpu_device_fini(struct amdgpu_device *adev)
- 	iounmap(adev->rmmio);
- 	adev->rmmio = NULL;
- 	amdgpu_device_doorbell_fini(adev);
--	if (amdgpu_sriov_vf(adev) && amdgim_is_hwperf(adev))
--		amdgpu_pm_virt_sysfs_fini(adev);
- 
- 	amdgpu_debugfs_regs_cleanup(adev);
- 	device_remove_file(adev->dev, &dev_attr_pcie_replay_count);
-@@ -3673,6 +3667,7 @@ static int amdgpu_device_reset_sriov(struct amdgpu_device *adev,
- 	if (r)
- 		goto error;
- 
-+	amdgpu_virt_init_data_exchange(adev);
- 	/* we need recover gart prior to run SMC/CP/SDMA resume */
- 	amdgpu_gtt_mgr_recover(&adev->mman.bdev.man[TTM_PL_TT]);
- 
-@@ -3690,7 +3685,6 @@ static int amdgpu_device_reset_sriov(struct amdgpu_device *adev,
- 	amdgpu_amdkfd_post_reset(adev);
- 
- error:
--	amdgpu_virt_init_data_exchange(adev);
- 	amdgpu_virt_release_full_gpu(adev, true);
- 	if (!r && adev->virt.gim_feature & AMDGIM_FEATURE_GIM_FLR_VRAMLOST) {
- 		amdgpu_inc_vram_lost(adev);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-index 5ec1415d1755..3a0ea9096498 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-@@ -703,10 +703,6 @@ static int amdgpu_info_ioctl(struct drm_device *dev, void *data, struct drm_file
- 		if (adev->pm.dpm_enabled) {
- 			dev_info.max_engine_clock = amdgpu_dpm_get_sclk(adev, false) * 10;
- 			dev_info.max_memory_clock = amdgpu_dpm_get_mclk(adev, false) * 10;
--		} else if (amdgpu_sriov_vf(adev) && amdgim_is_hwperf(adev) &&
--			   adev->virt.ops->get_pp_clk) {
--			dev_info.max_engine_clock = amdgpu_virt_get_sclk(adev, false) * 10;
--			dev_info.max_memory_clock = amdgpu_virt_get_mclk(adev, false) * 10;
- 		} else {
- 			dev_info.max_engine_clock = adev->clock.default_sclk * 10;
- 			dev_info.max_memory_clock = adev->clock.default_mclk * 10;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
-index 0c7324bc31a7..b32adda70bbc 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
-@@ -159,6 +159,9 @@ static ssize_t amdgpu_get_dpm_state(struct device *dev,
- 	struct amdgpu_device *adev = ddev->dev_private;
- 	enum amd_pm_state_type pm;
- 
-+	if (amdgpu_sriov_vf(adev) && !amdgpu_sriov_is_pp_one_vf(adev))
-+		return 0;
-+
- 	if (is_support_sw_smu(adev)) {
- 		if (adev->smu.ppt_funcs->get_current_power_state)
- 			pm = smu_get_current_power_state(&adev->smu);
-@@ -184,6 +187,9 @@ static ssize_t amdgpu_set_dpm_state(struct device *dev,
- 	struct amdgpu_device *adev = ddev->dev_private;
- 	enum amd_pm_state_type  state;
- 
-+	if (amdgpu_sriov_vf(adev) && !amdgpu_sriov_is_pp_one_vf(adev))
-+		return -EINVAL;
-+
- 	if (strncmp("battery", buf, strlen("battery")) == 0)
- 		state = POWER_STATE_TYPE_BATTERY;
- 	else if (strncmp("balanced", buf, strlen("balanced")) == 0)
-@@ -283,7 +289,7 @@ static ssize_t amdgpu_get_dpm_forced_performance_level(struct device *dev,
- 	struct amdgpu_device *adev = ddev->dev_private;
- 	enum amd_dpm_forced_level level = 0xff;
- 
--	if (amdgpu_sriov_vf(adev))
-+	if (amdgpu_sriov_vf(adev) && !amdgpu_sriov_is_pp_one_vf(adev))
- 		return 0;
- 
- 	if ((adev->flags & AMD_IS_PX) &&
-@@ -320,6 +326,9 @@ static ssize_t amdgpu_set_dpm_forced_performance_level(struct device *dev,
- 	enum amd_dpm_forced_level current_level = 0xff;
- 	int ret = 0;
- 
-+	if (amdgpu_sriov_vf(adev) && !amdgpu_sriov_is_pp_one_vf(adev))
-+		return -EINVAL;
-+
- 	/* Can't force performance level when the card is off */
- 	if  ((adev->flags & AMD_IS_PX) &&
- 	     (ddev->switch_power_state != DRM_SWITCH_POWER_ON))
-@@ -348,19 +357,6 @@ static ssize_t amdgpu_set_dpm_forced_performance_level(struct device *dev,
- 		goto fail;
- 	}
- 
--	/* handle sriov case here */
--	if (amdgpu_sriov_vf(adev)) {
--		if (amdgim_is_hwperf(adev) &&
--		    adev->virt.ops->force_dpm_level) {
--			mutex_lock(&adev->pm.mutex);
--			adev->virt.ops->force_dpm_level(adev, level);
--			mutex_unlock(&adev->pm.mutex);
--			return count;
--		} else {
--			return -EINVAL;
+ 	/*
+ 	 * ASIC reset has to be done on all HGMI hive nodes ASAP
+@@ -3815,62 +3837,22 @@ static int amdgpu_do_asic_reset(struct amdgpu_device *adev,
+ 	 */
+ 	if (need_full_reset) {
+ 		list_for_each_entry(tmp_adev, device_list_handle, gmc.xgmi.head) {
+-			/*
+-			 * For XGMI run all resets in parallel to speed up the
+-			 * process by scheduling the highpri wq on different
+-			 * cpus. For XGMI with baco reset, all nodes must enter
+-			 * baco within close proximity before anyone exit.
+-			 */
++			/* For XGMI run all resets in parallel to speed up the process */
+ 			if (tmp_adev->gmc.xgmi.num_physical_nodes > 1) {
+-				if (!queue_work_on(cpu, system_highpri_wq,
+-						   &tmp_adev->xgmi_reset_work))
++				if (!queue_work(system_unbound_wq, &tmp_adev->xgmi_reset_work))
+ 					r = -EALREADY;
+-				cpu = cpumask_next(cpu, cpu_online_mask);
+ 			} else
+ 				r = amdgpu_asic_reset(tmp_adev);
+-			if (r)
+-				break;
 -		}
--	}
+ 
+-		/* For XGMI wait for all work to complete before proceed */
+-		if (!r) {
+-			list_for_each_entry(tmp_adev, device_list_handle,
+-					    gmc.xgmi.head) {
+-				if (tmp_adev->gmc.xgmi.num_physical_nodes > 1) {
+-					flush_work(&tmp_adev->xgmi_reset_work);
+-					r = tmp_adev->asic_reset_res;
+-					if (r)
+-						break;
+-					if (use_baco)
+-						tmp_adev->in_baco = true;
+-				}
+-			}
+-		}
 -
- 	if (is_support_sw_smu(adev))
- 		current_level = smu_get_performance_level(&adev->smu);
- 	else if (adev->powerplay.pp_funcs->get_performance_level)
-@@ -440,6 +436,9 @@ static ssize_t amdgpu_get_pp_cur_state(struct device *dev,
- 	enum amd_pm_state_type pm = 0;
- 	int i = 0, ret = 0;
- 
-+	if (amdgpu_sriov_vf(adev) && !amdgpu_sriov_is_pp_one_vf(adev))
-+		return 0;
-+
- 	if (is_support_sw_smu(adev)) {
- 		pm = smu_get_current_power_state(smu);
- 		ret = smu_get_power_num_states(smu, &data);
-@@ -469,6 +468,9 @@ static ssize_t amdgpu_get_pp_force_state(struct device *dev,
- 	struct drm_device *ddev = dev_get_drvdata(dev);
- 	struct amdgpu_device *adev = ddev->dev_private;
- 
-+	if (amdgpu_sriov_vf(adev) && !amdgpu_sriov_is_pp_one_vf(adev))
-+		return 0;
-+
- 	if (adev->pp_force_state_enabled)
- 		return amdgpu_get_pp_cur_state(dev, attr, buf);
- 	else
-@@ -486,6 +488,9 @@ static ssize_t amdgpu_set_pp_force_state(struct device *dev,
- 	unsigned long idx;
- 	int ret;
- 
-+	if (amdgpu_sriov_vf(adev) && !amdgpu_sriov_is_pp_one_vf(adev))
-+		return -EINVAL;
-+
- 	if (strlen(buf) == 1)
- 		adev->pp_force_state_enabled = false;
- 	else if (is_support_sw_smu(adev))
-@@ -535,6 +540,9 @@ static ssize_t amdgpu_get_pp_table(struct device *dev,
- 	char *table = NULL;
- 	int size;
- 
-+	if (amdgpu_sriov_vf(adev) && !amdgpu_sriov_is_pp_one_vf(adev))
-+		return 0;
-+
- 	if (is_support_sw_smu(adev)) {
- 		size = smu_sys_get_pp_table(&adev->smu, (void **)&table);
- 		if (size < 0)
-@@ -562,6 +570,9 @@ static ssize_t amdgpu_set_pp_table(struct device *dev,
- 	struct amdgpu_device *adev = ddev->dev_private;
- 	int ret = 0;
- 
-+	if (amdgpu_sriov_vf(adev) && !amdgpu_sriov_is_pp_one_vf(adev))
-+		return -EINVAL;
-+
- 	if (is_support_sw_smu(adev)) {
- 		ret = smu_sys_set_pp_table(&adev->smu, (void *)buf, count);
- 		if (ret)
-@@ -654,6 +665,9 @@ static ssize_t amdgpu_set_pp_od_clk_voltage(struct device *dev,
- 	const char delimiter[3] = {' ', '\n', '\0'};
- 	uint32_t type;
- 
-+	if (amdgpu_sriov_vf(adev))
-+		return -EINVAL;
-+
- 	if (count > 127)
- 		return -EINVAL;
- 
-@@ -726,6 +740,9 @@ static ssize_t amdgpu_get_pp_od_clk_voltage(struct device *dev,
- 	struct amdgpu_device *adev = ddev->dev_private;
- 	uint32_t size = 0;
- 
-+	if (amdgpu_sriov_vf(adev))
-+		return 0;
-+
- 	if (is_support_sw_smu(adev)) {
- 		size = smu_print_clk_levels(&adev->smu, SMU_OD_SCLK, buf);
- 		size += smu_print_clk_levels(&adev->smu, SMU_OD_MCLK, buf+size);
-@@ -770,6 +787,9 @@ static ssize_t amdgpu_set_pp_feature_status(struct device *dev,
- 	uint64_t featuremask;
- 	int ret;
- 
-+	if (amdgpu_sriov_vf(adev))
-+		return -EINVAL;
-+
- 	ret = kstrtou64(buf, 0, &featuremask);
- 	if (ret)
- 		return -EINVAL;
-@@ -796,6 +816,9 @@ static ssize_t amdgpu_get_pp_feature_status(struct device *dev,
- 	struct drm_device *ddev = dev_get_drvdata(dev);
- 	struct amdgpu_device *adev = ddev->dev_private;
- 
-+	if (amdgpu_sriov_vf(adev))
-+		return 0;
-+
- 	if (is_support_sw_smu(adev)) {
- 		return smu_sys_get_pp_feature_mask(&adev->smu, buf);
- 	} else if (adev->powerplay.pp_funcs->get_ppfeature_status)
-@@ -841,9 +864,8 @@ static ssize_t amdgpu_get_pp_dpm_sclk(struct device *dev,
- 	struct drm_device *ddev = dev_get_drvdata(dev);
- 	struct amdgpu_device *adev = ddev->dev_private;
- 
--	if (amdgpu_sriov_vf(adev) && amdgim_is_hwperf(adev) &&
--	    adev->virt.ops->get_pp_clk)
--		return adev->virt.ops->get_pp_clk(adev, PP_SCLK, buf);
-+	if (amdgpu_sriov_vf(adev) && !amdgpu_sriov_is_pp_one_vf(adev))
-+		return 0;
- 
- 	if (is_support_sw_smu(adev))
- 		return smu_print_clk_levels(&adev->smu, SMU_SCLK, buf);
-@@ -899,8 +921,8 @@ static ssize_t amdgpu_set_pp_dpm_sclk(struct device *dev,
- 	int ret;
- 	uint32_t mask = 0;
- 
--	if (amdgpu_sriov_vf(adev))
--		return 0;
-+	if (amdgpu_sriov_vf(adev) && !amdgpu_sriov_is_pp_one_vf(adev))
-+		return -EINVAL;
- 
- 	ret = amdgpu_read_mask(buf, count, &mask);
- 	if (ret)
-@@ -924,9 +946,8 @@ static ssize_t amdgpu_get_pp_dpm_mclk(struct device *dev,
- 	struct drm_device *ddev = dev_get_drvdata(dev);
- 	struct amdgpu_device *adev = ddev->dev_private;
- 
--	if (amdgpu_sriov_vf(adev) && amdgim_is_hwperf(adev) &&
--	    adev->virt.ops->get_pp_clk)
--		return adev->virt.ops->get_pp_clk(adev, PP_MCLK, buf);
-+	if (amdgpu_sriov_vf(adev) && !amdgpu_sriov_is_pp_one_vf(adev))
-+		return 0;
- 
- 	if (is_support_sw_smu(adev))
- 		return smu_print_clk_levels(&adev->smu, SMU_MCLK, buf);
-@@ -946,8 +967,8 @@ static ssize_t amdgpu_set_pp_dpm_mclk(struct device *dev,
- 	int ret;
- 	uint32_t mask = 0;
- 
--	if (amdgpu_sriov_vf(adev))
--		return 0;
-+	if (amdgpu_sriov_vf(adev) && !amdgpu_sriov_is_pp_one_vf(adev))
-+			return -EINVAL;
- 
- 	ret = amdgpu_read_mask(buf, count, &mask);
- 	if (ret)
-@@ -971,6 +992,9 @@ static ssize_t amdgpu_get_pp_dpm_socclk(struct device *dev,
- 	struct drm_device *ddev = dev_get_drvdata(dev);
- 	struct amdgpu_device *adev = ddev->dev_private;
- 
-+	if (amdgpu_sriov_vf(adev) && !amdgpu_sriov_is_pp_one_vf(adev))
-+		return 0;
-+
- 	if (is_support_sw_smu(adev))
- 		return smu_print_clk_levels(&adev->smu, SMU_SOCCLK, buf);
- 	else if (adev->powerplay.pp_funcs->print_clock_levels)
-@@ -989,6 +1013,9 @@ static ssize_t amdgpu_set_pp_dpm_socclk(struct device *dev,
- 	int ret;
- 	uint32_t mask = 0;
- 
-+	if (amdgpu_sriov_vf(adev) && !amdgpu_sriov_is_pp_one_vf(adev))
-+		return -EINVAL;
-+
- 	ret = amdgpu_read_mask(buf, count, &mask);
- 	if (ret)
- 		return ret;
-@@ -1011,6 +1038,9 @@ static ssize_t amdgpu_get_pp_dpm_fclk(struct device *dev,
- 	struct drm_device *ddev = dev_get_drvdata(dev);
- 	struct amdgpu_device *adev = ddev->dev_private;
- 
-+	if (amdgpu_sriov_vf(adev) && !amdgpu_sriov_is_pp_one_vf(adev))
-+		return 0;
-+
- 	if (is_support_sw_smu(adev))
- 		return smu_print_clk_levels(&adev->smu, SMU_FCLK, buf);
- 	else if (adev->powerplay.pp_funcs->print_clock_levels)
-@@ -1029,6 +1059,9 @@ static ssize_t amdgpu_set_pp_dpm_fclk(struct device *dev,
- 	int ret;
- 	uint32_t mask = 0;
- 
-+	if (amdgpu_sriov_vf(adev) && !amdgpu_sriov_is_pp_one_vf(adev))
-+		return -EINVAL;
-+
- 	ret = amdgpu_read_mask(buf, count, &mask);
- 	if (ret)
- 		return ret;
-@@ -1051,6 +1084,9 @@ static ssize_t amdgpu_get_pp_dpm_dcefclk(struct device *dev,
- 	struct drm_device *ddev = dev_get_drvdata(dev);
- 	struct amdgpu_device *adev = ddev->dev_private;
- 
-+	if (amdgpu_sriov_vf(adev))
-+		return 0;
-+
- 	if (is_support_sw_smu(adev))
- 		return smu_print_clk_levels(&adev->smu, SMU_DCEFCLK, buf);
- 	else if (adev->powerplay.pp_funcs->print_clock_levels)
-@@ -1069,6 +1105,9 @@ static ssize_t amdgpu_set_pp_dpm_dcefclk(struct device *dev,
- 	int ret;
- 	uint32_t mask = 0;
- 
-+	if (amdgpu_sriov_vf(adev))
-+		return -EINVAL;
-+
- 	ret = amdgpu_read_mask(buf, count, &mask);
- 	if (ret)
- 		return ret;
-@@ -1091,6 +1130,9 @@ static ssize_t amdgpu_get_pp_dpm_pcie(struct device *dev,
- 	struct drm_device *ddev = dev_get_drvdata(dev);
- 	struct amdgpu_device *adev = ddev->dev_private;
- 
-+	if (amdgpu_sriov_vf(adev) && !amdgpu_sriov_is_pp_one_vf(adev))
-+		return 0;
-+
- 	if (is_support_sw_smu(adev))
- 		return smu_print_clk_levels(&adev->smu, SMU_PCIE, buf);
- 	else if (adev->powerplay.pp_funcs->print_clock_levels)
-@@ -1109,6 +1151,9 @@ static ssize_t amdgpu_set_pp_dpm_pcie(struct device *dev,
- 	int ret;
- 	uint32_t mask = 0;
- 
-+	if (amdgpu_sriov_vf(adev) && !amdgpu_sriov_is_pp_one_vf(adev))
-+		return -EINVAL;
-+
- 	ret = amdgpu_read_mask(buf, count, &mask);
- 	if (ret)
- 		return ret;
-@@ -1132,6 +1177,9 @@ static ssize_t amdgpu_get_pp_sclk_od(struct device *dev,
- 	struct amdgpu_device *adev = ddev->dev_private;
- 	uint32_t value = 0;
- 
-+	if (amdgpu_sriov_vf(adev))
-+		return 0;
-+
- 	if (is_support_sw_smu(adev))
- 		value = smu_get_od_percentage(&(adev->smu), SMU_OD_SCLK);
- 	else if (adev->powerplay.pp_funcs->get_sclk_od)
-@@ -1150,6 +1198,9 @@ static ssize_t amdgpu_set_pp_sclk_od(struct device *dev,
- 	int ret;
- 	long int value;
- 
-+	if (amdgpu_sriov_vf(adev))
-+		return -EINVAL;
-+
- 	ret = kstrtol(buf, 0, &value);
- 
- 	if (ret) {
-@@ -1183,6 +1234,9 @@ static ssize_t amdgpu_get_pp_mclk_od(struct device *dev,
- 	struct amdgpu_device *adev = ddev->dev_private;
- 	uint32_t value = 0;
- 
-+	if (amdgpu_sriov_vf(adev))
-+		return 0;
-+
- 	if (is_support_sw_smu(adev))
- 		value = smu_get_od_percentage(&(adev->smu), SMU_OD_MCLK);
- 	else if (adev->powerplay.pp_funcs->get_mclk_od)
-@@ -1201,6 +1255,9 @@ static ssize_t amdgpu_set_pp_mclk_od(struct device *dev,
- 	int ret;
- 	long int value;
- 
-+	if (amdgpu_sriov_vf(adev))
-+		return 0;
-+
- 	ret = kstrtol(buf, 0, &value);
- 
- 	if (ret) {
-@@ -1253,6 +1310,9 @@ static ssize_t amdgpu_get_pp_power_profile_mode(struct device *dev,
- 	struct drm_device *ddev = dev_get_drvdata(dev);
- 	struct amdgpu_device *adev = ddev->dev_private;
- 
-+	if (amdgpu_sriov_vf(adev) && !amdgpu_sriov_is_pp_one_vf(adev))
-+		return 0;
-+
- 	if (is_support_sw_smu(adev))
- 		return smu_get_power_profile_mode(&adev->smu, buf);
- 	else if (adev->powerplay.pp_funcs->get_power_profile_mode)
-@@ -1285,6 +1345,9 @@ static ssize_t amdgpu_set_pp_power_profile_mode(struct device *dev,
- 	if (ret)
- 		goto fail;
- 
-+	if (amdgpu_sriov_vf(adev) && !amdgpu_sriov_is_pp_one_vf(adev))
-+		return -EINVAL;
-+
- 	if (profile_mode == PP_SMC_POWER_PROFILE_CUSTOM) {
- 		if (count < 2 || count > 127)
- 			return -EINVAL;
-@@ -1331,6 +1394,9 @@ static ssize_t amdgpu_get_busy_percent(struct device *dev,
- 	struct amdgpu_device *adev = ddev->dev_private;
- 	int r, value, size = sizeof(value);
- 
-+	if (amdgpu_sriov_vf(adev) && !amdgpu_sriov_is_pp_one_vf(adev))
-+		return 0;
-+
- 	/* read the IP busy sensor */
- 	r = amdgpu_dpm_read_sensor(adev, AMDGPU_PP_SENSOR_GPU_LOAD,
- 				   (void *)&value, &size);
-@@ -1357,6 +1423,9 @@ static ssize_t amdgpu_get_memory_busy_percent(struct device *dev,
- 	struct amdgpu_device *adev = ddev->dev_private;
- 	int r, value, size = sizeof(value);
- 
-+	if (amdgpu_sriov_vf(adev) && !amdgpu_sriov_is_pp_one_vf(adev))
-+		return 0;
-+
- 	/* read the IP busy sensor */
- 	r = amdgpu_dpm_read_sensor(adev, AMDGPU_PP_SENSOR_MEM_LOAD,
- 				   (void *)&value, &size);
-@@ -1387,6 +1456,9 @@ static ssize_t amdgpu_get_pcie_bw(struct device *dev,
- 	struct amdgpu_device *adev = ddev->dev_private;
- 	uint64_t count0, count1;
- 
-+	if (amdgpu_sriov_vf(adev) && !amdgpu_sriov_is_pp_one_vf(adev))
-+		return 0;
-+
- 	amdgpu_asic_get_pcie_usage(adev, &count0, &count1);
- 	return snprintf(buf, PAGE_SIZE,	"%llu %llu %i\n",
- 			count0, count1, pcie_get_mps(adev->pdev));
-@@ -1409,6 +1481,9 @@ static ssize_t amdgpu_get_unique_id(struct device *dev,
- 	struct drm_device *ddev = dev_get_drvdata(dev);
- 	struct amdgpu_device *adev = ddev->dev_private;
- 
-+	if (amdgpu_sriov_vf(adev) && !amdgpu_sriov_is_pp_one_vf(adev))
-+		return 0;
-+
- 	if (adev->unique_id)
- 		return snprintf(buf, PAGE_SIZE, "%016llx\n", adev->unique_id);
- 
-@@ -1603,6 +1678,7 @@ static ssize_t amdgpu_hwmon_get_pwm1_enable(struct device *dev,
- {
- 	struct amdgpu_device *adev = dev_get_drvdata(dev);
- 	u32 pwm_mode = 0;
-+
- 	if (is_support_sw_smu(adev)) {
- 		pwm_mode = smu_get_fan_control_mode(&adev->smu);
- 	} else {
-@@ -2053,6 +2129,9 @@ static ssize_t amdgpu_hwmon_set_power_cap(struct device *dev,
- 	int err;
- 	u32 value;
- 
-+	if (amdgpu_sriov_vf(adev))
-+		return -EINVAL;
-+
- 	err = kstrtou32(buf, 10, &value);
- 	if (err)
- 		return err;
-@@ -2299,6 +2378,23 @@ static umode_t hwmon_attributes_visible(struct kobject *kobj,
- 	struct amdgpu_device *adev = dev_get_drvdata(dev);
- 	umode_t effective_mode = attr->mode;
- 
-+	/* under multi-vf mode, the hwmon attributes are all not supported */
-+	if (amdgpu_sriov_vf(adev) && !amdgpu_sriov_is_pp_one_vf(adev))
-+		return 0;
-+
-+	/* there is no fan under pp one vf mode */
-+	if (amdgpu_sriov_is_pp_one_vf(adev) &&
-+	    (attr == &sensor_dev_attr_pwm1.dev_attr.attr ||
-+	     attr == &sensor_dev_attr_pwm1_enable.dev_attr.attr ||
-+	     attr == &sensor_dev_attr_pwm1_max.dev_attr.attr ||
-+	     attr == &sensor_dev_attr_pwm1_min.dev_attr.attr ||
-+	     attr == &sensor_dev_attr_fan1_input.dev_attr.attr ||
-+	     attr == &sensor_dev_attr_fan1_min.dev_attr.attr ||
-+	     attr == &sensor_dev_attr_fan1_max.dev_attr.attr ||
-+	     attr == &sensor_dev_attr_fan1_target.dev_attr.attr ||
-+	     attr == &sensor_dev_attr_fan1_enable.dev_attr.attr))
-+		return 0;
-+
- 	/* Skip fan attributes if fan is not present */
- 	if (adev->pm.no_fan && (attr == &sensor_dev_attr_pwm1.dev_attr.attr ||
- 	    attr == &sensor_dev_attr_pwm1_enable.dev_attr.attr ||
-@@ -2730,44 +2826,6 @@ void amdgpu_dpm_enable_jpeg(struct amdgpu_device *adev, bool enable)
- 	}
- }
- 
--int amdgpu_pm_virt_sysfs_init(struct amdgpu_device *adev)
--{
--	int ret = 0;
--
--	if (!(amdgpu_sriov_vf(adev) && amdgim_is_hwperf(adev)))
--		return ret;
--
--	ret = device_create_file(adev->dev, &dev_attr_pp_dpm_sclk);
--	if (ret) {
--		DRM_ERROR("failed to create device file pp_dpm_sclk\n");
--		return ret;
--	}
--
--	ret = device_create_file(adev->dev, &dev_attr_pp_dpm_mclk);
--	if (ret) {
--		DRM_ERROR("failed to create device file pp_dpm_mclk\n");
--		return ret;
--	}
--
--	ret = device_create_file(adev->dev, &dev_attr_power_dpm_force_performance_level);
--	if (ret) {
--		DRM_ERROR("failed to create device file for dpm state\n");
--		return ret;
--	}
--
--	return ret;
--}
--
--void amdgpu_pm_virt_sysfs_fini(struct amdgpu_device *adev)
--{
--	if (!(amdgpu_sriov_vf(adev) && amdgim_is_hwperf(adev)))
--		return;
--
--	device_remove_file(adev->dev, &dev_attr_power_dpm_force_performance_level);
--	device_remove_file(adev->dev, &dev_attr_pp_dpm_sclk);
--	device_remove_file(adev->dev, &dev_attr_pp_dpm_mclk);
--}
--
- int amdgpu_pm_load_smu_firmware(struct amdgpu_device *adev, uint32_t *smu_version)
- {
- 	int r;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
-index e32ae906d797..103033f96f13 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
-@@ -379,54 +379,3 @@ void amdgpu_virt_init_data_exchange(struct amdgpu_device *adev)
- 		}
- 	}
- }
--
--static uint32_t parse_clk(char *buf, bool min)
--{
--        char *ptr = buf;
--        uint32_t clk = 0;
--
--        do {
--                ptr = strchr(ptr, ':');
--                if (!ptr)
--                        break;
--                ptr+=2;
--		if (kstrtou32(ptr, 10, &clk))
--			return 0;
--        } while (!min);
--
--        return clk * 100;
--}
--
--uint32_t amdgpu_virt_get_sclk(struct amdgpu_device *adev, bool lowest)
--{
--	char *buf = NULL;
--	uint32_t clk = 0;
--
--	buf = kzalloc(PAGE_SIZE, GFP_KERNEL);
--	if (!buf)
--		return -ENOMEM;
--
--	adev->virt.ops->get_pp_clk(adev, PP_SCLK, buf);
--	clk = parse_clk(buf, lowest);
--
--	kfree(buf);
--
--	return clk;
--}
--
--uint32_t amdgpu_virt_get_mclk(struct amdgpu_device *adev, bool lowest)
--{
--	char *buf = NULL;
--	uint32_t clk = 0;
--
--	buf = kzalloc(PAGE_SIZE, GFP_KERNEL);
--	if (!buf)
--		return -ENOMEM;
--
--	adev->virt.ops->get_pp_clk(adev, PP_MCLK, buf);
--	clk = parse_clk(buf, lowest);
--
--	kfree(buf);
--
--	return clk;
--}
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
-index b0b2bdc750df..4d1ac7612967 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
-@@ -57,8 +57,6 @@ struct amdgpu_virt_ops {
- 	int (*reset_gpu)(struct amdgpu_device *adev);
- 	int (*wait_reset)(struct amdgpu_device *adev);
- 	void (*trans_msg)(struct amdgpu_device *adev, u32 req, u32 data1, u32 data2, u32 data3);
--	int (*get_pp_clk)(struct amdgpu_device *adev, u32 type, char *buf);
--	int (*force_dpm_level)(struct amdgpu_device *adev, u32 level);
- };
- 
- /*
-@@ -85,8 +83,8 @@ enum AMDGIM_FEATURE_FLAG {
- 	AMDGIM_FEATURE_GIM_LOAD_UCODES   = 0x2,
- 	/* VRAM LOST by GIM */
- 	AMDGIM_FEATURE_GIM_FLR_VRAMLOST = 0x4,
--	/* HW PERF SIM in GIM */
--	AMDGIM_FEATURE_HW_PERF_SIMULATION = (1 << 3),
-+	/* PP ONE VF MODE in GIM */
-+	AMDGIM_FEATURE_PP_ONE_VF = (1 << 4),
- };
- 
- struct amd_sriov_msg_pf2vf_info_header {
-@@ -257,8 +255,6 @@ struct amdgpu_virt {
- 	struct amdgpu_vf_error_buffer   vf_errors;
- 	struct amdgpu_virt_fw_reserve	fw_reserve;
- 	uint32_t gim_feature;
--	/* protect DPM events to GIM */
--	struct mutex                    dpm_mutex;
- 	uint32_t reg_access_mode;
- };
- 
-@@ -286,8 +282,8 @@ static inline bool is_virtual_machine(void)
- #endif
- }
- 
--#define amdgim_is_hwperf(adev) \
--	((adev)->virt.gim_feature & AMDGIM_FEATURE_HW_PERF_SIMULATION)
-+#define amdgpu_sriov_is_pp_one_vf(adev) \
-+	((adev)->virt.gim_feature & AMDGIM_FEATURE_PP_ONE_VF)
- 
- bool amdgpu_virt_mmio_blocked(struct amdgpu_device *adev);
- void amdgpu_virt_init_setting(struct amdgpu_device *adev);
-@@ -306,6 +302,4 @@ int amdgpu_virt_fw_reserve_get_checksum(void *obj, unsigned long obj_size,
- 					unsigned int key,
- 					unsigned int chksum);
- void amdgpu_virt_init_data_exchange(struct amdgpu_device *adev);
--uint32_t amdgpu_virt_get_sclk(struct amdgpu_device *adev, bool lowest);
--uint32_t amdgpu_virt_get_mclk(struct amdgpu_device *adev, bool lowest);
- #endif
-diff --git a/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c b/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c
-index cc5bf595f9b1..43305afa3d6f 100644
---- a/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c
-+++ b/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c
-@@ -158,82 +158,6 @@ static void xgpu_ai_mailbox_trans_msg (struct amdgpu_device *adev,
- 	xgpu_ai_mailbox_set_valid(adev, false);
- }
- 
--static int xgpu_ai_get_pp_clk(struct amdgpu_device *adev, u32 type, char *buf)
--{
--        int r = 0;
--        u32 req, val, size;
--
--        if (!amdgim_is_hwperf(adev) || buf == NULL)
--                return -EBADRQC;
--
--        switch(type) {
--        case PP_SCLK:
--                req = IDH_IRQ_GET_PP_SCLK;
--                break;
--        case PP_MCLK:
--                req = IDH_IRQ_GET_PP_MCLK;
--                break;
--        default:
--                return -EBADRQC;
--        }
--
--        mutex_lock(&adev->virt.dpm_mutex);
--
--        xgpu_ai_mailbox_trans_msg(adev, req, 0, 0, 0);
--
--        r = xgpu_ai_poll_msg(adev, IDH_SUCCESS);
--        if (!r && adev->fw_vram_usage.va != NULL) {
--                val = RREG32_NO_KIQ(
--                        SOC15_REG_OFFSET(NBIO, 0,
--                                         mmBIF_BX_PF0_MAILBOX_MSGBUF_RCV_DW1));
--                size = strnlen((((char *)adev->virt.fw_reserve.p_pf2vf) +
--                                val), PAGE_SIZE);
--
--                if (size < PAGE_SIZE)
--                        strcpy(buf,((char *)adev->virt.fw_reserve.p_pf2vf + val));
--                else
--                        size = 0;
--
--                r = size;
--                goto out;
--        }
--
--        r = xgpu_ai_poll_msg(adev, IDH_FAIL);
--        if(r)
--                pr_info("%s DPM request failed",
--                        (type == PP_SCLK)? "SCLK" : "MCLK");
--
--out:
--        mutex_unlock(&adev->virt.dpm_mutex);
--        return r;
--}
--
--static int xgpu_ai_force_dpm_level(struct amdgpu_device *adev, u32 level)
--{
--        int r = 0;
--        u32 req = IDH_IRQ_FORCE_DPM_LEVEL;
--
--        if (!amdgim_is_hwperf(adev))
--                return -EBADRQC;
--
--        mutex_lock(&adev->virt.dpm_mutex);
--        xgpu_ai_mailbox_trans_msg(adev, req, level, 0, 0);
--
--        r = xgpu_ai_poll_msg(adev, IDH_SUCCESS);
--        if (!r)
--                goto out;
--
--        r = xgpu_ai_poll_msg(adev, IDH_FAIL);
--        if (!r)
--                pr_info("DPM request failed");
--        else
--                pr_info("Mailbox is broken");
--
--out:
--        mutex_unlock(&adev->virt.dpm_mutex);
--        return r;
--}
--
- static int xgpu_ai_send_access_requests(struct amdgpu_device *adev,
- 					enum idh_request req)
- {
-@@ -455,6 +379,4 @@ const struct amdgpu_virt_ops xgpu_ai_virt_ops = {
- 	.reset_gpu = xgpu_ai_request_reset,
- 	.wait_reset = NULL,
- 	.trans_msg = xgpu_ai_mailbox_trans_msg,
--	.get_pp_clk = xgpu_ai_get_pp_clk,
--	.force_dpm_level = xgpu_ai_force_dpm_level,
- };
-diff --git a/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.h b/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.h
-index 077e91a33d62..37dbe0f2142f 100644
---- a/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.h
-+++ b/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.h
-@@ -35,10 +35,6 @@ enum idh_request {
- 	IDH_REL_GPU_FINI_ACCESS,
- 	IDH_REQ_GPU_RESET_ACCESS,
- 
--	IDH_IRQ_FORCE_DPM_LEVEL = 10,
--	IDH_IRQ_GET_PP_SCLK,
--	IDH_IRQ_GET_PP_MCLK,
--
- 	IDH_LOG_VF_ERROR       = 200,
- };
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c b/drivers/gpu/drm/amd/amdgpu/soc15.c
-index 09dca499a880..5bd6ae7a52fe 100644
---- a/drivers/gpu/drm/amd/amdgpu/soc15.c
-+++ b/drivers/gpu/drm/amd/amdgpu/soc15.c
-@@ -775,11 +775,11 @@ int soc15_set_ip_blocks(struct amdgpu_device *adev)
- 		}
- 		amdgpu_device_ip_block_add(adev, &gfx_v9_0_ip_block);
- 		amdgpu_device_ip_block_add(adev, &sdma_v4_0_ip_block);
--		if (!amdgpu_sriov_vf(adev)) {
--			if (is_support_sw_smu(adev))
-+		if (is_support_sw_smu(adev)) {
-+			if (!amdgpu_sriov_vf(adev))
- 				amdgpu_device_ip_block_add(adev, &smu_v11_0_ip_block);
--			else
--				amdgpu_device_ip_block_add(adev, &pp_smu_ip_block);
-+		} else {
-+			amdgpu_device_ip_block_add(adev, &pp_smu_ip_block);
- 		}
- 		if (adev->enable_virtual_display || amdgpu_sriov_vf(adev))
- 			amdgpu_device_ip_block_add(adev, &dce_virtual_ip_block);
-diff --git a/drivers/gpu/drm/amd/powerplay/amd_powerplay.c b/drivers/gpu/drm/amd/powerplay/amd_powerplay.c
-index 7932eb163a00..5087d6bdba60 100644
---- a/drivers/gpu/drm/amd/powerplay/amd_powerplay.c
-+++ b/drivers/gpu/drm/amd/powerplay/amd_powerplay.c
-@@ -48,7 +48,6 @@ static int amd_powerplay_create(struct amdgpu_device *adev)
- 
- 	hwmgr->adev = adev;
- 	hwmgr->not_vf = !amdgpu_sriov_vf(adev);
--	hwmgr->pm_en = (amdgpu_dpm && hwmgr->not_vf) ? true : false;
- 	hwmgr->device = amdgpu_cgs_create_device(adev);
- 	mutex_init(&hwmgr->smu_lock);
- 	hwmgr->chip_family = adev->family;
-@@ -276,6 +275,9 @@ static int pp_dpm_load_fw(void *handle)
- {
- 	struct pp_hwmgr *hwmgr = handle;
- 
-+	if (!hwmgr->not_vf)
-+		return 0;
-+
- 	if (!hwmgr || !hwmgr->smumgr_funcs || !hwmgr->smumgr_funcs->start_smu)
- 		return -EINVAL;
- 
-diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/hardwaremanager.c b/drivers/gpu/drm/amd/powerplay/hwmgr/hardwaremanager.c
-index cc57fb953e62..253860d30b20 100644
---- a/drivers/gpu/drm/amd/powerplay/hwmgr/hardwaremanager.c
-+++ b/drivers/gpu/drm/amd/powerplay/hwmgr/hardwaremanager.c
-@@ -81,8 +81,8 @@ int phm_enable_dynamic_state_management(struct pp_hwmgr *hwmgr)
- 	adev = hwmgr->adev;
- 
- 	/* Skip for suspend/resume case */
--	if (smum_is_dpm_running(hwmgr) && !amdgpu_passthrough(adev)
--		&& adev->in_suspend) {
-+	if (!hwmgr->pp_one_vf && smum_is_dpm_running(hwmgr)
-+	    && !amdgpu_passthrough(adev) && adev->in_suspend) {
- 		pr_info("dpm has been enabled\n");
- 		return 0;
- 	}
-@@ -200,6 +200,9 @@ int phm_stop_thermal_controller(struct pp_hwmgr *hwmgr)
- {
- 	PHM_FUNC_CHECK(hwmgr);
- 
-+	if (!hwmgr->not_vf)
-+		return 0;
-+
- 	if (hwmgr->hwmgr_func->stop_thermal_controller == NULL)
- 		return -EINVAL;
- 
-@@ -237,6 +240,9 @@ int phm_start_thermal_controller(struct pp_hwmgr *hwmgr)
- 		TEMP_RANGE_MAX};
- 	struct amdgpu_device *adev = hwmgr->adev;
- 
-+	if (!hwmgr->not_vf)
-+		return 0;
-+
- 	if (hwmgr->hwmgr_func->get_thermal_temperature_range)
- 		hwmgr->hwmgr_func->get_thermal_temperature_range(
- 				hwmgr, &range);
-@@ -263,6 +269,8 @@ int phm_start_thermal_controller(struct pp_hwmgr *hwmgr)
- bool phm_check_smc_update_required_for_display_configuration(struct pp_hwmgr *hwmgr)
- {
- 	PHM_FUNC_CHECK(hwmgr);
-+	if (hwmgr->pp_one_vf)
-+		return false;
- 
- 	if (hwmgr->hwmgr_func->check_smc_update_required_for_display_configuration == NULL)
- 		return false;
-@@ -482,6 +490,9 @@ int phm_disable_smc_firmware_ctf(struct pp_hwmgr *hwmgr)
- {
- 	PHM_FUNC_CHECK(hwmgr);
- 
-+	if (!hwmgr->not_vf)
-+		return 0;
-+
- 	if (hwmgr->hwmgr_func->disable_smc_firmware_ctf == NULL)
- 		return -EINVAL;
- 
-diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/hwmgr.c b/drivers/gpu/drm/amd/powerplay/hwmgr/hwmgr.c
-index d2909c91d65b..e2b82c902948 100644
---- a/drivers/gpu/drm/amd/powerplay/hwmgr/hwmgr.c
-+++ b/drivers/gpu/drm/amd/powerplay/hwmgr/hwmgr.c
-@@ -221,6 +221,9 @@ int hwmgr_hw_init(struct pp_hwmgr *hwmgr)
- {
- 	int ret = 0;
- 
-+	hwmgr->pp_one_vf = amdgpu_sriov_is_pp_one_vf((struct amdgpu_device *)hwmgr->adev);
-+	hwmgr->pm_en = (amdgpu_dpm && (hwmgr->not_vf || hwmgr->pp_one_vf))
-+			? true : false;
- 	if (!hwmgr->pm_en)
- 		return 0;
- 
-@@ -279,6 +282,9 @@ int hwmgr_hw_init(struct pp_hwmgr *hwmgr)
- 
- int hwmgr_hw_fini(struct pp_hwmgr *hwmgr)
- {
-+	if (!hwmgr->not_vf)
-+		return 0;
-+
- 	if (!hwmgr || !hwmgr->pm_en)
- 		return 0;
- 
-@@ -299,6 +305,9 @@ int hwmgr_suspend(struct pp_hwmgr *hwmgr)
- {
- 	int ret = 0;
- 
-+	if (!hwmgr->not_vf)
-+		return 0;
-+
- 	if (!hwmgr || !hwmgr->pm_en)
- 		return 0;
- 
-@@ -318,6 +327,9 @@ int hwmgr_resume(struct pp_hwmgr *hwmgr)
- {
- 	int ret = 0;
- 
-+	if (!hwmgr->not_vf)
-+		return 0;
-+
- 	if (!hwmgr)
- 		return -EINVAL;
- 
-@@ -365,6 +377,8 @@ int hwmgr_handle_task(struct pp_hwmgr *hwmgr, enum amd_pp_task task_id,
- 
- 	switch (task_id) {
- 	case AMD_PP_TASK_DISPLAY_CONFIG_CHANGE:
-+		if (!hwmgr->not_vf)
-+			return ret;
- 		ret = phm_pre_display_configuration_changed(hwmgr);
- 		if (ret)
- 			return ret;
-@@ -381,6 +395,8 @@ int hwmgr_handle_task(struct pp_hwmgr *hwmgr, enum amd_pp_task task_id,
- 		enum PP_StateUILabel requested_ui_label;
- 		struct pp_power_state *requested_ps = NULL;
- 
-+		if (!hwmgr->not_vf)
-+			return ret;
- 		if (user_state == NULL) {
- 			ret = -EINVAL;
- 			break;
-diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/pp_psm.c b/drivers/gpu/drm/amd/powerplay/hwmgr/pp_psm.c
-index 6bf48934fdc4..31a32a79cfc2 100644
---- a/drivers/gpu/drm/amd/powerplay/hwmgr/pp_psm.c
-+++ b/drivers/gpu/drm/amd/powerplay/hwmgr/pp_psm.c
-@@ -262,20 +262,22 @@ int psm_adjust_power_state_dynamic(struct pp_hwmgr *hwmgr, bool skip_display_set
- 	uint32_t index;
- 	long workload;
- 
--	if (!skip_display_settings)
--		phm_display_configuration_changed(hwmgr);
--
--	if (hwmgr->ps)
--		power_state_management(hwmgr, new_ps);
--	else
 -		/*
--		 * for vega12/vega20 which does not support power state manager
--		 * DAL clock limits should also be honoured
+-		 * For XGMI with baco reset, need exit baco phase by scheduling
+-		 * xgmi_reset_work one more time. PSP reset and sGPU skips this
+-		 * phase. Not assume the situation that PSP reset and baco reset
+-		 * coexist within an XGMI hive.
 -		 */
--		phm_apply_clock_adjust_rules(hwmgr);
 -
--	if (!skip_display_settings)
--		phm_notify_smc_display_config_after_ps_adjustment(hwmgr);
-+	if (hwmgr->not_vf) {
-+		if (!skip_display_settings)
-+			phm_display_configuration_changed(hwmgr);
-+
-+		if (hwmgr->ps)
-+			power_state_management(hwmgr, new_ps);
-+		else
-+			/*
-+			 * for vega12/vega20 which does not support power state manager
-+			 * DAL clock limits should also be honoured
-+			 */
-+			phm_apply_clock_adjust_rules(hwmgr);
-+
-+		if (!skip_display_settings)
-+			phm_notify_smc_display_config_after_ps_adjustment(hwmgr);
-+	}
+-		if (!r && use_baco) {
+-			cpu = smp_processor_id();
+-			list_for_each_entry(tmp_adev, device_list_handle,
+-					    gmc.xgmi.head) {
+-				if (tmp_adev->gmc.xgmi.num_physical_nodes > 1) {
+-					if (!queue_work_on(cpu,
+-						system_highpri_wq,
+-						&tmp_adev->xgmi_reset_work))
+-						r = -EALREADY;
+-					if (r)
+-						break;
+-					cpu = cpumask_next(cpu, cpu_online_mask);
+-				}
++			if (r) {
++				DRM_ERROR("ASIC reset failed with error, %d for drm dev, %s",
++					 r, tmp_adev->ddev->unique);
++				break;
+ 			}
+ 		}
  
- 	if (!phm_force_dpm_levels(hwmgr, hwmgr->request_dpm_level))
- 		hwmgr->dpm_level = hwmgr->request_dpm_level;
-diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c b/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c
-index 4685193eca87..148446570e21 100644
---- a/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c
-+++ b/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c
-@@ -912,6 +912,9 @@ static int vega10_hwmgr_backend_init(struct pp_hwmgr *hwmgr)
- 	hwmgr->platform_descriptor.clockStep.memoryClock = 500;
- 
- 	data->total_active_cus = adev->gfx.cu_info.number;
-+	if (!hwmgr->not_vf)
-+		return result;
-+
- 	/* Setup default Overdrive Fan control settings */
- 	data->odn_fan_table.target_fan_speed =
- 			hwmgr->thermal_controller.advanceFanControlParameters.usMaxFanRPM;
-@@ -979,6 +982,9 @@ static int vega10_setup_dpm_led_config(struct pp_hwmgr *hwmgr)
- 
- static int vega10_setup_asic_task(struct pp_hwmgr *hwmgr)
- {
-+	if (!hwmgr->not_vf)
-+		return 0;
-+
- 	PP_ASSERT_WITH_CODE(!vega10_init_sclk_threshold(hwmgr),
- 			"Failed to init sclk threshold!",
- 			return -EINVAL);
-@@ -2503,6 +2509,9 @@ static int vega10_init_smc_table(struct pp_hwmgr *hwmgr)
- 			"Failed to setup default DPM tables!",
- 			return result);
- 
-+	if (!hwmgr->not_vf)
-+		return 0;
-+
- 	/* initialize ODN table */
- 	if (hwmgr->od_enabled) {
- 		if (odn_table->max_vddc) {
-@@ -2826,6 +2835,8 @@ static int vega10_stop_dpm(struct pp_hwmgr *hwmgr, uint32_t bitmap)
- 	struct vega10_hwmgr *data = hwmgr->backend;
- 	uint32_t i, feature_mask = 0;
- 
-+	if (!hwmgr->not_vf)
-+		return 0;
- 
- 	if(data->smu_features[GNLD_LED_DISPLAY].supported == true){
- 		PP_ASSERT_WITH_CODE(!vega10_enable_smc_features(hwmgr,
-@@ -2932,61 +2943,73 @@ static int vega10_enable_dpm_tasks(struct pp_hwmgr *hwmgr)
- 	struct vega10_hwmgr *data = hwmgr->backend;
- 	int tmp_result, result = 0;
- 
--	vega10_enable_disable_PCC_limit_feature(hwmgr, true);
+-		if (!r && use_baco) {
++		/* For XGMI wait for all PSP resets to complete before proceed */
++		if (!r) {
+ 			list_for_each_entry(tmp_adev, device_list_handle,
+ 					    gmc.xgmi.head) {
+ 				if (tmp_adev->gmc.xgmi.num_physical_nodes > 1) {
+@@ -3878,21 +3860,15 @@ static int amdgpu_do_asic_reset(struct amdgpu_device *adev,
+ 					r = tmp_adev->asic_reset_res;
+ 					if (r)
+ 						break;
+-					tmp_adev->in_baco = false;
+ 				}
+ 			}
+ 		}
 -
--	smum_send_msg_to_smc_with_parameter(hwmgr,
--		PPSMC_MSG_ConfigureTelemetry, data->config_telemetry);
-+	if (hwmgr->not_vf) {
-+		vega10_enable_disable_PCC_limit_feature(hwmgr, true);
- 
--	tmp_result = vega10_construct_voltage_tables(hwmgr);
--	PP_ASSERT_WITH_CODE(!tmp_result,
--			"Failed to construct voltage tables!",
--			result = tmp_result);
-+		smum_send_msg_to_smc_with_parameter(hwmgr,
-+			PPSMC_MSG_ConfigureTelemetry, data->config_telemetry);
- 
--	tmp_result = vega10_init_smc_table(hwmgr);
--	PP_ASSERT_WITH_CODE(!tmp_result,
--			"Failed to initialize SMC table!",
--			result = tmp_result);
-+		tmp_result = vega10_construct_voltage_tables(hwmgr);
-+		PP_ASSERT_WITH_CODE(!tmp_result,
-+				    "Failed to construct voltage tables!",
-+				    result = tmp_result);
-+	}
- 
--	if (PP_CAP(PHM_PlatformCaps_ThermalController)) {
--		tmp_result = vega10_enable_thermal_protection(hwmgr);
-+	if (hwmgr->not_vf || hwmgr->pp_one_vf) {
-+		tmp_result = vega10_init_smc_table(hwmgr);
- 		PP_ASSERT_WITH_CODE(!tmp_result,
--				"Failed to enable thermal protection!",
--				result = tmp_result);
-+				    "Failed to initialize SMC table!",
-+				    result = tmp_result);
+-		if (r) {
+-			DRM_ERROR("ASIC reset failed with error, %d for drm dev, %s",
+-				 r, tmp_adev->ddev->unique);
+-			goto end;
+-		}
  	}
  
--	tmp_result = vega10_enable_vrhot_feature(hwmgr);
--	PP_ASSERT_WITH_CODE(!tmp_result,
--			"Failed to enable VR hot feature!",
--			result = tmp_result);
-+	if (hwmgr->not_vf) {
-+		if (PP_CAP(PHM_PlatformCaps_ThermalController)) {
-+			tmp_result = vega10_enable_thermal_protection(hwmgr);
-+			PP_ASSERT_WITH_CODE(!tmp_result,
-+					    "Failed to enable thermal protection!",
-+					    result = tmp_result);
-+		}
+ 	if (!r && amdgpu_ras_intr_triggered())
+ 		amdgpu_ras_intr_cleared();
  
--	tmp_result = vega10_enable_deep_sleep_master_switch(hwmgr);
--	PP_ASSERT_WITH_CODE(!tmp_result,
--			"Failed to enable deep sleep master switch!",
--			result = tmp_result);
-+		tmp_result = vega10_enable_vrhot_feature(hwmgr);
-+		PP_ASSERT_WITH_CODE(!tmp_result,
-+				    "Failed to enable VR hot feature!",
-+				    result = tmp_result);
- 
--	tmp_result = vega10_start_dpm(hwmgr, SMC_DPM_FEATURES);
--	PP_ASSERT_WITH_CODE(!tmp_result,
--			"Failed to start DPM!", result = tmp_result);
-+		tmp_result = vega10_enable_deep_sleep_master_switch(hwmgr);
-+		PP_ASSERT_WITH_CODE(!tmp_result,
-+				    "Failed to enable deep sleep master switch!",
-+				    result = tmp_result);
-+	}
 +
-+	if (hwmgr->not_vf) {
-+		tmp_result = vega10_start_dpm(hwmgr, SMC_DPM_FEATURES);
-+		PP_ASSERT_WITH_CODE(!tmp_result,
-+				    "Failed to start DPM!", result = tmp_result);
-+	}
- 
--	/* enable didt, do not abort if failed didt */
--	tmp_result = vega10_enable_didt_config(hwmgr);
--	PP_ASSERT(!tmp_result,
--			"Failed to enable didt config!");
-+	if (hwmgr->not_vf) {
-+		/* enable didt, do not abort if failed didt */
-+		tmp_result = vega10_enable_didt_config(hwmgr);
-+		PP_ASSERT(!tmp_result,
-+			  "Failed to enable didt config!");
-+	}
- 
- 	tmp_result = vega10_enable_power_containment(hwmgr);
- 	PP_ASSERT_WITH_CODE(!tmp_result,
--			"Failed to enable power containment!",
--			result = tmp_result);
-+			    "Failed to enable power containment!",
-+			    result = tmp_result);
- 
--	tmp_result = vega10_power_control_set_level(hwmgr);
--	PP_ASSERT_WITH_CODE(!tmp_result,
--			"Failed to power control set level!",
--			result = tmp_result);
-+	if (hwmgr->not_vf) {
-+		tmp_result = vega10_power_control_set_level(hwmgr);
-+		PP_ASSERT_WITH_CODE(!tmp_result,
-+				    "Failed to power control set level!",
-+				    result = tmp_result);
- 
--	tmp_result = vega10_enable_ulv(hwmgr);
--	PP_ASSERT_WITH_CODE(!tmp_result,
--			"Failed to enable ULV!",
--			result = tmp_result);
-+		tmp_result = vega10_enable_ulv(hwmgr);
-+		PP_ASSERT_WITH_CODE(!tmp_result,
-+				    "Failed to enable ULV!",
-+				    result = tmp_result);
-+	}
- 
- 	return result;
- }
-@@ -3080,11 +3103,22 @@ static int vega10_get_pp_table_entry_callback_func(struct pp_hwmgr *hwmgr,
- 	performance_level->soc_clock = socclk_dep_table->entries
- 				[state_entry->ucSocClockIndexHigh].ulClk;
- 	if (gfxclk_dep_table->ucRevId == 0) {
--		performance_level->gfx_clock = gfxclk_dep_table->entries
--			[state_entry->ucGfxClockIndexHigh].ulClk;
-+		/* under vega10 pp one vf mode, the gfx clk dpm need be lower
-+		 * to level-4 due to the limited 110w-power
-+		 */
-+		if (hwmgr->pp_one_vf && (state_entry->ucGfxClockIndexHigh > 0))
-+			performance_level->gfx_clock =
-+				gfxclk_dep_table->entries[4].ulClk;
-+		else
-+			performance_level->gfx_clock = gfxclk_dep_table->entries
-+				[state_entry->ucGfxClockIndexHigh].ulClk;
- 	} else if (gfxclk_dep_table->ucRevId == 1) {
- 		patom_record_V2 = (ATOM_Vega10_GFXCLK_Dependency_Record_V2 *)gfxclk_dep_table->entries;
--		performance_level->gfx_clock = patom_record_V2[state_entry->ucGfxClockIndexHigh].ulClk;
-+		if (hwmgr->pp_one_vf && (state_entry->ucGfxClockIndexHigh > 0))
-+			performance_level->gfx_clock = patom_record_V2[4].ulClk;
-+		else
-+			performance_level->gfx_clock =
-+				patom_record_V2[state_entry->ucGfxClockIndexHigh].ulClk;
+ 	list_for_each_entry(tmp_adev, device_list_handle, gmc.xgmi.head) {
+ 		if (need_full_reset) {
+ 			/* post card */
+@@ -4181,8 +4157,7 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
+ 		if (r)
+ 			adev->asic_reset_res = r;
+ 	} else {
+-		r  = amdgpu_do_asic_reset(adev, hive, device_list_handle,
+-					  &need_full_reset);
++		r  = amdgpu_do_asic_reset(hive, device_list_handle, &need_full_reset);
+ 		if (r && r == -EAGAIN)
+ 			goto retry;
  	}
- 
- 	performance_level->mem_clock = mclk_dep_table->entries
-@@ -3495,6 +3529,7 @@ static int vega10_upload_dpm_bootup_level(struct pp_hwmgr *hwmgr)
- 			smum_send_msg_to_smc_with_parameter(hwmgr,
- 				PPSMC_MSG_SetSoftMinGfxclkByIndex,
- 				data->smc_state_table.gfx_boot_level);
-+
- 			data->dpm_table.gfx_table.dpm_state.soft_min_level =
- 					data->smc_state_table.gfx_boot_level;
- 		}
-@@ -3518,6 +3553,9 @@ static int vega10_upload_dpm_bootup_level(struct pp_hwmgr *hwmgr)
- 		}
- 	}
- 
-+	if (!hwmgr->not_vf)
-+		return 0;
-+
- 	if (!data->registry_data.socclk_dpm_key_disabled) {
- 		if (data->smc_state_table.soc_boot_level !=
- 				data->dpm_table.soc_table.dpm_state.soft_min_level) {
-@@ -3560,6 +3598,9 @@ static int vega10_upload_dpm_max_level(struct pp_hwmgr *hwmgr)
- 		}
- 	}
- 
-+	if (!hwmgr->not_vf)
-+		return 0;
-+
- 	if (!data->registry_data.socclk_dpm_key_disabled) {
- 		if (data->smc_state_table.soc_max_level !=
- 			data->dpm_table.soc_table.dpm_state.soft_max_level) {
-@@ -4054,15 +4095,25 @@ static int vega10_get_profiling_clk_mask(struct pp_hwmgr *hwmgr, enum amd_dpm_fo
- 	} else if (level == AMD_DPM_FORCED_LEVEL_PROFILE_MIN_MCLK) {
- 		*mclk_mask = 0;
- 	} else if (level == AMD_DPM_FORCED_LEVEL_PROFILE_PEAK) {
--		*sclk_mask = table_info->vdd_dep_on_sclk->count - 1;
-+		/* under vega10  pp one vf mode, the gfx clk dpm need be lower
-+		 * to level-4 due to the limited power
-+		 */
-+		if (hwmgr->pp_one_vf)
-+			*sclk_mask = 4;
-+		else
-+			*sclk_mask = table_info->vdd_dep_on_sclk->count - 1;
- 		*soc_mask = table_info->vdd_dep_on_socclk->count - 1;
- 		*mclk_mask = table_info->vdd_dep_on_mclk->count - 1;
- 	}
-+
- 	return 0;
- }
- 
- static void vega10_set_fan_control_mode(struct pp_hwmgr *hwmgr, uint32_t mode)
- {
-+	if (!hwmgr->not_vf)
-+		return;
-+
- 	switch (mode) {
- 	case AMD_FAN_CTRL_NONE:
- 		vega10_fan_ctrl_set_fan_speed_percent(hwmgr, 100);
-@@ -4176,6 +4227,9 @@ static int vega10_dpm_force_dpm_level(struct pp_hwmgr *hwmgr,
- 		break;
- 	}
- 
-+	if (!hwmgr->not_vf)
-+		return ret;
-+
- 	if (!ret) {
- 		if (level == AMD_DPM_FORCED_LEVEL_PROFILE_PEAK && hwmgr->dpm_level != AMD_DPM_FORCED_LEVEL_PROFILE_PEAK)
- 			vega10_set_fan_control_mode(hwmgr, AMD_FAN_CTRL_NONE);
-@@ -4479,7 +4533,7 @@ static int vega10_print_clock_levels(struct pp_hwmgr *hwmgr,
- 	struct vega10_pcie_table *pcie_table = &(data->dpm_table.pcie_table);
- 	struct vega10_odn_clock_voltage_dependency_table *podn_vdd_dep = NULL;
- 
--	int i, now, size = 0;
-+	int i, now, size = 0, count = 0;
- 
- 	switch (type) {
- 	case PP_SCLK:
-@@ -4489,7 +4543,12 @@ static int vega10_print_clock_levels(struct pp_hwmgr *hwmgr,
- 		smum_send_msg_to_smc(hwmgr, PPSMC_MSG_GetCurrentGfxclkIndex);
- 		now = smum_get_argument(hwmgr);
- 
--		for (i = 0; i < sclk_table->count; i++)
-+		if (hwmgr->pp_one_vf &&
-+		    (hwmgr->dpm_level == AMD_DPM_FORCED_LEVEL_PROFILE_PEAK))
-+			count = 5;
-+		else
-+			count = sclk_table->count;
-+		for (i = 0; i < count; i++)
- 			size += sprintf(buf + size, "%d: %uMhz %s\n",
- 					i, sclk_table->dpm_levels[i].value / 100,
- 					(i == now) ? "*" : "");
-@@ -4700,6 +4759,9 @@ static int vega10_disable_dpm_tasks(struct pp_hwmgr *hwmgr)
- {
- 	int tmp_result, result = 0;
- 
-+	if (!hwmgr->not_vf)
-+		return 0;
-+
- 	if (PP_CAP(PHM_PlatformCaps_ThermalController))
- 		vega10_disable_thermal_protection(hwmgr);
- 
-diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_powertune.c b/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_powertune.c
-index 6f26cb241ecc..0a677d4bc87b 100644
---- a/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_powertune.c
-+++ b/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_powertune.c
-@@ -1343,6 +1343,9 @@ int vega10_enable_power_containment(struct pp_hwmgr *hwmgr)
- 	hwmgr->default_power_limit = hwmgr->power_limit =
- 			(uint32_t)(tdp_table->usMaximumPowerDeliveryLimit);
- 
-+	if (!hwmgr->not_vf)
-+		return 0;
-+
- 	if (PP_CAP(PHM_PlatformCaps_PowerContainment)) {
- 		if (data->smu_features[GNLD_PPT].supported)
- 			PP_ASSERT_WITH_CODE(!vega10_enable_smc_features(hwmgr,
-diff --git a/drivers/gpu/drm/amd/powerplay/inc/hwmgr.h b/drivers/gpu/drm/amd/powerplay/inc/hwmgr.h
-index af977675fd33..2ffb666b97e6 100644
---- a/drivers/gpu/drm/amd/powerplay/inc/hwmgr.h
-+++ b/drivers/gpu/drm/amd/powerplay/inc/hwmgr.h
-@@ -741,6 +741,7 @@ struct pp_hwmgr {
- 	uint32_t smu_version;
- 	bool not_vf;
- 	bool pm_en;
-+	bool pp_one_vf;
- 	struct mutex smu_lock;
- 
- 	uint32_t pp_table_version;
-diff --git a/drivers/gpu/drm/amd/powerplay/smumgr/smu9_smumgr.c b/drivers/gpu/drm/amd/powerplay/smumgr/smu9_smumgr.c
-index 742b3dc1f6cb..adfbcbe5d113 100644
---- a/drivers/gpu/drm/amd/powerplay/smumgr/smu9_smumgr.c
-+++ b/drivers/gpu/drm/amd/powerplay/smumgr/smu9_smumgr.c
-@@ -61,15 +61,29 @@ static uint32_t smu9_wait_for_response(struct pp_hwmgr *hwmgr)
- 	uint32_t reg;
- 	uint32_t ret;
- 
--	reg = SOC15_REG_OFFSET(MP1, 0, mmMP1_SMN_C2PMSG_90);
-+	/* Due to the L1 policy problem under SRIOV, we have to use
-+	 * mmMP1_SMN_C2PMSG_103 as the driver response register
-+	 */
-+	if (hwmgr->pp_one_vf) {
-+		reg = SOC15_REG_OFFSET(MP1, 0, mmMP1_SMN_C2PMSG_103);
- 
--	ret = phm_wait_for_register_unequal(hwmgr, reg,
--			0, MP1_C2PMSG_90__CONTENT_MASK);
-+		ret = phm_wait_for_register_unequal(hwmgr, reg,
-+				0, MP1_C2PMSG_103__CONTENT_MASK);
- 
--	if (ret)
--		pr_err("No response from smu\n");
-+		if (ret)
-+			pr_err("No response from smu\n");
- 
--	return RREG32_SOC15(MP1, 0, mmMP1_SMN_C2PMSG_90);
-+		return RREG32_SOC15(MP1, 0, mmMP1_SMN_C2PMSG_103);
-+	} else {
-+		reg = SOC15_REG_OFFSET(MP1, 0, mmMP1_SMN_C2PMSG_90);
-+
-+		ret = phm_wait_for_register_unequal(hwmgr, reg,
-+				0, MP1_C2PMSG_90__CONTENT_MASK);
-+
-+		if (ret)
-+			pr_err("No response from smu\n");
-+		return RREG32_SOC15(MP1, 0, mmMP1_SMN_C2PMSG_90);
-+	}
- }
- 
- /*
-@@ -83,7 +97,11 @@ static int smu9_send_msg_to_smc_without_waiting(struct pp_hwmgr *hwmgr,
- {
- 	struct amdgpu_device *adev = hwmgr->adev;
- 
--	WREG32_SOC15(MP1, 0, mmMP1_SMN_C2PMSG_66, msg);
-+	if (hwmgr->pp_one_vf) {
-+		WREG32_SOC15(MP1, 0, mmMP1_SMN_C2PMSG_101, msg);
-+	} else {
-+		WREG32_SOC15(MP1, 0, mmMP1_SMN_C2PMSG_66, msg);
-+	}
- 
- 	return 0;
- }
-@@ -101,7 +119,10 @@ int smu9_send_msg_to_smc(struct pp_hwmgr *hwmgr, uint16_t msg)
- 
- 	smu9_wait_for_response(hwmgr);
- 
--	WREG32_SOC15(MP1, 0, mmMP1_SMN_C2PMSG_90, 0);
-+	if (hwmgr->pp_one_vf)
-+		WREG32_SOC15(MP1, 0, mmMP1_SMN_C2PMSG_103, 0);
-+	else
-+		WREG32_SOC15(MP1, 0, mmMP1_SMN_C2PMSG_90, 0);
- 
- 	smu9_send_msg_to_smc_without_waiting(hwmgr, msg);
- 
-@@ -127,9 +148,17 @@ int smu9_send_msg_to_smc_with_parameter(struct pp_hwmgr *hwmgr,
- 
- 	smu9_wait_for_response(hwmgr);
- 
--	WREG32_SOC15(MP1, 0, mmMP1_SMN_C2PMSG_90, 0);
--
--	WREG32_SOC15(MP1, 0, mmMP1_SMN_C2PMSG_82, parameter);
-+	/* Due to the L1 policy problem under SRIOV, we have to use
-+	 * mmMP1_SMN_C2PMSG_101 as the driver message register and
-+	 * mmMP1_SMN_C2PMSG_102 as the driver parameter register.
-+	 */
-+	if (hwmgr->pp_one_vf) {
-+		WREG32_SOC15(MP1, 0, mmMP1_SMN_C2PMSG_103, 0);
-+		WREG32_SOC15(MP1, 0, mmMP1_SMN_C2PMSG_102, parameter);
-+	} else {
-+		WREG32_SOC15(MP1, 0, mmMP1_SMN_C2PMSG_90, 0);
-+		WREG32_SOC15(MP1, 0, mmMP1_SMN_C2PMSG_82, parameter);
-+	}
- 
- 	smu9_send_msg_to_smc_without_waiting(hwmgr, msg);
- 
-@@ -144,5 +173,8 @@ uint32_t smu9_get_argument(struct pp_hwmgr *hwmgr)
- {
- 	struct amdgpu_device *adev = hwmgr->adev;
- 
--	return RREG32_SOC15(MP1, 0, mmMP1_SMN_C2PMSG_82);
-+	if (hwmgr->pp_one_vf)
-+		return RREG32_SOC15(MP1, 0, mmMP1_SMN_C2PMSG_102);
-+	else
-+		return RREG32_SOC15(MP1, 0, mmMP1_SMN_C2PMSG_82);
- }
-diff --git a/drivers/gpu/drm/amd/powerplay/smumgr/vega10_smumgr.c b/drivers/gpu/drm/amd/powerplay/smumgr/vega10_smumgr.c
-index 0f3836fd9666..86db985922e7 100644
---- a/drivers/gpu/drm/amd/powerplay/smumgr/vega10_smumgr.c
-+++ b/drivers/gpu/drm/amd/powerplay/smumgr/vega10_smumgr.c
-@@ -71,6 +71,12 @@ static int vega10_copy_table_to_smc(struct pp_hwmgr *hwmgr,
- {
- 	struct vega10_smumgr *priv = hwmgr->smu_backend;
- 
-+	/* under pp_one_vf mode, vbios or hypervisor driver
-+	 * has already copy table to smc so here only skip it
-+	 */
-+	if (!hwmgr->not_vf && !hwmgr->pp_one_vf)
-+		return 0;
-+
- 	PP_ASSERT_WITH_CODE(table_id < MAX_SMU_TABLE,
- 			"Invalid SMU Table ID!", return -EINVAL);
- 	PP_ASSERT_WITH_CODE(priv->smu_tables.entry[table_id].version != 0,
-@@ -100,6 +106,14 @@ int vega10_enable_smc_features(struct pp_hwmgr *hwmgr,
- 	int msg = enable ? PPSMC_MSG_EnableSmuFeatures :
- 			PPSMC_MSG_DisableSmuFeatures;
- 
-+	/* VF has no permission to change smu feature due
-+	 * to security concern even under pp one vf mode
-+	 * it still can't do it. For vega10, the smu in
-+	 * vbios will enable the appropriate features.
-+	 * */
-+	if (!hwmgr->not_vf)
-+		return 0;
-+
- 	return smum_send_msg_to_smc_with_parameter(hwmgr,
- 			msg, feature_mask);
- }
 -- 
-2.17.1
+2.7.4
+
+
+--------------50E3D602A9B73C0ABCC3BDFB
+Content-Type: text/x-patch;
+ name="0002-drm-amdgpu-Add-task-barrier-to-XGMI-hive.patch"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+ filename="0002-drm-amdgpu-Add-task-barrier-to-XGMI-hive.patch"
+
+From da9d5b4ceb7b0f985574617acae71261f9006238 Mon Sep 17 00:00:00 2001
+From: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
+Date: Fri, 6 Dec 2019 12:43:30 -0500
+Subject: drm/amdgpu: Add task barrier to XGMI hive.
+
+Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c | 4 ++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.h | 2 ++
+ 2 files changed, 6 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
+index 61d13d8..5cf920d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
+@@ -261,6 +261,7 @@ struct amdgpu_hive_info *amdgpu_get_xgmi_hive(struct amdgpu_device *adev, int lo
+ 	INIT_LIST_HEAD(&tmp->device_list);
+ 	mutex_init(&tmp->hive_lock);
+ 	mutex_init(&tmp->reset_lock);
++	task_barrier_init(&tmp->tb);
+ 
+ 	if (lock)
+ 		mutex_lock(&tmp->hive_lock);
+@@ -408,6 +409,8 @@ int amdgpu_xgmi_add_device(struct amdgpu_device *adev)
+ 	top_info->num_nodes = count;
+ 	hive->number_devices = count;
+ 
++	task_barrier_add_task(&hive->tb);
++
+ 	if (amdgpu_device_ip_get_ip_block(adev, AMD_IP_BLOCK_TYPE_PSP)) {
+ 		list_for_each_entry(tmp_adev, &hive->device_list, gmc.xgmi.head) {
+ 			/* update node list for other device in the hive */
+@@ -470,6 +473,7 @@ void amdgpu_xgmi_remove_device(struct amdgpu_device *adev)
+ 		mutex_destroy(&hive->hive_lock);
+ 		mutex_destroy(&hive->reset_lock);
+ 	} else {
++		task_barrier_rem_task(&hive->tb);
+ 		amdgpu_xgmi_sysfs_rem_dev_info(adev, hive);
+ 		mutex_unlock(&hive->hive_lock);
+ 	}
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.h
+index bbf504f..74011fb 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.h
+@@ -22,6 +22,7 @@
+ #ifndef __AMDGPU_XGMI_H__
+ #define __AMDGPU_XGMI_H__
+ 
++#include <drm/task_barrier.h>
+ #include "amdgpu_psp.h"
+ 
+ struct amdgpu_hive_info {
+@@ -33,6 +34,7 @@ struct amdgpu_hive_info {
+ 	struct device_attribute dev_attr;
+ 	struct amdgpu_device *adev;
+ 	int pstate; /*0 -- low , 1 -- high , -1 unknown*/
++	struct task_barrier tb;
+ };
+ 
+ struct amdgpu_hive_info *amdgpu_get_xgmi_hive(struct amdgpu_device *adev, int lock);
+-- 
+2.7.4
+
+
+--------------50E3D602A9B73C0ABCC3BDFB
+Content-Type: text/x-patch;
+ name="0001-drm-Add-Reusable-task-barrier.patch"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+ filename="0001-drm-Add-Reusable-task-barrier.patch"
+
+From 34438a766a83002057ac051e3efdcc63eda36f52 Mon Sep 17 00:00:00 2001
+From: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
+Date: Fri, 6 Dec 2019 12:26:33 -0500
+Subject: drm: Add Reusable task barrier.
+
+It is used to synchronize N threads at a rendevouz point before execution
+of critical code that has to be started by all the threads at approximatly
+the same time.
+
+Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
+---
+ include/drm/task_barrier.h | 97 ++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 97 insertions(+)
+ create mode 100644 include/drm/task_barrier.h
+
+diff --git a/include/drm/task_barrier.h b/include/drm/task_barrier.h
+new file mode 100644
+index 0000000..858cd7f
+--- /dev/null
++++ b/include/drm/task_barrier.h
+@@ -0,0 +1,97 @@
++/*
++ * Copyright 2019 Advanced Micro Devices, Inc.
++ *
++ * Permission is hereby granted, free of charge, to any person obtaining a
++ * copy of this software and associated documentation files (the "Software"),
++ * to deal in the Software without restriction, including without limitation
++ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
++ * and/or sell copies of the Software, and to permit persons to whom the
++ * Software is furnished to do so, subject to the following conditions:
++ *
++ * The above copyright notice and this permission notice shall be included in
++ * all copies or substantial portions of the Software.
++ *
++ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
++ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
++ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
++ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
++ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
++ * OTHER DEALINGS IN THE SOFTWARE.
++ *
++ */
++#include <linux/semaphore.h>
++#include <linux/atomic.h>
++
++/*
++ * Reusable 2 PHASE task barrier (randevouz point) implementation for N tasks.
++ * Based on the Little book of sempahores - https://greenteapress.com/wp/semaphores/
++ */
++
++
++
++#ifndef DRM_TASK_BARRIER_H_
++#define DRM_TASK_BARRIER_H_
++
++/*
++ * Represents an instance of a task barrier.
++ */
++struct task_barrier {
++	unsigned int n;
++	atomic_t count;
++	struct semaphore enter_turnstile;
++	struct semaphore exit_turnstile;
++};
++
++static inline void task_barrier_signal_turnstile(struct semaphore *turnstile,
++					  unsigned int n) {
++	int i;
++	for (i = 0 ; i < n; i++)
++		up(turnstile);
++}
++
++static inline void task_barrier_init(struct task_barrier *tb) {
++
++	tb->n = 0;
++	atomic_set(&tb->count, 0);
++	sema_init(&tb->enter_turnstile, 0);
++	sema_init(&tb->exit_turnstile, 0);
++}
++
++static inline void task_barrier_add_task(struct task_barrier *tb) {
++	tb->n++;
++}
++
++static inline void task_barrier_rem_task(struct task_barrier *tb) {
++	tb->n--;
++}
++
++/*
++ * Lines up all the threads BEFORE the critical point.
++ *
++ * When all thread passed this code the entry barrier is back to locked state.
++ */
++static inline void task_barrier_enter(struct task_barrier *tb) {
++
++	if (atomic_inc_return(&tb->count) == tb->n)
++			task_barrier_signal_turnstile(&tb->enter_turnstile,
++						      tb->n);
++
++	down(&tb->enter_turnstile);
++}
++
++/*
++ * Lines up all the threads AFTER the critical point.
++ *
++ * This function is used to avoid any one thread running ahead of the reset if
++ * the barrier is used in a loop (repeatedly) .
++ */
++static inline void task_barrier_exit(struct task_barrier *tb) {
++	if (atomic_dec_return(&tb->count) == 0)
++			task_barrier_signal_turnstile(&tb->exit_turnstile,
++						      tb->n);
++
++	down(&tb->exit_turnstile);
++}
++
++#endif
+-- 
+2.7.4
+
+
+--------------50E3D602A9B73C0ABCC3BDFB
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--------------50E3D602A9B73C0ABCC3BDFB--
