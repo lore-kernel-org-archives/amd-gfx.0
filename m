@@ -2,75 +2,64 @@ Return-Path: <SRS0=thZ3=2A=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.0 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.8 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS autolearn=no
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1388BC00454
-	for <amd-gfx@archiver.kernel.org>; Tue, 10 Dec 2019 21:36:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 345AAC2D0BF
+	for <amd-gfx@archiver.kernel.org>; Tue, 10 Dec 2019 21:36:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D95AC2073B
-	for <amd-gfx@archiver.kernel.org>; Tue, 10 Dec 2019 21:36:56 +0000 (UTC)
-Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=google.com header.i=@google.com header.b="ijSEvrc+"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D95AC2073B
-Authentication-Results: mail.kernel.org; dmarc=fail (p=reject dis=none) header.from=google.com
+	by mail.kernel.org (Postfix) with ESMTPS id 1280C214AF
+	for <amd-gfx@archiver.kernel.org>; Tue, 10 Dec 2019 21:36:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1280C214AF
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=arndb.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 87A466E9A1;
-	Tue, 10 Dec 2019 21:36:56 +0000 (UTC)
-Received: from mail-pj1-x1042.google.com (mail-pj1-x1042.google.com
- [IPv6:2607:f8b0:4864:20::1042])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 23DEE6E90B
- for <amd-gfx@lists.freedesktop.org>; Tue, 10 Dec 2019 18:59:31 +0000 (UTC)
-Received: by mail-pj1-x1042.google.com with SMTP id w23so7767394pjd.2
- for <amd-gfx@lists.freedesktop.org>; Tue, 10 Dec 2019 10:59:31 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to:user-agent;
- bh=YK8B4LOHuvTcG7coycaZkR5egcK5nfpQxxhODKfbZLg=;
- b=ijSEvrc++psuwu0BcdGofpYVt6SA6g9P/PYtHoFzviSkQeT3eZrHukDgUknkGNJ3DT
- FE1DMTDhrb6k/PAMxRXwTCvUbdUZUJqm1GIyChSLtG/OsMvn2Mot4ey1yUqHCRUzxQK5
- kCOofTJjNHf5wnh/spYEYCRjgU0UYLPNyNT2D3WrVwXdxGkTZl0a38wdx5PBlIM+Qbdl
- s+s0mBvYxcMMjJCFk8h2wbZYFT/iG3pwrk2VmAyf7q8Ylz0Ou1D2GRViNo3gwdZzy+Cs
- iBFdqWEVLJ/RccFpExCIDkPkXTWEmrZWCbEBG77cX1BxZkxDWqLq2EmkkTSAdkgW24zl
- tOow==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=YK8B4LOHuvTcG7coycaZkR5egcK5nfpQxxhODKfbZLg=;
- b=UNKvarVjKDsB4TnB0fDhahubWCl52RbqaQlscIgF8DtgBzFEFrpRhfrf8OWHxFTaD/
- 1ZJFJv6PG3mulR15k9IEbQQKaVebvNnhTtJt7pK2Np1Avi5puQPRzlw8mKj/Cil+NNhE
- 9cgkDpJ/AfRIqZXTmPliQY4YBCfE0PrN0HLXQGxYOFnWbahgB7SoheCV8RZOUTaku9Si
- 3jGS8ihimRYj4fDADNt1KqCXUBm+QEqwiAW10Vp0ubbOAvVvs+rdMY3p8ffOmDQibXKT
- OCdglxVT4PnTbioR+p5HrPpc8E+/THbZ0tm4xBT6U2YaomBS7jWSlICAN7rIpS8mFsGa
- BWiw==
-X-Gm-Message-State: APjAAAUzG6uetYGs6Lri3ik6QnmQ0CHDXftknLx0KLjKcsisgbnisPXP
- Bw7tY6x7jtUwTK4bI/Zxw3Vglg==
-X-Google-Smtp-Source: APXvYqyMSS2ZStNvPegMPXX3bCRh5CWkvXLV717t/lL3ykiatYht/ib7ahCbwyty0jkIA2eloAxHaw==
-X-Received: by 2002:a17:90a:1505:: with SMTP id l5mr430627pja.73.1576004370287; 
- Tue, 10 Dec 2019 10:59:30 -0800 (PST)
-Received: from google.com ([2620:0:1000:2511:b34b:87b6:d099:91b0])
- by smtp.gmail.com with ESMTPSA id r6sm4262658pfh.91.2019.12.10.10.59.28
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 10 Dec 2019 10:59:29 -0800 (PST)
-Date: Tue, 10 Dec 2019 10:59:24 -0800
-From: Tom Anderson <thomasanderson@google.com>
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Mikita Lipski <mikita.lipski@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>
-Subject: Re: [PATCH v2] drm/amd/display: Reduce HDMI pixel encoding if max
- clock is exceeded
-Message-ID: <20191210185924.GA20941@google.com>
-References: <20191202214713.41001-1-thomasanderson@google.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id CD2556E9A2;
+	Tue, 10 Dec 2019 21:36:57 +0000 (UTC)
+Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.126.133])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2DF6C89B27;
+ Tue, 10 Dec 2019 20:52:09 +0000 (UTC)
+Received: from mail-qt1-f177.google.com ([209.85.160.177]) by
+ mrelayeu.kundenserver.de (mreue010 [212.227.15.129]) with ESMTPSA (Nemesis)
+ id 1N0nzR-1hlB5e22SL-00woj5; Tue, 10 Dec 2019 21:52:07 +0100
+Received: by mail-qt1-f177.google.com with SMTP id p5so4062996qtq.12;
+ Tue, 10 Dec 2019 12:52:07 -0800 (PST)
+X-Gm-Message-State: APjAAAVak0bKV9CgZJVefYayKZoS1141QLw7ERQJ0ju0EAaL6aopPFjL
+ A6TCvpXHTXkU7gIxRxaVeL/T7wLDezuNx7iDgtw=
+X-Google-Smtp-Source: APXvYqx1uN5tm9eCOzoQBysKWKFpMTzZPxr5PqaW9bDfYB2yfC5l95PFbwxivepFESYFJ8F3qgkDRXUfr5anVcdWFA0=
+X-Received: by 2002:ac8:3a27:: with SMTP id w36mr31351077qte.204.1576011126328; 
+ Tue, 10 Dec 2019 12:52:06 -0800 (PST)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20191202214713.41001-1-thomasanderson@google.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
+References: <20191210195941.931745-1-arnd@arndb.de>
+ <cded03ab-40fe-a904-7b1f-5b3623bb7af4@amd.com>
+In-Reply-To: <cded03ab-40fe-a904-7b1f-5b3623bb7af4@amd.com>
+From: Arnd Bergmann <arnd@arndb.de>
+Date: Tue, 10 Dec 2019 21:51:49 +0100
+X-Gmail-Original-Message-ID: <CAK8P3a3XHWPBOsCpFtdoT8F-pAMXaekDOX1rNjjMWKLN6WSK6w@mail.gmail.com>
+Message-ID: <CAK8P3a3XHWPBOsCpFtdoT8F-pAMXaekDOX1rNjjMWKLN6WSK6w@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/display: include linux/slab.h where needed
+To: "Kazlauskas, Nicholas" <nicholas.kazlauskas@amd.com>
+X-Provags-ID: V03:K1:odURU4WPiLkXcucDlfc71UXCfG4jWw1BS+LkraKFiBaJJhf9Fy3
+ dI56MMQ925HwgfXKKYKCM5Pv99R82KVx7dqkhkH/UM0ZoTAfKLrwd9xBwGhBPr9dRZDf/dF
+ kzk+3LMe/oCEx/tcXRO28SzJQkrsrrHjq2YBgMJBAFazCIUTvuzV7emcIyWtaAINx95yPwB
+ VpD1QnZecxkXw2t7jkMnw==
+X-UI-Out-Filterresults: notjunk:1;V03:K0:K8n5+XbAx3k=:sInwACHy37zGBlbaLaKCZH
+ 8W3et3YlDo17Zy0KMKc4Iya5A4d3gXe9mfxxNQlR50D4zcYAhl8QLdzvw2xChJD3bBfIszU/f
+ g3UEsjKG6X/n2RPSk+IjddsPSkiQNRpJIp6isM3f5ejJo/WB/dSHvSnHFToI9pXvZJXo5ef0b
+ jA/CxWjrNq4osQeu9OIJieN1aUNU3HW5BJ1I7Hui2X1B1LnDcvuKCIOdko3rPjPXlsA7rAcpg
+ OCoLX4TliLWURZWms65CyUyjc4IK3wRDG3jElCpxft8gtuI1QpKrHTRb4/6ZRz52g3QR0+/ZV
+ rBPmZb2K93v3JbJbmg7OptuYnpYW6vQod2kwczHDdQTV5vqbecpNl8IZVtEk+46C/MCdqb0OF
+ QKfJ4gnWLS7+EtLnZlSocBqqfHK79eTsIgNEcCcUA5zdRT8DAPS3ySc2CEq4MEt7O8CS6mruU
+ VqeKiQgFk326Lqq+KxMnheZyYP49lfiCXI3uQDsPvKwN3Ztjl4aMLRAx652tTPIj03pDceeoq
+ r7dFlSis+U5OmaTgAmIJMnsesVPP0PJD1Fq0uoeGr5pkCXAa1mcdPqBmEYNKZ0I0aiwdJMMB+
+ d87XzQOUFAX+9yeppSySIZhdOEI8M86ofhnfVxT/Lk1mBQ1NPSg22uPPcbaN9fcjylxnxLnsM
+ hM0c3Tyy4R6lpZdkmQEiAYsfRHON0mM0HQNUH+0xO7PCZaqAatn2IH4r8FLf6/dbodRXwcc4u
+ 9vCl6tQ3DiXDeaMHgL/SajjfidgKnRk/0bUTyC2D2+LifjLFWcXcOQ/A0B4bIDwlvQhGzQEj9
+ EE5JwGT51+V0lW1E5WtmJiJoY+dXVGovZsja1jgInAletEJB6Rxqi/EAu5DgF8kbMIonfu7VE
+ zz8ZCb+/94nJKovf5bBg==
 X-Mailman-Approved-At: Tue, 10 Dec 2019 21:36:55 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -83,117 +72,56 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Zhou <David1.Zhou@amd.com>,
- Mario Kleiner <mario.kleiner.de@gmail.com>,
- Thomas Anderson <thomasanderson@google.com>, David Airlie <airlied@linux.ie>,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
- dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>
+Cc: "David \(ChunMing\) Zhou" <David1.Zhou@amd.com>,
+ Eric Yang <Eric.Yang2@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>, Roman Li <Roman.Li@amd.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ David Airlie <airlied@linux.ie>, Michael Strauss <michael.strauss@amd.com>,
+ dri-devel <dri-devel@lists.freedesktop.org>, Daniel Vetter <daniel@ffwll.ch>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Harry Wentland <harry.wentland@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Friendly ping.
+On Tue, Dec 10, 2019 at 9:30 PM Kazlauskas, Nicholas
+<nicholas.kazlauskas@amd.com> wrote:
+>
+> On 2019-12-10 2:59 p.m., Arnd Bergmann wrote:
+> > Calling kzalloc() and related functions requires the
+> > linux/slab.h header to be included:
+> >
+> > drivers/gpu/drm/amd/amdgpu/../display/dc/dcn21/dcn21_resource.c: In function 'dcn21_ipp_create':
+> > drivers/gpu/drm/amd/amdgpu/../display/dc/dcn21/dcn21_resource.c:679:3: error: implicit declaration of function 'kzalloc'; did you mean 'd_alloc'? [-Werror=implicit-function-declaration]
+> >     kzalloc(sizeof(struct dcn10_ipp), GFP_KERNEL);
+> >
+> > A lot of other headers also miss a direct include in this file,
+> > but this is the only one that causes a problem for now.
+> >
+> > Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+>
+> What version of the kernel are you building?
 
-On Mon, Dec 02, 2019 at 01:47:13PM -0800, Thomas Anderson wrote:
-> For high-res (8K) or HFR (4K120) displays, using uncompressed pixel
-> formats like YCbCr444 would exceed the bandwidth of HDMI 2.0, so the
-> "interesting" modes would be disabled, leaving only low-res or low
-> framerate modes.
-> 
-> This change lowers the pixel encoding to 4:2:2 or 4:2:0 if the max TMDS
-> clock is exceeded. Verified that 8K30 and 4K120 are now available and
-> working with a Samsung Q900R over an HDMI 2.0b link from a Radeon 5700.
-> 
-> Signed-off-by: Thomas Anderson <thomasanderson@google.com>
-> ---
->  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 45 ++++++++++---------
->  1 file changed, 23 insertions(+), 22 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index 7aac9568d3be..803e59d97411 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -3356,27 +3356,21 @@ get_output_color_space(const struct dc_crtc_timing *dc_crtc_timing)
->  	return color_space;
->  }
->  
-> -static void reduce_mode_colour_depth(struct dc_crtc_timing *timing_out)
-> -{
-> -	if (timing_out->display_color_depth <= COLOR_DEPTH_888)
-> -		return;
-> -
-> -	timing_out->display_color_depth--;
-> -}
-> -
-> -static void adjust_colour_depth_from_display_info(struct dc_crtc_timing *timing_out,
-> -						const struct drm_display_info *info)
-> +static bool adjust_colour_depth_from_display_info(
-> +	struct dc_crtc_timing *timing_out,
-> +	const struct drm_display_info *info)
->  {
-> +	enum dc_color_depth depth = timing_out->display_color_depth;
->  	int normalized_clk;
-> -	if (timing_out->display_color_depth <= COLOR_DEPTH_888)
-> -		return;
->  	do {
->  		normalized_clk = timing_out->pix_clk_100hz / 10;
->  		/* YCbCr 4:2:0 requires additional adjustment of 1/2 */
->  		if (timing_out->pixel_encoding == PIXEL_ENCODING_YCBCR420)
->  			normalized_clk /= 2;
->  		/* Adjusting pix clock following on HDMI spec based on colour depth */
-> -		switch (timing_out->display_color_depth) {
-> +		switch (depth) {
-> +		case COLOR_DEPTH_888:
-> +			break;
->  		case COLOR_DEPTH_101010:
->  			normalized_clk = (normalized_clk * 30) / 24;
->  			break;
-> @@ -3387,14 +3381,15 @@ static void adjust_colour_depth_from_display_info(struct dc_crtc_timing *timing_
->  			normalized_clk = (normalized_clk * 48) / 24;
->  			break;
->  		default:
-> -			return;
-> +			/* The above depths are the only ones valid for HDMI. */
-> +			return false;
->  		}
-> -		if (normalized_clk <= info->max_tmds_clock)
-> -			return;
-> -		reduce_mode_colour_depth(timing_out);
-> -
-> -	} while (timing_out->display_color_depth > COLOR_DEPTH_888);
-> -
-> +		if (normalized_clk <= info->max_tmds_clock) {
-> +			timing_out->display_color_depth = depth;
-> +			return true;
-> +		}
-> +	} while (--depth > COLOR_DEPTH_666);
-> +	return false;
->  }
->  
->  static void fill_stream_properties_from_drm_display_mode(
-> @@ -3474,8 +3469,14 @@ static void fill_stream_properties_from_drm_display_mode(
->  
->  	stream->out_transfer_func->type = TF_TYPE_PREDEFINED;
->  	stream->out_transfer_func->tf = TRANSFER_FUNCTION_SRGB;
-> -	if (stream->signal == SIGNAL_TYPE_HDMI_TYPE_A)
-> -		adjust_colour_depth_from_display_info(timing_out, info);
-> +	if (stream->signal == SIGNAL_TYPE_HDMI_TYPE_A) {
-> +		if (!adjust_colour_depth_from_display_info(timing_out, info) &&
-> +		    drm_mode_is_420_also(info, mode_in) &&
-> +		    timing_out->pixel_encoding != PIXEL_ENCODING_YCBCR420) {
-> +			timing_out->pixel_encoding = PIXEL_ENCODING_YCBCR420;
-> +			adjust_colour_depth_from_display_info(timing_out, info);
-> +		}
-> +	}
->  }
->  
->  static void fill_audio_info(struct audio_info *audio_info,
-> -- 
-> 2.24.0.393.g34dc348eaf-goog
-> 
+This is v5.5-rc1, plus some local patches.
+
+> We have:
+>
+> #include <linux/slab.h>
+>
+> in os_types.h which gets included as part of this file:
+>
+> #include <dc.h> -> #include <dc_types.h> -> #include <os_types.h>
+
+I don't see linux/slab.h in os_types.h. I now see that commit
+4fc4dca8320e ("drm/amd: drop use of drmp.h in os_types.h")
+was merged into linux-5.3, which may have caused this.
+
+I also don't see anything in os_types.h that needs linux/slab.h.
+
+    Arnd
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
