@@ -4,46 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-9.8 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=3.4.0
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 18D70C2D0BF
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A96A0C43603
 	for <amd-gfx@archiver.kernel.org>; Tue, 10 Dec 2019 21:17:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id DE215205C9
-	for <amd-gfx@archiver.kernel.org>; Tue, 10 Dec 2019 21:17:36 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 7ED2E207FF
+	for <amd-gfx@archiver.kernel.org>; Tue, 10 Dec 2019 21:17:37 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="BC04pFOu"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DE215205C9
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="2N260Djk"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7ED2E207FF
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5C7CC6E978;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 32B136E977;
 	Tue, 10 Dec 2019 21:17:26 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5EA576E96B
- for <amd-gfx@lists.freedesktop.org>; Tue, 10 Dec 2019 21:17:23 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 626156E96E;
+ Tue, 10 Dec 2019 21:17:23 +0000 (UTC)
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 68050246B1;
- Tue, 10 Dec 2019 21:09:26 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 7213C20836;
+ Tue, 10 Dec 2019 21:08:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1576012167;
- bh=E1tJuxh6B/FdhYCbWIjwtof1EY/rbm/Cp4AzRV0SBi8=;
+ s=default; t=1576012097;
+ bh=6fwUb6MigjWRWv6QEWMWqEYkJGBehiZ+r1aewxVkB0A=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=BC04pFOuUto13FtqjCEYl0KuHsdUDSQLxB3ySIRBqdEIj3lWuUYcYdsrzIXZHVMcY
- 43oPXPYiR3UaK6sFFGlAIkIgyJnvL6Eu1PVIppaWf12gf64CnDmVScAtt8SXZ+MhkH
- COtcWOlZRCXNVUk4iyVKVe7347Y1EqxcDrH8+eVI=
+ b=2N260DjkA1ZYPqHnoDUUR+Hj26Vw5NsSE1Dv4DY8ubBLz52tpLXN4cVBeeduJvQIb
+ q4XYPdY/OXs7YKn3/2frDQFqVycMOt1SC4YE5iFpAZ8DSLf2BH5gWGEKHO4FkD2yRU
+ 9KnHrXV1PhewCXpL/xoX4fF/TalSjzyq9LqU5GU4=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.4 127/350] drm/amdgpu: fix amdgpu trace event print
- string format error
-Date: Tue, 10 Dec 2019 16:03:52 -0500
-Message-Id: <20191210210735.9077-88-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.4 073/350] drm/amdkfd: Fix MQD size calculation
+Date: Tue, 10 Dec 2019 16:02:58 -0500
+Message-Id: <20191210210735.9077-34-sashal@kernel.org>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20191210210735.9077-1-sashal@kernel.org>
 References: <20191210210735.9077-1-sashal@kernel.org>
@@ -61,90 +60,52 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, Kevin Wang <kevin1.wang@amd.com>,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Sasha Levin <sashal@kernel.org>, Jonathan Kim <Jonathan.Kim@amd.com>,
+ Oak Zeng <Oak.Zeng@amd.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
+ Felix Kuehling <Felix.Kuehling@amd.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-RnJvbTogS2V2aW4gV2FuZyA8a2V2aW4xLndhbmdAYW1kLmNvbT4KClsgVXBzdHJlYW0gY29tbWl0
-IDJjMmZkYjhiY2EyOTBjNDM5ZTM4M2NmYjY4NTdiMGM2NWU1Mjg5NjQgXQoKdGhlIHRyYWNlIGV2
-ZW50IHByaW50IHN0cmluZyBmb3JtYXQgZXJyb3IuCih1c2UgaW50ZWdlciB0eXBlIHRvIGhhbmRs
-ZSBzdHJpbmcpCgpiZWZvcmU6CmFtZGdwdV90ZXN0X2tldi0xNTU2ICBbMDAyXSAgIDEzOC41MDg3
-ODE6IGFtZGdwdV9jc19pb2N0bDoKc2NoZWRfam9iPTgsIHRpbWVsaW5lPWdmeF8wLjAuMCwgY29u
-dGV4dD0xNzcsIHNlcW5vPTEsCnJpbmdfbmFtZT1mZmZmOTRkMDFjMjA3YmYwLCBudW1faWJzPTIK
-CmFmdGVyOgphbWRncHVfdGVzdF9rZXYtMTUwNiAgWzAwNF0gICAzNzAuNzAzNzgzOiBhbWRncHVf
-Y3NfaW9jdGw6CnNjaGVkX2pvYj0xMiwgdGltZWxpbmU9Z2Z4XzAuMC4wLCBjb250ZXh0PTIzNCwg
-c2Vxbm89MiwKcmluZ19uYW1lPWdmeF8wLjAuMCwgbnVtX2licz0xCgpjaGFuZ2UgdHJhY2UgZXZl
-bnQgbGlzdDoKMS5hbWRncHVfY3NfaW9jdGwKMi5hbWRncHVfc2NoZWRfcnVuX2pvYgozLmFtZGdw
-dV9pYl9waXBlX3N5bmMKClNpZ25lZC1vZmYtYnk6IEtldmluIFdhbmcgPGtldmluMS53YW5nQGFt
-ZC5jb20+ClJldmlld2VkLWJ5OiBDaHJpc3RpYW4gS8O2bmlnIDxjaHJpc3RpYW4ua29lbmlnQGFt
-ZC5jb20+ClNpZ25lZC1vZmYtYnk6IEFsZXggRGV1Y2hlciA8YWxleGFuZGVyLmRldWNoZXJAYW1k
-LmNvbT4KU2lnbmVkLW9mZi1ieTogU2FzaGEgTGV2aW4gPHNhc2hhbEBrZXJuZWwub3JnPgotLS0K
-IGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV90cmFjZS5oIHwgMTggKysrKysrKysr
-LS0tLS0tLS0tCiAxIGZpbGUgY2hhbmdlZCwgOSBpbnNlcnRpb25zKCspLCA5IGRlbGV0aW9ucygt
-KQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV90cmFjZS5o
-IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3RyYWNlLmgKaW5kZXggNzc2NzRh
-N2I5NjE2My4uOTE4OTlkMjhmYTcyMiAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9h
-bWRncHUvYW1kZ3B1X3RyYWNlLmgKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
-Z3B1X3RyYWNlLmgKQEAgLTE3MCw3ICsxNzAsNyBAQCBUUkFDRV9FVkVOVChhbWRncHVfY3NfaW9j
-dGwsCiAJCQkgICAgIF9fZmllbGQodW5zaWduZWQgaW50LCBjb250ZXh0KQogCQkJICAgICBfX2Zp
-ZWxkKHVuc2lnbmVkIGludCwgc2Vxbm8pCiAJCQkgICAgIF9fZmllbGQoc3RydWN0IGRtYV9mZW5j
-ZSAqLCBmZW5jZSkKLQkJCSAgICAgX19maWVsZChjaGFyICosIHJpbmdfbmFtZSkKKwkJCSAgICAg
-X19zdHJpbmcocmluZywgdG9fYW1kZ3B1X3Jpbmcoam9iLT5iYXNlLnNjaGVkKS0+bmFtZSkKIAkJ
-CSAgICAgX19maWVsZCh1MzIsIG51bV9pYnMpCiAJCQkgICAgICksCiAKQEAgLTE3OSwxMiArMTc5
-LDEyIEBAIFRSQUNFX0VWRU5UKGFtZGdwdV9jc19pb2N0bCwKIAkJCSAgIF9fYXNzaWduX3N0cih0
-aW1lbGluZSwgQU1ER1BVX0pPQl9HRVRfVElNRUxJTkVfTkFNRShqb2IpKQogCQkJICAgX19lbnRy
-eS0+Y29udGV4dCA9IGpvYi0+YmFzZS5zX2ZlbmNlLT5maW5pc2hlZC5jb250ZXh0OwogCQkJICAg
-X19lbnRyeS0+c2Vxbm8gPSBqb2ItPmJhc2Uuc19mZW5jZS0+ZmluaXNoZWQuc2Vxbm87Ci0JCQkg
-ICBfX2VudHJ5LT5yaW5nX25hbWUgPSB0b19hbWRncHVfcmluZyhqb2ItPmJhc2Uuc2NoZWQpLT5u
-YW1lOworCQkJICAgX19hc3NpZ25fc3RyKHJpbmcsIHRvX2FtZGdwdV9yaW5nKGpvYi0+YmFzZS5z
-Y2hlZCktPm5hbWUpCiAJCQkgICBfX2VudHJ5LT5udW1faWJzID0gam9iLT5udW1faWJzOwogCQkJ
-ICAgKSwKIAkgICAgVFBfcHJpbnRrKCJzY2hlZF9qb2I9JWxsdSwgdGltZWxpbmU9JXMsIGNvbnRl
-eHQ9JXUsIHNlcW5vPSV1LCByaW5nX25hbWU9JXMsIG51bV9pYnM9JXUiLAogCQkgICAgICBfX2Vu
-dHJ5LT5zY2hlZF9qb2JfaWQsIF9fZ2V0X3N0cih0aW1lbGluZSksIF9fZW50cnktPmNvbnRleHQs
-Ci0JCSAgICAgIF9fZW50cnktPnNlcW5vLCBfX2VudHJ5LT5yaW5nX25hbWUsIF9fZW50cnktPm51
-bV9pYnMpCisJCSAgICAgIF9fZW50cnktPnNlcW5vLCBfX2dldF9zdHIocmluZyksIF9fZW50cnkt
-Pm51bV9pYnMpCiApOwogCiBUUkFDRV9FVkVOVChhbWRncHVfc2NoZWRfcnVuX2pvYiwKQEAgLTE5
-NSw3ICsxOTUsNyBAQCBUUkFDRV9FVkVOVChhbWRncHVfc2NoZWRfcnVuX2pvYiwKIAkJCSAgICAg
-X19zdHJpbmcodGltZWxpbmUsIEFNREdQVV9KT0JfR0VUX1RJTUVMSU5FX05BTUUoam9iKSkKIAkJ
-CSAgICAgX19maWVsZCh1bnNpZ25lZCBpbnQsIGNvbnRleHQpCiAJCQkgICAgIF9fZmllbGQodW5z
-aWduZWQgaW50LCBzZXFubykKLQkJCSAgICAgX19maWVsZChjaGFyICosIHJpbmdfbmFtZSkKKwkJ
-CSAgICAgX19zdHJpbmcocmluZywgdG9fYW1kZ3B1X3Jpbmcoam9iLT5iYXNlLnNjaGVkKS0+bmFt
-ZSkKIAkJCSAgICAgX19maWVsZCh1MzIsIG51bV9pYnMpCiAJCQkgICAgICksCiAKQEAgLTIwNCwx
-MiArMjA0LDEyIEBAIFRSQUNFX0VWRU5UKGFtZGdwdV9zY2hlZF9ydW5fam9iLAogCQkJICAgX19h
-c3NpZ25fc3RyKHRpbWVsaW5lLCBBTURHUFVfSk9CX0dFVF9USU1FTElORV9OQU1FKGpvYikpCiAJ
-CQkgICBfX2VudHJ5LT5jb250ZXh0ID0gam9iLT5iYXNlLnNfZmVuY2UtPmZpbmlzaGVkLmNvbnRl
-eHQ7CiAJCQkgICBfX2VudHJ5LT5zZXFubyA9IGpvYi0+YmFzZS5zX2ZlbmNlLT5maW5pc2hlZC5z
-ZXFubzsKLQkJCSAgIF9fZW50cnktPnJpbmdfbmFtZSA9IHRvX2FtZGdwdV9yaW5nKGpvYi0+YmFz
-ZS5zY2hlZCktPm5hbWU7CisJCQkgICBfX2Fzc2lnbl9zdHIocmluZywgdG9fYW1kZ3B1X3Jpbmco
-am9iLT5iYXNlLnNjaGVkKS0+bmFtZSkKIAkJCSAgIF9fZW50cnktPm51bV9pYnMgPSBqb2ItPm51
-bV9pYnM7CiAJCQkgICApLAogCSAgICBUUF9wcmludGsoInNjaGVkX2pvYj0lbGx1LCB0aW1lbGlu
-ZT0lcywgY29udGV4dD0ldSwgc2Vxbm89JXUsIHJpbmdfbmFtZT0lcywgbnVtX2licz0ldSIsCiAJ
-CSAgICAgIF9fZW50cnktPnNjaGVkX2pvYl9pZCwgX19nZXRfc3RyKHRpbWVsaW5lKSwgX19lbnRy
-eS0+Y29udGV4dCwKLQkJICAgICAgX19lbnRyeS0+c2Vxbm8sIF9fZW50cnktPnJpbmdfbmFtZSwg
-X19lbnRyeS0+bnVtX2licykKKwkJICAgICAgX19lbnRyeS0+c2Vxbm8sIF9fZ2V0X3N0cihyaW5n
-KSwgX19lbnRyeS0+bnVtX2licykKICk7CiAKIApAQCAtNDY4LDcgKzQ2OCw3IEBAIFRSQUNFX0VW
-RU5UKGFtZGdwdV9pYl9waXBlX3N5bmMsCiAJICAgIFRQX1BST1RPKHN0cnVjdCBhbWRncHVfam9i
-ICpzY2hlZF9qb2IsIHN0cnVjdCBkbWFfZmVuY2UgKmZlbmNlKSwKIAkgICAgVFBfQVJHUyhzY2hl
-ZF9qb2IsIGZlbmNlKSwKIAkgICAgVFBfU1RSVUNUX19lbnRyeSgKLQkJCSAgICAgX19maWVsZChj
-b25zdCBjaGFyICosbmFtZSkKKwkJCSAgICAgX19zdHJpbmcocmluZywgc2NoZWRfam9iLT5iYXNl
-LnNjaGVkLT5uYW1lKTsKIAkJCSAgICAgX19maWVsZCh1aW50NjRfdCwgaWQpCiAJCQkgICAgIF9f
-ZmllbGQoc3RydWN0IGRtYV9mZW5jZSAqLCBmZW5jZSkKIAkJCSAgICAgX19maWVsZCh1aW50NjRf
-dCwgY3R4KQpAQCAtNDc2LDE0ICs0NzYsMTQgQEAgVFJBQ0VfRVZFTlQoYW1kZ3B1X2liX3BpcGVf
-c3luYywKIAkJCSAgICAgKSwKIAogCSAgICBUUF9mYXN0X2Fzc2lnbigKLQkJCSAgIF9fZW50cnkt
-Pm5hbWUgPSBzY2hlZF9qb2ItPmJhc2Uuc2NoZWQtPm5hbWU7CisJCQkgICBfX2Fzc2lnbl9zdHIo
-cmluZywgc2NoZWRfam9iLT5iYXNlLnNjaGVkLT5uYW1lKQogCQkJICAgX19lbnRyeS0+aWQgPSBz
-Y2hlZF9qb2ItPmJhc2UuaWQ7CiAJCQkgICBfX2VudHJ5LT5mZW5jZSA9IGZlbmNlOwogCQkJICAg
-X19lbnRyeS0+Y3R4ID0gZmVuY2UtPmNvbnRleHQ7CiAJCQkgICBfX2VudHJ5LT5zZXFubyA9IGZl
-bmNlLT5zZXFubzsKIAkJCSAgICksCiAJICAgIFRQX3ByaW50aygiam9iIHJpbmc9JXMsIGlkPSVs
-bHUsIG5lZWQgcGlwZSBzeW5jIHRvIGZlbmNlPSVwLCBjb250ZXh0PSVsbHUsIHNlcT0ldSIsCi0J
-CSAgICAgIF9fZW50cnktPm5hbWUsIF9fZW50cnktPmlkLAorCQkgICAgICBfX2dldF9zdHIocmlu
-ZyksIF9fZW50cnktPmlkLAogCQkgICAgICBfX2VudHJ5LT5mZW5jZSwgX19lbnRyeS0+Y3R4LAog
-CQkgICAgICBfX2VudHJ5LT5zZXFubykKICk7Ci0tIAoyLjIwLjEKCl9fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1n
-ZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21h
-aWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+From: Oak Zeng <Oak.Zeng@amd.com>
+
+[ Upstream commit 40a9592a26608e16f7545a068ea4165e1869f629 ]
+
+On device initialization, a chunk of GTT memory is pre-allocated for
+HIQ and all SDMA queues mqd. The size of this allocation was wrong.
+The correct sdma engine number should be PCIe-optimized SDMA engine
+number plus xgmi SDMA engine number.
+
+Reported-by: Jonathan Kim <Jonathan.Kim@amd.com>
+Signed-off-by: Jonathan Kim <Jonathan.Kim@amd.com>
+Signed-off-by: Oak Zeng <Oak.Zeng@amd.com>
+Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+index d985e31fcc1eb..f335f73919d15 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+@@ -1676,7 +1676,8 @@ static int allocate_hiq_sdma_mqd(struct device_queue_manager *dqm)
+ 	struct kfd_dev *dev = dqm->dev;
+ 	struct kfd_mem_obj *mem_obj = &dqm->hiq_sdma_mqd;
+ 	uint32_t size = dqm->mqd_mgrs[KFD_MQD_TYPE_SDMA]->mqd_size *
+-		dev->device_info->num_sdma_engines *
++		(dev->device_info->num_sdma_engines +
++		dev->device_info->num_xgmi_sdma_engines) *
+ 		dev->device_info->num_sdma_queues_per_engine +
+ 		dqm->mqd_mgrs[KFD_MQD_TYPE_HIQ]->mqd_size;
+ 
+-- 
+2.20.1
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
