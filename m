@@ -2,108 +2,109 @@ Return-Path: <SRS0=BheJ=2B=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+X-Spam-Status: No, score=-9.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
-	version=3.4.0
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E89A0C43603
-	for <amd-gfx@archiver.kernel.org>; Wed, 11 Dec 2019 20:01:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8BFB3C43603
+	for <amd-gfx@archiver.kernel.org>; Wed, 11 Dec 2019 20:07:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B26D92173E
-	for <amd-gfx@archiver.kernel.org>; Wed, 11 Dec 2019 20:01:42 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 3ACC720836
+	for <amd-gfx@archiver.kernel.org>; Wed, 11 Dec 2019 20:07:21 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="YD0RrW8T"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B26D92173E
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="Z0JtU1kL"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3ACC720836
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 670F76E06B;
-	Wed, 11 Dec 2019 20:01:42 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2043.outbound.protection.outlook.com [40.107.94.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F38D76E06B
- for <amd-gfx@lists.freedesktop.org>; Wed, 11 Dec 2019 20:01:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EB0A56E06B;
+	Wed, 11 Dec 2019 20:07:20 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2040.outbound.protection.outlook.com [40.107.220.40])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7082B6E06B
+ for <amd-gfx@lists.freedesktop.org>; Wed, 11 Dec 2019 20:07:20 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=X/UCL8Tor6FXqE8TQfOoaz8lv+NCoCa5+hWQf0JO6JMT8p6rVhY+HqDtromNQaJYqAdp6brf0g4F6eAQoc3sg1l+inNczGKFYemtJQZulSIekl2I8JENjWVW5gBcqHJ4l9+rY3QPcm8eBvhKpiaK2TCB2M5SevlhEfrNqXf/+PVc+LXp7xah/4wjSfW85nACCtFqIHZzIQ4UaX9colhaatvQ1/k/JrbDDRNc1Z4HN22uQZYWti6I47QNUc6PtPQfqzoemPXs9pxs7IVTy+7JhdVTJ1OgjHDYqSWsA/iyVp8hEjwzk7ovtb/gvuOdGIcaEh03AYwoBcqoXbPSFFt9DQ==
+ b=oMey+9tuiqcA2PDcuZjDySScTIF41hAQfNBXCgfGxPPoDkyFDD3+RdKhJ9e2cY/fV4q3iW+3ifZ02RkJmRnauWDZxYEhq2gneaffmW3TUYpnDWJOR9tgntb+XP5EpaI9oFO7fh0MsO6TMaV8pJA1wCrEwH+M1fh1PDIB9GBE+SmA9SU63nq7rQtOHhWnP+3Wj59ivMeUcGYNZQ8qVjZCsFBbmutMIeVcrcWoI2uvEB7HZwpGieKm1f5PpZ+KHmaGSkyG6BN7sY4+fRNAdcn6BOUohlAYvc7pcm3ufg2xH+ZNZHUCoZI0pLlZkThr4pD7pX1xsKZWGj+Ylfed8ovzGA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ZxQkrJIf1wDb3MUvQ6ym0TZILR6qhHNUYIsKEFW0n7c=;
- b=Y/rP1uyCRCG9FhfvngwCo/D0NH0pQAYJZXHI34Ctf6Y7aKdExRJ8SImrv5H2wt4R1npMUkTcBL6jqtcn+apsuTpVmFGwx2NoBbPAcLiVt9e6gm+1SZQ0E9eqoXj81twYj2TdndP5kqvmpJBGlYjhooiidFxbewfuqaZtDmr3lnj/pNUXDwjfG6Y1uS5ZP/NfLtR17A3KYeOtVmpwWmhjhjNvwt9325aX5bCIXO+usX7bz2zKUijXT0LfQ7SzwUt391Z3af8FdVtERzzioMTvjhp1GObA4iuLA8/Ct3exdKdPJpIO6DE47NcNslP2FfJPJTyh1lV3oKdZcxaizT4KAw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=BSTWVqIEOuFNnA5my3jMbtcRLRuG7+9bv97JjVHbz8I=;
+ b=SyUwXtvsFKXSVD7jbi+bbblE6ObMy3JAFW0fzs5bETsoI9RK+Q5hfsnYzTxQqL7AitL71Xt91Hy+22EW/hy3je+H2xR9dUbnsRZ5jfyN11bV2wh9twr8oC7GtUuZ1vUytDMO/syHjQXrJwhR3nUdTSBTwSZ6HtRWc2tzOp+uJp5b4J6sk7A+hDnO2ZkTErj+3wYI8tXRILJwrWv0aT21/MPNr4Ae78JRGEpTCdNDP4kAu7jA9AtONmU2ixW709X+mPWQOIWj4QzMFQJj58Gw+lh46sa6s8FChD9/2zdSyFKwY8SKZ95XbdSh34DQzeVIVFciGtnDh//8X5/wMPI0TQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=permerror action=none header.from=amd.com; dkim=none (message not
+ signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ZxQkrJIf1wDb3MUvQ6ym0TZILR6qhHNUYIsKEFW0n7c=;
- b=YD0RrW8TPyL0Evydn+i7DNyph5XiT6fWQTZGEYeGZhqjKHxq/9qzeqU22aW814lIQuncPNoTmL3xBKXslRtcoO2nYasbDrq9OyYB98Ehi2DxYL32CyFGU7IjrUIp+dp5IodzZrOPaVo71sfv/wHcdXdTlxGF8TNnDnMJ6mkFcjY=
-Received: from BL0PR12MB2529.namprd12.prod.outlook.com (52.132.11.156) by
- BL0PR12MB2434.namprd12.prod.outlook.com (52.132.11.28) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2516.14; Wed, 11 Dec 2019 20:01:39 +0000
-Received: from BL0PR12MB2529.namprd12.prod.outlook.com
- ([fe80::7c94:f84c:f382:894d]) by BL0PR12MB2529.namprd12.prod.outlook.com
- ([fe80::7c94:f84c:f382:894d%6]) with mapi id 15.20.2516.018; Wed, 11 Dec 2019
- 20:01:39 +0000
-From: "Zhang, Boyuan" <Boyuan.Zhang@amd.com>
-To: "Liu, Leo" <Leo.Liu@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH] drm/amdgpu: add JPEG check to VCN idle handler and begin
- use
-Thread-Topic: [PATCH] drm/amdgpu: add JPEG check to VCN idle handler and begin
- use
-Thread-Index: AQHVsFwkbvmDtbpbZkGr6SHKTHEp/6e1WpjQ
-Date: Wed, 11 Dec 2019 20:01:38 +0000
-Message-ID: <BL0PR12MB2529C1C80F3405595E88BDE0875A0@BL0PR12MB2529.namprd12.prod.outlook.com>
-References: <20191211194824.11146-1-leo.liu@amd.com>
-In-Reply-To: <20191211194824.11146-1-leo.liu@amd.com>
-Accept-Language: en-CA, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ActionId=7817ed64-6fe1-4727-99a8-0000ea4f655f;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=0;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=true;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal
- Use Only - Unrestricted;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2019-12-11T20:00:39Z;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
-x-bromium-msgid: 36d5a106-e34b-4203-bb7c-850ce6df28f1
-authentication-results: spf=none (sender IP is )
- smtp.mailfrom=Boyuan.Zhang@amd.com; 
-x-originating-ip: [165.204.55.250]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: 11d82a42-e838-485e-344d-08d77e74ef64
-x-ms-traffictypediagnostic: BL0PR12MB2434:|BL0PR12MB2434:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <BL0PR12MB24341625D08156EABD303D8B875A0@BL0PR12MB2434.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:277;
-x-forefront-prvs: 024847EE92
-x-forefront-antispam-report: SFV:NSPM;
- SFS:(10009020)(4636009)(376002)(39860400002)(396003)(366004)(136003)(346002)(189003)(199004)(13464003)(478600001)(9686003)(7696005)(4326008)(316002)(966005)(26005)(45080400002)(110136005)(186003)(53546011)(86362001)(2906002)(6506007)(71200400001)(76116006)(55016002)(33656002)(66476007)(5660300002)(66556008)(66946007)(81156014)(8936002)(8676002)(66446008)(64756008)(52536014)(81166006);
- DIR:OUT; SFP:1101; SCL:1; SRVR:BL0PR12MB2434;
- H:BL0PR12MB2529.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; MX:1; A:1; 
-received-spf: None (protection.outlook.com: amd.com does not designate
+ bh=BSTWVqIEOuFNnA5my3jMbtcRLRuG7+9bv97JjVHbz8I=;
+ b=Z0JtU1kLRpJxV/QIu5VbkviyMJqbXJVEiXvC+u0xWTwH8SpsWU9OYulp4PoYdT6Y8vS2rBUc0p2IC0lXiDlCv3GWJfOtrBYdFyocJHFk5dekAE7zJE3RIbx1pLL9/eBgdFN2ao+Wdsrcw9Z3QP8S+2huX80rp+zEF69lexmd3sU=
+Received: from CY4PR1201CA0012.namprd12.prod.outlook.com
+ (2603:10b6:910:16::22) by CY4PR12MB1784.namprd12.prod.outlook.com
+ (2603:10b6:903:11e::19) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2516.14; Wed, 11 Dec
+ 2019 20:07:18 +0000
+Received: from CO1NAM11FT012.eop-nam11.prod.protection.outlook.com
+ (2a01:111:f400:7eab::201) by CY4PR1201CA0012.outlook.office365.com
+ (2603:10b6:910:16::22) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2538.15 via Frontend
+ Transport; Wed, 11 Dec 2019 20:07:18 +0000
+Authentication-Results: spf=none (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none;lists.freedesktop.org; dmarc=permerror action=none
+ header.from=amd.com;
+Received-SPF: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: clE3XrHAy5E4KAxdMp5VF3EsWf16e7WNvP9Eb8/77jCmAZ585ONZLGg8S4e3hCo8N+KAwO9nO6jEpTJUbKXpvGtKVT1gTQOh+qD5OHgxc67xnyGXuLTMfg2DVt5SyPZVoOcrJQPffVmI6sScOR3N3TTdi+o6YF7RvRLl5jBbANN6AUmUan2Hb9jWLMoA4xPnS3mBeGwl0iR/bcH6QUjjWXRZKGe8vQXpgeKJyGx7SzQWv7VQjuQLQe1VHEcV0wH4MCsCsEUFfMkjotxz0I7JaaiEO8yobN/dsawf/DF01iLrkN6PmvdfLHT6J11dR8E1gDVmKoKT1dswcBy5J2OhSQQZGVeZxEWUbaqq8IzeNwjbMiQEa0kgR66y2f42cP+/TL7/8y16+5F7HKv/4Oon5LKX8GZPp5+2JoN0HzHxOqEWJzkBDtbWlCZYU/yW/OzunFQNch+r9tNz9Gd5iqlmoGABjgNzF7MRBklVm78KqNuqIhLFIXOSCvTFA9yi8Z0uIlRV4mWgTb9yu6Oqj8fXMn9yyVt/HbXU9VQEUUlvr+w=
+Received: from SATLEXMB02.amd.com (165.204.84.17) by
+ CO1NAM11FT012.mail.protection.outlook.com (10.13.175.192) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.2538.14 via Frontend Transport; Wed, 11 Dec 2019 20:07:18 +0000
+Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB02.amd.com
+ (10.181.40.143) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Wed, 11 Dec
+ 2019 14:07:17 -0600
+Received: from SATLEXMB01.amd.com (10.181.40.142) by SATLEXMB05.amd.com
+ (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Wed, 11 Dec
+ 2019 14:07:16 -0600
+Received: from agrodzovsky-All-Series.amd.com (10.180.168.240) by
+ SATLEXMB01.amd.com (10.181.40.142) with Microsoft SMTP Server id 15.1.1713.5
+ via Frontend Transport; Wed, 11 Dec 2019 14:07:16 -0600
+From: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH 1/5] drm/amdgpu: reverts commit
+ b01245ff54db66073b104ac9d9fbefb7b264b36d.
+Date: Wed, 11 Dec 2019 15:07:05 -0500
+Message-ID: <1576094829-2245-1-git-send-email-andrey.grodzovsky@amd.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
+X-EOPAttributedMessage: 0
+X-MS-Office365-Filtering-HT: Tenant
+X-Forefront-Antispam-Report: CIP:165.204.84.17; IPV:NLI; CTRY:US; EFV:NLI;
+ SFV:NSPM;
+ SFS:(10009020)(4636009)(346002)(396003)(39860400002)(376002)(136003)(428003)(189003)(199004)(7696005)(478600001)(8936002)(316002)(8676002)(4326008)(54906003)(2906002)(44832011)(36756003)(70586007)(426003)(6666004)(81156014)(2616005)(70206006)(336012)(86362001)(6916009)(26005)(186003)(5660300002)(356004)(81166006);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:CY4PR12MB1784; H:SATLEXMB02.amd.com; FPR:;
+ SPF:None; LANG:en; PTR:InfoDomainNonexistent; MX:1; A:1; 
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 453c0734-c80e-4406-4501-08d77e75b96b
+X-MS-TrafficTypeDiagnostic: CY4PR12MB1784:
+X-Microsoft-Antispam-PRVS: <CY4PR12MB178407C1C644ADBB2D7AE960EA5A0@CY4PR12MB1784.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:546;
+X-Forefront-PRVS: 024847EE92
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: RtupHfWcFRj6APR6+dzSbCkMTLsGhYDziTMwW4ip0GbM9IQ7sbITqB2mK99FfBUwyrQWntju2DV8OArsLw5yyP08v9IW171mMFzU0Dkau2989uL8L9HX8MvC6iLGb36Vl5KAjYRyRDpzV8FC+LmF4BDEvrdC7VGqWJ8OSRqBZlxBQMHScECPEVJFhXvGtjeTk8FvOvQhu10PAt2rHFni+jlGUB7B80lQH+/8a4IsFd+cQAvERmBsO7dUsMxDgcZcba6nuIGQWfCg654LQEaN81xlumU4JlmnhK5FfLy7CDwnQv1VrjT/Bp/zdYIOy1BBbCFwcYtJiPFRrSRBV52OLe9S2b2RtyevgLvHTX4dZ8pcRw2Dv3T2T2tGpak8fBfeWlsYtRxaCleCrbviWK1PABwmQrqVJz2aEfMRsA+WdCRRP9Z2QcLAeDpfAOHuCPBS
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 11d82a42-e838-485e-344d-08d77e74ef64
-X-MS-Exchange-CrossTenant-originalarrivaltime: 11 Dec 2019 20:01:38.9714 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 0aKAGg2EEBDz28EZrR4c62lDfeODMgx3EUOwSgzkIa9WZ2wNV/35++tByThBFz6bUB3KNjfOFf5YxxOn74sNyw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB2434
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Dec 2019 20:07:18.1691 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 453c0734-c80e-4406-4501-08d77e75b96b
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB02.amd.com]
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR12MB1784
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,111 +116,174 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Liu, Leo" <Leo.Liu@amd.com>
+Cc: Alexander.Deucher@amd.com, Le.Ma@amd.com, Evan.Quan@amd.com,
+ Andrey Grodzovsky <andrey.grodzovsky@amd.com>, hawking.zhang@amd.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This patch is 
-Reviewed-by: Boyuan Zhang <boyuan.zhang@amd.com>
+In preparation for doing XGMI reset synchronization using task barrier.
 
-
------Original Message-----
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Leo Liu
-Sent: December 11, 2019 2:48 PM
-To: amd-gfx@lists.freedesktop.org
-Cc: Liu, Leo <Leo.Liu@amd.com>
-Subject: [PATCH] drm/amdgpu: add JPEG check to VCN idle handler and begin use
-
-Since it's only needed with VCN1.0 when HW has no its own JPEG HW IP block
-
-Signed-off-by: Leo Liu <leo.liu@amd.com>
+Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c | 29 +++++++++++++++----------  drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h |  2 ++
- 2 files changed, 20 insertions(+), 11 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h        |  2 -
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 76 +++++-------------------------
+ 2 files changed, 12 insertions(+), 66 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-index 428cfd58b37d..95ac721f2de0 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-@@ -186,6 +186,9 @@ int amdgpu_vcn_sw_init(struct amdgpu_device *adev)
- 		}
- 	}
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+index a78a363..50bab33 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+@@ -1001,8 +1001,6 @@ struct amdgpu_device {
  
-+	adev->vcn.has_jpeg_block = (amdgpu_device_ip_get_ip_block(adev, AMD_IP_BLOCK_TYPE_JPEG)) ?
-+		true : false;
-+
- 	return 0;
- }
- 
-@@ -306,15 +309,17 @@ static void amdgpu_vcn_idle_work_handler(struct work_struct *work)
- 			else
- 				new_state.fw_based = VCN_DPG_STATE__UNPAUSE;
- 
--			if (amdgpu_fence_count_emitted(&adev->jpeg.inst[j].ring_dec))
--				new_state.jpeg = VCN_DPG_STATE__PAUSE;
--			else
--				new_state.jpeg = VCN_DPG_STATE__UNPAUSE;
+ 	bool                            pm_sysfs_en;
+ 	bool                            ucode_sysfs_en;
 -
-+			if (!adev->vcn.has_jpeg_block) {
-+				if (amdgpu_fence_count_emitted(&adev->jpeg.inst[j].ring_dec))
-+					new_state.jpeg = VCN_DPG_STATE__PAUSE;
-+				else
-+					new_state.jpeg = VCN_DPG_STATE__UNPAUSE;
-+			}
- 			adev->vcn.pause_dpg_mode(adev, &new_state);
- 		}
- 
--		fence[j] += amdgpu_fence_count_emitted(&adev->jpeg.inst[j].ring_dec);
-+		if (!adev->vcn.has_jpeg_block)
-+			fence[j] += 
-+amdgpu_fence_count_emitted(&adev->jpeg.inst[j].ring_dec);
- 		fence[j] += amdgpu_fence_count_emitted(&adev->vcn.inst[j].ring_dec);
- 		fences += fence[j];
- 	}
-@@ -358,14 +363,16 @@ void amdgpu_vcn_ring_begin_use(struct amdgpu_ring *ring)
- 		else
- 			new_state.fw_based = VCN_DPG_STATE__UNPAUSE;
- 
--		if (amdgpu_fence_count_emitted(&adev->jpeg.inst[ring->me].ring_dec))
--			new_state.jpeg = VCN_DPG_STATE__PAUSE;
--		else
--			new_state.jpeg = VCN_DPG_STATE__UNPAUSE;
-+		if (!adev->vcn.has_jpeg_block) {
-+			if (amdgpu_fence_count_emitted(&adev->jpeg.inst[ring->me].ring_dec))
-+				new_state.jpeg = VCN_DPG_STATE__PAUSE;
-+			else
-+				new_state.jpeg = VCN_DPG_STATE__UNPAUSE;
-+		}
- 
- 		if (ring->funcs->type == AMDGPU_RING_TYPE_VCN_ENC)
- 			new_state.fw_based = VCN_DPG_STATE__PAUSE;
--		else if (ring->funcs->type == AMDGPU_RING_TYPE_VCN_JPEG)
-+		else if (!adev->vcn.has_jpeg_block && ring->funcs->type == 
-+AMDGPU_RING_TYPE_VCN_JPEG)
- 			new_state.jpeg = VCN_DPG_STATE__PAUSE;
- 
- 		adev->vcn.pause_dpg_mode(adev, &new_state); diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h
-index 402a5046b985..9a2381d006c6 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h
-@@ -192,6 +192,8 @@ struct amdgpu_vcn {
- 	unsigned	harvest_config;
- 	int (*pause_dpg_mode)(struct amdgpu_device *adev,
- 		struct dpg_pause_state *new_state);
-+
-+	bool has_jpeg_block;
+-	bool				in_baco;
  };
  
- int amdgpu_vcn_sw_init(struct amdgpu_device *adev);
---
-2.17.1
+ static inline struct amdgpu_device *amdgpu_ttm_adev(struct ttm_bo_device *bdev)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index 7324a5f..1d19edfa 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -2667,7 +2667,7 @@ static void amdgpu_device_xgmi_reset_func(struct work_struct *__work)
+ 	if (amdgpu_asic_reset_method(adev) == AMD_RESET_METHOD_BACO)
+ 		adev->asic_reset_res = (adev->in_baco == false) ?
+ 				amdgpu_device_baco_enter(adev->ddev) :
+-				amdgpu_device_baco_exit(adev->ddev);
++				qamdgpu_device_baco_exit(adev->ddev);
+ 	else
+ 		adev->asic_reset_res = amdgpu_asic_reset(adev);
+ 
+@@ -3796,18 +3796,13 @@ static int amdgpu_device_pre_asic_reset(struct amdgpu_device *adev,
+ 	return r;
+ }
+ 
+-static int amdgpu_do_asic_reset(struct amdgpu_device *adev,
+-			       struct amdgpu_hive_info *hive,
++static int amdgpu_do_asic_reset(struct amdgpu_hive_info *hive,
+ 			       struct list_head *device_list_handle,
+ 			       bool *need_full_reset_arg)
+ {
+ 	struct amdgpu_device *tmp_adev = NULL;
+ 	bool need_full_reset = *need_full_reset_arg, vram_lost = false;
+ 	int r = 0;
+-	int cpu = smp_processor_id();
+-	bool use_baco =
+-		(amdgpu_asic_reset_method(adev) == AMD_RESET_METHOD_BACO) ?
+-		true : false;
+ 
+ 	/*
+ 	 * ASIC reset has to be done on all HGMI hive nodes ASAP
+@@ -3815,62 +3810,22 @@ static int amdgpu_do_asic_reset(struct amdgpu_device *adev,
+ 	 */
+ 	if (need_full_reset) {
+ 		list_for_each_entry(tmp_adev, device_list_handle, gmc.xgmi.head) {
+-			/*
+-			 * For XGMI run all resets in parallel to speed up the
+-			 * process by scheduling the highpri wq on different
+-			 * cpus. For XGMI with baco reset, all nodes must enter
+-			 * baco within close proximity before anyone exit.
+-			 */
++			/* For XGMI run all resets in parallel to speed up the process */
+ 			if (tmp_adev->gmc.xgmi.num_physical_nodes > 1) {
+-				if (!queue_work_on(cpu, system_highpri_wq,
+-						   &tmp_adev->xgmi_reset_work))
++				if (!queue_work(system_highpri_wq, &tmp_adev->xgmi_reset_work))
+ 					r = -EALREADY;
+-				cpu = cpumask_next(cpu, cpu_online_mask);
+ 			} else
+ 				r = amdgpu_asic_reset(tmp_adev);
+-			if (r)
+-				break;
+-		}
+-
+-		/* For XGMI wait for all work to complete before proceed */
+-		if (!r) {
+-			list_for_each_entry(tmp_adev, device_list_handle,
+-					    gmc.xgmi.head) {
+-				if (tmp_adev->gmc.xgmi.num_physical_nodes > 1) {
+-					flush_work(&tmp_adev->xgmi_reset_work);
+-					r = tmp_adev->asic_reset_res;
+-					if (r)
+-						break;
+-					if (use_baco)
+-						tmp_adev->in_baco = true;
+-				}
+-			}
+-		}
+ 
+-		/*
+-		 * For XGMI with baco reset, need exit baco phase by scheduling
+-		 * xgmi_reset_work one more time. PSP reset and sGPU skips this
+-		 * phase. Not assume the situation that PSP reset and baco reset
+-		 * coexist within an XGMI hive.
+-		 */
+-
+-		if (!r && use_baco) {
+-			cpu = smp_processor_id();
+-			list_for_each_entry(tmp_adev, device_list_handle,
+-					    gmc.xgmi.head) {
+-				if (tmp_adev->gmc.xgmi.num_physical_nodes > 1) {
+-					if (!queue_work_on(cpu,
+-						system_highpri_wq,
+-						&tmp_adev->xgmi_reset_work))
+-						r = -EALREADY;
+-					if (r)
+-						break;
+-					cpu = cpumask_next(cpu, cpu_online_mask);
+-				}
++			if (r) {
++				DRM_ERROR("ASIC reset failed with error, %d for drm dev, %s",
++					 r, tmp_adev->ddev->unique);
++				break;
+ 			}
+ 		}
+ 
+-		if (!r && use_baco) {
++		/* For XGMI wait for all PSP resets to complete before proceed */
++		if (!r) {
+ 			list_for_each_entry(tmp_adev, device_list_handle,
+ 					    gmc.xgmi.head) {
+ 				if (tmp_adev->gmc.xgmi.num_physical_nodes > 1) {
+@@ -3878,21 +3833,15 @@ static int amdgpu_do_asic_reset(struct amdgpu_device *adev,
+ 					r = tmp_adev->asic_reset_res;
+ 					if (r)
+ 						break;
+-					tmp_adev->in_baco = false;
+ 				}
+ 			}
+ 		}
+-
+-		if (r) {
+-			DRM_ERROR("ASIC reset failed with error, %d for drm dev, %s",
+-				 r, tmp_adev->ddev->unique);
+-			goto end;
+-		}
+ 	}
+ 
+ 	if (!r && amdgpu_ras_intr_triggered())
+ 		amdgpu_ras_intr_cleared();
+ 
++
+ 	list_for_each_entry(tmp_adev, device_list_handle, gmc.xgmi.head) {
+ 		if (need_full_reset) {
+ 			/* post card */
+@@ -4181,8 +4130,7 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
+ 		if (r)
+ 			adev->asic_reset_res = r;
+ 	} else {
+-		r  = amdgpu_do_asic_reset(adev, hive, device_list_handle,
+-					  &need_full_reset);
++		r  = amdgpu_do_asic_reset(hive, device_list_handle, &need_full_reset);
+ 		if (r && r == -EAGAIN)
+ 			goto retry;
+ 	}
+-- 
+2.7.4
 
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=02%7C01%7Cboyuan.zhang%40amd.com%7C141d98480bb4442c6dff08d77e733651%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637116905879102653&amp;sdata=6Ce6RR2jvpsESZs1I%2FOsYTX1cmImmftEBqfqpN8cp4s%3D&amp;reserved=0
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
