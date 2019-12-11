@@ -7,55 +7,55 @@ X-Spam-Status: No, score=-9.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0A161C43603
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 85AACC2D0C9
 	for <amd-gfx@archiver.kernel.org>; Wed, 11 Dec 2019 15:34:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D158F2077B
-	for <amd-gfx@archiver.kernel.org>; Wed, 11 Dec 2019 15:34:18 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 5625222B48
+	for <amd-gfx@archiver.kernel.org>; Wed, 11 Dec 2019 15:34:19 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="QUGNWVln"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D158F2077B
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="KM+D5tGK"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5625222B48
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 74F2F6EB89;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6E47C6EB78;
 	Wed, 11 Dec 2019 15:34:18 +0000 (UTC)
 Received: from NAM02-CY1-obe.outbound.protection.outlook.com
  (mail-eopbgr760084.outbound.protection.outlook.com [40.107.76.84])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 586886EB89
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 348E96EB74
  for <amd-gfx@lists.freedesktop.org>; Wed, 11 Dec 2019 15:34:17 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Hp9NHlliOHYjALDTYOAqI402YW7p6ib63+vZtZhcI3w3ozyr0fe0Pexn467zm3p4Ifq92hjmYQXLWBRCgZevlSRX9mZdgJ4RgUfGaJZBPlHP4zliSbDxzwH2D9i4uhp9WlWTNTssOIBfyHpDnDddaDpt6p5A6NPXWbOYNCWaqFi03zRTf9/0uPikbtM32qivnZ/KoPNXejdV0Cvod7+Zxk8pCBS8vjdwDwzqJEJSASDP+gmt4eDl9wTNHNFX1JUzfqIjpxLNULSgisdJRfsxFyUMDdAy7KvUE6bskHgu2B/Cm77MJbD0vcpbm7XLejH6Y1YopsjYk2kNChhWkgR8+g==
+ b=SYAmDyidGQ8Jbjm6awDGt3w9BNPFWs8w02DxvncwDKDVLOkAUa4MqA6pcyClqoBJoX8dx9GaQOozSeHb7zbV70am3+QRqTZrtB/vusfk/oFSMFcyXW1eZ88Cuj0FVJDgtiWhYlIo6Z5H9ARNaLwQBlmAmqZM0Xd4wROjfbjftR6Bj6QENjENMgcEbXWH7jNTYEXF0kjeX121LJdhN9rXUXwo/YU7whZa3lJNBQxqQUXwAI7N3W41t19HW287dYdbbrREoGSH0rlOXqGsH9D7IlNJSeM958JZVH6KLmMpl5jPu9G0hpvr0YiMjjNFgjcIk3i+bUgwH+VvEogmvmKMrw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=U6E44/jIEuz2II28TlRdVlYwO++kZMkrrSwLp2RZPIo=;
- b=i9SztPobQbO0IpJIPboVLRNg57b9lgGZSuTfFHKrLwQXfpPA2QURWpvO5nQQwaK6GJgY1pYNCPzSpmKRKT+tPVx4XGlR5TBdT/L+nix/ZAjBwAm0Cq4689Hr4x7TQ6Qf9lJfFmbRm1K2TXls+VF6i3mzEde9Xtxm7Mw77YVnJrewRv9ce9oXx5zvQDOhj9byV0SxxqAnyJxMUKO4Y5Rrc7ucgW+jS9q7PoQa4CucJt0uzweE5CAeewBKIFNoCIAhuEesaReaaXkRaRBrlLtJvs2bRGzfcjCErNuiM3lw0RR8wBPWIb5MmTVCEbQa0lO50uSVndPCG3HtyP8f4k1+tQ==
+ bh=Gv85upyN3RJDOTQSQEOAtZOVQZF8jh4+SrCNeuTGw1s=;
+ b=g+7He4bpghrpW3WjX4AuO/B5qHTd5MDTb1PJhN5Z2s6TICx2CURbtyXlGV5FCMF7GVmuBGbROzshqbRQQWY/Qqm7y9WT31/2vaBTHZy22zpUAFYtwCf7gb5Sj4vlJNX+UTICbR8cjKotXpxbvieEx3C5CYuu/BkHRsRv8X3f+/WNz2WIo51R7MVnEYXyP2K0ad8udpvAIzAPtZz2QBoMmHsaQZLN+1+WSk5dgCROUC6rDG9rSNCF0FX/DFybTY9HBTOf2vjCJyFouATpbinN/kUEpJfHjGdMnPG3RcB3N5uIUm8EgOMrJlU+vYSi2PFQG5Akq0rf4KzssXmyzGbWGA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=U6E44/jIEuz2II28TlRdVlYwO++kZMkrrSwLp2RZPIo=;
- b=QUGNWVlnjQN5CbX8NDwEiaxsnU3/1UBCJXH5I67hpRiPVLVilvCObRqunR7Hpv88tv25vqPM+2BPkeBNQ3lMWfH6Ed7rWxHTlyJWO/VL9AfTW5YD7QKcONDzRaEs/CENrqIzcmNSTsZWqqavgU4V93WSIFHROZgyilURVZItH8E=
+ bh=Gv85upyN3RJDOTQSQEOAtZOVQZF8jh4+SrCNeuTGw1s=;
+ b=KM+D5tGKZcGZP2yN8Urt68DlF6Oc3jVjxk35rRRDZcrSKJ92YwLBGIgDYk6WA6AfS7QYAsB9fC/C6YqoP2QK01XXOkf3HbVX73/e03Z7tRzztSzmkQwuicikdKDaWdycMoSH/L8b0+uM2PiKUqdl8TxiF6Ooic93DWzoGk1LngQ=
 Authentication-Results: spf=none (sender IP is )
  smtp.mailfrom=Rodrigo.Siqueira@amd.com; 
 Received: from MW2PR12MB2524.namprd12.prod.outlook.com (52.132.180.155) by
  MW2PR12MB2491.namprd12.prod.outlook.com (52.132.183.158) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2538.15; Wed, 11 Dec 2019 15:34:16 +0000
+ 15.20.2538.15; Wed, 11 Dec 2019 15:34:15 +0000
 Received: from MW2PR12MB2524.namprd12.prod.outlook.com
  ([fe80::3d1f:4c20:e980:6e69]) by MW2PR12MB2524.namprd12.prod.outlook.com
  ([fe80::3d1f:4c20:e980:6e69%5]) with mapi id 15.20.2516.018; Wed, 11 Dec 2019
- 15:34:16 +0000
+ 15:34:15 +0000
 From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 35/39] drm/amd/display: Lower DPP DTO only when safe
-Date: Wed, 11 Dec 2019 10:32:49 -0500
-Message-Id: <20191211153253.2291112-36-Rodrigo.Siqueira@amd.com>
+Subject: [PATCH 34/39] drm/amd/display: support virtual DCN
+Date: Wed, 11 Dec 2019 10:32:48 -0500
+Message-Id: <20191211153253.2291112-35-Rodrigo.Siqueira@amd.com>
 X-Mailer: git-send-email 2.24.0
 In-Reply-To: <20191211153253.2291112-1-Rodrigo.Siqueira@amd.com>
 References: <20191211153253.2291112-1-Rodrigo.Siqueira@amd.com>
@@ -67,11 +67,11 @@ X-Mailer: git-send-email 2.24.0
 X-Originating-IP: [165.204.55.250]
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 58e0bc54-9a8b-4a1c-8030-08d77e4f83dc
+X-MS-Office365-Filtering-Correlation-Id: 053713c6-bb39-4ca0-d83d-08d77e4f834c
 X-MS-TrafficTypeDiagnostic: MW2PR12MB2491:|MW2PR12MB2491:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <MW2PR12MB2491976798968908394219E5985A0@MW2PR12MB2491.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:6430;
+X-Microsoft-Antispam-PRVS: <MW2PR12MB2491A8ACF5BE0A5C272C22F4985A0@MW2PR12MB2491.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:8273;
 X-Forefront-PRVS: 024847EE92
 X-Forefront-Antispam-Report: SFV:NSPM;
  SFS:(10009020)(4636009)(396003)(346002)(376002)(39860400002)(366004)(136003)(189003)(199004)(6486002)(6512007)(6916009)(8936002)(5660300002)(2906002)(6666004)(86362001)(52116002)(2616005)(478600001)(66476007)(316002)(186003)(8676002)(81156014)(81166006)(54906003)(36756003)(4326008)(1076003)(26005)(66946007)(66556008)(6506007);
@@ -82,14 +82,14 @@ Received-SPF: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: B2ftCTWCu9c7NeVfuGlOtBVryJFF3Y/TXoKb/9SE7y7zUSz9Yit3BrSWyV7JA0cpaiv9GYwGjHGJFv16W0xnAuT435HurjVZegCX6x3CPaibUjb3XikT2HQ3aXsBity31pmtRrY0geJgDO0K+AmjB8wWKCA2NBmgjpu18igoao/PqXTUbxiu6VXcRufZawHtw5g7buCdOmOcvFcJ6vcXQ5yPGaYsfKZaLKRTfPYKfaNFbswQnWWf/13uL2BzaGW53V1zMQoy2rUd86NbFVcYXziQ/V1+U9m0ZB2iTtGv4d8Wsq0Pmbzdk1Aj8kya4NLigbBg9JdodcVQtH1b7zQq8exwCoPm+9DfaoGgBGvdpv83rF72Ld6MH692ndiWe4Kh2yY9Wu4apxWPfFzobImYH1o/WER4juAM3UXUY+vh1QJcWTpKA2DxoHwvwfmA7n7W
+X-Microsoft-Antispam-Message-Info: dfhw3coQy6++OuQd2Op+NDxuc1QR7KBNuI3ONCCFAkBdY+aT+VUbHwu5c5Yc52Mv7TzVPnRFQ+pCycOVmZ8RhlVYcDIwTdxUAqbN/RDj5pWgsNEjoRjLNbxcsW0bmybPYh4bqzMaL99v6vTEB4jI4UhiV75GFDwPcFH5wpDtSUwJPxvwavCRf0fNN6cFigednADGTFuqfjoFKkg9Cpdb125+0ckliKc2/v1nUo0Pen3F6Vc57wQ+n1BYDS3vkN4IRIqnFJzEeedFwSD6yIxY6+RCOiaMV2/OlUNRzw9b6ly5d/VKnN1QcU1Jk8JKVqZMmn5YZpTt4WTMHiWwiyfraEFsWqpyOYYftkSYP8jC8LAfIVARZ10MJb19DO1YIVXkzSxIF4cIED5C7ey3UMHRt+MO+DpQoF/5EVXvW/CvGN4WTyB6BCpelx2TlbIf0h75
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 58e0bc54-9a8b-4a1c-8030-08d77e4f83dc
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Dec 2019 15:33:47.7935 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 053713c6-bb39-4ca0-d83d-08d77e4f834c
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Dec 2019 15:33:46.8321 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: mo2aR8Cm4s455i3kTCQfvQOSWdGuCszCBxXTedIysOPY9BEc4lEAZS14gf3tX9ETMuBmLRc9Y7/X+A0e3Vuv9g==
+X-MS-Exchange-CrossTenant-UserPrincipalName: XdSxS+M2KwD7T/zZ3+xPMKzcnWqLg0KJFap8Z+oAz2kFVjtdpDohXPrTJXhtk1gimD/ZUoCDHQ6Qo/LgcLeYWQ==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW2PR12MB2491
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -102,126 +102,245 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sung Lee <sung.lee@amd.com>, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
- Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>,
- Tony Cheng <Tony.Cheng@amd.com>, Bhawanpreet.Lakha@amd.com
+Cc: Sunpeng.Li@amd.com, Bhawanpreet.Lakha@amd.com, Aric Cyr <Aric.Cyr@amd.com>,
+ Jun Lei <Jun.Lei@amd.com>, Harry.Wentland@amd.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Sung Lee <sung.lee@amd.com>
+From: Jun Lei <Jun.Lei@amd.com>
 
-[Why]
-A corner case currently exists where DPP DTO is lowered before
-pipes are updated to a higher viewport. This causes underflow
-as the DPPCLK is too low for the current viewport.
+[why]
+DAL3 should support SRIOV
 
-[How]
-Only lower DPP DTO when it is safe to lower, or if
-the newer clocks are higher than the current ones.
+[how]
+Add support for the virtual dal flag.  This flag should skip
+most/all of DC construction since the HW isn't accessible, but
+still construct WindowsDM (almost) normally but with only SW display
+targets
 
-Signed-off-by: Sung Lee <sung.lee@amd.com>
-Reviewed-by: Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>
-Reviewed-by: Tony Cheng <Tony.Cheng@amd.com>
+Signed-off-by: Jun Lei <Jun.Lei@amd.com>
+Reviewed-by: Aric Cyr <Aric.Cyr@amd.com>
 Acked-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 ---
- .../amd/display/dc/clk_mgr/dcn20/dcn20_clk_mgr.c | 16 ++++++++++------
- .../amd/display/dc/clk_mgr/dcn20/dcn20_clk_mgr.h |  2 +-
- .../amd/display/dc/clk_mgr/dcn21/rn_clk_mgr.c    |  8 ++++----
- 3 files changed, 15 insertions(+), 11 deletions(-)
+ drivers/gpu/drm/amd/display/dc/core/dc.c  | 113 +++++++++++++---------
+ drivers/gpu/drm/amd/display/dc/dc_types.h |   7 +-
+ 2 files changed, 74 insertions(+), 46 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn20/dcn20_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn20/dcn20_clk_mgr.c
-index 3ae1d23f7342..495f01e9f2ca 100644
---- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn20/dcn20_clk_mgr.c
-+++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn20/dcn20_clk_mgr.c
-@@ -101,13 +101,13 @@ uint32_t dentist_get_did_from_divider(int divider)
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
+index c13480685853..3d89904003f0 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
+@@ -582,6 +582,40 @@ static void dc_destruct(struct dc *dc)
+ 
  }
  
- void dcn20_update_clocks_update_dpp_dto(struct clk_mgr_internal *clk_mgr,
--		struct dc_state *context)
-+		struct dc_state *context, bool safe_to_lower)
- {
- 	int i;
- 
- 	clk_mgr->dccg->ref_dppclk = clk_mgr->base.clks.dppclk_khz;
- 	for (i = 0; i < clk_mgr->base.ctx->dc->res_pool->pipe_count; i++) {
--		int dpp_inst, dppclk_khz;
-+		int dpp_inst, dppclk_khz, prev_dppclk_khz;
- 
- 		/* Loop index will match dpp->inst if resource exists,
- 		 * and we want to avoid dependency on dpp object
-@@ -115,8 +115,12 @@ void dcn20_update_clocks_update_dpp_dto(struct clk_mgr_internal *clk_mgr,
- 		dpp_inst = i;
- 		dppclk_khz = context->res_ctx.pipe_ctx[i].plane_res.bw.dppclk_khz;
- 
--		clk_mgr->dccg->funcs->update_dpp_dto(
--				clk_mgr->dccg, dpp_inst, dppclk_khz);
-+		prev_dppclk_khz = clk_mgr->base.ctx->dc->current_state->res_ctx.pipe_ctx[i].plane_res.bw.dppclk_khz;
++static bool dc_construct_ctx(struct dc *dc,
++		const struct dc_init_data *init_params)
++{
++	struct dc_context *dc_ctx;
++	enum dce_version dc_version = DCE_VERSION_UNKNOWN;
 +
-+		if (safe_to_lower || prev_dppclk_khz < dppclk_khz) {
-+			clk_mgr->dccg->funcs->update_dpp_dto(
-+							clk_mgr->dccg, dpp_inst, dppclk_khz);
-+		}
++	dc_ctx = kzalloc(sizeof(*dc_ctx), GFP_KERNEL);
++	if (!dc_ctx)
++		return false;
++
++	dc_ctx->cgs_device = init_params->cgs_device;
++	dc_ctx->driver_context = init_params->driver;
++	dc_ctx->dc = dc;
++	dc_ctx->asic_id = init_params->asic_id;
++	dc_ctx->dc_sink_id_count = 0;
++	dc_ctx->dc_stream_id_count = 0;
++	dc_ctx->dce_environment = init_params->dce_environment;
++
++	/* Create logger */
++
++	dc_version = resource_parse_asic_id(init_params->asic_id);
++	dc_ctx->dce_version = dc_version;
++
++	dc_ctx->perf_trace = dc_perf_trace_create();
++	if (!dc_ctx->perf_trace) {
++		ASSERT_CRITICAL(false);
++		return false;
++	}
++
++	dc->ctx = dc_ctx;
++
++	return true;
++}
++
+ static bool dc_construct(struct dc *dc,
+ 		const struct dc_init_data *init_params)
+ {
+@@ -593,7 +627,6 @@ static bool dc_construct(struct dc *dc,
+ 	struct dcn_ip_params *dcn_ip;
+ #endif
+ 
+-	enum dce_version dc_version = DCE_VERSION_UNKNOWN;
+ 	dc->config = init_params->flags;
+ 
+ 	// Allocate memory for the vm_helper
+@@ -639,26 +672,12 @@ static bool dc_construct(struct dc *dc,
+ 	dc->soc_bounding_box = init_params->soc_bounding_box;
+ #endif
+ 
+-	dc_ctx = kzalloc(sizeof(*dc_ctx), GFP_KERNEL);
+-	if (!dc_ctx) {
++	if (!dc_construct_ctx(dc, init_params)) {
+ 		dm_error("%s: failed to create ctx\n", __func__);
+ 		goto fail;
  	}
+ 
+-	dc_ctx->cgs_device = init_params->cgs_device;
+-	dc_ctx->driver_context = init_params->driver;
+-	dc_ctx->dc = dc;
+-	dc_ctx->asic_id = init_params->asic_id;
+-	dc_ctx->dc_sink_id_count = 0;
+-	dc_ctx->dc_stream_id_count = 0;
+-	dc->ctx = dc_ctx;
+-
+-	/* Create logger */
+-
+-	dc_ctx->dce_environment = init_params->dce_environment;
+-
+-	dc_version = resource_parse_asic_id(init_params->asic_id);
+-	dc_ctx->dce_version = dc_version;
++        dc_ctx = dc->ctx;
+ 
+ 	/* Resource should construct all asic specific resources.
+ 	 * This should be the only place where we need to parse the asic id
+@@ -673,7 +692,7 @@ static bool dc_construct(struct dc *dc,
+ 		bp_init_data.bios = init_params->asic_id.atombios_base_address;
+ 
+ 		dc_ctx->dc_bios = dal_bios_parser_create(
+-				&bp_init_data, dc_version);
++				&bp_init_data, dc_ctx->dce_version);
+ 
+ 		if (!dc_ctx->dc_bios) {
+ 			ASSERT_CRITICAL(false);
+@@ -681,17 +700,13 @@ static bool dc_construct(struct dc *dc,
+ 		}
+ 
+ 		dc_ctx->created_bios = true;
+-		}
+-
+-	dc_ctx->perf_trace = dc_perf_trace_create();
+-	if (!dc_ctx->perf_trace) {
+-		ASSERT_CRITICAL(false);
+-		goto fail;
+ 	}
+ 
++
++
+ 	/* Create GPIO service */
+ 	dc_ctx->gpio_service = dal_gpio_service_create(
+-			dc_version,
++			dc_ctx->dce_version,
+ 			dc_ctx->dce_environment,
+ 			dc_ctx);
+ 
+@@ -700,7 +715,7 @@ static bool dc_construct(struct dc *dc,
+ 		goto fail;
+ 	}
+ 
+-	dc->res_pool = dc_create_resource_pool(dc, init_params, dc_version);
++	dc->res_pool = dc_create_resource_pool(dc, init_params, dc_ctx->dce_version);
+ 	if (!dc->res_pool)
+ 		goto fail;
+ 
+@@ -731,8 +746,6 @@ static bool dc_construct(struct dc *dc,
+ 	return true;
+ 
+ fail:
+-
+-	dc_destruct(dc);
+ 	return false;
  }
  
-@@ -244,7 +248,7 @@ void dcn2_update_clocks(struct clk_mgr *clk_mgr_base,
- 	if (dc->config.forced_clocks == false || (force_reset && safe_to_lower)) {
- 		if (dpp_clock_lowered) {
- 			// if clock is being lowered, increase DTO before lowering refclk
--			dcn20_update_clocks_update_dpp_dto(clk_mgr, context);
-+			dcn20_update_clocks_update_dpp_dto(clk_mgr, context, safe_to_lower);
- 			dcn20_update_clocks_update_dentist(clk_mgr);
- 		} else {
- 			// if clock is being raised, increase refclk before lowering DTO
-@@ -252,7 +256,7 @@ void dcn2_update_clocks(struct clk_mgr *clk_mgr_base,
- 				dcn20_update_clocks_update_dentist(clk_mgr);
- 			// always update dtos unless clock is lowered and not safe to lower
- 			if (new_clocks->dppclk_khz >= dc->current_state->bw_ctx.bw.dcn.clk.dppclk_khz)
--				dcn20_update_clocks_update_dpp_dto(clk_mgr, context);
-+				dcn20_update_clocks_update_dpp_dto(clk_mgr, context, safe_to_lower);
- 		}
- 	}
+@@ -825,29 +838,38 @@ struct dc *dc_create(const struct dc_init_data *init_params)
+ 	if (NULL == dc)
+ 		goto alloc_fail;
  
-diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn20/dcn20_clk_mgr.h b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn20/dcn20_clk_mgr.h
-index b64a4e9d71d7..0b9c045b0c8e 100644
---- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn20/dcn20_clk_mgr.h
-+++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn20/dcn20_clk_mgr.h
-@@ -34,7 +34,7 @@ void dcn2_update_clocks_fpga(struct clk_mgr *clk_mgr,
- 			struct dc_state *context,
- 			bool safe_to_lower);
- void dcn20_update_clocks_update_dpp_dto(struct clk_mgr_internal *clk_mgr,
--		struct dc_state *context);
-+		struct dc_state *context, bool safe_to_lower);
+-	if (false == dc_construct(dc, init_params))
+-		goto construct_fail;
++	if (init_params->dce_environment == DCE_ENV_VIRTUAL_HW) {
++		if (false == dc_construct_ctx(dc, init_params)) {
++			dc_destruct(dc);
++			goto construct_fail;
++		}
++	} else {
++		if (false == dc_construct(dc, init_params)) {
++			dc_destruct(dc);
++			goto construct_fail;
++		}
++
++		full_pipe_count = dc->res_pool->pipe_count;
++		if (dc->res_pool->underlay_pipe_index != NO_UNDERLAY_PIPE)
++			full_pipe_count--;
++		dc->caps.max_streams = min(
++				full_pipe_count,
++				dc->res_pool->stream_enc_count);
  
- void dcn2_init_clocks(struct clk_mgr *clk_mgr);
+-	full_pipe_count = dc->res_pool->pipe_count;
+-	if (dc->res_pool->underlay_pipe_index != NO_UNDERLAY_PIPE)
+-		full_pipe_count--;
+-	dc->caps.max_streams = min(
+-			full_pipe_count,
+-			dc->res_pool->stream_enc_count);
++		dc->optimize_seamless_boot_streams = 0;
++		dc->caps.max_links = dc->link_count;
++		dc->caps.max_audios = dc->res_pool->audio_count;
++		dc->caps.linear_pitch_alignment = 64;
  
-diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr.c
-index de51ef12e33a..b02b4dc554a4 100644
---- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr.c
-+++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr.c
-@@ -164,16 +164,16 @@ void rn_update_clocks(struct clk_mgr *clk_mgr_base,
- 	}
+-	dc->optimize_seamless_boot_streams = 0;
+-	dc->caps.max_links = dc->link_count;
+-	dc->caps.max_audios = dc->res_pool->audio_count;
+-	dc->caps.linear_pitch_alignment = 64;
++		dc->caps.max_dp_protocol_version = DP_VERSION_1_4;
  
- 	if (dpp_clock_lowered) {
--		// if clock is being lowered, increase DTO before lowering refclk
--		dcn20_update_clocks_update_dpp_dto(clk_mgr, context);
-+		// increase per DPP DTO before lowering global dppclk
-+		dcn20_update_clocks_update_dpp_dto(clk_mgr, context, safe_to_lower);
- 		rn_vbios_smu_set_dppclk(clk_mgr, clk_mgr_base->clks.dppclk_khz);
- 	} else {
--		// if clock is being raised, increase refclk before lowering DTO
-+		// increase global DPPCLK before lowering per DPP DTO
- 		if (update_dppclk || update_dispclk)
- 			rn_vbios_smu_set_dppclk(clk_mgr, clk_mgr_base->clks.dppclk_khz);
- 		// always update dtos unless clock is lowered and not safe to lower
- 		if (new_clocks->dppclk_khz >= dc->current_state->bw_ctx.bw.dcn.clk.dppclk_khz)
--			dcn20_update_clocks_update_dpp_dto(clk_mgr, context);
-+			dcn20_update_clocks_update_dpp_dto(clk_mgr, context, safe_to_lower);
- 	}
+-	dc->caps.max_dp_protocol_version = DP_VERSION_1_4;
++		if (dc->res_pool->dmcu != NULL)
++			dc->versions.dmcu_version = dc->res_pool->dmcu->dmcu_version;
++	}
  
- 	if (update_dispclk &&
+ 	/* Populate versioning information */
+ 	dc->versions.dc_ver = DC_VER;
+ 
+-	if (dc->res_pool->dmcu != NULL)
+-		dc->versions.dmcu_version = dc->res_pool->dmcu->dmcu_version;
+-
+ 	dc->build_id = DC_BUILD_ID;
+ 
+ 	DC_LOG_DC("Display Core initialized\n");
+@@ -865,7 +887,8 @@ struct dc *dc_create(const struct dc_init_data *init_params)
+ 
+ void dc_hardware_init(struct dc *dc)
+ {
+-	dc->hwss.init_hw(dc);
++	if (dc->ctx->dce_environment != DCE_ENV_VIRTUAL_HW)
++		dc->hwss.init_hw(dc);
+ }
+ 
+ void dc_init_callbacks(struct dc *dc,
+diff --git a/drivers/gpu/drm/amd/display/dc/dc_types.h b/drivers/gpu/drm/amd/display/dc/dc_types.h
+index 2cce8ed014ac..b1a372c8df83 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc_types.h
++++ b/drivers/gpu/drm/amd/display/dc/dc_types.h
+@@ -60,7 +60,12 @@ enum dce_environment {
+ 	DCE_ENV_FPGA_MAXIMUS,
+ 	/* Emulation on real HW or on FPGA. Used by Diagnostics, enforces
+ 	 * requirements of Diagnostics team. */
+-	DCE_ENV_DIAG
++	DCE_ENV_DIAG,
++	/*
++	 * Guest VM system, DC HW may exist but is not virtualized and
++	 * should not be used.  SW support for VDI only.
++	 */
++	DCE_ENV_VIRTUAL_HW
+ };
+ 
+ /* Note: use these macro definitions instead of direct comparison! */
 -- 
 2.24.0
 
