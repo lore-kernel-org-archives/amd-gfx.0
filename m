@@ -2,96 +2,72 @@ Return-Path: <SRS0=BheJ=2B=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+X-Spam-Status: No, score=-9.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 41195C43603
-	for <amd-gfx@archiver.kernel.org>; Wed, 11 Dec 2019 15:33:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E93BAC2D0C6
+	for <amd-gfx@archiver.kernel.org>; Wed, 11 Dec 2019 15:33:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 184692077B
-	for <amd-gfx@archiver.kernel.org>; Wed, 11 Dec 2019 15:33:29 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id C04382077B
+	for <amd-gfx@archiver.kernel.org>; Wed, 11 Dec 2019 15:33:30 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="U6S/3F2Y"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 184692077B
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GUnT0C9Z"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C04382077B
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BC9A26EB7C;
-	Wed, 11 Dec 2019 15:33:28 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2045.outbound.protection.outlook.com [40.107.92.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 14C4E6EB7A
- for <amd-gfx@lists.freedesktop.org>; Wed, 11 Dec 2019 15:33:25 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=KdDQ3MpW+vfd0+TPoRXyfgV9VKClAYBNCZn1q2+a9aa0giMg95ZATxwoLoN/R3JxK584z67KQksJ8vIRCRbduNLKAcLkeOucI2WVE7ibF3xfUIzKNO0eu6xLk3F+ELgyZn+E8OUVogYF/uARlwAGCqbtluwJTbagIIuByWu9hAs11dyLYqUBUjPqRVzXTEb9jE53NFXwTo3BBVbB7QPQwUVaf3EcxYRZ4we/OzfZUbtA2UBDBTn2G4G8PRvszqONBdZLKCstSUtjaRizsaoLKXdKKPBYqf10sFJlr7NCZDsy8hSltp2ZDL+RnlctrRzW529Gzjn4cw8v63p8n6zb5w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=TeN9THpRcvY/4KIIiZnnIHLSLSsw+2u4XFBEe1DKvqw=;
- b=PHggREkmq+TicT+XjSzRQuTsvfsfMuhlms9+F3CV8ecATNMpFK2+pn9Qt8haWp4TytP8YwBhnJD4JQVRquwQyP3+tIhwClQ019IvYxvQ0S0IiZF/Qe40AIoU71rxb8FXRXDvFqXaQwZwUmybZgqrlhovGrgqqVCswHDtzGaTdcmBGWWm2gZBGjEhNXgwMyTe5nXUaD1fambKkKj2z9/OsZC8HJje1YyQ3CzK6lTEQglNBzLJMcOsBZsmMBXt0ki024cwJOEAe5GxaqZ0ek6YSZjjtbS8bjphpiKMKocYb5qG6p6lD7ZNdY4YZVZlb4I7fd9C05DElxExGiEfSP499Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=TeN9THpRcvY/4KIIiZnnIHLSLSsw+2u4XFBEe1DKvqw=;
- b=U6S/3F2YiXseC1eZSu9yn2JHRnhCivK9iy6T35dE0Oe5DUeZQyeh0hJcyz08D4q30lYtMCsUq8UPd2tX6pAIABwMqF3GKzwOq5ws7LZNlcqa54WvpvNK//V5ECnH/VR6yBOLPaeWgv97SiJd7o5L0yTs7v0HZHsBWl8Awqppshg=
-Authentication-Results: spf=none (sender IP is )
- smtp.mailfrom=Rodrigo.Siqueira@amd.com; 
-Received: from MW2PR12MB2524.namprd12.prod.outlook.com (52.132.180.155) by
- MW2PR12MB2426.namprd12.prod.outlook.com (52.132.184.27) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2538.15; Wed, 11 Dec 2019 15:33:24 +0000
-Received: from MW2PR12MB2524.namprd12.prod.outlook.com
- ([fe80::3d1f:4c20:e980:6e69]) by MW2PR12MB2524.namprd12.prod.outlook.com
- ([fe80::3d1f:4c20:e980:6e69%5]) with mapi id 15.20.2516.018; Wed, 11 Dec 2019
- 15:33:24 +0000
-From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5794E6EB7F;
+	Wed, 11 Dec 2019 15:33:29 +0000 (UTC)
+Received: from mail-qk1-x741.google.com (mail-qk1-x741.google.com
+ [IPv6:2607:f8b0:4864:20::741])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C882F6EB76
+ for <amd-gfx@lists.freedesktop.org>; Wed, 11 Dec 2019 15:33:24 +0000 (UTC)
+Received: by mail-qk1-x741.google.com with SMTP id a203so9852038qkc.3
+ for <amd-gfx@lists.freedesktop.org>; Wed, 11 Dec 2019 07:33:24 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=35PNvVRGYpWi6DDVnFLcE5DOGdIx1cVTLEY0N5Iozbg=;
+ b=GUnT0C9ZO5Zb1ZeDh2EzRfkKnrVaiNhwz6+XZ11J7ElHU37hEKk+yySKbBHbCwYHu6
+ uzNQIy0gytZC3Vy/Q19pBTes8c/rwWjCMB9PY5f9rqPRHicWXhKlqjZ2I2KiVGUabIHg
+ BhBqU7dQnT1B7WJkJR5aCgag4RRUbxewTDbnYH8sj2Cd5ooJZRZcuBMzaz8u8XDXpARj
+ AddmWw99sWHzhw2B0VHYrKcW8QgJnPvFkbycOxUux6GSXdpbsDgJsWluDGenvs1Iami2
+ 7H2mS/+eeQlVjUBIz1rAgW2uVDzE9RfoDC/6wKOGEe/hj6A+Hdo2aZ0dRTxJ3+BxTQeb
+ JMDg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=35PNvVRGYpWi6DDVnFLcE5DOGdIx1cVTLEY0N5Iozbg=;
+ b=VDOwdBpAW4McW1/plA8ciKMiZTkrmYYRoNxLBNDbIcifs1xgVwCNU/8GwdsCZrrZ5n
+ SRv7UXvgGPtLoeSML0IyY1R0xGI4em9dXnzbl1//svJJMsYAo9Q+gurgbE1V8jqUs6Ri
+ njVDEmUOkHqU++PRWRrjx0YFxJB7I5tEaUR1to7hoSfFL3Ib3ilIsuLBW2rCKaf67HGJ
+ Cgc+UextTMMgm+t7H6F/5eUotXVbNkTO8vsMcl7Vt73Z/QEfE+/0jX7Q0kIgmB67Pqsa
+ mhqh1YQtnzYulOqbIFzKsm9yAxSQwW+CXTbUsAYAa47wRzR+vbUSTmv+MOtEJF5uYC4n
+ SSWg==
+X-Gm-Message-State: APjAAAWiVz6141Gt9CqW5AaGpVdHcI0GhoRI4dhC/Usaiyrqc2ngg6qt
+ NYlTYLm2s2do4uzkSQZ1hqU9cue6
+X-Google-Smtp-Source: APXvYqzvqOaQHmUXQa7zlAzs2S7aqF6CGbzAAKOwEDt5Q1IWjd+0fJggUMSG6P8nXYWk5oHqSdN90w==
+X-Received: by 2002:a05:620a:b06:: with SMTP id
+ t6mr3585891qkg.373.1576078403509; 
+ Wed, 11 Dec 2019 07:33:23 -0800 (PST)
+Received: from localhost.localdomain ([71.219.59.120])
+ by smtp.gmail.com with ESMTPSA id p126sm752470qke.108.2019.12.11.07.33.22
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 11 Dec 2019 07:33:22 -0800 (PST)
+From: Alex Deucher <alexdeucher@gmail.com>
+X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 08/39] drm/amd/display: Add definition for number of backlight
- data points
-Date: Wed, 11 Dec 2019 10:32:22 -0500
-Message-Id: <20191211153253.2291112-9-Rodrigo.Siqueira@amd.com>
-X-Mailer: git-send-email 2.24.0
-In-Reply-To: <20191211153253.2291112-1-Rodrigo.Siqueira@amd.com>
-References: <20191211153253.2291112-1-Rodrigo.Siqueira@amd.com>
-X-ClientProxiedBy: YT1PR01CA0007.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01::20)
- To MW2PR12MB2524.namprd12.prod.outlook.com
- (2603:10b6:907:9::27)
+Subject: [PATCH] drm/amdgpu: fix license on Kconfig and Makefiles
+Date: Wed, 11 Dec 2019 10:33:16 -0500
+Message-Id: <20191211153316.1946311-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.23.0
 MIME-Version: 1.0
-X-Mailer: git-send-email 2.24.0
-X-Originating-IP: [165.204.55.250]
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: fe3fb4fb-1d61-48c4-fef0-08d77e4f759a
-X-MS-TrafficTypeDiagnostic: MW2PR12MB2426:|MW2PR12MB2426:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <MW2PR12MB24265DCCCD34C652F48BDD1D985A0@MW2PR12MB2426.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:3044;
-X-Forefront-PRVS: 024847EE92
-X-Forefront-Antispam-Report: SFV:NSPM;
- SFS:(10009020)(4636009)(376002)(136003)(346002)(396003)(366004)(39860400002)(199004)(189003)(86362001)(6512007)(1076003)(478600001)(54906003)(4326008)(6486002)(66556008)(66476007)(66946007)(2616005)(316002)(2906002)(81156014)(8676002)(26005)(36756003)(52116002)(8936002)(186003)(6916009)(81166006)(5660300002)(6506007);
- DIR:OUT; SFP:1101; SCL:1; SRVR:MW2PR12MB2426;
- H:MW2PR12MB2524.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; A:1; MX:1; 
-Received-SPF: None (protection.outlook.com: amd.com does not designate
- permitted sender hosts)
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: u9UADsClvg4pe+YwCDV/gHOSFCTMA8eQvbyXsxLYfAv8pT4MRjzMh+i4Ab6+yxwzkYoABXMDNEGtsCdfn/7avvindaBAA7OqQP779nghu52EQH8OPWkzELOj7awW/51GrvOhw+U1VJJvJrn0zNU0dtRJ8QBFT4ZJ+7Lc6b3+4aQyb4w/vyE6Oc6U4nZe9uPKM7kGsNX4gRREtTZU06w0xiqI4/59nCx8mwhgROxjfZLrVRY2fWffRGGCMu90Ji84BeNFKDjjoesXubiA4mL8NLwQldFVjfeWqWdNvWxsRfs/c9gu85JyUYXEu4Dc2sVxXLt3c/qNjMUasAcL8h8KC580cK4FKTUKRm2rOltmNSq0bnHWmbKfl+FAfVOixxjPLY/g+6ReD4dpE9Q5L1QZTfzMNxG4lREuPPwiSxedH85g1kNqlsfUlWR6ziKPsElE
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: fe3fb4fb-1d61-48c4-fef0-08d77e4f759a
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Dec 2019 15:33:23.9511 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: g7g7+x+T55Jqx8ujzULG3+u8LHOnXahj3wx2HpFm5aLS88n25yZvrzY10GSjU0yar5COlvUR95NemsfKCwEbiQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW2PR12MB2426
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,51 +79,95 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sunpeng.Li@amd.com, Bhawanpreet.Lakha@amd.com, Harry.Wentland@amd.com,
- Camille Cho <Camille.Cho@amd.com>, Anthony Koo <Anthony.Koo@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Camille Cho <Camille.Cho@amd.com>
+amdgpu is MIT licensed.
 
-[Why]
-A hardcoded number is used today
-
-[How]
-Add definition for number of BL data points
-
-Signed-off-by: Camille Cho <Camille.Cho@amd.com>
-Reviewed-by: Anthony Koo <Anthony.Koo@amd.com>
-Acked-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+Fixes: ec8f24b7faaf3d ("treewide: Add SPDX license identifier - Makefile/Kconfig")
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/dm_services_types.h | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/acp/Kconfig               | 2 +-
+ drivers/gpu/drm/amd/amdgpu/Kconfig            | 2 +-
+ drivers/gpu/drm/amd/amdkfd/Kconfig            | 2 +-
+ drivers/gpu/drm/amd/display/Kconfig           | 2 +-
+ drivers/gpu/drm/amd/display/dc/dcn20/Makefile | 1 +
+ drivers/gpu/drm/amd/display/dc/dcn21/Makefile | 1 +
+ drivers/gpu/drm/amd/display/dc/dsc/Makefile   | 1 +
+ 7 files changed, 7 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dm_services_types.h b/drivers/gpu/drm/amd/display/dc/dm_services_types.h
-index a3d1be20dd9d..b52ba6ffabe1 100644
---- a/drivers/gpu/drm/amd/display/dc/dm_services_types.h
-+++ b/drivers/gpu/drm/amd/display/dc/dm_services_types.h
-@@ -220,6 +220,7 @@ struct dm_bl_data_point {
- };
+diff --git a/drivers/gpu/drm/amd/acp/Kconfig b/drivers/gpu/drm/amd/acp/Kconfig
+index 19bae9100da4..13340f353ea8 100644
+--- a/drivers/gpu/drm/amd/acp/Kconfig
++++ b/drivers/gpu/drm/amd/acp/Kconfig
+@@ -1,4 +1,4 @@
+-# SPDX-License-Identifier: GPL-2.0-only
++# SPDX-License-Identifier: MIT
+ menu "ACP (Audio CoProcessor) Configuration"
  
- /* Total size of the structure should not exceed 256 bytes */
-+#define BL_DATA_POINTS 99
- struct dm_acpi_atif_backlight_caps {
- 	uint16_t size; /* Bytes 0-1 (2 bytes) */
- 	uint16_t flags; /* Byted 2-3 (2 bytes) */
-@@ -229,7 +230,7 @@ struct dm_acpi_atif_backlight_caps {
- 	uint8_t  min_input_signal; /* Byte 7 */
- 	uint8_t  max_input_signal; /* Byte 8 */
- 	uint8_t  num_data_points; /* Byte 9 */
--	struct dm_bl_data_point data_points[99]; /* Bytes 10-207 (198 bytes)*/
-+	struct dm_bl_data_point data_points[BL_DATA_POINTS]; /* Bytes 10-207 (198 bytes)*/
- };
+ config DRM_AMD_ACP
+diff --git a/drivers/gpu/drm/amd/amdgpu/Kconfig b/drivers/gpu/drm/amd/amdgpu/Kconfig
+index 2e98c016cb47..9375e7f12420 100644
+--- a/drivers/gpu/drm/amd/amdgpu/Kconfig
++++ b/drivers/gpu/drm/amd/amdgpu/Kconfig
+@@ -1,4 +1,4 @@
+-# SPDX-License-Identifier: GPL-2.0-only
++# SPDX-License-Identifier: MIT
+ config DRM_AMDGPU_SI
+ 	bool "Enable amdgpu support for SI parts"
+ 	depends on DRM_AMDGPU
+diff --git a/drivers/gpu/drm/amd/amdkfd/Kconfig b/drivers/gpu/drm/amd/amdkfd/Kconfig
+index ba0e68057a89..b3672d10ea54 100644
+--- a/drivers/gpu/drm/amd/amdkfd/Kconfig
++++ b/drivers/gpu/drm/amd/amdkfd/Kconfig
+@@ -1,4 +1,4 @@
+-# SPDX-License-Identifier: GPL-2.0-only
++# SPDX-License-Identifier: MIT
+ #
+ # Heterogenous system architecture configuration
+ #
+diff --git a/drivers/gpu/drm/amd/display/Kconfig b/drivers/gpu/drm/amd/display/Kconfig
+index 2a2f621c0d6c..87858bc57e64 100644
+--- a/drivers/gpu/drm/amd/display/Kconfig
++++ b/drivers/gpu/drm/amd/display/Kconfig
+@@ -1,4 +1,4 @@
+-# SPDX-License-Identifier: GPL-2.0-only
++# SPDX-License-Identifier: MIT
+ menu "Display Engine Configuration"
+ 	depends on DRM && DRM_AMDGPU
  
- enum dm_acpi_display_type {
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/Makefile b/drivers/gpu/drm/amd/display/dc/dcn20/Makefile
+index 2eeb03818072..5fcaf78334ff 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn20/Makefile
++++ b/drivers/gpu/drm/amd/display/dc/dcn20/Makefile
+@@ -1,3 +1,4 @@
++# SPDX-License-Identifier: MIT
+ #
+ # Makefile for DCN.
+ 
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn21/Makefile b/drivers/gpu/drm/amd/display/dc/dcn21/Makefile
+index b3688900d211..07684d3e375a 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn21/Makefile
++++ b/drivers/gpu/drm/amd/display/dc/dcn21/Makefile
+@@ -1,3 +1,4 @@
++# SPDX-License-Identifier: MIT
+ #
+ # Makefile for DCN21.
+ 
+diff --git a/drivers/gpu/drm/amd/display/dc/dsc/Makefile b/drivers/gpu/drm/amd/display/dc/dsc/Makefile
+index 7415b8bf6318..3f66868df171 100644
+--- a/drivers/gpu/drm/amd/display/dc/dsc/Makefile
++++ b/drivers/gpu/drm/amd/display/dc/dsc/Makefile
+@@ -1,3 +1,4 @@
++# SPDX-License-Identifier: MIT
+ #
+ # Makefile for the 'dsc' sub-component of DAL.
+ 
 -- 
-2.24.0
+2.23.0
 
 _______________________________________________
 amd-gfx mailing list
