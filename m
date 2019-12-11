@@ -7,40 +7,40 @@ X-Spam-Status: No, score=-9.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 73768C2D0CA
-	for <amd-gfx@archiver.kernel.org>; Wed, 11 Dec 2019 15:33:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 46516C00454
+	for <amd-gfx@archiver.kernel.org>; Wed, 11 Dec 2019 15:33:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4A6AC2173E
-	for <amd-gfx@archiver.kernel.org>; Wed, 11 Dec 2019 15:33:42 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 1C7482173E
+	for <amd-gfx@archiver.kernel.org>; Wed, 11 Dec 2019 15:33:43 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="Lt0gxz3u"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4A6AC2173E
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="TCVkiDte"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1C7482173E
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A5FD16EB8D;
-	Wed, 11 Dec 2019 15:33:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B35906EB84;
+	Wed, 11 Dec 2019 15:33:43 +0000 (UTC)
 Received: from NAM02-CY1-obe.outbound.protection.outlook.com
- (mail-eopbgr760070.outbound.protection.outlook.com [40.107.76.70])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 635EC6EB7A
- for <amd-gfx@lists.freedesktop.org>; Wed, 11 Dec 2019 15:33:40 +0000 (UTC)
+ (mail-eopbgr760045.outbound.protection.outlook.com [40.107.76.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 605006EB8C
+ for <amd-gfx@lists.freedesktop.org>; Wed, 11 Dec 2019 15:33:41 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=FtBq+hm6PqPvvlH60IHIiumxgSvxrHaL0c838vKX1OaBJURyqhauTRWjgoyNOcTWR9sbKZFcKmY+StFRVc0j3jfeAs1YIe19qsSN8lugTFzZe1iaBJVyWbjCT9WQIwzfUumGrFDl6L6YeamO4hel/2Q2CQDmtHuqszmrvCrKYhzbomz+M58Rxz6Iwy7SAlVfHGib+XHsH791rOPjCXlNm9blKhoZbAxNENCxDzjLYpfru8CIx97ZDwBgFhiHb7ZcAr5toh6VmfpjQtvS0Bn1Ym+s5lzZ8U5rKQEyt5qJ/RG/isQEzQJUbcFPp4+3ZVaCFJzw7nsI/p59GWwRTnkD3g==
+ b=aWv5S75NQXmd6eqYWF5HeFJNOCyCYUNII3CwRvKBzA83kiqaVNuYGZX6CGhlR/+6quvStZP1priRRGvYsMgh5m1HJP4BolobTjvwqYBq2tIw1UqTrlpwglv6yNWj5riQgkE+NFY97zo6Cqzktmc8Fj/bM7xzNlMMju4zdWfasppFSB1A+HDj9rdSWuPUV2G/cu5s4ioHK7nD4WwOosExoQ6/NcQU8XNIpsQmQNneJhN4liqJVTQugfMYjJhM1K04lENoZsj5Z3FrWC9sSJazs2OiFT4OaBWeVYSSBkswbMvr8vmckyUGaumvOOMrjus1nRp/qp552v87COzfErOaeA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6NW5l5Qi4D67sCYkp84iqislcOwgtF86QMImdm9Iwlo=;
- b=JCb2f7u4jUt80naWlkRiLzoCQeNSfAbyUhoJAJ03PPEWI4v9kvjXp1MCJVmb3cc3quSDBW9iGAxRbLfa6u9FW/HV1xmtKTMWsMCh6l7zbD/D2Rrw1YnGZOirFoUwsoLj/B4UC+fTEwjTqpW+OJU/MteiJ8VOlGfgWUjdvYVXohqsoZOqpE36KJ6toyQjJN2Lc2Iou3Hr5IHI2GymXhKaDKghgy4mjHMXrauq7g+WQAf3MT5pBY7uq7+KIHprYJZgeNAdA6yot0AzOjwxh4/vLUdpyeUg4pWv3ZldLPPzDANz3kRLbjGyDu9p/UTKwhGdVYNvKlpSUUbkbxCi/NQGuw==
+ bh=MU25GB8ryZFcsSsOe4vjO26PPYCVN6F+PuSDWAOr0n8=;
+ b=XARfpcYE+oy8d3yLRUV+SJCRYzzqk1erimoBYY1QtSKrTlgzVseE87lrXc/OmMmwGzxlMuuFaEOFEiLsS/1eyiV2KfWInUMcoAVzd9Umn2UtraSNJqn4iWdHgbdYgYeQt6U1D/Br5SAK5thYgLJywmf6Yjb4rPEY8wf/DXiP4gV8PJjn5lVDWutQ/zrl6AHeReSKQrvCnRTw1MY0nxaWSrbN2qMuP12FodFYqJ42zNvDiQsi6621OQv9zYJ4Y9+1cXbD6CmmbWT/s4g/kzc+ApHA/JowL4mURwYtsQL6/JzLLfnzESxUm9RVlvTuh0GFo4+VpNUnimSdu66x35LKcw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6NW5l5Qi4D67sCYkp84iqislcOwgtF86QMImdm9Iwlo=;
- b=Lt0gxz3uW5GMXfSwOH210bz/TWuzlejLkcWlNpMh0GoyBLHvjVXNt/Sj7lJmNQWfxJx9wPQRXLeasgUTqQlblgkdmFb0oH7abnNmdouV31o1a8fVHRotIK3BjM0oZOEzcNmJf9PM+UTvXdipAVsnRxSbdDum4a/sqvTaJmc03aI=
+ bh=MU25GB8ryZFcsSsOe4vjO26PPYCVN6F+PuSDWAOr0n8=;
+ b=TCVkiDtetAWGGPBUpg/+2WPWvOKWmUg3sRbhak+vee680HsyF/oVKmVfwFo/2WvBe1S0aNXRqqeHtdSHBBK2mJJXEFqXrQkpl4jFYTiGnXADPzldL8ffpxlMzVORnFhP4t4XbloHeRNzhUh5tuwhEU1hjS/9NpdzWQLY71s2Y7w=
 Authentication-Results: spf=none (sender IP is )
  smtp.mailfrom=Rodrigo.Siqueira@amd.com; 
 Received: from MW2PR12MB2524.namprd12.prod.outlook.com (52.132.180.155) by
@@ -53,10 +53,9 @@ Received: from MW2PR12MB2524.namprd12.prod.outlook.com
  15:33:39 +0000
 From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 25/39] drm/amd/display: Specified VR patch skip to reset
- segment to 0
-Date: Wed, 11 Dec 2019 10:32:39 -0500
-Message-Id: <20191211153253.2291112-26-Rodrigo.Siqueira@amd.com>
+Subject: [PATCH 26/39] drm/amd/display: Remove reliance on pipe indexing
+Date: Wed, 11 Dec 2019 10:32:40 -0500
+Message-Id: <20191211153253.2291112-27-Rodrigo.Siqueira@amd.com>
 X-Mailer: git-send-email 2.24.0
 In-Reply-To: <20191211153253.2291112-1-Rodrigo.Siqueira@amd.com>
 References: <20191211153253.2291112-1-Rodrigo.Siqueira@amd.com>
@@ -68,14 +67,14 @@ X-Mailer: git-send-email 2.24.0
 X-Originating-IP: [165.204.55.250]
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 87e40173-b5ab-498d-002f-08d77e4f7e99
+X-MS-Office365-Filtering-Correlation-Id: 59babe23-186b-4fe9-cb51-08d77e4f7f21
 X-MS-TrafficTypeDiagnostic: MW2PR12MB2491:|MW2PR12MB2491:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <MW2PR12MB2491285F172EA5D510E47A7B985A0@MW2PR12MB2491.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:4502;
+X-Microsoft-Antispam-PRVS: <MW2PR12MB2491AFA775CEAE51107830CB985A0@MW2PR12MB2491.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:7691;
 X-Forefront-PRVS: 024847EE92
 X-Forefront-Antispam-Report: SFV:NSPM;
- SFS:(10009020)(4636009)(396003)(346002)(376002)(39860400002)(366004)(136003)(189003)(199004)(6486002)(6512007)(6916009)(8936002)(5660300002)(2906002)(86362001)(52116002)(2616005)(478600001)(66476007)(316002)(186003)(8676002)(81156014)(81166006)(54906003)(36756003)(4326008)(4744005)(1076003)(26005)(66946007)(66556008)(6506007);
+ SFS:(10009020)(4636009)(396003)(346002)(376002)(39860400002)(366004)(136003)(189003)(199004)(6486002)(6512007)(6916009)(8936002)(5660300002)(2906002)(6666004)(86362001)(52116002)(2616005)(478600001)(66476007)(316002)(186003)(8676002)(81156014)(81166006)(54906003)(36756003)(4326008)(1076003)(26005)(66946007)(66556008)(6506007);
  DIR:OUT; SFP:1101; SCL:1; SRVR:MW2PR12MB2491;
  H:MW2PR12MB2524.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
  PTR:InfoNoRecords; MX:1; A:1; 
@@ -83,14 +82,14 @@ Received-SPF: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: rKcG3m3N57GSbVps1Ux6tQOLON7Il+zU8LyPpzjlGHLC6MXgP2DrgdUZi4TBFGTGP4uUyQdpsmC7Oz1aRXZZeKCorXbpKRn6S5pqq9Ywx/JGIwndjWyO3phb09hCbY9QGpzAhCT8xEm7KcBmqsdO4rrHU1a31HChi7yRJ2hKoD10KyW1QnXKqkxu6DeUa1UvrLiZzMo+BJnIj0hHOz2HGmatgXVwP5poW7P9An1VbaS00r/YBm3Nxk3cG4H603dcOKLo4+tIpl3A/lkRuNkmwdUOrisFt4EISqSx2Lfif9+DJn1pW7zN0rvRDqB3fhzxHg5j6ZJO2Bq3/nlF+O4xoIwJNvdgXeYxY51PqdbWFn9+k3po/Bu5jzZOU8k/QtsIy2VTjFSvhxQu6FzcLhx7AzjBZa2bNvXJNz0MQZ50Fc7lo/0sr6/N3oBuyzWR4x4W
+X-Microsoft-Antispam-Message-Info: U7PmZMhh0kC9n11gR5ssmJb8WRW/E/vC6fjzwAJrG3IbFBdhcD70ddOuirCkGWhFvBAF/WIXvAIXZ1THAbyp4+E1kd4O5Z9sNZQzfRKwSginoIZ/fv78ZLF9JHPPPCc+tO84yl9qiR7wPo6WPYLP6FnG0lPuvynKsCEOxP/kdVQVH7NDByhUoqukyW/EVlNFwFmGSw+HhdEb9GV1X9DPBl0PQwAuh95FI/xr0TOLrXNmsHlE2uI9Nmm4AH+CAb+wAsAPg5Ap7zNZfXmp4FPHUGThhtSycR8dbL2g5aEm0tKheEQVgJG5C1dZ/vBaKKJzapGTis20NFRNq7/MllQ0blCciYH0FjR3h8BGTuVqVn/NLiSQflsJ76UcasdILCIsGLc3DOSLUhAGlf3cSnjO/jj8mO0047X4iI4OlhxckkZJtXIQZnEjU+M8yAUpmjOp
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 87e40173-b5ab-498d-002f-08d77e4f7e99
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Dec 2019 15:33:39.0475 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 59babe23-186b-4fe9-cb51-08d77e4f7f21
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Dec 2019 15:33:39.8610 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 1Or00qppPGE0j5QkFhGg2h3JDcdfhxoK8Gy4zwCcSAHYzj1bhEhgVPvTj1ODUTbb96aGGqxQXMFTiNm6Em17sQ==
+X-MS-Exchange-CrossTenant-UserPrincipalName: P2aDa65/i9DUzaPNlGXuwvrS4+k+rtxRF2zm4Zkswkkw53c1NDjxUGf7pokZ2P4QKsexSSDHk1RUiLTz7aBSOw==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW2PR12MB2491
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -103,42 +102,58 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Aric Cyr <Aric.Cyr@amd.com>, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
- Derek Lai <Derek.Lai@amd.com>, Bhawanpreet.Lakha@amd.com,
- Anthony Koo <Anthony.Koo@amd.com>
+Cc: Sunpeng.Li@amd.com, Bhawanpreet.Lakha@amd.com,
+ Yongqiang Sun <yongqiang.sun@amd.com>, Harry.Wentland@amd.com,
+ Noah Abradjian <noah.abradjian@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Derek Lai <Derek.Lai@amd.com>
+From: Noah Abradjian <noah.abradjian@amd.com>
 
 [Why]
-After read the 3rd Edid blocks, we will reset segment to 0,
-which causes this VR fail to read Edid successfully.
+In certain instances, there was a reliance on pipe indexing being accurate. However, this
+assumption fails with harvesting of pipes 1 or 2, which can occur in production B6 parts.
+HW hang would occur as a result.
 
 [How]
-Skip to reset segment to 0 for this VR device.
+Use hubp index for mpcc, and do mpc_init for all theoretical pipes (including disabled ones).
 
-Signed-off-by: Derek Lai <Derek.Lai@amd.com>
-Reviewed-by: Aric Cyr <Aric.Cyr@amd.com>
-Acked-by: Anthony Koo <Anthony.Koo@amd.com>
+Signed-off-by: Noah Abradjian <noah.abradjian@amd.com>
+Reviewed-by: Yongqiang Sun <yongqiang.sun@amd.com>
 Acked-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/dc_link.h | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c | 3 ++-
+ drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c        | 2 +-
+ 2 files changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dc_link.h b/drivers/gpu/drm/amd/display/dc/dc_link.h
-index 1ff79f703734..f420aeac7fbd 100644
---- a/drivers/gpu/drm/amd/display/dc/dc_link.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc_link.h
-@@ -133,6 +133,7 @@ struct dc_link {
- 	struct link_flags {
- 		bool dp_keep_receiver_powered;
- 		bool dp_skip_DID2;
-+		bool dp_skip_reset_segment;
- 	} wa_flags;
- 	struct link_mst_stream_allocation_table mst_stream_alloc_table;
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
+index aa389dea279d..9e53bbd5d2b5 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
+@@ -1163,7 +1163,8 @@ void dcn10_init_pipes(struct dc *dc, struct dc_state *context)
+ 		}
+ 	}
+ 
+-	for (i = 0; i < dc->res_pool->pipe_count; i++) {
++	/* num_opp will be equal to number of mpcc */
++	for (i = 0; i < dc->res_pool->res_cap->num_opp; i++) {
+ 		struct pipe_ctx *pipe_ctx = &context->res_ctx.pipe_ctx[i];
+ 
+ 		/* Cannot reset the MPC mux if seamless boot */
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
+index 3706299906e4..aa00fbe49c6e 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
+@@ -1356,7 +1356,7 @@ static void dcn20_update_dchubp_dpp(
+ 			|| plane_state->update_flags.bits.global_alpha_change
+ 			|| plane_state->update_flags.bits.per_pixel_alpha_change) {
+ 		// MPCC inst is equal to pipe index in practice
+-		int mpcc_inst = pipe_ctx->pipe_idx;
++		int mpcc_inst = hubp->inst;
+ 		int opp_inst;
+ 		int opp_count = dc->res_pool->pipe_count;
  
 -- 
 2.24.0
