@@ -7,103 +7,90 @@ X-Spam-Status: No, score=-9.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id F0DF8C43603
-	for <amd-gfx@archiver.kernel.org>; Wed, 11 Dec 2019 07:36:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 54D36C43603
+	for <amd-gfx@archiver.kernel.org>; Wed, 11 Dec 2019 07:36:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id AC5FD2054F
-	for <amd-gfx@archiver.kernel.org>; Wed, 11 Dec 2019 07:36:09 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 27F1B2054F
+	for <amd-gfx@archiver.kernel.org>; Wed, 11 Dec 2019 07:36:29 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="bRgipagN"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AC5FD2054F
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="AcnDWQJr"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 27F1B2054F
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 53BDE6E9EE;
-	Wed, 11 Dec 2019 07:36:09 +0000 (UTC)
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com
- (mail-eopbgr770087.outbound.protection.outlook.com [40.107.77.87])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8F2906E9EE
- for <amd-gfx@lists.freedesktop.org>; Wed, 11 Dec 2019 07:36:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C85E66E9F8;
+	Wed, 11 Dec 2019 07:36:28 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2045.outbound.protection.outlook.com [40.107.220.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E8B0C6E9F8
+ for <amd-gfx@lists.freedesktop.org>; Wed, 11 Dec 2019 07:36:27 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=O1AQJCbciD3ZM3b3UZqjLLr9FeJWPUrArhbNwKKpdaVmO2gJIr52dCjV4IpZflG6O6CALA3UM+QuagzBQO1fFN1Mwx3cw+DpDYRTEBDVv2i+i4t2b6tTTuN3Ej+S6wtNa5ene/qPoluwjvrQRH1OEgi9r0SUNp0WGvI9iHLZFJNvuA/7gv2Kx3MBuNuVqZbbwjjLsQoC141uryJqCYjwE4fEHUzHUtecDydNENw08S+w1+t0UGD94DChIcrAPappZpdZQCdsexa/pLhYzg4A+LheIzNLde9rhRMr1X90DJgfWnlzZV4f57ZltQ+a6I/79Iig/s2YI+5W1K7LI4hWxQ==
+ b=N6sugP4VfLchm40sVt8PHyxtH34Dq4mV9ALiAGZNetkqTmN5W38G2cFdfO0hlmTAqQfNaM1dDy1OoqJ7vEIJgck2RwZzaZ80yH7coXD4TX3pDi84tFRhCi+Eil+eMQftUjf10f+SPVHx+ff8rjQJO6nmNBTg6I+MMenbUb9Sh232GhXEdB7SQ5d+tXFDXKFHc90aNv3E0uiVp+/4yJjYJuTnqcWVOtUX+oNujrG/d7wu6FthLb48zc9gwg1WV79qU4esqRytzGAt+58BYgcSunLKUTANqY0CQTwGdbLtN179iC5vxDRMkydGek8xiokVvig7XhOEEgNV/1spW+gngA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Qy2r5L2Qb9ry0mM68D5iXj2GkwgwXRBKwakEDQnZ4cE=;
- b=cbaKt7goKuPTysuUxNT+YlSyRgdmqb3vL4QdVmFbSPNwnqfXqq+r8MKqNohrRNVs0Fpk0zO2EN7y9BOE+E2BNHIL7FpEr8IViwErQjbDBtWFdBAREfw2X6SEbHUUPprCOhO7IisIOOJwPrCvLG7taeCwoo/6NUdXJ0LzgtyOz7NCJJYno2Yidz2QoTllfoLTL9T2EE64NGSZYzZJ3Sl8o+9yK8jDkLvQ1I63jF1ycf1B05mpGVaLkrKXm01iVou6tqRBM6nZnX+jSWCvOvmcV2qFttZIjhxAXJ0TY2zcKI7R5TqGD/M5yeCBejlciCMJ6TZJnd7F4xBcV2zNDM7yCw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=permerror action=none header.from=amd.com; dkim=none (message not
- signed); arc=none
+ bh=MmZBjnpqdT3fV+wkJ+H+KwGSVCNffy/ZkfRBhXyMnnM=;
+ b=cPIYTaLfM746y14aKekBNlMEZpPbOomzKNI7H4csnqBvi5alzqFklvdel5MlXSWO7o98DNA/8f+lkRT3TXxKSzepgb58X+mYmei/9sy0JdJvVdQiNlvBA5qkblo6LPsbXucAW+lE/hgZpup0Vnqz0A/JLm9TJxHAJDm6wpwrEIG8rl8u30aWA8hvs+HHBsSf8Dll3EbbjvOL3PSoe6nR/m2HKYMj6T4qNHE6EVKIOYLIrGx216b74RGoh+CH7KvP/X8MSK40+q62wSxQzeqPAA561bspHtBAbfyziTMtq27EVrJHw9nhmUV+2uFjWNPqHSnUVhQsjxFzXvAmkFc4xw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Qy2r5L2Qb9ry0mM68D5iXj2GkwgwXRBKwakEDQnZ4cE=;
- b=bRgipagNk+kD+AL3rHR5EEq7lWoUU4DO5k3AyhfOT6s1kNFNsYv/7cIsVJIn2rk6mlbW8Hu8R7Ll5iBtuSPovkDn4+S8HvD1hwIlkGPdBrNVLd2mb/ziWdMQeS4E91+UcNIusWQoUqvrJLupM5puIm0U1ef4qkMcrPA6+9fIRbQ=
-Received: from SN1PR12CA0079.namprd12.prod.outlook.com (2603:10b6:802:21::14)
- by SN1PR12MB2590.namprd12.prod.outlook.com (2603:10b6:802:2e::17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2516.13; Wed, 11 Dec
- 2019 07:36:07 +0000
-Received: from BN8NAM11FT061.eop-nam11.prod.protection.outlook.com
- (2a01:111:f400:7eae::204) by SN1PR12CA0079.outlook.office365.com
- (2603:10b6:802:21::14) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2538.15 via Frontend
- Transport; Wed, 11 Dec 2019 07:36:07 +0000
-Authentication-Results: spf=none (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
- header.d=none;lists.freedesktop.org; dmarc=permerror action=none
- header.from=amd.com;
+ bh=MmZBjnpqdT3fV+wkJ+H+KwGSVCNffy/ZkfRBhXyMnnM=;
+ b=AcnDWQJrSCTVqH7ZIB/brgSHXoC+EW2Vy6hXs04vHLD/8hQRLX8dvFgo7wOyqLKFkRzbAXufHWOFoaQ91opcKn37kqI0cScrnFS9PFwR5HUQAgkOZEptV4LJUDBR+4jEXUz37w4e0meEXhtI1vePkbUeGkfDuiO2UGL/onXF8GI=
+Authentication-Results: spf=none (sender IP is )
+ smtp.mailfrom=Changfeng.Zhu@amd.com; 
+Received: from MN2PR12MB2896.namprd12.prod.outlook.com (20.179.80.214) by
+ MN2PR12MB3901.namprd12.prod.outlook.com (10.255.238.219) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2538.15; Wed, 11 Dec 2019 07:36:26 +0000
+Received: from MN2PR12MB2896.namprd12.prod.outlook.com
+ ([fe80::9821:4373:684f:f580]) by MN2PR12MB2896.namprd12.prod.outlook.com
+ ([fe80::9821:4373:684f:f580%6]) with mapi id 15.20.2516.018; Wed, 11 Dec 2019
+ 07:36:26 +0000
+From: "Changfeng.Zhu" <changfeng.zhu@amd.com>
+To: amd-gfx@lists.freedesktop.org, Christian.Koenig@amd.com, Ray.Huang@amd.com,
+ Xinmei.Huang@amd.com, Alexander.Deucher@amd.com
+Subject: [PATCH 1/2] drm/amdgpu: add invalidate semaphore limit for SRIOV and
+ picasso in gmc9
+Date: Wed, 11 Dec 2019 15:36:05 +0800
+Message-Id: <20191211073605.27847-1-changfeng.zhu@amd.com>
+X-Mailer: git-send-email 2.17.1
+X-ClientProxiedBy: HK0PR03CA0112.apcprd03.prod.outlook.com
+ (2603:1096:203:b0::28) To MN2PR12MB2896.namprd12.prod.outlook.com
+ (2603:10b6:208:ab::22)
+MIME-Version: 1.0
+X-Mailer: git-send-email 2.17.1
+X-Originating-IP: [180.167.199.189]
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: 30b88a65-1aa5-47dc-5441-08d77e0cd425
+X-MS-TrafficTypeDiagnostic: MN2PR12MB3901:|MN2PR12MB3901:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <MN2PR12MB3901A397EF934D9F320E89E5FD5A0@MN2PR12MB3901.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:6430;
+X-Forefront-PRVS: 024847EE92
+X-Forefront-Antispam-Report: SFV:NSPM;
+ SFS:(10009020)(4636009)(136003)(366004)(376002)(346002)(39860400002)(396003)(189003)(199004)(81166006)(4326008)(36756003)(81156014)(316002)(66476007)(6506007)(478600001)(8676002)(6636002)(66946007)(66556008)(186003)(1076003)(26005)(6486002)(6666004)(86362001)(2616005)(8936002)(5660300002)(2906002)(52116002)(6512007);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:MN2PR12MB3901;
+ H:MN2PR12MB2896.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; MX:1; A:1; 
 Received-SPF: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
-Received: from SATLEXMB02.amd.com (165.204.84.17) by
- BN8NAM11FT061.mail.protection.outlook.com (10.13.177.144) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.2538.14 via Frontend Transport; Wed, 11 Dec 2019 07:36:06 +0000
-Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB02.amd.com
- (10.181.40.143) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Wed, 11 Dec
- 2019 01:36:06 -0600
-Received: from SATLEXMB01.amd.com (10.181.40.142) by SATLEXMB06.amd.com
- (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Wed, 11 Dec
- 2019 01:36:06 -0600
-Received: from swae-HP-ProBook-455R-G6.amd.com (10.180.168.240) by
- SATLEXMB01.amd.com (10.181.40.142) with Microsoft SMTP Server id 15.1.1713.5
- via Frontend Transport; Wed, 11 Dec 2019 01:36:04 -0600
-From: Louis Li <Ching-shih.Li@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH v3] drm/amd/display: Fix AppleDongle can't be detected
-Date: Wed, 11 Dec 2019 15:33:38 +0800
-Message-ID: <20191211073338.25373-1-Ching-shih.Li@amd.com>
-X-Mailer: git-send-email 2.21.0
-MIME-Version: 1.0
-X-EOPAttributedMessage: 0
-X-MS-Office365-Filtering-HT: Tenant
-X-Forefront-Antispam-Report: CIP:165.204.84.17; IPV:NLI; CTRY:US; EFV:NLI;
- SFV:NSPM;
- SFS:(10009020)(4636009)(136003)(396003)(39860400002)(346002)(376002)(428003)(189003)(199004)(70206006)(70586007)(36756003)(86362001)(4326008)(7696005)(5660300002)(478600001)(26005)(336012)(6666004)(426003)(8676002)(6916009)(2616005)(1076003)(316002)(186003)(81166006)(81156014)(356004)(8936002)(2906002)(54906003);
- DIR:OUT; SFP:1101; SCL:1; SRVR:SN1PR12MB2590; H:SATLEXMB02.amd.com; FPR:;
- SPF:None; LANG:en; PTR:InfoDomainNonexistent; MX:1; A:1; 
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 108f0a90-3cff-4c73-9d45-08d77e0cc8bf
-X-MS-TrafficTypeDiagnostic: SN1PR12MB2590:
-X-Microsoft-Antispam-PRVS: <SN1PR12MB259062CBFD283B2FA12CC68CAA5A0@SN1PR12MB2590.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:7691;
-X-Forefront-PRVS: 024847EE92
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 7dhg7s7PDG8PfIfkU7jiiA64lqP3bsFsqRXSNXEsHodd/n91iGH6qP6Kxsuc/vWFNDI+O1iJ0U8NNLPM3rXLuzpjru4dwduWnpRlhSt4fNrqiN9DIzAeJJxz861L+68Ttf973Ux7TF3GNrzOyonM2BPMTUtQs9Hbqw1esPGu88LXpxPgcfQdIK8gZyNPIkamI24+g6OQbuc1zPBn2UaxAHO6RXrne3eW5yK+Y9kXzwZhuMyc3qThtMCHNArLQXOzBXyIDAok6f9QLRLMv9tPzWgWgYwtfO7Ia6EQTG8HoLkooKvz6AqbzmgsaQuE9ypSaU7ZYuoFceS6lEDTziZ3XRCxju+jjadJzQMWk6bgVvMHXpnitwt4c/bU+sc+Qyzc0ImojbHrjAAIE1oUO5kU2gIA+Fk/6h2icAcVFWF3H5Yz8ibRA+AZM/xafV7nKCn1
+X-Microsoft-Antispam-Message-Info: e2rlL9dk9y8OkVGYBcMGoXz5HFJGktJ74eOO7LC8AZeLxnBi7AGJ0ZW0KNfExtuCbwpuq9rUPwbDn22/F8MwYkw8uXhNQxETahfQmrSqQjOmDurILsMh153YxDEC8t9T21hojOsYCn29TSzBJ4r+vUAOi7+Ih1T8jYcvXoPoE3cM7J05IJAupiaZUj7lexSjrcqF+xtO4q1+1BtgmT2Uei3XskFoN72toZxtbWQLICnn9WyYKFQxRBEzLlKjXlZc+WTIQuDg0SjUm4mJ/BYTExWE25hFpAyKOgv0OJ9R8zFIW5tVIyGvj8/HkoMS8oevrwy1lY2bzuWkYFKf4aCoX7yaf7PuyP9deCCouaIQAzK3bHR7YangxeB9eTkTxeeLpa0iWgL/20y+xtYJAfKR81kYC/btYvEznJ0jrGian2+eM6nwO6cNURKOBANKlFD2
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Dec 2019 07:36:06.8492 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 108f0a90-3cff-4c73-9d45-08d77e0cc8bf
+X-MS-Exchange-CrossTenant-Network-Message-Id: 30b88a65-1aa5-47dc-5441-08d77e0cd425
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Dec 2019 07:36:26.2546 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB02.amd.com]
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN1PR12MB2590
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: F3hlAXXDPHmKzhcRHzqlC1IKdNOH8XEZI1qe4ZpnmBTQs+Vym3P4qO1IS+fjFFHV11vkMOpb5Yqk8Hoty1Lh0w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3901
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,56 +102,123 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: harry.wentland@amd.com, nicholas.kazlauskas@amd.com, ching-li@amd.com,
- Louis Li <Ching-shih.Li@amd.com>
+Cc: changzhu <Changfeng.Zhu@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[Why]
-External monitor cannot be displayed consistently, if connecting
-via this Apple dongle (A1621, USB Type-C to HDMI).
-Experiments prove that the dongle needs 200ms at least to be ready
-for communication, after it drives HPDsignal high, and DPCD cannot
-be read correctly during the period, even reading it repeatedly.
-In such a case, driver does not perform link training bcz of no DPCD.
+From: changzhu <Changfeng.Zhu@amd.com>
 
-[How]
-When driver is run to the modified point, EDID is read correctly
-and dpcd_sink_count of link is not zero. Therefore, link training
-should be successfully performed. Which implies parameters should
-be updated, e.g. lane count, link rate, etc. Checking parameters,
-if values of those parameters are zero, link training is not
-performed. So, do link-training to have detection completed.
+It may fail to load guest driver in round 2 or cause Xstart problem
+when using invalidate semaphore for SRIOV or picasso. So it needs avoid
+using invalidate semaphore for SRIOV and picasso.
 
-With this patch applied, the problem cannot be reproduced.
-Testing other dongles, results are PASS.
-Patch(v3) is verified PASS by both AMD internal lab and customer.
-
-
-Signed-off-by: Louis Li <Ching-shih.Li@amd.com>
+Change-Id: I806f8e99ec97be84e6aed0f5c499a53b1931b490
+Signed-off-by: changzhu <Changfeng.Zhu@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/core/dc_link.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c | 44 +++++++++++++++------------
+ 1 file changed, 24 insertions(+), 20 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link.c b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-index 7372dedd2f48..6188edc92d0f 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-@@ -725,7 +725,9 @@ bool dc_link_detect(struct dc_link *link, enum dc_detect_reason reason)
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+index 601667246a1c..efa55e9676be 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+@@ -412,6 +412,24 @@ static uint32_t gmc_v9_0_get_invalidate_req(unsigned int vmid,
+ 	return req;
+ }
  
- 		if (link->connector_signal == SIGNAL_TYPE_DISPLAY_PORT &&
- 			sink_caps.transaction_type == DDC_TRANSACTION_TYPE_I2C_OVER_AUX &&
--			reason != DETECT_REASON_HPDRX) {
-+			link->verified_link_cap.lane_count == 0 &&
-+			link->verified_link_cap.link_rate == 0 &&
-+			link->verified_link_cap.link_spread == 0) {
- 			/*
- 			 * TODO debug why Dell 2413 doesn't like
- 			 *  two link trainings
++/**
++ * gmc_v9_0_use_invalidate_semaphore - judge whether to use semaphore
++ *
++ * @adev: amdgpu_device pointer
++ * @vmhub: vmhub type
++ *
++ */
++static bool gmc_v9_0_use_invalidate_semaphore(struct amdgpu_device *adev,
++				       uint32_t vmhub)
++{
++	return ((vmhub == AMDGPU_MMHUB_0 ||
++		 vmhub == AMDGPU_MMHUB_1) &&
++		(!amdgpu_sriov_vf(adev)) &&
++		(!(adev->asic_type == CHIP_RAVEN &&
++		   adev->rev_id < 0x8 &&
++		   adev->pdev->device == 0x15d8)));
++}
++
+ /*
+  * GART
+  * VMID 0 is the physical GPU addresses as used by the kernel.
+@@ -431,6 +449,7 @@ static uint32_t gmc_v9_0_get_invalidate_req(unsigned int vmid,
+ static void gmc_v9_0_flush_gpu_tlb(struct amdgpu_device *adev, uint32_t vmid,
+ 					uint32_t vmhub, uint32_t flush_type)
+ {
++	bool use_semaphore = gmc_v9_0_use_invalidate_semaphore(adev, vmhub);
+ 	const unsigned eng = 17;
+ 	u32 j, tmp;
+ 	struct amdgpu_vmhub *hub;
+@@ -464,11 +483,7 @@ static void gmc_v9_0_flush_gpu_tlb(struct amdgpu_device *adev, uint32_t vmid,
+ 	 */
+ 
+ 	/* TODO: It needs to continue working on debugging with semaphore for GFXHUB as well. */
+-	if ((vmhub == AMDGPU_MMHUB_0 ||
+-	     vmhub == AMDGPU_MMHUB_1) &&
+-	    (!(adev->asic_type == CHIP_RAVEN &&
+-	       adev->rev_id < 0x8 &&
+-	       adev->pdev->device == 0x15d8))) {
++	if (use_semaphore) {
+ 		for (j = 0; j < adev->usec_timeout; j++) {
+ 			/* a read return value of 1 means semaphore acuqire */
+ 			tmp = RREG32_NO_KIQ(hub->vm_inv_eng0_sem + eng);
+@@ -498,11 +513,7 @@ static void gmc_v9_0_flush_gpu_tlb(struct amdgpu_device *adev, uint32_t vmid,
+ 	}
+ 
+ 	/* TODO: It needs to continue working on debugging with semaphore for GFXHUB as well. */
+-	if ((vmhub == AMDGPU_MMHUB_0 ||
+-	     vmhub == AMDGPU_MMHUB_1) &&
+-	    (!(adev->asic_type == CHIP_RAVEN &&
+-	       adev->rev_id < 0x8 &&
+-	       adev->pdev->device == 0x15d8)))
++	if (use_semaphore)
+ 		/*
+ 		 * add semaphore release after invalidation,
+ 		 * write with 0 means semaphore release
+@@ -520,6 +531,7 @@ static void gmc_v9_0_flush_gpu_tlb(struct amdgpu_device *adev, uint32_t vmid,
+ static uint64_t gmc_v9_0_emit_flush_gpu_tlb(struct amdgpu_ring *ring,
+ 					    unsigned vmid, uint64_t pd_addr)
+ {
++	bool use_semaphore = gmc_v9_0_use_invalidate_semaphore(ring->adev, ring->funcs->vmhub);
+ 	struct amdgpu_device *adev = ring->adev;
+ 	struct amdgpu_vmhub *hub = &adev->vmhub[ring->funcs->vmhub];
+ 	uint32_t req = gmc_v9_0_get_invalidate_req(vmid, 0);
+@@ -533,11 +545,7 @@ static uint64_t gmc_v9_0_emit_flush_gpu_tlb(struct amdgpu_ring *ring,
+ 	 */
+ 
+ 	/* TODO: It needs to continue working on debugging with semaphore for GFXHUB as well. */
+-	if ((ring->funcs->vmhub == AMDGPU_MMHUB_0 ||
+-	     ring->funcs->vmhub == AMDGPU_MMHUB_1) &&
+-	    (!(adev->asic_type == CHIP_RAVEN &&
+-	       adev->rev_id < 0x8 &&
+-	       adev->pdev->device == 0x15d8)))
++	if (use_semaphore)
+ 		/* a read return value of 1 means semaphore acuqire */
+ 		amdgpu_ring_emit_reg_wait(ring,
+ 					  hub->vm_inv_eng0_sem + eng, 0x1, 0x1);
+@@ -553,11 +561,7 @@ static uint64_t gmc_v9_0_emit_flush_gpu_tlb(struct amdgpu_ring *ring,
+ 					    req, 1 << vmid);
+ 
+ 	/* TODO: It needs to continue working on debugging with semaphore for GFXHUB as well. */
+-	if ((ring->funcs->vmhub == AMDGPU_MMHUB_0 ||
+-	     ring->funcs->vmhub == AMDGPU_MMHUB_1) &&
+-	    (!(adev->asic_type == CHIP_RAVEN &&
+-	       adev->rev_id < 0x8 &&
+-	       adev->pdev->device == 0x15d8)))
++	if (use_semaphore)
+ 		/*
+ 		 * add semaphore release after invalidation,
+ 		 * write with 0 means semaphore release
 -- 
-2.21.0
+2.17.1
 
 _______________________________________________
 amd-gfx mailing list
