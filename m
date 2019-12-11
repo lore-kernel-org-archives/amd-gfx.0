@@ -7,56 +7,55 @@ X-Spam-Status: No, score=-9.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2DC00C2D0C6
-	for <amd-gfx@archiver.kernel.org>; Wed, 11 Dec 2019 15:34:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 563CAC3F68F
+	for <amd-gfx@archiver.kernel.org>; Wed, 11 Dec 2019 15:34:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 050022173E
-	for <amd-gfx@archiver.kernel.org>; Wed, 11 Dec 2019 15:34:22 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 2CFA52077B
+	for <amd-gfx@archiver.kernel.org>; Wed, 11 Dec 2019 15:34:23 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="30zvefzS"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 050022173E
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="wQBYbYXb"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2CFA52077B
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 937F56EB91;
-	Wed, 11 Dec 2019 15:34:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CB65A6EB94;
+	Wed, 11 Dec 2019 15:34:22 +0000 (UTC)
 Received: from NAM02-CY1-obe.outbound.protection.outlook.com
  (mail-eopbgr760088.outbound.protection.outlook.com [40.107.76.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1FEDD6EB92
- for <amd-gfx@lists.freedesktop.org>; Wed, 11 Dec 2019 15:34:20 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ED3436EB91
+ for <amd-gfx@lists.freedesktop.org>; Wed, 11 Dec 2019 15:34:19 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Y0NYqFbBrp95TAw2MUL065DlOll/VjHzfuPoqp44EbeFyhVeEZyccRyDa+AvZmfkSHgXcXP7Dx1aKvXvRxCOamx0gVvaIwxwHew0YyJ32o6A7c9+eIom1pwQyxFHsiMdH4YT1EufIvbDgrscdPLV2Se6w2UOEQ5L/xord+u7Rlvv6Cjd8ylkGqKvPdSBK0LUbrHeoUfuv3NwLrTKz97O4Lu/3HcJOLZgYw6wRPAdHd7lJp2hQ9FilsevO1xkPDICZNMMH0XZwUH33d+5CM+34ivLMUlrcnMhof6sp5wI/G3lLnVGXIVfuCeH6JHYWh1O8kfO1UUopKF5AEoL3asIww==
+ b=MsuNr5PzKIDjKRwXJCvvZcEjofvf0Z8As/aniTzJ5Vdtb2OX9tHkrMkm/xHl8MziB6QpE2rJaP1gF0mtJJuEMTIUQYxtm31020IoA9R7DkWCzwUHvJe88sM5Q+BhDzU+M3mRL026GdM17WKrVwIYaLDA8epNJFbs79yfxck7JpwvAWaq4Q6P0dimRT5wTfdEyDTPx0mBiV+Anytc2tBFqSVeITkg3Xs5awTU3lLxR3HJo8Cna7CAqfiSZ1STHDnYLMR3emP7o4yCIOGosECkJiu5/xCA5l5x3QzeAa9bA2LqJr7QpqQMSbQ6F3lZwqU5Rq+pWLrAQcTHrjfDIiPfvw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=VeRiG8MLqWxfgeqgF6M98XUVEt4eHx+sxugGN2szn3o=;
- b=KZ9Rb/eB9AFbkiNEoNGaTp9lnLYzeMKZ6asIzOsqJx3Eke5X0pofYfGEi+msrQzCVouJ3uwsKxepABHVhkC8rsfxNB1XsWDReBTs5y6ODLQDsMUn+OYfedysV9eyg7RjDM4kRJd0SOgiIdNfrVYzJIDM4pDKWTVYeLCgz6ARU0IfxCMru5SZNYZft//qZMOk+KfuyatB3Fu+Y4cD2rT3QRmP3EersutUpClZJAOGSj2OetFLlk4PwDgmpoD/xLhVq5Ojz/192wUo8YkohcJWfjqbTSSvQ5xkU24z1ZV6mSqwA9V0uOyBTBAnd2vu4Etd6FRIK1N0ewmEtzUEXXfbQw==
+ bh=CfHF4zzgsn1Mh0tbcxt6H8GNMXyVy2G7z6r7pJ8ShgU=;
+ b=OCgEsOaFCuCWXGuBuhPIxo09e8u041iHM3GIQe7wcBADEJbYATSMq6IrixuyDdGx+e9V+MKmj7Rro3U/4MgCKaJUDpmkIZf2/j+ksM6nanSSOIE/olVH5PSgEFzPUfzmAFThyC2YS+ELHNK++lTkXzPkFi4QAyN1bVGSXH50SW9s8MG9tdor+rirt0mWQUycd1W+pUGyXcl7lpw3knzcBZzdyhCc5X8knR+B7u7MPYE/ESJTWptNqTlu9c6AV+/tn6B0w+Zy5yz7VF9epFQaQwntZsCWx0y0p8qeJQUOPa2qq/CTFeLIY79j8qPeXZB8W76AqiF9uJHS8n5MqSyhpA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=VeRiG8MLqWxfgeqgF6M98XUVEt4eHx+sxugGN2szn3o=;
- b=30zvefzSfdXDN7uBSwG+BOFu2mXDBXcds7IHdnxQx3KIg1cxdK8lMdB/DnnrI+FdanB7WJ6x49axgHmXyfaMK6KKXb7GA2bi/MuMh2dSxNMW0dbbBxcrqVMczVI3V6d7r4EKc6Car0tScDWCP5EMwyMB5NI2ODyO71wIJ/pA7a0=
+ bh=CfHF4zzgsn1Mh0tbcxt6H8GNMXyVy2G7z6r7pJ8ShgU=;
+ b=wQBYbYXbn4HdajOQRzqKUixJAoXy35a9C3qAhnMnThftGfDYEFwJwmaLYZI8Gm5fnRxXJ0CHfw8hwnpbjYjv9tNjCTTIE8l6/OvetJ8GdrOipIG8TGH7tDJvDjvlpRmBaXK8QUMsSLezR6dPKrAsyEoj6kWGyHzzDT0sIVKUYfU=
 Authentication-Results: spf=none (sender IP is )
  smtp.mailfrom=Rodrigo.Siqueira@amd.com; 
 Received: from MW2PR12MB2524.namprd12.prod.outlook.com (52.132.180.155) by
  MW2PR12MB2491.namprd12.prod.outlook.com (52.132.183.158) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2538.15; Wed, 11 Dec 2019 15:34:19 +0000
+ 15.20.2538.15; Wed, 11 Dec 2019 15:34:18 +0000
 Received: from MW2PR12MB2524.namprd12.prod.outlook.com
  ([fe80::3d1f:4c20:e980:6e69]) by MW2PR12MB2524.namprd12.prod.outlook.com
  ([fe80::3d1f:4c20:e980:6e69%5]) with mapi id 15.20.2516.018; Wed, 11 Dec 2019
- 15:34:19 +0000
+ 15:34:18 +0000
 From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 39/39] drm/amd/display: Add debug option to override DSC
- target bpp increment
-Date: Wed, 11 Dec 2019 10:32:53 -0500
-Message-Id: <20191211153253.2291112-40-Rodrigo.Siqueira@amd.com>
+Subject: [PATCH 38/39] drm/amd/display: Do not handle linkloss for eDP
+Date: Wed, 11 Dec 2019 10:32:52 -0500
+Message-Id: <20191211153253.2291112-39-Rodrigo.Siqueira@amd.com>
 X-Mailer: git-send-email 2.24.0
 In-Reply-To: <20191211153253.2291112-1-Rodrigo.Siqueira@amd.com>
 References: <20191211153253.2291112-1-Rodrigo.Siqueira@amd.com>
@@ -68,11 +67,11 @@ X-Mailer: git-send-email 2.24.0
 X-Originating-IP: [165.204.55.250]
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: d3f73859-f81e-45ff-36f9-08d77e4f8608
+X-MS-Office365-Filtering-Correlation-Id: d352c097-d48c-44ad-e199-08d77e4f8576
 X-MS-TrafficTypeDiagnostic: MW2PR12MB2491:|MW2PR12MB2491:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <MW2PR12MB2491F62E0F8568AE735265D6985A0@MW2PR12MB2491.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
+X-Microsoft-Antispam-PRVS: <MW2PR12MB2491182698E42F8846E5140E985A0@MW2PR12MB2491.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:5797;
 X-Forefront-PRVS: 024847EE92
 X-Forefront-Antispam-Report: SFV:NSPM;
  SFS:(10009020)(4636009)(396003)(346002)(376002)(39860400002)(366004)(136003)(189003)(199004)(6486002)(6512007)(6916009)(8936002)(5660300002)(2906002)(6666004)(86362001)(52116002)(2616005)(478600001)(66476007)(316002)(186003)(8676002)(81156014)(81166006)(54906003)(36756003)(4326008)(1076003)(26005)(66946007)(66556008)(6506007);
@@ -83,14 +82,14 @@ Received-SPF: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 1/0c2WJx5EIWm9n6TDjfQoqMPGPH3z1FVT55zDcgu3teRJONbxix8qDiG5nnz++k97qkrI2tR4hyeevcfriYkIWjLzjfISCOWEj3ZatGllFxLMVM2ZeSl7eyhH393L63KpkClEA3vAqJS5VMtghE3NsXjPYC5uogJowMLwJnu/Y+DT3sDj6flNTsDnfjL6k029Q/efn40Le1OaHskHpYaABEJSQs/ot6M1y7rzMPhSu+1tglK/EhJkppQWT+n4isrRE6zkBzCwm8yg0DkH1UEFhUloUIVs+rdi4ftDtqcQXXDrDwEnyqFxdRKkNA/5mfbbT3Ql9NcP62SwzLL9Xp5QVaH6K7DNuxTfnA7sERlupRf1XDeGzP5OwjEad3datS8ZMBi43EbvVIO9LD+6OopSmIwkaQG9oipfFe3x+vkXKWV8Qq6sP8y9hg9qu8h4OP
+X-Microsoft-Antispam-Message-Info: PVSmUXM4/+LoEgcITUKgYsZAY1Uk3a2RkuKZwX+r8MC4KgglxT2z1S5RY9tZsQNX4i4Yb/CI7DfTDQbDQRKBAWQNKKPxdMuA15UjcbEr2auHUcfHq5XIjIipoEDvBi/9o6qO44W4NemElRypcHx2mJOGCvm+8hxpqRvNJ6dusAHbtzbisnMis4o3yB76zf4Vu6RvwRkl63mtG1CbN1YIVNOCqK9qj5+2ZAa9OkbG9+6yMFE1dqmlKTIjkkVmnF7M1rg/tV2KQUPXrLRQg6TLMAywjfLN4i6U3jpLBLb25t7Q5FYCO7BFvAVWTMyHrnso5yxROvBucSwRT2CIkOOOPXA7st1vf1CZ8rMlm6FNyTXd6Y5F/eMB9+OSMz5TNctBeeWdawFtVLnNx+W/clUCvxTgSmmYdJMMZe6hPnL+AhNcqEaVTiJAGpEUqyApmzZH
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d3f73859-f81e-45ff-36f9-08d77e4f8608
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Dec 2019 15:33:51.5254 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d352c097-d48c-44ad-e199-08d77e4f8576
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Dec 2019 15:33:50.4640 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 6lZbBpR+8iGVH82PifxJE1esx3R2miTcVu8U2m0Zvr1bNhcppNWgPmQfClfK5Wf4s8EM0CdNBHxfJlvCv8MUYQ==
+X-MS-Exchange-CrossTenant-UserPrincipalName: E2RZSW5yUGw2P9DR7TJXuvIUJCIJXTOu7o9dtE/471sqxd79miGKWsmzitKFGhFhhkJghX2QI0RgnSvTbnBKYQ==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW2PR12MB2491
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -103,112 +102,51 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sunpeng.Li@amd.com, Bhawanpreet.Lakha@amd.com,
- Tony Cheng <Tony.Cheng@amd.com>, Harry.Wentland@amd.com,
- Nikola Cornij <nikola.cornij@amd.com>
+Cc: Sunpeng.Li@amd.com, Bhawanpreet.Lakha@amd.com, Aric Cyr <Aric.Cyr@amd.com>,
+ Harry.Wentland@amd.com, Anthony Koo <Anthony.Koo@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Nikola Cornij <nikola.cornij@amd.com>
+From: Anthony Koo <Anthony.Koo@amd.com>
 
-[why]
-It's required for debug purposes.
+[Why]
+eDP is internal link and link loss is unexpected.
+It is typically going to be PSR related errors, which is
+handled separately.
 
-[how]
-Add a dsc_bpp_increment_div debug option that overrides DPCD
-BITS_PER_PIXEL_INCREMENT value. The value dsc_bpp_increment_div should
-be set to is the one after parsing, i.e. it could be 1, 2, 4, 8 or 16
-(meaning 1pix, 1/2pix, ..., 1/16pix).
+[How]
+Check for eDP and skip check for link loss
 
-Signed-off-by: Nikola Cornij <nikola.cornij@amd.com>
-Reviewed-by: Tony Cheng <Tony.Cheng@amd.com>
+Signed-off-by: Anthony Koo <Anthony.Koo@amd.com>
+Reviewed-by: Aric Cyr <Aric.Cyr@amd.com>
 Acked-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 ---
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  3 ++-
- drivers/gpu/drm/amd/display/dc/dc.h           |  1 +
- drivers/gpu/drm/amd/display/dc/dc_dsc.h       |  3 ++-
- drivers/gpu/drm/amd/display/dc/dsc/dc_dsc.c   | 19 ++++++++++++++++++-
- 4 files changed, 23 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c | 10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 745d8719ccc1..f90b5eb8db82 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -4148,7 +4148,8 @@ create_stream_for_sink(struct amdgpu_dm_connector *aconnector,
- 
- 	if (aconnector->dc_link && sink->sink_signal == SIGNAL_TYPE_DISPLAY_PORT) {
- #if defined(CONFIG_DRM_AMD_DC_DCN)
--		dc_dsc_parse_dsc_dpcd(aconnector->dc_link->dpcd_caps.dsc_caps.dsc_basic_caps.raw,
-+		dc_dsc_parse_dsc_dpcd(aconnector->dc_link->ctx->dc,
-+				      aconnector->dc_link->dpcd_caps.dsc_caps.dsc_basic_caps.raw,
- 				      aconnector->dc_link->dpcd_caps.dsc_caps.dsc_ext_caps.raw,
- 				      &dsc_caps);
- #endif
-diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
-index 4c2ba93ab7e0..039004344dc6 100644
---- a/drivers/gpu/drm/amd/display/dc/dc.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc.h
-@@ -367,6 +367,7 @@ struct dc_debug_options {
- 	bool disable_hubp_power_gate;
- 	bool disable_dsc_power_gate;
- 	int dsc_min_slice_height_override;
-+	int dsc_bpp_increment_div;
- 	bool native422_support;
- 	bool disable_pplib_wm_range;
- 	enum wm_report_mode pplib_wm_report_mode;
-diff --git a/drivers/gpu/drm/amd/display/dc/dc_dsc.h b/drivers/gpu/drm/amd/display/dc/dc_dsc.h
-index 7ece8eb5f48c..3800340a5b4f 100644
---- a/drivers/gpu/drm/amd/display/dc/dc_dsc.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc_dsc.h
-@@ -53,7 +53,8 @@ struct dc_dsc_policy {
- 	uint32_t min_target_bpp;
- };
- 
--bool dc_dsc_parse_dsc_dpcd(const uint8_t *dpcd_dsc_basic_data,
-+bool dc_dsc_parse_dsc_dpcd(const struct dc *dc,
-+		const uint8_t *dpcd_dsc_basic_data,
- 		const uint8_t *dpcd_dsc_ext_data,
- 		struct dsc_dec_dpcd_caps *dsc_sink_caps);
- 
-diff --git a/drivers/gpu/drm/amd/display/dc/dsc/dc_dsc.c b/drivers/gpu/drm/amd/display/dc/dsc/dc_dsc.c
-index 71b048363506..8b78fcbfe746 100644
---- a/drivers/gpu/drm/amd/display/dc/dsc/dc_dsc.c
-+++ b/drivers/gpu/drm/amd/display/dc/dsc/dc_dsc.c
-@@ -760,7 +760,7 @@ static bool setup_dsc_config(
- 	return is_dsc_possible;
- }
- 
--bool dc_dsc_parse_dsc_dpcd(const uint8_t *dpcd_dsc_basic_data, const uint8_t *dpcd_dsc_ext_data, struct dsc_dec_dpcd_caps *dsc_sink_caps)
-+bool dc_dsc_parse_dsc_dpcd(const struct dc *dc, const uint8_t *dpcd_dsc_basic_data, const uint8_t *dpcd_dsc_ext_data, struct dsc_dec_dpcd_caps *dsc_sink_caps)
- {
- 	if (!dpcd_dsc_basic_data)
- 		return false;
-@@ -813,6 +813,23 @@ bool dc_dsc_parse_dsc_dpcd(const uint8_t *dpcd_dsc_basic_data, const uint8_t *dp
- 	if (!dsc_bpp_increment_div_from_dpcd(dpcd_dsc_basic_data[DP_DSC_BITS_PER_PIXEL_INC - DP_DSC_SUPPORT], &dsc_sink_caps->bpp_increment_div))
- 		return false;
- 
-+	if (dc->debug.dsc_bpp_increment_div) {
-+		/* dsc_bpp_increment_div should onl be 1, 2, 4, 8 or 16, but rather than rejecting invalid values,
-+		 * we'll accept all and get it into range. This also makes the above check against 0 redundant,
-+		 * but that one stresses out the override will be only used if it's not 0.
-+		 */
-+		if (dc->debug.dsc_bpp_increment_div >= 1)
-+			dsc_sink_caps->bpp_increment_div = 1;
-+		if (dc->debug.dsc_bpp_increment_div >= 2)
-+			dsc_sink_caps->bpp_increment_div = 2;
-+		if (dc->debug.dsc_bpp_increment_div >= 4)
-+			dsc_sink_caps->bpp_increment_div = 4;
-+		if (dc->debug.dsc_bpp_increment_div >= 8)
-+			dsc_sink_caps->bpp_increment_div = 8;
-+		if (dc->debug.dsc_bpp_increment_div >= 16)
-+			dsc_sink_caps->bpp_increment_div = 16;
-+	}
-+
- 	/* Extended caps */
- 	if (dpcd_dsc_ext_data == NULL) { // Extended DPCD DSC data can be null, e.g. because it doesn't apply to SST
- 		dsc_sink_caps->branch_overall_throughput_0_mps = 0;
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
+index 42aa889fd0f5..38b0f4347383 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
+@@ -2854,10 +2854,12 @@ bool dc_link_handle_hpd_rx_irq(struct dc_link *link, union hpd_irq_data *out_hpd
+ 	/* For now we only handle 'Downstream port status' case.
+ 	 * If we got sink count changed it means
+ 	 * Downstream port status changed,
+-	 * then DM should call DC to do the detection. */
+-	if (hpd_rx_irq_check_link_loss_status(
+-		link,
+-		&hpd_irq_dpcd_data)) {
++	 * then DM should call DC to do the detection.
++	 * NOTE: Do not handle link loss on eDP since it is internal link*/
++	if ((link->connector_signal != SIGNAL_TYPE_EDP) &&
++		hpd_rx_irq_check_link_loss_status(
++			link,
++			&hpd_irq_dpcd_data)) {
+ 		/* Connectivity log: link loss */
+ 		CONN_DATA_LINK_LOSS(link,
+ 					hpd_irq_dpcd_data.raw,
 -- 
 2.24.0
 
