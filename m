@@ -2,71 +2,49 @@ Return-Path: <SRS0=BheJ=2B=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
+X-Spam-Status: No, score=-0.8 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 88BF2C43603
-	for <amd-gfx@archiver.kernel.org>; Wed, 11 Dec 2019 16:21:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E506CC43603
+	for <amd-gfx@archiver.kernel.org>; Wed, 11 Dec 2019 16:36:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5838D2073D
-	for <amd-gfx@archiver.kernel.org>; Wed, 11 Dec 2019 16:21:22 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id B8207214D8
+	for <amd-gfx@archiver.kernel.org>; Wed, 11 Dec 2019 16:36:50 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Fb+GARdq"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5838D2073D
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="sGNLbUZx"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B8207214D8
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 10DE96EB7E;
-	Wed, 11 Dec 2019 16:21:22 +0000 (UTC)
-Received: from mail-qt1-x841.google.com (mail-qt1-x841.google.com
- [IPv6:2607:f8b0:4864:20::841])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8AA166EB7E
- for <amd-gfx@lists.freedesktop.org>; Wed, 11 Dec 2019 16:21:21 +0000 (UTC)
-Received: by mail-qt1-x841.google.com with SMTP id 38so6711107qtb.13
- for <amd-gfx@lists.freedesktop.org>; Wed, 11 Dec 2019 08:21:21 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=W5hchyKJPLWhRzJPdVPEfNO2uF5WNfArtaeT/M/J4o4=;
- b=Fb+GARdqeNXYUHBMbnnivbDyyWx1Dax4kPPncY3rh+oyANHrxTRkZ3qzmWuyEBQV9S
- DrZ/QorlQCD7dRByoUYbB3Eogm7d+qI7n7QHzygsv1iZ4gKd4J4WalQ4SpnYXWniZnIz
- +2WCjO2lzi34Wf89GpPa0rchUNhjm8K9zcAkRtuVRI8sP/SKsYzgpyk7LLzeW5DtdBLD
- X1FkwLHR0+PbYU7cTu/cbb6ch3qAHMuhG7gnCR/Dc4Zx4Dr5EkD/VuONr3R63oFqscfX
- 4okLZ0bzscO6XGb93fpMfJj0YO2+UCuQK1s6iLjlY2yj1iWj14kaL3iwH6zu3obDSMA9
- +M9A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=W5hchyKJPLWhRzJPdVPEfNO2uF5WNfArtaeT/M/J4o4=;
- b=H204Z0QzITEz42vIajwH5GWQt3ErG3ahKYZvzzsK+n70sLGemATnaLPuvfhAUU0BJx
- gqQYtg3RTXdu0DaBz2quTL0mMBrctZtWlyAv4xJ+8r/Og6QJ/va7wiJQYtwLbbDUwA5P
- nnWW2Av1Pzl3hLUqGHIRmKYL7JU7wcjd0DzZ0YWH9pzTFaZKGyIhkq83MG55WaxLBoBt
- SVk9MmACgsS48jEPweAmxJJc/dl9MN3DHHAu9QDaI+A9eDui3+eeDMTYCXOV16FFxWaG
- 8JQ6M1EEndOkYqYNxm0Ly+7kre3VkYZkrnj5fg7yn0ruuFutkhie3nyRHcRInqgOhofq
- uMnA==
-X-Gm-Message-State: APjAAAWzOOh5szWILkKLCGlHsq3FLOJ48em+X+4//ssbxpXJN7e4L7Jt
- N4NvceR23BlUvojCDCGqJt6rthcF
-X-Google-Smtp-Source: APXvYqxKMWKNbdGcZsE97pf+WR6FUbRDmmGhuo5aBrI3QDjpgHsR4b+fhEbuPwx4doZlfkGuvrAXBQ==
-X-Received: by 2002:ac8:1184:: with SMTP id d4mr3551607qtj.104.1576081280387; 
- Wed, 11 Dec 2019 08:21:20 -0800 (PST)
-Received: from localhost.localdomain ([71.219.59.120])
- by smtp.gmail.com with ESMTPSA id g18sm660340qtc.83.2019.12.11.08.21.19
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 11 Dec 2019 08:21:19 -0800 (PST)
-From: Alex Deucher <alexdeucher@gmail.com>
-X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
-To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH] drm/amdgpu: s/ENCRYPTED/SECURE/ on GEM create flag
-Date: Wed, 11 Dec 2019 11:21:12 -0500
-Message-Id: <20191211162112.1991270-1-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.23.0
-MIME-Version: 1.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5EE9A6EB8E;
+	Wed, 11 Dec 2019 16:36:50 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C9BF56EB8C;
+ Wed, 11 Dec 2019 16:36:49 +0000 (UTC)
+Received: from localhost (unknown [40.117.208.15])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 6FBCB222C4;
+ Wed, 11 Dec 2019 16:36:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1576082209;
+ bh=NZwHo8j5VJ8rYWA8gS2cGqjVO+VP9vWz2rNyVVmBgOE=;
+ h=Date:From:To:To:To:CC:Cc:Cc:Subject:In-Reply-To:References:From;
+ b=sGNLbUZxIdNnlww1+nP9e8cieisaCIq233bLxNx9A0UI6MdMJRnpOYPs30wvtZjc4
+ DpJrzaKEkRrXPQ+bcuvNbZo076vimOp1YPKRaGQpUhczb1JzXykCzyJL0ySEDWEHt7
+ zyVsTL41ZoBWRkyhq6YgaKTUGXmKNfwDlenxbw+U=
+Date: Wed, 11 Dec 2019 16:36:48 +0000
+From: Sasha Levin <sashal@kernel.org>
+To: Sasha Levin <sashal@kernel.org>
+To: Wayne Lin <Wayne.Lin@amd.com>
+To: <dri-devel@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>
+Subject: Re: [PATCH] drm/dp_mst: clear time slots for ports invalid
+In-Reply-To: <20191206083937.9411-1-Wayne.Lin@amd.com>
+References: <20191206083937.9411-1-Wayne.Lin@amd.com>
+Message-Id: <20191211163649.6FBCB222C4@mail.kernel.org>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,91 +56,146 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: , harry.wentland@amd.com, Nicholas.Kazlauskas@amd.com,
+ stable@vger.kernel.org
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Rename to SECURE to align with the CS flag naming.
+Hi,
 
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
----
+[This is an automated email]
 
-Several other teams thought it would be cleaner to call it SECURE
-since it aligns better with the CS interface.  I don't have a
-strong opinion either way.
+This commit has been processed because it contains a -stable tag.
+The stable tag indicates that it's relevant for the following trees: all
 
- drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c    | 6 +++---
- drivers/gpu/drm/amd/amdgpu/amdgpu_object.h | 2 +-
- include/uapi/drm/amdgpu_drm.h              | 4 ++--
- 3 files changed, 6 insertions(+), 6 deletions(-)
+The bot has tested the following trees: v5.4.2, v5.3.15, v4.19.88, v4.14.158, v4.9.206, v4.4.206.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-index f39012e4a0fa..0691692f096e 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-@@ -227,7 +227,7 @@ int amdgpu_gem_create_ioctl(struct drm_device *dev, void *data,
- 		      AMDGPU_GEM_CREATE_VRAM_CLEARED |
- 		      AMDGPU_GEM_CREATE_VM_ALWAYS_VALID |
- 		      AMDGPU_GEM_CREATE_EXPLICIT_SYNC |
--		      AMDGPU_GEM_CREATE_ENCRYPTED))
-+		      AMDGPU_GEM_CREATE_SECURE))
- 
- 		return -EINVAL;
- 
-@@ -235,7 +235,7 @@ int amdgpu_gem_create_ioctl(struct drm_device *dev, void *data,
- 	if (args->in.domains & ~AMDGPU_GEM_DOMAIN_MASK)
- 		return -EINVAL;
- 
--	if (!adev->tmz.enabled && (flags & AMDGPU_GEM_CREATE_ENCRYPTED)) {
-+	if (!adev->tmz.enabled && (flags & AMDGPU_GEM_CREATE_SECURE)) {
- 		DRM_ERROR("Cannot allocate secure buffer while tmz is disabled\n");
- 		return -EINVAL;
- 	}
-@@ -261,7 +261,7 @@ int amdgpu_gem_create_ioctl(struct drm_device *dev, void *data,
- 		resv = vm->root.base.bo->tbo.base.resv;
- 	}
- 
--	if (flags & AMDGPU_GEM_CREATE_ENCRYPTED) {
-+	if (flags & AMDGPU_GEM_CREATE_SECURE) {
- 		/* XXX: pad out alignment to meet TMZ requirements */
- 	}
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
-index 2eeafc77c9c1..5728e5a27fb8 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
-@@ -232,7 +232,7 @@ static inline bool amdgpu_bo_explicit_sync(struct amdgpu_bo *bo)
-  */
- static inline bool amdgpu_bo_encrypted(struct amdgpu_bo *bo)
- {
--	return bo->flags & AMDGPU_GEM_CREATE_ENCRYPTED;
-+	return bo->flags & AMDGPU_GEM_CREATE_SECURE;
- }
- 
- bool amdgpu_bo_is_amdgpu_bo(struct ttm_buffer_object *bo);
-diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.h
-index 918ac3548cd3..2ae80d31aecf 100644
---- a/include/uapi/drm/amdgpu_drm.h
-+++ b/include/uapi/drm/amdgpu_drm.h
-@@ -135,11 +135,11 @@ extern "C" {
-  * releasing the memory
-  */
- #define AMDGPU_GEM_CREATE_VRAM_WIPE_ON_RELEASE	(1 << 9)
--/* Flag that BO will be encrypted and that the TMZ bit should be
-+/* Flag that BO will be secure and that the TMZ bit should be
-  * set in the PTEs when mapping this buffer via GPUVM or
-  * accessing it with various hw blocks
-  */
--#define AMDGPU_GEM_CREATE_ENCRYPTED		(1 << 10)
-+#define AMDGPU_GEM_CREATE_SECURE		(1 << 10)
- 
- struct drm_amdgpu_gem_create_in  {
- 	/** the requested memory size */
+v5.4.2: Failed to apply! Possible dependencies:
+    14692a3637d4 ("drm/dp_mst: Add probe_lock")
+    37dfdc55ffeb ("drm/dp_mst: Cleanup drm_dp_send_link_address() a bit")
+    3f9b3f02dda5 ("drm/dp_mst: Protect drm_dp_mst_port members with locking")
+    50094b5dcd32 ("drm/dp_mst: Destroy topology_mgr mutexes")
+    5950f0b797fc ("drm/dp_mst: Move link address dumping into a function")
+    60f9ae9d0d3d ("drm/dp_mst: Remove huge conditional in drm_dp_mst_handle_up_req()")
+    7cb12d48314e ("drm/dp_mst: Destroy MSTBs asynchronously")
+    9408cc94eb04 ("drm/dp_mst: Handle UP requests asynchronously")
+    a29d881875fc ("drm/dp_mst: Refactor drm_dp_mst_handle_up_req()")
+    c485e2c97dae ("drm/dp_mst: Refactor pdt setup/teardown, add more locking")
+    caf81ec6cd72 ("drm: Destroy the correct mutex name in drm_dp_mst_topology_mgr_destroy")
+    dad7d84f8835 ("drm/dp_mst: Don't forget to update port->input in drm_dp_mst_handle_conn_stat()")
+    e2839ff692c6 ("drm/dp_mst: Rename drm_dp_add_port and drm_dp_update_port")
+
+v5.3.15: Failed to apply! Possible dependencies:
+    14692a3637d4 ("drm/dp_mst: Add probe_lock")
+    37dfdc55ffeb ("drm/dp_mst: Cleanup drm_dp_send_link_address() a bit")
+    3f9b3f02dda5 ("drm/dp_mst: Protect drm_dp_mst_port members with locking")
+    50094b5dcd32 ("drm/dp_mst: Destroy topology_mgr mutexes")
+    562836a269e3 ("drm/dp_mst: Enable registration of AUX devices for MST ports")
+    5950f0b797fc ("drm/dp_mst: Move link address dumping into a function")
+    60f9ae9d0d3d ("drm/dp_mst: Remove huge conditional in drm_dp_mst_handle_up_req()")
+    7cb12d48314e ("drm/dp_mst: Destroy MSTBs asynchronously")
+    9408cc94eb04 ("drm/dp_mst: Handle UP requests asynchronously")
+    a29d881875fc ("drm/dp_mst: Refactor drm_dp_mst_handle_up_req()")
+    c485e2c97dae ("drm/dp_mst: Refactor pdt setup/teardown, add more locking")
+    caf81ec6cd72 ("drm: Destroy the correct mutex name in drm_dp_mst_topology_mgr_destroy")
+    dad7d84f8835 ("drm/dp_mst: Don't forget to update port->input in drm_dp_mst_handle_conn_stat()")
+    e2839ff692c6 ("drm/dp_mst: Rename drm_dp_add_port and drm_dp_update_port")
+
+v4.19.88: Failed to apply! Possible dependencies:
+    1e55a53a28d3 ("drm: Trivial comment grammar cleanups")
+    706246c761dd ("drm/dp_mst: Refactor drm_dp_update_payload_part1()")
+    72fdb40c1a4b ("drm: extract drm_atomic_uapi.c")
+    7f4de521001f ("drm/atomic: Add __drm_atomic_helper_plane_reset")
+    a5ec8332d428 ("drm: Add per-plane pixel blend mode property")
+    c485e2c97dae ("drm/dp_mst: Refactor pdt setup/teardown, add more locking")
+    d0757afd00d7 ("drm/dp_mst: Rename drm_dp_mst_get_validated_(port|mstb)_ref and friends")
+    d86552efe10a ("drm/atomic: trim driver interface/docs")
+    dad7d84f8835 ("drm/dp_mst: Don't forget to update port->input in drm_dp_mst_handle_conn_stat()")
+    de9f8eea5a44 ("drm/atomic_helper: Stop modesets on unregistered connectors harder")
+    ebcc0e6b5091 ("drm/dp_mst: Introduce new refcounting scheme for mstbs and ports")
+    fc63668656bd ("drm/dp_mst: Remove bogus conditional in drm_dp_update_payload_part1()")
+
+v4.14.158: Failed to apply! Possible dependencies:
+    0bb9c2b27f5e ("drm/dp/mst: Sideband message transaction to power up/down nodes")
+    163bcc2c74a2 ("drm/atomic: Move drm_crtc_commit to drm_crtc_state, v4.")
+    179c02fe90a4 ("drm/tve200: Add new driver for TVE200")
+    1e55a53a28d3 ("drm: Trivial comment grammar cleanups")
+    21a01abbe32a ("drm/atomic: Fix freeing connector/plane state too early by tracking commits, v3.")
+    22a07038c0ea ("drm: NULL pointer dereference [null-pointer-deref] (CWE 476) problem")
+    24557865c8b1 ("drm: Add Content Protection property")
+    2ed077e467ee ("drm: Add drm_object lease infrastructure [v5]")
+    34ca26a98ad6 ("drm/atomic_helper: Allow DPMS On<->Off changes for unregistered connectors")
+    66660d4cf21b ("drm: add connector info/property for non-desktop displays [v2]")
+    6d544fd6f4e1 ("drm/doc: Put all driver docs into a separate chapter")
+    706246c761dd ("drm/dp_mst: Refactor drm_dp_update_payload_part1()")
+    72fdb40c1a4b ("drm: extract drm_atomic_uapi.c")
+    8d70f395e6cb ("drm: Add support for a panel-orientation connector property, v6")
+    935774cd71fe ("drm: Add writeback connector type")
+    c485e2c97dae ("drm/dp_mst: Refactor pdt setup/teardown, add more locking")
+    c76f0f7cb546 ("drm: Begin an API for in-kernel clients")
+    d0757afd00d7 ("drm/dp_mst: Rename drm_dp_mst_get_validated_(port|mstb)_ref and friends")
+    dad7d84f8835 ("drm/dp_mst: Don't forget to update port->input in drm_dp_mst_handle_conn_stat()")
+    de9f8eea5a44 ("drm/atomic_helper: Stop modesets on unregistered connectors harder")
+    e96550956fbc ("drm/atomic_helper: Disallow new modesets on unregistered connectors")
+    ebcc0e6b5091 ("drm/dp_mst: Introduce new refcounting scheme for mstbs and ports")
+    fc63668656bd ("drm/dp_mst: Remove bogus conditional in drm_dp_update_payload_part1()")
+
+v4.9.206: Failed to apply! Possible dependencies:
+    0bb9c2b27f5e ("drm/dp/mst: Sideband message transaction to power up/down nodes")
+    1cec20f0ea0e ("dma-buf: Restart reservation_object_wait_timeout_rcu() after writes")
+    3f3353b7e121 ("drm/dp: Introduce MST topology state to track available link bandwidth")
+    6806cdf9aa1c ("drm/kms-helpers: Use recommened kerneldoc for struct member refs")
+    78010cd9736e ("dma-buf/fence: add an lockdep_assert_held()")
+    9498c19b3f53 ("drm: Move tile group code into drm_connector.c")
+    9a83a71ac0d5 ("drm/fences: add DOC: for explicit fencing")
+    beaf5af48034 ("drm/fence: add out-fences support")
+    c485e2c97dae ("drm/dp_mst: Refactor pdt setup/teardown, add more locking")
+    d0757afd00d7 ("drm/dp_mst: Rename drm_dp_mst_get_validated_(port|mstb)_ref and friends")
+    d807ed1c55fb ("drm: atomic: Clarify documentation around drm_atomic_crtc_needs_modeset")
+    dad7d84f8835 ("drm/dp_mst: Don't forget to update port->input in drm_dp_mst_handle_conn_stat()")
+    ea0dd85a75f1 ("drm/doc: use preferred struct reference in kernel-doc")
+    edb1ed1ab7d3 ("drm/dp: Add DP MST helpers to atomically find and release vcpi slots")
+    f54d1867005c ("dma-buf: Rename struct fence to dma_fence")
+    fedf54132d24 ("dma-buf: Restart reservation_object_get_fences_rcu() after writes")
+
+v4.4.206: Failed to apply! Possible dependencies:
+    081e9c0f8b5f ("drm/atomic: kerneldoc for drm_atomic_crtc_needs_modeset")
+    092d01dae09a ("drm: Reorganize helper vtables and their docs")
+    0bb9c2b27f5e ("drm/dp/mst: Sideband message transaction to power up/down nodes")
+    132d49d728f3 ("drm/dp-mst: Missing kernel doc")
+    1eb83451ba55 ("drm: Pass the user drm_mode_fb_cmd2 as const to .fb_create()")
+    286dbb8d5d80 ("drm/atomic: Rename async parameter to nonblocking.")
+    373701b1fc7d ("drm: fix potential dangling else problems in for_each_ macros")
+    3f3353b7e121 ("drm/dp: Introduce MST topology state to track available link bandwidth")
+    441388a8a73f ("drm/mst: Don't ignore the MST PBN self-test result")
+    4c5b7f3ae53b ("drm/atomic: export drm_atomic_helper_wait_for_fences()")
+    5fff80bbdb6b ("drm/atomic: Allow for holes in connector state, v2.")
+    6806cdf9aa1c ("drm/kms-helpers: Use recommened kerneldoc for struct member refs")
+    69a0f89c0641 ("drm/dp/mst: constify drm_dp_mst_topology_cbs structures")
+    9953f41799bd ("drm: Kerneldoc for drm_mode_config_funcs")
+    9f2a7950e77a ("drm/atomic-helper: nonblocking commit support")
+    a095caa7f5ec ("drm/atomic-helper: roll out commit synchronization")
+    b516a9efb7af ("drm: Move LEAVE/ENTER_ATOMIC_MODESET to fbdev helpers")
+    be9174a482b9 ("drm/atomic-helper: use for_each_*_in_state more")
+    c240906d3665 ("drm/atomic-helper: Export framebuffer_changed()")
+    c485e2c97dae ("drm/dp_mst: Refactor pdt setup/teardown, add more locking")
+    d0757afd00d7 ("drm/dp_mst: Rename drm_dp_mst_get_validated_(port|mstb)_ref and friends")
+    d807ed1c55fb ("drm: atomic: Clarify documentation around drm_atomic_crtc_needs_modeset")
+    dad7d84f8835 ("drm/dp_mst: Don't forget to update port->input in drm_dp_mst_handle_conn_stat()")
+    edb1ed1ab7d3 ("drm/dp: Add DP MST helpers to atomically find and release vcpi slots")
+    ef8f9bea1368 ("dp/mst: add SDP stream support")
+
+
+NOTE: The patch will not be queued to stable trees until it is upstream.
+
+How should we proceed with this patch?
+
 -- 
-2.23.0
-
+Thanks,
+Sasha
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
