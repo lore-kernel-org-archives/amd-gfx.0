@@ -2,107 +2,66 @@ Return-Path: <SRS0=BheJ=2B=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+X-Spam-Status: No, score=-6.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4E483C00454
-	for <amd-gfx@archiver.kernel.org>; Wed, 11 Dec 2019 20:39:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3FC51C43603
+	for <amd-gfx@archiver.kernel.org>; Wed, 11 Dec 2019 20:41:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 235D0206A5
-	for <amd-gfx@archiver.kernel.org>; Wed, 11 Dec 2019 20:39:25 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 09951206A5
+	for <amd-gfx@archiver.kernel.org>; Wed, 11 Dec 2019 20:41:50 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="bYZgeM8o"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 235D0206A5
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DWqVCM+N"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 09951206A5
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 844C76EBCE;
-	Wed, 11 Dec 2019 20:39:15 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2079.outbound.protection.outlook.com [40.107.94.79])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C0C996EBCE;
- Wed, 11 Dec 2019 20:39:13 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=IbuC8mUrqWP7pK9shR2NTlbNOv7rmFeCj2bReT9G2E6skvJ7xZui359oShs5c0Jr7uy19P1xgXZYYU6o4LWh7hTQh7IFywPyzZ0WplDblr4M9ZInPr6wJShPUVKNnF9XEM9G4QYzv414WCQr72DzOqNiExecphnL67Z9zSHuOFw+yhbJ224aa1ad7fSpR6w5Hf377G/8vnO+MoKHG+Jf5Kj0CA2/Qgg3Q09LUujtAMeSVHH0XN1Ptl5U68Kt9YikAK5UmVxMddA/rj6BDH6YWJZl9EqgVm5hQuU3NsHLLRncLSMQtPfmbTCUMMpRASIYJ6WtwZWw8hXM2tj4tCzEUA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vbmvfEVDn4wlCMN0iZvdDxhc9PmPptczfmGfkV79hL4=;
- b=ghFBWUT8oZMOFvgSW/nrrj6KSk1X7InD9nxpO8K/Vm0khPNhL1cZwTbsRBzWq8yaZCihNg5DTHmkqMhUBsis1h7RUFI+EPXP/JI4NAfphZn4aeEJgCd4VGA6CIIyDmBVegELO0k1Pptp8vQsOOMo63QW7oKySRC52oQsNiTQ5eCg8ZJjvTJJQB/zdAtY5zGMZSIpmZZBsXpPeLBrq3vvgMR3n8/c7U6ltwxYcoWXiMdFd5tENm9jQKspUb6BWmNhxrtXj5EayMFzuNtVvHkWUEGycTQ3PY3a6OrZAUnOzzHyNCeEC/+RGmBtBq0cWNYEVpdxtLlWXJ4UDTUgEMJkhw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=permerror action=none header.from=amd.com; dkim=none (message not
- signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vbmvfEVDn4wlCMN0iZvdDxhc9PmPptczfmGfkV79hL4=;
- b=bYZgeM8oDjtHQiyHbAT1jU3PJdPgb3BV1MXH1Zu9oXuo7MIV3kaYObSd2tjSeEubUHSt1cDxs80hnh3DlrwlF4nY+I0Y6HtionvIzl5i+nhXju/x/WQHszMvtdOir5aRxrXcmgKFEAWxh010dNUgKj3mJTQfmURgQAGhlm2HIQ0=
-Received: from DM3PR12CA0045.namprd12.prod.outlook.com (2603:10b6:0:56::13) by
- DM6PR12MB3706.namprd12.prod.outlook.com (2603:10b6:5:1cc::27) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2538.16; Wed, 11 Dec 2019 20:39:12 +0000
-Received: from CO1NAM11FT030.eop-nam11.prod.protection.outlook.com
- (2a01:111:f400:7eab::209) by DM3PR12CA0045.outlook.office365.com
- (2603:10b6:0:56::13) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2516.13 via Frontend
- Transport; Wed, 11 Dec 2019 20:39:12 +0000
-Authentication-Results: spf=none (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
- header.d=none;lists.freedesktop.org; dmarc=permerror action=none
- header.from=amd.com;
-Received-SPF: None (protection.outlook.com: amd.com does not designate
- permitted sender hosts)
-Received: from SATLEXMB02.amd.com (165.204.84.17) by
- CO1NAM11FT030.mail.protection.outlook.com (10.13.174.125) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.2538.14 via Frontend Transport; Wed, 11 Dec 2019 20:39:11 +0000
-Received: from SATLEXMB02.amd.com (10.181.40.143) by SATLEXMB02.amd.com
- (10.181.40.143) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Wed, 11 Dec
- 2019 14:39:10 -0600
-Received: from agrodzovsky-All-Series.amd.com (10.180.168.240) by
- SATLEXMB02.amd.com (10.181.40.143) with Microsoft SMTP Server id 15.1.1713.5
- via Frontend Transport; Wed, 11 Dec 2019 14:39:09 -0600
-From: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
-To: <dri-devel@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>
-Subject: [RESEND PATCH 5/5] drm/amdgpu: Switch from system_highpri_wq to
- system_unbound_wq
-Date: Wed, 11 Dec 2019 15:38:52 -0500
-Message-ID: <1576096732-3596-5-git-send-email-andrey.grodzovsky@amd.com>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1576096732-3596-1-git-send-email-andrey.grodzovsky@amd.com>
-References: <1576096732-3596-1-git-send-email-andrey.grodzovsky@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id B4B156EB8B;
+	Wed, 11 Dec 2019 20:41:50 +0000 (UTC)
+Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
+ [IPv6:2a00:1450:4864:20::434])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 560166EB8B
+ for <amd-gfx@lists.freedesktop.org>; Wed, 11 Dec 2019 20:41:49 +0000 (UTC)
+Received: by mail-wr1-x434.google.com with SMTP id d16so111409wre.10
+ for <amd-gfx@lists.freedesktop.org>; Wed, 11 Dec 2019 12:41:49 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=h9UxdK4fmi6JhMpxgtd+0dxrSPW6I3Mu9/IDf/4YyeQ=;
+ b=DWqVCM+NzUAdbCqUzuRbPsfJ0PJPYW7NVYLMI/iGU685vXI1WuiE4HXmMNjtn+J3XP
+ AeZzA8mwIpaLjBqWU/Bae73z2R3miv9ITWmiUAAs/jap13s4oGzomG32try3fdSvN5Pj
+ B7EiJOu8WKaO0cYx1RazPTxPleKkogeYfxz/ZUY/HYvH3H0E+w+4KPR76Ne2QrfJpGIO
+ zv2EMfqlQa9KC6go74YZekshFzXGJlb/owEAXWf09vP4rT/iAGeaHieU9F3gHhQdl+U+
+ sHO4a+h7QMpzPf3PT3swbX+Fsk+VmejaVOWN3wFjKicsnbSpGfkAOYARU1LPcVV9dgiJ
+ tSVA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=h9UxdK4fmi6JhMpxgtd+0dxrSPW6I3Mu9/IDf/4YyeQ=;
+ b=JRuvmRV0h395bY12/q4qddxaZ4YhrjxQNA25AvVuwY5aKTq7STKYqhGFBLCn14SY4a
+ 7cPt+pSNlC6Mg8bKM7Qlw+PgleJWsRQl0om/kY+NY97gwXBT5AA0UHuoV8tbbPdz/F00
+ 9ti0d/o5Uc+w92crOZtEt6uUk0bNPfb2313lHRbZY6+UQOlgbfT80Be1ocodyety3k03
+ cPoBLcKK1cjPNcJOrWq6ejGf3myh7Ufi8MqGj8IV+F/QN9ridFIvpwLcZTu7ZEARpkEa
+ Oq5GI/Zt8ZpcpO236MV0GsIf8OWfYRRv+Y/xqx5K2lPGMGmcq3713moS853d6GtK26HV
+ um8g==
+X-Gm-Message-State: APjAAAW0WpiKQ7j8dHKIpwOQkVzf6IjvfkHZgX7bxnE9j4AmSUQ8/thc
+ B6c+Uv4crBlKMPdMRk2AtDFZpoJ09tybdiP98BA=
+X-Google-Smtp-Source: APXvYqxE8+88GgwGSkXsgjvQC6zsJyEpAbagXLFKBWqy7fG0BoYyRi5+ytcZx9phO6QnBhlQLf5ch/7BSv2dUY7Id6I=
+X-Received: by 2002:a5d:6a0f:: with SMTP id m15mr1899489wru.40.1576096907309; 
+ Wed, 11 Dec 2019 12:41:47 -0800 (PST)
 MIME-Version: 1.0
-X-EOPAttributedMessage: 0
-X-MS-Office365-Filtering-HT: Tenant
-X-Forefront-Antispam-Report: CIP:165.204.84.17; IPV:NLI; CTRY:US; EFV:NLI;
- SFV:NSPM;
- SFS:(10009020)(4636009)(396003)(136003)(376002)(346002)(39860400002)(428003)(189003)(199004)(110136005)(336012)(8936002)(70586007)(44832011)(26005)(81166006)(70206006)(36756003)(8676002)(81156014)(54906003)(4326008)(478600001)(356004)(426003)(6666004)(316002)(2616005)(5660300002)(2906002)(7696005)(450100002)(186003)(86362001);
- DIR:OUT; SFP:1101; SCL:1; SRVR:DM6PR12MB3706; H:SATLEXMB02.amd.com; FPR:;
- SPF:None; LANG:en; PTR:InfoDomainNonexistent; MX:1; A:1; 
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: e9135bb6-e863-43e6-4d90-08d77e7a2df3
-X-MS-TrafficTypeDiagnostic: DM6PR12MB3706:
-X-Microsoft-Antispam-PRVS: <DM6PR12MB3706543FB0A34B33EFF49397EA5A0@DM6PR12MB3706.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:6108;
-X-Forefront-PRVS: 024847EE92
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: TLU2fs1fKuENzN3on6mwJDLzeRGVAH4cjGqQ/8indenL9KymqUvLceI5Xbu6rFhxGNH8onltg8Bic2LxwrmqkNV4LVj03JmkqZTGwY1x4cTQr7lrb0ZG2yVhH0cPqKLIoINJtWXQFDIg2wDBhTKMXgPurLbac+4rlOnaflwMN9pfban4N5TFidsLAGcDLdePFimWyFuWuWeT2Hx/wZNe4uAzMz3C02hNFM8SuBUoPCwQj0aOxUKkgeoIN6b00dDXsNu/JOmA31imp7mcc6T2l9Vd7YBpBGvdBuIyHFkic1GlSPx1kJdyzQpLaj/gf5QbOILddTR7pQ3qbkG7+SvatjxZ2/Q6QOhJST/WNko8FGKcnY1Y4Is7XnbdCHZwUNDCiI+dprtybZLHlPC2tHoLAWa1zAPmeAeCG2t1TBpgsaqYloinqUglsa+1CrYyeYSJ
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Dec 2019 20:39:11.6651 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e9135bb6-e863-43e6-4d90-08d77e7a2df3
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB02.amd.com]
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3706
+References: <20191211202542.637-1-Yong.Zhao@amd.com>
+In-Reply-To: <20191211202542.637-1-Yong.Zhao@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Wed, 11 Dec 2019 15:41:35 -0500
+Message-ID: <CADnq5_OmV8BuAuijC3r7NP=+D=a4NjOr8564ZHyugRpLnDSOVQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: Add CU info print log
+To: Yong Zhao <Yong.Zhao@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,38 +73,142 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alexander.Deucher@amd.com, Le.Ma@amd.com, Evan.Quan@amd.com,
- Andrey Grodzovsky <andrey.grodzovsky@amd.com>, hawking.zhang@amd.com
+Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This is to avoid queueing jobs to same CPU during XGMI hive reset
-because there is a strict timeline for when the reset commands
-must reach all the GPUs in the hive.
+On Wed, Dec 11, 2019 at 3:26 PM Yong Zhao <Yong.Zhao@amd.com> wrote:
+>
+> The log will be useful for easily getting the CU info on various
+> emulation models or ASICs.
+>
 
-Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+You can probably just put this all in once place at the end of init
+rather than sprinkling the print statements across all the IP modules.
+Also, can we make it debug only?  Our driver is already pretty chatty.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index e4089a0..1518565 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -3842,7 +3842,7 @@ static int amdgpu_do_asic_reset(struct amdgpu_hive_info *hive,
- 		list_for_each_entry(tmp_adev, device_list_handle, gmc.xgmi.head) {
- 			/* For XGMI run all resets in parallel to speed up the process */
- 			if (tmp_adev->gmc.xgmi.num_physical_nodes > 1) {
--				if (!queue_work(system_highpri_wq, &tmp_adev->xgmi_reset_work))
-+				if (!queue_work(system_unbound_wq, &tmp_adev->xgmi_reset_work))
- 					r = -EALREADY;
- 			} else
- 				r = amdgpu_asic_reset(tmp_adev);
--- 
-2.7.4
+Alex
 
+> Change-Id: Ic1c914938aa3445d8dbfdf6a237bc1d58b0d5267
+> Signed-off-by: Yong Zhao <Yong.Zhao@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    | 6 ++++++
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 6 ++++++
+>  drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c        | 2 ++
+>  drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c         | 2 ++
+>  drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c         | 2 ++
+>  drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c         | 2 ++
+>  drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c         | 2 ++
+>  7 files changed, 22 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> index 8992506541d8..df9732510012 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> @@ -1529,6 +1529,12 @@ static int amdgpu_device_parse_gpu_info_fw(struct amdgpu_device *adev)
+>                 adev->gfx.config.max_shader_engines = le32_to_cpu(gpu_info_fw->gc_num_se);
+>                 adev->gfx.config.max_cu_per_sh = le32_to_cpu(gpu_info_fw->gc_num_cu_per_sh);
+>                 adev->gfx.config.max_sh_per_se = le32_to_cpu(gpu_info_fw->gc_num_sh_per_se);
+> +
+> +               DRM_INFO("gpu_info: SE %d, SH per SE %d, CU per SH %d\n",
+> +                               adev->gfx.config.max_shader_engines,
+> +                               adev->gfx.config.max_sh_per_se,
+> +                               adev->gfx.config.max_cu_per_sh);
+> +
+>                 adev->gfx.config.max_backends_per_se = le32_to_cpu(gpu_info_fw->gc_num_rb_per_se);
+>                 adev->gfx.config.max_texture_channel_caches =
+>                         le32_to_cpu(gpu_info_fw->gc_num_tccs);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+> index f95092741c38..8001a067700c 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+> @@ -388,6 +388,12 @@ int amdgpu_discovery_get_gfx_info(struct amdgpu_device *adev)
+>         adev->gfx.config.max_cu_per_sh = 2 * (le32_to_cpu(gc_info->gc_num_wgp0_per_sa) +
+>                                               le32_to_cpu(gc_info->gc_num_wgp1_per_sa));
+>         adev->gfx.config.max_sh_per_se = le32_to_cpu(gc_info->gc_num_sa_per_se);
+> +
+> +       DRM_INFO("discovery: SE %d, SH per SE %d, CU per SH %d\n",
+> +                       adev->gfx.config.max_shader_engines,
+> +                       adev->gfx.config.max_sh_per_se,
+> +                       adev->gfx.config.max_cu_per_sh);
+> +
+>         adev->gfx.config.max_backends_per_se = le32_to_cpu(gc_info->gc_num_rb_per_se);
+>         adev->gfx.config.max_texture_channel_caches = le32_to_cpu(gc_info->gc_num_gl2c);
+>         adev->gfx.config.max_gprs = le32_to_cpu(gc_info->gc_num_gprs);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+> index 8cdef79de9d4..a26892e71680 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+> @@ -5432,6 +5432,8 @@ static int gfx_v10_0_get_cu_info(struct amdgpu_device *adev,
+>         cu_info->ao_cu_mask = ao_cu_mask;
+>         cu_info->simd_per_cu = NUM_SIMD_PER_CU;
+>
+> +       DRM_INFO("active_cu_number: %d\n", cu_info->number);
+> +
+>         return 0;
+>  }
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c
+> index 95bb2422b27c..bb05a94690d2 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c
+> @@ -3620,6 +3620,8 @@ static void gfx_v6_0_get_cu_info(struct amdgpu_device *adev)
+>
+>         cu_info->number = active_cu_number;
+>         cu_info->ao_cu_mask = ao_cu_mask;
+> +
+> +       DRM_INFO("active_cu_number: %d\n", cu_info->number);
+>  }
+>
+>  const struct amdgpu_ip_block_version gfx_v6_0_ip_block =
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
+> index 648d767d14e7..6d16216d5c7c 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
+> @@ -5159,6 +5159,8 @@ static void gfx_v7_0_get_cu_info(struct amdgpu_device *adev)
+>         cu_info->max_scratch_slots_per_cu = 32;
+>         cu_info->wave_front_size = 64;
+>         cu_info->lds_size = 64;
+> +
+> +       DRM_INFO("active_cu_number: %d\n", cu_info->number);
+>  }
+>
+>  const struct amdgpu_ip_block_version gfx_v7_0_ip_block =
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
+> index 8b9f440688ed..1073eb5c3cec 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
+> @@ -7141,6 +7141,8 @@ static void gfx_v8_0_get_cu_info(struct amdgpu_device *adev)
+>         cu_info->max_scratch_slots_per_cu = 32;
+>         cu_info->wave_front_size = 64;
+>         cu_info->lds_size = 64;
+> +
+> +       DRM_INFO("active_cu_number: %d\n", cu_info->number);
+>  }
+>
+>  const struct amdgpu_ip_block_version gfx_v8_0_ip_block =
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+> index 147c08fb5531..e9d55ab33da7 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+> @@ -6562,6 +6562,8 @@ static int gfx_v9_0_get_cu_info(struct amdgpu_device *adev,
+>         cu_info->ao_cu_mask = ao_cu_mask;
+>         cu_info->simd_per_cu = NUM_SIMD_PER_CU;
+>
+> +       DRM_INFO("active_cu_number: %d\n", cu_info->number);
+> +
+>         return 0;
+>  }
+>
+> --
+> 2.17.1
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
