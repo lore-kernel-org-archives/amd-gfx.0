@@ -2,61 +2,61 @@ Return-Path: <SRS0=BheJ=2B=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+X-Spam-Status: No, score=-6.7 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+	SPF_HELO_NONE,SPF_PASS,UNWANTED_LANGUAGE_BODY,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B554FC2D0CC
-	for <amd-gfx@archiver.kernel.org>; Wed, 11 Dec 2019 15:33:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A41F5C2D0C6
+	for <amd-gfx@archiver.kernel.org>; Wed, 11 Dec 2019 15:33:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 836262173E
-	for <amd-gfx@archiver.kernel.org>; Wed, 11 Dec 2019 15:33:46 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 7A5F92173E
+	for <amd-gfx@archiver.kernel.org>; Wed, 11 Dec 2019 15:33:44 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="ySlYkfX3"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 836262173E
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="QwXh4FDf"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7A5F92173E
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 383B06EB8F;
-	Wed, 11 Dec 2019 15:33:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2EBC16EB8C;
+	Wed, 11 Dec 2019 15:33:44 +0000 (UTC)
 Received: from NAM02-CY1-obe.outbound.protection.outlook.com
- (mail-eopbgr760087.outbound.protection.outlook.com [40.107.76.87])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 670BF6EB8A
- for <amd-gfx@lists.freedesktop.org>; Wed, 11 Dec 2019 15:33:36 +0000 (UTC)
+ (mail-eopbgr760050.outbound.protection.outlook.com [40.107.76.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2D1D26EB8C
+ for <amd-gfx@lists.freedesktop.org>; Wed, 11 Dec 2019 15:33:42 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=IznBFE7ab7hs/enc2QTLMHgmqiPpIcrOe+zGH5B2xHWFCQLqtMfpnWvbahlBM+WGY+94AUGsNHIcmN2W+vF64VHnXdz059boCuaObgOkeUqM611euJSzuNRPzli+XVIAecKpzz95VwW6D3YlNvJXa8mmczZx71mEcuyjwXroHAUDYG26iGLK3BeRg3u95o5h+B6jN779aj0xyIYnCCP9DzxbF6O26/9wvWeRCiuyYCLqY58D8UVvAUvA8yj/TbofLlodgSQjyAAxR9sScN8E7XBqhEB9GekEdAkLCvikIqC+0LVvgzXzSG0SA2fuJbWY3hIApha9JCTh09pHHFbsgw==
+ b=f6Jiv43oIrv77/CbUUsOoWaVIGgvX61am/SAXq1C5heGJkW8uV9NtMF/tqeFMa0qGk8jTrYVOvsQfP/QDtOp2IBsZeAYAEFGK28oZkt//dPzwJD+lblMYHb7wvVGzFtkY1xNSIa147JCnVK3u6/W3PD8ZaMm93EOwLPyeAsuFQzeJ2Z0kHBAYC8t8YazfKli/27xSpKdvhyDCdPSwzMMOtYWhHHF/2qdFyCh0gO94FTjxMR5gKyg0YfZAoA5iG4rxAW5LPSTienNTbg9ngL9/cpxcKMVrk9WVPOhDvCLtm+w24xnFVzQYwelDtcvUNnT57HcUsJA33b3UM/Q4/vESQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=n4PNUSOj/o4jU7FJvY5TGJw2dRu6zH4MqNZQ4V6dKbI=;
- b=PGki1UZsnraovHnDPOzQQLw0yICVRlomp82W4ggkIuxSa/qOf9K1xdLW4Ku5kj5oPp2oqjnQHgDm9Y+EviS6G5igkXw+PQ1acrwhDZO1sLBoI4Zc/hdjq5CEB8y6/kzx5ojmK+hxttvs3uY0XWChnpQ2YGHCoDL+gNn1k8/8VzLXA52FNtpQYM784NaDvYUuevDhf0/e/FMiLMi5YMTkTzAOy3G5yY+rg3oMLy8FhX6CrJyLvShmimkyVuigq7KBuw+e1tp3R0T/O1Yl+QPMqcNGArexHlyMveg2MWF0N+DA8uFHJPD7mkdkvfru6QqEI0Ji7dvGIVPYBo+o2nolSQ==
+ bh=aLugb/Ih7TbWxNzFx/zoq2AsNj/2+gfFfAA9zKMuzj0=;
+ b=OgNoV+ucPC2UasCwuVztJs+XL39YYsZyAB4pzFHF8bzywbWkZ2lleXvau8Ggw2yt9tca6iXNIfqzhQQoRYNRvSiPHQmVS3U7f7B5Ap8DOAevjN8zldbRtisTZ3WNP6bg1qtUMeSJ8jJxinQ5MLsFpTFaEJOs7aVcN7wkC/clp833YORIJakNgIcw1uIa/dv5eiG0guDpuXYmHhWEihrdd0htL/d+YWhupuofwWfRTQ0h15GCWcuASAcL/U7YK+7o8sucdp/En0op3BvIssqL5R8EFyHm4rKEP+IpEqkL5wwL1nq4nuq8IAUn1mtq9KWU/oMOrnpJG69yERRwrvfARA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=n4PNUSOj/o4jU7FJvY5TGJw2dRu6zH4MqNZQ4V6dKbI=;
- b=ySlYkfX3aZEVrg+oNHoE3VbasPXjs4DtNsQsb4KY+S1lSf/p/kNSKur+ciZOuDnJ0Ayey7poprfpO/rbnrVuAnLvT9ASUgVbGFCezuFL5QEbYEqsziDY5WWpZusWzMu5krajDeIEfHL449+10zWrShgN28rAqhfwpAER2O6JDKs=
+ bh=aLugb/Ih7TbWxNzFx/zoq2AsNj/2+gfFfAA9zKMuzj0=;
+ b=QwXh4FDf2Z4ILZKGGyKIqXPiZ6pw6jxmEFua21hL9chO57icn5hv++6YFNDvCegkKJ3lVn7mvQuC4CWRWf98/7nl01WdTdDO/1TfpQVF9/y1BBPLnmMDZcV4yLHUtFyth0iJEi7CsoZYK/b0SwvyqnSEk9Ars9sBibanlyU+AQM=
 Authentication-Results: spf=none (sender IP is )
  smtp.mailfrom=Rodrigo.Siqueira@amd.com; 
 Received: from MW2PR12MB2524.namprd12.prod.outlook.com (52.132.180.155) by
  MW2PR12MB2491.namprd12.prod.outlook.com (52.132.183.158) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2538.15; Wed, 11 Dec 2019 15:33:35 +0000
+ 15.20.2538.15; Wed, 11 Dec 2019 15:33:40 +0000
 Received: from MW2PR12MB2524.namprd12.prod.outlook.com
  ([fe80::3d1f:4c20:e980:6e69]) by MW2PR12MB2524.namprd12.prod.outlook.com
  ([fe80::3d1f:4c20:e980:6e69%5]) with mapi id 15.20.2516.018; Wed, 11 Dec 2019
- 15:33:35 +0000
+ 15:33:40 +0000
 From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 21/39] drm/amd/display: Map ODM memory correctly when doing
- ODM combine
-Date: Wed, 11 Dec 2019 10:32:35 -0500
-Message-Id: <20191211153253.2291112-22-Rodrigo.Siqueira@amd.com>
+Subject: [PATCH 27/39] drm/amd/display: Get cache window sizes from DMCUB
+ firmware
+Date: Wed, 11 Dec 2019 10:32:41 -0500
+Message-Id: <20191211153253.2291112-28-Rodrigo.Siqueira@amd.com>
 X-Mailer: git-send-email 2.24.0
 In-Reply-To: <20191211153253.2291112-1-Rodrigo.Siqueira@amd.com>
 References: <20191211153253.2291112-1-Rodrigo.Siqueira@amd.com>
@@ -68,11 +68,11 @@ X-Mailer: git-send-email 2.24.0
 X-Originating-IP: [165.204.55.250]
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 5f161109-87fe-489e-b10c-08d77e4f7c73
+X-MS-Office365-Filtering-Correlation-Id: 2c768917-9c0c-4f49-ee1f-08d77e4f7f9d
 X-MS-TrafficTypeDiagnostic: MW2PR12MB2491:|MW2PR12MB2491:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <MW2PR12MB2491D4C4B5CD373D957EE843985A0@MW2PR12MB2491.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:4303;
+X-Microsoft-Antispam-PRVS: <MW2PR12MB249190B5F0AE86BF2DA77CD5985A0@MW2PR12MB2491.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:8273;
 X-Forefront-PRVS: 024847EE92
 X-Forefront-Antispam-Report: SFV:NSPM;
  SFS:(10009020)(4636009)(396003)(346002)(376002)(39860400002)(366004)(136003)(189003)(199004)(6486002)(6512007)(6916009)(8936002)(5660300002)(2906002)(86362001)(52116002)(2616005)(478600001)(66476007)(316002)(186003)(8676002)(81156014)(81166006)(54906003)(36756003)(4326008)(1076003)(26005)(66946007)(66556008)(6506007);
@@ -83,14 +83,14 @@ Received-SPF: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: mOHv+2sN2dGk/SvoF5oEpvyudnOnDwzJoJBc5XEgc/UhLRghPuKudhloYcGPEO1l5c1WQEN1vIXyuNXB92E8Os6b1Qc6ALkco40M6TbmgZBvlxp2hm0nD/APwC2ZDlePRGvQVAczJGlBnjW7aNwaN8F2hZ2SacLGhWIDxy7P8oDkYydGN0QkbkPbdOXRMIsrzSH40AHG0K+jgMtQsGn5MsWi9OcIQCq/pGKdh1Cj8CacxPNGQoJkbf5/LKpMuENg1IAOkriamg74w1TID/lS2CPlNUFcfQ4R+D/ZFwxJD7qI9gNLmbJn8jPOZ7HFtqZkBMDBL7PGfs8AaYFNsi2KdYdXvVtqgYOZwdDSGU8ACQgFpQb6qHQNCUziwXQ2rZZXoDoOGIsKK3ETJntRQBkZyZ75qOJNiil4AiF+1IyMUH7ASlq2rMJZlFr+t9yjU6u/
+X-Microsoft-Antispam-Message-Info: Da7OU8GzNjIXxV3iQt0tenMaXpB9sEYWjdaox5VoeYle/z6v6nUez4Tc1nWyLSUGp0hNRgtg15pMeHglgdE33SL+h+O8RdtnVssUAV/Sv4Fy7SaFUkxY8FsEtwEUtkfkNqEg8oeJfXVBQm14o/yuVrVSmVKffNxcL1MdSh9zSCkDzTAPsdU2RFfQ63ppoA6U0Q4LfCLhAv3SqIRuhMhreIs5TN+erglVhrTDcQVvgC17EsV4jNt6BNZAkz8S1L/Huflp0AuRD5/NAURe6+13g/FSDsMijeSm7xKeV5MBskNrFVP0qrfW2OlwZSA4V9mut0sSXXX9Qi+q+0cWdWuMRRInvt+Wb6reO29kXdmybLdivQ+eJMoBIkpMM+p5dHjhnxkwJsxnaFU++2GnBaeS1RALdIKwi1QKgR0CdIvdFAMAvqi+zhaEvhZ30KIbqoP5
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5f161109-87fe-489e-b10c-08d77e4f7c73
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Dec 2019 15:33:35.3376 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2c768917-9c0c-4f49-ee1f-08d77e4f7f9d
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Dec 2019 15:33:40.6576 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Pd0SnknC9OPLvZJ7NlyLcMEv2f7LcH+8BaeARkWcHprcxjXhVNgLUTk5xJ/jUhXjrw767anFHmRMK5Xkg031jw==
+X-MS-Exchange-CrossTenant-UserPrincipalName: uWfdEQaBu3raigzApzr6SEV8oBaj3h+UuS858uD2PRk6Cih39HzAQYpkk0CVuv9VRD+N+E70pF3h8CHPE4r12w==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW2PR12MB2491
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -103,90 +103,271 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sunpeng.Li@amd.com, Bhawanpreet.Lakha@amd.com, Jun Lei <Jun.Lei@amd.com>,
- Harry.Wentland@amd.com, Nikola Cornij <nikola.cornij@amd.com>
+Cc: Sunpeng.Li@amd.com, Bhawanpreet.Lakha@amd.com,
+ Tony Cheng <Tony.Cheng@amd.com>, Harry.Wentland@amd.com,
+ Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Nikola Cornij <nikola.cornij@amd.com>
+From: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
 
-[why]
-Up to 4 ODM memory pieces are required per ODM combine and cannot
-overlap, i.e. each ODM "session" has to use its own memory pieces.
-The ODM-memory mapping is currently broken for generic case.
+[Why]
+Firmware state and tracebuffer shouldn't be considered stable API
+between firmware versions.
 
-The maximum number of memory pieces is ASIC-dependent, but it's always
-big enough to satisfy maximum number of ODM combines. Memory pieces
-are mapped as a bit-map, i.e. one memory piece corresponds to one bit.
-The OPTC doing ODM needs to select memory pieces by setting the
-corresponding bits, making sure there's no overlap with other OPTC
-instances that might be doing ODM.
+Driver shouldn't be querying anything from firmware state or tracebuffer
+outside of debugging.
 
-The current mapping works only for OPTC instance indexes smaller than
-3. For instance indexes 3 and up it practically maps no ODM memory,
-causing black, gray or white screen in display configs that include
-ODM on OPTC instance 3 or up.
+Commands are the stable API for this once we have the outbox.
 
-[how]
-Statically map two unique ODM memory pieces for each OPTC instance
-and piece them together when programming ODM combine mode.
+[How]
+Add metadata struct to the end of the data firmware that describes
+fw_state_size and some reserved area for future use.
 
-Signed-off-by: Nikola Cornij <nikola.cornij@amd.com>
-Reviewed-by: Jun Lei <Jun.Lei@amd.com>
+Drop the tracebuffer and firmware state headers since they can differ
+per version.
+
+Signed-off-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+Reviewed-by: Tony Cheng <Tony.Cheng@amd.com>
 Acked-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 ---
- .../gpu/drm/amd/display/dc/dcn20/dcn20_optc.c    | 16 ++++++++++++----
- 1 file changed, 12 insertions(+), 4 deletions(-)
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  4 ++
+ .../inc/{dmub_fw_state.h => dmub_fw_meta.h}   | 64 ++++++++-----------
+ .../gpu/drm/amd/display/dmub/inc/dmub_srv.h   |  3 +-
+ .../gpu/drm/amd/display/dmub/src/dmub_srv.c   | 51 +++++++++++++--
+ 4 files changed, 78 insertions(+), 44 deletions(-)
+ rename drivers/gpu/drm/amd/display/dmub/inc/{dmub_fw_state.h => dmub_fw_meta.h} (57%)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_optc.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_optc.c
-index 673c83e2afd4..9b36fec549d7 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_optc.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_optc.c
-@@ -236,12 +236,13 @@ void optc2_set_odm_combine(struct timing_generator *optc, int *opp_id, int opp_c
- 		struct dc_crtc_timing *timing)
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 8cdfb3ccb710..745d8719ccc1 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -1234,6 +1234,10 @@ static int dm_dmub_sw_init(struct amdgpu_device *adev)
+ 					PSP_HEADER_BYTES - PSP_FOOTER_BYTES;
+ 	region_params.bss_data_size = le32_to_cpu(hdr->bss_data_bytes);
+ 	region_params.vbios_size = adev->bios_size;
++	region_params.fw_bss_data =
++		adev->dm.dmub_fw->data +
++		le32_to_cpu(hdr->header.ucode_array_offset_bytes) +
++		le32_to_cpu(hdr->inst_const_bytes);
+ 
+ 	status = dmub_srv_calc_region_info(dmub_srv, &region_params,
+ 					   &region_info);
+diff --git a/drivers/gpu/drm/amd/display/dmub/inc/dmub_fw_state.h b/drivers/gpu/drm/amd/display/dmub/inc/dmub_fw_meta.h
+similarity index 57%
+rename from drivers/gpu/drm/amd/display/dmub/inc/dmub_fw_state.h
+rename to drivers/gpu/drm/amd/display/dmub/inc/dmub_fw_meta.h
+index c87b1ba7590e..242ec257998c 100644
+--- a/drivers/gpu/drm/amd/display/dmub/inc/dmub_fw_state.h
++++ b/drivers/gpu/drm/amd/display/dmub/inc/dmub_fw_meta.h
+@@ -22,52 +22,42 @@
+  * Authors: AMD
+  *
+  */
+-
+-#ifndef _DMUB_FW_STATE_H_
+-#define _DMUB_FW_STATE_H_
++#ifndef _DMUB_META_H_
++#define _DMUB_META_H_
+ 
+ #include "dmub_types.h"
+ 
+ #pragma pack(push, 1)
+ 
+-struct dmub_fw_state {
+-	/**
+-	 * @phy_initialized_during_fw_boot:
+-	 *
+-	 * Detects if VBIOS/VBL has ran before firmware boot.
+-	 * A value of 1 will usually mean S0i3 boot.
+-	 */
+-	uint8_t phy_initialized_during_fw_boot;
+-
+-	/**
+-	 * @intialized_phy:
+-	 *
+-	 * Bit vector of initialized PHY.
+-	 */
+-	uint8_t initialized_phy;
++/* Magic value for identifying dmub_fw_meta_info */
++#define DMUB_FW_META_MAGIC 0x444D5542
+ 
+-	/**
+-	 * @enabled_phy:
+-	 *
+-	 * Bit vector of enabled PHY for DP alt mode switch tracking.
+-	 */
+-	uint8_t enabled_phy;
++/* Offset from the end of the file to the dmub_fw_meta_info */
++#define DMUB_FW_META_OFFSET 0x24
+ 
+-	/**
+-	 * @dmcu_fw_loaded:
+-	 *
+-	 * DMCU auto load state.
+-	 */
+-	uint8_t dmcu_fw_loaded;
++/**
++ * struct dmub_fw_meta_info - metadata associated with fw binary
++ *
++ * NOTE: This should be considered a stable API. Fields should
++ *       not be repurposed or reordered. New fields should be
++ *       added instead to extend the structure.
++ *
++ * @magic_value: magic value identifying DMUB firmware meta info
++ * @fw_region_size: size of the firmware state region
++ * @trace_buffer_size: size of the tracebuffer region
++ */
++struct dmub_fw_meta_info {
++	uint32_t magic_value;
++	uint32_t fw_region_size;
++	uint32_t trace_buffer_size;
++};
+ 
+-	/**
+-	 * @psr_state:
+-	 *
+-	 * PSR state tracking.
+-	 */
+-	uint8_t psr_state;
++/* Ensure that the structure remains 64 bytes. */
++union dmub_fw_meta {
++	struct dmub_fw_meta_info info;
++	uint8_t reserved[64];
+ };
+ 
+ #pragma pack(pop)
+ 
+-#endif /* _DMUB_FW_STATE_H_ */
++#endif /* _DMUB_META_H_ */
+diff --git a/drivers/gpu/drm/amd/display/dmub/inc/dmub_srv.h b/drivers/gpu/drm/amd/display/dmub/inc/dmub_srv.h
+index 689806b6ee31..f34a50dd36ea 100644
+--- a/drivers/gpu/drm/amd/display/dmub/inc/dmub_srv.h
++++ b/drivers/gpu/drm/amd/display/dmub/inc/dmub_srv.h
+@@ -67,7 +67,6 @@
+ #include "dmub_types.h"
+ #include "dmub_cmd.h"
+ #include "dmub_rb.h"
+-#include "dmub_fw_state.h"
+ 
+ #if defined(__cplusplus)
+ extern "C" {
+@@ -145,11 +144,13 @@ struct dmub_fb {
+  * @inst_const_size: size of the fw inst const section
+  * @bss_data_size: size of the fw bss data section
+  * @vbios_size: size of the vbios data
++ * @fw_bss_data: raw firmware bss data section
+  */
+ struct dmub_srv_region_params {
+ 	uint32_t inst_const_size;
+ 	uint32_t bss_data_size;
+ 	uint32_t vbios_size;
++	const uint8_t *fw_bss_data;
+ };
+ 
+ /**
+diff --git a/drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c b/drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c
+index 16837003721e..9a959f871f11 100644
+--- a/drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c
++++ b/drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c
+@@ -26,7 +26,7 @@
+ #include "../inc/dmub_srv.h"
+ #include "dmub_dcn20.h"
+ #include "dmub_dcn21.h"
+-#include "dmub_trace_buffer.h"
++#include "dmub_fw_meta.h"
+ #include "os_types.h"
+ /*
+  * Note: the DMUB service is standalone. No additional headers should be
+@@ -46,6 +46,11 @@
+ /* Mailbox size */
+ #define DMUB_MAILBOX_SIZE (DMUB_RB_SIZE)
+ 
++/* Default state size if meta is absent. */
++#define DMUB_FW_STATE_SIZE (1024)
++
++/* Default tracebuffer size if meta is absent. */
++#define DMUB_TRACE_BUFFER_SIZE (1024)
+ 
+ /* Number of windows in use. */
+ #define DMUB_NUM_WINDOWS (DMUB_WINDOW_6_FW_STATE + 1)
+@@ -62,6 +67,27 @@ static inline uint32_t dmub_align(uint32_t val, uint32_t factor)
+ 	return (val + factor - 1) / factor * factor;
+ }
+ 
++static const struct dmub_fw_meta_info *
++dmub_get_fw_meta_info(const uint8_t *fw_bss_data, uint32_t fw_bss_data_size)
++{
++	const union dmub_fw_meta *meta;
++
++	if (fw_bss_data == NULL)
++		return NULL;
++
++	if (fw_bss_data_size < sizeof(union dmub_fw_meta) + DMUB_FW_META_OFFSET)
++		return NULL;
++
++	meta = (const union dmub_fw_meta *)(fw_bss_data + fw_bss_data_size -
++					    DMUB_FW_META_OFFSET -
++					    sizeof(union dmub_fw_meta));
++
++	if (meta->info.magic_value != DMUB_FW_META_MAGIC)
++		return NULL;
++
++	return &meta->info;
++}
++
+ static bool dmub_srv_hw_setup(struct dmub_srv *dmub, enum dmub_asic asic)
  {
- 	struct optc *optc1 = DCN10TG_FROM_TG(optc);
--	/* 2 pieces of memory required for up to 5120 displays, 4 for up to 8192 */
- 	int mpcc_hactive = (timing->h_addressable + timing->h_border_left + timing->h_border_right)
- 			/ opp_cnt;
--	int memory_mask = mpcc_hactive <= 2560 ? 0x3 : 0xf;
-+	uint32_t memory_mask;
- 	uint32_t data_fmt = 0;
+ 	struct dmub_srv_hw_funcs *funcs = &dmub->hw_funcs;
+@@ -162,6 +188,9 @@ dmub_srv_calc_region_info(struct dmub_srv *dmub,
+ 	struct dmub_region *mail = &out->regions[DMUB_WINDOW_4_MAILBOX];
+ 	struct dmub_region *trace_buff = &out->regions[DMUB_WINDOW_5_TRACEBUFF];
+ 	struct dmub_region *fw_state = &out->regions[DMUB_WINDOW_6_FW_STATE];
++	const struct dmub_fw_meta_info *fw_info;
++	uint32_t fw_state_size = DMUB_FW_STATE_SIZE;
++	uint32_t trace_buffer_size = DMUB_TRACE_BUFFER_SIZE;
  
-+	ASSERT(opp_cnt == 2);
-+
- 	/* TODO: In pseudocode but does not affect maximus, delete comment if we dont need on asic
- 	 * REG_SET(OTG_GLOBAL_CONTROL2, 0, GLOBAL_UPDATE_LOCK_EN, 1);
- 	 * Program OTG register MASTER_UPDATE_LOCK_DB_X/Y to the position before DP frame start
-@@ -249,9 +250,17 @@ void optc2_set_odm_combine(struct timing_generator *optc, int *opp_id, int opp_c
- 	 *		MASTER_UPDATE_LOCK_DB_X, 160,
- 	 *		MASTER_UPDATE_LOCK_DB_Y, 240);
- 	 */
-+
-+	/* 2 pieces of memory required for up to 5120 displays, 4 for up to 8192,
-+	 * however, for ODM combine we can simplify by always using 4.
-+	 * To make sure there's no overlap, each instance "reserves" 2 memories and
-+	 * they are uniquely combined here.
+ 	if (!dmub->sw_init)
+ 		return DMUB_STATUS_INVALID;
+@@ -176,6 +205,11 @@ dmub_srv_calc_region_info(struct dmub_srv *dmub,
+ 	data->base = dmub_align(inst->top, 256);
+ 	data->top = data->base + params->bss_data_size;
+ 
++	/*
++	 * All cache windows below should be aligned to the size
++	 * of the DMCUB cache line, 64 bytes.
 +	 */
-+	memory_mask = 0x3 << (opp_id[0] * 2) | 0x3 << (opp_id[1] * 2);
 +
- 	if (REG(OPTC_MEMORY_CONFIG))
- 		REG_SET(OPTC_MEMORY_CONFIG, 0,
--			OPTC_MEM_SEL, memory_mask << (optc->inst * 4));
-+			OPTC_MEM_SEL, memory_mask);
+ 	stack->base = dmub_align(data->top, 256);
+ 	stack->top = stack->base + DMUB_STACK_SIZE + DMUB_CONTEXT_SIZE;
  
- 	if (timing->pixel_encoding == PIXEL_ENCODING_YCBCR422)
- 		data_fmt = 1;
-@@ -260,7 +269,6 @@ void optc2_set_odm_combine(struct timing_generator *optc, int *opp_id, int opp_c
+@@ -185,14 +219,19 @@ dmub_srv_calc_region_info(struct dmub_srv *dmub,
+ 	mail->base = dmub_align(bios->top, 256);
+ 	mail->top = mail->base + DMUB_MAILBOX_SIZE;
  
- 	REG_UPDATE(OPTC_DATA_FORMAT_CONTROL, OPTC_DATA_FORMAT, data_fmt);
++	fw_info = dmub_get_fw_meta_info(params->fw_bss_data,
++					params->bss_data_size);
++
++	if (fw_info) {
++		fw_state_size = fw_info->fw_region_size;
++		trace_buffer_size = fw_info->trace_buffer_size;
++	}
++
+ 	trace_buff->base = dmub_align(mail->top, 256);
+-	trace_buff->top = trace_buff->base + TRACE_BUF_SIZE;
++	trace_buff->top = trace_buff->base + dmub_align(trace_buffer_size, 64);
  
--	ASSERT(opp_cnt == 2);
- 	REG_SET_3(OPTC_DATA_SOURCE_SELECT, 0,
- 			OPTC_NUM_OF_INPUT_SEGMENT, 1,
- 			OPTC_SEG0_SRC_SEL, opp_id[0],
+ 	fw_state->base = dmub_align(trace_buff->top, 256);
+-
+-	/* Align firmware state to size of cache line. */
+-	fw_state->top =
+-		fw_state->base + dmub_align(sizeof(struct dmub_fw_state), 64);
++	fw_state->top = fw_state->base + dmub_align(fw_state_size, 64);
+ 
+ 	out->fb_size = dmub_align(fw_state->top, 4096);
+ 
 -- 
 2.24.0
 
