@@ -7,32 +7,32 @@ X-Spam-Status: No, score=-9.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8BFB3C43603
-	for <amd-gfx@archiver.kernel.org>; Wed, 11 Dec 2019 20:07:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A5A2FC43603
+	for <amd-gfx@archiver.kernel.org>; Wed, 11 Dec 2019 20:07:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3ACC720836
-	for <amd-gfx@archiver.kernel.org>; Wed, 11 Dec 2019 20:07:21 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 7AC4B20836
+	for <amd-gfx@archiver.kernel.org>; Wed, 11 Dec 2019 20:07:23 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="Z0JtU1kL"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3ACC720836
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="PuGCKhMI"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7AC4B20836
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EB0A56E06B;
-	Wed, 11 Dec 2019 20:07:20 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2040.outbound.protection.outlook.com [40.107.220.40])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7082B6E06B
- for <amd-gfx@lists.freedesktop.org>; Wed, 11 Dec 2019 20:07:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1DE336E10D;
+	Wed, 11 Dec 2019 20:07:23 +0000 (UTC)
+Received: from NAM04-CO1-obe.outbound.protection.outlook.com
+ (mail-eopbgr690086.outbound.protection.outlook.com [40.107.69.86])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C759C6E10D
+ for <amd-gfx@lists.freedesktop.org>; Wed, 11 Dec 2019 20:07:21 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=oMey+9tuiqcA2PDcuZjDySScTIF41hAQfNBXCgfGxPPoDkyFDD3+RdKhJ9e2cY/fV4q3iW+3ifZ02RkJmRnauWDZxYEhq2gneaffmW3TUYpnDWJOR9tgntb+XP5EpaI9oFO7fh0MsO6TMaV8pJA1wCrEwH+M1fh1PDIB9GBE+SmA9SU63nq7rQtOHhWnP+3Wj59ivMeUcGYNZQ8qVjZCsFBbmutMIeVcrcWoI2uvEB7HZwpGieKm1f5PpZ+KHmaGSkyG6BN7sY4+fRNAdcn6BOUohlAYvc7pcm3ufg2xH+ZNZHUCoZI0pLlZkThr4pD7pX1xsKZWGj+Ylfed8ovzGA==
+ b=VjCHURSI0R472gAwK6QQWCbn5NkljjVsCyZ3ndsac1joXC/Dz59x+oeuW/kIc8hFn0dN+Iid1vXbno+IlSgvtqeIgwjAJC1VvNDtQVi4RXiGcDz87Sp+IUfDvpKz7nOcrDG3h+bQOmttJh6uRRCIh7Hnik6RUd+nCN3ka7vU9VsvXDSyXbbrBY5NePtjYjfvWZuiU+hcK4xfZbtH7vN2XLWAPRqHJ6vcveMUb+v8xLNScxBVrawQfdI55yQFdYMSCUrLthWPk17FVig1+ZgHO4lrTGfr8wqSPY21HOQwQMpDjmwqbnJVnJBKK2CkHA065YPW+dB4kbON2hRJNgC2Tg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=BSTWVqIEOuFNnA5my3jMbtcRLRuG7+9bv97JjVHbz8I=;
- b=SyUwXtvsFKXSVD7jbi+bbblE6ObMy3JAFW0fzs5bETsoI9RK+Q5hfsnYzTxQqL7AitL71Xt91Hy+22EW/hy3je+H2xR9dUbnsRZ5jfyN11bV2wh9twr8oC7GtUuZ1vUytDMO/syHjQXrJwhR3nUdTSBTwSZ6HtRWc2tzOp+uJp5b4J6sk7A+hDnO2ZkTErj+3wYI8tXRILJwrWv0aT21/MPNr4Ae78JRGEpTCdNDP4kAu7jA9AtONmU2ixW709X+mPWQOIWj4QzMFQJj58Gw+lh46sa6s8FChD9/2zdSyFKwY8SKZ95XbdSh34DQzeVIVFciGtnDh//8X5/wMPI0TQ==
+ bh=pRR05pclpFlF2SM9H//7+VXS0dvCVF9T6VaEBCk6vP4=;
+ b=hILm3p8k8C29/ltEyaq6DoDo1v+93PYASIJjTKRmLCyjBOFZsic5UDTLFk4+0S0xohz/lFDK9xCI0wYNitdyL3WE+pLe6PRMpKW7eB4y7LNxZD6uWgLRbnRNPxgnnrpfj9VTZ2CC+9hF21iiL0ywx0oNlJfmnRpI0eRwfqWVrL84pLLnONy0nKujCb7Ml3/YcL8TfhxWIFlENg+UKL3f16lmnfxXECk0svfSSBcnPZB6m+AWsD792GmKPT/WnFhMRlBCmgQYHm+kvokXYedDMi4WuVLdgtsFtWGZU7Q2I93bpIwKLLxioG3qHS1bsRRBgj6m6gHEN6BIbrVrQOGyHg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=permerror action=none header.from=amd.com; dkim=none (message not
@@ -40,71 +40,72 @@ ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=BSTWVqIEOuFNnA5my3jMbtcRLRuG7+9bv97JjVHbz8I=;
- b=Z0JtU1kLRpJxV/QIu5VbkviyMJqbXJVEiXvC+u0xWTwH8SpsWU9OYulp4PoYdT6Y8vS2rBUc0p2IC0lXiDlCv3GWJfOtrBYdFyocJHFk5dekAE7zJE3RIbx1pLL9/eBgdFN2ao+Wdsrcw9Z3QP8S+2huX80rp+zEF69lexmd3sU=
-Received: from CY4PR1201CA0012.namprd12.prod.outlook.com
- (2603:10b6:910:16::22) by CY4PR12MB1784.namprd12.prod.outlook.com
- (2603:10b6:903:11e::19) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2516.14; Wed, 11 Dec
- 2019 20:07:18 +0000
-Received: from CO1NAM11FT012.eop-nam11.prod.protection.outlook.com
- (2a01:111:f400:7eab::201) by CY4PR1201CA0012.outlook.office365.com
- (2603:10b6:910:16::22) with Microsoft SMTP Server (version=TLS1_2,
+ bh=pRR05pclpFlF2SM9H//7+VXS0dvCVF9T6VaEBCk6vP4=;
+ b=PuGCKhMIbLi215eYQhMvhucvHHxuWs9iNIXzFp7OpUhuaM7o7mzjC3gbfAqkvGoZuLoi4xHtCQek+NjKRAJqyev+4s57Ju+rQDSjCL+/DS9eElxqQ73d2ITGnCGPbpIVa/UK+KifUK25ud0uE4IDfgzNFsye7iF/VW6XLme4JNc=
+Received: from BN6PR12CA0040.namprd12.prod.outlook.com (2603:10b6:405:70::26)
+ by BN8PR12MB3601.namprd12.prod.outlook.com (2603:10b6:408:46::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2538.15; Wed, 11 Dec
+ 2019 20:07:20 +0000
+Received: from CO1NAM11FT017.eop-nam11.prod.protection.outlook.com
+ (2a01:111:f400:7eab::203) by BN6PR12CA0040.outlook.office365.com
+ (2603:10b6:405:70::26) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2538.15 via Frontend
- Transport; Wed, 11 Dec 2019 20:07:18 +0000
+ Transport; Wed, 11 Dec 2019 20:07:20 +0000
 Authentication-Results: spf=none (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
  header.d=none;lists.freedesktop.org; dmarc=permerror action=none
  header.from=amd.com;
 Received-SPF: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
-Received: from SATLEXMB02.amd.com (165.204.84.17) by
- CO1NAM11FT012.mail.protection.outlook.com (10.13.175.192) with Microsoft SMTP
+Received: from SATLEXMB01.amd.com (165.204.84.17) by
+ CO1NAM11FT017.mail.protection.outlook.com (10.13.175.108) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.2538.14 via Frontend Transport; Wed, 11 Dec 2019 20:07:18 +0000
-Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB02.amd.com
- (10.181.40.143) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.2538.14 via Frontend Transport; Wed, 11 Dec 2019 20:07:19 +0000
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB01.amd.com
+ (10.181.40.142) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Wed, 11 Dec
- 2019 14:07:17 -0600
-Received: from SATLEXMB01.amd.com (10.181.40.142) by SATLEXMB05.amd.com
- (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
+ 2019 14:07:18 -0600
+Received: from SATLEXMB01.amd.com (10.181.40.142) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Wed, 11 Dec
- 2019 14:07:16 -0600
+ 2019 14:07:18 -0600
 Received: from agrodzovsky-All-Series.amd.com (10.180.168.240) by
  SATLEXMB01.amd.com (10.181.40.142) with Microsoft SMTP Server id 15.1.1713.5
- via Frontend Transport; Wed, 11 Dec 2019 14:07:16 -0600
+ via Frontend Transport; Wed, 11 Dec 2019 14:07:17 -0600
 From: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 1/5] drm/amdgpu: reverts commit
- b01245ff54db66073b104ac9d9fbefb7b264b36d.
-Date: Wed, 11 Dec 2019 15:07:05 -0500
-Message-ID: <1576094829-2245-1-git-send-email-andrey.grodzovsky@amd.com>
+Subject: [PATCH 2/5] drm: Add Reusable task barrier.
+Date: Wed, 11 Dec 2019 15:07:06 -0500
+Message-ID: <1576094829-2245-2-git-send-email-andrey.grodzovsky@amd.com>
 X-Mailer: git-send-email 2.7.4
+In-Reply-To: <1576094829-2245-1-git-send-email-andrey.grodzovsky@amd.com>
+References: <1576094829-2245-1-git-send-email-andrey.grodzovsky@amd.com>
 MIME-Version: 1.0
 X-EOPAttributedMessage: 0
 X-MS-Office365-Filtering-HT: Tenant
 X-Forefront-Antispam-Report: CIP:165.204.84.17; IPV:NLI; CTRY:US; EFV:NLI;
  SFV:NSPM;
- SFS:(10009020)(4636009)(346002)(396003)(39860400002)(376002)(136003)(428003)(189003)(199004)(7696005)(478600001)(8936002)(316002)(8676002)(4326008)(54906003)(2906002)(44832011)(36756003)(70586007)(426003)(6666004)(81156014)(2616005)(70206006)(336012)(86362001)(6916009)(26005)(186003)(5660300002)(356004)(81166006);
- DIR:OUT; SFP:1101; SCL:1; SRVR:CY4PR12MB1784; H:SATLEXMB02.amd.com; FPR:;
+ SFS:(10009020)(4636009)(396003)(346002)(136003)(39860400002)(376002)(428003)(189003)(199004)(26005)(81166006)(81156014)(356004)(966005)(5660300002)(7696005)(426003)(6666004)(86362001)(8936002)(336012)(186003)(2616005)(478600001)(70206006)(2906002)(8676002)(44832011)(6916009)(316002)(54906003)(4326008)(36756003)(70586007);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:BN8PR12MB3601; H:SATLEXMB01.amd.com; FPR:;
  SPF:None; LANG:en; PTR:InfoDomainNonexistent; MX:1; A:1; 
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 453c0734-c80e-4406-4501-08d77e75b96b
-X-MS-TrafficTypeDiagnostic: CY4PR12MB1784:
-X-Microsoft-Antispam-PRVS: <CY4PR12MB178407C1C644ADBB2D7AE960EA5A0@CY4PR12MB1784.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:546;
+X-MS-Office365-Filtering-Correlation-Id: d40bb47c-e9e3-4103-d0ff-08d77e75ba3f
+X-MS-TrafficTypeDiagnostic: BN8PR12MB3601:
+X-Microsoft-Antispam-PRVS: <BN8PR12MB3601140CEE8CE5860B68D7EDEA5A0@BN8PR12MB3601.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:8273;
 X-Forefront-PRVS: 024847EE92
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: RtupHfWcFRj6APR6+dzSbCkMTLsGhYDziTMwW4ip0GbM9IQ7sbITqB2mK99FfBUwyrQWntju2DV8OArsLw5yyP08v9IW171mMFzU0Dkau2989uL8L9HX8MvC6iLGb36Vl5KAjYRyRDpzV8FC+LmF4BDEvrdC7VGqWJ8OSRqBZlxBQMHScECPEVJFhXvGtjeTk8FvOvQhu10PAt2rHFni+jlGUB7B80lQH+/8a4IsFd+cQAvERmBsO7dUsMxDgcZcba6nuIGQWfCg654LQEaN81xlumU4JlmnhK5FfLy7CDwnQv1VrjT/Bp/zdYIOy1BBbCFwcYtJiPFRrSRBV52OLe9S2b2RtyevgLvHTX4dZ8pcRw2Dv3T2T2tGpak8fBfeWlsYtRxaCleCrbviWK1PABwmQrqVJz2aEfMRsA+WdCRRP9Z2QcLAeDpfAOHuCPBS
+X-Microsoft-Antispam-Message-Info: IdhEsgJP0GeN8UxSaPQIZ4YQPbgqXxej55iDYUB3iD/FMa6gIdzEZAVtH7teIzw9SwSW7nx2Zi28AG462Tk6AvBxgMhcd9w5iGI6XcsIiyLCiNkX2zXBP8am9AIbIRzazgeqFvSAsLVCcxUJpYvBYgvBWGCLk0s6YIeXj1J/74kayaggJdaHneqF+O/IKGC1CTQjLVxtJ6YDPgYJB6V1AUi2DRuS0QNvyhkHTMbvrL0o6k4Wbv+TZK6yGpOzoduHMUWRbA4bNY3SANdG3BeOzd2+hrNsTJRe5488Ed4wUnfaN2LZlYrbl09F04gmskx/rYtdj2aTEfEmiM6p4WWfh/rgGffGSu2GRlkwCUQK3Rc5kfMzccUnAbRBWzvQhiMIir5M9AncHzOxLRk960U+77W2hER1yqJc3pflQ/7Ir8mMNE/nCbjHRMQy7s8ySaGT/3Y9y+V8RJQXEAzkw20uYy3YJciOhIuEmUQwC1f5Fv4=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Dec 2019 20:07:18.1691 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 453c0734-c80e-4406-4501-08d77e75b96b
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Dec 2019 20:07:19.5657 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d40bb47c-e9e3-4103-d0ff-08d77e75ba3f
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB02.amd.com]
+ Helo=[SATLEXMB01.amd.com]
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR12MB1784
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN8PR12MB3601
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -123,164 +124,128 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-In preparation for doing XGMI reset synchronization using task barrier.
+It is used to synchronize N threads at a rendevouz point before execution
+of critical code that has to be started by all the threads at approximatly
+the same time.
 
 Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu.h        |  2 -
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 76 +++++-------------------------
- 2 files changed, 12 insertions(+), 66 deletions(-)
+ include/drm/task_barrier.h | 106 +++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 106 insertions(+)
+ create mode 100644 include/drm/task_barrier.h
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-index a78a363..50bab33 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-@@ -1001,8 +1001,6 @@ struct amdgpu_device {
- 
- 	bool                            pm_sysfs_en;
- 	bool                            ucode_sysfs_en;
--
--	bool				in_baco;
- };
- 
- static inline struct amdgpu_device *amdgpu_ttm_adev(struct ttm_bo_device *bdev)
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index 7324a5f..1d19edfa 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -2667,7 +2667,7 @@ static void amdgpu_device_xgmi_reset_func(struct work_struct *__work)
- 	if (amdgpu_asic_reset_method(adev) == AMD_RESET_METHOD_BACO)
- 		adev->asic_reset_res = (adev->in_baco == false) ?
- 				amdgpu_device_baco_enter(adev->ddev) :
--				amdgpu_device_baco_exit(adev->ddev);
-+				qamdgpu_device_baco_exit(adev->ddev);
- 	else
- 		adev->asic_reset_res = amdgpu_asic_reset(adev);
- 
-@@ -3796,18 +3796,13 @@ static int amdgpu_device_pre_asic_reset(struct amdgpu_device *adev,
- 	return r;
- }
- 
--static int amdgpu_do_asic_reset(struct amdgpu_device *adev,
--			       struct amdgpu_hive_info *hive,
-+static int amdgpu_do_asic_reset(struct amdgpu_hive_info *hive,
- 			       struct list_head *device_list_handle,
- 			       bool *need_full_reset_arg)
- {
- 	struct amdgpu_device *tmp_adev = NULL;
- 	bool need_full_reset = *need_full_reset_arg, vram_lost = false;
- 	int r = 0;
--	int cpu = smp_processor_id();
--	bool use_baco =
--		(amdgpu_asic_reset_method(adev) == AMD_RESET_METHOD_BACO) ?
--		true : false;
- 
- 	/*
- 	 * ASIC reset has to be done on all HGMI hive nodes ASAP
-@@ -3815,62 +3810,22 @@ static int amdgpu_do_asic_reset(struct amdgpu_device *adev,
- 	 */
- 	if (need_full_reset) {
- 		list_for_each_entry(tmp_adev, device_list_handle, gmc.xgmi.head) {
--			/*
--			 * For XGMI run all resets in parallel to speed up the
--			 * process by scheduling the highpri wq on different
--			 * cpus. For XGMI with baco reset, all nodes must enter
--			 * baco within close proximity before anyone exit.
--			 */
-+			/* For XGMI run all resets in parallel to speed up the process */
- 			if (tmp_adev->gmc.xgmi.num_physical_nodes > 1) {
--				if (!queue_work_on(cpu, system_highpri_wq,
--						   &tmp_adev->xgmi_reset_work))
-+				if (!queue_work(system_highpri_wq, &tmp_adev->xgmi_reset_work))
- 					r = -EALREADY;
--				cpu = cpumask_next(cpu, cpu_online_mask);
- 			} else
- 				r = amdgpu_asic_reset(tmp_adev);
--			if (r)
--				break;
--		}
--
--		/* For XGMI wait for all work to complete before proceed */
--		if (!r) {
--			list_for_each_entry(tmp_adev, device_list_handle,
--					    gmc.xgmi.head) {
--				if (tmp_adev->gmc.xgmi.num_physical_nodes > 1) {
--					flush_work(&tmp_adev->xgmi_reset_work);
--					r = tmp_adev->asic_reset_res;
--					if (r)
--						break;
--					if (use_baco)
--						tmp_adev->in_baco = true;
--				}
--			}
--		}
- 
--		/*
--		 * For XGMI with baco reset, need exit baco phase by scheduling
--		 * xgmi_reset_work one more time. PSP reset and sGPU skips this
--		 * phase. Not assume the situation that PSP reset and baco reset
--		 * coexist within an XGMI hive.
--		 */
--
--		if (!r && use_baco) {
--			cpu = smp_processor_id();
--			list_for_each_entry(tmp_adev, device_list_handle,
--					    gmc.xgmi.head) {
--				if (tmp_adev->gmc.xgmi.num_physical_nodes > 1) {
--					if (!queue_work_on(cpu,
--						system_highpri_wq,
--						&tmp_adev->xgmi_reset_work))
--						r = -EALREADY;
--					if (r)
--						break;
--					cpu = cpumask_next(cpu, cpu_online_mask);
--				}
-+			if (r) {
-+				DRM_ERROR("ASIC reset failed with error, %d for drm dev, %s",
-+					 r, tmp_adev->ddev->unique);
-+				break;
- 			}
- 		}
- 
--		if (!r && use_baco) {
-+		/* For XGMI wait for all PSP resets to complete before proceed */
-+		if (!r) {
- 			list_for_each_entry(tmp_adev, device_list_handle,
- 					    gmc.xgmi.head) {
- 				if (tmp_adev->gmc.xgmi.num_physical_nodes > 1) {
-@@ -3878,21 +3833,15 @@ static int amdgpu_do_asic_reset(struct amdgpu_device *adev,
- 					r = tmp_adev->asic_reset_res;
- 					if (r)
- 						break;
--					tmp_adev->in_baco = false;
- 				}
- 			}
- 		}
--
--		if (r) {
--			DRM_ERROR("ASIC reset failed with error, %d for drm dev, %s",
--				 r, tmp_adev->ddev->unique);
--			goto end;
--		}
- 	}
- 
- 	if (!r && amdgpu_ras_intr_triggered())
- 		amdgpu_ras_intr_cleared();
- 
+diff --git a/include/drm/task_barrier.h b/include/drm/task_barrier.h
+new file mode 100644
+index 0000000..81fb0f7
+--- /dev/null
++++ b/include/drm/task_barrier.h
+@@ -0,0 +1,106 @@
++/*
++ * Copyright 2019 Advanced Micro Devices, Inc.
++ *
++ * Permission is hereby granted, free of charge, to any person obtaining a
++ * copy of this software and associated documentation files (the "Software"),
++ * to deal in the Software without restriction, including without limitation
++ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
++ * and/or sell copies of the Software, and to permit persons to whom the
++ * Software is furnished to do so, subject to the following conditions:
++ *
++ * The above copyright notice and this permission notice shall be included in
++ * all copies or substantial portions of the Software.
++ *
++ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
++ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
++ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
++ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
++ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
++ * OTHER DEALINGS IN THE SOFTWARE.
++ *
++ */
++#include <linux/semaphore.h>
++#include <linux/atomic.h>
 +
- 	list_for_each_entry(tmp_adev, device_list_handle, gmc.xgmi.head) {
- 		if (need_full_reset) {
- 			/* post card */
-@@ -4181,8 +4130,7 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
- 		if (r)
- 			adev->asic_reset_res = r;
- 	} else {
--		r  = amdgpu_do_asic_reset(adev, hive, device_list_handle,
--					  &need_full_reset);
-+		r  = amdgpu_do_asic_reset(hive, device_list_handle, &need_full_reset);
- 		if (r && r == -EAGAIN)
- 			goto retry;
- 	}
++/*
++ * Reusable 2 PHASE task barrier (randevouz point) implementation for N tasks.
++ * Based on the Little book of sempahores - https://greenteapress.com/wp/semaphores/
++ */
++
++
++
++#ifndef DRM_TASK_BARRIER_H_
++#define DRM_TASK_BARRIER_H_
++
++/*
++ * Represents an instance of a task barrier.
++ */
++struct task_barrier {
++	unsigned int n;
++	atomic_t count;
++	struct semaphore enter_turnstile;
++	struct semaphore exit_turnstile;
++};
++
++static inline void task_barrier_signal_turnstile(struct semaphore *turnstile,
++						 unsigned int n)
++{
++	int i;
++
++	for (i = 0 ; i < n; i++)
++		up(turnstile);
++}
++
++static inline void task_barrier_init(struct task_barrier *tb)
++{
++	tb->n = 0;
++	atomic_set(&tb->count, 0);
++	sema_init(&tb->enter_turnstile, 0);
++	sema_init(&tb->exit_turnstile, 0);
++}
++
++static inline void task_barrier_add_task(struct task_barrier *tb)
++{
++	tb->n++;
++}
++
++static inline void task_barrier_rem_task(struct task_barrier *tb)
++{
++	tb->n--;
++}
++
++/*
++ * Lines up all the threads BEFORE the critical point.
++ *
++ * When all thread passed this code the entry barrier is back to locked state.
++ */
++static inline void task_barrier_enter(struct task_barrier *tb)
++{
++	if (atomic_inc_return(&tb->count) == tb->n)
++		task_barrier_signal_turnstile(&tb->enter_turnstile, tb->n);
++
++	down(&tb->enter_turnstile);
++}
++
++/*
++ * Lines up all the threads AFTER the critical point.
++ *
++ * This function is used to avoid any one thread running ahead of the reset if
++ * the barrier is used in a loop (repeatedly) .
++ */
++static inline void task_barrier_exit(struct task_barrier *tb)
++{
++	if (atomic_dec_return(&tb->count) == 0)
++		task_barrier_signal_turnstile(&tb->exit_turnstile, tb->n);
++
++	down(&tb->exit_turnstile);
++}
++
++static inline void task_barrier_full(struct task_barrier *tb)
++{
++	task_barrier_enter(tb);
++	task_barrier_exit(tb);
++}
++
++#endif
 -- 
 2.7.4
 
