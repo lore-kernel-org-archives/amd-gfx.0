@@ -2,93 +2,48 @@ Return-Path: <SRS0=4UhO=2C=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-9.8 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DD820C43603
-	for <amd-gfx@archiver.kernel.org>; Thu, 12 Dec 2019 19:13:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 423EEC43603
+	for <amd-gfx@archiver.kernel.org>; Thu, 12 Dec 2019 20:17:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id AC8A121556
-	for <amd-gfx@archiver.kernel.org>; Thu, 12 Dec 2019 19:13:33 +0000 (UTC)
-Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="sKVNlOZ8"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AC8A121556
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id 1DA8221556
+	for <amd-gfx@archiver.kernel.org>; Thu, 12 Dec 2019 20:17:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1DA8221556
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=canonical.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 381286E194;
-	Thu, 12 Dec 2019 19:13:33 +0000 (UTC)
-Received: from NAM02-BL2-obe.outbound.protection.outlook.com
- (mail-eopbgr750050.outbound.protection.outlook.com [40.107.75.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 204836E194
- for <amd-gfx@lists.freedesktop.org>; Thu, 12 Dec 2019 19:13:32 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=PCw8UpDkEwBu9xWCAIGloJZGS3qzl+TumGFWu0oBeRv9yfcL5IbzuOdoX8+70tV9CrGGUM/depyTsgX6OOQTALJHBjcJHLiNUbDa41ZWeoqSZpUJ9LH9LGwAvNOaFxoavUYaDl2hOrYFd0tB8MKAYnMns3JQT6kydQVEeXDtV5DwzgTqknnyHplt4xsJKyYR6VACZM1RSUlV8/S0ZRWqEZZRtxltVanKGwQTno91QzhNRb+ECGqJIEv84UjeFZylBWlHgoJLhTbUZK7bFwRe4qpQPNtqFR2AZQUoPWrQwr0CjJpbtAgNsvCyeTcj2LqcN0h1Ko2BFqy28iA0cZ+wTw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PC418rPL0LaoYeCwbFYgJQNS3dz4AzrchRiC4U5wTkw=;
- b=aqbKh3Qjvi4mAtJNuXRyn+pjbTr2Uov0+tvh83k76zCQD/vOVFQcWMP31e+Awv4+LtmFwpSKp+mJtFlMk+7nAREq/5Oj0oLZZ9nXWLuRRDFydROr52cULtCi/WQO0xOXjYaK4oaF8ZB964k/Zs90rva5k3x523ml3ogo0cMGSFBHxX6LWWAT3NNMh54sRRkEyNztv+8nAtC1BNV+jOlwB9kWHhp/d+OaUZdGt+eTrump3aWHB0n5Q+JvEwzh3HRgyQvmMDJxzlyOAOxKkaRSUf9UNkpaVA9hxrP4163s8u5SdoLRMZf3Ev2kFwa7vj5Clw+bcbe1WKYdF7Pcj9X4Nw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PC418rPL0LaoYeCwbFYgJQNS3dz4AzrchRiC4U5wTkw=;
- b=sKVNlOZ8J/+1TN0sgH0SbScSkgXDANdrpnIulQI7EMNv/uL9pXzPvaBr93S6FuBAmFRjvwsu9SceF7CopCKqg0umtU7+ftTdYwjGegQ9OymcFqpWC7CFuZgV9F1ws9H5pHuIjRNlO0lnOTAV6e2+5cv/tm03voFCaOiC2oWejGE=
-Authentication-Results: spf=none (sender IP is )
- smtp.mailfrom=Philip.Yang@amd.com; 
-Received: from MN2PR12MB4030.namprd12.prod.outlook.com (10.255.86.25) by
- MN2PR12MB3487.namprd12.prod.outlook.com (20.178.241.210) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2538.14; Thu, 12 Dec 2019 19:13:28 +0000
-Received: from MN2PR12MB4030.namprd12.prod.outlook.com
- ([fe80::65a4:15fa:629f:149e]) by MN2PR12MB4030.namprd12.prod.outlook.com
- ([fe80::65a4:15fa:629f:149e%7]) with mapi id 15.20.2538.017; Thu, 12 Dec 2019
- 19:13:28 +0000
-From: Philip Yang <Philip.Yang@amd.com>
-To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH] drm/amdkfd: queue kfd interrupt work to different CPU
-Date: Thu, 12 Dec 2019 14:13:15 -0500
-Message-Id: <20191212191315.26000-1-Philip.Yang@amd.com>
-X-Mailer: git-send-email 2.17.1
-X-ClientProxiedBy: YTOPR0101CA0070.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b00:14::47) To MN2PR12MB4030.namprd12.prod.outlook.com
- (2603:10b6:208:159::25)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 91ECC6E1C4;
+	Thu, 12 Dec 2019 20:17:44 +0000 (UTC)
+X-Greylist: delayed 960 seconds by postgrey-1.36 at gabe;
+ Thu, 12 Dec 2019 18:33:06 UTC
+Received: from youngberry.canonical.com (youngberry.canonical.com
+ [91.189.89.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ECA976E0C5
+ for <amd-gfx@lists.freedesktop.org>; Thu, 12 Dec 2019 18:33:06 +0000 (UTC)
+Received: from 1.general.cking.uk.vpn ([10.172.193.212] helo=localhost)
+ by youngberry.canonical.com with esmtpsa
+ (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
+ (envelope-from <colin.king@canonical.com>)
+ id 1ifT1L-0005CM-2Q; Thu, 12 Dec 2019 18:17:03 +0000
+From: Colin King <colin.king@canonical.com>
+To: Evan Quan <evan.quan@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Zhou <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>,
+ Daniel Vetter <daniel@ffwll.ch>, Kenneth Feng <kenneth.feng@amd.com>,
+ Yintian Tao <yttao@amd.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Subject: [PATCH][next] drm/amd/powerplay: fix various dereferences of a
+ pointer before it is null checked
+Date: Thu, 12 Dec 2019 18:16:57 +0000
+Message-Id: <20191212181657.101381-1-colin.king@canonical.com>
+X-Mailer: git-send-email 2.24.0
 MIME-Version: 1.0
-X-Mailer: git-send-email 2.17.1
-X-Originating-IP: [165.204.55.251]
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 33a42f00-3611-47db-2997-08d77f375e53
-X-MS-TrafficTypeDiagnostic: MN2PR12MB3487:|MN2PR12MB3487:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <MN2PR12MB34879A406DFFA8CA13375EDAE6550@MN2PR12MB3487.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:7691;
-X-Forefront-PRVS: 0249EFCB0B
-X-Forefront-Antispam-Report: SFV:NSPM;
- SFS:(10009020)(4636009)(366004)(39860400002)(396003)(376002)(346002)(136003)(189003)(199004)(6512007)(4326008)(66476007)(478600001)(6916009)(66946007)(6486002)(6506007)(186003)(8936002)(66556008)(8676002)(81166006)(81156014)(316002)(26005)(52116002)(86362001)(2906002)(5660300002)(1076003)(2616005)(36756003)(6666004);
- DIR:OUT; SFP:1101; SCL:1; SRVR:MN2PR12MB3487;
- H:MN2PR12MB4030.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; MX:1; A:1; 
-Received-SPF: None (protection.outlook.com: amd.com does not designate
- permitted sender hosts)
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: bMnBY4CNpOTyHt1C3Z7Vmg43f6Wsaz8ciox9AtX3+AteQwthxmdcz8g6P1YJ+2Y4852+ay9gHkh+7O69AFexK/B3N2eGQ1VMLvPTzwnx7JQYX3LzAFtWC43zgpyj+R6Q7QifVDkEYm+5hl0YTppUXa6H4v0Z2lqa3t7RzsmS4kjQ+7INX+0BPQweoEOj+FQ1rRx/QFKT+RgL5hTu94zwQFlVpgw7lzHHCPQF8qdivpLZCH63XHCdM9Dfzh7BzXf3pw5UdTz+Q3TKpiuIyhV4wB0vf6KSaF2rC8c0y4A/oSmBCs7wKKhewN6zH8Ar3Ntk7ww85C0dNfO0znSK/e8ai2Qv9qpmKPvukd8Zz2yrh3P/cq4cyv14YMBbsI39US1YTyFRRUmnutuZ2Zsi8/Bz1bcXTWG9DT+1zGDa817PlpCoHfPoCyazFok4ZpqFjvkC
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 33a42f00-3611-47db-2997-08d77f375e53
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Dec 2019 19:13:28.0520 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: VDodwltWEzm0eOTZZM+TJyqpJ7dff2XSbGtIHXCWNZLzEbvRo2opVyVepb7U7soU
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3487
+X-Mailman-Approved-At: Thu, 12 Dec 2019 20:17:43 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,62 +55,91 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Philip Yang <Philip.Yang@amd.com>
+Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Because queue_work schedule the work on the same CPU the interrupt
-handler is running, if there are many interrupts pending, it takes
-longer time for work queue to start, or even worse system will hang.
+From: Colin Ian King <colin.king@canonical.com>
 
-v2: queue work to same NUMA node for better cache locality
-v3: handle cpumask_next wraparound case
+There are several occurrances of the pointer hwmgr being dereferenced
+before it is null checked.  Fix these by performing the dereference
+of hwmgr after it has been null checked.
 
-Signed-off-by: Philip Yang <Philip.Yang@amd.com>
-Reviewed-by: Eric Huang <JinhuiEric.Huang@amd.com>
+Addresses-Coverity: ("Dereference before null check")
+Fixes: 8497d2bcdee1 ("drm/amd/powerplay: enable pp one vf mode for vega10")
+Signed-off-by: Colin Ian King <colin.king@canonical.com>
 ---
- drivers/gpu/drm/amd/amdkfd/kfd_device.c | 17 ++++++++++++++++-
- 1 file changed, 16 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/powerplay/amd_powerplay.c |  6 +++---
+ drivers/gpu/drm/amd/powerplay/hwmgr/hwmgr.c   | 15 +++------------
+ 2 files changed, 6 insertions(+), 15 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device.c b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-index 209bfc849352..c6b6901bbda3 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-@@ -822,6 +822,21 @@ static int kfd_resume(struct kfd_dev *kfd)
- 	return err;
- }
- 
-+static inline void kfd_queue_work(struct workqueue_struct *wq,
-+				  struct work_struct *work)
-+{
-+	int cpu, new_cpu;
-+
-+	cpu = new_cpu = smp_processor_id();
-+	do {
-+		new_cpu = cpumask_next(new_cpu, cpu_online_mask) % nr_cpu_ids;
-+		if (cpu_to_node(new_cpu) == numa_node_id())
-+			break;
-+	} while (cpu != new_cpu);
-+
-+	queue_work_on(new_cpu, wq, work);
-+}
-+
- /* This is called directly from KGD at ISR. */
- void kgd2kfd_interrupt(struct kfd_dev *kfd, const void *ih_ring_entry)
+diff --git a/drivers/gpu/drm/amd/powerplay/amd_powerplay.c b/drivers/gpu/drm/amd/powerplay/amd_powerplay.c
+index 5087d6bdba60..322c2015d3a0 100644
+--- a/drivers/gpu/drm/amd/powerplay/amd_powerplay.c
++++ b/drivers/gpu/drm/amd/powerplay/amd_powerplay.c
+@@ -275,12 +275,12 @@ static int pp_dpm_load_fw(void *handle)
  {
-@@ -844,7 +859,7 @@ void kgd2kfd_interrupt(struct kfd_dev *kfd, const void *ih_ring_entry)
- 				   patched_ihre, &is_patched)
- 	    && enqueue_ih_ring_entry(kfd,
- 				     is_patched ? patched_ihre : ih_ring_entry))
--		queue_work(kfd->ih_wq, &kfd->interrupt_work);
-+		kfd_queue_work(kfd->ih_wq, &kfd->interrupt_work);
+ 	struct pp_hwmgr *hwmgr = handle;
  
- 	spin_unlock_irqrestore(&kfd->interrupt_lock, flags);
- }
+-	if (!hwmgr->not_vf)
+-		return 0;
+-
+ 	if (!hwmgr || !hwmgr->smumgr_funcs || !hwmgr->smumgr_funcs->start_smu)
+ 		return -EINVAL;
+ 
++	if (!hwmgr->not_vf)
++		return 0;
++
+ 	if (hwmgr->smumgr_funcs->start_smu(hwmgr)) {
+ 		pr_err("fw load failed\n");
+ 		return -EINVAL;
+diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/hwmgr.c b/drivers/gpu/drm/amd/powerplay/hwmgr/hwmgr.c
+index e2b82c902948..f48fdc7f0382 100644
+--- a/drivers/gpu/drm/amd/powerplay/hwmgr/hwmgr.c
++++ b/drivers/gpu/drm/amd/powerplay/hwmgr/hwmgr.c
+@@ -282,10 +282,7 @@ int hwmgr_hw_init(struct pp_hwmgr *hwmgr)
+ 
+ int hwmgr_hw_fini(struct pp_hwmgr *hwmgr)
+ {
+-	if (!hwmgr->not_vf)
+-		return 0;
+-
+-	if (!hwmgr || !hwmgr->pm_en)
++	if (!hwmgr || !hwmgr->pm_en || !hwmgr->not_vf)
+ 		return 0;
+ 
+ 	phm_stop_thermal_controller(hwmgr);
+@@ -305,10 +302,7 @@ int hwmgr_suspend(struct pp_hwmgr *hwmgr)
+ {
+ 	int ret = 0;
+ 
+-	if (!hwmgr->not_vf)
+-		return 0;
+-
+-	if (!hwmgr || !hwmgr->pm_en)
++	if (!hwmgr || !hwmgr->pm_en || !hwmgr->not_vf)
+ 		return 0;
+ 
+ 	phm_disable_smc_firmware_ctf(hwmgr);
+@@ -327,13 +321,10 @@ int hwmgr_resume(struct pp_hwmgr *hwmgr)
+ {
+ 	int ret = 0;
+ 
+-	if (!hwmgr->not_vf)
+-		return 0;
+-
+ 	if (!hwmgr)
+ 		return -EINVAL;
+ 
+-	if (!hwmgr->pm_en)
++	if (!hwmgr->not_vf || !hwmgr->pm_en)
+ 		return 0;
+ 
+ 	ret = phm_setup_asic(hwmgr);
 -- 
-2.17.1
+2.24.0
 
 _______________________________________________
 amd-gfx mailing list
