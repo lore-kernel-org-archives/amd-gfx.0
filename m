@@ -2,82 +2,101 @@ Return-Path: <SRS0=4UhO=2C=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-7.8 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-7.9 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	MIME_HTML_MOSTLY,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,T_KAM_HTML_FONT_INVALID,
+	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id EDD1AC43603
-	for <amd-gfx@archiver.kernel.org>; Thu, 12 Dec 2019 15:12:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 97DCEC43603
+	for <amd-gfx@archiver.kernel.org>; Thu, 12 Dec 2019 15:20:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C0BAD2067C
-	for <amd-gfx@archiver.kernel.org>; Thu, 12 Dec 2019 15:12:43 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 6DD74205C9
+	for <amd-gfx@archiver.kernel.org>; Thu, 12 Dec 2019 15:20:30 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="u1hLbhBy"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C0BAD2067C
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="hvX6L1kt"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6DD74205C9
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 71C566E17E;
-	Thu, 12 Dec 2019 15:12:43 +0000 (UTC)
-Received: from mail-wm1-x342.google.com (mail-wm1-x342.google.com
- [IPv6:2a00:1450:4864:20::342])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B610E6E17E
- for <amd-gfx@lists.freedesktop.org>; Thu, 12 Dec 2019 15:12:41 +0000 (UTC)
-Received: by mail-wm1-x342.google.com with SMTP id p17so2907321wmi.3
- for <amd-gfx@lists.freedesktop.org>; Thu, 12 Dec 2019 07:12:41 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=reply-to:subject:to:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-transfer-encoding:content-language;
- bh=URI4J7AxefciPmhyggFyH101buqE2u+6OavdnH5chuo=;
- b=u1hLbhByCuifBGVAhRuDlYe6mE9xwyIprOi8xJJLplWGSVJ4xjPXw6G8/ccgRCmBiq
- moxrsCqjQr4nvzufdVuyYMFcDrM4odhcJ8ZafG1+DgDOleT2LO/3w4dIfsaiRhuHUqJJ
- 1X5djEQwMg8++fJA2qQU02Vdz90fWOrG+zZOjW+ExYUaw1WRJ5zdQqqS42ytlxq4hmOw
- aHfc8TzHKE3VzREL+59U7kT0wSmBahGkjHkzEeNSkbZsr2NGEnUxbTmBRAbTg2Mfmi6/
- 4xcr1gOtSxSbBzBIxs6UAd35c1obH5YBtAe3TAAUDjEPEZRupF4Sa8474Su3Q50izmjC
- eKNA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:reply-to:subject:to:references:from:message-id
- :date:user-agent:mime-version:in-reply-to:content-transfer-encoding
- :content-language;
- bh=URI4J7AxefciPmhyggFyH101buqE2u+6OavdnH5chuo=;
- b=eIHuEidGT8KDRNVsWeHwTajW8OOUYLu14qosGHMmoU3/j7+r8TDD+0bGPJJsksTlbh
- mSN7rCY+f8Aw9oeRO1d1KjEps+819xmSXkncrxTPjKh9t9EAjoIOsGa2212n4ClJqnbO
- epxksMQMqMau5ekSDCrSmod/zY6sP3FO7Oay2FQB4XW+D3ncadNFrVPdnIOYF5cC1iuT
- ancWv1/4BgpbAWy+sQpwtz7plUbIUzfO4kFroXC6BUaSk6UyVtd2EOcQ6vi1X/K1JM5R
- ADELHkXJh9TthCDkOeLAxBJatJkN54O0md8fcsTMDZBErDT7maxM45wXgx6Qn1qoPalR
- 5HqQ==
-X-Gm-Message-State: APjAAAXrktbc/WsrAkQWV6wj0IUbnqNl3mWB3plvNuxn2yibJZGTWUvh
- hsOSvBqVw0hTs0UYje3rBr9oXoCL
-X-Google-Smtp-Source: APXvYqyKm8t7aQPD5+ybh1XzA+uojTNJPDfnwJ7rxeezpWsmgWm9EOqj20iq6BdlUl2uDdJtOYpaqw==
-X-Received: by 2002:a7b:c183:: with SMTP id y3mr7372007wmi.0.1576163560320;
- Thu, 12 Dec 2019 07:12:40 -0800 (PST)
-Received: from ?IPv6:2a02:908:1252:fb60:be8a:bd56:1f94:86e7?
- ([2a02:908:1252:fb60:be8a:bd56:1f94:86e7])
- by smtp.gmail.com with ESMTPSA id w19sm6026930wmc.22.2019.12.12.07.12.38
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Thu, 12 Dec 2019 07:12:39 -0800 (PST)
-Subject: Re: [PATCH 5/5] drm/amdgpu: immedially invalidate PTEs
-To: Philip Yang <philip.yang@amd.com>, christian.koenig@amd.com,
- Felix Kuehling <felix.kuehling@amd.com>, amd-gfx@lists.freedesktop.org,
- Alex.Sierra@amd.com
-References: <20191205133940.3865-1-christian.koenig@amd.com>
- <20191205133940.3865-5-christian.koenig@amd.com>
- <afc4a884-dc56-867e-580c-7845e7de2257@amd.com>
- <98ce952f-f52d-bf60-00b3-d984b7c2184d@gmail.com>
- <5a8ca58c-07e9-1e55-939c-7396de95317c@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Message-ID: <4c5b8265-1e23-92d1-a888-33a5d8d5d3a5@gmail.com>
-Date: Thu, 12 Dec 2019 16:12:38 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id 34DFB6E180;
+	Thu, 12 Dec 2019 15:20:28 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2056.outbound.protection.outlook.com [40.107.236.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1C5A089BEC;
+ Thu, 12 Dec 2019 15:20:26 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=WUVzH5SNKljoyIuFSGBTFAuzHqcgZA839ABjRS47PEHPJTrjL84ub0F72qqdJrS+hi/P91yLGIyVWjEr5Y6c+Chmz0rx2+Ke/Yt42D2PHE2B0nyUBeLlDHVbvX9+v7azeFu2wmsvcQDBZcque/+q6jekCg0qW+if0DZfEyT14k93WRR50cM1ulG9S4Z+mWXkjJc9U3r8NjMGukRWM3vjpvjWK9/gFIwmD6g8+vwVDosXFiIiaYgIAK64Rbacl/CGuVP18QDb9O6UtZ2sJWA8gbn8jEhQCuJso0RUxnnGAhvKJ+nsPFFaeVx+h6V3KmBQy23KgB15C0odDqrE69y02g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=mvmhn2m2+mcHTkDODqje7D02hV+6jnDqAEW/H18RHYg=;
+ b=edVSqbTQbW8nKgVJB/atdzPObKU3pQppIbcQ2DVHSsd8KeYIKuZsKbPngtBSooU9KQolA1w4b15vVx4e3I2e7B6pK5LfjP+vtxjhcJVI1ZYwysDlYF7dE8WSkJMLT7Vna5+ySNg+B+8GczpULy4g2+3Qls6fpm0seKAi7Q8HXfJVpM2qxCcd0piIbeXs6uQKs0FEMYm4fTcxQ5y+V2CRjkQ8F2p8WKmJGQ4DU5Jm83jRgAgV+UxwSTEG5QLxrtjOtkPxJRFnon67qy9atCTFHTz7TGcYB7gOpabQ5puUaFC5vaKPtPhn1BfaJwu+4Eu7ULD5kUiA2D79xSkMT0xcqA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=mvmhn2m2+mcHTkDODqje7D02hV+6jnDqAEW/H18RHYg=;
+ b=hvX6L1ktTwa4mOoNtOnd5fH3qkQa0eDIy90iZHavWsdT7QflZyIhvyaozQxd5d6RcyHlUgc7SN9++JxQmJhoyzOw+yvjcnld8gkYBy7CoXYnadXNR3Ofpo5x8MOYGc3jIRm1aldkskbkyFpq4bG8BY/zXwWfZSzwHDEknuC+Q28=
+Authentication-Results: spf=none (sender IP is )
+ smtp.mailfrom=Andrey.Grodzovsky@amd.com; 
+Received: from MWHPR12MB1453.namprd12.prod.outlook.com (10.172.55.22) by
+ MWHPR12MB1693.namprd12.prod.outlook.com (10.172.56.8) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2538.18; Thu, 12 Dec 2019 15:20:08 +0000
+Received: from MWHPR12MB1453.namprd12.prod.outlook.com
+ ([fe80::514b:dbf8:d19f:a80]) by MWHPR12MB1453.namprd12.prod.outlook.com
+ ([fe80::514b:dbf8:d19f:a80%12]) with mapi id 15.20.2538.016; Thu, 12 Dec 2019
+ 15:20:08 +0000
+Subject: Re: [RESEND PATCH 4/5] Subject: drm/amdgpu: Redo XGMI reset
+ synchronization.
+To: "Ma, Le" <Le.Ma@amd.com>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+References: <1576096732-3596-1-git-send-email-andrey.grodzovsky@amd.com>
+ <1576096732-3596-4-git-send-email-andrey.grodzovsky@amd.com>
+ <MN2PR12MB4285C0500B7E9363A2CF7B89F6550@MN2PR12MB4285.namprd12.prod.outlook.com>
+From: Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>
+Message-ID: <dae40279-60df-9f50-d65f-0df1005c2efa@amd.com>
+Date: Thu, 12 Dec 2019 10:20:05 -0500
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.9.0
-MIME-Version: 1.0
-In-Reply-To: <5a8ca58c-07e9-1e55-939c-7396de95317c@amd.com>
+ Thunderbird/60.4.0
+In-Reply-To: <MN2PR12MB4285C0500B7E9363A2CF7B89F6550@MN2PR12MB4285.namprd12.prod.outlook.com>
 Content-Language: en-US
+X-ClientProxiedBy: YTBPR01CA0033.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:14::46) To MWHPR12MB1453.namprd12.prod.outlook.com
+ (2603:10b6:301:e::22)
+MIME-Version: 1.0
+X-Originating-IP: [2607:fea8:3edf:e127:3a1e:65e:fc37:38e9]
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: 6ed155b6-8bd1-434d-3e78-08d77f16c59e
+X-MS-TrafficTypeDiagnostic: MWHPR12MB1693:|MWHPR12MB1693:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <MWHPR12MB1693779FD0D19389BBECADCBEA550@MWHPR12MB1693.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:6430;
+X-Forefront-PRVS: 0249EFCB0B
+X-Forefront-Antispam-Report: SFV:NSPM;
+ SFS:(10009020)(4636009)(366004)(346002)(376002)(136003)(39850400004)(396003)(501774003)(199004)(189003)(13464003)(5660300002)(6666004)(478600001)(53546011)(8676002)(6506007)(52116002)(66946007)(33964004)(66476007)(66556008)(2616005)(2906002)(110136005)(54906003)(31686004)(316002)(6512007)(4326008)(36756003)(8936002)(6486002)(450100002)(31696002)(81156014)(81166006)(186003)(86362001);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:MWHPR12MB1693;
+ H:MWHPR12MB1453.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; A:1; MX:1; 
+Received-SPF: None (protection.outlook.com: amd.com does not designate
+ permitted sender hosts)
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: yoJ4dFmypIvOUzOybd7UNETyzggnkf1qWkh+l7WpkRxMlTIzgS51Dcu+xQH6qiy2rw7OMZYIVNmu9JJXyRkAR4eBT5wLAG0zTY+qCJvm6TjVrELG8k+B5wDJ2HqVQJGM247aC90H1uNHm4fIQnh20KjGFqBbv8f6pYGoZIgJUCgSwnkn2kn9yyH9oZwP/iBdDPtXL0yhItTrU8IDgIyQNBct1T1oz66gIHMZnTdhAKVP9+D0AwEfbIcmpmerjIShw4Nyx22cESL7QA3OhFyYVQ2Nz9W7I1MGU11rufY7monecMDS0choElMZC/BwzCvsINh3F7OgXoYFPMo00DsORQKOrRs5BWqJnui8oQU6+j/jwjiyRNZtr5jm4x2MjSqMoMv81V5LgLJ/xzu9De5Uj2940zt/ahKc70yN3jU4FPg5iaeqymLwB0W4MGHfv2N6iLJ7EnFYFy6aWaDFnSFgePEp67Hyx6C9uNm008NG7yq65ITb0TC551rOyt3XxyBrsqjseWV/5dfJBLp6teE68A==
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6ed155b6-8bd1-434d-3e78-08d77f16c59e
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Dec 2019 15:20:08.1273 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 13tnYTYZKkHazJS/+IlRzCqGjoDY0Mn6ADPfYdrqw/nf1thX44KKF9uuHMWzQMYckTFmhzDMp9FLmG2Fx3hJ0Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR12MB1693
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,128 +108,469 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: christian.koenig@amd.com
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Quan,
+ Evan" <Evan.Quan@amd.com>, "Zhang, Hawking" <Hawking.Zhang@amd.com>
+Content-Type: multipart/mixed; boundary="===============0205048869=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-SGkgUGhpbGlwLAoKdGhhdCBpcyBhbiBleHBlY3RlZCByZXN1bHQuIFlvdSBjYW4gb25seSBpbnZh
-bGlkYXRlIHBhZ2UgdGFibGVzIHdpdGhvdXQgCmhvbGRpbmcgdGhlIHJlc2VydmF0aW9uIGxvY2su
-CgpXaGF0IHlvdSBkbyBoZXJlIGlzIGFkZGluZyBhIG5ldyBtYXBwaW5nIGFuZCB0aGF0IG9uZSBu
-ZWVkcyB0byBhbGxvY2F0ZSAKYSBuZXcgcGFnZSB0YWJsZXMgYW5kIHdvbid0IHdvcmsgbGlrZSB0
-aGlzLgoKUmVnYXJkcywKQ2hyaXN0aWFuLgoKQW0gMTIuMTIuMTkgdW0gMTU6Mzggc2NocmllYiBQ
-aGlsaXAgWWFuZzoKPiBIaSBDaHJpc3RpYW4sCj4KPiBGWUksIHJlbW92ZSBhbWRncHVfYm9fcmVz
-ZXJ2ZShyb290LCB0cnVlKSBiZWZvcmUgY2FsbGluZyAKPiBhbWRncHVfdm1fYm9fdXBkYXRlX21h
-cHBpbmcsIEkgZ290IHRoaXMgd2FybmluZyBiYWNrdHJhY2U6Cj4KPiDCoMKgwqAgW8KgIDE4Mi4z
-OTAwNzJdIFdBUk5JTkc6IENQVTogMTIgUElEOiA0Mzc2IGF0Cj4KPiAvaG9tZS95YW5ncC9naXQv
-Y29tcHV0ZV9zdGFnaW5nL2tlcm5lbC9kcml2ZXJzL2dwdS9kcm0vdHRtL3R0bV9iby5jOjEyMjkK
-PiDCoMKgwqAgdHRtX2JvX3ZhbGlkYXRlKzB4MTRkLzB4MWIwIFt0dG1dCj4gwqDCoMKgIFvCoCAx
-ODIuMzkwMDg1XSBNb2R1bGVzIGxpbmtlZCBpbjogZnVzZSBpcDZ0YWJsZV9maWx0ZXIgaXA2X3Rh
-Ymxlcwo+IMKgwqDCoCBpcHRhYmxlX2ZpbHRlciBhbWRncHUgYW1kX2lvbW11X3YyIGdwdV9zY2hl
-ZCBhc3QgZHJtX3ZyYW1faGVscGVyCj4gwqDCoMKgIGRybV90dG1faGVscGVyIHR0bSBrMTB0ZW1w
-IGlwX3RhYmxlcyB4X3RhYmxlcyBpMmNfcGlpeDQKPiDCoMKgwqAgW8KgIDE4Mi4zOTAxMjNdIENQ
-VTogMTIgUElEOiA0Mzc2IENvbW06IGtmZHRlc3QgVGFpbnRlZDogR8KgwqDCoMKgwqDCoMKgIFcK
-PiDCoMKgwqAgNS40LjAtcmM3LWtmZC15YW5ncCAjMQo+IMKgwqDCoCBbwqAgMTgyLjM5MDEzM10g
-SGFyZHdhcmUgbmFtZTogR0lHQUJZVEUgTVowMS1DRTAtMDAvTVowMS1DRTAtMDAsIAo+IEJJT1Mg
-RjEyCj4gwqDCoMKgIDA4LzA1LzIwMTkKPiDCoMKgwqAgW8KgIDE4Mi4zOTAxNDZdIFJJUDogMDAx
-MDp0dG1fYm9fdmFsaWRhdGUrMHgxNGQvMHgxYjAgW3R0bV0KPiDCoMKgwqAgW8KgIDE4Mi4zOTAx
-NTNdIENvZGU6IDQwIGZmIDUyIDE4IDhiIDQ0IDI0IDA0IGU5IDRmIGZmIGZmIGZmIDQ4IDhiIAo+
-IDg3IDIwCj4gwqDCoMKgIDAxIDAwIDAwIGJlIGZmIGZmIGZmIGZmIDQ4IDhkIDc4IDYwIGU4IDVi
-IDNhIGUxIGQ0IDg1IGMwIDBmIDg1IGU3IAo+IGZlIGZmCj4gwqDCoMKgIGZmIDwwZj4gMGIgZTkg
-ZTAgZmUgZmYgZmYgYmUgMDEgMDAgMDAgMDAgNDggODkgZGYgZTggMmYgYzQgZmYgZmYgCj4gZTkg
-MTkKPiDCoMKgwqAgW8KgIDE4Mi4zOTAxNjFdIFJTUDogMDAxODpmZmZmYWI3YTAzMmYzOTkwIEVG
-TEFHUzogMDAwMTAyNDYKPiDCoMKgwqAgW8KgIDE4Mi4zOTAxNjZdIFJBWDogMDAwMDAwMDAwMDAw
-MDAwMCBSQlg6IGZmZmY5NDNjNTliMzc4NTAgUkNYOgo+IMKgwqDCoCBmZmZmOTQzYzU5YjM1MDAw
-Cj4gwqDCoMKgIFvCoCAxODIuMzkwMTcxXSBSRFg6IGZmZmY5NDNjNTM5ZGFmMDAgUlNJOiBmZmZm
-OTQzYzU2ZmIzMWQ4IFJESToKPiDCoMKgwqAgZmZmZjk0M2M1MzlkYjc5MAo+IMKgwqDCoCBbwqAg
-MTgyLjM5MDE3OF0gUkJQOiBmZmZmOTQzYzU5YjM3ODMwIFIwODogMDAwMDAwMDAwMDAwMDIwMCBS
-MDk6Cj4gwqDCoMKgIDAwMDAwMDAwMDAwMDAwMDAKPiDCoMKgwqAgW8KgIDE4Mi4zOTAxODRdIFIx
-MDogMDAwMDAwMDAwMDAwMDAwMCBSMTE6IDAwMDAwMDAwMDAxZmVlMGUgUjEyOgo+IMKgwqDCoCBm
-ZmZmYWI3YTAzMmYzYTUwCj4gwqDCoMKgIFvCoCAxODIuMzkwMTk0XSBSMTM6IDAwMDAwMDAwMDAw
-MDAyMDAgUjE0OiBmZmZmOTQzYzU5YjM3ODAwIFIxNToKPiDCoMKgwqAgMDAwMDAwMDAwMDAwMDAw
-MAo+IMKgwqDCoCBbwqAgMTgyLjM5MDE5N10gRlM6wqAgMDAwMDdmMGQyN2Y0MTc4MCgwMDAwKSBH
-UzpmZmZmOTQzYzllOTAwMDAwKDAwMDApCj4gwqDCoMKgIGtubEdTOjAwMDAwMDAwMDAwMDAwMDAK
-PiDCoMKgwqAgW8KgIDE4Mi4zOTAyMDNdIENTOsKgIDAwMTAgRFM6IDAwMDAgRVM6IDAwMDAgQ1Iw
-OiAwMDAwMDAwMDgwMDUwMDMzCj4gwqDCoMKgIFvCoCAxODIuMzkwMjA5XSBDUjI6IDAwMDA3ZmJh
-N2ExMDEwYTAgQ1IzOiAwMDAwMDAwN2YyNjI0MDAwIENSNDoKPiDCoMKgwqAgMDAwMDAwMDAwMDM0
-MDZlMAo+IMKgwqDCoCBbwqAgMTgyLjM5MDIxMl0gQ2FsbCBUcmFjZToKPiDCoMKgwqAgW8KgIDE4
-Mi4zOTAyMTldwqAgPyByY3VfcmVhZF9sb2NrX3NjaGVkX2hlbGQrMHg1Mi8weDgwCj4gwqDCoMKg
-IFvCoCAxODIuMzkwMjIzXcKgID8gX3Jhd19zcGluX3VubG9jaysweDI0LzB4MzAKPiDCoMKgwqAg
-W8KgIDE4Mi4zOTAyNjddwqAgPyBhbWRncHVfYm9fZG9fY3JlYXRlKzB4NGQxLzB4NWQwIFthbWRn
-cHVdCj4gwqDCoMKgIFvCoCAxODIuMzkwMzE5XcKgIGFtZGdwdV92bV9jbGVhcl9ibysweDEzZC8w
-eDNhMCBbYW1kZ3B1XQo+IMKgwqDCoCBbwqAgMTgyLjM5MDM3MV3CoCA/IGFtZGdwdV92bV9udW1f
-ZW50cmllcysweDFlLzB4NzAgW2FtZGdwdV0KPiDCoMKgwqAgW8KgIDE4Mi4zOTA0MjRdwqAgYW1k
-Z3B1X3ZtX3VwZGF0ZV9wdGVzKzB4NTYxLzB4NWQwIFthbWRncHVdCj4gwqDCoMKgIFvCoCAxODIu
-MzkwNDgwXcKgIGFtZGdwdV92bV9ib191cGRhdGVfbWFwcGluZysweGZkLzB4MTMwIFthbWRncHVd
-Cj4gwqDCoMKgIFvCoCAxODIuMzkwNTMwXcKgIGFtZGdwdV92bV9ib19zcGxpdF9tYXBwaW5nKzB4
-MWVhLzB4MmMwIFthbWRncHVdCj4gwqDCoMKgIFvCoCAxODIuMzkwNTkxXcKgIHN2bV9yYW5nZV9t
-YXBfdG9fZ3B1cysweDE2MC8weDMxMCBbYW1kZ3B1XQo+IMKgwqDCoCBbwqAgMTgyLjM5MDY1MF3C
-oCBrZmRfcmVnaXN0ZXJfc3ZtKzB4YjgvMHgyYjAgW2FtZGdwdV0KPiDCoMKgwqAgW8KgIDE4Mi4z
-OTA3MDhdwqAga2ZkX2lvY3RsX3JlZ2lzdGVyX3N2bSsweGU4LzB4MTEwIFthbWRncHVdCj4gwqDC
-oMKgIFvCoCAxODIuMzkwNzY1XcKgIGtmZF9pb2N0bCsweDIzMi8weDNkMCBbYW1kZ3B1XQo+IMKg
-wqDCoCBbwqAgMTgyLjM5MDgyM13CoCA/IGtmZF9pb2N0bF9nZXRfcHJvY2Vzc19hcGVydHVyZXNf
-bmV3KzB4MzEwLzB4MzEwCj4gwqDCoMKgIFthbWRncHVdCj4gwqDCoMKgIFvCoCAxODIuMzkwODM4
-XcKgID8gc2VsaW51eF9maWxlX2lvY3RsKzB4MTUzLzB4MjEwCj4gwqDCoMKgIFvCoCAxODIuMzkw
-ODQ1XcKgIGRvX3Zmc19pb2N0bCsweGEyLzB4NmUwCj4gwqDCoMKgIFvCoCAxODIuMzkwODU0XcKg
-IGtzeXNfaW9jdGwrMHg3MC8weDgwCj4gwqDCoMKgIFvCoCAxODIuMzkwODYyXcKgIF9feDY0X3N5
-c19pb2N0bCsweDE2LzB4MjAKPiDCoMKgwqAgW8KgIDE4Mi4zOTA4NjldwqAgZG9fc3lzY2FsbF82
-NCsweDRhLzB4MWIwCj4gwqDCoMKgIFvCoCAxODIuMzkwODc5XcKgIGVudHJ5X1NZU0NBTExfNjRf
-YWZ0ZXJfaHdmcmFtZSsweDQ5LzB4YmUKPgo+IFBoaWxpcAo+Cj4gT24gMjAxOS0xMi0xMiAzOjUx
-IGEubS4sIENocmlzdGlhbiBLw7ZuaWcgd3JvdGU6Cj4+IEhpIEZlbGl4LAo+Pgo+PiB5ZWFoLCBJ
-J3ZlIGFsc28gZm91bmQgYSBjb3JuZXIgY2FzZSB3aGljaCB3b3VsZCByYWlzZSBhIHdhcm5pbmcg
-bm93Lgo+Pgo+PiBOZWVkIHRvIHJld29yayBob3cgZGVwZW5kZW5jaWVzIGZvciB0aGUgUFRFIHVw
-ZGF0ZSBhcmUgZ2VuZXJhdGVkLgo+Pgo+PiBHb2luZyB0byB0YWtlIGNhcmUgb2YgdGhpcyBpbiB0
-aGUgbmV4dCBmZXcgZGF5cywKPj4gQ2hyaXN0aWFuLgo+Pgo+PiBBbSAxMi4xMi4xOSB1bSAwMToy
-MCBzY2hyaWViIEZlbGl4IEt1ZWhsaW5nOgo+Pj4gSGkgQ2hyaXN0aWFuLAo+Pj4KPj4+IEFsZXgg
-c3RhcnRlZCB0cnlpbmcgdG8gaW52YWxpZGF0ZSBQVEVzIGluIHRoZSBNTVUgbm90aWZpZXJzIGFu
-ZCAKPj4+IHdlJ3JlIGZpbmRpbmcgdGhhdCB3ZSBzdGlsbCBuZWVkIHRvIHJlc2VydmUgdGhlIFZN
-IHJlc2VydmF0aW9uIGZvciAKPj4+IGFtZGdwdV9zeW5jX3Jlc3YgaW4gYW1kZ3B1X3ZtX3NkbWFf
-cHJlcGFyZS4gSXMgdGhhdCBzeW5jX3Jlc3Ygc3RpbGwgCj4+PiBuZWVkZWQgbm93LCBnaXZlbiB0
-aGF0IFZNIGZlbmNlcyBhcmVuJ3QgaW4gdGhhdCByZXNlcnZhdGlvbiBvYmplY3QgCj4+PiBhbnkg
-bW9yZT8KPj4+Cj4+PiBSZWdhcmRzLAo+Pj4gwqAgRmVsaXgKPj4+Cj4+PiBPbiAyMDE5LTEyLTA1
-IDU6MzksIENocmlzdGlhbiBLw7ZuaWcgd3JvdGU6Cj4+Pj4gV2hlbiBhIEJPIGlzIGV2aWN0ZWQg
-aW1tZWRpYWxseSBpbnZhbGlkYXRlIHRoZSBtYXBwZWQgUFRFcy4KPj4+Pgo+Pj4+IFNpZ25lZC1v
-ZmYtYnk6IENocmlzdGlhbiBLw7ZuaWcgPGNocmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4KPj4+PiAt
-LS0KPj4+PiDCoCBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uYyB8IDE3ICsr
-KysrKysrKysrKysrKystCj4+Pj4gwqAgMSBmaWxlIGNoYW5nZWQsIDE2IGluc2VydGlvbnMoKyks
-IDEgZGVsZXRpb24oLSkKPj4+Pgo+Pj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1k
-L2FtZGdwdS9hbWRncHVfdm0uYyAKPj4+PiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
-ZGdwdV92bS5jCj4+Pj4gaW5kZXggODM5ZDZkZjM5NGZjLi5lNTc4MTEzYmZkNTUgMTAwNjQ0Cj4+
-Pj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMKPj4+PiArKysg
-Yi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uYwo+Pj4+IEBAIC0yNTY1LDYg
-KzI1NjUsNyBAQCB2b2lkIGFtZGdwdV92bV9ib19pbnZhbGlkYXRlKHN0cnVjdCAKPj4+PiBhbWRn
-cHVfZGV2aWNlICphZGV2LAo+Pj4+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oCBzdHJ1Y3QgYW1kZ3B1X2JvICpibywgYm9vbCBldmljdGVkKQo+Pj4+IMKgIHsKPj4+PiDCoMKg
-wqDCoMKgIHN0cnVjdCBhbWRncHVfdm1fYm9fYmFzZSAqYm9fYmFzZTsKPj4+PiArwqDCoMKgIGlu
-dCByOwo+Pj4+IMKgIMKgwqDCoMKgwqAgLyogc2hhZG93IGJvIGRvZXNuJ3QgaGF2ZSBibyBiYXNl
-LCBpdHMgdmFsaWRhdGlvbiBuZWVkcyBpdHMgCj4+Pj4gcGFyZW50ICovCj4+Pj4gwqDCoMKgwqDC
-oCBpZiAoYm8tPnBhcmVudCAmJiBiby0+cGFyZW50LT5zaGFkb3cgPT0gYm8pCj4+Pj4gQEAgLTI1
-NzIsOCArMjU3MywyMiBAQCB2b2lkIGFtZGdwdV92bV9ib19pbnZhbGlkYXRlKHN0cnVjdCAKPj4+
-PiBhbWRncHVfZGV2aWNlICphZGV2LAo+Pj4+IMKgIMKgwqDCoMKgwqAgZm9yIChib19iYXNlID0g
-Ym8tPnZtX2JvOyBib19iYXNlOyBib19iYXNlID0gYm9fYmFzZS0+bmV4dCkgewo+Pj4+IMKgwqDC
-oMKgwqDCoMKgwqDCoCBzdHJ1Y3QgYW1kZ3B1X3ZtICp2bSA9IGJvX2Jhc2UtPnZtOwo+Pj4+ICvC
-oMKgwqDCoMKgwqDCoCBzdHJ1Y3QgZG1hX3Jlc3YgKnJlc3YgPSB2bS0+cm9vdC5iYXNlLmJvLT50
-Ym8uYmFzZS5yZXN2Owo+Pj4+ICsKPj4+PiArwqDCoMKgwqDCoMKgwqAgaWYgKGJvLT50Ym8udHlw
-ZSAhPSB0dG1fYm9fdHlwZV9rZXJuZWwpIHsKPj4+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBz
-dHJ1Y3QgYW1kZ3B1X2JvX3ZhICpib192YTsKPj4+PiArCj4+Pj4gK8KgwqDCoMKgwqDCoMKgwqDC
-oMKgwqAgYm9fdmEgPSBjb250YWluZXJfb2YoYm9fYmFzZSwgc3RydWN0IGFtZGdwdV9ib192YSwK
-Pj4+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGJh
-c2UpOwo+Pj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHIgPSBhbWRncHVfdm1fYm9fdXBkYXRl
-KGFkZXYsIGJvX3ZhLAo+Pj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgIGJvLT50Ym8uYmFzZS5yZXN2ICE9IHJlc3YpOwo+Pj4+ICvCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgIGlmICghcikgewo+Pj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAg
-YW1kZ3B1X3ZtX2JvX2lkbGUoYm9fYmFzZSk7Cj4+Pj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoCBjb250aW51ZTsKPj4+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB9Cj4+Pj4gK8Kg
-wqDCoMKgwqDCoMKgIH0KPj4+PiDCoCAtwqDCoMKgwqDCoMKgwqAgaWYgKGV2aWN0ZWQgJiYgYm8t
-PnRiby5iYXNlLnJlc3YgPT0gCj4+Pj4gdm0tPnJvb3QuYmFzZS5iby0+dGJvLmJhc2UucmVzdikg
-ewo+Pj4+ICvCoMKgwqDCoMKgwqDCoCBpZiAoZXZpY3RlZCAmJiBiby0+dGJvLmJhc2UucmVzdiA9
-PSByZXN2KSB7Cj4+Pj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgYW1kZ3B1X3ZtX2JvX2V2
-aWN0ZWQoYm9fYmFzZSk7Cj4+Pj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgY29udGludWU7
-Cj4+Pj4gwqDCoMKgwqDCoMKgwqDCoMKgIH0KPj4KPiBfX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fXwo+IGFtZC1nZnggbWFpbGluZyBsaXN0Cj4gYW1kLWdmeEBs
-aXN0cy5mcmVlZGVza3RvcC5vcmcKPiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWls
-bWFuL2xpc3RpbmZvL2FtZC1nZngKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0
-b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1k
-LWdmeAo=
+--===============0205048869==
+Content-Type: multipart/alternative;
+ boundary="------------E1B97FE587FE95F3BFF5E1EE"
+Content-Language: en-US
+
+--------------E1B97FE587FE95F3BFF5E1EE
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+
+
+On 12/11/19 11:05 PM, Ma, Le wrote:
+>
+> [AMD Official Use Only - Internal Distribution Only]
+>
+> -----Original Message-----
+> From: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
+> Sent: Thursday, December 12, 2019 4:39 AM
+> To: dri-devel@lists.freedesktop.org; amd-gfx@lists.freedesktop.org
+> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Ma, Le 
+> <Le.Ma@amd.com>; Zhang, Hawking <Hawking.Zhang@amd.com>; Quan, Evan 
+> <Evan.Quan@amd.com>; Grodzovsky, Andrey <Andrey.Grodzovsky@amd.com>
+> Subject: [RESEND PATCH 4/5] Subject: drm/amdgpu: Redo XGMI reset 
+> synchronization.
+>
+> Use task barrier in XGMI hive to synchronize ASIC resets across 
+> devices in XGMI hive.
+>
+> Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com 
+> <mailto:andrey.grodzovsky@amd.com>>
+>
+> ---
+>
+> drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 42 
+> +++++++++++++++++++++++++-----
+>
+> 1 file changed, 36 insertions(+), 6 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c 
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>
+> index 1d19edfa..e4089a0 100644
+>
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>
+> @@ -67,6 +67,7 @@
+>
+> #include "amdgpu_tmz.h"
+>
+>  #include <linux/suspend.h>
+>
+> +#include <drm/task_barrier.h>
+>
+>  MODULE_FIRMWARE("amdgpu/vega10_gpu_info.bin");
+>
+> MODULE_FIRMWARE("amdgpu/vega12_gpu_info.bin");
+>
+> @@ -2663,14 +2664,43 @@ static void 
+> amdgpu_device_xgmi_reset_func(struct work_struct *__work)  {
+>
+>            struct amdgpu_device *adev =
+>
+> container_of(__work, struct amdgpu_device, xgmi_reset_work);
+>
+> +          struct amdgpu_hive_info *hive = amdgpu_get_xgmi_hive(adev, 0);
+>
+> -           if (amdgpu_asic_reset_method(adev) == AMD_RESET_METHOD_BACO)
+>
+> - adev->asic_reset_res = (adev->in_baco == false) ?
+>
+> - amdgpu_device_baco_enter(adev->ddev) :
+>
+> - qamdgpu_device_baco_exit(adev->ddev);
+>
+> -           else
+>
+> - adev->asic_reset_res = amdgpu_asic_reset(adev);
+>
+> +          /*
+>
+> +          * Use task barrier to synchronize all xgmi reset works 
+> across the
+>
+> +          * hive.
+>
+> +          * task_barrier_enter and task_barrier_exit will block 
+> untill all the
+>
+> +          * threads running the xgmi reset works reach those points. 
+> I assume
+>
+> +          * guarantee of progress here for all the threads as the 
+> workqueue code
+>
+> +          * creates new worker threads as needed by amount of work 
+> items in queue
+>
+> +          * (see worker_thread) and also each thread sleeps in the 
+> barrir and by
+>
+> +          * this yielding the CPU for other work threads to make 
+> progress.
+>
+> +          */
+>
+> [Le]: This comments can be adjusted since we switch to 
+> system_unbound_wq in patch #5.
+>
+> +          if (amdgpu_asic_reset_method(adev) == AMD_RESET_METHOD_BACO) {
+>
+> +
+>
+> +                      if (hive)
+>
+> + task_barrier_enter(&hive->tb);
+>
+> [Le]: The multiple hive condition can be checked only once and moved 
+> to the location right after the assignment.
+>
+
+Not sure what you meant here but in fact let's note that while in 
+amdgpu_device_xgmi_reset_func it's a bug for amdgpu_get_xgmi_hive to 
+return NULL so I think better instead to add WARN_ON(!hive,"...") and 
+return right at the beginning of the function if indeed hive == NULL
+
+Andrey
+
+
+> +
+>
+> + adev->asic_reset_res = amdgpu_device_baco_enter(adev->ddev);
+>
+> +
+>
+> +                      if (adev->asic_reset_res)
+>
+> +                                  goto fail;
+>
+> +
+>
+> +                      if (hive)
+>
+> + task_barrier_exit(&hive->tb);
+>
+> [Le]: Same as above.
+>
+> +
+>
+> + adev->asic_reset_res = amdgpu_device_baco_exit(adev->ddev);
+>
+> +
+>
+> +                      if (adev->asic_reset_res)
+>
+> +                                  goto fail;
+>
+> +          } else {
+>
+> +                      if (hive)
+>
+> + task_barrier_full(&hive->tb);
+>
+> [Le]: Same as above.
+>
+> With above addressed, Reviewed-by: Le Ma <Le.Ma@amd.com 
+> <mailto:Le.Ma@amd.com>>
+>
+> Regards,
+>
+> Ma Le
+>
+> +
+>
+> + adev->asic_reset_res =  amdgpu_asic_reset(adev);
+>
+> +          }
+>
+> +fail:
+>
+>            if (adev->asic_reset_res)
+>
+>                        DRM_WARN("ASIC reset failed with error, %d for 
+> drm dev, %s",
+>
+>  adev->asic_reset_res, adev->ddev->unique);
+>
+> --
+>
+> 2.7.4
+>
+
+--------------E1B97FE587FE95F3BFF5E1EE
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: 8bit
+
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body text="#000000" bgcolor="#FFFFFF">
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 12/11/19 11:05 PM, Ma, Le wrote:<br>
+    </div>
+    <blockquote type="cite" cite="mid:MN2PR12MB4285C0500B7E9363A2CF7B89F6550@MN2PR12MB4285.namprd12.prod.outlook.com">
+      
+      <meta name="Generator" content="Microsoft Word 15 (filtered
+        medium)">
+      <style><!--
+/* Font Definitions */
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:DengXian;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:"\@DengXian";
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:#0563C1;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{mso-style-priority:99;
+	color:#954F72;
+	text-decoration:underline;}
+p.MsoPlainText, li.MsoPlainText, div.MsoPlainText
+	{mso-style-priority:99;
+	mso-style-link:"Plain Text Char";
+	margin:0in;
+	margin-bottom:.0001pt;
+	font-size:14.0pt;
+	font-family:"Calibri",sans-serif;}
+p.msonormal0, li.msonormal0, div.msonormal0
+	{mso-style-name:msonormal;
+	mso-margin-top-alt:auto;
+	margin-right:0in;
+	mso-margin-bottom-alt:auto;
+	margin-left:0in;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+span.PlainTextChar
+	{mso-style-name:"Plain Text Char";
+	mso-style-priority:99;
+	mso-style-link:"Plain Text";
+	font-family:"Calibri",sans-serif;}
+p.msipheadera92e061b, li.msipheadera92e061b, div.msipheadera92e061b
+	{mso-style-name:msipheadera92e061b;
+	mso-margin-top-alt:auto;
+	margin-right:0in;
+	mso-margin-bottom-alt:auto;
+	margin-left:0in;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+span.EmailStyle21
+	{mso-style-type:personal-compose;
+	font-family:"Arial",sans-serif;
+	color:#0078D7;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-size:10.0pt;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.0in 1.0in 1.0in;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext="edit" spidmax="1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext="edit">
+<o:idmap v:ext="edit" data="1" />
+</o:shapelayout></xml><![endif]-->
+      <div class="WordSection1">
+        <p class="msipheadera92e061b" style="margin:0in;margin-bottom:.0001pt"><span style="font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif;color:#0078D7">[AMD
+            Official Use Only - Internal Distribution Only]</span><o:p></o:p></p>
+        <p class="MsoNormal"><o:p>&nbsp;</o:p></p>
+        <p class="MsoPlainText"><o:p>&nbsp;</o:p></p>
+        <p class="MsoPlainText"><o:p>&nbsp;</o:p></p>
+        <p class="MsoPlainText">-----Original Message-----<br>
+          From: Andrey Grodzovsky <a class="moz-txt-link-rfc2396E" href="mailto:andrey.grodzovsky@amd.com">&lt;andrey.grodzovsky@amd.com&gt;</a> <br>
+          Sent: Thursday, December 12, 2019 4:39 AM<br>
+          To: <a class="moz-txt-link-abbreviated" href="mailto:dri-devel@lists.freedesktop.org">dri-devel@lists.freedesktop.org</a>;
+          <a class="moz-txt-link-abbreviated" href="mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.org</a><br>
+          Cc: Deucher, Alexander <a class="moz-txt-link-rfc2396E" href="mailto:Alexander.Deucher@amd.com">&lt;Alexander.Deucher@amd.com&gt;</a>; Ma,
+          Le <a class="moz-txt-link-rfc2396E" href="mailto:Le.Ma@amd.com">&lt;Le.Ma@amd.com&gt;</a>; Zhang, Hawking
+          <a class="moz-txt-link-rfc2396E" href="mailto:Hawking.Zhang@amd.com">&lt;Hawking.Zhang@amd.com&gt;</a>; Quan, Evan
+          <a class="moz-txt-link-rfc2396E" href="mailto:Evan.Quan@amd.com">&lt;Evan.Quan@amd.com&gt;</a>; Grodzovsky, Andrey
+          <a class="moz-txt-link-rfc2396E" href="mailto:Andrey.Grodzovsky@amd.com">&lt;Andrey.Grodzovsky@amd.com&gt;</a><br>
+          Subject: [RESEND PATCH 4/5] Subject: drm/amdgpu: Redo XGMI
+          reset synchronization.<o:p></o:p></p>
+        <p class="MsoPlainText"><o:p>&nbsp;</o:p></p>
+        <p class="MsoPlainText">Use task barrier in XGMI hive to
+          synchronize ASIC resets across devices in XGMI hive.<o:p></o:p></p>
+        <p class="MsoPlainText"><o:p>&nbsp;</o:p></p>
+        <p class="MsoPlainText">Signed-off-by: Andrey Grodzovsky &lt;<a href="mailto:andrey.grodzovsky@amd.com" moz-do-not-send="true"><span style="color:windowtext;text-decoration:none">andrey.grodzovsky@amd.com</span></a>&gt;<o:p></o:p></p>
+        <p class="MsoPlainText">---<o:p></o:p></p>
+        <p class="MsoPlainText">drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+          | 42 &#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;-----<o:p></o:p></p>
+        <p class="MsoPlainText">1 file changed, 36 insertions(&#43;), 6
+          deletions(-)<o:p></o:p></p>
+        <p class="MsoPlainText"><o:p>&nbsp;</o:p></p>
+        <p class="MsoPlainText">diff --git
+          a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+          b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<o:p></o:p></p>
+        <p class="MsoPlainText">index 1d19edfa..e4089a0 100644<o:p></o:p></p>
+        <p class="MsoPlainText">---
+          a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<o:p></o:p></p>
+        <p class="MsoPlainText">&#43;&#43;&#43;
+          b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<o:p></o:p></p>
+        <p class="MsoPlainText">@@ -67,6 &#43;67,7 @@<o:p></o:p></p>
+        <p class="MsoPlainText">#include &quot;amdgpu_tmz.h&quot;<o:p></o:p></p>
+        <p class="MsoPlainText"><o:p>&nbsp;</o:p></p>
+        <p class="MsoPlainText">&nbsp;#include &lt;linux/suspend.h&gt;<o:p></o:p></p>
+        <p class="MsoPlainText">&#43;#include &lt;drm/task_barrier.h&gt;<o:p></o:p></p>
+        <p class="MsoPlainText"><o:p>&nbsp;</o:p></p>
+        <p class="MsoPlainText">&nbsp;MODULE_FIRMWARE(&quot;amdgpu/vega10_gpu_info.bin&quot;);<o:p></o:p></p>
+        <p class="MsoPlainText">MODULE_FIRMWARE(&quot;amdgpu/vega12_gpu_info.bin&quot;);<o:p></o:p></p>
+        <p class="MsoPlainText">@@ -2663,14 &#43;2664,43 @@ static void
+          amdgpu_device_xgmi_reset_func(struct work_struct *__work)&nbsp; {<o:p></o:p></p>
+        <p class="MsoPlainText">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev =<o:p></o:p></p>
+        <p class="MsoPlainText">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          container_of(__work, struct amdgpu_device, xgmi_reset_work);<o:p></o:p></p>
+        <p class="MsoPlainText">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_hive_info *hive
+          = amdgpu_get_xgmi_hive(adev, 0);<o:p></o:p></p>
+        <p class="MsoPlainText"><o:p>&nbsp;</o:p></p>
+        <p class="MsoPlainText">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if
+          (amdgpu_asic_reset_method(adev) == AMD_RESET_METHOD_BACO)<o:p></o:p></p>
+        <p class="MsoPlainText">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          adev-&gt;asic_reset_res = (adev-&gt;in_baco == false) ?<o:p></o:p></p>
+        <p class="MsoPlainText">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          amdgpu_device_baco_enter(adev-&gt;ddev) :<o:p></o:p></p>
+        <p class="MsoPlainText">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          qamdgpu_device_baco_exit(adev-&gt;ddev);<o:p></o:p></p>
+        <p class="MsoPlainText">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else<o:p></o:p></p>
+        <p class="MsoPlainText">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          adev-&gt;asic_reset_res = amdgpu_asic_reset(adev);<o:p></o:p></p>
+        <p class="MsoPlainText">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /*<o:p></o:p></p>
+        <p class="MsoPlainText">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * Use task barrier to
+          synchronize all xgmi reset works across the<o:p></o:p></p>
+        <p class="MsoPlainText">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * hive.<o:p></o:p></p>
+        <p class="MsoPlainText">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * task_barrier_enter and
+          task_barrier_exit will block untill all the<o:p></o:p></p>
+        <p class="MsoPlainText">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * threads running the xgmi
+          reset works reach those points. I assume<o:p></o:p></p>
+        <p class="MsoPlainText">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * guarantee of progress here
+          for all the threads as the workqueue code<o:p></o:p></p>
+        <p class="MsoPlainText">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * creates new worker threads
+          as needed by amount of work items in queue<o:p></o:p></p>
+        <p class="MsoPlainText">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * (see worker_thread) and
+          also each thread sleeps in the barrir and by<o:p></o:p></p>
+        <p class="MsoPlainText">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * this yielding the CPU for
+          other work threads to make progress.<o:p></o:p></p>
+        <p class="MsoPlainText">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<o:p></o:p></p>
+        <p class="MsoPlainText"><span style="color:#203864">[Le]: This
+            comments can be adjusted since we switch to
+            system_unbound_wq in patch #5.<o:p></o:p></span></p>
+        <p class="MsoPlainText">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if
+          (amdgpu_asic_reset_method(adev) == AMD_RESET_METHOD_BACO) {<o:p></o:p></p>
+        <p class="MsoPlainText">&#43;<o:p></o:p></p>
+        <p class="MsoPlainText">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (hive)<o:p></o:p></p>
+        <p class="MsoPlainText">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          task_barrier_enter(&amp;hive-&gt;tb);<o:p></o:p></p>
+        <p class="MsoPlainText"><span style="color:#203864">[Le]: The
+            multiple hive condition can be checked only once and moved
+            to the location right after the assignment.</span></p>
+      </div>
+    </blockquote>
+    <p><br>
+    </p>
+    <p>Not sure what you meant here but in fact let's note that while in
+      amdgpu_device_xgmi_reset_func it's a bug for amdgpu_get_xgmi_hive
+      to return NULL so I think better instead to add
+      WARN_ON(!hive,&quot;...&quot;) and return right at the beginning of the
+      function if indeed hive == NULL</p>
+    <p>Andrey<br>
+    </p>
+    <p><br>
+    </p>
+    <blockquote type="cite" cite="mid:MN2PR12MB4285C0500B7E9363A2CF7B89F6550@MN2PR12MB4285.namprd12.prod.outlook.com">
+      <div class="WordSection1">
+        <p class="MsoPlainText"><span style="color:#203864"><o:p></o:p></span></p>
+        <p class="MsoPlainText">&#43;<o:p></o:p></p>
+        <p class="MsoPlainText">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          adev-&gt;asic_reset_res =
+          amdgpu_device_baco_enter(adev-&gt;ddev);<o:p></o:p></p>
+        <p class="MsoPlainText">&#43;<o:p></o:p></p>
+        <p class="MsoPlainText">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if
+          (adev-&gt;asic_reset_res)<o:p></o:p></p>
+        <p class="MsoPlainText">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; goto
+          fail;<o:p></o:p></p>
+        <p class="MsoPlainText">&#43;<o:p></o:p></p>
+        <p class="MsoPlainText">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (hive)<o:p></o:p></p>
+        <p class="MsoPlainText">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          task_barrier_exit(&amp;hive-&gt;tb);<o:p></o:p></p>
+        <p class="MsoPlainText"><span style="color:#203864">[Le]: Same
+            as above.<o:p></o:p></span></p>
+        <p class="MsoPlainText">&#43;<o:p></o:p></p>
+        <p class="MsoPlainText">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          adev-&gt;asic_reset_res =
+          amdgpu_device_baco_exit(adev-&gt;ddev);<o:p></o:p></p>
+        <p class="MsoPlainText">&#43;<o:p></o:p></p>
+        <p class="MsoPlainText">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if
+          (adev-&gt;asic_reset_res)<o:p></o:p></p>
+        <p class="MsoPlainText">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; goto
+          fail;<o:p></o:p></p>
+        <p class="MsoPlainText">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else {<o:p></o:p></p>
+        <p class="MsoPlainText">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (hive)<o:p></o:p></p>
+        <p class="MsoPlainText">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          task_barrier_full(&amp;hive-&gt;tb);<o:p></o:p></p>
+        <p class="MsoPlainText"><span style="color:#203864">[Le]: Same
+            as above.<o:p></o:p></span></p>
+        <p class="MsoPlainText"><span style="color:#203864"><o:p>&nbsp;</o:p></span></p>
+        <p class="MsoPlainText"><span style="color:#203864">With above
+            addressed, Reviewed-by: Le Ma &lt;<a href="mailto:Le.Ma@amd.com" moz-do-not-send="true"><span style="color:#033160">Le.Ma@amd.com</span></a>&gt;<o:p></o:p></span></p>
+        <p class="MsoPlainText"><span style="color:#203864"><o:p>&nbsp;</o:p></span></p>
+        <p class="MsoPlainText"><span style="color:#203864">Regards,<o:p></o:p></span></p>
+        <p class="MsoPlainText"><span style="color:#203864">Ma Le<o:p></o:p></span></p>
+        <p class="MsoPlainText">&#43;<o:p></o:p></p>
+        <p class="MsoPlainText">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          adev-&gt;asic_reset_res =&nbsp; amdgpu_asic_reset(adev);<o:p></o:p></p>
+        <p class="MsoPlainText">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<o:p></o:p></p>
+        <p class="MsoPlainText"><o:p>&nbsp;</o:p></p>
+        <p class="MsoPlainText">&#43;fail:<o:p></o:p></p>
+        <p class="MsoPlainText">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;asic_reset_res)<o:p></o:p></p>
+        <p class="MsoPlainText">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DRM_WARN(&quot;ASIC
+          reset failed with error, %d for drm dev, %s&quot;,<o:p></o:p></p>
+        <p class="MsoPlainText">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          &nbsp;adev-&gt;asic_reset_res, adev-&gt;ddev-&gt;unique);<o:p></o:p></p>
+        <p class="MsoPlainText">--<o:p></o:p></p>
+        <p class="MsoPlainText">2.7.4<o:p></o:p></p>
+        <p class="MsoPlainText"><o:p>&nbsp;</o:p></p>
+      </div>
+    </blockquote>
+  </body>
+</html>
+
+--------------E1B97FE587FE95F3BFF5E1EE--
+
+--===============0205048869==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--===============0205048869==--
