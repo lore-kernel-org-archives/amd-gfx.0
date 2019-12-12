@@ -7,32 +7,32 @@ X-Spam-Status: No, score=-9.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6DB1BC2D0C9
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B80ADC43603
 	for <amd-gfx@archiver.kernel.org>; Thu, 12 Dec 2019 17:06:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 401E721655
+	by mail.kernel.org (Postfix) with ESMTPS id 8C8D421655
 	for <amd-gfx@archiver.kernel.org>; Thu, 12 Dec 2019 17:06:34 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="qBMWeOb+"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 401E721655
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="1ufg9uca"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8C8D421655
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D963E6E13F;
-	Thu, 12 Dec 2019 17:06:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 530816E15F;
+	Thu, 12 Dec 2019 17:06:34 +0000 (UTC)
 Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2068.outbound.protection.outlook.com [40.107.237.68])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 68C406E121
+ (mail-bn8nam12on2059.outbound.protection.outlook.com [40.107.237.59])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3B0546E0FB
  for <amd-gfx@lists.freedesktop.org>; Thu, 12 Dec 2019 17:06:29 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=kIFhYwAgutW1KwrlS5OlLHCYJ0ZucjpQf3y2MDrVs1jTQL8pxEoErb5D+QknFoQplCBtKjnNf0Y98jTPB0ZZ4sOGfw5zSIvsUDEOSyyVxlm5TpjVTWIyTGTu0NU9HYLq8pU0qnVu4kbEv2I7EeQCjEcRmnCyhFmkh0+LZms90bVyFnB3oKVAFd839AfjVMnn7QdULv0Fs7XwKboAUboOQNxgHPBCAMqmQxBLLcQ4FRYi/pgtdFYKFIw2YDm7SgYGXr8IbZlf6Va03uVIQdPJuwiaI/oeHxfaOIhV6rHOt8KRm7BGwCqK/eO4vCx6PHFga96hpP2Uws0bpgHVJbWn2g==
+ b=Gl0mgCZpl9+NoCpy5oSIPjtklKx9tebZQ5j4FVVcWjOLuWd6w+OeaflRpFAYiwTk21JlD4Ml5+JNl5TDmCIAJnAdVPulF8iBYBe3p8NdBD+HkISgVvGPSKz50ODwjpfDE7TiZd7E+GF0tr4KzqtqTdaacBBPSVAwVEWAGK9CIidWNVvQOwVtpwxQ2dYabE1gwp1vbfeG30VHV+X2+ukCOO0m4/h0VMpa2iVmu0oC7ZqzxJnskJJPzPVwKTbKProeWeaYw3KlY7YCIkD2WT4XjhEtGpiYSeVt4DNnZkUAW4jB4WNNZtTjdif1XK4mpkUQv867wiXWVtAEPJC7q6gpgw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=fMqTiLIolq9eUehMauK4ztpSECPQDdg3cA1g3rMo7lM=;
- b=VAYSh9hpu6kWbNEqMh6FqaHHcSmdLdNcsz11jU2D2djDesrCBKB4+T6zOhYoP76rgaoL7j4yjtSmVYj1EKHMssIcDlIVhjKzFU3OsBfGuOgZvCEmRNnqMWgVSf3gAWke/H0vyBzjAj7XvpbrsxduhLtSIjorsJ6gNqP4Sz+8scmojkKSW6fI8aqnQVx0utDAM9hRlU7Lz1wxVJ9hQvo0GwNCDpQ0ud1O3tGmxSPv5Ie42A1ij6h1Qpyj9/XpVgeas1yaUfbAkH9yi5JLNdYhwK5/xLbFSS8Yn0Dv48tiq+wjl29VSLgAvtHOubpe3Vt0KxJraQ0D3QtoW40g4dOdOg==
+ bh=gZviAcqcUPauebbRRuq2E9M9602y1VV4mwosGhRLJYU=;
+ b=FTbb0kiVVCrvEMtgzEeOeU46w+EqX1hqlXab/jIR4AkVsabsOemFWBwD33MJTs9jRFv+w4pwbCd7Dviwvg/w9d1q+E28qaImSiqQkFZIvd5a5YRgYYoy3yP0H7HMaaGNaqAWUHcaVtbbgaRXzq0SVeP8lsE1C4KokvA+u0Tltiys9HDSxIfNbFkkkqL3HcfGE8dcGA6ODzgEkiet8QpKrpn7cBIsP3oZdEy6n59E5U3soYFp6rL7BwnY+O/ZtuQOEWbrDNhcSxRQuhh11qcHJXSPkCIg508u2VB0A40B/C+2c2e82Qxzq1XRrqmBsr5itiDRzkK4V4feXy/obSe+4w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=permerror action=none header.from=amd.com; dkim=none (message not
@@ -40,18 +40,18 @@ ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=fMqTiLIolq9eUehMauK4ztpSECPQDdg3cA1g3rMo7lM=;
- b=qBMWeOb+BOJqAXnSQNh4n1MdyByy1TS9mgpqYVG8FDkMQMMqoRVpKK7juO2CIpyEnNApLOoDTLeqeY8tfgQdHADfh8RjGl6al95baPvm0UttLRbbna9JlyDqxh6CbqdmrV8/nyp1EiUDlMnL8TC3UPE5CH7kxyVOmlXffMoPV+E=
+ bh=gZviAcqcUPauebbRRuq2E9M9602y1VV4mwosGhRLJYU=;
+ b=1ufg9ucaKfHh4Fk8S9LM2BCGWjCp9z6XwfYNqU855yQeQfYz5bnXrRsH8innI2yaJdjh08wSnGpUo9d7cDIC0xdLt4WMcf+Km4BKUeXjlmVU3mjBKmvjjroq3KEqmEf/a6XTBsStqRBUDS+5X5rcS96xEo2iPZD6kLD9nNlAQqQ=
 Received: from BN4PR12CA0013.namprd12.prod.outlook.com (2603:10b6:403:2::23)
- by CH2PR12MB3733.namprd12.prod.outlook.com (2603:10b6:610:15::14) with
+ by BN6PR12MB1875.namprd12.prod.outlook.com (2603:10b6:404:103::23) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2538.15; Thu, 12 Dec
- 2019 17:06:26 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2538.16; Thu, 12 Dec
+ 2019 17:06:27 +0000
 Received: from CO1NAM11FT064.eop-nam11.prod.protection.outlook.com
  (2a01:111:f400:7eab::208) by BN4PR12CA0013.outlook.office365.com
  (2603:10b6:403:2::23) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2538.17 via Frontend
- Transport; Thu, 12 Dec 2019 17:06:26 +0000
+ Transport; Thu, 12 Dec 2019 17:06:27 +0000
 Authentication-Results: spf=none (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
  header.d=none;lists.freedesktop.org; dmarc=permerror action=none
@@ -61,19 +61,19 @@ Received-SPF: None (protection.outlook.com: amd.com does not designate
 Received: from SATLEXMB01.amd.com (165.204.84.17) by
  CO1NAM11FT064.mail.protection.outlook.com (10.13.175.77) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.2538.14 via Frontend Transport; Thu, 12 Dec 2019 17:06:26 +0000
+ 15.20.2538.14 via Frontend Transport; Thu, 12 Dec 2019 17:06:27 +0000
 Received: from SATLEXMB01.amd.com (10.181.40.142) by SATLEXMB01.amd.com
  (10.181.40.142) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Thu, 12 Dec
  2019 11:06:23 -0600
 Received: from blakha.amd.com (10.180.168.240) by SATLEXMB01.amd.com
  (10.181.40.142) with Microsoft SMTP Server id 15.1.1713.5 via Frontend
- Transport; Thu, 12 Dec 2019 11:06:22 -0600
+ Transport; Thu, 12 Dec 2019 11:06:23 -0600
 From: Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 4/6] drm/amd/display: rx_validation failed resume from sleep
-Date: Thu, 12 Dec 2019 12:06:12 -0500
-Message-ID: <20191212170614.24837-5-Bhawanpreet.Lakha@amd.com>
+Subject: [PATCH 5/6] drm/amd/display: Add delay after h' watchdog timeout event
+Date: Thu, 12 Dec 2019 12:06:13 -0500
+Message-ID: <20191212170614.24837-6-Bhawanpreet.Lakha@amd.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20191212170614.24837-1-Bhawanpreet.Lakha@amd.com>
 References: <20191212170614.24837-1-Bhawanpreet.Lakha@amd.com>
@@ -82,26 +82,26 @@ X-EOPAttributedMessage: 0
 X-MS-Office365-Filtering-HT: Tenant
 X-Forefront-Antispam-Report: CIP:165.204.84.17; IPV:NLI; CTRY:US; EFV:NLI;
  SFV:NSPM;
- SFS:(10009020)(4636009)(39860400002)(136003)(346002)(376002)(396003)(428003)(189003)(199004)(6916009)(8936002)(426003)(5660300002)(356004)(86362001)(2616005)(70206006)(7696005)(2906002)(6666004)(316002)(8676002)(36756003)(478600001)(70586007)(81166006)(81156014)(336012)(4326008)(1076003)(26005)(186003);
- DIR:OUT; SFP:1101; SCL:1; SRVR:CH2PR12MB3733; H:SATLEXMB01.amd.com; FPR:;
+ SFS:(10009020)(4636009)(396003)(39850400004)(346002)(376002)(136003)(428003)(189003)(199004)(2616005)(8936002)(186003)(36756003)(336012)(478600001)(5660300002)(1076003)(4326008)(81166006)(81156014)(86362001)(8676002)(26005)(70586007)(70206006)(6916009)(316002)(426003)(2906002)(6666004)(356004)(7696005);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:BN6PR12MB1875; H:SATLEXMB01.amd.com; FPR:;
  SPF:None; LANG:en; PTR:InfoDomainNonexistent; MX:1; A:1; 
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 18f297a9-ce8f-476f-b73b-08d77f259f7e
-X-MS-TrafficTypeDiagnostic: CH2PR12MB3733:
-X-Microsoft-Antispam-PRVS: <CH2PR12MB373357F66B2ADC12A3E67B9CF9550@CH2PR12MB3733.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:3826;
+X-MS-Office365-Filtering-Correlation-Id: c8edcc36-5e0c-4567-f951-08d77f25a009
+X-MS-TrafficTypeDiagnostic: BN6PR12MB1875:
+X-Microsoft-Antispam-PRVS: <BN6PR12MB1875579504913AA341A967A1F9550@BN6PR12MB1875.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:2803;
 X-Forefront-PRVS: 0249EFCB0B
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: bW2Taf0cB5jS3BA59uhE/cX3cAYtrfm6IR5ZsTfkxeskWGSqviMkVSyCtPTZOz8rbqZ+cqZYP40i19/Bj7h+Fl3YoLx+QVRys7ztZYvoLncKaR0QP0GPL1Xzzqhs1umParfKZaMhFIEDxa8LGDoTFZqlz2HJX4g0AfySk2TLRXx6zwx7P1i32WrAAyty/Bd/3t+v5UjFxNgPC+K128IuhZSv5jCzQLKPGxT+ywffmqE50Nmh5es1JTgzu0bmRXvPQTSQ932RCVU8xwZ5fuUqIA38a286lnauMl6XvJ7lLs7l+h0yw+txYvtcXhO/5UcOpaAMCXZVUBunZI2APGwmCQ/j9aonlGBOEapRCiI53iJD111OpmAfdOJbZfu/E0EkEaGTb/QC0T8Or6S3tWZd/0LhsOpVIYgt8xvmxACoa3x0RuhgFBS9nRFJlMP/PLyF
+X-Microsoft-Antispam-Message-Info: AwfQ7Wb14Jd17yzNUKGo+vneXMJsS+knF3DA4fHRbfybqbFRLs07ftj1lIYDbwGP70xZa9N/YB6nzl75UGd8qO60LNQRV5ZWHXWKiD+EFry41//V/VO9yB9CjvOdoCe2KPcmh9ybW/RTa9sVKL36aZ7vSKdkIHqQ0/Hq+xjw8x3q6TdM60JLCOReGM6yB3fhQcAMrU/lcfxGUMwK2uB3X4XZb5J5QAzckem3SpMPf5Yq1sZeRKoUXoXCeZhZbpAAu2CNhSzsNwbb5IXCFtwTnUhFz/Ef8LwsYOXZBSZHt6b+6LEHTT1fsPkDanrHg7GxP6GpPYzNouRt1PyddxFWIrNpO9KsPze0+ZY2x310Z+VcbYhdUGLA8TITDvI9TUcApygU93WkB+kTcVEt3jDi6Qbr8PoJPjtVZv5/AcNTMm8q9bn9WE4y+shf7RcNcXn4
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Dec 2019 17:06:26.1002 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 18f297a9-ce8f-476f-b73b-08d77f259f7e
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Dec 2019 17:06:27.0149 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: c8edcc36-5e0c-4567-f951-08d77f25a009
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB01.amd.com]
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB3733
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN6PR12MB1875
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,67 +113,70 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jing Zhou <Jing.Zhou@amd.com>
+Cc: Michael Strauss <michael.strauss@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Jing Zhou <Jing.Zhou@amd.com>
+From: Michael Strauss <michael.strauss@amd.com>
 
-[why]
-Most DP/HDMI monitors need more time to response rx_validation
-request.
+[WHY]
+Some monitors trigger HDCP2.x timeout after reinitializing (e.g. toggling HDR)
+by taking longer than expected to return h' (h prime)
+Previously the 200ms watchdog timer retry count would hit
+MAX_NUM_OF_ATTEMPTS (4), causing fallback to HDCP1.x
 
-[how]
-Add generic 1000ms delay.
+[HOW]
+Adding a 1s delay after an h' watchdog timeout provides enough time
+for affected monitors to return h' in time without hitting MAX_NUM_OF_ATTEMPTS
 
-Signed-off-by: Jing Zhou <Jing.Zhou@amd.com>
+Signed-off-by: Michael Strauss <michael.strauss@amd.com>
 Reviewed-by: Wenjing Liu <Wenjing.Liu@amd.com>
 ---
- .../display/modules/hdcp/hdcp1_transition.c   | 20 +++++++++++++++----
- 1 file changed, 16 insertions(+), 4 deletions(-)
+ .../gpu/drm/amd/display/modules/hdcp/hdcp2_transition.c   | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/modules/hdcp/hdcp1_transition.c b/drivers/gpu/drm/amd/display/modules/hdcp/hdcp1_transition.c
-index 136b8011ff3f..21ebc62bb9d9 100644
---- a/drivers/gpu/drm/amd/display/modules/hdcp/hdcp1_transition.c
-+++ b/drivers/gpu/drm/amd/display/modules/hdcp/hdcp1_transition.c
-@@ -67,11 +67,19 @@ enum mod_hdcp_status mod_hdcp_hdcp1_transition(struct mod_hdcp *hdcp,
- 		break;
- 	case H1_A2_COMPUTATIONS_A3_VALIDATE_RX_A6_TEST_FOR_REPEATER:
- 		if (input->bcaps_read != PASS ||
--				input->r0p_read != PASS ||
--				input->rx_validation != PASS ||
--				(!conn->is_repeater && input->encryption != PASS)) {
-+				input->r0p_read != PASS) {
-+			fail_and_restart_in_ms(0, &status, output);
-+			break;
-+		} else if (input->rx_validation != PASS) {
- 			/* 1A-06: consider invalid r0' a failure */
- 			/* 1A-08: consider bksv listed in SRM a failure */
-+			/*
-+			 * some slow RX will fail rx validation when it is
-+			 * not ready. give it more time to react before retry.
-+			 */
-+			fail_and_restart_in_ms(1000, &status, output);
-+			break;
-+		} else if (!conn->is_repeater && input->encryption != PASS) {
- 			fail_and_restart_in_ms(0, &status, output);
- 			break;
- 		}
-@@ -212,7 +220,11 @@ enum mod_hdcp_status mod_hdcp_hdcp1_dp_transition(struct mod_hdcp *hdcp,
- 				 * after 3 attempts.
- 				 * 1A-08: consider bksv listed in SRM a failure
- 				 */
+diff --git a/drivers/gpu/drm/amd/display/modules/hdcp/hdcp2_transition.c b/drivers/gpu/drm/amd/display/modules/hdcp/hdcp2_transition.c
+index e8043c903a84..da190739a969 100644
+--- a/drivers/gpu/drm/amd/display/modules/hdcp/hdcp2_transition.c
++++ b/drivers/gpu/drm/amd/display/modules/hdcp/hdcp2_transition.c
+@@ -114,7 +114,7 @@ enum mod_hdcp_status mod_hdcp_hdcp2_transition(struct mod_hdcp *hdcp,
+ 			if (event_ctx->event ==
+ 					MOD_HDCP_EVENT_WATCHDOG_TIMEOUT) {
+ 				/* 1A-11-3: consider h' timeout a failure */
 -				fail_and_restart_in_ms(0, &status, output);
-+				/*
-+				 * some slow RX will fail rx validation when it is
-+				 * not ready. give it more time to react before retry.
-+				 */
 +				fail_and_restart_in_ms(1000, &status, output);
- 			}
+ 			} else {
+ 				/* continue h' polling */
+ 				callback_in_ms(100, output);
+@@ -166,7 +166,7 @@ enum mod_hdcp_status mod_hdcp_hdcp2_transition(struct mod_hdcp *hdcp,
+ 			if (event_ctx->event ==
+ 					MOD_HDCP_EVENT_WATCHDOG_TIMEOUT) {
+ 				/* 1A-11-2: consider h' timeout a failure */
+-				fail_and_restart_in_ms(0, &status, output);
++				fail_and_restart_in_ms(1000, &status, output);
+ 			} else {
+ 				/* continue h' polling */
+ 				callback_in_ms(20, output);
+@@ -439,7 +439,7 @@ enum mod_hdcp_status mod_hdcp_hdcp2_dp_transition(struct mod_hdcp *hdcp,
+ 			if (event_ctx->event ==
+ 					MOD_HDCP_EVENT_WATCHDOG_TIMEOUT)
+ 				/* 1A-10-3: consider h' timeout a failure */
+-				fail_and_restart_in_ms(0, &status, output);
++				fail_and_restart_in_ms(1000, &status, output);
+ 			else
+ 				increment_stay_counter(hdcp);
  			break;
- 		} else if ((!conn->is_repeater && input->encryption != PASS) ||
+@@ -484,7 +484,7 @@ enum mod_hdcp_status mod_hdcp_hdcp2_dp_transition(struct mod_hdcp *hdcp,
+ 			if (event_ctx->event ==
+ 					MOD_HDCP_EVENT_WATCHDOG_TIMEOUT)
+ 				/* 1A-10-2: consider h' timeout a failure */
+-				fail_and_restart_in_ms(0, &status, output);
++				fail_and_restart_in_ms(1000, &status, output);
+ 			else
+ 				increment_stay_counter(hdcp);
+ 			break;
 -- 
 2.17.1
 
