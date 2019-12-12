@@ -2,48 +2,72 @@ Return-Path: <SRS0=4UhO=2C=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.8 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-13.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PULL_REQUEST,MAILING_LIST_MULTI,
+	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 423EEC43603
-	for <amd-gfx@archiver.kernel.org>; Thu, 12 Dec 2019 20:17:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id AED48C43603
+	for <amd-gfx@archiver.kernel.org>; Thu, 12 Dec 2019 22:32:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1DA8221556
-	for <amd-gfx@archiver.kernel.org>; Thu, 12 Dec 2019 20:17:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1DA8221556
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=canonical.com
+	by mail.kernel.org (Postfix) with ESMTPS id 7EC7A21556
+	for <amd-gfx@archiver.kernel.org>; Thu, 12 Dec 2019 22:32:23 +0000 (UTC)
+Authentication-Results: mail.kernel.org;
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jgrZwV+O"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7EC7A21556
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 91ECC6E1C4;
-	Thu, 12 Dec 2019 20:17:44 +0000 (UTC)
-X-Greylist: delayed 960 seconds by postgrey-1.36 at gabe;
- Thu, 12 Dec 2019 18:33:06 UTC
-Received: from youngberry.canonical.com (youngberry.canonical.com
- [91.189.89.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ECA976E0C5
- for <amd-gfx@lists.freedesktop.org>; Thu, 12 Dec 2019 18:33:06 +0000 (UTC)
-Received: from 1.general.cking.uk.vpn ([10.172.193.212] helo=localhost)
- by youngberry.canonical.com with esmtpsa
- (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <colin.king@canonical.com>)
- id 1ifT1L-0005CM-2Q; Thu, 12 Dec 2019 18:17:03 +0000
-From: Colin King <colin.king@canonical.com>
-To: Evan Quan <evan.quan@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- David Zhou <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>,
- Daniel Vetter <daniel@ffwll.ch>, Kenneth Feng <kenneth.feng@amd.com>,
- Yintian Tao <yttao@amd.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Subject: [PATCH][next] drm/amd/powerplay: fix various dereferences of a
- pointer before it is null checked
-Date: Thu, 12 Dec 2019 18:16:57 +0000
-Message-Id: <20191212181657.101381-1-colin.king@canonical.com>
-X-Mailer: git-send-email 2.24.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 384066E21E;
+	Thu, 12 Dec 2019 22:32:23 +0000 (UTC)
+Received: from mail-qk1-x72c.google.com (mail-qk1-x72c.google.com
+ [IPv6:2607:f8b0:4864:20::72c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1340C6E21C;
+ Thu, 12 Dec 2019 22:32:22 +0000 (UTC)
+Received: by mail-qk1-x72c.google.com with SMTP id l124so156858qkf.8;
+ Thu, 12 Dec 2019 14:32:22 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=Py08hdabZY29vNG0So0/29zNWEt2AH0RZ0SSAE3tT08=;
+ b=jgrZwV+Oe+sjITf7/XQ+bGjRquAiVU5c6vUA0E3X6RO2H2aglyua4RzpsO/9WvWRTP
+ RfjWsDqHp7w2CYqpSI0wbKxEveA4WWu7bNy1XfHPNaQ+/mH7IO3b0PLzMT2fVSXZ7ClC
+ 0wzBXX4BMb5hth+0djhVS/eHSlV6BKMmlIBm6behFWQHs09SCeB0rNUA4rJ3yCng74TG
+ eNb5WgmgKPxm+YY5z3aDFm2/j3sTcjU89THKdHlsa425qLVEwGAb3v1NdKRyaR06h8Ap
+ +BozUkpxX8vN0ZxZhcDVh5Ovt/IGkaDqu5leP+belB4gnhHqyx+BLF/G6TQLGl+UQf1v
+ 322Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=Py08hdabZY29vNG0So0/29zNWEt2AH0RZ0SSAE3tT08=;
+ b=iCBmtPuewjPV0bJCC+CZWSAbPQvPAo6MrmcAJVPzr1WmtnDocJnaf+At9j8mXUeqPY
+ e+uHhImSe6S9o7eSd8Vva/b2k6NzYjsBx0qf/ouVk2nABoY9QvQM1iHK1PUao9Cy5+Xm
+ oO11c/ZCEdop65w73yAi0ERgdEwagPdf5uqL8Qrnrq8hxqJ5ao5V7qX1ruQIzseNTsWL
+ yi1ysv4kPwQtzrvG0M8cGs7VvlFdj/qlVbIrBWY4i/ulUwtyrw1cS/R+lfiGoF+dY0uV
+ 9MM1WZSEj9LJ69G+LoVTlq8Fp3AM3DLBae/kKYjN8cfah+cKuQYaqsX5mrFQtVlVG+Th
+ vHsg==
+X-Gm-Message-State: APjAAAUwbOABc9md5n+om2auBa0hq/pxduJc9hDMMTLs21Qsyq169NpC
+ tKO5IIh5Bow+0qmyF6sCqBkcW6GA
+X-Google-Smtp-Source: APXvYqy/0cTw4IMWBLc/5/puTzGXBm4vd3A7aCQN3QQODgDs+nDI9i9XMlNpyx/dRS2+tGQ1LccFiQ==
+X-Received: by 2002:a37:a54b:: with SMTP id o72mr10350234qke.313.1576189940663; 
+ Thu, 12 Dec 2019 14:32:20 -0800 (PST)
+Received: from localhost.localdomain ([71.219.59.120])
+ by smtp.gmail.com with ESMTPSA id x42sm2704037qtc.25.2019.12.12.14.32.18
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 12 Dec 2019 14:32:19 -0800 (PST)
+From: Alex Deucher <alexdeucher@gmail.com>
+X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
+To: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ airlied@gmail.com, daniel.vetter@ffwll.ch
+Subject: [pull] amdgpu drm-fixes-5.5
+Date: Thu, 12 Dec 2019 17:32:10 -0500
+Message-Id: <20191212223211.8034-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.23.0
 MIME-Version: 1.0
-X-Mailman-Approved-At: Thu, 12 Dec 2019 20:17:43 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,92 +79,129 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
+Cc: Alex Deucher <alexander.deucher@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Colin Ian King <colin.king@canonical.com>
+Hi Dave, Daniel,
 
-There are several occurrances of the pointer hwmgr being dereferenced
-before it is null checked.  Fix these by performing the dereference
-of hwmgr after it has been null checked.
+Fixes for 5.5.
 
-Addresses-Coverity: ("Dereference before null check")
-Fixes: 8497d2bcdee1 ("drm/amd/powerplay: enable pp one vf mode for vega10")
-Signed-off-by: Colin Ian King <colin.king@canonical.com>
----
- drivers/gpu/drm/amd/powerplay/amd_powerplay.c |  6 +++---
- drivers/gpu/drm/amd/powerplay/hwmgr/hwmgr.c   | 15 +++------------
- 2 files changed, 6 insertions(+), 15 deletions(-)
+The following changes since commit b53bd16fec3d52ff7be1648a9b0a747288f52cf8:
 
-diff --git a/drivers/gpu/drm/amd/powerplay/amd_powerplay.c b/drivers/gpu/drm/amd/powerplay/amd_powerplay.c
-index 5087d6bdba60..322c2015d3a0 100644
---- a/drivers/gpu/drm/amd/powerplay/amd_powerplay.c
-+++ b/drivers/gpu/drm/amd/powerplay/amd_powerplay.c
-@@ -275,12 +275,12 @@ static int pp_dpm_load_fw(void *handle)
- {
- 	struct pp_hwmgr *hwmgr = handle;
- 
--	if (!hwmgr->not_vf)
--		return 0;
--
- 	if (!hwmgr || !hwmgr->smumgr_funcs || !hwmgr->smumgr_funcs->start_smu)
- 		return -EINVAL;
- 
-+	if (!hwmgr->not_vf)
-+		return 0;
-+
- 	if (hwmgr->smumgr_funcs->start_smu(hwmgr)) {
- 		pr_err("fw load failed\n");
- 		return -EINVAL;
-diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/hwmgr.c b/drivers/gpu/drm/amd/powerplay/hwmgr/hwmgr.c
-index e2b82c902948..f48fdc7f0382 100644
---- a/drivers/gpu/drm/amd/powerplay/hwmgr/hwmgr.c
-+++ b/drivers/gpu/drm/amd/powerplay/hwmgr/hwmgr.c
-@@ -282,10 +282,7 @@ int hwmgr_hw_init(struct pp_hwmgr *hwmgr)
- 
- int hwmgr_hw_fini(struct pp_hwmgr *hwmgr)
- {
--	if (!hwmgr->not_vf)
--		return 0;
--
--	if (!hwmgr || !hwmgr->pm_en)
-+	if (!hwmgr || !hwmgr->pm_en || !hwmgr->not_vf)
- 		return 0;
- 
- 	phm_stop_thermal_controller(hwmgr);
-@@ -305,10 +302,7 @@ int hwmgr_suspend(struct pp_hwmgr *hwmgr)
- {
- 	int ret = 0;
- 
--	if (!hwmgr->not_vf)
--		return 0;
--
--	if (!hwmgr || !hwmgr->pm_en)
-+	if (!hwmgr || !hwmgr->pm_en || !hwmgr->not_vf)
- 		return 0;
- 
- 	phm_disable_smc_firmware_ctf(hwmgr);
-@@ -327,13 +321,10 @@ int hwmgr_resume(struct pp_hwmgr *hwmgr)
- {
- 	int ret = 0;
- 
--	if (!hwmgr->not_vf)
--		return 0;
--
- 	if (!hwmgr)
- 		return -EINVAL;
- 
--	if (!hwmgr->pm_en)
-+	if (!hwmgr->not_vf || !hwmgr->pm_en)
- 		return 0;
- 
- 	ret = phm_setup_asic(hwmgr);
--- 
-2.24.0
+  Merge tag 'drm-misc-next-fixes-2019-12-04' of git://anongit.freedesktop.org/drm/drm-misc into drm-next (2019-12-05 11:11:11 +1000)
 
+are available in the Git repository at:
+
+  git://people.freedesktop.org/~agd5f/linux tags/drm-fixes-5.5-2019-12-12
+
+for you to fetch changes up to f271fe1856138d402e0438f994ccae95f9044b2c:
+
+  drm/amdgpu: add invalidate semaphore limit for SRIOV in gmc10 (2019-12-12 16:13:48 -0500)
+
+----------------------------------------------------------------
+drm-fixes-5.5-2019-12-12:
+
+amdgpu:
+- DC fixes for renoir
+- Gfx8 fence flush align with mesa
+- Power profile fix for arcturus
+- Freesync fix
+- DC I2c over aux fix
+- DC aux defer fix
+- GPU reset fix
+- GPUVM invalidation semaphore fixes for PCO and SR-IOV
+- Golden settings updates for gfx10
+
+----------------------------------------------------------------
+Alex Deucher (4):
+      drm/amdgpu: add header line for power profile on Arcturus
+      drm/amdgpu/display: add fallthrough comment
+      drm/amdgpu: fix license on Kconfig and Makefiles
+      Revert "drm/amdgpu: dont schedule jobs while in reset"
+
+Amanda Liu (1):
+      drm/amd/display: Fix screen tearing on vrr tests
+
+Arnd Bergmann (2):
+      drm/amd/display: fix undefined struct member reference
+      drm/amd/display: include linux/slab.h where needed
+
+Brandon Syu (1):
+      drm/amd/display: fixed that I2C over AUX didn't read data issue
+
+David Galiffi (1):
+      drm/amd/display: Fixed kernel panic when booting with DP-to-HDMI dongle
+
+Eric Yang (2):
+      drm/amd/display: update sr and pstate latencies for Renoir
+      drm/amd/display: update dispclk and dppclk vco frequency
+
+George Shen (1):
+      drm/amd/display: Increase the number of retries after AUX DEFER
+
+Guchun Chen (1):
+      drm/amdgpu: add check before enabling/disabling broadcast mode
+
+Joseph Gravenor (3):
+      drm/amd/display: fix DalDramClockChangeLatencyNs override
+      drm/amd/display: populate bios integrated info for renoir
+      drm/amd/display: have two different sr and pstate latency tables for renoir
+
+Leo (Hanghong) Ma (1):
+      drm/amd/display: Change the delay time before enabling FEC
+
+Nikola Cornij (2):
+      drm/amd/display: Map DSC resources 1-to-1 if numbers of OPPs and DSCs are equal
+      drm/amd/display: Reset steer fifo before unblanking the stream
+
+Pierre-Eric Pelloux-Prayer (1):
+      drm/amdgpu: add cache flush workaround to gfx8 emit_fence
+
+Tianci.Yin (4):
+      drm/amdgpu/gfx10: update gfx golden settings
+      drm/amdgpu/gfx10: update gfx golden settings for navi14
+      drm/amdgpu/gfx10: update gfx golden settings
+      drm/amdgpu/gfx10: update gfx golden settings for navi14
+
+Yongqiang Sun (1):
+      drm/amd/display: Compare clock state member to determine optimization.
+
+changzhu (3):
+      drm/amdgpu: avoid using invalidate semaphore for picasso
+      drm/amdgpu: add invalidate semaphore limit for SRIOV and picasso in gmc9
+      drm/amdgpu: add invalidate semaphore limit for SRIOV in gmc10
+
+ drivers/gpu/drm/amd/acp/Kconfig                    |   2 +-
+ drivers/gpu/drm/amd/amdgpu/Kconfig                 |   2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c            |   5 +-
+ drivers/gpu/drm/amd/amdgpu/df_v3_6.c               |  38 +++---
+ drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c             |   6 +
+ drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c              |  22 +++-
+ drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c             |  29 +++--
+ drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c              |  32 +++--
+ drivers/gpu/drm/amd/amdkfd/Kconfig                 |   2 +-
+ drivers/gpu/drm/amd/display/Kconfig                |   2 +-
+ drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c |   1 +
+ .../drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr.c  | 134 ++++++++++++++++-----
+ drivers/gpu/drm/amd/display/dc/core/dc_link.c      |   2 +-
+ drivers/gpu/drm/amd/display/dc/core/dc_link_ddc.c  |   2 +-
+ drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c   |   9 +-
+ drivers/gpu/drm/amd/display/dc/dce/dce_aux.c       |  33 +++--
+ drivers/gpu/drm/amd/display/dc/dcn20/Makefile      |   1 +
+ .../gpu/drm/amd/display/dc/dcn20/dcn20_resource.c  |  15 ++-
+ .../amd/display/dc/dcn20/dcn20_stream_encoder.c    |  12 +-
+ drivers/gpu/drm/amd/display/dc/dcn21/Makefile      |   1 +
+ .../gpu/drm/amd/display/dc/dcn21/dcn21_resource.c  |  24 +++-
+ drivers/gpu/drm/amd/display/dc/dsc/Makefile        |   1 +
+ drivers/gpu/drm/amd/display/dc/inc/hw/clk_mgr.h    |   2 +
+ .../gpu/drm/amd/display/include/i2caux_interface.h |   2 +-
+ .../drm/amd/display/modules/freesync/freesync.c    |  32 ++---
+ .../gpu/drm/amd/display/modules/inc/mod_freesync.h |   1 -
+ drivers/gpu/drm/amd/powerplay/arcturus_ppt.c       |   5 +
+ 27 files changed, 299 insertions(+), 118 deletions(-)
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
