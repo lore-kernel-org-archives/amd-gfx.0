@@ -2,89 +2,107 @@ Return-Path: <SRS0=wwPX=2D=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.0 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-9.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 99A3AC43603
-	for <amd-gfx@archiver.kernel.org>; Fri, 13 Dec 2019 10:19:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A0B83C7CFFA
+	for <amd-gfx@archiver.kernel.org>; Fri, 13 Dec 2019 20:39:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 670FE2077B
-	for <amd-gfx@archiver.kernel.org>; Fri, 13 Dec 2019 10:19:22 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id AD409247F8
+	for <amd-gfx@archiver.kernel.org>; Fri, 13 Dec 2019 20:39:56 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=ffwll.ch header.i=@ffwll.ch header.b="Ap0FGuiB"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 670FE2077B
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="YpOB4ILo"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AD409247F8
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CA05A6E311;
-	Fri, 13 Dec 2019 10:19:21 +0000 (UTC)
-Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com
- [IPv6:2a00:1450:4864:20::441])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3BBA06E311
- for <amd-gfx@lists.freedesktop.org>; Fri, 13 Dec 2019 10:19:21 +0000 (UTC)
-Received: by mail-wr1-x441.google.com with SMTP id c9so6021958wrw.8
- for <amd-gfx@lists.freedesktop.org>; Fri, 13 Dec 2019 02:19:21 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=date:from:to:cc:subject:message-id:mail-followup-to:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=rl6ZcpYNx9OU5/nEbfBo5yylHG5ar169zdHs7M50F4Q=;
- b=Ap0FGuiBLoc7CtJsj51ddw+Fe6G5hC9uLNn75596J5Cu1boRP8Hx4/X+SsUFptCl/Q
- 4QdXTyu9jjysyr2JBOZZkONFripkTFG1nJ6Je9FXEKJyJV3CS23bW7QqwatOtTVrW34S
- /3MuLnSkpFz69g6E4iETKNuOb9eg/WRwlc/rI=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id
- :mail-followup-to:references:mime-version:content-disposition
- :in-reply-to:user-agent;
- bh=rl6ZcpYNx9OU5/nEbfBo5yylHG5ar169zdHs7M50F4Q=;
- b=i6l+m40o6v/M3ZF5L8cQ7/wis2JfdKiGFHQ05nyfLO39RooQV3lZqPQDDi9GWNaX5n
- pBwE/j4qtsxJQI/FwDH5Omd1vbOhNGuE1wsoPLrNSlaAMusc49KTFmCh4XXCb44ES9YA
- fLH7n1ezuI4ams1TKVSfif9e3gC5cvErPh2EkWo1qlBvKimZRTI22AlPi8gBnzHzPoq8
- ULoitmbrx4wo3DFHF++RM4C13pqpPYX8ZYX7CcOgvR+ZOvCbkB9QeqZu/aTR9uc0j/Kx
- DhiiT/h0VGIVpMbxPNmGgrLN0a/t3BmzhTV22LmNDO39JolXfMl8J5ZlsPlOSzaRhAKm
- a2dw==
-X-Gm-Message-State: APjAAAVjhhf9wKrZW4Hna8x3DGuJLqaHujjMwzoMvukJAezr9M17tngU
- s39KwzNsJRTSEQavsaq6VUDAJQ==
-X-Google-Smtp-Source: APXvYqyhmTb9L+Ty2qqWHWby6TsBUoPJB8m/X3BYq7Z4RTM7jDbTx/v8gsKAoFlcC2n53nTyeYCmrQ==
-X-Received: by 2002:adf:fe12:: with SMTP id n18mr11521520wrr.158.1576232359891; 
- Fri, 13 Dec 2019 02:19:19 -0800 (PST)
-Received: from phenom.ffwll.local ([2a02:168:564b:0:7567:bb67:3d7f:f863])
- by smtp.gmail.com with ESMTPSA id x1sm9393930wru.50.2019.12.13.02.19.18
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 13 Dec 2019 02:19:18 -0800 (PST)
-Date: Fri, 13 Dec 2019 11:19:16 +0100
-From: Daniel Vetter <daniel@ffwll.ch>
-To: Jason Gunthorpe <jgg@mellanox.com>
-Subject: Re: [GIT PULL] Please pull hmm changes
-Message-ID: <20191213101916.GD624164@phenom.ffwll.local>
-Mail-Followup-To: Jason Gunthorpe <jgg@mellanox.com>,
- Jerome Glisse <jglisse@redhat.com>,
- Ralph Campbell <rcampbell@nvidia.com>,
- David Airlie <airlied@linux.ie>,
- "Kuehling, Felix" <Felix.Kuehling@amd.com>,
- Dan Williams <dan.j.williams@intel.com>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "linux-mm@kvack.org" <linux-mm@kvack.org>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- Linus Torvalds <torvalds@linux-foundation.org>,
- Christoph Hellwig <hch@lst.de>,
- "linux-rdma@vger.kernel.org" <linux-rdma@vger.kernel.org>
-References: <20191125204248.GA2485@ziepe.ca>
- <CAHk-=wiqguF5NakpL4L9XCmmYr4wY0wk__+6+wHVReF2sVVZhA@mail.gmail.com>
- <CAHk-=wiQtTsZfgTwLYgfV8Gr_0JJiboZOzVUTAgJ2xTdf5bMiw@mail.gmail.com>
- <20191203024206.GC5795@mellanox.com>
- <20191205160324.GB5819@redhat.com>
- <20191211225703.GE3434@mellanox.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id EDDE86EDB2;
+	Fri, 13 Dec 2019 20:23:17 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2078.outbound.protection.outlook.com [40.107.237.78])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4730D6EDB0;
+ Fri, 13 Dec 2019 20:23:16 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=cDRZjHqHJSYf/LcXlE63YIar8A3DFERy+m+bkOg+/ir0qLVLZnGvKZwVttJZFoUwD4rsiNZAWSMzmIdlAE+B6HYVek/vQfeLujp++IShuiJXlFsnhhK+DeWYb3MnV80dC9famINQKK76gpP+JeqsVetjcOs71YYo8OfE9m8iE5miDQQ6qKFiZpv4MEvcTGzWwJS2yb/gimmaYwtv3E6wh4hZJOjn07mU7DrNt5/2rYdnGck/d2QFaj0wQOcJizA6rN2Ic13CxbTRbD3/lIIJiuzsusGN8qjap4wNLQnAg1ETR3q8Dc+FO/EuibiHUbS/bvANlrRT2AClBOx1ax+Mag==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=hC5T8gOjaqiYqHg5t/D0+IFLxJ6m1tazoLdxzPODonE=;
+ b=DliICrJVHn9jqvW2pMCm3pYcfAyp5HXmS1CfcgRBxB8Fs6wAQHDqrfb/c5thiZyZJKEeOq+j7uC5cJMQtZ1YLux9Ye7zbyPD/PrNU/D3HRB2b/3GQPtYQk08zRvsSh4KtOhIHpR6qLfX4UROKjqLpKj6gGg6SgOVSl0JzQKtdO34NYlqwnDkeWkj60SdSFV5e4yVgAXWln+JcfJo6lOSAq63El6neBZqkEK7B/54f6E03G0sLUefP75t0pG9TT7OExrL9v/XL2EYDWx8KToeyCOAp0TNLUI7XSeF7B+hDUiF6wGu25oknRLlD1NybNXV27fgqJDYAGDCNV/kVg0gtA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=permerror action=none header.from=amd.com; dkim=none (message not
+ signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=hC5T8gOjaqiYqHg5t/D0+IFLxJ6m1tazoLdxzPODonE=;
+ b=YpOB4ILoqGYLJ9twdwX/db0WPrvzxG9BNaTNBAWX2UPs0UvD03pEq5HYW/ZUF1QWk2OizohxG4skd067IH3EchmpbTn4zFsqum+VIFM8qG5pwg4dY8NmOCO6m/Zf5rVQX63G8g5PrWk99RXWBd5lwWHEhkRG1oQ24ugqg9G5m1g=
+Received: from DM6PR12CA0034.namprd12.prod.outlook.com (2603:10b6:5:1c0::47)
+ by MN2PR12MB4206.namprd12.prod.outlook.com (2603:10b6:208:1d5::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2538.18; Fri, 13 Dec
+ 2019 20:09:06 +0000
+Received: from DM6NAM11FT027.eop-nam11.prod.protection.outlook.com
+ (2a01:111:f400:7eaa::207) by DM6PR12CA0034.outlook.office365.com
+ (2603:10b6:5:1c0::47) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2538.16 via Frontend
+ Transport; Fri, 13 Dec 2019 20:09:06 +0000
+Authentication-Results: spf=none (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none;lists.freedesktop.org; dmarc=permerror action=none
+ header.from=amd.com;
+Received-SPF: None (protection.outlook.com: amd.com does not designate
+ permitted sender hosts)
+Received: from SATLEXMB02.amd.com (165.204.84.17) by
+ DM6NAM11FT027.mail.protection.outlook.com (10.13.172.205) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.2538.14 via Frontend Transport; Fri, 13 Dec 2019 20:09:06 +0000
+Received: from SATLEXMB02.amd.com (10.181.40.143) by SATLEXMB02.amd.com
+ (10.181.40.143) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Fri, 13 Dec
+ 2019 14:09:05 -0600
+Received: from mlipski-pc.amd.com (10.180.168.240) by SATLEXMB02.amd.com
+ (10.181.40.143) with Microsoft SMTP Server id 15.1.1713.5 via Frontend
+ Transport; Fri, 13 Dec 2019 14:09:05 -0600
+From: <mikita.lipski@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH v9 16/18] drm/amd/display: Recalculate VCPI slots for new DSC
+ connectors
+Date: Fri, 13 Dec 2019 15:08:52 -0500
+Message-ID: <20191213200854.31545-17-mikita.lipski@amd.com>
+X-Mailer: git-send-email 2.17.1
+In-Reply-To: <20191213200854.31545-1-mikita.lipski@amd.com>
+References: <20191213200854.31545-1-mikita.lipski@amd.com>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20191211225703.GE3434@mellanox.com>
-X-Operating-System: Linux phenom 5.3.0-2-amd64 
-User-Agent: Mutt/1.12.2 (2019-09-21)
+X-EOPAttributedMessage: 0
+X-MS-Office365-Filtering-HT: Tenant
+X-Forefront-Antispam-Report: CIP:165.204.84.17; IPV:NLI; CTRY:US; EFV:NLI;
+ SFV:NSPM;
+ SFS:(10009020)(4636009)(346002)(376002)(136003)(396003)(39860400002)(428003)(199004)(189003)(2906002)(1076003)(2876002)(5660300002)(450100002)(4326008)(54906003)(6916009)(8936002)(81166006)(81156014)(8676002)(426003)(70586007)(26005)(36756003)(2616005)(186003)(336012)(478600001)(6666004)(356004)(7696005)(70206006)(86362001)(316002)(16060500001);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:MN2PR12MB4206; H:SATLEXMB02.amd.com; FPR:;
+ SPF:None; LANG:en; PTR:InfoDomainNonexistent; A:1; MX:1; 
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 1e2ea679-6096-460a-5f4b-08d780084e7b
+X-MS-TrafficTypeDiagnostic: MN2PR12MB4206:
+X-Microsoft-Antispam-PRVS: <MN2PR12MB42069371DEF3F046A8000172E4540@MN2PR12MB4206.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:6108;
+X-Forefront-PRVS: 0250B840C1
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: aKjYsqEkd/nm8T+9z+MIfOA/fnWX3htVtCdF5SP0MU/LP+kztYXdKUrm2chP2IlsB86ipMaqsqCodQZkgD3EFPvLkg0Il5a5BuvjFn9dkxm/FEaC8UlyWiTsPct4CKB+W0J2bjEB9i0NSSAdZbDolpWm1TL9wnpC5nd4bkCgC/QGoSx3YG6PO26f4KOhZVfN1R6Pv+3PzuTMwtbZ5wvJfaiJZP4OZ2m3lE/nnx/5N7+Sx6NeIYOiTPJUSZPKr42cU01E95BQFEtGya89kN+eK09jGAd/8L3tLAEcQ0owZlJXfHVjDEB/LZ+QXAQ5l9ldH32Bm2hKnmP7Bqw4+P7YVU3RLqGsjGIjO6GZGPVIW7VMAOZ6h50zKvI8lrLpl5AklUJhk+wMFQ0oE/64OsT4y0FAHeH/Se/QFrb1TcrIt8BnFx6rLq3OwH+OinlZdgsAj3MFP6KH8nF6EL53VLdXD3rLRxIsGYPFjSa5d6S2mitl0pepQ3ha9FqVsdgskzkV
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Dec 2019 20:09:06.0165 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1e2ea679-6096-460a-5f4b-08d780084e7b
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB02.amd.com]
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4206
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,99 +114,149 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Ralph Campbell <rcampbell@nvidia.com>, David Airlie <airlied@linux.ie>,
- "Kuehling, Felix" <Felix.Kuehling@amd.com>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- Christoph Hellwig <hch@lst.de>, "linux-mm@kvack.org" <linux-mm@kvack.org>,
- Jerome Glisse <jglisse@redhat.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Deucher,
- Alexander" <Alexander.Deucher@amd.com>,
- Dan Williams <dan.j.williams@intel.com>,
- Linus Torvalds <torvalds@linux-foundation.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- "linux-rdma@vger.kernel.org" <linux-rdma@vger.kernel.org>
+Cc: Mikita Lipski <mikita.lipski@amd.com>, dri-devel@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Dec 11, 2019 at 10:57:13PM +0000, Jason Gunthorpe wrote:
-> On Thu, Dec 05, 2019 at 11:03:24AM -0500, Jerome Glisse wrote:
-> 
-> > > struct mmu_notifier_mm (ie the mm->mmu_notifier_mm)
-> > >    -> mmn_mm
-> > > struct mm_struct 
-> > >    -> mm
-> > > struct mmu_notifier (ie the user subscription to the mm_struct)
-> > >    -> mn
-> > > struct mmu_interval_notifier (the other kind of user subscription)
-> > >    -> mni
-> > 
-> > What about "interval" the context should already tell people
-> > it is related to mmu notifier and thus a notifier. I would
-> > just remove the notifier suffix, this would match the below
-> > range.
-> 
-> Interval could be a good replacement for mni in the mm/mmu_notififer
-> file if we don't do the wholesale rename
-> 
-> > > I think it would be overall nicer with better names for the original
-> > > structs. Perhaps:
-> > > 
-> > >  mmn_* - MMU notifier prefix
-> > >  mmn_state <- struct mmu_notifier_mm
-> > >  mmn_subscription (mmn_sub) <- struct mmu_notifier
-> > >  mmn_range_subscription (mmn_range_sub) <- struct mmu_interval_notifier
-> > >  mmn_invalidate_desc <- struct mmu_notifier_range
-> > 
-> > This looks good.
-> 
-> Well, lets just bite the bullet then and switch it. Do you like
-> 'state'? I thought that was the weakest one
+From: Mikita Lipski <mikita.lipski@amd.com>
 
-Since you're asking, here's my bikeshed. I kinda agree _state looks a bit
-strange for this, what about a _link suffix in the spirit of
+[why]
+Since for DSC MST connector's PBN is claculated differently
+due to compression, we have to recalculate both PBN and
+VCPI slots for that connector.
 
-	struct list_head link;
+[how]
+The function iterates through all the active streams to
+find, which have DSC enabled, then recalculates PBN for
+it and calls drm_dp_helper_update_vcpi_slots_for_dsc to
+update connector's VCPI slots.
 
-The other common name is "node", but I think that's confusing in the
-context of mm code. The purpose of this struct is to link everything
-together (and yes it carries also some state, but the main job is to link
-a mm_struct to a mmu_notifier). At least for me a _state is configuration
-state for a specific object, not something that links a bunch of things
-together. But I'm biased on this, since we use that pattern in drm for all
-the display state tracking.
+v2: - use drm_dp_mst_atomic_enable_dsc per port to
+enable/disable DSC
 
-Also feel free to ignore my bikeshed :-)
+v3: - Iterate through connector states from the state passed
+    - On each connector state get stream from dc_state,
+instead CRTC state
 
-Aside from this I think the proposed names are a solid improvement.
--Daniel
+Reviewed-by: Lyude Paul <lyude@redhat.com>
+Signed-off-by: Mikita Lipski <mikita.lipski@amd.com>
+---
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 76 +++++++++++++++++--
+ 1 file changed, 71 insertions(+), 5 deletions(-)
 
-> 
-> We could use mmnotif as the prefix, this makes the longest:
-> 
->   struct mmnotif_range_subscription
-> 
-> Which is reasonable enough
-> 
-> > Maybe we can do a semantic patch to do convertion and then Linus
-> > can easily apply the patch by just re-running the coccinelle.
-> 
-> I tried this last time I renamed everything, it was OK, but it missed
-> updating the comments. So it still needs some by-hand helping.
-> 
-> I'll make some patches next week when I get back.
-> 
-> Jason
-> _______________________________________________
-> dri-devel mailing list
-> dri-devel@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/dri-devel
-
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 93a230d956ee..2ac3a2f0b452 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -4986,6 +4986,69 @@ const struct drm_encoder_helper_funcs amdgpu_dm_encoder_helper_funcs = {
+ 	.atomic_check = dm_encoder_helper_atomic_check
+ };
+ 
++static int dm_update_mst_vcpi_slots_for_dsc(struct drm_atomic_state *state,
++					    struct dc_state *dc_state)
++{
++	struct dc_stream_state *stream = NULL;
++	struct drm_connector *connector;
++	struct drm_connector_state *new_con_state, *old_con_state;
++	struct amdgpu_dm_connector *aconnector;
++	struct dm_connector_state *dm_conn_state;
++	int i, j, clock, bpp;
++	int vcpi, pbn_div, pbn = 0;
++
++	for_each_oldnew_connector_in_state(state, connector, old_con_state, new_con_state, i) {
++
++		aconnector = to_amdgpu_dm_connector(connector);
++
++		if (!aconnector->port)
++			continue;
++
++		if (!new_con_state || !new_con_state->crtc)
++			continue;
++
++		dm_conn_state = to_dm_connector_state(new_con_state);
++
++		for (j = 0; j < dc_state->stream_count; j++) {
++			stream = dc_state->streams[j];
++			if (!stream)
++				continue;
++
++			if ((struct amdgpu_dm_connector*)stream->dm_stream_context == aconnector)
++				break;
++
++			stream = NULL;
++		}
++
++		if (!stream)
++			continue;
++
++		if (stream->timing.flags.DSC != 1) {
++			drm_dp_mst_atomic_enable_dsc(state,
++						     aconnector->port,
++						     dm_conn_state->pbn,
++						     0,
++						     false);
++			continue;
++		}
++
++		pbn_div = dm_mst_get_pbn_divider(stream->link);
++		bpp = stream->timing.dsc_cfg.bits_per_pixel;
++		clock = stream->timing.pix_clk_100hz / 10;
++		pbn = drm_dp_calc_pbn_mode(clock, bpp, true);
++		vcpi = drm_dp_mst_atomic_enable_dsc(state,
++						    aconnector->port,
++						    pbn, pbn_div,
++						    true);
++		if (vcpi < 0)
++			return vcpi;
++
++		dm_conn_state->pbn = pbn;
++		dm_conn_state->vcpi_slots = vcpi;
++	}
++	return 0;
++}
++
+ static void dm_drm_plane_reset(struct drm_plane *plane)
+ {
+ 	struct dm_plane_state *amdgpu_state = NULL;
+@@ -8022,11 +8085,6 @@ static int amdgpu_dm_atomic_check(struct drm_device *dev,
+ 	if (ret)
+ 		goto fail;
+ 
+-	/* Perform validation of MST topology in the state*/
+-	ret = drm_dp_mst_atomic_check(state);
+-	if (ret)
+-		goto fail;
+-
+ 	if (state->legacy_cursor_update) {
+ 		/*
+ 		 * This is a fast cursor update coming from the plane update
+@@ -8098,6 +8156,10 @@ static int amdgpu_dm_atomic_check(struct drm_device *dev,
+ 		if (!compute_mst_dsc_configs_for_state(state, dm_state->context))
+ 			goto fail;
+ 
++		ret = dm_update_mst_vcpi_slots_for_dsc(state, dm_state->context);
++		if (ret)
++			goto fail;
++
+ 		if (dc_validate_global_state(dc, dm_state->context, false) != DC_OK) {
+ 			ret = -EINVAL;
+ 			goto fail;
+@@ -8126,6 +8188,10 @@ static int amdgpu_dm_atomic_check(struct drm_device *dev,
+ 				dc_retain_state(old_dm_state->context);
+ 		}
+ 	}
++	/* Perform validation of MST topology in the state*/
++	ret = drm_dp_mst_atomic_check(state);
++	if (ret)
++		goto fail;
+ 
+ 	/* Store the overall update type for use later in atomic check. */
+ 	for_each_new_crtc_in_state (state, crtc, new_crtc_state, i) {
 -- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
+2.17.1
+
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
