@@ -2,106 +2,107 @@ Return-Path: <SRS0=wwPX=2D=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+X-Spam-Status: No, score=-9.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 34AE3C2D0D8
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 48D81C2D0D7
 	for <amd-gfx@archiver.kernel.org>; Fri, 13 Dec 2019 21:04:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6F602246BA
+	by mail.kernel.org (Postfix) with ESMTPS id 84C12246BE
 	for <amd-gfx@archiver.kernel.org>; Fri, 13 Dec 2019 21:04:58 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="plhXsCQx"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6F602246BA
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="predB6uI"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 84C12246BE
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F03E96E2DF;
-	Fri, 13 Dec 2019 15:40:03 +0000 (UTC)
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com
- (mail-eopbgr770087.outbound.protection.outlook.com [40.107.77.87])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4D9116E2DF
- for <amd-gfx@lists.freedesktop.org>; Fri, 13 Dec 2019 15:40:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 468ED6ED36;
+	Fri, 13 Dec 2019 20:09:09 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2056.outbound.protection.outlook.com [40.107.223.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B54C66ED33;
+ Fri, 13 Dec 2019 20:09:07 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Tnqei8Epw9MJ2mvA6yOInm37zvuYkQpJCJfcLZYya0puQOJHbgxaKdrtCAbLAHISHPIJ3BvKlwTNPhbpQNp0neCC2jwYRFZ2amHPz4dnToNmo2A4zUsIoGOcAddTqnu0CmgTSbZTyAtFQvfO4YlX3yD4m3EYnEwrPKqlOPhfMwmd+2Cnpe7qz9Z5LjsFkna5ZIXVN7aW9PJ4u8Z7Swa+ysdk7NQuaYLrwHaQ8Hwl2lFAbdBZ0vLQ/TQQ0IoKu7TvjeOPN/1lBGVRGRKhYCFCtP5E4J9y6ZLhuYGdJuNmHDd57k5T3Xtv1XWaD4GbN1bh0qjEYp4MS1Ew/nuzQxz/qA==
+ b=A7rnDv8n5MfbwTjxmN0u/TIBQYkeBobnb6Ri7jc9fCczWBNXzB3s85VViZ15uEMtp0KrgR5EdQnZKnzun9SpV/Ypc4QZg1AcMpOOPFR7QyU7Vy0qOkbY491JEFN4elBEcf3HydcKYVwKsi/hIeqQIsDIPX9k8lf8Acxf9SF3JdM3qDI9tF/vMPGaKEhn8R+oj9lcJrUji/kp6kIeCqGrt7vzcGzUKCRlnR2t/pB0uzY59vxz9DMbRjACdH+xtyU7Eujwzd/O1IyhFSW5ScfnE2V1jYtszCpeHNlaAJ4dzXYZLZk7nJRzINw9Abb/j3S3KCfGvBufIH7VTu+++lM1QA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=nV6Pjcr/HluXLnJuDcf9BeEjko64obS17Yg4sO997PE=;
- b=LJTexkWj61Vk6VFHTFKMdhS+5hSjw0zVpU6WNoX/rk2nqAXt+N0f4/5J2M4QUmthkIfI7PUXm7PAw5GErW+SyF2fAOi3IfZdoInhgMfP8B882TTqhwvRKHeLlxIMhG9jrEeWE6UcL4Al+/61zDjofaAhBXOPipPfq6Di6YWubOeYQWwty6Zw8rIjfiItcIAjaCN/sG7mTaWWvZLNy0G50YLj0KHYw/tkZn3YuSQEWAHQAt6S94DDdpIz7swIr7+KE/VzlMqx+4k9LJCdmoLhkU4+y+66UYClL4e/QD1O6czr9/DJsgndq14GpQvhEViSNycPef9/Ko1UbxtK8qz8HQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=uBOu4kVYM0aRUZ/yVFMJgBXNHHhE14oyHvw1cCT9afE=;
+ b=FAFASXZj2tA8jZaWtc6Gh4MZYTRiHFEWYAQUfTS0nXvgmLvu/J7E++hhTdCWG8iefg5rtubZKaWoITbHKsX8LQwtOlzJuwro/b9Yi/bNRxHwArdFQ1hF27zYRWa2tT44dg7VnNMYsv2g0QIqeYvZMVEifhEc/QZW9Gsc5osaw3sJlx6JckBbAcSGVtosDhFzZcE7Pu3Gmkjtz5KhBqKs1I3sPYWceusjwM+lCwUucHFW9+MI2LkVq3ys1syPLFYSr8/shOgQgiA6r6gr/E6oxnDrTuVMYWVAQ4kJrrfg+WO6wq/dH+jACayStpryetqGlzhFIfzlY1mr4mbTkpkj0Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=permerror action=none header.from=amd.com; dkim=none (message not
+ signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=nV6Pjcr/HluXLnJuDcf9BeEjko64obS17Yg4sO997PE=;
- b=plhXsCQxak4nH5l6Ov2payf9OffYvDK6mDT4GYpR4vceWF+yYmXwKxpHhKrA/8hST0szj4DsNWMJqGdpQulJSYCjJ40woLHQTbQLCwtljO3ueNPFyCUVrTedF+idltDhw/LplJW4eZoXjXv6HVlv7aJi9Cdo1qqQ6cLo7OkRbfA=
-Received: from MWHPR12MB1358.namprd12.prod.outlook.com (10.169.203.148) by
- MWHPR12MB1407.namprd12.prod.outlook.com (10.169.207.137) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2538.18; Fri, 13 Dec 2019 15:40:00 +0000
-Received: from MWHPR12MB1358.namprd12.prod.outlook.com
- ([fe80::b94d:fcd8:729d:a94f]) by MWHPR12MB1358.namprd12.prod.outlook.com
- ([fe80::b94d:fcd8:729d:a94f%3]) with mapi id 15.20.2538.017; Fri, 13 Dec 2019
- 15:40:00 +0000
-From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-To: "Chen, Guchun" <Guchun.Chen@amd.com>, "Zhang, Hawking"
- <Hawking.Zhang@amd.com>, "Ma, Le" <Le.Ma@amd.com>, "Zhou1, Tao"
- <Tao.Zhou1@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: Re: [PATCH] drm/amdgpu: drop useless BACO arg in amdgpu_ras_reset_gpu
-Thread-Topic: [PATCH] drm/amdgpu: drop useless BACO arg in amdgpu_ras_reset_gpu
-Thread-Index: AQHVsZLiaF3YMlxYKkKevgPOpEQCVKe4M++j
-Date: Fri, 13 Dec 2019 15:39:59 +0000
-Message-ID: <MWHPR12MB1358292EEB0DD239F628E267F7540@MWHPR12MB1358.namprd12.prod.outlook.com>
-References: <20191213085334.17618-1-guchun.chen@amd.com>
-In-Reply-To: <20191213085334.17618-1-guchun.chen@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=True;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2019-12-13T15:39:59.186Z;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal
- Distribution
- Only; MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=0;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard; 
-authentication-results: spf=none (sender IP is )
- smtp.mailfrom=Alexander.Deucher@amd.com; 
-x-originating-ip: [71.219.59.120]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: 77fd99c0-e402-493f-fce6-08d77fe2b6b5
-x-ms-traffictypediagnostic: MWHPR12MB1407:|MWHPR12MB1407:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <MWHPR12MB1407B89E6C97986EAAE1F160F7540@MWHPR12MB1407.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:73;
-x-forefront-prvs: 0250B840C1
-x-forefront-antispam-report: SFV:NSPM;
- SFS:(10009020)(4636009)(346002)(376002)(39860400002)(366004)(396003)(136003)(199004)(189003)(316002)(66446008)(26005)(9686003)(66556008)(81166006)(81156014)(8936002)(8676002)(33656002)(66476007)(55016002)(64756008)(110136005)(66946007)(76116006)(7696005)(6506007)(86362001)(53546011)(186003)(2906002)(52536014)(478600001)(5660300002)(71200400001)(19627405001);
- DIR:OUT; SFP:1101; SCL:1; SRVR:MWHPR12MB1407;
- H:MWHPR12MB1358.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; A:1; MX:1; 
-received-spf: None (protection.outlook.com: amd.com does not designate
+ bh=uBOu4kVYM0aRUZ/yVFMJgBXNHHhE14oyHvw1cCT9afE=;
+ b=predB6uIHo/MDr2wedaroVvsZrJYzrhjrn/NuaVuY0uElQo7U3jBVxhOTR56UO0BvRWlDsyDbgzt7UGMp1ClybDm4uCLpwKGzIYBfLDV2q2qIcVNRs+SrmOEivZA73zsJNQRDn42TkGfsXR+5xkJ/McSSilA0xCcGJCVws3D/tI=
+Received: from SN1PR12CA0087.namprd12.prod.outlook.com (2603:10b6:802:21::22)
+ by MN2PR12MB3198.namprd12.prod.outlook.com (2603:10b6:208:101::12)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2538.18; Fri, 13 Dec
+ 2019 20:09:06 +0000
+Received: from BN8NAM11FT003.eop-nam11.prod.protection.outlook.com
+ (2a01:111:f400:7eae::209) by SN1PR12CA0087.outlook.office365.com
+ (2603:10b6:802:21::22) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2538.15 via Frontend
+ Transport; Fri, 13 Dec 2019 20:09:06 +0000
+Authentication-Results: spf=none (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none;lists.freedesktop.org; dmarc=permerror action=none
+ header.from=amd.com;
+Received-SPF: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: GP12wF3iRggCAwqqKsFLHzhmEGiMj97QMxFNpKy8ciFOlgszgz9q26wP7dC+NTnWa3oi8Z54CSNL1uZJ/jPiide6HuWm8PrCavQy8N0ZUXYOQu49Eq8NveXNzFUdCCqhYgKShmvgnPxeIgeFXC3mBzIZuzBY4+AHfe9WgF6xKJz5hdtHKntkh/bDnQuzx2S3haYV2/2RmM4Betot6PlxS8HHzSlH4m6bO/FbbT7MccNenwoFPTVRvCCVY/PF1upZZE9Elc5DZ1RaIJ9HhlTO7BWYNLFv+kswe20L23+4FyKNtiGfli6xDwQTP7VwLhxFMgHnV1fd8X0Vw9dHwiMtKW1yFxMpAPPCajZj5Q5kZZKN3dGr9XYG9XGcxHXUXt7qDKP5en/2x3j/3yo6TyQxbE4zo/p8DlMBkHer4jGXezahEuDgB27WjHEP8i/Sh4rS
+Received: from SATLEXMB01.amd.com (165.204.84.17) by
+ BN8NAM11FT003.mail.protection.outlook.com (10.13.177.90) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.2538.14 via Frontend Transport; Fri, 13 Dec 2019 20:09:06 +0000
+Received: from SATLEXMB02.amd.com (10.181.40.143) by SATLEXMB01.amd.com
+ (10.181.40.142) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Fri, 13 Dec
+ 2019 14:09:02 -0600
+Received: from mlipski-pc.amd.com (10.180.168.240) by SATLEXMB02.amd.com
+ (10.181.40.143) with Microsoft SMTP Server id 15.1.1713.5 via Frontend
+ Transport; Fri, 13 Dec 2019 14:09:02 -0600
+From: <mikita.lipski@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH v9 10/18] drm/dp_mst: Manually overwrite PBN divider for
+ calculating timeslots
+Date: Fri, 13 Dec 2019 15:08:46 -0500
+Message-ID: <20191213200854.31545-11-mikita.lipski@amd.com>
+X-Mailer: git-send-email 2.17.1
+In-Reply-To: <20191213200854.31545-1-mikita.lipski@amd.com>
+References: <20191213200854.31545-1-mikita.lipski@amd.com>
 MIME-Version: 1.0
+X-EOPAttributedMessage: 0
+X-MS-Office365-Filtering-HT: Tenant
+X-Forefront-Antispam-Report: CIP:165.204.84.17; IPV:NLI; CTRY:US; EFV:NLI;
+ SFV:NSPM;
+ SFS:(10009020)(4636009)(136003)(396003)(39860400002)(376002)(346002)(428003)(189003)(199004)(186003)(2906002)(5660300002)(426003)(478600001)(4326008)(356004)(2616005)(6666004)(8676002)(81156014)(8936002)(81166006)(26005)(316002)(36756003)(2876002)(336012)(1076003)(86362001)(70586007)(54906003)(70206006)(7696005)(6916009)(16060500001);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:MN2PR12MB3198; H:SATLEXMB01.amd.com; FPR:;
+ SPF:None; LANG:en; PTR:InfoDomainNonexistent; MX:1; A:1; 
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 1ccc6e57-9eae-4c10-3433-08d780084e82
+X-MS-TrafficTypeDiagnostic: MN2PR12MB3198:
+X-Microsoft-Antispam-PRVS: <MN2PR12MB31989B4515A2D564ADE06588E4540@MN2PR12MB3198.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:4941;
+X-Forefront-PRVS: 0250B840C1
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: iZSe/kTTuSwAsFPVx+mlxqkc5ohV+PYL3qMY3woSniUteGi2LLzcr28ujPc/78wi+t9z1Zp1Oj4T/hz0BIUYKPIEzYzl0FSPUs8fGOPXkeqM8qFNZ4LhHVshwqO/wrFkoOtekN6mFVszak0qJvQX2Ni92prekMJS4sKnetBGRYwr5K1+r5Qd7Yl6GJOHHxdpUNEfsiub8oa4p4OLIpSVxFO+YiDIJA9LmLNhBuNwWLswC4852GG5inCc1hb4PsbBDaKeQtZloxSpX7edlu8bOz+SUy62WCBGXaLuuX1TOpLKVTemtaJ0Yr4ovtNmgi8DMZRUBBD5kIosEP7IONg7WrAhJ6jz26/pQ+F/W2OGe8aUBrbwnXdPu2ZmnK5j2hZXqy5Sb28WtCDb6zIqvHF+8uu0qMBonkrNJTu4Cn7Tas4jNSY3Qk3rHGg+YqStq6QAwDnaKBSl7zzGL6wR28jjQZL82KswRNPaeYiAChr+tJJIQAFnNerPIi/eXqZTUE15
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 77fd99c0-e402-493f-fce6-08d77fe2b6b5
-X-MS-Exchange-CrossTenant-originalarrivaltime: 13 Dec 2019 15:39:59.8732 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: i9Z53uJopZPY6U4SNVdl/sViBGaJwjS/vHqjIl/c42bagEo8vOBLd6OtTnL1xtx1YqTLImNSCx7U9UyrE8uBkA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR12MB1407
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Dec 2019 20:09:06.1023 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1ccc6e57-9eae-4c10-3433-08d780084e82
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB01.amd.com]
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3198
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,361 +114,131 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============0150470568=="
+Cc: Manasi Navare <manasi.d.navare@intel.com>,
+ Harry Wentland <harry.wentland@amd.com>, Mikita Lipski <mikita.lipski@amd.com>,
+ dri-devel@lists.freedesktop.org
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============0150470568==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_MWHPR12MB1358292EEB0DD239F628E267F7540MWHPR12MB1358namp_"
+From: Mikita Lipski <mikita.lipski@amd.com>
 
---_000_MWHPR12MB1358292EEB0DD239F628E267F7540MWHPR12MB1358namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+[why]
+For DSC case we cannot use topology manager's PBN divider
+variable. The default divider does not take FEC into account.
+Therefore the driver has to calculate its own divider based
+on the link rate and lane count its handling, as it is hw specific.
 
-[AMD Official Use Only - Internal Distribution Only]
+[how]
+Pass pbn_div as an argument, which is used if its more than
+zero, otherwise default topology manager's pbn_div will be used.
 
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-________________________________
-From: Chen, Guchun <Guchun.Chen@amd.com>
-Sent: Friday, December 13, 2019 3:53 AM
-To: Zhang, Hawking <Hawking.Zhang@amd.com>; Ma, Le <Le.Ma@amd.com>; Zhou1, =
-Tao <Tao.Zhou1@amd.com>; Deucher, Alexander <Alexander.Deucher@amd.com>; am=
-d-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
-Cc: Chen, Guchun <Guchun.Chen@amd.com>
-Subject: [PATCH] drm/amdgpu: drop useless BACO arg in amdgpu_ras_reset_gpu
-
-BACO reset mode strategy is determined by latter func when
-calling amdgpu_ras_reset_gpu. So not to confuse audience, drop
-it.
-
-Signed-off-by: Guchun Chen <guchun.chen@amd.com>
+Cc: Lyude Paul <lyude@redhat.com>
+Cc: Harry Wentland <harry.wentland@amd.com>
+Cc: Manasi Navare <manasi.d.navare@intel.com>
+Signed-off-by: Mikita Lipski <mikita.lipski@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c  | 2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c  | 4 ++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h  | 3 +--
- drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c | 2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c  | 2 +-
- drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c   | 2 +-
- 6 files changed, 7 insertions(+), 8 deletions(-)
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 3 ++-
+ drivers/gpu/drm/drm_dp_mst_topology.c             | 9 +++++++--
+ drivers/gpu/drm/i915/display/intel_dp_mst.c       | 2 +-
+ drivers/gpu/drm/nouveau/dispnv50/disp.c           | 3 ++-
+ include/drm/drm_dp_mst_helper.h                   | 3 ++-
+ 5 files changed, 14 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_gfx.c
-index 52c27e49bc7b..056c7e7a6040 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-@@ -641,7 +641,7 @@ int amdgpu_gfx_process_ras_data_cb(struct amdgpu_device=
- *adev,
-                 kgd2kfd_set_sram_ecc_flag(adev->kfd.dev);
-                 if (adev->gfx.funcs->query_ras_error_count)
-                         adev->gfx.funcs->query_ras_error_count(adev, err_d=
-ata);
--               amdgpu_ras_reset_gpu(adev, 0);
-+               amdgpu_ras_reset_gpu(adev);
-         }
-         return AMDGPU_RAS_SUCCESS;
- }
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_ras.c
-index 3f4ba408aee0..e9f8decfbc69 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-@@ -1872,7 +1872,7 @@ void amdgpu_ras_resume(struct amdgpu_device *adev)
-                  * See feature_enable_on_boot
-                  */
-                 amdgpu_ras_disable_all_features(adev, 1);
--               amdgpu_ras_reset_gpu(adev, 0);
-+               amdgpu_ras_reset_gpu(adev);
-         }
- }
-
-@@ -1935,6 +1935,6 @@ void amdgpu_ras_global_ras_isr(struct amdgpu_device *=
-adev)
-         if (atomic_cmpxchg(&amdgpu_ras_in_intr, 0, 1) =3D=3D 0) {
-                 DRM_WARN("RAS event of type ERREVENT_ATHUB_INTERRUPT detec=
-ted!\n");
-
--               amdgpu_ras_reset_gpu(adev, false);
-+               amdgpu_ras_reset_gpu(adev);
-         }
- }
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_ras.h
-index d4ade4739245..a5fe29a9373e 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
-@@ -494,8 +494,7 @@ int amdgpu_ras_add_bad_pages(struct amdgpu_device *adev=
-,
-
- int amdgpu_ras_reserve_bad_pages(struct amdgpu_device *adev);
-
--static inline int amdgpu_ras_reset_gpu(struct amdgpu_device *adev,
--               bool is_baco)
-+static inline int amdgpu_ras_reset_gpu(struct amdgpu_device *adev)
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 9fc03fc1017d..753a79734817 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -4972,7 +4972,8 @@ static int dm_encoder_helper_atomic_check(struct drm_encoder *encoder,
+ 	dm_new_connector_state->vcpi_slots = drm_dp_atomic_find_vcpi_slots(state,
+ 									   mst_mgr,
+ 									   mst_port,
+-									   dm_new_connector_state->pbn);
++									   dm_new_connector_state->pbn,
++									   0);
+ 	if (dm_new_connector_state->vcpi_slots < 0) {
+ 		DRM_DEBUG_ATOMIC("failed finding vcpi slots: %d\n", (int)dm_new_connector_state->vcpi_slots);
+ 		return dm_new_connector_state->vcpi_slots;
+diff --git a/drivers/gpu/drm/drm_dp_mst_topology.c b/drivers/gpu/drm/drm_dp_mst_topology.c
+index 74bed71f7315..bb0844dfb3d2 100644
+--- a/drivers/gpu/drm/drm_dp_mst_topology.c
++++ b/drivers/gpu/drm/drm_dp_mst_topology.c
+@@ -4020,6 +4020,7 @@ static int drm_dp_init_vcpi(struct drm_dp_mst_topology_mgr *mgr,
+  * @mgr: MST topology manager for the port
+  * @port: port to find vcpi slots for
+  * @pbn: bandwidth required for the mode in PBN
++ * @pbn_div: divider for DSC mode that takes FEC into account
+  *
+  * Allocates VCPI slots to @port, replacing any previous VCPI allocations it
+  * may have had. Any atomic drivers which support MST must call this function
+@@ -4046,7 +4047,8 @@ static int drm_dp_init_vcpi(struct drm_dp_mst_topology_mgr *mgr,
+  */
+ int drm_dp_atomic_find_vcpi_slots(struct drm_atomic_state *state,
+ 				  struct drm_dp_mst_topology_mgr *mgr,
+-				  struct drm_dp_mst_port *port, int pbn)
++				  struct drm_dp_mst_port *port, int pbn,
++				  int pbn_div)
  {
-         struct amdgpu_ras *ras =3D amdgpu_ras_get_context(adev);
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c b/drivers/gpu/drm/amd=
-/amdgpu/amdgpu_sdma.c
-index 6361b2c9ae1a..9bbe819de46a 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
-@@ -160,7 +160,7 @@ int amdgpu_sdma_process_ras_data_cb(struct amdgpu_devic=
-e *adev,
-                 struct amdgpu_iv_entry *entry)
- {
-         kgd2kfd_set_sram_ecc_flag(adev->kfd.dev);
--       amdgpu_ras_reset_gpu(adev, 0);
-+       amdgpu_ras_reset_gpu(adev);
-
-         return AMDGPU_RAS_SUCCESS;
- }
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_umc.c
-index d4fb9cf27e21..8a6c733d170c 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c
-@@ -132,7 +132,7 @@ int amdgpu_umc_process_ras_data_cb(struct amdgpu_device=
- *adev,
-                                                 err_data->err_addr_cnt))
-                         DRM_WARN("Failed to add ras bad page!\n");
-
--               amdgpu_ras_reset_gpu(adev, 0);
-+               amdgpu_ras_reset_gpu(adev);
-         }
-
-         kfree(err_data->err_addr);
-diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c b/drivers/gpu/drm/amd/a=
-mdgpu/nbio_v7_4.c
-index bb701dbfd472..7091782266b9 100644
---- a/drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c
-+++ b/drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c
-@@ -339,7 +339,7 @@ static void nbio_v7_4_handle_ras_controller_intr_no_bif=
-ring(struct amdgpu_device
-                 /* ras_controller_int is dedicated for nbif ras error,
-                  * not the global interrupt for sync flood
-                  */
--               amdgpu_ras_reset_gpu(adev, true);
-+               amdgpu_ras_reset_gpu(adev);
-         }
- }
-
---
+ 	struct drm_dp_mst_topology_state *topology_state;
+ 	struct drm_dp_vcpi_allocation *pos, *vcpi = NULL;
+@@ -4079,7 +4081,10 @@ int drm_dp_atomic_find_vcpi_slots(struct drm_atomic_state *state,
+ 	if (!vcpi)
+ 		prev_slots = 0;
+ 
+-	req_slots = DIV_ROUND_UP(pbn, mgr->pbn_div);
++	if (pbn_div <= 0)
++		pbn_div = mgr->pbn_div;
++
++	req_slots = DIV_ROUND_UP(pbn, pbn_div);
+ 
+ 	DRM_DEBUG_ATOMIC("[CONNECTOR:%d:%s] [MST PORT:%p] VCPI %d -> %d\n",
+ 			 port->connector->base.id, port->connector->name,
+diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+index 92be17711287..a068f54a6793 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
++++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+@@ -65,7 +65,7 @@ static int intel_dp_mst_compute_link_config(struct intel_encoder *encoder,
+ 						       false);
+ 
+ 		slots = drm_dp_atomic_find_vcpi_slots(state, &intel_dp->mst_mgr,
+-						      port, crtc_state->pbn);
++						      port, crtc_state->pbn, 0);
+ 		if (slots == -EDEADLK)
+ 			return slots;
+ 		if (slots >= 0)
+diff --git a/drivers/gpu/drm/nouveau/dispnv50/disp.c b/drivers/gpu/drm/nouveau/dispnv50/disp.c
+index 1c9e23d5a6fd..edb78966c5b6 100644
+--- a/drivers/gpu/drm/nouveau/dispnv50/disp.c
++++ b/drivers/gpu/drm/nouveau/dispnv50/disp.c
+@@ -787,7 +787,8 @@ nv50_msto_atomic_check(struct drm_encoder *encoder,
+ 
+ 		slots = drm_dp_atomic_find_vcpi_slots(state, &mstm->mgr,
+ 						      mstc->port,
+-						      asyh->dp.pbn);
++						      asyh->dp.pbn,
++						      0);
+ 		if (slots < 0)
+ 			return slots;
+ 
+diff --git a/include/drm/drm_dp_mst_helper.h b/include/drm/drm_dp_mst_helper.h
+index 32e60b9d7098..0f813d6346aa 100644
+--- a/include/drm/drm_dp_mst_helper.h
++++ b/include/drm/drm_dp_mst_helper.h
+@@ -771,7 +771,8 @@ struct drm_dp_mst_topology_state *drm_atomic_get_mst_topology_state(struct drm_a
+ int __must_check
+ drm_dp_atomic_find_vcpi_slots(struct drm_atomic_state *state,
+ 			      struct drm_dp_mst_topology_mgr *mgr,
+-			      struct drm_dp_mst_port *port, int pbn);
++			      struct drm_dp_mst_port *port, int pbn,
++			      int pbn_div);
+ int __must_check
+ drm_dp_atomic_release_vcpi_slots(struct drm_atomic_state *state,
+ 				 struct drm_dp_mst_topology_mgr *mgr,
+-- 
 2.17.1
-
-
---_000_MWHPR12MB1358292EEB0DD239F628E267F7540MWHPR12MB1358namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<p style=3D"font-family:Arial;font-size:10pt;color:#0078D7;margin:15pt;" al=
-ign=3D"Left">
-[AMD Official Use Only - Internal Distribution Only]<br>
-</p>
-<br>
-<div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Reviewed-by: Alex Deucher &lt;alexander.deucher@amd.com&gt;<br>
-</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Chen, Guchun &lt;Guch=
-un.Chen@amd.com&gt;<br>
-<b>Sent:</b> Friday, December 13, 2019 3:53 AM<br>
-<b>To:</b> Zhang, Hawking &lt;Hawking.Zhang@amd.com&gt;; Ma, Le &lt;Le.Ma@a=
-md.com&gt;; Zhou1, Tao &lt;Tao.Zhou1@amd.com&gt;; Deucher, Alexander &lt;Al=
-exander.Deucher@amd.com&gt;; amd-gfx@lists.freedesktop.org &lt;amd-gfx@list=
-s.freedesktop.org&gt;<br>
-<b>Cc:</b> Chen, Guchun &lt;Guchun.Chen@amd.com&gt;<br>
-<b>Subject:</b> [PATCH] drm/amdgpu: drop useless BACO arg in amdgpu_ras_res=
-et_gpu</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">BACO reset mode strategy is determined by latter f=
-unc when<br>
-calling amdgpu_ras_reset_gpu. So not to confuse audience, drop<br>
-it.<br>
-<br>
-Signed-off-by: Guchun Chen &lt;guchun.chen@amd.com&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c&nbsp; | 2 &#43;-<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c&nbsp; | 4 &#43;&#43;--<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h&nbsp; | 3 &#43;--<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c | 2 &#43;-<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c&nbsp; | 2 &#43;-<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c&nbsp;&nbsp; | 2 &#43;-<br>
-&nbsp;6 files changed, 7 insertions(&#43;), 8 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_gfx.c<br>
-index 52c27e49bc7b..056c7e7a6040 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c<br>
-@@ -641,7 &#43;641,7 @@ int amdgpu_gfx_process_ras_data_cb(struct amdgpu_de=
-vice *adev,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; kgd2kfd_set_sram_ecc_flag(adev-&gt;kfd.dev);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; if (adev-&gt;gfx.funcs-&gt;query_ras_error_count)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-=
-&gt;gfx.funcs-&gt;query_ras_error_count(adev, err_data);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; amdgpu_ras_reset_gpu(adev, 0);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; amdgpu_ras_reset_gpu(adev);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return AMDGPU_RAS_SUCCESS;=
-<br>
-&nbsp;}<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_ras.c<br>
-index 3f4ba408aee0..e9f8decfbc69 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c<br>
-@@ -1872,7 &#43;1872,7 @@ void amdgpu_ras_resume(struct amdgpu_device *adev=
-)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp; * See feature_enable_on_boot<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; amdgpu_ras_disable_all_features(adev, 1);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; amdgpu_ras_reset_gpu(adev, 0);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; amdgpu_ras_reset_gpu(adev);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;}<br>
-&nbsp;<br>
-@@ -1935,6 &#43;1935,6 @@ void amdgpu_ras_global_ras_isr(struct amdgpu_devi=
-ce *adev)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (atomic_cmpxchg(&amp;am=
-dgpu_ras_in_intr, 0, 1) =3D=3D 0) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; DRM_WARN(&quot;RAS event of type ERREVENT_ATHUB_INTER=
-RUPT detected!\n&quot;);<br>
-&nbsp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; amdgpu_ras_reset_gpu(adev, false);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; amdgpu_ras_reset_gpu(adev);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;}<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_ras.h<br>
-index d4ade4739245..a5fe29a9373e 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h<br>
-@@ -494,8 &#43;494,7 @@ int amdgpu_ras_add_bad_pages(struct amdgpu_device *=
-adev,<br>
-&nbsp;<br>
-&nbsp;int amdgpu_ras_reserve_bad_pages(struct amdgpu_device *adev);<br>
-&nbsp;<br>
--static inline int amdgpu_ras_reset_gpu(struct amdgpu_device *adev,<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; bool is_baco)<br>
-&#43;static inline int amdgpu_ras_reset_gpu(struct amdgpu_device *adev)<br>
-&nbsp;{<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_ras *ras =3D=
- amdgpu_ras_get_context(adev);<br>
-&nbsp;<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c b/drivers/gpu/drm/amd=
-/amdgpu/amdgpu_sdma.c<br>
-index 6361b2c9ae1a..9bbe819de46a 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c<br>
-@@ -160,7 &#43;160,7 @@ int amdgpu_sdma_process_ras_data_cb(struct amdgpu_d=
-evice *adev,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; struct amdgpu_iv_entry *entry)<br>
-&nbsp;{<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kgd2kfd_set_sram_ecc_flag(=
-adev-&gt;kfd.dev);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_ras_reset_gpu(adev, 0);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_ras_reset_gpu(adev);<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return AMDGPU_RAS_SUCCESS;=
-<br>
-&nbsp;}<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_umc.c<br>
-index d4fb9cf27e21..8a6c733d170c 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c<br>
-@@ -132,7 &#43;132,7 @@ int amdgpu_umc_process_ras_data_cb(struct amdgpu_de=
-vice *adev,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; err_data-&g=
-t;err_addr_cnt))<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DRM_W=
-ARN(&quot;Failed to add ras bad page!\n&quot;);<br>
-&nbsp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; amdgpu_ras_reset_gpu(adev, 0);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; amdgpu_ras_reset_gpu(adev);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfree(err_data-&gt;err_add=
-r);<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c b/drivers/gpu/drm/amd/a=
-mdgpu/nbio_v7_4.c<br>
-index bb701dbfd472..7091782266b9 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c<br>
-@@ -339,7 &#43;339,7 @@ static void nbio_v7_4_handle_ras_controller_intr_no=
-_bifring(struct amdgpu_device<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; /* ras_controller_int is dedicated for nbif ras error=
-,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp; * not the global interrupt for sync flood<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; amdgpu_ras_reset_gpu(adev, true);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; amdgpu_ras_reset_gpu(adev);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;}<br>
-&nbsp;<br>
--- <br>
-2.17.1<br>
-<br>
-</div>
-</span></font></div>
-</div>
-</body>
-</html>
-
---_000_MWHPR12MB1358292EEB0DD239F628E267F7540MWHPR12MB1358namp_--
-
---===============0150470568==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
 
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---===============0150470568==--
