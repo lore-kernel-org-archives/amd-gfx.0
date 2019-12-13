@@ -2,37 +2,37 @@ Return-Path: <SRS0=wwPX=2D=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+X-Spam-Status: No, score=-9.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=unavailable
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 08DBCC32771
-	for <amd-gfx@archiver.kernel.org>; Fri, 13 Dec 2019 21:05:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8A76BC2D0CC
+	for <amd-gfx@archiver.kernel.org>; Fri, 13 Dec 2019 21:09:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 41729246D0
-	for <amd-gfx@archiver.kernel.org>; Fri, 13 Dec 2019 21:04:59 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id D2B4024695
+	for <amd-gfx@archiver.kernel.org>; Fri, 13 Dec 2019 21:09:57 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="s+UwszHJ"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 41729246D0
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="NLIwunO7"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D2B4024695
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C5DA76ED28;
-	Fri, 13 Dec 2019 20:09:06 +0000 (UTC)
-Received: from NAM04-SN1-obe.outbound.protection.outlook.com
- (mail-eopbgr700078.outbound.protection.outlook.com [40.107.70.78])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 645A46ED0C;
- Fri, 13 Dec 2019 20:09:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 96D836E2E3;
+	Fri, 13 Dec 2019 16:54:20 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2062.outbound.protection.outlook.com [40.107.243.62])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2A02C6E2E3;
+ Fri, 13 Dec 2019 16:54:19 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=SGjA+pFDTDvUKhfO1w76zFiTQxPr0TAXvjoxYjlKxTB7mXMs/877qVz/yn6plL4D0IZ1Zq5EBVTJ3s/6z6TLxelZ0B5g0nSYTDsGvJCZKyrtcGDiPbJjGIl1tJoRCLIvjdVyrRlostmACSm5uWrEtleB6BXtsr7alrvI1uxdi/5njMTY+MnA33OE2eAo5WeZofHrfF33DM4i2YVijqivm+1c6Q2RhdjHV2JKWTuQjeXLKvgD+ZgePSQA6wpLdFhu/kbKxlBWenDfM8GWr5Vgh+aRnnngAvy4QUj1w8YmmfW+/Z8ip10iSllC2N6Uam8+NWMywvgvxWEQFVGrI0+Qkg==
+ b=TGEVdoGqpPScPY7B3nARUKrufw543XMc4ESEqXE2f7pdD7q2OrMF2fy/4p6rnVUJAIaHghz6H0EN6qOUrnv36IuX5aHymQ5CiX7ouEx/fe63M9liazAxdLbEocVa1C9njURJJwD6vse7PkYG3BTRtWvHgSCIhUUbgGwKAByKTS4J2oWWuMrHODDZkAHvQll1Vw4tv9uBmej3MmwBZUPPQ+Y+Qg8rosgkMaARGVWG8qYLsDJJYeSkbJ7NgS7O7DKGN/sulf9gX/6oTOLESyoqjXUW6i52y7WHbRUvVCwJIOxTuOWY+4IAaFG22F0O6slz1BLrjGQ2sZLrOV1JlIfWkA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=gTodLTZAP+8jfwQY0weyYwS8j96zYlC2FWxnAFndJHg=;
- b=DnHso7UW0gzQRTas+pX2uh+CkUz17EOy3WfH6KzUmMzzaWypQq2VDwIDPBufgAGqKWRlmmXKkho9d5CpSRCDrgg8b5iaAqPl2g6Hf7R3KtJKlTJWgvcVr3nLw/D7M7jcWE2j7C+lSL6NjopfpWFlMoZQ2EA/lA3IFW9H5U4hRqCfXu5AfMgafGRWi5H0MbB1pV1Oy8bqYbu7hPZR9YqSrNINb9ItPV6YSP4Y9PNp1UT/2zWg5qPWiXQw3AzzmTBQcQc3d/ihtb1ok7lh5mSjRGT0K5MXWkpJyyOq8Ov6qM0Lp7is/F19B3SpNUSIHWouEF4ydnZr7/sD82chCZpsXw==
+ bh=NDwg+b2cbwvlRGEvcobvo1+FkdCcR9r5kl2HPayfpko=;
+ b=jh95sHBu5SEpFZ0WIHvXbHpNFGeRRY7qH9uzllvxJTmlaG0whQl5p1VPzSuFcqiA0LjV60iMeqj4OYuyAHGgFg8s21cua65srGnDDkHZjAancMCLwJC3kgI1OlSBz1HIw6ciVKdcBHuJTq6ztdck7/+2dgOAbEJcxWOIWFJgBwe1OU0wjW7tFLnRFLKVbgEbeMo0AQBetjFoDM5ZPa1TsqzTH2lQXzrygppO8gh1qV+rg65Vc4BdOs6VDOxwFduaayTtMUjWTnQ21GXgq1Hn9vzAzMUjssJ0OhAKNeMiAmLWpU8iGN/3fDfgdK+tki+xn4ncz4W9dLOQGyqO9WPjwA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=permerror action=none header.from=amd.com; dkim=none (message not
@@ -40,72 +40,71 @@ ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=gTodLTZAP+8jfwQY0weyYwS8j96zYlC2FWxnAFndJHg=;
- b=s+UwszHJh9wbSQbKArUX2u4bZ0Va1Alf18wLQAjXuudGw5+jz3XndaLQ+j0AxhmxyZelRuCR+2Q/3sfufLGNKZR5bAhR5yNqIoEVcDSIfyDK0m8Qhjcmu1U1Kr61p0efNQyGU1yRIq1Wh9+edF/yPDfGpwd1k9448AB8S9N6K50=
-Received: from DM6PR12CA0017.namprd12.prod.outlook.com (2603:10b6:5:1c0::30)
- by DM5PR12MB1851.namprd12.prod.outlook.com (2603:10b6:3:109::23) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2538.18; Fri, 13 Dec
- 2019 20:09:03 +0000
-Received: from DM6NAM11FT025.eop-nam11.prod.protection.outlook.com
- (2a01:111:f400:7eaa::203) by DM6PR12CA0017.outlook.office365.com
- (2603:10b6:5:1c0::30) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2538.15 via Frontend
- Transport; Fri, 13 Dec 2019 20:09:03 +0000
+ bh=NDwg+b2cbwvlRGEvcobvo1+FkdCcR9r5kl2HPayfpko=;
+ b=NLIwunO75JdFdWRmsjhlKns9b61l8YT45/Y6KgD6u/Yrv0QwznwaXQH+l0/lM91XxDJwjbwWbVdYG+hN/4bMsCP/LtvOTtAZEQuvnQlRQAddqMKcqTnFvevZhNEjjBgdN6sSH1gZ2Npnf+674O1zNU0Jg0NQkm+X4k6hNJQabpY=
+Received: from DM3PR12CA0115.namprd12.prod.outlook.com (2603:10b6:0:51::11) by
+ MN2PR12MB3389.namprd12.prod.outlook.com (2603:10b6:208:ca::33) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2538.16; Fri, 13 Dec 2019 16:54:17 +0000
+Received: from CO1NAM11FT016.eop-nam11.prod.protection.outlook.com
+ (2a01:111:f400:7eab::205) by DM3PR12CA0115.outlook.office365.com
+ (2603:10b6:0:51::11) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2538.17 via Frontend
+ Transport; Fri, 13 Dec 2019 16:54:16 +0000
 Authentication-Results: spf=none (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
  header.d=none;lists.freedesktop.org; dmarc=permerror action=none
  header.from=amd.com;
 Received-SPF: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
-Received: from SATLEXMB02.amd.com (165.204.84.17) by
- DM6NAM11FT025.mail.protection.outlook.com (10.13.172.197) with Microsoft SMTP
+Received: from SATLEXMB01.amd.com (165.204.84.17) by
+ CO1NAM11FT016.mail.protection.outlook.com (10.13.175.141) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.2538.14 via Frontend Transport; Fri, 13 Dec 2019 20:09:02 +0000
-Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB02.amd.com
- (10.181.40.143) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.2538.14 via Frontend Transport; Fri, 13 Dec 2019 16:54:15 +0000
+Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB01.amd.com
+ (10.181.40.142) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Fri, 13 Dec
- 2019 14:09:02 -0600
-Received: from SATLEXMB02.amd.com (10.181.40.143) by SATLEXMB05.amd.com
+ 2019 10:54:15 -0600
+Received: from SATLEXMB01.amd.com (10.181.40.142) by SATLEXMB05.amd.com
  (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Fri, 13 Dec
- 2019 14:09:01 -0600
-Received: from mlipski-pc.amd.com (10.180.168.240) by SATLEXMB02.amd.com
- (10.181.40.143) with Microsoft SMTP Server id 15.1.1713.5 via Frontend
- Transport; Fri, 13 Dec 2019 14:09:01 -0600
-From: <mikita.lipski@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH v9 09/18] drm/amd/display: Write DSC enable to MST DPCD
-Date: Fri, 13 Dec 2019 15:08:45 -0500
-Message-ID: <20191213200854.31545-10-mikita.lipski@amd.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20191213200854.31545-1-mikita.lipski@amd.com>
-References: <20191213200854.31545-1-mikita.lipski@amd.com>
+ 2019 10:54:14 -0600
+Received: from agrodzovsky-All-Series.amd.com (10.180.168.240) by
+ SATLEXMB01.amd.com (10.181.40.142) with Microsoft SMTP Server id 15.1.1713.5
+ via Frontend Transport; Fri, 13 Dec 2019 10:54:14 -0600
+From: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
+To: <dri-devel@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH v2 1/5] drm/amdgpu: reverts commit
+ b01245ff54db66073b104ac9d9fbefb7b264b36d.
+Date: Fri, 13 Dec 2019 11:54:05 -0500
+Message-ID: <1576256049-12838-1-git-send-email-andrey.grodzovsky@amd.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
 X-EOPAttributedMessage: 0
 X-MS-Office365-Filtering-HT: Tenant
 X-Forefront-Antispam-Report: CIP:165.204.84.17; IPV:NLI; CTRY:US; EFV:NLI;
  SFV:NSPM;
- SFS:(10009020)(4636009)(136003)(396003)(39860400002)(376002)(346002)(428003)(189003)(199004)(450100002)(426003)(186003)(2906002)(4326008)(5660300002)(478600001)(6666004)(356004)(2616005)(6916009)(8676002)(81166006)(81156014)(8936002)(26005)(316002)(36756003)(2876002)(70586007)(336012)(1076003)(86362001)(54906003)(70206006)(7696005)(16060500001);
- DIR:OUT; SFP:1101; SCL:1; SRVR:DM5PR12MB1851; H:SATLEXMB02.amd.com; FPR:;
+ SFS:(10009020)(4636009)(376002)(136003)(346002)(39860400002)(396003)(428003)(189003)(199004)(81166006)(2616005)(316002)(54906003)(44832011)(8936002)(86362001)(26005)(5660300002)(81156014)(110136005)(2906002)(186003)(356004)(6666004)(426003)(478600001)(450100002)(8676002)(336012)(36756003)(7696005)(4326008)(70586007)(70206006);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:MN2PR12MB3389; H:SATLEXMB01.amd.com; FPR:;
  SPF:None; LANG:en; PTR:InfoDomainNonexistent; MX:1; A:1; 
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 38fafda8-aef7-43be-6eff-08d780084cae
-X-MS-TrafficTypeDiagnostic: DM5PR12MB1851:
-X-Microsoft-Antispam-PRVS: <DM5PR12MB185181292F99ED4B0B09CDAFE4540@DM5PR12MB1851.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:1360;
+X-MS-Office365-Filtering-Correlation-Id: c9706983-3f69-45ec-014d-08d77fed16ad
+X-MS-TrafficTypeDiagnostic: MN2PR12MB3389:
+X-Microsoft-Antispam-PRVS: <MN2PR12MB3389782362E26777A8166A8FEA540@MN2PR12MB3389.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:546;
 X-Forefront-PRVS: 0250B840C1
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 68Nw1gSWfqk+jfYBA8LopgLfjAi45Bq0VFn3RFnImmWnKN4UWYmTDHUGto32uNqcB5DpXX4fZwEehKmB9NkKbcPib4zKCAVS2jXiguOioemY+QWtCBqyIPM+eNErllsXcrbEmaEUMliNuFfPnD/PuKlK0smSLj+5TxmD2SOiZKBhEAyj4A9QF+tuy7o+uPhlTK9l5up7IcAWXr0xsPLUk+LtU+KuKqU2cRz0JQQ9BmRCBywS9XxoB939XorcrfBUB57djdIkbtX5/AKm693aeNQLaLD7UmM1zCa7J1C6R7LgpVqKad5hdDvbcaNqGEQS4Dz+AGUQB9Gs+G2AjelY3WQ5enAhJ/NH2m5aXEohXwcwK65LWB9kQYqZTo/IQ5fntFvYz8lVQ+cQ7HBp+nfB0MoNtwLz/Pk5AAZkG9DDGFHsHIA96qDJWK+8i+j/Y6fyHuKy5D49kC0ZXDI6fRxDvBJZo8MUdGpmmEyhvNbxt401yjIbDJn5bW6G/wAKDrop
+X-Microsoft-Antispam-Message-Info: oXgTabTY+ZWYrQG1aSUaQuan1LdugeExtgCPHgCW4/tvodrrZb769Fn4y06yVJ1nkRwtMfcauTY3pGgob91BwXox+DUenSwJDnB1IoBTtQlg+JJGPdqUL1+FsibkvDS1fTeBzg9r6uPwsVmeZoIIwMnbvfn93MvpqIA/UOwz7F4VcXCNruDWM6CXyEZrEtf/NNPuT2PIAz7aHisFMyFHot9hBnpop6JWYYzQHJjVEpKokTeNmRm7s2c22w6xgtiOkVjh65ypKZYe4xMv0oQFU4m8n/IZ89f+iFo2x9E4SwUY+mbdopfszngcn+NO1GNksgEmnB52uZltCS9p/h+edjGuUTem+mJPEFXqoN06xnYDcQlTF+mM55p3+sv1dJksLSr7aT+YQySS1WHeM/qO72BwQnx5dyk8iQzQbORyxmsMiyRLGGBTq0LqnXRVUy0n
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Dec 2019 20:09:02.9977 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 38fafda8-aef7-43be-6eff-08d780084cae
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Dec 2019 16:54:15.9006 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: c9706983-3f69-45ec-014d-08d77fed16ad
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB02.amd.com]
+ Helo=[SATLEXMB01.amd.com]
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1851
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3389
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,67 +116,174 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Francis <David.Francis@amd.com>,
- Mikita Lipski <mikita.lipski@amd.com>, dri-devel@lists.freedesktop.org
+Cc: Alexander.Deucher@amd.com, Le.Ma@amd.com, Evan.Quan@amd.com,
+ Andrey Grodzovsky <andrey.grodzovsky@amd.com>, hawking.zhang@amd.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: David Francis <David.Francis@amd.com>
+In preparation for doing XGMI reset synchronization using task barrier.
 
-Rework the dm_helpers_write_dsc_enable callback to
-handle the MST case.
-
-Use the cached dsc_aux field.
-
-Reviewed-by: Wenjing Liu <Wenjing.Liu@amd.com>
-Signed-off-by: David Francis <David.Francis@amd.com>
-Signed-off-by: Mikita Lipski <mikita.lipski@amd.com>
+Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
+Reviewed-by: Le Ma <Le.Ma@amd.com>
 ---
- .../amd/display/amdgpu_dm/amdgpu_dm_helpers.c | 19 ++++++++++++++++++-
- 1 file changed, 18 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h        |  2 -
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 76 +++++-------------------------
+ 2 files changed, 12 insertions(+), 66 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-index 66f266a5e10b..069b7a6f5597 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-@@ -37,6 +37,7 @@
- #include "dc.h"
- #include "amdgpu_dm.h"
- #include "amdgpu_dm_irq.h"
-+#include "amdgpu_dm_mst_types.h"
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+index a78a363..50bab33 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+@@ -1001,8 +1001,6 @@ struct amdgpu_device {
  
- #include "dm_helpers.h"
+ 	bool                            pm_sysfs_en;
+ 	bool                            ucode_sysfs_en;
+-
+-	bool				in_baco;
+ };
  
-@@ -516,8 +517,24 @@ bool dm_helpers_dp_write_dsc_enable(
- )
- {
- 	uint8_t enable_dsc = enable ? 1 : 0;
-+	struct amdgpu_dm_connector *aconnector;
-+
-+	if (!stream)
-+		return false;
-+
-+	if (stream->signal == SIGNAL_TYPE_DISPLAY_PORT_MST) {
-+		aconnector = (struct amdgpu_dm_connector *)stream->dm_stream_context;
-+
-+		if (!aconnector->dsc_aux)
-+			return false;
-+
-+		return (drm_dp_dpcd_write(aconnector->dsc_aux, DP_DSC_ENABLE, &enable_dsc, 1) >= 0);
-+	}
-+
-+	if (stream->signal == SIGNAL_TYPE_DISPLAY_PORT)
-+		return dm_helpers_dp_write_dpcd(ctx, stream->link, DP_DSC_ENABLE, &enable_dsc, 1);
+ static inline struct amdgpu_device *amdgpu_ttm_adev(struct ttm_bo_device *bdev)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index 7324a5f..1d19edfa 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -2667,7 +2667,7 @@ static void amdgpu_device_xgmi_reset_func(struct work_struct *__work)
+ 	if (amdgpu_asic_reset_method(adev) == AMD_RESET_METHOD_BACO)
+ 		adev->asic_reset_res = (adev->in_baco == false) ?
+ 				amdgpu_device_baco_enter(adev->ddev) :
+-				amdgpu_device_baco_exit(adev->ddev);
++				qamdgpu_device_baco_exit(adev->ddev);
+ 	else
+ 		adev->asic_reset_res = amdgpu_asic_reset(adev);
  
--	return dm_helpers_dp_write_dpcd(ctx, stream->sink->link, DP_DSC_ENABLE, &enable_dsc, 1);
-+	return false;
+@@ -3796,18 +3796,13 @@ static int amdgpu_device_pre_asic_reset(struct amdgpu_device *adev,
+ 	return r;
  }
  
- bool dm_helpers_is_dp_sink_present(struct dc_link *link)
+-static int amdgpu_do_asic_reset(struct amdgpu_device *adev,
+-			       struct amdgpu_hive_info *hive,
++static int amdgpu_do_asic_reset(struct amdgpu_hive_info *hive,
+ 			       struct list_head *device_list_handle,
+ 			       bool *need_full_reset_arg)
+ {
+ 	struct amdgpu_device *tmp_adev = NULL;
+ 	bool need_full_reset = *need_full_reset_arg, vram_lost = false;
+ 	int r = 0;
+-	int cpu = smp_processor_id();
+-	bool use_baco =
+-		(amdgpu_asic_reset_method(adev) == AMD_RESET_METHOD_BACO) ?
+-		true : false;
+ 
+ 	/*
+ 	 * ASIC reset has to be done on all HGMI hive nodes ASAP
+@@ -3815,62 +3810,22 @@ static int amdgpu_do_asic_reset(struct amdgpu_device *adev,
+ 	 */
+ 	if (need_full_reset) {
+ 		list_for_each_entry(tmp_adev, device_list_handle, gmc.xgmi.head) {
+-			/*
+-			 * For XGMI run all resets in parallel to speed up the
+-			 * process by scheduling the highpri wq on different
+-			 * cpus. For XGMI with baco reset, all nodes must enter
+-			 * baco within close proximity before anyone exit.
+-			 */
++			/* For XGMI run all resets in parallel to speed up the process */
+ 			if (tmp_adev->gmc.xgmi.num_physical_nodes > 1) {
+-				if (!queue_work_on(cpu, system_highpri_wq,
+-						   &tmp_adev->xgmi_reset_work))
++				if (!queue_work(system_highpri_wq, &tmp_adev->xgmi_reset_work))
+ 					r = -EALREADY;
+-				cpu = cpumask_next(cpu, cpu_online_mask);
+ 			} else
+ 				r = amdgpu_asic_reset(tmp_adev);
+-			if (r)
+-				break;
+-		}
+-
+-		/* For XGMI wait for all work to complete before proceed */
+-		if (!r) {
+-			list_for_each_entry(tmp_adev, device_list_handle,
+-					    gmc.xgmi.head) {
+-				if (tmp_adev->gmc.xgmi.num_physical_nodes > 1) {
+-					flush_work(&tmp_adev->xgmi_reset_work);
+-					r = tmp_adev->asic_reset_res;
+-					if (r)
+-						break;
+-					if (use_baco)
+-						tmp_adev->in_baco = true;
+-				}
+-			}
+-		}
+ 
+-		/*
+-		 * For XGMI with baco reset, need exit baco phase by scheduling
+-		 * xgmi_reset_work one more time. PSP reset and sGPU skips this
+-		 * phase. Not assume the situation that PSP reset and baco reset
+-		 * coexist within an XGMI hive.
+-		 */
+-
+-		if (!r && use_baco) {
+-			cpu = smp_processor_id();
+-			list_for_each_entry(tmp_adev, device_list_handle,
+-					    gmc.xgmi.head) {
+-				if (tmp_adev->gmc.xgmi.num_physical_nodes > 1) {
+-					if (!queue_work_on(cpu,
+-						system_highpri_wq,
+-						&tmp_adev->xgmi_reset_work))
+-						r = -EALREADY;
+-					if (r)
+-						break;
+-					cpu = cpumask_next(cpu, cpu_online_mask);
+-				}
++			if (r) {
++				DRM_ERROR("ASIC reset failed with error, %d for drm dev, %s",
++					 r, tmp_adev->ddev->unique);
++				break;
+ 			}
+ 		}
+ 
+-		if (!r && use_baco) {
++		/* For XGMI wait for all PSP resets to complete before proceed */
++		if (!r) {
+ 			list_for_each_entry(tmp_adev, device_list_handle,
+ 					    gmc.xgmi.head) {
+ 				if (tmp_adev->gmc.xgmi.num_physical_nodes > 1) {
+@@ -3878,21 +3833,15 @@ static int amdgpu_do_asic_reset(struct amdgpu_device *adev,
+ 					r = tmp_adev->asic_reset_res;
+ 					if (r)
+ 						break;
+-					tmp_adev->in_baco = false;
+ 				}
+ 			}
+ 		}
+-
+-		if (r) {
+-			DRM_ERROR("ASIC reset failed with error, %d for drm dev, %s",
+-				 r, tmp_adev->ddev->unique);
+-			goto end;
+-		}
+ 	}
+ 
+ 	if (!r && amdgpu_ras_intr_triggered())
+ 		amdgpu_ras_intr_cleared();
+ 
++
+ 	list_for_each_entry(tmp_adev, device_list_handle, gmc.xgmi.head) {
+ 		if (need_full_reset) {
+ 			/* post card */
+@@ -4181,8 +4130,7 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
+ 		if (r)
+ 			adev->asic_reset_res = r;
+ 	} else {
+-		r  = amdgpu_do_asic_reset(adev, hive, device_list_handle,
+-					  &need_full_reset);
++		r  = amdgpu_do_asic_reset(hive, device_list_handle, &need_full_reset);
+ 		if (r && r == -EAGAIN)
+ 			goto retry;
+ 	}
 -- 
-2.17.1
+2.7.4
 
 _______________________________________________
 amd-gfx mailing list
