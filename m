@@ -2,106 +2,65 @@ Return-Path: <SRS0=wwPX=2D=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+X-Spam-Status: No, score=-6.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+	SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 42C39C2D0DA
-	for <amd-gfx@archiver.kernel.org>; Fri, 13 Dec 2019 20:44:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id AB8EDC33CB8
+	for <amd-gfx@archiver.kernel.org>; Fri, 13 Dec 2019 20:49:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7839C24682
-	for <amd-gfx@archiver.kernel.org>; Fri, 13 Dec 2019 20:44:57 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id DB6252468B
+	for <amd-gfx@archiver.kernel.org>; Fri, 13 Dec 2019 20:49:56 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="V3T8N6l5"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7839C24682
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IbELLeWw"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DB6252468B
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6B7416ED07;
-	Fri, 13 Dec 2019 20:09:02 +0000 (UTC)
-Received: from NAM04-SN1-obe.outbound.protection.outlook.com
- (mail-eopbgr700078.outbound.protection.outlook.com [40.107.70.78])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 619266ECF9;
- Fri, 13 Dec 2019 20:09:01 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=FLDdBbskqHvUQ0sgIVOjm/ejS+Ei7j0hmcvWD5CHBAdVpM+rQr1amWI56w+4pPxH1ZSBVyyWGWkwU3JVAJoXygnoP8vuut0TeLHXiYaE1zCQbNbTZ5I7qpD9lmVZ2y01ouxEtf7H46hq9EoT1Tu45ZtceM8gTBuLpqqziIL0ZrvvGkbuV7JgYaAzducfCBHLi/I4CueetnAEBX69BHObS3bk1d2wOKEp1XmlbpDHqTiZnCLNkxV7vVP8LveeOT4GCCA3jG8WdAAnq/MN9QQNuhUCtS5wzMPLqcORybUD13dS0YQKMI+57aSu5WVJXJze7tFoVk0SH5pEOam/JFvpcQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=KNtdTi730le5vXOcMW32LWiwmhRgZP1Nx53UKMWIccw=;
- b=GCV9pdAF61O2u55IGI+yPX9Iz7Zb+nQFklI3Ia+qdOl81Wk9vuiSPXei+1U9kQCxgjA9v35z2lez2ACYPJaxpp+O2UTzGYFzctN88TXA6NP1gXXP8cKoTLKK8iciCGyh5K+I6r1ry40m9uwrV7WkFhrsVYeqzTzMxQP0eEpil7ro72YLSlhwfdlpNgg89bP8M0dSFY/WvzbInwtqecq4euvv1tqL3jtnxTlxZwRqumLjVTqPOEeAmhiw/VrTc4zDlC3EMjlwfBi18dkdrkOphFa91pJTzpdDUVAwfX9LIFwpOnMrpCFetDxwiyd7jFeWSvbemTSSoMSjZYkpSQkmbQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=permerror action=none header.from=amd.com; dkim=none (message not
- signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=KNtdTi730le5vXOcMW32LWiwmhRgZP1Nx53UKMWIccw=;
- b=V3T8N6l5GhrZ+8OpXqQkxtGkmglqKhmTvPOmFHrCHSZNIK6RC0hDHCsRv79tUQbeLpXkNZNmDHoXKY7DM3hhvi5TjrZ9h5CM+XllM/lRdZSXBGthImJeAh2Naa20MgpO2Zpp86fGpdD6iuDGcZuW5wxoo54AFbvburbOzs9cb4s=
-Received: from SN1PR12CA0069.namprd12.prod.outlook.com (2603:10b6:802:20::40)
- by MWHPR12MB1294.namprd12.prod.outlook.com (2603:10b6:300:10::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2516.13; Fri, 13 Dec
- 2019 20:08:59 +0000
-Received: from DM6NAM11FT023.eop-nam11.prod.protection.outlook.com
- (2a01:111:f400:7eaa::207) by SN1PR12CA0069.outlook.office365.com
- (2603:10b6:802:20::40) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2538.17 via Frontend
- Transport; Fri, 13 Dec 2019 20:08:59 +0000
-Authentication-Results: spf=none (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
- header.d=none;lists.freedesktop.org; dmarc=permerror action=none
- header.from=amd.com;
-Received-SPF: None (protection.outlook.com: amd.com does not designate
- permitted sender hosts)
-Received: from SATLEXMB02.amd.com (165.204.84.17) by
- DM6NAM11FT023.mail.protection.outlook.com (10.13.173.96) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.2538.14 via Frontend Transport; Fri, 13 Dec 2019 20:08:59 +0000
-Received: from SATLEXMB02.amd.com (10.181.40.143) by SATLEXMB02.amd.com
- (10.181.40.143) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Fri, 13 Dec
- 2019 14:08:58 -0600
-Received: from mlipski-pc.amd.com (10.180.168.240) by SATLEXMB02.amd.com
- (10.181.40.143) with Microsoft SMTP Server id 15.1.1713.5 via Frontend
- Transport; Fri, 13 Dec 2019 14:08:58 -0600
-From: <mikita.lipski@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH v9 01/18] drm/dp_mst: Add PBN calculation for DSC modes
-Date: Fri, 13 Dec 2019 15:08:37 -0500
-Message-ID: <20191213200854.31545-2-mikita.lipski@amd.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20191213200854.31545-1-mikita.lipski@amd.com>
-References: <20191213200854.31545-1-mikita.lipski@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id E39A16EB5A;
+	Fri, 13 Dec 2019 17:11:08 +0000 (UTC)
+Received: from mail-wm1-x344.google.com (mail-wm1-x344.google.com
+ [IPv6:2a00:1450:4864:20::344])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0F6936EB5A
+ for <amd-gfx@lists.freedesktop.org>; Fri, 13 Dec 2019 17:11:07 +0000 (UTC)
+Received: by mail-wm1-x344.google.com with SMTP id p17so358731wma.1
+ for <amd-gfx@lists.freedesktop.org>; Fri, 13 Dec 2019 09:11:06 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=mKpajWEml4+FOMlblBcX3L1pWZcBGCypXaimI8tJVi0=;
+ b=IbELLeWwILy2TpCTxLh1P4cHyRKAfQ+HP9gOeqc3dtDQ230KHpcSrW0Y78tWQ9S42e
+ xy6uDpDjVhlG0df08QsUZngUs5xjQs11EIgcwRP/+GKJ5Z8ou10rfuGKT2zUk9VAbGcY
+ err2NktIW55yMrNupovgLmNKyoFIXt0u4yp6TtodIflq+QzrDMqvs4g6T+aFi7A+L0Z+
+ zQRMK4NgPT3L2tdEofgDS2UOzLdWCw9d7Uy7AS3iHbsbgQxFhKlhwQcpI+Cvnj4zEE55
+ gyqEAW7kSvJyKFj4buf/HPnW+MTPOVlkAvnuGaeZh6jMRkEUTWGJkOW6IPzhbsRwc7h4
+ Y22w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=mKpajWEml4+FOMlblBcX3L1pWZcBGCypXaimI8tJVi0=;
+ b=IE0mig0UrW4y1h1cNWB9Mi1WBDJ7bHK0DM4ByvW9DmCzwP0kQ0KzWdfIVizfsBF6n0
+ XYEf3R3Z94/lUJNr+bwaleTKu8OVkmBpkR70ahUCGppExGxpZ2iyX3XoKKcLIMZ9NWoY
+ TUAePZE9a+C9c3u4Emnv0lLmlAmlERa5z9wMJqNCq/OoaKFXezgPhAFw+9lPyjeNcEE1
+ 8aYvj2ScJPPBXqqQoqnzWTDkCDGBCl0XiQ40kG9SMOp0fnc/g9B2pNKika/zkz1FaES5
+ E6n/CrB8zzpWwQFFj9d7zSIXH5oFQEIL/Orakd3pqQ3thla+0/LIU1YGfrfXM7W82lvP
+ 5w2w==
+X-Gm-Message-State: APjAAAVyqBEQny6lA1VD+oTTR36qe8DFTBS7oaCGS+feRA8RQenSJ3xs
+ Lptgha3qowVTke2nNNWIBsZ6HjmvIfHCPsVMw/A=
+X-Google-Smtp-Source: APXvYqyw48c46fnQfiPS6PWjiWJDGu9rR9l7gzrbjHXXqnL3Nkp8idbZA0f9O3WX2faT0FLpPss/TbTO8Qxme0q3NXw=
+X-Received: by 2002:a1c:e909:: with SMTP id q9mr15211829wmc.30.1576257065551; 
+ Fri, 13 Dec 2019 09:11:05 -0800 (PST)
 MIME-Version: 1.0
-X-EOPAttributedMessage: 0
-X-MS-Office365-Filtering-HT: Tenant
-X-Forefront-Antispam-Report: CIP:165.204.84.17; IPV:NLI; CTRY:US; EFV:NLI;
- SFV:NSPM;
- SFS:(10009020)(4636009)(376002)(396003)(346002)(39860400002)(136003)(428003)(189003)(199004)(8676002)(478600001)(2616005)(1076003)(54906003)(36756003)(450100002)(4326008)(81156014)(336012)(8936002)(86362001)(2906002)(7696005)(186003)(5660300002)(6666004)(81166006)(26005)(426003)(316002)(70206006)(2876002)(70586007)(356004)(6916009)(16060500001);
- DIR:OUT; SFP:1101; SCL:1; SRVR:MWHPR12MB1294; H:SATLEXMB02.amd.com; FPR:;
- SPF:None; LANG:en; PTR:InfoDomainNonexistent; MX:1; A:1; 
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: d5e60196-d25b-4939-1ec0-08d780084a7d
-X-MS-TrafficTypeDiagnostic: MWHPR12MB1294:
-X-Microsoft-Antispam-PRVS: <MWHPR12MB1294EAC5BDC3EC88FB580CABE4540@MWHPR12MB1294.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:7219;
-X-Forefront-PRVS: 0250B840C1
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: nPGcCYySxgOXKUiEn2+R5x97TEoF5+pSr1RjG2gh5wHgzdNi4voghT80L2WSP3sRN/SSGIFcQKn3c8yrM7Flzzlx/9ddDl4M+lBPGWYj7NiOUFOLvzyawceIhi/F5qGvpiLQ/VaYY5gEmcHNoi803lBLwdU5eVAgdN7ImXCYXVOZeMEm28OXG2ZVywtBX/oiBs3G8HB2B/QC21etJBva+6/Xoe3a/r4oxncua3epxOIu34PUi7XDKduTbLG//udPL+fPBLd6oppG6rUhs1U0D2GUowUiFEU9Tc3EG2hLsqQDxLWmHzdOIHTsQS6eEcyTpZ3owrqNrxGZP76MrAorRVQQqGoAQE4wWy9LP0lzqcegNOeYtjOAHBzJ1tBWP8TYeW4QVVeuHg6kcEMZBTZp7Nw6XHlviOqrV+QLvSt4DzoAR6PifYjDrbkL4WgPLLmEyUDzAj0Bu4+6fEJosBw9aAdp7v5irfebVvs7aUDI+A4xsmWfW2n8wK/Ry1da+ef7
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Dec 2019 20:08:59.3181 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d5e60196-d25b-4939-1ec0-08d780084a7d
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB02.amd.com]
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR12MB1294
+References: <20191213161124.24622-1-zhan.liu@amd.com>
+In-Reply-To: <20191213161124.24622-1-zhan.liu@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Fri, 13 Dec 2019 12:10:53 -0500
+Message-ID: <CADnq5_MMqfQoLxTbMhKEKnnNzVhQC_OH077JoEDzQqwwB_oCMQ@mail.gmail.com>
+Subject: Re: [PATCH v3] drm/amd/powerplay: Copy watermark to SMU
+To: Zhan Liu <zhan.liu@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,171 +72,72 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Francis <David.Francis@amd.com>,
- Mikita Lipski <mikita.lipski@amd.com>, dri-devel@lists.freedesktop.org
+Cc: Kevin Wang <Kevin1.Wang@amd.com>, tiancyin <Tianci.Yin@amd.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>, Hersen Wu <hersenxs.wu@amd.com>,
+ "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Quan,
+ Evan" <Evan.Quan@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: David Francis <David.Francis@amd.com>
+On Fri, Dec 13, 2019 at 11:11 AM Zhan Liu <zhan.liu@amd.com> wrote:
+>
+> [Why]
+> Watermark value was expected to copy to SMU
+> within navi10_display_config_changed(). But
+> navi10_display_config_changed() is never called.
+> As a result, the watermark value is never
+> copied to SMU.
+>
+> [How]
+> At end of navi10_set_watermarks_table,
+> copy watermark to SMU.
+>
+> Signed-off-by: Zhan Liu <zhan.liu@amd.com>
 
-With DSC, bpp can be fractional in multiples of 1/16.
+This and the renoir patch are:
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
 
-Change drm_dp_calc_pbn_mode to reflect this, adding a new
-parameter bool dsc. When this parameter is true, treat the
-bpp parameter as having units not of bits per pixel, but
-1/16 of a bit per pixel
+Do we know why this isn't getting setup in the display configuration
+callback?  Are the watermarks static or do the depend on something?
 
-v2: Don't add separate function for this
-v3: In the equation divide bpp by 16 as it is expected
-not to leave any remainder
+Alex
 
-Reviewed-by: Manasi Navare <manasi.d.navare@intel.com>
-Reviewed-by: Lyude Paul <lyude@redhat.com>
-Reviewed-by: Harry Wentland <harry.wentland@amd.com>
-Signed-off-by: David Francis <David.Francis@amd.com>
-Signed-off-by: Mikita Lipski <mikita.lipski@amd.com>
----
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  |  2 +-
- drivers/gpu/drm/drm_dp_mst_topology.c              | 12 +++++++++++-
- drivers/gpu/drm/i915/display/intel_dp_mst.c        |  3 ++-
- drivers/gpu/drm/nouveau/dispnv50/disp.c            |  2 +-
- drivers/gpu/drm/radeon/radeon_dp_mst.c             |  2 +-
- drivers/gpu/drm/selftests/test-drm_dp_mst_helper.c | 10 ++++++----
- include/drm/drm_dp_mst_helper.h                    |  3 +--
- 7 files changed, 23 insertions(+), 11 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 455c51c38720..9fc03fc1017d 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -4967,7 +4967,7 @@ static int dm_encoder_helper_atomic_check(struct drm_encoder *encoder,
- 								    is_y420);
- 		bpp = convert_dc_color_depth_into_bpc(color_depth) * 3;
- 		clock = adjusted_mode->clock;
--		dm_new_connector_state->pbn = drm_dp_calc_pbn_mode(clock, bpp);
-+		dm_new_connector_state->pbn = drm_dp_calc_pbn_mode(clock, bpp, false);
- 	}
- 	dm_new_connector_state->vcpi_slots = drm_dp_atomic_find_vcpi_slots(state,
- 									   mst_mgr,
-diff --git a/drivers/gpu/drm/drm_dp_mst_topology.c b/drivers/gpu/drm/drm_dp_mst_topology.c
-index ae5809a1f19a..363e7e58e7e7 100644
---- a/drivers/gpu/drm/drm_dp_mst_topology.c
-+++ b/drivers/gpu/drm/drm_dp_mst_topology.c
-@@ -4342,10 +4342,11 @@ EXPORT_SYMBOL(drm_dp_check_act_status);
-  * drm_dp_calc_pbn_mode() - Calculate the PBN for a mode.
-  * @clock: dot clock for the mode
-  * @bpp: bpp for the mode.
-+ * @dsc: DSC mode. If true, bpp has units of 1/16 of a bit per pixel
-  *
-  * This uses the formula in the spec to calculate the PBN value for a mode.
-  */
--int drm_dp_calc_pbn_mode(int clock, int bpp)
-+int drm_dp_calc_pbn_mode(int clock, int bpp, bool dsc)
- {
- 	/*
- 	 * margin 5300ppm + 300ppm ~ 0.6% as per spec, factor is 1.006
-@@ -4356,7 +4357,16 @@ int drm_dp_calc_pbn_mode(int clock, int bpp)
- 	 * peak_kbps *= (1006/1000)
- 	 * peak_kbps *= (64/54)
- 	 * peak_kbps *= 8    convert to bytes
-+	 *
-+	 * If the bpp is in units of 1/16, further divide by 16. Put this
-+	 * factor in the numerator rather than the denominator to avoid
-+	 * integer overflow
- 	 */
-+
-+	if (dsc)
-+		return DIV_ROUND_UP_ULL(mul_u32_u32(clock * (bpp / 16), 64 * 1006),
-+					8 * 54 * 1000 * 1000);
-+
- 	return DIV_ROUND_UP_ULL(mul_u32_u32(clock * bpp, 64 * 1006),
- 				8 * 54 * 1000 * 1000);
- }
-diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-index 03d1cba0b696..92be17711287 100644
---- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-@@ -61,7 +61,8 @@ static int intel_dp_mst_compute_link_config(struct intel_encoder *encoder,
- 		crtc_state->pipe_bpp = bpp;
- 
- 		crtc_state->pbn = drm_dp_calc_pbn_mode(adjusted_mode->crtc_clock,
--						       crtc_state->pipe_bpp);
-+						       crtc_state->pipe_bpp,
-+						       false);
- 
- 		slots = drm_dp_atomic_find_vcpi_slots(state, &intel_dp->mst_mgr,
- 						      port, crtc_state->pbn);
-diff --git a/drivers/gpu/drm/nouveau/dispnv50/disp.c b/drivers/gpu/drm/nouveau/dispnv50/disp.c
-index 549486f1d937..1c9e23d5a6fd 100644
---- a/drivers/gpu/drm/nouveau/dispnv50/disp.c
-+++ b/drivers/gpu/drm/nouveau/dispnv50/disp.c
-@@ -782,7 +782,7 @@ nv50_msto_atomic_check(struct drm_encoder *encoder,
- 			const int bpp = connector->display_info.bpc * 3;
- 			const int clock = crtc_state->adjusted_mode.clock;
- 
--			asyh->dp.pbn = drm_dp_calc_pbn_mode(clock, bpp);
-+			asyh->dp.pbn = drm_dp_calc_pbn_mode(clock, bpp, false);
- 		}
- 
- 		slots = drm_dp_atomic_find_vcpi_slots(state, &mstm->mgr,
-diff --git a/drivers/gpu/drm/radeon/radeon_dp_mst.c b/drivers/gpu/drm/radeon/radeon_dp_mst.c
-index ee28f5b3785e..28eef9282874 100644
---- a/drivers/gpu/drm/radeon/radeon_dp_mst.c
-+++ b/drivers/gpu/drm/radeon/radeon_dp_mst.c
-@@ -518,7 +518,7 @@ static bool radeon_mst_mode_fixup(struct drm_encoder *encoder,
- 
- 	mst_enc = radeon_encoder->enc_priv;
- 
--	mst_enc->pbn = drm_dp_calc_pbn_mode(adjusted_mode->clock, bpp);
-+	mst_enc->pbn = drm_dp_calc_pbn_mode(adjusted_mode->clock, bpp, false);
- 
- 	mst_enc->primary->active_device = mst_enc->primary->devices & mst_enc->connector->devices;
- 	DRM_DEBUG_KMS("setting active device to %08x from %08x %08x for encoder %d\n",
-diff --git a/drivers/gpu/drm/selftests/test-drm_dp_mst_helper.c b/drivers/gpu/drm/selftests/test-drm_dp_mst_helper.c
-index af2b2de65316..73fc1c485283 100644
---- a/drivers/gpu/drm/selftests/test-drm_dp_mst_helper.c
-+++ b/drivers/gpu/drm/selftests/test-drm_dp_mst_helper.c
-@@ -18,15 +18,17 @@ int igt_dp_mst_calc_pbn_mode(void *ignored)
- 		int rate;
- 		int bpp;
- 		int expected;
-+		bool dsc;
- 	} test_params[] = {
--		{ 154000, 30, 689 },
--		{ 234000, 30, 1047 },
--		{ 297000, 24, 1063 },
-+		{ 154000, 30, 689, false },
-+		{ 234000, 30, 1047, false },
-+		{ 297000, 24, 1063, false },
- 	};
- 
- 	for (i = 0; i < ARRAY_SIZE(test_params); i++) {
- 		pbn = drm_dp_calc_pbn_mode(test_params[i].rate,
--					   test_params[i].bpp);
-+					   test_params[i].bpp,
-+					   test_params[i].dsc);
- 		FAIL(pbn != test_params[i].expected,
- 		     "Expected PBN %d for clock %d bpp %d, got %d\n",
- 		     test_params[i].expected, test_params[i].rate,
-diff --git a/include/drm/drm_dp_mst_helper.h b/include/drm/drm_dp_mst_helper.h
-index d5fc90b30487..68656913cfe5 100644
---- a/include/drm/drm_dp_mst_helper.h
-+++ b/include/drm/drm_dp_mst_helper.h
-@@ -719,8 +719,7 @@ bool drm_dp_mst_port_has_audio(struct drm_dp_mst_topology_mgr *mgr,
- struct edid *drm_dp_mst_get_edid(struct drm_connector *connector, struct drm_dp_mst_topology_mgr *mgr, struct drm_dp_mst_port *port);
- 
- 
--int drm_dp_calc_pbn_mode(int clock, int bpp);
--
-+int drm_dp_calc_pbn_mode(int clock, int bpp, bool dsc);
- 
- bool drm_dp_mst_allocate_vcpi(struct drm_dp_mst_topology_mgr *mgr,
- 			      struct drm_dp_mst_port *port, int pbn, int slots);
--- 
-2.17.1
-
+> ---
+>  drivers/gpu/drm/amd/powerplay/navi10_ppt.c | 11 +++++++++++
+>  1 file changed, 11 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c b/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
+> index 15403b7979d6..f4cdd78492fa 100644
+> --- a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
+> +++ b/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
+> @@ -1472,6 +1472,17 @@ static int navi10_set_watermarks_table(struct smu_context *smu,
+>                                 clock_ranges->wm_mcif_clocks_ranges[i].wm_set_id;
+>         }
+>
+> +       /* Pass data to smu controller */
+> +       if ((smu->watermarks_bitmap & WATERMARKS_EXIST) &&
+> +                       !(smu->watermarks_bitmap & WATERMARKS_LOADED)) {
+> +               int ret = smu_write_watermarks_table(smu);
+> +               if (ret) {
+> +                       pr_err("Failed to update WMTABLE!");
+> +                       return ret;
+> +               }
+> +               smu->watermarks_bitmap |= WATERMARKS_LOADED;
+> +       }
+> +
+>         return 0;
+>  }
+>
+> --
+> 2.17.1
+>
+> Fix a typo here.
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
