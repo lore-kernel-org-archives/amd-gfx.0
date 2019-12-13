@@ -7,33 +7,32 @@ X-Spam-Status: No, score=-9.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id AE502C7D600
-	for <amd-gfx@archiver.kernel.org>; Fri, 13 Dec 2019 20:39:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0F497C47409
+	for <amd-gfx@archiver.kernel.org>; Fri, 13 Dec 2019 20:44:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id ED31024802
-	for <amd-gfx@archiver.kernel.org>; Fri, 13 Dec 2019 20:39:56 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 4118B206A5
+	for <amd-gfx@archiver.kernel.org>; Fri, 13 Dec 2019 20:44:57 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="1C3FPV9P"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org ED31024802
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="g23DvpYC"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4118B206A5
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 216586EDB3;
-	Fri, 13 Dec 2019 20:23:46 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2062f.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7eaa::62f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EC6D96EDB3;
- Fri, 13 Dec 2019 20:23:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8BCAA6ED01;
+	Fri, 13 Dec 2019 20:09:03 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2056.outbound.protection.outlook.com [40.107.94.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 857DA6ED0F;
+ Fri, 13 Dec 2019 20:09:02 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=cWhRgGTngMXroqBU3hRYR4dVx7MeUbmBYHmWfcwV6I/YURuI4FEihMzW54SANkQ664YC7wWM2NBpYkJh4n6tsiIHjeqQWYZ4MxPln6OesXbTRdMvcTD5dpI/NIWLgOeWlyaVmD9SQ+gsnyYgVLUbprqze56SWVGL5nr8coVPT3oGXPav5FlPvJjdyxim+dpXtWH3QEoqJRqNCkXoGIpEnm04SLImmZY2mC7REyZIf9secjvf67ltyq/34wlab6ClwBs4LKSqweacYUY/cMfh23dDSljsByOmsfGapirNBA6epAkdeJXS08YF6FpQCMCHLA9+ZlChaBT1O/XPGdszgQ==
+ b=LytsxIvtnVNwqwoKfZgEEGwvcXMy8kf2N0Un0PoXBUcFxF7WWbSjUN8pU6LUhqZq0mFYzY/Pw6YpCAeYYAI8FCEK8k46I7GXZgLaqOvZmHxZ8kmTkkgbeIdlvC5+/ZkuvEBhueddBArkoAaCqOKvRek0mwe47DiAqYBQqSTyQAo9vKCBQtw7wu8wUbBnCoNXAAZMmELo7qDA2dgFXNKpPnT2nLSGCSdWyT0XWsPKZptU17Z1SNN5qnxjeo7K3RarxLBEBGSxb3aOh66N46wztZFW7x2/oqao9o/ugh7JvvovbEcs86FVMfDi/LBtrnWYRi1KcIyZgj+j6F9/J0cUdA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+bAGsSniVhFgIW3uf4W2luVTmKF9bUZ/zY5deUTc8DM=;
- b=Knh3cuRKowEDGEYgYIQwGz5fi0eydaoXvAh8gHy3V4gOvy+cyBH/3/S0ues2qHz1uM1ix7zg6G5YILI8hvQuwpGSbSoeSaGekKZBJ2PFnu3HDMaZBJrSHv55mdThWSUZ/DNjuOHdXrzGOajaKXcWmewqaPG+9BAsLScgpC73JAZzDPbuE2mfCfy/ZEcG0RWg/IWbg0xd04y+Xy+9DinUzbjKc8D4gWl3njlVFPW5VSq787kzsw3+KwT+Sb2cx0o0w2K3hGa4VeTRrdS+GJEWv9f1t4BR+tj7mI7w8WpEcrLJlcJK/9KUM7u4OWxEbqFlVLCOM3gyXjOxgovZTTubLA==
+ bh=mCxgvf7Qt+wQO7yeXpmMmiL629J0JOYa5ABTDu4ET/4=;
+ b=llvM86WLYCM53eZnewdLK15KbsgyWM9dLyAtF04QkoHMTkEjf5AKEN5/zrudJgdSEi/CBHzpC8PKNnrUvszg0cG4UmvBhzdkfqLUrSpcpRkS1CKShuneAcsspkp7i8y/reMjLn3K6l4b7v63l/bA2cbXMYrSg8AC8wEQJndLNYOPPlPeJTwf8mJvkv9JgWHO8TwpouBltQiYjSIpDtYIv3KDY1AI++lYe/ZpM8sdD6lqVBeoqUf6kd+YZqbKlVAQwYGwan43nSq23RsMaK80ysAwkC313pjiCo4QZTrLJsjZCAiUXfyUburzQRnnDdIjArQ6b/OrBmJkSW+DfXZ/xg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=permerror action=none header.from=amd.com; dkim=none (message not
@@ -41,40 +40,44 @@ ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+bAGsSniVhFgIW3uf4W2luVTmKF9bUZ/zY5deUTc8DM=;
- b=1C3FPV9PM6z2L+CfBDo5FbbexVCAJl5v7t12LMgzTqMWZqyKghnAJqeSucy+ObRm5azFws4DY3HlZXNZ6So/uoBjPiJvVujrOl0VKY+OofkNh6j8M8I6Bh8zBBt7+cJNl10/kSlwLxGSbqfL+MmFCsI8C9m7l+hJX5FC7utwGac=
-Received: from SN1PR12CA0100.namprd12.prod.outlook.com (2603:10b6:802:21::35)
- by DM5PR12MB1129.namprd12.prod.outlook.com (2603:10b6:3:7a::7) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2516.14; Fri, 13 Dec 2019 20:09:05 +0000
-Received: from BN8NAM11FT003.eop-nam11.prod.protection.outlook.com
- (2a01:111:f400:7eae::208) by SN1PR12CA0100.outlook.office365.com
- (2603:10b6:802:21::35) with Microsoft SMTP Server (version=TLS1_2,
+ bh=mCxgvf7Qt+wQO7yeXpmMmiL629J0JOYa5ABTDu4ET/4=;
+ b=g23DvpYC/ygXt+x49HoAQ3jn2PvuE0Nu4hN/JUHY7mGXb0TsM+K8XVqw9i+WlUCfXUpxLBEPf0nhaTllEfGYSqkqaRF3+G+jT/smoRTbQ1BC8KXx59kUpKff9lbMxqvMcAjC6EDnsNzYjWXz5oho2l2bUTI1jyfiXbjv7n11z0I=
+Received: from SN1PR12CA0069.namprd12.prod.outlook.com (2603:10b6:802:20::40)
+ by CH2PR12MB4231.namprd12.prod.outlook.com (2603:10b6:610:7d::24)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2538.16; Fri, 13 Dec
+ 2019 20:09:01 +0000
+Received: from DM6NAM11FT023.eop-nam11.prod.protection.outlook.com
+ (2a01:111:f400:7eaa::207) by SN1PR12CA0069.outlook.office365.com
+ (2603:10b6:802:20::40) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2538.17 via Frontend
- Transport; Fri, 13 Dec 2019 20:09:05 +0000
+ Transport; Fri, 13 Dec 2019 20:09:00 +0000
 Authentication-Results: spf=none (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
  header.d=none;lists.freedesktop.org; dmarc=permerror action=none
  header.from=amd.com;
 Received-SPF: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
-Received: from SATLEXMB01.amd.com (165.204.84.17) by
- BN8NAM11FT003.mail.protection.outlook.com (10.13.177.90) with Microsoft SMTP
+Received: from SATLEXMB02.amd.com (165.204.84.17) by
+ DM6NAM11FT023.mail.protection.outlook.com (10.13.173.96) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.2538.14 via Frontend Transport; Fri, 13 Dec 2019 20:09:05 +0000
-Received: from SATLEXMB02.amd.com (10.181.40.143) by SATLEXMB01.amd.com
- (10.181.40.142) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.2538.14 via Frontend Transport; Fri, 13 Dec 2019 20:09:00 +0000
+Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB02.amd.com
+ (10.181.40.143) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Fri, 13 Dec
- 2019 14:09:01 -0600
+ 2019 14:09:00 -0600
+Received: from SATLEXMB02.amd.com (10.181.40.143) by SATLEXMB05.amd.com
+ (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Fri, 13 Dec
+ 2019 14:08:59 -0600
 Received: from mlipski-pc.amd.com (10.180.168.240) by SATLEXMB02.amd.com
  (10.181.40.143) with Microsoft SMTP Server id 15.1.1713.5 via Frontend
- Transport; Fri, 13 Dec 2019 14:09:01 -0600
+ Transport; Fri, 13 Dec 2019 14:08:59 -0600
 From: <mikita.lipski@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH v9 08/18] drm/amd/display: Validate DSC caps on MST endpoints
-Date: Fri, 13 Dec 2019 15:08:44 -0500
-Message-ID: <20191213200854.31545-9-mikita.lipski@amd.com>
+Subject: [PATCH v9 04/18] drm/dp_mst: Fill branch->num_ports
+Date: Fri, 13 Dec 2019 15:08:40 -0500
+Message-ID: <20191213200854.31545-5-mikita.lipski@amd.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20191213200854.31545-1-mikita.lipski@amd.com>
 References: <20191213200854.31545-1-mikita.lipski@amd.com>
@@ -83,26 +86,26 @@ X-EOPAttributedMessage: 0
 X-MS-Office365-Filtering-HT: Tenant
 X-Forefront-Antispam-Report: CIP:165.204.84.17; IPV:NLI; CTRY:US; EFV:NLI;
  SFV:NSPM;
- SFS:(10009020)(4636009)(136003)(39860400002)(396003)(346002)(376002)(428003)(199004)(189003)(1076003)(8676002)(5660300002)(36756003)(8936002)(70206006)(81156014)(6916009)(6666004)(81166006)(2906002)(70586007)(4326008)(478600001)(450100002)(86362001)(15650500001)(356004)(26005)(2616005)(316002)(2876002)(7696005)(54906003)(186003)(336012)(426003)(16060500001);
- DIR:OUT; SFP:1101; SCL:1; SRVR:DM5PR12MB1129; H:SATLEXMB01.amd.com; FPR:;
- SPF:None; LANG:en; PTR:InfoDomainNonexistent; A:1; MX:1; 
+ SFS:(10009020)(4636009)(396003)(376002)(346002)(136003)(39860400002)(428003)(189003)(199004)(450100002)(4326008)(316002)(70586007)(54906003)(336012)(8936002)(81166006)(8676002)(70206006)(186003)(81156014)(2876002)(2906002)(26005)(478600001)(86362001)(7696005)(5660300002)(356004)(1076003)(36756003)(426003)(6666004)(6916009)(2616005)(16060500001);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:CH2PR12MB4231; H:SATLEXMB02.amd.com; FPR:;
+ SPF:None; LANG:en; PTR:InfoDomainNonexistent; MX:1; A:1; 
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: aa28cef2-40bb-48d6-7de8-08d780084e1e
-X-MS-TrafficTypeDiagnostic: DM5PR12MB1129:
-X-Microsoft-Antispam-PRVS: <DM5PR12MB1129A3B0E0045EA66BAF3DC7E4540@DM5PR12MB1129.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:6430;
+X-MS-Office365-Filtering-Correlation-Id: 82d4b599-6dd2-4c1b-4de0-08d780084b49
+X-MS-TrafficTypeDiagnostic: CH2PR12MB4231:
+X-Microsoft-Antispam-PRVS: <CH2PR12MB423194CD1FAE3F5ED35782D5E4540@CH2PR12MB4231.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:2657;
 X-Forefront-PRVS: 0250B840C1
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 78FE9sNWwHlT9JmMmfEfUIg6K2acR1F1mCarOOk0TWdKK4PvEIr75UYsizAdw2TvkXCViq3xR/dZEy7FgzX0+tZMlV3/3tmSdZHRgpL00GPZZZFT51mzIJnuehzxW2jHwzoL58mahJ3HLcqPih8i45RQ5jSYL7wu3RypF5XE3TziU9p3LYtrbV+VjJhXWqYQEyCPEiVSAL5keXpTfoy2evdUd7tvmkGep++23sEzO5G74yoySBGYQSXCUsMc9p7mOko3PiDaiNebg6D14A/pW1J7xLv/pTUvw1ZI18lTCi8js0A356I1iepeEgxs7kJIpMm19MjIz9D1iqAgh2mJ4/OFaGDtcG3UTDsyovck03C1To84eccIkIhMJXibEf/RYgmhrcLDAykFA+mdVk/iGqG85A7/JGVLfRWQJQeOkck62XqXwGVz7HG+IVTm3oM0dfTOQa1mvCmz9l0j3JXBfzUGtNPecUYLoLSUzLHMoz5yF0UQZoH1RAItrVSVNTRd
+X-Microsoft-Antispam-Message-Info: AjtKEMjLWRmrhGe9GQUcsDeoedJSLc1m4/GvHc3IhPpmfL9mlFB5NN2LXiKkRGqfZI6PYfvu51p2qLlvOU+JYEwlBpt6wjpqV/EIURo1AX4Ygg9qjHksC0CbK0v6EDwW+P7XVukc4qYUpSX1v65TRM4UJoCnoj63p32rzov73/sDCw470oZJ0h3A9khmOBp1JYq40h4ihytnNcT0c3lR6iftk9DCgZzUjq1nJhO0CI4Yd+ZD+bONGgzK3jnI+hIYceWFWuYFa/kHCxEhztbK0RVMKQtbHs25gfn8y64bgsbAtx0OffNJoMQcgshICH2dTz/M+CgsxcSuLrgECouCIQjqikksc0RHgQ1EzWikqsnMwPQxKq8YO6Sdu4vPZDZbVeS7L531z7ueSHBZ0bNc539dMc1wm6KNHBDrW/ttSkTZiCdTZu2OUX4FVo4juqP+jeFC3BNERWajt7S1avtVrkW9lzqYwDhs8rU6E/9rfmwX9z35n23kdZWtY+yYG9/E
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Dec 2019 20:09:05.4499 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: aa28cef2-40bb-48d6-7de8-08d780084e1e
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Dec 2019 20:09:00.6552 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 82d4b599-6dd2-4c1b-4de0-08d780084b49
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB01.amd.com]
+ Helo=[SATLEXMB02.amd.com]
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1129
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4231
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -123,87 +126,44 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: David Francis <David.Francis@amd.com>
 
-During MST mode enumeration, if a new dc_sink is created,
-populate it with dsc caps as appropriate.
+This field on drm_dp_mst_branch was never filled
 
-Use drm_dp_mst_dsc_aux_for_port to get the raw caps,
-then parse them onto dc_sink with dc_dsc_parse_dsc_dpcd.
+It is initialized to zero when the port is kzallocced.
+When a port is added to the list, increment num_ports,
+and when a port is removed from the list, decrement num_ports.
 
-Reviewed-by: Wenjing Liu <Wenjing.Liu@amd.com>
+v2: remember to decrement on port removal
+v3: don't explicitly init to 0
+v4: move decrement of num_ports to unlink_port function
+
+Reviewed-by: Lyude Paul <lyude@redhat.com>
+Reviewed-by: Harry Wentland <harry.wentland@amd.com>
 Signed-off-by: David Francis <David.Francis@amd.com>
 Signed-off-by: Mikita Lipski <mikita.lipski@amd.com>
 ---
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |  1 +
- .../display/amdgpu_dm/amdgpu_dm_mst_types.c   | 27 ++++++++++++++++++-
- 2 files changed, 27 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/drm_dp_mst_topology.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-index ae36d99d0fb2..b544498d435e 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-@@ -323,6 +323,7 @@ struct amdgpu_dm_connector {
- 	struct drm_dp_mst_port *port;
- 	struct amdgpu_dm_connector *mst_port;
- 	struct amdgpu_encoder *mst_encoder;
-+	struct drm_dp_aux *dsc_aux;
- 
- 	/* TODO see if we can merge with ddc_bus or make a dm_connector */
- 	struct amdgpu_i2c_adapter *i2c;
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-index 81367c869134..7557edee7db0 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-@@ -25,6 +25,7 @@
- 
- #include <linux/version.h>
- #include <drm/drm_atomic_helper.h>
-+#include <drm/drm_dp_mst_helper.h>
- #include "dm_services.h"
- #include "amdgpu.h"
- #include "amdgpu_dm.h"
-@@ -180,6 +181,26 @@ static const struct drm_connector_funcs dm_dp_mst_connector_funcs = {
- 	.early_unregister = amdgpu_dm_mst_connector_early_unregister,
- };
- 
-+static bool validate_dsc_caps_on_connector(struct amdgpu_dm_connector *aconnector)
-+{
-+	struct dc_sink *dc_sink = aconnector->dc_sink;
-+	struct drm_dp_mst_port *port = aconnector->port;
-+	u8 dsc_caps[16] = { 0 };
-+
-+	aconnector->dsc_aux = drm_dp_mst_dsc_aux_for_port(port);
-+
-+	if (!aconnector->dsc_aux)
-+		return false;
-+
-+	if (drm_dp_dpcd_read(aconnector->dsc_aux, DP_DSC_SUPPORT, dsc_caps, 16) < 0)
-+		return false;
-+
-+	if (!dc_dsc_parse_dsc_dpcd(dsc_caps, NULL, &dc_sink->sink_dsc_caps.dsc_dec_caps))
-+		return false;
-+
-+	return true;
-+}
-+
- static int dm_dp_mst_get_modes(struct drm_connector *connector)
+diff --git a/drivers/gpu/drm/drm_dp_mst_topology.c b/drivers/gpu/drm/drm_dp_mst_topology.c
+index ba5328cdc853..5a4c2db15c35 100644
+--- a/drivers/gpu/drm/drm_dp_mst_topology.c
++++ b/drivers/gpu/drm/drm_dp_mst_topology.c
+@@ -2157,6 +2157,7 @@ drm_dp_mst_topology_unlink_port(struct drm_dp_mst_topology_mgr *mgr,
+ 				struct drm_dp_mst_port *port)
  {
- 	struct amdgpu_dm_connector *aconnector = to_amdgpu_dm_connector(connector);
-@@ -222,10 +243,14 @@ static int dm_dp_mst_get_modes(struct drm_connector *connector)
- 		/* dc_link_add_remote_sink returns a new reference */
- 		aconnector->dc_sink = dc_sink;
- 
--		if (aconnector->dc_sink)
-+		if (aconnector->dc_sink) {
- 			amdgpu_dm_update_freesync_caps(
- 					connector, aconnector->edid);
- 
-+			if (!validate_dsc_caps_on_connector(aconnector))
-+				memset(&aconnector->dc_sink->sink_dsc_caps,
-+				       0, sizeof(aconnector->dc_sink->sink_dsc_caps));
-+		}
+ 	mutex_lock(&mgr->lock);
++	port->parent->num_ports--;
+ 	list_del(&port->next);
+ 	mutex_unlock(&mgr->lock);
+ 	drm_dp_mst_topology_put_port(port);
+@@ -2256,6 +2257,7 @@ drm_dp_mst_handle_link_address_port(struct drm_dp_mst_branch *mstb,
+ 		mutex_lock(&mgr->lock);
+ 		drm_dp_mst_topology_get_port(port);
+ 		list_add(&port->next, &mstb->ports);
++		mstb->num_ports++;
+ 		mutex_unlock(&mgr->lock);
  	}
  
- 	drm_connector_update_edid_property(
 -- 
 2.17.1
 
