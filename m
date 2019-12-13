@@ -4,35 +4,35 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-9.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=unavailable
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id AE5B8C2D0CB
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A631AC3E8AC
 	for <amd-gfx@archiver.kernel.org>; Fri, 13 Dec 2019 21:04:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id DF95224671
+	by mail.kernel.org (Postfix) with ESMTPS id DB12324689
 	for <amd-gfx@archiver.kernel.org>; Fri, 13 Dec 2019 21:04:57 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="KkTez9mV"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DF95224671
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="Ek5602wt"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DB12324689
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E6E266ED45;
-	Fri, 13 Dec 2019 20:09:07 +0000 (UTC)
-Received: from NAM04-BN3-obe.outbound.protection.outlook.com
- (mail-eopbgr680046.outbound.protection.outlook.com [40.107.68.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6A48D6ED05;
- Fri, 13 Dec 2019 20:09:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E3CB06ED2E;
+	Fri, 13 Dec 2019 20:09:08 +0000 (UTC)
+Received: from NAM02-SN1-obe.outbound.protection.outlook.com
+ (mail-eopbgr770057.outbound.protection.outlook.com [40.107.77.57])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6D2E36ED19;
+ Fri, 13 Dec 2019 20:09:06 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=PJi00fWLGtiD6VPt12iz+SFktxBbp9ioznsordz9pidxUxuU5iTWrpy+0mo5yUrPS24ETcMCvBkwWhyhvvdEogErIyfwmIoAcugZh25IsL/FYBy6LMIKTTKeCzomrKweVyY4MwT7kCZi3OtuAAZNGiScLvyzUjvEdEjzHfji+EQi5W4S0YiUt5kV5O9SmwPSnlfWrtsIVLR7MrVFcp3qriU9lmOBZZFltIIQwRGsDejgzvOhuTnzCMDPYyOo6OyVCGoJrClONoc4JQgFjacZWnidDcT+ewZ9oFddHjy+KsprRLt9iL4nT47okqaJ96QBef+Cq6geGqcFpYZ6LHIfJw==
+ b=NN94RZEixWjOIlSPokb7WAXclOGs+8HZpT5CMLs9dYrgaMrjLOWfYhzjfl7+pfLtNoiFSt97+l1MEYhviODzPunEzsO2mDC1DLxlhDE/58PRZFgYLAmllk3lvP7cbTBIe3oKkyX3dAsYi6UJBEbCHXOsyQFaT2ZBXeTGyomsRBIc7fZMO6nyrqQOdi0S4PGdZnipA/a8pogfcVZq2Qxo7oHIA+1qgtKyGFKjThQ0VBcR9nkbc+lhLvnOWQse9HCeCUTtMBtnwi+qLdxMSVTne1yQgIT8hAcpxH6GWROoOghrY3PXGHZhhjr509tX0NJRbW1i9BmdInYGA0QAtt6fBg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=oa/rigW/XStSC7qoKmCPMJfLMGySJa3qKMpWWxDPN+g=;
- b=cgQ6gvPJ8VJAUFzcNmU5s5K3mU0An63NNF/RSdOa6T2rebAaTn2sHRvzn0af+8oqM3OCjde3GLidY5zJm8iRrfXEgoit76dIHzlydzzoF2zeJPCw43J4jqCjSVcHlPW/nXsh8ukhPUGy/ftKKPPJvKCBE5yw4ZWLkaHRyNRmcL7+ALh/1VryN9eW2pHtTZgyiJUZ+ekRVMWi+IJpIh6VKWwIcfTbS51pWvIepij1STwKzY3ltwmR5jGREsGvGsynOhsI8nez3x97Lb73wmfsp7go6MaEaLNkS4PPpI/u8bktg+Q/mLwQOQtFax75FM2O286KoKi6YOuEYEr+zsJ6pg==
+ bh=nuZwBT4FSXONYSwg9FxTogn0x2cofHmYJ0uSUzdGln4=;
+ b=G0VusRa3ImtSZDbySVwaVNbCwe8mMmkdtRYbyj6GX9Gjp80pHgaa3oE3ekXBE8CHdmy8TlGdRuGFYNFqnvFx0pBCdFbHfLQXwQTGuIORNioqmt56rpAlWplnw0FQ1N9xmItyXSQAXc38W7NjCuvbDS1NVR8PqplsqMTqFOcwLoGvxRkJtNtW1XRJ52c9jp7S/pp5omaWDB2pJucYz5xLJ2YqWcYS+XkHf2bK7Psa4HYEx8LxBHQWUepshBPdFjQ9FQnKmaUVzSN/lVtBMEH/BruaJakwRPCdZdWwkTy5J/ToPDy2ZV3pG7TH20Xc1/SNTGX2pEyxL4Qk2w04UkfbLA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=permerror action=none header.from=amd.com; dkim=none (message not
@@ -40,44 +40,40 @@ ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=oa/rigW/XStSC7qoKmCPMJfLMGySJa3qKMpWWxDPN+g=;
- b=KkTez9mVzS6bpADa+JT2QaUeqinx+Mupf/ZhWGrwRFvoocNTNS1P4Ipro8gPnNQv+jT1C1PqwwlIaxR8lU5ASwsEotwt7QSQx7FmLkYLfUkqjHInhOnfOfoaBMdldXL60WuUN8c2hdiu4PoNNUrraaHvqQ2s9rKn6Puj7gzjVM0=
-Received: from SN1PR12CA0069.namprd12.prod.outlook.com (2603:10b6:802:20::40)
- by BYAPR12MB2854.namprd12.prod.outlook.com (2603:10b6:a03:135::30)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2538.15; Fri, 13 Dec
- 2019 20:09:00 +0000
-Received: from DM6NAM11FT023.eop-nam11.prod.protection.outlook.com
- (2a01:111:f400:7eaa::207) by SN1PR12CA0069.outlook.office365.com
- (2603:10b6:802:20::40) with Microsoft SMTP Server (version=TLS1_2,
+ bh=nuZwBT4FSXONYSwg9FxTogn0x2cofHmYJ0uSUzdGln4=;
+ b=Ek5602wt50gssJeeAnDLUu8kpM0FiuyY2dUwxVRGgi7v0KVdvONRii1tiHop+b6XH8wuDXpST5m4T2bgJKsS6uYq6zJehj89vhyVUz/lnAnpzVEN0tPzFQOwIufIxGeJiwqHYnRClernPXKQ/ByTjGfExJbPhcVfCS2PbhhvLLU=
+Received: from SN1PR12CA0100.namprd12.prod.outlook.com (2603:10b6:802:21::35)
+ by DM6PR12MB4218.namprd12.prod.outlook.com (2603:10b6:5:21b::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2538.18; Fri, 13 Dec
+ 2019 20:09:03 +0000
+Received: from BN8NAM11FT003.eop-nam11.prod.protection.outlook.com
+ (2a01:111:f400:7eae::208) by SN1PR12CA0100.outlook.office365.com
+ (2603:10b6:802:21::35) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2538.17 via Frontend
- Transport; Fri, 13 Dec 2019 20:09:00 +0000
+ Transport; Fri, 13 Dec 2019 20:09:03 +0000
 Authentication-Results: spf=none (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
  header.d=none;lists.freedesktop.org; dmarc=permerror action=none
  header.from=amd.com;
 Received-SPF: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
-Received: from SATLEXMB02.amd.com (165.204.84.17) by
- DM6NAM11FT023.mail.protection.outlook.com (10.13.173.96) with Microsoft SMTP
+Received: from SATLEXMB01.amd.com (165.204.84.17) by
+ BN8NAM11FT003.mail.protection.outlook.com (10.13.177.90) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.2538.14 via Frontend Transport; Fri, 13 Dec 2019 20:08:59 +0000
-Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB02.amd.com
- (10.181.40.143) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.2538.14 via Frontend Transport; Fri, 13 Dec 2019 20:09:03 +0000
+Received: from SATLEXMB02.amd.com (10.181.40.143) by SATLEXMB01.amd.com
+ (10.181.40.142) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Fri, 13 Dec
- 2019 14:08:59 -0600
-Received: from SATLEXMB02.amd.com (10.181.40.143) by SATLEXMB05.amd.com
- (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Fri, 13 Dec
- 2019 14:08:58 -0600
+ 2019 14:09:01 -0600
 Received: from mlipski-pc.amd.com (10.180.168.240) by SATLEXMB02.amd.com
  (10.181.40.143) with Microsoft SMTP Server id 15.1.1713.5 via Frontend
- Transport; Fri, 13 Dec 2019 14:08:58 -0600
+ Transport; Fri, 13 Dec 2019 14:09:01 -0600
 From: <mikita.lipski@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH v9 02/18] drm/dp_mst: Parse FEC capability on MST ports
-Date: Fri, 13 Dec 2019 15:08:38 -0500
-Message-ID: <20191213200854.31545-3-mikita.lipski@amd.com>
+Subject: [PATCH v9 07/18] drm/amd/display: Initialize DSC PPS variables to 0
+Date: Fri, 13 Dec 2019 15:08:43 -0500
+Message-ID: <20191213200854.31545-8-mikita.lipski@amd.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20191213200854.31545-1-mikita.lipski@amd.com>
 References: <20191213200854.31545-1-mikita.lipski@amd.com>
@@ -86,26 +82,26 @@ X-EOPAttributedMessage: 0
 X-MS-Office365-Filtering-HT: Tenant
 X-Forefront-Antispam-Report: CIP:165.204.84.17; IPV:NLI; CTRY:US; EFV:NLI;
  SFV:NSPM;
- SFS:(10009020)(4636009)(396003)(136003)(39860400002)(376002)(346002)(428003)(199004)(189003)(86362001)(6916009)(8936002)(81156014)(70206006)(186003)(70586007)(26005)(8676002)(2616005)(81166006)(356004)(336012)(5660300002)(6666004)(2906002)(36756003)(2876002)(1076003)(54906003)(426003)(450100002)(7696005)(4326008)(478600001)(316002)(16060500001);
- DIR:OUT; SFP:1101; SCL:1; SRVR:BYAPR12MB2854; H:SATLEXMB02.amd.com; FPR:;
- SPF:None; LANG:en; PTR:InfoDomainNonexistent; A:1; MX:1; 
+ SFS:(10009020)(4636009)(346002)(39860400002)(396003)(376002)(136003)(428003)(189003)(199004)(2906002)(316002)(186003)(54906003)(6916009)(81166006)(2876002)(8676002)(356004)(8936002)(5660300002)(6666004)(7696005)(86362001)(426003)(336012)(4326008)(26005)(81156014)(450100002)(36756003)(70206006)(1076003)(478600001)(70586007)(2616005)(16060500001);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:DM6PR12MB4218; H:SATLEXMB01.amd.com; FPR:;
+ SPF:None; LANG:en; PTR:InfoDomainNonexistent; MX:1; A:1; 
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: cd7844c6-c777-461b-ea66-08d780084adc
-X-MS-TrafficTypeDiagnostic: BYAPR12MB2854:
-X-Microsoft-Antispam-PRVS: <BYAPR12MB285416D2C306AFC840C5F82FE4540@BYAPR12MB2854.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:4714;
+X-MS-Office365-Filtering-Correlation-Id: 1efcef31-0f51-4618-773a-08d780084cda
+X-MS-TrafficTypeDiagnostic: DM6PR12MB4218:
+X-Microsoft-Antispam-PRVS: <DM6PR12MB4218B1A1D28D19C56A4F993BE4540@DM6PR12MB4218.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:345;
 X-Forefront-PRVS: 0250B840C1
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: ZItS2u6JGqJFJhr43HvheaQZ9IEfrba8EkKJWYgpcvtcXdGqLQEe5ouwfPTM67tcEFhBGVMOnZdTTtD+VxtxTsM+UWqlnI7aQ2LB3WnmFQhA+LmceJcLJkK2tolQmT6AReiTr8lBndzzOk6JI9j7rJU4eWa/Yy/lNH/Rucfm0Fj8Kj0HrSI94v/tlgLd8G4SD6Yb0qdXWbbJmMM2gKjdePN1ZmuKs9E5aXA2KAfKx+GXuVgUMc+FgMyi3NSHhE8NCVGBI5MmmdzWzAbNOyhxiXfE1WNzVH/JuNXrIXjU6vOGA56OhsIOrLfFkal+qszErVFkEgKk0sYpUbhyFHOx7HYLt1HVjsjFKLjUMisFOKA5NzAR9Lkyh/T+JD4oB2uqn4tZlxikRy8vLQ9z+gjRTQN1ZTNipi66/pTRQrXGL1arIl1kTqqcqLw3TukUtqFHtRuaaxHgF2B9q4B7IodZnouPHzRq3vjEhqwXtcqcyPiADyqIh+2OfxUx1WYaEIoU
+X-Microsoft-Antispam-Message-Info: qEYxg1nUXPYACwg2yX0UM3lKo0d2M8tb35Fsy2zfzQhe+hrqWBm+wFNaxXdaX9mOSCkoJ5maI/wH9SBLNKFoMtZx1GeJYt3qRFaf3ULj1Ucu7Zkq659wE96NXoNHgfqOBnpZT+Fmx/B37T1JZOTPVx8Xnp7++U4OQ0ppnPKYbqoh3DAmDTAUYBOe/L21hVkQ21LSGHG9HfT7zwUHGnT3P6ovsxPSr9I+uCMytjeFg9DFuSCv75an+UP+X+YNeXaF9FpkJTu+FtUpCO2pQIyWTPilBqU+A3PS/tA397f0eaq1LkJ4FQ/2mmuIwWsOmadppzVln08e07CzrePEZUzS9N6s1kwuyvmdwbauruycODtTVuS724fKhJLgyllXRwccd5f5zr1/68/hlU5FsrjbCeRkSFgivAIIdpMj31vK1ofIaGC43KK5UoL20JB7J0EY5O2EgO399/TJ5eE82516l9HEcI9TGSOiPZeUM2cs0sa3iGvz/i9QAHcrNYvHjQLd
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Dec 2019 20:08:59.9449 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: cd7844c6-c777-461b-ea66-08d780084adc
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Dec 2019 20:09:03.3253 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1efcef31-0f51-4618-773a-08d780084cda
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB02.amd.com]
+ Helo=[SATLEXMB01.amd.com]
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB2854
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4218
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -126,67 +122,49 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: David Francis <David.Francis@amd.com>
 
-As of DP1.4, ENUM_PATH_RESOURCES returns a bit indicating
-if FEC can be supported up to that point in the MST network.
+For DSC MST, sometimes monitors would break out
+in full-screen static. The issue traced back to the
+PPS generation code, where these variables were being used
+uninitialized and were picking up garbage.
 
-The bit is the first byte of the ENUM_PATH_RESOURCES ack reply,
-bottom-most bit (refer to section 2.11.9.4 of DP standard,
-v1.4)
+memset to 0 to avoid this
 
-That value is needed for FEC and DSC support
-
-Store it on drm_dp_mst_port
-
-Reviewed-by: Lyude Paul <lyude@redhat.com>
-Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+Reviewed-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
 Signed-off-by: David Francis <David.Francis@amd.com>
 Signed-off-by: Mikita Lipski <mikita.lipski@amd.com>
 ---
- drivers/gpu/drm/drm_dp_mst_topology.c | 2 ++
- include/drm/drm_dp_mst_helper.h       | 3 +++
- 2 files changed, 5 insertions(+)
+ drivers/gpu/drm/amd/display/dc/core/dc_link_hwss.c | 3 +++
+ drivers/gpu/drm/amd/display/dc/dcn20/dcn20_dsc.c   | 3 +++
+ 2 files changed, 6 insertions(+)
 
-diff --git a/drivers/gpu/drm/drm_dp_mst_topology.c b/drivers/gpu/drm/drm_dp_mst_topology.c
-index 363e7e58e7e7..ba5328cdc853 100644
---- a/drivers/gpu/drm/drm_dp_mst_topology.c
-+++ b/drivers/gpu/drm/drm_dp_mst_topology.c
-@@ -846,6 +846,7 @@ static bool drm_dp_sideband_parse_enum_path_resources_ack(struct drm_dp_sideband
- {
- 	int idx = 1;
- 	repmsg->u.path_resources.port_number = (raw->msg[idx] >> 4) & 0xf;
-+	repmsg->u.path_resources.fec_capable = raw->msg[idx] & 0x1;
- 	idx++;
- 	if (idx > raw->curlen)
- 		goto fail_len;
-@@ -2894,6 +2895,7 @@ drm_dp_send_enum_path_resources(struct drm_dp_mst_topology_mgr *mgr,
- 				      path_res->avail_payload_bw_number);
- 			port->available_pbn =
- 				path_res->avail_payload_bw_number;
-+			port->fec_capable = path_res->fec_capable;
- 		}
- 	}
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_hwss.c b/drivers/gpu/drm/amd/display/dc/core/dc_link_hwss.c
+index 548aac02ca11..4fd51c76317a 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_link_hwss.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_link_hwss.c
+@@ -518,6 +518,9 @@ bool dp_set_dsc_pps_sdp(struct pipe_ctx *pipe_ctx, bool enable)
+ 		struct dsc_config dsc_cfg;
+ 		uint8_t dsc_packed_pps[128];
  
-diff --git a/include/drm/drm_dp_mst_helper.h b/include/drm/drm_dp_mst_helper.h
-index 68656913cfe5..0cada01e8139 100644
---- a/include/drm/drm_dp_mst_helper.h
-+++ b/include/drm/drm_dp_mst_helper.h
-@@ -156,6 +156,8 @@ struct drm_dp_mst_port {
- 	 * audio-capable.
- 	 */
- 	bool has_audio;
++		memset(&dsc_cfg, 0, sizeof(dsc_cfg));
++		memset(dsc_packed_pps, 0, 128);
 +
-+	bool fec_capable;
- };
+ 		/* Enable DSC hw block */
+ 		dsc_cfg.pic_width = stream->timing.h_addressable + stream->timing.h_border_left + stream->timing.h_border_right;
+ 		dsc_cfg.pic_height = stream->timing.v_addressable + stream->timing.v_border_top + stream->timing.v_border_bottom;
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_dsc.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_dsc.c
+index 0111545dac75..6bdfee20b6a7 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_dsc.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_dsc.c
+@@ -206,6 +206,9 @@ static bool dsc2_get_packed_pps(struct display_stream_compressor *dsc, const str
+ 	struct dsc_reg_values dsc_reg_vals;
+ 	struct dsc_optc_config dsc_optc_cfg;
  
- /**
-@@ -383,6 +385,7 @@ struct drm_dp_port_number_req {
- 
- struct drm_dp_enum_path_resources_ack_reply {
- 	u8 port_number;
-+	bool fec_capable;
- 	u16 full_payload_bw_number;
- 	u16 avail_payload_bw_number;
- };
++	memset(&dsc_reg_vals, 0, sizeof(dsc_reg_vals));
++	memset(&dsc_optc_cfg, 0, sizeof(dsc_optc_cfg));
++
+ 	DC_LOG_DSC("Getting packed DSC PPS for DSC Config:");
+ 	dsc_config_log(dsc, dsc_cfg);
+ 	DC_LOG_DSC("DSC Picture Parameter Set (PPS):");
 -- 
 2.17.1
 
