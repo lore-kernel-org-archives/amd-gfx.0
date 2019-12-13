@@ -2,94 +2,78 @@ Return-Path: <SRS0=wwPX=2D=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+X-Spam-Status: No, score=-7.8 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 132B3C43603
-	for <amd-gfx@archiver.kernel.org>; Fri, 13 Dec 2019 08:54:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6CE17C43603
+	for <amd-gfx@archiver.kernel.org>; Fri, 13 Dec 2019 10:15:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D007A206B7
-	for <amd-gfx@archiver.kernel.org>; Fri, 13 Dec 2019 08:54:12 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 3E4AD2073D
+	for <amd-gfx@archiver.kernel.org>; Fri, 13 Dec 2019 10:15:30 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="UpnFOX5L"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D007A206B7
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HB3dE3hA"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3E4AD2073D
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7D5156E28A;
-	Fri, 13 Dec 2019 08:54:12 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2044.outbound.protection.outlook.com [40.107.236.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0D02F6E28A
- for <amd-gfx@lists.freedesktop.org>; Fri, 13 Dec 2019 08:54:10 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=cEFvmS+h0YkYxWKa0P7bHoK5OCRlgreuDxGSxSut8q48YYRZ8b8na+5xd6m4nMzfOwe/FAi95e4GrmdIkWZi9N3bbMFa1nl0zZVuuNbcGPgb7sJVu0bvvNQHzb8A/b2G8XWPXy1LPyYOC4hD6agqhKWn0YiEWNk6LKjC4b7ethMz8KdLpTsqJ5NTwTGD6rTX2BY9wCOLe378pUFvIWjBs/liVOp26JRyAjEfsRnwP43owvECHgcmTmsSXcWFUU+TuPNMSSPh27KkxMb99juiQ+uhbGgJaScoT7YSiPUYL3ifjxglFmdkyzvI64x340/UbJ5TK7y+e3XTTEcsUsKLyw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=V+pzSQsDjRY+NdmXCRPaCPxySfJezmXJAKHmV4taETw=;
- b=oeajkBQTxqDsIcBYYy9/JC3mQreK39cbzH0cslvOhFISniYpV6qxTmXw5Irw5WtJeop21mPIgHdDkw/+5Tu2puZ23AR/lcSW1UijUns7MMRKEu1QevI/p92u/tlszP2YfBNcURdIsKMGdStOBkoExpm55Hl6rMqZxFilUwMA/yM24aDFKgtRKdwmW0K8cqXeXEGSbi6WYjVwRnFhONdV3+5pwzpaM22f5b++DSVvrqHyAQpoagnv7siiaISCEAzWLgf4FtMNyHaTFfCUkoLl6vsqqIotPmyqUzvT5FUhmabADLGexrtR9MrkzqmaoI+1J0B84EgseoX2jNGFTEuwVQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=V+pzSQsDjRY+NdmXCRPaCPxySfJezmXJAKHmV4taETw=;
- b=UpnFOX5LnZJal5F/qNEVU/xFiYmbn8+qcKRNBx9oyUDWdV3A42VJmdQaCSm/6mutsdlor6r7NFIOSwpmjF3iFfYioLBiWn7dl5xqN8fTXdBB7mRp7dc1UCvLwWW4S5IY/34bTok4dAUJT05FOIepznAnl+Af4S0YXi3EiwiGtLs=
-Authentication-Results: spf=none (sender IP is )
- smtp.mailfrom=Guchun.Chen@amd.com; 
-Received: from BYAPR12MB2806.namprd12.prod.outlook.com (20.176.254.20) by
- BYAPR12MB2967.namprd12.prod.outlook.com (20.178.52.216) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2538.15; Fri, 13 Dec 2019 08:54:08 +0000
-Received: from BYAPR12MB2806.namprd12.prod.outlook.com
- ([fe80::bccf:40ec:3b93:4269]) by BYAPR12MB2806.namprd12.prod.outlook.com
- ([fe80::bccf:40ec:3b93:4269%6]) with mapi id 15.20.2516.018; Fri, 13 Dec 2019
- 08:54:08 +0000
-From: Guchun Chen <guchun.chen@amd.com>
-To: Hawking.Zhang@amd.com, Le.Ma@amd.com, Tao.Zhou1@amd.com,
- alexander.deucher@amd.com, amd-gfx@lists.freedesktop.org
-Subject: [PATCH] drm/amdgpu: drop useless BACO arg in amdgpu_ras_reset_gpu
-Date: Fri, 13 Dec 2019 16:53:34 +0800
-Message-Id: <20191213085334.17618-1-guchun.chen@amd.com>
-X-Mailer: git-send-email 2.17.1
-X-ClientProxiedBy: HK2PR02CA0156.apcprd02.prod.outlook.com
- (2603:1096:201:1f::16) To BYAPR12MB2806.namprd12.prod.outlook.com
- (2603:10b6:a03:70::20)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2D6C06E30E;
+	Fri, 13 Dec 2019 10:15:30 +0000 (UTC)
+Received: from mail-wm1-x341.google.com (mail-wm1-x341.google.com
+ [IPv6:2a00:1450:4864:20::341])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CCD826E30E
+ for <amd-gfx@lists.freedesktop.org>; Fri, 13 Dec 2019 10:15:29 +0000 (UTC)
+Received: by mail-wm1-x341.google.com with SMTP id f4so5625680wmj.1
+ for <amd-gfx@lists.freedesktop.org>; Fri, 13 Dec 2019 02:15:29 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=reply-to:subject:to:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-transfer-encoding:content-language;
+ bh=H4fcYORjcDKMoYDVfJjLZFZ/WIysXGCfY9GPfTbDflg=;
+ b=HB3dE3hAUku4p9hCdh3pBluTKdZkJOZVFIBCK7GO+fJ7/nwwHKPqESCXnqTaUyIuOI
+ xittJNuAr0T4G8Weg2rx4sPjXMsHPUj1MxHxBn4L+Sf2hleJYtGE1NnmQnn9GXmYKZhN
+ m/egeHtvNM4VNFBRJpbSAFdVLJEtszT9JM8MEmuIe4PaayIyK6f63392rPSHhNgwbxpM
+ WneiLkAr0m5Z6pdljIbC+UHpvXiR0zE9iBS+R1buynAeKEW6Kz+2GROlqZ/6K+K1sSb8
+ aqvMuZkXhC36xi2eBFwn4DOBSHbVPbkpDEF5sbD/jaVzmxVOV0pRD8FQT1zmjchlz3zY
+ 47+g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:reply-to:subject:to:references:from:message-id
+ :date:user-agent:mime-version:in-reply-to:content-transfer-encoding
+ :content-language;
+ bh=H4fcYORjcDKMoYDVfJjLZFZ/WIysXGCfY9GPfTbDflg=;
+ b=oyWy5dIldMxPD5WmQTeI8vf3nEem7+5vljPEKw/6GVpHTiV8BbYNdAA2pFUc4JSBPi
+ gkKkSO9f47ItqfsGSq4K9tDTj+wnyPE19W6BoXRk0GpWKvGz8k534l7QBlf9x9lXe92T
+ 09pzmT2dJq2OpdTHyCTHuwk0HSNMfvMZtb3eZdgBeXS5Bb0fZlCC8X/+h84i+RAwHdQJ
+ DVUen9K25NOwemf1ExaX2N9YxSWm8t+IwnhpgkpNw1qaF0h+ICMEqRRL75KtoHzvRe+q
+ G5sK8vmHdm5Psu++hPbuSgE7voCFVFIRzM3b8T8SrJ3N0kHhe+Fvf9E53FjPrTTKVZh3
+ CYEg==
+X-Gm-Message-State: APjAAAVfWGnCNGES6fDX+H4Kl1GQKTTpeubr/lt2xL7tzYBF/O8ikhIq
+ p5W0uQkIXxRHZZmzZaY6VPiu0DIS
+X-Google-Smtp-Source: APXvYqxJm6KMKc9prWF6DWi7bKIpuzPEkU89mqLeJ8bSiykHbVHNUCkJLcdI5TG4Cm33Zfd9Y8IIaQ==
+X-Received: by 2002:a1c:2745:: with SMTP id n66mr12482896wmn.171.1576232128097; 
+ Fri, 13 Dec 2019 02:15:28 -0800 (PST)
+Received: from ?IPv6:2a02:908:1252:fb60:be8a:bd56:1f94:86e7?
+ ([2a02:908:1252:fb60:be8a:bd56:1f94:86e7])
+ by smtp.gmail.com with ESMTPSA id g7sm9495572wrq.21.2019.12.13.02.15.27
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Fri, 13 Dec 2019 02:15:27 -0800 (PST)
+Subject: Re: [PATCH 1/2] drm/amdgpu/vcn1.0: use its own idle handler and begin
+ use funcs
+To: Leo Liu <leo.liu@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20191211194824.11146-1-leo.liu@amd.com>
+ <20191212160649.20375-1-leo.liu@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+Message-ID: <229885da-a5bc-5d12-f7a3-bcbbbe4bc57f@gmail.com>
+Date: Fri, 13 Dec 2019 11:15:25 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.9.0
 MIME-Version: 1.0
-X-Mailer: git-send-email 2.17.1
-X-Originating-IP: [180.167.199.189]
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 472b8241-d2fc-478f-62c1-08d77faa03c3
-X-MS-TrafficTypeDiagnostic: BYAPR12MB2967:|BYAPR12MB2967:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <BYAPR12MB296790141C9C4CFEB96D98F1F1540@BYAPR12MB2967.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:454;
-X-Forefront-PRVS: 0250B840C1
-X-Forefront-Antispam-Report: SFV:NSPM;
- SFS:(10009020)(4636009)(366004)(136003)(396003)(376002)(39860400002)(346002)(189003)(199004)(26005)(1076003)(6486002)(186003)(66946007)(6666004)(66556008)(52116002)(478600001)(6506007)(66476007)(36756003)(81166006)(44832011)(81156014)(2616005)(8676002)(2906002)(4326008)(8936002)(86362001)(316002)(6512007)(5660300002);
- DIR:OUT; SFP:1101; SCL:1; SRVR:BYAPR12MB2967;
- H:BYAPR12MB2806.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; MX:1; A:1; 
-Received-SPF: None (protection.outlook.com: amd.com does not designate
- permitted sender hosts)
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: uY1dHN97LFgueRZYviHr2wXc9kBk0SWhJPb4sav4xlTOLc8+HnRra5h7ytgr/tbvvUoRLjo7J34gFulMMbjRklJfo3QgIUs0qiJgilvonoFAMyfvuiV3J4Wk4UfjMFulKsfG/PNmeIF8DRmgIRZ+LIwPMDTykc8ljPzG+o2SC0TWfYgKoxp3vmbkiVkEMs8vQf7yGvI0faHTZfdQEhJXXOZ8q05U8MsQIejrs8n2MnvblobEe3oexZ9QvGE29VG13nkBcer1leR5VezdErcdu7n6GuUBgRR+gwjaIHpVJaRYjq8IZ/HdorlLBk2Jy0qsYFX8A65cPQzWsBwel5AzxWZNAOUVVlqHUX4QaPBFzfdz2LvpwaAKA1Ke4oCWfyC74uWCr52I9Czx4mKWhDkcG1wBTa10He8WrIiDEJn55lf2OgsMlbvYauzbRi9oRdG4
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 472b8241-d2fc-478f-62c1-08d77faa03c3
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Dec 2019 08:54:08.3946 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: OSyppuF+6b2KHz++LSUjx6dm3mNz/j59+PGpil0nN5uV6jCuqtMgOSv2RDj1X1q4V496XvmJYXDe5vwYsqmMuw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB2967
+In-Reply-To: <20191212160649.20375-1-leo.liu@amd.com>
+Content-Language: en-US
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,115 +85,242 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Guchun Chen <guchun.chen@amd.com>
-Content-Type: text/plain; charset="us-ascii"
+Reply-To: christian.koenig@amd.com
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-BACO reset mode strategy is determined by latter func when
-calling amdgpu_ras_reset_gpu. So not to confuse audience, drop
-it.
+Am 12.12.19 um 17:06 schrieb Leo Liu:
+> Because VCN1.0 power management and DPG mode are managed together with
+> JPEG1.0 under both HW and FW, so separated them from general VCN code.
+> Also the multiple instances case got removed, since VCN1.0 HW just have
+> a single instance.
+>
+> Signed-off-by: Leo Liu <leo.liu@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c |  7 +-
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h |  3 +
+>   drivers/gpu/drm/amd/amdgpu/jpeg_v1_0.c  |  3 +-
+>   drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c   | 88 ++++++++++++++++++++++++-
+>   drivers/gpu/drm/amd/amdgpu/vcn_v1_0.h   |  2 +
+>   5 files changed, 96 insertions(+), 7 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
+> index 428cfd58b37d..e962c87d04cf 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
+> @@ -39,9 +39,6 @@
+>   #include "vcn/vcn_1_0_offset.h"
+>   #include "vcn/vcn_1_0_sh_mask.h"
+>   
+> -/* 1 second timeout */
+> -#define VCN_IDLE_TIMEOUT	msecs_to_jiffies(1000)
+> -
+>   /* Firmware Names */
+>   #define FIRMWARE_RAVEN		"amdgpu/raven_vcn.bin"
+>   #define FIRMWARE_PICASSO	"amdgpu/picasso_vcn.bin"
+> @@ -71,7 +68,9 @@ int amdgpu_vcn_sw_init(struct amdgpu_device *adev)
+>   	unsigned char fw_check;
+>   	int i, r;
+>   
+> -	INIT_DELAYED_WORK(&adev->vcn.idle_work, amdgpu_vcn_idle_work_handler);
+> +	/* For VCN2.0 and above */
+> +	if (adev->asic_type >= CHIP_ARCTURUS)
+> +		INIT_DELAYED_WORK(&adev->vcn.idle_work, amdgpu_vcn_idle_work_handler);
 
-Signed-off-by: Guchun Chen <guchun.chen@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c  | 2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c  | 4 ++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h  | 3 +--
- drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c | 2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c  | 2 +-
- drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c   | 2 +-
- 6 files changed, 7 insertions(+), 8 deletions(-)
+Initializing the work structure twice is indeed not a good idea, but I 
+think we could just override the work function in vcn_v1_0_sw_init() 
+after calling vcn_v1_0_sw_init().
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-index 52c27e49bc7b..056c7e7a6040 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-@@ -641,7 +641,7 @@ int amdgpu_gfx_process_ras_data_cb(struct amdgpu_device *adev,
- 		kgd2kfd_set_sram_ecc_flag(adev->kfd.dev);
- 		if (adev->gfx.funcs->query_ras_error_count)
- 			adev->gfx.funcs->query_ras_error_count(adev, err_data);
--		amdgpu_ras_reset_gpu(adev, 0);
-+		amdgpu_ras_reset_gpu(adev);
- 	}
- 	return AMDGPU_RAS_SUCCESS;
- }
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-index 3f4ba408aee0..e9f8decfbc69 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-@@ -1872,7 +1872,7 @@ void amdgpu_ras_resume(struct amdgpu_device *adev)
- 		 * See feature_enable_on_boot
- 		 */
- 		amdgpu_ras_disable_all_features(adev, 1);
--		amdgpu_ras_reset_gpu(adev, 0);
-+		amdgpu_ras_reset_gpu(adev);
- 	}
- }
- 
-@@ -1935,6 +1935,6 @@ void amdgpu_ras_global_ras_isr(struct amdgpu_device *adev)
- 	if (atomic_cmpxchg(&amdgpu_ras_in_intr, 0, 1) == 0) {
- 		DRM_WARN("RAS event of type ERREVENT_ATHUB_INTERRUPT detected!\n");
- 
--		amdgpu_ras_reset_gpu(adev, false);
-+		amdgpu_ras_reset_gpu(adev);
- 	}
- }
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
-index d4ade4739245..a5fe29a9373e 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
-@@ -494,8 +494,7 @@ int amdgpu_ras_add_bad_pages(struct amdgpu_device *adev,
- 
- int amdgpu_ras_reserve_bad_pages(struct amdgpu_device *adev);
- 
--static inline int amdgpu_ras_reset_gpu(struct amdgpu_device *adev,
--		bool is_baco)
-+static inline int amdgpu_ras_reset_gpu(struct amdgpu_device *adev)
- {
- 	struct amdgpu_ras *ras = amdgpu_ras_get_context(adev);
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
-index 6361b2c9ae1a..9bbe819de46a 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
-@@ -160,7 +160,7 @@ int amdgpu_sdma_process_ras_data_cb(struct amdgpu_device *adev,
- 		struct amdgpu_iv_entry *entry)
- {
- 	kgd2kfd_set_sram_ecc_flag(adev->kfd.dev);
--	amdgpu_ras_reset_gpu(adev, 0);
-+	amdgpu_ras_reset_gpu(adev);
- 
- 	return AMDGPU_RAS_SUCCESS;
- }
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c
-index d4fb9cf27e21..8a6c733d170c 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c
-@@ -132,7 +132,7 @@ int amdgpu_umc_process_ras_data_cb(struct amdgpu_device *adev,
- 						err_data->err_addr_cnt))
- 			DRM_WARN("Failed to add ras bad page!\n");
- 
--		amdgpu_ras_reset_gpu(adev, 0);
-+		amdgpu_ras_reset_gpu(adev);
- 	}
- 
- 	kfree(err_data->err_addr);
-diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c b/drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c
-index bb701dbfd472..7091782266b9 100644
---- a/drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c
-+++ b/drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c
-@@ -339,7 +339,7 @@ static void nbio_v7_4_handle_ras_controller_intr_no_bifring(struct amdgpu_device
- 		/* ras_controller_int is dedicated for nbif ras error,
- 		 * not the global interrupt for sync flood
- 		 */
--		amdgpu_ras_reset_gpu(adev, true);
-+		amdgpu_ras_reset_gpu(adev);
- 	}
- }
- 
--- 
-2.17.1
+Apart from that the series looks good to me,
+Christian.
+
+>   
+>   	switch (adev->asic_type) {
+>   	case CHIP_RAVEN:
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h
+> index 402a5046b985..3484ead62046 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h
+> @@ -56,6 +56,9 @@
+>   #define VCN_VID_IP_ADDRESS_2_0		0x0
+>   #define VCN_AON_IP_ADDRESS_2_0		0x30000
+>   
+> +/* 1 second timeout */
+> +#define VCN_IDLE_TIMEOUT	msecs_to_jiffies(1000)
+> +
+>   #define RREG32_SOC15_DPG_MODE(ip, inst, reg, mask, sram_sel) 				\
+>   	({	WREG32_SOC15(ip, inst, mmUVD_DPG_LMA_MASK, mask); 			\
+>   		WREG32_SOC15(ip, inst, mmUVD_DPG_LMA_CTL, 				\
+> diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v1_0.c b/drivers/gpu/drm/amd/amdgpu/jpeg_v1_0.c
+> index a141408dfb23..0debfd9f428c 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/jpeg_v1_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v1_0.c
+> @@ -25,6 +25,7 @@
+>   #include "amdgpu_jpeg.h"
+>   #include "soc15.h"
+>   #include "soc15d.h"
+> +#include "vcn_v1_0.h"
+>   
+>   #include "vcn/vcn_1_0_offset.h"
+>   #include "vcn/vcn_1_0_sh_mask.h"
+> @@ -561,7 +562,7 @@ static const struct amdgpu_ring_funcs jpeg_v1_0_decode_ring_vm_funcs = {
+>   	.insert_start = jpeg_v1_0_decode_ring_insert_start,
+>   	.insert_end = jpeg_v1_0_decode_ring_insert_end,
+>   	.pad_ib = amdgpu_ring_generic_pad_ib,
+> -	.begin_use = amdgpu_vcn_ring_begin_use,
+> +	.begin_use = vcn_v1_0_ring_begin_use,
+>   	.end_use = amdgpu_vcn_ring_end_use,
+>   	.emit_wreg = jpeg_v1_0_decode_ring_emit_wreg,
+>   	.emit_reg_wait = jpeg_v1_0_decode_ring_emit_reg_wait,
+> diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
+> index 652cecc030b3..7395286540e1 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
+> @@ -25,6 +25,7 @@
+>   
+>   #include "amdgpu.h"
+>   #include "amdgpu_vcn.h"
+> +#include "amdgpu_pm.h"
+>   #include "soc15.h"
+>   #include "soc15d.h"
+>   #include "soc15_common.h"
+> @@ -51,6 +52,8 @@ static int vcn_v1_0_set_powergating_state(void *handle, enum amd_powergating_sta
+>   static int vcn_v1_0_pause_dpg_mode(struct amdgpu_device *adev,
+>   				struct dpg_pause_state *new_state);
+>   
+> +static void vcn_v1_0_idle_work_handler(struct work_struct *work);
+> +
+>   /**
+>    * vcn_v1_0_early_init - set function pointers
+>    *
+> @@ -101,6 +104,7 @@ static int vcn_v1_0_sw_init(void *handle)
+>   			return r;
+>   	}
+>   
+> +	INIT_DELAYED_WORK(&adev->vcn.idle_work, vcn_v1_0_idle_work_handler);
+>   	r = amdgpu_vcn_sw_init(adev);
+>   	if (r)
+>   		return r;
+> @@ -1758,6 +1762,86 @@ static int vcn_v1_0_set_powergating_state(void *handle,
+>   	return ret;
+>   }
+>   
+> +static void vcn_v1_0_idle_work_handler(struct work_struct *work)
+> +{
+> +	struct amdgpu_device *adev =
+> +		container_of(work, struct amdgpu_device, vcn.idle_work.work);
+> +	unsigned int fences = 0, i;
+> +
+> +	for (i = 0; i < adev->vcn.num_enc_rings; ++i)
+> +		fences += amdgpu_fence_count_emitted(&adev->vcn.inst->ring_enc[i]);
+> +
+> +	if (adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG) {
+> +		struct dpg_pause_state new_state;
+> +
+> +		if (fences)
+> +			new_state.fw_based = VCN_DPG_STATE__PAUSE;
+> +		else
+> +			new_state.fw_based = VCN_DPG_STATE__UNPAUSE;
+> +
+> +		if (amdgpu_fence_count_emitted(&adev->jpeg.inst->ring_dec))
+> +			new_state.jpeg = VCN_DPG_STATE__PAUSE;
+> +		else
+> +			new_state.jpeg = VCN_DPG_STATE__UNPAUSE;
+> +
+> +		adev->vcn.pause_dpg_mode(adev, &new_state);
+> +	}
+> +
+> +	fences += amdgpu_fence_count_emitted(&adev->jpeg.inst->ring_dec);
+> +	fences += amdgpu_fence_count_emitted(&adev->vcn.inst->ring_dec);
+> +
+> +	if (fences == 0) {
+> +		amdgpu_gfx_off_ctrl(adev, true);
+> +		if (adev->pm.dpm_enabled)
+> +			amdgpu_dpm_enable_uvd(adev, false);
+> +		else
+> +			amdgpu_device_ip_set_powergating_state(adev, AMD_IP_BLOCK_TYPE_VCN,
+> +			       AMD_PG_STATE_GATE);
+> +	} else {
+> +		schedule_delayed_work(&adev->vcn.idle_work, VCN_IDLE_TIMEOUT);
+> +	}
+> +}
+> +
+> +void vcn_v1_0_ring_begin_use(struct amdgpu_ring *ring)
+> +{
+> +	struct amdgpu_device *adev = ring->adev;
+> +	bool set_clocks = !cancel_delayed_work_sync(&adev->vcn.idle_work);
+> +
+> +	if (set_clocks) {
+> +		amdgpu_gfx_off_ctrl(adev, false);
+> +		if (adev->pm.dpm_enabled)
+> +			amdgpu_dpm_enable_uvd(adev, true);
+> +		else
+> +			amdgpu_device_ip_set_powergating_state(adev, AMD_IP_BLOCK_TYPE_VCN,
+> +			       AMD_PG_STATE_UNGATE);
+> +	}
+> +
+> +	if (adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG) {
+> +		struct dpg_pause_state new_state;
+> +		unsigned int fences = 0, i;
+> +
+> +		for (i = 0; i < adev->vcn.num_enc_rings; ++i)
+> +			fences += amdgpu_fence_count_emitted(&adev->vcn.inst->ring_enc[i]);
+> +
+> +		if (fences)
+> +			new_state.fw_based = VCN_DPG_STATE__PAUSE;
+> +		else
+> +			new_state.fw_based = VCN_DPG_STATE__UNPAUSE;
+> +
+> +		if (amdgpu_fence_count_emitted(&adev->jpeg.inst->ring_dec))
+> +			new_state.jpeg = VCN_DPG_STATE__PAUSE;
+> +		else
+> +			new_state.jpeg = VCN_DPG_STATE__UNPAUSE;
+> +
+> +		if (ring->funcs->type == AMDGPU_RING_TYPE_VCN_ENC)
+> +			new_state.fw_based = VCN_DPG_STATE__PAUSE;
+> +		else if (ring->funcs->type == AMDGPU_RING_TYPE_VCN_JPEG)
+> +			new_state.jpeg = VCN_DPG_STATE__PAUSE;
+> +
+> +		adev->vcn.pause_dpg_mode(adev, &new_state);
+> +	}
+> +}
+> +
+>   static const struct amd_ip_funcs vcn_v1_0_ip_funcs = {
+>   	.name = "vcn_v1_0",
+>   	.early_init = vcn_v1_0_early_init,
+> @@ -1804,7 +1888,7 @@ static const struct amdgpu_ring_funcs vcn_v1_0_dec_ring_vm_funcs = {
+>   	.insert_start = vcn_v1_0_dec_ring_insert_start,
+>   	.insert_end = vcn_v1_0_dec_ring_insert_end,
+>   	.pad_ib = amdgpu_ring_generic_pad_ib,
+> -	.begin_use = amdgpu_vcn_ring_begin_use,
+> +	.begin_use = vcn_v1_0_ring_begin_use,
+>   	.end_use = amdgpu_vcn_ring_end_use,
+>   	.emit_wreg = vcn_v1_0_dec_ring_emit_wreg,
+>   	.emit_reg_wait = vcn_v1_0_dec_ring_emit_reg_wait,
+> @@ -1836,7 +1920,7 @@ static const struct amdgpu_ring_funcs vcn_v1_0_enc_ring_vm_funcs = {
+>   	.insert_nop = amdgpu_ring_insert_nop,
+>   	.insert_end = vcn_v1_0_enc_ring_insert_end,
+>   	.pad_ib = amdgpu_ring_generic_pad_ib,
+> -	.begin_use = amdgpu_vcn_ring_begin_use,
+> +	.begin_use = vcn_v1_0_ring_begin_use,
+>   	.end_use = amdgpu_vcn_ring_end_use,
+>   	.emit_wreg = vcn_v1_0_enc_ring_emit_wreg,
+>   	.emit_reg_wait = vcn_v1_0_enc_ring_emit_reg_wait,
+> diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.h b/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.h
+> index 2a497a7a4840..f67d7391fc21 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.h
+> @@ -24,6 +24,8 @@
+>   #ifndef __VCN_V1_0_H__
+>   #define __VCN_V1_0_H__
+>   
+> +void vcn_v1_0_ring_begin_use(struct amdgpu_ring *ring);
+> +
+>   extern const struct amdgpu_ip_block_version vcn_v1_0_ip_block;
+>   
+>   #endif
 
 _______________________________________________
 amd-gfx mailing list
