@@ -4,35 +4,35 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-9.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=unavailable
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 490B1C2D0DA
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 95944C32763
 	for <amd-gfx@archiver.kernel.org>; Fri, 13 Dec 2019 21:04:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 82AB324695
+	by mail.kernel.org (Postfix) with ESMTPS id CD3AD246BF
 	for <amd-gfx@archiver.kernel.org>; Fri, 13 Dec 2019 21:04:58 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="0DysahV0"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 82AB324695
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="qchvpuB5"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CD3AD246BF
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4EC236ED63;
-	Fri, 13 Dec 2019 20:09:11 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2068.outbound.protection.outlook.com [40.107.236.68])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C8F8B6ED33;
- Fri, 13 Dec 2019 20:09:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2091E6ED53;
+	Fri, 13 Dec 2019 20:09:14 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2082.outbound.protection.outlook.com [40.107.237.82])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2752D6ED98;
+ Fri, 13 Dec 2019 20:09:12 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=l30reOPTLaFjK2MXRSvg/W3ERXM6f8UVu9FR2Ib1Qcc5RibtSNMcJJGxBMiJsbKXTa6yJuAAFwSQz5RkCndAyxOSnZAWboxAvhHGhj8TsuamZ2rdlrrM/bFw43FzwinbYtT3PLgceMPJGfrWBvkq3Rv2PWH9x9IwqzKdxVcsVkWxDw383mWGxPI3zd+x0R/fUvzSlYhXEcrmlqwqAM74sxofNb/WCOJ+1AYAi3gst70nWbNXn4+XvaBCuj+IJ23X30JR2g7YuMXuYtAgDS+W2RbQ8gepVjnpzl+1mt8C5KB4PG2JtTHhg8yRfwK7hmH+JZaDQ9sUHBPCXADCR2WDkA==
+ b=k399Zf421FYouL3y7y+iHsYKLKbKsMybJLQm+SCxDKLYUIY2pO7P+qfmk2JmEj0Q/08bpEdJAh2mHkRCVDA4ScyAGpXo2F17o5hEFPuGGXVQ97jJ7Y/6ckUUsWMh3TM+zKj4TSyn7pXpmLgGqsK9htDhl5y1YAcJcbJwXzG4ZEEbvb1rcu3Cb1psgmUyV2cwPALYKJ/e/uIk3KeDIaCWj0+iGefV7Z21Sj1BcfF+3smmpiMbgbiA31cL1fYxLmZoe8H3TGxp42EnVIXYTiLhfLd4C1g8CtYncIinhKzkChc4FNlThqeWaLE/4PTMtMPmOuqkKVg8OoM+9fV3xVRGTA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zbvwPj5pGCz8TCaKrJ+CVGIOlLWyiGdTeH6hYshDla8=;
- b=RgnTg2Mmnq3f1EoqD2lqhELd1vNcsP56aAyKRYRXhSHDnLGPzva8vh6ZezUBSzvOU980PtKVidcmh1kDhy3rYzPmrmeVQrgzLeHMddyQyVCbTonKalWluMKil38TE0MIxUyb12pWbFbYDMyQEM0lT76A4fZ4VGzx2n/Z0mSfi6bc6W/0YV1J1TwNxy7KFJi79Yn1vZO9JUo7bV5CC0oU2OBOe+2726E9slPzpUpC8YOS7HDyoEyL2XiNO8Ha9KNrlGd96uRiWto3HoqNkntlkA6fS603mPmPYT9s7wn9BA9vA79px9UEk/FPVe3siKx/Z8+71AVQmZmwAh1UVefoXA==
+ bh=jwSedbD4iXs1MLga725Fo9WtsfQ8v6sz9BmuTCN3IIE=;
+ b=XKvOHnHmi3VtnTAvHs5BJaG2KHQdFw2NFHDmDOulCjktNJTrk/P25wu0Frhlm/17352wyfqeFWjKnZMjZOGOak5s5CzKi0Ool/R2YUvz63h/ZEtN3/J5ZxO+HRwD9zAKljEtYSXi1oK/BT1u2Xxcz67OVAAkGqn++K3fe6MbCvjf4LOqj24oN3PTKCZ/T/JpYF9uTZqMGQTwE5s5EGjBveQP/bCHFHR4kaJOfqIIMwk+HswQTe9TNBI4nkNbV1cqOaIFD79Qt2yBvYpy3pg0of5fghUwRKeSZRmEyEY7gTj7pdywSg+kP+S3a3Y8rlY2FtPkDLO+91hlPXmjD28s3A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=permerror action=none header.from=amd.com; dkim=none (message not
@@ -40,18 +40,18 @@ ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zbvwPj5pGCz8TCaKrJ+CVGIOlLWyiGdTeH6hYshDla8=;
- b=0DysahV0iT/MR9o8FbFf8Kj72dOvngH1UY7Zu5SSgMqKZehb/W0tFJ1+ltjlqP/W0QbMZLrayOE/GZdxsXuVu7l4HlEegOJFP0QKjHCNYOMoVLSfJkX5fSbCSmhY21Cs/W9ND0nCuV8Fx4tBmkXOZACK8vL8JD+ZxAtZT9SPWSE=
-Received: from SN1PR12CA0093.namprd12.prod.outlook.com (2603:10b6:802:21::28)
- by MWHPR12MB1901.namprd12.prod.outlook.com (2603:10b6:300:113::23)
+ bh=jwSedbD4iXs1MLga725Fo9WtsfQ8v6sz9BmuTCN3IIE=;
+ b=qchvpuB5FUhpyK3Ew6wt3IVBYLeFCmHWNX+vK+ZEkDGs6v7RNc6kRj/IhH5DT2vRG3kiA6/Fe4gGUN9s58nOxRoqnDqKi+VxjYxMpePmnXTrf0ddS/xRgJYQ0074ulCtXzkKpluuxlEXTBeZetvpj2eyu0fKKg9WpnAjQCLy0e0=
+Received: from BN6PR12CA0047.namprd12.prod.outlook.com (2603:10b6:405:70::33)
+ by BN8PR12MB3313.namprd12.prod.outlook.com (2603:10b6:408:65::18)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2538.16; Fri, 13 Dec
- 2019 20:09:07 +0000
-Received: from BN8NAM11FT003.eop-nam11.prod.protection.outlook.com
- (2a01:111:f400:7eae::208) by SN1PR12CA0093.outlook.office365.com
- (2603:10b6:802:21::28) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2516.17; Fri, 13 Dec
+ 2019 20:09:08 +0000
+Received: from BN8NAM11FT024.eop-nam11.prod.protection.outlook.com
+ (2a01:111:f400:7eae::204) by BN6PR12CA0047.outlook.office365.com
+ (2603:10b6:405:70::33) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2538.17 via Frontend
- Transport; Fri, 13 Dec 2019 20:09:06 +0000
+ Transport; Fri, 13 Dec 2019 20:09:08 +0000
 Authentication-Results: spf=none (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
  header.d=none;lists.freedesktop.org; dmarc=permerror action=none
@@ -59,21 +59,22 @@ Authentication-Results: spf=none (sender IP is 165.204.84.17)
 Received-SPF: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
 Received: from SATLEXMB01.amd.com (165.204.84.17) by
- BN8NAM11FT003.mail.protection.outlook.com (10.13.177.90) with Microsoft SMTP
+ BN8NAM11FT024.mail.protection.outlook.com (10.13.177.38) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.2538.14 via Frontend Transport; Fri, 13 Dec 2019 20:09:06 +0000
+ 15.20.2538.14 via Frontend Transport; Fri, 13 Dec 2019 20:09:08 +0000
 Received: from SATLEXMB02.amd.com (10.181.40.143) by SATLEXMB01.amd.com
  (10.181.40.142) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Fri, 13 Dec
- 2019 14:09:03 -0600
+ 2019 14:09:05 -0600
 Received: from mlipski-pc.amd.com (10.180.168.240) by SATLEXMB02.amd.com
  (10.181.40.143) with Microsoft SMTP Server id 15.1.1713.5 via Frontend
- Transport; Fri, 13 Dec 2019 14:09:02 -0600
+ Transport; Fri, 13 Dec 2019 14:09:05 -0600
 From: <mikita.lipski@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH v9 11/18] drm/dp_mst: Add DSC enablement helpers to DRM
-Date: Fri, 13 Dec 2019 15:08:47 -0500
-Message-ID: <20191213200854.31545-12-mikita.lipski@amd.com>
+Subject: [PATCH v9 17/18] drm/dp_mst: Add helper to trigger modeset on
+ affected DSC MST CRTCs
+Date: Fri, 13 Dec 2019 15:08:53 -0500
+Message-ID: <20191213200854.31545-18-mikita.lipski@amd.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20191213200854.31545-1-mikita.lipski@amd.com>
 References: <20191213200854.31545-1-mikita.lipski@amd.com>
@@ -82,26 +83,26 @@ X-EOPAttributedMessage: 0
 X-MS-Office365-Filtering-HT: Tenant
 X-Forefront-Antispam-Report: CIP:165.204.84.17; IPV:NLI; CTRY:US; EFV:NLI;
  SFV:NSPM;
- SFS:(10009020)(4636009)(346002)(136003)(39860400002)(376002)(396003)(428003)(189003)(199004)(26005)(86362001)(70586007)(1076003)(8936002)(5660300002)(186003)(426003)(54906003)(2616005)(8676002)(316002)(81156014)(81166006)(2876002)(7696005)(70206006)(478600001)(36756003)(336012)(2906002)(6666004)(6916009)(4326008)(356004)(450100002)(16060500001);
- DIR:OUT; SFP:1101; SCL:1; SRVR:MWHPR12MB1901; H:SATLEXMB01.amd.com; FPR:;
+ SFS:(10009020)(4636009)(346002)(396003)(136003)(39860400002)(376002)(428003)(189003)(199004)(81156014)(7696005)(36756003)(2616005)(336012)(8936002)(70586007)(316002)(2876002)(8676002)(478600001)(81166006)(26005)(70206006)(186003)(2906002)(450100002)(426003)(54906003)(86362001)(6916009)(4326008)(1076003)(6666004)(356004)(5660300002)(17423001)(16060500001);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:BN8PR12MB3313; H:SATLEXMB01.amd.com; FPR:;
  SPF:None; LANG:en; PTR:InfoDomainNonexistent; MX:1; A:1; 
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 59feb248-0dea-45cf-0905-08d780084ed6
-X-MS-TrafficTypeDiagnostic: MWHPR12MB1901:
-X-Microsoft-Antispam-PRVS: <MWHPR12MB1901038546840927646AE483E4540@MWHPR12MB1901.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:3826;
+X-MS-Office365-Filtering-Correlation-Id: 89040924-f190-471b-e7b5-08d780085029
+X-MS-TrafficTypeDiagnostic: BN8PR12MB3313:
+X-Microsoft-Antispam-PRVS: <BN8PR12MB33137242F681C0E1EE9F32C4E4540@BN8PR12MB3313.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
 X-Forefront-PRVS: 0250B840C1
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: fV5OcFm78Xw9VU4aCKRT0raRf8eNsBrY5llVnADGbN+fdj15I5C/vFSHsz91kfqCeMlCXNlf0LEOqvHpfyX+HuPbsLX4XB5sFdu+rMPQ7abFrbVR0G0nhYb4cqyK3pN+TjmIZ+YX5vkmHufq0TSEmD7fXuB0aMoiJMZrfDD5XQQhtMTrcKilwn3nYpPbsSkCdgwDHw5fWSbj0nVeaJCEHdRWku1YBaiTcU2GmnbWvnOIyEPanDdFOYIc1jnPBHnlh9T5iSN+5GohyXqPHenIEuY3VAWlNjufuTZJkXuqLYcIT3AGc4Y5VDRiSypDdTAzEAOuVNgkjGBzUoXf057zQoq9fDuqaEgoTOvXqS5dVrFk9vAb7B8objpkd48T/ECvO8pYAiSOTO94CpwELeMOct/yc71r0GbGnQ2sDseEmkZ8yQHWKe+nJmUlGVYW9TfTPvxok7nuA8V5ciwimmPyrZeanvjbVrXuCoiSMjsxrtF342YpJpLH5cG3DUi+nU4t
+X-Microsoft-Antispam-Message-Info: hc0m7bgXldxLOKBWLvBHKL7ZB05Azipy4GLGUad1qYwIemk6Shjt1WF7/4OWsfxDIj3GJ5/W244nZpiO2ziez1xJ9/vsGYHZzXQoLoGbQ2J1HG5YalZ2JKXzrT3bBMwhFFm31SUjwXmknSOhUWHPnPsf/6p5g6dSnPmRQj6rjkwh8KZiSF/B3zcwXC8cZYnSaf/OtsOQ0XMysHlMt4/BSVa58gPdD8bmr3tMqYAsG54Ukt2KlxmRkBN0CEVEGRGCZHR28ethMmdeWm22i6ZOAv/MUIZV29amYDjafMT8xwY5WIQZTlQMargdXFjScPxmJY05pTUhisVA3SHKbEsH2KtCidQBxEb6YI85auChxVIMbVH2AE53LyH5rfki6hPQwZikbRmifD6vULi95+9Xhn4wJ40dBWHILCoSiJGsR3xy2eJ2olDNFqb4C2ufU35ZWBnlZ8yJ9rndula+90XKq9eKEgtEcqUv8ptHO/aYkUs3wnBui3+T6QcWZSBUv9olGDoTvQmGjmu88/msZEOe/A==
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Dec 2019 20:09:06.6527 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 59feb248-0dea-45cf-0905-08d780084ed6
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Dec 2019 20:09:08.8801 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 89040924-f190-471b-e7b5-08d780085029
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB01.amd.com]
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR12MB1901
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN8PR12MB3313
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -121,122 +122,118 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Mikita Lipski <mikita.lipski@amd.com>
 
-Adding a helper function to be called by
-drivers outside of DRM to enable DSC on
-the MST ports.
+[why]
+Whenever a connector on an MST network is changed or
+undergoes a modeset, the DSC configs for each stream on that
+topology will be recalculated. This can change their required
+bandwidth, requiring a full reprogramming, as though a modeset
+was performed, even if that stream did not change timing.
 
-Function is called to recalculate VCPI allocation
-if DSC is enabled and raise the DSC flag to enable.
-In case of disabling DSC the flag is set to false
-and recalculation of VCPI slots is expected to be done
-in encoder's atomic_check.
+[how]
+Adding helper to trigger modesets on MST DSC connectors
+by setting mode_changed flag on CRTCs in the same topology
+as affected connector
 
-v2: squash separate functions into one and call it per
-port
-v3: Fix comment typos
+v2: use drm_dp_mst_dsc_aux_for_port function to verify
+if the port is DSC capable
+
+v3: - added _must_check attribute
+    - removed topology manager check
+    - fix typos and indentations
 
 Reviewed-by: Lyude Paul <lyude@redhat.com>
 Signed-off-by: Mikita Lipski <mikita.lipski@amd.com>
 ---
  drivers/gpu/drm/drm_dp_mst_topology.c | 61 +++++++++++++++++++++++++++
- include/drm/drm_dp_mst_helper.h       |  5 +++
- 2 files changed, 66 insertions(+)
+ include/drm/drm_dp_mst_helper.h       |  3 ++
+ 2 files changed, 64 insertions(+)
 
 diff --git a/drivers/gpu/drm/drm_dp_mst_topology.c b/drivers/gpu/drm/drm_dp_mst_topology.c
-index bb0844dfb3d2..7cd505e771ff 100644
+index ce21662f6144..ec90323949fc 100644
 --- a/drivers/gpu/drm/drm_dp_mst_topology.c
 +++ b/drivers/gpu/drm/drm_dp_mst_topology.c
-@@ -4716,6 +4716,67 @@ drm_dp_mst_atomic_check_topology_state(struct drm_dp_mst_topology_mgr *mgr,
+@@ -4775,6 +4775,67 @@ drm_dp_mst_atomic_check_vcpi_alloc_limit(struct drm_dp_mst_topology_mgr *mgr,
  	return 0;
  }
  
 +/**
-+ * drm_dp_mst_atomic_enable_dsc - Set DSC Enable Flag to On/Off
-+ * @state: Pointer to the new drm_atomic_state
-+ * @port: Pointer to the affected MST Port
-+ * @pbn: Newly recalculated bw required for link with DSC enabled
-+ * @pbn_div: Divider to calculate correct number of pbn per slot
-+ * @enable: Boolean flag to enable or disable DSC on the port
++ * drm_dp_mst_add_affected_dsc_crtcs
++ * @state: Pointer to the new struct drm_dp_mst_topology_state
++ * @port: Port pointer of connector with new state
 + *
-+ * This function enables DSC on the given Port
-+ * by recalculating its vcpi from pbn provided
-+ * and sets dsc_enable flag to keep track of which
-+ * ports have DSC enabled
++ * Whenever there is a change in mst topology
++ * DSC configuration would have to be recalculated
++ * therefore we need to trigger modeset on all affected
++ * CRTCs in that topology
 + *
++ * See also:
++ * drm_dp_mst_atomic_enable_dsc()
 + */
-+int drm_dp_mst_atomic_enable_dsc(struct drm_atomic_state *state,
-+				 struct drm_dp_mst_port *port,
-+				 int pbn, int pbn_div,
-+				 bool enable)
++int drm_dp_mst_add_affected_dsc_crtcs(struct drm_atomic_state *state, struct drm_dp_mst_topology_mgr *mgr)
 +{
 +	struct drm_dp_mst_topology_state *mst_state;
 +	struct drm_dp_vcpi_allocation *pos;
-+	bool found = false;
-+	int vcpi = 0;
++	struct drm_connector *connector;
++	struct drm_connector_state *conn_state;
++	struct drm_crtc *crtc;
++	struct drm_crtc_state *crtc_state;
 +
-+	mst_state = drm_atomic_get_mst_topology_state(state, port->mgr);
++	mst_state = drm_atomic_get_mst_topology_state(state, mgr);
 +
 +	if (IS_ERR(mst_state))
-+		return PTR_ERR(mst_state);
++		return -EINVAL;
 +
 +	list_for_each_entry(pos, &mst_state->vcpis, next) {
-+		if (pos->port == port) {
-+			found = true;
-+			break;
-+		}
-+	}
 +
-+	if (!found) {
-+		DRM_DEBUG_ATOMIC("[MST PORT:%p] Couldn't find VCPI allocation in mst state %p\n",
-+				 port, mst_state);
-+		return -EINVAL;
-+	}
++		connector = pos->port->connector;
 +
-+	if (pos->dsc_enabled == enable) {
-+		DRM_DEBUG_ATOMIC("[MST PORT:%p] DSC flag is already set to %d, returning %d VCPI slots\n",
-+				 port, enable, pos->vcpi);
-+		vcpi = pos->vcpi;
-+	}
-+
-+	if (enable) {
-+		vcpi = drm_dp_atomic_find_vcpi_slots(state, port->mgr, port, pbn, pbn_div);
-+		DRM_DEBUG_ATOMIC("[MST PORT:%p] Enabling DSC flag, reallocating %d VCPI slots on the port\n",
-+				 port, vcpi);
-+		if (vcpi < 0)
++		if (!connector)
 +			return -EINVAL;
++
++		conn_state = drm_atomic_get_connector_state(state, connector);
++
++		if (IS_ERR(conn_state))
++			return PTR_ERR(conn_state);
++
++		crtc = conn_state->crtc;
++
++		if (WARN_ON(!crtc))
++			return -EINVAL;
++
++		if (!drm_dp_mst_dsc_aux_for_port(pos->port))
++			continue;
++
++		crtc_state = drm_atomic_get_crtc_state(mst_state->base.state, crtc);
++
++		if (IS_ERR(crtc_state))
++			return PTR_ERR(crtc_state);
++
++		DRM_DEBUG_ATOMIC("[MST MGR:%p] Setting mode_changed flag on CRTC %p\n",
++				 mgr, crtc);
++
++		crtc_state->mode_changed = true;
 +	}
-+
-+	pos->dsc_enabled = enable;
-+
-+	return vcpi;
++	return 0;
 +}
-+EXPORT_SYMBOL(drm_dp_mst_atomic_enable_dsc);
++EXPORT_SYMBOL(drm_dp_mst_add_affected_dsc_crtcs);
++
  /**
-  * drm_dp_mst_atomic_check - Check that the new state of an MST topology in an
-  * atomic update is valid
+  * drm_dp_mst_atomic_enable_dsc - Set DSC Enable Flag to On/Off
+  * @state: Pointer to the new drm_atomic_state
 diff --git a/include/drm/drm_dp_mst_helper.h b/include/drm/drm_dp_mst_helper.h
-index 0f813d6346aa..830c94b7f45d 100644
+index 2919d9776af3..942575de86a0 100644
 --- a/include/drm/drm_dp_mst_helper.h
 +++ b/include/drm/drm_dp_mst_helper.h
-@@ -502,6 +502,7 @@ struct drm_dp_payload {
- struct drm_dp_vcpi_allocation {
- 	struct drm_dp_mst_port *port;
- 	int vcpi;
-+	bool dsc_enabled;
- 	struct list_head next;
- };
- 
-@@ -773,6 +774,10 @@ drm_dp_atomic_find_vcpi_slots(struct drm_atomic_state *state,
- 			      struct drm_dp_mst_topology_mgr *mgr,
- 			      struct drm_dp_mst_port *port, int pbn,
- 			      int pbn_div);
-+int drm_dp_mst_atomic_enable_dsc(struct drm_atomic_state *state,
-+				 struct drm_dp_mst_port *port,
-+				 int pbn, int pbn_div,
-+				 bool enable);
+@@ -780,6 +780,9 @@ int drm_dp_mst_atomic_enable_dsc(struct drm_atomic_state *state,
+ 				 int pbn, int pbn_div,
+ 				 bool enable);
  int __must_check
++drm_dp_mst_add_affected_dsc_crtcs(struct drm_atomic_state *state,
++				  struct drm_dp_mst_topology_mgr *mgr);
++int __must_check
  drm_dp_atomic_release_vcpi_slots(struct drm_atomic_state *state,
  				 struct drm_dp_mst_topology_mgr *mgr,
+ 				 struct drm_dp_mst_port *port);
 -- 
 2.17.1
 
