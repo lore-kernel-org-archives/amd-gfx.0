@@ -4,35 +4,35 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-9.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=unavailable
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B7A20C32765
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BFA76C32767
 	for <amd-gfx@archiver.kernel.org>; Fri, 13 Dec 2019 21:04:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id F0E0C246CD
+	by mail.kernel.org (Postfix) with ESMTPS id F2C76246A0
 	for <amd-gfx@archiver.kernel.org>; Fri, 13 Dec 2019 21:04:58 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="kbRcGG8d"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org F0E0C246CD
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="4GOwwz7x"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org F2C76246A0
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AA72F6ED9E;
-	Fri, 13 Dec 2019 20:09:19 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2071.outbound.protection.outlook.com [40.107.237.71])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B663F6ED40;
- Fri, 13 Dec 2019 20:09:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AA1C16ED44;
+	Fri, 13 Dec 2019 20:09:13 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2062.outbound.protection.outlook.com [40.107.220.62])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 699756ED65;
+ Fri, 13 Dec 2019 20:09:10 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=TNYhyKLVG/pJIgpgNvadjFYvrgDwVeUduHb0fa2nVqYYWLVC1GEdyuOXWjUC/vsGYvw69W7fzfdHs+L34ePDdNso/pElJUTRUiwj2ZF0A6w27bKhp6CYkDkln0d14jrzPsxIakvnkzN2RjTW6VhqzWI62fc09FSDAtACnezl0N3YH/L9VizQrGYz+QgO8/zUlfBXG5WRTugfEMkMznBxp5RS2rBxJW+qYWJq8L5eXyzC7W5oXZM/A1FTnTDeyL5ePwiRtqGQIxnDzwr/psGhCNM1HGXxM16vLFjXKo+dypbjOcfoXyN37SxlTw3QtixVLBi/S+O8B4rjbw0YH9FubQ==
+ b=mqGo871EVddW1Xt2hUTutNWqS9JGHG7bcaFuEp0SIYPP/LVC4VTRurV3GGiRYZ/mK9OW0UgKtbZqW2s48TLcMibQgVUmu1uiCEMVYODpt1/jsdYtTj7rDhqCwTbLSnb+GYR1ObHeaCllwAK9ROM9jJKskTPbKmuXpWqBBLSpAFXHq2UawmIGK2IO0uz4Qmh6gY1TALr8GGBANGCwQrlkgvb6gtFaQwr7o6lhal3FomnzQGlhf3YoyhfCf0i9M+M2+l5zrer9QOly6wpk/YHcZ94WJSfCcDub0FOoaIHm0ZS7mQWB2YSimt63oGqtF9E72ZD1Lf7F2lTRzbAilU5Bww==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zkv+3Q0HQNXtBv9pjRnc+jmJ1d4Qx5pG7DSFEMoKmkA=;
- b=JcYdOPMGa5xym7mSyrftpi5oHZuJ8JipZFwoxss2g8eR21WY33H8SJHeMmiI/PHjgHb7nMIXoFpGTOHWII94zp/PBC7IvW1RuYWvl7iXaDa1qZKIj6jKIVSBVrHXJwiUhbTtx15ML5eKTOErvoWU4+2aRZ8EZNo57UIduVacoZqiT3uVx+pCB4xsgk+LYRrnJmq/C1WwUR910UVken9vxCm33OQkFOw9iJCqKmxT6wfKzhnwPQ3ix/QDv951uGUL14++9jYQa5KV9QkmjT/soiJ6fjQIK9loAMcUx6ncPpNdDH/XwBQ5DRUuof7enEp/We+/LnQnG3OcMUSNQ2SviA==
+ bh=jmrhahiiclIy8sbJBOLWr4eeaE5sDiJb4JPc9Gw370Q=;
+ b=BHnBQvxkN7csXyL8mkcBIT5fhBwUgmt0HQOE3fK0JwSZbBsAwqohD519ekVpHAD5kDSr4716/daY2EnbhHk5VEKddplbLX9kR1CN3QBDIdyceosO8oGmC0KFrdExUlk0ttajghQgFs9SjdfMswM4mdxg+OgT/0A+o2oYa7xmn9xynS23Au1IZPnb/rM2bV0COlww28doLr6NAyiR80Hwvj0+hMz7SvlDHVqfH1USOwXO5sRg/UwoN2MvyXGdlme0SUV8fl+op0xPrabT33UmkKCCZYXdSJaOlN2N76B7uPBkzqecb2JIIglNnXRePKyCiiOFhZXQEXFyZF6n3aepjw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=permerror action=none header.from=amd.com; dkim=none (message not
@@ -40,18 +40,18 @@ ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zkv+3Q0HQNXtBv9pjRnc+jmJ1d4Qx5pG7DSFEMoKmkA=;
- b=kbRcGG8dno+C7YVg+xU4RSbf1Db71uIqlZxqusYiJMN+G5f8Qku82XQWWobjNLekarXVYvGL2HU93WVnlrKoEgnZ15BtxylJ4WoJHqPjtDXv6psGIupkVU9CY+Btmx669+5dHuZREONRDuOYCtF82tyMc2nvVkXlSXWEHno2/AA=
-Received: from BN6PR12CA0032.namprd12.prod.outlook.com (2603:10b6:405:70::18)
- by MN2PR12MB4221.namprd12.prod.outlook.com (2603:10b6:208:1d2::23)
+ bh=jmrhahiiclIy8sbJBOLWr4eeaE5sDiJb4JPc9Gw370Q=;
+ b=4GOwwz7xvqqq0lENIecN5xlznuFxvl3sKLiYem3GtqS3Kao8l4h0BALeObACUFZIUN+APt35RlceSSJSKxmoYqr3FUMR6HlhU8bFKCnOS+IHAkSLuhgrwNKfus3vd5geuH/J7LucAKsqNP0SHr1uqom03YsxwQ3pLA6mi4/kp+E=
+Received: from SN1PR12CA0093.namprd12.prod.outlook.com (2603:10b6:802:21::28)
+ by SN1PR12MB2494.namprd12.prod.outlook.com (2603:10b6:802:29::21)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2516.13; Fri, 13 Dec
- 2019 20:09:08 +0000
-Received: from BN8NAM11FT024.eop-nam11.prod.protection.outlook.com
- (2a01:111:f400:7eae::206) by BN6PR12CA0032.outlook.office365.com
- (2603:10b6:405:70::18) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2538.16 via Frontend
- Transport; Fri, 13 Dec 2019 20:09:08 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2538.15; Fri, 13 Dec
+ 2019 20:09:09 +0000
+Received: from BN8NAM11FT003.eop-nam11.prod.protection.outlook.com
+ (2a01:111:f400:7eae::208) by SN1PR12CA0093.outlook.office365.com
+ (2603:10b6:802:21::28) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2538.17 via Frontend
+ Transport; Fri, 13 Dec 2019 20:09:09 +0000
 Authentication-Results: spf=none (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
  header.d=none;lists.freedesktop.org; dmarc=permerror action=none
@@ -59,22 +59,22 @@ Authentication-Results: spf=none (sender IP is 165.204.84.17)
 Received-SPF: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
 Received: from SATLEXMB01.amd.com (165.204.84.17) by
- BN8NAM11FT024.mail.protection.outlook.com (10.13.177.38) with Microsoft SMTP
+ BN8NAM11FT003.mail.protection.outlook.com (10.13.177.90) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.2538.14 via Frontend Transport; Fri, 13 Dec 2019 20:09:07 +0000
+ 15.20.2538.14 via Frontend Transport; Fri, 13 Dec 2019 20:09:08 +0000
 Received: from SATLEXMB02.amd.com (10.181.40.143) by SATLEXMB01.amd.com
  (10.181.40.142) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Fri, 13 Dec
- 2019 14:09:03 -0600
+ 2019 14:09:06 -0600
 Received: from mlipski-pc.amd.com (10.180.168.240) by SATLEXMB02.amd.com
  (10.181.40.143) with Microsoft SMTP Server id 15.1.1713.5 via Frontend
- Transport; Fri, 13 Dec 2019 14:09:03 -0600
+ Transport; Fri, 13 Dec 2019 14:09:05 -0600
 From: <mikita.lipski@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH v9 13/18] drm/dp_mst: Rename
- drm_dp_mst_atomic_check_topology_state
-Date: Fri, 13 Dec 2019 15:08:49 -0500
-Message-ID: <20191213200854.31545-14-mikita.lipski@amd.com>
+Subject: [PATCH v9 18/18] drm/amd/display: Trigger modesets on MST DSC
+ connectors
+Date: Fri, 13 Dec 2019 15:08:54 -0500
+Message-ID: <20191213200854.31545-19-mikita.lipski@amd.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20191213200854.31545-1-mikita.lipski@amd.com>
 References: <20191213200854.31545-1-mikita.lipski@amd.com>
@@ -83,26 +83,26 @@ X-EOPAttributedMessage: 0
 X-MS-Office365-Filtering-HT: Tenant
 X-Forefront-Antispam-Report: CIP:165.204.84.17; IPV:NLI; CTRY:US; EFV:NLI;
  SFV:NSPM;
- SFS:(10009020)(4636009)(136003)(346002)(376002)(39860400002)(396003)(428003)(189003)(199004)(8936002)(7696005)(2616005)(6666004)(186003)(356004)(81156014)(2876002)(86362001)(2906002)(6916009)(478600001)(1076003)(26005)(426003)(336012)(70586007)(70206006)(8676002)(36756003)(316002)(81166006)(5660300002)(4326008)(54906003)(16060500001);
- DIR:OUT; SFP:1101; SCL:1; SRVR:MN2PR12MB4221; H:SATLEXMB01.amd.com; FPR:;
- SPF:None; LANG:en; PTR:InfoDomainNonexistent; MX:1; A:1; 
+ SFS:(10009020)(4636009)(39860400002)(136003)(376002)(346002)(396003)(428003)(199004)(189003)(81166006)(450100002)(478600001)(81156014)(4326008)(5660300002)(2616005)(36756003)(8936002)(86362001)(54906003)(316002)(2906002)(26005)(7696005)(70206006)(70586007)(8676002)(6916009)(426003)(6666004)(2876002)(186003)(356004)(1076003)(336012)(16060500001);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:SN1PR12MB2494; H:SATLEXMB01.amd.com; FPR:;
+ SPF:None; LANG:en; PTR:InfoDomainNonexistent; A:1; MX:1; 
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 0b9c6eb5-b78a-4c2a-77c0-08d780084f95
-X-MS-TrafficTypeDiagnostic: MN2PR12MB4221:
-X-Microsoft-Antispam-PRVS: <MN2PR12MB4221BA5843E1D4AB9958770CE4540@MN2PR12MB4221.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:2803;
+X-MS-Office365-Filtering-Correlation-Id: b910d99d-809d-4e92-e805-08d780085038
+X-MS-TrafficTypeDiagnostic: SN1PR12MB2494:
+X-Microsoft-Antispam-PRVS: <SN1PR12MB249415DB51398B24EFC6D9D6E4540@SN1PR12MB2494.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:1247;
 X-Forefront-PRVS: 0250B840C1
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: OFQktxw7JXGdWGsOMR4XZ4Me+h6ZzkyiusbM1HKtHPvnZBquT2RWyJHr9Oz7rHby9YACJNPYyevbkzlMWwEZAYw8Mf3+2YhefuloE0rofJSGc+FtoTHk/cV+5zi7ZlhMi0aMvPytYeK3qI9y+pNEbfkJFtpyzS1CA4ZHHvVXOmQOYNwGt6uYSXHiPNvDJKoqZrOPZpy3serwnS3L/a6N66QDgpoL+I/OQP5ZQpRW3nNVfv2Em3BogaKZumB0KSeGDPClNGdUcVsACC4+3o1wtUjTyDsDuLhkV37apBSrgFJbe8B4Btt7PLgA2x5lSxXhyuk5tGPBF5ze6O2g7QVpLfbMEaqHnoZ1nneLBwvY8BpHJQSZqogYWSiWCP13xL5w4rcqKjO9217KthbLo4teYNIMnDPFVaLkIojrZjnP9DfC5Rpaj8ttpfsdHS55TaESAQn34ENJrYEK8u5O1KumUeK9Qln3vbikFxPS9qTUXvE7kVrHCFyxTAUZqfyZWwN4
+X-Microsoft-Antispam-Message-Info: 4l044GH/OkeTbnQgRlqYJ32//yhSn8f/xBynGVtZ82vB+QDSG1v2+vKfAQTedvnRcvcPYOpB6lq9US2vJ3Il981AjnMvu6jLBremtEOccHJf/LsgtWRuVqlORbXpEblY9goUIWkcLQ1IE+iN2vAy2RrC+94Awu4Lkfi9H3jTio3FIWrTHev9MfxCtjjw2gD1RNxWRtrcNTdpYAlZzmeYlPP8vY9PbAA3xj4PLgzYOI0QlNEqqJ0BVjvSsoLnRE4UacXEpMwWgOaoCKeiampGfjR5myxGTSEw51X1EBrs9FICmM2l24jfqAXxI3VKuoiI778ubCmGdb2LdI/FIxvpdNsI00eDZoQSPOxoWn73983HehMfWCrlM0hJFijFElde/PT96yqomXxnBiSL13AlJR8Liyd03YaXwocSbnm82yqYil6yCb0FguK6piv55XHCrVOW3nRUhQSuyLniu1/VgDeWl/fGMNH8lK4DbEnu/d/4QdIaYD/XDlRZZZX9rRsP
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Dec 2019 20:09:07.9073 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0b9c6eb5-b78a-4c2a-77c0-08d780084f95
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Dec 2019 20:09:08.9794 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b910d99d-809d-4e92-e805-08d780085038
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB01.amd.com]
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4221
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN1PR12MB2494
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,7 +114,8 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Mikita Lipski <mikita.lipski@amd.com>, dri-devel@lists.freedesktop.org
+Cc: David Francis <David.Francis@amd.com>,
+ Mikita Lipski <mikita.lipski@amd.com>, dri-devel@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
@@ -122,42 +123,81 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Mikita Lipski <mikita.lipski@amd.com>
 
-[why]
-drm_dp_mst_atomic_check_topology_state() should be renamed
-to reflect more specific type of check. Since it is verifying
-payload allocation limit it should be renamed into
-drm_dp_mst_atomic_check_vcpi_alloc_limit()
+Whenever a connector on an MST network is attached, detached, or
+undergoes a modeset, the DSC configs for each stream on that
+topology will be recalculated. This can change their required
+bandwidth, requiring a full reprogramming, as though a modeset
+was performed, even if that stream did not change timing.
 
-Cc: Lyude Paul <lyude@redhat.com>
+Therefore, whenever a crtc has drm_atomic_crtc_needs_modeset,
+for each crtc that shares a MST topology with that stream and
+supports DSC, add that crtc (and all affected connectors and
+planes) to the atomic state and set mode_changed on its state
+
+v2: Do this check only on Navi and before adding connectors
+and planes on modesetting crtcs
+
+v3: Call the drm_dp_mst_add_affected_dsc_crtcs() to update
+all affected CRTCs
+
+Reviewed-by: Lyude Paul <lyude@redhat.com>
+Signed-off-by: David Francis <David.Francis@amd.com>
 Signed-off-by: Mikita Lipski <mikita.lipski@amd.com>
 ---
- drivers/gpu/drm/drm_dp_mst_topology.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 33 +++++++++++++++++++
+ 1 file changed, 33 insertions(+)
 
-diff --git a/drivers/gpu/drm/drm_dp_mst_topology.c b/drivers/gpu/drm/drm_dp_mst_topology.c
-index f8b72ac79c66..ce21662f6144 100644
---- a/drivers/gpu/drm/drm_dp_mst_topology.c
-+++ b/drivers/gpu/drm/drm_dp_mst_topology.c
-@@ -4737,8 +4737,8 @@ int drm_dp_mst_atomic_check_bw_limit(struct drm_dp_mst_branch *branch,
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 2ac3a2f0b452..909665427110 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -7930,6 +7930,29 @@ dm_determine_update_type_for_commit(struct amdgpu_display_manager *dm,
+ 	return ret;
  }
  
- static inline int
--drm_dp_mst_atomic_check_topology_state(struct drm_dp_mst_topology_mgr *mgr,
--				       struct drm_dp_mst_topology_state *mst_state)
-+drm_dp_mst_atomic_check_vcpi_alloc_limit(struct drm_dp_mst_topology_mgr *mgr,
-+					 struct drm_dp_mst_topology_state *mst_state)
- {
- 	struct drm_dp_vcpi_allocation *vcpi;
- 	int avail_slots = 63, payload_count = 0;
-@@ -4864,7 +4864,7 @@ int drm_dp_mst_atomic_check(struct drm_atomic_state *state)
- 	int i, ret = 0;
++static int add_affected_mst_dsc_crtcs(struct drm_atomic_state *state, struct drm_crtc *crtc)
++{
++	struct drm_connector *connector;
++	struct drm_connector_state *conn_state;
++	struct amdgpu_dm_connector *aconnector = NULL;
++	int i;
++	for_each_new_connector_in_state(state, connector, conn_state, i) {
++		if (conn_state->crtc != crtc)
++			continue;
++
++		aconnector = to_amdgpu_dm_connector(connector);
++		if (!aconnector->port)
++			aconnector = NULL;
++		else
++			break;
++	}
++
++	if (!aconnector)
++		return 0;
++
++	return drm_dp_mst_add_affected_dsc_crtcs(state, &aconnector->mst_mgr);
++}
++
+ /**
+  * amdgpu_dm_atomic_check() - Atomic check implementation for AMDgpu DM.
+  * @dev: The DRM device
+@@ -7982,6 +8005,16 @@ static int amdgpu_dm_atomic_check(struct drm_device *dev,
+ 	if (ret)
+ 		goto fail;
  
- 	for_each_new_mst_mgr_in_state(state, mgr, mst_state, i) {
--		ret = drm_dp_mst_atomic_check_topology_state(mgr, mst_state);
-+		ret = drm_dp_mst_atomic_check_vcpi_alloc_limit(mgr, mst_state);
- 		if (ret)
- 			break;
- 		ret = drm_dp_mst_atomic_check_bw_limit(mgr->mst_primary, mst_state);
++	if (adev->asic_type >= CHIP_NAVI10) {
++		for_each_oldnew_crtc_in_state(state, crtc, old_crtc_state, new_crtc_state, i) {
++			if (drm_atomic_crtc_needs_modeset(new_crtc_state)) {
++				ret = add_affected_mst_dsc_crtcs(state, crtc);
++				if (ret)
++					goto fail;
++			}
++		}
++	}
++
+ 	for_each_oldnew_crtc_in_state(state, crtc, old_crtc_state, new_crtc_state, i) {
+ 		if (!drm_atomic_crtc_needs_modeset(new_crtc_state) &&
+ 		    !new_crtc_state->color_mgmt_changed &&
 -- 
 2.17.1
 
