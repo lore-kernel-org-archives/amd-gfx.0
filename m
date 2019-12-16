@@ -2,73 +2,66 @@ Return-Path: <SRS0=GTlj=2G=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
+X-Spam-Status: No, score=-6.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
 	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
-	version=3.4.0
+	SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 41C26C2D0BF
-	for <amd-gfx@archiver.kernel.org>; Mon, 16 Dec 2019 17:18:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 12009C43603
+	for <amd-gfx@archiver.kernel.org>; Mon, 16 Dec 2019 17:23:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 19EB0206D7
-	for <amd-gfx@archiver.kernel.org>; Mon, 16 Dec 2019 17:18:52 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id D5C35206E0
+	for <amd-gfx@archiver.kernel.org>; Mon, 16 Dec 2019 17:23:24 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="R/M6F4qR"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 19EB0206D7
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sfidfaoO"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D5C35206E0
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E659A6E844;
-	Mon, 16 Dec 2019 17:18:48 +0000 (UTC)
-Received: from mail-qk1-x742.google.com (mail-qk1-x742.google.com
- [IPv6:2607:f8b0:4864:20::742])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 66F9F6E842
- for <amd-gfx@lists.freedesktop.org>; Mon, 16 Dec 2019 17:18:47 +0000 (UTC)
-Received: by mail-qk1-x742.google.com with SMTP id c16so2083482qko.6
- for <amd-gfx@lists.freedesktop.org>; Mon, 16 Dec 2019 09:18:47 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6B1926E846;
+	Mon, 16 Dec 2019 17:23:24 +0000 (UTC)
+Received: from mail-wm1-x342.google.com (mail-wm1-x342.google.com
+ [IPv6:2a00:1450:4864:20::342])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7806E6E846;
+ Mon, 16 Dec 2019 17:23:23 +0000 (UTC)
+Received: by mail-wm1-x342.google.com with SMTP id u2so134785wmc.3;
+ Mon, 16 Dec 2019 09:23:23 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=8fpKAg7/41AO2LunV4ssoKruVVkoNFZaPuS9W4xrYVY=;
- b=R/M6F4qRnXzwbMq0dil42pTSMOxIMaTTjjb+6UH4MqIve9PZ2cyuWqFG8gVI3hW+Bu
- V3L2tsJn3cDY49/VvfYBH6oIOQn99Gc5ltQMfV3RLq4dpGSWZnUJAhXvaPLR76BuKdUb
- KGuetm4bGQvFfbRAjYsw3phm29ZTO1fERfHTv/EajRRoHGZm7PmrIqZOwHWGPhmiAo39
- F20BpLGBdf4c2EBw1pqr3lBs5jbtUYfUkBZM1RycQ+Y68R4SltLX2iyTzxd/nNipjrlu
- dJDu+MaQajMQIXLyZTr/b25D7uLY9zA1IJh+5Q1ZLTS/wJPSPiQ2l+7R1kypYkjCF2WS
- sGAg==
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=fDTU2xRE217quAURXeDNwr9rSajyW4k3C/7yXfGPe+s=;
+ b=sfidfaoOonBYsPEQ7+Yk4Nqqk5o8buIX1DHlH4NTSQy4WRDJUbH0BBzt+sekdhTFh9
+ kB2cE8lGStESzSffqxvt8cvjh1pxIHZOr5VCVGjrKxcYHGZKvSTGiE6hmmz0ZMyJvXlG
+ WnjhJszvQJCMrpiTe1qdscTQvLMJJ/DyzMFW76xN2uVU31NE1wfCK5ZhT9R1bcIORIwB
+ 7KrvwiKkAZ5as0mWFC1qkKmrbLi41SsGCC6TKNxGBX1hUJW203+BqSBB7WTUiFx7kfBo
+ nDMkybyPkAUBG/ZDZHPw6+2YnEDebxni4K1TfLcIuC/Z/XAqd1OGCN42Hsi/OZpx+fvF
+ D/jA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=8fpKAg7/41AO2LunV4ssoKruVVkoNFZaPuS9W4xrYVY=;
- b=AG1SUwM1YBx/N0g14q0kmeIY8hgdnRdxHAMPTT8KiCV1KbbXnjdNCpfar2o2ZsMwjd
- Ij1ZWPPGuyk7vnLFmfLPSHqwgpimMlX/IvkHEQhgQ0Hp/m+rtRJzv6HBOBV0UL8WTXra
- sv9ykBFjuIAmjIUXJTtiynNo0vTHhlnIH+OVVgLCSBl/3HR7NJIr9E3Q15Y+nR3bHpHL
- fGdiNFf/bEvLxMFqfoMMdn0nFjBvXnIoAO188xeOcTOz82etsn7ngys3OwMT46REUKAU
- VEDnOX9lOPKS6xmSjTNur7B4xVrNZoiZOTgPC8aI2ZJHMjj20ltDRrOE3qj2tC+HvkCG
- h+sg==
-X-Gm-Message-State: APjAAAXIjVOhZnfg8kbSbiLRpHJshSobPzOrKc15zbFf186brPMrmEot
- 7mLlStwtwRzhbooCB6EXQe1T8R20
-X-Google-Smtp-Source: APXvYqwuN+B2AQSmTy2K0JjGr6Twl+jWgWhnMPTeUWt7oshccZ2RTvIv00QmbyfVtiKgHWtfjrN2LQ==
-X-Received: by 2002:a05:620a:1114:: with SMTP id
- o20mr369061qkk.128.1576516725222; 
- Mon, 16 Dec 2019 09:18:45 -0800 (PST)
-Received: from localhost.localdomain ([71.219.59.120])
- by smtp.gmail.com with ESMTPSA id k50sm7219291qtc.90.2019.12.16.09.18.44
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 16 Dec 2019 09:18:44 -0800 (PST)
-From: Alex Deucher <alexdeucher@gmail.com>
-X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
-To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 1/3] drm/amdgpu: wait for all rings to drain before runtime
- suspending
-Date: Mon, 16 Dec 2019 12:18:32 -0500
-Message-Id: <20191216171834.217251-1-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.23.0
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=fDTU2xRE217quAURXeDNwr9rSajyW4k3C/7yXfGPe+s=;
+ b=URHtG7kq1cKzQTDTHgi8q1mpHy1IPJDBFJjygCNibkTXqfS9GOc/tUoOBKH32SMmOI
+ pwGVV6+4anb8xJM3tZ3Yuxaj9gj+Z8xO4Kzmz9LPUngCRf0h1MBBSR5b4pkUeIQZpDqM
+ C3TzlxQlVr+5qWwM2hmGaGqMtCEnHA4eDpmvIx6ZMZM/IVD4/wc/Ux1ItaGdv+J4kLn8
+ Xl878YBsxdk9vEP2hrUyRmYJyy9N5i8VrpFx1cu1+CnRqKq7TCxcF6P/CAxSR9YWx9Kq
+ ekWoa8iGSeCa8fBwBwVBdL1Y2YihqXVx07AoPufNTJXX4J/4YlYYtF7VrF1/v59NtUuV
+ jjTw==
+X-Gm-Message-State: APjAAAXkZPyBREoTVcPyIIXTCLwIIAmWcYmA1IFSeZ3v54xhJ6eM1WTN
+ Bz42ibps3MDKqW6c+2DQYWSbol4mFcaIqGnwarQ=
+X-Google-Smtp-Source: APXvYqyKn7CNJbEdAwxml/kqAeTfotXthtFz+vqMKeAUnh3lliy8DHrElyvvv+6C00K0MJHKh31oU9c9yKMx1jAZrjE=
+X-Received: by 2002:a1c:6404:: with SMTP id y4mr55909wmb.143.1576517002064;
+ Mon, 16 Dec 2019 09:23:22 -0800 (PST)
 MIME-Version: 1.0
+References: <1576314753-65777-1-git-send-email-zhengbin13@huawei.com>
+ <ab4d3c43-a954-88b6-6c58-de836e03c4b7@amd.com>
+In-Reply-To: <ab4d3c43-a954-88b6-6c58-de836e03c4b7@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 16 Dec 2019 12:23:09 -0500
+Message-ID: <CADnq5_Mkw2MMzinYbNzj_qvbMbnDsPA9jbaBY0aJJnKYvSLyKg@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/display: Remove unneeded semicolon
+To: Harry Wentland <hwentlan@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,57 +73,60 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: Chunming Zhou <David1.Zhou@amd.com>, Dave Airlie <airlied@linux.ie>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>, zhengbin <zhengbin13@huawei.com>,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
+ Daniel Vetter <daniel@ffwll.ch>, "Deucher,
+ Alexander" <alexander.deucher@amd.com>, "Wentland,
+ Harry" <harry.wentland@amd.com>, Christian Koenig <christian.koenig@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add a safety check to runtime suspend to make sure all outstanding
-fences have signaled before we suspend.  Doesn't fix any known issue.
+On Mon, Dec 16, 2019 at 9:32 AM Harry Wentland <hwentlan@amd.com> wrote:
+>
+> On 2019-12-14 4:12 a.m., zhengbin wrote:
+> > Fixes coccicheck warning:
+> >
+> > drivers/gpu/drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr.c:412:90-91: Unneeded semicolon
+> >
+> > Reported-by: Hulk Robot <hulkci@huawei.com>
+> > Signed-off-by: zhengbin <zhengbin13@huawei.com>
+>
+> Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+>
 
-We already do this via the fence driver suspend function, but we
-just force completion rather than bailing.  This bails on runtime
-suspend so we can try again later once the fences are signaled to
-avoid missing any outstanding work.
+Applied.  Thanks!
 
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 12 +++++++++++-
- 1 file changed, 11 insertions(+), 1 deletion(-)
+Alex
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-index d1e9946ac218..61dc26515c7e 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-@@ -1214,13 +1214,23 @@ static int amdgpu_pmops_runtime_suspend(struct device *dev)
- 	struct pci_dev *pdev = to_pci_dev(dev);
- 	struct drm_device *drm_dev = pci_get_drvdata(pdev);
- 	struct amdgpu_device *adev = drm_dev->dev_private;
--	int ret;
-+	int ret, i;
- 
- 	if (!adev->runpm) {
- 		pm_runtime_forbid(dev);
- 		return -EBUSY;
- 	}
- 
-+	/* wait for all rings to drain before suspending */
-+	for (i = 0; i < AMDGPU_MAX_RINGS; i++) {
-+		struct amdgpu_ring *ring = adev->rings[i];
-+		if (ring && ring->sched.ready) {
-+			ret = amdgpu_fence_wait_empty(ring);
-+			if (ret)
-+				return -EBUSY;
-+		}
-+	}
-+
- 	if (amdgpu_device_supports_boco(drm_dev))
- 		drm_dev->switch_power_state = DRM_SWITCH_POWER_CHANGING;
- 	drm_kms_helper_poll_disable(drm_dev);
--- 
-2.23.0
-
+> Harry
+>
+> > ---
+> >  drivers/gpu/drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr.c | 2 +-
+> >  1 file changed, 1 insertion(+), 1 deletion(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr.c
+> > index de51ef1..a1b7e76 100644
+> > --- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr.c
+> > +++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr.c
+> > @@ -409,7 +409,7 @@ void build_watermark_ranges(struct clk_bw_params *bw_params, struct pp_smu_wm_ra
+> >                       continue;
+> >
+> >               ranges->reader_wm_sets[num_valid_sets].wm_inst = bw_params->wm_table.entries[i].wm_inst;
+> > -             ranges->reader_wm_sets[num_valid_sets].wm_type = bw_params->wm_table.entries[i].wm_type;;
+> > +             ranges->reader_wm_sets[num_valid_sets].wm_type = bw_params->wm_table.entries[i].wm_type;
+> >               /* We will not select WM based on dcfclk, so leave it as unconstrained */
+> >               ranges->reader_wm_sets[num_valid_sets].min_drain_clk_mhz = PP_SMU_WM_SET_RANGE_CLK_UNCONSTRAINED_MIN;
+> >               ranges->reader_wm_sets[num_valid_sets].max_drain_clk_mhz = PP_SMU_WM_SET_RANGE_CLK_UNCONSTRAINED_MAX;
+> > --
+> > 2.7.4
+> >
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
