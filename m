@@ -2,69 +2,107 @@ Return-Path: <SRS0=GTlj=2G=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,
-	SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-9.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8C1EFC2D0CF
-	for <amd-gfx@archiver.kernel.org>; Mon, 16 Dec 2019 09:00:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D787AC43603
+	for <amd-gfx@archiver.kernel.org>; Mon, 16 Dec 2019 09:17:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 60CC9207FF
-	for <amd-gfx@archiver.kernel.org>; Mon, 16 Dec 2019 09:00:49 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 95541207FF
+	for <amd-gfx@archiver.kernel.org>; Mon, 16 Dec 2019 09:17:19 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=endlessm-com.20150623.gappssmtp.com header.i=@endlessm-com.20150623.gappssmtp.com header.b="zIlhGEr6"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 60CC9207FF
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=endlessm.com
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="PeS6Vtcg"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 95541207FF
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1BD7C6E1A4;
-	Mon, 16 Dec 2019 09:00:49 +0000 (UTC)
-Received: from mail-qt1-x842.google.com (mail-qt1-x842.google.com
- [IPv6:2607:f8b0:4864:20::842])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 50E856E1A4
- for <amd-gfx@lists.freedesktop.org>; Mon, 16 Dec 2019 09:00:47 +0000 (UTC)
-Received: by mail-qt1-x842.google.com with SMTP id j5so5182718qtq.9
- for <amd-gfx@lists.freedesktop.org>; Mon, 16 Dec 2019 01:00:47 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 47449895C3;
+	Mon, 16 Dec 2019 09:17:19 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2070.outbound.protection.outlook.com [40.107.94.70])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B8CFE895C3
+ for <amd-gfx@lists.freedesktop.org>; Mon, 16 Dec 2019 09:17:18 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Q1draaVQfKsZOpY3GzcCJJ+XhQRROfIUMybGVt3ACYQ7K6kRVehTB/uGB5SB4O0fjMRV9f5zUHGxkIV7+A7LGLVi95bbdthZurWEO7Cf5tdmUOn5gfMyI7P1uxBGAlMQOESVp6N7nurEV4itwW+Ri1VT+U5lqAxQv8YrU37ClKXxdXnswf3Gd+Y72wSGA6gPI8QoyKdwkdeOgn5+aXh/tJVXFzh+OQ8tWDfhPsYxg68KVMR9szRbJRev6Jr/7JnTwd/370FB2kdAa5P2FAJGpIZZKbNn98vUBg5QqmavSwEwHxu5UEJMxlTGBlKEV8vWMtB20WoUgonYBNB2FHgBLQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=qbJBnYoCH8Jzi2HOk/NUURzPVH5/3+UgegzRLA//V9w=;
+ b=I5mPhSqM63A1mypeH7zupvsFtv+L1DZWoOjEuItbSA+nqy5fYSVvW5nmMqUXRnPtXoWGnD3XkjBNhF5jcP/Y3iwnkpmcKILdBBf6qVDJRsIv4tbJTVk6FiUbEdXX8yUYZcq6l2sz+en/FOKS8GLYp6p9pd3dk3oPl/0vqNS6VPUnOMYyMo91pthGsiRpdVufA+2v2F/gFupfyQhfj3YBkAxBGnCTOyBzLNAHDa0tfTjDBToQhP0Nmt98DRQOFBbysRTHuYcS7rcC106nNCla92rJrdY7dm2qyfMn2IQGzmFQoh4E80H5eCXrbvutVZE/aF6Vu7GlXVbmVO2wpLtOKA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=permerror action=none header.from=amd.com; dkim=none (message not
+ signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=endlessm-com.20150623.gappssmtp.com; s=20150623;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=4qbT+I3jm/2znfx77rItPHA5w5yjCMeZJROKsiWB1gc=;
- b=zIlhGEr6sueDlec+SsoI3zWPpi4Nv3bf842JXqAfjxNMrahRhW//FxbL0HYYRSkooN
- x9v99HFGa8JOfAHCEDtWd/Eak1J1dK8+dEgR/LNPq8jlcMH5z5QKl29pThUrWXcl15Di
- GzC9za+SPVtQRqgOp8B/jvRRKspsNQAE5KnwMlRoD68wSaT2MUj4FiSbP+SJZJn/H+HC
- 90WwBS5If2YXeNAxBR1Tm4MZfQ93jrn8DalTFEMzE9xjn8Dj92MYEL4653Hfu0VL1zWo
- kx5eqHdB7tE9x9csuK5RcbMyR9YQHvOMzW+MKIKpcZNxNejBH+/V6di2iWcN085zuzUS
- hCgg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=4qbT+I3jm/2znfx77rItPHA5w5yjCMeZJROKsiWB1gc=;
- b=WZd/5W4l9pYV465tkTzAXfyOd3LEwJBz2fqIZsTHTKW4Aa/885EuqXudXvft03wF1T
- 1zvBpVlJ0lquPbtgstArzdqMtjLYNlsJ/Jm479bwsZ4UspFADjx+G0No0qKBoC0hC2rI
- 2ySNcyPEqTiop9lj9UscvHv2wfJgoBwjK7UM1qlDi8malSHy3kx9XTC+XxvVKrk3w7jq
- KhjQqF0LvZ6ZzJMfL2qVSNdOeh87BM0Rt3z875sxgT+v1pAU6HXwv5DnnzKm6xzCW4aA
- Fq2cYrZN5PdBBKx5h9taQjb/qAMoQtFohKJkj5AoaQlEg+81ogDE/v3ZT/Hoi4w9FyqH
- 7eCg==
-X-Gm-Message-State: APjAAAX+3eHahLJREqxhAI6UUS8cauZnbT7R4Bv4uGlD+A5WfAswSc8O
- t11VWATjxnILnWsVsJ2S2Sd00WXTMUk5gvPUWIvT/w==
-X-Google-Smtp-Source: APXvYqxFw0PixT6czuXw2KjQpezDgMGtxaaLVVUxBSilC7n3O/FSvVnHvBWJt563rU52HGEH6/IzU5WC0dCNqjLOXLM=
-X-Received: by 2002:aed:2f01:: with SMTP id l1mr23183037qtd.391.1576486846418; 
- Mon, 16 Dec 2019 01:00:46 -0800 (PST)
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=qbJBnYoCH8Jzi2HOk/NUURzPVH5/3+UgegzRLA//V9w=;
+ b=PeS6Vtcgv9ECrnqKAOHdVSmvNBkBLY/xi+px4xFZo28HBs3uG++WY2gnqFlGu7/bzx4o9NgIS42SDziCHA5JOzun7f00F43NgP2WdH7KLGZne05nj4VIp3w9wahQDQLALmzMrEzOMzcu+HG/MZGGWdZtxAohY+fqhqeQTjHL56c=
+Received: from DM5PR12CA0059.namprd12.prod.outlook.com (2603:10b6:3:103::21)
+ by DM5PR12MB1129.namprd12.prod.outlook.com (2603:10b6:3:7a::7) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2538.18; Mon, 16 Dec 2019 09:17:17 +0000
+Received: from DM6NAM11FT016.eop-nam11.prod.protection.outlook.com
+ (2a01:111:f400:7eaa::204) by DM5PR12CA0059.outlook.office365.com
+ (2603:10b6:3:103::21) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2538.16 via Frontend
+ Transport; Mon, 16 Dec 2019 09:17:17 +0000
+Authentication-Results: spf=none (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none;lists.freedesktop.org; dmarc=permerror action=none
+ header.from=amd.com;
+Received-SPF: None (protection.outlook.com: amd.com does not designate
+ permitted sender hosts)
+Received: from SATLEXMB01.amd.com (165.204.84.17) by
+ DM6NAM11FT016.mail.protection.outlook.com (10.13.173.139) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.2538.14 via Frontend Transport; Mon, 16 Dec 2019 09:17:17 +0000
+Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB01.amd.com
+ (10.181.40.142) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Mon, 16 Dec
+ 2019 03:17:16 -0600
+Received: from SATLEXMB01.amd.com (10.181.40.142) by SATLEXMB05.amd.com
+ (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Mon, 16 Dec
+ 2019 03:17:16 -0600
+Received: from emily-build-machine.amd.com (10.180.168.240) by
+ SATLEXMB01.amd.com (10.181.40.142) with Microsoft SMTP Server id 15.1.1713.5
+ via Frontend Transport; Mon, 16 Dec 2019 03:17:15 -0600
+From: Emily Deng <Emily.Deng@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amdgpu/sriov: Tonga sriov also need load firmware with smu
+Date: Mon, 16 Dec 2019 17:17:02 +0800
+Message-ID: <1576487822-3881-1-git-send-email-Emily.Deng@amd.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-References: <20191015065002.18701-1-drake@endlessm.com>
- <CADnq5_M4Leu0raYS6M72MqTm1+PLg9BjHCHLAYuB2-dEVP56_A@mail.gmail.com>
- <CAD8Lp443ZhPEo0PJRxbTSB9DY9x92OvWBeH29m9Ehpyhg+2n5A@mail.gmail.com>
- <CADnq5_OaATVESAY9E2mtd7PoV2VjG=WLS56LCHVpieSHDTas0A@mail.gmail.com>
- <CAD8Lp46f9LR_VJ26BGfOGvj8sTjKZowkbjLNv6R4CsVMfRZQ=Q@mail.gmail.com>
-In-Reply-To: <CAD8Lp46f9LR_VJ26BGfOGvj8sTjKZowkbjLNv6R4CsVMfRZQ=Q@mail.gmail.com>
-From: Daniel Drake <drake@endlessm.com>
-Date: Mon, 16 Dec 2019 17:00:35 +0800
-Message-ID: <CAD8Lp46+Te+AUQKLkLEcGf34izw=JzkU5w=CsZRf_UKJQ_k7qg@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: always reset asic when going into suspend
-To: Alex Deucher <alexdeucher@gmail.com>
+X-EOPAttributedMessage: 0
+X-MS-Office365-Filtering-HT: Tenant
+X-Forefront-Antispam-Report: CIP:165.204.84.17; IPV:; CTRY:US; EFV:NLI;
+ SFV:NSPM;
+ SFS:(10009020)(4636009)(396003)(39860400002)(376002)(136003)(346002)(428003)(189003)(199004)(70206006)(70586007)(81166006)(81156014)(8936002)(8676002)(186003)(36756003)(4326008)(5660300002)(86362001)(2906002)(2616005)(336012)(6916009)(7696005)(356004)(6666004)(478600001)(26005)(426003)(316002);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:DM5PR12MB1129; H:SATLEXMB01.amd.com; FPR:;
+ SPF:None; LANG:en; PTR:InfoDomainNonexistent; MX:1; A:1; 
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 482b3891-e30b-495c-b66e-08d78208bf01
+X-MS-TrafficTypeDiagnostic: DM5PR12MB1129:
+X-Microsoft-Antispam-PRVS: <DM5PR12MB1129DD5FDB1B305B0009B2ED8F510@DM5PR12MB1129.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:639;
+X-Forefront-PRVS: 02530BD3AA
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: RPnl4KHUc34d6cdLOxnxn0V8TfG8JccJXMYcqv7vHdZU4q1Umx+o3WzPmVkxjGYeU2C7oghiapO2S7YbxnIg3fLr1daC+JTFjmg1gu91oS0t87jb1tZUFhJEK4AgSexk10+3wsB8veEFhJVDhmzgT1lzJlnbl6XBo434egjT0fu6o7EWt1qeRaVgav1ywrWoJ+QKFQrbhq99Oi0dBRL2zA7Ndif6gf08xfastx3lmBcC9qE7C/znWaSSondJ33VlbCTiXHcgnpvxc9TvpqBuZgC4BOsywyVbf80FmTx6bwwQ1/bUJJZeNSu9Ds/4Ky2qS5MpO9XzKGcl8BhtYu1tcJCYeNiIOOXbrIiwgeJqaC3aM7EF3KQD28cboowceS6Y6aP21d0yljoejTASMmstvGJMVWxszIsnSzwMrf2Z30NGLZWuQmGc10zvyucTcakn
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Dec 2019 09:17:17.1233 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 482b3891-e30b-495c-b66e-08d78208bf01
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB01.amd.com]
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1129
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,40 +114,51 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <alexander.deucher@amd.com>,
- Chunming Zhou <David1.Zhou@amd.com>,
- Christian Koenig <christian.koenig@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Linux PM <linux-pm@vger.kernel.org>
+Cc: Emily Deng <Emily.Deng@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Alex,
+Fix Tonga sriov load driver fail issue.
 
-On Mon, Nov 25, 2019 at 1:17 PM Daniel Drake <drake@endlessm.com> wrote:
-> Unfortunately not. The original issue still exists (dead gfx after
-> resume from s2idle) and also when I trigger execution of the suspend
-> or runtime suspend routines the power usage increases around 1.5W as
-> before.
->
-> Have you confirmed that amdgpu s2idle is working on platforms you have in hand?
+Signed-off-by: Emily Deng <Emily.Deng@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    | 3 ++-
+ drivers/gpu/drm/amd/powerplay/amd_powerplay.c | 3 ---
+ 2 files changed, 2 insertions(+), 4 deletions(-)
 
-Any further ideas here? Or any workarounds that you would consider?
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index 26d1a4c..52d3f66 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -1818,7 +1818,8 @@ static int amdgpu_device_fw_loading(struct amdgpu_device *adev)
+ 		}
+ 	}
+ 
+-	r = amdgpu_pm_load_smu_firmware(adev, &smu_version);
++	if (!amdgpu_sriov_vf(adev) || adev->asic_type == CHIP_TONGA)
++		r = amdgpu_pm_load_smu_firmware(adev, &smu_version);
+ 
+ 	return r;
+ }
+diff --git a/drivers/gpu/drm/amd/powerplay/amd_powerplay.c b/drivers/gpu/drm/amd/powerplay/amd_powerplay.c
+index 5087d6b..7293763 100644
+--- a/drivers/gpu/drm/amd/powerplay/amd_powerplay.c
++++ b/drivers/gpu/drm/amd/powerplay/amd_powerplay.c
+@@ -275,9 +275,6 @@ static int pp_dpm_load_fw(void *handle)
+ {
+ 	struct pp_hwmgr *hwmgr = handle;
+ 
+-	if (!hwmgr->not_vf)
+-		return 0;
+-
+ 	if (!hwmgr || !hwmgr->smumgr_funcs || !hwmgr->smumgr_funcs->start_smu)
+ 		return -EINVAL;
+ 
+-- 
+2.7.4
 
-This platform has been rather tricky but all of the other problems are
-now solved:
-https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=f897e60a12f0b9146357780d317879bce2a877dc
-https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=d21b8adbd475dba19ac2086d3306327b4a297418
-https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=406857f773b082bc88edfd24967facf4ed07ac85
-https://patchwork.kernel.org/patch/11263477/
-
-amdgpu is the only breakage left before Linux can be shipped on this
-family of products.
-
-Thanks
-Daniel
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
