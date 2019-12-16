@@ -2,66 +2,78 @@ Return-Path: <SRS0=GTlj=2G=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
+X-Spam-Status: No, score=-7.8 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
 	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.0
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A2CDAC2D0C3
-	for <amd-gfx@archiver.kernel.org>; Mon, 16 Dec 2019 20:16:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BA4F1C43603
+	for <amd-gfx@archiver.kernel.org>; Mon, 16 Dec 2019 20:19:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7A78F2166E
-	for <amd-gfx@archiver.kernel.org>; Mon, 16 Dec 2019 20:16:25 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 8E5B021739
+	for <amd-gfx@archiver.kernel.org>; Mon, 16 Dec 2019 20:19:13 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="p2vnEG9U"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7A78F2166E
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dXKa/gJl"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8E5B021739
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 516796E87A;
-	Mon, 16 Dec 2019 20:16:25 +0000 (UTC)
-Received: from mail-wm1-x341.google.com (mail-wm1-x341.google.com
- [IPv6:2a00:1450:4864:20::341])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 86AD56E87A
- for <amd-gfx@lists.freedesktop.org>; Mon, 16 Dec 2019 20:16:23 +0000 (UTC)
-Received: by mail-wm1-x341.google.com with SMTP id p17so675937wma.1
- for <amd-gfx@lists.freedesktop.org>; Mon, 16 Dec 2019 12:16:23 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 57FF06E87B;
+	Mon, 16 Dec 2019 20:19:13 +0000 (UTC)
+Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com
+ [IPv6:2a00:1450:4864:20::441])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7AE226E87A
+ for <amd-gfx@lists.freedesktop.org>; Mon, 16 Dec 2019 20:19:11 +0000 (UTC)
+Received: by mail-wr1-x441.google.com with SMTP id t2so8881992wrr.1
+ for <amd-gfx@lists.freedesktop.org>; Mon, 16 Dec 2019 12:19:11 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=xZNP9P4XqLfq1XfDDi/McSzgFyH9B9+RzmB+2W5W5Tw=;
- b=p2vnEG9U9yvlN5iM39Ib/+lMrxBaodNQTsSLYz51IrPCz+4kA3OPD3ygadp6NhHdCC
- m40DGrNR0KkFwH/D29QcBbnJPzpOlHthTyr8RLxWX0+6veZArKkWYDxj8OPio68Ouzea
- I9Ag8PGJ+wqJ2b0fMi7gIrENQb6O6Z7QjccOru1PnqaygVpdknkpvJFYIFvCW2ZouvYH
- NGK0AmcbufTpjcGRtL6SD/wi9RqYWV/RiVbhL1WKEb6O599iOCZ2E4FC+Ycwoy6fTxHk
- zI9wssYV75YgUFQ0MMcCPQnReUrKm7l6xAeIUfSQWPvMtIUJ46aq31PD7inhTh+QRktw
- fohA==
+ h=reply-to:subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-transfer-encoding:content-language;
+ bh=AjcR77FnA7cmAUlu3umIyU4YYEY7/G8KEUK0HMElKnA=;
+ b=dXKa/gJlrK0/DVslAcnY7ycliPKR/EZDgZxndoNex0ioAlyxMRaM1Qt9IGp3BHwBmc
+ G340QjNBrPrY875Lbu2ZxozdrLeovS65W1kTkXN0rpqWwBdc0SpFoQNV3P2mdLZt8tsg
+ horZV47jSxU8uwCtmL3Z9BzDskW8qhkGLsIr2WGDUrWs8dlyhusw18T07EiG+4ahD0iq
+ kUMy8ITcNWOkxx6JhEfcikhsLiQGxzbIFMWm6nXKtBC4kLaCNBIIylrHFrXzbZXl2hC4
+ YvSsZmDtpx6McqxeJfTTqyheW6G/7kmwGX05QFZKNzo4F3gn2ccRf4I7e8Ww4WvjuFMe
+ e0mg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=xZNP9P4XqLfq1XfDDi/McSzgFyH9B9+RzmB+2W5W5Tw=;
- b=HvQjqz4yW4N09jYtC0HQqAQZhPEqTKtDAM6a9dwrcuoPCcqoMzU3Tk3eOV8JDkf4AX
- EOf5SYuFYzA2fryeKnIEufphhTNY6L1dL95eysSZjeJKVn7hFaeJf44mH+bVr0Dcgbsr
- Fs76lFBapHKGI7ab3AhwTz2eb1GmfADEYw9KX90f3R9Rc0sWE3URjsfB4wEsEy5A2UOO
- /vfD4xltkA96/ObKf+6yGHTDUIX1VSWXpncd8Gujn+oOTAtnR05L6sXKz1EOpz+WQW3u
- QDb/q6BzYnQAWS6b3Q2+6Yg18caR9fVFpyiyH6z30TnQcFgJB6iiCtCyadiXz0FFsF3d
- 1ikA==
-X-Gm-Message-State: APjAAAU3XsHfPsb6MPVkUpT8QmoQY+rN+NY9sbysiWisQvH3ywLnUZ6s
- I1PmzSdTC9Sl3D6PYxtpBzSiByYYxjAS/++ns2jpUQ==
-X-Google-Smtp-Source: APXvYqy4gIGVZZNh4CeskMJNgvOqkXsvp+Z095t6Lfze1H9K3tPaGLFOp6p3OAe2RyQuxvDyxbTzT9nbAS1laXWv/Rc=
-X-Received: by 2002:a1c:e909:: with SMTP id q9mr957593wmc.30.1576527382068;
- Mon, 16 Dec 2019 12:16:22 -0800 (PST)
+ h=x-gm-message-state:reply-to:subject:to:cc:references:from
+ :message-id:date:user-agent:mime-version:in-reply-to
+ :content-transfer-encoding:content-language;
+ bh=AjcR77FnA7cmAUlu3umIyU4YYEY7/G8KEUK0HMElKnA=;
+ b=pGV6MNn2IvgFM/C2MWOP4n8/nvhxjXOgMT94LgA7PNpap4vnOpKmu00oRyKwMEan9c
+ aZsJxn3jm38jTXFdEv4piA52yEUQb6DS1CRrCxNlrQDwVIzZ4v+TUBoPwkomb98bfHtP
+ mr0LQM5U9kfeNVp0Aanjw21Wu/gHl5OZkhsqKYnyd0WWX0Sw5S6WUWXrgrDHHlOH5jJZ
+ GZdbbSvKYOgspNohE0hChDmCRPP+JfXJpnO5IgItcn+JbMgUu04oOsart641M/bEGuOE
+ 4IzbXJ0Q1FlS6L9236xXyXXQJcNoHjhbqM2E53s492wNKg47GojSQm0hRfFwUXzD2u/u
+ j1pw==
+X-Gm-Message-State: APjAAAWJsxW+2F/JTGZn8UDzYGqbfGMwN54uD6o1sFGigcNkwFzIza5W
+ JPt2Rd/ecp7mZ5R9HHY13e0=
+X-Google-Smtp-Source: APXvYqy6ebD4ldCDHBlMvIoeCGatzsybLvMNSAov5jpirx6uExlncGiEw6p40mXqC9taNhw3w1/b8w==
+X-Received: by 2002:a5d:4b45:: with SMTP id w5mr34092494wrs.224.1576527550209; 
+ Mon, 16 Dec 2019 12:19:10 -0800 (PST)
+Received: from ?IPv6:2a02:908:1252:fb60:be8a:bd56:1f94:86e7?
+ ([2a02:908:1252:fb60:be8a:bd56:1f94:86e7])
+ by smtp.gmail.com with ESMTPSA id r15sm501436wmh.21.2019.12.16.12.19.09
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Mon, 16 Dec 2019 12:19:09 -0800 (PST)
+Subject: Re: [PATCH 2/3] drm/amdgpu/pm_runtime: update usage count in fence
+ handling
+To: Alex Deucher <alexdeucher@gmail.com>, amd-gfx@lists.freedesktop.org
+References: <20191216171834.217251-1-alexander.deucher@amd.com>
+ <20191216171834.217251-2-alexander.deucher@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+Message-ID: <d9b19564-79b4-6044-8b0d-5dba5adf6982@gmail.com>
+Date: Mon, 16 Dec 2019 21:19:08 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.9.0
 MIME-Version: 1.0
-References: <20191216160543.13054-1-leo.liu@amd.com>
- <20191216201444.28465-1-leo.liu@amd.com>
-In-Reply-To: <20191216201444.28465-1-leo.liu@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 16 Dec 2019 15:16:10 -0500
-Message-ID: <CADnq5_P1ksbJNkFkPpCxPhmgeCJn=d6PKcc7BHwTomLc2+7q1Q@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu/vcn: remove unnecessary included headers
-To: Leo Liu <leo.liu@amd.com>
+In-Reply-To: <20191216171834.217251-2-alexander.deucher@amd.com>
+Content-Language: en-US
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,54 +85,71 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>
-Content-Type: text/plain; charset="us-ascii"
+Reply-To: christian.koenig@amd.com
+Cc: Alex Deucher <alexander.deucher@amd.com>
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Dec 16, 2019 at 3:15 PM Leo Liu <leo.liu@amd.com> wrote:
+Am 16.12.19 um 18:18 schrieb Alex Deucher:
+> Increment the usage count in emit fence, and decrement in
+> process fence to make sure the GPU is always considered in
+> use while there are fences outstanding.  We always wait for
+> the engines to drain in runtime suspend, but in practice
+> that only covers short lived jobs for gfx.  This should
+> cover us for longer lived fences.
 >
-> Esp. VCN1.0 headers should not be here
->
-> v2: add back the <linux/module.h> to keep consistent.
->
-> Signed-off-by: Leo Liu <leo.liu@amd.com>
-
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c | 6 ------
->  1 file changed, 6 deletions(-)
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c | 6 +++++-
+>   1 file changed, 5 insertions(+), 1 deletion(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-> index e522025430c7..623b9f9ef1ea 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-> @@ -28,16 +28,10 @@
->  #include <linux/module.h>
->  #include <linux/pci.h>
->
-> -#include <drm/drm.h>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
+> index 377fe20bce23..e9efee04ca23 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
+> @@ -34,6 +34,7 @@
+>   #include <linux/kref.h>
+>   #include <linux/slab.h>
+>   #include <linux/firmware.h>
+> +#include <linux/pm_runtime.h>
+>   
+>   #include <drm/drm_debugfs.h>
+>   
+> @@ -154,7 +155,7 @@ int amdgpu_fence_emit(struct amdgpu_ring *ring, struct dma_fence **f,
+>   		       seq);
+>   	amdgpu_ring_emit_fence(ring, ring->fence_drv.gpu_addr,
+>   			       seq, flags | AMDGPU_FENCE_FLAG_INT);
 > -
->  #include "amdgpu.h"
->  #include "amdgpu_pm.h"
->  #include "amdgpu_vcn.h"
->  #include "soc15d.h"
-> -#include "soc15_common.h"
-> -
-> -#include "vcn/vcn_1_0_offset.h"
-> -#include "vcn/vcn_1_0_sh_mask.h"
->
->  /* Firmware Names */
->  #define FIRMWARE_RAVEN         "amdgpu/raven_vcn.bin"
-> --
-> 2.17.1
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+> +	pm_runtime_get_noresume(adev->ddev->dev);
+>   	ptr = &ring->fence_drv.fences[seq & ring->fence_drv.num_fences_mask];
+>   	if (unlikely(rcu_dereference_protected(*ptr, 1))) {
+>   		struct dma_fence *old;
+> @@ -234,6 +235,7 @@ static void amdgpu_fence_schedule_fallback(struct amdgpu_ring *ring)
+>   bool amdgpu_fence_process(struct amdgpu_ring *ring)
+>   {
+>   	struct amdgpu_fence_driver *drv = &ring->fence_drv;
+> +	struct amdgpu_device *adev = ring->adev;
+>   	uint32_t seq, last_seq;
+>   	int r;
+>   
+> @@ -274,6 +276,8 @@ bool amdgpu_fence_process(struct amdgpu_ring *ring)
+>   			BUG();
+>   
+>   		dma_fence_put(fence);
+> +		pm_runtime_mark_last_busy(adev->ddev->dev);
+> +		pm_runtime_put_autosuspend(adev->ddev->dev);
+
+Are you sure this is ok? Keep in mind that this function is called in 
+interrupt context.
+
+Christian.
+
+>   	} while (last_seq != seq);
+>   
+>   	return true;
+
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
