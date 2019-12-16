@@ -2,66 +2,65 @@ Return-Path: <SRS0=GTlj=2G=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
+X-Spam-Status: No, score=-0.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
 	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.0
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 12009C43603
-	for <amd-gfx@archiver.kernel.org>; Mon, 16 Dec 2019 17:23:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4027AC43603
+	for <amd-gfx@archiver.kernel.org>; Mon, 16 Dec 2019 17:28:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D5C35206E0
-	for <amd-gfx@archiver.kernel.org>; Mon, 16 Dec 2019 17:23:24 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 11CAF206E0
+	for <amd-gfx@archiver.kernel.org>; Mon, 16 Dec 2019 17:28:35 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sfidfaoO"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D5C35206E0
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="g26j1sDF"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 11CAF206E0
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6B1926E846;
-	Mon, 16 Dec 2019 17:23:24 +0000 (UTC)
-Received: from mail-wm1-x342.google.com (mail-wm1-x342.google.com
- [IPv6:2a00:1450:4864:20::342])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7806E6E846;
- Mon, 16 Dec 2019 17:23:23 +0000 (UTC)
-Received: by mail-wm1-x342.google.com with SMTP id u2so134785wmc.3;
- Mon, 16 Dec 2019 09:23:23 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BB3C06E84D;
+	Mon, 16 Dec 2019 17:28:34 +0000 (UTC)
+Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com
+ [IPv6:2a00:1450:4864:20::442])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 60F9D6E848;
+ Mon, 16 Dec 2019 17:28:33 +0000 (UTC)
+Received: by mail-wr1-x442.google.com with SMTP id j42so4114537wrj.12;
+ Mon, 16 Dec 2019 09:28:33 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=fDTU2xRE217quAURXeDNwr9rSajyW4k3C/7yXfGPe+s=;
- b=sfidfaoOonBYsPEQ7+Yk4Nqqk5o8buIX1DHlH4NTSQy4WRDJUbH0BBzt+sekdhTFh9
- kB2cE8lGStESzSffqxvt8cvjh1pxIHZOr5VCVGjrKxcYHGZKvSTGiE6hmmz0ZMyJvXlG
- WnjhJszvQJCMrpiTe1qdscTQvLMJJ/DyzMFW76xN2uVU31NE1wfCK5ZhT9R1bcIORIwB
- 7KrvwiKkAZ5as0mWFC1qkKmrbLi41SsGCC6TKNxGBX1hUJW203+BqSBB7WTUiFx7kfBo
- nDMkybyPkAUBG/ZDZHPw6+2YnEDebxni4K1TfLcIuC/Z/XAqd1OGCN42Hsi/OZpx+fvF
- D/jA==
+ :cc; bh=VonmFEbKNIVFPj71qKaZLVkIiUnrSExcTNphleb6tzs=;
+ b=g26j1sDFBrj6tng2kXFyfBWF2eCHL1W0tjsnLCuQKZRepEGuD5jKsIat+LCAeSsizR
+ +RW167u9LDyUJ6Dx3Gn7sDkx7ikf5Ez7efSljTwwK89m3gtQ0aq8OrCZt4ucaKm4KssQ
+ zhz/htRFjwvCrQtt25ViFNQgTQXpkjflX4IosPaypjnD37fevryXKwnNDTXMZVGc+y7F
+ IvCOedqKSH5Sm0H9AayWi48xTQ/f9e8g2D0Lri1bZ7j+LYLsjWP3iQ+EEtvgn89DHC90
+ JTd6R/HzCSzRwCfkqDyV3HV2dLvzNJqHbhEhnbd9mxb04iMegJcQX73bivd8edSpe1+Q
+ rKaQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=fDTU2xRE217quAURXeDNwr9rSajyW4k3C/7yXfGPe+s=;
- b=URHtG7kq1cKzQTDTHgi8q1mpHy1IPJDBFJjygCNibkTXqfS9GOc/tUoOBKH32SMmOI
- pwGVV6+4anb8xJM3tZ3Yuxaj9gj+Z8xO4Kzmz9LPUngCRf0h1MBBSR5b4pkUeIQZpDqM
- C3TzlxQlVr+5qWwM2hmGaGqMtCEnHA4eDpmvIx6ZMZM/IVD4/wc/Ux1ItaGdv+J4kLn8
- Xl878YBsxdk9vEP2hrUyRmYJyy9N5i8VrpFx1cu1+CnRqKq7TCxcF6P/CAxSR9YWx9Kq
- ekWoa8iGSeCa8fBwBwVBdL1Y2YihqXVx07AoPufNTJXX4J/4YlYYtF7VrF1/v59NtUuV
- jjTw==
-X-Gm-Message-State: APjAAAXkZPyBREoTVcPyIIXTCLwIIAmWcYmA1IFSeZ3v54xhJ6eM1WTN
- Bz42ibps3MDKqW6c+2DQYWSbol4mFcaIqGnwarQ=
-X-Google-Smtp-Source: APXvYqyKn7CNJbEdAwxml/kqAeTfotXthtFz+vqMKeAUnh3lliy8DHrElyvvv+6C00K0MJHKh31oU9c9yKMx1jAZrjE=
-X-Received: by 2002:a1c:6404:: with SMTP id y4mr55909wmb.143.1576517002064;
- Mon, 16 Dec 2019 09:23:22 -0800 (PST)
+ bh=VonmFEbKNIVFPj71qKaZLVkIiUnrSExcTNphleb6tzs=;
+ b=G39aZkbe5nb04ZSYVPCh5EplK4xeWuJ1KqIl+KKEWc9RLHOzAT9sFZWKC1jkwq2Ext
+ pKdfffXXZW5+bgUaMbroox4VVkzdCaY26eqknSNH+aX6obDlwm9r0m3TYfGY4VCJtIaz
+ T3UOr0MxZp+H15vR0TbCwRhjTe+xXbFYVCXlv8YCXlHhdonwu8WZDKY7uele+qjzWMR6
+ FGVpB5u3tBWTVH3P51nxZKUajqiHPLXYs40vUdJnh3a22LCA2AH8i3UdDNnDDFCT86ii
+ pPEnHM77m76dg57H9nOxAfSWHUPfN0+/+1hYGx/HxlCM5GljWbUu6ZmLLGy0KfG7nyb5
+ QTxg==
+X-Gm-Message-State: APjAAAUNd+Ci0GZXFM5cPlQ8E/gTy9BQtin/Hj7apO4acECCyYUxWQHx
+ /gUdLRDQcabwh59RYhN9Ty1ZPt880muhPFjQ05M=
+X-Google-Smtp-Source: APXvYqxgPEcG+FNGAptMFTRIyvh+cC7Usx8WVqWvF1kvtome8r/1jUFjkb4DZrpO7UGojrFXnXLjOwPNxkHhZOdSigo=
+X-Received: by 2002:adf:e8ca:: with SMTP id k10mr31872928wrn.50.1576517311984; 
+ Mon, 16 Dec 2019 09:28:31 -0800 (PST)
 MIME-Version: 1.0
-References: <1576314753-65777-1-git-send-email-zhengbin13@huawei.com>
- <ab4d3c43-a954-88b6-6c58-de836e03c4b7@amd.com>
-In-Reply-To: <ab4d3c43-a954-88b6-6c58-de836e03c4b7@amd.com>
+References: <1576314144-27602-1-git-send-email-zhengbin13@huawei.com>
+In-Reply-To: <1576314144-27602-1-git-send-email-zhengbin13@huawei.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 16 Dec 2019 12:23:09 -0500
-Message-ID: <CADnq5_Mkw2MMzinYbNzj_qvbMbnDsPA9jbaBY0aJJnKYvSLyKg@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/display: Remove unneeded semicolon
-To: Harry Wentland <hwentlan@amd.com>
+Date: Mon, 16 Dec 2019 12:28:20 -0500
+Message-ID: <CADnq5_P3jcpT2iBvDZva0C3iPCvT2zVAQ7gL3wA5fXue0kKq_Q@mail.gmail.com>
+Subject: Re: [PATCH 0/3] drm/amdgpu: Remove unneeded semicolon
+To: zhengbin <zhengbin13@huawei.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,59 +73,39 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: Chunming Zhou <David1.Zhou@amd.com>, Dave Airlie <airlied@linux.ie>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>, zhengbin <zhengbin13@huawei.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
  Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
  Daniel Vetter <daniel@ffwll.ch>, "Deucher,
- Alexander" <alexander.deucher@amd.com>, "Wentland,
- Harry" <harry.wentland@amd.com>, Christian Koenig <christian.koenig@amd.com>
+ Alexander" <alexander.deucher@amd.com>,
+ Christian Koenig <christian.koenig@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Dec 16, 2019 at 9:32 AM Harry Wentland <hwentlan@amd.com> wrote:
->
-> On 2019-12-14 4:12 a.m., zhengbin wrote:
-> > Fixes coccicheck warning:
-> >
-> > drivers/gpu/drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr.c:412:90-91: Unneeded semicolon
-> >
-> > Reported-by: Hulk Robot <hulkci@huawei.com>
-> > Signed-off-by: zhengbin <zhengbin13@huawei.com>
->
-> Reviewed-by: Harry Wentland <harry.wentland@amd.com>
->
-
-Applied.  Thanks!
+Applied the series.  Thanks!
 
 Alex
 
-> Harry
+On Sat, Dec 14, 2019 at 9:44 AM zhengbin <zhengbin13@huawei.com> wrote:
 >
-> > ---
-> >  drivers/gpu/drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr.c | 2 +-
-> >  1 file changed, 1 insertion(+), 1 deletion(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr.c
-> > index de51ef1..a1b7e76 100644
-> > --- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr.c
-> > +++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr.c
-> > @@ -409,7 +409,7 @@ void build_watermark_ranges(struct clk_bw_params *bw_params, struct pp_smu_wm_ra
-> >                       continue;
-> >
-> >               ranges->reader_wm_sets[num_valid_sets].wm_inst = bw_params->wm_table.entries[i].wm_inst;
-> > -             ranges->reader_wm_sets[num_valid_sets].wm_type = bw_params->wm_table.entries[i].wm_type;;
-> > +             ranges->reader_wm_sets[num_valid_sets].wm_type = bw_params->wm_table.entries[i].wm_type;
-> >               /* We will not select WM based on dcfclk, so leave it as unconstrained */
-> >               ranges->reader_wm_sets[num_valid_sets].min_drain_clk_mhz = PP_SMU_WM_SET_RANGE_CLK_UNCONSTRAINED_MIN;
-> >               ranges->reader_wm_sets[num_valid_sets].max_drain_clk_mhz = PP_SMU_WM_SET_RANGE_CLK_UNCONSTRAINED_MAX;
-> > --
-> > 2.7.4
-> >
+> zhengbin (3):
+>   drm/amdgpu: Remove unneeded semicolon in amdgpu_pmu.c
+>   drm/amdgpu: Remove unneeded semicolon in gfx_v10_0.c
+>   drm/amdgpu: Remove unneeded semicolon in amdgpu_ras.c
+>
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_pmu.c | 8 ++++----
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 2 +-
+>  drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c  | 2 +-
+>  3 files changed, 6 insertions(+), 6 deletions(-)
+>
+> --
+> 2.7.4
+>
 > _______________________________________________
-> amd-gfx mailing list
-> amd-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+> dri-devel mailing list
+> dri-devel@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/dri-devel
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
