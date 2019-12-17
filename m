@@ -8,63 +8,63 @@ X-Spam-Status: No, score=-9.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
 	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4FECAC3F68F
-	for <amd-gfx@archiver.kernel.org>; Tue, 17 Dec 2019 21:45:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 528B2C2D0BF
+	for <amd-gfx@archiver.kernel.org>; Tue, 17 Dec 2019 21:45:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 21EFB21582
-	for <amd-gfx@archiver.kernel.org>; Tue, 17 Dec 2019 21:45:58 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 21E312082E
+	for <amd-gfx@archiver.kernel.org>; Tue, 17 Dec 2019 21:45:59 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="j5/Hv6E1"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 21EFB21582
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rB9bu7Va"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 21E312082E
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A64586E147;
-	Tue, 17 Dec 2019 21:45:57 +0000 (UTC)
-Received: from mail-yw1-xc42.google.com (mail-yw1-xc42.google.com
- [IPv6:2607:f8b0:4864:20::c42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DD49D6E147
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0E5E96E157;
+	Tue, 17 Dec 2019 21:45:58 +0000 (UTC)
+Received: from mail-yb1-xb41.google.com (mail-yb1-xb41.google.com
+ [IPv6:2607:f8b0:4864:20::b41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 064A56E145
  for <amd-gfx@lists.freedesktop.org>; Tue, 17 Dec 2019 21:45:56 +0000 (UTC)
-Received: by mail-yw1-xc42.google.com with SMTP id x138so2550929ywd.9
- for <amd-gfx@lists.freedesktop.org>; Tue, 17 Dec 2019 13:45:56 -0800 (PST)
+Received: by mail-yb1-xb41.google.com with SMTP id x14so1062425ybr.4
+ for <amd-gfx@lists.freedesktop.org>; Tue, 17 Dec 2019 13:45:55 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=oYKJgrHPFUyUfnSIVXAefgzyEaw5upaKBPay0t+VC1E=;
- b=j5/Hv6E1uohflS+4hNF1i9KruU/3Z0OUCP53eWYw8cpM3g7BAlQ0RHz7RDxz5MjjDX
- 0y24KmxdCjTzxvLI6BaJRLW3CAHqomVCw40nlFdAO4CLuDRFx7+4lCwz5XItJmPu2uIR
- VipZLbukS9zeG3ShwgZRzGtxvAJZhlJuQy71QI/McsrtzC2NBca0+1LKMEdxhlHNYu0q
- FuvkqC4bPDyOiLZTO1CYhOTJlsxrf9VR7IdQpAIVK9/v8Y7elxXhPZZhj7RedZwngZeu
- PJNDV9dm3aHRNlWb67C7erB1kd4OrGOFjrJlVcrOQQJe4/Xy2lkpmccIS6JK13D+UGXv
- eKgQ==
+ bh=qUjXfT/KO0e7SbCjvEgF0ppvtSuMdrt/2b8LZAiMUwI=;
+ b=rB9bu7VapcIfkDOOdrEXZ5lwnoJMhNQgroPaOAgcNtusoSdWB5pNN2cpN1tDdMGS8m
+ hS8D97Z5r+Cyx75ZSJYB0BWznACWJe/uE6OKggSqAtQOTIFYZb0zA4SXb13pdZDBjMUb
+ D6o359aPqV8feSyxkIOV8j38a2TpnLDqyyxKkbi7lskhZkL7vWOeIMp97C9fTZf5IsAO
+ Og5wTiGzwyVM5K9uvPSVRKb8B0ZCqOXMuNsHnCBelfYpPPeplW0phyNZDtxpFtIN6CGh
+ Gb6CiUQ5lyR3WAr6jB7k9dDzJpSEEup+3MwMaNWLvHyw1bwdp+pfjAybTLLJ9Bcc60PD
+ B86g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=oYKJgrHPFUyUfnSIVXAefgzyEaw5upaKBPay0t+VC1E=;
- b=CU4PjY0+IXwKvUYm/iIBNl80HV1HJjSd5g5GOA2vbPL/SAln8Nc77iV4hJk8F4l4wT
- epy6zT/yCX45wsxw7Kg3VV85VRFofjM83zpBF5scz4r/2bmAN1q11eMSwRz8JOTG+ZtP
- 2AmJuxs2SfG1WlTHMCCogrdwh+XFUNPrCaE+A06nBcv9y7qscmmN0dNxX0IZZadU4h3Q
- lfoCA7+e6JHwRot/3dldVgoScUvwi89u1FPbTjUtTBaqG4jwuzQhBENc70V7kstTsmJI
- B19qT3UWgBAq96JIfS25aTeW9bTQaIqi7lZsPejj/z97nSoYEdjs4nRdnUd6dSwGj0WE
- d90Q==
-X-Gm-Message-State: APjAAAUR8O71jQcc1Y65OzFDHK1OcW8Y3oofGxrrW4FmR8aXT3e5MoJe
- FjU2goeIdtBCb9howU5eyX64ZSRp
-X-Google-Smtp-Source: APXvYqww0JB8BkS/oSbF4NZgqvnQSgXDFPw+v26+XzZXoDgCQJeFTKItLy2cgyp2tVEUTJ7QThgpCg==
-X-Received: by 2002:a81:3dc5:: with SMTP id k188mr763685ywa.257.1576619155879; 
- Tue, 17 Dec 2019 13:45:55 -0800 (PST)
+ bh=qUjXfT/KO0e7SbCjvEgF0ppvtSuMdrt/2b8LZAiMUwI=;
+ b=gGX9waH+PAFX5eKLpbeXc0VhX4VlIefyzb0AMjUrnXEykIp8qcUCQD7qp8n+I0D8VK
+ Uk62pcDgLAMNqwE0njOJpnSLP0r46WgL7QTzp0ny2oey00Cye7i9stHgcpEhR1OKNIRa
+ chU1ZrWOBZWz3tH4jGHeZICg5Ikbvm4Eg9/xheTBc6UkClcWXBMFATj/KiN8wTVeyWQ5
+ YXuR+lCzNIiVPHjLVaW76w6hGwAoVmuhlejWXToL3JB9srqJZgaV1cvp/Pm5n7Jv8ip5
+ XEVGypryRY9TyqnXRZtIUFoVihb4XqUbAHbUSBiHUgdDwqE9TBplytPDw/vCI31mNHIp
+ tEgg==
+X-Gm-Message-State: APjAAAUbtEp2gK66/d0qAn0/oSYQquN/860IBAFo2DS4goRZUpnaf5AK
+ W2gHAppG84BCfqI9IK27iiV1Av+K
+X-Google-Smtp-Source: APXvYqzXTEM1u3FooZghrageMUNWmQFayZNNCZupYrUsrxYs/4aUPb5WxaaOcQ3HIMpA+tZfwcJLaA==
+X-Received: by 2002:a5b:70d:: with SMTP id g13mr187918ybq.270.1576619154982;
+ Tue, 17 Dec 2019 13:45:54 -0800 (PST)
 Received: from tr4.amd.com (atlvpn.amd.com. [165.204.84.11])
- by smtp.gmail.com with ESMTPSA id c1sm32728ywe.67.2019.12.17.13.45.55
+ by smtp.gmail.com with ESMTPSA id c1sm32728ywe.67.2019.12.17.13.45.54
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 17 Dec 2019 13:45:55 -0800 (PST)
+ Tue, 17 Dec 2019 13:45:54 -0800 (PST)
 From: Alex Deucher <alexdeucher@gmail.com>
 X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH v2 4/5] drm/amdgpu/smu: add metrics table lock for renoir (v2)
-Date: Tue, 17 Dec 2019 16:45:42 -0500
-Message-Id: <20191217214543.2285700-4-alexander.deucher@amd.com>
+Subject: [PATCH v2 3/5] drm/amdgpu/smu: add metrics table lock for navi (v2)
+Date: Tue, 17 Dec 2019 16:45:41 -0500
+Message-Id: <20191217214543.2285700-3-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.23.0
 In-Reply-To: <20191217214543.2285700-1-alexander.deucher@amd.com>
 References: <20191217214543.2285700-1-alexander.deucher@amd.com>
@@ -93,14 +93,14 @@ v2: unlock on error
 Bug: https://gitlab.freedesktop.org/drm/amd/issues/900
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/powerplay/renoir_ppt.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/powerplay/navi10_ppt.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/powerplay/renoir_ppt.c b/drivers/gpu/drm/amd/powerplay/renoir_ppt.c
-index 81520b0fca68..979772dbe6a9 100644
---- a/drivers/gpu/drm/amd/powerplay/renoir_ppt.c
-+++ b/drivers/gpu/drm/amd/powerplay/renoir_ppt.c
-@@ -171,17 +171,20 @@ static int renoir_get_metrics_table(struct smu_context *smu,
+diff --git a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c b/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
+index 7b42e72dc939..bf87e93b26fc 100644
+--- a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
++++ b/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
+@@ -564,17 +564,20 @@ static int navi10_get_metrics_table(struct smu_context *smu,
  	struct smu_table_context *smu_table= &smu->smu_table;
  	int ret = 0;
  
@@ -121,16 +121,6 @@ index 81520b0fca68..979772dbe6a9 100644
  
  	return ret;
  }
-@@ -239,8 +242,7 @@ static int renoir_print_clk_levels(struct smu_context *smu,
- 
- 	memset(&metrics, 0, sizeof(metrics));
- 
--	ret = smu_update_table(smu, SMU_TABLE_SMU_METRICS, 0,
--			       (void *)&metrics, false);
-+	ret = renoir_get_metrics_table(smu, &metrics);
- 	if (ret)
- 		return ret;
- 
 -- 
 2.23.0
 
