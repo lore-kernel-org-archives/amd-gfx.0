@@ -2,68 +2,93 @@ Return-Path: <SRS0=4PMp=2I=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+X-Spam-Status: No, score=-9.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.0
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 80A52C43603
-	for <amd-gfx@archiver.kernel.org>; Wed, 18 Dec 2019 23:07:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 347A3C43603
+	for <amd-gfx@archiver.kernel.org>; Wed, 18 Dec 2019 23:12:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4DC2C2176D
-	for <amd-gfx@archiver.kernel.org>; Wed, 18 Dec 2019 23:07:40 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id C4D72218AC
+	for <amd-gfx@archiver.kernel.org>; Wed, 18 Dec 2019 23:12:37 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NkngWumE"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4DC2C2176D
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="ONEv7gwX"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C4D72218AC
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E0F1C6EA9E;
-	Wed, 18 Dec 2019 23:07:39 +0000 (UTC)
-Received: from mail-lf1-x144.google.com (mail-lf1-x144.google.com
- [IPv6:2a00:1450:4864:20::144])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 18C316EA9E;
- Wed, 18 Dec 2019 23:07:39 +0000 (UTC)
-Received: by mail-lf1-x144.google.com with SMTP id m30so2914112lfp.8;
- Wed, 18 Dec 2019 15:07:38 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=kFNBCz9Mj7HvlX/JvqxPooc+oL5hLvbOZR4LUsz4wPM=;
- b=NkngWumEWVv47jxw17iMWW553FzYgE2+ezf3EkKSb09UI3Rs/7UdpCxq4YEe2nI+7j
- 9BoxPeMlcZtc5oOOB872eV2r1nkWNAscqDjBSt1JYlx3pf+d9SM7Z4AMkhcVCCjvpO+l
- cL9rnZfqdOE/m/74P1rHPseXnwJXX/B+zoS47G36DR6mqYQVV7LCZ3k5OSgG/wQXjZ+T
- 10EOrMrN9hAv6bZBmfE8ll4PMgBWZfravObRDjHX0akvGOFAsV20si6itIwl5eSay4l4
- fJIiTix2MXjr6ivp18++q9b6TQnXjCGebq0CQ8J/o7KBXJQ4mnvnwyfTo+PXuCmGI/PR
- DByw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=kFNBCz9Mj7HvlX/JvqxPooc+oL5hLvbOZR4LUsz4wPM=;
- b=bQVvf+lUjIvEmUvEmc69b3wfzn0tLwYgd0vMBN5rE+yiSTjFcHnjasIZBCwMfIBPgm
- I3/dmt8Mq56hpsepeYugoe1oAC5nMpblBYgk8hspQxc/H2REbF6J5smKoQIQdhhd4+vv
- K7dES6xoRxOyXdsCUPTZ5zcFosOeVopYkf4xJucgp1SYlr1Rg3hAcjDdGHee6ePnZrrn
- xVGGVWQMB9CjgJZ4vurRGRr09v4iKJZo7zc+O94v1L9srOD28PRzqZBAfKvDzC2ncFFf
- U5t5d2Mj3rl3iR80ohMaCTxoTxkCPoC0LDm/16I7glvq5loViB0EjXnQYCS5C1kuBlgU
- VSUQ==
-X-Gm-Message-State: APjAAAXPB8irLD1RIOQkmgsYRSJJtChpl6kpmYi02AmBkqy2QhujWbu0
- m7SZWFbLDjYb7hnxRAr+RePeHOGsW7gmIHUgHSmm7kxM
-X-Google-Smtp-Source: APXvYqx6gEcVwW37/uBoa7eOOKgsJdqCG/ZIfgWNL7Sr5Pmk27XQZSHtRHo3XBHqUUqNgUp4yZXIU0ff+3n29W1OUU8=
-X-Received: by 2002:ac2:465e:: with SMTP id s30mr3439928lfo.134.1576710457310; 
- Wed, 18 Dec 2019 15:07:37 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7A6976EA9E;
+	Wed, 18 Dec 2019 23:12:37 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2076.outbound.protection.outlook.com [40.107.244.76])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 49AE26EA9E
+ for <amd-gfx@lists.freedesktop.org>; Wed, 18 Dec 2019 23:12:35 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=m6Yp+b5My1bc5jVFYPrN9wPLFEuqC82Fw6mruRzOKg0G2+0fvHGmdK+hYyTnf5oZpHaR/BcNq3KVpwgAKr2yQatUZIOsOJUPssAoTrdu/ACq1fIYcf80tbp2Ah41bO5TLBkkaeDMeS8++CRf3wtQ2QXWcd7xQHNIEvyRXaCfNWAlP4Ev69KZFkU5pbR9BnQZnckLDVgmxATcyA1M/huQi3R9z4+8ZcsvbG1h/fBOorycWIZZtGlrKbH4rbwP/XDN3HiS88puPm4gh2Y16UCSQ7ZmWPjZJnIKZqbm1ZjCSsJI/RsdtFKcgQGZn5Xt/P1OkSQCwdrew5hXtDZFE7rtMQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Ale3esIUnlkSdsbj5kRCQrSmykGTFcOMeLnV70mErLg=;
+ b=UMNJq0xBNBzhxW9UpKrscrd9C0BOqkBN+wfHoahO3fgA+4lmu1gcIWSegMa/Cz8yLH6+nctqvfVUWjp+/FAcTleqE3NB8V61r8iLPw3fVPLZ11MSUlmN9PcfUqgnGG3Q3y6/YIFgY+VZcCWkLmf+C8HvxTuz05Ng01qpWvI2nKNaVMtbZ/WcyMcN5xsgOwe23ss06C6Ze4JdSuOyDS03YKIWVnDFRQPUUGrla/qiVyD15xBAm532XRYNMiGOPec/zjnSLKEQl+k3DUelgDROUBLDuamI6JSsi3tu4qUlxEaglAZQYz8WiQibgeJ6ghldV4Fc4OIil6wZoN9kAy0VyQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Ale3esIUnlkSdsbj5kRCQrSmykGTFcOMeLnV70mErLg=;
+ b=ONEv7gwXCDgxGSR0slRm2zKVUyOl5JNg3swaEqc+SWcws19uvUHNdG71sLDGb0qaQmhWqUTOQ6+KuDJrU00EdqZG2t03DwozI3QSGj7g/ZwllS+t1MuIMbIJJVy8kEeLndjbUaZWGClP4b8fnh7yoDCSdYxPrjkzTTSLcHmoRsY=
+Authentication-Results: spf=none (sender IP is )
+ smtp.mailfrom=Luben.Tuikov@amd.com; 
+Received: from DM6PR12MB3355.namprd12.prod.outlook.com (20.178.29.90) by
+ DM6PR12MB3019.namprd12.prod.outlook.com (20.178.199.94) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2559.13; Wed, 18 Dec 2019 23:12:33 +0000
+Received: from DM6PR12MB3355.namprd12.prod.outlook.com
+ ([fe80::799b:b372:6589:c8a]) by DM6PR12MB3355.namprd12.prod.outlook.com
+ ([fe80::799b:b372:6589:c8a%7]) with mapi id 15.20.2538.019; Wed, 18 Dec 2019
+ 23:12:33 +0000
+From: Luben Tuikov <luben.tuikov@amd.com>
+To: amd-gfx@lists.freedesktop.org
+Subject: [PATCH] drm/amdgpu: simplify padding calculations (v3)
+Date: Wed, 18 Dec 2019 18:12:17 -0500
+Message-Id: <20191218231217.204500-1-luben.tuikov@amd.com>
+X-Mailer: git-send-email 2.24.0.390.g083378cc35
+X-ClientProxiedBy: YTXPR0101CA0036.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b00::49) To DM6PR12MB3355.namprd12.prod.outlook.com
+ (2603:10b6:5:115::26)
 MIME-Version: 1.0
-References: <20191217204707.2258744-1-alexander.deucher@amd.com>
- <20191217204707.2258744-2-alexander.deucher@amd.com>
-In-Reply-To: <20191217204707.2258744-2-alexander.deucher@amd.com>
-From: Dave Airlie <airlied@gmail.com>
-Date: Thu, 19 Dec 2019 09:07:25 +1000
-Message-ID: <CAPM=9twOo9TRcBkT+iR7LUJh4zkQirHB2J0A5vL7Ei0LYkQ-2Q@mail.gmail.com>
-Subject: Re: [PATCH 2/2] drm/amdgpu/display: use msleep rather than udelay for
- HDCP
-To: Alex Deucher <alexdeucher@gmail.com>,
- Daniel Vetter <daniel.vetter@ffwll.ch>
+X-Mailer: git-send-email 2.24.0.390.g083378cc35
+X-Originating-IP: [165.204.55.250]
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: aec4355e-59dd-4b08-a56b-08d7840fc358
+X-MS-TrafficTypeDiagnostic: DM6PR12MB3019:|DM6PR12MB3019:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <DM6PR12MB3019B4437B23E1CCC212089D99530@DM6PR12MB3019.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:6430;
+X-Forefront-PRVS: 0255DF69B9
+X-Forefront-Antispam-Report: SFV:NSPM;
+ SFS:(10009020)(4636009)(396003)(136003)(366004)(39860400002)(346002)(376002)(199004)(189003)(44832011)(86362001)(81156014)(6666004)(5660300002)(66946007)(478600001)(1076003)(4326008)(6512007)(52116002)(316002)(8676002)(6506007)(2906002)(36756003)(8936002)(186003)(2616005)(6486002)(26005)(66556008)(81166006)(54906003)(6916009)(66476007);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:DM6PR12MB3019;
+ H:DM6PR12MB3355.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; A:1; MX:1; 
+Received-SPF: None (protection.outlook.com: amd.com does not designate
+ permitted sender hosts)
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: ygzKAgF4rxNJPBlHEZJcohx5rsGIq7FUHLlPO6Wl54RVG9ir2fMpOYPKf9I+flcFKA9yWJYt+tiEmBRVGWi8pVd80UTMdmzGzxI2dOZC2/TYJYymKr8etkXgLz2zJkoPvVogo7/uLQYP/Kbe5pSrwBYpSL9BlHOKervOwycY7VL5nDBvqjsNoEmYaQbIqW/cn2bqPIvj0n+lOpt2XNRnD1VAHiKjL9Arksn7Y772HiSq/9jojmKo4B/E9ssoo2uLsdOJ+WHKfQaOz8KHZJrAIIeDuYkh4EmAewwR2McWk6onhvgKutaF27aAyyekUQadwfJNw445H9MDalQDpBiYBVjem4ByMPO3XSvc+QT8+6tXu7mz+DxOBZDz7WQIABtr4HX2wT+bc5bvYP88SkvnRFtS2tPz7NWjFk/k9ZyjRw2/qWBkNaM70LnDf7sqiy12
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: aec4355e-59dd-4b08-a56b-08d7840fc358
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Dec 2019 23:12:33.4965 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ljtV/JtN8UkC/Anhwk/a0kE5Vbt8i1MaeeFcwJOKF6VDUp8afmaVkYsXAjPi/pAh
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3019
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,69 +100,197 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- amd-gfx mailing list <amd-gfx@lists.freedesktop.org>
+Cc: Alexander Deucher <Alexander.Deucher@amd.com>,
+ Luben Tuikov <luben.tuikov@amd.com>,
+ Christian Koenig <Christian.Koenig@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hey,
+Simplify padding calculations.
 
-I've pulled in these two patches to drm-next directly because my arm
-test build was broken.
+1. Taking the remainder of a binary value when
+the divisor is a power of two, such as,
+a % 2^n is identical to, a & (2^n - 1) in base-2
+arithmetic, and so expressions like this:
 
-Dave.
+(12 - (lower_32_bits(ring->wptr) & 7)) % 8
 
-On Wed, 18 Dec 2019 at 06:47, Alex Deucher <alexdeucher@gmail.com> wrote:
->
-> ARM has a 2000us limit for udelay.  Switch to msleep.  This code
-> executes in a worker thread so shouldn't be an atomic context.
->
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> ---
->  drivers/gpu/drm/amd/display/modules/hdcp/hdcp2_execution.c | 6 +++---
->  1 file changed, 3 insertions(+), 3 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/display/modules/hdcp/hdcp2_execution.c b/drivers/gpu/drm/amd/display/modules/hdcp/hdcp2_execution.c
-> index bcbc0b8a9aa0..f730b94ac3c0 100644
-> --- a/drivers/gpu/drm/amd/display/modules/hdcp/hdcp2_execution.c
-> +++ b/drivers/gpu/drm/amd/display/modules/hdcp/hdcp2_execution.c
-> @@ -153,7 +153,7 @@ static enum mod_hdcp_status poll_l_prime_available(struct mod_hdcp *hdcp)
->  {
->         enum mod_hdcp_status status;
->         uint8_t size;
-> -       uint16_t max_wait = 20000; // units of us
-> +       uint16_t max_wait = 20; // units of ms
->         uint16_t num_polls = 5;
->         uint16_t wait_time = max_wait / num_polls;
->
-> @@ -161,7 +161,7 @@ static enum mod_hdcp_status poll_l_prime_available(struct mod_hdcp *hdcp)
->                 status = MOD_HDCP_STATUS_INVALID_OPERATION;
->         else
->                 for (; num_polls; num_polls--) {
-> -                       udelay(wait_time);
-> +                       msleep(wait_time);
->
->                         status = mod_hdcp_read_rxstatus(hdcp);
->                         if (status != MOD_HDCP_STATUS_SUCCESS)
-> @@ -474,7 +474,7 @@ static enum mod_hdcp_status locality_check(struct mod_hdcp *hdcp,
->                          hdcp, "lc_init_write"))
->                 goto out;
->         if (is_dp_hdcp(hdcp))
-> -               udelay(16000);
-> +               msleep(16);
->         else
->                 if (!mod_hdcp_execute_and_set(poll_l_prime_available,
->                                 &input->l_prime_available_poll, &status,
-> --
-> 2.23.0
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+are superflous. And can be reduced to a single
+remainder-taking operation.
+
+2. Subtracting the remainder modulo 8 out of 12
+and then again taking the remainder modulo 8,
+yields the same result as simply subtracting
+the value out of 4 and then taking the remainder.
+This is true because 4 belongs to the congruence
+(residue) class {4 + 8*k}, k in Z. (So using,
+ {..., -12, -4, 4, 12, 20, ...}, would yield
+ the same final result.
+
+So the above expression, becomes,
+
+(4 - lower_32_bits(ring->wptr)) & 7
+
+3. Now since 8 is part of the conguence class
+{0 + 8*k}, k in Z, and from 1) and 2) above, then,
+
+(8 - (ib->length_dw & 0x7)) % 8
+
+becomes, simply,
+
+(-ib->length_dw) & 7.
+
+This patch implements all of the above in this code.
+
+v2: Comment update and spacing.
+v3: Add 1, 2, 3, above, in this commit message.
+
+Signed-off-by: Luben Tuikov <luben.tuikov@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/cik_sdma.c  |  4 ++--
+ drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c |  4 ++--
+ drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c |  4 ++--
+ drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c |  4 ++--
+ drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c | 17 ++++++++++++-----
+ 5 files changed, 20 insertions(+), 13 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/cik_sdma.c b/drivers/gpu/drm/amd/amdgpu/cik_sdma.c
+index 1f22a8d0f7f3..4274ccf765de 100644
+--- a/drivers/gpu/drm/amd/amdgpu/cik_sdma.c
++++ b/drivers/gpu/drm/amd/amdgpu/cik_sdma.c
+@@ -228,7 +228,7 @@ static void cik_sdma_ring_emit_ib(struct amdgpu_ring *ring,
+ 	u32 extra_bits = vmid & 0xf;
+ 
+ 	/* IB packet must end on a 8 DW boundary */
+-	cik_sdma_ring_insert_nop(ring, (12 - (lower_32_bits(ring->wptr) & 7)) % 8);
++	cik_sdma_ring_insert_nop(ring, (4 - lower_32_bits(ring->wptr)) & 7);
+ 
+ 	amdgpu_ring_write(ring, SDMA_PACKET(SDMA_OPCODE_INDIRECT_BUFFER, 0, extra_bits));
+ 	amdgpu_ring_write(ring, ib->gpu_addr & 0xffffffe0); /* base must be 32 byte aligned */
+@@ -811,7 +811,7 @@ static void cik_sdma_ring_pad_ib(struct amdgpu_ring *ring, struct amdgpu_ib *ib)
+ 	u32 pad_count;
+ 	int i;
+ 
+-	pad_count = (8 - (ib->length_dw & 0x7)) % 8;
++	pad_count = (-ib->length_dw) & 7;
+ 	for (i = 0; i < pad_count; i++)
+ 		if (sdma && sdma->burst_nop && (i == 0))
+ 			ib->ptr[ib->length_dw++] =
+diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c b/drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c
+index 606b621145a1..fd7fa6082563 100644
+--- a/drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c
++++ b/drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c
+@@ -255,7 +255,7 @@ static void sdma_v2_4_ring_emit_ib(struct amdgpu_ring *ring,
+ 	unsigned vmid = AMDGPU_JOB_GET_VMID(job);
+ 
+ 	/* IB packet must end on a 8 DW boundary */
+-	sdma_v2_4_ring_insert_nop(ring, (10 - (lower_32_bits(ring->wptr) & 7)) % 8);
++	sdma_v2_4_ring_insert_nop(ring, (2 - lower_32_bits(ring->wptr)) & 7);
+ 
+ 	amdgpu_ring_write(ring, SDMA_PKT_HEADER_OP(SDMA_OP_INDIRECT) |
+ 			  SDMA_PKT_INDIRECT_HEADER_VMID(vmid & 0xf));
+@@ -750,7 +750,7 @@ static void sdma_v2_4_ring_pad_ib(struct amdgpu_ring *ring, struct amdgpu_ib *ib
+ 	u32 pad_count;
+ 	int i;
+ 
+-	pad_count = (8 - (ib->length_dw & 0x7)) % 8;
++	pad_count = (-ib->length_dw) & 7;
+ 	for (i = 0; i < pad_count; i++)
+ 		if (sdma && sdma->burst_nop && (i == 0))
+ 			ib->ptr[ib->length_dw++] =
+diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c
+index a559573ec8fd..4a8a7f0f3a9c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c
+@@ -429,7 +429,7 @@ static void sdma_v3_0_ring_emit_ib(struct amdgpu_ring *ring,
+ 	unsigned vmid = AMDGPU_JOB_GET_VMID(job);
+ 
+ 	/* IB packet must end on a 8 DW boundary */
+-	sdma_v3_0_ring_insert_nop(ring, (10 - (lower_32_bits(ring->wptr) & 7)) % 8);
++	sdma_v3_0_ring_insert_nop(ring, (2 - lower_32_bits(ring->wptr)) & 7);
+ 
+ 	amdgpu_ring_write(ring, SDMA_PKT_HEADER_OP(SDMA_OP_INDIRECT) |
+ 			  SDMA_PKT_INDIRECT_HEADER_VMID(vmid & 0xf));
+@@ -1021,7 +1021,7 @@ static void sdma_v3_0_ring_pad_ib(struct amdgpu_ring *ring, struct amdgpu_ib *ib
+ 	u32 pad_count;
+ 	int i;
+ 
+-	pad_count = (8 - (ib->length_dw & 0x7)) % 8;
++	pad_count = (-ib->length_dw) & 7;
+ 	for (i = 0; i < pad_count; i++)
+ 		if (sdma && sdma->burst_nop && (i == 0))
+ 			ib->ptr[ib->length_dw++] =
+diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
+index bd9ed33bab43..c69df0cb21ec 100644
+--- a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
+@@ -698,7 +698,7 @@ static void sdma_v4_0_ring_emit_ib(struct amdgpu_ring *ring,
+ 	unsigned vmid = AMDGPU_JOB_GET_VMID(job);
+ 
+ 	/* IB packet must end on a 8 DW boundary */
+-	sdma_v4_0_ring_insert_nop(ring, (10 - (lower_32_bits(ring->wptr) & 7)) % 8);
++	sdma_v4_0_ring_insert_nop(ring, (2 - lower_32_bits(ring->wptr)) & 7);
+ 
+ 	amdgpu_ring_write(ring, SDMA_PKT_HEADER_OP(SDMA_OP_INDIRECT) |
+ 			  SDMA_PKT_INDIRECT_HEADER_VMID(vmid & 0xf));
+@@ -1579,7 +1579,7 @@ static void sdma_v4_0_ring_pad_ib(struct amdgpu_ring *ring, struct amdgpu_ib *ib
+ 	u32 pad_count;
+ 	int i;
+ 
+-	pad_count = (8 - (ib->length_dw & 0x7)) % 8;
++	pad_count = (-ib->length_dw) & 7;
+ 	for (i = 0; i < pad_count; i++)
+ 		if (sdma && sdma->burst_nop && (i == 0))
+ 			ib->ptr[ib->length_dw++] =
+diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
+index 119364293cec..3912937f878f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
+@@ -382,8 +382,15 @@ static void sdma_v5_0_ring_emit_ib(struct amdgpu_ring *ring,
+ 	unsigned vmid = AMDGPU_JOB_GET_VMID(job);
+ 	uint64_t csa_mc_addr = amdgpu_sdma_get_csa_mc_addr(ring, vmid);
+ 
+-	/* IB packet must end on a 8 DW boundary */
+-	sdma_v5_0_ring_insert_nop(ring, (10 - (lower_32_bits(ring->wptr) & 7)) % 8);
++	/* An IB packet must end on a 8 DW boundary--the next dword
++	 * must be on a 8-dword boundary. Our IB packet below is 6
++	 * dwords long, thus add x number of NOPs, such that, in
++	 * modular arithmetic,
++	 * wptr + 6 + x = 8k, k >= 0, which in C is,
++	 * (wptr + 6 + x) % 8 = 0.
++	 * The expression below, is a solution of x.
++	 */
++	sdma_v5_0_ring_insert_nop(ring, (2 - lower_32_bits(ring->wptr)) & 7);
+ 
+ 	amdgpu_ring_write(ring, SDMA_PKT_HEADER_OP(SDMA_OP_INDIRECT) |
+ 			  SDMA_PKT_INDIRECT_HEADER_VMID(vmid & 0xf));
+@@ -1076,10 +1083,10 @@ static void sdma_v5_0_vm_set_pte_pde(struct amdgpu_ib *ib,
+ }
+ 
+ /**
+- * sdma_v5_0_ring_pad_ib - pad the IB to the required number of dw
+- *
++ * sdma_v5_0_ring_pad_ib - pad the IB
+  * @ib: indirect buffer to fill with padding
+  *
++ * Pad the IB with NOPs to a boundary multiple of 8.
+  */
+ static void sdma_v5_0_ring_pad_ib(struct amdgpu_ring *ring, struct amdgpu_ib *ib)
+ {
+@@ -1087,7 +1094,7 @@ static void sdma_v5_0_ring_pad_ib(struct amdgpu_ring *ring, struct amdgpu_ib *ib
+ 	u32 pad_count;
+ 	int i;
+ 
+-	pad_count = (8 - (ib->length_dw & 0x7)) % 8;
++	pad_count = (-ib->length_dw) & 0x7;
+ 	for (i = 0; i < pad_count; i++)
+ 		if (sdma && sdma->burst_nop && (i == 0))
+ 			ib->ptr[ib->length_dw++] =
+-- 
+2.24.0.390.g083378cc35
+
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
