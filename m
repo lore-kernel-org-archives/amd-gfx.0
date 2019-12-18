@@ -7,102 +7,103 @@ X-Spam-Status: No, score=-6.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1F196C43603
-	for <amd-gfx@archiver.kernel.org>; Wed, 18 Dec 2019 08:53:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B3786C43603
+	for <amd-gfx@archiver.kernel.org>; Wed, 18 Dec 2019 08:54:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E55DC218AC
-	for <amd-gfx@archiver.kernel.org>; Wed, 18 Dec 2019 08:53:51 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 8574B218AC
+	for <amd-gfx@archiver.kernel.org>; Wed, 18 Dec 2019 08:54:37 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="kTZTKQbz"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E55DC218AC
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="HS5nK9o2"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8574B218AC
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 912D589D5C;
-	Wed, 18 Dec 2019 08:53:51 +0000 (UTC)
-Received: from NAM04-SN1-obe.outbound.protection.outlook.com
- (mail-eopbgr700053.outbound.protection.outlook.com [40.107.70.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E3EF089D5C
- for <amd-gfx@lists.freedesktop.org>; Wed, 18 Dec 2019 08:53:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 442F76E260;
+	Wed, 18 Dec 2019 08:54:37 +0000 (UTC)
+Received: from NAM02-SN1-obe.outbound.protection.outlook.com
+ (mail-eopbgr770084.outbound.protection.outlook.com [40.107.77.84])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7B1786E260
+ for <amd-gfx@lists.freedesktop.org>; Wed, 18 Dec 2019 08:54:36 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=HYUNkvPEi4OhGqMsedlPd7I4tp4VWEKGqzpUeVfB7XJwPgPzQOqVQX//5sgileJfFwccGQytJeKS+pMgNauP+LX+B3RZIuI2YTi3/IsNKhCp70hppw2435pTiinjFqrPLmwQ+u4Rdjk4AvB6I4voEIDEYSPanv/eWeiA6e3DsX8HmUJay1pvxv4WHZYHQpOsdHLKD5orb2wtv5LeRHkPSVSj4IJGsdeTW+QcxXOgEG5pL8MdOc+fS58k0DFiZjZftoF4ymfNJCU9r5RcuYsoGxnRqRazcNuYhwekjdsLYufRii7YkU0D0VYQR3uOBiKZ3TRSv1/fgdvlZ2ppQQ9sMQ==
+ b=obmV5+UyWzXN1dWikGZv2Bmfwky57N9LlQqXzibc850z5xak8+KNNvlYlMrUf+7UFAMVxjPrNtibRLTslFpgqJhiM8IFHcWZYtHmqMuVxD7O9XzC4v5H4WyDxuKAbeuiQ4yBnMf3x4nEWBWIAhuqY+9Nyy6LJtf+i/tjrupTrqOq8EvUBx5vE/BETMXLJz0Kcjanm8+B6hCK2S02baDDE1Fjs3z0x0R1mq8hKecFekbKtQEOTAvZHggxcOMMQ/i1rz5T7JTuRFCl4+6/wKCFAz1KBGAFmg6aOhDrNaxj7XtownyY+9CCALwhykvY5FVZ/4VvERmdLAnea4wLPLBEtg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=CtK9xGM9EKNLqlcsAmUFFRx+DBCojQXxOtNUMO61kbs=;
- b=Foa5DNuA87EeTWc52+NTictuhvuSsBSML3AYJVHeJnaNJJlSlSOO2gK5M1q9IGhRqQyqBb7GpFzL/T4ns1bMx65IrK4faDu91hGO8DUtxR87Xjoe0JdTfFTNBimlIVrb6GJIjdrO5wApyczPHpG1vYJqIWPn8ngisJOnu2jGmM6P5hl6kgBibDHcKatUPto/0K7ia5kQfA0S3AGpioa//horhc7gqsjB8p+IkstzSA/eINWwxxEi4MYFacJ5KeYWBp3F5WvlMOCs9BgxFEQqSrhi31nZai3sl2tbikTf/eygJ3ETiWXXArrItvrHGxfRehIoqtAatTd+dHLzI/UIsA==
+ bh=CRu/3iWZgr5CKT391OapsvkZi4LT73z2sTKtQ3UTKn0=;
+ b=TqzGVkOg3x0h7/rRd7r2BfR9bMwqy/5SQ3QKt0PbRDCE5G/jW4XU7IGMT/KI7vIIg4huF7HOIY+6qyHVVrJLRLJePHRZW3B/MRfYB02t4TVs8DnVNDJo3zqXz4Gk6QStm+LZtLeOV4XaV7yFpge1XyMAhm7PgIK03gDTTjSsFCGGuu0k8sFh/be+yI/1VSw5+Dr1XULbiKJL8FSnqdeVphQc8EQf0q6rVVMywwG+emqnizOngfqW7P3Gv/nYXsWp39a4stzGLgtROQFUc/m1cbw9TZpaG/XPcbMi7cIgxA39nsX0Ya6MXSOJd0nF/UBnDyHg9eKJK7S2aiDl/wqmVA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=CtK9xGM9EKNLqlcsAmUFFRx+DBCojQXxOtNUMO61kbs=;
- b=kTZTKQbzQ4RBeOXYm7+J2o3MnVsWDowJHonnneYqpdiUa7qLYvgE9CKPqDdFlEpc9hmAOmA3h+kloUeU0dtxNFKnsZe2ln3AAKoByz1w3exp+lc6QnHRFsr5mZ1fmPOgnOUSQqbUYGNM9WErymEUoYR0f1PHTyBPt2xvSgpXzos=
-Received: from MN2PR12MB3296.namprd12.prod.outlook.com (20.179.80.139) by
- MN2PR12MB3647.namprd12.prod.outlook.com (20.178.241.17) with Microsoft SMTP
+ bh=CRu/3iWZgr5CKT391OapsvkZi4LT73z2sTKtQ3UTKn0=;
+ b=HS5nK9o2CJlycqOw3J/hhpbvwZ4kPk78Rs2KeK8jZmoCkVPHt6uhesTWABWwBzb+aw+D+I7yKOaPI3nYm/KaPYZM8j9Aaf8BTJJG+plVwRVWssRw/DUnLZUjaAtdL73i2KDHFlgfQfhbtKtzAdKpWUsrXC55Wtc5scJMke7nl28=
+Received: from MN2PR12MB2957.namprd12.prod.outlook.com (20.179.82.14) by
+ MN2PR12MB3615.namprd12.prod.outlook.com (20.178.242.82) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2559.14; Wed, 18 Dec 2019 08:53:47 +0000
-Received: from MN2PR12MB3296.namprd12.prod.outlook.com
- ([fe80::b02a:3af3:a3c2:61f3]) by MN2PR12MB3296.namprd12.prod.outlook.com
- ([fe80::b02a:3af3:a3c2:61f3%6]) with mapi id 15.20.2538.019; Wed, 18 Dec 2019
- 08:53:47 +0000
-From: "Wang, Kevin(Yang)" <Kevin1.Wang@amd.com>
-To: "Yin, Tianci (Rico)" <Tianci.Yin@amd.com>, "amd-gfx@lists.freedesktop.org"
+ 15.20.2538.18; Wed, 18 Dec 2019 08:54:35 +0000
+Received: from MN2PR12MB2957.namprd12.prod.outlook.com
+ ([fe80::2cbe:ce2:60b5:7756]) by MN2PR12MB2957.namprd12.prod.outlook.com
+ ([fe80::2cbe:ce2:60b5:7756%6]) with mapi id 15.20.2559.012; Wed, 18 Dec 2019
+ 08:54:34 +0000
+From: "Yin, Tianci (Rico)" <Tianci.Yin@amd.com>
+To: "Wang, Kevin(Yang)" <Kevin1.Wang@amd.com>, "amd-gfx@lists.freedesktop.org"
  <amd-gfx@lists.freedesktop.org>
 Subject: Re: [PATCH 2/2] drm/amdgpu: remove memory training p2c buffer
  reservation(V2)
 Thread-Topic: [PATCH 2/2] drm/amdgpu: remove memory training p2c buffer
  reservation(V2)
-Thread-Index: AQHVtYBGsfl0tDCPbUOWRFJTiCn2C6e/liI9
-Date: Wed, 18 Dec 2019 08:53:47 +0000
-Message-ID: <MN2PR12MB32961665242FFA632F4711D5A2530@MN2PR12MB3296.namprd12.prod.outlook.com>
+Thread-Index: AQHVtYBGs+eAGoMxq0+N8VPKprAVp6e/llGAgAAAKM0=
+Date: Wed, 18 Dec 2019 08:54:34 +0000
+Message-ID: <MN2PR12MB2957813C65155E2397F09CD495530@MN2PR12MB2957.namprd12.prod.outlook.com>
 References: <20191218085050.28635-1-tianci.yin@amd.com>,
- <20191218085050.28635-2-tianci.yin@amd.com>
-In-Reply-To: <20191218085050.28635-2-tianci.yin@amd.com>
+ <20191218085050.28635-2-tianci.yin@amd.com>,
+ <MN2PR12MB32961665242FFA632F4711D5A2530@MN2PR12MB3296.namprd12.prod.outlook.com>
+In-Reply-To: <MN2PR12MB32961665242FFA632F4711D5A2530@MN2PR12MB3296.namprd12.prod.outlook.com>
 Accept-Language: en-US, zh-CN
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
 msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=True;
  MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2019-12-18T08:53:45.747Z;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2019-12-18T08:54:34.365Z;
  MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal
  Distribution
  Only; MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=0;
  MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard; 
 authentication-results: spf=none (sender IP is )
- smtp.mailfrom=Kevin1.Wang@amd.com; 
+ smtp.mailfrom=Tianci.Yin@amd.com; 
 x-originating-ip: [180.167.199.189]
 x-ms-publictraffictype: Email
 x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: c8ceb54e-c4ea-448d-c666-08d78397cb76
-x-ms-traffictypediagnostic: MN2PR12MB3647:|MN2PR12MB3647:
+x-ms-office365-filtering-correlation-id: 00d7c24c-4947-4d28-4f59-08d78397e7df
+x-ms-traffictypediagnostic: MN2PR12MB3615:|MN2PR12MB3615:
 x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <MN2PR12MB3647C120B94C3C8D48C790FFA2530@MN2PR12MB3647.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:6790;
+x-microsoft-antispam-prvs: <MN2PR12MB3615B2852871D0E2DA3C9E8F95530@MN2PR12MB3615.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:7219;
 x-forefront-prvs: 0255DF69B9
 x-forefront-antispam-report: SFV:NSPM;
- SFS:(10009020)(4636009)(366004)(396003)(136003)(346002)(39860400002)(376002)(199004)(189003)(52536014)(478600001)(66556008)(64756008)(76116006)(66446008)(33656002)(66476007)(91956017)(66946007)(2906002)(4326008)(26005)(186003)(7696005)(53546011)(6506007)(8936002)(316002)(19627405001)(55016002)(5660300002)(54906003)(8676002)(71200400001)(86362001)(81156014)(9686003)(81166006)(110136005);
- DIR:OUT; SFP:1101; SCL:1; SRVR:MN2PR12MB3647;
- H:MN2PR12MB3296.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; A:1; MX:1; 
+ SFS:(10009020)(4636009)(136003)(39860400002)(396003)(346002)(376002)(366004)(189003)(199004)(81156014)(81166006)(66946007)(8676002)(186003)(4326008)(110136005)(86362001)(91956017)(76116006)(71200400001)(8936002)(19627405001)(53546011)(52536014)(6506007)(64756008)(66556008)(66476007)(7696005)(33656002)(5660300002)(478600001)(55016002)(9686003)(316002)(26005)(66446008)(2906002)(54906003);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:MN2PR12MB3615;
+ H:MN2PR12MB2957.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; MX:1; A:1; 
 received-spf: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
 x-ms-exchange-senderadcheck: 1
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 7EsA2ZT52/SPtEv4N8SSRTtaLlYqi9EmAdaRkTav3KxFN48w5XQvDIU8o2WOmACl/Y45Nd2lOKKgi27iix/7ngXFYJ72DqzQZQk9xuu29ZZf1yDKYFmwithgmORSyG5nC99+msUrytXaJoRuX8xcE9zpnINOEZK9lm7mAVEmsHaj0/o7scyuWgCgL/ApO+DbIsFT29mvPqapGUf63cnUdvASCwIwO1gkm5qOdI+MX5VSNTDYx6+Kdn7Wpy5N5XCyqKeCDRd54lMh1LuyzuR0d8JlOJR7EXsRfD0ulp/X0ZBwhgdwHYDYqNrIRdSVUXeHF14wm1MypQazFmPBAeYLtO4djIARwtUD4okXRsb7hmPkayef8/Zx/RFkYhAqqhz3vG5vp9tALTTnNFo54mXTMTX+tzhHIaYaqQUE6AOntDGxQlieMBmUsUo3nHo/KMCI
+x-microsoft-antispam-message-info: YhU+sVlKF0AWZHVHjOozH0CmB+PVC67j88L4FP1ZzAjhFhpl/u8vQg8FwSJ5BUHn9B+O8jyNVe4mhOibJt70V2hMPe2fW1YWfkFIKJ3GLwif75z4mieUxPhNGV9LaltOWuOjIcjl7yYNchR3t881QqT8rRuTxrjNs3cj5fd+t45DX1ZMBcJwmGAORLHFauFjPbgMo2t3yE3NCp4U/x/toRzASsKV23uE0LQuLmNfQVQSbK4VZYoLyy6yCfuHRBULwlDTwTpXCLiKEU59QR4fF/sB6rBHfBskTfjmNPom0rTLvQeVTksKUEwgq6r0sKD1Gu0GzBK9rIUy8IrTDQdhoc+2tB4H+fFBKcJ4L5dfN0eNdt640y3/lyhW+KmNRnX2sZyBpsIerjxxamlFh7vweSf1K9ue4UE/kZvcQIoW8J5s35jx3gZehAnDZN1PIAhE
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c8ceb54e-c4ea-448d-c666-08d78397cb76
-X-MS-Exchange-CrossTenant-originalarrivaltime: 18 Dec 2019 08:53:47.1174 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 00d7c24c-4947-4d28-4f59-08d78397e7df
+X-MS-Exchange-CrossTenant-originalarrivaltime: 18 Dec 2019 08:54:34.7897 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: wVtQDF02qPNw+0Su7btW6pTI91G83TJ8QiCsezWZjOlqqgX2NMsTJzLtiinRKIGM
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3647
+X-MS-Exchange-CrossTenant-userprincipalname: IgDkePHDALhrVUcaye7T1H8jr7Fnjbv+/3vNDBLy53R8NXhInhkmHE3jqTxIvdT1QU/MFdr2nKONkvsnuRIVhQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3615
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -119,18 +120,32 @@ Cc: "Long, Gang" <Gang.Long@amd.com>, "Xu, Feifei" <Feifei.Xu@amd.com>, "Tuikov,
  Alexander" <Alexander.Deucher@amd.com>, "Zhang,
  Hawking" <Hawking.Zhang@amd.com>, "Koenig,
  Christian" <Christian.Koenig@amd.com>, "Yuan, Xiaojie" <Xiaojie.Yuan@amd.com>
-Content-Type: multipart/mixed; boundary="===============0032112259=="
+Content-Type: multipart/mixed; boundary="===============1395488999=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============0032112259==
+--===============1395488999==
 Content-Language: en-US
 Content-Type: multipart/alternative;
-	boundary="_000_MN2PR12MB32961665242FFA632F4711D5A2530MN2PR12MB3296namp_"
+	boundary="_000_MN2PR12MB2957813C65155E2397F09CD495530MN2PR12MB2957namp_"
 
---_000_MN2PR12MB32961665242FFA632F4711D5A2530MN2PR12MB3296namp_
-Content-Type: text/plain; charset="iso-8859-1"
+--_000_MN2PR12MB2957813C65155E2397F09CD495530MN2PR12MB2957namp_
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
+
+Thanks Kevin!
+________________________________
+From: Wang, Kevin(Yang) <Kevin1.Wang@amd.com>
+Sent: Wednesday, December 18, 2019 16:53
+To: Yin, Tianci (Rico) <Tianci.Yin@amd.com>; amd-gfx@lists.freedesktop.org =
+<amd-gfx@lists.freedesktop.org>
+Cc: Tuikov, Luben <Luben.Tuikov@amd.com>; Koenig, Christian <Christian.Koen=
+ig@amd.com>; Deucher, Alexander <Alexander.Deucher@amd.com>; Zhang, Hawking=
+ <Hawking.Zhang@amd.com>; Xu, Feifei <Feifei.Xu@amd.com>; Yuan, Xiaojie <Xi=
+aojie.Yuan@amd.com>; Long, Gang <Gang.Long@amd.com>
+Subject: Re: [PATCH 2/2] drm/amdgpu: remove memory training p2c buffer rese=
+rvation(V2)
+
 
 [AMD Official Use Only - Internal Distribution Only]
 
@@ -235,46 +250,75 @@ ruct amdgpu_device *adev)
 2.17.1
 
 
---_000_MN2PR12MB32961665242FFA632F4711D5A2530MN2PR12MB3296namp_
-Content-Type: text/html; charset="iso-8859-1"
+--_000_MN2PR12MB2957813C65155E2397F09CD495530MN2PR12MB2957namp_
+Content-Type: text/html; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
 <html>
 <head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
 <style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
 ttom:0;} </style>
 </head>
 <body dir=3D"ltr">
-<p style=3D"font-family:Arial;font-size:10pt;color:#0078D7;margin:15pt;" al=
-ign=3D"Left">
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Thanks Kevin!<br>
+</div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Wang, Kevin(Yang) &lt=
+;Kevin1.Wang@amd.com&gt;<br>
+<b>Sent:</b> Wednesday, December 18, 2019 16:53<br>
+<b>To:</b> Yin, Tianci (Rico) &lt;Tianci.Yin@amd.com&gt;; amd-gfx@lists.fre=
+edesktop.org &lt;amd-gfx@lists.freedesktop.org&gt;<br>
+<b>Cc:</b> Tuikov, Luben &lt;Luben.Tuikov@amd.com&gt;; Koenig, Christian &l=
+t;Christian.Koenig@amd.com&gt;; Deucher, Alexander &lt;Alexander.Deucher@am=
+d.com&gt;; Zhang, Hawking &lt;Hawking.Zhang@amd.com&gt;; Xu, Feifei &lt;Fei=
+fei.Xu@amd.com&gt;; Yuan, Xiaojie &lt;Xiaojie.Yuan@amd.com&gt;; Long,
+ Gang &lt;Gang.Long@amd.com&gt;<br>
+<b>Subject:</b> Re: [PATCH 2/2] drm/amdgpu: remove memory training p2c buff=
+er reservation(V2)</font>
+<div>&nbsp;</div>
+</div>
+<style type=3D"text/css" style=3D"display:none">
+<!--
+p
+	{margin-top:0;
+	margin-bottom:0}
+-->
+</style>
+<div dir=3D"ltr">
+<p align=3D"Left" style=3D"font-family:Arial; font-size:10pt; color:#0078D7=
+; margin:15pt">
 [AMD Official Use Only - Internal Distribution Only]<br>
 </p>
 <br>
 <div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
+<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
+t; color:rgb(0,0,0)">
 Reviewed-by: Kevin Wang &lt;kevin1.wang@amd.com&gt;</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
+<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
+t; color:rgb(0,0,0)">
 <br>
 </div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
+<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
+t; color:rgb(0,0,0)">
 Best Regards,</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
+<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
+t; color:rgb(0,0,0)">
 Kevin</div>
-<div id=3D"appendonsend"></div>
+<div id=3D"x_appendonsend"></div>
 <div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
 t; color:rgb(0,0,0)">
 <br>
 </div>
 <hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" co=
-lor=3D"#000000" style=3D"font-size:11pt"><b>From:</b> Tianci Yin &lt;tianci=
-.yin@amd.com&gt;<br>
+<div id=3D"x_divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" =
+color=3D"#000000" style=3D"font-size:11pt"><b>From:</b> Tianci Yin &lt;tian=
+ci.yin@amd.com&gt;<br>
 <b>Sent:</b> Wednesday, December 18, 2019 4:50 PM<br>
 <b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
 gt;<br>
@@ -288,10 +332,10 @@ gt;; Yin, Tianci (Rico) &lt;Tianci.Yin@amd.com&gt;<br>
 eservation(V2)</font>
 <div>&nbsp;</div>
 </div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt"=
->
-<div class=3D"PlainText">From: &quot;Tianci.Yin&quot; &lt;tianci.yin@amd.co=
-m&gt;<br>
+<div class=3D"x_BodyFragment"><font size=3D"2"><span style=3D"font-size:11p=
+t">
+<div class=3D"x_PlainText">From: &quot;Tianci.Yin&quot; &lt;tianci.yin@amd.=
+com&gt;<br>
 <br>
 IP discovery TMR(occupied the top VRAM with size DISCOVERY_TMR_SIZE)<br>
 has been reserved, and the p2c buffer is in the range of this TMR, so<br>
@@ -422,12 +466,13 @@ RAIN_RESERVE_SUCCESS;<br>
 </div>
 </span></font></div>
 </div>
+</div>
 </body>
 </html>
 
---_000_MN2PR12MB32961665242FFA632F4711D5A2530MN2PR12MB3296namp_--
+--_000_MN2PR12MB2957813C65155E2397F09CD495530MN2PR12MB2957namp_--
 
---===============0032112259==
+--===============1395488999==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -438,4 +483,4 @@ amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 
---===============0032112259==--
+--===============1395488999==--
