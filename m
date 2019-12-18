@@ -2,114 +2,87 @@ Return-Path: <SRS0=4PMp=2I=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-9.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8AD6AC2D0BF
-	for <amd-gfx@archiver.kernel.org>; Wed, 18 Dec 2019 16:03:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3FC3AC2D0CD
+	for <amd-gfx@archiver.kernel.org>; Wed, 18 Dec 2019 16:19:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 565962146E
-	for <amd-gfx@archiver.kernel.org>; Wed, 18 Dec 2019 16:03:55 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 140BD218AC
+	for <amd-gfx@archiver.kernel.org>; Wed, 18 Dec 2019 16:19:25 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=Mellanox.com header.i=@Mellanox.com header.b="fmlMWkkh"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 565962146E
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=mellanox.com
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=umn.edu header.i=@umn.edu header.b="LBGI1dSL"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 140BD218AC
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=umn.edu
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 12FF26E85C;
-	Wed, 18 Dec 2019 16:03:55 +0000 (UTC)
-Received: from EUR03-VE1-obe.outbound.protection.outlook.com
- (mail-eopbgr50087.outbound.protection.outlook.com [40.107.5.87])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 37D5C6E4E8;
- Wed, 18 Dec 2019 14:59:19 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=aBhz6Xt/VwnL3LaV6C4ftnUv/Lo76F8bWxzl7vVKs3iNNEhOrMiBeiZVfaJTJwVamySrSxdyOVgvgMwaTeI/tuy13chTRWq7ZuAXqIaYqY4J414NlekkA6pNsrMP1uF4DXX97t1XXUoQB4XNOCy6LzyhdXhanekjv9C1vyn5eIXORn6ODwj6p/p2/Rxc34YPw0lTKZLnxOi5fIkhawyef7hLGTCCtdUeaNZqvQfefFpoMXkrwHj2kXx56vq4xGPrNIbDnNi1pe/0683/wTsjLzDH265o4d4OeZ87KoB2J9KyiHccH1yQyivt4UumoQa1GJFp54n2ZspyOTQnIvLMcQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9nQM+trVujHI3Qoc/dgMx+kQgATSWF4kZScyp+AAMWU=;
- b=OHqBzZ+mrohdkVNKDkHYLn07QcauNAfXhjIyx4wTRHEI7IfNW2oZQHRrWitOF+KNy6+U3tg06F1+OvfkgLk+t/q4GJiSA4DLoso0XxpcTv4GJLkbqEm/g3R71RF7EoyNAv3JOat5CXZc8zueRvOgeIfMqsd3iO8Pl7ZYGTs6U5AJT8tsGwPNu03d49gl91B1yleVbzdtJ/wBUHXlQszoHTwcrrj4MGAGo1Psx4/pnS7zFg5VXWJtP2eaHuJFo0hevgpNemwswHAkGge6nQDtoeoFir8rZuFmy1/ejqBUUq9eNib7n1KYgx35k3bQ2QAIe7DrOUgCkq86Fj67hOEzTg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=mellanox.com; dmarc=pass action=none header.from=mellanox.com;
- dkim=pass header.d=mellanox.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Mellanox.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9nQM+trVujHI3Qoc/dgMx+kQgATSWF4kZScyp+AAMWU=;
- b=fmlMWkkh5G4KHjVttSNopPJ00jsiNUkfJin3ufl+05LQgdc07Oq0p6DXq+MWMwUirGg9oq1h+prj8WvTzIoJp17lZ31If8dc/FujCXOWmF2/A5mzvwiczj/E2vozfkUOeEBiuewOIcRYMvpIDiI+nhEWsZPaR2sNho8tc7ItOEk=
-Received: from VI1PR05MB4141.eurprd05.prod.outlook.com (52.133.14.15) by
- VI1PR05MB3471.eurprd05.prod.outlook.com (10.170.239.25) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2538.19; Wed, 18 Dec 2019 14:59:16 +0000
-Received: from VI1PR05MB4141.eurprd05.prod.outlook.com
- ([fe80::18df:a0fe:18eb:a96b]) by VI1PR05MB4141.eurprd05.prod.outlook.com
- ([fe80::18df:a0fe:18eb:a96b%6]) with mapi id 15.20.2559.012; Wed, 18 Dec 2019
- 14:59:16 +0000
-From: Jason Gunthorpe <jgg@mellanox.com>
-To: Jerome Glisse <jglisse@redhat.com>, Ralph Campbell <rcampbell@nvidia.com>, 
- David Airlie <airlied@linux.ie>, "Kuehling, Felix" <Felix.Kuehling@amd.com>,
- Dan Williams <dan.j.williams@intel.com>, "dri-devel@lists.freedesktop.org"
- <dri-devel@lists.freedesktop.org>, "linux-mm@kvack.org" <linux-mm@kvack.org>, 
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Deucher,
- Alexander" <Alexander.Deucher@amd.com>, Andrew Morton
- <akpm@linux-foundation.org>, Linus Torvalds <torvalds@linux-foundation.org>,
- Christoph Hellwig <hch@lst.de>, "linux-rdma@vger.kernel.org"
- <linux-rdma@vger.kernel.org>
-Subject: Re: [GIT PULL] Please pull hmm changes
-Thread-Topic: [GIT PULL] Please pull hmm changes
-Thread-Index: AQHVo9Dog/MtwM8aJU6I/7345tJKuKekCWkAgAAFfoCAA6/3AIAEBIsAgAnhkICAAlDwAIAIKeCA
-Date: Wed, 18 Dec 2019 14:59:16 +0000
-Message-ID: <20191218145913.GO16762@mellanox.com>
-References: <20191125204248.GA2485@ziepe.ca>
- <CAHk-=wiqguF5NakpL4L9XCmmYr4wY0wk__+6+wHVReF2sVVZhA@mail.gmail.com>
- <CAHk-=wiQtTsZfgTwLYgfV8Gr_0JJiboZOzVUTAgJ2xTdf5bMiw@mail.gmail.com>
- <20191203024206.GC5795@mellanox.com> <20191205160324.GB5819@redhat.com>
- <20191211225703.GE3434@mellanox.com>
- <20191213101916.GD624164@phenom.ffwll.local>
-In-Reply-To: <20191213101916.GD624164@phenom.ffwll.local>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-clientproxiedby: MN2PR07CA0026.namprd07.prod.outlook.com
- (2603:10b6:208:1a0::36) To VI1PR05MB4141.eurprd05.prod.outlook.com
- (2603:10a6:803:44::15)
-authentication-results: spf=none (sender IP is )
- smtp.mailfrom=jgg@mellanox.com; 
-x-ms-exchange-messagesentrepresentingtype: 1
-x-originating-ip: [142.68.57.212]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: 1a27aaff-284f-43c2-60f4-08d783cada23
-x-ms-traffictypediagnostic: VI1PR05MB3471:
-x-microsoft-antispam-prvs: <VI1PR05MB34718FC1BC216A7489BA16F0CF530@VI1PR05MB3471.eurprd05.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:7219;
-x-forefront-prvs: 0255DF69B9
-x-forefront-antispam-report: SFV:NSPM;
- SFS:(10009020)(4636009)(39860400002)(346002)(376002)(366004)(136003)(396003)(199004)(189003)(1076003)(7416002)(81166006)(186003)(5660300002)(36756003)(8936002)(26005)(6506007)(2906002)(8676002)(6486002)(52116002)(33656002)(81156014)(86362001)(64756008)(66446008)(66556008)(110136005)(66946007)(66476007)(316002)(2616005)(6512007)(71200400001)(478600001)(921003)(1121003);
- DIR:OUT; SFP:1101; SCL:1; SRVR:VI1PR05MB3471;
- H:VI1PR05MB4141.eurprd05.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; A:1; MX:1; 
-received-spf: None (protection.outlook.com: mellanox.com does not designate
- permitted sender hosts)
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: YFsKJi3o+DFtc1adYty2n8ozGQozHR6/e2CYa3A3ET4WBHrq3ofdX2qWppElBG9I5VEWG+nM4nsk+Shtap+lkqvdOm4mlXNv9fcty5qFV4abEiuxriIoDF+HVoXWR43obPelf3GLBbigEHh4BQv9czHO9DxNT1pDiD20kLCt4k85Q9ZQGYxQ6EoHBPJ9GTXJ5aT2UBkpih5yPEat3yaVk4eLCYPtUbnHBmG3GdnCCQmoxJMm2gZRCCAJSycJB+X5HDC72ps7PcMSMYD/H6zmC9m6VeJvBUXo/Ah0O49Vrr2AGinYTA7tkLAO8I264wkz4/SoFNzNUKLsHwYINbEJAWAstBJRFUGhP0vNt2E88l2izg4il0m8rSPLt8qrST2atrUPjNifCODyXWqirHkN3T/jva8GWotiF6Bh9KSvHRp2181+CS8VGjryCDCh0FSljjCBwldRhsKUetiUYQsVN/oh0vDZeisnYWsD5tcHC680BnFmVnC6HNQdnRDqsMQi
-x-ms-exchange-transport-forked: True
-Content-ID: <992CF74742407543825A7104C3898395@eurprd05.prod.outlook.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id BE96F6E8FE;
+	Wed, 18 Dec 2019 16:19:24 +0000 (UTC)
+Received: from mta-p8.oit.umn.edu (mta-p8.oit.umn.edu [134.84.196.208])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2009B6E8BF
+ for <amd-gfx@lists.freedesktop.org>; Wed, 18 Dec 2019 16:15:13 +0000 (UTC)
+Received: from localhost (unknown [127.0.0.1])
+ by mta-p8.oit.umn.edu (Postfix) with ESMTP id 47dKq43sLyz9vcq7
+ for <amd-gfx@lists.freedesktop.org>; Wed, 18 Dec 2019 16:15:12 +0000 (UTC)
+X-Virus-Scanned: amavisd-new at umn.edu
+Received: from mta-p8.oit.umn.edu ([127.0.0.1])
+ by localhost (mta-p8.oit.umn.edu [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id udGbQJ7aFkKe for <amd-gfx@lists.freedesktop.org>;
+ Wed, 18 Dec 2019 10:15:12 -0600 (CST)
+Received: from mail-yw1-f70.google.com (mail-yw1-f70.google.com
+ [209.85.161.70])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by mta-p8.oit.umn.edu (Postfix) with ESMTPS id 47dKq42fb1z9vcqS
+ for <amd-gfx@lists.freedesktop.org>; Wed, 18 Dec 2019 10:15:11 -0600 (CST)
+Received: by mail-yw1-f70.google.com with SMTP id j9so1645186ywg.14
+ for <amd-gfx@lists.freedesktop.org>; Wed, 18 Dec 2019 08:15:11 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=umn.edu; s=google;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=qOckGjyMkemghi3Y5ghPJ9HepPoz/TI4eTpGQv8uuB0=;
+ b=LBGI1dSL721DXiRMdlxO9OgIC+cHa4/bWDIWiGuVIsT9SfjGy0VWgwRkdoaO77FrRk
+ kjevZwS20wMMcfEN20PAYvJW2YQeRONsrBRBtYO0XtSYHVYkNlxfgDHzXUQArkqQHStA
+ lYclFosKI7BEg3XeENJCDP1nAD9G3FRBAu/fM70AukXjilg141GzlehLzKwUPOW6xHxv
+ mXbFx+I4D1C0YITIcmwCFM82yUQiOY4DMj9u8gaHO7GdDgQ3E9cbSSIKc9C0SE8M+G9N
+ 9PUAPWPEdhJLBESLDgy9ddw6/RUav14ZuinIuXrCUxemaXie9FsYBGEwjdahpeIXcetP
+ xx7A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=qOckGjyMkemghi3Y5ghPJ9HepPoz/TI4eTpGQv8uuB0=;
+ b=RWC/eJVg9DOns2jdZPkLdrFOsHoBIvGr2evIOZvbQu574YKqZTWDKOIa9/ZJNM2gLm
+ 4ztwcbqfCTaAUZx4p/kJmKdYEu68Ezdo4wwHGNeMi+YJ4T5hnvXZo0dSbUUcfQLO1yBk
+ w18qwKZqb/BopgAhPow0rUnrZSnkCRKhyTz+BVDjFlCOvjHbSIQAtJwI2we6x9hDTWIn
+ PB7/oTR1KntleypyOHWiQOqx/SuoB+MArpFTVanH3vvvs4/30MPUUdVaaxWhUKb1viL1
+ s7dpIXVKonWm37WojIogUzKmjFj8ZwKwi+ugzsteJ9uki210h77yBByf4xfl+Xs96lX3
+ L95Q==
+X-Gm-Message-State: APjAAAXSeGvhi/84KzRxGxUqCtBfp9dAmIoDrvkkiS3lTUYSMGesUFAh
+ iosJGZgFKwmyiNWrxjOy6HDX/HaS+KKOceySrNKZ7okB3RnP2T5sGjlwBeuyphy2L8C/QE2BitW
+ Y6KuvuVjvBEeCaHQzBoAliG1htgOsqg==
+X-Received: by 2002:a25:33c2:: with SMTP id z185mr2694543ybz.477.1576685710882; 
+ Wed, 18 Dec 2019 08:15:10 -0800 (PST)
+X-Google-Smtp-Source: APXvYqwXNkytcdMy0zBtt0dCkZST2hQpkfH7TiOeIocMwvlZuJgokwWfh/oIOnlpTBiFOFnKN+CPNQ==
+X-Received: by 2002:a25:33c2:: with SMTP id z185mr2694522ybz.477.1576685710626; 
+ Wed, 18 Dec 2019 08:15:10 -0800 (PST)
+Received: from cs-u-syssec1.dtc.umn.edu (cs-u-syssec1.cs.umn.edu.
+ [128.101.106.66])
+ by smtp.gmail.com with ESMTPSA id m16sm1034836ywa.90.2019.12.18.08.15.09
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 18 Dec 2019 08:15:10 -0800 (PST)
+From: Aditya Pakki <pakki001@umn.edu>
+To: pakki001@umn.edu
+Subject: [PATCH] drm/amd/display: replace BUG_ON with WARN_ON
+Date: Wed, 18 Dec 2019 10:15:03 -0600
+Message-Id: <20191218161505.13416-1-pakki001@umn.edu>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-X-OriginatorOrg: Mellanox.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1a27aaff-284f-43c2-60f4-08d783cada23
-X-MS-Exchange-CrossTenant-originalarrivaltime: 18 Dec 2019 14:59:16.8325 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: a652971c-7d2e-4d9b-a6a4-d149256f461b
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: ujlj0Eul7WyBl6CVrl1kbsMBy6FDBXGRJFsC4dqgK6rD7TyFTQWnMpVYLAq8EIdqtcVEvx8g3SbHFT5VHqXbQg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR05MB3471
-X-Mailman-Approved-At: Wed, 18 Dec 2019 16:03:53 +0000
+X-Mailman-Approved-At: Wed, 18 Dec 2019 16:19:23 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -121,55 +94,47 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: "David \(ChunMing\) Zhou" <David1.Zhou@amd.com>,
+ Mario Kleiner <mario.kleiner.de@gmail.com>, Leo Li <sunpeng.li@amd.com>,
+ Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>,
+ David Francis <David.Francis@amd.com>, kjlu@umn.edu,
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
+ David Airlie <airlied@linux.ie>, dri-devel@lists.freedesktop.org,
+ Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
+ Harry Wentland <harry.wentland@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Dec 13, 2019 at 11:19:16AM +0100, Daniel Vetter wrote:
-> On Wed, Dec 11, 2019 at 10:57:13PM +0000, Jason Gunthorpe wrote:
-> > On Thu, Dec 05, 2019 at 11:03:24AM -0500, Jerome Glisse wrote:
-> > 
-> > > > struct mmu_notifier_mm (ie the mm->mmu_notifier_mm)
-> > > >    -> mmn_mm
-> > > > struct mm_struct 
-> > > >    -> mm
-> > > > struct mmu_notifier (ie the user subscription to the mm_struct)
-> > > >    -> mn
-> > > > struct mmu_interval_notifier (the other kind of user subscription)
-> > > >    -> mni
-> > > 
-> > > What about "interval" the context should already tell people
-> > > it is related to mmu notifier and thus a notifier. I would
-> > > just remove the notifier suffix, this would match the below
-> > > range.
-> > 
-> > Interval could be a good replacement for mni in the mm/mmu_notififer
-> > file if we don't do the wholesale rename
-> > 
-> > > > I think it would be overall nicer with better names for the original
-> > > > structs. Perhaps:
-> > > > 
-> > > >  mmn_* - MMU notifier prefix
-> > > >  mmn_state <- struct mmu_notifier_mm
-> > > >  mmn_subscription (mmn_sub) <- struct mmu_notifier
-> > > >  mmn_range_subscription (mmn_range_sub) <- struct mmu_interval_notifier
-> > > >  mmn_invalidate_desc <- struct mmu_notifier_range
-> > > 
-> > > This looks good.
-> > 
-> > Well, lets just bite the bullet then and switch it. Do you like
-> > 'state'? I thought that was the weakest one
-> 
-> Since you're asking, here's my bikeshed. I kinda agree _state looks a bit
-> strange for this, what about a _link suffix in the spirit of
+In skip_modeset label within dm_update_crtc_state(), the dc stream
+cannot be NULL. Using BUG_ON as an assertion is not required and
+can be removed. The patch replaces the check with a WARN_ON in case
+dm_new_crtc_state->stream is NULL.
 
-Do you think calling it 'mmn_subscriptions' is clear?
+Signed-off-by: Aditya Pakki <pakki001@umn.edu>
+---
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Ie a struct mmn_subscriptions holds the lists of struct
-mmn_subscription and struct mmn_range_subscription?
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 7aac9568d3be..03cb30913c20 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -7012,7 +7012,7 @@ static int dm_update_crtc_state(struct amdgpu_display_manager *dm,
+ 	 * 3. Is currently active and enabled.
+ 	 * => The dc stream state currently exists.
+ 	 */
+-	BUG_ON(dm_new_crtc_state->stream == NULL);
++	WARN_ON(!dm_new_crtc_state->stream);
+ 
+ 	/* Scaling or underscan settings */
+ 	if (is_scaling_state_different(dm_old_conn_state, dm_new_conn_state))
+-- 
+2.20.1
 
-Jason
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
