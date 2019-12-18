@@ -2,110 +2,66 @@ Return-Path: <SRS0=4PMp=2I=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+X-Spam-Status: No, score=-6.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
-	version=3.4.0
+	SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6EE1CC43603
-	for <amd-gfx@archiver.kernel.org>; Wed, 18 Dec 2019 12:14:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 58952C43603
+	for <amd-gfx@archiver.kernel.org>; Wed, 18 Dec 2019 14:56:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 447122072B
-	for <amd-gfx@archiver.kernel.org>; Wed, 18 Dec 2019 12:14:31 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 28C3E2146E
+	for <amd-gfx@archiver.kernel.org>; Wed, 18 Dec 2019 14:56:06 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="nI+a3nLE"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 447122072B
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="tjRCDiDA"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 28C3E2146E
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F2E226E2E5;
-	Wed, 18 Dec 2019 12:14:30 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2060.outbound.protection.outlook.com [40.107.237.60])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4B1B56E2E5
- for <amd-gfx@lists.freedesktop.org>; Wed, 18 Dec 2019 12:14:30 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=hHRm8tsq9iRM7ao8OoD+HMrma6CAaNeJiEm3nhGPZ0vYLZFavA7SHyRu3qQLO+A7en1M7fE+0SEfay7HAszKkd01ndi5K0RQrPRo3evvN4xprVyAQQKE0Pu9G1De4SDdj1Tn5ndXgnSHD/fLKkijmGHoTSRGeDMhOAaoGBTwREttUFg7G7qFpTxBvBDukdkzzyQmTQywK4ieq0v/EDzzrnajrwqfxoTTJhL+a11CXNpcYnOFfQIH9oV1dc+Zr3JU/N4sfvFMMozzPxcFSoxlvMY3Got9b0nJJco3Oh3XPbYVc80mXQ+DizRAQmb+EfFetcYCaI58QKfX8+rtn/9MDw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=M2hyVkugHQNmM9LpC8KsGIBMbpOf1gA/3H3l4JEvfRU=;
- b=LAjIRUltmGfL9/2VUpl5PnPECsrxtdL2MR07+xsYGXZvMT1ACuM4UUUAl4pNhv6Avm8ZCxCPwCkL2Grgbn5JH+a8qNqcpw0/3isAz+LVRliPgulwL9Lrwe1bkHIUrQjDO1SrgyY95wwjtImMlgNOEvV7/XSiyii0FWIp8flCDJeT8YhCm3033AlQFMOr0YfTMoW2rjJBjjxfgpk0R8thWdY7TWs6eMGG3RRdUzVsSoVgsZHd4SgxTYUp5Nsxhye9GU0IiS96wJdOiwpZ10AvGT3mbo3R1XeCwQh0fbv+Sp0q7VnI8Z5b0f4x8cTnNmb4PrnaQgk5g3XU4gIGAEKfMg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=permerror action=none header.from=amd.com; dkim=none (message not
- signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=M2hyVkugHQNmM9LpC8KsGIBMbpOf1gA/3H3l4JEvfRU=;
- b=nI+a3nLExZjaPP4DAoEtATMFZynq6HPgu0w/XchmEirPvWaP30yrWSbnc4g2owzBQTzot6TThZ6sztMbdJvB/GkVhZ4+1MMTEYqwSsM3oiHWWtfrYxfptWieq0OnM594cT6swn8hfPrw3OpXfD+ec5kzDpT5j8GlRxrEHjPXB+Y=
-Received: from CY4PR1201CA0019.namprd12.prod.outlook.com
- (2603:10b6:910:16::29) by MN2PR12MB4334.namprd12.prod.outlook.com
- (2603:10b6:208:1d1::10) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2559.14; Wed, 18 Dec
- 2019 12:14:28 +0000
-Received: from BN8NAM11FT020.eop-nam11.prod.protection.outlook.com
- (2a01:111:f400:7eae::205) by CY4PR1201CA0019.outlook.office365.com
- (2603:10b6:910:16::29) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2559.14 via Frontend
- Transport; Wed, 18 Dec 2019 12:14:28 +0000
-Authentication-Results: spf=none (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
- header.d=none;lists.freedesktop.org; dmarc=permerror action=none
- header.from=amd.com;
-Received-SPF: None (protection.outlook.com: amd.com does not designate
- permitted sender hosts)
-Received: from SATLEXMB01.amd.com (165.204.84.17) by
- BN8NAM11FT020.mail.protection.outlook.com (10.13.176.223) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.2538.14 via Frontend Transport; Wed, 18 Dec 2019 12:14:27 +0000
-Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB01.amd.com
- (10.181.40.142) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Wed, 18 Dec
- 2019 06:14:26 -0600
-Received: from SATLEXMB01.amd.com (10.181.40.142) by SATLEXMB05.amd.com
- (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Wed, 18 Dec
- 2019 06:14:26 -0600
-Received: from vbox-debug.amd.com (10.180.168.240) by SATLEXMB01.amd.com
- (10.181.40.142) with Microsoft SMTP Server id 15.1.1713.5 via Frontend
- Transport; Wed, 18 Dec 2019 06:14:23 -0600
-From: Frank.Min <Frank.Min@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 2/2] drm/amdgpu: enlarge agp_start address into 48bit
-Date: Wed, 18 Dec 2019 20:13:28 +0800
-Message-ID: <20191218121328.31759-2-Frank.Min@amd.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20191218121328.31759-1-Frank.Min@amd.com>
-References: <20191218121328.31759-1-Frank.Min@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id DEF3E6E4E8;
+	Wed, 18 Dec 2019 14:56:05 +0000 (UTC)
+Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com
+ [IPv6:2a00:1450:4864:20::443])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4885A6E4E8
+ for <amd-gfx@lists.freedesktop.org>; Wed, 18 Dec 2019 14:56:05 +0000 (UTC)
+Received: by mail-wr1-x443.google.com with SMTP id t2so2642092wrr.1
+ for <amd-gfx@lists.freedesktop.org>; Wed, 18 Dec 2019 06:56:05 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=n6z08uSeIIqXTca65d+sKrVT3vh7h+Fza87JIFV3NhU=;
+ b=tjRCDiDAfnJJAyNmpGFhRyhjSLuHYsZD7hP/KnAmUZOIWyYTs22Gj/JpS5fnPoXqcG
+ /AEDACWfTxqf8E9s2GF+4UT53L9CuePAlv7SoYSn1iu5Ed+4ON09OahV9tLF0KFjzjaV
+ kSbo9t3fDMDfDgBs9ORyJnkGyngysWWT8Gmw1ulSRlVYqSXXBGLUjLjbXAkyI7ztHjvI
+ j1+XOThPTLQ53xWRhZ1/vQ1qxJh0Z3QV6AngXs+M89ayiIJobttNFrA6i5Te85AIA7pC
+ /YKOVhVFfABX9Gc5O2zKDIje8fs/2heen2CbrZfXcLQu+whPJV0YBvDGSo/q4TEToyxW
+ oIzA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=n6z08uSeIIqXTca65d+sKrVT3vh7h+Fza87JIFV3NhU=;
+ b=L+taL7+XnOH9cB39KSJVGowd5nTiU0fyvJFu3jw/M4MBX2HzMG3ulPNsEJPbEDhYdJ
+ 1+oX7FP9Ut9PhQCQUwov66MDOxz1fjcJwkoY1pj8cwyzpB5TD2BWiHp2O+wE2ZoCbumc
+ QTvE/ECI6J+ef5hCikqk3VaxK8Pn/ocsoS58i9Ig6LNnXosWNMQ+cUulCHDWkcahjONC
+ yAT4SBGoA7MzxSCEKgfR9xYaMRLaANf7eqkdX1C3nfoovQz9S/3ZLW8NIpHK0G2GxKP5
+ v8fQzpys3hmR4RqZ/NoWwEi/BjTuAHm7Z1RAhB3xc7ytY/9dMM5UAOuJuea8GBVDCP/a
+ c/TA==
+X-Gm-Message-State: APjAAAVZUi6ocb7DTMGqMFASinFOTPXBhb5YJlbMu6nQ716dDE2dcPUn
+ BpRM3IaQ/lr17Vh2wy+YEO4GyKH62CDj6VRb2pmDd6zV
+X-Google-Smtp-Source: APXvYqwK7kHPvDFbdIoGismhhK5mpULHTpOOQrn9CoedZFTeJ8hW6VxuRL4t9Xe10Sh93I93B4Bt3Y2OgH/Cuvsed7A=
+X-Received: by 2002:a5d:4692:: with SMTP id u18mr3464599wrq.206.1576680963873; 
+ Wed, 18 Dec 2019 06:56:03 -0800 (PST)
 MIME-Version: 1.0
-X-EOPAttributedMessage: 0
-X-MS-Office365-Filtering-HT: Tenant
-X-Forefront-Antispam-Report: CIP:165.204.84.17; IPV:; CTRY:US; EFV:NLI;
- SFV:NSPM;
- SFS:(10009020)(4636009)(396003)(346002)(376002)(39860400002)(136003)(428003)(189003)(199004)(36756003)(86362001)(6916009)(478600001)(2906002)(5660300002)(7696005)(8676002)(8936002)(26005)(70206006)(316002)(2616005)(70586007)(4326008)(81166006)(81156014)(1076003)(186003)(4744005)(336012)(426003)(356004)(161623001)(147533002);
- DIR:OUT; SFP:1101; SCL:1; SRVR:MN2PR12MB4334; H:SATLEXMB01.amd.com; FPR:;
- SPF:None; LANG:en; PTR:InfoDomainNonexistent; MX:1; A:1; 
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 187f5bb2-c7f7-4e32-96e0-08d783b3d41e
-X-MS-TrafficTypeDiagnostic: MN2PR12MB4334:
-X-Microsoft-Antispam-PRVS: <MN2PR12MB4334F4067E085F3CC4133A12E9530@MN2PR12MB4334.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:346;
-X-Forefront-PRVS: 0255DF69B9
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: AZvzokLZDxvBx7axBv+j4hVF+KwMCY62T2EFGT7dTutqzw9yM2Sa0IVoDEqT3ossW5JYx8O4JlbJ5Nn8ObxXaaUMqfbrLagY4kbfLlrme3FkLmXX6d3+knqbx8rjGFIQPDt2y/j7qjfNjnkrT9D9jEoav/34XYaQYyRysUbF7zZOL86G7w196FZNBJDs4c594UrdnZ4jaoUPI0+8VauSpsPmjDVjMBO1CtPZH+1NwXLzAS1lwqyF49Ri7/JN+gUmWGlPOYlcMxxho8kq7KQ/TPsM9HFyxQFAl1TOB3QjFPv6iVaWPfawot4Wa0qVSeVw82Jr4byKrQi8FIjw7IN2fTYhT5CwS82Mayhjj2JWm29S09FvUpKaoJrXI2YnswQxxU29DyfkA6YbdO/5by6SJt5MYdE/oS8m0sUWZC02olIJhGryWFRI4EG+/jIbaQXCOpmYcpIMCjU3YIa8zFSSn0+NFu/FxeOSiBpS/Jp3XLVIfcaR3zQ+z9FU4gpwf8viZ23pctX9n2a9YSIZE9md8w==
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Dec 2019 12:14:27.6943 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 187f5bb2-c7f7-4e32-96e0-08d783b3d41e
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB01.amd.com]
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4334
+References: <20191218032457.28424-1-evan.quan@amd.com>
+In-Reply-To: <20191218032457.28424-1-evan.quan@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Wed, 18 Dec 2019 09:55:51 -0500
+Message-ID: <CADnq5_PXP-TTS46rw6HcxPo8ZM_2djf9Ct12dyBQ9sMs7Cxv3g@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: no SMC firmware reloading for non-RAS baco
+ reset
+To: Evan Quan <evan.quan@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,36 +73,83 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Frank.Min" <Frank.Min@amd.com>
+Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-enlarge agp_start address into 48bit with all bits set
+On Tue, Dec 17, 2019 at 10:25 PM Evan Quan <evan.quan@amd.com> wrote:
+>
+> For non-RAS baco reset, there is no need to reset the SMC. Thus
+> the firmware reloading should be avoided.
+>
+> Change-Id: I73f6284541d0ca0e82761380a27e32484fb0061c
+> Signed-off-by: Evan Quan <evan.quan@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c |  3 ++-
+>  drivers/gpu/drm/amd/amdgpu/psp_v11_0.c  | 14 ++++++++++++++
+>  2 files changed, 16 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+> index c14f2ccd0677..9bf7e92394f5 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+> @@ -1439,7 +1439,8 @@ static int psp_np_fw_load(struct psp_context *psp)
+>                         continue;
+>
+>                 if (ucode->ucode_id == AMDGPU_UCODE_ID_SMC &&
+> -                   (psp_smu_reload_quirk(psp) || psp->autoload_supported))
+> +                   ((adev->in_gpu_reset && psp_smu_reload_quirk(psp))
+> +                     || psp->autoload_supported))
 
-Change-Id: I36eb757310fa71555c8355f99f89c89fed306638
-Signed-off-by: Frank.Min <Frank.Min@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Will this cover the power saving case as well?  Do we need to check
+adev->in_gpu_reset as well or can we drop that part?
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-index a12f33c0f5df..bbcd11ac5bbb 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-@@ -223,7 +223,7 @@ void amdgpu_gmc_agp_location(struct amdgpu_device *adev, struct amdgpu_gmc *mc)
- 	u64 size_af, size_bf;
- 
- 	if (amdgpu_sriov_vf(adev)) {
--		mc->agp_start = 0xffffffff;
-+		mc->agp_start = 0xffffffffffff;
- 		mc->agp_end = 0x0;
- 		mc->agp_size = 0;
- 
--- 
-2.17.1
+Alex
 
+>                         continue;
+>
+>                 if (amdgpu_sriov_vf(adev) &&
+> diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c b/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c
+> index c66ca8cc2ebd..ba761e9366e3 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c
+> @@ -676,6 +676,19 @@ static bool psp_v11_0_compare_sram_data(struct psp_context *psp,
+>         return true;
+>  }
+>
+> +/*
+> + * Check whether SMU is still alive. If that's true
+> + * (e.g. for non-RAS baco reset), we need to skip SMC firmware reloading.
+> + */
+> +static bool psp_v11_0_smu_reload_quirk(struct psp_context *psp)
+> +{
+> +       struct amdgpu_device *adev = psp->adev;
+> +       uint32_t reg;
+> +
+> +       reg = RREG32_PCIE(smnMP1_FIRMWARE_FLAGS | 0x03b00000);
+> +       return (reg & MP1_FIRMWARE_FLAGS__INTERRUPTS_ENABLED_MASK) ? true : false;
+> +}
+> +
+>  static int psp_v11_0_mode1_reset(struct psp_context *psp)
+>  {
+>         int ret;
+> @@ -1070,6 +1083,7 @@ static const struct psp_funcs psp_v11_0_funcs = {
+>         .ring_stop = psp_v11_0_ring_stop,
+>         .ring_destroy = psp_v11_0_ring_destroy,
+>         .compare_sram_data = psp_v11_0_compare_sram_data,
+> +       .smu_reload_quirk = psp_v11_0_smu_reload_quirk,
+>         .mode1_reset = psp_v11_0_mode1_reset,
+>         .xgmi_get_topology_info = psp_v11_0_xgmi_get_topology_info,
+>         .xgmi_set_topology_info = psp_v11_0_xgmi_set_topology_info,
+> --
+> 2.24.0
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
