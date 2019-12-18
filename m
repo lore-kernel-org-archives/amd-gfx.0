@@ -7,61 +7,60 @@ X-Spam-Status: No, score=-6.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
 	SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D8A75C43603
-	for <amd-gfx@archiver.kernel.org>; Wed, 18 Dec 2019 20:03:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 989F0C43603
+	for <amd-gfx@archiver.kernel.org>; Wed, 18 Dec 2019 20:11:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A890D2082E
-	for <amd-gfx@archiver.kernel.org>; Wed, 18 Dec 2019 20:03:05 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 6776121D7D
+	for <amd-gfx@archiver.kernel.org>; Wed, 18 Dec 2019 20:11:39 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="R0ptiFsd"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A890D2082E
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="c3yyjml8"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6776121D7D
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6D61C6EA68;
-	Wed, 18 Dec 2019 20:03:05 +0000 (UTC)
-Received: from mail-wm1-x342.google.com (mail-wm1-x342.google.com
- [IPv6:2a00:1450:4864:20::342])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3B5956EA68
- for <amd-gfx@lists.freedesktop.org>; Wed, 18 Dec 2019 20:03:04 +0000 (UTC)
-Received: by mail-wm1-x342.google.com with SMTP id p17so3296988wma.1
- for <amd-gfx@lists.freedesktop.org>; Wed, 18 Dec 2019 12:03:04 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 311796EA67;
+	Wed, 18 Dec 2019 20:11:39 +0000 (UTC)
+Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com
+ [IPv6:2a00:1450:4864:20::441])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D9AD56E2E8;
+ Wed, 18 Dec 2019 20:11:37 +0000 (UTC)
+Received: by mail-wr1-x441.google.com with SMTP id y17so3678140wrh.5;
+ Wed, 18 Dec 2019 12:11:37 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=aktUULzv0VpZO+CrSmNwsyZkiy4GpHR/fXur7UwKWd0=;
- b=R0ptiFsdzDHIPmTHCZetnzbTLvpV/KHz8H9H7M7dS4+4Pu6YtBXJUtsZPDfP6tHNCB
- bDe+P043sAII9dNCr/8m3otyWNoByq5lcYsyl534saS+uh3542q1LffUUexRx2iO7KvT
- 4FTOMk8ISISI2q451QbIBWAaLLq3tMRxg/IbEYxkEh4RRaT8k1BfFFje++kLDmJJyPdt
- ejVGyuAIEitYMWLpCrCu9DmBtnK+e2YVZYIY5PHd4zdxeqL3yN/HCQoccPmE4yfHteRc
- Pct+N7fKG/RrU38pE3UML39DnCd0NZ/RD49kqjQcI8MgvPLzbpl0qIuDoNsVlNrAhPI5
- D6FQ==
+ :cc; bh=rbUYEIW7slNbxlu+nEtDsS40/Za9u8XEu+dlEeoKiho=;
+ b=c3yyjml81B7N9WIQNvh7JhSGxrwNXD/QguSzK+Vi5D2OARt0A1pxOYak6b8P855cTH
+ TkQVBp4XpQXm34UJHJ0DH+I1Bs8I7uy9nE8K0Z92nV27GviuaXPCo92xfhx+b20IzjlI
+ pel38UTxZvsWct2NGrJNztBUIlsFbT0aMV2g2ZZGEE+tcZdPwmgjodIJU0YJoFVe75k3
+ cHwyOVp4GUq/ZKQCO5TfCyUjhDVgb9JO1LR5qbotC6mIQN8iq8PeOUwALirOozdQjPej
+ +XU0fzyNuUWAx6JfocIe7Xt+s/8syX8pAXBvLj2PUegAW4QT8GvKO4GFTV9kar+o6Y0/
+ KIgw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=aktUULzv0VpZO+CrSmNwsyZkiy4GpHR/fXur7UwKWd0=;
- b=PdSBNBPz0+TXqYO/YvY1i41kjVth3HDVKCL4oiKJNquMjuyTkDjlAhNmN9WvAFVKIL
- fP2J/agdVeh8UCIWh+2E+JxnCCMb7QODE9HHEffvJOpNSxEISirHQPo0zxfKOqF5isiT
- X5a85jWrcOPzEHH72dJR4V1jIpu81Oiefwotru51g6gs0tOGI8LPVqzFvt8FIwSDqyX+
- +XQEMoSHn4RT0/KFCmttc06xPsjnnc26BDNBiXTUoS/X5zHnoEovQA8ZMowVt6ORPlRA
- qFXd3GLeMlWipDjTwMBy6dkhEp9nsoPTpNT6C/LTkYvDi/QHBhN/BRU0KJMJokOzlIrh
- rDoA==
-X-Gm-Message-State: APjAAAVMHr2gogoRDOMGXfkblzQZl00K7e/d3xSyu99pna/VPyL3wRzP
- 1kxYvbHLOKe6hUPmHYeuOK3M8H0RuUvYS6VPHfiu3A==
-X-Google-Smtp-Source: APXvYqxHdl7MS+gLsuJ9PljvopWz4etfQywHLxQJBni75e1wK7xDAtj/cBQFP+LrzwlQC+gQMIa8OyeBgbf9UDgHCq0=
-X-Received: by 2002:a1c:e909:: with SMTP id q9mr5578809wmc.30.1576699382865;
- Wed, 18 Dec 2019 12:03:02 -0800 (PST)
+ bh=rbUYEIW7slNbxlu+nEtDsS40/Za9u8XEu+dlEeoKiho=;
+ b=cGhJE0DZGZ0fI3JcoI/Wuvy9KHKztzOL9YXrTv/YGFvsy6wrTajiUcXWOuAMhufoz/
+ xoXuZVFXwMbnaq1Tbj9pDI9S8/waS+r/Djizf7rZ8Hx/ZjAufKoGw0YIJAqHCFk6z2pY
+ +B4aM/OWkv4Il3weO2hQ9/2xQnYfgmAViKc11Mo7Wuzu6kTqLuygdaxdMhYebC0IM7AG
+ 0Y1Qpqy+cVGJamZfMkOgbWzFu90wbnl1eN4B3fYsJGuMX9rFrQpt9j2moVeOojRGAXcs
+ S7hSWVj/Q90HvIyJb8qg/rd36ogifxY72nY5ouM+07H1kY+kWZGvqQe1T2Z75SBFiB5k
+ d8SQ==
+X-Gm-Message-State: APjAAAUO2URx2voYbt47HdSpGgreSGkbVKTrepY4Y67hiseTD1q1ZC7w
+ TVM/etQHAv75sgtS/BDDjpZtuiq88VwpleRpWec=
+X-Google-Smtp-Source: APXvYqxvWOkornjFKC9yZx/AYAl3XzgmZvf2Cgv8ByZTr3LB9dcbEl9omnAbae9I0QkOdIPMgysZMMckqComySDr4rw=
+X-Received: by 2002:a5d:4692:: with SMTP id u18mr1409287wrq.206.1576699896455; 
+ Wed, 18 Dec 2019 12:11:36 -0800 (PST)
 MIME-Version: 1.0
-References: <20191218121328.31759-1-Frank.Min@amd.com>
- <20191218121328.31759-2-Frank.Min@amd.com>
-In-Reply-To: <20191218121328.31759-2-Frank.Min@amd.com>
+References: <1576640988-14639-1-git-send-email-zhangpan26@huawei.com>
+In-Reply-To: <1576640988-14639-1-git-send-email-zhangpan26@huawei.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 18 Dec 2019 15:02:50 -0500
-Message-ID: <CADnq5_M3uvTkLbnijYrye2a3Ra_t-9etGLDhrvK_0y9oJSqdRQ@mail.gmail.com>
-Subject: Re: [PATCH 2/2] drm/amdgpu: enlarge agp_start address into 48bit
-To: "Frank.Min" <Frank.Min@amd.com>
+Date: Wed, 18 Dec 2019 15:11:24 -0500
+Message-ID: <CADnq5_Oiksa0pd+6au5giwOeYBaNh4X5-kP=vxpo-617C3dSfA@mail.gmail.com>
+Subject: Re: [PATCH 1/3] gpu: drm: dead code elimination
+To: Pan Zhang <zhangpan26@huawei.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,47 +72,61 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>
+Cc: Chunming Zhou <David1.Zhou@amd.com>, hushiyuan@huawei.com,
+ LKML <linux-kernel@vger.kernel.org>,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
+ Dave Airlie <airlied@linux.ie>, amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Daniel Vetter <daniel@ffwll.ch>, "Deucher,
+ Alexander" <alexander.deucher@amd.com>, Sam Ravnborg <sam@ravnborg.org>,
+ Christian Koenig <christian.koenig@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Dec 18, 2019 at 7:14 AM Frank.Min <Frank.Min@amd.com> wrote:
+On Wed, Dec 18, 2019 at 3:13 AM Pan Zhang <zhangpan26@huawei.com> wrote:
 >
-> enlarge agp_start address into 48bit with all bits set
-
-Might want to add a note that the max range of the agp aperture is 48
-bits.  With that fixed, the series is:
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-
+> this set adds support for removal of gpu drm dead code.
 >
-> Change-Id: I36eb757310fa71555c8355f99f89c89fed306638
-> Signed-off-by: Frank.Min <Frank.Min@amd.com>
+> patch1:
+> `num` is a data of u8 type and ATOM_MAX_HW_I2C_READ == 255,
+>
+> so there is a impossible condition '(num > 255) => (0-255 > 255)'.
+>
+> Signed-off-by: Pan Zhang <zhangpan26@huawei.com>
+
+This change was already made by someone else.
+
+Alex
+
+
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+>  drivers/gpu/drm/amd/amdgpu/atombios_i2c.c | 5 -----
+>  1 file changed, 5 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-> index a12f33c0f5df..bbcd11ac5bbb 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-> @@ -223,7 +223,7 @@ void amdgpu_gmc_agp_location(struct amdgpu_device *adev, struct amdgpu_gmc *mc)
->         u64 size_af, size_bf;
->
->         if (amdgpu_sriov_vf(adev)) {
-> -               mc->agp_start = 0xffffffff;
-> +               mc->agp_start = 0xffffffffffff;
->                 mc->agp_end = 0x0;
->                 mc->agp_size = 0;
->
+> diff --git a/drivers/gpu/drm/amd/amdgpu/atombios_i2c.c b/drivers/gpu/drm/amd/amdgpu/atombios_i2c.c
+> index 980c363..b4cc7c5 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/atombios_i2c.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/atombios_i2c.c
+> @@ -76,11 +76,6 @@ static int amdgpu_atombios_i2c_process_i2c_ch(struct amdgpu_i2c_chan *chan,
+>                 }
+>                 args.lpI2CDataOut = cpu_to_le16(out);
+>         } else {
+> -               if (num > ATOM_MAX_HW_I2C_READ) {
+> -                       DRM_ERROR("hw i2c: tried to read too many bytes (%d vs 255)\n", num);
+> -                       r = -EINVAL;
+> -                       goto done;
+> -               }
+>                 args.ucRegIndex = 0;
+>                 args.lpI2CDataOut = 0;
+>         }
 > --
-> 2.17.1
+> 2.7.4
 >
 > _______________________________________________
-> amd-gfx mailing list
-> amd-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+> dri-devel mailing list
+> dri-devel@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/dri-devel
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
