@@ -2,76 +2,56 @@ Return-Path: <SRS0=4PMp=2I=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-7.8 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-5.2 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8D0F6C43603
-	for <amd-gfx@archiver.kernel.org>; Wed, 18 Dec 2019 09:56:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 489DCC43603
+	for <amd-gfx@archiver.kernel.org>; Wed, 18 Dec 2019 09:58:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5A6802072B
-	for <amd-gfx@archiver.kernel.org>; Wed, 18 Dec 2019 09:56:41 +0000 (UTC)
-Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kt9WnkWT"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5A6802072B
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 248F02072B
+	for <amd-gfx@archiver.kernel.org>; Wed, 18 Dec 2019 09:58:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 248F02072B
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=daenzer.net
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1BB4C6E2A5;
-	Wed, 18 Dec 2019 09:56:41 +0000 (UTC)
-Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com
- [IPv6:2a00:1450:4864:20::442])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B240A6E2A9
- for <amd-gfx@lists.freedesktop.org>; Wed, 18 Dec 2019 09:56:39 +0000 (UTC)
-Received: by mail-wr1-x442.google.com with SMTP id q10so1529745wrm.11
- for <amd-gfx@lists.freedesktop.org>; Wed, 18 Dec 2019 01:56:39 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=reply-to:subject:to:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-transfer-encoding:content-language;
- bh=XXOWwgWPraFKwdEGL/gM6LhhvXbrnGcdQMSxJGE/2Bw=;
- b=kt9WnkWTo8/ZbNzuVdZfjR3444crZNnL2e013ZVlBVzxSP8+wveWLkIe/TBH5PJxli
- L9hsEgWnZ4T73eyHBZ99G4B7pMVldIwhVippDI95cac6VKs4UcYNjJbtBBsmOFme1KT5
- kn6F9JuO0mvMlgcYc8kgfH0px4Rabo/tFmgHunrg19WC5Du9MJiVLyIqg1aP7yTIOGRO
- VNz0Q/qeM95IMBtG6gG2yaO/bN8/3yE7ZT9uGuVGB8VwIeidj//427l/IK2YhKoX44jH
- GVEDHmuQ0nrDcL07sMov6D4z0LpbK1BxX77/R8gY5S5cAcRJo7yLkWuKat2hqViOxUOU
- PFFw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:reply-to:subject:to:references:from:message-id
- :date:user-agent:mime-version:in-reply-to:content-transfer-encoding
- :content-language;
- bh=XXOWwgWPraFKwdEGL/gM6LhhvXbrnGcdQMSxJGE/2Bw=;
- b=BUgVBRycvREfpbb9Gu0tRvKOaOo4fPYWoapJfVOWSL12q3xIvI3q7uol1cFsI6rXKf
- xv+RqRkF9JYaOjFmpCoBEpGkwTK78B1jbhAuhWFjG7CpDLT+oCm/kRltBlm4UEej4Cga
- wi+NpkUTvdaruZIiJlEBRbpHKUKfcfUWjqX3LLRA0MW2zzOt+vJt1ojxHBYsy58UMkYE
- 98tvpZqITKVqzuGik4EBWPrgc7lQSMILxRjkQTVlr3DgirYxnn25IulZV2LVXBVt38Vu
- XSaQkPLChg6igJ4xzEepaDx61o1xy+eAYrjTV3dItoCnshKecEL5KEhfullRJnTNj9jb
- GkbA==
-X-Gm-Message-State: APjAAAXMi1vUFQxCns9jFwhzYkLUAPzBWnPYy6135QhDUcModb5mlaWk
- ZZcXOa6UXjjij1bosewWX8Id58OB
-X-Google-Smtp-Source: APXvYqybl3UT/BBoLcSu9pj9TkMpl5uZkg62vxO4Pf4TSXFx9JsT+7upAaPtNIj6s+mNga1l/TczPA==
-X-Received: by 2002:adf:e6c5:: with SMTP id y5mr1774854wrm.210.1576662998227; 
- Wed, 18 Dec 2019 01:56:38 -0800 (PST)
-Received: from ?IPv6:2a02:908:1252:fb60:be8a:bd56:1f94:86e7?
- ([2a02:908:1252:fb60:be8a:bd56:1f94:86e7])
- by smtp.gmail.com with ESMTPSA id x18sm1958031wrr.75.2019.12.18.01.56.36
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Wed, 18 Dec 2019 01:56:37 -0800 (PST)
-Subject: Re: [PATCH] drm/amdgpu: correctly report gpu recover status
-To: Evan Quan <evan.quan@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20191218032534.28482-1-evan.quan@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Message-ID: <5ae5f01d-e7cd-d6b4-2433-90c03809e1b3@gmail.com>
-Date: Wed, 18 Dec 2019 10:56:35 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.9.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id B54266E2A9;
+	Wed, 18 Dec 2019 09:58:46 +0000 (UTC)
+X-Greylist: delayed 384 seconds by postgrey-1.36 at gabe;
+ Wed, 18 Dec 2019 09:58:45 UTC
+Received: from netline-mail3.netline.ch (mail.netline.ch [148.251.143.178])
+ by gabe.freedesktop.org (Postfix) with ESMTP id B4FAC6E2A9
+ for <amd-gfx@lists.freedesktop.org>; Wed, 18 Dec 2019 09:58:45 +0000 (UTC)
+Received: from localhost (localhost [127.0.0.1])
+ by netline-mail3.netline.ch (Postfix) with ESMTP id E484C2A6046;
+ Wed, 18 Dec 2019 10:52:19 +0100 (CET)
+X-Virus-Scanned: Debian amavisd-new at netline-mail3.netline.ch
+Received: from netline-mail3.netline.ch ([127.0.0.1])
+ by localhost (netline-mail3.netline.ch [127.0.0.1]) (amavisd-new, port 10024)
+ with LMTP id svgeRHm0o1zt; Wed, 18 Dec 2019 10:52:19 +0100 (CET)
+Received: from thor (252.80.76.83.dynamic.wline.res.cust.swisscom.ch
+ [83.76.80.252])
+ by netline-mail3.netline.ch (Postfix) with ESMTPSA id 03FF42A6045;
+ Wed, 18 Dec 2019 10:52:18 +0100 (CET)
+Received: from localhost ([::1]) by thor with esmtp (Exim 4.93)
+ (envelope-from <michel@daenzer.net>)
+ id 1ihW0A-000x6B-5f; Wed, 18 Dec 2019 10:52:18 +0100
+Subject: Re: [PATCH 2/3] gpu: drm: dead code elimination
+To: Pan Zhang <zhangpan26@huawei.com>, hushiyuan@huawei.com,
+ alexander.deucher@amd.com, christian.koenig@amd.com, David1.Zhou@amd.com,
+ airlied@linux.ie, daniel@ffwll.ch, ray.huang@amd.com, irmoy.das@amd.com,
+ sam@ravnborg.org
+References: <1576641000-14772-1-git-send-email-zhangpan26@huawei.com>
+From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel@daenzer.net>
+Message-ID: <484b831b-671a-12f4-8259-1cb6b75e93e3@daenzer.net>
+Date: Wed, 18 Dec 2019 10:52:18 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.3.0
 MIME-Version: 1.0
-In-Reply-To: <20191218032534.28482-1-evan.quan@amd.com>
-Content-Language: en-US
+In-Reply-To: <1576641000-14772-1-git-send-email-zhangpan26@huawei.com>
+Content-Language: en-CA
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,50 +63,36 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: christian.koenig@amd.com
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 18.12.19 um 04:25 schrieb Evan Quan:
-> Knowing whether gpu recovery was performed successfully or not
-> is important for our BACO development.
->
-> Change-Id: I0e3ca4dcb65a053eb26bc55ad7431e4a42e160de
-> Signed-off-by: Evan Quan <evan.quan@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c | 4 +---
->   1 file changed, 1 insertion(+), 3 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
-> index e9efee04ca23..5dff5c0dd882 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
-> @@ -743,9 +743,7 @@ static int amdgpu_debugfs_gpu_recover(struct seq_file *m, void *data)
->   	struct amdgpu_device *adev = dev->dev_private;
->   
->   	seq_printf(m, "gpu recover\n");
-> -	amdgpu_device_gpu_recover(adev, NULL);
-> -
-> -	return 0;
-> +	return amdgpu_device_gpu_recover(adev, NULL);
-
-NAK, what we could do here is the following:
-
-r = amdgpu_device_gpu_recover(....);
-seq_printf(m, "gpu recover %d\n", r);
-
-But returning the error code from the GPU recovery to userspace doesn't 
-make to much sense.
-
-Christian.
-
->   }
->   
->   static const struct drm_info_list amdgpu_debugfs_fence_list[] = {
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+T24gMjAxOS0xMi0xOCA0OjUwIGEubS4sIFBhbiBaaGFuZyB3cm90ZToKPiB0aGlzIHNldCBhZGRz
+IHN1cHBvcnQgZm9yIHJlbW92YWwgb2YgZ3B1IGRybSBkZWFkIGNvZGUuCj4gCj4gcGF0Y2gyOgo+
+IGBudW1fZW50cmllc2AgaXMgYSBkYXRhIG9mIHVuc2lnbmVkIHR5cGUoY29tcGlsZXJzIGFsd2F5
+cyB0cmVhdCBhcyB1bnNpZ25lZCBpbnQpIGFuZCBTSVpFX01BWCA9PSB+MCwKPiAKPiBzbyB0aGVy
+ZSBpcyBhIGltcG9zc2libGUgY29uZGl0aW9uOgo+ICcobnVtX2VudHJpZXMgPiAoKH4wKSAtIDU2
+KSAvIDcyKSA9PiAobWF4KDAtdTMyKSA+IDI1NjIwNDc3ODgwMTUyMTU0OSknLgoKV2hpbGUgdGhp
+cyBsb29rcyBjb3JyZWN0IGZvciA2NC1iaXQsIHdoZXJlIHNpemVfdCBpcyB1bnNpZ25lZCBsb25n
+LCBvbgozMi1iaXQgaXQncyB1bnNpZ25lZCBpbnQsIGluIHdoaWNoIGNhc2UgdGhpcyBpc24ndCBk
+ZWFkIGNvZGUuCgoKPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
+Z3B1X2JvX2xpc3QuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9ib19saXN0
+LmMKPiBpbmRleCA4NWIwNTE1Li4xMGE3ZjMwIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2Ry
+bS9hbWQvYW1kZ3B1L2FtZGdwdV9ib19saXN0LmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1k
+L2FtZGdwdS9hbWRncHVfYm9fbGlzdC5jCj4gQEAgLTcxLDEwICs3MSw2IEBAIGludCBhbWRncHVf
+Ym9fbGlzdF9jcmVhdGUoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsIHN0cnVjdCBkcm1fZmls
+ZSAqZmlscCwKPiAgCXVuc2lnbmVkIGk7Cj4gIAlpbnQgcjsKPiAgCj4gLQlpZiAobnVtX2VudHJp
+ZXMgPiAoU0laRV9NQVggLSBzaXplb2Yoc3RydWN0IGFtZGdwdV9ib19saXN0KSkKPiAtCQkJCS8g
+c2l6ZW9mKHN0cnVjdCBhbWRncHVfYm9fbGlzdF9lbnRyeSkpCj4gLQkJcmV0dXJuIC1FSU5WQUw7
+Cj4gLQo+ICAJc2l6ZSA9IHNpemVvZihzdHJ1Y3QgYW1kZ3B1X2JvX2xpc3QpOwo+ICAJc2l6ZSAr
+PSBudW1fZW50cmllcyAqIHNpemVvZihzdHJ1Y3QgYW1kZ3B1X2JvX2xpc3RfZW50cnkpOwo+ICAJ
+bGlzdCA9IGt2bWFsbG9jKHNpemUsIEdGUF9LRVJORUwpOwo+IAoKCi0tIApFYXJ0aGxpbmcgTWlj
+aGVsIETDpG56ZXIgICAgICAgICAgICAgICB8ICAgICAgICAgICAgICAgaHR0cHM6Ly9yZWRoYXQu
+Y29tCkxpYnJlIHNvZnR3YXJlIGVudGh1c2lhc3QgICAgICAgICAgICAgfCAgICAgICAgICAgICBN
+ZXNhIGFuZCBYIGRldmVsb3BlcgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9w
+Lm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1n
+ZngK
