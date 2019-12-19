@@ -2,92 +2,110 @@ Return-Path: <SRS0=793y=2J=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+X-Spam-Status: No, score=-6.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
-	version=3.4.0
+	SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B146CC43603
-	for <amd-gfx@archiver.kernel.org>; Thu, 19 Dec 2019 21:30:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 91E51C43603
+	for <amd-gfx@archiver.kernel.org>; Thu, 19 Dec 2019 21:31:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7826A2465E
-	for <amd-gfx@archiver.kernel.org>; Thu, 19 Dec 2019 21:30:58 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 620D02465E
+	for <amd-gfx@archiver.kernel.org>; Thu, 19 Dec 2019 21:31:56 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="N/EUOfxY"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7826A2465E
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="hyhv/yMC"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 620D02465E
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 300C56E08E;
-	Thu, 19 Dec 2019 21:30:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2AF716E08E;
+	Thu, 19 Dec 2019 21:31:56 +0000 (UTC)
 Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2061.outbound.protection.outlook.com [40.107.223.61])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A5DF26E08E
- for <amd-gfx@lists.freedesktop.org>; Thu, 19 Dec 2019 21:30:57 +0000 (UTC)
+ (mail-dm6nam11on2051.outbound.protection.outlook.com [40.107.223.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 90EAA6E08E
+ for <amd-gfx@lists.freedesktop.org>; Thu, 19 Dec 2019 21:31:55 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=QJUkhl40tlVsqbzdgKIM75fZd+LIbfl+O3RzwmYPLzNZDwKFA49edTTnSNKyHuzreLy7JYqmRc54iYsVjnxyJBa1YR7jSwALfTVp8Bky1csOzbH9xP/Y7cr45SK/xFFNCavyPl5W2wlN4VXNx7hM+IAPx8ebaW6kLyhR+8x9hPRN6/TOjOWvzpzeQLpnxyL1j8KLbK2+1cHUCvDIgdbJH8r1Xq09plCEjQXppwMGkCUKIajUjXGv84aj44vi7oZ7VYeaxCL1aJswyQ9DXpxQMrrnudF583F/Ia1wCJzyXYWgVK20BOjKx25hApVv0o36HrrXv5b2t2F1GVP/Q5lpvA==
+ b=HbyRFtKxNmz3eEumm/ELb5GyPgPc3hPy95K28A7ZASesleDS1ZXs2ptrQKiLm+n8Zmv2DQUU5e77Nk48ZXS9YU0theDIa7ftupEGho2UZGuBTTTD0Fo4xtbVWH+s2VFb+uMs6ZOvHycFLZhJNW6PXKcPrMkUSGR8VleNPNvwDIxMYVSOh+vxL0/tiiHTPLzjADhJYkETVzzXb8zNeS9N3lg6wYsN0bWKDi+goi/DGm8HUggf5dep6QRzpemMMJ/Rk2Q7MqDeVnLYBLb6Vdtf7Z2/pex7k3jlHCzBUKFdEYVG4xpHN4C2B/RtnKJAEBvFEl3ffwM4mQDVSoZQW7EfRw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=gB+r1svXefnREhuJWS8J5ajvXQfAaidVh6HyOBfpTvQ=;
- b=PGPupJCrKduYxbrHNHFvBhu4LFwt0K69fyG8iIMpxbM0CU0zJkvyEoNtDs9n2Zzk9s3AvYNEMUAPMBbSLn7q1oTNCffOR6sdTgntbbHYguoszNMUAzNn9xzpe26uL6d2oouEIeaYtMm0uu6puRXRWXWOGcZumNU90jdd5qMwJOJ0xL5BDiDsOrGh5J+IQaKWvIExrt8gHa6cMiFudzO7RwImehBu8Nje0MWVgQamDUyqVn0658x89NE0whNPspkGgar7kxb0fFIIbhmhFDMTSgVDMwAZVYeU5rSrlUvU0NeVlYmMANafumZM2ndrGK171EZJ3U3+up6YosxQ83HiCg==
+ bh=9r+fpI3SorP5j8JLQGbJhZETaVA75vqhguuuG9Y16O4=;
+ b=N0v/0V1EX1x3Zdw/V7lmD14OqaytaAVtJHjFOc0ENVZgnSoQbf8OBPGXWMXDBAdeCahF+fAkiEv5jFqP/qikH0wAGfxmb5gmBm0SdnYAiXDLtF4hgVKajLBemaDTeiTQVgahuPvA0Yz7hMRRTblR3n4bzlpHKrBsWdeehDyGHPsiddsmiBcO+UnhY3muZINusZtE0PIQDXHS8nH9TgefAghzgfDmZhQRV281LbIP0FMV3B0rX9IeowR030PnTDYzr21P+xZup883OpX44r8+H26ne3T1RfQdg+yfdqA7fo9y9goQeUEF2Wj6D8YdlLavVVRDVCYjsqLSVv5g8Vjjyw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=gB+r1svXefnREhuJWS8J5ajvXQfAaidVh6HyOBfpTvQ=;
- b=N/EUOfxYRpNG+V5LzLuXGQbI1UCv3AMaOVcatEFlBKxoHMaV0xY3+KhE6sptzX5j2quesAuoDwg2hIvWylrnHCHEoRcVqtSZOG6sABSar4Xy3F0A9ZNJJJrp3w38jnOPoJ35bWfpNVGc6nez/vzwaY5TXmIOWoQmkx9B/FMQVi8=
-Authentication-Results: spf=none (sender IP is )
- smtp.mailfrom=Jonathan.Kim@amd.com; 
+ bh=9r+fpI3SorP5j8JLQGbJhZETaVA75vqhguuuG9Y16O4=;
+ b=hyhv/yMCZoV2iBumo4rMfV/pef3EQRjaq1dkG7W9bdQhTVGRKkf7Cq9FSecBTrX5+/itS1lFPJxHTU/RwmRdvOhDdmJNgu9tHvsifDFwKTOd4XhJDf3MDYv4IPT+BJj3+d29wMpRpi9+tlmNRk+HeXGd70WtNBoRzZn9Vpk+SME=
 Received: from CH2PR12MB3831.namprd12.prod.outlook.com (52.132.245.141) by
  CH2PR12MB4294.namprd12.prod.outlook.com (20.180.6.203) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2538.18; Thu, 19 Dec 2019 21:30:55 +0000
+ 15.20.2538.18; Thu, 19 Dec 2019 21:31:54 +0000
 Received: from CH2PR12MB3831.namprd12.prod.outlook.com
  ([fe80::adcc:f57d:89f5:279f]) by CH2PR12MB3831.namprd12.prod.outlook.com
  ([fe80::adcc:f57d:89f5:279f%5]) with mapi id 15.20.2538.022; Thu, 19 Dec 2019
- 21:30:55 +0000
-From: Jonathan Kim <jonathan.kim@amd.com>
-To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH] drm/amdgpu: attempt xgmi perfmon re-arm on failed arm
-Date: Thu, 19 Dec 2019 16:30:44 -0500
-Message-Id: <20191219213044.129948-1-jonathan.kim@amd.com>
-X-Mailer: git-send-email 2.17.1
-X-ClientProxiedBy: YTOPR0101CA0035.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b00:15::48) To CH2PR12MB3831.namprd12.prod.outlook.com
- (2603:10b6:610:29::13)
-MIME-Version: 1.0
-X-Mailer: git-send-email 2.17.1
-X-Originating-IP: [165.204.55.251]
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 1d9943b3-9eeb-4620-4687-08d784cabb24
-X-MS-TrafficTypeDiagnostic: CH2PR12MB4294:|CH2PR12MB4294:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <CH2PR12MB4294C03D24D6723E7B359CFB85520@CH2PR12MB4294.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
-X-Forefront-PRVS: 0256C18696
-X-Forefront-Antispam-Report: SFV:NSPM;
- SFS:(10009020)(4636009)(366004)(39860400002)(376002)(396003)(136003)(346002)(189003)(199004)(54906003)(2906002)(66476007)(66946007)(6916009)(66556008)(4326008)(6486002)(316002)(478600001)(86362001)(44832011)(6512007)(1076003)(52116002)(6666004)(26005)(2616005)(81156014)(8676002)(36756003)(81166006)(8936002)(5660300002)(6506007)(186003);
+ 21:31:54 +0000
+From: "Kim, Jonathan" <Jonathan.Kim@amd.com>
+To: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH] drm/amdgpu: attempt xgmi perfmon re-arm on failed arm
+Thread-Topic: [PATCH] drm/amdgpu: attempt xgmi perfmon re-arm on failed arm
+Thread-Index: AQHVtrOY5t2/6BHcX0akzFnzTQ6n96fB+eFg
+Date: Thu, 19 Dec 2019 21:31:53 +0000
+Message-ID: <CH2PR12MB38318374E5C67F3878AA7C1185520@CH2PR12MB3831.namprd12.prod.outlook.com>
+References: <20191219213044.129948-1-jonathan.kim@amd.com>
+In-Reply-To: <20191219213044.129948-1-jonathan.kim@amd.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=true;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2019-12-19T21:31:50Z; 
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal Use Only -
+ Unrestricted;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ActionId=8a005782-b3e4-4fd3-8d27-00003480f7b1;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=1
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_enabled: true
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_setdate: 2019-12-19T21:31:50Z
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_method: Standard
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_name: Internal Use Only -
+ Unrestricted
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_actionid: 84b21106-bd8b-4f79-94be-00008ba64028
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_contentbits: 0
+authentication-results: spf=none (sender IP is )
+ smtp.mailfrom=Jonathan.Kim@amd.com; 
+x-originating-ip: [165.204.55.251]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-ht: Tenant
+x-ms-office365-filtering-correlation-id: da8f4c93-31fe-456c-af74-08d784cade24
+x-ms-traffictypediagnostic: CH2PR12MB4294:|CH2PR12MB4294:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <CH2PR12MB4294E18BB8CC4B4DFA56032A85520@CH2PR12MB4294.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:9508;
+x-forefront-prvs: 0256C18696
+x-forefront-antispam-report: SFV:NSPM;
+ SFS:(10009020)(4636009)(366004)(376002)(39850400004)(396003)(136003)(346002)(189003)(199004)(13464003)(2906002)(71200400001)(66476007)(66946007)(7696005)(6916009)(64756008)(76116006)(66556008)(66446008)(4326008)(316002)(55016002)(33656002)(478600001)(86362001)(26005)(53546011)(9686003)(81156014)(8676002)(81166006)(52536014)(8936002)(5660300002)(6506007)(186003);
  DIR:OUT; SFP:1101; SCL:1; SRVR:CH2PR12MB4294;
  H:CH2PR12MB3831.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
  PTR:InfoNoRecords; MX:1; A:1; 
-Received-SPF: None (protection.outlook.com: amd.com does not designate
+received-spf: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: xrOngux9CF+cGBe2woFIqw3PcJoQSut6n+IvXMe0bROBTWLOT7No5rGSf8g3RHu0i9uuuxjc4dHBhgApspM0jBWZoePuP2n5GOAn7W2r9NRBlJzgCyQb2kCZ6PlA+//e2zdEiYS9KTl3H7H6T710IAPURzHX6Qk0P8x70fCWmNUSfTxZQt7551f1upXn5LjJYK5/pl6QOeca2IrsUGQENk7Aqpjm25k08iO3KGVhA6TgOhD6ocALvdNjDy59Ag/wPDj6ugqilfmDIT8x7acBjHYe/y7e9bSRXGt35PpqupXOiLL8m4jO1RSSVoeGJxeXr+r2OxLAthoEo0vlhS9rZReJEKwY33yTXeN6X8AKHbVgonAV48s0A+igqeTRcbcHUPMGDX5S0H+rLq+uwmEvUdNE7Rb24yB0VH5oiUbZ4iA/ADmSRv+pGzibdvBG4rTa
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: fj8Q/I7jsfEIdWUSX3NBJhYSwKtnrLdUudtiF+KNOVeWoqAiLwy6b87lOHW1WfSnX7I7bSLb7+4vYPXCHfcl03wig+r+Gb4CUOUulZ7tGGqycJbW8j83SKP2BLQRFiIOPRHKvK94J00J3w8BblOl0E7EyG7DEKUd3OaLGyOWa7pSPVMT0fsGdUkTVgWUW7qt8yPDlzFWOTZsTI6L61Iq8fyA4SbA7Pu1PyLCsDIkKwNKnJFlS/xXZ4rW8mOd4jg2WqiBLgOaIYde2jHlsX5d1XS+eln7AK4YM1/5fJiD94gj0xy70Ix+uUajcgPmEPHBHny9+ZXB3c8ni46GJL3eU63uhoD05be4BUgz4NqZSv5JazAY4832ECrr6lT9L2kufxRm7GjuYbGaND6f5Qj7diGI0qulTv07F84ge3bFWjjHqSEK9W6UCTmZlYAxHAFIdUscwLNoepcW2tMMtxa2vroNRzTwPVA8ijOyjuoPjXiMd7TSbQ8JWdQQpTb0Vl8f
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1d9943b3-9eeb-4620-4687-08d784cabb24
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Dec 2019 21:30:55.7509 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: DLuJ/j8l/LIw4WwVNiZxMy6nzu9cJMHpHlc56zydCgg9e5LIND+SfKU+6swH5fBO
+X-MS-Exchange-CrossTenant-Network-Message-Id: da8f4c93-31fe-456c-af74-08d784cade24
+X-MS-Exchange-CrossTenant-originalarrivaltime: 19 Dec 2019 21:31:53.9152 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: L4EQIeO0u3OiPcNqt0/qrnrSRQHlgDri3kaSCNbJctlyH04AM/X3JXBb64fi8ocD
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4294
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -100,23 +118,28 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jonathan Kim <Jonathan.Kim@amd.com>, Felix.Khueling@amd.com
+Cc: "Kuehling, Felix" <Felix.Kuehling@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The DF routines to arm xGMI performance will attempt to re-arm both on
-performance monitoring start and read on initial failure to arm.
+[AMD Official Use Only - Internal Distribution Only]
+
+
+
+-----Original Message-----
+From: Kim, Jonathan <Jonathan.Kim@amd.com> 
+Sent: Thursday, December 19, 2019 4:31 PM
+To: amd-gfx@lists.freedesktop.org
+Cc: Felix.Khueling@amd.com; Kim, Jonathan <Jonathan.Kim@amd.com>; Kim, Jonathan <Jonathan.Kim@amd.com>
+Subject: [PATCH] drm/amdgpu: attempt xgmi perfmon re-arm on failed arm
+
+The DF routines to arm xGMI performance will attempt to re-arm both on performance monitoring start and read on initial failure to arm.
 
 v3: Addressing nit-picks.
 
-v2: Roll back reset_perfmon_cntr to void return since new perfmon
-counters are now safe to write to during DF C-States.  Do single perfmon
-controller re-arm when counter is deferred in pmc_count versus multiple
-perfmon controller re-arms that could last 1 millisecond. Avoid holding
-spin lock during sleep in perfmon_arm_with_retry.  Rename counter arm
-defer function to be less confusing.
+v2: Roll back reset_perfmon_cntr to void return since new perfmon counters are now safe to write to during DF C-States.  Do single perfmon controller re-arm when counter is deferred in pmc_count versus multiple perfmon controller re-arms that could last 1 millisecond. Avoid holding spin lock during sleep in perfmon_arm_with_retry.  Rename counter arm defer function to be less confusing.
 
 Signed-off-by: Jonathan Kim <Jonathan.Kim@amd.com>
 ---
@@ -128,14 +151,12 @@ index 4043ebcea5de..2f884d941e8d 100644
 --- a/drivers/gpu/drm/amd/amdgpu/df_v3_6.c
 +++ b/drivers/gpu/drm/amd/amdgpu/df_v3_6.c
 @@ -183,6 +183,61 @@ static void df_v3_6_perfmon_wreg(struct amdgpu_device *adev, uint32_t lo_addr,
- 	spin_unlock_irqrestore(&adev->pcie_idx_lock, flags);
- }
+ 	spin_unlock_irqrestore(&adev->pcie_idx_lock, flags);  }
  
-+/* same as perfmon_wreg but return status on write value check */
++/* same as perfmon_wreg but return status on write value check */ 
 +static int df_v3_6_perfmon_arm_with_status(struct amdgpu_device *adev,
 +					  uint32_t lo_addr, uint32_t lo_val,
-+					  uint32_t hi_addr, uint32_t  hi_val)
-+{
++					  uint32_t hi_addr, uint32_t  hi_val) {
 +	unsigned long flags, address, data;
 +	uint32_t lo_val_rb, hi_val_rb;
 +
@@ -169,8 +190,7 @@ index 4043ebcea5de..2f884d941e8d 100644
 +#define ARM_RETRY_USEC_INTERVAL	100
 +static int df_v3_6_perfmon_arm_with_retry(struct amdgpu_device *adev,
 +					  uint32_t lo_addr, uint32_t lo_val,
-+					  uint32_t hi_addr, uint32_t  hi_val)
-+{
++					  uint32_t hi_addr, uint32_t  hi_val) {
 +	int countdown = ARM_RETRY_USEC_TIMEOUT;
 +
 +	while (countdown) {
@@ -186,8 +206,7 @@ index 4043ebcea5de..2f884d941e8d 100644
 +	return countdown > 0 ? 0 : -ETIME;
 +}
 +
- /* get the number of df counters available */
- static ssize_t df_v3_6_get_df_cntr_avail(struct device *dev,
+ /* get the number of df counters available */  static ssize_t df_v3_6_get_df_cntr_avail(struct device *dev,
  		struct device_attribute *attr,
 @@ -334,20 +389,20 @@ static void df_v3_6_pmc_get_addr(struct amdgpu_device *adev,
  	switch (target_cntr) {
@@ -224,8 +243,7 @@ index 4043ebcea5de..2f884d941e8d 100644
  
 +#define DEFERRED_ARM_MASK	(1 << 31)
 +static int df_v3_6_pmc_set_deferred(struct amdgpu_device *adev,
-+				    uint64_t config, bool is_deferred)
-+{
++				    uint64_t config, bool is_deferred) {
 +	int target_cntr;
 +
 +	target_cntr = df_v3_6_pmc_config_2_cntr(adev, config);
@@ -315,8 +333,7 @@ index 4043ebcea5de..2f884d941e8d 100644
 +		df_v3_6_reset_perfmon_cntr(adev, config);
  
  		if (is_disable)
- 			df_v3_6_pmc_release_cntr(adev, config);
-@@ -518,18 +615,29 @@ static void df_v3_6_pmc_get_count(struct amdgpu_device *adev,
+ 			df_v3_6_pmc_release_cntr(adev, config); @@ -518,18 +615,29 @@ static void df_v3_6_pmc_get_count(struct amdgpu_device *adev,
  				  uint64_t config,
  				  uint64_t *count)
  {
@@ -356,9 +373,8 @@ index 4043ebcea5de..2f884d941e8d 100644
  	default:
  		break;
  	}
--- 
+--
 2.17.1
-
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
