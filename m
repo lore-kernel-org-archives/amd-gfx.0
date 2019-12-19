@@ -2,96 +2,70 @@ Return-Path: <SRS0=793y=2J=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+X-Spam-Status: No, score=-5.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,
 	SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3D057C43603
-	for <amd-gfx@archiver.kernel.org>; Thu, 19 Dec 2019 12:35:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A8E03C2D0C1
+	for <amd-gfx@archiver.kernel.org>; Thu, 19 Dec 2019 14:08:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id DFC03227BF
-	for <amd-gfx@archiver.kernel.org>; Thu, 19 Dec 2019 12:35:50 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 7F01A227BF
+	for <amd-gfx@archiver.kernel.org>; Thu, 19 Dec 2019 14:08:59 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="EwEbyK10"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DFC03227BF
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Bb/L/S4f"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7F01A227BF
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 841CB6EB56;
-	Thu, 19 Dec 2019 12:35:50 +0000 (UTC)
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com
- (mail-eopbgr770074.outbound.protection.outlook.com [40.107.77.74])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9C70F6EB56
- for <amd-gfx@lists.freedesktop.org>; Thu, 19 Dec 2019 12:35:49 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ZBvAXSitwkhM+kfeyFDE9jRgW/MHdAOlIzpJKhI9qBWYHtIh47Bnpo2gPR90bZCARaroETOOCD5Hwnt9QKMQ9w4WzDC1w34Zod2TZlbI9iYRo490OImz+vF07pq2sFWx80K07qlWqscQWclHDiPMhOKUfCe5RWp7RS+91SZ8nPTNY25V2w59DBFqy+c5RlBXkuz2jRsu2e8LkC1bUe8NN1RuXqk4kyQ3ruNT5h4oy0LTskPbYwF0boYbqwob5aSI59zh7PCjhKglWc9KRTioi4GRzH1OEjLmbp4wIMBC48k13beV4HaUhXfZLz2wi+nBKygXOBLqKardTw6Em6T03Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3kIxIuOSpb69xGBzzcBKRlTvscsALZxmh9371VFXWVg=;
- b=RjwwujuqimCMTkn0/PgDrdynkP1pf8aImLpTAYKIVPQmXwYZv47OQrZ/1NIKYn3uckmenT1lbgnyTDXWcchH2vlbpPU5jbBzMStmf6wgdN+9p57c4vsae/Y818sQ/3iLYv3BAyx4/paZ/52GRraj2QtAYDhCh3nIEryhON2Iz3JNZdPRZUj4IQ0OffLwRPL94NF61czZ6J8dhV3tcISrjZWjnSFwi23dOXXSOOPV2OkTDBludSjhFxiQ1tRygoLKOGdjZIShRGdnsrKG1jWErdST5pgcw23AVafsm2gmYcCUWJfdDqSd8EI5i1s5MxYiIrI/2IRFC9pXzYS9TYlN9g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3kIxIuOSpb69xGBzzcBKRlTvscsALZxmh9371VFXWVg=;
- b=EwEbyK109lC7h3N7fY7XlGPOjt4K/aGYwYY+QHiIDciWeGqIO3A+bj10Y8LhWdqiSWAXpLl+nrtd+aJG7EWrQ8gt6bRqxkGSBC54ut3N7kIWKYP8/8+vjF3HFAqO9UQXhBBDVnrkHeBcXOfqDXavSWUz3R/tXW3Eym4TnNni+pc=
-Received: from DM5PR12MB2456.namprd12.prod.outlook.com (52.132.141.37) by
- DM5PR12MB1545.namprd12.prod.outlook.com (10.172.35.151) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2559.15; Thu, 19 Dec 2019 12:35:47 +0000
-Received: from DM5PR12MB2456.namprd12.prod.outlook.com
- ([fe80::ac23:474e:6736:bc53]) by DM5PR12MB2456.namprd12.prod.outlook.com
- ([fe80::ac23:474e:6736:bc53%6]) with mapi id 15.20.2559.016; Thu, 19 Dec 2019
- 12:35:47 +0000
-From: "Liu, Leo" <Leo.Liu@amd.com>
-To: Alex Deucher <alexdeucher@gmail.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH] drm/amdgpu/vcn2.5: Silence a compiler warning
-Thread-Topic: [PATCH] drm/amdgpu/vcn2.5: Silence a compiler warning
-Thread-Index: AQHVtig+WZyFX60ZVkarea/hCtDPN6fBZUBQ
-Date: Thu, 19 Dec 2019 12:35:47 +0000
-Message-ID: <DM5PR12MB245642C3B8C049FAC9064EBFE5520@DM5PR12MB2456.namprd12.prod.outlook.com>
-References: <20191219045217.266476-1-alexander.deucher@amd.com>
-In-Reply-To: <20191219045217.266476-1-alexander.deucher@amd.com>
-Accept-Language: en-CA, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: spf=none (sender IP is )
- smtp.mailfrom=Leo.Liu@amd.com; 
-x-originating-ip: [2607:fea8:a200:445:453:6453:8d60:ff11]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: 698b2b22-0686-4969-cf4b-08d7847ff95e
-x-ms-traffictypediagnostic: DM5PR12MB1545:|DM5PR12MB1545:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <DM5PR12MB1545B55B39CAD5925E6A95D0E5520@DM5PR12MB1545.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:363;
-x-forefront-prvs: 0256C18696
-x-forefront-antispam-report: SFV:NSPM;
- SFS:(10009020)(4636009)(396003)(39860400002)(346002)(366004)(376002)(136003)(13464003)(199004)(189003)(966005)(86362001)(478600001)(64756008)(66556008)(66476007)(71200400001)(66446008)(45080400002)(66946007)(52536014)(76116006)(5660300002)(4326008)(8936002)(186003)(53546011)(7696005)(2906002)(316002)(33656002)(81166006)(9686003)(110136005)(81156014)(55016002)(6506007)(8676002);
- DIR:OUT; SFP:1101; SCL:1; SRVR:DM5PR12MB1545;
- H:DM5PR12MB2456.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; A:1; MX:1; 
-received-spf: None (protection.outlook.com: amd.com does not designate
- permitted sender hosts)
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: vHAsqdTKwLbVe3P3PSUsZwoCyPgLJhkYLJL1mYcA9FfKgsw38MCXeivSrkmJtDrbrPBA7V8qeupE9PGw3zzTfeOboSXEVzLnseECTfinpYa4n6ZFp0X3NEoxCNQ037jXA56ge0aOe23nboVQQ5o/KMZfyBgegi73Q0cneMTrcUevc4hIbQguDzoEM3lLVixN3ORfK+qu++KMt9bzYdXQD8/Ww2WfAZ+2fUns3/0MWEeoi4sBIpPJPrKc5loDwcQV3kT1OsCDVteOBEUnA3itvW36rppR06SJPGD5w+sHKOFQFdYQKnQlLRbKK1lABA853QPtilDMpZNueBarLjk1zGSotonwYY6XsdwXkmxmf3+BooibsMeMACMySJZ6vOS0TJEMq5T+AWUP72zFjYLl+esq2mqrSA8IMXTSrCKBMGgc9eyRkpvqn1hqOxMUZ0cH38quMky7KD4zWN6xbsfEWRqqCND78r6bWcAfZtqqIZue0aUjNBGjDC0Kxv0sD/TUyb7iz1SOZhBrtzqKVUM2IQ==
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1086F6EB7F;
+	Thu, 19 Dec 2019 14:08:59 +0000 (UTC)
+Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com
+ [IPv6:2a00:1450:4864:20::343])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BB2326EB7F
+ for <amd-gfx@lists.freedesktop.org>; Thu, 19 Dec 2019 14:08:57 +0000 (UTC)
+Received: by mail-wm1-x343.google.com with SMTP id d73so5576753wmd.1
+ for <amd-gfx@lists.freedesktop.org>; Thu, 19 Dec 2019 06:08:57 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=2uR6rr15BRHMymaEFYOUXLS9zgKBwEyVcNbBJdvAbQc=;
+ b=Bb/L/S4fYQHASJ/GdXo2WT5fJmxkJwntmSjTgOnG3+zZcI5Inm1M4YpVkMBVINC447
+ IfX53PW8aolujo8C+oDe/WQFZRBFDvSSCKxuoilufndGobxRIW13C55Ls5EsvTlumWkt
+ TfifHFX7AHMgDG+dyhSfhxm1eZBrN1Hmc833PZ61Euvt+gNSx0IIDmTwGkQs46ZLu0D/
+ jSL89fr1i82fYvyLu+cUse8kyKakmF77ARE/ml9D0Nlay0nXVacdn1Ad9UbEDfqe4rit
+ xBGhucfXL1oHToSnyCoemqSuD4qER98uHVsb0376+D30EMWxDw9T+w9iyC0Kj8LdjVBz
+ wmaQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=2uR6rr15BRHMymaEFYOUXLS9zgKBwEyVcNbBJdvAbQc=;
+ b=lLbIEFw8o/Vg94RP0DMVXFPsEijQ0gXDNxug5V3H7z/X9a3ce+CRA0brIsYZO03Q6N
+ Yyubu776b1oZeOc6yYC954Ovy9zvF/goqukb05N5lbeLjH4M8AQ6niI6lWTIG2cpsWyO
+ xN8QCBMwqkpDkqC69xTA6rNT0Yk/LK3/w49iQ860gAxZ6RJKX2rb0qJWQXiqjHGc4Nl2
+ 3bF7qEb73u4gPI8xJTzyrkfWqOL8L4BuY0jS9SJjJVZ+3/nsk+RIw/WAYqoAUpAkkv/4
+ ThI4ejzAcgiigB4tQRLVwiHHkZrvf3eQLW2lmrwQO3/ZEVvrnF4h9StAK9Savg0jg1ok
+ 3OfA==
+X-Gm-Message-State: APjAAAXOaXsM40iCpz5K878zdlaSxbKc3iJDZzne7oMUCmv65Z4Mn+rg
+ hdSMzwjvfHWRb04xYedaNxTFp30jvkdjhv+9giU=
+X-Google-Smtp-Source: APXvYqwzp9AGIa8WY6Dkv+xFw3jIexVWORQiJf5K1b78kyjD9mbfmE8s22yFWllpEuzfJdDbiazXoE8m0qNUg95Ryjk=
+X-Received: by 2002:a1c:e909:: with SMTP id q9mr10734150wmc.30.1576764536436; 
+ Thu, 19 Dec 2019 06:08:56 -0800 (PST)
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 698b2b22-0686-4969-cf4b-08d7847ff95e
-X-MS-Exchange-CrossTenant-originalarrivaltime: 19 Dec 2019 12:35:47.3399 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 8htOBxWbHj/36TNRrO+oDmjnsdiDJu32K2Hnm5QUuEKeGHgNu7vQlTOc4TeS7jau
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1545
+References: <20191015065002.18701-1-drake@endlessm.com>
+ <CADnq5_M4Leu0raYS6M72MqTm1+PLg9BjHCHLAYuB2-dEVP56_A@mail.gmail.com>
+ <CAD8Lp443ZhPEo0PJRxbTSB9DY9x92OvWBeH29m9Ehpyhg+2n5A@mail.gmail.com>
+ <CADnq5_OaATVESAY9E2mtd7PoV2VjG=WLS56LCHVpieSHDTas0A@mail.gmail.com>
+ <CAD8Lp46f9LR_VJ26BGfOGvj8sTjKZowkbjLNv6R4CsVMfRZQ=Q@mail.gmail.com>
+ <CAD8Lp46+Te+AUQKLkLEcGf34izw=JzkU5w=CsZRf_UKJQ_k7qg@mail.gmail.com>
+In-Reply-To: <CAD8Lp46+Te+AUQKLkLEcGf34izw=JzkU5w=CsZRf_UKJQ_k7qg@mail.gmail.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Thu, 19 Dec 2019 09:08:44 -0500
+Message-ID: <CADnq5_OObnKTP7-tBmPz75R5qXs8ubRxgfX-qkBnzqcox0TZyQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: always reset asic when going into suspend
+To: Daniel Drake <drake@endlessm.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,47 +77,51 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>
+Cc: "Deucher, Alexander" <alexander.deucher@amd.com>,
+ Chunming Zhou <David1.Zhou@amd.com>,
+ Christian Koenig <christian.koenig@amd.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Linux PM <linux-pm@vger.kernel.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Reviewed-by: Leo Liu <leo.liu@amd.com>
+On Mon, Dec 16, 2019 at 4:00 AM Daniel Drake <drake@endlessm.com> wrote:
+>
+> Hi Alex,
+>
+> On Mon, Nov 25, 2019 at 1:17 PM Daniel Drake <drake@endlessm.com> wrote:
+> > Unfortunately not. The original issue still exists (dead gfx after
+> > resume from s2idle) and also when I trigger execution of the suspend
+> > or runtime suspend routines the power usage increases around 1.5W as
+> > before.
+> >
+> > Have you confirmed that amdgpu s2idle is working on platforms you have in hand?
+>
+> Any further ideas here? Or any workarounds that you would consider?
 
------Original Message-----
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Alex Deucher
-Sent: December 18, 2019 11:52 PM
-To: amd-gfx@lists.freedesktop.org
-Cc: Deucher, Alexander <Alexander.Deucher@amd.com>
-Subject: [PATCH] drm/amdgpu/vcn2.5: Silence a compiler warning
+I think there may be some AMD specific handling needed in
+drivers/acpi/sleep.c.  My understanding from reading the modern
+standby documents from MS is that each vendor needs to provide a
+platform specific PEP driver.  I'm not sure how much of that current
+code is Intel specific or not.
 
-Set r to 0 as a default value.
+Alex
 
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c b/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
-index 3271de38cb08..4ea8e20ed15d 100644
---- a/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
-@@ -250,7 +250,7 @@ static int vcn_v2_5_hw_init(void *handle)  {
- 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
- 	struct amdgpu_ring *ring;
--	int i, j, r;
-+	int i, j, r = 0;
- 
- 	if (amdgpu_sriov_vf(adev))
- 		r = vcn_v2_5_sriov_start(adev);
---
-2.24.1
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=02%7C01%7Cleo.liu%40amd.com%7C922f8df051e341f03ba008d7843f41e5%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637123280044261581&amp;sdata=J4O0i2nvakYyyTP%2FsJospqbWP%2F%2BkWxxV%2Fv3vxabBJts%3D&amp;reserved=0
+>
+> This platform has been rather tricky but all of the other problems are
+> now solved:
+> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=f897e60a12f0b9146357780d317879bce2a877dc
+> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=d21b8adbd475dba19ac2086d3306327b4a297418
+> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=406857f773b082bc88edfd24967facf4ed07ac85
+> https://patchwork.kernel.org/patch/11263477/
+>
+> amdgpu is the only breakage left before Linux can be shipped on this
+> family of products.
+>
+> Thanks
+> Daniel
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
