@@ -2,117 +2,109 @@ Return-Path: <SRS0=793y=2J=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+X-Spam-Status: No, score=-9.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.0
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 503EFC43603
-	for <amd-gfx@archiver.kernel.org>; Thu, 19 Dec 2019 07:46:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id CEA19C43603
+	for <amd-gfx@archiver.kernel.org>; Thu, 19 Dec 2019 09:16:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 20D4A21D7D
-	for <amd-gfx@archiver.kernel.org>; Thu, 19 Dec 2019 07:46:09 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 89B2A21D7D
+	for <amd-gfx@archiver.kernel.org>; Thu, 19 Dec 2019 09:16:34 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="KAPYY8JB"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 20D4A21D7D
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="BeDNfm0c"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 89B2A21D7D
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B80B36EAB9;
-	Thu, 19 Dec 2019 07:46:09 +0000 (UTC)
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com
- (mail-eopbgr770047.outbound.protection.outlook.com [40.107.77.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C47086EAB9
- for <amd-gfx@lists.freedesktop.org>; Thu, 19 Dec 2019 07:46:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2E33E6EAE5;
+	Thu, 19 Dec 2019 09:16:34 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2049.outbound.protection.outlook.com [40.107.223.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AC26E6EAE5
+ for <amd-gfx@lists.freedesktop.org>; Thu, 19 Dec 2019 09:16:33 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=mBxjtx4cu7QBYyiVjFdxEKtAvM/07YyEwwOraPt9mwBn1S+VLjofvGvKurUysaIBDzZKA6l1yKLu0Ah/9hQhCSrtWdXBWqTKQYYbfr3WNR9MFwzguxeI4JykCTUF/gm0ZCZBeGct9T6bPtaik2q45p2B4dX7502E1VNxVKXUvgcquOnMpv2lMEKL5QiB2cDLfzo2OMX5NpZAljovdXMw6jUI0S4kD4r8gHoSlvwDdeZpqNHZ2XgffgnGaUUlnqk5WdqdqywxBur6e5hHF4USUCPhHwVfcr1Y/Ak/v+J8HTf7wyOYEbvE8EOXpCvHQa1CRSmeg3Eatm5BGB6scavSGA==
+ b=IBKzUQ/HQ4p5qG0La3fXq9O4Y5kq3ly268Y8BgkHZm5n8/VrLULNpC1Uogjg9dUh3Rg6/fH7/i237THwIrZkAF5q0N1Dlrr/CMmqVU/s9Jya3mQvl5xq7DOob/XyH/bZwJa5p4B8JJCJxuI5IR3UMW97quZ5At6C2tfBBNajzmJhGF19x/dhij0FSFiwTblUTEjWeOTfzYHbMOVqeOiZx4qjYpJzHWUsBWeJiIBRk+mUiUghLpC+aAreeH3KjP3TKTsxdJWGCAjH5GEACDDgA8Fr5UD8I6QtTpCZkrlst1iBhZi/e/hSV7FiLzT9XKQUL1VnIAjr1SrPtyrDcDwT3A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4AkmJn+0iSrTHqVpNhl0evly0mZFC7ZeyIKhnqkoFf4=;
- b=REzZW8fQ1dpUrgxJD2DtV21vkJVAld9QbLA0HEKDEUGgc3p+xa9qpR9izO83CHqdCyfUMd33Z3HulFYcCcadt63NDOB/2inevSsgxIccsGXjMUGBYQeYEznMOBpixSnXyaVa3LL2R6uyh4IFHvVcgEC4Wc4xRvLhZ5QcuJuQjiIYYuXbzcYlh6WGtBf/v+XxJy3vZS/vOZb0o9+8fGeDbMclNQ4RZOjJ/Q1SOaZ/76vBRodKG/ahdgFz44rJniaq6pB/MQRHWfBiM0evIgtLILpZuAMsRGzh4+kmTqiLqJK35v4WtNAyaEYY+jCkep18c8rdz4HP60ZSLVs0WjZ38Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=s6iXGqNIjBZFmdpSxo9jdb2pMy0/xOR7X/U+HN4eIeA=;
+ b=aMVQRPsaKufvJgDIXm5o4vWRuIFnyLforWLDSna6dedEs2i+U8nlE9NX+8AXRXy9XMgnkVXXQbzhEw6AUZnnvBXIUqd9JTG0ZtSi1IGb9LCnhFOoazkGo1/GWzenJs8awxfAnLzT3araYSCjnY+jKw0cj/eALFIHh7VpyuMVpcBMnRUQ1Rxm6SksLAMLU63eGXbknzSNW2XUEJ5xfeE/dwoZXWREt8CAKdpTH8N9y0m5qX02AMYOlxatJAVdkXPdTP6xKgN2TiK7ZZXN9LzQSNx95zkcOaRbxt4vYRDUHqsI/5vZf+EsqnOLJ+EaniRM35+FspfY16Q/bgCYJr4e7w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=permerror action=none header.from=amd.com; dkim=none (message not
+ signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4AkmJn+0iSrTHqVpNhl0evly0mZFC7ZeyIKhnqkoFf4=;
- b=KAPYY8JB5gC+V2ledPhWRQpRvRgOmzPyNYzT+PVIflp0Cu78dQO10INkSMI1lxBS+OoRNH2s3z9HnOEeR4nerDvq5YPgetHoPncbCBnLZfwAcxMxajIzZZoLePcF/7qFUIZyj7Tp+mpBsRomsT3gLyePxe9nzqul65/vqQQG8b0=
-Received: from BYAPR12MB3525.namprd12.prod.outlook.com (20.179.94.90) by
- BYAPR12MB3160.namprd12.prod.outlook.com (20.179.92.21) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2538.20; Thu, 19 Dec 2019 07:46:05 +0000
-Received: from BYAPR12MB3525.namprd12.prod.outlook.com
- ([fe80::c930:bfdb:2507:b97f]) by BYAPR12MB3525.namprd12.prod.outlook.com
- ([fe80::c930:bfdb:2507:b97f%3]) with mapi id 15.20.2559.012; Thu, 19 Dec 2019
- 07:46:05 +0000
-From: "Liang, Prike" <Prike.Liang@amd.com>
-To: "Dai, Yuxian (David)" <Yuxian.Dai@amd.com>, "Huang, Ray"
- <Ray.Huang@amd.com>
-Subject: RE: [PATCH] drm/amd/powerplay: suppress nonsupport profile mode
- overrun message
-Thread-Topic: [PATCH] drm/amd/powerplay: suppress nonsupport profile mode
- overrun message
-Thread-Index: AQHVtjft3IM66jz+iEuHPdgCb79bbqfBCJgAgAADgwCAAAYigIAAAWig
-Date: Thu, 19 Dec 2019 07:46:05 +0000
-Message-ID: <BYAPR12MB35255B9BC5F789157A1C3C76FB520@BYAPR12MB3525.namprd12.prod.outlook.com>
-References: <1576737930-20998-1-git-send-email-Prike.Liang@amd.com>
- <MN2PR12MB37434D66DE4F972A1C29C8268D520@MN2PR12MB3743.namprd12.prod.outlook.com>
- <MN2PR12MB33090EA9087D882E30D957CCEC520@MN2PR12MB3309.namprd12.prod.outlook.com>
- <MN2PR12MB374353EA92C06E93147F07D08D520@MN2PR12MB3743.namprd12.prod.outlook.com>
-In-Reply-To: <MN2PR12MB374353EA92C06E93147F07D08D520@MN2PR12MB3743.namprd12.prod.outlook.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=true;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2019-12-19T07:16:38Z; 
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal Use Only -
- Unrestricted;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ActionId=bd59e76f-2715-4983-97c8-0000df5d4662;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=1
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_enabled: true
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_setdate: 2019-12-19T07:46:02Z
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_method: Standard
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_name: Internal Use Only -
- Unrestricted
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_actionid: 011a6d17-321c-4986-b567-000078ca482f
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_contentbits: 0
-authentication-results: spf=none (sender IP is )
- smtp.mailfrom=Prike.Liang@amd.com; 
-x-originating-ip: [180.167.199.189]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: f2cd2304-4d50-4cbb-744c-08d7845780e9
-x-ms-traffictypediagnostic: BYAPR12MB3160:|BYAPR12MB3160:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <BYAPR12MB3160183ADB7E48D63C90ADA6FB520@BYAPR12MB3160.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:316;
-x-forefront-prvs: 0256C18696
-x-forefront-antispam-report: SFV:NSPM;
- SFS:(10009020)(4636009)(396003)(346002)(376002)(39860400002)(366004)(136003)(189003)(199004)(13464003)(66556008)(86362001)(316002)(478600001)(66946007)(6506007)(64756008)(52536014)(66446008)(15650500001)(76116006)(2906002)(186003)(6636002)(26005)(81166006)(8676002)(33656002)(8936002)(7696005)(81156014)(66476007)(55016002)(54906003)(71200400001)(9686003)(5660300002)(110136005)(53546011)(4326008);
- DIR:OUT; SFP:1101; SCL:1; SRVR:BYAPR12MB3160;
- H:BYAPR12MB3525.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; MX:1; A:1; 
-received-spf: None (protection.outlook.com: amd.com does not designate
+ bh=s6iXGqNIjBZFmdpSxo9jdb2pMy0/xOR7X/U+HN4eIeA=;
+ b=BeDNfm0cXO/bwzkVWy7GjxTpDrvO8q3twsaL9+KmYOJjNL8zVnCXFZZ8zoMbLPUbNqGt5cWkzx0xZB6BnzK9haw/wMS+dwwH9nvM/y/Uz8NpBJz3WV3VeH7ztwE7fNPVePNdyTPd8a+NuJ6EdbuJKZss42aGu910fhKHGyLeSqU=
+Received: from DM3PR12CA0043.namprd12.prod.outlook.com (2603:10b6:0:56::11) by
+ DM5PR12MB2360.namprd12.prod.outlook.com (2603:10b6:4:bb::21) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2559.14; Thu, 19 Dec 2019 09:16:30 +0000
+Received: from CO1NAM11FT028.eop-nam11.prod.protection.outlook.com
+ (2a01:111:f400:7eab::200) by DM3PR12CA0043.outlook.office365.com
+ (2603:10b6:0:56::11) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2559.14 via Frontend
+ Transport; Thu, 19 Dec 2019 09:16:30 +0000
+Authentication-Results: spf=none (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none;lists.freedesktop.org; dmarc=permerror action=none
+ header.from=amd.com;
+Received-SPF: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: VOMUfvYCDi1mfVadCuiM/mAacGNAQSDZ0gm5gjIaa8MibdkCASkEhCOFWA60jyOxPUlkOZshfqiu/D9B90GelYPD8OirQrTZSIv4aGWuAMzzZ02GpRRFXwDCj+gr1ZMybq2Uci10mpfIsV0cttbwuVSTRqQQeB9Madl99qQeHoS8RafnVdpxbSrAj6MO5+5KifpAIHVxqmUfrNq1zsbV89QyvVsr3tGyI+yuu3U/10BrBuKd1tJIvO5ASApkzOppHaTKfdHwKlSTW+2hNsZrxCuxptw5zccdNaTO6gKZyP6VaBkUcZkqIAJbNLmErdnroOLw0193EYwBIN2FoOc0GbnOQgy9v+kG9c1Mv0weyRt5Gpho03lIufzXX4N8tVAB3Oa1rf90jCzQcft6HSpcxMuab20w1xGHSSbwWjOiW28cP8HDGXnHYspyrJABG+R86cQFiLC7WXYvsU+X1dfO2c1+xCowNo3KvZOTs96VO6CgrnTBOoqWenrwSasxnRIM
+Received: from SATLEXMB02.amd.com (165.204.84.17) by
+ CO1NAM11FT028.mail.protection.outlook.com (10.13.175.214) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.2559.15 via Frontend Transport; Thu, 19 Dec 2019 09:16:29 +0000
+Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB02.amd.com
+ (10.181.40.143) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Thu, 19 Dec
+ 2019 03:16:28 -0600
+Received: from SATLEXMB01.amd.com (10.181.40.142) by SATLEXMB06.amd.com
+ (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Thu, 19 Dec
+ 2019 03:16:28 -0600
+Received: from rico-code.amd.com (10.180.168.240) by SATLEXMB01.amd.com
+ (10.181.40.142) with Microsoft SMTP Server id 15.1.1713.5 via Frontend
+ Transport; Thu, 19 Dec 2019 03:16:25 -0600
+From: Tianci Yin <tianci.yin@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH 1/2] drm/amdgpu: update the method to get fb_loc of memory
+ training(V4)
+Date: Thu, 19 Dec 2019 17:16:22 +0800
+Message-ID: <20191219091623.3922-1-tianci.yin@amd.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
+X-EOPAttributedMessage: 0
+X-MS-Office365-Filtering-HT: Tenant
+X-Forefront-Antispam-Report: CIP:165.204.84.17; IPV:; CTRY:US; EFV:NLI;
+ SFV:NSPM;
+ SFS:(10009020)(4636009)(39860400002)(396003)(136003)(376002)(346002)(428003)(199004)(189003)(186003)(2906002)(6916009)(356004)(316002)(426003)(336012)(8676002)(6666004)(81166006)(8936002)(81156014)(70206006)(70586007)(54906003)(1076003)(26005)(5660300002)(7696005)(2616005)(44832011)(4326008)(86362001)(36756003)(478600001);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:DM5PR12MB2360; H:SATLEXMB02.amd.com; FPR:;
+ SPF:None; LANG:en; PTR:InfoDomainNonexistent; A:1; MX:1; 
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 37e6e1bc-103f-42a2-247c-08d7846421e9
+X-MS-TrafficTypeDiagnostic: DM5PR12MB2360:
+X-Microsoft-Antispam-PRVS: <DM5PR12MB236022461FAC641B818A614095520@DM5PR12MB2360.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:590;
+X-Forefront-PRVS: 0256C18696
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: gnqf9H8DzI3iBDhpFfybplxb9yPOBFKiAHZWIxQO3R1T1yfHIXDdL6tSWxc5e/Aai7TacGSbAjj05HtJ67qg83Wh/PAI2K/mV2qtgz7x91wfKlHssGTfcmJlcbiSxBPPvLaa705zAQBJNWc79GX+UTGsyzaEkHwMBM8cWvtOnwYkmBhETvgonqstjMAlROP/CIdQomgdZ+yk0yjMg6os5qUXxf82QRwroR/lGTcqdtHK2FeQkmKuh8hQIW85/5Qtr3dVeC4w2FjBFDI64/NLJdf+dUaRjURa61uhmAWQJFO6sj7zHiam40FD83oyvBf+awoJPZaaNuyYi7q1DviqFmufpHIPiHJ0m2NyXo2OFzDUEx75qjc6AeYt81czsw+cnc/y1+6XalXbYRzJ811LLDi863tco56kgRKzglksiEM2N1jyUs6iea6MZ9TPlbvC
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f2cd2304-4d50-4cbb-744c-08d7845780e9
-X-MS-Exchange-CrossTenant-originalarrivaltime: 19 Dec 2019 07:46:05.3700 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: zqgnbhHuy/8HOYyBzk89kqzHml7S+wPtvBcvhY6PGAk92TuhLO0zMYYdmdQT6ttg
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB3160
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Dec 2019 09:16:29.5036 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 37e6e1bc-103f-42a2-247c-08d7846421e9
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB02.amd.com]
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB2360
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -124,117 +116,208 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Quan, Evan" <Evan.Quan@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Cc: Long Gang <Gang.Long@amd.com>, Tianci Yin <tianci.yin@amd.com>,
+ Feifei Xu <Feifei.Xu@amd.com>, Kevin Wang <Kevin1.Wang@amd.com>,
+ Tuikov Luben <Luben.Tuikov@amd.com>,
+ Deucher Alexander <Alexander.Deucher@amd.com>,
+ Hawking Zhang <Hawking.Zhang@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Xiaojie Yuan <xiaojie.yuan@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only - Internal Distribution Only]
+From: "Tianci.Yin" <tianci.yin@amd.com>
 
+The method of getting fb_loc changed from parsing VBIOS to
+taking certain offset from top of VRAM
 
+Change-Id: I053b42fdb1d822722fa7980b2cd9f86b3fdce539
+Signed-off-by: Tianci.Yin <tianci.yin@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h           |  3 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c  |  2 +-
+ .../gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c  | 38 ++-----------------
+ .../gpu/drm/amd/amdgpu/amdgpu_atomfirmware.h  |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c       | 10 ++++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h       |  7 ++++
+ drivers/gpu/drm/amd/include/atomfirmware.h    | 14 -------
+ 7 files changed, 23 insertions(+), 53 deletions(-)
 
-> -----Original Message-----
-> From: Dai, Yuxian (David) <Yuxian.Dai@amd.com>
-> Sent: Thursday, December 19, 2019 3:39 PM
-> To: Huang, Ray <Ray.Huang@amd.com>; Liang, Prike <Prike.Liang@amd.com>
-> Cc: amd-gfx@lists.freedesktop.org; Quan, Evan <Evan.Quan@amd.com>
-> Subject: RE: [PATCH] drm/amd/powerplay: suppress nonsupport profile
-> mode overrun message
-> 
-> As Ray point out.  We should  set the SMU_MSG_SetWorkloadMask with
-> specified value  to indicate unsupported.
-> But  the current a value with system error value: "-EINVAL"
-> The firmware maybe response with unexpected action to driver.
-[Prike] If get nonsupport profile mode will exit and not issue any you mentioned error value. 
-> 
-> -----Original Message-----
-> From: Huang, Ray <Ray.Huang@amd.com>
-> Sent: Thursday, December 19, 2019 3:17 PM
-> To: Dai, Yuxian (David) <Yuxian.Dai@amd.com>
-> Cc: Liang, Prike <Prike.Liang@amd.com>; amd-gfx@lists.freedesktop.org;
-> Quan, Evan <Evan.Quan@amd.com>
-> Subject: Re: [PATCH] drm/amd/powerplay: suppress nonsupport profile
-> mode overrun message
-> 
-> [AMD Official Use Only - Internal Distribution Only]
-> 
-> On Thu, Dec 19, 2019 at 03:04:12PM +0800, Dai, Yuxian (David) wrote:
-> > For we don't support the mode, so shouldn't print the error message, or
-> regard as a error.
-> > For log message, the error is high level .maybe change from "error"  to
-> "warning" , it will be much better.
-> >
-> >
-> > -----Original Message-----
-> > From: Liang, Prike <Prike.Liang@amd.com>
-> > Sent: Thursday, December 19, 2019 2:46 PM
-> > To: amd-gfx@lists.freedesktop.org
-> > Cc: Quan, Evan <Evan.Quan@amd.com>; Huang, Ray
-> <Ray.Huang@amd.com>;
-> > Dai, Yuxian (David) <Yuxian.Dai@amd.com>; Liang, Prike
-> > <Prike.Liang@amd.com>
-> > Subject: [PATCH] drm/amd/powerplay: suppress nonsupport profile mode
-> > overrun message
-> >
-> > SMU12 not support WORKLOAD_DEFAULT_BIT and
-> WORKLOAD_PPLIB_POWER_SAVING_BIT.
-> >
-> 
-> Probably smu firmware doesn't expose the feature mask to driver. Can you
-> confirmware with smu firmware guy whehter this feature is really disabled or
-> not in SMU12. If that, in my view, issue the message
-> SMU_MSG_SetWorkloadMask with an unsupported state, it doesn't make
-> sense.
-> 
-> Just work around this with one time warnning is not a good solution.
-> 
-> Thanks,
-> Ray
-> 
-> > Signed-off-by: Prike Liang <Prike.Liang@amd.com>
-> > ---
-> >  drivers/gpu/drm/amd/powerplay/renoir_ppt.c | 8 ++++++--
-> >  1 file changed, 6 insertions(+), 2 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/powerplay/renoir_ppt.c
-> > b/drivers/gpu/drm/amd/powerplay/renoir_ppt.c
-> > index 784903a3..f9a1817 100644
-> > --- a/drivers/gpu/drm/amd/powerplay/renoir_ppt.c
-> > +++ b/drivers/gpu/drm/amd/powerplay/renoir_ppt.c
-> > @@ -550,14 +550,18 @@ static int renoir_set_power_profile_mode(struct
-> smu_context *smu, long *input, u
-> >  	/* conv PP_SMC_POWER_PROFILE* to WORKLOAD_PPLIB_*_BIT */
-> >  	workload_type = smu_workload_get_type(smu, smu-
-> >power_profile_mode);
-> >  	if (workload_type < 0) {
-> > -		pr_err("Unsupported power profile mode %d on
-> RENOIR\n",smu->power_profile_mode);
-> > +		/*
-> > +		 * TODO: If some case need switch to powersave/default
-> power mode
-> > +		 * then can consider enter
-> WORKLOAD_COMPUTE/WORKLOAD_CUSTOM for power saving.
-> > +		 */
-> > +		pr_err_once("Unsupported power profile mode %d on
-> > +RENOIR\n",smu->power_profile_mode);
-> >  		return -EINVAL;
-> >  	}
-> >
-> >  	ret = smu_send_smc_msg_with_param(smu,
-> SMU_MSG_SetWorkloadMask,
-> >  				    1 << workload_type);
-> >  	if (ret) {
-> > -		pr_err("Fail to set workload type %d\n", workload_type);
-> > +		pr_err_once("Fail to set workload type %d\n",
-> workload_type);
-> >  		return ret;
-> >  	}
-> >
-> > --
-> > 2.7.4
-> >
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+index a78a363b1d71..fa2cf8e7bc07 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+@@ -642,9 +642,8 @@ struct amdgpu_fw_vram_usage {
+ 	struct amdgpu_bo *reserved_bo;
+ 	void *va;
+ 
+-	/* Offset on the top of VRAM, used as c2p write buffer.
++	/* GDDR6 training support flag.
+ 	*/
+-	u64 mem_train_fb_loc;
+ 	bool mem_train_support;
+ };
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c
+index 9ba80d828876..fdd52d86a4d7 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c
+@@ -2022,7 +2022,7 @@ int amdgpu_atombios_init(struct amdgpu_device *adev)
+ 	if (adev->is_atom_fw) {
+ 		amdgpu_atomfirmware_scratch_regs_init(adev);
+ 		amdgpu_atomfirmware_allocate_fb_scratch(adev);
+-		ret = amdgpu_atomfirmware_get_mem_train_fb_loc(adev);
++		ret = amdgpu_atomfirmware_get_mem_train_info(adev);
+ 		if (ret) {
+ 			DRM_ERROR("Failed to get mem train fb location.\n");
+ 			return ret;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c
+index ff4eb96bdfb5..58f9d8c3a17a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c
+@@ -525,16 +525,12 @@ static int gddr6_mem_train_support(struct amdgpu_device *adev)
+ 	return ret;
+ }
+ 
+-int amdgpu_atomfirmware_get_mem_train_fb_loc(struct amdgpu_device *adev)
++int amdgpu_atomfirmware_get_mem_train_info(struct amdgpu_device *adev)
+ {
+ 	struct atom_context *ctx = adev->mode_info.atom_context;
+-	unsigned char *bios = ctx->bios;
+-	struct vram_reserve_block *reserved_block;
+-	int index, block_number;
++	int index;
+ 	uint8_t frev, crev;
+ 	uint16_t data_offset, size;
+-	uint32_t start_address_in_kb;
+-	uint64_t offset;
+ 	int ret;
+ 
+ 	adev->fw_vram_usage.mem_train_support = false;
+@@ -569,32 +565,6 @@ int amdgpu_atomfirmware_get_mem_train_fb_loc(struct amdgpu_device *adev)
+ 		return -EINVAL;
+ 	}
+ 
+-	reserved_block = (struct vram_reserve_block *)
+-		(bios + data_offset + sizeof(struct atom_common_table_header));
+-	block_number = ((unsigned int)size - sizeof(struct atom_common_table_header))
+-		/ sizeof(struct vram_reserve_block);
+-	reserved_block += (block_number > 0) ? block_number-1 : 0;
+-	DRM_DEBUG("block_number:0x%04x, last block: 0x%08xkb sz, %dkb fw, %dkb drv.\n",
+-		  block_number,
+-		  le32_to_cpu(reserved_block->start_address_in_kb),
+-		  le16_to_cpu(reserved_block->used_by_firmware_in_kb),
+-		  le16_to_cpu(reserved_block->used_by_driver_in_kb));
+-	if (reserved_block->used_by_firmware_in_kb > 0) {
+-		start_address_in_kb = le32_to_cpu(reserved_block->start_address_in_kb);
+-		offset = (uint64_t)start_address_in_kb * ONE_KiB;
+-		if ((offset & (ONE_MiB - 1)) < (4 * ONE_KiB + 1) ) {
+-			offset -= ONE_MiB;
+-		}
+-
+-		offset &= ~(ONE_MiB - 1);
+-		adev->fw_vram_usage.mem_train_fb_loc = offset;
+-		adev->fw_vram_usage.mem_train_support = true;
+-		DRM_DEBUG("mem_train_fb_loc:0x%09llx.\n", offset);
+-		ret = 0;
+-	} else {
+-		DRM_ERROR("used_by_firmware_in_kb is 0!\n");
+-		ret = -EINVAL;
+-	}
+-
+-	return ret;
++	adev->fw_vram_usage.mem_train_support = true;
++	return 0;
+ }
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.h
+index f871af5ea6f3..434fe2fa0089 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.h
+@@ -31,7 +31,7 @@ void amdgpu_atomfirmware_scratch_regs_init(struct amdgpu_device *adev);
+ int amdgpu_atomfirmware_allocate_fb_scratch(struct amdgpu_device *adev);
+ int amdgpu_atomfirmware_get_vram_info(struct amdgpu_device *adev,
+ 	int *vram_width, int *vram_type, int *vram_vendor);
+-int amdgpu_atomfirmware_get_mem_train_fb_loc(struct amdgpu_device *adev);
++int amdgpu_atomfirmware_get_mem_train_info(struct amdgpu_device *adev);
+ int amdgpu_atomfirmware_get_clock_info(struct amdgpu_device *adev);
+ int amdgpu_atomfirmware_get_gfx_info(struct amdgpu_device *adev);
+ bool amdgpu_atomfirmware_mem_ecc_supported(struct amdgpu_device *adev);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+index 2ff63d0414c9..1515413fd356 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+@@ -1687,6 +1687,14 @@ static int amdgpu_ttm_training_reserve_vram_fini(struct amdgpu_device *adev)
+ 	return 0;
+ }
+ 
++static u64 amdgpu_ttm_training_get_c2p_offset(u64 vram_size)
++{
++       if ((vram_size & (ONE_MiB - 1)) < (4 * ONE_KiB + 1) )
++               vram_size -= ONE_MiB;
++
++       return ALIGN(vram_size, ONE_MiB);
++}
++
+ /**
+  * amdgpu_ttm_training_reserve_vram_init - create bo vram reservation from memory training
+  *
+@@ -1705,7 +1713,7 @@ static int amdgpu_ttm_training_reserve_vram_init(struct amdgpu_device *adev)
+ 		return 0;
+ 	}
+ 
+-	ctx->c2p_train_data_offset = adev->fw_vram_usage.mem_train_fb_loc;
++	ctx->c2p_train_data_offset = amdgpu_ttm_training_get_c2p_offset(adev->gmc.mc_vram_size);
+ 	ctx->p2c_train_data_offset = (adev->gmc.mc_vram_size - GDDR6_MEM_TRAINING_OFFSET);
+ 	ctx->train_data_size = GDDR6_MEM_TRAINING_DATA_SIZE_IN_BYTES;
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
+index f1ebd424510c..19eb3e8456c7 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
+@@ -66,6 +66,13 @@ struct amdgpu_copy_mem {
+ 	unsigned long			offset;
+ };
+ 
++/* Definitions for constance */
++enum amdgpu_internal_constants
++{
++	ONE_KiB	= 0x400,
++	ONE_MiB	= 0x100000,
++};
++
+ extern const struct ttm_mem_type_manager_func amdgpu_gtt_mgr_func;
+ extern const struct ttm_mem_type_manager_func amdgpu_vram_mgr_func;
+ 
+diff --git a/drivers/gpu/drm/amd/include/atomfirmware.h b/drivers/gpu/drm/amd/include/atomfirmware.h
+index dd7cbc00a0aa..70146518174c 100644
+--- a/drivers/gpu/drm/amd/include/atomfirmware.h
++++ b/drivers/gpu/drm/amd/include/atomfirmware.h
+@@ -672,20 +672,6 @@ struct vram_usagebyfirmware_v2_1
+   uint16_t  used_by_driver_in_kb; 
+ };
+ 
+-/* This is part of vram_usagebyfirmware_v2_1 */
+-struct vram_reserve_block
+-{
+-	uint32_t start_address_in_kb;
+-	uint16_t used_by_firmware_in_kb;
+-	uint16_t used_by_driver_in_kb;
+-};
+-
+-/* Definitions for constance */
+-enum atomfirmware_internal_constants
+-{
+-	ONE_KiB	= 0x400,
+-	ONE_MiB	= 0x100000,
+-};
+ 
+ /* 
+   ***************************************************************************
+-- 
+2.17.1
+
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
