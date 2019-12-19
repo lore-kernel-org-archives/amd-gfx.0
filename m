@@ -7,32 +7,32 @@ X-Spam-Status: No, score=-9.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id CEA19C43603
-	for <amd-gfx@archiver.kernel.org>; Thu, 19 Dec 2019 09:16:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1CB87C43603
+	for <amd-gfx@archiver.kernel.org>; Thu, 19 Dec 2019 09:16:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 89B2A21D7D
-	for <amd-gfx@archiver.kernel.org>; Thu, 19 Dec 2019 09:16:34 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id E197F21D7D
+	for <amd-gfx@archiver.kernel.org>; Thu, 19 Dec 2019 09:16:38 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="BeDNfm0c"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 89B2A21D7D
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="a/ePWfiW"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E197F21D7D
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2E33E6EAE5;
-	Thu, 19 Dec 2019 09:16:34 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2049.outbound.protection.outlook.com [40.107.223.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AC26E6EAE5
- for <amd-gfx@lists.freedesktop.org>; Thu, 19 Dec 2019 09:16:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 964C16EAE4;
+	Thu, 19 Dec 2019 09:16:38 +0000 (UTC)
+Received: from NAM02-SN1-obe.outbound.protection.outlook.com
+ (mail-eopbgr770047.outbound.protection.outlook.com [40.107.77.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 282A86EAE6
+ for <amd-gfx@lists.freedesktop.org>; Thu, 19 Dec 2019 09:16:37 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=IBKzUQ/HQ4p5qG0La3fXq9O4Y5kq3ly268Y8BgkHZm5n8/VrLULNpC1Uogjg9dUh3Rg6/fH7/i237THwIrZkAF5q0N1Dlrr/CMmqVU/s9Jya3mQvl5xq7DOob/XyH/bZwJa5p4B8JJCJxuI5IR3UMW97quZ5At6C2tfBBNajzmJhGF19x/dhij0FSFiwTblUTEjWeOTfzYHbMOVqeOiZx4qjYpJzHWUsBWeJiIBRk+mUiUghLpC+aAreeH3KjP3TKTsxdJWGCAjH5GEACDDgA8Fr5UD8I6QtTpCZkrlst1iBhZi/e/hSV7FiLzT9XKQUL1VnIAjr1SrPtyrDcDwT3A==
+ b=ji6NK3Sdu3QR65JLpVBlyROT3WX2HCtZCO2/vNc3CuCvaGp2yGZRbGDk4V04QR4zTmx5ymTo0doCOJ2nW6eIXU/AkQa0BlgE4VK5bFolp3Brw40TFI+YmjH2UsoVuRSDnt31dhZYVYpCYslbaKeWakJVIlzmWmn2Cim1PQD5BljQYR5HscIe+684Pdc7JZi7gEnWssCln3Lq7xrNRXP4t3jNhfow9x4eUVCqtmQmOvtqnzAr+vmodcRT8kT1RxNYhNhsL/eoYzFFUpsX8/Tn9EwSREFz4dWadhOs8KJcZVD0kkjJwMg6I2+T7nJXCNhEtkxuDLt2cmgIQiSTe4ee7Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=s6iXGqNIjBZFmdpSxo9jdb2pMy0/xOR7X/U+HN4eIeA=;
- b=aMVQRPsaKufvJgDIXm5o4vWRuIFnyLforWLDSna6dedEs2i+U8nlE9NX+8AXRXy9XMgnkVXXQbzhEw6AUZnnvBXIUqd9JTG0ZtSi1IGb9LCnhFOoazkGo1/GWzenJs8awxfAnLzT3araYSCjnY+jKw0cj/eALFIHh7VpyuMVpcBMnRUQ1Rxm6SksLAMLU63eGXbknzSNW2XUEJ5xfeE/dwoZXWREt8CAKdpTH8N9y0m5qX02AMYOlxatJAVdkXPdTP6xKgN2TiK7ZZXN9LzQSNx95zkcOaRbxt4vYRDUHqsI/5vZf+EsqnOLJ+EaniRM35+FspfY16Q/bgCYJr4e7w==
+ bh=sv9cA89K9nuA/VzxxrPiYV5JVmCeUJCUvAeiwzPWdJ8=;
+ b=CjwF0OUU/7oscvpPvZB9u49hvoB3NLgEiqHDaz9Nh/sD3hxrHiQ3ZXzzbGlJV6W1YSsN18zK557XYwG8VQTuvuiphhPVc8/xhthpPL6nDBjk+OQm7AMTAZdfzC8ClRIAsGw2KxudCerqXDXcgiuD7Rqjk4Kc57LK7VdOIjxKyNfvFHOOr+VoXyeKrw6Jx2ZqdiEjHVIVKOBwUhv9Bm2MFCzQG67BaCplWYgUKbarW0QDk4obF1/5NLeBNs13NH0QxfnHfkrAATIoR2uTCaYQKXHWkhE0HXOpnVkxF1bNRVdljtbrEVY9CFN1lA3DWZIn5rXFjfoP/g4rQyWXPiiH6A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=permerror action=none header.from=amd.com; dkim=none (message not
@@ -40,18 +40,18 @@ ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=s6iXGqNIjBZFmdpSxo9jdb2pMy0/xOR7X/U+HN4eIeA=;
- b=BeDNfm0cXO/bwzkVWy7GjxTpDrvO8q3twsaL9+KmYOJjNL8zVnCXFZZ8zoMbLPUbNqGt5cWkzx0xZB6BnzK9haw/wMS+dwwH9nvM/y/Uz8NpBJz3WV3VeH7ztwE7fNPVePNdyTPd8a+NuJ6EdbuJKZss42aGu910fhKHGyLeSqU=
-Received: from DM3PR12CA0043.namprd12.prod.outlook.com (2603:10b6:0:56::11) by
- DM5PR12MB2360.namprd12.prod.outlook.com (2603:10b6:4:bb::21) with
+ bh=sv9cA89K9nuA/VzxxrPiYV5JVmCeUJCUvAeiwzPWdJ8=;
+ b=a/ePWfiWqgvewYrECh4IJUM5EiCex2/ntBNTYi2JIvSbSBzQv0+wd31VEVF9iKY7ZcfPu7GJ4ciguBIgmjI3FOejZ5qyNw2Q9IsTtQZme0PZRAdrq69WLoWfhK1UNER90jf56hseOHLZ9ko0nqKsGpmmvqZRJoDRVduW30uEIVw=
+Received: from DM5PR12CA0023.namprd12.prod.outlook.com (2603:10b6:4:1::33) by
+ BN6PR12MB1601.namprd12.prod.outlook.com (2603:10b6:405:8::23) with
  Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2559.14; Thu, 19 Dec 2019 09:16:30 +0000
-Received: from CO1NAM11FT028.eop-nam11.prod.protection.outlook.com
- (2a01:111:f400:7eab::200) by DM3PR12CA0043.outlook.office365.com
- (2603:10b6:0:56::11) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2559.14 via Frontend
- Transport; Thu, 19 Dec 2019 09:16:30 +0000
+ 15.20.2559.14; Thu, 19 Dec 2019 09:16:33 +0000
+Received: from CO1NAM11FT003.eop-nam11.prod.protection.outlook.com
+ (2a01:111:f400:7eab::200) by DM5PR12CA0023.outlook.office365.com
+ (2603:10b6:4:1::33) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2559.13 via Frontend
+ Transport; Thu, 19 Dec 2019 09:16:33 +0000
 Authentication-Results: spf=none (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
  header.d=none;lists.freedesktop.org; dmarc=permerror action=none
@@ -59,52 +59,54 @@ Authentication-Results: spf=none (sender IP is 165.204.84.17)
 Received-SPF: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
 Received: from SATLEXMB02.amd.com (165.204.84.17) by
- CO1NAM11FT028.mail.protection.outlook.com (10.13.175.214) with Microsoft SMTP
+ CO1NAM11FT003.mail.protection.outlook.com (10.13.175.93) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.2559.15 via Frontend Transport; Thu, 19 Dec 2019 09:16:29 +0000
-Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB02.amd.com
+ 15.20.2559.15 via Frontend Transport; Thu, 19 Dec 2019 09:16:32 +0000
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB02.amd.com
  (10.181.40.143) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Thu, 19 Dec
- 2019 03:16:28 -0600
-Received: from SATLEXMB01.amd.com (10.181.40.142) by SATLEXMB06.amd.com
- (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
+ 2019 03:16:32 -0600
+Received: from SATLEXMB01.amd.com (10.181.40.142) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Thu, 19 Dec
- 2019 03:16:28 -0600
+ 2019 03:16:31 -0600
 Received: from rico-code.amd.com (10.180.168.240) by SATLEXMB01.amd.com
  (10.181.40.142) with Microsoft SMTP Server id 15.1.1713.5 via Frontend
- Transport; Thu, 19 Dec 2019 03:16:25 -0600
+ Transport; Thu, 19 Dec 2019 03:16:28 -0600
 From: Tianci Yin <tianci.yin@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 1/2] drm/amdgpu: update the method to get fb_loc of memory
- training(V4)
-Date: Thu, 19 Dec 2019 17:16:22 +0800
-Message-ID: <20191219091623.3922-1-tianci.yin@amd.com>
+Subject: [PATCH 2/2] drm/amdgpu: remove memory training p2c buffer
+ reservation(V2)
+Date: Thu, 19 Dec 2019 17:16:23 +0800
+Message-ID: <20191219091623.3922-2-tianci.yin@amd.com>
 X-Mailer: git-send-email 2.17.1
+In-Reply-To: <20191219091623.3922-1-tianci.yin@amd.com>
+References: <20191219091623.3922-1-tianci.yin@amd.com>
 MIME-Version: 1.0
 X-EOPAttributedMessage: 0
 X-MS-Office365-Filtering-HT: Tenant
 X-Forefront-Antispam-Report: CIP:165.204.84.17; IPV:; CTRY:US; EFV:NLI;
  SFV:NSPM;
- SFS:(10009020)(4636009)(39860400002)(396003)(136003)(376002)(346002)(428003)(199004)(189003)(186003)(2906002)(6916009)(356004)(316002)(426003)(336012)(8676002)(6666004)(81166006)(8936002)(81156014)(70206006)(70586007)(54906003)(1076003)(26005)(5660300002)(7696005)(2616005)(44832011)(4326008)(86362001)(36756003)(478600001);
- DIR:OUT; SFP:1101; SCL:1; SRVR:DM5PR12MB2360; H:SATLEXMB02.amd.com; FPR:;
- SPF:None; LANG:en; PTR:InfoDomainNonexistent; A:1; MX:1; 
+ SFS:(10009020)(4636009)(136003)(396003)(346002)(376002)(39860400002)(428003)(189003)(199004)(81156014)(316002)(5660300002)(86362001)(4326008)(54906003)(81166006)(6916009)(478600001)(36756003)(7696005)(426003)(8676002)(1076003)(8936002)(44832011)(6666004)(356004)(2906002)(2616005)(70586007)(26005)(186003)(336012)(70206006);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:BN6PR12MB1601; H:SATLEXMB02.amd.com; FPR:;
+ SPF:None; LANG:en; PTR:InfoDomainNonexistent; MX:1; A:1; 
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 37e6e1bc-103f-42a2-247c-08d7846421e9
-X-MS-TrafficTypeDiagnostic: DM5PR12MB2360:
-X-Microsoft-Antispam-PRVS: <DM5PR12MB236022461FAC641B818A614095520@DM5PR12MB2360.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:590;
+X-MS-Office365-Filtering-Correlation-Id: 16f9082d-f58a-41d9-0097-08d7846423e4
+X-MS-TrafficTypeDiagnostic: BN6PR12MB1601:
+X-Microsoft-Antispam-PRVS: <BN6PR12MB16018ED93E021E0C56D09B6595520@BN6PR12MB1601.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:6790;
 X-Forefront-PRVS: 0256C18696
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: gnqf9H8DzI3iBDhpFfybplxb9yPOBFKiAHZWIxQO3R1T1yfHIXDdL6tSWxc5e/Aai7TacGSbAjj05HtJ67qg83Wh/PAI2K/mV2qtgz7x91wfKlHssGTfcmJlcbiSxBPPvLaa705zAQBJNWc79GX+UTGsyzaEkHwMBM8cWvtOnwYkmBhETvgonqstjMAlROP/CIdQomgdZ+yk0yjMg6os5qUXxf82QRwroR/lGTcqdtHK2FeQkmKuh8hQIW85/5Qtr3dVeC4w2FjBFDI64/NLJdf+dUaRjURa61uhmAWQJFO6sj7zHiam40FD83oyvBf+awoJPZaaNuyYi7q1DviqFmufpHIPiHJ0m2NyXo2OFzDUEx75qjc6AeYt81czsw+cnc/y1+6XalXbYRzJ811LLDi863tco56kgRKzglksiEM2N1jyUs6iea6MZ9TPlbvC
+X-Microsoft-Antispam-Message-Info: 3n7bhwUGO+AY0sbdwu5FtubP9dycDwb6XlUeVD6bHyzfpTv3uofmE+49mG0X9Hp/J1ArnCC+SWTeddKFR1e3GTUFQfMIU99N1BlVpnxJSRxT/vmJPeI+IHOvJjcjpcyfoW90UPnWf3K8U3seKdKodADZEdBYkUOAZgu2AU1zkhSZB6cCjiA6A2QlTzA5ubluB1VpDS/eiYdisXYVSD6h/ATsV7QnfhJfQhqwUnMzDaSfXmh+xpMTJdxOqu4Ls6BRZ/z771Bbc7LH8erimOjkjxQ1e0sA2WkXbnUdlTpJn0NnC6ANaptmtgt5dHUarc1o6sYdmXzCKnvuLUb2E9gLiKyt9mKjB9/6zBHNgztZP6Z/MaFZzPirg6g/oSX3cgWEFBIih07ift6ZJLr/vgaTdvKJyHVgzJv6gI9YGY5Ge4cf1ah0WLSql0KHvSNxOiL+
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Dec 2019 09:16:29.5036 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 37e6e1bc-103f-42a2-247c-08d7846421e9
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Dec 2019 09:16:32.8395 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 16f9082d-f58a-41d9-0097-08d7846423e4
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB02.amd.com]
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB2360
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN6PR12MB1601
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -130,191 +132,81 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: "Tianci.Yin" <tianci.yin@amd.com>
 
-The method of getting fb_loc changed from parsing VBIOS to
-taking certain offset from top of VRAM
+IP discovery TMR(occupied the top VRAM with size DISCOVERY_TMR_SIZE)
+has been reserved, and the p2c buffer is in the range of this TMR, so
+the p2c buffer reservation is unnecessary.
 
-Change-Id: I053b42fdb1d822722fa7980b2cd9f86b3fdce539
+Change-Id: Ib1f2f2b4a1f3869c03ffe22e2836cdbee17ba99f
+Reviewed-by: Kevin Wang <kevin1.wang@amd.com>
+Reviewed-by: Xiaojie Yuan <xiaojie.yuan@amd.com>
 Signed-off-by: Tianci.Yin <tianci.yin@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu.h           |  3 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c  |  2 +-
- .../gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c  | 38 ++-----------------
- .../gpu/drm/amd/amdgpu/amdgpu_atomfirmware.h  |  2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c       | 10 ++++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h       |  7 ++++
- drivers/gpu/drm/amd/include/atomfirmware.h    | 14 -------
- 7 files changed, 23 insertions(+), 53 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h |  1 -
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 21 ++-------------------
+ 2 files changed, 2 insertions(+), 20 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-index a78a363b1d71..fa2cf8e7bc07 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-@@ -642,9 +642,8 @@ struct amdgpu_fw_vram_usage {
- 	struct amdgpu_bo *reserved_bo;
- 	void *va;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
+index 5f8fd3e3535b..3265487b859f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
+@@ -202,7 +202,6 @@ struct psp_memory_training_context {
  
--	/* Offset on the top of VRAM, used as c2p write buffer.
-+	/* GDDR6 training support flag.
- 	*/
--	u64 mem_train_fb_loc;
- 	bool mem_train_support;
- };
+ 	/*vram offset of the p2c training data*/
+ 	u64 p2c_train_data_offset;
+-	struct amdgpu_bo *p2c_bo;
  
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c
-index 9ba80d828876..fdd52d86a4d7 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c
-@@ -2022,7 +2022,7 @@ int amdgpu_atombios_init(struct amdgpu_device *adev)
- 	if (adev->is_atom_fw) {
- 		amdgpu_atomfirmware_scratch_regs_init(adev);
- 		amdgpu_atomfirmware_allocate_fb_scratch(adev);
--		ret = amdgpu_atomfirmware_get_mem_train_fb_loc(adev);
-+		ret = amdgpu_atomfirmware_get_mem_train_info(adev);
- 		if (ret) {
- 			DRM_ERROR("Failed to get mem train fb location.\n");
- 			return ret;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c
-index ff4eb96bdfb5..58f9d8c3a17a 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c
-@@ -525,16 +525,12 @@ static int gddr6_mem_train_support(struct amdgpu_device *adev)
- 	return ret;
- }
- 
--int amdgpu_atomfirmware_get_mem_train_fb_loc(struct amdgpu_device *adev)
-+int amdgpu_atomfirmware_get_mem_train_info(struct amdgpu_device *adev)
- {
- 	struct atom_context *ctx = adev->mode_info.atom_context;
--	unsigned char *bios = ctx->bios;
--	struct vram_reserve_block *reserved_block;
--	int index, block_number;
-+	int index;
- 	uint8_t frev, crev;
- 	uint16_t data_offset, size;
--	uint32_t start_address_in_kb;
--	uint64_t offset;
- 	int ret;
- 
- 	adev->fw_vram_usage.mem_train_support = false;
-@@ -569,32 +565,6 @@ int amdgpu_atomfirmware_get_mem_train_fb_loc(struct amdgpu_device *adev)
- 		return -EINVAL;
- 	}
- 
--	reserved_block = (struct vram_reserve_block *)
--		(bios + data_offset + sizeof(struct atom_common_table_header));
--	block_number = ((unsigned int)size - sizeof(struct atom_common_table_header))
--		/ sizeof(struct vram_reserve_block);
--	reserved_block += (block_number > 0) ? block_number-1 : 0;
--	DRM_DEBUG("block_number:0x%04x, last block: 0x%08xkb sz, %dkb fw, %dkb drv.\n",
--		  block_number,
--		  le32_to_cpu(reserved_block->start_address_in_kb),
--		  le16_to_cpu(reserved_block->used_by_firmware_in_kb),
--		  le16_to_cpu(reserved_block->used_by_driver_in_kb));
--	if (reserved_block->used_by_firmware_in_kb > 0) {
--		start_address_in_kb = le32_to_cpu(reserved_block->start_address_in_kb);
--		offset = (uint64_t)start_address_in_kb * ONE_KiB;
--		if ((offset & (ONE_MiB - 1)) < (4 * ONE_KiB + 1) ) {
--			offset -= ONE_MiB;
--		}
--
--		offset &= ~(ONE_MiB - 1);
--		adev->fw_vram_usage.mem_train_fb_loc = offset;
--		adev->fw_vram_usage.mem_train_support = true;
--		DRM_DEBUG("mem_train_fb_loc:0x%09llx.\n", offset);
--		ret = 0;
--	} else {
--		DRM_ERROR("used_by_firmware_in_kb is 0!\n");
--		ret = -EINVAL;
--	}
--
--	return ret;
-+	adev->fw_vram_usage.mem_train_support = true;
-+	return 0;
- }
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.h
-index f871af5ea6f3..434fe2fa0089 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.h
-@@ -31,7 +31,7 @@ void amdgpu_atomfirmware_scratch_regs_init(struct amdgpu_device *adev);
- int amdgpu_atomfirmware_allocate_fb_scratch(struct amdgpu_device *adev);
- int amdgpu_atomfirmware_get_vram_info(struct amdgpu_device *adev,
- 	int *vram_width, int *vram_type, int *vram_vendor);
--int amdgpu_atomfirmware_get_mem_train_fb_loc(struct amdgpu_device *adev);
-+int amdgpu_atomfirmware_get_mem_train_info(struct amdgpu_device *adev);
- int amdgpu_atomfirmware_get_clock_info(struct amdgpu_device *adev);
- int amdgpu_atomfirmware_get_gfx_info(struct amdgpu_device *adev);
- bool amdgpu_atomfirmware_mem_ecc_supported(struct amdgpu_device *adev);
+ 	/*vram offset of the c2p training data*/
+ 	u64 c2p_train_data_offset;
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-index 2ff63d0414c9..1515413fd356 100644
+index 1515413fd356..1aab4e349bc8 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-@@ -1687,6 +1687,14 @@ static int amdgpu_ttm_training_reserve_vram_fini(struct amdgpu_device *adev)
+@@ -1681,9 +1681,6 @@ static int amdgpu_ttm_training_reserve_vram_fini(struct amdgpu_device *adev)
+ 	amdgpu_bo_free_kernel(&ctx->c2p_bo, NULL, NULL);
+ 	ctx->c2p_bo = NULL;
+ 
+-	amdgpu_bo_free_kernel(&ctx->p2c_bo, NULL, NULL);
+-	ctx->p2c_bo = NULL;
+-
  	return 0;
  }
  
-+static u64 amdgpu_ttm_training_get_c2p_offset(u64 vram_size)
-+{
-+       if ((vram_size & (ONE_MiB - 1)) < (4 * ONE_KiB + 1) )
-+               vram_size -= ONE_MiB;
-+
-+       return ALIGN(vram_size, ONE_MiB);
-+}
-+
- /**
-  * amdgpu_ttm_training_reserve_vram_init - create bo vram reservation from memory training
-  *
-@@ -1705,7 +1713,7 @@ static int amdgpu_ttm_training_reserve_vram_init(struct amdgpu_device *adev)
- 		return 0;
+@@ -1722,17 +1719,6 @@ static int amdgpu_ttm_training_reserve_vram_init(struct amdgpu_device *adev)
+ 		  ctx->p2c_train_data_offset,
+ 		  ctx->c2p_train_data_offset);
+ 
+-	ret = amdgpu_bo_create_kernel_at(adev,
+-					 ctx->p2c_train_data_offset,
+-					 ctx->train_data_size,
+-					 AMDGPU_GEM_DOMAIN_VRAM,
+-					 &ctx->p2c_bo,
+-					 NULL);
+-	if (ret) {
+-		DRM_ERROR("alloc p2c_bo failed(%d)!\n", ret);
+-		goto Err_out;
+-	}
+-
+ 	ret = amdgpu_bo_create_kernel_at(adev,
+ 					 ctx->c2p_train_data_offset,
+ 					 ctx->train_data_size,
+@@ -1741,15 +1727,12 @@ static int amdgpu_ttm_training_reserve_vram_init(struct amdgpu_device *adev)
+ 					 NULL);
+ 	if (ret) {
+ 		DRM_ERROR("alloc c2p_bo failed(%d)!\n", ret);
+-		goto Err_out;
++		amdgpu_ttm_training_reserve_vram_fini(adev);
++		return ret;
  	}
  
--	ctx->c2p_train_data_offset = adev->fw_vram_usage.mem_train_fb_loc;
-+	ctx->c2p_train_data_offset = amdgpu_ttm_training_get_c2p_offset(adev->gmc.mc_vram_size);
- 	ctx->p2c_train_data_offset = (adev->gmc.mc_vram_size - GDDR6_MEM_TRAINING_OFFSET);
- 	ctx->train_data_size = GDDR6_MEM_TRAINING_DATA_SIZE_IN_BYTES;
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-index f1ebd424510c..19eb3e8456c7 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-@@ -66,6 +66,13 @@ struct amdgpu_copy_mem {
- 	unsigned long			offset;
- };
- 
-+/* Definitions for constance */
-+enum amdgpu_internal_constants
-+{
-+	ONE_KiB	= 0x400,
-+	ONE_MiB	= 0x100000,
-+};
-+
- extern const struct ttm_mem_type_manager_func amdgpu_gtt_mgr_func;
- extern const struct ttm_mem_type_manager_func amdgpu_vram_mgr_func;
- 
-diff --git a/drivers/gpu/drm/amd/include/atomfirmware.h b/drivers/gpu/drm/amd/include/atomfirmware.h
-index dd7cbc00a0aa..70146518174c 100644
---- a/drivers/gpu/drm/amd/include/atomfirmware.h
-+++ b/drivers/gpu/drm/amd/include/atomfirmware.h
-@@ -672,20 +672,6 @@ struct vram_usagebyfirmware_v2_1
-   uint16_t  used_by_driver_in_kb; 
- };
- 
--/* This is part of vram_usagebyfirmware_v2_1 */
--struct vram_reserve_block
--{
--	uint32_t start_address_in_kb;
--	uint16_t used_by_firmware_in_kb;
--	uint16_t used_by_driver_in_kb;
--};
+ 	ctx->init = PSP_MEM_TRAIN_RESERVE_SUCCESS;
+ 	return 0;
 -
--/* Definitions for constance */
--enum atomfirmware_internal_constants
--{
--	ONE_KiB	= 0x400,
--	ONE_MiB	= 0x100000,
--};
+-Err_out:
+-	amdgpu_ttm_training_reserve_vram_fini(adev);
+-	return ret;
+ }
  
- /* 
-   ***************************************************************************
+ /**
 -- 
 2.17.1
 
