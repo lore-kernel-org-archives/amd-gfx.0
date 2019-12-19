@@ -2,106 +2,105 @@ Return-Path: <SRS0=793y=2J=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+X-Spam-Status: No, score=-9.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.0
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id ABB13C43603
-	for <amd-gfx@archiver.kernel.org>; Thu, 19 Dec 2019 02:12:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D6FE6C43603
+	for <amd-gfx@archiver.kernel.org>; Thu, 19 Dec 2019 02:44:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 72018222C2
-	for <amd-gfx@archiver.kernel.org>; Thu, 19 Dec 2019 02:12:20 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 876F822314
+	for <amd-gfx@archiver.kernel.org>; Thu, 19 Dec 2019 02:44:32 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="VgpRfWP/"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 72018222C2
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="3OHiSa2L"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 876F822314
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 11DBF6E0A8;
-	Thu, 19 Dec 2019 02:12:20 +0000 (UTC)
-Received: from NAM04-CO1-obe.outbound.protection.outlook.com
- (mail-eopbgr690067.outbound.protection.outlook.com [40.107.69.67])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6E5166E0A8
- for <amd-gfx@lists.freedesktop.org>; Thu, 19 Dec 2019 02:12:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ADCFE6E0A1;
+	Thu, 19 Dec 2019 02:44:31 +0000 (UTC)
+Received: from NAM04-SN1-obe.outbound.protection.outlook.com
+ (mail-eopbgr700088.outbound.protection.outlook.com [40.107.70.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 258DE6E0A1
+ for <amd-gfx@lists.freedesktop.org>; Thu, 19 Dec 2019 02:44:29 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=SZEfEdT3SDganJttafeR/UCN2rDUa60uPo41qWYQ/xRXpLn5AFQ/mGBAPbexFgyaf/4BWL8Qy7MIk1/2msxsRJ/rbUKTZ/vgCeJ/Yo4lHvMbzfFleBq6WUa3+HTdtnZBLFygYoeztGmsYDQEUELt4RuYWEVX7auXRDMoptqRDjPZfx9fKu9fS1grPMyY8reIeHq04Eb4ALuw52B9udTmn3TDkBb5xrc6cBG4fxAqA7XWgjrB6wPWPEDTibpmLP03HeCpM9sKxM2QW14U2AQWwV8EVdvncebszYWPrYRzhHQVmOX7cXhhW0dIRd4mCon1Bp6oJfVJHAI9sy3QhYPMwg==
+ b=eFi7m1hsGoV3KZtK0hbsdZVzkFzqttYSJjX8soHhzE1IvNVz5Z0hixxgro7PzRRfelwud+bjS4YiWv9QTsaSwV2OjpuW/HuBz6CIOrPoQfl6eJ/MaI8CZKsJfwmHJ6nBuxufFJH3asl8r8ofKdlAe/LrYa19sBJUf+P3Mp7zU/5UnSjHalX2npLxgm08hUARjr0MIv1JqeiPfNKaj0QXp0TSMD9YPvmejNuetBHkFEKGAE58lGwC/EtNZrkoxifohDKlHxOwDyUt+mi9Nq4V7alZVmAVui4vyfMZPts95sO11y1ZPvU0fjbEJhpY96HdBA3tzPx1c8v3qM9uWOkm6A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=icnHQrS2RQzVvsL9Dp82ZKFv7FVQLbU2n5yqZcZDSQg=;
- b=IfQ7L37wvnSM9h8Ni0j+FP2kqfm584jrjO6xBmqv9DFOF/qGDgI81kf3acvBI/gIDJEY8nmpd7BE/tYEx7CBwk0/fKfVRM6a2TQsqNVGKKbRL5rC799GvtcDYYYjSatH1h2KPHvRIGaNjpcDY7idsnDNvvD0LIRLypsdFY0CS2vbqTIUvPbtFrz0E5UnD8Xhijud7OQPypFSd1plPI2iR+TdyfE/MecZJKmbs9SY8IE7gj8pQ0oUMXteToSGMSAggaFCgs6cxv8/SXfJXyL0Rkew86Td5bdVC1iPCxICYcupLGibfAD7yUoS9ZuY8lFQRplQ5s7AcEYEiV6Ya/ebQQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=kemBZ1jod86Oc9/lkOjvatltwncTC5ZbV818LIGxcoA=;
+ b=bGqVWFeJo/iXlz9XgAhICEv8/tOCU//WNoLbcDUOopnUappYWG8CUhTEfe6301GrOpX+WEQ+zjcKXNWJE79+UFAyDIjjVIE+kKmNjAGP/0iXNQ/YyL5+KqjpqKZDafgqMmGmM5iHqiVYb47YsGi4BOg9Pm/S1INFmYnyCRfCdnEgwkAy7B/dEWO+1S05O23c5kkqOBhxjdQ90kpO6LLHod28eAIgOAa4S/1ZR5Kd1/1G8LhgcxS3RKRnZGV7mEz5s99D5CvlAw4wANlahwZ4MyhsGiyXObVZ+VXRDayasIhN6P/CsQc6e267PnZgmgVZWtQ1sAugLP9AEte/PW+jYg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=permerror action=none header.from=amd.com; dkim=none (message not
+ signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=icnHQrS2RQzVvsL9Dp82ZKFv7FVQLbU2n5yqZcZDSQg=;
- b=VgpRfWP/gf41PdzaahzGTu4UtJZH1u8Dc0/9OoCnQRzvzfIBKsg5OdEtelr6P7d6X4KF3KkffYle8Aeu9I1mqLKLQZ/PDq5lLjCUf4pCJ0k2Ey1xg3VLZqA0ppu+b3GClJu9jgV+kpPaZ02wtj4cGwT9iwI9+0VmDQdPX7pqaqA=
-Received: from MN2PR12MB3344.namprd12.prod.outlook.com (20.178.241.74) by
- MN2PR12MB3165.namprd12.prod.outlook.com (20.179.81.27) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2538.18; Thu, 19 Dec 2019 02:12:18 +0000
-Received: from MN2PR12MB3344.namprd12.prod.outlook.com
- ([fe80::1010:4621:68dd:5b47]) by MN2PR12MB3344.namprd12.prod.outlook.com
- ([fe80::1010:4621:68dd:5b47%5]) with mapi id 15.20.2559.012; Thu, 19 Dec 2019
- 02:12:18 +0000
-From: "Quan, Evan" <Evan.Quan@amd.com>
-To: Alex Deucher <alexdeucher@gmail.com>
-Subject: RE: [PATCH] drm/amdgpu: no SMC firmware reloading for non-RAS baco
- reset
-Thread-Topic: [PATCH] drm/amdgpu: no SMC firmware reloading for non-RAS baco
- reset
-Thread-Index: AQHVtVLHSon+kVYPDkCLEnIMRVSdzKe/+9WAgAC3A3A=
-Date: Thu, 19 Dec 2019 02:12:18 +0000
-Message-ID: <MN2PR12MB33440E09FC04B87E06695B6CE4520@MN2PR12MB3344.namprd12.prod.outlook.com>
-References: <20191218032457.28424-1-evan.quan@amd.com>
- <CADnq5_PXP-TTS46rw6HcxPo8ZM_2djf9Ct12dyBQ9sMs7Cxv3g@mail.gmail.com>
-In-Reply-To: <CADnq5_PXP-TTS46rw6HcxPo8ZM_2djf9Ct12dyBQ9sMs7Cxv3g@mail.gmail.com>
-Accept-Language: en-US, zh-CN
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ActionId=5ce7f6f7-ceda-47bf-9baa-0000f31e3d06;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=0;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=true;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal
- Use Only - Unrestricted;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2019-12-19T01:50:53Z;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
-authentication-results: spf=none (sender IP is )
- smtp.mailfrom=Evan.Quan@amd.com; 
-x-originating-ip: [180.167.199.189]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: 0b8f1978-ff6f-4b91-8fbc-08d78428dfb4
-x-ms-traffictypediagnostic: MN2PR12MB3165:
-x-microsoft-antispam-prvs: <MN2PR12MB3165B15BAA865ABC33259F88E4520@MN2PR12MB3165.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:7219;
-x-forefront-prvs: 0256C18696
-x-forefront-antispam-report: SFV:NSPM;
- SFS:(10009020)(4636009)(136003)(396003)(366004)(39860400002)(346002)(376002)(199004)(189003)(13464003)(7696005)(45080400002)(71200400001)(76116006)(64756008)(53546011)(6506007)(9686003)(52536014)(55016002)(8676002)(81156014)(86362001)(2906002)(4326008)(966005)(81166006)(8936002)(26005)(6916009)(186003)(33656002)(316002)(478600001)(66946007)(66556008)(66476007)(5660300002)(66446008);
- DIR:OUT; SFP:1101; SCL:1; SRVR:MN2PR12MB3165;
- H:MN2PR12MB3344.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; A:1; MX:1; 
-received-spf: None (protection.outlook.com: amd.com does not designate
+ bh=kemBZ1jod86Oc9/lkOjvatltwncTC5ZbV818LIGxcoA=;
+ b=3OHiSa2LuycNpWDt4gyEmMRfEp/+zQMrsbvdJrAGqtpDNAVf+BQog25gSsKhTsG8CHZSZ2lRJWYoHZeAooO3zv09F6sD3Ea1WpfJgUKBODvyi9/KeT/NvmWB/M8A7c/emwcIqlRpiuBh/Q6WbmHgPgn3YufN9fe9delWeCSYk7E=
+Received: from DM5PR12CA0020.namprd12.prod.outlook.com (2603:10b6:4:1::30) by
+ DM6PR12MB3898.namprd12.prod.outlook.com (2603:10b6:5:1c6::18) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2559.14; Thu, 19 Dec 2019 02:44:27 +0000
+Received: from BN8NAM11FT028.eop-nam11.prod.protection.outlook.com
+ (2a01:111:f400:7eae::207) by DM5PR12CA0020.outlook.office365.com
+ (2603:10b6:4:1::30) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2559.14 via Frontend
+ Transport; Thu, 19 Dec 2019 02:44:27 +0000
+Authentication-Results: spf=none (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none;lists.freedesktop.org; dmarc=permerror action=none
+ header.from=amd.com;
+Received-SPF: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: /lLtLpWLsntLnGw/hq5W/gja0/YtbGNYf445DD/OHpwaV1Ed0nkHKWIV+W++IqwUKzZSb9UL/KYXU91Nzk+VRGPUc1hT80CEG/9Pik+t6nyMtAO6QYFgkO8qjFpiLdi2JzGwpeWeQAFgV05yMTVqI+nUshgzr4kLaUPpU/v3Nb396XKHGitrmku6BC/Oh2tS3S/1/srIbVqNBsYQKz5Y1Aa04g3oaa+tDgnJ/G8dCDLuz27HCM8pWzI/5PNbjrk54jOXcXFj7VIcUdlVRp8osTDgYizpG3EZNGaXqy5a4NNAsAoIVAQklLIvhq/jxf1qXyDBDoRM2BRdA9cAAPEjKi9rCYDptdF9jd1PxXyQPQhX2/HRHA32JozBoKptK/V1Yec1k0DUAR0L1xZaqDFmpF5UcjHnowcE7+aPZGBxepVpOGI6UqhsnqCgrdQ0uUUonlt5G09azBvAfFe5jVREA6Uu62ecS3SYLSFd7xFKj79RzMvKlu5ISfHbO1MCZB2i
-x-ms-exchange-transport-forked: True
+Received: from SATLEXMB02.amd.com (165.204.84.17) by
+ BN8NAM11FT028.mail.protection.outlook.com (10.13.176.225) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.2538.14 via Frontend Transport; Thu, 19 Dec 2019 02:44:27 +0000
+Received: from SATLEXMB02.amd.com (10.181.40.143) by SATLEXMB02.amd.com
+ (10.181.40.143) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Wed, 18 Dec
+ 2019 20:44:26 -0600
+Received: from rico-code.amd.com (10.180.168.240) by SATLEXMB02.amd.com
+ (10.181.40.143) with Microsoft SMTP Server id 15.1.1713.5 via Frontend
+ Transport; Wed, 18 Dec 2019 20:44:19 -0600
+From: Tianci Yin <tianci.yin@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH 1/2] drm/amdgpu: update the method to get fb_loc of memory
+ training(V3)
+Date: Thu, 19 Dec 2019 10:44:15 +0800
+Message-ID: <20191219024416.32321-1-tianci.yin@amd.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
+X-EOPAttributedMessage: 0
+X-MS-Office365-Filtering-HT: Tenant
+X-Forefront-Antispam-Report: CIP:165.204.84.17; IPV:; CTRY:US; EFV:NLI;
+ SFV:NSPM;
+ SFS:(10009020)(4636009)(39860400002)(136003)(346002)(396003)(376002)(428003)(199004)(189003)(478600001)(336012)(70206006)(2906002)(86362001)(2616005)(70586007)(7696005)(26005)(186003)(8676002)(81166006)(81156014)(1076003)(36756003)(54906003)(356004)(316002)(6666004)(426003)(4326008)(5660300002)(44832011)(6916009)(8936002);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:DM6PR12MB3898; H:SATLEXMB02.amd.com; FPR:;
+ SPF:None; LANG:en; PTR:InfoDomainNonexistent; A:1; MX:1; 
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 9022d896-73e0-4b7d-cf8a-08d7842d5da1
+X-MS-TrafficTypeDiagnostic: DM6PR12MB3898:
+X-Microsoft-Antispam-PRVS: <DM6PR12MB3898D51D4F7FBB690CC6CE1895520@DM6PR12MB3898.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:590;
+X-Forefront-PRVS: 0256C18696
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: JvnU0WE1ZHkhYr1Gi+tu+YxmajfyL4vTHDQ4llVeffFMB4M0Jsp5B9EBPoG0XGg+bwoH0zr/+OQAKx6K7Imay+lyf2OZ47UP7oTJACevnIyr/MH4V5hUkjijPUH0JACLlDrTvr9OYVWL+IB9sqoKZtImPPvwWwdfvqGBp++TwNMPcCWmyDFUKZiot4WVMfOJN1/ncs7IlQYNfGG3MfPNgCfVWmWff82rwuHkO/5RuUXdAN/2SSwo3oyP793mSYNEUGs8ryL4i0qrdcKnT2X4W9lTkvpXegGhekyJpb8tcNw33wzGu3NBqL9DQXAsqSUYg7tDLKIXOxPuvc5ltXoWqGEcs3ogLLfZrPZTokGapktbQZe51cU056WLWhSqO5A49j06+LGpvA7xykhzqxQMCJrgv/bZKlx0tBNaVP2X0Fit6hHvGNCas0RgCNwiFkG+
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0b8f1978-ff6f-4b91-8fbc-08d78428dfb4
-X-MS-Exchange-CrossTenant-originalarrivaltime: 19 Dec 2019 02:12:18.1386 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 1fdrfWTbpvzUW64MFIkLFDLrEVc4gO+ddGgGv+RCtA0Wy+xMz15kyeb4ZFKo/YuQ
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3165
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Dec 2019 02:44:27.5074 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9022d896-73e0-4b7d-cf8a-08d7842d5da1
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB02.amd.com]
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3898
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,115 +112,211 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>
+Cc: Long Gang <Gang.Long@amd.com>, Tianci Yin <tianci.yin@amd.com>,
+ Feifei Xu <Feifei.Xu@amd.com>, Kevin Wang <Kevin1.Wang@amd.com>,
+ Tuikov Luben <Luben.Tuikov@amd.com>,
+ Deucher Alexander <Alexander.Deucher@amd.com>,
+ Hawking Zhang <Hawking.Zhang@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Xiaojie Yuan <xiaojie.yuan@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Alex,
+From: "Tianci.Yin" <tianci.yin@amd.com>
 
-"Power saving" means the regular suspend/resume case, right? That was considered. 
-With current amdgpu code, the MP1 state was not correctly set for the regular suspend case. 
-More straightforwardly I believe PrepareMP1_for_unload should be issued to MP1 on regular suspend path(excluding gpu reset case).
+The method of getting fb_loc changed from parsing VBIOS to
+taking certain offset from top of VRAM
 
-And with the MP1 state correctly set for all case, we can remove the "adev->in_gpu_reset".
-But for now, I do not want to involve too many changes and limit this to the gpu reset case.
+Change-Id: I053b42fdb1d822722fa7980b2cd9f86b3fdce539
+Signed-off-by: Tianci.Yin <tianci.yin@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h           |  3 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c  |  2 +-
+ .../gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c  | 38 ++-----------------
+ .../gpu/drm/amd/amdgpu/amdgpu_atomfirmware.h  |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c       | 13 ++++++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h       |  7 ++++
+ drivers/gpu/drm/amd/include/atomfirmware.h    | 14 -------
+ 7 files changed, 26 insertions(+), 53 deletions(-)
 
-P.S. the mp1 state was correctly handled for mode1 reset. So, it's safe to enforce this for all gpu reset case instead of baco reset only. 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+index a78a363b1d71..fa2cf8e7bc07 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+@@ -642,9 +642,8 @@ struct amdgpu_fw_vram_usage {
+ 	struct amdgpu_bo *reserved_bo;
+ 	void *va;
+ 
+-	/* Offset on the top of VRAM, used as c2p write buffer.
++	/* GDDR6 training support flag.
+ 	*/
+-	u64 mem_train_fb_loc;
+ 	bool mem_train_support;
+ };
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c
+index 9ba80d828876..fdd52d86a4d7 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c
+@@ -2022,7 +2022,7 @@ int amdgpu_atombios_init(struct amdgpu_device *adev)
+ 	if (adev->is_atom_fw) {
+ 		amdgpu_atomfirmware_scratch_regs_init(adev);
+ 		amdgpu_atomfirmware_allocate_fb_scratch(adev);
+-		ret = amdgpu_atomfirmware_get_mem_train_fb_loc(adev);
++		ret = amdgpu_atomfirmware_get_mem_train_info(adev);
+ 		if (ret) {
+ 			DRM_ERROR("Failed to get mem train fb location.\n");
+ 			return ret;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c
+index ff4eb96bdfb5..58f9d8c3a17a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c
+@@ -525,16 +525,12 @@ static int gddr6_mem_train_support(struct amdgpu_device *adev)
+ 	return ret;
+ }
+ 
+-int amdgpu_atomfirmware_get_mem_train_fb_loc(struct amdgpu_device *adev)
++int amdgpu_atomfirmware_get_mem_train_info(struct amdgpu_device *adev)
+ {
+ 	struct atom_context *ctx = adev->mode_info.atom_context;
+-	unsigned char *bios = ctx->bios;
+-	struct vram_reserve_block *reserved_block;
+-	int index, block_number;
++	int index;
+ 	uint8_t frev, crev;
+ 	uint16_t data_offset, size;
+-	uint32_t start_address_in_kb;
+-	uint64_t offset;
+ 	int ret;
+ 
+ 	adev->fw_vram_usage.mem_train_support = false;
+@@ -569,32 +565,6 @@ int amdgpu_atomfirmware_get_mem_train_fb_loc(struct amdgpu_device *adev)
+ 		return -EINVAL;
+ 	}
+ 
+-	reserved_block = (struct vram_reserve_block *)
+-		(bios + data_offset + sizeof(struct atom_common_table_header));
+-	block_number = ((unsigned int)size - sizeof(struct atom_common_table_header))
+-		/ sizeof(struct vram_reserve_block);
+-	reserved_block += (block_number > 0) ? block_number-1 : 0;
+-	DRM_DEBUG("block_number:0x%04x, last block: 0x%08xkb sz, %dkb fw, %dkb drv.\n",
+-		  block_number,
+-		  le32_to_cpu(reserved_block->start_address_in_kb),
+-		  le16_to_cpu(reserved_block->used_by_firmware_in_kb),
+-		  le16_to_cpu(reserved_block->used_by_driver_in_kb));
+-	if (reserved_block->used_by_firmware_in_kb > 0) {
+-		start_address_in_kb = le32_to_cpu(reserved_block->start_address_in_kb);
+-		offset = (uint64_t)start_address_in_kb * ONE_KiB;
+-		if ((offset & (ONE_MiB - 1)) < (4 * ONE_KiB + 1) ) {
+-			offset -= ONE_MiB;
+-		}
+-
+-		offset &= ~(ONE_MiB - 1);
+-		adev->fw_vram_usage.mem_train_fb_loc = offset;
+-		adev->fw_vram_usage.mem_train_support = true;
+-		DRM_DEBUG("mem_train_fb_loc:0x%09llx.\n", offset);
+-		ret = 0;
+-	} else {
+-		DRM_ERROR("used_by_firmware_in_kb is 0!\n");
+-		ret = -EINVAL;
+-	}
+-
+-	return ret;
++	adev->fw_vram_usage.mem_train_support = true;
++	return 0;
+ }
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.h
+index f871af5ea6f3..434fe2fa0089 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.h
+@@ -31,7 +31,7 @@ void amdgpu_atomfirmware_scratch_regs_init(struct amdgpu_device *adev);
+ int amdgpu_atomfirmware_allocate_fb_scratch(struct amdgpu_device *adev);
+ int amdgpu_atomfirmware_get_vram_info(struct amdgpu_device *adev,
+ 	int *vram_width, int *vram_type, int *vram_vendor);
+-int amdgpu_atomfirmware_get_mem_train_fb_loc(struct amdgpu_device *adev);
++int amdgpu_atomfirmware_get_mem_train_info(struct amdgpu_device *adev);
+ int amdgpu_atomfirmware_get_clock_info(struct amdgpu_device *adev);
+ int amdgpu_atomfirmware_get_gfx_info(struct amdgpu_device *adev);
+ bool amdgpu_atomfirmware_mem_ecc_supported(struct amdgpu_device *adev);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+index 2ff63d0414c9..ec84acdd43a2 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+@@ -1687,6 +1687,17 @@ static int amdgpu_ttm_training_reserve_vram_fini(struct amdgpu_device *adev)
+ 	return 0;
+ }
+ 
++static void amdgpu_ttm_training_get_c2p_offset(struct amdgpu_device *adev)
++{
++	u64 offset = adev->gmc.mc_vram_size;
++	struct psp_memory_training_context *ctx = &adev->psp.mem_train_ctx;
++
++	if ((offset & (ONE_MiB - 1)) < (4 * ONE_KiB + 1) )
++		offset -= ONE_MiB;
++
++	ctx->c2p_train_data_offset = ALIGN(offset,ONE_MiB);
++}
++
+ /**
+  * amdgpu_ttm_training_reserve_vram_init - create bo vram reservation from memory training
+  *
+@@ -1705,7 +1716,7 @@ static int amdgpu_ttm_training_reserve_vram_init(struct amdgpu_device *adev)
+ 		return 0;
+ 	}
+ 
+-	ctx->c2p_train_data_offset = adev->fw_vram_usage.mem_train_fb_loc;
++	amdgpu_ttm_training_get_c2p_offset();
+ 	ctx->p2c_train_data_offset = (adev->gmc.mc_vram_size - GDDR6_MEM_TRAINING_OFFSET);
+ 	ctx->train_data_size = GDDR6_MEM_TRAINING_DATA_SIZE_IN_BYTES;
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
+index f1ebd424510c..19eb3e8456c7 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
+@@ -66,6 +66,13 @@ struct amdgpu_copy_mem {
+ 	unsigned long			offset;
+ };
+ 
++/* Definitions for constance */
++enum amdgpu_internal_constants
++{
++	ONE_KiB	= 0x400,
++	ONE_MiB	= 0x100000,
++};
++
+ extern const struct ttm_mem_type_manager_func amdgpu_gtt_mgr_func;
+ extern const struct ttm_mem_type_manager_func amdgpu_vram_mgr_func;
+ 
+diff --git a/drivers/gpu/drm/amd/include/atomfirmware.h b/drivers/gpu/drm/amd/include/atomfirmware.h
+index dd7cbc00a0aa..70146518174c 100644
+--- a/drivers/gpu/drm/amd/include/atomfirmware.h
++++ b/drivers/gpu/drm/amd/include/atomfirmware.h
+@@ -672,20 +672,6 @@ struct vram_usagebyfirmware_v2_1
+   uint16_t  used_by_driver_in_kb; 
+ };
+ 
+-/* This is part of vram_usagebyfirmware_v2_1 */
+-struct vram_reserve_block
+-{
+-	uint32_t start_address_in_kb;
+-	uint16_t used_by_firmware_in_kb;
+-	uint16_t used_by_driver_in_kb;
+-};
+-
+-/* Definitions for constance */
+-enum atomfirmware_internal_constants
+-{
+-	ONE_KiB	= 0x400,
+-	ONE_MiB	= 0x100000,
+-};
+ 
+ /* 
+   ***************************************************************************
+-- 
+2.17.1
 
-Regards,
-Evan
-> -----Original Message-----
-> From: Alex Deucher <alexdeucher@gmail.com>
-> Sent: Wednesday, December 18, 2019 10:56 PM
-> To: Quan, Evan <Evan.Quan@amd.com>
-> Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>
-> Subject: Re: [PATCH] drm/amdgpu: no SMC firmware reloading for non-RAS
-> baco reset
-> 
-> On Tue, Dec 17, 2019 at 10:25 PM Evan Quan <evan.quan@amd.com> wrote:
-> >
-> > For non-RAS baco reset, there is no need to reset the SMC. Thus the
-> > firmware reloading should be avoided.
-> >
-> > Change-Id: I73f6284541d0ca0e82761380a27e32484fb0061c
-> > Signed-off-by: Evan Quan <evan.quan@amd.com>
-> > ---
-> >  drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c |  3 ++-
-> > drivers/gpu/drm/amd/amdgpu/psp_v11_0.c  | 14 ++++++++++++++
-> >  2 files changed, 16 insertions(+), 1 deletion(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-> > b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-> > index c14f2ccd0677..9bf7e92394f5 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-> > @@ -1439,7 +1439,8 @@ static int psp_np_fw_load(struct psp_context *psp)
-> >                         continue;
-> >
-> >                 if (ucode->ucode_id == AMDGPU_UCODE_ID_SMC &&
-> > -                   (psp_smu_reload_quirk(psp) || psp->autoload_supported))
-> > +                   ((adev->in_gpu_reset && psp_smu_reload_quirk(psp))
-> > +                     || psp->autoload_supported))
-> 
-> Will this cover the power saving case as well?  Do we need to check
-> adev->in_gpu_reset as well or can we drop that part?
-> 
-> Alex
-> 
-> >                         continue;
-> >
-> >                 if (amdgpu_sriov_vf(adev) && diff --git
-> > a/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c
-> > b/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c
-> > index c66ca8cc2ebd..ba761e9366e3 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c
-> > @@ -676,6 +676,19 @@ static bool psp_v11_0_compare_sram_data(struct
-> psp_context *psp,
-> >         return true;
-> >  }
-> >
-> > +/*
-> > + * Check whether SMU is still alive. If that's true
-> > + * (e.g. for non-RAS baco reset), we need to skip SMC firmware reloading.
-> > + */
-> > +static bool psp_v11_0_smu_reload_quirk(struct psp_context *psp) {
-> > +       struct amdgpu_device *adev = psp->adev;
-> > +       uint32_t reg;
-> > +
-> > +       reg = RREG32_PCIE(smnMP1_FIRMWARE_FLAGS | 0x03b00000);
-> > +       return (reg &
-> MP1_FIRMWARE_FLAGS__INTERRUPTS_ENABLED_MASK) ?
-> > +true : false; }
-> > +
-> >  static int psp_v11_0_mode1_reset(struct psp_context *psp)  {
-> >         int ret;
-> > @@ -1070,6 +1083,7 @@ static const struct psp_funcs psp_v11_0_funcs = {
-> >         .ring_stop = psp_v11_0_ring_stop,
-> >         .ring_destroy = psp_v11_0_ring_destroy,
-> >         .compare_sram_data = psp_v11_0_compare_sram_data,
-> > +       .smu_reload_quirk = psp_v11_0_smu_reload_quirk,
-> >         .mode1_reset = psp_v11_0_mode1_reset,
-> >         .xgmi_get_topology_info = psp_v11_0_xgmi_get_topology_info,
-> >         .xgmi_set_topology_info = psp_v11_0_xgmi_set_topology_info,
-> > --
-> > 2.24.0
-> >
-> > _______________________________________________
-> > amd-gfx mailing list
-> > amd-gfx@lists.freedesktop.org
-> > https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flist
-> > s.freedesktop.org%2Fmailman%2Flistinfo%2Famd-
-> gfx&amp;data=02%7C01%7Cev
-> >
-> an.quan%40amd.com%7C8781ad2ef92d4a188c3008d783ca6846%7C3dd8961fe
-> 4884e6
-> >
-> 08e11a82d994e183d%7C0%7C0%7C637122777663939524&amp;sdata=DMLV%
-> 2Bz%2FsG
-> > nXhpsiOdv9EZrsBcn6HGJ3L7lKdKL2PaPQ%3D&amp;reserved=0
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
