@@ -2,99 +2,101 @@ Return-Path: <SRS0=BZXp=2K=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.1 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-6.4 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	MIME_HTML_MOSTLY,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 678FEC43603
-	for <amd-gfx@archiver.kernel.org>; Fri, 20 Dec 2019 02:21:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 13596C43603
+	for <amd-gfx@archiver.kernel.org>; Fri, 20 Dec 2019 02:34:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 37A84227BF
-	for <amd-gfx@archiver.kernel.org>; Fri, 20 Dec 2019 02:21:15 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id D73AD24683
+	for <amd-gfx@archiver.kernel.org>; Fri, 20 Dec 2019 02:34:42 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="19tajkg7"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 37A84227BF
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="BPlQFDB9"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D73AD24683
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EB2DC6EBBE;
-	Fri, 20 Dec 2019 02:21:14 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2055.outbound.protection.outlook.com [40.107.220.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 476D06EBBB
- for <amd-gfx@lists.freedesktop.org>; Fri, 20 Dec 2019 02:21:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1A5566EBC1;
+	Fri, 20 Dec 2019 02:34:42 +0000 (UTC)
+Received: from NAM02-SN1-obe.outbound.protection.outlook.com
+ (mail-eopbgr770079.outbound.protection.outlook.com [40.107.77.79])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 433486EBBF
+ for <amd-gfx@lists.freedesktop.org>; Fri, 20 Dec 2019 02:34:40 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=B5UBemlgrxch9P2W2Ex4mKOc2bCOBAQDVeyoDfEMSm5pt1iR/BwzHnNqWJqd/Cjz9/YTekQN21Nr+Varr6klBfpn2wAvWbsM7iIItDBAzbhXoWPhqLXiwNPrkFcLGlv9aVCy2JW7jGuzskhhgBHw3FD48/vejLjf9sULYgA1FILSGuRBBvUiz2WZKLOamDU0bpnbHRfxGdC4ENDCdKBb5RC1yJntIUykdKzT1FQjxlLBppxS/4s9/gySNJBoc6K0tOH+HJS9FThnVMilMt4N9Es1iS2U5Q0kGs+09rzgQMe4H+NAJFVUPgFyUehOCypZlvK9Qc695A37N45KJbJamg==
+ b=d9NI0zx7C7zSAcwqvg501qQ5Wdp41V4x4AEZoi+779mWVDBMc+85L2bG76X4I9QbOgaPuA0sG1h/GpCN04ekDJWdarLJ49DKKb3i8fx+at5bQFoPfQlBF+X3SGlgu7nCxBxDJ50kOqBOzlzJ8UKLwxtnRis70DJ3dqL94llzPo7PGBU1vSXl+mvk6Nix7GyRA2DWIBDG2Rhf0tcN9gLnXZYUM0KTthIJjeUPG6eJdgFBT1zPJuqDg3TSmekTS1sv1iBcTi/RqV6Zq4D+EoC++xalbj5y5tjnWwFrw59LrUTF1QIKU7RGmZIFKqcXrTCuXzYzfG/4vIZXe2Y8jQ8b2Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6j5q3OBhreOLzvFh1LvwREIYFmwKwLW3MIPlfbijrLY=;
- b=YV2Gj9U7Xu1fZdYigsSFnmVZNZ3CZcb8V03LgJVa1J+dCwNOHze0fjVc+ie9S+fQgJSikFjX7aBuiqh831kqjUoPd1j6kFewBBzoBMtbH0DCKF3LG3+s0DBkOfhWYWGGPJxLHVo6Tg/e+LcvAIi2LJe3Xr45T5Xi8Qy9+3hPle70Vqe1zPfoh7fJXMZBprTHeKLggo4rc+JBJjuzZzezrvYnWCFDZtrrbUSCnAbXiNB7MwJAUPS7Qz/4JNgWCd5MXhI8NSvRjUjQ0Cl2N5nms7njy5OO0CKV03L2rjpcNEpymsjUoVbVs7j4kC8JMtbMuV+aOm4BaQfZtRuCV9h6dQ==
+ bh=a9BVol/HjofPutf5R9JJn0zRHOtgzEAaQEsBqZyZrpk=;
+ b=OCTBGtHpGxCCC0tuAS4Nvd4JpPoaTObDI2uaxtAKMpEHqZ4p6m0EEgiWr95yxXvlCPoFAjwaC8bMlUpoprImx3PrPUClFdgNATMjMAxPGdMJqU00vlxEWS9AG8c0fy8dl7dOpatjs7CwKz5d9s0RS/HviSqiMm4zQBPd6RFD6leEHMG8tD61SV/9Rt97Kj1JN5rwX464vZJ2TZpxlpTqGXo3Gx6M8atWXebENNaE7DBMPsO+MKJk14Q48WUE5y3ooMM6bCpIij8ZgYdS/+HEBvq0LqL/8oFnr0GWLqQfy3WrEz9s3rApLk1IcyaqUbqIMzjdRmuhJ0pnU9QEtoa8gA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6j5q3OBhreOLzvFh1LvwREIYFmwKwLW3MIPlfbijrLY=;
- b=19tajkg7py+y7wkPbYDrQjNBhboFKJ+QwAfEeLshlpXtTVZ3R3oSTElt/tZWMEW2MiJMnOF7SW/5HVJydubLDnOzbMfHfpbvsJ6XcOfcfO63ESlySa7lbJxiHvtUcx7F+fphAF74oiYHLuFJmFzToAUaFmKAiSgAHRgAdFLo1c0=
-Authentication-Results: spf=none (sender IP is )
- smtp.mailfrom=Felix.Kuehling@amd.com; 
-Received: from DM6PR12MB3947.namprd12.prod.outlook.com (10.255.175.222) by
- DM6PR12MB3145.namprd12.prod.outlook.com (20.178.198.138) with Microsoft SMTP
+ bh=a9BVol/HjofPutf5R9JJn0zRHOtgzEAaQEsBqZyZrpk=;
+ b=BPlQFDB998HATbECXbVs47PZnEXkLjuliZ+kb1uS10ZlWobg7QHn519PzOMi5TpwwIF2UOWDxsJSentG2SSYYO5NC7VzKxoXu3e+280aIBuqISyYI9j4ZGIrRhO61/BQWucJDQgHxYYpgU6VPbAQq1QiI9JOnmmpPhcb3N3Smc4=
+Received: from DM6PR12MB3241.namprd12.prod.outlook.com (20.179.105.153) by
+ DM6PR12MB4265.namprd12.prod.outlook.com (10.141.184.78) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2538.17; Fri, 20 Dec 2019 02:21:10 +0000
-Received: from DM6PR12MB3947.namprd12.prod.outlook.com
- ([fe80::a099:6fd7:e4d6:f560]) by DM6PR12MB3947.namprd12.prod.outlook.com
- ([fe80::a099:6fd7:e4d6:f560%3]) with mapi id 15.20.2538.019; Fri, 20 Dec 2019
- 02:21:10 +0000
+ 15.20.2559.14; Fri, 20 Dec 2019 02:34:35 +0000
+Received: from DM6PR12MB3241.namprd12.prod.outlook.com
+ ([fe80::e9a0:2dda:d7b9:9a10]) by DM6PR12MB3241.namprd12.prod.outlook.com
+ ([fe80::e9a0:2dda:d7b9:9a10%5]) with mapi id 15.20.2559.016; Fri, 20 Dec 2019
+ 02:34:35 +0000
+From: "Liu, Shaoyun" <Shaoyun.Liu@amd.com>
+To: "Kuehling, Felix" <Felix.Kuehling@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Liu, Monk"
+ <Monk.Liu@amd.com>, "Grodzovsky, Andrey" <Andrey.Grodzovsky@amd.com>
 Subject: Re: [PATCH 1/1] drm/amdkfd: Don't touch the hardware in pre_reset
  callback
-To: amd-gfx@lists.freedesktop.org, Liu Monk <Monk.Liu@amd.com>,
- shaoyunl <shaoyun.liu@amd.com>, Andrey Grodzovsky <andrey.grodzovsky@amd.com>
-References: <20191220020907.6896-1-Felix.Kuehling@amd.com>
-From: Felix Kuehling <felix.kuehling@amd.com>
-Organization: AMD Inc.
-Message-ID: <d130b573-f087-4ba0-e586-d898886ac13b@amd.com>
-Date: Thu, 19 Dec 2019 21:21:08 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.2.2
-In-Reply-To: <20191220020907.6896-1-Felix.Kuehling@amd.com>
-Content-Language: en-US
-X-ClientProxiedBy: YT1PR01CA0017.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01::30)
- To DM6PR12MB3947.namprd12.prod.outlook.com
- (2603:10b6:5:148::30)
-MIME-Version: 1.0
-X-Originating-IP: [165.204.55.251]
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: d910a2f1-784d-4514-02e0-08d784f346f8
-X-MS-TrafficTypeDiagnostic: DM6PR12MB3145:|DM6PR12MB3145:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM6PR12MB3145DBCE4DD129B7E6337E06922D0@DM6PR12MB3145.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:3173;
-X-Forefront-PRVS: 025796F161
-X-Forefront-Antispam-Report: SFV:NSPM;
- SFS:(10009020)(4636009)(366004)(136003)(346002)(376002)(396003)(39860400002)(43544003)(199004)(189003)(52116002)(30864003)(36916002)(66476007)(66556008)(316002)(478600001)(81166006)(81156014)(6636002)(8936002)(31686004)(6486002)(6506007)(26005)(53546011)(186003)(5660300002)(4001150100001)(6512007)(31696002)(8676002)(86362001)(110136005)(2906002)(66946007)(44832011)(36756003)(2616005);
- DIR:OUT; SFP:1101; SCL:1; SRVR:DM6PR12MB3145;
- H:DM6PR12MB3947.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; A:1; MX:1; 
-Received-SPF: None (protection.outlook.com: amd.com does not designate
+Thread-Topic: [PATCH 1/1] drm/amdkfd: Don't touch the hardware in pre_reset
+ callback
+Thread-Index: AQHVttqPQV8ThCqUzEG4JTvd189bKqfCSpEAgAAC34Y=
+Date: Fri, 20 Dec 2019 02:34:35 +0000
+Message-ID: <DM6PR12MB32417F69354B176C28AB3ACBF42D0@DM6PR12MB3241.namprd12.prod.outlook.com>
+References: <20191220020907.6896-1-Felix.Kuehling@amd.com>,
+ <d130b573-f087-4ba0-e586-d898886ac13b@amd.com>
+In-Reply-To: <d130b573-f087-4ba0-e586-d898886ac13b@amd.com>
+Accept-Language: en-CA, en-US
+Content-Language: en-CA
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: spf=none (sender IP is )
+ smtp.mailfrom=Shaoyun.Liu@amd.com; 
+x-originating-ip: [2607:fea8:3bc0:316:a863:d6bb:b24f:7c55]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-ht: Tenant
+x-ms-office365-filtering-correlation-id: bcae8a1f-18a6-48cf-3e0b-08d784f526ff
+x-ms-traffictypediagnostic: DM6PR12MB4265:|DM6PR12MB4265:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <DM6PR12MB4265894328E18E56892D4FD7F42D0@DM6PR12MB4265.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:5236;
+x-forefront-prvs: 025796F161
+x-forefront-antispam-report: SFV:NSPM;
+ SFS:(10009020)(4636009)(39860400002)(376002)(396003)(136003)(346002)(366004)(189003)(199004)(43544003)(6636002)(316002)(110136005)(86362001)(30864003)(5660300002)(66556008)(64756008)(66446008)(52536014)(66946007)(66476007)(76116006)(33656002)(4001150100001)(8676002)(71200400001)(9686003)(8936002)(55016002)(2906002)(186003)(53546011)(6506007)(478600001)(81156014)(81166006)(7696005);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:DM6PR12MB4265;
+ H:DM6PR12MB3241.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; MX:1; A:1; 
+received-spf: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: e8a9dV2FPTAqAB7wicCFG70LGNIosFb5bjdPTUvBXXneEqzhZIpBGk4Mb+yr0tgSKvJlkyikt7bs6udOVORnaldYLAwRyNcDho22PjOZlu3W/4XpyjFRjfutrmEyaHXj0I1oyVZZnyc1o9lMevWGS0rLFGQ+YMugqGeZCRvxJOJ9Jj/HBjVQ/CXz8t/BC71xq7chzU8Nf4GPAYm1xCT23iJ4n38NCAPrA5HZoZsrngJn0uqEZE7/o6OiL8u4ebnD2TfMamuLa/FUK0fAHAm9sgyq7jjTMIppicxqBMKC8N1DdGfhenFeBYcDXgKvpINCYWNTnNBnWycOZlpBPvpMI0nkvkhlZmAv5S0K/jk673m1xY+q4v397l6hmopRs9CGiczzzTIpr5aYwzncrZdPg/i9/kNe8JtHnuLSnUTnFP4pvt70Jl635jVJod4YCt1+G8JhxgVt7Xz9vUKQp4oLz3wBXTl5mIfqUikFmH3eOCx/BdoEoT82xqsEB7aqHeZg
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: jxah1fa49jTG7aGV2iFzm53IFCp3wfFG2QfJ6XOw59xsumAf+zoasu8zz1CccuI9hfsQ7d1XGEXwhOJKmZTeN+pMV15334QR8eOy9Pr8fm2Zonk+ozD25WIo+8KGT1kVVaQMgzyzPmZWn/E22BzoevoT9QF5ucpQ83Zc508j8cTuhZJf6h+31zsiEt5uJyk/af0nRost8+/Tlkdbv8cBnDwtulAMKuXmgoqV8yuldCRAOwCPgZL6SLdbn/fyvFMHa6BUcuA8LiFdTKT07O4968OdxB9VvXhGpOAWocg19aGyDddtHlsPL/KzHAbIy2lMhM0F2rYX05fnNckGqwXGP7gX9jsxIQLWCCggh1IepkLD+1l0JC7qYID3eOGDNffiil5XUj3HOIlp/Uj4XLHXfnqOY2mO7eAh6WIX0DjCx9neIcqXuWsOgMhEHaEBv64PWV5RBzcHciE2RmGYrY4YvlVYoc44sOotoPoDpHbd45u5kGnZgrfHkHghClfFxdTk
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d910a2f1-784d-4514-02e0-08d784f346f8
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Dec 2019 02:21:10.0631 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Ow6PCNHEiuZmjzgXRXza5LXL9KWPbEsttvlGMat0+KjP/O1WTPHNB5lW0bdCtyF5DR3ITsdd/fv9Ie2iZVWa6w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3145
+X-MS-Exchange-CrossTenant-Network-Message-Id: bcae8a1f-18a6-48cf-3e0b-08d784f526ff
+X-MS-Exchange-CrossTenant-originalarrivaltime: 20 Dec 2019 02:34:35.1260 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: W7vl+5v39Ni9LGe3TzdpVbMk3tctJIqm+xAszC9GKW3fPvdidYl3WmcYfz/GuNn2jOEq9Od2rknIt9e49ZZrVQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4265
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,275 +108,1083 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: multipart/mixed; boundary="===============0880260330=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-WytBbmRyZXldCgpIaSBTaGFveXVuLCBNb25rLCBhbmQgQW5kcmV5LAoKSSB0ZXN0ZWQgdGhpcyBv
-biBteSBiYXJlLW1ldGFsIFZlZ2ExMCBzeXN0ZW0uIEdQVSByZXNldCAodXNpbmcgQkFDTykgaXMg
-CmZsYWt5IG9uIHRoaXMgc3lzdGVtIHdpdGggYW5kIHdpdGhvdXQgdGhpcyBwYXRjaC4gVGhlIGZp
-cnN0IHJlc2V0IHNlZW1zIAp0byB3b3JrIE9LLCB0aGUgc2Vjb25kIG9uZSBmYWlscyBpbiBkaWZm
-ZXJlbnQgd2F5cy4gSW4gdGhlb3J5IHRoaXMgCmNoYW5nZSBzaG91bGQgYmUgYW4gaW1wcm92ZW1l
-bnQgYXMgaXQgZWxpbWluYXRlZCBhdCBsZWFzdCBvbmUgZmFpbHVyZSAKbW9kZSAoaGFuZ2luZyBi
-ZWZvcmUgdGhlIGFjdHVhbCByZXNldCkuIEEgbGVhc3QgSSBkb24ndCB0aGluayBJJ20gbWFraW5n
-IAphbnl0aGluZyB3b3JzZS4KCk15IHRlc3QgaXMgdG8gcnVuIEtGRFRlc3QgYW5kIHRyaWdnZXIg
-YSBHUFUgcmVzZXQgd2hpbGUgaXQncyBidXN5IHdpdGggCnRoZSBldmljdGlvbiB0ZXN0LiBUaGlz
-IHRlc3QgcnVucyBtdWx0aXBsZSBLRkQgcHJvY2Vzc2VzIGFuZCBhbHNvIApwZXJmb3JtcyBncmFw
-aGljcyBtZW1vcnkgYWxsb2NhdGlvbnMgYW5kIGNvbW1hbmQgc3VibWlzc2lvbnMgdG8gZm9yY2Ug
-ClRUTSB0byBldmljdCBLRkQgcHJvY2Vzc2VzLiBJIHRyaWdnZXIgdGhlIHJlc2V0IGJ5IGhhbmdp
-bmcgdGhlIEhXUyAKdGhyb3VnaCBhIGRlYnVnZnMgaG9vazoKCiDCoMKgwqAgIyBjYXQgL3N5cy9j
-bGFzcy9rZmQva2ZkL3RvcG9sb2d5L25vZGVzLzEvZ3B1X2lkID4gCi9zeXMva2VybmVsL2RlYnVn
-L2tmZC9oYW5nX2h3cwoKUGxlYXNlIGdpdmUgdGhpcyBwYXRjaCBhIHRyeSBhbmQgcmVpbnN0YXRl
-IHRoZSBwcmVfcmVzZXQgY2FsbCBiZWZvcmUgdGhlIApGTFIgZm9yIFNSSU9WLgoKUmVnYXJkcywK
-IMKgIEZlbGl4CgpPbiAyMDE5LTEyLTE5IDk6MDkgcC5tLiwgRmVsaXggS3VlaGxpbmcgd3JvdGU6
-Cj4gVGhlIGludGVudGlvbiBvZiB0aGUgcHJlX3Jlc2V0IGNhbGxiYWNrIGlzIHRvIHVwZGF0ZSB0
-aGUgZHJpdmVyCj4gc3RhdGUgdG8gcmVmbGVjdCB0aGF0IGFsbCB1c2VyIG1vZGUgcXVldWVzIGFy
-ZSBwcmVlbXB0ZWQgYW5kIHRoZQo+IEhJUSBpcyBkZXN0cm95ZWQuIEhvd2V2ZXIgd2Ugc2hvdWxk
-IG5vdCBhY3R1YWxseSBwcmVlbXB0IGFueSBxdWV1ZXMKPiBvciBvdGhlcndpc2UgdG91Y2ggdGhl
-IGhhcmR3YXJlIGJlY2F1c2UgaXQgaXMgcHJlc3VtYWJseSBoYW5naW5nLgo+IFRoZSBpbXBlbmRp
-bmcgcmVzZXQgd2lsbCB0YWtlIGNhcmUgb2YgYWN0dWFsbHkgc3RvcHBpbmcgYWxsIHF1ZXVlcy4K
-Pgo+IFRoaXMgc2hvdWxkIHByZXZlbnQgS0lRIHJlZ2lzdGVyIGFjY2VzcyBoYW5naW5nIG9uIFNS
-SU9WIGZ1bmN0aW9uCj4gbGV2ZWwgcmVzZXQgKEZMUikuIEl0IHNob3VsZCBhbHNvIHNwZWVkIHVw
-IHRoZSByZXNldCBieSBhdm9pZGluZwo+IHVubmVjZXNzYXJ5IHRpbWVvdXRzIGZyb20gYSBwb3Rl
-bnRpYWxseSBoYW5naW5nIEdQVSBzY2hlZHVsZXIuCj4KPiBDQzogc2hhb3l1bmwgPHNoYW95dW4u
-bGl1QGFtZC5jb20+Cj4gQ0M6IExpdSBNb25rIDxNb25rLkxpdUBhbWQuY29tPgo+IFNpZ25lZC1v
-ZmYtYnk6IEZlbGl4IEt1ZWhsaW5nIDxGZWxpeC5LdWVobGluZ0BhbWQuY29tPgo+IC0tLQo+ICAg
-ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX2RldmljZS5jICAgICAgIHwgMjQgKysrKysr
-KysrKy0tLS0tLS0KPiAgIC4uLi9kcm0vYW1kL2FtZGtmZC9rZmRfZGV2aWNlX3F1ZXVlX21hbmFn
-ZXIuYyB8IDI3ICsrKysrKysrKysrKy0tLS0tLS0KPiAgIC4uLi9kcm0vYW1kL2FtZGtmZC9rZmRf
-ZGV2aWNlX3F1ZXVlX21hbmFnZXIuaCB8ICA1ICsrLS0KPiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQv
-YW1ka2ZkL2tmZF9rZXJuZWxfcXVldWUuYyB8ICA4ICsrKy0tLQo+ICAgLi4uL2dwdS9kcm0vYW1k
-L2FtZGtmZC9rZmRfcGFja2V0X21hbmFnZXIuYyAgIHwgIDQgKy0tCj4gICBkcml2ZXJzL2dwdS9k
-cm0vYW1kL2FtZGtmZC9rZmRfcHJpdi5oICAgICAgICAgfCAgOCArKystLS0KPiAgIGRyaXZlcnMv
-Z3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9wcm9jZXNzLmMgICAgICB8IDExICsrKystLS0tCj4gICAu
-Li4vYW1kL2FtZGtmZC9rZmRfcHJvY2Vzc19xdWV1ZV9tYW5hZ2VyLmMgICAgfCAgMiArLQo+ICAg
-OCBmaWxlcyBjaGFuZ2VkLCA1MyBpbnNlcnRpb25zKCspLCAzNiBkZWxldGlvbnMoLSkKPgo+IGRp
-ZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfZGV2aWNlLmMgYi9kcml2
-ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfZGV2aWNlLmMKPiBpbmRleCBjNmI2OTAxYmJkYTMu
-Ljc5Njk5NmEwZDkyNiAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9r
-ZmRfZGV2aWNlLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfZGV2aWNl
-LmMKPiBAQCAtNDg2LDYgKzQ4Niw3IEBAIHN0YXRpYyBpbnQga2ZkX2d0dF9zYV9pbml0KHN0cnVj
-dCBrZmRfZGV2ICprZmQsIHVuc2lnbmVkIGludCBidWZfc2l6ZSwKPiAgIAkJCQl1bnNpZ25lZCBp
-bnQgY2h1bmtfc2l6ZSk7Cj4gICBzdGF0aWMgdm9pZCBrZmRfZ3R0X3NhX2Zpbmkoc3RydWN0IGtm
-ZF9kZXYgKmtmZCk7Cj4gICAKPiArc3RhdGljIHZvaWQga2ZkX3N1c3BlbmQoc3RydWN0IGtmZF9k
-ZXYgKmtmZCwgYm9vbCBwcmVfcmVzZXQpOwo+ICAgc3RhdGljIGludCBrZmRfcmVzdW1lKHN0cnVj
-dCBrZmRfZGV2ICprZmQpOwo+ICAgCj4gICBzdHJ1Y3Qga2ZkX2RldiAqa2dkMmtmZF9wcm9iZShz
-dHJ1Y3Qga2dkX2RldiAqa2dkLAo+IEBAIC03MjgsNyArNzI5LDcgQEAgaW50IGtnZDJrZmRfcHJl
-X3Jlc2V0KHN0cnVjdCBrZmRfZGV2ICprZmQpCj4gICB7Cj4gICAJaWYgKCFrZmQtPmluaXRfY29t
-cGxldGUpCj4gICAJCXJldHVybiAwOwo+IC0Ja2dkMmtmZF9zdXNwZW5kKGtmZCk7Cj4gKwlrZmRf
-c3VzcGVuZChrZmQsIHRydWUpOwo+ICAgCj4gICAJa2ZkX3NpZ25hbF9yZXNldF9ldmVudChrZmQp
-Owo+ICAgCXJldHVybiAwOwo+IEBAIC03NjcsMTMgKzc2OCw3IEBAIHZvaWQga2dkMmtmZF9zdXNw
-ZW5kKHN0cnVjdCBrZmRfZGV2ICprZmQpCj4gICAJaWYgKCFrZmQtPmluaXRfY29tcGxldGUpCj4g
-ICAJCXJldHVybjsKPiAgIAo+IC0JLyogRm9yIGZpcnN0IEtGRCBkZXZpY2Ugc3VzcGVuZCBhbGwg
-dGhlIEtGRCBwcm9jZXNzZXMgKi8KPiAtCWlmIChhdG9taWNfaW5jX3JldHVybigma2ZkX2xvY2tl
-ZCkgPT0gMSkKPiAtCQlrZmRfc3VzcGVuZF9hbGxfcHJvY2Vzc2VzKCk7Cj4gLQo+IC0Ja2ZkLT5k
-cW0tPm9wcy5zdG9wKGtmZC0+ZHFtKTsKPiAtCj4gLQlrZmRfaW9tbXVfc3VzcGVuZChrZmQpOwo+
-ICsJa2ZkX3N1c3BlbmQoa2ZkLCBmYWxzZSk7Cj4gICB9Cj4gICAKPiAgIGludCBrZ2Qya2ZkX3Jl
-c3VtZShzdHJ1Y3Qga2ZkX2RldiAqa2ZkKQo+IEBAIC03OTUsNiArNzkwLDE3IEBAIGludCBrZ2Qy
-a2ZkX3Jlc3VtZShzdHJ1Y3Qga2ZkX2RldiAqa2ZkKQo+ICAgCXJldHVybiByZXQ7Cj4gICB9Cj4g
-ICAKPiArc3RhdGljIHZvaWQga2ZkX3N1c3BlbmQoc3RydWN0IGtmZF9kZXYgKmtmZCwgYm9vbCBw
-cmVfcmVzZXQpCj4gK3sKPiArCS8qIEZvciBmaXJzdCBLRkQgZGV2aWNlIHN1c3BlbmQgYWxsIHRo
-ZSBLRkQgcHJvY2Vzc2VzICovCj4gKwlpZiAoYXRvbWljX2luY19yZXR1cm4oJmtmZF9sb2NrZWQp
-ID09IDEpCj4gKwkJa2ZkX3N1c3BlbmRfYWxsX3Byb2Nlc3NlcyhwcmVfcmVzZXQpOwo+ICsKPiAr
-CWtmZC0+ZHFtLT5vcHMuc3RvcChrZmQtPmRxbSwgcHJlX3Jlc2V0KTsKPiArCj4gKwlrZmRfaW9t
-bXVfc3VzcGVuZChrZmQpOwo+ICt9Cj4gKwo+ICAgc3RhdGljIGludCBrZmRfcmVzdW1lKHN0cnVj
-dCBrZmRfZGV2ICprZmQpCj4gICB7Cj4gICAJaW50IGVyciA9IDA7Cj4gQEAgLTg3Nyw3ICs4ODMs
-NyBAQCBpbnQga2dkMmtmZF9xdWllc2NlX21tKHN0cnVjdCBtbV9zdHJ1Y3QgKm1tKQo+ICAgCWlm
-ICghcCkKPiAgIAkJcmV0dXJuIC1FU1JDSDsKPiAgIAo+IC0JciA9IGtmZF9wcm9jZXNzX2V2aWN0
-X3F1ZXVlcyhwKTsKPiArCXIgPSBrZmRfcHJvY2Vzc19ldmljdF9xdWV1ZXMocCwgZmFsc2UpOwo+
-ICAgCj4gICAJa2ZkX3VucmVmX3Byb2Nlc3MocCk7Cj4gICAJcmV0dXJuIHI7Cj4gZGlmZiAtLWdp
-dCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9kZXZpY2VfcXVldWVfbWFuYWdlci5j
-IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX2RldmljZV9xdWV1ZV9tYW5hZ2VyLmMK
-PiBpbmRleCBmN2Y2ZGY0MDg3NWUuLjNhNDk5NDQxNjRkYSAxMDA2NDQKPiAtLS0gYS9kcml2ZXJz
-L2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfZGV2aWNlX3F1ZXVlX21hbmFnZXIuYwo+ICsrKyBiL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9kZXZpY2VfcXVldWVfbWFuYWdlci5jCj4gQEAg
-LTU5Miw3ICs1OTIsOCBAQCBzdGF0aWMgaW50IHVwZGF0ZV9xdWV1ZShzdHJ1Y3QgZGV2aWNlX3F1
-ZXVlX21hbmFnZXIgKmRxbSwgc3RydWN0IHF1ZXVlICpxKQo+ICAgfQo+ICAgCj4gICBzdGF0aWMg
-aW50IGV2aWN0X3Byb2Nlc3NfcXVldWVzX25vY3BzY2goc3RydWN0IGRldmljZV9xdWV1ZV9tYW5h
-Z2VyICpkcW0sCj4gLQkJCQkJc3RydWN0IHFjbV9wcm9jZXNzX2RldmljZSAqcXBkKQo+ICsJCQkJ
-CXN0cnVjdCBxY21fcHJvY2Vzc19kZXZpY2UgKnFwZCwKPiArCQkJCQlib29sIHByZV9yZXNldCkK
-PiAgIHsKPiAgIAlzdHJ1Y3QgcXVldWUgKnE7Cj4gICAJc3RydWN0IG1xZF9tYW5hZ2VyICptcWRf
-bWdyOwo+IEBAIC02MjIsNiArNjIzLDggQEAgc3RhdGljIGludCBldmljdF9wcm9jZXNzX3F1ZXVl
-c19ub2Nwc2NoKHN0cnVjdCBkZXZpY2VfcXVldWVfbWFuYWdlciAqZHFtLAo+ICAgCj4gICAJCWlm
-IChXQVJOX09OQ0UoIWRxbS0+c2NoZWRfcnVubmluZywgIkV2aWN0IHdoZW4gc3RvcHBlZFxuIikp
-Cj4gICAJCQljb250aW51ZTsKPiArCQlpZiAocHJlX3Jlc2V0KQo+ICsJCQljb250aW51ZTsKPiAg
-IAo+ICAgCQlyZXR2YWwgPSBtcWRfbWdyLT5kZXN0cm95X21xZChtcWRfbWdyLCBxLT5tcWQsCj4g
-ICAJCQkJS0ZEX1BSRUVNUFRfVFlQRV9XQVZFRlJPTlRfRFJBSU4sCj4gQEAgLTYzOSw3ICs2NDIs
-OCBAQCBzdGF0aWMgaW50IGV2aWN0X3Byb2Nlc3NfcXVldWVzX25vY3BzY2goc3RydWN0IGRldmlj
-ZV9xdWV1ZV9tYW5hZ2VyICpkcW0sCj4gICB9Cj4gICAKPiAgIHN0YXRpYyBpbnQgZXZpY3RfcHJv
-Y2Vzc19xdWV1ZXNfY3BzY2goc3RydWN0IGRldmljZV9xdWV1ZV9tYW5hZ2VyICpkcW0sCj4gLQkJ
-CQkgICAgICBzdHJ1Y3QgcWNtX3Byb2Nlc3NfZGV2aWNlICpxcGQpCj4gKwkJCQkgICAgICBzdHJ1
-Y3QgcWNtX3Byb2Nlc3NfZGV2aWNlICpxcGQsCj4gKwkJCQkgICAgICBib29sIHByZV9yZXNldCkK
-PiAgIHsKPiAgIAlzdHJ1Y3QgcXVldWUgKnE7Cj4gICAJc3RydWN0IGtmZF9wcm9jZXNzX2Rldmlj
-ZSAqcGRkOwo+IEBAIC02NjQsNiArNjY4LDEwIEBAIHN0YXRpYyBpbnQgZXZpY3RfcHJvY2Vzc19x
-dWV1ZXNfY3BzY2goc3RydWN0IGRldmljZV9xdWV1ZV9tYW5hZ2VyICpkcW0sCj4gICAJCXEtPnBy
-b3BlcnRpZXMuaXNfYWN0aXZlID0gZmFsc2U7Cj4gICAJCWRxbS0+cXVldWVfY291bnQtLTsKPiAg
-IAl9Cj4gKwo+ICsJaWYgKHByZV9yZXNldCkKPiArCQlnb3RvIG91dDsKPiArCj4gICAJcmV0dmFs
-ID0gZXhlY3V0ZV9xdWV1ZXNfY3BzY2goZHFtLAo+ICAgCQkJCXFwZC0+aXNfZGVidWcgPwo+ICAg
-CQkJCUtGRF9VTk1BUF9RVUVVRVNfRklMVEVSX0FMTF9RVUVVRVMgOgo+IEBAIC05NDQsMTAgKzk1
-MiwxMCBAQCBzdGF0aWMgaW50IHN0YXJ0X25vY3BzY2goc3RydWN0IGRldmljZV9xdWV1ZV9tYW5h
-Z2VyICpkcW0pCj4gICAJcmV0dXJuIDA7Cj4gICB9Cj4gICAKPiAtc3RhdGljIGludCBzdG9wX25v
-Y3BzY2goc3RydWN0IGRldmljZV9xdWV1ZV9tYW5hZ2VyICpkcW0pCj4gK3N0YXRpYyBpbnQgc3Rv
-cF9ub2Nwc2NoKHN0cnVjdCBkZXZpY2VfcXVldWVfbWFuYWdlciAqZHFtLCBib29sIHByZV9yZXNl
-dCkKPiAgIHsKPiAgIAlpZiAoZHFtLT5kZXYtPmRldmljZV9pbmZvLT5hc2ljX2ZhbWlseSA9PSBD
-SElQX0hBV0FJSSkKPiAtCQlwbV91bmluaXQoJmRxbS0+cGFja2V0cyk7Cj4gKwkJcG1fdW5pbml0
-KCZkcW0tPnBhY2tldHMsIHByZV9yZXNldCk7Cj4gICAJZHFtLT5zY2hlZF9ydW5uaW5nID0gZmFs
-c2U7Cj4gICAKPiAgIAlyZXR1cm4gMDsKPiBAQCAtMTEwNywyMCArMTExNSwyMSBAQCBzdGF0aWMg
-aW50IHN0YXJ0X2Nwc2NoKHN0cnVjdCBkZXZpY2VfcXVldWVfbWFuYWdlciAqZHFtKQo+ICAgCXJl
-dHVybiAwOwo+ICAgZmFpbF9hbGxvY2F0ZV92aWRtZW06Cj4gICBmYWlsX3NldF9zY2hlZF9yZXNv
-dXJjZXM6Cj4gLQlwbV91bmluaXQoJmRxbS0+cGFja2V0cyk7Cj4gKwlwbV91bmluaXQoJmRxbS0+
-cGFja2V0cywgZmFsc2UpOwo+ICAgZmFpbF9wYWNrZXRfbWFuYWdlcl9pbml0Ogo+ICAgCXJldHVy
-biByZXR2YWw7Cj4gICB9Cj4gICAKPiAtc3RhdGljIGludCBzdG9wX2Nwc2NoKHN0cnVjdCBkZXZp
-Y2VfcXVldWVfbWFuYWdlciAqZHFtKQo+ICtzdGF0aWMgaW50IHN0b3BfY3BzY2goc3RydWN0IGRl
-dmljZV9xdWV1ZV9tYW5hZ2VyICpkcW0sIGJvb2wgcHJlX3Jlc2V0KQo+ICAgewo+ICAgCWRxbV9s
-b2NrKGRxbSk7Cj4gLQl1bm1hcF9xdWV1ZXNfY3BzY2goZHFtLCBLRkRfVU5NQVBfUVVFVUVTX0ZJ
-TFRFUl9BTExfUVVFVUVTLCAwKTsKPiArCWlmICghcHJlX3Jlc2V0KQo+ICsJCXVubWFwX3F1ZXVl
-c19jcHNjaChkcW0sIEtGRF9VTk1BUF9RVUVVRVNfRklMVEVSX0FMTF9RVUVVRVMsIDApOwo+ICAg
-CWRxbS0+c2NoZWRfcnVubmluZyA9IGZhbHNlOwo+ICAgCWRxbV91bmxvY2soZHFtKTsKPiAgIAo+
-ICAgCWtmZF9ndHRfc2FfZnJlZShkcW0tPmRldiwgZHFtLT5mZW5jZV9tZW0pOwo+IC0JcG1fdW5p
-bml0KCZkcW0tPnBhY2tldHMpOwo+ICsJcG1fdW5pbml0KCZkcW0tPnBhY2tldHMsIHByZV9yZXNl
-dCk7Cj4gICAKPiAgIAlyZXR1cm4gMDsKPiAgIH0KPiBAQCAtMTg5MSw3ICsxOTAwLDcgQEAgaW50
-IGtmZF9wcm9jZXNzX3ZtX2ZhdWx0KHN0cnVjdCBkZXZpY2VfcXVldWVfbWFuYWdlciAqZHFtLAo+
-ICAgCQlyZXR1cm4gLUVJTlZBTDsKPiAgIAlwZGQgPSBrZmRfZ2V0X3Byb2Nlc3NfZGV2aWNlX2Rh
-dGEoZHFtLT5kZXYsIHApOwo+ICAgCWlmIChwZGQpCj4gLQkJcmV0ID0gZHFtLT5vcHMuZXZpY3Rf
-cHJvY2Vzc19xdWV1ZXMoZHFtLCAmcGRkLT5xcGQpOwo+ICsJCXJldCA9IGRxbS0+b3BzLmV2aWN0
-X3Byb2Nlc3NfcXVldWVzKGRxbSwgJnBkZC0+cXBkLCBmYWxzZSk7Cj4gICAJa2ZkX3VucmVmX3By
-b2Nlc3MocCk7Cj4gICAKPiAgIAlyZXR1cm4gcmV0Owo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dw
-dS9kcm0vYW1kL2FtZGtmZC9rZmRfZGV2aWNlX3F1ZXVlX21hbmFnZXIuaCBiL2RyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1ka2ZkL2tmZF9kZXZpY2VfcXVldWVfbWFuYWdlci5oCj4gaW5kZXggYThjMzdl
-NmRhMDI3Li45ZjgyZjk1ZjZhOTIgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9h
-bWRrZmQva2ZkX2RldmljZV9xdWV1ZV9tYW5hZ2VyLmgKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0v
-YW1kL2FtZGtmZC9rZmRfZGV2aWNlX3F1ZXVlX21hbmFnZXIuaAo+IEBAIC0xMDMsNyArMTAzLDcg
-QEAgc3RydWN0IGRldmljZV9xdWV1ZV9tYW5hZ2VyX29wcyB7Cj4gICAKPiAgIAlpbnQJKCppbml0
-aWFsaXplKShzdHJ1Y3QgZGV2aWNlX3F1ZXVlX21hbmFnZXIgKmRxbSk7Cj4gICAJaW50CSgqc3Rh
-cnQpKHN0cnVjdCBkZXZpY2VfcXVldWVfbWFuYWdlciAqZHFtKTsKPiAtCWludAkoKnN0b3ApKHN0
-cnVjdCBkZXZpY2VfcXVldWVfbWFuYWdlciAqZHFtKTsKPiArCWludAkoKnN0b3ApKHN0cnVjdCBk
-ZXZpY2VfcXVldWVfbWFuYWdlciAqZHFtLCBib29sIHByZV9yZXNldCk7Cj4gICAJdm9pZAkoKnVu
-aW5pdGlhbGl6ZSkoc3RydWN0IGRldmljZV9xdWV1ZV9tYW5hZ2VyICpkcW0pOwo+ICAgCWludAko
-KmNyZWF0ZV9rZXJuZWxfcXVldWUpKHN0cnVjdCBkZXZpY2VfcXVldWVfbWFuYWdlciAqZHFtLAo+
-ICAgCQkJCQlzdHJ1Y3Qga2VybmVsX3F1ZXVlICprcSwKPiBAQCAtMTI5LDcgKzEyOSw4IEBAIHN0
-cnVjdCBkZXZpY2VfcXVldWVfbWFuYWdlcl9vcHMgewo+ICAgCQkJc3RydWN0IHFjbV9wcm9jZXNz
-X2RldmljZSAqcXBkKTsKPiAgIAo+ICAgCWludCAoKmV2aWN0X3Byb2Nlc3NfcXVldWVzKShzdHJ1
-Y3QgZGV2aWNlX3F1ZXVlX21hbmFnZXIgKmRxbSwKPiAtCQkJCSAgICBzdHJ1Y3QgcWNtX3Byb2Nl
-c3NfZGV2aWNlICpxcGQpOwo+ICsJCQkJICAgIHN0cnVjdCBxY21fcHJvY2Vzc19kZXZpY2UgKnFw
-ZCwKPiArCQkJCSAgICBib29sIHByZV9yZXNldCk7Cj4gICAJaW50ICgqcmVzdG9yZV9wcm9jZXNz
-X3F1ZXVlcykoc3RydWN0IGRldmljZV9xdWV1ZV9tYW5hZ2VyICpkcW0sCj4gICAJCQkJICAgICAg
-c3RydWN0IHFjbV9wcm9jZXNzX2RldmljZSAqcXBkKTsKPiAgIAo+IGRpZmYgLS1naXQgYS9kcml2
-ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfa2VybmVsX3F1ZXVlLmMgYi9kcml2ZXJzL2dwdS9k
-cm0vYW1kL2FtZGtmZC9rZmRfa2VybmVsX3F1ZXVlLmMKPiBpbmRleCAyZDU2ZGM1MzQ0NTkuLmRi
-ZDJlOGU5YWU2OSAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRf
-a2VybmVsX3F1ZXVlLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfa2Vy
-bmVsX3F1ZXVlLmMKPiBAQCAtMTk1LDkgKzE5NSw5IEBAIHN0YXRpYyBib29sIGtxX2luaXRpYWxp
-emUoc3RydWN0IGtlcm5lbF9xdWV1ZSAqa3EsIHN0cnVjdCBrZmRfZGV2ICpkZXYsCj4gICB9Cj4g
-ICAKPiAgIC8qIFVuaW5pdGlhbGl6ZSBhIGtlcm5lbCBxdWV1ZSBhbmQgZnJlZSBhbGwgaXRzIG1l
-bW9yeSB1c2FnZXMuICovCj4gLXN0YXRpYyB2b2lkIGtxX3VuaW5pdGlhbGl6ZShzdHJ1Y3Qga2Vy
-bmVsX3F1ZXVlICprcSkKPiArc3RhdGljIHZvaWQga3FfdW5pbml0aWFsaXplKHN0cnVjdCBrZXJu
-ZWxfcXVldWUgKmtxLCBib29sIHByZV9yZXNldCkKPiAgIHsKPiAtCWlmIChrcS0+cXVldWUtPnBy
-b3BlcnRpZXMudHlwZSA9PSBLRkRfUVVFVUVfVFlQRV9ISVEpCj4gKwlpZiAoa3EtPnF1ZXVlLT5w
-cm9wZXJ0aWVzLnR5cGUgPT0gS0ZEX1FVRVVFX1RZUEVfSElRICYmICFwcmVfcmVzZXQpCj4gICAJ
-CWtxLT5tcWRfbWdyLT5kZXN0cm95X21xZChrcS0+bXFkX21nciwKPiAgIAkJCQkJa3EtPnF1ZXVl
-LT5tcWQsCj4gICAJCQkJCUtGRF9QUkVFTVBUX1RZUEVfV0FWRUZST05UX1JFU0VULAo+IEBAIC0z
-MzcsOSArMzM3LDkgQEAgc3RydWN0IGtlcm5lbF9xdWV1ZSAqa2VybmVsX3F1ZXVlX2luaXQoc3Ry
-dWN0IGtmZF9kZXYgKmRldiwKPiAgIAlyZXR1cm4gTlVMTDsKPiAgIH0KPiAgIAo+IC12b2lkIGtl
-cm5lbF9xdWV1ZV91bmluaXQoc3RydWN0IGtlcm5lbF9xdWV1ZSAqa3EpCj4gK3ZvaWQga2VybmVs
-X3F1ZXVlX3VuaW5pdChzdHJ1Y3Qga2VybmVsX3F1ZXVlICprcSwgYm9vbCBwcmVfcmVzZXQpCj4g
-ICB7Cj4gLQlrcV91bmluaXRpYWxpemUoa3EpOwo+ICsJa3FfdW5pbml0aWFsaXplKGtxLCBwcmVf
-cmVzZXQpOwo+ICAgCWtmcmVlKGtxKTsKPiAgIH0KPiAgIAo+IGRpZmYgLS1naXQgYS9kcml2ZXJz
-L2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfcGFja2V0X21hbmFnZXIuYyBiL2RyaXZlcnMvZ3B1L2Ry
-bS9hbWQvYW1ka2ZkL2tmZF9wYWNrZXRfbWFuYWdlci5jCj4gaW5kZXggNmNhYmVkMDZlZjVkLi43
-NzMyYTNiYmViZDYgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2Zk
-X3BhY2tldF9tYW5hZ2VyLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRf
-cGFja2V0X21hbmFnZXIuYwo+IEBAIC0yNjQsMTAgKzI2NCwxMCBAQCBpbnQgcG1faW5pdChzdHJ1
-Y3QgcGFja2V0X21hbmFnZXIgKnBtLCBzdHJ1Y3QgZGV2aWNlX3F1ZXVlX21hbmFnZXIgKmRxbSkK
-PiAgIAlyZXR1cm4gMDsKPiAgIH0KPiAgIAo+IC12b2lkIHBtX3VuaW5pdChzdHJ1Y3QgcGFja2V0
-X21hbmFnZXIgKnBtKQo+ICt2b2lkIHBtX3VuaW5pdChzdHJ1Y3QgcGFja2V0X21hbmFnZXIgKnBt
-LCBib29sIHByZV9yZXNldCkKPiAgIHsKPiAgIAltdXRleF9kZXN0cm95KCZwbS0+bG9jayk7Cj4g
-LQlrZXJuZWxfcXVldWVfdW5pbml0KHBtLT5wcml2X3F1ZXVlKTsKPiArCWtlcm5lbF9xdWV1ZV91
-bmluaXQocG0tPnByaXZfcXVldWUsIHByZV9yZXNldCk7Cj4gICB9Cj4gICAKPiAgIGludCBwbV9z
-ZW5kX3NldF9yZXNvdXJjZXMoc3RydWN0IHBhY2tldF9tYW5hZ2VyICpwbSwKPiBkaWZmIC0tZ2l0
-IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX3ByaXYuaCBiL2RyaXZlcnMvZ3B1L2Ry
-bS9hbWQvYW1ka2ZkL2tmZF9wcml2LmgKPiBpbmRleCAwODdlOTY4Mzg5OTcuLjliYzRjZWQ0YWNi
-YSAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfcHJpdi5oCj4g
-KysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX3ByaXYuaAo+IEBAIC03NjIsOSAr
-NzYyLDkgQEAgc3RydWN0IGtmZF9wcm9jZXNzICprZmRfZ2V0X3Byb2Nlc3MoY29uc3Qgc3RydWN0
-IHRhc2tfc3RydWN0ICopOwo+ICAgc3RydWN0IGtmZF9wcm9jZXNzICprZmRfbG9va3VwX3Byb2Nl
-c3NfYnlfcGFzaWQodW5zaWduZWQgaW50IHBhc2lkKTsKPiAgIHN0cnVjdCBrZmRfcHJvY2VzcyAq
-a2ZkX2xvb2t1cF9wcm9jZXNzX2J5X21tKGNvbnN0IHN0cnVjdCBtbV9zdHJ1Y3QgKm1tKTsKPiAg
-IHZvaWQga2ZkX3VucmVmX3Byb2Nlc3Moc3RydWN0IGtmZF9wcm9jZXNzICpwKTsKPiAtaW50IGtm
-ZF9wcm9jZXNzX2V2aWN0X3F1ZXVlcyhzdHJ1Y3Qga2ZkX3Byb2Nlc3MgKnApOwo+ICtpbnQga2Zk
-X3Byb2Nlc3NfZXZpY3RfcXVldWVzKHN0cnVjdCBrZmRfcHJvY2VzcyAqcCwgYm9vbCBwcmVfcmVz
-ZXQpOwo+ICAgaW50IGtmZF9wcm9jZXNzX3Jlc3RvcmVfcXVldWVzKHN0cnVjdCBrZmRfcHJvY2Vz
-cyAqcCk7Cj4gLXZvaWQga2ZkX3N1c3BlbmRfYWxsX3Byb2Nlc3Nlcyh2b2lkKTsKPiArdm9pZCBr
-ZmRfc3VzcGVuZF9hbGxfcHJvY2Vzc2VzKGJvb2wgcHJlX3Jlc2V0KTsKPiAgIGludCBrZmRfcmVz
-dW1lX2FsbF9wcm9jZXNzZXModm9pZCk7Cj4gICAKPiAgIGludCBrZmRfcHJvY2Vzc19kZXZpY2Vf
-aW5pdF92bShzdHJ1Y3Qga2ZkX3Byb2Nlc3NfZGV2aWNlICpwZGQsCj4gQEAgLTg4Myw3ICs4ODMs
-NyBAQCBzdHJ1Y3QgZGV2aWNlX3F1ZXVlX21hbmFnZXIgKmRldmljZV9xdWV1ZV9tYW5hZ2VyX2lu
-aXQoc3RydWN0IGtmZF9kZXYgKmRldik7Cj4gICB2b2lkIGRldmljZV9xdWV1ZV9tYW5hZ2VyX3Vu
-aW5pdChzdHJ1Y3QgZGV2aWNlX3F1ZXVlX21hbmFnZXIgKmRxbSk7Cj4gICBzdHJ1Y3Qga2VybmVs
-X3F1ZXVlICprZXJuZWxfcXVldWVfaW5pdChzdHJ1Y3Qga2ZkX2RldiAqZGV2LAo+ICAgCQkJCQll
-bnVtIGtmZF9xdWV1ZV90eXBlIHR5cGUpOwo+IC12b2lkIGtlcm5lbF9xdWV1ZV91bmluaXQoc3Ry
-dWN0IGtlcm5lbF9xdWV1ZSAqa3EpOwo+ICt2b2lkIGtlcm5lbF9xdWV1ZV91bmluaXQoc3RydWN0
-IGtlcm5lbF9xdWV1ZSAqa3EsIGJvb2wgcHJlX3Jlc2V0KTsKPiAgIGludCBrZmRfcHJvY2Vzc192
-bV9mYXVsdChzdHJ1Y3QgZGV2aWNlX3F1ZXVlX21hbmFnZXIgKmRxbSwgdW5zaWduZWQgaW50IHBh
-c2lkKTsKPiAgIAo+ICAgLyogUHJvY2VzcyBRdWV1ZSBNYW5hZ2VyICovCj4gQEAgLTk3NCw3ICs5
-NzQsNyBAQCBleHRlcm4gY29uc3Qgc3RydWN0IHBhY2tldF9tYW5hZ2VyX2Z1bmNzIGtmZF92aV9w
-bV9mdW5jczsKPiAgIGV4dGVybiBjb25zdCBzdHJ1Y3QgcGFja2V0X21hbmFnZXJfZnVuY3Mga2Zk
-X3Y5X3BtX2Z1bmNzOwo+ICAgCj4gICBpbnQgcG1faW5pdChzdHJ1Y3QgcGFja2V0X21hbmFnZXIg
-KnBtLCBzdHJ1Y3QgZGV2aWNlX3F1ZXVlX21hbmFnZXIgKmRxbSk7Cj4gLXZvaWQgcG1fdW5pbml0
-KHN0cnVjdCBwYWNrZXRfbWFuYWdlciAqcG0pOwo+ICt2b2lkIHBtX3VuaW5pdChzdHJ1Y3QgcGFj
-a2V0X21hbmFnZXIgKnBtLCBib29sIHByZV9yZXNldCk7Cj4gICBpbnQgcG1fc2VuZF9zZXRfcmVz
-b3VyY2VzKHN0cnVjdCBwYWNrZXRfbWFuYWdlciAqcG0sCj4gICAJCQkJc3RydWN0IHNjaGVkdWxp
-bmdfcmVzb3VyY2VzICpyZXMpOwo+ICAgaW50IHBtX3NlbmRfcnVubGlzdChzdHJ1Y3QgcGFja2V0
-X21hbmFnZXIgKnBtLCBzdHJ1Y3QgbGlzdF9oZWFkICpkcW1fcXVldWVzKTsKPiBkaWZmIC0tZ2l0
-IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX3Byb2Nlc3MuYyBiL2RyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1ka2ZkL2tmZF9wcm9jZXNzLmMKPiBpbmRleCA1MzZhMTUzYWM5YTQuLjdiY2Fk
-ZDNhMWUzYiAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfcHJv
-Y2Vzcy5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX3Byb2Nlc3MuYwo+
-IEBAIC05NDgsNyArOTQ4LDcgQEAgc3RydWN0IGtmZF9wcm9jZXNzICprZmRfbG9va3VwX3Byb2Nl
-c3NfYnlfbW0oY29uc3Qgc3RydWN0IG1tX3N0cnVjdCAqbW0pCj4gICAgKiBFdmljdGlvbiBpcyBy
-ZWZlcmVuY2UtY291bnRlZCBwZXIgcHJvY2Vzcy1kZXZpY2UuIFRoaXMgbWVhbnMgbXVsdGlwbGUK
-PiAgICAqIGV2aWN0aW9ucyBmcm9tIGRpZmZlcmVudCBzb3VyY2VzIGNhbiBiZSBuZXN0ZWQgc2Fm
-ZWx5Lgo+ICAgICovCj4gLWludCBrZmRfcHJvY2Vzc19ldmljdF9xdWV1ZXMoc3RydWN0IGtmZF9w
-cm9jZXNzICpwKQo+ICtpbnQga2ZkX3Byb2Nlc3NfZXZpY3RfcXVldWVzKHN0cnVjdCBrZmRfcHJv
-Y2VzcyAqcCwgYm9vbCBwcmVfcmVzZXQpCj4gICB7Cj4gICAJc3RydWN0IGtmZF9wcm9jZXNzX2Rl
-dmljZSAqcGRkOwo+ICAgCWludCByID0gMDsKPiBAQCAtOTU2LDcgKzk1Niw4IEBAIGludCBrZmRf
-cHJvY2Vzc19ldmljdF9xdWV1ZXMoc3RydWN0IGtmZF9wcm9jZXNzICpwKQo+ICAgCj4gICAJbGlz
-dF9mb3JfZWFjaF9lbnRyeShwZGQsICZwLT5wZXJfZGV2aWNlX2RhdGEsIHBlcl9kZXZpY2VfbGlz
-dCkgewo+ICAgCQlyID0gcGRkLT5kZXYtPmRxbS0+b3BzLmV2aWN0X3Byb2Nlc3NfcXVldWVzKHBk
-ZC0+ZGV2LT5kcW0sCj4gLQkJCQkJCQkgICAgJnBkZC0+cXBkKTsKPiArCQkJCQkJCSAgICAmcGRk
-LT5xcGQsCj4gKwkJCQkJCQkgICAgcHJlX3Jlc2V0KTsKPiAgIAkJaWYgKHIpIHsKPiAgIAkJCXBy
-X2VycigiRmFpbGVkIHRvIGV2aWN0IHByb2Nlc3MgcXVldWVzXG4iKTsKPiAgIAkJCWdvdG8gZmFp
-bDsKPiBAQCAtMTAyNiw3ICsxMDI3LDcgQEAgc3RhdGljIHZvaWQgZXZpY3RfcHJvY2Vzc193b3Jr
-ZXIoc3RydWN0IHdvcmtfc3RydWN0ICp3b3JrKQo+ICAgCWZsdXNoX2RlbGF5ZWRfd29yaygmcC0+
-cmVzdG9yZV93b3JrKTsKPiAgIAo+ICAgCXByX2RlYnVnKCJTdGFydGVkIGV2aWN0aW5nIHBhc2lk
-IDB4JXhcbiIsIHAtPnBhc2lkKTsKPiAtCXJldCA9IGtmZF9wcm9jZXNzX2V2aWN0X3F1ZXVlcyhw
-KTsKPiArCXJldCA9IGtmZF9wcm9jZXNzX2V2aWN0X3F1ZXVlcyhwLCBmYWxzZSk7Cj4gICAJaWYg
-KCFyZXQpIHsKPiAgIAkJZG1hX2ZlbmNlX3NpZ25hbChwLT5lZik7Cj4gICAJCWRtYV9mZW5jZV9w
-dXQocC0+ZWYpOwo+IEBAIC0xMDgyLDcgKzEwODMsNyBAQCBzdGF0aWMgdm9pZCByZXN0b3JlX3By
-b2Nlc3Nfd29ya2VyKHN0cnVjdCB3b3JrX3N0cnVjdCAqd29yaykKPiAgIAkJcHJfZXJyKCJGYWls
-ZWQgdG8gcmVzdG9yZSBxdWV1ZXMgb2YgcGFzaWQgMHgleFxuIiwgcC0+cGFzaWQpOwo+ICAgfQo+
-ICAgCj4gLXZvaWQga2ZkX3N1c3BlbmRfYWxsX3Byb2Nlc3Nlcyh2b2lkKQo+ICt2b2lkIGtmZF9z
-dXNwZW5kX2FsbF9wcm9jZXNzZXMoYm9vbCBwcmVfcmVzZXQpCj4gICB7Cj4gICAJc3RydWN0IGtm
-ZF9wcm9jZXNzICpwOwo+ICAgCXVuc2lnbmVkIGludCB0ZW1wOwo+IEBAIC0xMDkyLDcgKzEwOTMs
-NyBAQCB2b2lkIGtmZF9zdXNwZW5kX2FsbF9wcm9jZXNzZXModm9pZCkKPiAgIAkJY2FuY2VsX2Rl
-bGF5ZWRfd29ya19zeW5jKCZwLT5ldmljdGlvbl93b3JrKTsKPiAgIAkJY2FuY2VsX2RlbGF5ZWRf
-d29ya19zeW5jKCZwLT5yZXN0b3JlX3dvcmspOwo+ICAgCj4gLQkJaWYgKGtmZF9wcm9jZXNzX2V2
-aWN0X3F1ZXVlcyhwKSkKPiArCQlpZiAoa2ZkX3Byb2Nlc3NfZXZpY3RfcXVldWVzKHAsIHByZV9y
-ZXNldCkpCj4gICAJCQlwcl9lcnIoIkZhaWxlZCB0byBzdXNwZW5kIHByb2Nlc3MgMHgleFxuIiwg
-cC0+cGFzaWQpOwo+ICAgCQlkbWFfZmVuY2Vfc2lnbmFsKHAtPmVmKTsKPiAgIAkJZG1hX2ZlbmNl
-X3B1dChwLT5lZik7Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tm
-ZF9wcm9jZXNzX3F1ZXVlX21hbmFnZXIuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tm
-ZF9wcm9jZXNzX3F1ZXVlX21hbmFnZXIuYwo+IGluZGV4IGQzZWFjZjcyZThkYi4uOGZhODU2ZTZh
-MDNmIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9wcm9jZXNz
-X3F1ZXVlX21hbmFnZXIuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9w
-cm9jZXNzX3F1ZXVlX21hbmFnZXIuYwo+IEBAIC0zNzQsNyArMzc0LDcgQEAgaW50IHBxbV9kZXN0
-cm95X3F1ZXVlKHN0cnVjdCBwcm9jZXNzX3F1ZXVlX21hbmFnZXIgKnBxbSwgdW5zaWduZWQgaW50
-IHFpZCkKPiAgIAkJLyogZGVzdHJveSBrZXJuZWwgcXVldWUgKERJUSkgKi8KPiAgIAkJZHFtID0g
-cHFuLT5rcS0+ZGV2LT5kcW07Cj4gICAJCWRxbS0+b3BzLmRlc3Ryb3lfa2VybmVsX3F1ZXVlKGRx
-bSwgcHFuLT5rcSwgJnBkZC0+cXBkKTsKPiAtCQlrZXJuZWxfcXVldWVfdW5pbml0KHBxbi0+a3Ep
-Owo+ICsJCWtlcm5lbF9xdWV1ZV91bmluaXQocHFuLT5rcSwgZmFsc2UpOwo+ICAgCX0KPiAgIAo+
-ICAgCWlmIChwcW4tPnEpIHsKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5v
-cmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
-Cg==
+--===============0880260330==
+Content-Language: en-CA
+Content-Type: multipart/alternative;
+	boundary="_000_DM6PR12MB32417F69354B176C28AB3ACBF42D0DM6PR12MB3241namp_"
+
+--_000_DM6PR12MB32417F69354B176C28AB3ACBF42D0DM6PR12MB3241namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+Will it looks cleaner if we keep a pre_reset flag in per device structure a=
+nd check it in the function when talk to hw?
+
+Regards
+Shaoyun.liu
+________________________________
+From: Kuehling, Felix <Felix.Kuehling@amd.com>
+Sent: December 19, 2019 9:21:08 PM
+To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>; Liu, Mon=
+k <Monk.Liu@amd.com>; Liu, Shaoyun <Shaoyun.Liu@amd.com>; Grodzovsky, Andre=
+y <Andrey.Grodzovsky@amd.com>
+Subject: Re: [PATCH 1/1] drm/amdkfd: Don't touch the hardware in pre_reset =
+callback
+
+[+Andrey]
+
+Hi Shaoyun, Monk, and Andrey,
+
+I tested this on my bare-metal Vega10 system. GPU reset (using BACO) is
+flaky on this system with and without this patch. The first reset seems
+to work OK, the second one fails in different ways. In theory this
+change should be an improvement as it eliminated at least one failure
+mode (hanging before the actual reset). A least I don't think I'm making
+anything worse.
+
+My test is to run KFDTest and trigger a GPU reset while it's busy with
+the eviction test. This test runs multiple KFD processes and also
+performs graphics memory allocations and command submissions to force
+TTM to evict KFD processes. I trigger the reset by hanging the HWS
+through a debugfs hook:
+
+     # cat /sys/class/kfd/kfd/topology/nodes/1/gpu_id >
+/sys/kernel/debug/kfd/hang_hws
+
+Please give this patch a try and reinstate the pre_reset call before the
+FLR for SRIOV.
+
+Regards,
+   Felix
+
+On 2019-12-19 9:09 p.m., Felix Kuehling wrote:
+> The intention of the pre_reset callback is to update the driver
+> state to reflect that all user mode queues are preempted and the
+> HIQ is destroyed. However we should not actually preempt any queues
+> or otherwise touch the hardware because it is presumably hanging.
+> The impending reset will take care of actually stopping all queues.
+>
+> This should prevent KIQ register access hanging on SRIOV function
+> level reset (FLR). It should also speed up the reset by avoiding
+> unnecessary timeouts from a potentially hanging GPU scheduler.
+>
+> CC: shaoyunl <shaoyun.liu@amd.com>
+> CC: Liu Monk <Monk.Liu@amd.com>
+> Signed-off-by: Felix Kuehling <Felix.Kuehling@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdkfd/kfd_device.c       | 24 ++++++++++-------
+>   .../drm/amd/amdkfd/kfd_device_queue_manager.c | 27 ++++++++++++-------
+>   .../drm/amd/amdkfd/kfd_device_queue_manager.h |  5 ++--
+>   drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.c |  8 +++---
+>   .../gpu/drm/amd/amdkfd/kfd_packet_manager.c   |  4 +--
+>   drivers/gpu/drm/amd/amdkfd/kfd_priv.h         |  8 +++---
+>   drivers/gpu/drm/amd/amdkfd/kfd_process.c      | 11 ++++----
+>   .../amd/amdkfd/kfd_process_queue_manager.c    |  2 +-
+>   8 files changed, 53 insertions(+), 36 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device.c b/drivers/gpu/drm/am=
+d/amdkfd/kfd_device.c
+> index c6b6901bbda3..796996a0d926 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
+> @@ -486,6 +486,7 @@ static int kfd_gtt_sa_init(struct kfd_dev *kfd, unsig=
+ned int buf_size,
+>                                unsigned int chunk_size);
+>   static void kfd_gtt_sa_fini(struct kfd_dev *kfd);
+>
+> +static void kfd_suspend(struct kfd_dev *kfd, bool pre_reset);
+>   static int kfd_resume(struct kfd_dev *kfd);
+>
+>   struct kfd_dev *kgd2kfd_probe(struct kgd_dev *kgd,
+> @@ -728,7 +729,7 @@ int kgd2kfd_pre_reset(struct kfd_dev *kfd)
+>   {
+>        if (!kfd->init_complete)
+>                return 0;
+> -     kgd2kfd_suspend(kfd);
+> +     kfd_suspend(kfd, true);
+>
+>        kfd_signal_reset_event(kfd);
+>        return 0;
+> @@ -767,13 +768,7 @@ void kgd2kfd_suspend(struct kfd_dev *kfd)
+>        if (!kfd->init_complete)
+>                return;
+>
+> -     /* For first KFD device suspend all the KFD processes */
+> -     if (atomic_inc_return(&kfd_locked) =3D=3D 1)
+> -             kfd_suspend_all_processes();
+> -
+> -     kfd->dqm->ops.stop(kfd->dqm);
+> -
+> -     kfd_iommu_suspend(kfd);
+> +     kfd_suspend(kfd, false);
+>   }
+>
+>   int kgd2kfd_resume(struct kfd_dev *kfd)
+> @@ -795,6 +790,17 @@ int kgd2kfd_resume(struct kfd_dev *kfd)
+>        return ret;
+>   }
+>
+> +static void kfd_suspend(struct kfd_dev *kfd, bool pre_reset)
+> +{
+> +     /* For first KFD device suspend all the KFD processes */
+> +     if (atomic_inc_return(&kfd_locked) =3D=3D 1)
+> +             kfd_suspend_all_processes(pre_reset);
+> +
+> +     kfd->dqm->ops.stop(kfd->dqm, pre_reset);
+> +
+> +     kfd_iommu_suspend(kfd);
+> +}
+> +
+>   static int kfd_resume(struct kfd_dev *kfd)
+>   {
+>        int err =3D 0;
+> @@ -877,7 +883,7 @@ int kgd2kfd_quiesce_mm(struct mm_struct *mm)
+>        if (!p)
+>                return -ESRCH;
+>
+> -     r =3D kfd_process_evict_queues(p);
+> +     r =3D kfd_process_evict_queues(p, false);
+>
+>        kfd_unref_process(p);
+>        return r;
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/driv=
+ers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+> index f7f6df40875e..3a49944164da 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+> @@ -592,7 +592,8 @@ static int update_queue(struct device_queue_manager *=
+dqm, struct queue *q)
+>   }
+>
+>   static int evict_process_queues_nocpsch(struct device_queue_manager *dq=
+m,
+> -                                     struct qcm_process_device *qpd)
+> +                                     struct qcm_process_device *qpd,
+> +                                     bool pre_reset)
+>   {
+>        struct queue *q;
+>        struct mqd_manager *mqd_mgr;
+> @@ -622,6 +623,8 @@ static int evict_process_queues_nocpsch(struct device=
+_queue_manager *dqm,
+>
+>                if (WARN_ONCE(!dqm->sched_running, "Evict when stopped\n")=
+)
+>                        continue;
+> +             if (pre_reset)
+> +                     continue;
+>
+>                retval =3D mqd_mgr->destroy_mqd(mqd_mgr, q->mqd,
+>                                KFD_PREEMPT_TYPE_WAVEFRONT_DRAIN,
+> @@ -639,7 +642,8 @@ static int evict_process_queues_nocpsch(struct device=
+_queue_manager *dqm,
+>   }
+>
+>   static int evict_process_queues_cpsch(struct device_queue_manager *dqm,
+> -                                   struct qcm_process_device *qpd)
+> +                                   struct qcm_process_device *qpd,
+> +                                   bool pre_reset)
+>   {
+>        struct queue *q;
+>        struct kfd_process_device *pdd;
+> @@ -664,6 +668,10 @@ static int evict_process_queues_cpsch(struct device_=
+queue_manager *dqm,
+>                q->properties.is_active =3D false;
+>                dqm->queue_count--;
+>        }
+> +
+> +     if (pre_reset)
+> +             goto out;
+> +
+>        retval =3D execute_queues_cpsch(dqm,
+>                                qpd->is_debug ?
+>                                KFD_UNMAP_QUEUES_FILTER_ALL_QUEUES :
+> @@ -944,10 +952,10 @@ static int start_nocpsch(struct device_queue_manage=
+r *dqm)
+>        return 0;
+>   }
+>
+> -static int stop_nocpsch(struct device_queue_manager *dqm)
+> +static int stop_nocpsch(struct device_queue_manager *dqm, bool pre_reset=
+)
+>   {
+>        if (dqm->dev->device_info->asic_family =3D=3D CHIP_HAWAII)
+> -             pm_uninit(&dqm->packets);
+> +             pm_uninit(&dqm->packets, pre_reset);
+>        dqm->sched_running =3D false;
+>
+>        return 0;
+> @@ -1107,20 +1115,21 @@ static int start_cpsch(struct device_queue_manage=
+r *dqm)
+>        return 0;
+>   fail_allocate_vidmem:
+>   fail_set_sched_resources:
+> -     pm_uninit(&dqm->packets);
+> +     pm_uninit(&dqm->packets, false);
+>   fail_packet_manager_init:
+>        return retval;
+>   }
+>
+> -static int stop_cpsch(struct device_queue_manager *dqm)
+> +static int stop_cpsch(struct device_queue_manager *dqm, bool pre_reset)
+>   {
+>        dqm_lock(dqm);
+> -     unmap_queues_cpsch(dqm, KFD_UNMAP_QUEUES_FILTER_ALL_QUEUES, 0);
+> +     if (!pre_reset)
+> +             unmap_queues_cpsch(dqm, KFD_UNMAP_QUEUES_FILTER_ALL_QUEUES,=
+ 0);
+>        dqm->sched_running =3D false;
+>        dqm_unlock(dqm);
+>
+>        kfd_gtt_sa_free(dqm->dev, dqm->fence_mem);
+> -     pm_uninit(&dqm->packets);
+> +     pm_uninit(&dqm->packets, pre_reset);
+>
+>        return 0;
+>   }
+> @@ -1891,7 +1900,7 @@ int kfd_process_vm_fault(struct device_queue_manage=
+r *dqm,
+>                return -EINVAL;
+>        pdd =3D kfd_get_process_device_data(dqm->dev, p);
+>        if (pdd)
+> -             ret =3D dqm->ops.evict_process_queues(dqm, &pdd->qpd);
+> +             ret =3D dqm->ops.evict_process_queues(dqm, &pdd->qpd, false=
+);
+>        kfd_unref_process(p);
+>
+>        return ret;
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h b/driv=
+ers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h
+> index a8c37e6da027..9f82f95f6a92 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h
+> @@ -103,7 +103,7 @@ struct device_queue_manager_ops {
+>
+>        int     (*initialize)(struct device_queue_manager *dqm);
+>        int     (*start)(struct device_queue_manager *dqm);
+> -     int     (*stop)(struct device_queue_manager *dqm);
+> +     int     (*stop)(struct device_queue_manager *dqm, bool pre_reset);
+>        void    (*uninitialize)(struct device_queue_manager *dqm);
+>        int     (*create_kernel_queue)(struct device_queue_manager *dqm,
+>                                        struct kernel_queue *kq,
+> @@ -129,7 +129,8 @@ struct device_queue_manager_ops {
+>                        struct qcm_process_device *qpd);
+>
+>        int (*evict_process_queues)(struct device_queue_manager *dqm,
+> -                                 struct qcm_process_device *qpd);
+> +                                 struct qcm_process_device *qpd,
+> +                                 bool pre_reset);
+>        int (*restore_process_queues)(struct device_queue_manager *dqm,
+>                                      struct qcm_process_device *qpd);
+>
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.c b/drivers/gpu/=
+drm/amd/amdkfd/kfd_kernel_queue.c
+> index 2d56dc534459..dbd2e8e9ae69 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.c
+> @@ -195,9 +195,9 @@ static bool kq_initialize(struct kernel_queue *kq, st=
+ruct kfd_dev *dev,
+>   }
+>
+>   /* Uninitialize a kernel queue and free all its memory usages. */
+> -static void kq_uninitialize(struct kernel_queue *kq)
+> +static void kq_uninitialize(struct kernel_queue *kq, bool pre_reset)
+>   {
+> -     if (kq->queue->properties.type =3D=3D KFD_QUEUE_TYPE_HIQ)
+> +     if (kq->queue->properties.type =3D=3D KFD_QUEUE_TYPE_HIQ && !pre_re=
+set)
+>                kq->mqd_mgr->destroy_mqd(kq->mqd_mgr,
+>                                        kq->queue->mqd,
+>                                        KFD_PREEMPT_TYPE_WAVEFRONT_RESET,
+> @@ -337,9 +337,9 @@ struct kernel_queue *kernel_queue_init(struct kfd_dev=
+ *dev,
+>        return NULL;
+>   }
+>
+> -void kernel_queue_uninit(struct kernel_queue *kq)
+> +void kernel_queue_uninit(struct kernel_queue *kq, bool pre_reset)
+>   {
+> -     kq_uninitialize(kq);
+> +     kq_uninitialize(kq, pre_reset);
+>        kfree(kq);
+>   }
+>
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager.c b/drivers/gp=
+u/drm/amd/amdkfd/kfd_packet_manager.c
+> index 6cabed06ef5d..7732a3bbebd6 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager.c
+> @@ -264,10 +264,10 @@ int pm_init(struct packet_manager *pm, struct devic=
+e_queue_manager *dqm)
+>        return 0;
+>   }
+>
+> -void pm_uninit(struct packet_manager *pm)
+> +void pm_uninit(struct packet_manager *pm, bool pre_reset)
+>   {
+>        mutex_destroy(&pm->lock);
+> -     kernel_queue_uninit(pm->priv_queue);
+> +     kernel_queue_uninit(pm->priv_queue, pre_reset);
+>   }
+>
+>   int pm_send_set_resources(struct packet_manager *pm,
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/=
+amdkfd/kfd_priv.h
+> index 087e96838997..9bc4ced4acba 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+> @@ -762,9 +762,9 @@ struct kfd_process *kfd_get_process(const struct task=
+_struct *);
+>   struct kfd_process *kfd_lookup_process_by_pasid(unsigned int pasid);
+>   struct kfd_process *kfd_lookup_process_by_mm(const struct mm_struct *mm=
+);
+>   void kfd_unref_process(struct kfd_process *p);
+> -int kfd_process_evict_queues(struct kfd_process *p);
+> +int kfd_process_evict_queues(struct kfd_process *p, bool pre_reset);
+>   int kfd_process_restore_queues(struct kfd_process *p);
+> -void kfd_suspend_all_processes(void);
+> +void kfd_suspend_all_processes(bool pre_reset);
+>   int kfd_resume_all_processes(void);
+>
+>   int kfd_process_device_init_vm(struct kfd_process_device *pdd,
+> @@ -883,7 +883,7 @@ struct device_queue_manager *device_queue_manager_ini=
+t(struct kfd_dev *dev);
+>   void device_queue_manager_uninit(struct device_queue_manager *dqm);
+>   struct kernel_queue *kernel_queue_init(struct kfd_dev *dev,
+>                                        enum kfd_queue_type type);
+> -void kernel_queue_uninit(struct kernel_queue *kq);
+> +void kernel_queue_uninit(struct kernel_queue *kq, bool pre_reset);
+>   int kfd_process_vm_fault(struct device_queue_manager *dqm, unsigned int=
+ pasid);
+>
+>   /* Process Queue Manager */
+> @@ -974,7 +974,7 @@ extern const struct packet_manager_funcs kfd_vi_pm_fu=
+ncs;
+>   extern const struct packet_manager_funcs kfd_v9_pm_funcs;
+>
+>   int pm_init(struct packet_manager *pm, struct device_queue_manager *dqm=
+);
+> -void pm_uninit(struct packet_manager *pm);
+> +void pm_uninit(struct packet_manager *pm, bool pre_reset);
+>   int pm_send_set_resources(struct packet_manager *pm,
+>                                struct scheduling_resources *res);
+>   int pm_send_runlist(struct packet_manager *pm, struct list_head *dqm_qu=
+eues);
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/a=
+md/amdkfd/kfd_process.c
+> index 536a153ac9a4..7bcadd3a1e3b 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+> @@ -948,7 +948,7 @@ struct kfd_process *kfd_lookup_process_by_mm(const st=
+ruct mm_struct *mm)
+>    * Eviction is reference-counted per process-device. This means multipl=
+e
+>    * evictions from different sources can be nested safely.
+>    */
+> -int kfd_process_evict_queues(struct kfd_process *p)
+> +int kfd_process_evict_queues(struct kfd_process *p, bool pre_reset)
+>   {
+>        struct kfd_process_device *pdd;
+>        int r =3D 0;
+> @@ -956,7 +956,8 @@ int kfd_process_evict_queues(struct kfd_process *p)
+>
+>        list_for_each_entry(pdd, &p->per_device_data, per_device_list) {
+>                r =3D pdd->dev->dqm->ops.evict_process_queues(pdd->dev->dq=
+m,
+> -                                                         &pdd->qpd);
+> +                                                         &pdd->qpd,
+> +                                                         pre_reset);
+>                if (r) {
+>                        pr_err("Failed to evict process queues\n");
+>                        goto fail;
+> @@ -1026,7 +1027,7 @@ static void evict_process_worker(struct work_struct=
+ *work)
+>        flush_delayed_work(&p->restore_work);
+>
+>        pr_debug("Started evicting pasid 0x%x\n", p->pasid);
+> -     ret =3D kfd_process_evict_queues(p);
+> +     ret =3D kfd_process_evict_queues(p, false);
+>        if (!ret) {
+>                dma_fence_signal(p->ef);
+>                dma_fence_put(p->ef);
+> @@ -1082,7 +1083,7 @@ static void restore_process_worker(struct work_stru=
+ct *work)
+>                pr_err("Failed to restore queues of pasid 0x%x\n", p->pasi=
+d);
+>   }
+>
+> -void kfd_suspend_all_processes(void)
+> +void kfd_suspend_all_processes(bool pre_reset)
+>   {
+>        struct kfd_process *p;
+>        unsigned int temp;
+> @@ -1092,7 +1093,7 @@ void kfd_suspend_all_processes(void)
+>                cancel_delayed_work_sync(&p->eviction_work);
+>                cancel_delayed_work_sync(&p->restore_work);
+>
+> -             if (kfd_process_evict_queues(p))
+> +             if (kfd_process_evict_queues(p, pre_reset))
+>                        pr_err("Failed to suspend process 0x%x\n", p->pasi=
+d);
+>                dma_fence_signal(p->ef);
+>                dma_fence_put(p->ef);
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c b/dri=
+vers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
+> index d3eacf72e8db..8fa856e6a03f 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
+> @@ -374,7 +374,7 @@ int pqm_destroy_queue(struct process_queue_manager *p=
+qm, unsigned int qid)
+>                /* destroy kernel queue (DIQ) */
+>                dqm =3D pqn->kq->dev->dqm;
+>                dqm->ops.destroy_kernel_queue(dqm, pqn->kq, &pdd->qpd);
+> -             kernel_queue_uninit(pqn->kq);
+> +             kernel_queue_uninit(pqn->kq, false);
+>        }
+>
+>        if (pqn->q) {
+
+--_000_DM6PR12MB32417F69354B176C28AB3ACBF42D0DM6PR12MB3241namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+</head>
+<body>
+Will it looks cleaner if we keep a pre_reset flag in per device structure a=
+nd check it in the function when talk to hw?<br>
+<br>
+Regards<br>
+Shaoyun.liu
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Kuehling, Felix &lt;F=
+elix.Kuehling@amd.com&gt;<br>
+<b>Sent:</b> December 19, 2019 9:21:08 PM<br>
+<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
+gt;; Liu, Monk &lt;Monk.Liu@amd.com&gt;; Liu, Shaoyun &lt;Shaoyun.Liu@amd.c=
+om&gt;; Grodzovsky, Andrey &lt;Andrey.Grodzovsky@amd.com&gt;<br>
+<b>Subject:</b> Re: [PATCH 1/1] drm/amdkfd: Don't touch the hardware in pre=
+_reset callback</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">[&#43;Andrey]<br>
+<br>
+Hi Shaoyun, Monk, and Andrey,<br>
+<br>
+I tested this on my bare-metal Vega10 system. GPU reset (using BACO) is <br=
+>
+flaky on this system with and without this patch. The first reset seems <br=
+>
+to work OK, the second one fails in different ways. In theory this <br>
+change should be an improvement as it eliminated at least one failure <br>
+mode (hanging before the actual reset). A least I don't think I'm making <b=
+r>
+anything worse.<br>
+<br>
+My test is to run KFDTest and trigger a GPU reset while it's busy with <br>
+the eviction test. This test runs multiple KFD processes and also <br>
+performs graphics memory allocations and command submissions to force <br>
+TTM to evict KFD processes. I trigger the reset by hanging the HWS <br>
+through a debugfs hook:<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp; # cat /sys/class/kfd/kfd/topology/nodes/1/gpu_id &=
+gt; <br>
+/sys/kernel/debug/kfd/hang_hws<br>
+<br>
+Please give this patch a try and reinstate the pre_reset call before the <b=
+r>
+FLR for SRIOV.<br>
+<br>
+Regards,<br>
+&nbsp;&nbsp; Felix<br>
+<br>
+On 2019-12-19 9:09 p.m., Felix Kuehling wrote:<br>
+&gt; The intention of the pre_reset callback is to update the driver<br>
+&gt; state to reflect that all user mode queues are preempted and the<br>
+&gt; HIQ is destroyed. However we should not actually preempt any queues<br=
+>
+&gt; or otherwise touch the hardware because it is presumably hanging.<br>
+&gt; The impending reset will take care of actually stopping all queues.<br=
+>
+&gt;<br>
+&gt; This should prevent KIQ register access hanging on SRIOV function<br>
+&gt; level reset (FLR). It should also speed up the reset by avoiding<br>
+&gt; unnecessary timeouts from a potentially hanging GPU scheduler.<br>
+&gt;<br>
+&gt; CC: shaoyunl &lt;shaoyun.liu@amd.com&gt;<br>
+&gt; CC: Liu Monk &lt;Monk.Liu@amd.com&gt;<br>
+&gt; Signed-off-by: Felix Kuehling &lt;Felix.Kuehling@amd.com&gt;<br>
+&gt; ---<br>
+&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdkfd/kfd_device.c&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp; | 24 &#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;--=
+-----<br>
+&gt;&nbsp;&nbsp; .../drm/amd/amdkfd/kfd_device_queue_manager.c | 27 &#43;&#=
+43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;-------<br>
+&gt;&nbsp;&nbsp; .../drm/amd/amdkfd/kfd_device_queue_manager.h |&nbsp; 5 &#=
+43;&#43;--<br>
+&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.c |&nbsp; 8 &#=
+43;&#43;&#43;---<br>
+&gt;&nbsp;&nbsp; .../gpu/drm/amd/amdkfd/kfd_packet_manager.c&nbsp;&nbsp; |&=
+nbsp; 4 &#43;--<br>
+&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdkfd/kfd_priv.h&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp; 8 &#43;&#43;&#43;---<br>
+&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdkfd/kfd_process.c&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp; | 11 &#43;&#43;&#43;&#43;----<br>
+&gt;&nbsp;&nbsp; .../amd/amdkfd/kfd_process_queue_manager.c&nbsp;&nbsp;&nbs=
+p; |&nbsp; 2 &#43;-<br>
+&gt;&nbsp;&nbsp; 8 files changed, 53 insertions(&#43;), 36 deletions(-)<br>
+&gt;<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device.c b/drivers/gpu/drm=
+/amd/amdkfd/kfd_device.c<br>
+&gt; index c6b6901bbda3..796996a0d926 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdkfd/kfd_device.c<br>
+&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdkfd/kfd_device.c<br>
+&gt; @@ -486,6 &#43;486,7 @@ static int kfd_gtt_sa_init(struct kfd_dev *kfd=
+, unsigned int buf_size,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unsigned int chunk_size);<br>
+&gt;&nbsp;&nbsp; static void kfd_gtt_sa_fini(struct kfd_dev *kfd);<br>
+&gt;&nbsp;&nbsp; <br>
+&gt; &#43;static void kfd_suspend(struct kfd_dev *kfd, bool pre_reset);<br>
+&gt;&nbsp;&nbsp; static int kfd_resume(struct kfd_dev *kfd);<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp; struct kfd_dev *kgd2kfd_probe(struct kgd_dev *kgd,<br>
+&gt; @@ -728,7 &#43;729,7 @@ int kgd2kfd_pre_reset(struct kfd_dev *kfd)<br>
+&gt;&nbsp;&nbsp; {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!kfd-&gt;init_complete)<=
+br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; return 0;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; kgd2kfd_suspend(kfd);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; kfd_suspend(kfd, true);<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfd_signal_reset_event(kfd);=
+<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+&gt; @@ -767,13 &#43;768,7 @@ void kgd2kfd_suspend(struct kfd_dev *kfd)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!kfd-&gt;init_complete)<=
+br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; return;<br>
+&gt;&nbsp;&nbsp; <br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; /* For first KFD device suspend all the KFD =
+processes */<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; if (atomic_inc_return(&amp;kfd_locked) =3D=
+=3D 1)<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; kfd_suspend_all_processes();<br>
+&gt; -<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; kfd-&gt;dqm-&gt;ops.stop(kfd-&gt;dqm);<br>
+&gt; -<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; kfd_iommu_suspend(kfd);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; kfd_suspend(kfd, false);<br>
+&gt;&nbsp;&nbsp; }<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp; int kgd2kfd_resume(struct kfd_dev *kfd)<br>
+&gt; @@ -795,6 &#43;790,17 @@ int kgd2kfd_resume(struct kfd_dev *kfd)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret;<br>
+&gt;&nbsp;&nbsp; }<br>
+&gt;&nbsp;&nbsp; <br>
+&gt; &#43;static void kfd_suspend(struct kfd_dev *kfd, bool pre_reset)<br>
+&gt; &#43;{<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; /* For first KFD device suspend all the =
+KFD processes */<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; if (atomic_inc_return(&amp;kfd_locked) =
+=3D=3D 1)<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; kfd_suspend_all_processes(pre_reset);<br>
+&gt; &#43;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; kfd-&gt;dqm-&gt;ops.stop(kfd-&gt;dqm, pr=
+e_reset);<br>
+&gt; &#43;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; kfd_iommu_suspend(kfd);<br>
+&gt; &#43;}<br>
+&gt; &#43;<br>
+&gt;&nbsp;&nbsp; static int kfd_resume(struct kfd_dev *kfd)<br>
+&gt;&nbsp;&nbsp; {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int err =3D 0;<br>
+&gt; @@ -877,7 &#43;883,7 @@ int kgd2kfd_quiesce_mm(struct mm_struct *mm)<b=
+r>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!p)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; return -ESRCH;<br>
+&gt;&nbsp;&nbsp; <br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; r =3D kfd_process_evict_queues(p);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; r =3D kfd_process_evict_queues(p, false)=
+;<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfd_unref_process(p);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return r;<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/d=
+rivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c<br>
+&gt; index f7f6df40875e..3a49944164da 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c<br>
+&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.=
+c<br>
+&gt; @@ -592,7 &#43;592,8 @@ static int update_queue(struct device_queue_ma=
+nager *dqm, struct queue *q)<br>
+&gt;&nbsp;&nbsp; }<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp; static int evict_process_queues_nocpsch(struct device_queu=
+e_manager *dqm,<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; st=
+ruct qcm_process_device *qpd)<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+; struct qcm_process_device *qpd,<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+; bool pre_reset)<br>
+&gt;&nbsp;&nbsp; {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct queue *q;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct mqd_manager *mqd_mgr;=
+<br>
+&gt; @@ -622,6 &#43;623,8 @@ static int evict_process_queues_nocpsch(struct=
+ device_queue_manager *dqm,<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; if (WARN_ONCE(!dqm-&gt;sched_running, &quot;Evict when =
+stopped\n&quot;))<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; continu=
+e;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; if (pre_reset)<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; continue;<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; retval =3D mqd_mgr-&gt;destroy_mqd(mqd_mgr, q-&gt;mqd,<=
+br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; KFD_PREEMPT_TYPE_WAVEFRONT_DRAIN,<=
+br>
+&gt; @@ -639,7 &#43;642,8 @@ static int evict_process_queues_nocpsch(struct=
+ device_queue_manager *dqm,<br>
+&gt;&nbsp;&nbsp; }<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp; static int evict_process_queues_cpsch(struct device_queue_=
+manager *dqm,<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct qcm_pro=
+cess_device *qpd)<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct qcm=
+_process_device *qpd,<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool pre_r=
+eset)<br>
+&gt;&nbsp;&nbsp; {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct queue *q;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct kfd_process_device *p=
+dd;<br>
+&gt; @@ -664,6 &#43;668,10 @@ static int evict_process_queues_cpsch(struct =
+device_queue_manager *dqm,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; q-&gt;properties.is_active =3D false;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; dqm-&gt;queue_count--;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt; &#43;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; if (pre_reset)<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; goto out;<br>
+&gt; &#43;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; retval =3D execute_queues_cp=
+sch(dqm,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; qpd-&gt;is_debug ?<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; KFD_UNMAP_QUEUES_FILTER_ALL_QUEUES=
+ :<br>
+&gt; @@ -944,10 &#43;952,10 @@ static int start_nocpsch(struct device_queue=
+_manager *dqm)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+&gt;&nbsp;&nbsp; }<br>
+&gt;&nbsp;&nbsp; <br>
+&gt; -static int stop_nocpsch(struct device_queue_manager *dqm)<br>
+&gt; &#43;static int stop_nocpsch(struct device_queue_manager *dqm, bool pr=
+e_reset)<br>
+&gt;&nbsp;&nbsp; {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (dqm-&gt;dev-&gt;device_i=
+nfo-&gt;asic_family =3D=3D CHIP_HAWAII)<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; pm_uninit(&amp;dqm-&gt;packets);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; pm_uninit(&amp;dqm-&gt;packets, pre_reset);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dqm-&gt;sched_running =3D fa=
+lse;<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+&gt; @@ -1107,20 &#43;1115,21 @@ static int start_cpsch(struct device_queue=
+_manager *dqm)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+&gt;&nbsp;&nbsp; fail_allocate_vidmem:<br>
+&gt;&nbsp;&nbsp; fail_set_sched_resources:<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; pm_uninit(&amp;dqm-&gt;packets);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; pm_uninit(&amp;dqm-&gt;packets, false);<=
+br>
+&gt;&nbsp;&nbsp; fail_packet_manager_init:<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return retval;<br>
+&gt;&nbsp;&nbsp; }<br>
+&gt;&nbsp;&nbsp; <br>
+&gt; -static int stop_cpsch(struct device_queue_manager *dqm)<br>
+&gt; &#43;static int stop_cpsch(struct device_queue_manager *dqm, bool pre_=
+reset)<br>
+&gt;&nbsp;&nbsp; {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dqm_lock(dqm);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; unmap_queues_cpsch(dqm, KFD_UNMAP_QUEUES_FIL=
+TER_ALL_QUEUES, 0);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; if (!pre_reset)<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; unmap_queues_cpsch(dqm, KFD_UNMAP_QUEUES_FILTER_ALL_QUEUES, 0);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dqm-&gt;sched_running =3D fa=
+lse;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dqm_unlock(dqm);<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfd_gtt_sa_free(dqm-&gt;dev,=
+ dqm-&gt;fence_mem);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; pm_uninit(&amp;dqm-&gt;packets);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; pm_uninit(&amp;dqm-&gt;packets, pre_rese=
+t);<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+&gt;&nbsp;&nbsp; }<br>
+&gt; @@ -1891,7 &#43;1900,7 @@ int kfd_process_vm_fault(struct device_queue=
+_manager *dqm,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; return -EINVAL;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pdd =3D kfd_get_process_devi=
+ce_data(dqm-&gt;dev, p);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (pdd)<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; ret =3D dqm-&gt;ops.evict_process_queues(dqm, &amp;pdd-&gt;qpd);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; ret =3D dqm-&gt;ops.evict_process_queues(dqm, &amp;pdd-&gt;qpd, fal=
+se);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfd_unref_process(p);<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret;<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h b/d=
+rivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h<br>
+&gt; index a8c37e6da027..9f82f95f6a92 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h<br>
+&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.=
+h<br>
+&gt; @@ -103,7 &#43;103,7 @@ struct device_queue_manager_ops {<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int&nbsp;&nbsp;&nbsp;&nbsp; =
+(*initialize)(struct device_queue_manager *dqm);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int&nbsp;&nbsp;&nbsp;&nbsp; =
+(*start)(struct device_queue_manager *dqm);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; int&nbsp;&nbsp;&nbsp;&nbsp; (*stop)(struct d=
+evice_queue_manager *dqm);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; int&nbsp;&nbsp;&nbsp;&nbsp; (*stop)(stru=
+ct device_queue_manager *dqm, bool pre_reset);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; void&nbsp;&nbsp;&nbsp; (*uni=
+nitialize)(struct device_queue_manager *dqm);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int&nbsp;&nbsp;&nbsp;&nbsp; =
+(*create_kernel_queue)(struct device_queue_manager *dqm,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; struct kernel_queue *kq,<br>
+&gt; @@ -129,7 &#43;129,8 @@ struct device_queue_manager_ops {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct =
+qcm_process_device *qpd);<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int (*evict_process_queues)(=
+struct device_queue_manager *dqm,<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct qcm_process_device =
+*qpd);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct qcm_process_dev=
+ice *qpd,<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool pre_reset);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int (*restore_process_queues=
+)(struct device_queue_manager *dqm,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+; struct qcm_process_device *qpd);<br>
+&gt;&nbsp;&nbsp; <br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.c b/drivers/g=
+pu/drm/amd/amdkfd/kfd_kernel_queue.c<br>
+&gt; index 2d56dc534459..dbd2e8e9ae69 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.c<br>
+&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.c<br>
+&gt; @@ -195,9 &#43;195,9 @@ static bool kq_initialize(struct kernel_queue =
+*kq, struct kfd_dev *dev,<br>
+&gt;&nbsp;&nbsp; }<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp; /* Uninitialize a kernel queue and free all its memory usa=
+ges. */<br>
+&gt; -static void kq_uninitialize(struct kernel_queue *kq)<br>
+&gt; &#43;static void kq_uninitialize(struct kernel_queue *kq, bool pre_res=
+et)<br>
+&gt;&nbsp;&nbsp; {<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; if (kq-&gt;queue-&gt;properties.type =3D=3D =
+KFD_QUEUE_TYPE_HIQ)<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; if (kq-&gt;queue-&gt;properties.type =3D=
+=3D KFD_QUEUE_TYPE_HIQ &amp;&amp; !pre_reset)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; kq-&gt;mqd_mgr-&gt;destroy_mqd(kq-&gt;mqd_mgr,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; kq-&gt;queue-&gt;mqd,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; KFD_PREEMPT_TYPE_WAVEFRONT_RESET,<br>
+&gt; @@ -337,9 &#43;337,9 @@ struct kernel_queue *kernel_queue_init(struct =
+kfd_dev *dev,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return NULL;<br>
+&gt;&nbsp;&nbsp; }<br>
+&gt;&nbsp;&nbsp; <br>
+&gt; -void kernel_queue_uninit(struct kernel_queue *kq)<br>
+&gt; &#43;void kernel_queue_uninit(struct kernel_queue *kq, bool pre_reset)=
+<br>
+&gt;&nbsp;&nbsp; {<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; kq_uninitialize(kq);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; kq_uninitialize(kq, pre_reset);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfree(kq);<br>
+&gt;&nbsp;&nbsp; }<br>
+&gt;&nbsp;&nbsp; <br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager.c b/drivers=
+/gpu/drm/amd/amdkfd/kfd_packet_manager.c<br>
+&gt; index 6cabed06ef5d..7732a3bbebd6 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager.c<br>
+&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager.c<br>
+&gt; @@ -264,10 &#43;264,10 @@ int pm_init(struct packet_manager *pm, struc=
+t device_queue_manager *dqm)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+&gt;&nbsp;&nbsp; }<br>
+&gt;&nbsp;&nbsp; <br>
+&gt; -void pm_uninit(struct packet_manager *pm)<br>
+&gt; &#43;void pm_uninit(struct packet_manager *pm, bool pre_reset)<br>
+&gt;&nbsp;&nbsp; {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_destroy(&amp;pm-&gt;lo=
+ck);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; kernel_queue_uninit(pm-&gt;priv_queue);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; kernel_queue_uninit(pm-&gt;priv_queue, p=
+re_reset);<br>
+&gt;&nbsp;&nbsp; }<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp; int pm_send_set_resources(struct packet_manager *pm,<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/a=
+md/amdkfd/kfd_priv.h<br>
+&gt; index 087e96838997..9bc4ced4acba 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h<br>
+&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h<br>
+&gt; @@ -762,9 &#43;762,9 @@ struct kfd_process *kfd_get_process(const stru=
+ct task_struct *);<br>
+&gt;&nbsp;&nbsp; struct kfd_process *kfd_lookup_process_by_pasid(unsigned i=
+nt pasid);<br>
+&gt;&nbsp;&nbsp; struct kfd_process *kfd_lookup_process_by_mm(const struct =
+mm_struct *mm);<br>
+&gt;&nbsp;&nbsp; void kfd_unref_process(struct kfd_process *p);<br>
+&gt; -int kfd_process_evict_queues(struct kfd_process *p);<br>
+&gt; &#43;int kfd_process_evict_queues(struct kfd_process *p, bool pre_rese=
+t);<br>
+&gt;&nbsp;&nbsp; int kfd_process_restore_queues(struct kfd_process *p);<br>
+&gt; -void kfd_suspend_all_processes(void);<br>
+&gt; &#43;void kfd_suspend_all_processes(bool pre_reset);<br>
+&gt;&nbsp;&nbsp; int kfd_resume_all_processes(void);<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp; int kfd_process_device_init_vm(struct kfd_process_device *=
+pdd,<br>
+&gt; @@ -883,7 &#43;883,7 @@ struct device_queue_manager *device_queue_mana=
+ger_init(struct kfd_dev *dev);<br>
+&gt;&nbsp;&nbsp; void device_queue_manager_uninit(struct device_queue_manag=
+er *dqm);<br>
+&gt;&nbsp;&nbsp; struct kernel_queue *kernel_queue_init(struct kfd_dev *dev=
+,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; enum kfd_queue_type type);<br>
+&gt; -void kernel_queue_uninit(struct kernel_queue *kq);<br>
+&gt; &#43;void kernel_queue_uninit(struct kernel_queue *kq, bool pre_reset)=
+;<br>
+&gt;&nbsp;&nbsp; int kfd_process_vm_fault(struct device_queue_manager *dqm,=
+ unsigned int pasid);<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp; /* Process Queue Manager */<br>
+&gt; @@ -974,7 &#43;974,7 @@ extern const struct packet_manager_funcs kfd_v=
+i_pm_funcs;<br>
+&gt;&nbsp;&nbsp; extern const struct packet_manager_funcs kfd_v9_pm_funcs;<=
+br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp; int pm_init(struct packet_manager *pm, struct device_queue=
+_manager *dqm);<br>
+&gt; -void pm_uninit(struct packet_manager *pm);<br>
+&gt; &#43;void pm_uninit(struct packet_manager *pm, bool pre_reset);<br>
+&gt;&nbsp;&nbsp; int pm_send_set_resources(struct packet_manager *pm,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct scheduling_resources *res);=
+<br>
+&gt;&nbsp;&nbsp; int pm_send_runlist(struct packet_manager *pm, struct list=
+_head *dqm_queues);<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/dr=
+m/amd/amdkfd/kfd_process.c<br>
+&gt; index 536a153ac9a4..7bcadd3a1e3b 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c<br>
+&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdkfd/kfd_process.c<br>
+&gt; @@ -948,7 &#43;948,7 @@ struct kfd_process *kfd_lookup_process_by_mm(c=
+onst struct mm_struct *mm)<br>
+&gt;&nbsp;&nbsp;&nbsp; * Eviction is reference-counted per process-device. =
+This means multiple<br>
+&gt;&nbsp;&nbsp;&nbsp; * evictions from different sources can be nested saf=
+ely.<br>
+&gt;&nbsp;&nbsp;&nbsp; */<br>
+&gt; -int kfd_process_evict_queues(struct kfd_process *p)<br>
+&gt; &#43;int kfd_process_evict_queues(struct kfd_process *p, bool pre_rese=
+t)<br>
+&gt;&nbsp;&nbsp; {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct kfd_process_device *p=
+dd;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int r =3D 0;<br>
+&gt; @@ -956,7 &#43;956,8 @@ int kfd_process_evict_queues(struct kfd_proces=
+s *p)<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; list_for_each_entry(pdd, &am=
+p;p-&gt;per_device_data, per_device_list) {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; r =3D pdd-&gt;dev-&gt;dqm-&gt;ops.evict_process_queues(=
+pdd-&gt;dev-&gt;dqm,<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &amp;pdd-&gt;qpd);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &amp;pdd-&gt;qpd,<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pre_reset);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; if (r) {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pr_err(=
+&quot;Failed to evict process queues\n&quot;);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; goto fa=
+il;<br>
+&gt; @@ -1026,7 &#43;1027,7 @@ static void evict_process_worker(struct work=
+_struct *work)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; flush_delayed_work(&amp;p-&g=
+t;restore_work);<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pr_debug(&quot;Started evict=
+ing pasid 0x%x\n&quot;, p-&gt;pasid);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; ret =3D kfd_process_evict_queues(p);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D kfd_process_evict_queues(p, fals=
+e);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!ret) {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; dma_fence_signal(p-&gt;ef);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; dma_fence_put(p-&gt;ef);<br>
+&gt; @@ -1082,7 &#43;1083,7 @@ static void restore_process_worker(struct wo=
+rk_struct *work)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; pr_err(&quot;Failed to restore queues of pasid 0x%x\n&q=
+uot;, p-&gt;pasid);<br>
+&gt;&nbsp;&nbsp; }<br>
+&gt;&nbsp;&nbsp; <br>
+&gt; -void kfd_suspend_all_processes(void)<br>
+&gt; &#43;void kfd_suspend_all_processes(bool pre_reset)<br>
+&gt;&nbsp;&nbsp; {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct kfd_process *p;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unsigned int temp;<br>
+&gt; @@ -1092,7 &#43;1093,7 @@ void kfd_suspend_all_processes(void)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; cancel_delayed_work_sync(&amp;p-&gt;eviction_work);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; cancel_delayed_work_sync(&amp;p-&gt;restore_work);<br>
+&gt;&nbsp;&nbsp; <br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; if (kfd_process_evict_queues(p))<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; if (kfd_process_evict_queues(p, pre_reset))<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pr_err(=
+&quot;Failed to suspend process 0x%x\n&quot;, p-&gt;pasid);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; dma_fence_signal(p-&gt;ef);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; dma_fence_put(p-&gt;ef);<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c b/=
+drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c<br>
+&gt; index d3eacf72e8db..8fa856e6a03f 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c<br>
+&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager=
+.c<br>
+&gt; @@ -374,7 &#43;374,7 @@ int pqm_destroy_queue(struct process_queue_man=
+ager *pqm, unsigned int qid)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; /* destroy kernel queue (DIQ) */<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; dqm =3D pqn-&gt;kq-&gt;dev-&gt;dqm;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; dqm-&gt;ops.destroy_kernel_queue(dqm, pqn-&gt;kq, &amp;=
+pdd-&gt;qpd);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; kernel_queue_uninit(pqn-&gt;kq);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; kernel_queue_uninit(pqn-&gt;kq, false);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (pqn-&gt;q) {<br>
+</div>
+</span></font></div>
+</body>
+</html>
+
+--_000_DM6PR12MB32417F69354B176C28AB3ACBF42D0DM6PR12MB3241namp_--
+
+--===============0880260330==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--===============0880260330==--
