@@ -2,60 +2,60 @@ Return-Path: <SRS0=BZXp=2K=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.8 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+X-Spam-Status: No, score=-9.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,UNWANTED_LANGUAGE_BODY,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7889FC43603
-	for <amd-gfx@archiver.kernel.org>; Fri, 20 Dec 2019 06:25:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8D28DC43603
+	for <amd-gfx@archiver.kernel.org>; Fri, 20 Dec 2019 06:25:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4C07321D7D
-	for <amd-gfx@archiver.kernel.org>; Fri, 20 Dec 2019 06:25:15 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 5F42921D7D
+	for <amd-gfx@archiver.kernel.org>; Fri, 20 Dec 2019 06:25:21 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="w/P1RJ+B"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4C07321D7D
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="BW8yB1u1"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5F42921D7D
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3865B6EBD2;
-	Fri, 20 Dec 2019 06:25:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2A5E06EBD8;
+	Fri, 20 Dec 2019 06:25:21 +0000 (UTC)
 Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2065.outbound.protection.outlook.com [40.107.236.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 445526EBD2
- for <amd-gfx@lists.freedesktop.org>; Fri, 20 Dec 2019 06:25:12 +0000 (UTC)
+ (mail-bn8nam11on2063.outbound.protection.outlook.com [40.107.236.63])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DD90A6EBD6
+ for <amd-gfx@lists.freedesktop.org>; Fri, 20 Dec 2019 06:25:17 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=mSLJx+4BdT5Ss4yZYinZlEeKGpiDlBlNUcC4IDeTdqIIQJSv8CkdieZpbmufde/y5eJ+PhdCcq8TwixgHqJAHbZlrXfM5sSWW+OqXfOAkUC/MUfw3+yhCpLKlJ/f51vDvDIdQ2hss5OQ0Vy3RggatO+ebvlj4bRuz2kQXqqBVxdI3vHZZmrZjQiKfivizJnfhdVoKKbGbT1tsVmPQG0GDnHC6P1k1Zt2qBzqWGxwujzilUKYnSsHf4bm33a3hRgE0paieFQnpVcFay+ZYFn55tWdyfRPJOUcD4H6LUrwqtDSyUYuQs7vzDj13tg6Enf0+z006SxwxAXhwjwYh7x7Ig==
+ b=cZXddon9YCQ8e426PZHSgU46K0G0B3fdx/8iBS1hIj2Sx5MM9PRCzVv90XkwphMvhBcQDg28tZlc/pX0Vbw+mEK3D8uxCr5bGrtgIcM3ZqtUaTYlLRXdkuunjn+v3qVGGDvqVKbsAQ22ijSeXsYdyqhC4oSRgO8t/vZdgpihwGz2N+KCLUelrAQuWUV6WhyPxPAoSdNkeLNeATvdzvjQRc+FwLCIVvNC/W64oMfYMl9ug7gRLNMgcfJtQGpnZ4JbaUWnHbuR5/lycLo6q87AO/g4qel6NjFPQQTddaek+A18u+HWezqshj+ERhNhmbKvBZBgnNJRF1+OX7jV6I2iYQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=sOFf9S4Jc75mgOoKg6OVwYiyesqU2fHU6+vf6MoIZRQ=;
- b=LKkJf1/TfAIdphTU6y1t3U5kntqdtWAmy8bm9AevLAmqsz63YyiV/at1YL4/hIEOonMeV+hOKvFxlN5O8EMzs7r1y58XNF8ySvoY4+Gk5UHfR+thtcVDlTnXDg7EqTXL/MJNOPfZAjKLxc7edB/qXaGmuNjNzr+J+1e2qkwl/EHr17Q/wT3ER61Lfw+Y+smhEevjTLkrncUwleWQAse0SMzL+yZABc58DraAXLAzThSWSmiDFLFPC16WUclih0sNv/prmP8h7RVHEBDf7JgjNOOOubPbMinzi+ShgpVmj2U237RnQfZDiOjkZoUjeGdDlbKSvZOoDZmICkABUEULOw==
+ bh=nRFvKnX5Y2s+H3QZI8UC2PKbfQb61uZjFo8jLDEEWd0=;
+ b=hC286lWfvD3McmSN2mGbnIu7kxwdWyjwuCU/FGhBFq/fBLRQ4w6vwntceZsSgzdEGGmAK2i9m7CSZO/j5nnWaw9ZnAp+18wYaGymptqh3SXnn9GgnjiPJRLMqLvGJtsa/dU4vXHogFtiaqcX9d7ibaLtOX6WXn4ZKvF6FPSmw5uvDVMNMABq5nrXidOGnsVVnA8tAELjxdkMaESo1BWtPPBUzIu3Qd3swWRiwGVDiPETUIUxblVB/6H1p5ofIl1OLc7nOOKLokceMWlCFvnFydjei5Tk9u4VLtVhdZ+cUgns8Umxny812+dEBPOW7B3ddx9ApES9kqj+R8eUDfN/kg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=sOFf9S4Jc75mgOoKg6OVwYiyesqU2fHU6+vf6MoIZRQ=;
- b=w/P1RJ+BYwtqSTQjhhPyXUBY9fZNqf2973Ea6h7GOwWqQMOx2LYWAOfvCwGzykrg35adVQlVZGx4hcIBfA5mO6Z6+psOX3Jsn/rEYJTLfvdEJr4H0txoTp3hLcRk8aZ6i5WpLkVwCA4ZKplUwYdAGZBc6ywaDL5foY/DW+lqBMM=
+ bh=nRFvKnX5Y2s+H3QZI8UC2PKbfQb61uZjFo8jLDEEWd0=;
+ b=BW8yB1u13i4MK0Y5zlJki7JHvt5knEPhpxL1gReOkhk4T1i2ftOXZJSvCZAMmvVfkc5j8WTIeyPdBU8rZav+PWLdk/LRcpi5JwZ0ddhsstXkMl/zPMfMMqlpoMgFpkl0Di7lAC2PsA8vPYzOiQgOxkqC3XgzDS/V1qpXV6yeqHU=
 Authentication-Results: spf=none (sender IP is )
  smtp.mailfrom=Alex.Sierra@amd.com; 
 Received: from BYAPR12MB2616.namprd12.prod.outlook.com (20.177.124.144) by
  BYAPR12MB2775.namprd12.prod.outlook.com (20.176.255.84) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2538.15; Fri, 20 Dec 2019 06:25:10 +0000
+ 15.20.2538.15; Fri, 20 Dec 2019 06:25:16 +0000
 Received: from BYAPR12MB2616.namprd12.prod.outlook.com
  ([fe80::39fb:deaf:bb2f:420e]) by BYAPR12MB2616.namprd12.prod.outlook.com
  ([fe80::39fb:deaf:bb2f:420e%7]) with mapi id 15.20.2516.021; Fri, 20 Dec 2019
- 06:25:10 +0000
+ 06:25:16 +0000
 From: Alex Sierra <alex.sierra@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 2/5] drm/amdgpu: export function to flush TLB via pasid
-Date: Fri, 20 Dec 2019 00:24:39 -0600
-Message-Id: <20191220062442.33635-2-alex.sierra@amd.com>
+Subject: [PATCH 3/5] drm/amdgpu: GPU TLB flush API moved to amdgpu_amdkfd
+Date: Fri, 20 Dec 2019 00:24:40 -0600
+Message-Id: <20191220062442.33635-3-alex.sierra@amd.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20191220062442.33635-1-alex.sierra@amd.com>
 References: <20191220062442.33635-1-alex.sierra@amd.com>
@@ -67,14 +67,14 @@ X-Mailer: git-send-email 2.17.1
 X-Originating-IP: [165.204.77.1]
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: c0aa129d-11ce-4621-8603-08d785155c7c
+X-MS-Office365-Filtering-Correlation-Id: 02cf24cd-3439-41da-97ce-08d785156071
 X-MS-TrafficTypeDiagnostic: BYAPR12MB2775:|BYAPR12MB2775:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <BYAPR12MB27759718438669103026E5D1FD2D0@BYAPR12MB2775.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:758;
+X-Microsoft-Antispam-PRVS: <BYAPR12MB277595098A17227FBBC55385FD2D0@BYAPR12MB2775.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:4502;
 X-Forefront-PRVS: 025796F161
 X-Forefront-Antispam-Report: SFV:NSPM;
- SFS:(10009020)(4636009)(366004)(39860400002)(136003)(396003)(376002)(346002)(189003)(199004)(5660300002)(30864003)(6666004)(66476007)(8936002)(8676002)(2616005)(81156014)(81166006)(478600001)(44832011)(6512007)(1076003)(2906002)(66556008)(66946007)(6916009)(316002)(26005)(186003)(36756003)(6506007)(52116002)(86362001)(4326008)(6486002);
+ SFS:(10009020)(4636009)(366004)(39860400002)(136003)(396003)(376002)(346002)(189003)(199004)(5660300002)(6666004)(66476007)(8936002)(8676002)(2616005)(81156014)(81166006)(478600001)(44832011)(6512007)(1076003)(2906002)(66556008)(66946007)(6916009)(316002)(26005)(186003)(36756003)(6506007)(52116002)(86362001)(4326008)(6486002);
  DIR:OUT; SFP:1101; SCL:1; SRVR:BYAPR12MB2775;
  H:BYAPR12MB2616.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
  PTR:InfoNoRecords; MX:1; A:1; 
@@ -82,14 +82,14 @@ Received-SPF: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 3EKeCtriBMeahzF80r30LAruK42NpchryhMjVpXGF8jcT/nJxpE01Ky6n3Mq0LD2FkeCObTnHHzZuvmbBDa1aZnBLfcuMHLo/j7lOI14kjsjwzAoKSU5gHLPko6Lm4B+ohtxSeM9yfJFPVXZaSKZwPA7X3VuSPSK1GdsVy/M338kOdO5N2v4s2aRohEy0QhD2tJL7AePRze0rsqGMVGg4bBBUrjp30KzXZFD7baaJUdBm6Zq0jA1VOLmt+L/2gy6IZUrg19hWNUh8o4RmvrDBeB00gkQeWWYoxOFztv9zr7gLuaDFihU39BeQ9MPO2m/dq4UQIFMc9lvkzHpMa5huJjH58VP+u9gLRTYImV/b1Alxvff5g7jlS9qFDmmbhLX33yq64ZspNFCNcg9PZBUZyiBbDBTHnNYMytnWec8U3cUs5tDM2IxKhk3Pc8SFWgb
+X-Microsoft-Antispam-Message-Info: ZdQE2Jy3/XzYHK4j5U3ZH0ZlqhPB+lXQfp9MhLNZOg9l7SwtL+xUS90PKVcM86U6hP6SNGzWRyE7Ak0dHtn1I/pUXpSJ/hYzIDvOzn8UxC2rHyrK/0izeoihcdGK8MTLnFOy3dzcPDe1Y0mTTjDI1TGyTzRkT7omtY8waaVNSR5aa5WmA2nuN7Z+YvSwJWfL90WMQ74YSpVIE0mN5J6AqjXR3Wq7wuiMGP2OG4+xxVVQWcdIWM2NYVULekXHMXsVb8vMEpjRsMWgC9z6LZSD1iSjIAy7LX3pT7/do5Ps26uskeJ47mgDfiyGj06a39KPleFMEZDu3BRLpuXH8nxKXl6bv8N5vINoNBRifJLMqPEE6MMxb0gTxa2w/3eDH1hDbiwfetE+oUy68FCUNC7ZVRBXA87t+RKC6CGPghEcXcN0XTeZO2DPKL00rfnt3u4R
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c0aa129d-11ce-4621-8603-08d785155c7c
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Dec 2019 06:25:10.8255 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 02cf24cd-3439-41da-97ce-08d785156071
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Dec 2019 06:25:16.4793 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ewyHgWoS9zjVogu6qhL+7ExZ2beBgvf38QKd/aC/JCQiGWTYH69OHE+zn5mZGhRIi1aooEaDOCO/zfepW4HocA==
+X-MS-Exchange-CrossTenant-UserPrincipalName: pEbj1urAjs97nHM9mkRLdUUc0sFshDzEXQdmvx/d7Wcwd2ab4N3VmPDbscDyrrDb/lyf4beGlbFQ4oNsJl84Nw==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB2775
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -108,387 +108,110 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This can be used directly from amdgpu and amdkfd to invalidate
-TLB through pasid.
-It supports gmc v7, v8, v9 and v10.
+[Why]
+TLB flush method has been deprecated using kfd2kgd interface.
+This implementation is now on the amdgpu_amdkfd API.
 
-Change-Id: I6563a8eba2e42d1a67fa2547156c20da41d1e490
+[How]
+TLB flush functions now implemented in amdgpu_amdkfd.
+
+Change-Id: Ic51cccdfe6e71288d78da772b6e1b6ced72f8ef7
 Signed-off-by: Alex Sierra <alex.sierra@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h |  6 ++
- drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c  | 81 ++++++++++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c   | 33 ++++++++++
- drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c   | 34 ++++++++++
- drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c   | 84 +++++++++++++++++++++++++
- 5 files changed, 238 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c | 32 ++++++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h |  2 ++
+ drivers/gpu/drm/amd/amdkfd/kfd_process.c   |  8 ++++--
+ 3 files changed, 39 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
-index b499a3de8bb6..b6413a56f546 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
-@@ -92,6 +92,9 @@ struct amdgpu_gmc_funcs {
- 	/* flush the vm tlb via mmio */
- 	void (*flush_gpu_tlb)(struct amdgpu_device *adev, uint32_t vmid,
- 				uint32_t vmhub, uint32_t flush_type);
-+	/* flush the vm tlb via pasid */
-+	int (*flush_gpu_tlb_pasid)(struct amdgpu_device *adev, uint16_t pasid,
-+					uint32_t flush_type, bool all_hub);
- 	/* flush the vm tlb via ring */
- 	uint64_t (*emit_flush_gpu_tlb)(struct amdgpu_ring *ring, unsigned vmid,
- 				       uint64_t pd_addr);
-@@ -216,6 +219,9 @@ struct amdgpu_gmc {
- };
- 
- #define amdgpu_gmc_flush_gpu_tlb(adev, vmid, vmhub, type) ((adev)->gmc.gmc_funcs->flush_gpu_tlb((adev), (vmid), (vmhub), (type)))
-+#define amdgpu_gmc_flush_gpu_tlb_pasid(adev, pasid, type, allhub) \
-+	((adev)->gmc.gmc_funcs->flush_gpu_tlb_pasid \
-+	((adev), (pasid), (type), (allhub)))
- #define amdgpu_gmc_emit_flush_gpu_tlb(r, vmid, addr) (r)->adev->gmc.gmc_funcs->emit_flush_gpu_tlb((r), (vmid), (addr))
- #define amdgpu_gmc_emit_pasid_mapping(r, vmid, pasid) (r)->adev->gmc.gmc_funcs->emit_pasid_mapping((r), (vmid), (pasid))
- #define amdgpu_gmc_map_mtype(adev, flags) (adev)->gmc.gmc_funcs->map_mtype((adev),(flags))
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-index f5725336a5f2..b1a5408a8d7e 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-@@ -30,6 +30,8 @@
- #include "hdp/hdp_5_0_0_sh_mask.h"
- #include "gc/gc_10_1_0_sh_mask.h"
- #include "mmhub/mmhub_2_0_0_sh_mask.h"
-+#include "athub/athub_2_0_0_sh_mask.h"
-+#include "athub/athub_2_0_0_offset.h"
- #include "dcn/dcn_2_0_0_offset.h"
- #include "dcn/dcn_2_0_0_sh_mask.h"
- #include "oss/osssys_5_0_0_offset.h"
-@@ -37,6 +39,7 @@
- #include "navi10_enum.h"
- 
- #include "soc15.h"
-+#include "soc15d.h"
- #include "soc15_common.h"
- 
- #include "nbio_v2_3.h"
-@@ -234,6 +237,48 @@ static bool gmc_v10_0_use_invalidate_semaphore(struct amdgpu_device *adev,
- 		(!amdgpu_sriov_vf(adev)));
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
+index d3da9dde4ee1..b7f6e70c5762 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
+@@ -634,6 +634,38 @@ bool amdgpu_amdkfd_is_kfd_vmid(struct amdgpu_device *adev, u32 vmid)
+ 	return false;
  }
  
-+static bool gmc_v10_0_get_atc_vmid_pasid_mapping_info(
-+					struct amdgpu_device *adev,
-+					uint8_t vmid, uint16_t *p_pasid)
++int amdgpu_amdkfd_flush_gpu_tlb_vmid(struct kgd_dev *kgd, uint16_t vmid)
 +{
-+	uint32_t value;
++	struct amdgpu_device *adev = (struct amdgpu_device *)kgd;
++	/* TODO: condition missing for FAMILY above NV */
++	if (adev->family == AMDGPU_FAMILY_AI) {
++		int i;
 +
-+	value = RREG32(SOC15_REG_OFFSET(ATHUB, 0, mmATC_VMID0_PASID_MAPPING)
-+		     + vmid);
-+	*p_pasid = value & ATC_VMID0_PASID_MAPPING__PASID_MASK;
-+
-+	return !!(value & ATC_VMID0_PASID_MAPPING__VALID_MASK);
-+}
-+
-+static int gmc_v10_0_invalidate_tlbs_with_kiq(struct amdgpu_device *adev,
-+					uint16_t pasid, uint32_t flush_type,
-+					bool all_hub)
-+{
-+	signed long r;
-+	uint32_t seq;
-+	struct amdgpu_ring *ring = &adev->gfx.kiq.ring;
-+
-+	spin_lock(&adev->gfx.kiq.ring_lock);
-+	amdgpu_ring_alloc(ring, 12); /* fence + invalidate_tlbs package*/
-+	amdgpu_ring_write(ring, PACKET3(PACKET3_INVALIDATE_TLBS, 0));
-+	amdgpu_ring_write(ring,
-+			PACKET3_INVALIDATE_TLBS_DST_SEL(1) |
-+			PACKET3_INVALIDATE_TLBS_ALL_HUB(all_hub) |
-+			PACKET3_INVALIDATE_TLBS_PASID(pasid) |
-+			PACKET3_INVALIDATE_TLBS_FLUSH_TYPE(flush_type));
-+	amdgpu_fence_emit_polling(ring, &seq);
-+	amdgpu_ring_commit(ring);
-+	spin_unlock(&adev->gfx.kiq.ring_lock);
-+
-+	r = amdgpu_fence_wait_polling(ring, seq, adev->usec_timeout);
-+	if (r < 1) {
-+		DRM_ERROR("wait for kiq fence error: %ld.\n", r);
-+		return -ETIME;
++		for (i = 0; i < adev->num_vmhubs; i++)
++			amdgpu_gmc_flush_gpu_tlb(adev, vmid, i, 0);
++	} else {
++		amdgpu_gmc_flush_gpu_tlb(adev, vmid, AMDGPU_GFXHUB_0, 0);
 +	}
 +
 +	return 0;
 +}
 +
- /*
-  * GART
-  * VMID 0 is the physical GPU addresses as used by the kernel.
-@@ -380,6 +425,41 @@ static void gmc_v10_0_flush_gpu_tlb(struct amdgpu_device *adev, uint32_t vmid,
- 	DRM_ERROR("Error flushing GPU TLB using the SDMA (%d)!\n", r);
- }
- 
-+/**
-+ * gmc_v10_0_flush_gpu_tlb_pasid - tlb flush via pasid
-+ *
-+ * @adev: amdgpu_device pointer
-+ * @pasid: pasid to be flush
-+ *
-+ * Flush the TLB for the requested pasid.
-+ */
-+static int gmc_v10_0_flush_gpu_tlb_pasid(struct amdgpu_device *adev,
-+					uint16_t pasid, uint32_t flush_type,
-+					bool all_hub)
++int amdgpu_amdkfd_flush_gpu_tlb_pasid(struct kgd_dev *kgd, uint16_t pasid)
 +{
-+	int vmid;
-+	uint16_t queried_pasid;
-+	bool ret;
-+	struct amdgpu_ring *ring = &adev->gfx.kiq.ring;
++	struct amdgpu_device *adev = (struct amdgpu_device *)kgd;
++	uint32_t flush_type = 0;
++	bool all_hub = false;
 +
-+	if (amdgpu_emu_mode == 0 && ring->sched.ready)
-+		return gmc_v10_0_invalidate_tlbs_with_kiq(adev,
-+						pasid, flush_type, all_hub);
++	if (adev->gmc.xgmi.num_physical_nodes &&
++		adev->asic_type == CHIP_VEGA20)
++		flush_type = 2;
 +
-+	for (vmid = 1; vmid < 16; vmid++) {
++	if (adev->family == AMDGPU_FAMILY_AI)
++		all_hub = true;
 +
-+		ret = gmc_v10_0_get_atc_vmid_pasid_mapping_info(adev, vmid,
-+				&queried_pasid);
-+		if (ret	&& queried_pasid == pasid) {
-+			amdgpu_gmc_flush_gpu_tlb(adev, vmid,
-+					AMDGPU_GFXHUB_0, 0);
-+			break;
-+		}
-+	}
-+
-+	return 0;
++	return amdgpu_gmc_flush_gpu_tlb_pasid(adev, pasid, flush_type, all_hub);
 +}
 +
- static uint64_t gmc_v10_0_emit_flush_gpu_tlb(struct amdgpu_ring *ring,
- 					     unsigned vmid, uint64_t pd_addr)
+ bool amdgpu_amdkfd_have_atomics_support(struct kgd_dev *kgd)
  {
-@@ -531,6 +611,7 @@ static void gmc_v10_0_get_vm_pte(struct amdgpu_device *adev,
+ 	struct amdgpu_device *adev = (struct amdgpu_device *)kgd;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
+index 069d5d230810..47b0f2957d1f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
+@@ -136,6 +136,8 @@ int amdgpu_amdkfd_submit_ib(struct kgd_dev *kgd, enum kgd_engine_type engine,
+ 				uint32_t *ib_cmd, uint32_t ib_len);
+ void amdgpu_amdkfd_set_compute_idle(struct kgd_dev *kgd, bool idle);
+ bool amdgpu_amdkfd_have_atomics_support(struct kgd_dev *kgd);
++int amdgpu_amdkfd_flush_gpu_tlb_vmid(struct kgd_dev *kgd, uint16_t vmid);
++int amdgpu_amdkfd_flush_gpu_tlb_pasid(struct kgd_dev *kgd, uint16_t pasid);
  
- static const struct amdgpu_gmc_funcs gmc_v10_0_gmc_funcs = {
- 	.flush_gpu_tlb = gmc_v10_0_flush_gpu_tlb,
-+	.flush_gpu_tlb_pasid = gmc_v10_0_flush_gpu_tlb_pasid,
- 	.emit_flush_gpu_tlb = gmc_v10_0_emit_flush_gpu_tlb,
- 	.emit_pasid_mapping = gmc_v10_0_emit_pasid_mapping,
- 	.map_mtype = gmc_v10_0_map_mtype,
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
-index f08e5330642d..19d5b133e1d7 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
-@@ -418,6 +418,38 @@ static int gmc_v7_0_mc_init(struct amdgpu_device *adev)
- 	return 0;
- }
+ bool amdgpu_amdkfd_is_kfd_vmid(struct amdgpu_device *adev, u32 vmid);
  
-+/**
-+ * gmc_v7_0_flush_gpu_tlb_pasid - tlb flush via pasid
-+ *
-+ * @adev: amdgpu_device pointer
-+ * @pasid: pasid to be flush
-+ *
-+ * Flush the TLB for the requested pasid.
-+ */
-+static int gmc_v7_0_flush_gpu_tlb_pasid(struct amdgpu_device *adev,
-+					uint16_t pasid, uint32_t flush_type,
-+					bool all_hub)
-+{
-+	int vmid;
-+	unsigned int tmp;
-+
-+	if (adev->in_gpu_reset)
-+		return -EIO;
-+
-+	for (vmid = 1; vmid < 16; vmid++) {
-+
-+		tmp = RREG32(mmATC_VMID0_PASID_MAPPING + vmid);
-+		if ((tmp & ATC_VMID0_PASID_MAPPING__VALID_MASK) &&
-+			(tmp & ATC_VMID0_PASID_MAPPING__PASID_MASK) == pasid) {
-+			WREG32(mmVM_INVALIDATE_REQUEST, 1 << vmid);
-+			RREG32(mmVM_INVALIDATE_RESPONSE);
-+			break;
-+		}
-+	}
-+
-+	return 0;
-+}
-+
- /*
-  * GART
-  * VMID 0 is the physical GPU addresses as used by the kernel.
-@@ -1333,6 +1365,7 @@ static const struct amd_ip_funcs gmc_v7_0_ip_funcs = {
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+index 536a153ac9a4..25b90f70aecd 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+@@ -32,6 +32,7 @@
+ #include <linux/mman.h>
+ #include <linux/file.h>
+ #include "amdgpu_amdkfd.h"
++#include "amdgpu.h"
  
- static const struct amdgpu_gmc_funcs gmc_v7_0_gmc_funcs = {
- 	.flush_gpu_tlb = gmc_v7_0_flush_gpu_tlb,
-+	.flush_gpu_tlb_pasid = gmc_v7_0_flush_gpu_tlb_pasid,
- 	.emit_flush_gpu_tlb = gmc_v7_0_emit_flush_gpu_tlb,
- 	.emit_pasid_mapping = gmc_v7_0_emit_pasid_mapping,
- 	.set_prt = gmc_v7_0_set_prt,
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
-index 6d96d40fbcb8..27d83204fa2b 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
-@@ -620,6 +620,39 @@ static int gmc_v8_0_mc_init(struct amdgpu_device *adev)
- 	return 0;
- }
+ struct mm_struct;
  
-+/**
-+ * gmc_v8_0_flush_gpu_tlb_pasid - tlb flush via pasid
-+ *
-+ * @adev: amdgpu_device pointer
-+ * @pasid: pasid to be flush
-+ *
-+ * Flush the TLB for the requested pasid.
-+ */
-+static int gmc_v8_0_flush_gpu_tlb_pasid(struct amdgpu_device *adev,
-+					uint16_t pasid, uint32_t flush_type,
-+					bool all_hub)
-+{
-+	int vmid;
-+	unsigned int tmp;
-+
-+	if (adev->in_gpu_reset)
-+		return -EIO;
-+
-+	for (vmid = 1; vmid < 16; vmid++) {
-+
-+		tmp = RREG32(mmATC_VMID0_PASID_MAPPING + vmid);
-+		if ((tmp & ATC_VMID0_PASID_MAPPING__VALID_MASK) &&
-+			(tmp & ATC_VMID0_PASID_MAPPING__PASID_MASK) == pasid) {
-+			WREG32(mmVM_INVALIDATE_REQUEST, 1 << vmid);
-+			RREG32(mmVM_INVALIDATE_RESPONSE);
-+			break;
-+		}
-+	}
-+
-+	return 0;
-+
-+}
-+
- /*
-  * GART
-  * VMID 0 is the physical GPU addresses as used by the kernel.
-@@ -1700,6 +1733,7 @@ static const struct amd_ip_funcs gmc_v8_0_ip_funcs = {
- 
- static const struct amdgpu_gmc_funcs gmc_v8_0_gmc_funcs = {
- 	.flush_gpu_tlb = gmc_v8_0_flush_gpu_tlb,
-+	.flush_gpu_tlb_pasid = gmc_v8_0_flush_gpu_tlb_pasid,
- 	.emit_flush_gpu_tlb = gmc_v8_0_emit_flush_gpu_tlb,
- 	.emit_pasid_mapping = gmc_v8_0_emit_pasid_mapping,
- 	.set_prt = gmc_v8_0_set_prt,
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-index fa025ceeea0f..eb1e64bd56ed 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-@@ -38,10 +38,12 @@
- #include "dce/dce_12_0_sh_mask.h"
- #include "vega10_enum.h"
- #include "mmhub/mmhub_1_0_offset.h"
-+#include "athub/athub_1_0_sh_mask.h"
- #include "athub/athub_1_0_offset.h"
- #include "oss/osssys_4_0_offset.h"
- 
- #include "soc15.h"
-+#include "soc15d.h"
- #include "soc15_common.h"
- #include "umc/umc_6_0_sh_mask.h"
- 
-@@ -434,6 +436,47 @@ static bool gmc_v9_0_use_invalidate_semaphore(struct amdgpu_device *adev,
- 		   adev->pdev->device == 0x15d8)));
- }
- 
-+static bool gmc_v9_0_get_atc_vmid_pasid_mapping_info(struct amdgpu_device *adev,
-+					uint8_t vmid, uint16_t *p_pasid)
-+{
-+	uint32_t value;
-+
-+	value = RREG32(SOC15_REG_OFFSET(ATHUB, 0, mmATC_VMID0_PASID_MAPPING)
-+		     + vmid);
-+	*p_pasid = value & ATC_VMID0_PASID_MAPPING__PASID_MASK;
-+
-+	return !!(value & ATC_VMID0_PASID_MAPPING__VALID_MASK);
-+}
-+
-+static int gmc_v9_0_invalidate_tlbs_with_kiq(struct amdgpu_device *adev,
-+				uint16_t pasid, uint32_t flush_type,
-+				bool all_hub)
-+{
-+	signed long r;
-+	uint32_t seq;
-+	struct amdgpu_ring *ring = &adev->gfx.kiq.ring;
-+
-+	spin_lock(&adev->gfx.kiq.ring_lock);
-+	amdgpu_ring_alloc(ring, 12); /* fence + invalidate_tlbs package*/
-+	amdgpu_ring_write(ring, PACKET3(PACKET3_INVALIDATE_TLBS, 0));
-+	amdgpu_ring_write(ring,
-+			PACKET3_INVALIDATE_TLBS_DST_SEL(1) |
-+			PACKET3_INVALIDATE_TLBS_ALL_HUB(all_hub) |
-+			PACKET3_INVALIDATE_TLBS_PASID(pasid) |
-+			PACKET3_INVALIDATE_TLBS_FLUSH_TYPE(flush_type));
-+	amdgpu_fence_emit_polling(ring, &seq);
-+	amdgpu_ring_commit(ring);
-+	spin_unlock(&adev->gfx.kiq.ring_lock);
-+
-+	r = amdgpu_fence_wait_polling(ring, seq, adev->usec_timeout);
-+	if (r < 1) {
-+		DRM_ERROR("wait for kiq fence error: %ld.\n", r);
-+		return -ETIME;
-+	}
-+
-+	return 0;
-+}
-+
- /*
-  * GART
-  * VMID 0 is the physical GPU addresses as used by the kernel.
-@@ -532,6 +575,46 @@ static void gmc_v9_0_flush_gpu_tlb(struct amdgpu_device *adev, uint32_t vmid,
- 	DRM_ERROR("Timeout waiting for VM flush ACK!\n");
- }
- 
-+/**
-+ * gmc_v9_0_flush_gpu_tlb_pasid - tlb flush via pasid
-+ *
-+ * @adev: amdgpu_device pointer
-+ * @pasid: pasid to be flush
-+ *
-+ * Flush the TLB for the requested pasid.
-+ */
-+static int gmc_v9_0_flush_gpu_tlb_pasid(struct amdgpu_device *adev,
-+					uint16_t pasid, uint32_t flush_type,
-+					bool all_hub)
-+{
-+	int vmid, i;
-+	uint16_t queried_pasid;
-+	bool ret;
-+	struct amdgpu_ring *ring = &adev->gfx.kiq.ring;
-+
-+	if (adev->in_gpu_reset)
-+		return -EIO;
-+
-+	if (ring->sched.ready)
-+		return gmc_v9_0_invalidate_tlbs_with_kiq(adev,
-+						pasid, flush_type, all_hub);
-+
-+	for (vmid = 1; vmid < 16; vmid++) {
-+
-+		ret = gmc_v9_0_get_atc_vmid_pasid_mapping_info(adev, vmid,
-+				&queried_pasid);
-+		if (ret && queried_pasid == pasid) {
-+			for (i = 0; i < adev->num_vmhubs; i++)
-+				amdgpu_gmc_flush_gpu_tlb(adev, vmid,
-+							i, flush_type);
-+			break;
-+		}
-+	}
-+
-+	return 0;
-+
-+}
-+
- static uint64_t gmc_v9_0_emit_flush_gpu_tlb(struct amdgpu_ring *ring,
- 					    unsigned vmid, uint64_t pd_addr)
+@@ -1152,16 +1153,17 @@ int kfd_reserved_mem_mmap(struct kfd_dev *dev, struct kfd_process *process,
+ void kfd_flush_tlb(struct kfd_process_device *pdd)
  {
-@@ -693,6 +776,7 @@ static void gmc_v9_0_get_vm_pte(struct amdgpu_device *adev,
+ 	struct kfd_dev *dev = pdd->dev;
+-	const struct kfd2kgd_calls *f2g = dev->kfd2kgd;
  
- static const struct amdgpu_gmc_funcs gmc_v9_0_gmc_funcs = {
- 	.flush_gpu_tlb = gmc_v9_0_flush_gpu_tlb,
-+	.flush_gpu_tlb_pasid = gmc_v9_0_flush_gpu_tlb_pasid,
- 	.emit_flush_gpu_tlb = gmc_v9_0_emit_flush_gpu_tlb,
- 	.emit_pasid_mapping = gmc_v9_0_emit_pasid_mapping,
- 	.map_mtype = gmc_v9_0_map_mtype,
+ 	if (dev->dqm->sched_policy == KFD_SCHED_POLICY_NO_HWS) {
+ 		/* Nothing to flush until a VMID is assigned, which
+ 		 * only happens when the first queue is created.
+ 		 */
+ 		if (pdd->qpd.vmid)
+-			f2g->invalidate_tlbs_vmid(dev->kgd, pdd->qpd.vmid);
++			amdgpu_amdkfd_flush_gpu_tlb_vmid(dev->kgd,
++							pdd->qpd.vmid);
+ 	} else {
+-		f2g->invalidate_tlbs(dev->kgd, pdd->process->pasid);
++		amdgpu_amdkfd_flush_gpu_tlb_pasid(dev->kgd,
++						pdd->process->pasid);
+ 	}
+ }
+ 
 -- 
 2.17.1
 
