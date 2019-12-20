@@ -4,96 +4,94 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-8.1 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable
-	autolearn_force=no version=3.4.0
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id F05D7C43603
-	for <amd-gfx@archiver.kernel.org>; Fri, 20 Dec 2019 22:50:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C814FC43603
+	for <amd-gfx@archiver.kernel.org>; Fri, 20 Dec 2019 23:28:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C46D92082E
-	for <amd-gfx@archiver.kernel.org>; Fri, 20 Dec 2019 22:50:14 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 790A12082E
+	for <amd-gfx@archiver.kernel.org>; Fri, 20 Dec 2019 23:28:25 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="LB4OLGM1"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C46D92082E
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="k7f84osP"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 790A12082E
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C3A256ECD3;
-	Fri, 20 Dec 2019 22:50:10 +0000 (UTC)
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com
- (mail-eopbgr770088.outbound.protection.outlook.com [40.107.77.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 00FFB6ECCC;
- Fri, 20 Dec 2019 22:50:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 40C236ECD2;
+	Fri, 20 Dec 2019 23:28:25 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2058.outbound.protection.outlook.com [40.107.94.58])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 513A16ECD2
+ for <amd-gfx@lists.freedesktop.org>; Fri, 20 Dec 2019 23:28:24 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ToiLmMU9KMIgLp3idZdnQN1sIAP9luk5a7pxIM6pL7Nd7UOwOnPZuNfQOt9fFgYl60fe7SwIKKmU1ZFQNGPwMildjxGc2xUPgQpIymL6zUQbJvHYBvI87nSsqGN2m3yBhYIhPk0qSlD0AuiWud26N4gSt4bpjN71H+fVy8Zh16TvFpnbE7s9vE/7hHJWlv3a1MJEL83nnCiyNEB7IT+9B4IF4ZmdS0ZfAjiiDi/S9aGduekrI6FtlG8UaGs7fBYSAuYwWnQ4zBaFjKtVmeudOyNi7TRBiRmiVBqYiC2MCIjuwY9saezJVB9k4s0L7hQG60skmmLSb/VvxZQEGNFlOw==
+ b=Hv3hIofZmLZTufFXHa7PUROE0rfQ0tvzswodJqS60fDSJveNeAcTq4z7Db19EepqDoeX+dzgb6aO2aZJLvnhsIN5bc6NkGDc9wbHjl/zKQO53iWWu96f14XVhS7vkbpLVe6D7CefaEhy0cVY7dZ7Sn8nFcuSmyx1cevyt3qOHEtlTfr4F2JJwSyTyvkDDfYsHovknxMVuGMjOKtWIJcIxP1Icjw88r8Onpn2trUuxCtHoFftIBQo9rlagfU5RSjwoCop8gFLEvKqJ/dB3PLqNgoBz39U0YSV/p2aCdpUAlgunhKsRCku3Lqsz1J+PmLhVX+PoZTsFDOVFkqxIuQasQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=uNA3MJoKqBYhozZTzpQyQ7So0bf++f2EzguGOTWzOPI=;
- b=Yx3jINMzhHdhorbAaaEvOcR/Z0Ektcbo8s4L8a9d/3jxEnInsgDhNjyr2oqYldt4gTf+xVXT/BNLbD8DQ/Utb3CHLGO5JyqLQ3j57Wmsq3nhetNsRFBkn04qIWJYrjS2kfvOGvl/ncymptS/o1BNudEVaOC8dMfCfeX/1UU2XLu/t5vdi6rK9xht6uj4Hr95uicpwZ4ye36RQZ1RCR7Gh3yCwuvN3uQQ0TO9+8qFLVKKHFEaP+TqxPDIZyj/eV89f0E4DKYGlyjHUgoDfD3+BhtG67WYb+E33YVqrpeX5lZOH9fw/+NZBxKsbXHSxN+/bGP/HE6e/kp2GG3aXX5TlA==
+ bh=WNdf7AZVFyhrwcBuCwjbAx+3ItTNzyZVuHl/tcnbMiQ=;
+ b=JsmKbFwKC+qZePsRFuC7n/M17FWAVIcwhqfIj/yecVleIfseNu6kMNtbAVwn/wNx7H/kKSIJaDksr8wMRfwZ7qkdO98JoTCd2d4rrVZ1tfPUJFq3uRoSD1Xw6GrvJtUAxD7dL2hcxzObC93y0NElDdXLqWmwERdqcHk4knTJkh4ee7PciB6UZstsB8FkCbwz7omZNpPYlcAfgKAKOBajtv8L8BfBE7FpdEvS8qpkuympbdOUsGzPJx6Nticn+OcOu0Q0FXpHatt/Vc8ZU6pr0o0UZpzm+v6nUvzndVDRGddWtcoFMRRFib7YOgZW6+EsdsA78tx3PAV6gtKe076w9A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=uNA3MJoKqBYhozZTzpQyQ7So0bf++f2EzguGOTWzOPI=;
- b=LB4OLGM13NRdevKmr5bz21hX6MsvdMpLOiguZ8hxDcB4RLsVJKbuGhvUSByhkNRQM9m6DgIBvDFqas/PmIx8AcW9mBcYVXGjyFWiL0x16gRYrYCUeH4PFhRFWw7HSFMUK393HKq9ut3zRU1AOaEhoyPPeS3shKcRn2rWcV549Do=
+ bh=WNdf7AZVFyhrwcBuCwjbAx+3ItTNzyZVuHl/tcnbMiQ=;
+ b=k7f84osPDhrp4zdXcngs7a1PTdzHG1ck7NXxVp4S6g23LCzi2NUb/vT2jeVFEdWtRv0F9qtJbz4VCGbxzRZSLWfUZcPDqT1h2N8kve5RYjyjTRnJ5bB84LxUPICwWaC6woDKgYWkCIJOwENYirV7AOArlmulm2POYcRSukh98nU=
 Authentication-Results: spf=none (sender IP is )
- smtp.mailfrom=Sunpeng.Li@amd.com; 
-Received: from BN7PR12MB2593.namprd12.prod.outlook.com (20.176.27.87) by
- BN7PR12MB2659.namprd12.prod.outlook.com (20.176.27.203) with Microsoft SMTP
+ smtp.mailfrom=Yong.Zhao@amd.com; 
+Received: from DM5PR1201MB0137.namprd12.prod.outlook.com (10.174.106.18) by
+ DM5PR1201MB0009.namprd12.prod.outlook.com (10.172.85.23) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2559.15; Fri, 20 Dec 2019 22:50:07 +0000
-Received: from BN7PR12MB2593.namprd12.prod.outlook.com
- ([fe80::a0b1:68d3:6053:b419]) by BN7PR12MB2593.namprd12.prod.outlook.com
- ([fe80::a0b1:68d3:6053:b419%5]) with mapi id 15.20.2538.022; Fri, 20 Dec 2019
- 22:50:06 +0000
-Subject: Re: [PATCH v9 14/18] drm/amd/display: Add PBN per slot calculation
- for DSC
-To: mikita.lipski@amd.com, amd-gfx@lists.freedesktop.org
-References: <20191213200854.31545-1-mikita.lipski@amd.com>
- <20191213200854.31545-15-mikita.lipski@amd.com>
-From: Leo <sunpeng.li@amd.com>
-Message-ID: <ab4f81d3-c277-3067-ddfc-b5868cd94bd9@amd.com>
-Date: Fri, 20 Dec 2019 17:50:05 -0500
+ 15.20.2538.18; Fri, 20 Dec 2019 23:28:22 +0000
+Received: from DM5PR1201MB0137.namprd12.prod.outlook.com
+ ([fe80::5878:940a:dd61:4d22]) by DM5PR1201MB0137.namprd12.prod.outlook.com
+ ([fe80::5878:940a:dd61:4d22%9]) with mapi id 15.20.2538.019; Fri, 20 Dec 2019
+ 23:28:21 +0000
+Subject: Re: [PATCH 1/5] drm/amdgpu: Avoid reclaim fs while eviction lock
+To: Alex Sierra <alex.sierra@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20191220062442.33635-1-alex.sierra@amd.com>
+From: Yong Zhao <yong.zhao@amd.com>
+Message-ID: <0b53340d-8941-6a30-f3a6-19557a3b07e7@amd.com>
+Date: Fri, 20 Dec 2019 18:28:20 -0500
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.2.1
-In-Reply-To: <20191213200854.31545-15-mikita.lipski@amd.com>
+ Thunderbird/68.2.2
+In-Reply-To: <20191220062442.33635-1-alex.sierra@amd.com>
 Content-Language: en-US
-X-ClientProxiedBy: YTOPR0101CA0019.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b00:15::32) To BN7PR12MB2593.namprd12.prod.outlook.com
- (2603:10b6:408:25::23)
+X-ClientProxiedBy: YT1PR01CA0016.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01::29)
+ To DM5PR1201MB0137.namprd12.prod.outlook.com
+ (2603:10b6:4:54::18)
 MIME-Version: 1.0
-X-Originating-IP: [165.204.55.250]
+X-Originating-IP: [165.204.55.251]
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 1495a8ef-b1e6-40e8-719a-08d7859ef57b
-X-MS-TrafficTypeDiagnostic: BN7PR12MB2659:|BN7PR12MB2659:
+X-MS-Office365-Filtering-Correlation-Id: 75603c6e-dc67-4c4a-2b3c-08d785a44d2c
+X-MS-TrafficTypeDiagnostic: DM5PR1201MB0009:|DM5PR1201MB0009:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <BN7PR12MB265926710AD85E6905AFE75C822D0@BN7PR12MB2659.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:6790;
+X-Microsoft-Antispam-PRVS: <DM5PR1201MB00098C044A1DFAAF05B03B86F02D0@DM5PR1201MB0009.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:188;
 X-Forefront-PRVS: 025796F161
 X-Forefront-Antispam-Report: SFV:NSPM;
- SFS:(10009020)(4636009)(136003)(396003)(366004)(376002)(39860400002)(346002)(199004)(189003)(8676002)(36756003)(478600001)(66476007)(66946007)(81156014)(8936002)(52116002)(81166006)(316002)(2906002)(450100002)(31696002)(2616005)(6512007)(4326008)(5660300002)(53546011)(66556008)(6486002)(186003)(4001150100001)(6506007)(31686004)(86362001)(26005);
- DIR:OUT; SFP:1101; SCL:1; SRVR:BN7PR12MB2659;
- H:BN7PR12MB2593.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; A:1; MX:1; 
+ SFS:(10009020)(4636009)(366004)(396003)(376002)(346002)(39860400002)(136003)(189003)(199004)(2616005)(2906002)(26005)(8936002)(66556008)(81156014)(8676002)(6486002)(316002)(66946007)(81166006)(36756003)(66476007)(44832011)(4001150100001)(478600001)(31686004)(53546011)(6506007)(6512007)(52116002)(186003)(5660300002)(31696002)(86362001);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:DM5PR1201MB0009;
+ H:DM5PR1201MB0137.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; MX:1; A:1; 
 Received-SPF: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: dqTYSrPIjr78FrRh1LLv4PGpll1PgqUFfoT9Y6RnuRdUsn3s4wDZfzymxl0PMBcJEGPbQkq4ivqoJr2EK/fxQqLfFcuoPfv6qIBv8d4717B7PZSClWBi88SbzOII4/NI4Zk2iNHeri9QzqQm4sF2VNeTouPM3fIPeVQPZ3WF3lnagjkevgfZfzZywxeohEGjQKmYQ3lGrqMeaHo3KWG/n2Pf7lp/ciu/7ATRgNg+j/qHSo9V5vVbJP6sWMTh819Tyna/qn/DFbmpqrCXv4AsORX78g32IoiGLBRUFi6TRbFamw6qG/xyM5ReplE82lUh5gR2oaDNAaKmRI8fiIqD3HXgjYRACPv5kzvnhN9DOSzfUiTSZwDbknIfUSsL8XJqBpAXlikI286SNMDfzJtKo2wrj8vVVDL65Ua6bRU8b86Ff7hPkPhau4QUoXLobbij
+X-Microsoft-Antispam-Message-Info: fFtod7pmIXLHjOq6i7lNqMh+iFleHjeNW0DA0HBDDGu1ZOyc8RbPetvKLTiDaffSd/7F3wmRKi0ffn1utfsnzz1V/kGj3V1xC77GE6pCZ5atsWRSKUKw8II41n+WcPQ8XdAhfmuO/xXfpGVIZsNqK/MOE4JYyEgqLLon5vNasAcVBGbNP66q/D5mCnlM4shhV8ig6h4ldJIZzHjQADD/hgnftAfI1nGC9SMKaIN9QBdRJC3boiJNDaYLklTEEydB921QPK6ZHcw7AGQ6dGGAhELf6NEz1Uz/vwbB5D1ZkAiX1akmBwuCmJWTWMCgTCJORHMaM441gGrBzpMJRmmjz6Lt9q7Xhy2o8fLS1UUjn1DxwAO4+Y2xCvNi2rTHpZbvbN2zQ+7o4in9ynxSplP2MujLjuAkL7H4rbcGCMaw0pdFkMjYRPGKjuiw96e3ZH58
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1495a8ef-b1e6-40e8-719a-08d7859ef57b
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Dec 2019 22:50:06.9157 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 75603c6e-dc67-4c4a-2b3c-08d785a44d2c
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Dec 2019 23:28:21.6533 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: SarQiyR2QZBjt7IvE1Z7RFV8b8ttMaIo4QIGV5wZNoHSrZni0vHkX4VEoYnM3528
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN7PR12MB2659
+X-MS-Exchange-CrossTenant-UserPrincipalName: GvD1Dwlc3BCSHRFymd73r14YEqV5utf7qt9D6JG/9tFZWkVlKhGqlM5OUDVz9wX6
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR1201MB0009
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,68 +103,141 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+One style comment inline.
 
+Yong
 
-On 2019-12-13 3:08 p.m., mikita.lipski@amd.com wrote:
-> From: Mikita Lipski <mikita.lipski@amd.com>
-> 
-> [why]
-> Need to calculate VCPI slots differently for DSC
-> to take in account current link rate, link count
-> and FEC.
-> [how]
-> Add helper to get pbn_div from dc_link
-> 
-> Cc: Harry Wentland <harry.wentland@amd.com>
-> Cc: Lyude Paul <lyude@redhat.com>
-> Signed-off-by: Mikita Lipski <mikita.lipski@amd.com>
+On 2019-12-20 1:24 a.m., Alex Sierra wrote:
+> [Why]
+> Avoid reclaim filesystem while eviction lock is held called from
+> MMU notifier.
+>
+> [How]
+> Setting PF_MEMALLOC_NOFS flags while eviction mutex is locked.
+> Using memalloc_nofs_save / memalloc_nofs_restore API.
+>
+> Change-Id: I5531c9337836e7d4a430df3f16dcc82888e8018c
+> Signed-off-by: Alex Sierra <alex.sierra@amd.com>
 > ---
->  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c   | 8 ++++++++
->  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.h   | 2 ++
->  2 files changed, 10 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-> index 7557edee7db0..c376c8ccd391 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-> @@ -491,3 +491,11 @@ void amdgpu_dm_initialize_dp_connector(struct amdgpu_display_manager *dm,
->  		aconnector->connector_id);
->  }
->  
-> +int dm_mst_get_pbn_divider(struct dc_link *link)
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 14 ++++++-------
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h | 28 +++++++++++++++++++++++++-
+>   2 files changed, 34 insertions(+), 8 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> index b999b67ff57a..b36daa6230fb 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> @@ -678,9 +678,9 @@ int amdgpu_vm_validate_pt_bos(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+>   		}
+>   	}
+>   
+> -	mutex_lock(&vm->eviction_lock);
+> +	vm_eviction_lock(vm);
+>   	vm->evicting = false;
+> -	mutex_unlock(&vm->eviction_lock);
+> +	vm_eviction_unlock(vm);
+>   
+>   	return 0;
+>   }
+> @@ -1559,7 +1559,7 @@ static int amdgpu_vm_bo_update_mapping(struct amdgpu_device *adev,
+>   	if (!(flags & AMDGPU_PTE_VALID))
+>   		owner = AMDGPU_FENCE_OWNER_KFD;
+>   
+> -	mutex_lock(&vm->eviction_lock);
+> +	vm_eviction_lock(vm);
+>   	if (vm->evicting) {
+>   		r = -EBUSY;
+>   		goto error_unlock;
+> @@ -1576,7 +1576,7 @@ static int amdgpu_vm_bo_update_mapping(struct amdgpu_device *adev,
+>   	r = vm->update_funcs->commit(&params, fence);
+>   
+>   error_unlock:
+> -	mutex_unlock(&vm->eviction_lock);
+> +	vm_eviction_unlock(vm);
+>   	return r;
+>   }
+>   
+> @@ -2537,18 +2537,18 @@ bool amdgpu_vm_evictable(struct amdgpu_bo *bo)
+>   		return false;
+>   
+>   	/* Try to block ongoing updates */
+> -	if (!mutex_trylock(&bo_base->vm->eviction_lock))
+> +	if (!vm_eviction_trylock(bo_base->vm))
+>   		return false;
+>   
+>   	/* Don't evict VM page tables while they are updated */
+>   	if (!dma_fence_is_signaled(bo_base->vm->last_direct) ||
+>   	    !dma_fence_is_signaled(bo_base->vm->last_delayed)) {
+> -		mutex_unlock(&bo_base->vm->eviction_lock);
+> +		vm_eviction_unlock(bo_base->vm);
+>   		return false;
+>   	}
+>   
+>   	bo_base->vm->evicting = true;
+> -	mutex_unlock(&bo_base->vm->eviction_lock);
+> +	vm_eviction_unlock(bo_base->vm);
+>   	return true;
+>   }
+>   
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+> index 100547f094ff..d35aa76469ec 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+> @@ -30,6 +30,7 @@
+>   #include <drm/gpu_scheduler.h>
+>   #include <drm/drm_file.h>
+>   #include <drm/ttm/ttm_bo_driver.h>
+> +#include <linux/sched/mm.h>
+>   
+>   #include "amdgpu_sync.h"
+>   #include "amdgpu_ring.h"
+> @@ -242,9 +243,12 @@ struct amdgpu_vm {
+>   	/* tree of virtual addresses mapped */
+>   	struct rb_root_cached	va;
+>   
+> -	/* Lock to prevent eviction while we are updating page tables */
+> +	/* Lock to prevent eviction while we are updating page tables
+> +	 * use vm_eviction_lock/unlock(vm)
+> +	 */
+>   	struct mutex		eviction_lock;
+>   	bool			evicting;
+> +	unsigned int            saved_flags;
+[yz] The tabs should be used here instead of spaces.
+>   
+>   	/* BOs who needs a validation */
+>   	struct list_head	evicted;
+> @@ -436,4 +440,26 @@ void amdgpu_vm_move_to_lru_tail(struct amdgpu_device *adev,
+>   				struct amdgpu_vm *vm);
+>   void amdgpu_vm_del_from_lru_notify(struct ttm_buffer_object *bo);
+>   
+> +/* vm eviction_lock can be taken in MMU notifiers. Make sure no reclaim-FS
+> + * happens while holding this lock anywhere to prevent deadlocks when
+> + * an MMU notifier runs in reclaim-FS context.
+> + */
+> +static inline void vm_eviction_lock(struct amdgpu_vm *vm)
 > +{
-> +	if (!link)
-> +		return 0;
-> +
-> +	return dc_link_bandwidth_kbps(link,
-> +			dc_link_get_link_cap(link)) / (8 * 1000 * 54);
-
-Had to take a look at the DP spec to understand this conversion here, section 2.6.4.1.
-LGTM,
-
-Reviewed-by: Leo Li <sunpeng.li@amd.com>
-
+> +	mutex_lock(&vm->eviction_lock);
+> +	vm->saved_flags = memalloc_nofs_save();
 > +}
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.h
-> index 2da851b40042..a553ea046185 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.h
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.h
-> @@ -29,6 +29,8 @@
->  struct amdgpu_display_manager;
->  struct amdgpu_dm_connector;
->  
-> +int dm_mst_get_pbn_divider(struct dc_link *link);
-> +
->  void amdgpu_dm_initialize_dp_connector(struct amdgpu_display_manager *dm,
->  				       struct amdgpu_dm_connector *aconnector);
->  
-> 
+> +static inline int vm_eviction_trylock(struct amdgpu_vm *vm)
+> +{
+> +	if (mutex_trylock(&vm->eviction_lock)) {
+> +		vm->saved_flags = memalloc_nofs_save();
+> +		return 1;
+> +	}
+> +	return 0;
+> +}
+> +static inline void vm_eviction_unlock(struct amdgpu_vm *vm)
+> +{
+> +	memalloc_nofs_restore(vm->saved_flags);
+> +	mutex_unlock(&vm->eviction_lock);
+> +}
+>   #endif
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
