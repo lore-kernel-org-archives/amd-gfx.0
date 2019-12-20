@@ -2,83 +2,103 @@ Return-Path: <SRS0=BZXp=2K=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-8.0 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4E7D7C43603
-	for <amd-gfx@archiver.kernel.org>; Fri, 20 Dec 2019 21:35:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 07171C43603
+	for <amd-gfx@archiver.kernel.org>; Fri, 20 Dec 2019 21:39:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1F69C206DA
-	for <amd-gfx@archiver.kernel.org>; Fri, 20 Dec 2019 21:35:53 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id A5E062146E
+	for <amd-gfx@archiver.kernel.org>; Fri, 20 Dec 2019 21:38:59 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="N9zPdzCC"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1F69C206DA
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=redhat.com
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="cZGVhh0r"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A5E062146E
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C45F86E150;
-	Fri, 20 Dec 2019 21:35:53 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [205.139.110.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D11556E150
- for <amd-gfx@lists.freedesktop.org>; Fri, 20 Dec 2019 21:35:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1576877750;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=TOvm3NUAN5xhMAZfJ/KvucmHPAjs1I5k5iVlMMPPJBU=;
- b=N9zPdzCCdGonUpzo0nE/82+N54qF5amXHqa/4KaE9Vjy+4MdXlEIpe5F5B7AGgwanWUO7y
- FcZxsnjCbHaE5AfcujMZd/GBHC3UvV/5JvUP8yCAwixSizfmmoFhwzK/WlkZgIELlxTifR
- s7Yz64uNdnvQCgqENI8Ff0V4R+TlOXs=
-Received: from mail-qv1-f69.google.com (mail-qv1-f69.google.com
- [209.85.219.69]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-270-77pss0knPGeJZy055Na2NQ-1; Fri, 20 Dec 2019 16:35:48 -0500
-Received: by mail-qv1-f69.google.com with SMTP id l1so6781852qvu.13
- for <amd-gfx@lists.freedesktop.org>; Fri, 20 Dec 2019 13:35:48 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:message-id:subject:from:to:cc:date:in-reply-to
- :references:organization:user-agent:mime-version
- :content-transfer-encoding;
- bh=TOvm3NUAN5xhMAZfJ/KvucmHPAjs1I5k5iVlMMPPJBU=;
- b=lv4RektleD8arDkF/8jr0IG9gxCcAKeNiuXV4qfvCyIPyTaLHg3SCSCVz6FnQWIINB
- A9xFga5o8QbD9TCH2YRHSJpcWFHPSapKWHQI31GCxUEQisvK7cwNFtsVOK8X6HTulVvW
- XPN3wGPK9OltJYecpN0ZDstdjtjglyAS025Mhdat/zX8M0psyHGXfiPDFN4f12has2bI
- hMRvTG8HcnSjVJdVz+Xn54lWnJAlZTFDPtikAUYolHxzRUIqJCSDnopvt9419SXQXNmJ
- ovCM1YJnOPwGh6otN2Loj1YEIZ8HnY3yim8h+JcsZlEXhwy0Ae/YXUdNZ0LaybFJsLYe
- 3lhA==
-X-Gm-Message-State: APjAAAUhkBUAlOJ21QwTDJ1muMzjp46Z56by6AzJaqRMu2Wc+CPr6L9x
- 8qP6yR2Axlc7N5qv3IRmX7xVrAr7DEFTL+GlnFH5+iu6plMrDzB1oNuzOz2+yJ0E211e5hcs+NW
- 59uRuieRcdSPmYdmJZoVp/mF2Ig==
-X-Received: by 2002:a05:620a:166a:: with SMTP id
- d10mr15374483qko.37.1576877747632; 
- Fri, 20 Dec 2019 13:35:47 -0800 (PST)
-X-Google-Smtp-Source: APXvYqwCjsR5shJTV2T48pR6qQLWq6aev0IpOZ3orpvRmib0o4L9dwHDexBGgrISVr1ejfDYKFSGTw==
-X-Received: by 2002:a05:620a:166a:: with SMTP id
- d10mr15374463qko.37.1576877747187; 
- Fri, 20 Dec 2019 13:35:47 -0800 (PST)
-Received: from dhcp-10-20-1-90.bss.redhat.com ([144.121.20.162])
- by smtp.gmail.com with ESMTPSA id t29sm2683854qkm.27.2019.12.20.13.35.46
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 20 Dec 2019 13:35:46 -0800 (PST)
-Message-ID: <78e9ebfb314efc592bff859daf836e368d2c5eef.camel@redhat.com>
-Subject: Re: [PATCH v9 01/18] drm/dp_mst: Add PBN calculation for DSC modes
-From: Lyude Paul <lyude@redhat.com>
-To: mikita.lipski@amd.com, amd-gfx@lists.freedesktop.org
-Date: Fri, 20 Dec 2019 16:35:45 -0500
-In-Reply-To: <20191213200854.31545-2-mikita.lipski@amd.com>
-References: <20191213200854.31545-1-mikita.lipski@amd.com>
- <20191213200854.31545-2-mikita.lipski@amd.com>
-Organization: Red Hat
-User-Agent: Evolution 3.34.2 (3.34.2-1.fc31)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 797E16E150;
+	Fri, 20 Dec 2019 21:38:59 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on20604.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7eaa::604])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 19B2E6E150
+ for <amd-gfx@lists.freedesktop.org>; Fri, 20 Dec 2019 21:38:59 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=g51zX6dJI4wxfQkJjulvXCDw+Tm95CdR5qC84MAG4/ApTdLvMV7RLAWT/lciKbkJueRNxLdJvQ/RHHFws3mwFh1JjCP47f+Aq97NOlm9wI8B7sOY0oBzdxaNt81hQeY8RvOoIfBPF5i7IAX+sQZLkmtDZFmljOK6Mt7Zis2GMND0tbbtx0/xO9koFcJza1mCvYcRIUOUbzBSv70SKh/T7V7jniko/xKramiSAlnC94ix6AzlqLQv91rwOgoNktfgt3583rhlOVZ/j24o8GPbDbMCnZTG30aF67emgV5jidFUxx+P4FYrJpFb83Ul/1RY2Ir2VRbzwaPyKYb7NkT9Ww==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=T6EOL7b9/I6wS2/pWEBnRM0EEE4DYwd/dnRzD/F6GNE=;
+ b=CtB5l6Rwcz2Wwkhk8207aGyhcXn4+A+q8f6bg9/qAJ/Z42YmFuziOWoVe4TeIR+n8jj0OC2l0RJCXR15kUawiyww3xzm088g21TV/NNNd7kLxOZ/XrUSI7+7fKEIrN6DUBiH1puKsfSljKzWRqPWGv39an4pfv7CPBO/fPvGHuPsKhpMTOH45W75eav9AiW55Uvnzsptqo/Q/JrTU4zoK0PRhy9YWQYrXvOqBHJXQJ0krmOkqm0C0I9r1T40Yz82r6KZPXp/GQLpVo7kUCZ1uSCWPdjYIYHFWg8FMtvt508lDZvBVSIqJSVFjEhQIQA9UTEP+04s9pkikpfItIBlqA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=T6EOL7b9/I6wS2/pWEBnRM0EEE4DYwd/dnRzD/F6GNE=;
+ b=cZGVhh0r/6FP3s9EH4G9utTYgvPUb8flSTaWAit8gkMJD1Pwca8usQbmyq9qTnXK9C0KYQSWl2zvfaa67hS4cDtHLcT+PFR9fIEE44lPYS2KTiD0wlgNtprfzxI7KnkEZjZ5XvdRVdLA0L8SZOUzF2zCo9HAWmGCEfAFFMGz40k=
+Authentication-Results: spf=none (sender IP is )
+ smtp.mailfrom=Felix.Kuehling@amd.com; 
+Received: from MN2PR12MB3949.namprd12.prod.outlook.com (10.255.237.150) by
+ MN2PR12MB3184.namprd12.prod.outlook.com (20.179.82.18) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2559.14; Fri, 20 Dec 2019 21:38:56 +0000
+Received: from MN2PR12MB3949.namprd12.prod.outlook.com
+ ([fe80::d5cc:e5d3:2351:5c08]) by MN2PR12MB3949.namprd12.prod.outlook.com
+ ([fe80::d5cc:e5d3:2351:5c08%6]) with mapi id 15.20.2559.015; Fri, 20 Dec 2019
+ 21:38:56 +0000
+Subject: Re: [PATCH 4/5] drm/amdgpu: flush TLB functions removal from kfd2kgd
+ interface
+To: Alex Sierra <alex.sierra@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20191220062442.33635-1-alex.sierra@amd.com>
+ <20191220062442.33635-4-alex.sierra@amd.com>
+From: Felix Kuehling <felix.kuehling@amd.com>
+Message-ID: <e2c68c38-7e5f-e79f-0c08-5e9e89e0ca40@amd.com>
+Date: Fri, 20 Dec 2019 16:38:55 -0500
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:60.0) Gecko/20100101
+ Thunderbird/60.9.1
+In-Reply-To: <20191220062442.33635-4-alex.sierra@amd.com>
+Content-Language: en-US
+X-ClientProxiedBy: YTXPR0101CA0061.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b00:1::38) To MN2PR12MB3949.namprd12.prod.outlook.com
+ (2603:10b6:208:167::22)
 MIME-Version: 1.0
-X-MC-Unique: 77pss0knPGeJZy055Na2NQ-1
-X-Mimecast-Spam-Score: 0
+Received: from [172.31.19.228] (165.204.54.211) by
+ YTXPR0101CA0061.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b00:1::38) with
+ Microsoft SMTP Server (version=TLS1_2, cipher=) via Frontend Transport;
+ Fri, 20 Dec 2019 21:38:56 +0000
+X-Originating-IP: [165.204.54.211]
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: 4a9fce77-d50b-4603-0c18-08d78595045f
+X-MS-TrafficTypeDiagnostic: MN2PR12MB3184:|MN2PR12MB3184:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <MN2PR12MB3184AC8DFD5EBCF0743CC64F922D0@MN2PR12MB3184.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:1107;
+X-Forefront-PRVS: 025796F161
+X-Forefront-Antispam-Report: SFV:NSPM;
+ SFS:(10009020)(4636009)(346002)(376002)(396003)(366004)(39860400002)(136003)(199004)(189003)(16526019)(31686004)(478600001)(5660300002)(4001150100001)(52116002)(31696002)(6486002)(86362001)(66946007)(66556008)(81156014)(8936002)(53546011)(316002)(66476007)(16576012)(2616005)(26005)(8676002)(81166006)(36756003)(186003)(30864003)(2906002)(44832011)(956004);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:MN2PR12MB3184;
+ H:MN2PR12MB3949.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; A:1; MX:1; 
+Received-SPF: None (protection.outlook.com: amd.com does not designate
+ permitted sender hosts)
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: UEBfrsieIqW9sedh+9v94dyICS7TQSfdGa/Y2XyF4jDwwt+Go//z2Yt7ZBB6hsCehkjcelrvJBQwcVUODIQZ6WN4GCw8G9H/1sCOCovF+62siSgbLVUF9vNiWNpeQV0wDjznNl+qg78pDFOKoq6TH4BCW6Rzj+OHLnS1kmbexd+BD01daD73xvbrSQfogMv7QV3PJLqGTvNuKRQbwim6Dy1kuTo3pZWU+duZuOLEHUivg8hQDzMwMXTl9CTCoYihorvBIhhlAscsKhNMZf0sblFqfBhzgtZG58UMViYbQBoZ1UFbeK+tqIWeZ2yRFoETMqVW2DvFcK/hd9K2x19Cff33XvbMSgjoudFSLOZM+bL6er9ttp7639+HkVmBTTGWb5rWPQI/Af9jMQC86QnitWA7eyeSKFjGxw/dm+4/E/y8UM96pNjuj6N1GOewCVrO
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4a9fce77-d50b-4603-0c18-08d78595045f
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Dec 2019 21:38:56.8442 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: F7ahrz/m/XolspZ8VYaqqMcPirLgyix6oSK54tadpkBIr4Y+Y2Np6gE7y6QZ6BT0a1o32zTlelz0RCFGJSogCg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3184
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,200 +110,386 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Francis <David.Francis@amd.com>, dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Actually, one comment on this that should be very simple to add
+On 2019-12-20 1:24, Alex Sierra wrote:
+> [Why]
+> kfd2kgd interface will be deprecated. This removal only covers TLB
+> invalidation for now. They have been replaced in amdgpu_amdkfd API.
+>
+> [How]
+> TLB invalidate functions removed from the different amdkfd_gfx_v*
+> versions.
+>
+> Change-Id: Ic2c7d4a0d19fe1e884dee1ff10a520d31252afee
+> Signed-off-by: Alex Sierra <alex.sierra@amd.com>
 
-On Fri, 2019-12-13 at 15:08 -0500, mikita.lipski@amd.com wrote:
-> From: David Francis <David.Francis@amd.com>
-> 
-> With DSC, bpp can be fractional in multiples of 1/16.
-> 
-> Change drm_dp_calc_pbn_mode to reflect this, adding a new
-> parameter bool dsc. When this parameter is true, treat the
-> bpp parameter as having units not of bits per pixel, but
-> 1/16 of a bit per pixel
-> 
-> v2: Don't add separate function for this
-> v3: In the equation divide bpp by 16 as it is expected
-> not to leave any remainder
-> 
-> Reviewed-by: Manasi Navare <manasi.d.navare@intel.com>
-> Reviewed-by: Lyude Paul <lyude@redhat.com>
-> Reviewed-by: Harry Wentland <harry.wentland@amd.com>
-> Signed-off-by: David Francis <David.Francis@amd.com>
-> Signed-off-by: Mikita Lipski <mikita.lipski@amd.com>
+This patch is
+
+Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
+
 > ---
->  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  |  2 +-
->  drivers/gpu/drm/drm_dp_mst_topology.c              | 12 +++++++++++-
->  drivers/gpu/drm/i915/display/intel_dp_mst.c        |  3 ++-
->  drivers/gpu/drm/nouveau/dispnv50/disp.c            |  2 +-
->  drivers/gpu/drm/radeon/radeon_dp_mst.c             |  2 +-
->  drivers/gpu/drm/selftests/test-drm_dp_mst_helper.c | 10 ++++++----
->  include/drm/drm_dp_mst_helper.h                    |  3 +--
->  7 files changed, 23 insertions(+), 11 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index 455c51c38720..9fc03fc1017d 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -4967,7 +4967,7 @@ static int dm_encoder_helper_atomic_check(struct
-> drm_encoder *encoder,
->  								    is_y420);
->  		bpp = convert_dc_color_depth_into_bpc(color_depth) * 3;
->  		clock = adjusted_mode->clock;
-> -		dm_new_connector_state->pbn = drm_dp_calc_pbn_mode(clock,
-> bpp);
-> +		dm_new_connector_state->pbn = drm_dp_calc_pbn_mode(clock, bpp,
-> false);
->  	}
->  	dm_new_connector_state->vcpi_slots =
-> drm_dp_atomic_find_vcpi_slots(state,
->  									   mst
-> _mgr,
-> diff --git a/drivers/gpu/drm/drm_dp_mst_topology.c
-> b/drivers/gpu/drm/drm_dp_mst_topology.c
-> index ae5809a1f19a..363e7e58e7e7 100644
-> --- a/drivers/gpu/drm/drm_dp_mst_topology.c
-> +++ b/drivers/gpu/drm/drm_dp_mst_topology.c
-> @@ -4342,10 +4342,11 @@ EXPORT_SYMBOL(drm_dp_check_act_status);
->   * drm_dp_calc_pbn_mode() - Calculate the PBN for a mode.
->   * @clock: dot clock for the mode
->   * @bpp: bpp for the mode.
-> + * @dsc: DSC mode. If true, bpp has units of 1/16 of a bit per pixel
->   *
->   * This uses the formula in the spec to calculate the PBN value for a mode.
->   */
-> -int drm_dp_calc_pbn_mode(int clock, int bpp)
-> +int drm_dp_calc_pbn_mode(int clock, int bpp, bool dsc)
->  {
->  	/*
->  	 * margin 5300ppm + 300ppm ~ 0.6% as per spec, factor is 1.006
-> @@ -4356,7 +4357,16 @@ int drm_dp_calc_pbn_mode(int clock, int bpp)
->  	 * peak_kbps *= (1006/1000)
->  	 * peak_kbps *= (64/54)
->  	 * peak_kbps *= 8    convert to bytes
-> +	 *
-> +	 * If the bpp is in units of 1/16, further divide by 16. Put this
-> +	 * factor in the numerator rather than the denominator to avoid
-> +	 * integer overflow
->  	 */
-> +
-> +	if (dsc)
-> +		return DIV_ROUND_UP_ULL(mul_u32_u32(clock * (bpp / 16), 64 *
-> 1006),
-> +					8 * 54 * 1000 * 1000);
-> +
->  	return DIV_ROUND_UP_ULL(mul_u32_u32(clock * bpp, 64 * 1006),
->  				8 * 54 * 1000 * 1000);
->  }
-> diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c
-> b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-> index 03d1cba0b696..92be17711287 100644
-> --- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
-> +++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-> @@ -61,7 +61,8 @@ static int intel_dp_mst_compute_link_config(struct
-> intel_encoder *encoder,
->  		crtc_state->pipe_bpp = bpp;
->  
->  		crtc_state->pbn = drm_dp_calc_pbn_mode(adjusted_mode-
-> >crtc_clock,
-> -						       crtc_state->pipe_bpp);
-> +						       crtc_state->pipe_bpp,
-> +						       false);
->  
->  		slots = drm_dp_atomic_find_vcpi_slots(state, &intel_dp-
-> >mst_mgr,
->  						      port, crtc_state->pbn);
-> diff --git a/drivers/gpu/drm/nouveau/dispnv50/disp.c
-> b/drivers/gpu/drm/nouveau/dispnv50/disp.c
-> index 549486f1d937..1c9e23d5a6fd 100644
-> --- a/drivers/gpu/drm/nouveau/dispnv50/disp.c
-> +++ b/drivers/gpu/drm/nouveau/dispnv50/disp.c
-> @@ -782,7 +782,7 @@ nv50_msto_atomic_check(struct drm_encoder *encoder,
->  			const int bpp = connector->display_info.bpc * 3;
->  			const int clock = crtc_state->adjusted_mode.clock;
->  
-> -			asyh->dp.pbn = drm_dp_calc_pbn_mode(clock, bpp);
-> +			asyh->dp.pbn = drm_dp_calc_pbn_mode(clock, bpp,
-> false);
->  		}
->  
->  		slots = drm_dp_atomic_find_vcpi_slots(state, &mstm->mgr,
-> diff --git a/drivers/gpu/drm/radeon/radeon_dp_mst.c
-> b/drivers/gpu/drm/radeon/radeon_dp_mst.c
-> index ee28f5b3785e..28eef9282874 100644
-> --- a/drivers/gpu/drm/radeon/radeon_dp_mst.c
-> +++ b/drivers/gpu/drm/radeon/radeon_dp_mst.c
-> @@ -518,7 +518,7 @@ static bool radeon_mst_mode_fixup(struct drm_encoder
-> *encoder,
->  
->  	mst_enc = radeon_encoder->enc_priv;
->  
-> -	mst_enc->pbn = drm_dp_calc_pbn_mode(adjusted_mode->clock, bpp);
-> +	mst_enc->pbn = drm_dp_calc_pbn_mode(adjusted_mode->clock, bpp, false);
->  
->  	mst_enc->primary->active_device = mst_enc->primary->devices & mst_enc-
-> >connector->devices;
->  	DRM_DEBUG_KMS("setting active device to %08x from %08x %08x for
-> encoder %d\n",
-> diff --git a/drivers/gpu/drm/selftests/test-drm_dp_mst_helper.c
-> b/drivers/gpu/drm/selftests/test-drm_dp_mst_helper.c
-> index af2b2de65316..73fc1c485283 100644
-> --- a/drivers/gpu/drm/selftests/test-drm_dp_mst_helper.c
-> +++ b/drivers/gpu/drm/selftests/test-drm_dp_mst_helper.c
-> @@ -18,15 +18,17 @@ int igt_dp_mst_calc_pbn_mode(void *ignored)
->  		int rate;
->  		int bpp;
->  		int expected;
-> +		bool dsc;
->  	} test_params[] = {
-> -		{ 154000, 30, 689 },
-> -		{ 234000, 30, 1047 },
-> -		{ 297000, 24, 1063 },
-> +		{ 154000, 30, 689, false },
-> +		{ 234000, 30, 1047, false },
-> +		{ 297000, 24, 1063, false },
-
-Mind adding one or two test_params that actually use dsc here?
-
->  	};
->  
->  	for (i = 0; i < ARRAY_SIZE(test_params); i++) {
->  		pbn = drm_dp_calc_pbn_mode(test_params[i].rate,
-> -					   test_params[i].bpp);
-> +					   test_params[i].bpp,
-> +					   test_params[i].dsc);
->  		FAIL(pbn != test_params[i].expected,
->  		     "Expected PBN %d for clock %d bpp %d, got %d\n",
->  		     test_params[i].expected, test_params[i].rate,
-> diff --git a/include/drm/drm_dp_mst_helper.h
-> b/include/drm/drm_dp_mst_helper.h
-> index d5fc90b30487..68656913cfe5 100644
-> --- a/include/drm/drm_dp_mst_helper.h
-> +++ b/include/drm/drm_dp_mst_helper.h
-> @@ -719,8 +719,7 @@ bool drm_dp_mst_port_has_audio(struct
-> drm_dp_mst_topology_mgr *mgr,
->  struct edid *drm_dp_mst_get_edid(struct drm_connector *connector, struct
-> drm_dp_mst_topology_mgr *mgr, struct drm_dp_mst_port *port);
->  
->  
-> -int drm_dp_calc_pbn_mode(int clock, int bpp);
+>   .../drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c   |  2 -
+>   .../drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c    | 67 -------------
+>   .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v7.c | 41 --------
+>   .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v8.c | 41 --------
+>   .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c | 96 -------------------
+>   .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.h |  2 -
+>   .../gpu/drm/amd/include/kgd_kfd_interface.h   |  2 -
+>   7 files changed, 251 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c
+> index 3c119407dc34..82e80b92e6ce 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c
+> @@ -296,7 +296,5 @@ const struct kfd2kgd_calls arcturus_kfd2kgd = {
+>   			kgd_gfx_v9_get_atc_vmid_pasid_mapping_info,
+>   	.get_tile_config = kgd_gfx_v9_get_tile_config,
+>   	.set_vm_context_page_table_base = kgd_set_vm_context_page_table_base,
+> -	.invalidate_tlbs = kgd_gfx_v9_invalidate_tlbs,
+> -	.invalidate_tlbs_vmid = kgd_gfx_v9_invalidate_tlbs_vmid,
+>   	.get_hive_id = amdgpu_amdkfd_get_hive_id,
+>   };
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c
+> index 61cd707158e4..6132b4874498 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c
+> @@ -686,71 +686,6 @@ static bool get_atc_vmid_pasid_mapping_info(struct kgd_dev *kgd,
+>   	return !!(value & ATC_VMID0_PASID_MAPPING__VALID_MASK);
+>   }
+>   
+> -static int invalidate_tlbs_with_kiq(struct amdgpu_device *adev, uint16_t pasid)
+> -{
+> -	signed long r;
+> -	uint32_t seq;
+> -	struct amdgpu_ring *ring = &adev->gfx.kiq.ring;
 > -
-> +int drm_dp_calc_pbn_mode(int clock, int bpp, bool dsc);
->  
->  bool drm_dp_mst_allocate_vcpi(struct drm_dp_mst_topology_mgr *mgr,
->  			      struct drm_dp_mst_port *port, int pbn, int
-> slots);
--- 
-Cheers,
-	Lyude Paul
-
+> -	spin_lock(&adev->gfx.kiq.ring_lock);
+> -	amdgpu_ring_alloc(ring, 12); /* fence + invalidate_tlbs package*/
+> -	amdgpu_ring_write(ring, PACKET3(PACKET3_INVALIDATE_TLBS, 0));
+> -	amdgpu_ring_write(ring,
+> -			PACKET3_INVALIDATE_TLBS_DST_SEL(1) |
+> -			PACKET3_INVALIDATE_TLBS_PASID(pasid));
+> -	amdgpu_fence_emit_polling(ring, &seq);
+> -	amdgpu_ring_commit(ring);
+> -	spin_unlock(&adev->gfx.kiq.ring_lock);
+> -
+> -	r = amdgpu_fence_wait_polling(ring, seq, adev->usec_timeout);
+> -	if (r < 1) {
+> -		DRM_ERROR("wait for kiq fence error: %ld.\n", r);
+> -		return -ETIME;
+> -	}
+> -
+> -	return 0;
+> -}
+> -
+> -static int invalidate_tlbs(struct kgd_dev *kgd, uint16_t pasid)
+> -{
+> -	struct amdgpu_device *adev = (struct amdgpu_device *) kgd;
+> -	int vmid;
+> -	uint16_t queried_pasid;
+> -	bool ret;
+> -	struct amdgpu_ring *ring = &adev->gfx.kiq.ring;
+> -
+> -	if (amdgpu_emu_mode == 0 && ring->sched.ready)
+> -		return invalidate_tlbs_with_kiq(adev, pasid);
+> -
+> -	for (vmid = 0; vmid < 16; vmid++) {
+> -		if (!amdgpu_amdkfd_is_kfd_vmid(adev, vmid))
+> -			continue;
+> -
+> -		ret = get_atc_vmid_pasid_mapping_info(kgd, vmid,
+> -				&queried_pasid);
+> -		if (ret	&& queried_pasid == pasid) {
+> -			amdgpu_gmc_flush_gpu_tlb(adev, vmid,
+> -					AMDGPU_GFXHUB_0, 0);
+> -			break;
+> -		}
+> -	}
+> -
+> -	return 0;
+> -}
+> -
+> -static int invalidate_tlbs_vmid(struct kgd_dev *kgd, uint16_t vmid)
+> -{
+> -	struct amdgpu_device *adev = (struct amdgpu_device *) kgd;
+> -
+> -	if (!amdgpu_amdkfd_is_kfd_vmid(adev, vmid)) {
+> -		pr_err("non kfd vmid %d\n", vmid);
+> -		return 0;
+> -	}
+> -
+> -	amdgpu_gmc_flush_gpu_tlb(adev, vmid, AMDGPU_GFXHUB_0, 0);
+> -	return 0;
+> -}
+> -
+>   static int kgd_address_watch_disable(struct kgd_dev *kgd)
+>   {
+>   	return 0;
+> @@ -832,7 +767,5 @@ const struct kfd2kgd_calls gfx_v10_kfd2kgd = {
+>   			get_atc_vmid_pasid_mapping_info,
+>   	.get_tile_config = amdgpu_amdkfd_get_tile_config,
+>   	.set_vm_context_page_table_base = set_vm_context_page_table_base,
+> -	.invalidate_tlbs = invalidate_tlbs,
+> -	.invalidate_tlbs_vmid = invalidate_tlbs_vmid,
+>   	.get_hive_id = amdgpu_amdkfd_get_hive_id,
+>   };
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v7.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v7.c
+> index 6e6f0a99ec06..8f052e98a3c6 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v7.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v7.c
+> @@ -696,45 +696,6 @@ static void set_vm_context_page_table_base(struct kgd_dev *kgd, uint32_t vmid,
+>   		lower_32_bits(page_table_base));
+>   }
+>   
+> -static int invalidate_tlbs(struct kgd_dev *kgd, uint16_t pasid)
+> -{
+> -	struct amdgpu_device *adev = (struct amdgpu_device *) kgd;
+> -	int vmid;
+> -	unsigned int tmp;
+> -
+> -	if (adev->in_gpu_reset)
+> -		return -EIO;
+> -
+> -	for (vmid = 0; vmid < 16; vmid++) {
+> -		if (!amdgpu_amdkfd_is_kfd_vmid(adev, vmid))
+> -			continue;
+> -
+> -		tmp = RREG32(mmATC_VMID0_PASID_MAPPING + vmid);
+> -		if ((tmp & ATC_VMID0_PASID_MAPPING__VALID_MASK) &&
+> -			(tmp & ATC_VMID0_PASID_MAPPING__PASID_MASK) == pasid) {
+> -			WREG32(mmVM_INVALIDATE_REQUEST, 1 << vmid);
+> -			RREG32(mmVM_INVALIDATE_RESPONSE);
+> -			break;
+> -		}
+> -	}
+> -
+> -	return 0;
+> -}
+> -
+> -static int invalidate_tlbs_vmid(struct kgd_dev *kgd, uint16_t vmid)
+> -{
+> -	struct amdgpu_device *adev = (struct amdgpu_device *) kgd;
+> -
+> -	if (!amdgpu_amdkfd_is_kfd_vmid(adev, vmid)) {
+> -		pr_err("non kfd vmid\n");
+> -		return 0;
+> -	}
+> -
+> -	WREG32(mmVM_INVALIDATE_REQUEST, 1 << vmid);
+> -	RREG32(mmVM_INVALIDATE_RESPONSE);
+> -	return 0;
+> -}
+> -
+>    /**
+>     * read_vmid_from_vmfault_reg - read vmid from register
+>     *
+> @@ -771,7 +732,5 @@ const struct kfd2kgd_calls gfx_v7_kfd2kgd = {
+>   	.set_scratch_backing_va = set_scratch_backing_va,
+>   	.get_tile_config = get_tile_config,
+>   	.set_vm_context_page_table_base = set_vm_context_page_table_base,
+> -	.invalidate_tlbs = invalidate_tlbs,
+> -	.invalidate_tlbs_vmid = invalidate_tlbs_vmid,
+>   	.read_vmid_from_vmfault_reg = read_vmid_from_vmfault_reg,
+>   };
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v8.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v8.c
+> index bfbddedb2380..19a10db93d68 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v8.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v8.c
+> @@ -657,45 +657,6 @@ static void set_vm_context_page_table_base(struct kgd_dev *kgd, uint32_t vmid,
+>   			lower_32_bits(page_table_base));
+>   }
+>   
+> -static int invalidate_tlbs(struct kgd_dev *kgd, uint16_t pasid)
+> -{
+> -	struct amdgpu_device *adev = (struct amdgpu_device *) kgd;
+> -	int vmid;
+> -	unsigned int tmp;
+> -
+> -	if (adev->in_gpu_reset)
+> -		return -EIO;
+> -
+> -	for (vmid = 0; vmid < 16; vmid++) {
+> -		if (!amdgpu_amdkfd_is_kfd_vmid(adev, vmid))
+> -			continue;
+> -
+> -		tmp = RREG32(mmATC_VMID0_PASID_MAPPING + vmid);
+> -		if ((tmp & ATC_VMID0_PASID_MAPPING__VALID_MASK) &&
+> -			(tmp & ATC_VMID0_PASID_MAPPING__PASID_MASK) == pasid) {
+> -			WREG32(mmVM_INVALIDATE_REQUEST, 1 << vmid);
+> -			RREG32(mmVM_INVALIDATE_RESPONSE);
+> -			break;
+> -		}
+> -	}
+> -
+> -	return 0;
+> -}
+> -
+> -static int invalidate_tlbs_vmid(struct kgd_dev *kgd, uint16_t vmid)
+> -{
+> -	struct amdgpu_device *adev = (struct amdgpu_device *) kgd;
+> -
+> -	if (!amdgpu_amdkfd_is_kfd_vmid(adev, vmid)) {
+> -		pr_err("non kfd vmid %d\n", vmid);
+> -		return -EINVAL;
+> -	}
+> -
+> -	WREG32(mmVM_INVALIDATE_REQUEST, 1 << vmid);
+> -	RREG32(mmVM_INVALIDATE_RESPONSE);
+> -	return 0;
+> -}
+> -
+>   const struct kfd2kgd_calls gfx_v8_kfd2kgd = {
+>   	.program_sh_mem_settings = kgd_program_sh_mem_settings,
+>   	.set_pasid_vmid_mapping = kgd_set_pasid_vmid_mapping,
+> @@ -717,6 +678,4 @@ const struct kfd2kgd_calls gfx_v8_kfd2kgd = {
+>   	.set_scratch_backing_va = set_scratch_backing_va,
+>   	.get_tile_config = get_tile_config,
+>   	.set_vm_context_page_table_base = set_vm_context_page_table_base,
+> -	.invalidate_tlbs = invalidate_tlbs,
+> -	.invalidate_tlbs_vmid = invalidate_tlbs_vmid,
+>   };
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
+> index e7861f0ef415..932ae85d97e2 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
+> @@ -617,100 +617,6 @@ bool kgd_gfx_v9_get_atc_vmid_pasid_mapping_info(struct kgd_dev *kgd,
+>   	return !!(value & ATC_VMID0_PASID_MAPPING__VALID_MASK);
+>   }
+>   
+> -static int invalidate_tlbs_with_kiq(struct amdgpu_device *adev, uint16_t pasid,
+> -			uint32_t flush_type)
+> -{
+> -	signed long r;
+> -	uint32_t seq;
+> -	struct amdgpu_ring *ring = &adev->gfx.kiq.ring;
+> -
+> -	spin_lock(&adev->gfx.kiq.ring_lock);
+> -	amdgpu_ring_alloc(ring, 12); /* fence + invalidate_tlbs package*/
+> -	amdgpu_ring_write(ring, PACKET3(PACKET3_INVALIDATE_TLBS, 0));
+> -	amdgpu_ring_write(ring,
+> -			PACKET3_INVALIDATE_TLBS_DST_SEL(1) |
+> -			PACKET3_INVALIDATE_TLBS_ALL_HUB(1) |
+> -			PACKET3_INVALIDATE_TLBS_PASID(pasid) |
+> -			PACKET3_INVALIDATE_TLBS_FLUSH_TYPE(flush_type));
+> -	amdgpu_fence_emit_polling(ring, &seq);
+> -	amdgpu_ring_commit(ring);
+> -	spin_unlock(&adev->gfx.kiq.ring_lock);
+> -
+> -	r = amdgpu_fence_wait_polling(ring, seq, adev->usec_timeout);
+> -	if (r < 1) {
+> -		DRM_ERROR("wait for kiq fence error: %ld.\n", r);
+> -		return -ETIME;
+> -	}
+> -
+> -	return 0;
+> -}
+> -
+> -int kgd_gfx_v9_invalidate_tlbs(struct kgd_dev *kgd, uint16_t pasid)
+> -{
+> -	struct amdgpu_device *adev = (struct amdgpu_device *) kgd;
+> -	int vmid, i;
+> -	uint16_t queried_pasid;
+> -	bool ret;
+> -	struct amdgpu_ring *ring = &adev->gfx.kiq.ring;
+> -	uint32_t flush_type = 0;
+> -
+> -	if (adev->in_gpu_reset)
+> -		return -EIO;
+> -	if (adev->gmc.xgmi.num_physical_nodes &&
+> -		adev->asic_type == CHIP_VEGA20)
+> -		flush_type = 2;
+> -
+> -	if (ring->sched.ready)
+> -		return invalidate_tlbs_with_kiq(adev, pasid, flush_type);
+> -
+> -	for (vmid = 0; vmid < 16; vmid++) {
+> -		if (!amdgpu_amdkfd_is_kfd_vmid(adev, vmid))
+> -			continue;
+> -
+> -		ret = kgd_gfx_v9_get_atc_vmid_pasid_mapping_info(kgd, vmid,
+> -				&queried_pasid);
+> -		if (ret && queried_pasid == pasid) {
+> -			for (i = 0; i < adev->num_vmhubs; i++)
+> -				amdgpu_gmc_flush_gpu_tlb(adev, vmid,
+> -							i, flush_type);
+> -			break;
+> -		}
+> -	}
+> -
+> -	return 0;
+> -}
+> -
+> -int kgd_gfx_v9_invalidate_tlbs_vmid(struct kgd_dev *kgd, uint16_t vmid)
+> -{
+> -	struct amdgpu_device *adev = (struct amdgpu_device *) kgd;
+> -	int i;
+> -
+> -	if (!amdgpu_amdkfd_is_kfd_vmid(adev, vmid)) {
+> -		pr_err("non kfd vmid %d\n", vmid);
+> -		return 0;
+> -	}
+> -
+> -	/* Use legacy mode tlb invalidation.
+> -	 *
+> -	 * Currently on Raven the code below is broken for anything but
+> -	 * legacy mode due to a MMHUB power gating problem. A workaround
+> -	 * is for MMHUB to wait until the condition PER_VMID_INVALIDATE_REQ
+> -	 * == PER_VMID_INVALIDATE_ACK instead of simply waiting for the ack
+> -	 * bit.
+> -	 *
+> -	 * TODO 1: agree on the right set of invalidation registers for
+> -	 * KFD use. Use the last one for now. Invalidate both GC and
+> -	 * MMHUB.
+> -	 *
+> -	 * TODO 2: support range-based invalidation, requires kfg2kgd
+> -	 * interface change
+> -	 */
+> -	for (i = 0; i < adev->num_vmhubs; i++)
+> -		amdgpu_gmc_flush_gpu_tlb(adev, vmid, i, 0);
+> -
+> -	return 0;
+> -}
+> -
+>   int kgd_gfx_v9_address_watch_disable(struct kgd_dev *kgd)
+>   {
+>   	return 0;
+> @@ -793,7 +699,5 @@ const struct kfd2kgd_calls gfx_v9_kfd2kgd = {
+>   			kgd_gfx_v9_get_atc_vmid_pasid_mapping_info,
+>   	.get_tile_config = kgd_gfx_v9_get_tile_config,
+>   	.set_vm_context_page_table_base = kgd_gfx_v9_set_vm_context_page_table_base,
+> -	.invalidate_tlbs = kgd_gfx_v9_invalidate_tlbs,
+> -	.invalidate_tlbs_vmid = kgd_gfx_v9_invalidate_tlbs_vmid,
+>   	.get_hive_id = amdgpu_amdkfd_get_hive_id,
+>   };
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.h
+> index 02b1426d17d1..dfafa28b7559 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.h
+> @@ -57,7 +57,5 @@ uint32_t kgd_gfx_v9_address_watch_get_offset(struct kgd_dev *kgd,
+>   
+>   bool kgd_gfx_v9_get_atc_vmid_pasid_mapping_info(struct kgd_dev *kgd,
+>   					uint8_t vmid, uint16_t *p_pasid);
+> -int kgd_gfx_v9_invalidate_tlbs(struct kgd_dev *kgd, uint16_t pasid);
+> -int kgd_gfx_v9_invalidate_tlbs_vmid(struct kgd_dev *kgd, uint16_t vmid);
+>   int kgd_gfx_v9_get_tile_config(struct kgd_dev *kgd,
+>   		struct tile_config *config);
+> diff --git a/drivers/gpu/drm/amd/include/kgd_kfd_interface.h b/drivers/gpu/drm/amd/include/kgd_kfd_interface.h
+> index 2cd217e60125..a01ef836ad58 100644
+> --- a/drivers/gpu/drm/amd/include/kgd_kfd_interface.h
+> +++ b/drivers/gpu/drm/amd/include/kgd_kfd_interface.h
+> @@ -307,8 +307,6 @@ struct kfd2kgd_calls {
+>   
+>   	void (*set_vm_context_page_table_base)(struct kgd_dev *kgd,
+>   			uint32_t vmid, uint64_t page_table_base);
+> -	int (*invalidate_tlbs)(struct kgd_dev *kgd, uint16_t pasid);
+> -	int (*invalidate_tlbs_vmid)(struct kgd_dev *kgd, uint16_t vmid);
+>   	uint32_t (*read_vmid_from_vmfault_reg)(struct kgd_dev *kgd);
+>   	uint64_t (*get_hive_id)(struct kgd_dev *kgd);
+>   
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
