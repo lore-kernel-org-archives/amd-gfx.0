@@ -2,69 +2,101 @@ Return-Path: <SRS0=BZXp=2K=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-5.2 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
+	UNWANTED_LANGUAGE_BODY,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B5DA0C43603
-	for <amd-gfx@archiver.kernel.org>; Fri, 20 Dec 2019 15:28:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BC499C43603
+	for <amd-gfx@archiver.kernel.org>; Fri, 20 Dec 2019 15:56:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 8797D21D7E
-	for <amd-gfx@archiver.kernel.org>; Fri, 20 Dec 2019 15:28:10 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 7B95421D7E
+	for <amd-gfx@archiver.kernel.org>; Fri, 20 Dec 2019 15:56:31 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Zc8I73Nu"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8797D21D7E
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="yFtOhnkX"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7B95421D7E
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 41C486E0C9;
-	Fri, 20 Dec 2019 15:28:10 +0000 (UTC)
-Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com
- [IPv6:2a00:1450:4864:20::444])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B53956E0C9
- for <amd-gfx@lists.freedesktop.org>; Fri, 20 Dec 2019 15:28:08 +0000 (UTC)
-Received: by mail-wr1-x444.google.com with SMTP id y11so9801574wrt.6
- for <amd-gfx@lists.freedesktop.org>; Fri, 20 Dec 2019 07:28:08 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=UaauBeOCt91+KlXYmb1FKmwW8yXVkoo2/GamSyDQeCM=;
- b=Zc8I73Nu0bsNbaOcg8td4BG3At/TpsAkvyhOe9NM0XAOMDOwDOvlJExNjZQ4+QRqLi
- L/tjoMno2DJFwVXK716UpHJQGv0a+oDLVlodk3ia/6Hgoi3jB1qJSp1azPE/ltiLK2JE
- xKV68Q8a4IeZE6scLbOUx5QOuS2NTXEgXUZe9tbjGPK3gBRk35xHEdgkUM7VIyQMCKm/
- cnyFq0paq6DvjLzQRCKqvs2AegMyAGI+VjbgTC27MAeG0tlwERImPQcGY0t5Ogrccfuc
- inoIiWvZR2UTkAkBNxzHVEWvGTdx7q93InX/dZjzUtI/kfi3WaBuAUZhhj525Qd/Aly3
- Qzwg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=UaauBeOCt91+KlXYmb1FKmwW8yXVkoo2/GamSyDQeCM=;
- b=ijB3P1v5dyN0aYoqoxda7Vlx/Q0g8iDQWjQQOQ+PXd61ZqHYznVzUdXyRsyunYRcm6
- 71cSgqCIU6m6SEZevunsjjst+6v1dK3d0C+8JCFwS+h2vZz3GUrNLhLBI0PefEcUDYAQ
- 8DGdu+ZsypNsvVzEyMm6DJj3CQOP1YmM697AxEWLp+gK1lEmXual5qdSvDvdELpJsYLY
- W/YRJmu5xkF1qOU0Wn2MCYP70qTwenXZ1FaL/VR/i+GjCVch4c+qkUrWXSFn6pDNFKBx
- iAdBQ6R638KuliXdgJKWTMnTNYINVqUou4HIyp8cjX9oj5WJK7CzleD2kAG2oc9zR7jO
- AM+g==
-X-Gm-Message-State: APjAAAU35RUwMQf0ajqRTzNZ9+kAHMwqJ6aF4oNm0CbWj3jaITOiihR5
- Pln6hbvKiKZeZjFYDbwwgNc+ArpCBsQxd5pRmyA=
-X-Google-Smtp-Source: APXvYqy373o2CxYwNhsmolsas/ROGYU5dBgXyaVOo1k/DZDQa6TW+coHOhruZJZ5zKClm5NSRY5vl+uXSud9VBNSaq8=
-X-Received: by 2002:adf:e8ca:: with SMTP id k10mr16137963wrn.50.1576855687119; 
- Fri, 20 Dec 2019 07:28:07 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 467DF6EC6F;
+	Fri, 20 Dec 2019 15:56:31 +0000 (UTC)
+Received: from NAM02-BL2-obe.outbound.protection.outlook.com
+ (mail-eopbgr750070.outbound.protection.outlook.com [40.107.75.70])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 087946E0ED
+ for <amd-gfx@lists.freedesktop.org>; Fri, 20 Dec 2019 15:56:30 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=NTc7OHehPvT30zOzRswP9A3wvcL9yR2/Be2Pzq3ncUl8NSRHWCPRup06+jugdGh1gN5VjlW/CEqpRk8OfR8KbBmOaLIIWa15pUkfdRfcko1g1rzkDJhRqLLbmODjnekz26eKocVe05ZJsZT4s9xpH/Usq7jmtU0BHPtgztuo69eywyC+nsz/F6Eg4za/gqHzp9/LT2zoS3Q5d1KhvHvnB0BT4qHy+ZYl/1njSPj/mUKu3Whc4Akam9kw6cGbCfhPJydbif3xHU85AoaZLjhYN13AURSlKQ2RaRQVBZQMeu4Ub3NKzRzbBrqPWgnSCryXPT4uHVstYhdbIDOfJUl0uw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=tYj1A6zjujq0qTPHbMidAcP7c1Qgy3YK/iwOFrmP6+8=;
+ b=OOrygigD+wt0JBJTJxBPdBAC1OTOEYioh2MdlGuusLP6YPaI2m7tWyP3nlDLwEiOrgfOPQ5UVO9Sute7s6UD3ELHjlFNAmgPeKlK1vdCxD3Pe/dqktN19lFTsALfiLSqSy1V66J52iHg7fm5DJB5jp3nN2cWW0v5XK0uskTw1cdDa3bm+75rOJzAb0Xs3ll5Kc8gKEbrcqDORtWj0jS7PRm83a2hJFwxi8K9kvW5SAPfBasqkbq/wkrFjKpGmLERzd7ZM3xCkbgjkJfQsoaJimOYwppeeno3FqV8pF7POR66Gf2tpCm2T9v/SnKqrsm01SofuBnjBTeCe3P177Y2EQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=tYj1A6zjujq0qTPHbMidAcP7c1Qgy3YK/iwOFrmP6+8=;
+ b=yFtOhnkXZ6A73lrNmGccORIOPhN6y2YAn8MhMH1LBwG1Sigkhnt8eFHtzPa9gTj/6nMqrTlAG7Dae5UoA9XxTaN3MFchDr4v0dde+53JdFgfIIXt/J0HHE5XOOK9Sdc7ecNU5UXdAGVcjiT4SSdnVbKPLXYN+AogEG9kqRFmz8E=
+Authentication-Results: spf=none (sender IP is )
+ smtp.mailfrom=Shaoyun.Liu@amd.com; 
+Received: from DM6PR12MB3241.namprd12.prod.outlook.com (20.179.105.153) by
+ DM6PR12MB3609.namprd12.prod.outlook.com (20.178.30.32) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2559.16; Fri, 20 Dec 2019 15:56:28 +0000
+Received: from DM6PR12MB3241.namprd12.prod.outlook.com
+ ([fe80::e9a0:2dda:d7b9:9a10]) by DM6PR12MB3241.namprd12.prod.outlook.com
+ ([fe80::e9a0:2dda:d7b9:9a10%5]) with mapi id 15.20.2559.016; Fri, 20 Dec 2019
+ 15:56:27 +0000
+Subject: Re: [PATCH 4/4] drm/amdkfd: Avoid hanging hardware in stop_cpsch
+To: amd-gfx@lists.freedesktop.org
+References: <20191220083001.30607-1-Felix.Kuehling@amd.com>
+ <20191220083001.30607-4-Felix.Kuehling@amd.com>
+From: shaoyunl <shaoyun.liu@amd.com>
+Message-ID: <51b5a7ec-0572-bdc3-7b43-2d663006dd0a@amd.com>
+Date: Fri, 20 Dec 2019 10:56:26 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.9.0
+In-Reply-To: <20191220083001.30607-4-Felix.Kuehling@amd.com>
+Content-Language: en-US
+X-ClientProxiedBy: YTBPR01CA0015.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:14::28) To DM6PR12MB3241.namprd12.prod.outlook.com
+ (2603:10b6:5:186::25)
 MIME-Version: 1.0
-References: <20191219091623.3922-1-tianci.yin@amd.com>
- <ae29000d-fb99-4846-6d66-3ce5f67013c5@amd.com>
- <MN2PR12MB29574DEB22704EAD912B00A8952D0@MN2PR12MB2957.namprd12.prod.outlook.com>
-In-Reply-To: <MN2PR12MB29574DEB22704EAD912B00A8952D0@MN2PR12MB2957.namprd12.prod.outlook.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 20 Dec 2019 10:27:55 -0500
-Message-ID: <CADnq5_N0QbrFs3pvyd7gT0_5=+KXk1COj5K8-Dw=N6K-AW+P=A@mail.gmail.com>
-Subject: Re: [PATCH 1/2] drm/amdgpu: update the method to get fb_loc of memory
- training(V4)
-To: "Yin, Tianci (Rico)" <Tianci.Yin@amd.com>
+Received: from [10.1.38.28] (165.204.55.250) by
+ YTBPR01CA0015.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:14::28) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=) via Frontend Transport;
+ Fri, 20 Dec 2019 15:56:27 +0000
+X-Originating-IP: [165.204.55.250]
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: 316ad710-5cdf-4bd2-bb4e-08d785652c52
+X-MS-TrafficTypeDiagnostic: DM6PR12MB3609:
+X-Microsoft-Antispam-PRVS: <DM6PR12MB3609EAEBE1D6A3CB089F6591F42D0@DM6PR12MB3609.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:655;
+X-Forefront-PRVS: 025796F161
+X-Forefront-Antispam-Report: SFV:NSPM;
+ SFS:(10009020)(4636009)(376002)(346002)(39860400002)(366004)(396003)(136003)(199004)(189003)(478600001)(81166006)(81156014)(8676002)(31696002)(5660300002)(31686004)(316002)(8936002)(16576012)(956004)(66476007)(66556008)(66946007)(6916009)(2906002)(16526019)(26005)(53546011)(2616005)(186003)(52116002)(6486002)(86362001)(36756003)(4001150100001)(43062003);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:DM6PR12MB3609;
+ H:DM6PR12MB3241.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; A:1; MX:1; 
+Received-SPF: None (protection.outlook.com: amd.com does not designate
+ permitted sender hosts)
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: /fzCkj7TRBdnjrHv+nYStMuLmg3lAYP0NfbWSIeaKepBmATd3HXsbft19lLzhsjRRMY2bnVk7ajqEZaPD68CVamYtRtbfFP0VrybyjE5pICW13oZ+7mBOUaM22WR1T1eb3+LAwq04neN8JkXeFwZcxj/OOrZBEQRJHuPrnK6ZklGlHvGfJ/cPZXzgdxTLk+ac7QxMveZJcM3qRirkVgm6yfrzjLIT9WUeSiRqVFE80UaFrUSYdKQ6F68qQ/8RsDNggXu834fhb4n3NIKHdz3enmLV2iaITApU6m1o0sTTLAeiAGwEz5BN+LTrx1tLdS09K4+k1b9r8azjW0wWbs4vcQ5pwuDaZneGtSpunarjlPiV1uszZnox2JzZHQj6xnz1uXVIF+6EX43qQ9O2Lk66s4Ym+WqPEdNh8vC1rIOT5svXn77GjG9qFSG6mfPcMRE1lZaN4djc4XJ91COWSMe4JXhYKyI+VoNroWFmPatILhe/yorY/SAdYtGToH4RC6m
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 316ad710-5cdf-4bd2-bb4e-08d785652c52
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Dec 2019 15:56:27.9774 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Pd0CaPmElno3avo9T5F+EmDvEm4ZVlnSBqwj35Tcst/5Az3TtMH0tq+VXIIkce/IpEuS0EWBkVddVWDX+kUbYA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3609
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,240 +108,121 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Long, Gang" <Gang.Long@amd.com>, "Xu, Feifei" <Feifei.Xu@amd.com>, "Wang,
- Kevin\(Yang\)" <Kevin1.Wang@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Tuikov,
- Luben" <Luben.Tuikov@amd.com>, "Deucher,
- Alexander" <Alexander.Deucher@amd.com>, "Yuan, Xiaojie" <Xiaojie.Yuan@amd.com>,
- "Koenig, Christian" <Christian.Koenig@amd.com>, "Zhang,
- Hawking" <Hawking.Zhang@amd.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Dec 19, 2019 at 9:00 PM Yin, Tianci (Rico) <Tianci.Yin@amd.com> wrote:
->
-> [AMD Official Use Only - Internal Distribution Only]
->
->
-> Hi Luben,
->
-> May I have your Review-by?
->
-
-Series is:
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-
-> Thanks a lot!
-> Rico
-> ________________________________
-> From: Tuikov, Luben <Luben.Tuikov@amd.com>
-> Sent: Friday, December 20, 2019 3:47
-> To: Yin, Tianci (Rico) <Tianci.Yin@amd.com>; amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
-> Cc: Koenig, Christian <Christian.Koenig@amd.com>; Deucher, Alexander <Alexander.Deucher@amd.com>; Zhang, Hawking <Hawking.Zhang@amd.com>; Xu, Feifei <Feifei.Xu@amd.com>; Yuan, Xiaojie <Xiaojie.Yuan@amd.com>; Long, Gang <Gang.Long@amd.com>; Wang, Kevin(Yang) <Kevin1.Wang@amd.com>
-> Subject: Re: [PATCH 1/2] drm/amdgpu: update the method to get fb_loc of memory training(V4)
->
-> Yep! That's perfect--good job!
->
-> Regards,
-> Luben
->
-> On 2019-12-19 04:16, Tianci Yin wrote:
-> > From: "Tianci.Yin" <tianci.yin@amd.com>
-> >
-> > The method of getting fb_loc changed from parsing VBIOS to
-> > taking certain offset from top of VRAM
-> >
-> > Change-Id: I053b42fdb1d822722fa7980b2cd9f86b3fdce539
-> > Signed-off-by: Tianci.Yin <tianci.yin@amd.com>
-> > ---
-> >  drivers/gpu/drm/amd/amdgpu/amdgpu.h           |  3 +-
-> >  drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c  |  2 +-
-> >  .../gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c  | 38 ++-----------------
-> >  .../gpu/drm/amd/amdgpu/amdgpu_atomfirmware.h  |  2 +-
-> >  drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c       | 10 ++++-
-> >  drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h       |  7 ++++
-> >  drivers/gpu/drm/amd/include/atomfirmware.h    | 14 -------
-> >  7 files changed, 23 insertions(+), 53 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> > index a78a363b1d71..fa2cf8e7bc07 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> > @@ -642,9 +642,8 @@ struct amdgpu_fw_vram_usage {
-> >        struct amdgpu_bo *reserved_bo;
-> >        void *va;
-> >
-> > -     /* Offset on the top of VRAM, used as c2p write buffer.
-> > +     /* GDDR6 training support flag.
-> >        */
-> > -     u64 mem_train_fb_loc;
-> >        bool mem_train_support;
-> >  };
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c
-> > index 9ba80d828876..fdd52d86a4d7 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c
-> > @@ -2022,7 +2022,7 @@ int amdgpu_atombios_init(struct amdgpu_device *adev)
-> >        if (adev->is_atom_fw) {
-> >                amdgpu_atomfirmware_scratch_regs_init(adev);
-> >                amdgpu_atomfirmware_allocate_fb_scratch(adev);
-> > -             ret = amdgpu_atomfirmware_get_mem_train_fb_loc(adev);
-> > +             ret = amdgpu_atomfirmware_get_mem_train_info(adev);
-> >                if (ret) {
-> >                        DRM_ERROR("Failed to get mem train fb location.\n");
-> >                        return ret;
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c
-> > index ff4eb96bdfb5..58f9d8c3a17a 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c
-> > @@ -525,16 +525,12 @@ static int gddr6_mem_train_support(struct amdgpu_device *adev)
-> >        return ret;
-> >  }
-> >
-> > -int amdgpu_atomfirmware_get_mem_train_fb_loc(struct amdgpu_device *adev)
-> > +int amdgpu_atomfirmware_get_mem_train_info(struct amdgpu_device *adev)
-> >  {
-> >        struct atom_context *ctx = adev->mode_info.atom_context;
-> > -     unsigned char *bios = ctx->bios;
-> > -     struct vram_reserve_block *reserved_block;
-> > -     int index, block_number;
-> > +     int index;
-> >        uint8_t frev, crev;
-> >        uint16_t data_offset, size;
-> > -     uint32_t start_address_in_kb;
-> > -     uint64_t offset;
-> >        int ret;
-> >
-> >        adev->fw_vram_usage.mem_train_support = false;
-> > @@ -569,32 +565,6 @@ int amdgpu_atomfirmware_get_mem_train_fb_loc(struct amdgpu_device *adev)
-> >                return -EINVAL;
-> >        }
-> >
-> > -     reserved_block = (struct vram_reserve_block *)
-> > -             (bios + data_offset + sizeof(struct atom_common_table_header));
-> > -     block_number = ((unsigned int)size - sizeof(struct atom_common_table_header))
-> > -             / sizeof(struct vram_reserve_block);
-> > -     reserved_block += (block_number > 0) ? block_number-1 : 0;
-> > -     DRM_DEBUG("block_number:0x%04x, last block: 0x%08xkb sz, %dkb fw, %dkb drv.\n",
-> > -               block_number,
-> > -               le32_to_cpu(reserved_block->start_address_in_kb),
-> > -               le16_to_cpu(reserved_block->used_by_firmware_in_kb),
-> > -               le16_to_cpu(reserved_block->used_by_driver_in_kb));
-> > -     if (reserved_block->used_by_firmware_in_kb > 0) {
-> > -             start_address_in_kb = le32_to_cpu(reserved_block->start_address_in_kb);
-> > -             offset = (uint64_t)start_address_in_kb * ONE_KiB;
-> > -             if ((offset & (ONE_MiB - 1)) < (4 * ONE_KiB + 1) ) {
-> > -                     offset -= ONE_MiB;
-> > -             }
-> > -
-> > -             offset &= ~(ONE_MiB - 1);
-> > -             adev->fw_vram_usage.mem_train_fb_loc = offset;
-> > -             adev->fw_vram_usage.mem_train_support = true;
-> > -             DRM_DEBUG("mem_train_fb_loc:0x%09llx.\n", offset);
-> > -             ret = 0;
-> > -     } else {
-> > -             DRM_ERROR("used_by_firmware_in_kb is 0!\n");
-> > -             ret = -EINVAL;
-> > -     }
-> > -
-> > -     return ret;
-> > +     adev->fw_vram_usage.mem_train_support = true;
-> > +     return 0;
-> >  }
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.h
-> > index f871af5ea6f3..434fe2fa0089 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.h
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.h
-> > @@ -31,7 +31,7 @@ void amdgpu_atomfirmware_scratch_regs_init(struct amdgpu_device *adev);
-> >  int amdgpu_atomfirmware_allocate_fb_scratch(struct amdgpu_device *adev);
-> >  int amdgpu_atomfirmware_get_vram_info(struct amdgpu_device *adev,
-> >        int *vram_width, int *vram_type, int *vram_vendor);
-> > -int amdgpu_atomfirmware_get_mem_train_fb_loc(struct amdgpu_device *adev);
-> > +int amdgpu_atomfirmware_get_mem_train_info(struct amdgpu_device *adev);
-> >  int amdgpu_atomfirmware_get_clock_info(struct amdgpu_device *adev);
-> >  int amdgpu_atomfirmware_get_gfx_info(struct amdgpu_device *adev);
-> >  bool amdgpu_atomfirmware_mem_ecc_supported(struct amdgpu_device *adev);
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> > index 2ff63d0414c9..1515413fd356 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> > @@ -1687,6 +1687,14 @@ static int amdgpu_ttm_training_reserve_vram_fini(struct amdgpu_device *adev)
-> >        return 0;
-> >  }
-> >
-> > +static u64 amdgpu_ttm_training_get_c2p_offset(u64 vram_size)
-> > +{
-> > +       if ((vram_size & (ONE_MiB - 1)) < (4 * ONE_KiB + 1) )
-> > +               vram_size -= ONE_MiB;
-> > +
-> > +       return ALIGN(vram_size, ONE_MiB);
-> > +}
-> > +
-> >  /**
-> >   * amdgpu_ttm_training_reserve_vram_init - create bo vram reservation from memory training
-> >   *
-> > @@ -1705,7 +1713,7 @@ static int amdgpu_ttm_training_reserve_vram_init(struct amdgpu_device *adev)
-> >                return 0;
-> >        }
-> >
-> > -     ctx->c2p_train_data_offset = adev->fw_vram_usage.mem_train_fb_loc;
-> > +     ctx->c2p_train_data_offset = amdgpu_ttm_training_get_c2p_offset(adev->gmc.mc_vram_size);
-> >        ctx->p2c_train_data_offset = (adev->gmc.mc_vram_size - GDDR6_MEM_TRAINING_OFFSET);
-> >        ctx->train_data_size = GDDR6_MEM_TRAINING_DATA_SIZE_IN_BYTES;
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-> > index f1ebd424510c..19eb3e8456c7 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-> > @@ -66,6 +66,13 @@ struct amdgpu_copy_mem {
-> >        unsigned long                   offset;
-> >  };
-> >
-> > +/* Definitions for constance */
-> > +enum amdgpu_internal_constants
-> > +{
-> > +     ONE_KiB = 0x400,
-> > +     ONE_MiB = 0x100000,
-> > +};
-> > +
-> >  extern const struct ttm_mem_type_manager_func amdgpu_gtt_mgr_func;
-> >  extern const struct ttm_mem_type_manager_func amdgpu_vram_mgr_func;
-> >
-> > diff --git a/drivers/gpu/drm/amd/include/atomfirmware.h b/drivers/gpu/drm/amd/include/atomfirmware.h
-> > index dd7cbc00a0aa..70146518174c 100644
-> > --- a/drivers/gpu/drm/amd/include/atomfirmware.h
-> > +++ b/drivers/gpu/drm/amd/include/atomfirmware.h
-> > @@ -672,20 +672,6 @@ struct vram_usagebyfirmware_v2_1
-> >    uint16_t  used_by_driver_in_kb;
-> >  };
-> >
-> > -/* This is part of vram_usagebyfirmware_v2_1 */
-> > -struct vram_reserve_block
-> > -{
-> > -     uint32_t start_address_in_kb;
-> > -     uint16_t used_by_firmware_in_kb;
-> > -     uint16_t used_by_driver_in_kb;
-> > -};
-> > -
-> > -/* Definitions for constance */
-> > -enum atomfirmware_internal_constants
-> > -{
-> > -     ONE_KiB = 0x400,
-> > -     ONE_MiB = 0x100000,
-> > -};
-> >
-> >  /*
-> >    ***************************************************************************
-> >
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+TG9va3MgbGlrZSBwYXRjaCAyIGlzIG5vdCByZWxhdGVkIHRvIHRoaXMgc2VyaWFsICwgYnV0IGFu
+eXdheSAuCgpQYXRjaCAxLDIsMyBhcmUgcmV2aWV3ZWQgYnkgc2hhb3l1bmzCoCA8c2hhb3l1bi5s
+aXVAYW1kLmNvbT4KCkZvciBwYXRjaCA0ICzCoCBpcyBpdCBwb3NzaWJsZSB3ZSBkaXJlY3RseSBj
+aGVjayBkcW0tPmlzX2h3c19oYW5nIHx8IApkcW0tPmlzX3Jlc2V0dGluZ8KgIGluc2lkZSBmdW5j
+dGlvbiBrcV91bmluaXRpYWxpemUuwqAgc28gd2UgZG9uJ3QgbmVlZCAKb3RoZXIgaW50ZXJmYWNl
+IGNoYW5nZSAuCgpJIHRoaW5rIGV2ZW4gSW5zaWRlIHRoYXQga3FfdW5pbml0aWFsaXplIGZ1bmN0
+aW9uICwgd2Ugc3RpbGwgY2FuIGdldCBkcW0gCmFzwqAga3EtPmRldi0+ZHFtIC4KCgpzaGFveXVu
+LmxpdQoKCk9uIDIwMTktMTItMjAgMzozMCBhLm0uLCBGZWxpeCBLdWVobGluZyB3cm90ZToKPiBE
+b24ndCB1c2UgdGhlIEhXUyBpZiBpdCdzIGtub3duIHRvIGJlIGhhbmdpbmcuIEluIGEgcmVzZXQg
+YWxzbwo+IGRvbid0IHRyeSB0byBkZXN0cm95IHRoZSBISVEgYmVjYXVzZSB0aGF0IG1heSBoYW5n
+IG9uIFNSSU9WIGlmIHRoZQo+IEtJUSBpcyB1bnJlc3BvbnNpdmUuCj4KPiBTaWduZWQtb2ZmLWJ5
+OiBGZWxpeCBLdWVobGluZyA8RmVsaXguS3VlaGxpbmdAYW1kLmNvbT4KPiAtLS0KPiAgIC4uLi9n
+cHUvZHJtL2FtZC9hbWRrZmQva2ZkX2RldmljZV9xdWV1ZV9tYW5hZ2VyLmMgICAgfCAxMiArKysr
+KysrKy0tLS0KPiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9rZXJuZWxfcXVldWUu
+YyAgICAgICAgfCAgOCArKysrLS0tLQo+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2Zk
+X3BhY2tldF9tYW5hZ2VyLmMgICAgICB8ICA0ICsrLS0KPiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQv
+YW1ka2ZkL2tmZF9wcml2LmggICAgICAgICAgICAgICAgfCAgNCArKy0tCj4gICAuLi4vZ3B1L2Ry
+bS9hbWQvYW1ka2ZkL2tmZF9wcm9jZXNzX3F1ZXVlX21hbmFnZXIuYyAgIHwgIDIgKy0KPiAgIDUg
+ZmlsZXMgY2hhbmdlZCwgMTcgaW5zZXJ0aW9ucygrKSwgMTMgZGVsZXRpb25zKC0pCj4KPiBkaWZm
+IC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX2RldmljZV9xdWV1ZV9tYW5h
+Z2VyLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfZGV2aWNlX3F1ZXVlX21hbmFn
+ZXIuYwo+IGluZGV4IGE3ZTllYzFiM2NlMy4uZDdlYjZhYzM3ZjYyIDEwMDY0NAo+IC0tLSBhL2Ry
+aXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9kZXZpY2VfcXVldWVfbWFuYWdlci5jCj4gKysr
+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX2RldmljZV9xdWV1ZV9tYW5hZ2VyLmMK
+PiBAQCAtOTQ2LDcgKzk0Niw3IEBAIHN0YXRpYyBpbnQgc3RhcnRfbm9jcHNjaChzdHJ1Y3QgZGV2
+aWNlX3F1ZXVlX21hbmFnZXIgKmRxbSkKPiAgIHN0YXRpYyBpbnQgc3RvcF9ub2Nwc2NoKHN0cnVj
+dCBkZXZpY2VfcXVldWVfbWFuYWdlciAqZHFtKQo+ICAgewo+ICAgCWlmIChkcW0tPmRldi0+ZGV2
+aWNlX2luZm8tPmFzaWNfZmFtaWx5ID09IENISVBfSEFXQUlJKQo+IC0JCXBtX3VuaW5pdCgmZHFt
+LT5wYWNrZXRzKTsKPiArCQlwbV91bmluaXQoJmRxbS0+cGFja2V0cywgZmFsc2UpOwo+ICAgCWRx
+bS0+c2NoZWRfcnVubmluZyA9IGZhbHNlOwo+ICAgCj4gICAJcmV0dXJuIDA7Cj4gQEAgLTExMTQs
+MjAgKzExMTQsMjQgQEAgc3RhdGljIGludCBzdGFydF9jcHNjaChzdHJ1Y3QgZGV2aWNlX3F1ZXVl
+X21hbmFnZXIgKmRxbSkKPiAgIAlyZXR1cm4gMDsKPiAgIGZhaWxfYWxsb2NhdGVfdmlkbWVtOgo+
+ICAgZmFpbF9zZXRfc2NoZWRfcmVzb3VyY2VzOgo+IC0JcG1fdW5pbml0KCZkcW0tPnBhY2tldHMp
+Owo+ICsJcG1fdW5pbml0KCZkcW0tPnBhY2tldHMsIGZhbHNlKTsKPiAgIGZhaWxfcGFja2V0X21h
+bmFnZXJfaW5pdDoKPiAgIAlyZXR1cm4gcmV0dmFsOwo+ICAgfQo+ICAgCj4gICBzdGF0aWMgaW50
+IHN0b3BfY3BzY2goc3RydWN0IGRldmljZV9xdWV1ZV9tYW5hZ2VyICpkcW0pCj4gICB7Cj4gKwli
+b29sIGhhbmdpbmc7Cj4gK2txX3VuaW5pdGlhbGl6ZSgKPgo+ICAgCWRxbV9sb2NrKGRxbSk7Cj4g
+LQl1bm1hcF9xdWV1ZXNfY3BzY2goZHFtLCBLRkRfVU5NQVBfUVVFVUVTX0ZJTFRFUl9BTExfUVVF
+VUVTLCAwKTsKPiArCWlmICghZHFtLT5pc19od3NfaGFuZykKPiArCQl1bm1hcF9xdWV1ZXNfY3Bz
+Y2goZHFtLCBLRkRfVU5NQVBfUVVFVUVTX0ZJTFRFUl9BTExfUVVFVUVTLCAwKTsKPiArCWhhbmdp
+bmcgPSBkcW0tPmlzX2h3c19oYW5nIHx8IGRxbS0+aXNfcmVzZXR0aW5nOwo+ICAgCWRxbS0+c2No
+ZWRfcnVubmluZyA9IGZhbHNlOwo+ICAgCWRxbV91bmxvY2soZHFtKTsKPiAgIAo+ICAgCWtmZF9n
+dHRfc2FfZnJlZShkcW0tPmRldiwgZHFtLT5mZW5jZV9tZW0pOwo+IC0JcG1fdW5pbml0KCZkcW0t
+PnBhY2tldHMpOwo+ICsJcG1fdW5pbml0KCZkcW0tPnBhY2tldHMsIGhhbmdpbmcpOwo+ICAgCj4g
+ICAJcmV0dXJuIDA7Cj4gICB9Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
+a2ZkL2tmZF9rZXJuZWxfcXVldWUuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9r
+ZXJuZWxfcXVldWUuYwo+IGluZGV4IDJkNTZkYzUzNDQ1OS4uYmFlNzA2NDYyZjk2IDEwMDY0NAo+
+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9rZXJuZWxfcXVldWUuYwo+ICsr
+KyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9rZXJuZWxfcXVldWUuYwo+IEBAIC0x
+OTUsOSArMTk1LDkgQEAgc3RhdGljIGJvb2wga3FfaW5pdGlhbGl6ZShzdHJ1Y3Qga2VybmVsX3F1
+ZXVlICprcSwgc3RydWN0IGtmZF9kZXYgKmRldiwKPiAgIH0KPiAgIAo+ICAgLyogVW5pbml0aWFs
+aXplIGEga2VybmVsIHF1ZXVlIGFuZCBmcmVlIGFsbCBpdHMgbWVtb3J5IHVzYWdlcy4gKi8KPiAt
+c3RhdGljIHZvaWQga3FfdW5pbml0aWFsaXplKHN0cnVjdCBrZXJuZWxfcXVldWUgKmtxKQo+ICtz
+dGF0aWMgdm9pZCBrcV91bmluaXRpYWxpemUoc3RydWN0IGtlcm5lbF9xdWV1ZSAqa3EsIGJvb2wg
+aGFuZ2luZykKPiAgIHsKPiAtCWlmIChrcS0+cXVldWUtPnByb3BlcnRpZXMudHlwZSA9PSBLRkRf
+UVVFVUVfVFlQRV9ISVEpCj4gKwlpZiAoa3EtPnF1ZXVlLT5wcm9wZXJ0aWVzLnR5cGUgPT0gS0ZE
+X1FVRVVFX1RZUEVfSElRICYmICFoYW5naW5nKQo+ICAgCQlrcS0+bXFkX21nci0+ZGVzdHJveV9t
+cWQoa3EtPm1xZF9tZ3IsCj4gICAJCQkJCWtxLT5xdWV1ZS0+bXFkLAo+ICAgCQkJCQlLRkRfUFJF
+RU1QVF9UWVBFX1dBVkVGUk9OVF9SRVNFVCwKPiBAQCAtMzM3LDkgKzMzNyw5IEBAIHN0cnVjdCBr
+ZXJuZWxfcXVldWUgKmtlcm5lbF9xdWV1ZV9pbml0KHN0cnVjdCBrZmRfZGV2ICpkZXYsCj4gICAJ
+cmV0dXJuIE5VTEw7Cj4gICB9Cj4gICAKPiAtdm9pZCBrZXJuZWxfcXVldWVfdW5pbml0KHN0cnVj
+dCBrZXJuZWxfcXVldWUgKmtxKQo+ICt2b2lkIGtlcm5lbF9xdWV1ZV91bmluaXQoc3RydWN0IGtl
+cm5lbF9xdWV1ZSAqa3EsIGJvb2wgaGFuZ2luZykKPiAgIHsKPiAtCWtxX3VuaW5pdGlhbGl6ZShr
+cSk7Cj4gKwlrcV91bmluaXRpYWxpemUoa3EsIGhhbmdpbmcpOwo+ICAgCWtmcmVlKGtxKTsKPiAg
+IH0KPiAgIAo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfcGFj
+a2V0X21hbmFnZXIuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9wYWNrZXRfbWFu
+YWdlci5jCj4gaW5kZXggNmNhYmVkMDZlZjVkLi5kYzQwNmU2ZGVlMjMgMTAwNjQ0Cj4gLS0tIGEv
+ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX3BhY2tldF9tYW5hZ2VyLmMKPiArKysgYi9k
+cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfcGFja2V0X21hbmFnZXIuYwo+IEBAIC0yNjQs
+MTAgKzI2NCwxMCBAQCBpbnQgcG1faW5pdChzdHJ1Y3QgcGFja2V0X21hbmFnZXIgKnBtLCBzdHJ1
+Y3QgZGV2aWNlX3F1ZXVlX21hbmFnZXIgKmRxbSkKPiAgIAlyZXR1cm4gMDsKPiAgIH0KPiAgIAo+
+IC12b2lkIHBtX3VuaW5pdChzdHJ1Y3QgcGFja2V0X21hbmFnZXIgKnBtKQo+ICt2b2lkIHBtX3Vu
+aW5pdChzdHJ1Y3QgcGFja2V0X21hbmFnZXIgKnBtLCBib29sIGhhbmdpbmcpCj4gICB7Cj4gICAJ
+bXV0ZXhfZGVzdHJveSgmcG0tPmxvY2spOwo+IC0Ja2VybmVsX3F1ZXVlX3VuaW5pdChwbS0+cHJp
+dl9xdWV1ZSk7Cj4gKwlrZXJuZWxfcXVldWVfdW5pbml0KHBtLT5wcml2X3F1ZXVlLCBoYW5naW5n
+KTsKPiAgIH0KPiAgIAo+ICAgaW50IHBtX3NlbmRfc2V0X3Jlc291cmNlcyhzdHJ1Y3QgcGFja2V0
+X21hbmFnZXIgKnBtLAo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9r
+ZmRfcHJpdi5oIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX3ByaXYuaAo+IGluZGV4
+IDA4N2U5NjgzODk5Ny4uOGFjNjgwZGM5MGYxIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2Ry
+bS9hbWQvYW1ka2ZkL2tmZF9wcml2LmgKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtm
+ZC9rZmRfcHJpdi5oCj4gQEAgLTg4Myw3ICs4ODMsNyBAQCBzdHJ1Y3QgZGV2aWNlX3F1ZXVlX21h
+bmFnZXIgKmRldmljZV9xdWV1ZV9tYW5hZ2VyX2luaXQoc3RydWN0IGtmZF9kZXYgKmRldik7Cj4g
+ICB2b2lkIGRldmljZV9xdWV1ZV9tYW5hZ2VyX3VuaW5pdChzdHJ1Y3QgZGV2aWNlX3F1ZXVlX21h
+bmFnZXIgKmRxbSk7Cj4gICBzdHJ1Y3Qga2VybmVsX3F1ZXVlICprZXJuZWxfcXVldWVfaW5pdChz
+dHJ1Y3Qga2ZkX2RldiAqZGV2LAo+ICAgCQkJCQllbnVtIGtmZF9xdWV1ZV90eXBlIHR5cGUpOwo+
+IC12b2lkIGtlcm5lbF9xdWV1ZV91bmluaXQoc3RydWN0IGtlcm5lbF9xdWV1ZSAqa3EpOwo+ICt2
+b2lkIGtlcm5lbF9xdWV1ZV91bmluaXQoc3RydWN0IGtlcm5lbF9xdWV1ZSAqa3EsIGJvb2wgaGFu
+Z2luZyk7Cj4gICBpbnQga2ZkX3Byb2Nlc3Nfdm1fZmF1bHQoc3RydWN0IGRldmljZV9xdWV1ZV9t
+YW5hZ2VyICpkcW0sIHVuc2lnbmVkIGludCBwYXNpZCk7Cj4gICAKPiAgIC8qIFByb2Nlc3MgUXVl
+dWUgTWFuYWdlciAqLwo+IEBAIC05NzQsNyArOTc0LDcgQEAgZXh0ZXJuIGNvbnN0IHN0cnVjdCBw
+YWNrZXRfbWFuYWdlcl9mdW5jcyBrZmRfdmlfcG1fZnVuY3M7Cj4gICBleHRlcm4gY29uc3Qgc3Ry
+dWN0IHBhY2tldF9tYW5hZ2VyX2Z1bmNzIGtmZF92OV9wbV9mdW5jczsKPiAgIAo+ICAgaW50IHBt
+X2luaXQoc3RydWN0IHBhY2tldF9tYW5hZ2VyICpwbSwgc3RydWN0IGRldmljZV9xdWV1ZV9tYW5h
+Z2VyICpkcW0pOwo+IC12b2lkIHBtX3VuaW5pdChzdHJ1Y3QgcGFja2V0X21hbmFnZXIgKnBtKTsK
+PiArdm9pZCBwbV91bmluaXQoc3RydWN0IHBhY2tldF9tYW5hZ2VyICpwbSwgYm9vbCBoYW5naW5n
+KTsKPiAgIGludCBwbV9zZW5kX3NldF9yZXNvdXJjZXMoc3RydWN0IHBhY2tldF9tYW5hZ2VyICpw
+bSwKPiAgIAkJCQlzdHJ1Y3Qgc2NoZWR1bGluZ19yZXNvdXJjZXMgKnJlcyk7Cj4gICBpbnQgcG1f
+c2VuZF9ydW5saXN0KHN0cnVjdCBwYWNrZXRfbWFuYWdlciAqcG0sIHN0cnVjdCBsaXN0X2hlYWQg
+KmRxbV9xdWV1ZXMpOwo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9r
+ZmRfcHJvY2Vzc19xdWV1ZV9tYW5hZ2VyLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9r
+ZmRfcHJvY2Vzc19xdWV1ZV9tYW5hZ2VyLmMKPiBpbmRleCBkM2VhY2Y3MmU4ZGIuLjhmYTg1NmU2
+YTAzZiAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfcHJvY2Vz
+c19xdWV1ZV9tYW5hZ2VyLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRf
+cHJvY2Vzc19xdWV1ZV9tYW5hZ2VyLmMKPiBAQCAtMzc0LDcgKzM3NCw3IEBAIGludCBwcW1fZGVz
+dHJveV9xdWV1ZShzdHJ1Y3QgcHJvY2Vzc19xdWV1ZV9tYW5hZ2VyICpwcW0sIHVuc2lnbmVkIGlu
+dCBxaWQpCj4gICAJCS8qIGRlc3Ryb3kga2VybmVsIHF1ZXVlIChESVEpICovCj4gICAJCWRxbSA9
+IHBxbi0+a3EtPmRldi0+ZHFtOwo+ICAgCQlkcW0tPm9wcy5kZXN0cm95X2tlcm5lbF9xdWV1ZShk
+cW0sIHBxbi0+a3EsICZwZGQtPnFwZCk7Cj4gLQkJa2VybmVsX3F1ZXVlX3VuaW5pdChwcW4tPmtx
+KTsKPiArCQlrZXJuZWxfcXVldWVfdW5pbml0KHBxbi0+a3EsIGZhbHNlKTsKPiAgIAl9Cj4gICAK
+PiAgIAlpZiAocHFuLT5xKSB7Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Au
+b3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdm
+eAo=
