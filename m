@@ -2,113 +2,97 @@ Return-Path: <SRS0=j6k1=2N=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-9.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1E2EDC2D0C0
-	for <amd-gfx@archiver.kernel.org>; Mon, 23 Dec 2019 05:48:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 71076C2D0C0
+	for <amd-gfx@archiver.kernel.org>; Mon, 23 Dec 2019 08:05:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id DB92F206CB
-	for <amd-gfx@archiver.kernel.org>; Mon, 23 Dec 2019 05:48:51 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 3BE80206B7
+	for <amd-gfx@archiver.kernel.org>; Mon, 23 Dec 2019 08:05:41 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="h1gFbcLc"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DB92F206CB
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="DMJF5xg7"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3BE80206B7
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5670C6E132;
-	Mon, 23 Dec 2019 05:48:51 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2070.outbound.protection.outlook.com [40.107.244.70])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2E9DF6E132
- for <amd-gfx@lists.freedesktop.org>; Mon, 23 Dec 2019 05:48:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D77916E194;
+	Mon, 23 Dec 2019 08:05:40 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2055.outbound.protection.outlook.com [40.107.236.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DB7A46E194
+ for <amd-gfx@lists.freedesktop.org>; Mon, 23 Dec 2019 08:05:39 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=QPbc1idmR32nIufD4L81+MtYu6Sbx4vPK5ixDS33KAr11H8FiALnIUggM/wWo9dwMq7Qav8QSGGjd+Eu4BqvgE6g8RW2u0wbcSJwgdsl7/nKwKDszhwxz/ojYvjRTPvioOCM5xrzhxRR3yxHYzU9njftizx8LpCUqFu7k2bi4R83wosGPudAe4dQR8J/ONV0WvjAjdE8bs8+DN3IYD2fWxE6zEH/quYQBm0Y8ueVUkpK7HahoMkUyJi11s5Q0iKiNawHt22rhkc/Os3jXJmzJndgx6QKY6e3r3IcwStw0uTwHjU1iHRBLqkpIiP4kuYLBcIw6NgEXen7ArnFg5efAw==
+ b=MR4KD/CVATW25WfcnXAVM/Wztt5VF1fPkV1biC9A8gKYaenrYGmeHnc69fJp2hubU7ZHEgrGpT5nKBtH02FNBViQTtVZsFH4Rd0GO9HD9WoOXvVvHmKcWxllI+AjqOmfnEUPEOxaGVto+KFaHoyKjups5gMCOzNFq2Z4ilPDACOo0nVdNYmCoSe+R5RV/n+NA0vIFD0aAmRBdj5hK3FICzpJuhKoVgpNOFrRs48dfvE5/nLKs8ZA2Oib6RHeCI0b4lHiVPaKWvHaNdNLn78SB4j7cL9xQjRsw3gnbsbAz5OiHQ/8MrYRZPVF1AMTIMs5+f50vqDocejWL6xLlJjVJA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=RezupPdgXvA1yItbq6JyajTxH1/sBUkab4EVgq1QAD4=;
- b=mifWPfmADPOuzMDdI4XCR47fzZzxjknJ69QXbXezk6I7mg5vBKTOxMzWQ1+QoW3ahRjs1UcEzm6UsJ++ZDm9uvuuW2wo2RQ3FlXHNGyqGNHOTEEmsk+RNYVs/XlHrnSurfSV+gHZJXhtCV2trK7wOIUCy5S4nM49zyxHReSEt+w7ED15J6/5qn6BOIVn2UX3RwEuEeLa7g5GG58Voc3LG5utrfhDQh7o4ms8ZsvXBWtHC2zfN6IHrxFMQ+mo7TptZmBTBSaT0CqNmXpZ51rReJQt2TixecksZVnXkMumbIu8t1HIsOI/zEYxEUk/fEcdhyFqp6iyFs4PdIo4qt6rYA==
+ bh=BMH4KxA9iZfwWh7YXDtomoefarmSNvPCyuScj16TGy8=;
+ b=G0JB3pEBcH8Qlja81YF4J/yMzJkXAMEhktrmrgznGPuhacgNek6X3GiQQp+ZCGgEYpxENpGsG/YO+ekBENLeIY/4VxyxQYz99XCIbUn/4NXDNAH/zKIOfbZQWuR0/VcuVA0MFsqMQcp/lNcPPmtYl7/Fh2DTdafvm+2JntyM7ySAHysiAKssjlOOobvfsqdf7NH44RAuNn9ErdlEH/AZhMkfpwN695gOD8U0xXOeBmxxLEtWrtJSEj7eXvUA22/Ioqxq7ycChB2WJXMqP3jsoleWwegH/PyTnopVesAa4MrmiW7eC4gntzJtgByr6fYfMkwZ+nen6/+6zyXeDxFViw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=RezupPdgXvA1yItbq6JyajTxH1/sBUkab4EVgq1QAD4=;
- b=h1gFbcLcvnI9KK06ZtTSk1dPHr1LrwtbS+XehChQ42lKsWKPBB0UVF4LEkm7WsZe4xCyhDLbRrDtqK6wddakAuCOgRm9moMYccLRwuUY3JyTF9NCVSRgrEgkeBLfFthjzuSrSUKg1nTzo9i7qctt174MFuYmaDELquNPAhGvAnE=
-Received: from DM5PR12MB1418.namprd12.prod.outlook.com (10.168.240.15) by
- DM5PR12MB2536.namprd12.prod.outlook.com (52.132.140.164) with Microsoft SMTP
+ bh=BMH4KxA9iZfwWh7YXDtomoefarmSNvPCyuScj16TGy8=;
+ b=DMJF5xg7UjVA++mPmrTBGKw//vSInHe5UUD5mwDHidd4xJkCETPTPyQMgp5xL+X8bYlZ0P6ECvIhdcavuNyaWnKpiKC8iBcw69ZKj2B4dd0CGIgsSkOF6qC4oB24HdYtgxuwBEGBMlegcm2KJQRP79en50zC/TtdzHamARGpFa8=
+Authentication-Results: spf=none (sender IP is )
+ smtp.mailfrom=Evan.Quan@amd.com; 
+Received: from MN2PR12MB3344.namprd12.prod.outlook.com (20.178.241.74) by
+ MN2PR12MB3120.namprd12.prod.outlook.com (20.178.243.206) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2559.17; Mon, 23 Dec 2019 05:48:47 +0000
-Received: from DM5PR12MB1418.namprd12.prod.outlook.com
- ([fe80::e944:3f8b:ca64:ad1b]) by DM5PR12MB1418.namprd12.prod.outlook.com
- ([fe80::e944:3f8b:ca64:ad1b%5]) with mapi id 15.20.2559.017; Mon, 23 Dec 2019
- 05:48:47 +0000
-From: "Zhang, Hawking" <Hawking.Zhang@amd.com>
-To: "Chen, Guchun" <Guchun.Chen@amd.com>, "Zhou1, Tao" <Tao.Zhou1@amd.com>,
- "Li, Dennis" <Dennis.Li@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH] drm/amdgpu: add missed return value set for error case
-Thread-Topic: [PATCH] drm/amdgpu: add missed return value set for error case
-Thread-Index: AQHVuUtYZJ75Cw11qEmupbf0EWkPdafHNpbw
-Date: Mon, 23 Dec 2019 05:48:47 +0000
-Message-ID: <DM5PR12MB1418E6B73369AD2F3ECCABC7FC2E0@DM5PR12MB1418.namprd12.prod.outlook.com>
-References: <20191223044151.14876-1-guchun.chen@amd.com>
-In-Reply-To: <20191223044151.14876-1-guchun.chen@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=true;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2019-12-23T05:48:45Z; 
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal Use Only -
- Unrestricted;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ActionId=b054202f-cfe1-48c4-be64-000003de25e9;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=1
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_enabled: true
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_setdate: 2019-12-23T05:48:45Z
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_method: Standard
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_name: Internal Use Only -
- Unrestricted
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_actionid: f6e4b159-d6f1-4db3-9c14-00008f56bab2
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_contentbits: 0
-authentication-results: spf=none (sender IP is )
- smtp.mailfrom=Hawking.Zhang@amd.com; 
-x-originating-ip: [180.167.199.189]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: 55c88c9d-041f-4958-aab8-08d7876bc77c
-x-ms-traffictypediagnostic: DM5PR12MB2536:|DM5PR12MB2536:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <DM5PR12MB2536E72026C90FE385AFA489FC2E0@DM5PR12MB2536.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:3044;
-x-forefront-prvs: 0260457E99
-x-forefront-antispam-report: SFV:NSPM;
- SFS:(10009020)(4636009)(136003)(346002)(396003)(366004)(376002)(39860400002)(199004)(13464003)(189003)(8936002)(81156014)(81166006)(66556008)(64756008)(71200400001)(8676002)(9686003)(7696005)(55016002)(52536014)(86362001)(66446008)(66476007)(66946007)(478600001)(316002)(186003)(53546011)(33656002)(26005)(2906002)(5660300002)(76116006)(110136005)(6506007);
- DIR:OUT; SFP:1101; SCL:1; SRVR:DM5PR12MB2536;
- H:DM5PR12MB1418.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; A:1; MX:1; 
-received-spf: None (protection.outlook.com: amd.com does not designate
- permitted sender hosts)
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: oWQ+GvZOB+AKw3kOFBwWYdR3IDOo4hCC7JCYk7XCX3KYisht2PfE79cglS/g46e53hhpij3PQrkh9EiRb3/OWwGoVMj2Y3arj9eTMUEYIisRABBNUq+neSEmpaqs5U1uoe833dbhYxiV1eTkQXuWkYhlqg/mxyuFHB5BO9XmcqPItu2DO8Z6/9N2Xz5SCttTsrP4FnexDZuZxpebhL5laWsBPjOGB5zk4dX6yv4MYr80hi5BUij/ZmNhny3Cq7RZ0pJR262Bnax+n4CYgZyv+GL0uzurtTeOtdw24JhGGC7gOr1SHF6lZ2uBRtmnppramu1fSsvPqJdMzEaFaPeXiKTaFySpaQJCpHIO1C5Rp+MP9VwRlLiq0f81jG+aAm8F+kucv69a0vtSmcO1Tax1UcOzA84KQZc4wU/XTgNa+MLuaWNarKh0UaU63qjwSGSEOquQPtnTryO7Lo99l/3hi6JFNa6KRnT6J6Hs7zJ2zLtW3W+J8NBVf5PghBnIOZ55
+ 15.20.2559.15; Mon, 23 Dec 2019 08:05:38 +0000
+Received: from MN2PR12MB3344.namprd12.prod.outlook.com
+ ([fe80::1010:4621:68dd:5b47]) by MN2PR12MB3344.namprd12.prod.outlook.com
+ ([fe80::1010:4621:68dd:5b47%5]) with mapi id 15.20.2559.017; Mon, 23 Dec 2019
+ 08:05:37 +0000
+From: Evan Quan <evan.quan@amd.com>
+To: amd-gfx@lists.freedesktop.org
+Subject: [PATCH] drm/amd/powerplay: support custom power profile setting
+Date: Mon, 23 Dec 2019 16:05:18 +0800
+Message-Id: <20191223080518.28754-1-evan.quan@amd.com>
+X-Mailer: git-send-email 2.24.0
+X-ClientProxiedBy: HK2PR0302CA0004.apcprd03.prod.outlook.com
+ (2603:1096:202::14) To MN2PR12MB3344.namprd12.prod.outlook.com
+ (2603:10b6:208:c5::10)
 MIME-Version: 1.0
+Received: from equan-buildpc.amd.com (180.167.199.189) by
+ HK2PR0302CA0004.apcprd03.prod.outlook.com (2603:1096:202::14) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2581.8 via Frontend Transport; Mon, 23 Dec 2019 08:05:36 +0000
+X-Mailer: git-send-email 2.24.0
+X-Originating-IP: [180.167.199.189]
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: edf6fecf-cb19-4aa3-2748-08d7877ee4fa
+X-MS-TrafficTypeDiagnostic: MN2PR12MB3120:|MN2PR12MB3120:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <MN2PR12MB31208841AEAF36F78A3349D2E42E0@MN2PR12MB3120.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:400;
+X-Forefront-PRVS: 0260457E99
+X-Forefront-Antispam-Report: SFV:NSPM;
+ SFS:(10009020)(4636009)(376002)(366004)(39860400002)(136003)(396003)(346002)(199004)(189003)(66556008)(66946007)(66476007)(6486002)(6666004)(5660300002)(19627235002)(2906002)(36756003)(4326008)(81166006)(81156014)(8676002)(6916009)(44832011)(26005)(478600001)(16526019)(186003)(316002)(86362001)(52116002)(7696005)(1076003)(8936002)(2616005)(956004);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:MN2PR12MB3120;
+ H:MN2PR12MB3344.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; A:1; MX:1; 
+Received-SPF: None (protection.outlook.com: amd.com does not designate
+ permitted sender hosts)
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: EjG8Iywoieh7j/O2fhHm8wM8431rrdKtQP1TTNqYTBOL8284QYQb7YZgcgW1Crw2kTOKr74g/AU+ulFO+PqggGIG7jTa+uGQSxcoBSIDBVdEazfboFjcsb3N2cYfPwZUpiobgJazGMD/WEabJucgl5+E9muZcYd75vKTeUhK3thdPy6kt5gqQ+pHdD9MbCdDrwPB0fFgoTysK7gJeffEYgwsPXrU4VpvE+IRzDeEMaU2Zl+zDAZZ+BF8nlWF0hywfDUSHuUGj72lqq5RyF73i8aO1HhEZtgCDVGfP8b44HkjLzdaRCe/XgVDFBRamIcqwLBm51ihmbnl044ZnGX2ea9eDwrbTv81TFYI63DLLGo4ORhjaMNrHLIxQj7+GBp5Bi+rnD5sM9HBrQD1FmjZGVEdMMQzd4NvW/tWFmG0Lx6pTnBeZ+LkcSezdi4P8CJQ
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 55c88c9d-041f-4958-aab8-08d7876bc77c
-X-MS-Exchange-CrossTenant-originalarrivaltime: 23 Dec 2019 05:48:47.3221 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: WnA6CoQq3C47uVF0w4PUi4jc0V4n3fr0FgY83o1E2Wdg7CBTfeLItyGcXq79czB71vT+oxhe58Gd/89zhUk0qw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB2536
+X-MS-Exchange-CrossTenant-Network-Message-Id: edf6fecf-cb19-4aa3-2748-08d7877ee4fa
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Dec 2019 08:05:37.7050 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 4h2O/54PoadKjwCgmPA6JiG3Bzv/wAz3h4mlfkI41Sgcsi743Sm4HKvrt1CUeXaa
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3120
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -120,45 +104,252 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Evan Quan <evan.quan@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only - Internal Distribution Only]
+Support custom power profile mode settings on Arcturus.
 
-Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
-
-Regards,
-Hawking
------Original Message-----
-From: Chen, Guchun <Guchun.Chen@amd.com> 
-Sent: Monday, December 23, 2019 12:42
-To: Zhou1, Tao <Tao.Zhou1@amd.com>; Zhang, Hawking <Hawking.Zhang@amd.com>; Li, Dennis <Dennis.Li@amd.com>; amd-gfx@lists.freedesktop.org
-Cc: Chen, Guchun <Guchun.Chen@amd.com>
-Subject: [PATCH] drm/amdgpu: add missed return value set for error case
-
-Return value should be set when going to error handle tag for error case, this can avoid potential invalid array access by upper caller.
-
-Signed-off-by: Guchun Chen <guchun.chen@amd.com>
+Change-Id: Id14f9a1cced41433b7487f447c452f8852964891
+Signed-off-by: Evan Quan <evan.quan@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/gpu/drm/amd/powerplay/arcturus_ppt.c  | 132 +++++++++++++++++-
+ .../powerplay/inc/smu11_driver_if_arcturus.h  |   6 +-
+ 2 files changed, 128 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-index 3f4ba408aee0..511b137d9d5a 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-@@ -1313,6 +1313,7 @@ static int amdgpu_ras_badpages_read(struct amdgpu_device *adev,
- 	data = con->eh_data;
- 	if (!data || data->count == 0) {
- 		*bps = NULL;
-+		ret = -EINVAL;
- 		goto out;
+diff --git a/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c b/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c
+index 9610b9b8a54c..043ac2ab0496 100644
+--- a/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c
++++ b/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c
+@@ -179,6 +179,7 @@ static struct smu_11_0_cmn2aisc_mapping arcturus_table_map[SMU_TABLE_COUNT] = {
+ 	TAB_MAP(DRIVER_SMU_CONFIG),
+ 	TAB_MAP(OVERDRIVE),
+ 	TAB_MAP(I2C_COMMANDS),
++	TAB_MAP(ACTIVITY_MONITOR_COEFF),
+ };
+ 
+ static struct smu_11_0_cmn2aisc_mapping arcturus_pwr_src_map[SMU_POWER_SOURCE_COUNT] = {
+@@ -302,6 +303,10 @@ static int arcturus_tables_init(struct smu_context *smu, struct smu_table *table
+ 	SMU_TABLE_INIT(tables, SMU_TABLE_I2C_COMMANDS, sizeof(SwI2cRequest_t),
+ 			       PAGE_SIZE, AMDGPU_GEM_DOMAIN_VRAM);
+ 
++	SMU_TABLE_INIT(tables, SMU_TABLE_ACTIVITY_MONITOR_COEFF,
++		       sizeof(DpmActivityMonitorCoeffInt_t), PAGE_SIZE,
++		       AMDGPU_GEM_DOMAIN_VRAM);
++
+ 	smu_table->metrics_table = kzalloc(sizeof(SmuMetrics_t), GFP_KERNEL);
+ 	if (!smu_table->metrics_table)
+ 		return -ENOMEM;
+@@ -1314,6 +1319,7 @@ static int arcturus_get_power_limit(struct smu_context *smu,
+ static int arcturus_get_power_profile_mode(struct smu_context *smu,
+ 					   char *buf)
+ {
++	DpmActivityMonitorCoeffInt_t activity_monitor;
+ 	static const char *profile_name[] = {
+ 					"BOOTUP_DEFAULT",
+ 					"3D_FULL_SCREEN",
+@@ -1323,14 +1329,35 @@ static int arcturus_get_power_profile_mode(struct smu_context *smu,
+ 					"COMPUTE",
+ 					"CUSTOM"};
+ 	static const char *title[] = {
+-			"PROFILE_INDEX(NAME)"};
++			"PROFILE_INDEX(NAME)",
++			"CLOCK_TYPE(NAME)",
++			"FPS",
++			"UseRlcBusy",
++			"MinActiveFreqType",
++			"MinActiveFreq",
++			"BoosterFreqType",
++			"BoosterFreq",
++			"PD_Data_limit_c",
++			"PD_Data_error_coeff",
++			"PD_Data_error_rate_coeff"};
+ 	uint32_t i, size = 0;
+ 	int16_t workload_type = 0;
++	int result = 0;
++	uint32_t smu_version;
+ 
+-	if (!smu->pm_enabled || !buf)
++	if (!buf)
+ 		return -EINVAL;
+ 
+-	size += sprintf(buf + size, "%16s\n",
++	result = smu_get_smc_version(smu, NULL, &smu_version);
++	if (result)
++		return result;
++
++	if (smu_version >= 0x360d00)
++		size += sprintf(buf + size, "%16s %s %s %s %s %s %s %s %s %s %s\n",
++			title[0], title[1], title[2], title[3], title[4], title[5],
++			title[6], title[7], title[8], title[9], title[10]);
++	else
++		size += sprintf(buf + size, "%16s\n",
+ 			title[0]);
+ 
+ 	for (i = 0; i <= PP_SMC_POWER_PROFILE_CUSTOM; i++) {
+@@ -1342,8 +1369,50 @@ static int arcturus_get_power_profile_mode(struct smu_context *smu,
+ 		if (workload_type < 0)
+ 			continue;
+ 
++		if (smu_version >= 0x360d00) {
++			result = smu_update_table(smu,
++						  SMU_TABLE_ACTIVITY_MONITOR_COEFF,
++						  workload_type,
++						  (void *)(&activity_monitor),
++						  false);
++			if (result) {
++				pr_err("[%s] Failed to get activity monitor!", __func__);
++				return result;
++			}
++		}
++
+ 		size += sprintf(buf + size, "%2d %14s%s\n",
+ 			i, profile_name[i], (i == smu->power_profile_mode) ? "*" : " ");
++
++		if (smu_version >= 0x360d00) {
++			size += sprintf(buf + size, "%19s %d(%13s) %7d %7d %7d %7d %7d %7d %7d %7d %7d\n",
++				" ",
++				0,
++				"GFXCLK",
++				activity_monitor.Gfx_FPS,
++				activity_monitor.Gfx_UseRlcBusy,
++				activity_monitor.Gfx_MinActiveFreqType,
++				activity_monitor.Gfx_MinActiveFreq,
++				activity_monitor.Gfx_BoosterFreqType,
++				activity_monitor.Gfx_BoosterFreq,
++				activity_monitor.Gfx_PD_Data_limit_c,
++				activity_monitor.Gfx_PD_Data_error_coeff,
++				activity_monitor.Gfx_PD_Data_error_rate_coeff);
++
++			size += sprintf(buf + size, "%19s %d(%13s) %7d %7d %7d %7d %7d %7d %7d %7d %7d\n",
++				" ",
++				1,
++				"UCLK",
++				activity_monitor.Mem_FPS,
++				activity_monitor.Mem_UseRlcBusy,
++				activity_monitor.Mem_MinActiveFreqType,
++				activity_monitor.Mem_MinActiveFreq,
++				activity_monitor.Mem_BoosterFreqType,
++				activity_monitor.Mem_BoosterFreq,
++				activity_monitor.Mem_PD_Data_limit_c,
++				activity_monitor.Mem_PD_Data_error_coeff,
++				activity_monitor.Mem_PD_Data_error_rate_coeff);
++		}
  	}
  
---
-2.17.1
+ 	return size;
+@@ -1353,18 +1422,69 @@ static int arcturus_set_power_profile_mode(struct smu_context *smu,
+ 					   long *input,
+ 					   uint32_t size)
+ {
++	DpmActivityMonitorCoeffInt_t activity_monitor;
+ 	int workload_type = 0;
+ 	uint32_t profile_mode = input[size];
+ 	int ret = 0;
+-
+-	if (!smu->pm_enabled)
+-		return -EINVAL;
++	uint32_t smu_version;
+ 
+ 	if (profile_mode > PP_SMC_POWER_PROFILE_CUSTOM) {
+ 		pr_err("Invalid power profile mode %d\n", profile_mode);
+ 		return -EINVAL;
+ 	}
+ 
++	ret = smu_get_smc_version(smu, NULL, &smu_version);
++	if (ret)
++		return ret;
++
++	if ((profile_mode == PP_SMC_POWER_PROFILE_CUSTOM) &&
++	     (smu_version >=0x360d00)) {
++		ret = smu_update_table(smu,
++				       SMU_TABLE_ACTIVITY_MONITOR_COEFF,
++				       WORKLOAD_PPLIB_CUSTOM_BIT,
++				       (void *)(&activity_monitor),
++				       false);
++		if (ret) {
++			pr_err("[%s] Failed to get activity monitor!", __func__);
++			return ret;
++		}
++
++		switch (input[0]) {
++		case 0: /* Gfxclk */
++			activity_monitor.Gfx_FPS = input[1];
++			activity_monitor.Gfx_UseRlcBusy = input[2];
++			activity_monitor.Gfx_MinActiveFreqType = input[3];
++			activity_monitor.Gfx_MinActiveFreq = input[4];
++			activity_monitor.Gfx_BoosterFreqType = input[5];
++			activity_monitor.Gfx_BoosterFreq = input[6];
++			activity_monitor.Gfx_PD_Data_limit_c = input[7];
++			activity_monitor.Gfx_PD_Data_error_coeff = input[8];
++			activity_monitor.Gfx_PD_Data_error_rate_coeff = input[9];
++			break;
++		case 1: /* Uclk */
++			activity_monitor.Mem_FPS = input[1];
++			activity_monitor.Mem_UseRlcBusy = input[2];
++			activity_monitor.Mem_MinActiveFreqType = input[3];
++			activity_monitor.Mem_MinActiveFreq = input[4];
++			activity_monitor.Mem_BoosterFreqType = input[5];
++			activity_monitor.Mem_BoosterFreq = input[6];
++			activity_monitor.Mem_PD_Data_limit_c = input[7];
++			activity_monitor.Mem_PD_Data_error_coeff = input[8];
++			activity_monitor.Mem_PD_Data_error_rate_coeff = input[9];
++			break;
++		}
++
++		ret = smu_update_table(smu,
++				       SMU_TABLE_ACTIVITY_MONITOR_COEFF,
++				       WORKLOAD_PPLIB_CUSTOM_BIT,
++				       (void *)(&activity_monitor),
++				       true);
++		if (ret) {
++			pr_err("[%s] Failed to set activity monitor!", __func__);
++			return ret;
++		}
++	}
++
+ 	/*
+ 	 * Conv PP_SMC_POWER_PROFILE* to WORKLOAD_PPLIB_*_BIT
+ 	 * Not all profile modes are supported on arcturus.
+diff --git a/drivers/gpu/drm/amd/powerplay/inc/smu11_driver_if_arcturus.h b/drivers/gpu/drm/amd/powerplay/inc/smu11_driver_if_arcturus.h
+index a886f0644d24..910226ec512e 100644
+--- a/drivers/gpu/drm/amd/powerplay/inc/smu11_driver_if_arcturus.h
++++ b/drivers/gpu/drm/amd/powerplay/inc/smu11_driver_if_arcturus.h
+@@ -823,7 +823,6 @@ typedef struct {
+   uint32_t MmHubPadding[8]; // SMU internal use
+ } AvfsFuseOverride_t;
+ 
+-/* NOT CURRENTLY USED
+ typedef struct {
+   uint8_t   Gfx_ActiveHystLimit;
+   uint8_t   Gfx_IdleHystLimit;
+@@ -866,7 +865,6 @@ typedef struct {
+ 
+   uint32_t  MmHubPadding[8]; // SMU internal use
+ } DpmActivityMonitorCoeffInt_t;
+-*/
+ 
+ // These defines are used with the following messages:
+ // SMC_MSG_TransferTableDram2Smu
+@@ -878,11 +876,11 @@ typedef struct {
+ #define TABLE_PMSTATUSLOG             4
+ #define TABLE_SMU_METRICS             5
+ #define TABLE_DRIVER_SMU_CONFIG       6
+-//#define TABLE_ACTIVITY_MONITOR_COEFF  7
+ #define TABLE_OVERDRIVE               7
+ #define TABLE_WAFL_XGMI_TOPOLOGY      8
+ #define TABLE_I2C_COMMANDS            9
+-#define TABLE_COUNT                   10
++#define TABLE_ACTIVITY_MONITOR_COEFF  10
++#define TABLE_COUNT                   11
+ 
+ // These defines are used with the SMC_MSG_SetUclkFastSwitch message.
+ typedef enum {
+-- 
+2.24.0
+
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
