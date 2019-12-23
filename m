@@ -2,59 +2,46 @@ Return-Path: <SRS0=j6k1=2N=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.4 required=3.0 tests=FROM_LOCAL_HEX,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,
-	SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-9.8 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 67903C2D0D5
-	for <amd-gfx@archiver.kernel.org>; Mon, 23 Dec 2019 15:26:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1514DC2D0CF
+	for <amd-gfx@archiver.kernel.org>; Mon, 23 Dec 2019 15:26:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 48C16206B7
+	by mail.kernel.org (Postfix) with ESMTPS id E5F2B206B7
 	for <amd-gfx@archiver.kernel.org>; Mon, 23 Dec 2019 15:26:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 48C16206B7
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E5F2B206B7
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=huawei.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 61A5E6E2D6;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E02626E2DC;
 	Mon, 23 Dec 2019 15:26:06 +0000 (UTC)
-Received: from mail-io1-f72.google.com (mail-io1-f72.google.com
- [209.85.166.72])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3D8596E252
- for <amd-gfx@lists.freedesktop.org>; Mon, 23 Dec 2019 10:31:02 +0000 (UTC)
-Received: by mail-io1-f72.google.com with SMTP id x10so6811608iob.2
- for <amd-gfx@lists.freedesktop.org>; Mon, 23 Dec 2019 02:31:02 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:date:in-reply-to:message-id:subject
- :from:to;
- bh=dqTElktPjJ2Vq8ttJgKuJA9Bl554Cdxgp9MbKD3t3zo=;
- b=c4kwYmTMRdJ2ZOjM1G6fA1jradRh3BOO0bmFSlmoU2TkFIGP2WzpOhqB/dwRqRYyYD
- n3FyKNEdk6e82s52p4PbVPP6z+bJ2UUXZtnVKPEWKFmHyBINhzBTYNAoown/bo91KsEG
- 1BzFGan1W9j8nEWc0GeZX27o7s8zCtAfrRB1slySj6/6zuGdAPo8AMxLSm0B+hEJePMi
- zNWQTQ02WKot9//3pNSmSfxW/uj0OLdGPHb1vhN6DAPY0I3WtC8ilJBGuuoLkHbnJQf+
- CCCvlVj+npdnlNzozedPh9kXATWn1TQ+CsPPDUzx18Jot0khL1J6sJKF2cKscYxTccOI
- jlhQ==
-X-Gm-Message-State: APjAAAX86OQLZD1Bt1vpbxHNZw/y5/wB6h1x/jzYohsqCng4gyFqD57x
- pvn8FCnQgf1DcDQBIgIdPtxgYcfcHj4jkVw40VyQxcsks1V0
-X-Google-Smtp-Source: APXvYqxEBMubw04vHq957mYKngz32+OjAQ3cw+9AYwNkakf/69ewcoi2c7rjqs7UBeIlpsKYjtAm+5xfxmOXI3E52HSsX0TrkLqS
+Received: from huawei.com (szxga07-in.huawei.com [45.249.212.35])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3171189D5B;
+ Mon, 23 Dec 2019 13:39:12 +0000 (UTC)
+Received: from DGGEMS408-HUB.china.huawei.com (unknown [172.30.72.60])
+ by Forcepoint Email with ESMTP id 8464E5785A4A50E25F82;
+ Mon, 23 Dec 2019 21:39:07 +0800 (CST)
+Received: from huawei.com (10.90.53.225) by DGGEMS408-HUB.china.huawei.com
+ (10.3.19.208) with Microsoft SMTP Server id 14.3.439.0; Mon, 23 Dec 2019
+ 21:39:01 +0800
+From: zhengbin <zhengbin13@huawei.com>
+To: <alexander.deucher@amd.com>, <christian.koenig@amd.com>,
+ <David1.Zhou@amd.com>, <airlied@linux.ie>, <daniel@ffwll.ch>,
+ <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>
+Subject: [PATCH 1/5] drm/amdgpu: use true,
+ false for bool variable in mxgpu_ai.c
+Date: Mon, 23 Dec 2019 21:46:17 +0800
+Message-ID: <1577108781-68614-2-git-send-email-zhengbin13@huawei.com>
+X-Mailer: git-send-email 2.7.4
+In-Reply-To: <1577108781-68614-1-git-send-email-zhengbin13@huawei.com>
+References: <1577108781-68614-1-git-send-email-zhengbin13@huawei.com>
 MIME-Version: 1.0
-X-Received: by 2002:a02:7086:: with SMTP id f128mr22175027jac.12.1577097061494; 
- Mon, 23 Dec 2019 02:31:01 -0800 (PST)
-Date: Mon, 23 Dec 2019 02:31:01 -0800
-In-Reply-To: <00000000000082b80f059a56da1f@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <0000000000002074ef059a5c86e2@google.com>
-Subject: Re: INFO: task hung in fb_release
-From: syzbot <syzbot+d130c4a0890561cfac5b@syzkaller.appspotmail.com>
-To: Rex.Zhu@amd.com, airlied@linux.ie, alexander.deucher@amd.com, 
- amd-gfx@lists.freedesktop.org, b.zolnierkie@samsung.com, 
- christian.koenig@amd.com, daniel.vetter@ffwll.ch, david1.zhou@amd.com, 
- dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org, 
- linux-kernel@vger.kernel.org, maarten.lankhorst@linux.intel.com, 
- rex.zhu@amd.com, sam@ravnborg.org, syzkaller-bugs@googlegroups.com
+X-Originating-IP: [10.90.53.225]
+X-CFilter-Loop: Reflected
 X-Mailman-Approved-At: Mon, 23 Dec 2019 15:26:04 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -67,34 +54,48 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: zhengbin13@huawei.com
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"; DelSp="yes"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-syzbot has bisected this bug to:
+Fixes coccicheck warning:
 
-commit e3933f26b657c341055443103bad331f4537b113
-Author: Rex Zhu <Rex.Zhu@amd.com>
-Date:   Tue Jan 16 10:35:15 2018 +0000
+drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c:253:2-20: WARNING: Assignment of 0/1 to bool variable
+drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c:265:2-20: WARNING: Assignment of 0/1 to bool variable
 
-     drm/amd/pp: Add edit/commit/show OD clock/voltage support in sysfs
+Reported-by: Hulk Robot <hulkci@huawei.com>
+Signed-off-by: zhengbin <zhengbin13@huawei.com>
+---
+ drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-bisection log:  https://syzkaller.appspot.com/x/bisect.txt?x=12b5a799e00000
-start commit:   c6017471 Merge tag 'xfs-5.5-fixes-2' of git://git.kernel.o..
-git tree:       upstream
-final crash:    https://syzkaller.appspot.com/x/report.txt?x=11b5a799e00000
-console output: https://syzkaller.appspot.com/x/log.txt?x=16b5a799e00000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=7f6119e2e3675a73
-dashboard link: https://syzkaller.appspot.com/bug?extid=d130c4a0890561cfac5b
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=169b1925e00000
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=12b9623ee00000
+diff --git a/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c b/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c
+index 43305af..5fd67e1 100644
+--- a/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c
++++ b/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c
+@@ -250,7 +250,7 @@ static void xgpu_ai_mailbox_flr_work(struct work_struct *work)
+ 	 */
+ 	locked = mutex_trylock(&adev->lock_reset);
+ 	if (locked)
+-		adev->in_gpu_reset = 1;
++		adev->in_gpu_reset = true;
 
-Reported-by: syzbot+d130c4a0890561cfac5b@syzkaller.appspotmail.com
-Fixes: e3933f26b657 ("drm/amd/pp: Add edit/commit/show OD clock/voltage  
-support in sysfs")
+ 	do {
+ 		if (xgpu_ai_mailbox_peek_msg(adev) == IDH_FLR_NOTIFICATION_CMPL)
+@@ -262,7 +262,7 @@ static void xgpu_ai_mailbox_flr_work(struct work_struct *work)
 
-For information about bisection process see: https://goo.gl/tpsmEJ#bisection
+ flr_done:
+ 	if (locked) {
+-		adev->in_gpu_reset = 0;
++		adev->in_gpu_reset = false;
+ 		mutex_unlock(&adev->lock_reset);
+ 	}
+
+--
+2.7.4
+
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
