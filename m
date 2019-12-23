@@ -6,35 +6,35 @@ X-Spam-Status: No, score=-9.8 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 46401C2D0D0
-	for <amd-gfx@archiver.kernel.org>; Mon, 23 Dec 2019 15:26:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8906DC2D0C0
+	for <amd-gfx@archiver.kernel.org>; Mon, 23 Dec 2019 15:26:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2666E206B7
-	for <amd-gfx@archiver.kernel.org>; Mon, 23 Dec 2019 15:26:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2666E206B7
+	by mail.kernel.org (Postfix) with ESMTPS id 6693D206B7
+	for <amd-gfx@archiver.kernel.org>; Mon, 23 Dec 2019 15:26:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6693D206B7
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=huawei.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ACA776E2C8;
+	by gabe.freedesktop.org (Postfix) with ESMTP id DC3916E2CC;
 	Mon, 23 Dec 2019 15:26:05 +0000 (UTC)
 Received: from huawei.com (szxga07-in.huawei.com [45.249.212.35])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D69A76E235;
- Mon, 23 Dec 2019 09:18:46 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 946ED6E233;
+ Mon, 23 Dec 2019 09:18:44 +0000 (UTC)
 Received: from DGGEMS410-HUB.china.huawei.com (unknown [172.30.72.60])
- by Forcepoint Email with ESMTP id 8D09E62CDAA7835F62B2;
+ by Forcepoint Email with ESMTP id 7E0E6180CB81F827B705;
  Mon, 23 Dec 2019 17:18:42 +0800 (CST)
 Received: from huawei.com (10.90.53.225) by DGGEMS410-HUB.china.huawei.com
  (10.3.19.210) with Microsoft SMTP Server id 14.3.439.0; Mon, 23 Dec 2019
- 17:18:33 +0800
+ 17:18:32 +0800
 From: zhengbin <zhengbin13@huawei.com>
 To: <alexander.deucher@amd.com>, <christian.koenig@amd.com>,
  <David1.Zhou@amd.com>, <airlied@linux.ie>, <daniel@ffwll.ch>,
  <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>
-Subject: [PATCH 6/7] drm/radeon: use true,false for bool variable in cik.c
-Date: Mon, 23 Dec 2019 17:25:51 +0800
-Message-ID: <1577093152-10855-7-git-send-email-zhengbin13@huawei.com>
+Subject: [PATCH 2/7] drm/radeon: use true,false for bool variable in si.c
+Date: Mon, 23 Dec 2019 17:25:47 +0800
+Message-ID: <1577093152-10855-3-git-send-email-zhengbin13@huawei.com>
 X-Mailer: git-send-email 2.7.4
 In-Reply-To: <1577093152-10855-1-git-send-email-zhengbin13@huawei.com>
 References: <1577093152-10855-1-git-send-email-zhengbin13@huawei.com>
@@ -61,20 +61,20 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Fixes coccicheck warning:
 
-drivers/gpu/drm/radeon/cik.c:8140:2-15: WARNING: Assignment of 0/1 to bool variable
-drivers/gpu/drm/radeon/cik.c:8212:2-15: WARNING: Assignment of 0/1 to bool variable
+drivers/gpu/drm/radeon/si.c:6475:2-15: WARNING: Assignment of 0/1 to bool variable
+drivers/gpu/drm/radeon/si.c:6542:2-15: WARNING: Assignment of 0/1 to bool variable
 
 Reported-by: Hulk Robot <hulkci@huawei.com>
 Signed-off-by: zhengbin <zhengbin13@huawei.com>
 ---
- drivers/gpu/drm/radeon/cik.c | 4 ++--
+ drivers/gpu/drm/radeon/si.c | 4 ++--
  1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/radeon/cik.c b/drivers/gpu/drm/radeon/cik.c
-index 4fa488c..5c42877 100644
---- a/drivers/gpu/drm/radeon/cik.c
-+++ b/drivers/gpu/drm/radeon/cik.c
-@@ -8137,7 +8137,7 @@ static void cik_uvd_init(struct radeon_device *rdev)
+diff --git a/drivers/gpu/drm/radeon/si.c b/drivers/gpu/drm/radeon/si.c
+index 8788a05..93dcab5 100644
+--- a/drivers/gpu/drm/radeon/si.c
++++ b/drivers/gpu/drm/radeon/si.c
+@@ -6472,7 +6472,7 @@ static void si_uvd_init(struct radeon_device *rdev)
  		 * there. So it is pointless to try to go through that code
  		 * hence why we disable uvd here.
  		 */
@@ -83,7 +83,7 @@ index 4fa488c..5c42877 100644
  		return;
  	}
  	rdev->ring[R600_RING_TYPE_UVD_INDEX].ring_obj = NULL;
-@@ -8209,7 +8209,7 @@ static void cik_vce_init(struct radeon_device *rdev)
+@@ -6539,7 +6539,7 @@ static void si_vce_init(struct radeon_device *rdev)
  		 * there. So it is pointless to try to go through that code
  		 * hence why we disable vce here.
  		 */
