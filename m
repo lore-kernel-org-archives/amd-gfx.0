@@ -2,106 +2,65 @@ Return-Path: <SRS0=j6k1=2N=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.0 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-6.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0F974C2D0C0
-	for <amd-gfx@archiver.kernel.org>; Mon, 23 Dec 2019 19:34:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id CB890C2D0C0
+	for <amd-gfx@archiver.kernel.org>; Mon, 23 Dec 2019 19:35:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D9D8420643
-	for <amd-gfx@archiver.kernel.org>; Mon, 23 Dec 2019 19:34:30 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 9BF2720643
+	for <amd-gfx@archiver.kernel.org>; Mon, 23 Dec 2019 19:35:09 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="EFA3oSu6"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D9D8420643
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NSQWYoM8"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9BF2720643
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9FB9D89AEB;
-	Mon, 23 Dec 2019 19:34:30 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2085.outbound.protection.outlook.com [40.107.244.85])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 04CE489AEB
- for <amd-gfx@lists.freedesktop.org>; Mon, 23 Dec 2019 19:34:29 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=BrNn6u5XrcbS9JqUWEsD4E7OJrTWtzm+QZNHZdBFrVzXUbvdJDzlfQRsmFX/s+vvfNNC+Dgg4FV2GpSOP4vQKpd9Zf53Pp1/975KsM4hbxbw0+0B32O3dm9vvEnGlUs1eRKtSpfacqDluNi2kM9OFEaevxhB4YBotVy+YXawV5UgxcBEFE/UF6HHos4eO322Oc8DFQFe6oKfovw0WeLQRLDzSoz9Xzy+ybr2QN0lSBjGCmCNmDBK8xNE/cufU3mP0M7LqmyzdFyAjiWop6eu48hE/hbw0ewX9/Qy4iodja2X/Cd8yMqP14Ll8KZVR4nt26wCJqzPOcP2NiFdq3RPxw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=pWjJOQZANrMcM/YNMBCU8BYIZAvPKtFQl9vwHlx9Mlw=;
- b=GLBPs9Uw2Quf646lCP46iadCvnPXLi4yE2V48Nm86POe4hAMj8NaX5iOmFMPHtgOFf9W7CLAUpUW9M+7BvjWQIzC5Kf3WPGNMyWyRNdgCMer6bmmpSmZe+Ejyywx+tdGaaBzqv3AKgdP6Ii5h22qKTSY1VN+nN7ZNn/O0Qrle2omNknsRL/DJzf2I8W+BZ5V/OtnSMRaMoiNcg0HCSuNLTdg2/t9CX4ZgKJ7Jnw0LUza+I3Ugc+IYvgpVhAoq8nx23s0CQwnKfiKX2dXoSYoshH7DT3NOnvWKziYTd9GDwBaW11aZUFS6UPo7jxT6RdcIvH1/UijndxhwL6zDs5X+w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=pWjJOQZANrMcM/YNMBCU8BYIZAvPKtFQl9vwHlx9Mlw=;
- b=EFA3oSu6BWrvurYzrP99GbKQfQNnMQNGSXva8a8mFaUEAatQr/htxeniTaovFnvSP44AabaFIZKt4+vD9YqhB1xTs+Dhl7H/GZlk/YxbRh5KaPlyR2dEgrmckcg1u0vEBI8Chbdn5y5GFSvVWbtn60DOjZSJJB7ElwlkW2ZZ/Wo=
-Authentication-Results: spf=none (sender IP is )
- smtp.mailfrom=Felix.Kuehling@amd.com; 
-Received: from DM6PR12MB3947.namprd12.prod.outlook.com (10.255.175.222) by
- DM6PR12MB3291.namprd12.prod.outlook.com (20.179.105.160) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2559.17; Mon, 23 Dec 2019 19:34:27 +0000
-Received: from DM6PR12MB3947.namprd12.prod.outlook.com
- ([fe80::91d4:be0f:4691:f465]) by DM6PR12MB3947.namprd12.prod.outlook.com
- ([fe80::91d4:be0f:4691:f465%3]) with mapi id 15.20.2559.016; Mon, 23 Dec 2019
- 19:34:27 +0000
-Subject: Re: [PATCH 3/5] drm/amdgpu: GPU TLB flush API moved to amdgpu_amdkfd
-To: Yong Zhao <yong.zhao@amd.com>, Alex Sierra <alex.sierra@amd.com>,
- amd-gfx@lists.freedesktop.org
-References: <20191220062442.33635-1-alex.sierra@amd.com>
- <20191220062442.33635-3-alex.sierra@amd.com>
- <41542c9c-a668-0a4b-1f3f-9b38c8e48d12@amd.com>
- <69ea408a-1f03-a6f4-34be-193bb5a17dec@amd.com>
- <e244e704-1020-6a11-705d-3a84dd2c01b5@amd.com>
-From: Felix Kuehling <felix.kuehling@amd.com>
-Organization: AMD Inc.
-Message-ID: <dec1e07f-c4ca-a683-224b-286b1edaaeea@amd.com>
-Date: Mon, 23 Dec 2019 14:34:25 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.2.2
-In-Reply-To: <e244e704-1020-6a11-705d-3a84dd2c01b5@amd.com>
-Content-Language: en-US
-X-ClientProxiedBy: YTOPR0101CA0024.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b00:15::37) To DM6PR12MB3947.namprd12.prod.outlook.com
- (2603:10b6:5:148::30)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 50D6E89E50;
+	Mon, 23 Dec 2019 19:35:09 +0000 (UTC)
+Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com
+ [IPv6:2a00:1450:4864:20::444])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BAB7189E50
+ for <amd-gfx@lists.freedesktop.org>; Mon, 23 Dec 2019 19:35:07 +0000 (UTC)
+Received: by mail-wr1-x444.google.com with SMTP id w15so5125284wru.4
+ for <amd-gfx@lists.freedesktop.org>; Mon, 23 Dec 2019 11:35:07 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=kYnP7qjt8HaNzSnT4VSX9Rw7HKgC2ZzcqHwraXmQHEo=;
+ b=NSQWYoM8AQaR1nWX0mO6/2eUhRmZOQGD5HpqtoE6eV3YId1Vpss2TSnNRMcfV4wAFL
+ eshyU2otYSZn90ggdLGBzVY/0OuFKfpLx4V7eeUkdD+1uYJ68p1AucYuxKEejS7hsC0Z
+ cFDwzoHx2Q1X3SP9rpRAS7afJgFNoHBk5M+ubPXabnZA32zQreJMWKrt4QBWrQ0LrBfd
+ nKSKq0VAePLThdki89DomlDAgIAC4K3FrSIIUWd8cQWPiv4P/GD0Z2mWFO8ko7WfIM+s
+ rQXzwmPlQb3lPObuW8ApB7Ta9XJQTQWh+YJuJ6o6x5WsAsa0EoWOsUMKYyow93ZlsQrs
+ jJUA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=kYnP7qjt8HaNzSnT4VSX9Rw7HKgC2ZzcqHwraXmQHEo=;
+ b=UuXGxPySxF/vKWlbriqDLQycSuTFLmlNIglQ9VNdgPe+J/D1jT9BX0o0aYtftS5Fe4
+ Zd59yUDbEEKhmPtESb+MNxqrosgGsSTqfMZ6CG/EvldO0ZLMQhicUeV+Gs/EpOP14pYV
+ ZYP/M1mANRoLCmSXL+jWni7wMKYwoSoBlgD75IdH6rAN+7EtRHQssYIvc7PaW/Zc0MHF
+ w6b9TgaOW//VswJinIBsvD40+N8XIoAVwWSvWrF60BLSL79APJjR2j5m1vmOgImJUe4H
+ 4Kvdftpd0HqPyC3N9xkSanlbQPS/OR/OqJ0/Zo7772aDZ9A9SLa5Hzq1eV3jFmT5kXYL
+ 95uA==
+X-Gm-Message-State: APjAAAWHNYcf8cRaw7oZDpDt6NaD/gQKp7zMw/Tb5jYbcMDXWmpB/t+a
+ ZzKF0Ba2KcTbdSjfCKNh9HoE9HLx/VytQ7yqOHI=
+X-Google-Smtp-Source: APXvYqzpqVHIx0T6VwGXy7pnRfXVji/SRbVJroi4BjVRS8KV+OKEYkvTd9Nb/E1eFql1k27Mb9KS3WeEiUMyw2lQn3g=
+X-Received: by 2002:a5d:6886:: with SMTP id h6mr19180608wru.154.1577129706329; 
+ Mon, 23 Dec 2019 11:35:06 -0800 (PST)
 MIME-Version: 1.0
-Received: from [172.27.226.80] (165.204.55.251) by
- YTOPR0101CA0024.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b00:15::37) with
- Microsoft SMTP Server (version=TLS1_2, cipher=) via Frontend Transport;
- Mon, 23 Dec 2019 19:34:27 +0000
-X-Originating-IP: [165.204.55.251]
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 7b22e46c-9211-4ba2-b672-08d787df1f9d
-X-MS-TrafficTypeDiagnostic: DM6PR12MB3291:|DM6PR12MB3291:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM6PR12MB329193E4BBFD223CE4EED113922E0@DM6PR12MB3291.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
-X-Forefront-PRVS: 0260457E99
-X-Forefront-Antispam-Report: SFV:NSPM;
- SFS:(10009020)(4636009)(136003)(346002)(396003)(366004)(376002)(39860400002)(189003)(199004)(8936002)(36756003)(31696002)(45080400002)(52116002)(36916002)(478600001)(66946007)(86362001)(66476007)(8676002)(66556008)(81156014)(81166006)(16576012)(316002)(186003)(31686004)(16526019)(53546011)(44832011)(2906002)(2616005)(5660300002)(26005)(4001150100001)(966005)(956004)(6486002)(110136005);
- DIR:OUT; SFP:1101; SCL:1; SRVR:DM6PR12MB3291;
- H:DM6PR12MB3947.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; MX:1; A:1; 
-Received-SPF: None (protection.outlook.com: amd.com does not designate
- permitted sender hosts)
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Qr835hgnQCtVJl4LRdjdoq/IBnmu3ZvEAYhSFRT1MUozeHZao0TFGUw+UZ1kDOkccLr6XYUSZE8cS7ShHHQ/agZSCyhWktAd1zyL/Df4aH0t6y9A5D8RnwXvDpSM+u1dbXmTS/fybxntc1dWcmBF6gs0SmU99IcRirG7frn4V/hD76gD4oX8QB7cv3i4gXQlK327lnRQK/i7YQFC0nzpJ/7UDgM0zOsYBLxpaLG9u+ZQP4QNKmrV/mXd6VLs7Vt4c1DbfDhJhkvEm2fU35VVB5txI/sE3pyXQjDJCUU1ktk65rALGj5VJ/JTF0tK6ejDZ/ursEtY21zYL4XQEsFH8UYjWBa9fG+TgYJ8dNjUbWozvm40qwkRjnb+naM9YXYe5alm44sa1rqL1Rdj1e5iFQM8Cqf7O+Nc900FzwPT9mNPx/nT+zvT1YSXiuA0BYhqNY5fTTQdtKEU1JiicRA1Hmk1/cxjkIr2tcTm4kJtNEo=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7b22e46c-9211-4ba2-b672-08d787df1f9d
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Dec 2019 19:34:27.6399 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: /tTo41XWAfbjliHu4C1M6ETf34rzCRkneexVIPzhfXViv5Uzc/OwVYJP+vhETXMfjp82r98pYaJBc/9hWqLt7g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3291
+References: <20191223080518.28754-1-evan.quan@amd.com>
+In-Reply-To: <20191223080518.28754-1-evan.quan@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 23 Dec 2019 14:34:54 -0500
+Message-ID: <CADnq5_NwvBtvXk0yUBZm=vQfaX65_Ha+bD+LwZXL8F=YKBwmGw@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/powerplay: support custom power profile setting
+To: Evan Quan <evan.quan@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,131 +72,263 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Ck9uIDIwMTktMTItMjAgNzowMSBwLm0uLCBZb25nIFpoYW8gd3JvdGU6Cj4KPiBPbiAyMDE5LTEy
-LTIwIDY6NTAgcC5tLiwgWW9uZyBaaGFvIHdyb3RlOgo+PiBJbmxpbmUuCj4+Cj4+IE9uIDIwMTkt
-MTItMjAgNDozNSBwLm0uLCBGZWxpeCBLdWVobGluZyB3cm90ZToKPj4+IE9uIDIwMTktMTItMjAg
-MToyNCwgQWxleCBTaWVycmEgd3JvdGU6Cj4+Pj4gW1doeV0KPj4+PiBUTEIgZmx1c2ggbWV0aG9k
-IGhhcyBiZWVuIGRlcHJlY2F0ZWQgdXNpbmcga2ZkMmtnZCBpbnRlcmZhY2UuCj4+Pj4gVGhpcyBp
-bXBsZW1lbnRhdGlvbiBpcyBub3cgb24gdGhlIGFtZGdwdV9hbWRrZmQgQVBJLgo+Pj4+Cj4+Pj4g
-W0hvd10KPj4+PiBUTEIgZmx1c2ggZnVuY3Rpb25zIG5vdyBpbXBsZW1lbnRlZCBpbiBhbWRncHVf
-YW1ka2ZkLgo+Pj4+Cj4+Pj4gQ2hhbmdlLUlkOiBJYzUxY2NjZGZlNmU3MTI4OGQ3OGRhNzcyYjZl
-MWI2Y2VkNzJmOGVmNwo+Pj4+IFNpZ25lZC1vZmYtYnk6IEFsZXggU2llcnJhIDxhbGV4LnNpZXJy
-YUBhbWQuY29tPgo+Pj4KPj4+IExvb2tzIGdvb2QgdG8gbWUuIFNlZSBteSBjb21tZW50IGFib3V0
-IHRoZSBUT0RPIGlubGluZS4KPj4+Cj4+Pgo+Pj4+IC0tLQo+Pj4+IMKgIGRyaXZlcnMvZ3B1L2Ry
-bS9hbWQvYW1kZ3B1L2FtZGdwdV9hbWRrZmQuYyB8IDMyIAo+Pj4+ICsrKysrKysrKysrKysrKysr
-KysrKysKPj4+PiDCoCBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfYW1ka2ZkLmgg
-fMKgIDIgKysKPj4+PiDCoCBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfcHJvY2Vzcy5j
-wqDCoCB8wqAgOCArKysrLS0KPj4+PiDCoCAzIGZpbGVzIGNoYW5nZWQsIDM5IGluc2VydGlvbnMo
-KyksIDMgZGVsZXRpb25zKC0pCj4+Pj4KPj4+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJt
-L2FtZC9hbWRncHUvYW1kZ3B1X2FtZGtmZC5jIAo+Pj4+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9h
-bWRncHUvYW1kZ3B1X2FtZGtmZC5jCj4+Pj4gaW5kZXggZDNkYTlkZGU0ZWUxLi5iN2Y2ZTcwYzU3
-NjIgMTAwNjQ0Cj4+Pj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Ft
-ZGtmZC5jCj4+Pj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2FtZGtm
-ZC5jCj4+Pj4gQEAgLTYzNCw2ICs2MzQsMzggQEAgYm9vbCBhbWRncHVfYW1ka2ZkX2lzX2tmZF92
-bWlkKHN0cnVjdCAKPj4+PiBhbWRncHVfZGV2aWNlICphZGV2LCB1MzIgdm1pZCkKPj4+PiDCoMKg
-wqDCoMKgIHJldHVybiBmYWxzZTsKPj4+PiDCoCB9Cj4+Pj4gwqAgK2ludCBhbWRncHVfYW1ka2Zk
-X2ZsdXNoX2dwdV90bGJfdm1pZChzdHJ1Y3Qga2dkX2RldiAqa2dkLCAKPj4+PiB1aW50MTZfdCB2
-bWlkKQo+Pj4+ICt7Cj4+Pj4gK8KgwqDCoCBzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiA9IChz
-dHJ1Y3QgYW1kZ3B1X2RldmljZSAqKWtnZDsKPj4+PiArwqDCoMKgIC8qIFRPRE86IGNvbmRpdGlv
-biBtaXNzaW5nIGZvciBGQU1JTFkgYWJvdmUgTlYgKi8KPj4+Cj4+PiBJJ20gbm90IHN1cmUgd2hh
-dCdzIG1pc3NpbmcgaGVyZS4gTlYgYW5kIGFib3ZlIGRvbid0IG5lZWQgYW55IAo+Pj4gc3BlY2lh
-bCB0cmVhdG1lbnQuIFNpbmNlIFNETUEgaXMgY29ubmVjdGVkIHRvIEdGWEhVQiBvbiBOViwgb25s
-eSB0aGUgCj4+PiBHRlhIVUIgbmVlZHMgdG8gYmUgZmx1c2hlZC4KPj4+Cj4+PiBSZWdhcmRzLAo+
-Pj4gwqAgRmVsaXgKPj4+Cj4+Pgo+Pj4+ICvCoMKgwqAgaWYgKGFkZXYtPmZhbWlseSA9PSBBTURH
-UFVfRkFNSUxZX0FJKSB7Cj4+Pj4gK8KgwqDCoMKgwqDCoMKgIGludCBpOwo+Pj4+ICsKPj4+PiAr
-wqDCoMKgwqDCoMKgwqAgZm9yIChpID0gMDsgaSA8IGFkZXYtPm51bV92bWh1YnM7IGkrKykKPj4+
-PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBhbWRncHVfZ21jX2ZsdXNoX2dwdV90bGIoYWRldiwg
-dm1pZCwgaSwgMCk7Cj4+Pj4gK8KgwqDCoCB9IGVsc2Ugewo+Pj4+ICvCoMKgwqDCoMKgwqDCoCBh
-bWRncHVfZ21jX2ZsdXNoX2dwdV90bGIoYWRldiwgdm1pZCwgQU1ER1BVX0dGWEhVQl8wLCAwKTsK
-Pj4+PiArwqDCoMKgIH0KPj4KPj4gVGhpcyBpZiBlbHNlIGNhbiBiZSB1bmlmaWVkIGJ5Cj4+Cj4+
-IGZvciAoaSA9IDA7IGkgPCBhZGV2LT5udW1fdm1odWJzOyBpKyspCj4+Cj4+IMKgwqDCoCBhbWRn
-cHVfZ21jX2ZsdXNoX2dwdV90bGIoYWRldiwgdm1pZCwgaSwgMCk7Cj4+Cj4+Pj4gKwo+Pj4+ICvC
-oMKgwqAgcmV0dXJuIDA7Cj4+Pj4gK30KPj4+PiArCj4+Pj4gK2ludCBhbWRncHVfYW1ka2ZkX2Zs
-dXNoX2dwdV90bGJfcGFzaWQoc3RydWN0IGtnZF9kZXYgKmtnZCwgCj4+Pj4gdWludDE2X3QgcGFz
-aWQpCj4+Pj4gK3sKPj4+PiArwqDCoMKgIHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2ID0gKHN0
-cnVjdCBhbWRncHVfZGV2aWNlICopa2dkOwo+Pj4+ICvCoMKgwqAgdWludDMyX3QgZmx1c2hfdHlw
-ZSA9IDA7Cj4+Pj4gK8KgwqDCoCBib29sIGFsbF9odWIgPSBmYWxzZTsKPj4+PiArCj4+Pj4gK8Kg
-wqDCoCBpZiAoYWRldi0+Z21jLnhnbWkubnVtX3BoeXNpY2FsX25vZGVzICYmCj4+Pj4gK8KgwqDC
-oMKgwqDCoMKgIGFkZXYtPmFzaWNfdHlwZSA9PSBDSElQX1ZFR0EyMCkKPj4+PiArwqDCoMKgwqDC
-oMKgwqAgZmx1c2hfdHlwZSA9IDI7Cj4+Pj4gKwo+Pj4+ICvCoMKgwqAgaWYgKGFkZXYtPmZhbWls
-eSA9PSBBTURHUFVfRkFNSUxZX0FJKQo+Pj4+ICvCoMKgwqDCoMKgwqDCoCBhbGxfaHViID0gdHJ1
-ZTsKPj4+PiArCj4+Pj4gK8KgwqDCoCByZXR1cm4gYW1kZ3B1X2dtY19mbHVzaF9ncHVfdGxiX3Bh
-c2lkKGFkZXYsIHBhc2lkLCBmbHVzaF90eXBlLCAKPj4+PiBhbGxfaHViKTsKPiBUaGUgYWxsX2h1
-YiBwYXJhbWV0ZXIgY2FuIGJlIGluZmVycmVkIGZyb20gbnVtX3ZtaHVicyBpbiAKPiBmbHVzaF9n
-cHVfdGxiX3Bhc2lkKCksIHNvIGl0IGNhbiBiZSBvcHRpbWl6ZWQgb3V0IGhlcmUuCgpIaSBZb25n
-LAoKVGhpcyBpcyBpbmNvcnJlY3QuIE5WIGhhcyB0d28gVk0gaHViczogR0ZYSFVCIGFuZCBNTUhV
-Qi4gQnV0IEtGRCBkb2Vzbid0IApjYXJlIGFib3V0IE1NSFVCIG9uIE5hdmkgYmVjYXVzZSBTRE1B
-IGlzIGNvbm5lY3RlZCB0byB0aGUgR0ZYSFVCLiAKVGhlcmVmb3JlIHRoZSBhbGxfaHViIHBhcmFt
-ZXRlciBzaG91bGQgbm90IGJlIGJhc2VkIG9uIHRoZSBudW1fdm1odWJzLiAKV2UgbmVlZCBhIHNw
-ZWNpYWwgY2FzZSBmb3IgTlYuCgpPciByYXRoZXIgdGhlIHNwZWNpYWwgY2FzZSBjb3VsZCBiZSBB
-SSwgd2hlcmUgU0RNQSBpcyBub3QgY29ubmVjdGVkIHRvIApHRlhIVUIuIFNvIG9ubHkgb24gQUkg
-d2UgbmVlZCB0byBmbHVzaCBhbGwgaHVicyBmb3IgS0ZEIFZNcy4KClJlZ2FyZHMsCiDCoCBGZWxp
-eAoKPj4+PiArfQo+Pj4+ICsKPj4+PiDCoCBib29sIGFtZGdwdV9hbWRrZmRfaGF2ZV9hdG9taWNz
-X3N1cHBvcnQoc3RydWN0IGtnZF9kZXYgKmtnZCkKPj4+PiDCoCB7Cj4+Pj4gwqDCoMKgwqDCoCBz
-dHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiA9IChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqKWtnZDsK
-Pj4+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2FtZGtm
-ZC5oIAo+Pj4+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2FtZGtmZC5oCj4+
-Pj4gaW5kZXggMDY5ZDVkMjMwODEwLi40N2IwZjI5NTdkMWYgMTAwNjQ0Cj4+Pj4gLS0tIGEvZHJp
-dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2FtZGtmZC5oCj4+Pj4gKysrIGIvZHJpdmVy
-cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2FtZGtmZC5oCj4+Pj4gQEAgLTEzNiw2ICsxMzYs
-OCBAQCBpbnQgYW1kZ3B1X2FtZGtmZF9zdWJtaXRfaWIoc3RydWN0IGtnZF9kZXYgCj4+Pj4gKmtn
-ZCwgZW51bSBrZ2RfZW5naW5lX3R5cGUgZW5naW5lLAo+Pj4+IMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqAgdWludDMyX3QgKmliX2NtZCwgdWludDMyX3QgaWJfbGVuKTsKPj4+PiDC
-oCB2b2lkIGFtZGdwdV9hbWRrZmRfc2V0X2NvbXB1dGVfaWRsZShzdHJ1Y3Qga2dkX2RldiAqa2dk
-LCBib29sIGlkbGUpOwo+Pj4+IMKgIGJvb2wgYW1kZ3B1X2FtZGtmZF9oYXZlX2F0b21pY3Nfc3Vw
-cG9ydChzdHJ1Y3Qga2dkX2RldiAqa2dkKTsKPj4+PiAraW50IGFtZGdwdV9hbWRrZmRfZmx1c2hf
-Z3B1X3RsYl92bWlkKHN0cnVjdCBrZ2RfZGV2ICprZ2QsIHVpbnQxNl90IAo+Pj4+IHZtaWQpOwo+
-Pj4+ICtpbnQgYW1kZ3B1X2FtZGtmZF9mbHVzaF9ncHVfdGxiX3Bhc2lkKHN0cnVjdCBrZ2RfZGV2
-ICprZ2QsIAo+Pj4+IHVpbnQxNl90IHBhc2lkKTsKPj4+PiDCoCDCoCBib29sIGFtZGdwdV9hbWRr
-ZmRfaXNfa2ZkX3ZtaWQoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsIHUzMiAKPj4+PiB2bWlk
-KTsKPj4+PiDCoCBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX3By
-b2Nlc3MuYyAKPj4+PiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9wcm9jZXNzLmMK
-Pj4+PiBpbmRleCA1MzZhMTUzYWM5YTQuLjI1YjkwZjcwYWVjZCAxMDA2NDQKPj4+PiAtLS0gYS9k
-cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfcHJvY2Vzcy5jCj4+Pj4gKysrIGIvZHJpdmVy
-cy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX3Byb2Nlc3MuYwo+Pj4+IEBAIC0zMiw2ICszMiw3IEBA
-Cj4+Pj4gwqAgI2luY2x1ZGUgPGxpbnV4L21tYW4uaD4KPj4+PiDCoCAjaW5jbHVkZSA8bGludXgv
-ZmlsZS5oPgo+Pj4+IMKgICNpbmNsdWRlICJhbWRncHVfYW1ka2ZkLmgiCj4+Pj4gKyNpbmNsdWRl
-ICJhbWRncHUuaCIKPj4+PiDCoCDCoCBzdHJ1Y3QgbW1fc3RydWN0Owo+Pj4+IMKgIEBAIC0xMTUy
-LDE2ICsxMTUzLDE3IEBAIGludCBrZmRfcmVzZXJ2ZWRfbWVtX21tYXAoc3RydWN0IGtmZF9kZXYg
-Cj4+Pj4gKmRldiwgc3RydWN0IGtmZF9wcm9jZXNzICpwcm9jZXNzLAo+Pj4+IMKgIHZvaWQga2Zk
-X2ZsdXNoX3RsYihzdHJ1Y3Qga2ZkX3Byb2Nlc3NfZGV2aWNlICpwZGQpCj4+Pj4gwqAgewo+Pj4+
-IMKgwqDCoMKgwqAgc3RydWN0IGtmZF9kZXYgKmRldiA9IHBkZC0+ZGV2Owo+Pj4+IC3CoMKgwqAg
-Y29uc3Qgc3RydWN0IGtmZDJrZ2RfY2FsbHMgKmYyZyA9IGRldi0+a2ZkMmtnZDsKPj4+PiDCoCDC
-oMKgwqDCoMKgIGlmIChkZXYtPmRxbS0+c2NoZWRfcG9saWN5ID09IEtGRF9TQ0hFRF9QT0xJQ1lf
-Tk9fSFdTKSB7Cj4+Pj4gwqDCoMKgwqDCoMKgwqDCoMKgIC8qIE5vdGhpbmcgdG8gZmx1c2ggdW50
-aWwgYSBWTUlEIGlzIGFzc2lnbmVkLCB3aGljaAo+Pj4+IMKgwqDCoMKgwqDCoMKgwqDCoMKgICog
-b25seSBoYXBwZW5zIHdoZW4gdGhlIGZpcnN0IHF1ZXVlIGlzIGNyZWF0ZWQuCj4+Pj4gwqDCoMKg
-wqDCoMKgwqDCoMKgwqAgKi8KPj4+PiDCoMKgwqDCoMKgwqDCoMKgwqAgaWYgKHBkZC0+cXBkLnZt
-aWQpCj4+Pj4gLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgZjJnLT5pbnZhbGlkYXRlX3RsYnNfdm1p
-ZChkZXYtPmtnZCwgcGRkLT5xcGQudm1pZCk7Cj4+Pj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAg
-YW1kZ3B1X2FtZGtmZF9mbHVzaF9ncHVfdGxiX3ZtaWQoZGV2LT5rZ2QsCj4+Pj4gK8KgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBwZGQtPnFwZC52
-bWlkKTsKPj4+PiDCoMKgwqDCoMKgIH0gZWxzZSB7Cj4+Pj4gLcKgwqDCoMKgwqDCoMKgIGYyZy0+
-aW52YWxpZGF0ZV90bGJzKGRldi0+a2dkLCBwZGQtPnByb2Nlc3MtPnBhc2lkKTsKPj4+PiArwqDC
-oMKgwqDCoMKgwqAgYW1kZ3B1X2FtZGtmZF9mbHVzaF9ncHVfdGxiX3Bhc2lkKGRldi0+a2dkLAo+
-Pj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHBkZC0+
-cHJvY2Vzcy0+cGFzaWQpOwo+Pj4+IMKgwqDCoMKgwqAgfQo+Pj4+IMKgIH0KPj4+IF9fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCj4+PiBhbWQtZ2Z4IG1haWxp
-bmcgbGlzdAo+Pj4gYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPj4+IGh0dHBzOi8vbmFt
-MTEuc2FmZWxpbmtzLnByb3RlY3Rpb24ub3V0bG9vay5jb20vP3VybD1odHRwcyUzQSUyRiUyRmxp
-c3RzLmZyZWVkZXNrdG9wLm9yZyUyRm1haWxtYW4lMkZsaXN0aW5mbyUyRmFtZC1nZngmYW1wO2Rh
-dGE9MDIlN0MwMSU3Q3lvbmcuemhhbyU0MGFtZC5jb20lN0MzYTMzNjQ5ZDJhODA0OTk4ZDAwNDA4
-ZDc4NWE3Nzc2ZiU3QzNkZDg5NjFmZTQ4ODRlNjA4ZTExYTgyZDk5NGUxODNkJTdDMCU3QzAlN0M2
-MzcxMjQ4MjcwMDcwNTk3MjgmYW1wO3NkYXRhPWZOVHVubUFKT2J4ZmdiSkJsTldXWHVjeUg5ZXpl
-ZEx2JTJCcnFuTVR6M0FpNCUzRCZhbXA7cmVzZXJ2ZWQ9MCAKPj4+Cj4+IF9fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCj4+IGFtZC1nZnggbWFpbGluZyBsaXN0
-Cj4+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4+IGh0dHBzOi8vbmFtMTEuc2FmZWxp
-bmtzLnByb3RlY3Rpb24ub3V0bG9vay5jb20vP3VybD1odHRwcyUzQSUyRiUyRmxpc3RzLmZyZWVk
-ZXNrdG9wLm9yZyUyRm1haWxtYW4lMkZsaXN0aW5mbyUyRmFtZC1nZngmYW1wO2RhdGE9MDIlN0Mw
-MSU3Q3lvbmcuemhhbyU0MGFtZC5jb20lN0MzYTMzNjQ5ZDJhODA0OTk4ZDAwNDA4ZDc4NWE3Nzc2
-ZiU3QzNkZDg5NjFmZTQ4ODRlNjA4ZTExYTgyZDk5NGUxODNkJTdDMCU3QzAlN0M2MzcxMjQ4Mjcw
-MDcwNTk3MjgmYW1wO3NkYXRhPWZOVHVubUFKT2J4ZmdiSkJsTldXWHVjeUg5ZXplZEx2JTJCcnFu
-TVR6M0FpNCUzRCZhbXA7cmVzZXJ2ZWQ9MCAKPj4KX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5m
-cmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0
-aW5mby9hbWQtZ2Z4Cg==
+On Mon, Dec 23, 2019 at 3:05 AM Evan Quan <evan.quan@amd.com> wrote:
+>
+> Support custom power profile mode settings on Arcturus.
+>
+> Change-Id: Id14f9a1cced41433b7487f447c452f8852964891
+> Signed-off-by: Evan Quan <evan.quan@amd.com>
+> ---
+>  drivers/gpu/drm/amd/powerplay/arcturus_ppt.c  | 132 +++++++++++++++++-
+>  .../powerplay/inc/smu11_driver_if_arcturus.h  |   6 +-
+>  2 files changed, 128 insertions(+), 10 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c b/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c
+> index 9610b9b8a54c..043ac2ab0496 100644
+> --- a/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c
+> +++ b/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c
+> @@ -179,6 +179,7 @@ static struct smu_11_0_cmn2aisc_mapping arcturus_table_map[SMU_TABLE_COUNT] = {
+>         TAB_MAP(DRIVER_SMU_CONFIG),
+>         TAB_MAP(OVERDRIVE),
+>         TAB_MAP(I2C_COMMANDS),
+> +       TAB_MAP(ACTIVITY_MONITOR_COEFF),
+>  };
+>
+>  static struct smu_11_0_cmn2aisc_mapping arcturus_pwr_src_map[SMU_POWER_SOURCE_COUNT] = {
+> @@ -302,6 +303,10 @@ static int arcturus_tables_init(struct smu_context *smu, struct smu_table *table
+>         SMU_TABLE_INIT(tables, SMU_TABLE_I2C_COMMANDS, sizeof(SwI2cRequest_t),
+>                                PAGE_SIZE, AMDGPU_GEM_DOMAIN_VRAM);
+>
+> +       SMU_TABLE_INIT(tables, SMU_TABLE_ACTIVITY_MONITOR_COEFF,
+> +                      sizeof(DpmActivityMonitorCoeffInt_t), PAGE_SIZE,
+> +                      AMDGPU_GEM_DOMAIN_VRAM);
+> +
+
+Is freeing this handled properly?  Assuming that is ok, the patch is:
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+
+>         smu_table->metrics_table = kzalloc(sizeof(SmuMetrics_t), GFP_KERNEL);
+>         if (!smu_table->metrics_table)
+>                 return -ENOMEM;
+> @@ -1314,6 +1319,7 @@ static int arcturus_get_power_limit(struct smu_context *smu,
+>  static int arcturus_get_power_profile_mode(struct smu_context *smu,
+>                                            char *buf)
+>  {
+> +       DpmActivityMonitorCoeffInt_t activity_monitor;
+>         static const char *profile_name[] = {
+>                                         "BOOTUP_DEFAULT",
+>                                         "3D_FULL_SCREEN",
+> @@ -1323,14 +1329,35 @@ static int arcturus_get_power_profile_mode(struct smu_context *smu,
+>                                         "COMPUTE",
+>                                         "CUSTOM"};
+>         static const char *title[] = {
+> -                       "PROFILE_INDEX(NAME)"};
+> +                       "PROFILE_INDEX(NAME)",
+> +                       "CLOCK_TYPE(NAME)",
+> +                       "FPS",
+> +                       "UseRlcBusy",
+> +                       "MinActiveFreqType",
+> +                       "MinActiveFreq",
+> +                       "BoosterFreqType",
+> +                       "BoosterFreq",
+> +                       "PD_Data_limit_c",
+> +                       "PD_Data_error_coeff",
+> +                       "PD_Data_error_rate_coeff"};
+>         uint32_t i, size = 0;
+>         int16_t workload_type = 0;
+> +       int result = 0;
+> +       uint32_t smu_version;
+>
+> -       if (!smu->pm_enabled || !buf)
+> +       if (!buf)
+>                 return -EINVAL;
+>
+> -       size += sprintf(buf + size, "%16s\n",
+> +       result = smu_get_smc_version(smu, NULL, &smu_version);
+> +       if (result)
+> +               return result;
+> +
+> +       if (smu_version >= 0x360d00)
+> +               size += sprintf(buf + size, "%16s %s %s %s %s %s %s %s %s %s %s\n",
+> +                       title[0], title[1], title[2], title[3], title[4], title[5],
+> +                       title[6], title[7], title[8], title[9], title[10]);
+> +       else
+> +               size += sprintf(buf + size, "%16s\n",
+>                         title[0]);
+>
+>         for (i = 0; i <= PP_SMC_POWER_PROFILE_CUSTOM; i++) {
+> @@ -1342,8 +1369,50 @@ static int arcturus_get_power_profile_mode(struct smu_context *smu,
+>                 if (workload_type < 0)
+>                         continue;
+>
+> +               if (smu_version >= 0x360d00) {
+> +                       result = smu_update_table(smu,
+> +                                                 SMU_TABLE_ACTIVITY_MONITOR_COEFF,
+> +                                                 workload_type,
+> +                                                 (void *)(&activity_monitor),
+> +                                                 false);
+> +                       if (result) {
+> +                               pr_err("[%s] Failed to get activity monitor!", __func__);
+> +                               return result;
+> +                       }
+> +               }
+> +
+>                 size += sprintf(buf + size, "%2d %14s%s\n",
+>                         i, profile_name[i], (i == smu->power_profile_mode) ? "*" : " ");
+> +
+> +               if (smu_version >= 0x360d00) {
+> +                       size += sprintf(buf + size, "%19s %d(%13s) %7d %7d %7d %7d %7d %7d %7d %7d %7d\n",
+> +                               " ",
+> +                               0,
+> +                               "GFXCLK",
+> +                               activity_monitor.Gfx_FPS,
+> +                               activity_monitor.Gfx_UseRlcBusy,
+> +                               activity_monitor.Gfx_MinActiveFreqType,
+> +                               activity_monitor.Gfx_MinActiveFreq,
+> +                               activity_monitor.Gfx_BoosterFreqType,
+> +                               activity_monitor.Gfx_BoosterFreq,
+> +                               activity_monitor.Gfx_PD_Data_limit_c,
+> +                               activity_monitor.Gfx_PD_Data_error_coeff,
+> +                               activity_monitor.Gfx_PD_Data_error_rate_coeff);
+> +
+> +                       size += sprintf(buf + size, "%19s %d(%13s) %7d %7d %7d %7d %7d %7d %7d %7d %7d\n",
+> +                               " ",
+> +                               1,
+> +                               "UCLK",
+> +                               activity_monitor.Mem_FPS,
+> +                               activity_monitor.Mem_UseRlcBusy,
+> +                               activity_monitor.Mem_MinActiveFreqType,
+> +                               activity_monitor.Mem_MinActiveFreq,
+> +                               activity_monitor.Mem_BoosterFreqType,
+> +                               activity_monitor.Mem_BoosterFreq,
+> +                               activity_monitor.Mem_PD_Data_limit_c,
+> +                               activity_monitor.Mem_PD_Data_error_coeff,
+> +                               activity_monitor.Mem_PD_Data_error_rate_coeff);
+> +               }
+>         }
+>
+>         return size;
+> @@ -1353,18 +1422,69 @@ static int arcturus_set_power_profile_mode(struct smu_context *smu,
+>                                            long *input,
+>                                            uint32_t size)
+>  {
+> +       DpmActivityMonitorCoeffInt_t activity_monitor;
+>         int workload_type = 0;
+>         uint32_t profile_mode = input[size];
+>         int ret = 0;
+> -
+> -       if (!smu->pm_enabled)
+> -               return -EINVAL;
+> +       uint32_t smu_version;
+>
+>         if (profile_mode > PP_SMC_POWER_PROFILE_CUSTOM) {
+>                 pr_err("Invalid power profile mode %d\n", profile_mode);
+>                 return -EINVAL;
+>         }
+>
+> +       ret = smu_get_smc_version(smu, NULL, &smu_version);
+> +       if (ret)
+> +               return ret;
+> +
+> +       if ((profile_mode == PP_SMC_POWER_PROFILE_CUSTOM) &&
+> +            (smu_version >=0x360d00)) {
+> +               ret = smu_update_table(smu,
+> +                                      SMU_TABLE_ACTIVITY_MONITOR_COEFF,
+> +                                      WORKLOAD_PPLIB_CUSTOM_BIT,
+> +                                      (void *)(&activity_monitor),
+> +                                      false);
+> +               if (ret) {
+> +                       pr_err("[%s] Failed to get activity monitor!", __func__);
+> +                       return ret;
+> +               }
+> +
+> +               switch (input[0]) {
+> +               case 0: /* Gfxclk */
+> +                       activity_monitor.Gfx_FPS = input[1];
+> +                       activity_monitor.Gfx_UseRlcBusy = input[2];
+> +                       activity_monitor.Gfx_MinActiveFreqType = input[3];
+> +                       activity_monitor.Gfx_MinActiveFreq = input[4];
+> +                       activity_monitor.Gfx_BoosterFreqType = input[5];
+> +                       activity_monitor.Gfx_BoosterFreq = input[6];
+> +                       activity_monitor.Gfx_PD_Data_limit_c = input[7];
+> +                       activity_monitor.Gfx_PD_Data_error_coeff = input[8];
+> +                       activity_monitor.Gfx_PD_Data_error_rate_coeff = input[9];
+> +                       break;
+> +               case 1: /* Uclk */
+> +                       activity_monitor.Mem_FPS = input[1];
+> +                       activity_monitor.Mem_UseRlcBusy = input[2];
+> +                       activity_monitor.Mem_MinActiveFreqType = input[3];
+> +                       activity_monitor.Mem_MinActiveFreq = input[4];
+> +                       activity_monitor.Mem_BoosterFreqType = input[5];
+> +                       activity_monitor.Mem_BoosterFreq = input[6];
+> +                       activity_monitor.Mem_PD_Data_limit_c = input[7];
+> +                       activity_monitor.Mem_PD_Data_error_coeff = input[8];
+> +                       activity_monitor.Mem_PD_Data_error_rate_coeff = input[9];
+> +                       break;
+> +               }
+> +
+> +               ret = smu_update_table(smu,
+> +                                      SMU_TABLE_ACTIVITY_MONITOR_COEFF,
+> +                                      WORKLOAD_PPLIB_CUSTOM_BIT,
+> +                                      (void *)(&activity_monitor),
+> +                                      true);
+> +               if (ret) {
+> +                       pr_err("[%s] Failed to set activity monitor!", __func__);
+> +                       return ret;
+> +               }
+> +       }
+> +
+>         /*
+>          * Conv PP_SMC_POWER_PROFILE* to WORKLOAD_PPLIB_*_BIT
+>          * Not all profile modes are supported on arcturus.
+> diff --git a/drivers/gpu/drm/amd/powerplay/inc/smu11_driver_if_arcturus.h b/drivers/gpu/drm/amd/powerplay/inc/smu11_driver_if_arcturus.h
+> index a886f0644d24..910226ec512e 100644
+> --- a/drivers/gpu/drm/amd/powerplay/inc/smu11_driver_if_arcturus.h
+> +++ b/drivers/gpu/drm/amd/powerplay/inc/smu11_driver_if_arcturus.h
+> @@ -823,7 +823,6 @@ typedef struct {
+>    uint32_t MmHubPadding[8]; // SMU internal use
+>  } AvfsFuseOverride_t;
+>
+> -/* NOT CURRENTLY USED
+>  typedef struct {
+>    uint8_t   Gfx_ActiveHystLimit;
+>    uint8_t   Gfx_IdleHystLimit;
+> @@ -866,7 +865,6 @@ typedef struct {
+>
+>    uint32_t  MmHubPadding[8]; // SMU internal use
+>  } DpmActivityMonitorCoeffInt_t;
+> -*/
+>
+>  // These defines are used with the following messages:
+>  // SMC_MSG_TransferTableDram2Smu
+> @@ -878,11 +876,11 @@ typedef struct {
+>  #define TABLE_PMSTATUSLOG             4
+>  #define TABLE_SMU_METRICS             5
+>  #define TABLE_DRIVER_SMU_CONFIG       6
+> -//#define TABLE_ACTIVITY_MONITOR_COEFF  7
+>  #define TABLE_OVERDRIVE               7
+>  #define TABLE_WAFL_XGMI_TOPOLOGY      8
+>  #define TABLE_I2C_COMMANDS            9
+> -#define TABLE_COUNT                   10
+> +#define TABLE_ACTIVITY_MONITOR_COEFF  10
+> +#define TABLE_COUNT                   11
+>
+>  // These defines are used with the SMC_MSG_SetUclkFastSwitch message.
+>  typedef enum {
+> --
+> 2.24.0
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
