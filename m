@@ -2,107 +2,123 @@ Return-Path: <SRS0=j6k1=2N=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.4 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MIME_HTML_MOSTLY,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-8.0 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9D0A4C2D0C0
-	for <amd-gfx@archiver.kernel.org>; Mon, 23 Dec 2019 10:10:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 23CD9C2D0C0
+	for <amd-gfx@archiver.kernel.org>; Mon, 23 Dec 2019 15:21:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 65DCF206B7
-	for <amd-gfx@archiver.kernel.org>; Mon, 23 Dec 2019 10:10:34 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id B22C3206CB
+	for <amd-gfx@archiver.kernel.org>; Mon, 23 Dec 2019 15:21:10 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="Q5UYvZOQ"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 65DCF206B7
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="ugNw/oRO"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B22C3206CB
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 195C56E258;
-	Mon, 23 Dec 2019 10:10:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5E1086E2C4;
+	Mon, 23 Dec 2019 15:21:10 +0000 (UTC)
 Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2086.outbound.protection.outlook.com [40.107.237.86])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6F7616E241
- for <amd-gfx@lists.freedesktop.org>; Mon, 23 Dec 2019 10:10:33 +0000 (UTC)
+ (mail-bn8nam12on2055.outbound.protection.outlook.com [40.107.237.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5279C6E2C4
+ for <amd-gfx@lists.freedesktop.org>; Mon, 23 Dec 2019 15:21:09 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=WyJcPjOMJ/BqVDzQTm+jjPkJvo45vPFyD/ocrJiXEDmtaP1ClnEyAfgUXHXgPiXI6ICgPzy5yoq9KltkwGqk2G5orum5tHezLr7CuEBQSMzMiNbWuuwDAAZ8ijxSW1TJYBaKXn4N68k4EllTH1L6nutGm+chE/TkuXPM0nWpIOlFDa4yHc7v5Rxvrg+m27sVKt0jBshmeCZaQRYRr6bUjnBGbQ2JQSRy6m47gf4f0v4g6yaM7RMgQJQNsHGZxsJ6Jh3InMPS5wXDA6yQYM8PIdcSOd0C7xSlfPwyuFzCL2eoK5t3YseGeGb4iRoDHf0SCGaaRUEIjVWI8FONwV0IgA==
+ b=jtT+Rw6j7y9bN5Tq68S3JiAQglFnCh42FVAKk98o27pI1AtBJC0VeWc6Y1atpHbOeBce+7Jp8XO7n8Pxiq/OjI2Yb2qAzHSy9YnyTWqWbE9t0AzdnQY7PHFbsyTxq5j8aJFUVkEBeJWNcMdc9I6jTcXNfMMYaqeZXmJo+rqHbnXDuLLFMzfx0gboNCJ/arYZ9xoszV7PgMhVKP1gbIvLaV2CVQHUa6BpvKfNA4+LpzebRxvYgSt+rDqnqOqucWkBVLqQPEL3YCYh+LUF+aiBFLJcRoMnybbdCYMXuW6SOBcTQd+cOdQfgyMXzF0T4DKodsQoMqjJg2q0TA7iKnphSA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ZGLsULmXIJLSxhgRiAtdKpBEezwqM/a8dij4DenZx3o=;
- b=daa83mG3xyGBT6OQF6yX7KX+QQ+M7wuzjFuo3wv6NMh7G0JSTuiuzE14WjzbnSmUj655i9+EnX3+2ZhjumXke7/kMsQTBWyc/+eJJmVFWSUBTWUiwffbhXHIAurflu51Pb6D5zIaDHDOYmCxKdCEFhuzwQcCccEnL8sJ+ni2RBi4GoPMf6Laji2GKmULWCMdnA4uISDDlk2lkmGn4tkQtH6StBhv657xDr77Eg4Ng0BZ1FA79vRbQtjEpW2gK1v5p8WeO6LDm8/I0xK7j/c2gueOj5AowK8cqNMsTR/q0V3YnodpJJ9IXXJivbxfVbolOHT1iHEw7waD/eIZp4Pung==
+ bh=vYAT9k2A+1+kAd7gm7wVbQfhQGel5/XCL+qL0Ihr2/M=;
+ b=IkNzlTV4fRxQdKIm1irX0TY9geKdNqModWJLJWimjhJRXdGdu13w1Q0QtvMaTVrR1LwEGm0/ILCJFQDiyOITrhW6Qa6ykewPqXq6zk85tXSdaksaVbpYuvfhwjFnQZNkJdcM7vLbsTZMWM65G4QSse00BSzh4c3mf34qoAno7FvNfigK1wXfniSNw/BokUxbStzrgf5gA00G3sbFjyOF48sJEILsfvf02TMDjvEuXFkt2ZzwCjrAap8yVRClTuXtJzDW8OBK4ab+Jt42ovO5YhxnEbqhFDrJlqrKzor37VUaAF2KdkZ6LFjqYKdQBWrAJSWlUSW12nPrXK1c8AY+Fg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ZGLsULmXIJLSxhgRiAtdKpBEezwqM/a8dij4DenZx3o=;
- b=Q5UYvZOQlaluzjAmqjYQ2HFJK43Sm7HLV3J/jI2KjlCoiJfCim6gOXOwmhpcLe9QDKFqQpd9LmiQD8CQNmdrbUG23eN558fwiTbwkMpiNt9yJQmS/q5jdNnZjArQDQDW9VBF4Oak+tKr2S9HLNxU8jRExZIcKmYL1BlyiJh/oO4=
-Received: from MN2PR12MB3296.namprd12.prod.outlook.com (20.179.80.139) by
- MN2PR12MB4318.namprd12.prod.outlook.com (52.135.49.204) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2559.14; Mon, 23 Dec 2019 10:10:31 +0000
-Received: from MN2PR12MB3296.namprd12.prod.outlook.com
- ([fe80::b02a:3af3:a3c2:61f3]) by MN2PR12MB3296.namprd12.prod.outlook.com
- ([fe80::b02a:3af3:a3c2:61f3%6]) with mapi id 15.20.2559.017; Mon, 23 Dec 2019
- 10:10:30 +0000
-From: "Wang, Kevin(Yang)" <Kevin1.Wang@amd.com>
-To: "Zhang, Jack (Jian)" <Jack.Zhang1@amd.com>, "Feng, Kenneth"
- <Kenneth.Feng@amd.com>, "Tao, Yintian" <Yintian.Tao@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Deng,
- Emily" <Emily.Deng@amd.com>
-Subject: Re: [PATCH] amd/amdgpu/sriov enable onevf mode for ARCTURUS VF
-Thread-Topic: [PATCH] amd/amdgpu/sriov enable onevf mode for ARCTURUS VF
-Thread-Index: AQHVuWyH98p430LSk0KUV3nPXXgyTqfHZojQgAAUr/E=
-Date: Mon, 23 Dec 2019 10:10:30 +0000
-Message-ID: <MN2PR12MB3296FCACEC21D2A6B3F71FE4A22E0@MN2PR12MB3296.namprd12.prod.outlook.com>
-References: <20191223083939.9669-1-Jack.Zhang1@amd.com>,
- <CH2PR12MB36724ADD77CE6D8604792A7DBB2E0@CH2PR12MB3672.namprd12.prod.outlook.com>
-In-Reply-To: <CH2PR12MB36724ADD77CE6D8604792A7DBB2E0@CH2PR12MB3672.namprd12.prod.outlook.com>
-Accept-Language: en-US, zh-CN
+ bh=vYAT9k2A+1+kAd7gm7wVbQfhQGel5/XCL+qL0Ihr2/M=;
+ b=ugNw/oRO7W46uZcpbDWvP9zhaPFVNigrKhqN/9BKtvG0G7gEPkoJ6r/mJah+wWbfl6EoNYL+RVdsYDRAtf3hpUH8AKEZ9V8Pl0WQvHLjbBfhXTX0JL3jWlOl9FuVsRx/zqML4+JbfmIuJj6hPGpTixV7jWDYHjoZlJpmQCG+0Pw=
+Authentication-Results: spf=none (sender IP is )
+ smtp.mailfrom=Harry.Wentland@amd.com; 
+Received: from CY4PR1201MB0230.namprd12.prod.outlook.com (10.172.79.7) by
+ CY4PR1201MB0008.namprd12.prod.outlook.com (10.172.118.151) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2559.16; Mon, 23 Dec 2019 15:21:04 +0000
+Received: from CY4PR1201MB0230.namprd12.prod.outlook.com
+ ([fe80::301e:b0c8:7af:d77d]) by CY4PR1201MB0230.namprd12.prod.outlook.com
+ ([fe80::301e:b0c8:7af:d77d%11]) with mapi id 15.20.2559.017; Mon, 23 Dec 2019
+ 15:21:04 +0000
+Subject: Re: [PATCH] drm/amd/display: fix kernel_fpu_begin/_end() warnings
+To: Xiaojie Yuan <xiaojie.yuan@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20191223032258.7327-1-xiaojie.yuan@amd.com>
+From: Harry Wentland <hwentlan@amd.com>
+Autocrypt: addr=hwentlan@amd.com; keydata=
+ mQENBFhb4C8BCADhHHUNoBQ7K7LupCP0FsUb443Vuqq+dH0uo4A3lnPkMF6FJmGcJ9Sbx1C6
+ cd4PbVAaTFZUEmjqfpm+wCRBe11eF55hW3GJ273wvfH69Q/zmAxwO8yk+i5ZWWl8Hns5h69K
+ D9QURHLpXxrcwnfHFah0DwV23TrD1KGB7vowCZyJOw93U/GzAlXKESy0FM7ZOYIJH83X7qhh
+ Q9KX94iTEYTeH86Wy8hwHtqM6ySviwEz0g+UegpG8ebbz0w3b5QmdKCAg+eZTmBekP5o77YE
+ BKqR+Miiwo9+tzm2N5GiF9HDeI2pVe/egOLa5UcmsgdF4Y5FKoMnBbAHNaA6Fev8PHlNABEB
+ AAG0J0hhcnJ5IFdlbnRsYW5kIDxoYXJyeS53ZW50bGFuZEBhbWQuY29tPokBNwQTAQgAIQUC
+ WFvgLwIbAwULCQgHAgYVCAkKCwIEFgIDAQIeAQIXgAAKCRAtWBXJjBS24xUlCAC9MqAlIbZO
+ /a37s41h+MQ+D20C6/hVErWO+RA06nA+jFDPUWrDJKYdn6EDQWdLY3ATeAq3X8GIeOTXGrPD
+ b2OXD6kOViW/RNvlXdrIsnIDacdr39aoAlY1b+bhTzZVz4pto4l+K1PZb5jlMgTk/ks9HesL
+ RfYVq5wOy3qIpocdjdlXnSUKn0WOkGBBd8Nv3o0OI18tiJ1S/QwLBBfZoVvfGinoB2p4j/wO
+ kJxpi3F9TaOtLGcdrgfghg31Fb48DP+6kodZ4ircerp4hyAp0U2iKtsrQ/sVWR4mbe3eTfcn
+ YjBxGd2JOVdNQZa2VTNf9GshIDMD8IIQK6jN0LfY8Py2uQENBFhb4C8BCAC/0KWY3pIbU2cy
+ i7GMj3gqB6h0jGqRuMpMRoSNDoAUIuSh17w+bawuOF6XZPdK3D4lC9cOXMwP3aP9tTJOori2
+ 8vMH8KW9jp9lAYnGWYhSqLdjzIACquMqi96EBtawJDct1e9pVgp+d4JXHlgIrl11ITJo8rCP
+ dEqjro2bCBWxijsIncdCzMjf57+nR7u86SBtGSFcXKapS7YJeWcvM6MzFYgIkxHxxBDvBBvm
+ U2/mAXiL72kwmlV1BNrabQxX2UnIb3xt3UovYJehrnDUMdYjxJgSPRBx27wQ/D05xAlhkmmL
+ FJ01ZYc412CRCC6gjgFPfUi2y7YJTrQHS79WSyANABEBAAGJAR8EGAEIAAkFAlhb4C8CGwwA
+ CgkQLVgVyYwUtuM72Qf+J6JOQ/27pWf5Ulde9GS0BigA1kV9CNfIq396TgvQzeyixHMvgPdq
+ Z36x89zZi0otjMZv6ypIdEg5co1Bvz0wFaKbCiNbTjpnA1VAbQVLSFjCZLQiu0vc+BZ1yKDV
+ T5ASJ97G4XvQNO+XXGY55MrmhoNqMaeIa/3Jas54fPVd5olcnUAyDty29/VWXNllUq38iBCX
+ /0tTF7oav1lzPGfeW2c6B700FFZMTR4YBVSGE8jPIzu2Fj0E8EkDmsgS+nibqSvWXfo1v231
+ 410h35CjbYDlYQO7Z1YD7asqbaOnF0As+rckyRMweQ9CxZn5+YBijtPJA3x5ldbCfQ9rWiTu XQ==
+Message-ID: <569a81e1-e5df-2bdb-ba3e-11a22d2be73d@amd.com>
+Date: Mon, 23 Dec 2019 10:21:02 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.3.0
+In-Reply-To: <20191223032258.7327-1-xiaojie.yuan@amd.com>
 Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=True;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2019-12-23T10:10:29.876Z;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal
- Distribution
- Only; MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=0;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard; 
-authentication-results: spf=none (sender IP is )
- smtp.mailfrom=Kevin1.Wang@amd.com; 
-x-originating-ip: [180.167.199.189]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: a3bc61b6-5d6d-4cc0-e7a3-08d787905741
-x-ms-traffictypediagnostic: MN2PR12MB4318:|MN2PR12MB4318:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <MN2PR12MB431863FF0DA69889892F40CAA22E0@MN2PR12MB4318.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:8882;
-x-forefront-prvs: 0260457E99
-x-forefront-antispam-report: SFV:NSPM;
- SFS:(10009020)(4636009)(39860400002)(376002)(346002)(136003)(366004)(396003)(189003)(199004)(13464003)(66556008)(5660300002)(64756008)(19627405001)(71200400001)(7696005)(66574012)(6506007)(66946007)(53546011)(66476007)(110136005)(86362001)(76116006)(26005)(91956017)(52536014)(316002)(66446008)(186003)(33656002)(55016002)(4326008)(6636002)(8676002)(81156014)(9686003)(2906002)(478600001)(81166006)(8936002);
- DIR:OUT; SFP:1101; SCL:1; SRVR:MN2PR12MB4318;
- H:MN2PR12MB3296.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; MX:1; A:1; 
-received-spf: None (protection.outlook.com: amd.com does not designate
- permitted sender hosts)
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: Ht0eaJivupmChRGGEMgI5TTirKMOLRvoopuDYuGipvF35XR41k3qUSzHQPkyxGxorVn2gnB1MIA+9Lmz1NJc9VxEpssJLLX2vF6ivDRNsiuRuSQMJaThtMNTqTBtvoF+r6qMvXLZFt3bfwNEO6RBrxXjRphyQgx6Uu8oe3LyjlBMAjGsIz9wVmExrNZ9pA+Ju67I7l4u1RPTydgWMP6L6eInbbXnhHx9OrJgHiiQzS19t4Bi8yCqYDDLfP7Vd5QT7cuYNj6E00S/Ig109LhCcHXqyttetwthwfXkzj7emG1q1xllOZ/+PHRui6+vNMtF3gr2eP2xFI0kIexvokUcxfpS2Nsj+dyEJcdCHQalz6i66thj2ElC7S6fdhY0nXRE5DcdpTx+e4ryC65ILpETlYHtjL27uKWYNa1+rgHQFG5vRTR8hrwBFpRyAPO3n59HriuLAoSbjAozFklfND00Xnufy7AsgV6foCRqW1PHfSzGol9m1rS+KCHqqgTqonIX
+X-ClientProxiedBy: YTXPR0101CA0039.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b00:1::16) To CY4PR1201MB0230.namprd12.prod.outlook.com
+ (2603:10b6:910:1e::7)
 MIME-Version: 1.0
+Received: from [10.4.33.74] (165.204.55.251) by
+ YTXPR0101CA0039.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b00:1::16) with
+ Microsoft SMTP Server (version=TLS1_2, cipher=) via Frontend Transport;
+ Mon, 23 Dec 2019 15:21:03 +0000
+X-Originating-IP: [165.204.55.251]
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: 3ef85ebd-0618-4be9-940d-08d787bbb9a7
+X-MS-TrafficTypeDiagnostic: CY4PR1201MB0008:|CY4PR1201MB0008:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <CY4PR1201MB000810455AE8A43A1945C6EB8C2E0@CY4PR1201MB0008.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:411;
+X-Forefront-PRVS: 0260457E99
+X-Forefront-Antispam-Report: SFV:NSPM;
+ SFS:(10009020)(4636009)(376002)(396003)(366004)(346002)(136003)(39860400002)(199004)(189003)(52116002)(16576012)(4326008)(4001150100001)(26005)(81166006)(81156014)(8676002)(186003)(16526019)(8936002)(316002)(31696002)(31686004)(66556008)(66476007)(66946007)(5660300002)(2616005)(6486002)(53546011)(956004)(478600001)(2906002)(36756003);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:CY4PR1201MB0008;
+ H:CY4PR1201MB0230.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; A:1; MX:1; 
+Received-SPF: None (protection.outlook.com: amd.com does not designate
+ permitted sender hosts)
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: tFQgJ4Bh31DMmZI8mL5pCUnsclXjscSC/YAr35pxv9SYTPnAfjzB5pnTWT5GW6zUWDhg+j8Hb10MjahSnRWBeACmojNOlKQuPB4TzEnHZG0ag3tuuywfxZaA8KZZpUXAXzFbdiehQogUbW6hU2PgeO+SMjQRIoUcsHX+lR9S7dgqzxSmwF3JrtQTHX7eufkHPXgJBqeIcSdbsJUlyiDVgdSQwi4BFexlgRzV5OjOMoa4z0tOfelWyU3Pp4UpbyugKk7t5TfZqGMcHs03El9gwY8kgIQNbAtvyyGz6QfVG1p1EcKqrs6X6MsvUnWKLVmoltBgNKxjdlztpR4ePNQW4KDE/jVMQt8WSrCf5K16CGp3ciJ8ZxWgmcF7xZXqtKFDv4O4ZfZ6n/VxJ0sk/KLhp40k8MWWF6p3omh6D+FSIcsb6n+3sc7ruHAZv+LRtM8s
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a3bc61b6-5d6d-4cc0-e7a3-08d787905741
-X-MS-Exchange-CrossTenant-originalarrivaltime: 23 Dec 2019 10:10:30.3782 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: UArbovhd+PMsmjXgH0rHwOLyoCOD51qAza3imMMbsBVhxXHpWx7wDQ4YOqnYO0yC
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4318
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3ef85ebd-0618-4be9-940d-08d787bbb9a7
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Dec 2019 15:21:04.1675 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Zbr/Xr6Mkwf1Btw5io/TH3lb0X+PL7aEkdaaSHvkuiYeY74e5bBRtoQRVSel+rtpBjzhdoBMCMAPqhTI+GUaLQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR1201MB0008
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,548 +130,69 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Quan, Evan" <Evan.Quan@amd.com>
-Content-Type: multipart/mixed; boundary="===============0176392829=="
+Cc: harry.wentland@amd.com
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============0176392829==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_MN2PR12MB3296FCACEC21D2A6B3F71FE4A22E0MN2PR12MB3296namp_"
+On 2019-12-22 10:22 p.m., Xiaojie Yuan wrote:
+> kernel_fpu_begin/_end() are already called inside dcn20_resource_construct,
+> and calling kernel_fpu_begin/_end() recursively triggers WARN_ON() when
+> CONFIG_X86_DEBUG_FPU is enabled.
+> 
+> [  107.060434] WARNING: CPU: 6 PID: 1370 at arch/x86/kernel/fpu/core.c:90 kernel_fpu_begin+0xbd/0xe0
+> <snip>
+> [  107.268197] Call Trace:
+> [  107.270751]  dcn20_patch_bounding_box+0x17/0x100 [amdgpu]
+> [  107.276204]  init_soc_bounding_box+0x1b3/0x5f0 [amdgpu]
+> [  107.281536]  ? _cond_resched+0x19/0x30
+> [  107.285307]  dcn20_resource_construct+0x3a9/0xa90 [amdgpu]
+> [  107.290957]  ? dcn20_resource_construct+0x3a9/0xa90 [amdgpu]
+> [  107.296621]  ? __alloc_pages_nodemask+0x16a/0x330
+> [  107.301476]  ? _cond_resched+0x19/0x30
+> [  107.305284]  ? kmem_cache_alloc_trace+0x197/0x230
+> [  107.310063]  ? _cond_resched+0x19/0x30
+> [  107.313783]  ? kmem_cache_alloc_trace+0x197/0x230
+> [  107.318691]  dcn20_create_resource_pool+0x42/0x70 [amdgpu]
+> [  107.324315]  dc_create_resource_pool+0x12d/0x170 [amdgpu]
+> [  107.329851]  dc_create+0x1b8/0x6a0 [amdgpu]
+> [  107.334013]  ? kmem_cache_alloc_trace+0x1e2/0x230
+> [  107.338832]  amdgpu_dm_init+0x13e/0x1c0 [amdgpu]
+> <snip>
+> 
+> Signed-off-by: Xiaojie Yuan <xiaojie.yuan@amd.com>
 
---_000_MN2PR12MB3296FCACEC21D2A6B3F71FE4A22E0MN2PR12MB3296namp_
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Reviewed-by: Harry Wentland <harry.wentland@amd.com>
 
-[AMD Official Use Only - Internal Distribution Only]
+Harry
 
-add @Quan, Evan<mailto:Evan.Quan@amd.com> to support arcturus asic.
-comment inline.
-________________________________
-From: Zhang, Jack (Jian) <Jack.Zhang1@amd.com>
-Sent: Monday, December 23, 2019 4:42 PM
-To: Feng, Kenneth <Kenneth.Feng@amd.com>; Wang, Kevin(Yang) <Kevin1.Wang@am=
-d.com>; Tao, Yintian <Yintian.Tao@amd.com>; amd-gfx@lists.freedesktop.org <=
-amd-gfx@lists.freedesktop.org>; Deng, Emily <Emily.Deng@amd.com>
-Cc: Zhang, Jack (Jian) <Jack.Zhang1@amd.com>
-Subject: RE: [PATCH] amd/amdgpu/sriov enable onevf mode for ARCTURUS VF
-
-
-
------Original Message-----
-From: Jack Zhang <Jack.Zhang1@amd.com>
-Sent: Monday, December 23, 2019 4:40 PM
-To: amd-gfx@lists.freedesktop.org
-Cc: Zhang, Jack (Jian) <Jack.Zhang1@amd.com>
-Subject: [PATCH] amd/amdgpu/sriov enable onevf mode for ARCTURUS VF
-
-Before, initialization of smu ip block would be skipped for sriov ASICs. Bu=
-t if there's only one VF being used, guest driver should be able to dump so=
-me HW info such as clks, temperature,etc.
-
-To solve this, now after onevf mode is enabled, host driver will notify gue=
-st. If it's onevf mode, guest will do smu hw_init and skip some steps in no=
-rmal smu hw_init flow because host driver has already done it for smu.
-
-With this fix, guest app can talk with smu and dump hw information from smu=
-.
-
-Signed-off-by: Jack Zhang <Jack.Zhang1@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c    |  3 +-
- drivers/gpu/drm/amd/amdgpu/soc15.c         |  3 +-
- drivers/gpu/drm/amd/powerplay/amdgpu_smu.c | 49 ++++++++++++++++++--------=
-----
- 3 files changed, 33 insertions(+), 22 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_psp.c
-index 8469834..08130a6 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-@@ -1448,7 +1448,8 @@ static int psp_np_fw_load(struct psp_context *psp)
-                     || ucode->ucode_id =3D=3D AMDGPU_UCODE_ID_RLC_G
-                     || ucode->ucode_id =3D=3D AMDGPU_UCODE_ID_RLC_RESTORE_=
-LIST_CNTL
-                     || ucode->ucode_id =3D=3D AMDGPU_UCODE_ID_RLC_RESTORE_=
-LIST_GPM_MEM
--                   || ucode->ucode_id =3D=3D AMDGPU_UCODE_ID_RLC_RESTORE_L=
-IST_SRM_MEM))
-+                   || ucode->ucode_id =3D=3D AMDGPU_UCODE_ID_RLC_RESTORE_L=
-IST_SRM_MEM
-+                   || ucode->ucode_id =3D=3D AMDGPU_UCODE_ID_SMC))
-                         /*skip ucode loading in SRIOV VF */
-                         continue;
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c b/drivers/gpu/drm/amd/amdgp=
-u/soc15.c
-index b53d401..a271496 100644
---- a/drivers/gpu/drm/amd/amdgpu/soc15.c
-+++ b/drivers/gpu/drm/amd/amdgpu/soc15.c
-@@ -827,8 +827,7 @@ int soc15_set_ip_blocks(struct amdgpu_device *adev)
-                         amdgpu_device_ip_block_add(adev, &dce_virtual_ip_b=
-lock);
-                 amdgpu_device_ip_block_add(adev, &gfx_v9_0_ip_block);
-                 amdgpu_device_ip_block_add(adev, &sdma_v4_0_ip_block);
--               if (!amdgpu_sriov_vf(adev))
--                       amdgpu_device_ip_block_add(adev, &smu_v11_0_ip_bloc=
-k);
-+               amdgpu_device_ip_block_add(adev, &smu_v11_0_ip_block);
-
-                 if (amdgpu_sriov_vf(adev)) {
-                         if (likely(adev->firmware.load_type =3D=3D AMDGPU_=
-FW_LOAD_PSP)) diff --git a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c b/dri=
-vers/gpu/drm/amd/powerplay/amdgpu_smu.c
-index 936c682..c07fb26 100644
---- a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
-+++ b/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
-@@ -531,10 +531,14 @@ bool is_support_sw_smu(struct amdgpu_device *adev)
-         if (adev->asic_type =3D=3D CHIP_VEGA20)
-                 return (amdgpu_dpm =3D=3D 2) ? true : false;
-         else if (adev->asic_type >=3D CHIP_ARCTURUS) {
--               if (amdgpu_sriov_vf(adev))
--                       return false;
--               else
-+               if (amdgpu_sriov_vf(adev)) {
-+                       if(amdgpu_sriov_is_pp_one_vf(adev))
-+                               return true;
-+                       else
-+                               return false;
-+               } else {
-                         return true;
-+               }
-         } else
-                 return false;
- }
-@@ -1062,20 +1066,19 @@ static int smu_smc_table_hw_init(struct smu_context=
- *smu,
-         }
-
-         /* smu_dump_pptable(smu); */
-+       if(amdgpu_sriov_vf(adev) && !amdgpu_sriov_is_pp_one_vf(adev)){
-+               /*
-+                * Copy pptable bo in the vram to smc with SMU MSGs such as
-+                * SetDriverDramAddr and TransferTableDram2Smu.
-+                */
-[kevin]: this comment is not neccessary in smu module.
-and could you describe the function of pp_one_vf and sriov_vf ?
-it is useful to help us understand your patch.
-thanks.
-
-+               ret =3D smu_write_pptable(smu);
-+               if (ret)
-+                       return ret;
-
--       /*
--        * Copy pptable bo in the vram to smc with SMU MSGs such as
--        * SetDriverDramAddr and TransferTableDram2Smu.
--        */
--       ret =3D smu_write_pptable(smu);
--       if (ret)
--               return ret;
--
--       /* issue Run*Btc msg */
--       ret =3D smu_run_btc(smu);
--       if (ret)
--               return ret;
--
-+               /* issue Run*Btc msg */
-+               ret =3D smu_run_btc(smu);
-+               if (ret)
-+                       return ret;
-         ret =3D smu_feature_set_allowed_mask(smu);
-         if (ret)
-                 return ret;
-@@ -1083,7 +1086,7 @@ static int smu_smc_table_hw_init(struct smu_context *=
-smu,
-         ret =3D smu_system_features_control(smu, true);
-         if (ret)
-                 return ret;
--
-+       }
-         if (adev->asic_type !=3D CHIP_ARCTURUS) {
-                 ret =3D smu_notify_display_change(smu);
-                 if (ret)
-@@ -1136,8 +1139,9 @@ static int smu_smc_table_hw_init(struct smu_context *=
-smu,
-         /*
-          * Set PMSTATUSLOG table bo address with SetToolsDramAddr MSG for =
-tools.
-          */
--       ret =3D smu_set_tool_table_location(smu);
--
-+       if(amdgpu_sriov_vf(adev) && !amdgpu_sriov_is_pp_one_vf(adev)){
-+               ret =3D smu_set_tool_table_location(smu);
-+       }
-         if (!smu_is_dpm_running(smu))
-                 pr_info("dpm has been disabled\n");
-
-@@ -1249,6 +1253,13 @@ static int smu_hw_init(void *handle)
-                 smu_set_gfx_cgpg(&adev->smu, true);
-         }
-
-+       if (amdgpu_sriov_vf(adev)) {
-+               if(amdgpu_sriov_is_pp_one_vf(adev))
-+                       smu->pm_enabled =3D true;
-+               else
-+                       smu->pm_enabled =3D false;
-+       }
-+
-
-[kevin]:
-the variable of "smu->pm_enabeld" is initialize in smu_eary_init(), it is o=
-nly depend on module param amdgpu_dpm.
-after initialized, this variable should not be changed arbitrarily.
-so i hope you can refine the above code logic.
-
-         if (!smu->pm_enabled)
-                 return 0;
-
---
-2.7.4
-
-
---_000_MN2PR12MB3296FCACEC21D2A6B3F71FE4A22E0MN2PR12MB3296namp_
-Content-Type: text/html; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<p style=3D"font-family:Arial;font-size:10pt;color:#0078D7;margin:15pt;" al=
-ign=3D"Left">
-[AMD Official Use Only - Internal Distribution Only]<br>
-</p>
-<br>
-<div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-add <a id=3D"OWAAM10677" class=3D"_1OtrSZdhKXVv3UhaivrdJ4 mention ms-bgc-nl=
-r ms-fcl-b" href=3D"mailto:Evan.Quan@amd.com">
-@Quan, Evan</a>&nbsp;to support arcturus asic.</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<span style=3D"color: rgb(0, 0, 0); font-family: Calibri, Arial, Helvetica,=
- sans-serif; font-size: 12pt;">comment inline.</span><br>
-</div>
-<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" co=
-lor=3D"#000000" style=3D"font-size:11pt"><b>From:</b> Zhang, Jack (Jian) &l=
-t;Jack.Zhang1@amd.com&gt;<br>
-<b>Sent:</b> Monday, December 23, 2019 4:42 PM<br>
-<b>To:</b> Feng, Kenneth &lt;Kenneth.Feng@amd.com&gt;; Wang, Kevin(Yang) &l=
-t;Kevin1.Wang@amd.com&gt;; Tao, Yintian &lt;Yintian.Tao@amd.com&gt;; amd-gf=
-x@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&gt;; Deng, Emily =
-&lt;Emily.Deng@amd.com&gt;<br>
-<b>Cc:</b> Zhang, Jack (Jian) &lt;Jack.Zhang1@amd.com&gt;<br>
-<b>Subject:</b> RE: [PATCH] amd/amdgpu/sriov enable onevf mode for ARCTURUS=
- VF</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt"=
->
-<div class=3D"PlainText"><br>
-<br>
------Original Message-----<br>
-From: Jack Zhang &lt;Jack.Zhang1@amd.com&gt; <br>
-Sent: Monday, December 23, 2019 4:40 PM<br>
-To: amd-gfx@lists.freedesktop.org<br>
-Cc: Zhang, Jack (Jian) &lt;Jack.Zhang1@amd.com&gt;<br>
-Subject: [PATCH] amd/amdgpu/sriov enable onevf mode for ARCTURUS VF<br>
-<br>
-Before, initialization of smu ip block would be skipped for sriov ASICs. Bu=
-t if there's only one VF being used, guest driver should be able to dump so=
-me HW info such as clks, temperature,etc.<br>
-<br>
-To solve this, now after onevf mode is enabled, host driver will notify gue=
-st. If it's onevf mode, guest will do smu hw_init and skip some steps in no=
-rmal smu hw_init flow because host driver has already done it for smu.<br>
-<br>
-With this fix, guest app can talk with smu and dump hw information from smu=
-.<br>
-<br>
-Signed-off-by: Jack Zhang &lt;Jack.Zhang1@amd.com&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c&nbsp;&nbsp;&nbsp; |&nbsp; 3 &=
-#43;-<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/soc15.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp; |&nbsp; 3 &#43;-<br>
-&nbsp;drivers/gpu/drm/amd/powerplay/amdgpu_smu.c | 49 &#43;&#43;&#43;&#43;&=
-#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;------=
-------<br>
-&nbsp;3 files changed, 33 insertions(&#43;), 22 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_psp.c<br>
-index 8469834..08130a6 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c<br>
-@@ -1448,7 &#43;1448,8 @@ static int psp_np_fw_load(struct psp_context *psp=
-)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; || ucode-&gt;ucode_id =3D=3D =
-AMDGPU_UCODE_ID_RLC_G<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; || ucode-&gt;ucode_id =3D=3D =
-AMDGPU_UCODE_ID_RLC_RESTORE_LIST_CNTL<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; || ucode-&gt;ucode_id =3D=3D =
-AMDGPU_UCODE_ID_RLC_RESTORE_LIST_GPM_MEM<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; || ucode-&gt;ucode_id =3D=3D AMDGPU_UCOD=
-E_ID_RLC_RESTORE_LIST_SRM_MEM))<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; || ucode-&gt;ucode_id =3D=3D AMDGPU_=
-UCODE_ID_RLC_RESTORE_LIST_SRM_MEM<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; || ucode-&gt;ucode_id =3D=3D AMDGPU_=
-UCODE_ID_SMC))<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /*ski=
-p ucode loading in SRIOV VF */<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; conti=
-nue;<br>
-&nbsp;<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c b/drivers/gpu/drm/amd/amdgp=
-u/soc15.c<br>
-index b53d401..a271496 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/soc15.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/soc15.c<br>
-@@ -827,8 &#43;827,7 @@ int soc15_set_ip_blocks(struct amdgpu_device *adev)=
-<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgp=
-u_device_ip_block_add(adev, &amp;dce_virtual_ip_block);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; amdgpu_device_ip_block_add(adev, &amp;gfx_v9_0_ip_blo=
-ck);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; amdgpu_device_ip_block_add(adev, &amp;sdma_v4_0_ip_bl=
-ock);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; if (!amdgpu_sriov_vf(adev))<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_device_ip=
-_block_add(adev, &amp;smu_v11_0_ip_block);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; amdgpu_device_ip_block_add(adev, &amp;smu_v11_0_ip_block);<b=
-r>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; if (amdgpu_sriov_vf(adev)) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (l=
-ikely(adev-&gt;firmware.load_type =3D=3D AMDGPU_FW_LOAD_PSP)) diff --git a/=
-drivers/gpu/drm/amd/powerplay/amdgpu_smu.c b/drivers/gpu/drm/amd/powerplay/=
-amdgpu_smu.c<br>
-index 936c682..c07fb26 100644<br>
---- a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c<br>
-@@ -531,10 &#43;531,14 @@ bool is_support_sw_smu(struct amdgpu_device *adev=
-)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;asic_type =3D=
-=3D CHIP_VEGA20)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; return (amdgpu_dpm =3D=3D 2) ? true : false;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else if (adev-&gt;asic_typ=
-e &gt;=3D CHIP_ARCTURUS) {<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; if (amdgpu_sriov_vf(adev))<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return false;<br=
->
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; else<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; if (amdgpu_sriov_vf(adev)) {<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if(amdgpu_sr=
-iov_is_pp_one_vf(adev))<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return true;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return false;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; } else {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; retur=
-n true;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; }<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; return false;<br>
-&nbsp;}<br>
-@@ -1062,20 &#43;1066,19 @@ static int smu_smc_table_hw_init(struct smu_con=
-text *smu,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* smu_dump_pptable(smu); =
-*/<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if(amdgpu_sriov_vf(adev) &amp;&am=
-p; !amdgpu_sriov_is_pp_one_vf(adev)){<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; /*<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp; * Copy pptable bo in the vram to smc with SMU MSGs suc=
-h as<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp; * SetDriverDramAddr and TransferTableDram2Smu.<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp; */</div>
-<div class=3D"PlainText">[kevin]: this comment is not neccessary in smu mod=
-ule.</div>
-<div class=3D"PlainText"><span>and could you describe the function of pp_on=
-e_vf and sriov_vf ?</span></div>
-<div class=3D"PlainText"><span>it is useful to help us understand your patc=
-h.&nbsp;</span></div>
-<div class=3D"PlainText">thanks.</div>
-<div class=3D"PlainText"><br>
-</div>
-<div class=3D"PlainText">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D smu_write_pptable(smu);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; if (ret)<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret;<=
-br>
-&nbsp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /*<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * Copy pptable bo in the vram t=
-o smc with SMU MSGs such as<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * SetDriverDramAddr and Transfe=
-rTableDram2Smu.<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D smu_write_pptable(smu);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ret)<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; return ret;<br>
--<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* issue Run*Btc msg */<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D smu_run_btc(smu);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ret)<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; return ret;<br>
--<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; /* issue Run*Btc msg */<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; ret =3D smu_run_btc(smu);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; if (ret)<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret;<=
-br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D smu_feature_set_al=
-lowed_mask(smu);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ret)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; return ret;<br>
-@@ -1083,7 &#43;1086,7 @@ static int smu_smc_table_hw_init(struct smu_conte=
-xt *smu,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D smu_system_feature=
-s_control(smu, true);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ret)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; return ret;<br>
--<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;asic_type !=
-=3D CHIP_ARCTURUS) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; ret =3D smu_notify_display_change(smu);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; if (ret)<br>
-@@ -1136,8 &#43;1139,9 @@ static int smu_smc_table_hw_init(struct smu_conte=
-xt *smu,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /*<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * Set PMSTATUSLOG ta=
-ble bo address with SetToolsDramAddr MSG for tools.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D smu_set_tool_table_location(s=
-mu);<br>
--<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if(amdgpu_sriov_vf(adev) &amp;&am=
-p; !amdgpu_sriov_is_pp_one_vf(adev)){<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; ret =3D smu_set_tool_table_location(smu);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!smu_is_dpm_running(sm=
-u))<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; pr_info(&quot;dpm has been disabled\n&quot;);<br>
-&nbsp;<br>
-@@ -1249,6 &#43;1253,13 @@ static int smu_hw_init(void *handle)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; smu_set_gfx_cgpg(&amp;adev-&gt;smu, true);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_sriov_vf(adev)) {<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; if(amdgpu_sriov_is_pp_one_vf(adev))<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; smu-&gt;pm_e=
-nabled =3D true;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; else<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; smu-&gt;pm_e=
-nabled =3D false;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&#43;</div>
-<div class=3D"PlainText"><br>
-</div>
-<div class=3D"PlainText">[kevin]:</div>
-<div class=3D"PlainText">the variable of &quot;smu-&gt;pm_enabeld&quot; is =
-initialize in smu_eary_init(), it is only depend on module param amdgpu_dpm=
-.</div>
-<div class=3D"PlainText"></div>
-<span>after initialized, this variable should not be changed arbitrarily.</=
-span></span></font></div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt"=
-><span>so i hope you can refine the above code logic.</span></span></font><=
-/div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt"=
-><span><br>
-</span></span></font></div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt"=
->
-<div class=3D"PlainText">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; i=
-f (!smu-&gt;pm_enabled)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; return 0;<br>
-&nbsp;<br>
---<br>
-2.7.4<br>
-<br>
-</div>
-</span></font></div>
-</div>
-</body>
-</html>
-
---_000_MN2PR12MB3296FCACEC21D2A6B3F71FE4A22E0MN2PR12MB3296namp_--
-
---===============0176392829==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+> ---
+>  drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c | 2 --
+>  1 file changed, 2 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
+> index d72e921fffa0..9f346ffb6e78 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
+> +++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
+> @@ -3225,7 +3225,6 @@ void dcn20_update_bounding_box(struct dc *dc, struct _vcs_dpi_soc_bounding_box_s
+>  
+>  void dcn20_patch_bounding_box(struct dc *dc, struct _vcs_dpi_soc_bounding_box_st *bb)
+>  {
+> -	DC_FP_START();
+>  	if ((int)(bb->sr_exit_time_us * 1000) != dc->bb_overrides.sr_exit_time_ns
+>  			&& dc->bb_overrides.sr_exit_time_ns) {
+>  		bb->sr_exit_time_us = dc->bb_overrides.sr_exit_time_ns / 1000.0;
+> @@ -3249,7 +3248,6 @@ void dcn20_patch_bounding_box(struct dc *dc, struct _vcs_dpi_soc_bounding_box_st
+>  		bb->dram_clock_change_latency_us =
+>  				dc->bb_overrides.dram_clock_change_latency_ns / 1000.0;
+>  	}
+> -	DC_FP_END();
+>  }
+>  
+>  static struct _vcs_dpi_soc_bounding_box_st *get_asic_rev_soc_bb(
+> 
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---===============0176392829==--
