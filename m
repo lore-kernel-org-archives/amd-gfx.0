@@ -6,38 +6,39 @@ X-Spam-Status: No, score=-9.8 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8906DC2D0C0
-	for <amd-gfx@archiver.kernel.org>; Mon, 23 Dec 2019 15:26:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 86CA9C2D0CF
+	for <amd-gfx@archiver.kernel.org>; Mon, 23 Dec 2019 15:26:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6693D206B7
-	for <amd-gfx@archiver.kernel.org>; Mon, 23 Dec 2019 15:26:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6693D206B7
+	by mail.kernel.org (Postfix) with ESMTPS id 680D6206B7
+	for <amd-gfx@archiver.kernel.org>; Mon, 23 Dec 2019 15:26:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 680D6206B7
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=huawei.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DC3916E2CC;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E9D536E2CD;
 	Mon, 23 Dec 2019 15:26:05 +0000 (UTC)
-Received: from huawei.com (szxga07-in.huawei.com [45.249.212.35])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 946ED6E233;
- Mon, 23 Dec 2019 09:18:44 +0000 (UTC)
-Received: from DGGEMS410-HUB.china.huawei.com (unknown [172.30.72.60])
- by Forcepoint Email with ESMTP id 7E0E6180CB81F827B705;
- Mon, 23 Dec 2019 17:18:42 +0800 (CST)
-Received: from huawei.com (10.90.53.225) by DGGEMS410-HUB.china.huawei.com
- (10.3.19.210) with Microsoft SMTP Server id 14.3.439.0; Mon, 23 Dec 2019
- 17:18:32 +0800
+Received: from huawei.com (szxga06-in.huawei.com [45.249.212.32])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CB0A189DA5;
+ Mon, 23 Dec 2019 13:39:15 +0000 (UTC)
+Received: from DGGEMS408-HUB.china.huawei.com (unknown [172.30.72.60])
+ by Forcepoint Email with ESMTP id 8DB57DB2D167F549F3F9;
+ Mon, 23 Dec 2019 21:39:12 +0800 (CST)
+Received: from huawei.com (10.90.53.225) by DGGEMS408-HUB.china.huawei.com
+ (10.3.19.208) with Microsoft SMTP Server id 14.3.439.0; Mon, 23 Dec 2019
+ 21:39:01 +0800
 From: zhengbin <zhengbin13@huawei.com>
 To: <alexander.deucher@amd.com>, <christian.koenig@amd.com>,
  <David1.Zhou@amd.com>, <airlied@linux.ie>, <daniel@ffwll.ch>,
  <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>
-Subject: [PATCH 2/7] drm/radeon: use true,false for bool variable in si.c
-Date: Mon, 23 Dec 2019 17:25:47 +0800
-Message-ID: <1577093152-10855-3-git-send-email-zhengbin13@huawei.com>
+Subject: [PATCH 3/5] drm/amdgpu: use true,
+ false for bool variable in amdgpu_device.c
+Date: Mon, 23 Dec 2019 21:46:19 +0800
+Message-ID: <1577108781-68614-4-git-send-email-zhengbin13@huawei.com>
 X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1577093152-10855-1-git-send-email-zhengbin13@huawei.com>
-References: <1577093152-10855-1-git-send-email-zhengbin13@huawei.com>
+In-Reply-To: <1577108781-68614-1-git-send-email-zhengbin13@huawei.com>
+References: <1577108781-68614-1-git-send-email-zhengbin13@huawei.com>
 MIME-Version: 1.0
 X-Originating-IP: [10.90.53.225]
 X-CFilter-Loop: Reflected
@@ -61,37 +62,37 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Fixes coccicheck warning:
 
-drivers/gpu/drm/radeon/si.c:6475:2-15: WARNING: Assignment of 0/1 to bool variable
-drivers/gpu/drm/radeon/si.c:6542:2-15: WARNING: Assignment of 0/1 to bool variable
+drivers/gpu/drm/amd/amdgpu/amdgpu_device.c:3961:1-19: WARNING: Assignment of 0/1 to bool variable
+drivers/gpu/drm/amd/amdgpu/amdgpu_device.c:3981:1-19: WARNING: Assignment of 0/1 to bool variable
 
 Reported-by: Hulk Robot <hulkci@huawei.com>
 Signed-off-by: zhengbin <zhengbin13@huawei.com>
 ---
- drivers/gpu/drm/radeon/si.c | 4 ++--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 4 ++--
  1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/radeon/si.c b/drivers/gpu/drm/radeon/si.c
-index 8788a05..93dcab5 100644
---- a/drivers/gpu/drm/radeon/si.c
-+++ b/drivers/gpu/drm/radeon/si.c
-@@ -6472,7 +6472,7 @@ static void si_uvd_init(struct radeon_device *rdev)
- 		 * there. So it is pointless to try to go through that code
- 		 * hence why we disable uvd here.
- 		 */
--		rdev->has_uvd = 0;
-+		rdev->has_uvd = false;
- 		return;
- 	}
- 	rdev->ring[R600_RING_TYPE_UVD_INDEX].ring_obj = NULL;
-@@ -6539,7 +6539,7 @@ static void si_vce_init(struct radeon_device *rdev)
- 		 * there. So it is pointless to try to go through that code
- 		 * hence why we disable vce here.
- 		 */
--		rdev->has_vce = 0;
-+		rdev->has_vce = false;
- 		return;
- 	}
- 	rdev->ring[TN_RING_TYPE_VCE1_INDEX].ring_obj = NULL;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index 080ec18..c1cf744 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -3958,7 +3958,7 @@ static bool amdgpu_device_lock_adev(struct amdgpu_device *adev, bool trylock)
+ 		mutex_lock(&adev->lock_reset);
+
+ 	atomic_inc(&adev->gpu_reset_counter);
+-	adev->in_gpu_reset = 1;
++	adev->in_gpu_reset = true;
+ 	switch (amdgpu_asic_reset_method(adev)) {
+ 	case AMD_RESET_METHOD_MODE1:
+ 		adev->mp1_state = PP_MP1_STATE_SHUTDOWN;
+@@ -3978,7 +3978,7 @@ static void amdgpu_device_unlock_adev(struct amdgpu_device *adev)
+ {
+ 	amdgpu_vf_error_trans_all(adev);
+ 	adev->mp1_state = PP_MP1_STATE_NONE;
+-	adev->in_gpu_reset = 0;
++	adev->in_gpu_reset = false;
+ 	mutex_unlock(&adev->lock_reset);
+ }
+
 --
 2.7.4
 
