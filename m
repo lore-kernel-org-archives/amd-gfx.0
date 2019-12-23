@@ -2,46 +2,65 @@ Return-Path: <SRS0=j6k1=2N=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.8 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-6.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 973D2C2D0D5
-	for <amd-gfx@archiver.kernel.org>; Mon, 23 Dec 2019 15:26:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0717DC2D0C0
+	for <amd-gfx@archiver.kernel.org>; Mon, 23 Dec 2019 18:53:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 785CB20709
-	for <amd-gfx@archiver.kernel.org>; Mon, 23 Dec 2019 15:26:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 785CB20709
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=huawei.com
+	by mail.kernel.org (Postfix) with ESMTPS id C8C83206D3
+	for <amd-gfx@archiver.kernel.org>; Mon, 23 Dec 2019 18:53:07 +0000 (UTC)
+Authentication-Results: mail.kernel.org;
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nWRDAv6g"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C8C83206D3
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 243C96E2E5;
-	Mon, 23 Dec 2019 15:26:17 +0000 (UTC)
-Received: from huawei.com (szxga06-in.huawei.com [45.249.212.32])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A3A8B6E237;
- Mon, 23 Dec 2019 09:18:46 +0000 (UTC)
-Received: from DGGEMS410-HUB.china.huawei.com (unknown [172.30.72.58])
- by Forcepoint Email with ESMTP id 9EB49F4E8ECD780B2405;
- Mon, 23 Dec 2019 17:18:42 +0800 (CST)
-Received: from huawei.com (10.90.53.225) by DGGEMS410-HUB.china.huawei.com
- (10.3.19.210) with Microsoft SMTP Server id 14.3.439.0; Mon, 23 Dec 2019
- 17:18:33 +0800
-From: zhengbin <zhengbin13@huawei.com>
-To: <alexander.deucher@amd.com>, <christian.koenig@amd.com>,
- <David1.Zhou@amd.com>, <airlied@linux.ie>, <daniel@ffwll.ch>,
- <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>
-Subject: [PATCH 7/7] drm/radeon: use true,false for bool variable in ni.c
-Date: Mon, 23 Dec 2019 17:25:52 +0800
-Message-ID: <1577093152-10855-8-git-send-email-zhengbin13@huawei.com>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1577093152-10855-1-git-send-email-zhengbin13@huawei.com>
-References: <1577093152-10855-1-git-send-email-zhengbin13@huawei.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 036326E2EA;
+	Mon, 23 Dec 2019 18:53:07 +0000 (UTC)
+Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com
+ [IPv6:2a00:1450:4864:20::442])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 23B4D6E2E6
+ for <amd-gfx@lists.freedesktop.org>; Mon, 23 Dec 2019 18:53:05 +0000 (UTC)
+Received: by mail-wr1-x442.google.com with SMTP id j42so17585010wrj.12
+ for <amd-gfx@lists.freedesktop.org>; Mon, 23 Dec 2019 10:53:04 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=2ndLjh5blJBCC69EfzUuPJ9miIIvKKkiGWLOrzzImhQ=;
+ b=nWRDAv6g0IrAmS+btSJhYaIl3elvQwNE6EvgFDB0iika9F1BZ0KByU6RQ9jQ7wutXk
+ B0Anb/cdbN1wqXHx1h/bNWoKWf2nVDsqhqjKs+jrQfJQz9rTY6PtphbULLbGuDJ6WHPK
+ jvYbwOxIF9yLobG6FX/QSuc4jnDeJTu+ChVpPVdr7jPWF5iJKTCx6W8gD28Li2c2XCtI
+ 6Yjjup0GnRgMgGiUMRVUVSe1EvllZVYZMDz/vbWV2UzYer7xYyWqK8ghY72m19Lo8+0L
+ zhTRenIXToqTtkrjSvAhoh6SxsU0VF578dXCARWwwdAvDw99PGwwue1rySIA+uPvmDKI
+ RWIQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=2ndLjh5blJBCC69EfzUuPJ9miIIvKKkiGWLOrzzImhQ=;
+ b=nxssuVXPd74WZLw7qr5HQAvwlWjDMyU+lXFF637duknlZha9GjruXkYkojhLPynVDM
+ x9/+/Cv4hudPmfv/E6E3zZ8O3a7bAiAmf4RoqZjkgmDQpS36zCa4qkKnzzn1Yq1qSkdY
+ 83V8TuKYTqlR7wdOFRVComU5nzrGf4rZ2Tq2CWLNCxCj5eEwU/kTkscwaJ5On2KHnDoF
+ 9uhw6SG42kHc0Y7250l8PZRG17Dx5k+RKycbOfYtfu3XlfsU6l3zzAmPJtmXue//EZAe
+ YeyFU/g8T/I8Xz2YA/tli+Aj89ZY7lGb9N/HqV9Y6bW5HIKHaWtiuXNt02D1iLlhKkV5
+ 9sFw==
+X-Gm-Message-State: APjAAAXoNyFp36WBFHbSq4GCQMui+HAtlgysNhK1OvvnSqRR0mRpP/BE
+ doNWN0+MS0JYrq07k6ejoiDhig5mBACgNPX1LTSFAw==
+X-Google-Smtp-Source: APXvYqxcuFDTft98wSxB02bAEb2IyGgTtgUoGCjT2vsM4Rp4ppzXrOlV16WFNxash82RKpDQr6KwD8qR9geGAS4IRAM=
+X-Received: by 2002:adf:e8ca:: with SMTP id k10mr31856995wrn.50.1577127183428; 
+ Mon, 23 Dec 2019 10:53:03 -0800 (PST)
 MIME-Version: 1.0
-X-Originating-IP: [10.90.53.225]
-X-CFilter-Loop: Reflected
-X-Mailman-Approved-At: Mon, 23 Dec 2019 15:26:04 +0000
+References: <20191221001142.1338192-1-alexander.deucher@amd.com>
+In-Reply-To: <20191221001142.1338192-1-alexander.deucher@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 23 Dec 2019 13:52:52 -0500
+Message-ID: <CADnq5_M2P4k4E9T7rYfOCHqU2pa-hFaN2Kq+c86PSUg-Xvuo1w@mail.gmail.com>
+Subject: Re: [PATCH] Revert "drm/amdgpu: simplify ATPX detection"
+To: amd-gfx list <amd-gfx@lists.freedesktop.org>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,48 +72,52 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: zhengbin13@huawei.com
+Cc: Alex Deucher <alexander.deucher@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Fixes coccicheck warning:
+Ping?
 
-drivers/gpu/drm/radeon/ni.c:2020:2-15: WARNING: Assignment of 0/1 to bool variable
-drivers/gpu/drm/radeon/ni.c:2088:2-15: WARNING: Assignment of 0/1 to bool variable
-
-Reported-by: Hulk Robot <hulkci@huawei.com>
-Signed-off-by: zhengbin <zhengbin13@huawei.com>
----
- drivers/gpu/drm/radeon/ni.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/radeon/ni.c b/drivers/gpu/drm/radeon/ni.c
-index a99442b..02feb08 100644
---- a/drivers/gpu/drm/radeon/ni.c
-+++ b/drivers/gpu/drm/radeon/ni.c
-@@ -2017,7 +2017,7 @@ static void cayman_uvd_init(struct radeon_device *rdev)
- 		 * there. So it is pointless to try to go through that code
- 		 * hence why we disable uvd here.
- 		 */
--		rdev->has_uvd = 0;
-+		rdev->has_uvd = false;
- 		return;
- 	}
- 	rdev->ring[R600_RING_TYPE_UVD_INDEX].ring_obj = NULL;
-@@ -2085,7 +2085,7 @@ static void cayman_vce_init(struct radeon_device *rdev)
- 		 * there. So it is pointless to try to go through that code
- 		 * hence why we disable vce here.
- 		 */
--		rdev->has_vce = 0;
-+		rdev->has_vce = false;
- 		return;
- 	}
- 	rdev->ring[TN_RING_TYPE_VCE1_INDEX].ring_obj = NULL;
---
-2.7.4
-
+On Fri, Dec 20, 2019 at 7:11 PM Alex Deucher <alexdeucher@gmail.com> wrote:
+>
+> This reverts commit f5fda6d89afe6e9cedaa1c3303903c905262f6e8.
+>
+> You can't use BASE_CLASS in pci_get_class.
+>
+> Bug: https://gitlab.freedesktop.org/drm/amd/issues/995
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_atpx_handler.c | 12 +++++++++++-
+>  1 file changed, 11 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_atpx_handler.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_atpx_handler.c
+> index a97fb759e2f4..3e35a8f2c5e5 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_atpx_handler.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_atpx_handler.c
+> @@ -613,7 +613,17 @@ static bool amdgpu_atpx_detect(void)
+>         bool d3_supported = false;
+>         struct pci_dev *parent_pdev;
+>
+> -       while ((pdev = pci_get_class(PCI_BASE_CLASS_DISPLAY << 16, pdev)) != NULL) {
+> +       while ((pdev = pci_get_class(PCI_CLASS_DISPLAY_VGA << 8, pdev)) != NULL) {
+> +               vga_count++;
+> +
+> +               has_atpx |= (amdgpu_atpx_pci_probe_handle(pdev) == true);
+> +
+> +               parent_pdev = pci_upstream_bridge(pdev);
+> +               d3_supported |= parent_pdev && parent_pdev->bridge_d3;
+> +               amdgpu_atpx_get_quirks(pdev);
+> +       }
+> +
+> +       while ((pdev = pci_get_class(PCI_CLASS_DISPLAY_OTHER << 8, pdev)) != NULL) {
+>                 vga_count++;
+>
+>                 has_atpx |= (amdgpu_atpx_pci_probe_handle(pdev) == true);
+> --
+> 2.24.1
+>
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
