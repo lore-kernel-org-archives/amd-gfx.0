@@ -6,40 +6,38 @@ X-Spam-Status: No, score=-9.8 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 69BC0C2D0D2
-	for <amd-gfx@archiver.kernel.org>; Tue, 24 Dec 2019 18:09:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1DD8EC2D0D0
+	for <amd-gfx@archiver.kernel.org>; Tue, 24 Dec 2019 18:09:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4F0BB206CB
-	for <amd-gfx@archiver.kernel.org>; Tue, 24 Dec 2019 18:09:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4F0BB206CB
+	by mail.kernel.org (Postfix) with ESMTPS id 03A90206CB
+	for <amd-gfx@archiver.kernel.org>; Tue, 24 Dec 2019 18:09:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 03A90206CB
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=huawei.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EF19D6E358;
-	Tue, 24 Dec 2019 18:09:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 47CFF6E35D;
+	Tue, 24 Dec 2019 18:09:17 +0000 (UTC)
 Received: from huawei.com (szxga05-in.huawei.com [45.249.212.191])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 31CFD6E055;
- Tue, 24 Dec 2019 03:20:35 +0000 (UTC)
-Received: from DGGEMS412-HUB.china.huawei.com (unknown [172.30.72.60])
- by Forcepoint Email with ESMTP id 72AE32CEA845430D2FDB;
- Tue, 24 Dec 2019 11:20:31 +0800 (CST)
-Received: from huawei.com (10.90.53.225) by DGGEMS412-HUB.china.huawei.com
- (10.3.19.212) with Microsoft SMTP Server id 14.3.439.0; Tue, 24 Dec 2019
- 11:20:23 +0800
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4E0F66E0DB;
+ Tue, 24 Dec 2019 02:01:08 +0000 (UTC)
+Received: from DGGEMS406-HUB.china.huawei.com (unknown [172.30.72.59])
+ by Forcepoint Email with ESMTP id 4716992F0BE9839C4AD9;
+ Tue, 24 Dec 2019 10:01:04 +0800 (CST)
+Received: from huawei.com (10.90.53.225) by DGGEMS406-HUB.china.huawei.com
+ (10.3.19.206) with Microsoft SMTP Server id 14.3.439.0; Tue, 24 Dec 2019
+ 10:00:54 +0800
 From: zhengbin <zhengbin13@huawei.com>
-To: <harry.wentland@amd.com>, <sunpeng.li@amd.com>,
- <alexander.deucher@amd.com>, <christian.koenig@amd.com>,
- <David1.Zhou@amd.com>, <airlied@linux.ie>, <daniel@ffwll.ch>,
- <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>
-Subject: [PATCH 3/8] drm/amd/display: use true,
- false for bool variable in dcn20_hwseq.c
-Date: Tue, 24 Dec 2019 11:27:38 +0800
-Message-ID: <1577158063-76188-4-git-send-email-zhengbin13@huawei.com>
+To: <evan.quan@amd.com>, <alexander.deucher@amd.com>,
+ <christian.koenig@amd.com>, <David1.Zhou@amd.com>, <airlied@linux.ie>,
+ <daniel@ffwll.ch>, <amd-gfx@lists.freedesktop.org>,
+ <dri-devel@lists.freedesktop.org>
+Subject: [PATCH] drm/amd/powerplay: use true,
+ false for bool variable in vega20_hwmgr.c
+Date: Tue, 24 Dec 2019 10:08:14 +0800
+Message-ID: <1577153294-111684-1-git-send-email-zhengbin13@huawei.com>
 X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1577158063-76188-1-git-send-email-zhengbin13@huawei.com>
-References: <1577158063-76188-1-git-send-email-zhengbin13@huawei.com>
 MIME-Version: 1.0
 X-Originating-IP: [10.90.53.225]
 X-CFilter-Loop: Reflected
@@ -63,32 +61,27 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Fixes coccicheck warning:
 
-drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c:186:6-14: WARNING: Assignment of 0/1 to bool variable
-drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c:189:2-10: WARNING: Assignment of 0/1 to bool variable
+drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c:875:1-31: WARNING: Assignment of 0/1 to bool variable
 
 Reported-by: Hulk Robot <hulkci@huawei.com>
 Signed-off-by: zhengbin <zhengbin13@huawei.com>
 ---
- drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
-index aa00fbe..5b9cbeda 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
-@@ -183,10 +183,10 @@ void dcn20_enable_power_gating_plane(
- 	struct dce_hwseq *hws,
- 	bool enable)
- {
--	bool force_on = 1; /* disable power gating */
-+	bool force_on = true; /* disable power gating */
+diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c b/drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c
+index 5bcf0d6..3b3ec56 100644
+--- a/drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c
++++ b/drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c
+@@ -872,7 +872,7 @@ static int vega20_override_pcie_parameters(struct pp_hwmgr *hwmgr)
+ 		"[OverridePcieParameters] Attempt to override pcie params failed!",
+ 		return ret);
 
- 	if (enable)
--		force_on = 0;
-+		force_on = false;
+-	data->pcie_parameters_override = 1;
++	data->pcie_parameters_override = true;
+ 	data->pcie_gen_level1 = pcie_gen;
+ 	data->pcie_width_level1 = pcie_width;
 
- 	/* DCHUBP0/1/2/3/4/5 */
- 	REG_UPDATE(DOMAIN0_PG_CONFIG, DOMAIN0_POWER_FORCEON, force_on);
 --
 2.7.4
 
