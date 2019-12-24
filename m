@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-9.8 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=3.4.0
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7C9FEC2D0C3
-	for <amd-gfx@archiver.kernel.org>; Tue, 24 Dec 2019 18:09:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6234FC2D0D0
+	for <amd-gfx@archiver.kernel.org>; Tue, 24 Dec 2019 18:09:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 61D31206CB
-	for <amd-gfx@archiver.kernel.org>; Tue, 24 Dec 2019 18:09:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 61D31206CB
+	by mail.kernel.org (Postfix) with ESMTPS id 472A8206CB
+	for <amd-gfx@archiver.kernel.org>; Tue, 24 Dec 2019 18:09:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 472A8206CB
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=huawei.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B18A76E353;
+	by gabe.freedesktop.org (Postfix) with ESMTP id AE2F86E351;
 	Tue, 24 Dec 2019 18:09:11 +0000 (UTC)
 Received: from huawei.com (szxga05-in.huawei.com [45.249.212.191])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7136F6E0DB;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 30BEA89EFF;
  Tue, 24 Dec 2019 03:20:35 +0000 (UTC)
 Received: from DGGEMS412-HUB.china.huawei.com (unknown [172.30.72.60])
- by Forcepoint Email with ESMTP id 84F6334BE736BA1BE3CF;
+ by Forcepoint Email with ESMTP id 7C1EE5F93C04F7E49978;
  Tue, 24 Dec 2019 11:20:31 +0800 (CST)
 Received: from huawei.com (10.90.53.225) by DGGEMS412-HUB.china.huawei.com
  (10.3.19.212) with Microsoft SMTP Server id 14.3.439.0; Tue, 24 Dec 2019
- 11:20:24 +0800
+ 11:20:22 +0800
 From: zhengbin <zhengbin13@huawei.com>
 To: <harry.wentland@amd.com>, <sunpeng.li@amd.com>,
  <alexander.deucher@amd.com>, <christian.koenig@amd.com>,
  <David1.Zhou@amd.com>, <airlied@linux.ie>, <daniel@ffwll.ch>,
  <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>
-Subject: [PATCH 5/8] drm/amd/display: use true,
- false for bool variable in dce_calcs.c
-Date: Tue, 24 Dec 2019 11:27:40 +0800
-Message-ID: <1577158063-76188-6-git-send-email-zhengbin13@huawei.com>
+Subject: [PATCH 1/8] drm/amd/display: use true,
+ false for bool variable in dc_link_ddc.c
+Date: Tue, 24 Dec 2019 11:27:36 +0800
+Message-ID: <1577158063-76188-2-git-send-email-zhengbin13@huawei.com>
 X-Mailer: git-send-email 2.7.4
 In-Reply-To: <1577158063-76188-1-git-send-email-zhengbin13@huawei.com>
 References: <1577158063-76188-1-git-send-email-zhengbin13@huawei.com>
@@ -63,71 +63,27 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Fixes coccicheck warning:
 
-drivers/gpu/drm/amd/display/dc/calcs/dce_calcs.c:157:46-64: WARNING: Assignment of 0/1 to bool variable
-drivers/gpu/drm/amd/display/dc/calcs/dce_calcs.c:159:2-20: WARNING: Assignment of 0/1 to bool variable
-drivers/gpu/drm/amd/display/dc/calcs/dce_calcs.c:161:46-64: WARNING: Assignment of 0/1 to bool variable
-drivers/gpu/drm/amd/display/dc/calcs/dce_calcs.c:163:2-20: WARNING: Assignment of 0/1 to bool variable
-drivers/gpu/drm/amd/display/dc/calcs/dce_calcs.c:289:1-12: WARNING: Assignment of 0/1 to bool variable
-drivers/gpu/drm/amd/display/dc/calcs/dce_calcs.c:290:1-12: WARNING: Assignment of 0/1 to bool variable
-drivers/gpu/drm/amd/display/dc/calcs/dce_calcs.c:341:3-14: WARNING: Assignment of 0/1 to bool variable
-drivers/gpu/drm/amd/display/dc/calcs/dce_calcs.c:343:4-15: WARNING: Assignment of 0/1 to bool variable
+drivers/gpu/drm/amd/display/dc/core/dc_link_ddc.c:593:6-9: WARNING: Assignment of 0/1 to bool variable
 
 Reported-by: Hulk Robot <hulkci@huawei.com>
 Signed-off-by: zhengbin <zhengbin13@huawei.com>
 ---
- drivers/gpu/drm/amd/display/dc/calcs/dce_calcs.c | 24 ++++++++++++------------
- 1 file changed, 12 insertions(+), 12 deletions(-)
+ drivers/gpu/drm/amd/display/dc/core/dc_link_ddc.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/calcs/dce_calcs.c b/drivers/gpu/drm/amd/display/dc/calcs/dce_calcs.c
-index a1d4925..5d081c4 100644
---- a/drivers/gpu/drm/amd/display/dc/calcs/dce_calcs.c
-+++ b/drivers/gpu/drm/amd/display/dc/calcs/dce_calcs.c
-@@ -154,14 +154,14 @@ static void calculate_bandwidth(
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_ddc.c b/drivers/gpu/drm/amd/display/dc/core/dc_link_ddc.c
+index c2c136b..a49c10d 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_link_ddc.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_link_ddc.c
+@@ -590,7 +590,7 @@ bool dal_ddc_submit_aux_command(struct ddc_service *ddc,
+ 		struct aux_payload *payload)
+ {
+ 	uint32_t retrieved = 0;
+-	bool ret = 0;
++	bool ret = false;
 
-
-
--	if (data->d0_underlay_mode == bw_def_none) { d0_underlay_enable = 0; }
--	else {
--		d0_underlay_enable = 1;
--	}
--	if (data->d1_underlay_mode == bw_def_none) { d1_underlay_enable = 0; }
--	else {
--		d1_underlay_enable = 1;
--	}
-+	if (data->d0_underlay_mode == bw_def_none)
-+		d0_underlay_enable = false;
-+	else
-+		d0_underlay_enable = true;
-+	if (data->d1_underlay_mode == bw_def_none)
-+		d1_underlay_enable = false;
-+	else
-+		d1_underlay_enable = true;
- 	data->number_of_underlay_surfaces = d0_underlay_enable + d1_underlay_enable;
- 	switch (data->underlay_surface_type) {
- 	case bw_def_420:
-@@ -286,8 +286,8 @@ static void calculate_bandwidth(
- 	data->cursor_width_pixels[2] = bw_int_to_fixed(0);
- 	data->cursor_width_pixels[3] = bw_int_to_fixed(0);
- 	/* graphics surface parameters from spreadsheet*/
--	fbc_enabled = 0;
--	lpt_enabled = 0;
-+	fbc_enabled = false;
-+	lpt_enabled = false;
- 	for (i = 4; i <= maximum_number_of_surfaces - 3; i++) {
- 		if (i < data->number_of_displays + 4) {
- 			if (i == 4 && data->d0_underlay_mode == bw_def_underlay_only) {
-@@ -338,9 +338,9 @@ static void calculate_bandwidth(
- 			data->access_one_channel_only[i] = 0;
- 		}
- 		if (data->fbc_en[i] == 1) {
--			fbc_enabled = 1;
-+			fbc_enabled = true;
- 			if (data->lpt_en[i] == 1) {
--				lpt_enabled = 1;
-+				lpt_enabled = true;
- 			}
- 		}
- 		data->cursor_width_pixels[i] = bw_int_to_fixed(vbios->cursor_width);
+ 	if (!ddc)
+ 		return false;
 --
 2.7.4
 
