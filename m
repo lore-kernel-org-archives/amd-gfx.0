@@ -2,48 +2,66 @@ Return-Path: <SRS0=l0jK=2O=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.8 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-6.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id BEF22C2D0D5
-	for <amd-gfx@archiver.kernel.org>; Tue, 24 Dec 2019 18:09:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 71DA4C2D0C3
+	for <amd-gfx@archiver.kernel.org>; Tue, 24 Dec 2019 18:28:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A4CCD206CB
-	for <amd-gfx@archiver.kernel.org>; Tue, 24 Dec 2019 18:09:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A4CCD206CB
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=huawei.com
+	by mail.kernel.org (Postfix) with ESMTPS id 438F52063A
+	for <amd-gfx@archiver.kernel.org>; Tue, 24 Dec 2019 18:28:23 +0000 (UTC)
+Authentication-Results: mail.kernel.org;
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="L3UeNVv5"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 438F52063A
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1D9F06E359;
-	Tue, 24 Dec 2019 18:09:17 +0000 (UTC)
-Received: from huawei.com (szxga05-in.huawei.com [45.249.212.191])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 98DA56E08A;
- Tue, 24 Dec 2019 03:20:33 +0000 (UTC)
-Received: from DGGEMS412-HUB.china.huawei.com (unknown [172.30.72.60])
- by Forcepoint Email with ESMTP id 5EC36E79F2ED3EA6C7C0;
- Tue, 24 Dec 2019 11:20:31 +0800 (CST)
-Received: from huawei.com (10.90.53.225) by DGGEMS412-HUB.china.huawei.com
- (10.3.19.212) with Microsoft SMTP Server id 14.3.439.0; Tue, 24 Dec 2019
- 11:20:24 +0800
-From: zhengbin <zhengbin13@huawei.com>
-To: <harry.wentland@amd.com>, <sunpeng.li@amd.com>,
- <alexander.deucher@amd.com>, <christian.koenig@amd.com>,
- <David1.Zhou@amd.com>, <airlied@linux.ie>, <daniel@ffwll.ch>,
- <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>
-Subject: [PATCH 4/8] drm/amd/display: use true,
- false for bool variable in display_mode_vba_21.c
-Date: Tue, 24 Dec 2019 11:27:39 +0800
-Message-ID: <1577158063-76188-5-git-send-email-zhengbin13@huawei.com>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1577158063-76188-1-git-send-email-zhengbin13@huawei.com>
-References: <1577158063-76188-1-git-send-email-zhengbin13@huawei.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id C22F86E34E;
+	Tue, 24 Dec 2019 18:28:22 +0000 (UTC)
+Received: from mail-wm1-x342.google.com (mail-wm1-x342.google.com
+ [IPv6:2a00:1450:4864:20::342])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A54636E34E;
+ Tue, 24 Dec 2019 18:28:21 +0000 (UTC)
+Received: by mail-wm1-x342.google.com with SMTP id u2so3056569wmc.3;
+ Tue, 24 Dec 2019 10:28:21 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=uhGUHnDh5rpp8BlIG1rSIy/C1tEp5bgOG/mxqLnC1Pg=;
+ b=L3UeNVv5q7vykcJO0fo0WvJS5nzrL+n2gPus+iCSZZOPag4mJ0riMvrn/EDbUPjhZi
+ B+ccrRO87tCL1c5VpdGjWwTmBhXSNZj/FwRFCOYDplQJJ/5MEwZt8Pmk3tDW3SmV4uGI
+ Z0RwoU0Y/dAxZ2NrR0h2w3ha9VVqlDHwCecMa36VJ+6frAJYwAzgzpBGSDKhN/I5sRnU
+ 2juHZpfWpskEjDuBeNUOsuEHr+R9fswxvdEK8FB/5c8XJhz1DpH2X6erKrGoxWpOLYE0
+ r+ZBcUq2dlP30dVL+LWnyuRBl2qk34dhuqbFgj7HBADgFuej0W5hdmPXoUUodb2KkUlO
+ cIxQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=uhGUHnDh5rpp8BlIG1rSIy/C1tEp5bgOG/mxqLnC1Pg=;
+ b=s57O/H1b/Ouf8H8cMaN/csmd3WLH7j6q5DrAnHJFh/ED/kupp9S3Mj6gWX6cFGQbJq
+ lXdButqSgDbDny1d304uSn3nk9GzufJ7Ghf90L9p/89hBwZHXYWNKKrRV9/QQSRY+88m
+ pwl1t98hEfLSsF0viv7gb+hk74KIH+iw+f/H6jVs68x0M3v2qAvDWLuFGHDbapw9Kjwc
+ Q/btTq6kjlti4Zd6YC9H7c/tPueU07gJXXGMwKWY8TWFNi1cggAVKhGZJuAzLwPSUWNb
+ 8Jw+j6KhboTsHCZzUeVPi2yBKHLfJdDxCtVowvUXcBXy6iBI9qqaa7XyVECGxtus0+OX
+ GfeQ==
+X-Gm-Message-State: APjAAAWECpaT3GvqjJ7bOuqPHPDKWdN7Z3Jc7uLBMYSNqS9TTIONKJ2H
+ msXYsnW/xeK38NSwqV9N+JRImDy59opwdwQIXBk=
+X-Google-Smtp-Source: APXvYqwrhIOd7nG31Twl8cRa3D5hKNq475kyHFD6uCPCaBT67pzgw20KEfsIXigB8dNf7KaBl2hHXJYAwp+Lr5HkSL4=
+X-Received: by 2002:a1c:f210:: with SMTP id s16mr5177248wmc.57.1577212100261; 
+ Tue, 24 Dec 2019 10:28:20 -0800 (PST)
 MIME-Version: 1.0
-X-Originating-IP: [10.90.53.225]
-X-CFilter-Loop: Reflected
-X-Mailman-Approved-At: Tue, 24 Dec 2019 18:09:10 +0000
+References: <1577153294-111684-1-git-send-email-zhengbin13@huawei.com>
+In-Reply-To: <1577153294-111684-1-git-send-email-zhengbin13@huawei.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 24 Dec 2019 13:28:07 -0500
+Message-ID: <CADnq5_Pq+Xa6VDRNaVUFBNhMn1eZfk-2RCD=pKgw4pQvWc+_MA@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/powerplay: use true,
+ false for bool variable in vega20_hwmgr.c
+To: zhengbin <zhengbin13@huawei.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,54 +73,54 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: zhengbin13@huawei.com
+Cc: Chunming Zhou <David1.Zhou@amd.com>, Dave Airlie <airlied@linux.ie>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
+ Daniel Vetter <daniel@ffwll.ch>, "Deucher,
+ Alexander" <alexander.deucher@amd.com>, "Quan, Evan" <evan.quan@amd.com>,
+ Christian Koenig <christian.koenig@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Fixes coccicheck warning:
+On Tue, Dec 24, 2019 at 9:30 AM zhengbin <zhengbin13@huawei.com> wrote:
+>
+> Fixes coccicheck warning:
+>
+> drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c:875:1-31: WARNING: Assignment of 0/1 to bool variable
+>
+> Reported-by: Hulk Robot <hulkci@huawei.com>
+> Signed-off-by: zhengbin <zhengbin13@huawei.com>
 
-drivers/gpu/drm/amd/display/dc/dml/dcn21/display_mode_vba_21.c:4124:3-28: WARNING: Assignment of 0/1 to bool variable
-drivers/gpu/drm/amd/display/dc/dml/dcn21/display_mode_vba_21.c:4128:5-30: WARNING: Assignment of 0/1 to bool variable
-drivers/gpu/drm/amd/display/dc/dml/dcn21/display_mode_vba_21.c:5207:3-37: WARNING: Assignment of 0/1 to bool variable
+Applied.  thanks!
 
-Reported-by: Hulk Robot <hulkci@huawei.com>
-Signed-off-by: zhengbin <zhengbin13@huawei.com>
----
- drivers/gpu/drm/amd/display/dc/dml/dcn21/display_mode_vba_21.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+Alex
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn21/display_mode_vba_21.c b/drivers/gpu/drm/amd/display/dc/dml/dcn21/display_mode_vba_21.c
-index 945291d..b6d3466 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dcn21/display_mode_vba_21.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn21/display_mode_vba_21.c
-@@ -4121,11 +4121,11 @@ void dml21_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
- 	}
- 	for (i = 0; i <= mode_lib->vba.soc.num_states; i++) {
- 		for (k = 0; k <= mode_lib->vba.NumberOfActivePlanes - 1; k++) {
--			locals->RequiresDSC[i][k] = 0;
-+			locals->RequiresDSC[i][k] = false;
- 			locals->RequiresFEC[i][k] = 0;
- 			if (mode_lib->vba.BlendingAndTiming[k] == k) {
- 				if (mode_lib->vba.Output[k] == dm_hdmi) {
--					locals->RequiresDSC[i][k] = 0;
-+					locals->RequiresDSC[i][k] = false;
- 					locals->RequiresFEC[i][k] = 0;
- 					locals->OutputBppPerState[i][k] = TruncToValidBPP(
- 							dml_min(600.0, mode_lib->vba.PHYCLKPerState[i]) / mode_lib->vba.PixelClockBackEnd[k] * 24,
-@@ -5204,7 +5204,7 @@ void dml21_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
- 			mode_lib->vba.ODMCombineEnabled[k] =
- 					locals->ODMCombineEnablePerState[mode_lib->vba.VoltageLevel][k];
- 		} else {
--			mode_lib->vba.ODMCombineEnabled[k] = 0;
-+			mode_lib->vba.ODMCombineEnabled[k] = false;
- 		}
- 		mode_lib->vba.DSCEnabled[k] =
- 				locals->RequiresDSC[mode_lib->vba.VoltageLevel][k];
---
-2.7.4
-
+> ---
+>  drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c b/drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c
+> index 5bcf0d6..3b3ec56 100644
+> --- a/drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c
+> +++ b/drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c
+> @@ -872,7 +872,7 @@ static int vega20_override_pcie_parameters(struct pp_hwmgr *hwmgr)
+>                 "[OverridePcieParameters] Attempt to override pcie params failed!",
+>                 return ret);
+>
+> -       data->pcie_parameters_override = 1;
+> +       data->pcie_parameters_override = true;
+>         data->pcie_gen_level1 = pcie_gen;
+>         data->pcie_width_level1 = pcie_width;
+>
+> --
+> 2.7.4
+>
+> _______________________________________________
+> dri-devel mailing list
+> dri-devel@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/dri-devel
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
