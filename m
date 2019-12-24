@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-9.8 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6234FC2D0D0
-	for <amd-gfx@archiver.kernel.org>; Tue, 24 Dec 2019 18:09:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1C207C2D0D5
+	for <amd-gfx@archiver.kernel.org>; Tue, 24 Dec 2019 18:09:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 472A8206CB
+	by mail.kernel.org (Postfix) with ESMTPS id EA998206CB
 	for <amd-gfx@archiver.kernel.org>; Tue, 24 Dec 2019 18:09:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 472A8206CB
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EA998206CB
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=huawei.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AE2F86E351;
+	by gabe.freedesktop.org (Postfix) with ESMTP id DBA476E354;
 	Tue, 24 Dec 2019 18:09:11 +0000 (UTC)
 Received: from huawei.com (szxga05-in.huawei.com [45.249.212.191])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 30BEA89EFF;
- Tue, 24 Dec 2019 03:20:35 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3474289EFF;
+ Tue, 24 Dec 2019 03:20:34 +0000 (UTC)
 Received: from DGGEMS412-HUB.china.huawei.com (unknown [172.30.72.60])
- by Forcepoint Email with ESMTP id 7C1EE5F93C04F7E49978;
+ by Forcepoint Email with ESMTP id 53C9BAA70C166D1A91CC;
  Tue, 24 Dec 2019 11:20:31 +0800 (CST)
 Received: from huawei.com (10.90.53.225) by DGGEMS412-HUB.china.huawei.com
  (10.3.19.212) with Microsoft SMTP Server id 14.3.439.0; Tue, 24 Dec 2019
- 11:20:22 +0800
+ 11:20:24 +0800
 From: zhengbin <zhengbin13@huawei.com>
 To: <harry.wentland@amd.com>, <sunpeng.li@amd.com>,
  <alexander.deucher@amd.com>, <christian.koenig@amd.com>,
  <David1.Zhou@amd.com>, <airlied@linux.ie>, <daniel@ffwll.ch>,
  <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>
-Subject: [PATCH 1/8] drm/amd/display: use true,
- false for bool variable in dc_link_ddc.c
-Date: Tue, 24 Dec 2019 11:27:36 +0800
-Message-ID: <1577158063-76188-2-git-send-email-zhengbin13@huawei.com>
+Subject: [PATCH 6/8] drm/amd/display: use true,
+ false for bool variable in display_rq_dlg_calc_20.c
+Date: Tue, 24 Dec 2019 11:27:41 +0800
+Message-ID: <1577158063-76188-7-git-send-email-zhengbin13@huawei.com>
 X-Mailer: git-send-email 2.7.4
 In-Reply-To: <1577158063-76188-1-git-send-email-zhengbin13@huawei.com>
 References: <1577158063-76188-1-git-send-email-zhengbin13@huawei.com>
@@ -63,27 +63,101 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Fixes coccicheck warning:
 
-drivers/gpu/drm/amd/display/dc/core/dc_link_ddc.c:593:6-9: WARNING: Assignment of 0/1 to bool variable
+drivers/gpu/drm/amd/display/dc/dml/dcn20/display_rq_dlg_calc_20.c:110:6-13: WARNING: Assignment of 0/1 to bool variable
+drivers/gpu/drm/amd/display/dc/dml/dcn20/display_rq_dlg_calc_20.c:113:2-9: WARNING: Assignment of 0/1 to bool variable
+drivers/gpu/drm/amd/display/dc/dml/dcn20/display_rq_dlg_calc_20.c:243:6-14: WARNING: Assignment of 0/1 to bool variable
+drivers/gpu/drm/amd/display/dc/dml/dcn20/display_rq_dlg_calc_20.c:244:6-14: WARNING: Assignment of 0/1 to bool variable
+drivers/gpu/drm/amd/display/dc/dml/dcn20/display_rq_dlg_calc_20.c:267:3-11: WARNING: Assignment of 0/1 to bool variable
+drivers/gpu/drm/amd/display/dc/dml/dcn20/display_rq_dlg_calc_20.c:268:3-11: WARNING: Assignment of 0/1 to bool variable
+drivers/gpu/drm/amd/display/dc/dml/dcn20/display_rq_dlg_calc_20.c:272:3-11: WARNING: Assignment of 0/1 to bool variable
+drivers/gpu/drm/amd/display/dc/dml/dcn20/display_rq_dlg_calc_20.c:273:3-11: WARNING: Assignment of 0/1 to bool variable
+drivers/gpu/drm/amd/display/dc/dml/dcn20/display_rq_dlg_calc_20.c:283:3-11: WARNING: Assignment of 0/1 to bool variable
+drivers/gpu/drm/amd/display/dc/dml/dcn20/display_rq_dlg_calc_20.c:285:3-11: WARNING: Assignment of 0/1 to bool variable
+drivers/gpu/drm/amd/display/dc/dml/dcn20/display_rq_dlg_calc_20.c:673:6-14: WARNING: Assignment of 0/1 to bool variable
+drivers/gpu/drm/amd/display/dc/dml/dcn20/display_rq_dlg_calc_20.c:961:1-9: WARNING: Assignment of 0/1 to bool variable
 
 Reported-by: Hulk Robot <hulkci@huawei.com>
 Signed-off-by: zhengbin <zhengbin13@huawei.com>
 ---
- drivers/gpu/drm/amd/display/dc/core/dc_link_ddc.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ .../display/dc/dml/dcn20/display_rq_dlg_calc_20.c  | 24 +++++++++++-----------
+ 1 file changed, 12 insertions(+), 12 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_ddc.c b/drivers/gpu/drm/amd/display/dc/core/dc_link_ddc.c
-index c2c136b..a49c10d 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_link_ddc.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_link_ddc.c
-@@ -590,7 +590,7 @@ bool dal_ddc_submit_aux_command(struct ddc_service *ddc,
- 		struct aux_payload *payload)
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_rq_dlg_calc_20.c b/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_rq_dlg_calc_20.c
+index 9df24ec..ca80784 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_rq_dlg_calc_20.c
++++ b/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_rq_dlg_calc_20.c
+@@ -107,10 +107,10 @@ static unsigned int get_bytes_per_element(enum source_format_class source_format
+
+ static bool is_dual_plane(enum source_format_class source_format)
  {
- 	uint32_t retrieved = 0;
--	bool ret = 0;
-+	bool ret = false;
+-	bool ret_val = 0;
++	bool ret_val = false;
 
- 	if (!ddc)
- 		return false;
+ 	if ((source_format == dm_420_8) || (source_format == dm_420_10))
+-		ret_val = 1;
++		ret_val = true;
+
+ 	return ret_val;
+ }
+@@ -240,8 +240,8 @@ static void handle_det_buf_split(struct display_mode_lib *mode_lib,
+ 	unsigned int swath_bytes_c = 0;
+ 	unsigned int full_swath_bytes_packed_l = 0;
+ 	unsigned int full_swath_bytes_packed_c = 0;
+-	bool req128_l = 0;
+-	bool req128_c = 0;
++	bool req128_l = false;
++	bool req128_c = false;
+ 	bool surf_linear = (pipe_src_param.sw_mode == dm_sw_linear);
+ 	bool surf_vert = (pipe_src_param.source_scan == dm_vert);
+ 	unsigned int log2_swath_height_l = 0;
+@@ -264,13 +264,13 @@ static void handle_det_buf_split(struct display_mode_lib *mode_lib,
+ 		total_swath_bytes = 2 * full_swath_bytes_packed_l + 2 * full_swath_bytes_packed_c;
+
+ 		if (total_swath_bytes <= detile_buf_size_in_bytes) { //full 256b request
+-			req128_l = 0;
+-			req128_c = 0;
++			req128_l = false;
++			req128_c = false;
+ 			swath_bytes_l = full_swath_bytes_packed_l;
+ 			swath_bytes_c = full_swath_bytes_packed_c;
+ 		} else { //128b request (for luma only for yuv420 8bpc)
+-			req128_l = 1;
+-			req128_c = 0;
++			req128_l = true;
++			req128_c = false;
+ 			swath_bytes_l = full_swath_bytes_packed_l / 2;
+ 			swath_bytes_c = full_swath_bytes_packed_c;
+ 		}
+@@ -280,9 +280,9 @@ static void handle_det_buf_split(struct display_mode_lib *mode_lib,
+ 		total_swath_bytes = 2 * full_swath_bytes_packed_l;
+
+ 		if (total_swath_bytes <= detile_buf_size_in_bytes)
+-			req128_l = 0;
++			req128_l = false;
+ 		else
+-			req128_l = 1;
++			req128_l = true;
+
+ 		swath_bytes_l = total_swath_bytes;
+ 		swath_bytes_c = 0;
+@@ -670,7 +670,7 @@ static void get_surf_rq_param(struct display_mode_lib *mode_lib,
+ 		const display_pipe_source_params_st pipe_src_param,
+ 		bool is_chroma)
+ {
+-	bool mode_422 = 0;
++	bool mode_422 = false;
+ 	unsigned int vp_width = 0;
+ 	unsigned int vp_height = 0;
+ 	unsigned int data_pitch = 0;
+@@ -958,7 +958,7 @@ static void dml20_rq_dlg_get_dlg_params(struct display_mode_lib *mode_lib,
+ 	// Source
+ //             dcc_en              = src.dcc;
+ 	dual_plane = is_dual_plane((enum source_format_class)(src->source_format));
+-	mode_422 = 0; // TODO
++	mode_422 = false; // TODO
+ 	access_dir = (src->source_scan == dm_vert); // vp access direction: horizontal or vertical accessed
+ //      bytes_per_element_l = get_bytes_per_element(source_format_class(src.source_format), 0);
+ //      bytes_per_element_c = get_bytes_per_element(source_format_class(src.source_format), 1);
 --
 2.7.4
 
