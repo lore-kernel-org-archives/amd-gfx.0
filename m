@@ -2,65 +2,48 @@ Return-Path: <SRS0=l0jK=2O=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-9.8 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 97E5BC2D0C3
-	for <amd-gfx@archiver.kernel.org>; Tue, 24 Dec 2019 18:08:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 75661C2D0C3
+	for <amd-gfx@archiver.kernel.org>; Tue, 24 Dec 2019 18:09:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 623EC206CB
-	for <amd-gfx@archiver.kernel.org>; Tue, 24 Dec 2019 18:08:16 +0000 (UTC)
-Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FmX6CFDb"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 623EC206CB
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 3E426206CB
+	for <amd-gfx@archiver.kernel.org>; Tue, 24 Dec 2019 18:09:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3E426206CB
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=huawei.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CFC1A6E34B;
-	Tue, 24 Dec 2019 18:08:15 +0000 (UTC)
-Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com
- [IPv6:2a00:1450:4864:20::442])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D25D46E34B
- for <amd-gfx@lists.freedesktop.org>; Tue, 24 Dec 2019 18:08:14 +0000 (UTC)
-Received: by mail-wr1-x442.google.com with SMTP id g17so20385513wro.2
- for <amd-gfx@lists.freedesktop.org>; Tue, 24 Dec 2019 10:08:14 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=fpst3wDa2L1vz9pXYWsp5deHWryqd5iVbmoiwHvx6N8=;
- b=FmX6CFDbGQKFUDrc3F2kfEA+xGzE3zeM/D/h0TGvqZYwuLqT15xw+Wc6f2xhdfnI4T
- Pt27kxrPUN2ANQ28EY5MP1WvsjtrkVMczQcKDycFKGFakv+P1xmhq8/zwg68BSIGtarB
- 9DPxVDkiFd1ZjJGjHUelYSWzxq9RTPwN8uLjgvPECVxVI+5QxSB2X6h8HCN6O4bkeeHV
- TND9QPYRzzMa2WqH+k5DYAe3tDSUDt/D8sMEBAPgueVg9y7c9mIO2QjDSLBx3zoo7sNz
- vZ8I19YSj5hRyI+Cdfj0QdQkD9baTey6ZagRwCqAM2hhAuzZx7DAabEqNQ/gJZtXRkMG
- 49Kw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=fpst3wDa2L1vz9pXYWsp5deHWryqd5iVbmoiwHvx6N8=;
- b=BP294SzO/QM/1zCYGt5uU3w1z53O5frdpJEedGRWssRUeoFndP+jOBX+nWBXT/SxE2
- j5Okr7HNnayWY4g0kxXuufmhIMUSMDa9kHc1cjFUyPiyZTeHq/Z0D4P5sSij7A9V5EhK
- F5EElozZFokVsE+FjDXsBefCPbLnk1PyIE5s7f6TxctbYEso/eVvAIN6mNI2KukQrmEB
- W6hGi/vz1IBRQLBYHQbKLNum+ccePhQFlE9BB0a6BwbVYgo0ZtXjuPNW1sLxjD08Wg9x
- E1p2c45ZRpUK0+itccR+Rql7IDWePhp0TUiFG5hqvcdPFG1oZcXJfNIQ8WhCqs16KXrK
- HZ+Q==
-X-Gm-Message-State: APjAAAUEeR55+YsP9oxZeqI0O60yKi7EobpmCWchqp1P18WjMXZ0fAe5
- FEebOglqO/fAuGxsHGSmfcLX4hr3hhAxBGk2XVawDw==
-X-Google-Smtp-Source: APXvYqyIml8x1BYXKMShB2Cg5mq3bTT7xRhN9bkXaUThqNVlHe7VI17JsSrVjynFnjpNTZXefpRKISydUzuHl21ZUBU=
-X-Received: by 2002:a5d:46c7:: with SMTP id g7mr35973302wrs.11.1577210893554; 
- Tue, 24 Dec 2019 10:08:13 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E0C5B6E34B;
+	Tue, 24 Dec 2019 18:09:10 +0000 (UTC)
+Received: from huawei.com (szxga05-in.huawei.com [45.249.212.191])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 552CF89EFF;
+ Tue, 24 Dec 2019 03:20:33 +0000 (UTC)
+Received: from DGGEMS412-HUB.china.huawei.com (unknown [172.30.72.60])
+ by Forcepoint Email with ESMTP id 692CAFD5DD8D4869FCE9;
+ Tue, 24 Dec 2019 11:20:31 +0800 (CST)
+Received: from huawei.com (10.90.53.225) by DGGEMS412-HUB.china.huawei.com
+ (10.3.19.212) with Microsoft SMTP Server id 14.3.439.0; Tue, 24 Dec 2019
+ 11:20:25 +0800
+From: zhengbin <zhengbin13@huawei.com>
+To: <harry.wentland@amd.com>, <sunpeng.li@amd.com>,
+ <alexander.deucher@amd.com>, <christian.koenig@amd.com>,
+ <David1.Zhou@amd.com>, <airlied@linux.ie>, <daniel@ffwll.ch>,
+ <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>
+Subject: [PATCH 7/8] drm/amd/display: use true,
+ false for bool variable in display_rq_dlg_calc_20v2.c
+Date: Tue, 24 Dec 2019 11:27:42 +0800
+Message-ID: <1577158063-76188-8-git-send-email-zhengbin13@huawei.com>
+X-Mailer: git-send-email 2.7.4
+In-Reply-To: <1577158063-76188-1-git-send-email-zhengbin13@huawei.com>
+References: <1577158063-76188-1-git-send-email-zhengbin13@huawei.com>
 MIME-Version: 1.0
-References: <20191224092848.8259-1-evan.quan@amd.com>
-In-Reply-To: <20191224092848.8259-1-evan.quan@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 24 Dec 2019 13:08:01 -0500
-Message-ID: <CADnq5_NjnK=YfFfTMjrqMoyLv4sjP3veQyDxLUe2u6EkBxjrRw@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/powerplay: add check for baco support on Arcturus
-To: Evan Quan <evan.quan@amd.com>
+X-Originating-IP: [10.90.53.225]
+X-CFilter-Loop: Reflected
+X-Mailman-Approved-At: Tue, 24 Dec 2019 18:09:10 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,45 +55,112 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>
+Cc: zhengbin13@huawei.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Dec 24, 2019 at 4:29 AM Evan Quan <evan.quan@amd.com> wrote:
->
-> This is used to determine whether runtime pm can be
-> supported or not.
->
-> Change-Id: I0b6452ae56094d768ece23ba62476f410f19e57b
-> Signed-off-by: Evan Quan <evan.quan@amd.com>
+Fixes coccicheck warning:
 
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+drivers/gpu/drm/amd/display/dc/dml/dcn20/display_rq_dlg_calc_20v2.c:110:6-13: WARNING: Assignment of 0/1 to bool variable
+drivers/gpu/drm/amd/display/dc/dml/dcn20/display_rq_dlg_calc_20v2.c:113:2-9: WARNING: Assignment of 0/1 to bool variable
+drivers/gpu/drm/amd/display/dc/dml/dcn20/display_rq_dlg_calc_20v2.c:243:6-14: WARNING: Assignment of 0/1 to bool variable
+drivers/gpu/drm/amd/display/dc/dml/dcn20/display_rq_dlg_calc_20v2.c:244:6-14: WARNING: Assignment of 0/1 to bool variable
+drivers/gpu/drm/amd/display/dc/dml/dcn20/display_rq_dlg_calc_20v2.c:267:3-11: WARNING: Assignment of 0/1 to bool variable
+drivers/gpu/drm/amd/display/dc/dml/dcn20/display_rq_dlg_calc_20v2.c:268:3-11: WARNING: Assignment of 0/1 to bool variable
+drivers/gpu/drm/amd/display/dc/dml/dcn20/display_rq_dlg_calc_20v2.c:272:3-11: WARNING: Assignment of 0/1 to bool variable
+drivers/gpu/drm/amd/display/dc/dml/dcn20/display_rq_dlg_calc_20v2.c:273:3-11: WARNING: Assignment of 0/1 to bool variable
+drivers/gpu/drm/amd/display/dc/dml/dcn20/display_rq_dlg_calc_20v2.c:283:3-11: WARNING: Assignment of 0/1 to bool variable
+drivers/gpu/drm/amd/display/dc/dml/dcn20/display_rq_dlg_calc_20v2.c:285:3-11: WARNING: Assignment of 0/1 to bool variable
+drivers/gpu/drm/amd/display/dc/dml/dcn20/display_rq_dlg_calc_20v2.c:673:6-14: WARNING: Assignment of 0/1 to bool variable
+drivers/gpu/drm/amd/display/dc/dml/dcn20/display_rq_dlg_calc_20v2.c:962:1-9: WARNING: Assignment of 0/1 to bool variable
 
-> ---
->  drivers/gpu/drm/amd/amdgpu/soc15.c | 1 +
->  1 file changed, 1 insertion(+)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c b/drivers/gpu/drm/amd/amdgpu/soc15.c
-> index b53d40177e93..a0615640082a 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/soc15.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/soc15.c
-> @@ -613,6 +613,7 @@ static bool soc15_supports_baco(struct amdgpu_device *adev)
->         switch (adev->asic_type) {
->         case CHIP_VEGA10:
->         case CHIP_VEGA12:
-> +       case CHIP_ARCTURUS:
->                 soc15_asic_get_baco_capability(adev, &baco_support);
->                 break;
->         case CHIP_VEGA20:
-> --
-> 2.24.0
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+Reported-by: Hulk Robot <hulkci@huawei.com>
+Signed-off-by: zhengbin <zhengbin13@huawei.com>
+---
+ .../dc/dml/dcn20/display_rq_dlg_calc_20v2.c        | 24 +++++++++++-----------
+ 1 file changed, 12 insertions(+), 12 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_rq_dlg_calc_20v2.c b/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_rq_dlg_calc_20v2.c
+index 1e6aeb1..287b7a0 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_rq_dlg_calc_20v2.c
++++ b/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_rq_dlg_calc_20v2.c
+@@ -107,10 +107,10 @@ static unsigned int get_bytes_per_element(enum source_format_class source_format
+
+ static bool is_dual_plane(enum source_format_class source_format)
+ {
+-	bool ret_val = 0;
++	bool ret_val = false;
+
+ 	if ((source_format == dm_420_8) || (source_format == dm_420_10))
+-		ret_val = 1;
++		ret_val = true;
+
+ 	return ret_val;
+ }
+@@ -240,8 +240,8 @@ static void handle_det_buf_split(struct display_mode_lib *mode_lib,
+ 	unsigned int swath_bytes_c = 0;
+ 	unsigned int full_swath_bytes_packed_l = 0;
+ 	unsigned int full_swath_bytes_packed_c = 0;
+-	bool req128_l = 0;
+-	bool req128_c = 0;
++	bool req128_l = false;
++	bool req128_c = false;
+ 	bool surf_linear = (pipe_src_param.sw_mode == dm_sw_linear);
+ 	bool surf_vert = (pipe_src_param.source_scan == dm_vert);
+ 	unsigned int log2_swath_height_l = 0;
+@@ -264,13 +264,13 @@ static void handle_det_buf_split(struct display_mode_lib *mode_lib,
+ 		total_swath_bytes = 2 * full_swath_bytes_packed_l + 2 * full_swath_bytes_packed_c;
+
+ 		if (total_swath_bytes <= detile_buf_size_in_bytes) { //full 256b request
+-			req128_l = 0;
+-			req128_c = 0;
++			req128_l = false;
++			req128_c = false;
+ 			swath_bytes_l = full_swath_bytes_packed_l;
+ 			swath_bytes_c = full_swath_bytes_packed_c;
+ 		} else { //128b request (for luma only for yuv420 8bpc)
+-			req128_l = 1;
+-			req128_c = 0;
++			req128_l = true;
++			req128_c = false;
+ 			swath_bytes_l = full_swath_bytes_packed_l / 2;
+ 			swath_bytes_c = full_swath_bytes_packed_c;
+ 		}
+@@ -280,9 +280,9 @@ static void handle_det_buf_split(struct display_mode_lib *mode_lib,
+ 		total_swath_bytes = 2 * full_swath_bytes_packed_l;
+
+ 		if (total_swath_bytes <= detile_buf_size_in_bytes)
+-			req128_l = 0;
++			req128_l = false;
+ 		else
+-			req128_l = 1;
++			req128_l = true;
+
+ 		swath_bytes_l = total_swath_bytes;
+ 		swath_bytes_c = 0;
+@@ -670,7 +670,7 @@ static void get_surf_rq_param(struct display_mode_lib *mode_lib,
+ 		const display_pipe_source_params_st pipe_src_param,
+ 		bool is_chroma)
+ {
+-	bool mode_422 = 0;
++	bool mode_422 = false;
+ 	unsigned int vp_width = 0;
+ 	unsigned int vp_height = 0;
+ 	unsigned int data_pitch = 0;
+@@ -959,7 +959,7 @@ static void dml20v2_rq_dlg_get_dlg_params(struct display_mode_lib *mode_lib,
+ 	// Source
+ //             dcc_en              = src.dcc;
+ 	dual_plane = is_dual_plane((enum source_format_class)(src->source_format));
+-	mode_422 = 0; // TODO
++	mode_422 = false; // TODO
+ 	access_dir = (src->source_scan == dm_vert); // vp access direction: horizontal or vertical accessed
+ //      bytes_per_element_l = get_bytes_per_element(source_format_class(src.source_format), 0);
+ //      bytes_per_element_c = get_bytes_per_element(source_format_class(src.source_format), 1);
+--
+2.7.4
+
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
