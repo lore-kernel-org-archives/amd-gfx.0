@@ -3,98 +3,111 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
 X-Spam-Status: No, score=-6.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,HTTP_ESCAPED_HOST,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
-	autolearn_force=no version=3.4.0
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id EC2B3C2D0DC
-	for <amd-gfx@archiver.kernel.org>; Wed, 25 Dec 2019 06:45:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id CDED0C2D0DA
+	for <amd-gfx@archiver.kernel.org>; Wed, 25 Dec 2019 06:53:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id BEF012075E
-	for <amd-gfx@archiver.kernel.org>; Wed, 25 Dec 2019 06:45:47 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 9F5D92071E
+	for <amd-gfx@archiver.kernel.org>; Wed, 25 Dec 2019 06:53:32 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="r3ONp2yd"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BEF012075E
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="X45vUdWI"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9F5D92071E
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8C4CD89B20;
-	Wed, 25 Dec 2019 06:45:43 +0000 (UTC)
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com
- (mail-eopbgr770058.outbound.protection.outlook.com [40.107.77.58])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 185A689B0C;
- Wed, 25 Dec 2019 06:45:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2441589D8A;
+	Wed, 25 Dec 2019 06:53:32 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2089.outbound.protection.outlook.com [40.107.237.89])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ADC2489D8A
+ for <amd-gfx@lists.freedesktop.org>; Wed, 25 Dec 2019 06:53:30 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=U0xSp6YLXU7pskqd2HlbuHVQIH3JHHYTZ4BuGjoUH7gZ1IsW3bmEL6kPe51xgSop4je3/sjw+lPElgcw2Fq9+2AnYyUe3DdjUxyejCuAWP5930SkCjmJk5idqWeLzY89wzBLtLZUnNDLrpkF6tWTyBrx+x0S1PPAdUfsc/+Gmdxp+pgOTjb5LaQWVgmfJVXVpmweq8Jkw6klMLcWffVIs0S1yVGt2d8kqgReY6t4powoMfC0YvwPWYMBTdCE0Ltr8ss8fNGk6A/v0823Y0jFdT5v4IQ+CHyvQfbxLD9W7viRFq22/8WJm1V+H+bHeTp2zRBVnuZzqksxbZ2Fl/Ru9g==
+ b=jzI88PbT3CsEmyGHeotjyFsg37bvXL1pm1iUxwpaBr61EciqSNzM8kNM79iP7/svewegEFEFiuLQJr0lBXF315XxR6Neg93xi2Vy3eZS+Xc5VRiCp6qrrg5xvOsK/0hKX6IRS1WYk+KxDcxlMk/8XZlm1udmCGBKP51jCp2Z8XWYOnkesXYWjHNDdqFBQ1cgumSpus44wGxlUqwsO6FAJUK/iXICvDzv/rKVjuNS+r6OaxNFBSnqnv7QX0OxkKgrk8m6IZfX3zOdbeAv+zRWejk060OxVNvYdgvafM8V6uNLOF1ud8mqKcIXvBx8fUBNT3j8hshQcZwJlwxNXAdduw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=LVaW8cIhL1fnB43gCgm+xB5XJb/zwOBr+sWiauEHVsU=;
- b=j5wUVE22jhzW6/JNKScky6GT6OfyZJDcKl36RnKN6XGcklh/ap2EtULNtHVFJaWWVpS9fn1PiGpzRH2Ai8l70/RdZP8JCrvO2yJTxTy60se2VMB6BXlpvg8eNkXmck50GPInLJt2kIE79YFckFkMtOIfdre418o+QOA76xvebKWHw0p1uM8/SrgDANIHPvFCpAfmO6XXZdQIi7LWhS4vAfllgeK7KyCZ7y88q0OxbT8QKLfWLb3UUYQZti6RgRfwcW7+baVi/lqI0JcGIU5M0CpvpDuLjRSmVqCr1+VUKkLbMqMnHUsOYCywAozCCUBm5YQo4c44iFY0p6VsF3XIzQ==
+ bh=Ud21XlslRiSf9mNN5fTAhzblZsxxCEVy9P9z07+Cm0c=;
+ b=XVKc7GFfmzPGjkibTsPf8AqusXwUaGkdu+wX43h/L13hZK+o9T9aV+1uTQ8GDqWiysoqxpQ9mRYWXmTUT176do+iU6WZhL0oPVViEogz8vAzOYA8haTttLmR4NbXlajI9eFgBfWrQGMQzeSeWYc0wFp7kiUeWcgQRJLDUZuV0Ml5vUr9V9qaNbdJpq1SaFdFRjxOnV1BqPYRVFG5nrhrfmfWwYpko7vae7zHBexlGO7wa8WVxkhwH9bqSlmn0+gK8Hr/59uOeE1xdztoYVCN1Z/xZL5rk9k9YR1EezFdYeyC5OvV5UEc8T4gB3E4FqaXMTE+VG3Eoz0KFZqUJUOxCg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=LVaW8cIhL1fnB43gCgm+xB5XJb/zwOBr+sWiauEHVsU=;
- b=r3ONp2ydtZ/H8c6nnso5pr44ZHevY1MvOAZWDBRPUCULBz9iXzq8JoOap1zm05Jt0xnwI29Q81vTvpUaiWUYVtlxr8L1H0lUzIlQO6KfCgIUhFrMWYEH9iZwzF18ml5vzNHcjQPMC+oUfr4XsZdVr+utmUfUUfSHFkz3O/3eA/Q=
-Received: from DM6PR12MB4137.namprd12.prod.outlook.com (10.141.186.21) by
- DM6PR12MB3260.namprd12.prod.outlook.com (20.179.104.208) with Microsoft SMTP
+ bh=Ud21XlslRiSf9mNN5fTAhzblZsxxCEVy9P9z07+Cm0c=;
+ b=X45vUdWIcACqfObHqdRr+R/Lj5fTKACfjwurjwPrn4JgBIJ2WisqcGAZc5jyFsBRMW2e0h8Fu69nYTTLsNRASNeu8M05zhlV2iCcdIUghxvswNTQxCKrcS4Eyp5cJVFrK2VciYX2afaxAkV10m6B/Po0+maVqHlTBaEBvkHDlyQ=
+Received: from DM5PR12MB1418.namprd12.prod.outlook.com (10.168.240.15) by
+ DM5PR12MB1163.namprd12.prod.outlook.com (10.168.240.18) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2581.11; Wed, 25 Dec 2019 06:45:36 +0000
-Received: from DM6PR12MB4137.namprd12.prod.outlook.com
- ([fe80::f06d:7ff3:2a22:99d4]) by DM6PR12MB4137.namprd12.prod.outlook.com
- ([fe80::f06d:7ff3:2a22:99d4%3]) with mapi id 15.20.2559.017; Wed, 25 Dec 2019
- 06:45:36 +0000
-From: "Lin, Wayne" <Wayne.Lin@amd.com>
-To: Lyude Paul <lyude@redhat.com>, "dri-devel@lists.freedesktop.org"
- <dri-devel@lists.freedesktop.org>, "amd-gfx@lists.freedesktop.org"
+ 15.20.2559.14; Wed, 25 Dec 2019 06:53:28 +0000
+Received: from DM5PR12MB1418.namprd12.prod.outlook.com
+ ([fe80::e944:3f8b:ca64:ad1b]) by DM5PR12MB1418.namprd12.prod.outlook.com
+ ([fe80::e944:3f8b:ca64:ad1b%5]) with mapi id 15.20.2559.017; Wed, 25 Dec 2019
+ 06:53:28 +0000
+From: "Zhang, Hawking" <Hawking.Zhang@amd.com>
+To: "Quan, Evan" <Evan.Quan@amd.com>, "amd-gfx@lists.freedesktop.org"
  <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH] drm/dp_mst: clear time slots for ports invalid
-Thread-Topic: [PATCH] drm/dp_mst: clear time slots for ports invalid
-Thread-Index: AQHVrBDEG2oqjDxKoU2lob1fSRqxeKfDzlcAgAaCSLA=
-Date: Wed, 25 Dec 2019 06:45:36 +0000
-Message-ID: <DM6PR12MB41378AEE89F13DA0825F2AD5FC280@DM6PR12MB4137.namprd12.prod.outlook.com>
-References: <20191206083937.9411-1-Wayne.Lin@amd.com>
- <589e939efca5209af318645fa6799c423897eea6.camel@redhat.com>
-In-Reply-To: <589e939efca5209af318645fa6799c423897eea6.camel@redhat.com>
-Accept-Language: en-US, zh-TW
-Content-Language: zh-TW
+Subject: RE: [PATCH] drm/amdgpu: correct RLC firmwares loading sequence
+Thread-Topic: [PATCH] drm/amdgpu: correct RLC firmwares loading sequence
+Thread-Index: AQHVuuvQdpToFweWy0uNpJ5Y0GdkZafKahmQ
+Date: Wed, 25 Dec 2019 06:53:28 +0000
+Message-ID: <DM5PR12MB1418E80E85BA3A7841305C15FC280@DM5PR12MB1418.namprd12.prod.outlook.com>
+References: <20191225062247.4115-1-evan.quan@amd.com>
+In-Reply-To: <20191225062247.4115-1-evan.quan@amd.com>
+Accept-Language: en-US
+Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=true;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2019-12-25T06:53:27Z; 
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal Use Only -
+ Unrestricted;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ActionId=1a87f7b5-3a70-4b3e-b91e-0000cf5956a0;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=1
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_enabled: true
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_setdate: 2019-12-25T06:53:27Z
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_method: Standard
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_name: Internal Use Only -
+ Unrestricted
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_actionid: c0a77e56-26c7-48f6-845d-0000c79f4d33
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_contentbits: 0
 authentication-results: spf=none (sender IP is )
- smtp.mailfrom=Wayne.Lin@amd.com; 
-x-originating-ip: [165.204.68.36]
+ smtp.mailfrom=Hawking.Zhang@amd.com; 
+x-originating-ip: [180.167.199.185]
 x-ms-publictraffictype: Email
 x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: d06e5be2-9279-4f6b-d733-08d789060c5d
-x-ms-traffictypediagnostic: DM6PR12MB3260:|DM6PR12MB3260:
+x-ms-office365-filtering-correlation-id: e8c900b8-0eae-427d-6ef3-08d7890725dc
+x-ms-traffictypediagnostic: DM5PR12MB1163:|DM5PR12MB1163:
 x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <DM6PR12MB32605F61CF613779A9A4B89FFC280@DM6PR12MB3260.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:7691;
+x-microsoft-antispam-prvs: <DM5PR12MB116376C15CB3CF134EFB8017FC280@DM5PR12MB1163.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:7219;
 x-forefront-prvs: 02622CEF0A
 x-forefront-antispam-report: SFV:NSPM;
- SFS:(10009020)(4636009)(39860400002)(376002)(346002)(136003)(396003)(366004)(199004)(189003)(13464003)(54906003)(316002)(8936002)(8676002)(81156014)(81166006)(66476007)(33656002)(9686003)(7696005)(55016002)(71200400001)(110136005)(66946007)(66556008)(64756008)(66446008)(2906002)(186003)(53546011)(6506007)(966005)(76116006)(26005)(4326008)(45080400002)(86362001)(5660300002)(52536014)(478600001);
- DIR:OUT; SFP:1101; SCL:1; SRVR:DM6PR12MB3260;
- H:DM6PR12MB4137.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; A:1; MX:1; 
+ SFS:(10009020)(4636009)(376002)(396003)(136003)(346002)(366004)(39860400002)(189003)(13464003)(199004)(33656002)(8676002)(26005)(71200400001)(7696005)(53546011)(6506007)(5660300002)(76116006)(66556008)(66476007)(86362001)(66446008)(64756008)(66946007)(81166006)(478600001)(52536014)(316002)(55016002)(9686003)(81156014)(110136005)(2906002)(8936002)(186003);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:DM5PR12MB1163;
+ H:DM5PR12MB1418.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; MX:1; A:1; 
 received-spf: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
 x-ms-exchange-senderadcheck: 1
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: ynqNjzEgLlmbjjKtliNO+fECQU+maoOlzFDQhI3LsV7r+s4ODVaDcGJy6D/irljtHvevzoxhjsinmi1qb3i6zMzwDxqrRWLh/RObDeFzCaEZoUbPDKlzZtQqrqmr4sZRfKjJop45Rlf+4Z8zXUbNHcXDeRczrOKcAyNDq/QCgPFdBf+mTIdIP78/wtz6lc2KuiKP4F3UI0/Zy4g5D6J+Tsr53AhgYSxutpSDX+DJP2AdEjZJH6Gl/C++46Bu2YCKJSdvK4OaEqCPZbzLHlsdCOamkG+l4Q6HY7ZMH78F+UTsovUffaneVolhDxcchvEf86q99zzjXmTTLQe0ME/gkR1JBq0x6S34uhfAe8+EDgmHXmOab8loXPqP3D/y2/HYcXfvJ2gzsnLqbUQAKZMjIbzyFdxmun4MkfKF8U4Th2JYXGIRuywROS00xzfp7C/awo3P71o2LB2CwfZNxeIP871dpNw9rXecPe2kNZlJFQqb5Ct7YydrVWHV0FSOFbch
+x-microsoft-antispam-message-info: aXv/u/NHocEQySFzVAg2xCjTewp3bIiRMJmhVVv8BsQwlgElPQjW8YGbb3a4rKhLSnjye0Hil/gKEzMYvD1AMcLjgXhZSachP+j+xmHzPCg152d6Hvv90meeW+zlNLQOcUO0Pv9HnyRw1yHdnqU4pQCOlpS51SMOYn4K/y9OlykNeUJVX6bjg5fSzLG/YQfLCUDWfIYLWe/ate5janY2m8ct/tY2yHktpcK2WXxn3VtpTefPyReVgFImAoC+Sru8AwRMAxC/tkPLDK/lIVvjdJgMlQGqX2SeL0B4XlHbNiCQvoJX2uXrRE6o1Xi4REnjYa/bMYh+W88I1IcCUHBMs0fvQ9jYw38j1hHd67On9KFFJfY4PKZpfISxGk1quLPqQAblyrpdQMifJO9+O+bhSdryDa1PxCLeTwFrzUJHVat73GZUdBoAp5hvayyCCEQQE0z7omhTqWjIPsAxPqNV2GLvhYIsRDGWuDtW4HfpZ6CPkd9W6HvdM/hMcHZU22qJ
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d06e5be2-9279-4f6b-d733-08d789060c5d
-X-MS-Exchange-CrossTenant-originalarrivaltime: 25 Dec 2019 06:45:36.4269 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e8c900b8-0eae-427d-6ef3-08d7890725dc
+X-MS-Exchange-CrossTenant-originalarrivaltime: 25 Dec 2019 06:53:28.8754 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: mr/4KxgyFggyYh2hj7AFnhKpzBhbFvqKc5WMjIMaeBlETPoykbqKHcDPr7vcUtvyAuOmKAwP8qkr1GJXg3X+xA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3260
+X-MS-Exchange-CrossTenant-userprincipalname: u7YlPN4I1kDzscY5XfJoHCApDcshceBPR3kt6KeNLL09Wwe26RZhvi2VAFvx5m4Xv9rDkQL8OMQhcC1sj304/g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1163
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,168 +119,65 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Zuo, Jerry" <Jerry.Zuo@amd.com>, "Wentland,
- Harry" <Harry.Wentland@amd.com>, "Kazlauskas,
- Nicholas" <Nicholas.Kazlauskas@amd.com>,
- "stable@vger.kernel.org" <stable@vger.kernel.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+[AMD Official Use Only - Internal Distribution Only]
 
+Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
 
-> -----Original Message-----
-> From: Lyude Paul <lyude@redhat.com>
-> Sent: Saturday, December 21, 2019 8:12 AM
-> To: Lin, Wayne <Wayne.Lin@amd.com>; dri-devel@lists.freedesktop.org;
-> amd-gfx@lists.freedesktop.org
-> Cc: Kazlauskas, Nicholas <Nicholas.Kazlauskas@amd.com>; Wentland, Harry
-> <Harry.Wentland@amd.com>; Zuo, Jerry <Jerry.Zuo@amd.com>;
-> stable@vger.kernel.org
-> Subject: Re: [PATCH] drm/dp_mst: clear time slots for ports invalid
-> 
-> Mhh-I think I understand the problem you're trying to solve here but I think this
-> solution might be a bit overkill. When I did the rework of topology references
-> for ports, I made it so that we can guarantee memory access to a port without
-> it needing to be a valid part of the topology. As well, all parents of the port are
-> guaranteed to be accessible for as long as the child is. Take a look at:
-> 
-> https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2F01.org%
-> 2Flinuxgraphics%2Fgfx-docs%2Fdrm%2Fgpu%2Fdrm-kms-helpers.html%23refco
-> unt-relationships-in-a-topology&amp;data=02%7C01%7Cwayne.lin%40amd.co
-> m%7C722655b546c049dc081908d785aa6758%7C3dd8961fe4884e608e11a82d
-> 994e183d%7C0%7C0%7C637124839257213115&amp;sdata=Ctha3ja8kleeFOp
-> PpA7EwDV1is81RAMsjqd1P6463ak%3D&amp;reserved=0
-> 
-> It's also worth noting that because of this there's a lot of
-> get_port_validated()/put_port_validated() calls in the MST helpers that are
-> now bogus and need to be removed once I get a chance. For new code we
-> should limit the use of topology references to sections of code where we need
-> a guarantee that resources on the port/branch (such as a drm connector, dp
-> aux port, etc.) won't go away for as long as we need to use them.
-> 
-> Do you think we could change this patch so instead of removing it from the
-> proposed payloads on the CONNECTION_STATUS_NOTIFY, we keep the port's
-> memory allocation around until it's been removed from the proposed payloads
-> table and clean it up there on the next payload update?
-> 
-Really appreciate for your time and comments in detail.
+Regards,
+Hawking
+-----Original Message-----
+From: Quan, Evan <Evan.Quan@amd.com> 
+Sent: Wednesday, December 25, 2019 14:23
+To: amd-gfx@lists.freedesktop.org
+Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Quan, Evan <Evan.Quan@amd.com>
+Subject: [PATCH] drm/amdgpu: correct RLC firmwares loading sequence
 
-In this patch, I wanted to just set the proposed_vcpi->num_slots to 0 for those
-ports which are no longer in the topology due to there is no need to allocate time
-slots for these port. And expect those vcpi will be updated during next update of 
-payload ID table by drm_dp_update_payload_part1(). 
+Per confirmation with RLC firmware team, the RLC should be unhalted after all RLC related firmwares uploaded.
+However, in fact the RLC is unhalted immediately after RLCG firmware uploaded. And that may causes unexpected PSP hang on loading the succeeding RLC save restore list related firmwares.
+So, we correct the firmware loading sequence to load RLC save restore list related firmwares before RLCG ucode. That will help to get around this issue.
 
-I tried to use drm_dp_mst_topology_get_port_validated() as a helper to 
-decide whether a port is in the topology or not. Use this function to iterate over
-all ports that all proposed_vcpi[] drive to. If one port is not in the topology, set the
-num_slots of the proposed_vcpi for this port to 0. With num_slots as 0, these 
-proposed_vcpi will be clean up in next payload table update by 
-drm_dp_update_payload_part1(). If a port is still in the topology, then release
-the reference count which was acquired previously from
-drm_dp_mst_topology_get_port_validated() and do nothing.
+Change-Id: I4f5cad5e6bb2e5fd632957163516d9be9498234b
+Signed-off-by: Evan Quan <evan.quan@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c   | 2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.h | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-I didn't mean to kill invalid ports on receiving CONNECTION_STATUS_NOTIFY.
-Sorry if I misuse or misunderstand something here?
-
-> On Fri, 2019-12-06 at 16:39 +0800, Wayne Lin wrote:
-> > [Why]
-> > When change the connection status in a MST topology, mst device which
-> > detect the event will send out CONNECTION_STATUS_NOTIFY messgae.
-> >
-> > e.g. src-mst-mst-sst => src-mst (unplug) mst-sst
-> >
-> > Currently, under the above case of unplugging device, ports which have
-> > been allocated payloads and are no longer in the topology still occupy
-> > time slots and recorded in proposed_vcpi[] of topology manager.
-> >
-> > If we don't clean up the proposed_vcpi[], when code flow goes to try
-> > to update payload table by calling drm_dp_update_payload_part1(), we
-> > will fail at checking port validation due to there are ports with
-> > proposed time slots but no longer in the mst topology. As the result
-> > of that, we will also stop updating the DPCD payload table of down stream
-> port.
-> >
-> > [How]
-> > While handling the CONNECTION_STATUS_NOTIFY message, add a detection
-> > to see if the event indicates that a device is unplugged to an output port.
-> > If the detection is true, then iterrate over all proposed_vcpi[] to
-> > see whether a port of the proposed_vcpi[] is still in the topology or
-> > not. If the port is invalid, set its num_slots to 0.
-> >
-> > Thereafter, when try to update payload table by calling
-> > drm_dp_update_payload_part1(), we can successfully update the DPCD
-> > payload table of down stream port and clear the proposed_vcpi[] to NULL.
-> >
-> > Signed-off-by: Wayne Lin <Wayne.Lin@amd.com>
-> > Cc: stable@vger.kernel.org
-> > ---
-> >  drivers/gpu/drm/drm_dp_mst_topology.c | 24
-> +++++++++++++++++++++++-
-> >  1 file changed, 23 insertions(+), 1 deletion(-)
-> >
-> > diff --git a/drivers/gpu/drm/drm_dp_mst_topology.c
-> > b/drivers/gpu/drm/drm_dp_mst_topology.c
-> > index 5306c47dc820..2e236b6275c4 100644
-> > --- a/drivers/gpu/drm/drm_dp_mst_topology.c
-> > +++ b/drivers/gpu/drm/drm_dp_mst_topology.c
-> > @@ -2318,7 +2318,7 @@ drm_dp_mst_handle_conn_stat(struct
-> > drm_dp_mst_branch *mstb,  {
-> >  	struct drm_dp_mst_topology_mgr *mgr = mstb->mgr;
-> >  	struct drm_dp_mst_port *port;
-> > -	int old_ddps, ret;
-> > +	int old_ddps, old_input, ret, i;
-> >  	u8 new_pdt;
-> >  	bool dowork = false, create_connector = false;
-> >
-> > @@ -2349,6 +2349,7 @@ drm_dp_mst_handle_conn_stat(struct
-> > drm_dp_mst_branch *mstb,
-> >  	}
-> >
-> >  	old_ddps = port->ddps;
-> > +	old_input = port->input;
-> >  	port->input = conn_stat->input_port;
-> >  	port->mcs = conn_stat->message_capability_status;
-> >  	port->ldps = conn_stat->legacy_device_plug_status;
-> > @@ -2373,6 +2374,27 @@ drm_dp_mst_handle_conn_stat(struct
-> > drm_dp_mst_branch *mstb,
-> >  		dowork = false;
-> >  	}
-> >
-> > +	if (!old_input && old_ddps != port->ddps && !port->ddps) {
-> > +		for (i = 0; i < mgr->max_payloads; i++) {
-> > +			struct drm_dp_vcpi *vcpi = mgr->proposed_vcpis[i];
-> > +			struct drm_dp_mst_port *port_validated;
-> > +
-> > +			if (vcpi) {
-> > +				port_validated =
-> > +					container_of(vcpi, struct
-> > drm_dp_mst_port, vcpi);
-> > +				port_validated =
-> > +					drm_dp_mst_topology_get_port_validated
-> > (mgr, port_validated);
-> > +				if (!port_validated) {
-> > +					mutex_lock(&mgr->payload_lock);
-> > +					vcpi->num_slots = 0;
-> > +					mutex_unlock(&mgr->payload_lock);
-> > +				} else {
-> > +					drm_dp_mst_topology_put_port(port_vali
-> > dated);
-> > +				}
-> > +			}
-> > +		}
-> > +	}
-> > +
-> >  	if (port->connector)
-> >  		drm_modeset_unlock(&mgr->base.lock);
-> >  	else if (create_connector)
-> --
-> Cheers,
-> 	Lyude Paul
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+index 1b89bc3e2e8f..56540885f5c7 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+@@ -1466,7 +1466,7 @@ static int psp_np_fw_load(struct psp_context *psp)
+ 
+ 		/* Start rlc autoload after psp recieved all the gfx firmware */
+ 		if (psp->autoload_supported && ucode->ucode_id == (amdgpu_sriov_vf(adev) ?
+-		    AMDGPU_UCODE_ID_CP_MEC2 : AMDGPU_UCODE_ID_RLC_RESTORE_LIST_SRM_MEM)) {
++		    AMDGPU_UCODE_ID_CP_MEC2 : AMDGPU_UCODE_ID_RLC_G)) {
+ 			ret = psp_rlc_autoload(psp);
+ 			if (ret) {
+ 				DRM_ERROR("Failed to start rlc autoload\n"); diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.h
+index eaf2d5b9c92f..b0e656409c03 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.h
+@@ -300,10 +300,10 @@ enum AMDGPU_UCODE_ID {
+ 	AMDGPU_UCODE_ID_CP_MEC2_JT,
+ 	AMDGPU_UCODE_ID_CP_MES,
+ 	AMDGPU_UCODE_ID_CP_MES_DATA,
+-	AMDGPU_UCODE_ID_RLC_G,
+ 	AMDGPU_UCODE_ID_RLC_RESTORE_LIST_CNTL,
+ 	AMDGPU_UCODE_ID_RLC_RESTORE_LIST_GPM_MEM,
+ 	AMDGPU_UCODE_ID_RLC_RESTORE_LIST_SRM_MEM,
++	AMDGPU_UCODE_ID_RLC_G,
+ 	AMDGPU_UCODE_ID_STORAGE,
+ 	AMDGPU_UCODE_ID_SMC,
+ 	AMDGPU_UCODE_ID_UVD,
 --
-Best regards,
-Wayne Lin
+2.24.0
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
