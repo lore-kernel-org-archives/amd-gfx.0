@@ -2,67 +2,125 @@ Return-Path: <SRS0=2dg2=2U=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.4 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-8.1 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7A37CC2D0C2
-	for <amd-gfx@archiver.kernel.org>; Mon, 30 Dec 2019 15:22:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id F38CBC2D0C2
+	for <amd-gfx@archiver.kernel.org>; Mon, 30 Dec 2019 15:26:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 499E320663
-	for <amd-gfx@archiver.kernel.org>; Mon, 30 Dec 2019 15:22:16 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 72ADF20663
+	for <amd-gfx@archiver.kernel.org>; Mon, 30 Dec 2019 15:26:31 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Q15+lwJr"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 499E320663
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="vOGumX4i"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 72ADF20663
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D032489A83;
-	Mon, 30 Dec 2019 15:22:15 +0000 (UTC)
-Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com
- [IPv6:2a00:1450:4864:20::441])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BC15D89A83
- for <amd-gfx@lists.freedesktop.org>; Mon, 30 Dec 2019 15:22:13 +0000 (UTC)
-Received: by mail-wr1-x441.google.com with SMTP id q6so32884609wro.9
- for <amd-gfx@lists.freedesktop.org>; Mon, 30 Dec 2019 07:22:13 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=lU70Mwc8mcpM1Ckl/XKkLBV7q0FdRhqg/u0rpKbjqhg=;
- b=Q15+lwJr+Bx4qaI01nTh/31UefYjx67FylzzmTVXXZ3uQnCeCt174/q3V6AY8OLubl
- IqP/ah8/j2p1+5YbayRfeBinIATA69oDpLx262ppvbHjUS7URVnDhzxdj23WyqOw8FPm
- WQ92M4BDf+doZxAMjKNnxbJWBYtkvD+JZpDi4DuLElmMZ1OVy4VcEp/ppLHA5a+iDFMR
- HmEGpsBwZcmsdFWiedSI/GwTaG7z7wj0oaX4+5IMyZeGt7l86XvRDb2YgX2/6byw1eqN
- I0vMIHnCpUZQzHEf0LZcIYpXoNZTYrYh01PB9sXNmxR/URosa69i1MxxX08YnyBFUU1f
- H23Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=lU70Mwc8mcpM1Ckl/XKkLBV7q0FdRhqg/u0rpKbjqhg=;
- b=Lom4vp1a7bddxUStbbVSzKfUyumIblZW84nJU8qrABuNX6UkkXFi4QjDIFHffUaIOv
- TWoNbFaJctKQ+3r1gwDO0vWacB7AHwDeTV2EuoW/42x+GyVfzCUjprbqLmX8kmn4PiZ2
- IMo17CO95jl+mJ2wwFcAko3CQkSwY6Pqwcc3rfgSxwAN0evbknfsQ7ZcGvZZap/kOZOa
- sh1RytAXp7IRDllyuNenAmCzaT+CbS3jTfkqAPGx5VEh/vJxK6kOq+4CF59e/HtXs+pv
- EALZTBjCV0/CMxeL7nAhPOpvHGw+kM99WRu7X67r1RS4xV9WPHjlkMaT+sk78X8SIMAI
- qe+Q==
-X-Gm-Message-State: APjAAAVpxj9Bx3ygUdqRhhQAzQeRFmasb1dflBFjl3rbuexwbRhDwOq0
- iORNmWIQTCXBHxScCtlhr1BRERRnlJRLf2a/IYPSbg==
-X-Google-Smtp-Source: APXvYqxYEgvigG4mxSM3QGb38mc1Dc2Lg6UlC46dTPzsQ8NHMVraddsJiT4nDEKzYTpXKhiSIXrbtRi6NJVqABscVg8=
-X-Received: by 2002:a5d:6886:: with SMTP id h6mr54989781wru.154.1577719332170; 
- Mon, 30 Dec 2019 07:22:12 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2F20E89AB2;
+	Mon, 30 Dec 2019 15:26:31 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2059.outbound.protection.outlook.com [40.107.237.59])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9FECD89AB2;
+ Mon, 30 Dec 2019 15:26:30 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=EaozLc2DvlKjuZcjv8e5xjNrdEz8uNSqwcW60yMDLvtRECaK4cG9oC+zudctL0tzkfprgxb6l5r/kL5XSXMb6vZ4jyub3n1Cd0pXkKNKpk5YgMLM/y6l2S2NNqiJg4ZZ87Jxo2Srs/8CIM2DgzRwmgRLVOD2nqXPZzz5sZbqdnuLJRcifLve98+HeDfdEgt6WFk4b8vuO6W3hLee0fb7zoBU0R2TKln7tekk12tBLMEDq0h24yL+Kt9l77PJI8X8mknFhGHWgNXy8SCsJkrVCmvcipkk35LcmnrjD6HbWIs+azjsERHFM2chareMquVXNd90bytn3Hv0dTiw4tSeWA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=oNKF9m/9ofMbb4nZzqPCNQzyR0yZ7X9BFJ6oeuA3Ulw=;
+ b=km7iGg4pyqnlse53/OOnBa/kbTgKSaIMHRyfi85mog501g7o1N3V1kP61NPIFlN0oTnS6QnlMVUtLQ6B0ibU/WG6MkCm6iSI1Joc+wHPn35b8rRPv1ktl711QBIavLIc9SF8KWNTe9hH6nf5tERPrUxYyJYDN6hnCkUT4RuLU9eRl9jDa71C1ZV4zbXwJLaIxh2CV9Rnh9ioFDRSDGvRX/27a2YncK1z91XqM77l77GONQZ6chpx299WiIPH3uxyQOUvwjDxqX9aOlT7KdyXktW+lyjmjlnqin1CB9+MqT4pPXzKACkAFJcWe4ihn+9spAw0fO4MZDGPkXi31OcDzA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=oNKF9m/9ofMbb4nZzqPCNQzyR0yZ7X9BFJ6oeuA3Ulw=;
+ b=vOGumX4iDJlB5a2j3rE8VWCveXLYuinwrbYJKiwOh7sgGGH/4I6kRbAGcSbusuEXWRAFOFVkmD5VLOq4VhqjelN3DKwtwbSbXV5h9bqO9vH5JSOQb7JzajsbxZvFncanlsWFIi4Z2Sd+ZMRWvgiksfi7Dlk86/Hy6yQcgtDgDT8=
+Authentication-Results: spf=none (sender IP is )
+ smtp.mailfrom=Harry.Wentland@amd.com; 
+Received: from CY4PR1201MB0230.namprd12.prod.outlook.com (10.172.79.7) by
+ CY4PR1201MB0149.namprd12.prod.outlook.com (10.172.78.19) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2581.11; Mon, 30 Dec 2019 15:26:27 +0000
+Received: from CY4PR1201MB0230.namprd12.prod.outlook.com
+ ([fe80::301e:b0c8:7af:d77d]) by CY4PR1201MB0230.namprd12.prod.outlook.com
+ ([fe80::301e:b0c8:7af:d77d%11]) with mapi id 15.20.2581.007; Mon, 30 Dec 2019
+ 15:26:27 +0000
+Subject: Re: [PATCH] drm/dp_mst: correct the shifting in DP_REMOTE_I2C_READ
+To: Wayne Lin <Wayne.Lin@amd.com>, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org
+References: <20191230070516.4760-1-Wayne.Lin@amd.com>
+From: Harry Wentland <hwentlan@amd.com>
+Autocrypt: addr=hwentlan@amd.com; keydata=
+ mQENBFhb4C8BCADhHHUNoBQ7K7LupCP0FsUb443Vuqq+dH0uo4A3lnPkMF6FJmGcJ9Sbx1C6
+ cd4PbVAaTFZUEmjqfpm+wCRBe11eF55hW3GJ273wvfH69Q/zmAxwO8yk+i5ZWWl8Hns5h69K
+ D9QURHLpXxrcwnfHFah0DwV23TrD1KGB7vowCZyJOw93U/GzAlXKESy0FM7ZOYIJH83X7qhh
+ Q9KX94iTEYTeH86Wy8hwHtqM6ySviwEz0g+UegpG8ebbz0w3b5QmdKCAg+eZTmBekP5o77YE
+ BKqR+Miiwo9+tzm2N5GiF9HDeI2pVe/egOLa5UcmsgdF4Y5FKoMnBbAHNaA6Fev8PHlNABEB
+ AAG0J0hhcnJ5IFdlbnRsYW5kIDxoYXJyeS53ZW50bGFuZEBhbWQuY29tPokBNwQTAQgAIQUC
+ WFvgLwIbAwULCQgHAgYVCAkKCwIEFgIDAQIeAQIXgAAKCRAtWBXJjBS24xUlCAC9MqAlIbZO
+ /a37s41h+MQ+D20C6/hVErWO+RA06nA+jFDPUWrDJKYdn6EDQWdLY3ATeAq3X8GIeOTXGrPD
+ b2OXD6kOViW/RNvlXdrIsnIDacdr39aoAlY1b+bhTzZVz4pto4l+K1PZb5jlMgTk/ks9HesL
+ RfYVq5wOy3qIpocdjdlXnSUKn0WOkGBBd8Nv3o0OI18tiJ1S/QwLBBfZoVvfGinoB2p4j/wO
+ kJxpi3F9TaOtLGcdrgfghg31Fb48DP+6kodZ4ircerp4hyAp0U2iKtsrQ/sVWR4mbe3eTfcn
+ YjBxGd2JOVdNQZa2VTNf9GshIDMD8IIQK6jN0LfY8Py2uQENBFhb4C8BCAC/0KWY3pIbU2cy
+ i7GMj3gqB6h0jGqRuMpMRoSNDoAUIuSh17w+bawuOF6XZPdK3D4lC9cOXMwP3aP9tTJOori2
+ 8vMH8KW9jp9lAYnGWYhSqLdjzIACquMqi96EBtawJDct1e9pVgp+d4JXHlgIrl11ITJo8rCP
+ dEqjro2bCBWxijsIncdCzMjf57+nR7u86SBtGSFcXKapS7YJeWcvM6MzFYgIkxHxxBDvBBvm
+ U2/mAXiL72kwmlV1BNrabQxX2UnIb3xt3UovYJehrnDUMdYjxJgSPRBx27wQ/D05xAlhkmmL
+ FJ01ZYc412CRCC6gjgFPfUi2y7YJTrQHS79WSyANABEBAAGJAR8EGAEIAAkFAlhb4C8CGwwA
+ CgkQLVgVyYwUtuM72Qf+J6JOQ/27pWf5Ulde9GS0BigA1kV9CNfIq396TgvQzeyixHMvgPdq
+ Z36x89zZi0otjMZv6ypIdEg5co1Bvz0wFaKbCiNbTjpnA1VAbQVLSFjCZLQiu0vc+BZ1yKDV
+ T5ASJ97G4XvQNO+XXGY55MrmhoNqMaeIa/3Jas54fPVd5olcnUAyDty29/VWXNllUq38iBCX
+ /0tTF7oav1lzPGfeW2c6B700FFZMTR4YBVSGE8jPIzu2Fj0E8EkDmsgS+nibqSvWXfo1v231
+ 410h35CjbYDlYQO7Z1YD7asqbaOnF0As+rckyRMweQ9CxZn5+YBijtPJA3x5ldbCfQ9rWiTu XQ==
+Message-ID: <084e73fe-0f8c-a9da-3b20-0dc6804e8602@amd.com>
+Date: Mon, 30 Dec 2019 10:26:10 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.3.1
+In-Reply-To: <20191230070516.4760-1-Wayne.Lin@amd.com>
+Content-Language: en-US
+X-ClientProxiedBy: YTOPR0101CA0043.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b00:14::20) To CY4PR1201MB0230.namprd12.prod.outlook.com
+ (2603:10b6:910:1e::7)
 MIME-Version: 1.0
-References: <20191230104931.28260-1-evan.quan@amd.com>
- <20191230104931.28260-2-evan.quan@amd.com>
-In-Reply-To: <20191230104931.28260-2-evan.quan@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 30 Dec 2019 10:22:00 -0500
-Message-ID: <CADnq5_McMMHEShBoKoe+msb0Nj0rdCaeX5F3EO7iUXEomJ2m1A@mail.gmail.com>
-Subject: Re: [PATCH 2/2] drm/amd/powerplay: allocate one piece of VRAM for all
- tables transferring
-To: Evan Quan <evan.quan@amd.com>
+Received: from [172.29.18.152] (165.204.55.250) by
+ YTOPR0101CA0043.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b00:14::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2581.11 via Frontend
+ Transport; Mon, 30 Dec 2019 15:26:26 +0000
+X-Originating-IP: [165.204.55.250]
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: ce496924-d3a3-4581-01d8-08d78d3ca316
+X-MS-TrafficTypeDiagnostic: CY4PR1201MB0149:|CY4PR1201MB0149:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <CY4PR1201MB0149D34F7E65D07E60A52A1A8C270@CY4PR1201MB0149.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:147;
+X-Forefront-PRVS: 0267E514F9
+X-Forefront-Antispam-Report: SFV:NSPM;
+ SFS:(10009020)(4636009)(39860400002)(346002)(396003)(136003)(376002)(366004)(189003)(199004)(4001150100001)(8676002)(16526019)(186003)(36756003)(4326008)(956004)(2616005)(81166006)(5660300002)(81156014)(478600001)(8936002)(31696002)(26005)(53546011)(31686004)(316002)(16576012)(66946007)(66556008)(66476007)(52116002)(6486002)(6666004)(2906002)(70780200001);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:CY4PR1201MB0149;
+ H:CY4PR1201MB0230.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; MX:1; A:1; 
+Received-SPF: None (protection.outlook.com: amd.com does not designate
+ permitted sender hosts)
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: hLeAIObshOiQsUwCk9If5GLd8AAHA7iFAfXeOTaGnSkm8Zh+uqgti/9zVbYZ3UONlKC/6kAvp1Kujg4UsoeZSEvL8wEdO7F8ky5sNsEw2hVjKCebEYWkSsJTwHiKF9SBBQbSPIauKWw7XCujIpwAJsqg+RW5gHOp3h3QECM5LkJeJ3E0nR9F12mgwMkittLskuQTP1zT5IF69JZiTjmmdlOl3S8dECFpSkIGSwTn1W9EX2i1bCFffUYemRBuvJcl8CS826LKXqtUYZkUAtzZQ3Gcn8B6CsulzTAelU7jPtv3lJdR5DN6IITCd1mcx7VOkiaptUJ/AdtVagUs/K6cRO6l8+BZLm2QddrcaSlZxzLlmb4pyHj4Jiq8SNhjBXBXs44B6LXYGRwhsRQyov24ehvLQVqVMKcNSN45on8nIpKY+oWg7Kt5JhwPAEvJTA+t3wlDoYBNJ+UW6nxQBdHyXh5NcTxvd5xHLGmkbvma/7hXvyUi/xyQaZwNU17FJ2S+
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ce496924-d3a3-4581-01d8-08d78d3ca316
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Dec 2019 15:26:27.3005 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: CX7mzzxn65f7sKkUt7vGvZAkNZKuG4m5TLTEzciawvMcdCX9gtuBqP0aaHR7u5x6SoObN1wblyR6aenbsnHrfg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR1201MB0149
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,338 +132,47 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>
+Cc: harry.wentland@amd.com, jerry.zuo@amd.com, Nicholas.Kazlauskas@amd.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Dec 30, 2019 at 5:50 AM Evan Quan <evan.quan@amd.com> wrote:
->
-> Simplify the table transferring between driver and SMU and use less
-> VRAM.
->
-> Change-Id: I3f9b54fd9b8c0bcaeb533fc1a07bb06050fefbd8
-> Signed-off-by: Evan Quan <evan.quan@amd.com>
+On 2019-12-30 2:05 a.m., Wayne Lin wrote:
+> [Why]
+> According to DP spec, it should shift left 4 digits for NO_STOP_BIT
+> in REMOTE_I2C_READ message. Not 5 digits.
+> 
+> [How]
+> Correct the shifting value of NO_STOP_BIT for DP_REMOTE_I2C_READ case in
+> drm_dp_encode_sideband_req().
+> 
+> Signed-off-by: Wayne Lin <Wayne.Lin@amd.com>
+
+Good catch. Looks like this has been there since the beginning of MST in
+the kernel. How did you find this? Did this cause bad EDID reads or some
+other problem? If so the commit message should probably mention it.
+
+Harry
+
 > ---
->  drivers/gpu/drm/amd/powerplay/amdgpu_smu.c    | 101 ++++++++++--------
->  drivers/gpu/drm/amd/powerplay/arcturus_ppt.c  |   2 +-
->  .../gpu/drm/amd/powerplay/inc/amdgpu_smu.h    |   3 +-
->  drivers/gpu/drm/amd/powerplay/navi10_ppt.c    |   4 +
->  drivers/gpu/drm/amd/powerplay/renoir_ppt.c    |   4 +
->  drivers/gpu/drm/amd/powerplay/smu_v11_0.c     |   4 +-
->  drivers/gpu/drm/amd/powerplay/smu_v12_0.c     |  10 +-
->  drivers/gpu/drm/amd/powerplay/vega20_ppt.c    |   4 +
->  8 files changed, 73 insertions(+), 59 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c b/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
-> index c3cb1b8f43b5..bd3dbd1a0ad3 100644
-> --- a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
-> +++ b/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
-> @@ -490,7 +490,7 @@ int smu_update_table(struct smu_context *smu, enum smu_table_id table_index, int
->  {
->         struct smu_table_context *smu_table = &smu->smu_table;
->         struct amdgpu_device *adev = smu->adev;
-> -       struct smu_table *table = smu_table->driver_table;
-> +       struct smu_table *table = &smu_table->driver_table;
->         int table_id = smu_table_get_index(smu, table_index);
->         uint32_t table_size;
->         int ret = 0;
-> @@ -941,24 +941,26 @@ static int smu_init_fb_allocations(struct smu_context *smu)
->         struct amdgpu_device *adev = smu->adev;
->         struct smu_table_context *smu_table = &smu->smu_table;
->         struct smu_table *tables = smu_table->tables;
-> -       struct smu_table **driver_table = &(smu_table->driver_table);
-> +       struct smu_table *driver_table = &(smu_table->driver_table);
->         uint32_t max_table_size = 0;
-> -       int ret, i, index = 0;
-> +       int ret, i;
->
-> -       for (i = 0; i < SMU_TABLE_COUNT; i++) {
-> -               if (tables[i].size == 0)
-> -                       continue;
-> +       /* VRAM allocation for tool table */
-> +       if (tables[SMU_TABLE_PMSTATUSLOG].size) {
->                 ret = amdgpu_bo_create_kernel(adev,
-> -                                             tables[i].size,
-> -                                             tables[i].align,
-> -                                             tables[i].domain,
-> -                                             &tables[i].bo,
-> -                                             &tables[i].mc_address,
-> -                                             &tables[i].cpu_addr);
-> -               if (ret)
-> -                       goto failed;
-> +                                             tables[SMU_TABLE_PMSTATUSLOG].size,
-> +                                             tables[SMU_TABLE_PMSTATUSLOG].align,
-> +                                             tables[SMU_TABLE_PMSTATUSLOG].domain,
-> +                                             &tables[SMU_TABLE_PMSTATUSLOG].bo,
-> +                                             &tables[SMU_TABLE_PMSTATUSLOG].mc_address,
-> +                                             &tables[SMU_TABLE_PMSTATUSLOG].cpu_addr);
-> +               if (ret) {
-> +                       pr_err("VRAM allocation for tool table failed!\n");
-> +                       return ret;
-> +               }
->         }
->
-> +       /* VRAM allocation for driver table */
->         for (i = 0; i < SMU_TABLE_COUNT; i++) {
->                 if (tables[i].size == 0)
->                         continue;
-> @@ -966,24 +968,29 @@ static int smu_init_fb_allocations(struct smu_context *smu)
->                 if (i == SMU_TABLE_PMSTATUSLOG)
->                         continue;
->
-> -               if (max_table_size < tables[i].size) {
-> +               if (max_table_size < tables[i].size)
->                         max_table_size = tables[i].size;
-> -                       index = i;
-> -               }
->         }
->
-> -       *driver_table = &tables[index];
-> -
-> -       return 0;
-> -failed:
-> -       while (--i >= 0) {
-> -               if (tables[i].size == 0)
-> -                       continue;
-> -               amdgpu_bo_free_kernel(&tables[i].bo,
-> -                                     &tables[i].mc_address,
-> -                                     &tables[i].cpu_addr);
-> -
-> +       driver_table->size = max_table_size;
-> +       driver_table->align = PAGE_SIZE;
-> +       driver_table->domain = AMDGPU_GEM_DOMAIN_VRAM;
-> +
-> +       ret = amdgpu_bo_create_kernel(adev,
-> +                                     driver_table->size,
-> +                                     driver_table->align,
-> +                                     driver_table->domain,
-> +                                     &driver_table->bo,
-> +                                     &driver_table->mc_address,
-> +                                     &driver_table->cpu_addr);
-> +       if (ret) {
-> +               pr_err("VRAM allocation for driver table failed!\n");
-> +               if (tables[SMU_TABLE_PMSTATUSLOG].mc_address)
-> +                       amdgpu_bo_free_kernel(&tables[SMU_TABLE_PMSTATUSLOG].bo,
-> +                                             &tables[SMU_TABLE_PMSTATUSLOG].mc_address,
-> +                                             &tables[SMU_TABLE_PMSTATUSLOG].cpu_addr);
->         }
-> +
->         return ret;
-
-Shouldn't this change be merged into the previous patch?  Otherwise,
-we'll break I think.
-
->  }
->
-> @@ -991,18 +998,19 @@ static int smu_fini_fb_allocations(struct smu_context *smu)
->  {
->         struct smu_table_context *smu_table = &smu->smu_table;
->         struct smu_table *tables = smu_table->tables;
-> -       uint32_t i = 0;
-> +       struct smu_table *driver_table = &(smu_table->driver_table);
->
->         if (!tables)
->                 return 0;
->
-> -       for (i = 0; i < SMU_TABLE_COUNT; i++) {
-> -               if (tables[i].size == 0)
-> -                       continue;
-> -               amdgpu_bo_free_kernel(&tables[i].bo,
-> -                                     &tables[i].mc_address,
-> -                                     &tables[i].cpu_addr);
-> -       }
-> +       if (tables[SMU_TABLE_PMSTATUSLOG].mc_address)
-> +               amdgpu_bo_free_kernel(&tables[SMU_TABLE_PMSTATUSLOG].bo,
-> +                                     &tables[SMU_TABLE_PMSTATUSLOG].mc_address,
-> +                                     &tables[SMU_TABLE_PMSTATUSLOG].cpu_addr);
-> +
-> +       amdgpu_bo_free_kernel(&driver_table->bo,
-> +                             &driver_table->mc_address,
-> +                             &driver_table->cpu_addr);
->
->         return 0;
->  }
-> @@ -1913,26 +1921,25 @@ int smu_set_df_cstate(struct smu_context *smu,
->
->  int smu_write_watermarks_table(struct smu_context *smu)
->  {
-> -       int ret = 0;
-> -       struct smu_table_context *smu_table = &smu->smu_table;
-> -       struct smu_table *table = NULL;
-> +       void *watermarks_table = smu->smu_table.watermarks_table;
->
-> -       table = &smu_table->tables[SMU_TABLE_WATERMARKS];
-> -
-> -       if (!table->cpu_addr)
-> +       if (!watermarks_table)
->                 return -EINVAL;
->
-> -       ret = smu_update_table(smu, SMU_TABLE_WATERMARKS, 0, table->cpu_addr,
-> +       return smu_update_table(smu,
-> +                               SMU_TABLE_WATERMARKS,
-> +                               0,
-> +                               watermarks_table,
->                                 true);
-> -
-> -       return ret;
->  }
->
->  int smu_set_watermarks_for_clock_ranges(struct smu_context *smu,
->                 struct dm_pp_wm_sets_with_clock_ranges_soc15 *clock_ranges)
->  {
-> -       struct smu_table *watermarks = &smu->smu_table.tables[SMU_TABLE_WATERMARKS];
-> -       void *table = watermarks->cpu_addr;
-> +       void *table = smu->smu_table.watermarks_table;
-> +
-> +       if (!table)
-> +               return -EINVAL;
->
->         mutex_lock(&smu->mutex);
->
-> diff --git a/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c b/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c
-> index e89965e5fdcb..064b5201a8a7 100644
-> --- a/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c
-> +++ b/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c
-> @@ -2022,7 +2022,7 @@ static int arcturus_i2c_eeprom_read_data(struct i2c_adapter *control,
->         SwI2cRequest_t req;
->         struct amdgpu_device *adev = to_amdgpu_device(control);
->         struct smu_table_context *smu_table = &adev->smu.smu_table;
-> -       struct smu_table *table = &smu_table->tables[SMU_TABLE_I2C_COMMANDS];
-> +       struct smu_table *table = &smu_table->driver_table;
->
->         memset(&req, 0, sizeof(req));
->         arcturus_fill_eeprom_i2c_req(&req, false, address, numbytes, data);
-> diff --git a/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h b/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h
-> index ed193adc881c..121bf81eced5 100644
-> --- a/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h
-> +++ b/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h
-> @@ -254,12 +254,13 @@ struct smu_table_context
->         unsigned long                   metrics_time;
->         void                            *metrics_table;
->         void                            *clocks_table;
-> +       void                            *watermarks_table;
-
-Can you split out the watermarks change as a separate patch or at
-least explain why you are changing how it's handled?
-
-Alex
-
->
->         void                            *max_sustainable_clocks;
->         struct smu_bios_boot_up_values  boot_values;
->         void                            *driver_pptable;
->         struct smu_table                *tables;
-> -       struct smu_table                *driver_table;
-> +       struct smu_table                driver_table;
->         struct smu_table                memory_pool;
->         uint8_t                         thermal_controller_type;
->
-> diff --git a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c b/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
-> index ed147dd51325..aa206bde619b 100644
-> --- a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
-> +++ b/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
-> @@ -555,6 +555,10 @@ static int navi10_tables_init(struct smu_context *smu, struct smu_table *tables)
->                 return -ENOMEM;
->         smu_table->metrics_time = 0;
->
-> +       smu_table->watermarks_table = kzalloc(sizeof(Watermarks_t), GFP_KERNEL);
-> +       if (!smu_table->watermarks_table)
-> +               return -ENOMEM;
-> +
->         return 0;
->  }
->
-> diff --git a/drivers/gpu/drm/amd/powerplay/renoir_ppt.c b/drivers/gpu/drm/amd/powerplay/renoir_ppt.c
-> index c4b5984c86d9..861e6410363b 100644
-> --- a/drivers/gpu/drm/amd/powerplay/renoir_ppt.c
-> +++ b/drivers/gpu/drm/amd/powerplay/renoir_ppt.c
-> @@ -209,6 +209,10 @@ static int renoir_tables_init(struct smu_context *smu, struct smu_table *tables)
->                 return -ENOMEM;
->         smu_table->metrics_time = 0;
->
-> +       smu_table->watermarks_table = kzalloc(sizeof(Watermarks_t), GFP_KERNEL);
-> +       if (!smu_table->watermarks_table)
-> +               return -ENOMEM;
-> +
->         return 0;
->  }
->
-> diff --git a/drivers/gpu/drm/amd/powerplay/smu_v11_0.c b/drivers/gpu/drm/amd/powerplay/smu_v11_0.c
-> index 79a63edcd7ba..962e97860fe8 100644
-> --- a/drivers/gpu/drm/amd/powerplay/smu_v11_0.c
-> +++ b/drivers/gpu/drm/amd/powerplay/smu_v11_0.c
-> @@ -450,8 +450,10 @@ int smu_v11_0_fini_smc_tables(struct smu_context *smu)
->
->         kfree(smu_table->tables);
->         kfree(smu_table->metrics_table);
-> +       kfree(smu_table->watermarks_table);
->         smu_table->tables = NULL;
->         smu_table->metrics_table = NULL;
-> +       smu_table->watermarks_table = NULL;
->         smu_table->metrics_time = 0;
->
->         ret = smu_v11_0_fini_dpm_context(smu);
-> @@ -776,7 +778,7 @@ int smu_v11_0_set_min_dcef_deep_sleep(struct smu_context *smu)
->
->  int smu_v11_0_set_driver_table_location(struct smu_context *smu)
->  {
-> -       struct smu_table *driver_table = smu->smu_table.driver_table;
-> +       struct smu_table *driver_table = &smu->smu_table.driver_table;
->         int ret = 0;
->
->         if (driver_table->mc_address) {
-> diff --git a/drivers/gpu/drm/amd/powerplay/smu_v12_0.c b/drivers/gpu/drm/amd/powerplay/smu_v12_0.c
-> index cd2be9fb2513..2b1ef9eb0db6 100644
-> --- a/drivers/gpu/drm/amd/powerplay/smu_v12_0.c
-> +++ b/drivers/gpu/drm/amd/powerplay/smu_v12_0.c
-> @@ -318,14 +318,6 @@ int smu_v12_0_fini_smc_tables(struct smu_context *smu)
->  int smu_v12_0_populate_smc_tables(struct smu_context *smu)
->  {
->         struct smu_table_context *smu_table = &smu->smu_table;
-> -       struct smu_table *table = NULL;
-> -
-> -       table = &smu_table->tables[SMU_TABLE_DPMCLOCKS];
-> -       if (!table)
-> -               return -EINVAL;
-> -
-> -       if (!table->cpu_addr)
-> -               return -EINVAL;
->
->         return smu_update_table(smu, SMU_TABLE_DPMCLOCKS, 0, smu_table->clocks_table, false);
->  }
-> @@ -517,7 +509,7 @@ int smu_v12_0_set_soft_freq_limited_range(struct smu_context *smu, enum smu_clk_
->
->  int smu_v12_0_set_driver_table_location(struct smu_context *smu)
->  {
-> -       struct smu_table *driver_table = smu->smu_table.driver_table;
-> +       struct smu_table *driver_table = &smu->smu_table.driver_table;
->         int ret = 0;
->
->         if (driver_table->mc_address) {
-> diff --git a/drivers/gpu/drm/amd/powerplay/vega20_ppt.c b/drivers/gpu/drm/amd/powerplay/vega20_ppt.c
-> index 12f97956058b..38febd5ca4da 100644
-> --- a/drivers/gpu/drm/amd/powerplay/vega20_ppt.c
-> +++ b/drivers/gpu/drm/amd/powerplay/vega20_ppt.c
-> @@ -338,6 +338,10 @@ static int vega20_tables_init(struct smu_context *smu, struct smu_table *tables)
->                 return -ENOMEM;
->         smu_table->metrics_time = 0;
->
-> +       smu_table->watermarks_table = kzalloc(sizeof(Watermarks_t), GFP_KERNEL);
-> +       if (!smu_table->watermarks_table)
-> +               return -ENOMEM;
-> +
->         return 0;
->  }
->
-> --
-> 2.24.0
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+>  drivers/gpu/drm/drm_dp_mst_topology.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/drm_dp_mst_topology.c b/drivers/gpu/drm/drm_dp_mst_topology.c
+> index 1d1bfa49ca2b..0557e225ff67 100644
+> --- a/drivers/gpu/drm/drm_dp_mst_topology.c
+> +++ b/drivers/gpu/drm/drm_dp_mst_topology.c
+> @@ -393,7 +393,7 @@ drm_dp_encode_sideband_req(const struct drm_dp_sideband_msg_req_body *req,
+>  			memcpy(&buf[idx], req->u.i2c_read.transactions[i].bytes, req->u.i2c_read.transactions[i].num_bytes);
+>  			idx += req->u.i2c_read.transactions[i].num_bytes;
+>  
+> -			buf[idx] = (req->u.i2c_read.transactions[i].no_stop_bit & 0x1) << 5;
+> +			buf[idx] = (req->u.i2c_read.transactions[i].no_stop_bit & 0x1) << 4;
+>  			buf[idx] |= (req->u.i2c_read.transactions[i].i2c_transaction_delay & 0xf);
+>  			idx++;
+>  		}
+> 
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
