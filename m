@@ -2,73 +2,104 @@ Return-Path: <SRS0=Ppqo=2W=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.8 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-8.0 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3F569C2D0DC
-	for <amd-gfx@archiver.kernel.org>; Wed,  1 Jan 2020 09:36:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7AD89C2D0DC
+	for <amd-gfx@archiver.kernel.org>; Wed,  1 Jan 2020 11:17:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D8A27206DB
-	for <amd-gfx@archiver.kernel.org>; Wed,  1 Jan 2020 09:36:14 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 3AD5E2072C
+	for <amd-gfx@archiver.kernel.org>; Wed,  1 Jan 2020 11:17:42 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=gmx.net header.i=@gmx.net header.b="EmLcRTdb"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D8A27206DB
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=gmx.com
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="EQB6y/SK"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3AD5E2072C
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9E34D89491;
-	Wed,  1 Jan 2020 09:36:13 +0000 (UTC)
-X-Greylist: delayed 304 seconds by postgrey-1.36 at gabe;
- Wed, 01 Jan 2020 09:36:11 UTC
-Received: from mout.gmx.net (mout.gmx.net [212.227.15.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9223389491
- for <amd-gfx@lists.freedesktop.org>; Wed,  1 Jan 2020 09:36:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gmx.net;
- s=badeba3b8450; t=1577871369;
- bh=FbO2DJrR964d1vT40CDiKnTheSgkCoUN9WYuJQr0UcU=;
- h=X-UI-Sender-Class:To:From:Subject:Date;
- b=EmLcRTdbiNTw27ev9AYyKxdSQtibs4MEUvh+HLKYbaVdxT5x+kDVe6moJGfY6tdXD
- MLyo2yQBEJNLvg11d+Pddl8PfrAL3dG5W3bb+7UYn09MyQ4deQBFntuRppyNpmFh6/
- BGXXqDMTu+m+0BqydY0k6oK25NkYv/a2bzOuoCNs=
-X-UI-Sender-Class: 01bb95c1-4bf8-414a-932a-4f6e2808ef9c
-Received: from [0.0.0.0] ([149.28.201.231]) by mail.gmx.com (mrgmx005
- [212.227.17.184]) with ESMTPSA (Nemesis) id 1MF3He-1ixZlh08fg-00FUQm for
- <amd-gfx@lists.freedesktop.org>; Wed, 01 Jan 2020 10:31:05 +0100
-To: amd-gfx@lists.freedesktop.org
-From: Qu Wenruo <quwenruo.btrfs@gmx.com>
-Subject: eGPU failed to initialize
-Message-ID: <5cf8e6e2-7ec5-1412-f82d-462e9e15a8aa@gmx.com>
-Date: Wed, 1 Jan 2020 17:31:02 +0800
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.3.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id AA56789B30;
+	Wed,  1 Jan 2020 11:17:41 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2047.outbound.protection.outlook.com [40.107.92.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A986789B30
+ for <amd-gfx@lists.freedesktop.org>; Wed,  1 Jan 2020 11:17:39 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=d5h4rMi3hKHud6HrF8l2yNShWrj4akRps3wHw6bWXVG5QuvQvzx9jb+UwkAqd14m0IbUQVV1C9At8MouoPdYqEZ32KRkOqLB1AOdJfjrEA5OnZ8WwWcTGSi5lzWekPVg0lFubGpUrjfESbkv2EguoTto1r3XGnvSI6Ap0lU3KUcwIbhE6VZDmfZGQ9A3O9lJf7z6cF9i9s5TujiPSdWqqi8n4KNN8mWWFeMcTiJCUZN41XZZXssbs7XYi5ucnsv5a5Wt9bwFohA5BCJB853RJw0CFKWR0WYj75rq954rRYrH55ithDQBRN+1QZNfrpmGhwh4RGTQ6QIDGMaKBQQ6+A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=T6Ulw/8BsRWARH56utjZIdd9UwLlghSs35xeZSAK6Io=;
+ b=D/zcxpHPRccefxhvBr7Kd0pHQD5tCEgWc4nCrrtfoCghLEQWs6bFLHstI1PVFdDmoLG5o4QpcdT+Pyd0QSrXuww7PriUkR4wxXqFsda1z6jq7HOYJpqGcP5x55bKOLygctYuY01hfgPhmjj2IArQwOyx1R6oU+A9DUETmQnilv5n34t7j4e4UPjFtx69BsezHh85An88vripmM3fzVKZ/i5NdNGTSYAi6snh1Hc4rpf5LbzJTL35Ml3PykimX/Us/eIKi3eBX5/JBsi9XpoFi94+uVVWQOH2leGbl0TmNQ+osjiL1JvpqfGAsxjkBeCRYWTpSfnFCMksZV2KOCr2Zw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=T6Ulw/8BsRWARH56utjZIdd9UwLlghSs35xeZSAK6Io=;
+ b=EQB6y/SKtnCdlgaW8K3li4zZEI8UL6tvcgBLpamaAKkxAHXGO90tQ2Dpbo8YLNpMWNJh/qIYcRz45nyirz4LROvL/i7wNbapZY/BDtU0j7Dfln2C9RPIj2/3++V1Cy4JOPtk4S93eq34P6vBDTtiug8f8JlSrpssnJyjsAKYoSI=
+Authentication-Results: spf=none (sender IP is )
+ smtp.mailfrom=Christian.Koenig@amd.com; 
+Received: from DM5PR12MB1705.namprd12.prod.outlook.com (10.175.88.22) by
+ DM5PR12MB2533.namprd12.prod.outlook.com (52.132.139.10) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2602.10; Wed, 1 Jan 2020 11:17:35 +0000
+Received: from DM5PR12MB1705.namprd12.prod.outlook.com
+ ([fe80::80df:f8b:e547:df84]) by DM5PR12MB1705.namprd12.prod.outlook.com
+ ([fe80::80df:f8b:e547:df84%12]) with mapi id 15.20.2581.013; Wed, 1 Jan 2020
+ 11:17:35 +0000
+Subject: Re: [PATCH] drm/amdgpu: correctly report gpu recover status
+To: "Quan, Evan" <Evan.Quan@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+References: <20191218032534.28482-1-evan.quan@amd.com>
+ <5ae5f01d-e7cd-d6b4-2433-90c03809e1b3@gmail.com>
+ <MN2PR12MB3344EA5ABA08AA3C3DB61DA8E4520@MN2PR12MB3344.namprd12.prod.outlook.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+Message-ID: <91cee3b3-08f4-95fc-5a74-ca0aad38b4aa@amd.com>
+Date: Wed, 1 Jan 2020 12:17:30 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.9.0
+In-Reply-To: <MN2PR12MB3344EA5ABA08AA3C3DB61DA8E4520@MN2PR12MB3344.namprd12.prod.outlook.com>
+Content-Language: en-US
+X-ClientProxiedBy: FRYP281CA0013.DEUP281.PROD.OUTLOOK.COM (2603:10a6:d10::23)
+ To DM5PR12MB1705.namprd12.prod.outlook.com
+ (2603:10b6:3:10c::22)
 MIME-Version: 1.0
-X-Provags-ID: V03:K1:eAhHIk5tHlSBANhR+QgQMJ/kw+x149gv3pQAlMkD+Jkw/2wm4Us
- x2VNsMT6I5ihdl/TttW9q79jX24/uMjZGugUNyQ8ApioOxss5XfHSkCw6zBKx15HsMKQ2ZV
- hp7tMfwh4xM9jI+rvd6LraiOwRdQAZvUKoJSCxgS5Y5wqofCv6gLwwHN5ispBSaqjCNLQBI
- Gjvly36cNIrWeg8T5qdRw==
-X-UI-Out-Filterresults: notjunk:1;V03:K0:CHW5rRoJWMg=:m2Pq6oHMGJvNePsyneU+vK
- 5W2TK+ATkFZTJhSWnnmnkaK6FIkcB5BfnfC6Bg5AC8/BDFALP8ENRvTg4W2TPvxUlmbDSfjIT
- rdK83YzVODA0Z4VvVM4VaQL7r08j71ma6RPfce+PPSQmUarcY9q/8D5LRQnWbPQgRrY74/Sg0
- PIUOZD0CVl2IgQXPMB/2txp2oPuy0vRx9YZy5xh3NLv9+IoCy2tnrd9N/uscRt5PtCeRaQOsq
- qQA1+mAZmfuv18tZP6lsR9SCoasZEKwGiAgr2l5M9w9f7JcKb75p5fnYo1XO32AuIgONBTv5Q
- nw5cdgpCSGu1ldN/T8Mqgin+MNUhbSff7TQ542Cg7flxfQFLW+OeLFz3xFmz5pMGzQAOYQixX
- aCWfJNTey12NTOaqI5Th5oJg64h6ZFRthZxCHYRgiOJK6GsmtXv9eTzHTzFNKcWFh7UCQ26Sa
- gkBFYlF5/ldMtsInNIt4/yFs6FKwPmXAbgSdH/SMdjLNh8Vn6A0hcc2gK9ZOoarEgAmyHrPrL
- +mZ4iODtWd9I3eqbOhQJboK8uwSfNdVFFD2WolORUhBdJ3jWXb19GKKyJpaDn22MgWgH2vVWV
- T1QXCHePEufnj1/iDDS3oL51tH6FJcYb+EDv0in3D9Xv4r2ECOjUTWQOlUjfX56Bp6r5RaooC
- RoKGVGurB2IObKY2O1ldNGdCCGYY/tM8tg4KuvFe2r6Zuek+78OUNPKXh+EDNbqAzkSTQ93tk
- jy/iFbUXXR38D42YJWyP0yMTUSGo+CncotgbTr540ABnlCUEBzwpn46MmCvn14umLp7OTTUjo
- B6cZTAZGVsyIz9MWojGBtD9rZAOz9zMuILtblBcFBoqqHnuTAN2cwDSprTze++eTnMVZ8fl8L
- 1/lFmJQn+ghf+3FfhTTtYTVR1BVC30dnLCy+/xcbkgr6yAUzgbgVwUfxItjl5mLrvjeXxtz6J
- G0P4ivwHp1n0hMLWwzFmFKs//GLgNrKlOUTJb9qygFgEynzeOx1YtBOlWjkJjidpc+aBKFKk2
- HShvW5Ap7u0GSCIb/h8A/j1ihuP/TAKuDyC6RjuHoF8IAmkGAG1AKc5wDTeV8nD1FOZAdWW5u
- nR4MWfDMDaxstUdWdKVciLO2NlrUfmZ771JtFYV6H2lIqpnOokw5PzlUIrgYqxzuR5JR8Zzp+
- 0FPq/b8ONUgwUVho5lr583enLWtKGAI+30VL2Hdl8llOfnwPikcsl0Vt/QlijDoBBsiT4q4iC
- x1w6DupORNks0fU6qHUcAc7Z+t7uuHp8YtG+1HImReB106ywsasouZgFqoVM=
+Received: from [IPv6:2a02:908:1252:fb60:be8a:bd56:1f94:86e7]
+ (2a02:908:1252:fb60:be8a:bd56:1f94:86e7) by
+ FRYP281CA0013.DEUP281.PROD.OUTLOOK.COM (2603:10a6:d10::23) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2602.10 via Frontend Transport; Wed, 1 Jan 2020 11:17:34 +0000
+X-Originating-IP: [2a02:908:1252:fb60:be8a:bd56:1f94:86e7]
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: b22ae985-26e6-4de7-0792-08d78eac33f2
+X-MS-TrafficTypeDiagnostic: DM5PR12MB2533:|DM5PR12MB2533:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <DM5PR12MB253329F2279FC208AE7DEB9E83210@DM5PR12MB2533.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
+X-Forefront-PRVS: 02698DF457
+X-Forefront-Antispam-Report: SFV:NSPM;
+ SFS:(10009020)(4636009)(376002)(346002)(366004)(39850400004)(396003)(136003)(189003)(199004)(13464003)(8936002)(16526019)(186003)(81156014)(8676002)(66476007)(66946007)(2616005)(2906002)(66556008)(81166006)(478600001)(53546011)(6486002)(52116002)(31686004)(31696002)(110136005)(86362001)(316002)(5660300002)(6666004)(36756003)(66574012);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:DM5PR12MB2533;
+ H:DM5PR12MB1705.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; MX:1; A:1; 
+Received-SPF: None (protection.outlook.com: amd.com does not designate
+ permitted sender hosts)
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: YHWjN2yDlAM15t2iqx6lTCk8i9e4b2Ov0QFc57TdCq27cPRp3FcWhdFJS1koc3si6lXIvQ/VgJwIXYsqocvJQ8JrUT87TUzLM4sf8vtvULncNkARuHa6NDBzwS0FmiRrMVHGEeewuNLLuwPSD7haMr2CqYgw6/1qLVRZ8ngSPrggBleNvMCGFsDP0Xc9PPcdovSYL7oYbl9mHPcXf3LyeJoPDZ1PS01l5bqmO3hqkpjGVghMf2z6OKpRGk7VGxc6Ky/deIoTe0uke+hhUX7hVlSq2gDJnbqRgS8wHqB4AMttF/OOpyfQrR8aj/4Gzo6SW25y/5kbjbZVk96Qh8Bjws7niG1XsMyuOtQ0cmtVAZAh1zPeYMkXiZjGt52tSP25hhQAdMbIabALqSOwIealLDfeTYE6Wo7C+P2YefPZ2gAZ5IARo+UPu9Vk7aE/5wKFniEh8nakpbKqmmfHs/tD5dEcq+EUvg+b5+rqBrfa9uKFzXkJJ9SuTABiQTAwtSzZ
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b22ae985-26e6-4de7-0792-08d78eac33f2
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Jan 2020 11:17:35.6052 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: uKv8veka1IIoVnOrR5J9LQ662jzTWRgOTBdrLhTKtcFqR9vbqoWWcIWU+GuzYrg+
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB2533
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,213 +111,57 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============1645281364=="
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---===============1645281364==
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="Xq3sXn4bbz6mZ2b0duEjbcHY33riY564H"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---Xq3sXn4bbz6mZ2b0duEjbcHY33riY564H
-Content-Type: multipart/mixed; boundary="yHUS028Vv8cEe5HFEXwh4d8G6JExx6nck"
-
---yHUS028Vv8cEe5HFEXwh4d8G6JExx6nck
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: quoted-printable
-
-Hi,
-
-Not sure if this is reported before, but amdgpu is initialized for an
-external GPU (thunderbolt 3), which is not accessible at boot, only
-after boltctl initialized the tb3 subsystem.
-
-Then amdgpu will report an timeout, and failed to really initialize the G=
-PU.
-At this stage, one my of monitors (U2414H, DP) reports unsupported
-framerate, while the other monitor (HP 24mh, HDMI) just reports no signal=
-
-
-The involved GPU is RX580. The tb3 enclosure is AORUS GAMING BOX.
-
-And obviously, this eGPU works pretty fine under Windows.
-So my normal boot routine needs to boot into windows, then reboot into
-Linux without unplug the tb3 connector, to make the eGPU work under Linux=
-=2E
-
-The kernel warning is:
-Jan 01 07:22:25 thinkpad kernel: [drm] REG_WAIT timeout 10us * 3500
-tries - dce_mi_free_dmif line:634
-Jan 01 07:22:25 thinkpad kernel: ------------[ cut here ]------------
-Jan 01 07:22:25 thinkpad kernel: WARNING: CPU: 6 PID: 804 at
-drivers/gpu/drm/amd/amdgpu/../display/dc/dc_helper.c:332
-generic_reg_wait.cold+0x25/0x2c [amdgpu]
-Jan 01 07:22:25 thinkpad kernel: Modules linked in: xt_CHECKSUM
-xt_MASQUERADE xt_conntrack ipt_REJECT tun bridge stp llc nf_tables_set
-nft_fib_inet nft_fib_ipv4 nft_fib_ipv6 nft_fib nft_reject_inet
-nf_reject_ipv4 nf_reject_ipv6 nft_reject nft_ct amdgpu nft_chain_nat msr
-nf_tables ebtable_nat ebtable_broute ip6table_nat ip6table_mangle
-ip6table_raw ip6table_security iptable_nat nf_nat iptable_mangle
-gpu_sched iptable_raw ttm iptable_security nf_conntrack nf_defrag_ipv6
-nf_defrag_ipv4 xt_tcpudp ip_set nfnetlink ebtable_filter ebtables
-ip6table_filter ip6_tables iptable_filter cmac algif_hash algif_skcipher
-af_alg bnep joydev mousedev btrfs xor rmi_smbus rmi_core
-snd_hda_codec_hdmi iTCO_wdt mei_wdt mei_hdcp iTCO_vendor_support
-snd_hda_codec_realtek intel_rapl_msr wmi_bmof raid6_pq
-intel_wmi_thunderbolt iwlmvm snd_hda_codec_generic x86_pkg_temp_thermal
-intel_powerclamp snd_hda_intel coretemp snd_intel_nhlt mac80211
-kvm_intel snd_hda_codec nls_iso8859_1 libarc4 uvcvideo nls_cp437
-intel_cstate btusb snd_hda_core
-Jan 01 07:22:25 thinkpad kernel:  vfat videobuf2_vmalloc intel_uncore
-btrtl snd_hwdep btbcm iwlwifi videobuf2_memops intel_rapl_perf fat
-videobuf2_v4l2 btintel snd_pcm pcspkr psmouse input_leds
-videobuf2_common mei_me e1000e i2c_i801 snd_timer thunderbolt bluetooth
-cfg80211 videodev mei thinkpad_acpi intel_xhci_usb_role_switch
-processor_thermal_device ucsi_acpi ecdh_generic mc nvram ecc
-intel_rapl_common intel_soc_dts_iosf crc16 intel_pch_thermal roles
-typec_ucsi ledtrig_audio rfkill typec snd int3403_thermal wmi soundcore
-battery ac int340x_thermal_zone i2c_hid hid evdev int3400_thermal
-mac_hid acpi_thermal_rel crypto_user acpi_call(OE) kvmgt i915 vfio_mdev
-mdev vfio_iommu_type1 vfio i2c_algo_bit drm_kms_helper drm intel_gtt
-agpgart syscopyarea sysfillrect sysimgblt fb_sys_fops kvm irqbypass
-ip_tables x_tables xfs libcrc32c crc32c_generic sd_mod uas usb_storage
-scsi_mod dm_crypt crct10dif_pclmul crc32_pclmul crc32c_intel
-ghash_clmulni_intel dm_mod serio_raw atkbd libps2 aesni_intel
-crypto_simd xhci_pci cryptd
-Jan 01 07:22:25 thinkpad kernel:  glue_helper xhci_hcd i8042 serio
-Jan 01 07:22:25 thinkpad kernel: CPU: 6 PID: 804 Comm: Xorg Tainted: G
-  U     OE     5.4.6-arch3-1 #1
-Jan 01 07:22:25 thinkpad kernel: Hardware name: LENOVO
-20KHCTO1WW/20KHCTO1WW, BIOS N23ET68W (1.43 ) 10/16/2019
-Jan 01 07:22:25 thinkpad kernel: RIP:
-0010:generic_reg_wait.cold+0x25/0x2c [amdgpu]
-Jan 01 07:22:25 thinkpad kernel: Code: e9 82 23 fe ff 44 8b 44 24 24 48
-8b 4c 24 18 44 89 fa 89 ee 48 c7 c7 50 73 ab c1 e8 96 5d 92 ef 83 7b 20
-01 0f 84 48 31 fe ff <0f> 0b e9 41 31 fe ff e8 b2 16 e7 ff 48 c7 c7 00
-50 b7 c1 e8 e6 8e
-Jan 01 07:22:25 thinkpad kernel: RSP: 0018:ffff9e61c147b5c8 EFLAGS: 00010=
-297
-Jan 01 07:22:25 thinkpad kernel: RAX: 0000000000000044 RBX:
-ffff95854881e200 RCX: 0000000000000000
-Jan 01 07:22:25 thinkpad kernel: RDX: 0000000000000000 RSI:
-ffff95854e397708 RDI: 00000000ffffffff
-Jan 01 07:22:25 thinkpad kernel: RBP: 000000000000000a R08:
-0000000000000507 R09: 0000000000000004
-Jan 01 07:22:25 thinkpad kernel: R10: 0000000000000000 R11:
-0000000000000001 R12: 0000000000000322
-Jan 01 07:22:25 thinkpad kernel: R13: 0000000000000dad R14:
-0000000000000001 R15: 0000000000000dac
-Jan 01 07:22:25 thinkpad kernel: FS:  00007f9e87acbdc0(0000)
-GS:ffff95854e380000(0000) knlGS:0000000000000000
-Jan 01 07:22:25 thinkpad kernel: CS:  0010 DS: 0000 ES: 0000 CR0:
-0000000080050033
-Jan 01 07:22:25 thinkpad kernel: CR2: 00007f9e831de5b0 CR3:
-00000004893f4006 CR4: 00000000003606e0
-Jan 01 07:22:25 thinkpad kernel: DR0: 0000000000000000 DR1:
-0000000000000000 DR2: 0000000000000000
-Jan 01 07:22:25 thinkpad kernel: DR3: 0000000000000000 DR6:
-00000000fffe0ff0 DR7: 0000000000000400
-Jan 01 07:22:25 thinkpad kernel: Call Trace:
-Jan 01 07:22:25 thinkpad kernel:  dce_mi_free_dmif+0xf7/0x160 [amdgpu]
-Jan 01 07:22:25 thinkpad kernel:  dce110_reset_hw_ctx_wrap+0x193/0x260
-[amdgpu]
-Jan 01 07:22:25 thinkpad kernel:  dce110_apply_ctx_to_hw+0x51/0x5d0 [amdg=
-pu]
-Jan 01 07:22:25 thinkpad kernel:  ?
-dce110_apply_ctx_for_surface+0x22e/0x2c0 [amdgpu]
-Jan 01 07:22:25 thinkpad kernel:  dc_commit_state+0x280/0x5e0 [amdgpu]
-Jan 01 07:22:25 thinkpad kernel:
-amdgpu_dm_atomic_commit_tail+0x1151/0x1da0 [amdgpu]
-Jan 01 07:22:25 thinkpad kernel:  ? __mod_zone_page_state+0x66/0xa0
-Jan 01 07:22:25 thinkpad kernel:  ? dm_read_reg_func+0x1f/0x90 [amdgpu]
-Jan 01 07:22:25 thinkpad kernel:  ?
-dce110_timing_generator_get_position+0x55/0x60 [amdgpu]
-Jan 01 07:22:25 thinkpad kernel:  ? dm_crtc_get_scanoutpos+0x85/0xe0
-[amdgpu]
-Jan 01 07:22:25 thinkpad kernel:  ? commit_tail+0x94/0x110 [drm_kms_helpe=
-r]
-Jan 01 07:22:25 thinkpad kernel:  commit_tail+0x94/0x110 [drm_kms_helper]=
-
-Jan 01 07:22:25 thinkpad kernel:  drm_atomic_helper_commit+0x108/0x110
-[drm_kms_helper]
-Jan 01 07:22:25 thinkpad kernel:  drm_atomic_helper_set_config+0x81/0x90
-[drm_kms_helper]
-Jan 01 07:22:25 thinkpad kernel:  drm_mode_setcrtc+0x1f0/0x730 [drm]
-Jan 01 07:22:25 thinkpad kernel:  ? dma_fence_default_wait+0x23a/0x2c0
-Jan 01 07:22:25 thinkpad kernel:  ? drm_mode_getcrtc+0x180/0x180 [drm]
-Jan 01 07:22:25 thinkpad kernel:  drm_ioctl_kernel+0xb2/0x100 [drm]
-Jan 01 07:22:25 thinkpad kernel:  drm_ioctl+0x209/0x360 [drm]
-Jan 01 07:22:25 thinkpad kernel:  ? drm_mode_getcrtc+0x180/0x180 [drm]
-Jan 01 07:22:25 thinkpad kernel:  amdgpu_drm_ioctl+0x49/0x80 [amdgpu]
-Jan 01 07:22:25 thinkpad kernel:  do_vfs_ioctl+0x43d/0x6c0
-Jan 01 07:22:25 thinkpad kernel:  ksys_ioctl+0x5e/0x90
-Jan 01 07:22:25 thinkpad kernel:  ? switch_fpu_return+0x2d/0x140
-Jan 01 07:22:25 thinkpad kernel:  __x64_sys_ioctl+0x16/0x20
-Jan 01 07:22:25 thinkpad kernel:  do_syscall_64+0x4e/0x140
-Jan 01 07:22:25 thinkpad kernel:  entry_SYSCALL_64_after_hwframe+0x44/0xa=
-9
-Jan 01 07:22:25 thinkpad kernel: RIP: 0033:0x7f9e8891225b
-Jan 01 07:22:25 thinkpad kernel: Code: 0f 1e fa 48 8b 05 25 9c 0c 00 64
-c7 00 26 00 00 00 48 c7 c0 ff ff ff ff c3 66 0f 1f 44 00 00 f3 0f 1e fa
-b8 10 00 00 00 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 8b 0d f5 9b 0c 00
-f7 d8 64 89 01 48
-Jan 01 07:22:25 thinkpad kernel: RSP: 002b:00007fff7908d8f8 EFLAGS:
-00003246 ORIG_RAX: 0000000000000010
-Jan 01 07:22:25 thinkpad kernel: RAX: ffffffffffffffda RBX:
-00007fff7908d930 RCX: 00007f9e8891225b
-Jan 01 07:22:25 thinkpad kernel: RDX: 00007fff7908d930 RSI:
-00000000c06864a2 RDI: 000000000000000d
-Jan 01 07:22:25 thinkpad kernel: RBP: 00000000c06864a2 R08:
-0000000000000000 R09: 0000000000000000
-Jan 01 07:22:25 thinkpad kernel: R10: 0000000000000000 R11:
-0000000000003246 R12: 000056450439de20
-Jan 01 07:22:25 thinkpad kernel: R13: 000000000000000d R14:
-00007fff7908dbc8 R15: 00005645043996e0
-Jan 01 07:22:25 thinkpad kernel: ---[ end trace 2b805e0326fe3e37 ]---
-
-The full dmesg can be found here:
-https://gist.github.com/adam900710/ada1566160e61be1efa5d789b124bc80
-
-Hopes one day eGPU can work better under Linux.
-
-Thanks,
-Qu
-
-
---yHUS028Vv8cEe5HFEXwh4d8G6JExx6nck--
-
---Xq3sXn4bbz6mZ2b0duEjbcHY33riY564H
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQFLBAEBCAA1FiEELd9y5aWlW6idqkLhwj2R86El/qgFAl4MZtYXHHF1d2VucnVv
-LmJ0cmZzQGdteC5jb20ACgkQwj2R86El/qh0ZwgApBVPocHl8dmTQpqNCzptespU
-4Cd/Ffv9teRh9QQsJq7cMt7hxBpIRIT4pxH1ZbdVzlRkXXW/AWDNbCVxWbw4PSx+
-7BJbzS6llSKT/l2lGEQZlMBFtZFl8Mwex85IKZ90SjJ/smEKaQQlDXi0J35kT3uv
-lrLAQu9zZ0pmWIccVP6Yq0/9bcq/Z6cjt/y+VY0/71a/ZsM4RjZo66GkwPj1uhRn
-SunwKho4gZsCkmFmrtfhLd54KsH6D4Znp7ov9Z9Qn+h7oR8O+tI8vpsJ31/+65EO
-u2ioQA9WXt3JY+IAcbA6+FUVh5mvSFNE+HUT2dSeIlvi1wxHckSivB77EgN7SQ==
-=i7rq
------END PGP SIGNATURE-----
-
---Xq3sXn4bbz6mZ2b0duEjbcHY33riY564H--
-
---===============1645281364==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---===============1645281364==--
+SGkgRXZhbiwKCj4gQnV0IHN0aWxsIHdoYXQgSSBjYXJlIG1vcmUod2hpY2ggaXMgYWxzbyB0aGUg
+ZWFzaWVzdCB3YXkgdG8gbWUpIGlzIHRoZSBjb3JyZWN0IHJldHVybiB2YWx1ZSBvZiB0aGUgQVBJ
+LgpXZWxsIGV4YWN0bHkgdGhhdCdzIHRoZSBwb2ludCB0aGVyIHJldHVybiB2YWx1ZSBpcyBub3Qg
+Y29ycmVjdCBmb3IgdGhlIEFQSS4KCkZvciBleGFtcGxlIHdoZW4gdGhlIEdQVSByZXNldCBmdW5j
+dGlvbiB3b3VsZCByZXR1cm4gLUVGQVVMVCB5b3VyIApwcm9ncmFtIHdoaWNoIHJlYWRzIHRoZSBk
+ZWJ1Z2ZzIGZpbGUgd291bGQgY3Jhc2ggd2l0aCBhIHNlZ21lbnRhdGlvbiAKZmF1bHQuIFRoYXQg
+aXMgbm90IGNvcnJlY3QgYmVoYXZpb3IuCgpJbiBvdGhlciB3b3JkcyB0aGUgcmVzdWx0IG9mIHRo
+ZSBHUFUgcmVzZXQgY2FuJ3QgYmUgdXNlZCBhcyByZXN1bHQgb2YgCnRoZSBkZWJ1Z2ZzIHJlYWQu
+CgpSZWdhcmRzLApDaHJpc3RpYW4uCgpBbSAxOS4xMi4xOSB1bSAwMjo0OCBzY2hyaWViIFF1YW4s
+IEV2YW46Cj4gSGkgQ2hyaXN0aWFuLAo+Cj4gSGVyZSBpcyBzb21lIGJhY2tncm91bmQgZm9yIHRo
+aXMgY2hhbmdlOgo+IEknbSBkZWJ1Z2dpbmcgYSByYW5kb20gZmFpbHVyZSBpc3N1ZSBvbiBiYWNv
+IHJlc2V0Lgo+IEkgdXNlZCBhIHdoaWxlIGxvb3AgdG8gcnVuIHRoZSBjb250aW51b3VzIGJhY28g
+cmVzZXQgdGVzdHMgYW5kIGhvcGUgaXQgY2FuIGV4aXQgaW1tZWRpYXRlbHkgb24gZmFpbHVyZSBv
+Y2N1cnJlZC4KPiBIb3dldmVyLCBkdWUgdG8gd3JvbmcgcmV0dXJuIHZhbHVlLCBpdCBkaWQgbm90
+LiBBbmQgYXMgeW91IGNhbiBpbWFnZSwgdGhlIGZhaWx1cmUgc2NlbmUgd2FzIHJ1aW5lZC4KPgo+
+IEkgY2FuIGFkZCB0aGlzICJzZXFfcHJpbnRmKG0sICJncHUgcmVjb3ZlciAlZFxuIiwgcik7Ii4K
+PiBCdXQgc3RpbGwgd2hhdCBJIGNhcmUgbW9yZSh3aGljaCBpcyBhbHNvIHRoZSBlYXNpZXN0IHdh
+eSB0byBtZSkgaXMgdGhlIGNvcnJlY3QgcmV0dXJuIHZhbHVlIG9mIHRoZSBBUEkuCj4KPiBSZWdh
+cmRzLAo+IEV2YW4KPj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0KPj4gRnJvbTogQ2hyaXN0
+aWFuIEvDtm5pZyA8Y2tvZW5pZy5sZWljaHR6dW1lcmtlbkBnbWFpbC5jb20+Cj4+IFNlbnQ6IFdl
+ZG5lc2RheSwgRGVjZW1iZXIgMTgsIDIwMTkgNTo1NyBQTQo+PiBUbzogUXVhbiwgRXZhbiA8RXZh
+bi5RdWFuQGFtZC5jb20+OyBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+PiBTdWJqZWN0
+OiBSZTogW1BBVENIXSBkcm0vYW1kZ3B1OiBjb3JyZWN0bHkgcmVwb3J0IGdwdSByZWNvdmVyIHN0
+YXR1cwo+Pgo+PiBBbSAxOC4xMi4xOSB1bSAwNDoyNSBzY2hyaWViIEV2YW4gUXVhbjoKPj4+IEtu
+b3dpbmcgd2hldGhlciBncHUgcmVjb3Zlcnkgd2FzIHBlcmZvcm1lZCBzdWNjZXNzZnVsbHkgb3Ig
+bm90IGlzCj4+PiBpbXBvcnRhbnQgZm9yIG91ciBCQUNPIGRldmVsb3BtZW50Lgo+Pj4KPj4+IENo
+YW5nZS1JZDogSTBlM2NhNGRjYjY1YTA1M2ViMjZiYzU1YWQ3NDMxZTRhNDJlMTYwZGUKPj4+IFNp
+Z25lZC1vZmYtYnk6IEV2YW4gUXVhbiA8ZXZhbi5xdWFuQGFtZC5jb20+Cj4+PiAtLS0KPj4+ICAg
+IGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9mZW5jZS5jIHwgNCArLS0tCj4+PiAg
+ICAxIGZpbGUgY2hhbmdlZCwgMSBpbnNlcnRpb24oKyksIDMgZGVsZXRpb25zKC0pCj4+Pgo+Pj4g
+ZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9mZW5jZS5jCj4+
+PiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9mZW5jZS5jCj4+PiBpbmRleCBl
+OWVmZWUwNGNhMjMuLjVkZmY1YzBkZDg4MiAxMDA2NDQKPj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2Ry
+bS9hbWQvYW1kZ3B1L2FtZGdwdV9mZW5jZS5jCj4+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1k
+L2FtZGdwdS9hbWRncHVfZmVuY2UuYwo+Pj4gQEAgLTc0Myw5ICs3NDMsNyBAQCBzdGF0aWMgaW50
+IGFtZGdwdV9kZWJ1Z2ZzX2dwdV9yZWNvdmVyKHN0cnVjdAo+PiBzZXFfZmlsZSAqbSwgdm9pZCAq
+ZGF0YSkKPj4+ICAgIAlzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiA9IGRldi0+ZGV2X3ByaXZh
+dGU7Cj4+Pgo+Pj4gICAgCXNlcV9wcmludGYobSwgImdwdSByZWNvdmVyXG4iKTsKPj4+IC0JYW1k
+Z3B1X2RldmljZV9ncHVfcmVjb3ZlcihhZGV2LCBOVUxMKTsKPj4+IC0KPj4+IC0JcmV0dXJuIDA7
+Cj4+PiArCXJldHVybiBhbWRncHVfZGV2aWNlX2dwdV9yZWNvdmVyKGFkZXYsIE5VTEwpOwo+PiBO
+QUssIHdoYXQgd2UgY291bGQgZG8gaGVyZSBpcyB0aGUgZm9sbG93aW5nOgo+Pgo+PiByID0gYW1k
+Z3B1X2RldmljZV9ncHVfcmVjb3ZlciguLi4uKTsKPj4gc2VxX3ByaW50ZihtLCAiZ3B1IHJlY292
+ZXIgJWRcbiIsIHIpOwo+Pgo+PiBCdXQgcmV0dXJuaW5nIHRoZSBlcnJvciBjb2RlIGZyb20gdGhl
+IEdQVSByZWNvdmVyeSB0byB1c2Vyc3BhY2UgZG9lc24ndCBtYWtlCj4+IHRvIG11Y2ggc2Vuc2Uu
+Cj4+Cj4+IENocmlzdGlhbi4KPj4KPj4+ICAgIH0KPj4+Cj4+PiAgICBzdGF0aWMgY29uc3Qgc3Ry
+dWN0IGRybV9pbmZvX2xpc3QgYW1kZ3B1X2RlYnVnZnNfZmVuY2VfbGlzdFtdID0gewoKX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5n
+IGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVz
+a3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
