@@ -2,112 +2,128 @@ Return-Path: <SRS0=MtTs=2X=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-8.1 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4FD62C2D0DC
-	for <amd-gfx@archiver.kernel.org>; Thu,  2 Jan 2020 13:54:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 69878C2D0DC
+	for <amd-gfx@archiver.kernel.org>; Thu,  2 Jan 2020 15:14:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D6F0D215A4
-	for <amd-gfx@archiver.kernel.org>; Thu,  2 Jan 2020 13:54:46 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 2BF0F206E6
+	for <amd-gfx@archiver.kernel.org>; Thu,  2 Jan 2020 15:14:58 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="jUCjXMMV"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D6F0D215A4
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="qEsOkjAq"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2BF0F206E6
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9747A6E0F0;
-	Thu,  2 Jan 2020 13:54:46 +0000 (UTC)
-Received: from NAM04-BN3-obe.outbound.protection.outlook.com
- (mail-eopbgr680067.outbound.protection.outlook.com [40.107.68.67])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F37246E0F0
- for <amd-gfx@lists.freedesktop.org>; Thu,  2 Jan 2020 13:54:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D7FC86E02B;
+	Thu,  2 Jan 2020 15:14:57 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2086.outbound.protection.outlook.com [40.107.237.86])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E63706E02B;
+ Thu,  2 Jan 2020 15:14:56 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=GPHLiBYfMB+Y5EBCYxGBxuidbvkFwf4pFoN8DNjK5/bqINlZxbYun1mYFLMenY2e3+q82/3c/xzZVRtK8k7fGC/dUiE6SCWVSd2AxVSiJhhpo2a3BIhnmUPKFX9cU5RtXNs4yTtHCjglBNJLq4W2J7FmAgl9o/g8Ya1lFSedeu1J52PcO2vltZXkKBuWyIA5I4rJiKbXyYdcn8c7clpjK/YxyPmNWmlykKAYl1k9EQbRiUyUBrrVqK9wOgMSr9IrUIds8PjPzSggGW3StQsTNRRV5+rliZNbbDDCdifTxHZ5Erdab2swapkSlGvFolOW74f8OyetNAMw/OoTEtus8Q==
+ b=HGlr2sBSBH3nFcM7qtjKfrRUUBnlyoCZEMPKXE6v6WUXBHIcPLU4lKanbGKISELbpuOFv0VbvVwngGjG1M6sLB/lgiTbp7T5stJapijjpaqY3c6WfatGIeWBuRMZ1im9//GKgGWIc3nwnEgN8bBt52LT5DO0eBjq+7ckXbhQwvhYy7BdrC0gg4CD7tlmLLnzIMZ/bkr8CSDQdc+3aVtTyTcR4ZVIaXr3JNr/dq89jCDoGQJ2aVrENaExGeCOPzLIA8Fh/td9gez/Z7zYw/yqAPGL7SHfJbvMFYrWMryudOrX/mCBO3g97lT4Igg4gPe0HMhbRevG/USETmSqpEpdRQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zwEJDDUGUErZHetTyTPL05FQmnSJZqpx81cNw437K/0=;
- b=JZF18JH37ewmpnoPiSoRC97WobqrmdywDkcmGvNNxLV3NsrIYbE1e02wVI3XpZ5GIaCJZ8DpgZDF7KKh0b9jYOgSXZq720WM8bwdWp41jA4PrFXJeUMsu6xUaCrb99EYvlr82/rXpTcExWprfapkE/+XyvGzKDtUofssDq1l5oJhf/hoAoBoETkU6Uu0D2HBO9ru3XI9B/nGRXwvDXZMnlMjsZTNBTSHq9Scn+TIjLAOMTB6DcZVi+Gy9sJyCK9ZteRlIr3RzsSfjHcuwtgLepPwDJK4f0xhHNz1wMpuQbNpJe44S9ThAEMy6qngUk1pIRvRcw4WG21lhDCYMEcMBg==
+ bh=ZbVgr80cgoBL97UkIZTkJ29y+sxsijviOyWyH/uQAsM=;
+ b=aFPbBO+seANR/rf9H6VpwWSwwsldVUpi4LNXdzJr73mpffoWcF5PfG1DGFhV0F5GCsgRXKm9/LLhQLe1EEfKa2NaoIY3Z/9ic/xiMIgNv4z3CnDgloOlzZGjxjpConJ39wkyQfl3KHu9czrV9wyxQBc+4E0o8FsVEm8sY+FG2UbtS66rYPkoCIjvIAkH1mTw98bRD0YrJxj4+m4A5kgUrMU21qfx3LYEEDbwvAaHSCoRKfUrarSXyH+3jZvXzVEhUvJ6SOZGKAXaTGcZKHyYP1e4oMuv/snJvQ10qRjCPTkGwfHY9dRiZtQysxGg4WyS+bv3z3+ahpM/QC5xesUPgA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zwEJDDUGUErZHetTyTPL05FQmnSJZqpx81cNw437K/0=;
- b=jUCjXMMVb2lQFhRbAINDbHEYOR/gHc1LDq9TdINE1hqHFSkTuERu+AEGyg3saHZUSYCP1uijVqtUiqe4dwFse6DLxMGQg6agru/TBVaXJhh//xTT4lYaRLHaPYdGzcqy4TXBtBaeNmOt2+kkHeZSH3sep2lzQhFMKOGkkY8g6sA=
-Received: from DM6PR12MB3146.namprd12.prod.outlook.com (20.178.30.205) by
- DM6PR12MB2652.namprd12.prod.outlook.com (20.176.118.89) with Microsoft SMTP
+ bh=ZbVgr80cgoBL97UkIZTkJ29y+sxsijviOyWyH/uQAsM=;
+ b=qEsOkjAq2+0sb9r1QSDj5LRG11nQCD5yHJDQaBwD7SXeOzFMO/GPgJq9dljf7anCs4oPOToIi0KJCcPQRXhQvelDS0j3QTsEIpYQAeCx9rrKzflyDNHn5TyPcKb15NDQqcpP6n/Jpbvac1jpzpmJmLA+XjBbnkA0tF1+4/oL2fI=
+Authentication-Results: spf=none (sender IP is )
+ smtp.mailfrom=Harry.Wentland@amd.com; 
+Received: from CY4PR1201MB0230.namprd12.prod.outlook.com (10.172.79.7) by
+ CY4PR1201MB0119.namprd12.prod.outlook.com (10.172.79.19) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2602.11; Thu, 2 Jan 2020 13:39:03 +0000
-Received: from DM6PR12MB3146.namprd12.prod.outlook.com
- ([fe80::d50e:6a6e:19c3:4c03]) by DM6PR12MB3146.namprd12.prod.outlook.com
- ([fe80::d50e:6a6e:19c3:4c03%7]) with mapi id 15.20.2602.012; Thu, 2 Jan 2020
- 13:39:03 +0000
-From: "Russell, Kent" <Kent.Russell@amd.com>
-To: "Kuehling, Felix" <Felix.Kuehling@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH 1/4] drm/amdkfd: Fix permissions of hang_hws
-Thread-Topic: [PATCH 1/4] drm/amdkfd: Fix permissions of hang_hws
-Thread-Index: AQHVtw/DL0Yl0GqNw0SjKiKQlJhpoqfXdVog
-Date: Thu, 2 Jan 2020 13:39:03 +0000
-Message-ID: <DM6PR12MB3146C09F3A5CF6E48C5BD8F685200@DM6PR12MB3146.namprd12.prod.outlook.com>
-References: <20191220083001.30607-1-Felix.Kuehling@amd.com>
-In-Reply-To: <20191220083001.30607-1-Felix.Kuehling@amd.com>
-Accept-Language: en-US
+ 15.20.2581.12; Thu, 2 Jan 2020 15:14:51 +0000
+Received: from CY4PR1201MB0230.namprd12.prod.outlook.com
+ ([fe80::301e:b0c8:7af:d77d]) by CY4PR1201MB0230.namprd12.prod.outlook.com
+ ([fe80::301e:b0c8:7af:d77d%11]) with mapi id 15.20.2581.014; Thu, 2 Jan 2020
+ 15:14:51 +0000
+Subject: Re: [PATCH v2] drm/amd/display: Reduce HDMI pixel encoding if max
+ clock is exceeded
+To: Thomas Anderson <thomasanderson@google.com>,
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Mikita Lipski <mikita.lipski@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>
+References: <20191202214713.41001-1-thomasanderson@google.com>
+From: Harry Wentland <hwentlan@amd.com>
+Autocrypt: addr=hwentlan@amd.com; keydata=
+ mQENBFhb4C8BCADhHHUNoBQ7K7LupCP0FsUb443Vuqq+dH0uo4A3lnPkMF6FJmGcJ9Sbx1C6
+ cd4PbVAaTFZUEmjqfpm+wCRBe11eF55hW3GJ273wvfH69Q/zmAxwO8yk+i5ZWWl8Hns5h69K
+ D9QURHLpXxrcwnfHFah0DwV23TrD1KGB7vowCZyJOw93U/GzAlXKESy0FM7ZOYIJH83X7qhh
+ Q9KX94iTEYTeH86Wy8hwHtqM6ySviwEz0g+UegpG8ebbz0w3b5QmdKCAg+eZTmBekP5o77YE
+ BKqR+Miiwo9+tzm2N5GiF9HDeI2pVe/egOLa5UcmsgdF4Y5FKoMnBbAHNaA6Fev8PHlNABEB
+ AAG0J0hhcnJ5IFdlbnRsYW5kIDxoYXJyeS53ZW50bGFuZEBhbWQuY29tPokBNwQTAQgAIQUC
+ WFvgLwIbAwULCQgHAgYVCAkKCwIEFgIDAQIeAQIXgAAKCRAtWBXJjBS24xUlCAC9MqAlIbZO
+ /a37s41h+MQ+D20C6/hVErWO+RA06nA+jFDPUWrDJKYdn6EDQWdLY3ATeAq3X8GIeOTXGrPD
+ b2OXD6kOViW/RNvlXdrIsnIDacdr39aoAlY1b+bhTzZVz4pto4l+K1PZb5jlMgTk/ks9HesL
+ RfYVq5wOy3qIpocdjdlXnSUKn0WOkGBBd8Nv3o0OI18tiJ1S/QwLBBfZoVvfGinoB2p4j/wO
+ kJxpi3F9TaOtLGcdrgfghg31Fb48DP+6kodZ4ircerp4hyAp0U2iKtsrQ/sVWR4mbe3eTfcn
+ YjBxGd2JOVdNQZa2VTNf9GshIDMD8IIQK6jN0LfY8Py2uQENBFhb4C8BCAC/0KWY3pIbU2cy
+ i7GMj3gqB6h0jGqRuMpMRoSNDoAUIuSh17w+bawuOF6XZPdK3D4lC9cOXMwP3aP9tTJOori2
+ 8vMH8KW9jp9lAYnGWYhSqLdjzIACquMqi96EBtawJDct1e9pVgp+d4JXHlgIrl11ITJo8rCP
+ dEqjro2bCBWxijsIncdCzMjf57+nR7u86SBtGSFcXKapS7YJeWcvM6MzFYgIkxHxxBDvBBvm
+ U2/mAXiL72kwmlV1BNrabQxX2UnIb3xt3UovYJehrnDUMdYjxJgSPRBx27wQ/D05xAlhkmmL
+ FJ01ZYc412CRCC6gjgFPfUi2y7YJTrQHS79WSyANABEBAAGJAR8EGAEIAAkFAlhb4C8CGwwA
+ CgkQLVgVyYwUtuM72Qf+J6JOQ/27pWf5Ulde9GS0BigA1kV9CNfIq396TgvQzeyixHMvgPdq
+ Z36x89zZi0otjMZv6ypIdEg5co1Bvz0wFaKbCiNbTjpnA1VAbQVLSFjCZLQiu0vc+BZ1yKDV
+ T5ASJ97G4XvQNO+XXGY55MrmhoNqMaeIa/3Jas54fPVd5olcnUAyDty29/VWXNllUq38iBCX
+ /0tTF7oav1lzPGfeW2c6B700FFZMTR4YBVSGE8jPIzu2Fj0E8EkDmsgS+nibqSvWXfo1v231
+ 410h35CjbYDlYQO7Z1YD7asqbaOnF0As+rckyRMweQ9CxZn5+YBijtPJA3x5ldbCfQ9rWiTu XQ==
+Message-ID: <722bf0b1-5ff3-5a44-80f1-e67a3fe4d97f@amd.com>
+Date: Thu, 2 Jan 2020 10:14:49 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.3.1
+In-Reply-To: <20191202214713.41001-1-thomasanderson@google.com>
 Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=true;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2020-01-02T13:39:01Z; 
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal Use Only -
- Unrestricted;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ActionId=8cdefd5a-c282-4bbf-9ade-0000b0c56887;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=1
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_enabled: true
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_setdate: 2020-01-02T13:39:01Z
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_method: Standard
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_name: Internal Use Only -
- Unrestricted
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_actionid: 25ecf248-40be-4d60-9707-00008ed18875
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_contentbits: 0
-authentication-results: spf=none (sender IP is )
- smtp.mailfrom=Kent.Russell@amd.com; 
-x-originating-ip: [165.204.54.211]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: 8af506d8-2f86-44af-f060-08d78f8921cf
-x-ms-traffictypediagnostic: DM6PR12MB2652:|DM6PR12MB2652:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <DM6PR12MB265207DA26B53D226D5B809585200@DM6PR12MB2652.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:765;
-x-forefront-prvs: 0270ED2845
-x-forefront-antispam-report: SFV:NSPM;
- SFS:(10009020)(4636009)(39860400002)(136003)(376002)(396003)(366004)(346002)(199004)(189003)(13464003)(5660300002)(8676002)(86362001)(81166006)(2906002)(52536014)(8936002)(26005)(7696005)(81156014)(33656002)(53546011)(9686003)(316002)(186003)(110136005)(6506007)(966005)(66946007)(478600001)(71200400001)(76116006)(66446008)(66556008)(64756008)(66476007)(55016002)(45080400002);
- DIR:OUT; SFP:1101; SCL:1; SRVR:DM6PR12MB2652;
- H:DM6PR12MB3146.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; A:1; MX:1; 
-received-spf: None (protection.outlook.com: amd.com does not designate
- permitted sender hosts)
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 72kjaOtJJmO0VU3oUBLk8w6BXnmjYE/tO1Os9qeQqZz0nzRY5cmJb8gSWEPlx4cO/9W3q3rPZnsFFEWWcZM0WRDYCDdxeop35m5nuiGSkJyAsdtPP2ptEsp5+9TS1GVokpSJvwZY4onR5f2381REtdI7Ej2egaELSSiVeFIKpxpyBZaJvvmujrM8Ncgh+YeL+b+HJpWyiZaQ1DNzXr3UaEWvDOkgKe+juGL2wFYrhibTIq7s6aWHoSkRN/X2e7Q+1CENjcYqio3iE8/0dEA2euZN9bCziNtC7pnZJVDU3cwreoGPQQ8vgzkpX+TzAiVpM2psVMD3cfHoZzyZtpWwTzMt0Dk2QwpOQmthpOY3hRcXAEBtyD3ThHihOZE0e4D68iLxB8fwF5j+3GhZEJIedoKnOR/uYmYDoUnTGU4Cm3JbRbrHM40ZiFULqxy04bP4DrYpZu/8hi3PtgAOydj0ZcVcfacebYBQimq3yl8d1n7Zwx083FNxb16D9j3udF/81+XKHodQhwNhB/GxIOnHPPb5bgFb3d73kUSQjHRZf+o=
+X-ClientProxiedBy: YTXPR0101CA0041.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b00:1::18) To CY4PR1201MB0230.namprd12.prod.outlook.com
+ (2603:10b6:910:1e::7)
 MIME-Version: 1.0
+Received: from [172.29.18.152] (165.204.55.250) by
+ YTXPR0101CA0041.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b00:1::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2602.10 via Frontend
+ Transport; Thu, 2 Jan 2020 15:14:50 +0000
+X-Originating-IP: [165.204.55.250]
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: 6251e620-3af9-4e6c-2d2e-08d78f96836f
+X-MS-TrafficTypeDiagnostic: CY4PR1201MB0119:|CY4PR1201MB0119:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <CY4PR1201MB011919503812D844EB4348228C200@CY4PR1201MB0119.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:8273;
+X-Forefront-PRVS: 0270ED2845
+X-Forefront-Antispam-Report: SFV:NSPM;
+ SFS:(10009020)(4636009)(136003)(39860400002)(396003)(366004)(346002)(376002)(199004)(189003)(81166006)(81156014)(52116002)(16576012)(316002)(66476007)(66946007)(66556008)(8936002)(8676002)(478600001)(6486002)(54906003)(110136005)(16526019)(186003)(53546011)(5660300002)(26005)(31686004)(4326008)(6636002)(31696002)(36756003)(2906002)(2616005)(956004);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:CY4PR1201MB0119;
+ H:CY4PR1201MB0230.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; A:1; MX:1; 
+Received-SPF: None (protection.outlook.com: amd.com does not designate
+ permitted sender hosts)
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: l8Y9Y8HKOZq1PH4+plzY8M3pVSFaTqgUpGbFFryzsUe5Ect5TuDTv7oOsQYoaWd8IQ5VQasZgURVfwLjIj3jdr7wPgUr5h2apLJMhDsxYOn/lUjmYaX6BvKFBJMrgW+W8dE3CNhnYfEBv6PtoHZy35gDjVW8sFRC8pWo3BXTQlz8ZzF0BOkUdBt9IFHB46khZShfYz3tSAjoyKklesqbJvs+zigUvrRf40Pl/UyCfszQ/lsYE5hoJtYwcj3PxMcy+c9BN/wXE2HmExSyGT+6xksweNJtGAtV5i5g8co1CopDUUp10GWCM/0ultSLdceAspdvfIiAIWHTcyvSyfMRt9KfjsLVTM3LnN5BT2DxV7tBBMRrU6ZpEgcbLPzT12AVTcHNKCkT9CIZz2rA5i8dlz4rp4N3PUxNKE93MJJMxujMatPZqi5mWhGQ2Cb+DghZ
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8af506d8-2f86-44af-f060-08d78f8921cf
-X-MS-Exchange-CrossTenant-originalarrivaltime: 02 Jan 2020 13:39:03.4692 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: yI7TGY+p307LX78kIcExZAVYpP9yJqc0STsVXjXrYd4/O4Qzg4O/9/OhFjCtWuWRFNDkt03l7kHrcneJ7OqClg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB2652
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6251e620-3af9-4e6c-2d2e-08d78f96836f
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jan 2020 15:14:51.2480 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: W6w5AqQaDKNuWhtj+LkQ9cfVUzILa5F2uhWOvg4dJCUFbRgGPtCeuswXFemZQYhKM+7NBxchndNEMQby2klsLA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR1201MB0119
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -119,47 +135,122 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: David Zhou <David1.Zhou@amd.com>,
+ Mario Kleiner <mario.kleiner.de@gmail.com>, David Airlie <airlied@linux.ie>,
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
+ dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only - Internal Distribution Only]
+On 2019-12-02 4:47 p.m., Thomas Anderson wrote:
+> For high-res (8K) or HFR (4K120) displays, using uncompressed pixel
+> formats like YCbCr444 would exceed the bandwidth of HDMI 2.0, so the
+> "interesting" modes would be disabled, leaving only low-res or low
+> framerate modes.
+> 
+> This change lowers the pixel encoding to 4:2:2 or 4:2:0 if the max TMDS
+> clock is exceeded. Verified that 8K30 and 4K120 are now available and
+> working with a Samsung Q900R over an HDMI 2.0b link from a Radeon 5700.
+> 
+> Signed-off-by: Thomas Anderson <thomasanderson@google.com>
 
-Reviewed-by: Kent Russell <kent.russell@amd.com>
+Apologies for the late response.
 
------Original Message-----
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Felix Kuehling
-Sent: Friday, December 20, 2019 3:30 AM
-To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 1/4] drm/amdkfd: Fix permissions of hang_hws
+Thanks for getting high-res modes working on HDMI.
 
-Reading from /sys/kernel/debug/kfd/hang_hws would cause a kernel oops because we didn't implement a read callback. Set the permission to write-only to prevent that.
+This change is
+Reviewed-by: Harry Wentland <harry.wentland@amd.com>
 
-Signed-off-by: Felix Kuehling <Felix.Kuehling@amd.com>
----
- drivers/gpu/drm/amd/amdkfd/kfd_debugfs.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Harry
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_debugfs.c b/drivers/gpu/drm/amd/amdkfd/kfd_debugfs.c
-index 15c523027285..511712c2e382 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_debugfs.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_debugfs.c
-@@ -93,7 +93,7 @@ void kfd_debugfs_init(void)
- 			    kfd_debugfs_hqds_by_device, &kfd_debugfs_fops);
- 	debugfs_create_file("rls", S_IFREG | 0444, debugfs_root,
- 			    kfd_debugfs_rls_by_device, &kfd_debugfs_fops);
--	debugfs_create_file("hang_hws", S_IFREG | 0644, debugfs_root,
-+	debugfs_create_file("hang_hws", S_IFREG | 0200, debugfs_root,
- 			    NULL, &kfd_debugfs_hang_hws_fops);  }
- 
---
-2.24.1
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=02%7C01%7Ckent.russell%40amd.com%7C7dc16d27ccf646dd676608d78526df14%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637124274407198344&amp;sdata=joT5cPhL9glNqV85jTIqvygQ%2B6CSOprnadM8LzaRBQs%3D&amp;reserved=0
+> ---
+>  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 45 ++++++++++---------
+>  1 file changed, 23 insertions(+), 22 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index 7aac9568d3be..803e59d97411 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -3356,27 +3356,21 @@ get_output_color_space(const struct dc_crtc_timing *dc_crtc_timing)
+>  	return color_space;
+>  }
+>  
+> -static void reduce_mode_colour_depth(struct dc_crtc_timing *timing_out)
+> -{
+> -	if (timing_out->display_color_depth <= COLOR_DEPTH_888)
+> -		return;
+> -
+> -	timing_out->display_color_depth--;
+> -}
+> -
+> -static void adjust_colour_depth_from_display_info(struct dc_crtc_timing *timing_out,
+> -						const struct drm_display_info *info)
+> +static bool adjust_colour_depth_from_display_info(
+> +	struct dc_crtc_timing *timing_out,
+> +	const struct drm_display_info *info)
+>  {
+> +	enum dc_color_depth depth = timing_out->display_color_depth;
+>  	int normalized_clk;
+> -	if (timing_out->display_color_depth <= COLOR_DEPTH_888)
+> -		return;
+>  	do {
+>  		normalized_clk = timing_out->pix_clk_100hz / 10;
+>  		/* YCbCr 4:2:0 requires additional adjustment of 1/2 */
+>  		if (timing_out->pixel_encoding == PIXEL_ENCODING_YCBCR420)
+>  			normalized_clk /= 2;
+>  		/* Adjusting pix clock following on HDMI spec based on colour depth */
+> -		switch (timing_out->display_color_depth) {
+> +		switch (depth) {
+> +		case COLOR_DEPTH_888:
+> +			break;
+>  		case COLOR_DEPTH_101010:
+>  			normalized_clk = (normalized_clk * 30) / 24;
+>  			break;
+> @@ -3387,14 +3381,15 @@ static void adjust_colour_depth_from_display_info(struct dc_crtc_timing *timing_
+>  			normalized_clk = (normalized_clk * 48) / 24;
+>  			break;
+>  		default:
+> -			return;
+> +			/* The above depths are the only ones valid for HDMI. */
+> +			return false;
+>  		}
+> -		if (normalized_clk <= info->max_tmds_clock)
+> -			return;
+> -		reduce_mode_colour_depth(timing_out);
+> -
+> -	} while (timing_out->display_color_depth > COLOR_DEPTH_888);
+> -
+> +		if (normalized_clk <= info->max_tmds_clock) {
+> +			timing_out->display_color_depth = depth;
+> +			return true;
+> +		}
+> +	} while (--depth > COLOR_DEPTH_666);
+> +	return false;
+>  }
+>  
+>  static void fill_stream_properties_from_drm_display_mode(
+> @@ -3474,8 +3469,14 @@ static void fill_stream_properties_from_drm_display_mode(
+>  
+>  	stream->out_transfer_func->type = TF_TYPE_PREDEFINED;
+>  	stream->out_transfer_func->tf = TRANSFER_FUNCTION_SRGB;
+> -	if (stream->signal == SIGNAL_TYPE_HDMI_TYPE_A)
+> -		adjust_colour_depth_from_display_info(timing_out, info);
+> +	if (stream->signal == SIGNAL_TYPE_HDMI_TYPE_A) {
+> +		if (!adjust_colour_depth_from_display_info(timing_out, info) &&
+> +		    drm_mode_is_420_also(info, mode_in) &&
+> +		    timing_out->pixel_encoding != PIXEL_ENCODING_YCBCR420) {
+> +			timing_out->pixel_encoding = PIXEL_ENCODING_YCBCR420;
+> +			adjust_colour_depth_from_display_info(timing_out, info);
+> +		}
+> +	}
+>  }
+>  
+>  static void fill_audio_info(struct audio_info *audio_info,
+> 
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
