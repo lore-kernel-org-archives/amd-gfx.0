@@ -1,73 +1,99 @@
-Return-Path: <SRS0=Ppqo=2W=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
+Return-Path: <SRS0=MtTs=2X=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PULL_REQUEST,MAILING_LIST_MULTI,
-	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-9.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A2613C2D0DC
-	for <amd-gfx@archiver.kernel.org>; Wed,  1 Jan 2020 15:13:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9FCE4C2D0DE
+	for <amd-gfx@archiver.kernel.org>; Thu,  2 Jan 2020 01:54:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 799E7206E6
-	for <amd-gfx@archiver.kernel.org>; Wed,  1 Jan 2020 15:13:22 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 492C1208C3
+	for <amd-gfx@archiver.kernel.org>; Thu,  2 Jan 2020 01:54:50 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lsZWEVEV"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 799E7206E6
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="NJBCkB4u"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 492C1208C3
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 24E8989BB2;
-	Wed,  1 Jan 2020 15:13:18 +0000 (UTC)
-Received: from mail-qv1-xf2e.google.com (mail-qv1-xf2e.google.com
- [IPv6:2607:f8b0:4864:20::f2e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6FAAD89BAE;
- Wed,  1 Jan 2020 15:13:16 +0000 (UTC)
-Received: by mail-qv1-xf2e.google.com with SMTP id dp13so14209079qvb.7;
- Wed, 01 Jan 2020 07:13:16 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=y90zCYcUYpO16j+v27QKuBV95399qcncA3SXtCyTg3k=;
- b=lsZWEVEVjcvE1mmf0ZjDhLrPTx7oOa2uLHr68U401n3sDDHmVUMrVUQXu5W5gcQ3ob
- 0IoVHIYliqtmJIFSv02LRnPolboBC9qjsWVVKDlM/HsvQ+xHuN/Dm59hCOfHqdpphXA4
- 6l6n3jRB9OZCRat53jKJoXER6vzh9BZah+4u3QOoLs3ocdsvSl/yFnIHamftg2bLrUM7
- b7dUL+0sKG5MrxYSKmbTyD1DzgNiEGYqWmh3v/ApGEBvROw+jMATJp/BiZajHf/a25Ab
- zx5xHshp889P2jA6eenGD/Gtv+lhGM9dwJC6W/rEngjEkHJoXSc/xCSIf1KSimXDJ23i
- PWoQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=y90zCYcUYpO16j+v27QKuBV95399qcncA3SXtCyTg3k=;
- b=haaexTPs+ciSCk5ql65Rs1j1SSUVhMIgL+6nKWDTLfSHia4+xtnTKRvvSgS+Gjz+xg
- yH/3+pRXXGqtbmPm0T2L4C7JHdDTy3Ujmg/ow/rPRiT4u7kd7/j5dO/fZdvrJBKl5L3S
- WZbqNGp31nO8rpeedmAnmkv/sX3dJzU7a0a87DbNWEVRFa2yf/sNTv9biEXsv5EdZff8
- FePDHBGJ/ln/HQAV3sn/iE0STtmShd78wIMGWG5BC91rAKfF6chxXH8/N+gf1sCkSmvp
- oLY5/rMLFQ3xOE0jldkW6xspC8bg/e4bZDnWO7IPm0Bkw4epYSJsvhAIU4SMAmEF0tSZ
- pJkA==
-X-Gm-Message-State: APjAAAWvVgIFMIW/wUK4t4fumfkr3xOqJbs6QCZ/MhJBryz5yyjQ1yYA
- YZq1Z7IU1tGhrFkJvduIlmTSM0UG
-X-Google-Smtp-Source: APXvYqyafPzoQfYow4CGdyciHBazKSPgI56FnU4EwIxZqvCVoATz7AR0W/4s26ofAVwVkZzC6rtD8w==
-X-Received: by 2002:ad4:44ee:: with SMTP id p14mr58769669qvt.114.1577891595367; 
- Wed, 01 Jan 2020 07:13:15 -0800 (PST)
-Received: from localhost.localdomain ([71.219.59.120])
- by smtp.gmail.com with ESMTPSA id 3sm15881358qte.59.2020.01.01.07.13.14
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 01 Jan 2020 07:13:14 -0800 (PST)
-From: Alex Deucher <alexdeucher@gmail.com>
-X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
-To: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- airlied@gmail.com, daniel.vetter@ffwll.ch
-Subject: [pull] amdgpu drm-fixes-5.5
-Date: Wed,  1 Jan 2020 10:13:07 -0500
-Message-Id: <20200101151307.5242-1-alexander.deucher@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id C263A89C96;
+	Thu,  2 Jan 2020 01:54:49 +0000 (UTC)
+Received: from NAM04-CO1-obe.outbound.protection.outlook.com
+ (mail-eopbgr690060.outbound.protection.outlook.com [40.107.69.60])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1DA2889C96
+ for <amd-gfx@lists.freedesktop.org>; Thu,  2 Jan 2020 01:54:49 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=jPZQvzTArJsx5QKLTR4bsP6OyqLQdfIjtYsvG+3uhJyMR59uTv8dxUhfaFEglbgmHM1hRTBZy5v9nhvzMkFRMo7yl2gQvDg4S9rw709w5nvXcOUn0qSuggHjgBQM7Ie5QBZHZF4JsTh0Qq19geFar9JWGT62tLMir07gDb8YM8VDv4DwDstcvdnduDVlL0YbmkSkZfbKtkK4bXFHocPvqZbMlvGF+0s9mnFED+Nd9sJWb3DWGrslH8SPc5eH3KGMg1bfL5xdh7yYxpb3LhmaTzgyg9acESPvaQMVZzMCxbIlQw09vQA+iXX560SY9olNrUe9AOhrila+A4Amq55ZSw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=SIoQ75POvGKhuNhpYLvfkpPIg7B4VDxH9P7kkJxNyjg=;
+ b=ZZAR13+Ok7EFSb7KN0IibaBUbPrA5ryn8reWOruaqVggxGRcUp6+IRvlhdqaOXTL3fQeuRMeZkSW6wh6WDgZVkWHDcbBvRDXoq2U57WXTguneIm+JxDsoptt5f66rA9vqj0+8Eh13BcOJ0YunLQCP+raBa4ttaYEI2QIvgCK05r90o4YJtESzBp2+HIw1rgqFvN5t1eTj9uiJTgOel7jXYJdnGFvHMHPlWH6sHPNoNzkgHxqG+wKhIhWYuLAZ1UrclCxjyZWJ4xVa0IHrl+hf+/TMINHNayxHEKZTbItjgXZw7R9Nu+GYZMOiIRL9m6JCDExwcIv5GRGO/ds21rfpQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=SIoQ75POvGKhuNhpYLvfkpPIg7B4VDxH9P7kkJxNyjg=;
+ b=NJBCkB4uTSaDeUaOPCfAptf83zzzyCOB8y+VGr1wvZPxH65fAkhM+sQwOk9T2Ld3naPC7Tj0cnLLGxLYNZD9C5rMtuYPU4j+DnRCJq15ETE6l+ZO9u8qOnqVB5uzZ+CUqBUnBWT+cxxofRZdiNviT2/h0wnmZR0bTJUc1ysf/+g=
+Authentication-Results: spf=none (sender IP is )
+ smtp.mailfrom=Evan.Quan@amd.com; 
+Received: from MN2PR12MB3344.namprd12.prod.outlook.com (20.178.241.74) by
+ MN2PR12MB4112.namprd12.prod.outlook.com (10.255.125.73) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2602.12; Thu, 2 Jan 2020 01:54:47 +0000
+Received: from MN2PR12MB3344.namprd12.prod.outlook.com
+ ([fe80::1010:4621:68dd:5b47]) by MN2PR12MB3344.namprd12.prod.outlook.com
+ ([fe80::1010:4621:68dd:5b47%5]) with mapi id 15.20.2602.010; Thu, 2 Jan 2020
+ 01:54:47 +0000
+From: Evan Quan <evan.quan@amd.com>
+To: amd-gfx@lists.freedesktop.org
+Subject: [PATCH] drm/amd/powerplay: add smu11_driver_if_arcturus.h new OOB
+ members
+Date: Thu,  2 Jan 2020 09:54:24 +0800
+Message-Id: <20200102015424.10737-1-evan.quan@amd.com>
 X-Mailer: git-send-email 2.24.1
+X-ClientProxiedBy: HK2PR06CA0017.apcprd06.prod.outlook.com
+ (2603:1096:202:2e::29) To MN2PR12MB3344.namprd12.prod.outlook.com
+ (2603:10b6:208:c5::10)
 MIME-Version: 1.0
+Received: from equan-buildpc.amd.com (180.167.199.189) by
+ HK2PR06CA0017.apcprd06.prod.outlook.com (2603:1096:202:2e::29) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2602.11 via Frontend Transport; Thu, 2 Jan 2020 01:54:46 +0000
+X-Mailer: git-send-email 2.24.1
+X-Originating-IP: [180.167.199.189]
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: 0d00eff7-ff25-40b0-010c-08d78f26bf04
+X-MS-TrafficTypeDiagnostic: MN2PR12MB4112:|MN2PR12MB4112:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <MN2PR12MB4112F5C053DF33B737D7B76CE4200@MN2PR12MB4112.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:1051;
+X-Forefront-PRVS: 0270ED2845
+X-Forefront-Antispam-Report: SFV:NSPM;
+ SFS:(10009020)(4636009)(346002)(376002)(366004)(39850400004)(396003)(136003)(199004)(189003)(186003)(6916009)(956004)(316002)(6666004)(6486002)(8936002)(81156014)(8676002)(86362001)(81166006)(52116002)(7696005)(2616005)(16526019)(26005)(44832011)(36756003)(66946007)(478600001)(66476007)(66556008)(1076003)(2906002)(4326008)(5660300002);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:MN2PR12MB4112;
+ H:MN2PR12MB3344.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; A:1; MX:1; 
+Received-SPF: None (protection.outlook.com: amd.com does not designate
+ permitted sender hosts)
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: MTu7gFOkUqOKTUHkZQgCyWN44IxjUSpyvgs7sXIRJyTZgPG4yGDv7zzjRIM8TKJHWeBg7cmcqDTNnzzyyi3HTugHauiLZRuQ9Kl+bYOy1wKdbHAI5ddyDrpbYjMHEXe2xvbH8cDOcklOSjbLoooUdJ0P94m6QKCN5nS6FPy4zfSBULGASCnpK6uyKVqtaC+QB3LUv1duk1j+J+Qx7J9ogl11Yv+HR27DFJHTz15DCCbi09NQb508gnjQ0YpihcFa0x9GUrrUeHG3bnC1Ycl4nZ3ds6v3LfyuSEe0g6bk6lUGUsFEUQeW3Ws4sbzQw5UM4yYz0SzP8j7y8VLlxGO9hhEaQx7JLhCURjBxgjr++RYfn/vznSzKzTPZY6rvbw8WDN65GTB95zMZe7iN5awo2zs8tH5jdlv8TtwVKF0r17yYG8/b8XTZeUk9lXOmh2c+
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0d00eff7-ff25-40b0-010c-08d78f26bf04
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jan 2020 01:54:47.5132 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: kHZkU/NVJRnVGqvzQ2/qwTmd8894FQblxvONLGrh8R4f287pjA3YRHeHln+U9T8z
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4112
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,61 +105,57 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: Evan Quan <evan.quan@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Dave, Daniel,
+This is to fit the latest SMC firmware and it's backward compatible.
 
-Happy New Year!  Fixes for 5.5.
+Change-Id: Ic561f83fa5d9d15a226b9f134da7e7ae90d9c6f9
+Signed-off-by: Evan Quan <evan.quan@amd.com>
+---
+ .../gpu/drm/amd/powerplay/inc/smu11_driver_if_arcturus.h  | 8 +++++++-
+ drivers/gpu/drm/amd/powerplay/inc/smu_v11_0.h             | 2 +-
+ 2 files changed, 8 insertions(+), 2 deletions(-)
 
-The following changes since commit e31d941c7dd797df37ea94958638a88723325c30:
+diff --git a/drivers/gpu/drm/amd/powerplay/inc/smu11_driver_if_arcturus.h b/drivers/gpu/drm/amd/powerplay/inc/smu11_driver_if_arcturus.h
+index 910226ec512e..ce5b5011c122 100644
+--- a/drivers/gpu/drm/amd/powerplay/inc/smu11_driver_if_arcturus.h
++++ b/drivers/gpu/drm/amd/powerplay/inc/smu11_driver_if_arcturus.h
+@@ -622,8 +622,14 @@ typedef struct {
+   uint16_t     PccThresholdHigh;
+   uint32_t     PaddingAPCC[6];  //FIXME pending SPEC
+ 
++  // OOB Settings
++  uint16_t BasePerformanceCardPower;
++  uint16_t MaxPerformanceCardPower;
++  uint16_t BasePerformanceFrequencyCap;   //In Mhz
++  uint16_t MaxPerformanceFrequencyCap;    //In Mhz
++
+   // SECTION: Reserved
+-  uint32_t     Reserved[11];
++  uint32_t     Reserved[9];
+ 
+   // SECTION: BOARD PARAMETERS
+ 
+diff --git a/drivers/gpu/drm/amd/powerplay/inc/smu_v11_0.h b/drivers/gpu/drm/amd/powerplay/inc/smu_v11_0.h
+index 662989296174..d5314d12628a 100644
+--- a/drivers/gpu/drm/amd/powerplay/inc/smu_v11_0.h
++++ b/drivers/gpu/drm/amd/powerplay/inc/smu_v11_0.h
+@@ -27,7 +27,7 @@
+ 
+ #define SMU11_DRIVER_IF_VERSION_INV 0xFFFFFFFF
+ #define SMU11_DRIVER_IF_VERSION_VG20 0x13
+-#define SMU11_DRIVER_IF_VERSION_ARCT 0x10
++#define SMU11_DRIVER_IF_VERSION_ARCT 0x12
+ #define SMU11_DRIVER_IF_VERSION_NV10 0x33
+ #define SMU11_DRIVER_IF_VERSION_NV14 0x34
+ 
+-- 
+2.24.1
 
-  Merge tag 'drm-intel-fixes-2019-12-23' of git://anongit.freedesktop.org/drm/drm-intel into drm-fixes (2019-12-27 13:13:30 +1000)
-
-are available in the Git repository at:
-
-  git://people.freedesktop.org/~agd5f/linux tags/amd-drm-fixes-5.5-2020-01-01
-
-for you to fetch changes up to 969e11529221a6a2a787cb3b63ccf9402f8d2e37:
-
-  drm/amdgpu: correct RLC firmwares loading sequence (2020-01-01 09:26:09 -0500)
-
-----------------------------------------------------------------
-amd-drm-fixes-5.5-2020-01-01:
-
-amdgpu:
-- ATPX regression fix
-- SMU metrics table locking fixes
-- gfxoff fix for raven
-- RLC firmware loading stability fix
-
-----------------------------------------------------------------
-Alex Deucher (5):
-      Revert "drm/amdgpu: simplify ATPX detection"
-      drm/amdgpu/smu: add metrics table lock
-      drm/amdgpu/smu: add metrics table lock for arcturus (v2)
-      drm/amdgpu/smu: add metrics table lock for navi (v2)
-      drm/amdgpu/smu: add metrics table lock for vega20 (v2)
-
-Evan Quan (1):
-      drm/amdgpu: correct RLC firmwares loading sequence
-
-changzhu (1):
-      drm/amdgpu: enable gfxoff for raven1 refresh
-
- drivers/gpu/drm/amd/amdgpu/amdgpu_atpx_handler.c | 12 +++++++++++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c          |  2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.h        |  2 +-
- drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c            | 15 ++++-----------
- drivers/gpu/drm/amd/powerplay/amdgpu_smu.c       |  1 +
- drivers/gpu/drm/amd/powerplay/arcturus_ppt.c     |  3 +++
- drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h   |  1 +
- drivers/gpu/drm/amd/powerplay/navi10_ppt.c       |  3 +++
- drivers/gpu/drm/amd/powerplay/vega20_ppt.c       |  3 +++
- 9 files changed, 28 insertions(+), 14 deletions(-)
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
