@@ -2,77 +2,113 @@ Return-Path: <SRS0=MtTs=2X=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,HTTPS_HTTP_MISMATCH,
-	MAILING_LIST_MULTI,MIME_HTML_MOSTLY,SPF_HELO_NONE,SPF_PASS autolearn=no
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-0.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,
+	MIME_HTML_MOSTLY,SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id BF22AC2D0DD
-	for <amd-gfx@archiver.kernel.org>; Thu,  2 Jan 2020 08:41:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id AF4C8C3276E
+	for <amd-gfx@archiver.kernel.org>; Thu,  2 Jan 2020 08:58:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 8493920866
-	for <amd-gfx@archiver.kernel.org>; Thu,  2 Jan 2020 08:41:28 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 72B3E21734
+	for <amd-gfx@archiver.kernel.org>; Thu,  2 Jan 2020 08:58:16 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="h5CGkqno"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8493920866
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="0r2QRuhH"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 72B3E21734
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1E00389803;
-	Thu,  2 Jan 2020 08:41:28 +0000 (UTC)
-Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com
- [IPv6:2a00:1450:4864:20::443])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 894F689803
- for <amd-gfx@lists.freedesktop.org>; Thu,  2 Jan 2020 08:41:26 +0000 (UTC)
-Received: by mail-wr1-x443.google.com with SMTP id c14so38474400wrn.7
- for <amd-gfx@lists.freedesktop.org>; Thu, 02 Jan 2020 00:41:26 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=UYncsbIDBtajYSthICMPweYs8Y1j/z5wwz2Bk4D4ZNM=;
- b=h5CGkqnovY2qFizhf9smexrmRfCsgc60RLJaacxKtNEVSrPIgxF/vJ1OvamPV2hx8i
- Ap0la/xdunHyfwufw6Yfgs/036rWrebHm1h2mgi59sC2yCd58m2+WKxs2yXKWAoyzi+V
- HE/Nn/kSt86c8WtqP2fXI94kg+Ipb+4hB4OwDvEgsjr+8TK/y8e7HTkjlJiscgUTEDHX
- awVhDWApKaj61Do/D1Qbm93l3kteCtgRiVJ3g1zhMFh7TMoPwI0n4GE2Dt8JsyySqzLN
- 9kTS0+lVaBh5yvcqIoi3zch4AbeuT+sfgspQYJ55iW9vEA9YRDDLdAD4TaD9paymZYU2
- TPLA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=UYncsbIDBtajYSthICMPweYs8Y1j/z5wwz2Bk4D4ZNM=;
- b=g3RS7/Ej6FwX82Anu3EIHcmebFhRQ5c+jUb2z8+UMJPknEWVi9AWhmkzd/TdPfjBiJ
- Mwckdla1Y79k/WuTLY7WXKJVe6wYmMYkbeBG6gxr7AYy7rRRGHGrkHa8NcfKWFkj443v
- oYUz+Iw4TMrlzWcINpPS9K/M/pgwjyZG1zOY6haNREFPax+OFcFkaPru0glJhIlG1sbE
- yBqeIWj+5LPaAEocR5NaE76/91dNnJANg26fQ044aWzMFyaiEgxvrg9EwB7HbD7nbT+w
- 8n71c7gIX4xxes5DUpzYol2FlP1cG1cqdx4Ce85N0mZJy6FEIlWJ7xmv+9qYt82lrmch
- X1hg==
-X-Gm-Message-State: APjAAAWznXH7OfLQAwg7udZJ7QbIl3GrMZ3+uclS/gLdxwmpTlllys0q
- 2+nGLnUIm+qA/EattJSbQFJyZosjjjFMI5bp0xDvaT6M
-X-Google-Smtp-Source: APXvYqwb0donDMFaeGilHd6pAJGNIO2ou/RaWcwlLKsoIVBqv9ssjiE49Jzn511Vyr7vWhOc3q/N3NM/f3ZrgJ0jq30=
-X-Received: by 2002:adf:fe90:: with SMTP id l16mr85863445wrr.265.1577954484724; 
- Thu, 02 Jan 2020 00:41:24 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 11CFB89CA8;
+	Thu,  2 Jan 2020 08:58:16 +0000 (UTC)
+Received: from NAM04-CO1-obe.outbound.protection.outlook.com
+ (mail-eopbgr690073.outbound.protection.outlook.com [40.107.69.73])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4B42889CA8
+ for <amd-gfx@lists.freedesktop.org>; Thu,  2 Jan 2020 08:58:15 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=NVllz1yw5+X7ki8nCMymDieW3RoyXQobFFIt6oZCPxIr/nZyRFyFBRbwd7bRybfH5GqVijRedS8FcGwxU7absLFtVfD/csHpJjBxc/6PkqrU32AVeC/DPHP9ILMN9w+AOMQJyizytHCZCo8bh9varWPhZWm5RxyIYf3FN/dfaHCeocWtaXVKJuinxVLZGqDiC3BDZ+onfYefw3TQuhIlRSHNYysNh2ZDeT/P71B1Ygr6z6ZKw8qKERz1IpSIUM0VmKkjvNOmly7kAN3oPh8JXOaoTE78TYG3OeByN53w/hEriu59xys/k+TX7DakoOHI/MFpdu03O3zlZRPVhawC6Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Ni9eM6iWgKOuuw5FImz2X3yqGoBXjxVm2TImEy0zY2U=;
+ b=lY+WIUiSbphi9zjujVS+nzVD66v+RmHB/rJTaF+TILeqCelBfEAwmXg4cTMtKyc5AfEese1+0VM9jNZeqd5IBReTKyhK1O08iLEDU0EoRZUm+66SZWhnver8ZIY189kU6LFx2PGe7QeHydaB6iSiM+IA3zsd4hKKve9Rbc13lTlU78MGW9+Fzz3CpGPn+yUmhxKKEzAH6uxXGgsbdnEq059kFDmbmazdZfrSrJZ8ec9UuLUlz4+0FM4ZDFE0nirZ21vWDIimfikLeuLSJqBI6Rd8yrYSscMV1Z6Ik4RZeMfUj3O9V30Vg10iunsvotKOpgo78ot36OPnfaISU1vv+w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Ni9eM6iWgKOuuw5FImz2X3yqGoBXjxVm2TImEy0zY2U=;
+ b=0r2QRuhH38YG9Az5jCUhqLsXAbwNqhREffCBaP6Wtri+yKAFo0++2jpMN3jgfViA6zmoAfI4+5rrP108QAu0B4hS3sA40h1E8JiQnJeVdfZ+aAYwkLpFW3WR31a6HvVLzwcHyWTVzGEZ5pQCx/np2A5Cns1V0pKV1rZMjISIqTM=
+Received: from MN2PR12MB3598.namprd12.prod.outlook.com (20.178.244.84) by
+ MN2PR12MB4189.namprd12.prod.outlook.com (52.135.49.214) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2602.11; Thu, 2 Jan 2020 08:58:13 +0000
+Received: from MN2PR12MB3598.namprd12.prod.outlook.com
+ ([fe80::58ae:be91:c063:b2a1]) by MN2PR12MB3598.namprd12.prod.outlook.com
+ ([fe80::58ae:be91:c063:b2a1%6]) with mapi id 15.20.2581.007; Thu, 2 Jan 2020
+ 08:58:13 +0000
+From: "Feng, Kenneth" <Kenneth.Feng@amd.com>
+To: =?iso-8859-9?Q?Yusuf_Alt=FDparmak?= <yusufalti1997@gmail.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Subject: RE: [Error] amdgpu powerplay ip block error with -22.
+Thread-Topic: [Error] amdgpu powerplay ip block error with -22.
+Thread-Index: AQHVwUWznSPE6xTP6UKyCRTdUw69UafXDXvQ
+Date: Thu, 2 Jan 2020 08:58:13 +0000
+Message-ID: <MN2PR12MB3598F90268C4C6602532C94C8E200@MN2PR12MB3598.namprd12.prod.outlook.com>
+References: <CAGzVRjxUUoF=m6-NvnRoqagLRAWQvTDVHA7Hkr=UA-_wRRyAZQ@mail.gmail.com>
+In-Reply-To: <CAGzVRjxUUoF=m6-NvnRoqagLRAWQvTDVHA7Hkr=UA-_wRRyAZQ@mail.gmail.com>
+Accept-Language: zh-CN, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=true;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2020-01-02T08:58:09Z; 
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal Use Only -
+ Unrestricted;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ActionId=75eaa566-b8d6-4d26-8214-00006d42e5cc;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=1
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_enabled: true
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_setdate: 2020-01-02T08:58:09Z
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_method: Standard
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_name: Internal Use Only -
+ Unrestricted
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_actionid: 07f958f3-4a84-4b97-801b-0000c08c7edb
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_contentbits: 0
+authentication-results: spf=none (sender IP is )
+ smtp.mailfrom=Kenneth.Feng@amd.com; 
+x-originating-ip: [180.167.199.189]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-ht: Tenant
+x-ms-office365-filtering-correlation-id: 3036467c-0a1e-49e0-0ce2-08d78f61e65b
+x-ms-traffictypediagnostic: MN2PR12MB4189:
+x-microsoft-antispam-prvs: <MN2PR12MB4189D09F0FB05A7AE7140EE08E200@MN2PR12MB4189.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:8882;
+x-forefront-prvs: 0270ED2845
+x-forefront-antispam-report: SFV:NSPM;
+ SFS:(10009020)(4636009)(346002)(376002)(136003)(396003)(366004)(39860400002)(189003)(199004)(9686003)(55016002)(7696005)(8676002)(81166006)(33656002)(8936002)(81156014)(52536014)(316002)(71200400001)(2906002)(26005)(5660300002)(110136005)(66946007)(186003)(76116006)(86362001)(66556008)(66446008)(64756008)(66476007)(53546011)(6506007)(478600001);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:MN2PR12MB4189;
+ H:MN2PR12MB3598.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; MX:1; A:1; 
+received-spf: None (protection.outlook.com: amd.com does not designate
+ permitted sender hosts)
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: 3lOayHZoBcehyatrNLG6JmbzSrmhQ4ZVSYQEFEM1ljmnA+Po/sJ3CLFOv0ZvSzNcshyhgXWW+htQxQ7cN1B20d3DAl9tzlPyZ61Sk46PFDAjjQBQ0DU6+IrLnqFL12zQAZLXKRoGVeTM5lTdEKldQo6HiXMVCWjvTgMOndzDkFd2R+D1HVFmL7IcFQOWlJDtqyoJ3eV/sSAnTKwPVGxenm1DeKQ8jKBAV0ooA1Sy7wNoGiGywVvurQ2fxM1sdPmg/WqpcckSfLeZYBkRsS8u6r26TIihNT7qlw8DpV0KrrY+DuZL6O25pYmSohyTmqLWhOakWg1TQ4YviFp724DllxbY3XbpMyIEo4OTgc9hjkCJgmWbPEyjQtJf9PO4JVPEQtirfzqTSFhc/7iJMyY08moaNQAT7YX05V9gRLoKK8wht3dIM9Z6tLDShfU6Viys
+x-ms-exchange-transport-forked: True
 MIME-Version: 1.0
-References: <CAGzVRjxGE5p3AVQf=dm4ubBrKgbTagr4QrUJo=bPmueNSyjecw@mail.gmail.com>
- <1b8f92ae-6faa-49a4-8b38-6bccec006b68@gmail.com>
- <CAGzVRjyz7P3uiCgyFX=zZ4xzKwN+X2i8y7oabNkLBU4CnRpBmw@mail.gmail.com>
- <ec0b6313-1a5a-8195-84da-ee549f82f142@amd.com>
- <CAGzVRjzELaG_CToBxUWzh+kadp3qUQY6RQSGHMO1W1eSs+d-_w@mail.gmail.com>
- <ee330d5d-047e-8342-9c40-c547dcc7a17c@gmail.com>
- <CAGzVRjxFx-+Rduwm2ejxzkNnCQq_pyT9k0LO1z5_MSq95EmOxQ@mail.gmail.com>
- <CAGzVRjzDKaA96VqXq=W3jUDJga3Fc=vWOm_XQE9e6WTTNujXaA@mail.gmail.com>
- <e295f685-a46b-dcea-ad65-627f8839da2b@amd.com>
- <CAGzVRjz-EEZDamT3OvJ8r9ERd7gNLdjBwaOisnQ9pY_MPKAKyg@mail.gmail.com>
- <80c63f19-d1a2-1310-c93f-9f4e292cffef@amd.com>
- <CAGzVRjwVdgojwsM1pOYftcXf6WeQN_46QwfQ1gvVUd6duyXiEQ@mail.gmail.com>
-In-Reply-To: <CAGzVRjwVdgojwsM1pOYftcXf6WeQN_46QwfQ1gvVUd6duyXiEQ@mail.gmail.com>
-From: =?UTF-8?Q?Yusuf_Alt=C4=B1parmak?= <yusufalti1997@gmail.com>
-Date: Thu, 2 Jan 2020 11:41:13 +0300
-Message-ID: <CAGzVRjxCCUUtMpRxEJCVZgku1bB5jSsCdV9s-XO=6WMLnwWqmw@mail.gmail.com>
-Subject: Re: [error] Drm -> amdgpu Unrecoverable Machine Check
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3036467c-0a1e-49e0-0ce2-08d78f61e65b
+X-MS-Exchange-CrossTenant-originalarrivaltime: 02 Jan 2020 08:58:13.3572 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: wGxpQmiZAd/L+1ikOvM756zgd74MVGZ7As5RokuGjb2rcR7VHZRxX+j4jG2W4dIE
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4189
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,2507 +120,817 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx@lists.freedesktop.org
-Content-Type: multipart/mixed; boundary="===============1660137890=="
+Content-Type: multipart/mixed; boundary="===============0478183497=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============1660137890==
-Content-Type: multipart/alternative; boundary="00000000000088ab02059b242897"
+--===============0478183497==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_MN2PR12MB3598F90268C4C6602532C94C8E200MN2PR12MB3598namp_"
 
---00000000000088ab02059b242897
-Content-Type: text/plain; charset="UTF-8"
+--_000_MN2PR12MB3598F90268C4C6602532C94C8E200MN2PR12MB3598namp_
+Content-Type: text/plain; charset="iso-8859-9"
 Content-Transfer-Encoding: quoted-printable
 
-Hello Christian,
+[AMD Official Use Only - Internal Distribution Only]
 
-I solved this problem weeks ago. The problem was, the system I use could
-only give 256 MB address range but GPU was demanding more. Even if I give 4
-GB, PCIe slot is only having 256 MB, nothing more.  I put a empty area that
-is between PCIe2 ( GPU was connected to this) and PCIe3 and everything
-worked fine ( I moved forward the start adress of next PCIe device) . If
-anyone encounters same problem, here is a sample Device Tree Source for
-linux;
-
-pci0: pcie@ffe240000 {
-reg =3D <0xf 0xfe240000 0 0x10000>;
-ranges =3D <0x02000000 0 0xe0000000 0x2 0x0 0x0 0x10000000
- 0x01000000 0 0x0 0xf 0xf8000000 0x0 0x00010000>;
-pcie@0 {
-ranges =3D <0x02000000 0 0xe0000000
- 0x02000000 0 0xe0000000
- 0 0x10000000
-
- 0x01000000 0 0x00000000
- 0x01000000 0 0x00000000
- 0 0x00010000>;
-};
-};
-
-pci1: pcie@ffe250000 { // GPU CONNECTED TO THIS ONE
-reg =3D <0xf 0xfe250000 0 0x10000>;
-ranges =3D <0x02000000 0 0xe0000000 0x2 0x10000000 0x1 0x00000000
- 0x01000000 0 0 0xf 0xf8010000 0 0x00010000>;
-pcie@0 {
-ranges =3D <0x02000000 0 0xe0000000
- 0x02000000 0 0xe0000000
- 0x1 0x00000000
-
- 0x01000000 0 0x00000000
- 0x01000000 0 0x00000000
- 0 0x00010000>;
-};
-};
-
-pci2: pcie@ffe260000 {
-reg =3D <0xf 0xfe260000 0 0x10000>;
-ranges =3D <0x02000000 0 0xe0000000 0x3 0x20000000 0 0x10000000 // 0x3
-0x20000000 actually it must be 0x3 0x10000000 because I gave 4 GB to pci1
-but I also added 256 MB empty area between them. So it started from 0x3
-0x20000000
- 0x01000000 0 0x00000000 0xf 0xf8020000 0 0x00010000>;
-pcie@0 {
-ranges =3D <0x02000000 0 0xe0000000
- 0x02000000 0 0xe0000000
- 0 0x10000000
-
- 0x01000000 0 0x00000000
- 0x01000000 0 0x00000000
- 0 0x00010000>;
-};
-};
-
-pci3: pcie@ffe270000 {
-reg =3D <0xf 0xfe270000 0 0x10000>;
-ranges =3D <0x02000000 0 0xe0000000 0x3 0x30000000 0 0x10000000
- 0x01000000 0 0x00000000 0xf 0xf8030000 0 0x00010000>;
-pcie@0 {
-ranges =3D <0x02000000 0 0xe0000000
- 0x02000000 0 0xe0000000
- 0 0x10000000
-
- 0x01000000 0 0x00000000
- 0x01000000 0 0x00000000
- 0 0x00010000>;
-};
-};
+First you could check if the binary 'polaris12_smc.bin' is in your system: =
+/lib/firmware/../amdgpu/
+If it's there, then does this happen after a warm reset?
+Thanks.
 
 
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Yusuf Al=
+tiparmak
+Sent: Thursday, January 2, 2020 4:22 PM
+To: amd-gfx@lists.freedesktop.org
+Subject: [Error] amdgpu powerplay ip block error with -22.
 
-Yusuf Alt=C4=B1parmak <yusufalti1997@gmail.com>, 3 Ara 2019 Sal, 22:20 tari=
-hinde
-=C5=9Funu yazd=C4=B1:
+[CAUTION: External Email]
+I am having this error with kernel version 4.19 amdgpu driver for a polaris=
+12 based GPU. What could be the problem? Any suggestions? Thanks.
 
->
-> What you could try as well is to use the size 320MB for the MMIO. Those
->> ranges usually don't need to be a power of two (only the BARs itself are=
- a
->> power of two) and this way it might even be easier to fit everything
->> together.
->>
->
-> Hmm this makes my job easier it seems.
->
->
->> By the way I wonder how can I get at least VGA output from GPU. Maybe I
->> can get a text console on screen or something like X server? Do you have
->> any recommendations?
->>
->> What could maybe work is VGA emulation, which essentially means text
->> only. But no guarantee for that this really works as expected.
->>
->> It's a well known board and U-boot is the most popular bootloader in
-> embedded world it seems. I think I am not the only one who tries to conne=
-ct
-> a GPU from PCIe so I think there must be some config variables that enabl=
-es
-> VGA emulation, or some kind of packages.
->
->
->
->> I am just wondering, does modern gaming motherboards have more than 4GB
->> PCIe buffer for this job ?
->>
->> They don't, resources are dynamically assigned instead.
->>
->> See on x86 you usually have 1GB 32-bit address space where the BIOS
->> shuffles all the mandatory devices it sees at boot time into.
->>
->> Then when the motherboard has multiple PEG slots the BIOS also configure=
-s
->> a 64-bit address space which is usually rather huge (256GB-1TB). Since t=
-he
->> the VRAM and the doorbell BAR are 64bit BARs on the GPU they can be mapp=
-ed
->> into that as well.
->>
->> This way you can easily have 10 GPUs connected to your CPU.
->>
->> Ah that was a clear answer. So the adress that CPU uses after mapping is
-> actully an imaginary/virtual adress. It depends on the operating systems
-> bit configuration. If I am not wrong, those addresses are adding on
-> previous one meanwhile PCIe is mapping with endpoint device.
->
->
->
->> The problem you have here is that U-config doesn't do this resource
->> assignment automatically and you need to configure it manually.
->>
->
-> Yes. By the way, thanks for your answers Christian. I am a newbie to
-> embedded world. I have been dealing with these stuffs for 3 months. I
-> couldn't get the answers I seek from google. Your answers were more clear
-> and understandable.
->
-> Best Regards.
->
->
->
->> Am 03.12.19 um 13:50 schrieb Yusuf Alt=C4=B1parmak:
->>
->>
->> Hi Christian,
->>
->>> 0001f000
->>>
->>> Exactly as I thought. The hardware does support BAR resize, but
->>> unfortunately 256MB is already the minimum.
->>>
->>> Sorry, but there isn't anything I could do from the GPU drivers point o=
-f
->>> view.
->>>
->>
->> Yes unfortunately there is nothing remained to about GPU side.
->>
->> The only good news I have is that 256M+2M+512K+128K=3D260M address space
->>> should be enough for the GPU to work, maybe that makes things a bit sim=
-pler.
->>>
->>>
->> Right now I am trying to increase MMIO size config to 512 MB, I hope tha=
-t
->> should help me. By the way I wonder how can I get at least VGA output fr=
-om
->> GPU. Maybe I can get a text console on screen or something like X server=
-?
->> Do you have any recommendations? I tried this GPU with my own Ubuntu 18.=
-04
->> and its special driver. Everything worked fine.
->>
->>
->>
->>> But you definitely got an interesting use case here :)
->>>
->>
->> This is the worlds the most interesting use case I think. I can't
->> increase MMIO size because U-boot freezes. I can't decrease it to 256 MB
->> again because driver does not accept :D. I am just wondering, does moder=
-n
->> gaming motherboards have more than 4GB PCIe buffer for this job ? :D
->>
->>
->> Am 03.12.19 um 11:31 schrieb Yusuf Alt=C4=B1parmak:
->>>
->>> Hello Christian,
->>> My "setpci -s 0001:01:00.0 ECAP15+4.l ECAP15+8.l" output is;
->>>
->>> 0001f000
->>>
->>> 00000820
->>>
->>> Regards.
->>>
->>>
->>>
->>> Yusuf Alt=C4=B1parmak <yusufalti1997@gmail.com>, 2 Ara 2019 Pzt, 19:31
->>> tarihinde =C5=9Funu yazd=C4=B1:
->>>
->>>> Most likely not. There is support for resizing the VRAM BAR, but
->>>>> usually you can only make it larger and not smaller.
->>>>> Please give me the output of "sudo setpci -s 0001:01:00.0 ECAP15+4.l
->>>>> ECAP15+8.l" if you want to double check that.
->>>>>
->>>>
->>>> Okay I'll try it tomorrow. What does the " sudo setpci -s 0001:01:00.0
->>>> ECAP15+4.l ECAP15+8.l" command exactly do ?
->>>>
->>>>
->>>>
->>>>> Well you rather need to ask if anybody has sample PCIe configuration
->>>>> for GPUs in general. That problem is not really E9171 related. You mi=
-ght
->>>>> want to ask NXP for that maybe.
->>>>> Sorry, no idea if that is correct or not. You need to ask NXP for hel=
-p
->>>>> with that.
->>>>>
->>>>>
->>>> Okay no problem. At least I know what is the missing point now. The
->>>> problem is probably because of the .dtsi and u-boot config files. Memo=
-ry
->>>> ranges are overwriting like you said. I'll ask nxp to take some sample=
- PCIe
->>>> configuration for GPUs.
->>>>
->>>> Thank you for your interest Christian.
->>>> Regards .
->>>>
->>>>
->>>>>
->>>>> Am 02.12.19 um 14:32 schrieb Yusuf Alt=C4=B1parmak:
->>>>>>
->>>>>>
->>>>>>> I attached my dts file.
->>>>>>>
->>>>>>> System is working fine when GPU is not plugged in.
->>>>>>>
->>>>>>> *This is the last console log before freeze:*
->>>>>>> [drm] amdgpu kernel modesetting enabled.
->>>>>>>
->>>>>>> [drm] initializing kernel modesetting (POLARIS12 0x1002:0x6987
->>>>>>> 0x1787:0x2389 0x80).
->>>>>>> [drm] register mmio base: 0x20200000
->>>>>>>
->>>>>>> fsl-fman-port ffe488000.port fm1-gb0: renamed from eth0
->>>>>>>
->>>>>>> [drm] register mmio size: 262144
->>>>>>>
->>>>>>> [drm] add ip block number 0 <vi_common>
->>>>>>>
->>>>>>> [drm] add ip block number 1 <gmc_v8_0>
->>>>>>>
->>>>>>> [drm] add ip block number 2 <tonga_ih>
->>>>>>>
->>>>>>> [drm] add ip block number 3 <powerplay>
->>>>>>>
->>>>>>> [drm] add ip block number 4 <dm>
->>>>>>>
->>>>>>> [drm] add ip block number 5 <gfx_v8_0>
->>>>>>>
->>>>>>> [drm] add ip block number 6 <sdma_v3_0>
->>>>>>>
->>>>>>> [drm] add ip block number 7 <uvd_v6_0>
->>>>>>>
->>>>>>> [drm] add ip block number 8 <vce_v3_0>
->>>>>>>
->>>>>>> [drm] UVD is enabled in VM mode
->>>>>>>
->>>>>>> [drm] UVD ENC is enabled in VM mode
->>>>>>>
->>>>>>> [drm] VCE enabled in VM mode
->>>>>>>
->>>>>>> ATOM BIOS: 113-ER16BFC-001
->>>>>>>
->>>>>>> [drm] GPU posting now...
->>>>>>>
->>>>>>> Disabling lock debugging due to kernel taint
->>>>>>>
->>>>>>> Machine check in kernel mode.
->>>>>>>
->>>>>>> Caused by (from MCSR=3Da000): Load Error Report
->>>>>>>
->>>>>>> Guarded Load Error Report
->>>>>>>
->>>>>>> Kernel panic - not syncing: Unrecoverable Machine check
->>>>>>>
->>>>>>> CPU: 1 PID: 2023 Comm: udevd Tainted: G   M
->>>>>>>  4.19.26+gc0c2141 #1
->>>>>>> Call Trace:
->>>>>>>
->>>>>>>
->>>>>>>
->>>>>>> _______________________________________________
->>>>>>> amd-gfx mailing listamd-gfx@lists.freedesktop.orghttps://lists.free=
-desktop.org/mailman/listinfo/amd-gfx <https://nam11.safelinks.protection.ou=
-tlook.com/?url=3Dhttps%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2=
-Famd-gfx&data=3D02%7C01%7Cchristian.koenig%40amd.com%7C561d9d3206ff46d338ad=
-08d777ef717c%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C63710974260333542=
-7&sdata=3DDstGsDW0X7ennQoF1vg%2FYLGAStF4p1dAeMFhzsAFc1I%3D&reserved=3D0>
->>>>>>>
->>>>>>>
->>>>>>>
->>>>>>
->>>>>> Christian K=C3=B6nig <ckoenig.leichtzumerken@gmail.com>, 2 Ara 2019 =
-Pzt,
->>>>>> 15:28 tarihinde =C5=9Funu yazd=C4=B1:
->>>>>>
->>>>>>> Hi Yusuf,
->>>>>>>
->>>>>>> Am 02.12.19 um 12:41 schrieb Yusuf Alt=C4=B1parmak:
->>>>>>>
->>>>>>> My embedded board is freezing when I put E9171 on PCIe. What is the
->>>>>>> meaning of Unrecoverable Machine Check error about GPU?
->>>>>>>
->>>>>>>
->>>>>>> Well see the explanation on Wikipedia for example:
->>>>>>> https://en.wikipedia.org/wiki/Machine-check_exception
->>>>>>> <https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%=
-2Fen.wikipedia.org%2Fwiki%2FMachine-check_exception&data=3D02%7C01%7Cchrist=
-ian.koenig%40amd.com%7C561d9d3206ff46d338ad08d777ef717c%7C3dd8961fe4884e608=
-e11a82d994e183d%7C0%7C0%7C637109742603345420&sdata=3DNtHiZmL7me4JRZR4L9KHZz=
-pD8Zcn6caURVvtiDSgHsE%3D&reserved=3D0>
->>>>>>>
->>>>>>> In general it means you have messed up something in your hardware
->>>>>>> configuration.
->>>>>>>
->>>>>>> Could PCIe settings in .dts file cause this problem?
->>>>>>>
->>>>>>>
->>>>>>> Possible, but rather unlikely. My best guess is that it is some
->>>>>>> problem with the power supply.
->>>>>>>
->>>>>>> If it is, is there any sample PCIe configuration for E9171?
->>>>>>>
->>>>>>>
->>>>>>> The E9171 is just a PCIe device, so the dtsi is actually rather
->>>>>>> uninteresting. What we really need is a full dmesg and maybe lspci =
-output
->>>>>>> would help as well.
->>>>>>>
->>>>>>> Regards,
->>>>>>> Christian.
->>>>>>>
->>>>>>
->>>>>>
->>>>>> Hi Christian,
->>>>>>
->>>>>> At first, I am using NXP T1042D4RDB-64B which has 256 MB PCIe buffer
->>>>>> according to its. PCIe memory range was arranged to 256 MB in .dts f=
-ile and
->>>>>> in U-boot configuration file. Driver was giving error with exit code=
- -12
->>>>>> (OUT_OF_MEMORY). But I was able to reach the linux console.
->>>>>>
->>>>>> [    5.512922] [drm] amdgpu kernel modesetting enabled.
->>>>>> [    5.517065] [drm] initializing kernel modesetting (POLARIS12
->>>>>> 0x1002:0x6987 0x1787:0x2389 0x80).
->>>>>> [    5.524507] amdgpu 0001:01:00.0: Fatal error during GPU init
->>>>>> [    5.529296] amdgpu: probe of 0001:01:00.0 failed with error -12
->>>>>>
->>>>>> Then I canged 256 MB to 4GB in .dtsi and U-boot conf file. I also
->>>>>> changed 64KB I/O size to 1MB . When I do this, I wasn't able to reac=
-h the
->>>>>> linux console because board was freezing. But driver was successfull=
- at
->>>>>> this time. I already mentioned successfull driver console logs up.
->>>>>>
->>>>>> *this is lspci -v when GPU is plugged and Memory size is 256 MB.*
->>>>>>
->>>>>> root@t1042d4rdb-64b:~# lspci -v
->>>>>> 0000:00:00.0 PCI bridge: Freescale Semiconductor Inc Device 0824 (re=
-v
->>>>>> 11) (prog-if 00 [Normal decode])
->>>>>>         Device tree node: /sys/firmware/devicetree/base/pcie@ffe2400=
-00
->>>>>> /pcie@0
->>>>>>         Flags: bus master, fast devsel, latency 0, IRQ 20
->>>>>>         Memory at <ignored> (32-bit, non-prefetchable)
->>>>>>         Bus: primary=3D00, secondary=3D01, subordinate=3D01, sec-lat=
-ency=3D0
->>>>>>         I/O behind bridge: 00000000-0000ffff [size=3D64K]
->>>>>>         Memory behind bridge: e0000000-efffffff [size=3D256M]
->>>>>>         Prefetchable memory behind bridge: None
->>>>>>         Capabilities: [44] Power Management version 3
->>>>>>         Capabilities: [4c] Express Root Port (Slot-), MSI 00
->>>>>>         Capabilities: [100] Advanced Error Reporting
->>>>>>         Kernel driver in use: pcieport
->>>>>>
->>>>>> 0001:00:00.0 PCI bridge: Freescale Semiconductor Inc Device 0824 (re=
-v
->>>>>> 11) (prog-if 00 [Normal decode])
->>>>>>         Device tree node: /sys/firmware/devicetree/base/pcie@ffe2500=
-00
->>>>>> /pcie@0
->>>>>>         Flags: bus master, fast devsel, latency 0, IRQ 21
->>>>>>         Memory at <ignored> (32-bit, non-prefetchable)
->>>>>>         Bus: primary=3D00, secondary=3D01, subordinate=3D01, sec-lat=
-ency=3D0
->>>>>>         I/O behind bridge: 00000000-0000ffff [size=3D64K]
->>>>>>         Memory behind bridge: e0000000-efffffff [size=3D256M]
->>>>>>         Prefetchable memory behind bridge: None
->>>>>>         Capabilities: [44] Power Management version 3
->>>>>>         Capabilities: [4c] Express Root Port (Slot-), MSI 00
->>>>>>         Capabilities: [100] Advanced Error Reporting
->>>>>>         Kernel driver in use: pcieport
->>>>>>
->>>>>> 0001:01:00.0 VGA compatible controller: Advanced Micro Devices, Inc.
->>>>>> [AMD/ATI] Lexa [Radeon E9171 MCM] (rev 80) (prog-if 00 [VGA controll=
-er])
->>>>>>         Subsystem: Hightech Information System Ltd. Device 2389
->>>>>>         Flags: fast devsel, IRQ 41
->>>>>>         Memory at c10000000 (64-bit, prefetchable) [size=3D256M]
->>>>>>         Memory at <ignored> (64-bit, prefetchable)
->>>>>>         I/O ports at 1100 [size=3D256]
->>>>>>         Memory at <ignored> (32-bit, non-prefetchable)
->>>>>>         Expansion ROM at <ignored> [disabled]
->>>>>>         Capabilities: [48] Vendor Specific Information: Len=3D08 <?>
->>>>>>         Capabilities: [50] Power Management version 3
->>>>>>         Capabilities: [58] Express Legacy Endpoint, MSI 00
->>>>>>         Capabilities: [a0] MSI: Enable- Count=3D1/1 Maskable- 64bit+
->>>>>>         Capabilities: [100] Vendor Specific Information: ID=3D0001
->>>>>> Rev=3D1 Len=3D010 <?>
->>>>>>         Capabilities: [150] Advanced Error Reporting
->>>>>>         Capabilities: [200] Resizable BAR <?>
->>>>>>         Capabilities: [270] Secondary PCI Express <?>
->>>>>>         Capabilities: [2b0] Address Translation Service (ATS)
->>>>>>         Capabilities: [2c0] Page Request Interface (PRI)
->>>>>>         Capabilities: [2d0] Process Address Space ID (PASID)
->>>>>>         Capabilities: [320] Latency Tolerance Reporting
->>>>>>         Capabilities: [328] Alternative Routing-ID Interpretation
->>>>>> (ARI)
->>>>>>         Capabilities: [370] L1 PM Substates
->>>>>>         Kernel modules: amdgpu
->>>>>>
->>>>>> 0001:01:00.1 Audio device: Advanced Micro Devices, Inc. [AMD/ATI]
->>>>>> Device aae0
->>>>>>         Subsystem: Hightech Information System Ltd. Device aae0
->>>>>>         Flags: bus master, fast devsel, latency 0, IRQ 17
->>>>>>         Memory at <ignored> (64-bit, non-prefetchable)
->>>>>>         Capabilities: [48] Vendor Specific Information: Len=3D08 <?>
->>>>>>         Capabilities: [50] Power Management version 3
->>>>>>         Capabilities: [58] Express Legacy Endpoint, MSI 00
->>>>>>         Capabilities: [a0] MSI: Enable- Count=3D1/1 Maskable- 64bit+
->>>>>>         Capabilities: [100] Vendor Specific Information: ID=3D0001
->>>>>> Rev=3D1 Len=3D010 <?>
->>>>>>         Capabilities: [150] Advanced Error Reporting
->>>>>>         Capabilities: [328] Alternative Routing-ID Interpretation
->>>>>> (ARI)
->>>>>>
->>>>>> 0002:00:00.0 PCI bridge: Freescale Semiconductor Inc Device 0824 (re=
-v
->>>>>> 11) (prog-if 00 [Normal decode])
->>>>>>         Device tree node: /sys/firmware/devicetree/base/pcie@ffe2600=
-00
->>>>>> /pcie@0
->>>>>>         Flags: bus master, fast devsel, latency 0, IRQ 22
->>>>>>         Memory at <ignored> (32-bit, non-prefetchable)
->>>>>>         Bus: primary=3D00, secondary=3D01, subordinate=3D01, sec-lat=
-ency=3D0
->>>>>>         I/O behind bridge: 00000000-0000ffff [size=3D64K]
->>>>>>         Memory behind bridge: e0000000-efffffff [size=3D256M]
->>>>>>         Prefetchable memory behind bridge: None
->>>>>>         Capabilities: [44] Power Management version 3
->>>>>>         Capabilities: [4c] Express Root Port (Slot-), MSI 00
->>>>>>         Capabilities: [100] Advanced Error Reporting
->>>>>>         Kernel driver in use: pcieport
->>>>>>
->>>>>> 0003:00:00.0 PCI bridge: Freescale Semiconductor Inc Device 0824 (re=
-v
->>>>>> 11) (prog-if 00 [Normal decode])
->>>>>>         Device tree node: /sys/firmware/devicetree/base/pcie@ffe2700=
-00
->>>>>> /pcie@0
->>>>>>         Flags: bus master, fast devsel, latency 0, IRQ 23
->>>>>>         Memory at <ignored> (32-bit, non-prefetchable)
->>>>>>         Bus: primary=3D00, secondary=3D01, subordinate=3D01, sec-lat=
-ency=3D0
->>>>>>         I/O behind bridge: 00000000-0000ffff [size=3D64K]
->>>>>>         Memory behind bridge: e0000000-efffffff [size=3D256M]
->>>>>>         Prefetchable memory behind bridge: None
->>>>>>         Capabilities: [44] Power Management version 3
->>>>>>         Capabilities: [4c] Express Root Port (Slot-), MSI 00
->>>>>>         Capabilities: [100] Advanced Error Reporting
->>>>>>         Kernel driver in use: pcieport
->>>>>>
->>>>>> *AND This is PCIe dmesg message when memory range is 256MB. It's als=
-o
->>>>>> giving same message when memory range is arranged as 4GB;*
->>>>>>
->>>>>> PCI host bridge /pcie@ffe240000  ranges:
->>>>>>  MEM 0x0000000c00000000..0x0000000c0fffffff -> 0x00000000e0000000
->>>>>>   IO 0x0000000ff8000000..0x0000000ff800ffff -> 0x0000000000000000
->>>>>> /pcie@ffe240000: PCICSRBAR @ 0xff000000
->>>>>> setup_pci_atmu: end of DRAM 200000000
->>>>>> /pcie@ffe240000: Setup 64-bit PCI DMA window
->>>>>> /pcie@ffe240000: WARNING: Outbound window cfg leaves gaps in memory
->>>>>> map. Adjusting the memory map could reduce unnecessary bounce buffer=
-ing.
->>>>>> /pcie@ffe240000: DMA window size is 0xe0000000
->>>>>> Found FSL PCI host bridge at 0x0000000ffe250000. Firmware bus number=
-:
->>>>>> 0->1
->>>>>> PCI host bridge /pcie@ffe250000  ranges:
->>>>>>  MEM 0x0000000c10000000..0x0000000c1fffffff -> 0x00000000e0000000
->>>>>>   IO 0x0000000ff8010000..0x0000000ff801ffff -> 0x0000000000000000
->>>>>> /pcie@ffe250000: PCICSRBAR @ 0xff000000
->>>>>> setup_pci_atmu: end of DRAM 200000000
->>>>>> /pcie@ffe250000: Setup 64-bit PCI DMA window
->>>>>> /pcie@ffe250000: WARNING: Outbound window cfg leaves gaps in memory
->>>>>> map. Adjusting the memory map could reduce unnecessary bounce buffer=
-ing.
->>>>>> /pcie@ffe250000: DMA window size is 0xe0000000
->>>>>> Found FSL PCI host bridge at 0x0000000ffe260000. Firmware bus number=
-:
->>>>>> 0->0
->>>>>> PCI host bridge /pcie@ffe260000  ranges:
->>>>>>  MEM 0x0000000c20000000..0x0000000c2fffffff -> 0x00000000e0000000
->>>>>>   IO 0x0000000ff8020000..0x0000000ff802ffff -> 0x0000000000000000
->>>>>> /pcie@ffe260000: PCICSRBAR @ 0xff000000
->>>>>> setup_pci_atmu: end of DRAM 200000000
->>>>>> /pcie@ffe260000: Setup 64-bit PCI DMA window
->>>>>> /pcie@ffe260000: WARNING: Outbound window cfg leaves gaps in memory
->>>>>> map. Adjusting the memory map could reduce unnecessary bounce buffer=
-ing.
->>>>>> /pcie@ffe260000: DMA window size is 0xe0000000
->>>>>> Found FSL PCI host bridge at 0x0000000ffe270000. Firmware bus number=
-:
->>>>>> 0->0
->>>>>> PCI host bridge /pcie@ffe270000  ranges:
->>>>>>  MEM 0x0000000c30000000..0x0000000c3fffffff -> 0x00000000e0000000
->>>>>>   IO 0x0000000ff8030000..0x0000000ff803ffff -> 0x0000000000000000
->>>>>> /pcie@ffe270000: PCICSRBAR @ 0xff000000
->>>>>> setup_pci_atmu: end of DRAM 200000000
->>>>>> /pcie@ffe270000: Setup 64-bit PCI DMA window
->>>>>> /pcie@ffe270000: WARNING: Outbound window cfg leaves gaps in memory
->>>>>> map. Adjusting the memory map could reduce unnecessary bounce buffer=
-ing.
->>>>>> /pcie@ffe270000: DMA window size is 0xe0000000
->>>>>> iommu: Adding device ff6000000.qman-portal to group 0
->>>>>> iommu: Adding device ff6004000.qman-portal to group 1
->>>>>> iommu: Adding device ff6008000.qman-portal to group 2
->>>>>> iommu: Adding device ff600c000.qman-portal to group 3
->>>>>> iommu: Adding device ff6010000.qman-portal to group 4
->>>>>> iommu: Adding device ff6014000.qman-portal to group 5
->>>>>> iommu: Adding device ff6018000.qman-portal to group 6
->>>>>> iommu: Adding device ff601c000.qman-portal to group 7
->>>>>> iommu: Adding device ff6020000.qman-portal to group 8
->>>>>> iommu: Adding device ff6024000.qman-portal to group 9
->>>>>> iommu: Adding device ffe100300.dma to group 10
->>>>>> iommu: Adding device ffe101300.dma to group 11
->>>>>> iommu: Adding device ffe114000.sdhc to group 12
->>>>>> iommu: Adding device ffe210000.usb to group 13
->>>>>> iommu: Adding device ffe211000.usb to group 14
->>>>>> iommu: Adding device ffe220000.sata to group 15
->>>>>> iommu: Adding device ffe221000.sata to group 16
->>>>>> iommu: Adding device ffe318000.qman to group 17
->>>>>> iommu: Adding device ffe31a000.bman to group 18
->>>>>> iommu: Adding device ffe240000.pcie to group 19
->>>>>> iommu: Adding device ffe250000.pcie to group 20
->>>>>> iommu: Adding device ffe260000.pcie to group 21
->>>>>> iommu: Adding device ffe270000.pcie to group 22
->>>>>> iommu: Adding device ffe140000.qe to group 23
->>>>>> software IO TLB: mapped [mem 0xfbfff000-0xfffff000] (64MB)
->>>>>> PCI: Probing PCI hardware
->>>>>> fsl-pci ffe240000.pcie: PCI host bridge to bus 0000:00
->>>>>> pci_bus 0000:00: root bus resource [io
->>>>>>  0x8000080000010000-0x800008000001ffff] (bus address [0x0000-0xffff]=
-)
->>>>>> pci_bus 0000:00: root bus resource [mem 0xc00000000-0xc0fffffff] (bu=
-s
->>>>>> address [0xe0000000-0xefffffff])
->>>>>> pci_bus 0000:00: root bus resource [bus 00]
->>>>>> iommu: Removing device ffe240000.pcie from group 19
->>>>>> iommu: Adding device 0000:00:00.0 to group 24
->>>>>> pci 0000:00:00.0: bridge configuration invalid ([bus 00-00]),
->>>>>> reconfiguring
->>>>>> pci 0000:00:00.0: PCI bridge to [bus 01-ff]
->>>>>> fsl-pci ffe250000.pcie: PCI host bridge to bus 0001:00
->>>>>> pci_bus 0001:00: root bus resource [io
->>>>>>  0x8000080000021000-0x8000080000030fff] (bus address [0x0000-0xffff]=
-)
->>>>>> pci_bus 0001:00: root bus resource [mem 0xc10000000-0xc1fffffff] (bu=
-s
->>>>>> address [0xe0000000-0xefffffff])
->>>>>> pci_bus 0001:00: root bus resource [bus 00-01]
->>>>>> iommu: Removing device ffe250000.pcie from group 20
->>>>>> iommu: Adding device 0001:00:00.0 to group 19
->>>>>> pci 0001:01:00.0: enabling Extended Tags
->>>>>> pci 0001:01:00.0: 4.000 Gb/s available PCIe bandwidth, limited by 5
->>>>>> GT/s x1 link at 0001:00:00.0 (capable of 63.008 Gb/s with 8 GT/s x8 =
-link)
->>>>>> iommu: Adding device 0001:01:00.0 to group 19
->>>>>> pci 0001:01:00.1: enabling Extended Tags
->>>>>> iommu: Adding device 0001:01:00.1 to group 19
->>>>>> pci 0001:00:00.0: PCI bridge to [bus 01-ff]
->>>>>> fsl-pci ffe260000.pcie: PCI host bridge to bus 0002:00
->>>>>> pci_bus 0002:00: root bus resource [io
->>>>>>  0x8000080000032000-0x8000080000041fff] (bus address [0x0000-0xffff]=
-)
->>>>>> pci_bus 0002:00: root bus resource [mem 0xc20000000-0xc2fffffff] (bu=
-s
->>>>>> address [0xe0000000-0xefffffff])
->>>>>> pci_bus 0002:00: root bus resource [bus 00]
->>>>>> iommu: Removing device ffe260000.pcie from group 21
->>>>>> iommu: Adding device 0002:00:00.0 to group 20
->>>>>> pci 0002:00:00.0: bridge configuration invalid ([bus 00-00]),
->>>>>> reconfiguring
->>>>>> pci 0002:00:00.0: PCI bridge to [bus 01-ff]
->>>>>> fsl-pci ffe270000.pcie: PCI host bridge to bus 0003:00
->>>>>> pci_bus 0003:00: root bus resource [io
->>>>>>  0x8000080000043000-0x8000080000052fff] (bus address [0x0000-0xffff]=
-)
->>>>>> pci_bus 0003:00: root bus resource [mem 0xc30000000-0xc3fffffff] (bu=
-s
->>>>>> address [0xe0000000-0xefffffff])
->>>>>> pci_bus 0003:00: root bus resource [bus 00]
->>>>>> iommu: Removing device ffe270000.pcie from group 22
->>>>>> iommu: Adding device 0003:00:00.0 to group 21
->>>>>> pci 0003:00:00.0: bridge configuration invalid ([bus 00-00]),
->>>>>> reconfiguring
->>>>>> pci 0003:00:00.0: PCI bridge to [bus 01-ff]
->>>>>> PCI: Cannot allocate resource region 0 of device 0000:00:00.0, will
->>>>>> remap
->>>>>> PCI: Cannot allocate resource region 0 of device 0001:00:00.0, will
->>>>>> remap
->>>>>> PCI: Cannot allocate resource region 2 of device 0001:01:00.0, will
->>>>>> remap
->>>>>> PCI: Cannot allocate resource region 5 of device 0001:01:00.0, will
->>>>>> remap
->>>>>> PCI: Cannot allocate resource region 6 of device 0001:01:00.0, will
->>>>>> remap
->>>>>> PCI: Cannot allocate resource region 0 of device 0001:01:00.1, will
->>>>>> remap
->>>>>> PCI: Cannot allocate resource region 0 of device 0002:00:00.0, will
->>>>>> remap
->>>>>> PCI: Cannot allocate resource region 0 of device 0003:00:00.0, will
->>>>>> remap
->>>>>> pci 0000:00:00.0: BAR 0: no space for [mem size 0x01000000]
->>>>>> pci 0000:00:00.0: BAR 0: failed to assign [mem size 0x01000000]
->>>>>> pci 0000:00:00.0: PCI bridge to [bus 01]
->>>>>> pci 0000:00:00.0:   bridge window [io
->>>>>>  0x8000080000010000-0x800008000001ffff]
->>>>>> pci 0000:00:00.0:   bridge window [mem 0xc00000000-0xc0fffffff]
->>>>>> pci_bus 0000:00: Some PCI device resources are unassigned, try
->>>>>> booting with pci=3Drealloc
->>>>>> pci 0001:00:00.0: BAR 0: no space for [mem size 0x01000000]
->>>>>> pci 0001:00:00.0: BAR 0: failed to assign [mem size 0x01000000]
->>>>>> pci 0001:00:00.0: BAR 9: no space for [mem size 0x00200000 64bit pre=
-f]
->>>>>> pci 0001:00:00.0: BAR 9: failed to assign [mem size 0x00200000 64bit
->>>>>> pref]
->>>>>> pci 0001:01:00.0: BAR 2: no space for [mem size 0x00200000 64bit pre=
-f]
->>>>>> pci 0001:01:00.0: BAR 2: failed to assign [mem size 0x00200000 64bit
->>>>>> pref]
->>>>>> pci 0001:01:00.0: BAR 5: no space for [mem size 0x00040000]
->>>>>> pci 0001:01:00.0: BAR 5: failed to assign [mem size 0x00040000]
->>>>>> pci 0001:01:00.0: BAR 6: no space for [mem size 0x00020000 pref]
->>>>>> pci 0001:01:00.0: BAR 6: failed to assign [mem size 0x00020000 pref]
->>>>>> pci 0001:01:00.1: BAR 0: no space for [mem size 0x00004000 64bit]
->>>>>> pci 0001:01:00.1: BAR 0: failed to assign [mem size 0x00004000 64bit=
-]
->>>>>> pci 0001:00:00.0: PCI bridge to [bus 01]
->>>>>> pci 0001:00:00.0:   bridge window [io
->>>>>>  0x8000080000021000-0x8000080000030fff]
->>>>>> pci 0001:00:00.0:   bridge window [mem 0xc10000000-0xc1fffffff]
->>>>>> pci_bus 0001:00: Some PCI device resources are unassigned, try
->>>>>> booting with pci=3Drealloc
->>>>>> pci 0002:00:00.0: BAR 0: no space for [mem size 0x01000000]
->>>>>> pci 0002:00:00.0: BAR 0: failed to assign [mem size 0x01000000]
->>>>>> pci 0002:00:00.0: PCI bridge to [bus 01]
->>>>>> pci 0002:00:00.0:   bridge window [io
->>>>>>  0x8000080000032000-0x8000080000041fff]
->>>>>> pci 0002:00:00.0:   bridge window [mem 0xc20000000-0xc2fffffff]
->>>>>> pci_bus 0002:00: Some PCI device resources are unassigned, try
->>>>>> booting with pci=3Drealloc
->>>>>> pci 0003:00:00.0: BAR 0: no space for [mem size 0x01000000]
->>>>>> pci 0003:00:00.0: BAR 0: failed to assign [mem size 0x01000000]
->>>>>> pci 0003:00:00.0: PCI bridge to [bus 01]
->>>>>> pci 0003:00:00.0:   bridge window [io
->>>>>>  0x8000080000043000-0x8000080000052fff]
->>>>>> pci 0003:00:00.0:   bridge window [mem 0xc30000000-0xc3fffffff]
->>>>>> pci_bus 0003:00: Some PCI device resources are unassigned, try
->>>>>> booting with pci=3Drealloc
->>>>>>
->>>>>>
->>>>>>
->>>>>>
->>>>> _______________________________________________
->>>>> amd-gfx mailing listamd-gfx@lists.freedesktop.orghttps://lists.freede=
-sktop.org/mailman/listinfo/amd-gfx <https://nam11.safelinks.protection.outl=
-ook.com/?url=3Dhttps%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Fa=
-md-gfx&data=3D02%7C01%7Cchristian.koenig%40amd.com%7C561d9d3206ff46d338ad08=
-d777ef717c%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637109742603345420&=
-sdata=3DPO02mQtDBnkAdNfCn%2Fp7QmKX8IbJ7zke8edrfhsM6Mg%3D&reserved=3D0>
->>>>>
->>>>>
->>>>>
->>>
->>
+Full dmesg:
+[    5.426009] [drm] amdgpu kernel modesetting enabled.
+[    5.430109] [drm] initializing kernel modesetting (POLARIS12 0x1002:0x69=
+87 0x1787:0x2389 0x80).
+[    5.437591] [drm] register mmio base: 0x20200000
+[    5.440899] [drm] register mmio size: 262144
+[    5.443888] [drm] add ip block number 0 <vi_common>
+[    5.447465] [drm] add ip block number 1 <gmc_v8_0>
+[    5.450953] [drm] add ip block number 2 <tonga_ih>
+[    5.454442] [drm] add ip block number 3 <powerplay>
+[    5.458018] [drm] add ip block number 4 <dm>
+[    5.460979] [drm] add ip block number 5 <gfx_v8_0>
+[    5.464466] [drm] add ip block number 6 <sdma_v3_0>
+[    5.468042] [drm] add ip block number 7 <uvd_v6_0>
+[    5.471531] [drm] add ip block number 8 <vce_v3_0>
+[    5.475047] [drm] UVD is enabled in VM mode
+[    5.477928] [drm] UVD ENC is enabled in VM mode
+[    5.481154] [drm] VCE enabled in VM mode
+[    5.712355] ATOM BIOS: 113-ER16BFC-001
+[    5.714830] [drm] GPU posting now...
+[    5.833704] [drm] vm size is 64 GB, 2 levels, block size is 10-bit, frag=
+ment size is 9-bit
+[    5.840950] amdgpu 0001:01:00.0: BAR 2: releasing [mem 0x220000000-0x220=
+1fffff 64bit pref]
+[    5.847930] amdgpu 0001:01:00.0: BAR 0: releasing [mem 0x210000000-0x21f=
+ffffff 64bit pref]
+[    5.855688] [drm:.amdgpu_device_resize_fb_bar [amdgpu]] *ERROR* Problem =
+resizing BAR0 (-2).
+[    5.855706] amdgpu 0001:01:00.0: BAR 0: assigned [mem 0x230000000-0x23ff=
+fffff 64bit pref]
+[    5.869663] amdgpu 0001:01:00.0: BAR 2: assigned [mem 0x240000000-0x2401=
+fffff 64bit pref]
+[    5.876582] amdgpu 0001:01:00.0: VRAM: 4096M 0x000000F400000000 - 0x0000=
+00F4FFFFFFFF (4096M used)
+[    5.884160] amdgpu 0001:01:00.0: GART: 256M 0x0000000000000000 - 0x00000=
+0000FFFFFFF
+[    5.890519] [drm] Detected VRAM RAM=3D4096M, BAR=3D256M
+[    5.894093] [drm] RAM width 128bits GDDR5
+[    5.896941] [TTM] Zone  kernel: Available graphics memory: 4062380 kiB
+[    5.902177] [TTM] Zone   dma32: Available graphics memory: 2097152 kiB
+[    5.907402] [TTM] Initializing pool allocator
+[    5.910464] [TTM] Initializing DMA pool allocator
+[    5.919973] [drm] amdgpu: 4096M of VRAM memory ready
+[    5.923659] [drm] amdgpu: 4096M of GTT memory ready.
+[    5.927358] [drm] GART: num cpu pages 65536, num gpu pages 65536
+[    5.932957] [drm] PCIE GART of 256M enabled (table at 0x000000F400000000=
+).
+[    5.939122] [drm] Chained IB support enabled!
+[    5.948873] [drm] Found UVD firmware Version: 1.79 Family ID: 16
+[    5.953647] [drm] UVD ENC is disabled
+[    5.975818] [drm] Found VCE firmware Version: 52.4 Binary ID: 3
+[    6.404774] amdgpu: [powerplay] Failed to send Message.
+[    6.835902] amdgpu: [powerplay] SMU Firmware start failed!
+[    6.840086] amdgpu: [powerplay] Failed to load SMU ucode.
+[    6.844184] amdgpu: [powerplay] smc start failed
+[    6.847498] amdgpu: [powerplay] powerplay hw init failed
+[    6.852281] [drm:.amdgpu_device_init [amdgpu]] *ERROR* hw_init of IP blo=
+ck <powerplay> failed -22
+[    6.859883] amdgpu 0001:01:00.0: amdgpu_device_ip_init failed
+[    6.864330] amdgpu 0001:01:00.0: Fatal error during GPU init
+[    6.868689] [drm] amdgpu: finishing device.
+[    7.339427] pcieport 0001:00:00.0: AER: Corrected error received: 0001:0=
+0:00.0
+[    7.345374] pcieport 0001:00:00.0: PCIe Bus Error: severity=3DCorrected,=
+ type=3DData Link Layer, (Transmitter ID)
+[    7.353993] pcieport 0001:00:00.0:   device [1957:0824] error status/mas=
+k=3D00001000/00002000
+[    7.361047] pcieport 0001:00:00.0:    [12] Timeout
+[    7.706137] amdgpu: [powerplay]
+                last message was failed ret is 0
+[    8.127667] amdgpu: [powerplay]
+                failed to send message 261 ret is 0
+[    8.966331] amdgpu: [powerplay]
+                last message was failed ret is 0
+[    9.320290] pcieport 0001:00:00.0: AER: Corrected error received: 0001:0=
+0:00.0
+[    9.326226] pcieport 0001:00:00.0: PCIe Bus Error: severity=3DCorrected,=
+ type=3DData Link Layer, (Transmitter ID)
+[    9.334845] pcieport 0001:00:00.0:   device [1957:0824] error status/mas=
+k=3D00001000/00002000
+[    9.341899] pcieport 0001:00:00.0:    [12] Timeout
+[    9.387975] amdgpu: [powerplay]
+                failed to send message 261 ret is 0
+[   10.226636] amdgpu: [powerplay]
+                last message was failed ret is 0
+[   10.648275] amdgpu: [powerplay]
+                failed to send message 261 ret is 0
+[   11.486932] amdgpu: [powerplay]
+                last message was failed ret is 0
+[   11.908570] amdgpu: [powerplay]
+                failed to send message 261 ret is 0
+[   12.747228] amdgpu: [powerplay]
+                last message was failed ret is 0
+[   13.168866] amdgpu: [powerplay]
+                failed to send message 261 ret is 0
+[   14.007523] amdgpu: [powerplay]
+                last message was failed ret is 0
+[   14.429161] amdgpu: [powerplay]
+                failed to send message 261 ret is 0
+[   15.267816] amdgpu: [powerplay]
+                last message was failed ret is 0
+[   15.689456] amdgpu: [powerplay]
+                failed to send message 261 ret is 0
+[   16.528114] amdgpu: [powerplay]
+                last message was failed ret is 0
+[   16.949756] amdgpu: [powerplay]
+                failed to send message 261 ret is 0
+[   17.788411] amdgpu: [powerplay]
+                last message was failed ret is 0
+[   18.210051] amdgpu: [powerplay]
+                failed to send message 261 ret is 0
+[   19.048710] amdgpu: [powerplay]
+                last message was failed ret is 0
+[   19.470347] amdgpu: [powerplay]
+                failed to send message 261 ret is 0
+[   19.786774] [TTM] Finalizing pool allocator
+[   19.789696] [TTM] Finalizing DMA pool allocator
+[   19.793004] [TTM] Zone  kernel: Used memory at exit: 0 kiB
+[   19.797209] [TTM] Zone   dma32: Used memory at exit: 0 kiB
+[   19.801410] [drm] amdgpu: ttm finalized
+[   19.804496] amdgpu: probe of 0001:01:00.0 failed with error -22
 
---00000000000088ab02059b242897
-Content-Type: text/html; charset="UTF-8"
+--_000_MN2PR12MB3598F90268C4C6602532C94C8E200MN2PR12MB3598namp_
+Content-Type: text/html; charset="iso-8859-9"
 Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"ltr"><div>Hello Christian,</div><div><br></div><div>I solved th=
-is problem weeks ago. The problem was, the system I use could only give 256=
- MB address range but GPU was demanding more. Even if I give 4 GB, PCIe slo=
-t is only having 256 MB, nothing more.=C2=A0 I put a empty area that is bet=
-ween PCIe2 ( GPU was connected to this) and PCIe3 and everything worked fin=
-e ( I moved forward the start adress of next PCIe device) . If anyone encou=
-nters same problem, here is a sample Device Tree Source for linux;</div><di=
-v><br></div><div>pci0: pcie@ffe240000 {<br>		reg =3D &lt;0xf 0xfe240000 0 0=
-x10000&gt;;<br>		ranges =3D &lt;0x02000000 0 0xe0000000 0x2 0x0 0x0 0x10000=
-000<br>			 =C2=A00x01000000 0 0x0 0xf 0xf8000000 0x0 0x00010000&gt;;<br>		p=
-cie@0 {<br>			ranges =3D &lt;0x02000000 0 0xe0000000<br>				 =C2=A00x020000=
-00 0 0xe0000000<br>				 =C2=A00 0x10000000<br><br>				 =C2=A00x01000000 0 0=
-x00000000<br>				 =C2=A00x01000000 0 0x00000000<br>				 =C2=A00 0x00010000&=
-gt;;<br>		};<br>	};<br><br>	pci1: pcie@ffe250000 { // GPU CONNECTED TO THIS=
- ONE<br>		reg =3D &lt;0xf 0xfe250000 0 0x10000&gt;;<br>		ranges =3D &lt;0x0=
-2000000 0 0xe0000000 0x2 0x10000000 0x1 0x00000000<br>			 =C2=A00x01000000 =
-0 0 0xf 0xf8010000 0 0x00010000&gt;;<br>		pcie@0 {<br>			ranges =3D &lt;0x0=
-2000000 0 0xe0000000<br>				 =C2=A00x02000000 0 0xe0000000<br>				 =C2=A00x=
-1 0x00000000<br><br>				 =C2=A00x01000000 0 0x00000000<br>				 =C2=A00x0100=
-0000 0 0x00000000<br>				 =C2=A00 0x00010000&gt;;<br>		};<br>	};<br><br>	pc=
-i2: pcie@ffe260000 {<br>		reg =3D &lt;0xf 0xfe260000 0 0x10000&gt;;<br>		ra=
-nges =3D &lt;0x02000000 0 0xe0000000 0x3 0x20000000 0 0x10000000 // 0x3 0x2=
-0000000 actually it must be 0x3 0x10000000 because I gave 4 GB to pci1 but =
-I also added 256 MB empty area between them. So it started from 0x3 0x20000=
-000<br>			 =C2=A00x01000000 0 0x00000000 0xf 0xf8020000 0 0x00010000&gt;;<b=
-r>		pcie@0 {<br>			ranges =3D &lt;0x02000000 0 0xe0000000<br>				 =C2=A00x0=
-2000000 0 0xe0000000<br>				 =C2=A00 0x10000000<br><br>				 =C2=A00x0100000=
-0 0 0x00000000<br>				 =C2=A00x01000000 0 0x00000000<br>				 =C2=A00 0x0001=
-0000&gt;;<br>		};<br>	};<br><br>	pci3: pcie@ffe270000 {<br>		reg =3D &lt;0x=
-f 0xfe270000 0 0x10000&gt;;<br>		ranges =3D &lt;0x02000000 0 0xe0000000 0x3=
- 0x30000000 0 0x10000000<br>			 =C2=A00x01000000 0 0x00000000 0xf 0xf803000=
-0 0 0x00010000&gt;;<br>		pcie@0 {<br>			ranges =3D &lt;0x02000000 0 0xe0000=
-000<br>				 =C2=A00x02000000 0 0xe0000000<br>				 =C2=A00 0x10000000<br><br=
->				 =C2=A00x01000000 0 0x00000000<br>				 =C2=A00x01000000 0 0x00000000<b=
-r>				 =C2=A00 0x00010000&gt;;<br>		};<br>	};<br></div><div><br></div><div>=
-<br></div></div><br><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D"gm=
-ail_attr">Yusuf Alt=C4=B1parmak &lt;<a href=3D"mailto:yusufalti1997@gmail.c=
-om">yusufalti1997@gmail.com</a>&gt;, 3 Ara 2019 Sal, 22:20 tarihinde =C5=9F=
-unu yazd=C4=B1:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:=
-0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">=
-<div dir=3D"ltr"><div dir=3D"ltr"><br></div><div class=3D"gmail_quote"><blo=
-ckquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left=
-:1px solid rgb(204,204,204);padding-left:1ex"><div bgcolor=3D"#FFFFFF"><div=
->What you could try as well is to use the size 320MB for the MMIO.
-      Those ranges usually don&#39;t need to be a power of two (only the
-      BARs itself are a power of two) and this way it might even be
-      easier to fit everything together.<br></div></div></blockquote><div><=
-br></div><div>Hmm this makes my job easier=C2=A0it seems.</div><div>=C2=A0<=
-/div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;bo=
-rder-left:1px solid rgb(204,204,204);padding-left:1ex"><div bgcolor=3D"#FFF=
-FFF"><div>
-      <blockquote type=3D"cite">By the way I wonder how can I get at least
-        VGA output from GPU. Maybe I can get a text console on screen or
-        something like X server? Do you have any recommendations?</blockquo=
-te>
-      What could maybe work is VGA emulation, which essentially means
-      text only. But no guarantee for that this really works as
-      expected.<br>
-      <br></div></div></blockquote><div>It&#39;s a well known board and U-b=
-oot is the most popular bootloader in embedded world it seems. I think I am=
- not the only one who tries to connect a GPU from PCIe so I think there mus=
-t be some config variables that enables VGA emulation, or some kind of pack=
-ages.</div><div><br></div><div>=C2=A0</div><blockquote class=3D"gmail_quote=
-" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);=
-padding-left:1ex"><div bgcolor=3D"#FFFFFF"><div>
-      <blockquote type=3D"cite">I am just wondering, does modern gaming
-        motherboards have more than 4GB PCIe buffer for this job ?</blockqu=
-ote>
-      They don&#39;t, resources are dynamically assigned instead.<br>
-      <br>
-      See on x86 you usually have 1GB 32-bit address space where the
-      BIOS shuffles all the mandatory devices it sees at boot time into.
-      <br>
-      <br>
-      Then when the motherboard has multiple PEG slots the BIOS also
-      configures a 64-bit address space which is usually rather huge
-      (256GB-1TB). Since the the VRAM and the doorbell BAR are 64bit
-      BARs on the GPU they can be mapped into that as well.<br>
-      <br>
-      This way you can easily have 10 GPUs connected to your CPU.<br>
-      <br></div></div></blockquote><div><div>Ah that was a clear answer. So=
- the adress that CPU uses after mapping is actully an imaginary/virtual adr=
-ess. It depends on the operating systems bit configuration. If I am not wro=
-ng, those addresses are adding on previous one meanwhile PCIe is mapping wi=
-th endpoint device.=C2=A0</div><div></div></div><div><br></div><div>=C2=A0<=
-/div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;bo=
-rder-left:1px solid rgb(204,204,204);padding-left:1ex"><div bgcolor=3D"#FFF=
-FFF"><div>
-      The problem you have here is that U-config doesn&#39;t do this
-      resource assignment automatically and you need to configure it
-      manually.<br></div></div></blockquote><div><br></div><div>Yes. By the=
- way, thanks for your answers Christian. I am a newbie to embedded world. I=
- have been dealing with these stuffs for 3 months. I couldn&#39;t get the a=
-nswers I seek from google. Your answers were more clear and understandable.=
-=C2=A0</div><div><br></div><div>Best Regards.</div><div><br></div><div>=C2=
-=A0</div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8e=
-x;border-left:1px solid rgb(204,204,204);padding-left:1ex"><div bgcolor=3D"=
-#FFFFFF"><div>
-      Am 03.12.19 um 13:50 schrieb Yusuf Alt=C4=B1parmak:<br>
-    </div>
-    <blockquote type=3D"cite">
-     =20
-      <div dir=3D"ltr">
-        <div dir=3D"ltr"><br>
-        </div>
-        Hi Christian,<br>
-        <div>
-          <div class=3D"gmail_quote">
-            <blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0=
-.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">
-              <div bgcolor=3D"#FFFFFF">
-                <div>
-                  <blockquote type=3D"cite">0001f000</blockquote>
-                  Exactly as I thought. The hardware does support BAR
-                  resize, but unfortunately 256MB is already the
-                  minimum.<br>
-                  <br>
-                  Sorry, but there isn&#39;t anything I could do from the
-                  GPU drivers point of view.<br>
-                </div>
-              </div>
-            </blockquote>
-            <div><br>
-            </div>
-            <div>Yes unfortunately there is nothing remained to about
-              GPU side. <br>
-            </div>
-            <div><br>
-            </div>
-            <blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0=
-.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">
-              <div bgcolor=3D"#FFFFFF">
-                <div> The only good news I have is that
-                  256M+2M+512K+128K=3D260M address space should be enough
-                  for the GPU to work, maybe that makes things a bit
-                  simpler.<br>
-                  <br>
-                </div>
-              </div>
-            </blockquote>
-            <div><br>
-            </div>
-            <div>Right now I am trying to increase MMIO size config to
-              512 MB, I hope that should help me. By the way I wonder
-              how can I get at least VGA output from GPU. Maybe I can
-              get a text console on screen or something like X server?
-              Do you have any recommendations? I tried this GPU with my
-              own Ubuntu 18.04 and its special driver. Everything worked
-              fine.</div>
-            <div><br>
-            </div>
-            <div>=C2=A0</div>
-            <blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0=
-.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">
-              <div bgcolor=3D"#FFFFFF">
-                <div> But you definitely got an interesting use case
-                  here :)</div>
-              </div>
-            </blockquote>
-            <div><br>
-            </div>
-            <div>This is the worlds the most interesting use case I
-              think. I can&#39;t increase MMIO size because U-boot freezes.
-              I can&#39;t decrease it to 256 MB again because driver does
-              not accept :D. I am just wondering, does modern gaming
-              motherboards have more than 4GB PCIe buffer for this job ?
-              :D<br>
-            </div>
-            <div><br>
-            </div>
-            <div><br>
-            </div>
-            <blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0=
-.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">
-              <div bgcolor=3D"#FFFFFF">
-                <div> Am 03.12.19 um 11:31 schrieb Yusuf Alt=C4=B1parmak:<b=
-r>
-                </div>
-                <blockquote type=3D"cite">
-                  <div dir=3D"ltr">
-                    <div>Hello Christian,</div>
-                    <div>My &quot;setpci -s 0001:01:00.0 ECAP15+4.l
-                      ECAP15+8.l&quot; output is;</div>
-                    <div><br>
-                    </div>
-                    <div>0001f000 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0
-                      =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0
-                      =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 <br>
-                      00000820 <br>
-                    </div>
-                    <div><br>
-                    </div>
-                    <div>Regards.<br>
-                    </div>
-                    <div><br>
-                    </div>
-                    <div><br>
-                    </div>
-                    <br>
-                    <div class=3D"gmail_quote">
-                      <div dir=3D"ltr" class=3D"gmail_attr">Yusuf Alt=C4=B1=
-parmak
-                        &lt;<a href=3D"mailto:yusufalti1997@gmail.com" targ=
-et=3D"_blank">yusufalti1997@gmail.com</a>&gt;,
-                        2 Ara 2019 Pzt, 19:31 tarihinde =C5=9Funu yazd=C4=
-=B1:<br>
-                      </div>
-                      <blockquote class=3D"gmail_quote" style=3D"margin:0px=
- 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">
-                        <div dir=3D"ltr">
-                          <div class=3D"gmail_quote">
-                            <blockquote class=3D"gmail_quote" style=3D"marg=
-in:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1e=
-x">
-                              <div bgcolor=3D"#FFFFFF">Most likely not.
-                                There is support for resizing the VRAM
-                                BAR, but usually you can only make it
-                                larger and not smaller.<br>
-                                Please give me the output of &quot;sudo
-                                setpci -s 0001:01:00.0 ECAP15+4.l
-                                ECAP15+8.l&quot; if you want to double chec=
-k
-                                that.<br>
-                              </div>
-                            </blockquote>
-                            <div><br>
-                            </div>
-                            <div>Okay I&#39;ll try it tomorrow. What does
-                              the &quot; sudo setpci -s 0001:01:00.0
-                              ECAP15+4.l ECAP15+8.l&quot; command exactly d=
-o
-                              ?</div>
-                            <div><br>
-                            </div>
-                            <div>=C2=A0</div>
-                            <blockquote class=3D"gmail_quote" style=3D"marg=
-in:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1e=
-x">
-                              <div bgcolor=3D"#FFFFFF"> Well you rather
-                                need to ask if anybody has sample PCIe
-                                configuration for GPUs in general. That
-                                problem is not really E9171 related. You
-                                might want to ask NXP for that maybe.<br>
-                                Sorry, no idea if that is correct or
-                                not. You need to ask NXP for help with
-                                that.<br>
-                                <br>
-                              </div>
-                            </blockquote>
-                            <div><br>
-                            </div>
-                            <div>Okay no problem. At least I know what
-                              is the missing point now. The problem is
-                              probably because of the .dtsi and u-boot
-                              config files. Memory ranges are
-                              overwriting like you said. I&#39;ll ask nxp t=
-o
-                              take some sample PCIe configuration for
-                              GPUs.</div>
-                            <div><br>
-                            </div>
-                            <div>Thank you for your interest Christian.</di=
-v>
-                            <div>Regards .<br>
-                            </div>
-                            <div>=C2=A0</div>
-                            <blockquote class=3D"gmail_quote" style=3D"marg=
-in:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1e=
-x">
-                              <div bgcolor=3D"#FFFFFF">
-                                <blockquote type=3D"cite">
-                                  <div dir=3D"ltr">
-                                    <div class=3D"gmail_quote">
-                                      <div><br>
-                                      </div>
-                                      <blockquote class=3D"gmail_quote" sty=
-le=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);paddi=
-ng-left:1ex">
-                                        <div bgcolor=3D"#FFFFFF">
-                                          <div> Am 02.12.19 um 14:32
-                                            schrieb Yusuf Alt=C4=B1parmak:<=
-br>
-                                          </div>
-                                          <blockquote type=3D"cite">
-                                            <div dir=3D"ltr">
-                                              <div class=3D"gmail_quote">
-                                                <blockquote class=3D"gmail_=
-quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,=
-204);padding-left:1ex">
-                                                  <div bgcolor=3D"#FFFFFF">=
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40">
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+9">
+<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
+<style><!--
+/* Font Definitions */
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:DengXian;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:"\@DengXian";
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:#0563C1;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{mso-style-priority:99;
+	color:#954F72;
+	text-decoration:underline;}
+p.msonormal0, li.msonormal0, div.msonormal0
+	{mso-style-name:msonormal;
+	mso-margin-top-alt:auto;
+	margin-right:0in;
+	mso-margin-bottom-alt:auto;
+	margin-left:0in;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+span.EmailStyle18
+	{mso-style-type:personal-reply;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
+p.msipheadera92e061b, li.msipheadera92e061b, div.msipheadera92e061b
+	{mso-style-name:msipheadera92e061b;
+	mso-margin-top-alt:auto;
+	margin-right:0in;
+	mso-margin-bottom-alt:auto;
+	margin-left:0in;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-size:10.0pt;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.0in 1.0in 1.0in;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
+</head>
+<body lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72">
+<div class=3D"WordSection1">
+<p class=3D"msipheadera92e061b" style=3D"margin:0in;margin-bottom:.0001pt">=
+<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif;co=
+lor:#0078D7">[AMD Official Use Only - Internal Distribution Only]</span><o:=
+p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">First you could check if the binary &#8216;polaris12=
+_smc.bin&#8217; is in your system: /lib/firmware/../amdgpu/<o:p></o:p></p>
+<p class=3D"MsoNormal">If it&#8217;s there, then does this happen after a w=
+arm reset?<o:p></o:p></p>
+<p class=3D"MsoNormal">Thanks.<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<div>
+<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
+0in 0in">
+<p class=3D"MsoNormal"><b>From:</b> amd-gfx &lt;amd-gfx-bounces@lists.freed=
+esktop.org&gt;
+<b>On Behalf Of </b>Yusuf Altiparmak<br>
+<b>Sent:</b> Thursday, January 2, 2020 4:22 PM<br>
+<b>To:</b> amd-gfx@lists.freedesktop.org<br>
+<b>Subject:</b> [Error] amdgpu powerplay ip block error with -22.<o:p></o:p=
+></p>
+</div>
+</div>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">[CAUTION: External Email] <o:p></o:p></p>
+<div>
+<div>
+<div>
+<p class=3D"MsoNormal">I am having this error with kernel version 4.19 amdg=
+pu driver for a polaris12 based GPU. What could be the problem? Any suggest=
+ions? Thanks.<o:p></o:p></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><b>Full dmesg:</b><o:p></o:p></p>
+</div>
+<div>
+<p class=3D"MsoNormal">[ &nbsp; &nbsp;5.426009] [drm] amdgpu kernel modeset=
+ting enabled. &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp=
+; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nb=
+sp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &=
+nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<o:p></o:p></p>
+</div>
+<p class=3D"MsoNormal">[ &nbsp; &nbsp;5.430109] [drm] initializing kernel m=
+odesetting (POLARIS12 0x1002:0x6987 0x1787:0x2389 0x80). &nbsp; &nbsp; &nbs=
+p; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
 <br>
-                                                    <blockquote type=3D"cit=
-e">I
-                                                      attached my dts
-                                                      file.<br>
-                                                      <div>
-                                                        <div><br>
-                                                        </div>
-                                                        <div>System is
-                                                          working fine
-                                                          when GPU is
-                                                          not plugged
-                                                          in.</div>
-                                                        <div><b><br>
-                                                          </b></div>
-                                                        <div><b>This is
-                                                          the last
-                                                          console log
-                                                          before freeze:</b=
-></div>
-                                                        <div>[drm]
-                                                          amdgpu kernel
-                                                          modesetting
-                                                          enabled. =C2=A0 =
-=C2=A0 =C2=A0
-                                                          =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0
-                                                          =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0
-                                                          =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0</div>
-                                                        [drm]
-                                                        initializing
-                                                        kernel
-                                                        modesetting
-                                                        (POLARIS12
-                                                        0x1002:0x6987
-                                                        0x1787:0x2389
-                                                        0x80).=C2=A0 <br>
-                                                        [drm] register
-                                                        mmio base:
-                                                        0x20200000 =C2=A0 =
-=C2=A0 =C2=A0
-                                                        =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0
-                                                        =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0
-                                                        =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0<br>
-                                                        fsl-fman-port
-                                                        ffe488000.port
-                                                        fm1-gb0: renamed
-                                                        from eth0 =C2=A0 =
-=C2=A0 =C2=A0
-                                                        =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0
-                                                        =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 <br>
-                                                        [drm] register
-                                                        mmio size:
-                                                        262144 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0
-                                                        =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0
-                                                        =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0
-                                                        =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0<br>
-                                                        [drm] add ip
-                                                        block number 0
-                                                        &lt;vi_common&gt;
-                                                        =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0
-                                                        =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0
-                                                        =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 <br>
-                                                        [drm] add ip
-                                                        block number 1
-                                                        &lt;gmc_v8_0&gt;
-                                                        =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0
-                                                        =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0
-                                                        =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0<br>
-                                                        [drm] add ip
-                                                        block number 2
-                                                        &lt;tonga_ih&gt;
-                                                        =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0
-                                                        =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0
-                                                        =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0<br>
-                                                        [drm] add ip
-                                                        block number 3
-                                                        &lt;powerplay&gt;
-                                                        =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0
-                                                        =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0
-                                                        =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 <br>
-                                                        [drm] add ip
-                                                        block number 4
-                                                        &lt;dm&gt; =C2=A0 =
-=C2=A0 =C2=A0
-                                                        =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0
-                                                        =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0
-                                                        =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0<br>
-                                                        [drm] add ip
-                                                        block number 5
-                                                        &lt;gfx_v8_0&gt;
-                                                        =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0
-                                                        =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0
-                                                        =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0<br>
-                                                        [drm] add ip
-                                                        block number 6
-                                                        &lt;sdma_v3_0&gt;
-                                                        =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0
-                                                        =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0
-                                                        =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 <br>
-                                                        [drm] add ip
-                                                        block number 7
-                                                        &lt;uvd_v6_0&gt;
-                                                        =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0
-                                                        =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0
-                                                        =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0<br>
-                                                        [drm] add ip
-                                                        block number 8
-                                                        &lt;vce_v3_0&gt;
-                                                        =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0
-                                                        =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0
-                                                        =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0<br>
-                                                        [drm] UVD is
-                                                        enabled in VM
-                                                        mode =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0
-                                                        =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0
-                                                        =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0
-                                                        =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 <br>
-                                                        [drm] UVD ENC is
-                                                        enabled in VM
-                                                        mode =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0
-                                                        =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0
-                                                        =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0
-                                                        =C2=A0 =C2=A0 =C2=
-=A0 <br>
-                                                        [drm] VCE
-                                                        enabled in VM
-                                                        mode =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0
-                                                        =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0
-                                                        =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0
-                                                        =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0<br>
-                                                        ATOM BIOS:
-                                                        113-ER16BFC-001
-                                                        =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0
-                                                        =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0
-                                                        =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0
-                                                        =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0<br>
-                                                        [drm] GPU
-                                                        posting now... =C2=
-=A0
-                                                        =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0
-                                                        =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0
-                                                        =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0
-                                                        =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0<br>
-                                                        Disabling lock
-                                                        debugging due to
-                                                        kernel taint =C2=A0=
- =C2=A0
-                                                        =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0
-                                                        =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0
-                                                        =C2=A0 =C2=A0 =C2=
-=A0<br>
-                                                        Machine check in
-                                                        kernel mode. =C2=A0=
- =C2=A0
-                                                        =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0
-                                                        =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0
-                                                        =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0
-                                                        =C2=A0 =C2=A0 <br>
-                                                        Caused by (from
-                                                        MCSR=3Da000): Load
-                                                        Error Report =C2=A0=
- =C2=A0
-                                                        =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0
-                                                        =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0
-                                                        =C2=A0 =C2=A0 <br>
-                                                        Guarded Load
-                                                        Error Report =C2=A0=
- =C2=A0
-                                                        =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0
-                                                        =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0
-                                                        =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0
-                                                        =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 <br>
-                                                        Kernel panic -
-                                                        not syncing:
-                                                        Unrecoverable
-                                                        Machine check =C2=
-=A0
-                                                        =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0
-                                                        =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 <br>
-                                                        CPU: 1 PID: 2023
-                                                        Comm: udevd
-                                                        Tainted: G =C2=A0 M=
- =C2=A0
-                                                        =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0
-                                                        =C2=A04.19.26+gc0c2=
-141
-                                                        #1 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0<br>
-                                                        Call Trace: =C2=A0 =
-=C2=A0
-                                                        =C2=A0 <br>
-                                                      </div>
-                                                    </blockquote>
-                                                  </div>
-                                                </blockquote>
-                                                <blockquote class=3D"gmail_=
-quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,=
-204);padding-left:1ex">
-                                                  <div bgcolor=3D"#FFFFFF">
-                                                    <blockquote type=3D"cit=
-e">
-                                                      <div dir=3D"ltr">=C2=
-=A0 =C2=A0
-                                                        =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=C2=A0
-                                                        <br>
-                                                      </div>
-                                                      <br>
-                                                      <fieldset></fieldset>
-                                                      <pre>________________=
-_______________________________
-amd-gfx mailing list
-<a href=3D"mailto:amd-gfx@lists.freedesktop.org" target=3D"_blank">amd-gfx@=
-lists.freedesktop.org</a>
-<a href=3D"https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2=
-F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=3D02%7C01=
-%7Cchristian.koenig%40amd.com%7C561d9d3206ff46d338ad08d777ef717c%7C3dd8961f=
-e4884e608e11a82d994e183d%7C0%7C0%7C637109742603335427&amp;sdata=3DDstGsDW0X=
-7ennQoF1vg%2FYLGAStF4p1dAeMFhzsAFc1I%3D&amp;reserved=3D0" target=3D"_blank"=
->https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a></pre>
-                                                    </blockquote>
-                                                    <br>
-                                                  </div>
-                                                </blockquote>
-                                                <div>
-                                                  <div dir=3D"ltr"><br>
-                                                  </div>
-                                                  <br>
-                                                  <div class=3D"gmail_quote=
-">
-                                                    <div dir=3D"ltr" class=
-=3D"gmail_attr">Christian
-                                                      K=C3=B6nig &lt;<a hre=
-f=3D"mailto:ckoenig.leichtzumerken@gmail.com" target=3D"_blank">ckoenig.lei=
-chtzumerken@gmail.com</a>&gt;, 2 Ara
-                                                      2019 Pzt, 15:28
-                                                      tarihinde =C5=9Funu
-                                                      yazd=C4=B1:<br>
-                                                    </div>
-                                                    <blockquote class=3D"gm=
-ail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,=
-204,204);padding-left:1ex">
-                                                      <div bgcolor=3D"#FFFF=
-FF">
-                                                        <div>Hi Yusuf,<br>
-                                                          <br>
-                                                          Am 02.12.19 um
-                                                          12:41 schrieb
-                                                          Yusuf
-                                                          Alt=C4=B1parmak:<=
+[ &nbsp; &nbsp;5.437591] [drm] register mmio base: 0x20200000 &nbsp; &nbsp;=
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbs=
+p; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &n=
+bsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =
+&nbsp; &nbsp; &nbsp;<br>
+[ &nbsp; &nbsp;5.440899] [drm] register mmio size: 262144 &nbsp; &nbsp; &nb=
+sp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &=
+nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;=
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbs=
+p; &nbsp; &nbsp; &nbsp; &nbsp;<br>
+[ &nbsp; &nbsp;5.443888] [drm] add ip block number 0 &lt;vi_common&gt; &nbs=
+p; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &n=
+bsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp=
+; &nbsp; &nbsp;
+<br>
+[ &nbsp; &nbsp;5.447465] [drm] add ip block number 1 &lt;gmc_v8_0&gt; &nbsp=
+; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nb=
+sp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &=
+nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;=
+ &nbsp; &nbsp; &nbsp;<br>
+[ &nbsp; &nbsp;5.450953] [drm] add ip block number 2 &lt;tonga_ih&gt; &nbsp=
+; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nb=
+sp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &=
+nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;=
+ &nbsp; &nbsp; &nbsp;<br>
+[ &nbsp; &nbsp;5.454442] [drm] add ip block number 3 &lt;powerplay&gt; &nbs=
+p; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &n=
+bsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp=
+; &nbsp; &nbsp;
+<br>
+[ &nbsp; &nbsp;5.458018] [drm] add ip block number 4 &lt;dm&gt; &nbsp; &nbs=
+p; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &n=
+bsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp=
+; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<br>
+[ &nbsp; &nbsp;5.460979] [drm] add ip block number 5 &lt;gfx_v8_0&gt; &nbsp=
+; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nb=
+sp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &=
+nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;=
+ &nbsp; &nbsp; &nbsp;<br>
+[ &nbsp; &nbsp;5.464466] [drm] add ip block number 6 &lt;sdma_v3_0&gt; &nbs=
+p; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &n=
+bsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp=
+; &nbsp; &nbsp;
+<br>
+[ &nbsp; &nbsp;5.468042] [drm] add ip block number 7 &lt;uvd_v6_0&gt; &nbsp=
+; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nb=
+sp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &=
+nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;=
+ &nbsp; &nbsp; &nbsp;<br>
+[ &nbsp; &nbsp;5.471531] [drm] add ip block number 8 &lt;vce_v3_0&gt; &nbsp=
+; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nb=
+sp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &=
+nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;=
+ &nbsp; &nbsp; &nbsp;<br>
+[ &nbsp; &nbsp;5.475047] [drm] UVD is enabled in VM mode &nbsp; &nbsp; &nbs=
+p; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &n=
+bsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp=
+; &nbsp; &nbsp; &nbsp; &nbsp;
+<br>
+[ &nbsp; &nbsp;5.477928] [drm] UVD ENC is enabled in VM mode &nbsp; &nbsp; =
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp=
+; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nb=
+sp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &=
+nbsp; &nbsp; &nbsp;
+<br>
+[ &nbsp; &nbsp;5.481154] [drm] VCE enabled in VM mode &nbsp; &nbsp; &nbsp; =
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp=
+; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nb=
+sp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &=
+nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<br>
+[ &nbsp; &nbsp;5.712355] ATOM BIOS: 113-ER16BFC-001 &nbsp; &nbsp; &nbsp; &n=
+bsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp=
+; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nb=
+sp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<br>
+[ &nbsp; &nbsp;5.714830] [drm] GPU posting now... &nbsp; &nbsp; &nbsp; &nbs=
+p; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &n=
+bsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp=
+; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<br>
+[ &nbsp; &nbsp;5.833704] [drm] vm size is 64 GB, 2 levels, block size is 10=
+-bit, fragment size is 9-bit &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbs=
+p; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<br>
+[ &nbsp; &nbsp;5.840950] amdgpu 0001:01:00.0: BAR 2: releasing [mem 0x22000=
+0000-0x2201fffff 64bit pref] &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbs=
+p; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<br>
+[ &nbsp; &nbsp;5.847930] amdgpu 0001:01:00.0: BAR 0: releasing [mem 0x21000=
+0000-0x21fffffff 64bit pref] &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbs=
+p; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<br>
+[ &nbsp; &nbsp;5.855688] [drm:.amdgpu_device_resize_fb_bar [amdgpu]] *ERROR=
+* Problem resizing BAR0 (-2). &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nb=
+sp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+<br>
+[ &nbsp; &nbsp;5.855706] amdgpu 0001:01:00.0: BAR 0: assigned [mem 0x230000=
+000-0x23fffffff 64bit pref] &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp=
+; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+<br>
+[ &nbsp; &nbsp;5.869663] amdgpu 0001:01:00.0: BAR 2: assigned [mem 0x240000=
+000-0x2401fffff 64bit pref] &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp=
+; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+<br>
+[ &nbsp; &nbsp;5.876582] amdgpu 0001:01:00.0: VRAM: 4096M 0x000000F40000000=
+0 - 0x000000F4FFFFFFFF (4096M used) &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbs=
+p; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+<br>
+[ &nbsp; &nbsp;5.884160] amdgpu 0001:01:00.0: GART: 256M 0x0000000000000000=
+ - 0x000000000FFFFFFF &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbs=
+p; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &n=
+bsp;
+<br>
+[ &nbsp; &nbsp;5.890519] [drm] Detected VRAM RAM=3D4096M, BAR=3D256M &nbsp;=
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbs=
+p; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &n=
+bsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =
+&nbsp; &nbsp;
+<br>
+[ &nbsp; &nbsp;5.894093] [drm] RAM width 128bits GDDR5 &nbsp; &nbsp; &nbsp;=
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbs=
+p; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &n=
+bsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+<br>
+[ &nbsp; &nbsp;5.896941] [TTM] Zone &nbsp;kernel: Available graphics memory=
+: 4062380 kiB &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp=
+; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nb=
+sp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<br>
+[ &nbsp; &nbsp;5.902177] [TTM] Zone &nbsp; dma32: Available graphics memory=
+: 2097152 kiB &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp=
+; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nb=
+sp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<br>
+[ &nbsp; &nbsp;5.907402] [TTM] Initializing pool allocator &nbsp; &nbsp; &n=
+bsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp=
+; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nb=
+sp; &nbsp; &nbsp; &nbsp;
+<br>
+[ &nbsp; &nbsp;5.910464] [TTM] Initializing DMA pool allocator &nbsp; &nbsp=
+; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nb=
+sp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &=
+nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;=
+ &nbsp; &nbsp;
+<br>
+[ &nbsp; &nbsp;5.919973] [drm] amdgpu: 4096M of VRAM memory ready &nbsp; &n=
+bsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp=
+; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nb=
+sp; &nbsp;<br>
+[ &nbsp; &nbsp;5.923659] [drm] amdgpu: 4096M of GTT memory ready. &nbsp; &n=
+bsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp=
+; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nb=
+sp; &nbsp;<br>
+[ &nbsp; &nbsp;5.927358] [drm] GART: num cpu pages 65536, num gpu pages 655=
+36 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &n=
+bsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<br>
+[ &nbsp; &nbsp;5.932957] [drm] PCIE GART of 256M enabled (table at 0x000000=
+F400000000). &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;=
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbs=
+p; &nbsp; &nbsp; &nbsp; &nbsp;<br>
+[ &nbsp; &nbsp;5.939122] [drm] Chained IB support enabled! &nbsp; &nbsp; &n=
+bsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp=
+; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nb=
+sp; &nbsp; &nbsp; &nbsp;
+<br>
+[ &nbsp; &nbsp;5.948873] [drm] Found UVD firmware Version: 1.79 Family ID: =
+16 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &n=
+bsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<br>
+[ &nbsp; &nbsp;5.953647] [drm] UVD ENC is disabled &nbsp; &nbsp; &nbsp; &nb=
+sp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &=
+nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;=
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbs=
+p; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+<br>
+[ &nbsp; &nbsp;5.975818] [drm] Found VCE firmware Version: 52.4 Binary ID: =
+3 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nb=
+sp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &=
+nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+<br>
+[ &nbsp; &nbsp;6.404774] amdgpu: [powerplay] Failed to send Message. &nbsp;=
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbs=
+p; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &n=
+bsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+<br>
+[ &nbsp; &nbsp;6.835902] amdgpu: [powerplay] SMU Firmware start failed! &nb=
+sp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &=
+nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;=
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<br>
+[ &nbsp; &nbsp;6.840086] amdgpu: [powerplay] Failed to load SMU ucode. &nbs=
+p; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &n=
+bsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+<br>
+[ &nbsp; &nbsp;6.844184] amdgpu: [powerplay] smc start failed &nbsp; &nbsp;=
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbs=
+p; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &n=
+bsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =
+&nbsp; &nbsp; &nbsp;<br>
+<b>[ &nbsp; &nbsp;6.847498] amdgpu: [powerplay] powerplay hw init failed </=
+b>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nb=
+sp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &=
+nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;=
+ &nbsp;<br>
+<b>[ &nbsp; &nbsp;6.852281] [drm:.amdgpu_device_init [amdgpu]] *ERROR* hw_i=
+nit of IP block &lt;powerplay&gt; failed -22</b> &nbsp; &nbsp; &nbsp; &nbsp=
+; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+<br>
+<b>[ &nbsp; &nbsp;6.859883] amdgpu 0001:01:00.0: amdgpu_device_ip_init fail=
+ed </b>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+<b>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &n=
+bsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =
+&nbsp; &nbsp; <br>
+[ &nbsp; &nbsp;6.864330] amdgpu 0001:01:00.0: Fatal error during GPU init &=
+nbsp;</b> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+<b>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &n=
+bsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<=
 br>
-                                                        </div>
-                                                        <blockquote type=3D=
-"cite">
-                                                          <div dir=3D"ltr">
-                                                          <div>My
-                                                          embedded board
-                                                          is freezing
-                                                          when I put
-                                                          E9171 on PCIe.
-                                                          What is the
-                                                          meaning of
-                                                          Unrecoverable
-                                                          Machine Check
-                                                          error about
-                                                          GPU? <br>
-                                                          </div>
-                                                          </div>
-                                                        </blockquote>
-                                                        <br>
-                                                        Well see the
-                                                        explanation on
-                                                        Wikipedia for
-                                                        example: <a href=3D=
-"https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Fen.wik=
-ipedia.org%2Fwiki%2FMachine-check_exception&amp;data=3D02%7C01%7Cchristian.=
-koenig%40amd.com%7C561d9d3206ff46d338ad08d777ef717c%7C3dd8961fe4884e608e11a=
-82d994e183d%7C0%7C0%7C637109742603345420&amp;sdata=3DNtHiZmL7me4JRZR4L9KHZz=
-pD8Zcn6caURVvtiDSgHsE%3D&amp;reserved=3D0" target=3D"_blank">https://en.wik=
-ipedia.org/wiki/Machine-check_exception</a><br>
-                                                        <br>
-                                                        In general it
-                                                        means you have
-                                                        messed up
-                                                        something in
-                                                        your hardware
-                                                        configuration.<br>
-                                                        <br>
-                                                        <blockquote type=3D=
-"cite">
-                                                          <div dir=3D"ltr">
-                                                          <div>Could
-                                                          PCIe settings
-                                                          in .dts file
-                                                          cause this
-                                                          problem?</div>
-                                                          </div>
-                                                        </blockquote>
-                                                        <br>
-                                                        Possible, but
-                                                        rather unlikely.
-                                                        My best guess is
-                                                        that it is some
-                                                        problem with the
-                                                        power supply.<br>
-                                                        <br>
-                                                        <blockquote type=3D=
-"cite">
-                                                          <div dir=3D"ltr">
-                                                          <div> If it
-                                                          is, is there
-                                                          any sample
-                                                          PCIe
-                                                          configuration
-                                                          for E9171?</div>
-                                                          </div>
-                                                        </blockquote>
-                                                        <br>
-                                                        The E9171 is
-                                                        just a PCIe
-                                                        device, so the
-                                                        dtsi is actually
-                                                        rather
-                                                        uninteresting.
-                                                        What we really
-                                                        need is a full
-                                                        dmesg and maybe
-                                                        lspci output
-                                                        would help as
-                                                        well.<br>
-                                                        <br>
-                                                        Regards,<br>
-                                                        Christian.</div>
-                                                    </blockquote>
-                                                    <div><br>
-                                                    </div>
-                                                    <div><br>
-                                                    </div>
-                                                    <div>Hi Christian,</div=
->
-                                                    <div><br>
-                                                    </div>
-                                                    <div>At first, I am
-                                                      using NXP
-                                                      T1042D4RDB-64B
-                                                      which has 256 MB
-                                                      PCIe buffer
-                                                      according to its.
-                                                      PCIe memory range
-                                                      was arranged to
-                                                      256 MB in .dts
-                                                      file and in U-boot
-                                                      configuration
-                                                      file. Driver was
-                                                      giving error with
-                                                      exit code -12
-                                                      (OUT_OF_MEMORY).
-                                                      But I was able to
-                                                      reach the linux
-                                                      console. <br>
-                                                    </div>
-                                                    <div><br>
-                                                    </div>
-                                                    <div>[ =C2=A0 =C2=A05.5=
-12922]
-                                                      [drm] amdgpu
-                                                      kernel modesetting
-                                                      enabled.<br>
-                                                      [ =C2=A0 =C2=A05.5170=
-65]
-                                                      [drm] initializing
-                                                      kernel modesetting
-                                                      (POLARIS12
-                                                      0x1002:0x6987
-                                                      0x1787:0x2389
-                                                      0x80).<br>
-                                                      [ =C2=A0 =C2=A05.5245=
-07]
-                                                      amdgpu
-                                                      0001:01:00.0:
-                                                      Fatal error during
-                                                      GPU init<br>
-                                                      [ =C2=A0 =C2=A05.5292=
-96]
-                                                      amdgpu: probe of
-                                                      0001:01:00.0
-                                                      failed with error
-                                                      -12<br>
-                                                    </div>
-                                                    <div> <br>
-                                                    </div>
-                                                  </div>
-                                                  Then I canged 256 MB
-                                                  to 4GB in .dtsi and
-                                                  U-boot conf file. I
-                                                  also changed 64KB I/O
-                                                  size to 1MB . When I
-                                                  do this, I wasn&#39;t abl=
-e
-                                                  to reach the linux
-                                                  console because board
-                                                  was freezing. But
-                                                  driver was successfull
-                                                  at this time. I
-                                                  already mentioned
-                                                  successfull driver
-                                                  console logs up.<br>
-                                                </div>
-                                                <div><br>
-                                                </div>
-                                                <div>
-                                                  <div><b>this is lspci
-                                                      -v when GPU is
-                                                      plugged and Memory
-                                                      size is 256 MB.</b></=
-div>
-                                                  <div><br>
-                                                  </div>
-                                                  <div>root@t1042d4rdb-64b:=
-~#
-                                                    lspci -v<br>
-                                                    0000:00:00.0 PCI
-                                                    bridge: Freescale
-                                                    Semiconductor Inc
-                                                    Device 0824 (rev 11)
-                                                    (prog-if 00 [Normal
-                                                    decode])<br>
-                                                    =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 Device tree
-                                                    node:
-                                                    /sys/firmware/devicetre=
-e/base/pcie@ffe240000/pcie@0<br>
-                                                    =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 Flags: bus
-                                                    master, fast devsel,
-                                                    latency 0, IRQ 20<br>
-                                                    =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 Memory at
-                                                    &lt;ignored&gt;
-                                                    (32-bit,
-                                                    non-prefetchable)<br>
-                                                    =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 Bus:
-                                                    primary=3D00,
-                                                    secondary=3D01,
-                                                    subordinate=3D01,
-                                                    sec-latency=3D0<br>
-                                                    =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 I/O behind
-                                                    bridge:
-                                                    00000000-0000ffff
-                                                    [size=3D64K]<br>
-                                                    =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 Memory
-                                                    behind bridge:
-                                                    e0000000-efffffff
-                                                    [size=3D256M]<br>
-                                                    =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 Prefetchable
-                                                    memory behind
-                                                    bridge: None<br>
-                                                    =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0
-                                                    Capabilities: [44]
-                                                    Power Management
-                                                    version 3<br>
-                                                    =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0
-                                                    Capabilities: [4c]
-                                                    Express Root Port
-                                                    (Slot-), MSI 00<br>
-                                                    =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0
-                                                    Capabilities: [100]
-                                                    Advanced Error
-                                                    Reporting<br>
-                                                    =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 Kernel
-                                                    driver in use:
-                                                    pcieport<br>
-                                                    <br>
-                                                    0001:00:00.0 PCI
-                                                    bridge: Freescale
-                                                    Semiconductor Inc
-                                                    Device 0824 (rev 11)
-                                                    (prog-if 00 [Normal
-                                                    decode])<br>
-                                                    =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 Device tree
-                                                    node:
-                                                    /sys/firmware/devicetre=
-e/base/pcie@ffe250000/pcie@0<br>
-                                                    =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 Flags: bus
-                                                    master, fast devsel,
-                                                    latency 0, IRQ 21<br>
-                                                    =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 Memory at
-                                                    &lt;ignored&gt;
-                                                    (32-bit,
-                                                    non-prefetchable)<br>
-                                                    =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 Bus:
-                                                    primary=3D00,
-                                                    secondary=3D01,
-                                                    subordinate=3D01,
-                                                    sec-latency=3D0<br>
-                                                    =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 I/O behind
-                                                    bridge:
-                                                    00000000-0000ffff
-                                                    [size=3D64K]<br>
-                                                    =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 Memory
-                                                    behind bridge:
-                                                    e0000000-efffffff
-                                                    [size=3D256M]<br>
-                                                    =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 Prefetchable
-                                                    memory behind
-                                                    bridge: None<br>
-                                                    =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0
-                                                    Capabilities: [44]
-                                                    Power Management
-                                                    version 3<br>
-                                                    =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0
-                                                    Capabilities: [4c]
-                                                    Express Root Port
-                                                    (Slot-), MSI 00<br>
-                                                    =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0
-                                                    Capabilities: [100]
-                                                    Advanced Error
-                                                    Reporting<br>
-                                                    =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 Kernel
-                                                    driver in use:
-                                                    pcieport<br>
-                                                    <br>
-                                                    0001:01:00.0 VGA
-                                                    compatible
-                                                    controller: Advanced
-                                                    Micro Devices, Inc.
-                                                    [AMD/ATI] Lexa
-                                                    [Radeon E9171 MCM]
-                                                    (rev 80) (prog-if 00
-                                                    [VGA controller])<br>
-                                                    =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 Subsystem:
-                                                    Hightech Information
-                                                    System Ltd. Device
-                                                    2389<br>
-                                                    =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 Flags: fast
-                                                    devsel, IRQ 41<br>
-                                                    =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 Memory at
-                                                    c10000000 (64-bit,
-                                                    prefetchable)
-                                                    [size=3D256M]<br>
-                                                    =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 Memory at
-                                                    &lt;ignored&gt;
-                                                    (64-bit,
-                                                    prefetchable)<br>
-                                                    =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 I/O ports at
-                                                    1100 [size=3D256]<br>
-                                                    =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 Memory at
-                                                    &lt;ignored&gt;
-                                                    (32-bit,
-                                                    non-prefetchable)<br>
-                                                    =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 Expansion
-                                                    ROM at
-                                                    &lt;ignored&gt;
-                                                    [disabled]<br>
-                                                    =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0
-                                                    Capabilities: [48]
-                                                    Vendor Specific
-                                                    Information: Len=3D08
-                                                    &lt;?&gt;<br>
-                                                    =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0
-                                                    Capabilities: [50]
-                                                    Power Management
-                                                    version 3<br>
-                                                    =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0
-                                                    Capabilities: [58]
-                                                    Express Legacy
-                                                    Endpoint, MSI 00<br>
-                                                    =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0
-                                                    Capabilities: [a0]
-                                                    MSI: Enable-
-                                                    Count=3D1/1 Maskable-
-                                                    64bit+<br>
-                                                    =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0
-                                                    Capabilities: [100]
-                                                    Vendor Specific
-                                                    Information: ID=3D0001
-                                                    Rev=3D1 Len=3D010
-                                                    &lt;?&gt;<br>
-                                                    =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0
-                                                    Capabilities: [150]
-                                                    Advanced Error
-                                                    Reporting<br>
-                                                    =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0
-                                                    Capabilities: [200]
-                                                    Resizable BAR
-                                                    &lt;?&gt;<br>
-                                                    =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0
-                                                    Capabilities: [270]
-                                                    Secondary PCI
-                                                    Express &lt;?&gt;<br>
-                                                    =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0
-                                                    Capabilities: [2b0]
-                                                    Address Translation
-                                                    Service (ATS)<br>
-                                                    =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0
-                                                    Capabilities: [2c0]
-                                                    Page Request
-                                                    Interface (PRI)<br>
-                                                    =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0
-                                                    Capabilities: [2d0]
-                                                    Process Address
-                                                    Space ID (PASID)<br>
-                                                    =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0
-                                                    Capabilities: [320]
-                                                    Latency Tolerance
-                                                    Reporting<br>
-                                                    =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0
-                                                    Capabilities: [328]
-                                                    Alternative
-                                                    Routing-ID
-                                                    Interpretation (ARI)<br=
->
-                                                    =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0
-                                                    Capabilities: [370]
-                                                    L1 PM Substates<br>
-                                                    =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 Kernel
-                                                    modules: amdgpu<br>
-                                                    <br>
-                                                    0001:01:00.1 Audio
-                                                    device: Advanced
-                                                    Micro Devices, Inc.
-                                                    [AMD/ATI] Device
-                                                    aae0<br>
-                                                    =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 Subsystem:
-                                                    Hightech Information
-                                                    System Ltd. Device
-                                                    aae0<br>
-                                                    =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 Flags: bus
-                                                    master, fast devsel,
-                                                    latency 0, IRQ 17<br>
-                                                    =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 Memory at
-                                                    &lt;ignored&gt;
-                                                    (64-bit,
-                                                    non-prefetchable)<br>
-                                                    =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0
-                                                    Capabilities: [48]
-                                                    Vendor Specific
-                                                    Information: Len=3D08
-                                                    &lt;?&gt;<br>
-                                                    =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0
-                                                    Capabilities: [50]
-                                                    Power Management
-                                                    version 3<br>
-                                                    =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0
-                                                    Capabilities: [58]
-                                                    Express Legacy
-                                                    Endpoint, MSI 00<br>
-                                                    =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0
-                                                    Capabilities: [a0]
-                                                    MSI: Enable-
-                                                    Count=3D1/1 Maskable-
-                                                    64bit+<br>
-                                                    =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0
-                                                    Capabilities: [100]
-                                                    Vendor Specific
-                                                    Information: ID=3D0001
-                                                    Rev=3D1 Len=3D010
-                                                    &lt;?&gt;<br>
-                                                    =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0
-                                                    Capabilities: [150]
-                                                    Advanced Error
-                                                    Reporting<br>
-                                                    =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0
-                                                    Capabilities: [328]
-                                                    Alternative
-                                                    Routing-ID
-                                                    Interpretation (ARI)<br=
->
-                                                    <br>
-                                                    0002:00:00.0 PCI
-                                                    bridge: Freescale
-                                                    Semiconductor Inc
-                                                    Device 0824 (rev 11)
-                                                    (prog-if 00 [Normal
-                                                    decode])<br>
-                                                    =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 Device tree
-                                                    node:
-                                                    /sys/firmware/devicetre=
-e/base/pcie@ffe260000/pcie@0<br>
-                                                    =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 Flags: bus
-                                                    master, fast devsel,
-                                                    latency 0, IRQ 22<br>
-                                                    =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 Memory at
-                                                    &lt;ignored&gt;
-                                                    (32-bit,
-                                                    non-prefetchable)<br>
-                                                    =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 Bus:
-                                                    primary=3D00,
-                                                    secondary=3D01,
-                                                    subordinate=3D01,
-                                                    sec-latency=3D0<br>
-                                                    =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 I/O behind
-                                                    bridge:
-                                                    00000000-0000ffff
-                                                    [size=3D64K]<br>
-                                                    =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 Memory
-                                                    behind bridge:
-                                                    e0000000-efffffff
-                                                    [size=3D256M]<br>
-                                                    =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 Prefetchable
-                                                    memory behind
-                                                    bridge: None<br>
-                                                    =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0
-                                                    Capabilities: [44]
-                                                    Power Management
-                                                    version 3<br>
-                                                    =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0
-                                                    Capabilities: [4c]
-                                                    Express Root Port
-                                                    (Slot-), MSI 00<br>
-                                                    =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0
-                                                    Capabilities: [100]
-                                                    Advanced Error
-                                                    Reporting<br>
-                                                    =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 Kernel
-                                                    driver in use:
-                                                    pcieport<br>
-                                                    <br>
-                                                    0003:00:00.0 PCI
-                                                    bridge: Freescale
-                                                    Semiconductor Inc
-                                                    Device 0824 (rev 11)
-                                                    (prog-if 00 [Normal
-                                                    decode])<br>
-                                                    =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 Device tree
-                                                    node:
-                                                    /sys/firmware/devicetre=
-e/base/pcie@ffe270000/pcie@0<br>
-                                                    =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 Flags: bus
-                                                    master, fast devsel,
-                                                    latency 0, IRQ 23<br>
-                                                    =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 Memory at
-                                                    &lt;ignored&gt;
-                                                    (32-bit,
-                                                    non-prefetchable)<br>
-                                                    =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 Bus:
-                                                    primary=3D00,
-                                                    secondary=3D01,
-                                                    subordinate=3D01,
-                                                    sec-latency=3D0<br>
-                                                    =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 I/O behind
-                                                    bridge:
-                                                    00000000-0000ffff
-                                                    [size=3D64K]<br>
-                                                    =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 Memory
-                                                    behind bridge:
-                                                    e0000000-efffffff
-                                                    [size=3D256M]<br>
-                                                    =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 Prefetchable
-                                                    memory behind
-                                                    bridge: None<br>
-                                                    =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0
-                                                    Capabilities: [44]
-                                                    Power Management
-                                                    version 3<br>
-                                                    =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0
-                                                    Capabilities: [4c]
-                                                    Express Root Port
-                                                    (Slot-), MSI 00<br>
-                                                    =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0
-                                                    Capabilities: [100]
-                                                    Advanced Error
-                                                    Reporting<br>
-                                                    =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 Kernel
-                                                    driver in use:
-                                                    pcieport</div>
-                                                  <div><br>
-                                                  </div>
-                                                </div>
-                                                <div><b>AND This is PCIe
-                                                    dmesg message when
-                                                    memory range is
-                                                    256MB. It&#39;s also
-                                                    giving same message
-                                                    when memory range is
-                                                    arranged as 4GB;</b></d=
-iv>
-                                                <div><br>
-                                                </div>
-                                                <div>PCI host bridge
-                                                  /pcie@ffe240000
-                                                  =C2=A0ranges:<br>
-                                                  =C2=A0MEM
-                                                  0x0000000c00000000..0x000=
-0000c0fffffff
-                                                  -&gt;
-                                                  0x00000000e0000000 <br>
-                                                  =C2=A0 IO
-                                                  0x0000000ff8000000..0x000=
-0000ff800ffff
-                                                  -&gt;
-                                                  0x0000000000000000<br>
-                                                  /pcie@ffe240000:
-                                                  PCICSRBAR @ 0xff000000<br=
->
-                                                  setup_pci_atmu: end of
-                                                  DRAM 200000000<br>
-                                                  /pcie@ffe240000: Setup
-                                                  64-bit PCI DMA window<br>
-                                                  /pcie@ffe240000:
-                                                  WARNING: Outbound
-                                                  window cfg leaves gaps
-                                                  in memory map.
-                                                  Adjusting the memory
-                                                  map could reduce
-                                                  unnecessary bounce
-                                                  buffering.<br>
-                                                  /pcie@ffe240000: DMA
-                                                  window size is
-                                                  0xe0000000<br>
-                                                  Found FSL PCI host
-                                                  bridge at
-                                                  0x0000000ffe250000.
-                                                  Firmware bus number:
-                                                  0-&gt;1<br>
-                                                  PCI host bridge
-                                                  /pcie@ffe250000
-                                                  =C2=A0ranges:<br>
-                                                  =C2=A0MEM
-                                                  0x0000000c10000000..0x000=
-0000c1fffffff
-                                                  -&gt;
-                                                  0x00000000e0000000 <br>
-                                                  =C2=A0 IO
-                                                  0x0000000ff8010000..0x000=
-0000ff801ffff
-                                                  -&gt;
-                                                  0x0000000000000000<br>
-                                                  /pcie@ffe250000:
-                                                  PCICSRBAR @ 0xff000000<br=
->
-                                                  setup_pci_atmu: end of
-                                                  DRAM 200000000<br>
-                                                  /pcie@ffe250000: Setup
-                                                  64-bit PCI DMA window<br>
-                                                  /pcie@ffe250000:
-                                                  WARNING: Outbound
-                                                  window cfg leaves gaps
-                                                  in memory map.
-                                                  Adjusting the memory
-                                                  map could reduce
-                                                  unnecessary bounce
-                                                  buffering.<br>
-                                                  /pcie@ffe250000: DMA
-                                                  window size is
-                                                  0xe0000000<br>
-                                                  Found FSL PCI host
-                                                  bridge at
-                                                  0x0000000ffe260000.
-                                                  Firmware bus number:
-                                                  0-&gt;0<br>
-                                                  PCI host bridge
-                                                  /pcie@ffe260000
-                                                  =C2=A0ranges:<br>
-                                                  =C2=A0MEM
-                                                  0x0000000c20000000..0x000=
-0000c2fffffff
-                                                  -&gt;
-                                                  0x00000000e0000000 <br>
-                                                  =C2=A0 IO
-                                                  0x0000000ff8020000..0x000=
-0000ff802ffff
-                                                  -&gt;
-                                                  0x0000000000000000<br>
-                                                  /pcie@ffe260000:
-                                                  PCICSRBAR @ 0xff000000<br=
->
-                                                  setup_pci_atmu: end of
-                                                  DRAM 200000000<br>
-                                                  /pcie@ffe260000: Setup
-                                                  64-bit PCI DMA window<br>
-                                                  /pcie@ffe260000:
-                                                  WARNING: Outbound
-                                                  window cfg leaves gaps
-                                                  in memory map.
-                                                  Adjusting the memory
-                                                  map could reduce
-                                                  unnecessary bounce
-                                                  buffering.<br>
-                                                  /pcie@ffe260000: DMA
-                                                  window size is
-                                                  0xe0000000<br>
-                                                  Found FSL PCI host
-                                                  bridge at
-                                                  0x0000000ffe270000.
-                                                  Firmware bus number:
-                                                  0-&gt;0<br>
-                                                  PCI host bridge
-                                                  /pcie@ffe270000
-                                                  =C2=A0ranges:<br>
-                                                  =C2=A0MEM
-                                                  0x0000000c30000000..0x000=
-0000c3fffffff
-                                                  -&gt;
-                                                  0x00000000e0000000 <br>
-                                                  =C2=A0 IO
-                                                  0x0000000ff8030000..0x000=
-0000ff803ffff
-                                                  -&gt;
-                                                  0x0000000000000000<br>
-                                                  /pcie@ffe270000:
-                                                  PCICSRBAR @ 0xff000000<br=
->
-                                                  setup_pci_atmu: end of
-                                                  DRAM 200000000<br>
-                                                  /pcie@ffe270000: Setup
-                                                  64-bit PCI DMA window<br>
-                                                  /pcie@ffe270000:
-                                                  WARNING: Outbound
-                                                  window cfg leaves gaps
-                                                  in memory map.
-                                                  Adjusting the memory
-                                                  map could reduce
-                                                  unnecessary bounce
-                                                  buffering.<br>
-                                                  /pcie@ffe270000: DMA
-                                                  window size is
-                                                  0xe0000000<br>
-                                                  iommu: Adding device
-                                                  ff6000000.qman-portal
-                                                  to group 0<br>
-                                                  iommu: Adding device
-                                                  ff6004000.qman-portal
-                                                  to group 1<br>
-                                                  iommu: Adding device
-                                                  ff6008000.qman-portal
-                                                  to group 2<br>
-                                                  iommu: Adding device
-                                                  ff600c000.qman-portal
-                                                  to group 3<br>
-                                                  iommu: Adding device
-                                                  ff6010000.qman-portal
-                                                  to group 4<br>
-                                                  iommu: Adding device
-                                                  ff6014000.qman-portal
-                                                  to group 5<br>
-                                                  iommu: Adding device
-                                                  ff6018000.qman-portal
-                                                  to group 6<br>
-                                                  iommu: Adding device
-                                                  ff601c000.qman-portal
-                                                  to group 7<br>
-                                                  iommu: Adding device
-                                                  ff6020000.qman-portal
-                                                  to group 8<br>
-                                                  iommu: Adding device
-                                                  ff6024000.qman-portal
-                                                  to group 9<br>
-                                                  iommu: Adding device
-                                                  ffe100300.dma to group
-                                                  10<br>
-                                                  iommu: Adding device
-                                                  ffe101300.dma to group
-                                                  11<br>
-                                                  iommu: Adding device
-                                                  ffe114000.sdhc to
-                                                  group 12<br>
-                                                  iommu: Adding device
-                                                  ffe210000.usb to group
-                                                  13<br>
-                                                  iommu: Adding device
-                                                  ffe211000.usb to group
-                                                  14<br>
-                                                  iommu: Adding device
-                                                  ffe220000.sata to
-                                                  group 15<br>
-                                                  iommu: Adding device
-                                                  ffe221000.sata to
-                                                  group 16<br>
-                                                  iommu: Adding device
-                                                  ffe318000.qman to
-                                                  group 17<br>
-                                                  iommu: Adding device
-                                                  ffe31a000.bman to
-                                                  group 18<br>
-                                                  iommu: Adding device
-                                                  ffe240000.pcie to
-                                                  group 19<br>
-                                                  iommu: Adding device
-                                                  ffe250000.pcie to
-                                                  group 20<br>
-                                                  iommu: Adding device
-                                                  ffe260000.pcie to
-                                                  group 21<br>
-                                                  iommu: Adding device
-                                                  ffe270000.pcie to
-                                                  group 22<br>
-                                                  iommu: Adding device
-                                                  ffe140000.qe to group
-                                                  23<br>
-                                                  software IO TLB:
-                                                  mapped [mem
-                                                  0xfbfff000-0xfffff000]
-                                                  (64MB)<br>
-                                                  PCI: Probing PCI
-                                                  hardware<br>
-                                                  fsl-pci
-                                                  ffe240000.pcie: PCI
-                                                  host bridge to bus
-                                                  0000:00<br>
-                                                  pci_bus 0000:00: root
-                                                  bus resource [io
-                                                  =C2=A00x8000080000010000-=
-0x800008000001ffff]
-                                                  (bus address
-                                                  [0x0000-0xffff])<br>
-                                                  pci_bus 0000:00: root
-                                                  bus resource [mem
-                                                  0xc00000000-0xc0fffffff]
-                                                  (bus address
-                                                  [0xe0000000-0xefffffff])<=
-br>
-                                                  pci_bus 0000:00: root
-                                                  bus resource [bus 00]<br>
-                                                  iommu: Removing device
-                                                  ffe240000.pcie from
-                                                  group 19<br>
-                                                  iommu: Adding device
-                                                  0000:00:00.0 to group
-                                                  24<br>
-                                                  pci 0000:00:00.0:
-                                                  bridge configuration
-                                                  invalid ([bus 00-00]),
-                                                  reconfiguring<br>
-                                                  pci 0000:00:00.0: PCI
-                                                  bridge to [bus 01-ff]<br>
-                                                  fsl-pci
-                                                  ffe250000.pcie: PCI
-                                                  host bridge to bus
-                                                  0001:00<br>
-                                                  pci_bus 0001:00: root
-                                                  bus resource [io
-                                                  =C2=A00x8000080000021000-=
-0x8000080000030fff]
-                                                  (bus address
-                                                  [0x0000-0xffff])<br>
-                                                  pci_bus 0001:00: root
-                                                  bus resource [mem
-                                                  0xc10000000-0xc1fffffff]
-                                                  (bus address
-                                                  [0xe0000000-0xefffffff])<=
-br>
-                                                  pci_bus 0001:00: root
-                                                  bus resource [bus
-                                                  00-01]<br>
-                                                  iommu: Removing device
-                                                  ffe250000.pcie from
-                                                  group 20<br>
-                                                  iommu: Adding device
-                                                  0001:00:00.0 to group
-                                                  19<br>
-                                                  pci 0001:01:00.0:
-                                                  enabling Extended Tags<br=
->
-                                                  pci 0001:01:00.0:
-                                                  4.000 Gb/s available
-                                                  PCIe bandwidth,
-                                                  limited by 5 GT/s x1
-                                                  link at 0001:00:00.0
-                                                  (capable of 63.008
-                                                  Gb/s with 8 GT/s x8
-                                                  link)<br>
-                                                  iommu: Adding device
-                                                  0001:01:00.0 to group
-                                                  19<br>
-                                                  pci 0001:01:00.1:
-                                                  enabling Extended Tags<br=
->
-                                                  iommu: Adding device
-                                                  0001:01:00.1 to group
-                                                  19<br>
-                                                  pci 0001:00:00.0: PCI
-                                                  bridge to [bus 01-ff]<br>
-                                                  fsl-pci
-                                                  ffe260000.pcie: PCI
-                                                  host bridge to bus
-                                                  0002:00<br>
-                                                  pci_bus 0002:00: root
-                                                  bus resource [io
-                                                  =C2=A00x8000080000032000-=
-0x8000080000041fff]
-                                                  (bus address
-                                                  [0x0000-0xffff])<br>
-                                                  pci_bus 0002:00: root
-                                                  bus resource [mem
-                                                  0xc20000000-0xc2fffffff]
-                                                  (bus address
-                                                  [0xe0000000-0xefffffff])<=
-br>
-                                                  pci_bus 0002:00: root
-                                                  bus resource [bus 00]<br>
-                                                  iommu: Removing device
-                                                  ffe260000.pcie from
-                                                  group 21<br>
-                                                  iommu: Adding device
-                                                  0002:00:00.0 to group
-                                                  20<br>
-                                                  pci 0002:00:00.0:
-                                                  bridge configuration
-                                                  invalid ([bus 00-00]),
-                                                  reconfiguring<br>
-                                                  pci 0002:00:00.0: PCI
-                                                  bridge to [bus 01-ff]<br>
-                                                  fsl-pci
-                                                  ffe270000.pcie: PCI
-                                                  host bridge to bus
-                                                  0003:00<br>
-                                                  pci_bus 0003:00: root
-                                                  bus resource [io
-                                                  =C2=A00x8000080000043000-=
-0x8000080000052fff]
-                                                  (bus address
-                                                  [0x0000-0xffff])<br>
-                                                  pci_bus 0003:00: root
-                                                  bus resource [mem
-                                                  0xc30000000-0xc3fffffff]
-                                                  (bus address
-                                                  [0xe0000000-0xefffffff])<=
-br>
-                                                  pci_bus 0003:00: root
-                                                  bus resource [bus 00]<br>
-                                                  iommu: Removing device
-                                                  ffe270000.pcie from
-                                                  group 22<br>
-                                                  iommu: Adding device
-                                                  0003:00:00.0 to group
-                                                  21<br>
-                                                  pci 0003:00:00.0:
-                                                  bridge configuration
-                                                  invalid ([bus 00-00]),
-                                                  reconfiguring<br>
-                                                  pci 0003:00:00.0: PCI
-                                                  bridge to [bus 01-ff]<br>
-                                                  PCI: Cannot allocate
-                                                  resource region 0 of
-                                                  device 0000:00:00.0,
-                                                  will remap<br>
-                                                  PCI: Cannot allocate
-                                                  resource region 0 of
-                                                  device 0001:00:00.0,
-                                                  will remap<br>
-                                                  PCI: Cannot allocate
-                                                  resource region 2 of
-                                                  device 0001:01:00.0,
-                                                  will remap<br>
-                                                  PCI: Cannot allocate
-                                                  resource region 5 of
-                                                  device 0001:01:00.0,
-                                                  will remap<br>
-                                                  PCI: Cannot allocate
-                                                  resource region 6 of
-                                                  device 0001:01:00.0,
-                                                  will remap<br>
-                                                  PCI: Cannot allocate
-                                                  resource region 0 of
-                                                  device 0001:01:00.1,
-                                                  will remap<br>
-                                                  PCI: Cannot allocate
-                                                  resource region 0 of
-                                                  device 0002:00:00.0,
-                                                  will remap<br>
-                                                  PCI: Cannot allocate
-                                                  resource region 0 of
-                                                  device 0003:00:00.0,
-                                                  will remap<br>
-                                                  pci 0000:00:00.0: BAR
-                                                  0: no space for [mem
-                                                  size 0x01000000]<br>
-                                                  pci 0000:00:00.0: BAR
-                                                  0: failed to assign
-                                                  [mem size 0x01000000]<br>
-                                                  pci 0000:00:00.0: PCI
-                                                  bridge to [bus 01]<br>
-                                                  pci 0000:00:00.0: =C2=A0
-                                                  bridge window [io
-                                                  =C2=A00x8000080000010000-=
-0x800008000001ffff]<br>
-                                                  pci 0000:00:00.0: =C2=A0
-                                                  bridge window [mem
-                                                  0xc00000000-0xc0fffffff]<=
-br>
-                                                  pci_bus 0000:00: Some
-                                                  PCI device resources
-                                                  are unassigned, try
-                                                  booting with
-                                                  pci=3Drealloc<br>
-                                                  pci 0001:00:00.0: BAR
-                                                  0: no space for [mem
-                                                  size 0x01000000]<br>
-                                                  pci 0001:00:00.0: BAR
-                                                  0: failed to assign
-                                                  [mem size 0x01000000]<br>
-                                                  pci 0001:00:00.0: BAR
-                                                  9: no space for [mem
-                                                  size 0x00200000 64bit
-                                                  pref]<br>
-                                                  pci 0001:00:00.0: BAR
-                                                  9: failed to assign
-                                                  [mem size 0x00200000
-                                                  64bit pref]<br>
-                                                  pci 0001:01:00.0: BAR
-                                                  2: no space for [mem
-                                                  size 0x00200000 64bit
-                                                  pref]<br>
-                                                  pci 0001:01:00.0: BAR
-                                                  2: failed to assign
-                                                  [mem size 0x00200000
-                                                  64bit pref]<br>
-                                                  pci 0001:01:00.0: BAR
-                                                  5: no space for [mem
-                                                  size 0x00040000]<br>
-                                                  pci 0001:01:00.0: BAR
-                                                  5: failed to assign
-                                                  [mem size 0x00040000]<br>
-                                                  pci 0001:01:00.0: BAR
-                                                  6: no space for [mem
-                                                  size 0x00020000 pref]<br>
-                                                  pci 0001:01:00.0: BAR
-                                                  6: failed to assign
-                                                  [mem size 0x00020000
-                                                  pref]<br>
-                                                  pci 0001:01:00.1: BAR
-                                                  0: no space for [mem
-                                                  size 0x00004000 64bit]<br=
->
-                                                  pci 0001:01:00.1: BAR
-                                                  0: failed to assign
-                                                  [mem size 0x00004000
-                                                  64bit]<br>
-                                                  pci 0001:00:00.0: PCI
-                                                  bridge to [bus 01]<br>
-                                                  pci 0001:00:00.0: =C2=A0
-                                                  bridge window [io
-                                                  =C2=A00x8000080000021000-=
-0x8000080000030fff]<br>
-                                                  pci 0001:00:00.0: =C2=A0
-                                                  bridge window [mem
-                                                  0xc10000000-0xc1fffffff]<=
-br>
-                                                  pci_bus 0001:00: Some
-                                                  PCI device resources
-                                                  are unassigned, try
-                                                  booting with
-                                                  pci=3Drealloc<br>
-                                                  pci 0002:00:00.0: BAR
-                                                  0: no space for [mem
-                                                  size 0x01000000]<br>
-                                                  pci 0002:00:00.0: BAR
-                                                  0: failed to assign
-                                                  [mem size 0x01000000]<br>
-                                                  pci 0002:00:00.0: PCI
-                                                  bridge to [bus 01]<br>
-                                                  pci 0002:00:00.0: =C2=A0
-                                                  bridge window [io
-                                                  =C2=A00x8000080000032000-=
-0x8000080000041fff]<br>
-                                                  pci 0002:00:00.0: =C2=A0
-                                                  bridge window [mem
-                                                  0xc20000000-0xc2fffffff]<=
-br>
-                                                  pci_bus 0002:00: Some
-                                                  PCI device resources
-                                                  are unassigned, try
-                                                  booting with
-                                                  pci=3Drealloc<br>
-                                                  pci 0003:00:00.0: BAR
-                                                  0: no space for [mem
-                                                  size 0x01000000]<br>
-                                                  pci 0003:00:00.0: BAR
-                                                  0: failed to assign
-                                                  [mem size 0x01000000]<br>
-                                                  pci 0003:00:00.0: PCI
-                                                  bridge to [bus 01]<br>
-                                                  pci 0003:00:00.0: =C2=A0
-                                                  bridge window [io
-                                                  =C2=A00x8000080000043000-=
-0x8000080000052fff]<br>
-                                                  pci 0003:00:00.0: =C2=A0
-                                                  bridge window [mem
-                                                  0xc30000000-0xc3fffffff]<=
-br>
-                                                  pci_bus 0003:00: Some
-                                                  PCI device resources
-                                                  are unassigned, try
-                                                  booting with
-                                                  pci=3Drealloc<br>
-                                                </div>
-                                                <div><br>
-                                                </div>
-                                                <div><br>
-                                                </div>
-                                              </div>
-                                            </div>
-                                          </blockquote>
-                                          <br>
-                                        </div>
-                                      </blockquote>
-                                    </div>
-                                  </div>
-                                  <br>
-                                  <fieldset></fieldset>
-                                  <pre>____________________________________=
-___________
-amd-gfx mailing list
-<a href=3D"mailto:amd-gfx@lists.freedesktop.org" target=3D"_blank">amd-gfx@=
-lists.freedesktop.org</a>
-<a href=3D"https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2=
-F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=3D02%7C01=
-%7Cchristian.koenig%40amd.com%7C561d9d3206ff46d338ad08d777ef717c%7C3dd8961f=
-e4884e608e11a82d994e183d%7C0%7C0%7C637109742603345420&amp;sdata=3DPO02mQtDB=
-nkAdNfCn%2Fp7QmKX8IbJ7zke8edrfhsM6Mg%3D&amp;reserved=3D0" target=3D"_blank"=
->https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a></pre>
-                                </blockquote>
-                                <br>
-                              </div>
-                            </blockquote>
-                          </div>
-                        </div>
-                      </blockquote>
-                    </div>
-                  </div>
-                </blockquote>
-                <br>
-              </div>
-            </blockquote>
-          </div>
-        </div>
-      </div>
-    </blockquote>
-    <br>
-  </div>
+[ &nbsp; &nbsp;6.868689] [drm] amdgpu: finishing device. </b>&nbsp; &nbsp; =
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp=
+; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nb=
+sp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &=
+nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+<br>
+<b>[ &nbsp; &nbsp;7.339427] pcieport 0001:00:00.0: AER: Corrected error rec=
+eived: 0001:00:00.0 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;=
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbs=
+p; &nbsp; &nbsp; &nbsp;<br>
+[ &nbsp; &nbsp;7.345374] pcieport 0001:00:00.0: PCIe Bus Error: severity=3D=
+Corrected, type=3DData Link Layer, (Transmitter ID) &nbsp; &nbsp; &nbsp; &n=
+bsp; &nbsp; &nbsp;
+<br>
+[ &nbsp; &nbsp;7.353993] pcieport 0001:00:00.0: &nbsp; device [1957:0824] e=
+rror status/mask=3D00001000/00002000 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nb=
+sp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+<br>
+[ &nbsp; &nbsp;7.361047] pcieport 0001:00:00.0: &nbsp; &nbsp;[12] Timeout &=
+nbsp; &nbsp;</b> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &n=
+bsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp=
+; &nbsp; &nbsp; &nbsp; &nbsp;<br>
+[ &nbsp; &nbsp;7.706137] amdgpu: [powerplay] &nbsp; &nbsp; &nbsp; &nbsp; &n=
+bsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp=
+; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nb=
+sp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; last message was fa=
+iled ret is 0 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp=
+; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nb=
+sp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &=
+nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+<br>
+[ &nbsp; &nbsp;8.127667] amdgpu: [powerplay] &nbsp; &nbsp; &nbsp; &nbsp; &n=
+bsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp=
+; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nb=
+sp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; failed to send mess=
+age 261 ret is 0 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &n=
+bsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp=
+; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<br>
+[ &nbsp; &nbsp;8.966331] amdgpu: [powerplay] &nbsp; &nbsp; &nbsp; &nbsp; &n=
+bsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp=
+; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nb=
+sp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; last message was fa=
+iled ret is 0 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp=
+; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nb=
+sp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &=
+nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+<br>
+[ &nbsp; &nbsp;9.320290] pcieport 0001:00:00.0: AER: Corrected error receiv=
+ed: 0001:00:00.0 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &n=
+bsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =
+&nbsp; &nbsp; &nbsp;<br>
+[ &nbsp; &nbsp;9.326226] pcieport 0001:00:00.0: PCIe Bus Error: severity=3D=
+Corrected, type=3DData Link Layer, (Transmitter ID) &nbsp; &nbsp; &nbsp; &n=
+bsp; &nbsp; &nbsp;
+<br>
+[ &nbsp; &nbsp;9.334845] pcieport 0001:00:00.0: &nbsp; device [1957:0824] e=
+rror status/mask=3D00001000/00002000 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nb=
+sp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+<br>
+[ &nbsp; &nbsp;9.341899] pcieport 0001:00:00.0: &nbsp; &nbsp;[12] Timeout &=
+nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;=
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbs=
+p; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &n=
+bsp; &nbsp; &nbsp; &nbsp;<br>
+[ &nbsp; &nbsp;9.387975] amdgpu: [powerplay] &nbsp; &nbsp; &nbsp; &nbsp; &n=
+bsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp=
+; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nb=
+sp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; failed to send mess=
+age 261 ret is 0 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &n=
+bsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp=
+; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<br>
+[ &nbsp; 10.226636] amdgpu: [powerplay] &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp=
+; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nb=
+sp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &=
+nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; last message was fa=
+iled ret is 0 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp=
+; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nb=
+sp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &=
+nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+<br>
+[ &nbsp; 10.648275] amdgpu: [powerplay] &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp=
+; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nb=
+sp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &=
+nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; failed to send mess=
+age 261 ret is 0 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &n=
+bsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp=
+; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<br>
+[ &nbsp; 11.486932] amdgpu: [powerplay] &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp=
+; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nb=
+sp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &=
+nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; last message was fa=
+iled ret is 0 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp=
+; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nb=
+sp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &=
+nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+<br>
+[ &nbsp; 11.908570] amdgpu: [powerplay] &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp=
+; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nb=
+sp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &=
+nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; failed to send mess=
+age 261 ret is 0 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &n=
+bsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp=
+; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<br>
+[ &nbsp; 12.747228] amdgpu: [powerplay] &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp=
+; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nb=
+sp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &=
+nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; last message was fa=
+iled ret is 0 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp=
+; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nb=
+sp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &=
+nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+<br>
+[ &nbsp; 13.168866] amdgpu: [powerplay] &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp=
+; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nb=
+sp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &=
+nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; failed to send mess=
+age 261 ret is 0 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &n=
+bsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp=
+; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<br>
+[ &nbsp; 14.007523] amdgpu: [powerplay] &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp=
+; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nb=
+sp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &=
+nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; last message was fa=
+iled ret is 0 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp=
+; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nb=
+sp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &=
+nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+<br>
+[ &nbsp; 14.429161] amdgpu: [powerplay] &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp=
+; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nb=
+sp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &=
+nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; failed to send mess=
+age 261 ret is 0 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &n=
+bsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp=
+; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<br>
+[ &nbsp; 15.267816] amdgpu: [powerplay] &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp=
+; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nb=
+sp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &=
+nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; last message was fa=
+iled ret is 0 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp=
+; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nb=
+sp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &=
+nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+<br>
+[ &nbsp; 15.689456] amdgpu: [powerplay] &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp=
+; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nb=
+sp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &=
+nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; failed to send mess=
+age 261 ret is 0 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &n=
+bsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp=
+; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<br>
+[ &nbsp; 16.528114] amdgpu: [powerplay] &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp=
+; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nb=
+sp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &=
+nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; last message was fa=
+iled ret is 0 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp=
+; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nb=
+sp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &=
+nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+<br>
+[ &nbsp; 16.949756] amdgpu: [powerplay] &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp=
+; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nb=
+sp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &=
+nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; failed to send mess=
+age 261 ret is 0 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &n=
+bsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp=
+; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<br>
+[ &nbsp; 17.788411] amdgpu: [powerplay] &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp=
+; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nb=
+sp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &=
+nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; last message was fa=
+iled ret is 0 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp=
+; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nb=
+sp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &=
+nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+<br>
+[ &nbsp; 18.210051] amdgpu: [powerplay] &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp=
+; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nb=
+sp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &=
+nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; failed to send mess=
+age 261 ret is 0 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &n=
+bsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp=
+; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<br>
+[ &nbsp; 19.048710] amdgpu: [powerplay] &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp=
+; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nb=
+sp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &=
+nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; last message was fa=
+iled ret is 0 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp=
+; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nb=
+sp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &=
+nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+<br>
+[ &nbsp; 19.470347] amdgpu: [powerplay] &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp=
+; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nb=
+sp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &=
+nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; failed to send mess=
+age 261 ret is 0 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &n=
+bsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp=
+; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<br>
+[ &nbsp; 19.786774] [TTM] Finalizing pool allocator &nbsp; &nbsp; &nbsp; &n=
+bsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp=
+; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nb=
+sp; &nbsp; &nbsp; &nbsp;
+<br>
+[ &nbsp; 19.789696] [TTM] Finalizing DMA pool allocator &nbsp; &nbsp; &nbsp=
+; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nb=
+sp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &=
+nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;=
+ &nbsp; &nbsp;
+<br>
+[ &nbsp; 19.793004] [TTM] Zone &nbsp;kernel: Used memory at exit: 0 kiB &nb=
+sp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &=
+nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;=
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<br>
+[ &nbsp; 19.797209] [TTM] Zone &nbsp; dma32: Used memory at exit: 0 kiB &nb=
+sp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &=
+nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;=
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<br>
+[ &nbsp; 19.801410] [drm] amdgpu: ttm finalized &nbsp; &nbsp; &nbsp; &nbsp;=
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbs=
+p; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &n=
+bsp; &nbsp;
+<b>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &n=
+bsp; &nbsp; &nbsp; &nbsp; <br>
+[ &nbsp; 19.804496] amdgpu: probe of 0001:01:00.0 failed with error -22&nbs=
+p; </b><o:p></o:p></p>
+</div>
+</div>
+</div>
+</body>
+</html>
 
-</blockquote></div></div>
-</blockquote></div>
+--_000_MN2PR12MB3598F90268C4C6602532C94C8E200MN2PR12MB3598namp_--
 
---00000000000088ab02059b242897--
-
---===============1660137890==
+--===============0478183497==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -2595,4 +941,4 @@ amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 
---===============1660137890==--
+--===============0478183497==--
