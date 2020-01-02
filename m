@@ -2,106 +2,108 @@ Return-Path: <SRS0=MtTs=2X=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+X-Spam-Status: No, score=-9.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.0
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 167FCC2D0DD
-	for <amd-gfx@archiver.kernel.org>; Thu,  2 Jan 2020 04:25:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4B647C2D0DD
+	for <amd-gfx@archiver.kernel.org>; Thu,  2 Jan 2020 05:50:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 96E2C215A4
-	for <amd-gfx@archiver.kernel.org>; Thu,  2 Jan 2020 04:25:47 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id BD0D0206E6
+	for <amd-gfx@archiver.kernel.org>; Thu,  2 Jan 2020 05:50:25 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="eOWvFsA/"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 96E2C215A4
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="cCx6ZlQh"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BD0D0206E6
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4D1CE899EA;
-	Thu,  2 Jan 2020 04:25:47 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2056.outbound.protection.outlook.com [40.107.220.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6F59E899EA
- for <amd-gfx@lists.freedesktop.org>; Thu,  2 Jan 2020 04:25:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 803AC89219;
+	Thu,  2 Jan 2020 05:50:25 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2065.outbound.protection.outlook.com [40.107.237.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B175089219
+ for <amd-gfx@lists.freedesktop.org>; Thu,  2 Jan 2020 05:50:24 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=VTT2rVofgqzNGdkm2bKHHqVK1aoNnZB3U6tzPsV3L0BlWFmASb9B/Tp48k/vsgvhUHK6LL+I0IL4AGeFxqbhfqjCa86cPhOhlXqRAd4Wn5o2o3SP5LeAZ28+FTmmg9iTu70xQMV7vGtecn6PmSEAJxA3lx2XSaIk/Vg0ZMAHs4W5bLlEK8QX8n9koFkW2hZ9/IySd1dtQNZ8QV3COyaOkWWJhJfKMPQ1pkNMw/+iqDfeV+xacDUA6aaVcaSvey7Z3MZbtEkzPtRnWPt6wxdciHlv88OU3BBke9QonzD2hxtNUr7I02xegSnEhDoQiA1+Ew42HjKvbjRU/bxotWo+8w==
+ b=b1MNnRSf2kr/edFjDh5Pr81uL30qCxnxQVHmfDBSuCTOVvLkPH9mtEobVAhMbUsj4jQZ+5qNDku4hdSB+5Upi5vGC5KgPYVFxi6Qkj2sGuS6qAKUnOfhSb2cSQTR15JdfIYijhOavtYiUn1hC2NR8LTCqE3LNZXFfPsv4OlF2ftzhf9ZuvsC3lVYOKDCzLdn37PQZyYwNe9t9h8s5bTFymCQE8OQs8b5d41DICijSeeEradFFzigxMBekWWfreudUTNxib8ywzbo21nDSWHSVPuL0fgwKfpkWKU9XheoNqsTbXGHiSz7GxMjcEIS+N9OTmqUkhwZKzXPNAlnYuGDaA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=nNJEGYccW1tUxp/vaf4ih+XSza+3auu/eBXsw55Ghr4=;
- b=FLpKFRV6fPRtQ2EMvA1G43NTJTcobDbVRZ2y3WrZoTjfSOTsX9V0/hHWl88CbndH0Rr+l73IGlwmvPbrVhKaNXGvPJRWznLOksveU/BEvhG9wCwU/GjtomOfp7FGRVZkaxgm7oFXolbKse8wzHbBm8Fw/xKMxro9SloUQ7PCiyrWbQvkTrcFSHfDbW+Zcx7XBFW0SjbDYIaTvffbG4qEoiRIzq8uBj3hYIQJBEH5Rr+ce08dkX++dAu++qQWQk0cjPxCwPJX6+GZxAjUfrvbIFBOeWl7PHUQMgHxK+/LwlivKgwvtAKYMBamwQiXnE8NFOlO3FOM3D+UbjQ7CYrZ2g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=QY/hbhXngepTJRmJVwexfSiuJUO8HVGBPEtfRsG4gHE=;
+ b=csv4FSIXsOXgS4pieJKAG+gU+TTLUaQsZxGYxUUb7Kyw5dG88Rq91bg/Xylqal418ny3Ol7L+FsmVXWfJa89rYVDRM8Kr85QzE/YXMnU8QLGoqbnxnqBGYUE/tyO+S60di9mcH+Wgo+JpRLrdujJOBQh/QEzMh1h9xY6Zut9gKn0g7XVvby+BGwDftJuDLEIjeg5Fk0KFKcmwQ1+qcLmQk8gfYvb4kBnQW6raLOAHYkzj1KkIjvhnm+t7jB8jNS0QsvAg66CNp00h/FAG/1mPizvzidoAPPBJamMCWCbRvn10/K0zb9zgvWAXjyC5+XTHEQk29c777ggqkgG+3MP2A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=permerror action=none header.from=amd.com; dkim=none (message not
+ signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=nNJEGYccW1tUxp/vaf4ih+XSza+3auu/eBXsw55Ghr4=;
- b=eOWvFsA/U8TTsCY/Lapj0gUEfSyGdnDcidrowcxYtuLtxTGrvrfJUonuMxsL7wA3gwW+UEXtuW+qyMahH0a8V0/tkb/DhuPrLVDu8jbTlJhjNLOWzmTWMoF3BgauEkN4mJYSbmF2pdJ0rSCbd7jfzcBHta3w7WInYft7IIrU23E=
-Received: from MN2PR12MB3344.namprd12.prod.outlook.com (20.178.241.74) by
- MN2PR12MB2863.namprd12.prod.outlook.com (20.179.82.204) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2602.11; Thu, 2 Jan 2020 04:25:42 +0000
-Received: from MN2PR12MB3344.namprd12.prod.outlook.com
- ([fe80::1010:4621:68dd:5b47]) by MN2PR12MB3344.namprd12.prod.outlook.com
- ([fe80::1010:4621:68dd:5b47%5]) with mapi id 15.20.2602.010; Thu, 2 Jan 2020
- 04:25:42 +0000
-From: "Quan, Evan" <Evan.Quan@amd.com>
-To: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH 1/2] drm/amdgpu: handle mp1 state properly on suspend or
- device removal
-Thread-Topic: [PATCH 1/2] drm/amdgpu: handle mp1 state properly on suspend or
- device removal
-Thread-Index: AQHVu8QIqYjleLHHRkS3uiLAhdh+QqfQrv+AgAYal4A=
-Date: Thu, 2 Jan 2020 04:25:41 +0000
-Message-ID: <MN2PR12MB3344D3F5BF89B4256C2A6DA5E4200@MN2PR12MB3344.namprd12.prod.outlook.com>
-References: <20191226081041.8747-1-evan.quan@amd.com>
- <MWHPR12MB13581836D6852083025FDD34F7240@MWHPR12MB1358.namprd12.prod.outlook.com>
-In-Reply-To: <MWHPR12MB13581836D6852083025FDD34F7240@MWHPR12MB1358.namprd12.prod.outlook.com>
-Accept-Language: en-US, zh-CN
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Enabled=true;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SetDate=2019-12-29T06:38:53Z; 
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Method=Privileged;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Name=Public_0;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ActionId=ad5783af-14ab-4252-b282-0000f1bbbdb5;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ContentBits=1
-authentication-results: spf=none (sender IP is )
- smtp.mailfrom=Evan.Quan@amd.com; 
-x-originating-ip: [180.167.199.189]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: 8fc3489e-713b-487a-89f3-08d78f3bd448
-x-ms-traffictypediagnostic: MN2PR12MB2863:|MN2PR12MB2863:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <MN2PR12MB286378ACF2F18A0D8BD480F6E4200@MN2PR12MB2863.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:84;
-x-forefront-prvs: 0270ED2845
-x-forefront-antispam-report: SFV:NSPM;
- SFS:(10009020)(4636009)(136003)(366004)(346002)(39860400002)(376002)(396003)(189003)(199004)(13464003)(52536014)(2906002)(110136005)(9686003)(55016002)(316002)(19627235002)(5660300002)(71200400001)(86362001)(8936002)(8676002)(81156014)(81166006)(26005)(64756008)(478600001)(186003)(66556008)(66946007)(15650500001)(66446008)(7696005)(76116006)(33656002)(53546011)(6506007)(66476007);
- DIR:OUT; SFP:1101; SCL:1; SRVR:MN2PR12MB2863;
- H:MN2PR12MB3344.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; MX:1; A:1; 
-received-spf: None (protection.outlook.com: amd.com does not designate
+ bh=QY/hbhXngepTJRmJVwexfSiuJUO8HVGBPEtfRsG4gHE=;
+ b=cCx6ZlQhR33VgZN1BakNPnpkEInViXQGf/1k2sY4q5lC76TKF+OWPEIaBJe8+X9d/Uo/1Teo21rnmQVqCROu4/zu0HE6wNXqLuDvB9v2YIdTl1R8qCdQ60juHm0++jtowRnPXxgb+ju5lRe9ysdCbMayRO+03yN9E2hAftzr0G4=
+Received: from CH2PR12CA0024.namprd12.prod.outlook.com (2603:10b6:610:57::34)
+ by MWHPR12MB1405.namprd12.prod.outlook.com (2603:10b6:300:13::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2602.12; Thu, 2 Jan
+ 2020 05:50:22 +0000
+Received: from CO1NAM11FT065.eop-nam11.prod.protection.outlook.com
+ (2a01:111:f400:7eab::206) by CH2PR12CA0024.outlook.office365.com
+ (2603:10b6:610:57::34) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2602.12 via Frontend
+ Transport; Thu, 2 Jan 2020 05:50:22 +0000
+Authentication-Results: spf=none (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none;lists.freedesktop.org; dmarc=permerror action=none
+ header.from=amd.com;
+Received-SPF: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: aW4vzuhKb4hpw9zx7g5vKAvFMbRDXFiA6GAg+CNEpknn26UYjATJKYlcEyFuxbK7XhvaE5N7Nx+i7QIh12Dz7N55W9+W3H8rwYZSLmTQk2MbqaKKdPquUu8M9nBLmxWe6iIE0e6A6JVB59bKUy93gTefD64W9eKiXaSbyi6wT8xkfHDUbmSdhjxqTEGjZ3vbZ0x5m60G+7dS0rlzw0QDm/XNGMzPpl/jPGppL/KQE+deZDoEOjFn97HuD+OhaxICc7/noHC4yuNf/gY+9a4xHG4sVF6tB1l0fC65l3Nft2QqMo1mHdr2khz0aWTf3ju5gfbu/15fbe2lYf476IXP/isnY30x3pe4FyzWnLOMQsKJPEHlPNQgXCijDQQOSxB7dp7kXx4eWpcoVM5VFq5tvPYaDFvmcI3X1xnD+QXSp+g3UWcsZiIyEKh2Xn+nPx4vdBBPEVkiVa54Q/a51aY+DqNcryQHinxtY2OCj+z0yFmBkz+MS56nI+YGQbYsH0BA
+Received: from SATLEXMB01.amd.com (165.204.84.17) by
+ CO1NAM11FT065.mail.protection.outlook.com (10.13.174.62) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.2602.11 via Frontend Transport; Thu, 2 Jan 2020 05:50:21 +0000
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB01.amd.com
+ (10.181.40.142) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Wed, 1 Jan 2020
+ 23:50:20 -0600
+Received: from SATLEXMB02.amd.com (10.181.40.143) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Wed, 1 Jan 2020
+ 23:50:20 -0600
+Received: from ubuntu.amd.com (10.180.168.240) by SATLEXMB02.amd.com
+ (10.181.40.143) with Microsoft SMTP Server id 15.1.1713.5 via Frontend
+ Transport; Wed, 1 Jan 2020 23:50:19 -0600
+From: Jack Zhang <Jack.Zhang1@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH 1/2] amd/amdgpu/sriov enable onevf mode for ARCTURUS VF
+Date: Thu, 2 Jan 2020 13:50:16 +0800
+Message-ID: <1577944216-32200-1-git-send-email-Jack.Zhang1@amd.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
+X-EOPAttributedMessage: 0
+X-MS-Office365-Filtering-HT: Tenant
+X-Forefront-Antispam-Report: CIP:165.204.84.17; IPV:; CTRY:US; EFV:NLI;
+ SFV:NSPM;
+ SFS:(10009020)(4636009)(39860400002)(396003)(136003)(376002)(346002)(428003)(199004)(189003)(36756003)(70586007)(6666004)(356004)(70206006)(336012)(81156014)(2906002)(8676002)(81166006)(19627235002)(86362001)(7696005)(426003)(186003)(26005)(8936002)(2616005)(66574012)(478600001)(4326008)(5660300002)(6916009)(316002);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:MWHPR12MB1405; H:SATLEXMB01.amd.com; FPR:;
+ SPF:None; LANG:en; PTR:InfoDomainNonexistent; A:1; MX:1; 
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: eaa31025-8eac-4995-fb49-08d78f47a7f1
+X-MS-TrafficTypeDiagnostic: MWHPR12MB1405:
+X-Microsoft-Antispam-PRVS: <MWHPR12MB140533D3E5917CC4A29263DABB200@MWHPR12MB1405.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:160;
+X-Forefront-PRVS: 0270ED2845
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: iYYrFVhWTJM3Q1buuBJDeUVxvdR07GfcM8JjOrrvRsuVE4iqQkmoEqZ5BrS0VUqDtlsnYupJBshMCJ+Wnku9CsbIJ7kM71UY1n3zaPiKWoHW/rBRcUz7bGHz82aSwi7OFMzvRFEz51xSebGQZ+L1M+c6vaUAkVZp6OYatT8D3YhOkzBjOm7RxxKmexIV5AJ9DC9J2R1NBK9/lTaF0GpgL6jOrA7tTCoyGKL0oi1sKP3Wa1pQoPIKP5toE3aTdiP+o74UaznRN1Y9cHioSZF/eQ8tRo4S7iCZ6tdhaFUdnRQFaMum5VnvKfTRbXSLnTe30Pdo8JD09pHjH/lvD3azoobZk/CyjDEj8552PGTn4CXdGoTuRWF9WViQer5gJwYBkly252gwPpIEtpeWNKRtEAz8Rogiv+CRtQE573/V0UV6BXAMMsX2TfqVhe14mXhP
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8fc3489e-713b-487a-89f3-08d78f3bd448
-X-MS-Exchange-CrossTenant-originalarrivaltime: 02 Jan 2020 04:25:42.1671 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: hO7WI+JbpJ9tvKOP9CoZQVIHA7EenplMlTXpur65/gqfsBedPm3Ja8nv2gW2SN5Z
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB2863
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jan 2020 05:50:21.7713 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: eaa31025-8eac-4995-fb49-08d78f47a7f1
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB01.amd.com]
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR12MB1405
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,152 +115,217 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Jack.Zhang1@amd.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Before, initialization of smu ip block would be skipped
+for sriov ASICs. But if there's only one VF being used,
+guest driver should be able to dump some HW info such as
+clks, temperature,etc.
 
+To solve this, now after onevf mode is enabled, host
+driver will notify guest. If it's onevf mode, guest will
+do smu hw_init and skip some steps in normal smu hw_init
+flow because host driver has already done it for smu.
 
-> -----Original Message-----
-> From: Deucher, Alexander <Alexander.Deucher@amd.com>
-> Sent: Sunday, December 29, 2019 2:43 PM
-> To: Quan, Evan <Evan.Quan@amd.com>; amd-gfx@lists.freedesktop.org
-> Subject: RE: [PATCH 1/2] drm/amdgpu: handle mp1 state properly on suspend
-> or device removal
-> 
-> [AMD Public Use]
-> 
-> > -----Original Message-----
-> > From: Quan, Evan <Evan.Quan@amd.com>
-> > Sent: Thursday, December 26, 2019 3:11 AM
-> > To: amd-gfx@lists.freedesktop.org
-> > Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Quan, Evan
-> > <Evan.Quan@amd.com>
-> > Subject: [PATCH 1/2] drm/amdgpu: handle mp1 state properly on suspend or
-> > device removal
-> >
-> > Set mp1 state properly for non gpu reset cases.
-> >
-> > Change-Id: I2a007910da6b5e2d1f8915d17827621ebd2e8c59
-> > Signed-off-by: Evan Quan <evan.quan@amd.com>
-> > ---
-> >  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  3 +++
-> >  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c    | 16 ++++++++++++++--
-> >  drivers/gpu/drm/amd/powerplay/amdgpu_smu.c | 13 +++++++++++++
-> >  3 files changed, 30 insertions(+), 2 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> > b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> > index d36245321cb0..739ff4e4e845 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> > @@ -1089,6 +1089,7 @@ static int amdgpu_device_check_arguments(struct
-> > amdgpu_device *adev)  static void amdgpu_switcheroo_set_state(struct
-> > pci_dev *pdev, enum vga_switcheroo_state state)  {
-> >  	struct drm_device *dev = pci_get_drvdata(pdev);
-> > +	struct amdgpu_device *adev = dev->dev_private;
-> >  	int r;
-> >
-> >  	if (amdgpu_device_supports_boco(dev) && state ==
-> > VGA_SWITCHEROO_OFF) @@ -1112,7 +1113,9 @@ static void
-> > amdgpu_switcheroo_set_state(struct pci_dev *pdev, enum vga_switchero
-> >  		pr_info("amdgpu: switched off\n");
-> >  		drm_kms_helper_poll_disable(dev);
-> >  		dev->switch_power_state =
-> > DRM_SWITCH_POWER_CHANGING;
-> > +		adev->mp1_state = PP_MP1_STATE_SHUTDOWN;
-> >  		amdgpu_device_suspend(dev, true);
-> > +		adev->mp1_state = PP_MP1_STATE_NONE;
-> >  		pci_save_state(dev->pdev);
-> >  		/* Shut down the device */
-> >  		pci_disable_device(dev->pdev);
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> > b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> > index 61dc26515c7e..13278f1c1b14 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> > @@ -1157,8 +1157,14 @@ amdgpu_pci_shutdown(struct pci_dev *pdev)
-> > static int amdgpu_pmops_suspend(struct device *dev)  {
-> >  	struct drm_device *drm_dev = dev_get_drvdata(dev);
-> > +	struct amdgpu_device *adev = drm_dev->dev_private;
-> > +	int r;
-> > +
-> > +	adev->mp1_state = PP_MP1_STATE_SHUTDOWN;
-> > +	r = amdgpu_device_suspend(drm_dev, true);
-> > +	adev->mp1_state = PP_MP1_STATE_NONE;
-> >
-> > -	return amdgpu_device_suspend(drm_dev, true);
-> > +	return r;
-> >  }
-> >
-> >  static int amdgpu_pmops_resume(struct device *dev) @@ -1198,8 +1204,14
-> > @@ static int amdgpu_pmops_thaw(struct device *dev)  static int
-> > amdgpu_pmops_poweroff(struct device *dev)  {
-> >  	struct drm_device *drm_dev = dev_get_drvdata(dev);
-> > +	struct amdgpu_device *adev = drm_dev->dev_private;
-> > +	int r;
-> > +
-> > +	adev->mp1_state = PP_MP1_STATE_SHUTDOWN;
-> 
-> Should this be STATE_UNLOAD for poweroff?
-[Quan, Evan] "PrepareMp1ForUnload is for PnP cases, where ASIC is not reset.  If the whole ASIC is reset or need to shutdown, then we can simply use PrepareMp1ForShutdown." - a quote from a SMC firmware developer.
-According to that, I think PrepareMp1ForShutdown is more proper. How do you think?
-> 
-> > +	r = amdgpu_device_suspend(drm_dev, true);
-> > +	adev->mp1_state = PP_MP1_STATE_NONE;
-> >
-> > -	return amdgpu_device_suspend(drm_dev, true);
-> > +	return r;
-> >  }
-> >
-> >  static int amdgpu_pmops_restore(struct device *dev) diff --git
-> > a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
-> > b/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
-> > index d07c4f2ccee7..4a7fb6b15635 100644
-> > --- a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
-> > +++ b/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
-> > @@ -1370,6 +1370,18 @@ int smu_reset(struct smu_context *smu)
-> >  	return ret;
-> >  }
-> >
-> > +void smu_late_fini(void *handle)
-> > +{
-> > +	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
-> > +	struct smu_context *smu = &adev->smu;
-> > +
-> > +	/*
-> > +	 * Put the mp1 in the right state.
-> > +	 * This gets called on driver unloading.
-> > +	 */
-> > +	smu_send_smc_msg(smu, SMU_MSG_PrepareMp1ForShutdown); }
-> > +
-> 
-> Do we need something similar for the powerplay code?  E.g., pp_late_fini()?
-> Also shouldn't this be adev->mp1_state or prepare for unload rather than
-> hardcoding it to prepare for shutdown?
-[Quan, Evan] This is specifically for the amdgpu_driver_unload_kms() use case.
-For that, the call path is amdgpu_driver_unload_kms() -> amdgpu_device_fini() -> amdgpu_device_ip_fini() -> hw_fini().
-And the suspend routines are not on the call path. So, the adev->mp1_state way is not workable.
-Yes, I think powerplay code needs this also.
-Maybe we can use prepareMp1forunload. Considering amdgpu_driver_unload_kms() may be called on runtime driver/module unloading and
-the ASIC needs no power down or reset for that.
-> 
-> Alex
-> 
-> >  static int smu_suspend(void *handle)
-> >  {
-> >  	int ret;
-> > @@ -1931,6 +1943,7 @@ const struct amd_ip_funcs smu_ip_funcs = {
-> >  	.sw_fini = smu_sw_fini,
-> >  	.hw_init = smu_hw_init,
-> >  	.hw_fini = smu_hw_fini,
-> > +	.late_fini = smu_late_fini,
-> >  	.suspend = smu_suspend,
-> >  	.resume = smu_resume,
-> >  	.is_idle = NULL,
-> > --
-> > 2.24.0
+With this fix, guest app can talk with smu and dump hw
+information from smu.
+
+v2: refine the logic for pm_enabled.Skip hw_init by not
+changing pm_enabled.
+
+Signed-off-by: Jack Zhang <Jack.Zhang1@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c    |  3 +-
+ drivers/gpu/drm/amd/amdgpu/soc15.c         |  3 +-
+ drivers/gpu/drm/amd/powerplay/amdgpu_smu.c | 94 +++++++++++++++++-------------
+ 3 files changed, 56 insertions(+), 44 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+index 0d842a1..5341905 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+@@ -1454,7 +1454,8 @@ static int psp_np_fw_load(struct psp_context *psp)
+                     || ucode->ucode_id == AMDGPU_UCODE_ID_RLC_G
+ 	            || ucode->ucode_id == AMDGPU_UCODE_ID_RLC_RESTORE_LIST_CNTL
+ 	            || ucode->ucode_id == AMDGPU_UCODE_ID_RLC_RESTORE_LIST_GPM_MEM
+-	            || ucode->ucode_id == AMDGPU_UCODE_ID_RLC_RESTORE_LIST_SRM_MEM))
++	            || ucode->ucode_id == AMDGPU_UCODE_ID_RLC_RESTORE_LIST_SRM_MEM
++	            || ucode->ucode_id == AMDGPU_UCODE_ID_SMC))
+ 			/*skip ucode loading in SRIOV VF */
+ 			continue;
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c b/drivers/gpu/drm/amd/amdgpu/soc15.c
+index 6129fab..26e1c8c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/soc15.c
++++ b/drivers/gpu/drm/amd/amdgpu/soc15.c
+@@ -826,8 +826,7 @@ int soc15_set_ip_blocks(struct amdgpu_device *adev)
+ 			amdgpu_device_ip_block_add(adev, &dce_virtual_ip_block);
+ 		amdgpu_device_ip_block_add(adev, &gfx_v9_0_ip_block);
+ 		amdgpu_device_ip_block_add(adev, &sdma_v4_0_ip_block);
+-		if (!amdgpu_sriov_vf(adev))
+-			amdgpu_device_ip_block_add(adev, &smu_v11_0_ip_block);
++		amdgpu_device_ip_block_add(adev, &smu_v11_0_ip_block);
+ 
+ 		if (unlikely(adev->firmware.load_type == AMDGPU_FW_LOAD_DIRECT))
+ 			amdgpu_device_ip_block_add(adev, &vcn_v2_5_ip_block);
+diff --git a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c b/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
+index 4ed8bdc..fa17265 100644
+--- a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
++++ b/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
+@@ -531,10 +531,14 @@ bool is_support_sw_smu(struct amdgpu_device *adev)
+ 	if (adev->asic_type == CHIP_VEGA20)
+ 		return (amdgpu_dpm == 2) ? true : false;
+ 	else if (adev->asic_type >= CHIP_ARCTURUS) {
+-		if (amdgpu_sriov_vf(adev))
+-			return false;
+-		else
++		if (amdgpu_sriov_vf(adev)) {
++			if(amdgpu_sriov_is_pp_one_vf(adev))
++				return true;
++			else
++				return false;
++		} else {
+ 			return true;
++		}
+ 	} else
+ 		return false;
+ }
+@@ -1061,20 +1065,19 @@ static int smu_smc_table_hw_init(struct smu_context *smu,
+ 	}
+ 
+ 	/* smu_dump_pptable(smu); */
++	if (!amdgpu_sriov_vf(adev)) {
++		/*
++		 * Copy pptable bo in the vram to smc with SMU MSGs such as
++		 * SetDriverDramAddr and TransferTableDram2Smu.
++		 */
++		ret = smu_write_pptable(smu);
++		if (ret)
++			return ret;
+ 
+-	/*
+-	 * Copy pptable bo in the vram to smc with SMU MSGs such as
+-	 * SetDriverDramAddr and TransferTableDram2Smu.
+-	 */
+-	ret = smu_write_pptable(smu);
+-	if (ret)
+-		return ret;
+-
+-	/* issue Run*Btc msg */
+-	ret = smu_run_btc(smu);
+-	if (ret)
+-		return ret;
+-
++		/* issue Run*Btc msg */
++		ret = smu_run_btc(smu);
++		if (ret)
++			return ret;
+ 	ret = smu_feature_set_allowed_mask(smu);
+ 	if (ret)
+ 		return ret;
+@@ -1082,7 +1085,7 @@ static int smu_smc_table_hw_init(struct smu_context *smu,
+ 	ret = smu_system_features_control(smu, true);
+ 	if (ret)
+ 		return ret;
+-
++	}
+ 	if (adev->asic_type != CHIP_ARCTURUS) {
+ 		ret = smu_notify_display_change(smu);
+ 		if (ret)
+@@ -1135,8 +1138,9 @@ static int smu_smc_table_hw_init(struct smu_context *smu,
+ 	/*
+ 	 * Set PMSTATUSLOG table bo address with SetToolsDramAddr MSG for tools.
+ 	 */
+-	ret = smu_set_tool_table_location(smu);
+-
++	if (!amdgpu_sriov_vf(adev)) {
++		ret = smu_set_tool_table_location(smu);
++	}
+ 	if (!smu_is_dpm_running(smu))
+ 		pr_info("dpm has been disabled\n");
+ 
+@@ -1248,6 +1252,9 @@ static int smu_hw_init(void *handle)
+ 		smu_set_gfx_cgpg(&adev->smu, true);
+ 	}
+ 
++	if (amdgpu_sriov_vf(adev) && !amdgpu_sriov_is_pp_one_vf(adev))
++		return 0;
++
+ 	if (!smu->pm_enabled)
+ 		return 0;
+ 
+@@ -1300,37 +1307,42 @@ static int smu_hw_fini(void *handle)
+ 	struct smu_table_context *table_context = &smu->smu_table;
+ 	int ret = 0;
+ 
++	if (amdgpu_sriov_vf(adev)&& !amdgpu_sriov_is_pp_one_vf(adev))
++		return 0;
++
+ 	if (adev->flags & AMD_IS_APU) {
+ 		smu_powergate_sdma(&adev->smu, true);
+ 		smu_powergate_vcn(&adev->smu, true);
+ 		smu_powergate_jpeg(&adev->smu, true);
+ 	}
+ 
+-	ret = smu_stop_thermal_control(smu);
+-	if (ret) {
+-		pr_warn("Fail to stop thermal control!\n");
+-		return ret;
+-	}
+-
+-	/*
+-	 * For custom pptable uploading, skip the DPM features
+-	 * disable process on Navi1x ASICs.
+-	 *   - As the gfx related features are under control of
+-	 *     RLC on those ASICs. RLC reinitialization will be
+-	 *     needed to reenable them. That will cost much more
+-	 *     efforts.
+-	 *
+-	 *   - SMU firmware can handle the DPM reenablement
+-	 *     properly.
+-	 */
+-	if (!smu->uploading_custom_pp_table ||
+-	    !((adev->asic_type >= CHIP_NAVI10) &&
+-	      (adev->asic_type <= CHIP_NAVI12))) {
+-		ret = smu_stop_dpms(smu);
++	if (!amdgpu_sriov_vf(adev)){
++		ret = smu_stop_thermal_control(smu);
+ 		if (ret) {
+-			pr_warn("Fail to stop Dpms!\n");
++			pr_warn("Fail to stop thermal control!\n");
+ 			return ret;
+ 		}
++
++		/*
++		 * For custom pptable uploading, skip the DPM features
++		 * disable process on Navi1x ASICs.
++		 *   - As the gfx related features are under control of
++		 *     RLC on those ASICs. RLC reinitialization will be
++		 *     needed to reenable them. That will cost much more
++		 *     efforts.
++		 *
++		 *   - SMU firmware can handle the DPM reenablement
++		 *     properly.
++		 */
++		if (!smu->uploading_custom_pp_table ||
++				!((adev->asic_type >= CHIP_NAVI10) &&
++					(adev->asic_type <= CHIP_NAVI12))) {
++			ret = smu_stop_dpms(smu);
++			if (ret) {
++				pr_warn("Fail to stop Dpms!\n");
++				return ret;
++			}
++		}
+ 	}
+ 
+ 	kfree(table_context->driver_pptable);
+-- 
+2.7.4
+
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
