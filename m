@@ -2,111 +2,115 @@ Return-Path: <SRS0=CYQS=2Y=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-0.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,
+	MIME_HTML_MOSTLY,SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E3713C32771
-	for <amd-gfx@archiver.kernel.org>; Fri,  3 Jan 2020 03:00:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E7FABC32770
+	for <amd-gfx@archiver.kernel.org>; Fri,  3 Jan 2020 03:09:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B9EB62085B
-	for <amd-gfx@archiver.kernel.org>; Fri,  3 Jan 2020 03:00:05 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id BED9C222C3
+	for <amd-gfx@archiver.kernel.org>; Fri,  3 Jan 2020 03:09:14 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="gFcEWKjZ"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B9EB62085B
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="mBbQy8Rj"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BED9C222C3
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E3A4D88249;
-	Fri,  3 Jan 2020 03:00:03 +0000 (UTC)
-Received: from NAM04-BN3-obe.outbound.protection.outlook.com
- (mail-eopbgr680049.outbound.protection.outlook.com [40.107.68.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A694E6E167
- for <amd-gfx@lists.freedesktop.org>; Fri,  3 Jan 2020 03:00:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7C5716E16D;
+	Fri,  3 Jan 2020 03:09:14 +0000 (UTC)
+Received: from NAM02-BL2-obe.outbound.protection.outlook.com
+ (mail-eopbgr750083.outbound.protection.outlook.com [40.107.75.83])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CAC806E16B
+ for <amd-gfx@lists.freedesktop.org>; Fri,  3 Jan 2020 03:09:12 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=dCZEGbD9dWFuu+eiIrD0DKu81s/utduVEThwSKSS2yeeQzIbEFvakBJhBKv6oJ4RK3QfiIQhRqj2F5xShCUW8Hp9d8W7AEtiRl9GzSfUD8+sao1Pqd/YVPzg9g54psF4u5alePitnqcKGCb8GNxdki1nfXd3GiqEt+GCG8QxkfBmZLYnNtjkdIIub1Z9wfE6VJfFi+bPYQMvO/slIlF5BgbNfmTsNoykuSP3s6IWdEqYR28D8lToq7giyPbedKoz9gwm1MM5/MexQ5Wv0d7M35ke/o6GETeXsopeKrmNzHd/oM5Ygx4R1Y+6cN+H0B0B6wb3WLqhdzYlhl7fGbpYJg==
+ b=RwcpQ2gwIBduukh2AQpl6WB9pWwL+qKqnBlhWjIrdo2JZaARC+POaK9qH1r/lg3RKz7Dm+DRgBoPxkg87DMNqlsS+ZheP8iwfLOfz72AiYeWZIlrdvIjPyb2vkCf2HjqS5c6gDfLhsv+vyt4ewnA6/+OsTJEMNMs0WWfrDFmqYSiS4TXYEe3FWbQqKnK5PqewD3Gidy2rhJqpgttuhlJHh4Te2Pd7IqqSYIFQS/0r8xUgt4c0Rn21iQCH+T0caR9cHneiJKpwwZPN4s9km78MUNtNldgEPnRRDFbhOPHjdMJKECgtjVdYtkE0TCjEXHajGsF18kVrUu0CbCLLCcAvQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=KjVZhjlTHrrwvWuPui4SVtvSUDK9GcJUGRd1w1ajlws=;
- b=UZigbDv7wnKHwUG5KjH234yQop+wxM3ij8s3dMpmfLnp9CqixY3KMIeGn930756af7mUEaB6gv5g0HdQfhYIGwDKSWQrowdpA29/sOYylMDizYValcnsfKhiJ2M4zftzwGPDjoLdG1haCZesc9//lG5it8etfdr3g1fPXnCyPIN3mNTIExC11GgVymCZN5tXac3OyBc0YTBf7/MrUGZf14aEeLmdr+fvO4dd5wUsNVCBh38755gKxkjK+Cn8ih1MlUbuikefPr+R9tfsoCUtyTQ8/hnJzE9/POh5mOXKlymxl9D++di/ElIRyp3Sg44QhVZWxTpv5DsiL2IlwUpjDg==
+ bh=8+esxn9vB7qsHSIlggwE+f7TFapFmAutiJUjWDo/bsk=;
+ b=WcNCfYGXwP/ES05ZaHvKI95NyWZZ8VmigUccRqX1LVhPTzGV072xmpEJXmoZOYA4473Z4rcElKgdrkCDm3J36RQWB+nAECC7WYgF6/dHnzc7h7dSRKIWuyiZhDoYTWM6jJ6rzf52Il9PBHbJpH/2NtwrbOzwR4gKf5T/v5lKpSHgvnob6Xe0C1oDwPfa73CEoT/4to2e4lPpMkkqs6NORcjufXzU+jfbP8F6AcbtQmbJINd62z9MXeBjCOiOhj3KuHEjl7xwvfBkTXxNuUAXV7Akqftwd76k6xPwx6Mv4oKJ75a0Vh1Dal/ytPn5DaaEsYWwjkkN2EL2ISUYY6YNgA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=KjVZhjlTHrrwvWuPui4SVtvSUDK9GcJUGRd1w1ajlws=;
- b=gFcEWKjZzdt4iAUTsD5wqJcBJZaSQZrgcxP7gKm/Swyk/ux+uDa/MZ1lDRGqXtBlWDd5J6pOYxmNO8yuzyw1LdCtT8nm1RvITa3OERVccAKpWgUxNRS4P8rXeME23oGM1KkVMcAX1jhUpshnSp/JeUpYsSmR4cP9J8n2PxTkPLI=
-Received: from MN2PR12MB3663.namprd12.prod.outlook.com (10.255.239.86) by
- MN2PR12MB3072.namprd12.prod.outlook.com (20.178.241.87) with Microsoft SMTP
+ bh=8+esxn9vB7qsHSIlggwE+f7TFapFmAutiJUjWDo/bsk=;
+ b=mBbQy8RjbtpUa54dcnn0Le/KWoARFCoimkF1+SJSgQjjrTqFD7XCF3DY6slN5PeTEhyC5yr42oFuBCkddnw6JUGiJscjRKD4k5bSPivr8UjH5OGfvH7Zm5Tggchv/LRBanWqOSS6tQeP2TEcLqCg+NjZ6kSxn+D6zOXrIy7++F0=
+Received: from BYAPR12MB2806.namprd12.prod.outlook.com (20.176.254.20) by
+ BYAPR12MB2871.namprd12.prod.outlook.com (20.179.94.217) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2602.12; Fri, 3 Jan 2020 02:59:59 +0000
-Received: from MN2PR12MB3663.namprd12.prod.outlook.com
- ([fe80::86f:2434:3029:f166]) by MN2PR12MB3663.namprd12.prod.outlook.com
- ([fe80::86f:2434:3029:f166%6]) with mapi id 15.20.2581.013; Fri, 3 Jan 2020
- 02:59:59 +0000
-From: "Clements, John" <John.Clements@amd.com>
-To: "Zhou1, Tao" <Tao.Zhou1@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>, "Zhang, Hawking" <Hawking.Zhang@amd.com>
+ 15.20.2581.12; Fri, 3 Jan 2020 03:09:10 +0000
+Received: from BYAPR12MB2806.namprd12.prod.outlook.com
+ ([fe80::bccf:40ec:3b93:4269]) by BYAPR12MB2806.namprd12.prod.outlook.com
+ ([fe80::bccf:40ec:3b93:4269%6]) with mapi id 15.20.2581.014; Fri, 3 Jan 2020
+ 03:09:10 +0000
+From: "Chen, Guchun" <Guchun.Chen@amd.com>
+To: "Clements, John" <John.Clements@amd.com>, "Zhang, Hawking"
+ <Hawking.Zhang@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>, "Zhou1, Tao" <Tao.Zhou1@amd.com>
 Subject: RE: [PATCH] drm/amdgpu: resolved bug in UMC 6 error counter query
 Thread-Topic: [PATCH] drm/amdgpu: resolved bug in UMC 6 error counter query
-Thread-Index: AdXBV3Yg76uTyzhkQhyxmQ2h5s6tpQAh5jMwAAChY/A=
-Date: Fri, 3 Jan 2020 02:59:59 +0000
-Message-ID: <MN2PR12MB3663654EFF5093BE63FC0705FB230@MN2PR12MB3663.namprd12.prod.outlook.com>
+Thread-Index: AdXBV3Yg76uTyzhkQhyxmQ2h5s6tpQAEeliQABnzfSAAA/7Q8AAANbQA
+Date: Fri, 3 Jan 2020 03:09:09 +0000
+Message-ID: <BYAPR12MB2806CBF02EBBD878FC6D53BAF1230@BYAPR12MB2806.namprd12.prod.outlook.com>
 References: <MN2PR12MB3663CB891846CB098EED1354FB200@MN2PR12MB3663.namprd12.prod.outlook.com>
- <MN2PR12MB3054E9B6217E994F836913B3B0230@MN2PR12MB3054.namprd12.prod.outlook.com>
-In-Reply-To: <MN2PR12MB3054E9B6217E994F836913B3B0230@MN2PR12MB3054.namprd12.prod.outlook.com>
+ <DM5PR12MB141870C643D7A615B4BE392AFC200@DM5PR12MB1418.namprd12.prod.outlook.com>
+ <BYAPR12MB28062F0EE6CBCCC870BBFA88F1230@BYAPR12MB2806.namprd12.prod.outlook.com>
+ <MN2PR12MB36633246687A079AE98979D5FB230@MN2PR12MB3663.namprd12.prod.outlook.com>
+In-Reply-To: <MN2PR12MB36633246687A079AE98979D5FB230@MN2PR12MB3663.namprd12.prod.outlook.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
 msip_labels: MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Enabled=true;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SetDate=2020-01-03T02:40:05Z; 
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SetDate=2020-01-03T01:06:57Z; 
  MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Method=Privileged;
  MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Name=Public_0;
  MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ActionId=25f9a9b6-91d3-4a0a-91a7-0000b056759d;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ActionId=4f61058f-43a8-4e9b-b873-000097358b83;
  MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ContentBits=1
 msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_enabled: true
-msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_setdate: 2020-01-03T02:59:53Z
+msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_setdate: 2020-01-03T03:09:07Z
 msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_method: Privileged
 msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_name: Public_0
 msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
-msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_actionid: e9498613-4884-41d5-9a32-0000d2f2474f
+msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_actionid: 1167aaac-465a-4385-98b9-000014510fb5
 msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_contentbits: 0
 authentication-results: spf=none (sender IP is )
- smtp.mailfrom=John.Clements@amd.com; 
-x-originating-ip: [114.88.235.245]
+ smtp.mailfrom=Guchun.Chen@amd.com; 
+x-originating-ip: [180.167.199.189]
 x-ms-publictraffictype: Email
 x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: db1ca304-0550-4efe-33bf-08d78ff90551
-x-ms-traffictypediagnostic: MN2PR12MB3072:|MN2PR12MB3072:
+x-ms-office365-filtering-correlation-id: 2971716d-64b6-41c2-e7bb-08d78ffa4d8a
+x-ms-traffictypediagnostic: BYAPR12MB2871:|BYAPR12MB2871:
 x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <MN2PR12MB30724969623C5865BED87671FB230@MN2PR12MB3072.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:6108;
+x-microsoft-antispam-prvs: <BYAPR12MB2871578959C35932E5260B29F1230@BYAPR12MB2871.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:9508;
 x-forefront-prvs: 0271483E06
 x-forefront-antispam-report: SFV:NSPM;
- SFS:(10009020)(4636009)(136003)(396003)(39860400002)(366004)(376002)(346002)(199004)(189003)(64756008)(66476007)(66946007)(478600001)(53546011)(6506007)(26005)(33656002)(2906002)(5660300002)(52536014)(66446008)(76116006)(66556008)(110136005)(316002)(71200400001)(8936002)(6636002)(86362001)(186003)(9686003)(81166006)(55016002)(81156014)(8676002)(7696005);
- DIR:OUT; SFP:1101; SCL:1; SRVR:MN2PR12MB3072;
- H:MN2PR12MB3663.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; A:1; MX:1; 
+ SFS:(10009020)(4636009)(366004)(346002)(39860400002)(376002)(396003)(136003)(189003)(199004)(81156014)(81166006)(6506007)(186003)(33656002)(26005)(53546011)(6636002)(55016002)(478600001)(7696005)(76116006)(52536014)(66446008)(2906002)(8676002)(66476007)(71200400001)(64756008)(66946007)(316002)(110136005)(9686003)(8936002)(86362001)(66556008)(5660300002);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:BYAPR12MB2871;
+ H:BYAPR12MB2806.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; MX:1; A:1; 
 received-spf: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
 x-ms-exchange-senderadcheck: 1
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: iN+4mSALhHTtH+9ZRMub9n4EqxpliWuK+EA+QnkptVR67SttZ3DsK0US7M5BpOTj8xXEQ+Atiw+ln7Yi8Xdf9AqPVm7M6nwC9IoUSu4GayAUD8zy7XCvjnrXsS32rE3SvZ8jJhxySl3So59hvKXVqoOKJQj6WBG8LJVO8pzH9vGYGkVCTFbYVDkFtzoeRJ2e/il9EaPOlojhL7MOIm+mXzjV7kjk6uQI5F3crDhzYOsMjRI7EXhzgo7JLorYEP9BWD9+TorGhs2kcO9X0C7bxtiPgwvSefys6gIwBaxs1PFWLpCMTLf+J1vbemGGhx6LUrb0VLp2AcZTKwr/EKuV6myZJu95Reu0iIbn0dFxkfBjDFMthjJ/2RIKutMEJ0qexOxc4PfLlmNFxmjVncn6YtyvZwaSeEq5M4THQ48LT9FQHCg8BzRtWcFLZM6nRbvQ
+x-microsoft-antispam-message-info: BvNFz89eOyzBlMkd3aAnOMdGYiLp9c52Jw6VU+6+IJPglGESA+s66CyDd9hLgYika38qgeTUIFNhpFCmTczShjQYwEPydnPJ7se4SvHzjRndgJJd4yTjS4eXIcfCsm6i6Zv0mr2mDqeprJwO5sc1pIwtrbrET96FuROIlMQBgSMLFQadhikRPAQvj4s3ntyIbwOlkIU+AQ60mZTAu7ankZv/rqQEzJAPoTaoZF1HVnSMzdK5tRkNAOA6DDtbPZ3MgWGA5DbMVscSULrok4rG+LcjVB/EWXl33B24y1uIpBtUu7TUhrI6cjRDy+svtf3TKVij99jVkpZRAtDvA+mXVqwhksb63x4X8ap9LzfWG0GUe6lA6Zqy2Kg1qY1rsNBPbCbVbElcZUEUJtNGRdModtwMQDhSuKeccwHrniWvCQykByaPouuN+7J56XZOn9JD
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: db1ca304-0550-4efe-33bf-08d78ff90551
-X-MS-Exchange-CrossTenant-originalarrivaltime: 03 Jan 2020 02:59:59.2692 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2971716d-64b6-41c2-e7bb-08d78ffa4d8a
+X-MS-Exchange-CrossTenant-originalarrivaltime: 03 Jan 2020 03:09:10.0120 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: J/fi+LIEG9H1qLGSnpY60z+AA5gHtiLDtGz8gK5Nqyf1gTuqKGaqoP+HZ2jrdNAEPPG7aZ67ymK/zOAn3z6yuw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3072
+X-MS-Exchange-CrossTenant-userprincipalname: KS6PGqB3u2aDF+xiXgkYt8kr/t+D2hrqp/OKjQV1b6KOxXfqjzbSfcYfb/4RyVZjjjc73zJY2NQ5ufIIazkUog==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB2871
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -118,71 +122,111 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============0215439782=="
+Content-Type: multipart/mixed; boundary="===============0860427266=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============0215439782==
+--===============0860427266==
 Content-Language: en-US
 Content-Type: multipart/alternative;
-	boundary="_000_MN2PR12MB3663654EFF5093BE63FC0705FB230MN2PR12MB3663namp_"
+	boundary="_000_BYAPR12MB2806CBF02EBBD878FC6D53BAF1230BYAPR12MB2806namp_"
 
---_000_MN2PR12MB3663654EFF5093BE63FC0705FB230MN2PR12MB3663namp_
-Content-Type: text/plain; charset="iso-2022-jp"
+--_000_BYAPR12MB2806CBF02EBBD878FC6D53BAF1230BYAPR12MB2806namp_
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
 [AMD Public Use]
 
-Hello Tao,
+Yes, John, that concern is cleared after I look into the code.
 
-That is an interesting suggestion, I agree that there is a little bit of du=
-plicate code with  the same for loops being used in multiple functions.
+One more issue is, it's better that function get_umc_reg_offset is one stat=
+ic inline function? With this problem fixed, the patch is: Reviewed-by: Guc=
+hun Chen <guchun.chen@amd.com>
 
-My only concern with implementing the loops in a macro is code readability.
+uint32_t get_umc_reg_offset(struct amdgpu_device *adev,
++                                             uint32_t umc_inst,
++                                             uint32_t ch_inst)
 
-I=1B$B!G=1B(Bll have to think about the trade off between the duplicate cod=
-e and code readability more.
+Regards,
+Guchun
 
-Thank you,
-John Clements
-
-From: Zhou1, Tao <Tao.Zhou1@amd.com>
-Sent: Friday, January 3, 2020 10:53 AM
-To: Clements, John <John.Clements@amd.com>; amd-gfx@lists.freedesktop.org; =
-Zhang, Hawking <Hawking.Zhang@amd.com>
+From: Clements, John <John.Clements@amd.com>
+Sent: Friday, January 3, 2020 10:58 AM
+To: Chen, Guchun <Guchun.Chen@amd.com>; Zhang, Hawking <Hawking.Zhang@amd.c=
+om>; amd-gfx@lists.freedesktop.org; Zhou1, Tao <Tao.Zhou1@amd.com>
 Subject: RE: [PATCH] drm/amdgpu: resolved bug in UMC 6 error counter query
 
 
 [AMD Public Use]
 
-I think we can implement it by only updating amdgpu_umc_for_each_channel ma=
-cro, here is an example:
+Hello GuChun/Hawking,
 
-#define amdgpu_umc_for_each_channel(func)        \
-        struct ras_err_data *err_data =3D \
-                        (struct ras_err_data *)ras_error_status;        \
-        uint32_t umc_inst, channel_inst, umc_reg_offset, channel_index; \
-        for (umc_inst =3D 0; umc_inst < adev->umc.umc_inst_num;  \
-                        umc_inst++) {   \
-                umc_reg_offset =3D adev->umc.inst_offs * umc_inst;       \
-                for (channel_inst =3D 0;  \
-                        channel_inst < adev->umc.channel_inst_num;     \
-                        channel_inst++) {       \
-                        /* get channel index of interleaved memory */   \
-                        channel_index =3D adev->umc.channel_idx_tbl[\
-                                umc_inst * adev->umc.channel_inst_num + cha=
-nnel_inst]; \
-                        (func)(adev, err_data, umc_reg_offset, channel_inde=
-x); \
-                        /* increase register offset for next channel */ \
-                        umc_reg_offset +=3D adev->umc.channel_offs;      \
-                }       \
-        }
+Thank you for your feedback, I have updated the patch with the following am=
+endments:
+
+  *   Remove +#define UMC_REG_OFFSET (I forgot to remove this in original p=
+atch, I prefer the function over the macro)
+  *   Updated the coding style of the braces in the for loops to have the s=
+tarting brace on the same line as the for loop declaration
+
+GuChun,
+For your concern about the umc_v6_1_query_ras_error_count, in the UE/CE err=
+or counter register reading, the local SW error counters can only be increm=
+ented and not cleared throughout the iteration over the UMC error counter r=
+egisters.
+
+Thank you,
+John Clements
+
+From: Chen, Guchun <Guchun.Chen@amd.com<mailto:Guchun.Chen@amd.com>>
+Sent: Friday, January 3, 2020 9:07 AM
+To: Zhang, Hawking <Hawking.Zhang@amd.com<mailto:Hawking.Zhang@amd.com>>; C=
+lements, John <John.Clements@amd.com<mailto:John.Clements@amd.com>>; amd-gf=
+x@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org>; Zhou1, Tao <=
+Tao.Zhou1@amd.com<mailto:Tao.Zhou1@amd.com>>
+Subject: RE: [PATCH] drm/amdgpu: resolved bug in UMC 6 error counter query
+
+
+[AMD Public Use]
+
++#define UMC_REG_OFFSET(adev, ch_inst, umc_inst) ((adev)->umc.channel_offs =
+* (ch_inst) + UMC_6_INST_DIST*(umc_inst))
+Coding style problem, miss blank space around last "*".
+
++            for (umc_inst =3D 0; umc_inst < adev->umc.umc_inst_num; umc_in=
+st++)
++            {
+Another coding style problem. "{" should follow closely at the same line, n=
+ot starting at one new line.
+
+Thirdly, in umc_v6_1_query_ras_error_count, we use dual loops for query err=
+or counter for all UMC channels. But we always use the same variable to do =
+the query. So the value will be overwritten by new one? Then we will miss f=
+ormer error counters if there are. Correct?
 
 Regards,
-Tao
+Guchun
+
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org<mailto:amd-gfx-bounces=
+@lists.freedesktop.org>> On Behalf Of Zhang, Hawking
+Sent: Thursday, January 2, 2020 8:38 PM
+To: Clements, John <John.Clements@amd.com<mailto:John.Clements@amd.com>>; a=
+md-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org>; Zhou1, =
+Tao <Tao.Zhou1@amd.com<mailto:Tao.Zhou1@amd.com>>
+Subject: RE: [PATCH] drm/amdgpu: resolved bug in UMC 6 error counter query
+
+
+[AMD Official Use Only - Internal Distribution Only]
+
+UMC_REG_OFFSET(adev, ch_inst, umc_inst) and the function get_umc_reg_offset=
+ actually do the same thing? I guess you just want to keep either of them, =
+right?
+
+Regards,
+Hawking
+
 From: Clements, John <John.Clements@amd.com<mailto:John.Clements@amd.com>>
-Sent: 2020=1B$BG/=1B(B1=1B$B7n=1B(B2=1B$BF|=1B(B 18:31
+Sent: Thursday, January 2, 2020 18:31
 To: amd-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org>; Zh=
 ang, Hawking <Hawking.Zhang@amd.com<mailto:Hawking.Zhang@amd.com>>; Zhou1, =
 Tao <Tao.Zhou1@amd.com<mailto:Tao.Zhou1@amd.com>>
@@ -198,44 +242,42 @@ Removed support for accessing UMC error counters via MMIO.
 Thank you,
 John Clements
 
---_000_MN2PR12MB3663654EFF5093BE63FC0705FB230MN2PR12MB3663namp_
-Content-Type: text/html; charset="iso-2022-jp"
+--_000_BYAPR12MB2806CBF02EBBD878FC6D53BAF1230BYAPR12MB2806namp_
+Content-Type: text/html; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
 <html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
 osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
-xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
-//www.w3.org/TR/REC-html40">
+xmlns:dt=3D"uuid:C2F41010-65B3-11d1-A29F-00AA00C14882" xmlns:m=3D"http://sc=
+hemas.microsoft.com/office/2004/12/omml" xmlns=3D"http://www.w3.org/TR/REC-=
+html40">
 <head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-2022-=
-jp">
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
 <meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
 <style><!--
 /* Font Definitions */
 @font-face
-	{font-family:SimSun;
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
+	{font-family:Wingdings;
+	panose-1:5 0 0 0 0 0 0 0 0 0;}
 @font-face
 	{font-family:"Cambria Math";
 	panose-1:2 4 5 3 5 4 6 3 2 4;}
 @font-face
+	{font-family:DengXian;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
 	{font-family:Calibri;
 	panose-1:2 15 5 2 2 2 4 3 2 4;}
 @font-face
-	{font-family:"MS PGothic";
-	panose-1:2 11 6 0 7 2 5 8 2 4;}
-@font-face
-	{font-family:"\@SimSun";
+	{font-family:"\@DengXian";
 	panose-1:2 1 6 0 3 1 1 1 1 1;}
-@font-face
-	{font-family:"\@MS PGothic";}
 /* Style Definitions */
 p.MsoNormal, li.MsoNormal, div.MsoNormal
 	{margin:0in;
 	margin-bottom:.0001pt;
 	font-size:11.0pt;
-	font-family:"Calibri",sans-serif;
-	mso-fareast-language:JA;}
+	font-family:"Calibri",sans-serif;}
 a:link, span.MsoHyperlink
 	{mso-style-priority:99;
 	color:#0563C1;
@@ -252,8 +294,7 @@ p.MsoListParagraph, li.MsoListParagraph, div.MsoListParagraph
 	margin-left:.5in;
 	margin-bottom:.0001pt;
 	font-size:11.0pt;
-	font-family:"Calibri",sans-serif;
-	mso-fareast-language:JA;}
+	font-family:"Calibri",sans-serif;}
 p.msonormal0, li.msonormal0, div.msonormal0
 	{mso-style-name:msonormal;
 	mso-margin-top-alt:auto;
@@ -261,8 +302,7 @@ p.msonormal0, li.msonormal0, div.msonormal0
 	mso-margin-bottom-alt:auto;
 	margin-left:0in;
 	font-size:11.0pt;
-	font-family:"Calibri",sans-serif;
-	mso-fareast-language:JA;}
+	font-family:"Calibri",sans-serif;}
 p.msipheader4d0fcdd7, li.msipheader4d0fcdd7, div.msipheader4d0fcdd7
 	{mso-style-name:msipheader4d0fcdd7;
 	mso-margin-top-alt:auto;
@@ -270,26 +310,40 @@ p.msipheader4d0fcdd7, li.msipheader4d0fcdd7, div.msipheader4d0fcdd7
 	mso-margin-bottom-alt:auto;
 	margin-left:0in;
 	font-size:11.0pt;
-	font-family:"Calibri",sans-serif;
-	mso-fareast-language:JA;}
+	font-family:"Calibri",sans-serif;}
+p.msipheadera92e061b, li.msipheadera92e061b, div.msipheadera92e061b
+	{mso-style-name:msipheadera92e061b;
+	mso-margin-top-alt:auto;
+	margin-right:0in;
+	mso-margin-bottom-alt:auto;
+	margin-left:0in;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
 p.msipheader87abd423, li.msipheader87abd423, div.msipheader87abd423
 	{mso-style-name:msipheader87abd423;
 	mso-margin-top-alt:auto;
 	margin-right:0in;
 	mso-margin-bottom-alt:auto;
 	margin-left:0in;
-	font-size:12.0pt;
-	font-family:SimSun;
-	mso-fareast-language:JA;}
-span.EmailStyle21
-	{mso-style-type:personal;
-	font-family:"Calibri",sans-serif;
-	color:windowtext;}
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
 span.EmailStyle22
 	{mso-style-type:personal;
 	font-family:"Calibri",sans-serif;
 	color:windowtext;}
 span.EmailStyle23
+	{mso-style-type:personal;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
+span.EmailStyle24
+	{mso-style-type:personal;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
+span.EmailStyle25
+	{mso-style-type:personal;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
+span.EmailStyle26
 	{mso-style-type:personal-reply;
 	font-family:"Calibri",sans-serif;
 	color:windowtext;}
@@ -301,6 +355,156 @@ span.EmailStyle23
 	margin:1.0in 1.0in 1.0in 1.0in;}
 div.WordSection1
 	{page:WordSection1;}
+/* List Definitions */
+@list l0
+	{mso-list-id:1404836294;
+	mso-list-type:hybrid;
+	mso-list-template-ids:-655825146 -2082196856 67698691 67698693 67698689 67=
+698691 67698693 67698689 67698691 67698693;}
+@list l0:level1
+	{mso-level-start-at:0;
+	mso-level-number-format:bullet;
+	mso-level-text:-;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:"Calibri",sans-serif;
+	mso-fareast-font-family:DengXian;}
+@list l0:level2
+	{mso-level-number-format:bullet;
+	mso-level-text:o;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:"Courier New";}
+@list l0:level3
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0A7;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:Wingdings;}
+@list l0:level4
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:Symbol;}
+@list l0:level5
+	{mso-level-number-format:bullet;
+	mso-level-text:o;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:"Courier New";}
+@list l0:level6
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0A7;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:Wingdings;}
+@list l0:level7
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:Symbol;}
+@list l0:level8
+	{mso-level-number-format:bullet;
+	mso-level-text:o;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:"Courier New";}
+@list l0:level9
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0A7;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:Wingdings;}
+@list l1
+	{mso-list-id:2111730997;
+	mso-list-template-ids:-1756342664;}
+@list l1:level1
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	mso-ansi-font-size:10.0pt;
+	font-family:Symbol;}
+@list l1:level2
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:1.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	mso-ansi-font-size:10.0pt;
+	font-family:Symbol;}
+@list l1:level3
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:1.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	mso-ansi-font-size:10.0pt;
+	font-family:Symbol;}
+@list l1:level4
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:2.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	mso-ansi-font-size:10.0pt;
+	font-family:Symbol;}
+@list l1:level5
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:2.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	mso-ansi-font-size:10.0pt;
+	font-family:Symbol;}
+@list l1:level6
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:3.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	mso-ansi-font-size:10.0pt;
+	font-family:Symbol;}
+@list l1:level7
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:3.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	mso-ansi-font-size:10.0pt;
+	font-family:Symbol;}
+@list l1:level8
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:4.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	mso-ansi-font-size:10.0pt;
+	font-family:Symbol;}
+@list l1:level9
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:4.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	mso-ansi-font-size:10.0pt;
+	font-family:Symbol;}
+ol
+	{margin-bottom:0in;}
+ul
+	{margin-bottom:0in;}
 --></style><!--[if gte mso 9]><xml>
 <o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
 </xml><![endif]--><!--[if gte mso 9]><xml>
@@ -313,31 +517,42 @@ div.WordSection1
 <p class=3D"msipheader87abd423" style=3D"margin:0in;margin-bottom:.0001pt">=
 <span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif;co=
 lor:#317100">[AMD Public Use]</span><o:p></o:p></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;font-family:&quot;MS=
- PGothic&quot;,sans-serif"><o:p>&nbsp;</o:p></span></p>
-<p class=3D"MsoNormal">Hello Tao,<o:p></o:p></p>
 <p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">That is an interesting suggestion, I agree that ther=
-e is a little bit of duplicate code with &nbsp;the same for loops being use=
-d in multiple functions.<o:p></o:p></p>
+<p class=3D"MsoNormal">Yes, John, that concern is cleared after I look into=
+ the code.<o:p></o:p></p>
 <p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">My only concern with implementing the loops in a mac=
-ro is code readability.<o:p></o:p></p>
+<p class=3D"MsoNormal">One more issue is, it&#8217;s better that function g=
+et_umc_reg_offset is one static inline function? With this problem fixed, t=
+he patch is: Reviewed-by: Guchun Chen &lt;guchun.chen@amd.com&gt;<o:p></o:p=
+></p>
 <p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">I=1B$B!G=1B(Bll have to think about the trade off be=
-tween the duplicate code and code readability more.<o:p></o:p></p>
+<p class=3D"MsoNormal">uint32_t get_umc_reg_offset(struct amdgpu_device *ad=
+ev,<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; uint32_t umc=
+_inst,<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; uint32_t ch_=
+inst)<o:p></o:p></p>
+<div>
 <p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">Thank you,<o:p></o:p></p>
-<p class=3D"MsoNormal">John Clements<o:p></o:p></p>
+<p class=3D"MsoNormal">Regards,<o:p></o:p></p>
+<p class=3D"MsoNormal">Guchun<o:p></o:p></p>
+</div>
 <p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
 <div>
 <div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
 0in 0in">
-<p class=3D"MsoNormal"><b>From:</b> Zhou1, Tao &lt;Tao.Zhou1@amd.com&gt; <b=
-r>
-<b>Sent:</b> Friday, January 3, 2020 10:53 AM<br>
-<b>To:</b> Clements, John &lt;John.Clements@amd.com&gt;; amd-gfx@lists.free=
-desktop.org; Zhang, Hawking &lt;Hawking.Zhang@amd.com&gt;<br>
+<p class=3D"MsoNormal"><b>From:</b> Clements, John &lt;John.Clements@amd.co=
+m&gt; <br>
+<b>Sent:</b> Friday, January 3, 2020 10:58 AM<br>
+<b>To:</b> Chen, Guchun &lt;Guchun.Chen@amd.com&gt;; Zhang, Hawking &lt;Haw=
+king.Zhang@amd.com&gt;; amd-gfx@lists.freedesktop.org; Zhou1, Tao &lt;Tao.Z=
+hou1@amd.com&gt;<br>
 <b>Subject:</b> RE: [PATCH] drm/amdgpu: resolved bug in UMC 6 error counter=
  query<o:p></o:p></p>
 </div>
@@ -346,85 +561,112 @@ desktop.org; Zhang, Hawking &lt;Hawking.Zhang@amd.com&gt;<br>
 <p class=3D"msipheader87abd423" style=3D"margin:0in;margin-bottom:.0001pt">=
 <span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif;co=
 lor:#317100">[AMD Public Use]</span><o:p></o:p></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;font-family:SimSun">=
-<o:p>&nbsp;</o:p></span></p>
-<p class=3D"MsoNormal">I think we can implement it by only updating amdgpu_=
-umc_for_each_channel macro, here is an example:<o:p></o:p></p>
 <p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">#define amdgpu_umc_for_each_channel(func)&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \<o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct ra=
-s_err_data *err_data =3D \<o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp; (struct ras_err_data *)ras_error_status; &nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;\<o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t =
-umc_inst, channel_inst, umc_reg_offset, channel_index; \<o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (umc_=
-inst =3D 0; umc_inst &lt; adev-&gt;umc.umc_inst_num;&nbsp; \<o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp; umc_inst&#43;&#43;) {&nbsp;&nbsp; \<o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; umc_reg_offset =3D adev-&gt;umc.inst=
-_offs * umc_inst;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \<o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (channel_inst =3D 0;&nbsp; \<o:p=
-></o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp; channel_inst &lt; adev-&gt;umc.channel_inst_num;&nbsp;&nbsp;&nb=
-sp;&nbsp; \<o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp; channel_inst&#43;&#43;) {&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \=
+<p class=3D"MsoNormal">Hello GuChun/Hawking,<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Thank you for your feedback, I have updated the patc=
+h with the following amendments:<o:p></o:p></p>
+<ul style=3D"margin-top:0in" type=3D"disc">
+<li class=3D"MsoListParagraph" style=3D"margin-left:0in;mso-list:l0 level1 =
+lfo3">Remove &#43;#define UMC_REG_OFFSET (I forgot to remove this in origin=
+al patch, I prefer the function over the macro)<o:p></o:p></li><li class=3D=
+"MsoListParagraph" style=3D"margin-left:0in;mso-list:l0 level1 lfo3">Update=
+d the coding style of the braces in the for loops to have the starting brac=
+e on the same line as the for loop declaration<o:p></o:p></li></ul>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">GuChun,<o:p></o:p></p>
+<p class=3D"MsoNormal">For your concern about the umc_v6_1_query_ras_error_=
+count, in the UE/CE error counter register reading, the local SW error coun=
+ters can only be incremented and not cleared throughout the iteration over =
+the UMC error counter registers.<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Thank you,<o:p></o:p></p>
+<p class=3D"MsoNormal">John Clements<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<div>
+<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
+0in 0in">
+<p class=3D"MsoNormal"><b>From:</b> Chen, Guchun &lt;<a href=3D"mailto:Guch=
+un.Chen@amd.com">Guchun.Chen@amd.com</a>&gt;
+<br>
+<b>Sent:</b> Friday, January 3, 2020 9:07 AM<br>
+<b>To:</b> Zhang, Hawking &lt;<a href=3D"mailto:Hawking.Zhang@amd.com">Hawk=
+ing.Zhang@amd.com</a>&gt;; Clements, John &lt;<a href=3D"mailto:John.Clemen=
+ts@amd.com">John.Clements@amd.com</a>&gt;;
+<a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.=
+org</a>; Zhou1, Tao &lt;<a href=3D"mailto:Tao.Zhou1@amd.com">Tao.Zhou1@amd.=
+com</a>&gt;<br>
+<b>Subject:</b> RE: [PATCH] drm/amdgpu: resolved bug in UMC 6 error counter=
+ query<o:p></o:p></p>
+</div>
+</div>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"msipheader87abd423" style=3D"margin:0in;margin-bottom:.0001pt">=
+<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif;co=
+lor:#317100">[AMD Public Use]</span><o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">&#43;#define UMC_REG_OFFSET(adev, ch_inst, umc_inst)=
+ ((adev)-&gt;umc.channel_offs * (ch_inst) &#43; UMC_6_INST_DIST*(umc_inst))=
 <o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp; /* get channel index of interleaved memory */&nbsp;&nbsp; \<o:p=
-></o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp; channel_index =3D adev-&gt;umc.channel_idx_tbl[\<o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; umc_inst * adev=
--&gt;umc.channel_inst_num &#43; channel_inst]; \<o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp; &nbsp;(func)(adev, err_data, umc_reg_offset, channel_index); \<o:p></=
-o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp; /* increase register offset for next channel */ \<o:p></o:p></p=
->
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp; umc_reg_offset &#43;=3D adev-&gt;umc.channel_offs;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp; \<o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-; \<o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<o:p></o=
-:p></p>
+<p class=3D"MsoNormal">Coding style problem, miss blank space around last &=
+#8220;*&#8221;.<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<div>
+<p class=3D"MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; for (umc_inst =3D 0; umc_inst &lt; adev-&gt;umc.umc_ins=
+t_num; umc_inst&#43;&#43;)<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; {<o:p></o:p></p>
+<p class=3D"MsoNormal">Another coding style problem. &#8220;{&#8221; should=
+ follow closely at the same line, not starting at one new line.<o:p></o:p><=
+/p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Thirdly, in umc_v6_1_query_ras_error_count, we use d=
+ual loops for query error counter for all UMC channels. But we always use t=
+he same variable to do the query. So the value will be overwritten by new o=
+ne? Then we will miss former error
+ counters if there are. Correct?<o:p></o:p></p>
 <p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
 <p class=3D"MsoNormal">Regards,<o:p></o:p></p>
-<p class=3D"MsoNormal">Tao<o:p></o:p></p>
-<div style=3D"border:none;border-left:solid blue 1.5pt;padding:0in 0in 0in =
-4.0pt">
+<p class=3D"MsoNormal">Guchun<o:p></o:p></p>
+</div>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<div>
+<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
+0in 0in">
+<p class=3D"MsoNormal"><b>From:</b> amd-gfx &lt;<a href=3D"mailto:amd-gfx-b=
+ounces@lists.freedesktop.org">amd-gfx-bounces@lists.freedesktop.org</a>&gt;
+<b>On Behalf Of </b>Zhang, Hawking<br>
+<b>Sent:</b> Thursday, January 2, 2020 8:38 PM<br>
+<b>To:</b> Clements, John &lt;<a href=3D"mailto:John.Clements@amd.com">John=
+.Clements@amd.com</a>&gt;;
+<a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.=
+org</a>; Zhou1, Tao &lt;<a href=3D"mailto:Tao.Zhou1@amd.com">Tao.Zhou1@amd.=
+com</a>&gt;<br>
+<b>Subject:</b> RE: [PATCH] drm/amdgpu: resolved bug in UMC 6 error counter=
+ query<o:p></o:p></p>
+</div>
+</div>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"msipheadera92e061b" style=3D"margin:0in;margin-bottom:.0001pt">=
+<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif;co=
+lor:#0078D7">[AMD Official Use Only - Internal Distribution Only]</span><o:=
+p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">UMC_REG_OFFSET(adev, ch_inst, umc_inst) and the func=
+tion get_umc_reg_offset actually do the same thing? I guess you just want t=
+o keep either of them, right?<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Regards,<br>
+Hawking<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
 <div>
 <div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
 0in 0in">
 <p class=3D"MsoNormal"><b>From:</b> Clements, John &lt;<a href=3D"mailto:Jo=
 hn.Clements@amd.com">John.Clements@amd.com</a>&gt;
 <br>
-<b>Sent:</b> 2020<span lang=3D"ZH-CN" style=3D"font-family:SimSun;mso-farea=
-st-language:ZH-CN">=1B$BG/=1B(B</span>1<span lang=3D"ZH-CN" style=3D"font-f=
-amily:SimSun;mso-fareast-language:ZH-CN">=1B$B7n=1B(B</span>2<span lang=3D"=
-ZH-CN" style=3D"font-family:SimSun;mso-fareast-language:ZH-CN">=1B$BF|=1B(B=
-</span>
- 18:31<br>
+<b>Sent:</b> Thursday, January 2, 2020 18:31<br>
 <b>To:</b> <a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.f=
 reedesktop.org</a>; Zhang, Hawking &lt;<a href=3D"mailto:Hawking.Zhang@amd.=
 com">Hawking.Zhang@amd.com</a>&gt;; Zhou1, Tao &lt;<a href=3D"mailto:Tao.Zh=
@@ -448,13 +690,12 @@ ounter detection was not iterating over all UMC instances/channels.<o:p></o=
 <p class=3D"MsoNormal">Thank you,<o:p></o:p></p>
 <p class=3D"MsoNormal">John Clements<o:p></o:p></p>
 </div>
-</div>
 </body>
 </html>
 
---_000_MN2PR12MB3663654EFF5093BE63FC0705FB230MN2PR12MB3663namp_--
+--_000_BYAPR12MB2806CBF02EBBD878FC6D53BAF1230BYAPR12MB2806namp_--
 
---===============0215439782==
+--===============0860427266==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -465,4 +706,4 @@ amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 
---===============0215439782==--
+--===============0860427266==--
