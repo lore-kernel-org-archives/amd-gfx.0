@@ -2,67 +2,112 @@ Return-Path: <SRS0=CYQS=2Y=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.4 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+X-Spam-Status: No, score=-0.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,SPF_HELO_NONE,
 	SPF_PASS autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0484BC2D0CE
-	for <amd-gfx@archiver.kernel.org>; Fri,  3 Jan 2020 06:14:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 89560C00523
+	for <amd-gfx@archiver.kernel.org>; Fri,  3 Jan 2020 07:27:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C6763217F4
-	for <amd-gfx@archiver.kernel.org>; Fri,  3 Jan 2020 06:14:22 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 8CFB922314
+	for <amd-gfx@archiver.kernel.org>; Fri,  3 Jan 2020 07:27:31 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="e2ETgF/i"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C6763217F4
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="ktTRN3b8"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8CFB922314
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 83B2D6E18E;
-	Fri,  3 Jan 2020 06:14:22 +0000 (UTC)
-Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
- [IPv6:2a00:1450:4864:20::32a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 309DA6E18E
- for <amd-gfx@lists.freedesktop.org>; Fri,  3 Jan 2020 06:14:21 +0000 (UTC)
-Received: by mail-wm1-x32a.google.com with SMTP id d73so7465936wmd.1
- for <amd-gfx@lists.freedesktop.org>; Thu, 02 Jan 2020 22:14:21 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=sFMV8FsFHEOXH0Vpd9V2X+tEtl4hMhJVDXJWXVqLDzg=;
- b=e2ETgF/iaVOr5hgJhFU5BqDJUWmbWOU0m4pkQPl4KMqd7VdOSok6L0s4cs3arMlZ7Y
- R69VfJgof1oC4ADet+M1lQlSXW9rP4kBIB8cMSZ95pCST721yz+tQVCLANpug80SiPZo
- S1CnxRkk+zzW6UuY+19UHZGR4LxBCq8wN5IBJgCC1xBXQWTFSeZIyemx/K06j6mvkem0
- A+QiUacmKx5lWDVE+gmnh4loHh78c4VYx3dpOhM8CnUd1G3Roa737f+bm+Jlsptqn/gT
- CtXCVbswWON+2AiDv1zYrBmzG/bvV7Xp7XHy9zsULbQEX0Mft/PxrJSyMoVL6qi1qHwO
- eszA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=sFMV8FsFHEOXH0Vpd9V2X+tEtl4hMhJVDXJWXVqLDzg=;
- b=VdSsDpeVf1dYptFsIY3ikDQhcdairVit7hNAsye5HppQDqHTuGbRRktKbNE46KJZ8a
- mDlloTUSw40lzWrx5HLV3aZcHS77AesFnU1lOJWscQZhgQP4ZQ7gUFoTwMhL3IQuxMa9
- U7rYkmazVDED/KImVFN3S9EtND8iJiP/wHFUoznTA7VzViGTcXo+agTLuB7jfE/uAF7k
- IJ9bQsrC3/6HpN+7a1o4bJWjD4ujZ/6TyrzprLkFR4J3OXscRXOe8mnm7ygJYxY7eG61
- WhTyJjoUvA7FLc/aRokW3QWkVdc6ikVmFRkPHCqN8G9/kaQWlZnbJGcfN5WHIF7bNqTB
- WN5Q==
-X-Gm-Message-State: APjAAAWZz35YabBigyqPCcX+7MBrM5PcNO7b86YfigOOQy11QGi4wxex
- GLEk0wjlwYl7bwYuDm2nmYe6OyYU2jhNp13IoJg=
-X-Google-Smtp-Source: APXvYqzfI25XlC1Sim3R59Vos9AVofJ0HMD7TR5ftW65vDuVz421Fa1eizWObAEMPfcG9k0KoiEi8TgJLk70c7umB78=
-X-Received: by 2002:a7b:c246:: with SMTP id b6mr17486243wmj.75.1578032059768; 
- Thu, 02 Jan 2020 22:14:19 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 41A2C6E191;
+	Fri,  3 Jan 2020 07:27:31 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2043.outbound.protection.outlook.com [40.107.223.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 784E36E191
+ for <amd-gfx@lists.freedesktop.org>; Fri,  3 Jan 2020 07:27:30 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=bQPRKGMvhI4CQkUol8rOPECE/4AulGV3sumKipRQucFFE0TuX/+rn9C3JbBl1RdecnEq9FSMjJsv+AlH3/tpoNlKrVXO6a5FVPbgtvJBRnWpdVe1FrNVB4cBVYe94m+Ou+VmV3CHzR9eade7OAQm3Y+wvojBHkhK6sciY9iIh9iXaRDDtFiq4SEVT+XZaFoP+WT3LhqS4qtBHx6iMhv/COkIyZjE2Sbio5VjXLX7KWA1jQqVIqtu7B3ABy/mafqgZLdevDylxzughlck2bmjmso31m0QCD7l6K3rMGZplne7IzV6dn0+qS9fqLCcqW2N3d8SEZsbMRcUKUrftQx1IA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=z03H+mEMq3EEET5fbJ4z0UbIRcPyMTZ9rtpLozaudb8=;
+ b=Mg+oIsxapcYGYel9Ux5E0+uV8TOMX2fG1ubUELSi+IU+ozISjl06FbNIHFpl81ksT4p2rtINLuVgsbNPkEpzzBIF7BtclHxRhR5wS0ZYrU3mwVs30OWwtrN50CVWS8lJg3FmwxsVFk8/TgzaQnqMzdv97+xH3vKaoViwEet9XzAD31d8hl1o4B647l/mbhhsWwdv7zUURrNYWlPUrQQkQVieTbMTbfdEO3VZ4RIXl2JSbZP0AvmvhfIU7Yqxp+CIRNlEQiHWEDDzssftW1hY0GWYIyeIKUoWpRmdlPXNoOXXvPnMtk6zq+DjyoRxmJtcpfLYROVWg4oBP99fk+QxSA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=z03H+mEMq3EEET5fbJ4z0UbIRcPyMTZ9rtpLozaudb8=;
+ b=ktTRN3b8d0J03QeUcL/FQQtmeG9BAL8pVELKc9uLmvbEFbGzpabSATxRHcykjFJmtHI2G/Ogrbmz+ebXriINavE/uGuAzzK9Oc3uZnGlXYqPya+uFAVAjKrZzApeJ0mgzPzKHWgUg53piieHUia962VgR7d9Rnl419c/mYecR+c=
+Received: from MN2PR12MB3663.namprd12.prod.outlook.com (10.255.239.86) by
+ MN2PR12MB3120.namprd12.prod.outlook.com (20.178.243.206) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2602.13; Fri, 3 Jan 2020 07:27:26 +0000
+Received: from MN2PR12MB3663.namprd12.prod.outlook.com
+ ([fe80::86f:2434:3029:f166]) by MN2PR12MB3663.namprd12.prod.outlook.com
+ ([fe80::86f:2434:3029:f166%6]) with mapi id 15.20.2581.013; Fri, 3 Jan 2020
+ 07:27:26 +0000
+From: "Clements, John" <John.Clements@amd.com>
+To: "Zhang, Hawking" <Hawking.Zhang@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amdgpu: disable PSP XGMI TA unload sequence
+Thread-Topic: [PATCH] drm/amdgpu: disable PSP XGMI TA unload sequence
+Thread-Index: AdXCBycCnqYzmDP9Sa2NlG+MiiRrXg==
+Date: Fri, 3 Jan 2020 07:27:26 +0000
+Message-ID: <MN2PR12MB3663449518FC5A3FCE936BF7FB230@MN2PR12MB3663.namprd12.prod.outlook.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: yes
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=true;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2020-01-03T07:27:21Z; 
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal Use Only -
+ Unrestricted;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ActionId=8412ab38-c44b-416c-9ec5-00003517c9f1;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=1
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_enabled: true
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_setdate: 2020-01-03T07:27:21Z
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_method: Standard
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_name: Internal Use Only -
+ Unrestricted
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_actionid: 451ad92b-6458-4ea7-b0a0-0000bb11652b
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_contentbits: 0
+authentication-results: spf=none (sender IP is )
+ smtp.mailfrom=John.Clements@amd.com; 
+x-originating-ip: [114.88.235.245]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-ht: Tenant
+x-ms-office365-filtering-correlation-id: 285e83a1-e06f-43da-cdcb-08d7901e6237
+x-ms-traffictypediagnostic: MN2PR12MB3120:|MN2PR12MB3120:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <MN2PR12MB31200BA823E27805B331816FFB230@MN2PR12MB3120.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:1051;
+x-forefront-prvs: 0271483E06
+x-forefront-antispam-report: SFV:NSPM;
+ SFS:(10009020)(4636009)(396003)(376002)(346002)(39860400002)(136003)(366004)(189003)(199004)(26005)(316002)(66556008)(66616009)(66476007)(66946007)(64756008)(186003)(33656002)(110136005)(66446008)(9686003)(55016002)(2906002)(76116006)(8676002)(81156014)(81166006)(8936002)(558084003)(71200400001)(52536014)(6506007)(478600001)(5660300002)(7696005)(86362001);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:MN2PR12MB3120;
+ H:MN2PR12MB3663.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; MX:1; A:1; 
+received-spf: None (protection.outlook.com: amd.com does not designate
+ permitted sender hosts)
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: GAKywZ51pFa2NrRrayjgEQ4hO1fZRnvSWQcjctHb3hj9NbEymP7vLBwq2vHdSiMv7DHlLjsWhXF4Y5sMX6RUG/GDQhlHd0iQya4E1rZNEBBhje1jtngzpKRyXxscD52sEkUttUlCyXg2stkZ87r5TVy9gTe+n/zRLgPI0Dk2unZ/sc+e39CdC1+DjbW0M6DutfsVb4UxNZ88GTZsn82CQx9zmt08cq1ctOPy/7p6WlPRV1usyQE4eDE3BPBQyufd87WSSn7q25LJ/JjjYlEgYgjwLMVRDSn7dKPlZ7bGOiketP/LbQULA9hjBqczsISyEOpYDivvXcH800MLR/uL17G03kx2ab6qtbQ7c8wulZPOdAri81l90heNT6z45wiKrCgJEfCk43DeMIoDZLxDLvc4eD0u2ZM9dbckZEr68tsXGV/0h29fI1KZ+ba/Efm5
+Content-Type: multipart/mixed;
+ boundary="_004_MN2PR12MB3663449518FC5A3FCE936BF7FB230MN2PR12MB3663namp_"
 MIME-Version: 1.0
-References: <CAGzVRjxUUoF=m6-NvnRoqagLRAWQvTDVHA7Hkr=UA-_wRRyAZQ@mail.gmail.com>
- <MN2PR12MB3598F90268C4C6602532C94C8E200@MN2PR12MB3598.namprd12.prod.outlook.com>
- <CAGzVRjyxvOYZvQLfEa0WRmcY6Zi+MxqRotUiN1d3OOwD-5GQ-w@mail.gmail.com>
-In-Reply-To: <CAGzVRjyxvOYZvQLfEa0WRmcY6Zi+MxqRotUiN1d3OOwD-5GQ-w@mail.gmail.com>
-From: =?UTF-8?Q?Yusuf_Alt=C4=B1parmak?= <yusufalti1997@gmail.com>
-Date: Fri, 3 Jan 2020 09:14:08 +0300
-Message-ID: <CAGzVRjw46E2=v+wZQp5j+bLR8uRkjYz9Z=NDdoZ5kF4kgtmQVg@mail.gmail.com>
-Subject: Re: [Error] amdgpu powerplay ip block error with -22.
-To: "Feng, Kenneth" <Kenneth.Feng@amd.com>
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 285e83a1-e06f-43da-cdcb-08d7901e6237
+X-MS-Exchange-CrossTenant-originalarrivaltime: 03 Jan 2020 07:27:26.5708 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: QMfWayR4p+GOPzGZ+kIUKfPVzoNnXZ8imQZwaeivTsl8OY43qtZpUwpvOoPkVKnxNzhziR5DDSmiEOTKRqNkTQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3120
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,89 +119,141 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx@lists.freedesktop.org
-Content-Type: multipart/mixed; boundary="===============0509903197=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============0509903197==
-Content-Type: multipart/alternative; boundary="0000000000005de4ce059b36387e"
+--_004_MN2PR12MB3663449518FC5A3FCE936BF7FB230MN2PR12MB3663namp_
+Content-Type: multipart/alternative;
+	boundary="_000_MN2PR12MB3663449518FC5A3FCE936BF7FB230MN2PR12MB3663namp_"
 
---0000000000005de4ce059b36387e
-Content-Type: text/plain; charset="UTF-8"
+--_000_MN2PR12MB3663449518FC5A3FCE936BF7FB230MN2PR12MB3663namp_
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
-Hello,
+[AMD Official Use Only - Internal Distribution Only]
 
-Still can't find a solution about this. Anyone can help me about this ?
+Disabled PSP XGMI TA unload sequence as it currently causes GPU recovery to=
+ fail.
 
-Regards.
+Thank you,
+John Clements
 
-
-Yusuf Alt=C4=B1parmak <yusufalti1997@gmail.com>, 2 Oca 2020 Per, 13:29 tari=
-hinde
-=C5=9Funu yazd=C4=B1:
-
-> Hello,
->
-> First you could check if the binary =E2=80=98polaris12_smc.bin=E2=80=99 i=
-s in your system:
->> /lib/firmware/../amdgpu/
->>
-> 'polaris12_smc.bin' exists in my /lib/firmware/amdgpu folder. There are
-> also 18 other binaries which starts with 'polaris12_'.
->
-> If it=E2=80=99s there, then does this happen after a warm reset?
->>
->
-> This does happen when booting up the board with ramdisk image (initrfs
-> stage).
->
-> Regards.
->
->>
-
---0000000000005de4ce059b36387e
-Content-Type: text/html; charset="UTF-8"
+--_000_MN2PR12MB3663449518FC5A3FCE936BF7FB230MN2PR12MB3663namp_
+Content-Type: text/html; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"ltr"><div>Hello,</div><div><br></div><div>Still can&#39;t find =
-a solution about this. Anyone can help me about this ?</div><div><br></div>=
-<div>Regards.<br></div><div dir=3D"ltr"><br></div><div dir=3D"ltr"><br></di=
-v><div dir=3D"ltr">Yusuf Alt=C4=B1parmak &lt;<a href=3D"mailto:yusufalti199=
-7@gmail.com" target=3D"_blank">yusufalti1997@gmail.com</a>&gt;, 2 Oca 2020 =
-Per, 13:29 tarihinde =C5=9Funu yazd=C4=B1:<br></div><div class=3D"gmail_quo=
-te"><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;bor=
-der-left:1px solid rgb(204,204,204);padding-left:1ex"><div dir=3D"ltr"><div=
- dir=3D"ltr"><div>Hello,</div><div><br></div></div><div class=3D"gmail_quot=
-e"><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;bord=
-er-left:1px solid rgb(204,204,204);padding-left:1ex"><div lang=3D"EN-US"><d=
-iv>
-<p class=3D"MsoNormal">First you could check if the binary =E2=80=98polaris=
-12_smc.bin=E2=80=99 is in your system: /lib/firmware/../amdgpu/</p></div></=
-div></blockquote><div>&#39;polaris12_smc.bin&#39; exists in my /lib/firmwar=
-e/amdgpu folder. There are also 18 other binaries which starts with &#39;po=
-laris12_&#39;.</div><div><br></div><blockquote class=3D"gmail_quote" style=
-=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding=
--left:1ex"><div lang=3D"EN-US"><div><p class=3D"MsoNormal"><u></u><u></u></=
-p>
-<p class=3D"MsoNormal">If it=E2=80=99s there, then does this happen after a=
- warm reset?</p></div></div></blockquote><div><br></div><div>This does happ=
-en when booting up the board with ramdisk image (initrfs stage).</div><div>=
-<br></div><div>Regards.<br></div><blockquote class=3D"gmail_quote" style=3D=
-"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-le=
-ft:1ex"><div lang=3D"EN-US"><div><div><div>
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40">
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
+<style><!--
+/* Font Definitions */
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:DengXian;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:"\@DengXian";
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:#0563C1;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{mso-style-priority:99;
+	color:#954F72;
+	text-decoration:underline;}
+span.EmailStyle17
+	{mso-style-type:personal-compose;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-family:"Calibri",sans-serif;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.0in 1.0in 1.0in;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
+</head>
+<body lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72">
+<p class=3D"msipheader4d0fcdd7" align=3D"Left" style=3D"margin:0"><span sty=
+le=3D"font-size:10.0pt;font-family:Arial;color:#0078D7">[AMD Official Use O=
+nly - Internal Distribution Only]</span></p>
+<br>
+<div class=3D"WordSection1">
+<p class=3D"MsoNormal">Disabled PSP XGMI TA unload sequence as it currently=
+ causes GPU recovery to fail.<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Thank you,<o:p></o:p></p>
+<p class=3D"MsoNormal">John Clements<o:p></o:p></p>
 </div>
-</div>
-</div>
-</div>
+</body>
+</html>
 
-</blockquote></div></div>
-</blockquote></div></div>
+--_000_MN2PR12MB3663449518FC5A3FCE936BF7FB230MN2PR12MB3663namp_--
 
---0000000000005de4ce059b36387e--
+--_004_MN2PR12MB3663449518FC5A3FCE936BF7FB230MN2PR12MB3663namp_
+Content-Type: application/octet-stream;
+	name="0001-drm-amdgpu-disable-PSP-XGMI-TA-unload-sequence.patch"
+Content-Description: 0001-drm-amdgpu-disable-PSP-XGMI-TA-unload-sequence.patch
+Content-Disposition: attachment;
+	filename="0001-drm-amdgpu-disable-PSP-XGMI-TA-unload-sequence.patch";
+	size=1553; creation-date="Fri, 03 Jan 2020 07:26:00 GMT";
+	modification-date="Fri, 03 Jan 2020 07:26:00 GMT"
+Content-Transfer-Encoding: base64
 
---===============0509903197==
+RnJvbSBhYWYyMWFkMGFiZWZmZGRhN2NlODljOTdiODEzNjM3ZmIzOTZjYzQ4IE1vbiBTZXAgMTcg
+MDA6MDA6MDAgMjAwMQpGcm9tOiBKb2huIENsZW1lbnRzIDxqb2huLmNsZW1lbnRzQGFtZC5jb20+
+CkRhdGU6IEZyaSwgMyBKYW4gMjAyMCAxNTowMzozMCArMDgwMApTdWJqZWN0OiBbUEFUQ0hdIGRy
+bS9hbWRncHU6IGRpc2FibGUgUFNQIFhHTUkgVEEgdW5sb2FkIHNlcXVlbmNlCgpjdXJyZW50IHNl
+cXVlbmNlIGNhdXNlcyBhIERGIHN5bmMgZmxvb2QKCkNoYW5nZS1JZDogSTRjMzU1YmE5ZTc2NTBk
+ZTBlMWY5YjQyMGQ5Nzc0ZTE0NDZiYTFmNzgKU2lnbmVkLW9mZi1ieTogSm9obiBDbGVtZW50cyA8
+am9obi5jbGVtZW50c0BhbWQuY29tPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
+ZGdwdV9wc3AuYyB8IDUgKysrKy0KIDEgZmlsZSBjaGFuZ2VkLCA0IGluc2VydGlvbnMoKyksIDEg
+ZGVsZXRpb24oLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
+cHVfcHNwLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcHNwLmMKaW5kZXgg
+MjgxZDg5NjQwMzQ0Li45MzE2OGFlZGNlNjcgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9h
+bWQvYW1kZ3B1L2FtZGdwdV9wc3AuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
+bWRncHVfcHNwLmMKQEAgLTUyNSw2ICs1MjUsNyBAQCBzdGF0aWMgaW50IHBzcF94Z21pX2xvYWQo
+c3RydWN0IHBzcF9jb250ZXh0ICpwc3ApCiAJcmV0dXJuIHJldDsKIH0KIAorI2lmZGVmIFBTUF9Y
+R01JX1RBX1RFUk1JTkFURV9TVVBQT1JUCiBzdGF0aWMgaW50IHBzcF94Z21pX3VubG9hZChzdHJ1
+Y3QgcHNwX2NvbnRleHQgKnBzcCkKIHsKIAlpbnQgcmV0OwpAQCAtNTQ3LDYgKzU0OCw3IEBAIHN0
+YXRpYyBpbnQgcHNwX3hnbWlfdW5sb2FkKHN0cnVjdCBwc3BfY29udGV4dCAqcHNwKQogCiAJcmV0
+dXJuIHJldDsKIH0KKyNlbmRpZgogCiBpbnQgcHNwX3hnbWlfaW52b2tlKHN0cnVjdCBwc3BfY29u
+dGV4dCAqcHNwLCB1aW50MzJfdCB0YV9jbWRfaWQpCiB7CkBAIC01NTUsNiArNTU3LDcgQEAgaW50
+IHBzcF94Z21pX2ludm9rZShzdHJ1Y3QgcHNwX2NvbnRleHQgKnBzcCwgdWludDMyX3QgdGFfY21k
+X2lkKQogCiBzdGF0aWMgaW50IHBzcF94Z21pX3Rlcm1pbmF0ZShzdHJ1Y3QgcHNwX2NvbnRleHQg
+KnBzcCkKIHsKKyNpZmRlZiBQU1BfWEdNSV9UQV9URVJNSU5BVEVfU1VQUE9SVAogCWludCByZXQ7
+CiAKIAlpZiAoIXBzcC0+eGdtaV9jb250ZXh0LmluaXRpYWxpemVkKQpAQCAtNTcwLDcgKzU3Myw3
+IEBAIHN0YXRpYyBpbnQgcHNwX3hnbWlfdGVybWluYXRlKHN0cnVjdCBwc3BfY29udGV4dCAqcHNw
+KQogCWFtZGdwdV9ib19mcmVlX2tlcm5lbCgmcHNwLT54Z21pX2NvbnRleHQueGdtaV9zaGFyZWRf
+Ym8sCiAJCQkmcHNwLT54Z21pX2NvbnRleHQueGdtaV9zaGFyZWRfbWNfYWRkciwKIAkJCSZwc3At
+PnhnbWlfY29udGV4dC54Z21pX3NoYXJlZF9idWYpOwotCisjZW5kaWYKIAlyZXR1cm4gMDsKIH0K
+IAotLSAKMi4xNy4xCgo=
+
+--_004_MN2PR12MB3663449518FC5A3FCE936BF7FB230MN2PR12MB3663namp_
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -167,4 +264,4 @@ amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 
---===============0509903197==--
+--_004_MN2PR12MB3663449518FC5A3FCE936BF7FB230MN2PR12MB3663namp_--
