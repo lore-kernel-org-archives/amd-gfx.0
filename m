@@ -6,76 +6,76 @@ X-Spam-Status: No, score=-6.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
 	SPF_HELO_NONE,SPF_PASS autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 75AFCC2D0C2
-	for <amd-gfx@archiver.kernel.org>; Fri,  3 Jan 2020 20:35:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 43335C00523
+	for <amd-gfx@archiver.kernel.org>; Fri,  3 Jan 2020 21:50:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 48229222C4
-	for <amd-gfx@archiver.kernel.org>; Fri,  3 Jan 2020 20:35:25 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 1589C215A4
+	for <amd-gfx@archiver.kernel.org>; Fri,  3 Jan 2020 21:50:31 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="ba7BhoTd"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 48229222C4
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Aae0+cOG"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1589C215A4
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=redhat.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1077189E9B;
-	Fri,  3 Jan 2020 20:35:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CFA3B89165;
+	Fri,  3 Jan 2020 21:50:28 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [207.211.31.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EA36D89DD3
- for <amd-gfx@lists.freedesktop.org>; Fri,  3 Jan 2020 20:35:19 +0000 (UTC)
+ [205.139.110.120])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1920E8919E
+ for <amd-gfx@lists.freedesktop.org>; Fri,  3 Jan 2020 21:50:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1578083718;
+ s=mimecast20190719; t=1578088226;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=tsuLr5ZVjVIlutjxMEKe0gKIqnRBkCxqqMJb3ulXWi0=;
- b=ba7BhoTdezyNxfAUZbFb84J8uwOlvQ5ZOSMIa5RikfQHBHardyoqhZHahOwELENU6/PhD/
- /psQWI10etHLb6sFU32ZwWY+hvvhlPkNqwkNOHyJJjiE/nyyzgS5Q2SDGDo01XXPHuSy/e
- eSeZPk+VjTRL1yJlOidih2I/ewlEU4w=
-Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com
- [209.85.210.198]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-195-ZgjrinvGNOSH0cyf2-EAYA-1; Fri, 03 Jan 2020 15:35:16 -0500
-Received: by mail-pf1-f198.google.com with SMTP id d85so30093034pfd.4
- for <amd-gfx@lists.freedesktop.org>; Fri, 03 Jan 2020 12:35:16 -0800 (PST)
+ bh=2E9jZbURUijwaE1tA6jFTdg/cQa33pnXiVlz2CG9nkU=;
+ b=Aae0+cOGN5Upj0lb2wpxgsgyDJKPR9rziQEkarClfAf3onROxhVzEES0huCmhsmzlLmVVM
+ s6L9Xw31Uf0pWG5o2VvygTmvzvxC8e+V4VPOQYRK7227B0hlWXxseWNLzrWOg++PU/GSbl
+ nJnRQq9v9nYG67UJJxCH7+agY+XjLD4=
+Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com
+ [209.85.219.72]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-20-VWm2XzFtMtKFoE_dl2RHkA-1; Fri, 03 Jan 2020 16:50:21 -0500
+Received: by mail-qv1-f72.google.com with SMTP id dw11so6957708qvb.16
+ for <amd-gfx@lists.freedesktop.org>; Fri, 03 Jan 2020 13:50:21 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:message-id:subject:from:to:cc:date:in-reply-to
  :references:organization:user-agent:mime-version
  :content-transfer-encoding;
- bh=5P6pC9bB+XM8/Xw1EneHQrwc3b3SXf3nT5GAbtbko10=;
- b=bXyGdSlyjFoMqSnNBePvc6/SRZnmf0mEkjlrVRw92pXNSPix5pav2sRi7bHcEzOC7g
- R9vyaoOkJnwLOv7iIBNouE8H4r/9k3nvOu1u0PNC51+q0XjMXeqd83z73dOfa1tzKcwD
- eTXNHF/M9sK/gSBvwaStqWFvHbdV34MmdoYezKDfKkX4c1L9MHv7ntRPPZF0oGI838zO
- s6JQ54Z7JBq5mzXCkDA0EGtLHn+AcyAj6CilLRtJZWvJEtM1Khw6rqPulLzl9mcbd2dJ
- WCjnxzNzzRzt70vyNtT4gyPHgP3420RzQuG3p9grfcLXXDbqWkGJV4MU6ph2zr169Upw
- evpQ==
-X-Gm-Message-State: APjAAAVXPdtnAFxAKcLlUUG2vh56qCAxOg6+nsbKiV/GW2O1yRu4aiqz
- AvP2ip/WWA5WIGQWETfIq19RXCjerJZAoQ8KtyWBWpuvyxDhpIcSsGmPiSIjnplBNhK7utNJR1w
- yfYwKHyjlAKmyXfoSVJYh9jGEwQ==
-X-Received: by 2002:aa7:96b0:: with SMTP id g16mr92718864pfk.99.1578083715779; 
- Fri, 03 Jan 2020 12:35:15 -0800 (PST)
-X-Google-Smtp-Source: APXvYqzgi68keBLcjfBEz4zN/KMDnPfwz3LFg1QJoD7HQRJG4uxuW/u3P8yGx/4EeO57ZnsZsWnpOw==
-X-Received: by 2002:ad4:5421:: with SMTP id g1mr68023134qvt.57.1578083714480; 
- Fri, 03 Jan 2020 12:35:14 -0800 (PST)
+ bh=2E9jZbURUijwaE1tA6jFTdg/cQa33pnXiVlz2CG9nkU=;
+ b=NQVT2awrJ/ROvheyBBx6cxVppoQT05XkdJHarkgJajzoW122otQhTjrpw2JiLLviTd
+ 86VDEZ9pqYDjE9Z3G9hIiY7rraCPx6t1mZj6vZ67dYboNUOjsdVV8x5qb5UaNi13o+us
+ IZieHVTuNhP+ldMzbojzc8ne40mbYJNMed6n9IjuM3q4LsbY+/qCUdntI+8Be3H8cWY1
+ 1+ONjx4UGdn1AIyJ41JAcQ5uy6al8EQgAvE9xvdznJp3BLMAuy+JG8aR7iOeLI09pycR
+ iKQxLu0zd8e2kGlHed28OwlEAj7EXGes6bJK+Az/w3wI4aekYW3LPsYGDeOT52RABZsA
+ TtnA==
+X-Gm-Message-State: APjAAAX+r4r89SoSyg4Ep2v42YCp447PSsZIvh38hU1Lr/Z8pe/uxp2O
+ z20oqMgi6zpUn8htsYsvPpVJdd6obgt8d8FkRbIqDIH0qy0RiEPbfFw/xGjauMTnRqZrC8j3lqt
+ VOpCEsSeEsh1saXV4lhPmrRwQgw==
+X-Received: by 2002:ad4:5487:: with SMTP id q7mr71109964qvy.19.1578088221271; 
+ Fri, 03 Jan 2020 13:50:21 -0800 (PST)
+X-Google-Smtp-Source: APXvYqzzljP0z5w+OcexEMra3Da+CizoTHREMRArrOSpe2REftTWBrwKU6VuGvcxFXejz+7Ac3I1QA==
+X-Received: by 2002:ad4:5487:: with SMTP id q7mr71109951qvy.19.1578088221027; 
+ Fri, 03 Jan 2020 13:50:21 -0800 (PST)
 Received: from dhcp-10-20-1-90.bss.redhat.com ([144.121.20.162])
- by smtp.gmail.com with ESMTPSA id h28sm16911014qkk.48.2020.01.03.12.35.13
+ by smtp.gmail.com with ESMTPSA id 16sm17167452qkj.77.2020.01.03.13.50.20
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 03 Jan 2020 12:35:13 -0800 (PST)
-Message-ID: <cfb5d28df84df7d3ce20656ca40be65713d5bdb0.camel@redhat.com>
-Subject: Re: [PATCH] drm/dp_mst: Avoid NULL pointer dereference
+ Fri, 03 Jan 2020 13:50:20 -0800 (PST)
+Message-ID: <c163a9c8e2f8d71f265a624a1915636acce96b30.camel@redhat.com>
+Subject: Re: [PATCH v2] drm/dp_mst: correct the shifting in DP_REMOTE_I2C_READ
 From: Lyude Paul <lyude@redhat.com>
 To: Wayne Lin <Wayne.Lin@amd.com>, dri-devel@lists.freedesktop.org, 
  amd-gfx@lists.freedesktop.org
-Date: Fri, 03 Jan 2020 15:35:12 -0500
-In-Reply-To: <20191226023151.5448-1-Wayne.Lin@amd.com>
-References: <20191226023151.5448-1-Wayne.Lin@amd.com>
+Date: Fri, 03 Jan 2020 16:50:19 -0500
+In-Reply-To: <20200103055001.10287-1-Wayne.Lin@amd.com>
+References: <20200103055001.10287-1-Wayne.Lin@amd.com>
 Organization: Red Hat
 User-Agent: Evolution 3.34.2 (3.34.2-1.fc31)
 MIME-Version: 1.0
-X-MC-Unique: ZgjrinvGNOSH0cyf2-EAYA-1
+X-MC-Unique: VWm2XzFtMtKFoE_dl2RHkA-1
 X-Mimecast-Spam-Score: 0
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -88,40 +88,72 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: jerry.zuo@amd.com, mikita.lipski@amd.com, harry.wentland@amd.com,
- Nicholas.Kazlauskas@amd.com, stable@vger.kernel.org
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: jerry.zuo@amd.com, harry.wentland@amd.com, Nicholas.Kazlauskas@amd.com,
+ stable@vger.kernel.org
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-QmFjayBmcm9tIHRoZSBob2xpZGF5cyEKClJldmlld2VkLWJ5OiBMeXVkZSBQYXVsIDxseXVkZUBy
-ZWRoYXQuY29tPgoKRG8geW91IG5lZWQgbWUgdG8gcHVzaCB0aGlzIHRvIGRybS1taXNjPwoKT24g
-VGh1LCAyMDE5LTEyLTI2IGF0IDEwOjMxICswODAwLCBXYXluZSBMaW4gd3JvdGU6Cj4gW1doeV0K
-PiBGb3VuZCBrZXJuZWwgTlVMTCBwb2ludGVyIGRlcmVmZXJlbmNlIHVuZGVyIHRoZSBiZWxvdyBz
-aXR1YXRpb246Cj4gCj4gCXNyYyDigJQgSERNSV9Nb25pdG9yICAgc3JjIOKAlCBIRE1JX01vbml0
-b3IKPiBlLmcuOgkgICAgXCAgICAgICAgICAgID0+Cj4gCSAgICAgTVNUQiDigJQgTVNUQiAgICAg
-KHVucGx1ZykgTVNUQiDigJQgTVNUQgo+IAo+IFdoZW4gZGlzcGxheSAxIEhETUkgYW5kIDIgRFAg
-ZGFpc3kgY2hhaW4gbW9uaXRvcnMsIHVucGx1Z2dpbmcgdGhlIGRwCj4gY2FibGUgY29ubmVjdGVk
-IHRvIHNvdXJjZSBjYXVzZXMga2VybmVsIE5VTEwgcG9pbnRlciBkZXJlZmVyZW5jZSBhdAo+IGRy
-bV9kcF9tc3RfYXRvbWljX2NoZWNrX2J3X2xpbWl0KCkuIFdoZW4gY2FsY3VsYXRpbmcgcGJuX2xp
-bWl0LCBpZgo+IGJyYW5jaCBpcyBudWxsLCBhY2Nlc3NpbmcgIiZicmFuY2gtPnBvcnRzIiBjYXVz
-ZXMgdGhlIHByb2JsZW0uCj4gCj4gW0hvd10KPiBKdWRnZSBicmFuY2ggaXMgbnVsbCBvciBub3Qg
-YXQgdGhlIGJlZ2lubmluZy4gSWYgaXQgaXMgbnVsbCwgcmV0dXJuIDAuCj4gCj4gU2lnbmVkLW9m
-Zi1ieTogV2F5bmUgTGluIDxXYXluZS5MaW5AYW1kLmNvbT4KPiBDYzogc3RhYmxlQHZnZXIua2Vy
-bmVsLm9yZwo+IC0tLQo+ICBkcml2ZXJzL2dwdS9kcm0vZHJtX2RwX21zdF90b3BvbG9neS5jIHwg
-MyArKysKPiAgMSBmaWxlIGNoYW5nZWQsIDMgaW5zZXJ0aW9ucygrKQo+IAo+IGRpZmYgLS1naXQg
-YS9kcml2ZXJzL2dwdS9kcm0vZHJtX2RwX21zdF90b3BvbG9neS5jCj4gYi9kcml2ZXJzL2dwdS9k
-cm0vZHJtX2RwX21zdF90b3BvbG9neS5jCj4gaW5kZXggN2QyZDMxZWFmMDAzLi5hNjQ3M2UzYWI0
-NDggMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2RybV9kcF9tc3RfdG9wb2xvZ3kuYwo+
-ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9kcm1fZHBfbXN0X3RvcG9sb2d5LmMKPiBAQCAtNDcwNyw2
-ICs0NzA3LDkgQEAgaW50IGRybV9kcF9tc3RfYXRvbWljX2NoZWNrX2J3X2xpbWl0KHN0cnVjdAo+
-IGRybV9kcF9tc3RfYnJhbmNoICpicmFuY2gsCj4gIAlzdHJ1Y3QgZHJtX2RwX3ZjcGlfYWxsb2Nh
-dGlvbiAqdmNwaTsKPiAgCWludCBwYm5fbGltaXQgPSAwLCBwYm5fdXNlZCA9IDA7Cj4gIAo+ICsJ
-aWYgKCFicmFuY2gpCj4gKwkJcmV0dXJuIDA7Cj4gKwo+ICAJbGlzdF9mb3JfZWFjaF9lbnRyeShw
-b3J0LCAmYnJhbmNoLT5wb3J0cywgbmV4dCkgewo+ICAJCWlmIChwb3J0LT5tc3RiKQo+ICAJCQlp
-ZiAoZHJtX2RwX21zdF9hdG9taWNfY2hlY2tfYndfbGltaXQocG9ydC0+bXN0YiwKPiBtc3Rfc3Rh
-dGUpKQotLSAKQ2hlZXJzLAoJTHl1ZGUgUGF1bAoKX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5m
-cmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0
-aW5mby9hbWQtZ2Z4Cg==
+Reviewed-by: Lyude Paul <lyude@redhat.com>
+
+Thanks for all of the contributions you've made as of late! I will go ahead
+and push this into drm-misc-fixes
+
+On Fri, 2020-01-03 at 13:50 +0800, Wayne Lin wrote:
+> [Why]
+> According to DP spec, it should shift left 4 digits for NO_STOP_BIT
+> in REMOTE_I2C_READ message. Not 5 digits.
+> 
+> In current code, NO_STOP_BIT is always set to zero which means I2C
+> master is always generating a I2C stop at the end of each I2C write
+> transaction while handling REMOTE_I2C_READ sideband message. This issue
+> might have the generated I2C signal not meeting the requirement. Take
+> random read in I2C for instance, I2C master should generate a repeat
+> start to start to read data after writing the read address. This issue
+> will cause the I2C master to generate a stop-start rather than a
+> re-start which is not expected in I2C random read.
+> 
+> [How]
+> Correct the shifting value of NO_STOP_BIT for DP_REMOTE_I2C_READ case in
+> drm_dp_encode_sideband_req().
+> 
+> Changes since v1:(https://patchwork.kernel.org/patch/11312667/)
+> * Add more descriptions in commit and cc to stable
+> 
+> Fixes: ad7f8a1f9ce (drm/helper: add Displayport multi-stream helper (v0.6))
+> Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+> Signed-off-by: Wayne Lin <Wayne.Lin@amd.com>
+> Cc: stable@vger.kernel.org
+> ---
+>  drivers/gpu/drm/drm_dp_mst_topology.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/drm_dp_mst_topology.c
+> b/drivers/gpu/drm/drm_dp_mst_topology.c
+> index 1cf5f8b8bbb8..9d24c98bece1 100644
+> --- a/drivers/gpu/drm/drm_dp_mst_topology.c
+> +++ b/drivers/gpu/drm/drm_dp_mst_topology.c
+> @@ -393,7 +393,7 @@ drm_dp_encode_sideband_req(const struct
+> drm_dp_sideband_msg_req_body *req,
+>  			memcpy(&buf[idx], req-
+> >u.i2c_read.transactions[i].bytes, req-
+> >u.i2c_read.transactions[i].num_bytes);
+>  			idx += req->u.i2c_read.transactions[i].num_bytes;
+>  
+> -			buf[idx] = (req-
+> >u.i2c_read.transactions[i].no_stop_bit & 0x1) << 5;
+> +			buf[idx] = (req-
+> >u.i2c_read.transactions[i].no_stop_bit & 0x1) << 4;
+>  			buf[idx] |= (req-
+> >u.i2c_read.transactions[i].i2c_transaction_delay & 0xf);
+>  			idx++;
+>  		}
+-- 
+Cheers,
+	Lyude Paul
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
