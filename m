@@ -7,62 +7,63 @@ X-Spam-Status: No, score=-0.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	MIME_HTML_MOSTLY,SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E7FABC32770
-	for <amd-gfx@archiver.kernel.org>; Fri,  3 Jan 2020 03:09:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 37A0BC3276F
+	for <amd-gfx@archiver.kernel.org>; Fri,  3 Jan 2020 03:18:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id BED9C222C3
-	for <amd-gfx@archiver.kernel.org>; Fri,  3 Jan 2020 03:09:14 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id E5CCE21D7D
+	for <amd-gfx@archiver.kernel.org>; Fri,  3 Jan 2020 03:18:45 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="mBbQy8Rj"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BED9C222C3
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="WQrNzwOX"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E5CCE21D7D
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7C5716E16D;
-	Fri,  3 Jan 2020 03:09:14 +0000 (UTC)
-Received: from NAM02-BL2-obe.outbound.protection.outlook.com
- (mail-eopbgr750083.outbound.protection.outlook.com [40.107.75.83])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CAC806E16B
- for <amd-gfx@lists.freedesktop.org>; Fri,  3 Jan 2020 03:09:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4EBF16E16B;
+	Fri,  3 Jan 2020 03:18:45 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2064.outbound.protection.outlook.com [40.107.244.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1D27D6E16B
+ for <amd-gfx@lists.freedesktop.org>; Fri,  3 Jan 2020 03:18:44 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=RwcpQ2gwIBduukh2AQpl6WB9pWwL+qKqnBlhWjIrdo2JZaARC+POaK9qH1r/lg3RKz7Dm+DRgBoPxkg87DMNqlsS+ZheP8iwfLOfz72AiYeWZIlrdvIjPyb2vkCf2HjqS5c6gDfLhsv+vyt4ewnA6/+OsTJEMNMs0WWfrDFmqYSiS4TXYEe3FWbQqKnK5PqewD3Gidy2rhJqpgttuhlJHh4Te2Pd7IqqSYIFQS/0r8xUgt4c0Rn21iQCH+T0caR9cHneiJKpwwZPN4s9km78MUNtNldgEPnRRDFbhOPHjdMJKECgtjVdYtkE0TCjEXHajGsF18kVrUu0CbCLLCcAvQ==
+ b=WGTxedT9zprwyjXv8XTh0Ak37bYr8RFSomzxcgAE3UCK1S+ERi0qLZpZ44JdX/YO9bceucCRw4eo8qMrnhVd9c7eMTmMYSqAPsE1SyI1+48cXucb4+TCKTGdPBoFJwGSHplsUX+YT8lgUHlgkaRm/PJPjxWlqomenRa0P3t4Vws2sxWpKl2OWHz+1n2GjbOhvSzBsKCpwP97PvEq235Xk/Hbp8L8adF4U1tvXoZc+u3KSS5Cna7nRUFfOYhkRSFAhhCH5Vv3EFWLdzKH7GGX2dYAPfSmyErvW4TSBUVRcLTmln0OQNRC76ME31bszzIWIoYqsC2jUwH54xVwzPiaXA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8+esxn9vB7qsHSIlggwE+f7TFapFmAutiJUjWDo/bsk=;
- b=WcNCfYGXwP/ES05ZaHvKI95NyWZZ8VmigUccRqX1LVhPTzGV072xmpEJXmoZOYA4473Z4rcElKgdrkCDm3J36RQWB+nAECC7WYgF6/dHnzc7h7dSRKIWuyiZhDoYTWM6jJ6rzf52Il9PBHbJpH/2NtwrbOzwR4gKf5T/v5lKpSHgvnob6Xe0C1oDwPfa73CEoT/4to2e4lPpMkkqs6NORcjufXzU+jfbP8F6AcbtQmbJINd62z9MXeBjCOiOhj3KuHEjl7xwvfBkTXxNuUAXV7Akqftwd76k6xPwx6Mv4oKJ75a0Vh1Dal/ytPn5DaaEsYWwjkkN2EL2ISUYY6YNgA==
+ bh=8XLzZRMWq2SSncQJxnmL+nH/zULOnIt3e7iNs+2BT8Q=;
+ b=GmXDCSrx3VrVg2rhQq2VnSDJM4ObQQPjCjmu/R+Mkh5HeTa7y1YZw6EiD8t/hCfZ/h7HHCFFOanx8DkAgzdhs5gwGW+oM34tft6DDKMnqMYROUAU6MxkuAz/jLkXKsaq7JS+UaZ5CrT66HRoZSuFRjY3DVnAZI2qVfbxpLYLegj/L6oJdgxCTyEwgr9+SQ1m6ukpOjmo7lj0l6dG3hP1OOIcNcBLrajyBQmxFFtp1i9jLPBd16Dvp/pUTUH9AsRgh1aTzbLyy8bti8Yakw2Ksh3tj6TuwJPY1Ihi4K5c2U0HPah0BJ5L3cYKoUY7T/BtQ63jL8sFULwob5t4rlb2ug==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8+esxn9vB7qsHSIlggwE+f7TFapFmAutiJUjWDo/bsk=;
- b=mBbQy8RjbtpUa54dcnn0Le/KWoARFCoimkF1+SJSgQjjrTqFD7XCF3DY6slN5PeTEhyC5yr42oFuBCkddnw6JUGiJscjRKD4k5bSPivr8UjH5OGfvH7Zm5Tggchv/LRBanWqOSS6tQeP2TEcLqCg+NjZ6kSxn+D6zOXrIy7++F0=
-Received: from BYAPR12MB2806.namprd12.prod.outlook.com (20.176.254.20) by
- BYAPR12MB2871.namprd12.prod.outlook.com (20.179.94.217) with Microsoft SMTP
+ bh=8XLzZRMWq2SSncQJxnmL+nH/zULOnIt3e7iNs+2BT8Q=;
+ b=WQrNzwOXtW7TvQyOc8GVPf6GJ5iOAeB8mUM8HBiBcJSwJvzGEoF4AqBwxIkcVUPeJ1VY9RW0s0TaoLK9S7jeZB13Jv2fyBc/R62RYOg9Vx40LapPFlsaEf+yYYHtuYdjFrA/X1bEXkjpY5DPJ3ZhKM6W/782AHiigYPavbHw9gk=
+Received: from MN2PR12MB3663.namprd12.prod.outlook.com (10.255.239.86) by
+ MN2PR12MB2974.namprd12.prod.outlook.com (20.178.240.75) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2581.12; Fri, 3 Jan 2020 03:09:10 +0000
-Received: from BYAPR12MB2806.namprd12.prod.outlook.com
- ([fe80::bccf:40ec:3b93:4269]) by BYAPR12MB2806.namprd12.prod.outlook.com
- ([fe80::bccf:40ec:3b93:4269%6]) with mapi id 15.20.2581.014; Fri, 3 Jan 2020
- 03:09:10 +0000
-From: "Chen, Guchun" <Guchun.Chen@amd.com>
-To: "Clements, John" <John.Clements@amd.com>, "Zhang, Hawking"
+ 15.20.2602.11; Fri, 3 Jan 2020 03:18:42 +0000
+Received: from MN2PR12MB3663.namprd12.prod.outlook.com
+ ([fe80::86f:2434:3029:f166]) by MN2PR12MB3663.namprd12.prod.outlook.com
+ ([fe80::86f:2434:3029:f166%6]) with mapi id 15.20.2581.013; Fri, 3 Jan 2020
+ 03:18:42 +0000
+From: "Clements, John" <John.Clements@amd.com>
+To: "Chen, Guchun" <Guchun.Chen@amd.com>, "Zhang, Hawking"
  <Hawking.Zhang@amd.com>, "amd-gfx@lists.freedesktop.org"
  <amd-gfx@lists.freedesktop.org>, "Zhou1, Tao" <Tao.Zhou1@amd.com>
 Subject: RE: [PATCH] drm/amdgpu: resolved bug in UMC 6 error counter query
 Thread-Topic: [PATCH] drm/amdgpu: resolved bug in UMC 6 error counter query
-Thread-Index: AdXBV3Yg76uTyzhkQhyxmQ2h5s6tpQAEeliQABnzfSAAA/7Q8AAANbQA
-Date: Fri, 3 Jan 2020 03:09:09 +0000
-Message-ID: <BYAPR12MB2806CBF02EBBD878FC6D53BAF1230@BYAPR12MB2806.namprd12.prod.outlook.com>
+Thread-Index: AdXBV3Yg76uTyzhkQhyxmQ2h5s6tpQAEeliQABnzfSAAA/7Q8AAANbQAAABnVRA=
+Date: Fri, 3 Jan 2020 03:18:41 +0000
+Message-ID: <MN2PR12MB36631426C1B61487A98A3D57FB230@MN2PR12MB3663.namprd12.prod.outlook.com>
 References: <MN2PR12MB3663CB891846CB098EED1354FB200@MN2PR12MB3663.namprd12.prod.outlook.com>
  <DM5PR12MB141870C643D7A615B4BE392AFC200@DM5PR12MB1418.namprd12.prod.outlook.com>
  <BYAPR12MB28062F0EE6CBCCC870BBFA88F1230@BYAPR12MB2806.namprd12.prod.outlook.com>
  <MN2PR12MB36633246687A079AE98979D5FB230@MN2PR12MB3663.namprd12.prod.outlook.com>
-In-Reply-To: <MN2PR12MB36633246687A079AE98979D5FB230@MN2PR12MB3663.namprd12.prod.outlook.com>
+ <BYAPR12MB2806CBF02EBBD878FC6D53BAF1230@BYAPR12MB2806.namprd12.prod.outlook.com>
+In-Reply-To: <BYAPR12MB2806CBF02EBBD878FC6D53BAF1230@BYAPR12MB2806.namprd12.prod.outlook.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
@@ -75,42 +76,42 @@ msip_labels: MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Enabled=true;
  MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ActionId=4f61058f-43a8-4e9b-b873-000097358b83;
  MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ContentBits=1
 msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_enabled: true
-msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_setdate: 2020-01-03T03:09:07Z
+msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_setdate: 2020-01-03T03:18:35Z
 msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_method: Privileged
 msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_name: Public_0
 msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
-msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_actionid: 1167aaac-465a-4385-98b9-000014510fb5
+msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_actionid: 3676384c-ee96-4aae-9813-00000e67feb9
 msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_contentbits: 0
 authentication-results: spf=none (sender IP is )
- smtp.mailfrom=Guchun.Chen@amd.com; 
-x-originating-ip: [180.167.199.189]
+ smtp.mailfrom=John.Clements@amd.com; 
+x-originating-ip: [114.88.235.245]
 x-ms-publictraffictype: Email
 x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: 2971716d-64b6-41c2-e7bb-08d78ffa4d8a
-x-ms-traffictypediagnostic: BYAPR12MB2871:|BYAPR12MB2871:
+x-ms-office365-filtering-correlation-id: b3e9a837-1929-4b0e-e0a0-08d78ffba272
+x-ms-traffictypediagnostic: MN2PR12MB2974:|MN2PR12MB2974:
 x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <BYAPR12MB2871578959C35932E5260B29F1230@BYAPR12MB2871.namprd12.prod.outlook.com>
+x-microsoft-antispam-prvs: <MN2PR12MB29745144B48A51F38D3EA7EBFB230@MN2PR12MB2974.namprd12.prod.outlook.com>
 x-ms-oob-tlc-oobclassifiers: OLM:9508;
 x-forefront-prvs: 0271483E06
 x-forefront-antispam-report: SFV:NSPM;
- SFS:(10009020)(4636009)(366004)(346002)(39860400002)(376002)(396003)(136003)(189003)(199004)(81156014)(81166006)(6506007)(186003)(33656002)(26005)(53546011)(6636002)(55016002)(478600001)(7696005)(76116006)(52536014)(66446008)(2906002)(8676002)(66476007)(71200400001)(64756008)(66946007)(316002)(110136005)(9686003)(8936002)(86362001)(66556008)(5660300002);
- DIR:OUT; SFP:1101; SCL:1; SRVR:BYAPR12MB2871;
- H:BYAPR12MB2806.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; MX:1; A:1; 
+ SFS:(10009020)(4636009)(136003)(39860400002)(346002)(366004)(396003)(376002)(199004)(189003)(5660300002)(2906002)(6636002)(7696005)(76116006)(81156014)(110136005)(33656002)(86362001)(8676002)(52536014)(53546011)(9686003)(6506007)(66556008)(316002)(66446008)(26005)(66476007)(64756008)(478600001)(66946007)(55016002)(8936002)(81166006)(186003)(71200400001);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:MN2PR12MB2974;
+ H:MN2PR12MB3663.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; A:1; MX:1; 
 received-spf: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
 x-ms-exchange-senderadcheck: 1
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: BvNFz89eOyzBlMkd3aAnOMdGYiLp9c52Jw6VU+6+IJPglGESA+s66CyDd9hLgYika38qgeTUIFNhpFCmTczShjQYwEPydnPJ7se4SvHzjRndgJJd4yTjS4eXIcfCsm6i6Zv0mr2mDqeprJwO5sc1pIwtrbrET96FuROIlMQBgSMLFQadhikRPAQvj4s3ntyIbwOlkIU+AQ60mZTAu7ankZv/rqQEzJAPoTaoZF1HVnSMzdK5tRkNAOA6DDtbPZ3MgWGA5DbMVscSULrok4rG+LcjVB/EWXl33B24y1uIpBtUu7TUhrI6cjRDy+svtf3TKVij99jVkpZRAtDvA+mXVqwhksb63x4X8ap9LzfWG0GUe6lA6Zqy2Kg1qY1rsNBPbCbVbElcZUEUJtNGRdModtwMQDhSuKeccwHrniWvCQykByaPouuN+7J56XZOn9JD
+x-microsoft-antispam-message-info: OFJRMkufgoYwV9w9rf0jnoEGhyh6NxP1v8xCEPDLDhc6s7hvpkAs8j2WkxC++vqm4KXPU+II8TCNbbkI7/gdkGVcau8wzgLnNLGX5RNGLAR3pg2VnQpkfGfSWKHe9zF37HnMhcpek8du+uiJo75LCAbRhhYDHXQ6JY+fXYxydLtNdaUpIVQHmA3SOHOZR2b5OBcIg6xGlgSATWq+7jACpPWNcEunIV9eFFOeFUkWdmZaGYX72upGq9N2+PvTuXAfom9TBPA/dIwA5iaBQ+XaWLYYkQsUFTzTjlt4diuz5ouNyBdZoY1rj/jB1kdkKYWZgx/UhdC+YPPgIECRcGWWt2XcnxdPwsrXU/os/+SWWBst6QBhwMMBwGr6suC2FXE8EiTozAlTT8ed3+AarGVBZ75wkVsQU+a9qEt4vBS7ILn+QgUDYMyi4aj1pvTFaoaf
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2971716d-64b6-41c2-e7bb-08d78ffa4d8a
-X-MS-Exchange-CrossTenant-originalarrivaltime: 03 Jan 2020 03:09:10.0120 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b3e9a837-1929-4b0e-e0a0-08d78ffba272
+X-MS-Exchange-CrossTenant-originalarrivaltime: 03 Jan 2020 03:18:41.9496 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: KS6PGqB3u2aDF+xiXgkYt8kr/t+D2hrqp/OKjQV1b6KOxXfqjzbSfcYfb/4RyVZjjjc73zJY2NQ5ufIIazkUog==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB2871
+X-MS-Exchange-CrossTenant-userprincipalname: 1TawLQOv9V2/TYDNCFgNZn+v++KzTsYtcExgHSEmv94HeSXzHADsg5c6CQMMdZ2juXJCo/jBvdHgUJcLXQtEOA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB2974
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -122,18 +123,36 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============0860427266=="
+Content-Type: multipart/mixed; boundary="===============1043043682=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============0860427266==
+--===============1043043682==
 Content-Language: en-US
 Content-Type: multipart/alternative;
-	boundary="_000_BYAPR12MB2806CBF02EBBD878FC6D53BAF1230BYAPR12MB2806namp_"
+	boundary="_000_MN2PR12MB36631426C1B61487A98A3D57FB230MN2PR12MB3663namp_"
 
---_000_BYAPR12MB2806CBF02EBBD878FC6D53BAF1230BYAPR12MB2806namp_
+--_000_MN2PR12MB36631426C1B61487A98A3D57FB230MN2PR12MB3663namp_
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
+
+[AMD Public Use]
+
+Hello GuChun,
+
+Good point, it makes sense to make function static inline here, I think I s=
+hall also rename the function from  get_umc_reg_offset  to  get_umc_6_reg_o=
+ffset.
+
+Thank you,
+John Clements
+
+From: Chen, Guchun <Guchun.Chen@amd.com>
+Sent: Friday, January 3, 2020 11:09 AM
+To: Clements, John <John.Clements@amd.com>; Zhang, Hawking <Hawking.Zhang@a=
+md.com>; amd-gfx@lists.freedesktop.org; Zhou1, Tao <Tao.Zhou1@amd.com>
+Subject: RE: [PATCH] drm/amdgpu: resolved bug in UMC 6 error counter query
+
 
 [AMD Public Use]
 
@@ -141,7 +160,7 @@ Yes, John, that concern is cleared after I look into the code.
 
 One more issue is, it's better that function get_umc_reg_offset is one stat=
 ic inline function? With this problem fixed, the patch is: Reviewed-by: Guc=
-hun Chen <guchun.chen@amd.com>
+hun Chen <guchun.chen@amd.com<mailto:guchun.chen@amd.com>>
 
 uint32_t get_umc_reg_offset(struct amdgpu_device *adev,
 +                                             uint32_t umc_inst,
@@ -150,10 +169,12 @@ uint32_t get_umc_reg_offset(struct amdgpu_device *adev,
 Regards,
 Guchun
 
-From: Clements, John <John.Clements@amd.com>
+From: Clements, John <John.Clements@amd.com<mailto:John.Clements@amd.com>>
 Sent: Friday, January 3, 2020 10:58 AM
-To: Chen, Guchun <Guchun.Chen@amd.com>; Zhang, Hawking <Hawking.Zhang@amd.c=
-om>; amd-gfx@lists.freedesktop.org; Zhou1, Tao <Tao.Zhou1@amd.com>
+To: Chen, Guchun <Guchun.Chen@amd.com<mailto:Guchun.Chen@amd.com>>; Zhang, =
+Hawking <Hawking.Zhang@amd.com<mailto:Hawking.Zhang@amd.com>>; amd-gfx@list=
+s.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org>; Zhou1, Tao <Tao.Zh=
+ou1@amd.com<mailto:Tao.Zhou1@amd.com>>
 Subject: RE: [PATCH] drm/amdgpu: resolved bug in UMC 6 error counter query
 
 
@@ -242,15 +263,14 @@ Removed support for accessing UMC error counters via MMIO.
 Thank you,
 John Clements
 
---_000_BYAPR12MB2806CBF02EBBD878FC6D53BAF1230BYAPR12MB2806namp_
+--_000_MN2PR12MB36631426C1B61487A98A3D57FB230MN2PR12MB3663namp_
 Content-Type: text/html; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
 <html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
 osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
-xmlns:dt=3D"uuid:C2F41010-65B3-11d1-A29F-00AA00C14882" xmlns:m=3D"http://sc=
-hemas.microsoft.com/office/2004/12/omml" xmlns=3D"http://www.w3.org/TR/REC-=
-html40">
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40">
 <head>
 <meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
 >
@@ -344,6 +364,10 @@ span.EmailStyle25
 	font-family:"Calibri",sans-serif;
 	color:windowtext;}
 span.EmailStyle26
+	{mso-style-type:personal;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
+span.EmailStyle27
 	{mso-style-type:personal-reply;
 	font-family:"Calibri",sans-serif;
 	color:windowtext;}
@@ -357,11 +381,86 @@ div.WordSection1
 	{page:WordSection1;}
 /* List Definitions */
 @list l0
+	{mso-list-id:885916318;
+	mso-list-template-ids:1163287198;}
+@list l0:level1
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	mso-ansi-font-size:10.0pt;
+	font-family:Symbol;}
+@list l0:level2
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:1.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	mso-ansi-font-size:10.0pt;
+	font-family:Symbol;}
+@list l0:level3
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:1.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	mso-ansi-font-size:10.0pt;
+	font-family:Symbol;}
+@list l0:level4
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:2.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	mso-ansi-font-size:10.0pt;
+	font-family:Symbol;}
+@list l0:level5
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:2.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	mso-ansi-font-size:10.0pt;
+	font-family:Symbol;}
+@list l0:level6
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:3.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	mso-ansi-font-size:10.0pt;
+	font-family:Symbol;}
+@list l0:level7
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:3.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	mso-ansi-font-size:10.0pt;
+	font-family:Symbol;}
+@list l0:level8
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:4.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	mso-ansi-font-size:10.0pt;
+	font-family:Symbol;}
+@list l0:level9
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:4.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	mso-ansi-font-size:10.0pt;
+	font-family:Symbol;}
+@list l1
 	{mso-list-id:1404836294;
 	mso-list-type:hybrid;
 	mso-list-template-ids:-655825146 -2082196856 67698691 67698693 67698689 67=
 698691 67698693 67698689 67698691 67698693;}
-@list l0:level1
+@list l1:level1
 	{mso-level-start-at:0;
 	mso-level-number-format:bullet;
 	mso-level-text:-;
@@ -370,137 +469,62 @@ div.WordSection1
 	text-indent:-.25in;
 	font-family:"Calibri",sans-serif;
 	mso-fareast-font-family:DengXian;}
-@list l0:level2
-	{mso-level-number-format:bullet;
-	mso-level-text:o;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;
-	font-family:"Courier New";}
-@list l0:level3
-	{mso-level-number-format:bullet;
-	mso-level-text:\F0A7;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;
-	font-family:Wingdings;}
-@list l0:level4
-	{mso-level-number-format:bullet;
-	mso-level-text:\F0B7;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;
-	font-family:Symbol;}
-@list l0:level5
-	{mso-level-number-format:bullet;
-	mso-level-text:o;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;
-	font-family:"Courier New";}
-@list l0:level6
-	{mso-level-number-format:bullet;
-	mso-level-text:\F0A7;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;
-	font-family:Wingdings;}
-@list l0:level7
-	{mso-level-number-format:bullet;
-	mso-level-text:\F0B7;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;
-	font-family:Symbol;}
-@list l0:level8
-	{mso-level-number-format:bullet;
-	mso-level-text:o;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;
-	font-family:"Courier New";}
-@list l0:level9
-	{mso-level-number-format:bullet;
-	mso-level-text:\F0A7;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;
-	font-family:Wingdings;}
-@list l1
-	{mso-list-id:2111730997;
-	mso-list-template-ids:-1756342664;}
-@list l1:level1
-	{mso-level-number-format:bullet;
-	mso-level-text:\F0B7;
-	mso-level-tab-stop:.5in;
-	mso-level-number-position:left;
-	text-indent:-.25in;
-	mso-ansi-font-size:10.0pt;
-	font-family:Symbol;}
 @list l1:level2
 	{mso-level-number-format:bullet;
-	mso-level-text:\F0B7;
-	mso-level-tab-stop:1.0in;
+	mso-level-text:o;
+	mso-level-tab-stop:none;
 	mso-level-number-position:left;
 	text-indent:-.25in;
-	mso-ansi-font-size:10.0pt;
-	font-family:Symbol;}
+	font-family:"Courier New";}
 @list l1:level3
 	{mso-level-number-format:bullet;
-	mso-level-text:\F0B7;
-	mso-level-tab-stop:1.5in;
+	mso-level-text:\F0A7;
+	mso-level-tab-stop:none;
 	mso-level-number-position:left;
 	text-indent:-.25in;
-	mso-ansi-font-size:10.0pt;
-	font-family:Symbol;}
+	font-family:Wingdings;}
 @list l1:level4
 	{mso-level-number-format:bullet;
 	mso-level-text:\F0B7;
-	mso-level-tab-stop:2.0in;
+	mso-level-tab-stop:none;
 	mso-level-number-position:left;
 	text-indent:-.25in;
-	mso-ansi-font-size:10.0pt;
 	font-family:Symbol;}
 @list l1:level5
 	{mso-level-number-format:bullet;
-	mso-level-text:\F0B7;
-	mso-level-tab-stop:2.5in;
+	mso-level-text:o;
+	mso-level-tab-stop:none;
 	mso-level-number-position:left;
 	text-indent:-.25in;
-	mso-ansi-font-size:10.0pt;
-	font-family:Symbol;}
+	font-family:"Courier New";}
 @list l1:level6
 	{mso-level-number-format:bullet;
-	mso-level-text:\F0B7;
-	mso-level-tab-stop:3.0in;
+	mso-level-text:\F0A7;
+	mso-level-tab-stop:none;
 	mso-level-number-position:left;
 	text-indent:-.25in;
-	mso-ansi-font-size:10.0pt;
-	font-family:Symbol;}
+	font-family:Wingdings;}
 @list l1:level7
 	{mso-level-number-format:bullet;
 	mso-level-text:\F0B7;
-	mso-level-tab-stop:3.5in;
+	mso-level-tab-stop:none;
 	mso-level-number-position:left;
 	text-indent:-.25in;
-	mso-ansi-font-size:10.0pt;
 	font-family:Symbol;}
 @list l1:level8
 	{mso-level-number-format:bullet;
-	mso-level-text:\F0B7;
-	mso-level-tab-stop:4.0in;
+	mso-level-text:o;
+	mso-level-tab-stop:none;
 	mso-level-number-position:left;
 	text-indent:-.25in;
-	mso-ansi-font-size:10.0pt;
-	font-family:Symbol;}
+	font-family:"Courier New";}
 @list l1:level9
 	{mso-level-number-format:bullet;
-	mso-level-text:\F0B7;
-	mso-level-tab-stop:4.5in;
+	mso-level-text:\F0A7;
+	mso-level-tab-stop:none;
 	mso-level-number-position:left;
 	text-indent:-.25in;
-	mso-ansi-font-size:10.0pt;
-	font-family:Symbol;}
+	font-family:Wingdings;}
 ol
 	{margin-bottom:0in;}
 ul
@@ -518,13 +542,40 @@ ul
 <span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif;co=
 lor:#317100">[AMD Public Use]</span><o:p></o:p></p>
 <p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Hello GuChun,<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Good point, it makes sense to make function static i=
+nline here, I think I shall also rename the function from &nbsp;get_umc_reg=
+_offset&nbsp; to&nbsp; get_umc_6_reg_offset.<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Thank you,<o:p></o:p></p>
+<p class=3D"MsoNormal">John Clements<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<div>
+<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
+0in 0in">
+<p class=3D"MsoNormal"><b>From:</b> Chen, Guchun &lt;Guchun.Chen@amd.com&gt=
+; <br>
+<b>Sent:</b> Friday, January 3, 2020 11:09 AM<br>
+<b>To:</b> Clements, John &lt;John.Clements@amd.com&gt;; Zhang, Hawking &lt=
+;Hawking.Zhang@amd.com&gt;; amd-gfx@lists.freedesktop.org; Zhou1, Tao &lt;T=
+ao.Zhou1@amd.com&gt;<br>
+<b>Subject:</b> RE: [PATCH] drm/amdgpu: resolved bug in UMC 6 error counter=
+ query<o:p></o:p></p>
+</div>
+</div>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"msipheader87abd423" style=3D"margin:0in;margin-bottom:.0001pt">=
+<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif;co=
+lor:#317100">[AMD Public Use]</span><o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
 <p class=3D"MsoNormal">Yes, John, that concern is cleared after I look into=
  the code.<o:p></o:p></p>
 <p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
 <p class=3D"MsoNormal">One more issue is, it&#8217;s better that function g=
 et_umc_reg_offset is one static inline function? With this problem fixed, t=
-he patch is: Reviewed-by: Guchun Chen &lt;guchun.chen@amd.com&gt;<o:p></o:p=
-></p>
+he patch is: Reviewed-by: Guchun Chen &lt;<a href=3D"mailto:guchun.chen@amd=
+.com">guchun.chen@amd.com</a>&gt;<o:p></o:p></p>
 <p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
 <p class=3D"MsoNormal">uint32_t get_umc_reg_offset(struct amdgpu_device *ad=
 ev,<o:p></o:p></p>
@@ -547,12 +598,16 @@ inst)<o:p></o:p></p>
 <div>
 <div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
 0in 0in">
-<p class=3D"MsoNormal"><b>From:</b> Clements, John &lt;John.Clements@amd.co=
-m&gt; <br>
+<p class=3D"MsoNormal"><b>From:</b> Clements, John &lt;<a href=3D"mailto:Jo=
+hn.Clements@amd.com">John.Clements@amd.com</a>&gt;
+<br>
 <b>Sent:</b> Friday, January 3, 2020 10:58 AM<br>
-<b>To:</b> Chen, Guchun &lt;Guchun.Chen@amd.com&gt;; Zhang, Hawking &lt;Haw=
-king.Zhang@amd.com&gt;; amd-gfx@lists.freedesktop.org; Zhou1, Tao &lt;Tao.Z=
-hou1@amd.com&gt;<br>
+<b>To:</b> Chen, Guchun &lt;<a href=3D"mailto:Guchun.Chen@amd.com">Guchun.C=
+hen@amd.com</a>&gt;; Zhang, Hawking &lt;<a href=3D"mailto:Hawking.Zhang@amd=
+.com">Hawking.Zhang@amd.com</a>&gt;;
+<a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.=
+org</a>; Zhou1, Tao &lt;<a href=3D"mailto:Tao.Zhou1@amd.com">Tao.Zhou1@amd.=
+com</a>&gt;<br>
 <b>Subject:</b> RE: [PATCH] drm/amdgpu: resolved bug in UMC 6 error counter=
  query<o:p></o:p></p>
 </div>
@@ -567,10 +622,10 @@ lor:#317100">[AMD Public Use]</span><o:p></o:p></p>
 <p class=3D"MsoNormal">Thank you for your feedback, I have updated the patc=
 h with the following amendments:<o:p></o:p></p>
 <ul style=3D"margin-top:0in" type=3D"disc">
-<li class=3D"MsoListParagraph" style=3D"margin-left:0in;mso-list:l0 level1 =
+<li class=3D"MsoListParagraph" style=3D"margin-left:0in;mso-list:l1 level1 =
 lfo3">Remove &#43;#define UMC_REG_OFFSET (I forgot to remove this in origin=
 al patch, I prefer the function over the macro)<o:p></o:p></li><li class=3D=
-"MsoListParagraph" style=3D"margin-left:0in;mso-list:l0 level1 lfo3">Update=
+"MsoListParagraph" style=3D"margin-left:0in;mso-list:l1 level1 lfo3">Update=
 d the coding style of the braces in the for loops to have the starting brac=
 e on the same line as the for loop declaration<o:p></o:p></li></ul>
 <p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
@@ -693,9 +748,9 @@ ounter detection was not iterating over all UMC instances/channels.<o:p></o=
 </body>
 </html>
 
---_000_BYAPR12MB2806CBF02EBBD878FC6D53BAF1230BYAPR12MB2806namp_--
+--_000_MN2PR12MB36631426C1B61487A98A3D57FB230MN2PR12MB3663namp_--
 
---===============0860427266==
+--===============1043043682==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -706,4 +761,4 @@ amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 
---===============0860427266==--
+--===============1043043682==--
