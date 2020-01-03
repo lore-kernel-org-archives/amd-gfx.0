@@ -6,62 +6,63 @@ X-Spam-Status: No, score=-0.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,SPF_HELO_NONE,
 	SPF_PASS autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C7847C00523
-	for <amd-gfx@archiver.kernel.org>; Fri,  3 Jan 2020 08:33:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1B52BC00523
+	for <amd-gfx@archiver.kernel.org>; Fri,  3 Jan 2020 09:00:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9774320866
-	for <amd-gfx@archiver.kernel.org>; Fri,  3 Jan 2020 08:33:17 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id E02CF21734
+	for <amd-gfx@archiver.kernel.org>; Fri,  3 Jan 2020 09:00:20 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="MP7kH91D"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9774320866
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="S/KlYkXa"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E02CF21734
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 526256E19B;
-	Fri,  3 Jan 2020 08:33:17 +0000 (UTC)
-Received: from NAM02-CY1-obe.outbound.protection.outlook.com
- (mail-eopbgr760084.outbound.protection.outlook.com [40.107.76.84])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DB2E86E199
- for <amd-gfx@lists.freedesktop.org>; Fri,  3 Jan 2020 08:33:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9DDAD6E19B;
+	Fri,  3 Jan 2020 09:00:20 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2042.outbound.protection.outlook.com [40.107.94.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 290B66E19B
+ for <amd-gfx@lists.freedesktop.org>; Fri,  3 Jan 2020 09:00:19 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=a1xZqlQNLpJB1albk9qF0fPg2pfZgy6btPO7XeqMwjRKZijgdC8cBGflFYIO/hFaRQKVUQAnuWlyjQPwGdHVu41l0YSpkJ2IkVMVypAOIwDkPSA/E1z5U6oWV1LdZ/l/DQCk4gRNF+gsLgGaMMBn6K05BYLGIJGGwHGioWhL7HHzlFlZMXK5JHRCeyz6Qcmrfd/N91JR0sljhD+wKpPNpjquFbJg1c+4GIjysOZ554xD5Kj2w6hyDHH1GCJQFASbZ3lGMz13aDm8TLq+DreIABxSBs24+VmOKmxUBaB0I8Pi0ESEVnCIt37q7Ha1k5jFCpqSPWfK8wMfTu1JZiOg6g==
+ b=GET3tyvBD4wZShIe8jFFyJMJGtliyGvLuEzJ5WgtVb2B/d3LQEyIEl7zGcYQmuhS1KWiEpw26oXamoLOs7uz9ZWogF3BvQfb2pmLcV/JJarCiOAkHY98pRbjztjYy2deYFyDM6Eyr61lEdaMhoKL/0sflnTFpnzYMUIm/hD8VGuOHiXg8CfGuMCyI8ffGl/No6hGwcJ6ac80xolLeNh0SJQrpctF82ctGg6JJv/zub46hKmFWC5BxcTwJRW0uunO0aUBGRgThMmSSsCGS8tRbRJyf9eShCV9Cw/GDYKnwd1zLOkUIRFqJ7bfXjXHRKb5FYH0/vNPwaaZqIad8GPJ/Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=CLJEjrFUP42xpYPjoZ1vtmAV4yKJHd8n+SseBPQo9nc=;
- b=AzQq4UIywgHbPDue2C26VtqaZpj3dvKYKOEow204Gf06lThyo9GkywXnRQ0SIqAjs52PMXVNOO4mFyinAUPDe0GblN9Nz39P2fwVd2OPzuffTT5gDeYuG9QX40QTxkL0U6pa+KVHA0ux82s7fr21t9AnxhqCMHZ0ySHQPw30L8ibY2Gj6+j6mnTiUMG6oil3zZIkRxZE9gzN+X5pybxStyn46CD1zd6olO5r5FmRCYYZJuZZlMnPAJtJhVXKmVZhQt4ZDgrxCy/J84ZBkvYr6ZZ2qj1ED+BIoeLH/Rz+3kP6K1EGXoGfIEjgB5cJkWFXZfVobOIFaFtn2T6OPL5EaQ==
+ bh=PbVa7A6JccFPfwRPE3Q0L8Iakm+84z/6f2hT00gcgMw=;
+ b=niawczGzo8WOvBkvCmWhl9YkQu0ADoiOi1e0zLA8sM+nqZKaABQsNuBS+WQomsKmlkThBDzYXH8j4/uC0Rc6BFkwQwqv8K7oAMOYS5iwH9mw6UFBmFPD9hM+zKKTWhq5oQ1jw/UDLbXKVEVXxQnHmGKr+lJavRtQd61JZuBntN8nyLvrQcBWtM2IjLTTCEEs3MbhJ4dU9ybni9C+yvAm6hMihAKQR0o3tmMzVtadVdUTtaSExGAxkoQwasysrRRSw7aARTGyDB8o/ieRGuY2tOtyuq3R/hiGXZflpNdqNoivDC8o7hOR3Tg4+yIswzNU4Oa/rK32qEpmvu1XMJuH0w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=CLJEjrFUP42xpYPjoZ1vtmAV4yKJHd8n+SseBPQo9nc=;
- b=MP7kH91DPgYaEA7sZput9dxPDLHRDsa47wHQDipvfSsjvZI69awpCjxEOJmOc+tIXPuYoax/bckRctKDXGLXmzqTX3M2C7DL2kCpAI+kLP7QBDU0hdnZ+DM1Y0Fvly0PjOaLi1rtCUCHpwz6vugpImkreaxrp8HH18dL7QnoGIc=
-Received: from SN6PR12MB2813.namprd12.prod.outlook.com (52.135.100.27) by
- SN6PR12MB2830.namprd12.prod.outlook.com (20.177.248.155) with Microsoft SMTP
+ bh=PbVa7A6JccFPfwRPE3Q0L8Iakm+84z/6f2hT00gcgMw=;
+ b=S/KlYkXaPwVFhcwG6iINJ7Xn6XX7cf21gKH6kyiiJOG5cPf2DUeoO/h8mLpSCVzAzHb9ZwbaRhm7CTDmb1ca35pSOV9DmvKPaoX3LQ7NVKiiNdyb7W1OGVoe4Hyzy2X4P5p9OqclX1qSyNWNBJ2iq02UR+EVqJLD5NXYP5KPtdw=
+Received: from MN2PR12MB3663.namprd12.prod.outlook.com (10.255.239.86) by
+ MN2PR12MB3856.namprd12.prod.outlook.com (10.255.237.221) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2602.11; Fri, 3 Jan 2020 08:33:13 +0000
-Received: from SN6PR12MB2813.namprd12.prod.outlook.com
- ([fe80::b04f:f4d9:a0c9:adc2]) by SN6PR12MB2813.namprd12.prod.outlook.com
- ([fe80::b04f:f4d9:a0c9:adc2%7]) with mapi id 15.20.2602.012; Fri, 3 Jan 2020
- 08:33:13 +0000
-From: "Chen, Guchun" <Guchun.Chen@amd.com>
-To: "Clements, John" <John.Clements@amd.com>, "Zhang, Hawking"
+ 15.20.2602.12; Fri, 3 Jan 2020 09:00:17 +0000
+Received: from MN2PR12MB3663.namprd12.prod.outlook.com
+ ([fe80::86f:2434:3029:f166]) by MN2PR12MB3663.namprd12.prod.outlook.com
+ ([fe80::86f:2434:3029:f166%6]) with mapi id 15.20.2581.013; Fri, 3 Jan 2020
+ 09:00:17 +0000
+From: "Clements, John" <John.Clements@amd.com>
+To: "Chen, Guchun" <Guchun.Chen@amd.com>, "Zhang, Hawking"
  <Hawking.Zhang@amd.com>, "amd-gfx@lists.freedesktop.org"
  <amd-gfx@lists.freedesktop.org>
 Subject: RE: [PATCH] drm/amdgpu: added function to wait for PSP BL availability
 Thread-Topic: [PATCH] drm/amdgpu: added function to wait for PSP BL
  availability
-Thread-Index: AdXCB2B4i8QiXMejQxS+NxSqo7TfwgAAgVmAAAEErAAAALFhsA==
-Date: Fri, 3 Jan 2020 08:33:13 +0000
-Message-ID: <SN6PR12MB28135947A65B1EE1598FCF58F1230@SN6PR12MB2813.namprd12.prod.outlook.com>
+Thread-Index: AdXCB2B4i8QiXMejQxS+NxSqo7TfwgAAgVmAAAEErAAAALFhsAAA+WSQ
+Date: Fri, 3 Jan 2020 09:00:16 +0000
+Message-ID: <MN2PR12MB366394FF55FCBE27B55C9FABFB230@MN2PR12MB3663.namprd12.prod.outlook.com>
 References: <MN2PR12MB3663D94776EF0BDDD1AAFCD4FB230@MN2PR12MB3663.namprd12.prod.outlook.com>
  <SN6PR12MB281373E1EB9C577F0649C81FF1230@SN6PR12MB2813.namprd12.prod.outlook.com>
  <MN2PR12MB36632C11B62C60C12B5342F9FB230@MN2PR12MB3663.namprd12.prod.outlook.com>
-In-Reply-To: <MN2PR12MB36632C11B62C60C12B5342F9FB230@MN2PR12MB3663.namprd12.prod.outlook.com>
+ <SN6PR12MB28135947A65B1EE1598FCF58F1230@SN6PR12MB2813.namprd12.prod.outlook.com>
+In-Reply-To: <SN6PR12MB28135947A65B1EE1598FCF58F1230@SN6PR12MB2813.namprd12.prod.outlook.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
@@ -74,42 +75,42 @@ msip_labels: MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Enabled=true;
  MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ActionId=11583e56-7d15-4c56-85f8-0000f128571a;
  MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ContentBits=1
 msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_enabled: true
-msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_setdate: 2020-01-03T08:33:11Z
+msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_setdate: 2020-01-03T09:00:12Z
 msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_method: Privileged
 msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_name: Public_0
 msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
-msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_actionid: 1f935be1-5a72-4c16-9888-0000a7ffc129
+msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_actionid: c2b2379a-ecc6-4de5-a1c4-000010c4dc26
 msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_contentbits: 0
 authentication-results: spf=none (sender IP is )
- smtp.mailfrom=Guchun.Chen@amd.com; 
-x-originating-ip: [180.167.199.189]
+ smtp.mailfrom=John.Clements@amd.com; 
+x-originating-ip: [114.88.235.245]
 x-ms-publictraffictype: Email
 x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: 63cc4ab0-bf65-44e4-ac97-08d7902792bd
-x-ms-traffictypediagnostic: SN6PR12MB2830:|SN6PR12MB2830:
+x-ms-office365-filtering-correlation-id: 3cc85661-c3cb-44ae-937a-08d7902b5a73
+x-ms-traffictypediagnostic: MN2PR12MB3856:|MN2PR12MB3856:
 x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <SN6PR12MB2830B23CA20BCDEDB6A35241F1230@SN6PR12MB2830.namprd12.prod.outlook.com>
+x-microsoft-antispam-prvs: <MN2PR12MB3856ADF274BA4DB957B1155BFB230@MN2PR12MB3856.namprd12.prod.outlook.com>
 x-ms-oob-tlc-oobclassifiers: OLM:10000;
 x-forefront-prvs: 0271483E06
 x-forefront-antispam-report: SFV:NSPM;
- SFS:(10009020)(4636009)(376002)(396003)(366004)(346002)(39860400002)(136003)(189003)(199004)(478600001)(81166006)(66556008)(26005)(52536014)(9686003)(6506007)(53546011)(316002)(71200400001)(186003)(66476007)(64756008)(55016002)(8936002)(66946007)(66446008)(110136005)(81156014)(76116006)(7696005)(5660300002)(2906002)(33656002)(86362001)(8676002);
- DIR:OUT; SFP:1101; SCL:1; SRVR:SN6PR12MB2830;
- H:SN6PR12MB2813.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ SFS:(10009020)(4636009)(136003)(366004)(396003)(346002)(376002)(39860400002)(189003)(199004)(2906002)(478600001)(6506007)(26005)(186003)(8936002)(53546011)(7696005)(81156014)(81166006)(8676002)(9686003)(76116006)(5660300002)(66946007)(66556008)(66476007)(66446008)(64756008)(71200400001)(55016002)(33656002)(316002)(52536014)(86362001)(110136005);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:MN2PR12MB3856;
+ H:MN2PR12MB3663.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
  PTR:InfoNoRecords; MX:1; A:1; 
 received-spf: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
 x-ms-exchange-senderadcheck: 1
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: EeVpGhI22f9RfTR7W2ycS50jlK555ZoKSqp5K7WKu7TSsBd8IprN/cc8XU6EoHnlhLY5GOgyYVkk5Vber0Gf1P5hxAu41je/BG/tuoaVo51rr1UNId7uVlQi9qfttoSik09faAO5MUas0Y2koqoQI479wh+RHsXSXmRr8DBxI8pxM0faafFoiRXa7YCKHH1P9ypoL28C1M0EyLb1G2Pt3DoCRUA+OY7O1uYRirTWVjYq7gZEsN8rsdU8/ksl/JNXSbXW09PmdGGBir+1toQEBOmzvWhdezEDjDSUuTkaXI554nTotIDVUaeKBoY4b9SyEovb3CmJAEqZJpSD03LqbIm+KhRhxVbpDBT8poBpZNrIBJP6W1VLRK3IeK04k4vjqNqbQJ1IH8lQmwp+dd6GooVyHwo87xGHs64wkdCj1YmXbORJw6fbFn6uPUhNMh+1
+x-microsoft-antispam-message-info: Oo0xXeixlBQDCMlr8A18bKOPqLxw6cIE70JQ0WaYn7uwvztynN5q9LMFYCcgskNVTrvCuNxNOS1tIBGAF3BZVbwz7dSL0NELqfTPxv91PJ3/3uo+0TDUe6DTnejPetEqeVL8MkAF7XOabga1/HQDvaXILZ04wvdtZ19o6CbizbmOknpK20Yw6J9psPikfqJyckK53H5u7hv60tJikbnintH/XB9/vQE0/g8vVwG8+2kHN4uYh07r9/fbnW61pavxcgrqk5f6nDan/RYHsVsHHDJkEFnEsdldjaU5c/ijkRb5BfKlkiNjDq+qG2FtxG/gdnvbb95+zYOStFuQfbZjDvK/w9716jDchtokA18UmP0Cop+Kouj4lJnUaSjv4jH4jyC8XPWhNofbNc3TSzCvjpRVlIxZdWtv17wdS+bv6MuHctG8jZfn2pfWuvkBE14A
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 63cc4ab0-bf65-44e4-ac97-08d7902792bd
-X-MS-Exchange-CrossTenant-originalarrivaltime: 03 Jan 2020 08:33:13.4433 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3cc85661-c3cb-44ae-937a-08d7902b5a73
+X-MS-Exchange-CrossTenant-originalarrivaltime: 03 Jan 2020 09:00:17.0082 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 6IV2oA/1BTyTiWNaPl5LohKMBHdD6r0Mqp8ami+wowCvryJPcp2V2M5Z/Z7UkOq7PhlIjELasTgzAAB6wdfhQA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN6PR12MB2830
+X-MS-Exchange-CrossTenant-userprincipalname: WXfHn8E+GJCkNBp0Wvt73+CHR9FnBJDailtGlXWVPgM6tBg8zKhgMIJg3C1ICpdV0u7T1iqGvIDtioqBUP+UDw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3856
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -121,18 +122,30 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============1067171413=="
+Content-Type: multipart/mixed; boundary="===============1387895311=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============1067171413==
+--===============1387895311==
 Content-Language: en-US
 Content-Type: multipart/alternative;
-	boundary="_000_SN6PR12MB28135947A65B1EE1598FCF58F1230SN6PR12MB2813namp_"
+	boundary="_000_MN2PR12MB366394FF55FCBE27B55C9FABFB230MN2PR12MB3663namp_"
 
---_000_SN6PR12MB28135947A65B1EE1598FCF58F1230SN6PR12MB2813namp_
+--_000_MN2PR12MB366394FF55FCBE27B55C9FABFB230MN2PR12MB3663namp_
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
+
+[AMD Public Use]
+
+Good catch, I'll update my habit with this
+
+From: Chen, Guchun <Guchun.Chen@amd.com>
+Sent: Friday, January 3, 2020 4:33 PM
+To: Clements, John <John.Clements@amd.com>; Zhang, Hawking <Hawking.Zhang@a=
+md.com>; amd-gfx@lists.freedesktop.org
+Subject: RE: [PATCH] drm/amdgpu: added function to wait for PSP BL availabi=
+lity
+
 
 [AMD Public Use]
 
@@ -142,15 +155,16 @@ Thanks John.
 +            {
 The same coding style problem that "{" should not start at one new line. Wi=
 th this fixed, the patch is:
-Reviewed-by: Guchun Chen <guchun.chen@amd.com>
+Reviewed-by: Guchun Chen <guchun.chen@amd.com<mailto:guchun.chen@amd.com>>
 
 Regards,
 Guchun
 
-From: Clements, John <John.Clements@amd.com>
+From: Clements, John <John.Clements@amd.com<mailto:John.Clements@amd.com>>
 Sent: Friday, January 3, 2020 4:13 PM
-To: Chen, Guchun <Guchun.Chen@amd.com>; Zhang, Hawking <Hawking.Zhang@amd.c=
-om>; amd-gfx@lists.freedesktop.org
+To: Chen, Guchun <Guchun.Chen@amd.com<mailto:Guchun.Chen@amd.com>>; Zhang, =
+Hawking <Hawking.Zhang@amd.com<mailto:Hawking.Zhang@amd.com>>; amd-gfx@list=
+s.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org>
 Subject: RE: [PATCH] drm/amdgpu: added function to wait for PSP BL availabi=
 lity
 
@@ -204,15 +218,14 @@ Increased driver wait time for PSP BL availability.
 Thank you,
 John Clements
 
---_000_SN6PR12MB28135947A65B1EE1598FCF58F1230SN6PR12MB2813namp_
+--_000_MN2PR12MB366394FF55FCBE27B55C9FABFB230MN2PR12MB3663namp_
 Content-Type: text/html; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
 <html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
 osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
-xmlns:dt=3D"uuid:C2F41010-65B3-11d1-A29F-00AA00C14882" xmlns:m=3D"http://sc=
-hemas.microsoft.com/office/2004/12/omml" xmlns=3D"http://www.w3.org/TR/REC-=
-html40">
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40">
 <head>
 <meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
 >
@@ -261,10 +274,14 @@ p.msipheader4d0fcdd7, li.msipheader4d0fcdd7, div.msipheader4d0fcdd7
 	margin-left:0in;
 	font-size:11.0pt;
 	font-family:"Calibri",sans-serif;}
-span.EmailStyle19
-	{mso-style-type:personal;
-	font-family:"Calibri",sans-serif;
-	color:windowtext;}
+p.msipheader87abd423, li.msipheader87abd423, div.msipheader87abd423
+	{mso-style-name:msipheader87abd423;
+	mso-margin-top-alt:auto;
+	margin-right:0in;
+	mso-margin-bottom-alt:auto;
+	margin-left:0in;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
 span.EmailStyle20
 	{mso-style-type:personal;
 	font-family:"Calibri",sans-serif;
@@ -274,17 +291,17 @@ span.EmailStyle21
 	font-family:"Calibri",sans-serif;
 	color:windowtext;}
 span.EmailStyle22
+	{mso-style-type:personal;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
+span.EmailStyle23
+	{mso-style-type:personal;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
+span.EmailStyle24
 	{mso-style-type:personal-reply;
 	font-family:"Calibri",sans-serif;
 	color:windowtext;}
-p.msipheader87abd423, li.msipheader87abd423, div.msipheader87abd423
-	{mso-style-name:msipheader87abd423;
-	mso-margin-top-alt:auto;
-	margin-right:0in;
-	mso-margin-bottom-alt:auto;
-	margin-left:0in;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif;}
 .MsoChpDefault
 	{mso-style-type:export-only;
 	font-size:10.0pt;}
@@ -306,6 +323,26 @@ div.WordSection1
 <span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif;co=
 lor:#317100">[AMD Public Use]</span><o:p></o:p></p>
 <p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Good catch, I&#8217;ll update my habit with this<o:p=
+></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<div>
+<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
+0in 0in">
+<p class=3D"MsoNormal"><b>From:</b> Chen, Guchun &lt;Guchun.Chen@amd.com&gt=
+; <br>
+<b>Sent:</b> Friday, January 3, 2020 4:33 PM<br>
+<b>To:</b> Clements, John &lt;John.Clements@amd.com&gt;; Zhang, Hawking &lt=
+;Hawking.Zhang@amd.com&gt;; amd-gfx@lists.freedesktop.org<br>
+<b>Subject:</b> RE: [PATCH] drm/amdgpu: added function to wait for PSP BL a=
+vailability<o:p></o:p></p>
+</div>
+</div>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"msipheader87abd423" style=3D"margin:0in;margin-bottom:.0001pt">=
+<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif;co=
+lor:#317100">[AMD Public Use]</span><o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
 <p class=3D"MsoNormal">Thanks John.<o:p></o:p></p>
 <p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
 <p class=3D"MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
@@ -316,8 +353,8 @@ lor:#317100">[AMD Public Use]</span><o:p></o:p></p>
 <p class=3D"MsoNormal">The same coding style problem that &#8220;{&#8221; s=
 hould not start at one new line. With this fixed, the patch is:<o:p></o:p><=
 /p>
-<p class=3D"MsoNormal">Reviewed-by: Guchun Chen &lt;guchun.chen@amd.com&gt;=
-<o:p></o:p></p>
+<p class=3D"MsoNormal">Reviewed-by: Guchun Chen &lt;<a href=3D"mailto:guchu=
+n.chen@amd.com">guchun.chen@amd.com</a>&gt;<o:p></o:p></p>
 <div>
 <p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
 <p class=3D"MsoNormal">Regards,<o:p></o:p></p>
@@ -327,11 +364,15 @@ hould not start at one new line. With this fixed, the patch is:<o:p></o:p><=
 <div>
 <div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
 0in 0in">
-<p class=3D"MsoNormal"><b>From:</b> Clements, John &lt;John.Clements@amd.co=
-m&gt; <br>
+<p class=3D"MsoNormal"><b>From:</b> Clements, John &lt;<a href=3D"mailto:Jo=
+hn.Clements@amd.com">John.Clements@amd.com</a>&gt;
+<br>
 <b>Sent:</b> Friday, January 3, 2020 4:13 PM<br>
-<b>To:</b> Chen, Guchun &lt;Guchun.Chen@amd.com&gt;; Zhang, Hawking &lt;Haw=
-king.Zhang@amd.com&gt;; amd-gfx@lists.freedesktop.org<br>
+<b>To:</b> Chen, Guchun &lt;<a href=3D"mailto:Guchun.Chen@amd.com">Guchun.C=
+hen@amd.com</a>&gt;; Zhang, Hawking &lt;<a href=3D"mailto:Hawking.Zhang@amd=
+.com">Hawking.Zhang@amd.com</a>&gt;;
+<a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.=
+org</a><br>
 <b>Subject:</b> RE: [PATCH] drm/amdgpu: added function to wait for PSP BL a=
 vailability<o:p></o:p></p>
 </div>
@@ -423,9 +464,9 @@ o:p></o:p></p>
 </body>
 </html>
 
---_000_SN6PR12MB28135947A65B1EE1598FCF58F1230SN6PR12MB2813namp_--
+--_000_MN2PR12MB366394FF55FCBE27B55C9FABFB230MN2PR12MB3663namp_--
 
---===============1067171413==
+--===============1387895311==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -436,4 +477,4 @@ amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 
---===============1067171413==--
+--===============1387895311==--
