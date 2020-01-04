@@ -2,66 +2,79 @@ Return-Path: <SRS0=l1g4=2Z=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.4 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
+X-Spam-Status: No, score=-1.8 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
 	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.0
+	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,HTTPS_HTTP_MISMATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=no
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B16F7C2D0C2
-	for <amd-gfx@archiver.kernel.org>; Sat,  4 Jan 2020 16:57:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7684EC32767
+	for <amd-gfx@archiver.kernel.org>; Sat,  4 Jan 2020 22:45:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 83DC222B48
-	for <amd-gfx@archiver.kernel.org>; Sat,  4 Jan 2020 16:57:16 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 3D656222C4
+	for <amd-gfx@archiver.kernel.org>; Sat,  4 Jan 2020 22:45:58 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CNqg0JMn"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 83DC222B48
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bbU/Hhr3"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3D656222C4
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 414C16E03D;
-	Sat,  4 Jan 2020 16:57:16 +0000 (UTC)
-Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com
- [IPv6:2a00:1450:4864:20::441])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EB6516E03D
- for <amd-gfx@lists.freedesktop.org>; Sat,  4 Jan 2020 16:57:14 +0000 (UTC)
-Received: by mail-wr1-x441.google.com with SMTP id t2so45181663wrr.1
- for <amd-gfx@lists.freedesktop.org>; Sat, 04 Jan 2020 08:57:14 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DE2AD6E075;
+	Sat,  4 Jan 2020 22:45:57 +0000 (UTC)
+Received: from mail-qk1-x72c.google.com (mail-qk1-x72c.google.com
+ [IPv6:2607:f8b0:4864:20::72c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AE07F6E072
+ for <amd-gfx@lists.freedesktop.org>; Sat,  4 Jan 2020 22:45:56 +0000 (UTC)
+Received: by mail-qk1-x72c.google.com with SMTP id c16so36684294qko.6
+ for <amd-gfx@lists.freedesktop.org>; Sat, 04 Jan 2020 14:45:56 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=vphjvCp0H61tr+Wvd3PcDp/pW9hNmjhCepPVI2MRC58=;
- b=CNqg0JMnJXA9KZfcL+w01+BHTADuEx8g81q+FuHSIDICizUoaKq8je3J/WgOi5kv71
- 1bTUgrqD2FJ2hYLtSF6KTQrtYfnb9IDPgZ59y53hVmO7Kcz9bnaubfO3AOMGEb/lwak0
- KHvxNx3twtSSV7rO6X33U2K1RiST3uMbzoeJmDGtvNzjbJ1rpeiSSP1Pu1cDEEv6IHy4
- LyYT3uEtYEVZDEDj9ledubGqed12XqSkzYh4m3lUEkmwMDNc4l5CW8WeGXB5uR+LgEsi
- s2NLsFyb8FA/eKQVTJT64z2xTGqJBjyEqQhhKPc+4NSLh9AheZOL0tGMI2WlDgUxRC6+
- yAgQ==
+ h=subject:to:references:from:message-id:date:user-agent:mime-version
+ :in-reply-to:content-language;
+ bh=xyQbjSULW2koVBcQzASaF4Q6gwQHtTsR2WutDkVFG4k=;
+ b=bbU/Hhr3ZOeqnt8ok4R/kItOtvkEVg19+C5imQIjfxU2FYW7CE2ZHik8m9mfypv37i
+ vYzEgcu4LLoSPUCS14/4ptVkTLwJX19M1INaouQyR79jy1sVlIiutZiY7BV5uhKAXXmy
+ wYgI+cLlQWqs0tC2QcPAM+rxw/fBSSjk1BebFJp+/KCQr14VaWpLvnVeZRoGNqYgoPu+
+ EK1W/fDSjvVx19J8sEnduzlpEVcouLl7582ozOxvfwO9SCZFBj+VsPCbP9PRAuWWkaIr
+ BE4nnViLQJ9hD6+wapPYveuBhAEwGEOlvRt5ViSMY/k46uG2YBWt9SWj5nMrcM/WFpxz
+ PkwA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=vphjvCp0H61tr+Wvd3PcDp/pW9hNmjhCepPVI2MRC58=;
- b=Pe7xU6UQ9pd5A7XiLx5qgBEKqLJ/j8YiHtSDnf2cDV0WyXyIlESaU2hy+h9fV/cfyy
- I+c9BXC7+6OeOKwCwbZJeUylKTPfB6m2K2EE2hPd1LP8fpjqV8FyJKqqposIsOegpvmP
- rN8L+Kq/rnqU2cVboltu6HZs7/RrvDUMoEd7PnuZBqChXWLYMtfdWV5F1MUKK0/0OEZ0
- uWn6ExQ7j5K2MecWIE6lSfwBAkPHWWET/yPhIXGwg4+3lOEHWstryXMqRN2+xsJz5F8s
- hLRdgCb3g30zIoMFSL5qWKwL49JLlMlBetKnePH9Srxe0/1mEWEWCIFd79tqHJbg4b5N
- rgyw==
-X-Gm-Message-State: APjAAAX1YZddGs0ZL1ZY34pBQZxANCkgM4LfVo5Ix3w6/iT8M1wMS2VR
- 2STfyngz7fElm+KKt22aW/IbuXx9KzHAtNL+8pfb/A==
-X-Google-Smtp-Source: APXvYqyTX9QLIQf8i4xe2bZMcR6mmR0oQASlbn3XNedHN9mnGO4Rxlh5gaFNooUIigSHYRY/Ha+OrKfjMmvNTRON4ds=
-X-Received: by 2002:adf:e8ca:: with SMTP id k10mr95503865wrn.50.1578157033417; 
- Sat, 04 Jan 2020 08:57:13 -0800 (PST)
+ h=x-gm-message-state:subject:to:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language;
+ bh=xyQbjSULW2koVBcQzASaF4Q6gwQHtTsR2WutDkVFG4k=;
+ b=OjQUhnPJGgDD6ZQ8EygUoejJnCz1tH7NMrUM6g0ZSZaBHTOKCjiiGmw5zxTVaVI2IA
+ E6QszbuVh2uDPVBmj+5oZstcnQtF1C8fs/g+sBCyXDd5+FSkrD6t8ewgq7sFGmNCPj83
+ szeiOmu1Y0g0oYhMFQKO+WR1fjIQyAH+sXLfgNEz0acg0wDFmfhfppOhw85ui2YQQAMY
+ lRJGy2wOtv+XKwhhgBpiuWBSWPfKWNiKTrCrmDfOcteaDM9nTRo9jAso38TNfSlZMaIR
+ mEBHk6CYI9SdtagOmH63YQ8u6db88GF45qwej4r0ffSG9skjq6su86eYrlZ7GCLUV6LM
+ Jk/w==
+X-Gm-Message-State: APjAAAVmbu8yvGUIt5as5hVDkUf7jJE4awrGtIodn4P79nDg1vgR/CQy
+ rwkfaO3ZTQyP5qehoBJEMDWsG4+b
+X-Google-Smtp-Source: APXvYqxczvRUYtwEL1+29NBMdWax4IRBhyIz+XswkmOeuQtNq4KcC16xbr/jU2ySCKja36Os9yC2sA==
+X-Received: by 2002:a37:de16:: with SMTP id h22mr76933676qkj.400.1578177955334; 
+ Sat, 04 Jan 2020 14:45:55 -0800 (PST)
+Received: from [10.0.0.132] ([38.74.25.253])
+ by smtp.gmail.com with ESMTPSA id o10sm20369571qtp.38.2020.01.04.14.45.54
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sat, 04 Jan 2020 14:45:54 -0800 (PST)
+Subject: Re: [RFC 0/7] UVD support for SI in amdgpu
+To: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ Matthew Taylor <mat@sharrow.me.uk>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+References: <CAJ0uJC1kxmAdwjRGMf8ZHospNz5sO1jV1E0E1_tsBZCrDVK=ag@mail.gmail.com>
+ <5f0ba91c-3234-9d27-cda9-af22ac781436@gmail.com>
+ <MWHPR12MB13584BB86FC975D3A32F3A96F75C0@MWHPR12MB1358.namprd12.prod.outlook.com>
+From: Alexandre Demers <alexandre.f.demers@gmail.com>
+Message-ID: <c65c3ddd-49af-61a8-eaef-f5e682c4caf6@gmail.com>
+Date: Sat, 4 Jan 2020 17:45:47 -0500
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101
+ Thunderbird/68.3.0
 MIME-Version: 1.0
-References: <20200102023943.11555-1-evan.quan@amd.com>
-In-Reply-To: <20200102023943.11555-1-evan.quan@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Sat, 4 Jan 2020 11:57:01 -0500
-Message-ID: <CADnq5_MOpGfsJ+gxNi0KZP5E=Ake-jzTJCSZS7Pz2cnD42T8Mg@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/powerplay: unified VRAM address for driver table
- interaction with SMU V2
-To: Evan Quan <evan.quan@amd.com>
+In-Reply-To: <MWHPR12MB13584BB86FC975D3A32F3A96F75C0@MWHPR12MB1358.namprd12.prod.outlook.com>
+Content-Language: en-US
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,398 +86,281 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============1598296361=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Jan 1, 2020 at 9:40 PM Evan Quan <evan.quan@amd.com> wrote:
->
-> By this, we can avoid to pass in the VRAM address on every table
-> transferring. That puts extra unnecessary traffics on SMU on
-> some cases(e.g. polling the amdgpu_pm_info sysfs interface).
->
-> V2: document what the driver table is for and how it works
->
-> Change-Id: Ifb74d9cd89790b301e88d472b29cdb9b0365b65a
-> Signed-off-by: Evan Quan <evan.quan@amd.com>
+This is a multi-part message in MIME format.
+--===============1598296361==
+Content-Type: multipart/alternative;
+ boundary="------------CFB288A45F69EA3DE32BCCB4"
+Content-Language: en-US
 
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
+This is a multi-part message in MIME format.
+--------------CFB288A45F69EA3DE32BCCB4
+Content-Type: text/plain; charset=windows-1252; format=flowed
+Content-Transfer-Encoding: 8bit
 
-> ---
->  drivers/gpu/drm/amd/powerplay/amdgpu_smu.c    | 98 ++++++++++++-------
->  drivers/gpu/drm/amd/powerplay/arcturus_ppt.c  |  3 +-
->  .../gpu/drm/amd/powerplay/inc/amdgpu_smu.h    | 10 ++
->  drivers/gpu/drm/amd/powerplay/inc/smu_v11_0.h |  2 +
->  drivers/gpu/drm/amd/powerplay/inc/smu_v12_0.h |  2 +
->  drivers/gpu/drm/amd/powerplay/navi10_ppt.c    |  1 +
->  drivers/gpu/drm/amd/powerplay/renoir_ppt.c    |  1 +
->  drivers/gpu/drm/amd/powerplay/smu_internal.h  |  2 +
->  drivers/gpu/drm/amd/powerplay/smu_v11_0.c     | 18 ++++
->  drivers/gpu/drm/amd/powerplay/smu_v12_0.c     | 26 +++--
->  drivers/gpu/drm/amd/powerplay/vega20_ppt.c    |  1 +
->  11 files changed, 117 insertions(+), 47 deletions(-)
+Hi there,
+
+
+As you may remember, I was working on porting VCE 1.0 to amdgpu around 
+the time Piotr Redlewski sent the UVD patches. I would prefer to go the 
+way proposed by Alex Deucher than to see SI support being dropped. I've 
+been using the amdgpu on a 280X ever since it was possible. While there 
+were some quirks in the beginning, it is plenty usable and performant 
+ever since.
+
+
+Also, using amdgpu comes with some benefits unavailable with the radeon 
+driver on a gaming perspective.
+
+
+Now, if my work on porting VCE 1.0 has stalled, it's because I'm now a 
+father and I had only so little time to work on it. The code I was 
+working on is still dormant (some of it was sent on my github repo) and 
+I'm pretty sure I was almost done with it.
+
+
+Please, don't drop SI support from amdgpu. If it was only for me, amdgpu 
+would be the default driver over radeon and people missing the UVD and 
+VCE features should be the ones overriding the default choice. But this 
+may not work for the majority (I don't know) and I understand that 
+radeon is still the default for GCN 1.0/1.1.
+
+
+Cheers,
+
+Alexandre Demers
+
+
+On 2019-12-05 10:32, Deucher, Alexander wrote:
 >
-> diff --git a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c b/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
-> index 95238ad38de8..beea4d9e82d4 100644
-> --- a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
-> +++ b/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
-> @@ -519,26 +519,19 @@ int smu_update_table(struct smu_context *smu, enum smu_table_id table_index, int
->  {
->         struct smu_table_context *smu_table = &smu->smu_table;
->         struct amdgpu_device *adev = smu->adev;
-> -       struct smu_table *table = NULL;
-> -       int ret = 0;
-> +       struct smu_table *table = &smu_table->driver_table;
->         int table_id = smu_table_get_index(smu, table_index);
-> +       uint32_t table_size;
-> +       int ret = 0;
+> [AMD Official Use Only - Internal Distribution Only]
 >
->         if (!table_data || table_id >= SMU_TABLE_COUNT || table_id < 0)
->                 return -EINVAL;
 >
-> -       table = &smu_table->tables[table_index];
-> +       table_size = smu_table->tables[table_index].size;
+> You could enable UVD support on amdgpu using the original firmware 
+> from radeon, but you'd have to adjust the memory map on the GPU for SI 
+> to match radeon.  So updated firmware is not a requirement per se, 
+> it's just needed to keep the memory map the same as other GPUs.
 >
->         if (drv2smu)
-> -               memcpy(table->cpu_addr, table_data, table->size);
-> +               memcpy(table->cpu_addr, table_data, table_size);
+> Alex
 >
-> -       ret = smu_send_smc_msg_with_param(smu, SMU_MSG_SetDriverDramAddrHigh,
-> -                                         upper_32_bits(table->mc_address));
-> -       if (ret)
-> -               return ret;
-> -       ret = smu_send_smc_msg_with_param(smu, SMU_MSG_SetDriverDramAddrLow,
-> -                                         lower_32_bits(table->mc_address));
-> -       if (ret)
-> -               return ret;
->         ret = smu_send_smc_msg_with_param(smu, drv2smu ?
->                                           SMU_MSG_TransferTableDram2Smu :
->                                           SMU_MSG_TransferTableSmu2Dram,
-> @@ -550,7 +543,7 @@ int smu_update_table(struct smu_context *smu, enum smu_table_id table_index, int
->         adev->nbio.funcs->hdp_flush(adev, NULL);
+> ------------------------------------------------------------------------
+> *From:* amd-gfx <amd-gfx-bounces@lists.freedesktop.org> on behalf of 
+> Christian König <ckoenig.leichtzumerken@gmail.com>
+> *Sent:* Thursday, December 5, 2019 10:19 AM
+> *To:* Matthew Taylor <mat@sharrow.me.uk>; 
+> amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
+> *Subject:* Re: [RFC 0/7] UVD support for SI in amdgpu
+> Hi Matthew,
 >
->         if (!drv2smu)
-> -               memcpy(table_data, table->cpu_addr, table->size);
-> +               memcpy(table_data, table->cpu_addr, table_size);
+> Am 05.12.19 um 15:16 schrieb Matthew Taylor:
+>> Hi,
+>>
+>> Back in November 2017, Piotr Redlewski, provided some patches for UVD 
+>> support in the SI cards, the thread had the same subject as this 
+>> message.
+>>
+>> The outcome of a conversation between himself and other developers on 
+>> the list was to wait for something in updated firmware.  As this was 
+>> over 2 years ago, I was wondering if the firmware has been updated 
+>> sufficiently for Piotr's patches to be reconsidered or modified to 
+>> deliver the UVD support for the SI cards?
 >
->         return ret;
->  }
-> @@ -976,32 +969,56 @@ static int smu_init_fb_allocations(struct smu_context *smu)
->         struct amdgpu_device *adev = smu->adev;
->         struct smu_table_context *smu_table = &smu->smu_table;
->         struct smu_table *tables = smu_table->tables;
-> +       struct smu_table *driver_table = &(smu_table->driver_table);
-> +       uint32_t max_table_size = 0;
->         int ret, i;
+> we discussed that internally quite lengthy and the firmware will 
+> probably never be released.
 >
-> -       for (i = 0; i < SMU_TABLE_COUNT; i++) {
-> -               if (tables[i].size == 0)
-> -                       continue;
-> +       /* VRAM allocation for tool table */
-> +       if (tables[SMU_TABLE_PMSTATUSLOG].size) {
->                 ret = amdgpu_bo_create_kernel(adev,
-> -                                             tables[i].size,
-> -                                             tables[i].align,
-> -                                             tables[i].domain,
-> -                                             &tables[i].bo,
-> -                                             &tables[i].mc_address,
-> -                                             &tables[i].cpu_addr);
-> -               if (ret)
-> -                       goto failed;
-> +                                             tables[SMU_TABLE_PMSTATUSLOG].size,
-> +                                             tables[SMU_TABLE_PMSTATUSLOG].align,
-> +                                             tables[SMU_TABLE_PMSTATUSLOG].domain,
-> +                                             &tables[SMU_TABLE_PMSTATUSLOG].bo,
-> +                                             &tables[SMU_TABLE_PMSTATUSLOG].mc_address,
-> +                                             &tables[SMU_TABLE_PMSTATUSLOG].cpu_addr);
-> +               if (ret) {
-> +                       pr_err("VRAM allocation for tool table failed!\n");
-> +                       return ret;
-> +               }
->         }
+> To be honest we actually considering dropping SI support completely 
+> from amdgpu.
 >
-> -       return 0;
-> -failed:
-> -       while (--i >= 0) {
-> +       /* VRAM allocation for driver table */
-> +       for (i = 0; i < SMU_TABLE_COUNT; i++) {
->                 if (tables[i].size == 0)
->                         continue;
-> -               amdgpu_bo_free_kernel(&tables[i].bo,
-> -                                     &tables[i].mc_address,
-> -                                     &tables[i].cpu_addr);
+> Regards,
+> Christian.
 >
-> +               if (i == SMU_TABLE_PMSTATUSLOG)
-> +                       continue;
-> +
-> +               if (max_table_size < tables[i].size)
-> +                       max_table_size = tables[i].size;
-> +       }
-> +
-> +       driver_table->size = max_table_size;
-> +       driver_table->align = PAGE_SIZE;
-> +       driver_table->domain = AMDGPU_GEM_DOMAIN_VRAM;
-> +
-> +       ret = amdgpu_bo_create_kernel(adev,
-> +                                     driver_table->size,
-> +                                     driver_table->align,
-> +                                     driver_table->domain,
-> +                                     &driver_table->bo,
-> +                                     &driver_table->mc_address,
-> +                                     &driver_table->cpu_addr);
-> +       if (ret) {
-> +               pr_err("VRAM allocation for driver table failed!\n");
-> +               if (tables[SMU_TABLE_PMSTATUSLOG].mc_address)
-> +                       amdgpu_bo_free_kernel(&tables[SMU_TABLE_PMSTATUSLOG].bo,
-> +                                             &tables[SMU_TABLE_PMSTATUSLOG].mc_address,
-> +                                             &tables[SMU_TABLE_PMSTATUSLOG].cpu_addr);
->         }
-> +
->         return ret;
->  }
+>>
+>> Thanks for you help
+>>
+>> Kind Regards
+>>
+>> Matthew Taylor
+>>
+>> _______________________________________________
+>> amd-gfx mailing list
+>> amd-gfx@lists.freedesktop.org  <mailto:amd-gfx@lists.freedesktop.org>
+>> https://lists.freedesktop.org/mailman/listinfo/amd-gfx  <https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&data=02%7C01%7Calexander.deucher%40amd.com%7C14121ef4f0a049ddc3ea08d77996852f%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637111559776723411&sdata=SpbvepoL17ImHwW7V5spbH46ze%2FNp7ll%2FqV86kE%2BBfU%3D&reserved=0>
 >
-> @@ -1009,18 +1026,19 @@ static int smu_fini_fb_allocations(struct smu_context *smu)
->  {
->         struct smu_table_context *smu_table = &smu->smu_table;
->         struct smu_table *tables = smu_table->tables;
-> -       uint32_t i = 0;
-> +       struct smu_table *driver_table = &(smu_table->driver_table);
->
->         if (!tables)
->                 return 0;
->
-> -       for (i = 0; i < SMU_TABLE_COUNT; i++) {
-> -               if (tables[i].size == 0)
-> -                       continue;
-> -               amdgpu_bo_free_kernel(&tables[i].bo,
-> -                                     &tables[i].mc_address,
-> -                                     &tables[i].cpu_addr);
-> -       }
-> +       if (tables[SMU_TABLE_PMSTATUSLOG].mc_address)
-> +               amdgpu_bo_free_kernel(&tables[SMU_TABLE_PMSTATUSLOG].bo,
-> +                                     &tables[SMU_TABLE_PMSTATUSLOG].mc_address,
-> +                                     &tables[SMU_TABLE_PMSTATUSLOG].cpu_addr);
-> +
-> +       amdgpu_bo_free_kernel(&driver_table->bo,
-> +                             &driver_table->mc_address,
-> +                             &driver_table->cpu_addr);
->
->         return 0;
->  }
-> @@ -1091,6 +1109,10 @@ static int smu_smc_table_hw_init(struct smu_context *smu,
->
->         /* smu_dump_pptable(smu); */
->
-> +       ret = smu_set_driver_table_location(smu);
-> +       if (ret)
-> +               return ret;
-> +
->         /*
->          * Copy pptable bo in the vram to smc with SMU MSGs such as
->          * SetDriverDramAddr and TransferTableDram2Smu.
-> diff --git a/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c b/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c
-> index 50b317f4b1e6..064b5201a8a7 100644
-> --- a/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c
-> +++ b/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c
-> @@ -2022,7 +2022,7 @@ static int arcturus_i2c_eeprom_read_data(struct i2c_adapter *control,
->         SwI2cRequest_t req;
->         struct amdgpu_device *adev = to_amdgpu_device(control);
->         struct smu_table_context *smu_table = &adev->smu.smu_table;
-> -       struct smu_table *table = &smu_table->tables[SMU_TABLE_I2C_COMMANDS];
-> +       struct smu_table *table = &smu_table->driver_table;
->
->         memset(&req, 0, sizeof(req));
->         arcturus_fill_eeprom_i2c_req(&req, false, address, numbytes, data);
-> @@ -2261,6 +2261,7 @@ static const struct pptable_funcs arcturus_ppt_funcs = {
->         .check_fw_version = smu_v11_0_check_fw_version,
->         .write_pptable = smu_v11_0_write_pptable,
->         .set_min_dcef_deep_sleep = smu_v11_0_set_min_dcef_deep_sleep,
-> +       .set_driver_table_location = smu_v11_0_set_driver_table_location,
->         .set_tool_table_location = smu_v11_0_set_tool_table_location,
->         .notify_memory_pool_location = smu_v11_0_notify_memory_pool_location,
->         .system_features_control = smu_v11_0_system_features_control,
-> diff --git a/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h b/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h
-> index 02d33b50e735..b0591a8dda41 100644
-> --- a/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h
-> +++ b/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h
-> @@ -260,6 +260,15 @@ struct smu_table_context
->         struct smu_bios_boot_up_values  boot_values;
->         void                            *driver_pptable;
->         struct smu_table                *tables;
-> +       /*
-> +        * The driver table is just a staging buffer for
-> +        * uploading/downloading content from the SMU.
-> +        *
-> +        * And the table_id for SMU_MSG_TransferTableSmu2Dram/
-> +        * SMU_MSG_TransferTableDram2Smu instructs SMU
-> +        * which content driver is interested.
-> +        */
-> +       struct smu_table                driver_table;
->         struct smu_table                memory_pool;
->         uint8_t                         thermal_controller_type;
->
-> @@ -498,6 +507,7 @@ struct pptable_funcs {
->         int (*set_gfx_cgpg)(struct smu_context *smu, bool enable);
->         int (*write_pptable)(struct smu_context *smu);
->         int (*set_min_dcef_deep_sleep)(struct smu_context *smu);
-> +       int (*set_driver_table_location)(struct smu_context *smu);
->         int (*set_tool_table_location)(struct smu_context *smu);
->         int (*notify_memory_pool_location)(struct smu_context *smu);
->         int (*set_last_dcef_min_deep_sleep_clk)(struct smu_context *smu);
-> diff --git a/drivers/gpu/drm/amd/powerplay/inc/smu_v11_0.h b/drivers/gpu/drm/amd/powerplay/inc/smu_v11_0.h
-> index db3f78676aeb..662989296174 100644
-> --- a/drivers/gpu/drm/amd/powerplay/inc/smu_v11_0.h
-> +++ b/drivers/gpu/drm/amd/powerplay/inc/smu_v11_0.h
-> @@ -170,6 +170,8 @@ int smu_v11_0_write_pptable(struct smu_context *smu);
->
->  int smu_v11_0_set_min_dcef_deep_sleep(struct smu_context *smu);
->
-> +int smu_v11_0_set_driver_table_location(struct smu_context *smu);
-> +
->  int smu_v11_0_set_tool_table_location(struct smu_context *smu);
->
->  int smu_v11_0_notify_memory_pool_location(struct smu_context *smu);
-> diff --git a/drivers/gpu/drm/amd/powerplay/inc/smu_v12_0.h b/drivers/gpu/drm/amd/powerplay/inc/smu_v12_0.h
-> index 3f1cd06e273c..d79e54b5ebf6 100644
-> --- a/drivers/gpu/drm/amd/powerplay/inc/smu_v12_0.h
-> +++ b/drivers/gpu/drm/amd/powerplay/inc/smu_v12_0.h
-> @@ -90,4 +90,6 @@ int smu_v12_0_mode2_reset(struct smu_context *smu);
->  int smu_v12_0_set_soft_freq_limited_range(struct smu_context *smu, enum smu_clk_type clk_type,
->                             uint32_t min, uint32_t max);
->
-> +int smu_v12_0_set_driver_table_location(struct smu_context *smu);
-> +
->  #endif
-> diff --git a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c b/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
-> index bb0915a6388e..a16af3a3843c 100644
-> --- a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
-> +++ b/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
-> @@ -2112,6 +2112,7 @@ static const struct pptable_funcs navi10_ppt_funcs = {
->         .check_fw_version = smu_v11_0_check_fw_version,
->         .write_pptable = smu_v11_0_write_pptable,
->         .set_min_dcef_deep_sleep = smu_v11_0_set_min_dcef_deep_sleep,
-> +       .set_driver_table_location = smu_v11_0_set_driver_table_location,
->         .set_tool_table_location = smu_v11_0_set_tool_table_location,
->         .notify_memory_pool_location = smu_v11_0_notify_memory_pool_location,
->         .system_features_control = smu_v11_0_system_features_control,
-> diff --git a/drivers/gpu/drm/amd/powerplay/renoir_ppt.c b/drivers/gpu/drm/amd/powerplay/renoir_ppt.c
-> index 506cc6bf4bc0..861e6410363b 100644
-> --- a/drivers/gpu/drm/amd/powerplay/renoir_ppt.c
-> +++ b/drivers/gpu/drm/amd/powerplay/renoir_ppt.c
-> @@ -920,6 +920,7 @@ static const struct pptable_funcs renoir_ppt_funcs = {
->         .get_dpm_ultimate_freq = smu_v12_0_get_dpm_ultimate_freq,
->         .mode2_reset = smu_v12_0_mode2_reset,
->         .set_soft_freq_limited_range = smu_v12_0_set_soft_freq_limited_range,
-> +       .set_driver_table_location = smu_v12_0_set_driver_table_location,
->  };
->
->  void renoir_set_ppt_funcs(struct smu_context *smu)
-> diff --git a/drivers/gpu/drm/amd/powerplay/smu_internal.h b/drivers/gpu/drm/amd/powerplay/smu_internal.h
-> index 77864e4236c4..783319ec8bf9 100644
-> --- a/drivers/gpu/drm/amd/powerplay/smu_internal.h
-> +++ b/drivers/gpu/drm/amd/powerplay/smu_internal.h
-> @@ -61,6 +61,8 @@
->         ((smu)->ppt_funcs->write_pptable ? (smu)->ppt_funcs->write_pptable((smu)) : 0)
->  #define smu_set_min_dcef_deep_sleep(smu) \
->         ((smu)->ppt_funcs->set_min_dcef_deep_sleep ? (smu)->ppt_funcs->set_min_dcef_deep_sleep((smu)) : 0)
-> +#define smu_set_driver_table_location(smu) \
-> +       ((smu)->ppt_funcs->set_driver_table_location ? (smu)->ppt_funcs->set_driver_table_location((smu)) : 0)
->  #define smu_set_tool_table_location(smu) \
->         ((smu)->ppt_funcs->set_tool_table_location ? (smu)->ppt_funcs->set_tool_table_location((smu)) : 0)
->  #define smu_notify_memory_pool_location(smu) \
-> diff --git a/drivers/gpu/drm/amd/powerplay/smu_v11_0.c b/drivers/gpu/drm/amd/powerplay/smu_v11_0.c
-> index 6fb93eb6ab39..e804f9854027 100644
-> --- a/drivers/gpu/drm/amd/powerplay/smu_v11_0.c
-> +++ b/drivers/gpu/drm/amd/powerplay/smu_v11_0.c
-> @@ -776,6 +776,24 @@ int smu_v11_0_set_min_dcef_deep_sleep(struct smu_context *smu)
->         return smu_v11_0_set_deep_sleep_dcefclk(smu, table_context->boot_values.dcefclk / 100);
->  }
->
-> +int smu_v11_0_set_driver_table_location(struct smu_context *smu)
-> +{
-> +       struct smu_table *driver_table = &smu->smu_table.driver_table;
-> +       int ret = 0;
-> +
-> +       if (driver_table->mc_address) {
-> +               ret = smu_send_smc_msg_with_param(smu,
-> +                               SMU_MSG_SetDriverDramAddrHigh,
-> +                               upper_32_bits(driver_table->mc_address));
-> +               if (!ret)
-> +                       ret = smu_send_smc_msg_with_param(smu,
-> +                               SMU_MSG_SetDriverDramAddrLow,
-> +                               lower_32_bits(driver_table->mc_address));
-> +       }
-> +
-> +       return ret;
-> +}
-> +
->  int smu_v11_0_set_tool_table_location(struct smu_context *smu)
->  {
->         int ret = 0;
-> diff --git a/drivers/gpu/drm/amd/powerplay/smu_v12_0.c b/drivers/gpu/drm/amd/powerplay/smu_v12_0.c
-> index 9e27462d0f4e..870e6db2907e 100644
-> --- a/drivers/gpu/drm/amd/powerplay/smu_v12_0.c
-> +++ b/drivers/gpu/drm/amd/powerplay/smu_v12_0.c
-> @@ -318,14 +318,6 @@ int smu_v12_0_fini_smc_tables(struct smu_context *smu)
->  int smu_v12_0_populate_smc_tables(struct smu_context *smu)
->  {
->         struct smu_table_context *smu_table = &smu->smu_table;
-> -       struct smu_table *table = NULL;
-> -
-> -       table = &smu_table->tables[SMU_TABLE_DPMCLOCKS];
-> -       if (!table)
-> -               return -EINVAL;
-> -
-> -       if (!table->cpu_addr)
-> -               return -EINVAL;
->
->         return smu_update_table(smu, SMU_TABLE_DPMCLOCKS, 0, smu_table->clocks_table, false);
->  }
-> @@ -514,3 +506,21 @@ int smu_v12_0_set_soft_freq_limited_range(struct smu_context *smu, enum smu_clk_
->
->         return ret;
->  }
-> +
-> +int smu_v12_0_set_driver_table_location(struct smu_context *smu)
-> +{
-> +       struct smu_table *driver_table = &smu->smu_table.driver_table;
-> +       int ret = 0;
-> +
-> +       if (driver_table->mc_address) {
-> +               ret = smu_send_smc_msg_with_param(smu,
-> +                               SMU_MSG_SetDriverDramAddrHigh,
-> +                               upper_32_bits(driver_table->mc_address));
-> +               if (!ret)
-> +                       ret = smu_send_smc_msg_with_param(smu,
-> +                               SMU_MSG_SetDriverDramAddrLow,
-> +                               lower_32_bits(driver_table->mc_address));
-> +       }
-> +
-> +       return ret;
-> +}
-> diff --git a/drivers/gpu/drm/amd/powerplay/vega20_ppt.c b/drivers/gpu/drm/amd/powerplay/vega20_ppt.c
-> index 27bdcdeb08d9..38febd5ca4da 100644
-> --- a/drivers/gpu/drm/amd/powerplay/vega20_ppt.c
-> +++ b/drivers/gpu/drm/amd/powerplay/vega20_ppt.c
-> @@ -3236,6 +3236,7 @@ static const struct pptable_funcs vega20_ppt_funcs = {
->         .check_fw_version = smu_v11_0_check_fw_version,
->         .write_pptable = smu_v11_0_write_pptable,
->         .set_min_dcef_deep_sleep = smu_v11_0_set_min_dcef_deep_sleep,
-> +       .set_driver_table_location = smu_v11_0_set_driver_table_location,
->         .set_tool_table_location = smu_v11_0_set_tool_table_location,
->         .notify_memory_pool_location = smu_v11_0_notify_memory_pool_location,
->         .system_features_control = smu_v11_0_system_features_control,
-> --
-> 2.24.1
 >
 > _______________________________________________
 > amd-gfx mailing list
 > amd-gfx@lists.freedesktop.org
 > https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--------------CFB288A45F69EA3DE32BCCB4
+Content-Type: text/html; charset=windows-1252
+Content-Transfer-Encoding: 8bit
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html;
+      charset=windows-1252">
+  </head>
+  <body>
+    <p>Hi there,</p>
+    <p><br>
+    </p>
+    <p>As you may remember, I was working on porting VCE 1.0 to amdgpu
+      around the time Piotr Redlewski sent the UVD patches. I would
+      prefer to go the way proposed by Alex Deucher than to see SI
+      support being dropped. I've been using the amdgpu on a 280X ever
+      since it was possible. While there were some quirks in the
+      beginning, it is plenty usable and performant ever since.<br>
+    </p>
+    <p><br>
+    </p>
+    <p> Also, using amdgpu comes with some benefits unavailable with the
+      radeon driver on a gaming perspective.</p>
+    <p><br>
+    </p>
+    <p>Now, if my work on porting VCE 1.0 has stalled, it's because I'm
+      now a father and I had only so little time to work on it. The code
+      I was working on is still dormant (some of it was sent on my
+      github repo) and I'm pretty sure I was almost done with it.</p>
+    <p><br>
+    </p>
+    <p>Please, don't drop SI support from amdgpu. If it was only for me,
+      amdgpu would be the default driver over radeon and people missing
+      the UVD and VCE features should be the ones overriding the default
+      choice. But this may not work for the majority (I don't know) and
+      I understand that radeon is still the default for GCN 1.0/1.1.<br>
+    </p>
+    <p><br>
+    </p>
+    <p>Cheers,</p>
+    <p>Alexandre Demers<br>
+    </p>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 2019-12-05 10:32, Deucher, Alexander
+      wrote:<br>
+    </div>
+    <blockquote type="cite"
+cite="mid:MWHPR12MB13584BB86FC975D3A32F3A96F75C0@MWHPR12MB1358.namprd12.prod.outlook.com">
+      <meta http-equiv="Content-Type" content="text/html;
+        charset=windows-1252">
+      <style type="text/css" style="display:none;"> P {margin-top:0;margin-bottom:0;} </style>
+      <p
+        style="font-family:Arial;font-size:10pt;color:#0078D7;margin:15pt;"
+        align="Left">
+        [AMD Official Use Only - Internal Distribution Only]<br>
+      </p>
+      <br>
+      <div>
+        <div style="font-family: Calibri, Arial, Helvetica, sans-serif;
+          font-size: 12pt; color: rgb(0, 0, 0);">
+          You could enable UVD support on amdgpu using the original
+          firmware from radeon, but you'd have to adjust the memory map
+          on the GPU for SI to match radeon.  So updated firmware is not
+          a requirement per se, it's just needed to keep the memory map
+          the same as other GPUs.<br>
+        </div>
+        <div style="font-family: Calibri, Arial, Helvetica, sans-serif;
+          font-size: 12pt; color: rgb(0, 0, 0);">
+          <br>
+        </div>
+        <div style="font-family: Calibri, Arial, Helvetica, sans-serif;
+          font-size: 12pt; color: rgb(0, 0, 0);">
+          Alex</div>
+        <div style="font-family: Calibri, Arial, Helvetica, sans-serif;
+          font-size: 12pt; color: rgb(0, 0, 0);">
+          <br>
+        </div>
+        <hr style="display:inline-block;width:98%" tabindex="-1">
+        <div id="divRplyFwdMsg" dir="ltr"><font style="font-size:11pt"
+            face="Calibri, sans-serif" color="#000000"><b>From:</b>
+            amd-gfx <a class="moz-txt-link-rfc2396E" href="mailto:amd-gfx-bounces@lists.freedesktop.org">&lt;amd-gfx-bounces@lists.freedesktop.org&gt;</a> on
+            behalf of Christian König
+            <a class="moz-txt-link-rfc2396E" href="mailto:ckoenig.leichtzumerken@gmail.com">&lt;ckoenig.leichtzumerken@gmail.com&gt;</a><br>
+            <b>Sent:</b> Thursday, December 5, 2019 10:19 AM<br>
+            <b>To:</b> Matthew Taylor <a class="moz-txt-link-rfc2396E" href="mailto:mat@sharrow.me.uk">&lt;mat@sharrow.me.uk&gt;</a>;
+            <a class="moz-txt-link-abbreviated" href="mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.org</a>
+            <a class="moz-txt-link-rfc2396E" href="mailto:amd-gfx@lists.freedesktop.org">&lt;amd-gfx@lists.freedesktop.org&gt;</a><br>
+            <b>Subject:</b> Re: [RFC 0/7] UVD support for SI in amdgpu</font>
+          <div> </div>
+        </div>
+        <div style="background-color:#FFFFFF">
+          <div class="x_moz-cite-prefix">Hi Matthew,<br>
+            <br>
+            Am 05.12.19 um 15:16 schrieb Matthew Taylor:<br>
+          </div>
+          <blockquote type="cite">
+            <div dir="ltr">Hi,
+              <div><br>
+              </div>
+              <div>Back in November 2017, Piotr Redlewski, provided some
+                patches for UVD support in the SI cards, the thread had
+                the same subject as this message.  <br>
+                <br>
+                The outcome of a conversation between himself and other
+                developers on the list was to wait for something in
+                updated firmware.  As this was over 2 years ago, I was
+                wondering if the firmware has been updated sufficiently
+                for Piotr's patches to be reconsidered or modified to
+                deliver the UVD support for the SI cards?</div>
+            </div>
+          </blockquote>
+          <br>
+          we discussed that internally quite lengthy and the firmware
+          will probably never be released.<br>
+          <br>
+          To be honest we actually considering dropping SI support
+          completely from amdgpu.<br>
+          <br>
+          Regards,<br>
+          Christian. <br>
+          <br>
+          <blockquote type="cite">
+            <div dir="ltr">
+              <div><br>
+              </div>
+              <div>Thanks for you help</div>
+              <div><br>
+              </div>
+              <div>Kind Regards</div>
+              <div><br>
+              </div>
+              <div>Matthew Taylor</div>
+            </div>
+            <br>
+            <fieldset class="x_mimeAttachmentHeader"></fieldset>
+            <pre class="x_moz-quote-pre">_______________________________________________
+amd-gfx mailing list
+<a class="x_moz-txt-link-abbreviated" href="mailto:amd-gfx@lists.freedesktop.org" moz-do-not-send="true">amd-gfx@lists.freedesktop.org</a>
+<a class="x_moz-txt-link-freetext" href="https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=02%7C01%7Calexander.deucher%40amd.com%7C14121ef4f0a049ddc3ea08d77996852f%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637111559776723411&amp;sdata=SpbvepoL17ImHwW7V5spbH46ze%2FNp7ll%2FqV86kE%2BBfU%3D&amp;reserved=0" originalsrc="https://lists.freedesktop.org/mailman/listinfo/amd-gfx" shash="ix2l/Ei3jxaUf+VCZrqMzMZo1IeB5gh5yA9VEl3kmHv5l4PjNWqRSEOMMYeKS7zIkjea7nAUCerC+6T2EaY6nP/ZGQqHYuCXGHbM2aaaeOPYFcsZS0I+GCGncMv5+/eD6fzCAiOMyKmCtyO95P03R98vcWrfnED+HqNZjd3U0As=" moz-do-not-send="true">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a></pre>
+          </blockquote>
+          <br>
+        </div>
+      </div>
+      <br>
+      <fieldset class="mimeAttachmentHeader"></fieldset>
+      <pre class="moz-quote-pre" wrap="">_______________________________________________
+amd-gfx mailing list
+<a class="moz-txt-link-abbreviated" href="mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.org</a>
+<a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a></pre>
+    </blockquote>
+  </body>
+</html>
+
+--------------CFB288A45F69EA3DE32BCCB4--
+
+--===============1598296361==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--===============1598296361==--
