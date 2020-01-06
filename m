@@ -1,42 +1,108 @@
-Return-Path: <SRS0=TBsq=22=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
+Return-Path: <SRS0=Ai3v=23=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.1 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
-	HTML_MESSAGE,MAILING_LIST_MULTI,MIME_HTML_MOSTLY,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_SANE_1 autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-6.4 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	MIME_HTML_MOSTLY,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E0550C33C8C
-	for <amd-gfx@archiver.kernel.org>; Sun,  5 Jan 2020 20:01:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id AEEAFC32767
+	for <amd-gfx@archiver.kernel.org>; Mon,  6 Jan 2020 06:14:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 713A420715
-	for <amd-gfx@archiver.kernel.org>; Sun,  5 Jan 2020 20:01:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 713A420715
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=dominik-schmitt.eu
+	by mail.kernel.org (Postfix) with ESMTPS id 7AAC9215A4
+	for <amd-gfx@archiver.kernel.org>; Mon,  6 Jan 2020 06:14:48 +0000 (UTC)
+Authentication-Results: mail.kernel.org;
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="McPS9CcB"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7AAC9215A4
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5721B89F85;
-	Sun,  5 Jan 2020 20:01:28 +0000 (UTC)
-X-Greylist: delayed 592 seconds by postgrey-1.36 at gabe;
- Sun, 05 Jan 2020 20:01:26 UTC
-Received: from mxf932.netcup.net (mxf932.netcup.net [46.38.249.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D28F589F82
- for <amd-gfx@lists.freedesktop.org>; Sun,  5 Jan 2020 20:01:26 +0000 (UTC)
-X-No-Relay: not in my network
-Received: from [192.168.50.44] (p4FFC12C9.dip0.t-ipconnect.de [79.252.18.201])
- by mxf932.netcup.net (Postfix) with ESMTPSA id BD5922024F
- for <amd-gfx@lists.freedesktop.org>; Sun,  5 Jan 2020 20:51:32 +0100 (CET)
-To: amd-gfx@lists.freedesktop.org
-From: amd-gfx-freedesktop@dominik-schmitt.eu
-Subject: Bug inside dc_helper.c
-Message-ID: <65d0cc30-e4ca-c435-0827-66a24f3b5139@dominik-schmitt.eu>
-Date: Sun, 5 Jan 2020 20:51:32 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.3.1
-MIME-Version: 1.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id D762789CD8;
+	Mon,  6 Jan 2020 06:14:47 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2066.outbound.protection.outlook.com [40.107.92.66])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F346C89CD4
+ for <amd-gfx@lists.freedesktop.org>; Mon,  6 Jan 2020 06:14:45 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=ND9HzvUT9drEhzwoPLP6D8dztyXvSZbWCg6w7FdbeR8r61gE+YpXKWByhxBny5SCuouI8mL5udsuEoiHVa3+iEdmOpOCkM7aFSw/kv1bE8Ax+2rHFIVVCLFyKwYV2nqGARGzD3W69eUux/sPGIb+fzcqgHGdwhwsjcexJH0F3wis5n2JDnFJSJzuZp4zejBu8goOXxKIbHse6icb48vSKa6WEpFG9ZnHgDAfab4r6XZhv8wyh0JKMwEuLWn8ntJP05gFYYrh8s3s4ARPVBHr5Q++Cy1iZT/imobsC/qsNJ+8p/iV9dGKUqs/cyazCCl8geWqOMWqZM8qibjpMsuuQg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=7iu4dkKvnfYchxVf1caolaEHxPCK6TYFEPleNqJMYwE=;
+ b=Hh26/87G0QWCSZVcI2i7uKu3BKw84I7pMA/lUN8taINeuc84nCu17UIgWjR4x1Sk090qkwhZmDJnfKT/kBwJ9K4m9iPfnyVW7aGIFlvTpUpAN7pQBSobCJJBAFHHm1AkOSzxMi4orITH2mxl7uN6jAHxOCULTOeIHB1RY6iPUMPsHtiiuKRONpG416xNOUBjodIhermbQISnN1Fk/CkaNhx7bIQ9HaK38LxSCMGOPp4KIe2apw0kI/sYhvm+QhCOkwZZHXOl3cO3pIlayC4ZPHU4QTtFKw1S3Q/kHke5qnMgokVjvVNM0Oxjq+rgblUMixcQ0nigAOeL/7TQkxtR/w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=7iu4dkKvnfYchxVf1caolaEHxPCK6TYFEPleNqJMYwE=;
+ b=McPS9CcBtDBdy64RjfBoeD0ys6B9NTqZ46UqzkW97wewUPLRx/izAlziSKmweoGE4z6TJCOKc8QC3NnfHAmwGqx7a4qII5F45JpiEoCuGSjFoK7s4vBtZQ7as7iBQBRdmu2XfIbt/ztMb+2QMzvQHK9Ip1XFx4zq6sF36T/ferg=
+Received: from MN2PR12MB3344.namprd12.prod.outlook.com (20.178.241.74) by
+ MN2PR12MB2895.namprd12.prod.outlook.com (20.179.82.139) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2602.12; Mon, 6 Jan 2020 06:14:43 +0000
+Received: from MN2PR12MB3344.namprd12.prod.outlook.com
+ ([fe80::1010:4621:68dd:5b47]) by MN2PR12MB3344.namprd12.prod.outlook.com
+ ([fe80::1010:4621:68dd:5b47%5]) with mapi id 15.20.2602.015; Mon, 6 Jan 2020
+ 06:14:43 +0000
+From: "Quan, Evan" <Evan.Quan@amd.com>
+To: "Wang, Kevin(Yang)" <Kevin1.Wang@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH] drm/amd/powerplay: unified VRAM address for driver table
+ interaction with SMU V2
+Thread-Topic: [PATCH] drm/amd/powerplay: unified VRAM address for driver table
+ interaction with SMU V2
+Thread-Index: AQHVwRXwGQo5WKFmP0SFqylvWWGRIqfbm7IAgAGQ5qA=
+Date: Mon, 6 Jan 2020 06:14:43 +0000
+Message-ID: <MN2PR12MB3344BF617F7C64B8FD5DE67BE43C0@MN2PR12MB3344.namprd12.prod.outlook.com>
+References: <20200102023943.11555-1-evan.quan@amd.com>
+ <MN2PR12MB3296B389D332B3E147AA4D4CA23D0@MN2PR12MB3296.namprd12.prod.outlook.com>
+In-Reply-To: <MN2PR12MB3296B389D332B3E147AA4D4CA23D0@MN2PR12MB3296.namprd12.prod.outlook.com>
+Accept-Language: en-US, zh-CN
 Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=True;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2020-01-05T06:11:12.696Z;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal
+ Distribution
+ Only; MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=0;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard; 
+authentication-results: spf=none (sender IP is )
+ smtp.mailfrom=Evan.Quan@amd.com; 
+x-originating-ip: [180.167.199.189]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-ht: Tenant
+x-ms-office365-filtering-correlation-id: 8e420146-a35a-4e01-1a0c-08d7926fb8a7
+x-ms-traffictypediagnostic: MN2PR12MB2895:|MN2PR12MB2895:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <MN2PR12MB2895FB01ED36F3E158833BDFE43C0@MN2PR12MB2895.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:6430;
+x-forefront-prvs: 0274272F87
+x-forefront-antispam-report: SFV:NSPM;
+ SFS:(10009020)(4636009)(396003)(39860400002)(366004)(376002)(346002)(136003)(189003)(199004)(76116006)(966005)(66476007)(8936002)(316002)(9686003)(30864003)(86362001)(55016002)(66556008)(66946007)(64756008)(66446008)(8676002)(71200400001)(186003)(81166006)(81156014)(19627235002)(33656002)(4326008)(2906002)(52536014)(26005)(478600001)(53546011)(110136005)(45080400002)(7696005)(6506007)(5660300002)(579004);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:MN2PR12MB2895;
+ H:MN2PR12MB3344.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; MX:1; A:1; 
+received-spf: None (protection.outlook.com: amd.com does not designate
+ permitted sender hosts)
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: Rp0STknV82VUueSO2gaFNr/cqiJ/KEgwX/KbDhNGB/Ex3hrjq6WUM9jj0V3dFdEwsQJ6tflIWLq7/n/c4YhObYzsQlo1g45Hu3TmS56TXY8HUR7ZQPq6nuLIIshfVbQYWA0Y64b8h5nk6/V3cNP00MLLeCdcAt9tA6KyHU3C4X6iXZMTwK9/SVAqXql6XbK/51tvM14ARubGP3ofHohKbamAa+mV/CkA2zMV6Vjr57KJqyQvxBqhW253gqU2N0iWflkq3yK950iWtgBEQN9a1Y5w2bZUQ3DySDQcxvrmo17wUroLHMDf1Yc8DmTMJroJGk2qHSV6iuVg0tnZP8aD/0Nn/ftgA1+wZZg/XTu6lVhIaO5N7jftW1EP1M8ZwQhKYEl5wFTQKdkDlHejWaa0dB7nYua+Eh9lck63/T+j1XoyXwyQKIZAE/S5if0fFky425DU9/FejQIDOr8OCkkT5z3t0fa/vvM16lk9fIVCGL8=
+MIME-Version: 1.0
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8e420146-a35a-4e01-1a0c-08d7926fb8a7
+X-MS-Exchange-CrossTenant-originalarrivaltime: 06 Jan 2020 06:14:43.1419 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: C+4szifJdyIq0+7qsvV4tDF1F5o7iuCtul+3nR7yhRYYKg9yHHQYPa91sQ5gJZRY
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB2895
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,826 +114,1376 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============0178739219=="
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>
+Content-Type: multipart/mixed; boundary="===============1835665609=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This is a multi-part message in MIME format.
---===============0178739219==
-Content-Type: multipart/alternative;
- boundary="------------429564FB4E16460A5C9C7E34"
+--===============1835665609==
 Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_MN2PR12MB3344BF617F7C64B8FD5DE67BE43C0MN2PR12MB3344namp_"
 
-This is a multi-part message in MIME format.
---------------429564FB4E16460A5C9C7E34
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
+--_000_MN2PR12MB3344BF617F7C64B8FD5DE67BE43C0MN2PR12MB3344namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-Today I got several kernel messages. I do not know how to reproduce this 
-messages.
+>[kevin]:
+>for these paris of message, the smu driver should be better to add lock to=
+ protect bellow case on multi thread case (eg: cat sysfs)
+>High A + Low B
+>High B + Low A
 
-I run an AMD Ryzen 5 2600X on a ASUS STRIX RX 5700XT
+Hmm, that's what I was trying to avoid to do(add internal lock protections)=
+.
+As, these should be proper protected/locked by top apis(e.g. smu_read_senso=
+r) from amdgpu_smu.c.
+Adding more internal locks bring more troubles/confusions than benefits.
 
-I added the 4 reports thrown below.
-
-Have a nice day.
-
-Kind regards,
-
-Dominik/
-/
-
-
-
-1st report:
-
-05.01.20 14:58        [drm] REG_WAIT timeout 1us * 100000 tries - 
-mpc2_assert_idle_mpcc line:440
-05.01.20 14:58        ------------[ cut here ]------------
-05.01.20 14:58    WARNING    CPU: 1 PID: 896 at 
-drivers/gpu/drm/amd/amdgpu/../display/dc/dc_helper.c:332 
-generic_reg_wait.cold+0x25/0x2c [amdgpu]
-05.01.20 14:58    Modules linked in    fuse md4 cmac nls_utf8 cifs 
-libarc4 dns_resolver fscache libdes squashfs loop amdgpu 
-snd_hda_codec_realtek snd_hda_codec_generic ledtrig_audio 
-snd_hda_codec_hdmi snd_hda_intel r8188eu(C) snd_intel_dspcfg 
-snd_hda_codec snd_usb_audio edac_mce_amd lib80211 kvm_amd nls_iso8859_1 
-snd_usbmidi_lib nls_cp437 snd_hda_core vfat fat gpu_sched eeepc_wmi ttm 
-snd_rawmidi snd_seq_device mc kvm snd_hwdep asus_wmi irqbypass snd_pcm 
-cfg80211 drm_kms_helper battery sparse_keymap snd_timer crct10dif_pclmul 
-wmi_bmof mxm_wmi drm rfkill crc32_pclmul xpad ghash_clmulni_intel ccp 
-snd ff_memless aesni_intel mousedev input_leds igb joydev crypto_simd 
-agpgart sp5100_tco cryptd syscopyarea glue_helper sysfillrect pcspkr 
-i2c_algo_bit i2c_piix4 sysimgblt k10temp fb_sys_fops rng_core soundcore 
-dca wmi evdev pinctrl_amd mac_hid gpio_amdpt acpi_cpufreq uinput 
-vboxnetflt(OE) vboxnetadp(OE) vboxdrv(OE) crypto_user ip_tables x_tables 
-ext4 crc32c_generic crc16 mbcache jbd2 sr_mod cdrom sd_mod uas
-05.01.20 14:58        usb_storage hid_generic usbhid hid ahci libahci 
-libata crc32c_intel xhci_pci xhci_hcd scsi_mod
-05.01.20 14:58    CPU    1 PID: 896 Comm: Xorg Tainted: G C OE 
-5.5.0-1-MANJARO #1
-05.01.20 14:58    Hardware name    System manufacturer System Product 
-Name/PRIME X470-PRO, BIOS 5406 11/13/2019
-05.01.20 14:58    RIP    0010:generic_reg_wait.cold+0x25/0x2c [amdgpu]
-05.01.20 14:58    Code    e9 b4 13 fe ff 44 8b 44 24 24 48 8b 4c 24 18 
-44 89 fa 89 ee 48 c7 c7 98 18 85 c1 e8 28 51 59 f8 83 7b 20 01 0f 84 7a 
-21 fe ff <0f> 0b e9 73 21 fe ff e8 24 9f e6 ff 48 c7 c7 00 20 91 c1 e8 88 13
-05.01.20 14:58    RSP    0018:ffff9ce3c11b7638 EFLAGS: 00010297
-05.01.20 14:58    RAX    000000000000004a RBX: ffff8eea36150980 RCX: 
-0000000000000000
-05.01.20 14:58    RDX    0000000000000000 RSI: ffff8eea3e859ac8 RDI: 
-00000000ffffffff
-05.01.20 14:58    RBP    0000000000000001 R08: 000000000000051b R09: 
-0000000000000001
-05.01.20 14:58    R10    0000000000000000 R11: 0000000000000001 R12: 
-0000000000004790
-05.01.20 14:58    R13    00000000000186a1 R14: 0000000000000001 R15: 
-00000000000186a0
-05.01.20 14:58    FS    00007fd6845b3dc0(0000) GS:ffff8eea3e840000(0000) 
-knlGS:0000000000000000
-05.01.20 14:58    CS    0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-05.01.20 14:58    CR2    000055fc86f26248 CR3: 00000007e4290000 CR4: 
-00000000003406e0
-05.01.20 14:58    Call Trace
-05.01.20 14:58        mpc2_assert_idle_mpcc+0xb9/0xe0 [amdgpu]
-05.01.20 14:58        dcn20_program_front_end_for_ctx+0x986/0xd50 [amdgpu]
-05.01.20 14:58        dc_commit_state+0x258/0x5e0 [amdgpu]
-05.01.20 14:58        amdgpu_dm_atomic_commit_tail+0xfa6/0x1fc0 [amdgpu]
-05.01.20 14:58        commit_tail+0x94/0x130 [drm_kms_helper]
-05.01.20 14:58        drm_atomic_helper_commit+0x113/0x140 [drm_kms_helper]
-05.01.20 14:58        drm_atomic_helper_set_config+0x70/0xb0 
-[drm_kms_helper]
-05.01.20 14:58        drm_mode_setcrtc+0x1f0/0x730 [drm]
-05.01.20 14:58        ? drm_mode_getcrtc+0x180/0x180 [drm]
-05.01.20 14:58        drm_ioctl_kernel+0xb2/0x100 [drm]
-05.01.20 14:58        drm_ioctl+0x209/0x360 [drm]
-05.01.20 14:58        ? drm_mode_getcrtc+0x180/0x180 [drm]
-05.01.20 14:58        amdgpu_drm_ioctl+0x49/0x80 [amdgpu]
-05.01.20 14:58        do_vfs_ioctl+0x4b7/0x730
-05.01.20 14:58        ksys_ioctl+0x5e/0x90
-05.01.20 14:58        __x64_sys_ioctl+0x16/0x20
-05.01.20 14:58        do_syscall_64+0x4e/0x150
-05.01.20 14:58        entry_SYSCALL_64_after_hwframe+0x44/0xa9
-05.01.20 14:58    RIP    0033:0x7fd6853f925b
-05.01.20 14:58    Code    0f 1e fa 48 8b 05 25 9c 0c 00 64 c7 00 26 00 
-00 00 48 c7 c0 ff ff ff ff c3 66 0f 1f 44 00 00 f3 0f 1e fa b8 10 00 00 
-00 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 8b 0d f5 9b 0c 00 f7 d8 64 89 01 48
-05.01.20 14:58    RSP    002b:00007ffe8ce09888 EFLAGS: 00000246 
-ORIG_RAX: 0000000000000010
-05.01.20 14:58    RAX    ffffffffffffffda RBX: 00007ffe8ce098c0 RCX: 
-00007fd6853f925b
-05.01.20 14:58    RDX    00007ffe8ce098c0 RSI: 00000000c06864a2 RDI: 
-000000000000000d
-05.01.20 14:58    RBP    00000000c06864a2 R08: 0000000000000000 R09: 
-000055fc86ad81a0
-05.01.20 14:58    R10    0000000000000000 R11: 0000000000000246 R12: 
-0000000000000000
-05.01.20 14:58    R13    000000000000000d R14: 000055fc8638b990 R15: 
-0000000000000000
-05.01.20 14:58        ---[ end trace 56076c7a9bdc6a36 ]---
+From: Wang, Kevin(Yang) <Kevin1.Wang@amd.com>
+Sent: Sunday, January 5, 2020 2:11 PM
+To: Quan, Evan <Evan.Quan@amd.com>; amd-gfx@lists.freedesktop.org
+Cc: Deucher, Alexander <Alexander.Deucher@amd.com>
+Subject: Re: [PATCH] drm/amd/powerplay: unified VRAM address for driver tab=
+le interaction with SMU V2
 
 
-2nd report:
-
-05.01.20 16:49        [drm] REG_WAIT timeout 1us * 100000 tries - 
-mpc2_assert_idle_mpcc line:440
-05.01.20 16:49        ------------[ cut here ]------------
-05.01.20 16:49    WARNING    CPU: 0 PID: 896 at 
-drivers/gpu/drm/amd/amdgpu/../display/dc/dc_helper.c:332 
-generic_reg_wait.cold+0x25/0x2c [amdgpu]
-05.01.20 16:49    Modules linked in    fuse md4 cmac nls_utf8 cifs 
-libarc4 dns_resolver fscache libdes squashfs loop amdgpu 
-snd_hda_codec_realtek snd_hda_codec_generic ledtrig_audio 
-snd_hda_codec_hdmi snd_hda_intel r8188eu(C) snd_intel_dspcfg 
-snd_hda_codec snd_usb_audio edac_mce_amd lib80211 kvm_amd nls_iso8859_1 
-snd_usbmidi_lib nls_cp437 snd_hda_core vfat fat gpu_sched eeepc_wmi ttm 
-snd_rawmidi snd_seq_device mc kvm snd_hwdep asus_wmi irqbypass snd_pcm 
-cfg80211 drm_kms_helper battery sparse_keymap snd_timer crct10dif_pclmul 
-wmi_bmof mxm_wmi drm rfkill crc32_pclmul xpad ghash_clmulni_intel ccp 
-snd ff_memless aesni_intel mousedev input_leds igb joydev crypto_simd 
-agpgart sp5100_tco cryptd syscopyarea glue_helper sysfillrect pcspkr 
-i2c_algo_bit i2c_piix4 sysimgblt k10temp fb_sys_fops rng_core soundcore 
-dca wmi evdev pinctrl_amd mac_hid gpio_amdpt acpi_cpufreq uinput 
-vboxnetflt(OE) vboxnetadp(OE) vboxdrv(OE) crypto_user ip_tables x_tables 
-ext4 crc32c_generic crc16 mbcache jbd2 sr_mod cdrom sd_mod uas
-05.01.20 16:49        usb_storage hid_generic usbhid hid ahci libahci 
-libata crc32c_intel xhci_pci xhci_hcd scsi_mod
-05.01.20 16:49    CPU    0 PID: 896 Comm: Xorg Tainted: G WC OE 
-5.5.0-1-MANJARO #1
-05.01.20 16:49    Hardware name    System manufacturer System Product 
-Name/PRIME X470-PRO, BIOS 5406 11/13/2019
-05.01.20 16:49    RIP    0010:generic_reg_wait.cold+0x25/0x2c [amdgpu]
-05.01.20 16:49    Code    e9 b4 13 fe ff 44 8b 44 24 24 48 8b 4c 24 18 
-44 89 fa 89 ee 48 c7 c7 98 18 85 c1 e8 28 51 59 f8 83 7b 20 01 0f 84 7a 
-21 fe ff <0f> 0b e9 73 21 fe ff e8 24 9f e6 ff 48 c7 c7 00 20 91 c1 e8 88 13
-05.01.20 16:49    RSP    0018:ffff9ce3c11b7638 EFLAGS: 00010297
-05.01.20 16:49    RAX    000000000000004a RBX: ffff8eea36150980 RCX: 
-0000000000000000
-05.01.20 16:49    RDX    0000000000000000 RSI: ffff8eea3e819ac8 RDI: 
-00000000ffffffff
-05.01.20 16:49    RBP    0000000000000001 R08: 0000000000000549 R09: 
-0000000000000001
-05.01.20 16:49    R10    0000000000000000 R11: 0000000000000001 R12: 
-0000000000004790
-05.01.20 16:49    R13    00000000000186a1 R14: 0000000000000001 R15: 
-00000000000186a0
-05.01.20 16:49    FS    00007fd6845b3dc0(0000) GS:ffff8eea3e800000(0000) 
-knlGS:0000000000000000
-05.01.20 16:49    CS    0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-05.01.20 16:49    CR2    00007f0aec00b128 CR3: 00000007e4290000 CR4: 
-00000000003406f0
-05.01.20 16:49    Call Trace
-05.01.20 16:49        mpc2_assert_idle_mpcc+0xb9/0xe0 [amdgpu]
-05.01.20 16:49        dcn20_program_front_end_for_ctx+0x986/0xd50 [amdgpu]
-05.01.20 16:49        dc_commit_state+0x258/0x5e0 [amdgpu]
-05.01.20 16:49        amdgpu_dm_atomic_commit_tail+0xfa6/0x1fc0 [amdgpu]
-05.01.20 16:49        commit_tail+0x94/0x130 [drm_kms_helper]
-05.01.20 16:49        drm_atomic_helper_commit+0x113/0x140 [drm_kms_helper]
-05.01.20 16:49        drm_atomic_helper_set_config+0x70/0xb0 
-[drm_kms_helper]
-05.01.20 16:49        drm_mode_setcrtc+0x1f0/0x730 [drm]
-05.01.20 16:49        ? drm_mode_getcrtc+0x180/0x180 [drm]
-05.01.20 16:49        drm_ioctl_kernel+0xb2/0x100 [drm]
-05.01.20 16:49        drm_ioctl+0x209/0x360 [drm]
-05.01.20 16:49        ? drm_mode_getcrtc+0x180/0x180 [drm]
-05.01.20 16:49        amdgpu_drm_ioctl+0x49/0x80 [amdgpu]
-05.01.20 16:49        do_vfs_ioctl+0x4b7/0x730
-05.01.20 16:49        ksys_ioctl+0x5e/0x90
-05.01.20 16:49        __x64_sys_ioctl+0x16/0x20
-05.01.20 16:49        do_syscall_64+0x4e/0x150
-05.01.20 16:49        entry_SYSCALL_64_after_hwframe+0x44/0xa9
-05.01.20 16:49    RIP    0033:0x7fd6853f925b
-05.01.20 16:49    Code    0f 1e fa 48 8b 05 25 9c 0c 00 64 c7 00 26 00 
-00 00 48 c7 c0 ff ff ff ff c3 66 0f 1f 44 00 00 f3 0f 1e fa b8 10 00 00 
-00 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 8b 0d f5 9b 0c 00 f7 d8 64 89 01 48
-05.01.20 16:49    RSP    002b:00007ffe8ce09888 EFLAGS: 00000246 
-ORIG_RAX: 0000000000000010
-05.01.20 16:49    RAX    ffffffffffffffda RBX: 00007ffe8ce098c0 RCX: 
-00007fd6853f925b
-05.01.20 16:49    RDX    00007ffe8ce098c0 RSI: 00000000c06864a2 RDI: 
-000000000000000d
-05.01.20 16:49    RBP    00000000c06864a2 R08: 0000000000000000 R09: 
-000055fc870bdab0
-05.01.20 16:49    R10    0000000000000000 R11: 0000000000000246 R12: 
-0000000000000000
-05.01.20 16:49    R13    000000000000000d R14: 000055fc8638b990 R15: 
-0000000000000000
-05.01.20 16:49        ---[ end trace 56076c7a9bdc6a37 ]---
+[AMD Official Use Only - Internal Distribution Only]
 
 
-3rd report:
 
-05.01.20 16:49        [drm] REG_WAIT timeout 1us * 200 tries - 
-hubp2_set_blank line:928
-05.01.20 16:49        ------------[ cut here ]------------
-05.01.20 16:49    WARNING    CPU: 0 PID: 896 at 
-drivers/gpu/drm/amd/amdgpu/../display/dc/dc_helper.c:332 
-generic_reg_wait.cold+0x25/0x2c [amdgpu]
-05.01.20 16:49    Modules linked in    fuse md4 cmac nls_utf8 cifs 
-libarc4 dns_resolver fscache libdes squashfs loop amdgpu 
-snd_hda_codec_realtek snd_hda_codec_generic ledtrig_audio 
-snd_hda_codec_hdmi snd_hda_intel r8188eu(C) snd_intel_dspcfg 
-snd_hda_codec snd_usb_audio edac_mce_amd lib80211 kvm_amd nls_iso8859_1 
-snd_usbmidi_lib nls_cp437 snd_hda_core vfat fat gpu_sched eeepc_wmi ttm 
-snd_rawmidi snd_seq_device mc kvm snd_hwdep asus_wmi irqbypass snd_pcm 
-cfg80211 drm_kms_helper battery sparse_keymap snd_timer crct10dif_pclmul 
-wmi_bmof mxm_wmi drm rfkill crc32_pclmul xpad ghash_clmulni_intel ccp 
-snd ff_memless aesni_intel mousedev input_leds igb joydev crypto_simd 
-agpgart sp5100_tco cryptd syscopyarea glue_helper sysfillrect pcspkr 
-i2c_algo_bit i2c_piix4 sysimgblt k10temp fb_sys_fops rng_core soundcore 
-dca wmi evdev pinctrl_amd mac_hid gpio_amdpt acpi_cpufreq uinput 
-vboxnetflt(OE) vboxnetadp(OE) vboxdrv(OE) crypto_user ip_tables x_tables 
-ext4 crc32c_generic crc16 mbcache jbd2 sr_mod cdrom sd_mod uas
-05.01.20 16:49        usb_storage hid_generic usbhid hid ahci libahci 
-libata crc32c_intel xhci_pci xhci_hcd scsi_mod
-05.01.20 16:49    CPU    0 PID: 896 Comm: Xorg Tainted: G WC OE 
-5.5.0-1-MANJARO #1
-05.01.20 16:49    Hardware name    System manufacturer System Product 
-Name/PRIME X470-PRO, BIOS 5406 11/13/2019
-05.01.20 16:49    RIP    0010:generic_reg_wait.cold+0x25/0x2c [amdgpu]
-05.01.20 16:49    Code    e9 b4 13 fe ff 44 8b 44 24 24 48 8b 4c 24 18 
-44 89 fa 89 ee 48 c7 c7 98 18 85 c1 e8 28 51 59 f8 83 7b 20 01 0f 84 7a 
-21 fe ff <0f> 0b e9 73 21 fe ff e8 24 9f e6 ff 48 c7 c7 00 20 91 c1 e8 88 13
-05.01.20 16:49    RSP    0018:ffff9ce3c11b7628 EFLAGS: 00010297
-05.01.20 16:49    RAX    0000000000000041 RBX: ffff8eea36150980 RCX: 
-0000000000000000
-05.01.20 16:49    RDX    0000000000000000 RSI: ffff8eea3e819ac8 RDI: 
-00000000ffffffff
-05.01.20 16:49    RBP    0000000000000001 R08: 0000000000000577 R09: 
-0000000000000001
-05.01.20 16:49    R10    0000000000000000 R11: 0000000000000001 R12: 
-0000000000003d47
-05.01.20 16:49    R13    00000000000000c9 R14: 0000000000000001 R15: 
-00000000000000c8
-05.01.20 16:49    FS    00007fd6845b3dc0(0000) GS:ffff8eea3e800000(0000) 
-knlGS:0000000000000000
-05.01.20 16:49    CS    0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-05.01.20 16:49    CR2    00007f809009bfe0 CR3: 00000007e4290000 CR4: 
-00000000003406f0
-05.01.20 16:49    Call Trace
-05.01.20 16:49        hubp2_set_blank+0xc4/0xd0 [amdgpu]
-05.01.20 16:49        dcn10_wait_for_mpcc_disconnect+0xc0/0x100 [amdgpu]
-05.01.20 16:49        dcn20_plane_atomic_disable+0x35/0x150 [amdgpu]
-05.01.20 16:49        dcn20_disable_plane+0x24/0x40 [amdgpu]
-05.01.20 16:49        dcn20_program_front_end_for_ctx+0x3d5/0xd50 [amdgpu]
-05.01.20 16:49        dc_commit_state+0x151/0x5e0 [amdgpu]
-05.01.20 16:49        amdgpu_dm_atomic_commit_tail+0xfa6/0x1fc0 [amdgpu]
-05.01.20 16:49        ? dm_read_reg_func+0x1f/0x90 [amdgpu]
-05.01.20 16:49        ? dm_read_reg_func+0x1f/0x90 [amdgpu]
-05.01.20 16:49        ? dm_read_reg_func+0x1f/0x90 [amdgpu]
-05.01.20 16:49        ? dm_read_reg_func+0x1f/0x90 [amdgpu]
-05.01.20 16:49        commit_tail+0x94/0x130 [drm_kms_helper]
-05.01.20 16:49        drm_atomic_helper_commit+0x113/0x140 [drm_kms_helper]
-05.01.20 16:49        drm_atomic_connector_commit_dpms+0xd7/0x100 [drm]
-05.01.20 16:49        drm_mode_obj_set_property_ioctl+0x169/0x2e0 [drm]
-05.01.20 16:49        ? drm_connector_set_obj_prop+0x90/0x90 [drm]
-05.01.20 16:49        drm_connector_property_set_ioctl+0x41/0x60 [drm]
-05.01.20 16:49        drm_ioctl_kernel+0xb2/0x100 [drm]
-05.01.20 16:49        drm_ioctl+0x209/0x360 [drm]
-05.01.20 16:49        ? drm_connector_set_obj_prop+0x90/0x90 [drm]
-05.01.20 16:49        amdgpu_drm_ioctl+0x49/0x80 [amdgpu]
-05.01.20 16:49        do_vfs_ioctl+0x4b7/0x730
-05.01.20 16:49        ? ep_item_poll.isra.0+0x3f/0xb0
-05.01.20 16:49        ksys_ioctl+0x5e/0x90
-05.01.20 16:49        __x64_sys_ioctl+0x16/0x20
-05.01.20 16:49        do_syscall_64+0x4e/0x150
-05.01.20 16:49        entry_SYSCALL_64_after_hwframe+0x44/0xa9
-05.01.20 16:49    RIP    0033:0x7fd6853f925b
-05.01.20 16:49    Code    0f 1e fa 48 8b 05 25 9c 0c 00 64 c7 00 26 00 
-00 00 48 c7 c0 ff ff ff ff c3 66 0f 1f 44 00 00 f3 0f 1e fa b8 10 00 00 
-00 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 8b 0d f5 9b 0c 00 f7 d8 64 89 01 48
-05.01.20 16:49    RSP    002b:00007ffe8ce09cc8 EFLAGS: 00000246 
-ORIG_RAX: 0000000000000010
-05.01.20 16:49    RAX    ffffffffffffffda RBX: 00007ffe8ce09d00 RCX: 
-00007fd6853f925b
-05.01.20 16:49    RDX    00007ffe8ce09d00 RSI: 00000000c01064ab RDI: 
-000000000000000d
-05.01.20 16:49    RBP    00000000c01064ab R08: 0000000000000000 R09: 
-000055fc86388510
-05.01.20 16:49    R10    0000000000000000 R11: 0000000000000246 R12: 
-000055fc86050c80
-05.01.20 16:49    R13    000000000000000d R14: 000055fc87242480 R15: 
-0000000000000000
-05.01.20 16:49        ---[ end trace 56076c7a9bdc6a38 ]---
+________________________________
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org<mailto:amd-gfx-bounces=
+@lists.freedesktop.org>> on behalf of Evan Quan <evan.quan@amd.com<mailto:e=
+van.quan@amd.com>>
+Sent: Thursday, January 2, 2020 10:39 AM
+To: amd-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org> <am=
+d-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org>>
+Cc: Deucher, Alexander <Alexander.Deucher@amd.com<mailto:Alexander.Deucher@=
+amd.com>>; Quan, Evan <Evan.Quan@amd.com<mailto:Evan.Quan@amd.com>>
+Subject: [PATCH] drm/amd/powerplay: unified VRAM address for driver table i=
+nteraction with SMU V2
 
+By this, we can avoid to pass in the VRAM address on every table
+transferring. That puts extra unnecessary traffics on SMU on
+some cases(e.g. polling the amdgpu_pm_info sysfs interface).
 
-4th report
+V2: document what the driver table is for and how it works
 
-05.01.20 16:50        [drm] REG_WAIT timeout 1us * 100000 tries - 
-mpc2_assert_idle_mpcc line:440
-05.01.20 16:50        ------------[ cut here ]------------
-05.01.20 16:50    WARNING    CPU: 7 PID: 896 at 
-drivers/gpu/drm/amd/amdgpu/../display/dc/dc_helper.c:332 
-generic_reg_wait.cold+0x25/0x2c [amdgpu]
-05.01.20 16:50    Modules linked in    fuse md4 cmac nls_utf8 cifs 
-libarc4 dns_resolver fscache libdes squashfs loop amdgpu 
-snd_hda_codec_realtek snd_hda_codec_generic ledtrig_audio 
-snd_hda_codec_hdmi snd_hda_intel r8188eu(C) snd_intel_dspcfg 
-snd_hda_codec snd_usb_audio edac_mce_amd lib80211 kvm_amd nls_iso8859_1 
-snd_usbmidi_lib nls_cp437 snd_hda_core vfat fat gpu_sched eeepc_wmi ttm 
-snd_rawmidi snd_seq_device mc kvm snd_hwdep asus_wmi irqbypass snd_pcm 
-cfg80211 drm_kms_helper battery sparse_keymap snd_timer crct10dif_pclmul 
-wmi_bmof mxm_wmi drm rfkill crc32_pclmul xpad ghash_clmulni_intel ccp 
-snd ff_memless aesni_intel mousedev input_leds igb joydev crypto_simd 
-agpgart sp5100_tco cryptd syscopyarea glue_helper sysfillrect pcspkr 
-i2c_algo_bit i2c_piix4 sysimgblt k10temp fb_sys_fops rng_core soundcore 
-dca wmi evdev pinctrl_amd mac_hid gpio_amdpt acpi_cpufreq uinput 
-vboxnetflt(OE) vboxnetadp(OE) vboxdrv(OE) crypto_user ip_tables x_tables 
-ext4 crc32c_generic crc16 mbcache jbd2 sr_mod cdrom sd_mod uas
-05.01.20 16:50        usb_storage hid_generic usbhid hid ahci libahci 
-libata crc32c_intel xhci_pci xhci_hcd scsi_mod
-05.01.20 16:50    CPU    7 PID: 896 Comm: Xorg Tainted: G WC OE 
-5.5.0-1-MANJARO #1
-05.01.20 16:50    Hardware name    System manufacturer System Product 
-Name/PRIME X470-PRO, BIOS 5406 11/13/2019
-05.01.20 16:50    RIP    0010:generic_reg_wait.cold+0x25/0x2c [amdgpu]
-05.01.20 16:50    Code    e9 b4 13 fe ff 44 8b 44 24 24 48 8b 4c 24 18 
-44 89 fa 89 ee 48 c7 c7 98 18 85 c1 e8 28 51 59 f8 83 7b 20 01 0f 84 7a 
-21 fe ff <0f> 0b e9 73 21 fe ff e8 24 9f e6 ff 48 c7 c7 00 20 91 c1 e8 88 13
-05.01.20 16:50    RSP    0018:ffff9ce3c11b7638 EFLAGS: 00010297
-05.01.20 16:50    RAX    000000000000004a RBX: ffff8eea36150980 RCX: 
-0000000000000000
-05.01.20 16:50    RDX    0000000000000000 RSI: ffff8eea3e9d9ac8 RDI: 
-00000000ffffffff
-05.01.20 16:50    RBP    0000000000000001 R08: 00000000000005ae R09: 
-0000000000000001
-05.01.20 16:50    R10    0000000000000000 R11: 0000000000000001 R12: 
-0000000000004790
-05.01.20 16:50    R13    00000000000186a1 R14: 0000000000000001 R15: 
-00000000000186a0
-05.01.20 16:50    FS    00007fd6845b3dc0(0000) GS:ffff8eea3e9c0000(0000) 
-knlGS:0000000000000000
-05.01.20 16:50    CS    0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-05.01.20 16:50    CR2    000055fc86f47000 CR3: 00000007e4290000 CR4: 
-00000000003406e0
-05.01.20 16:50    Call Trace
-05.01.20 16:50        mpc2_assert_idle_mpcc+0xb9/0xe0 [amdgpu]
-05.01.20 16:50        dcn20_program_front_end_for_ctx+0x986/0xd50 [amdgpu]
-05.01.20 16:50        dc_commit_state+0x258/0x5e0 [amdgpu]
-05.01.20 16:50        amdgpu_dm_atomic_commit_tail+0xfa6/0x1fc0 [amdgpu]
-05.01.20 16:50        commit_tail+0x94/0x130 [drm_kms_helper]
-05.01.20 16:50        drm_atomic_helper_commit+0x113/0x140 [drm_kms_helper]
-05.01.20 16:50        drm_atomic_helper_set_config+0x70/0xb0 
-[drm_kms_helper]
-05.01.20 16:50        drm_mode_setcrtc+0x1f0/0x730 [drm]
-05.01.20 16:50        ? drm_mode_getcrtc+0x180/0x180 [drm]
-05.01.20 16:50        drm_ioctl_kernel+0xb2/0x100 [drm]
-05.01.20 16:50        drm_ioctl+0x209/0x360 [drm]
-05.01.20 16:50        ? drm_mode_getcrtc+0x180/0x180 [drm]
-05.01.20 16:50        amdgpu_drm_ioctl+0x49/0x80 [amdgpu]
-05.01.20 16:50        do_vfs_ioctl+0x4b7/0x730
-05.01.20 16:50        ksys_ioctl+0x5e/0x90
-05.01.20 16:50        __x64_sys_ioctl+0x16/0x20
-05.01.20 16:50        do_syscall_64+0x4e/0x150
-05.01.20 16:50        entry_SYSCALL_64_after_hwframe+0x44/0xa9
-05.01.20 16:50    RIP    0033:0x7fd6853f925b
-05.01.20 16:50    Code    0f 1e fa 48 8b 05 25 9c 0c 00 64 c7 00 26 00 
-00 00 48 c7 c0 ff ff ff ff c3 66 0f 1f 44 00 00 f3 0f 1e fa b8 10 00 00 
-00 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 8b 0d f5 9b 0c 00 f7 d8 64 89 01 48
-05.01.20 16:50    RSP    002b:00007ffe8ce09888 EFLAGS: 00000246 
-ORIG_RAX: 0000000000000010
-05.01.20 16:50    RAX    ffffffffffffffda RBX: 00007ffe8ce098c0 RCX: 
-00007fd6853f925b
-05.01.20 16:50    RDX    00007ffe8ce098c0 RSI: 00000000c06864a2 RDI: 
-000000000000000d
-05.01.20 16:50    RBP    00000000c06864a2 R08: 0000000000000000 R09: 
-000055fc876aae00
-05.01.20 16:50    R10    0000000000000000 R11: 0000000000000246 R12: 
-0000000000000000
-05.01.20 16:50    R13    000000000000000d R14: 000055fc8638b990 R15: 
-0000000000000000
-05.01.20 16:50        ---[ end trace 56076c7a9bdc6a39 ]---
+Change-Id: Ifb74d9cd89790b301e88d472b29cdb9b0365b65a
+Signed-off-by: Evan Quan <evan.quan@amd.com<mailto:evan.quan@amd.com>>
+---
+ drivers/gpu/drm/amd/powerplay/amdgpu_smu.c    | 98 ++++++++++++-------
+ drivers/gpu/drm/amd/powerplay/arcturus_ppt.c  |  3 +-
+ .../gpu/drm/amd/powerplay/inc/amdgpu_smu.h    | 10 ++
+ drivers/gpu/drm/amd/powerplay/inc/smu_v11_0.h |  2 +
+ drivers/gpu/drm/amd/powerplay/inc/smu_v12_0.h |  2 +
+ drivers/gpu/drm/amd/powerplay/navi10_ppt.c    |  1 +
+ drivers/gpu/drm/amd/powerplay/renoir_ppt.c    |  1 +
+ drivers/gpu/drm/amd/powerplay/smu_internal.h  |  2 +
+ drivers/gpu/drm/amd/powerplay/smu_v11_0.c     | 18 ++++
+ drivers/gpu/drm/amd/powerplay/smu_v12_0.c     | 26 +++--
+ drivers/gpu/drm/amd/powerplay/vega20_ppt.c    |  1 +
+ 11 files changed, 117 insertions(+), 47 deletions(-)
 
+diff --git a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c b/drivers/gpu/drm/a=
+md/powerplay/amdgpu_smu.c
+index 95238ad38de8..beea4d9e82d4 100644
+--- a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
++++ b/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
+@@ -519,26 +519,19 @@ int smu_update_table(struct smu_context *smu, enum sm=
+u_table_id table_index, int
+ {
+         struct smu_table_context *smu_table =3D &smu->smu_table;
+         struct amdgpu_device *adev =3D smu->adev;
+-       struct smu_table *table =3D NULL;
+-       int ret =3D 0;
++       struct smu_table *table =3D &smu_table->driver_table;
+         int table_id =3D smu_table_get_index(smu, table_index);
++       uint32_t table_size;
++       int ret =3D 0;
 
---------------429564FB4E16460A5C9C7E34
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: 8bit
+         if (!table_data || table_id >=3D SMU_TABLE_COUNT || table_id < 0)
+                 return -EINVAL;
 
-<html>
-  <head>
+-       table =3D &smu_table->tables[table_index];
++       table_size =3D smu_table->tables[table_index].size;
 
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    <p>Today I got several kernel messages. I do not know how to
-      reproduce this messages.</p>
-    <p>I run an AMD Ryzen 5 2600X on a ASUS STRIX RX 5700XT</p>
-    <p>I added the 4 reports thrown below.<br>
-    </p>
-    <p>Have a nice day.</p>
-    <p>Kind regards,</p>
-    <p>Dominik<i><br>
-      </i></p>
-    <p><br>
-    </p>
-    <p><br>
-    </p>
-    <p>1st report:</p>
-    <p>05.01.20 14:58        [drm] REG_WAIT timeout 1us * 100000 tries -
-      mpc2_assert_idle_mpcc line:440<br>
-      05.01.20 14:58        ------------[ cut here ]------------<br>
-      05.01.20 14:58    WARNING    CPU: 1 PID: 896 at
-      drivers/gpu/drm/amd/amdgpu/../display/dc/dc_helper.c:332
-      generic_reg_wait.cold+0x25/0x2c [amdgpu]<br>
-      05.01.20 14:58    Modules linked in    fuse md4 cmac nls_utf8 cifs
-      libarc4 dns_resolver fscache libdes squashfs loop amdgpu
-      snd_hda_codec_realtek snd_hda_codec_generic ledtrig_audio
-      snd_hda_codec_hdmi snd_hda_intel r8188eu(C) snd_intel_dspcfg
-      snd_hda_codec snd_usb_audio edac_mce_amd lib80211 kvm_amd
-      nls_iso8859_1 snd_usbmidi_lib nls_cp437 snd_hda_core vfat fat
-      gpu_sched eeepc_wmi ttm snd_rawmidi snd_seq_device mc kvm
-      snd_hwdep asus_wmi irqbypass snd_pcm cfg80211 drm_kms_helper
-      battery sparse_keymap snd_timer crct10dif_pclmul wmi_bmof mxm_wmi
-      drm rfkill crc32_pclmul xpad ghash_clmulni_intel ccp snd
-      ff_memless aesni_intel mousedev input_leds igb joydev crypto_simd
-      agpgart sp5100_tco cryptd syscopyarea glue_helper sysfillrect
-      pcspkr i2c_algo_bit i2c_piix4 sysimgblt k10temp fb_sys_fops
-      rng_core soundcore dca wmi evdev pinctrl_amd mac_hid gpio_amdpt
-      acpi_cpufreq uinput vboxnetflt(OE) vboxnetadp(OE) vboxdrv(OE)
-      crypto_user ip_tables x_tables ext4 crc32c_generic crc16 mbcache
-      jbd2 sr_mod cdrom sd_mod uas<br>
-      05.01.20 14:58        usb_storage hid_generic usbhid hid ahci
-      libahci libata crc32c_intel xhci_pci xhci_hcd scsi_mod<br>
-      05.01.20 14:58    CPU    1 PID: 896 Comm: Xorg Tainted: G C OE
-      5.5.0-1-MANJARO #1<br>
-      05.01.20 14:58    Hardware name    System manufacturer System
-      Product Name/PRIME X470-PRO, BIOS 5406 11/13/2019<br>
-      05.01.20 14:58    RIP    0010:generic_reg_wait.cold+0x25/0x2c
-      [amdgpu]<br>
-      05.01.20 14:58    Code    e9 b4 13 fe ff 44 8b 44 24 24 48 8b 4c
-      24 18 44 89 fa 89 ee 48 c7 c7 98 18 85 c1 e8 28 51 59 f8 83 7b 20
-      01 0f 84 7a 21 fe ff &lt;0f&gt; 0b e9 73 21 fe ff e8 24 9f e6 ff
-      48 c7 c7 00 20 91 c1 e8 88 13<br>
-      05.01.20 14:58    RSP    0018:ffff9ce3c11b7638 EFLAGS: 00010297<br>
-      05.01.20 14:58    RAX    000000000000004a RBX: ffff8eea36150980
-      RCX: 0000000000000000<br>
-      05.01.20 14:58    RDX    0000000000000000 RSI: ffff8eea3e859ac8
-      RDI: 00000000ffffffff<br>
-      05.01.20 14:58    RBP    0000000000000001 R08: 000000000000051b
-      R09: 0000000000000001<br>
-      05.01.20 14:58    R10    0000000000000000 R11: 0000000000000001
-      R12: 0000000000004790<br>
-      05.01.20 14:58    R13    00000000000186a1 R14: 0000000000000001
-      R15: 00000000000186a0<br>
-      05.01.20 14:58    FS    00007fd6845b3dc0(0000)
-      GS:ffff8eea3e840000(0000) knlGS:0000000000000000<br>
-      05.01.20 14:58    CS    0010 DS: 0000 ES: 0000 CR0:
-      0000000080050033<br>
-      05.01.20 14:58    CR2    000055fc86f26248 CR3: 00000007e4290000
-      CR4: 00000000003406e0<br>
-      05.01.20 14:58    Call Trace    <br>
-      05.01.20 14:58        mpc2_assert_idle_mpcc+0xb9/0xe0 [amdgpu]<br>
-      05.01.20 14:58        dcn20_program_front_end_for_ctx+0x986/0xd50
-      [amdgpu]<br>
-      05.01.20 14:58        dc_commit_state+0x258/0x5e0 [amdgpu]<br>
-      05.01.20 14:58        amdgpu_dm_atomic_commit_tail+0xfa6/0x1fc0
-      [amdgpu]<br>
-      05.01.20 14:58        commit_tail+0x94/0x130 [drm_kms_helper]<br>
-      05.01.20 14:58        drm_atomic_helper_commit+0x113/0x140
-      [drm_kms_helper]<br>
-      05.01.20 14:58        drm_atomic_helper_set_config+0x70/0xb0
-      [drm_kms_helper]<br>
-      05.01.20 14:58        drm_mode_setcrtc+0x1f0/0x730 [drm]<br>
-      05.01.20 14:58        ? drm_mode_getcrtc+0x180/0x180 [drm]<br>
-      05.01.20 14:58        drm_ioctl_kernel+0xb2/0x100 [drm]<br>
-      05.01.20 14:58        drm_ioctl+0x209/0x360 [drm]<br>
-      05.01.20 14:58        ? drm_mode_getcrtc+0x180/0x180 [drm]<br>
-      05.01.20 14:58        amdgpu_drm_ioctl+0x49/0x80 [amdgpu]<br>
-      05.01.20 14:58        do_vfs_ioctl+0x4b7/0x730<br>
-      05.01.20 14:58        ksys_ioctl+0x5e/0x90<br>
-      05.01.20 14:58        __x64_sys_ioctl+0x16/0x20<br>
-      05.01.20 14:58        do_syscall_64+0x4e/0x150<br>
-      05.01.20 14:58        entry_SYSCALL_64_after_hwframe+0x44/0xa9<br>
-      05.01.20 14:58    RIP    0033:0x7fd6853f925b<br>
-      05.01.20 14:58    Code    0f 1e fa 48 8b 05 25 9c 0c 00 64 c7 00
-      26 00 00 00 48 c7 c0 ff ff ff ff c3 66 0f 1f 44 00 00 f3 0f 1e fa
-      b8 10 00 00 00 0f 05 &lt;48&gt; 3d 01 f0 ff ff 73 01 c3 48 8b 0d
-      f5 9b 0c 00 f7 d8 64 89 01 48<br>
-      05.01.20 14:58    RSP    002b:00007ffe8ce09888 EFLAGS: 00000246
-      ORIG_RAX: 0000000000000010<br>
-      05.01.20 14:58    RAX    ffffffffffffffda RBX: 00007ffe8ce098c0
-      RCX: 00007fd6853f925b<br>
-      05.01.20 14:58    RDX    00007ffe8ce098c0 RSI: 00000000c06864a2
-      RDI: 000000000000000d<br>
-      05.01.20 14:58    RBP    00000000c06864a2 R08: 0000000000000000
-      R09: 000055fc86ad81a0<br>
-      05.01.20 14:58    R10    0000000000000000 R11: 0000000000000246
-      R12: 0000000000000000<br>
-      05.01.20 14:58    R13    000000000000000d R14: 000055fc8638b990
-      R15: 0000000000000000<br>
-      05.01.20 14:58        ---[ end trace 56076c7a9bdc6a36 ]---</p>
-    <p><br>
-    </p>
-    <p>2nd report:<br>
-    </p>
-    <p>05.01.20 16:49        [drm] REG_WAIT timeout 1us * 100000 tries -
-      mpc2_assert_idle_mpcc line:440<br>
-      05.01.20 16:49        ------------[ cut here ]------------<br>
-      05.01.20 16:49    WARNING    CPU: 0 PID: 896 at
-      drivers/gpu/drm/amd/amdgpu/../display/dc/dc_helper.c:332
-      generic_reg_wait.cold+0x25/0x2c [amdgpu]<br>
-      05.01.20 16:49    Modules linked in    fuse md4 cmac nls_utf8 cifs
-      libarc4 dns_resolver fscache libdes squashfs loop amdgpu
-      snd_hda_codec_realtek snd_hda_codec_generic ledtrig_audio
-      snd_hda_codec_hdmi snd_hda_intel r8188eu(C) snd_intel_dspcfg
-      snd_hda_codec snd_usb_audio edac_mce_amd lib80211 kvm_amd
-      nls_iso8859_1 snd_usbmidi_lib nls_cp437 snd_hda_core vfat fat
-      gpu_sched eeepc_wmi ttm snd_rawmidi snd_seq_device mc kvm
-      snd_hwdep asus_wmi irqbypass snd_pcm cfg80211 drm_kms_helper
-      battery sparse_keymap snd_timer crct10dif_pclmul wmi_bmof mxm_wmi
-      drm rfkill crc32_pclmul xpad ghash_clmulni_intel ccp snd
-      ff_memless aesni_intel mousedev input_leds igb joydev crypto_simd
-      agpgart sp5100_tco cryptd syscopyarea glue_helper sysfillrect
-      pcspkr i2c_algo_bit i2c_piix4 sysimgblt k10temp fb_sys_fops
-      rng_core soundcore dca wmi evdev pinctrl_amd mac_hid gpio_amdpt
-      acpi_cpufreq uinput vboxnetflt(OE) vboxnetadp(OE) vboxdrv(OE)
-      crypto_user ip_tables x_tables ext4 crc32c_generic crc16 mbcache
-      jbd2 sr_mod cdrom sd_mod uas<br>
-      05.01.20 16:49        usb_storage hid_generic usbhid hid ahci
-      libahci libata crc32c_intel xhci_pci xhci_hcd scsi_mod<br>
-      05.01.20 16:49    CPU    0 PID: 896 Comm: Xorg Tainted: G WC OE
-      5.5.0-1-MANJARO #1<br>
-      05.01.20 16:49    Hardware name    System manufacturer System
-      Product Name/PRIME X470-PRO, BIOS 5406 11/13/2019<br>
-      05.01.20 16:49    RIP    0010:generic_reg_wait.cold+0x25/0x2c
-      [amdgpu]<br>
-      05.01.20 16:49    Code    e9 b4 13 fe ff 44 8b 44 24 24 48 8b 4c
-      24 18 44 89 fa 89 ee 48 c7 c7 98 18 85 c1 e8 28 51 59 f8 83 7b 20
-      01 0f 84 7a 21 fe ff &lt;0f&gt; 0b e9 73 21 fe ff e8 24 9f e6 ff
-      48 c7 c7 00 20 91 c1 e8 88 13<br>
-      05.01.20 16:49    RSP    0018:ffff9ce3c11b7638 EFLAGS: 00010297<br>
-      05.01.20 16:49    RAX    000000000000004a RBX: ffff8eea36150980
-      RCX: 0000000000000000<br>
-      05.01.20 16:49    RDX    0000000000000000 RSI: ffff8eea3e819ac8
-      RDI: 00000000ffffffff<br>
-      05.01.20 16:49    RBP    0000000000000001 R08: 0000000000000549
-      R09: 0000000000000001<br>
-      05.01.20 16:49    R10    0000000000000000 R11: 0000000000000001
-      R12: 0000000000004790<br>
-      05.01.20 16:49    R13    00000000000186a1 R14: 0000000000000001
-      R15: 00000000000186a0<br>
-      05.01.20 16:49    FS    00007fd6845b3dc0(0000)
-      GS:ffff8eea3e800000(0000) knlGS:0000000000000000<br>
-      05.01.20 16:49    CS    0010 DS: 0000 ES: 0000 CR0:
-      0000000080050033<br>
-      05.01.20 16:49    CR2    00007f0aec00b128 CR3: 00000007e4290000
-      CR4: 00000000003406f0<br>
-      05.01.20 16:49    Call Trace    <br>
-      05.01.20 16:49        mpc2_assert_idle_mpcc+0xb9/0xe0 [amdgpu]<br>
-      05.01.20 16:49        dcn20_program_front_end_for_ctx+0x986/0xd50
-      [amdgpu]<br>
-      05.01.20 16:49        dc_commit_state+0x258/0x5e0 [amdgpu]<br>
-      05.01.20 16:49        amdgpu_dm_atomic_commit_tail+0xfa6/0x1fc0
-      [amdgpu]<br>
-      05.01.20 16:49        commit_tail+0x94/0x130 [drm_kms_helper]<br>
-      05.01.20 16:49        drm_atomic_helper_commit+0x113/0x140
-      [drm_kms_helper]<br>
-      05.01.20 16:49        drm_atomic_helper_set_config+0x70/0xb0
-      [drm_kms_helper]<br>
-      05.01.20 16:49        drm_mode_setcrtc+0x1f0/0x730 [drm]<br>
-      05.01.20 16:49        ? drm_mode_getcrtc+0x180/0x180 [drm]<br>
-      05.01.20 16:49        drm_ioctl_kernel+0xb2/0x100 [drm]<br>
-      05.01.20 16:49        drm_ioctl+0x209/0x360 [drm]<br>
-      05.01.20 16:49        ? drm_mode_getcrtc+0x180/0x180 [drm]<br>
-      05.01.20 16:49        amdgpu_drm_ioctl+0x49/0x80 [amdgpu]<br>
-      05.01.20 16:49        do_vfs_ioctl+0x4b7/0x730<br>
-      05.01.20 16:49        ksys_ioctl+0x5e/0x90<br>
-      05.01.20 16:49        __x64_sys_ioctl+0x16/0x20<br>
-      05.01.20 16:49        do_syscall_64+0x4e/0x150<br>
-      05.01.20 16:49        entry_SYSCALL_64_after_hwframe+0x44/0xa9<br>
-      05.01.20 16:49    RIP    0033:0x7fd6853f925b<br>
-      05.01.20 16:49    Code    0f 1e fa 48 8b 05 25 9c 0c 00 64 c7 00
-      26 00 00 00 48 c7 c0 ff ff ff ff c3 66 0f 1f 44 00 00 f3 0f 1e fa
-      b8 10 00 00 00 0f 05 &lt;48&gt; 3d 01 f0 ff ff 73 01 c3 48 8b 0d
-      f5 9b 0c 00 f7 d8 64 89 01 48<br>
-      05.01.20 16:49    RSP    002b:00007ffe8ce09888 EFLAGS: 00000246
-      ORIG_RAX: 0000000000000010<br>
-      05.01.20 16:49    RAX    ffffffffffffffda RBX: 00007ffe8ce098c0
-      RCX: 00007fd6853f925b<br>
-      05.01.20 16:49    RDX    00007ffe8ce098c0 RSI: 00000000c06864a2
-      RDI: 000000000000000d<br>
-      05.01.20 16:49    RBP    00000000c06864a2 R08: 0000000000000000
-      R09: 000055fc870bdab0<br>
-      05.01.20 16:49    R10    0000000000000000 R11: 0000000000000246
-      R12: 0000000000000000<br>
-      05.01.20 16:49    R13    000000000000000d R14: 000055fc8638b990
-      R15: 0000000000000000<br>
-      05.01.20 16:49        ---[ end trace 56076c7a9bdc6a37 ]---</p>
-    <p><br>
-    </p>
-    <p>3rd report:<br>
-    </p>
-    <p>05.01.20 16:49        [drm] REG_WAIT timeout 1us * 200 tries -
-      hubp2_set_blank line:928<br>
-      05.01.20 16:49        ------------[ cut here ]------------<br>
-      05.01.20 16:49    WARNING    CPU: 0 PID: 896 at
-      drivers/gpu/drm/amd/amdgpu/../display/dc/dc_helper.c:332
-      generic_reg_wait.cold+0x25/0x2c [amdgpu]<br>
-      05.01.20 16:49    Modules linked in    fuse md4 cmac nls_utf8 cifs
-      libarc4 dns_resolver fscache libdes squashfs loop amdgpu
-      snd_hda_codec_realtek snd_hda_codec_generic ledtrig_audio
-      snd_hda_codec_hdmi snd_hda_intel r8188eu(C) snd_intel_dspcfg
-      snd_hda_codec snd_usb_audio edac_mce_amd lib80211 kvm_amd
-      nls_iso8859_1 snd_usbmidi_lib nls_cp437 snd_hda_core vfat fat
-      gpu_sched eeepc_wmi ttm snd_rawmidi snd_seq_device mc kvm
-      snd_hwdep asus_wmi irqbypass snd_pcm cfg80211 drm_kms_helper
-      battery sparse_keymap snd_timer crct10dif_pclmul wmi_bmof mxm_wmi
-      drm rfkill crc32_pclmul xpad ghash_clmulni_intel ccp snd
-      ff_memless aesni_intel mousedev input_leds igb joydev crypto_simd
-      agpgart sp5100_tco cryptd syscopyarea glue_helper sysfillrect
-      pcspkr i2c_algo_bit i2c_piix4 sysimgblt k10temp fb_sys_fops
-      rng_core soundcore dca wmi evdev pinctrl_amd mac_hid gpio_amdpt
-      acpi_cpufreq uinput vboxnetflt(OE) vboxnetadp(OE) vboxdrv(OE)
-      crypto_user ip_tables x_tables ext4 crc32c_generic crc16 mbcache
-      jbd2 sr_mod cdrom sd_mod uas<br>
-      05.01.20 16:49        usb_storage hid_generic usbhid hid ahci
-      libahci libata crc32c_intel xhci_pci xhci_hcd scsi_mod<br>
-      05.01.20 16:49    CPU    0 PID: 896 Comm: Xorg Tainted: G WC OE
-      5.5.0-1-MANJARO #1<br>
-      05.01.20 16:49    Hardware name    System manufacturer System
-      Product Name/PRIME X470-PRO, BIOS 5406 11/13/2019<br>
-      05.01.20 16:49    RIP    0010:generic_reg_wait.cold+0x25/0x2c
-      [amdgpu]<br>
-      05.01.20 16:49    Code    e9 b4 13 fe ff 44 8b 44 24 24 48 8b 4c
-      24 18 44 89 fa 89 ee 48 c7 c7 98 18 85 c1 e8 28 51 59 f8 83 7b 20
-      01 0f 84 7a 21 fe ff &lt;0f&gt; 0b e9 73 21 fe ff e8 24 9f e6 ff
-      48 c7 c7 00 20 91 c1 e8 88 13<br>
-      05.01.20 16:49    RSP    0018:ffff9ce3c11b7628 EFLAGS: 00010297<br>
-      05.01.20 16:49    RAX    0000000000000041 RBX: ffff8eea36150980
-      RCX: 0000000000000000<br>
-      05.01.20 16:49    RDX    0000000000000000 RSI: ffff8eea3e819ac8
-      RDI: 00000000ffffffff<br>
-      05.01.20 16:49    RBP    0000000000000001 R08: 0000000000000577
-      R09: 0000000000000001<br>
-      05.01.20 16:49    R10    0000000000000000 R11: 0000000000000001
-      R12: 0000000000003d47<br>
-      05.01.20 16:49    R13    00000000000000c9 R14: 0000000000000001
-      R15: 00000000000000c8<br>
-      05.01.20 16:49    FS    00007fd6845b3dc0(0000)
-      GS:ffff8eea3e800000(0000) knlGS:0000000000000000<br>
-      05.01.20 16:49    CS    0010 DS: 0000 ES: 0000 CR0:
-      0000000080050033<br>
-      05.01.20 16:49    CR2    00007f809009bfe0 CR3: 00000007e4290000
-      CR4: 00000000003406f0<br>
-      05.01.20 16:49    Call Trace    <br>
-      05.01.20 16:49        hubp2_set_blank+0xc4/0xd0 [amdgpu]<br>
-      05.01.20 16:49        dcn10_wait_for_mpcc_disconnect+0xc0/0x100
-      [amdgpu]<br>
-      05.01.20 16:49        dcn20_plane_atomic_disable+0x35/0x150
-      [amdgpu]<br>
-      05.01.20 16:49        dcn20_disable_plane+0x24/0x40 [amdgpu]<br>
-      05.01.20 16:49        dcn20_program_front_end_for_ctx+0x3d5/0xd50
-      [amdgpu]<br>
-      05.01.20 16:49        dc_commit_state+0x151/0x5e0 [amdgpu]<br>
-      05.01.20 16:49        amdgpu_dm_atomic_commit_tail+0xfa6/0x1fc0
-      [amdgpu]<br>
-      05.01.20 16:49        ? dm_read_reg_func+0x1f/0x90 [amdgpu]<br>
-      05.01.20 16:49        ? dm_read_reg_func+0x1f/0x90 [amdgpu]<br>
-      05.01.20 16:49        ? dm_read_reg_func+0x1f/0x90 [amdgpu]<br>
-      05.01.20 16:49        ? dm_read_reg_func+0x1f/0x90 [amdgpu]<br>
-      05.01.20 16:49        commit_tail+0x94/0x130 [drm_kms_helper]<br>
-      05.01.20 16:49        drm_atomic_helper_commit+0x113/0x140
-      [drm_kms_helper]<br>
-      05.01.20 16:49        drm_atomic_connector_commit_dpms+0xd7/0x100
-      [drm]<br>
-      05.01.20 16:49        drm_mode_obj_set_property_ioctl+0x169/0x2e0
-      [drm]<br>
-      05.01.20 16:49        ? drm_connector_set_obj_prop+0x90/0x90 [drm]<br>
-      05.01.20 16:49        drm_connector_property_set_ioctl+0x41/0x60
-      [drm]<br>
-      05.01.20 16:49        drm_ioctl_kernel+0xb2/0x100 [drm]<br>
-      05.01.20 16:49        drm_ioctl+0x209/0x360 [drm]<br>
-      05.01.20 16:49        ? drm_connector_set_obj_prop+0x90/0x90 [drm]<br>
-      05.01.20 16:49        amdgpu_drm_ioctl+0x49/0x80 [amdgpu]<br>
-      05.01.20 16:49        do_vfs_ioctl+0x4b7/0x730<br>
-      05.01.20 16:49        ? ep_item_poll.isra.0+0x3f/0xb0<br>
-      05.01.20 16:49        ksys_ioctl+0x5e/0x90<br>
-      05.01.20 16:49        __x64_sys_ioctl+0x16/0x20<br>
-      05.01.20 16:49        do_syscall_64+0x4e/0x150<br>
-      05.01.20 16:49        entry_SYSCALL_64_after_hwframe+0x44/0xa9<br>
-      05.01.20 16:49    RIP    0033:0x7fd6853f925b<br>
-      05.01.20 16:49    Code    0f 1e fa 48 8b 05 25 9c 0c 00 64 c7 00
-      26 00 00 00 48 c7 c0 ff ff ff ff c3 66 0f 1f 44 00 00 f3 0f 1e fa
-      b8 10 00 00 00 0f 05 &lt;48&gt; 3d 01 f0 ff ff 73 01 c3 48 8b 0d
-      f5 9b 0c 00 f7 d8 64 89 01 48<br>
-      05.01.20 16:49    RSP    002b:00007ffe8ce09cc8 EFLAGS: 00000246
-      ORIG_RAX: 0000000000000010<br>
-      05.01.20 16:49    RAX    ffffffffffffffda RBX: 00007ffe8ce09d00
-      RCX: 00007fd6853f925b<br>
-      05.01.20 16:49    RDX    00007ffe8ce09d00 RSI: 00000000c01064ab
-      RDI: 000000000000000d<br>
-      05.01.20 16:49    RBP    00000000c01064ab R08: 0000000000000000
-      R09: 000055fc86388510<br>
-      05.01.20 16:49    R10    0000000000000000 R11: 0000000000000246
-      R12: 000055fc86050c80<br>
-      05.01.20 16:49    R13    000000000000000d R14: 000055fc87242480
-      R15: 0000000000000000<br>
-      05.01.20 16:49        ---[ end trace 56076c7a9bdc6a38 ]---</p>
-    <p><br>
-    </p>
-    <p>4th report<br>
-    </p>
-    <p>05.01.20 16:50        [drm] REG_WAIT timeout 1us * 100000 tries -
-      mpc2_assert_idle_mpcc line:440<br>
-      05.01.20 16:50        ------------[ cut here ]------------<br>
-      05.01.20 16:50    WARNING    CPU: 7 PID: 896 at
-      drivers/gpu/drm/amd/amdgpu/../display/dc/dc_helper.c:332
-      generic_reg_wait.cold+0x25/0x2c [amdgpu]<br>
-      05.01.20 16:50    Modules linked in    fuse md4 cmac nls_utf8 cifs
-      libarc4 dns_resolver fscache libdes squashfs loop amdgpu
-      snd_hda_codec_realtek snd_hda_codec_generic ledtrig_audio
-      snd_hda_codec_hdmi snd_hda_intel r8188eu(C) snd_intel_dspcfg
-      snd_hda_codec snd_usb_audio edac_mce_amd lib80211 kvm_amd
-      nls_iso8859_1 snd_usbmidi_lib nls_cp437 snd_hda_core vfat fat
-      gpu_sched eeepc_wmi ttm snd_rawmidi snd_seq_device mc kvm
-      snd_hwdep asus_wmi irqbypass snd_pcm cfg80211 drm_kms_helper
-      battery sparse_keymap snd_timer crct10dif_pclmul wmi_bmof mxm_wmi
-      drm rfkill crc32_pclmul xpad ghash_clmulni_intel ccp snd
-      ff_memless aesni_intel mousedev input_leds igb joydev crypto_simd
-      agpgart sp5100_tco cryptd syscopyarea glue_helper sysfillrect
-      pcspkr i2c_algo_bit i2c_piix4 sysimgblt k10temp fb_sys_fops
-      rng_core soundcore dca wmi evdev pinctrl_amd mac_hid gpio_amdpt
-      acpi_cpufreq uinput vboxnetflt(OE) vboxnetadp(OE) vboxdrv(OE)
-      crypto_user ip_tables x_tables ext4 crc32c_generic crc16 mbcache
-      jbd2 sr_mod cdrom sd_mod uas<br>
-      05.01.20 16:50        usb_storage hid_generic usbhid hid ahci
-      libahci libata crc32c_intel xhci_pci xhci_hcd scsi_mod<br>
-      05.01.20 16:50    CPU    7 PID: 896 Comm: Xorg Tainted: G WC OE
-      5.5.0-1-MANJARO #1<br>
-      05.01.20 16:50    Hardware name    System manufacturer System
-      Product Name/PRIME X470-PRO, BIOS 5406 11/13/2019<br>
-      05.01.20 16:50    RIP    0010:generic_reg_wait.cold+0x25/0x2c
-      [amdgpu]<br>
-      05.01.20 16:50    Code    e9 b4 13 fe ff 44 8b 44 24 24 48 8b 4c
-      24 18 44 89 fa 89 ee 48 c7 c7 98 18 85 c1 e8 28 51 59 f8 83 7b 20
-      01 0f 84 7a 21 fe ff &lt;0f&gt; 0b e9 73 21 fe ff e8 24 9f e6 ff
-      48 c7 c7 00 20 91 c1 e8 88 13<br>
-      05.01.20 16:50    RSP    0018:ffff9ce3c11b7638 EFLAGS: 00010297<br>
-      05.01.20 16:50    RAX    000000000000004a RBX: ffff8eea36150980
-      RCX: 0000000000000000<br>
-      05.01.20 16:50    RDX    0000000000000000 RSI: ffff8eea3e9d9ac8
-      RDI: 00000000ffffffff<br>
-      05.01.20 16:50    RBP    0000000000000001 R08: 00000000000005ae
-      R09: 0000000000000001<br>
-      05.01.20 16:50    R10    0000000000000000 R11: 0000000000000001
-      R12: 0000000000004790<br>
-      05.01.20 16:50    R13    00000000000186a1 R14: 0000000000000001
-      R15: 00000000000186a0<br>
-      05.01.20 16:50    FS    00007fd6845b3dc0(0000)
-      GS:ffff8eea3e9c0000(0000) knlGS:0000000000000000<br>
-      05.01.20 16:50    CS    0010 DS: 0000 ES: 0000 CR0:
-      0000000080050033<br>
-      05.01.20 16:50    CR2    000055fc86f47000 CR3: 00000007e4290000
-      CR4: 00000000003406e0<br>
-      05.01.20 16:50    Call Trace    <br>
-      05.01.20 16:50        mpc2_assert_idle_mpcc+0xb9/0xe0 [amdgpu]<br>
-      05.01.20 16:50        dcn20_program_front_end_for_ctx+0x986/0xd50
-      [amdgpu]<br>
-      05.01.20 16:50        dc_commit_state+0x258/0x5e0 [amdgpu]<br>
-      05.01.20 16:50        amdgpu_dm_atomic_commit_tail+0xfa6/0x1fc0
-      [amdgpu]<br>
-      05.01.20 16:50        commit_tail+0x94/0x130 [drm_kms_helper]<br>
-      05.01.20 16:50        drm_atomic_helper_commit+0x113/0x140
-      [drm_kms_helper]<br>
-      05.01.20 16:50        drm_atomic_helper_set_config+0x70/0xb0
-      [drm_kms_helper]<br>
-      05.01.20 16:50        drm_mode_setcrtc+0x1f0/0x730 [drm]<br>
-      05.01.20 16:50        ? drm_mode_getcrtc+0x180/0x180 [drm]<br>
-      05.01.20 16:50        drm_ioctl_kernel+0xb2/0x100 [drm]<br>
-      05.01.20 16:50        drm_ioctl+0x209/0x360 [drm]<br>
-      05.01.20 16:50        ? drm_mode_getcrtc+0x180/0x180 [drm]<br>
-      05.01.20 16:50        amdgpu_drm_ioctl+0x49/0x80 [amdgpu]<br>
-      05.01.20 16:50        do_vfs_ioctl+0x4b7/0x730<br>
-      05.01.20 16:50        ksys_ioctl+0x5e/0x90<br>
-      05.01.20 16:50        __x64_sys_ioctl+0x16/0x20<br>
-      05.01.20 16:50        do_syscall_64+0x4e/0x150<br>
-      05.01.20 16:50        entry_SYSCALL_64_after_hwframe+0x44/0xa9<br>
-      05.01.20 16:50    RIP    0033:0x7fd6853f925b<br>
-      05.01.20 16:50    Code    0f 1e fa 48 8b 05 25 9c 0c 00 64 c7 00
-      26 00 00 00 48 c7 c0 ff ff ff ff c3 66 0f 1f 44 00 00 f3 0f 1e fa
-      b8 10 00 00 00 0f 05 &lt;48&gt; 3d 01 f0 ff ff 73 01 c3 48 8b 0d
-      f5 9b 0c 00 f7 d8 64 89 01 48<br>
-      05.01.20 16:50    RSP    002b:00007ffe8ce09888 EFLAGS: 00000246
-      ORIG_RAX: 0000000000000010<br>
-      05.01.20 16:50    RAX    ffffffffffffffda RBX: 00007ffe8ce098c0
-      RCX: 00007fd6853f925b<br>
-      05.01.20 16:50    RDX    00007ffe8ce098c0 RSI: 00000000c06864a2
-      RDI: 000000000000000d<br>
-      05.01.20 16:50    RBP    00000000c06864a2 R08: 0000000000000000
-      R09: 000055fc876aae00<br>
-      05.01.20 16:50    R10    0000000000000000 R11: 0000000000000246
-      R12: 0000000000000000<br>
-      05.01.20 16:50    R13    000000000000000d R14: 000055fc8638b990
-      R15: 0000000000000000<br>
-      05.01.20 16:50        ---[ end trace 56076c7a9bdc6a39 ]---<br>
-      <br>
-    </p>
-  </body>
+         if (drv2smu)
+-               memcpy(table->cpu_addr, table_data, table->size);
++               memcpy(table->cpu_addr, table_data, table_size);
+
+-       ret =3D smu_send_smc_msg_with_param(smu, SMU_MSG_SetDriverDramAddrH=
+igh,
+-                                         upper_32_bits(table->mc_address))=
+;
+-       if (ret)
+-               return ret;
+-       ret =3D smu_send_smc_msg_with_param(smu, SMU_MSG_SetDriverDramAddrL=
+ow,
+-                                         lower_32_bits(table->mc_address))=
+;
+-       if (ret)
+-               return ret;
+         ret =3D smu_send_smc_msg_with_param(smu, drv2smu ?
+                                           SMU_MSG_TransferTableDram2Smu :
+                                           SMU_MSG_TransferTableSmu2Dram,
+@@ -550,7 +543,7 @@ int smu_update_table(struct smu_context *smu, enum smu_=
+table_id table_index, int
+         adev->nbio.funcs->hdp_flush(adev, NULL);
+
+         if (!drv2smu)
+-               memcpy(table_data, table->cpu_addr, table->size);
++               memcpy(table_data, table->cpu_addr, table_size);
+
+         return ret;
+ }
+@@ -976,32 +969,56 @@ static int smu_init_fb_allocations(struct smu_context=
+ *smu)
+         struct amdgpu_device *adev =3D smu->adev;
+         struct smu_table_context *smu_table =3D &smu->smu_table;
+         struct smu_table *tables =3D smu_table->tables;
++       struct smu_table *driver_table =3D &(smu_table->driver_table);
++       uint32_t max_table_size =3D 0;
+         int ret, i;
+
+-       for (i =3D 0; i < SMU_TABLE_COUNT; i++) {
+-               if (tables[i].size =3D=3D 0)
+-                       continue;
++       /* VRAM allocation for tool table */
++       if (tables[SMU_TABLE_PMSTATUSLOG].size) {
+                 ret =3D amdgpu_bo_create_kernel(adev,
+-                                             tables[i].size,
+-                                             tables[i].align,
+-                                             tables[i].domain,
+-                                             &tables[i].bo,
+-                                             &tables[i].mc_address,
+-                                             &tables[i].cpu_addr);
+-               if (ret)
+-                       goto failed;
++                                             tables[SMU_TABLE_PMSTATUSLOG]=
+.size,
++                                             tables[SMU_TABLE_PMSTATUSLOG]=
+.align,
++                                             tables[SMU_TABLE_PMSTATUSLOG]=
+.domain,
++                                             &tables[SMU_TABLE_PMSTATUSLOG=
+].bo,
++                                             &tables[SMU_TABLE_PMSTATUSLOG=
+].mc_address,
++                                             &tables[SMU_TABLE_PMSTATUSLOG=
+].cpu_addr);
++               if (ret) {
++                       pr_err("VRAM allocation for tool table failed!\n");
++                       return ret;
++               }
+         }
+
+-       return 0;
+-failed:
+-       while (--i >=3D 0) {
++       /* VRAM allocation for driver table */
++       for (i =3D 0; i < SMU_TABLE_COUNT; i++) {
+                 if (tables[i].size =3D=3D 0)
+                         continue;
+-               amdgpu_bo_free_kernel(&tables[i].bo,
+-                                     &tables[i].mc_address,
+-                                     &tables[i].cpu_addr);
+
++               if (i =3D=3D SMU_TABLE_PMSTATUSLOG)
++                       continue;
++
++               if (max_table_size < tables[i].size)
++                       max_table_size =3D tables[i].size;
++       }
++
++       driver_table->size =3D max_table_size;
++       driver_table->align =3D PAGE_SIZE;
++       driver_table->domain =3D AMDGPU_GEM_DOMAIN_VRAM;
++
++       ret =3D amdgpu_bo_create_kernel(adev,
++                                     driver_table->size,
++                                     driver_table->align,
++                                     driver_table->domain,
++                                     &driver_table->bo,
++                                     &driver_table->mc_address,
++                                     &driver_table->cpu_addr);
++       if (ret) {
++               pr_err("VRAM allocation for driver table failed!\n");
++               if (tables[SMU_TABLE_PMSTATUSLOG].mc_address)
++                       amdgpu_bo_free_kernel(&tables[SMU_TABLE_PMSTATUSLOG=
+].bo,
++                                             &tables[SMU_TABLE_PMSTATUSLOG=
+].mc_address,
++                                             &tables[SMU_TABLE_PMSTATUSLOG=
+].cpu_addr);
+         }
++
+         return ret;
+ }
+
+@@ -1009,18 +1026,19 @@ static int smu_fini_fb_allocations(struct smu_conte=
+xt *smu)
+ {
+         struct smu_table_context *smu_table =3D &smu->smu_table;
+         struct smu_table *tables =3D smu_table->tables;
+-       uint32_t i =3D 0;
++       struct smu_table *driver_table =3D &(smu_table->driver_table);
+
+         if (!tables)
+                 return 0;
+
+-       for (i =3D 0; i < SMU_TABLE_COUNT; i++) {
+-               if (tables[i].size =3D=3D 0)
+-                       continue;
+-               amdgpu_bo_free_kernel(&tables[i].bo,
+-                                     &tables[i].mc_address,
+-                                     &tables[i].cpu_addr);
+-       }
++       if (tables[SMU_TABLE_PMSTATUSLOG].mc_address)
++               amdgpu_bo_free_kernel(&tables[SMU_TABLE_PMSTATUSLOG].bo,
++                                     &tables[SMU_TABLE_PMSTATUSLOG].mc_add=
+ress,
++                                     &tables[SMU_TABLE_PMSTATUSLOG].cpu_ad=
+dr);
++
++       amdgpu_bo_free_kernel(&driver_table->bo,
++                             &driver_table->mc_address,
++                             &driver_table->cpu_addr);
+
+         return 0;
+ }
+@@ -1091,6 +1109,10 @@ static int smu_smc_table_hw_init(struct smu_context =
+*smu,
+
+         /* smu_dump_pptable(smu); */
+
++       ret =3D smu_set_driver_table_location(smu);
++       if (ret)
++               return ret;
++
+         /*
+          * Copy pptable bo in the vram to smc with SMU MSGs such as
+          * SetDriverDramAddr and TransferTableDram2Smu.
+diff --git a/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c b/drivers/gpu/drm=
+/amd/powerplay/arcturus_ppt.c
+index 50b317f4b1e6..064b5201a8a7 100644
+--- a/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c
++++ b/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c
+@@ -2022,7 +2022,7 @@ static int arcturus_i2c_eeprom_read_data(struct i2c_a=
+dapter *control,
+         SwI2cRequest_t req;
+         struct amdgpu_device *adev =3D to_amdgpu_device(control);
+         struct smu_table_context *smu_table =3D &adev->smu.smu_table;
+-       struct smu_table *table =3D &smu_table->tables[SMU_TABLE_I2C_COMMAN=
+DS];
++       struct smu_table *table =3D &smu_table->driver_table;
+
+         memset(&req, 0, sizeof(req));
+         arcturus_fill_eeprom_i2c_req(&req, false, address, numbytes, data)=
+;
+@@ -2261,6 +2261,7 @@ static const struct pptable_funcs arcturus_ppt_funcs =
+=3D {
+         .check_fw_version =3D smu_v11_0_check_fw_version,
+         .write_pptable =3D smu_v11_0_write_pptable,
+         .set_min_dcef_deep_sleep =3D smu_v11_0_set_min_dcef_deep_sleep,
++       .set_driver_table_location =3D smu_v11_0_set_driver_table_location,
+         .set_tool_table_location =3D smu_v11_0_set_tool_table_location,
+         .notify_memory_pool_location =3D smu_v11_0_notify_memory_pool_loca=
+tion,
+         .system_features_control =3D smu_v11_0_system_features_control,
+diff --git a/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h b/drivers/gpu/d=
+rm/amd/powerplay/inc/amdgpu_smu.h
+index 02d33b50e735..b0591a8dda41 100644
+--- a/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h
++++ b/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h
+@@ -260,6 +260,15 @@ struct smu_table_context
+         struct smu_bios_boot_up_values  boot_values;
+         void                            *driver_pptable;
+         struct smu_table                *tables;
++       /*
++        * The driver table is just a staging buffer for
++        * uploading/downloading content from the SMU.
++        *
++        * And the table_id for SMU_MSG_TransferTableSmu2Dram/
++        * SMU_MSG_TransferTableDram2Smu instructs SMU
++        * which content driver is interested.
++        */
++       struct smu_table                driver_table;
+         struct smu_table                memory_pool;
+         uint8_t                         thermal_controller_type;
+
+@@ -498,6 +507,7 @@ struct pptable_funcs {
+         int (*set_gfx_cgpg)(struct smu_context *smu, bool enable);
+         int (*write_pptable)(struct smu_context *smu);
+         int (*set_min_dcef_deep_sleep)(struct smu_context *smu);
++       int (*set_driver_table_location)(struct smu_context *smu);
+         int (*set_tool_table_location)(struct smu_context *smu);
+         int (*notify_memory_pool_location)(struct smu_context *smu);
+         int (*set_last_dcef_min_deep_sleep_clk)(struct smu_context *smu);
+diff --git a/drivers/gpu/drm/amd/powerplay/inc/smu_v11_0.h b/drivers/gpu/dr=
+m/amd/powerplay/inc/smu_v11_0.h
+index db3f78676aeb..662989296174 100644
+--- a/drivers/gpu/drm/amd/powerplay/inc/smu_v11_0.h
++++ b/drivers/gpu/drm/amd/powerplay/inc/smu_v11_0.h
+@@ -170,6 +170,8 @@ int smu_v11_0_write_pptable(struct smu_context *smu);
+
+ int smu_v11_0_set_min_dcef_deep_sleep(struct smu_context *smu);
+
++int smu_v11_0_set_driver_table_location(struct smu_context *smu);
++
+ int smu_v11_0_set_tool_table_location(struct smu_context *smu);
+
+ int smu_v11_0_notify_memory_pool_location(struct smu_context *smu);
+diff --git a/drivers/gpu/drm/amd/powerplay/inc/smu_v12_0.h b/drivers/gpu/dr=
+m/amd/powerplay/inc/smu_v12_0.h
+index 3f1cd06e273c..d79e54b5ebf6 100644
+--- a/drivers/gpu/drm/amd/powerplay/inc/smu_v12_0.h
++++ b/drivers/gpu/drm/amd/powerplay/inc/smu_v12_0.h
+@@ -90,4 +90,6 @@ int smu_v12_0_mode2_reset(struct smu_context *smu);
+ int smu_v12_0_set_soft_freq_limited_range(struct smu_context *smu, enum sm=
+u_clk_type clk_type,
+                             uint32_t min, uint32_t max);
+
++int smu_v12_0_set_driver_table_location(struct smu_context *smu);
++
+ #endif
+diff --git a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c b/drivers/gpu/drm/a=
+md/powerplay/navi10_ppt.c
+index bb0915a6388e..a16af3a3843c 100644
+--- a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
++++ b/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
+@@ -2112,6 +2112,7 @@ static const struct pptable_funcs navi10_ppt_funcs =
+=3D {
+         .check_fw_version =3D smu_v11_0_check_fw_version,
+         .write_pptable =3D smu_v11_0_write_pptable,
+         .set_min_dcef_deep_sleep =3D smu_v11_0_set_min_dcef_deep_sleep,
++       .set_driver_table_location =3D smu_v11_0_set_driver_table_location,
+         .set_tool_table_location =3D smu_v11_0_set_tool_table_location,
+         .notify_memory_pool_location =3D smu_v11_0_notify_memory_pool_loca=
+tion,
+         .system_features_control =3D smu_v11_0_system_features_control,
+diff --git a/drivers/gpu/drm/amd/powerplay/renoir_ppt.c b/drivers/gpu/drm/a=
+md/powerplay/renoir_ppt.c
+index 506cc6bf4bc0..861e6410363b 100644
+--- a/drivers/gpu/drm/amd/powerplay/renoir_ppt.c
++++ b/drivers/gpu/drm/amd/powerplay/renoir_ppt.c
+@@ -920,6 +920,7 @@ static const struct pptable_funcs renoir_ppt_funcs =3D =
+{
+         .get_dpm_ultimate_freq =3D smu_v12_0_get_dpm_ultimate_freq,
+         .mode2_reset =3D smu_v12_0_mode2_reset,
+         .set_soft_freq_limited_range =3D smu_v12_0_set_soft_freq_limited_r=
+ange,
++       .set_driver_table_location =3D smu_v12_0_set_driver_table_location,
+ };
+
+ void renoir_set_ppt_funcs(struct smu_context *smu)
+diff --git a/drivers/gpu/drm/amd/powerplay/smu_internal.h b/drivers/gpu/drm=
+/amd/powerplay/smu_internal.h
+index 77864e4236c4..783319ec8bf9 100644
+--- a/drivers/gpu/drm/amd/powerplay/smu_internal.h
++++ b/drivers/gpu/drm/amd/powerplay/smu_internal.h
+@@ -61,6 +61,8 @@
+         ((smu)->ppt_funcs->write_pptable ? (smu)->ppt_funcs->write_pptable=
+((smu)) : 0)
+ #define smu_set_min_dcef_deep_sleep(smu) \
+         ((smu)->ppt_funcs->set_min_dcef_deep_sleep ? (smu)->ppt_funcs->set=
+_min_dcef_deep_sleep((smu)) : 0)
++#define smu_set_driver_table_location(smu) \
++       ((smu)->ppt_funcs->set_driver_table_location ? (smu)->ppt_funcs->se=
+t_driver_table_location((smu)) : 0)
+ #define smu_set_tool_table_location(smu) \
+         ((smu)->ppt_funcs->set_tool_table_location ? (smu)->ppt_funcs->set=
+_tool_table_location((smu)) : 0)
+ #define smu_notify_memory_pool_location(smu) \
+diff --git a/drivers/gpu/drm/amd/powerplay/smu_v11_0.c b/drivers/gpu/drm/am=
+d/powerplay/smu_v11_0.c
+index 6fb93eb6ab39..e804f9854027 100644
+--- a/drivers/gpu/drm/amd/powerplay/smu_v11_0.c
++++ b/drivers/gpu/drm/amd/powerplay/smu_v11_0.c
+@@ -776,6 +776,24 @@ int smu_v11_0_set_min_dcef_deep_sleep(struct smu_conte=
+xt *smu)
+         return smu_v11_0_set_deep_sleep_dcefclk(smu, table_context->boot_v=
+alues.dcefclk / 100);
+ }
+
++int smu_v11_0_set_driver_table_location(struct smu_context *smu)
++{
++       struct smu_table *driver_table =3D &smu->smu_table.driver_table;
++       int ret =3D 0;
++
++       if (driver_table->mc_address) {
++               ret =3D smu_send_smc_msg_with_param(smu,
++                               SMU_MSG_SetDriverDramAddrHigh,
++                               upper_32_bits(driver_table->mc_address));
++               if (!ret)
++                       ret =3D smu_send_smc_msg_with_param(smu,
++                               SMU_MSG_SetDriverDramAddrLow,
++                               lower_32_bits(driver_table->mc_address));
++       }
++
++       return ret;
++}
++
+ int smu_v11_0_set_tool_table_location(struct smu_context *smu)
+ {
+         int ret =3D 0;
+diff --git a/drivers/gpu/drm/amd/powerplay/smu_v12_0.c b/drivers/gpu/drm/am=
+d/powerplay/smu_v12_0.c
+index 9e27462d0f4e..870e6db2907e 100644
+--- a/drivers/gpu/drm/amd/powerplay/smu_v12_0.c
++++ b/drivers/gpu/drm/amd/powerplay/smu_v12_0.c
+@@ -318,14 +318,6 @@ int smu_v12_0_fini_smc_tables(struct smu_context *smu)
+ int smu_v12_0_populate_smc_tables(struct smu_context *smu)
+ {
+         struct smu_table_context *smu_table =3D &smu->smu_table;
+-       struct smu_table *table =3D NULL;
+-
+-       table =3D &smu_table->tables[SMU_TABLE_DPMCLOCKS];
+-       if (!table)
+-               return -EINVAL;
+-
+-       if (!table->cpu_addr)
+-               return -EINVAL;
+
+         return smu_update_table(smu, SMU_TABLE_DPMCLOCKS, 0, smu_table->cl=
+ocks_table, false);
+ }
+@@ -514,3 +506,21 @@ int smu_v12_0_set_soft_freq_limited_range(struct smu_c=
+ontext *smu, enum smu_clk_
+
+         return ret;
+ }
++
++int smu_v12_0_set_driver_table_location(struct smu_context *smu)
++{
++       struct smu_table *driver_table =3D &smu->smu_table.driver_table;
++       int ret =3D 0;
++
++       if (driver_table->mc_address) {
++               ret =3D smu_send_smc_msg_with_param(smu,
++                               SMU_MSG_SetDriverDramAddrHigh,
++                               upper_32_bits(driver_table->mc_address));
++               if (!ret)
++                       ret =3D smu_send_smc_msg_with_param(smu,
++                               SMU_MSG_SetDriverDramAddrLow,
++                               lower_32_bits(driver_table->mc_address));
++       }
+[kevin]:
+for these paris of message, the smu driver should be better to add lock to =
+protect bellow case on multi thread case (eg: cat sysfs)
+High A + Low B
+High B + Low A
++
++       return ret;
++}
+diff --git a/drivers/gpu/drm/amd/powerplay/vega20_ppt.c b/drivers/gpu/drm/a=
+md/powerplay/vega20_ppt.c
+index 27bdcdeb08d9..38febd5ca4da 100644
+--- a/drivers/gpu/drm/amd/powerplay/vega20_ppt.c
++++ b/drivers/gpu/drm/amd/powerplay/vega20_ppt.c
+@@ -3236,6 +3236,7 @@ static const struct pptable_funcs vega20_ppt_funcs =
+=3D {
+         .check_fw_version =3D smu_v11_0_check_fw_version,
+         .write_pptable =3D smu_v11_0_write_pptable,
+         .set_min_dcef_deep_sleep =3D smu_v11_0_set_min_dcef_deep_sleep,
++       .set_driver_table_location =3D smu_v11_0_set_driver_table_location,
+         .set_tool_table_location =3D smu_v11_0_set_tool_table_location,
+         .notify_memory_pool_location =3D smu_v11_0_notify_memory_pool_loca=
+tion,
+         .system_features_control =3D smu_v11_0_system_features_control,
+--
+2.24.1
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org>
+https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Flists.f=
+reedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=3D02%7C01%7CKevin1.W=
+ang%40amd.com%7Cf88b8d717d4745f7521308d78f2d1824%7C3dd8961fe4884e608e11a82d=
+994e183d%7C0%7C0%7C637135296167400253&amp;sdata=3DnHLXbyqZO2YNTyE4nTw4SP9ld=
+cZqXijxZuGMSDWPxHM%3D&amp;reserved=3D0
+
+--_000_MN2PR12MB3344BF617F7C64B8FD5DE67BE43C0MN2PR12MB3344namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40">
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
+<!--[if !mso]><style>v\:* {behavior:url(#default#VML);}
+o\:* {behavior:url(#default#VML);}
+w\:* {behavior:url(#default#VML);}
+.shape {behavior:url(#default#VML);}
+</style><![endif]--><style><!--
+/* Font Definitions */
+@font-face
+	{font-family:SimSun;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:DengXian;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:SimSun;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:DengXian;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:blue;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{mso-style-priority:99;
+	color:purple;
+	text-decoration:underline;}
+p.msonormal0, li.msonormal0, div.msonormal0
+	{mso-style-name:msonormal;
+	margin:0in;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+span.EmailStyle20
+	{mso-style-type:personal-reply;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-size:10.0pt;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.25in 1.0in 1.25in;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
+</head>
+<body lang=3D"EN-US" link=3D"blue" vlink=3D"purple">
+<div class=3D"WordSection1">
+<p class=3D"MsoNormal">&gt;[kevin]:<o:p></o:p></p>
+<p class=3D"MsoNormal">&gt;for these paris of message, the smu driver shoul=
+d be better to add lock to protect bellow case on multi thread case (eg: ca=
+t sysfs)<o:p></o:p></p>
+<p class=3D"MsoNormal">&gt;High A &#43; Low B<o:p></o:p></p>
+<p class=3D"MsoNormal">&gt;High B &#43; Low A<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Hmm, that&#8217;s what I was trying to avoid to do(a=
+dd internal lock protections).<o:p></o:p></p>
+<p class=3D"MsoNormal">As, these should be proper protected/locked by top a=
+pis(e.g. smu_read_sensor) from amdgpu_smu.c.<o:p></o:p></p>
+<p class=3D"MsoNormal">Adding more internal locks bring more troubles/confu=
+sions than benefits.<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<div style=3D"border:none;border-left:solid blue 1.5pt;padding:0in 0in 0in =
+4.0pt">
+<div>
+<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
+0in 0in">
+<p class=3D"MsoNormal"><b>From:</b> Wang, Kevin(Yang) &lt;Kevin1.Wang@amd.c=
+om&gt; <br>
+<b>Sent:</b> Sunday, January 5, 2020 2:11 PM<br>
+<b>To:</b> Quan, Evan &lt;Evan.Quan@amd.com&gt;; amd-gfx@lists.freedesktop.=
+org<br>
+<b>Cc:</b> Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;<br>
+<b>Subject:</b> Re: [PATCH] drm/amd/powerplay: unified VRAM address for dri=
+ver table interaction with SMU V2<o:p></o:p></p>
+</div>
+</div>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p style=3D"margin:15.0pt"><span style=3D"font-size:10.0pt;font-family:&quo=
+t;Arial&quot;,sans-serif;color:#0078D7">[AMD Official Use Only - Internal D=
+istribution Only]<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black"><o:p>&n=
+bsp;</o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black"><o:p>&n=
+bsp;</o:p></span></p>
+</div>
+<div class=3D"MsoNormal" align=3D"center" style=3D"text-align:center">
+<hr size=3D"2" width=3D"98%" align=3D"center">
+</div>
+<div id=3D"divRplyFwdMsg">
+<p class=3D"MsoNormal"><b><span style=3D"color:black">From:</span></b><span=
+ style=3D"color:black"> amd-gfx &lt;<a href=3D"mailto:amd-gfx-bounces@lists=
+.freedesktop.org">amd-gfx-bounces@lists.freedesktop.org</a>&gt; on behalf o=
+f Evan Quan &lt;<a href=3D"mailto:evan.quan@amd.com">evan.quan@amd.com</a>&=
+gt;<br>
+<b>Sent:</b> Thursday, January 2, 2020 10:39 AM<br>
+<b>To:</b> <a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.f=
+reedesktop.org</a> &lt;<a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd=
+-gfx@lists.freedesktop.org</a>&gt;<br>
+<b>Cc:</b> Deucher, Alexander &lt;<a href=3D"mailto:Alexander.Deucher@amd.c=
+om">Alexander.Deucher@amd.com</a>&gt;; Quan, Evan &lt;<a href=3D"mailto:Eva=
+n.Quan@amd.com">Evan.Quan@amd.com</a>&gt;<br>
+<b>Subject:</b> [PATCH] drm/amd/powerplay: unified VRAM address for driver =
+table interaction with SMU V2</span>
+<o:p></o:p></p>
+<div>
+<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal">By this, we can avoid to pass in the VRAM address on=
+ every table<br>
+transferring. That puts extra unnecessary traffics on SMU on<br>
+some cases(e.g. polling the amdgpu_pm_info sysfs interface).<br>
+<br>
+V2: document what the driver table is for and how it works<br>
+<br>
+Change-Id: Ifb74d9cd89790b301e88d472b29cdb9b0365b65a<br>
+Signed-off-by: Evan Quan &lt;<a href=3D"mailto:evan.quan@amd.com">evan.quan=
+@amd.com</a>&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/powerplay/amdgpu_smu.c&nbsp;&nbsp;&nbsp; | 98 &#4=
+3;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;-------<br>
+&nbsp;drivers/gpu/drm/amd/powerplay/arcturus_ppt.c&nbsp; |&nbsp; 3 &#43;-<b=
+r>
+&nbsp;.../gpu/drm/amd/powerplay/inc/amdgpu_smu.h&nbsp;&nbsp;&nbsp; | 10 &#4=
+3;&#43;<br>
+&nbsp;drivers/gpu/drm/amd/powerplay/inc/smu_v11_0.h |&nbsp; 2 &#43;<br>
+&nbsp;drivers/gpu/drm/amd/powerplay/inc/smu_v12_0.h |&nbsp; 2 &#43;<br>
+&nbsp;drivers/gpu/drm/amd/powerplay/navi10_ppt.c&nbsp;&nbsp;&nbsp; |&nbsp; =
+1 &#43;<br>
+&nbsp;drivers/gpu/drm/amd/powerplay/renoir_ppt.c&nbsp;&nbsp;&nbsp; |&nbsp; =
+1 &#43;<br>
+&nbsp;drivers/gpu/drm/amd/powerplay/smu_internal.h&nbsp; |&nbsp; 2 &#43;<br=
+>
+&nbsp;drivers/gpu/drm/amd/powerplay/smu_v11_0.c&nbsp;&nbsp;&nbsp;&nbsp; | 1=
+8 &#43;&#43;&#43;&#43;<br>
+&nbsp;drivers/gpu/drm/amd/powerplay/smu_v12_0.c&nbsp;&nbsp;&nbsp;&nbsp; | 2=
+6 &#43;&#43;&#43;--<br>
+&nbsp;drivers/gpu/drm/amd/powerplay/vega20_ppt.c&nbsp;&nbsp;&nbsp; |&nbsp; =
+1 &#43;<br>
+&nbsp;11 files changed, 117 insertions(&#43;), 47 deletions(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c b/drivers/gpu/drm/a=
+md/powerplay/amdgpu_smu.c<br>
+index 95238ad38de8..beea4d9e82d4 100644<br>
+--- a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c<br>
+@@ -519,26 &#43;519,19 @@ int smu_update_table(struct smu_context *smu, enu=
+m smu_table_id table_index, int<br>
+&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct smu_table_context *=
+smu_table =3D &amp;smu-&gt;smu_table;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev=
+ =3D smu-&gt;adev;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct smu_table *table =3D NULL;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int ret =3D 0;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct smu_table *table =3D &amp;=
+smu_table-&gt;driver_table;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int table_id =3D smu_table=
+_get_index(smu, table_index);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t table_size;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int ret =3D 0;<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!table_data || table_i=
+d &gt;=3D SMU_TABLE_COUNT || table_id &lt; 0)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; return -EINVAL;<br>
+&nbsp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; table =3D &amp;smu_table-&gt;tables[t=
+able_index];<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; table_size =3D smu_table-&gt;tabl=
+es[table_index].size;<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (drv2smu)<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; memcpy(table-&gt;cpu_addr, table_data, table-&gt;size);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; memcpy(table-&gt;cpu_addr, table_data, table_size);<br>
+&nbsp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D smu_send_smc_msg_with_param(s=
+mu, SMU_MSG_SetDriverDramAddrHigh,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp; upper_32_bits(table-&gt;mc_address));<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ret)<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; return ret;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D smu_send_smc_msg_with_param(s=
+mu, SMU_MSG_SetDriverDramAddrLow,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp; lower_32_bits(table-&gt;mc_address));<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ret)<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; return ret;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D smu_send_smc_msg_w=
+ith_param(smu, drv2smu ?<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp; SMU_MSG_TransferTableDram2Smu :<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp; SMU_MSG_TransferTableSmu2Dram,<br>
+@@ -550,7 &#43;543,7 @@ int smu_update_table(struct smu_context *smu, enum =
+smu_table_id table_index, int<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;nbio.funcs-&gt;hd=
+p_flush(adev, NULL);<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!drv2smu)<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; memcpy(table_data, table-&gt;cpu_addr, table-&gt;size);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; memcpy(table_data, table-&gt;cpu_addr, table_size);<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret;<br>
+&nbsp;}<br>
+@@ -976,32 &#43;969,56 @@ static int smu_init_fb_allocations(struct smu_con=
+text *smu)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev=
+ =3D smu-&gt;adev;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct smu_table_context *=
+smu_table =3D &amp;smu-&gt;smu_table;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct smu_table *tables =
+=3D smu_table-&gt;tables;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct smu_table *driver_table =
+=3D &amp;(smu_table-&gt;driver_table);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t max_table_size =3D 0;<br=
+>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int ret, i;<br>
+&nbsp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (i =3D 0; i &lt; SMU_TABLE_COUNT;=
+ i&#43;&#43;) {<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; if (tables[i].size =3D=3D 0)<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; continue;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* VRAM allocation for tool table=
+ */<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (tables[SMU_TABLE_PMSTATUSLOG]=
+.size) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; ret =3D amdgpu_bo_create_kernel(adev,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tables[i].size,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tables[i].align,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tables[i].domain,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &amp;tables[i].bo,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &amp;tables[i].mc_address,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &amp;tables[i].cpu_addr);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; if (ret)<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; goto failed;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tables[SMU_TABLE_PMSTATUSLOG].=
+size,<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tables[SMU_TABLE_PMSTATUSLOG].=
+align,<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tables[SMU_TABLE_PMSTATUSLOG].=
+domain,<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &amp;tables[SMU_TABLE_PMSTATUS=
+LOG].bo,<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &amp;tables[SMU_TABLE_PMSTATUS=
+LOG].mc_address,<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &amp;tables[SMU_TABLE_PMSTATUS=
+LOG].cpu_addr);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; if (ret) {<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pr_err(&quot=
+;VRAM allocation for tool table failed!\n&quot;);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret;<=
+br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+-failed:<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; while (--i &gt;=3D 0) {<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* VRAM allocation for driver tab=
+le */<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (i =3D 0; i &lt; SMU_TABLE_CO=
+UNT; i&#43;&#43;) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; if (tables[i].size =3D=3D 0)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; conti=
+nue;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; amdgpu_bo_free_kernel(&amp;tables[i].bo,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &amp;ta=
+bles[i].mc_address,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &amp;ta=
+bles[i].cpu_addr);<br>
+&nbsp;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; if (i =3D=3D SMU_TABLE_PMSTATUSLOG)<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; continue;<br=
+>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; if (max_table_size &lt; tables[i].size)<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; max_table_si=
+ze =3D tables[i].size;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; driver_table-&gt;size =3D max_tab=
+le_size;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; driver_table-&gt;align =3D PAGE_S=
+IZE;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; driver_table-&gt;domain =3D AMDGP=
+U_GEM_DOMAIN_VRAM;<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D amdgpu_bo_create_kernel(a=
+dev,<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dri=
+ver_table-&gt;size,<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dri=
+ver_table-&gt;align,<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dri=
+ver_table-&gt;domain,<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &am=
+p;driver_table-&gt;bo,<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &am=
+p;driver_table-&gt;mc_address,<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &am=
+p;driver_table-&gt;cpu_addr);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ret) {<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; pr_err(&quot;VRAM allocation for driver table failed!\n&quot=
+;);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; if (tables[SMU_TABLE_PMSTATUSLOG].mc_address)<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_bo_fr=
+ee_kernel(&amp;tables[SMU_TABLE_PMSTATUSLOG].bo,<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &amp;tables[SMU_TABLE_PMSTATUS=
+LOG].mc_address,<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &amp;tables[SMU_TABLE_PMSTATUS=
+LOG].cpu_addr);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&#43;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret;<br>
+&nbsp;}<br>
+&nbsp;<br>
+@@ -1009,18 &#43;1026,19 @@ static int smu_fini_fb_allocations(struct smu_c=
+ontext *smu)<br>
+&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct smu_table_context *=
+smu_table =3D &amp;smu-&gt;smu_table;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct smu_table *tables =
+=3D smu_table-&gt;tables;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t i =3D 0;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct smu_table *driver_table =
+=3D &amp;(smu_table-&gt;driver_table);<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!tables)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; return 0;<br>
+&nbsp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (i =3D 0; i &lt; SMU_TABLE_COUNT;=
+ i&#43;&#43;) {<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; if (tables[i].size =3D=3D 0)<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; continue;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; amdgpu_bo_free_kernel(&amp;tables[i].bo,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &amp;ta=
+bles[i].mc_address,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &amp;ta=
+bles[i].cpu_addr);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (tables[SMU_TABLE_PMSTATUSLOG]=
+.mc_address)<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; amdgpu_bo_free_kernel(&amp;tables[SMU_TABLE_PMSTATUSLOG].bo,=
+<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &am=
+p;tables[SMU_TABLE_PMSTATUSLOG].mc_address,<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &am=
+p;tables[SMU_TABLE_PMSTATUSLOG].cpu_addr);<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_bo_free_kernel(&amp;driver=
+_table-&gt;bo,<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp; &amp;driver_table-&gt;mc_address,<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp; &amp;driver_table-&gt;cpu_addr);<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+&nbsp;}<br>
+@@ -1091,6 &#43;1109,10 @@ static int smu_smc_table_hw_init(struct smu_cont=
+ext *smu,<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* smu_dump_pptable(smu); =
+*/<br>
+&nbsp;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D smu_set_driver_table_loca=
+tion(smu);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ret)<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; return ret;<br>
+&#43;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /*<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * Copy pptable bo in=
+ the vram to smc with SMU MSGs such as<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * SetDriverDramAddr =
+and TransferTableDram2Smu.<br>
+diff --git a/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c b/drivers/gpu/drm=
+/amd/powerplay/arcturus_ppt.c<br>
+index 50b317f4b1e6..064b5201a8a7 100644<br>
+--- a/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c<br>
+@@ -2022,7 &#43;2022,7 @@ static int arcturus_i2c_eeprom_read_data(struct i=
+2c_adapter *control,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SwI2cRequest_t req;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev=
+ =3D to_amdgpu_device(control);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct smu_table_context *=
+smu_table =3D &amp;adev-&gt;smu.smu_table;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct smu_table *table =3D &amp;smu_=
+table-&gt;tables[SMU_TABLE_I2C_COMMANDS];<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct smu_table *table =3D &amp;=
+smu_table-&gt;driver_table;<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; memset(&amp;req, 0, sizeof=
+(req));<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; arcturus_fill_eeprom_i2c_r=
+eq(&amp;req, false, address, numbytes, data);<br>
+@@ -2261,6 &#43;2261,7 @@ static const struct pptable_funcs arcturus_ppt_fu=
+ncs =3D {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .check_fw_version =3D smu_=
+v11_0_check_fw_version,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .write_pptable =3D smu_v11=
+_0_write_pptable,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .set_min_dcef_deep_sleep =
+=3D smu_v11_0_set_min_dcef_deep_sleep,<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .set_driver_table_location =3D sm=
+u_v11_0_set_driver_table_location,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .set_tool_table_location =
+=3D smu_v11_0_set_tool_table_location,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .notify_memory_pool_locati=
+on =3D smu_v11_0_notify_memory_pool_location,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .system_features_control =
+=3D smu_v11_0_system_features_control,<br>
+diff --git a/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h b/drivers/gpu/d=
+rm/amd/powerplay/inc/amdgpu_smu.h<br>
+index 02d33b50e735..b0591a8dda41 100644<br>
+--- a/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h<br>
+@@ -260,6 &#43;260,15 @@ struct smu_table_context<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct smu_bios_boot_up_va=
+lues&nbsp; boot_values;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; void&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *driver_p=
+ptable;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct smu_table&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp; *tables;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /*<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * The driver table is just =
+a staging buffer for<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * uploading/downloading con=
+tent from the SMU.<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * And the table_id for SMU_=
+MSG_TransferTableSmu2Dram/<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * SMU_MSG_TransferTableDram=
+2Smu instructs SMU<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * which content driver is i=
+nterested.<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct smu_table&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; d=
+river_table;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct smu_table&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp; memory_pool;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint8_t&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; thermal_controller_type;=
+<br>
+&nbsp;<br>
+@@ -498,6 &#43;507,7 @@ struct pptable_funcs {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int (*set_gfx_cgpg)(struct=
+ smu_context *smu, bool enable);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int (*write_pptable)(struc=
+t smu_context *smu);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int (*set_min_dcef_deep_sl=
+eep)(struct smu_context *smu);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int (*set_driver_table_location)(=
+struct smu_context *smu);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int (*set_tool_table_locat=
+ion)(struct smu_context *smu);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int (*notify_memory_pool_l=
+ocation)(struct smu_context *smu);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int (*set_last_dcef_min_de=
+ep_sleep_clk)(struct smu_context *smu);<br>
+diff --git a/drivers/gpu/drm/amd/powerplay/inc/smu_v11_0.h b/drivers/gpu/dr=
+m/amd/powerplay/inc/smu_v11_0.h<br>
+index db3f78676aeb..662989296174 100644<br>
+--- a/drivers/gpu/drm/amd/powerplay/inc/smu_v11_0.h<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/inc/smu_v11_0.h<br>
+@@ -170,6 &#43;170,8 @@ int smu_v11_0_write_pptable(struct smu_context *smu=
+);<br>
+&nbsp;<br>
+&nbsp;int smu_v11_0_set_min_dcef_deep_sleep(struct smu_context *smu);<br>
+&nbsp;<br>
+&#43;int smu_v11_0_set_driver_table_location(struct smu_context *smu);<br>
+&#43;<br>
+&nbsp;int smu_v11_0_set_tool_table_location(struct smu_context *smu);<br>
+&nbsp;<br>
+&nbsp;int smu_v11_0_notify_memory_pool_location(struct smu_context *smu);<b=
+r>
+diff --git a/drivers/gpu/drm/amd/powerplay/inc/smu_v12_0.h b/drivers/gpu/dr=
+m/amd/powerplay/inc/smu_v12_0.h<br>
+index 3f1cd06e273c..d79e54b5ebf6 100644<br>
+--- a/drivers/gpu/drm/amd/powerplay/inc/smu_v12_0.h<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/inc/smu_v12_0.h<br>
+@@ -90,4 &#43;90,6 @@ int smu_v12_0_mode2_reset(struct smu_context *smu);<b=
+r>
+&nbsp;int smu_v12_0_set_soft_freq_limited_range(struct smu_context *smu, en=
+um smu_clk_type clk_type,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp; uint32_t min, uint32_t max);<br>
+&nbsp;<br>
+&#43;int smu_v12_0_set_driver_table_location(struct smu_context *smu);<br>
+&#43;<br>
+&nbsp;#endif<br>
+diff --git a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c b/drivers/gpu/drm/a=
+md/powerplay/navi10_ppt.c<br>
+index bb0915a6388e..a16af3a3843c 100644<br>
+--- a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/navi10_ppt.c<br>
+@@ -2112,6 &#43;2112,7 @@ static const struct pptable_funcs navi10_ppt_func=
+s =3D {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .check_fw_version =3D smu_=
+v11_0_check_fw_version,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .write_pptable =3D smu_v11=
+_0_write_pptable,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .set_min_dcef_deep_sleep =
+=3D smu_v11_0_set_min_dcef_deep_sleep,<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .set_driver_table_location =3D sm=
+u_v11_0_set_driver_table_location,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .set_tool_table_location =
+=3D smu_v11_0_set_tool_table_location,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .notify_memory_pool_locati=
+on =3D smu_v11_0_notify_memory_pool_location,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .system_features_control =
+=3D smu_v11_0_system_features_control,<br>
+diff --git a/drivers/gpu/drm/amd/powerplay/renoir_ppt.c b/drivers/gpu/drm/a=
+md/powerplay/renoir_ppt.c<br>
+index 506cc6bf4bc0..861e6410363b 100644<br>
+--- a/drivers/gpu/drm/amd/powerplay/renoir_ppt.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/renoir_ppt.c<br>
+@@ -920,6 &#43;920,7 @@ static const struct pptable_funcs renoir_ppt_funcs =
+=3D {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .get_dpm_ultimate_freq =3D=
+ smu_v12_0_get_dpm_ultimate_freq,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .mode2_reset =3D smu_v12_0=
+_mode2_reset,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .set_soft_freq_limited_ran=
+ge =3D smu_v12_0_set_soft_freq_limited_range,<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .set_driver_table_location =3D sm=
+u_v12_0_set_driver_table_location,<br>
+&nbsp;};<br>
+&nbsp;<br>
+&nbsp;void renoir_set_ppt_funcs(struct smu_context *smu)<br>
+diff --git a/drivers/gpu/drm/amd/powerplay/smu_internal.h b/drivers/gpu/drm=
+/amd/powerplay/smu_internal.h<br>
+index 77864e4236c4..783319ec8bf9 100644<br>
+--- a/drivers/gpu/drm/amd/powerplay/smu_internal.h<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/smu_internal.h<br>
+@@ -61,6 &#43;61,8 @@<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ((smu)-&gt;ppt_funcs-&gt;w=
+rite_pptable ? (smu)-&gt;ppt_funcs-&gt;write_pptable((smu)) : 0)<br>
+&nbsp;#define smu_set_min_dcef_deep_sleep(smu) \<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ((smu)-&gt;ppt_funcs-&gt;s=
+et_min_dcef_deep_sleep ? (smu)-&gt;ppt_funcs-&gt;set_min_dcef_deep_sleep((s=
+mu)) : 0)<br>
+&#43;#define smu_set_driver_table_location(smu) \<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ((smu)-&gt;ppt_funcs-&gt;set_driv=
+er_table_location ? (smu)-&gt;ppt_funcs-&gt;set_driver_table_location((smu)=
+) : 0)<br>
+&nbsp;#define smu_set_tool_table_location(smu) \<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ((smu)-&gt;ppt_funcs-&gt;s=
+et_tool_table_location ? (smu)-&gt;ppt_funcs-&gt;set_tool_table_location((s=
+mu)) : 0)<br>
+&nbsp;#define smu_notify_memory_pool_location(smu) \<br>
+diff --git a/drivers/gpu/drm/amd/powerplay/smu_v11_0.c b/drivers/gpu/drm/am=
+d/powerplay/smu_v11_0.c<br>
+index 6fb93eb6ab39..e804f9854027 100644<br>
+--- a/drivers/gpu/drm/amd/powerplay/smu_v11_0.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/smu_v11_0.c<br>
+@@ -776,6 &#43;776,24 @@ int smu_v11_0_set_min_dcef_deep_sleep(struct smu_c=
+ontext *smu)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return smu_v11_0_set_deep_=
+sleep_dcefclk(smu, table_context-&gt;boot_values.dcefclk / 100);<br>
+&nbsp;}<br>
+&nbsp;<br>
+&#43;int smu_v11_0_set_driver_table_location(struct smu_context *smu)<br>
+&#43;{<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct smu_table *driver_table =
+=3D &amp;smu-&gt;smu_table.driver_table;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int ret =3D 0;<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (driver_table-&gt;mc_address) =
+{<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; ret =3D smu_send_smc_msg_with_param(smu,<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SMU_MSG_SetDriverDramAddrHigh,<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; upper_32_bits(driver_table-&gt;mc_addre=
+ss));<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; if (!ret)<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D smu_=
+send_smc_msg_with_param(smu,<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SMU_MSG_SetDriverDramAddrLow,<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; lower_32_bits(driver_table-&gt;mc_addre=
+ss));<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret;<br>
+&#43;}<br>
+&#43;<br>
+&nbsp;int smu_v11_0_set_tool_table_location(struct smu_context *smu)<br>
+&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int ret =3D 0;<br>
+diff --git a/drivers/gpu/drm/amd/powerplay/smu_v12_0.c b/drivers/gpu/drm/am=
+d/powerplay/smu_v12_0.c<br>
+index 9e27462d0f4e..870e6db2907e 100644<br>
+--- a/drivers/gpu/drm/amd/powerplay/smu_v12_0.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/smu_v12_0.c<br>
+@@ -318,14 &#43;318,6 @@ int smu_v12_0_fini_smc_tables(struct smu_context *=
+smu)<br>
+&nbsp;int smu_v12_0_populate_smc_tables(struct smu_context *smu)<br>
+&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct smu_table_context *=
+smu_table =3D &amp;smu-&gt;smu_table;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct smu_table *table =3D NULL;<br>
+-<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; table =3D &amp;smu_table-&gt;tables[S=
+MU_TABLE_DPMCLOCKS];<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!table)<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; return -EINVAL;<br>
+-<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!table-&gt;cpu_addr)<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; return -EINVAL;<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return smu_update_table(sm=
+u, SMU_TABLE_DPMCLOCKS, 0, smu_table-&gt;clocks_table, false);<br>
+&nbsp;}<br>
+@@ -514,3 &#43;506,21 @@ int smu_v12_0_set_soft_freq_limited_range(struct s=
+mu_context *smu, enum smu_clk_<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret;<br>
+&nbsp;}<br>
+&#43;<br>
+&#43;int smu_v12_0_set_driver_table_location(struct smu_context *smu)<br>
+&#43;{<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct smu_table *driver_table =
+=3D &amp;smu-&gt;smu_table.driver_table;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int ret =3D 0;<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (driver_table-&gt;mc_address) =
+{<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; ret =3D smu_send_smc_msg_with_param(smu,<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SMU_MSG_SetDriverDramAddrHigh,<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; upper_32_bits(driver_table-&gt;mc_addre=
+ss));<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; if (!ret)<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D smu_=
+send_smc_msg_with_param(smu,<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SMU_MSG_SetDriverDramAddrLow,<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; lower_32_bits(driver_table-&gt;mc_addre=
+ss));<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<o:p></o:p></p>
+</div>
+<div>
+<p class=3D"MsoNormal">[kevin]:<o:p></o:p></p>
+</div>
+<div>
+<p class=3D"MsoNormal">for these paris of message, the smu driver should be=
+ better to add lock to protect bellow case on multi thread case (eg: cat sy=
+sfs)<o:p></o:p></p>
+</div>
+<div>
+<p class=3D"MsoNormal">High A &#43; Low B<o:p></o:p></p>
+</div>
+<div>
+<p class=3D"MsoNormal">High B &#43; Low A<o:p></o:p></p>
+</div>
+<div>
+<p class=3D"MsoNormal">&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret;<br>
+&#43;}<br>
+diff --git a/drivers/gpu/drm/amd/powerplay/vega20_ppt.c b/drivers/gpu/drm/a=
+md/powerplay/vega20_ppt.c<br>
+index 27bdcdeb08d9..38febd5ca4da 100644<br>
+--- a/drivers/gpu/drm/amd/powerplay/vega20_ppt.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/vega20_ppt.c<br>
+@@ -3236,6 &#43;3236,7 @@ static const struct pptable_funcs vega20_ppt_func=
+s =3D {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .check_fw_version =3D smu_=
+v11_0_check_fw_version,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .write_pptable =3D smu_v11=
+_0_write_pptable,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .set_min_dcef_deep_sleep =
+=3D smu_v11_0_set_min_dcef_deep_sleep,<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .set_driver_table_location =3D sm=
+u_v11_0_set_driver_table_location,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .set_tool_table_location =
+=3D smu_v11_0_set_tool_table_location,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .notify_memory_pool_locati=
+on =3D smu_v11_0_notify_memory_pool_location,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .system_features_control =
+=3D smu_v11_0_system_features_control,<br>
+-- <br>
+2.24.1<br>
+<br>
+_______________________________________________<br>
+amd-gfx mailing list<br>
+<a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.=
+org</a><br>
+<a href=3D"https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2=
+F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;amp;data=3D02%=
+7C01%7CKevin1.Wang%40amd.com%7Cf88b8d717d4745f7521308d78f2d1824%7C3dd8961fe=
+4884e608e11a82d994e183d%7C0%7C0%7C637135296167400253&amp;amp;sdata=3DnHLXby=
+qZO2YNTyE4nTw4SP9ldcZqXijxZuGMSDWPxHM%3D&amp;amp;reserved=3D0">https://nam1=
+1.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Flists.freedesktop.o=
+rg%2Fmailman%2Flistinfo%2Famd-gfx&amp;amp;data=3D02%7C01%7CKevin1.Wang%40am=
+d.com%7Cf88b8d717d4745f7521308d78f2d1824%7C3dd8961fe4884e608e11a82d994e183d=
+%7C0%7C0%7C637135296167400253&amp;amp;sdata=3DnHLXbyqZO2YNTyE4nTw4SP9ldcZqX=
+ijxZuGMSDWPxHM%3D&amp;amp;reserved=3D0</a><o:p></o:p></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</body>
 </html>
 
---------------429564FB4E16460A5C9C7E34--
+--_000_MN2PR12MB3344BF617F7C64B8FD5DE67BE43C0MN2PR12MB3344namp_--
 
---===============0178739219==
+--===============1835665609==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -878,4 +1494,4 @@ amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 
---===============0178739219==--
+--===============1835665609==--
