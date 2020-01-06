@@ -2,105 +2,72 @@ Return-Path: <SRS0=Ai3v=23=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.0 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-9.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C1B1AC33C8C
-	for <amd-gfx@archiver.kernel.org>; Mon,  6 Jan 2020 16:23:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3F2ABC33C8C
+	for <amd-gfx@archiver.kernel.org>; Mon,  6 Jan 2020 18:35:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 8DB6B20731
-	for <amd-gfx@archiver.kernel.org>; Mon,  6 Jan 2020 16:23:39 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 0EF6F2072E
+	for <amd-gfx@archiver.kernel.org>; Mon,  6 Jan 2020 18:35:14 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="D6dPjVn0"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8DB6B20731
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fu0J/Bcb"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0EF6F2072E
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 213606E49D;
-	Mon,  6 Jan 2020 16:23:39 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2047.outbound.protection.outlook.com [40.107.236.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DD5AB6E49D
- for <amd-gfx@lists.freedesktop.org>; Mon,  6 Jan 2020 16:23:37 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=TJ/z2zSjwwgZDRADRjhuoyy+LTls/JhfmGHileWCUKqSj9zmF1VzBPhj3zmLf+e1K0C58WY2ItfL8uYYLVoHBquZkkKNJ6MAoT+aAX8qKtYbQPeiDkaeW6XVD6S+/Fsl0jzk7MeynGHu257hB2f3Kc9eZiqFyAtZLpYxj16PoumOXOb4+yadiKU+w/EPS4Nny/AHzRX0L8jHQBPVA0ReuJEy7VRDaf36CR4XsUKvnht8iDofwqs/Zdd/0xMGXbdCedH4jdSMNjxXQ2GW0DOmr+Hl+HX8d8+j7v2AOi+bVHj0Esr1F5gzr8dNNTu8ND1YyIK52vdgzsx6aCscaRFSQQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=mJHihAUZ+n29rEWma/jphC0z0ULnw1kvQOQHYc4zXDE=;
- b=ORYinJeUJT0txdsmzjRBXfz4OBauxfje8T7A2TJULNqSQLat353APUp8uBzeMxn5cHX4+x/UNjiXZST7KfL73umlE+DoiEvbZN1XW700XuTyTa5hjG2nABtOw/IGI2XPovq9Xndycc8K2i0zk15j7SUPPPg+vHjZRrmfWvVL6cNSDg1fFConIJejC1p1QeF72gror3MJ8iv5xFe/P0aGy9jorQrt491xDTg9H55Kma+WaOIFdAHBiCOFjXdRZeZfo4uB2N5JI54V3sdJVpmK8bhBPPGS2+xmdcu1ktLUEBUWuZOyi9wKFEQ+vMyslxjlSEbgLQXXzed/7F/3LM/Ybw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=mJHihAUZ+n29rEWma/jphC0z0ULnw1kvQOQHYc4zXDE=;
- b=D6dPjVn0LLPP/7Ns6CX/v992NpvNbvgd8TGPt+4ibl3XPNG8NEFHjVQxEHguhyCeJQGTZYRV1SgYVqkOTxeLtGcPMyBoflr14pYcslEvHrtwAedxfiYTGE7l4kWT3ocDH3ux28dKPVmAVb2vCKg80h3p0CsaVlkIdSsFy031lYI=
-Authentication-Results: spf=none (sender IP is )
- smtp.mailfrom=Christian.Koenig@amd.com; 
-Received: from DM5PR12MB1705.namprd12.prod.outlook.com (10.175.88.22) by
- DM5PR12MB1738.namprd12.prod.outlook.com (10.175.91.22) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2602.12; Mon, 6 Jan 2020 16:23:34 +0000
-Received: from DM5PR12MB1705.namprd12.prod.outlook.com
- ([fe80::8dde:b52a:d97a:e89]) by DM5PR12MB1705.namprd12.prod.outlook.com
- ([fe80::8dde:b52a:d97a:e89%2]) with mapi id 15.20.2602.015; Mon, 6 Jan 2020
- 16:23:34 +0000
-Subject: Re: [PATCH 2/5] drm/amdgpu: export function to flush TLB via pasid
-To: Felix Kuehling <felix.kuehling@amd.com>, amd-gfx@lists.freedesktop.org,
- "Sierra Guiza, Alejandro (Alex)" <Alex.Sierra@amd.com>
-References: <20191220062442.33635-1-alex.sierra@amd.com>
- <20191220062442.33635-2-alex.sierra@amd.com>
- <f80f87d2-0422-176a-b55f-7805d02f6af2@gmail.com>
- <c13de19a-aa0b-a549-8756-b82f28a83e63@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-Message-ID: <a14012c2-1a6a-f6e1-edeb-cfb63c175bf5@amd.com>
-Date: Mon, 6 Jan 2020 17:23:29 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.9.0
-In-Reply-To: <c13de19a-aa0b-a549-8756-b82f28a83e63@amd.com>
-Content-Language: en-US
-X-ClientProxiedBy: AM0PR02CA0011.eurprd02.prod.outlook.com
- (2603:10a6:208:3e::24) To DM5PR12MB1705.namprd12.prod.outlook.com
- (2603:10b6:3:10c::22)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 90F1E8951E;
+	Mon,  6 Jan 2020 18:35:14 +0000 (UTC)
+Received: from mail-qt1-x842.google.com (mail-qt1-x842.google.com
+ [IPv6:2607:f8b0:4864:20::842])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 094EE8951E
+ for <amd-gfx@lists.freedesktop.org>; Mon,  6 Jan 2020 18:35:14 +0000 (UTC)
+Received: by mail-qt1-x842.google.com with SMTP id l12so43187997qtq.12
+ for <amd-gfx@lists.freedesktop.org>; Mon, 06 Jan 2020 10:35:13 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=mDXd4tnS3YE+DazPD6+gnDm/uI88VTab7Gaah1nwjtA=;
+ b=fu0J/Bcb6+sFHLPYm/tYBnrkCVYwckoGqAazsaWrLoqUFVbjDIWbJo9vnIwEPs4BMN
+ 5DhdDFfkyuyxF6F/TZXG1lz387qdXisS5g7F71GOA/n8K4d+z3mV06gc5eshD13+89YW
+ 0tU8/CyuKG+Sr/TlErKWDAp8ezCpiIGWBUOzfVVr6SDpLTUQjVUW/wD8FtV+vPeII7xP
+ trP1xmDgP5YObCG0fzxPkUdQrg0FMWn3Dy0xaug5d30lxuxcjhoOan8csHF5YCERXuCN
+ AsCm3/yJPxXYZxT+TTANKEASWfQBDzRE0A4nJij2x8ErTv+FI/My1JtL8kVUPZeu5N7u
+ fHjA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=mDXd4tnS3YE+DazPD6+gnDm/uI88VTab7Gaah1nwjtA=;
+ b=K/4qeWd41z4Q3RtjmuwqfvxI/xl/e33Z8MbhkwZvTJvtmxAw9mm6012AOCF2jxgMvZ
+ PhvZqbq77Uvrk7AgdCuC9Rq++KJ1vcPJ67B4xei53kHD/BWC/24e8YmvFSoykmu/B490
+ DOXdy8vjtGGoSa6KfygDy4rLrnFXQJP1Fbv83gDDP3yip2clgujR6UJJIXVNY3X4/3zC
+ 4ocAXSmqMyH3x/BnSpIfr96UWVxi9ZYg3hHF+RG6AVHsHo10ijhw5tfABMWJlYWiXC1s
+ n99wWRlvXEkB6ytcdaqOe88r7ZoN/6Zr6r95HmSOALlg5nfimPoqmWyZ40eDHq+8ePgw
+ jWNQ==
+X-Gm-Message-State: APjAAAXMpsnomncqlc9Ndcb1wgc3o7PQv0jVh9kBral+9RDwIJign+qf
+ Hkb29DVi0I51zDhNhf0F9tqya3Wy
+X-Google-Smtp-Source: APXvYqzER0YVIejKSKpyh9KN63xBRLXjO7lLQbgv6WlrPUSKwfvC17wLZMKtNgB0CNbZPyQ7YOOTiw==
+X-Received: by 2002:ac8:7443:: with SMTP id h3mr73746239qtr.202.1578335712846; 
+ Mon, 06 Jan 2020 10:35:12 -0800 (PST)
+Received: from localhost.localdomain ([71.219.59.120])
+ by smtp.gmail.com with ESMTPSA id t1sm18895879qkt.129.2020.01.06.10.35.12
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 06 Jan 2020 10:35:12 -0800 (PST)
+From: Alex Deucher <alexdeucher@gmail.com>
+X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
+To: amd-gfx@lists.freedesktop.org
+Subject: [PATCH 1/2] drm/amdgpu/gmc: move invaliation bitmap setup to common
+ code
+Date: Mon,  6 Jan 2020 13:35:05 -0500
+Message-Id: <20200106183506.692030-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.24.1
 MIME-Version: 1.0
-Received: from [IPv6:2a02:908:1252:fb60:be8a:bd56:1f94:86e7]
- (2a02:908:1252:fb60:be8a:bd56:1f94:86e7) by
- AM0PR02CA0011.eurprd02.prod.outlook.com (2603:10a6:208:3e::24) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2602.15 via Frontend Transport; Mon, 6 Jan 2020 16:23:33 +0000
-X-Originating-IP: [2a02:908:1252:fb60:be8a:bd56:1f94:86e7]
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: ee31fbe3-5053-4a3c-ec30-08d792c4c684
-X-MS-TrafficTypeDiagnostic: DM5PR12MB1738:|DM5PR12MB1738:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM5PR12MB1738548E23CF74511E50F796833C0@DM5PR12MB1738.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:1265;
-X-Forefront-PRVS: 0274272F87
-X-Forefront-Antispam-Report: SFV:NSPM;
- SFS:(10009020)(4636009)(396003)(39860400002)(346002)(136003)(376002)(366004)(189003)(199004)(2616005)(6666004)(31686004)(316002)(66574012)(110136005)(478600001)(6486002)(81156014)(8936002)(81166006)(36756003)(8676002)(45080400002)(66556008)(66476007)(66946007)(52116002)(16526019)(31696002)(186003)(53546011)(2906002)(966005)(5660300002)(6636002)(86362001);
- DIR:OUT; SFP:1101; SCL:1; SRVR:DM5PR12MB1738;
- H:DM5PR12MB1705.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; MX:1; A:1; 
-Received-SPF: None (protection.outlook.com: amd.com does not designate
- permitted sender hosts)
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: DHhbgDnITlxfwPmpQCo+J0F3LyAdT7/ubtOVWbwhN9yImoYSRmPSRGqk17K2hBYgS5+7KmogQBE3EqLsw1NoHBC+x8xkuKt+797905RxCIr98/N13t/0TvyQ3rWg/2nBfJoBP74cuCwZWHDG1s1az+D4MBBQpCM4FoZNSe/HekdAr7866DCmN57ohwMj0vi5iZWe0rrpYLdaQlo5HECCF1mJDb8sYsMXyOyPg2YwM3HsRlWTuy9I1WETFSirACBKpssYssuCneRYAKvlaLh/kZgG5m7eu1tgNbmcDUGJs/77le5w6j8PBnNyvn0QBg4AFKI2hPZWLpaLr2W8jo5Ad/+XnPlbr10GRGzGCV4XmiUFTCGQyNZhZqBNADlCsRUHj/4qZeKtnuQhNpQKfbnpk2dtrTWw4V0xNugI+7WTjyVQ9qRR2wfoXADSFqJoxVd18NgHnczrXn6FG/S1HgHZm9X7Quq3yvJdmy3Fhq2lLw8=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ee31fbe3-5053-4a3c-ec30-08d792c4c684
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Jan 2020 16:23:34.1868 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: hLybbXLSY2Ab7e0ncnAeh/xsxTTsq6K4XlkcrNiIgkHZSWsMkQaDE8gbi16MO2eX
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1738
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,139 +79,156 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-QW0gMDYuMDEuMjAgdW0gMTc6MDQgc2NocmllYiBGZWxpeCBLdWVobGluZzoKPiBPbiAyMDIwLTAx
-LTA1IDEwOjQxIGEubS4sIENocmlzdGlhbiBLw7ZuaWcgd3JvdGU6Cj4+IEFtIDIwLjEyLjE5IHVt
-IDA3OjI0IHNjaHJpZWIgQWxleCBTaWVycmE6Cj4+PiBUaGlzIGNhbiBiZSB1c2VkIGRpcmVjdGx5
-IGZyb20gYW1kZ3B1IGFuZCBhbWRrZmQgdG8gaW52YWxpZGF0ZQo+Pj4gVExCIHRocm91Z2ggcGFz
-aWQuCj4+PiBJdCBzdXBwb3J0cyBnbWMgdjcsIHY4LCB2OSBhbmQgdjEwLgo+Pj4KPj4+IENoYW5n
-ZS1JZDogSTY1NjNhOGViYTJlNDJkMWE2N2ZhMjU0NzE1NmMyMGRhNDFkMWU0OTAKPj4+IFNpZ25l
-ZC1vZmYtYnk6IEFsZXggU2llcnJhIDxhbGV4LnNpZXJyYUBhbWQuY29tPgo+Pj4gLS0tCj4+PiDC
-oCBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZ21jLmggfMKgIDYgKysKPj4+IMKg
-IGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192MTBfMC5jwqAgfCA4MSArKysrKysrKysr
-KysrKysrKysrKysrKysKPj4+IMKgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192N18w
-LmPCoMKgIHwgMzMgKysrKysrKysrKwo+Pj4gwqAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
-Z21jX3Y4XzAuY8KgwqAgfCAzNCArKysrKysrKysrCj4+PiDCoCBkcml2ZXJzL2dwdS9kcm0vYW1k
-L2FtZGdwdS9nbWNfdjlfMC5jwqDCoCB8IDg0IAo+Pj4gKysrKysrKysrKysrKysrKysrKysrKysr
-Kwo+Pj4gwqAgNSBmaWxlcyBjaGFuZ2VkLCAyMzggaW5zZXJ0aW9ucygrKQo+IFtzbmlwXQo+Pj4g
-ZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192OV8wLmMgCj4+PiBi
-L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192OV8wLmMKPj4+IGluZGV4IGZhMDI1Y2Vl
-ZWEwZi4uZWIxZTY0YmQ1NmVkIDEwMDY0NAo+Pj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9h
-bWRncHUvZ21jX3Y5XzAuYwo+Pj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ21j
-X3Y5XzAuYwo+Pj4gQEAgLTM4LDEwICszOCwxMiBAQAo+Pj4gwqAgI2luY2x1ZGUgImRjZS9kY2Vf
-MTJfMF9zaF9tYXNrLmgiCj4+PiDCoCAjaW5jbHVkZSAidmVnYTEwX2VudW0uaCIKPj4+IMKgICNp
-bmNsdWRlICJtbWh1Yi9tbWh1Yl8xXzBfb2Zmc2V0LmgiCj4+PiArI2luY2x1ZGUgImF0aHViL2F0
-aHViXzFfMF9zaF9tYXNrLmgiCj4+PiDCoCAjaW5jbHVkZSAiYXRodWIvYXRodWJfMV8wX29mZnNl
-dC5oIgo+Pj4gwqAgI2luY2x1ZGUgIm9zcy9vc3NzeXNfNF8wX29mZnNldC5oIgo+Pj4gwqAgwqAg
-I2luY2x1ZGUgInNvYzE1LmgiCj4+PiArI2luY2x1ZGUgInNvYzE1ZC5oIgo+Pj4gwqAgI2luY2x1
-ZGUgInNvYzE1X2NvbW1vbi5oIgo+Pj4gwqAgI2luY2x1ZGUgInVtYy91bWNfNl8wX3NoX21hc2su
-aCIKPj4+IMKgIEBAIC00MzQsNiArNDM2LDQ3IEBAIHN0YXRpYyBib29sIAo+Pj4gZ21jX3Y5XzBf
-dXNlX2ludmFsaWRhdGVfc2VtYXBob3JlKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LAo+Pj4g
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGFkZXYtPnBkZXYtPmRldmljZSA9PSAweDE1ZDgpKSk7
-Cj4+PiDCoCB9Cj4+PiDCoCArc3RhdGljIGJvb2wgZ21jX3Y5XzBfZ2V0X2F0Y192bWlkX3Bhc2lk
-X21hcHBpbmdfaW5mbyhzdHJ1Y3QgCj4+PiBhbWRncHVfZGV2aWNlICphZGV2LAo+Pj4gK8KgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHVpbnQ4X3Qgdm1pZCwgdWludDE2X3Qg
-KnBfcGFzaWQpCj4+PiArewo+Pj4gK8KgwqDCoCB1aW50MzJfdCB2YWx1ZTsKPj4+ICsKPj4+ICvC
-oMKgwqAgdmFsdWUgPSBSUkVHMzIoU09DMTVfUkVHX09GRlNFVChBVEhVQiwgMCwgCj4+PiBtbUFU
-Q19WTUlEMF9QQVNJRF9NQVBQSU5HKQo+Pj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCArIHZt
-aWQpOwo+Pj4gK8KgwqDCoCAqcF9wYXNpZCA9IHZhbHVlICYgQVRDX1ZNSUQwX1BBU0lEX01BUFBJ
-TkdfX1BBU0lEX01BU0s7Cj4+PiArCj4+PiArwqDCoMKgIHJldHVybiAhISh2YWx1ZSAmIEFUQ19W
-TUlEMF9QQVNJRF9NQVBQSU5HX19WQUxJRF9NQVNLKTsKPj4+ICt9Cj4+Cj4+IFByb2JhYmx5IGJl
-dHRlciB0byBleHBvc2UganVzdCB0aGlzIGZ1bmN0aW9uIGluIHRoZSBHTUMgaW50ZXJmYWNlLgo+
-Cj4gVGhpcyBpcyBjYWxsZWQgYmVsb3cgaW4gZ21jX3Y5XzBfZmx1c2hfZ3B1X3RsYl9wYXNpZCBp
-biB0aGUgY2FzZSB0aGF0IAo+IHRoZSBLSVEgaXMgbm90IHJlYWR5LiBJdCBpcyBub3QgbmVlZGVk
-IG91dHNpZGUgdGhpcyBmaWxlLCBzbyBubyBuZWVkIAo+IHRvIGV4cG9zZSBpdCBpbiB0aGUgR01D
-IGludGVyZmFjZS4KPgo+Cj4+Cj4+PiArCj4+PiArc3RhdGljIGludCBnbWNfdjlfMF9pbnZhbGlk
-YXRlX3RsYnNfd2l0aF9raXEoc3RydWN0IGFtZGdwdV9kZXZpY2UgCj4+PiAqYWRldiwKPj4+ICvC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgdWludDE2X3QgcGFzaWQsIHVpbnQzMl90IGZs
-dXNoX3R5cGUsCj4+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGJvb2wgYWxsX2h1
-YikKPj4+ICt7Cj4+PiArwqDCoMKgIHNpZ25lZCBsb25nIHI7Cj4+PiArwqDCoMKgIHVpbnQzMl90
-IHNlcTsKPj4+ICvCoMKgwqAgc3RydWN0IGFtZGdwdV9yaW5nICpyaW5nID0gJmFkZXYtPmdmeC5r
-aXEucmluZzsKPj4+ICsKPj4+ICvCoMKgwqAgc3Bpbl9sb2NrKCZhZGV2LT5nZngua2lxLnJpbmdf
-bG9jayk7Cj4+PiArwqDCoMKgIGFtZGdwdV9yaW5nX2FsbG9jKHJpbmcsIDEyKTsgLyogZmVuY2Ug
-KyBpbnZhbGlkYXRlX3RsYnMgcGFja2FnZSovCj4+PiArwqDCoMKgIGFtZGdwdV9yaW5nX3dyaXRl
-KHJpbmcsIFBBQ0tFVDMoUEFDS0VUM19JTlZBTElEQVRFX1RMQlMsIDApKTsKPj4+ICvCoMKgwqAg
-YW1kZ3B1X3Jpbmdfd3JpdGUocmluZywKPj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIFBBQ0tF
-VDNfSU5WQUxJREFURV9UTEJTX0RTVF9TRUwoMSkgfAo+Pj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKg
-wqAgUEFDS0VUM19JTlZBTElEQVRFX1RMQlNfQUxMX0hVQihhbGxfaHViKSB8Cj4+PiArwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoCBQQUNLRVQzX0lOVkFMSURBVEVfVExCU19QQVNJRChwYXNpZCkgfAo+
-Pj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAgUEFDS0VUM19JTlZBTElEQVRFX1RMQlNfRkxVU0hf
-VFlQRShmbHVzaF90eXBlKSk7Cj4+Cj4+IFRoYXQgc3R1ZmYgaXMgY29tcGxldGVseSB1bnJlbGF0
-ZWQgdG8gdGhlIEdNQyBhbmQgc2hvdWxkbid0IGJlIGFkZGVkIAo+PiBoZXJlLgo+Cj4gV2hlcmUg
-ZWxzZSBzaG91bGQgaXQgZ28/IFRvIG1lIFRMQiBmbHVzaGluZyBpcyB2ZXJ5IG11Y2ggc29tZXRo
-aW5nIAo+IHRoYXQgYmVsb25ncyBpbiB0aGlzIGZpbGUuCj4KPiBNYXliZSB5b3UnZCByYXRoZXIg
-YWRkICJmbHVzaF90bGJzX3dpdGhfa2lxIiB0byBhbWRncHVfcmluZ19mdW5jcyBhbmQgCj4gaW1w
-bGVtZW50IGl0IGluIHRoZSBnZnhfdiouYyBHRlgtSVAgY29kZT8gSSdtIG5vdCBzdXJlIHRoYXQg
-bWFrZXMgbXVjaCAKPiBzZW5zZSBlaXRoZXIgYmVjYXVzZSBpdCdzIG9ubHkgYXZhaWxhYmxlIG9u
-IHRoZSBLSVEgcmluZy4KClllcywgc29tZXRoaW5nIGxpa2UgdGhpcy4gV2Ugc2hvdWxkIHByb2Jh
-Ymx5IGFkZCBhIGFtZGdwdV9raXFfZnVuY3MgYW5kIApleHBvc2UgdGhlIGZ1bmN0aW9ucyBuZWVk
-ZWQgYnkgdGhlIEdNQyBjb2RlIHRoZXJlLgoKU2VlIHRoZSBhbWRncHVfdmlydF9raXFfcmVnX3dy
-aXRlX3JlZ193YWl0KCkgY2FzZSBmb3IgcmVmZXJlbmNlLCBpdCBpcyAKdmVyeSBzaW1pbGFyIGFu
-ZCBzaG91bGQgcHJvYmFibHkgYmUgYWRkZWQgdG8gdGhhdCBmdW5jdGlvbiB0YWJsZSBhcyB3ZWxs
-LgoKQ2hyaXN0aWFuLgoKPgo+Cj4+Cj4+IENocmlzdGlhbi4KPj4KPj4+ICvCoMKgwqAgYW1kZ3B1
-X2ZlbmNlX2VtaXRfcG9sbGluZyhyaW5nLCAmc2VxKTsKPj4+ICvCoMKgwqAgYW1kZ3B1X3Jpbmdf
-Y29tbWl0KHJpbmcpOwo+Pj4gK8KgwqDCoCBzcGluX3VubG9jaygmYWRldi0+Z2Z4LmtpcS5yaW5n
-X2xvY2spOwo+Pj4gKwo+Pj4gK8KgwqDCoCByID0gYW1kZ3B1X2ZlbmNlX3dhaXRfcG9sbGluZyhy
-aW5nLCBzZXEsIGFkZXYtPnVzZWNfdGltZW91dCk7Cj4+PiArwqDCoMKgIGlmIChyIDwgMSkgewo+
-Pj4gK8KgwqDCoMKgwqDCoMKgIERSTV9FUlJPUigid2FpdCBmb3Iga2lxIGZlbmNlIGVycm9yOiAl
-bGQuXG4iLCByKTsKPj4+ICvCoMKgwqDCoMKgwqDCoCByZXR1cm4gLUVUSU1FOwo+Pj4gK8KgwqDC
-oCB9Cj4+PiArCj4+PiArwqDCoMKgIHJldHVybiAwOwo+Pj4gK30KPj4+ICsKPj4+IMKgIC8qCj4+
-PiDCoMKgICogR0FSVAo+Pj4gwqDCoCAqIFZNSUQgMCBpcyB0aGUgcGh5c2ljYWwgR1BVIGFkZHJl
-c3NlcyBhcyB1c2VkIGJ5IHRoZSBrZXJuZWwuCj4+PiBAQCAtNTMyLDYgKzU3NSw0NiBAQCBzdGF0
-aWMgdm9pZCBnbWNfdjlfMF9mbHVzaF9ncHVfdGxiKHN0cnVjdCAKPj4+IGFtZGdwdV9kZXZpY2Ug
-KmFkZXYsIHVpbnQzMl90IHZtaWQsCj4+PiDCoMKgwqDCoMKgIERSTV9FUlJPUigiVGltZW91dCB3
-YWl0aW5nIGZvciBWTSBmbHVzaCBBQ0shXG4iKTsKPj4+IMKgIH0KPj4+IMKgICsvKioKPj4+ICsg
-KiBnbWNfdjlfMF9mbHVzaF9ncHVfdGxiX3Bhc2lkIC0gdGxiIGZsdXNoIHZpYSBwYXNpZAo+Pj4g
-KyAqCj4+PiArICogQGFkZXY6IGFtZGdwdV9kZXZpY2UgcG9pbnRlcgo+Pj4gKyAqIEBwYXNpZDog
-cGFzaWQgdG8gYmUgZmx1c2gKPj4+ICsgKgo+Pj4gKyAqIEZsdXNoIHRoZSBUTEIgZm9yIHRoZSBy
-ZXF1ZXN0ZWQgcGFzaWQuCj4+PiArICovCj4+PiArc3RhdGljIGludCBnbWNfdjlfMF9mbHVzaF9n
-cHVfdGxiX3Bhc2lkKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LAo+Pj4gK8KgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHVpbnQxNl90IHBhc2lkLCB1aW50MzJfdCBmbHVz
-aF90eXBlLAo+Pj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGJvb2wg
-YWxsX2h1YikKPgo+IENocmlzdGlhbiwgZG8geW91IGFncmVlIHRoYXQgdGhpcyBmdW5jdGlvbiBi
-ZWxvbmdzIGluIHRoZSBHTUMgCj4gaW50ZXJmYWNlPyBJZiBub3QgaGVyZSwgd2hlcmUgZG8geW91
-IHN1Z2dlc3QgbW92aW5nIGl0Pwo+Cj4gUmVnYXJkcywKPiDCoCBGZWxpeAo+Cj4KPj4+ICt7Cj4+
-PiArwqDCoMKgIGludCB2bWlkLCBpOwo+Pj4gK8KgwqDCoCB1aW50MTZfdCBxdWVyaWVkX3Bhc2lk
-Owo+Pj4gK8KgwqDCoCBib29sIHJldDsKPj4+ICvCoMKgwqAgc3RydWN0IGFtZGdwdV9yaW5nICpy
-aW5nID0gJmFkZXYtPmdmeC5raXEucmluZzsKPj4+ICsKPj4+ICvCoMKgwqAgaWYgKGFkZXYtPmlu
-X2dwdV9yZXNldCkKPj4+ICvCoMKgwqDCoMKgwqDCoCByZXR1cm4gLUVJTzsKPj4+ICsKPj4+ICvC
-oMKgwqAgaWYgKHJpbmctPnNjaGVkLnJlYWR5KQo+Pj4gK8KgwqDCoMKgwqDCoMKgIHJldHVybiBn
-bWNfdjlfMF9pbnZhbGlkYXRlX3RsYnNfd2l0aF9raXEoYWRldiwKPj4+ICvCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHBhc2lkLCBmbHVzaF90eXBlLCBhbGxf
-aHViKTsKPj4+ICsKPj4+ICvCoMKgwqAgZm9yICh2bWlkID0gMTsgdm1pZCA8IDE2OyB2bWlkKysp
-IHsKPj4+ICsKPj4+ICvCoMKgwqDCoMKgwqDCoCByZXQgPSBnbWNfdjlfMF9nZXRfYXRjX3ZtaWRf
-cGFzaWRfbWFwcGluZ19pbmZvKGFkZXYsIHZtaWQsCj4+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgICZxdWVyaWVkX3Bhc2lkKTsKPj4+ICvCoMKgwqDCoMKgwqDCoCBpZiAocmV0ICYm
-IHF1ZXJpZWRfcGFzaWQgPT0gcGFzaWQpIHsKPj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGZv
-ciAoaSA9IDA7IGkgPCBhZGV2LT5udW1fdm1odWJzOyBpKyspCj4+PiArwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgIGFtZGdwdV9nbWNfZmx1c2hfZ3B1X3RsYihhZGV2LCB2bWlkLAo+Pj4g
-K8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBp
-LCBmbHVzaF90eXBlKTsKPj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGJyZWFrOwo+Pj4gK8Kg
-wqDCoMKgwqDCoMKgIH0KPj4+ICvCoMKgwqAgfQo+Pj4gKwo+Pj4gK8KgwqDCoCByZXR1cm4gMDsK
-Pj4+ICsKPj4+ICt9Cj4+PiArCj4+PiDCoCBzdGF0aWMgdWludDY0X3QgZ21jX3Y5XzBfZW1pdF9m
-bHVzaF9ncHVfdGxiKHN0cnVjdCBhbWRncHVfcmluZyAqcmluZywKPj4+IMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHVuc2lnbmVkIHZtaWQsIHVpbnQ2
-NF90IHBkX2FkZHIpCj4+PiDCoCB7Cj4+PiBAQCAtNjkzLDYgKzc3Niw3IEBAIHN0YXRpYyB2b2lk
-IGdtY192OV8wX2dldF92bV9wdGUoc3RydWN0IAo+Pj4gYW1kZ3B1X2RldmljZSAqYWRldiwKPj4+
-IMKgIMKgIHN0YXRpYyBjb25zdCBzdHJ1Y3QgYW1kZ3B1X2dtY19mdW5jcyBnbWNfdjlfMF9nbWNf
-ZnVuY3MgPSB7Cj4+PiDCoMKgwqDCoMKgIC5mbHVzaF9ncHVfdGxiID0gZ21jX3Y5XzBfZmx1c2hf
-Z3B1X3RsYiwKPj4+ICvCoMKgwqAgLmZsdXNoX2dwdV90bGJfcGFzaWQgPSBnbWNfdjlfMF9mbHVz
-aF9ncHVfdGxiX3Bhc2lkLAo+Pj4gwqDCoMKgwqDCoCAuZW1pdF9mbHVzaF9ncHVfdGxiID0gZ21j
-X3Y5XzBfZW1pdF9mbHVzaF9ncHVfdGxiLAo+Pj4gwqDCoMKgwqDCoCAuZW1pdF9wYXNpZF9tYXBw
-aW5nID0gZ21jX3Y5XzBfZW1pdF9wYXNpZF9tYXBwaW5nLAo+Pj4gwqDCoMKgwqDCoCAubWFwX210
-eXBlID0gZ21jX3Y5XzBfbWFwX210eXBlLAo+Pgo+PiBfX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fXwo+PiBhbWQtZ2Z4IG1haWxpbmcgbGlzdAo+PiBhbWQtZ2Z4
-QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+PiBodHRwczovL25hbTExLnNhZmVsaW5rcy5wcm90ZWN0
-aW9uLm91dGxvb2suY29tLz91cmw9aHR0cHMlM0ElMkYlMkZsaXN0cy5mcmVlZGVza3RvcC5vcmcl
-MkZtYWlsbWFuJTJGbGlzdGluZm8lMkZhbWQtZ2Z4JmFtcDtkYXRhPTAyJTdDMDElN0NmZWxpeC5r
-dWVobGluZyU0MGFtZC5jb20lN0MwZWJiODJkNjJkMTA0NGVhNTdiNjA4ZDc5MWY1YjAyMSU3QzNk
-ZDg5NjFmZTQ4ODRlNjA4ZTExYTgyZDk5NGUxODNkJTdDMCU3QzAlN0M2MzcxMzgzNTY3ODQ0MDc0
-NjAmYW1wO3NkYXRhPUs4emhIVDJZWUZqOExYZEQzWWlpaHROa2JLTndhMG1sNm5RWjc0ekY4Mjgl
-M0QmYW1wO3Jlc2VydmVkPTAgCj4+CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNr
-dG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2Ft
-ZC1nZngK
+So it can be shared with newer GMC versions.
+
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c | 40 +++++++++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h |  1 +
+ drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c   | 32 +-------------------
+ drivers/gpu/drm/amd/amdgpu/gmc_v9_0.h   | 10 -------
+ 4 files changed, 42 insertions(+), 41 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+index bbcd11ac5bbb..d6901b274790 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+@@ -333,3 +333,43 @@ void amdgpu_gmc_ras_fini(struct amdgpu_device *adev)
+ 	amdgpu_mmhub_ras_fini(adev);
+ 	amdgpu_xgmi_ras_fini(adev);
+ }
++
++	/*
++	 * The latest engine allocation on gfx9 is:
++	 * Engine 2, 3: firmware
++	 * Engine 0, 1, 4~16: amdgpu ring,
++	 *                    subject to change when ring number changes
++	 * Engine 17: Gart flushes
++	 */
++#define GFXHUB_FREE_VM_INV_ENGS_BITMAP		0x1FFF3
++#define MMHUB_FREE_VM_INV_ENGS_BITMAP		0x1FFF3
++
++int amdgpu_gmc_allocate_vm_inv_eng(struct amdgpu_device *adev)
++{
++	struct amdgpu_ring *ring;
++	unsigned vm_inv_engs[AMDGPU_MAX_VMHUBS] =
++		{GFXHUB_FREE_VM_INV_ENGS_BITMAP, MMHUB_FREE_VM_INV_ENGS_BITMAP,
++		GFXHUB_FREE_VM_INV_ENGS_BITMAP};
++	unsigned i;
++	unsigned vmhub, inv_eng;
++
++	for (i = 0; i < adev->num_rings; ++i) {
++		ring = adev->rings[i];
++		vmhub = ring->funcs->vmhub;
++
++		inv_eng = ffs(vm_inv_engs[vmhub]);
++		if (!inv_eng) {
++			dev_err(adev->dev, "no VM inv eng for ring %s\n",
++				ring->name);
++			return -EINVAL;
++		}
++
++		ring->vm_inv_eng = inv_eng - 1;
++		vm_inv_engs[vmhub] &= ~(1 << ring->vm_inv_eng);
++
++		dev_info(adev->dev, "ring %s uses VM inv eng %u on hub %u\n",
++			 ring->name, ring->vm_inv_eng, ring->funcs->vmhub);
++	}
++
++	return 0;
++}
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
+index b499a3de8bb6..c91dd602d5f1 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
+@@ -267,5 +267,6 @@ bool amdgpu_gmc_filter_faults(struct amdgpu_device *adev, uint64_t addr,
+ 			      uint16_t pasid, uint64_t timestamp);
+ int amdgpu_gmc_ras_late_init(struct amdgpu_device *adev);
+ void amdgpu_gmc_ras_fini(struct amdgpu_device *adev);
++int amdgpu_gmc_allocate_vm_inv_eng(struct amdgpu_device *adev);
+ 
+ #endif
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+index 68f9a1fa6dc1..e3bbeab28152 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+@@ -795,36 +795,6 @@ static bool gmc_v9_0_keep_stolen_memory(struct amdgpu_device *adev)
+ 	}
+ }
+ 
+-static int gmc_v9_0_allocate_vm_inv_eng(struct amdgpu_device *adev)
+-{
+-	struct amdgpu_ring *ring;
+-	unsigned vm_inv_engs[AMDGPU_MAX_VMHUBS] =
+-		{GFXHUB_FREE_VM_INV_ENGS_BITMAP, MMHUB_FREE_VM_INV_ENGS_BITMAP,
+-		GFXHUB_FREE_VM_INV_ENGS_BITMAP};
+-	unsigned i;
+-	unsigned vmhub, inv_eng;
+-
+-	for (i = 0; i < adev->num_rings; ++i) {
+-		ring = adev->rings[i];
+-		vmhub = ring->funcs->vmhub;
+-
+-		inv_eng = ffs(vm_inv_engs[vmhub]);
+-		if (!inv_eng) {
+-			dev_err(adev->dev, "no VM inv eng for ring %s\n",
+-				ring->name);
+-			return -EINVAL;
+-		}
+-
+-		ring->vm_inv_eng = inv_eng - 1;
+-		vm_inv_engs[vmhub] &= ~(1 << ring->vm_inv_eng);
+-
+-		dev_info(adev->dev, "ring %s uses VM inv eng %u on hub %u\n",
+-			 ring->name, ring->vm_inv_eng, ring->funcs->vmhub);
+-	}
+-
+-	return 0;
+-}
+-
+ static int gmc_v9_0_late_init(void *handle)
+ {
+ 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+@@ -833,7 +803,7 @@ static int gmc_v9_0_late_init(void *handle)
+ 	if (!gmc_v9_0_keep_stolen_memory(adev))
+ 		amdgpu_bo_late_init(adev);
+ 
+-	r = gmc_v9_0_allocate_vm_inv_eng(adev);
++	r = amdgpu_gmc_allocate_vm_inv_eng(adev);
+ 	if (r)
+ 		return r;
+ 	/* Check if ecc is available */
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.h b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.h
+index 49e8be761214..e0585e8c6c1b 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.h
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.h
+@@ -24,16 +24,6 @@
+ #ifndef __GMC_V9_0_H__
+ #define __GMC_V9_0_H__
+ 
+-	/*
+-	 * The latest engine allocation on gfx9 is:
+-	 * Engine 2, 3: firmware
+-	 * Engine 0, 1, 4~16: amdgpu ring,
+-	 *                    subject to change when ring number changes
+-	 * Engine 17: Gart flushes
+-	 */
+-#define GFXHUB_FREE_VM_INV_ENGS_BITMAP		0x1FFF3
+-#define MMHUB_FREE_VM_INV_ENGS_BITMAP		0x1FFF3
+-
+ extern const struct amd_ip_funcs gmc_v9_0_ip_funcs;
+ extern const struct amdgpu_ip_block_version gmc_v9_0_ip_block;
+ #endif
+-- 
+2.24.1
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
