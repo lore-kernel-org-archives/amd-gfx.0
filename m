@@ -7,61 +7,63 @@ X-Spam-Status: No, score=-6.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
 	SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A37B8C33C8C
-	for <amd-gfx@archiver.kernel.org>; Mon,  6 Jan 2020 23:10:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5540BC33C8C
+	for <amd-gfx@archiver.kernel.org>; Mon,  6 Jan 2020 23:12:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7403920731
-	for <amd-gfx@archiver.kernel.org>; Mon,  6 Jan 2020 23:10:57 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 26B2220731
+	for <amd-gfx@archiver.kernel.org>; Mon,  6 Jan 2020 23:12:31 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="peczO/0o"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7403920731
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qpY2LVMA"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 26B2220731
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 376716E598;
-	Mon,  6 Jan 2020 23:10:57 +0000 (UTC)
-Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com
- [IPv6:2a00:1450:4864:20::343])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 179EE6E598
- for <amd-gfx@lists.freedesktop.org>; Mon,  6 Jan 2020 23:10:56 +0000 (UTC)
-Received: by mail-wm1-x343.google.com with SMTP id d139so12931673wmd.0
- for <amd-gfx@lists.freedesktop.org>; Mon, 06 Jan 2020 15:10:55 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A26736E5A2;
+	Mon,  6 Jan 2020 23:12:30 +0000 (UTC)
+Received: from mail-wm1-x341.google.com (mail-wm1-x341.google.com
+ [IPv6:2a00:1450:4864:20::341])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 02DEE6E598;
+ Mon,  6 Jan 2020 23:12:28 +0000 (UTC)
+Received: by mail-wm1-x341.google.com with SMTP id b19so16903594wmj.4;
+ Mon, 06 Jan 2020 15:12:28 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=VAG2RHI28VFw2xbkef7srwK+9lOknFdwWEep5+GifGE=;
- b=peczO/0omSvWNyctr/4UUIqyc6w/m9+Rgf829GhlLX+7UYGA/3mNRTCIklNBTbOGhX
- yYxUeDQ5Hls6dYF68t9TsdBv+uvHBb9F+JzbEPwvdJhJlCkF7QYgzO1KAMDYo+Pq8ygF
- bjg55fMsn1y2KGuA8ypeMQXUMMlObfLarW1Ee5GrqHnZKTxWHIUGLJ3UF3T8qAKCoDPr
- oRBK2NRPs/IJZ1r+kZNwlaD6MXO2D+5AYeWvRYGoVylZIwJdry9lNA5Tcck+Yx51mWVO
- VV7qjj/ykO6PfS1d8ln/qehNRPkSRq7sdiukAuIobve8yYqog0qT1W/rbBj/W/y2foTU
- a+rg==
+ :cc; bh=mt/KSGizDW+gN6JY4pnkoG8YUZWLUj0R1lKF3CWE40I=;
+ b=qpY2LVMA4Vffz9/P4mw8I4c+32ZDP+BurHCcfG+QxGsG0LMXJRdzau7WaTOzWYFlhk
+ bmufM7RogOC8qk9WKcpJR9mWJidGFDJd8lEU6vbPPrt5W7PgeFtgPNANO13dUcVYQm8K
+ pD+nqkyZsm7lQqkzLEfcsK3+46trMwV0RdDZbFF+1KFmR5Ok8KvELzZfZYT5CskPK2t1
+ xw1YGc66YN22ipN3goNNa4b3WMM1Z/sILtYFCxKjcurF4slOjx4A8zRTeflvoM3isbuC
+ ns5Cc3Fj+8i9+jwGlbi11rrlgPe8rZYOzuEMK6ajJRs2t0GMxuYBbTdXu9iHfXjCQfPh
+ 0mXA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=VAG2RHI28VFw2xbkef7srwK+9lOknFdwWEep5+GifGE=;
- b=kmpXsGvg+ZDvk+YkBDz+1uEs7rgCPYRzihePQMabOdRIRwDmg7FUo+5rDWyFCk7yZg
- Hvm9PxFg5fMGE5ZAgquhe/TEECxZ4L1qUbznAHhU7JIQOEmYUncaxSSZqVifOgdwlOZZ
- soFBpTnsIS+344Fymz9AUXW+rY4A1EjYSCWeblzyB346bskkBH3y21Wjfovj+6nmo+HR
- fM03emFh0651jMa+Pqc6U/mJScH2IwVQQ4RRJ2AMLk766sxFJfaFukgLLD5k54vw1j+5
- I/tkjjzsgcuLm50tdrvvPPIKBix6YiY91DxrC1TZtSDb5S8OO5fbd+0aKVVdce6m/KLu
- AsIA==
-X-Gm-Message-State: APjAAAU7zsWwoKRkGfhBJOQsURLwlrlX5HYsvNQl4MxY1iwMY3sA5ksD
- AW9CPsOJaKL/OkLu5Yn3lSASXAXvne85epVug1U=
-X-Google-Smtp-Source: APXvYqx3yxTuJe69oeFIO8RTZNVyhdyFnYr9CS6rI7RpGMMvHaiAquz2geHPhrAtDU8dPHdxOO00I2IFKui4zVLsabs=
-X-Received: by 2002:a1c:f30e:: with SMTP id q14mr36528082wmq.65.1578352254638; 
- Mon, 06 Jan 2020 15:10:54 -0800 (PST)
+ bh=mt/KSGizDW+gN6JY4pnkoG8YUZWLUj0R1lKF3CWE40I=;
+ b=N6/DTGaaLqI7/7G4geyd8OYKdH/far2b1lyiCjmD3Rr6BeGSl2JKGvgUFXazUz/kIG
+ 03GwQiFu/GxoKs+MXXKJI18q2ZedAGBARRvvEx0hVxYpVRG6RnOyiJq9wdV89uzJ3m1e
+ HLg0Hs21gZUmjy/V8Z60O8uCJxwwM2T+/URRgiQSf7gf3PhBQ4f05sg6rAR2dALejtmf
+ gfeuL0kVz0hewrjCctxOE2qCoWvoII78sRJ5KoW48O2m0aGXtzZAmHjsgZEoIjzxyGAO
+ vLTZp7JGEzR6izTsUHbv4rHUW+cgHIlGxrgjzSnV+XVyrJrbTTg9cNY4N1rWYP1PWjEi
+ G1hg==
+X-Gm-Message-State: APjAAAXTQ6EC5zsJo3+XYH2Fa6cMvCVoOpP55S1x5yF2nO94gcBfYGhM
+ kz4tkcQDBxwePhiaHxPK65oLr1AnTp9IbnkKPj0=
+X-Google-Smtp-Source: APXvYqwsorRuwMKa4/uWPvFE6LVbj+OYVzmzpWsbdQ871r8KiGZXlD8QgFWS1cnGgkPjAmCdMOOihZlC0JttP7cdvSU=
+X-Received: by 2002:a05:600c:2406:: with SMTP id
+ 6mr30944421wmp.30.1578352347620; 
+ Mon, 06 Jan 2020 15:12:27 -0800 (PST)
 MIME-Version: 1.0
-References: <20200103094639.32372-1-evan.quan@amd.com>
-In-Reply-To: <20200103094639.32372-1-evan.quan@amd.com>
+References: <20191202214713.41001-1-thomasanderson@google.com>
+ <722bf0b1-5ff3-5a44-80f1-e67a3fe4d97f@amd.com>
+In-Reply-To: <722bf0b1-5ff3-5a44-80f1-e67a3fe4d97f@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 6 Jan 2020 18:10:43 -0500
-Message-ID: <CADnq5_ORLGdeEP7TTK+4tsQo6BOUBS3RjSk4gVJOCiCeSfC1Dw@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/powerplay: cleanup the interfaces for powergate
- setting through SMU
-To: Evan Quan <evan.quan@amd.com>
+Date: Mon, 6 Jan 2020 18:12:15 -0500
+Message-ID: <CADnq5_ORRNiCu-oF2Et-Ukuiy1QesUP_mJFbBQr_Hxe0OPupBA@mail.gmail.com>
+Subject: Re: [PATCH v2] drm/amd/display: Reduce HDMI pixel encoding if max
+ clock is exceeded
+To: Harry Wentland <hwentlan@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,168 +75,134 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>
+Cc: David Zhou <David1.Zhou@amd.com>,
+ Mario Kleiner <mario.kleiner.de@gmail.com>,
+ Thomas Anderson <thomasanderson@google.com>, Leo Li <sunpeng.li@amd.com>,
+ LKML <linux-kernel@vger.kernel.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@linux.ie>,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
+ Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
+ Mikita Lipski <mikita.lipski@amd.com>, Harry Wentland <harry.wentland@amd.com>,
+ Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Jan 3, 2020 at 4:47 AM Evan Quan <evan.quan@amd.com> wrote:
+On Thu, Jan 2, 2020 at 10:14 AM Harry Wentland <hwentlan@amd.com> wrote:
 >
-> Provided an unified entry point. And fixed the confusing that the API
-> usage is conflict with what the naming implies.
+> On 2019-12-02 4:47 p.m., Thomas Anderson wrote:
+> > For high-res (8K) or HFR (4K120) displays, using uncompressed pixel
+> > formats like YCbCr444 would exceed the bandwidth of HDMI 2.0, so the
+> > "interesting" modes would be disabled, leaving only low-res or low
+> > framerate modes.
+> >
+> > This change lowers the pixel encoding to 4:2:2 or 4:2:0 if the max TMDS
+> > clock is exceeded. Verified that 8K30 and 4K120 are now available and
+> > working with a Samsung Q900R over an HDMI 2.0b link from a Radeon 5700.
+> >
+> > Signed-off-by: Thomas Anderson <thomasanderson@google.com>
+>
+> Apologies for the late response.
+>
+> Thanks for getting high-res modes working on HDMI.
+>
+> This change is
+> Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+>
 
-At some point it would be nice to unify the interfaces between
-powerplay and swSMU so we don't seem all the is_sw_smu checks, but for
-now,
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+Applied.  thanks!
 
+Alex
+
+> Harry
 >
-> Change-Id: If068980ca6a7b223d0b4d087cd99cdeb729b0e77
-> Signed-off-by: Evan Quan <evan.quan@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_dpm.c    | 23 ++++++++++--
->  drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c     | 43 ++++++++--------------
->  drivers/gpu/drm/amd/powerplay/amdgpu_smu.c |  6 +--
->  3 files changed, 37 insertions(+), 35 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dpm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_dpm.c
-> index 9cc270efee7c..cd76fbf4385d 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dpm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dpm.c
-> @@ -951,16 +951,31 @@ int amdgpu_dpm_set_powergating_by_smu(struct amdgpu_device *adev, uint32_t block
->         case AMD_IP_BLOCK_TYPE_VCN:
->         case AMD_IP_BLOCK_TYPE_VCE:
->         case AMD_IP_BLOCK_TYPE_SDMA:
-> +               if (swsmu) {
-> +                       ret = smu_dpm_set_power_gate(&adev->smu, block_type, gate);
-> +               } else {
-> +                       if (adev->powerplay.pp_funcs &&
-> +                           adev->powerplay.pp_funcs->set_powergating_by_smu) {
-> +                               mutex_lock(&adev->pm.mutex);
-> +                               ret = ((adev)->powerplay.pp_funcs->set_powergating_by_smu(
-> +                                       (adev)->powerplay.pp_handle, block_type, gate));
-> +                               mutex_unlock(&adev->pm.mutex);
-> +                       }
-> +               }
-> +               break;
-> +       case AMD_IP_BLOCK_TYPE_JPEG:
->                 if (swsmu)
->                         ret = smu_dpm_set_power_gate(&adev->smu, block_type, gate);
-> -               else
-> -                       ret = ((adev)->powerplay.pp_funcs->set_powergating_by_smu(
-> -                               (adev)->powerplay.pp_handle, block_type, gate));
->                 break;
->         case AMD_IP_BLOCK_TYPE_GMC:
->         case AMD_IP_BLOCK_TYPE_ACP:
-> -               ret = ((adev)->powerplay.pp_funcs->set_powergating_by_smu(
-> +               if (adev->powerplay.pp_funcs &&
-> +                   adev->powerplay.pp_funcs->set_powergating_by_smu) {
-> +                       mutex_lock(&adev->pm.mutex);
-> +                       ret = ((adev)->powerplay.pp_funcs->set_powergating_by_smu(
->                                 (adev)->powerplay.pp_handle, block_type, gate));
-> +                       mutex_unlock(&adev->pm.mutex);
-> +               }
->                 break;
->         default:
->                 break;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
-> index b32adda70bbc..285d460624c8 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
-> @@ -2762,17 +2762,12 @@ static void amdgpu_dpm_change_power_state_locked(struct amdgpu_device *adev)
->  void amdgpu_dpm_enable_uvd(struct amdgpu_device *adev, bool enable)
->  {
->         int ret = 0;
-> -       if (is_support_sw_smu(adev)) {
-> -           ret = smu_dpm_set_power_gate(&adev->smu, AMD_IP_BLOCK_TYPE_UVD, enable);
-> -           if (ret)
-> -               DRM_ERROR("[SW SMU]: dpm enable uvd failed, state = %s, ret = %d. \n",
-> -                         enable ? "true" : "false", ret);
-> -       } else if (adev->powerplay.pp_funcs->set_powergating_by_smu) {
-> -               /* enable/disable UVD */
-> -               mutex_lock(&adev->pm.mutex);
-> -               amdgpu_dpm_set_powergating_by_smu(adev, AMD_IP_BLOCK_TYPE_UVD, !enable);
-> -               mutex_unlock(&adev->pm.mutex);
-> -       }
-> +
-> +       ret = amdgpu_dpm_set_powergating_by_smu(adev, AMD_IP_BLOCK_TYPE_UVD, !enable);
-> +       if (ret)
-> +               DRM_ERROR("Dpm %s uvd failed, ret = %d. \n",
-> +                         enable ? "enable" : "disable", ret);
-> +
->         /* enable/disable Low Memory PState for UVD (4k videos) */
->         if (adev->asic_type == CHIP_STONEY &&
->                 adev->uvd.decode_image_width >= WIDTH_4K) {
-> @@ -2789,17 +2784,11 @@ void amdgpu_dpm_enable_uvd(struct amdgpu_device *adev, bool enable)
->  void amdgpu_dpm_enable_vce(struct amdgpu_device *adev, bool enable)
->  {
->         int ret = 0;
-> -       if (is_support_sw_smu(adev)) {
-> -           ret = smu_dpm_set_power_gate(&adev->smu, AMD_IP_BLOCK_TYPE_VCE, enable);
-> -           if (ret)
-> -               DRM_ERROR("[SW SMU]: dpm enable vce failed, state = %s, ret = %d. \n",
-> -                         enable ? "true" : "false", ret);
-> -       } else if (adev->powerplay.pp_funcs->set_powergating_by_smu) {
-> -               /* enable/disable VCE */
-> -               mutex_lock(&adev->pm.mutex);
-> -               amdgpu_dpm_set_powergating_by_smu(adev, AMD_IP_BLOCK_TYPE_VCE, !enable);
-> -               mutex_unlock(&adev->pm.mutex);
-> -       }
-> +
-> +       ret = amdgpu_dpm_set_powergating_by_smu(adev, AMD_IP_BLOCK_TYPE_VCE, !enable);
-> +       if (ret)
-> +               DRM_ERROR("Dpm %s vce failed, ret = %d. \n",
-> +                         enable ? "enable" : "disable", ret);
->  }
->
->  void amdgpu_pm_print_power_states(struct amdgpu_device *adev)
-> @@ -2818,12 +2807,10 @@ void amdgpu_dpm_enable_jpeg(struct amdgpu_device *adev, bool enable)
->  {
->         int ret = 0;
->
-> -       if (is_support_sw_smu(adev)) {
-> -               ret = smu_dpm_set_power_gate(&adev->smu, AMD_IP_BLOCK_TYPE_JPEG, enable);
-> -               if (ret)
-> -                       DRM_ERROR("[SW SMU]: dpm enable jpeg failed, state = %s, ret = %d. \n",
-> -                                 enable ? "true" : "false", ret);
-> -       }
-> +       ret = amdgpu_dpm_set_powergating_by_smu(adev, AMD_IP_BLOCK_TYPE_JPEG, !enable);
-> +       if (ret)
-> +               DRM_ERROR("Dpm %s jpeg failed, ret = %d. \n",
-> +                         enable ? "enable" : "disable", ret);
->  }
->
->  int amdgpu_pm_load_smu_firmware(struct amdgpu_device *adev, uint32_t *smu_version)
-> diff --git a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c b/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
-> index e1b64134bbd8..fabc46dfb933 100644
-> --- a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
-> +++ b/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
-> @@ -433,10 +433,10 @@ int smu_dpm_set_power_gate(struct smu_context *smu, uint32_t block_type,
->
->         switch (block_type) {
->         case AMD_IP_BLOCK_TYPE_UVD:
-> -               ret = smu_dpm_set_uvd_enable(smu, gate);
-> +               ret = smu_dpm_set_uvd_enable(smu, !gate);
->                 break;
->         case AMD_IP_BLOCK_TYPE_VCE:
-> -               ret = smu_dpm_set_vce_enable(smu, gate);
-> +               ret = smu_dpm_set_vce_enable(smu, !gate);
->                 break;
->         case AMD_IP_BLOCK_TYPE_GFX:
->                 ret = smu_gfx_off_control(smu, gate);
-> @@ -445,7 +445,7 @@ int smu_dpm_set_power_gate(struct smu_context *smu, uint32_t block_type,
->                 ret = smu_powergate_sdma(smu, gate);
->                 break;
->         case AMD_IP_BLOCK_TYPE_JPEG:
-> -               ret = smu_dpm_set_jpeg_enable(smu, gate);
-> +               ret = smu_dpm_set_jpeg_enable(smu, !gate);
->                 break;
->         default:
->                 break;
-> --
-> 2.24.1
->
+> > ---
+> >  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 45 ++++++++++---------
+> >  1 file changed, 23 insertions(+), 22 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> > index 7aac9568d3be..803e59d97411 100644
+> > --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> > @@ -3356,27 +3356,21 @@ get_output_color_space(const struct dc_crtc_timing *dc_crtc_timing)
+> >       return color_space;
+> >  }
+> >
+> > -static void reduce_mode_colour_depth(struct dc_crtc_timing *timing_out)
+> > -{
+> > -     if (timing_out->display_color_depth <= COLOR_DEPTH_888)
+> > -             return;
+> > -
+> > -     timing_out->display_color_depth--;
+> > -}
+> > -
+> > -static void adjust_colour_depth_from_display_info(struct dc_crtc_timing *timing_out,
+> > -                                             const struct drm_display_info *info)
+> > +static bool adjust_colour_depth_from_display_info(
+> > +     struct dc_crtc_timing *timing_out,
+> > +     const struct drm_display_info *info)
+> >  {
+> > +     enum dc_color_depth depth = timing_out->display_color_depth;
+> >       int normalized_clk;
+> > -     if (timing_out->display_color_depth <= COLOR_DEPTH_888)
+> > -             return;
+> >       do {
+> >               normalized_clk = timing_out->pix_clk_100hz / 10;
+> >               /* YCbCr 4:2:0 requires additional adjustment of 1/2 */
+> >               if (timing_out->pixel_encoding == PIXEL_ENCODING_YCBCR420)
+> >                       normalized_clk /= 2;
+> >               /* Adjusting pix clock following on HDMI spec based on colour depth */
+> > -             switch (timing_out->display_color_depth) {
+> > +             switch (depth) {
+> > +             case COLOR_DEPTH_888:
+> > +                     break;
+> >               case COLOR_DEPTH_101010:
+> >                       normalized_clk = (normalized_clk * 30) / 24;
+> >                       break;
+> > @@ -3387,14 +3381,15 @@ static void adjust_colour_depth_from_display_info(struct dc_crtc_timing *timing_
+> >                       normalized_clk = (normalized_clk * 48) / 24;
+> >                       break;
+> >               default:
+> > -                     return;
+> > +                     /* The above depths are the only ones valid for HDMI. */
+> > +                     return false;
+> >               }
+> > -             if (normalized_clk <= info->max_tmds_clock)
+> > -                     return;
+> > -             reduce_mode_colour_depth(timing_out);
+> > -
+> > -     } while (timing_out->display_color_depth > COLOR_DEPTH_888);
+> > -
+> > +             if (normalized_clk <= info->max_tmds_clock) {
+> > +                     timing_out->display_color_depth = depth;
+> > +                     return true;
+> > +             }
+> > +     } while (--depth > COLOR_DEPTH_666);
+> > +     return false;
+> >  }
+> >
+> >  static void fill_stream_properties_from_drm_display_mode(
+> > @@ -3474,8 +3469,14 @@ static void fill_stream_properties_from_drm_display_mode(
+> >
+> >       stream->out_transfer_func->type = TF_TYPE_PREDEFINED;
+> >       stream->out_transfer_func->tf = TRANSFER_FUNCTION_SRGB;
+> > -     if (stream->signal == SIGNAL_TYPE_HDMI_TYPE_A)
+> > -             adjust_colour_depth_from_display_info(timing_out, info);
+> > +     if (stream->signal == SIGNAL_TYPE_HDMI_TYPE_A) {
+> > +             if (!adjust_colour_depth_from_display_info(timing_out, info) &&
+> > +                 drm_mode_is_420_also(info, mode_in) &&
+> > +                 timing_out->pixel_encoding != PIXEL_ENCODING_YCBCR420) {
+> > +                     timing_out->pixel_encoding = PIXEL_ENCODING_YCBCR420;
+> > +                     adjust_colour_depth_from_display_info(timing_out, info);
+> > +             }
+> > +     }
+> >  }
+> >
+> >  static void fill_audio_info(struct audio_info *audio_info,
+> >
 > _______________________________________________
 > amd-gfx mailing list
 > amd-gfx@lists.freedesktop.org
