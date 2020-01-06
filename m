@@ -2,102 +2,65 @@ Return-Path: <SRS0=Ai3v=23=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.0 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-6.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5BB8CC33C8C
-	for <amd-gfx@archiver.kernel.org>; Mon,  6 Jan 2020 21:39:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B0D5EC33C8C
+	for <amd-gfx@archiver.kernel.org>; Mon,  6 Jan 2020 22:59:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2DCBC2080A
-	for <amd-gfx@archiver.kernel.org>; Mon,  6 Jan 2020 21:39:46 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 8821A2081E
+	for <amd-gfx@archiver.kernel.org>; Mon,  6 Jan 2020 22:59:08 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="GTsc9R0u"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2DCBC2080A
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kTKSdyzs"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8821A2081E
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DC2DE6E542;
-	Mon,  6 Jan 2020 21:39:45 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2082.outbound.protection.outlook.com [40.107.243.82])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9CEEA6E542
- for <amd-gfx@lists.freedesktop.org>; Mon,  6 Jan 2020 21:39:44 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=IA/QE0FmBmNk+uKcsTxXy05dNQ7iOklTLT/0Ua3t6DrkY38EWur5ovO007Cbdm4MecNSFLyRZk2vkN6aqNNNqfID4yV2LHg3lluZOGfbldlgVDmEsiYHtNKdT5OtSrioXtJqP0QEzSL38NG7BW2FuVQXWdLKTt3rsgv9hn49jeecjLAlbodJQN2vLIleXeie7jbAnEzFCLk52JJRzGQZVhcqK0OLLxxc2PZe79OrlXE2EJB78U+CzOOdQgWJVNtejnZj9UVdkt20jeTKRwyJG+Kzj/EzTsdp0qSJHZredvys/khGz0RQVyXXZxnlVHHMFWTlPgfJy77qEnzADoUDvg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=cq0/BCiKNkjctECIRlREXg5epgR6siTbXMVOlqHFvl0=;
- b=FA2s+jsFYg8lJIjDndA3h+Rhn5Qz7ciPz/WjAfY+vse4++1ytMKwLTsMcbdPXf8SMexXLn8K1Gnj9ZP+3g8K5nGNw+LjK2SeXbNveNM5diETgvhJ7x2WajB20ysItxBEn2+mdzcv2sujGZrJ0m+8Ew7D6naCNE9O7Hpqc3cC+/N2N8RlceEUrAgQfpMNpdbDZ1HNaPflHiktkeJlsgPKWHcrHbimbOPhr6Kx77EkTLFRK2PuQKOUM7DGj2LZw8UBEFE7vXziL1tytxiqOsMQhZdy2RKh6TaBcpd1xt8lltOILHDyL8pwREc/Oq/Y1aFhYygy60zhzvXDKeIL+FGq2A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=cq0/BCiKNkjctECIRlREXg5epgR6siTbXMVOlqHFvl0=;
- b=GTsc9R0ujsumonf0Lou0o2cPMf0VKDPaGbpGoPudnbDE1AQZNOu8p2GvvgVQNU3kfO58HlCK+1BSZ8I0uJMp2MaMtISd+dBfeWRZ/dcokSEJwX6PcSYfiiAgoF5wUJGLqx6bJhWJX1jsc0wxBWmB8mZYkZ0t8ALZUKoOrpmT8Bc=
-Authentication-Results: spf=none (sender IP is )
- smtp.mailfrom=Felix.Kuehling@amd.com; 
-Received: from DM5PR1201MB0090.namprd12.prod.outlook.com (10.174.105.140) by
- DM5PR1201MB2552.namprd12.prod.outlook.com (10.172.87.142) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2602.13; Mon, 6 Jan 2020 21:39:43 +0000
-Received: from DM5PR1201MB0090.namprd12.prod.outlook.com
- ([fe80::7119:ff0:b3eb:619c]) by DM5PR1201MB0090.namprd12.prod.outlook.com
- ([fe80::7119:ff0:b3eb:619c%4]) with mapi id 15.20.2602.015; Mon, 6 Jan 2020
- 21:39:43 +0000
-Subject: Re: [PATCH] Revert "drm/amdgpu: Set no-retry as default."
-To: amd-gfx@lists.freedesktop.org,
- "Deucher, Alexander" <Alexander.Deucher@amd.com>
-References: <20200106204553.917237-1-alexander.deucher@amd.com>
-From: Felix Kuehling <felix.kuehling@amd.com>
-Organization: AMD Inc.
-Message-ID: <699db33c-83b6-121e-082c-c62da24261c5@amd.com>
-Date: Mon, 6 Jan 2020 16:39:42 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.2.2
-In-Reply-To: <20200106204553.917237-1-alexander.deucher@amd.com>
-Content-Language: en-US
-X-ClientProxiedBy: YTBPR01CA0012.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:14::25) To DM5PR1201MB0090.namprd12.prod.outlook.com
- (2603:10b6:4:53::12)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 915B36E58A;
+	Mon,  6 Jan 2020 22:59:04 +0000 (UTC)
+Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com
+ [IPv6:2a00:1450:4864:20::441])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E12DC6E584;
+ Mon,  6 Jan 2020 22:59:02 +0000 (UTC)
+Received: by mail-wr1-x441.google.com with SMTP id g17so51737109wro.2;
+ Mon, 06 Jan 2020 14:59:02 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=8vAbag40zsQCrmcVPzc57zPSUPwvwkh0dJEGfxu/U1Y=;
+ b=kTKSdyzsCRaLRMgfxPyrYU+qAHSHjYUAuyA/d3DXfedQ2la8oNPknedyJrEGOq4Voq
+ QQh1Cn6RfcfBJY2jd/MADPMZKYuCGIt3Tr2KEV66A8SJPmVIFs04E7yNdpv94IZAiF9K
+ AbShQ4sxHzWA9i+1p0veXVdi45ICtTF2CDeLb32KN86J/D0RvEMNN1cvS4oP5PTDsQ9e
+ fEWP5hmhljskkEHVCchzf0CnaRs230FsS/cPJwy/VrsTCwOvgo7flv4yIKZC6n3q1+oT
+ 8UzjZBB28Rmwqf6UtidJIpHR9f5qkg8H2xyGvZbbrEivuMH8QRieKhDwegKql44VwZ8O
+ k78g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=8vAbag40zsQCrmcVPzc57zPSUPwvwkh0dJEGfxu/U1Y=;
+ b=JAwPan2uGfgyTqDhH6m9U6RgTvMUAycK+5v7ToEOu0D8JyMUMk9iWCmNjpCRtlhsEA
+ lSUkelbqtmxYDs/4Kmpl1yAPl95SMREyXNqswezWStZN2NWfJwnpBY2e3e6/aNBA+kBT
+ rpPE6j/bjuTK7w9JSy6Z9PrbWqppM1c4B8IXMBpfYDqeHqTqx0/TU77nAtgO2lwKRf8u
+ g7ztFKV+ikGcYT0ioI6FZvKHWYcS3+n5rOOuk/hC65qa1w9ax/G0ZCeSF8I+Okf+q1R1
+ HCMhfy1LxRPpLdzwRX3LDx/fVqa8P1KIkS8oMG3EwjUol5adViiKgpyHFYAJYuR23/6D
+ vTUg==
+X-Gm-Message-State: APjAAAXh8ajhMwZtFeSChF01dAei8RdB1R4+c9Uo23g0ER8tFQC/qkA8
+ /5JUzgpF6tc8gfIvqXtJvdCRR4I5NCqB7qxKfi8=
+X-Google-Smtp-Source: APXvYqyUQebrvLlbh0GkgSfcfoss85D42SwTknJXT1Zd/cd62hr/WDmy+YWSurTM+FaMJhMhdIgh2c1zkziSWNVeY10=
+X-Received: by 2002:a5d:6886:: with SMTP id h6mr92441274wru.154.1578351541526; 
+ Mon, 06 Jan 2020 14:59:01 -0800 (PST)
 MIME-Version: 1.0
-Received: from [172.27.226.80] (165.204.55.251) by
- YTBPR01CA0012.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:14::25) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2602.12 via Frontend Transport; Mon, 6 Jan 2020 21:39:43 +0000
-X-Originating-IP: [165.204.55.251]
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 1feb9f74-9bbd-43ec-fd3c-08d792f0f11a
-X-MS-TrafficTypeDiagnostic: DM5PR1201MB2552:|DM5PR1201MB2552:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM5PR1201MB2552BCE4124A66B40186E4EA923C0@DM5PR1201MB2552.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:160;
-X-Forefront-PRVS: 0274272F87
-X-Forefront-Antispam-Report: SFV:NSPM;
- SFS:(10009020)(4636009)(376002)(396003)(366004)(136003)(39860400002)(346002)(199004)(189003)(81156014)(8676002)(81166006)(44832011)(6636002)(6486002)(66946007)(66556008)(66476007)(31696002)(26005)(52116002)(6862004)(5660300002)(86362001)(966005)(956004)(31686004)(16526019)(316002)(37006003)(36756003)(8936002)(16576012)(53546011)(36916002)(186003)(2906002)(2616005)(478600001);
- DIR:OUT; SFP:1101; SCL:1; SRVR:DM5PR1201MB2552;
- H:DM5PR1201MB0090.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; A:1; MX:1; 
-Received-SPF: None (protection.outlook.com: amd.com does not designate
- permitted sender hosts)
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: tS6JdBWEnoGcMkVHddbvCfOG46JkygFO8w+86UtIKbbO2r/Pgv2wwLzM7cQvvZ9ZcAmHIbJ1ygToCS2baYeTZ5qUvEOyWjXPKggb8mH05lRKrtpSGwFGEvbabm8CprAm1Lc9NJaEAfEnJNVjPBUzxb6EB/QOfFt20eMz1vPtqy0+93mBx2q39otwd3ctS1whV8O3O7CrTooPZaXo7UVlL92mqEi7dty5GnJJzSgysgc3nWTmNB7VNcGa9VGIyvTdZstSF7pwci/+Fksclfn8LcSt1x/2FMYSlSH3dIZe/qoS7lNpf+7jddwzZ7Gtf/thymSF2zGBmix5VdEVr9mapScPJLkrZQm4eR+gm8AblNAgQT2b+QwGA5BL7f8sHmr3dB03JelWH/CkaiOJuLQt5yO8Gh2JlzDTJjQJEHDCxMIdQeN8MVGLH8tCmwgCVoeGjnvgxIkk9J+ZXnStTcHuPCPpTUShNtgRhXTwKQNnPxbW1GFcRJGzBig5/BWS+tDZv8cOidvNj0Fn+hh3C4S1nw==
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1feb9f74-9bbd-43ec-fd3c-08d792f0f11a
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Jan 2020 21:39:43.2298 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: R+Mi1mMcei0Ai4yKvFx5bamfXpzOfQpi7jE2Kug3jRb/7+NCO60MMCGf2s1Q1bcIL51C6jKG5/XdFfuhuQORPg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR1201MB2552
+References: <20200103131912.26681-1-wambui.karugax@gmail.com>
+In-Reply-To: <20200103131912.26681-1-wambui.karugax@gmail.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 6 Jan 2020 17:58:49 -0500
+Message-ID: <CADnq5_Mb6OPCunU2=fa_YL0Vj7cj6KWwqZ4hU8KrCUfsLi_nUg@mail.gmail.com>
+Subject: Re: [PATCH] drm/radeon: remove boolean checks in if statements.
+To: Wambui Karuga <wambui.karugax@gmail.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,50 +72,188 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Chunming Zhou <David1.Zhou@amd.com>, Dave Airlie <airlied@linux.ie>,
+ LKML <linux-kernel@vger.kernel.org>,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>, Daniel Vetter <daniel@ffwll.ch>,
+ "Deucher, Alexander" <alexander.deucher@amd.com>,
+ Christian Koenig <christian.koenig@amd.com>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2020-01-06 3:45 p.m., Alex Deucher wrote:
-> This reverts commit 51bfac71cade386966791a8db87a5912781d249f.
+On Fri, Jan 3, 2020 at 2:34 PM Wambui Karuga <wambui.karugax@gmail.com> wrote:
 >
-> This causes stability issues on some raven boards.  Revert
-> for now until a proper fix is completed.
+> Remove unnecessary variable comparisions to true/false in if statements
+> and check the value of the variable directly.
 >
-> Bug: https://gitlab.freedesktop.org/drm/amd/issues/934
-> Bug: https://bugzilla.kernel.org/show_bug.cgi?id=206017
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> Signed-off-by: Wambui Karuga <wambui.karugax@gmail.com>
 
-Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
+Applied.  Thanks!
 
+Alex
 
 > ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 4 ++--
->   1 file changed, 2 insertions(+), 2 deletions(-)
+>  drivers/gpu/drm/radeon/cik_sdma.c               |  2 +-
+>  drivers/gpu/drm/radeon/r100.c                   |  2 +-
+>  drivers/gpu/drm/radeon/r600.c                   |  2 +-
+>  drivers/gpu/drm/radeon/radeon_bios.c            | 12 ++++++------
+>  drivers/gpu/drm/radeon/radeon_connectors.c      |  4 ++--
+>  drivers/gpu/drm/radeon/radeon_display.c         |  4 ++--
+>  drivers/gpu/drm/radeon/radeon_legacy_encoders.c |  4 ++--
+>  drivers/gpu/drm/radeon/radeon_pm.c              |  2 +-
+>  8 files changed, 16 insertions(+), 16 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> index 0ffc9447b573..3036ec883fb4 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> @@ -142,7 +142,7 @@ int amdgpu_async_gfx_ring = 1;
->   int amdgpu_mcbp = 0;
->   int amdgpu_discovery = -1;
->   int amdgpu_mes = 0;
-> -int amdgpu_noretry = 1;
-> +int amdgpu_noretry;
->   int amdgpu_force_asic_type = -1;
->   
->   struct amdgpu_mgpu_info mgpu_info = {
-> @@ -588,7 +588,7 @@ MODULE_PARM_DESC(mes,
->   module_param_named(mes, amdgpu_mes, int, 0444);
->   
->   MODULE_PARM_DESC(noretry,
-> -	"Disable retry faults (0 = retry enabled, 1 = retry disabled (default))");
-> +	"Disable retry faults (0 = retry enabled (default), 1 = retry disabled)");
->   module_param_named(noretry, amdgpu_noretry, int, 0644);
->   
->   /**
+> diff --git a/drivers/gpu/drm/radeon/cik_sdma.c b/drivers/gpu/drm/radeon/cik_sdma.c
+> index 35b9dc6ce46a..68403e77756d 100644
+> --- a/drivers/gpu/drm/radeon/cik_sdma.c
+> +++ b/drivers/gpu/drm/radeon/cik_sdma.c
+> @@ -333,7 +333,7 @@ void cik_sdma_enable(struct radeon_device *rdev, bool enable)
+>         u32 me_cntl, reg_offset;
+>         int i;
+>
+> -       if (enable == false) {
+> +       if (!enable) {
+>                 cik_sdma_gfx_stop(rdev);
+>                 cik_sdma_rlc_stop(rdev);
+>         }
+> diff --git a/drivers/gpu/drm/radeon/r100.c b/drivers/gpu/drm/radeon/r100.c
+> index 0017aa7a9f17..957994258860 100644
+> --- a/drivers/gpu/drm/radeon/r100.c
+> +++ b/drivers/gpu/drm/radeon/r100.c
+> @@ -2815,7 +2815,7 @@ void r100_vga_set_state(struct radeon_device *rdev, bool state)
+>         uint32_t temp;
+>
+>         temp = RREG32(RADEON_CONFIG_CNTL);
+> -       if (state == false) {
+> +       if (!state) {
+>                 temp &= ~RADEON_CFG_VGA_RAM_EN;
+>                 temp |= RADEON_CFG_VGA_IO_DIS;
+>         } else {
+> diff --git a/drivers/gpu/drm/radeon/r600.c b/drivers/gpu/drm/radeon/r600.c
+> index 0d453aa09352..eb56fb48a6b7 100644
+> --- a/drivers/gpu/drm/radeon/r600.c
+> +++ b/drivers/gpu/drm/radeon/r600.c
+> @@ -3191,7 +3191,7 @@ void r600_vga_set_state(struct radeon_device *rdev, bool state)
+>         uint32_t temp;
+>
+>         temp = RREG32(CONFIG_CNTL);
+> -       if (state == false) {
+> +       if (!state) {
+>                 temp &= ~(1<<0);
+>                 temp |= (1<<1);
+>         } else {
+> diff --git a/drivers/gpu/drm/radeon/radeon_bios.c b/drivers/gpu/drm/radeon/radeon_bios.c
+> index c84d965c283e..c42f73fad3e3 100644
+> --- a/drivers/gpu/drm/radeon/radeon_bios.c
+> +++ b/drivers/gpu/drm/radeon/radeon_bios.c
+> @@ -664,17 +664,17 @@ bool radeon_get_bios(struct radeon_device *rdev)
+>         uint16_t tmp;
+>
+>         r = radeon_atrm_get_bios(rdev);
+> -       if (r == false)
+> +       if (!r)
+>                 r = radeon_acpi_vfct_bios(rdev);
+> -       if (r == false)
+> +       if (!r)
+>                 r = igp_read_bios_from_vram(rdev);
+> -       if (r == false)
+> +       if (!r)
+>                 r = radeon_read_bios(rdev);
+> -       if (r == false)
+> +       if (!r)
+>                 r = radeon_read_disabled_bios(rdev);
+> -       if (r == false)
+> +       if (!r)
+>                 r = radeon_read_platform_bios(rdev);
+> -       if (r == false || rdev->bios == NULL) {
+> +       if (!r || rdev->bios == NULL) {
+>                 DRM_ERROR("Unable to locate a BIOS ROM\n");
+>                 rdev->bios = NULL;
+>                 return false;
+> diff --git a/drivers/gpu/drm/radeon/radeon_connectors.c b/drivers/gpu/drm/radeon/radeon_connectors.c
+> index 0851e6817e57..90d2f732affb 100644
+> --- a/drivers/gpu/drm/radeon/radeon_connectors.c
+> +++ b/drivers/gpu/drm/radeon/radeon_connectors.c
+> @@ -440,7 +440,7 @@ radeon_connector_analog_encoder_conflict_solve(struct drm_connector *connector,
+>                                 if (radeon_conflict->use_digital)
+>                                         continue;
+>
+> -                               if (priority == true) {
+> +                               if (priority) {
+>                                         DRM_DEBUG_KMS("1: conflicting encoders switching off %s\n",
+>                                                       conflict->name);
+>                                         DRM_DEBUG_KMS("in favor of %s\n",
+> @@ -700,7 +700,7 @@ static int radeon_connector_set_property(struct drm_connector *connector, struct
+>                         else
+>                                 ret = radeon_legacy_get_tmds_info_from_combios(radeon_encoder, tmds);
+>                 }
+> -               if (val == 1 || ret == false) {
+> +               if (val == 1 || !ret) {
+>                         radeon_legacy_get_tmds_info_from_table(radeon_encoder, tmds);
+>                 }
+>                 radeon_property_change_mode(&radeon_encoder->base);
+> diff --git a/drivers/gpu/drm/radeon/radeon_display.c b/drivers/gpu/drm/radeon/radeon_display.c
+> index dfb921899853..e42d9e0a4b8c 100644
+> --- a/drivers/gpu/drm/radeon/radeon_display.c
+> +++ b/drivers/gpu/drm/radeon/radeon_display.c
+> @@ -847,11 +847,11 @@ static bool radeon_setup_enc_conn(struct drm_device *dev)
+>         if (rdev->bios) {
+>                 if (rdev->is_atom_bios) {
+>                         ret = radeon_get_atom_connector_info_from_supported_devices_table(dev);
+> -                       if (ret == false)
+> +                       if (!ret)
+>                                 ret = radeon_get_atom_connector_info_from_object_table(dev);
+>                 } else {
+>                         ret = radeon_get_legacy_connector_info_from_bios(dev);
+> -                       if (ret == false)
+> +                       if (!ret)
+>                                 ret = radeon_get_legacy_connector_info_from_table(dev);
+>                 }
+>         } else {
+> diff --git a/drivers/gpu/drm/radeon/radeon_legacy_encoders.c b/drivers/gpu/drm/radeon/radeon_legacy_encoders.c
+> index a33b19566b2d..44d060f75318 100644
+> --- a/drivers/gpu/drm/radeon/radeon_legacy_encoders.c
+> +++ b/drivers/gpu/drm/radeon/radeon_legacy_encoders.c
+> @@ -1712,7 +1712,7 @@ static struct radeon_encoder_int_tmds *radeon_legacy_get_tmds_info(struct radeon
+>         else
+>                 ret = radeon_legacy_get_tmds_info_from_combios(encoder, tmds);
+>
+> -       if (ret == false)
+> +       if (!ret)
+>                 radeon_legacy_get_tmds_info_from_table(encoder, tmds);
+>
+>         return tmds;
+> @@ -1735,7 +1735,7 @@ static struct radeon_encoder_ext_tmds *radeon_legacy_get_ext_tmds_info(struct ra
+>
+>         ret = radeon_legacy_get_ext_tmds_info_from_combios(encoder, tmds);
+>
+> -       if (ret == false)
+> +       if (!ret)
+>                 radeon_legacy_get_ext_tmds_info_from_table(encoder, tmds);
+>
+>         return tmds;
+> diff --git a/drivers/gpu/drm/radeon/radeon_pm.c b/drivers/gpu/drm/radeon/radeon_pm.c
+> index b37121f2631d..8c5d6fda0d75 100644
+> --- a/drivers/gpu/drm/radeon/radeon_pm.c
+> +++ b/drivers/gpu/drm/radeon/radeon_pm.c
+> @@ -1789,7 +1789,7 @@ static bool radeon_pm_debug_check_in_vbl(struct radeon_device *rdev, bool finish
+>         u32 stat_crtc = 0;
+>         bool in_vbl = radeon_pm_in_vbl(rdev);
+>
+> -       if (in_vbl == false)
+> +       if (!in_vbl)
+>                 DRM_DEBUG_DRIVER("not in vbl for pm change %08x at %s\n", stat_crtc,
+>                          finish ? "exit" : "entry");
+>         return in_vbl;
+> --
+> 2.17.1
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
