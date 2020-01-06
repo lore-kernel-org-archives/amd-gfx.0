@@ -7,62 +7,61 @@ X-Spam-Status: No, score=-6.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
 	SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3FE52C33C8C
-	for <amd-gfx@archiver.kernel.org>; Mon,  6 Jan 2020 23:08:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A37B8C33C8C
+	for <amd-gfx@archiver.kernel.org>; Mon,  6 Jan 2020 23:10:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1324420731
-	for <amd-gfx@archiver.kernel.org>; Mon,  6 Jan 2020 23:08:34 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 7403920731
+	for <amd-gfx@archiver.kernel.org>; Mon,  6 Jan 2020 23:10:57 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Br/TjG7f"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1324420731
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="peczO/0o"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7403920731
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9228C6E595;
-	Mon,  6 Jan 2020 23:08:34 +0000 (UTC)
-Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com
- [IPv6:2a00:1450:4864:20::443])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5C44989BC2
- for <amd-gfx@lists.freedesktop.org>; Mon,  6 Jan 2020 23:08:33 +0000 (UTC)
-Received: by mail-wr1-x443.google.com with SMTP id t2so51797259wrr.1
- for <amd-gfx@lists.freedesktop.org>; Mon, 06 Jan 2020 15:08:33 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 376716E598;
+	Mon,  6 Jan 2020 23:10:57 +0000 (UTC)
+Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com
+ [IPv6:2a00:1450:4864:20::343])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 179EE6E598
+ for <amd-gfx@lists.freedesktop.org>; Mon,  6 Jan 2020 23:10:56 +0000 (UTC)
+Received: by mail-wm1-x343.google.com with SMTP id d139so12931673wmd.0
+ for <amd-gfx@lists.freedesktop.org>; Mon, 06 Jan 2020 15:10:55 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=DWUIAD5kem/rNzWqP7L3T5KhUDVw1Bf02CB6f+iy/Cc=;
- b=Br/TjG7fPY42WNPzq81w/NYystW1kFp/H2rpSf7Neddn2U2q1BvvydJacvf/7mrbau
- 54tn4WyRgkkhvfJlxNeIdD43awv/OzY+qEdF1teF9BrSwnhvYT+WUGDDJWJ/hq+mWOCM
- vAy2Q7RGvMcZl7S61nD8w6FVeVZTfLAttaS89iD/c19xn9MAH/IEBzWUZpTPHOasTTqg
- WbCIq4I02XCOfQYdPZdJz6vIW4MXVaC2ZQTa3I6jTM5KeQRWPL9DoomkKHgwNT9Na3Hp
- Y3sUP+G3xHMycPmn90WBPNxkynwONyHia4Vx/DAeZSh37IDj5zzdZJnfS7AxNTp74Sm8
- b8Eg==
+ :cc; bh=VAG2RHI28VFw2xbkef7srwK+9lOknFdwWEep5+GifGE=;
+ b=peczO/0omSvWNyctr/4UUIqyc6w/m9+Rgf829GhlLX+7UYGA/3mNRTCIklNBTbOGhX
+ yYxUeDQ5Hls6dYF68t9TsdBv+uvHBb9F+JzbEPwvdJhJlCkF7QYgzO1KAMDYo+Pq8ygF
+ bjg55fMsn1y2KGuA8ypeMQXUMMlObfLarW1Ee5GrqHnZKTxWHIUGLJ3UF3T8qAKCoDPr
+ oRBK2NRPs/IJZ1r+kZNwlaD6MXO2D+5AYeWvRYGoVylZIwJdry9lNA5Tcck+Yx51mWVO
+ VV7qjj/ykO6PfS1d8ln/qehNRPkSRq7sdiukAuIobve8yYqog0qT1W/rbBj/W/y2foTU
+ a+rg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=DWUIAD5kem/rNzWqP7L3T5KhUDVw1Bf02CB6f+iy/Cc=;
- b=KyjJMQa5Zu1+U71WAwuQnBrCmnBhLEbJzFR+cZcj4stLJvMc6tojHDhAEFPi4qZUMr
- IsuhvPdEvMpZyso0gH5Rur/cJp4gn5emrS3/meuYxyhAF4sUCApNC5+oVY7lmrj1vBrs
- KoLUi8scfPeqTOTv5sPsca0y/ggIdO9sLCDxf+XOrfz2VDXHXZirRbNX/cQ11AINU3Bj
- FBOmAEcpo7MEK8sr+StMXqaEkfwe2lbM1l/jVCqLoXsi9No5TvMFT9TGwuJdsXaj4Li/
- bL/7zaINGTa/WwLQxWvnmYQ4bHtN4p3/WMAKpdPw4L4BZoN6g9cjeP5hSA/U8wDkknO/
- lcSA==
-X-Gm-Message-State: APjAAAVgdahzjQCBln+mgfsssw9xQoCKZol97Vnm6W127GCM9ChynE4a
- EtblAgKiL4FjIkViuUb/ImcQcEGHJ/6hgmumlYY=
-X-Google-Smtp-Source: APXvYqyW+Qq7G8fqw5cY8JB43RgMfMtCAz+0qJhA99xlgvzXuazfnVL6tMkbUqlNY4NSD4yMeOqvyLjSmJdsbl2l288=
-X-Received: by 2002:a5d:6886:: with SMTP id h6mr92478845wru.154.1578352112038; 
- Mon, 06 Jan 2020 15:08:32 -0800 (PST)
+ bh=VAG2RHI28VFw2xbkef7srwK+9lOknFdwWEep5+GifGE=;
+ b=kmpXsGvg+ZDvk+YkBDz+1uEs7rgCPYRzihePQMabOdRIRwDmg7FUo+5rDWyFCk7yZg
+ Hvm9PxFg5fMGE5ZAgquhe/TEECxZ4L1qUbznAHhU7JIQOEmYUncaxSSZqVifOgdwlOZZ
+ soFBpTnsIS+344Fymz9AUXW+rY4A1EjYSCWeblzyB346bskkBH3y21Wjfovj+6nmo+HR
+ fM03emFh0651jMa+Pqc6U/mJScH2IwVQQ4RRJ2AMLk766sxFJfaFukgLLD5k54vw1j+5
+ I/tkjjzsgcuLm50tdrvvPPIKBix6YiY91DxrC1TZtSDb5S8OO5fbd+0aKVVdce6m/KLu
+ AsIA==
+X-Gm-Message-State: APjAAAU7zsWwoKRkGfhBJOQsURLwlrlX5HYsvNQl4MxY1iwMY3sA5ksD
+ AW9CPsOJaKL/OkLu5Yn3lSASXAXvne85epVug1U=
+X-Google-Smtp-Source: APXvYqx3yxTuJe69oeFIO8RTZNVyhdyFnYr9CS6rI7RpGMMvHaiAquz2geHPhrAtDU8dPHdxOO00I2IFKui4zVLsabs=
+X-Received: by 2002:a1c:f30e:: with SMTP id q14mr36528082wmq.65.1578352254638; 
+ Mon, 06 Jan 2020 15:10:54 -0800 (PST)
 MIME-Version: 1.0
-References: <20200103094726.32428-1-evan.quan@amd.com>
- <MN2PR12MB3344F5C72C95B6F0BD2BA887E43C0@MN2PR12MB3344.namprd12.prod.outlook.com>
-In-Reply-To: <MN2PR12MB3344F5C72C95B6F0BD2BA887E43C0@MN2PR12MB3344.namprd12.prod.outlook.com>
+References: <20200103094639.32372-1-evan.quan@amd.com>
+In-Reply-To: <20200103094639.32372-1-evan.quan@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 6 Jan 2020 18:08:20 -0500
-Message-ID: <CADnq5_N+XS7Qywm664a3M=5M5x+v-poJv5RwB=5zF6SKVFJ_qw@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/powerplay: issue proper hdp flush for table
- transferring
-To: "Quan, Evan" <Evan.Quan@amd.com>
+Date: Mon, 6 Jan 2020 18:10:43 -0500
+Message-ID: <CADnq5_ORLGdeEP7TTK+4tsQo6BOUBS3RjSk4gVJOCiCeSfC1Dw@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/powerplay: cleanup the interfaces for powergate
+ setting through SMU
+To: Evan Quan <evan.quan@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,246 +73,167 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Jan 6, 2020 at 1:34 AM Quan, Evan <Evan.Quan@amd.com> wrote:
+On Fri, Jan 3, 2020 at 4:47 AM Evan Quan <evan.quan@amd.com> wrote:
 >
-> Ping..
->
+> Provided an unified entry point. And fixed the confusing that the API
+> usage is conflict with what the naming implies.
 
+At some point it would be nice to unify the interfaces between
+powerplay and swSMU so we don't seem all the is_sw_smu checks, but for
+now,
 Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
-> > -----Original Message-----
-> > From: Quan, Evan <Evan.Quan@amd.com>
-> > Sent: Friday, January 3, 2020 5:47 PM
-> > To: amd-gfx@lists.freedesktop.org
-> > Cc: Quan, Evan <Evan.Quan@amd.com>
-> > Subject: [PATCH] drm/amd/powerplay: issue proper hdp flush for table
-> > transferring
-> >
-> > Guard the content consistence between the view of GPU and CPU during the
-> > table transferring.
-> >
-> > Change-Id: Ib3cebb97a1c8fb302eb040483bbaf089ae00c6a9
-> > Signed-off-by: Evan Quan <evan.quan@amd.com>
-> > ---
-> >  drivers/gpu/drm/amd/powerplay/amdgpu_smu.c        | 15 ++++++++++-----
-> >  .../gpu/drm/amd/powerplay/smumgr/smu10_smumgr.c   |  5 ++++-
-> >  .../gpu/drm/amd/powerplay/smumgr/vega10_smumgr.c  |  5 ++++-
-> >   .../gpu/drm/amd/powerplay/smumgr/vega12_smumgr.c  |  5 ++++-
-> >   .../gpu/drm/amd/powerplay/smumgr/vega20_smumgr.c  | 10 ++++++++--
-> >  5 files changed, 30 insertions(+), 10 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
-> > b/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
-> > index a56ebcc4e3c7..e1b64134bbd8 100644
-> > --- a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
-> > +++ b/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
-> > @@ -529,8 +529,14 @@ int smu_update_table(struct smu_context *smu,
-> > enum smu_table_id table_index, int
-> >
-> >       table_size = smu_table->tables[table_index].size;
-> >
-> > -     if (drv2smu)
-> > +     if (drv2smu) {
-> >               memcpy(table->cpu_addr, table_data, table_size);
-> > +             /*
-> > +              * Flush hdp cache: to guard the content seen by
-> > +              * GPU is consitent with CPU.
-> > +              */
-> > +             amdgpu_asic_flush_hdp(adev, NULL);
-> > +     }
-> >
-> >       ret = smu_send_smc_msg_with_param(smu, drv2smu ?
-> >                                         SMU_MSG_TransferTableDram2Smu :
-> > @@ -539,11 +545,10 @@ int smu_update_table(struct smu_context *smu,
-> > enum smu_table_id table_index, int
-> >       if (ret)
-> >               return ret;
-> >
-> > -     /* flush hdp cache */
-> > -     adev->nbio.funcs->hdp_flush(adev, NULL);
-> > -
-> > -     if (!drv2smu)
-> > +     if (!drv2smu) {
-> > +             amdgpu_asic_flush_hdp(adev, NULL);
-> >               memcpy(table_data, table->cpu_addr, table_size);
-> > +     }
-> >
-> >       return ret;
-> >  }
-> > diff --git a/drivers/gpu/drm/amd/powerplay/smumgr/smu10_smumgr.c
-> > b/drivers/gpu/drm/amd/powerplay/smumgr/smu10_smumgr.c
-> > index aa0ee2b46135..2319400a3fcb 100644
-> > --- a/drivers/gpu/drm/amd/powerplay/smumgr/smu10_smumgr.c
-> > +++ b/drivers/gpu/drm/amd/powerplay/smumgr/smu10_smumgr.c
-> > @@ -137,7 +137,7 @@ static int smu10_copy_table_from_smc(struct
-> > pp_hwmgr *hwmgr,
-> >                       priv->smu_tables.entry[table_id].table_id);
-> >
-> >       /* flush hdp cache */
-> > -     adev->nbio.funcs->hdp_flush(adev, NULL);
-> > +     amdgpu_asic_flush_hdp(adev, NULL);
-> >
-> >       memcpy(table, (uint8_t *)priv->smu_tables.entry[table_id].table,
-> >                       priv->smu_tables.entry[table_id].size);
-> > @@ -150,6 +150,7 @@ static int smu10_copy_table_to_smc(struct pp_hwmgr
-> > *hwmgr,  {
-> >       struct smu10_smumgr *priv =
-> >                       (struct smu10_smumgr *)(hwmgr->smu_backend);
-> > +     struct amdgpu_device *adev = hwmgr->adev;
-> >
-> >       PP_ASSERT_WITH_CODE(table_id < MAX_SMU_TABLE,
-> >                       "Invalid SMU Table ID!", return -EINVAL;); @@ -161,6
-> > +162,8 @@ static int smu10_copy_table_to_smc(struct pp_hwmgr *hwmgr,
-> >       memcpy(priv->smu_tables.entry[table_id].table, table,
-> >                       priv->smu_tables.entry[table_id].size);
-> >
-> > +     amdgpu_asic_flush_hdp(adev, NULL);
-> > +
-> >       smu10_send_msg_to_smc_with_parameter(hwmgr,
-> >                       PPSMC_MSG_SetDriverDramAddrHigh,
-> >                       upper_32_bits(priv-
-> > >smu_tables.entry[table_id].mc_addr));
-> > diff --git a/drivers/gpu/drm/amd/powerplay/smumgr/vega10_smumgr.c
-> > b/drivers/gpu/drm/amd/powerplay/smumgr/vega10_smumgr.c
-> > index 39427ca32a15..715564009089 100644
-> > --- a/drivers/gpu/drm/amd/powerplay/smumgr/vega10_smumgr.c
-> > +++ b/drivers/gpu/drm/amd/powerplay/smumgr/vega10_smumgr.c
-> > @@ -58,7 +58,7 @@ static int vega10_copy_table_from_smc(struct pp_hwmgr
-> > *hwmgr,
-> >                       priv->smu_tables.entry[table_id].table_id);
-> >
-> >       /* flush hdp cache */
-> > -     adev->nbio.funcs->hdp_flush(adev, NULL);
-> > +     amdgpu_asic_flush_hdp(adev, NULL);
-> >
-> >       memcpy(table, priv->smu_tables.entry[table_id].table,
-> >                       priv->smu_tables.entry[table_id].size);
-> > @@ -70,6 +70,7 @@ static int vega10_copy_table_to_smc(struct pp_hwmgr
-> > *hwmgr,
-> >               uint8_t *table, int16_t table_id)
-> >  {
-> >       struct vega10_smumgr *priv = hwmgr->smu_backend;
-> > +     struct amdgpu_device *adev = hwmgr->adev;
-> >
-> >       /* under sriov, vbios or hypervisor driver
-> >        * has already copy table to smc so here only skip it @@ -87,6 +88,8
-> > @@ static int vega10_copy_table_to_smc(struct pp_hwmgr *hwmgr,
-> >       memcpy(priv->smu_tables.entry[table_id].table, table,
-> >                       priv->smu_tables.entry[table_id].size);
-> >
-> > +     amdgpu_asic_flush_hdp(adev, NULL);
-> > +
-> >       smu9_send_msg_to_smc_with_parameter(hwmgr,
-> >                       PPSMC_MSG_SetDriverDramAddrHigh,
-> >                       upper_32_bits(priv-
-> > >smu_tables.entry[table_id].mc_addr));
-> > diff --git a/drivers/gpu/drm/amd/powerplay/smumgr/vega12_smumgr.c
-> > b/drivers/gpu/drm/amd/powerplay/smumgr/vega12_smumgr.c
-> > index 90c782c132d2..a3915bfcce81 100644
-> > --- a/drivers/gpu/drm/amd/powerplay/smumgr/vega12_smumgr.c
-> > +++ b/drivers/gpu/drm/amd/powerplay/smumgr/vega12_smumgr.c
-> > @@ -66,7 +66,7 @@ static int vega12_copy_table_from_smc(struct pp_hwmgr
-> > *hwmgr,
-> >                       return -EINVAL);
-> >
-> >       /* flush hdp cache */
-> > -     adev->nbio.funcs->hdp_flush(adev, NULL);
-> > +     amdgpu_asic_flush_hdp(adev, NULL);
-> >
-> >       memcpy(table, priv->smu_tables.entry[table_id].table,
-> >                       priv->smu_tables.entry[table_id].size);
-> > @@ -84,6 +84,7 @@ static int vega12_copy_table_to_smc(struct pp_hwmgr
-> > *hwmgr,  {
-> >       struct vega12_smumgr *priv =
-> >                       (struct vega12_smumgr *)(hwmgr->smu_backend);
-> > +     struct amdgpu_device *adev = hwmgr->adev;
-> >
-> >       PP_ASSERT_WITH_CODE(table_id < TABLE_COUNT,
-> >                       "Invalid SMU Table ID!", return -EINVAL); @@ -95,6
-> > +96,8 @@ static int vega12_copy_table_to_smc(struct pp_hwmgr *hwmgr,
-> >       memcpy(priv->smu_tables.entry[table_id].table, table,
-> >                       priv->smu_tables.entry[table_id].size);
-> >
-> > +     amdgpu_asic_flush_hdp(adev, NULL);
-> > +
-> >
-> >       PP_ASSERT_WITH_CODE(smu9_send_msg_to_smc_with_parameter(h
-> > wmgr,
-> >                       PPSMC_MSG_SetDriverDramAddrHigh,
-> >                       upper_32_bits(priv-
-> > >smu_tables.entry[table_id].mc_addr)) == 0, diff --git
-> > a/drivers/gpu/drm/amd/powerplay/smumgr/vega20_smumgr.c
-> > b/drivers/gpu/drm/amd/powerplay/smumgr/vega20_smumgr.c
-> > index f604612f411f..0db57fb83d30 100644
-> > --- a/drivers/gpu/drm/amd/powerplay/smumgr/vega20_smumgr.c
-> > +++ b/drivers/gpu/drm/amd/powerplay/smumgr/vega20_smumgr.c
-> > @@ -189,7 +189,7 @@ static int vega20_copy_table_from_smc(struct
-> > pp_hwmgr *hwmgr,
-> >                       return ret);
-> >
-> >       /* flush hdp cache */
-> > -     adev->nbio.funcs->hdp_flush(adev, NULL);
-> > +     amdgpu_asic_flush_hdp(adev, NULL);
-> >
-> >       memcpy(table, priv->smu_tables.entry[table_id].table,
-> >                       priv->smu_tables.entry[table_id].size);
-> > @@ -207,6 +207,7 @@ static int vega20_copy_table_to_smc(struct pp_hwmgr
-> > *hwmgr,  {
-> >       struct vega20_smumgr *priv =
-> >                       (struct vega20_smumgr *)(hwmgr->smu_backend);
-> > +     struct amdgpu_device *adev = hwmgr->adev;
-> >       int ret = 0;
-> >
-> >       PP_ASSERT_WITH_CODE(table_id < TABLE_COUNT, @@ -219,6 +220,8
-> > @@ static int vega20_copy_table_to_smc(struct pp_hwmgr *hwmgr,
-> >       memcpy(priv->smu_tables.entry[table_id].table, table,
-> >                       priv->smu_tables.entry[table_id].size);
-> >
-> > +     amdgpu_asic_flush_hdp(adev, NULL);
-> > +
-> >       PP_ASSERT_WITH_CODE((ret =
-> > vega20_send_msg_to_smc_with_parameter(hwmgr,
-> >                       PPSMC_MSG_SetDriverDramAddrHigh,
-> >                       upper_32_bits(priv-
-> > >smu_tables.entry[table_id].mc_addr))) == 0, @@ -242,11 +245,14 @@ int
-> > vega20_set_activity_monitor_coeff(struct pp_hwmgr *hwmgr,  {
-> >       struct vega20_smumgr *priv =
-> >                       (struct vega20_smumgr *)(hwmgr->smu_backend);
-> > +     struct amdgpu_device *adev = hwmgr->adev;
-> >       int ret = 0;
-> >
-> >       memcpy(priv-
-> > >smu_tables.entry[TABLE_ACTIVITY_MONITOR_COEFF].table, table,
-> >                       priv-
-> > >smu_tables.entry[TABLE_ACTIVITY_MONITOR_COEFF].size);
-> >
-> > +     amdgpu_asic_flush_hdp(adev, NULL);
-> > +
-> >       PP_ASSERT_WITH_CODE((ret =
-> > vega20_send_msg_to_smc_with_parameter(hwmgr,
-> >                       PPSMC_MSG_SetDriverDramAddrHigh,
-> >                       upper_32_bits(priv-
-> > >smu_tables.entry[TABLE_ACTIVITY_MONITOR_COEFF].mc_addr))) == 0, @@ -
-> > 290,7 +296,7 @@ int vega20_get_activity_monitor_coeff(struct pp_hwmgr
-> > *hwmgr,
-> >                       return ret);
-> >
-> >       /* flush hdp cache */
-> > -     adev->nbio.funcs->hdp_flush(adev, NULL);
-> > +     amdgpu_asic_flush_hdp(adev, NULL);
-> >
-> >       memcpy(table, priv-
-> > >smu_tables.entry[TABLE_ACTIVITY_MONITOR_COEFF].table,
-> >                       priv-
-> > >smu_tables.entry[TABLE_ACTIVITY_MONITOR_COEFF].size);
-> > --
-> > 2.24.1
+>
+> Change-Id: If068980ca6a7b223d0b4d087cd99cdeb729b0e77
+> Signed-off-by: Evan Quan <evan.quan@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_dpm.c    | 23 ++++++++++--
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c     | 43 ++++++++--------------
+>  drivers/gpu/drm/amd/powerplay/amdgpu_smu.c |  6 +--
+>  3 files changed, 37 insertions(+), 35 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dpm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_dpm.c
+> index 9cc270efee7c..cd76fbf4385d 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dpm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dpm.c
+> @@ -951,16 +951,31 @@ int amdgpu_dpm_set_powergating_by_smu(struct amdgpu_device *adev, uint32_t block
+>         case AMD_IP_BLOCK_TYPE_VCN:
+>         case AMD_IP_BLOCK_TYPE_VCE:
+>         case AMD_IP_BLOCK_TYPE_SDMA:
+> +               if (swsmu) {
+> +                       ret = smu_dpm_set_power_gate(&adev->smu, block_type, gate);
+> +               } else {
+> +                       if (adev->powerplay.pp_funcs &&
+> +                           adev->powerplay.pp_funcs->set_powergating_by_smu) {
+> +                               mutex_lock(&adev->pm.mutex);
+> +                               ret = ((adev)->powerplay.pp_funcs->set_powergating_by_smu(
+> +                                       (adev)->powerplay.pp_handle, block_type, gate));
+> +                               mutex_unlock(&adev->pm.mutex);
+> +                       }
+> +               }
+> +               break;
+> +       case AMD_IP_BLOCK_TYPE_JPEG:
+>                 if (swsmu)
+>                         ret = smu_dpm_set_power_gate(&adev->smu, block_type, gate);
+> -               else
+> -                       ret = ((adev)->powerplay.pp_funcs->set_powergating_by_smu(
+> -                               (adev)->powerplay.pp_handle, block_type, gate));
+>                 break;
+>         case AMD_IP_BLOCK_TYPE_GMC:
+>         case AMD_IP_BLOCK_TYPE_ACP:
+> -               ret = ((adev)->powerplay.pp_funcs->set_powergating_by_smu(
+> +               if (adev->powerplay.pp_funcs &&
+> +                   adev->powerplay.pp_funcs->set_powergating_by_smu) {
+> +                       mutex_lock(&adev->pm.mutex);
+> +                       ret = ((adev)->powerplay.pp_funcs->set_powergating_by_smu(
+>                                 (adev)->powerplay.pp_handle, block_type, gate));
+> +                       mutex_unlock(&adev->pm.mutex);
+> +               }
+>                 break;
+>         default:
+>                 break;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
+> index b32adda70bbc..285d460624c8 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
+> @@ -2762,17 +2762,12 @@ static void amdgpu_dpm_change_power_state_locked(struct amdgpu_device *adev)
+>  void amdgpu_dpm_enable_uvd(struct amdgpu_device *adev, bool enable)
+>  {
+>         int ret = 0;
+> -       if (is_support_sw_smu(adev)) {
+> -           ret = smu_dpm_set_power_gate(&adev->smu, AMD_IP_BLOCK_TYPE_UVD, enable);
+> -           if (ret)
+> -               DRM_ERROR("[SW SMU]: dpm enable uvd failed, state = %s, ret = %d. \n",
+> -                         enable ? "true" : "false", ret);
+> -       } else if (adev->powerplay.pp_funcs->set_powergating_by_smu) {
+> -               /* enable/disable UVD */
+> -               mutex_lock(&adev->pm.mutex);
+> -               amdgpu_dpm_set_powergating_by_smu(adev, AMD_IP_BLOCK_TYPE_UVD, !enable);
+> -               mutex_unlock(&adev->pm.mutex);
+> -       }
+> +
+> +       ret = amdgpu_dpm_set_powergating_by_smu(adev, AMD_IP_BLOCK_TYPE_UVD, !enable);
+> +       if (ret)
+> +               DRM_ERROR("Dpm %s uvd failed, ret = %d. \n",
+> +                         enable ? "enable" : "disable", ret);
+> +
+>         /* enable/disable Low Memory PState for UVD (4k videos) */
+>         if (adev->asic_type == CHIP_STONEY &&
+>                 adev->uvd.decode_image_width >= WIDTH_4K) {
+> @@ -2789,17 +2784,11 @@ void amdgpu_dpm_enable_uvd(struct amdgpu_device *adev, bool enable)
+>  void amdgpu_dpm_enable_vce(struct amdgpu_device *adev, bool enable)
+>  {
+>         int ret = 0;
+> -       if (is_support_sw_smu(adev)) {
+> -           ret = smu_dpm_set_power_gate(&adev->smu, AMD_IP_BLOCK_TYPE_VCE, enable);
+> -           if (ret)
+> -               DRM_ERROR("[SW SMU]: dpm enable vce failed, state = %s, ret = %d. \n",
+> -                         enable ? "true" : "false", ret);
+> -       } else if (adev->powerplay.pp_funcs->set_powergating_by_smu) {
+> -               /* enable/disable VCE */
+> -               mutex_lock(&adev->pm.mutex);
+> -               amdgpu_dpm_set_powergating_by_smu(adev, AMD_IP_BLOCK_TYPE_VCE, !enable);
+> -               mutex_unlock(&adev->pm.mutex);
+> -       }
+> +
+> +       ret = amdgpu_dpm_set_powergating_by_smu(adev, AMD_IP_BLOCK_TYPE_VCE, !enable);
+> +       if (ret)
+> +               DRM_ERROR("Dpm %s vce failed, ret = %d. \n",
+> +                         enable ? "enable" : "disable", ret);
+>  }
+>
+>  void amdgpu_pm_print_power_states(struct amdgpu_device *adev)
+> @@ -2818,12 +2807,10 @@ void amdgpu_dpm_enable_jpeg(struct amdgpu_device *adev, bool enable)
+>  {
+>         int ret = 0;
+>
+> -       if (is_support_sw_smu(adev)) {
+> -               ret = smu_dpm_set_power_gate(&adev->smu, AMD_IP_BLOCK_TYPE_JPEG, enable);
+> -               if (ret)
+> -                       DRM_ERROR("[SW SMU]: dpm enable jpeg failed, state = %s, ret = %d. \n",
+> -                                 enable ? "true" : "false", ret);
+> -       }
+> +       ret = amdgpu_dpm_set_powergating_by_smu(adev, AMD_IP_BLOCK_TYPE_JPEG, !enable);
+> +       if (ret)
+> +               DRM_ERROR("Dpm %s jpeg failed, ret = %d. \n",
+> +                         enable ? "enable" : "disable", ret);
+>  }
+>
+>  int amdgpu_pm_load_smu_firmware(struct amdgpu_device *adev, uint32_t *smu_version)
+> diff --git a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c b/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
+> index e1b64134bbd8..fabc46dfb933 100644
+> --- a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
+> +++ b/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
+> @@ -433,10 +433,10 @@ int smu_dpm_set_power_gate(struct smu_context *smu, uint32_t block_type,
+>
+>         switch (block_type) {
+>         case AMD_IP_BLOCK_TYPE_UVD:
+> -               ret = smu_dpm_set_uvd_enable(smu, gate);
+> +               ret = smu_dpm_set_uvd_enable(smu, !gate);
+>                 break;
+>         case AMD_IP_BLOCK_TYPE_VCE:
+> -               ret = smu_dpm_set_vce_enable(smu, gate);
+> +               ret = smu_dpm_set_vce_enable(smu, !gate);
+>                 break;
+>         case AMD_IP_BLOCK_TYPE_GFX:
+>                 ret = smu_gfx_off_control(smu, gate);
+> @@ -445,7 +445,7 @@ int smu_dpm_set_power_gate(struct smu_context *smu, uint32_t block_type,
+>                 ret = smu_powergate_sdma(smu, gate);
+>                 break;
+>         case AMD_IP_BLOCK_TYPE_JPEG:
+> -               ret = smu_dpm_set_jpeg_enable(smu, gate);
+> +               ret = smu_dpm_set_jpeg_enable(smu, !gate);
+>                 break;
+>         default:
+>                 break;
+> --
+> 2.24.1
 >
 > _______________________________________________
 > amd-gfx mailing list
