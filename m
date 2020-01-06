@@ -2,104 +2,54 @@ Return-Path: <SRS0=Ai3v=23=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-2.2 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=no
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 16660C2D0D1
-	for <amd-gfx@archiver.kernel.org>; Mon,  6 Jan 2020 10:22:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 31C95C33C8C
+	for <amd-gfx@archiver.kernel.org>; Mon,  6 Jan 2020 11:30:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E0E3E20731
-	for <amd-gfx@archiver.kernel.org>; Mon,  6 Jan 2020 10:22:57 +0000 (UTC)
-Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="Mk5ApJuD"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E0E3E20731
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id 9942D2072E
+	for <amd-gfx@archiver.kernel.org>; Mon,  6 Jan 2020 11:30:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9942D2072E
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=daenzer.net
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0AE626E23B;
-	Mon,  6 Jan 2020 10:22:54 +0000 (UTC)
-Received: from NAM02-BL2-obe.outbound.protection.outlook.com
- (mail-eopbgr750057.outbound.protection.outlook.com [40.107.75.57])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6811F6E23D;
- Mon,  6 Jan 2020 10:22:52 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=m2XWhVyXq2ZicUkkVYbB/Rl2j45LzZB+XHuSeHN7FVg5JAZfleQ7jklhv6nAJ6qFQuTsj79GqKtQ97ItvYR8AXaQRiXVjSBbB/lqQHMOQz7j8fEk9bnNBwHf5DHja1Pxf+U4tdJkffAWnYr0bOiDnU+9QwiE0Qysn8e6KqTsBH3HYbQKrShqfvzAJSk447VSU5umkAslhEyqWngJCJBtvJb4ta56N9+vPAZF5iV3624xbkFyAU7bmcj+5qGG9c8Jl+fBJ1d4wI8QXKrars8MQATemQXczc8C4jldZf+ci5h34qw4uY595xGuERn7FIcujGzBzOXGeZsImi1beUlfQA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vTw83XEi4hONHOSz02Mt32zNzr+OjKlYiC8OwlUXwEM=;
- b=GDc2du1FmPsq+3q5ZJzpFgZdfxo7vAQAXu6crJb3lNbJI2hDOrfclZ5PB4G0sPL0KoslsmcCAm7+mJCFURpj2KTEkKv/8ibkxtRj2vNtkyzGa8MgHLcx4wny5CYF6cMI6oNhCjbv8fXrdceQoCV0WkHC/6HCIuVt/ZahaBpXynrWktfpbAPa3rnByvvfxkzIxfEh+sk4NIE8toUHQb9u6N+N9Q92m4RvEGlRa8hMTJ9/6/mfF1y0q0ptMM43C6tSir3slMlIfeXGfET7JHtcDxBGwD9pC3fDGJZSwZ7pZZs1kBjIkpVz0ykXvXAhoeFU76XBkJXuZzJAFa3qCs7ItQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=permerror action=none header.from=amd.com; dkim=none (message not
- signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vTw83XEi4hONHOSz02Mt32zNzr+OjKlYiC8OwlUXwEM=;
- b=Mk5ApJuDN82XGC75muhWhhe3YzUC9JhAdHilfQdk2el3A7/R206eINCQxekkuXaDqdVRGtJpTQwNrTaD6GQggUeq07aXldFpFIPBNO3J//Nd0os3enJAQ1qX0zbA7vB4QttSNsTr3nSYSBNwRXwW2ueIAcVVS/aHPeuuor9KYPA=
-Received: from MWHPR1201CA0024.namprd12.prod.outlook.com
- (2603:10b6:301:4a::34) by CY4PR12MB1447.namprd12.prod.outlook.com
- (2603:10b6:910:e::15) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2602.12; Mon, 6 Jan
- 2020 10:22:49 +0000
-Received: from DM6NAM11FT044.eop-nam11.prod.protection.outlook.com
- (2a01:111:f400:7eaa::204) by MWHPR1201CA0024.outlook.office365.com
- (2603:10b6:301:4a::34) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2602.11 via Frontend
- Transport; Mon, 6 Jan 2020 10:22:49 +0000
-Authentication-Results: spf=none (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
- header.d=none;lists.freedesktop.org; dmarc=permerror action=none
- header.from=amd.com;
-Received-SPF: None (protection.outlook.com: amd.com does not designate
- permitted sender hosts)
-Received: from SATLEXMB02.amd.com (165.204.84.17) by
- DM6NAM11FT044.mail.protection.outlook.com (10.13.173.185) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.2602.11 via Frontend Transport; Mon, 6 Jan 2020 10:22:49 +0000
-Received: from SATLEXMB02.amd.com (10.181.40.143) by SATLEXMB02.amd.com
- (10.181.40.143) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Mon, 6 Jan 2020
- 04:22:48 -0600
-Received: from wayne-System-Product-Name.amd.com (10.180.168.240) by
- SATLEXMB02.amd.com (10.181.40.143) with Microsoft SMTP Server id 15.1.1713.5
- via Frontend Transport; Mon, 6 Jan 2020 04:22:46 -0600
-From: Wayne Lin <Wayne.Lin@amd.com>
-To: <dri-devel@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH v2] drm/dp_mst: clear time slots for ports invalid
-Date: Mon, 6 Jan 2020 18:21:58 +0800
-Message-ID: <20200106102158.28261-1-Wayne.Lin@amd.com>
-X-Mailer: git-send-email 2.17.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 46EF689D99;
+	Mon,  6 Jan 2020 11:30:05 +0000 (UTC)
+Received: from netline-mail3.netline.ch (mail.netline.ch [148.251.143.178])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 25C7C8800A
+ for <amd-gfx@lists.freedesktop.org>; Mon,  6 Jan 2020 11:30:02 +0000 (UTC)
+Received: from localhost (localhost [127.0.0.1])
+ by netline-mail3.netline.ch (Postfix) with ESMTP id E24142A604E;
+ Mon,  6 Jan 2020 12:30:01 +0100 (CET)
+X-Virus-Scanned: Debian amavisd-new at netline-mail3.netline.ch
+Received: from netline-mail3.netline.ch ([127.0.0.1])
+ by localhost (netline-mail3.netline.ch [127.0.0.1]) (amavisd-new, port 10024)
+ with LMTP id 1F-LcxBlJexm; Mon,  6 Jan 2020 12:30:01 +0100 (CET)
+Received: from thor (252.80.76.83.dynamic.wline.res.cust.swisscom.ch
+ [83.76.80.252])
+ by netline-mail3.netline.ch (Postfix) with ESMTPSA id 207DA2A604B;
+ Mon,  6 Jan 2020 12:30:00 +0100 (CET)
+Received: from [::1] by thor with esmtp (Exim 4.93)
+ (envelope-from <michel@daenzer.net>)
+ id 1ioQa8-003Crs-2y; Mon, 06 Jan 2020 12:30:00 +0100
+Subject: Re: Warning: check cp_fw_version and update it to realize GRBM
+ requires 1-cycle delay in cp firmware
+To: Alex Deucher <alexdeucher@gmail.com>,
+ Paul Menzel <pmenzel+amd-gfx@molgen.mpg.de>
+References: <745c5951-5304-9651-34f1-6b3f6a713ece@molgen.mpg.de>
+ <CADnq5_PH=ww4nNzRmC6PkyfPNomH_1FXWeMTJpS2pt6CpuRZMA@mail.gmail.com>
+From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel@daenzer.net>
+Message-ID: <3553af46-c9c5-cd33-e7f9-bf7a1a5f49a7@daenzer.net>
+Date: Mon, 6 Jan 2020 12:29:59 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.3.1
 MIME-Version: 1.0
-X-EOPAttributedMessage: 0
-X-MS-Office365-Filtering-HT: Tenant
-X-Forefront-Antispam-Report: CIP:165.204.84.17; IPV:; CTRY:US; EFV:NLI;
- SFV:NSPM;
- SFS:(10009020)(4636009)(376002)(136003)(346002)(39860400002)(396003)(428003)(199004)(189003)(186003)(7696005)(86362001)(81156014)(81166006)(8676002)(8936002)(70206006)(70586007)(36756003)(2906002)(4326008)(26005)(5660300002)(426003)(316002)(2616005)(336012)(356004)(1076003)(54906003)(6666004)(478600001)(110136005);
- DIR:OUT; SFP:1101; SCL:1; SRVR:CY4PR12MB1447; H:SATLEXMB02.amd.com; FPR:;
- SPF:None; LANG:en; PTR:InfoDomainNonexistent; A:1; MX:1; 
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 46f3d965-7940-447f-ddfa-08d79292615f
-X-MS-TrafficTypeDiagnostic: CY4PR12MB1447:
-X-Microsoft-Antispam-PRVS: <CY4PR12MB1447E20D7F94409A54B821DDFC3C0@CY4PR12MB1447.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
-X-Forefront-PRVS: 0274272F87
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: REXZAyXXgDfz/Wuk/4/64qEtSfBLdB/l4yqszgmjEGoqJ686q8vxBBEiIyoyqQqXWoisWbAMrpdkSCO1GctKdeUZeVaYdGbcK5zKr/k0OMxXJqYCeVG5Ev2zpq2DIu86cA6DSnPZw0DCFnsOm3P9LIdpm3p/phWD9VnUsOCCWLz8esyCqHyos8u8Sh9Ddw9Osd45jTOpAIPHCWW2ATd8P/WrpufnwXmc28BtNI1L6YXWQ/8Y9qM8cX6/8bwTcC00rvAl4A51kJTMCkRdNRjQ729wKeDm+gMgAINBWdBfuyG66ESm/za36hwb1ho2ItMdFckCq+yryG2h05y6CMPtz2Hxf2xbvo3kRcY1a1SKUsAcxKHGYOR4Sx1+S3b473M44DBanBAdk8Ofbbc/u4Mk9UmBreLmi4evY8XnWSRPZhZonsmk08Xfq7KrpHAglRFIS8hchXMrdXd/t4EL5iFnXsvWLRjy9LN8VYaw5O5huio=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Jan 2020 10:22:49.1941 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 46f3d965-7940-447f-ddfa-08d79292615f
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB02.amd.com]
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR12MB1447
+In-Reply-To: <CADnq5_PH=ww4nNzRmC6PkyfPNomH_1FXWeMTJpS2pt6CpuRZMA@mail.gmail.com>
+Content-Language: en-CA
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,104 +61,42 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: stable@vger.kernel.org, jerry.zuo@amd.com, Wayne Lin <Wayne.Lin@amd.com>,
- harry.wentland@amd.com, Nicholas.Kazlauskas@amd.com
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: David Airlie <airlied@linux.ie>, LKML <linux-kernel@vger.kernel.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Chang Zhu <Changfeng.Zhu@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[Why]
-When change the connection status in a MST topology, mst device
-which detect the event will send out CONNECTION_STATUS_NOTIFY messgae.
-
-e.g. src-mst-mst-sst => src-mst (unplug) mst-sst
-
-Currently, under the above case of unplugging device, ports which have
-been allocated payloads and are no longer in the topology still occupy
-time slots and recorded in proposed_vcpi[] of topology manager.
-
-If we don't clean up the proposed_vcpi[], when code flow goes to try to
-update payload table by calling drm_dp_update_payload_part1(), we will
-fail at checking port validation due to there are ports with proposed
-time slots but no longer in the mst topology. As the result of that, we
-will also stop updating the DPCD payload table of down stream port.
-
-[How]
-While handling the CONNECTION_STATUS_NOTIFY message, add a detection to
-see if the event indicates that a device is unplugged to an output port.
-If the detection is true, then iterrate over all proposed_vcpi[] to
-see whether a port of the proposed_vcpi[] is still in the topology or
-not. If the port is invalid, set its num_slots to 0.
-
-Thereafter, when try to update payload table by calling
-drm_dp_update_payload_part1(), we can successfully update the DPCD
-payload table of down stream port and clear the proposed_vcpi[] to NULL.
-
-Changes since v1:(https://patchwork.kernel.org/patch/11275801/)
-* Invert the conditional to reduce the indenting
-
-Reviewed-by: Lyude Paul <lyude@redhat.com>
-Signed-off-by: Wayne Lin <Wayne.Lin@amd.com>
-Cc: stable@vger.kernel.org
----
- drivers/gpu/drm/drm_dp_mst_topology.c | 25 ++++++++++++++++++++++++-
- 1 file changed, 24 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/drm_dp_mst_topology.c b/drivers/gpu/drm/drm_dp_mst_topology.c
-index 6e10f6235009..e37cd6ec6e36 100644
---- a/drivers/gpu/drm/drm_dp_mst_topology.c
-+++ b/drivers/gpu/drm/drm_dp_mst_topology.c
-@@ -2321,7 +2321,7 @@ drm_dp_mst_handle_conn_stat(struct drm_dp_mst_branch *mstb,
- {
- 	struct drm_dp_mst_topology_mgr *mgr = mstb->mgr;
- 	struct drm_dp_mst_port *port;
--	int old_ddps, ret;
-+	int old_ddps, old_input, ret, i;
- 	u8 new_pdt;
- 	bool dowork = false, create_connector = false;
- 
-@@ -2352,6 +2352,7 @@ drm_dp_mst_handle_conn_stat(struct drm_dp_mst_branch *mstb,
- 	}
- 
- 	old_ddps = port->ddps;
-+	old_input = port->input;
- 	port->input = conn_stat->input_port;
- 	port->mcs = conn_stat->message_capability_status;
- 	port->ldps = conn_stat->legacy_device_plug_status;
-@@ -2376,6 +2377,28 @@ drm_dp_mst_handle_conn_stat(struct drm_dp_mst_branch *mstb,
- 		dowork = false;
- 	}
- 
-+	if (!old_input && old_ddps != port->ddps && !port->ddps) {
-+		for (i = 0; i < mgr->max_payloads; i++) {
-+			struct drm_dp_vcpi *vcpi = mgr->proposed_vcpis[i];
-+			struct drm_dp_mst_port *port_validated;
-+
-+			if (!vcpi)
-+				continue;
-+
-+			port_validated =
-+				container_of(vcpi, struct drm_dp_mst_port, vcpi);
-+			port_validated =
-+				drm_dp_mst_topology_get_port_validated(mgr, port_validated);
-+			if (!port_validated) {
-+				mutex_lock(&mgr->payload_lock);
-+				vcpi->num_slots = 0;
-+				mutex_unlock(&mgr->payload_lock);
-+			} else {
-+				drm_dp_mst_topology_put_port(port_validated);
-+			}
-+		}
-+	}
-+
- 	if (port->connector)
- 		drm_modeset_unlock(&mgr->base.lock);
- 	else if (create_connector)
--- 
-2.17.1
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+T24gMjAxOS0xMi0yNiA1OjUzIHAubS4sIEFsZXggRGV1Y2hlciB3cm90ZToKPiBPbiBUaHUsIERl
+YyAyNiwgMjAxOSBhdCA1OjExIEFNIFBhdWwgTWVuemVsCj4+Cj4+PiBbICAgMTMuNDQ2OTc1XSBb
+ZHJtXSBXYXJuaW5nOiBjaGVjayBjcF9md192ZXJzaW9uIGFuZCB1cGRhdGUgaXQgdG8gcmVhbGl6
+ZSAgICAgICAgICAgICAgICAgICAgICAgICAgR1JCTSByZXF1aXJlcyAxLWN5Y2xlIGRlbGF5IGlu
+IGNwIGZpcm13YXJlCj4+Cj4+IENoYW5nLCBpdCBsb29rcyBsaWtlIHlvdSBhZGRlZCB0aGF0IHdh
+cm5pbmcgaW4gY29tbWl0IDExYzYxMDg5MzQuCj4+Cj4+PiBkcm0vYW1kZ3B1OiBhZGQgd2Fybmlu
+ZyBmb3IgR1JCTSAxLWN5Y2xlIGRlbGF5IGlzc3VlIGluIGdmeDkKPj4+Cj4+PiBJdCBuZWVkcyB0
+byBhZGQgd2FybmluZyB0byB1cGRhdGUgZmlybXdhcmUgaW4gZ2Z4OQo+Pj4gaW4gY2FzZSB0aGF0
+IGZpcm13YXJlIGlzIHRvbyBvbGQgdG8gaGF2ZSBmdW5jdGlvbiB0bwo+Pj4gcmVhbGl6ZSBkdW1t
+eSByZWFkIGluIGNwIGZpcm13YXJlLgo+Pgo+PiBVbmZvcnR1bmF0ZWx5LCBpdCBsb29rcyBsaWtl
+IHlvdSBkaWQgbm90IGV2ZW4gY2hlY2sgaG93IHRoZSB3YXJuaW5nIGlzCj4+IGZvcm1hdHRlZCAo
+bmVlZGxlc3Mgc3BhY2VzKSwgc28gSSBndWVzcyB0aGlzIHdhcyB0b3RhbGx5IHVudGVzdGVkLiBB
+bHNvLAo+PiB3aGF0IGlzIHRoYXQgd2FybmluZyBhYm91dCwgYW5kIHdoYXQgaXMgdGhlIHVzZXIg
+c3VwcG9zZWQgdG8gZG8/IEkgYW0KPj4gdW5hYmxlIHRvIGZpbmQgYGNwX2Z3X3ZlcnNpb25gIGlu
+IHRoZSBzb3VyY2UgY29kZSBhdCBhbGwuCj4+Cj4gCj4gVGhlIGNvZGUgbG9va3MgZmluZS4gIE5v
+dCBzdXJlIHdoeSBpdCdzIHJlbmRlcmluZyBmdW5ueSBpbiB5b3VyIGxvZy4KPiAgICAgICAgICAg
+ICAgICBEUk1fV0FSTl9PTkNFKCJXYXJuaW5nOiBjaGVjayBjcF9md192ZXJzaW9uIGFuZCB1cGRh
+dGUKPiBpdCB0byByZWFsaXplIFwKPiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIEdSQk0g
+cmVxdWlyZXMgMS1jeWNsZSBkZWxheSBpbiBjcCBmaXJtd2FyZVxuIik7CgpMb29rcyBsaWtlIHRo
+ZSBsZWFkaW5nIHNwYWNlcyBhZnRlciB0aGUgYmFja3NsYXNoIGFyZSBpbmNsdWRlZCBpbiB0aGUK
+c3RyaW5nLiBTb21ldGhpbmcgbGlrZSB0aGlzIHNob3VsZCBiZSBiZXR0ZXI6CgogICAgICAgIERS
+TV9XQVJOX09OQ0UoIldhcm5pbmc6IGNoZWNrIGNwX2Z3X3ZlcnNpb24gYW5kIHVwZGF0ZSAiCiAg
+ICAgICAgICAgICAgICAgICAgICAiR1JCTSByZXF1aXJlcyAxLWN5Y2xlIGRlbGF5IGluIGNwIGZp
+cm13YXJlXG4iKTsKCihvciBtYXliZSB0aGUgaW50ZW50aW9uIHdhcyB0byBwdXQgdGhlIHNlY29u
+ZCBzZW50ZW5jZSBvbiBhIG5ldyBsaW5lPykKCgotLSAKRWFydGhsaW5nIE1pY2hlbCBEw6RuemVy
+ICAgICAgICAgICAgICAgfCAgICAgICAgICAgICAgIGh0dHBzOi8vcmVkaGF0LmNvbQpMaWJyZSBz
+b2Z0d2FyZSBlbnRodXNpYXN0ICAgICAgICAgICAgIHwgICAgICAgICAgICAgTWVzYSBhbmQgWCBk
+ZXZlbG9wZXIKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18K
+YW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6
+Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
