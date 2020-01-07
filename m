@@ -2,50 +2,70 @@ Return-Path: <SRS0=EvZE=24=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.2 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-9.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 754F7C282DD
-	for <amd-gfx@archiver.kernel.org>; Tue,  7 Jan 2020 18:57:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6D643C282DD
+	for <amd-gfx@archiver.kernel.org>; Tue,  7 Jan 2020 19:41:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 501772081E
-	for <amd-gfx@archiver.kernel.org>; Tue,  7 Jan 2020 18:57:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 501772081E
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 3F1AD20848
+	for <amd-gfx@archiver.kernel.org>; Tue,  7 Jan 2020 19:41:32 +0000 (UTC)
+Authentication-Results: mail.kernel.org;
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=digitalocean.com header.i=@digitalocean.com header.b="a3skjP/A"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3F1AD20848
+Authentication-Results: mail.kernel.org; dmarc=fail (p=reject dis=none) header.from=digitalocean.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4980B6E125;
-	Tue,  7 Jan 2020 18:57:23 +0000 (UTC)
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C93ED6E127;
- Tue,  7 Jan 2020 18:57:21 +0000 (UTC)
-X-Amp-Result: UNKNOWN
-X-Amp-Original-Verdict: FILE UNKNOWN
-X-Amp-File-Uploaded: False
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by fmsmga102.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 07 Jan 2020 10:57:21 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.69,406,1571727600"; d="scan'208";a="233314132"
-Received: from stinkbox.fi.intel.com (HELO stinkbox) ([10.237.72.174])
- by orsmga002.jf.intel.com with SMTP; 07 Jan 2020 10:57:18 -0800
-Received: by stinkbox (sSMTP sendmail emulation);
- Tue, 07 Jan 2020 20:57:15 +0200
-Date: Tue, 7 Jan 2020 20:57:15 +0200
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: "Lin, Wayne" <Wayne.Lin@amd.com>
-Subject: Re: [PATCH] drm/dp_mst: correct the shifting in DP_REMOTE_I2C_READ
-Message-ID: <20200107185715.GK1208@intel.com>
-References: <20191230070516.4760-1-Wayne.Lin@amd.com>
- <87mubaoyi1.fsf@intel.com>
- <DM6PR12MB41375620C8A3030E0C9154CCFC260@DM6PR12MB4137.namprd12.prod.outlook.com>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <DM6PR12MB41375620C8A3030E0C9154CCFC260@DM6PR12MB4137.namprd12.prod.outlook.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C25B86E12F;
+	Tue,  7 Jan 2020 19:41:31 +0000 (UTC)
+Received: from mail-yw1-xc42.google.com (mail-yw1-xc42.google.com
+ [IPv6:2607:f8b0:4864:20::c42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 71FD56E83A
+ for <amd-gfx@lists.freedesktop.org>; Tue,  7 Jan 2020 19:26:07 +0000 (UTC)
+Received: by mail-yw1-xc42.google.com with SMTP id u139so196512ywf.13
+ for <amd-gfx@lists.freedesktop.org>; Tue, 07 Jan 2020 11:26:07 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=digitalocean.com; s=google;
+ h=from:to:cc:subject:date:message-id:in-reply-to:references;
+ bh=maOi+ccdSCJ33tytaZ2VQyWTlm9roQsB2CYyKUcC3tE=;
+ b=a3skjP/AmaWwBHZeZWluAghlXwxiT7Cj7kdIwSY35YoouSaTAle6gkkF+gWSQ43i5K
+ B0GbiFcbbFVZraT3GERgOABL8Uc68kYFZIreZ/RiZRxaBPKz51UcdeY8c9TkW4rBxplO
+ +ma4KhzsrQj/BcgUSva7gsUmK8tJO0k2NfeH0=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references;
+ bh=maOi+ccdSCJ33tytaZ2VQyWTlm9roQsB2CYyKUcC3tE=;
+ b=KsmzDdeLiIOgkJ5pRmOPfH4XdQx2wSyiMDt4UWuXoyJnN8pSLVTbbLIbyMEbYfVFA8
+ odW+bpy1z+g6FfH0GCBm9x+XfcyEwuqA3XLmvRlk7w/9VYn5r+YWY2uwvdWmzz8aDMIm
+ KBQq/BAnK3T3IR/ODh0wo5dafMYg+BULFemXvdemCsAaTqfu14HDTcBkpgXwDRgcbr4d
+ 0Am9EGSYx9LHuFPjYIsHeodV27xGALawQtVLZMJ1f1lzJZRnWSwXciTXK3SfJgDtAqMV
+ iKVht/LfUGQiMuFVbggVVnxtlyJBjryTu1on4SXLO7XtqbC/kiynYDi7UQgcGWWgeuEw
+ r2TQ==
+X-Gm-Message-State: APjAAAWISgL9ESEPrLR9uJ24u4yhQ65vCDLVFLFQqe6oYp+4jb8kSD/5
+ 9V0DAZsg0vPtEJq5xFYIXRcO
+X-Google-Smtp-Source: APXvYqwCwkS16hDGTInMHpIbsWfaGLyz0bdtQUZqjjL2wAm7ADS3K2eO1OR9tckNRyznHTSO/nu0Yg==
+X-Received: by 2002:a81:ec01:: with SMTP id j1mr738569ywm.274.1578425166700;
+ Tue, 07 Jan 2020 11:26:06 -0800 (PST)
+Received: from tina-kpatch ([162.243.188.76])
+ by smtp.gmail.com with ESMTPSA id q124sm228047ywb.93.2020.01.07.11.26.06
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 07 Jan 2020 11:26:06 -0800 (PST)
+From: Tianlin Li <tli@digitalocean.com>
+To: kernel-hardening@lists.openwall.com,
+	keescook@chromium.org
+Subject: [PATCH 2/2] drm/radeon: change call sites to handle return value
+ properly.
+Date: Tue,  7 Jan 2020 13:25:55 -0600
+Message-Id: <20200107192555.20606-3-tli@digitalocean.com>
+X-Mailer: git-send-email 2.17.1
+In-Reply-To: <20200107192555.20606-1-tli@digitalocean.com>
+References: <20200107192555.20606-1-tli@digitalocean.com>
+X-Mailman-Approved-At: Tue, 07 Jan 2020 19:41:31 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,106 +77,59 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Zuo, Jerry" <Jerry.Zuo@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- Jani Nikula <jani.nikula@linux.intel.com>, "Kazlauskas,
- Nicholas" <Nicholas.Kazlauskas@amd.com>
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Cc: David1.Zhou@amd.com, David Airlie <airlied@linux.ie>,
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ Tianlin Li <tli@digitalocean.com>, dri-devel@lists.freedesktop.org,
+ Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
+ christian.koenig@amd.com
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Dec 31, 2019 at 03:30:47AM +0000, Lin, Wayne wrote:
-> [AMD Official Use Only - Internal Distribution Only]
-> =
+Ideally, the failure of set_memory_*() should be passed up the call stack,
+and callers should examine the failure and deal with it. Fix those call 
+sites in drm/radeon to handle retval properly. 
+Since fini functions are always void, print errors for the failures.
 
-> > ________________________________________
-> > From: Jani Nikula <jani.nikula@linux.intel.com>
-> > Sent: Monday, December 30, 2019 19:15
-> > To: Lin, Wayne; dri-devel@lists.freedesktop.org; amd-gfx@lists.freedesk=
-top.org
-> > Cc: Zuo, Jerry; Kazlauskas, Nicholas; Lin, Wayne
-> > Subject: Re: [PATCH] drm/dp_mst: correct the shifting in DP_REMOTE_I2C_=
-READ
-> >
-> > On Mon, 30 Dec 2019, Wayne Lin <Wayne.Lin@amd.com> wrote:
-> > > [Why]
-> > > According to DP spec, it should shift left 4 digits for NO_STOP_BIT
-> > > in REMOTE_I2C_READ message. Not 5 digits.
-> > >
-> > > [How]
-> > > Correct the shifting value of NO_STOP_BIT for DP_REMOTE_I2C_READ case=
- in
-> > > drm_dp_encode_sideband_req().
-> >
-> > Which commit introduced the issue? Fixes: tag. Does it need a stable
-> > backport? Does this fix a user visible bug?
-> >
-> > BR,
-> > Jani.
-> >
-> Thanks for your time and reminder.
-> =
+Signed-off-by: Tianlin Li <tli@digitalocean.com>
+---
+ drivers/gpu/drm/radeon/r100.c  | 3 ++-
+ drivers/gpu/drm/radeon/rs400.c | 3 ++-
+ 2 files changed, 4 insertions(+), 2 deletions(-)
 
-> It seems like the issue has been there since very beginning.(commit: ad7f=
-8a1).
-> It doesn't introduce user visible bug under my test cases, but this affec=
-ts the I2C signal
-> between I2C master and I2C slave. Not pretty sure if there is any eeprom =
-will reset
-> the written offset once received I2C stop. If so, that might cause wrongl=
-y reading EDID.
-> I will Cc to stable. Thanks.
+diff --git a/drivers/gpu/drm/radeon/r100.c b/drivers/gpu/drm/radeon/r100.c
+index 110fb38004b1..7eafe15ba124 100644
+--- a/drivers/gpu/drm/radeon/r100.c
++++ b/drivers/gpu/drm/radeon/r100.c
+@@ -706,7 +706,8 @@ void r100_pci_gart_fini(struct radeon_device *rdev)
+ {
+ 	radeon_gart_fini(rdev);
+ 	r100_pci_gart_disable(rdev);
+-	radeon_gart_table_ram_free(rdev);
++	if (radeon_gart_table_ram_free(rdev))
++		DRM_ERROR("radeon: failed free system ram for GART page table.\n");
+ }
+ 
+ int r100_irq_set(struct radeon_device *rdev)
+diff --git a/drivers/gpu/drm/radeon/rs400.c b/drivers/gpu/drm/radeon/rs400.c
+index 117f60af1ee4..de3674f5fe23 100644
+--- a/drivers/gpu/drm/radeon/rs400.c
++++ b/drivers/gpu/drm/radeon/rs400.c
+@@ -210,7 +210,8 @@ void rs400_gart_fini(struct radeon_device *rdev)
+ {
+ 	radeon_gart_fini(rdev);
+ 	rs400_gart_disable(rdev);
+-	radeon_gart_table_ram_free(rdev);
++	if (radeon_gart_table_ram_free(rdev))
++		DRM_ERROR("radeon: failed free system ram for GART page table.\n");
+ }
+ 
+ #define RS400_PTE_UNSNOOPED (1 << 0)
+-- 
+2.17.1
 
-The segment address should be reset on STOP. So large EDIDs should
-fail. IIRC we had a bug report of some sort about this which I tried
-to fix by confgiuring .no_stop_bit correctly, but apparently I failed
-to double check that the bit get stuffed onto the wire correctly.
-
-Ah yes, https://bugs.freedesktop.org/show_bug.cgi?id=3D108081
-So you may have just fixed that one, although we seem to have closed
-it already.
-
-> > > Signed-off-by: Wayne Lin <Wayne.Lin@amd.com>
-> > > ---
-> > >  drivers/gpu/drm/drm_dp_mst_topology.c | 2 +-
-> > >  1 file changed, 1 insertion(+), 1 deletion(-)
-> > >
-> > > diff --git a/drivers/gpu/drm/drm_dp_mst_topology.c b/drivers/gpu/drm/=
-drm_dp_mst_topology.c
-> > > index 1d1bfa49ca2b..0557e225ff67 100644
-> > > --- a/drivers/gpu/drm/drm_dp_mst_topology.c
-> > > +++ b/drivers/gpu/drm/drm_dp_mst_topology.c
-> > > @@ -393,7 +393,7 @@ drm_dp_encode_sideband_req(const struct drm_dp_si=
-deband_msg_req_body *req,
-> > >                       memcpy(&buf[idx], req->u.i2c_read.transactions[=
-i].bytes, req->u.i2c_read.transactions[i].num_bytes);
-> > >                       idx +=3D req->u.i2c_read.transactions[i].num_by=
-tes;
-> > >
-> > > -                     buf[idx] =3D (req->u.i2c_read.transactions[i].n=
-o_stop_bit & 0x1) << 5;
-> > > +                     buf[idx] =3D (req->u.i2c_read.transactions[i].n=
-o_stop_bit & 0x1) << 4;
-> > >                       buf[idx] |=3D (req->u.i2c_read.transactions[i].=
-i2c_transaction_delay & 0xf);
-> > >                       idx++;
-> > >               }
-> >
-> > --
-> > Jani Nikula, Intel Open Source Graphics Center
-> --
-> Wayne Lin
-> _______________________________________________
-> dri-devel mailing list
-> dri-devel@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/dri-devel
-
--- =
-
-Ville Syrj=E4l=E4
-Intel
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
