@@ -2,97 +2,84 @@ Return-Path: <SRS0=EvZE=24=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-7.8 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 970BDC33C9E
-	for <amd-gfx@archiver.kernel.org>; Tue,  7 Jan 2020 09:48:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 725D4C33C8C
+	for <amd-gfx@archiver.kernel.org>; Tue,  7 Jan 2020 12:37:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5C8642080A
-	for <amd-gfx@archiver.kernel.org>; Tue,  7 Jan 2020 09:48:42 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 44783207E0
+	for <amd-gfx@archiver.kernel.org>; Tue,  7 Jan 2020 12:37:49 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="Og3CsgmY"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5C8642080A
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rpWepZ3Y"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 44783207E0
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1B5B389AB7;
-	Tue,  7 Jan 2020 09:48:42 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2060.outbound.protection.outlook.com [40.107.237.60])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8378889AB7
- for <amd-gfx@lists.freedesktop.org>; Tue,  7 Jan 2020 09:48:40 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=an48ysT0ykIC+K4wErAPC0GBBKlU5qIUfv4l4WWKxe4cUCn85uoob1NHiq6SXqNp+YhMJmNfsar3YXSIPu4zRYeDzDQinmGnve//7UppCMlAEz+PF83E+fJb0+kGLo24evJTNfoGLupirCR6/G8/0B8tbbyjrv7AHGVx1Rg+J0gkekj8QF/HVZqSunjn+7YeKF5B5TmV8HNrSvVBUswjX07Jl4CpNL0RKhH4mOvxSrATsExUS957aSPq2q45MQsEVzF4J2cW1LUFRwhrNdBcv+twKKiT8xjzQWjB7nEWElBdvUIbjx4H+apub0pWAF8oHaRw94v23ewxXOjICLZLaw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3SgLqnrv/riJHa0zPP3uGISDSDDUzCA690/UU8LqTgA=;
- b=OZP3zlZ9R+GSwF/pRaLaoQdu07cIykEHNO29DRHsFsgnD24WnTf05p03WpfamO6VcIEyvJoNNIapHodtZAyfDPVoGCUXjgamKJRQR/ManW27l8KP3wtRVhEDBKO75M5dNX8/Wwdhhw4cE0xXjZpkG2JH5dF7evvDWFsNccpyFsa77oKu0c6/8RsBG7yFR4jtWgZZyn+3k+S5Aoic02Um1B0ZRYF5uNGAXtLTod1zrrp4MZFFDjwsYYuIyZNMEs8bpR7Qm9ggNNaDzhw12F2Yxne2llf8T8KI5STSUwDKFzB/oiGUsg7X9l0uuXGBfU6SohtnM0PRKvgKgghSN31u7w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3SgLqnrv/riJHa0zPP3uGISDSDDUzCA690/UU8LqTgA=;
- b=Og3CsgmYJUVk2uc8s9o4aVfWJltuDOsCwQp+jO3lxB1iU99yMpacwp/TgzmnjvFrFl5kPbwGZ6+FDDOAwiIrrdgpelaWEKOv/18URnaiNTFNKYhAdEZOCKp9YJcQ/KO2RDl8NxGy7N6WXxKLyPP3iwkDesAZQB2kLhaPa/1vfF8=
-Authentication-Results: spf=none (sender IP is )
- smtp.mailfrom=Evan.Quan@amd.com; 
-Received: from MN2PR12MB3344.namprd12.prod.outlook.com (20.178.241.74) by
- MN2PR12MB4029.namprd12.prod.outlook.com (10.255.237.155) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2602.13; Tue, 7 Jan 2020 09:48:37 +0000
-Received: from MN2PR12MB3344.namprd12.prod.outlook.com
- ([fe80::1010:4621:68dd:5b47]) by MN2PR12MB3344.namprd12.prod.outlook.com
- ([fe80::1010:4621:68dd:5b47%5]) with mapi id 15.20.2602.015; Tue, 7 Jan 2020
- 09:48:37 +0000
-From: Evan Quan <evan.quan@amd.com>
-To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH] drm/amd/powerplay: cover the powerplay implementation details
-Date: Tue,  7 Jan 2020 17:48:12 +0800
-Message-Id: <20200107094812.29886-1-evan.quan@amd.com>
-X-Mailer: git-send-email 2.24.1
-X-ClientProxiedBy: HK2PR0302CA0017.apcprd03.prod.outlook.com
- (2603:1096:202::27) To MN2PR12MB3344.namprd12.prod.outlook.com
- (2603:10b6:208:c5::10)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E10296E059;
+	Tue,  7 Jan 2020 12:37:48 +0000 (UTC)
+Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com
+ [IPv6:2a00:1450:4864:20::443])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E2AA96E059
+ for <amd-gfx@lists.freedesktop.org>; Tue,  7 Jan 2020 12:37:47 +0000 (UTC)
+Received: by mail-wr1-x443.google.com with SMTP id q6so53658697wro.9
+ for <amd-gfx@lists.freedesktop.org>; Tue, 07 Jan 2020 04:37:47 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=reply-to:subject:to:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-transfer-encoding:content-language;
+ bh=s5z98gFF5GXG2NDPmtF2WBXH+OwWz9sYF7MPm2Uk7hc=;
+ b=rpWepZ3Yr9zAV+2H+HE+8cM0hd1zyL7JXoVlGSyUCYX4MFH85ATuNRHNZ+miKIfgpP
+ mHDHlu6wtA4sym+bFG951nqDMIXtDIGFuEnVaDh+d1q6WEcQXcBK5RYRW6nhF9BEowwC
+ K/KURbbHXxw9Ahlz9wIq0OBcLrIkxBjGVgNJ2xE/jpYh1BD7cPtRwdwPOWYe/rjkg1pW
+ /9B6G8+Xsw5QGz61FVAKIeeDEDws+/od2QQIo56cFIBv4RyeZ3JKW0Q0syjAq6NNt2qz
+ lAlk5p6DV7RZKlCWVx5qaVy0nbFm1ZgXlSaSa0Gn3m1sK7Mlfa6txwyZ1OhHOvYBGkNZ
+ ywCA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:reply-to:subject:to:references:from:message-id
+ :date:user-agent:mime-version:in-reply-to:content-transfer-encoding
+ :content-language;
+ bh=s5z98gFF5GXG2NDPmtF2WBXH+OwWz9sYF7MPm2Uk7hc=;
+ b=ArWW3uOAlmSuLlvGauPGnQOdilSveR9Nqp05tQZmlHtOX3odmT1z8Bzt4CJRSgXYsY
+ QPFI6ncvjpkxKL4Kh9GJ1crlpLzhIDocOS0FVH827ekj5A38IWnaQ311LfcLy160J5b/
+ pcEBQ+7s7CY6186kuYxP6cDcxow+Nh452sZb+f7nqhvxgpDOjrL/hZDGuc/nk51wEJMe
+ pOfA5jnL+Xb+qO+q7Xs2b6rvMmXiugwMI4e7yfK/WVNZ6ZC8Ti1i6wW/MAgCDPD5SIop
+ uaEdAmwWFG/sy94Q9K9QY7ZTqimAhpPACWxV/NI+cefSQ+ArR/25y+Y+qUxJZMkHJcyG
+ 10UA==
+X-Gm-Message-State: APjAAAXgs3uarOfAjJ3vQLwNukdrDwd/+OyltsmuLPRjFraZi4tPbgGs
+ cBg3N8ss8EiNmM1GrDIPoYpgAnVj
+X-Google-Smtp-Source: APXvYqwhqT66evzEyfbXX0yMTC9JwdNpunFTeKvKsKAG07x/cKys6bHni+iD60RoHWenkJwSANQVeA==
+X-Received: by 2002:adf:eb46:: with SMTP id u6mr58175293wrn.239.1578400666182; 
+ Tue, 07 Jan 2020 04:37:46 -0800 (PST)
+Received: from ?IPv6:2a02:908:1252:fb60:be8a:bd56:1f94:86e7?
+ ([2a02:908:1252:fb60:be8a:bd56:1f94:86e7])
+ by smtp.gmail.com with ESMTPSA id e12sm75831597wrn.56.2020.01.07.04.37.44
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Tue, 07 Jan 2020 04:37:45 -0800 (PST)
+Subject: Re: [PATCH 2/5] drm/amdgpu: export function to flush TLB via pasid
+To: "Sierra Guiza, Alejandro (Alex)" <Alex.Sierra@amd.com>,
+ "Koenig, Christian" <Christian.Koenig@amd.com>,
+ "Kuehling, Felix" <Felix.Kuehling@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+References: <20191220062442.33635-1-alex.sierra@amd.com>
+ <20191220062442.33635-2-alex.sierra@amd.com>
+ <f80f87d2-0422-176a-b55f-7805d02f6af2@gmail.com>
+ <c13de19a-aa0b-a549-8756-b82f28a83e63@amd.com>
+ <a14012c2-1a6a-f6e1-edeb-cfb63c175bf5@amd.com>
+ <BN7PR12MB2610CC53C630F7ABD8B95018FD3F0@BN7PR12MB2610.namprd12.prod.outlook.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+Message-ID: <63eb205e-e682-e640-8316-ce64d762deae@gmail.com>
+Date: Tue, 7 Jan 2020 13:37:43 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.9.0
 MIME-Version: 1.0
-Received: from equan-buildpc.amd.com (180.167.199.189) by
- HK2PR0302CA0017.apcprd03.prod.outlook.com (2603:1096:202::27) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2623.5 via Frontend Transport; Tue, 7 Jan 2020 09:48:35 +0000
-X-Mailer: git-send-email 2.24.1
-X-Originating-IP: [180.167.199.189]
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 931b014f-9cbd-4813-19f6-08d79356c47b
-X-MS-TrafficTypeDiagnostic: MN2PR12MB4029:|MN2PR12MB4029:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <MN2PR12MB40295B59538D96AC8B9058A0E43F0@MN2PR12MB4029.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:6430;
-X-Forefront-PRVS: 027578BB13
-X-Forefront-Antispam-Report: SFV:NSPM;
- SFS:(10009020)(4636009)(346002)(396003)(366004)(136003)(376002)(39860400002)(189003)(199004)(81156014)(81166006)(8676002)(66556008)(6486002)(66476007)(66946007)(6916009)(478600001)(44832011)(316002)(30864003)(26005)(5660300002)(6666004)(186003)(8936002)(86362001)(4326008)(36756003)(16526019)(1076003)(2906002)(2616005)(956004)(52116002)(7696005);
- DIR:OUT; SFP:1101; SCL:1; SRVR:MN2PR12MB4029;
- H:MN2PR12MB3344.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; MX:1; A:1; 
-Received-SPF: None (protection.outlook.com: amd.com does not designate
- permitted sender hosts)
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: l+Nq5K/kq9NKFwWOIiPAvbyCl7T9pdz/kGQ6y1MGmI7u1wISmvTBkMGMiM32MH/2U6UjJKbtH4fX01t3stYtfEXwdTwrbfyd5F125D1gjklZjvxrZNYCMGsoAd2YSwpDxfhEPyEi9/y3WpM6kkM6Zma6B0ippA4UaQN6xxSD2gbr1WZuNUbxroDQc1pE0gjpmJZlOyRCIOlxHb073RK3bSM1LNt6edGZXrN2s2NYnnSNE7hHuE1hGJLwwvWmfZrdXLXS9IDLKkeY6m2fSJwak7cs7mdEQ3gQoR5HGZkRtsD7cZbFbPHr2zuAVyUHQVvOQyTHEzVYCe4N0cTVbGNGp0aCBwasMRzglVYBOX8QnLoN+TE83KNqsVqtB791X8Nrht3T2LetDJmFMjhTr2U8N+uSNrEmyYmkhzrH2S+sEvqLFjnhn9vevac9Ratkqma5
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 931b014f-9cbd-4813-19f6-08d79356c47b
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jan 2020 09:48:37.0835 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: i8hV6xYC7VUWNaCV8yl43foQUsz89dd/M1KqQUmDVbuJGkg2gJxNMpTfZBzlsV8q
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4029
+In-Reply-To: <BN7PR12MB2610CC53C630F7ABD8B95018FD3F0@BN7PR12MB2610.namprd12.prod.outlook.com>
+Content-Language: en-US
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,570 +91,166 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Evan Quan <evan.quan@amd.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Reply-To: christian.koenig@amd.com
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This can save users much troubles. As they do not
-actually need to care whether swSMU or traditional
-powerplay routine should be used.
-
-Change-Id: I827fe4cac0d4fd487782168a7fe73e15756a7109
-Signed-off-by: Evan Quan <evan.quan@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c |  12 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  53 +------
- drivers/gpu/drm/amd/amdgpu/amdgpu_dpm.c    | 158 +++++++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_dpm.h    |  24 +++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c    |   6 -
- drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c   |   8 +-
- drivers/gpu/drm/amd/amdgpu/nv.c            |   8 +-
- drivers/gpu/drm/amd/amdgpu/soc15.c         |  83 ++---------
- 8 files changed, 203 insertions(+), 149 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-index d3da9dde4ee1..88e10b956413 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-@@ -613,15 +613,9 @@ void amdgpu_amdkfd_set_compute_idle(struct kgd_dev *kgd, bool idle)
- {
- 	struct amdgpu_device *adev = (struct amdgpu_device *)kgd;
- 
--	if (is_support_sw_smu(adev))
--		smu_switch_power_profile(&adev->smu,
--					 PP_SMC_POWER_PROFILE_COMPUTE,
--					 !idle);
--	else if (adev->powerplay.pp_funcs &&
--		 adev->powerplay.pp_funcs->switch_power_profile)
--		amdgpu_dpm_switch_power_profile(adev,
--						PP_SMC_POWER_PROFILE_COMPUTE,
--						!idle);
-+	amdgpu_dpm_switch_power_profile(adev,
-+					PP_SMC_POWER_PROFILE_COMPUTE,
-+					!idle);
- }
- 
- bool amdgpu_amdkfd_is_kfd_vmid(struct amdgpu_device *adev, u32 vmid)
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index 09271127dfe1..bf892143e1d3 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -2351,14 +2351,7 @@ static int amdgpu_device_ip_suspend_phase2(struct amdgpu_device *adev)
- 		adev->ip_blocks[i].status.hw = false;
- 		/* handle putting the SMC in the appropriate state */
- 		if (adev->ip_blocks[i].version->type == AMD_IP_BLOCK_TYPE_SMC) {
--			if (is_support_sw_smu(adev)) {
--				r = smu_set_mp1_state(&adev->smu, adev->mp1_state);
--			} else if (adev->powerplay.pp_funcs &&
--					   adev->powerplay.pp_funcs->set_mp1_state) {
--				r = adev->powerplay.pp_funcs->set_mp1_state(
--					adev->powerplay.pp_handle,
--					adev->mp1_state);
--			}
-+			r = amdgpu_dpm_set_mp1_state(adev, adev->mp1_state);
- 			if (r) {
- 				DRM_ERROR("SMC failed to set mp1 state %d, %d\n",
- 					  adev->mp1_state, r);
-@@ -4365,55 +4358,21 @@ int amdgpu_device_baco_enter(struct drm_device *dev)
- 	if (ras && ras->supported)
- 		adev->nbio.funcs->enable_doorbell_interrupt(adev, false);
- 
--	if (is_support_sw_smu(adev)) {
--		struct smu_context *smu = &adev->smu;
--		int ret;
--
--		ret = smu_baco_enter(smu);
--		if (ret)
--			return ret;
--	} else {
--		void *pp_handle = adev->powerplay.pp_handle;
--		const struct amd_pm_funcs *pp_funcs = adev->powerplay.pp_funcs;
--
--		if (!pp_funcs ||!pp_funcs->get_asic_baco_state ||!pp_funcs->set_asic_baco_state)
--			return -ENOENT;
--
--		/* enter BACO state */
--		if (pp_funcs->set_asic_baco_state(pp_handle, 1))
--			return -EIO;
--	}
--
--	return 0;
-+	return amdgpu_dpm_baco_enter(adev);
- }
- 
- int amdgpu_device_baco_exit(struct drm_device *dev)
- {
- 	struct amdgpu_device *adev = dev->dev_private;
- 	struct amdgpu_ras *ras = amdgpu_ras_get_context(adev);
-+	int ret = 0;
- 
- 	if (!amdgpu_device_supports_baco(adev->ddev))
- 		return -ENOTSUPP;
- 
--	if (is_support_sw_smu(adev)) {
--		struct smu_context *smu = &adev->smu;
--		int ret;
--
--		ret = smu_baco_exit(smu);
--		if (ret)
--			return ret;
--
--	} else {
--		void *pp_handle = adev->powerplay.pp_handle;
--		const struct amd_pm_funcs *pp_funcs = adev->powerplay.pp_funcs;
--
--		if (!pp_funcs ||!pp_funcs->get_asic_baco_state ||!pp_funcs->set_asic_baco_state)
--			return -ENOENT;
--
--		/* exit BACO state */
--		if (pp_funcs->set_asic_baco_state(pp_handle, 0))
--			return -EIO;
--	}
-+	ret = amdgpu_dpm_baco_exit(adev);
-+	if (ret)
-+		return ret;
- 
- 	if (ras && ras->supported)
- 		adev->nbio.funcs->enable_doorbell_interrupt(adev, true);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dpm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_dpm.c
-index cd76fbf4385d..39fc39531cef 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dpm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dpm.c
-@@ -983,3 +983,161 @@ int amdgpu_dpm_set_powergating_by_smu(struct amdgpu_device *adev, uint32_t block
- 
- 	return ret;
- }
-+
-+int amdgpu_dpm_baco_enter(struct amdgpu_device *adev)
-+{
-+	const struct amd_pm_funcs *pp_funcs = adev->powerplay.pp_funcs;
-+	void *pp_handle = adev->powerplay.pp_handle;
-+	struct smu_context *smu = &adev->smu;
-+	int ret = 0;
-+
-+	if (is_support_sw_smu(adev)) {
-+		ret = smu_baco_enter(smu);
-+	} else {
-+		if (!pp_funcs || !pp_funcs->set_asic_baco_state)
-+			return -ENOENT;
-+
-+		/* enter BACO state */
-+		ret = pp_funcs->set_asic_baco_state(pp_handle, 1);
-+	}
-+
-+	return ret;
-+}
-+
-+int amdgpu_dpm_baco_exit(struct amdgpu_device *adev)
-+{
-+	const struct amd_pm_funcs *pp_funcs = adev->powerplay.pp_funcs;
-+	void *pp_handle = adev->powerplay.pp_handle;
-+	struct smu_context *smu = &adev->smu;
-+	int ret = 0;
-+
-+	if (is_support_sw_smu(adev)) {
-+		ret = smu_baco_exit(smu);
-+	} else {
-+		if (!pp_funcs || !pp_funcs->set_asic_baco_state)
-+			return -ENOENT;
-+
-+		/* exit BACO state */
-+		ret = pp_funcs->set_asic_baco_state(pp_handle, 0);
-+	}
-+
-+	return ret;
-+}
-+
-+int amdgpu_dpm_set_mp1_state(struct amdgpu_device *adev,
-+			     enum pp_mp1_state mp1_state)
-+{
-+	int ret = 0;
-+
-+	if (is_support_sw_smu(adev)) {
-+		ret = smu_set_mp1_state(&adev->smu, mp1_state);
-+	} else if (adev->powerplay.pp_funcs &&
-+		   adev->powerplay.pp_funcs->set_mp1_state) {
-+		ret = adev->powerplay.pp_funcs->set_mp1_state(
-+				adev->powerplay.pp_handle,
-+				mp1_state);
-+	}
-+
-+	return ret;
-+}
-+
-+bool amdgpu_dpm_is_baco_supported(struct amdgpu_device *adev)
-+{
-+	const struct amd_pm_funcs *pp_funcs = adev->powerplay.pp_funcs;
-+	void *pp_handle = adev->powerplay.pp_handle;
-+	struct smu_context *smu = &adev->smu;
-+	bool baco_cap;
-+
-+	if (is_support_sw_smu(adev)) {
-+		return smu_baco_is_support(smu);
-+	} else {
-+		if (!pp_funcs || !pp_funcs->get_asic_baco_capability)
-+			return false;
-+
-+		if (pp_funcs->get_asic_baco_capability(pp_handle, &baco_cap))
-+			return false;
-+
-+		return baco_cap ? true : false;
-+	}
-+}
-+
-+int amdgpu_dpm_mode2_reset(struct amdgpu_device *adev)
-+{
-+	const struct amd_pm_funcs *pp_funcs = adev->powerplay.pp_funcs;
-+	void *pp_handle = adev->powerplay.pp_handle;
-+	struct smu_context *smu = &adev->smu;
-+
-+	if (is_support_sw_smu(adev)) {
-+		return smu_mode2_reset(smu);
-+	} else {
-+		if (!pp_funcs || !pp_funcs->asic_reset_mode_2)
-+			return -ENOENT;
-+
-+		return pp_funcs->asic_reset_mode_2(pp_handle);
-+	}
-+}
-+
-+int amdgpu_dpm_baco_reset(struct amdgpu_device *adev)
-+{
-+	const struct amd_pm_funcs *pp_funcs = adev->powerplay.pp_funcs;
-+	void *pp_handle = adev->powerplay.pp_handle;
-+	struct smu_context *smu = &adev->smu;
-+	int ret = 0;
-+
-+	if (is_support_sw_smu(adev)) {
-+		ret = smu_baco_enter(smu);
-+		if (ret)
-+			return ret;
-+
-+		ret = smu_baco_exit(smu);
-+		if (ret)
-+			return ret;
-+	} else {
-+		if (!pp_funcs
-+		    || !pp_funcs->get_asic_baco_state
-+		    || !pp_funcs->set_asic_baco_state)
-+			return -ENOENT;
-+
-+		/* enter BACO state */
-+		ret = pp_funcs->set_asic_baco_state(pp_handle, 1);
-+		if (ret)
-+			return ret;
-+
-+		/* exit BACO state */
-+		ret = pp_funcs->set_asic_baco_state(pp_handle, 0);
-+		if (ret)
-+			return ret;
-+	}
-+
-+	return 0;
-+}
-+
-+int amdgpu_dpm_switch_power_profile(struct amdgpu_device *adev,
-+				    enum PP_SMC_POWER_PROFILE type,
-+				    bool en)
-+{
-+	int ret = 0;
-+
-+	if (is_support_sw_smu(adev))
-+		ret = smu_switch_power_profile(&adev->smu, type, en);
-+	else if (adev->powerplay.pp_funcs &&
-+		 adev->powerplay.pp_funcs->switch_power_profile)
-+		ret = adev->powerplay.pp_funcs->switch_power_profile(adev, type, en);
-+
-+	return ret;
-+}
-+
-+int amdgpu_dpm_set_xgmi_pstate(struct amdgpu_device *adev,
-+			       uint32_t pstate)
-+{
-+	int ret = 0;
-+
-+	if (is_support_sw_smu_xgmi(adev))
-+		ret = smu_set_xgmi_pstate(&adev->smu, pstate);
-+	else if (adev->powerplay.pp_funcs &&
-+		 adev->powerplay.pp_funcs->set_xgmi_pstate)
-+		ret = adev->powerplay.pp_funcs->set_xgmi_pstate(adev->powerplay.pp_handle,
-+								pstate);
-+
-+	return ret;
-+}
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dpm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_dpm.h
-index 2cfb677272af..902ca6c00cca 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dpm.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dpm.h
-@@ -341,10 +341,6 @@ enum amdgpu_pcie_gen {
- 		((adev)->powerplay.pp_funcs->reset_power_profile_state(\
- 			(adev)->powerplay.pp_handle, request))
- 
--#define amdgpu_dpm_switch_power_profile(adev, type, en) \
--		((adev)->powerplay.pp_funcs->switch_power_profile(\
--			(adev)->powerplay.pp_handle, type, en))
--
- #define amdgpu_dpm_set_clockgating_by_smu(adev, msg_id) \
- 		((adev)->powerplay.pp_funcs->set_clockgating_by_smu(\
- 			(adev)->powerplay.pp_handle, msg_id))
-@@ -517,4 +513,24 @@ extern int amdgpu_dpm_get_sclk(struct amdgpu_device *adev, bool low);
- 
- extern int amdgpu_dpm_get_mclk(struct amdgpu_device *adev, bool low);
- 
-+int amdgpu_dpm_set_xgmi_pstate(struct amdgpu_device *adev,
-+			       uint32_t pstate);
-+
-+int amdgpu_dpm_switch_power_profile(struct amdgpu_device *adev,
-+				    enum PP_SMC_POWER_PROFILE type,
-+				    bool en);
-+
-+int amdgpu_dpm_baco_reset(struct amdgpu_device *adev);
-+
-+int amdgpu_dpm_mode2_reset(struct amdgpu_device *adev);
-+
-+bool amdgpu_dpm_is_baco_supported(struct amdgpu_device *adev);
-+
-+int amdgpu_dpm_set_mp1_state(struct amdgpu_device *adev,
-+			     enum pp_mp1_state mp1_state);
-+
-+int amdgpu_dpm_baco_exit(struct amdgpu_device *adev);
-+
-+int amdgpu_dpm_baco_enter(struct amdgpu_device *adev);
-+
- #endif
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-index db7b2b3f9966..b88b8b82bb64 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-@@ -543,12 +543,6 @@ void amdgpu_gfx_off_ctrl(struct amdgpu_device *adev, bool enable)
- 	if (!(adev->pm.pp_feature & PP_GFXOFF_MASK))
- 		return;
- 
--	if (!is_support_sw_smu(adev) &&
--	    (!adev->powerplay.pp_funcs ||
--	     !adev->powerplay.pp_funcs->set_powergating_by_smu))
--		return;
--
--
- 	mutex_lock(&adev->gfx.gfx_off_mutex);
- 
- 	if (!enable)
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
-index 5cf920d9358b..c626f3e59ff9 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
-@@ -291,13 +291,7 @@ int amdgpu_xgmi_set_pstate(struct amdgpu_device *adev, int pstate)
- 
- 	dev_dbg(adev->dev, "Set xgmi pstate %d.\n", pstate);
- 
--	if (is_support_sw_smu_xgmi(adev))
--		ret = smu_set_xgmi_pstate(&adev->smu, pstate);
--	else if (adev->powerplay.pp_funcs &&
--		 adev->powerplay.pp_funcs->set_xgmi_pstate)
--		ret = adev->powerplay.pp_funcs->set_xgmi_pstate(adev->powerplay.pp_handle,
--								pstate);
--
-+	ret = amdgpu_dpm_set_xgmi_pstate(adev, pstate);
- 	if (ret) {
- 		dev_err(adev->dev,
- 			"XGMI: Set pstate failure on device %llx, hive %llx, ret %d",
-diff --git a/drivers/gpu/drm/amd/amdgpu/nv.c b/drivers/gpu/drm/amd/amdgpu/nv.c
-index b0229543e887..42ede3aa6dbd 100644
---- a/drivers/gpu/drm/amd/amdgpu/nv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/nv.c
-@@ -478,7 +478,7 @@ int nv_set_ip_blocks(struct amdgpu_device *adev)
- 		amdgpu_device_ip_block_add(adev, &navi10_ih_ip_block);
- 		amdgpu_device_ip_block_add(adev, &psp_v11_0_ip_block);
- 		if (adev->firmware.load_type == AMDGPU_FW_LOAD_PSP &&
--		    is_support_sw_smu(adev) && !amdgpu_sriov_vf(adev))
-+		    !amdgpu_sriov_vf(adev))
- 			amdgpu_device_ip_block_add(adev, &smu_v11_0_ip_block);
- 		if (adev->enable_virtual_display || amdgpu_sriov_vf(adev))
- 			amdgpu_device_ip_block_add(adev, &dce_virtual_ip_block);
-@@ -489,7 +489,7 @@ int nv_set_ip_blocks(struct amdgpu_device *adev)
- 		amdgpu_device_ip_block_add(adev, &gfx_v10_0_ip_block);
- 		amdgpu_device_ip_block_add(adev, &sdma_v5_0_ip_block);
- 		if (adev->firmware.load_type == AMDGPU_FW_LOAD_DIRECT &&
--		    is_support_sw_smu(adev) && !amdgpu_sriov_vf(adev))
-+		    !amdgpu_sriov_vf(adev))
- 			amdgpu_device_ip_block_add(adev, &smu_v11_0_ip_block);
- 		amdgpu_device_ip_block_add(adev, &vcn_v2_0_ip_block);
- 		amdgpu_device_ip_block_add(adev, &jpeg_v2_0_ip_block);
-@@ -502,7 +502,7 @@ int nv_set_ip_blocks(struct amdgpu_device *adev)
- 		amdgpu_device_ip_block_add(adev, &navi10_ih_ip_block);
- 		amdgpu_device_ip_block_add(adev, &psp_v11_0_ip_block);
- 		if (adev->firmware.load_type == AMDGPU_FW_LOAD_PSP &&
--		    is_support_sw_smu(adev) && !amdgpu_sriov_vf(adev))
-+		    !amdgpu_sriov_vf(adev))
- 			amdgpu_device_ip_block_add(adev, &smu_v11_0_ip_block);
- 		if (adev->enable_virtual_display || amdgpu_sriov_vf(adev))
- 			amdgpu_device_ip_block_add(adev, &dce_virtual_ip_block);
-@@ -513,7 +513,7 @@ int nv_set_ip_blocks(struct amdgpu_device *adev)
- 		amdgpu_device_ip_block_add(adev, &gfx_v10_0_ip_block);
- 		amdgpu_device_ip_block_add(adev, &sdma_v5_0_ip_block);
- 		if (adev->firmware.load_type == AMDGPU_FW_LOAD_DIRECT &&
--		    is_support_sw_smu(adev) && !amdgpu_sriov_vf(adev))
-+		    !amdgpu_sriov_vf(adev))
- 			amdgpu_device_ip_block_add(adev, &smu_v11_0_ip_block);
- 		amdgpu_device_ip_block_add(adev, &vcn_v2_0_ip_block);
- 		amdgpu_device_ip_block_add(adev, &jpeg_v2_0_ip_block);
-diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c b/drivers/gpu/drm/amd/amdgpu/soc15.c
-index 714cf4dfd0a7..decfcce1a267 100644
---- a/drivers/gpu/drm/amd/amdgpu/soc15.c
-+++ b/drivers/gpu/drm/amd/amdgpu/soc15.c
-@@ -479,29 +479,10 @@ static int soc15_asic_mode1_reset(struct amdgpu_device *adev)
- 	return ret;
- }
- 
--static int soc15_asic_get_baco_capability(struct amdgpu_device *adev, bool *cap)
--{
--	if (is_support_sw_smu(adev)) {
--		struct smu_context *smu = &adev->smu;
--
--		*cap = smu_baco_is_support(smu);
--		return 0;
--	} else {
--		void *pp_handle = adev->powerplay.pp_handle;
--		const struct amd_pm_funcs *pp_funcs = adev->powerplay.pp_funcs;
--
--		if (!pp_funcs || !pp_funcs->get_asic_baco_capability) {
--			*cap = false;
--			return -ENOENT;
--		}
--
--		return pp_funcs->get_asic_baco_capability(pp_handle, cap);
--	}
--}
--
- static int soc15_asic_baco_reset(struct amdgpu_device *adev)
- {
- 	struct amdgpu_ras *ras = amdgpu_ras_get_context(adev);
-+	int ret = 0;
- 
- 	/* avoid NBIF got stuck when do RAS recovery in BACO reset */
- 	if (ras && ras->supported)
-@@ -509,32 +490,9 @@ static int soc15_asic_baco_reset(struct amdgpu_device *adev)
- 
- 	dev_info(adev->dev, "GPU BACO reset\n");
- 
--	if (is_support_sw_smu(adev)) {
--		struct smu_context *smu = &adev->smu;
--		int ret;
--
--		ret = smu_baco_enter(smu);
--		if (ret)
--			return ret;
--
--		ret = smu_baco_exit(smu);
--		if (ret)
--			return ret;
--	} else {
--		void *pp_handle = adev->powerplay.pp_handle;
--		const struct amd_pm_funcs *pp_funcs = adev->powerplay.pp_funcs;
--
--		if (!pp_funcs ||!pp_funcs->get_asic_baco_state ||!pp_funcs->set_asic_baco_state)
--			return -ENOENT;
--
--		/* enter BACO state */
--		if (pp_funcs->set_asic_baco_state(pp_handle, 1))
--			return -EIO;
--
--		/* exit BACO state */
--		if (pp_funcs->set_asic_baco_state(pp_handle, 0))
--			return -EIO;
--	}
-+	ret = amdgpu_dpm_baco_reset(adev);
-+	if (ret)
-+		return ret;
- 
- 	/* re-enable doorbell interrupt after BACO exit */
- 	if (ras && ras->supported)
-@@ -543,17 +501,6 @@ static int soc15_asic_baco_reset(struct amdgpu_device *adev)
- 	return 0;
- }
- 
--static int soc15_mode2_reset(struct amdgpu_device *adev)
--{
--	if (is_support_sw_smu(adev))
--		return smu_mode2_reset(&adev->smu);
--	if (!adev->powerplay.pp_funcs ||
--	    !adev->powerplay.pp_funcs->asic_reset_mode_2)
--		return -ENOENT;
--
--	return adev->powerplay.pp_funcs->asic_reset_mode_2(adev->powerplay.pp_handle);
--}
--
- static enum amd_reset_method
- soc15_asic_reset_method(struct amdgpu_device *adev)
- {
-@@ -567,11 +514,11 @@ soc15_asic_reset_method(struct amdgpu_device *adev)
- 	case CHIP_VEGA10:
- 	case CHIP_VEGA12:
- 	case CHIP_ARCTURUS:
--		soc15_asic_get_baco_capability(adev, &baco_reset);
-+		baco_reset = amdgpu_dpm_is_baco_supported(adev);
- 		break;
- 	case CHIP_VEGA20:
- 		if (adev->psp.sos_fw_version >= 0x80067)
--			soc15_asic_get_baco_capability(adev, &baco_reset);
-+			baco_reset = amdgpu_dpm_is_baco_supported(adev);
- 
- 		/*
- 		 * 1. PMFW version > 0x284300: all cases use baco
-@@ -598,7 +545,7 @@ static int soc15_asic_reset(struct amdgpu_device *adev)
- 				amdgpu_inc_vram_lost(adev);
- 			return soc15_asic_baco_reset(adev);
- 		case AMD_RESET_METHOD_MODE2:
--			return soc15_mode2_reset(adev);
-+			return amdgpu_dpm_mode2_reset(adev);
- 		default:
- 			if (!adev->in_suspend)
- 				amdgpu_inc_vram_lost(adev);
-@@ -608,25 +555,18 @@ static int soc15_asic_reset(struct amdgpu_device *adev)
- 
- static bool soc15_supports_baco(struct amdgpu_device *adev)
- {
--	bool baco_support;
--
- 	switch (adev->asic_type) {
- 	case CHIP_VEGA10:
- 	case CHIP_VEGA12:
- 	case CHIP_ARCTURUS:
--		soc15_asic_get_baco_capability(adev, &baco_support);
--		break;
-+		return amdgpu_dpm_is_baco_supported(adev);
- 	case CHIP_VEGA20:
- 		if (adev->psp.sos_fw_version >= 0x80067)
--			soc15_asic_get_baco_capability(adev, &baco_support);
--		else
--			baco_support = false;
--		break;
-+			return amdgpu_dpm_is_baco_supported(adev);
-+		return false;
- 	default:
- 		return false;
- 	}
--
--	return baco_support;
- }
- 
- /*static int soc15_set_uvd_clock(struct amdgpu_device *adev, u32 clock,
-@@ -846,8 +786,7 @@ int soc15_set_ip_blocks(struct amdgpu_device *adev)
- 		amdgpu_device_ip_block_add(adev, &vega10_ih_ip_block);
- 		if (likely(adev->firmware.load_type == AMDGPU_FW_LOAD_PSP))
- 			amdgpu_device_ip_block_add(adev, &psp_v12_0_ip_block);
--		if (is_support_sw_smu(adev))
--			amdgpu_device_ip_block_add(adev, &smu_v12_0_ip_block);
-+		amdgpu_device_ip_block_add(adev, &smu_v12_0_ip_block);
- 		amdgpu_device_ip_block_add(adev, &gfx_v9_0_ip_block);
- 		amdgpu_device_ip_block_add(adev, &sdma_v4_0_ip_block);
- 		if (adev->enable_virtual_display || amdgpu_sriov_vf(adev))
--- 
-2.24.1
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+QW0gMDcuMDEuMjAgdW0gMDI6MDkgc2NocmllYiBTaWVycmEgR3VpemEsIEFsZWphbmRybyAoQWxl
+eCk6Cj4gW0FNRCBPZmZpY2lhbCBVc2UgT25seSAtIEludGVybmFsIERpc3RyaWJ1dGlvbiBPbmx5
+XQo+Cj4KPgo+IC0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tCj4gRnJvbTogS29lbmlnLCBDaHJp
+c3RpYW4gPENocmlzdGlhbi5Lb2VuaWdAYW1kLmNvbT4KPiBTZW50OiBNb25kYXksIEphbnVhcnkg
+NiwgMjAyMCAxMDoyMyBBTQo+IFRvOiBLdWVobGluZywgRmVsaXggPEZlbGl4Lkt1ZWhsaW5nQGFt
+ZC5jb20+OyBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZzsgU2llcnJhIEd1aXphLCBBbGVq
+YW5kcm8gKEFsZXgpIDxBbGV4LlNpZXJyYUBhbWQuY29tPgo+IFN1YmplY3Q6IFJlOiBbUEFUQ0gg
+Mi81XSBkcm0vYW1kZ3B1OiBleHBvcnQgZnVuY3Rpb24gdG8gZmx1c2ggVExCIHZpYSBwYXNpZAo+
+Cj4gQW0gMDYuMDEuMjAgdW0gMTc6MDQgc2NocmllYiBGZWxpeCBLdWVobGluZzoKPj4gT24gMjAy
+MC0wMS0wNSAxMDo0MSBhLm0uLCBDaHJpc3RpYW4gS8O2bmlnIHdyb3RlOgo+Pj4gQW0gMjAuMTIu
+MTkgdW0gMDc6MjQgc2NocmllYiBBbGV4IFNpZXJyYToKPj4+PiBUaGlzIGNhbiBiZSB1c2VkIGRp
+cmVjdGx5IGZyb20gYW1kZ3B1IGFuZCBhbWRrZmQgdG8gaW52YWxpZGF0ZSBUTEIKPj4+PiB0aHJv
+dWdoIHBhc2lkLgo+Pj4+IEl0IHN1cHBvcnRzIGdtYyB2NywgdjgsIHY5IGFuZCB2MTAuCj4+Pj4K
+Pj4+PiBDaGFuZ2UtSWQ6IEk2NTYzYThlYmEyZTQyZDFhNjdmYTI1NDcxNTZjMjBkYTQxZDFlNDkw
+Cj4+Pj4gU2lnbmVkLW9mZi1ieTogQWxleCBTaWVycmEgPGFsZXguc2llcnJhQGFtZC5jb20+Cj4+
+Pj4gLS0tCj4+Pj4gIMKgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9nbWMuaCB8
+wqAgNiArKwo+Pj4+ICDCoCBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNfdjEwXzAuY8Kg
+IHwgODEKPj4+PiArKysrKysrKysrKysrKysrKysrKysrKysKPj4+PiAgwqAgZHJpdmVycy9ncHUv
+ZHJtL2FtZC9hbWRncHUvZ21jX3Y3XzAuY8KgwqAgfCAzMyArKysrKysrKysrCj4+Pj4gIMKgIGRy
+aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192OF8wLmPCoMKgIHwgMzQgKysrKysrKysrKwo+
+Pj4+ICDCoCBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNfdjlfMC5jwqDCoCB8IDg0Cj4+
+Pj4gKysrKysrKysrKysrKysrKysrKysrKysrKwo+Pj4+ICDCoCA1IGZpbGVzIGNoYW5nZWQsIDIz
+OCBpbnNlcnRpb25zKCspCj4+IFtzbmlwXQo+Pj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9k
+cm0vYW1kL2FtZGdwdS9nbWNfdjlfMC5jCj4+Pj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
+dS9nbWNfdjlfMC5jCj4+Pj4gaW5kZXggZmEwMjVjZWVlYTBmLi5lYjFlNjRiZDU2ZWQgMTAwNjQ0
+Cj4+Pj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ21jX3Y5XzAuYwo+Pj4+ICsr
+KyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192OV8wLmMKPj4+PiBAQCAtMzgsMTAg
+KzM4LDEyIEBACj4+Pj4gIMKgICNpbmNsdWRlICJkY2UvZGNlXzEyXzBfc2hfbWFzay5oIgo+Pj4+
+ICDCoCAjaW5jbHVkZSAidmVnYTEwX2VudW0uaCIKPj4+PiAgwqAgI2luY2x1ZGUgIm1taHViL21t
+aHViXzFfMF9vZmZzZXQuaCIKPj4+PiArI2luY2x1ZGUgImF0aHViL2F0aHViXzFfMF9zaF9tYXNr
+LmgiCj4+Pj4gIMKgICNpbmNsdWRlICJhdGh1Yi9hdGh1Yl8xXzBfb2Zmc2V0LmgiCj4+Pj4gIMKg
+ICNpbmNsdWRlICJvc3Mvb3Nzc3lzXzRfMF9vZmZzZXQuaCIKPj4+PiAgwqAgwqAgI2luY2x1ZGUg
+InNvYzE1LmgiCj4+Pj4gKyNpbmNsdWRlICJzb2MxNWQuaCIKPj4+PiAgwqAgI2luY2x1ZGUgInNv
+YzE1X2NvbW1vbi5oIgo+Pj4+ICDCoCAjaW5jbHVkZSAidW1jL3VtY182XzBfc2hfbWFzay5oIgo+
+Pj4+ICDCoCBAQCAtNDM0LDYgKzQzNiw0NyBAQCBzdGF0aWMgYm9vbAo+Pj4+IGdtY192OV8wX3Vz
+ZV9pbnZhbGlkYXRlX3NlbWFwaG9yZShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwKPj4+PiAg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGFkZXYtPnBkZXYtPmRldmljZSA9PSAweDE1ZDgpKSk7
+Cj4+Pj4gIMKgIH0KPj4+PiAgwqAgK3N0YXRpYyBib29sIGdtY192OV8wX2dldF9hdGNfdm1pZF9w
+YXNpZF9tYXBwaW5nX2luZm8oc3RydWN0Cj4+Pj4gYW1kZ3B1X2RldmljZSAqYWRldiwKPj4+PiAr
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgdWludDhfdCB2bWlkLCB1aW50
+MTZfdCAqcF9wYXNpZCkgewo+Pj4+ICvCoMKgwqAgdWludDMyX3QgdmFsdWU7Cj4+Pj4gKwo+Pj4+
+ICvCoMKgwqAgdmFsdWUgPSBSUkVHMzIoU09DMTVfUkVHX09GRlNFVChBVEhVQiwgMCwKPj4+PiBt
+bUFUQ19WTUlEMF9QQVNJRF9NQVBQSU5HKQo+Pj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAg
+KyB2bWlkKTsKPj4+PiArwqDCoMKgICpwX3Bhc2lkID0gdmFsdWUgJiBBVENfVk1JRDBfUEFTSURf
+TUFQUElOR19fUEFTSURfTUFTSzsKPj4+PiArCj4+Pj4gK8KgwqDCoCByZXR1cm4gISEodmFsdWUg
+JiBBVENfVk1JRDBfUEFTSURfTUFQUElOR19fVkFMSURfTUFTSyk7Cj4+Pj4gK30KPj4+IFByb2Jh
+Ymx5IGJldHRlciB0byBleHBvc2UganVzdCB0aGlzIGZ1bmN0aW9uIGluIHRoZSBHTUMgaW50ZXJm
+YWNlLgo+PiBUaGlzIGlzIGNhbGxlZCBiZWxvdyBpbiBnbWNfdjlfMF9mbHVzaF9ncHVfdGxiX3Bh
+c2lkIGluIHRoZSBjYXNlIHRoYXQKPj4gdGhlIEtJUSBpcyBub3QgcmVhZHkuIEl0IGlzIG5vdCBu
+ZWVkZWQgb3V0c2lkZSB0aGlzIGZpbGUsIHNvIG5vIG5lZWQKPj4gdG8gZXhwb3NlIGl0IGluIHRo
+ZSBHTUMgaW50ZXJmYWNlLgo+Pgo+Pgo+Pj4+ICsKPj4+PiArc3RhdGljIGludCBnbWNfdjlfMF9p
+bnZhbGlkYXRlX3RsYnNfd2l0aF9raXEoc3RydWN0IGFtZGdwdV9kZXZpY2UKPj4+PiAqYWRldiwK
+Pj4+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHVpbnQxNl90IHBhc2lkLCB1aW50
+MzJfdCBmbHVzaF90eXBlLAo+Pj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgYm9v
+bCBhbGxfaHViKQo+Pj4+ICt7Cj4+Pj4gK8KgwqDCoCBzaWduZWQgbG9uZyByOwo+Pj4+ICvCoMKg
+wqAgdWludDMyX3Qgc2VxOwo+Pj4+ICvCoMKgwqAgc3RydWN0IGFtZGdwdV9yaW5nICpyaW5nID0g
+JmFkZXYtPmdmeC5raXEucmluZzsKPj4+PiArCj4+Pj4gK8KgwqDCoCBzcGluX2xvY2soJmFkZXYt
+PmdmeC5raXEucmluZ19sb2NrKTsKPj4+PiArwqDCoMKgIGFtZGdwdV9yaW5nX2FsbG9jKHJpbmcs
+IDEyKTsgLyogZmVuY2UgKyBpbnZhbGlkYXRlX3RsYnMKPj4+PiArcGFja2FnZSovCj4+Pj4gK8Kg
+wqDCoCBhbWRncHVfcmluZ193cml0ZShyaW5nLCBQQUNLRVQzKFBBQ0tFVDNfSU5WQUxJREFURV9U
+TEJTLCAwKSk7Cj4+Pj4gK8KgwqDCoCBhbWRncHVfcmluZ193cml0ZShyaW5nLAo+Pj4+ICvCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgIFBBQ0tFVDNfSU5WQUxJREFURV9UTEJTX0RTVF9TRUwoMSkgfAo+
+Pj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIFBBQ0tFVDNfSU5WQUxJREFURV9UTEJTX0FMTF9I
+VUIoYWxsX2h1YikgfAo+Pj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIFBBQ0tFVDNfSU5WQUxJ
+REFURV9UTEJTX1BBU0lEKHBhc2lkKSB8Cj4+Pj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAgUEFD
+S0VUM19JTlZBTElEQVRFX1RMQlNfRkxVU0hfVFlQRShmbHVzaF90eXBlKSk7Cj4+Pj4gVGhhdCBz
+dHVmZiBpcyBjb21wbGV0ZWx5IHVucmVsYXRlZCB0byB0aGUgR01DIGFuZCBzaG91bGRuJ3QgYmUg
+YWRkZWQKPj4+PiBoZXJlLgo+Pj4gV2hlcmUgZWxzZSBzaG91bGQgaXQgZ28/IFRvIG1lIFRMQiBm
+bHVzaGluZyBpcyB2ZXJ5IG11Y2ggc29tZXRoaW5nCj4+PiB0aGF0IGJlbG9uZ3MgaW4gdGhpcyBm
+aWxlLgo+Pj4KPj4+IE1heWJlIHlvdSdkIHJhdGhlciBhZGQgImZsdXNoX3RsYnNfd2l0aF9raXEi
+IHRvIGFtZGdwdV9yaW5nX2Z1bmNzIGFuZAo+Pj4gaW1wbGVtZW50IGl0IGluIHRoZSBnZnhfdiou
+YyBHRlgtSVAgY29kZT8gSSdtIG5vdCBzdXJlIHRoYXQgbWFrZXMgbXVjaAo+Pj4gc2Vuc2UgZWl0
+aGVyIGJlY2F1c2UgaXQncyBvbmx5IGF2YWlsYWJsZSBvbiB0aGUgS0lRIHJpbmcuCj4+IFllcywg
+c29tZXRoaW5nIGxpa2UgdGhpcy4gV2Ugc2hvdWxkIHByb2JhYmx5IGFkZCBhIGFtZGdwdV9raXFf
+ZnVuY3MgYW5kIGV4cG9zZSB0aGUgZnVuY3Rpb25zIG5lZWRlZCBieSB0aGUgR01DIGNvZGUgdGhl
+cmUuCj4+IFNlZSB0aGUgYW1kZ3B1X3ZpcnRfa2lxX3JlZ193cml0ZV9yZWdfd2FpdCgpIGNhc2Ug
+Zm9yIHJlZmVyZW5jZSwgaXQgaXMgdmVyeSBzaW1pbGFyIGFuZCBzaG91bGQgcHJvYmFibHkgYmUg
+YWRkZWQgdG8gdGhhdCBmdW5jdGlvbiB0YWJsZSBhcyB3ZWxsLgo+PiBDaHJpc3RpYW4uCj4gVG8g
+c3VtbWFyaXplOgo+IDEuLSBUaGUgaWRlYSBpcyB0byBhZGQgYSBuZXcgZnVuY3Rpb24gcG9pbnRl
+ciB0byB0aGUgYW1kZ3B1X3JpbmdfZnVuY3MgdG8gZmx1c2ggdGhlIHRsYnMgd2l0aCBraXEuCgpJ
+IHdvdWxkIGFkZCBhIG5ldyBhbWRncHVfa2lxX2Z1bmNzIHN0cnVjdHVyZSBmb3IgdGhhdC4KCj4g
+Mi4tIFRoaXMgZnVuY3Rpb24gcG9pbnRlciBzaG91bGQgYmUgcG9pbnRlZCBhbmQgaW1wbGVtZW50
+ZWQgb24gZWFjaCBvZiB0aGUgZ2Z4X3YqLmMgdW5kZXIgdGhlIGdmeF8qX3JpbmdfZnVuY3Nfa2lx
+IHN0cnVjdC4gSWYgdGhpcyBpcyB0cnVlLCBJbSBub3Qgc2VlaW5nIHRoaXMgc3RydWN0IG9uIHRo
+ZSBnZnhfdjEwLmMgZmlsZS4KPiAzLi0gVXNlIHRoZSBhbWRncHVfdmlydF9raXFfcmVnX3dyaXRl
+X3JlZ193YWl0IGFzIGEgcmVmZXJlbmNlIGZvciB0aGUgaW1wbGVtZW50YXRpb24uCgpXZWxsIHll
+cyBhbmQgbm8sIHRoZSBhbWRncHVfdmlydF9raXFfcmVnX3dyaXRlX3JlZ193YWl0KCkgd2FzIGp1
+c3QgYW4gCmV4YW1wbGUgb2YgYSBzaW1pbGFyIGNhc2UuCgpUaGUgZnVuY3Rpb24gYW1kZ3B1X3Zp
+cnRfa2lxX3JlZ193cml0ZV9yZWdfd2FpdCgpIHNob3VsZCBwcm9iYWJseSBiZSAKY2xlYW5lZCB1
+cCBhbmQgbW92ZWQgaW50byB0aGUgZ2Z4XyouYyBmaWxlcyBhcyB3ZWxsLgoKUmVnYXJkcywKQ2hy
+aXN0aWFuLgoKPgo+Pj4KPj4+PiBDaHJpc3RpYW4uCj4+Pj4KPj4+PiArwqDCoMKgIGFtZGdwdV9m
+ZW5jZV9lbWl0X3BvbGxpbmcocmluZywgJnNlcSk7Cj4+Pj4gK8KgwqDCoCBhbWRncHVfcmluZ19j
+b21taXQocmluZyk7Cj4+Pj4gK8KgwqDCoCBzcGluX3VubG9jaygmYWRldi0+Z2Z4LmtpcS5yaW5n
+X2xvY2spOwo+Pj4+ICsKPj4+PiArwqDCoMKgIHIgPSBhbWRncHVfZmVuY2Vfd2FpdF9wb2xsaW5n
+KHJpbmcsIHNlcSwgYWRldi0+dXNlY190aW1lb3V0KTsKPj4+PiArwqDCoMKgIGlmIChyIDwgMSkg
+ewo+Pj4+ICvCoMKgwqDCoMKgwqDCoCBEUk1fRVJST1IoIndhaXQgZm9yIGtpcSBmZW5jZSBlcnJv
+cjogJWxkLlxuIiwgcik7Cj4+Pj4gK8KgwqDCoMKgwqDCoMKgIHJldHVybiAtRVRJTUU7Cj4+Pj4g
+K8KgwqDCoCB9Cj4+Pj4gKwo+Pj4+ICvCoMKgwqAgcmV0dXJuIDA7Cj4+Pj4gK30KPj4+PiArCj4+
+Pj4gIMKgIC8qCj4+Pj4gIMKgwqAgKiBHQVJUCj4+Pj4gIMKgwqAgKiBWTUlEIDAgaXMgdGhlIHBo
+eXNpY2FsIEdQVSBhZGRyZXNzZXMgYXMgdXNlZCBieSB0aGUga2VybmVsLgo+Pj4+IEBAIC01MzIs
+NiArNTc1LDQ2IEBAIHN0YXRpYyB2b2lkIGdtY192OV8wX2ZsdXNoX2dwdV90bGIoc3RydWN0Cj4+
+Pj4gYW1kZ3B1X2RldmljZSAqYWRldiwgdWludDMyX3Qgdm1pZCwKPj4+PiAgwqDCoMKgwqDCoCBE
+Uk1fRVJST1IoIlRpbWVvdXQgd2FpdGluZyBmb3IgVk0gZmx1c2ggQUNLIVxuIik7Cj4+Pj4gIMKg
+IH0KPj4+PiAgwqAgKy8qKgo+Pj4+ICsgKiBnbWNfdjlfMF9mbHVzaF9ncHVfdGxiX3Bhc2lkIC0g
+dGxiIGZsdXNoIHZpYSBwYXNpZAo+Pj4+ICsgKgo+Pj4+ICsgKiBAYWRldjogYW1kZ3B1X2Rldmlj
+ZSBwb2ludGVyCj4+Pj4gKyAqIEBwYXNpZDogcGFzaWQgdG8gYmUgZmx1c2gKPj4+PiArICoKPj4+
+PiArICogRmx1c2ggdGhlIFRMQiBmb3IgdGhlIHJlcXVlc3RlZCBwYXNpZC4KPj4+PiArICovCj4+
+Pj4gK3N0YXRpYyBpbnQgZ21jX3Y5XzBfZmx1c2hfZ3B1X3RsYl9wYXNpZChzdHJ1Y3QgYW1kZ3B1
+X2RldmljZSAqYWRldiwKPj4+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqAgdWludDE2X3QgcGFzaWQsIHVpbnQzMl90IGZsdXNoX3R5cGUsCj4+Pj4gK8KgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGJvb2wgYWxsX2h1YikKPj4gQ2hyaXN0aWFuLCBk
+byB5b3UgYWdyZWUgdGhhdCB0aGlzIGZ1bmN0aW9uIGJlbG9uZ3MgaW4gdGhlIEdNQwo+PiBpbnRl
+cmZhY2U/IElmIG5vdCBoZXJlLCB3aGVyZSBkbyB5b3Ugc3VnZ2VzdCBtb3ZpbmcgaXQ/Cj4+Cj4+
+IFJlZ2FyZHMsCj4+ICDCoCBGZWxpeAo+Pgo+Pgo+Pj4+ICt7Cj4+Pj4gK8KgwqDCoCBpbnQgdm1p
+ZCwgaTsKPj4+PiArwqDCoMKgIHVpbnQxNl90IHF1ZXJpZWRfcGFzaWQ7Cj4+Pj4gK8KgwqDCoCBi
+b29sIHJldDsKPj4+PiArwqDCoMKgIHN0cnVjdCBhbWRncHVfcmluZyAqcmluZyA9ICZhZGV2LT5n
+Zngua2lxLnJpbmc7Cj4+Pj4gKwo+Pj4+ICvCoMKgwqAgaWYgKGFkZXYtPmluX2dwdV9yZXNldCkK
+Pj4+PiArwqDCoMKgwqDCoMKgwqAgcmV0dXJuIC1FSU87Cj4+Pj4gKwo+Pj4+ICvCoMKgwqAgaWYg
+KHJpbmctPnNjaGVkLnJlYWR5KQo+Pj4+ICvCoMKgwqDCoMKgwqDCoCByZXR1cm4gZ21jX3Y5XzBf
+aW52YWxpZGF0ZV90bGJzX3dpdGhfa2lxKGFkZXYsCj4+Pj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgcGFzaWQsIGZsdXNoX3R5cGUsIGFsbF9odWIpOwo+
+Pj4+ICsKPj4+PiArwqDCoMKgIGZvciAodm1pZCA9IDE7IHZtaWQgPCAxNjsgdm1pZCsrKSB7Cj4+
+Pj4gKwo+Pj4+ICvCoMKgwqDCoMKgwqDCoCByZXQgPSBnbWNfdjlfMF9nZXRfYXRjX3ZtaWRfcGFz
+aWRfbWFwcGluZ19pbmZvKGFkZXYsIHZtaWQsCj4+Pj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoCAmcXVlcmllZF9wYXNpZCk7Cj4+Pj4gK8KgwqDCoMKgwqDCoMKgIGlmIChyZXQgJiYg
+cXVlcmllZF9wYXNpZCA9PSBwYXNpZCkgewo+Pj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGZv
+ciAoaSA9IDA7IGkgPCBhZGV2LT5udW1fdm1odWJzOyBpKyspCj4+Pj4gK8KgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoCBhbWRncHVfZ21jX2ZsdXNoX2dwdV90bGIoYWRldiwgdm1pZCwKPj4+
+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+IGksIGZsdXNoX3R5cGUpOwo+Pj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGJyZWFrOwo+Pj4+
+ICvCoMKgwqDCoMKgwqDCoCB9Cj4+Pj4gK8KgwqDCoCB9Cj4+Pj4gKwo+Pj4+ICvCoMKgwqAgcmV0
+dXJuIDA7Cj4+Pj4gKwo+Pj4+ICt9Cj4+Pj4gKwo+Pj4+ICDCoCBzdGF0aWMgdWludDY0X3QgZ21j
+X3Y5XzBfZW1pdF9mbHVzaF9ncHVfdGxiKHN0cnVjdCBhbWRncHVfcmluZwo+Pj4+ICpyaW5nLAo+
+Pj4+ICDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB1
+bnNpZ25lZCB2bWlkLCB1aW50NjRfdCBwZF9hZGRyKQo+Pj4+ICDCoCB7Cj4+Pj4gQEAgLTY5Myw2
+ICs3NzYsNyBAQCBzdGF0aWMgdm9pZCBnbWNfdjlfMF9nZXRfdm1fcHRlKHN0cnVjdAo+Pj4+IGFt
+ZGdwdV9kZXZpY2UgKmFkZXYsCj4+Pj4gIMKgIMKgIHN0YXRpYyBjb25zdCBzdHJ1Y3QgYW1kZ3B1
+X2dtY19mdW5jcyBnbWNfdjlfMF9nbWNfZnVuY3MgPSB7Cj4+Pj4gIMKgwqDCoMKgwqAgLmZsdXNo
+X2dwdV90bGIgPSBnbWNfdjlfMF9mbHVzaF9ncHVfdGxiLAo+Pj4+ICvCoMKgwqAgLmZsdXNoX2dw
+dV90bGJfcGFzaWQgPSBnbWNfdjlfMF9mbHVzaF9ncHVfdGxiX3Bhc2lkLAo+Pj4+ICDCoMKgwqDC
+oMKgIC5lbWl0X2ZsdXNoX2dwdV90bGIgPSBnbWNfdjlfMF9lbWl0X2ZsdXNoX2dwdV90bGIsCj4+
+Pj4gIMKgwqDCoMKgwqAgLmVtaXRfcGFzaWRfbWFwcGluZyA9IGdtY192OV8wX2VtaXRfcGFzaWRf
+bWFwcGluZywKPj4+PiAgwqDCoMKgwqDCoCAubWFwX210eXBlID0gZ21jX3Y5XzBfbWFwX210eXBl
+LAo+Pj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KPj4+
+IGFtZC1nZnggbWFpbGluZyBsaXN0Cj4+PiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+
+Pj4gaHR0cHM6Ly9uYW0xMS5zYWZlbGlua3MucHJvdGVjdGlvbi5vdXRsb29rLmNvbS8/dXJsPWh0
+dHBzJTNBJTJGJTJGbGlzCj4+PiB0cy5mcmVlZGVza3RvcC5vcmclMkZtYWlsbWFuJTJGbGlzdGlu
+Zm8lMkZhbWQtZ2Z4JmFtcDtkYXRhPTAyJTdDMDElN0MKPj4+IGZlbGl4Lmt1ZWhsaW5nJTQwYW1k
+LmNvbSU3QzBlYmI4MmQ2MmQxMDQ0ZWE1N2I2MDhkNzkxZjViMDIxJTdDM2RkODk2MQo+Pj4gZmU0
+ODg0ZTYwOGUxMWE4MmQ5OTRlMTgzZCU3QzAlN0MwJTdDNjM3MTM4MzU2Nzg0NDA3NDYwJmFtcDtz
+ZGF0YT1LOHpoCj4+PiBIVDJZWUZqOExYZEQzWWlpaHROa2JLTndhMG1sNm5RWjc0ekY4MjglM0Qm
+YW1wO3Jlc2VydmVkPTAKPj4+Cj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX18KPiBhbWQtZ2Z4IG1haWxpbmcgbGlzdAo+IGFtZC1nZnhAbGlzdHMuZnJlZWRl
+c2t0b3Aub3JnCj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5m
+by9hbWQtZ2Z4CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+XwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRw
+czovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
