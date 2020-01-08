@@ -2,71 +2,72 @@ Return-Path: <SRS0=oKuu=25=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-13.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PULL_REQUEST,MAILING_LIST_MULTI,
+	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0676CC282DD
-	for <amd-gfx@archiver.kernel.org>; Wed,  8 Jan 2020 17:52:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id CD5C4C282DD
+	for <amd-gfx@archiver.kernel.org>; Wed,  8 Jan 2020 21:37:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D34272067D
-	for <amd-gfx@archiver.kernel.org>; Wed,  8 Jan 2020 17:52:04 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 9E05620692
+	for <amd-gfx@archiver.kernel.org>; Wed,  8 Jan 2020 21:37:06 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="GTNCpgnT"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D34272067D
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=chromium.org
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="N62/E8B8"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9E05620692
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6D3AB6E223;
-	Wed,  8 Jan 2020 17:52:04 +0000 (UTC)
-Received: from mail-pf1-x444.google.com (mail-pf1-x444.google.com
- [IPv6:2607:f8b0:4864:20::444])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 070166E131
- for <amd-gfx@lists.freedesktop.org>; Wed,  8 Jan 2020 17:39:30 +0000 (UTC)
-Received: by mail-pf1-x444.google.com with SMTP id q8so1973386pfh.7
- for <amd-gfx@lists.freedesktop.org>; Wed, 08 Jan 2020 09:39:30 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:content-transfer-encoding:in-reply-to;
- bh=bKjvwLoHlC29TnvYqxLfJzXQCusKrCOIAaFwwH7cSJ0=;
- b=GTNCpgnTvYnInEtO3QFpRZVybeL6CBYzJJx27ePUFw0/SafUvNxEYcOYQfvASQ6xqX
- 6j+5vDN0aFTy3n2vQk6NkoWpkjjM2jUwkxQaSbL/wj3TBgA2VXvX2hZcLRoUwLWwSopL
- JoZOKKbVLSYcz5PbBGPmd9fCF6ZxmqIR6YilM=
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8276B6E34B;
+	Wed,  8 Jan 2020 21:37:02 +0000 (UTC)
+Received: from mail-qt1-x844.google.com (mail-qt1-x844.google.com
+ [IPv6:2607:f8b0:4864:20::844])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 44D9C6E342;
+ Wed,  8 Jan 2020 21:37:01 +0000 (UTC)
+Received: by mail-qt1-x844.google.com with SMTP id e5so4084641qtm.6;
+ Wed, 08 Jan 2020 13:37:01 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=Eqf/Rney/KXNkdohGRbIzL/r01lLtkHC8U7UmM5VOcA=;
+ b=N62/E8B8ie/qFxeNUz5j9B3Og1MyM2s3eBoIQzlhU4QzLTGxlkODgQUw1JlYu56B6W
+ zOUVF41ATVqOXQnqTuQtekmDeQjR/0tCdPOYLBCXft2hOY4WNV1ulQfeGGaHlYHFONWO
+ N6zrs8YlsSq7zZZCAbNV+w4MSu0EhyUS9gUZK26Hbv7Dzy4fdz/hDegkbJoVl5Ic/tnm
+ fXxq+AI1QxVuxltzxj+AZXgSxIUplkSTP/w9CCY2+s+Au8jnA97KsucfMbWdOzNZ0F4D
+ 7Of9RuFUvNTFfTEjcYSIS176VXT7FaGLMjgniHZYfkT8tKfiHhY+jua4QXXMeplilnqW
+ oetQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:content-transfer-encoding
- :in-reply-to;
- bh=bKjvwLoHlC29TnvYqxLfJzXQCusKrCOIAaFwwH7cSJ0=;
- b=fa0IMVt25TGuoCqDgvIOnsxsXs+LQj8EA5sc6kCj4oj5JIzPhrpK7bGvO8neIUweot
- A1bwsNLW+MmaHYbGu6Qze7SMlS4r8xFNDY5It8CUZ4SioQ6QfrOYTAIinNCwM/NbpcTG
- WH1CbnAoQbuveg1W+cFChOzMRG8+i1G4iYdjXbMmN7ox87+V65BT5ABYZ8kexsEiBIdh
- T9/gxBwzqTtDghGbUF06lTvPJoLLevXCT9VgRgbkRiXMIdWFDWW74keFVGrzkh6PEWS0
- OUbgVCM7ixISpCap9GKA8bCUNYLY9b/LdwCh0SMRhxNn0SyCFpFzrYSJEHZCrUSTYYpF
- JIdQ==
-X-Gm-Message-State: APjAAAVUsLuwVTNyI0GnEh06bQAYpt8GHst9FPqT+rF2yJnxQkUFotij
- dh4wRJ44TRthrHAUkj5/JKBYXA==
-X-Google-Smtp-Source: APXvYqxdgwKREsz1YZeH4VDxSzla/QubcfkdDOAeGwicuj/jBB+4Si/iUY0qR/AhKo7jBTllsOCHfg==
-X-Received: by 2002:a65:63ce:: with SMTP id n14mr6602246pgv.282.1578505169677; 
- Wed, 08 Jan 2020 09:39:29 -0800 (PST)
-Received: from www.outflux.net (smtp.outflux.net. [198.145.64.163])
- by smtp.gmail.com with ESMTPSA id l8sm3901278pjy.24.2020.01.08.09.39.28
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=Eqf/Rney/KXNkdohGRbIzL/r01lLtkHC8U7UmM5VOcA=;
+ b=trj6ulIVECuGc8VsMuJj+fxb11qNG8FvKC7CYa8FaspATHro5Q9ptTkwMG8J6MJmVF
+ BM/lxTDYBFLXntjyEIMqNsvRAeneK1aHvr42HH4HaBAAvsHU/Xdr1hG0r4agS/2CPR1V
+ eByIc5IZvUILUsuh79HVbAcwvEw75HqLgDt7FJ3B0rrZ504fvfxWmPgKei2lq6RBB+wG
+ k6D4w2Om07T2Pex9i4HNi/7v0CddPer+59/H3nDwwQqL+2VoyGDpn9CGzjfpET04OG62
+ mceQb77Z1XaBRi0pItfEvOZh/fSm/MoNaHlnetHfMywRO6fBPo4QPjz9KgPIWylV7O7S
+ k0nQ==
+X-Gm-Message-State: APjAAAX2x+zUnFNUJ95075taKtuGNFAV7tjjPH7tER+H0qpErqWhTIyY
+ Rk2P0MOiz61IP1XMgQ/zvqnjhlW1
+X-Google-Smtp-Source: APXvYqyc8/7vDzu9aeN273Pus8UY0yT56JbgLT3I8eymXGdPF1wkbwJk4YN1bLCdKjntIiWAyY8DtA==
+X-Received: by 2002:aed:3c16:: with SMTP id t22mr5305742qte.92.1578519420170; 
+ Wed, 08 Jan 2020 13:37:00 -0800 (PST)
+Received: from localhost.localdomain ([71.219.59.120])
+ by smtp.gmail.com with ESMTPSA id i6sm2017226qkk.7.2020.01.08.13.36.59
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 08 Jan 2020 09:39:28 -0800 (PST)
-Date: Wed, 8 Jan 2020 09:39:27 -0800
-From: Kees Cook <keescook@chromium.org>
-To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
-Subject: Re: [PATCH 0/2] drm/radeon: have the callers of set_memory_*() check
- the return value
-Message-ID: <202001080936.A36005F1@keescook>
-References: <20200107192555.20606-1-tli@digitalocean.com>
- <b5984995-7276-97d3-a604-ddacfb89bd89@amd.com>
+ Wed, 08 Jan 2020 13:36:59 -0800 (PST)
+From: Alex Deucher <alexdeucher@gmail.com>
+X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
+To: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ airlied@gmail.com, daniel.vetter@ffwll.ch
+Subject: [pull] amdgpu drm-fixes-5.5
+Date: Wed,  8 Jan 2020 16:36:49 -0500
+Message-Id: <20200108213649.5485-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.24.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <b5984995-7276-97d3-a604-ddacfb89bd89@amd.com>
-X-Mailman-Approved-At: Wed, 08 Jan 2020 17:52:02 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,65 +79,55 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David1.Zhou@amd.com, kernel-hardening@lists.openwall.com,
- David Airlie <airlied@linux.ie>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, Tianlin Li <tli@digitalocean.com>,
- dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
- Alex Deucher <alexander.deucher@amd.com>
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Jan 08, 2020 at 01:56:47PM +0100, Christian K=F6nig wrote:
-> Am 07.01.20 um 20:25 schrieb Tianlin Li:
-> > Right now several architectures allow their set_memory_*() family of
-> > functions to fail, but callers may not be checking the return values.
-> > If set_memory_*() returns with an error, call-site assumptions may be
-> > infact wrong to assume that it would either succeed or not succeed at
-> > all. Ideally, the failure of set_memory_*() should be passed up the
-> > call stack, and callers should examine the failure and deal with it.
-> > =
+Hi Dave, Daniel,
 
-> > Need to fix the callers and add the __must_check attribute. They also
-> > may not provide any level of atomicity, in the sense that the memory
-> > protections may be left incomplete on failure. This issue likely has a
-> > few steps on effects architectures:
-> > 1)Have all callers of set_memory_*() helpers check the return value.
-> > 2)Add __must_check to all set_memory_*() helpers so that new uses do
-> > not ignore the return value.
-> > 3)Add atomicity to the calls so that the memory protections aren't left
-> > in a partial state.
-> > =
+A few minor fixes for 5.5.  This also enables DRIVER_SYNCOBJ_TIMELINE which
+has been implemented for ages, but was awaiting Khronos which has since
+happened.  The relevant amdvlk code is in:
+https://github.com/GPUOpen-Drivers/pal/blob/dev/src/core/os/amdgpu/amdgpuDevice.cpp
 
-> > This series is part of step 1. Make drm/radeon check the return value of
-> > set_memory_*().
-> =
+The following changes since commit a6204fc7b83cbe3398f61cf1742b09f66f0ae220:
 
-> I'm a little hesitate merge that. This hardware is >15 years old and nobo=
-dy
-> of the developers have any system left to test this change on.
+  agp: remove unused variable arqsz in agp_3_5_enable() (2020-01-03 16:08:05 +1000)
 
-If that's true it should be removed from the tree. We need to be able to
-correctly make these kinds of changes in the kernel.
+are available in the Git repository at:
 
-> Would it be to much of a problem to just add something like: r =3D
-> set_memory_*(); (void)r; /* Intentionally ignored */.
+  git://people.freedesktop.org/~agd5f/linux tags/amd-drm-fixes-5.5-2020-01-08
 
-This seems like a bad idea -- we shouldn't be papering over failures
-like this when there is logic available to deal with it.
+for you to fetch changes up to db4ff423cd1659580e541a2d4363342f15c14230:
 
-> Apart from that certainly a good idea to add __must_check to the function=
-s.
+  drm/amdgpu: add DRIVER_SYNCOBJ_TIMELINE to amdgpu (2020-01-07 11:33:32 -0500)
 
-Agreed!
+----------------------------------------------------------------
+amd-drm-fixes-5.5-2020-01-08:
 
--Kees
+amdgpu:
+- Stability fix for raven
+- Reduce pixel encoding to if max clock is exceeded on HDMI
+  to allow additional high res modes
 
--- =
+UAPI:
+- enable DRIVER_SYNCOBJ_TIMELINE for amdgpu
 
-Kees Cook
+----------------------------------------------------------------
+Alex Deucher (1):
+      Revert "drm/amdgpu: Set no-retry as default."
+
+Chunming Zhou (1):
+      drm/amdgpu: add DRIVER_SYNCOBJ_TIMELINE to amdgpu
+
+Thomas Anderson (1):
+      drm/amd/display: Reduce HDMI pixel encoding if max clock is exceeded
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c           |  7 ++--
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 45 ++++++++++++-----------
+ 2 files changed, 27 insertions(+), 25 deletions(-)
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
