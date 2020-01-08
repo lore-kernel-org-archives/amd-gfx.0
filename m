@@ -2,66 +2,105 @@ Return-Path: <SRS0=oKuu=25=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+X-Spam-Status: No, score=-6.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
 	SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B1771C33C99
-	for <amd-gfx@archiver.kernel.org>; Wed,  8 Jan 2020 02:47:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 54755C33C99
+	for <amd-gfx@archiver.kernel.org>; Wed,  8 Jan 2020 02:48:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7569D2087F
-	for <amd-gfx@archiver.kernel.org>; Wed,  8 Jan 2020 02:47:16 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 24CDD2087F
+	for <amd-gfx@archiver.kernel.org>; Wed,  8 Jan 2020 02:48:36 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="o+UsjYsw"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7569D2087F
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="VcBnbrYI"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 24CDD2087F
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 236176E162;
-	Wed,  8 Jan 2020 02:47:16 +0000 (UTC)
-Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com
- [IPv6:2a00:1450:4864:20::343])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 983886E162
- for <amd-gfx@lists.freedesktop.org>; Wed,  8 Jan 2020 02:47:14 +0000 (UTC)
-Received: by mail-wm1-x343.google.com with SMTP id d73so908783wmd.1
- for <amd-gfx@lists.freedesktop.org>; Tue, 07 Jan 2020 18:47:14 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=Qd+x8noKgbHIDHAGmHMBp7/bWSeZ6LFz/MZF5gVPwIA=;
- b=o+UsjYsw1cdCP3mHQ1G+Q2NnLMLU5OdvJFKc0dUsfl+yH/2QJZZOsMCdD3HD7MCnML
- prJZCMq3a+A2VY+CqdwPInpmbcnfq9y/nNfrmIJv49mRMnPw5vYr+uHuIijYDU5v5INq
- OmvR/vtGYbAmTW/xwCxNMFDY0WvFJNweWmG8Da+zA9ZgXMF1T34+ghWW+LR20EZ0QlQ3
- 7vqgki3D7osKjHZsUgqI/20isgaI2W/GBRVF15/CGj4i9MTVm86Vo7c4GuRCZveiOPj2
- ehIGfj9iOkx34Sdp1mhWX2VntCyuEyKwIrnZMlCIss9xN2bR0PfXjgGYoHJP8cLtzc4o
- v6IA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=Qd+x8noKgbHIDHAGmHMBp7/bWSeZ6LFz/MZF5gVPwIA=;
- b=LVDlxnsEuwoIe1kxk8OTvdeP8Nia5qlBAbyFrB0l123MJYvw7ZFCalWvUZAPK2h9f7
- PhtbdLSgc6sRNXdtbrm4SrH2xbefGMVF1JBNGbcOnTj/L7t2pVhNgzwKy4H2Vdugt9by
- hLov+2ITwVb4rkyRLCO/2Uy1KZKpJgP+SQI8z7qFoTdAfKlqZDzfQMOGt/LwhFcmkz4I
- 1vcqRfMu+w4j+X1zwdPHFz2CuSZtZIOoMS9JVpwXHOzz41GySEKLv5QbIApYPLA59r3d
- LqYVprjexSk40bpvy/VO1aux2TcmURRYIfBLU2/eIs59Gn0feh4CqusHmE9bOFbKCf6U
- pRTA==
-X-Gm-Message-State: APjAAAW8Z0DYnQ0X+mSrnBFf6ELXjA4LJxY6GkxO0/ylQC22Lj/Xvbig
- dH64zhF+x92Qr0K4Feqo16mE2M2k1dk/zn+B52vm+Q==
-X-Google-Smtp-Source: APXvYqyLXZ0Icanf74B0UEW42aYljLBN/A22joNdSB8oNm1fceP1NYBi1Dm4qewW90MOI/mgk6qd91kv0H5zBEA+F2U=
-X-Received: by 2002:a1c:f210:: with SMTP id s16mr1117268wmc.57.1578451633051; 
- Tue, 07 Jan 2020 18:47:13 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D60C36E162;
+	Wed,  8 Jan 2020 02:48:35 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2074.outbound.protection.outlook.com [40.107.237.74])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AC1646E162
+ for <amd-gfx@lists.freedesktop.org>; Wed,  8 Jan 2020 02:48:34 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=DnaPx+wePCZ3EVvdtFu9lpgw59UN7ilW301DaCoI+64OfAOkhqxPvgAEf72cXE5Z3lUXzzNP3IJbNAvzQ3HjR3brSx69v+YQzC7uQ51yxUQcAqh6WXcUgY64/0fWht++W1lD7IuMUmGbKLpBL02Sz2BIDOu0xbhmjXn5QTbhVNiSjy5G2eaPiatV7+RPPqDTtyi4QnHExLpO6/vlQoGvz4mgDbA+w++CDkTK6WVfZ9gWvyFF03kH2iWXgE2ULwmspxK3VHEK5JjQiUNyrQATy9N1OP0QkaNJswPwlNWmnUVG/sPEs0/ma7jchapu84xuQ8TTpb9OkS2t2W8RV9V3Kg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=oyuF/b2aCQTovSRMhtU2kSMRMrUuQoTdeS8VycD01DQ=;
+ b=TqkZF2qkqRXmKa8kpCuQm767WIq7fqxto0i0lEu6m/pFs12WykSJg/OurtwrFk7TX4ZUMIqKGyZbsXRZ70ITXQvuIISnXmxlDNQRMPp8UZQyV13AnOPYZ0pkIqEXwLnL2pY76+FJi80jPILjPT3VaTpltE2PQGM7nTNflQo+EzNBuKS765ewJSqlS5NppPcHGP32H2du9VEqsff8H8kEMEntgBJyWwITTc8VtcV6i/QcS5x9KmdyA1c1zW/udJ3EV+wHKAolsjAkPYyLPMMoDz6RhBcp1ZFdfYi/BRMGlYtv8/UsNp1qqzI0NQEJyeNnrU1NE2QMBmsiOtHGI5AbGg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=oyuF/b2aCQTovSRMhtU2kSMRMrUuQoTdeS8VycD01DQ=;
+ b=VcBnbrYIUsUUbA6i5EcDgmsSXyGTE/lMo8d4vv4lZz0RDMrsF8MwjBQoybDSLf9kwvaALP9lNVOoNWRXM7U1rkI6YBA5wlb6fFTHP0UL0jhJmzShprkJjyfi9bjAqxzMOYIo3u15tfP/O/elUUsEcCAW+qEMXe5hakUo4YOttiA=
+Received: from MN2PR12MB3838.namprd12.prod.outlook.com (10.255.238.203) by
+ MN2PR12MB3678.namprd12.prod.outlook.com (10.255.239.218) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2602.11; Wed, 8 Jan 2020 02:48:29 +0000
+Received: from MN2PR12MB3838.namprd12.prod.outlook.com
+ ([fe80::c52d:5a67:be50:c4dc]) by MN2PR12MB3838.namprd12.prod.outlook.com
+ ([fe80::c52d:5a67:be50:c4dc%4]) with mapi id 15.20.2623.008; Wed, 8 Jan 2020
+ 02:48:29 +0000
+From: "Liu, Aaron" <Aaron.Liu@amd.com>
+To: Alex Deucher <alexdeucher@gmail.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH 2/2] drm/amdgpu: enable S/G display for renoir
+Thread-Topic: [PATCH 2/2] drm/amdgpu: enable S/G display for renoir
+Thread-Index: AQHVxZ9kJbZcIrU5VUCe5XxDZZ23jKfgEOJg
+Date: Wed, 8 Jan 2020 02:48:29 +0000
+Message-ID: <MN2PR12MB38381D98F744CDEFA02BCEC4F03E0@MN2PR12MB3838.namprd12.prod.outlook.com>
+References: <20200107211320.1820393-1-alexander.deucher@amd.com>
+ <20200107211320.1820393-2-alexander.deucher@amd.com>
+In-Reply-To: <20200107211320.1820393-2-alexander.deucher@amd.com>
+Accept-Language: zh-CN, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ActionId=41952cfb-a966-45ce-846f-000061bdb87f;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=0;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=true;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal
+ Use Only - Unrestricted;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2020-01-08T02:48:12Z;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+authentication-results: spf=none (sender IP is )
+ smtp.mailfrom=Aaron.Liu@amd.com; 
+x-originating-ip: [180.167.199.189]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-ht: Tenant
+x-ms-office365-filtering-correlation-id: 9dfebfe2-dbf6-4031-32ba-08d793e53e2c
+x-ms-traffictypediagnostic: MN2PR12MB3678:|MN2PR12MB3678:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <MN2PR12MB367858BE9F0D114E222E15F3F03E0@MN2PR12MB3678.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:459;
+x-forefront-prvs: 02760F0D1C
+x-forefront-antispam-report: SFV:NSPM;
+ SFS:(10009020)(4636009)(39860400002)(136003)(376002)(366004)(396003)(346002)(199004)(189003)(13464003)(52536014)(2906002)(8676002)(4326008)(66446008)(55016002)(64756008)(9686003)(81166006)(86362001)(66946007)(8936002)(76116006)(66556008)(66476007)(478600001)(45080400002)(966005)(81156014)(186003)(71200400001)(7696005)(33656002)(5660300002)(316002)(53546011)(6506007)(110136005)(26005);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:MN2PR12MB3678;
+ H:MN2PR12MB3838.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; A:1; MX:1; 
+received-spf: None (protection.outlook.com: amd.com does not designate
+ permitted sender hosts)
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: L5liKnautc3SSlGw21DKTW5y1DOgxRXwpr2b9yvCgIL8gFPeArA04UJiN5Le2Clup6myE0ezO841gqmUcF8NBJ7gkq7DmZQUz3V8a5GzU3SpD6SdJwjy75/53LIz34hosqpC0REEDWmpA+BZjxCfNJi3jtwOO8PUA+WCGM+bo4wGuGI/quJwwtX78JAZE7N5TMDW6k/qyjXnHmyP30sY4G/yQhAq+wJPJ9QJczLQUibZ370D6ecnM/BbljIRYaPNATJv1yjOQ5p7O2BZcgAUsNrn24w7ZgM/C9/FFrisJHAfFKN+g9aWJiRQhfX4+3AW100qcpOu4mLrYegMneabzbVTKn70/tp5WAJxL5GEwY4WnMMMoGfo4ebQWAzWbLuuyLdpe8Z8cNIQW5S9ZiiKr6gLTuekdBpH7pVGoj9uncI8kagci9YadeIKmeWiEEf8T17zqfGYTFFS9OSuKbIBWahAQVSMz6x+cxxJnbyH/GpP32mdkpvJopFw0fFUzfmBidh/vE8Ko6oimnyoVapRW0gbeD6fK6rdDCgmx69ZleE=
 MIME-Version: 1.0
-References: <20200108020339.12934-1-evan.quan@amd.com>
-In-Reply-To: <20200108020339.12934-1-evan.quan@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 7 Jan 2020 21:47:00 -0500
-Message-ID: <CADnq5_ONrmy4HqOK8H-CJiMs0z1uB3dhFe8LepeCnvuULR9BTg@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/powerplay: cover the powerplay implementation
- details V2
-To: Evan Quan <evan.quan@amd.com>
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9dfebfe2-dbf6-4031-32ba-08d793e53e2c
+X-MS-Exchange-CrossTenant-originalarrivaltime: 08 Jan 2020 02:48:29.4523 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: yNCZcHXBcN4rrwNa1jUFhGcKuXYqP08DD9MfezrUluoG0rDN+spwU3uytqCubBmY
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3678
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,737 +112,76 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Jan 7, 2020 at 9:04 PM Evan Quan <evan.quan@amd.com> wrote:
->
-> This can save users much troubles. As they do not
-> actually need to care whether swSMU or traditional
-> powerplay routine should be used.
->
-> V2: apply the fixes to vi.c and cik.c also
->
-> Change-Id: I827fe4cac0d4fd487782168a7fe73e15756a7109
-> Signed-off-by: Evan Quan <evan.quan@amd.com>
-> Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+Reviewed & Tested-by: Aaron Liu <aaron.liu@amd.com>
 
-Looks good.
+BR,
+Aaron Liu
 
-Alex
-
+> -----Original Message-----
+> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Alex
+> Deucher
+> Sent: Wednesday, January 8, 2020 5:13 AM
+> To: amd-gfx@lists.freedesktop.org
+> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>
+> Subject: [PATCH 2/2] drm/amdgpu: enable S/G display for renoir
+> 
+> Everything is in place so go ahead and enable this for renoir.
+> 
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c |  12 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  53 +------
->  drivers/gpu/drm/amd/amdgpu/amdgpu_dpm.c    | 159 +++++++++++++++++++++
->  drivers/gpu/drm/amd/amdgpu/amdgpu_dpm.h    |  24 +++-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c    |   6 -
->  drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c   |   8 +-
->  drivers/gpu/drm/amd/amdgpu/cik.c           |  12 +-
->  drivers/gpu/drm/amd/amdgpu/cik.h           |   2 -
->  drivers/gpu/drm/amd/amdgpu/nv.c            |   8 +-
->  drivers/gpu/drm/amd/amdgpu/soc15.c         |  85 ++---------
->  drivers/gpu/drm/amd/amdgpu/vi.c            |  48 +------
->  drivers/gpu/drm/amd/amdgpu/vi.h            |   2 -
->  12 files changed, 211 insertions(+), 208 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-> index d3da9dde4ee1..88e10b956413 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-> @@ -613,15 +613,9 @@ void amdgpu_amdkfd_set_compute_idle(struct kgd_dev *kgd, bool idle)
->  {
->         struct amdgpu_device *adev = (struct amdgpu_device *)kgd;
->
-> -       if (is_support_sw_smu(adev))
-> -               smu_switch_power_profile(&adev->smu,
-> -                                        PP_SMC_POWER_PROFILE_COMPUTE,
-> -                                        !idle);
-> -       else if (adev->powerplay.pp_funcs &&
-> -                adev->powerplay.pp_funcs->switch_power_profile)
-> -               amdgpu_dpm_switch_power_profile(adev,
-> -                                               PP_SMC_POWER_PROFILE_COMPUTE,
-> -                                               !idle);
-> +       amdgpu_dpm_switch_power_profile(adev,
-> +                                       PP_SMC_POWER_PROFILE_COMPUTE,
-> +                                       !idle);
->  }
->
->  bool amdgpu_amdkfd_is_kfd_vmid(struct amdgpu_device *adev, u32 vmid)
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> index 09271127dfe1..bf892143e1d3 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -2351,14 +2351,7 @@ static int amdgpu_device_ip_suspend_phase2(struct amdgpu_device *adev)
->                 adev->ip_blocks[i].status.hw = false;
->                 /* handle putting the SMC in the appropriate state */
->                 if (adev->ip_blocks[i].version->type == AMD_IP_BLOCK_TYPE_SMC) {
-> -                       if (is_support_sw_smu(adev)) {
-> -                               r = smu_set_mp1_state(&adev->smu, adev->mp1_state);
-> -                       } else if (adev->powerplay.pp_funcs &&
-> -                                          adev->powerplay.pp_funcs->set_mp1_state) {
-> -                               r = adev->powerplay.pp_funcs->set_mp1_state(
-> -                                       adev->powerplay.pp_handle,
-> -                                       adev->mp1_state);
-> -                       }
-> +                       r = amdgpu_dpm_set_mp1_state(adev, adev->mp1_state);
->                         if (r) {
->                                 DRM_ERROR("SMC failed to set mp1 state %d, %d\n",
->                                           adev->mp1_state, r);
-> @@ -4365,55 +4358,21 @@ int amdgpu_device_baco_enter(struct drm_device *dev)
->         if (ras && ras->supported)
->                 adev->nbio.funcs->enable_doorbell_interrupt(adev, false);
->
-> -       if (is_support_sw_smu(adev)) {
-> -               struct smu_context *smu = &adev->smu;
-> -               int ret;
-> -
-> -               ret = smu_baco_enter(smu);
-> -               if (ret)
-> -                       return ret;
-> -       } else {
-> -               void *pp_handle = adev->powerplay.pp_handle;
-> -               const struct amd_pm_funcs *pp_funcs = adev->powerplay.pp_funcs;
-> -
-> -               if (!pp_funcs ||!pp_funcs->get_asic_baco_state ||!pp_funcs->set_asic_baco_state)
-> -                       return -ENOENT;
-> -
-> -               /* enter BACO state */
-> -               if (pp_funcs->set_asic_baco_state(pp_handle, 1))
-> -                       return -EIO;
-> -       }
-> -
-> -       return 0;
-> +       return amdgpu_dpm_baco_enter(adev);
->  }
->
->  int amdgpu_device_baco_exit(struct drm_device *dev)
->  {
->         struct amdgpu_device *adev = dev->dev_private;
->         struct amdgpu_ras *ras = amdgpu_ras_get_context(adev);
-> +       int ret = 0;
->
->         if (!amdgpu_device_supports_baco(adev->ddev))
->                 return -ENOTSUPP;
->
-> -       if (is_support_sw_smu(adev)) {
-> -               struct smu_context *smu = &adev->smu;
-> -               int ret;
-> -
-> -               ret = smu_baco_exit(smu);
-> -               if (ret)
-> -                       return ret;
-> -
-> -       } else {
-> -               void *pp_handle = adev->powerplay.pp_handle;
-> -               const struct amd_pm_funcs *pp_funcs = adev->powerplay.pp_funcs;
-> -
-> -               if (!pp_funcs ||!pp_funcs->get_asic_baco_state ||!pp_funcs->set_asic_baco_state)
-> -                       return -ENOENT;
-> -
-> -               /* exit BACO state */
-> -               if (pp_funcs->set_asic_baco_state(pp_handle, 0))
-> -                       return -EIO;
-> -       }
-> +       ret = amdgpu_dpm_baco_exit(adev);
-> +       if (ret)
-> +               return ret;
->
->         if (ras && ras->supported)
->                 adev->nbio.funcs->enable_doorbell_interrupt(adev, true);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dpm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_dpm.c
-> index cd76fbf4385d..f7c0ae6e0f8c 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dpm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dpm.c
-> @@ -983,3 +983,162 @@ int amdgpu_dpm_set_powergating_by_smu(struct amdgpu_device *adev, uint32_t block
->
->         return ret;
->  }
-> +
-> +int amdgpu_dpm_baco_enter(struct amdgpu_device *adev)
-> +{
-> +       const struct amd_pm_funcs *pp_funcs = adev->powerplay.pp_funcs;
-> +       void *pp_handle = adev->powerplay.pp_handle;
-> +       struct smu_context *smu = &adev->smu;
-> +       int ret = 0;
-> +
-> +       if (is_support_sw_smu(adev)) {
-> +               ret = smu_baco_enter(smu);
-> +       } else {
-> +               if (!pp_funcs || !pp_funcs->set_asic_baco_state)
-> +                       return -ENOENT;
-> +
-> +               /* enter BACO state */
-> +               ret = pp_funcs->set_asic_baco_state(pp_handle, 1);
-> +       }
-> +
-> +       return ret;
-> +}
-> +
-> +int amdgpu_dpm_baco_exit(struct amdgpu_device *adev)
-> +{
-> +       const struct amd_pm_funcs *pp_funcs = adev->powerplay.pp_funcs;
-> +       void *pp_handle = adev->powerplay.pp_handle;
-> +       struct smu_context *smu = &adev->smu;
-> +       int ret = 0;
-> +
-> +       if (is_support_sw_smu(adev)) {
-> +               ret = smu_baco_exit(smu);
-> +       } else {
-> +               if (!pp_funcs || !pp_funcs->set_asic_baco_state)
-> +                       return -ENOENT;
-> +
-> +               /* exit BACO state */
-> +               ret = pp_funcs->set_asic_baco_state(pp_handle, 0);
-> +       }
-> +
-> +       return ret;
-> +}
-> +
-> +int amdgpu_dpm_set_mp1_state(struct amdgpu_device *adev,
-> +                            enum pp_mp1_state mp1_state)
-> +{
-> +       int ret = 0;
-> +
-> +       if (is_support_sw_smu(adev)) {
-> +               ret = smu_set_mp1_state(&adev->smu, mp1_state);
-> +       } else if (adev->powerplay.pp_funcs &&
-> +                  adev->powerplay.pp_funcs->set_mp1_state) {
-> +               ret = adev->powerplay.pp_funcs->set_mp1_state(
-> +                               adev->powerplay.pp_handle,
-> +                               mp1_state);
-> +       }
-> +
-> +       return ret;
-> +}
-> +
-> +bool amdgpu_dpm_is_baco_supported(struct amdgpu_device *adev)
-> +{
-> +       const struct amd_pm_funcs *pp_funcs = adev->powerplay.pp_funcs;
-> +       void *pp_handle = adev->powerplay.pp_handle;
-> +       struct smu_context *smu = &adev->smu;
-> +       bool baco_cap;
-> +
-> +       if (is_support_sw_smu(adev)) {
-> +               return smu_baco_is_support(smu);
-> +       } else {
-> +               if (!pp_funcs || !pp_funcs->get_asic_baco_capability)
-> +                       return false;
-> +
-> +               if (pp_funcs->get_asic_baco_capability(pp_handle, &baco_cap))
-> +                       return false;
-> +
-> +               return baco_cap ? true : false;
-> +       }
-> +}
-> +
-> +int amdgpu_dpm_mode2_reset(struct amdgpu_device *adev)
-> +{
-> +       const struct amd_pm_funcs *pp_funcs = adev->powerplay.pp_funcs;
-> +       void *pp_handle = adev->powerplay.pp_handle;
-> +       struct smu_context *smu = &adev->smu;
-> +
-> +       if (is_support_sw_smu(adev)) {
-> +               return smu_mode2_reset(smu);
-> +       } else {
-> +               if (!pp_funcs || !pp_funcs->asic_reset_mode_2)
-> +                       return -ENOENT;
-> +
-> +               return pp_funcs->asic_reset_mode_2(pp_handle);
-> +       }
-> +}
-> +
-> +int amdgpu_dpm_baco_reset(struct amdgpu_device *adev)
-> +{
-> +       const struct amd_pm_funcs *pp_funcs = adev->powerplay.pp_funcs;
-> +       void *pp_handle = adev->powerplay.pp_handle;
-> +       struct smu_context *smu = &adev->smu;
-> +       int ret = 0;
-> +
-> +       dev_info(adev->dev, "GPU BACO reset\n");
-> +
-> +       if (is_support_sw_smu(adev)) {
-> +               ret = smu_baco_enter(smu);
-> +               if (ret)
-> +                       return ret;
-> +
-> +               ret = smu_baco_exit(smu);
-> +               if (ret)
-> +                       return ret;
-> +       } else {
-> +               if (!pp_funcs
-> +                   || !pp_funcs->set_asic_baco_state)
-> +                       return -ENOENT;
-> +
-> +               /* enter BACO state */
-> +               ret = pp_funcs->set_asic_baco_state(pp_handle, 1);
-> +               if (ret)
-> +                       return ret;
-> +
-> +               /* exit BACO state */
-> +               ret = pp_funcs->set_asic_baco_state(pp_handle, 0);
-> +               if (ret)
-> +                       return ret;
-> +       }
-> +
-> +       return 0;
-> +}
-> +
-> +int amdgpu_dpm_switch_power_profile(struct amdgpu_device *adev,
-> +                                   enum PP_SMC_POWER_PROFILE type,
-> +                                   bool en)
-> +{
-> +       int ret = 0;
-> +
-> +       if (is_support_sw_smu(adev))
-> +               ret = smu_switch_power_profile(&adev->smu, type, en);
-> +       else if (adev->powerplay.pp_funcs &&
-> +                adev->powerplay.pp_funcs->switch_power_profile)
-> +               ret = adev->powerplay.pp_funcs->switch_power_profile(adev, type, en);
-> +
-> +       return ret;
-> +}
-> +
-> +int amdgpu_dpm_set_xgmi_pstate(struct amdgpu_device *adev,
-> +                              uint32_t pstate)
-> +{
-> +       int ret = 0;
-> +
-> +       if (is_support_sw_smu_xgmi(adev))
-> +               ret = smu_set_xgmi_pstate(&adev->smu, pstate);
-> +       else if (adev->powerplay.pp_funcs &&
-> +                adev->powerplay.pp_funcs->set_xgmi_pstate)
-> +               ret = adev->powerplay.pp_funcs->set_xgmi_pstate(adev->powerplay.pp_handle,
-> +                                                               pstate);
-> +
-> +       return ret;
-> +}
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dpm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_dpm.h
-> index 2cfb677272af..902ca6c00cca 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dpm.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dpm.h
-> @@ -341,10 +341,6 @@ enum amdgpu_pcie_gen {
->                 ((adev)->powerplay.pp_funcs->reset_power_profile_state(\
->                         (adev)->powerplay.pp_handle, request))
->
-> -#define amdgpu_dpm_switch_power_profile(adev, type, en) \
-> -               ((adev)->powerplay.pp_funcs->switch_power_profile(\
-> -                       (adev)->powerplay.pp_handle, type, en))
-> -
->  #define amdgpu_dpm_set_clockgating_by_smu(adev, msg_id) \
->                 ((adev)->powerplay.pp_funcs->set_clockgating_by_smu(\
->                         (adev)->powerplay.pp_handle, msg_id))
-> @@ -517,4 +513,24 @@ extern int amdgpu_dpm_get_sclk(struct amdgpu_device *adev, bool low);
->
->  extern int amdgpu_dpm_get_mclk(struct amdgpu_device *adev, bool low);
->
-> +int amdgpu_dpm_set_xgmi_pstate(struct amdgpu_device *adev,
-> +                              uint32_t pstate);
-> +
-> +int amdgpu_dpm_switch_power_profile(struct amdgpu_device *adev,
-> +                                   enum PP_SMC_POWER_PROFILE type,
-> +                                   bool en);
-> +
-> +int amdgpu_dpm_baco_reset(struct amdgpu_device *adev);
-> +
-> +int amdgpu_dpm_mode2_reset(struct amdgpu_device *adev);
-> +
-> +bool amdgpu_dpm_is_baco_supported(struct amdgpu_device *adev);
-> +
-> +int amdgpu_dpm_set_mp1_state(struct amdgpu_device *adev,
-> +                            enum pp_mp1_state mp1_state);
-> +
-> +int amdgpu_dpm_baco_exit(struct amdgpu_device *adev);
-> +
-> +int amdgpu_dpm_baco_enter(struct amdgpu_device *adev);
-> +
->  #endif
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-> index db7b2b3f9966..b88b8b82bb64 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-> @@ -543,12 +543,6 @@ void amdgpu_gfx_off_ctrl(struct amdgpu_device *adev, bool enable)
->         if (!(adev->pm.pp_feature & PP_GFXOFF_MASK))
->                 return;
->
-> -       if (!is_support_sw_smu(adev) &&
-> -           (!adev->powerplay.pp_funcs ||
-> -            !adev->powerplay.pp_funcs->set_powergating_by_smu))
-> -               return;
-> -
-> -
->         mutex_lock(&adev->gfx.gfx_off_mutex);
->
->         if (!enable)
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
-> index 5cf920d9358b..c626f3e59ff9 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
-> @@ -291,13 +291,7 @@ int amdgpu_xgmi_set_pstate(struct amdgpu_device *adev, int pstate)
->
->         dev_dbg(adev->dev, "Set xgmi pstate %d.\n", pstate);
->
-> -       if (is_support_sw_smu_xgmi(adev))
-> -               ret = smu_set_xgmi_pstate(&adev->smu, pstate);
-> -       else if (adev->powerplay.pp_funcs &&
-> -                adev->powerplay.pp_funcs->set_xgmi_pstate)
-> -               ret = adev->powerplay.pp_funcs->set_xgmi_pstate(adev->powerplay.pp_handle,
-> -                                                               pstate);
-> -
-> +       ret = amdgpu_dpm_set_xgmi_pstate(adev, pstate);
->         if (ret) {
->                 dev_err(adev->dev,
->                         "XGMI: Set pstate failure on device %llx, hive %llx, ret %d",
-> diff --git a/drivers/gpu/drm/amd/amdgpu/cik.c b/drivers/gpu/drm/amd/amdgpu/cik.c
-> index 1dfe4a1337cf..fa7756e77777 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/cik.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/cik.c
-> @@ -1312,19 +1312,13 @@ static int cik_asic_pci_config_reset(struct amdgpu_device *adev)
->
->  static bool cik_asic_supports_baco(struct amdgpu_device *adev)
->  {
-> -       bool baco_support;
-> -
->         switch (adev->asic_type) {
->         case CHIP_BONAIRE:
->         case CHIP_HAWAII:
-> -               smu7_asic_get_baco_capability(adev, &baco_support);
-> -               break;
-> +               return amdgpu_dpm_is_baco_supported(adev);
->         default:
-> -               baco_support = false;
-> -               break;
-> +               return false;
->         }
-> -
-> -       return baco_support;
->  }
->
->  static enum amd_reset_method
-> @@ -1366,7 +1360,7 @@ static int cik_asic_reset(struct amdgpu_device *adev)
->         if (cik_asic_reset_method(adev) == AMD_RESET_METHOD_BACO) {
->                 if (!adev->in_suspend)
->                         amdgpu_inc_vram_lost(adev);
-> -               r = smu7_asic_baco_reset(adev);
-> +               r = amdgpu_dpm_baco_reset(adev);
->         } else {
->                 r = cik_asic_pci_config_reset(adev);
->         }
-> diff --git a/drivers/gpu/drm/amd/amdgpu/cik.h b/drivers/gpu/drm/amd/amdgpu/cik.h
-> index 9870bf27870e..f91ab4c246b7 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/cik.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/cik.h
-> @@ -31,7 +31,5 @@ void cik_srbm_select(struct amdgpu_device *adev,
->  int cik_set_ip_blocks(struct amdgpu_device *adev);
->
->  void legacy_doorbell_index_init(struct amdgpu_device *adev);
-> -int smu7_asic_get_baco_capability(struct amdgpu_device *adev, bool *cap);
-> -int smu7_asic_baco_reset(struct amdgpu_device *adev);
->
->  #endif
-> diff --git a/drivers/gpu/drm/amd/amdgpu/nv.c b/drivers/gpu/drm/amd/amdgpu/nv.c
-> index b0229543e887..42ede3aa6dbd 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/nv.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/nv.c
-> @@ -478,7 +478,7 @@ int nv_set_ip_blocks(struct amdgpu_device *adev)
->                 amdgpu_device_ip_block_add(adev, &navi10_ih_ip_block);
->                 amdgpu_device_ip_block_add(adev, &psp_v11_0_ip_block);
->                 if (adev->firmware.load_type == AMDGPU_FW_LOAD_PSP &&
-> -                   is_support_sw_smu(adev) && !amdgpu_sriov_vf(adev))
-> +                   !amdgpu_sriov_vf(adev))
->                         amdgpu_device_ip_block_add(adev, &smu_v11_0_ip_block);
->                 if (adev->enable_virtual_display || amdgpu_sriov_vf(adev))
->                         amdgpu_device_ip_block_add(adev, &dce_virtual_ip_block);
-> @@ -489,7 +489,7 @@ int nv_set_ip_blocks(struct amdgpu_device *adev)
->                 amdgpu_device_ip_block_add(adev, &gfx_v10_0_ip_block);
->                 amdgpu_device_ip_block_add(adev, &sdma_v5_0_ip_block);
->                 if (adev->firmware.load_type == AMDGPU_FW_LOAD_DIRECT &&
-> -                   is_support_sw_smu(adev) && !amdgpu_sriov_vf(adev))
-> +                   !amdgpu_sriov_vf(adev))
->                         amdgpu_device_ip_block_add(adev, &smu_v11_0_ip_block);
->                 amdgpu_device_ip_block_add(adev, &vcn_v2_0_ip_block);
->                 amdgpu_device_ip_block_add(adev, &jpeg_v2_0_ip_block);
-> @@ -502,7 +502,7 @@ int nv_set_ip_blocks(struct amdgpu_device *adev)
->                 amdgpu_device_ip_block_add(adev, &navi10_ih_ip_block);
->                 amdgpu_device_ip_block_add(adev, &psp_v11_0_ip_block);
->                 if (adev->firmware.load_type == AMDGPU_FW_LOAD_PSP &&
-> -                   is_support_sw_smu(adev) && !amdgpu_sriov_vf(adev))
-> +                   !amdgpu_sriov_vf(adev))
->                         amdgpu_device_ip_block_add(adev, &smu_v11_0_ip_block);
->                 if (adev->enable_virtual_display || amdgpu_sriov_vf(adev))
->                         amdgpu_device_ip_block_add(adev, &dce_virtual_ip_block);
-> @@ -513,7 +513,7 @@ int nv_set_ip_blocks(struct amdgpu_device *adev)
->                 amdgpu_device_ip_block_add(adev, &gfx_v10_0_ip_block);
->                 amdgpu_device_ip_block_add(adev, &sdma_v5_0_ip_block);
->                 if (adev->firmware.load_type == AMDGPU_FW_LOAD_DIRECT &&
-> -                   is_support_sw_smu(adev) && !amdgpu_sriov_vf(adev))
-> +                   !amdgpu_sriov_vf(adev))
->                         amdgpu_device_ip_block_add(adev, &smu_v11_0_ip_block);
->                 amdgpu_device_ip_block_add(adev, &vcn_v2_0_ip_block);
->                 amdgpu_device_ip_block_add(adev, &jpeg_v2_0_ip_block);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c b/drivers/gpu/drm/amd/amdgpu/soc15.c
-> index 714cf4dfd0a7..25cfc636c732 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/soc15.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/soc15.c
-> @@ -479,62 +479,18 @@ static int soc15_asic_mode1_reset(struct amdgpu_device *adev)
->         return ret;
->  }
->
-> -static int soc15_asic_get_baco_capability(struct amdgpu_device *adev, bool *cap)
-> -{
-> -       if (is_support_sw_smu(adev)) {
-> -               struct smu_context *smu = &adev->smu;
-> -
-> -               *cap = smu_baco_is_support(smu);
-> -               return 0;
-> -       } else {
-> -               void *pp_handle = adev->powerplay.pp_handle;
-> -               const struct amd_pm_funcs *pp_funcs = adev->powerplay.pp_funcs;
-> -
-> -               if (!pp_funcs || !pp_funcs->get_asic_baco_capability) {
-> -                       *cap = false;
-> -                       return -ENOENT;
-> -               }
-> -
-> -               return pp_funcs->get_asic_baco_capability(pp_handle, cap);
-> -       }
-> -}
-> -
->  static int soc15_asic_baco_reset(struct amdgpu_device *adev)
->  {
->         struct amdgpu_ras *ras = amdgpu_ras_get_context(adev);
-> +       int ret = 0;
->
->         /* avoid NBIF got stuck when do RAS recovery in BACO reset */
->         if (ras && ras->supported)
->                 adev->nbio.funcs->enable_doorbell_interrupt(adev, false);
->
-> -       dev_info(adev->dev, "GPU BACO reset\n");
-> -
-> -       if (is_support_sw_smu(adev)) {
-> -               struct smu_context *smu = &adev->smu;
-> -               int ret;
-> -
-> -               ret = smu_baco_enter(smu);
-> -               if (ret)
-> -                       return ret;
-> -
-> -               ret = smu_baco_exit(smu);
-> -               if (ret)
-> -                       return ret;
-> -       } else {
-> -               void *pp_handle = adev->powerplay.pp_handle;
-> -               const struct amd_pm_funcs *pp_funcs = adev->powerplay.pp_funcs;
-> -
-> -               if (!pp_funcs ||!pp_funcs->get_asic_baco_state ||!pp_funcs->set_asic_baco_state)
-> -                       return -ENOENT;
-> -
-> -               /* enter BACO state */
-> -               if (pp_funcs->set_asic_baco_state(pp_handle, 1))
-> -                       return -EIO;
-> -
-> -               /* exit BACO state */
-> -               if (pp_funcs->set_asic_baco_state(pp_handle, 0))
-> -                       return -EIO;
-> -       }
-> +       ret = amdgpu_dpm_baco_reset(adev);
-> +       if (ret)
-> +               return ret;
->
->         /* re-enable doorbell interrupt after BACO exit */
->         if (ras && ras->supported)
-> @@ -543,17 +499,6 @@ static int soc15_asic_baco_reset(struct amdgpu_device *adev)
->         return 0;
->  }
->
-> -static int soc15_mode2_reset(struct amdgpu_device *adev)
-> -{
-> -       if (is_support_sw_smu(adev))
-> -               return smu_mode2_reset(&adev->smu);
-> -       if (!adev->powerplay.pp_funcs ||
-> -           !adev->powerplay.pp_funcs->asic_reset_mode_2)
-> -               return -ENOENT;
-> -
-> -       return adev->powerplay.pp_funcs->asic_reset_mode_2(adev->powerplay.pp_handle);
-> -}
-> -
->  static enum amd_reset_method
->  soc15_asic_reset_method(struct amdgpu_device *adev)
->  {
-> @@ -567,11 +512,11 @@ soc15_asic_reset_method(struct amdgpu_device *adev)
->         case CHIP_VEGA10:
->         case CHIP_VEGA12:
->         case CHIP_ARCTURUS:
-> -               soc15_asic_get_baco_capability(adev, &baco_reset);
-> +               baco_reset = amdgpu_dpm_is_baco_supported(adev);
->                 break;
->         case CHIP_VEGA20:
->                 if (adev->psp.sos_fw_version >= 0x80067)
-> -                       soc15_asic_get_baco_capability(adev, &baco_reset);
-> +                       baco_reset = amdgpu_dpm_is_baco_supported(adev);
->
->                 /*
->                  * 1. PMFW version > 0x284300: all cases use baco
-> @@ -598,7 +543,7 @@ static int soc15_asic_reset(struct amdgpu_device *adev)
->                                 amdgpu_inc_vram_lost(adev);
->                         return soc15_asic_baco_reset(adev);
->                 case AMD_RESET_METHOD_MODE2:
-> -                       return soc15_mode2_reset(adev);
-> +                       return amdgpu_dpm_mode2_reset(adev);
->                 default:
->                         if (!adev->in_suspend)
->                                 amdgpu_inc_vram_lost(adev);
-> @@ -608,25 +553,18 @@ static int soc15_asic_reset(struct amdgpu_device *adev)
->
->  static bool soc15_supports_baco(struct amdgpu_device *adev)
->  {
-> -       bool baco_support;
-> -
->         switch (adev->asic_type) {
->         case CHIP_VEGA10:
->         case CHIP_VEGA12:
->         case CHIP_ARCTURUS:
-> -               soc15_asic_get_baco_capability(adev, &baco_support);
-> -               break;
-> +               return amdgpu_dpm_is_baco_supported(adev);
->         case CHIP_VEGA20:
->                 if (adev->psp.sos_fw_version >= 0x80067)
-> -                       soc15_asic_get_baco_capability(adev, &baco_support);
-> -               else
-> -                       baco_support = false;
-> -               break;
-> +                       return amdgpu_dpm_is_baco_supported(adev);
-> +               return false;
->         default:
->                 return false;
->         }
-> -
-> -       return baco_support;
->  }
->
->  /*static int soc15_set_uvd_clock(struct amdgpu_device *adev, u32 clock,
-> @@ -846,8 +784,7 @@ int soc15_set_ip_blocks(struct amdgpu_device *adev)
->                 amdgpu_device_ip_block_add(adev, &vega10_ih_ip_block);
->                 if (likely(adev->firmware.load_type == AMDGPU_FW_LOAD_PSP))
->                         amdgpu_device_ip_block_add(adev, &psp_v12_0_ip_block);
-> -               if (is_support_sw_smu(adev))
-> -                       amdgpu_device_ip_block_add(adev, &smu_v12_0_ip_block);
-> +               amdgpu_device_ip_block_add(adev, &smu_v12_0_ip_block);
->                 amdgpu_device_ip_block_add(adev, &gfx_v9_0_ip_block);
->                 amdgpu_device_ip_block_add(adev, &sdma_v4_0_ip_block);
->                 if (adev->enable_virtual_display || amdgpu_sriov_vf(adev))
-> diff --git a/drivers/gpu/drm/amd/amdgpu/vi.c b/drivers/gpu/drm/amd/amdgpu/vi.c
-> index e4f4201b3c34..78b35901643b 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/vi.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/vi.c
-> @@ -689,40 +689,6 @@ static int vi_gpu_pci_config_reset(struct amdgpu_device *adev)
->         return -EINVAL;
->  }
->
-> -int smu7_asic_get_baco_capability(struct amdgpu_device *adev, bool *cap)
-> -{
-> -       void *pp_handle = adev->powerplay.pp_handle;
-> -       const struct amd_pm_funcs *pp_funcs = adev->powerplay.pp_funcs;
-> -
-> -       if (!pp_funcs || !pp_funcs->get_asic_baco_capability) {
-> -               *cap = false;
-> -               return -ENOENT;
-> -       }
-> -
-> -       return pp_funcs->get_asic_baco_capability(pp_handle, cap);
-> -}
-> -
-> -int smu7_asic_baco_reset(struct amdgpu_device *adev)
-> -{
-> -       void *pp_handle = adev->powerplay.pp_handle;
-> -       const struct amd_pm_funcs *pp_funcs = adev->powerplay.pp_funcs;
-> -
-> -       if (!pp_funcs ||!pp_funcs->get_asic_baco_state ||!pp_funcs->set_asic_baco_state)
-> -               return -ENOENT;
-> -
-> -       /* enter BACO state */
-> -       if (pp_funcs->set_asic_baco_state(pp_handle, 1))
-> -               return -EIO;
-> -
-> -       /* exit BACO state */
-> -       if (pp_funcs->set_asic_baco_state(pp_handle, 0))
-> -               return -EIO;
-> -
-> -       dev_info(adev->dev, "GPU BACO reset\n");
-> -
-> -       return 0;
-> -}
-> -
->  /**
->   * vi_asic_pci_config_reset - soft reset GPU
->   *
-> @@ -747,8 +713,6 @@ static int vi_asic_pci_config_reset(struct amdgpu_device *adev)
->
->  static bool vi_asic_supports_baco(struct amdgpu_device *adev)
->  {
-> -       bool baco_support;
-> -
->         switch (adev->asic_type) {
->         case CHIP_FIJI:
->         case CHIP_TONGA:
-> @@ -756,14 +720,10 @@ static bool vi_asic_supports_baco(struct amdgpu_device *adev)
->         case CHIP_POLARIS11:
->         case CHIP_POLARIS12:
->         case CHIP_TOPAZ:
-> -               smu7_asic_get_baco_capability(adev, &baco_support);
-> -               break;
-> +               return amdgpu_dpm_is_baco_supported(adev);
->         default:
-> -               baco_support = false;
-> -               break;
-> +               return false;
->         }
-> -
-> -       return baco_support;
->  }
->
->  static enum amd_reset_method
-> @@ -778,7 +738,7 @@ vi_asic_reset_method(struct amdgpu_device *adev)
->         case CHIP_POLARIS11:
->         case CHIP_POLARIS12:
->         case CHIP_TOPAZ:
-> -               smu7_asic_get_baco_capability(adev, &baco_reset);
-> +               baco_reset = amdgpu_dpm_is_baco_supported(adev);
->                 break;
->         default:
->                 baco_reset = false;
-> @@ -807,7 +767,7 @@ static int vi_asic_reset(struct amdgpu_device *adev)
->         if (vi_asic_reset_method(adev) == AMD_RESET_METHOD_BACO) {
->                 if (!adev->in_suspend)
->                         amdgpu_inc_vram_lost(adev);
-> -               r = smu7_asic_baco_reset(adev);
-> +               r = amdgpu_dpm_baco_reset(adev);
->         } else {
->                 r = vi_asic_pci_config_reset(adev);
->         }
-> diff --git a/drivers/gpu/drm/amd/amdgpu/vi.h b/drivers/gpu/drm/amd/amdgpu/vi.h
-> index 40d4174913a4..defb4aaf929a 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/vi.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/vi.h
-> @@ -31,7 +31,5 @@ void vi_srbm_select(struct amdgpu_device *adev,
->  int vi_set_ip_blocks(struct amdgpu_device *adev);
->
->  void legacy_doorbell_index_init(struct amdgpu_device *adev);
-> -int smu7_asic_get_baco_capability(struct amdgpu_device *adev, bool *cap);
-> -int smu7_asic_baco_reset(struct amdgpu_device *adev);
->
->  #endif
+> 
+> I don't have a renoir board handy.  Can someone test this?
+> 
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_display.c       | 1 +
+>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 1 +
+>  2 files changed, 2 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
+> index 6d520a3eec40..318605ca9bc3 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
+> @@ -519,6 +519,7 @@ uint32_t amdgpu_display_supported_domains(struct
+> amdgpu_device *adev,
+>  		switch (adev->asic_type) {
+>  		case CHIP_CARRIZO:
+>  		case CHIP_STONEY:
+> +		case CHIP_RENOIR:
+>  			domain |= AMDGPU_GEM_DOMAIN_GTT;
+>  			break;
+>  		case CHIP_RAVEN:
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index 05118c8860f9..3be7ab0ce9e3 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -909,6 +909,7 @@ static int amdgpu_dm_init(struct amdgpu_device
+> *adev)
+>  	switch (adev->asic_type) {
+>  	case CHIP_CARRIZO:
+>  	case CHIP_STONEY:
+> +	case CHIP_RENOIR:
+>  		init_data.flags.gpu_vm_support = true;
+>  		break;
+>  	case CHIP_RAVEN:
 > --
 > 2.24.1
->
+> 
 > _______________________________________________
 > amd-gfx mailing list
 > amd-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+> https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flists.f
+> reedesktop.org%2Fmailman%2Flistinfo%2Famd-
+> gfx&amp;data=02%7C01%7Caaron.liu%40amd.com%7Cd9cdd08e60a942e97c
+> 6a08d793b67ea1%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C6
+> 37140284454500549&amp;sdata=TGuS5qqX8siW1sxWUZtQggnk4P2RPjxUiLk
+> dvS1Fcog%3D&amp;reserved=0
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
