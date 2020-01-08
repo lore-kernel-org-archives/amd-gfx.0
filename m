@@ -2,69 +2,71 @@ Return-Path: <SRS0=oKuu=25=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+X-Spam-Status: No, score=-0.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
 	autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 99FEAC282DD
-	for <amd-gfx@archiver.kernel.org>; Wed,  8 Jan 2020 17:51:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0676CC282DD
+	for <amd-gfx@archiver.kernel.org>; Wed,  8 Jan 2020 17:52:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6FC412067D
-	for <amd-gfx@archiver.kernel.org>; Wed,  8 Jan 2020 17:51:47 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id D34272067D
+	for <amd-gfx@archiver.kernel.org>; Wed,  8 Jan 2020 17:52:04 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UJhDdgds"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6FC412067D
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="GTNCpgnT"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D34272067D
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=chromium.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 19ECF6E1F9;
-	Wed,  8 Jan 2020 17:51:47 +0000 (UTC)
-Received: from mail-wm1-x344.google.com (mail-wm1-x344.google.com
- [IPv6:2a00:1450:4864:20::344])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3EC416E1F9;
- Wed,  8 Jan 2020 17:51:46 +0000 (UTC)
-Received: by mail-wm1-x344.google.com with SMTP id b19so3444437wmj.4;
- Wed, 08 Jan 2020 09:51:46 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=aSdZ3aFnA3oyaNn1PxZQVkM/xC6wM/NzLRYNPjDKtGk=;
- b=UJhDdgdsjUO4ywVeJCCVBEmXe8zl1IVqpO8NefBS2jzudGUW4Ae1UiSDzymlFkIjwi
- npZKTirPA9lIsiJKG3hqeOv+ke6PPLyf+Io8IIMEuw69PfOiPlK9UnqHHwGos51O83Xj
- ZEkv0zTlRoT+k3SZtoh6xRRyyA/Jn9S2LetiBTUNeYN6CduaKdEs6zOC81C0sLdtneJL
- 7uD2jnziR0kXpdYo6IkvIIJJkELJjM+VSh4aiKMzcukzjGS7adDJtTEflxGBdTdAl548
- asURoyc2sTGOOzwgqlv7EuE0tu9xuIs7jS3XmN/ysLbLU+Spq1yWM+/wxYjuSSv0BPWq
- kuRQ==
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6D3AB6E223;
+	Wed,  8 Jan 2020 17:52:04 +0000 (UTC)
+Received: from mail-pf1-x444.google.com (mail-pf1-x444.google.com
+ [IPv6:2607:f8b0:4864:20::444])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 070166E131
+ for <amd-gfx@lists.freedesktop.org>; Wed,  8 Jan 2020 17:39:30 +0000 (UTC)
+Received: by mail-pf1-x444.google.com with SMTP id q8so1973386pfh.7
+ for <amd-gfx@lists.freedesktop.org>; Wed, 08 Jan 2020 09:39:30 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:content-transfer-encoding:in-reply-to;
+ bh=bKjvwLoHlC29TnvYqxLfJzXQCusKrCOIAaFwwH7cSJ0=;
+ b=GTNCpgnTvYnInEtO3QFpRZVybeL6CBYzJJx27ePUFw0/SafUvNxEYcOYQfvASQ6xqX
+ 6j+5vDN0aFTy3n2vQk6NkoWpkjjM2jUwkxQaSbL/wj3TBgA2VXvX2hZcLRoUwLWwSopL
+ JoZOKKbVLSYcz5PbBGPmd9fCF6ZxmqIR6YilM=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=aSdZ3aFnA3oyaNn1PxZQVkM/xC6wM/NzLRYNPjDKtGk=;
- b=jmXS/j11cwXWCCu2yYJB1FkpVcRQ+0BlTZRHBI5nP1SmmmtDn2BmnDEqEsz201qCa3
- DWXqZzGli5FsN+7t0qB1hWIGlsbfZ6VXKJmVoAf+WyQ63gDHJsep24Ey6rEQXVSL7XvC
- CrKRjBpHXDqGNjh0VvbnM+D3bnPpKnhxKHCdH7JuNCUTb666m+bURX+OAAfii+fzTxOR
- s4Vt8psSw7DEArWm2fk29EB/3kBMaMaEeSW9kVfDSGo5m+jMxNHu/9dOOaYKzFUENP4O
- bt68pkrqMNQ1gOUN9HYTkX1mJLllnWoxKzWScvV/X9BCKv5HgmXGF5t36zCT1zzLInPI
- LFsw==
-X-Gm-Message-State: APjAAAWg1AGpXzYpYhqgL2dPNIRXzt+A6o9vdppZjWXJlazerYnznIQf
- CNEO7r9KnLHVWWyqDMt3p5zi2xQwpLpoDEOXDSM=
-X-Google-Smtp-Source: APXvYqxq2sDXTbxb3S/PFtXkOw3vuLm8LBRlfNKToeO7JJ0ai3l9PSPUe8NacQTzdquRiCfMd9pHXIWsiukQguGIiQ4=
-X-Received: by 2002:a1c:f30e:: with SMTP id q14mr5231788wmq.65.1578505904939; 
- Wed, 08 Jan 2020 09:51:44 -0800 (PST)
-MIME-Version: 1.0
-References: <20200107192555.20606-1-tli@digitalocean.com>
- <b5984995-7276-97d3-a604-ddacfb89bd89@amd.com>
- <202001080936.A36005F1@keescook>
-In-Reply-To: <202001080936.A36005F1@keescook>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 8 Jan 2020 12:51:33 -0500
-Message-ID: <CADnq5_NLS=CuHD39utCTnTVsY_izuTPXFfsew6TpMjovgFoT5g@mail.gmail.com>
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:content-transfer-encoding
+ :in-reply-to;
+ bh=bKjvwLoHlC29TnvYqxLfJzXQCusKrCOIAaFwwH7cSJ0=;
+ b=fa0IMVt25TGuoCqDgvIOnsxsXs+LQj8EA5sc6kCj4oj5JIzPhrpK7bGvO8neIUweot
+ A1bwsNLW+MmaHYbGu6Qze7SMlS4r8xFNDY5It8CUZ4SioQ6QfrOYTAIinNCwM/NbpcTG
+ WH1CbnAoQbuveg1W+cFChOzMRG8+i1G4iYdjXbMmN7ox87+V65BT5ABYZ8kexsEiBIdh
+ T9/gxBwzqTtDghGbUF06lTvPJoLLevXCT9VgRgbkRiXMIdWFDWW74keFVGrzkh6PEWS0
+ OUbgVCM7ixISpCap9GKA8bCUNYLY9b/LdwCh0SMRhxNn0SyCFpFzrYSJEHZCrUSTYYpF
+ JIdQ==
+X-Gm-Message-State: APjAAAVUsLuwVTNyI0GnEh06bQAYpt8GHst9FPqT+rF2yJnxQkUFotij
+ dh4wRJ44TRthrHAUkj5/JKBYXA==
+X-Google-Smtp-Source: APXvYqxdgwKREsz1YZeH4VDxSzla/QubcfkdDOAeGwicuj/jBB+4Si/iUY0qR/AhKo7jBTllsOCHfg==
+X-Received: by 2002:a65:63ce:: with SMTP id n14mr6602246pgv.282.1578505169677; 
+ Wed, 08 Jan 2020 09:39:29 -0800 (PST)
+Received: from www.outflux.net (smtp.outflux.net. [198.145.64.163])
+ by smtp.gmail.com with ESMTPSA id l8sm3901278pjy.24.2020.01.08.09.39.28
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 08 Jan 2020 09:39:28 -0800 (PST)
+Date: Wed, 8 Jan 2020 09:39:27 -0800
+From: Kees Cook <keescook@chromium.org>
+To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
 Subject: Re: [PATCH 0/2] drm/radeon: have the callers of set_memory_*() check
  the return value
-To: Kees Cook <keescook@chromium.org>
+Message-ID: <202001080936.A36005F1@keescook>
+References: <20200107192555.20606-1-tli@digitalocean.com>
+ <b5984995-7276-97d3-a604-ddacfb89bd89@amd.com>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <b5984995-7276-97d3-a604-ddacfb89bd89@amd.com>
+X-Mailman-Approved-At: Wed, 08 Jan 2020 17:52:02 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,62 +78,66 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: kernel-hardening@lists.openwall.com, David Airlie <airlied@linux.ie>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- LKML <linux-kernel@vger.kernel.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Tianlin Li <tli@digitalocean.com>,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: David1.Zhou@amd.com, kernel-hardening@lists.openwall.com,
+ David Airlie <airlied@linux.ie>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, Tianlin Li <tli@digitalocean.com>,
+ dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
+ Alex Deucher <alexander.deucher@amd.com>
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-T24gV2VkLCBKYW4gOCwgMjAyMCBhdCAxMjozOSBQTSBLZWVzIENvb2sgPGtlZXNjb29rQGNocm9t
-aXVtLm9yZz4gd3JvdGU6Cj4KPiBPbiBXZWQsIEphbiAwOCwgMjAyMCBhdCAwMTo1Njo0N1BNICsw
-MTAwLCBDaHJpc3RpYW4gS8O2bmlnIHdyb3RlOgo+ID4gQW0gMDcuMDEuMjAgdW0gMjA6MjUgc2No
-cmllYiBUaWFubGluIExpOgo+ID4gPiBSaWdodCBub3cgc2V2ZXJhbCBhcmNoaXRlY3R1cmVzIGFs
-bG93IHRoZWlyIHNldF9tZW1vcnlfKigpIGZhbWlseSBvZgo+ID4gPiBmdW5jdGlvbnMgdG8gZmFp
-bCwgYnV0IGNhbGxlcnMgbWF5IG5vdCBiZSBjaGVja2luZyB0aGUgcmV0dXJuIHZhbHVlcy4KPiA+
-ID4gSWYgc2V0X21lbW9yeV8qKCkgcmV0dXJucyB3aXRoIGFuIGVycm9yLCBjYWxsLXNpdGUgYXNz
-dW1wdGlvbnMgbWF5IGJlCj4gPiA+IGluZmFjdCB3cm9uZyB0byBhc3N1bWUgdGhhdCBpdCB3b3Vs
-ZCBlaXRoZXIgc3VjY2VlZCBvciBub3Qgc3VjY2VlZCBhdAo+ID4gPiBhbGwuIElkZWFsbHksIHRo
-ZSBmYWlsdXJlIG9mIHNldF9tZW1vcnlfKigpIHNob3VsZCBiZSBwYXNzZWQgdXAgdGhlCj4gPiA+
-IGNhbGwgc3RhY2ssIGFuZCBjYWxsZXJzIHNob3VsZCBleGFtaW5lIHRoZSBmYWlsdXJlIGFuZCBk
-ZWFsIHdpdGggaXQuCj4gPiA+Cj4gPiA+IE5lZWQgdG8gZml4IHRoZSBjYWxsZXJzIGFuZCBhZGQg
-dGhlIF9fbXVzdF9jaGVjayBhdHRyaWJ1dGUuIFRoZXkgYWxzbwo+ID4gPiBtYXkgbm90IHByb3Zp
-ZGUgYW55IGxldmVsIG9mIGF0b21pY2l0eSwgaW4gdGhlIHNlbnNlIHRoYXQgdGhlIG1lbW9yeQo+
-ID4gPiBwcm90ZWN0aW9ucyBtYXkgYmUgbGVmdCBpbmNvbXBsZXRlIG9uIGZhaWx1cmUuIFRoaXMg
-aXNzdWUgbGlrZWx5IGhhcyBhCj4gPiA+IGZldyBzdGVwcyBvbiBlZmZlY3RzIGFyY2hpdGVjdHVy
-ZXM6Cj4gPiA+IDEpSGF2ZSBhbGwgY2FsbGVycyBvZiBzZXRfbWVtb3J5XyooKSBoZWxwZXJzIGNo
-ZWNrIHRoZSByZXR1cm4gdmFsdWUuCj4gPiA+IDIpQWRkIF9fbXVzdF9jaGVjayB0byBhbGwgc2V0
-X21lbW9yeV8qKCkgaGVscGVycyBzbyB0aGF0IG5ldyB1c2VzIGRvCj4gPiA+IG5vdCBpZ25vcmUg
-dGhlIHJldHVybiB2YWx1ZS4KPiA+ID4gMylBZGQgYXRvbWljaXR5IHRvIHRoZSBjYWxscyBzbyB0
-aGF0IHRoZSBtZW1vcnkgcHJvdGVjdGlvbnMgYXJlbid0IGxlZnQKPiA+ID4gaW4gYSBwYXJ0aWFs
-IHN0YXRlLgo+ID4gPgo+ID4gPiBUaGlzIHNlcmllcyBpcyBwYXJ0IG9mIHN0ZXAgMS4gTWFrZSBk
-cm0vcmFkZW9uIGNoZWNrIHRoZSByZXR1cm4gdmFsdWUgb2YKPiA+ID4gc2V0X21lbW9yeV8qKCku
-Cj4gPgo+ID4gSSdtIGEgbGl0dGxlIGhlc2l0YXRlIG1lcmdlIHRoYXQuIFRoaXMgaGFyZHdhcmUg
-aXMgPjE1IHllYXJzIG9sZCBhbmQgbm9ib2R5Cj4gPiBvZiB0aGUgZGV2ZWxvcGVycyBoYXZlIGFu
-eSBzeXN0ZW0gbGVmdCB0byB0ZXN0IHRoaXMgY2hhbmdlIG9uLgo+Cj4gSWYgdGhhdCdzIHRydWUg
-aXQgc2hvdWxkIGJlIHJlbW92ZWQgZnJvbSB0aGUgdHJlZS4gV2UgbmVlZCB0byBiZSBhYmxlIHRv
-Cj4gY29ycmVjdGx5IG1ha2UgdGhlc2Uga2luZHMgb2YgY2hhbmdlcyBpbiB0aGUga2VybmVsLgoK
-VGhpcyBkcml2ZXIgc3VwcG9ydHMgYWJvdXQgMTUgeWVhcnMgb2YgaGFyZHdhcmUgZ2VuZXJhdGlv
-bnMuICBOZXdlcgpjYXJkcyBhcmUgc3RpbGwgcHJldmFsZW50LCBidXQgdGhlIG9sZGVyIHN0dWZm
-IGlzIGxlc3Mgc28uICBJdCBzdGlsbAp3b3JrcyBhbmQgcGVvcGxlIHVzZSBpdCBiYXNlZCBvbiBm
-ZWVkYmFjayBJJ3ZlIHNlZW4sIGJ1dCB0aGUgb2xkZXIKc3R1ZmYgaGFzIG5vIGFjdGl2ZSBkZXZl
-bG9wbWVudCBhdCB0aGlzIHBvaW50LiAgVGhpcyBjaGFuZ2UganVzdApoYXBwZW5zIHRvIHRhcmdl
-dCB0aG9zZSBvbGRlciBjaGlwcy4KCkFsZXgKCj4KPiA+IFdvdWxkIGl0IGJlIHRvIG11Y2ggb2Yg
-YSBwcm9ibGVtIHRvIGp1c3QgYWRkIHNvbWV0aGluZyBsaWtlOiByID0KPiA+IHNldF9tZW1vcnlf
-KigpOyAodm9pZClyOyAvKiBJbnRlbnRpb25hbGx5IGlnbm9yZWQgKi8uCj4KPiBUaGlzIHNlZW1z
-IGxpa2UgYSBiYWQgaWRlYSAtLSB3ZSBzaG91bGRuJ3QgYmUgcGFwZXJpbmcgb3ZlciBmYWlsdXJl
-cwo+IGxpa2UgdGhpcyB3aGVuIHRoZXJlIGlzIGxvZ2ljIGF2YWlsYWJsZSB0byBkZWFsIHdpdGgg
-aXQuCj4KPiA+IEFwYXJ0IGZyb20gdGhhdCBjZXJ0YWlubHkgYSBnb29kIGlkZWEgdG8gYWRkIF9f
-bXVzdF9jaGVjayB0byB0aGUgZnVuY3Rpb25zLgo+Cj4gQWdyZWVkIQo+Cj4gLUtlZXMKPgo+IC0t
-Cj4gS2VlcyBDb29rCj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX18KPiBkcmktZGV2ZWwgbWFpbGluZyBsaXN0Cj4gZHJpLWRldmVsQGxpc3RzLmZyZWVkZXNr
-dG9wLm9yZwo+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8v
-ZHJpLWRldmVsCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-CmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBz
-Oi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+On Wed, Jan 08, 2020 at 01:56:47PM +0100, Christian K=F6nig wrote:
+> Am 07.01.20 um 20:25 schrieb Tianlin Li:
+> > Right now several architectures allow their set_memory_*() family of
+> > functions to fail, but callers may not be checking the return values.
+> > If set_memory_*() returns with an error, call-site assumptions may be
+> > infact wrong to assume that it would either succeed or not succeed at
+> > all. Ideally, the failure of set_memory_*() should be passed up the
+> > call stack, and callers should examine the failure and deal with it.
+> > =
+
+> > Need to fix the callers and add the __must_check attribute. They also
+> > may not provide any level of atomicity, in the sense that the memory
+> > protections may be left incomplete on failure. This issue likely has a
+> > few steps on effects architectures:
+> > 1)Have all callers of set_memory_*() helpers check the return value.
+> > 2)Add __must_check to all set_memory_*() helpers so that new uses do
+> > not ignore the return value.
+> > 3)Add atomicity to the calls so that the memory protections aren't left
+> > in a partial state.
+> > =
+
+> > This series is part of step 1. Make drm/radeon check the return value of
+> > set_memory_*().
+> =
+
+> I'm a little hesitate merge that. This hardware is >15 years old and nobo=
+dy
+> of the developers have any system left to test this change on.
+
+If that's true it should be removed from the tree. We need to be able to
+correctly make these kinds of changes in the kernel.
+
+> Would it be to much of a problem to just add something like: r =3D
+> set_memory_*(); (void)r; /* Intentionally ignored */.
+
+This seems like a bad idea -- we shouldn't be papering over failures
+like this when there is logic available to deal with it.
+
+> Apart from that certainly a good idea to add __must_check to the function=
+s.
+
+Agreed!
+
+-Kees
+
+-- =
+
+Kees Cook
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
