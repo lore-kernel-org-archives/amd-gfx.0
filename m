@@ -2,67 +2,67 @@ Return-Path: <SRS0=R6+d=26=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.2 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
+X-Spam-Status: No, score=-6.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
 	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MIME_HTML_MOSTLY,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS autolearn=ham
-	autolearn_force=no version=3.4.0
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7462CC282DD
-	for <amd-gfx@archiver.kernel.org>; Thu,  9 Jan 2020 15:59:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 13D3AC282DD
+	for <amd-gfx@archiver.kernel.org>; Thu,  9 Jan 2020 16:12:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 46A0A206ED
-	for <amd-gfx@archiver.kernel.org>; Thu,  9 Jan 2020 15:59:45 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id D709020661
+	for <amd-gfx@archiver.kernel.org>; Thu,  9 Jan 2020 16:12:53 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EWrsC84Z"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 46A0A206ED
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FfrAhpuO"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D709020661
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DB2D16E447;
-	Thu,  9 Jan 2020 15:59:44 +0000 (UTC)
-Received: from mail-lj1-x243.google.com (mail-lj1-x243.google.com
- [IPv6:2a00:1450:4864:20::243])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D512A6E447
- for <amd-gfx@lists.freedesktop.org>; Thu,  9 Jan 2020 15:59:43 +0000 (UTC)
-Received: by mail-lj1-x243.google.com with SMTP id w1so7809467ljh.5
- for <amd-gfx@lists.freedesktop.org>; Thu, 09 Jan 2020 07:59:43 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 956096E44F;
+	Thu,  9 Jan 2020 16:12:53 +0000 (UTC)
+Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com
+ [IPv6:2a00:1450:4864:20::343])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 371E66E44F
+ for <amd-gfx@lists.freedesktop.org>; Thu,  9 Jan 2020 16:12:52 +0000 (UTC)
+Received: by mail-wm1-x343.google.com with SMTP id t14so3458014wmi.5
+ for <amd-gfx@lists.freedesktop.org>; Thu, 09 Jan 2020 08:12:52 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to;
- bh=VTPpDDX3+jJ6q/kF3+aF5z4GFr5fWvLZ3jOBgqa7KjE=;
- b=EWrsC84Zi4tg2YBr4VQIut+Er8ROA2t6Bodqo6ootrxss494ohr4aSKBnTFLDSKX89
- xBmmHac6SkjqptQbTvMhdp8V4WCZLv1138BlN01Og1f/zRJu6iv7yFSb9I2MsSA7HrLK
- 1jqmFKCIQmnoSckdbMENxCmS4nzkwBRlVGLgXmrFEyx3jnIaxvFy2ATCmtYxX8DjoNyE
- U8MAsM3tfLfGivrNyLQrLEoXoQOUXDyoK5Olww+16YsPLmdkM4O+9G+mWDvg+L2tgkH4
- XWfAbyVGiNP1RLt/URSYl4LVC4nB5eT3ttnKg/Q8wgDrFypq5JqBaol728TWwPf8+aby
- +6pQ==
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=jqwmck/q4E8JeTnnWcrwW1U7wXmThZZOkN89wr0ri0Y=;
+ b=FfrAhpuOiP5liofMuBDY5KmNquejUlEAi8VOH3cBCVfDM6OHb6V22JVdapdJ13uZQi
+ jz6F8niwfeN+eN0GqKWpJBUCl9EbbN6Y3PBHMBhI31yqJ4W8GosJ8E9UFfyuc+NPttoP
+ RSldUs0oPI265T+7ol9yM6+05iWATOu+7TvJ+25lnZpO/fqcZ8PoPRg1i9bNWBvYknuN
+ V0EZwbkvEamAUt4FImGDC/i1ix/UiVlWt2ZzMoKigkp/rT5kk3Ql0JvrPUTbKHQPW9SV
+ LCXfdbCXZ6WnqoqtGGkQ2uu/Fuk5pMPGWemCQ2OyaPdRzH0ZB0VT7Pkr3MjlidjF3sLC
+ uzzQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to;
- bh=VTPpDDX3+jJ6q/kF3+aF5z4GFr5fWvLZ3jOBgqa7KjE=;
- b=qWd778zO8e1DansG/f7p4axdtfa6PkKeP7Gbr77hV5bJcTGb8TnXMG/09ACqXY0PE/
- 15ol9THupsHTaeollynnSLO1BNGC798d3bC4ATtwJ/L+LZGAXogzgyxVaVQ/25o3YHfj
- pCibPoi3Va21jQNQPXKB5dj3vRuu42PG6No+A78FvmE2zhUCR1z1sVusM/tPrpFaQs5i
- 2CEeX0nMbl4TRGNJduh/wX1YYMc9EFP/c4m/vDmNUh87kksAfChWCmXbyP9ecbFuHwMv
- /OuODN8lD8UuDtohlVh1pRrEME6bCey/whlhH5XCNIFzq0frKaGEykmqfhr6xuRqSthH
- I3nQ==
-X-Gm-Message-State: APjAAAWU7alWmZ9plydZ77J8qsdISqu/Z3Se62JICVgBbtOnf4AUc3n8
- tHue7Qodpi8ZfopJhxkaFhSgNPL97c1tE74ZSjQtiocv
-X-Google-Smtp-Source: APXvYqzfI+dPkPOBp6gKZkP/vPIhXc9Fi4usk/+hRrUuBgpLiQHysAbzRVM3cE+5vp7Y0IOdJwlkRmqnie8fjjNMKCk=
-X-Received: by 2002:a2e:b61a:: with SMTP id r26mr6789261ljn.72.1578585582021; 
- Thu, 09 Jan 2020 07:59:42 -0800 (PST)
+ :message-id:subject:to:cc;
+ bh=jqwmck/q4E8JeTnnWcrwW1U7wXmThZZOkN89wr0ri0Y=;
+ b=aqCFYCOfOsV1OpZcIjZJi95ILTrT40elmA17Wspg26s2ypuI7lOjU3d5ezkphLlX35
+ mb5uU4N7qK1il1KhgSNGlg3/9XAXBQfQHwQjOyAI/E/TJ2opn9/S9QvZ22i1s6stiqFS
+ f5LpDNeoR6NjOf9uPPQ49/mNMOQL1z6aXKOm7E2hp8fLT3ytni5CpzPknIrMPyv/H023
+ lbVJEMbHzZ32jsaEKtwPvmlaxARijdnQdj1sL3mHlQ0uYgibzHmDEb043qkdmvyLzp1h
+ 3ddnrjGsKuSUl9u1mg270nn1/bNVJ5Kv6DJt4799gRp3+VprN7poBVLtLz5AQbSWEtld
+ MurA==
+X-Gm-Message-State: APjAAAUg/HTlLw1sE4rqthvQUOueusniXZ8fz8RMSzVttoQUbR8X2253
+ vboTc5CISZnoA9bVQsR+JwwHZedQx/F9cK3LIkY=
+X-Google-Smtp-Source: APXvYqzQacV4KQcElnfYcso7YntjtBfCyF+L5fT1anTMclponOGoeKzNhPx2WO0wrq2ekicjOSUCgvJ8qpd8zJrG4HI=
+X-Received: by 2002:a1c:486:: with SMTP id 128mr5935551wme.163.1578586370861; 
+ Thu, 09 Jan 2020 08:12:50 -0800 (PST)
 MIME-Version: 1.0
 References: <20200109154035.847890-1-tom.stdenis@amd.com>
-In-Reply-To: <20200109154035.847890-1-tom.stdenis@amd.com>
-From: Tom St Denis <tstdenis82@gmail.com>
-Date: Thu, 9 Jan 2020 10:59:30 -0500
-Message-ID: <CAAzXoRLc9CX8vJXvhcPnaoawNZCmSYMfnMYi7HvuzHXOarTxyQ@mail.gmail.com>
+ <CAAzXoRLc9CX8vJXvhcPnaoawNZCmSYMfnMYi7HvuzHXOarTxyQ@mail.gmail.com>
+In-Reply-To: <CAAzXoRLc9CX8vJXvhcPnaoawNZCmSYMfnMYi7HvuzHXOarTxyQ@mail.gmail.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Thu, 9 Jan 2020 11:12:36 -0500
+Message-ID: <CADnq5_NzCy63HAkJN3Q3=7_7R6sgYbVFnyk+SaprLPb3YSjFcw@mail.gmail.com>
 Subject: Re: [PATCH] drm/amd/amdgpu: add missing umc_6_1_2_sh_mask.h header
  file
-To: amd-gfx mailing list <amd-gfx@lists.freedesktop.org>
+To: Tom St Denis <tstdenis82@gmail.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,450 +74,137 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============1214602505=="
+Cc: amd-gfx mailing list <amd-gfx@lists.freedesktop.org>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============1214602505==
-Content-Type: multipart/alternative; boundary="000000000000dd3d6b059bb718c7"
-
---000000000000dd3d6b059bb718c7
-Content-Type: text/plain; charset="UTF-8"
-
-note: I have since fixed the #ifndef/#define lines for when I eventually
-push it out
-
-On Thu, Jan 9, 2020 at 10:40 AM Tom St Denis <tom.stdenis@amd.com> wrote:
-
-> Signed-off-by: Tom St Denis <tom.stdenis@amd.com>
-> ---
->  .../include/asic_reg/umc/umc_6_1_2_sh_mask.h  | 91 +++++++++++++++++++
->  1 file changed, 91 insertions(+)
->  create mode 100644
-> drivers/gpu/drm/amd/include/asic_reg/umc/umc_6_1_2_sh_mask.h
+On Thu, Jan 9, 2020 at 10:59 AM Tom St Denis <tstdenis82@gmail.com> wrote:
 >
-> diff --git a/drivers/gpu/drm/amd/include/asic_reg/umc/umc_6_1_2_sh_mask.h
-> b/drivers/gpu/drm/amd/include/asic_reg/umc/umc_6_1_2_sh_mask.h
-> new file mode 100644
-> index 000000000000..7c3c6d405259
-> --- /dev/null
-> +++ b/drivers/gpu/drm/amd/include/asic_reg/umc/umc_6_1_2_sh_mask.h
-> @@ -0,0 +1,91 @@
-> +/*
-> + * Copyright (C) 2020  Advanced Micro Devices, Inc.
-> + *
-> + * Permission is hereby granted, free of charge, to any person obtaining a
-> + * copy of this software and associated documentation files (the
-> "Software"),
-> + * to deal in the Software without restriction, including without
-> limitation
-> + * the rights to use, copy, modify, merge, publish, distribute,
-> sublicense,
-> + * and/or sell copies of the Software, and to permit persons to whom the
-> + * Software is furnished to do so, subject to the following conditions:
-> + *
-> + * The above copyright notice and this permission notice shall be included
-> + * in all copies or substantial portions of the Software.
-> + *
-> + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
-> + * OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-> MERCHANTABILITY,
-> + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT
-> SHALL
-> + * THE COPYRIGHT HOLDER(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-> LIABILITY, WHETHER IN
-> + * AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
-> + * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-> SOFTWARE.
-> + */
-> +#ifndef _umc_6_1_1_SH_MASK_HEADER
-> +#define _umc_6_1_1_SH_MASK_HEADER
-> +
-> +//UMCCH0_0_EccErrCntSel_ARCT
-> +#define UMCCH0_0_EccErrCntSel_ARCT__EccErrCntCsSel__SHIFT
->                                           0x0
-> +#define UMCCH0_0_EccErrCntSel_ARCT__EccErrInt__SHIFT
->                                          0xc
-> +#define UMCCH0_0_EccErrCntSel_ARCT__EccErrCntEn__SHIFT
->                                          0xf
-> +#define UMCCH0_0_EccErrCntSel_ARCT__EccErrCntCsSel_MASK
->                                           0x0000000FL
-> +#define UMCCH0_0_EccErrCntSel_ARCT__EccErrInt_MASK
->                                          0x00003000L
-> +#define UMCCH0_0_EccErrCntSel_ARCT__EccErrCntEn_MASK
->                                          0x00008000L
-> +//UMCCH0_0_EccErrCnt_ARCT
-> +#define UMCCH0_0_EccErrCnt_ARCT__EccErrCnt__SHIFT
->                                           0x0
-> +#define UMCCH0_0_EccErrCnt_ARCT__EccErrCnt_MASK
->                                           0x0000FFFFL
-> +//MCA_UMC_UMC0_MCUMC_STATUST0_ARCT
-> +#define MCA_UMC_UMC0_MCUMC_STATUST0_ARCT__ErrorCode__SHIFT
->                                          0x0
-> +#define MCA_UMC_UMC0_MCUMC_STATUST0_ARCT__ErrorCodeExt__SHIFT
->                                           0x10
-> +#define MCA_UMC_UMC0_MCUMC_STATUST0_ARCT__RESERV0__SHIFT
->                                          0x16
-> +#define MCA_UMC_UMC0_MCUMC_STATUST0_ARCT__ErrCoreId__SHIFT
->                                          0x20
-> +#define MCA_UMC_UMC0_MCUMC_STATUST0_ARCT__RESERV1__SHIFT
->                                          0x26
-> +#define MCA_UMC_UMC0_MCUMC_STATUST0_ARCT__Scrub__SHIFT
->                                          0x28
-> +#define MCA_UMC_UMC0_MCUMC_STATUST0_ARCT__RESERV2__SHIFT
->                                          0x29
-> +#define MCA_UMC_UMC0_MCUMC_STATUST0_ARCT__Poison__SHIFT
->                                           0x2b
-> +#define MCA_UMC_UMC0_MCUMC_STATUST0_ARCT__Deferred__SHIFT
->                                           0x2c
-> +#define MCA_UMC_UMC0_MCUMC_STATUST0_ARCT__UECC__SHIFT
->                                           0x2d
-> +#define MCA_UMC_UMC0_MCUMC_STATUST0_ARCT__CECC__SHIFT
->                                           0x2e
-> +#define MCA_UMC_UMC0_MCUMC_STATUST0_ARCT__RESERV3__SHIFT
->                                          0x2f
-> +#define MCA_UMC_UMC0_MCUMC_STATUST0_ARCT__Transparent__SHIFT
->                                          0x34
-> +#define MCA_UMC_UMC0_MCUMC_STATUST0_ARCT__SyndV__SHIFT
->                                          0x35
-> +#define MCA_UMC_UMC0_MCUMC_STATUST0_ARCT__RESERV4__SHIFT
->                                          0x36
-> +#define MCA_UMC_UMC0_MCUMC_STATUST0_ARCT__TCC__SHIFT
->                                          0x37
-> +#define MCA_UMC_UMC0_MCUMC_STATUST0_ARCT__ErrCoreIdVal__SHIFT
->                                           0x38
-> +#define MCA_UMC_UMC0_MCUMC_STATUST0_ARCT__PCC__SHIFT
->                                          0x39
-> +#define MCA_UMC_UMC0_MCUMC_STATUST0_ARCT__AddrV__SHIFT
->                                          0x3a
-> +#define MCA_UMC_UMC0_MCUMC_STATUST0_ARCT__MiscV__SHIFT
->                                          0x3b
-> +#define MCA_UMC_UMC0_MCUMC_STATUST0_ARCT__En__SHIFT
->                                           0x3c
-> +#define MCA_UMC_UMC0_MCUMC_STATUST0_ARCT__UC__SHIFT
->                                           0x3d
-> +#define MCA_UMC_UMC0_MCUMC_STATUST0_ARCT__Overflow__SHIFT
->                                           0x3e
-> +#define MCA_UMC_UMC0_MCUMC_STATUST0_ARCT__Val__SHIFT
->                                          0x3f
-> +#define MCA_UMC_UMC0_MCUMC_STATUST0_ARCT__ErrorCode_MASK
->                                          0x000000000000FFFFL
-> +#define MCA_UMC_UMC0_MCUMC_STATUST0_ARCT__ErrorCodeExt_MASK
->                                           0x00000000003F0000L
-> +#define MCA_UMC_UMC0_MCUMC_STATUST0_ARCT__RESERV0_MASK
->                                          0x00000000FFC00000L
-> +#define MCA_UMC_UMC0_MCUMC_STATUST0_ARCT__ErrCoreId_MASK
->                                          0x0000003F00000000L
-> +#define MCA_UMC_UMC0_MCUMC_STATUST0_ARCT__RESERV1_MASK
->                                          0x000000C000000000L
-> +#define MCA_UMC_UMC0_MCUMC_STATUST0_ARCT__Scrub_MASK
->                                          0x0000010000000000L
-> +#define MCA_UMC_UMC0_MCUMC_STATUST0_ARCT__RESERV2_MASK
->                                          0x0000060000000000L
-> +#define MCA_UMC_UMC0_MCUMC_STATUST0_ARCT__Poison_MASK
->                                           0x0000080000000000L
-> +#define MCA_UMC_UMC0_MCUMC_STATUST0_ARCT__Deferred_MASK
->                                           0x0000100000000000L
-> +#define MCA_UMC_UMC0_MCUMC_STATUST0_ARCT__UECC_MASK
->                                           0x0000200000000000L
-> +#define MCA_UMC_UMC0_MCUMC_STATUST0_ARCT__CECC_MASK
->                                           0x0000400000000000L
-> +#define MCA_UMC_UMC0_MCUMC_STATUST0_ARCT__RESERV3_MASK
->                                          0x000F800000000000L
-> +#define MCA_UMC_UMC0_MCUMC_STATUST0_ARCT__Transparent_MASK
->                                          0x0010000000000000L
-> +#define MCA_UMC_UMC0_MCUMC_STATUST0_ARCT__SyndV_MASK
->                                          0x0020000000000000L
-> +#define MCA_UMC_UMC0_MCUMC_STATUST0_ARCT__RESERV4_MASK
->                                          0x0040000000000000L
-> +#define MCA_UMC_UMC0_MCUMC_STATUST0_ARCT__TCC_MASK
->                                          0x0080000000000000L
-> +#define MCA_UMC_UMC0_MCUMC_STATUST0_ARCT__ErrCoreIdVal_MASK
->                                           0x0100000000000000L
-> +#define MCA_UMC_UMC0_MCUMC_STATUST0_ARCT__PCC_MASK
->                                          0x0200000000000000L
-> +#define MCA_UMC_UMC0_MCUMC_STATUST0_ARCT__AddrV_MASK
->                                          0x0400000000000000L
-> +#define MCA_UMC_UMC0_MCUMC_STATUST0_ARCT__MiscV_MASK
->                                          0x0800000000000000L
-> +#define MCA_UMC_UMC0_MCUMC_STATUST0_ARCT__En_MASK
->                                           0x1000000000000000L
-> +#define MCA_UMC_UMC0_MCUMC_STATUST0_ARCT__UC_MASK
->                                           0x2000000000000000L
-> +#define MCA_UMC_UMC0_MCUMC_STATUST0_ARCT__Overflow_MASK
->                                           0x4000000000000000L
-> +#define MCA_UMC_UMC0_MCUMC_STATUST0_ARCT__Val_MASK
->                                          0x8000000000000000L
-> +//MCA_UMC_UMC0_MCUMC_ADDRT0_ARCT
-> +#define MCA_UMC_UMC0_MCUMC_ADDRT0_ARCT__ErrorAddr__SHIFT
->                                          0x0
-> +#define MCA_UMC_UMC0_MCUMC_ADDRT0_ARCT__LSB__SHIFT
->                                          0x38
-> +#define MCA_UMC_UMC0_MCUMC_ADDRT0_ARCT__Reserved__SHIFT
->                                           0x3e
-> +#define MCA_UMC_UMC0_MCUMC_ADDRT0_ARCT__ErrorAddr_MASK
->                                          0x00FFFFFFFFFFFFFFL
-> +#define MCA_UMC_UMC0_MCUMC_ADDRT0_ARCT__LSB_MASK
->                                          0x3F00000000000000L
-> +#define MCA_UMC_UMC0_MCUMC_ADDRT0_ARCT__Reserved_MASK
->                                           0xC000000000000000L
-> +
-> +#endif
-> --
-> 2.24.1
+> note: I have since fixed the #ifndef/#define lines for when I eventually push it out
+
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+
+>
+> On Thu, Jan 9, 2020 at 10:40 AM Tom St Denis <tom.stdenis@amd.com> wrote:
+>>
+>> Signed-off-by: Tom St Denis <tom.stdenis@amd.com>
+>> ---
+>>  .../include/asic_reg/umc/umc_6_1_2_sh_mask.h  | 91 +++++++++++++++++++
+>>  1 file changed, 91 insertions(+)
+>>  create mode 100644 drivers/gpu/drm/amd/include/asic_reg/umc/umc_6_1_2_sh_mask.h
+>>
+>> diff --git a/drivers/gpu/drm/amd/include/asic_reg/umc/umc_6_1_2_sh_mask.h b/drivers/gpu/drm/amd/include/asic_reg/umc/umc_6_1_2_sh_mask.h
+>> new file mode 100644
+>> index 000000000000..7c3c6d405259
+>> --- /dev/null
+>> +++ b/drivers/gpu/drm/amd/include/asic_reg/umc/umc_6_1_2_sh_mask.h
+>> @@ -0,0 +1,91 @@
+>> +/*
+>> + * Copyright (C) 2020  Advanced Micro Devices, Inc.
+>> + *
+>> + * Permission is hereby granted, free of charge, to any person obtaining a
+>> + * copy of this software and associated documentation files (the "Software"),
+>> + * to deal in the Software without restriction, including without limitation
+>> + * the rights to use, copy, modify, merge, publish, distribute, sublicense,
+>> + * and/or sell copies of the Software, and to permit persons to whom the
+>> + * Software is furnished to do so, subject to the following conditions:
+>> + *
+>> + * The above copyright notice and this permission notice shall be included
+>> + * in all copies or substantial portions of the Software.
+>> + *
+>> + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+>> + * OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+>> + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
+>> + * THE COPYRIGHT HOLDER(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN
+>> + * AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+>> + * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+>> + */
+>> +#ifndef _umc_6_1_1_SH_MASK_HEADER
+>> +#define _umc_6_1_1_SH_MASK_HEADER
+>> +
+>> +//UMCCH0_0_EccErrCntSel_ARCT
+>> +#define UMCCH0_0_EccErrCntSel_ARCT__EccErrCntCsSel__SHIFT                                                          0x0
+>> +#define UMCCH0_0_EccErrCntSel_ARCT__EccErrInt__SHIFT                                                               0xc
+>> +#define UMCCH0_0_EccErrCntSel_ARCT__EccErrCntEn__SHIFT                                                             0xf
+>> +#define UMCCH0_0_EccErrCntSel_ARCT__EccErrCntCsSel_MASK                                                            0x0000000FL
+>> +#define UMCCH0_0_EccErrCntSel_ARCT__EccErrInt_MASK                                                                 0x00003000L
+>> +#define UMCCH0_0_EccErrCntSel_ARCT__EccErrCntEn_MASK                                                               0x00008000L
+>> +//UMCCH0_0_EccErrCnt_ARCT
+>> +#define UMCCH0_0_EccErrCnt_ARCT__EccErrCnt__SHIFT                                                                  0x0
+>> +#define UMCCH0_0_EccErrCnt_ARCT__EccErrCnt_MASK                                                                    0x0000FFFFL
+>> +//MCA_UMC_UMC0_MCUMC_STATUST0_ARCT
+>> +#define MCA_UMC_UMC0_MCUMC_STATUST0_ARCT__ErrorCode__SHIFT                                                         0x0
+>> +#define MCA_UMC_UMC0_MCUMC_STATUST0_ARCT__ErrorCodeExt__SHIFT                                                      0x10
+>> +#define MCA_UMC_UMC0_MCUMC_STATUST0_ARCT__RESERV0__SHIFT                                                           0x16
+>> +#define MCA_UMC_UMC0_MCUMC_STATUST0_ARCT__ErrCoreId__SHIFT                                                         0x20
+>> +#define MCA_UMC_UMC0_MCUMC_STATUST0_ARCT__RESERV1__SHIFT                                                           0x26
+>> +#define MCA_UMC_UMC0_MCUMC_STATUST0_ARCT__Scrub__SHIFT                                                             0x28
+>> +#define MCA_UMC_UMC0_MCUMC_STATUST0_ARCT__RESERV2__SHIFT                                                           0x29
+>> +#define MCA_UMC_UMC0_MCUMC_STATUST0_ARCT__Poison__SHIFT                                                            0x2b
+>> +#define MCA_UMC_UMC0_MCUMC_STATUST0_ARCT__Deferred__SHIFT                                                          0x2c
+>> +#define MCA_UMC_UMC0_MCUMC_STATUST0_ARCT__UECC__SHIFT                                                              0x2d
+>> +#define MCA_UMC_UMC0_MCUMC_STATUST0_ARCT__CECC__SHIFT                                                              0x2e
+>> +#define MCA_UMC_UMC0_MCUMC_STATUST0_ARCT__RESERV3__SHIFT                                                           0x2f
+>> +#define MCA_UMC_UMC0_MCUMC_STATUST0_ARCT__Transparent__SHIFT                                                       0x34
+>> +#define MCA_UMC_UMC0_MCUMC_STATUST0_ARCT__SyndV__SHIFT                                                             0x35
+>> +#define MCA_UMC_UMC0_MCUMC_STATUST0_ARCT__RESERV4__SHIFT                                                           0x36
+>> +#define MCA_UMC_UMC0_MCUMC_STATUST0_ARCT__TCC__SHIFT                                                               0x37
+>> +#define MCA_UMC_UMC0_MCUMC_STATUST0_ARCT__ErrCoreIdVal__SHIFT                                                      0x38
+>> +#define MCA_UMC_UMC0_MCUMC_STATUST0_ARCT__PCC__SHIFT                                                               0x39
+>> +#define MCA_UMC_UMC0_MCUMC_STATUST0_ARCT__AddrV__SHIFT                                                             0x3a
+>> +#define MCA_UMC_UMC0_MCUMC_STATUST0_ARCT__MiscV__SHIFT                                                             0x3b
+>> +#define MCA_UMC_UMC0_MCUMC_STATUST0_ARCT__En__SHIFT                                                                0x3c
+>> +#define MCA_UMC_UMC0_MCUMC_STATUST0_ARCT__UC__SHIFT                                                                0x3d
+>> +#define MCA_UMC_UMC0_MCUMC_STATUST0_ARCT__Overflow__SHIFT                                                          0x3e
+>> +#define MCA_UMC_UMC0_MCUMC_STATUST0_ARCT__Val__SHIFT                                                               0x3f
+>> +#define MCA_UMC_UMC0_MCUMC_STATUST0_ARCT__ErrorCode_MASK                                                           0x000000000000FFFFL
+>> +#define MCA_UMC_UMC0_MCUMC_STATUST0_ARCT__ErrorCodeExt_MASK                                                        0x00000000003F0000L
+>> +#define MCA_UMC_UMC0_MCUMC_STATUST0_ARCT__RESERV0_MASK                                                             0x00000000FFC00000L
+>> +#define MCA_UMC_UMC0_MCUMC_STATUST0_ARCT__ErrCoreId_MASK                                                           0x0000003F00000000L
+>> +#define MCA_UMC_UMC0_MCUMC_STATUST0_ARCT__RESERV1_MASK                                                             0x000000C000000000L
+>> +#define MCA_UMC_UMC0_MCUMC_STATUST0_ARCT__Scrub_MASK                                                               0x0000010000000000L
+>> +#define MCA_UMC_UMC0_MCUMC_STATUST0_ARCT__RESERV2_MASK                                                             0x0000060000000000L
+>> +#define MCA_UMC_UMC0_MCUMC_STATUST0_ARCT__Poison_MASK                                                              0x0000080000000000L
+>> +#define MCA_UMC_UMC0_MCUMC_STATUST0_ARCT__Deferred_MASK                                                            0x0000100000000000L
+>> +#define MCA_UMC_UMC0_MCUMC_STATUST0_ARCT__UECC_MASK                                                                0x0000200000000000L
+>> +#define MCA_UMC_UMC0_MCUMC_STATUST0_ARCT__CECC_MASK                                                                0x0000400000000000L
+>> +#define MCA_UMC_UMC0_MCUMC_STATUST0_ARCT__RESERV3_MASK                                                             0x000F800000000000L
+>> +#define MCA_UMC_UMC0_MCUMC_STATUST0_ARCT__Transparent_MASK                                                         0x0010000000000000L
+>> +#define MCA_UMC_UMC0_MCUMC_STATUST0_ARCT__SyndV_MASK                                                               0x0020000000000000L
+>> +#define MCA_UMC_UMC0_MCUMC_STATUST0_ARCT__RESERV4_MASK                                                             0x0040000000000000L
+>> +#define MCA_UMC_UMC0_MCUMC_STATUST0_ARCT__TCC_MASK                                                                 0x0080000000000000L
+>> +#define MCA_UMC_UMC0_MCUMC_STATUST0_ARCT__ErrCoreIdVal_MASK                                                        0x0100000000000000L
+>> +#define MCA_UMC_UMC0_MCUMC_STATUST0_ARCT__PCC_MASK                                                                 0x0200000000000000L
+>> +#define MCA_UMC_UMC0_MCUMC_STATUST0_ARCT__AddrV_MASK                                                               0x0400000000000000L
+>> +#define MCA_UMC_UMC0_MCUMC_STATUST0_ARCT__MiscV_MASK                                                               0x0800000000000000L
+>> +#define MCA_UMC_UMC0_MCUMC_STATUST0_ARCT__En_MASK                                                                  0x1000000000000000L
+>> +#define MCA_UMC_UMC0_MCUMC_STATUST0_ARCT__UC_MASK                                                                  0x2000000000000000L
+>> +#define MCA_UMC_UMC0_MCUMC_STATUST0_ARCT__Overflow_MASK                                                            0x4000000000000000L
+>> +#define MCA_UMC_UMC0_MCUMC_STATUST0_ARCT__Val_MASK                                                                 0x8000000000000000L
+>> +//MCA_UMC_UMC0_MCUMC_ADDRT0_ARCT
+>> +#define MCA_UMC_UMC0_MCUMC_ADDRT0_ARCT__ErrorAddr__SHIFT                                                           0x0
+>> +#define MCA_UMC_UMC0_MCUMC_ADDRT0_ARCT__LSB__SHIFT                                                                 0x38
+>> +#define MCA_UMC_UMC0_MCUMC_ADDRT0_ARCT__Reserved__SHIFT                                                            0x3e
+>> +#define MCA_UMC_UMC0_MCUMC_ADDRT0_ARCT__ErrorAddr_MASK                                                             0x00FFFFFFFFFFFFFFL
+>> +#define MCA_UMC_UMC0_MCUMC_ADDRT0_ARCT__LSB_MASK                                                                   0x3F00000000000000L
+>> +#define MCA_UMC_UMC0_MCUMC_ADDRT0_ARCT__Reserved_MASK                                                              0xC000000000000000L
+>> +
+>> +#endif
+>> --
+>> 2.24.1
+>>
+>> _______________________________________________
+>> amd-gfx mailing list
+>> amd-gfx@lists.freedesktop.org
+>> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 >
 > _______________________________________________
 > amd-gfx mailing list
 > amd-gfx@lists.freedesktop.org
 > https://lists.freedesktop.org/mailman/listinfo/amd-gfx
->
-
---000000000000dd3d6b059bb718c7
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: base64
-
-PGRpdiBkaXI9Imx0ciI+bm90ZTogSSBoYXZlIHNpbmNlIGZpeGVkIHRoZSAjaWZuZGVmLyNkZWZp
-bmUgbGluZXMgZm9yIHdoZW4gSSBldmVudHVhbGx5IHB1c2ggaXQgb3V0PC9kaXY+PGJyPjxkaXYg
-Y2xhc3M9ImdtYWlsX3F1b3RlIj48ZGl2IGRpcj0ibHRyIiBjbGFzcz0iZ21haWxfYXR0ciI+T24g
-VGh1LCBKYW4gOSwgMjAyMCBhdCAxMDo0MCBBTSBUb20gU3QgRGVuaXMgJmx0OzxhIGhyZWY9Im1h
-aWx0bzp0b20uc3RkZW5pc0BhbWQuY29tIj50b20uc3RkZW5pc0BhbWQuY29tPC9hPiZndDsgd3Jv
-dGU6PGJyPjwvZGl2PjxibG9ja3F1b3RlIGNsYXNzPSJnbWFpbF9xdW90ZSIgc3R5bGU9Im1hcmdp
-bjowcHggMHB4IDBweCAwLjhleDtib3JkZXItbGVmdDoxcHggc29saWQgcmdiKDIwNCwyMDQsMjA0
-KTtwYWRkaW5nLWxlZnQ6MWV4Ij5TaWduZWQtb2ZmLWJ5OiBUb20gU3QgRGVuaXMgJmx0OzxhIGhy
-ZWY9Im1haWx0bzp0b20uc3RkZW5pc0BhbWQuY29tIiB0YXJnZXQ9Il9ibGFuayI+dG9tLnN0ZGVu
-aXNAYW1kLmNvbTwvYT4mZ3Q7PGJyPg0KLS0tPGJyPg0KwqAuLi4vaW5jbHVkZS9hc2ljX3JlZy91
-bWMvdW1jXzZfMV8yX3NoX21hc2suaMKgIHwgOTEgKysrKysrKysrKysrKysrKysrKzxicj4NCsKg
-MSBmaWxlIGNoYW5nZWQsIDkxIGluc2VydGlvbnMoKyk8YnI+DQrCoGNyZWF0ZSBtb2RlIDEwMDY0
-NCBkcml2ZXJzL2dwdS9kcm0vYW1kL2luY2x1ZGUvYXNpY19yZWcvdW1jL3VtY182XzFfMl9zaF9t
-YXNrLmg8YnI+DQo8YnI+DQpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9pbmNsdWRl
-L2FzaWNfcmVnL3VtYy91bWNfNl8xXzJfc2hfbWFzay5oIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9p
-bmNsdWRlL2FzaWNfcmVnL3VtYy91bWNfNl8xXzJfc2hfbWFzay5oPGJyPg0KbmV3IGZpbGUgbW9k
-ZSAxMDA2NDQ8YnI+DQppbmRleCAwMDAwMDAwMDAwMDAuLjdjM2M2ZDQwNTI1OTxicj4NCi0tLSAv
-ZGV2L251bGw8YnI+DQorKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2luY2x1ZGUvYXNpY19yZWcv
-dW1jL3VtY182XzFfMl9zaF9tYXNrLmg8YnI+DQpAQCAtMCwwICsxLDkxIEBAPGJyPg0KKy8qPGJy
-Pg0KKyAqIENvcHlyaWdodCAoQykgMjAyMMKgIEFkdmFuY2VkIE1pY3JvIERldmljZXMsIEluYy48
-YnI+DQorICo8YnI+DQorICogUGVybWlzc2lvbiBpcyBoZXJlYnkgZ3JhbnRlZCwgZnJlZSBvZiBj
-aGFyZ2UsIHRvIGFueSBwZXJzb24gb2J0YWluaW5nIGE8YnI+DQorICogY29weSBvZiB0aGlzIHNv
-ZnR3YXJlIGFuZCBhc3NvY2lhdGVkIGRvY3VtZW50YXRpb24gZmlsZXMgKHRoZSAmcXVvdDtTb2Z0
-d2FyZSZxdW90OyksPGJyPg0KKyAqIHRvIGRlYWwgaW4gdGhlIFNvZnR3YXJlIHdpdGhvdXQgcmVz
-dHJpY3Rpb24sIGluY2x1ZGluZyB3aXRob3V0IGxpbWl0YXRpb248YnI+DQorICogdGhlIHJpZ2h0
-cyB0byB1c2UsIGNvcHksIG1vZGlmeSwgbWVyZ2UsIHB1Ymxpc2gsIGRpc3RyaWJ1dGUsIHN1Ymxp
-Y2Vuc2UsPGJyPg0KKyAqIGFuZC9vciBzZWxsIGNvcGllcyBvZiB0aGUgU29mdHdhcmUsIGFuZCB0
-byBwZXJtaXQgcGVyc29ucyB0byB3aG9tIHRoZTxicj4NCisgKiBTb2Z0d2FyZSBpcyBmdXJuaXNo
-ZWQgdG8gZG8gc28sIHN1YmplY3QgdG8gdGhlIGZvbGxvd2luZyBjb25kaXRpb25zOjxicj4NCisg
-Kjxicj4NCisgKiBUaGUgYWJvdmUgY29weXJpZ2h0IG5vdGljZSBhbmQgdGhpcyBwZXJtaXNzaW9u
-IG5vdGljZSBzaGFsbCBiZSBpbmNsdWRlZDxicj4NCisgKiBpbiBhbGwgY29waWVzIG9yIHN1YnN0
-YW50aWFsIHBvcnRpb25zIG9mIHRoZSBTb2Z0d2FyZS48YnI+DQorICo8YnI+DQorICogVEhFIFNP
-RlRXQVJFIElTIFBST1ZJREVEICZxdW90O0FTIElTJnF1b3Q7LCBXSVRIT1VUIFdBUlJBTlRZIE9G
-IEFOWSBLSU5ELCBFWFBSRVNTPGJyPg0KKyAqIE9SIElNUExJRUQsIElOQ0xVRElORyBCVVQgTk9U
-IExJTUlURUQgVE8gVEhFIFdBUlJBTlRJRVMgT0YgTUVSQ0hBTlRBQklMSVRZLDxicj4NCisgKiBG
-SVRORVNTIEZPUiBBIFBBUlRJQ1VMQVIgUFVSUE9TRSBBTkQgTk9OSU5GUklOR0VNRU5ULsKgIElO
-IE5PIEVWRU5UIFNIQUxMPGJyPg0KKyAqIFRIRSBDT1BZUklHSFQgSE9MREVSKFMpIEJFIExJQUJM
-RSBGT1IgQU5ZIENMQUlNLCBEQU1BR0VTIE9SIE9USEVSIExJQUJJTElUWSwgV0hFVEhFUiBJTjxi
-cj4NCisgKiBBTiBBQ1RJT04gT0YgQ09OVFJBQ1QsIFRPUlQgT1IgT1RIRVJXSVNFLCBBUklTSU5H
-IEZST00sIE9VVCBPRiBPUiBJTjxicj4NCisgKiBDT05ORUNUSU9OIFdJVEggVEhFIFNPRlRXQVJF
-IE9SIFRIRSBVU0UgT1IgT1RIRVIgREVBTElOR1MgSU4gVEhFIFNPRlRXQVJFLjxicj4NCisgKi88
-YnI+DQorI2lmbmRlZiBfdW1jXzZfMV8xX1NIX01BU0tfSEVBREVSPGJyPg0KKyNkZWZpbmUgX3Vt
-Y182XzFfMV9TSF9NQVNLX0hFQURFUjxicj4NCis8YnI+DQorLy9VTUNDSDBfMF9FY2NFcnJDbnRT
-ZWxfQVJDVDxicj4NCisjZGVmaW5lIFVNQ0NIMF8wX0VjY0VyckNudFNlbF9BUkNUX19FY2NFcnJD
-bnRDc1NlbF9fU0hJRlTCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDC
-oCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCAweDA8YnI+DQorI2Rl
-ZmluZSBVTUNDSDBfMF9FY2NFcnJDbnRTZWxfQVJDVF9fRWNjRXJySW50X19TSElGVMKgIMKgIMKg
-IMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKg
-IMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgMHhjPGJyPg0KKyNkZWZpbmUgVU1DQ0gwXzBf
-RWNjRXJyQ250U2VsX0FSQ1RfX0VjY0VyckNudEVuX19TSElGVMKgIMKgIMKgIMKgIMKgIMKgIMKg
-IMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKg
-IMKgIMKgIMKgIMKgIMKgMHhmPGJyPg0KKyNkZWZpbmUgVU1DQ0gwXzBfRWNjRXJyQ250U2VsX0FS
-Q1RfX0VjY0VyckNudENzU2VsX01BU0vCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDC
-oCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCAw
-eDAwMDAwMDBGTDxicj4NCisjZGVmaW5lIFVNQ0NIMF8wX0VjY0VyckNudFNlbF9BUkNUX19FY2NF
-cnJJbnRfTUFTS8KgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKg
-IMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgMHgwMDAw
-MzAwMEw8YnI+DQorI2RlZmluZSBVTUNDSDBfMF9FY2NFcnJDbnRTZWxfQVJDVF9fRWNjRXJyQ250
-RW5fTUFTS8KgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKg
-IMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgMHgwMDAwODAwMEw8
-YnI+DQorLy9VTUNDSDBfMF9FY2NFcnJDbnRfQVJDVDxicj4NCisjZGVmaW5lIFVNQ0NIMF8wX0Vj
-Y0VyckNudF9BUkNUX19FY2NFcnJDbnRfX1NISUZUwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAg
-wqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAg
-wqAgwqAgwqAgwqAgwqAgMHgwPGJyPg0KKyNkZWZpbmUgVU1DQ0gwXzBfRWNjRXJyQ250X0FSQ1Rf
-X0VjY0VyckNudF9NQVNLwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAg
-wqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAg
-wqAgMHgwMDAwRkZGRkw8YnI+DQorLy9NQ0FfVU1DX1VNQzBfTUNVTUNfU1RBVFVTVDBfQVJDVDxi
-cj4NCisjZGVmaW5lIE1DQV9VTUNfVU1DMF9NQ1VNQ19TVEFUVVNUMF9BUkNUX19FcnJvckNvZGVf
-X1NISUZUwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAg
-wqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAweDA8YnI+DQorI2RlZmluZSBNQ0Ff
-VU1DX1VNQzBfTUNVTUNfU1RBVFVTVDBfQVJDVF9fRXJyb3JDb2RlRXh0X19TSElGVMKgIMKgIMKg
-IMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKg
-IMKgIMKgIMKgIMKgIMKgIDB4MTA8YnI+DQorI2RlZmluZSBNQ0FfVU1DX1VNQzBfTUNVTUNfU1RB
-VFVTVDBfQVJDVF9fUkVTRVJWMF9fU0hJRlTCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDC
-oCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDC
-oDB4MTY8YnI+DQorI2RlZmluZSBNQ0FfVU1DX1VNQzBfTUNVTUNfU1RBVFVTVDBfQVJDVF9fRXJy
-Q29yZUlkX19TSElGVMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKg
-IMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgMHgyMDxicj4NCisjZGVm
-aW5lIE1DQV9VTUNfVU1DMF9NQ1VNQ19TVEFUVVNUMF9BUkNUX19SRVNFUlYxX19TSElGVMKgIMKg
-IMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKg
-IMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgMHgyNjxicj4NCisjZGVmaW5lIE1DQV9VTUNfVU1D
-MF9NQ1VNQ19TVEFUVVNUMF9BUkNUX19TY3J1Yl9fU0hJRlTCoCDCoCDCoCDCoCDCoCDCoCDCoCDC
-oCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDC
-oCDCoCDCoCDCoCDCoDB4Mjg8YnI+DQorI2RlZmluZSBNQ0FfVU1DX1VNQzBfTUNVTUNfU1RBVFVT
-VDBfQVJDVF9fUkVTRVJWMl9fU0hJRlTCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDC
-oCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoDB4
-Mjk8YnI+DQorI2RlZmluZSBNQ0FfVU1DX1VNQzBfTUNVTUNfU1RBVFVTVDBfQVJDVF9fUG9pc29u
-X19TSElGVMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKg
-IMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIDB4MmI8YnI+DQorI2RlZmlu
-ZSBNQ0FfVU1DX1VNQzBfTUNVTUNfU1RBVFVTVDBfQVJDVF9fRGVmZXJyZWRfX1NISUZUwqAgwqAg
-wqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAg
-wqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgMHgyYzxicj4NCisjZGVmaW5lIE1DQV9VTUNfVU1DMF9N
-Q1VNQ19TVEFUVVNUMF9BUkNUX19VRUNDX19TSElGVMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKg
-IMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKg
-IMKgIMKgIMKgIDB4MmQ8YnI+DQorI2RlZmluZSBNQ0FfVU1DX1VNQzBfTUNVTUNfU1RBVFVTVDBf
-QVJDVF9fQ0VDQ19fU0hJRlTCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDC
-oCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCAweDJl
-PGJyPg0KKyNkZWZpbmUgTUNBX1VNQ19VTUMwX01DVU1DX1NUQVRVU1QwX0FSQ1RfX1JFU0VSVjNf
-X1NISUZUwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAg
-wqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAweDJmPGJyPg0KKyNkZWZpbmUg
-TUNBX1VNQ19VTUMwX01DVU1DX1NUQVRVU1QwX0FSQ1RfX1RyYW5zcGFyZW50X19TSElGVMKgIMKg
-IMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKg
-IMKgIMKgIMKgIMKgIMKgIMKgIMKgMHgzNDxicj4NCisjZGVmaW5lIE1DQV9VTUNfVU1DMF9NQ1VN
-Q19TVEFUVVNUMF9BUkNUX19TeW5kVl9fU0hJRlTCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDC
-oCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDC
-oCDCoCDCoDB4MzU8YnI+DQorI2RlZmluZSBNQ0FfVU1DX1VNQzBfTUNVTUNfU1RBVFVTVDBfQVJD
-VF9fUkVTRVJWNF9fU0hJRlTCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDC
-oCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoDB4MzY8YnI+
-DQorI2RlZmluZSBNQ0FfVU1DX1VNQzBfTUNVTUNfU1RBVFVTVDBfQVJDVF9fVENDX19TSElGVMKg
-IMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKg
-IMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgMHgzNzxicj4NCisjZGVmaW5lIE1D
-QV9VTUNfVU1DMF9NQ1VNQ19TVEFUVVNUMF9BUkNUX19FcnJDb3JlSWRWYWxfX1NISUZUwqAgwqAg
-wqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAg
-wqAgwqAgwqAgwqAgwqAgwqAgMHgzODxicj4NCisjZGVmaW5lIE1DQV9VTUNfVU1DMF9NQ1VNQ19T
-VEFUVVNUMF9BUkNUX19QQ0NfX1NISUZUwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAg
-wqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAg
-wqAgwqAweDM5PGJyPg0KKyNkZWZpbmUgTUNBX1VNQ19VTUMwX01DVU1DX1NUQVRVU1QwX0FSQ1Rf
-X0FkZHJWX19TSElGVMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKg
-IMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgMHgzYTxicj4N
-CisjZGVmaW5lIE1DQV9VTUNfVU1DMF9NQ1VNQ19TVEFUVVNUMF9BUkNUX19NaXNjVl9fU0hJRlTC
-oCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDC
-oCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoDB4M2I8YnI+DQorI2RlZmluZSBNQ0Ff
-VU1DX1VNQzBfTUNVTUNfU1RBVFVTVDBfQVJDVF9fRW5fX1NISUZUwqAgwqAgwqAgwqAgwqAgwqAg
-wqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAg
-wqAgwqAgwqAgwqAgwqAgwqAgwqAgMHgzYzxicj4NCisjZGVmaW5lIE1DQV9VTUNfVU1DMF9NQ1VN
-Q19TVEFUVVNUMF9BUkNUX19VQ19fU0hJRlTCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDC
-oCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDC
-oCDCoCDCoCAweDNkPGJyPg0KKyNkZWZpbmUgTUNBX1VNQ19VTUMwX01DVU1DX1NUQVRVU1QwX0FS
-Q1RfX092ZXJmbG93X19TSElGVMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKg
-IMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIDB4M2U8YnI+
-DQorI2RlZmluZSBNQ0FfVU1DX1VNQzBfTUNVTUNfU1RBVFVTVDBfQVJDVF9fVmFsX19TSElGVMKg
-IMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKg
-IMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgMHgzZjxicj4NCisjZGVmaW5lIE1D
-QV9VTUNfVU1DMF9NQ1VNQ19TVEFUVVNUMF9BUkNUX19FcnJvckNvZGVfTUFTS8KgIMKgIMKgIMKg
-IMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKg
-IMKgIMKgIMKgIMKgIMKgIMKgIMKgMHgwMDAwMDAwMDAwMDBGRkZGTDxicj4NCisjZGVmaW5lIE1D
-QV9VTUNfVU1DMF9NQ1VNQ19TVEFUVVNUMF9BUkNUX19FcnJvckNvZGVFeHRfTUFTS8KgIMKgIMKg
-IMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKg
-IMKgIMKgIMKgIMKgIMKgIMKgIDB4MDAwMDAwMDAwMDNGMDAwMEw8YnI+DQorI2RlZmluZSBNQ0Ff
-VU1DX1VNQzBfTUNVTUNfU1RBVFVTVDBfQVJDVF9fUkVTRVJWMF9NQVNLwqAgwqAgwqAgwqAgwqAg
-wqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAg
-wqAgwqAgwqAgwqAgwqAgwqAgwqAweDAwMDAwMDAwRkZDMDAwMDBMPGJyPg0KKyNkZWZpbmUgTUNB
-X1VNQ19VTUMwX01DVU1DX1NUQVRVU1QwX0FSQ1RfX0VyckNvcmVJZF9NQVNLwqAgwqAgwqAgwqAg
-wqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAg
-wqAgwqAgwqAgwqAgwqAgwqAgwqAweDAwMDAwMDNGMDAwMDAwMDBMPGJyPg0KKyNkZWZpbmUgTUNB
-X1VNQ19VTUMwX01DVU1DX1NUQVRVU1QwX0FSQ1RfX1JFU0VSVjFfTUFTS8KgIMKgIMKgIMKgIMKg
-IMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKg
-IMKgIMKgIMKgIMKgIMKgIMKgIMKgMHgwMDAwMDBDMDAwMDAwMDAwTDxicj4NCisjZGVmaW5lIE1D
-QV9VTUNfVU1DMF9NQ1VNQ19TVEFUVVNUMF9BUkNUX19TY3J1Yl9NQVNLwqAgwqAgwqAgwqAgwqAg
-wqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAg
-wqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAweDAwMDAwMTAwMDAwMDAwMDBMPGJyPg0KKyNkZWZpbmUg
-TUNBX1VNQ19VTUMwX01DVU1DX1NUQVRVU1QwX0FSQ1RfX1JFU0VSVjJfTUFTS8KgIMKgIMKgIMKg
-IMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKg
-IMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgMHgwMDAwMDYwMDAwMDAwMDAwTDxicj4NCisjZGVmaW5l
-IE1DQV9VTUNfVU1DMF9NQ1VNQ19TVEFUVVNUMF9BUkNUX19Qb2lzb25fTUFTS8KgIMKgIMKgIMKg
-IMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKg
-IMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIDB4MDAwMDA4MDAwMDAwMDAwMEw8YnI+DQorI2RlZmlu
-ZSBNQ0FfVU1DX1VNQzBfTUNVTUNfU1RBVFVTVDBfQVJDVF9fRGVmZXJyZWRfTUFTS8KgIMKgIMKg
-IMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKg
-IMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIDB4MDAwMDEwMDAwMDAwMDAwMEw8YnI+DQorI2RlZmlu
-ZSBNQ0FfVU1DX1VNQzBfTUNVTUNfU1RBVFVTVDBfQVJDVF9fVUVDQ19NQVNLwqAgwqAgwqAgwqAg
-wqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAg
-wqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgMHgwMDAwMjAwMDAwMDAwMDAwTDxicj4NCisjZGVm
-aW5lIE1DQV9VTUNfVU1DMF9NQ1VNQ19TVEFUVVNUMF9BUkNUX19DRUNDX01BU0vCoCDCoCDCoCDC
-oCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDC
-oCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCAweDAwMDA0MDAwMDAwMDAwMDBMPGJyPg0KKyNk
-ZWZpbmUgTUNBX1VNQ19VTUMwX01DVU1DX1NUQVRVU1QwX0FSQ1RfX1JFU0VSVjNfTUFTS8KgIMKg
-IMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKg
-IMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgMHgwMDBGODAwMDAwMDAwMDAwTDxicj4NCisj
-ZGVmaW5lIE1DQV9VTUNfVU1DMF9NQ1VNQ19TVEFUVVNUMF9BUkNUX19UcmFuc3BhcmVudF9NQVNL
-wqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAg
-wqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAweDAwMTAwMDAwMDAwMDAwMDBMPGJyPg0KKyNk
-ZWZpbmUgTUNBX1VNQ19VTUMwX01DVU1DX1NUQVRVU1QwX0FSQ1RfX1N5bmRWX01BU0vCoCDCoCDC
-oCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDC
-oCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoDB4MDAyMDAwMDAwMDAwMDAwMEw8YnI+DQor
-I2RlZmluZSBNQ0FfVU1DX1VNQzBfTUNVTUNfU1RBVFVTVDBfQVJDVF9fUkVTRVJWNF9NQVNLwqAg
-wqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAg
-wqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAweDAwNDAwMDAwMDAwMDAwMDBMPGJyPg0K
-KyNkZWZpbmUgTUNBX1VNQ19VTUMwX01DVU1DX1NUQVRVU1QwX0FSQ1RfX1RDQ19NQVNLwqAgwqAg
-wqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAg
-wqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAweDAwODAwMDAwMDAwMDAwMDBMPGJy
-Pg0KKyNkZWZpbmUgTUNBX1VNQ19VTUMwX01DVU1DX1NUQVRVU1QwX0FSQ1RfX0VyckNvcmVJZFZh
-bF9NQVNLwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAg
-wqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgMHgwMTAwMDAwMDAwMDAwMDAwTDxicj4N
-CisjZGVmaW5lIE1DQV9VTUNfVU1DMF9NQ1VNQ19TVEFUVVNUMF9BUkNUX19QQ0NfTUFTS8KgIMKg
-IMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKg
-IMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgMHgwMjAwMDAwMDAwMDAwMDAwTDxi
-cj4NCisjZGVmaW5lIE1DQV9VTUNfVU1DMF9NQ1VNQ19TVEFUVVNUMF9BUkNUX19BZGRyVl9NQVNL
-wqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAg
-wqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAweDA0MDAwMDAwMDAwMDAwMDBM
-PGJyPg0KKyNkZWZpbmUgTUNBX1VNQ19VTUMwX01DVU1DX1NUQVRVU1QwX0FSQ1RfX01pc2NWX01B
-U0vCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDC
-oCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoDB4MDgwMDAwMDAwMDAwMDAw
-MEw8YnI+DQorI2RlZmluZSBNQ0FfVU1DX1VNQzBfTUNVTUNfU1RBVFVTVDBfQVJDVF9fRW5fTUFT
-S8KgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKg
-IMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIDB4MTAwMDAwMDAwMDAw
-MDAwMEw8YnI+DQorI2RlZmluZSBNQ0FfVU1DX1VNQzBfTUNVTUNfU1RBVFVTVDBfQVJDVF9fVUNf
-TUFTS8KgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKg
-IMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIDB4MjAwMDAwMDAw
-MDAwMDAwMEw8YnI+DQorI2RlZmluZSBNQ0FfVU1DX1VNQzBfTUNVTUNfU1RBVFVTVDBfQVJDVF9f
-T3ZlcmZsb3dfTUFTS8KgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKg
-IMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIDB4NDAwMDAwMDAw
-MDAwMDAwMEw8YnI+DQorI2RlZmluZSBNQ0FfVU1DX1VNQzBfTUNVTUNfU1RBVFVTVDBfQVJDVF9f
-VmFsX01BU0vCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDC
-oCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoDB4ODAwMDAw
-MDAwMDAwMDAwMEw8YnI+DQorLy9NQ0FfVU1DX1VNQzBfTUNVTUNfQUREUlQwX0FSQ1Q8YnI+DQor
-I2RlZmluZSBNQ0FfVU1DX1VNQzBfTUNVTUNfQUREUlQwX0FSQ1RfX0Vycm9yQWRkcl9fU0hJRlTC
-oCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDC
-oCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoDB4MDxicj4NCisjZGVmaW5lIE1DQV9VTUNf
-VU1DMF9NQ1VNQ19BRERSVDBfQVJDVF9fTFNCX19TSElGVMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKg
-IMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKg
-IMKgIMKgIMKgIMKgIMKgIMKgMHgzODxicj4NCisjZGVmaW5lIE1DQV9VTUNfVU1DMF9NQ1VNQ19B
-RERSVDBfQVJDVF9fUmVzZXJ2ZWRfX1NISUZUwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAg
-wqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAg
-wqAgMHgzZTxicj4NCisjZGVmaW5lIE1DQV9VTUNfVU1DMF9NQ1VNQ19BRERSVDBfQVJDVF9fRXJy
-b3JBZGRyX01BU0vCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDC
-oCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoDB4MDBGRkZGRkZG
-RkZGRkZGRkw8YnI+DQorI2RlZmluZSBNQ0FfVU1DX1VNQzBfTUNVTUNfQUREUlQwX0FSQ1RfX0xT
-Ql9NQVNLwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAg
-wqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAweDNGMDAw
-MDAwMDAwMDAwMDBMPGJyPg0KKyNkZWZpbmUgTUNBX1VNQ19VTUMwX01DVU1DX0FERFJUMF9BUkNU
-X19SZXNlcnZlZF9NQVNLwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAg
-wqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgMHhDMDAw
-MDAwMDAwMDAwMDAwTDxicj4NCis8YnI+DQorI2VuZGlmPGJyPg0KLS0gPGJyPg0KMi4yNC4xPGJy
-Pg0KPGJyPg0KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX188
-YnI+DQphbWQtZ2Z4IG1haWxpbmcgbGlzdDxicj4NCjxhIGhyZWY9Im1haWx0bzphbWQtZ2Z4QGxp
-c3RzLmZyZWVkZXNrdG9wLm9yZyIgdGFyZ2V0PSJfYmxhbmsiPmFtZC1nZnhAbGlzdHMuZnJlZWRl
-c2t0b3Aub3JnPC9hPjxicj4NCjxhIGhyZWY9Imh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
-L21haWxtYW4vbGlzdGluZm8vYW1kLWdmeCIgcmVsPSJub3JlZmVycmVyIiB0YXJnZXQ9Il9ibGFu
-ayI+aHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
-PC9hPjxicj4NCjwvYmxvY2txdW90ZT48L2Rpdj4NCg==
---000000000000dd3d6b059bb718c7--
-
---===============1214602505==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---===============1214602505==--
