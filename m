@@ -2,101 +2,108 @@ Return-Path: <SRS0=R6+d=26=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-9.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 36058C33C9E
-	for <amd-gfx@archiver.kernel.org>; Thu,  9 Jan 2020 01:10:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D07DFC33C9E
+	for <amd-gfx@archiver.kernel.org>; Thu,  9 Jan 2020 01:54:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 062FB206ED
-	for <amd-gfx@archiver.kernel.org>; Thu,  9 Jan 2020 01:09:59 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 9F7DD206ED
+	for <amd-gfx@archiver.kernel.org>; Thu,  9 Jan 2020 01:54:00 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="luNZWCxh"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 062FB206ED
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="yFwI+j1T"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9F7DD206ED
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A4ACA6E369;
-	Thu,  9 Jan 2020 01:09:59 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2076.outbound.protection.outlook.com [40.107.236.76])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 29B7D6E369
- for <amd-gfx@lists.freedesktop.org>; Thu,  9 Jan 2020 01:09:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 52B896E378;
+	Thu,  9 Jan 2020 01:54:00 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2068.outbound.protection.outlook.com [40.107.220.68])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 798C26E378
+ for <amd-gfx@lists.freedesktop.org>; Thu,  9 Jan 2020 01:53:59 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=esdVfRnBaTdnnqhJ50gKD/nKUnTHST5R+zmD9IQqigDKG0Rz+TfkIQQbVUft2RYVeR+lm4hnkVxVHLBSBm/Ip//cIn3zQ3HltVrOd5MNHoaJ7SLG3vm+ieh2dh90MrlnraouknLx4dJTWzZHfV3b51u386IkQocyxKiNk5j908xktNrQ53zKxdCWlkn1j4KcCh/IFd2rZNJUcML8os4KKqRCPe2X+tZvsxQg7CPglm9MVd5cXUzDEzyqeZjZcfsKMwNnxp0QGrKd4psmiOt8USR4nYwukiVLTe1j7QDY3iEUV0MPnFt+pCmo0+yRJBcleO7BqYgYrrO7YkrNhsuUOg==
+ b=LZ53t2wg/sZ8aGT5rhvWc2r1wi901WpDFyYYB+iLzp8dIxAcHhqPChVi/Tz9EtDjOOSPfdVo3B4LQwDFGLzI7zg6ykLulHazVyhD7qZ0GcFiBIqAIblNONG1uY1AIzcsP6VD5GFELKa3F7Nu8yzFNuKrhl9CEVKR6rh8f3nMT/YQr/jMJnokFM0UX52qdK1D8BjByKrrs0AkOuq6D84Jgalx09jkQG0uNi08zEZfLsEhA9Pw+2bC4sqaHsbKWkNBkMRoDy//SUKrL8S9ApHcR5scfKXygTXuXa6vrmiHzLTwfSTC6AukwtqCudLaEXtKJBlFaMmW20cXldwdyt8bzA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=a78PcxKzOuE7PLhvjq5sXd+wU5+CEjC4D/gE+c/Ojiw=;
- b=jqaGW+E4ky/WK2InhscDC8yz21hG9hytXNCTHProg5VUfhlFfJKMBgzwYI++o8ReLlUY6ZLsiF6RKZtKGw3AIPHdZehnKvth3kmyVlCNBwgeoez3SUJrNxvQh46ioaP2xdtHoeZ1i8CXyHWCxaif+Xv+CZ9F6U5wnVcIyEas6PxVxfosheP7NqYK5M1mtUp4zs5IWknlZb+yV10pKWKrs4af42XQlD52ZI8848sSoMeQ4fTGCdT/CwNHTSmMcejWZceXyDrlC55jH/wL/eIf/jUVrRmT8ZJ33bEnt2BJu5umU8pOhzHRaBkcMebXW/m4GSSC6LwNOqvIvCX0yN/AXw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=RG1nx7NmcqGo+grgP9+4zBwUH/JvcY76P93uvJA7j74=;
+ b=LLaZhjuNLeLR19V/aRR0IHYk4CgT9YIUvOAbXP5/yZVznDXjw1LdpSXrjHKraFRAUDQaaH/KJBFOLqjhH8IGestuiBYJUks0vyf1pLLcSEIyX1u5h6CzRvlo2SX/D0YvfTi7X9xE+8xPgtXVgUrWa8m4xVSQV7SpAe7opJ6fDYDXWeWyBdqYMyduXIYMSGzsY4dutdlUD7sT6+0dqDKz26WryPfq0mTyxa/CoMZ8nT/V4TrDFAGFwbDqFEtr/zN6rgYgXzBcK32JouOkFeEQyaA8/DP1enEEm32AqRTaqqQHDPr1s7eW6CtA2CRgR3VrYPgWQUqUEUbwhTSJ3e9U1A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=permerror action=none header.from=amd.com; dkim=none (message not
+ signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=a78PcxKzOuE7PLhvjq5sXd+wU5+CEjC4D/gE+c/Ojiw=;
- b=luNZWCxhTOdRHadPEeoNOO6uVSzRgEfk5aY8EcrBWU/QMsPA6XaXILCNrrVwZE1KnBJlum2TwXPGullrvGeedtQ5b9BgXHi5xZg+amN9k1Kl6R2T8/H7ZgECPC3DQ4pHyNjWcUozOvkAm+E3roI4I0U+fXYigRAzgm3PBiPoGkA=
-Authentication-Results: spf=none (sender IP is )
- smtp.mailfrom=Guchun.Chen@amd.com; 
-Received: from BYAPR12MB2806.namprd12.prod.outlook.com (20.176.254.20) by
- BYAPR12MB3031.namprd12.prod.outlook.com (20.178.53.160) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2602.12; Thu, 9 Jan 2020 01:09:53 +0000
-Received: from BYAPR12MB2806.namprd12.prod.outlook.com
- ([fe80::bccf:40ec:3b93:4269]) by BYAPR12MB2806.namprd12.prod.outlook.com
- ([fe80::bccf:40ec:3b93:4269%6]) with mapi id 15.20.2602.018; Thu, 9 Jan 2020
- 01:09:53 +0000
-From: Guchun Chen <guchun.chen@amd.com>
-To: amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com,
- Hawking.Zhang@amd.com, Tao.Zhou1@amd.com, John.Clements@amd.com,
- Dennis.Li@amd.com
-Subject: [PATCH 2/2] drm/amdgpu: calculate MCUMC_ADDRT0 per asic's UMC offset
-Date: Thu,  9 Jan 2020 09:07:42 +0800
-Message-Id: <20200109010742.30091-2-guchun.chen@amd.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20200109010742.30091-1-guchun.chen@amd.com>
-References: <20200109010742.30091-1-guchun.chen@amd.com>
-X-ClientProxiedBy: HK2PR03CA0055.apcprd03.prod.outlook.com
- (2603:1096:202:17::25) To BYAPR12MB2806.namprd12.prod.outlook.com
- (2603:10b6:a03:70::20)
-MIME-Version: 1.0
-Received: from guchchen-System-Product-Name.amd.com (180.167.199.189) by
- HK2PR03CA0055.apcprd03.prod.outlook.com (2603:1096:202:17::25) with Microsoft
+ bh=RG1nx7NmcqGo+grgP9+4zBwUH/JvcY76P93uvJA7j74=;
+ b=yFwI+j1TaT+dxvD9SJ7J1fpBM9J1fATNcJtdAVQfm/ZlzQsUDeeBWprfk5fsKoAhiALgAScCFTNiOvPIYCU0WbTZ//krBWo5q8MFhuabG58c+zeI6nhenkMNJjGVAELIa4X9yhKIvDRuGw3+tJUj2DFFgXazbXg1h4ck5+gMsaA=
+Received: from DM3PR12CA0116.namprd12.prod.outlook.com (2603:10b6:0:51::12) by
+ BN6PR12MB1187.namprd12.prod.outlook.com (2603:10b6:404:1b::19) with
+ Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2623.4 via Frontend Transport; Thu, 9 Jan 2020 01:09:51 +0000
-X-Mailer: git-send-email 2.17.1
-X-Originating-IP: [180.167.199.189]
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: ca8ef37b-c202-4455-e4cf-08d794a0a21c
-X-MS-TrafficTypeDiagnostic: BYAPR12MB3031:|BYAPR12MB3031:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <BYAPR12MB3031B963FD05E2746F7F87E5F1390@BYAPR12MB3031.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:3631;
-X-Forefront-PRVS: 02778BF158
-X-Forefront-Antispam-Report: SFV:NSPM;
- SFS:(10009020)(4636009)(346002)(366004)(376002)(396003)(136003)(39860400002)(189003)(199004)(478600001)(5660300002)(1076003)(44832011)(6636002)(4326008)(6666004)(316002)(6486002)(36756003)(86362001)(7696005)(186003)(66476007)(66946007)(26005)(66556008)(16526019)(52116002)(8676002)(81156014)(81166006)(8936002)(2906002)(2616005)(956004);
- DIR:OUT; SFP:1101; SCL:1; SRVR:BYAPR12MB3031;
- H:BYAPR12MB2806.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; MX:1; A:1; 
+ 15.20.2602.15; Thu, 9 Jan 2020 01:53:57 +0000
+Received: from DM6NAM11FT004.eop-nam11.prod.protection.outlook.com
+ (2a01:111:f400:7eaa::201) by DM3PR12CA0116.outlook.office365.com
+ (2603:10b6:0:51::12) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2623.9 via Frontend
+ Transport; Thu, 9 Jan 2020 01:53:57 +0000
+Authentication-Results: spf=none (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none;lists.freedesktop.org; dmarc=permerror action=none
+ header.from=amd.com;
 Received-SPF: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
+Received: from SATLEXMB02.amd.com (165.204.84.17) by
+ DM6NAM11FT004.mail.protection.outlook.com (10.13.172.217) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.2623.9 via Frontend Transport; Thu, 9 Jan 2020 01:53:57 +0000
+Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB02.amd.com
+ (10.181.40.143) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Wed, 8 Jan 2020
+ 19:53:56 -0600
+Received: from SATLEXMB01.amd.com (10.181.40.142) by SATLEXMB05.amd.com
+ (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Wed, 8 Jan 2020
+ 19:53:56 -0600
+Received: from lnx-kenneth.amd.com (10.180.168.240) by SATLEXMB01.amd.com
+ (10.181.40.142) with Microsoft SMTP Server id 15.1.1713.5 via Frontend
+ Transport; Wed, 8 Jan 2020 19:53:55 -0600
+From: Kenneth Feng <kenneth.feng@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amd/powerplay: sw ctf for arcturus
+Date: Thu, 9 Jan 2020 09:53:50 +0800
+Message-ID: <1578534830-24419-1-git-send-email-kenneth.feng@amd.com>
+X-Mailer: git-send-email 2.7.4
+MIME-Version: 1.0
+X-EOPAttributedMessage: 0
+X-MS-Office365-Filtering-HT: Tenant
+X-Forefront-Antispam-Report: CIP:165.204.84.17; IPV:; CTRY:US; EFV:NLI;
+ SFV:NSPM;
+ SFS:(10009020)(4636009)(346002)(39860400002)(376002)(396003)(136003)(428003)(199004)(189003)(26005)(336012)(186003)(426003)(6916009)(4326008)(2616005)(316002)(54906003)(7696005)(478600001)(81166006)(8676002)(44832011)(5660300002)(81156014)(8936002)(2906002)(86362001)(36756003)(70206006)(356004)(6666004)(70586007);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:BN6PR12MB1187; H:SATLEXMB02.amd.com; FPR:;
+ SPF:None; LANG:en; PTR:InfoDomainNonexistent; A:1; MX:1; 
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 51c6bafe-7318-4d46-5bd3-08d794a6ca13
+X-MS-TrafficTypeDiagnostic: BN6PR12MB1187:
+X-Microsoft-Antispam-PRVS: <BN6PR12MB11877868BAF7E6D059493D078E390@BN6PR12MB1187.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:597;
+X-Forefront-PRVS: 02778BF158
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: ibzQgOQnJkQJSUT42G445XL0JIsyy4WXwYPsdwmqmA6bf0O1w1yJCYD3kuy9n+usKNvZ87pAzJM5b06ylkCEreSm79YcYTMXEGSJQ5pJpXj5SKrYShCjqPhit0P5y6z7gZa4KObu2Uj46zUv79lBnv4ERwOoDKSOy6cTwXezsc2R5BmmiSIYa3ndg58TmDuIkLSQHEE8wIoJ02Fd1hPBpIhEcKPyVtqG774nj9zBYQwVQsMG4sQtY85Ax2Z28z6Idtqio9wiQqTm+aspc2ItUCt6LswHk/zm6Tjzw10C/ZTAID5ORO1PpV7nqCy/dzY+ckP8YG27Vm9uhlbHYQbHLMaX1P+v6eDhfvxcKeqc3V0Nm0VZ9vIqgWD2X93Q3SE+eLRLRJDQPB+MEfvqX01AA3kjvBSU9fWgYUJpIBRIIHsZKNSBw+GQrbGV1PXjc8SE
+X-Microsoft-Antispam-Message-Info: 7Bb+yVFDoOieZsrN+Gmf6MZOTB6Zc0aHFNHffBys7cZoZecT6ZfHph2cGFURSfWciEr8MwzTWt/KMNTyZxcoXRLN7SYRmSxIh2vL/W69hqFYkYBlzMy8h1Wrcl8ktGCaAsOpo/13PFvObz8B+Vd0j6mWT0YWh7xAfcfJV5bd12SVm/XsD2N3qIquIxKDK/M6I93Z1JBQoGBHKawA6uAC9RYZRQxIi0+2c/0NXojn5yY6v0M6hKF/HVv3AkzGeZOB0IRWWk33p9GL44kdX02b4eVFeY7KtPUjGM84fjz3b8Fvssp+Cmv0KwlbYbpoL5RhdaWK1ze8xLJ4opUDr2ewMIbfuKmNuxmdbiGl6UvmGY4PAbg6RJ5qvCEAgh8wEOBCMY98fIt2AH+JGgEFeRiyeQ+8NgIGRcEqZdCvkOw0cibPrzccy8pBN4EEXPS1v84R
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ca8ef37b-c202-4455-e4cf-08d794a0a21c
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jan 2020 01:09:53.4313 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jan 2020 01:53:57.1052 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 51c6bafe-7318-4d46-5bd3-08d794a6ca13
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: DAlm0diE9IJR/zrUUQvcYNyYsDOc2dEkdRBtfkAvKVjlsKf5r/L17Pmr/pCbLvJK61KxcDpdio6Op00HYKokTw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB3031
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB02.amd.com]
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN6PR12MB1187
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,69 +115,45 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Guchun Chen <guchun.chen@amd.com>
+Cc: evan.quan@amd.com, Kenneth Feng <kenneth.feng@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hardcoded offset is not friendly. And another benifit of this
-patch is to keep read and write access to this register be
-consistent with other similar UMC regsiters  in this file.
+software ctf implementation on arcturs.
+has been verified on the system by setting a fake software ctf
+temperature limit like 40 degrees centigrade.
+then the interrupt is triggered from ih ring and
+the warning can be observed from dmesg.
 
-Signed-off-by: Guchun Chen <guchun.chen@amd.com>
+Signed-off-by: Kenneth Feng <kenneth.feng@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/umc_v6_1.c | 10 ++++++----
- 1 file changed, 6 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/amd/powerplay/arcturus_ppt.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/umc_v6_1.c b/drivers/gpu/drm/amd/amdgpu/umc_v6_1.c
-index 11e924dd88ff..11428b66c74e 100644
---- a/drivers/gpu/drm/amd/amdgpu/umc_v6_1.c
-+++ b/drivers/gpu/drm/amd/amdgpu/umc_v6_1.c
-@@ -30,8 +30,6 @@
- #include "umc/umc_6_1_1_sh_mask.h"
- #include "umc/umc_6_1_2_offset.h"
- 
--#define smnMCA_UMC0_MCUMC_ADDRT0	0x50f10
--
- #define UMC_6_INST_DIST			0x40000
- 
- /*
-@@ -186,7 +184,7 @@ static void umc_v6_1_query_error_address(struct amdgpu_device *adev,
- 					 uint32_t umc_inst)
+diff --git a/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c b/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c
+index 50b317f..330d5f4 100644
+--- a/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c
++++ b/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c
+@@ -846,11 +846,13 @@ static int arcturus_get_thermal_temperature_range(struct smu_context *smu,
+ 						struct smu_temperature_range *range)
  {
- 	uint32_t lsb, mc_umc_status_addr;
--	uint64_t mc_umc_status, err_addr, retired_page;
-+	uint64_t mc_umc_status, err_addr, retired_page, mc_umc_addrt0;
- 	struct eeprom_table_record *err_rec;
- 	uint32_t channel_index = adev->umc.channel_idx_tbl[umc_inst * adev->umc.channel_inst_num + ch_inst];
+ 	PPTable_t *pptable = smu->smu_table.driver_pptable;
++	struct smu_table_context *table_context = &smu->smu_table;
++	struct smu_11_0_powerplay_table *powerplay_table = table_context->power_play_table;
  
-@@ -194,10 +192,14 @@ static void umc_v6_1_query_error_address(struct amdgpu_device *adev,
- 		/* UMC 6_1_2 registers */
- 		mc_umc_status_addr =
- 			SOC15_REG_OFFSET(UMC, 0, mmMCA_UMC_UMC0_MCUMC_STATUST0_ARCT);
-+		mc_umc_addrt0 =
-+			SOC15_REG_OFFSET(UMC, 0, mmMCA_UMC_UMC0_MCUMC_ADDRT0_ARCT);
- 	} else {
- 		/* UMC 6_1_1 registers */
- 		mc_umc_status_addr =
- 			SOC15_REG_OFFSET(UMC, 0, mmMCA_UMC_UMC0_MCUMC_STATUST0);
-+		mc_umc_addrt0 =
-+			SOC15_REG_OFFSET(UMC, 0, mmMCA_UMC_UMC0_MCUMC_ADDRT0);
- 	}
+-	if (!range)
++	if (!range || !powerplay_table)
+ 		return -EINVAL;
  
- 	/* skip error address process if -ENOMEM */
-@@ -214,7 +216,7 @@ static void umc_v6_1_query_error_address(struct amdgpu_device *adev,
- 	if (REG_GET_FIELD(mc_umc_status, MCA_UMC_UMC0_MCUMC_STATUST0, Val) == 1 &&
- 	    (REG_GET_FIELD(mc_umc_status, MCA_UMC_UMC0_MCUMC_STATUST0, UECC) == 1 ||
- 	    REG_GET_FIELD(mc_umc_status, MCA_UMC_UMC0_MCUMC_STATUST0, CECC) == 1)) {
--		err_addr = RREG64_PCIE(smnMCA_UMC0_MCUMC_ADDRT0 + umc_reg_offset * 4);
-+		err_addr = RREG64_PCIE((mc_umc_addrt0 + umc_reg_offset) * 4);
- 
- 		/* the lowest lsb bits should be ignored */
- 		lsb = REG_GET_FIELD(err_addr, MCA_UMC_UMC0_MCUMC_ADDRT0, LSB);
+-	range->max = pptable->TedgeLimit *
++	range->max = powerplay_table->software_shutdown_temp *
+ 		SMU_TEMPERATURE_UNITS_PER_CENTIGRADES;
+ 	range->edge_emergency_max = (pptable->TedgeLimit + CTF_OFFSET_EDGE) *
+ 		SMU_TEMPERATURE_UNITS_PER_CENTIGRADES;
 -- 
-2.17.1
+2.7.4
 
 _______________________________________________
 amd-gfx mailing list
