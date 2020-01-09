@@ -7,32 +7,32 @@ X-Spam-Status: No, score=-9.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 08410C32771
-	for <amd-gfx@archiver.kernel.org>; Thu,  9 Jan 2020 11:38:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 28951C32771
+	for <amd-gfx@archiver.kernel.org>; Thu,  9 Jan 2020 11:42:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id BB42D2072A
-	for <amd-gfx@archiver.kernel.org>; Thu,  9 Jan 2020 11:38:18 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id EF6242072A
+	for <amd-gfx@archiver.kernel.org>; Thu,  9 Jan 2020 11:42:21 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="aXcWKX+q"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BB42D2072A
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="t1IGJJHl"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EF6242072A
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8111F6E02E;
-	Thu,  9 Jan 2020 11:38:18 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2072.outbound.protection.outlook.com [40.107.220.72])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 11BCC6E02E
- for <amd-gfx@lists.freedesktop.org>; Thu,  9 Jan 2020 11:38:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ADBBC6E3F0;
+	Thu,  9 Jan 2020 11:42:21 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2066.outbound.protection.outlook.com [40.107.94.66])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CDFD46E3F0
+ for <amd-gfx@lists.freedesktop.org>; Thu,  9 Jan 2020 11:42:20 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=DFVmCdnZ1fy+2VUpSqq2ORR82cXUT/FpV4mcisW65Ulk2XgtsXX5jVHjso4g64WSTc0OlJdyJ0ESU9iZYuDs0j4G3r8OOaYp320ObeqrmTiVux2Q0IZGkfp1OUpWZFHi8Ohvq7IZFhq4HJevN9j+EBb1n4QioUBIfR9dfTDveqDO1I90rAJ7Jn4DE1Nv7hha+BAxcJTT0r/XCeQY8TQDFz0NwcN8wKzOQgl0A3KE1T+vLErX/BK3krjEV3RrkzgBFxuOs71UWZ0jAexwaBBbWF9x/UPrDUrfLPlxD9Ra3y+1Rr7pI3kGLnQwduq+R+DkjeV2chmgX3v2IxyeJvpmLg==
+ b=FfDMHr63zSzhB9SQbhf5sqqYXpU0eC6DWWsMGvfSi8ZQJE3m37jwz9M8KM4FfMoVDc2rVAdRwPzBwI9lZh5MUhvt+kL8Pj1Jclvl4hGtDlm+ed4Lar6B8+hmDnbTaSL2USKihizAcPOarAX3pT2n+D1hvHAroWKbKDCJzhmkQbIn79cD9OVIHXy+113eBQ7YtbI5PxLygNBJnDsUMDnTRRNhSKFnSWxvWzx/c0yj4fmJYdBu5RU3OwaixeT4lLUGlHGnJaHBJZtkZWvfyouTTdlRDGMP5gE3yaHG8SB/c7NnygVcpBJiPwVNnZbIKxSKLZuyHP1b3g+5lwCFMyjvGg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=W4NOUL5k9WvJxXqveGorcKhwZLp4FWc96nI6f+Y3iVU=;
- b=iHe6ep/yIgsRzwCqsNho6DpGgBHlBc2JPWSpS7OX+xpsNEQVH6+VAn8zPB+jaNd4Fdf/Zj4aNDaInt6keaPMIkhnUFgh11eBAPPBXDDlE72Vn2ZoMJhj16XqThCeyiNGqz4of+2zdjLeCxJHXM2v2mJwnc/Rk2Q0WQxx+lJsxfZWWJNwzW/SJRx9W8JOlt0Vd0FXPM53RkQH13oEC8xtfTAxmYaxKTB4Aqg5OIaJjgIvxmnL8aRIfFdMD6lI5OXnkivDdRo9QVeyg93kUj7+etITsajf3UBMMf3ZYSW+G7ElYUlXjp7xq0jiHZ9oAzsum+QXwCZVKtJ8tnz5EYu4uQ==
+ bh=/7YKJo5CayIQl+w9ZVBsVbL2pmjs+gFSp+uFw3aF0tc=;
+ b=azvdTNvpuYHR0I4l0RBUTabrphYqc6PeooTruyeRPGV/6412lTnGvc9R5jViu57aKPWaNjgS4w7ypIpYDBSSOHb3l0QR2MyReeT77tJv95ByNT7ZbVZEGOdCQfPzvWlEDaCkj70oWS/gLtkGtBow9Exok2mg8dwECSpsvEY9GMy/6jG8yQkf6vkDKkN372RO+fZqPyzo7CV/uED6ARm5yBKbJVsCnY7C/FUxGKtjOFPmAu/DKmvvH7sYVvIo7GQ0IvSziz/o4ir/ilkyRHCccKTjqqp/tUxYJCJ6q8hga9y4uMNPmu62ZXkbfWPOf6/+u6So+srJxtWIcjs/Rz05/A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=permerror action=none header.from=amd.com; dkim=none (message not
@@ -40,67 +40,66 @@ ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=W4NOUL5k9WvJxXqveGorcKhwZLp4FWc96nI6f+Y3iVU=;
- b=aXcWKX+qe8eQ6mV/nMVVPQXVASTPS7QdroXEwHQXs555PIccVavCaoG2n3KTj8jXPil0b9lOlqHmo+O6NLm4RLo+OWFaxGY2xmKBhWbtk5CPcNa3t7u/S852td5b9z/IJUmXa7OkcheIyLx9Fto4qZcMagAJcE197AXS5wsrpxg=
-Received: from BN8PR12CA0024.namprd12.prod.outlook.com (2603:10b6:408:60::37)
- by MN2PR12MB3789.namprd12.prod.outlook.com (2603:10b6:208:16a::20)
+ bh=/7YKJo5CayIQl+w9ZVBsVbL2pmjs+gFSp+uFw3aF0tc=;
+ b=t1IGJJHl8YmL8I7nvzl8xzBBHg51qblDOs2aYuqvCXuqCmVftpGALKKHyrR8t487GoiShk3TuJH8hXzbJV1m6I05tbuVyI+HFf3kIGFDmJ62/i0NnStla13Q3A255C+1rsG19wEr20ndeTzc0eSAWpfXK/nhH/seijGc1vt808s=
+Received: from BN6PR12CA0040.namprd12.prod.outlook.com (2603:10b6:405:70::26)
+ by BN6PR12MB1347.namprd12.prod.outlook.com (2603:10b6:404:1c::18)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2623.10; Thu, 9 Jan
- 2020 11:38:13 +0000
-Received: from CO1NAM11FT016.eop-nam11.prod.protection.outlook.com
- (2a01:111:f400:7eab::203) by BN8PR12CA0024.outlook.office365.com
- (2603:10b6:408:60::37) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2623.10 via Frontend
- Transport; Thu, 9 Jan 2020 11:38:12 +0000
+ 2020 11:42:18 +0000
+Received: from CO1NAM11FT054.eop-nam11.prod.protection.outlook.com
+ (2a01:111:f400:7eab::202) by BN6PR12CA0040.outlook.office365.com
+ (2603:10b6:405:70::26) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2623.9 via Frontend
+ Transport; Thu, 9 Jan 2020 11:42:18 +0000
 Authentication-Results: spf=none (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
  header.d=none;lists.freedesktop.org; dmarc=permerror action=none
  header.from=amd.com;
 Received-SPF: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
-Received: from SATLEXMB01.amd.com (165.204.84.17) by
- CO1NAM11FT016.mail.protection.outlook.com (10.13.175.141) with Microsoft SMTP
+Received: from SATLEXMB02.amd.com (165.204.84.17) by
+ CO1NAM11FT054.mail.protection.outlook.com (10.13.174.70) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.2623.9 via Frontend Transport; Thu, 9 Jan 2020 11:38:11 +0000
-Received: from SATLEXMB01.amd.com (10.181.40.142) by SATLEXMB01.amd.com
- (10.181.40.142) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.2623.9 via Frontend Transport; Thu, 9 Jan 2020 11:42:18 +0000
+Received: from SATLEXMB01.amd.com (10.181.40.142) by SATLEXMB02.amd.com
+ (10.181.40.143) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Thu, 9 Jan 2020
- 05:38:10 -0600
-Received: from rico-code.amd.com (10.180.168.240) by SATLEXMB01.amd.com
- (10.181.40.142) with Microsoft SMTP Server id 15.1.1713.5 via Frontend
- Transport; Thu, 9 Jan 2020 05:38:08 -0600
-From: Tianci Yin <tianci.yin@amd.com>
+ 05:42:17 -0600
+Received: from hawzhang-System-Product-Master.amd.com (10.180.168.240) by
+ SATLEXMB01.amd.com (10.181.40.142) with Microsoft SMTP Server id 15.1.1713.5
+ via Frontend Transport; Thu, 9 Jan 2020 05:42:16 -0600
+From: Hawking Zhang <Hawking.Zhang@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amdgpu: fix modprobe failure of the secondary GPU when
- GDDR6 training enabled(V3)
-Date: Thu, 9 Jan 2020 19:38:06 +0800
-Message-ID: <20200109113806.19305-1-tianci.yin@amd.com>
+Subject: [PATCH] drm/amdgpu: check sdma ras funcs pointer before accessing
+Date: Thu, 9 Jan 2020 19:42:13 +0800
+Message-ID: <20200109114213.5537-1-Hawking.Zhang@amd.com>
 X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
 X-EOPAttributedMessage: 0
 X-MS-Office365-Filtering-HT: Tenant
 X-Forefront-Antispam-Report: CIP:165.204.84.17; IPV:; CTRY:US; EFV:NLI;
  SFV:NSPM;
- SFS:(10009020)(4636009)(346002)(136003)(39860400002)(396003)(376002)(428003)(199004)(189003)(44832011)(26005)(2616005)(186003)(2906002)(336012)(426003)(70206006)(1076003)(70586007)(5660300002)(54906003)(6916009)(81156014)(8936002)(8676002)(86362001)(81166006)(36756003)(356004)(7696005)(316002)(4326008)(478600001);
- DIR:OUT; SFP:1101; SCL:1; SRVR:MN2PR12MB3789; H:SATLEXMB01.amd.com; FPR:;
- SPF:None; LANG:en; PTR:InfoDomainNonexistent; A:1; MX:1; 
+ SFS:(10009020)(4636009)(136003)(376002)(346002)(396003)(39860400002)(428003)(189003)(199004)(426003)(336012)(316002)(7696005)(8936002)(2616005)(478600001)(6916009)(5660300002)(2906002)(1076003)(86362001)(36756003)(4326008)(81156014)(8676002)(81166006)(26005)(6666004)(186003)(356004)(70206006)(70586007);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:BN6PR12MB1347; H:SATLEXMB02.amd.com; FPR:;
+ SPF:None; LANG:en; PTR:InfoDomainNonexistent; MX:1; A:1; 
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 049d6725-4526-4c8e-951a-08d794f86868
-X-MS-TrafficTypeDiagnostic: MN2PR12MB3789:
-X-Microsoft-Antispam-PRVS: <MN2PR12MB3789A3DAB94113428A2916E695390@MN2PR12MB3789.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:2276;
+X-MS-Office365-Filtering-Correlation-Id: 1b10c95b-cfa9-481e-a5de-08d794f8fb47
+X-MS-TrafficTypeDiagnostic: BN6PR12MB1347:
+X-Microsoft-Antispam-PRVS: <BN6PR12MB1347F1506E8170AF694CA684FC390@BN6PR12MB1347.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:1824;
 X-Forefront-PRVS: 02778BF158
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: xDRr0Qtco3pjRsGmCwe3XsJ3yMR9go3YvDXp01G4UWYDujmuTP11fswxTMya1G31wRAz1oQmxyzkq2WTTyteKJXZP42hOdtls2viRQ4FrnTGRbI1sgG0upXfvGpaJdxZNOaCF3tTtB47hnjrQB2C1waKKTRp8w0wtRlHQLYvCCnFfN2noTBeFUobwzHoeHx+qcjLdUfEopOUFmfUGPeuFrVxY8X7lRcD3PqgfRYCgPc+X/JqkleCsRZvtLevPuXrnrYNm1LQ68OtRtP2yAxiOLKHwwWpOm0PUP8uVWTCbtZsn+HS89wr5YZF7KIirK5LZg1uMRxAlchOzohfbaU9juYBymeeFhTlbM45LEoNcfqKaZbt2Xow5YDHUlkJZ9ZWJaT7uSgKGnJLZo+X+92RNgE/ST5HhKbkEtgQcnWU2ltPfApM9GVcJH5V4/xhD83x
+X-Microsoft-Antispam-Message-Info: josqqwye3fz7oK3YtL/cWMvL04osHeYUkf6xhsjeWaZrFXb0VnR56+nelbvmjF26BMV1M0PFkcMpoUvuxlhmBMUHRo1pA7I/HveGEVWYdcsn5YT+bnSWNdhFC5cFLt4coO7fZqyiRVGnsYohE+ErTKbB2N+AZge4CGqG4egqrbGJ3X9tDfR3Tdd+FvfJYAmLpFSJ9+Cv7AkyODUcst/8RDA8dF/s+rraKxOUslOVhwd3chN4950kBl06jjj4sAjXeV/FjSilKGCLjgWmrQ6RE76CFwVkTtk0jKYZe4TnOzdmK1v8b2Ye3rY+40cYCFFbYfS1tH+IM13r+mjdWP1QCbosfbQmAbtwWB1I2bphp51ZrICL22sV4NZK98V6cI6d0BK2LoqCh4e3IVrH0isHV22EMv2zCt/ZbkKFEHlypRo5p1i6iH2EOGwW1GQn+kiH
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jan 2020 11:38:11.9083 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 049d6725-4526-4c8e-951a-08d794f86868
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jan 2020 11:42:18.3175 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1b10c95b-cfa9-481e-a5de-08d794f8fb47
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB01.amd.com]
+ Helo=[SATLEXMB02.amd.com]
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3789
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN6PR12MB1347
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,105 +111,46 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Long Gang <Gang.Long@amd.com>, Tianci Yin <tianci.yin@amd.com>,
- Feifei Xu <Feifei.Xu@amd.com>, Kevin Wang <Kevin1.Wang@amd.com>,
- Tuikov Luben <Luben.Tuikov@amd.com>,
- Deucher Alexander <Alexander.Deucher@amd.com>,
- Hawking Zhang <Hawking.Zhang@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Xiaojie Yuan <xiaojie.yuan@amd.com>
+Cc: Hawking Zhang <Hawking.Zhang@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: "Tianci.Yin" <tianci.yin@amd.com>
+sdma ras funcs are not supported by ASIC prior
+to vega20
 
-[why]
-In dual GPUs scenario, stolen_size is assigned to zero on the secondary GPU,
-since there is no pre-OS console using that memory. Then the bottom region of
-VRAM was allocated as GTT, unfortunately a small region of bottom VRAM was
-encroached by UMC firmware during GDDR6 BIST training, this cause page fault.
-
-[how]
-Forcing stolen_size to 3MB, then the bottom region of VRAM was
-allocated as stolen memory, GTT corruption avoid.
-
-Change-Id: I310a72ba0402994defbe50839842a8edb025a868
-Signed-off-by: Tianci.Yin <tianci.yin@amd.com>
+Signed-off-by: Hawking Zhang <Hawking.Zhang@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h |  5 +++++
- drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c  | 27 +++++++++++++++++++++++++
- 2 files changed, 32 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
-index c91dd602d5f1..e4b2f9bcaeb7 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
-@@ -60,6 +60,11 @@
-  */
- #define AMDGPU_GMC_FAULT_TIMEOUT	5000ULL
+diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
+index f4107f9b75f3..c4b4caaf56fe 100644
+--- a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
+@@ -1810,7 +1810,10 @@ static int sdma_v4_0_late_init(void *handle)
+ 			RREG32_SDMA(i, mmSDMA0_EDC_COUNTER);
+ 	}
  
-+/*
-+ * Default stolen memory size, 1024 * 768 * 4
-+ */
-+#define AMDGPU_STOLEN_VGA_DEFAULT_SIZE	0x300000ULL
-+
- struct firmware;
+-	return adev->sdma.funcs->ras_late_init(adev, &ih_info);
++	if (adev->sdma.funcs && adev->sdma.funcs->ras_late_init)
++		return adev->sdma.funcs->ras_late_init(adev, &ih_info);
++	else
++		return 0;
+ }
  
- /*
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-index 7dc8c068c62a..b95add93d6b1 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-@@ -566,6 +566,13 @@ static int gmc_v10_0_late_init(void *handle)
+ static int sdma_v4_0_sw_init(void *handle)
+@@ -1882,7 +1885,8 @@ static int sdma_v4_0_sw_fini(void *handle)
  	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
- 	int r;
+ 	int i;
  
-+	/*
-+	 * Can't free the stolen VGA memory when it might be used for memory
-+	 * training again.
-+	 */
-+	if (!adev->fw_vram_usage.mem_train_support)
-+		amdgpu_bo_late_init(adev);
-+
- 	r = amdgpu_gmc_allocate_vm_inv_eng(adev);
- 	if (r)
- 		return r;
-@@ -757,6 +764,19 @@ static int gmc_v10_0_sw_init(void *handle)
+-	adev->sdma.funcs->ras_fini(adev);
++	if (adev->sdma.funcs && adev->sdma.funcs->ras_fini)
++		adev->sdma.funcs->ras_fini(adev);
  
- 	adev->gmc.stolen_size = gmc_v10_0_get_vbios_fb_size(adev);
- 
-+	/*
-+	 * In dual GPUs scenario, stolen_size is assigned to zero on the
-+	 * secondary GPU, since there is no pre-OS console using that memory.
-+	 * Then the bottom region of VRAM was allocated as GTT, unfortunately a
-+	 * small region of bottom VRAM was encroached by UMC firmware during
-+	 * GDDR6 BIST training, this cause page fault.
-+	 * The page fault can be fixed by forcing stolen_size to 3MB, then the
-+	 * bottom region of VRAM was allocated as stolen memory, GTT corruption
-+	 * avoid.
-+	 */
-+	adev->gmc.stolen_size = max(adev->gmc.stolen_size,
-+				    AMDGPU_STOLEN_VGA_DEFAULT_SIZE);
-+
- 	/* Memory manager */
- 	r = amdgpu_bo_init(adev);
- 	if (r)
-@@ -796,6 +816,13 @@ static void gmc_v10_0_gart_fini(struct amdgpu_device *adev)
- static int gmc_v10_0_sw_fini(void *handle)
- {
- 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
-+	void *stolen_vga_buf;
-+
-+	/*
-+	 * Free the stolen memory if it wasn't already freed in late_init
-+	 * because of memory training.
-+	 */
-+	amdgpu_bo_free_kernel(&adev->stolen_vga_memory, NULL, &stolen_vga_buf);
- 
- 	amdgpu_vm_manager_fini(adev);
- 	gmc_v10_0_gart_fini(adev);
+ 	for (i = 0; i < adev->sdma.num_instances; i++) {
+ 		amdgpu_ring_fini(&adev->sdma.instance[i].ring);
 -- 
 2.17.1
 
