@@ -2,71 +2,110 @@ Return-Path: <SRS0=R6+d=26=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-6.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7E2D0C33C9E
-	for <amd-gfx@archiver.kernel.org>; Thu,  9 Jan 2020 03:13:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 99F8CC33C9E
+	for <amd-gfx@archiver.kernel.org>; Thu,  9 Jan 2020 03:15:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4A3CA2067D
-	for <amd-gfx@archiver.kernel.org>; Thu,  9 Jan 2020 03:13:05 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 6C4032070E
+	for <amd-gfx@archiver.kernel.org>; Thu,  9 Jan 2020 03:15:42 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="srgSuCky"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4A3CA2067D
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="ADD5PupP"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6C4032070E
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F01F16E384;
-	Thu,  9 Jan 2020 03:13:04 +0000 (UTC)
-Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com
- [IPv6:2a00:1450:4864:20::441])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 53D006E384
- for <amd-gfx@lists.freedesktop.org>; Thu,  9 Jan 2020 03:13:03 +0000 (UTC)
-Received: by mail-wr1-x441.google.com with SMTP id q10so5688058wrm.11
- for <amd-gfx@lists.freedesktop.org>; Wed, 08 Jan 2020 19:13:03 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=oTATRPBAbmUROozNMrWp90nyzgzcnFeR7DzcezQ4U+s=;
- b=srgSuCkymjygvrYw1XEZaY2jvvjGz1YL2d1Uq/D6VtkKeOO0+UIEuIJ2VtnFt1RUAc
- 3o1dY7HMX83acW4uyVxb3/fY52SyENBDXI6e2ZCAUGvYXbkHPw5NqLI6DFZAH6LZk3+W
- rcfyAzzficnDuBzkdxJnWFpD27Bdz2sZYS7DO3uczZsOZ87EyU5MGJh257CcEuS9Iq84
- WAA53RXa0bTrsaYJpK/FSjInBiJ7ndEz3UZ23gTNlvuj1MEhJoYYqm5LyhNiA7o0UrHn
- oSK6tRhQFw2nUKTqsl9LS02ZSPpbKG1Tz5hFbpQMTDRlav9NxTSTMqbxwHJHugqhYb7d
- e+AA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=oTATRPBAbmUROozNMrWp90nyzgzcnFeR7DzcezQ4U+s=;
- b=attPSthglimfprC5iMKlsPMSiZpSGxziaysU0VbpE9TvjXgRUu9Xt8hksfbnqb0S8P
- 1zswL9NaA8emWJ6NHR5Hdsidj8IW7ks4J6T7/hEBvwgflb2pGsWxn0FMuj9en20//xPt
- etgPaiuMNMZZkFAToTlK8PMpoxrX81PeoAmcimmV6Bv8y4rq1mO5ZX/yhWDWrl9WCIOn
- 1TTJoNX+yS8OJMdHOhhyTX2D2JLmrtIiqe5s99w0pXKfghPNkrcs6BlyOfXY8DNngfas
- 7jfukvYU5klN1BNSXCGVroXQTjVfA7v0nHzLURc/1sv5LRSh1efNpO8hJj+We7USa/rS
- XSXg==
-X-Gm-Message-State: APjAAAUytL7GYTxFAlhPC0kdPv1UR0+RGF+yGZFGxUhqQ81XKayDUmLw
- U+zn/bdmr3Vqq42zI5W7lD0h+b4fRpLM1USHvtVMxA==
-X-Google-Smtp-Source: APXvYqw51vGdZIK/3uDnYeHVDH15QcfP1Ysxb5Aw/86fxIPpW1mlo86n/GHyuxXhC0LNKM/eEFSpa6iK+dAVyoP5KwU=
-X-Received: by 2002:a5d:4692:: with SMTP id u18mr8356670wrq.206.1578539581961; 
- Wed, 08 Jan 2020 19:13:01 -0800 (PST)
-MIME-Version: 1.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 277506E384;
+	Thu,  9 Jan 2020 03:15:42 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2051.outbound.protection.outlook.com [40.107.94.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 244DE6E384
+ for <amd-gfx@lists.freedesktop.org>; Thu,  9 Jan 2020 03:15:41 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=P5Iu8Rv1vOtHGx8Nk7+mTLGFWtsZhrer8Db7GDZ5aZsLkPrREmwJ91nIGNgmantuq0tbzDJgLwYj0bAE8gPMH95AtohH67SDtNPI2Iao87HywjhASUdhs/btRV7rlr1e5gUV/ipg6r/o2V9quctdCgLid/J3hQPNAujTJGkSnFTrjCiNwKeJhyQmsg3x8DxZMWud3Zy085XSG0ZOXPLqPUQXGQBEneBNwUXJeTF+92LeXCKje7uor5qL1d7wCFHykHVMN6tz7p3/HeMWX58GpHV1qfdXIuH0I7j3e71xH9lXtWixuO+IjJUXwv+7P+OA35rFSJLEKMnS6QJmqUn/3g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=y0OZfThBGrQHrTc8XSb8UUyx3mR8GckIOlsNi9p8fD0=;
+ b=NEQvpCSFH4gDGAFG0aIe6gZ79waTndUS7Jd+ygEFp3woEAllNhwetfUwKfwkPBcA4sYUmP4oetiVR1C5z1VaMyHJco3HdnDrE06dF5wWR1xjhtKD9j8CbeblJOK+ZvDwNzDa3kI9dmteX7xcfxwlu+VGkXjwEhR4VD7/M16t6XkihPQTovkWW3jm/5mTHfXoS90H8Eovsga9temFeXo/xsMg5g9QEdtzTPr/p686zUtVtz+S9f7NUvhooq86sijymlaPd+lttwDZhIIxKlhSmVKPCat5CzMeblOh8Iu7vPU8y9hr30oyqBJ1hOna+QwviweTUK4zwoZjRFPUC9aPVg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=y0OZfThBGrQHrTc8XSb8UUyx3mR8GckIOlsNi9p8fD0=;
+ b=ADD5PupPk0VKPPTXctlXkqFoLRb0RpdmYimiWAgJdaRgNg7diUey/EC0bF+BO4S3BXk5TQOXkP4pIh7ykft+PxsWupQ1xmFjmpyuV5HbVkS6pEKc+OAGAVEGSf9OLJucJHzXAXKAss81/jivWaiOU1l5beTvSC86cPGH98lmdmg=
+Received: from MN2PR12MB2957.namprd12.prod.outlook.com (20.179.82.14) by
+ MN2PR12MB3373.namprd12.prod.outlook.com (20.178.242.33) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2623.9; Thu, 9 Jan 2020 03:15:39 +0000
+Received: from MN2PR12MB2957.namprd12.prod.outlook.com
+ ([fe80::2cbe:ce2:60b5:7756]) by MN2PR12MB2957.namprd12.prod.outlook.com
+ ([fe80::2cbe:ce2:60b5:7756%6]) with mapi id 15.20.2623.010; Thu, 9 Jan 2020
+ 03:15:39 +0000
+From: "Yin, Tianci (Rico)" <Tianci.Yin@amd.com>
+To: Alex Deucher <alexdeucher@gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: fix modprobe failure of the 2nd GPU when
+ GDDR6 training enabled
+Thread-Topic: [PATCH] drm/amdgpu: fix modprobe failure of the 2nd GPU when
+ GDDR6 training enabled
+Thread-Index: AQHVxiBU8GGBuSDCyE+2e2fHcoZQZafguKSAgAAg5YCAAAP9AIAAw+3YgAAHpICAAACnJw==
+Date: Thu, 9 Jan 2020 03:15:39 +0000
+Message-ID: <MN2PR12MB2957F23A709E07E481AD630B95390@MN2PR12MB2957.namprd12.prod.outlook.com>
 References: <20200108123648.7422-1-tianci.yin@amd.com>
  <ba1754a0-7230-5df7-cfb3-7b0d7c892c47@amd.com>
  <CADnq5_MQ1S60QX3=U2=LYSoiYg965yViTk0Y0WbaFTRXhvNZww@mail.gmail.com>
  <aca36233-68fd-c692-1080-daa9c32efa14@gmail.com>
- <MN2PR12MB29576985DC4A61F99F96052A95390@MN2PR12MB2957.namprd12.prod.outlook.com>
-In-Reply-To: <MN2PR12MB29576985DC4A61F99F96052A95390@MN2PR12MB2957.namprd12.prod.outlook.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 8 Jan 2020 22:12:49 -0500
-Message-ID: <CADnq5_OOiV7Ku-QbY7a3MTpQF=CuSgxezq00NVhnVkNQDcBWZw@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: fix modprobe failure of the 2nd GPU when
- GDDR6 training enabled
-To: "Yin, Tianci (Rico)" <Tianci.Yin@amd.com>
+ <MN2PR12MB29576985DC4A61F99F96052A95390@MN2PR12MB2957.namprd12.prod.outlook.com>,
+ <CADnq5_OOiV7Ku-QbY7a3MTpQF=CuSgxezq00NVhnVkNQDcBWZw@mail.gmail.com>
+In-Reply-To: <CADnq5_OOiV7Ku-QbY7a3MTpQF=CuSgxezq00NVhnVkNQDcBWZw@mail.gmail.com>
+Accept-Language: en-US, zh-CN
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=True;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2020-01-09T03:15:38.851Z;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal
+ Distribution
+ Only; MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=0;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard; 
+authentication-results: spf=none (sender IP is )
+ smtp.mailfrom=Tianci.Yin@amd.com; 
+x-originating-ip: [180.167.199.189]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-ht: Tenant
+x-ms-office365-filtering-correlation-id: 8811a726-05c3-4f84-9db5-08d794b23410
+x-ms-traffictypediagnostic: MN2PR12MB3373:|MN2PR12MB3373:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <MN2PR12MB33736A743D71910AB15214C695390@MN2PR12MB3373.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:9508;
+x-forefront-prvs: 02778BF158
+x-forefront-antispam-report: SFV:NSPM;
+ SFS:(10009020)(4636009)(376002)(366004)(346002)(136003)(39860400002)(396003)(189003)(199004)(8936002)(4326008)(2906002)(54906003)(81156014)(81166006)(966005)(9686003)(316002)(55016002)(6916009)(478600001)(33656002)(19627405001)(8676002)(45080400002)(186003)(76116006)(66574012)(64756008)(66556008)(91956017)(66446008)(66476007)(26005)(71200400001)(52536014)(5660300002)(66946007)(86362001)(6506007)(53546011)(7696005);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:MN2PR12MB3373;
+ H:MN2PR12MB2957.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; MX:1; A:1; 
+received-spf: None (protection.outlook.com: amd.com does not designate
+ permitted sender hosts)
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: u2euV4kRSV9OmkkdjcrRvNHf2N6sSNOEemQxqckGEA4mdxiZCjJyBLO4b9JWsEVofOm1HtuKGdcoZIFhpu1s3Q4fvQtnnGg68Qx678O2AtEyRO+EOuxuIqUqxdcDJt9vRCdtWIdjcfTEf1U+bXNaV0FlezErmb6MJzj9e7VSXYa4PAbZugcWx4lYsaj9cSBuO60YBFJYgS6D3YF26JvcLFRNuuYmTMoeRuI7sORqfvaadb+8f7Xj0EyWyEiHDi9Lg8UTU7yYUrd1S3ajKCf/h/rDr+Osc4f0+K904bNHb8YoCKMs8uY/DmqplIcNWF4dL5ho2HONDBZeWwaG1DjJAotvLS7yResnvUBbSXp+lEd5cr9Of5xFNfZP17CcLb3l02ZeO69pye47w6MT8Lzo04+lI3ypZKxM4me4KzFgIlNP7w8HzWWunq2DiNIR0M87upJ2BwapLBYlelEqGtxcmWKB8vJr9kUe+8Xba6T4g8Q=
+MIME-Version: 1.0
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8811a726-05c3-4f84-9db5-08d794b23410
+X-MS-Exchange-CrossTenant-originalarrivaltime: 09 Jan 2020 03:15:39.3718 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 2EQ9TS1Dq+75p9/DPRkrIjgTGB/yRcJPAI0YSeoHg7J+MFmF4Pp3xnfF02CKCCR7s3MMJVKFpFDcKTi8jyfBQA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3373
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,137 +119,532 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: "Long, Gang" <Gang.Long@amd.com>, "Xu, Feifei" <Feifei.Xu@amd.com>, "Wang,
  Kevin\(Yang\)" <Kevin1.Wang@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>, "Tuikov,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>, "Tuikov, 
  Luben" <Luben.Tuikov@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>, "Deucher,
- Alexander" <Alexander.Deucher@amd.com>, "Zhang,
+ =?iso-8859-1?Q?Christian_K=F6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Zhang, 
  Hawking" <Hawking.Zhang@amd.com>, "Koenig,
  Christian" <Christian.Koenig@amd.com>, "Yuan, Xiaojie" <Xiaojie.Yuan@amd.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0609183171=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-T24gV2VkLCBKYW4gOCwgMjAyMCBhdCAxMDowNyBQTSBZaW4sIFRpYW5jaSAoUmljbykgPFRpYW5j
-aS5ZaW5AYW1kLmNvbT4gd3JvdGU6Cj4KPiBbQU1EIE9mZmljaWFsIFVzZSBPbmx5IC0gSW50ZXJu
-YWwgRGlzdHJpYnV0aW9uIE9ubHldCj4KPgo+IFRoYW5rcyBBbGV4IGFuZCBDaHJpc3RpYW4hCj4K
-PiBIaSBDaHJpc3RpYW4sCj4KPiBPbiBBU0lDcyB3aXRoIGdtYyB2MTAsIEkgZmluZCBhbWRncHVf
-Ym9fbGF0ZV9pbml0KCkgaXMgbm90IGludm9rZWQsIHNvIHN0b2xlbiBtZW1vcnkgbmV2ZXIgZ2V0
-IGZyZWUsIG9uIG90aGVyIEFTSUNzIHdpdGggZ21jIHY5L3Y4L3Y3L3Y2LCBzdG9sZW4gbWVtb3J5
-IHdhcyBmcmVlZCBpbiBnbWNfdipfMF9sYXRlX2luaXQoKS4gSSBkb24ndCBrbm93IHdoeSwgYXJl
-IHRoZXJlIHNvbWUgc3BlY2lhbCByZWFzb25zIG9yIGp1c3QgbWlzc2VkIGJ5IGNvZGluZz8KPgoK
-TG9va3MgbGlrZSBpdCBzaG91bGQgYmUgYWRkZWQuICBQb3NzaWJseSBnb3QgbG9zdCB3aGVuIHdl
-IG1lcmdlZCB0aGUKbmF2aSBjb2RlIGZyb20gdGhlIHRvcGljIGJyYW5jaC4KCkFsZXgKCj4gVGhh
-bmtzIQo+Cj4gUmljbwo+Cj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KPiBGcm9t
-OiBDaHJpc3RpYW4gS8O2bmlnIDxja29lbmlnLmxlaWNodHp1bWVya2VuQGdtYWlsLmNvbT4KPiBT
-ZW50OiBXZWRuZXNkYXksIEphbnVhcnkgOCwgMjAyMCAyMzowNAo+IFRvOiBBbGV4IERldWNoZXIg
-PGFsZXhkZXVjaGVyQGdtYWlsLmNvbT47IEtvZW5pZywgQ2hyaXN0aWFuIDxDaHJpc3RpYW4uS29l
-bmlnQGFtZC5jb20+Cj4gQ2M6IExvbmcsIEdhbmcgPEdhbmcuTG9uZ0BhbWQuY29tPjsgV2FuZywg
-S2V2aW4oWWFuZykgPEtldmluMS5XYW5nQGFtZC5jb20+OyBYdSwgRmVpZmVpIDxGZWlmZWkuWHVA
-YW1kLmNvbT47IFlpbiwgVGlhbmNpIChSaWNvKSA8VGlhbmNpLllpbkBhbWQuY29tPjsgYW1kLWdm
-eCBsaXN0IDxhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZz47IFR1aWtvdiwgTHViZW4gPEx1
-YmVuLlR1aWtvdkBhbWQuY29tPjsgRGV1Y2hlciwgQWxleGFuZGVyIDxBbGV4YW5kZXIuRGV1Y2hl
-ckBhbWQuY29tPjsgWXVhbiwgWGlhb2ppZSA8WGlhb2ppZS5ZdWFuQGFtZC5jb20+OyBaaGFuZywg
-SGF3a2luZyA8SGF3a2luZy5aaGFuZ0BhbWQuY29tPgo+IFN1YmplY3Q6IFJlOiBbUEFUQ0hdIGRy
-bS9hbWRncHU6IGZpeCBtb2Rwcm9iZSBmYWlsdXJlIG9mIHRoZSAybmQgR1BVIHdoZW4gR0REUjYg
-dHJhaW5pbmcgZW5hYmxlZAo+Cj4gQW0gMDguMDEuMjAgdW0gMTU6NDkgc2NocmllYiBBbGV4IERl
-dWNoZXI6Cj4gPiBPbiBXZWQsIEphbiA4LCAyMDIwIGF0IDc6NTIgQU0gQ2hyaXN0aWFuIEvDtm5p
-ZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPiB3cm90ZToKPiA+PiBBbSAwOC4wMS4yMCB1bSAx
-MzozNiBzY2hyaWViIFRpYW5jaSBZaW46Cj4gPj4+IEZyb206ICJUaWFuY2kuWWluIiA8dGlhbmNp
-LnlpbkBhbWQuY29tPgo+ID4+Pgo+ID4+PiBbd2h5XQo+ID4+PiBJbiBkdWFsIEdQVXMgc2NlbmFy
-aW8sIHN0b2xlbl9zaXplIGlzIGFzc2lnbmVkIHRvIHplcm8gb24gdGhlIDJuZCBHUFUsCj4gPj4+
-IHRoZW4gdGhlIGJvdHRvbSByZWdpb24gb2YgVlJBTSB3YXMgYWxsb2NhdGVkIGFzIEdUVCwgdW5m
-b3J0dW5hdGVseQo+ID4+PiBhIHNtYWxsIHJlZ2lvbiBvZiBib3R0b20gVlJBTSB3YXMgZW5jcm9h
-Y2hlZCBieSBVTUMgZmlybXdhcmUgZHVyaW5nCj4gPj4+IEdERFI2IEJJU1QgdHJhaW5pbmcsIHRo
-aXMgY2F1c2UgcGFnZWZhdWx0Lgo+ID4+IFdoYXQgSSdtIG1pc3NpbmcgaGVyZSBpcyB3aHkgaXMg
-dGhlIHN0b2xlbiBzaXplIHplcm8gb24gdGhlIDJuZCBHUFU/Cj4gPj4KPiA+PiBNYXliZSB3ZSBu
-ZWVkIHRvIHJlYWQgdGhlIHN0b2xlbiBzaXplIGFmdGVyIHBvc3RpbmcgdGhlIEdQVSBpbnN0ZWFk
-Pwo+ID4gVGhlcmUgaXMgbm8gc3RvbGVuIG1lbW9yeSBvbiBzZWNvbmRhcnkgR1BVcyBiZWNhdXNl
-IHRoZXJlIGlzIG5vIHByZS1PUwo+ID4gY29uc29sZSB1c2luZyB0aGF0IG1lbW9yeS4KPgo+IEFo
-ISBZZWFoIHRoYXQgbWFrZXMgc2Vuc2UuCj4KPiBCdXQgaW4gdGhpcyBjYXNlIEkgd291bGQgc2F5
-IHdlIHNob3VsZCBjaGFuZ2UgdGhlIHBhdGNoIGxpa2UgdGhlIGZvbGxvd2luZzoKPgo+IGFkZXYt
-PmdtYy5zdG9sZW5fc2l6ZSA9IG1pbihhZGV2LT5nbWMuc3RvbGVuX3NpemUsCj4gQU1ER1BVX1NU
-T0xFTl9WR0FfREVGQVVMVF9TSVpFKTsKPgo+IEFuZCBpbiBhbWRncHVfdHRtX2xhdGVfaW5pdCgp
-Ogo+Cj4gLyogQ2FuJ3QgZnJlZSB0aGUgc3RvbGVuIFZHQSBtZW1vcnkgd2hlbiBpdCBtaWdodCBi
-ZSB1c2VkIGZvciBtZW1vcnkKPiB0cmFpbmluZyBhZ2Fpbi4gKi8KPiBpZiAoIWFkZXYtPmZ3X3Zy
-YW1fdXNhZ2UubWVtX3RyYWluX3N1cHBvcnQpCj4gICAgICBhbWRncHVfYm9fZnJlZV9rZXJuZWwo
-Li4uLgo+Cj4KPiBSZWdhcmRzLAo+IENocmlzdGlhbi4KPgo+Cj4gPgo+ID4gQWxleAo+ID4KPiA+
-PiBSZWdhcmRzLAo+ID4+IENocmlzdGlhbi4KPiA+Pgo+ID4+PiBbaG93XQo+ID4+PiBGb3JjaW5n
-IHN0b2xlbl9zaXplIHRvIDNNQiwgdGhlbiB0aGUgYm90dG9tIHJlZ2lvbiBvZiBWUkFNIHdhcwo+
-ID4+PiBhbGxvY2F0ZWQgYXMgc3RvbGVuIG1lbW9yeSwgR1RUIGNvcnJ1cHRpb24gYXZvaWQuCj4g
-Pj4+IFRoZSBzdG9sZW4gbWVtb3J5IG9mIHRoZSAybmQgR1BVIHdpbGwgYmUgZnJlZSBpbiBsYXRl
-X2luaXQgcGhhc2UsCj4gPj4+IG5vIG1lbW9yeSB3YXN0ZWQuCj4gPj4+Cj4gPj4+IENoYW5nZS1J
-ZDogSWNkMGFkN2RlNDEzMzMyODI5NDliYjFlM2U2NzZjNmMzMDdkZGQwODEKPiA+Pj4gU2lnbmVk
-LW9mZi1ieTogVGlhbmNpLllpbiA8dGlhbmNpLnlpbkBhbWQuY29tPgo+ID4+PiAtLS0KPiA+Pj4g
-ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2dtYy5oIHwgIDYgKysrKysrCj4g
-Pj4+ICAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192MTBfMC5jICB8IDIxICsrKysr
-KysrKysrKysrKysrKysrKwo+ID4+PiAgICAyIGZpbGVzIGNoYW5nZWQsIDI3IGluc2VydGlvbnMo
-KykKPiA+Pj4KPiA+Pj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
-ZGdwdV9nbWMuaCBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9nbWMuaAo+ID4+
-PiBpbmRleCBjOTFkZDYwMmQ1ZjEuLjQ0MGI3OTMzMTZkZiAxMDA2NDQKPiA+Pj4gLS0tIGEvZHJp
-dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2dtYy5oCj4gPj4+ICsrKyBiL2RyaXZlcnMv
-Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9nbWMuaAo+ID4+PiBAQCAtNjAsNiArNjAsMTEgQEAK
-PiA+Pj4gICAgICovCj4gPj4+ICAgICNkZWZpbmUgQU1ER1BVX0dNQ19GQVVMVF9USU1FT1VUICAg
-IDUwMDBVTEwKPiA+Pj4KPiA+Pj4gKy8qCj4gPj4+ICsgKiBEZWZhdWx0IHN0b2xlbiBtZW1vcnkg
-c2l6ZSwgMTAyNCAqIDc2OCAqIDQKPiA+Pj4gKyAqLwo+ID4+PiArI2RlZmluZSBBTURHUFVfU1RP
-TEVOX1ZHQV9ERUZBVUxUX1NJWkUgICAgICAgMHgzMDAwMDAKPiA+Pj4gKwo+ID4+PiAgICBzdHJ1
-Y3QgZmlybXdhcmU7Cj4gPj4+Cj4gPj4+ICAgIC8qCj4gPj4+IEBAIC0xOTIsNiArMTk3LDcgQEAg
-c3RydWN0IGFtZGdwdV9nbWMgewo+ID4+PiAgICAgICAgdWludDMyX3QgICAgICAgICAgICAgICAg
-c3JibV9zb2Z0X3Jlc2V0Owo+ID4+PiAgICAgICAgYm9vbCAgICAgICAgICAgICAgICAgICAgcHJ0
-X3dhcm5pbmc7Cj4gPj4+ICAgICAgICB1aW50NjRfdCAgICAgICAgICAgICAgICBzdG9sZW5fc2l6
-ZTsKPiA+Pj4gKyAgICAgYm9vbCAgICAgICAgICAgICAgICAgICAgc3RvbGVuX3RlbXBfcmVzZXJ2
-ZWQ7Cj4gPj4+ICAgICAgICAvKiBhcGVydHVyZXMgKi8KPiA+Pj4gICAgICAgIHU2NCAgICAgICAg
-ICAgICAgICAgICAgIHNoYXJlZF9hcGVydHVyZV9zdGFydDsKPiA+Pj4gICAgICAgIHU2NCAgICAg
-ICAgICAgICAgICAgICAgIHNoYXJlZF9hcGVydHVyZV9lbmQ7Cj4gPj4+IGRpZmYgLS1naXQgYS9k
-cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNfdjEwXzAuYyBiL2RyaXZlcnMvZ3B1L2RybS9h
-bWQvYW1kZ3B1L2dtY192MTBfMC5jCj4gPj4+IGluZGV4IDdkYzhjMDY4YzYyYS4uMGM5NmI2N2Q2
-Y2E3IDEwMDY0NAo+ID4+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNfdjEw
-XzAuYwo+ID4+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNfdjEwXzAuYwo+
-ID4+PiBAQCAtNTY2LDYgKzU2NiwxMSBAQCBzdGF0aWMgaW50IGdtY192MTBfMF9sYXRlX2luaXQo
-dm9pZCAqaGFuZGxlKQo+ID4+PiAgICAgICAgc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYgPSAo
-c3RydWN0IGFtZGdwdV9kZXZpY2UgKiloYW5kbGU7Cj4gPj4+ICAgICAgICBpbnQgcjsKPiA+Pj4K
-PiA+Pj4gKyAgICAgaWYgKGFkZXYtPmdtYy5zdG9sZW5fdGVtcF9yZXNlcnZlZCkgewo+ID4+PiAr
-ICAgICAgICAgICAgIGFtZGdwdV9ib19sYXRlX2luaXQoYWRldik7Cj4gPj4+ICsgICAgICAgICAg
-ICAgYWRldi0+Z21jLnN0b2xlbl90ZW1wX3Jlc2VydmVkID0gZmFsc2U7Cj4gPj4+ICsgICAgIH0K
-PiA+Pj4gKwo+ID4+PiAgICAgICAgciA9IGFtZGdwdV9nbWNfYWxsb2NhdGVfdm1faW52X2VuZyhh
-ZGV2KTsKPiA+Pj4gICAgICAgIGlmIChyKQo+ID4+PiAgICAgICAgICAgICAgICByZXR1cm4gcjsK
-PiA+Pj4gQEAgLTc1Niw2ICs3NjEsMjIgQEAgc3RhdGljIGludCBnbWNfdjEwXzBfc3dfaW5pdCh2
-b2lkICpoYW5kbGUpCj4gPj4+ICAgICAgICAgICAgICAgIHJldHVybiByOwo+ID4+Pgo+ID4+PiAg
-ICAgICAgYWRldi0+Z21jLnN0b2xlbl9zaXplID0gZ21jX3YxMF8wX2dldF92Ymlvc19mYl9zaXpl
-KGFkZXYpOwo+ID4+PiArICAgICAvKgo+ID4+PiArICAgICAgKiBJbiBkdWFsIEdQVXMgc2NlbmFy
-aW8sIHN0b2xlbl9zaXplIGlzIGFzc2lnbmVkIHRvIHplcm8gb24gdGhlIDJuZCBHUFUsCj4gPj4+
-ICsgICAgICAqIHRoZW4gdGhlIGJvdHRvbSByZWdpb24gb2YgVlJBTSB3YXMgYWxsb2NhdGVkIGFz
-IEdUVCwgdW5mb3J0dW5hdGVseQo+ID4+PiArICAgICAgKiBhIHNtYWxsIHJlZ2lvbiBvZiBib3R0
-b20gVlJBTSB3YXMgZW5jcm9hY2hlZCBieSBVTUMgZmlybXdhcmUgZHVyaW5nCj4gPj4+ICsgICAg
-ICAqIEdERFI2IEJJU1QgdHJhaW5pbmcsIHRoaXMgY2F1c2UgcGFnZWZhdWx0Lgo+ID4+PiArICAg
-ICAgKiBUaGUgcGFnZSBmYXVsdCBjYW4gYmUgZml4ZWQgYnkgZm9yY2luZyBzdG9sZW5fc2l6ZSB0
-byAzTUIsIHRoZW4gdGhlIGJvdHRvbQo+ID4+PiArICAgICAgKiByZWdpb24gb2YgVlJBTSB3YXMg
-YWxsb2NhdGVkIGFzIHN0b2xlbiBtZW1vcnksIEdUVCBjb3JydXB0aW9uIGF2b2lkLgo+ID4+PiAr
-ICAgICAgKiBUaGUgc3RvbGVuIG1lbW9yeSBvZiB0aGUgMm5kIEdQVSB3aWxsIGJlIGZyZWUgaW4g
-bGF0ZV9pbml0IHBoYXNlLAo+ID4+PiArICAgICAgKiBubyBtZW1vcnkgd2FzdGVkLgo+ID4+PiAr
-ICAgICAgKi8KPiA+Pj4gKyAgICAgaWYgKGFkZXYtPmZ3X3ZyYW1fdXNhZ2UubWVtX3RyYWluX3N1
-cHBvcnQgJiYKPiA+Pj4gKyAgICAgICAgICAgICBhZGV2LT5nbWMuc3RvbGVuX3NpemUgPT0gMCkg
-ewo+ID4+PiArICAgICAgICAgICAgIGFkZXYtPmdtYy5zdG9sZW5fc2l6ZSA9IEFNREdQVV9TVE9M
-RU5fVkdBX0RFRkFVTFRfU0laRTsKPiA+Pj4gKyAgICAgICAgICAgICBhZGV2LT5nbWMuc3RvbGVu
-X3RlbXBfcmVzZXJ2ZWQgPSB0cnVlOwo+ID4+PiArICAgICB9IGVsc2UKPiA+Pj4gKyAgICAgICAg
-ICAgICBhZGV2LT5nbWMuc3RvbGVuX3RlbXBfcmVzZXJ2ZWQgPSBmYWxzZTsKPiA+Pj4KPiA+Pj4g
-ICAgICAgIC8qIE1lbW9yeSBtYW5hZ2VyICovCj4gPj4+ICAgICAgICByID0gYW1kZ3B1X2JvX2lu
-aXQoYWRldik7Cj4gPj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX18KPiA+PiBhbWQtZ2Z4IG1haWxpbmcgbGlzdAo+ID4+IGFtZC1nZnhAbGlzdHMuZnJlZWRl
-c2t0b3Aub3JnCj4gPj4gaHR0cHM6Ly9uYW0xMS5zYWZlbGlua3MucHJvdGVjdGlvbi5vdXRsb29r
-LmNvbS8/dXJsPWh0dHBzJTNBJTJGJTJGbGlzdHMuZnJlZWRlc2t0b3Aub3JnJTJGbWFpbG1hbiUy
-Rmxpc3RpbmZvJTJGYW1kLWdmeCZhbXA7ZGF0YT0wMiU3QzAxJTdDdGlhbmNpLnlpbiU0MGFtZC5j
-b20lN0MxMzY1ZjE2YWVmNGM0MThmMGRiMzA4ZDc5NDRjMGYyNiU3QzNkZDg5NjFmZTQ4ODRlNjA4
-ZTExYTgyZDk5NGUxODNkJTdDMCU3QzAlN0M2MzcxNDA5MjY3MjM3NzY0MDEmYW1wO3NkYXRhPXVi
-dDdHR1JhQXZMenYlMkYlMkJVWHhhVFclMkZnR2JLa1JLV3Y2JTJCQjUwZkhIVzNYYyUzRCZhbXA7
-cmVzZXJ2ZWQ9MAo+ID4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX18KPiA+IGFtZC1nZnggbWFpbGluZyBsaXN0Cj4gPiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNr
-dG9wLm9yZwo+ID4gaHR0cHM6Ly9uYW0xMS5zYWZlbGlua3MucHJvdGVjdGlvbi5vdXRsb29rLmNv
-bS8/dXJsPWh0dHBzJTNBJTJGJTJGbGlzdHMuZnJlZWRlc2t0b3Aub3JnJTJGbWFpbG1hbiUyRmxp
-c3RpbmZvJTJGYW1kLWdmeCZhbXA7ZGF0YT0wMiU3QzAxJTdDdGlhbmNpLnlpbiU0MGFtZC5jb20l
-N0MxMzY1ZjE2YWVmNGM0MThmMGRiMzA4ZDc5NDRjMGYyNiU3QzNkZDg5NjFmZTQ4ODRlNjA4ZTEx
-YTgyZDk5NGUxODNkJTdDMCU3QzAlN0M2MzcxNDA5MjY3MjM3NzY0MDEmYW1wO3NkYXRhPXVidDdH
-R1JhQXZMenYlMkYlMkJVWHhhVFclMkZnR2JLa1JLV3Y2JTJCQjUwZkhIVzNYYyUzRCZhbXA7cmVz
-ZXJ2ZWQ9MAo+Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-CmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBz
-Oi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+--===============0609183171==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_MN2PR12MB2957F23A709E07E481AD630B95390MN2PR12MB2957namp_"
+
+--_000_MN2PR12MB2957F23A709E07E481AD630B95390MN2PR12MB2957namp_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+[AMD Official Use Only - Internal Distribution Only]
+
+Ok, thanks very much Alex!
+________________________________
+From: Alex Deucher <alexdeucher@gmail.com>
+Sent: Thursday, January 9, 2020 11:12
+To: Yin, Tianci (Rico) <Tianci.Yin@amd.com>
+Cc: Christian K=F6nig <ckoenig.leichtzumerken@gmail.com>; Koenig, Christian=
+ <Christian.Koenig@amd.com>; Long, Gang <Gang.Long@amd.com>; Wang, Kevin(Ya=
+ng) <Kevin1.Wang@amd.com>; Xu, Feifei <Feifei.Xu@amd.com>; amd-gfx list <am=
+d-gfx@lists.freedesktop.org>; Tuikov, Luben <Luben.Tuikov@amd.com>; Deucher=
+, Alexander <Alexander.Deucher@amd.com>; Yuan, Xiaojie <Xiaojie.Yuan@amd.co=
+m>; Zhang, Hawking <Hawking.Zhang@amd.com>
+Subject: Re: [PATCH] drm/amdgpu: fix modprobe failure of the 2nd GPU when G=
+DDR6 training enabled
+
+On Wed, Jan 8, 2020 at 10:07 PM Yin, Tianci (Rico) <Tianci.Yin@amd.com> wro=
+te:
+>
+> [AMD Official Use Only - Internal Distribution Only]
+>
+>
+> Thanks Alex and Christian!
+>
+> Hi Christian,
+>
+> On ASICs with gmc v10, I find amdgpu_bo_late_init() is not invoked, so st=
+olen memory never get free, on other ASICs with gmc v9/v8/v7/v6, stolen mem=
+ory was freed in gmc_v*_0_late_init(). I don't know why, are there some spe=
+cial reasons or just missed by coding?
+>
+
+Looks like it should be added.  Possibly got lost when we merged the
+navi code from the topic branch.
+
+Alex
+
+> Thanks!
+>
+> Rico
+>
+> ________________________________
+> From: Christian K=F6nig <ckoenig.leichtzumerken@gmail.com>
+> Sent: Wednesday, January 8, 2020 23:04
+> To: Alex Deucher <alexdeucher@gmail.com>; Koenig, Christian <Christian.Ko=
+enig@amd.com>
+> Cc: Long, Gang <Gang.Long@amd.com>; Wang, Kevin(Yang) <Kevin1.Wang@amd.co=
+m>; Xu, Feifei <Feifei.Xu@amd.com>; Yin, Tianci (Rico) <Tianci.Yin@amd.com>=
+; amd-gfx list <amd-gfx@lists.freedesktop.org>; Tuikov, Luben <Luben.Tuikov=
+@amd.com>; Deucher, Alexander <Alexander.Deucher@amd.com>; Yuan, Xiaojie <X=
+iaojie.Yuan@amd.com>; Zhang, Hawking <Hawking.Zhang@amd.com>
+> Subject: Re: [PATCH] drm/amdgpu: fix modprobe failure of the 2nd GPU when=
+ GDDR6 training enabled
+>
+> Am 08.01.20 um 15:49 schrieb Alex Deucher:
+> > On Wed, Jan 8, 2020 at 7:52 AM Christian K=F6nig <christian.koenig@amd.=
+com> wrote:
+> >> Am 08.01.20 um 13:36 schrieb Tianci Yin:
+> >>> From: "Tianci.Yin" <tianci.yin@amd.com>
+> >>>
+> >>> [why]
+> >>> In dual GPUs scenario, stolen_size is assigned to zero on the 2nd GPU=
+,
+> >>> then the bottom region of VRAM was allocated as GTT, unfortunately
+> >>> a small region of bottom VRAM was encroached by UMC firmware during
+> >>> GDDR6 BIST training, this cause pagefault.
+> >> What I'm missing here is why is the stolen size zero on the 2nd GPU?
+> >>
+> >> Maybe we need to read the stolen size after posting the GPU instead?
+> > There is no stolen memory on secondary GPUs because there is no pre-OS
+> > console using that memory.
+>
+> Ah! Yeah that makes sense.
+>
+> But in this case I would say we should change the patch like the followin=
+g:
+>
+> adev->gmc.stolen_size =3D min(adev->gmc.stolen_size,
+> AMDGPU_STOLEN_VGA_DEFAULT_SIZE);
+>
+> And in amdgpu_ttm_late_init():
+>
+> /* Can't free the stolen VGA memory when it might be used for memory
+> training again. */
+> if (!adev->fw_vram_usage.mem_train_support)
+>      amdgpu_bo_free_kernel(....
+>
+>
+> Regards,
+> Christian.
+>
+>
+> >
+> > Alex
+> >
+> >> Regards,
+> >> Christian.
+> >>
+> >>> [how]
+> >>> Forcing stolen_size to 3MB, then the bottom region of VRAM was
+> >>> allocated as stolen memory, GTT corruption avoid.
+> >>> The stolen memory of the 2nd GPU will be free in late_init phase,
+> >>> no memory wasted.
+> >>>
+> >>> Change-Id: Icd0ad7de41333282949bb1e3e676c6c307ddd081
+> >>> Signed-off-by: Tianci.Yin <tianci.yin@amd.com>
+> >>> ---
+> >>>    drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h |  6 ++++++
+> >>>    drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c  | 21 +++++++++++++++++++++
+> >>>    2 files changed, 27 insertions(+)
+> >>>
+> >>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h b/drivers/gpu/dr=
+m/amd/amdgpu/amdgpu_gmc.h
+> >>> index c91dd602d5f1..440b793316df 100644
+> >>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
+> >>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
+> >>> @@ -60,6 +60,11 @@
+> >>>     */
+> >>>    #define AMDGPU_GMC_FAULT_TIMEOUT    5000ULL
+> >>>
+> >>> +/*
+> >>> + * Default stolen memory size, 1024 * 768 * 4
+> >>> + */
+> >>> +#define AMDGPU_STOLEN_VGA_DEFAULT_SIZE       0x300000
+> >>> +
+> >>>    struct firmware;
+> >>>
+> >>>    /*
+> >>> @@ -192,6 +197,7 @@ struct amdgpu_gmc {
+> >>>        uint32_t                srbm_soft_reset;
+> >>>        bool                    prt_warning;
+> >>>        uint64_t                stolen_size;
+> >>> +     bool                    stolen_temp_reserved;
+> >>>        /* apertures */
+> >>>        u64                     shared_aperture_start;
+> >>>        u64                     shared_aperture_end;
+> >>> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c b/drivers/gpu/drm=
+/amd/amdgpu/gmc_v10_0.c
+> >>> index 7dc8c068c62a..0c96b67d6ca7 100644
+> >>> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+> >>> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+> >>> @@ -566,6 +566,11 @@ static int gmc_v10_0_late_init(void *handle)
+> >>>        struct amdgpu_device *adev =3D (struct amdgpu_device *)handle;
+> >>>        int r;
+> >>>
+> >>> +     if (adev->gmc.stolen_temp_reserved) {
+> >>> +             amdgpu_bo_late_init(adev);
+> >>> +             adev->gmc.stolen_temp_reserved =3D false;
+> >>> +     }
+> >>> +
+> >>>        r =3D amdgpu_gmc_allocate_vm_inv_eng(adev);
+> >>>        if (r)
+> >>>                return r;
+> >>> @@ -756,6 +761,22 @@ static int gmc_v10_0_sw_init(void *handle)
+> >>>                return r;
+> >>>
+> >>>        adev->gmc.stolen_size =3D gmc_v10_0_get_vbios_fb_size(adev);
+> >>> +     /*
+> >>> +      * In dual GPUs scenario, stolen_size is assigned to zero on th=
+e 2nd GPU,
+> >>> +      * then the bottom region of VRAM was allocated as GTT, unfortu=
+nately
+> >>> +      * a small region of bottom VRAM was encroached by UMC firmware=
+ during
+> >>> +      * GDDR6 BIST training, this cause pagefault.
+> >>> +      * The page fault can be fixed by forcing stolen_size to 3MB, t=
+hen the bottom
+> >>> +      * region of VRAM was allocated as stolen memory, GTT corruptio=
+n avoid.
+> >>> +      * The stolen memory of the 2nd GPU will be free in late_init p=
+hase,
+> >>> +      * no memory wasted.
+> >>> +      */
+> >>> +     if (adev->fw_vram_usage.mem_train_support &&
+> >>> +             adev->gmc.stolen_size =3D=3D 0) {
+> >>> +             adev->gmc.stolen_size =3D AMDGPU_STOLEN_VGA_DEFAULT_SIZ=
+E;
+> >>> +             adev->gmc.stolen_temp_reserved =3D true;
+> >>> +     } else
+> >>> +             adev->gmc.stolen_temp_reserved =3D false;
+> >>>
+> >>>        /* Memory manager */
+> >>>        r =3D amdgpu_bo_init(adev);
+> >> _______________________________________________
+> >> amd-gfx mailing list
+> >> amd-gfx@lists.freedesktop.org
+> >> https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Fli=
+sts.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=3D02%7C01%7CTia=
+nci.Yin%40amd.com%7Cb9b1622ed60e4ab36c6408d794b1d75e%7C3dd8961fe4884e608e11=
+a82d994e183d%7C0%7C0%7C637141363862418597&amp;sdata=3DYT8zKlbLX0XdzqcLrZQaV=
+6sKFWXS5nQTNMAMT9BMK70%3D&amp;reserved=3D0
+> > _______________________________________________
+> > amd-gfx mailing list
+> > amd-gfx@lists.freedesktop.org
+> > https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Flis=
+ts.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=3D02%7C01%7CTian=
+ci.Yin%40amd.com%7Cb9b1622ed60e4ab36c6408d794b1d75e%7C3dd8961fe4884e608e11a=
+82d994e183d%7C0%7C0%7C637141363862428589&amp;sdata=3DLLVRzFBxFKqTltpvsK%2F2=
+l9CwnlUFzFKmDoPPHdO5e1I%3D&amp;reserved=3D0
+>
+
+--_000_MN2PR12MB2957F23A709E07E481AD630B95390MN2PR12MB2957namp_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<p style=3D"font-family:Arial;font-size:10pt;color:#0078D7;margin:15pt;" al=
+ign=3D"Left">
+[AMD Official Use Only - Internal Distribution Only]<br>
+</p>
+<br>
+<div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Ok, thanks very much Alex!<br>
+</div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Alex Deucher &lt;alex=
+deucher@gmail.com&gt;<br>
+<b>Sent:</b> Thursday, January 9, 2020 11:12<br>
+<b>To:</b> Yin, Tianci (Rico) &lt;Tianci.Yin@amd.com&gt;<br>
+<b>Cc:</b> Christian K=F6nig &lt;ckoenig.leichtzumerken@gmail.com&gt;; Koen=
+ig, Christian &lt;Christian.Koenig@amd.com&gt;; Long, Gang &lt;Gang.Long@am=
+d.com&gt;; Wang, Kevin(Yang) &lt;Kevin1.Wang@amd.com&gt;; Xu, Feifei &lt;Fe=
+ifei.Xu@amd.com&gt;; amd-gfx list &lt;amd-gfx@lists.freedesktop.org&gt;;
+ Tuikov, Luben &lt;Luben.Tuikov@amd.com&gt;; Deucher, Alexander &lt;Alexand=
+er.Deucher@amd.com&gt;; Yuan, Xiaojie &lt;Xiaojie.Yuan@amd.com&gt;; Zhang, =
+Hawking &lt;Hawking.Zhang@amd.com&gt;<br>
+<b>Subject:</b> Re: [PATCH] drm/amdgpu: fix modprobe failure of the 2nd GPU=
+ when GDDR6 training enabled</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">On Wed, Jan 8, 2020 at 10:07 PM Yin, Tianci (Rico)=
+ &lt;Tianci.Yin@amd.com&gt; wrote:<br>
+&gt;<br>
+&gt; [AMD Official Use Only - Internal Distribution Only]<br>
+&gt;<br>
+&gt;<br>
+&gt; Thanks Alex and Christian!<br>
+&gt;<br>
+&gt; Hi Christian,<br>
+&gt;<br>
+&gt; On ASICs with gmc v10, I find amdgpu_bo_late_init() is not invoked, so=
+ stolen memory never get free, on other ASICs with gmc v9/v8/v7/v6, stolen =
+memory was freed in gmc_v*_0_late_init(). I don't know why, are there some =
+special reasons or just missed by coding?<br>
+&gt;<br>
+<br>
+Looks like it should be added.&nbsp; Possibly got lost when we merged the<b=
+r>
+navi code from the topic branch.<br>
+<br>
+Alex<br>
+<br>
+&gt; Thanks!<br>
+&gt;<br>
+&gt; Rico<br>
+&gt;<br>
+&gt; ________________________________<br>
+&gt; From: Christian K=F6nig &lt;ckoenig.leichtzumerken@gmail.com&gt;<br>
+&gt; Sent: Wednesday, January 8, 2020 23:04<br>
+&gt; To: Alex Deucher &lt;alexdeucher@gmail.com&gt;; Koenig, Christian &lt;=
+Christian.Koenig@amd.com&gt;<br>
+&gt; Cc: Long, Gang &lt;Gang.Long@amd.com&gt;; Wang, Kevin(Yang) &lt;Kevin1=
+.Wang@amd.com&gt;; Xu, Feifei &lt;Feifei.Xu@amd.com&gt;; Yin, Tianci (Rico)=
+ &lt;Tianci.Yin@amd.com&gt;; amd-gfx list &lt;amd-gfx@lists.freedesktop.org=
+&gt;; Tuikov, Luben &lt;Luben.Tuikov@amd.com&gt;; Deucher, Alexander &lt;Al=
+exander.Deucher@amd.com&gt;;
+ Yuan, Xiaojie &lt;Xiaojie.Yuan@amd.com&gt;; Zhang, Hawking &lt;Hawking.Zha=
+ng@amd.com&gt;<br>
+&gt; Subject: Re: [PATCH] drm/amdgpu: fix modprobe failure of the 2nd GPU w=
+hen GDDR6 training enabled<br>
+&gt;<br>
+&gt; Am 08.01.20 um 15:49 schrieb Alex Deucher:<br>
+&gt; &gt; On Wed, Jan 8, 2020 at 7:52 AM Christian K=F6nig &lt;christian.ko=
+enig@amd.com&gt; wrote:<br>
+&gt; &gt;&gt; Am 08.01.20 um 13:36 schrieb Tianci Yin:<br>
+&gt; &gt;&gt;&gt; From: &quot;Tianci.Yin&quot; &lt;tianci.yin@amd.com&gt;<b=
+r>
+&gt; &gt;&gt;&gt;<br>
+&gt; &gt;&gt;&gt; [why]<br>
+&gt; &gt;&gt;&gt; In dual GPUs scenario, stolen_size is assigned to zero on=
+ the 2nd GPU,<br>
+&gt; &gt;&gt;&gt; then the bottom region of VRAM was allocated as GTT, unfo=
+rtunately<br>
+&gt; &gt;&gt;&gt; a small region of bottom VRAM was encroached by UMC firmw=
+are during<br>
+&gt; &gt;&gt;&gt; GDDR6 BIST training, this cause pagefault.<br>
+&gt; &gt;&gt; What I'm missing here is why is the stolen size zero on the 2=
+nd GPU?<br>
+&gt; &gt;&gt;<br>
+&gt; &gt;&gt; Maybe we need to read the stolen size after posting the GPU i=
+nstead?<br>
+&gt; &gt; There is no stolen memory on secondary GPUs because there is no p=
+re-OS<br>
+&gt; &gt; console using that memory.<br>
+&gt;<br>
+&gt; Ah! Yeah that makes sense.<br>
+&gt;<br>
+&gt; But in this case I would say we should change the patch like the follo=
+wing:<br>
+&gt;<br>
+&gt; adev-&gt;gmc.stolen_size =3D min(adev-&gt;gmc.stolen_size,<br>
+&gt; AMDGPU_STOLEN_VGA_DEFAULT_SIZE);<br>
+&gt;<br>
+&gt; And in amdgpu_ttm_late_init():<br>
+&gt;<br>
+&gt; /* Can't free the stolen VGA memory when it might be used for memory<b=
+r>
+&gt; training again. */<br>
+&gt; if (!adev-&gt;fw_vram_usage.mem_train_support)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_bo_free_kernel(....<br>
+&gt;<br>
+&gt;<br>
+&gt; Regards,<br>
+&gt; Christian.<br>
+&gt;<br>
+&gt;<br>
+&gt; &gt;<br>
+&gt; &gt; Alex<br>
+&gt; &gt;<br>
+&gt; &gt;&gt; Regards,<br>
+&gt; &gt;&gt; Christian.<br>
+&gt; &gt;&gt;<br>
+&gt; &gt;&gt;&gt; [how]<br>
+&gt; &gt;&gt;&gt; Forcing stolen_size to 3MB, then the bottom region of VRA=
+M was<br>
+&gt; &gt;&gt;&gt; allocated as stolen memory, GTT corruption avoid.<br>
+&gt; &gt;&gt;&gt; The stolen memory of the 2nd GPU will be free in late_ini=
+t phase,<br>
+&gt; &gt;&gt;&gt; no memory wasted.<br>
+&gt; &gt;&gt;&gt;<br>
+&gt; &gt;&gt;&gt; Change-Id: Icd0ad7de41333282949bb1e3e676c6c307ddd081<br>
+&gt; &gt;&gt;&gt; Signed-off-by: Tianci.Yin &lt;tianci.yin@amd.com&gt;<br>
+&gt; &gt;&gt;&gt; ---<br>
+&gt; &gt;&gt;&gt;&nbsp;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h=
+ |&nbsp; 6 &#43;&#43;&#43;&#43;&#43;&#43;<br>
+&gt; &gt;&gt;&gt;&nbsp;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c&=
+nbsp; | 21 &#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43=
+;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;<br>
+&gt; &gt;&gt;&gt;&nbsp;&nbsp;&nbsp; 2 files changed, 27 insertions(&#43;)<b=
+r>
+&gt; &gt;&gt;&gt;<br>
+&gt; &gt;&gt;&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h b/dr=
+ivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h<br>
+&gt; &gt;&gt;&gt; index c91dd602d5f1..440b793316df 100644<br>
+&gt; &gt;&gt;&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h<br>
+&gt; &gt;&gt;&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h=
+<br>
+&gt; &gt;&gt;&gt; @@ -60,6 &#43;60,11 @@<br>
+&gt; &gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
+&gt; &gt;&gt;&gt;&nbsp;&nbsp;&nbsp; #define AMDGPU_GMC_FAULT_TIMEOUT&nbsp;&=
+nbsp;&nbsp; 5000ULL<br>
+&gt; &gt;&gt;&gt;<br>
+&gt; &gt;&gt;&gt; &#43;/*<br>
+&gt; &gt;&gt;&gt; &#43; * Default stolen memory size, 1024 * 768 * 4<br>
+&gt; &gt;&gt;&gt; &#43; */<br>
+&gt; &gt;&gt;&gt; &#43;#define AMDGPU_STOLEN_VGA_DEFAULT_SIZE&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp; 0x300000<br>
+&gt; &gt;&gt;&gt; &#43;<br>
+&gt; &gt;&gt;&gt;&nbsp;&nbsp;&nbsp; struct firmware;<br>
+&gt; &gt;&gt;&gt;<br>
+&gt; &gt;&gt;&gt;&nbsp;&nbsp;&nbsp; /*<br>
+&gt; &gt;&gt;&gt; @@ -192,6 &#43;197,7 @@ struct amdgpu_gmc {<br>
+&gt; &gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp; srbm_soft_reset;<br>
+&gt; &gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp; prt_warning;<br>
+&gt; &gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint64_t&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp; stolen_size;<br>
+&gt; &gt;&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; bool&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp; stolen_temp_reserved;<br>
+&gt; &gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* apertures */=
+<br>
+&gt; &gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u64&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; shared_aperture_start;<br>
+&gt; &gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u64&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; shared_aperture_end;<br>
+&gt; &gt;&gt;&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c b/dri=
+vers/gpu/drm/amd/amdgpu/gmc_v10_0.c<br>
+&gt; &gt;&gt;&gt; index 7dc8c068c62a..0c96b67d6ca7 100644<br>
+&gt; &gt;&gt;&gt; --- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c<br>
+&gt; &gt;&gt;&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c<=
+br>
+&gt; &gt;&gt;&gt; @@ -566,6 &#43;566,11 @@ static int gmc_v10_0_late_init(v=
+oid *handle)<br>
+&gt; &gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_d=
+evice *adev =3D (struct amdgpu_device *)handle;<br>
+&gt; &gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int r;<br>
+&gt; &gt;&gt;&gt;<br>
+&gt; &gt;&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;gmc.stolen_tem=
+p_reserved) {<br>
+&gt; &gt;&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp; amdgpu_bo_late_init(adev);<br>
+&gt; &gt;&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp; adev-&gt;gmc.stolen_temp_reserved =3D false;<br>
+&gt; &gt;&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt; &gt;&gt;&gt; &#43;<br>
+&gt; &gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_gm=
+c_allocate_vm_inv_eng(adev);<br>
+&gt; &gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r)<br>
+&gt; &gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return r;<br>
+&gt; &gt;&gt;&gt; @@ -756,6 &#43;761,22 @@ static int gmc_v10_0_sw_init(voi=
+d *handle)<br>
+&gt; &gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return r;<br>
+&gt; &gt;&gt;&gt;<br>
+&gt; &gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;gmc.st=
+olen_size =3D gmc_v10_0_get_vbios_fb_size(adev);<br>
+&gt; &gt;&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; /*<br>
+&gt; &gt;&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * In dual GPUs scenar=
+io, stolen_size is assigned to zero on the 2nd GPU,<br>
+&gt; &gt;&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * then the bottom reg=
+ion of VRAM was allocated as GTT, unfortunately<br>
+&gt; &gt;&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * a small region of b=
+ottom VRAM was encroached by UMC firmware during<br>
+&gt; &gt;&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * GDDR6 BIST training=
+, this cause pagefault.<br>
+&gt; &gt;&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * The page fault can =
+be fixed by forcing stolen_size to 3MB, then the bottom<br>
+&gt; &gt;&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * region of VRAM was =
+allocated as stolen memory, GTT corruption avoid.<br>
+&gt; &gt;&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * The stolen memory o=
+f the 2nd GPU will be free in late_init phase,<br>
+&gt; &gt;&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * no memory wasted.<b=
+r>
+&gt; &gt;&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
+&gt; &gt;&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;fw_vram_usage.=
+mem_train_support &amp;&amp;<br>
+&gt; &gt;&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp; adev-&gt;gmc.stolen_size =3D=3D 0) {<br>
+&gt; &gt;&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp; adev-&gt;gmc.stolen_size =3D AMDGPU_STOLEN_VGA_DEFAULT=
+_SIZE;<br>
+&gt; &gt;&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp; adev-&gt;gmc.stolen_temp_reserved =3D true;<br>
+&gt; &gt;&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; } else<br>
+&gt; &gt;&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp; adev-&gt;gmc.stolen_temp_reserved =3D false;<br>
+&gt; &gt;&gt;&gt;<br>
+&gt; &gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Memory manag=
+er */<br>
+&gt; &gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_bo=
+_init(adev);<br>
+&gt; &gt;&gt; _______________________________________________<br>
+&gt; &gt;&gt; amd-gfx mailing list<br>
+&gt; &gt;&gt; amd-gfx@lists.freedesktop.org<br>
+&gt; &gt;&gt; <a href=3D"https://nam11.safelinks.protection.outlook.com/?ur=
+l=3Dhttps%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;=
+amp;data=3D02%7C01%7CTianci.Yin%40amd.com%7Cb9b1622ed60e4ab36c6408d794b1d75=
+e%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637141363862418597&amp;amp;s=
+data=3DYT8zKlbLX0XdzqcLrZQaV6sKFWXS5nQTNMAMT9BMK70%3D&amp;amp;reserved=3D0"=
+>
+https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Flists.f=
+reedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;amp;data=3D02%7C01%7CTian=
+ci.Yin%40amd.com%7Cb9b1622ed60e4ab36c6408d794b1d75e%7C3dd8961fe4884e608e11a=
+82d994e183d%7C0%7C0%7C637141363862418597&amp;amp;sdata=3DYT8zKlbLX0XdzqcLrZ=
+QaV6sKFWXS5nQTNMAMT9BMK70%3D&amp;amp;reserved=3D0</a><br>
+&gt; &gt; _______________________________________________<br>
+&gt; &gt; amd-gfx mailing list<br>
+&gt; &gt; amd-gfx@lists.freedesktop.org<br>
+&gt; &gt; <a href=3D"https://nam11.safelinks.protection.outlook.com/?url=3D=
+https%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;amp;=
+data=3D02%7C01%7CTianci.Yin%40amd.com%7Cb9b1622ed60e4ab36c6408d794b1d75e%7C=
+3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637141363862428589&amp;amp;sdata=
+=3DLLVRzFBxFKqTltpvsK%2F2l9CwnlUFzFKmDoPPHdO5e1I%3D&amp;amp;reserved=3D0">
+https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Flists.f=
+reedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;amp;data=3D02%7C01%7CTian=
+ci.Yin%40amd.com%7Cb9b1622ed60e4ab36c6408d794b1d75e%7C3dd8961fe4884e608e11a=
+82d994e183d%7C0%7C0%7C637141363862428589&amp;amp;sdata=3DLLVRzFBxFKqTltpvsK=
+%2F2l9CwnlUFzFKmDoPPHdO5e1I%3D&amp;amp;reserved=3D0</a><br>
+&gt;<br>
+</div>
+</span></font></div>
+</div>
+</body>
+</html>
+
+--_000_MN2PR12MB2957F23A709E07E481AD630B95390MN2PR12MB2957namp_--
+
+--===============0609183171==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--===============0609183171==--
