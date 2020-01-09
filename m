@@ -2,71 +2,69 @@ Return-Path: <SRS0=R6+d=26=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
+X-Spam-Status: No, score=-6.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
 	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
+	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 98938C282DD
-	for <amd-gfx@archiver.kernel.org>; Thu,  9 Jan 2020 20:45:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id EFBBEC282DD
+	for <amd-gfx@archiver.kernel.org>; Thu,  9 Jan 2020 21:13:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 623FF20721
-	for <amd-gfx@archiver.kernel.org>; Thu,  9 Jan 2020 20:45:02 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id C356F2073A
+	for <amd-gfx@archiver.kernel.org>; Thu,  9 Jan 2020 21:13:42 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QNU3eNvp"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 623FF20721
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GZC/mJAJ"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C356F2073A
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E474E6E04E;
-	Thu,  9 Jan 2020 20:45:01 +0000 (UTC)
-Received: from mail-yb1-xb43.google.com (mail-yb1-xb43.google.com
- [IPv6:2607:f8b0:4864:20::b43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EDA0B6E04E
- for <amd-gfx@lists.freedesktop.org>; Thu,  9 Jan 2020 20:44:59 +0000 (UTC)
-Received: by mail-yb1-xb43.google.com with SMTP id n66so3529971ybg.0
- for <amd-gfx@lists.freedesktop.org>; Thu, 09 Jan 2020 12:44:59 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3C0926E96D;
+	Thu,  9 Jan 2020 21:13:38 +0000 (UTC)
+Received: from mail-wm1-x341.google.com (mail-wm1-x341.google.com
+ [IPv6:2a00:1450:4864:20::341])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B0CB56E96A;
+ Thu,  9 Jan 2020 21:13:36 +0000 (UTC)
+Received: by mail-wm1-x341.google.com with SMTP id d73so4550930wmd.1;
+ Thu, 09 Jan 2020 13:13:36 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=zRF4M8OhlsupMp39sFWiELd0khlr5YUkoAst1HDEkfE=;
- b=QNU3eNvpDQtBmJJEgxbq5lESE+YxZxDXB4WKT25m4ETd/lpzcuqI5naA1bNcBLLHje
- JFbSja60MIjT1Qs0zv1RlG8NA1XeePlSED0CL1sMauw0GlpsgroJDwgWno+dQjl2VpOv
- Q66PQObas7EAi+ylSv3YHltvu2dJo0DI6EPNL8OKGgC2nekvXGyMmx1Z9CGAGk0/1rFb
- EJEo7o7HpbMHWtDi7nDj5XKG5paLu8ncVaLsSiIgttenbFRRNW6HTm/INmJeJCa8mbo9
- CfbFrV/z1v+TZCG2J/afdloVRkjjwnLPyAYxA6P3YXPFnUoV4TPQB4En5yxL9toL+QWB
- o4/A==
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=fINWBWTQQh7QSskk5jBe/rgUu9y3MpwfI7+Qn438jNs=;
+ b=GZC/mJAJgLktOFnBb4UR75TOlS60PYHyXAzilC0h3WMUCOWc3pFkyzsSbCMzbFtRr7
+ ZpaWkrYvnVD13Bbu8kN+rceFp2/5ubey3xvacOoEQuEd8axtovPciWPj0KclTU1CkuJi
+ XmtAxo9AQZthVayI7ZM+S3sw5VMJ1h9m8GwDtKVxr/8DLLqjB/1WSfdTE5tgyzb7ogUw
+ 3+iGrIB56F+rBNF/M9FWdJMCYt8UIRhZMkPq1Rd0pqiv6EyhbRhswLXRe/FKOJUU6j69
+ jWO6PsGiJ0qaeg64ElNFvb5LuZcq/AfxLTWb6GCIO47uSKfzLI3lrIDN6FsBTQoZi2XI
+ EDEA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=zRF4M8OhlsupMp39sFWiELd0khlr5YUkoAst1HDEkfE=;
- b=bDYs0ZcyqgtYl6AQ8A+RJSr6JnVTYpRKkQ0l/VyGoWNBB+5HndtWJ18ATdyXI5l55y
- 9gN5tWyPe+x0VxbcgGCizVh9Gyt+zHU21JMnaZ3vO9BDFMYxlCCvlSkJ2pxsPQnTCsvk
- hkQMBaPfVm/mv7my3Dw2+LekKdYX5MmTAtlwfxWeqIgGaVFtArcVFfc8ObC8ew2JcNdx
- 90dz8pQx8JwmG4Q9K6VuCtektPBqDjB2KtwTnviHSS+BSdMT2v3WNohFWAh4PSoaU3nY
- xbo6MO49Itg8+hM1IDyYqtBpo0E8DHDaHv9GtmMxSOb8/r46QDVvoSFsWSA4y8ZQMCB5
- ILdg==
-X-Gm-Message-State: APjAAAVdl9udvwF+8e2ay+LoGNgO75pEJ4ulMSHTKxlmkjtBJszGuKfE
- pHULFN7K743yiyP+9Kqg5r+ttFCA
-X-Google-Smtp-Source: APXvYqyZVNwZCrpqIi0cIVC7Ghzv8Y9Ddfb4vjdAFhPRec3qjN795z2ovfUAJYbSl/pzW0/wy0IIxw==
-X-Received: by 2002:a25:449:: with SMTP id 70mr10127286ybe.50.1578602698935;
- Thu, 09 Jan 2020 12:44:58 -0800 (PST)
-Received: from tr4.amd.com (atlvpn.amd.com. [165.204.84.11])
- by smtp.gmail.com with ESMTPSA id t140sm3673584ywe.28.2020.01.09.12.44.58
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 09 Jan 2020 12:44:58 -0800 (PST)
-From: Alex Deucher <alexdeucher@gmail.com>
-X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
-To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH] drm/amdgpu/powerplay: fix warning in smu_v11_0.c
-Date: Thu,  9 Jan 2020 15:44:36 -0500
-Message-Id: <20200109204436.1184619-1-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.24.1
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=fINWBWTQQh7QSskk5jBe/rgUu9y3MpwfI7+Qn438jNs=;
+ b=IOY5c8TFrH3JzIHEmZL8SpTzBFOq8H6LLPVZBzYAPOB1aYLo5Zv0hToBc/lQlzqjM7
+ eA0PNcxY+GkUnC5QHF4OLhEiwAiKud7SqaxxxmU7tSsquPHOO2VF0yR4aFjrVmrzjuXW
+ 3dgE7JCdTTwxcRUS+fwlrrbcWagnypG2ZfaFrzBKDczKoZiN3v+mixB8cAmPjo0mUhMc
+ DQQz28CZ6vCTnSQwlMv4u4dl9wtAAopB0Uf6zwF8bkVB8E/n8j/IYb/h8HDdi+QkAcIy
+ xt69dLe2AlIR5ZQWDNSgC/dPjlVg7Mx08BFA4WkoTPVi5pE7pxd9fJHGcfy6+5R0IiaJ
+ qktg==
+X-Gm-Message-State: APjAAAV2P1G1mYHvIY+5iL1mJnQ/jEH5M7mT8rpUlXc4qeqNAmnmIWlB
+ elT7p+9vCTM5ZucRt6EjR4gyEzm7Vdup0uaSjxK7Dc7BIA0=
+X-Google-Smtp-Source: APXvYqxwHLzbgRphtR/F1yO1qKrvk2wlowYoG0AElH+V3K5SI7asrQbBdNI0DLE40jpN8AELNah0Lxj1DWTpH/aUN8M=
+X-Received: by 2002:a1c:28d4:: with SMTP id o203mr6860365wmo.123.1578604415154; 
+ Thu, 09 Jan 2020 13:13:35 -0800 (PST)
 MIME-Version: 1.0
+References: <20200109152028.28260-1-mario.kleiner.de@gmail.com>
+ <20200109152028.28260-3-mario.kleiner.de@gmail.com>
+ <9238371c-fc93-2a65-c3e5-df6b3d1270dd@amd.com>
+In-Reply-To: <9238371c-fc93-2a65-c3e5-df6b3d1270dd@amd.com>
+From: Mario Kleiner <mario.kleiner.de@gmail.com>
+Date: Thu, 9 Jan 2020 22:13:23 +0100
+Message-ID: <CAEsyxygx+2p+i91bvYBLVfq-9qog-SLQ_KdHBTmSyq4Zfr09jg@mail.gmail.com>
+Subject: Re: [PATCH 2/2] drm/amd/display: Allow current eDP link settings to
+ override verified ones.
+To: Harry Wentland <hwentlan@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,37 +76,281 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: Alex Deucher <alexander.deucher@amd.com>, mario.kleiner.de@gmail.de,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>
+Content-Type: multipart/mixed; boundary="===============1655859181=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Cast to make min() happy.  The values are well within
-range.
+--===============1655859181==
+Content-Type: multipart/alternative; boundary="00000000000067ffbc059bbb7bd3"
 
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
----
- drivers/gpu/drm/amd/powerplay/smu_v11_0.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+--00000000000067ffbc059bbb7bd3
+Content-Type: text/plain; charset="UTF-8"
 
-diff --git a/drivers/gpu/drm/amd/powerplay/smu_v11_0.c b/drivers/gpu/drm/amd/powerplay/smu_v11_0.c
-index 76bddd582c60..02f8c9cb89d9 100644
---- a/drivers/gpu/drm/amd/powerplay/smu_v11_0.c
-+++ b/drivers/gpu/drm/amd/powerplay/smu_v11_0.c
-@@ -1159,7 +1159,7 @@ static int smu_v11_0_set_thermal_range(struct smu_context *smu,
- 
- 	low = max(SMU_THERMAL_MINIMUM_ALERT_TEMP,
- 			range.min / SMU_TEMPERATURE_UNITS_PER_CENTIGRADES);
--	high = min(SMU_THERMAL_MAXIMUM_ALERT_TEMP, powerplay_table->software_shutdown_temp);
-+	high = min((uint16_t)SMU_THERMAL_MAXIMUM_ALERT_TEMP, powerplay_table->software_shutdown_temp);
- 
- 	if (low > high)
- 		return -EINVAL;
--- 
-2.24.1
+On Thu, Jan 9, 2020 at 7:44 PM Harry Wentland <hwentlan@amd.com> wrote:
+
+> On 2020-01-09 10:20 a.m., Mario Kleiner wrote:
+> > If the current eDP link settings, as read from hw, provide a higher
+> > bandwidth than the verified_link_cap ones (= reported_link_cap), then
+> > override verified_link_cap with current settings.
+> >
+> > These initial current eDP link settings have been set up by
+> > firmware during boot, so they should work on the eDP panel.
+> > Therefore use them if the firmware thinks they are good and
+> > they provide higher link bandwidth, e.g., to enable higher
+> > resolutions / color depths.
+> >
+>
+
+
+Hi Harry, happy new year!
+
+This only works when taking over from UEFI, so on boot or resume from
+> hibernate. This wouldn't work on a normal suspend/resume.
+>
+>
+See the other thread i just cc'ed you on. Depends if
+dc_link_detect_helper() gets skipped/early returns or not on EDP. Some if
+statement suggests it might get skipped on EDP + resume?
+
+
+> Can you check if setting link->dc->config.optimize_edp_link_rate (see
+> first if statement in detect_edp_sink_caps) fixes this? I imagine we
+> need to read the reported settings from DP_SUPPORTED_LINK_RATES and fail
+> to do so.
+>
+
+Tried that already (see other mail), replacing the whole if statement with
+a if (true) to force reading DP_SUPPORTED_LINK_RATES. The whole table reads
+back as all-zero, and versions are DP 1.1, eDP 1.3, not 1.4+ as what seems
+to be required. The use the classic link bw stuff, but with a non-standard
+link bandwidth multiplier of 0xc, and a reported DP_MAX_LINK_RATE of 0xa,
+contradicting the 0xc setting that the firmware sets at bootup.
+
+Seems to be a very Apple thing...
+-mario
+
+
+>
+> Thanks,
+> Harry
+>
+> > This fixes a problem found on the MacBookPro 2017 Retina panel:
+> >
+> > The panel reports 10 bpc color depth in its EDID, and the
+> > firmware chooses link settings at boot which support enough
+> > bandwidth for 10 bpc (324000 kbit/sec aka LINK_RATE_RBR2),
+> > but the DP_MAX_LINK_RATE dpcd register only reports 2.7 Gbps
+> > as possible, so verified_link_cap is only good for 2.7 Gbps
+> > and 8 bpc, not providing the full color depth of the panel.
+> >
+> > Signed-off-by: Mario Kleiner <mario.kleiner.de@gmail.com>
+> > Cc: Alex Deucher <alexander.deucher@amd.com>
+> > ---
+> >  drivers/gpu/drm/amd/display/dc/core/dc_link.c | 21 +++++++++++++++++++
+> >  1 file changed, 21 insertions(+)
+> >
+> > diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link.c
+> b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
+> > index 5ea4a1675259..f3acdb8fead5 100644
+> > --- a/drivers/gpu/drm/amd/display/dc/core/dc_link.c
+> > +++ b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
+> > @@ -819,6 +819,27 @@ static bool dc_link_detect_helper(struct dc_link
+> *link,
+> >               case SIGNAL_TYPE_EDP: {
+> >                       detect_edp_sink_caps(link);
+> >                       read_current_link_settings_on_detect(link);
+> > +
+> > +                     /* If cur_link_settings provides higher bandwidth
+> than
+> > +                      * verified_link_cap, then use cur_link_settings
+> as new
+> > +                      * verified_link_cap, as it obviously works
+> according to
+> > +                      * firmware boot setup.
+> > +                      *
+> > +                      * This has been observed on the Apple MacBookPro
+> 2017
+> > +                      * Retina panel, which boots with a link setting
+> higher
+> > +                      * than what dpcd[DP_MAX_LINK_RATE] claims as
+> possible.
+> > +                      * Overriding allows to run the panel at 10 bpc /
+> 30 bit.
+> > +                      */
+> > +                     if (dc_link_bandwidth_kbps(link,
+> &link->cur_link_settings) >
+> > +                         dc_link_bandwidth_kbps(link,
+> &link->verified_link_cap)) {
+> > +                             DC_LOG_DETECTION_DP_CAPS(
+> > +                             "eDP current link setting bw %d kbps >
+> verified_link_cap %d kbps. Override.",
+> > +                             dc_link_bandwidth_kbps(link,
+> &link->cur_link_settings),
+> > +                             dc_link_bandwidth_kbps(link,
+> &link->verified_link_cap));
+> > +
+> > +                             link->verified_link_cap =
+> link->cur_link_settings;
+> > +                     }
+> > +
+> >                       sink_caps.transaction_type =
+> DDC_TRANSACTION_TYPE_I2C_OVER_AUX;
+> >                       sink_caps.signal = SIGNAL_TYPE_EDP;
+> >                       break;
+> >
+>
+
+--00000000000067ffbc059bbb7bd3
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr">On Thu, Jan 9, 2020 at 7:44 PM Harry Went=
+land &lt;<a href=3D"mailto:hwentlan@amd.com">hwentlan@amd.com</a>&gt; wrote=
+:<br></div><div class=3D"gmail_quote"><blockquote class=3D"gmail_quote" sty=
+le=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);paddi=
+ng-left:1ex">On 2020-01-09 10:20 a.m., Mario Kleiner wrote:<br>
+&gt; If the current eDP link settings, as read from hw, provide a higher<br=
+>
+&gt; bandwidth than the verified_link_cap ones (=3D reported_link_cap), the=
+n<br>
+&gt; override verified_link_cap with current settings.<br>
+&gt; <br>
+&gt; These initial current eDP link settings have been set up by<br>
+&gt; firmware during boot, so they should work on the eDP panel.<br>
+&gt; Therefore use them if the firmware thinks they are good and<br>
+&gt; they provide higher link bandwidth, e.g., to enable higher<br>
+&gt; resolutions / color depths.<br>
+&gt; <br>
+=C2=A0</blockquote><div><br></div><div>Hi Harry, happy new year!<br></div><=
+div> <br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0p=
+x 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">
+This only works when taking over from UEFI, so on boot or resume from<br>
+hibernate. This wouldn&#39;t work on a normal suspend/resume.<br>
+<br></blockquote><div><br></div><div>See the other thread i just cc&#39;ed =
+you on. Depends if dc_link_detect_helper() gets skipped/early returns or no=
+t on EDP. Some if statement suggests it might get skipped on EDP + resume?<=
+br></div><div>=C2=A0</div><blockquote class=3D"gmail_quote" style=3D"margin=
+:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex"=
+>
+Can you check if setting link-&gt;dc-&gt;config.optimize_edp_link_rate (see=
+<br>
+first if statement in detect_edp_sink_caps) fixes this? I imagine we<br>
+need to read the reported settings from DP_SUPPORTED_LINK_RATES and fail<br=
+>
+to do so.<br></blockquote><div><br></div><div>Tried that already (see other=
+ mail), replacing the whole if statement with a if (true) to force reading =
+DP_SUPPORTED_LINK_RATES. The whole table reads back as all-zero, and versio=
+ns are DP 1.1, eDP 1.3, not 1.4+ as what seems to be required. The use the =
+classic link bw stuff, but with a non-standard link bandwidth multiplier of=
+ 0xc, and a reported DP_MAX_LINK_RATE of 0xa, contradicting the 0xc setting=
+ that the firmware sets at bootup.</div><div><br></div><div>Seems to be a v=
+ery Apple thing...</div><div>-mario<br></div><div>=C2=A0</div><blockquote c=
+lass=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px soli=
+d rgb(204,204,204);padding-left:1ex">
+<br>
+Thanks,<br>
+Harry<br>
+<br>
+&gt; This fixes a problem found on the MacBookPro 2017 Retina panel:<br>
+&gt; <br>
+&gt; The panel reports 10 bpc color depth in its EDID, and the<br>
+&gt; firmware chooses link settings at boot which support enough<br>
+&gt; bandwidth for 10 bpc (324000 kbit/sec aka LINK_RATE_RBR2),<br>
+&gt; but the DP_MAX_LINK_RATE dpcd register only reports 2.7 Gbps<br>
+&gt; as possible, so verified_link_cap is only good for 2.7 Gbps<br>
+&gt; and 8 bpc, not providing the full color depth of the panel.<br>
+&gt; <br>
+&gt; Signed-off-by: Mario Kleiner &lt;<a href=3D"mailto:mario.kleiner.de@gm=
+ail.com" target=3D"_blank">mario.kleiner.de@gmail.com</a>&gt;<br>
+&gt; Cc: Alex Deucher &lt;<a href=3D"mailto:alexander.deucher@amd.com" targ=
+et=3D"_blank">alexander.deucher@amd.com</a>&gt;<br>
+&gt; ---<br>
+&gt;=C2=A0 drivers/gpu/drm/amd/display/dc/core/dc_link.c | 21 +++++++++++++=
+++++++<br>
+&gt;=C2=A0 1 file changed, 21 insertions(+)<br>
+&gt; <br>
+&gt; diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link.c b/drivers/g=
+pu/drm/amd/display/dc/core/dc_link.c<br>
+&gt; index 5ea4a1675259..f3acdb8fead5 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/display/dc/core/dc_link.c<br>
+&gt; +++ b/drivers/gpu/drm/amd/display/dc/core/dc_link.c<br>
+&gt; @@ -819,6 +819,27 @@ static bool dc_link_detect_helper(struct dc_link =
+*link,<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0case SIGNAL_TYPE=
+_EDP: {<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0detect_edp_sink_caps(link);<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0read_current_link_settings_on_detect(link);<br>
+&gt; +<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0/* If cur_link_settings provides higher bandwidth than<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 * verified_link_cap, then use cur_link_settings as new<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 * verified_link_cap, as it obviously works according to<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 * firmware boot setup.<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 *<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 * This has been observed on the Apple MacBookPro 2017<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 * Retina panel, which boots with a link setting higher<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 * than what dpcd[DP_MAX_LINK_RATE] claims as possible.<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 * Overriding allows to run the panel at 10 bpc / 30 bit.<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 */<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0if (dc_link_bandwidth_kbps(link, &amp;link-&gt;cur_link_settings) &g=
+t;<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 =C2=A0dc_link_bandwidth_kbps(link, &amp;link-&gt;verified_li=
+nk_cap)) {<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0DC_LOG_DETECTION_DP_CAPS(<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&quot;eDP current link setting bw %d kbp=
+s &gt; verified_link_cap %d kbps. Override.&quot;,<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0dc_link_bandwidth_kbps(link, &amp;link-&=
+gt;cur_link_settings),<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0dc_link_bandwidth_kbps(link, &amp;link-&=
+gt;verified_link_cap));<br>
+&gt; +<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0link-&gt;verified_link_cap =3D link-&gt;=
+cur_link_settings;<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0}<br>
+&gt; +<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0sink_caps.transaction_type =3D DDC_TRANSACTION_TYPE_I2C_OVER_A=
+UX;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0sink_caps.signal =3D SIGNAL_TYPE_EDP;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0break;<br>
+&gt; <br>
+</blockquote></div></div>
+
+--00000000000067ffbc059bbb7bd3--
+
+--===============1655859181==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--===============1655859181==--
