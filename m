@@ -2,73 +2,113 @@ Return-Path: <SRS0=R6+d=26=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-6.4 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	MIME_HTML_MOSTLY,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3A2A7C32771
-	for <amd-gfx@archiver.kernel.org>; Thu,  9 Jan 2020 11:11:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9E26DC33CA2
+	for <amd-gfx@archiver.kernel.org>; Thu,  9 Jan 2020 11:30:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id F1A3220656
-	for <amd-gfx@archiver.kernel.org>; Thu,  9 Jan 2020 11:11:11 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 65B002067D
+	for <amd-gfx@archiver.kernel.org>; Thu,  9 Jan 2020 11:30:25 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="S0WAfZ+y"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org F1A3220656
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="r+tABpHi"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 65B002067D
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B6C7E6E8FC;
-	Thu,  9 Jan 2020 11:11:10 +0000 (UTC)
-Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com
- [IPv6:2a00:1450:4864:20::443])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1561E6E8FC
- for <amd-gfx@lists.freedesktop.org>; Thu,  9 Jan 2020 11:11:10 +0000 (UTC)
-Received: by mail-wr1-x443.google.com with SMTP id g17so6964675wro.2
- for <amd-gfx@lists.freedesktop.org>; Thu, 09 Jan 2020 03:11:10 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=e1fv3pyPwdgR9YD7bygWUQUrB5fLS6/OeXepJ5OusQw=;
- b=S0WAfZ+ygjRLy6jvp2ll3ZmJWUMZpCPet/hcts5cGW1yU/9iVSCvZJrGebIuvjGWcu
- HqM+e2oMbLf6y12XLQ/3UgMHVAzgJt6yk82EkB19z++FVEw4gmfEqg/EDii766EZRylT
- e4vQXZqAmPEohjH6aZnCp0o2K1Ljy+CyCEVkqEzR6lWAN5TKjqFK2PyQTHc+jaxNfO/V
- cxCx7L7FesyrM/4go64MwxhGQQJi2MBL6FQBKu8dMv0nti5ch3PIW/xP+/NPw704mp4u
- FGeAkf05L6Akp9etNB11KTJqrgsiDZbDOlRbFFPa25fsiJFQiGC0wksV6T0MbBq5AMN7
- xceA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=e1fv3pyPwdgR9YD7bygWUQUrB5fLS6/OeXepJ5OusQw=;
- b=FTcE8bdhOWDKo7HL0Qj9KNjrkYvOta/MDIdKtDPXkP4qTxAJhgrX90/m1a7H+6Ywlc
- zxWLnw7Q5Dv1MA8i3H5ZM2BTGT0tMqayY4Uv5Z5WiAfYJOMoT2uNK2+9UwGS/+k0WWIX
- PNGA4s8OWP4ngXr8fEGztyIKQRHnsbqYbsHSNvvW1w9DPr7772Q+BA/Ae6v3sVyPTwX0
- 9Me84uHqEATNzO5b05ElXhAaWyscjf/+5Is0j2JTct+YYxR3PmkmkkOy8nbMG745qdCq
- IFQzlbK0Ug1oQ7qXA+arNQlA0mi9+7fAq5O7aDwmuilOdhF2dsCu0a1TOK5RFyPHsMo3
- nWTA==
-X-Gm-Message-State: APjAAAUpd8299PNnez1uR7oYaUy2dau1y57JCsBdHMpuhfQb+JuoT+Dn
- VNe335hUHFwzAGA+6wmN+cyPhep7jNgq8Dpr
-X-Google-Smtp-Source: APXvYqw3O0fkAk14C45zFHYuNBRAGmsAeULj7EtsUUdCMHcgXxPb+E7kXRuxA9BL5DfYiNJQV8OU0g==
-X-Received: by 2002:adf:f2c1:: with SMTP id d1mr10066621wrp.111.1578568268389; 
- Thu, 09 Jan 2020 03:11:08 -0800 (PST)
-Received: from brihaspati.fritz.box
- (p200300C58F2F7000EF398E6A7C8DDE3A.dip0.t-ipconnect.de.
- [2003:c5:8f2f:7000:ef39:8e6a:7c8d:de3a])
- by smtp.gmail.com with ESMTPSA id f207sm2821340wme.9.2020.01.09.03.11.07
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 09 Jan 2020 03:11:07 -0800 (PST)
-From: Nirmoy Das <nirmoy.aiemd@gmail.com>
-X-Google-Original-From: Nirmoy Das <nirmoy.das@amd.com>
-To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH] drm/amdgpu: error out on entity with no run queue
-Date: Thu,  9 Jan 2020 12:12:01 +0100
-Message-Id: <20200109111201.34613-1-nirmoy.das@amd.com>
-X-Mailer: git-send-email 2.24.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2B4D66E3EB;
+	Thu,  9 Jan 2020 11:30:25 +0000 (UTC)
+Received: from NAM02-BL2-obe.outbound.protection.outlook.com
+ (mail-eopbgr750042.outbound.protection.outlook.com [40.107.75.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0B44C6E3EB
+ for <amd-gfx@lists.freedesktop.org>; Thu,  9 Jan 2020 11:30:24 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=f0XZg4UFoHgLsNrwWGZ8PwOCngI7u6HH2/dFmvPMWGVjUqY5eNU5p7xmu9fYOaWY4OkxRcIcD/ooXhHWuUpVradA2Up3ShnQrY/IpOnlfZIx/gjwCZJfAiP8H3PM9Q9jJSIoK8jT/m0P5HekNIcinbcWhhXtFx5buQ8Xmi7A+sO6iGn5fZ0i4WROzQMIIiNVTXyhUDW+Zyu1LfJtr2IRUrs9IgSc6XcQs6QEwQvL03UB4ly98tAujPGsEs15Ebgxoyf4wAzR/hYdQrqzU271ZdAes+nHYf6Yy0BhpBJzYH19yOhKvmoFE/QVq86ZOt2cfdNw9HtkS1IM6yRdrC8lag==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=LY4JiUHdG+s58//jpufAyXtslc8Ep8CBddFgpM01EKk=;
+ b=m5qgSZM22xfq2PK8znJ4TyQp5gMz2egHe+rq8lpLyESQ45mapOsDzS3m5zcQxLMIjjASED7c8YE8CHFeNdmBiWM8/WfCD2Gh+ofr/zpQZAzfgZ9iU7r9fUmhYGbYC4j7CDcoTucqV8kzaBaWYQD5CF41nswf2u54WwDLY/Q9Su2j+19tsmfWSR/EQrFYS6LLAAVmXw4vaobalo4Az2CXDVisLRGBck4dDb3z/ZBQ2R0+A640NYva2H9jx7AZYCNGOfyPzS6rToTLVZJtfLziLlOdMXIvvrrvZmh134Xp5BMJRKveLhX5sbHkardt8VB1+Ghit5i+BfcCS3uHHNWKAA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=LY4JiUHdG+s58//jpufAyXtslc8Ep8CBddFgpM01EKk=;
+ b=r+tABpHiYIALNaXdH3jEinMkH3mIOpidgZav1lWC5Z9rCvzCQDD1h9rjIFHyBPeac3eSKtId9YaO/6L6OIEykF9nTSFI89Dy0LWsR3Kl6IpuU1EdbswaHjMTcCKPvLRZzMWeZ8ESzhAEyHR+S3d3/Wg3NpONcXJ4hFb9nuL0D4A=
+Received: from MN2PR12MB2957.namprd12.prod.outlook.com (20.179.82.14) by
+ MN2PR12MB3039.namprd12.prod.outlook.com (20.178.242.91) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2602.12; Thu, 9 Jan 2020 11:30:21 +0000
+Received: from MN2PR12MB2957.namprd12.prod.outlook.com
+ ([fe80::2cbe:ce2:60b5:7756]) by MN2PR12MB2957.namprd12.prod.outlook.com
+ ([fe80::2cbe:ce2:60b5:7756%6]) with mapi id 15.20.2623.010; Thu, 9 Jan 2020
+ 11:30:21 +0000
+From: "Yin, Tianci (Rico)" <Tianci.Yin@amd.com>
+To: =?iso-8859-1?Q?Christian_K=F6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ Alex Deucher <alexdeucher@gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: fix modprobe failure of the 2nd GPU when
+ GDDR6 training enabled
+Thread-Topic: [PATCH] drm/amdgpu: fix modprobe failure of the 2nd GPU when
+ GDDR6 training enabled
+Thread-Index: AQHVxiBU8GGBuSDCyE+2e2fHcoZQZafguKSAgAAg5YCAAAP9AIAAw+3YgAAHpICAAACnJ4AAeXMAgAAJABI=
+Date: Thu, 9 Jan 2020 11:30:21 +0000
+Message-ID: <MN2PR12MB2957A5D85894823531B8B97A95390@MN2PR12MB2957.namprd12.prod.outlook.com>
+References: <20200108123648.7422-1-tianci.yin@amd.com>
+ <ba1754a0-7230-5df7-cfb3-7b0d7c892c47@amd.com>
+ <CADnq5_MQ1S60QX3=U2=LYSoiYg965yViTk0Y0WbaFTRXhvNZww@mail.gmail.com>
+ <aca36233-68fd-c692-1080-daa9c32efa14@gmail.com>
+ <MN2PR12MB29576985DC4A61F99F96052A95390@MN2PR12MB2957.namprd12.prod.outlook.com>
+ <CADnq5_OOiV7Ku-QbY7a3MTpQF=CuSgxezq00NVhnVkNQDcBWZw@mail.gmail.com>
+ <MN2PR12MB2957F23A709E07E481AD630B95390@MN2PR12MB2957.namprd12.prod.outlook.com>,
+ <99978066-87ed-9533-0cfb-44cddb7c9226@gmail.com>
+In-Reply-To: <99978066-87ed-9533-0cfb-44cddb7c9226@gmail.com>
+Accept-Language: en-US, zh-CN
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=True;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2020-01-09T11:30:20.680Z;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal
+ Distribution
+ Only; MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=0;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard; 
+authentication-results: spf=none (sender IP is )
+ smtp.mailfrom=Tianci.Yin@amd.com; 
+x-originating-ip: [180.167.199.189]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-ht: Tenant
+x-ms-office365-filtering-correlation-id: fc3e2769-3c01-49f6-08f0-08d794f74ff0
+x-ms-traffictypediagnostic: MN2PR12MB3039:|MN2PR12MB3039:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <MN2PR12MB303929A3BCCD717EEC9E02CD95390@MN2PR12MB3039.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:10000;
+x-forefront-prvs: 02778BF158
+x-forefront-antispam-report: SFV:NSPM;
+ SFS:(10009020)(4636009)(39860400002)(366004)(136003)(376002)(346002)(396003)(189003)(199004)(53546011)(66574012)(19627405001)(6506007)(71200400001)(7696005)(86362001)(5660300002)(316002)(186003)(110136005)(2906002)(54906003)(966005)(64756008)(8936002)(66556008)(66476007)(52536014)(26005)(81166006)(66946007)(8676002)(66446008)(81156014)(76116006)(9686003)(33656002)(91956017)(45080400002)(4326008)(55016002)(478600001);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:MN2PR12MB3039;
+ H:MN2PR12MB2957.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; MX:1; A:1; 
+received-spf: None (protection.outlook.com: amd.com does not designate
+ permitted sender hosts)
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: zjy41us1PHr5SHqhEOzUh7//6LgXMg1vv4Xzx0Pi71nxVM12hiW3PH69YXSUnOZVATZTo8qQQXRtyY31ls24tr4R9WoBUF1KNGwI9xpZMaN1sDkAvOfY6mAobcvGUoOGzH1eEqc7UiiO7s6+NeRqayU/etMPq9+0csFb0WysIkrX42kftQdcx9xm6+EpRgFX1C7ZcMhlr2x8CBYtRrJ7IzQyKSfW+m1lK82ESLNgZ2TQyM25XRyAS2pXsu4AGSJ93nYXrnaQgPF5LwF0Oc9gHnApBXlquyMO/LFHrjzevPFidc6SJ/aPbx4Pya0pJx+jHGYqblGPah+1VPL6wt72IocD3wot5vaFWmsri6UQjs+2HtY7rHNraQmmw2LNhAmTGRai615Ltt3og0Gt26PrnLutDILL2WG6uTYjia5aDSoicpfBwB0vDG2g898UZwudh01zWu0bcz8WJofnTWTjVPh0EnStqFXxLVkhT3LG8o8=
 MIME-Version: 1.0
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: fc3e2769-3c01-49f6-08f0-08d794f74ff0
+X-MS-Exchange-CrossTenant-originalarrivaltime: 09 Jan 2020 11:30:21.3359 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: TkEqpmwN9Kj4l7k9RL+/VIoVRIjBlLNBh9F08p3GvQ775liQXWxycY5gxblhjUaNUeFP9RfQyGqbmzlO59KOjg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3039
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,41 +120,749 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alexander.deucher@amd.com, kenny.ho@amd.com, nirmoy.das@amd.com,
- christian.koenig@amd.com
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: "Long, Gang" <Gang.Long@amd.com>, "Xu, Feifei" <Feifei.Xu@amd.com>, "Wang,
+ Kevin\(Yang\)" <Kevin1.Wang@amd.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>, "Tuikov, 
+ Luben" <Luben.Tuikov@amd.com>, "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ "Zhang, Hawking" <Hawking.Zhang@amd.com>, "Koenig,
+ Christian" <Christian.Koenig@amd.com>, "Yuan, Xiaojie" <Xiaojie.Yuan@amd.com>
+Content-Type: multipart/mixed; boundary="===============1023914451=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Disabled HW IP's entity initialized with NULL rq. We should not
-process any submit request from userspace for a disabled HW IP.
+--===============1023914451==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_MN2PR12MB2957A5D85894823531B8B97A95390MN2PR12MB2957namp_"
 
-Signed-off-by: Nirmoy Das <nirmoy.das@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 5 +++++
- 1 file changed, 5 insertions(+)
+--_000_MN2PR12MB2957A5D85894823531B8B97A95390MN2PR12MB2957namp_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-index 614919f265b9..943e6075bdf9 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-@@ -913,6 +913,11 @@ static int amdgpu_cs_ib_fill(struct amdgpu_device *adev,
- 		if (parser->entity && parser->entity != entity)
- 			return -EINVAL;
- 
-+		/* Return if there is no run queue associated with this entity.
-+		 * Possibly because of disabled HW IP*/
-+		if (entity->rq == NULL)
-+			return -EINVAL;
-+
- 		parser->entity = entity;
- 
- 		ring = to_amdgpu_ring(entity->rq->sched);
--- 
-2.24.1
+[AMD Official Use Only - Internal Distribution Only]
+
+Hi Christian,
+
+Thanks very much for your suggestions, I checked the original version of gm=
+c_v10_0.c on branch origin/ruihuang/amd-temp-navi10-part1, amdgpu_bo_late_i=
+nit() is not invoked by gmc_v10_0_late_init(), so I think it was missed fro=
+m the beginning time.
+
+Yes, it seems we all have ever met the VRAM overwritten issue, but it's not=
+ easy to figure out who did it. Are there some source that we can get this =
+kind of information? If there is a place gathered this kind of information,=
+ it should save us much debug time.
+
+Thanks!
+
+Rico
+________________________________
+From: Christian K=F6nig <ckoenig.leichtzumerken@gmail.com>
+Sent: Thursday, January 9, 2020 18:29
+To: Yin, Tianci (Rico) <Tianci.Yin@amd.com>; Alex Deucher <alexdeucher@gmai=
+l.com>
+Cc: Koenig, Christian <Christian.Koenig@amd.com>; Long, Gang <Gang.Long@amd=
+.com>; Wang, Kevin(Yang) <Kevin1.Wang@amd.com>; Xu, Feifei <Feifei.Xu@amd.c=
+om>; amd-gfx list <amd-gfx@lists.freedesktop.org>; Tuikov, Luben <Luben.Tui=
+kov@amd.com>; Deucher, Alexander <Alexander.Deucher@amd.com>; Yuan, Xiaojie=
+ <Xiaojie.Yuan@amd.com>; Zhang, Hawking <Hawking.Zhang@amd.com>
+Subject: Re: [PATCH] drm/amdgpu: fix modprobe failure of the 2nd GPU when G=
+DDR6 training enabled
+
+Hi Rico,
+
+maybe it is a good idea to look into the git history and/or google the mail=
+ing list history a bit more.
+
+I do briefly remember that we disabled freeing up the stolen VGA memory on =
+some hardware generations because somebody was accessing that memory even a=
+fter VGA was turned off.
+
+At that time we couldn't figure out what was going wrong, but it is perfect=
+ly possible that those memory training fixes your are working on here are r=
+elated to that issue.
+
+On the other hand if you can't find anything immediately feel free to go wi=
+th Alex suggestion, if something goes wrong we can still revert the change.
+
+Regards,
+Christian.
+
+Am 09.01.20 um 04:15 schrieb Yin, Tianci (Rico):
+
+[AMD Official Use Only - Internal Distribution Only]
+
+Ok, thanks very much Alex!
+________________________________
+From: Alex Deucher <alexdeucher@gmail.com><mailto:alexdeucher@gmail.com>
+Sent: Thursday, January 9, 2020 11:12
+To: Yin, Tianci (Rico) <Tianci.Yin@amd.com><mailto:Tianci.Yin@amd.com>
+Cc: Christian K=F6nig <ckoenig.leichtzumerken@gmail.com><mailto:ckoenig.lei=
+chtzumerken@gmail.com>; Koenig, Christian <Christian.Koenig@amd.com><mailto=
+:Christian.Koenig@amd.com>; Long, Gang <Gang.Long@amd.com><mailto:Gang.Long=
+@amd.com>; Wang, Kevin(Yang) <Kevin1.Wang@amd.com><mailto:Kevin1.Wang@amd.c=
+om>; Xu, Feifei <Feifei.Xu@amd.com><mailto:Feifei.Xu@amd.com>; amd-gfx list=
+ <amd-gfx@lists.freedesktop.org><mailto:amd-gfx@lists.freedesktop.org>; Tui=
+kov, Luben <Luben.Tuikov@amd.com><mailto:Luben.Tuikov@amd.com>; Deucher, Al=
+exander <Alexander.Deucher@amd.com><mailto:Alexander.Deucher@amd.com>; Yuan=
+, Xiaojie <Xiaojie.Yuan@amd.com><mailto:Xiaojie.Yuan@amd.com>; Zhang, Hawki=
+ng <Hawking.Zhang@amd.com><mailto:Hawking.Zhang@amd.com>
+Subject: Re: [PATCH] drm/amdgpu: fix modprobe failure of the 2nd GPU when G=
+DDR6 training enabled
+
+On Wed, Jan 8, 2020 at 10:07 PM Yin, Tianci (Rico) <Tianci.Yin@amd.com><mai=
+lto:Tianci.Yin@amd.com> wrote:
+>
+> [AMD Official Use Only - Internal Distribution Only]
+>
+>
+> Thanks Alex and Christian!
+>
+> Hi Christian,
+>
+> On ASICs with gmc v10, I find amdgpu_bo_late_init() is not invoked, so st=
+olen memory never get free, on other ASICs with gmc v9/v8/v7/v6, stolen mem=
+ory was freed in gmc_v*_0_late_init(). I don't know why, are there some spe=
+cial reasons or just missed by coding?
+>
+
+Looks like it should be added.  Possibly got lost when we merged the
+navi code from the topic branch.
+
+Alex
+
+> Thanks!
+>
+> Rico
+>
+> ________________________________
+> From: Christian K=F6nig <ckoenig.leichtzumerken@gmail.com><mailto:ckoenig=
+.leichtzumerken@gmail.com>
+> Sent: Wednesday, January 8, 2020 23:04
+> To: Alex Deucher <alexdeucher@gmail.com><mailto:alexdeucher@gmail.com>; K=
+oenig, Christian <Christian.Koenig@amd.com><mailto:Christian.Koenig@amd.com=
+>
+> Cc: Long, Gang <Gang.Long@amd.com><mailto:Gang.Long@amd.com>; Wang, Kevin=
+(Yang) <Kevin1.Wang@amd.com><mailto:Kevin1.Wang@amd.com>; Xu, Feifei <Feife=
+i.Xu@amd.com><mailto:Feifei.Xu@amd.com>; Yin, Tianci (Rico) <Tianci.Yin@amd=
+.com><mailto:Tianci.Yin@amd.com>; amd-gfx list <amd-gfx@lists.freedesktop.o=
+rg><mailto:amd-gfx@lists.freedesktop.org>; Tuikov, Luben <Luben.Tuikov@amd.=
+com><mailto:Luben.Tuikov@amd.com>; Deucher, Alexander <Alexander.Deucher@am=
+d.com><mailto:Alexander.Deucher@amd.com>; Yuan, Xiaojie <Xiaojie.Yuan@amd.c=
+om><mailto:Xiaojie.Yuan@amd.com>; Zhang, Hawking <Hawking.Zhang@amd.com><ma=
+ilto:Hawking.Zhang@amd.com>
+> Subject: Re: [PATCH] drm/amdgpu: fix modprobe failure of the 2nd GPU when=
+ GDDR6 training enabled
+>
+> Am 08.01.20 um 15:49 schrieb Alex Deucher:
+> > On Wed, Jan 8, 2020 at 7:52 AM Christian K=F6nig <christian.koenig@amd.=
+com><mailto:christian.koenig@amd.com> wrote:
+> >> Am 08.01.20 um 13:36 schrieb Tianci Yin:
+> >>> From: "Tianci.Yin" <tianci.yin@amd.com><mailto:tianci.yin@amd.com>
+> >>>
+> >>> [why]
+> >>> In dual GPUs scenario, stolen_size is assigned to zero on the 2nd GPU=
+,
+> >>> then the bottom region of VRAM was allocated as GTT, unfortunately
+> >>> a small region of bottom VRAM was encroached by UMC firmware during
+> >>> GDDR6 BIST training, this cause pagefault.
+> >> What I'm missing here is why is the stolen size zero on the 2nd GPU?
+> >>
+> >> Maybe we need to read the stolen size after posting the GPU instead?
+> > There is no stolen memory on secondary GPUs because there is no pre-OS
+> > console using that memory.
+>
+> Ah! Yeah that makes sense.
+>
+> But in this case I would say we should change the patch like the followin=
+g:
+>
+> adev->gmc.stolen_size =3D min(adev->gmc.stolen_size,
+> AMDGPU_STOLEN_VGA_DEFAULT_SIZE);
+>
+> And in amdgpu_ttm_late_init():
+>
+> /* Can't free the stolen VGA memory when it might be used for memory
+> training again. */
+> if (!adev->fw_vram_usage.mem_train_support)
+>      amdgpu_bo_free_kernel(....
+>
+>
+> Regards,
+> Christian.
+>
+>
+> >
+> > Alex
+> >
+> >> Regards,
+> >> Christian.
+> >>
+> >>> [how]
+> >>> Forcing stolen_size to 3MB, then the bottom region of VRAM was
+> >>> allocated as stolen memory, GTT corruption avoid.
+> >>> The stolen memory of the 2nd GPU will be free in late_init phase,
+> >>> no memory wasted.
+> >>>
+> >>> Change-Id: Icd0ad7de41333282949bb1e3e676c6c307ddd081
+> >>> Signed-off-by: Tianci.Yin <tianci.yin@amd.com><mailto:tianci.yin@amd.=
+com>
+> >>> ---
+> >>>    drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h |  6 ++++++
+> >>>    drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c  | 21 +++++++++++++++++++++
+> >>>    2 files changed, 27 insertions(+)
+> >>>
+> >>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h b/drivers/gpu/dr=
+m/amd/amdgpu/amdgpu_gmc.h
+> >>> index c91dd602d5f1..440b793316df 100644
+> >>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
+> >>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
+> >>> @@ -60,6 +60,11 @@
+> >>>     */
+> >>>    #define AMDGPU_GMC_FAULT_TIMEOUT    5000ULL
+> >>>
+> >>> +/*
+> >>> + * Default stolen memory size, 1024 * 768 * 4
+> >>> + */
+> >>> +#define AMDGPU_STOLEN_VGA_DEFAULT_SIZE       0x300000
+> >>> +
+> >>>    struct firmware;
+> >>>
+> >>>    /*
+> >>> @@ -192,6 +197,7 @@ struct amdgpu_gmc {
+> >>>        uint32_t                srbm_soft_reset;
+> >>>        bool                    prt_warning;
+> >>>        uint64_t                stolen_size;
+> >>> +     bool                    stolen_temp_reserved;
+> >>>        /* apertures */
+> >>>        u64                     shared_aperture_start;
+> >>>        u64                     shared_aperture_end;
+> >>> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c b/drivers/gpu/drm=
+/amd/amdgpu/gmc_v10_0.c
+> >>> index 7dc8c068c62a..0c96b67d6ca7 100644
+> >>> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+> >>> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+> >>> @@ -566,6 +566,11 @@ static int gmc_v10_0_late_init(void *handle)
+> >>>        struct amdgpu_device *adev =3D (struct amdgpu_device *)handle;
+> >>>        int r;
+> >>>
+> >>> +     if (adev->gmc.stolen_temp_reserved) {
+> >>> +             amdgpu_bo_late_init(adev);
+> >>> +             adev->gmc.stolen_temp_reserved =3D false;
+> >>> +     }
+> >>> +
+> >>>        r =3D amdgpu_gmc_allocate_vm_inv_eng(adev);
+> >>>        if (r)
+> >>>                return r;
+> >>> @@ -756,6 +761,22 @@ static int gmc_v10_0_sw_init(void *handle)
+> >>>                return r;
+> >>>
+> >>>        adev->gmc.stolen_size =3D gmc_v10_0_get_vbios_fb_size(adev);
+> >>> +     /*
+> >>> +      * In dual GPUs scenario, stolen_size is assigned to zero on th=
+e 2nd GPU,
+> >>> +      * then the bottom region of VRAM was allocated as GTT, unfortu=
+nately
+> >>> +      * a small region of bottom VRAM was encroached by UMC firmware=
+ during
+> >>> +      * GDDR6 BIST training, this cause pagefault.
+> >>> +      * The page fault can be fixed by forcing stolen_size to 3MB, t=
+hen the bottom
+> >>> +      * region of VRAM was allocated as stolen memory, GTT corruptio=
+n avoid.
+> >>> +      * The stolen memory of the 2nd GPU will be free in late_init p=
+hase,
+> >>> +      * no memory wasted.
+> >>> +      */
+> >>> +     if (adev->fw_vram_usage.mem_train_support &&
+> >>> +             adev->gmc.stolen_size =3D=3D 0) {
+> >>> +             adev->gmc.stolen_size =3D AMDGPU_STOLEN_VGA_DEFAULT_SIZ=
+E;
+> >>> +             adev->gmc.stolen_temp_reserved =3D true;
+> >>> +     } else
+> >>> +             adev->gmc.stolen_temp_reserved =3D false;
+> >>>
+> >>>        /* Memory manager */
+> >>>        r =3D amdgpu_bo_init(adev);
+> >> _______________________________________________
+> >> amd-gfx mailing list
+> >> amd-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org>
+> >> https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Fli=
+sts.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=3D02%7C01%7CTia=
+nci.Yin%40amd.com%7Cb9b1622ed60e4ab36c6408d794b1d75e%7C3dd8961fe4884e608e11=
+a82d994e183d%7C0%7C0%7C637141363862418597&amp;sdata=3DYT8zKlbLX0XdzqcLrZQaV=
+6sKFWXS5nQTNMAMT9BMK70%3D&amp;reserved=3D0<https://nam11.safelinks.protecti=
+on.outlook.com/?url=3Dhttps%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flisti=
+nfo%2Famd-gfx&data=3D02%7C01%7CTianci.Yin%40amd.com%7Ca21d3576dde64ae42f090=
+8d794eede11%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637141625988841768=
+&sdata=3Dj%2F7xYrXd%2F%2BUIke9EhCdHxknY8TmgspnCyxcz6cTbpYg%3D&reserved=3D0>
+> > _______________________________________________
+> > amd-gfx mailing list
+> > amd-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org>
+> > https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Flis=
+ts.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=3D02%7C01%7CTian=
+ci.Yin%40amd.com%7Cb9b1622ed60e4ab36c6408d794b1d75e%7C3dd8961fe4884e608e11a=
+82d994e183d%7C0%7C0%7C637141363862428589&amp;sdata=3DLLVRzFBxFKqTltpvsK%2F2=
+l9CwnlUFzFKmDoPPHdO5e1I%3D&amp;reserved=3D0<https://nam11.safelinks.protect=
+ion.outlook.com/?url=3Dhttps%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flist=
+info%2Famd-gfx&data=3D02%7C01%7CTianci.Yin%40amd.com%7Ca21d3576dde64ae42f09=
+08d794eede11%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C63714162598885176=
+3&sdata=3D0OGgqQKu%2F9G0lJGXgDy25P%2F9GEU%2FlvdeFd5gRtLhPyQ%3D&reserved=3D0=
+>
+>
+
+
+--_000_MN2PR12MB2957A5D85894823531B8B97A95390MN2PR12MB2957namp_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<p style=3D"font-family:Arial;font-size:10pt;color:#0078D7;margin:15pt;" al=
+ign=3D"Left">
+[AMD Official Use Only - Internal Distribution Only]<br>
+</p>
+<br>
+<div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Hi Christian,</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Thanks very much for your suggestions, I checked the original version of gm=
+c_v10_0.c on branch origin/ruihuang/amd-temp-navi10-part1, amdgpu_bo_late_i=
+nit() is not invoked by gmc_v10_0_late_init(), so I think it was missed fro=
+m the beginning time.</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Yes, it seems we all have ever met the VRAM overwritten issue, but it's not=
+ easy to figure out who did it. Are there some source that we can get this =
+kind of information? If there is a place gathered this kind of information,=
+ it should save us much debug time.</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Thanks!</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Rico<br>
+</div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Christian K=F6nig &lt=
+;ckoenig.leichtzumerken@gmail.com&gt;<br>
+<b>Sent:</b> Thursday, January 9, 2020 18:29<br>
+<b>To:</b> Yin, Tianci (Rico) &lt;Tianci.Yin@amd.com&gt;; Alex Deucher &lt;=
+alexdeucher@gmail.com&gt;<br>
+<b>Cc:</b> Koenig, Christian &lt;Christian.Koenig@amd.com&gt;; Long, Gang &=
+lt;Gang.Long@amd.com&gt;; Wang, Kevin(Yang) &lt;Kevin1.Wang@amd.com&gt;; Xu=
+, Feifei &lt;Feifei.Xu@amd.com&gt;; amd-gfx list &lt;amd-gfx@lists.freedesk=
+top.org&gt;; Tuikov, Luben &lt;Luben.Tuikov@amd.com&gt;; Deucher, Alexander
+ &lt;Alexander.Deucher@amd.com&gt;; Yuan, Xiaojie &lt;Xiaojie.Yuan@amd.com&=
+gt;; Zhang, Hawking &lt;Hawking.Zhang@amd.com&gt;<br>
+<b>Subject:</b> Re: [PATCH] drm/amdgpu: fix modprobe failure of the 2nd GPU=
+ when GDDR6 training enabled</font>
+<div>&nbsp;</div>
+</div>
+<div style=3D"background-color:#FFFFFF">
+<div class=3D"x_moz-cite-prefix">Hi Rico,<br>
+<br>
+maybe it is a good idea to look into the git history and/or google the mail=
+ing list history a bit more.<br>
+<br>
+I do briefly remember that we disabled freeing up the stolen VGA memory on =
+some hardware generations because somebody was accessing that memory even a=
+fter VGA was turned off.<br>
+<br>
+At that time we couldn't figure out what was going wrong, but it is perfect=
+ly possible that those memory training fixes your are working on here are r=
+elated to that issue.<br>
+<br>
+On the other hand if you can't find anything immediately feel free to go wi=
+th Alex suggestion, if something goes wrong we can still revert the change.=
+<br>
+<br>
+Regards,<br>
+Christian.<br>
+<br>
+Am 09.01.20 um 04:15 schrieb Yin, Tianci (Rico):<br>
+</div>
+<blockquote type=3D"cite"><style type=3D"text/css" style=3D"display:none">
+<!--
+p
+	{margin-top:0;
+	margin-bottom:0}
+-->
+</style>
+<p align=3D"Left" style=3D"font-family:Arial; font-size:10pt; color:#0078D7=
+; margin:15pt">
+[AMD Official Use Only - Internal Distribution Only]<br>
+</p>
+<br>
+<div>
+<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
+t; color:rgb(0,0,0)">
+Ok, thanks very much Alex!<br>
+</div>
+<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
+<div id=3D"x_divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" =
+color=3D"#000000" style=3D"font-size:11pt"><b>From:</b> Alex Deucher
+<a class=3D"x_moz-txt-link-rfc2396E" href=3D"mailto:alexdeucher@gmail.com">=
+&lt;alexdeucher@gmail.com&gt;</a><br>
+<b>Sent:</b> Thursday, January 9, 2020 11:12<br>
+<b>To:</b> Yin, Tianci (Rico) <a class=3D"x_moz-txt-link-rfc2396E" href=3D"=
+mailto:Tianci.Yin@amd.com">
+&lt;Tianci.Yin@amd.com&gt;</a><br>
+<b>Cc:</b> Christian K=F6nig <a class=3D"x_moz-txt-link-rfc2396E" href=3D"m=
+ailto:ckoenig.leichtzumerken@gmail.com">
+&lt;ckoenig.leichtzumerken@gmail.com&gt;</a>; Koenig, Christian <a class=3D=
+"x_moz-txt-link-rfc2396E" href=3D"mailto:Christian.Koenig@amd.com">
+&lt;Christian.Koenig@amd.com&gt;</a>; Long, Gang <a class=3D"x_moz-txt-link=
+-rfc2396E" href=3D"mailto:Gang.Long@amd.com">
+&lt;Gang.Long@amd.com&gt;</a>; Wang, Kevin(Yang) <a class=3D"x_moz-txt-link=
+-rfc2396E" href=3D"mailto:Kevin1.Wang@amd.com">
+&lt;Kevin1.Wang@amd.com&gt;</a>; Xu, Feifei <a class=3D"x_moz-txt-link-rfc2=
+396E" href=3D"mailto:Feifei.Xu@amd.com">
+&lt;Feifei.Xu@amd.com&gt;</a>; amd-gfx list <a class=3D"x_moz-txt-link-rfc2=
+396E" href=3D"mailto:amd-gfx@lists.freedesktop.org">
+&lt;amd-gfx@lists.freedesktop.org&gt;</a>; Tuikov, Luben <a class=3D"x_moz-=
+txt-link-rfc2396E" href=3D"mailto:Luben.Tuikov@amd.com">
+&lt;Luben.Tuikov@amd.com&gt;</a>; Deucher, Alexander <a class=3D"x_moz-txt-=
+link-rfc2396E" href=3D"mailto:Alexander.Deucher@amd.com">
+&lt;Alexander.Deucher@amd.com&gt;</a>; Yuan, Xiaojie <a class=3D"x_moz-txt-=
+link-rfc2396E" href=3D"mailto:Xiaojie.Yuan@amd.com">
+&lt;Xiaojie.Yuan@amd.com&gt;</a>; Zhang, Hawking <a class=3D"x_moz-txt-link=
+-rfc2396E" href=3D"mailto:Hawking.Zhang@amd.com">
+&lt;Hawking.Zhang@amd.com&gt;</a><br>
+<b>Subject:</b> Re: [PATCH] drm/amdgpu: fix modprobe failure of the 2nd GPU=
+ when GDDR6 training enabled</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"x_BodyFragment"><font size=3D"2"><span style=3D"font-size:11p=
+t">
+<div class=3D"x_PlainText">On Wed, Jan 8, 2020 at 10:07 PM Yin, Tianci (Ric=
+o) <a class=3D"x_moz-txt-link-rfc2396E" href=3D"mailto:Tianci.Yin@amd.com">
+&lt;Tianci.Yin@amd.com&gt;</a> wrote:<br>
+&gt;<br>
+&gt; [AMD Official Use Only - Internal Distribution Only]<br>
+&gt;<br>
+&gt;<br>
+&gt; Thanks Alex and Christian!<br>
+&gt;<br>
+&gt; Hi Christian,<br>
+&gt;<br>
+&gt; On ASICs with gmc v10, I find amdgpu_bo_late_init() is not invoked, so=
+ stolen memory never get free, on other ASICs with gmc v9/v8/v7/v6, stolen =
+memory was freed in gmc_v*_0_late_init(). I don't know why, are there some =
+special reasons or just missed by coding?<br>
+&gt;<br>
+<br>
+Looks like it should be added.&nbsp; Possibly got lost when we merged the<b=
+r>
+navi code from the topic branch.<br>
+<br>
+Alex<br>
+<br>
+&gt; Thanks!<br>
+&gt;<br>
+&gt; Rico<br>
+&gt;<br>
+&gt; ________________________________<br>
+&gt; From: Christian K=F6nig <a class=3D"x_moz-txt-link-rfc2396E" href=3D"m=
+ailto:ckoenig.leichtzumerken@gmail.com">
+&lt;ckoenig.leichtzumerken@gmail.com&gt;</a><br>
+&gt; Sent: Wednesday, January 8, 2020 23:04<br>
+&gt; To: Alex Deucher <a class=3D"x_moz-txt-link-rfc2396E" href=3D"mailto:a=
+lexdeucher@gmail.com">
+&lt;alexdeucher@gmail.com&gt;</a>; Koenig, Christian <a class=3D"x_moz-txt-=
+link-rfc2396E" href=3D"mailto:Christian.Koenig@amd.com">
+&lt;Christian.Koenig@amd.com&gt;</a><br>
+&gt; Cc: Long, Gang <a class=3D"x_moz-txt-link-rfc2396E" href=3D"mailto:Gan=
+g.Long@amd.com">
+&lt;Gang.Long@amd.com&gt;</a>; Wang, Kevin(Yang) <a class=3D"x_moz-txt-link=
+-rfc2396E" href=3D"mailto:Kevin1.Wang@amd.com">
+&lt;Kevin1.Wang@amd.com&gt;</a>; Xu, Feifei <a class=3D"x_moz-txt-link-rfc2=
+396E" href=3D"mailto:Feifei.Xu@amd.com">
+&lt;Feifei.Xu@amd.com&gt;</a>; Yin, Tianci (Rico) <a class=3D"x_moz-txt-lin=
+k-rfc2396E" href=3D"mailto:Tianci.Yin@amd.com">
+&lt;Tianci.Yin@amd.com&gt;</a>; amd-gfx list <a class=3D"x_moz-txt-link-rfc=
+2396E" href=3D"mailto:amd-gfx@lists.freedesktop.org">
+&lt;amd-gfx@lists.freedesktop.org&gt;</a>; Tuikov, Luben <a class=3D"x_moz-=
+txt-link-rfc2396E" href=3D"mailto:Luben.Tuikov@amd.com">
+&lt;Luben.Tuikov@amd.com&gt;</a>; Deucher, Alexander <a class=3D"x_moz-txt-=
+link-rfc2396E" href=3D"mailto:Alexander.Deucher@amd.com">
+&lt;Alexander.Deucher@amd.com&gt;</a>; Yuan, Xiaojie <a class=3D"x_moz-txt-=
+link-rfc2396E" href=3D"mailto:Xiaojie.Yuan@amd.com">
+&lt;Xiaojie.Yuan@amd.com&gt;</a>; Zhang, Hawking <a class=3D"x_moz-txt-link=
+-rfc2396E" href=3D"mailto:Hawking.Zhang@amd.com">
+&lt;Hawking.Zhang@amd.com&gt;</a><br>
+&gt; Subject: Re: [PATCH] drm/amdgpu: fix modprobe failure of the 2nd GPU w=
+hen GDDR6 training enabled<br>
+&gt;<br>
+&gt; Am 08.01.20 um 15:49 schrieb Alex Deucher:<br>
+&gt; &gt; On Wed, Jan 8, 2020 at 7:52 AM Christian K=F6nig <a class=3D"x_mo=
+z-txt-link-rfc2396E" href=3D"mailto:christian.koenig@amd.com">
+&lt;christian.koenig@amd.com&gt;</a> wrote:<br>
+&gt; &gt;&gt; Am 08.01.20 um 13:36 schrieb Tianci Yin:<br>
+&gt; &gt;&gt;&gt; From: &quot;Tianci.Yin&quot; <a class=3D"x_moz-txt-link-r=
+fc2396E" href=3D"mailto:tianci.yin@amd.com">
+&lt;tianci.yin@amd.com&gt;</a><br>
+&gt; &gt;&gt;&gt;<br>
+&gt; &gt;&gt;&gt; [why]<br>
+&gt; &gt;&gt;&gt; In dual GPUs scenario, stolen_size is assigned to zero on=
+ the 2nd GPU,<br>
+&gt; &gt;&gt;&gt; then the bottom region of VRAM was allocated as GTT, unfo=
+rtunately<br>
+&gt; &gt;&gt;&gt; a small region of bottom VRAM was encroached by UMC firmw=
+are during<br>
+&gt; &gt;&gt;&gt; GDDR6 BIST training, this cause pagefault.<br>
+&gt; &gt;&gt; What I'm missing here is why is the stolen size zero on the 2=
+nd GPU?<br>
+&gt; &gt;&gt;<br>
+&gt; &gt;&gt; Maybe we need to read the stolen size after posting the GPU i=
+nstead?<br>
+&gt; &gt; There is no stolen memory on secondary GPUs because there is no p=
+re-OS<br>
+&gt; &gt; console using that memory.<br>
+&gt;<br>
+&gt; Ah! Yeah that makes sense.<br>
+&gt;<br>
+&gt; But in this case I would say we should change the patch like the follo=
+wing:<br>
+&gt;<br>
+&gt; adev-&gt;gmc.stolen_size =3D min(adev-&gt;gmc.stolen_size,<br>
+&gt; AMDGPU_STOLEN_VGA_DEFAULT_SIZE);<br>
+&gt;<br>
+&gt; And in amdgpu_ttm_late_init():<br>
+&gt;<br>
+&gt; /* Can't free the stolen VGA memory when it might be used for memory<b=
+r>
+&gt; training again. */<br>
+&gt; if (!adev-&gt;fw_vram_usage.mem_train_support)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_bo_free_kernel(....<br>
+&gt;<br>
+&gt;<br>
+&gt; Regards,<br>
+&gt; Christian.<br>
+&gt;<br>
+&gt;<br>
+&gt; &gt;<br>
+&gt; &gt; Alex<br>
+&gt; &gt;<br>
+&gt; &gt;&gt; Regards,<br>
+&gt; &gt;&gt; Christian.<br>
+&gt; &gt;&gt;<br>
+&gt; &gt;&gt;&gt; [how]<br>
+&gt; &gt;&gt;&gt; Forcing stolen_size to 3MB, then the bottom region of VRA=
+M was<br>
+&gt; &gt;&gt;&gt; allocated as stolen memory, GTT corruption avoid.<br>
+&gt; &gt;&gt;&gt; The stolen memory of the 2nd GPU will be free in late_ini=
+t phase,<br>
+&gt; &gt;&gt;&gt; no memory wasted.<br>
+&gt; &gt;&gt;&gt;<br>
+&gt; &gt;&gt;&gt; Change-Id: Icd0ad7de41333282949bb1e3e676c6c307ddd081<br>
+&gt; &gt;&gt;&gt; Signed-off-by: Tianci.Yin <a class=3D"x_moz-txt-link-rfc2=
+396E" href=3D"mailto:tianci.yin@amd.com">
+&lt;tianci.yin@amd.com&gt;</a><br>
+&gt; &gt;&gt;&gt; ---<br>
+&gt; &gt;&gt;&gt;&nbsp;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h=
+ |&nbsp; 6 &#43;&#43;&#43;&#43;&#43;&#43;<br>
+&gt; &gt;&gt;&gt;&nbsp;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c&=
+nbsp; | 21 &#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43=
+;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;<br>
+&gt; &gt;&gt;&gt;&nbsp;&nbsp;&nbsp; 2 files changed, 27 insertions(&#43;)<b=
+r>
+&gt; &gt;&gt;&gt;<br>
+&gt; &gt;&gt;&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h b/dr=
+ivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h<br>
+&gt; &gt;&gt;&gt; index c91dd602d5f1..440b793316df 100644<br>
+&gt; &gt;&gt;&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h<br>
+&gt; &gt;&gt;&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h=
+<br>
+&gt; &gt;&gt;&gt; @@ -60,6 &#43;60,11 @@<br>
+&gt; &gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
+&gt; &gt;&gt;&gt;&nbsp;&nbsp;&nbsp; #define AMDGPU_GMC_FAULT_TIMEOUT&nbsp;&=
+nbsp;&nbsp; 5000ULL<br>
+&gt; &gt;&gt;&gt;<br>
+&gt; &gt;&gt;&gt; &#43;/*<br>
+&gt; &gt;&gt;&gt; &#43; * Default stolen memory size, 1024 * 768 * 4<br>
+&gt; &gt;&gt;&gt; &#43; */<br>
+&gt; &gt;&gt;&gt; &#43;#define AMDGPU_STOLEN_VGA_DEFAULT_SIZE&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp; 0x300000<br>
+&gt; &gt;&gt;&gt; &#43;<br>
+&gt; &gt;&gt;&gt;&nbsp;&nbsp;&nbsp; struct firmware;<br>
+&gt; &gt;&gt;&gt;<br>
+&gt; &gt;&gt;&gt;&nbsp;&nbsp;&nbsp; /*<br>
+&gt; &gt;&gt;&gt; @@ -192,6 &#43;197,7 @@ struct amdgpu_gmc {<br>
+&gt; &gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp; srbm_soft_reset;<br>
+&gt; &gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp; prt_warning;<br>
+&gt; &gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint64_t&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp; stolen_size;<br>
+&gt; &gt;&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; bool&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp; stolen_temp_reserved;<br>
+&gt; &gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* apertures */=
+<br>
+&gt; &gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u64&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; shared_aperture_start;<br>
+&gt; &gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u64&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; shared_aperture_end;<br>
+&gt; &gt;&gt;&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c b/dri=
+vers/gpu/drm/amd/amdgpu/gmc_v10_0.c<br>
+&gt; &gt;&gt;&gt; index 7dc8c068c62a..0c96b67d6ca7 100644<br>
+&gt; &gt;&gt;&gt; --- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c<br>
+&gt; &gt;&gt;&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c<=
+br>
+&gt; &gt;&gt;&gt; @@ -566,6 &#43;566,11 @@ static int gmc_v10_0_late_init(v=
+oid *handle)<br>
+&gt; &gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_d=
+evice *adev =3D (struct amdgpu_device *)handle;<br>
+&gt; &gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int r;<br>
+&gt; &gt;&gt;&gt;<br>
+&gt; &gt;&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;gmc.stolen_tem=
+p_reserved) {<br>
+&gt; &gt;&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp; amdgpu_bo_late_init(adev);<br>
+&gt; &gt;&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp; adev-&gt;gmc.stolen_temp_reserved =3D false;<br>
+&gt; &gt;&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt; &gt;&gt;&gt; &#43;<br>
+&gt; &gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_gm=
+c_allocate_vm_inv_eng(adev);<br>
+&gt; &gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r)<br>
+&gt; &gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return r;<br>
+&gt; &gt;&gt;&gt; @@ -756,6 &#43;761,22 @@ static int gmc_v10_0_sw_init(voi=
+d *handle)<br>
+&gt; &gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return r;<br>
+&gt; &gt;&gt;&gt;<br>
+&gt; &gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;gmc.st=
+olen_size =3D gmc_v10_0_get_vbios_fb_size(adev);<br>
+&gt; &gt;&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; /*<br>
+&gt; &gt;&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * In dual GPUs scenar=
+io, stolen_size is assigned to zero on the 2nd GPU,<br>
+&gt; &gt;&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * then the bottom reg=
+ion of VRAM was allocated as GTT, unfortunately<br>
+&gt; &gt;&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * a small region of b=
+ottom VRAM was encroached by UMC firmware during<br>
+&gt; &gt;&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * GDDR6 BIST training=
+, this cause pagefault.<br>
+&gt; &gt;&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * The page fault can =
+be fixed by forcing stolen_size to 3MB, then the bottom<br>
+&gt; &gt;&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * region of VRAM was =
+allocated as stolen memory, GTT corruption avoid.<br>
+&gt; &gt;&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * The stolen memory o=
+f the 2nd GPU will be free in late_init phase,<br>
+&gt; &gt;&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * no memory wasted.<b=
+r>
+&gt; &gt;&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
+&gt; &gt;&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;fw_vram_usage.=
+mem_train_support &amp;&amp;<br>
+&gt; &gt;&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp; adev-&gt;gmc.stolen_size =3D=3D 0) {<br>
+&gt; &gt;&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp; adev-&gt;gmc.stolen_size =3D AMDGPU_STOLEN_VGA_DEFAULT=
+_SIZE;<br>
+&gt; &gt;&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp; adev-&gt;gmc.stolen_temp_reserved =3D true;<br>
+&gt; &gt;&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; } else<br>
+&gt; &gt;&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp; adev-&gt;gmc.stolen_temp_reserved =3D false;<br>
+&gt; &gt;&gt;&gt;<br>
+&gt; &gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Memory manag=
+er */<br>
+&gt; &gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_bo=
+_init(adev);<br>
+&gt; &gt;&gt; _______________________________________________<br>
+&gt; &gt;&gt; amd-gfx mailing list<br>
+&gt; &gt;&gt; <a class=3D"x_moz-txt-link-abbreviated" href=3D"mailto:amd-gf=
+x@lists.freedesktop.org">
+amd-gfx@lists.freedesktop.org</a><br>
+&gt; &gt;&gt; <a href=3D"https://nam11.safelinks.protection.outlook.com/?ur=
+l=3Dhttps%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;=
+data=3D02%7C01%7CTianci.Yin%40amd.com%7Ca21d3576dde64ae42f0908d794eede11%7C=
+3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637141625988841768&amp;sdata=3Dj=
+%2F7xYrXd%2F%2BUIke9EhCdHxknY8TmgspnCyxcz6cTbpYg%3D&amp;reserved=3D0" origi=
+nalsrc=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" shash=3D"=
+UQffHXGbucdK25D6Sk28OPsfD/3Ouvu5I0l2i&#43;qYG8KRquYRDUsy8jVWDiNOvgoOmqDXOGW=
+8Ucmpu&#43;ME/LUtRJzEW1AnmR3lSRgLXJikYPTYUvzBxENbmA4df5kCpgDLU3Ht2LJAJ1uyFi=
+QprlqFJSdrT9W27&#43;UbQqNMxVOGeHM=3D">
+https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Flists.f=
+reedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;amp;data=3D02%7C01%7CTian=
+ci.Yin%40amd.com%7Cb9b1622ed60e4ab36c6408d794b1d75e%7C3dd8961fe4884e608e11a=
+82d994e183d%7C0%7C0%7C637141363862418597&amp;amp;sdata=3DYT8zKlbLX0XdzqcLrZ=
+QaV6sKFWXS5nQTNMAMT9BMK70%3D&amp;amp;reserved=3D0</a><br>
+&gt; &gt; _______________________________________________<br>
+&gt; &gt; amd-gfx mailing list<br>
+&gt; &gt; <a class=3D"x_moz-txt-link-abbreviated" href=3D"mailto:amd-gfx@li=
+sts.freedesktop.org">
+amd-gfx@lists.freedesktop.org</a><br>
+&gt; &gt; <a href=3D"https://nam11.safelinks.protection.outlook.com/?url=3D=
+https%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=
+=3D02%7C01%7CTianci.Yin%40amd.com%7Ca21d3576dde64ae42f0908d794eede11%7C3dd8=
+961fe4884e608e11a82d994e183d%7C0%7C0%7C637141625988851763&amp;sdata=3D0OGgq=
+QKu%2F9G0lJGXgDy25P%2F9GEU%2FlvdeFd5gRtLhPyQ%3D&amp;reserved=3D0" originals=
+rc=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" shash=3D"CNxW=
+qXVZBl1oCCDX4DaSwbRlTwoqC62IrmlQ2&#43;NzpoI5P84tDJJvOqyk36kSeMOb8KMHMGsFspY=
+lPYkN48ACaMi4bDjEp&#43;pTHKI3rkC1Yk5yoDsswLeBX/mqeKBzjZgc3LQnNC12XZcU614PNV=
+RDrs9MVLnOGsY/Cvin&#43;3tjQYg=3D">
+https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Flists.f=
+reedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;amp;data=3D02%7C01%7CTian=
+ci.Yin%40amd.com%7Cb9b1622ed60e4ab36c6408d794b1d75e%7C3dd8961fe4884e608e11a=
+82d994e183d%7C0%7C0%7C637141363862428589&amp;amp;sdata=3DLLVRzFBxFKqTltpvsK=
+%2F2l9CwnlUFzFKmDoPPHdO5e1I%3D&amp;amp;reserved=3D0</a><br>
+&gt;<br>
+</div>
+</span></font></div>
+</div>
+</blockquote>
+<br>
+</div>
+</div>
+</body>
+</html>
+
+--_000_MN2PR12MB2957A5D85894823531B8B97A95390MN2PR12MB2957namp_--
+
+--===============1023914451==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--===============1023914451==--
