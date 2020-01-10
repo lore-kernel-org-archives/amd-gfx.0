@@ -7,56 +7,55 @@ X-Spam-Status: No, score=-9.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6AFC9C282DD
-	for <amd-gfx@archiver.kernel.org>; Fri, 10 Jan 2020 14:47:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E2A1BC33CA4
+	for <amd-gfx@archiver.kernel.org>; Fri, 10 Jan 2020 14:47:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2A1E62082E
-	for <amd-gfx@archiver.kernel.org>; Fri, 10 Jan 2020 14:47:26 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id B52592082E
+	for <amd-gfx@archiver.kernel.org>; Fri, 10 Jan 2020 14:47:27 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="wGUKGZo7"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2A1E62082E
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="h9rH2Afo"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B52592082E
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C9FBD6EA2D;
-	Fri, 10 Jan 2020 14:47:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 871AE6EA2F;
+	Fri, 10 Jan 2020 14:47:26 +0000 (UTC)
 Received: from NAM11-BN8-obe.outbound.protection.outlook.com
  (mail-bn8nam11on2061.outbound.protection.outlook.com [40.107.236.61])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C63346EA2C
- for <amd-gfx@lists.freedesktop.org>; Fri, 10 Jan 2020 14:47:24 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 481E16EA2C
+ for <amd-gfx@lists.freedesktop.org>; Fri, 10 Jan 2020 14:47:25 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=E8HWAacgK4ofd5Xeq2/xGC1F9qdwa2aA/SLcM/AeZ0n6sPIPw0L6UfJXw2X0uLi+i+UP9w+5waJEi1nBCyS8XW9RJ2GgCWP5BkVKMj4MCvb3PMr3VJguRO5uudxrsBYUeV2+CPcEYZGomiL3NbhX0UGLQioH9FyS3sNnHv45FaDBFExn5EybvIYG2PGOXPj3JCvC/txfnef6OeYXUMeEDIfuD6iWHbRUBAMOFoUx4bffjm7fFHyGfKFfsDXVTEVY1YTGHoQfJTLT/+iMBokh5XxNSYVu4MPMY48KcFTeplFf1ciVVHqwIYlMhdvmmbNmMTCVv6MSbdk9isUmp5sNDA==
+ b=HzkYxOvCKjq8Z+HjrRNkUOdNRQAxcOcGUhUDAZwp/6+AFeRwrcS28lWGI8cK7TunPbSWtortPl+LZlWW19m/rxbPL1KoDqxCugTE/IyNwTU2jBGgDJ6YzAFBrUTM3zV3EiEmUz21ErAAcsnGl0BN938VPZzqwkjJkiaA+BR6eO+Y63KnS8YiuxZopHZA6MQu64W8RSGcNSdSakcUu6sfGbolDCIvtBrNxHSTvW3mTveVPnRMMaHjDydU0MMEExu1DDj5rMbftSCP1Cm/a2WW7m1Zn2VTIimveyh2F6IPWmJy61hCkl9a3TXBbtudEXqPSeAf+J89tx3Q8gXAfj2PQQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1Zjj4d3QD1/WwZUDgxZEt59AxLXgZo2f+N5JGC4BbrA=;
- b=c0AidfulCfgqPhyAbO87H6jQBHXBohWPQdCzR0GCkT1bhs3aG7korxGyDNaZXyblvkz1s6ETpvfdhuyuVy/iIPlrYwXPOKivxsLzhjzysxKVzBLQQn5ysS+0uBXiZzFvd/uVDaFbmjoRKETAo5SydeZkbJwzAPTTtm04KRx65qnTFVVWMMfsopX+jcEWC6lGpcSpGZob9bxQF8tHxn9ib4Y6XGiLMyF32rrpiauoDO4TzjxmTu6vqwVWqBL38rOe2QGel9y+DocjsX2paItBcbycg8vZ5iMktGxtvn2AOsPhFYGM/NFAtQDE+fCJPdJobrHCnClgJwg5S/1JM9A2iw==
+ bh=1FjwwHM84TaCxRx3hpa0h88tzZ7sPCVBkL9xXuQ4fp0=;
+ b=IyozDmf5rNBG9dTlE4SzOo3i8K5ODhvCh3z0ocz0MPs0qRvgNYk380BsvddY3mxN3FdkE/hhEE+ldBWaqUOEogdM+dg4CLjQFP8sZJBKHjZTBehKMWNCg8C8kNwqB9PHHS1pXeB5sVqNn+zaIBc9hAhPGjNvoz+b7ikQLG6sSD6pznqT5MEyFA85oljjMnfLikRW+x5WrXCPNa0K1bJjGFh4DC95EmjDyVG8DL082rXpUBnbHjAipULO7iC35fjPNHouKdHF9vfKR8/pdvt+UNlC0qhmpek0ht/PVjongcZ4/oJfje9uSx43H1YorKT48fmRMZKionkoW+veH3HaMQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1Zjj4d3QD1/WwZUDgxZEt59AxLXgZo2f+N5JGC4BbrA=;
- b=wGUKGZo7NV3SbzYQRFsGTr91SKYfCCF8UqfBXfdrSkCxmg1rEhfC/QAxNJystHEVu74TQvXjZF91R18bLmKRro0/po4GVwQNwylJhTD8P4UjHgn95kxupDiZNqL9Gfy65HTRbV9yvC07QOOO9ikkfkHVuV7s3R0pS3CLaduLfb0=
+ bh=1FjwwHM84TaCxRx3hpa0h88tzZ7sPCVBkL9xXuQ4fp0=;
+ b=h9rH2AfonbQ2Wf7B46QsgP3VrHi3SsCElZGGE3UCC9zeDcrm/tbLlFv5y2uZ5X8Z3TViZgykQ1b6nqAH68bSX3+gUgcVdE13sFkNnbb9cN7wG08b8X1nXJfCbGjenqsEGSUAMEh+I26AiBdCu/OwXbAvU8zAl/L2lGTdhZtelek=
 Authentication-Results: spf=none (sender IP is )
  smtp.mailfrom=Rodrigo.Siqueira@amd.com; 
 Received: from MW2PR12MB2524.namprd12.prod.outlook.com (52.132.180.155) by
  MW2PR12MB2524.namprd12.prod.outlook.com (52.132.180.155) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2623.11; Fri, 10 Jan 2020 14:47:22 +0000
+ 15.20.2623.11; Fri, 10 Jan 2020 14:47:21 +0000
 Received: from MW2PR12MB2524.namprd12.prod.outlook.com
  ([fe80::699c:a877:13ef:6ae2]) by MW2PR12MB2524.namprd12.prod.outlook.com
  ([fe80::699c:a877:13ef:6ae2%6]) with mapi id 15.20.2623.011; Fri, 10 Jan 2020
- 14:47:22 +0000
+ 14:47:21 +0000
 From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 02/43] drm/amd/display: Clear state after exiting fixed active
- VRR state
-Date: Fri, 10 Jan 2020 09:46:14 -0500
-Message-Id: <20200110144655.55845-3-Rodrigo.Siqueira@amd.com>
+Subject: [PATCH 01/43] drm/amd/include: Add OCSC registers
+Date: Fri, 10 Jan 2020 09:46:13 -0500
+Message-Id: <20200110144655.55845-2-Rodrigo.Siqueira@amd.com>
 X-Mailer: git-send-email 2.24.1
 In-Reply-To: <20200110144655.55845-1-Rodrigo.Siqueira@amd.com>
 References: <20200110144655.55845-1-Rodrigo.Siqueira@amd.com>
@@ -67,17 +66,16 @@ MIME-Version: 1.0
 Received: from atma2.amd.com (165.204.55.250) by
  YT1PR01CA0009.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01::22) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2623.8 via Frontend Transport; Fri, 10 Jan 2020 14:47:21 +0000
+ 15.20.2623.8 via Frontend Transport; Fri, 10 Jan 2020 14:47:20 +0000
 X-Mailer: git-send-email 2.24.1
 X-Originating-IP: [165.204.55.250]
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 2d667dfb-e61a-4210-9a71-08d795dc0008
+X-MS-Office365-Filtering-Correlation-Id: 39796ea0-5d41-4e68-92b1-08d795dbff77
 X-MS-TrafficTypeDiagnostic: MW2PR12MB2524:|MW2PR12MB2524:
-X-LD-Processed: 3dd8961f-e488-4e60-8e11-a82d994e183d,ExtAddr
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <MW2PR12MB2524A47E631E63D3D4A85DF998380@MW2PR12MB2524.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:6790;
+X-Microsoft-Antispam-PRVS: <MW2PR12MB25243CDD173FA0E9C9C65BD098380@MW2PR12MB2524.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:1284;
 X-Forefront-PRVS: 02788FF38E
 X-Forefront-Antispam-Report: SFV:NSPM;
  SFS:(10009020)(4636009)(376002)(346002)(39860400002)(396003)(136003)(366004)(189003)(199004)(8936002)(5660300002)(6916009)(54906003)(81156014)(6486002)(81166006)(36756003)(316002)(1076003)(2906002)(6666004)(956004)(7696005)(52116002)(478600001)(186003)(2616005)(86362001)(26005)(16526019)(66556008)(8676002)(66476007)(4326008)(66946007);
@@ -88,14 +86,14 @@ Received-SPF: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: INxK/0HxBS/5YBd10AlVw8rglTF3QKHeBpBcE3FAmQ5I8ih5YcgXkSmsf8EaV4ErVb2PbJXOCHQAZj9vJsfjLgVghKu6NjWdiStJ+s4/mjLwT6au6s/xhY1e9H3TiIJTZYMJ1o+CWGJM0PrWxLKWCH+P6tB2d0kpgGE9/7FfEny8sgUfbnfDx9tbXbMuYgQys6YSfBcnnIIatOf+5rfq9ErDbwo4Lc7yY3N9k2GVpf3V+T9v4C7jYIvD1TAqETs3YmxhXwTYa3deJTY7FXpCQkjJd7r83tbEaqFBRQOtGGoB1+oBKds86KSrzsLkOkxJQim/EvvX+2a3ope3R/b+DVRF6NB/tHwpJL4dv2/CvKWR3CiXhm9zo2SW8vgvY42tTABxv+ldDve+j0iKNxs/iejTtP1vfs9JjsshzJAtVUEqrkURySnMtNKg/9MpUMvH
+X-Microsoft-Antispam-Message-Info: QvhxQDXtDwGUGDtMseCAxDAzTO1+0CWx03wa6P2apuzKjGIruBgE36wBr1hrZ3nDqVBgqeO+879K79D4ADCi/TFykwvQ18d6XbZH8qhejXk76oXy0/9arFr7Urh0rQF2/fv4g1igPnVt0b3B/VrOp1WVjiX135ddgDKGkcielkcRxAhQgvSnCuTZlCf6Yi758L71RQRYJtfXgUOTnMbfS8c9sfS0oGP+M4MS6zuaqsz8T44L+6p3poqfe40FBZz08s4w3t2i5C/c8M7A2Lkdy9Q4xtHQhNr+k2CaYlNAXaAAyTF6O1I7sdBvzpVudvvUi8ej787/3u0SnkttX2UIB+BYFmYrDOVcCabp7P0noXvFsrU6fJy+DsIfCD9rXcejECl22ErD416Lok6MprtrkVoK95+5IkrkK/KtsPQW+9XQIg8Hf8QrzhLslaR7XW7R
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2d667dfb-e61a-4210-9a71-08d795dc0008
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jan 2020 14:47:22.3511 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 39796ea0-5d41-4e68-92b1-08d795dbff77
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jan 2020 14:47:21.4386 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: WJ1/tpMH60FY+j0eLk0ffYHcqPn2W86ENVdaP31lOBF5GJFkiXGK9uErxOWriYRCG8rgowfTBVxlafMS3TAi8A==
+X-MS-Exchange-CrossTenant-UserPrincipalName: NerF9vVMc8DO8/3mNrWrbvYvfL/vE59S7RSO6SpG42JF9caffzZZgWrcsPwCFL+YBkgm2mX+YFH2kfY0n+Zg/g==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW2PR12MB2524
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -108,51 +106,95 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sunpeng.Li@amd.com, Bhawanpreet.Lakha@amd.com,
- Amanda Liu <amanda.liu@amd.com>, Harry Wentland <harry.wentland@amd.com>,
- Anthony Koo <Anthony.Koo@amd.com>
+Cc: Leo Li <sunpeng.li@amd.com>, Bhawanpreet.Lakha@amd.com,
+ Harry Wentland <harry.wentland@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Amanda Liu <amanda.liu@amd.com>
+Add registers for handling Post Gamma Color Blending (OCSC), which is
+useful for conversion from RGB->YUV for HDMI.
 
-[why]
-Upon exiting a fixed active VRR state, the state isn't cleared. This
-leads to the variable VRR range to be calculated incorrectly.
-
-[how]
-Set fixed active state to false when updating vrr params
-
-Signed-off-by: Amanda Liu <amanda.liu@amd.com>
-Reviewed-by: Anthony Koo <Anthony.Koo@amd.com>
+Reviewed-by: Leo Li <sunpeng.li@amd.com>
 Acked-by: Harry Wentland <harry.wentland@amd.com>
-Acked-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+Signed-off-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 ---
- drivers/gpu/drm/amd/display/modules/freesync/freesync.c | 2 ++
- 1 file changed, 2 insertions(+)
+ .../gpu/drm/amd/include/asic_reg/dcn/dcn_2_0_0_offset.h  | 4 ++++
+ .../gpu/drm/amd/include/asic_reg/dcn/dcn_2_0_0_sh_mask.h | 9 ++++++++-
+ .../gpu/drm/amd/include/asic_reg/dcn/dcn_2_1_0_offset.h  | 5 ++++-
+ .../gpu/drm/amd/include/asic_reg/dcn/dcn_2_1_0_sh_mask.h | 8 ++++++++
+ 4 files changed, 24 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/modules/freesync/freesync.c b/drivers/gpu/drm/amd/display/modules/freesync/freesync.c
-index fa57885503d4..832bc9b3b7d8 100644
---- a/drivers/gpu/drm/amd/display/modules/freesync/freesync.c
-+++ b/drivers/gpu/drm/amd/display/modules/freesync/freesync.c
-@@ -812,6 +812,7 @@ void mod_freesync_build_vrr_params(struct mod_freesync *mod_freesync,
- 			2 * in_out_vrr->min_refresh_in_uhz)
- 		in_out_vrr->btr.btr_enabled = false;
+diff --git a/drivers/gpu/drm/amd/include/asic_reg/dcn/dcn_2_0_0_offset.h b/drivers/gpu/drm/amd/include/asic_reg/dcn/dcn_2_0_0_offset.h
+index cff8f91555d3..e9b2bd84cfed 100644
+--- a/drivers/gpu/drm/amd/include/asic_reg/dcn/dcn_2_0_0_offset.h
++++ b/drivers/gpu/drm/amd/include/asic_reg/dcn/dcn_2_0_0_offset.h
+@@ -8134,6 +8134,10 @@
+ #define mmMPC_OUT5_CSC_C33_C34_B                                                                       0x1604
+ #define mmMPC_OUT5_CSC_C33_C34_B_BASE_IDX                                                              2
  
-+	in_out_vrr->fixed.fixed_active = false;
- 	in_out_vrr->btr.btr_active = false;
- 	in_out_vrr->btr.inserted_duration_in_us = 0;
- 	in_out_vrr->btr.frames_to_insert = 0;
-@@ -832,6 +833,7 @@ void mod_freesync_build_vrr_params(struct mod_freesync *mod_freesync,
- 		in_out_vrr->adjust.v_total_max = stream->timing.v_total;
- 	} else if (in_out_vrr->state == VRR_STATE_ACTIVE_VARIABLE &&
- 			refresh_range >= MIN_REFRESH_RANGE_IN_US) {
-+
- 		in_out_vrr->adjust.v_total_min =
- 			calc_v_total_from_refresh(stream,
- 				in_out_vrr->max_refresh_in_uhz);
++#define mmMPC_OCSC_TEST_DEBUG_INDEX                                                                    0x163b
++#define mmMPC_OCSC_TEST_DEBUG_INDEX_BASE_IDX                                                           2
++#define mmMPC_OCSC_TEST_DEBUG_DATA_BASE_IDX                                                            2
++#define mmMPC_OCSC_TEST_DEBUG_DATA                                                                     0x163c
+ 
+ // addressBlock: dce_dc_mpc_mpc_dcperfmon_dc_perfmon_dispdec
+ // base address: 0x5964
+diff --git a/drivers/gpu/drm/amd/include/asic_reg/dcn/dcn_2_0_0_sh_mask.h b/drivers/gpu/drm/amd/include/asic_reg/dcn/dcn_2_0_0_sh_mask.h
+index 10c83fecd147..dc8ce7aaa0cf 100644
+--- a/drivers/gpu/drm/amd/include/asic_reg/dcn/dcn_2_0_0_sh_mask.h
++++ b/drivers/gpu/drm/amd/include/asic_reg/dcn/dcn_2_0_0_sh_mask.h
+@@ -28263,7 +28263,14 @@
+ #define MPC_OUT5_CSC_C33_C34_B__MPC_OCSC_C34_B__SHIFT                                                         0x10
+ #define MPC_OUT5_CSC_C33_C34_B__MPC_OCSC_C33_B_MASK                                                           0x0000FFFFL
+ #define MPC_OUT5_CSC_C33_C34_B__MPC_OCSC_C34_B_MASK                                                           0xFFFF0000L
+-
++//MPC_OCSC_TEST_DEBUG_INDEX
++#define MPC_OCSC_TEST_DEBUG_INDEX__MPC_OCSC_TEST_DEBUG_INDEX__SHIFT                                           0x0
++#define MPC_OCSC_TEST_DEBUG_INDEX__MPC_OCSC_TEST_DEBUG_WRITE_EN__SHIFT                                        0x8
++#define MPC_OCSC_TEST_DEBUG_INDEX__MPC_OCSC_TEST_DEBUG_INDEX_MASK                                             0x000000FFL
++#define MPC_OCSC_TEST_DEBUG_INDEX__MPC_OCSC_TEST_DEBUG_WRITE_EN_MASK                                          0x00000100L
++//MPC_OCSC_TEST_DEBUG_DATA
++#define MPC_OCSC_TEST_DEBUG_DATA__MPC_OCSC_TEST_DEBUG_DATA__SHIFT                                             0x0
++#define MPC_OCSC_TEST_DEBUG_DATA__MPC_OCSC_TEST_DEBUG_DATA_MASK                                               0xFFFFFFFFL
+ 
+ // addressBlock: dce_dc_mpc_mpc_dcperfmon_dc_perfmon_dispdec
+ //DC_PERFMON17_PERFCOUNTER_CNTL
+diff --git a/drivers/gpu/drm/amd/include/asic_reg/dcn/dcn_2_1_0_offset.h b/drivers/gpu/drm/amd/include/asic_reg/dcn/dcn_2_1_0_offset.h
+index eddf83ec1c39..7cd0ee61c030 100644
+--- a/drivers/gpu/drm/amd/include/asic_reg/dcn/dcn_2_1_0_offset.h
++++ b/drivers/gpu/drm/amd/include/asic_reg/dcn/dcn_2_1_0_offset.h
+@@ -7103,7 +7103,10 @@
+ #define mmMPC_OUT3_CSC_C31_C32_B_BASE_IDX                                                              2
+ #define mmMPC_OUT3_CSC_C33_C34_B                                                                       0x15ea
+ #define mmMPC_OUT3_CSC_C33_C34_B_BASE_IDX                                                              2
+-
++#define mmMPC_OCSC_TEST_DEBUG_INDEX                                                                    0x163b
++#define mmMPC_OCSC_TEST_DEBUG_INDEX_BASE_IDX                                                           2
++#define mmMPC_OCSC_TEST_DEBUG_DATA_BASE_IDX                                                            2
++#define mmMPC_OCSC_TEST_DEBUG_DATA                                                                     0x163c
+ 
+ // addressBlock: dce_dc_mpc_mpc_dcperfmon_dc_perfmon_dispdec
+ // base address: 0x5964
+diff --git a/drivers/gpu/drm/amd/include/asic_reg/dcn/dcn_2_1_0_sh_mask.h b/drivers/gpu/drm/amd/include/asic_reg/dcn/dcn_2_1_0_sh_mask.h
+index faa0e76e32b4..2f780aefc722 100644
+--- a/drivers/gpu/drm/amd/include/asic_reg/dcn/dcn_2_1_0_sh_mask.h
++++ b/drivers/gpu/drm/amd/include/asic_reg/dcn/dcn_2_1_0_sh_mask.h
+@@ -56634,5 +56634,13 @@
+ #define AZF0INPUTENDPOINT7_AZALIA_F0_CODEC_INPUT_PIN_CONTROL_INFOFRAME__INFOFRAME_BYTE_5_MASK                 0x00FF0000L
+ #define AZF0INPUTENDPOINT7_AZALIA_F0_CODEC_INPUT_PIN_CONTROL_INFOFRAME__INFOFRAME_VALID_MASK                  0x80000000L
+ 
++//MPC_OCSC_TEST_DEBUG_INDEX
++#define MPC_OCSC_TEST_DEBUG_INDEX__MPC_OCSC_TEST_DEBUG_INDEX__SHIFT                                           0x0
++#define MPC_OCSC_TEST_DEBUG_INDEX__MPC_OCSC_TEST_DEBUG_WRITE_EN__SHIFT                                        0x8
++#define MPC_OCSC_TEST_DEBUG_INDEX__MPC_OCSC_TEST_DEBUG_INDEX_MASK                                             0x000000FFL
++#define MPC_OCSC_TEST_DEBUG_INDEX__MPC_OCSC_TEST_DEBUG_WRITE_EN_MASK                                          0x00000100L
++//MPC_OCSC_TEST_DEBUG_DATA
++#define MPC_OCSC_TEST_DEBUG_DATA__MPC_OCSC_TEST_DEBUG_DATA__SHIFT                                             0x0
++#define MPC_OCSC_TEST_DEBUG_DATA__MPC_OCSC_TEST_DEBUG_DATA_MASK                                               0xFFFFFFFFL
+ 
+ #endif
 -- 
 2.24.1
 
