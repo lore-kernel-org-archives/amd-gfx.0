@@ -2,124 +2,72 @@ Return-Path: <SRS0=i8pd=27=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.0 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-13.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PULL_REQUEST,MAILING_LIST_MULTI,
+	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 936BBC282DD
-	for <amd-gfx@archiver.kernel.org>; Fri, 10 Jan 2020 21:41:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 50DA3C282DD
+	for <amd-gfx@archiver.kernel.org>; Fri, 10 Jan 2020 21:43:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 290622072E
-	for <amd-gfx@archiver.kernel.org>; Fri, 10 Jan 2020 21:41:38 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 1F1BC2072E
+	for <amd-gfx@archiver.kernel.org>; Fri, 10 Jan 2020 21:43:39 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="IeScTLYy"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 290622072E
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="q6trPoAt"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1F1BC2072E
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D69126E0D4;
-	Fri, 10 Jan 2020 21:41:37 +0000 (UTC)
-Received: from NAM04-BN3-obe.outbound.protection.outlook.com
- (mail-eopbgr680060.outbound.protection.outlook.com [40.107.68.60])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 75ADB6E0D4
- for <amd-gfx@lists.freedesktop.org>; Fri, 10 Jan 2020 21:41:37 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=EfvPwYJPeN4CHjq4vE7fflOgW1gTcdeOjx36TJ8Ki5ekQwMfbFQx6hKVQnXyl2NBfwEIrG1AEAsFzieBXXvGTNFYEti56/Iy0YmbT9p39emS8SCbmvcVInB8EomMCvuuzjC4Nko/6AzTWiiGaB9fnF8qsneCUo98N2lYXULPqH4+kinvV+j9hju7sc30FTtwy+klQ1UrhiBrxPV3+L3Earc50DYib7c+rtbyDBJb/j2Brgje5SkwRpZq/QnXJNZmOOkaaUy7WhzfzItz6PxxuCKMGimUnmgrsOZQ9LwH2zPxJsicqeyxZdxY0n1zGj5XDqq24Rk0MdUtxsiSYB0dZQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=DQPz4nMZ+hG38N14yjcv4UShGRen7Z8oHBrifsRwttk=;
- b=hG6sSh84OD7eZcuyEeVc/tt3Xtqm92ma6Nx1SB1Zy5sV0GUtb0DbvCS1dwceI7I8edi4e3+KMO0FEEb79WmE3qdNwIwQncL86+WJgyVGJOawOFIXkYwtfJTtFPW0JHne0PUct5Fx5LI/bpiGKZRKulhpfcVLyNxAN/9LdeMoFtyvTGz1xZpgur1+3fjRDozhAsgjLBZUK5mQa3fu0OxNucq7STrrdXIsCqh3jGPp5bpT/uEU1IyCgjjj2UIJijRqtRIrf7xQ0xIx1SBZYecSIkUeVISh9LVTmBSmj8IHbGDqUxR66u4mIQbUFEJZJH8+IfTtt9PY1pHYPcvla4juYQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=DQPz4nMZ+hG38N14yjcv4UShGRen7Z8oHBrifsRwttk=;
- b=IeScTLYy7MSlgEwCXpq6jRN5cbeNdCBDi3F848+iyB7BqrThN445lDZ+4U9g+VHus5O53rNFmKwwK0Eh6tJESLzDDyo8GWWiicOsgokMWpNRDwHZfowbN1lLDDxWZzFB0DSOFeeLUYkcT+puN6nYWx4DqB+aVmgHOE805Nt+vg0=
-Authentication-Results: spf=none (sender IP is )
- smtp.mailfrom=Harry.Wentland@amd.com; 
-Received: from CY4PR1201MB0230.namprd12.prod.outlook.com (10.172.79.7) by
- CY4PR1201MB0053.namprd12.prod.outlook.com (10.174.53.150) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2623.13; Fri, 10 Jan 2020 21:41:34 +0000
-Received: from CY4PR1201MB0230.namprd12.prod.outlook.com
- ([fe80::4c09:215c:e5d2:3c8f]) by CY4PR1201MB0230.namprd12.prod.outlook.com
- ([fe80::4c09:215c:e5d2:3c8f%9]) with mapi id 15.20.2602.016; Fri, 10 Jan 2020
- 21:41:34 +0000
-Subject: Re: [PATCH] drm/amd/display: remove unnecessary conversion to bool
-To: Chen Zhou <chenzhou10@huawei.com>, alexander.deucher@amd.com,
- sunpeng.li@amd.com
-References: <20200110071616.84891-1-chenzhou10@huawei.com>
-From: Harry Wentland <hwentlan@amd.com>
-Autocrypt: addr=hwentlan@amd.com; keydata=
- mQENBFhb4C8BCADhHHUNoBQ7K7LupCP0FsUb443Vuqq+dH0uo4A3lnPkMF6FJmGcJ9Sbx1C6
- cd4PbVAaTFZUEmjqfpm+wCRBe11eF55hW3GJ273wvfH69Q/zmAxwO8yk+i5ZWWl8Hns5h69K
- D9QURHLpXxrcwnfHFah0DwV23TrD1KGB7vowCZyJOw93U/GzAlXKESy0FM7ZOYIJH83X7qhh
- Q9KX94iTEYTeH86Wy8hwHtqM6ySviwEz0g+UegpG8ebbz0w3b5QmdKCAg+eZTmBekP5o77YE
- BKqR+Miiwo9+tzm2N5GiF9HDeI2pVe/egOLa5UcmsgdF4Y5FKoMnBbAHNaA6Fev8PHlNABEB
- AAG0J0hhcnJ5IFdlbnRsYW5kIDxoYXJyeS53ZW50bGFuZEBhbWQuY29tPokBNwQTAQgAIQUC
- WFvgLwIbAwULCQgHAgYVCAkKCwIEFgIDAQIeAQIXgAAKCRAtWBXJjBS24xUlCAC9MqAlIbZO
- /a37s41h+MQ+D20C6/hVErWO+RA06nA+jFDPUWrDJKYdn6EDQWdLY3ATeAq3X8GIeOTXGrPD
- b2OXD6kOViW/RNvlXdrIsnIDacdr39aoAlY1b+bhTzZVz4pto4l+K1PZb5jlMgTk/ks9HesL
- RfYVq5wOy3qIpocdjdlXnSUKn0WOkGBBd8Nv3o0OI18tiJ1S/QwLBBfZoVvfGinoB2p4j/wO
- kJxpi3F9TaOtLGcdrgfghg31Fb48DP+6kodZ4ircerp4hyAp0U2iKtsrQ/sVWR4mbe3eTfcn
- YjBxGd2JOVdNQZa2VTNf9GshIDMD8IIQK6jN0LfY8Py2uQENBFhb4C8BCAC/0KWY3pIbU2cy
- i7GMj3gqB6h0jGqRuMpMRoSNDoAUIuSh17w+bawuOF6XZPdK3D4lC9cOXMwP3aP9tTJOori2
- 8vMH8KW9jp9lAYnGWYhSqLdjzIACquMqi96EBtawJDct1e9pVgp+d4JXHlgIrl11ITJo8rCP
- dEqjro2bCBWxijsIncdCzMjf57+nR7u86SBtGSFcXKapS7YJeWcvM6MzFYgIkxHxxBDvBBvm
- U2/mAXiL72kwmlV1BNrabQxX2UnIb3xt3UovYJehrnDUMdYjxJgSPRBx27wQ/D05xAlhkmmL
- FJ01ZYc412CRCC6gjgFPfUi2y7YJTrQHS79WSyANABEBAAGJAR8EGAEIAAkFAlhb4C8CGwwA
- CgkQLVgVyYwUtuM72Qf+J6JOQ/27pWf5Ulde9GS0BigA1kV9CNfIq396TgvQzeyixHMvgPdq
- Z36x89zZi0otjMZv6ypIdEg5co1Bvz0wFaKbCiNbTjpnA1VAbQVLSFjCZLQiu0vc+BZ1yKDV
- T5ASJ97G4XvQNO+XXGY55MrmhoNqMaeIa/3Jas54fPVd5olcnUAyDty29/VWXNllUq38iBCX
- /0tTF7oav1lzPGfeW2c6B700FFZMTR4YBVSGE8jPIzu2Fj0E8EkDmsgS+nibqSvWXfo1v231
- 410h35CjbYDlYQO7Z1YD7asqbaOnF0As+rckyRMweQ9CxZn5+YBijtPJA3x5ldbCfQ9rWiTu XQ==
-Message-ID: <b86d050a-634e-c99d-1302-29fd6257df1c@amd.com>
-Date: Fri, 10 Jan 2020 16:41:22 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.3.1
-In-Reply-To: <20200110071616.84891-1-chenzhou10@huawei.com>
-Content-Language: en-US
-X-ClientProxiedBy: YTXPR0101CA0020.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b00::33) To CY4PR1201MB0230.namprd12.prod.outlook.com
- (2603:10b6:910:1e::7)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CF19C6E0D4;
+	Fri, 10 Jan 2020 21:43:38 +0000 (UTC)
+Received: from mail-qk1-x730.google.com (mail-qk1-x730.google.com
+ [IPv6:2607:f8b0:4864:20::730])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D61FD6E0D4;
+ Fri, 10 Jan 2020 21:43:37 +0000 (UTC)
+Received: by mail-qk1-x730.google.com with SMTP id a203so3375786qkc.3;
+ Fri, 10 Jan 2020 13:43:37 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=DvmcDSuShXiSweQPC79ycgk/HUZg6rwImRoRri+PWko=;
+ b=q6trPoAtJ0qMKHv7ZhunruqY9Xy15+r2j838OhMlINwAuO+SrwBL5AiqffLkr28Yjv
+ PR6TlfHrVbtYTlYyRbWgJaDGrLLsqH1G1WjQnMz+4SXSyO4ut1OQtpBHTL5JjpuMxvNF
+ YEkYd9ObqnuNmencqAKQF4sHQ4Mc7l+LoXAYOOAFHXAuhALxmFwCCH/k5Iz/jNrmE8xA
+ r12Y+zk9P7hR/ev0S+XlzaR8Zie2lNuw/1fIPArVnJVORQJfvXmoCiznTfu+sc+9urOg
+ KjEIfY8cY6IDN9ow8P2h3ByseASt6mtJnyOd6o+mgIxM68QTWnQCQje5RYfOloRucO8i
+ jAmA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=DvmcDSuShXiSweQPC79ycgk/HUZg6rwImRoRri+PWko=;
+ b=LHb0mJB9IYiH27esUw6L31mnsqDMYbgouJC7cRd80x+jar5LqKyqUDvIzIE2dv8ZAz
+ TSKfkpxGeFf8IQglykOeRRs5/sbuR13IlqMRIccm/Cjs/dvcL233XCo20vlLwusMOi+q
+ vTq5LyOrQtrb3L5kkAyIPAAKA5lqZEbiDOPbj9TH3uVsCOozUQKRs+T4H3RkLlLdr9GR
+ sZ9Lpr7ecszm3ExJcsH3Y2lOA11upeIq63OkPpMhBxdhdBysSC7X2NqBKSEkEPixVkPr
+ EkoITO4Athr4WrEJiXCQ1ePV8pzYfr3fnOpuLSpgHv84ESK2KJxlIfSQ+1IYNTS2y7IR
+ IIJQ==
+X-Gm-Message-State: APjAAAX2CITdjHorsHHI6oX2hVzjlnUB3KomV+M/h/V2Nlaplh76zZMi
+ VPm/P3B91RXAc8Qrmp87qCJVYVQ9
+X-Google-Smtp-Source: APXvYqwrSA1obPC5x7I1Th1JsvoUxK2HtxlpUwNzXbTRlfmk43PCeI1JBYmJdMrbfeqgaMJIy4k7uw==
+X-Received: by 2002:a37:aa11:: with SMTP id t17mr691902qke.69.1578692616794;
+ Fri, 10 Jan 2020 13:43:36 -0800 (PST)
+Received: from localhost.localdomain ([71.219.59.120])
+ by smtp.gmail.com with ESMTPSA id l35sm1700798qtl.12.2020.01.10.13.43.35
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 10 Jan 2020 13:43:36 -0800 (PST)
+From: Alex Deucher <alexdeucher@gmail.com>
+X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
+To: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ airlied@gmail.com, daniel.vetter@ffwll.ch
+Subject: [pull] drm DP MST DSC support
+Date: Fri, 10 Jan 2020 16:43:28 -0500
+Message-Id: <20200110214328.308549-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.24.1
 MIME-Version: 1.0
-Received: from [10.4.33.74] (165.204.55.251) by
- YTXPR0101CA0020.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b00::33) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2623.9 via Frontend Transport; Fri, 10 Jan 2020 21:41:33 +0000
-X-Originating-IP: [165.204.55.251]
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: d23f74fb-3496-45e3-7860-08d79615dcc1
-X-MS-TrafficTypeDiagnostic: CY4PR1201MB0053:|CY4PR1201MB0053:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <CY4PR1201MB005323DCC364FBA1910C626A8C380@CY4PR1201MB0053.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:1051;
-X-Forefront-PRVS: 02788FF38E
-X-Forefront-Antispam-Report: SFV:NSPM;
- SFS:(10009020)(4636009)(376002)(346002)(396003)(366004)(136003)(39860400002)(199004)(189003)(2906002)(16526019)(2616005)(6666004)(956004)(16576012)(316002)(26005)(66556008)(6636002)(478600001)(8676002)(66476007)(52116002)(66946007)(81156014)(81166006)(6486002)(53546011)(36756003)(31686004)(186003)(31696002)(4326008)(8936002)(4744005)(5660300002);
- DIR:OUT; SFP:1101; SCL:1; SRVR:CY4PR1201MB0053;
- H:CY4PR1201MB0230.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; A:1; MX:1; 
-Received-SPF: None (protection.outlook.com: amd.com does not designate
- permitted sender hosts)
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 8i+of+K3LYqddKm3tSby5qA89lyp+rHWPkgM4Jdy4aEF4vuDVI8MW23UWOyulGfC4QUa9b5Lh0nczt4T8rJiJsz16BuO/tCa5MjCiBi5nHz4Ms8QS3D5UQCWlRy9oeuMXZhMnC8GjebuB8JssVahIGKbZsYCQjoelDYKYfDPeiCU4ic9g0GWcXJCb1WnmA/UUfnTWVswzDiv/C6qTPZgJEEQuY9WZTOQ0bf4nW0IMZn8J5UgUpYGUqjw5uaPEnNJu/qQkALm+6SjO+Alw+e9m8CuOSSMxsBfJQkGrOLTrZ8fP4aVfE1MrOGou1H48I9Tj280v7ngkyTeAssEx9+m5z7iFrjK4xz68Y3ZETH8pJ8nVVEQEcrW33EljlP/Ij1PWe8O3QNbM2fkchdtZkPBfrEg/mDJ7W7u79cwpvEeSdeGZO9eU+QW10x2jvw7Bsrn
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d23f74fb-3496-45e3-7860-08d79615dcc1
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jan 2020 21:41:34.2539 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: /qbnPjbZ+R7Kawq8vSOD+hiX5r0WgJPNlmEFRoX+EpDAMXxqdPI/TPwtRCIqrpRLgpPL4ERpPaERlRBtAh0S0w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR1201MB0053
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -131,38 +79,95 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org
+Cc: Alex Deucher <alexander.deucher@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2020-01-10 2:16 a.m., Chen Zhou wrote:
-> The conversion to bool is not needed, remove it.
->> Signed-off-by: Chen Zhou <chenzhou10@huawei.com>
+Hi Dave, Daniel,
 
-Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+Same pull as yesterday, but with a fix for 32 bit.
 
-Harry
+The following changes since commit 0f899fd466b693a129b16994c1b2b4db2fcde4a4:
 
-> ---
->  drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
-> index 504055f..a004e8e 100644
-> --- a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
-> +++ b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
-> @@ -2792,7 +2792,7 @@ static bool retrieve_link_cap(struct dc_link *link)
->  			dpcd_data[DP_TRAINING_AUX_RD_INTERVAL];
->  
->  		link->dpcd_caps.ext_receiver_cap_field_present =
-> -				aux_rd_interval.bits.EXT_RECEIVER_CAP_FIELD_PRESENT == 1 ? true:false;
-> +				aux_rd_interval.bits.EXT_RECEIVER_CAP_FIELD_PRESENT == 1;
->  
->  		if (aux_rd_interval.bits.EXT_RECEIVER_CAP_FIELD_PRESENT == 1) {
->  			uint8_t ext_cap_data[16];
-> 
+  drm/amdkfd: Improve kfd_process lookup in kfd_ioctl (2020-01-09 16:08:19 -0500)
+
+are available in the Git repository at:
+
+  git://people.freedesktop.org/~agd5f/linux tags/amd-drm-next-5.6-2020-01-10-dp-mst-dsc
+
+for you to fetch changes up to 485b747ea6ecf491bf07c69a4ea36c0ccf3c8435:
+
+  drm/amd/display: Fix compilation warnings on i386 (2020-01-10 16:34:20 -0500)
+
+----------------------------------------------------------------
+amd-drm-next-5.6-2020-01-10-dp-mst-dsc:
+
+drm:
+- Add MST helper for PBN calculation of DSC modes
+- Parse FEC caps on MST ports
+- Add MST DPCD R/W functions
+- Add MST helpers for virtual DPCD aux
+- Add MST HUB quirk
+- Add MST DSC enablement helpers
+
+amdgpu:
+- Enable MST DSC
+- Add fair share algo for DSC bandwidth calcs
+- Fix for 32 bit builds
+
+----------------------------------------------------------------
+Alex Deucher (2):
+      drm/amdgpu/display: protect new DSC code with CONFIG_DRM_AMD_DC_DCN
+      drm/dp_mst: fix documentation of drm_dp_mst_add_affected_dsc_crtcs
+
+David (Dingchen) Zhang (1):
+      drm: add dp helper to initialize remote aux channel.
+
+David Francis (9):
+      drm/dp_mst: Add PBN calculation for DSC modes
+      drm/dp_mst: Parse FEC capability on MST ports
+      drm/dp_mst: Add MST support to DP DPCD R/W functions
+      drm/dp_mst: Fill branch->num_ports
+      drm/dp_mst: Add helpers for MST DSC and virtual DPCD aux
+      drm/amd/display: Initialize DSC PPS variables to 0
+      drm/amd/display: Validate DSC caps on MST endpoints
+      drm/amd/display: Write DSC enable to MST DPCD
+      drm/amd/display: MST DSC compute fair share
+
+Mikita Lipski (11):
+      drm/dp_mst: Add new quirk for Synaptics MST hubs
+      drm/dp_mst: Manually overwrite PBN divider for calculating timeslots
+      drm/dp_mst: Add DSC enablement helpers to DRM
+      drm/dp_mst: Add branch bandwidth validation to MST atomic check
+      drm/dp_mst: Rename drm_dp_mst_atomic_check_topology_state
+      drm/amd/display: Add PBN per slot calculation for DSC
+      drm/amd/display: Check return value of drm helper
+      drm/amd/display: Recalculate VCPI slots for new DSC connectors
+      drm/dp_mst: Add helper to trigger modeset on affected DSC MST CRTCs
+      drm/amd/display: Trigger modesets on MST DSC connectors
+      drm/amd/display: Fix compilation warnings on i386
+
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  | 121 +++++-
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h  |   1 +
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c  |  19 +-
+ .../amd/display/amdgpu_dm/amdgpu_dm_mst_types.c    | 420 ++++++++++++++++++++-
+ .../amd/display/amdgpu_dm/amdgpu_dm_mst_types.h    |   7 +
+ drivers/gpu/drm/amd/display/dc/core/dc_link_hwss.c |   3 +
+ drivers/gpu/drm/amd/display/dc/dcn20/dcn20_dsc.c   |   3 +
+ .../gpu/drm/amd/display/dc/dcn20/dcn20_resource.c  |   7 +-
+ .../gpu/drm/amd/display/dc/dcn20/dcn20_resource.h  |   1 +
+ drivers/gpu/drm/drm_dp_aux_dev.c                   |  12 +-
+ drivers/gpu/drm/drm_dp_helper.c                    |  45 ++-
+ drivers/gpu/drm/drm_dp_mst_topology.c              | 392 ++++++++++++++++++-
+ drivers/gpu/drm/i915/display/intel_dp_mst.c        |   5 +-
+ drivers/gpu/drm/nouveau/dispnv50/disp.c            |   4 +-
+ drivers/gpu/drm/radeon/radeon_dp_mst.c             |   2 +-
+ drivers/gpu/drm/selftests/test-drm_dp_mst_helper.c |  12 +-
+ include/drm/drm_dp_helper.h                        |   8 +
+ include/drm/drm_dp_mst_helper.h                    |  20 +-
+ 18 files changed, 1031 insertions(+), 51 deletions(-)
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
