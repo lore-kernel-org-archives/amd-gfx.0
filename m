@@ -7,79 +7,79 @@ X-Spam-Status: No, score=-8.0 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1F2EDC282DD
-	for <amd-gfx@archiver.kernel.org>; Fri, 10 Jan 2020 23:08:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 70272C282DD
+	for <amd-gfx@archiver.kernel.org>; Fri, 10 Jan 2020 23:09:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E2EF320721
-	for <amd-gfx@archiver.kernel.org>; Fri, 10 Jan 2020 23:08:46 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 41CCF20721
+	for <amd-gfx@archiver.kernel.org>; Fri, 10 Jan 2020 23:09:17 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="q7yT58Ir"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E2EF320721
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="O4nQasJ7"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 41CCF20721
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9A5D26E0F4;
-	Fri, 10 Jan 2020 23:08:46 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2073.outbound.protection.outlook.com [40.107.244.73])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 88F236E0F4
- for <amd-gfx@lists.freedesktop.org>; Fri, 10 Jan 2020 23:08:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EDBD86E138;
+	Fri, 10 Jan 2020 23:09:16 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2076.outbound.protection.outlook.com [40.107.237.76])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ED2D86E117
+ for <amd-gfx@lists.freedesktop.org>; Fri, 10 Jan 2020 23:09:14 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ntVPo0JYc0UNAJKO56gfTPRR3bDLb2myYZMJFXPIxuSoehtYDuJXepDetJ4Ql886yoUOLkeaZBPM7+HpRCzi3JvzqBeIMvh3TRUAvZB/w/fo0qVpBAqqq3Jc9VCpwh8UPMAml38ykAkrDupw8m/7qpI7t8hZu5wclm+c073z6SbfmXCAovuXO+E45U9lH/6XCK8cZ6lgIkKxWP6xfV6ZVtTbfsrMdt7YWUksw0IgV8jPJ6mSYQxbsXD/mPCijKJpblyCyuMwoBsAaNyS53wKyhVo4YzCsJx4yRMCnro9AN0kePDgiuVY6uVAfHPlxcGxo6Os9ssc2R+DPI1JYvLMOw==
+ b=Ye629Vw4hBj0/yVTpus5qKWh5Nan4EKWhKuCH54+o7qIpkrZ9jgqPsEpi2/7zcbMGG0x2fcbz1Tp4mWlT+I/iXAIg3QXiCaRiGS5RSntkdNN2dE/RfVnHP/zts4x9qZKKnDQxPa6Ii56hvN6Is+XR8rlAP9qQ48MnaRkRU7EKis5/lice2vsmDLMxYGwW3HernimboYcX4pSubfSrE+pkILP0Fbyhud4Rucw157DtXsvS/yJuA1PO96AsBmuZLzkTQFxhgLDiUcpLpiBMVZsTcdfFxTbDqV+sph0Z7BnB5q4sbpSFqbP4yxUK3exPyRs44TBp5CdhJdWMqVxhVmqRw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PBabITHPRGxBYQnSo+6qsFxeRRayZZe0vhcQuEqVJh4=;
- b=cpRP2fikoq3J6HRBiRsZBr0AHNskMzNU5Hq/b1PHS/hoqY/QAAaH/Bc9KLpXta7VFyV7hTFMNJyXf+y8A9wAMNZxKg8wGFFaS6NtkVSNoNHOoKcDDtZ3CKmdJUZmTR1IYlGqc4nSFSKPPoli9xBiG7NpGryy/CYvUYqBY0yDE0Gb5+ZrpAQHB9Ac0C4GKmbLhxJl1xiskdNQDhN50n0cAPDUPc89E+qLyMSQFAaXUuCMp2G9GfZ32ADuuRz1MlYRHuU4VKW85+GWzoz7ZsS7mTYjqZjCa1Noi6pdReN9b3eu0WtqcfVvY8xDKaLSL1FnlXi5SHF6RpzAwj6Fx9XivQ==
+ bh=TQ8QYXg3PMDGG3Vg2mM1uh4qwh+6jz4GyFpiBMLn8+w=;
+ b=oRqVOyY32TFu4NcVaBtxNXZzTe1KmVG7W4BFKF5dOuQ4XYBnJsvxtpZjR+hzJqGXuJXUOAiK94yG2Bdh/m0NFp9b89+ijw9R5x+UPboL92GOhImXqrZHVjkMIp4uDNNLst7UqYfnAazfyHz1bgnHR7LN8QngHks99gds4349NewrXZaGAKkaEnD1kWxcgHI3ZhVQyWs8mLanDEPBMPkD5zDLAEUksjkjLCzXLIz32VzioKecG80H3wv6cZwf5v9aQkeFR+DPkVvEKEZ+fKkXLxjEWByU/U7asHlIpJaPsXkh1Fhc4RCjoTMu4oy2TB+kypxrDSuVc8leIKEuVvvkZA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PBabITHPRGxBYQnSo+6qsFxeRRayZZe0vhcQuEqVJh4=;
- b=q7yT58IrJb/LrtMSYcL0o937CfBfZTCRBq1lCqaMoloeQxZVOrCuFMeZX/SYVSmr/mcwzLDNq5qpH/hjCgKeCTztIjS1a5ajJsAw7AfJ9CSicxHut1v8KgwyL98E3wylHeQNAmKIh7GP6brJQIoLSTBKZ2pzEpbQtjSby1KeT04=
+ bh=TQ8QYXg3PMDGG3Vg2mM1uh4qwh+6jz4GyFpiBMLn8+w=;
+ b=O4nQasJ7yAHuFOSKDVjh3azABt5nONmXmSfeDrEKYfHdupwmL51nmibR/NYlLwUdO4iftlXCsNeCGlxN5A8zybDK5r2hjvnnlusPLMmiiDHZ8/Cg7JsLq8xEs5npDiqqUKyaWL+/99IMtxCwsxZdHZahrgjqoV7u2R8VrA7b8vA=
 Authentication-Results: spf=none (sender IP is )
  smtp.mailfrom=Felix.Kuehling@amd.com; 
 Received: from DM5PR1201MB0090.namprd12.prod.outlook.com (10.174.105.140) by
  DM5PR1201MB2536.namprd12.prod.outlook.com (10.172.90.140) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2623.8; Fri, 10 Jan 2020 23:08:43 +0000
+ 15.20.2623.8; Fri, 10 Jan 2020 23:09:13 +0000
 Received: from DM5PR1201MB0090.namprd12.prod.outlook.com
  ([fe80::7119:ff0:b3eb:619c]) by DM5PR1201MB0090.namprd12.prod.outlook.com
  ([fe80::7119:ff0:b3eb:619c%4]) with mapi id 15.20.2623.014; Fri, 10 Jan 2020
- 23:08:43 +0000
-Subject: Re: [PATCH 4/5] drm/amdkfd: use map_queues for hiq on gfx v10 as well
+ 23:09:13 +0000
+Subject: Re: [PATCH 5/5] drm/amdkfd: use map_queues for hiq on gfx v8 as well
 To: Huang Rui <ray.huang@amd.com>, amd-gfx@lists.freedesktop.org
 References: <1578638233-9357-1-git-send-email-ray.huang@amd.com>
- <1578638233-9357-4-git-send-email-ray.huang@amd.com>
+ <1578638233-9357-5-git-send-email-ray.huang@amd.com>
 From: Felix Kuehling <felix.kuehling@amd.com>
 Organization: AMD Inc.
-Message-ID: <7eaa7a0c-1008-b869-33cb-42f7418ed91e@amd.com>
-Date: Fri, 10 Jan 2020 18:08:42 -0500
+Message-ID: <eab82daa-7333-7d03-3d6b-1185b5f36db3@amd.com>
+Date: Fri, 10 Jan 2020 18:09:12 -0500
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.2.2
-In-Reply-To: <1578638233-9357-4-git-send-email-ray.huang@amd.com>
+In-Reply-To: <1578638233-9357-5-git-send-email-ray.huang@amd.com>
 Content-Language: en-US
-X-ClientProxiedBy: YTOPR0101CA0045.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b00:14::22) To DM5PR1201MB0090.namprd12.prod.outlook.com
+X-ClientProxiedBy: YTOPR0101CA0066.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b00:14::43) To DM5PR1201MB0090.namprd12.prod.outlook.com
  (2603:10b6:4:53::12)
 MIME-Version: 1.0
 Received: from [172.27.226.80] (165.204.55.251) by
- YTOPR0101CA0045.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b00:14::22) with
+ YTOPR0101CA0066.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b00:14::43) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2623.9 via Frontend
- Transport; Fri, 10 Jan 2020 23:08:42 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2623.10 via Frontend
+ Transport; Fri, 10 Jan 2020 23:09:13 +0000
 X-Originating-IP: [165.204.55.251]
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 01cc1667-56d6-4b50-e7ed-08d79622099c
+X-MS-Office365-Filtering-Correlation-Id: 6e8af1f4-411c-4754-73e3-08d796221baf
 X-MS-TrafficTypeDiagnostic: DM5PR1201MB2536:|DM5PR1201MB2536:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM5PR1201MB2536DB532A48DBB7EE2197BE92380@DM5PR1201MB2536.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:31;
+X-Microsoft-Antispam-PRVS: <DM5PR1201MB253652F55920764A7D7E46B792380@DM5PR1201MB2536.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:81;
 X-Forefront-PRVS: 02788FF38E
 X-Forefront-Antispam-Report: SFV:NSPM;
  SFS:(10009020)(4636009)(39860400002)(366004)(376002)(346002)(136003)(396003)(51234002)(199004)(189003)(316002)(31696002)(186003)(4326008)(53546011)(8676002)(36756003)(2906002)(2616005)(5660300002)(26005)(44832011)(478600001)(16576012)(6486002)(31686004)(52116002)(81156014)(36916002)(8936002)(16526019)(66556008)(81166006)(66946007)(66476007)(956004)(86362001);
@@ -90,14 +90,14 @@ Received-SPF: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: LHlElgcec9w26I5KP+YzJc/BG4KGTv4t9vUrFO0wOhRONRPMYnFgZnDnDM+yup6Rugb68O80J135Tm4yAoQemDJTUWoN9bQQNr4cjk0IRKk3/PQBPDzUyTGkHQb67UrkLR//zJYI63q6z66ScxjTiNvkfMRgsgz1aC+ba7uJBtA7O+yv2KW7kXloV4Pnq4MkUHva6P7VpyhZWNzjK5goPMTwjJeyBurweOXjQizdYb9UXvO0WTcFAqBNiWsHRfg7T8KwuqXTlhTY6lTtQJss3X+wTv5VPnHmzK8cJyWhrobCR/ltgHFFsiys6l6B84xY3ZVN/+fW1tuykiEK4tAXReJD+55G5WujZSphr4cz1Dw4B6c/bTzZ6jnHdEekhKtLa+jGGP+Bz09AiybIj4c/+YLGHSQeZY+d/lBVP66pOLIH7S96xh9MxxMCnrotTRbiLPvfXQjiexr79gD75GdtmZc8tnufJNoOOC6L2RuhF1vWhNNankg1iK4I7kPkTcGr
+X-Microsoft-Antispam-Message-Info: Z/+J290lmHGkEYHtHy7BsFTj1P5O1YNqb1vokTrfmZLmLNGckgHSEfDYtoCbUVG7JwFQPu2mlLfKf/Kzi5N18vjwC4XmB0uf2DdWBsSs+zHRIM/t3w0IAELaPIxAbdZr+jfH8t5J3XHXJmqUlgf57K3b8CiapEc/UcWwpaN6SVLN+ZmjDgaOK+HH5VvkPkQLCrRwl18UoUpZxGcPPMjFhf8X1yG2e7JOi6b/8yKzk/SuI1O1exEA3WzO84wP7GHrBpvH6LQp31vLQV/EZhDXJP7G4nNj5FYYawYIiZuz7uD9oQ7eGIjHZfFJhzZ30DTCl690jF3a4W4iUyvnt0r0EbJV2oNdFzppNHel45+CExaiHfc3N7fjc/zOH6XROMZOZMqonYfb+Ef0o+wN0TDqPLa6UgC6LZVyAV9ICnHoxq+AU2C+z1u0rqC8lvxuQjcm/WNEfYZavcydpvAfdCoPOFnYchG7NXOF2DcEHrglQjdKawSCs+rcr0hGlNtaczzJ
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 01cc1667-56d6-4b50-e7ed-08d79622099c
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jan 2020 23:08:43.2406 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6e8af1f4-411c-4754-73e3-08d796221baf
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jan 2020 23:09:13.5361 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: dzT27RqN/mzA03eOzYqV62x9TbfUkPBUL6gmfMfPMqS2n3iQMNbM853LnGXh+PYBJVmWu7Bdso7k+YIU2PkqUg==
+X-MS-Exchange-CrossTenant-UserPrincipalName: SPac2LWnq2LtC1mLTdKaw8LvhrmvzXB5aXskMJEwKLKLCs4eYOBNFqWRJHQYSfiLoMZZforo47ggSFscxstkJw==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR1201MB2536
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -117,44 +117,25 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 On 2020-01-10 1:37 a.m., Huang Rui wrote:
-> To align with gfx v9, we use the map_queues packet to load hiq MQD.
+> Align with gfx v9, use map_queues packet to load hiq MQD.
 >
 > Signed-off-by: Huang Rui <ray.huang@amd.com>
-
-Please make sure you test this on a GFXv10 GPU.
+Please make sure you test this on a GFXv8 GPU.
 
 Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
 
 
 > ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c | 82 ++++++++++++++++------
->   drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c   | 10 ++-
->   2 files changed, 70 insertions(+), 22 deletions(-)
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v8.c | 69 ++++++++++++++++++-----
+>   drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_vi.c   | 10 +++-
+>   2 files changed, 63 insertions(+), 16 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c
-> index 61cd707..2a60f73 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c
-> @@ -107,13 +107,13 @@ static void acquire_queue(struct kgd_dev *kgd, uint32_t pipe_id,
->   	lock_srbm(kgd, mec, pipe, queue_id, 0);
->   }
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v8.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v8.c
+> index bfbdded..6adac95 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v8.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v8.c
+> @@ -207,21 +207,6 @@ static int kgd_hqd_load(struct kgd_dev *kgd, void *mqd, uint32_t pipe_id,
 >   
-> -static uint32_t get_queue_mask(struct amdgpu_device *adev,
-> +static uint64_t get_queue_mask(struct amdgpu_device *adev,
->   			       uint32_t pipe_id, uint32_t queue_id)
->   {
-> -	unsigned int bit = (pipe_id * adev->gfx.mec.num_queue_per_pipe +
-> -			    queue_id) & 31;
-> +	unsigned int bit = pipe_id * adev->gfx.mec.num_queue_per_pipe +
-> +			queue_id;
->   
-> -	return ((uint32_t)1) << bit;
-> +	return 1ull << bit;
->   }
->   
->   static void release_queue(struct kgd_dev *kgd)
-> @@ -268,21 +268,6 @@ static int kgd_hqd_load(struct kgd_dev *kgd, void *mqd, uint32_t pipe_id,
->   	pr_debug("Load hqd of pipe %d queue %d\n", pipe_id, queue_id);
 >   	acquire_queue(kgd, pipe_id, queue_id);
 >   
 > -	/* HIQ is set during driver init period with vmid set to 0*/
@@ -166,29 +147,16 @@ Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
 > -
 > -		pr_debug("kfd: set HIQ, mec:%d, pipe:%d, queue:%d.\n",
 > -			mec, pipe, queue_id);
-> -		value = RREG32(SOC15_REG_OFFSET(GC, 0, mmRLC_CP_SCHEDULERS));
+> -		value = RREG32(mmRLC_CP_SCHEDULERS);
 > -		value = REG_SET_FIELD(value, RLC_CP_SCHEDULERS, scheduler1,
 > -			((mec << 5) | (pipe << 3) | queue_id | 0x80));
-> -		WREG32(SOC15_REG_OFFSET(GC, 0, mmRLC_CP_SCHEDULERS), value);
+> -		WREG32(mmRLC_CP_SCHEDULERS, value);
 > -	}
 > -
 >   	/* HQD registers extend from CP_MQD_BASE_ADDR to CP_HQD_EOP_WPTR_MEM. */
 >   	mqd_hqd = &m->cp_mqd_base_addr_lo;
->   	hqd_base = SOC15_REG_OFFSET(GC, 0, mmCP_MQD_BASE_ADDR);
-> @@ -332,9 +317,10 @@ static int kgd_hqd_load(struct kgd_dev *kgd, void *mqd, uint32_t pipe_id,
->   		       lower_32_bits((uint64_t)wptr));
->   		WREG32(SOC15_REG_OFFSET(GC, 0, mmCP_HQD_PQ_WPTR_POLL_ADDR_HI),
->   		       upper_32_bits((uint64_t)wptr));
-> -		pr_debug("%s setting CP_PQ_WPTR_POLL_CNTL1 to %x\n", __func__, get_queue_mask(adev, pipe_id, queue_id));
-> +		pr_debug("%s setting CP_PQ_WPTR_POLL_CNTL1 to %x\n", __func__,
-> +			 (uint32_t)get_queue_mask(adev, pipe_id, queue_id));
->   		WREG32(SOC15_REG_OFFSET(GC, 0, mmCP_PQ_WPTR_POLL_CNTL1),
-> -		       get_queue_mask(adev, pipe_id, queue_id));
-> +		       (uint32_t)get_queue_mask(adev, pipe_id, queue_id));
->   	}
 >   
->   	/* Start the EOP fetcher */
-> @@ -350,6 +336,59 @@ static int kgd_hqd_load(struct kgd_dev *kgd, void *mqd, uint32_t pipe_id,
+> @@ -267,6 +252,59 @@ static int kgd_hqd_load(struct kgd_dev *kgd, void *mqd, uint32_t pipe_id,
 >   	return 0;
 >   }
 >   
@@ -198,7 +166,7 @@ Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
 > +{
 > +	struct amdgpu_device *adev = get_amdgpu_device(kgd);
 > +	struct amdgpu_ring *kiq_ring = &adev->gfx.kiq.ring;
-> +	struct v10_compute_mqd *m;
+> +	struct vi_mqd *m;
 > +	uint32_t mec, pipe;
 > +	int r;
 > +
@@ -248,7 +216,7 @@ Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
 >   static int kgd_hqd_dump(struct kgd_dev *kgd,
 >   			uint32_t pipe_id, uint32_t queue_id,
 >   			uint32_t (**dump)[2], uint32_t *n_regs)
-> @@ -817,6 +856,7 @@ const struct kfd2kgd_calls gfx_v10_kfd2kgd = {
+> @@ -701,6 +739,7 @@ const struct kfd2kgd_calls gfx_v8_kfd2kgd = {
 >   	.set_pasid_vmid_mapping = kgd_set_pasid_vmid_mapping,
 >   	.init_interrupts = kgd_init_interrupts,
 >   	.hqd_load = kgd_hqd_load,
@@ -256,12 +224,12 @@ Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
 >   	.hqd_sdma_load = kgd_hqd_sdma_load,
 >   	.hqd_dump = kgd_hqd_dump,
 >   	.hqd_sdma_dump = kgd_hqd_sdma_dump,
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c
-> index 7832ec6..d1d68a5 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c
-> @@ -153,6 +153,14 @@ static int load_mqd(struct mqd_manager *mm, void *mqd,
->   	return r;
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_vi.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_vi.c
+> index a5e8ff1..15cbfd4 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_vi.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_vi.c
+> @@ -166,6 +166,14 @@ static int load_mqd(struct mqd_manager *mm, void *mqd,
+>   					  wptr_shift, wptr_mask, mms);
 >   }
 >   
 > +static int hiq_load_mqd_kiq(struct mqd_manager *mm, void *mqd,
@@ -272,16 +240,16 @@ Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
 > +					      queue_id, p->doorbell_off);
 > +}
 > +
->   static void update_mqd(struct mqd_manager *mm, void *mqd,
->   		      struct queue_properties *q)
->   {
-> @@ -409,7 +417,7 @@ struct mqd_manager *mqd_manager_init_v10(enum KFD_MQD_TYPE type,
+>   static void __update_mqd(struct mqd_manager *mm, void *mqd,
+>   			struct queue_properties *q, unsigned int mtype,
+>   			unsigned int atc_bit)
+> @@ -438,7 +446,7 @@ struct mqd_manager *mqd_manager_init_vi(enum KFD_MQD_TYPE type,
 >   		mqd->allocate_mqd = allocate_hiq_mqd;
 >   		mqd->init_mqd = init_mqd_hiq;
 >   		mqd->free_mqd = free_mqd_hiq_sdma;
 > -		mqd->load_mqd = load_mqd;
 > +		mqd->load_mqd = hiq_load_mqd_kiq;
->   		mqd->update_mqd = update_mqd;
+>   		mqd->update_mqd = update_mqd_hiq;
 >   		mqd->destroy_mqd = destroy_mqd;
 >   		mqd->is_occupied = is_occupied;
 _______________________________________________
