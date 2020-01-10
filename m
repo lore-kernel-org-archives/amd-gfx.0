@@ -2,56 +2,44 @@ Return-Path: <SRS0=i8pd=27=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.8 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-9.8 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 53159C282DD
-	for <amd-gfx@archiver.kernel.org>; Fri, 10 Jan 2020 13:56:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id EC538C282DD
+	for <amd-gfx@archiver.kernel.org>; Fri, 10 Jan 2020 14:04:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2FB8A2072E
-	for <amd-gfx@archiver.kernel.org>; Fri, 10 Jan 2020 13:56:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2FB8A2072E
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 765CC2082E
+	for <amd-gfx@archiver.kernel.org>; Fri, 10 Jan 2020 14:04:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 765CC2082E
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=huawei.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 485396EA25;
-	Fri, 10 Jan 2020 13:56:22 +0000 (UTC)
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BF7586EA02;
- Fri, 10 Jan 2020 13:56:19 +0000 (UTC)
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by fmsmga106.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 10 Jan 2020 05:56:19 -0800
-X-IronPort-AV: E=Sophos;i="5.69,417,1571727600"; d="scan'208";a="371616160"
-Received: from jnikula-mobl3.fi.intel.com (HELO localhost) ([10.237.66.161])
- by orsmga004-auth.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 10 Jan 2020 05:56:08 -0800
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Thomas Zimmermann <tzimmermann@suse.de>, airlied@linux.ie, daniel@ffwll.ch,
- alexander.deucher@amd.com, christian.koenig@amd.com, David1.Zhou@amd.com,
- maarten.lankhorst@linux.intel.com, patrik.r.jakobsson@gmail.com,
- robdclark@gmail.com, sean@poorly.run, benjamin.gaignard@linaro.org,
- vincent.abriou@st.com, yannick.fertre@st.com, philippe.cornu@st.com,
- mcoquelin.stm32@gmail.com, alexandre.torgue@st.com, eric@anholt.net,
- rodrigosiqueiramelo@gmail.com, hamohammed.sa@gmail.com,
- linux-graphics-maintainer@vmware.com, thellstrom@vmware.com,
- bskeggs@redhat.com, harry.wentland@amd.com, sunpeng.li@amd.com,
- joonas.lahtinen@linux.intel.com, rodrigo.vivi@intel.com
-Subject: Re: [PATCH 03/23] drm/i915: Don't use struct
- drm_driver.get_scanout_position()
-In-Reply-To: <761ae94c-aaf1-9167-9c44-06824304fdfd@suse.de>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20200110092127.27847-1-tzimmermann@suse.de>
- <20200110092127.27847-4-tzimmermann@suse.de> <87eew7o73u.fsf@intel.com>
- <761ae94c-aaf1-9167-9c44-06824304fdfd@suse.de>
-Date: Fri, 10 Jan 2020 15:56:06 +0200
-Message-ID: <875zhjo1op.fsf@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2570C6EA16;
+	Fri, 10 Jan 2020 14:04:17 +0000 (UTC)
+X-Greylist: delayed 944 seconds by postgrey-1.36 at gabe;
+ Fri, 10 Jan 2020 07:36:28 UTC
+Received: from huawei.com (szxga07-in.huawei.com [45.249.212.35])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D7CD46E992
+ for <amd-gfx@lists.freedesktop.org>; Fri, 10 Jan 2020 07:36:28 +0000 (UTC)
+Received: from DGGEMS406-HUB.china.huawei.com (unknown [172.30.72.59])
+ by Forcepoint Email with ESMTP id 6AD5B737C754AE18F20D;
+ Fri, 10 Jan 2020 15:20:40 +0800 (CST)
+Received: from localhost.localdomain.localdomain (10.175.113.25) by
+ DGGEMS406-HUB.china.huawei.com (10.3.19.206) with Microsoft SMTP Server id
+ 14.3.439.0; Fri, 10 Jan 2020 15:20:32 +0800
+From: Chen Zhou <chenzhou10@huawei.com>
+To: <alexander.deucher@amd.com>, <sunpeng.li@amd.com>
+Subject: [PATCH] drm/amd/display: remove unnecessary conversion to bool
+Date: Fri, 10 Jan 2020 15:16:16 +0800
+Message-ID: <20200110071616.84891-1-chenzhou10@huawei.com>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
+X-Originating-IP: [10.175.113.25]
+X-CFilter-Loop: Reflected
+X-Mailman-Approved-At: Fri, 10 Jan 2020 14:04:15 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,247 +51,36 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- nouveau@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
+Cc: chenzhou10@huawei.com, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, 10 Jan 2020, Thomas Zimmermann <tzimmermann@suse.de> wrote:
-> Hi
->
-> Am 10.01.20 um 12:59 schrieb Jani Nikula:
->> On Fri, 10 Jan 2020, Thomas Zimmermann <tzimmermann@suse.de> wrote:
->>> The callback struct drm_driver.get_scanout_position() is deprecated in
->>> favor of struct drm_crtc_helper_funcs.get_scanout_position().
->>>
->>> i915 doesn't use CRTC helpers. The patch duplicates the caller
->>> drm_calc_vbltimestamp_from_scanoutpos() for i915, such that the callback
->>> function is not needed.
->>>
->>> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
->>> ---
->>>  drivers/gpu/drm/i915/i915_drv.c |   3 +-
->>>  drivers/gpu/drm/i915/i915_irq.c | 117 ++++++++++++++++++++++++++++++--
->>>  drivers/gpu/drm/i915/i915_irq.h |   9 +--
->>>  3 files changed, 119 insertions(+), 10 deletions(-)
->> 
->> Not really enthusiastic about the diffstat in a "cleanup" series.
->
-> Well, the cleanup is about the content of drm_driver :)
->
->> 
->> I wonder if you could add a generic helper version of
->> drm_calc_vbltimestamp_from_scanoutpos where you pass the
->> get_scanout_position function as a parameter. Both
->> drm_calc_vbltimestamp_from_scanoutpos and the new
->> i915_calc_vbltimestamp_from_scanoutpos would then be fairly thin
->> wrappers passing in the relevant get_scanout_position function.
->
-> Of course. Will be in v2 of the series.
+The conversion to bool is not needed, remove it.
 
-Please give Ville (Cc'd) a moment before sending v2 in case he wants to
-chime in on this.
+Signed-off-by: Chen Zhou <chenzhou10@huawei.com>
+---
+ drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Thanks,
-Jani.
-
-
->
-> Best regards
-> Thomas
->
->> 
->> This would reduce the almost identical duplication of the function in
->> i915.
->> 
->> BR,
->> Jani.
->> 
->>>
->>> diff --git a/drivers/gpu/drm/i915/i915_drv.c b/drivers/gpu/drm/i915/i915_drv.c
->>> index f7385abdd74b..4a0a7fb85c53 100644
->>> --- a/drivers/gpu/drm/i915/i915_drv.c
->>> +++ b/drivers/gpu/drm/i915/i915_drv.c
->>> @@ -2769,8 +2769,7 @@ static struct drm_driver driver = {
->>>  	.gem_prime_export = i915_gem_prime_export,
->>>  	.gem_prime_import = i915_gem_prime_import,
->>>  
->>> -	.get_vblank_timestamp = drm_calc_vbltimestamp_from_scanoutpos,
->>> -	.get_scanout_position = i915_get_crtc_scanoutpos,
->>> +	.get_vblank_timestamp = i915_calc_vbltimestamp_from_scanoutpos,
->>>  
->>>  	.dumb_create = i915_gem_dumb_create,
->>>  	.dumb_map_offset = i915_gem_dumb_mmap_offset,
->>> diff --git a/drivers/gpu/drm/i915/i915_irq.c b/drivers/gpu/drm/i915/i915_irq.c
->>> index afc6aad9bf8c..99d0c3b0feae 100644
->>> --- a/drivers/gpu/drm/i915/i915_irq.c
->>> +++ b/drivers/gpu/drm/i915/i915_irq.c
->>> @@ -52,6 +52,11 @@
->>>  #include "i915_trace.h"
->>>  #include "intel_pm.h"
->>>  
->>> +/* Retry timestamp calculation up to 3 times to satisfy
->>> + * drm_timestamp_precision before giving up.
->>> + */
->>> +#define I915_TIMESTAMP_MAXRETRIES 3
->>> +
->>>  /**
->>>   * DOC: interrupt handling
->>>   *
->>> @@ -762,10 +767,11 @@ static int __intel_get_crtc_scanline(struct intel_crtc *crtc)
->>>  	return (position + crtc->scanline_offset) % vtotal;
->>>  }
->>>  
->>> -bool i915_get_crtc_scanoutpos(struct drm_device *dev, unsigned int index,
->>> -			      bool in_vblank_irq, int *vpos, int *hpos,
->>> -			      ktime_t *stime, ktime_t *etime,
->>> -			      const struct drm_display_mode *mode)
->>> +static bool i915_get_crtc_scanoutpos(struct drm_device *dev,
->>> +				     unsigned int index, bool in_vblank_irq,
->>> +				     int *vpos, int *hpos,
->>> +				     ktime_t *stime, ktime_t *etime,
->>> +				     const struct drm_display_mode *mode)
->>>  {
->>>  	struct drm_i915_private *dev_priv = to_i915(dev);
->>>  	struct intel_crtc *crtc = to_intel_crtc(drm_crtc_from_index(dev, index));
->>> @@ -879,6 +885,109 @@ bool i915_get_crtc_scanoutpos(struct drm_device *dev, unsigned int index,
->>>  	return true;
->>>  }
->>>  
->>> +bool i915_calc_vbltimestamp_from_scanoutpos(struct drm_device *dev,
->>> +					    unsigned int pipe,
->>> +					    int *max_error,
->>> +					    ktime_t *vblank_time,
->>> +					    bool in_vblank_irq)
->>> +{
->>> +	struct timespec64 ts_etime, ts_vblank_time;
->>> +	ktime_t stime, etime;
->>> +	bool vbl_status;
->>> +	struct drm_crtc *crtc;
->>> +	const struct drm_display_mode *mode;
->>> +	struct drm_vblank_crtc *vblank = &dev->vblank[pipe];
->>> +	int vpos, hpos, i;
->>> +	int delta_ns, duration_ns;
->>> +
->>> +	crtc = drm_crtc_from_index(dev, pipe);
->>> +
->>> +	if (pipe >= dev->num_crtcs || !crtc) {
->>> +		DRM_ERROR("Invalid crtc %u\n", pipe);
->>> +		return false;
->>> +	}
->>> +
->>> +	if (drm_drv_uses_atomic_modeset(dev))
->>> +		mode = &vblank->hwmode;
->>> +	else
->>> +		mode = &crtc->hwmode;
->>> +
->>> +	/* If mode timing undefined, just return as no-op:
->>> +	 * Happens during initial modesetting of a crtc.
->>> +	 */
->>> +	if (mode->crtc_clock == 0) {
->>> +		DRM_DEBUG("crtc %u: Noop due to uninitialized mode.\n", pipe);
->>> +		WARN_ON_ONCE(drm_drv_uses_atomic_modeset(dev));
->>> +
->>> +		return false;
->>> +	}
->>> +
->>> +	/* Get current scanout position with system timestamp.
->>> +	 * Repeat query up to DRM_TIMESTAMP_MAXRETRIES times
->>> +	 * if single query takes longer than max_error nanoseconds.
->>> +	 *
->>> +	 * This guarantees a tight bound on maximum error if
->>> +	 * code gets preempted or delayed for some reason.
->>> +	 */
->>> +	for (i = 0; i < I915_TIMESTAMP_MAXRETRIES; i++) {
->>> +		/*
->>> +		 * Get vertical and horizontal scanout position vpos, hpos,
->>> +		 * and bounding timestamps stime, etime, pre/post query.
->>> +		 */
->>> +		vbl_status = i915_get_crtc_scanoutpos(dev, pipe, in_vblank_irq,
->>> +						      &vpos, &hpos, &stime,
->>> +						      &etime, mode);
->>> +		/* Return as no-op if scanout query unsupported or failed. */
->>> +		if (!vbl_status) {
->>> +			DRM_DEBUG("crtc %u : scanoutpos query failed.\n",
->>> +				  pipe);
->>> +			return false;
->>> +		}
->>> +
->>> +		/* Compute uncertainty in timestamp of scanout position query. */
->>> +		duration_ns = ktime_to_ns(etime) - ktime_to_ns(stime);
->>> +
->>> +		/* Accept result with <  max_error nsecs timing uncertainty. */
->>> +		if (duration_ns <= *max_error)
->>> +			break;
->>> +	}
->>> +
->>> +	/* Noisy system timing? */
->>> +	if (i == I915_TIMESTAMP_MAXRETRIES) {
->>> +		DRM_DEBUG("crtc %u: Noisy timestamp %d us > %d us [%d reps].\n",
->>> +			  pipe, duration_ns/1000, *max_error/1000, i);
->>> +	}
->>> +
->>> +	/* Return upper bound of timestamp precision error. */
->>> +	*max_error = duration_ns;
->>> +
->>> +	/* Convert scanout position into elapsed time at raw_time query
->>> +	 * since start of scanout at first display scanline. delta_ns
->>> +	 * can be negative if start of scanout hasn't happened yet.
->>> +	 */
->>> +	delta_ns = div_s64(1000000LL * (vpos * mode->crtc_htotal + hpos),
->>> +			   mode->crtc_clock);
->>> +
->>> +	/* Subtract time delta from raw timestamp to get final
->>> +	 * vblank_time timestamp for end of vblank.
->>> +	 */
->>> +	*vblank_time = ktime_sub_ns(etime, delta_ns);
->>> +
->>> +	if (!drm_debug_enabled(DRM_UT_VBL))
->>> +		return true;
->>> +
->>> +	ts_etime = ktime_to_timespec64(etime);
->>> +	ts_vblank_time = ktime_to_timespec64(*vblank_time);
->>> +
->>> +	DRM_DEBUG_VBL("crtc %u : v p(%d,%d)@ %lld.%06ld -> %lld.%06ld [e %d us, %d rep]\n",
->>> +		      pipe, hpos, vpos,
->>> +		      (u64)ts_etime.tv_sec, ts_etime.tv_nsec / 1000,
->>> +		      (u64)ts_vblank_time.tv_sec, ts_vblank_time.tv_nsec / 1000,
->>> +		      duration_ns / 1000, i);
->>> +
->>> +	return true;
->>> +}
->>> +
->>>  int intel_get_crtc_scanline(struct intel_crtc *crtc)
->>>  {
->>>  	struct drm_i915_private *dev_priv = to_i915(crtc->base.dev);
->>> diff --git a/drivers/gpu/drm/i915/i915_irq.h b/drivers/gpu/drm/i915/i915_irq.h
->>> index 812c47a9c2d6..5f7b133ce721 100644
->>> --- a/drivers/gpu/drm/i915/i915_irq.h
->>> +++ b/drivers/gpu/drm/i915/i915_irq.h
->>> @@ -101,10 +101,11 @@ void gen8_irq_power_well_post_enable(struct drm_i915_private *dev_priv,
->>>  void gen8_irq_power_well_pre_disable(struct drm_i915_private *dev_priv,
->>>  				     u8 pipe_mask);
->>>  
->>> -bool i915_get_crtc_scanoutpos(struct drm_device *dev, unsigned int pipe,
->>> -			      bool in_vblank_irq, int *vpos, int *hpos,
->>> -			      ktime_t *stime, ktime_t *etime,
->>> -			      const struct drm_display_mode *mode);
->>> +bool i915_calc_vbltimestamp_from_scanoutpos(struct drm_device *dev,
->>> +					    unsigned int pipe,
->>> +					    int *max_error,
->>> +					    ktime_t *vblank_time,
->>> +					    bool in_vblank_irq);
->>>  
->>>  u32 i915_get_vblank_counter(struct drm_crtc *crtc);
->>>  u32 g4x_get_vblank_counter(struct drm_crtc *crtc);
->> 
-
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
+index 504055f..a004e8e 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
+@@ -2792,7 +2792,7 @@ static bool retrieve_link_cap(struct dc_link *link)
+ 			dpcd_data[DP_TRAINING_AUX_RD_INTERVAL];
+ 
+ 		link->dpcd_caps.ext_receiver_cap_field_present =
+-				aux_rd_interval.bits.EXT_RECEIVER_CAP_FIELD_PRESENT == 1 ? true:false;
++				aux_rd_interval.bits.EXT_RECEIVER_CAP_FIELD_PRESENT == 1;
+ 
+ 		if (aux_rd_interval.bits.EXT_RECEIVER_CAP_FIELD_PRESENT == 1) {
+ 			uint8_t ext_cap_data[16];
 -- 
-Jani Nikula, Intel Open Source Graphics Center
+2.7.4
+
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
