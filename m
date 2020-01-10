@@ -2,30 +2,30 @@ Return-Path: <SRS0=i8pd=27=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.8 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.8 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=no
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 903FCC33CA3
-	for <amd-gfx@archiver.kernel.org>; Fri, 10 Jan 2020 09:21:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BB37CC33CA2
+	for <amd-gfx@archiver.kernel.org>; Fri, 10 Jan 2020 09:22:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 71D0420721
-	for <amd-gfx@archiver.kernel.org>; Fri, 10 Jan 2020 09:21:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 71D0420721
+	by mail.kernel.org (Postfix) with ESMTPS id 9978620721
+	for <amd-gfx@archiver.kernel.org>; Fri, 10 Jan 2020 09:22:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9978620721
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=suse.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2F4896E9AC;
-	Fri, 10 Jan 2020 09:21:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E23516E9A7;
+	Fri, 10 Jan 2020 09:21:37 +0000 (UTC)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CBCFF6E99F;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ACF006E99E;
  Fri, 10 Jan 2020 09:21:35 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 3A811B2A1;
- Fri, 10 Jan 2020 09:21:34 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 2FA18B016;
+ Fri, 10 Jan 2020 09:21:33 +0000 (UTC)
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: airlied@linux.ie, daniel@ffwll.ch, alexander.deucher@amd.com,
  christian.koenig@amd.com, David1.Zhou@amd.com,
@@ -38,13 +38,10 @@ To: airlied@linux.ie, daniel@ffwll.ch, alexander.deucher@amd.com,
  bskeggs@redhat.com, harry.wentland@amd.com, sunpeng.li@amd.com,
  jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com,
  rodrigo.vivi@intel.com
-Subject: [PATCH 04/23] drm/nouveau: Convert to struct
- drm_crtc_helper_funcs.get_scanout_position()
-Date: Fri, 10 Jan 2020 10:21:08 +0100
-Message-Id: <20200110092127.27847-5-tzimmermann@suse.de>
+Subject: [PATCH 00/23] drm: Clean up VBLANK callbacks in struct drm_driver
+Date: Fri, 10 Jan 2020 10:21:04 +0100
+Message-Id: <20200110092127.27847-1-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.24.1
-In-Reply-To: <20200110092127.27847-1-tzimmermann@suse.de>
-References: <20200110092127.27847-1-tzimmermann@suse.de>
 MIME-Version: 1.0
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -66,98 +63,132 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The callback struct drm_driver.get_scanout_position() is deprecated in
-favor of struct drm_crtc_helper_funcs.get_scanout_position(). Convert
-nouveau over.
+VBLANK handlers in struct drm_driver are deprecated. Only legacy,
+non-KMS drivers are supposed to used them. DRM drivers with kernel
+modesetting are supposed to use VBLANK callbacks of the CRTC
+infrastructure.
 
-Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
----
- drivers/gpu/drm/nouveau/dispnv04/crtc.c   |  1 +
- drivers/gpu/drm/nouveau/dispnv50/head.c   |  1 +
- drivers/gpu/drm/nouveau/nouveau_display.c | 14 +++-----------
- drivers/gpu/drm/nouveau/nouveau_display.h |  2 +-
- drivers/gpu/drm/nouveau/nouveau_drm.c     |  1 -
- 5 files changed, 6 insertions(+), 13 deletions(-)
+This patchset converts all DRM drivers to CRTC VBLANK callbacks and
+cleans up struct drm_driver. The remaining VBLANK callbacks in struct
+drm_driver are only used by legacy drivers.
 
-diff --git a/drivers/gpu/drm/nouveau/dispnv04/crtc.c b/drivers/gpu/drm/nouveau/dispnv04/crtc.c
-index 37c50ea8f847..17e9d1c078a0 100644
---- a/drivers/gpu/drm/nouveau/dispnv04/crtc.c
-+++ b/drivers/gpu/drm/nouveau/dispnv04/crtc.c
-@@ -1258,6 +1258,7 @@ static const struct drm_crtc_helper_funcs nv04_crtc_helper_funcs = {
- 	.mode_set_base = nv04_crtc_mode_set_base,
- 	.mode_set_base_atomic = nv04_crtc_mode_set_base_atomic,
- 	.disable = nv_crtc_disable,
-+	.get_scanout_position = nouveau_display_scanoutpos,
- };
- 
- static const uint32_t modeset_formats[] = {
-diff --git a/drivers/gpu/drm/nouveau/dispnv50/head.c b/drivers/gpu/drm/nouveau/dispnv50/head.c
-index c9692df2b76c..1354d19d9a18 100644
---- a/drivers/gpu/drm/nouveau/dispnv50/head.c
-+++ b/drivers/gpu/drm/nouveau/dispnv50/head.c
-@@ -403,6 +403,7 @@ nv50_head_atomic_check(struct drm_crtc *crtc, struct drm_crtc_state *state)
- static const struct drm_crtc_helper_funcs
- nv50_head_help = {
- 	.atomic_check = nv50_head_atomic_check,
-+	.get_scanout_position = nouveau_display_scanoutpos,
- };
- 
- static void
-diff --git a/drivers/gpu/drm/nouveau/nouveau_display.c b/drivers/gpu/drm/nouveau/nouveau_display.c
-index 53f9bceaf17a..86f99dc8fcef 100644
---- a/drivers/gpu/drm/nouveau/nouveau_display.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_display.c
-@@ -136,21 +136,13 @@ nouveau_display_scanoutpos_head(struct drm_crtc *crtc, int *vpos, int *hpos,
- }
- 
- bool
--nouveau_display_scanoutpos(struct drm_device *dev, unsigned int pipe,
-+nouveau_display_scanoutpos(struct drm_crtc *crtc,
- 			   bool in_vblank_irq, int *vpos, int *hpos,
- 			   ktime_t *stime, ktime_t *etime,
- 			   const struct drm_display_mode *mode)
- {
--	struct drm_crtc *crtc;
--
--	list_for_each_entry(crtc, &dev->mode_config.crtc_list, head) {
--		if (nouveau_crtc(crtc)->index == pipe) {
--			return nouveau_display_scanoutpos_head(crtc, vpos, hpos,
--							       stime, etime);
--		}
--	}
--
--	return false;
-+	return nouveau_display_scanoutpos_head(crtc, vpos, hpos,
-+					       stime, etime);
- }
- 
- static void
-diff --git a/drivers/gpu/drm/nouveau/nouveau_display.h b/drivers/gpu/drm/nouveau/nouveau_display.h
-index 6e8e66882e45..71e2af693f7f 100644
---- a/drivers/gpu/drm/nouveau/nouveau_display.h
-+++ b/drivers/gpu/drm/nouveau/nouveau_display.h
-@@ -63,7 +63,7 @@ int  nouveau_display_suspend(struct drm_device *dev, bool runtime);
- void nouveau_display_resume(struct drm_device *dev, bool runtime);
- int  nouveau_display_vblank_enable(struct drm_device *, unsigned int);
- void nouveau_display_vblank_disable(struct drm_device *, unsigned int);
--bool  nouveau_display_scanoutpos(struct drm_device *, unsigned int,
-+bool  nouveau_display_scanoutpos(struct drm_crtc *,
- 				 bool, int *, int *, ktime_t *,
- 				 ktime_t *, const struct drm_display_mode *);
- 
-diff --git a/drivers/gpu/drm/nouveau/nouveau_drm.c b/drivers/gpu/drm/nouveau/nouveau_drm.c
-index 2cd83849600f..9fb38a018240 100644
---- a/drivers/gpu/drm/nouveau/nouveau_drm.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_drm.c
-@@ -1123,7 +1123,6 @@ driver_stub = {
- 
- 	.enable_vblank = nouveau_display_vblank_enable,
- 	.disable_vblank = nouveau_display_vblank_disable,
--	.get_scanout_position = nouveau_display_scanoutpos,
- 	.get_vblank_timestamp = drm_calc_vbltimestamp_from_scanoutpos,
- 
- 	.ioctls = nouveau_ioctls,
--- 
+Patches 1 to 9 move get_scanout_position() to struct drm_crtc_helper_funcs
+and convert drivers over. The callback is a helper for the default
+implementation of get_vblank_timestamp() (i.e.,
+drm_calc_vbltimestamp_from_scanoutpos()). The original callback is removed
+from struct drm_driver.
+
+Patch 10 changes the VBLANK code to evaluate vblank_disable_immediate in
+struct derm_device. This simplifies the later integration of CRTC VBLANK
+callbacks. If necessary, a future patch could move vblank_disable_immedate
+to struct drm_crtc, so that high-precision VBLANKs could be enabled on a
+per-CRTC basis.
+
+Patches 11 to 23 move get_vblank_timestamp() to struct drm_crtc_funcs
+and convert DRM drivers over. All VBLANK callbacks are removed from
+struct drm_driver, except for get_vblank_counter(), enable_vblank(), and
+disable_vblank(). These interfaces are moved to the legacy section
+at the end of the structure.
+
+To cover all affected drivers, I build the patchset in x86, x86-64,
+arm and aarch64. I smoke-tested amdgpu, gma500, i915, radeon and vc4 on
+respective hardware.
+
+Thomas Zimmermann (23):
+  drm: Add get_scanout_position() to struct drm_crtc_helper_funcs
+  drm/amdgpu: Convert to struct
+    drm_crtc_helper_funcs.get_scanout_position()
+  drm/i915: Don't use struct drm_driver.get_scanout_position()
+  drm/nouveau: Convert to struct
+    drm_crtc_helper_funcs.get_scanout_position()
+  drm/radeon: Convert to struct
+    drm_crtc_helper_funcs.get_scanout_position()
+  drm/msm: Convert to struct
+    drm_crtc_helper_funcs.get_scanout_position()
+  drm/vc4: Convert to struct
+    drm_crtc_helper_funcs.get_scanout_position()
+  drm/stm: Convert to struct
+    drm_crtc_helper_funcs.get_scanout_position()
+  drm: Remove struct drm_driver.get_scanout_position()
+  drm: Evaluate struct drm_device.vblank_disable_immediate on each use
+  drm: Add get_vblank_timestamp() to struct drm_crtc_funcs
+  drm/amdgpu: Convert to CRTC VBLANK callbacks
+  drm/gma500: Convert to CRTC VBLANK callbacks
+  drm/i915: Convert to CRTC VBLANK callbacks
+  drm/msm: Convert to CRTC VBLANK callbacks
+  drm/nouveau: Convert to CRTC VBLANK callbacks
+  drm/radeon: Convert to CRTC VBLANK callbacks
+  drm/sti: Convert to CRTC VBLANK callbacks
+  drm/stm: Convert to CRTC VBLANK callbacks
+  drm/vc4: Convert to CRTC VBLANK callbacks
+  drm/vkms: Convert to CRTC VBLANK callbacks
+  drm/vmwgfx: Convert to CRTC VBLANK callbacks
+  drm: Cleanup VBLANK callbacks in struct drm_driver
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h           |   3 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_display.c   |  12 ++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c       |  15 --
+ drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c       |  24 +++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h      |   5 +
+ drivers/gpu/drm/amd/amdgpu/dce_v10_0.c        |   5 +
+ drivers/gpu/drm/amd/amdgpu/dce_v11_0.c        |   5 +
+ drivers/gpu/drm/amd/amdgpu/dce_v6_0.c         |   5 +
+ drivers/gpu/drm/amd/amdgpu/dce_v8_0.c         |   5 +
+ drivers/gpu/drm/amd/amdgpu/dce_virtual.c      |   5 +
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |   5 +-
+ drivers/gpu/drm/drm_vblank.c                  | 128 +++++++++-----
+ drivers/gpu/drm/gma500/cdv_intel_display.c    |   3 +
+ drivers/gpu/drm/gma500/psb_drv.c              |   4 -
+ drivers/gpu/drm/gma500/psb_drv.h              |   6 +-
+ drivers/gpu/drm/gma500/psb_intel_display.c    |   3 +
+ drivers/gpu/drm/gma500/psb_irq.c              |  12 +-
+ drivers/gpu/drm/gma500/psb_irq.h              |   7 +-
+ drivers/gpu/drm/i915/display/intel_display.c  |   7 +
+ drivers/gpu/drm/i915/i915_drv.c               |   3 -
+ drivers/gpu/drm/i915/i915_irq.c               | 110 +++++++++++-
+ drivers/gpu/drm/i915/i915_irq.h               |   8 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c      |   2 +
+ drivers/gpu/drm/msm/disp/mdp4/mdp4_crtc.c     |   2 +
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_crtc.c     |  82 +++++++++
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c      |  95 -----------
+ drivers/gpu/drm/msm/msm_drv.c                 |  10 +-
+ drivers/gpu/drm/msm/msm_drv.h                 |   3 +
+ drivers/gpu/drm/nouveau/dispnv04/crtc.c       |   4 +
+ drivers/gpu/drm/nouveau/dispnv50/head.c       |   5 +
+ drivers/gpu/drm/nouveau/nouveau_display.c     |  28 +---
+ drivers/gpu/drm/nouveau/nouveau_display.h     |   6 +-
+ drivers/gpu/drm/nouveau/nouveau_drm.c         |   5 -
+ drivers/gpu/drm/radeon/atombios_crtc.c        |   1 +
+ drivers/gpu/drm/radeon/radeon_display.c       |  25 ++-
+ drivers/gpu/drm/radeon/radeon_drv.c           |  18 --
+ drivers/gpu/drm/radeon/radeon_kms.c           |  29 ++--
+ drivers/gpu/drm/radeon/radeon_legacy_crtc.c   |   3 +-
+ drivers/gpu/drm/radeon/radeon_mode.h          |   6 +
+ drivers/gpu/drm/sti/sti_crtc.c                |  11 +-
+ drivers/gpu/drm/sti/sti_crtc.h                |   2 -
+ drivers/gpu/drm/sti/sti_drv.c                 |   3 -
+ drivers/gpu/drm/stm/drv.c                     |   2 -
+ drivers/gpu/drm/stm/ltdc.c                    |  66 ++++----
+ drivers/gpu/drm/stm/ltdc.h                    |   5 -
+ drivers/gpu/drm/vc4/vc4_crtc.c                |  13 +-
+ drivers/gpu/drm/vc4/vc4_drv.c                 |   3 -
+ drivers/gpu/drm/vc4/vc4_drv.h                 |   4 -
+ drivers/gpu/drm/vkms/vkms_crtc.c              |   9 +-
+ drivers/gpu/drm/vkms/vkms_drv.c               |   1 -
+ drivers/gpu/drm/vkms/vkms_drv.h               |   4 -
+ drivers/gpu/drm/vmwgfx/vmwgfx_drv.c           |   5 +-
+ drivers/gpu/drm/vmwgfx/vmwgfx_drv.h           |   6 +-
+ drivers/gpu/drm/vmwgfx/vmwgfx_kms.c           |   8 +-
+ drivers/gpu/drm/vmwgfx/vmwgfx_ldu.c           |   3 +
+ drivers/gpu/drm/vmwgfx/vmwgfx_scrn.c          |   5 +-
+ drivers/gpu/drm/vmwgfx/vmwgfx_stdu.c          |   3 +
+ include/drm/drm_crtc.h                        |  41 +++++
+ include/drm/drm_drv.h                         | 156 +-----------------
+ include/drm/drm_modeset_helper_vtables.h      |  47 ++++++
+ include/drm/drm_vblank.h                      |   4 +
+ 61 files changed, 631 insertions(+), 474 deletions(-)
+
+--
 2.24.1
 
 _______________________________________________
