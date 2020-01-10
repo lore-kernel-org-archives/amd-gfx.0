@@ -6,26 +6,26 @@ X-Spam-Status: No, score=-9.8 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
 	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8E754C33CA8
-	for <amd-gfx@archiver.kernel.org>; Fri, 10 Jan 2020 09:22:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 57693C33CAA
+	for <amd-gfx@archiver.kernel.org>; Fri, 10 Jan 2020 09:22:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6E5A520721
-	for <amd-gfx@archiver.kernel.org>; Fri, 10 Jan 2020 09:22:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6E5A520721
+	by mail.kernel.org (Postfix) with ESMTPS id 3798320721
+	for <amd-gfx@archiver.kernel.org>; Fri, 10 Jan 2020 09:22:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3798320721
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=suse.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B54976E9D3;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 60A436EA01;
 	Fri, 10 Jan 2020 09:21:47 +0000 (UTC)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0D34B6E9E7;
- Fri, 10 Jan 2020 09:21:44 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BDC066E9C4;
+ Fri, 10 Jan 2020 09:21:45 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id A6F9AB2B3;
- Fri, 10 Jan 2020 09:21:42 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 64819B2A2;
+ Fri, 10 Jan 2020 09:21:44 +0000 (UTC)
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: airlied@linux.ie, daniel@ffwll.ch, alexander.deucher@amd.com,
  christian.koenig@amd.com, David1.Zhou@amd.com,
@@ -38,9 +38,9 @@ To: airlied@linux.ie, daniel@ffwll.ch, alexander.deucher@amd.com,
  bskeggs@redhat.com, harry.wentland@amd.com, sunpeng.li@amd.com,
  jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com,
  rodrigo.vivi@intel.com
-Subject: [PATCH 14/23] drm/i915: Convert to CRTC VBLANK callbacks
-Date: Fri, 10 Jan 2020 10:21:18 +0100
-Message-Id: <20200110092127.27847-15-tzimmermann@suse.de>
+Subject: [PATCH 16/23] drm/nouveau: Convert to CRTC VBLANK callbacks
+Date: Fri, 10 Jan 2020 10:21:20 +0100
+Message-Id: <20200110092127.27847-17-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.24.1
 In-Reply-To: <20200110092127.27847-1-tzimmermann@suse.de>
 References: <20200110092127.27847-1-tzimmermann@suse.de>
@@ -66,139 +66,121 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 VBLANK callbacks in struct drm_driver are deprecated in favor of
-their equivalents in struct drm_crtc_funcs. Convert i915 over.
+their equivalents in struct drm_crtc_funcs. Convert nouvean over.
 
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
 ---
- drivers/gpu/drm/i915/display/intel_display.c |  7 +++++++
- drivers/gpu/drm/i915/i915_drv.c              |  2 --
- drivers/gpu/drm/i915/i915_irq.c              | 13 +++----------
- drivers/gpu/drm/i915/i915_irq.h              |  3 +--
- 4 files changed, 11 insertions(+), 14 deletions(-)
+ drivers/gpu/drm/nouveau/dispnv04/crtc.c   |  3 +++
+ drivers/gpu/drm/nouveau/dispnv50/head.c   |  4 ++++
+ drivers/gpu/drm/nouveau/nouveau_display.c | 14 ++------------
+ drivers/gpu/drm/nouveau/nouveau_display.h |  4 ++--
+ drivers/gpu/drm/nouveau/nouveau_drm.c     |  4 ----
+ 5 files changed, 11 insertions(+), 18 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index da5266e76738..515788698298 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -16227,6 +16227,7 @@ static const struct drm_crtc_funcs bdw_crtc_funcs = {
- 	.get_vblank_counter = g4x_get_vblank_counter,
- 	.enable_vblank = bdw_enable_vblank,
- 	.disable_vblank = bdw_disable_vblank,
-+	.get_vblank_timestamp = i915_calc_vbltimestamp_from_scanoutpos,
+diff --git a/drivers/gpu/drm/nouveau/dispnv04/crtc.c b/drivers/gpu/drm/nouveau/dispnv04/crtc.c
+index 17e9d1c078a0..4a4122a1c057 100644
+--- a/drivers/gpu/drm/nouveau/dispnv04/crtc.c
++++ b/drivers/gpu/drm/nouveau/dispnv04/crtc.c
+@@ -1248,6 +1248,9 @@ static const struct drm_crtc_funcs nv04_crtc_funcs = {
+ 	.set_config = drm_crtc_helper_set_config,
+ 	.page_flip = nv04_crtc_page_flip,
+ 	.destroy = nv_crtc_destroy,
++	.enable_vblank = nouveau_display_vblank_enable,
++	.disable_vblank = nouveau_display_vblank_disable,
++	.get_vblank_timestamp = drm_crtc_calc_vbltimestamp_from_scanoutpos,
  };
  
- static const struct drm_crtc_funcs ilk_crtc_funcs = {
-@@ -16235,6 +16236,7 @@ static const struct drm_crtc_funcs ilk_crtc_funcs = {
- 	.get_vblank_counter = g4x_get_vblank_counter,
- 	.enable_vblank = ilk_enable_vblank,
- 	.disable_vblank = ilk_disable_vblank,
-+	.get_vblank_timestamp = i915_calc_vbltimestamp_from_scanoutpos,
+ static const struct drm_crtc_helper_funcs nv04_crtc_helper_funcs = {
+diff --git a/drivers/gpu/drm/nouveau/dispnv50/head.c b/drivers/gpu/drm/nouveau/dispnv50/head.c
+index 1354d19d9a18..a6b7416ca270 100644
+--- a/drivers/gpu/drm/nouveau/dispnv50/head.c
++++ b/drivers/gpu/drm/nouveau/dispnv50/head.c
+@@ -29,6 +29,7 @@
+ 
+ #include <drm/drm_atomic_helper.h>
+ #include <drm/drm_crtc_helper.h>
++#include <drm/drm_vblank.h>
+ #include "nouveau_connector.h"
+ void
+ nv50_head_flush_clr(struct nv50_head *head,
+@@ -472,6 +473,9 @@ nv50_head_func = {
+ 	.page_flip = drm_atomic_helper_page_flip,
+ 	.atomic_duplicate_state = nv50_head_atomic_duplicate_state,
+ 	.atomic_destroy_state = nv50_head_atomic_destroy_state,
++	.enable_vblank = nouveau_display_vblank_enable,
++	.disable_vblank = nouveau_display_vblank_disable,
++	.get_vblank_timestamp = drm_crtc_calc_vbltimestamp_from_scanoutpos,
  };
  
- static const struct drm_crtc_funcs g4x_crtc_funcs = {
-@@ -16243,6 +16245,7 @@ static const struct drm_crtc_funcs g4x_crtc_funcs = {
- 	.get_vblank_counter = g4x_get_vblank_counter,
- 	.enable_vblank = i965_enable_vblank,
- 	.disable_vblank = i965_disable_vblank,
-+	.get_vblank_timestamp = i915_calc_vbltimestamp_from_scanoutpos,
- };
- 
- static const struct drm_crtc_funcs i965_crtc_funcs = {
-@@ -16251,6 +16254,7 @@ static const struct drm_crtc_funcs i965_crtc_funcs = {
- 	.get_vblank_counter = i915_get_vblank_counter,
- 	.enable_vblank = i965_enable_vblank,
- 	.disable_vblank = i965_disable_vblank,
-+	.get_vblank_timestamp = i915_calc_vbltimestamp_from_scanoutpos,
- };
- 
- static const struct drm_crtc_funcs i915gm_crtc_funcs = {
-@@ -16259,6 +16263,7 @@ static const struct drm_crtc_funcs i915gm_crtc_funcs = {
- 	.get_vblank_counter = i915_get_vblank_counter,
- 	.enable_vblank = i915gm_enable_vblank,
- 	.disable_vblank = i915gm_disable_vblank,
-+	.get_vblank_timestamp = i915_calc_vbltimestamp_from_scanoutpos,
- };
- 
- static const struct drm_crtc_funcs i915_crtc_funcs = {
-@@ -16267,6 +16272,7 @@ static const struct drm_crtc_funcs i915_crtc_funcs = {
- 	.get_vblank_counter = i915_get_vblank_counter,
- 	.enable_vblank = i8xx_enable_vblank,
- 	.disable_vblank = i8xx_disable_vblank,
-+	.get_vblank_timestamp = i915_calc_vbltimestamp_from_scanoutpos,
- };
- 
- static const struct drm_crtc_funcs i8xx_crtc_funcs = {
-@@ -16275,6 +16281,7 @@ static const struct drm_crtc_funcs i8xx_crtc_funcs = {
- 	/* no hw vblank counter */
- 	.enable_vblank = i8xx_enable_vblank,
- 	.disable_vblank = i8xx_disable_vblank,
-+	.get_vblank_timestamp = i915_calc_vbltimestamp_from_scanoutpos,
- };
- 
- static struct intel_crtc *intel_crtc_alloc(void)
-diff --git a/drivers/gpu/drm/i915/i915_drv.c b/drivers/gpu/drm/i915/i915_drv.c
-index 4a0a7fb85c53..30b9ba136a81 100644
---- a/drivers/gpu/drm/i915/i915_drv.c
-+++ b/drivers/gpu/drm/i915/i915_drv.c
-@@ -2769,8 +2769,6 @@ static struct drm_driver driver = {
- 	.gem_prime_export = i915_gem_prime_export,
- 	.gem_prime_import = i915_gem_prime_import,
- 
--	.get_vblank_timestamp = i915_calc_vbltimestamp_from_scanoutpos,
--
- 	.dumb_create = i915_gem_dumb_create,
- 	.dumb_map_offset = i915_gem_dumb_mmap_offset,
- 
-diff --git a/drivers/gpu/drm/i915/i915_irq.c b/drivers/gpu/drm/i915/i915_irq.c
-index 99d0c3b0feae..dbbbdff8fa89 100644
---- a/drivers/gpu/drm/i915/i915_irq.c
-+++ b/drivers/gpu/drm/i915/i915_irq.c
-@@ -885,28 +885,21 @@ static bool i915_get_crtc_scanoutpos(struct drm_device *dev,
- 	return true;
+ int
+diff --git a/drivers/gpu/drm/nouveau/nouveau_display.c b/drivers/gpu/drm/nouveau/nouveau_display.c
+index 86f99dc8fcef..700817dc4fa0 100644
+--- a/drivers/gpu/drm/nouveau/nouveau_display.c
++++ b/drivers/gpu/drm/nouveau/nouveau_display.c
+@@ -54,15 +54,10 @@ nouveau_display_vblank_handler(struct nvif_notify *notify)
  }
  
--bool i915_calc_vbltimestamp_from_scanoutpos(struct drm_device *dev,
--					    unsigned int pipe,
-+bool i915_calc_vbltimestamp_from_scanoutpos(struct drm_crtc *crtc,
- 					    int *max_error,
- 					    ktime_t *vblank_time,
- 					    bool in_vblank_irq)
+ int
+-nouveau_display_vblank_enable(struct drm_device *dev, unsigned int pipe)
++nouveau_display_vblank_enable(struct drm_crtc *crtc)
  {
-+	struct drm_device *dev = crtc->dev;
-+	unsigned int pipe = crtc->index;
- 	struct timespec64 ts_etime, ts_vblank_time;
- 	ktime_t stime, etime;
- 	bool vbl_status;
 -	struct drm_crtc *crtc;
- 	const struct drm_display_mode *mode;
- 	struct drm_vblank_crtc *vblank = &dev->vblank[pipe];
- 	int vpos, hpos, i;
- 	int delta_ns, duration_ns;
+ 	struct nouveau_crtc *nv_crtc;
  
 -	crtc = drm_crtc_from_index(dev, pipe);
+-	if (!crtc)
+-		return -EINVAL;
 -
--	if (pipe >= dev->num_crtcs || !crtc) {
--		DRM_ERROR("Invalid crtc %u\n", pipe);
--		return false;
--	}
--
- 	if (drm_drv_uses_atomic_modeset(dev))
- 		mode = &vblank->hwmode;
- 	else
-diff --git a/drivers/gpu/drm/i915/i915_irq.h b/drivers/gpu/drm/i915/i915_irq.h
-index 5f7b133ce721..756577a7a384 100644
---- a/drivers/gpu/drm/i915/i915_irq.h
-+++ b/drivers/gpu/drm/i915/i915_irq.h
-@@ -101,8 +101,7 @@ void gen8_irq_power_well_post_enable(struct drm_i915_private *dev_priv,
- void gen8_irq_power_well_pre_disable(struct drm_i915_private *dev_priv,
- 				     u8 pipe_mask);
+ 	nv_crtc = nouveau_crtc(crtc);
+ 	nvif_notify_get(&nv_crtc->vblank);
  
--bool i915_calc_vbltimestamp_from_scanoutpos(struct drm_device *dev,
--					    unsigned int pipe,
-+bool i915_calc_vbltimestamp_from_scanoutpos(struct drm_crtc *crtc,
- 					    int *max_error,
- 					    ktime_t *vblank_time,
- 					    bool in_vblank_irq);
+@@ -70,15 +65,10 @@ nouveau_display_vblank_enable(struct drm_device *dev, unsigned int pipe)
+ }
+ 
+ void
+-nouveau_display_vblank_disable(struct drm_device *dev, unsigned int pipe)
++nouveau_display_vblank_disable(struct drm_crtc *crtc)
+ {
+-	struct drm_crtc *crtc;
+ 	struct nouveau_crtc *nv_crtc;
+ 
+-	crtc = drm_crtc_from_index(dev, pipe);
+-	if (!crtc)
+-		return;
+-
+ 	nv_crtc = nouveau_crtc(crtc);
+ 	nvif_notify_put(&nv_crtc->vblank);
+ }
+diff --git a/drivers/gpu/drm/nouveau/nouveau_display.h b/drivers/gpu/drm/nouveau/nouveau_display.h
+index 71e2af693f7f..71c7048948f3 100644
+--- a/drivers/gpu/drm/nouveau/nouveau_display.h
++++ b/drivers/gpu/drm/nouveau/nouveau_display.h
+@@ -61,8 +61,8 @@ int  nouveau_display_init(struct drm_device *dev, bool resume, bool runtime);
+ void nouveau_display_fini(struct drm_device *dev, bool suspend, bool runtime);
+ int  nouveau_display_suspend(struct drm_device *dev, bool runtime);
+ void nouveau_display_resume(struct drm_device *dev, bool runtime);
+-int  nouveau_display_vblank_enable(struct drm_device *, unsigned int);
+-void nouveau_display_vblank_disable(struct drm_device *, unsigned int);
++int  nouveau_display_vblank_enable(struct drm_crtc *);
++void nouveau_display_vblank_disable(struct drm_crtc *);
+ bool  nouveau_display_scanoutpos(struct drm_crtc *,
+ 				 bool, int *, int *, ktime_t *,
+ 				 ktime_t *, const struct drm_display_mode *);
+diff --git a/drivers/gpu/drm/nouveau/nouveau_drm.c b/drivers/gpu/drm/nouveau/nouveau_drm.c
+index 9fb38a018240..0003343014ce 100644
+--- a/drivers/gpu/drm/nouveau/nouveau_drm.c
++++ b/drivers/gpu/drm/nouveau/nouveau_drm.c
+@@ -1121,10 +1121,6 @@ driver_stub = {
+ 	.debugfs_init = nouveau_drm_debugfs_init,
+ #endif
+ 
+-	.enable_vblank = nouveau_display_vblank_enable,
+-	.disable_vblank = nouveau_display_vblank_disable,
+-	.get_vblank_timestamp = drm_calc_vbltimestamp_from_scanoutpos,
+-
+ 	.ioctls = nouveau_ioctls,
+ 	.num_ioctls = ARRAY_SIZE(nouveau_ioctls),
+ 	.fops = &nouveau_driver_fops,
 -- 
 2.24.1
 
