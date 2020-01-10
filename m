@@ -7,56 +7,56 @@ X-Spam-Status: No, score=-9.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A6C95C33CA3
-	for <amd-gfx@archiver.kernel.org>; Fri, 10 Jan 2020 14:47:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0B401C282DD
+	for <amd-gfx@archiver.kernel.org>; Fri, 10 Jan 2020 14:47:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7D4B12082E
+	by mail.kernel.org (Postfix) with ESMTPS id D64E42082E
 	for <amd-gfx@archiver.kernel.org>; Fri, 10 Jan 2020 14:47:38 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="yMQGjiPR"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7D4B12082E
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="uBjh27HB"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D64E42082E
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7AFED6EA2E;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E58E26EA31;
 	Fri, 10 Jan 2020 14:47:37 +0000 (UTC)
 Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2049.outbound.protection.outlook.com [40.107.236.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 53F656EA3D
- for <amd-gfx@lists.freedesktop.org>; Fri, 10 Jan 2020 14:47:36 +0000 (UTC)
+ (mail-bn8nam11on2047.outbound.protection.outlook.com [40.107.236.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 445896EA3C
+ for <amd-gfx@lists.freedesktop.org>; Fri, 10 Jan 2020 14:47:33 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=QFfRTfYBYKxa3TrCmGo9Y/P8IqjSeGfAjy+IW+SA7VcnOzO6phksr1o8l4FSFOUiWEi4hQwO/cknB0IaCYZe7noZVwIB4X+8UWSojL6R5reWev3agrxuuFARXP07xP8AuTpiY+DnarCrD6JrveeRFfmqre6P/4XO0ZJ/DcB8vDvYHfNB67+oOj+jMOR6HTEbkfzRbgEs27SCR9/SjpCp1YHX9zA8as+MxLjvoaSB/WPjQYlqnhlMt+aBwVqmK+h0jz+wXXvLEEl4qa7QLoe3gY9G8oahrIlkGN1jFg02xSQeD/aJyBQDcWFNKt+uaW7ZYGGAYohE08PKSiKNfW/HWQ==
+ b=nEwHvUIMZLCozkYzGnWCUJzbL7RpBeKpCgfCyFhj/w8cI+MCyCAX1WWteEn6By9Zl0dz416IjVDwul+zyDXuglTfQuW3vBnYpB/aLdq5I3/ToixMb1qwOOuDU13GB9Ky8UuGPOncrHRWasEM6wBZn/Wsp0naZwqPn7H+ZgUHXZa1ceK2NBMM/+zS4CPTqkv8dYjkInUT4Z98DQglOh1xbOO1qnfGXIXqDlKSylv+e6U+ut+bkcMfe0qs/iwsGGoP/nbsSvsvKGovH4SKD4epRvm54IiEGa4YgCdWPy8xqSnFAbLLEj+XwtXCbY7rYOTkqXKioIRz9xdTegogGRuG5g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Vmz6oBhm13vFc1oMg0rJII9XbLr+4glGb210cMKJRy0=;
- b=YG3MQw2PR2fsExHCVFXSKUE5ltASrv1V9ZJ/VBPnVDxTaXAEzsgwrn6hvBCCC3p8rGB0zIjirbjQ62zWWJwDqkOo6VTbeWUraxCnT8ZSZvFqsHiqBxAvyf3R7qac1JxsDT9ZzwowkpoXyLhHGjUPrk/rTSK6V0JURsYrQ07D78nu3oaYa+s62iMzcWlLZCIocJ/Z6GRv93x1j5STOg4w2J8yNuRB86PX69wv1+19BFrwF71ye15kWGHRS8T0INDmYet4H+qqx/co8RcP8BzRoNk0xYR6clrQyEv9DILhE1MBZWXhT7FCiNoxACrbXSAifsrjqNm5ans2+ZBgSQfjMg==
+ bh=Vk/C71qdpt97Qs/Bqh0GmVWkQt7aTFED/acVH2sein0=;
+ b=MGANU9TL2qvvvou+42KpFSu9bJFKIAo/8o0wUc/n+WmGfokqsSc2bJXW8UOTe8Q3VfdxJRVtMp+yZckV7oReDwJa6R74gFrnLiLp0MxQavIxCtdPa7nwTg3dmARAXyIQYQz56XVyj8kU9Qacn035SfbDtpfqe1Hlx53042nT9Bc0MmgzE577fdwiQglzXOn2QGyNKxnDDEQEEcdA7adxFsxI2pcdKMtf16zpZEsJvfRgddWQl2yQzZK8PCjUvwO2SiEIbxoa8uoGzJd0UvzIxI8cVsVtngrOvIGnwXVHUiqFmmpHQX5iSrBlrj9via9BbCxaqliZCMatT26p8yz5WQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Vmz6oBhm13vFc1oMg0rJII9XbLr+4glGb210cMKJRy0=;
- b=yMQGjiPRA1ZJNmmJVcQSdc6E8PyjpdjG6ANH+Y5x0iYey/CG/tzf9GYXbItnZPx0dK7tnhaWajvONwCA86KwiXoeknorKeaDRYhXeY2zJcfzklX4yBNS3hNK19gx6p1W6Diw5th87S57SW0jl3UJyjrn3U4ek4daw0tEGs/jURg=
+ bh=Vk/C71qdpt97Qs/Bqh0GmVWkQt7aTFED/acVH2sein0=;
+ b=uBjh27HBV3bfpfAn6Qgh+utUyMzVo5Gz7G3v9AezC1W6wdQ5IXy5yYGIMip9vjYCiV1nLn/F5HqKEaFnnQiTls1crORiZ4taQHpzjLmD4ShXKDb/89FSDsd5BtfPiMsGB6lmlEvb1YaldX3ZhC/eD0n8KX87Qrt8f2Q/l2MPUQo=
 Authentication-Results: spf=none (sender IP is )
  smtp.mailfrom=Rodrigo.Siqueira@amd.com; 
 Received: from MW2PR12MB2524.namprd12.prod.outlook.com (52.132.180.155) by
  MW2PR12MB2524.namprd12.prod.outlook.com (52.132.180.155) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2623.11; Fri, 10 Jan 2020 14:47:34 +0000
+ 15.20.2623.11; Fri, 10 Jan 2020 14:47:32 +0000
 Received: from MW2PR12MB2524.namprd12.prod.outlook.com
  ([fe80::699c:a877:13ef:6ae2]) by MW2PR12MB2524.namprd12.prod.outlook.com
  ([fe80::699c:a877:13ef:6ae2%6]) with mapi id 15.20.2623.011; Fri, 10 Jan 2020
- 14:47:34 +0000
+ 14:47:32 +0000
 From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 16/43] drm/amd/display: stop doing unnecessary detection when
- going to D3
-Date: Fri, 10 Jan 2020 09:46:28 -0500
-Message-Id: <20200110144655.55845-17-Rodrigo.Siqueira@amd.com>
+Subject: [PATCH 13/43] drm/amd/display: Don't always set pstate true if dummy
+ latency = 0
+Date: Fri, 10 Jan 2020 09:46:25 -0500
+Message-Id: <20200110144655.55845-14-Rodrigo.Siqueira@amd.com>
 X-Mailer: git-send-email 2.24.1
 In-Reply-To: <20200110144655.55845-1-Rodrigo.Siqueira@amd.com>
 References: <20200110144655.55845-1-Rodrigo.Siqueira@amd.com>
@@ -67,16 +67,16 @@ MIME-Version: 1.0
 Received: from atma2.amd.com (165.204.55.250) by
  YT1PR01CA0009.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01::22) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2623.8 via Frontend Transport; Fri, 10 Jan 2020 14:47:34 +0000
+ 15.20.2623.8 via Frontend Transport; Fri, 10 Jan 2020 14:47:31 +0000
 X-Mailer: git-send-email 2.24.1
 X-Originating-IP: [165.204.55.250]
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: fa797c91-148e-4ab6-65fd-08d795dc0775
+X-MS-Office365-Filtering-Correlation-Id: 085ebb89-444c-41cb-a6bf-08d795dc05f2
 X-MS-TrafficTypeDiagnostic: MW2PR12MB2524:|MW2PR12MB2524:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <MW2PR12MB2524A08795227FDEFE1B8B7A98380@MW2PR12MB2524.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:199;
+X-Microsoft-Antispam-PRVS: <MW2PR12MB25240B27BBAE3199311AAD8198380@MW2PR12MB2524.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:758;
 X-Forefront-PRVS: 02788FF38E
 X-Forefront-Antispam-Report: SFV:NSPM;
  SFS:(10009020)(4636009)(376002)(346002)(39860400002)(396003)(136003)(366004)(189003)(199004)(8936002)(5660300002)(6916009)(54906003)(81156014)(6486002)(81166006)(36756003)(316002)(1076003)(2906002)(6666004)(956004)(7696005)(52116002)(478600001)(186003)(2616005)(86362001)(26005)(16526019)(66556008)(8676002)(66476007)(4326008)(66946007);
@@ -87,14 +87,14 @@ Received-SPF: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: AbXzmn59zOv7yslKnTOuwJzjpwTtN/+eP60Ua1tE+QCFh5IVK0oHdTsX/hd8h0pSk4L6FLT595WH2gM5hbGwxzHzFuFrPXSGyPjNsU3tOPJ9CB/Pf5liCfRrKrf2VOtTKgTE0pl72ZmjXUa214tT7RlxacDwGQim2S4ueQ//wT60QolASLcd7xiQZn2mRrfzrn418U5YdASOeU/gFaqYXyTElQVYbR5Rvfe3fsd7LzQ3peg8bFGmZ2Yafq579EmDztkPUnkS0y8C9AWI4aPexqCxQ+jkMVubs+bsAgcUfFC5SQKnJ+7sd2xUxmKfJ82ZDI6tYQZo8tfem42MnjyrfF0l1AWf/tz1Zy4NAtZmqpWiwSbwxwPZgyPB5pP2I6KzW6S5/gUZLS6RQj91pzTHrnFteFD7jEUwIuulangXlg9x5t3PdkrZ9SNDvQrCnvMK
+X-Microsoft-Antispam-Message-Info: DKMUBDrACL7UsGeDGxoI5tHnIlX2lLCkQPzbUfkQt2CeT9ZiCHyMvimcfteaBwVgkqm+DeV8ACTDxZ0fWP19vUrf9CjBe6lA6aoJ4sO8f4qrV1/rbV85W7umBIwe73TkTbMF0pHvLAHYUV4UprkY4UjASik05RMr+rYwnCA7yTJAfP4k+MkjgRDu9WX+aAoAcsIDbmZVhf+ZOkpg02Nl/fW/W4mEZ2BPuzhoKhvd7vzyoMuPmnDSKX4ay+OVM8Set0iZW62r/q8lhqCpyoU7gcEwlYgFJiyTNmfo1oIzScqZRtP8PVzhRVYvmSWt1BOAWQJkx9JSieKaYh+lL81xE5At6crA+eQHW5MiydSyY9LBoW0EgJwev9bcYd0NWDHgrzAoILMtZsR3YkAy6yN/13wcyBjhr7Il2fcro05FVZk+x0/tEFQp4u/wNafAR2ge
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: fa797c91-148e-4ab6-65fd-08d795dc0775
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jan 2020 14:47:34.8111 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 085ebb89-444c-41cb-a6bf-08d795dc05f2
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jan 2020 14:47:32.3655 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: O5MkT3AjQGsfgjSZH00fwVPHLAhy1DmD3v4koqjM/0QHGdgibM5+rbqPWvMYHgN2r4RLE6/CcRFMuHygLp/evA==
+X-MS-Exchange-CrossTenant-UserPrincipalName: 8WTkf4MwB9Myx91SeL+4KFeklcR605rs8PP280wj9QzJB3v9u70mYoG74Qa4o7NOoKINPjzuKKEqTV5dN77EMw==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW2PR12MB2524
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -107,64 +107,43 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sunpeng.Li@amd.com, Bhawanpreet.Lakha@amd.com,
- Harry Wentland <harry.wentland@amd.com>, Eric Yang <eric.yang2@amd.com>,
- Joseph Gravenor <joseph.gravenor@amd.com>
+Cc: Sunpeng.Li@amd.com, Bhawanpreet.Lakha@amd.com, Jun Lei <Jun.Lei@amd.com>,
+ Harry Wentland <harry.wentland@amd.com>, Alvin Lee <alvin.lee2@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Joseph Gravenor <joseph.gravenor@amd.com>
+From: Alvin Lee <alvin.lee2@amd.com>
 
 [Why]
-Don't want to start HW discovery unless we have lost power,
-as doing rediscovery otherwise is both unnecessary and time consuming.
-Before this change it takes 40 seconds to go in to suspend, after it
-takes 27 seconds
+If dummy pstate latency is 0 we should report the actual
+pstate support, and not that pstate is always supported.
 
 [How]
-Accelerated mode gets cleared if we lose power. Only do detection if
-this register is cleared
+Don't always program pstate support true
 
-Signed-off-by: Joseph Gravenor <joseph.gravenor@amd.com>
-Reviewed-by: Eric Yang <eric.yang2@amd.com>
+Signed-off-by: Alvin Lee <alvin.lee2@amd.com>
+Reviewed-by: Jun Lei <Jun.Lei@amd.com>
 Acked-by: Harry Wentland <harry.wentland@amd.com>
 Acked-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/core/dc.c | 6 ++++++
- drivers/gpu/drm/amd/display/dc/dc.h      | 1 +
- 2 files changed, 7 insertions(+)
+ drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
-index 46f2b54c3526..c918a0cd8c60 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
-@@ -1318,6 +1318,12 @@ bool dc_commit_state(struct dc *dc, struct dc_state *context)
- 	return (result == DC_OK);
- }
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
+index a05746142ec8..eac4c3cecadf 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
+@@ -2918,7 +2918,7 @@ bool dcn20_validate_bandwidth(struct dc *dc, struct dc_state *context,
  
-+bool dc_is_hw_initialized(struct dc *dc)
-+{
-+	struct dc_bios *dcb = dc->ctx->dc_bios;
-+	return dcb->funcs->is_accelerated_mode(dcb);
-+}
-+
- bool dc_post_update_surfaces_to_stream(struct dc *dc)
- {
- 	int i;
-diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
-index 29762b0531fc..d1d57432bc7e 100644
---- a/drivers/gpu/drm/amd/display/dc/dc.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc.h
-@@ -1069,6 +1069,7 @@ unsigned int dc_get_current_backlight_pwm(struct dc *dc);
- unsigned int dc_get_target_backlight_pwm(struct dc *dc);
+ 	if (context->bw_ctx.dml.soc.dummy_pstate_latency_us == 0 ||
+ 		(voltage_supported && full_pstate_supported)) {
+-		context->bw_ctx.bw.dcn.clk.p_state_change_support = true;
++		context->bw_ctx.bw.dcn.clk.p_state_change_support = full_pstate_supported;
+ 		goto restore_dml_state;
+ 	}
  
- bool dc_is_dmcu_initialized(struct dc *dc);
-+bool dc_is_hw_initialized(struct dc *dc);
- 
- enum dc_status dc_set_clock(struct dc *dc, enum dc_clock_type clock_type, uint32_t clk_khz, uint32_t stepping);
- void dc_get_clock(struct dc *dc, enum dc_clock_type clock_type, struct dc_clock_config *clock_cfg);
 -- 
 2.24.1
 
