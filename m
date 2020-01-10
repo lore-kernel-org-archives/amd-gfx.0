@@ -7,74 +7,72 @@ X-Spam-Status: No, score=-9.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 267E2C282DD
-	for <amd-gfx@archiver.kernel.org>; Fri, 10 Jan 2020 00:04:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 575CEC282DD
+	for <amd-gfx@archiver.kernel.org>; Fri, 10 Jan 2020 00:04:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id DA83E2075D
-	for <amd-gfx@archiver.kernel.org>; Fri, 10 Jan 2020 00:04:28 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 2E5692075D
+	for <amd-gfx@archiver.kernel.org>; Fri, 10 Jan 2020 00:04:31 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="s1dUQH57"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DA83E2075D
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="UsR4o1Q8"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2E5692075D
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8E2E86E072;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A84A46E084;
 	Fri, 10 Jan 2020 00:04:28 +0000 (UTC)
 Received: from NAM12-BN8-obe.outbound.protection.outlook.com
  (mail-bn8nam12on2051.outbound.protection.outlook.com [40.107.237.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5DD286E072
- for <amd-gfx@lists.freedesktop.org>; Fri, 10 Jan 2020 00:04:27 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E97716E072
+ for <amd-gfx@lists.freedesktop.org>; Fri, 10 Jan 2020 00:04:26 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=BC4l/DKy+qv76Mi5jMfOjEBG/YzvH3ht/+LzLKfM0m1r3Nf0mGDuSc8obn6IrVnHqLfwh5BJOODnHyk/atDQxmeKnVbMuonTxmaIE7zw+vpuDvWum3AySofvHsmc2EjVKmupfZA6q6J5ZcUxhdzpGoLlkwp7PYAtx5WrxYJETlgNp5SlMZbtAOA3QQ+tJdXNbViPGt3voE0vodR83a2+TdMStgRSVTg2Pag5Dqa7K7VpeYRtFeP8TG2i3/jn4PEW0CRA+NuaeJSAMZ+TcgGafC2j1EODV6OzkE5IB5slvfZp+XvgXMAj+DNix03GLnBxBSUSOmsM6Wn1uCEB/5v45Q==
+ b=IAvb8lVkpoFQA8H8GxUB90dGdc7oygOSRdMJ+XiVK2ZxB994+xvhivZvuzad39aYyJznBQoelUSdlklx8tKYn0fNE/yE6x+357/QTrCkrtOtILjykeSH7yDhOPvSWx2a53cq406qjwFvxhqfl6zFdKS3AERXGA2B7sbIh4XdyGGYtZ9B5A4xWy22F0bf0V3j3Nz9I+TMidRaMw20FNam5BcHG5is86eV5D0gOSm+cCGcoxVFg8i5CDUr9rplj9HKM9plIOr188EAxQXblnojAAa2Zdv+95auLgG7I9SMwYf616WE7jxIEgZQx8n6k4MKe0QUxagMgmZ160oSLuDA9A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=dhOPaHJLzlXUQsIeAtAk/05uanJNKT0B6lGVfpILQJE=;
- b=KxeMsWBK4vF9biKN2swLN8ywrAYeNB3uVh87xxXOoGN/ctU2x1IiE2QKphYZeUuWVKHhpbHfwp2Lyjqwp67F8ZSXRg/cz4mYyMugMzwAu+nHf2tSVcE0xIiEemjoiedFhfzIeoeluS4Dyy5QMUthN5wOE7pypp5DDZQUsX/siEvBmYin3R4nJNqvwviccyUiub78g/FG4hOdlBc6wMWDy5gNvuaBWNezySTJvEY0BLvrzOKth4k8sKq4aEi5JaPGgqEi4O06hKnI8+wHPN2Fksa/9wPjCxPhIeG8Yo2JV7mc0eIM7l6ND2/Kr0Ba57vjt86hMM8n7nrpmkKbZBSRKQ==
+ bh=sn5bcucFYg7IYFCYgoOlS7LweoNj2paF0PBkYFJ8288=;
+ b=YBRMRcjCE92wgY++pS1XXNdBACCv42WGQ0SfdiH6ARIXM09HdX6TAaHut8HxWeShPkj0OgWoobEGkkSynlNPvYN9WWUu7aS3UiprItKIWMZ+/VmoYW1plMX9x6RgY0vCCUQ9s20mYmIs2PtvZMcdPG4zRpjMafg7OxV3Qj8+u3H8+PxSSVzE55y9FY145KqwMepqs7DPs5b0JPRUr2vOGkJ0axp+jIzcaJ5UDQsDC/9m3y/id7ItJIwmNVum2uvDF4xgwV1QxcEwiundOv6K4mZ4IBxRH2m72sPRYz0J3Xd2jfEWGXJjlE4Jn+x8w1hyicDffUd7iub0x5z0190ecQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=dhOPaHJLzlXUQsIeAtAk/05uanJNKT0B6lGVfpILQJE=;
- b=s1dUQH57xl8Y10Vn8ziY611hyEhPUmFgdfCKjl2K9PHwGsrAUCe5CleMLPp+GSB+/8zWMN/mDaWyroEGJ2wv9WjCDDBHyq9ZHCeHWpDyL9TvO1H0KzABi81CTr0f9Uo0uvw8EgfNtQr6dxhwn5oYKFCXi3A3ywRt9EtyOy+FPlA=
+ bh=sn5bcucFYg7IYFCYgoOlS7LweoNj2paF0PBkYFJ8288=;
+ b=UsR4o1Q8Ohke/MmwQ2oBIMcj8fY1m+/pDufrMzcfoYpRyTGEKvoTs0DLJ99OqGLBD0B1hq8jSyynWigfi1RE9CWWHSxKAVTzBkTIQNeGas/ucU5zKlASSdlvL9NnI+vy9DTGxJ3fQkkncbFiKyYs3+PvuSp3hbA5K+0DHiChJ4U=
 Authentication-Results: spf=none (sender IP is )
  smtp.mailfrom=Alex.Sierra@amd.com; 
 Received: from SN6PR12MB2621.namprd12.prod.outlook.com (52.135.105.15) by
  SN6PR12MB2720.namprd12.prod.outlook.com (52.135.103.141) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2623.9; Fri, 10 Jan 2020 00:04:26 +0000
+ 15.20.2623.9; Fri, 10 Jan 2020 00:04:25 +0000
 Received: from SN6PR12MB2621.namprd12.prod.outlook.com
  ([fe80::8923:17de:add5:1490]) by SN6PR12MB2621.namprd12.prod.outlook.com
  ([fe80::8923:17de:add5:1490%6]) with mapi id 15.20.2623.008; Fri, 10 Jan 2020
- 00:04:26 +0000
+ 00:04:25 +0000
 From: Alex Sierra <alex.sierra@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 3/7] drm/amdgpu: GPU TLB flush API moved to amdgpu_amdkfd
-Date: Thu,  9 Jan 2020 18:04:08 -0600
-Message-Id: <20200110000412.66930-3-alex.sierra@amd.com>
+Subject: [PATCH 1/7] drm/amdgpu: Avoid reclaim fs while eviction lock
+Date: Thu,  9 Jan 2020 18:04:06 -0600
+Message-Id: <20200110000412.66930-1-alex.sierra@amd.com>
 X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20200110000412.66930-1-alex.sierra@amd.com>
-References: <20200110000412.66930-1-alex.sierra@amd.com>
 X-ClientProxiedBy: SN2PR01CA0005.prod.exchangelabs.com (2603:10b6:804:2::15)
  To SN6PR12MB2621.namprd12.prod.outlook.com (2603:10b6:805:73::15)
 MIME-Version: 1.0
 Received: from alex-MS-7B09.amd.com (165.204.77.1) by
  SN2PR01CA0005.prod.exchangelabs.com (2603:10b6:804:2::15) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2623.8 via Frontend Transport; Fri, 10 Jan 2020 00:04:26 +0000
+ 15.20.2623.8 via Frontend Transport; Fri, 10 Jan 2020 00:04:25 +0000
 X-Mailer: git-send-email 2.17.1
 X-Originating-IP: [165.204.77.1]
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 8ea2b249-043b-4f3d-8adf-08d79560a7ee
+X-MS-Office365-Filtering-Correlation-Id: 208526a2-cdfa-4152-5de5-08d79560a74b
 X-MS-TrafficTypeDiagnostic: SN6PR12MB2720:|SN6PR12MB2720:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <SN6PR12MB272022E2CB50CB70509A6400FD380@SN6PR12MB2720.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:4502;
+X-Microsoft-Antispam-PRVS: <SN6PR12MB2720CC0A679E2A309E04FE1BFD380@SN6PR12MB2720.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:291;
 X-Forefront-PRVS: 02788FF38E
 X-Forefront-Antispam-Report: SFV:NSPM;
  SFS:(10009020)(4636009)(366004)(136003)(396003)(346002)(376002)(39850400004)(189003)(199004)(26005)(316002)(36756003)(52116002)(16526019)(186003)(956004)(86362001)(1076003)(44832011)(5660300002)(6666004)(7696005)(6916009)(2616005)(81166006)(66476007)(66946007)(6486002)(8936002)(66556008)(4326008)(2906002)(81156014)(8676002)(478600001);
@@ -85,14 +83,14 @@ Received-SPF: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: CgQmxfarB5fkc/UFtXMIljPTGd4p1gA1XjZkrkXs74RCAhOS/a+9w40dI4yupE3hRHFGRyNLFbKu4GA77Fry8aTX4kmN9WujRmwrofjV6s2oLwSt7JBnE4GuM9vwxj59rxShpg/9eShnpsz2Hythv26Usmj24CQtxB6JR0paEouDYWIsVRbIjvNLHuSFn9/kAkTxPoxDWgCu3TD5MxN3apyah/gJwwZszcGaRaClJtLG5cpqAzrKY/Q+jKtrz+IdhEv1yaLtmkJ0X3wvAkRtuqbtE9NyiTggzL7UXb0V+dgoC2RGDDIWBi5Wk/2qkbb6DKfvleeQcQr6jJc1Txrf72lg0rcxrbYBHK3gfxRTW7Fo0wopGFo3Ro2prWfT9+4NVj4w0ez9GIn6w8YoxIqB82I79b2R8qDy1d2/GEPJsK5CNBCSm3vVVKRDMnLDbZTM
+X-Microsoft-Antispam-Message-Info: qmNTW0Ll9nX4rXmCNW/n9Bbs4m7wAPNlGQhRNBsZouJGVft4Pmqh/MRsLaObOG23+R1xjPzL2RgSQ2pTBdskbsAt34+EjMDwef3LUZavzv/m6dm6LWzrK4yPpWy2ob/H8qJavavotviA+/ih5KE6xK1gDkXoCQWpy1o8unU/wCTAEEO9Ssj02LbjJVKuKLQG1GnbIdY1qKcvvv7TYgC2BqW5bOlb9jPQYeqRT54JKOjJ75fT8XdsMHp07GukqycYVTmBey21le9TdkNbfdTfpbOdjwN0HjhZ7HFhEXJY4Qi3WaJgu5U83yGBWc9/Y/4Y9TFvJ4jh7vSzkcRQ1RAHQcfj1hR+rC9Lv0mwyTTt7Q1V2gm4/rRJky/olb7VRfmo7sJ4OyGLd1EHm09kQ68+CpTE+y2kjpTQ6QBl3Sm8goqTK534/TACT8vF+sTxpdqr
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8ea2b249-043b-4f3d-8adf-08d79560a7ee
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jan 2020 00:04:26.5910 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 208526a2-cdfa-4152-5de5-08d79560a74b
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jan 2020 00:04:25.3946 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 6pkclIODZaM9bi1boU64tOVYH22Uh1Tvhwh2QqbI4lnQA8HMnDfSOkUs38W1Eq6RX9AnXzvU90YxKq6DvChL2A==
+X-MS-Exchange-CrossTenant-UserPrincipalName: 0zGup6hplNCX4tzWEVFIoU8xq4683PzJJgDYLkdf4Tn1JWVGikJ+HuY3vvJaYocO7XjJwFgF1/hglhaO+zHEaA==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN6PR12MB2720
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -112,109 +110,135 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 [Why]
-TLB flush method has been deprecated using kfd2kgd interface.
-This implementation is now on the amdgpu_amdkfd API.
+Avoid reclaim filesystem while eviction lock is held called from
+MMU notifier.
 
 [How]
-TLB flush functions now implemented in amdgpu_amdkfd.
+Setting PF_MEMALLOC_NOFS flags while eviction mutex is locked.
+Using memalloc_nofs_save / memalloc_nofs_restore API.
 
-Change-Id: Ic51cccdfe6e71288d78da772b6e1b6ced72f8ef7
+Change-Id: I5531c9337836e7d4a430df3f16dcc82888e8018c
 Signed-off-by: Alex Sierra <alex.sierra@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c | 32 ++++++++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h |  2 ++
- drivers/gpu/drm/amd/amdkfd/kfd_process.c   |  8 ++++--
- 3 files changed, 39 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 40 +++++++++++++++++++++-----
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h |  6 +++-
+ 2 files changed, 38 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-index 88e10b956413..8609287620ea 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-@@ -628,6 +628,38 @@ bool amdgpu_amdkfd_is_kfd_vmid(struct amdgpu_device *adev, u32 vmid)
- 	return false;
- }
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+index b999b67ff57a..d6aba4f9df74 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+@@ -82,6 +82,32 @@ struct amdgpu_prt_cb {
+ 	struct dma_fence_cb cb;
+ };
  
-+int amdgpu_amdkfd_flush_gpu_tlb_vmid(struct kgd_dev *kgd, uint16_t vmid)
++/**
++ * vm eviction_lock can be taken in MMU notifiers. Make sure no reclaim-FS
++ * happens while holding this lock anywhere to prevent deadlocks when
++ * an MMU notifier runs in reclaim-FS context.
++ */
++static inline void amdgpu_vm_eviction_lock(struct amdgpu_vm *vm)
 +{
-+	struct amdgpu_device *adev = (struct amdgpu_device *)kgd;
++	mutex_lock(&vm->eviction_lock);
++	vm->saved_flags = memalloc_nofs_save();
++}
 +
-+	if (adev->family == AMDGPU_FAMILY_AI) {
-+		int i;
-+
-+		for (i = 0; i < adev->num_vmhubs; i++)
-+			amdgpu_gmc_flush_gpu_tlb(adev, vmid, i, 0);
-+	} else {
-+		amdgpu_gmc_flush_gpu_tlb(adev, vmid, AMDGPU_GFXHUB_0, 0);
++static inline int amdgpu_vm_eviction_trylock(struct amdgpu_vm *vm)
++{
++	if (mutex_trylock(&vm->eviction_lock)) {
++		vm->saved_flags = memalloc_nofs_save();
++		return 1;
 +	}
-+
 +	return 0;
 +}
 +
-+int amdgpu_amdkfd_flush_gpu_tlb_pasid(struct kgd_dev *kgd, uint16_t pasid)
++static inline void amdgpu_vm_eviction_unlock(struct amdgpu_vm *vm)
 +{
-+	struct amdgpu_device *adev = (struct amdgpu_device *)kgd;
-+	uint32_t flush_type = 0;
-+	bool all_hub = false;
-+
-+	if (adev->gmc.xgmi.num_physical_nodes &&
-+		adev->asic_type == CHIP_VEGA20)
-+		flush_type = 2;
-+
-+	if (adev->family == AMDGPU_FAMILY_AI)
-+		all_hub = true;
-+
-+	return amdgpu_gmc_flush_gpu_tlb_pasid(adev, pasid, flush_type, all_hub);
++	memalloc_nofs_restore(vm->saved_flags);
++	mutex_unlock(&vm->eviction_lock);
 +}
 +
- bool amdgpu_amdkfd_have_atomics_support(struct kgd_dev *kgd)
- {
- 	struct amdgpu_device *adev = (struct amdgpu_device *)kgd;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-index 069d5d230810..47b0f2957d1f 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-@@ -136,6 +136,8 @@ int amdgpu_amdkfd_submit_ib(struct kgd_dev *kgd, enum kgd_engine_type engine,
- 				uint32_t *ib_cmd, uint32_t ib_len);
- void amdgpu_amdkfd_set_compute_idle(struct kgd_dev *kgd, bool idle);
- bool amdgpu_amdkfd_have_atomics_support(struct kgd_dev *kgd);
-+int amdgpu_amdkfd_flush_gpu_tlb_vmid(struct kgd_dev *kgd, uint16_t vmid);
-+int amdgpu_amdkfd_flush_gpu_tlb_pasid(struct kgd_dev *kgd, uint16_t pasid);
- 
- bool amdgpu_amdkfd_is_kfd_vmid(struct amdgpu_device *adev, u32 vmid);
- 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-index 536a153ac9a4..25b90f70aecd 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-@@ -32,6 +32,7 @@
- #include <linux/mman.h>
- #include <linux/file.h>
- #include "amdgpu_amdkfd.h"
-+#include "amdgpu.h"
- 
- struct mm_struct;
- 
-@@ -1152,16 +1153,17 @@ int kfd_reserved_mem_mmap(struct kfd_dev *dev, struct kfd_process *process,
- void kfd_flush_tlb(struct kfd_process_device *pdd)
- {
- 	struct kfd_dev *dev = pdd->dev;
--	const struct kfd2kgd_calls *f2g = dev->kfd2kgd;
- 
- 	if (dev->dqm->sched_policy == KFD_SCHED_POLICY_NO_HWS) {
- 		/* Nothing to flush until a VMID is assigned, which
- 		 * only happens when the first queue is created.
- 		 */
- 		if (pdd->qpd.vmid)
--			f2g->invalidate_tlbs_vmid(dev->kgd, pdd->qpd.vmid);
-+			amdgpu_amdkfd_flush_gpu_tlb_vmid(dev->kgd,
-+							pdd->qpd.vmid);
- 	} else {
--		f2g->invalidate_tlbs(dev->kgd, pdd->process->pasid);
-+		amdgpu_amdkfd_flush_gpu_tlb_pasid(dev->kgd,
-+						pdd->process->pasid);
+ /**
+  * amdgpu_vm_level_shift - return the addr shift for each level
+  *
+@@ -678,9 +704,9 @@ int amdgpu_vm_validate_pt_bos(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+ 		}
  	}
+ 
+-	mutex_lock(&vm->eviction_lock);
++	amdgpu_vm_eviction_lock(vm);
+ 	vm->evicting = false;
+-	mutex_unlock(&vm->eviction_lock);
++	amdgpu_vm_eviction_unlock(vm);
+ 
+ 	return 0;
+ }
+@@ -1559,7 +1585,7 @@ static int amdgpu_vm_bo_update_mapping(struct amdgpu_device *adev,
+ 	if (!(flags & AMDGPU_PTE_VALID))
+ 		owner = AMDGPU_FENCE_OWNER_KFD;
+ 
+-	mutex_lock(&vm->eviction_lock);
++	amdgpu_vm_eviction_lock(vm);
+ 	if (vm->evicting) {
+ 		r = -EBUSY;
+ 		goto error_unlock;
+@@ -1576,7 +1602,7 @@ static int amdgpu_vm_bo_update_mapping(struct amdgpu_device *adev,
+ 	r = vm->update_funcs->commit(&params, fence);
+ 
+ error_unlock:
+-	mutex_unlock(&vm->eviction_lock);
++	amdgpu_vm_eviction_unlock(vm);
+ 	return r;
  }
  
+@@ -2537,18 +2563,18 @@ bool amdgpu_vm_evictable(struct amdgpu_bo *bo)
+ 		return false;
+ 
+ 	/* Try to block ongoing updates */
+-	if (!mutex_trylock(&bo_base->vm->eviction_lock))
++	if (!amdgpu_vm_eviction_trylock(bo_base->vm))
+ 		return false;
+ 
+ 	/* Don't evict VM page tables while they are updated */
+ 	if (!dma_fence_is_signaled(bo_base->vm->last_direct) ||
+ 	    !dma_fence_is_signaled(bo_base->vm->last_delayed)) {
+-		mutex_unlock(&bo_base->vm->eviction_lock);
++		amdgpu_vm_eviction_unlock(bo_base->vm);
+ 		return false;
+ 	}
+ 
+ 	bo_base->vm->evicting = true;
+-	mutex_unlock(&bo_base->vm->eviction_lock);
++	amdgpu_vm_eviction_unlock(bo_base->vm);
+ 	return true;
+ }
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+index 100547f094ff..c21a36bebc0c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+@@ -30,6 +30,7 @@
+ #include <drm/gpu_scheduler.h>
+ #include <drm/drm_file.h>
+ #include <drm/ttm/ttm_bo_driver.h>
++#include <linux/sched/mm.h>
+ 
+ #include "amdgpu_sync.h"
+ #include "amdgpu_ring.h"
+@@ -242,9 +243,12 @@ struct amdgpu_vm {
+ 	/* tree of virtual addresses mapped */
+ 	struct rb_root_cached	va;
+ 
+-	/* Lock to prevent eviction while we are updating page tables */
++	/* Lock to prevent eviction while we are updating page tables
++	 * use vm_eviction_lock/unlock(vm)
++	 */
+ 	struct mutex		eviction_lock;
+ 	bool			evicting;
++	unsigned int		saved_flags;
+ 
+ 	/* BOs who needs a validation */
+ 	struct list_head	evicted;
 -- 
 2.17.1
 
