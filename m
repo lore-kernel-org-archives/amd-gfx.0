@@ -7,55 +7,55 @@ X-Spam-Status: No, score=-9.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8673FC33CA2
-	for <amd-gfx@archiver.kernel.org>; Fri, 10 Jan 2020 00:43:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 31A69C282DD
+	for <amd-gfx@archiver.kernel.org>; Fri, 10 Jan 2020 00:44:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5D80A2075D
-	for <amd-gfx@archiver.kernel.org>; Fri, 10 Jan 2020 00:43:59 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 0842C2075D
+	for <amd-gfx@archiver.kernel.org>; Fri, 10 Jan 2020 00:44:00 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="FPgB+t42"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5D80A2075D
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="mFf5dPaZ"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0842C2075D
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C5EE86E985;
-	Fri, 10 Jan 2020 00:43:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2A8CF6E913;
+	Fri, 10 Jan 2020 00:43:53 +0000 (UTC)
 Received: from NAM04-CO1-obe.outbound.protection.outlook.com
  (mail-eopbgr690079.outbound.protection.outlook.com [40.107.69.79])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 95EE26E95A
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BD6636E987
  for <amd-gfx@lists.freedesktop.org>; Fri, 10 Jan 2020 00:43:51 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=kAw8eseHSoAvcsqUONB1OblmDouHwK9v+2HOZBAzML9W9khwaI7N+GtgIrCPhi9q54s7aTFTN5Ue2063c+/CiK6PWD03UjL/gbuxk5Z1lyYLkhYcn51ONrGiPGiGjEd2m5EgkPa0mH7xpzXqM0Azjl+srOXPmQ+W1ykSEy71PbArewPEuUyzfk8hso6e+H+NrbiyJBU9MF+yFZkk0aRyaaiabs7r8Qdc7j/sTXPRP9w9Fw/FKj2DflDWVWyvrW6OZ3aUqK2bAv3Ee9mp7nNiSXYPq7E8+C7IsYdN2xIOZ46578Q8p1x5vLNh6IHUDX709FC0Kk57Hxttph9UBzU+5g==
+ b=hTRB+v0KDzl3tx+5EziPc/GHJqXaik65R7fyh2YJ45W4ankhK8uZfKYzqGTAYccmGOw2xv1yRbqM4JbLek3lLNP6DvBrYgtEh8RjErzb8O/PbTLTyrr+56BkPplkbpHKoxDiEUoARgfbIyHV45fXpoPjxFtZNOBc3lVaI27Jm05mtE81bsquQXrUOKuok7FGvsXeyOcoEyxZnWrduTofbYmbiogaDViFwQbet58uvZcc48QXyYWGGw+Nj0PPoGseY6+9EzEe9LDOMZey00rDea5dua3E9j5B6X8jti+rosB6TDudrRscS0lUcxJiVW6MM/w7ZjYL2VHOdJdFJbNNsg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=33eQl4wi/zTsVeEhQeWK0lIvCIkvvFoT6vT/3UgR5LE=;
- b=W8TWcXMiQivvRHc5cmZFg9jyxLVzHj0cqfJfuBOQ6Q2v6yBMl9ImGybJSP0cvk3mYoOGkK59BF14/h/ON+IWVattIVXryaI/7Akz1e3CfLKWvBkVQCNipMnVeOAgElntV/RPSPF5fvBuMfRAbFNTf6zok+SsbNVBdKgBozVpk/QDsRiQzie9HRHKUi8+I9Jomwg3inPqzdpsvE5zxtI+SVZ70O/Tt1LioQaawvLN8qefDARVsMGq1oraJ5aVvD5u26qV8R0pskP67egS1t6cPLBAK/Njwl+NzFw02Hk33g8Obt9Dl0vBfu2pE3dxjWePT4P3EbHGWRJpjHfuiUHBFQ==
+ bh=X8kODPIQYPeOEscEHcvMaP05xaBqP8rX4nG8Og6vUcY=;
+ b=DaVHIFvO40ApE5s2X2cyH64hxxabL9zrdOu/SLsc+IGhrloJLDVeqwMJm/30nxwfEyJPco1yNKW9HTqSj53/OPmM+F2jP/CRb2rdR+jJ8jolBstT/uXCoKGzJBmEarJkMlZyMGQcK4XCH8pQuG+fWJkZVV3ciTfdZI6CBRhP3wYgnUuEDY3tbFhinM6MSdECJvdB0WIz9aXeWPQXXyh/RabUzzNzUh0lMgEpakXvFuOU1VsqEKW88y5aWu4Zo/N/tv3kINmzurNusl21g5F+ZLEvQJ7J+9zpG3veYFGzD2ILn3xbNRJ6YIRd4QxAZqkKjmpgzB99fImq2Wf23YJR8g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=33eQl4wi/zTsVeEhQeWK0lIvCIkvvFoT6vT/3UgR5LE=;
- b=FPgB+t4282ZchJ4dxuPuO1CiX5klG5mt2va9Ykla3Zb6LZHRbrvbv6qHcf/yPrxQnediwHWYZpZRrxV3lJ1KuDdzmoL8clmL+E0UX+ad+rN0uwzmsnIkz0zlpvUf+RcXpWeNjNxRyYY+DtplaGqMuDae43/uCzWvPCNjRgAtEvQ=
+ bh=X8kODPIQYPeOEscEHcvMaP05xaBqP8rX4nG8Og6vUcY=;
+ b=mFf5dPaZgh3BGI4glpqx0Vf1SRiOPa81M3iNbUEOId4YtwlXQQS9QV2vr3V24Bj9holsHhtv0wQpbNJhqcdG5xfp5KACWzYOcl+8Kj9KDwegjBHNFvFi5r2Ez1MOdnbMXJwagl3IHRJr0hQ4HLR7I3KHF2WOlXE1lyNNZrKYdSo=
 Authentication-Results: spf=none (sender IP is )
  smtp.mailfrom=Alex.Sierra@amd.com; 
 Received: from SN6PR12MB2621.namprd12.prod.outlook.com (52.135.105.15) by
  SN6PR12MB2672.namprd12.prod.outlook.com (52.135.103.25) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2623.9; Fri, 10 Jan 2020 00:43:50 +0000
+ 15.20.2623.9; Fri, 10 Jan 2020 00:43:51 +0000
 Received: from SN6PR12MB2621.namprd12.prod.outlook.com
  ([fe80::8923:17de:add5:1490]) by SN6PR12MB2621.namprd12.prod.outlook.com
  ([fe80::8923:17de:add5:1490%6]) with mapi id 15.20.2623.008; Fri, 10 Jan 2020
- 00:43:50 +0000
+ 00:43:51 +0000
 From: Alex Sierra <alex.sierra@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 6/8] drm/amdgpu: implement tlbs invalidate on gfx9 gfx10
-Date: Thu,  9 Jan 2020 18:43:33 -0600
-Message-Id: <20200110004335.113095-6-alex.sierra@amd.com>
+Subject: [PATCH 7/8] drm/amdgpu: tlbs invalidate replaced by kiq_pm4_funcs
+Date: Thu,  9 Jan 2020 18:43:34 -0600
+Message-Id: <20200110004335.113095-7-alex.sierra@amd.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20200110004335.113095-1-alex.sierra@amd.com>
 References: <20200110004335.113095-1-alex.sierra@amd.com>
@@ -72,11 +72,11 @@ X-Mailer: git-send-email 2.17.1
 X-Originating-IP: [165.204.77.1]
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: f1caf295-699d-4cd4-8d7a-08d7956628ee
+X-MS-Office365-Filtering-Correlation-Id: b3b46d2a-37d4-4c2f-a209-08d79566293c
 X-MS-TrafficTypeDiagnostic: SN6PR12MB2672:|SN6PR12MB2672:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <SN6PR12MB2672BCE04B9D7669045E4AEAFD380@SN6PR12MB2672.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:243;
+X-Microsoft-Antispam-PRVS: <SN6PR12MB2672A2E055AD88EF29071406FD380@SN6PR12MB2672.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:635;
 X-Forefront-PRVS: 02788FF38E
 X-Forefront-Antispam-Report: SFV:NSPM;
  SFS:(10009020)(4636009)(136003)(346002)(39860400002)(396003)(376002)(366004)(199004)(189003)(8936002)(26005)(5660300002)(7696005)(316002)(86362001)(1076003)(186003)(2616005)(16526019)(956004)(44832011)(2906002)(36756003)(52116002)(66556008)(478600001)(66476007)(6916009)(6666004)(6486002)(66946007)(4326008)(81156014)(81166006)(8676002);
@@ -87,14 +87,14 @@ Received-SPF: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: FBrDUE3137EwVz589RRJ1HeQJ9FpPb6IZhCIsixHpE3VKm2KHhxKmniSkzEaJ3Y1myizhIEod3jQoq0w9qls92LqzwkmEK3ss+xGk1/72ImcRoJYx8ZGLVAixqN/AOD1MtqTXp7g1J6cq3sAoSUQafpAancJrWcIMGqCEQ6W3NtkjZuDSuXtmhO/XISVfGpDVwbZvC0L9LDWh48FjRvlgzqo0LD21k09zTUS1aEFj4pysc53CWgScTG1JgdwFcpxwGHcWKqudw/rRXntHws7FGTuMzQ7O5t0JMLam/WQHrinhziH4SEYxRGxXr74KfdnRFAiiUnJL6/DGa+LsQXeP3pqSjg/DagpFpY6JyHbivYbCdJyC+6bOyNMxFyyID9LikRBa/03rVSXS+LOVdjGLBXbOc5m6lgA3fY4EcOK+PclyezBNcrjzDAQ4z94MAw2
+X-Microsoft-Antispam-Message-Info: 8Hsne2qMpWj8wEvDql1+2w8Ql96pKw1yRoQ/o0qtbFqMfrFnusY5Wkf1ggLezGzIKSHUOynEr4fqPUxBqxyFkWlxUaGOHw1Q6UT7cGgy3W/+Uy/YGrZ8aElZSwktegg56PJ6vQidtsGbA3nUIAbqxyYENN4fQ+lE017C8UvKemW6zvlx+9vR1U/cyG+UEnqSAq2LouVY+8Hchba36KdOEZYaesPsLq3ELtm4sldv3K+yFNSwCnwpTguGJoDxUY/lJEuGjLRyAYX826UTyxTm6nAkEZNF0y1OcI+rDu9Hbe/D3q/u94UWnyKjptNhoImDtLJcEi6h5U2KoiOVU6y+XFiRc+ip9dgNLBIOUoY48p4MTgvH+PYezPPPms4eFvDYKST+BMC+KcPe6cLBBLRkUoxuGuoa+CE4/JFDoKNqx+gvzCs0mdNg8fSC+UKj3w0o
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f1caf295-699d-4cd4-8d7a-08d7956628ee
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jan 2020 00:43:50.3958 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b3b46d2a-37d4-4c2f-a209-08d79566293c
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jan 2020 00:43:50.9675 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ROw9mPFAdSMW4Rj5Cf92gb0BVIatu2cHlLdy23YTmIu9VLAe660TscW2tHlw3weGagPGmNIVpZj8ttGokojVyQ==
+X-MS-Exchange-CrossTenant-UserPrincipalName: NxuN8xqS9vEjOtwe5kFC7xKqbPvbje8nePzm1qyYWTwI1MTIxI0YUmb88q+bl+Mbx1dv6OUnD6pwpnEmwlwhgg==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN6PR12MB2672
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -113,150 +113,123 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-tlbs invalidate pointer function added to kiq_pm4_funcs struct.
-This way, tlb flush can be done through kiq member.
-TLBs invalidatation implemented for gfx9 and gfx10.
+TLBs invalidation was removed from gmc_v9 and gmc_v10 files.
+This implementation has been moved to kiq_pm4_funcs calls.
 
-Change-Id: I1b77b364f3ae0038ff3e70e869be5f2ef6e6d293
+Change-Id: I66463e2e5fdf7611ef4a802eb517ae0d269987c3
 Signed-off-by: Alex Sierra <alex.sierra@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h |  4 +++
- drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c  | 33 +++++++++++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c   | 32 ++++++++++++++++++++++++
- 3 files changed, 69 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c | 32 ++------------------------
+ drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c  | 32 ++------------------------
+ 2 files changed, 4 insertions(+), 60 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-index 8e88e0411662..2927837bd401 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-@@ -76,11 +76,15 @@ struct kiq_pm4_funcs {
- 					struct amdgpu_ring *ring,
- 					u64 addr,
- 					u64 seq);
-+	int (*kiq_invalidate_tlbs)(struct amdgpu_ring *kiq_ring,
-+				uint16_t pasid, uint32_t flush_type,
-+				bool all_hub);
- 	/* Packet sizes */
- 	int set_resources_size;
- 	int map_queues_size;
- 	int unmap_queues_size;
- 	int query_status_size;
-+	int invalidate_tlbs_size;
- };
- 
- struct amdgpu_kiq {
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-index 379e46c1b7f6..2e82213f57eb 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-@@ -40,6 +40,7 @@
- #include "ivsrcid/gfx/irqsrcs_gfx_10_1.h"
- 
- #include "soc15.h"
-+#include "soc15d.h"
- #include "soc15_common.h"
- #include "clearstate_gfx10.h"
- #include "v10_structs.h"
-@@ -346,15 +347,47 @@ static void gfx10_kiq_query_status(struct amdgpu_ring *kiq_ring,
- 	amdgpu_ring_write(kiq_ring, upper_32_bits(seq));
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+index 8cf34c7bd416..09408b8b390f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+@@ -250,35 +250,6 @@ static bool gmc_v10_0_get_atc_vmid_pasid_mapping_info(
+ 	return !!(value & ATC_VMID0_PASID_MAPPING__VALID_MASK);
  }
  
-+static int gfx10_kiq_invalidate_tlbs(struct amdgpu_ring *kiq_ring,
-+				uint16_t pasid, uint32_t flush_type,
-+				bool all_hub)
-+{
-+	signed long r;
-+	uint32_t seq;
-+	struct amdgpu_device *adev = kiq_ring->adev;
+-static int gmc_v10_0_invalidate_tlbs_with_kiq(struct amdgpu_device *adev,
+-					uint16_t pasid, uint32_t flush_type,
+-					bool all_hub)
+-{
+-	signed long r;
+-	uint32_t seq;
+-	struct amdgpu_ring *ring = &adev->gfx.kiq.ring;
+-
+-	spin_lock(&adev->gfx.kiq.ring_lock);
+-	amdgpu_ring_alloc(ring, 12); /* fence + invalidate_tlbs package*/
+-	amdgpu_ring_write(ring, PACKET3(PACKET3_INVALIDATE_TLBS, 0));
+-	amdgpu_ring_write(ring,
+-			PACKET3_INVALIDATE_TLBS_DST_SEL(1) |
+-			PACKET3_INVALIDATE_TLBS_ALL_HUB(all_hub) |
+-			PACKET3_INVALIDATE_TLBS_PASID(pasid) |
+-			PACKET3_INVALIDATE_TLBS_FLUSH_TYPE(flush_type));
+-	amdgpu_fence_emit_polling(ring, &seq);
+-	amdgpu_ring_commit(ring);
+-	spin_unlock(&adev->gfx.kiq.ring_lock);
+-
+-	r = amdgpu_fence_wait_polling(ring, seq, adev->usec_timeout);
+-	if (r < 1) {
+-		DRM_ERROR("wait for kiq fence error: %ld.\n", r);
+-		return -ETIME;
+-	}
+-
+-	return 0;
+-}
+-
+ /*
+  * GART
+  * VMID 0 is the physical GPU addresses as used by the kernel.
+@@ -441,9 +412,10 @@ static int gmc_v10_0_flush_gpu_tlb_pasid(struct amdgpu_device *adev,
+ 	uint16_t queried_pasid;
+ 	bool ret;
+ 	struct amdgpu_ring *ring = &adev->gfx.kiq.ring;
 +	struct amdgpu_kiq *kiq = &adev->gfx.kiq;
-+
-+	spin_lock(&adev->gfx.kiq.ring_lock);
-+	amdgpu_ring_alloc(kiq_ring, kiq->pmf->invalidate_tlbs_size);
-+	amdgpu_ring_write(kiq_ring, PACKET3(PACKET3_INVALIDATE_TLBS, 0));
-+	amdgpu_ring_write(kiq_ring,
-+			PACKET3_INVALIDATE_TLBS_DST_SEL(1) |
-+			PACKET3_INVALIDATE_TLBS_ALL_HUB(all_hub) |
-+			PACKET3_INVALIDATE_TLBS_PASID(pasid) |
-+			PACKET3_INVALIDATE_TLBS_FLUSH_TYPE(flush_type));
-+	amdgpu_fence_emit_polling(kiq_ring, &seq);
-+	amdgpu_ring_commit(kiq_ring);
-+	spin_unlock(&adev->gfx.kiq.ring_lock);
-+
-+	r = amdgpu_fence_wait_polling(kiq_ring, seq, adev->usec_timeout);
-+	if (r < 1) {
-+		DRM_ERROR("wait for kiq fence error: %ld.\n", r);
-+		return -ETIME;
-+	}
-+
-+	return 0;
-+}
-+
- static const struct kiq_pm4_funcs gfx_v10_0_kiq_pm4_funcs = {
- 	.kiq_set_resources = gfx10_kiq_set_resources,
- 	.kiq_map_queues = gfx10_kiq_map_queues,
- 	.kiq_unmap_queues = gfx10_kiq_unmap_queues,
- 	.kiq_query_status = gfx10_kiq_query_status,
-+	.kiq_invalidate_tlbs = gfx10_kiq_invalidate_tlbs,
- 	.set_resources_size = 8,
- 	.map_queues_size = 7,
- 	.unmap_queues_size = 6,
- 	.query_status_size = 7,
-+	.invalidate_tlbs_size = 12,
- };
  
- static void gfx_v10_0_set_kiq_pm4_funcs(struct amdgpu_device *adev)
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-index d48bfae3e083..c726aa454bca 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-@@ -837,15 +837,47 @@ static void gfx_v9_0_kiq_query_status(struct amdgpu_ring *kiq_ring,
- 	amdgpu_ring_write(kiq_ring, upper_32_bits(seq));
+ 	if (amdgpu_emu_mode == 0 && ring->sched.ready)
+-		return gmc_v10_0_invalidate_tlbs_with_kiq(adev,
++		return kiq->pmf->kiq_invalidate_tlbs(ring,
+ 						pasid, flush_type, all_hub);
+ 
+ 	for (vmid = 1; vmid < 16; vmid++) {
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+index 7cc6f305bfa8..670b2b62789b 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+@@ -455,35 +455,6 @@ static bool gmc_v9_0_get_atc_vmid_pasid_mapping_info(struct amdgpu_device *adev,
+ 	return !!(value & ATC_VMID0_PASID_MAPPING__VALID_MASK);
  }
  
-+static int gfx_v9_0_kiq_invalidate_tlbs(struct amdgpu_ring *kiq_ring,
-+				uint16_t pasid, uint32_t flush_type,
-+				bool all_hub)
-+{
-+	signed long r;
-+	uint32_t seq;
-+	struct amdgpu_device *adev = kiq_ring->adev;
+-static int gmc_v9_0_invalidate_tlbs_with_kiq(struct amdgpu_device *adev,
+-				uint16_t pasid, uint32_t flush_type,
+-				bool all_hub)
+-{
+-	signed long r;
+-	uint32_t seq;
+-	struct amdgpu_ring *ring = &adev->gfx.kiq.ring;
+-
+-	spin_lock(&adev->gfx.kiq.ring_lock);
+-	amdgpu_ring_alloc(ring, 12); /* fence + invalidate_tlbs package*/
+-	amdgpu_ring_write(ring, PACKET3(PACKET3_INVALIDATE_TLBS, 0));
+-	amdgpu_ring_write(ring,
+-			PACKET3_INVALIDATE_TLBS_DST_SEL(1) |
+-			PACKET3_INVALIDATE_TLBS_ALL_HUB(all_hub) |
+-			PACKET3_INVALIDATE_TLBS_PASID(pasid) |
+-			PACKET3_INVALIDATE_TLBS_FLUSH_TYPE(flush_type));
+-	amdgpu_fence_emit_polling(ring, &seq);
+-	amdgpu_ring_commit(ring);
+-	spin_unlock(&adev->gfx.kiq.ring_lock);
+-
+-	r = amdgpu_fence_wait_polling(ring, seq, adev->usec_timeout);
+-	if (r < 1) {
+-		DRM_ERROR("wait for kiq fence error: %ld.\n", r);
+-		return -ETIME;
+-	}
+-
+-	return 0;
+-}
+-
+ /*
+  * GART
+  * VMID 0 is the physical GPU addresses as used by the kernel.
+@@ -598,12 +569,13 @@ static int gmc_v9_0_flush_gpu_tlb_pasid(struct amdgpu_device *adev,
+ 	uint16_t queried_pasid;
+ 	bool ret;
+ 	struct amdgpu_ring *ring = &adev->gfx.kiq.ring;
 +	struct amdgpu_kiq *kiq = &adev->gfx.kiq;
-+
-+	spin_lock(&adev->gfx.kiq.ring_lock);
-+	amdgpu_ring_alloc(kiq_ring, kiq->pmf->invalidate_tlbs_size);
-+	amdgpu_ring_write(kiq_ring, PACKET3(PACKET3_INVALIDATE_TLBS, 0));
-+	amdgpu_ring_write(kiq_ring,
-+			PACKET3_INVALIDATE_TLBS_DST_SEL(1) |
-+			PACKET3_INVALIDATE_TLBS_ALL_HUB(all_hub) |
-+			PACKET3_INVALIDATE_TLBS_PASID(pasid) |
-+			PACKET3_INVALIDATE_TLBS_FLUSH_TYPE(flush_type));
-+	amdgpu_fence_emit_polling(kiq_ring, &seq);
-+	amdgpu_ring_commit(kiq_ring);
-+	spin_unlock(&adev->gfx.kiq.ring_lock);
-+
-+	r = amdgpu_fence_wait_polling(kiq_ring, seq, adev->usec_timeout);
-+	if (r < 1) {
-+		DRM_ERROR("wait for kiq fence error: %ld.\n", r);
-+		return -ETIME;
-+	}
-+
-+	return 0;
-+}
-+
- static const struct kiq_pm4_funcs gfx_v9_0_kiq_pm4_funcs = {
- 	.kiq_set_resources = gfx_v9_0_kiq_set_resources,
- 	.kiq_map_queues = gfx_v9_0_kiq_map_queues,
- 	.kiq_unmap_queues = gfx_v9_0_kiq_unmap_queues,
- 	.kiq_query_status = gfx_v9_0_kiq_query_status,
-+	.kiq_invalidate_tlbs = gfx_v9_0_kiq_invalidate_tlbs,
- 	.set_resources_size = 8,
- 	.map_queues_size = 7,
- 	.unmap_queues_size = 6,
- 	.query_status_size = 7,
-+	.invalidate_tlbs_size = 12,
- };
  
- static void gfx_v9_0_set_kiq_pm4_funcs(struct amdgpu_device *adev)
+ 	if (adev->in_gpu_reset)
+ 		return -EIO;
+ 
+ 	if (ring->sched.ready)
+-		return gmc_v9_0_invalidate_tlbs_with_kiq(adev,
++		return kiq->pmf->kiq_invalidate_tlbs(ring,
+ 						pasid, flush_type, all_hub);
+ 
+ 	for (vmid = 1; vmid < 16; vmid++) {
 -- 
 2.17.1
 
