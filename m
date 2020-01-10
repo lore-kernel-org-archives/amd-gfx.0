@@ -2,77 +2,55 @@ Return-Path: <SRS0=i8pd=27=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-7.8 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-6.8 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 840B2C33CA2
-	for <amd-gfx@archiver.kernel.org>; Fri, 10 Jan 2020 11:29:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5122EC33CA2
+	for <amd-gfx@archiver.kernel.org>; Fri, 10 Jan 2020 11:59:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 50E882072E
-	for <amd-gfx@archiver.kernel.org>; Fri, 10 Jan 2020 11:29:54 +0000 (UTC)
-Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dcgCECLG"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 50E882072E
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 30EC42072A
+	for <amd-gfx@archiver.kernel.org>; Fri, 10 Jan 2020 11:59:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 30EC42072A
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E6A236E9CD;
-	Fri, 10 Jan 2020 11:29:53 +0000 (UTC)
-Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com
- [IPv6:2a00:1450:4864:20::444])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F18C06E9CD
- for <amd-gfx@lists.freedesktop.org>; Fri, 10 Jan 2020 11:29:51 +0000 (UTC)
-Received: by mail-wr1-x444.google.com with SMTP id d16so1444499wre.10
- for <amd-gfx@lists.freedesktop.org>; Fri, 10 Jan 2020 03:29:51 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=reply-to:subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-transfer-encoding:content-language;
- bh=GkykaostqZnp6INpGWMUTYjURcyoJpOoGMKisbRhJBw=;
- b=dcgCECLG2y8E2LYekJs7F5w0kytZfFliGF7p1sXNtjvBidiMerdHxIbfXJ5+dqQNib
- Qqk/lRXZIhwdMHH3mRUmNTjO02b5HXjMydFBSaAnfkGm4/37m2mZ5CH8gQKumgkcYITO
- jWN+BVzTeUMK9D424uWePmqPhzgQ6D7ZMJQ9itLk6CpiRGQdgadYzdgStntKeo6tRPnz
- YzNWlWZg0ryTUYrG8ah8WWQ+qU5FnbuU7vpA/Kf1I4UGt2FEYZnbr421nfD2u5+Ci0u5
- +KtdpntOFTbNDR5xPvwTbW/38SFaOqh1pOyndgSUXXzaldyd/sW5Y/E50itE7FWl/UQF
- NWgA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:reply-to:subject:to:cc:references:from
- :message-id:date:user-agent:mime-version:in-reply-to
- :content-transfer-encoding:content-language;
- bh=GkykaostqZnp6INpGWMUTYjURcyoJpOoGMKisbRhJBw=;
- b=LSkMBg6wUeVSMQ4+D3eJRG+sxsVl4kVdE+kz7B7AoQzIqe73/hHJs2z+zzRKdrgImR
- LmiuT8h6Xm1AW7IROAbmiuiBZVICBVbyzMZpCQIjfqh8cXRzc0xcVe4vwGMKFqTJhgh3
- yXIyTLvBnle4YgvUhZOG4q5s1ue+IdcIO0MCzKfpocdOqhyaIt8bhd7KqOrAAVMcuPdS
- d3G9jZmmzn9fDGVGA7/92QLB4FJaIFlgOR8ox3pyYhE0wa4ZW7bXZq1aOsgZ7eR8x8JK
- Bxt5CDAZwa2Lk6JTxiA6NTW8CI5GjcMSEPq/I6gs5O0wr+DCCz7jidFoSsRe1Ua6K28t
- mz7Q==
-X-Gm-Message-State: APjAAAV2p9I+oFrdJgLvIkY0suQ/2ezb1kb1Nxv4Czmr6rg81InRaNCx
- XIe6Vz22bnWP5/2R4a+MtQw=
-X-Google-Smtp-Source: APXvYqy+maLkwVtZg/0ldJRBO5PoM1YM5hiSxbiua17lgVwpQfvE5qH4mAAPKX72F4KcY9U0JKXOMw==
-X-Received: by 2002:adf:cf06:: with SMTP id o6mr2984100wrj.349.1578655790643; 
- Fri, 10 Jan 2020 03:29:50 -0800 (PST)
-Received: from ?IPv6:2a02:908:1252:fb60:be8a:bd56:1f94:86e7?
- ([2a02:908:1252:fb60:be8a:bd56:1f94:86e7])
- by smtp.gmail.com with ESMTPSA id i16sm1965119wmb.36.2020.01.10.03.29.49
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Fri, 10 Jan 2020 03:29:50 -0800 (PST)
-Subject: Re: [PATCH] drm/amdgpu: fix modprobe failure of the secondary GPU
- when GDDR6 training enabled(V4)
-To: Tianci Yin <tianci.yin@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20200110053010.29132-1-tianci.yin@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Message-ID: <f6e5bdb4-5cc7-7411-4139-77d26ac72b34@gmail.com>
-Date: Fri, 10 Jan 2020 12:29:48 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.9.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 979C36E9DF;
+	Fri, 10 Jan 2020 11:59:17 +0000 (UTC)
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F142D6E9D9;
+ Fri, 10 Jan 2020 11:59:15 +0000 (UTC)
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 10 Jan 2020 03:59:15 -0800
+X-IronPort-AV: E=Sophos;i="5.69,416,1571727600"; d="scan'208";a="396419144"
+Received: from jnikula-mobl3.fi.intel.com (HELO localhost) ([10.237.66.161])
+ by orsmga005-auth.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 10 Jan 2020 03:59:04 -0800
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Thomas Zimmermann <tzimmermann@suse.de>, airlied@linux.ie, daniel@ffwll.ch,
+ alexander.deucher@amd.com, christian.koenig@amd.com, David1.Zhou@amd.com,
+ maarten.lankhorst@linux.intel.com, patrik.r.jakobsson@gmail.com,
+ robdclark@gmail.com, sean@poorly.run, benjamin.gaignard@linaro.org,
+ vincent.abriou@st.com, yannick.fertre@st.com, philippe.cornu@st.com,
+ mcoquelin.stm32@gmail.com, alexandre.torgue@st.com, eric@anholt.net,
+ rodrigosiqueiramelo@gmail.com, hamohammed.sa@gmail.com,
+ linux-graphics-maintainer@vmware.com, thellstrom@vmware.com,
+ bskeggs@redhat.com, harry.wentland@amd.com, sunpeng.li@amd.com,
+ joonas.lahtinen@linux.intel.com, rodrigo.vivi@intel.com
+Subject: Re: [PATCH 03/23] drm/i915: Don't use struct
+ drm_driver.get_scanout_position()
+In-Reply-To: <20200110092127.27847-4-tzimmermann@suse.de>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+References: <20200110092127.27847-1-tzimmermann@suse.de>
+ <20200110092127.27847-4-tzimmermann@suse.de>
+Date: Fri, 10 Jan 2020 13:59:01 +0200
+Message-ID: <87eew7o73u.fsf@intel.com>
 MIME-Version: 1.0
-In-Reply-To: <20200110053010.29132-1-tianci.yin@amd.com>
-Content-Language: en-US
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,77 +62,226 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: christian.koenig@amd.com
-Cc: Long Gang <Gang.Long@amd.com>, Feifei Xu <Feifei.Xu@amd.com>,
- Kevin Wang <Kevin1.Wang@amd.com>, Tuikov Luben <Luben.Tuikov@amd.com>,
- Deucher Alexander <Alexander.Deucher@amd.com>,
- Xiaojie Yuan <xiaojie.yuan@amd.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- Hawking Zhang <Hawking.Zhang@amd.com>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Cc: linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ Thomas Zimmermann <tzimmermann@suse.de>, nouveau@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-QW0gMTAuMDEuMjAgdW0gMDY6MzAgc2NocmllYiBUaWFuY2kgWWluOgo+IEZyb206ICJUaWFuY2ku
-WWluIiA8dGlhbmNpLnlpbkBhbWQuY29tPgo+Cj4gW3doeV0KPiBJbiBkdWFsIEdQVXMgc2NlbmFy
-aW8sIHN0b2xlbl9zaXplIGlzIGFzc2lnbmVkIHRvIHplcm8gb24gdGhlIHNlY29uZGFyeSBHUFUs
-Cj4gc2luY2UgdGhlcmUgaXMgbm8gcHJlLU9TIGNvbnNvbGUgdXNpbmcgdGhhdCBtZW1vcnkuIFRo
-ZW4gdGhlIGJvdHRvbSByZWdpb24gb2YKPiBWUkFNIHdhcyBhbGxvY2F0ZWQgYXMgR1RULCB1bmZv
-cnR1bmF0ZWx5IGEgc21hbGwgcmVnaW9uIG9mIGJvdHRvbSBWUkFNIHdhcwo+IGVuY3JvYWNoZWQg
-YnkgVU1DIGZpcm13YXJlIGR1cmluZyBHRERSNiBCSVNUIHRyYWluaW5nLCB0aGlzIGNhdXNlIHBh
-Z2UgZmF1bHQuCj4KPiBbaG93XQo+IEZvcmNpbmcgc3RvbGVuX3NpemUgdG8gM01CLCB0aGVuIHRo
-ZSBib3R0b20gcmVnaW9uIG9mIFZSQU0gd2FzCj4gYWxsb2NhdGVkIGFzIHN0b2xlbiBtZW1vcnks
-IEdUVCBjb3JydXB0aW9uIGF2b2lkLgo+Cj4gQ2hhbmdlLUlkOiBJMzEwYTcyYmEwNDAyOTk0ZGVm
-YmU1MDgzOTg0MmE4ZWRiMDI1YTg2OAo+IFNpZ25lZC1vZmYtYnk6IFRpYW5jaS5ZaW4gPHRpYW5j
-aS55aW5AYW1kLmNvbT4KClJldmlld2VkLWJ5OiBDaHJpc3RpYW4gS8O2bmlnIDxjaHJpc3RpYW4u
-a29lbmlnQGFtZC5jb20+Cgo+IC0tLQo+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
-Z3B1X2dtYy5oIHwgIDUgKysrKysKPiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192
-MTBfMC5jICB8IDI3ICsrKysrKysrKysrKysrKysrKysrKysrKy0KPiAgIDIgZmlsZXMgY2hhbmdl
-ZCwgMzEgaW5zZXJ0aW9ucygrKSwgMSBkZWxldGlvbigtKQo+Cj4gZGlmZiAtLWdpdCBhL2RyaXZl
-cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9nbWMuaCBiL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-YW1kZ3B1L2FtZGdwdV9nbWMuaAo+IGluZGV4IGM5MWRkNjAyZDVmMS4uZTRiMmY5YmNhZWI3IDEw
-MDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9nbWMuaAo+ICsr
-KyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9nbWMuaAo+IEBAIC02MCw2ICs2
-MCwxMSBAQAo+ICAgICovCj4gICAjZGVmaW5lIEFNREdQVV9HTUNfRkFVTFRfVElNRU9VVAk1MDAw
-VUxMCj4gICAKPiArLyoKPiArICogRGVmYXVsdCBzdG9sZW4gbWVtb3J5IHNpemUsIDEwMjQgKiA3
-NjggKiA0Cj4gKyAqLwo+ICsjZGVmaW5lIEFNREdQVV9TVE9MRU5fVkdBX0RFRkFVTFRfU0laRQkw
-eDMwMDAwMFVMTAo+ICsKPiAgIHN0cnVjdCBmaXJtd2FyZTsKPiAgIAo+ICAgLyoKPiBkaWZmIC0t
-Z2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ21jX3YxMF8wLmMgYi9kcml2ZXJzL2dw
-dS9kcm0vYW1kL2FtZGdwdS9nbWNfdjEwXzAuYwo+IGluZGV4IDVhZDg5YmI2ZjNiYS4uMTQ5NjFm
-MWViZmFiIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192MTBf
-MC5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ21jX3YxMF8wLmMKPiBAQCAt
-NTY2LDcgKzU2NiwxMiBAQCBzdGF0aWMgaW50IGdtY192MTBfMF9sYXRlX2luaXQodm9pZCAqaGFu
-ZGxlKQo+ICAgCXN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2ID0gKHN0cnVjdCBhbWRncHVfZGV2
-aWNlICopaGFuZGxlOwo+ICAgCWludCByOwo+ICAgCj4gLQlhbWRncHVfYm9fbGF0ZV9pbml0KGFk
-ZXYpOwo+ICsJLyoKPiArCSAqIENhbid0IGZyZWUgdGhlIHN0b2xlbiBWR0EgbWVtb3J5IHdoZW4g
-aXQgbWlnaHQgYmUgdXNlZCBmb3IgbWVtb3J5Cj4gKwkgKiB0cmFpbmluZyBhZ2Fpbi4KPiArCSAq
-Lwo+ICsJaWYgKCFhZGV2LT5md192cmFtX3VzYWdlLm1lbV90cmFpbl9zdXBwb3J0KQo+ICsJCWFt
-ZGdwdV9ib19sYXRlX2luaXQoYWRldik7Cj4gICAKPiAgIAlyID0gYW1kZ3B1X2dtY19hbGxvY2F0
-ZV92bV9pbnZfZW5nKGFkZXYpOwo+ICAgCWlmIChyKQo+IEBAIC03NTAsNiArNzU1LDE5IEBAIHN0
-YXRpYyBpbnQgZ21jX3YxMF8wX3N3X2luaXQodm9pZCAqaGFuZGxlKQo+ICAgCj4gICAJYWRldi0+
-Z21jLnN0b2xlbl9zaXplID0gZ21jX3YxMF8wX2dldF92Ymlvc19mYl9zaXplKGFkZXYpOwo+ICAg
-Cj4gKwkvKgo+ICsJICogSW4gZHVhbCBHUFVzIHNjZW5hcmlvLCBzdG9sZW5fc2l6ZSBpcyBhc3Np
-Z25lZCB0byB6ZXJvIG9uIHRoZQo+ICsJICogc2Vjb25kYXJ5IEdQVSwgc2luY2UgdGhlcmUgaXMg
-bm8gcHJlLU9TIGNvbnNvbGUgdXNpbmcgdGhhdCBtZW1vcnkuCj4gKwkgKiBUaGVuIHRoZSBib3R0
-b20gcmVnaW9uIG9mIFZSQU0gd2FzIGFsbG9jYXRlZCBhcyBHVFQsIHVuZm9ydHVuYXRlbHkgYQo+
-ICsJICogc21hbGwgcmVnaW9uIG9mIGJvdHRvbSBWUkFNIHdhcyBlbmNyb2FjaGVkIGJ5IFVNQyBm
-aXJtd2FyZSBkdXJpbmcKPiArCSAqIEdERFI2IEJJU1QgdHJhaW5pbmcsIHRoaXMgY2F1c2UgcGFn
-ZSBmYXVsdC4KPiArCSAqIFRoZSBwYWdlIGZhdWx0IGNhbiBiZSBmaXhlZCBieSBmb3JjaW5nIHN0
-b2xlbl9zaXplIHRvIDNNQiwgdGhlbiB0aGUKPiArCSAqIGJvdHRvbSByZWdpb24gb2YgVlJBTSB3
-YXMgYWxsb2NhdGVkIGFzIHN0b2xlbiBtZW1vcnksIEdUVCBjb3JydXB0aW9uCj4gKwkgKiBhdm9p
-ZC4KPiArCSAqLwo+ICsJYWRldi0+Z21jLnN0b2xlbl9zaXplID0gbWF4KGFkZXYtPmdtYy5zdG9s
-ZW5fc2l6ZSwKPiArCQkJCSAgICBBTURHUFVfU1RPTEVOX1ZHQV9ERUZBVUxUX1NJWkUpOwo+ICsK
-PiAgIAkvKiBNZW1vcnkgbWFuYWdlciAqLwo+ICAgCXIgPSBhbWRncHVfYm9faW5pdChhZGV2KTsK
-PiAgIAlpZiAocikKPiBAQCAtNzg5LDYgKzgwNywxMyBAQCBzdGF0aWMgdm9pZCBnbWNfdjEwXzBf
-Z2FydF9maW5pKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQo+ICAgc3RhdGljIGludCBnbWNf
-djEwXzBfc3dfZmluaSh2b2lkICpoYW5kbGUpCj4gICB7Cj4gICAJc3RydWN0IGFtZGdwdV9kZXZp
-Y2UgKmFkZXYgPSAoc3RydWN0IGFtZGdwdV9kZXZpY2UgKiloYW5kbGU7Cj4gKwl2b2lkICpzdG9s
-ZW5fdmdhX2J1ZjsKPiArCj4gKwkvKgo+ICsJICogRnJlZSB0aGUgc3RvbGVuIG1lbW9yeSBpZiBp
-dCB3YXNuJ3QgYWxyZWFkeSBmcmVlZCBpbiBsYXRlX2luaXQKPiArCSAqIGJlY2F1c2Ugb2YgbWVt
-b3J5IHRyYWluaW5nLgo+ICsJICovCj4gKwlhbWRncHVfYm9fZnJlZV9rZXJuZWwoJmFkZXYtPnN0
-b2xlbl92Z2FfbWVtb3J5LCBOVUxMLCAmc3RvbGVuX3ZnYV9idWYpOwo+ICAgCj4gICAJYW1kZ3B1
-X3ZtX21hbmFnZXJfZmluaShhZGV2KTsKPiAgIAlnbWNfdjEwXzBfZ2FydF9maW5pKGFkZXYpOwoK
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+On Fri, 10 Jan 2020, Thomas Zimmermann <tzimmermann@suse.de> wrote:
+> The callback struct drm_driver.get_scanout_position() is deprecated in
+> favor of struct drm_crtc_helper_funcs.get_scanout_position().
+>
+> i915 doesn't use CRTC helpers. The patch duplicates the caller
+> drm_calc_vbltimestamp_from_scanoutpos() for i915, such that the callback
+> function is not needed.
+>
+> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+> ---
+>  drivers/gpu/drm/i915/i915_drv.c |   3 +-
+>  drivers/gpu/drm/i915/i915_irq.c | 117 ++++++++++++++++++++++++++++++--
+>  drivers/gpu/drm/i915/i915_irq.h |   9 +--
+>  3 files changed, 119 insertions(+), 10 deletions(-)
+
+Not really enthusiastic about the diffstat in a "cleanup" series.
+
+I wonder if you could add a generic helper version of
+drm_calc_vbltimestamp_from_scanoutpos where you pass the
+get_scanout_position function as a parameter. Both
+drm_calc_vbltimestamp_from_scanoutpos and the new
+i915_calc_vbltimestamp_from_scanoutpos would then be fairly thin
+wrappers passing in the relevant get_scanout_position function.
+
+This would reduce the almost identical duplication of the function in
+i915.
+
+BR,
+Jani.
+
+>
+> diff --git a/drivers/gpu/drm/i915/i915_drv.c b/drivers/gpu/drm/i915/i915_drv.c
+> index f7385abdd74b..4a0a7fb85c53 100644
+> --- a/drivers/gpu/drm/i915/i915_drv.c
+> +++ b/drivers/gpu/drm/i915/i915_drv.c
+> @@ -2769,8 +2769,7 @@ static struct drm_driver driver = {
+>  	.gem_prime_export = i915_gem_prime_export,
+>  	.gem_prime_import = i915_gem_prime_import,
+>  
+> -	.get_vblank_timestamp = drm_calc_vbltimestamp_from_scanoutpos,
+> -	.get_scanout_position = i915_get_crtc_scanoutpos,
+> +	.get_vblank_timestamp = i915_calc_vbltimestamp_from_scanoutpos,
+>  
+>  	.dumb_create = i915_gem_dumb_create,
+>  	.dumb_map_offset = i915_gem_dumb_mmap_offset,
+> diff --git a/drivers/gpu/drm/i915/i915_irq.c b/drivers/gpu/drm/i915/i915_irq.c
+> index afc6aad9bf8c..99d0c3b0feae 100644
+> --- a/drivers/gpu/drm/i915/i915_irq.c
+> +++ b/drivers/gpu/drm/i915/i915_irq.c
+> @@ -52,6 +52,11 @@
+>  #include "i915_trace.h"
+>  #include "intel_pm.h"
+>  
+> +/* Retry timestamp calculation up to 3 times to satisfy
+> + * drm_timestamp_precision before giving up.
+> + */
+> +#define I915_TIMESTAMP_MAXRETRIES 3
+> +
+>  /**
+>   * DOC: interrupt handling
+>   *
+> @@ -762,10 +767,11 @@ static int __intel_get_crtc_scanline(struct intel_crtc *crtc)
+>  	return (position + crtc->scanline_offset) % vtotal;
+>  }
+>  
+> -bool i915_get_crtc_scanoutpos(struct drm_device *dev, unsigned int index,
+> -			      bool in_vblank_irq, int *vpos, int *hpos,
+> -			      ktime_t *stime, ktime_t *etime,
+> -			      const struct drm_display_mode *mode)
+> +static bool i915_get_crtc_scanoutpos(struct drm_device *dev,
+> +				     unsigned int index, bool in_vblank_irq,
+> +				     int *vpos, int *hpos,
+> +				     ktime_t *stime, ktime_t *etime,
+> +				     const struct drm_display_mode *mode)
+>  {
+>  	struct drm_i915_private *dev_priv = to_i915(dev);
+>  	struct intel_crtc *crtc = to_intel_crtc(drm_crtc_from_index(dev, index));
+> @@ -879,6 +885,109 @@ bool i915_get_crtc_scanoutpos(struct drm_device *dev, unsigned int index,
+>  	return true;
+>  }
+>  
+> +bool i915_calc_vbltimestamp_from_scanoutpos(struct drm_device *dev,
+> +					    unsigned int pipe,
+> +					    int *max_error,
+> +					    ktime_t *vblank_time,
+> +					    bool in_vblank_irq)
+> +{
+> +	struct timespec64 ts_etime, ts_vblank_time;
+> +	ktime_t stime, etime;
+> +	bool vbl_status;
+> +	struct drm_crtc *crtc;
+> +	const struct drm_display_mode *mode;
+> +	struct drm_vblank_crtc *vblank = &dev->vblank[pipe];
+> +	int vpos, hpos, i;
+> +	int delta_ns, duration_ns;
+> +
+> +	crtc = drm_crtc_from_index(dev, pipe);
+> +
+> +	if (pipe >= dev->num_crtcs || !crtc) {
+> +		DRM_ERROR("Invalid crtc %u\n", pipe);
+> +		return false;
+> +	}
+> +
+> +	if (drm_drv_uses_atomic_modeset(dev))
+> +		mode = &vblank->hwmode;
+> +	else
+> +		mode = &crtc->hwmode;
+> +
+> +	/* If mode timing undefined, just return as no-op:
+> +	 * Happens during initial modesetting of a crtc.
+> +	 */
+> +	if (mode->crtc_clock == 0) {
+> +		DRM_DEBUG("crtc %u: Noop due to uninitialized mode.\n", pipe);
+> +		WARN_ON_ONCE(drm_drv_uses_atomic_modeset(dev));
+> +
+> +		return false;
+> +	}
+> +
+> +	/* Get current scanout position with system timestamp.
+> +	 * Repeat query up to DRM_TIMESTAMP_MAXRETRIES times
+> +	 * if single query takes longer than max_error nanoseconds.
+> +	 *
+> +	 * This guarantees a tight bound on maximum error if
+> +	 * code gets preempted or delayed for some reason.
+> +	 */
+> +	for (i = 0; i < I915_TIMESTAMP_MAXRETRIES; i++) {
+> +		/*
+> +		 * Get vertical and horizontal scanout position vpos, hpos,
+> +		 * and bounding timestamps stime, etime, pre/post query.
+> +		 */
+> +		vbl_status = i915_get_crtc_scanoutpos(dev, pipe, in_vblank_irq,
+> +						      &vpos, &hpos, &stime,
+> +						      &etime, mode);
+> +		/* Return as no-op if scanout query unsupported or failed. */
+> +		if (!vbl_status) {
+> +			DRM_DEBUG("crtc %u : scanoutpos query failed.\n",
+> +				  pipe);
+> +			return false;
+> +		}
+> +
+> +		/* Compute uncertainty in timestamp of scanout position query. */
+> +		duration_ns = ktime_to_ns(etime) - ktime_to_ns(stime);
+> +
+> +		/* Accept result with <  max_error nsecs timing uncertainty. */
+> +		if (duration_ns <= *max_error)
+> +			break;
+> +	}
+> +
+> +	/* Noisy system timing? */
+> +	if (i == I915_TIMESTAMP_MAXRETRIES) {
+> +		DRM_DEBUG("crtc %u: Noisy timestamp %d us > %d us [%d reps].\n",
+> +			  pipe, duration_ns/1000, *max_error/1000, i);
+> +	}
+> +
+> +	/* Return upper bound of timestamp precision error. */
+> +	*max_error = duration_ns;
+> +
+> +	/* Convert scanout position into elapsed time at raw_time query
+> +	 * since start of scanout at first display scanline. delta_ns
+> +	 * can be negative if start of scanout hasn't happened yet.
+> +	 */
+> +	delta_ns = div_s64(1000000LL * (vpos * mode->crtc_htotal + hpos),
+> +			   mode->crtc_clock);
+> +
+> +	/* Subtract time delta from raw timestamp to get final
+> +	 * vblank_time timestamp for end of vblank.
+> +	 */
+> +	*vblank_time = ktime_sub_ns(etime, delta_ns);
+> +
+> +	if (!drm_debug_enabled(DRM_UT_VBL))
+> +		return true;
+> +
+> +	ts_etime = ktime_to_timespec64(etime);
+> +	ts_vblank_time = ktime_to_timespec64(*vblank_time);
+> +
+> +	DRM_DEBUG_VBL("crtc %u : v p(%d,%d)@ %lld.%06ld -> %lld.%06ld [e %d us, %d rep]\n",
+> +		      pipe, hpos, vpos,
+> +		      (u64)ts_etime.tv_sec, ts_etime.tv_nsec / 1000,
+> +		      (u64)ts_vblank_time.tv_sec, ts_vblank_time.tv_nsec / 1000,
+> +		      duration_ns / 1000, i);
+> +
+> +	return true;
+> +}
+> +
+>  int intel_get_crtc_scanline(struct intel_crtc *crtc)
+>  {
+>  	struct drm_i915_private *dev_priv = to_i915(crtc->base.dev);
+> diff --git a/drivers/gpu/drm/i915/i915_irq.h b/drivers/gpu/drm/i915/i915_irq.h
+> index 812c47a9c2d6..5f7b133ce721 100644
+> --- a/drivers/gpu/drm/i915/i915_irq.h
+> +++ b/drivers/gpu/drm/i915/i915_irq.h
+> @@ -101,10 +101,11 @@ void gen8_irq_power_well_post_enable(struct drm_i915_private *dev_priv,
+>  void gen8_irq_power_well_pre_disable(struct drm_i915_private *dev_priv,
+>  				     u8 pipe_mask);
+>  
+> -bool i915_get_crtc_scanoutpos(struct drm_device *dev, unsigned int pipe,
+> -			      bool in_vblank_irq, int *vpos, int *hpos,
+> -			      ktime_t *stime, ktime_t *etime,
+> -			      const struct drm_display_mode *mode);
+> +bool i915_calc_vbltimestamp_from_scanoutpos(struct drm_device *dev,
+> +					    unsigned int pipe,
+> +					    int *max_error,
+> +					    ktime_t *vblank_time,
+> +					    bool in_vblank_irq);
+>  
+>  u32 i915_get_vblank_counter(struct drm_crtc *crtc);
+>  u32 g4x_get_vblank_counter(struct drm_crtc *crtc);
+
+-- 
+Jani Nikula, Intel Open Source Graphics Center
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
