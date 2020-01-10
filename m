@@ -6,26 +6,26 @@ X-Spam-Status: No, score=-9.8 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
 	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 37DB3C33CA7
-	for <amd-gfx@archiver.kernel.org>; Fri, 10 Jan 2020 09:22:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9CA84C33CA2
+	for <amd-gfx@archiver.kernel.org>; Fri, 10 Jan 2020 09:22:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 19AE220721
-	for <amd-gfx@archiver.kernel.org>; Fri, 10 Jan 2020 09:22:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 19AE220721
+	by mail.kernel.org (Postfix) with ESMTPS id 7C1B820721
+	for <amd-gfx@archiver.kernel.org>; Fri, 10 Jan 2020 09:22:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7C1B820721
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=suse.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 09EEC6E9C1;
-	Fri, 10 Jan 2020 09:21:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 67E9A6E9DE;
+	Fri, 10 Jan 2020 09:21:43 +0000 (UTC)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 035F16E9B6;
- Fri, 10 Jan 2020 09:21:38 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BE6D46E9C1;
+ Fri, 10 Jan 2020 09:21:40 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 90053B2A6;
- Fri, 10 Jan 2020 09:21:37 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 4485AB2AB;
+ Fri, 10 Jan 2020 09:21:39 +0000 (UTC)
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: airlied@linux.ie, daniel@ffwll.ch, alexander.deucher@amd.com,
  christian.koenig@amd.com, David1.Zhou@amd.com,
@@ -38,10 +38,10 @@ To: airlied@linux.ie, daniel@ffwll.ch, alexander.deucher@amd.com,
  bskeggs@redhat.com, harry.wentland@amd.com, sunpeng.li@amd.com,
  jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com,
  rodrigo.vivi@intel.com
-Subject: [PATCH 08/23] drm/stm: Convert to struct
- drm_crtc_helper_funcs.get_scanout_position()
-Date: Fri, 10 Jan 2020 10:21:12 +0100
-Message-Id: <20200110092127.27847-9-tzimmermann@suse.de>
+Subject: [PATCH 10/23] drm: Evaluate struct
+ drm_device.vblank_disable_immediate on each use
+Date: Fri, 10 Jan 2020 10:21:14 +0100
+Message-Id: <20200110092127.27847-11-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.24.1
 In-Reply-To: <20200110092127.27847-1-tzimmermann@suse.de>
 References: <20200110092127.27847-1-tzimmermann@suse.de>
@@ -66,129 +66,97 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The callback struct drm_driver.get_scanout_position() is deprecated in
-favor of struct drm_crtc_helper_funcs.get_scanout_position(). Convert stm
-over.
+VBLANK interrupts can be disabled immediately or with a delay, where the
+latter is the default. The former option can be selected by setting
+get_vblank_timestamp, and enabling vblank_disable_immediate in struct
+drm_device.
+
+The setup is only evaluated once when DRM initializes VBLANKs. Evaluating
+the settings on each use of vblank_disable_immediate will allow for easy
+integration of CRTC VBLANK functions.
 
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
 ---
- drivers/gpu/drm/stm/drv.c  |  1 -
- drivers/gpu/drm/stm/ltdc.c | 65 ++++++++++++++++++++------------------
- drivers/gpu/drm/stm/ltdc.h |  5 ---
- 3 files changed, 34 insertions(+), 37 deletions(-)
+ drivers/gpu/drm/drm_vblank.c | 31 ++++++++++++++-----------------
+ 1 file changed, 14 insertions(+), 17 deletions(-)
 
-diff --git a/drivers/gpu/drm/stm/drv.c b/drivers/gpu/drm/stm/drv.c
-index 5a9f9aca8bc2..486985604109 100644
---- a/drivers/gpu/drm/stm/drv.c
-+++ b/drivers/gpu/drm/stm/drv.c
-@@ -72,7 +72,6 @@ static struct drm_driver drv_driver = {
- 	.gem_prime_vmap = drm_gem_cma_prime_vmap,
- 	.gem_prime_vunmap = drm_gem_cma_prime_vunmap,
- 	.gem_prime_mmap = drm_gem_cma_prime_mmap,
--	.get_scanout_position = ltdc_crtc_scanoutpos,
- 	.get_vblank_timestamp = drm_calc_vbltimestamp_from_scanoutpos,
- };
+diff --git a/drivers/gpu/drm/drm_vblank.c b/drivers/gpu/drm/drm_vblank.c
+index b84065911d69..cbe8f3009df5 100644
+--- a/drivers/gpu/drm/drm_vblank.c
++++ b/drivers/gpu/drm/drm_vblank.c
+@@ -481,19 +481,6 @@ int drm_vblank_init(struct drm_device *dev, unsigned int num_crtcs)
  
-diff --git a/drivers/gpu/drm/stm/ltdc.c b/drivers/gpu/drm/stm/ltdc.c
-index c2815e8ae1da..8b6d1a2252e3 100644
---- a/drivers/gpu/drm/stm/ltdc.c
-+++ b/drivers/gpu/drm/stm/ltdc.c
-@@ -636,38 +636,13 @@ static void ltdc_crtc_atomic_flush(struct drm_crtc *crtc,
- 	}
+ 	DRM_INFO("Supports vblank timestamp caching Rev 2 (21.10.2013).\n");
+ 
+-	/* Driver specific high-precision vblank timestamping supported? */
+-	if (dev->driver->get_vblank_timestamp)
+-		DRM_INFO("Driver supports precise vblank timestamp query.\n");
+-	else
+-		DRM_INFO("No driver support for vblank timestamp query.\n");
+-
+-	/* Must have precise timestamping for reliable vblank instant disable */
+-	if (dev->vblank_disable_immediate && !dev->driver->get_vblank_timestamp) {
+-		dev->vblank_disable_immediate = false;
+-		DRM_INFO("Setting vblank_disable_immediate to false because "
+-			 "get_vblank_timestamp == NULL\n");
+-	}
+-
+ 	return 0;
+ 
+ err:
+@@ -1061,6 +1048,15 @@ int drm_crtc_vblank_get(struct drm_crtc *crtc)
  }
+ EXPORT_SYMBOL(drm_crtc_vblank_get);
  
--static const struct drm_crtc_helper_funcs ltdc_crtc_helper_funcs = {
--	.mode_valid = ltdc_crtc_mode_valid,
--	.mode_fixup = ltdc_crtc_mode_fixup,
--	.mode_set_nofb = ltdc_crtc_mode_set_nofb,
--	.atomic_flush = ltdc_crtc_atomic_flush,
--	.atomic_enable = ltdc_crtc_atomic_enable,
--	.atomic_disable = ltdc_crtc_atomic_disable,
--};
--
--static int ltdc_crtc_enable_vblank(struct drm_crtc *crtc)
--{
--	struct ltdc_device *ldev = crtc_to_ltdc(crtc);
--
--	DRM_DEBUG_DRIVER("\n");
--	reg_set(ldev->regs, LTDC_IER, IER_LIE);
--
--	return 0;
--}
--
--static void ltdc_crtc_disable_vblank(struct drm_crtc *crtc)
--{
--	struct ltdc_device *ldev = crtc_to_ltdc(crtc);
--
--	DRM_DEBUG_DRIVER("\n");
--	reg_clear(ldev->regs, LTDC_IER, IER_LIE);
--}
--
--bool ltdc_crtc_scanoutpos(struct drm_device *ddev, unsigned int pipe,
--			  bool in_vblank_irq, int *vpos, int *hpos,
--			  ktime_t *stime, ktime_t *etime,
--			  const struct drm_display_mode *mode)
-+static bool ltdc_crtc_get_scanout_position(struct drm_crtc *crtc,
-+					   bool in_vblank_irq,
-+					   int *vpos, int *hpos,
-+					   ktime_t *stime, ktime_t *etime,
-+					   const struct drm_display_mode *mode)
++static bool __vblank_disable_immediate(struct drm_device *dev, unsigned int pipe)
++{
++	if (!dev->vblank_disable_immediate)
++		return false;
++	if (!dev->driver->get_vblank_timestamp)
++		return false;
++	return true;
++}
++
+ static void drm_vblank_put(struct drm_device *dev, unsigned int pipe)
  {
-+	struct drm_device *ddev = crtc->dev;
- 	struct ltdc_device *ldev = ddev->dev_private;
- 	int line, vactive_start, vactive_end, vtotal;
+ 	struct drm_vblank_crtc *vblank = &dev->vblank[pipe];
+@@ -1077,7 +1073,7 @@ static void drm_vblank_put(struct drm_device *dev, unsigned int pipe)
+ 			return;
+ 		else if (drm_vblank_offdelay < 0)
+ 			vblank_disable_fn(&vblank->disable_timer);
+-		else if (!dev->vblank_disable_immediate)
++		else if (__vblank_disable_immediate(dev, pipe))
+ 			mod_timer(&vblank->disable_timer,
+ 				  jiffies + ((drm_vblank_offdelay * HZ)/1000));
+ 	}
+@@ -1654,7 +1650,7 @@ int drm_wait_vblank_ioctl(struct drm_device *dev, void *data,
+ 	/* If the counter is currently enabled and accurate, short-circuit
+ 	 * queries to return the cached timestamp of the last vblank.
+ 	 */
+-	if (dev->vblank_disable_immediate &&
++	if (__vblank_disable_immediate(dev, pipe) &&
+ 	    drm_wait_vblank_is_query(vblwait) &&
+ 	    READ_ONCE(vblank->enabled)) {
+ 		drm_wait_vblank_reply(dev, pipe, &vblwait->reply);
+@@ -1811,7 +1807,7 @@ bool drm_handle_vblank(struct drm_device *dev, unsigned int pipe)
+ 	 * been signaled. The disable has to be last (after
+ 	 * drm_handle_vblank_events) so that the timestamp is always accurate.
+ 	 */
+-	disable_irq = (dev->vblank_disable_immediate &&
++	disable_irq = (__vblank_disable_immediate(dev, pipe) &&
+ 		       drm_vblank_offdelay > 0 &&
+ 		       !atomic_read(&vblank->refcount));
  
-@@ -710,6 +685,34 @@ bool ltdc_crtc_scanoutpos(struct drm_device *ddev, unsigned int pipe,
- 	return true;
- }
+@@ -1884,7 +1880,8 @@ int drm_crtc_get_sequence_ioctl(struct drm_device *dev, void *data,
+ 	pipe = drm_crtc_index(crtc);
  
-+static const struct drm_crtc_helper_funcs ltdc_crtc_helper_funcs = {
-+	.mode_valid = ltdc_crtc_mode_valid,
-+	.mode_fixup = ltdc_crtc_mode_fixup,
-+	.mode_set_nofb = ltdc_crtc_mode_set_nofb,
-+	.atomic_flush = ltdc_crtc_atomic_flush,
-+	.atomic_enable = ltdc_crtc_atomic_enable,
-+	.atomic_disable = ltdc_crtc_atomic_disable,
-+	.get_scanout_position = ltdc_crtc_get_scanout_position,
-+};
-+
-+static int ltdc_crtc_enable_vblank(struct drm_crtc *crtc)
-+{
-+	struct ltdc_device *ldev = crtc_to_ltdc(crtc);
-+
-+	DRM_DEBUG_DRIVER("\n");
-+	reg_set(ldev->regs, LTDC_IER, IER_LIE);
-+
-+	return 0;
-+}
-+
-+static void ltdc_crtc_disable_vblank(struct drm_crtc *crtc)
-+{
-+	struct ltdc_device *ldev = crtc_to_ltdc(crtc);
-+
-+	DRM_DEBUG_DRIVER("\n");
-+	reg_clear(ldev->regs, LTDC_IER, IER_LIE);
-+}
-+
- static const struct drm_crtc_funcs ltdc_crtc_funcs = {
- 	.destroy = drm_crtc_cleanup,
- 	.set_config = drm_atomic_helper_set_config,
-diff --git a/drivers/gpu/drm/stm/ltdc.h b/drivers/gpu/drm/stm/ltdc.h
-index a1ad0ae3b006..c5467d74e707 100644
---- a/drivers/gpu/drm/stm/ltdc.h
-+++ b/drivers/gpu/drm/stm/ltdc.h
-@@ -39,11 +39,6 @@ struct ltdc_device {
- 	struct drm_atomic_state *suspend_state;
- };
+ 	vblank = &dev->vblank[pipe];
+-	vblank_enabled = dev->vblank_disable_immediate && READ_ONCE(vblank->enabled);
++	vblank_enabled = __vblank_disable_immediate(dev, pipe) &&
++			 READ_ONCE(vblank->enabled);
  
--bool ltdc_crtc_scanoutpos(struct drm_device *dev, unsigned int pipe,
--			  bool in_vblank_irq, int *vpos, int *hpos,
--			  ktime_t *stime, ktime_t *etime,
--			  const struct drm_display_mode *mode);
--
- int ltdc_load(struct drm_device *ddev);
- void ltdc_unload(struct drm_device *ddev);
- void ltdc_suspend(struct drm_device *ddev);
+ 	if (!vblank_enabled) {
+ 		ret = drm_crtc_vblank_get(crtc);
 -- 
 2.24.1
 
