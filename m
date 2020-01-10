@@ -2,30 +2,30 @@ Return-Path: <SRS0=i8pd=27=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.8 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=no
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-9.8 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id BB37CC33CA2
-	for <amd-gfx@archiver.kernel.org>; Fri, 10 Jan 2020 09:22:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 27BD0C33CA4
+	for <amd-gfx@archiver.kernel.org>; Fri, 10 Jan 2020 09:22:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9978620721
-	for <amd-gfx@archiver.kernel.org>; Fri, 10 Jan 2020 09:22:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9978620721
+	by mail.kernel.org (Postfix) with ESMTPS id 0624020721
+	for <amd-gfx@archiver.kernel.org>; Fri, 10 Jan 2020 09:22:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0624020721
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=suse.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E23516E9A7;
-	Fri, 10 Jan 2020 09:21:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5B7276E9B9;
+	Fri, 10 Jan 2020 09:21:39 +0000 (UTC)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ACF006E99E;
- Fri, 10 Jan 2020 09:21:35 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4C8176E9A4;
+ Fri, 10 Jan 2020 09:21:37 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 2FA18B016;
- Fri, 10 Jan 2020 09:21:33 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id D4F20B2A3;
+ Fri, 10 Jan 2020 09:21:35 +0000 (UTC)
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: airlied@linux.ie, daniel@ffwll.ch, alexander.deucher@amd.com,
  christian.koenig@amd.com, David1.Zhou@amd.com,
@@ -38,10 +38,13 @@ To: airlied@linux.ie, daniel@ffwll.ch, alexander.deucher@amd.com,
  bskeggs@redhat.com, harry.wentland@amd.com, sunpeng.li@amd.com,
  jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com,
  rodrigo.vivi@intel.com
-Subject: [PATCH 00/23] drm: Clean up VBLANK callbacks in struct drm_driver
-Date: Fri, 10 Jan 2020 10:21:04 +0100
-Message-Id: <20200110092127.27847-1-tzimmermann@suse.de>
+Subject: [PATCH 06/23] drm/msm: Convert to struct
+ drm_crtc_helper_funcs.get_scanout_position()
+Date: Fri, 10 Jan 2020 10:21:10 +0100
+Message-Id: <20200110092127.27847-7-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.24.1
+In-Reply-To: <20200110092127.27847-1-tzimmermann@suse.de>
+References: <20200110092127.27847-1-tzimmermann@suse.de>
 MIME-Version: 1.0
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -63,132 +66,181 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-VBLANK handlers in struct drm_driver are deprecated. Only legacy,
-non-KMS drivers are supposed to used them. DRM drivers with kernel
-modesetting are supposed to use VBLANK callbacks of the CRTC
-infrastructure.
+The callback struct drm_driver.get_scanout_position() is deprecated in
+favor of struct drm_crtc_helper_funcs.get_scanout_position(). Convert
+mem over.
 
-This patchset converts all DRM drivers to CRTC VBLANK callbacks and
-cleans up struct drm_driver. The remaining VBLANK callbacks in struct
-drm_driver are only used by legacy drivers.
+Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+---
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_crtc.c | 67 +++++++++++++++++++++++
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c  | 61 ---------------------
+ 2 files changed, 67 insertions(+), 61 deletions(-)
 
-Patches 1 to 9 move get_scanout_position() to struct drm_crtc_helper_funcs
-and convert drivers over. The callback is a helper for the default
-implementation of get_vblank_timestamp() (i.e.,
-drm_calc_vbltimestamp_from_scanoutpos()). The original callback is removed
-from struct drm_driver.
-
-Patch 10 changes the VBLANK code to evaluate vblank_disable_immediate in
-struct derm_device. This simplifies the later integration of CRTC VBLANK
-callbacks. If necessary, a future patch could move vblank_disable_immedate
-to struct drm_crtc, so that high-precision VBLANKs could be enabled on a
-per-CRTC basis.
-
-Patches 11 to 23 move get_vblank_timestamp() to struct drm_crtc_funcs
-and convert DRM drivers over. All VBLANK callbacks are removed from
-struct drm_driver, except for get_vblank_counter(), enable_vblank(), and
-disable_vblank(). These interfaces are moved to the legacy section
-at the end of the structure.
-
-To cover all affected drivers, I build the patchset in x86, x86-64,
-arm and aarch64. I smoke-tested amdgpu, gma500, i915, radeon and vc4 on
-respective hardware.
-
-Thomas Zimmermann (23):
-  drm: Add get_scanout_position() to struct drm_crtc_helper_funcs
-  drm/amdgpu: Convert to struct
-    drm_crtc_helper_funcs.get_scanout_position()
-  drm/i915: Don't use struct drm_driver.get_scanout_position()
-  drm/nouveau: Convert to struct
-    drm_crtc_helper_funcs.get_scanout_position()
-  drm/radeon: Convert to struct
-    drm_crtc_helper_funcs.get_scanout_position()
-  drm/msm: Convert to struct
-    drm_crtc_helper_funcs.get_scanout_position()
-  drm/vc4: Convert to struct
-    drm_crtc_helper_funcs.get_scanout_position()
-  drm/stm: Convert to struct
-    drm_crtc_helper_funcs.get_scanout_position()
-  drm: Remove struct drm_driver.get_scanout_position()
-  drm: Evaluate struct drm_device.vblank_disable_immediate on each use
-  drm: Add get_vblank_timestamp() to struct drm_crtc_funcs
-  drm/amdgpu: Convert to CRTC VBLANK callbacks
-  drm/gma500: Convert to CRTC VBLANK callbacks
-  drm/i915: Convert to CRTC VBLANK callbacks
-  drm/msm: Convert to CRTC VBLANK callbacks
-  drm/nouveau: Convert to CRTC VBLANK callbacks
-  drm/radeon: Convert to CRTC VBLANK callbacks
-  drm/sti: Convert to CRTC VBLANK callbacks
-  drm/stm: Convert to CRTC VBLANK callbacks
-  drm/vc4: Convert to CRTC VBLANK callbacks
-  drm/vkms: Convert to CRTC VBLANK callbacks
-  drm/vmwgfx: Convert to CRTC VBLANK callbacks
-  drm: Cleanup VBLANK callbacks in struct drm_driver
-
- drivers/gpu/drm/amd/amdgpu/amdgpu.h           |   3 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_display.c   |  12 ++
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c       |  15 --
- drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c       |  24 +++
- drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h      |   5 +
- drivers/gpu/drm/amd/amdgpu/dce_v10_0.c        |   5 +
- drivers/gpu/drm/amd/amdgpu/dce_v11_0.c        |   5 +
- drivers/gpu/drm/amd/amdgpu/dce_v6_0.c         |   5 +
- drivers/gpu/drm/amd/amdgpu/dce_v8_0.c         |   5 +
- drivers/gpu/drm/amd/amdgpu/dce_virtual.c      |   5 +
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |   5 +-
- drivers/gpu/drm/drm_vblank.c                  | 128 +++++++++-----
- drivers/gpu/drm/gma500/cdv_intel_display.c    |   3 +
- drivers/gpu/drm/gma500/psb_drv.c              |   4 -
- drivers/gpu/drm/gma500/psb_drv.h              |   6 +-
- drivers/gpu/drm/gma500/psb_intel_display.c    |   3 +
- drivers/gpu/drm/gma500/psb_irq.c              |  12 +-
- drivers/gpu/drm/gma500/psb_irq.h              |   7 +-
- drivers/gpu/drm/i915/display/intel_display.c  |   7 +
- drivers/gpu/drm/i915/i915_drv.c               |   3 -
- drivers/gpu/drm/i915/i915_irq.c               | 110 +++++++++++-
- drivers/gpu/drm/i915/i915_irq.h               |   8 +-
- drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c      |   2 +
- drivers/gpu/drm/msm/disp/mdp4/mdp4_crtc.c     |   2 +
- drivers/gpu/drm/msm/disp/mdp5/mdp5_crtc.c     |  82 +++++++++
- drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c      |  95 -----------
- drivers/gpu/drm/msm/msm_drv.c                 |  10 +-
- drivers/gpu/drm/msm/msm_drv.h                 |   3 +
- drivers/gpu/drm/nouveau/dispnv04/crtc.c       |   4 +
- drivers/gpu/drm/nouveau/dispnv50/head.c       |   5 +
- drivers/gpu/drm/nouveau/nouveau_display.c     |  28 +---
- drivers/gpu/drm/nouveau/nouveau_display.h     |   6 +-
- drivers/gpu/drm/nouveau/nouveau_drm.c         |   5 -
- drivers/gpu/drm/radeon/atombios_crtc.c        |   1 +
- drivers/gpu/drm/radeon/radeon_display.c       |  25 ++-
- drivers/gpu/drm/radeon/radeon_drv.c           |  18 --
- drivers/gpu/drm/radeon/radeon_kms.c           |  29 ++--
- drivers/gpu/drm/radeon/radeon_legacy_crtc.c   |   3 +-
- drivers/gpu/drm/radeon/radeon_mode.h          |   6 +
- drivers/gpu/drm/sti/sti_crtc.c                |  11 +-
- drivers/gpu/drm/sti/sti_crtc.h                |   2 -
- drivers/gpu/drm/sti/sti_drv.c                 |   3 -
- drivers/gpu/drm/stm/drv.c                     |   2 -
- drivers/gpu/drm/stm/ltdc.c                    |  66 ++++----
- drivers/gpu/drm/stm/ltdc.h                    |   5 -
- drivers/gpu/drm/vc4/vc4_crtc.c                |  13 +-
- drivers/gpu/drm/vc4/vc4_drv.c                 |   3 -
- drivers/gpu/drm/vc4/vc4_drv.h                 |   4 -
- drivers/gpu/drm/vkms/vkms_crtc.c              |   9 +-
- drivers/gpu/drm/vkms/vkms_drv.c               |   1 -
- drivers/gpu/drm/vkms/vkms_drv.h               |   4 -
- drivers/gpu/drm/vmwgfx/vmwgfx_drv.c           |   5 +-
- drivers/gpu/drm/vmwgfx/vmwgfx_drv.h           |   6 +-
- drivers/gpu/drm/vmwgfx/vmwgfx_kms.c           |   8 +-
- drivers/gpu/drm/vmwgfx/vmwgfx_ldu.c           |   3 +
- drivers/gpu/drm/vmwgfx/vmwgfx_scrn.c          |   5 +-
- drivers/gpu/drm/vmwgfx/vmwgfx_stdu.c          |   3 +
- include/drm/drm_crtc.h                        |  41 +++++
- include/drm/drm_drv.h                         | 156 +-----------------
- include/drm/drm_modeset_helper_vtables.h      |  47 ++++++
- include/drm/drm_vblank.h                      |   4 +
- 61 files changed, 631 insertions(+), 474 deletions(-)
-
---
+diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_crtc.c b/drivers/gpu/drm/msm/disp/mdp5/mdp5_crtc.c
+index 05cc04f729d6..4decf19847a8 100644
+--- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_crtc.c
++++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_crtc.c
+@@ -405,6 +405,72 @@ static void mdp5_crtc_mode_set_nofb(struct drm_crtc *crtc)
+ 	spin_unlock_irqrestore(&mdp5_crtc->lm_lock, flags);
+ }
+ 
++static struct drm_encoder *get_encoder_from_crtc(struct drm_crtc *crtc)
++{
++	struct drm_device *dev = crtc->dev;
++	struct drm_encoder *encoder;
++
++	drm_for_each_encoder(encoder, dev)
++		if (encoder->crtc == crtc)
++			return encoder;
++
++	return NULL;
++}
++
++static bool mdp5_crtc_get_scanout_position(struct drm_crtc *crtc,
++					   bool in_vblank_irq,
++					   int *vpos, int *hpos,
++					   ktime_t *stime, ktime_t *etime,
++					   const struct drm_display_mode *mode)
++{
++	unsigned int pipe = crtc->index;
++	struct drm_encoder *encoder;
++	int line, vsw, vbp, vactive_start, vactive_end, vfp_end;
++
++
++	encoder = get_encoder_from_crtc(crtc);
++	if (!encoder) {
++		DRM_ERROR("no encoder found for crtc %d\n", pipe);
++		return false;
++	}
++
++	vsw = mode->crtc_vsync_end - mode->crtc_vsync_start;
++	vbp = mode->crtc_vtotal - mode->crtc_vsync_end;
++
++	/*
++	 * the line counter is 1 at the start of the VSYNC pulse and VTOTAL at
++	 * the end of VFP. Translate the porch values relative to the line
++	 * counter positions.
++	 */
++
++	vactive_start = vsw + vbp + 1;
++
++	vactive_end = vactive_start + mode->crtc_vdisplay;
++
++	/* last scan line before VSYNC */
++	vfp_end = mode->crtc_vtotal;
++
++	if (stime)
++		*stime = ktime_get();
++
++	line = mdp5_encoder_get_linecount(encoder);
++
++	if (line < vactive_start)
++		line -= vactive_start;
++	else if (line > vactive_end)
++		line = line - vfp_end - vactive_start;
++	else
++		line -= vactive_start;
++
++	*vpos = line;
++	*hpos = 0;
++
++	if (etime)
++		*etime = ktime_get();
++
++	return true;
++}
++
+ static void mdp5_crtc_atomic_disable(struct drm_crtc *crtc,
+ 				     struct drm_crtc_state *old_state)
+ {
+@@ -1063,6 +1129,7 @@ static const struct drm_crtc_helper_funcs mdp5_crtc_helper_funcs = {
+ 	.atomic_flush = mdp5_crtc_atomic_flush,
+ 	.atomic_enable = mdp5_crtc_atomic_enable,
+ 	.atomic_disable = mdp5_crtc_atomic_disable,
++	.get_scanout_position = mdp5_crtc_get_scanout_position,
+ };
+ 
+ static void mdp5_crtc_vblank_irq(struct mdp_irq *irq, uint32_t irqstatus)
+diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c b/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
+index e43ecd4be10a..8b72ac44ce55 100644
+--- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
++++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
+@@ -595,66 +595,6 @@ static struct drm_encoder *get_encoder_from_crtc(struct drm_crtc *crtc)
+ 	return NULL;
+ }
+ 
+-static bool mdp5_get_scanoutpos(struct drm_device *dev, unsigned int pipe,
+-				bool in_vblank_irq, int *vpos, int *hpos,
+-				ktime_t *stime, ktime_t *etime,
+-				const struct drm_display_mode *mode)
+-{
+-	struct msm_drm_private *priv = dev->dev_private;
+-	struct drm_crtc *crtc;
+-	struct drm_encoder *encoder;
+-	int line, vsw, vbp, vactive_start, vactive_end, vfp_end;
+-
+-	crtc = priv->crtcs[pipe];
+-	if (!crtc) {
+-		DRM_ERROR("Invalid crtc %d\n", pipe);
+-		return false;
+-	}
+-
+-	encoder = get_encoder_from_crtc(crtc);
+-	if (!encoder) {
+-		DRM_ERROR("no encoder found for crtc %d\n", pipe);
+-		return false;
+-	}
+-
+-	vsw = mode->crtc_vsync_end - mode->crtc_vsync_start;
+-	vbp = mode->crtc_vtotal - mode->crtc_vsync_end;
+-
+-	/*
+-	 * the line counter is 1 at the start of the VSYNC pulse and VTOTAL at
+-	 * the end of VFP. Translate the porch values relative to the line
+-	 * counter positions.
+-	 */
+-
+-	vactive_start = vsw + vbp + 1;
+-
+-	vactive_end = vactive_start + mode->crtc_vdisplay;
+-
+-	/* last scan line before VSYNC */
+-	vfp_end = mode->crtc_vtotal;
+-
+-	if (stime)
+-		*stime = ktime_get();
+-
+-	line = mdp5_encoder_get_linecount(encoder);
+-
+-	if (line < vactive_start) {
+-		line -= vactive_start;
+-	} else if (line > vactive_end) {
+-		line = line - vfp_end - vactive_start;
+-	} else {
+-		line -= vactive_start;
+-	}
+-
+-	*vpos = line;
+-	*hpos = 0;
+-
+-	if (etime)
+-		*etime = ktime_get();
+-
+-	return true;
+-}
+-
+ static u32 mdp5_get_vblank_counter(struct drm_device *dev, unsigned int pipe)
+ {
+ 	struct msm_drm_private *priv = dev->dev_private;
+@@ -763,7 +703,6 @@ struct msm_kms *mdp5_kms_init(struct drm_device *dev)
+ 	dev->mode_config.max_height = 0xffff;
+ 
+ 	dev->driver->get_vblank_timestamp = drm_calc_vbltimestamp_from_scanoutpos;
+-	dev->driver->get_scanout_position = mdp5_get_scanoutpos;
+ 	dev->driver->get_vblank_counter = mdp5_get_vblank_counter;
+ 	dev->max_vblank_count = 0; /* max_vblank_count is set on each CRTC */
+ 	dev->vblank_disable_immediate = true;
+-- 
 2.24.1
 
 _______________________________________________
