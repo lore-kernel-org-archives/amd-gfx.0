@@ -2,73 +2,70 @@ Return-Path: <SRS0=GvpJ=3B=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+X-Spam-Status: No, score=-6.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
-	version=3.4.0
+	SPF_HELO_NONE,SPF_PASS autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 378FEC33CA7
-	for <amd-gfx@archiver.kernel.org>; Sun, 12 Jan 2020 01:23:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A166FC33CA9
+	for <amd-gfx@archiver.kernel.org>; Sun, 12 Jan 2020 22:53:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id F2E70206E2
-	for <amd-gfx@archiver.kernel.org>; Sun, 12 Jan 2020 01:23:55 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 773A321556
+	for <amd-gfx@archiver.kernel.org>; Sun, 12 Jan 2020 22:53:33 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RLrIgjAF"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org F2E70206E2
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=ffwll.ch header.i=@ffwll.ch header.b="kb6TnFq/"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 773A321556
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 734A76E2B4;
-	Sun, 12 Jan 2020 01:23:55 +0000 (UTC)
-Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com
- [IPv6:2a00:1450:4864:20::343])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C37E46E2B4
- for <amd-gfx@lists.freedesktop.org>; Sun, 12 Jan 2020 01:23:54 +0000 (UTC)
-Received: by mail-wm1-x343.google.com with SMTP id b19so5905995wmj.4
- for <amd-gfx@lists.freedesktop.org>; Sat, 11 Jan 2020 17:23:54 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=ZR2qBUCX9Om9MxUupoQKGS56wJrprwfAkBcEpMdjsv8=;
- b=RLrIgjAFv+Iyc0yNkr3omOCKwZ3H0Ehd/LvHI/Glwu9wdA9ys4m8XqDtsgVdm39x5W
- TLZMv5EPoICXMbdSbt5bCIoepjK+IAUkYr9eack9a24iLAxniY1ny6Wh6d/K+EMap87M
- c/wXN/9iwF/q/RzJH8Nri+y0N+qR3K2Rf/8Hx1ouTOZYeI626OLVGJNMAeIxMy6oFNhX
- DCpEsFFXLzk0RGIlUgBtDjrOuShyToqYfBUiCiYNZ6F9vd69f+IUdd+YMOorY0M2nSCJ
- ZYABTNjC+bdsNEpDgT6zWj218tQRaxtTEDknNiP31UB96QXmVVuZ2gJeV9Q1MRTj6qpC
- /niA==
+	by gabe.freedesktop.org (Postfix) with ESMTP id F40A889FE6;
+	Sun, 12 Jan 2020 22:53:27 +0000 (UTC)
+Received: from mail-pg1-x543.google.com (mail-pg1-x543.google.com
+ [IPv6:2607:f8b0:4864:20::543])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8AB6989FDB
+ for <amd-gfx@lists.freedesktop.org>; Sun, 12 Jan 2020 22:53:26 +0000 (UTC)
+Received: by mail-pg1-x543.google.com with SMTP id x7so3777690pgl.11
+ for <amd-gfx@lists.freedesktop.org>; Sun, 12 Jan 2020 14:53:26 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=mN3OohFuWT/b3tQcks3MjC4mIBwZ0BmU1pug0HHFBA8=;
+ b=kb6TnFq/1j0a2g5CEH0dwgYru/JrTDzsIQ5lH6fwGPfA4FHMT7MUtVeevbRwcdUKCr
+ gJ1umclAsxpCWVsdc9lmxc17CoVkN91Y/fbNlb3MoFW2qbdl4QxvrgVFzjbau0cRitq5
+ sUrLF07n03/0kDexoiN5qBCebux94EmoDTI70=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=ZR2qBUCX9Om9MxUupoQKGS56wJrprwfAkBcEpMdjsv8=;
- b=CuZ9Rhix0CdCTvCMUu+DfqERGLRVMCEzaGRCjWxVqc4O+yycdWz+6cgd90F5OExo3z
- ob5Jd6DJujGUl4DcBF92gOXl1lHad7myB8CYDi5snhwSNZ5xhHRCB6xznkyMLn0Z67R/
- 6xQJwZBc6Mj2rC0UntJbgLNXFjJ76g+cXofqsG3aKHTeNopKr+LiMwdFRSvbx6Unfqp2
- mxnUi6tmvW4UEEYIECwbJm8u64SJdiranhfBGH+Tb3gc8n+dEfD0O0y+lJQtc3lNIz43
- hl4n2tNLVo47bvNrSfWpVU65Uaxlrg2bf/rY0y36cMqSYOJvSnxi6McgSOQ4PSxj0kYQ
- E5dA==
-X-Gm-Message-State: APjAAAWt1FEEAd+VX+bWAmEG9+GwSnFegNJ3y8lOtr3CqHremUKFS3Du
- bYZVgalLv/o/5bRpkUDgaAe84HPlXLA=
-X-Google-Smtp-Source: APXvYqzeOp+XDmBrLMn/W9d0wLbXwb88Z0aBJ9+r0t1DXNT1sn4WME2E0T7KGdkUSCrLcQUN9sfpNA==
-X-Received: by 2002:a1c:6605:: with SMTP id a5mr12058474wmc.112.1578792233194; 
- Sat, 11 Jan 2020 17:23:53 -0800 (PST)
-Received: from brihaspati.fritz.box
- (p200300C58F028C00C12D27CB56CFD93F.dip0.t-ipconnect.de.
- [2003:c5:8f02:8c00:c12d:27cb:56cf:d93f])
- by smtp.gmail.com with ESMTPSA id n3sm8107013wrs.8.2020.01.11.17.23.50
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=mN3OohFuWT/b3tQcks3MjC4mIBwZ0BmU1pug0HHFBA8=;
+ b=dfAqWffONadr2KjncQJEmQu77q8bKNSqOsUgtEyAkWwQ1hAodZ1dx4Z/qIMdfmsODv
+ 4mCP2NiyBabmpzsvUTMvxOxNSc3stp2QfjR+9kWfUkXFlVCUHgHwiWdX5nZDYy8zbhwD
+ 5vs/vAtuNAhUDhzywjFf8C9wbZW8yLFfHPijnXD7PI218twQyS0GtFRJbarKiDl/qzI9
+ 92bYtSbwfLbrsVjakmGZzIDsAoeHDQtLrZ/mWKDkykSZGbcOaq1GP9tEx2MTVPADkbEp
+ 2M30N3TPyP9i0DOsWHqvRd9LpHDjpMdbmkEFnI9OKxGKEnYGq91KD5/oyDw6ekL5VTK3
+ d04w==
+X-Gm-Message-State: APjAAAUK0aSIB1vjjZDsn7J8QBktTThDV9k1TqD9z71pRfW94zkp1b+r
+ s8IcavsmSGYZ5WdhOmvybGnQLA==
+X-Google-Smtp-Source: APXvYqzuVMccGIlYN3NWuH5sobRxngrV6L5TKIyuAMS6+VMeeMkB4pB7p1cgi1jZEAORT6jG0Ta+aQ==
+X-Received: by 2002:a62:3703:: with SMTP id e3mr16618728pfa.154.1578869606016; 
+ Sun, 12 Jan 2020 14:53:26 -0800 (PST)
+Received: from dvetter-linux.ger.corp.intel.com ([138.44.248.126])
+ by smtp.gmail.com with ESMTPSA id g67sm11800045pfb.66.2020.01.12.14.53.16
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 11 Jan 2020 17:23:52 -0800 (PST)
-From: Nirmoy Das <nirmoy.aiemd@gmail.com>
-X-Google-Original-From: Nirmoy Das <nirmoy.das@amd.com>
-To: amd-gfx@lists.freedesktop.org
-Subject: [RFC PATCH] drm/scheduler: use idle time to do better loadbalance
-Date: Sun, 12 Jan 2020 02:25:07 +0100
-Message-Id: <20200112012507.7468-1-nirmoy.das@amd.com>
-X-Mailer: git-send-email 2.24.1
+ Sun, 12 Jan 2020 14:53:25 -0800 (PST)
+Date: Sun, 12 Jan 2020 23:53:12 +0100
+From: Daniel Vetter <daniel@ffwll.ch>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+Subject: Re: [PATCH 23/23] drm: Cleanup VBLANK callbacks in struct drm_driver
+Message-ID: <20200112225312.GC5340@dvetter-linux.ger.corp.intel.com>
+References: <20200110092127.27847-1-tzimmermann@suse.de>
+ <20200110092127.27847-24-tzimmermann@suse.de>
 MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <20200110092127.27847-24-tzimmermann@suse.de>
+X-Operating-System: Linux dvetter-linux.ger.corp.intel.com
+ 5.2.11-200.fc30.x86_64 
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,129 +77,279 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alexander.deucher@amd.com, kenny.ho@amd.com, nirmoy.das@amd.com,
- christian.koenig@amd.com, pierre-eric.pelloux-prayer@amd.com
+Cc: hamohammed.sa@gmail.com, airlied@linux.ie, nouveau@lists.freedesktop.org,
+ joonas.lahtinen@linux.intel.com, dri-devel@lists.freedesktop.org,
+ eric@anholt.net, amd-gfx@lists.freedesktop.org, benjamin.gaignard@linaro.org,
+ alexandre.torgue@st.com, David1.Zhou@amd.com, thellstrom@vmware.com,
+ sean@poorly.run, patrik.r.jakobsson@gmail.com,
+ linux-graphics-maintainer@vmware.com, bskeggs@redhat.com,
+ harry.wentland@amd.com, mcoquelin.stm32@gmail.com, sunpeng.li@amd.com,
+ linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ maarten.lankhorst@linux.intel.com, jani.nikula@linux.intel.com,
+ rodrigo.vivi@intel.com, vincent.abriou@st.com, rodrigosiqueiramelo@gmail.com,
+ philippe.cornu@st.com, yannick.fertre@st.com, robdclark@gmail.com,
+ daniel@ffwll.ch, alexander.deucher@amd.com, freedreno@lists.freedesktop.org,
+ christian.koenig@amd.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This patch adds required fields to drm_sched_job and drm_gpu_scheduler
-structure to cumulatively calculate amount of time a drm_gpu_scheduler
-spend on serving a job.
+On Fri, Jan 10, 2020 at 10:21:27AM +0100, Thomas Zimmermann wrote:
+> All non-legacy users of VBLANK functions in struct drm_driver have been
+> converted to use the respective interfaces in struct drm_crtc_funcs. The
+> remaining users of VBLANK callbacks in struct drm_driver are legacy drivers
+> with userspace modesetting.
+> 
+> There are no users left of get_vblank_timestamp(), so the callback is
+> being removed. The other VBLANK callbacks are being moved to the legacy
+> section at the end of struct drm_driver.
+> 
+> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
 
-Using least used drm scheduler to choose a run queue
-improves drm_sched_entity_get_free_sched()'s job distribution
+I think sprinkling some WARN_ON (in drm_dev_register or wherever) if new
+drivers try to use the legacy hooks would be really nice. Experience says
+someone is going to copypaste this stuff around forever otherwise.
 
-Below are test results after running amdgpu_test from mesa drm
+Reviewed-by: Daniel Vetter <daniel.vetter@ffwll.ch>
 
-Before this patch:
+> ---
+>  drivers/gpu/drm/drm_vblank.c |  39 +++++---------
+>  include/drm/drm_drv.h        | 101 ++---------------------------------
+>  2 files changed, 17 insertions(+), 123 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/drm_vblank.c b/drivers/gpu/drm/drm_vblank.c
+> index 7cf436a4b908..ceff68474d4d 100644
+> --- a/drivers/gpu/drm/drm_vblank.c
+> +++ b/drivers/gpu/drm/drm_vblank.c
+> @@ -138,10 +138,9 @@ static u32 __get_vblank_counter(struct drm_device *dev, unsigned int pipe)
+>  
+>  		if (crtc->funcs->get_vblank_counter)
+>  			return crtc->funcs->get_vblank_counter(crtc);
+> -	}
+> -
+> -	if (dev->driver->get_vblank_counter)
+> +	} else if (dev->driver->get_vblank_counter) {
+>  		return dev->driver->get_vblank_counter(dev, pipe);
+> +	}
+>  
+>  	return drm_vblank_no_hw_counter(dev, pipe);
+>  }
+> @@ -334,8 +333,7 @@ u64 drm_crtc_accurate_vblank_count(struct drm_crtc *crtc)
+>  	unsigned long flags;
+>  
+>  	WARN_ONCE(drm_debug_enabled(DRM_UT_VBL) &&
+> -		  !crtc->funcs->get_vblank_timestamp &&
+> -		  !dev->driver->get_vblank_timestamp,
+> +		  !crtc->funcs->get_vblank_timestamp,
+>  		  "This function requires support for accurate vblank timestamps.");
+>  
+>  	spin_lock_irqsave(&dev->vblank_time_lock, flags);
+> @@ -357,13 +355,11 @@ static void __disable_vblank(struct drm_device *dev, unsigned int pipe)
+>  		if (WARN_ON(!crtc))
+>  			return;
+>  
+> -		if (crtc->funcs->disable_vblank) {
+> +		if (crtc->funcs->disable_vblank)
+>  			crtc->funcs->disable_vblank(crtc);
+> -			return;
+> -		}
+> +	} else {
+> +		dev->driver->disable_vblank(dev, pipe);
+>  	}
+> -
+> -	dev->driver->disable_vblank(dev, pipe);
+>  }
+>  
+>  /*
+> @@ -791,9 +787,6 @@ drm_get_last_vbltimestamp(struct drm_device *dev, unsigned int pipe,
+>  
+>  		ret = crtc->funcs->get_vblank_timestamp(crtc, &max_error,
+>  							tvblank, in_vblank_irq);
+> -	} else if (dev->driver->get_vblank_timestamp && (max_error > 0)) {
+> -		ret = dev->driver->get_vblank_timestamp(dev, pipe, &max_error,
+> -							tvblank, in_vblank_irq);
+>  	}
+>  
+>  	/* GPU high precision timestamp query unsupported or failed.
+> @@ -1016,9 +1009,11 @@ static int __enable_vblank(struct drm_device *dev, unsigned int pipe)
+>  
+>  		if (crtc->funcs->enable_vblank)
+>  			return crtc->funcs->enable_vblank(crtc);
+> +	} else if (dev->driver->enable_vblank) {
+> +		return dev->driver->enable_vblank(dev, pipe);
+>  	}
+>  
+> -	return dev->driver->enable_vblank(dev, pipe);
+> +	return -EINVAL;
+>  }
+>  
+>  static int drm_vblank_enable(struct drm_device *dev, unsigned int pipe)
+> @@ -1109,13 +1104,10 @@ static bool __vblank_disable_immediate(struct drm_device *dev, unsigned int pipe
+>  		return false;
+>  
+>  	crtc = drm_crtc_from_index(dev, pipe);
+> -	if (crtc && crtc->funcs->get_vblank_timestamp)
+> -		return true;
+> -
+> -	if (dev->driver->get_vblank_timestamp)
+> -		return true;
+> +	if (!crtc || !crtc->funcs->get_vblank_timestamp)
+> +		return false;
+>  
+> -	return false;
+> +	return true;
+>  }
+>  
+>  static void drm_vblank_put(struct drm_device *dev, unsigned int pipe)
+> @@ -1798,7 +1790,6 @@ static void drm_handle_vblank_events(struct drm_device *dev, unsigned int pipe)
+>  	struct drm_pending_vblank_event *e, *t;
+>  	ktime_t now;
+>  	u64 seq;
+> -	bool high_prec;
+>  
+>  	assert_spin_locked(&dev->event_lock);
+>  
+> @@ -1818,10 +1809,8 @@ static void drm_handle_vblank_events(struct drm_device *dev, unsigned int pipe)
+>  		send_vblank_event(dev, e, seq, now);
+>  	}
+>  
+> -	high_prec = crtc->funcs->get_vblank_timestamp ||
+> -		    dev->driver->get_vblank_timestamp;
+> -
+> -	trace_drm_vblank_event(pipe, seq, now, high_prec);
+> +	trace_drm_vblank_event(pipe, seq, now,
+> +			       crtc->funcs->get_vblank_timestamp != NULL);
+>  }
+>  
+>  /**
+> diff --git a/include/drm/drm_drv.h b/include/drm/drm_drv.h
+> index b704e252f3b2..e290b3aca6eb 100644
+> --- a/include/drm/drm_drv.h
+> +++ b/include/drm/drm_drv.h
+> @@ -268,104 +268,6 @@ struct drm_driver {
+>  	 */
+>  	void (*release) (struct drm_device *);
+>  
+> -	/**
+> -	 * @get_vblank_counter:
+> -	 *
+> -	 * Driver callback for fetching a raw hardware vblank counter for the
+> -	 * CRTC specified with the pipe argument.  If a device doesn't have a
+> -	 * hardware counter, the driver can simply leave the hook as NULL.
+> -	 * The DRM core will account for missed vblank events while interrupts
+> -	 * where disabled based on system timestamps.
+> -	 *
+> -	 * Wraparound handling and loss of events due to modesetting is dealt
+> -	 * with in the DRM core code, as long as drivers call
+> -	 * drm_crtc_vblank_off() and drm_crtc_vblank_on() when disabling or
+> -	 * enabling a CRTC.
+> -	 *
+> -	 * This is deprecated and should not be used by new drivers.
+> -	 * Use &drm_crtc_funcs.get_vblank_counter instead.
+> -	 *
+> -	 * Returns:
+> -	 *
+> -	 * Raw vblank counter value.
+> -	 */
+> -	u32 (*get_vblank_counter) (struct drm_device *dev, unsigned int pipe);
+> -
+> -	/**
+> -	 * @enable_vblank:
+> -	 *
+> -	 * Enable vblank interrupts for the CRTC specified with the pipe
+> -	 * argument.
+> -	 *
+> -	 * This is deprecated and should not be used by new drivers.
+> -	 * Use &drm_crtc_funcs.enable_vblank instead.
+> -	 *
+> -	 * Returns:
+> -	 *
+> -	 * Zero on success, appropriate errno if the given @crtc's vblank
+> -	 * interrupt cannot be enabled.
+> -	 */
+> -	int (*enable_vblank) (struct drm_device *dev, unsigned int pipe);
+> -
+> -	/**
+> -	 * @disable_vblank:
+> -	 *
+> -	 * Disable vblank interrupts for the CRTC specified with the pipe
+> -	 * argument.
+> -	 *
+> -	 * This is deprecated and should not be used by new drivers.
+> -	 * Use &drm_crtc_funcs.disable_vblank instead.
+> -	 */
+> -	void (*disable_vblank) (struct drm_device *dev, unsigned int pipe);
+> -
+> -	/**
+> -	 * @get_vblank_timestamp:
+> -	 *
+> -	 * Called by drm_get_last_vbltimestamp(). Should return a precise
+> -	 * timestamp when the most recent VBLANK interval ended or will end.
+> -	 *
+> -	 * Specifically, the timestamp in @vblank_time should correspond as
+> -	 * closely as possible to the time when the first video scanline of
+> -	 * the video frame after the end of VBLANK will start scanning out,
+> -	 * the time immediately after end of the VBLANK interval. If the
+> -	 * @crtc is currently inside VBLANK, this will be a time in the future.
+> -	 * If the @crtc is currently scanning out a frame, this will be the
+> -	 * past start time of the current scanout. This is meant to adhere
+> -	 * to the OpenML OML_sync_control extension specification.
+> -	 *
+> -	 * Paramters:
+> -	 *
+> -	 * dev:
+> -	 *     dev DRM device handle.
+> -	 * pipe:
+> -	 *     crtc for which timestamp should be returned.
+> -	 * max_error:
+> -	 *     Maximum allowable timestamp error in nanoseconds.
+> -	 *     Implementation should strive to provide timestamp
+> -	 *     with an error of at most max_error nanoseconds.
+> -	 *     Returns true upper bound on error for timestamp.
+> -	 * vblank_time:
+> -	 *     Target location for returned vblank timestamp.
+> -	 * in_vblank_irq:
+> -	 *     True when called from drm_crtc_handle_vblank().  Some drivers
+> -	 *     need to apply some workarounds for gpu-specific vblank irq quirks
+> -	 *     if flag is set.
+> -	 *
+> -	 * Returns:
+> -	 *
+> -	 * True on success, false on failure, which means the core should
+> -	 * fallback to a simple timestamp taken in drm_crtc_handle_vblank().
+> -	 *
+> -	 * FIXME:
+> -	 *
+> -	 * We should move this hook to &struct drm_crtc_funcs like all the other
+> -	 * vblank hooks.
+> -	 */
+> -	bool (*get_vblank_timestamp) (struct drm_device *dev, unsigned int pipe,
+> -				     int *max_error,
+> -				     ktime_t *vblank_time,
+> -				     bool in_vblank_irq);
+> -
+>  	/**
+>  	 * @irq_handler:
+>  	 *
+> @@ -720,6 +622,9 @@ struct drm_driver {
+>  	int (*dma_ioctl) (struct drm_device *dev, void *data, struct drm_file *file_priv);
+>  	int (*dma_quiescent) (struct drm_device *);
+>  	int (*context_dtor) (struct drm_device *dev, int context);
+> +	u32 (*get_vblank_counter)(struct drm_device *dev, unsigned int pipe);
+> +	int (*enable_vblank)(struct drm_device *dev, unsigned int pipe);
+> +	void (*disable_vblank)(struct drm_device *dev, unsigned int pipe);
+>  	int dev_priv_size;
+>  };
+>  
+> -- 
+> 2.24.1
+> 
 
-sched_name     num of many times it got scheduled
-=========      ==================================
-sdma0	       314
-sdma1          32
-comp_1.0.0     56
-
-After this patch:
-
-sched_name     num of many times it got scheduled
-=========      ==================================
-sdma0	       113
-sdma1          383
-comp_1.0.0     9
-comp_1.0.1     9
-comp_1.1.0     8
-comp_1.1.1     8
-comp_1.2.0    12
-comp_1.2.1    13
-comp_1.3.0    16
-comp_1.3.1    9
-
-Signed-off-by: Nirmoy Das <nirmoy.das@amd.com>
----
- drivers/gpu/drm/scheduler/sched_entity.c | 9 +++++----
- drivers/gpu/drm/scheduler/sched_main.c   | 2 ++
- include/drm/gpu_scheduler.h              | 2 ++
- 3 files changed, 9 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/gpu/drm/scheduler/sched_entity.c b/drivers/gpu/drm/scheduler/sched_entity.c
-index 2e3a058fc239..b5555af787d0 100644
---- a/drivers/gpu/drm/scheduler/sched_entity.c
-+++ b/drivers/gpu/drm/scheduler/sched_entity.c
-@@ -130,7 +130,7 @@ static struct drm_sched_rq *
- drm_sched_entity_get_free_sched(struct drm_sched_entity *entity)
- {
- 	struct drm_sched_rq *rq = NULL;
--	unsigned int min_jobs = UINT_MAX, num_jobs;
-+	uint64_t min_time_consumed = -1, total_consumed_time;
- 	int i;
- 
- 	for (i = 0; i < entity->num_sched_list; ++i) {
-@@ -141,9 +141,9 @@ drm_sched_entity_get_free_sched(struct drm_sched_entity *entity)
- 			continue;
- 		}
- 
--		num_jobs = atomic_read(&sched->num_jobs);
--		if (num_jobs < min_jobs) {
--			min_jobs = num_jobs;
-+		total_consumed_time = sched->total_consumed_time;
-+		if (total_consumed_time < min_time_consumed) {
-+			min_time_consumed = total_consumed_time;
- 			rq = &entity->sched_list[i]->sched_rq[entity->priority];
- 		}
- 	}
-@@ -499,6 +499,7 @@ void drm_sched_entity_push_job(struct drm_sched_job *sched_job,
- 
- 	trace_drm_sched_job(sched_job, entity);
- 	atomic_inc(&entity->rq->sched->num_jobs);
-+	sched_job->start_time = ktime_get_ns();
- 	WRITE_ONCE(entity->last_user, current->group_leader);
- 	first = spsc_queue_push(&entity->job_queue, &sched_job->queue_node);
- 
-diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/scheduler/sched_main.c
-index 3fad5876a13f..67fdf4f248d4 100644
---- a/drivers/gpu/drm/scheduler/sched_main.c
-+++ b/drivers/gpu/drm/scheduler/sched_main.c
-@@ -653,6 +653,7 @@ static void drm_sched_process_job(struct dma_fence *f, struct dma_fence_cb *cb)
- 	struct drm_sched_job *s_job = container_of(cb, struct drm_sched_job, cb);
- 	struct drm_sched_fence *s_fence = s_job->s_fence;
- 	struct drm_gpu_scheduler *sched = s_fence->sched;
-+	uint64_t end = ktime_get_ns();
- 
- 	atomic_dec(&sched->hw_rq_count);
- 	atomic_dec(&sched->num_jobs);
-@@ -660,6 +661,7 @@ static void drm_sched_process_job(struct dma_fence *f, struct dma_fence_cb *cb)
- 	trace_drm_sched_process_job(s_fence);
- 
- 	drm_sched_fence_finished(s_fence);
-+	s_job->sched->total_consumed_time += end - s_job->start_time;
- 	wake_up_interruptible(&sched->wake_up_worker);
- }
- 
-diff --git a/include/drm/gpu_scheduler.h b/include/drm/gpu_scheduler.h
-index 96a1a1b7526e..496d9b209d12 100644
---- a/include/drm/gpu_scheduler.h
-+++ b/include/drm/gpu_scheduler.h
-@@ -191,6 +191,7 @@ struct drm_sched_job {
- 	struct dma_fence_cb		finish_cb;
- 	struct list_head		node;
- 	uint64_t			id;
-+	uint64_t			start_time;
- 	atomic_t			karma;
- 	enum drm_sched_priority		s_priority;
- 	struct drm_sched_entity  *entity;
-@@ -285,6 +286,7 @@ struct drm_gpu_scheduler {
- 	atomic_t                        num_jobs;
- 	bool			ready;
- 	bool				free_guilty;
-+	uint64_t			total_consumed_time;
- };
- 
- int drm_sched_init(struct drm_gpu_scheduler *sched,
 -- 
-2.24.1
-
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
