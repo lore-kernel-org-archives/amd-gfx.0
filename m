@@ -7,32 +7,32 @@ X-Spam-Status: No, score=-9.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1D47FC33CA8
-	for <amd-gfx@archiver.kernel.org>; Mon, 13 Jan 2020 09:53:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id AB6EBC33CAD
+	for <amd-gfx@archiver.kernel.org>; Mon, 13 Jan 2020 10:16:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D9EA42080D
-	for <amd-gfx@archiver.kernel.org>; Mon, 13 Jan 2020 09:53:18 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 738202080D
+	for <amd-gfx@archiver.kernel.org>; Mon, 13 Jan 2020 10:16:40 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="AMKduGLc"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D9EA42080D
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="qEpbojEl"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 738202080D
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4E75C89AEB;
-	Mon, 13 Jan 2020 09:53:18 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2089.outbound.protection.outlook.com [40.107.92.89])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 995F089AEB;
- Mon, 13 Jan 2020 09:53:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1280889D9A;
+	Mon, 13 Jan 2020 10:16:40 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2086.outbound.protection.outlook.com [40.107.244.86])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B358789D9A
+ for <amd-gfx@lists.freedesktop.org>; Mon, 13 Jan 2020 10:16:38 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=RMgvUSDnT3DXYnXKGVKv3heEvHCn57WdnjxnYjHjC18i/WiVOsBP4z8/HdIz5FE9Hv0bpC2L6F8TJJtBTttI9TCAgEnsTmPjvNINrsHRrD1RHVBhe/cUiJo2+/krRFgmknermVMhaFik4TPls48aczb4o8FcG5U3FgLoWdniQtug+ugatfF49sDb6P8HNANPQgqGrbXq0BBcssXViB0tdNXtxi7Vr3DJJDbB/OW0RUAJyPRs+4qf16LOaTpDisz8Zu6K8VWNxfuKyYJbYGw0FPvcxXI91hK/TAl43yxuPn+7Q0wa11zXel/nbjZ4yvCfCsstSaZzq9rfDyHYB2mLfg==
+ b=kUEXx3E7zMPUzwpE8uwOTQdGWKF84hVsfpJFROrWYoL+IjskX2NeVXzXGpKWCR9kZtPdaUyGuntJGmllpWiedIY53l6dTiLjg+2ofy7Avp/VSxLzrN09YdxrtqQzzVfk12FuKNFf83QbTAF/BC+CDpkOtiNG1A49a1CNS3rDpM4hT/mJ0EAK7avAVAMoCYflwdzUHLv+lwSiFNl+zXT5+OKOcOaF0eunLAcZRMYgWx9c8OaXjogitDWuDgVqqj+71PCk8v0jYXAktQ6xmclF1Yudh/Jz6lCHv1gBQfIAuH/nbT0UJU+p+8czNqUNSl6gSGdj3fcStKIEW7h1HOZN3A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=FmZftCqn69OQfdWczJzzFbutP0FES3TAqwVX6XDbdKY=;
- b=Rm5VdrNWRXbUYlNeYXo9n8PRw0IRIYaRmoyZKYNqJ8FG95icbtvihJJV5Ndbi4OZJJcNELLH6D31YhpXjya+dE1bA2r7apvs+yrmk6gEEiwqyadIR2X9CVC/zTcBYh8TeDXSZHEmSBI5nMDWTgTGKYGIU40lK6ZVCz+flbHxqHvkLqveEo7nd8yF9Q2Ml2Ug5M3ykvFmPKTS2H0ZhlfWrbQDN4FpKL76MIUT5XpzTL/eSeSrHA9zXk1GaRYvbt5xK5iC5BDx7wzIuer6vUj1Cmqs6ROXXtN8lWnpCI1zmbu6lBjsqcYbbjPQQBdUnsfnKkcPT6uMX/TpTT+1CpTEgg==
+ bh=U//CYk0hAr1IJ1UQauCdzrNsSL73QNs4rK1p1tN0M6c=;
+ b=cAmxQSpvuYt6+HV/piVviiy6dQF5NjojnWzSYDWBrLHcjDpAD3ZpWwpznPUKiwB3YBcY4Y0x87/GQBDbbL9jEhTxrofjXuH3GsG70NE97+aqDNyYeftq63DTwwwf1yFQ3WCFOjbq9QJTvmzO/EsvyLkSgAsMBFtdOw/Wbgmm2b/xAvEnc3Zp6YAzSJHwD+W/GTlAcvTwjlkA0GeefsFc2I4xn+GHGyNHO3Z/urpMwc4205PWCSJD6yGuqcdewhjKySmcR8SwKUsAhrLe9emJYgvG/zVye96128SZ6Cv+pdE8Xyo7I36LlBuAMGlahR8ph6n0fWVLU3Yf9hp+gEOKkA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=permerror action=none header.from=amd.com; dkim=none (message not
@@ -40,18 +40,18 @@ ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=FmZftCqn69OQfdWczJzzFbutP0FES3TAqwVX6XDbdKY=;
- b=AMKduGLc4RY54e5O9+y2rUN7d5Q26NVWbwdafVAQy7GVp3Bd6CCnzLcsXOst697mm2BUx2GoBvhTylvE4ivwMBswpAptsuSxOAXGWkMEwxcBsB0dizjwLVTqWEZ1jlx88hbJh4GC1SOB6f1r8d+nfWaW7rTkZhk1n+yuLIDD7dg=
-Received: from DM3PR12CA0122.namprd12.prod.outlook.com (2603:10b6:0:51::18) by
- BN6PR12MB1220.namprd12.prod.outlook.com (2603:10b6:404:1e::17) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2623.9; Mon, 13 Jan 2020 09:37:42 +0000
-Received: from CO1NAM11FT030.eop-nam11.prod.protection.outlook.com
- (2a01:111:f400:7eab::208) by DM3PR12CA0122.outlook.office365.com
- (2603:10b6:0:51::18) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2623.9 via Frontend
- Transport; Mon, 13 Jan 2020 09:37:42 +0000
+ bh=U//CYk0hAr1IJ1UQauCdzrNsSL73QNs4rK1p1tN0M6c=;
+ b=qEpbojEl63c2DnL1h7UBCYl4sfNchPMjuLiWpvVkb+qe+renqWHXTm9D/xcIF0rEGQ/qVQAxLcyM3QcvbKuO1+pACDKHwjDzTocNldoWnYNUBUaUoSMQIbGGlrVyKPZ1Mf4SvqGorh5ShvNgBefShHI9lwMVkwgECVvMm7GMH18=
+Received: from MN2PR12CA0029.namprd12.prod.outlook.com (2603:10b6:208:a8::42)
+ by DM5PR12MB1915.namprd12.prod.outlook.com (2603:10b6:3:10c::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2623.13; Mon, 13 Jan
+ 2020 10:16:37 +0000
+Received: from DM6NAM11FT052.eop-nam11.prod.protection.outlook.com
+ (2a01:111:f400:7eaa::202) by MN2PR12CA0029.outlook.office365.com
+ (2603:10b6:208:a8::42) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2623.11 via Frontend
+ Transport; Mon, 13 Jan 2020 10:16:37 +0000
 Authentication-Results: spf=none (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
  header.d=none;lists.freedesktop.org; dmarc=permerror action=none
@@ -59,51 +59,50 @@ Authentication-Results: spf=none (sender IP is 165.204.84.17)
 Received-SPF: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
 Received: from SATLEXMB01.amd.com (165.204.84.17) by
- CO1NAM11FT030.mail.protection.outlook.com (10.13.174.125) with Microsoft SMTP
+ DM6NAM11FT052.mail.protection.outlook.com (10.13.172.111) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.2623.9 via Frontend Transport; Mon, 13 Jan 2020 09:37:41 +0000
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB01.amd.com
+ 15.20.2623.9 via Frontend Transport; Mon, 13 Jan 2020 10:16:37 +0000
+Received: from SATLEXMB02.amd.com (10.181.40.143) by SATLEXMB01.amd.com
  (10.181.40.142) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Mon, 13 Jan
- 2020 03:37:40 -0600
-Received: from SATLEXMB02.amd.com (10.181.40.143) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Mon, 13 Jan
- 2020 03:37:40 -0600
-Received: from wayne-System-Product-Name.amd.com (10.180.168.240) by
+ 2020 04:16:36 -0600
+Received: from gc-System-Product-Name.amd.com (10.180.168.240) by
  SATLEXMB02.amd.com (10.181.40.143) with Microsoft SMTP Server id 15.1.1713.5
- via Frontend Transport; Mon, 13 Jan 2020 03:37:38 -0600
-From: Wayne Lin <Wayne.Lin@amd.com>
-To: <dri-devel@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/dp_mst: Have DP_Tx send one msg at a time
-Date: Mon, 13 Jan 2020 17:36:49 +0800
-Message-ID: <20200113093649.11755-1-Wayne.Lin@amd.com>
-X-Mailer: git-send-email 2.17.1
+ via Frontend Transport; Mon, 13 Jan 2020 04:16:34 -0600
+From: chen gong <curry.gong@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH 2/2] drm/amdgpu: reading CP_MEM_SLP_CNTL register using
+ RREG32_KIQ macro
+Date: Mon, 13 Jan 2020 18:16:22 +0800
+Message-ID: <1578910582-4505-2-git-send-email-curry.gong@amd.com>
+X-Mailer: git-send-email 2.7.4
+In-Reply-To: <1578910582-4505-1-git-send-email-curry.gong@amd.com>
+References: <1578910582-4505-1-git-send-email-curry.gong@amd.com>
 MIME-Version: 1.0
 X-EOPAttributedMessage: 0
 X-MS-Office365-Filtering-HT: Tenant
 X-Forefront-Antispam-Report: CIP:165.204.84.17; IPV:; CTRY:US; EFV:NLI;
  SFV:NSPM;
- SFS:(10009020)(4636009)(396003)(376002)(346002)(39860400002)(136003)(428003)(199004)(189003)(2906002)(26005)(426003)(336012)(70586007)(70206006)(1076003)(186003)(86362001)(5660300002)(2616005)(8936002)(36756003)(6666004)(356004)(7696005)(4326008)(81166006)(316002)(110136005)(81156014)(8676002)(478600001)(54906003);
- DIR:OUT; SFP:1101; SCL:1; SRVR:BN6PR12MB1220; H:SATLEXMB01.amd.com; FPR:;
- SPF:None; LANG:en; PTR:InfoDomainNonexistent; A:1; MX:1; 
+ SFS:(10009020)(4636009)(39860400002)(346002)(136003)(396003)(376002)(428003)(189003)(199004)(4744005)(478600001)(5660300002)(2906002)(356004)(6666004)(316002)(2616005)(8936002)(70206006)(70586007)(86362001)(26005)(81166006)(4326008)(186003)(426003)(336012)(7696005)(36756003)(6916009)(8676002)(81156014);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:DM5PR12MB1915; H:SATLEXMB01.amd.com; FPR:;
+ SPF:None; LANG:en; PTR:InfoDomainNonexistent; MX:1; A:1; 
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 5c631947-1199-465a-1803-08d7980c3c98
-X-MS-TrafficTypeDiagnostic: BN6PR12MB1220:
-X-Microsoft-Antispam-PRVS: <BN6PR12MB12207330C51B5C990D4E1B60FC350@BN6PR12MB1220.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
+X-MS-Office365-Filtering-Correlation-Id: 028e0ddf-7728-4f68-0933-08d79811ac98
+X-MS-TrafficTypeDiagnostic: DM5PR12MB1915:
+X-Microsoft-Antispam-PRVS: <DM5PR12MB1915ADFA45D3FEF12840DECB9D350@DM5PR12MB1915.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:1360;
 X-Forefront-PRVS: 028166BF91
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: PcyOmk4heO7YRyU+wRNYZnf7MrdXaBVBI30CJkkKSW6Gxd14xlAj9+L1JS5+TGizHvwFgg1t+4hn/MggklcJ1eikJ5jdiz/DxM0bmNXPa3c1z11afKec2BMxWLAbBN2xSfgLuAkW5J+qaLcr2C2aKLfflb+tBVU3swf3IorOQDzkokIGZAtN3Qj5dzAlH+LLX34+RWS34Gv3aFZQ67nsmui4Drha+bZUFEzu+Y6XE5tD9K2vSLVHzUW3WoroE3gog+mCD2sK6clF6QVThzrQDCiQ35qw3viSRITGn+CmxC+3Fsy/ktg0VF6j69dMHOaBiK6OGXzZmPKF6ozebaLV67S2Y/uyPRIbLQehd7trMJDg393iC9DsZcgOGBzpcNh4Gdgh6+xfPf5lDxHRmiaCa5ULPko/lejsnIrQrhaJK2riHn3gcCFRNOC8sXm1lPAV
+X-Microsoft-Antispam-Message-Info: iv9NwOljwzepGIhAle4Hf/+gq04ZIabaaTmxQPwnsz+oKxANEApufqsRfcFBpnVkSi7quToiyMNvQH3UtWA8Por/bwHK674cNkSirSKlFrVwc5vWqdcAht0rn3FxkRvGivs511G7HnJY4aPGyyx9PdFG0iDcBeP75JhPqkvHP3hR+PVZgeW/Bt4LnvoZHOE6xRYYXKJfRbaqC/T1uFATiX0k8juT4MpZyuEHeAMA3tGOWnIUH3tvfmxiFnPFAtNNxEVYJO7dcXjvgt1Ahi1QfeOLtLsSabb0ZkhxXYwmwqskvVJPizd9MKkEaeguyj/3NO4RxlhYCCT9kbgfLr3iv32H93udHY+Ogp549UbxRJ7ehes8812l+a3OL2CdVHG9yBFySmTtNi+VFjbuOVd2xfnPccjOk+ladg0W1quofwstgjxxXuQ6CksIPxpvxH/p
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Jan 2020 09:37:41.8243 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5c631947-1199-465a-1803-08d7980c3c98
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Jan 2020 10:16:37.2914 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 028e0ddf-7728-4f68-0933-08d79811ac98
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB01.amd.com]
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN6PR12MB1220
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1915
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,136 +114,35 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: harry.wentland@amd.com, jerry.zuo@amd.com, Nicholas.Kazlauskas@amd.com,
- Wayne Lin <Wayne.Lin@amd.com>
+Cc: chen gong <curry.gong@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[Why]
-Noticed this while testing MST with the 4 ports MST hub from
-StarTech.com. Sometimes can't light up monitors normally and get the
-error message as 'sideband msg build failed'.
+Reading CP_MEM_SLP_CNTL register with RREG32_SOC15 macro will lead to
+hang when GPU is in "gfxoff" state.
 
-Look into aux transactions, found out that source sometimes will send
-out another down request before receiving the down reply of the
-previous down request. On the other hand, in drm_dp_get_one_sb_msg(),
-current code doesn't handle the interleaved replies case. Hence, source
-can't build up message completely and can't light up monitors.
-
-[How]
-For good compatibility, enforce source to send out one down request at a
-time. Add a flag, is_waiting_for_dwn_reply, to determine if the source
-can send out a down request immediately or not.
-
-- Check the flag before calling process_single_down_tx_qlock to send out
-a msg
-- Set the flag when successfully send out a down request
-- Clear the flag when successfully build up a down reply
-- Clear the flag when find erros during sending out a down request
-- Clear the flag when find errors during building up a down reply
-- Clear the flag when timeout occurs during waiting for a down reply
-- Use drm_dp_mst_kick_tx() to try to send another down request in queue
-at the end of drm_dp_mst_wait_tx_reply() (attempt to send out messages
-in queue when errors occur)
-
-Cc: Lyude Paul <lyude@redhat.com>
-Signed-off-by: Wayne Lin <Wayne.Lin@amd.com>
+Signed-off-by: chen gong <curry.gong@amd.com>
 ---
- drivers/gpu/drm/drm_dp_mst_topology.c | 14 ++++++++++++--
- include/drm/drm_dp_mst_helper.h       |  6 ++++++
- 2 files changed, 18 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/drm_dp_mst_topology.c b/drivers/gpu/drm/drm_dp_mst_topology.c
-index 4395d5cc0645..3542af15387a 100644
---- a/drivers/gpu/drm/drm_dp_mst_topology.c
-+++ b/drivers/gpu/drm/drm_dp_mst_topology.c
-@@ -1195,6 +1195,8 @@ static int drm_dp_mst_wait_tx_reply(struct drm_dp_mst_branch *mstb,
- 		    txmsg->state == DRM_DP_SIDEBAND_TX_SENT) {
- 			mstb->tx_slots[txmsg->seqno] = NULL;
- 		}
-+		mgr->is_waiting_for_dwn_reply = false;
-+
- 	}
- out:
- 	if (unlikely(ret == -EIO) && drm_debug_enabled(DRM_UT_DP)) {
-@@ -1204,6 +1206,7 @@ static int drm_dp_mst_wait_tx_reply(struct drm_dp_mst_branch *mstb,
- 	}
- 	mutex_unlock(&mgr->qlock);
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+index e3d466b..a666086 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+@@ -4702,7 +4702,7 @@ static void gfx_v9_0_get_clockgating_state(void *handle, u32 *flags)
+ 		*flags |= AMD_CG_SUPPORT_GFX_RLC_LS | AMD_CG_SUPPORT_GFX_MGLS;
  
-+	drm_dp_mst_kick_tx(mgr);
- 	return ret;
- }
+ 	/* AMD_CG_SUPPORT_GFX_CP_LS */
+-	data = RREG32_SOC15(GC, 0, mmCP_MEM_SLP_CNTL);
++	data = RREG32_KIQ(SOC15_REG_OFFSET(GC, 0, mmCP_MEM_SLP_CNTL));
+ 	if (data & CP_MEM_SLP_CNTL__CP_MEM_LS_EN_MASK)
+ 		*flags |= AMD_CG_SUPPORT_GFX_CP_LS | AMD_CG_SUPPORT_GFX_MGLS;
  
-@@ -2770,9 +2773,11 @@ static void process_single_down_tx_qlock(struct drm_dp_mst_topology_mgr *mgr)
- 	ret = process_single_tx_qlock(mgr, txmsg, false);
- 	if (ret == 1) {
- 		/* txmsg is sent it should be in the slots now */
-+		mgr->is_waiting_for_dwn_reply = true;
- 		list_del(&txmsg->next);
- 	} else if (ret) {
- 		DRM_DEBUG_KMS("failed to send msg in q %d\n", ret);
-+		mgr->is_waiting_for_dwn_reply = false;
- 		list_del(&txmsg->next);
- 		if (txmsg->seqno != -1)
- 			txmsg->dst->tx_slots[txmsg->seqno] = NULL;
-@@ -2812,7 +2817,8 @@ static void drm_dp_queue_down_tx(struct drm_dp_mst_topology_mgr *mgr,
- 		drm_dp_mst_dump_sideband_msg_tx(&p, txmsg);
- 	}
- 
--	if (list_is_singular(&mgr->tx_msg_downq))
-+	if (list_is_singular(&mgr->tx_msg_downq) &&
-+	    !mgr->is_waiting_for_dwn_reply)
- 		process_single_down_tx_qlock(mgr);
- 	mutex_unlock(&mgr->qlock);
- }
-@@ -3743,6 +3749,7 @@ static int drm_dp_mst_handle_down_rep(struct drm_dp_mst_topology_mgr *mgr)
- 	mutex_lock(&mgr->qlock);
- 	txmsg->state = DRM_DP_SIDEBAND_TX_RX;
- 	mstb->tx_slots[slot] = NULL;
-+	mgr->is_waiting_for_dwn_reply = false;
- 	mutex_unlock(&mgr->qlock);
- 
- 	wake_up_all(&mgr->tx_waitq);
-@@ -3752,6 +3759,9 @@ static int drm_dp_mst_handle_down_rep(struct drm_dp_mst_topology_mgr *mgr)
- no_msg:
- 	drm_dp_mst_topology_put_mstb(mstb);
- clear_down_rep_recv:
-+	mutex_lock(&mgr->qlock);
-+	mgr->is_waiting_for_dwn_reply = false;
-+	mutex_unlock(&mgr->qlock);
- 	memset(&mgr->down_rep_recv, 0, sizeof(struct drm_dp_sideband_msg_rx));
- 
- 	return 0;
-@@ -4591,7 +4601,7 @@ static void drm_dp_tx_work(struct work_struct *work)
- 	struct drm_dp_mst_topology_mgr *mgr = container_of(work, struct drm_dp_mst_topology_mgr, tx_work);
- 
- 	mutex_lock(&mgr->qlock);
--	if (!list_empty(&mgr->tx_msg_downq))
-+	if (!list_empty(&mgr->tx_msg_downq) && !mgr->is_waiting_for_dwn_reply)
- 		process_single_down_tx_qlock(mgr);
- 	mutex_unlock(&mgr->qlock);
- }
-diff --git a/include/drm/drm_dp_mst_helper.h b/include/drm/drm_dp_mst_helper.h
-index 942575de86a0..d0b45468135a 100644
---- a/include/drm/drm_dp_mst_helper.h
-+++ b/include/drm/drm_dp_mst_helper.h
-@@ -610,6 +610,12 @@ struct drm_dp_mst_topology_mgr {
- 	 * &drm_dp_sideband_msg_tx.state once they are queued
- 	 */
- 	struct mutex qlock;
-+
-+	/**
-+	 * @is_waiting_for_dwn_reply: indicate whether is waiting for down reply
-+	 */
-+	bool is_waiting_for_dwn_reply;
-+
- 	/**
- 	 * @tx_msg_downq: List of pending down replies.
- 	 */
 -- 
-2.17.1
+2.7.4
 
 _______________________________________________
 amd-gfx mailing list
