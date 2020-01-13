@@ -7,55 +7,55 @@ X-Spam-Status: No, score=-9.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5A028C33CAE
-	for <amd-gfx@archiver.kernel.org>; Mon, 13 Jan 2020 20:26:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3C323C33CA9
+	for <amd-gfx@archiver.kernel.org>; Mon, 13 Jan 2020 20:27:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 27F7121556
-	for <amd-gfx@archiver.kernel.org>; Mon, 13 Jan 2020 20:26:55 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 0AC8D21556
+	for <amd-gfx@archiver.kernel.org>; Mon, 13 Jan 2020 20:26:59 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="39qzrQxk"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 27F7121556
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="yVOU+Uk2"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0AC8D21556
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C9C9489AA6;
-	Mon, 13 Jan 2020 20:26:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AAB3F89AFF;
+	Mon, 13 Jan 2020 20:26:59 +0000 (UTC)
 Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2048.outbound.protection.outlook.com [40.107.220.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 239F689AA6
- for <amd-gfx@lists.freedesktop.org>; Mon, 13 Jan 2020 20:26:54 +0000 (UTC)
+ (mail-co1nam11on2053.outbound.protection.outlook.com [40.107.220.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BEBA389AFF
+ for <amd-gfx@lists.freedesktop.org>; Mon, 13 Jan 2020 20:26:58 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=hwwetbOjRN7rlI9nKCfxnTRs1/9cXGULcTPNTCzxDLDyzIjpL2wO/kq0EUMRXwgmNpMpnL0p8iFHw3Imju/pZ1StNK/I0pHgPXjh5Nan2PndcLICnk/bZvTKUBN0il/5WgmXy5E2xaTfP9iauDfnRg62XeGDhFn+YLS8FwqhX7pWf8NhDJ8ifEm1oWO6mMlgp/POyeJ/LMd39KsW1q+sFZEOLJOB0ZJlga7lN02a1hbkX8PElvNzS1VlBNV33sK9Ni3cjZ+kkQiBPzVyFUIb+YR7170GVKJ5B/kcBOHnriuE0Ma+yKgJxjuau5aHjJ9XI7gkrhsBpMUgfs/6e45Wjw==
+ b=nY/geOS+OkYA/Ig6TgqNYFgfc0iFwdhK/uWESj8JPAhg+K6aYr0LhSeBjgtzezNt/hN+wRfzR5V5x0xxsd5Wsv3vPbx0U5B22N3I2q33IfzHpeVk8o7UwX1yQeIihUoENP+Mw8crcAfTK8CNa7Qc/wbyq9PNjgOpG3xPpPuGagL32jUxyi0nrCyEdknnvMWBq0R2ojihvLQM4O8R8Uf2vTgBkazWo2HclaXFF0+Kaxlase5lyIehfPAsMRJiWMPm/aflrd9j3ULG2YiE1m3IWIW5o1KQRYXc5BrUR1bzU1N/I49j/9tMkafjwAGxsgGimw8532yKQNmnaV67+n94qQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=24x+MOcE+p+JjiAJTsC+AqA8XGr5U5bCmNOcDIoyh1c=;
- b=SIvGd89oGheCrgiySUPvbB6WrLZTpRfnbqZ/rDn7TIE75+VpnhgOQuyUSxqf22yndsn9o0CWJeoZq66d8wwAeAmoMBpzmL63JQxv9+QONhU9PmSEbMP+4nYcTquv5LU3Wv7mKFmFXb5oeXFqGyV53jF+ZFWOLQCCokVdkqY70ezDvfhb/V7BPGEuZsuGTwLkAzmH92WUZG29MfdCW8oIJAS41IuUm1g3ybCerYB1JnMLJyMHQqPuEBAyjdfBL+PMdGF6ojDk2a+hX8GG5blzQHWPKQas00UfMByqB6Jrv4FYE042CVYLhjGZLvcdOU1RH/Jg35TlwaoZeVv9Zv1NWg==
+ bh=DRbHTzuffmtcz0R3WWdhNR6kkw3akwSlswqv2j0RSEA=;
+ b=htlD01Ox5sfBHNtZggcKYfyjnooYy/XH4E13Q0jkLgCyX9UcWFEfz1ZHyMYMWAIbwY/qLlnSJngMIs2djZ+drmryPRGxSh+1mO++9uNDa7TMFEVrYzb7laARdjgl3+iqBB/VKSL2EytuE1rHxoRTbnzW5pkDuezgl8ztmWIA/1V7fWmrxMIyUdq9QBP+Re3skJwzJqA2bmq5d/HD/AoJUi06Nm350myPIBZGIzGf9Xx1gqAUu30ExTZvPLGqK2kj5icdgw/3sUPsG0f5SHEe3YHtxAJdFo+FuvymrKzuWtbr3Rl2N0vMYQMt0X5+aGmdyTKoHAhpX0dTOsswbOEzkA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=24x+MOcE+p+JjiAJTsC+AqA8XGr5U5bCmNOcDIoyh1c=;
- b=39qzrQxkKN7UWnvQr3LfKCLkoA2iFlau9I020uMZsUTCnpN9L+Ms8OPUVYi/82gisE2PwXhH7lSGagzEqclSbWgTxgAjoNaRW1WXgiR8KPwF+rYd5/lO2HtW5YRLeunuZ+Hohj3jb1bSqV8xqlRcPNd+Z+zDtXi59E7y4AvqvrU=
+ bh=DRbHTzuffmtcz0R3WWdhNR6kkw3akwSlswqv2j0RSEA=;
+ b=yVOU+Uk2xD2f48NapfQjTeb8rHg8xkWTan13VLN4hQjHzK0vCNlVRmGd06WNY00e9gMc/vXup4glMe1Qn5h3dahV4X/brLY7OE5ovTxA6dtuU/hLVVRs+YIDs/HzBxfoOZTyAYl/9btO5QKPPDiACXEbqxifJ63Nup9FqOj1JhA=
 Authentication-Results: spf=none (sender IP is )
  smtp.mailfrom=Alex.Sierra@amd.com; 
 Received: from SN6PR12MB2621.namprd12.prod.outlook.com (52.135.105.15) by
  SN6PR12MB2702.namprd12.prod.outlook.com (52.135.101.144) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2623.14; Mon, 13 Jan 2020 20:26:53 +0000
+ 15.20.2623.14; Mon, 13 Jan 2020 20:26:57 +0000
 Received: from SN6PR12MB2621.namprd12.prod.outlook.com
  ([fe80::8923:17de:add5:1490]) by SN6PR12MB2621.namprd12.prod.outlook.com
  ([fe80::8923:17de:add5:1490%6]) with mapi id 15.20.2623.015; Mon, 13 Jan 2020
- 20:26:53 +0000
+ 20:26:57 +0000
 From: Alex Sierra <alex.sierra@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 4/7] drm/amdgpu: replace kcq enable/disable functions on gfx_v9
-Date: Mon, 13 Jan 2020 14:26:26 -0600
-Message-Id: <20200113202629.94021-4-alex.sierra@amd.com>
+Subject: [PATCH 5/7] drm/amdgpu: export function to flush TLB via pasid
+Date: Mon, 13 Jan 2020 14:26:27 -0600
+Message-Id: <20200113202629.94021-5-alex.sierra@amd.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20200113202629.94021-3-alex.sierra@amd.com>
 References: <20200113202629.94021-3-alex.sierra@amd.com>
@@ -66,19 +66,19 @@ MIME-Version: 1.0
 Received: from alex-MS-7B09.amd.com (165.204.77.1) by
  SN6PR08CA0017.namprd08.prod.outlook.com (2603:10b6:805:66::30) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2602.15 via Frontend Transport; Mon, 13 Jan 2020 20:26:52 +0000
+ 15.20.2602.15 via Frontend Transport; Mon, 13 Jan 2020 20:26:57 +0000
 X-Mailer: git-send-email 2.17.1
 X-Originating-IP: [165.204.77.1]
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: e277c58d-11a1-45d8-57bb-08d79866ed1e
+X-MS-Office365-Filtering-Correlation-Id: d2848552-4e50-4093-ca12-08d79866efad
 X-MS-TrafficTypeDiagnostic: SN6PR12MB2702:|SN6PR12MB2702:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <SN6PR12MB27023BA81C3B2C986A2FAA65FD350@SN6PR12MB2702.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:3173;
+X-Microsoft-Antispam-PRVS: <SN6PR12MB2702C5E0C3C10BE22AE352CAFD350@SN6PR12MB2702.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:758;
 X-Forefront-PRVS: 028166BF91
 X-Forefront-Antispam-Report: SFV:NSPM;
- SFS:(10009020)(4636009)(376002)(366004)(136003)(39860400002)(396003)(346002)(189003)(199004)(81156014)(1076003)(66574012)(8676002)(6486002)(6666004)(5660300002)(81166006)(8936002)(66476007)(66556008)(66946007)(316002)(36756003)(44832011)(86362001)(4326008)(186003)(26005)(7696005)(6916009)(52116002)(2616005)(16526019)(478600001)(956004)(2906002);
+ SFS:(10009020)(4636009)(376002)(366004)(136003)(39860400002)(396003)(346002)(189003)(199004)(81156014)(1076003)(30864003)(8676002)(6486002)(6666004)(5660300002)(81166006)(8936002)(66476007)(66556008)(66946007)(316002)(36756003)(44832011)(86362001)(4326008)(186003)(26005)(7696005)(6916009)(52116002)(2616005)(16526019)(478600001)(956004)(2906002);
  DIR:OUT; SFP:1101; SCL:1; SRVR:SN6PR12MB2702;
  H:SN6PR12MB2621.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
  PTR:InfoNoRecords; MX:1; A:1; 
@@ -86,14 +86,14 @@ Received-SPF: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: RlQRfM798b9pkAzoV78/vgq9Pjm0407jUUoht4tMrWC/HSdhv8IVNbGHlHtzwtFHI/CJe2PS7gKMCaRl1JXx5y7H6KaNDttU+5OCxSRzhai4LPYGem7lFiIfhcs0EIiS2flhMSq+Okr0Cb9SfODinuuEI39GRocRYj7WehEiFAEtko+0ZJA1rOS+Jywuz0uMlYp0MHFyD/NsM5bdW/Os4e7CaHHCEgnL9ifkJmK6RjElJ0h6j7N4Uh6PcZ4ecaRK0D6xi7x7DPelOBqf/dZYA8LdwjKgjvxJkc9VfqtuDMPq7FOf0FY7lbT4geMuaQ591/0smxUEEoAnwx9n4DsSW2qeStaut0TobL5ZNRav0ACsTIFEuyUGsgqDCgImzktRDuEKKKp897J5Lh82EEutAHg2R/WUndMGhjVO7QkVEQJWBdtR4QNuVfuNwaz9bp7Y
+X-Microsoft-Antispam-Message-Info: X2cvO7X3x2BQXMqyIpDRv/JZa5f2dHq6eDjUwOr5swZiLAARRJ/+w155h8tOlKQ9W0M75T1esQBCeWSkZl+i3/dNixrXlVhGTiVM2G+HX2yb9MKKqOLJInXgUN9D6AtrhO/cWjx9NSdPsvb+LnSuPBDlyxMuxnDWC6tTZYFlKP0pf/eP50G/E/d/VJeBFzIY+1e//vS1oQ8a2dm8Wa90Ax7m/SVwujtVhEDVkFAx64wesOFzgpKYWANnYuO++4um/GFqjcBIpg5oZwsP2YnkKvjzorXyQ09cRWvzI7rjiiNT5XC5kSeQeFJagZ9omg3jFD0+GL4UgZ5ZpdVk5qgFL/aRbmPryA1qzzem3UYyhXdBZsPUJERgtN7HBlGM5fTIjBh54fCxh2wRm+t8o/05roAFR+cZCy4789LtvxhuVe9BoPvRN0mtPIyrnZuwNnDq
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e277c58d-11a1-45d8-57bb-08d79866ed1e
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Jan 2020 20:26:53.0458 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d2848552-4e50-4093-ca12-08d79866efad
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Jan 2020 20:26:57.3573 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ONS670bRk8r4pKKBipBjSv/V3Lliv8IOs0/emPcCNg8kZTvOjXexDzQSJu65bXRswmCYioHpD7NxGcio5veE2g==
+X-MS-Exchange-CrossTenant-UserPrincipalName: zHoiIo0ouYnHy14YRkzEW+cJ2cyXqfy0Owup1RJr6VRKgNEFWhNffk4ZKtnB1ekY8d/O9dHn7sv0rFqdAomyNA==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN6PR12MB2702
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -107,108 +107,381 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: Alex Sierra <alex.sierra@amd.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-W1doeV0KVGhlcmUgYXJlIEhXLWluZHBlbmRlbnQgZnVuY3Rpb25zIHRoYXQgZW5hYmxlcyBhbmQg
-ZGlzYWJsZXMga2NxLiBUaGVzZSBmdW5jdGlvbnMgdXNlCnRoZSBraXFfcG00X2Z1bmNzIGltcGxl
-bWVudGF0aW9uLgoKW0hvd10KTG9jYWwga2NxIGVuYWJsZSBhbmQgZGlzYWJsZSBmdW5jdGlvbnMg
-cmVtb3ZlZCBhbmQgcmVwbGFjZSBpdCBieSB0aGUgZ2VuZXJpYyBrY3EKZW5hYmxlIHVuZGVyIGFt
-ZGdwdV9nZngKCkNoYW5nZS1JZDogSTc3MDliZGJhOTM3NDJjMjM0OTQxYTU5MzZjODJlYjY3ZTM0
-NjA3N2MKU2lnbmVkLW9mZi1ieTogQWxleCBTaWVycmEgPGFsZXguc2llcnJhQGFtZC5jb20+CkFj
-a2VkLWJ5OiBDaHJpc3RpYW4gS8O2bmlnIDxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+Ci0tLQog
-ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y5XzAuYyB8IDEwMiArLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLQogMSBmaWxlIGNoYW5nZWQsIDIgaW5zZXJ0aW9ucygrKSwgMTAwIGRlbGV0
-aW9ucygtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92OV8w
-LmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjlfMC5jCmluZGV4IGI4NzU5Mzg2
-ZGNiYi4uNDRjZGI2ZmM5MmZmIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
-dS9nZnhfdjlfMC5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92OV8wLmMK
-QEAgLTMyMzQsNzQgKzMyMzQsNiBAQCBzdGF0aWMgdm9pZCBnZnhfdjlfMF9raXFfc2V0dGluZyhz
-dHJ1Y3QgYW1kZ3B1X3JpbmcgKnJpbmcpCiAJV1JFRzMyX1NPQzE1X1JMQyhHQywgMCwgbW1STENf
-Q1BfU0NIRURVTEVSUywgdG1wKTsKIH0KIAotc3RhdGljIGludCBnZnhfdjlfMF9raXFfa2NxX2Vu
-YWJsZShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikKLXsKLQlzdHJ1Y3QgYW1kZ3B1X3Jpbmcg
-KmtpcV9yaW5nID0gJmFkZXYtPmdmeC5raXEucmluZzsKLQl1aW50NjRfdCBxdWV1ZV9tYXNrID0g
-MDsKLQlpbnQgciwgaTsKLQotCWZvciAoaSA9IDA7IGkgPCBBTURHUFVfTUFYX0NPTVBVVEVfUVVF
-VUVTOyArK2kpIHsKLQkJaWYgKCF0ZXN0X2JpdChpLCBhZGV2LT5nZngubWVjLnF1ZXVlX2JpdG1h
-cCkpCi0JCQljb250aW51ZTsKLQotCQkvKiBUaGlzIHNpdHVhdGlvbiBtYXkgYmUgaGl0IGluIHRo
-ZSBmdXR1cmUgaWYgYSBuZXcgSFcKLQkJICogZ2VuZXJhdGlvbiBleHBvc2VzIG1vcmUgdGhhbiA2
-NCBxdWV1ZXMuIElmIHNvLCB0aGUKLQkJICogZGVmaW5pdGlvbiBvZiBxdWV1ZV9tYXNrIG5lZWRz
-IHVwZGF0aW5nICovCi0JCWlmIChXQVJOX09OKGkgPj0gKHNpemVvZihxdWV1ZV9tYXNrKSo4KSkp
-IHsKLQkJCURSTV9FUlJPUigiSW52YWxpZCBLQ1EgZW5hYmxlZDogJWRcbiIsIGkpOwotCQkJYnJl
-YWs7Ci0JCX0KLQotCQlxdWV1ZV9tYXNrIHw9ICgxdWxsIDw8IGkpOwotCX0KLQotCXIgPSBhbWRn
-cHVfcmluZ19hbGxvYyhraXFfcmluZywgKDcgKiBhZGV2LT5nZngubnVtX2NvbXB1dGVfcmluZ3Mp
-ICsgOCk7Ci0JaWYgKHIpIHsKLQkJRFJNX0VSUk9SKCJGYWlsZWQgdG8gbG9jayBLSVEgKCVkKS5c
-biIsIHIpOwotCQlyZXR1cm4gcjsKLQl9Ci0KLQkvKiBzZXQgcmVzb3VyY2VzICovCi0JYW1kZ3B1
-X3Jpbmdfd3JpdGUoa2lxX3JpbmcsIFBBQ0tFVDMoUEFDS0VUM19TRVRfUkVTT1VSQ0VTLCA2KSk7
-Ci0JYW1kZ3B1X3Jpbmdfd3JpdGUoa2lxX3JpbmcsIFBBQ0tFVDNfU0VUX1JFU09VUkNFU19WTUlE
-X01BU0soMCkgfAotCQkJICBQQUNLRVQzX1NFVF9SRVNPVVJDRVNfUVVFVUVfVFlQRSgwKSk7CS8q
-IHZtaWRfbWFzazowIHF1ZXVlX3R5cGU6MCAoS0lRKSAqLwotCWFtZGdwdV9yaW5nX3dyaXRlKGtp
-cV9yaW5nLCBsb3dlcl8zMl9iaXRzKHF1ZXVlX21hc2spKTsJLyogcXVldWUgbWFzayBsbyAqLwot
-CWFtZGdwdV9yaW5nX3dyaXRlKGtpcV9yaW5nLCB1cHBlcl8zMl9iaXRzKHF1ZXVlX21hc2spKTsJ
-LyogcXVldWUgbWFzayBoaSAqLwotCWFtZGdwdV9yaW5nX3dyaXRlKGtpcV9yaW5nLCAwKTsJLyog
-Z3dzIG1hc2sgbG8gKi8KLQlhbWRncHVfcmluZ193cml0ZShraXFfcmluZywgMCk7CS8qIGd3cyBt
-YXNrIGhpICovCi0JYW1kZ3B1X3Jpbmdfd3JpdGUoa2lxX3JpbmcsIDApOwkvKiBvYWMgbWFzayAq
-LwotCWFtZGdwdV9yaW5nX3dyaXRlKGtpcV9yaW5nLCAwKTsJLyogZ2RzIGhlYXAgYmFzZTowLCBn
-ZHMgaGVhcCBzaXplOjAgKi8KLQlmb3IgKGkgPSAwOyBpIDwgYWRldi0+Z2Z4Lm51bV9jb21wdXRl
-X3JpbmdzOyBpKyspIHsKLQkJc3RydWN0IGFtZGdwdV9yaW5nICpyaW5nID0gJmFkZXYtPmdmeC5j
-b21wdXRlX3JpbmdbaV07Ci0JCXVpbnQ2NF90IG1xZF9hZGRyID0gYW1kZ3B1X2JvX2dwdV9vZmZz
-ZXQocmluZy0+bXFkX29iaik7Ci0JCXVpbnQ2NF90IHdwdHJfYWRkciA9IGFkZXYtPndiLmdwdV9h
-ZGRyICsgKHJpbmctPndwdHJfb2ZmcyAqIDQpOwotCi0JCWFtZGdwdV9yaW5nX3dyaXRlKGtpcV9y
-aW5nLCBQQUNLRVQzKFBBQ0tFVDNfTUFQX1FVRVVFUywgNSkpOwotCQkvKiBRX3NlbDowLCB2bWlk
-OjAsIHZpZG1lbTogMSwgZW5naW5lOjAsIG51bV9ROjEqLwotCQlhbWRncHVfcmluZ193cml0ZShr
-aXFfcmluZywgLyogUV9zZWw6IDAsIHZtaWQ6IDAsIGVuZ2luZTogMCwgbnVtX1E6IDEgKi8KLQkJ
-CQkgIFBBQ0tFVDNfTUFQX1FVRVVFU19RVUVVRV9TRUwoMCkgfCAvKiBRdWV1ZV9TZWwgKi8KLQkJ
-CQkgIFBBQ0tFVDNfTUFQX1FVRVVFU19WTUlEKDApIHwgLyogVk1JRCAqLwotCQkJCSAgUEFDS0VU
-M19NQVBfUVVFVUVTX1FVRVVFKHJpbmctPnF1ZXVlKSB8Ci0JCQkJICBQQUNLRVQzX01BUF9RVUVV
-RVNfUElQRShyaW5nLT5waXBlKSB8Ci0JCQkJICBQQUNLRVQzX01BUF9RVUVVRVNfTUUoKHJpbmct
-Pm1lID09IDEgPyAwIDogMSkpIHwKLQkJCQkgIFBBQ0tFVDNfTUFQX1FVRVVFU19RVUVVRV9UWVBF
-KDApIHwgLypxdWV1ZV90eXBlOiBub3JtYWwgY29tcHV0ZSBxdWV1ZSAqLwotCQkJCSAgUEFDS0VU
-M19NQVBfUVVFVUVTX0FMTE9DX0ZPUk1BVCgwKSB8IC8qIGFsbG9jIGZvcm1hdDogYWxsX29uX29u
-ZV9waXBlICovCi0JCQkJICBQQUNLRVQzX01BUF9RVUVVRVNfRU5HSU5FX1NFTCgwKSB8IC8qIGVu
-Z2luZV9zZWw6IGNvbXB1dGUgKi8KLQkJCQkgIFBBQ0tFVDNfTUFQX1FVRVVFU19OVU1fUVVFVUVT
-KDEpKTsgLyogbnVtX3F1ZXVlczogbXVzdCBiZSAxICovCi0JCWFtZGdwdV9yaW5nX3dyaXRlKGtp
-cV9yaW5nLCBQQUNLRVQzX01BUF9RVUVVRVNfRE9PUkJFTExfT0ZGU0VUKHJpbmctPmRvb3JiZWxs
-X2luZGV4KSk7Ci0JCWFtZGdwdV9yaW5nX3dyaXRlKGtpcV9yaW5nLCBsb3dlcl8zMl9iaXRzKG1x
-ZF9hZGRyKSk7Ci0JCWFtZGdwdV9yaW5nX3dyaXRlKGtpcV9yaW5nLCB1cHBlcl8zMl9iaXRzKG1x
-ZF9hZGRyKSk7Ci0JCWFtZGdwdV9yaW5nX3dyaXRlKGtpcV9yaW5nLCBsb3dlcl8zMl9iaXRzKHdw
-dHJfYWRkcikpOwotCQlhbWRncHVfcmluZ193cml0ZShraXFfcmluZywgdXBwZXJfMzJfYml0cyh3
-cHRyX2FkZHIpKTsKLQl9Ci0KLQlyID0gYW1kZ3B1X3JpbmdfdGVzdF9oZWxwZXIoa2lxX3Jpbmcp
-OwotCWlmIChyKQotCQlEUk1fRVJST1IoIktDUSBlbmFibGUgZmFpbGVkXG4iKTsKLQotCXJldHVy
-biByOwotfQotCiBzdGF0aWMgaW50IGdmeF92OV8wX21xZF9pbml0KHN0cnVjdCBhbWRncHVfcmlu
-ZyAqcmluZykKIHsKIAlzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiA9IHJpbmctPmFkZXY7CkBA
-IC0zNzA4LDcgKzM2NDAsNyBAQCBzdGF0aWMgaW50IGdmeF92OV8wX2tjcV9yZXN1bWUoc3RydWN0
-IGFtZGdwdV9kZXZpY2UgKmFkZXYpCiAJCQlnb3RvIGRvbmU7CiAJfQogCi0JciA9IGdmeF92OV8w
-X2tpcV9rY3FfZW5hYmxlKGFkZXYpOworCXIgPSBhbWRncHVfZ2Z4X2VuYWJsZV9rY3EoYWRldik7
-CiBkb25lOgogCXJldHVybiByOwogfQpAQCAtMzgxMiwzNiArMzc0NCw2IEBAIHN0YXRpYyBpbnQg
-Z2Z4X3Y5XzBfaHdfaW5pdCh2b2lkICpoYW5kbGUpCiAJcmV0dXJuIHI7CiB9CiAKLXN0YXRpYyBp
-bnQgZ2Z4X3Y5XzBfa2NxX2Rpc2FibGUoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpCi17Ci0J
-aW50IHIsIGk7Ci0Jc3RydWN0IGFtZGdwdV9yaW5nICpraXFfcmluZyA9ICZhZGV2LT5nZngua2lx
-LnJpbmc7Ci0KLQlyID0gYW1kZ3B1X3JpbmdfYWxsb2Moa2lxX3JpbmcsIDYgKiBhZGV2LT5nZngu
-bnVtX2NvbXB1dGVfcmluZ3MpOwotCWlmIChyKQotCQlEUk1fRVJST1IoIkZhaWxlZCB0byBsb2Nr
-IEtJUSAoJWQpLlxuIiwgcik7Ci0KLQlmb3IgKGkgPSAwOyBpIDwgYWRldi0+Z2Z4Lm51bV9jb21w
-dXRlX3JpbmdzOyBpKyspIHsKLQkJc3RydWN0IGFtZGdwdV9yaW5nICpyaW5nID0gJmFkZXYtPmdm
-eC5jb21wdXRlX3JpbmdbaV07Ci0KLQkJYW1kZ3B1X3Jpbmdfd3JpdGUoa2lxX3JpbmcsIFBBQ0tF
-VDMoUEFDS0VUM19VTk1BUF9RVUVVRVMsIDQpKTsKLQkJYW1kZ3B1X3Jpbmdfd3JpdGUoa2lxX3Jp
-bmcsIC8qIFFfc2VsOiAwLCB2bWlkOiAwLCBlbmdpbmU6IDAsIG51bV9ROiAxICovCi0JCQkJCQlQ
-QUNLRVQzX1VOTUFQX1FVRVVFU19BQ1RJT04oMSkgfCAvKiBSRVNFVF9RVUVVRVMgKi8KLQkJCQkJ
-CVBBQ0tFVDNfVU5NQVBfUVVFVUVTX1FVRVVFX1NFTCgwKSB8Ci0JCQkJCQlQQUNLRVQzX1VOTUFQ
-X1FVRVVFU19FTkdJTkVfU0VMKDApIHwKLQkJCQkJCVBBQ0tFVDNfVU5NQVBfUVVFVUVTX05VTV9R
-VUVVRVMoMSkpOwotCQlhbWRncHVfcmluZ193cml0ZShraXFfcmluZywgUEFDS0VUM19VTk1BUF9R
-VUVVRVNfRE9PUkJFTExfT0ZGU0VUMChyaW5nLT5kb29yYmVsbF9pbmRleCkpOwotCQlhbWRncHVf
-cmluZ193cml0ZShraXFfcmluZywgMCk7Ci0JCWFtZGdwdV9yaW5nX3dyaXRlKGtpcV9yaW5nLCAw
-KTsKLQkJYW1kZ3B1X3Jpbmdfd3JpdGUoa2lxX3JpbmcsIDApOwotCX0KLQlyID0gYW1kZ3B1X3Jp
-bmdfdGVzdF9oZWxwZXIoa2lxX3JpbmcpOwotCWlmIChyKQotCQlEUk1fRVJST1IoIktDUSBkaXNh
-YmxlIGZhaWxlZFxuIik7Ci0KLQlyZXR1cm4gcjsKLX0KLQogc3RhdGljIGludCBnZnhfdjlfMF9o
-d19maW5pKHZvaWQgKmhhbmRsZSkKIHsKIAlzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiA9IChz
-dHJ1Y3QgYW1kZ3B1X2RldmljZSAqKWhhbmRsZTsKQEAgLTM4NTMsNyArMzc1NSw3IEBAIHN0YXRp
-YyBpbnQgZ2Z4X3Y5XzBfaHdfZmluaSh2b2lkICpoYW5kbGUpCiAJLyogREYgZnJlZXplIGFuZCBr
-Y3EgZGlzYWJsZSB3aWxsIGZhaWwgKi8KIAlpZiAoIWFtZGdwdV9yYXNfaW50cl90cmlnZ2VyZWQo
-KSkKIAkJLyogZGlzYWJsZSBLQ1EgdG8gYXZvaWQgQ1BDIHRvdWNoIG1lbW9yeSBub3QgdmFsaWQg
-YW55bW9yZSAqLwotCQlnZnhfdjlfMF9rY3FfZGlzYWJsZShhZGV2KTsKKwkJYW1kZ3B1X2dmeF9k
-aXNhYmxlX2tjcShhZGV2KTsKIAogCWlmIChhbWRncHVfc3Jpb3ZfdmYoYWRldikpIHsKIAkJZ2Z4
-X3Y5XzBfY3BfZ2Z4X2VuYWJsZShhZGV2LCBmYWxzZSk7Ci0tIAoyLjE3LjEKCl9fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0
-CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Au
-b3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+This can be used directly from amdgpu and amdkfd to invalidate
+TLB through pasid.
+It supports gmc v7, v8, v9 and v10.
+
+Change-Id: I6563a8eba2e42d1a67fa2547156c20da41d1e490
+Signed-off-by: Alex Sierra <alex.sierra@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h |  6 ++
+ drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c  | 74 ++++++++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c   | 33 +++++++++++
+ drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c   | 34 +++++++++++
+ drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c   | 76 +++++++++++++++++++++++++
+ 5 files changed, 223 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
+index c91dd602d5f1..d3c27a3c43f6 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
+@@ -92,6 +92,9 @@ struct amdgpu_gmc_funcs {
+ 	/* flush the vm tlb via mmio */
+ 	void (*flush_gpu_tlb)(struct amdgpu_device *adev, uint32_t vmid,
+ 				uint32_t vmhub, uint32_t flush_type);
++	/* flush the vm tlb via pasid */
++	int (*flush_gpu_tlb_pasid)(struct amdgpu_device *adev, uint16_t pasid,
++					uint32_t flush_type, bool all_hub);
+ 	/* flush the vm tlb via ring */
+ 	uint64_t (*emit_flush_gpu_tlb)(struct amdgpu_ring *ring, unsigned vmid,
+ 				       uint64_t pd_addr);
+@@ -216,6 +219,9 @@ struct amdgpu_gmc {
+ };
+ 
+ #define amdgpu_gmc_flush_gpu_tlb(adev, vmid, vmhub, type) ((adev)->gmc.gmc_funcs->flush_gpu_tlb((adev), (vmid), (vmhub), (type)))
++#define amdgpu_gmc_flush_gpu_tlb_pasid(adev, pasid, type, allhub) \
++	((adev)->gmc.gmc_funcs->flush_gpu_tlb_pasid \
++	((adev), (pasid), (type), (allhub)))
+ #define amdgpu_gmc_emit_flush_gpu_tlb(r, vmid, addr) (r)->adev->gmc.gmc_funcs->emit_flush_gpu_tlb((r), (vmid), (addr))
+ #define amdgpu_gmc_emit_pasid_mapping(r, vmid, pasid) (r)->adev->gmc.gmc_funcs->emit_pasid_mapping((r), (vmid), (pasid))
+ #define amdgpu_gmc_map_mtype(adev, flags) (adev)->gmc.gmc_funcs->map_mtype((adev),(flags))
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+index 5ad89bb6f3ba..8afd05834714 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+@@ -30,6 +30,8 @@
+ #include "hdp/hdp_5_0_0_sh_mask.h"
+ #include "gc/gc_10_1_0_sh_mask.h"
+ #include "mmhub/mmhub_2_0_0_sh_mask.h"
++#include "athub/athub_2_0_0_sh_mask.h"
++#include "athub/athub_2_0_0_offset.h"
+ #include "dcn/dcn_2_0_0_offset.h"
+ #include "dcn/dcn_2_0_0_sh_mask.h"
+ #include "oss/osssys_5_0_0_offset.h"
+@@ -37,6 +39,7 @@
+ #include "navi10_enum.h"
+ 
+ #include "soc15.h"
++#include "soc15d.h"
+ #include "soc15_common.h"
+ 
+ #include "nbio_v2_3.h"
+@@ -234,6 +237,19 @@ static bool gmc_v10_0_use_invalidate_semaphore(struct amdgpu_device *adev,
+ 		(!amdgpu_sriov_vf(adev)));
+ }
+ 
++static bool gmc_v10_0_get_atc_vmid_pasid_mapping_info(
++					struct amdgpu_device *adev,
++					uint8_t vmid, uint16_t *p_pasid)
++{
++	uint32_t value;
++
++	value = RREG32(SOC15_REG_OFFSET(ATHUB, 0, mmATC_VMID0_PASID_MAPPING)
++		     + vmid);
++	*p_pasid = value & ATC_VMID0_PASID_MAPPING__PASID_MASK;
++
++	return !!(value & ATC_VMID0_PASID_MAPPING__VALID_MASK);
++}
++
+ /*
+  * GART
+  * VMID 0 is the physical GPU addresses as used by the kernel.
+@@ -380,6 +396,63 @@ static void gmc_v10_0_flush_gpu_tlb(struct amdgpu_device *adev, uint32_t vmid,
+ 	DRM_ERROR("Error flushing GPU TLB using the SDMA (%d)!\n", r);
+ }
+ 
++/**
++ * gmc_v10_0_flush_gpu_tlb_pasid - tlb flush via pasid
++ *
++ * @adev: amdgpu_device pointer
++ * @pasid: pasid to be flush
++ *
++ * Flush the TLB for the requested pasid.
++ */
++static int gmc_v10_0_flush_gpu_tlb_pasid(struct amdgpu_device *adev,
++					uint16_t pasid, uint32_t flush_type,
++					bool all_hub)
++{
++	int vmid, i;
++	signed long r;
++	uint32_t seq;
++	uint16_t queried_pasid;
++	bool ret;
++	struct amdgpu_ring *ring = &adev->gfx.kiq.ring;
++	struct amdgpu_kiq *kiq = &adev->gfx.kiq;
++
++	if (amdgpu_emu_mode == 0 && ring->sched.ready) {
++		spin_lock(&adev->gfx.kiq.ring_lock);
++		amdgpu_ring_alloc(ring, kiq->pmf->invalidate_tlbs_size);
++		kiq->pmf->kiq_invalidate_tlbs(ring,
++					pasid, flush_type, all_hub);
++		amdgpu_fence_emit_polling(ring, &seq);
++		amdgpu_ring_commit(ring);
++		spin_unlock(&adev->gfx.kiq.ring_lock);
++		r = amdgpu_fence_wait_polling(ring, seq, adev->usec_timeout);
++		if (r < 1) {
++			DRM_ERROR("wait for kiq fence error: %ld.\n", r);
++			return -ETIME;
++		}
++
++		return 0;
++	}
++
++	for (vmid = 1; vmid < 16; vmid++) {
++
++		ret = gmc_v10_0_get_atc_vmid_pasid_mapping_info(adev, vmid,
++				&queried_pasid);
++		if (ret	&& queried_pasid == pasid) {
++			if (all_hub) {
++				for (i = 0; i < adev->num_vmhubs; i++)
++					gmc_v10_0_flush_gpu_tlb(adev, vmid,
++							i, 0);
++			} else {
++				gmc_v10_0_flush_gpu_tlb(adev, vmid,
++						AMDGPU_GFXHUB_0, 0);
++			}
++			break;
++		}
++	}
++
++	return 0;
++}
++
+ static uint64_t gmc_v10_0_emit_flush_gpu_tlb(struct amdgpu_ring *ring,
+ 					     unsigned vmid, uint64_t pd_addr)
+ {
+@@ -531,6 +604,7 @@ static void gmc_v10_0_get_vm_pte(struct amdgpu_device *adev,
+ 
+ static const struct amdgpu_gmc_funcs gmc_v10_0_gmc_funcs = {
+ 	.flush_gpu_tlb = gmc_v10_0_flush_gpu_tlb,
++	.flush_gpu_tlb_pasid = gmc_v10_0_flush_gpu_tlb_pasid,
+ 	.emit_flush_gpu_tlb = gmc_v10_0_emit_flush_gpu_tlb,
+ 	.emit_pasid_mapping = gmc_v10_0_emit_pasid_mapping,
+ 	.map_mtype = gmc_v10_0_map_mtype,
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
+index f08e5330642d..19d5b133e1d7 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
+@@ -418,6 +418,38 @@ static int gmc_v7_0_mc_init(struct amdgpu_device *adev)
+ 	return 0;
+ }
+ 
++/**
++ * gmc_v7_0_flush_gpu_tlb_pasid - tlb flush via pasid
++ *
++ * @adev: amdgpu_device pointer
++ * @pasid: pasid to be flush
++ *
++ * Flush the TLB for the requested pasid.
++ */
++static int gmc_v7_0_flush_gpu_tlb_pasid(struct amdgpu_device *adev,
++					uint16_t pasid, uint32_t flush_type,
++					bool all_hub)
++{
++	int vmid;
++	unsigned int tmp;
++
++	if (adev->in_gpu_reset)
++		return -EIO;
++
++	for (vmid = 1; vmid < 16; vmid++) {
++
++		tmp = RREG32(mmATC_VMID0_PASID_MAPPING + vmid);
++		if ((tmp & ATC_VMID0_PASID_MAPPING__VALID_MASK) &&
++			(tmp & ATC_VMID0_PASID_MAPPING__PASID_MASK) == pasid) {
++			WREG32(mmVM_INVALIDATE_REQUEST, 1 << vmid);
++			RREG32(mmVM_INVALIDATE_RESPONSE);
++			break;
++		}
++	}
++
++	return 0;
++}
++
+ /*
+  * GART
+  * VMID 0 is the physical GPU addresses as used by the kernel.
+@@ -1333,6 +1365,7 @@ static const struct amd_ip_funcs gmc_v7_0_ip_funcs = {
+ 
+ static const struct amdgpu_gmc_funcs gmc_v7_0_gmc_funcs = {
+ 	.flush_gpu_tlb = gmc_v7_0_flush_gpu_tlb,
++	.flush_gpu_tlb_pasid = gmc_v7_0_flush_gpu_tlb_pasid,
+ 	.emit_flush_gpu_tlb = gmc_v7_0_emit_flush_gpu_tlb,
+ 	.emit_pasid_mapping = gmc_v7_0_emit_pasid_mapping,
+ 	.set_prt = gmc_v7_0_set_prt,
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
+index 6d96d40fbcb8..27d83204fa2b 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
+@@ -620,6 +620,39 @@ static int gmc_v8_0_mc_init(struct amdgpu_device *adev)
+ 	return 0;
+ }
+ 
++/**
++ * gmc_v8_0_flush_gpu_tlb_pasid - tlb flush via pasid
++ *
++ * @adev: amdgpu_device pointer
++ * @pasid: pasid to be flush
++ *
++ * Flush the TLB for the requested pasid.
++ */
++static int gmc_v8_0_flush_gpu_tlb_pasid(struct amdgpu_device *adev,
++					uint16_t pasid, uint32_t flush_type,
++					bool all_hub)
++{
++	int vmid;
++	unsigned int tmp;
++
++	if (adev->in_gpu_reset)
++		return -EIO;
++
++	for (vmid = 1; vmid < 16; vmid++) {
++
++		tmp = RREG32(mmATC_VMID0_PASID_MAPPING + vmid);
++		if ((tmp & ATC_VMID0_PASID_MAPPING__VALID_MASK) &&
++			(tmp & ATC_VMID0_PASID_MAPPING__PASID_MASK) == pasid) {
++			WREG32(mmVM_INVALIDATE_REQUEST, 1 << vmid);
++			RREG32(mmVM_INVALIDATE_RESPONSE);
++			break;
++		}
++	}
++
++	return 0;
++
++}
++
+ /*
+  * GART
+  * VMID 0 is the physical GPU addresses as used by the kernel.
+@@ -1700,6 +1733,7 @@ static const struct amd_ip_funcs gmc_v8_0_ip_funcs = {
+ 
+ static const struct amdgpu_gmc_funcs gmc_v8_0_gmc_funcs = {
+ 	.flush_gpu_tlb = gmc_v8_0_flush_gpu_tlb,
++	.flush_gpu_tlb_pasid = gmc_v8_0_flush_gpu_tlb_pasid,
+ 	.emit_flush_gpu_tlb = gmc_v8_0_emit_flush_gpu_tlb,
+ 	.emit_pasid_mapping = gmc_v8_0_emit_pasid_mapping,
+ 	.set_prt = gmc_v8_0_set_prt,
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+index b83c8d745f42..40a496804356 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+@@ -38,10 +38,12 @@
+ #include "dce/dce_12_0_sh_mask.h"
+ #include "vega10_enum.h"
+ #include "mmhub/mmhub_1_0_offset.h"
++#include "athub/athub_1_0_sh_mask.h"
+ #include "athub/athub_1_0_offset.h"
+ #include "oss/osssys_4_0_offset.h"
+ 
+ #include "soc15.h"
++#include "soc15d.h"
+ #include "soc15_common.h"
+ #include "umc/umc_6_0_sh_mask.h"
+ 
+@@ -441,6 +443,18 @@ static bool gmc_v9_0_use_invalidate_semaphore(struct amdgpu_device *adev,
+ 		   adev->pdev->device == 0x15d8)));
+ }
+ 
++static bool gmc_v9_0_get_atc_vmid_pasid_mapping_info(struct amdgpu_device *adev,
++					uint8_t vmid, uint16_t *p_pasid)
++{
++	uint32_t value;
++
++	value = RREG32(SOC15_REG_OFFSET(ATHUB, 0, mmATC_VMID0_PASID_MAPPING)
++		     + vmid);
++	*p_pasid = value & ATC_VMID0_PASID_MAPPING__PASID_MASK;
++
++	return !!(value & ATC_VMID0_PASID_MAPPING__VALID_MASK);
++}
++
+ /*
+  * GART
+  * VMID 0 is the physical GPU addresses as used by the kernel.
+@@ -539,6 +553,67 @@ static void gmc_v9_0_flush_gpu_tlb(struct amdgpu_device *adev, uint32_t vmid,
+ 	DRM_ERROR("Timeout waiting for VM flush ACK!\n");
+ }
+ 
++/**
++ * gmc_v9_0_flush_gpu_tlb_pasid - tlb flush via pasid
++ *
++ * @adev: amdgpu_device pointer
++ * @pasid: pasid to be flush
++ *
++ * Flush the TLB for the requested pasid.
++ */
++static int gmc_v9_0_flush_gpu_tlb_pasid(struct amdgpu_device *adev,
++					uint16_t pasid, uint32_t flush_type,
++					bool all_hub)
++{
++	int vmid, i;
++	signed long r;
++	uint32_t seq;
++	uint16_t queried_pasid;
++	bool ret;
++	struct amdgpu_ring *ring = &adev->gfx.kiq.ring;
++	struct amdgpu_kiq *kiq = &adev->gfx.kiq;
++
++	if (adev->in_gpu_reset)
++		return -EIO;
++
++	if (ring->sched.ready) {
++		spin_lock(&adev->gfx.kiq.ring_lock);
++		amdgpu_ring_alloc(ring, kiq->pmf->invalidate_tlbs_size);
++		kiq->pmf->kiq_invalidate_tlbs(ring,
++					pasid, flush_type, all_hub);
++		amdgpu_fence_emit_polling(ring, &seq);
++		amdgpu_ring_commit(ring);
++		spin_unlock(&adev->gfx.kiq.ring_lock);
++		r = amdgpu_fence_wait_polling(ring, seq, adev->usec_timeout);
++		if (r < 1) {
++			DRM_ERROR("wait for kiq fence error: %ld.\n", r);
++			return -ETIME;
++		}
++
++		return 0;
++	}
++
++	for (vmid = 1; vmid < 16; vmid++) {
++
++		ret = gmc_v9_0_get_atc_vmid_pasid_mapping_info(adev, vmid,
++				&queried_pasid);
++		if (ret && queried_pasid == pasid) {
++			if (all_hub) {
++				for (i = 0; i < adev->num_vmhubs; i++)
++					gmc_v9_0_flush_gpu_tlb(adev, vmid,
++							i, 0);
++			} else {
++				gmc_v9_0_flush_gpu_tlb(adev, vmid,
++						AMDGPU_GFXHUB_0, 0);
++			}
++			break;
++		}
++	}
++
++	return 0;
++
++}
++
+ static uint64_t gmc_v9_0_emit_flush_gpu_tlb(struct amdgpu_ring *ring,
+ 					    unsigned vmid, uint64_t pd_addr)
+ {
+@@ -700,6 +775,7 @@ static void gmc_v9_0_get_vm_pte(struct amdgpu_device *adev,
+ 
+ static const struct amdgpu_gmc_funcs gmc_v9_0_gmc_funcs = {
+ 	.flush_gpu_tlb = gmc_v9_0_flush_gpu_tlb,
++	.flush_gpu_tlb_pasid = gmc_v9_0_flush_gpu_tlb_pasid,
+ 	.emit_flush_gpu_tlb = gmc_v9_0_emit_flush_gpu_tlb,
+ 	.emit_pasid_mapping = gmc_v9_0_emit_pasid_mapping,
+ 	.map_mtype = gmc_v9_0_map_mtype,
+-- 
+2.17.1
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
