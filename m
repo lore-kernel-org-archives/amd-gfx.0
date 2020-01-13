@@ -5,62 +5,64 @@ X-Spam-Level:
 X-Spam-Status: No, score=-6.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
 	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.0
+	SPF_HELO_NONE,SPF_PASS autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D1479C33CA9
-	for <amd-gfx@archiver.kernel.org>; Mon, 13 Jan 2020 18:42:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 464A3C33CA9
+	for <amd-gfx@archiver.kernel.org>; Mon, 13 Jan 2020 18:52:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A644520CC7
-	for <amd-gfx@archiver.kernel.org>; Mon, 13 Jan 2020 18:42:33 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 1C2B8207E0
+	for <amd-gfx@archiver.kernel.org>; Mon, 13 Jan 2020 18:52:42 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JosPT36V"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A644520CC7
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DSLgEJkn"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1C2B8207E0
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3FF306E139;
-	Mon, 13 Jan 2020 18:42:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DC2786E13C;
+	Mon, 13 Jan 2020 18:52:37 +0000 (UTC)
 Received: from mail-wm1-x344.google.com (mail-wm1-x344.google.com
  [IPv6:2a00:1450:4864:20::344])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E3D706E139
- for <amd-gfx@lists.freedesktop.org>; Mon, 13 Jan 2020 18:42:31 +0000 (UTC)
-Received: by mail-wm1-x344.google.com with SMTP id u2so10846526wmc.3
- for <amd-gfx@lists.freedesktop.org>; Mon, 13 Jan 2020 10:42:31 -0800 (PST)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9CFBD6E13B;
+ Mon, 13 Jan 2020 18:52:36 +0000 (UTC)
+Received: by mail-wm1-x344.google.com with SMTP id p9so10986012wmc.2;
+ Mon, 13 Jan 2020 10:52:36 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=2qfbSgSsG1+/BzW158rjhqFd/BgtRfkxMg+ozMHeIYE=;
- b=JosPT36V66KvjDA6NEZ3Uxd77RLNykIXESQLAuhM1n0sTerlUm/Njdxbfi5/NE6Z4h
- 7hv4LtxSlhulm5WFTKqFIKSUgoN7QmlpdHhbtj8CtNBUPUbB0esuV6zZz7ngAGCav6md
- Ro6caeUhiexnfA35ytGpJsfUZRgMa0q2AOIUMaODxq27iD2vQxPvFUYXjgzMmi945FWq
- Mf2TdkX+mA4hbFJUun9oyfozGbgIPL94Uxa0NzwsZ87Ap4WAaTnms04in3g9N9FFSpjS
- MWExGWoWJtABSB7zacR5j87lPLkrNCiVN049nZM/5APewQICia+WDJHBeNvqsn3Qn4z0
- 1X1A==
+ :cc; bh=p7v0w5hosGHI1CkbvO/wa0BjKIctp9SJfcdILuOrw5Q=;
+ b=DSLgEJknWIkiDU/DcQHY86u7vKK3zs1dLi5siA0FmA/Ih+Nvv4JaJAyQ2N10wEJkgW
+ SUHrQ5nxIcl2oqYpiLECKDRDrEalIWPEYYrMwRUKBH242prtxFXslwsdI1ImJOmSoyob
+ DPmK6iKNe0i2FLbGDRx/cDFNhX0Na8gnwDIMvCPn7Nf5bwfilIbb3aYYoTnHOgHazmhU
+ HH9bCXMCb7vcune6lPQfeBuWBkdsaRGD+oEMGUdutYcHuD81DmnPSYGg3fbNdrygMq/O
+ WUQND87nI+67IFfLuIypukzVQ17ICFA7PqlY01nuDcvjwHlJGpOdilaOBpdBY6CsSgbQ
+ ezhQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=2qfbSgSsG1+/BzW158rjhqFd/BgtRfkxMg+ozMHeIYE=;
- b=YrqX/RBhSKBV9G999x3xM/nBjop1eOJk4DJ6FEpviMfyBdg+Itvt2U3FqTqtYgTPaV
- 0lJ3+6jNjPczOQdaDU7vK8MCfvv8vRvwN6hLyJjWyQSeMnlceKXeGFYh3sE6Znh6LiVD
- Vi7GKT+ms7cxOjKbAydquSKGh6UyyfxU1cY/7e0Ee+oernzH3wwlNcfHozT3t8lkMS+e
- APemE52l5woMbQRpV3YuICxzuWyfptlAlmbE1x7XuNU+OBBYZe2RtwAIWQiiJEUdN6zB
- gYpTEwlwdKwpfXg9gLbTgRpGA/2FQGKxXxPgaTQJ+icLPA4k3L+HizxHV6cdHgRpDywH
- fOSw==
-X-Gm-Message-State: APjAAAV5bixEKshWTvw8lD9IFwUCL+01ZUMoTJiP/rFj7+/vaGnxvv2J
- JTqjExVaDmc0hyRXh4CFoukZRgECh2pKW7G/2IS3hg==
-X-Google-Smtp-Source: APXvYqwqfKrrrWlE0jieXyW4dWZs+koPvmMU0IkUrc8vXUvgLEFeE/SlFaJAeIYZhYNBWPBp8ninbY2p9CXonT376VA=
-X-Received: by 2002:a1c:f30e:: with SMTP id q14mr21927248wmq.65.1578940950315; 
- Mon, 13 Jan 2020 10:42:30 -0800 (PST)
+ bh=p7v0w5hosGHI1CkbvO/wa0BjKIctp9SJfcdILuOrw5Q=;
+ b=CqUVVNF2vbnGdgK8S4ZkbTXSS+D3xBKm5gxB4hvhMChUF8MfrLO4qCT69gUQm6FWz0
+ Czx/JcKJPCYV7/uxSX4X4DpQJMpiaohR9uoRDfTSgpPxkpa5gWmDJbzqDszuKuoPTiO1
+ pztkFUJ+G/sCuX8quYBob/v28389cN0nORZB75dw3q/kwFOtK04Z4Dx/IN02DR0/itR/
+ f2/KjHtGy0Ptd9V/L9tWSqcilgFgMER/V6TkJRq3BRGqrKHwDSjr3FKKwo8dfwp2Zn+V
+ 2v7yKAz4+dCRp0EZy5wlis1ixjYCA5znrQkgYgpsM1nS1bxErpTKkoYh/XrptKacQaAB
+ t9tg==
+X-Gm-Message-State: APjAAAWZoWpFYQyhZYXg0HfIC/EXtsqsYx9mBSBrOEqyFyIhBj35dz4d
+ wSyUH9hjWrwQY40wICoctItsHXrwp03B4znVOv4=
+X-Google-Smtp-Source: APXvYqxKgBuiU1PlNQNzWY1fbdm2g15SW9NwPiqz9OhySsm3mMkzmLlQjjV8+/2/tz24Th9SiQPoJIWK4iqn3ubwOG4=
+X-Received: by 2002:a1c:f30e:: with SMTP id q14mr21976811wmq.65.1578941555215; 
+ Mon, 13 Jan 2020 10:52:35 -0800 (PST)
 MIME-Version: 1.0
-References: <20200111002232.247789-1-alexander.deucher@amd.com>
-In-Reply-To: <20200111002232.247789-1-alexander.deucher@amd.com>
+References: <20200110092127.27847-1-tzimmermann@suse.de>
+ <20200110092127.27847-3-tzimmermann@suse.de>
+In-Reply-To: <20200110092127.27847-3-tzimmermann@suse.de>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 13 Jan 2020 13:42:17 -0500
-Message-ID: <CADnq5_MgDc7xuDADRGY+Gqm1jsMpdy3tLCpwaio0tt8+3-0pqQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu/df3.6: remove unused variable
-To: amd-gfx list <amd-gfx@lists.freedesktop.org>
+Date: Mon, 13 Jan 2020 13:52:21 -0500
+Message-ID: <CADnq5_OCsQQ0=Yr6xinWWCursZc0ZGBrNj1=0667kbqE1BorVw@mail.gmail.com>
+Subject: Re: [PATCH 02/23] drm/amdgpu: Convert to struct
+ drm_crtc_helper_funcs.get_scanout_position()
+To: Thomas Zimmermann <tzimmermann@suse.de>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,41 +74,204 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: hamohammed.sa@gmail.com, Dave Airlie <airlied@linux.ie>,
+ nouveau <nouveau@lists.freedesktop.org>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
+ Eric Anholt <eric@anholt.net>, amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Benjamin Gaignard <benjamin.gaignard@linaro.org>, alexandre.torgue@st.com,
+ Chunming Zhou <David1.Zhou@amd.com>, Thomas Hellstrom <thellstrom@vmware.com>,
+ Sean Paul <sean@poorly.run>, Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
+ VMware Graphics <linux-graphics-maintainer@vmware.com>,
+ Ben Skeggs <bskeggs@redhat.com>, "Wentland, Harry" <harry.wentland@amd.com>,
+ mcoquelin.stm32@gmail.com, "Leo \(Sunpeng\) Li" <sunpeng.li@amd.com>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Vincent Abriou <vincent.abriou@st.com>,
+ rodrigosiqueiramelo@gmail.com, philippe.cornu@st.com, yannick.fertre@st.com,
+ Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, "Deucher,
+ Alexander" <alexander.deucher@amd.com>,
+ freedreno <freedreno@lists.freedesktop.org>,
+ Christian Koenig <christian.koenig@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Ping?
+On Fri, Jan 10, 2020 at 4:21 AM Thomas Zimmermann <tzimmermann@suse.de> wrote:
+>
+> The callback struct drm_driver.get_scanout_position() is deprecated in
+> favor of struct drm_crtc_helper_funcs.get_scanout_position(). Convert
+> amdgpu over.
+>
+
+I would prefer to just change the signature of
+amdgpu_display_get_crtc_scanoutpos() to match the new API rather than
+wrapping it again.
 
 Alex
 
-On Fri, Jan 10, 2020 at 7:22 PM Alex Deucher <alexdeucher@gmail.com> wrote:
->
-> Unused so drop it.
->
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
 > ---
->  drivers/gpu/drm/amd/amdgpu/df_v3_6.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_display.c       | 12 ++++++++++++
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c           | 11 -----------
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h          |  5 +++++
+>  drivers/gpu/drm/amd/amdgpu/dce_v10_0.c            |  1 +
+>  drivers/gpu/drm/amd/amdgpu/dce_v11_0.c            |  1 +
+>  drivers/gpu/drm/amd/amdgpu/dce_v6_0.c             |  1 +
+>  drivers/gpu/drm/amd/amdgpu/dce_v8_0.c             |  1 +
+>  drivers/gpu/drm/amd/amdgpu/dce_virtual.c          |  1 +
+>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  3 ++-
+>  9 files changed, 24 insertions(+), 12 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/df_v3_6.c b/drivers/gpu/drm/amd/amdgpu/df_v3_6.c
-> index 3761c8cc1156..f51326598a8c 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/df_v3_6.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/df_v3_6.c
-> @@ -264,7 +264,7 @@ static DEVICE_ATTR(df_cntr_avail, S_IRUGO, df_v3_6_get_df_cntr_avail, NULL);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
+> index 4e699071d144..a1e769d4417d 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
+> @@ -914,3 +914,15 @@ int amdgpu_display_crtc_idx_to_irq_type(struct amdgpu_device *adev, int crtc)
+>                 return AMDGPU_CRTC_IRQ_NONE;
+>         }
+>  }
+> +
+> +bool amdgpu_crtc_get_scanout_position(struct drm_crtc *crtc,
+> +                       bool in_vblank_irq, int *vpos,
+> +                       int *hpos, ktime_t *stime, ktime_t *etime,
+> +                       const struct drm_display_mode *mode)
+> +{
+> +       struct drm_device *dev = crtc->dev;
+> +       unsigned int pipe = crtc->index;
+> +
+> +       return amdgpu_display_get_crtc_scanoutpos(dev, pipe, 0, vpos, hpos,
+> +                                                 stime, etime, mode);
+> +}
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> index 3f6f14ce1511..0749285dd1c7 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> @@ -1367,16 +1367,6 @@ int amdgpu_file_to_fpriv(struct file *filp, struct amdgpu_fpriv **fpriv)
+>         return 0;
+>  }
 >
->  static void df_v3_6_query_hashes(struct amdgpu_device *adev)
->  {
-> -       u32 chan_cfg, tmp;
-> +       u32 tmp;
+> -static bool
+> -amdgpu_get_crtc_scanout_position(struct drm_device *dev, unsigned int pipe,
+> -                                bool in_vblank_irq, int *vpos, int *hpos,
+> -                                ktime_t *stime, ktime_t *etime,
+> -                                const struct drm_display_mode *mode)
+> -{
+> -       return amdgpu_display_get_crtc_scanoutpos(dev, pipe, 0, vpos, hpos,
+> -                                                 stime, etime, mode);
+> -}
+> -
+>  static struct drm_driver kms_driver = {
+>         .driver_features =
+>             DRIVER_USE_AGP | DRIVER_ATOMIC |
+> @@ -1391,7 +1381,6 @@ static struct drm_driver kms_driver = {
+>         .enable_vblank = amdgpu_enable_vblank_kms,
+>         .disable_vblank = amdgpu_disable_vblank_kms,
+>         .get_vblank_timestamp = drm_calc_vbltimestamp_from_scanoutpos,
+> -       .get_scanout_position = amdgpu_get_crtc_scanout_position,
+>         .irq_handler = amdgpu_irq_handler,
+>         .ioctls = amdgpu_ioctls_kms,
+>         .gem_free_object_unlocked = amdgpu_gem_object_free,
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
+> index eb9975f4decb..37ba07e2feb5 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
+> @@ -612,6 +612,11 @@ void amdgpu_panel_mode_fixup(struct drm_encoder *encoder,
+>                              struct drm_display_mode *adjusted_mode);
+>  int amdgpu_display_crtc_idx_to_irq_type(struct amdgpu_device *adev, int crtc);
 >
->         adev->df.hash_status.hash_64k = false;
->         adev->df.hash_status.hash_2m = false;
+> +bool amdgpu_crtc_get_scanout_position(struct drm_crtc *crtc,
+> +                       bool in_vblank_irq, int *vpos,
+> +                       int *hpos, ktime_t *stime, ktime_t *etime,
+> +                       const struct drm_display_mode *mode);
+> +
+>  /* fbdev layer */
+>  int amdgpu_fbdev_init(struct amdgpu_device *adev);
+>  void amdgpu_fbdev_fini(struct amdgpu_device *adev);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
+> index 40d2ac723dd6..bdc1e0f036d4 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
+> @@ -2685,6 +2685,7 @@ static const struct drm_crtc_helper_funcs dce_v10_0_crtc_helper_funcs = {
+>         .prepare = dce_v10_0_crtc_prepare,
+>         .commit = dce_v10_0_crtc_commit,
+>         .disable = dce_v10_0_crtc_disable,
+> +       .get_scanout_position = amdgpu_crtc_get_scanout_position,
+>  };
+>
+>  static int dce_v10_0_crtc_init(struct amdgpu_device *adev, int index)
+> diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c
+> index 898ef72d423c..0319da5f7bf9 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c
+> @@ -2793,6 +2793,7 @@ static const struct drm_crtc_helper_funcs dce_v11_0_crtc_helper_funcs = {
+>         .prepare = dce_v11_0_crtc_prepare,
+>         .commit = dce_v11_0_crtc_commit,
+>         .disable = dce_v11_0_crtc_disable,
+> +       .get_scanout_position = amdgpu_crtc_get_scanout_position,
+>  };
+>
+>  static int dce_v11_0_crtc_init(struct amdgpu_device *adev, int index)
+> diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
+> index db15a112becc..78642c3b14fc 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
+> @@ -2575,6 +2575,7 @@ static const struct drm_crtc_helper_funcs dce_v6_0_crtc_helper_funcs = {
+>         .prepare = dce_v6_0_crtc_prepare,
+>         .commit = dce_v6_0_crtc_commit,
+>         .disable = dce_v6_0_crtc_disable,
+> +       .get_scanout_position = amdgpu_crtc_get_scanout_position,
+>  };
+>
+>  static int dce_v6_0_crtc_init(struct amdgpu_device *adev, int index)
+> diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
+> index f06c9022c1fd..1e8d4975435a 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
+> @@ -2593,6 +2593,7 @@ static const struct drm_crtc_helper_funcs dce_v8_0_crtc_helper_funcs = {
+>         .prepare = dce_v8_0_crtc_prepare,
+>         .commit = dce_v8_0_crtc_commit,
+>         .disable = dce_v8_0_crtc_disable,
+> +       .get_scanout_position = amdgpu_crtc_get_scanout_position,
+>  };
+>
+>  static int dce_v8_0_crtc_init(struct amdgpu_device *adev, int index)
+> diff --git a/drivers/gpu/drm/amd/amdgpu/dce_virtual.c b/drivers/gpu/drm/amd/amdgpu/dce_virtual.c
+> index e4f94863332c..4b2f915aba47 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/dce_virtual.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/dce_virtual.c
+> @@ -218,6 +218,7 @@ static const struct drm_crtc_helper_funcs dce_virtual_crtc_helper_funcs = {
+>         .prepare = dce_virtual_crtc_prepare,
+>         .commit = dce_virtual_crtc_commit,
+>         .disable = dce_virtual_crtc_disable,
+> +       .get_scanout_position = amdgpu_crtc_get_scanout_position,
+>  };
+>
+>  static int dce_virtual_crtc_init(struct amdgpu_device *adev, int index)
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index f2db400a3920..39c5cf242c1b 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -4821,7 +4821,8 @@ static bool dm_crtc_helper_mode_fixup(struct drm_crtc *crtc,
+>  static const struct drm_crtc_helper_funcs amdgpu_dm_crtc_helper_funcs = {
+>         .disable = dm_crtc_helper_disable,
+>         .atomic_check = dm_crtc_helper_atomic_check,
+> -       .mode_fixup = dm_crtc_helper_mode_fixup
+> +       .mode_fixup = dm_crtc_helper_mode_fixup,
+> +       .get_scanout_position = amdgpu_crtc_get_scanout_position,
+>  };
+>
+>  static void dm_encoder_helper_disable(struct drm_encoder *encoder)
 > --
 > 2.24.1
 >
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
