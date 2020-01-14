@@ -2,67 +2,67 @@ Return-Path: <SRS0=OBgM=3D=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.2 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-6.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id CD302C33CB6
-	for <amd-gfx@archiver.kernel.org>; Tue, 14 Jan 2020 13:48:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id CDF78C33CB1
+	for <amd-gfx@archiver.kernel.org>; Tue, 14 Jan 2020 14:38:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id AE5292467A
-	for <amd-gfx@archiver.kernel.org>; Tue, 14 Jan 2020 13:48:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AE5292467A
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=suse.de
+	by mail.kernel.org (Postfix) with ESMTPS id 9ECAF2467D
+	for <amd-gfx@archiver.kernel.org>; Tue, 14 Jan 2020 14:38:25 +0000 (UTC)
+Authentication-Results: mail.kernel.org;
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eAf+MQsk"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9ECAF2467D
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 50DF36E3D2;
-	Tue, 14 Jan 2020 13:48:22 +0000 (UTC)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 20D0D6E3C6;
- Tue, 14 Jan 2020 13:48:20 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 35C6CAD0F;
- Tue, 14 Jan 2020 13:48:18 +0000 (UTC)
-Subject: Re: [PATCH 23/23] drm: Cleanup VBLANK callbacks in struct drm_driver
-To: Daniel Vetter <daniel@ffwll.ch>
-References: <20200110092127.27847-1-tzimmermann@suse.de>
- <20200110092127.27847-24-tzimmermann@suse.de>
- <20200112225312.GC5340@dvetter-linux.ger.corp.intel.com>
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- mQENBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAG0J1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPokBVAQTAQgAPhYh
- BHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJbOdLgAhsDBQkDwmcABQsJCAcCBhUKCQgLAgQWAgMB
- Ah4BAheAAAoJEGgNwR1TC3ojR80H/jH+vYavwQ+TvO8ksXL9JQWc3IFSiGpuSVXLCdg62AmR
- irxW+qCwNncNQyb9rd30gzdectSkPWL3KSqEResBe24IbA5/jSkPweJasgXtfhuyoeCJ6PXo
- clQQGKIoFIAEv1s8l0ggPZswvCinegl1diyJXUXmdEJRTWYAtxn/atut1o6Giv6D2qmYbXN7
- mneMC5MzlLaJKUtoH7U/IjVw1sx2qtxAZGKVm4RZxPnMCp9E1MAr5t4dP5gJCIiqsdrVqI6i
- KupZstMxstPU//azmz7ZWWxT0JzgJqZSvPYx/SATeexTYBP47YFyri4jnsty2ErS91E6H8os
- Bv6pnSn7eAq5AQ0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRH
- UE9eosYbT6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgT
- RjP+qbU63Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+R
- dhgATnWWGKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zb
- ehDda8lvhFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r
- 12+lqdsAEQEAAYkBPAQYAQgAJhYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJbOdLgAhsMBQkD
- wmcAAAoJEGgNwR1TC3ojpfcIAInwP5OlcEKokTnHCiDTz4Ony4GnHRP2fXATQZCKxmu4AJY2
- h9ifw9Nf2TjCZ6AMvC3thAN0rFDj55N9l4s1CpaDo4J+0fkrHuyNacnT206CeJV1E7NYntxU
- n+LSiRrOdywn6erjxRi9EYTVLCHcDhBEjKmFZfg4AM4GZMWX1lg0+eHbd5oL1as28WvvI/uI
- aMyV8RbyXot1r/8QLlWldU3NrTF5p7TMU2y3ZH2mf5suSKHAMtbE4jKJ8ZHFOo3GhLgjVrBW
- HE9JXO08xKkgD+w6v83+nomsEuf6C6LYrqY/tsZvyEX6zN8CtirPdPWu/VXNRYAl/lat7lSI
- 3H26qrE=
-Message-ID: <b5f6ac70-0bbe-18d5-f944-3ebba3237a9d@suse.de>
-Date: Tue, 14 Jan 2020 14:48:13 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.3.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2AE2C6E3F3;
+	Tue, 14 Jan 2020 14:38:25 +0000 (UTC)
+Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com
+ [IPv6:2a00:1450:4864:20::441])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AD5146E3F3
+ for <amd-gfx@lists.freedesktop.org>; Tue, 14 Jan 2020 14:38:23 +0000 (UTC)
+Received: by mail-wr1-x441.google.com with SMTP id z3so12417390wru.3
+ for <amd-gfx@lists.freedesktop.org>; Tue, 14 Jan 2020 06:38:23 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=QGV33OdUI+a7DbWzAXMs+nx36BYRb6nCviaWRs/HLAc=;
+ b=eAf+MQsk9OCAc59ESH51QE3ebJzYQHyXAd5kUJI9LjhwZXEagGYl1rcbcf52knZH6q
+ i3zCK/3S3+j4oddwVvfZ9nAEEbf7PVgqT5bW/qrkAaK3ZSOq0pW0T+eLhhJ5ULQuYhaN
+ gIVDZ3AgBg92cXuUptorwfRqyeoGXMiJVHHwij2ys9G+rTGMVGKZ3LRB0IfRapADkjk2
+ lsEacqcrBbaeZvb0CgWluk3NgZpY+POkKhnsVHKJpesajVSN/vwu6Iuqub/b6dTdsLvj
+ 5WM67Q+X7ctF3WMq0etnbP3H7NoPYRiqAAl/XldOdbRtYhxnmhUQJNN4x+WyDrtyHoP4
+ xbmg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=QGV33OdUI+a7DbWzAXMs+nx36BYRb6nCviaWRs/HLAc=;
+ b=hVSIpt6XiUFIN+tirHmJD+0xMg7nERAKnQMd7kVyFfNIXbu/opkIcYeRS+reA+/jW2
+ 4Oo1zhk3VHnWzAFbJLB0p1MaSxOz6ACmP4dJlFKvdGl6wt8e+0ru3ROoF79iuvJefy8V
+ L7ezMYYxd17JfA/Ojc0dmyhrc2XWC7R0sdmWtgQEG1FpqmX1AR+IlvPNJBcLQUpR14af
+ 2Sq20kQyWNJCfScWuvDSoLiGBzB8vxG3QAnVulmWp9kRV9DKwzzEzbv6XvYmg1fB/hS9
+ NfHpojmnwaBKmuEiHjBeTKVHKK5M95isNCc/vPtDM1kgZGwPoEBXFi/f/2ls4Z9heBXh
+ ykSA==
+X-Gm-Message-State: APjAAAUFYpR1iRWcjj0A/Kq2jH55X8KolQsUz9DQwU3SwBv5bciORpmt
+ 7wBbedPzhf3BDZmx6YsQRrsrlrrGsdsofx7Hekj6QQ==
+X-Google-Smtp-Source: APXvYqxHAj9UG1vsDrY4Co6sF6JhumDUlCGFdM2NhJvVO8maIHFzB5n2JP06el01TWV8tnAOnBs5z2kuH2FC4khcQUE=
+X-Received: by 2002:a5d:46c7:: with SMTP id g7mr25331789wrs.11.1579012701882; 
+ Tue, 14 Jan 2020 06:38:21 -0800 (PST)
 MIME-Version: 1.0
-In-Reply-To: <20200112225312.GC5340@dvetter-linux.ger.corp.intel.com>
+References: <1579001495-20729-1-git-send-email-curry.gong@amd.com>
+In-Reply-To: <1579001495-20729-1-git-send-email-curry.gong@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 14 Jan 2020 09:38:09 -0500
+Message-ID: <CADnq5_PnbEUUpped2x1=rdzXdvAJ4G5_8Shg-eK790=yYObzug@mail.gmail.com>
+Subject: Re: [PATCH 1/3] drm/amdgpu: provide a generic function interface for
+ reading register by KIQ
+To: chen gong <curry.gong@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,389 +74,232 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: hamohammed.sa@gmail.com, airlied@linux.ie, nouveau@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, thellstrom@vmware.com, sean@poorly.run,
- amd-gfx@lists.freedesktop.org, linux-graphics-maintainer@vmware.com,
- bskeggs@redhat.com, alexandre.torgue@st.com, sunpeng.li@amd.com,
- linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- rodrigo.vivi@intel.com, vincent.abriou@st.com, rodrigosiqueiramelo@gmail.com,
- philippe.cornu@st.com, yannick.fertre@st.com, mcoquelin.stm32@gmail.com,
- alexander.deucher@amd.com, freedreno@lists.freedesktop.org,
- christian.koenig@amd.com
-Content-Type: multipart/mixed; boundary="===============2109178902=="
+Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---===============2109178902==
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="hnX2ORJn5vRIQccq9Tfc7COteUkRxx61k"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---hnX2ORJn5vRIQccq9Tfc7COteUkRxx61k
-Content-Type: multipart/mixed; boundary="RAgxvS6j00AOrEMVpsfV7vPGxWhMlDzKn";
- protected-headers="v1"
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: Daniel Vetter <daniel@ffwll.ch>
-Cc: hamohammed.sa@gmail.com, airlied@linux.ie, nouveau@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- alexandre.torgue@st.com, thellstrom@vmware.com, sean@poorly.run,
- linux-graphics-maintainer@vmware.com, bskeggs@redhat.com,
- mcoquelin.stm32@gmail.com, sunpeng.li@amd.com,
- linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- rodrigo.vivi@intel.com, vincent.abriou@st.com,
- rodrigosiqueiramelo@gmail.com, philippe.cornu@st.com, yannick.fertre@st.com,
- alexander.deucher@amd.com, freedreno@lists.freedesktop.org,
- christian.koenig@amd.com
-Message-ID: <b5f6ac70-0bbe-18d5-f944-3ebba3237a9d@suse.de>
-Subject: Re: [PATCH 23/23] drm: Cleanup VBLANK callbacks in struct drm_driver
-References: <20200110092127.27847-1-tzimmermann@suse.de>
- <20200110092127.27847-24-tzimmermann@suse.de>
- <20200112225312.GC5340@dvetter-linux.ger.corp.intel.com>
-In-Reply-To: <20200112225312.GC5340@dvetter-linux.ger.corp.intel.com>
-
---RAgxvS6j00AOrEMVpsfV7vPGxWhMlDzKn
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: quoted-printable
-
-Hi
-
-Am 12.01.20 um 23:53 schrieb Daniel Vetter:
-> On Fri, Jan 10, 2020 at 10:21:27AM +0100, Thomas Zimmermann wrote:
->> All non-legacy users of VBLANK functions in struct drm_driver have bee=
-n
->> converted to use the respective interfaces in struct drm_crtc_funcs. T=
-he
->> remaining users of VBLANK callbacks in struct drm_driver are legacy dr=
-ivers
->> with userspace modesetting.
->>
->> There are no users left of get_vblank_timestamp(), so the callback is
->> being removed. The other VBLANK callbacks are being moved to the legac=
-y
->> section at the end of struct drm_driver.
->>
->> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
->=20
-> I think sprinkling some WARN_ON (in drm_dev_register or wherever) if ne=
-w
-> drivers try to use the legacy hooks would be really nice. Experience sa=
-ys
-> someone is going to copypaste this stuff around forever otherwise.
-
-I've been thinking about moving these fields to separate structures, say
-struct drm_legacy_device and struct drm_legacy_driver. Those would be
-allocated for legacy drivers and KMS drivers would never see them
-(except for their forward declaration).
-
-Best regards
-Thomas
-
->=20
-> Reviewed-by: Daniel Vetter <daniel.vetter@ffwll.ch>
->=20
->> ---
->>  drivers/gpu/drm/drm_vblank.c |  39 +++++---------
->>  include/drm/drm_drv.h        | 101 ++--------------------------------=
--
->>  2 files changed, 17 insertions(+), 123 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/drm_vblank.c b/drivers/gpu/drm/drm_vblank=
-=2Ec
->> index 7cf436a4b908..ceff68474d4d 100644
->> --- a/drivers/gpu/drm/drm_vblank.c
->> +++ b/drivers/gpu/drm/drm_vblank.c
->> @@ -138,10 +138,9 @@ static u32 __get_vblank_counter(struct drm_device=
- *dev, unsigned int pipe)
->> =20
->>  		if (crtc->funcs->get_vblank_counter)
->>  			return crtc->funcs->get_vblank_counter(crtc);
->> -	}
->> -
->> -	if (dev->driver->get_vblank_counter)
->> +	} else if (dev->driver->get_vblank_counter) {
->>  		return dev->driver->get_vblank_counter(dev, pipe);
->> +	}
->> =20
->>  	return drm_vblank_no_hw_counter(dev, pipe);
->>  }
->> @@ -334,8 +333,7 @@ u64 drm_crtc_accurate_vblank_count(struct drm_crtc=
- *crtc)
->>  	unsigned long flags;
->> =20
->>  	WARN_ONCE(drm_debug_enabled(DRM_UT_VBL) &&
->> -		  !crtc->funcs->get_vblank_timestamp &&
->> -		  !dev->driver->get_vblank_timestamp,
->> +		  !crtc->funcs->get_vblank_timestamp,
->>  		  "This function requires support for accurate vblank timestamps.")=
-;
->> =20
->>  	spin_lock_irqsave(&dev->vblank_time_lock, flags);
->> @@ -357,13 +355,11 @@ static void __disable_vblank(struct drm_device *=
-dev, unsigned int pipe)
->>  		if (WARN_ON(!crtc))
->>  			return;
->> =20
->> -		if (crtc->funcs->disable_vblank) {
->> +		if (crtc->funcs->disable_vblank)
->>  			crtc->funcs->disable_vblank(crtc);
->> -			return;
->> -		}
->> +	} else {
->> +		dev->driver->disable_vblank(dev, pipe);
->>  	}
->> -
->> -	dev->driver->disable_vblank(dev, pipe);
->>  }
->> =20
->>  /*
->> @@ -791,9 +787,6 @@ drm_get_last_vbltimestamp(struct drm_device *dev, =
-unsigned int pipe,
->> =20
->>  		ret =3D crtc->funcs->get_vblank_timestamp(crtc, &max_error,
->>  							tvblank, in_vblank_irq);
->> -	} else if (dev->driver->get_vblank_timestamp && (max_error > 0)) {
->> -		ret =3D dev->driver->get_vblank_timestamp(dev, pipe, &max_error,
->> -							tvblank, in_vblank_irq);
->>  	}
->> =20
->>  	/* GPU high precision timestamp query unsupported or failed.
->> @@ -1016,9 +1009,11 @@ static int __enable_vblank(struct drm_device *d=
-ev, unsigned int pipe)
->> =20
->>  		if (crtc->funcs->enable_vblank)
->>  			return crtc->funcs->enable_vblank(crtc);
->> +	} else if (dev->driver->enable_vblank) {
->> +		return dev->driver->enable_vblank(dev, pipe);
->>  	}
->> =20
->> -	return dev->driver->enable_vblank(dev, pipe);
->> +	return -EINVAL;
->>  }
->> =20
->>  static int drm_vblank_enable(struct drm_device *dev, unsigned int pip=
-e)
->> @@ -1109,13 +1104,10 @@ static bool __vblank_disable_immediate(struct =
-drm_device *dev, unsigned int pipe
->>  		return false;
->> =20
->>  	crtc =3D drm_crtc_from_index(dev, pipe);
->> -	if (crtc && crtc->funcs->get_vblank_timestamp)
->> -		return true;
->> -
->> -	if (dev->driver->get_vblank_timestamp)
->> -		return true;
->> +	if (!crtc || !crtc->funcs->get_vblank_timestamp)
->> +		return false;
->> =20
->> -	return false;
->> +	return true;
->>  }
->> =20
->>  static void drm_vblank_put(struct drm_device *dev, unsigned int pipe)=
-
->> @@ -1798,7 +1790,6 @@ static void drm_handle_vblank_events(struct drm_=
-device *dev, unsigned int pipe)
->>  	struct drm_pending_vblank_event *e, *t;
->>  	ktime_t now;
->>  	u64 seq;
->> -	bool high_prec;
->> =20
->>  	assert_spin_locked(&dev->event_lock);
->> =20
->> @@ -1818,10 +1809,8 @@ static void drm_handle_vblank_events(struct drm=
-_device *dev, unsigned int pipe)
->>  		send_vblank_event(dev, e, seq, now);
->>  	}
->> =20
->> -	high_prec =3D crtc->funcs->get_vblank_timestamp ||
->> -		    dev->driver->get_vblank_timestamp;
->> -
->> -	trace_drm_vblank_event(pipe, seq, now, high_prec);
->> +	trace_drm_vblank_event(pipe, seq, now,
->> +			       crtc->funcs->get_vblank_timestamp !=3D NULL);
->>  }
->> =20
->>  /**
->> diff --git a/include/drm/drm_drv.h b/include/drm/drm_drv.h
->> index b704e252f3b2..e290b3aca6eb 100644
->> --- a/include/drm/drm_drv.h
->> +++ b/include/drm/drm_drv.h
->> @@ -268,104 +268,6 @@ struct drm_driver {
->>  	 */
->>  	void (*release) (struct drm_device *);
->> =20
->> -	/**
->> -	 * @get_vblank_counter:
->> -	 *
->> -	 * Driver callback for fetching a raw hardware vblank counter for th=
-e
->> -	 * CRTC specified with the pipe argument.  If a device doesn't have =
-a
->> -	 * hardware counter, the driver can simply leave the hook as NULL.
->> -	 * The DRM core will account for missed vblank events while interrup=
-ts
->> -	 * where disabled based on system timestamps.
->> -	 *
->> -	 * Wraparound handling and loss of events due to modesetting is deal=
-t
->> -	 * with in the DRM core code, as long as drivers call
->> -	 * drm_crtc_vblank_off() and drm_crtc_vblank_on() when disabling or
->> -	 * enabling a CRTC.
->> -	 *
->> -	 * This is deprecated and should not be used by new drivers.
->> -	 * Use &drm_crtc_funcs.get_vblank_counter instead.
->> -	 *
->> -	 * Returns:
->> -	 *
->> -	 * Raw vblank counter value.
->> -	 */
->> -	u32 (*get_vblank_counter) (struct drm_device *dev, unsigned int pipe=
-);
->> -
->> -	/**
->> -	 * @enable_vblank:
->> -	 *
->> -	 * Enable vblank interrupts for the CRTC specified with the pipe
->> -	 * argument.
->> -	 *
->> -	 * This is deprecated and should not be used by new drivers.
->> -	 * Use &drm_crtc_funcs.enable_vblank instead.
->> -	 *
->> -	 * Returns:
->> -	 *
->> -	 * Zero on success, appropriate errno if the given @crtc's vblank
->> -	 * interrupt cannot be enabled.
->> -	 */
->> -	int (*enable_vblank) (struct drm_device *dev, unsigned int pipe);
->> -
->> -	/**
->> -	 * @disable_vblank:
->> -	 *
->> -	 * Disable vblank interrupts for the CRTC specified with the pipe
->> -	 * argument.
->> -	 *
->> -	 * This is deprecated and should not be used by new drivers.
->> -	 * Use &drm_crtc_funcs.disable_vblank instead.
->> -	 */
->> -	void (*disable_vblank) (struct drm_device *dev, unsigned int pipe);
->> -
->> -	/**
->> -	 * @get_vblank_timestamp:
->> -	 *
->> -	 * Called by drm_get_last_vbltimestamp(). Should return a precise
->> -	 * timestamp when the most recent VBLANK interval ended or will end.=
-
->> -	 *
->> -	 * Specifically, the timestamp in @vblank_time should correspond as
->> -	 * closely as possible to the time when the first video scanline of
->> -	 * the video frame after the end of VBLANK will start scanning out,
->> -	 * the time immediately after end of the VBLANK interval. If the
->> -	 * @crtc is currently inside VBLANK, this will be a time in the futu=
-re.
->> -	 * If the @crtc is currently scanning out a frame, this will be the
->> -	 * past start time of the current scanout. This is meant to adhere
->> -	 * to the OpenML OML_sync_control extension specification.
->> -	 *
->> -	 * Paramters:
->> -	 *
->> -	 * dev:
->> -	 *     dev DRM device handle.
->> -	 * pipe:
->> -	 *     crtc for which timestamp should be returned.
->> -	 * max_error:
->> -	 *     Maximum allowable timestamp error in nanoseconds.
->> -	 *     Implementation should strive to provide timestamp
->> -	 *     with an error of at most max_error nanoseconds.
->> -	 *     Returns true upper bound on error for timestamp.
->> -	 * vblank_time:
->> -	 *     Target location for returned vblank timestamp.
->> -	 * in_vblank_irq:
->> -	 *     True when called from drm_crtc_handle_vblank().  Some drivers=
-
->> -	 *     need to apply some workarounds for gpu-specific vblank irq qu=
-irks
->> -	 *     if flag is set.
->> -	 *
->> -	 * Returns:
->> -	 *
->> -	 * True on success, false on failure, which means the core should
->> -	 * fallback to a simple timestamp taken in drm_crtc_handle_vblank().=
-
->> -	 *
->> -	 * FIXME:
->> -	 *
->> -	 * We should move this hook to &struct drm_crtc_funcs like all the o=
-ther
->> -	 * vblank hooks.
->> -	 */
->> -	bool (*get_vblank_timestamp) (struct drm_device *dev, unsigned int p=
-ipe,
->> -				     int *max_error,
->> -				     ktime_t *vblank_time,
->> -				     bool in_vblank_irq);
->> -
->>  	/**
->>  	 * @irq_handler:
->>  	 *
->> @@ -720,6 +622,9 @@ struct drm_driver {
->>  	int (*dma_ioctl) (struct drm_device *dev, void *data, struct drm_fil=
-e *file_priv);
->>  	int (*dma_quiescent) (struct drm_device *);
->>  	int (*context_dtor) (struct drm_device *dev, int context);
->> +	u32 (*get_vblank_counter)(struct drm_device *dev, unsigned int pipe)=
-;
->> +	int (*enable_vblank)(struct drm_device *dev, unsigned int pipe);
->> +	void (*disable_vblank)(struct drm_device *dev, unsigned int pipe);
->>  	int dev_priv_size;
->>  };
->> =20
->> --=20
->> 2.24.1
->>
->=20
-
---=20
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Maxfeldstr. 5, 90409 N=C3=BCrnberg, Germany
-(HRB 36809, AG N=C3=BCrnberg)
-Gesch=C3=A4ftsf=C3=BChrer: Felix Imend=C3=B6rffer
-
-
---RAgxvS6j00AOrEMVpsfV7vPGxWhMlDzKn--
-
---hnX2ORJn5vRIQccq9Tfc7COteUkRxx61k
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEchf7rIzpz2NEoWjlaA3BHVMLeiMFAl4dxp0ACgkQaA3BHVML
-eiM2LAf+N0P4K1WKEoBwNNQG29y3+S5aPjHn2Z//V9UoNisKLZHcvcqsUvwN1Tev
-N+DXjGdRzpgPCMu8IOfQBi+fob8CKgS5i+Y1t21sqJo1YqLGdeECeVvwofurAjEp
-gNL6hGEG+TnzuuSQdn9JyAzLvwMHS9GR5aBXM3D3v8hBI5VDl3kP7RsvU6Cra2j+
-iT+fKiSwpLbjeRK/tvquY5YD2IHGhThx0foDhYHtNM+Wtp8xuVjd/fkAa8087bfY
-tbIkX44AnNJnkaSwic7tsl9YBKNnXaRDciqcblXWF8FHDpoUocuGJf9NUePvx8XU
-wL9DGhUIxUSIeSr++09yBzi5jXc6vA==
-=2kyn
------END PGP SIGNATURE-----
-
---hnX2ORJn5vRIQccq9Tfc7COteUkRxx61k--
-
---===============2109178902==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---===============2109178902==--
+T24gVHVlLCBKYW4gMTQsIDIwMjAgYXQgNjo0MiBBTSBjaGVuIGdvbmcgPGN1cnJ5LmdvbmdAYW1k
+LmNvbT4gd3JvdGU6Cj4KPiBNb3ZlIGFtZGdwdV92aXJ0X2tpcV9ycmVnIGZ1bmN0aW9uIHRvIGFt
+ZGdwdV9kZXZpY2UuYywgYW5kIHJlbmFtZSBpdCB0bwo+IGFtZGdwdV9raXFfcnJlZy5NYWtlIGl0
+IGdlbmVyaWMgYW5kIGZsZXhpYmxl44CCCj4KPiBTaWduZWQtb2ZmLWJ5OiBjaGVuIGdvbmcgPGN1
+cnJ5LmdvbmdAYW1kLmNvbT4KPiAtLS0KPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
+Z3B1LmggICAgICAgIHwgIDIgKy0KPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
+X2RldmljZS5jIHwgNTAgKysrKysrKysrKysrKysrKysrKysrKysrKysrKystCgpQbGVhc2UgdXNl
+IGFtZGdwdV9raXEuYyBvciBhbWRncHVfZ2Z4LmMgZm9yIHRoZSBLSVEgaGVscGVycyByYXRoZXIK
+dGhhbiBhZGRpbmcgdGhlbSB0byBhbWRncHVfZGV2aWNlLmMuICBBbHNvIGZvciBzeW1tZXRyeSwg
+cGxlYXNlIG1vdmUKdGhlIGtpcSB3cmVnIGhlbHBlciBhcyB3ZWxsLgoKQWxleAoKPiAgZHJpdmVy
+cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2dmeC5jICAgIHwgIDQgKy0tCj4gIGRyaXZlcnMv
+Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9nZnguaCAgICB8ICAxICsKPiAgZHJpdmVycy9ncHUv
+ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZpcnQuYyAgIHwgNDYgLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tCj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92aXJ0LmggICB8ICAx
+IC0KPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3YxMF8wLmMgICAgIHwgIDUgKy0t
+Cj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92OF8wLmMgICAgICB8ICA1ICstLQo+
+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjlfMC5jICAgICAgfCAgNSArLS0KPiAg
+OSBmaWxlcyBjaGFuZ2VkLCA2MiBpbnNlcnRpb25zKCspLCA1NyBkZWxldGlvbnMoLSkKPgo+IGRp
+ZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHUuaCBiL2RyaXZlcnMv
+Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5oCj4gaW5kZXggNjNlYWIwYy4uMzJiYjg4MyAxMDA2
+NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHUuaAo+ICsrKyBiL2Ry
+aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5oCj4gQEAgLTEwMDksNyArMTAwOSw3IEBA
+IGJvb2wgYW1kZ3B1X2RldmljZV9hc2ljX2hhc19kY19zdXBwb3J0KGVudW0gYW1kX2FzaWNfdHlw
+ZSBhc2ljX3R5cGUpOwo+ICBib29sIGFtZGdwdV9kZXZpY2VfaGFzX2RjX3N1cHBvcnQoc3RydWN0
+IGFtZGdwdV9kZXZpY2UgKmFkZXYpOwo+Cj4gIGludCBlbXVfc29jX2FzaWNfaW5pdChzdHJ1Y3Qg
+YW1kZ3B1X2RldmljZSAqYWRldik7Cj4gLQo+ICt1aW50MzJfdCBhbWRncHVfa2lxX3JyZWcoc3Ry
+dWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsIHVpbnQzMl90IHJlZyk7Cj4gIC8qCj4gICAqIFJlZ2lz
+dGVycyByZWFkICYgd3JpdGUgZnVuY3Rpb25zLgo+ICAgKi8KPiBkaWZmIC0tZ2l0IGEvZHJpdmVy
+cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jIGIvZHJpdmVycy9ncHUvZHJtL2Ft
+ZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jCj4gaW5kZXggMmM2NGQyYS4uMWQwNzZjMCAxMDA2NDQK
+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMKPiArKysg
+Yi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMKPiBAQCAtMTcwLDYg
+KzE3MCw1MyBAQCBib29sIGFtZGdwdV9kZXZpY2Vfc3VwcG9ydHNfYmFjbyhzdHJ1Y3QgZHJtX2Rl
+dmljZSAqZGV2KQo+ICAgICAgICAgcmV0dXJuIGFtZGdwdV9hc2ljX3N1cHBvcnRzX2JhY28oYWRl
+dik7Cj4gIH0KPgo+ICsKPiArdWludDMyX3QgYW1kZ3B1X2tpcV9ycmVnKHN0cnVjdCBhbWRncHVf
+ZGV2aWNlICphZGV2LCB1aW50MzJfdCByZWcpCj4gK3sKPiArICAgICAgIHNpZ25lZCBsb25nIHIs
+IGNudCA9IDA7Cj4gKyAgICAgICB1bnNpZ25lZCBsb25nIGZsYWdzOwo+ICsgICAgICAgdWludDMy
+X3Qgc2VxOwo+ICsgICAgICAgc3RydWN0IGFtZGdwdV9raXEgKmtpcSA9ICZhZGV2LT5nZngua2lx
+Owo+ICsgICAgICAgc3RydWN0IGFtZGdwdV9yaW5nICpyaW5nID0gJmtpcS0+cmluZzsKPiArCj4g
+KyAgICAgICBCVUdfT04oIXJpbmctPmZ1bmNzLT5lbWl0X3JyZWcpOwo+ICsKPiArICAgICAgIHNw
+aW5fbG9ja19pcnFzYXZlKCZraXEtPnJpbmdfbG9jaywgZmxhZ3MpOwo+ICsgICAgICAgYW1kZ3B1
+X3JpbmdfYWxsb2MocmluZywgMzIpOwo+ICsgICAgICAgYW1kZ3B1X3JpbmdfZW1pdF9ycmVnKHJp
+bmcsIHJlZyk7Cj4gKyAgICAgICBhbWRncHVfZmVuY2VfZW1pdF9wb2xsaW5nKHJpbmcsICZzZXEp
+Owo+ICsgICAgICAgYW1kZ3B1X3JpbmdfY29tbWl0KHJpbmcpOwo+ICsgICAgICAgc3Bpbl91bmxv
+Y2tfaXJxcmVzdG9yZSgma2lxLT5yaW5nX2xvY2ssIGZsYWdzKTsKPiArCj4gKyAgICAgICByID0g
+YW1kZ3B1X2ZlbmNlX3dhaXRfcG9sbGluZyhyaW5nLCBzZXEsIE1BWF9LSVFfUkVHX1dBSVQpOwo+
+ICsKPiArICAgICAgIC8qIGRvbid0IHdhaXQgYW55bW9yZSBmb3IgZ3B1IHJlc2V0IGNhc2UgYmVj
+YXVzZSB0aGlzIHdheSBtYXkKPiArICAgICAgICAqIGJsb2NrIGdwdV9yZWNvdmVyKCkgcm91dGlu
+ZSBmb3JldmVyLCBlLmcuIHRoaXMgdmlydF9raXFfcnJlZwo+ICsgICAgICAgICogaXMgdHJpZ2dl
+cmVkIGluIFRUTSBhbmQgdHRtX2JvX2xvY2tfZGVsYXllZF93b3JrcXVldWUoKSB3aWxsCj4gKyAg
+ICAgICAgKiBuZXZlciByZXR1cm4gaWYgd2Uga2VlcCB3YWl0aW5nIGluIHZpcnRfa2lxX3JyZWcs
+IHdoaWNoIGNhdXNlCj4gKyAgICAgICAgKiBncHVfcmVjb3ZlcigpIGhhbmcgdGhlcmUuCj4gKyAg
+ICAgICAgKgo+ICsgICAgICAgICogYWxzbyBkb24ndCB3YWl0IGFueW1vcmUgZm9yIElSUSBjb250
+ZXh0Cj4gKyAgICAgICAgKiAqLwo+ICsgICAgICAgaWYgKHIgPCAxICYmIChhZGV2LT5pbl9ncHVf
+cmVzZXQgfHwgaW5faW50ZXJydXB0KCkpKQo+ICsgICAgICAgICAgICAgICBnb3RvIGZhaWxlZF9r
+aXFfcmVhZDsKPiArCj4gKyAgICAgICBtaWdodF9zbGVlcCgpOwo+ICsgICAgICAgd2hpbGUgKHIg
+PCAxICYmIGNudCsrIDwgTUFYX0tJUV9SRUdfVFJZKSB7Cj4gKyAgICAgICAgICAgICAgIG1zbGVl
+cChNQVhfS0lRX1JFR19CQUlMT1VUX0lOVEVSVkFMKTsKPiArICAgICAgICAgICAgICAgciA9IGFt
+ZGdwdV9mZW5jZV93YWl0X3BvbGxpbmcocmluZywgc2VxLCBNQVhfS0lRX1JFR19XQUlUKTsKPiAr
+ICAgICAgIH0KPiArCj4gKyAgICAgICBpZiAoY250ID4gTUFYX0tJUV9SRUdfVFJZKQo+ICsgICAg
+ICAgICAgICAgICBnb3RvIGZhaWxlZF9raXFfcmVhZDsKPiArCj4gKyAgICAgICByZXR1cm4gYWRl
+di0+d2Iud2Jba2lxLT5yZWdfdmFsX29mZnNdOwo+ICsKPiArZmFpbGVkX2tpcV9yZWFkOgo+ICsg
+ICAgICAgcHJfZXJyKCJmYWlsZWQgdG8gcmVhZCByZWc6JXhcbiIsIHJlZyk7Cj4gKyAgICAgICBy
+ZXR1cm4gfjA7Cj4gK30KPiArCj4gIC8qKgo+ICAgKiBWUkFNIGFjY2VzcyBoZWxwZXIgZnVuY3Rp
+b25zLgo+ICAgKgo+IEBAIC0yMTgsNyArMjY1LDcgQEAgdWludDMyX3QgYW1kZ3B1X21tX3JyZWco
+c3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsIHVpbnQzMl90IHJlZywKPiAgICAgICAgIHVpbnQz
+Ml90IHJldDsKPgo+ICAgICAgICAgaWYgKCEoYWNjX2ZsYWdzICYgQU1ER1BVX1JFR1NfTk9fS0lR
+KSAmJiBhbWRncHVfc3Jpb3ZfcnVudGltZShhZGV2KSkKPiAtICAgICAgICAgICAgICAgcmV0dXJu
+IGFtZGdwdV92aXJ0X2tpcV9ycmVnKGFkZXYsIHJlZyk7Cj4gKyAgICAgICAgICAgICAgIHJldHVy
+biBhbWRncHVfa2lxX3JyZWcoYWRldiwgcmVnKTsKPgo+ICAgICAgICAgaWYgKChyZWcgKiA0KSA8
+IGFkZXYtPnJtbWlvX3NpemUgJiYgIShhY2NfZmxhZ3MgJiBBTURHUFVfUkVHU19JRFgpKQo+ICAg
+ICAgICAgICAgICAgICByZXQgPSByZWFkbCgoKHZvaWQgX19pb21lbSAqKWFkZXYtPnJtbWlvKSAr
+IChyZWcgKiA0KSk7Cj4gQEAgLTI3Niw2ICszMjMsNyBAQCB2b2lkIGFtZGdwdV9tbV93cmVnOChz
+dHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwgdWludDMyX3Qgb2Zmc2V0LCB1aW50OF90IHZhbHVl
+KQo+ICAgICAgICAgICAgICAgICBCVUcoKTsKPiAgfQo+Cj4gKwo+ICAvKioKPiAgICogYW1kZ3B1
+X21tX3dyZWcgLSB3cml0ZSB0byBhIG1lbW9yeSBtYXBwZWQgSU8gcmVnaXN0ZXIKPiAgICoKPiBk
+aWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2dmeC5jIGIvZHJp
+dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2dmeC5jCj4gaW5kZXggYjg4YjhiOC4uZjQz
+Nzc2NyAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZ2Z4
+LmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZ2Z4LmMKPiBAQCAt
+Mjk2LDcgKzI5Niw3IEBAIGludCBhbWRncHVfZ2Z4X2tpcV9pbml0X3Jpbmcoc3RydWN0IGFtZGdw
+dV9kZXZpY2UgKmFkZXYsCj4KPiAgICAgICAgIHNwaW5fbG9ja19pbml0KCZraXEtPnJpbmdfbG9j
+ayk7Cj4KPiAtICAgICAgIHIgPSBhbWRncHVfZGV2aWNlX3diX2dldChhZGV2LCAmYWRldi0+dmly
+dC5yZWdfdmFsX29mZnMpOwo+ICsgICAgICAgciA9IGFtZGdwdV9kZXZpY2Vfd2JfZ2V0KGFkZXYs
+ICZraXEtPnJlZ192YWxfb2Zmcyk7Cj4gICAgICAgICBpZiAocikKPiAgICAgICAgICAgICAgICAg
+cmV0dXJuIHI7Cj4KPiBAQCAtMzIxLDcgKzMyMSw3IEBAIGludCBhbWRncHVfZ2Z4X2tpcV9pbml0
+X3Jpbmcoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsCj4KPiAgdm9pZCBhbWRncHVfZ2Z4X2tp
+cV9mcmVlX3Jpbmcoc3RydWN0IGFtZGdwdV9yaW5nICpyaW5nKQo+ICB7Cj4gLSAgICAgICBhbWRn
+cHVfZGV2aWNlX3diX2ZyZWUocmluZy0+YWRldiwgcmluZy0+YWRldi0+dmlydC5yZWdfdmFsX29m
+ZnMpOwo+ICsgICAgICAgYW1kZ3B1X2RldmljZV93Yl9mcmVlKHJpbmctPmFkZXYsIHJpbmctPmFk
+ZXYtPmdmeC5raXEucmVnX3ZhbF9vZmZzKTsKPiAgICAgICAgIGFtZGdwdV9yaW5nX2Zpbmkocmlu
+Zyk7Cj4gIH0KPgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
+cHVfZ2Z4LmggYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZ2Z4LmgKPiBpbmRl
+eCBhZjRiZDI3Li4yMzY0OTY0IDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
+Z3B1L2FtZGdwdV9nZnguaAo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdw
+dV9nZnguaAo+IEBAIC05NCw2ICs5NCw3IEBAIHN0cnVjdCBhbWRncHVfa2lxIHsKPiAgICAgICAg
+IHN0cnVjdCBhbWRncHVfcmluZyAgICAgIHJpbmc7Cj4gICAgICAgICBzdHJ1Y3QgYW1kZ3B1X2ly
+cV9zcmMgICBpcnE7Cj4gICAgICAgICBjb25zdCBzdHJ1Y3Qga2lxX3BtNF9mdW5jcyAqcG1mOwo+
+ICsgICAgICAgdWludDMyX3QgICAgICAgICAgICAgICAgICAgICAgICByZWdfdmFsX29mZnM7Cj4g
+IH07Cj4KPiAgLyoKPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
+Z3B1X3ZpcnQuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92aXJ0LmMKPiBp
+bmRleCAxMDMwMzNmLi4wNDBhMzgwOSAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1k
+L2FtZGdwdS9hbWRncHVfdmlydC5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
+YW1kZ3B1X3ZpcnQuYwo+IEBAIC00NSw1MiArNDUsNiBAQCB2b2lkIGFtZGdwdV92aXJ0X2luaXRf
+c2V0dGluZyhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikKPiAgICAgICAgIGFkZXYtPnBnX2Zs
+YWdzID0gMDsKPiAgfQo+Cj4gLXVpbnQzMl90IGFtZGdwdV92aXJ0X2tpcV9ycmVnKHN0cnVjdCBh
+bWRncHVfZGV2aWNlICphZGV2LCB1aW50MzJfdCByZWcpCj4gLXsKPiAtICAgICAgIHNpZ25lZCBs
+b25nIHIsIGNudCA9IDA7Cj4gLSAgICAgICB1bnNpZ25lZCBsb25nIGZsYWdzOwo+IC0gICAgICAg
+dWludDMyX3Qgc2VxOwo+IC0gICAgICAgc3RydWN0IGFtZGdwdV9raXEgKmtpcSA9ICZhZGV2LT5n
+Zngua2lxOwo+IC0gICAgICAgc3RydWN0IGFtZGdwdV9yaW5nICpyaW5nID0gJmtpcS0+cmluZzsK
+PiAtCj4gLSAgICAgICBCVUdfT04oIXJpbmctPmZ1bmNzLT5lbWl0X3JyZWcpOwo+IC0KPiAtICAg
+ICAgIHNwaW5fbG9ja19pcnFzYXZlKCZraXEtPnJpbmdfbG9jaywgZmxhZ3MpOwo+IC0gICAgICAg
+YW1kZ3B1X3JpbmdfYWxsb2MocmluZywgMzIpOwo+IC0gICAgICAgYW1kZ3B1X3JpbmdfZW1pdF9y
+cmVnKHJpbmcsIHJlZyk7Cj4gLSAgICAgICBhbWRncHVfZmVuY2VfZW1pdF9wb2xsaW5nKHJpbmcs
+ICZzZXEpOwo+IC0gICAgICAgYW1kZ3B1X3JpbmdfY29tbWl0KHJpbmcpOwo+IC0gICAgICAgc3Bp
+bl91bmxvY2tfaXJxcmVzdG9yZSgma2lxLT5yaW5nX2xvY2ssIGZsYWdzKTsKPiAtCj4gLSAgICAg
+ICByID0gYW1kZ3B1X2ZlbmNlX3dhaXRfcG9sbGluZyhyaW5nLCBzZXEsIE1BWF9LSVFfUkVHX1dB
+SVQpOwo+IC0KPiAtICAgICAgIC8qIGRvbid0IHdhaXQgYW55bW9yZSBmb3IgZ3B1IHJlc2V0IGNh
+c2UgYmVjYXVzZSB0aGlzIHdheSBtYXkKPiAtICAgICAgICAqIGJsb2NrIGdwdV9yZWNvdmVyKCkg
+cm91dGluZSBmb3JldmVyLCBlLmcuIHRoaXMgdmlydF9raXFfcnJlZwo+IC0gICAgICAgICogaXMg
+dHJpZ2dlcmVkIGluIFRUTSBhbmQgdHRtX2JvX2xvY2tfZGVsYXllZF93b3JrcXVldWUoKSB3aWxs
+Cj4gLSAgICAgICAgKiBuZXZlciByZXR1cm4gaWYgd2Uga2VlcCB3YWl0aW5nIGluIHZpcnRfa2lx
+X3JyZWcsIHdoaWNoIGNhdXNlCj4gLSAgICAgICAgKiBncHVfcmVjb3ZlcigpIGhhbmcgdGhlcmUu
+Cj4gLSAgICAgICAgKgo+IC0gICAgICAgICogYWxzbyBkb24ndCB3YWl0IGFueW1vcmUgZm9yIElS
+USBjb250ZXh0Cj4gLSAgICAgICAgKiAqLwo+IC0gICAgICAgaWYgKHIgPCAxICYmIChhZGV2LT5p
+bl9ncHVfcmVzZXQgfHwgaW5faW50ZXJydXB0KCkpKQo+IC0gICAgICAgICAgICAgICBnb3RvIGZh
+aWxlZF9raXFfcmVhZDsKPiAtCj4gLSAgICAgICBtaWdodF9zbGVlcCgpOwo+IC0gICAgICAgd2hp
+bGUgKHIgPCAxICYmIGNudCsrIDwgTUFYX0tJUV9SRUdfVFJZKSB7Cj4gLSAgICAgICAgICAgICAg
+IG1zbGVlcChNQVhfS0lRX1JFR19CQUlMT1VUX0lOVEVSVkFMKTsKPiAtICAgICAgICAgICAgICAg
+ciA9IGFtZGdwdV9mZW5jZV93YWl0X3BvbGxpbmcocmluZywgc2VxLCBNQVhfS0lRX1JFR19XQUlU
+KTsKPiAtICAgICAgIH0KPiAtCj4gLSAgICAgICBpZiAoY250ID4gTUFYX0tJUV9SRUdfVFJZKQo+
+IC0gICAgICAgICAgICAgICBnb3RvIGZhaWxlZF9raXFfcmVhZDsKPiAtCj4gLSAgICAgICByZXR1
+cm4gYWRldi0+d2Iud2JbYWRldi0+dmlydC5yZWdfdmFsX29mZnNdOwo+IC0KPiAtZmFpbGVkX2tp
+cV9yZWFkOgo+IC0gICAgICAgcHJfZXJyKCJmYWlsZWQgdG8gcmVhZCByZWc6JXhcbiIsIHJlZyk7
+Cj4gLSAgICAgICByZXR1cm4gfjA7Cj4gLX0KPiAtCj4gIHZvaWQgYW1kZ3B1X3ZpcnRfa2lxX3dy
+ZWcoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsIHVpbnQzMl90IHJlZywgdWludDMyX3QgdikK
+PiAgewo+ICAgICAgICAgc2lnbmVkIGxvbmcgciwgY250ID0gMDsKPiBkaWZmIC0tZ2l0IGEvZHJp
+dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZpcnQuaCBiL2RyaXZlcnMvZ3B1L2RybS9h
+bWQvYW1kZ3B1L2FtZGdwdV92aXJ0LmgKPiBpbmRleCA0ZDFhYzc2Li5mMzU2ZjY4IDEwMDY0NAo+
+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92aXJ0LmgKPiArKysgYi9k
+cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdmlydC5oCj4gQEAgLTI4Nyw3ICsyODcs
+NiBAQCBzdGF0aWMgaW5saW5lIGJvb2wgaXNfdmlydHVhbF9tYWNoaW5lKHZvaWQpCj4KPiAgYm9v
+bCBhbWRncHVfdmlydF9tbWlvX2Jsb2NrZWQoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpOwo+
+ICB2b2lkIGFtZGdwdV92aXJ0X2luaXRfc2V0dGluZyhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRl
+dik7Cj4gLXVpbnQzMl90IGFtZGdwdV92aXJ0X2tpcV9ycmVnKHN0cnVjdCBhbWRncHVfZGV2aWNl
+ICphZGV2LCB1aW50MzJfdCByZWcpOwo+ICB2b2lkIGFtZGdwdV92aXJ0X2tpcV93cmVnKHN0cnVj
+dCBhbWRncHVfZGV2aWNlICphZGV2LCB1aW50MzJfdCByZWcsIHVpbnQzMl90IHYpOwo+ICB2b2lk
+IGFtZGdwdV92aXJ0X2tpcV9yZWdfd3JpdGVfcmVnX3dhaXQoc3RydWN0IGFtZGdwdV9kZXZpY2Ug
+KmFkZXYsCj4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHVpbnQzMl90
+IHJlZzAsIHVpbnQzMl90IHJyZWcxLAo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1k
+L2FtZGdwdS9nZnhfdjEwXzAuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92MTBf
+MC5jCj4gaW5kZXggZDcyYjYwZi4uMzUzZWNlZiAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9k
+cm0vYW1kL2FtZGdwdS9nZnhfdjEwXzAuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
+Z3B1L2dmeF92MTBfMC5jCj4gQEAgLTQ3NDMsNiArNDc0Myw3IEBAIHN0YXRpYyB2b2lkIGdmeF92
+MTBfMF9yaW5nX2VtaXRfdG16KHN0cnVjdCBhbWRncHVfcmluZyAqcmluZywgYm9vbCBzdGFydCwK
+PiAgc3RhdGljIHZvaWQgZ2Z4X3YxMF8wX3JpbmdfZW1pdF9ycmVnKHN0cnVjdCBhbWRncHVfcmlu
+ZyAqcmluZywgdWludDMyX3QgcmVnKQo+ICB7Cj4gICAgICAgICBzdHJ1Y3QgYW1kZ3B1X2Rldmlj
+ZSAqYWRldiA9IHJpbmctPmFkZXY7Cj4gKyAgICAgICBzdHJ1Y3QgYW1kZ3B1X2tpcSAqa2lxID0g
+JmFkZXYtPmdmeC5raXE7Cj4KPiAgICAgICAgIGFtZGdwdV9yaW5nX3dyaXRlKHJpbmcsIFBBQ0tF
+VDMoUEFDS0VUM19DT1BZX0RBVEEsIDQpKTsKPiAgICAgICAgIGFtZGdwdV9yaW5nX3dyaXRlKHJp
+bmcsIDAgfCAgICAgLyogc3JjOiByZWdpc3RlciovCj4gQEAgLTQ3NTEsOSArNDc1Miw5IEBAIHN0
+YXRpYyB2b2lkIGdmeF92MTBfMF9yaW5nX2VtaXRfcnJlZyhzdHJ1Y3QgYW1kZ3B1X3JpbmcgKnJp
+bmcsIHVpbnQzMl90IHJlZykKPiAgICAgICAgIGFtZGdwdV9yaW5nX3dyaXRlKHJpbmcsIHJlZyk7
+Cj4gICAgICAgICBhbWRncHVfcmluZ193cml0ZShyaW5nLCAwKTsKPiAgICAgICAgIGFtZGdwdV9y
+aW5nX3dyaXRlKHJpbmcsIGxvd2VyXzMyX2JpdHMoYWRldi0+d2IuZ3B1X2FkZHIgKwo+IC0gICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgYWRldi0+dmlydC5yZWdfdmFsX29mZnMgKiA0KSk7
+Cj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBraXEtPnJlZ192YWxfb2ZmcyAqIDQp
+KTsKPiAgICAgICAgIGFtZGdwdV9yaW5nX3dyaXRlKHJpbmcsIHVwcGVyXzMyX2JpdHMoYWRldi0+
+d2IuZ3B1X2FkZHIgKwo+IC0gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgYWRldi0+dmly
+dC5yZWdfdmFsX29mZnMgKiA0KSk7Cj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBr
+aXEtPnJlZ192YWxfb2ZmcyAqIDQpKTsKPiAgfQo+Cj4gIHN0YXRpYyB2b2lkIGdmeF92MTBfMF9y
+aW5nX2VtaXRfd3JlZyhzdHJ1Y3QgYW1kZ3B1X3JpbmcgKnJpbmcsIHVpbnQzMl90IHJlZywKPiBk
+aWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y4XzAuYyBiL2RyaXZl
+cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92OF8wLmMKPiBpbmRleCA4YjlmNDQwLi5kNmRkOGE1
+IDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92OF8wLmMKPiAr
+KysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjhfMC5jCj4gQEAgLTY0NDcsNiAr
+NjQ0Nyw3IEBAIHN0YXRpYyB2b2lkIGdmeF92OF8wX3JpbmdfZW1pdF9wYXRjaF9jb25kX2V4ZWMo
+c3RydWN0IGFtZGdwdV9yaW5nICpyaW5nLCB1bnNpZ25lCj4gIHN0YXRpYyB2b2lkIGdmeF92OF8w
+X3JpbmdfZW1pdF9ycmVnKHN0cnVjdCBhbWRncHVfcmluZyAqcmluZywgdWludDMyX3QgcmVnKQo+
+ICB7Cj4gICAgICAgICBzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiA9IHJpbmctPmFkZXY7Cj4g
+KyAgICAgICBzdHJ1Y3QgYW1kZ3B1X2tpcSAqa2lxID0gJmFkZXYtPmdmeC5raXE7Cj4KPiAgICAg
+ICAgIGFtZGdwdV9yaW5nX3dyaXRlKHJpbmcsIFBBQ0tFVDMoUEFDS0VUM19DT1BZX0RBVEEsIDQp
+KTsKPiAgICAgICAgIGFtZGdwdV9yaW5nX3dyaXRlKHJpbmcsIDAgfCAgICAgLyogc3JjOiByZWdp
+c3RlciovCj4gQEAgLTY0NTUsOSArNjQ1Niw5IEBAIHN0YXRpYyB2b2lkIGdmeF92OF8wX3Jpbmdf
+ZW1pdF9ycmVnKHN0cnVjdCBhbWRncHVfcmluZyAqcmluZywgdWludDMyX3QgcmVnKQo+ICAgICAg
+ICAgYW1kZ3B1X3Jpbmdfd3JpdGUocmluZywgcmVnKTsKPiAgICAgICAgIGFtZGdwdV9yaW5nX3dy
+aXRlKHJpbmcsIDApOwo+ICAgICAgICAgYW1kZ3B1X3Jpbmdfd3JpdGUocmluZywgbG93ZXJfMzJf
+Yml0cyhhZGV2LT53Yi5ncHVfYWRkciArCj4gLSAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICBhZGV2LT52aXJ0LnJlZ192YWxfb2ZmcyAqIDQpKTsKPiArICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgIGtpcS0+cmVnX3ZhbF9vZmZzICogNCkpOwo+ICAgICAgICAgYW1kZ3B1X3Jpbmdf
+d3JpdGUocmluZywgdXBwZXJfMzJfYml0cyhhZGV2LT53Yi5ncHVfYWRkciArCj4gLSAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICBhZGV2LT52aXJ0LnJlZ192YWxfb2ZmcyAqIDQpKTsKPiAr
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGtpcS0+cmVnX3ZhbF9vZmZzICogNCkpOwo+
+ICB9Cj4KPiAgc3RhdGljIHZvaWQgZ2Z4X3Y4XzBfcmluZ19lbWl0X3dyZWcoc3RydWN0IGFtZGdw
+dV9yaW5nICpyaW5nLCB1aW50MzJfdCByZWcsCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2Ry
+bS9hbWQvYW1kZ3B1L2dmeF92OV8wLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhf
+djlfMC5jCj4gaW5kZXggNDRjZGI2Zi4uNDI1NzYyYSAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dw
+dS9kcm0vYW1kL2FtZGdwdS9nZnhfdjlfMC5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9h
+bWRncHUvZ2Z4X3Y5XzAuYwo+IEBAIC01MjE4LDYgKzUyMTgsNyBAQCBzdGF0aWMgdm9pZCBnZnhf
+djlfMF9yaW5nX2VtaXRfcGF0Y2hfY29uZF9leGVjKHN0cnVjdCBhbWRncHVfcmluZyAqcmluZywg
+dW5zaWduZQo+ICBzdGF0aWMgdm9pZCBnZnhfdjlfMF9yaW5nX2VtaXRfcnJlZyhzdHJ1Y3QgYW1k
+Z3B1X3JpbmcgKnJpbmcsIHVpbnQzMl90IHJlZykKPiAgewo+ICAgICAgICAgc3RydWN0IGFtZGdw
+dV9kZXZpY2UgKmFkZXYgPSByaW5nLT5hZGV2Owo+ICsgICAgICAgc3RydWN0IGFtZGdwdV9raXEg
+KmtpcSA9ICZhZGV2LT5nZngua2lxOwo+Cj4gICAgICAgICBhbWRncHVfcmluZ193cml0ZShyaW5n
+LCBQQUNLRVQzKFBBQ0tFVDNfQ09QWV9EQVRBLCA0KSk7Cj4gICAgICAgICBhbWRncHVfcmluZ193
+cml0ZShyaW5nLCAwIHwgICAgIC8qIHNyYzogcmVnaXN0ZXIqLwo+IEBAIC01MjI2LDkgKzUyMjcs
+OSBAQCBzdGF0aWMgdm9pZCBnZnhfdjlfMF9yaW5nX2VtaXRfcnJlZyhzdHJ1Y3QgYW1kZ3B1X3Jp
+bmcgKnJpbmcsIHVpbnQzMl90IHJlZykKPiAgICAgICAgIGFtZGdwdV9yaW5nX3dyaXRlKHJpbmcs
+IHJlZyk7Cj4gICAgICAgICBhbWRncHVfcmluZ193cml0ZShyaW5nLCAwKTsKPiAgICAgICAgIGFt
+ZGdwdV9yaW5nX3dyaXRlKHJpbmcsIGxvd2VyXzMyX2JpdHMoYWRldi0+d2IuZ3B1X2FkZHIgKwo+
+IC0gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgYWRldi0+dmlydC5yZWdfdmFsX29mZnMg
+KiA0KSk7Cj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBraXEtPnJlZ192YWxfb2Zm
+cyAqIDQpKTsKPiAgICAgICAgIGFtZGdwdV9yaW5nX3dyaXRlKHJpbmcsIHVwcGVyXzMyX2JpdHMo
+YWRldi0+d2IuZ3B1X2FkZHIgKwo+IC0gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgYWRl
+di0+dmlydC5yZWdfdmFsX29mZnMgKiA0KSk7Cj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICBraXEtPnJlZ192YWxfb2ZmcyAqIDQpKTsKPiAgfQo+Cj4gIHN0YXRpYyB2b2lkIGdmeF92
+OV8wX3JpbmdfZW1pdF93cmVnKHN0cnVjdCBhbWRncHVfcmluZyAqcmluZywgdWludDMyX3QgcmVn
+LAo+IC0tCj4gMi43LjQKPgo+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fCj4gYW1kLWdmeCBtYWlsaW5nIGxpc3QKPiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNr
+dG9wLm9yZwo+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8v
+YW1kLWdmeApfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwph
+bWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczov
+L2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
