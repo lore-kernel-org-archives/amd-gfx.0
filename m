@@ -2,110 +2,73 @@ Return-Path: <SRS0=p2a1=3E=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+X-Spam-Status: No, score=-9.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.0
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D352EC33CB1
-	for <amd-gfx@archiver.kernel.org>; Wed, 15 Jan 2020 14:08:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A778BC33CB1
+	for <amd-gfx@archiver.kernel.org>; Wed, 15 Jan 2020 14:15:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A45522084D
-	for <amd-gfx@archiver.kernel.org>; Wed, 15 Jan 2020 14:08:06 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 7827924656
+	for <amd-gfx@archiver.kernel.org>; Wed, 15 Jan 2020 14:15:08 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="cNJSefpf"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A45522084D
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WiWk+2c+"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7827924656
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 548706EA9C;
-	Wed, 15 Jan 2020 14:08:06 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2044.outbound.protection.outlook.com [40.107.93.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7500C6EA9C
- for <amd-gfx@lists.freedesktop.org>; Wed, 15 Jan 2020 14:08:04 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=QUoSBEll0IGLZkC+XZgnxbJ7zuWN2r2Hu6ALP9MGKsFklO+vQ2I3ZcPyz0iNUrHsJ0g6JqK+hN2R77caIJIp1eZeKT4GnVzMI2MI7Rj7u1egKxd+EMYGcwS6UCn+nxZ0mMPCO3qD/zc8tc7hjWrJChQ75K0dcYK5jpAqrm81LFQn8PeItqaVeNAXWC72BRzHf7gRcmG5KFWy86MSc0vZTLrLrTHRtc8BGwcCrvI3rnppUCaO0BCkEpS8Tiqo6MyeRI680JNXIJHG+Vmq/KuXONimKysXORkUUkBM+78yXYkh9qK6tETPEHueUPU+7M4fNBqGNyLqjRUJnNyPk7XD8Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=H5oIwdf5wwQROJteWmz+7ZHjWICHe0DuH2XoWzMT27M=;
- b=aSQm61z6HUfNVgGdipfSdg5hHRtzU6ybwKDCJWtkKtVaa10f6ri21ab+mKExY+PJOQFv/Qv+hE/swRIMsOG7JYkNul+QZmZ3ab9Se1ZdSM8PntpCOY+sVJTQTemQfM2Gn1FKXVQrl60WhQt57DfALaKTVzsp/0TjKBAqlibuaGOrpYcNdJelP9eAjaHTueHtj/S6kkFQAhgm96Hv2xiQDp7U2IaqZZwqr2ZahmGNU+8zIA1lFzdYi6z3t7AT85URnyW2+2sgXlNxFNGYdXHS4VFb5xD+0msRSGh9R1I7i7JU+x9e0UtJzZJkDdebYEccibnj8JTjsSFulGxvJqVYFw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=H5oIwdf5wwQROJteWmz+7ZHjWICHe0DuH2XoWzMT27M=;
- b=cNJSefpfZY84ebmwG7R5dXbICB/ULCODBQuSuQRLuOwiEEHEvUA6quGPejHjktOqczbL21u6BOdka2YPwX8Qnz4NLw/aEps2PsJvLJyLTwxMTgUyE8nWM4Okp8pvIaZ4tCB3n+0hdyDztN8iYhtxIObXNfBdliCXkvdbFDicI2w=
-Received: from CH2PR12MB3912.namprd12.prod.outlook.com (52.132.246.86) by
- CH2SPR01MB0010.namprd12.prod.outlook.com (10.141.106.8) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2644.18; Wed, 15 Jan 2020 14:08:02 +0000
-Received: from CH2PR12MB3912.namprd12.prod.outlook.com
- ([fe80::35e4:f61:8c42:333d]) by CH2PR12MB3912.namprd12.prod.outlook.com
- ([fe80::35e4:f61:8c42:333d%6]) with mapi id 15.20.2644.015; Wed, 15 Jan 2020
- 14:08:02 +0000
-From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-To: Bjorn Helgaas <helgaas@kernel.org>, Alex Deucher <alexdeucher@gmail.com>
-Subject: RE: [PATCH 0/2] Adjust AMD GPU ATS quirks
-Thread-Topic: [PATCH 0/2] Adjust AMD GPU ATS quirks
-Thread-Index: AQHVyxz5e3deHIakDEi7MiGaUbFZUKfq0iEAgADxxQA=
-Date: Wed, 15 Jan 2020 14:08:02 +0000
-Message-ID: <CH2PR12MB39124307C111836194A81A24F7370@CH2PR12MB3912.namprd12.prod.outlook.com>
-References: <20200114205523.1054271-1-alexander.deucher@amd.com>
- <20200114234144.GA56595@google.com>
-In-Reply-To: <20200114234144.GA56595@google.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Enabled=true;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SetDate=2020-01-15T14:07:07Z; 
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Method=Privileged;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Name=Public_0;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ActionId=18597a2d-2cd7-48ac-8a7d-000016ca9683;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ContentBits=1
-msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_enabled: true
-msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_setdate: 2020-01-15T14:07:59Z
-msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_method: Privileged
-msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_name: Public_0
-msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
-msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_actionid: 587b2447-fb88-497e-a2bc-00009b2cf3c9
-msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_contentbits: 0
-authentication-results: spf=none (sender IP is )
- smtp.mailfrom=Alexander.Deucher@amd.com; 
-x-originating-ip: [165.204.84.11]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: 950ef82c-b24b-4acc-a9ee-08d799c455b6
-x-ms-traffictypediagnostic: CH2SPR01MB0010:
-x-microsoft-antispam-prvs: <CH2SPR01MB0010A9BE041B81FBB97E0F0BF7370@CH2SPR01MB0010.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:9508;
-x-forefront-prvs: 02830F0362
-x-forefront-antispam-report: SFV:NSPM;
- SFS:(10001)(10009020)(4636009)(366004)(189003)(199004)(498600001)(6506007)(53546011)(4326008)(966005)(8936002)(2906002)(45080400002)(76116006)(186003)(66946007)(110136005)(7696005)(8676002)(71200400001)(86362001)(5660300002)(66556008)(64756008)(55016002)(9686003)(81156014)(52536014)(81166006)(33656002)(54906003)(26005)(66446008)(66476007);
- DIR:OUT; SFP:1101; SCL:1; SRVR:CH2SPR01MB0010;
- H:CH2PR12MB3912.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; MX:1; A:1; 
-received-spf: None (protection.outlook.com: amd.com does not designate
- permitted sender hosts)
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: Ht4D3EEZSdtsLSCU6Y11Enl6B3xHbm+0hfz2qcnPvEMG6xc0AvkheX2/Yz9taRy0yCWPiOeAL9mLXDg91zLo3wg4NFgWBaUhIZNe4fODEO0yfa4zlabgY3COeoo600cP0SCisrl7OwbDL9PeG/ajawIDpBI6h3YZVi/EE9urHMBUKvwY7GoW+T+mBmFvonY/T5oyQEL3G7oFnWu9jKmf/cQN3kChLkZ+AlBWiLJzl8SDN65rdnBWqLPw+csQbCDUJoNjkWWUXWMxK4Taa7cID/XUrfBzXM66/YxXN02L0mUcn95IkUxBCJhD6zPfyVBrOSn4F8Yd1/X1BYBd6FDDt15z69g9LRXJiCTBJtsubVy5DxRf/6HK6IFtRW4/ZX++9kpiDGZdP0Z+0MRT2F4YiJqJQ5tVuQKViQU9R7cXcvxMyHQBILJyPRV8zyBkbEAOk15jiDgANjO2iJyGSJ53IuPxACyhr3zQZXHo1Ql24eIUMpc+v6KE6up7EtAiQYzjJRldZVCRwGwHQvNmDJe5AuZmLJWjiBKC4tEeyVGjYhZ2IyEmKHZ7spDzGPP62PfDMpC5M4ZqIMuaxOrILD+RHw==
-x-ms-exchange-transport-forked: True
+	by gabe.freedesktop.org (Postfix) with ESMTP id 111696EAB0;
+	Wed, 15 Jan 2020 14:15:08 +0000 (UTC)
+Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com
+ [IPv6:2a00:1450:4864:20::441])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B6A656EAB0
+ for <amd-gfx@lists.freedesktop.org>; Wed, 15 Jan 2020 14:15:06 +0000 (UTC)
+Received: by mail-wr1-x441.google.com with SMTP id z7so15847608wrl.13
+ for <amd-gfx@lists.freedesktop.org>; Wed, 15 Jan 2020 06:15:06 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=8MKmba5mHXDcHITG/MvJbjgz1AZHvjKaFjUvNK/xlzI=;
+ b=WiWk+2c+rl+3QJS6yrv1Cjs7oWQM+nd+MlVY4ot5nfNX3cAA+RtJ3udNY8lW/fhkBh
+ skLy92cwfUPyvwKCjhj6gdf9IS0alwIqcHoihSg+AigaECH9Wy/t9J7MfRa7GwecraWU
+ nM2xnZNTQuasPVzzK9LDZBulGgqjOOD/GE/6UOwkWN9GfSbDvyEu+Ef+LcFc2+udepTh
+ aI2SxYmhoTFe/WKx7vc0Hcf/LuOm+dX5oC3AsYEdsOYkvP8jbLhWVGY7nRaz8edgiwjA
+ Vh0HrtoUnDlFlV/uUAU7ub+xJsNCEp3mq+Jn4BaR1a/bqwYkHG0LAKOi5XxaVUVg/OrE
+ GApQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=8MKmba5mHXDcHITG/MvJbjgz1AZHvjKaFjUvNK/xlzI=;
+ b=CAdY54odw4YFDAWqq86W66b3pWHMUoXArz5Yyx5MoTqWk1ttTubFAKSXh8ass39tC3
+ qO7mr8buhmFS425/kZ7w3SKEjpbeIqv27F5qWj1Pqd3NwIc/p+2dt7pek6S3eloLsn95
+ dOzI9BRxPNkLdVERqumUsKNbMcGSmMAoHllEcamHR4uO2wWFIfaC5nYEhYIPaaN4ZW6L
+ H/h9wjpCdN0OiLAF439aif7sQVpRKrd7hkxIg+kNiJrv/I4ox+HmuAubBZZBMf254jtW
+ AHo09Zv/NfsJdyFUnt9MYdhdx61v5W+UBjxYrXeHs+slwkkGy6PykRiV8UJfA8skwGkW
+ u/yw==
+X-Gm-Message-State: APjAAAWTgTW/PoOkb7Uptnzs08p/RfiZ0LbT4taNpzOAFPmcVMKWpunV
+ vr+Q1UDhDb0OrUoebakq4zfSUxgCahQEtw==
+X-Google-Smtp-Source: APXvYqwn6a5kABygpZSdEmBIQlhcX+hruRcenH/+9JDb7ptEF/beWaDTdznlckJnFSTo5tycNAvlzw==
+X-Received: by 2002:a5d:670a:: with SMTP id o10mr32588010wru.227.1579097704830; 
+ Wed, 15 Jan 2020 06:15:04 -0800 (PST)
+Received: from brihaspati.fritz.box
+ (p200300C58F2BBB00033A7193FF097830.dip0.t-ipconnect.de.
+ [2003:c5:8f2b:bb00:33a:7193:ff09:7830])
+ by smtp.gmail.com with ESMTPSA id x11sm25369597wre.68.2020.01.15.06.15.03
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 15 Jan 2020 06:15:04 -0800 (PST)
+From: Nirmoy Das <nirmoy.aiemd@gmail.com>
+X-Google-Original-From: Nirmoy Das <nirmoy.das@amd.com>
+To: amd-gfx@lists.freedesktop.org
+Subject: [PATCH] drm/scheduler: improve job distribution with multiple queues
+Date: Wed, 15 Jan 2020 15:16:32 +0100
+Message-Id: <20200115141632.4928-1-nirmoy.das@amd.com>
+X-Mailer: git-send-email 2.24.1
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 950ef82c-b24b-4acc-a9ee-08d799c455b6
-X-MS-Exchange-CrossTenant-originalarrivaltime: 15 Jan 2020 14:08:02.5239 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: BJhxdxb0hFXcL+gLH0VPB+f4H2RtjxCHQP0H65Tmf4r6Fm9tcp7jbfSvjPAF+tIFVAM3B4iJ/g60TiG2PFY/fQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2SPR01MB0010
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,124 +80,152 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Cc: alexander.deucher@amd.com, kenny.ho@amd.com, nirmoy.das@amd.com,
+ christian.koenig@amd.com, pierre-eric.pelloux-prayer@amd.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Public Use]
+This patch uses score based logic to select a new rq for better
+loadbalance between multiple rq/scheds instead of num_jobs.
 
-> -----Original Message-----
-> From: Bjorn Helgaas <helgaas@kernel.org>
-> Sent: Tuesday, January 14, 2020 6:42 PM
-> To: Alex Deucher <alexdeucher@gmail.com>
-> Cc: amd-gfx@lists.freedesktop.org; linux-pci@vger.kernel.org; Deucher,
-> Alexander <Alexander.Deucher@amd.com>
-> Subject: Re: [PATCH 0/2] Adjust AMD GPU ATS quirks
-> 
-> On Tue, Jan 14, 2020 at 03:55:21PM -0500, Alex Deucher wrote:
-> > We've root caused the issue and clarified the quirk.
-> > This also adds a new quirk for a new GPU.
-> >
-> > Alex Deucher (2):
-> >   pci: Clarify ATS quirk
-> >   pci: add ATS quirk for navi14 board (v2)
-> >
-> >  drivers/pci/quirks.c | 32 +++++++++++++++++++++++++-------
-> >  1 file changed, 25 insertions(+), 7 deletions(-)
-> 
-> I propose the following, which I intend to be functionally identical.
-> It just doesn't repeat the pci_info() and pdev->ats_cap = 0.
-> 
+Below are test results after running amdgpu_test from mesa drm
 
-Works for me.  Thanks!
+Before this patch:
 
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+sched_name     num of many times it got scheduled
+=========      ==================================
+sdma0          314
+sdma1          32
+comp_1.0.0     56
+comp_1.0.1     0
+comp_1.1.0     0
+comp_1.1.1     0
+comp_1.2.0     0
+comp_1.2.1     0
+comp_1.3.0     0
+comp_1.3.1     0
+After this patch:
 
-> commit 998c4f7975b0 ("PCI: Mark AMD Navi14 GPU rev 0xc5 ATS as broken")
-> Author: Bjorn Helgaas <bhelgaas@google.com>
-> Date:   Tue Jan 14 17:09:28 2020 -0600
-> 
->     PCI: Mark AMD Navi14 GPU rev 0xc5 ATS as broken
-> 
->     To account for parts of the chip that are "harvested" (disabled) due to
->     silicon flaws, caches on some AMD GPUs must be initialized before ATS is
->     enabled.
-> 
->     ATS is normally enabled by the IOMMU driver before the GPU driver loads,
-> so
->     this cache initialization would have to be done in a quirk, but that's too
->     complex to be practical.
-> 
->     For Navi14 (device ID 0x7340), this initialization is done by the VBIOS,
->     but apparently some boards went to production with an older VBIOS that
->     doesn't do it.  Disable ATS for those boards.
-> 
-> 
-> https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flore.
-> kernel.org%2Fr%2F20200114205523.1054271-3-
-> alexander.deucher%40amd.com&amp;data=02%7C01%7Calexander.deucher
-> %40amd.com%7C7bbf2f086ba64a68891e08d7994b5216%7C3dd8961fe4884e6
-> 08e11a82d994e183d%7C0%7C0%7C637146421098328112&amp;sdata=aLaNuiJ
-> pB4dYatxvBJuC%2Blk90Dhl4qd5jvLp75ZUDns%3D&amp;reserved=0
->     Bug:
-> https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fgitla
-> b.freedesktop.org%2Fdrm%2Famd%2Fissues%2F1015&amp;data=02%7C01%
-> 7Calexander.deucher%40amd.com%7C7bbf2f086ba64a68891e08d7994b5216
-> %7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C63714642109832811
-> 2&amp;sdata=QgCFuWKp8Dg3lpQhXCb2z4qmukdqkiX0e3%2BRz%2FcPkg0%3
-> D&amp;reserved=0
->     See-also: d28ca864c493 ("PCI: Mark AMD Stoney Radeon R7 GPU ATS as
-> broken")
->     See-also: 9b44b0b09dec ("PCI: Mark AMD Stoney GPU ATS as broken")
->     Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
->     Signed-off-by: Bjorn Helgaas <bhelgaas@google.com>
-> 
-> diff --git a/drivers/pci/quirks.c b/drivers/pci/quirks.c index
-> 4937a088d7d8..fbeb9f73ef28 100644
-> --- a/drivers/pci/quirks.c
-> +++ b/drivers/pci/quirks.c
-> @@ -5074,18 +5074,25 @@
-> DECLARE_PCI_FIXUP_EARLY(PCI_VENDOR_ID_SERVERWORKS, 0x0422,
-> quirk_no_ext_tags);
-> 
->  #ifdef CONFIG_PCI_ATS
->  /*
-> - * Some devices have a broken ATS implementation causing IOMMU stalls.
-> - * Don't use ATS for those devices.
-> + * Some devices require additional driver setup to enable ATS.  Don't
-> + use
-> + * ATS for those devices as ATS will be enabled before the driver has
-> + had a
-> + * chance to load and configure the device.
->   */
-> -static void quirk_no_ats(struct pci_dev *pdev)
-> +static void quirk_amd_harvest_no_ats(struct pci_dev *pdev)
->  {
-> -	pci_info(pdev, "disabling ATS (broken on this device)\n");
-> +	if (pdev->device == 0x7340 && pdev->revision != 0xc5)
-> +		return;
-> +
-> +	pci_info(pdev, "disabling ATS\n");
->  	pdev->ats_cap = 0;
->  }
-> 
->  /* AMD Stoney platform GPU */
-> -DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_ATI, 0x98e4, quirk_no_ats); -
-> DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_ATI, 0x6900, quirk_no_ats);
-> +DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_ATI, 0x98e4,
-> +quirk_amd_harvest_no_ats);
-> +/* AMD Iceland dGPU */
-> +DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_ATI, 0x6900,
-> +quirk_amd_harvest_no_ats);
-> +/* AMD Navi14 dGPU */
-> +DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_ATI, 0x7340,
-> +quirk_amd_harvest_no_ats);
->  #endif /* CONFIG_PCI_ATS */
-> 
->  /* Freescale PCIe doesn't support MSI in RC mode */
+sched_name     num of many times it got scheduled
+=========      ==================================
+sdma0          218
+sdma1          211
+comp_1.0.0     39
+comp_1.0.1     9
+comp_1.1.0     12
+comp_1.1.1     0
+comp_1.2.0     12
+comp_1.2.1     0
+comp_1.3.0     12
+comp_1.3.1     0
+
+Signed-off-by: Nirmoy Das <nirmoy.das@amd.com>
+---
+ drivers/gpu/drm/scheduler/sched_entity.c | 9 ++++-----
+ drivers/gpu/drm/scheduler/sched_main.c   | 5 +++--
+ include/drm/gpu_scheduler.h              | 6 +++---
+ 3 files changed, 10 insertions(+), 10 deletions(-)
+
+diff --git a/drivers/gpu/drm/scheduler/sched_entity.c b/drivers/gpu/drm/scheduler/sched_entity.c
+index 2e3a058fc239..7120eeec1a9b 100644
+--- a/drivers/gpu/drm/scheduler/sched_entity.c
++++ b/drivers/gpu/drm/scheduler/sched_entity.c
+@@ -130,7 +130,7 @@ static struct drm_sched_rq *
+ drm_sched_entity_get_free_sched(struct drm_sched_entity *entity)
+ {
+ 	struct drm_sched_rq *rq = NULL;
+-	unsigned int min_jobs = UINT_MAX, num_jobs;
++	unsigned int min_score = UINT_MAX, num_score;
+ 	int i;
+ 
+ 	for (i = 0; i < entity->num_sched_list; ++i) {
+@@ -141,9 +141,9 @@ drm_sched_entity_get_free_sched(struct drm_sched_entity *entity)
+ 			continue;
+ 		}
+ 
+-		num_jobs = atomic_read(&sched->num_jobs);
+-		if (num_jobs < min_jobs) {
+-			min_jobs = num_jobs;
++		num_score = atomic_read(&sched->score);
++		if (num_score < min_score) {
++			min_score = num_score;
+ 			rq = &entity->sched_list[i]->sched_rq[entity->priority];
+ 		}
+ 	}
+@@ -498,7 +498,6 @@ void drm_sched_entity_push_job(struct drm_sched_job *sched_job,
+ 	bool first;
+ 
+ 	trace_drm_sched_job(sched_job, entity);
+-	atomic_inc(&entity->rq->sched->num_jobs);
+ 	WRITE_ONCE(entity->last_user, current->group_leader);
+ 	first = spsc_queue_push(&entity->job_queue, &sched_job->queue_node);
+ 
+diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/scheduler/sched_main.c
+index 3fad5876a13f..f58a0e04ef2b 100644
+--- a/drivers/gpu/drm/scheduler/sched_main.c
++++ b/drivers/gpu/drm/scheduler/sched_main.c
+@@ -92,6 +92,7 @@ void drm_sched_rq_add_entity(struct drm_sched_rq *rq,
+ 	if (!list_empty(&entity->list))
+ 		return;
+ 	spin_lock(&rq->lock);
++	atomic_inc(&rq->sched->score);
+ 	list_add_tail(&entity->list, &rq->entities);
+ 	spin_unlock(&rq->lock);
+ }
+@@ -110,6 +111,7 @@ void drm_sched_rq_remove_entity(struct drm_sched_rq *rq,
+ 	if (list_empty(&entity->list))
+ 		return;
+ 	spin_lock(&rq->lock);
++	atomic_dec(&rq->sched->score);
+ 	list_del_init(&entity->list);
+ 	if (rq->current_entity == entity)
+ 		rq->current_entity = NULL;
+@@ -655,7 +657,6 @@ static void drm_sched_process_job(struct dma_fence *f, struct dma_fence_cb *cb)
+ 	struct drm_gpu_scheduler *sched = s_fence->sched;
+ 
+ 	atomic_dec(&sched->hw_rq_count);
+-	atomic_dec(&sched->num_jobs);
+ 
+ 	trace_drm_sched_process_job(s_fence);
+ 
+@@ -830,7 +831,7 @@ int drm_sched_init(struct drm_gpu_scheduler *sched,
+ 	spin_lock_init(&sched->job_list_lock);
+ 	atomic_set(&sched->hw_rq_count, 0);
+ 	INIT_DELAYED_WORK(&sched->work_tdr, drm_sched_job_timedout);
+-	atomic_set(&sched->num_jobs, 0);
++	atomic_set(&sched->score, 0);
+ 	atomic64_set(&sched->job_id_count, 0);
+ 
+ 	/* Each scheduler will run on a seperate kernel thread */
+diff --git a/include/drm/gpu_scheduler.h b/include/drm/gpu_scheduler.h
+index 96a1a1b7526e..eda58b22cf76 100644
+--- a/include/drm/gpu_scheduler.h
++++ b/include/drm/gpu_scheduler.h
+@@ -261,7 +261,7 @@ struct drm_sched_backend_ops {
+  * @job_list_lock: lock to protect the ring_mirror_list.
+  * @hang_limit: once the hangs by a job crosses this limit then it is marked
+  *              guilty and it will be considered for scheduling further.
+- * @num_jobs: the number of jobs in queue in the scheduler
++ * @score: score to help loadbalancer pick a most idle sched
+  * @ready: marks if the underlying HW is ready to work
+  * @free_guilty: A hit to time out handler to free the guilty job.
+  *
+@@ -282,8 +282,8 @@ struct drm_gpu_scheduler {
+ 	struct list_head		ring_mirror_list;
+ 	spinlock_t			job_list_lock;
+ 	int				hang_limit;
+-	atomic_t                        num_jobs;
+-	bool			ready;
++	atomic_t                        score;
++	bool				ready;
+ 	bool				free_guilty;
+ };
+ 
+-- 
+2.24.1
+
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
