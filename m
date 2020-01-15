@@ -2,70 +2,101 @@ Return-Path: <SRS0=p2a1=3E=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-9.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 752D1C32771
-	for <amd-gfx@archiver.kernel.org>; Wed, 15 Jan 2020 16:35:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D4282C32771
+	for <amd-gfx@archiver.kernel.org>; Wed, 15 Jan 2020 16:52:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 499CE206D7
-	for <amd-gfx@archiver.kernel.org>; Wed, 15 Jan 2020 16:35:20 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 92B00214AF
+	for <amd-gfx@archiver.kernel.org>; Wed, 15 Jan 2020 16:52:13 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Pwm5gg+P"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 499CE206D7
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="gZT0mLJ5"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 92B00214AF
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E62766EA49;
-	Wed, 15 Jan 2020 16:35:19 +0000 (UTC)
-Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com
- [IPv6:2a00:1450:4864:20::343])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0AF9C6EA49;
- Wed, 15 Jan 2020 16:35:19 +0000 (UTC)
-Received: by mail-wm1-x343.google.com with SMTP id p17so616456wma.1;
- Wed, 15 Jan 2020 08:35:18 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=G3peKKo9Fj2JXRqjV+S346995shdYhc2DU+/Vm7c9PM=;
- b=Pwm5gg+P7kVfnp7IKOmO/1zD5JF+qSs9tSxicwayxI7x6kcG8jCYcXNhf0vgsgfQ5H
- aJXhTrepHrxMQl5tg7DiYqs8T7XiIncJJFPwROZmmOuzcRX2ux5u5uHrroGpV5qNEU7t
- AkQd4QPJ9h9ftCBlgtVaVErLZ4UPH11zbx663Twvf/hUig407l3NZWZ5Wum2NzoT3mWr
- cE4HJdILDa5oZtFtJc6B+xT8Je8A6IdGcrLSlnvQa9vpJDsg0k6uL9NPu0ucusq+22Ju
- pEt3PLFFDHV1QrcWaMzCjeNY1IrAhsoqQgqqMR5LxIMuUm5mUMYERd8vhWKdKm4CFLqf
- FTSQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=G3peKKo9Fj2JXRqjV+S346995shdYhc2DU+/Vm7c9PM=;
- b=nW1QNPFMVGRfhXEt03mlUarXfRBD9bkLae7htxGihbyRHkiyEwp1eGehInXrG7BrmF
- c/97rLcSWAfM+Y51fn02JEkvEfM1TY+qrDOzY9Vl/Xjf8qGg265iQ67cFJtaKnGuhiLV
- P9JH2pN3pNbfwJbmjxOqp/1j3xVA4vNGjV09IOtJPLtWr6Mz6ALbLB5ZnNo0Uz9Zy6aL
- ebedra44UzSd7RWmylsnsRx0UOMMAUsUbJGbZ6SiIhAENDpypQqc1OybCpDFT4KKxZ/h
- +xhv8v+zEe8hxbm1RxVIP1+uEUfea42xPZ9roA6tIPRPzJttPDfeGPSBsiwliGmKc9A8
- HIDg==
-X-Gm-Message-State: APjAAAXnnH0n1x27Vr1u3ya8sTpe8vFrEF93vOM0C9N6VItfwF7HYe3i
- RM46/9pgl9ph1u5h41GUJxeAszMCilsRZTha0JY=
-X-Google-Smtp-Source: APXvYqwImTR8FEOALzWYqtEwSn9SvJgSG5F8jPXosAzYKmsd0e9I0EZIVQ64mxhPlP8iudytSq/xeEqI2i0ikGc9bFU=
-X-Received: by 2002:a1c:f210:: with SMTP id s16mr684657wmc.57.1579106117622;
- Wed, 15 Jan 2020 08:35:17 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 13CF26EA55;
+	Wed, 15 Jan 2020 16:52:13 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2071.outbound.protection.outlook.com [40.107.220.71])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B80FF6EA4E
+ for <amd-gfx@lists.freedesktop.org>; Wed, 15 Jan 2020 16:52:11 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=eNtoLz+u60rIf3twfiohF2RFNfHOUVNgzdAxuw7Ny7m62DrYvNbV/tQXqsfxhlfPMe6n1q/DHvVi/NlCfO8TIZZZ9BuC3vDiGFvOHsSsoS14fgJZXX1eSHcDfN16+xZd6BzUH7Leh2VxL9R/0ILLd482JHAlunCQkf+PA6yHa0noNkSkNjhOyJ8Dc/tJHT2B67EHp+uTZWUkiTNmjWw8D7JfEWYRK7nBF1MY9OC08fWR/7RSfO/IRzXIv51UVwL1/7xlFiuyrS5dG58M9rzE8i6odaeu7qYGz6GErz33o1LqLc9mwWKI7qYqQOmqhM5DVd6LZr2yWoUEXUv7sghvQg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=aMvsLGPzZy3u8NEZrrmKsh5dNO5Ou5L8a0c1+Yu5Zbg=;
+ b=JdVYWnY/OuEWgSqJj89cIaAeXRIjhhiiFqkxx/h2wR/vsVqF6uf5HuNSqywA9ifMjCIfVuFrVTkKY2h/bd8+CYCEolzwpO1MIJK3ymKAulhYQhoWYvgAoYd7HsYH+goiDAxFJsiqmXn4UeZJcDDFAvBQuVjCYz03yFfnGrTlbdEUX9kKLjeH5fcjAmNXWLwTYihf5HUfb7tfNxVbnfEiL6NqXJEdkyLmT43/xujBkHQwBVkDtGD8C+XfSJfdM3ocUCbafsy38T28wo98p2X84sqm89NaQJTVqWxx49+0CEqWEp5vn7GkmvDYNz57ulP2v/SXaVqDzJhnyIk/YJNUgw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=aMvsLGPzZy3u8NEZrrmKsh5dNO5Ou5L8a0c1+Yu5Zbg=;
+ b=gZT0mLJ5ZZy5YE2vmkPXhXi1JaquKMP8Y0PnThhC69c2Et4fynatOdFgfQy5jhpywNDs2ylkcZizr28XBur74Ih2nSGioWDvRhprTEK5c3elTK0/M8QkbOH5tX8o4kY4aNaLYD/nRgUjkMuMyoGdo2cTr2M10hh7FoHVMdifveU=
+Authentication-Results: spf=none (sender IP is )
+ smtp.mailfrom=James.Zhu@amd.com; 
+Received: from BYAPR12MB3285.namprd12.prod.outlook.com (20.179.92.142) by
+ BYAPR12MB3430.namprd12.prod.outlook.com (20.178.196.203) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2623.11; Wed, 15 Jan 2020 16:52:09 +0000
+Received: from BYAPR12MB3285.namprd12.prod.outlook.com
+ ([fe80::18a7:759:1dbb:ef99]) by BYAPR12MB3285.namprd12.prod.outlook.com
+ ([fe80::18a7:759:1dbb:ef99%7]) with mapi id 15.20.2644.015; Wed, 15 Jan 2020
+ 16:52:09 +0000
+From: James Zhu <James.Zhu@amd.com>
+To: amd-gfx@lists.freedesktop.org
+Subject: [PATCH v4 2/6] drm/amdgpu/vcn: support multiple instance direct SRAM
+ read and write
+Date: Wed, 15 Jan 2020 11:51:55 -0500
+Message-Id: <1579107115-2377-1-git-send-email-James.Zhu@amd.com>
+X-Mailer: git-send-email 2.7.4
+In-Reply-To: <1579040596-12728-3-git-send-email-James.Zhu@amd.com>
+References: <1579040596-12728-3-git-send-email-James.Zhu@amd.com>
+X-ClientProxiedBy: YTXPR0101CA0049.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b00:1::26) To BYAPR12MB3285.namprd12.prod.outlook.com
+ (2603:10b6:a03:134::14)
 MIME-Version: 1.0
-References: <20200110092127.27847-1-tzimmermann@suse.de>
- <20200110092127.27847-3-tzimmermann@suse.de>
- <CADnq5_OCsQQ0=Yr6xinWWCursZc0ZGBrNj1=0667kbqE1BorVw@mail.gmail.com>
- <352f23e9-b690-375f-005b-e5ea1fb9a0d2@suse.de>
-In-Reply-To: <352f23e9-b690-375f-005b-e5ea1fb9a0d2@suse.de>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 15 Jan 2020 11:35:04 -0500
-Message-ID: <CADnq5_MkJy9zNHxeEGOYjvXs8MxuY_kd5_sTP8EWGFEBMpWx6Q@mail.gmail.com>
-Subject: Re: [PATCH 02/23] drm/amdgpu: Convert to struct
- drm_crtc_helper_funcs.get_scanout_position()
-To: Thomas Zimmermann <tzimmermann@suse.de>
+Received: from work_495456.amd.com (165.204.55.251) by
+ YTXPR0101CA0049.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b00:1::26) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id 15.20.2644.18 via Frontend
+ Transport; Wed, 15 Jan 2020 16:52:08 +0000
+X-Mailer: git-send-email 2.7.4
+X-Originating-IP: [165.204.55.251]
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: 3b773c3f-f638-4608-2391-08d799db42be
+X-MS-TrafficTypeDiagnostic: BYAPR12MB3430:|BYAPR12MB3430:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <BYAPR12MB3430F720D35EAEC93FB51BD5E4370@BYAPR12MB3430.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:1751;
+X-Forefront-PRVS: 02830F0362
+X-Forefront-Antispam-Report: SFV:NSPM;
+ SFS:(10009020)(4636009)(346002)(136003)(39860400002)(396003)(376002)(366004)(199004)(189003)(8676002)(956004)(2616005)(6666004)(5660300002)(66476007)(66946007)(6486002)(81166006)(66556008)(26005)(8936002)(4326008)(186003)(36756003)(30864003)(16526019)(2906002)(316002)(52116002)(478600001)(86362001)(7696005)(81156014)(6916009);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:BYAPR12MB3430;
+ H:BYAPR12MB3285.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; A:1; MX:1; 
+Received-SPF: None (protection.outlook.com: amd.com does not designate
+ permitted sender hosts)
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: CNgi67AI5lJVcWWwmiO/ckbO0y6aWPz/Uy4IE6zc6igerCQ8e9gjhAUazMnyHd1PFVvS3I2SbVSYEjBVy245VHMjNy0HO3P0dQzrLIQKnBx0vpmA2TFenXkchN1qUmWShhWkO5tEy2FUncI7r2U5DNZTHoEIWsTEiltHRvAEsH31x1HfVah9ftwfRUqvqG7Ja/EpQDrNvJMtGh8/AJWvg0EhA259gZZy53zGxzh+/yM0dizCQMK8dpl4P6nXU00boD9GG9Ar5o5EqbiDCTFPzOf8u+pV/dg+nm2LlhEOYOrHSmWmJQvibwIZAhN8z87RM617EBIHl7lKBxnHFV0vqvX0lyxVI9SqSKXEMRp87fQ5fZnGFLa1i+ejjDFtHvDFV9h/Zi169XyOuPq02SuHPEOqeKr3XZYtfNd0uQboGFnATvojKhNypMG7RO/hUeAt
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3b773c3f-f638-4608-2391-08d799db42be
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jan 2020 16:52:09.5867 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Fg7VBu+6Eugv+JEg8cOLE+3ZAei6Q0Ef/cd88pA5CHjyRgM7ydoPcPP3PFmRRs3B
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB3430
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,198 +108,386 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: hamohammed.sa@gmail.com, Dave Airlie <airlied@linux.ie>,
- nouveau <nouveau@lists.freedesktop.org>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- Eric Anholt <eric@anholt.net>, amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Benjamin Gaignard <benjamin.gaignard@linaro.org>, alexandre.torgue@st.com,
- Chunming Zhou <David1.Zhou@amd.com>, Thomas Hellstrom <thellstrom@vmware.com>,
- Sean Paul <sean@poorly.run>, Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
- VMware Graphics <linux-graphics-maintainer@vmware.com>,
- Ben Skeggs <bskeggs@redhat.com>, "Wentland, Harry" <harry.wentland@amd.com>,
- mcoquelin.stm32@gmail.com, "Leo \(Sunpeng\) Li" <sunpeng.li@amd.com>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Vincent Abriou <vincent.abriou@st.com>,
- rodrigosiqueiramelo@gmail.com, philippe.cornu@st.com, yannick.fertre@st.com,
- Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, "Deucher,
- Alexander" <alexander.deucher@amd.com>,
- freedreno <freedreno@lists.freedesktop.org>,
- Christian Koenig <christian.koenig@amd.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: jamesz@amd.com
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-T24gV2VkLCBKYW4gMTUsIDIwMjAgYXQgNDo0MSBBTSBUaG9tYXMgWmltbWVybWFubiA8dHppbW1l
-cm1hbm5Ac3VzZS5kZT4gd3JvdGU6Cj4KPiBIaQo+Cj4gQW0gMTMuMDEuMjAgdW0gMTk6NTIgc2No
-cmllYiBBbGV4IERldWNoZXI6Cj4gPiBPbiBGcmksIEphbiAxMCwgMjAyMCBhdCA0OjIxIEFNIFRo
-b21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPiB3cm90ZToKPiA+Pgo+ID4+IFRo
-ZSBjYWxsYmFjayBzdHJ1Y3QgZHJtX2RyaXZlci5nZXRfc2Nhbm91dF9wb3NpdGlvbigpIGlzIGRl
-cHJlY2F0ZWQgaW4KPiA+PiBmYXZvciBvZiBzdHJ1Y3QgZHJtX2NydGNfaGVscGVyX2Z1bmNzLmdl
-dF9zY2Fub3V0X3Bvc2l0aW9uKCkuIENvbnZlcnQKPiA+PiBhbWRncHUgb3Zlci4KPiA+Pgo+ID4K
-PiA+IEkgd291bGQgcHJlZmVyIHRvIGp1c3QgY2hhbmdlIHRoZSBzaWduYXR1cmUgb2YKPiA+IGFt
-ZGdwdV9kaXNwbGF5X2dldF9jcnRjX3NjYW5vdXRwb3MoKSB0byBtYXRjaCB0aGUgbmV3IEFQSSBy
-YXRoZXIgdGhhbgo+ID4gd3JhcHBpbmcgaXQgYWdhaW4uCj4KPiBXaGlsZSB0cnlpbmcgdG8gYWRh
-cHQgdGhlIHNpZ2FudHVyZSwgSSBmb3VuZCB0aGF0Cj4gYW1kZ3B1X2Rpc3BsYXlfZ2V0X2NydGNf
-c2Nhbm91dHBvcygpIHJlcXVpcmVzIGEgZmxhZ3MgYXJndW1lbnQgdGhhdCBpcwo+IG5vdCBtYXBw
-YWJsZSB0byB0aGUgY2FsbGJhY2sgQVBJLiBUaGF0IHdyYXBwZXIgZnVuY3Rpb24gaXMgbmVjZXNz
-YXJ5Lgo+CgpObyB3b3JyaWVzLiAgV2UgY2FuIGNsZWFuIHRoZW0gdXAgbGF0ZXIuICBXcmFwcGlu
-ZyBpcyBmaW5lLgoKQWxleAoKPiBCZXN0IHJlZ2FyZHMKPiBUaG9tYXMKPgo+ID4KPiA+IEFsZXgK
-PiA+Cj4gPj4gU2lnbmVkLW9mZi1ieTogVGhvbWFzIFppbW1lcm1hbm4gPHR6aW1tZXJtYW5uQHN1
-c2UuZGU+Cj4gPj4gLS0tCj4gPj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9k
-aXNwbGF5LmMgICAgICAgfCAxMiArKysrKysrKysrKysKPiA+PiAgZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9hbWRncHUvYW1kZ3B1X2Rydi5jICAgICAgICAgICB8IDExIC0tLS0tLS0tLS0tCj4gPj4gIGRy
-aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9tb2RlLmggICAgICAgICAgfCAgNSArKysr
-Kwo+ID4+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9kY2VfdjEwXzAuYyAgICAgICAgICAg
-IHwgIDEgKwo+ID4+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9kY2VfdjExXzAuYyAgICAg
-ICAgICAgIHwgIDEgKwo+ID4+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9kY2VfdjZfMC5j
-ICAgICAgICAgICAgIHwgIDEgKwo+ID4+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9kY2Vf
-djhfMC5jICAgICAgICAgICAgIHwgIDEgKwo+ID4+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
-dS9kY2VfdmlydHVhbC5jICAgICAgICAgIHwgIDEgKwo+ID4+ICBkcml2ZXJzL2dwdS9kcm0vYW1k
-L2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5jIHwgIDMgKystCj4gPj4gIDkgZmlsZXMgY2hh
-bmdlZCwgMjQgaW5zZXJ0aW9ucygrKSwgMTIgZGVsZXRpb25zKC0pCj4gPj4KPiA+PiBkaWZmIC0t
-Z2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rpc3BsYXkuYyBiL2RyaXZl
-cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kaXNwbGF5LmMKPiA+PiBpbmRleCA0ZTY5OTA3
-MWQxNDQuLmExZTc2OWQ0NDE3ZCAxMDA2NDQKPiA+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1k
-L2FtZGdwdS9hbWRncHVfZGlzcGxheS5jCj4gPj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9h
-bWRncHUvYW1kZ3B1X2Rpc3BsYXkuYwo+ID4+IEBAIC05MTQsMyArOTE0LDE1IEBAIGludCBhbWRn
-cHVfZGlzcGxheV9jcnRjX2lkeF90b19pcnFfdHlwZShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRl
-diwgaW50IGNydGMpCj4gPj4gICAgICAgICAgICAgICAgIHJldHVybiBBTURHUFVfQ1JUQ19JUlFf
-Tk9ORTsKPiA+PiAgICAgICAgIH0KPiA+PiAgfQo+ID4+ICsKPiA+PiArYm9vbCBhbWRncHVfY3J0
-Y19nZXRfc2Nhbm91dF9wb3NpdGlvbihzdHJ1Y3QgZHJtX2NydGMgKmNydGMsCj4gPj4gKyAgICAg
-ICAgICAgICAgICAgICAgICAgYm9vbCBpbl92YmxhbmtfaXJxLCBpbnQgKnZwb3MsCj4gPj4gKyAg
-ICAgICAgICAgICAgICAgICAgICAgaW50ICpocG9zLCBrdGltZV90ICpzdGltZSwga3RpbWVfdCAq
-ZXRpbWUsCj4gPj4gKyAgICAgICAgICAgICAgICAgICAgICAgY29uc3Qgc3RydWN0IGRybV9kaXNw
-bGF5X21vZGUgKm1vZGUpCj4gPj4gK3sKPiA+PiArICAgICAgIHN0cnVjdCBkcm1fZGV2aWNlICpk
-ZXYgPSBjcnRjLT5kZXY7Cj4gPj4gKyAgICAgICB1bnNpZ25lZCBpbnQgcGlwZSA9IGNydGMtPmlu
-ZGV4Owo+ID4+ICsKPiA+PiArICAgICAgIHJldHVybiBhbWRncHVfZGlzcGxheV9nZXRfY3J0Y19z
-Y2Fub3V0cG9zKGRldiwgcGlwZSwgMCwgdnBvcywgaHBvcywKPiA+PiArICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHN0aW1lLCBldGltZSwgbW9kZSk7Cj4g
-Pj4gK30KPiA+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
-X2Rydi5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rydi5jCj4gPj4gaW5k
-ZXggM2Y2ZjE0Y2UxNTExLi4wNzQ5Mjg1ZGQxYzcgMTAwNjQ0Cj4gPj4gLS0tIGEvZHJpdmVycy9n
-cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rydi5jCj4gPj4gKysrIGIvZHJpdmVycy9ncHUvZHJt
-L2FtZC9hbWRncHUvYW1kZ3B1X2Rydi5jCj4gPj4gQEAgLTEzNjcsMTYgKzEzNjcsNiBAQCBpbnQg
-YW1kZ3B1X2ZpbGVfdG9fZnByaXYoc3RydWN0IGZpbGUgKmZpbHAsIHN0cnVjdCBhbWRncHVfZnBy
-aXYgKipmcHJpdikKPiA+PiAgICAgICAgIHJldHVybiAwOwo+ID4+ICB9Cj4gPj4KPiA+PiAtc3Rh
-dGljIGJvb2wKPiA+PiAtYW1kZ3B1X2dldF9jcnRjX3NjYW5vdXRfcG9zaXRpb24oc3RydWN0IGRy
-bV9kZXZpY2UgKmRldiwgdW5zaWduZWQgaW50IHBpcGUsCj4gPj4gLSAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgYm9vbCBpbl92YmxhbmtfaXJxLCBpbnQgKnZwb3MsIGludCAqaHBvcywK
-PiA+PiAtICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBrdGltZV90ICpzdGltZSwga3Rp
-bWVfdCAqZXRpbWUsCj4gPj4gLSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgY29uc3Qg
-c3RydWN0IGRybV9kaXNwbGF5X21vZGUgKm1vZGUpCj4gPj4gLXsKPiA+PiAtICAgICAgIHJldHVy
-biBhbWRncHVfZGlzcGxheV9nZXRfY3J0Y19zY2Fub3V0cG9zKGRldiwgcGlwZSwgMCwgdnBvcywg
-aHBvcywKPiA+PiAtICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgIHN0aW1lLCBldGltZSwgbW9kZSk7Cj4gPj4gLX0KPiA+PiAtCj4gPj4gIHN0YXRpYyBzdHJ1
-Y3QgZHJtX2RyaXZlciBrbXNfZHJpdmVyID0gewo+ID4+ICAgICAgICAgLmRyaXZlcl9mZWF0dXJl
-cyA9Cj4gPj4gICAgICAgICAgICAgRFJJVkVSX1VTRV9BR1AgfCBEUklWRVJfQVRPTUlDIHwKPiA+
-PiBAQCAtMTM5MSw3ICsxMzgxLDYgQEAgc3RhdGljIHN0cnVjdCBkcm1fZHJpdmVyIGttc19kcml2
-ZXIgPSB7Cj4gPj4gICAgICAgICAuZW5hYmxlX3ZibGFuayA9IGFtZGdwdV9lbmFibGVfdmJsYW5r
-X2ttcywKPiA+PiAgICAgICAgIC5kaXNhYmxlX3ZibGFuayA9IGFtZGdwdV9kaXNhYmxlX3ZibGFu
-a19rbXMsCj4gPj4gICAgICAgICAuZ2V0X3ZibGFua190aW1lc3RhbXAgPSBkcm1fY2FsY192Ymx0
-aW1lc3RhbXBfZnJvbV9zY2Fub3V0cG9zLAo+ID4+IC0gICAgICAgLmdldF9zY2Fub3V0X3Bvc2l0
-aW9uID0gYW1kZ3B1X2dldF9jcnRjX3NjYW5vdXRfcG9zaXRpb24sCj4gPj4gICAgICAgICAuaXJx
-X2hhbmRsZXIgPSBhbWRncHVfaXJxX2hhbmRsZXIsCj4gPj4gICAgICAgICAuaW9jdGxzID0gYW1k
-Z3B1X2lvY3Rsc19rbXMsCj4gPj4gICAgICAgICAuZ2VtX2ZyZWVfb2JqZWN0X3VubG9ja2VkID0g
-YW1kZ3B1X2dlbV9vYmplY3RfZnJlZSwKPiA+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJt
-L2FtZC9hbWRncHUvYW1kZ3B1X21vZGUuaCBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
-ZGdwdV9tb2RlLmgKPiA+PiBpbmRleCBlYjk5NzVmNGRlY2IuLjM3YmEwN2UyZmViNSAxMDA2NDQK
-PiA+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfbW9kZS5oCj4gPj4g
-KysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X21vZGUuaAo+ID4+IEBAIC02
-MTIsNiArNjEyLDExIEBAIHZvaWQgYW1kZ3B1X3BhbmVsX21vZGVfZml4dXAoc3RydWN0IGRybV9l
-bmNvZGVyICplbmNvZGVyLAo+ID4+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgc3RydWN0
-IGRybV9kaXNwbGF5X21vZGUgKmFkanVzdGVkX21vZGUpOwo+ID4+ICBpbnQgYW1kZ3B1X2Rpc3Bs
-YXlfY3J0Y19pZHhfdG9faXJxX3R5cGUoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsIGludCBj
-cnRjKTsKPiA+Pgo+ID4+ICtib29sIGFtZGdwdV9jcnRjX2dldF9zY2Fub3V0X3Bvc2l0aW9uKHN0
-cnVjdCBkcm1fY3J0YyAqY3J0YywKPiA+PiArICAgICAgICAgICAgICAgICAgICAgICBib29sIGlu
-X3ZibGFua19pcnEsIGludCAqdnBvcywKPiA+PiArICAgICAgICAgICAgICAgICAgICAgICBpbnQg
-Kmhwb3MsIGt0aW1lX3QgKnN0aW1lLCBrdGltZV90ICpldGltZSwKPiA+PiArICAgICAgICAgICAg
-ICAgICAgICAgICBjb25zdCBzdHJ1Y3QgZHJtX2Rpc3BsYXlfbW9kZSAqbW9kZSk7Cj4gPj4gKwo+
-ID4+ICAvKiBmYmRldiBsYXllciAqLwo+ID4+ICBpbnQgYW1kZ3B1X2ZiZGV2X2luaXQoc3RydWN0
-IGFtZGdwdV9kZXZpY2UgKmFkZXYpOwo+ID4+ICB2b2lkIGFtZGdwdV9mYmRldl9maW5pKHN0cnVj
-dCBhbWRncHVfZGV2aWNlICphZGV2KTsKPiA+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJt
-L2FtZC9hbWRncHUvZGNlX3YxMF8wLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9kY2Vf
-djEwXzAuYwo+ID4+IGluZGV4IDQwZDJhYzcyM2RkNi4uYmRjMWUwZjAzNmQ0IDEwMDY0NAo+ID4+
-IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2RjZV92MTBfMC5jCj4gPj4gKysrIGIv
-ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZGNlX3YxMF8wLmMKPiA+PiBAQCAtMjY4NSw2ICsy
-Njg1LDcgQEAgc3RhdGljIGNvbnN0IHN0cnVjdCBkcm1fY3J0Y19oZWxwZXJfZnVuY3MgZGNlX3Yx
-MF8wX2NydGNfaGVscGVyX2Z1bmNzID0gewo+ID4+ICAgICAgICAgLnByZXBhcmUgPSBkY2VfdjEw
-XzBfY3J0Y19wcmVwYXJlLAo+ID4+ICAgICAgICAgLmNvbW1pdCA9IGRjZV92MTBfMF9jcnRjX2Nv
-bW1pdCwKPiA+PiAgICAgICAgIC5kaXNhYmxlID0gZGNlX3YxMF8wX2NydGNfZGlzYWJsZSwKPiA+
-PiArICAgICAgIC5nZXRfc2Nhbm91dF9wb3NpdGlvbiA9IGFtZGdwdV9jcnRjX2dldF9zY2Fub3V0
-X3Bvc2l0aW9uLAo+ID4+ICB9Owo+ID4+Cj4gPj4gIHN0YXRpYyBpbnQgZGNlX3YxMF8wX2NydGNf
-aW5pdChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwgaW50IGluZGV4KQo+ID4+IGRpZmYgLS1n
-aXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9kY2VfdjExXzAuYyBiL2RyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1kZ3B1L2RjZV92MTFfMC5jCj4gPj4gaW5kZXggODk4ZWY3MmQ0MjNjLi4wMzE5
-ZGE1ZjdiZjkgMTAwNjQ0Cj4gPj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZGNl
-X3YxMV8wLmMKPiA+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9kY2VfdjExXzAu
-Ywo+ID4+IEBAIC0yNzkzLDYgKzI3OTMsNyBAQCBzdGF0aWMgY29uc3Qgc3RydWN0IGRybV9jcnRj
-X2hlbHBlcl9mdW5jcyBkY2VfdjExXzBfY3J0Y19oZWxwZXJfZnVuY3MgPSB7Cj4gPj4gICAgICAg
-ICAucHJlcGFyZSA9IGRjZV92MTFfMF9jcnRjX3ByZXBhcmUsCj4gPj4gICAgICAgICAuY29tbWl0
-ID0gZGNlX3YxMV8wX2NydGNfY29tbWl0LAo+ID4+ICAgICAgICAgLmRpc2FibGUgPSBkY2VfdjEx
-XzBfY3J0Y19kaXNhYmxlLAo+ID4+ICsgICAgICAgLmdldF9zY2Fub3V0X3Bvc2l0aW9uID0gYW1k
-Z3B1X2NydGNfZ2V0X3NjYW5vdXRfcG9zaXRpb24sCj4gPj4gIH07Cj4gPj4KPiA+PiAgc3RhdGlj
-IGludCBkY2VfdjExXzBfY3J0Y19pbml0KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LCBpbnQg
-aW5kZXgpCj4gPj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2RjZV92
-Nl8wLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9kY2VfdjZfMC5jCj4gPj4gaW5kZXgg
-ZGIxNWExMTJiZWNjLi43ODY0MmMzYjE0ZmMgMTAwNjQ0Cj4gPj4gLS0tIGEvZHJpdmVycy9ncHUv
-ZHJtL2FtZC9hbWRncHUvZGNlX3Y2XzAuYwo+ID4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-YW1kZ3B1L2RjZV92Nl8wLmMKPiA+PiBAQCAtMjU3NSw2ICsyNTc1LDcgQEAgc3RhdGljIGNvbnN0
-IHN0cnVjdCBkcm1fY3J0Y19oZWxwZXJfZnVuY3MgZGNlX3Y2XzBfY3J0Y19oZWxwZXJfZnVuY3Mg
-PSB7Cj4gPj4gICAgICAgICAucHJlcGFyZSA9IGRjZV92Nl8wX2NydGNfcHJlcGFyZSwKPiA+PiAg
-ICAgICAgIC5jb21taXQgPSBkY2VfdjZfMF9jcnRjX2NvbW1pdCwKPiA+PiAgICAgICAgIC5kaXNh
-YmxlID0gZGNlX3Y2XzBfY3J0Y19kaXNhYmxlLAo+ID4+ICsgICAgICAgLmdldF9zY2Fub3V0X3Bv
-c2l0aW9uID0gYW1kZ3B1X2NydGNfZ2V0X3NjYW5vdXRfcG9zaXRpb24sCj4gPj4gIH07Cj4gPj4K
-PiA+PiAgc3RhdGljIGludCBkY2VfdjZfMF9jcnRjX2luaXQoc3RydWN0IGFtZGdwdV9kZXZpY2Ug
-KmFkZXYsIGludCBpbmRleCkKPiA+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9h
-bWRncHUvZGNlX3Y4XzAuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2RjZV92OF8wLmMK
-PiA+PiBpbmRleCBmMDZjOTAyMmMxZmQuLjFlOGQ0OTc1NDM1YSAxMDA2NDQKPiA+PiAtLS0gYS9k
-cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9kY2VfdjhfMC5jCj4gPj4gKysrIGIvZHJpdmVycy9n
-cHUvZHJtL2FtZC9hbWRncHUvZGNlX3Y4XzAuYwo+ID4+IEBAIC0yNTkzLDYgKzI1OTMsNyBAQCBz
-dGF0aWMgY29uc3Qgc3RydWN0IGRybV9jcnRjX2hlbHBlcl9mdW5jcyBkY2VfdjhfMF9jcnRjX2hl
-bHBlcl9mdW5jcyA9IHsKPiA+PiAgICAgICAgIC5wcmVwYXJlID0gZGNlX3Y4XzBfY3J0Y19wcmVw
-YXJlLAo+ID4+ICAgICAgICAgLmNvbW1pdCA9IGRjZV92OF8wX2NydGNfY29tbWl0LAo+ID4+ICAg
-ICAgICAgLmRpc2FibGUgPSBkY2VfdjhfMF9jcnRjX2Rpc2FibGUsCj4gPj4gKyAgICAgICAuZ2V0
-X3NjYW5vdXRfcG9zaXRpb24gPSBhbWRncHVfY3J0Y19nZXRfc2Nhbm91dF9wb3NpdGlvbiwKPiA+
-PiAgfTsKPiA+Pgo+ID4+ICBzdGF0aWMgaW50IGRjZV92OF8wX2NydGNfaW5pdChzdHJ1Y3QgYW1k
-Z3B1X2RldmljZSAqYWRldiwgaW50IGluZGV4KQo+ID4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dw
-dS9kcm0vYW1kL2FtZGdwdS9kY2VfdmlydHVhbC5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
-cHUvZGNlX3ZpcnR1YWwuYwo+ID4+IGluZGV4IGU0Zjk0ODYzMzMyYy4uNGIyZjkxNWFiYTQ3IDEw
-MDY0NAo+ID4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2RjZV92aXJ0dWFsLmMK
-PiA+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9kY2VfdmlydHVhbC5jCj4gPj4g
-QEAgLTIxOCw2ICsyMTgsNyBAQCBzdGF0aWMgY29uc3Qgc3RydWN0IGRybV9jcnRjX2hlbHBlcl9m
-dW5jcyBkY2VfdmlydHVhbF9jcnRjX2hlbHBlcl9mdW5jcyA9IHsKPiA+PiAgICAgICAgIC5wcmVw
-YXJlID0gZGNlX3ZpcnR1YWxfY3J0Y19wcmVwYXJlLAo+ID4+ICAgICAgICAgLmNvbW1pdCA9IGRj
-ZV92aXJ0dWFsX2NydGNfY29tbWl0LAo+ID4+ICAgICAgICAgLmRpc2FibGUgPSBkY2VfdmlydHVh
-bF9jcnRjX2Rpc2FibGUsCj4gPj4gKyAgICAgICAuZ2V0X3NjYW5vdXRfcG9zaXRpb24gPSBhbWRn
-cHVfY3J0Y19nZXRfc2Nhbm91dF9wb3NpdGlvbiwKPiA+PiAgfTsKPiA+Pgo+ID4+ICBzdGF0aWMg
-aW50IGRjZV92aXJ0dWFsX2NydGNfaW5pdChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwgaW50
-IGluZGV4KQo+ID4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1k
-Z3B1X2RtL2FtZGdwdV9kbS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9k
-bS9hbWRncHVfZG0uYwo+ID4+IGluZGV4IGYyZGI0MDBhMzkyMC4uMzljNWNmMjQyYzFiIDEwMDY0
-NAo+ID4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1
-X2RtLmMKPiA+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2Ft
-ZGdwdV9kbS5jCj4gPj4gQEAgLTQ4MjEsNyArNDgyMSw4IEBAIHN0YXRpYyBib29sIGRtX2NydGNf
-aGVscGVyX21vZGVfZml4dXAoc3RydWN0IGRybV9jcnRjICpjcnRjLAo+ID4+ICBzdGF0aWMgY29u
-c3Qgc3RydWN0IGRybV9jcnRjX2hlbHBlcl9mdW5jcyBhbWRncHVfZG1fY3J0Y19oZWxwZXJfZnVu
-Y3MgPSB7Cj4gPj4gICAgICAgICAuZGlzYWJsZSA9IGRtX2NydGNfaGVscGVyX2Rpc2FibGUsCj4g
-Pj4gICAgICAgICAuYXRvbWljX2NoZWNrID0gZG1fY3J0Y19oZWxwZXJfYXRvbWljX2NoZWNrLAo+
-ID4+IC0gICAgICAgLm1vZGVfZml4dXAgPSBkbV9jcnRjX2hlbHBlcl9tb2RlX2ZpeHVwCj4gPj4g
-KyAgICAgICAubW9kZV9maXh1cCA9IGRtX2NydGNfaGVscGVyX21vZGVfZml4dXAsCj4gPj4gKyAg
-ICAgICAuZ2V0X3NjYW5vdXRfcG9zaXRpb24gPSBhbWRncHVfY3J0Y19nZXRfc2Nhbm91dF9wb3Np
-dGlvbiwKPiA+PiAgfTsKPiA+Pgo+ID4+ICBzdGF0aWMgdm9pZCBkbV9lbmNvZGVyX2hlbHBlcl9k
-aXNhYmxlKHN0cnVjdCBkcm1fZW5jb2RlciAqZW5jb2RlcikKPiA+PiAtLQo+ID4+IDIuMjQuMQo+
-ID4+Cj4gPj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18K
-PiA+PiBhbWQtZ2Z4IG1haWxpbmcgbGlzdAo+ID4+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Au
-b3JnCj4gPj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9h
-bWQtZ2Z4Cj4KPiAtLQo+IFRob21hcyBaaW1tZXJtYW5uCj4gR3JhcGhpY3MgRHJpdmVyIERldmVs
-b3Blcgo+IFNVU0UgU29mdHdhcmUgU29sdXRpb25zIEdlcm1hbnkgR21iSAo+IE1heGZlbGRzdHIu
-IDUsIDkwNDA5IE7DvHJuYmVyZywgR2VybWFueQo+IChIUkIgMzY4MDksIEFHIE7DvHJuYmVyZykK
-PiBHZXNjaMOkZnRzZsO8aHJlcjogRmVsaXggSW1lbmTDtnJmZmVyCj4KX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1k
-LWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcv
-bWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+Add multiple instance direct SRAM read and write support for vcn2.5
+
+Signed-off-by: James Zhu <James.Zhu@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c | 27 +++++-----
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h | 46 ++++++++--------
+ drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c   | 94 ++++++++++++++++-----------------
+ 3 files changed, 83 insertions(+), 84 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
+index 99df693..ca62d99 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
+@@ -165,15 +165,15 @@ int amdgpu_vcn_sw_init(struct amdgpu_device *adev)
+ 			dev_err(adev->dev, "(%d) failed to allocate vcn bo\n", r);
+ 			return r;
+ 		}
+-	}
+ 
+-	if (adev->vcn.indirect_sram) {
+-		r = amdgpu_bo_create_kernel(adev, 64 * 2 * 4, PAGE_SIZE,
+-			    AMDGPU_GEM_DOMAIN_VRAM, &adev->vcn.dpg_sram_bo,
+-			    &adev->vcn.dpg_sram_gpu_addr, &adev->vcn.dpg_sram_cpu_addr);
+-		if (r) {
+-			dev_err(adev->dev, "(%d) failed to allocate DPG bo\n", r);
+-			return r;
++		if (adev->vcn.indirect_sram) {
++			r = amdgpu_bo_create_kernel(adev, 64 * 2 * 4, PAGE_SIZE,
++					AMDGPU_GEM_DOMAIN_VRAM, &adev->vcn.inst[i].dpg_sram_bo,
++					&adev->vcn.inst[i].dpg_sram_gpu_addr, &adev->vcn.inst[i].dpg_sram_cpu_addr);
++			if (r) {
++				dev_err(adev->dev, "VCN %d (%d) failed to allocate DPG bo\n", i, r);
++				return r;
++			}
+ 		}
+ 	}
+ 
+@@ -186,15 +186,14 @@ int amdgpu_vcn_sw_fini(struct amdgpu_device *adev)
+ 
+ 	cancel_delayed_work_sync(&adev->vcn.idle_work);
+ 
+-	if (adev->vcn.indirect_sram) {
+-		amdgpu_bo_free_kernel(&adev->vcn.dpg_sram_bo,
+-				      &adev->vcn.dpg_sram_gpu_addr,
+-				      (void **)&adev->vcn.dpg_sram_cpu_addr);
+-	}
+-
+ 	for (j = 0; j < adev->vcn.num_vcn_inst; ++j) {
+ 		if (adev->vcn.harvest_config & (1 << j))
+ 			continue;
++		if (adev->vcn.indirect_sram) {
++			amdgpu_bo_free_kernel(&adev->vcn.inst[i].dpg_sram_bo,
++						  &adev->vcn.inst[i].dpg_sram_gpu_addr,
++						  (void **)&adev->vcn.inst[i].dpg_sram_cpu_addr);
++		}
+ 		kvfree(adev->vcn.inst[j].saved_bo);
+ 
+ 		amdgpu_bo_free_kernel(&adev->vcn.inst[j].vcpu_bo,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h
+index 26c6623..5ce13c0 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h
+@@ -104,27 +104,27 @@
+ 		internal_reg_offset >>= 2;							\
+ 	})
+ 
+-#define RREG32_SOC15_DPG_MODE_2_0(offset, mask_en) 						\
+-	({ 											\
+-		WREG32_SOC15(VCN, 0, mmUVD_DPG_LMA_CTL, 					\
+-			(0x0 << UVD_DPG_LMA_CTL__READ_WRITE__SHIFT | 				\
+-			mask_en << UVD_DPG_LMA_CTL__MASK_EN__SHIFT | 				\
+-			offset << UVD_DPG_LMA_CTL__READ_WRITE_ADDR__SHIFT)); 			\
+-		RREG32_SOC15(VCN, 0, mmUVD_DPG_LMA_DATA); 					\
++#define RREG32_SOC15_DPG_MODE_2_0(inst_idx, offset, mask_en) 					\
++	({											\
++		WREG32_SOC15(VCN, inst, mmUVD_DPG_LMA_CTL, 					\
++			(0x0 << UVD_DPG_LMA_CTL__READ_WRITE__SHIFT |				\
++			mask_en << UVD_DPG_LMA_CTL__MASK_EN__SHIFT |				\
++			offset << UVD_DPG_LMA_CTL__READ_WRITE_ADDR__SHIFT));			\
++		RREG32_SOC15(VCN, inst_idx, mmUVD_DPG_LMA_DATA);				\
+ 	})
+ 
+-#define WREG32_SOC15_DPG_MODE_2_0(offset, value, mask_en, indirect)				\
+-	do { 											\
+-		if (!indirect) { 								\
+-			WREG32_SOC15(VCN, 0, mmUVD_DPG_LMA_DATA, value); 			\
+-			WREG32_SOC15(VCN, 0, mmUVD_DPG_LMA_CTL, 				\
+-				(0x1 << UVD_DPG_LMA_CTL__READ_WRITE__SHIFT | 			\
+-				 mask_en << UVD_DPG_LMA_CTL__MASK_EN__SHIFT | 			\
+-				 offset << UVD_DPG_LMA_CTL__READ_WRITE_ADDR__SHIFT)); 		\
+-		} else { 									\
+-			*adev->vcn.dpg_sram_curr_addr++ = offset; 				\
+-			*adev->vcn.dpg_sram_curr_addr++ = value; 				\
+-		} 										\
++#define WREG32_SOC15_DPG_MODE_2_0(inst_idx, offset, value, mask_en, indirect)			\
++	do {											\
++		if (!indirect) {								\
++			WREG32_SOC15(VCN, inst_idx, mmUVD_DPG_LMA_DATA, value);			\
++			WREG32_SOC15(VCN, inst_idx, mmUVD_DPG_LMA_CTL, 				\
++				(0x1 << UVD_DPG_LMA_CTL__READ_WRITE__SHIFT |			\
++				 mask_en << UVD_DPG_LMA_CTL__MASK_EN__SHIFT |			\
++				 offset << UVD_DPG_LMA_CTL__READ_WRITE_ADDR__SHIFT));		\
++		} else {									\
++			*adev->vcn.inst[inst_idx].dpg_sram_curr_addr++ = offset;		\
++			*adev->vcn.inst[inst_idx].dpg_sram_curr_addr++ = value;			\
++		}										\
+ 	} while (0)
+ 
+ enum engine_status_constants {
+@@ -173,6 +173,10 @@ struct amdgpu_vcn_inst {
+ 	struct amdgpu_ring	ring_enc[AMDGPU_VCN_MAX_ENC_RINGS];
+ 	struct amdgpu_irq_src	irq;
+ 	struct amdgpu_vcn_reg	external;
++	struct amdgpu_bo	*dpg_sram_bo;
++	void			*dpg_sram_cpu_addr;
++	uint64_t		dpg_sram_gpu_addr;
++	uint32_t		*dpg_sram_curr_addr;
+ };
+ 
+ struct amdgpu_vcn {
+@@ -184,10 +188,6 @@ struct amdgpu_vcn {
+ 	struct dpg_pause_state pause_state;
+ 
+ 	bool			indirect_sram;
+-	struct amdgpu_bo	*dpg_sram_bo;
+-	void			*dpg_sram_cpu_addr;
+-	uint64_t		dpg_sram_gpu_addr;
+-	uint32_t		*dpg_sram_curr_addr;
+ 
+ 	uint8_t	num_vcn_inst;
+ 	struct amdgpu_vcn_inst	 inst[AMDGPU_MAX_VCN_INSTANCES];
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c
+index dcdc7ad..9ff59ac 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c
+@@ -356,88 +356,88 @@ static void vcn_v2_0_mc_resume_dpg_mode(struct amdgpu_device *adev, bool indirec
+ 	/* cache window 0: fw */
+ 	if (adev->firmware.load_type == AMDGPU_FW_LOAD_PSP) {
+ 		if (!indirect) {
+-			WREG32_SOC15_DPG_MODE_2_0(SOC15_DPG_MODE_OFFSET_2_0(
++			WREG32_SOC15_DPG_MODE_2_0(0, SOC15_DPG_MODE_OFFSET_2_0(
+ 				UVD, 0, mmUVD_LMI_VCPU_CACHE_64BIT_BAR_LOW),
+ 				(adev->firmware.ucode[AMDGPU_UCODE_ID_VCN].tmr_mc_addr_lo), 0, indirect);
+-			WREG32_SOC15_DPG_MODE_2_0(SOC15_DPG_MODE_OFFSET_2_0(
++			WREG32_SOC15_DPG_MODE_2_0(0, SOC15_DPG_MODE_OFFSET_2_0(
+ 				UVD, 0, mmUVD_LMI_VCPU_CACHE_64BIT_BAR_HIGH),
+ 				(adev->firmware.ucode[AMDGPU_UCODE_ID_VCN].tmr_mc_addr_hi), 0, indirect);
+-			WREG32_SOC15_DPG_MODE_2_0(SOC15_DPG_MODE_OFFSET_2_0(
++			WREG32_SOC15_DPG_MODE_2_0(0, SOC15_DPG_MODE_OFFSET_2_0(
+ 				UVD, 0, mmUVD_VCPU_CACHE_OFFSET0), 0, 0, indirect);
+ 		} else {
+-			WREG32_SOC15_DPG_MODE_2_0(SOC15_DPG_MODE_OFFSET_2_0(
++			WREG32_SOC15_DPG_MODE_2_0(0, SOC15_DPG_MODE_OFFSET_2_0(
+ 				UVD, 0, mmUVD_LMI_VCPU_CACHE_64BIT_BAR_LOW), 0, 0, indirect);
+-			WREG32_SOC15_DPG_MODE_2_0(SOC15_DPG_MODE_OFFSET_2_0(
++			WREG32_SOC15_DPG_MODE_2_0(0, SOC15_DPG_MODE_OFFSET_2_0(
+ 				UVD, 0, mmUVD_LMI_VCPU_CACHE_64BIT_BAR_HIGH), 0, 0, indirect);
+-			WREG32_SOC15_DPG_MODE_2_0(SOC15_DPG_MODE_OFFSET_2_0(
++			WREG32_SOC15_DPG_MODE_2_0(0, SOC15_DPG_MODE_OFFSET_2_0(
+ 				UVD, 0, mmUVD_VCPU_CACHE_OFFSET0), 0, 0, indirect);
+ 		}
+ 		offset = 0;
+ 	} else {
+-		WREG32_SOC15_DPG_MODE_2_0(SOC15_DPG_MODE_OFFSET_2_0(
++		WREG32_SOC15_DPG_MODE_2_0(0, SOC15_DPG_MODE_OFFSET_2_0(
+ 			UVD, 0, mmUVD_LMI_VCPU_CACHE_64BIT_BAR_LOW),
+ 			lower_32_bits(adev->vcn.inst->gpu_addr), 0, indirect);
+-		WREG32_SOC15_DPG_MODE_2_0(SOC15_DPG_MODE_OFFSET_2_0(
++		WREG32_SOC15_DPG_MODE_2_0(0, SOC15_DPG_MODE_OFFSET_2_0(
+ 			UVD, 0, mmUVD_LMI_VCPU_CACHE_64BIT_BAR_HIGH),
+ 			upper_32_bits(adev->vcn.inst->gpu_addr), 0, indirect);
+ 		offset = size;
+-		WREG32_SOC15_DPG_MODE_2_0(SOC15_DPG_MODE_OFFSET_2_0(
++		WREG32_SOC15_DPG_MODE_2_0(0, SOC15_DPG_MODE_OFFSET_2_0(
+ 			UVD, 0, mmUVD_VCPU_CACHE_OFFSET0),
+ 			AMDGPU_UVD_FIRMWARE_OFFSET >> 3, 0, indirect);
+ 	}
+ 
+ 	if (!indirect)
+-		WREG32_SOC15_DPG_MODE_2_0(SOC15_DPG_MODE_OFFSET_2_0(
++		WREG32_SOC15_DPG_MODE_2_0(0, SOC15_DPG_MODE_OFFSET_2_0(
+ 			UVD, 0, mmUVD_VCPU_CACHE_SIZE0), size, 0, indirect);
+ 	else
+-		WREG32_SOC15_DPG_MODE_2_0(SOC15_DPG_MODE_OFFSET_2_0(
++		WREG32_SOC15_DPG_MODE_2_0(0, SOC15_DPG_MODE_OFFSET_2_0(
+ 			UVD, 0, mmUVD_VCPU_CACHE_SIZE0), 0, 0, indirect);
+ 
+ 	/* cache window 1: stack */
+ 	if (!indirect) {
+-		WREG32_SOC15_DPG_MODE_2_0(SOC15_DPG_MODE_OFFSET_2_0(
++		WREG32_SOC15_DPG_MODE_2_0(0, SOC15_DPG_MODE_OFFSET_2_0(
+ 			UVD, 0, mmUVD_LMI_VCPU_CACHE1_64BIT_BAR_LOW),
+ 			lower_32_bits(adev->vcn.inst->gpu_addr + offset), 0, indirect);
+-		WREG32_SOC15_DPG_MODE_2_0(SOC15_DPG_MODE_OFFSET_2_0(
++		WREG32_SOC15_DPG_MODE_2_0(0, SOC15_DPG_MODE_OFFSET_2_0(
+ 			UVD, 0, mmUVD_LMI_VCPU_CACHE1_64BIT_BAR_HIGH),
+ 			upper_32_bits(adev->vcn.inst->gpu_addr + offset), 0, indirect);
+-		WREG32_SOC15_DPG_MODE_2_0(SOC15_DPG_MODE_OFFSET_2_0(
++		WREG32_SOC15_DPG_MODE_2_0(0, SOC15_DPG_MODE_OFFSET_2_0(
+ 			UVD, 0, mmUVD_VCPU_CACHE_OFFSET1), 0, 0, indirect);
+ 	} else {
+-		WREG32_SOC15_DPG_MODE_2_0(SOC15_DPG_MODE_OFFSET_2_0(
++		WREG32_SOC15_DPG_MODE_2_0(0, SOC15_DPG_MODE_OFFSET_2_0(
+ 			UVD, 0, mmUVD_LMI_VCPU_CACHE1_64BIT_BAR_LOW), 0, 0, indirect);
+-		WREG32_SOC15_DPG_MODE_2_0(SOC15_DPG_MODE_OFFSET_2_0(
++		WREG32_SOC15_DPG_MODE_2_0(0, SOC15_DPG_MODE_OFFSET_2_0(
+ 			UVD, 0, mmUVD_LMI_VCPU_CACHE1_64BIT_BAR_HIGH), 0, 0, indirect);
+-		WREG32_SOC15_DPG_MODE_2_0(SOC15_DPG_MODE_OFFSET_2_0(
++		WREG32_SOC15_DPG_MODE_2_0(0, SOC15_DPG_MODE_OFFSET_2_0(
+ 			UVD, 0, mmUVD_VCPU_CACHE_OFFSET1), 0, 0, indirect);
+ 	}
+-	WREG32_SOC15_DPG_MODE_2_0(SOC15_DPG_MODE_OFFSET_2_0(
++	WREG32_SOC15_DPG_MODE_2_0(0, SOC15_DPG_MODE_OFFSET_2_0(
+ 		UVD, 0, mmUVD_VCPU_CACHE_SIZE1), AMDGPU_VCN_STACK_SIZE, 0, indirect);
+ 
+ 	/* cache window 2: context */
+-	WREG32_SOC15_DPG_MODE_2_0(SOC15_DPG_MODE_OFFSET_2_0(
++	WREG32_SOC15_DPG_MODE_2_0(0, SOC15_DPG_MODE_OFFSET_2_0(
+ 		UVD, 0, mmUVD_LMI_VCPU_CACHE2_64BIT_BAR_LOW),
+ 		lower_32_bits(adev->vcn.inst->gpu_addr + offset + AMDGPU_VCN_STACK_SIZE), 0, indirect);
+-	WREG32_SOC15_DPG_MODE_2_0(SOC15_DPG_MODE_OFFSET_2_0(
++	WREG32_SOC15_DPG_MODE_2_0(0, SOC15_DPG_MODE_OFFSET_2_0(
+ 		UVD, 0, mmUVD_LMI_VCPU_CACHE2_64BIT_BAR_HIGH),
+ 		upper_32_bits(adev->vcn.inst->gpu_addr + offset + AMDGPU_VCN_STACK_SIZE), 0, indirect);
+-	WREG32_SOC15_DPG_MODE_2_0(SOC15_DPG_MODE_OFFSET_2_0(
++	WREG32_SOC15_DPG_MODE_2_0(0, SOC15_DPG_MODE_OFFSET_2_0(
+ 		UVD, 0, mmUVD_VCPU_CACHE_OFFSET2), 0, 0, indirect);
+-	WREG32_SOC15_DPG_MODE_2_0(SOC15_DPG_MODE_OFFSET_2_0(
++	WREG32_SOC15_DPG_MODE_2_0(0, SOC15_DPG_MODE_OFFSET_2_0(
+ 		UVD, 0, mmUVD_VCPU_CACHE_SIZE2), AMDGPU_VCN_CONTEXT_SIZE, 0, indirect);
+ 
+ 	/* non-cache window */
+-	WREG32_SOC15_DPG_MODE_2_0(SOC15_DPG_MODE_OFFSET_2_0(
++	WREG32_SOC15_DPG_MODE_2_0(0, SOC15_DPG_MODE_OFFSET_2_0(
+ 		UVD, 0, mmUVD_LMI_VCPU_NC0_64BIT_BAR_LOW), 0, 0, indirect);
+-	WREG32_SOC15_DPG_MODE_2_0(SOC15_DPG_MODE_OFFSET_2_0(
++	WREG32_SOC15_DPG_MODE_2_0(0, SOC15_DPG_MODE_OFFSET_2_0(
+ 		UVD, 0, mmUVD_LMI_VCPU_NC0_64BIT_BAR_HIGH), 0, 0, indirect);
+-	WREG32_SOC15_DPG_MODE_2_0(SOC15_DPG_MODE_OFFSET_2_0(
++	WREG32_SOC15_DPG_MODE_2_0(0, SOC15_DPG_MODE_OFFSET_2_0(
+ 		UVD, 0, mmUVD_VCPU_NONCACHE_OFFSET0), 0, 0, indirect);
+-	WREG32_SOC15_DPG_MODE_2_0(SOC15_DPG_MODE_OFFSET_2_0(
++	WREG32_SOC15_DPG_MODE_2_0(0, SOC15_DPG_MODE_OFFSET_2_0(
+ 		UVD, 0, mmUVD_VCPU_NONCACHE_SIZE0), 0, 0, indirect);
+ 
+ 	/* VCN global tiling registers */
+-	WREG32_SOC15_DPG_MODE_2_0(SOC15_DPG_MODE_OFFSET_2_0(
++	WREG32_SOC15_DPG_MODE_2_0(0, SOC15_DPG_MODE_OFFSET_2_0(
+ 		UVD, 0, mmUVD_GFX10_ADDR_CONFIG), adev->gfx.config.gb_addr_config, 0, indirect);
+ }
+ 
+@@ -583,19 +583,19 @@ static void vcn_v2_0_clock_gating_dpg_mode(struct amdgpu_device *adev,
+ 		 UVD_CGC_CTRL__WCB_MODE_MASK |
+ 		 UVD_CGC_CTRL__VCPU_MODE_MASK |
+ 		 UVD_CGC_CTRL__SCPU_MODE_MASK);
+-	WREG32_SOC15_DPG_MODE_2_0(SOC15_DPG_MODE_OFFSET_2_0(
++	WREG32_SOC15_DPG_MODE_2_0(0, SOC15_DPG_MODE_OFFSET_2_0(
+ 		UVD, 0, mmUVD_CGC_CTRL), reg_data, sram_sel, indirect);
+ 
+ 	/* turn off clock gating */
+-	WREG32_SOC15_DPG_MODE_2_0(SOC15_DPG_MODE_OFFSET_2_0(
++	WREG32_SOC15_DPG_MODE_2_0(0, SOC15_DPG_MODE_OFFSET_2_0(
+ 		UVD, 0, mmUVD_CGC_GATE), 0, sram_sel, indirect);
+ 
+ 	/* turn on SUVD clock gating */
+-	WREG32_SOC15_DPG_MODE_2_0(SOC15_DPG_MODE_OFFSET_2_0(
++	WREG32_SOC15_DPG_MODE_2_0(0, SOC15_DPG_MODE_OFFSET_2_0(
+ 		UVD, 0, mmUVD_SUVD_CGC_GATE), 1, sram_sel, indirect);
+ 
+ 	/* turn on sw mode in UVD_SUVD_CGC_CTRL */
+-	WREG32_SOC15_DPG_MODE_2_0(SOC15_DPG_MODE_OFFSET_2_0(
++	WREG32_SOC15_DPG_MODE_2_0(0, SOC15_DPG_MODE_OFFSET_2_0(
+ 		UVD, 0, mmUVD_SUVD_CGC_CTRL), 0, sram_sel, indirect);
+ }
+ 
+@@ -759,7 +759,7 @@ static int vcn_v2_0_start_dpg_mode(struct amdgpu_device *adev, bool indirect)
+ 	WREG32_SOC15(UVD, 0, mmUVD_POWER_STATUS, tmp);
+ 
+ 	if (indirect)
+-		adev->vcn.dpg_sram_curr_addr = (uint32_t*)adev->vcn.dpg_sram_cpu_addr;
++		adev->vcn.inst->dpg_sram_curr_addr = (uint32_t*)adev->vcn.inst->dpg_sram_cpu_addr;
+ 
+ 	/* enable clock gating */
+ 	vcn_v2_0_clock_gating_dpg_mode(adev, 0, indirect);
+@@ -768,11 +768,11 @@ static int vcn_v2_0_start_dpg_mode(struct amdgpu_device *adev, bool indirect)
+ 	tmp = (0xFF << UVD_VCPU_CNTL__PRB_TIMEOUT_VAL__SHIFT);
+ 	tmp |= UVD_VCPU_CNTL__CLK_EN_MASK;
+ 	tmp |= UVD_VCPU_CNTL__MIF_WR_LOW_THRESHOLD_BP_MASK;
+-	WREG32_SOC15_DPG_MODE_2_0(SOC15_DPG_MODE_OFFSET_2_0(
++	WREG32_SOC15_DPG_MODE_2_0(0, SOC15_DPG_MODE_OFFSET_2_0(
+ 		UVD, 0, mmUVD_VCPU_CNTL), tmp, 0, indirect);
+ 
+ 	/* disable master interupt */
+-	WREG32_SOC15_DPG_MODE_2_0(SOC15_DPG_MODE_OFFSET_2_0(
++	WREG32_SOC15_DPG_MODE_2_0(0, SOC15_DPG_MODE_OFFSET_2_0(
+ 		UVD, 0, mmUVD_MASTINT_EN), 0, 0, indirect);
+ 
+ 	/* setup mmUVD_LMI_CTRL */
+@@ -784,28 +784,28 @@ static int vcn_v2_0_start_dpg_mode(struct amdgpu_device *adev, bool indirect)
+ 		UVD_LMI_CTRL__VCPU_DATA_COHERENCY_EN_MASK |
+ 		(8 << UVD_LMI_CTRL__WRITE_CLEAN_TIMER__SHIFT) |
+ 		0x00100000L);
+-	WREG32_SOC15_DPG_MODE_2_0(SOC15_DPG_MODE_OFFSET_2_0(
++	WREG32_SOC15_DPG_MODE_2_0(0, SOC15_DPG_MODE_OFFSET_2_0(
+ 		UVD, 0, mmUVD_LMI_CTRL), tmp, 0, indirect);
+ 
+-	WREG32_SOC15_DPG_MODE_2_0(SOC15_DPG_MODE_OFFSET_2_0(
++	WREG32_SOC15_DPG_MODE_2_0(0, SOC15_DPG_MODE_OFFSET_2_0(
+ 		UVD, 0, mmUVD_MPC_CNTL),
+ 		0x2 << UVD_MPC_CNTL__REPLACEMENT_MODE__SHIFT, 0, indirect);
+ 
+-	WREG32_SOC15_DPG_MODE_2_0(SOC15_DPG_MODE_OFFSET_2_0(
++	WREG32_SOC15_DPG_MODE_2_0(0, SOC15_DPG_MODE_OFFSET_2_0(
+ 		UVD, 0, mmUVD_MPC_SET_MUXA0),
+ 		((0x1 << UVD_MPC_SET_MUXA0__VARA_1__SHIFT) |
+ 		 (0x2 << UVD_MPC_SET_MUXA0__VARA_2__SHIFT) |
+ 		 (0x3 << UVD_MPC_SET_MUXA0__VARA_3__SHIFT) |
+ 		 (0x4 << UVD_MPC_SET_MUXA0__VARA_4__SHIFT)), 0, indirect);
+ 
+-	WREG32_SOC15_DPG_MODE_2_0(SOC15_DPG_MODE_OFFSET_2_0(
++	WREG32_SOC15_DPG_MODE_2_0(0, SOC15_DPG_MODE_OFFSET_2_0(
+ 		UVD, 0, mmUVD_MPC_SET_MUXB0),
+ 		((0x1 << UVD_MPC_SET_MUXB0__VARB_1__SHIFT) |
+ 		 (0x2 << UVD_MPC_SET_MUXB0__VARB_2__SHIFT) |
+ 		 (0x3 << UVD_MPC_SET_MUXB0__VARB_3__SHIFT) |
+ 		 (0x4 << UVD_MPC_SET_MUXB0__VARB_4__SHIFT)), 0, indirect);
+ 
+-	WREG32_SOC15_DPG_MODE_2_0(SOC15_DPG_MODE_OFFSET_2_0(
++	WREG32_SOC15_DPG_MODE_2_0(0, SOC15_DPG_MODE_OFFSET_2_0(
+ 		UVD, 0, mmUVD_MPC_SET_MUX),
+ 		((0x0 << UVD_MPC_SET_MUX__SET_0__SHIFT) |
+ 		 (0x1 << UVD_MPC_SET_MUX__SET_1__SHIFT) |
+@@ -813,29 +813,29 @@ static int vcn_v2_0_start_dpg_mode(struct amdgpu_device *adev, bool indirect)
+ 
+ 	vcn_v2_0_mc_resume_dpg_mode(adev, indirect);
+ 
+-	WREG32_SOC15_DPG_MODE_2_0(SOC15_DPG_MODE_OFFSET_2_0(
++	WREG32_SOC15_DPG_MODE_2_0(0, SOC15_DPG_MODE_OFFSET_2_0(
+ 		UVD, 0, mmUVD_REG_XX_MASK), 0x10, 0, indirect);
+-	WREG32_SOC15_DPG_MODE_2_0(SOC15_DPG_MODE_OFFSET_2_0(
++	WREG32_SOC15_DPG_MODE_2_0(0, SOC15_DPG_MODE_OFFSET_2_0(
+ 		UVD, 0, mmUVD_RBC_XX_IB_REG_CHECK), 0x3, 0, indirect);
+ 
+ 	/* release VCPU reset to boot */
+-	WREG32_SOC15_DPG_MODE_2_0(SOC15_DPG_MODE_OFFSET_2_0(
++	WREG32_SOC15_DPG_MODE_2_0(0, SOC15_DPG_MODE_OFFSET_2_0(
+ 		UVD, 0, mmUVD_SOFT_RESET), 0, 0, indirect);
+ 
+ 	/* enable LMI MC and UMC channels */
+-	WREG32_SOC15_DPG_MODE_2_0(SOC15_DPG_MODE_OFFSET_2_0(
++	WREG32_SOC15_DPG_MODE_2_0(0, SOC15_DPG_MODE_OFFSET_2_0(
+ 		UVD, 0, mmUVD_LMI_CTRL2),
+ 		0x1F << UVD_LMI_CTRL2__RE_OFLD_MIF_WR_REQ_NUM__SHIFT, 0, indirect);
+ 
+ 	/* enable master interrupt */
+-	WREG32_SOC15_DPG_MODE_2_0(SOC15_DPG_MODE_OFFSET_2_0(
++	WREG32_SOC15_DPG_MODE_2_0(0, SOC15_DPG_MODE_OFFSET_2_0(
+ 		UVD, 0, mmUVD_MASTINT_EN),
+ 		UVD_MASTINT_EN__VCPU_EN_MASK, 0, indirect);
+ 
+ 	if (indirect)
+-		psp_update_vcn_sram(adev, 0, adev->vcn.dpg_sram_gpu_addr,
+-				    (uint32_t)((uintptr_t)adev->vcn.dpg_sram_curr_addr -
+-					       (uintptr_t)adev->vcn.dpg_sram_cpu_addr));
++		psp_update_vcn_sram(adev, 0, adev->vcn.inst->dpg_sram_gpu_addr,
++				    (uint32_t)((uintptr_t)adev->vcn.inst->dpg_sram_curr_addr -
++					       (uintptr_t)adev->vcn.inst->dpg_sram_cpu_addr));
+ 
+ 	/* force RBC into idle state */
+ 	rb_bufsz = order_base_2(ring->ring_size);
+-- 
+2.7.4
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
