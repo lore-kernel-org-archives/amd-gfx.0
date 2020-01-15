@@ -8,65 +8,67 @@ X-Spam-Status: No, score=-9.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
 	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A6EA3C32771
-	for <amd-gfx@archiver.kernel.org>; Wed, 15 Jan 2020 22:15:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 03ADFC33CB2
+	for <amd-gfx@archiver.kernel.org>; Wed, 15 Jan 2020 22:15:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 78C28207E0
-	for <amd-gfx@archiver.kernel.org>; Wed, 15 Jan 2020 22:15:55 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id CDA2F207E0
+	for <amd-gfx@archiver.kernel.org>; Wed, 15 Jan 2020 22:15:57 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ueJ7nRXL"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 78C28207E0
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bz55XMMF"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CDA2F207E0
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5A1B46E865;
-	Wed, 15 Jan 2020 22:15:55 +0000 (UTC)
-Received: from mail-yb1-xb43.google.com (mail-yb1-xb43.google.com
- [IPv6:2607:f8b0:4864:20::b43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2198A6E865
- for <amd-gfx@lists.freedesktop.org>; Wed, 15 Jan 2020 22:15:54 +0000 (UTC)
-Received: by mail-yb1-xb43.google.com with SMTP id c13so3671066ybq.5
- for <amd-gfx@lists.freedesktop.org>; Wed, 15 Jan 2020 14:15:54 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7E9216EB67;
+	Wed, 15 Jan 2020 22:15:57 +0000 (UTC)
+Received: from mail-yw1-xc44.google.com (mail-yw1-xc44.google.com
+ [IPv6:2607:f8b0:4864:20::c44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A571C6EB67
+ for <amd-gfx@lists.freedesktop.org>; Wed, 15 Jan 2020 22:15:55 +0000 (UTC)
+Received: by mail-yw1-xc44.google.com with SMTP id n184so11770572ywc.3
+ for <amd-gfx@lists.freedesktop.org>; Wed, 15 Jan 2020 14:15:55 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=iAK9hp5uK0BUy0g9IbUXqSuGNjJXLBjrLJBw6nLbtpo=;
- b=ueJ7nRXLJDsc/gYn7kRebk9KBy4JGc01+OKIx1GjRg6KflCv/LiTO2o9N5g8nBZQAY
- FtN9GfdwLJJEapUoLyOxlmHKbbh3P0bkVC4UdJE0zDd78S7TEHJ9Gl1jKWhLHPj8+KxT
- mY0YtEk02BIJkvxpynDFNppqbwDSTFWLFPeycUmTQYahDwAoim6exnjIfiYEb2pYtin6
- PQ616YZMpWc9yi+ztO7GJ8fC2Z2W6v91gdKvpjB1rDXxlP9oB4iyZB9M9T7kUAqM3u/i
- AGUDQ6zm7yamcECbAFQPs3tuyh5K/xjmn9dZmSFP4RoZ5xoMQsWBcdA595LbN9ffZuIt
- bpog==
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=ukn3Iwgbm/4rO/9J1QQ8H2EsVIYcgitGbKiY6XWiLOE=;
+ b=bz55XMMFX3Yhzjcky+wmYDVb3Si3wBaSKZtVZd0Z/EhutDlpiTqmb+edML3TjNws/y
+ 4fNsHy2bDi3DABf3mO9Lxm8EhhXMsBk0vZS+OcKhOtmcPwy1Fp8wgZVCXA+OIudsnvE7
+ eRJ+NXgRC8+Vn06ev2reEjxjuZAvTvhrFsEFsblBuOHsh5LNIZaHm3eC20TXQZsDn/Kl
+ 4NFaWXJoEy0OKVF5GaRwAxFGp2RNIt7lxb+AK6Rl8DTMArJYfBwTbtTUJ1A6aWwfvG1V
+ LJ8bxqTH5tCx92HuXeId28B6MeNDeW6/UHvbuEnIiogxad10jQ5EdDInBRmkb4JmZDxb
+ Y7sQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=iAK9hp5uK0BUy0g9IbUXqSuGNjJXLBjrLJBw6nLbtpo=;
- b=XblOdm8p+SBN2K7wO9dvrIlG7xxlaUMX55QvWOLJSi10cnGU7sid6dBu1/LMi35VAS
- j/xERV3ncSWYkR0CI3LNftrftbil3U2Yl0HH/s62xad8W04TArZ0tsdpTuk0VcAcIijF
- TWyudtVQ58XjjeOXI/pc7lWQd8iD3KkqKT2sZe1Z6SloM0JOsHyphdReXFwrCQBlMAKQ
- KKS10px5trHH2wCLnzFcusqPS48jhZtD5MDvIQrrTp6bW9xhdinwuCwoTdcvqZjtcXOE
- FtoJm84T3t0fgagOnxSQw5GRrbd7+YfB1BYlC33F3sgSmC7pkPN2Isunv5WLPK1MWTjy
- 38eg==
-X-Gm-Message-State: APjAAAUdSK9HaNNnl1sn2D0Ga7ChDwBMutJqsG8azjbyrOQSmtx6H4LM
- /TrRDFwEEQUsQl5eeRXcQrhJn19A
-X-Google-Smtp-Source: APXvYqxQxAK0QvV9oNHUVExX8uC3Q/c5QhGdK5NvV/UDjjJSgnuxFsEovZoDUPtew6ko6/+sYj7Osg==
-X-Received: by 2002:a25:aa72:: with SMTP id
- s105mr19092701ybi.410.1579126553004; 
- Wed, 15 Jan 2020 14:15:53 -0800 (PST)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=ukn3Iwgbm/4rO/9J1QQ8H2EsVIYcgitGbKiY6XWiLOE=;
+ b=Ua/iKTedNYy6KyFTjrV4KCZzmxNabw46NEshmlNzx1OgLWq3KHSauw7GDDS9Z/nFSI
+ JA9ITEsV4TkJbMi0rPqf0EOQpM+urCWOjVge/6szapYnTnKwct3xFNUsXHQ8ZD1VgNFh
+ jnr5f8BjZUld+ELgirSO9I0BWvYJu2xZ62bx5sUQAi80snhF2HoKGy1sF+WHdh2YY+4I
+ dxHyROPpU0bOic1gDt6e4Z3H78H+eUjqeJ2/zxiZTxls2MrKHjvVvkT6iR/eaVBM5IBv
+ BpUaYxX4w3ckr3SdHwMaIDfAvk/UEZSUu/92Lefvpd+85tNXa/C+0bXabEDrspSGZmXr
+ kfrA==
+X-Gm-Message-State: APjAAAUvKlfCwaaR7uY519won2ykgREo86XZ1jbmv0qhtTjNiD1DKS80
+ UbpnO9Xsed13TEQbnUdiCzJDEuuj
+X-Google-Smtp-Source: APXvYqwHJbAFsiWcJo8TPgfJVwTARwgYXS1zuNPSBVWjvglpA11PUt2NBt8jfVDtHORxlNUcVUXmdA==
+X-Received: by 2002:a81:29ce:: with SMTP id
+ p197mr22311192ywp.276.1579126554226; 
+ Wed, 15 Jan 2020 14:15:54 -0800 (PST)
 Received: from tr4.amd.com (atlvpn.amd.com. [165.204.84.11])
- by smtp.gmail.com with ESMTPSA id g29sm9112315ywk.31.2020.01.15.14.15.51
+ by smtp.gmail.com with ESMTPSA id g29sm9112315ywk.31.2020.01.15.14.15.53
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 15 Jan 2020 14:15:52 -0800 (PST)
+ Wed, 15 Jan 2020 14:15:53 -0800 (PST)
 From: Alex Deucher <alexdeucher@gmail.com>
 X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 1/2] drm/amdgpu: fix typo in amdgpu_vcn_sw_fini
-Date: Wed, 15 Jan 2020 17:15:43 -0500
-Message-Id: <20200115221544.1712687-1-alexander.deucher@amd.com>
+Subject: [PATCH 2/2] drm/amdgpu/vcn1.0: remove duplicate defines
+Date: Wed, 15 Jan 2020 17:15:44 -0500
+Message-Id: <20200115221544.1712687-2-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.24.1
+In-Reply-To: <20200115221544.1712687-1-alexander.deucher@amd.com>
+References: <20200115221544.1712687-1-alexander.deucher@amd.com>
 MIME-Version: 1.0
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -85,30 +87,30 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Using the wrong iterator.
+These were added to amdgpu_vcn.h so remove the duplicates
+in this file.  Fixes a warning.
 
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c | 5 -----
+ 1 file changed, 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-index ab51f0e9539c..f96464e2c157 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-@@ -193,9 +193,9 @@ int amdgpu_vcn_sw_fini(struct amdgpu_device *adev)
- 		if (adev->vcn.harvest_config & (1 << j))
- 			continue;
- 		if (adev->vcn.indirect_sram) {
--			amdgpu_bo_free_kernel(&adev->vcn.inst[i].dpg_sram_bo,
--						  &adev->vcn.inst[i].dpg_sram_gpu_addr,
--						  (void **)&adev->vcn.inst[i].dpg_sram_cpu_addr);
-+			amdgpu_bo_free_kernel(&adev->vcn.inst[j].dpg_sram_bo,
-+						  &adev->vcn.inst[j].dpg_sram_gpu_addr,
-+						  (void **)&adev->vcn.inst[j].dpg_sram_cpu_addr);
- 		}
- 		kvfree(adev->vcn.inst[j].saved_bo);
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
+index a70351f2740c..2b9e3098d4e2 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
+@@ -39,11 +39,6 @@
+ #include "ivsrcid/vcn/irqsrcs_vcn_1_0.h"
+ #include "jpeg_v1_0.h"
  
+-#define mmUVD_RBC_XX_IB_REG_CHECK				0x05ab
+-#define mmUVD_RBC_XX_IB_REG_CHECK_BASE_IDX	1
+-#define mmUVD_REG_XX_MASK							0x05ac
+-#define mmUVD_REG_XX_MASK_BASE_IDX				1
+-
+ static int vcn_v1_0_stop(struct amdgpu_device *adev);
+ static void vcn_v1_0_set_dec_ring_funcs(struct amdgpu_device *adev);
+ static void vcn_v1_0_set_enc_ring_funcs(struct amdgpu_device *adev);
 -- 
 2.24.1
 
