@@ -2,54 +2,104 @@ Return-Path: <SRS0=p2a1=3E=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.8 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-2.0 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=no autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 26378C33CB1
-	for <amd-gfx@archiver.kernel.org>; Wed, 15 Jan 2020 12:38:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E0122C33CB1
+	for <amd-gfx@archiver.kernel.org>; Wed, 15 Jan 2020 12:52:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 0221B2187F
-	for <amd-gfx@archiver.kernel.org>; Wed, 15 Jan 2020 12:38:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0221B2187F
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 970F8207FF
+	for <amd-gfx@archiver.kernel.org>; Wed, 15 Jan 2020 12:52:46 +0000 (UTC)
+Authentication-Results: mail.kernel.org;
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="JDYZCoLH"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 970F8207FF
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 08C316E998;
-	Wed, 15 Jan 2020 12:38:28 +0000 (UTC)
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 75D136E981;
- Wed, 15 Jan 2020 12:38:25 +0000 (UTC)
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by orsmga103.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 15 Jan 2020 04:38:24 -0800
-X-IronPort-AV: E=Sophos;i="5.70,322,1574150400"; d="scan'208";a="226067880"
-Received: from jnikula-mobl3.fi.intel.com (HELO localhost) ([10.237.66.161])
- by orsmga006-auth.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 15 Jan 2020 04:38:16 -0800
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Thomas Zimmermann <tzimmermann@suse.de>, airlied@linux.ie, daniel@ffwll.ch,
- alexander.deucher@amd.com, christian.koenig@amd.com, David1.Zhou@amd.com,
- maarten.lankhorst@linux.intel.com, patrik.r.jakobsson@gmail.com,
- robdclark@gmail.com, sean@poorly.run, benjamin.gaignard@linaro.org,
- vincent.abriou@st.com, yannick.fertre@st.com, philippe.cornu@st.com,
- mcoquelin.stm32@gmail.com, alexandre.torgue@st.com, eric@anholt.net,
- rodrigosiqueiramelo@gmail.com, hamohammed.sa@gmail.com,
- linux-graphics-maintainer@vmware.com, thellstrom@vmware.com,
- bskeggs@redhat.com, harry.wentland@amd.com, sunpeng.li@amd.com,
- joonas.lahtinen@linux.intel.com, rodrigo.vivi@intel.com
-Subject: Re: [PATCH v2 07/21] drm/i915: Convert to CRTC VBLANK callbacks
-In-Reply-To: <20200115121652.7050-8-tzimmermann@suse.de>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20200115121652.7050-1-tzimmermann@suse.de>
- <20200115121652.7050-8-tzimmermann@suse.de>
-Date: Wed, 15 Jan 2020 14:38:13 +0200
-Message-ID: <87lfq8ki8a.fsf@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id A4A4C6E9C3;
+	Wed, 15 Jan 2020 12:52:40 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2066.outbound.protection.outlook.com [40.107.223.66])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D604D6E9C0
+ for <amd-gfx@lists.freedesktop.org>; Wed, 15 Jan 2020 12:52:38 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=bcKNzeBKKEIX23YRpSTjtOKkl/vhg2uXs1rN1nhNtWK7woB/yw4A/ORj0lV5pQLLUm8jUHVO9jKM9EBdWH8fyg4lheFuLpZmk9K3njSh1j4u1Uaj4rJx4EqKbFiDEDvChbXuNeOxfsFOlVvDjkaSb78RPYMzBCwuVRJ7RDCCilDWXfjqSIyaeFjeQ+EiKYN+pynE2jnuh0G2x/KXDrn5jcDc2ziSn8kRAaUYmp2CcGUTUynXeAdXh88jn0wKR7MphTVH2mxkTm4vBX1zBKRFJu7OZk6pZpZpIWcPGIqhrMnbjDDsK6YGuJ6E+s7A9QjkYLFz2/wnsGHUyfSmOVeiDw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=pwR1xEeLjoLcLXK1QKEtgpjj87mqqqhpx12EUQCreKA=;
+ b=W942EaYx1L2HCviSoMeJ/8NOVqx2MbZYB2M9dqMKo8KQI9Qe906mchYLqIzMFwjeKR4/ZQcEE4O5Ay5AZo5MRH5XwcCuLtHRnkCrpwmbfthaEtH/3TewCKMgBmUyBbLovvgN31nr8uC7l68NQFSsUhztCxmR+bWlVa8/wPfFLGIgGtxqEAuGMPajG2lDXIHh6o9Ab4m9YInMuzpcJ+h4Bn0Fd9/9Z4c+4RcJ+EluW7iIubxjNOyVh4ycRi/dBhrE26KAYQ/QQe9PQ0jZgaCQGTUEr/XC3k2hVKkeyq3iG4vrlz4QVeN0Mx44OVMtix7GmIDhx6LBZhnzWfv44zJefw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=pwR1xEeLjoLcLXK1QKEtgpjj87mqqqhpx12EUQCreKA=;
+ b=JDYZCoLHOTDR148eCcIxnyFWJphf9XLdAdrGcTBIPDd3Af0ol0YXcStBlzzXtX0SIVTZhuK1UhvdKc0Op1cfYqOoyzIznS7+scTQzwftMVJyeAP4GcoIUevLmK1t5++LzF4/9FEZNi7YYOL2SusaXVAGi0sbdrp2wzrIYPYGKIs=
+Authentication-Results: spf=none (sender IP is )
+ smtp.mailfrom=Christian.Koenig@amd.com; 
+Received: from DM5PR12MB1705.namprd12.prod.outlook.com (10.175.88.22) by
+ DM5PR12MB1209.namprd12.prod.outlook.com (10.168.234.140) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2623.10; Wed, 15 Jan 2020 12:52:06 +0000
+Received: from DM5PR12MB1705.namprd12.prod.outlook.com
+ ([fe80::8dde:b52a:d97a:e89]) by DM5PR12MB1705.namprd12.prod.outlook.com
+ ([fe80::8dde:b52a:d97a:e89%2]) with mapi id 15.20.2623.015; Wed, 15 Jan 2020
+ 12:52:06 +0000
+Subject: Re: [PATCH] drm/scheduler: fix race condition in load balancer
+To: Nirmoy <nirmodas@amd.com>, Nirmoy Das <nirmoy.aiemd@gmail.com>,
+ amd-gfx@lists.freedesktop.org
+References: <20200114154339.3519-1-nirmoy.das@amd.com>
+ <5deb3805-f7e8-3d0d-4259-a3be1c5d3cf5@gmail.com>
+ <862ad550-082d-7ece-1d4d-99801ab10428@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+Message-ID: <8b4d2ea2-a28d-6eb4-2d50-02b5c450922f@amd.com>
+Date: Wed, 15 Jan 2020 13:52:00 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.9.0
+In-Reply-To: <862ad550-082d-7ece-1d4d-99801ab10428@amd.com>
+Content-Language: en-US
+X-ClientProxiedBy: ZR0P278CA0054.CHEP278.PROD.OUTLOOK.COM
+ (2603:10a6:910:1d::23) To DM5PR12MB1705.namprd12.prod.outlook.com
+ (2603:10b6:3:10c::22)
 MIME-Version: 1.0
+Received: from [IPv6:2a02:908:1252:fb60:be8a:bd56:1f94:86e7]
+ (2a02:908:1252:fb60:be8a:bd56:1f94:86e7) by
+ ZR0P278CA0054.CHEP278.PROD.OUTLOOK.COM (2603:10a6:910:1d::23) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2644.19 via Frontend Transport; Wed, 15 Jan 2020 12:52:05 +0000
+X-Originating-IP: [2a02:908:1252:fb60:be8a:bd56:1f94:86e7]
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: a6cfa95a-ef08-4775-5f5e-08d799b9b9e3
+X-MS-TrafficTypeDiagnostic: DM5PR12MB1209:|DM5PR12MB1209:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <DM5PR12MB1209CABD414A8CFE57AA575383370@DM5PR12MB1209.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
+X-Forefront-PRVS: 02830F0362
+X-Forefront-Antispam-Report: SFV:NSPM;
+ SFS:(10009020)(4636009)(396003)(376002)(346002)(136003)(366004)(39860400002)(199004)(189003)(31696002)(66556008)(66476007)(81156014)(8936002)(81166006)(8676002)(186003)(4326008)(31686004)(2616005)(53546011)(2906002)(36756003)(66946007)(52116002)(5660300002)(316002)(110136005)(478600001)(6666004)(6486002)(86362001)(16526019);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:DM5PR12MB1209;
+ H:DM5PR12MB1705.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; A:1; MX:1; 
+Received-SPF: None (protection.outlook.com: amd.com does not designate
+ permitted sender hosts)
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: nnSRTP1J05XMqOi5sys3Gh4F/49Rhy4xpx8SrNRhKjqQQoivzEZXZEbgUxeiZDUymQtPc+Vwj38jDNLg+FUrsNE3PtOzG3xGttfFSJHTvG+k/s3VcgtCkDKnSTDpK/6m4PImUVqJm6O/dF+9id2PCJkHox8q+RHwtjNwW4gF4xOcz0NfmXqpKlvqJ7FeQIT20tsRzDwsNs5ox/yNi6SSoz/J79v8g8akHJIaNf/U8mwxwVNkMnzA6WXr5BdLyP740oKjWIi6EH2+0wAFo3c5sKTqS0udd+mUuL/rUuUnRCo1OsA4AISARdX/BnejO1hhybjknaxkJy88PP5mBqQH0zCrZlak5jx0ndE5oz4NALL9WGVmAZ1bWkcJNEAYoTnW1zRObq+bDjrMEcfe7QVIgeqX4+JsshBTyqFztynnnzfWo3Sladj7WQLqcQTzqRjK
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a6cfa95a-ef08-4775-5f5e-08d799b9b9e3
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jan 2020 12:52:06.5508 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: DiHYbSlcY1dNx+Dv+/i38MrZ2B3IltGxMavH/e5YEN9FS5LRkvthlLWmICpwYZHA
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1209
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,178 +111,56 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Thomas Zimmermann <tzimmermann@suse.de>, nouveau@lists.freedesktop.org,
- freedreno@lists.freedesktop.org
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: alexander.deucher@amd.com, kenny.ho@amd.com, nirmoy.das@amd.com,
+ pierre-eric.pelloux-prayer@amd.com
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, 15 Jan 2020, Thomas Zimmermann <tzimmermann@suse.de> wrote:
-> VBLANK callbacks in struct drm_driver are deprecated in favor of their
-> equivalents in struct drm_crtc_funcs. Convert i915 over.
->
-> The callback struct drm_driver.get_scanout_position() is deprecated
-> in favor of struct drm_crtc_helper_funcs.get_scanout_position().
-> i915 doesn't use CRTC helpers. Instead pass i915's implementation of
-> get_scanout_position() to DRM core's
-> drm_crtc_vblank_helper_get_vblank_timestamp_internal().
->
-> v2:
-> 	* use DRM's implementation of get_vblank_timestamp()
-> 	* simplify function names
->
-> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-
-Acked-by: Jani Nikula <jani.nikula@intel.com>
-
-for the approach and for merging through whichever tree makes most
-sense, *however* needs detailed review on the whole.
-
-> ---
->  drivers/gpu/drm/i915/display/intel_display.c |  7 +++++++
->  drivers/gpu/drm/i915/i915_drv.c              |  3 ---
->  drivers/gpu/drm/i915/i915_irq.c              | 20 +++++++++++++++-----
->  drivers/gpu/drm/i915/i915_irq.h              |  6 ++----
->  4 files changed, 24 insertions(+), 12 deletions(-)
->
-> diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-> index 59c375879186..c8f1da845e7d 100644
-> --- a/drivers/gpu/drm/i915/display/intel_display.c
-> +++ b/drivers/gpu/drm/i915/display/intel_display.c
-> @@ -16336,6 +16336,7 @@ static const struct drm_crtc_funcs bdw_crtc_funcs = {
->  	.get_vblank_counter = g4x_get_vblank_counter,
->  	.enable_vblank = bdw_enable_vblank,
->  	.disable_vblank = bdw_disable_vblank,
-> +	.get_vblank_timestamp = i915_crtc_get_vblank_timestamp,
->  };
->  
->  static const struct drm_crtc_funcs ilk_crtc_funcs = {
-> @@ -16344,6 +16345,7 @@ static const struct drm_crtc_funcs ilk_crtc_funcs = {
->  	.get_vblank_counter = g4x_get_vblank_counter,
->  	.enable_vblank = ilk_enable_vblank,
->  	.disable_vblank = ilk_disable_vblank,
-> +	.get_vblank_timestamp = i915_crtc_get_vblank_timestamp,
->  };
->  
->  static const struct drm_crtc_funcs g4x_crtc_funcs = {
-> @@ -16352,6 +16354,7 @@ static const struct drm_crtc_funcs g4x_crtc_funcs = {
->  	.get_vblank_counter = g4x_get_vblank_counter,
->  	.enable_vblank = i965_enable_vblank,
->  	.disable_vblank = i965_disable_vblank,
-> +	.get_vblank_timestamp = i915_crtc_get_vblank_timestamp,
->  };
->  
->  static const struct drm_crtc_funcs i965_crtc_funcs = {
-> @@ -16360,6 +16363,7 @@ static const struct drm_crtc_funcs i965_crtc_funcs = {
->  	.get_vblank_counter = i915_get_vblank_counter,
->  	.enable_vblank = i965_enable_vblank,
->  	.disable_vblank = i965_disable_vblank,
-> +	.get_vblank_timestamp = i915_crtc_get_vblank_timestamp,
->  };
->  
->  static const struct drm_crtc_funcs i915gm_crtc_funcs = {
-> @@ -16368,6 +16372,7 @@ static const struct drm_crtc_funcs i915gm_crtc_funcs = {
->  	.get_vblank_counter = i915_get_vblank_counter,
->  	.enable_vblank = i915gm_enable_vblank,
->  	.disable_vblank = i915gm_disable_vblank,
-> +	.get_vblank_timestamp = i915_crtc_get_vblank_timestamp,
->  };
->  
->  static const struct drm_crtc_funcs i915_crtc_funcs = {
-> @@ -16376,6 +16381,7 @@ static const struct drm_crtc_funcs i915_crtc_funcs = {
->  	.get_vblank_counter = i915_get_vblank_counter,
->  	.enable_vblank = i8xx_enable_vblank,
->  	.disable_vblank = i8xx_disable_vblank,
-> +	.get_vblank_timestamp = i915_crtc_get_vblank_timestamp,
->  };
->  
->  static const struct drm_crtc_funcs i8xx_crtc_funcs = {
-> @@ -16384,6 +16390,7 @@ static const struct drm_crtc_funcs i8xx_crtc_funcs = {
->  	/* no hw vblank counter */
->  	.enable_vblank = i8xx_enable_vblank,
->  	.disable_vblank = i8xx_disable_vblank,
-> +	.get_vblank_timestamp = i915_crtc_get_vblank_timestamp,
->  };
->  
->  static struct intel_crtc *intel_crtc_alloc(void)
-> diff --git a/drivers/gpu/drm/i915/i915_drv.c b/drivers/gpu/drm/i915/i915_drv.c
-> index f7385abdd74b..30b9ba136a81 100644
-> --- a/drivers/gpu/drm/i915/i915_drv.c
-> +++ b/drivers/gpu/drm/i915/i915_drv.c
-> @@ -2769,9 +2769,6 @@ static struct drm_driver driver = {
->  	.gem_prime_export = i915_gem_prime_export,
->  	.gem_prime_import = i915_gem_prime_import,
->  
-> -	.get_vblank_timestamp = drm_calc_vbltimestamp_from_scanoutpos,
-> -	.get_scanout_position = i915_get_crtc_scanoutpos,
-> -
->  	.dumb_create = i915_gem_dumb_create,
->  	.dumb_map_offset = i915_gem_dumb_mmap_offset,
->  
-> diff --git a/drivers/gpu/drm/i915/i915_irq.c b/drivers/gpu/drm/i915/i915_irq.c
-> index afc6aad9bf8c..c39e3ef6e4a2 100644
-> --- a/drivers/gpu/drm/i915/i915_irq.c
-> +++ b/drivers/gpu/drm/i915/i915_irq.c
-> @@ -762,13 +762,15 @@ static int __intel_get_crtc_scanline(struct intel_crtc *crtc)
->  	return (position + crtc->scanline_offset) % vtotal;
->  }
->  
-> -bool i915_get_crtc_scanoutpos(struct drm_device *dev, unsigned int index,
-> -			      bool in_vblank_irq, int *vpos, int *hpos,
-> -			      ktime_t *stime, ktime_t *etime,
-> -			      const struct drm_display_mode *mode)
-> +static bool i915_get_crtc_scanoutpos(struct drm_crtc *dcrtc,
-> +				     bool in_vblank_irq,
-> +				     int *vpos, int *hpos,
-> +				     ktime_t *stime, ktime_t *etime,
-> +				     const struct drm_display_mode *mode)
->  {
-> +	struct drm_device *dev = dcrtc->dev;
->  	struct drm_i915_private *dev_priv = to_i915(dev);
-> -	struct intel_crtc *crtc = to_intel_crtc(drm_crtc_from_index(dev, index));
-> +	struct intel_crtc *crtc = to_intel_crtc(dcrtc);
->  	enum pipe pipe = crtc->pipe;
->  	int position;
->  	int vbl_start, vbl_end, hsync_start, htotal, vtotal;
-> @@ -879,6 +881,14 @@ bool i915_get_crtc_scanoutpos(struct drm_device *dev, unsigned int index,
->  	return true;
->  }
->  
-> +bool i915_crtc_get_vblank_timestamp(struct drm_crtc *crtc, int *max_error,
-> +				    ktime_t *vblank_time, bool in_vblank_irq)
-> +{
-> +	return drm_crtc_vblank_helper_get_vblank_timestamp_internal(
-> +		crtc, max_error, vblank_time, in_vblank_irq,
-> +		i915_get_crtc_scanoutpos);
-> +}
-> +
->  int intel_get_crtc_scanline(struct intel_crtc *crtc)
->  {
->  	struct drm_i915_private *dev_priv = to_i915(crtc->base.dev);
-> diff --git a/drivers/gpu/drm/i915/i915_irq.h b/drivers/gpu/drm/i915/i915_irq.h
-> index 812c47a9c2d6..53ec921c1c67 100644
-> --- a/drivers/gpu/drm/i915/i915_irq.h
-> +++ b/drivers/gpu/drm/i915/i915_irq.h
-> @@ -101,10 +101,8 @@ void gen8_irq_power_well_post_enable(struct drm_i915_private *dev_priv,
->  void gen8_irq_power_well_pre_disable(struct drm_i915_private *dev_priv,
->  				     u8 pipe_mask);
->  
-> -bool i915_get_crtc_scanoutpos(struct drm_device *dev, unsigned int pipe,
-> -			      bool in_vblank_irq, int *vpos, int *hpos,
-> -			      ktime_t *stime, ktime_t *etime,
-> -			      const struct drm_display_mode *mode);
-> +bool i915_crtc_get_vblank_timestamp(struct drm_crtc *crtc, int *max_error,
-> +				    ktime_t *vblank_time, bool in_vblank_irq);
->  
->  u32 i915_get_vblank_counter(struct drm_crtc *crtc);
->  u32 g4x_get_vblank_counter(struct drm_crtc *crtc);
-
--- 
-Jani Nikula, Intel Open Source Graphics Center
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+SGkgTmlybW95LAoKQW0gMTUuMDEuMjAgdW0gMTI6MDQgc2NocmllYiBOaXJtb3k6Cj4gSGkgQ2hy
+aXN0aWFuLAo+Cj4gT24gMS8xNC8yMCA1OjAxIFBNLCBDaHJpc3RpYW4gS8O2bmlnIHdyb3RlOgo+
+Pgo+Pj4gQmVmb3JlIHRoaXMgcGF0Y2g6Cj4+Pgo+Pj4gc2NoZWRfbmFtZcKgwqDCoMKgIG51bSBv
+ZiBtYW55IHRpbWVzIGl0IGdvdCBzY2hlZHVsZWQKPj4+ID09PT09PT09PcKgwqDCoMKgwqAgPT09
+PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PQo+Pj4gc2RtYTDCoMKgwqDCoMKgwqDCoMKg
+wqAgMzE0Cj4+PiBzZG1hMcKgwqDCoMKgwqDCoMKgwqDCoCAzMgo+Pj4gY29tcF8xLjAuMMKgwqDC
+oMKgIDU2Cj4+PiBjb21wXzEuMS4wwqDCoMKgwqAgMAo+Pj4gY29tcF8xLjEuMcKgwqDCoMKgIDAK
+Pj4+IGNvbXBfMS4yLjDCoMKgwqDCoCAwCj4+PiBjb21wXzEuMi4xwqDCoMKgwqAgMAo+Pj4gY29t
+cF8xLjMuMMKgwqDCoMKgIDAKPj4+IGNvbXBfMS4zLjHCoMKgwqDCoCAwCj4+Pgo+Pj4gQWZ0ZXIg
+dGhpcyBwYXRjaDoKPj4+Cj4+PiBzY2hlZF9uYW1lwqDCoMKgwqAgbnVtIG9mIG1hbnkgdGltZXMg
+aXQgZ290IHNjaGVkdWxlZAo+Pj4gPT09PT09PT09wqDCoMKgwqDCoCA9PT09PT09PT09PT09PT09
+PT09PT09PT09PT09PT09PT09Cj4+PiDCoCBzZG1hMcKgwqDCoMKgwqDCoMKgwqDCoCAyNDMKPj4+
+IMKgIHNkbWEwwqDCoMKgwqDCoMKgwqDCoMKgIDE2NAo+Pj4gwqAgY29tcF8xLjAuMcKgwqDCoMKg
+IDE0Cj4+PiDCoCBjb21wXzEuMS4wwqDCoMKgwqAgMTEKPj4+IMKgIGNvbXBfMS4xLjHCoMKgwqDC
+oCAxMAo+Pj4gwqAgY29tcF8xLjIuMMKgwqDCoMKgIDE1Cj4+PiDCoCBjb21wXzEuMi4xwqDCoMKg
+wqAgMTQKPj4+IMKgIGNvbXBfMS4zLjDCoMKgwqDCoCAxMAo+Pj4gwqAgY29tcF8xLjMuMcKgwqDC
+oMKgIDEwCj4+Cj4+IFdlbGwgdGhhdCBpcyBzdGlsbCByYXRoZXIgbmljZSB0byBoYXZlLCB3aHkg
+ZG9lcyB0aGF0IGhhcHBlbj8KPgo+IEkgdGhpbmsgSSBrbm93IHdoeSBpdCBoYXBwZW5zLiBBdCBp
+bml0IGFsbCBlbnRpdHkncyBycSBnZXRzIGFzc2lnbmVkIAo+IHRvIHNjaGVkX2xpc3RbMF0uIEkg
+cHV0IHNvbWUgcHJpbnRzIHRvIGNoZWNrIHdoYXQgd2UgY29tcGFyZSBpbiAKPiBkcm1fc2NoZWRf
+ZW50aXR5X2dldF9mcmVlX3NjaGVkLgo+Cj4gSXQgdHVybnMgb3V0IG1vc3Qgb2YgdGhlIHRpbWUg
+aXQgY29tcGFyZXMgemVybyB2YWx1ZXMobnVtX2pvYnMoMCkgPCAKPiBtaW5fam9icygwKSkgc28g
+bW9zdCBvZiB0aGUgdGltZSAxc3QgcnEoc2RtYTAsIGNvbXBfMS4wLjApIHdhcyBwaWNrZWQgCj4g
+YnkgZHJtX3NjaGVkX2VudGl0eV9nZXRfZnJlZV9zY2hlZC4KCldlbGwgdGhhdCBpcyBleHBlY3Rl
+ZCBiZWNhdXNlIHRoZSB1bml0IHRlc3RzIGFsd2F5cyBkb2VzIApzdWJtaXNzaW9uLHdhaXQsc3Vi
+bWlzc2lvbix3YWl0LHN1Ym1pc3Npb24sd2FpdC4uLi4gU28gdGhlIG51bWJlciBvZiAKam9icyBp
+biB0aGUgc2NoZWR1bGVyIGJlY29tZXMgemVybyBpbiBiZXR3ZWVuLgoKPiBUaGlzIHBhdGNoIHdh
+cyBub3QgY29ycmVjdCAsIGhhZCBhbiBleHRyYSBhdG9taWNfaW5jKG51bV9qb2JzKSBpbiAKPiBk
+cm1fc2NoZWRfam9iX2luaXQuIFRoaXMgcHJvYmFibHkgYWRkZWQgYml0IG9mIHJhbmRvbW5lc3Mg
+SSB0aGluaywgCj4gd2hpY2ggaGVscGVkIGluIGJldHRlciBqb2IgZGlzdHJpYnV0aW9uLgoKTWht
+LCB0aGF0IG1pZ2h0IG5vdCBiZSBhIGJhZCBpZGVhIGFmdGVyIGFsbC4gV2UgY291bGQgcmVuYW1l
+IG51bV9qb2JzIAppbnRvIHNvbWV0aGluZyBsaWtlIGxpa2Ugc2NvcmUgYW5kIGRvIGEgKzEgaW4g
+ZHJtX3NjaGVkX3JxX2FkZF9lbnRpdHkoKSAKYW5kIGEgLTEgaW4gZHJtX3NjaGVkX3JxX3JlbW92
+ZV9lbnRpdHkoKS4KClRoYXQgc2hvdWxkIGhhdmUgcHJldHR5IG11Y2ggdGhlIGVmZmVjdCB3ZSB3
+YW50IHRvIGhhdmUuCgo+IEkndmUgdXBkYXRlZCBteSBwcmV2aW91cyBSRkMgcGF0Y2ggd2hpY2gg
+dXNlcyB0aW1lIGNvbnN1bWVkIGJ5IGVhY2ggCj4gc2NoZWQgZm9yIGxvYWQgYmFsYW5jZSB3aXRo
+IGEgdHdpc3Qgb2YgaWdub3JpbmcgcHJldmlvdXNseSBzY2hlZHVsZWQgCj4gc2NoZWQvcnEuIExl
+dCBtZSBrbm93IHdoYXQgZG8geW91IHRoaW5rLgoKSSBkaWRuJ3QgaGFkIHRpbWUgeWV0IHRvIHdy
+YXAgbXkgaGVhZCBhcm91bmQgdGhhdCBpbiBkZXRhaWwsIGJ1dCBhdCAKbGVhc3Qgb2YgaGFuZCBM
+dWJlbiBpcyByaWdodCB0aGF0IHRoZSBsb2NraW5nIGxvb2tzIHJlYWxseSBhd2t3YXJkLgoKQW5k
+IEkgd291bGQgcmF0aGVyIGxpa2UgdG8gYXZvaWQgYSBsYXJnZXIgY2hhbmdlIGxpa2UgdGhpcyBm
+b3IgYSBuaWNlIHRvIApoYXZlIGZvciB0ZXN0aW5nIGZlYXR1cmUuCgpSZWdhcmRzLApDaHJpc3Rp
+YW4uCgo+Cj4KPiBSZWdhcmRzLAo+Cj4gTmlybW95Cj4KPj4KPj4gQ2hyaXN0aWFuLgo+Pgo+PgoK
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
