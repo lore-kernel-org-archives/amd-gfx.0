@@ -2,50 +2,72 @@ Return-Path: <SRS0=p2a1=3E=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.3 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	FAKE_REPLY_C,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-6.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4A5B2C33CB3
-	for <amd-gfx@archiver.kernel.org>; Wed, 15 Jan 2020 22:52:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6F28CC32771
+	for <amd-gfx@archiver.kernel.org>; Wed, 15 Jan 2020 23:18:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 194402467A
-	for <amd-gfx@archiver.kernel.org>; Wed, 15 Jan 2020 22:52:07 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 42DF72077B
+	for <amd-gfx@archiver.kernel.org>; Wed, 15 Jan 2020 23:18:38 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="hdU01DoG"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 194402467A
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ggiCur99"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 42DF72077B
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B1D316EB7B;
-	Wed, 15 Jan 2020 22:52:07 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1F51A6EB7B
- for <amd-gfx@lists.freedesktop.org>; Wed, 15 Jan 2020 22:52:07 +0000 (UTC)
-Received: from localhost (mobile-166-170-223-177.mycingular.net
- [166.170.223.177])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 988A72081E;
- Wed, 15 Jan 2020 22:52:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1579128726;
- bh=0jNy+bobnBWd+ED66N9jPcEYOVLG/NFcQWJ+mvQW0TY=;
- h=Date:From:To:Cc:Subject:In-Reply-To:From;
- b=hdU01DoGzk9pytuLR41mFaaeQQOM0CGn/WnY9xkIKdvKWXgQBUNVfIx8xRKtSmoK5
- Y3Re/uaRZeHQZyxbnguJMAXhL2G6ap15ohQw4x0MzdBX+BjwBIZA6IriKHv5hEWHdD
- av0nyU0MuVJsi6cJBr48iKBH+jA0ae6/3MMhlkDc=
-Date: Wed, 15 Jan 2020 16:52:04 -0600
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Alex Deucher <alexdeucher@gmail.com>
-Subject: Re: [PATCH 0/2] Adjust AMD GPU ATS quirks
-Message-ID: <20200115225204.GA222285@google.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 237966EB87;
+	Wed, 15 Jan 2020 23:18:32 +0000 (UTC)
+Received: from mail-qv1-xf42.google.com (mail-qv1-xf42.google.com
+ [IPv6:2607:f8b0:4864:20::f42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 67F476EB7F;
+ Wed, 15 Jan 2020 23:18:30 +0000 (UTC)
+Received: by mail-qv1-xf42.google.com with SMTP id m14so8236140qvl.3;
+ Wed, 15 Jan 2020 15:18:30 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=UpvlowCsrupkOKWs9KxGBnIKBt8PC3L4e1k91b9xY8g=;
+ b=ggiCur99WNdd3h4Jf4LjYSQuVDYl4E6Qhn75niLIA1NPB53AMADsLKzA2B0KWaFAgK
+ WFdXvlt8+DPByk1ih4xrHxBRcbkgz8qO9bswwNFGfsUZbRPo6b31am0pz1xefAjLntlP
+ uS2VLS0/f9yaf0r1KeNFzFOIWhIAWTtphEDLkK0QbnbDqESvryo3WHfDJWJp/YgjeMX8
+ G4rJ5JOftvLz/NJO6YhYNgP5TPucnRvGTEhwzgTGl3mcbiN7czbucknxIere/2OP3t5W
+ X7kxJchchRsKbf3x3F4QS9BWapPAyaftRs+PH7uwnZWV5h0kpf6jYwM0+M6v3GOQosJF
+ H8Hg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=UpvlowCsrupkOKWs9KxGBnIKBt8PC3L4e1k91b9xY8g=;
+ b=JKobmHMnMysWe2kZJv2U6WikAAmvcwPrK34tRCswY+NEgjo5r8oBt4TN+l8tKuE04B
+ iWxLlh73RzhbKzXpS8RatsaUhuvBvXr3TM01K5m7phbZNKOxgT246qo+K6v1VwS6d8z9
+ LvK1zu8/86pK/oT/TdnkiOzH4VH6lUSdjHSerKfWq6Zvap0JnPtc6+RkqCJSg4qJUsCg
+ O793kFZyTejP0uIcRlPcH/E1HJTRJ5EvdGVT++CLzYHaw3VRMvTcSuVfgaRysOmyeF7v
+ 18SMUWgw4dNxcVocu7nRPQ+Sl0+j0knaYKCIN54jUBbmujpOqqVEp9WeCARnz5XBOf4A
+ h3xg==
+X-Gm-Message-State: APjAAAU7jaT2RAYnU4RRmTV7KBclimNTxyPkvIF4caEhYHiYVpjBua0C
+ qIBbBY4ZkuhGLNx27zrBzUs=
+X-Google-Smtp-Source: APXvYqx/GPl8/eYOnPUqiqDbqgb1g3EZTxvoIVWy4jSW/CyzNiZv5vi33T3StFjkwqyaO4BHiF+Vxw==
+X-Received: by 2002:a05:6214:20c:: with SMTP id
+ i12mr28835407qvt.48.1579130309513; 
+ Wed, 15 Jan 2020 15:18:29 -0800 (PST)
+Received: from smtp.gmail.com ([165.204.55.250])
+ by smtp.gmail.com with ESMTPSA id d5sm10518385qtk.96.2020.01.15.15.18.27
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 15 Jan 2020 15:18:28 -0800 (PST)
+Date: Wed, 15 Jan 2020 18:18:23 -0500
+From: Rodrigo Siqueira <rodrigosiqueiramelo@gmail.com>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+Subject: Re: [PATCH v2 19/21] drm/vkms: Convert to CRTC VBLANK callbacks
+Message-ID: <20200115231823.v6uyxtgxnfgwmsqq@smtp.gmail.com>
+References: <20200115121652.7050-1-tzimmermann@suse.de>
+ <20200115121652.7050-20-tzimmermann@suse.de>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <CADnq5_MbiwYBNj5tB9=Dwj02Mi4GwJ7_5uBtx+8RkOdfC5HqLw@mail.gmail.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
+In-Reply-To: <20200115121652.7050-20-tzimmermann@suse.de>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,44 +79,153 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- Linux PCI <linux-pci@vger.kernel.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: hamohammed.sa@gmail.com, airlied@linux.ie, nouveau@lists.freedesktop.org,
+ joonas.lahtinen@linux.intel.com, dri-devel@lists.freedesktop.org,
+ eric@anholt.net, amd-gfx@lists.freedesktop.org, benjamin.gaignard@linaro.org,
+ alexandre.torgue@st.com, David1.Zhou@amd.com, thellstrom@vmware.com,
+ sean@poorly.run, patrik.r.jakobsson@gmail.com,
+ linux-graphics-maintainer@vmware.com, bskeggs@redhat.com,
+ harry.wentland@amd.com, mcoquelin.stm32@gmail.com, sunpeng.li@amd.com,
+ linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ maarten.lankhorst@linux.intel.com, jani.nikula@linux.intel.com,
+ rodrigo.vivi@intel.com, vincent.abriou@st.com, philippe.cornu@st.com,
+ yannick.fertre@st.com, robdclark@gmail.com, daniel@ffwll.ch,
+ alexander.deucher@amd.com, freedreno@lists.freedesktop.org,
+ christian.koenig@amd.com
+Content-Type: multipart/mixed; boundary="===============0332875045=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Jan 15, 2020 at 03:20:18PM -0500, Alex Deucher wrote:
-> On Wed, Jan 15, 2020 at 3:17 PM Bjorn Helgaas <helgaas@kernel.org> wrote:
-> > On Wed, Jan 15, 2020 at 12:26:32PM -0500, Alex Deucher wrote:
-> > > On Wed, Jan 15, 2020 at 12:14 PM Bjorn Helgaas <helgaas@kernel.org> wrote:
-> > > > On Tue, Jan 14, 2020 at 05:41:44PM -0600, Bjorn Helgaas wrote:
-> > > > > On Tue, Jan 14, 2020 at 03:55:21PM -0500, Alex Deucher wrote:
-> > > > > > We've root caused the issue and clarified the quirk.
-> > > > > > This also adds a new quirk for a new GPU.
-> > > > > >
-> > > > > > Alex Deucher (2):
-> > > > > >   pci: Clarify ATS quirk
-> > > > > >   pci: add ATS quirk for navi14 board (v2)
-> > > > > >
-> > > > > >  drivers/pci/quirks.c | 32 +++++++++++++++++++++++++-------
-> > > > > >  1 file changed, 25 insertions(+), 7 deletions(-)
-> > > > >
-> > > > > I propose the following, which I intend to be functionally identical.
-> > > > > It just doesn't repeat the pci_info() and pdev->ats_cap = 0.
-> > > >
-> > > > Applied to pci/misc for v5.6, thanks!
-> > >
-> > > Can we add this to stable as well?
-> >
-> > Done!  Do you want it in v5.5?  It's pretty localized so looks pretty
-> > low-risk.
-> 
-> Sure.  Thanks!
 
-Moved to for-linus for v5.5.
+--===============0332875045==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="mkcm5mxh5ewyz3eu"
+Content-Disposition: inline
+
+
+--mkcm5mxh5ewyz3eu
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+Hi,
+
+Thanks for the patch, I reviewed and tested it. Everything looks fine
+for VKMS.
+
+Reviewed-by: Rodrigo Siqueira <rodrigosiqueira@gmail.com>
+Tested-by: Rodrigo Siqueira <rodrigosiqueira@gmail.com>
+
+On 01/15, Thomas Zimmermann wrote:
+> VBLANK callbacks in struct drm_driver are deprecated in favor of
+> their equivalents in struct drm_crtc_funcs. Convert vkms over.
+>=20
+> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+> ---
+>  drivers/gpu/drm/vkms/vkms_crtc.c | 9 ++++++---
+>  drivers/gpu/drm/vkms/vkms_drv.c  | 1 -
+>  drivers/gpu/drm/vkms/vkms_drv.h  | 4 ----
+>  3 files changed, 6 insertions(+), 8 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/vkms/vkms_crtc.c b/drivers/gpu/drm/vkms/vkms=
+_crtc.c
+> index 74f703b8d22a..ac85e17428f8 100644
+> --- a/drivers/gpu/drm/vkms/vkms_crtc.c
+> +++ b/drivers/gpu/drm/vkms/vkms_crtc.c
+> @@ -76,10 +76,12 @@ static void vkms_disable_vblank(struct drm_crtc *crtc)
+>  	hrtimer_cancel(&out->vblank_hrtimer);
+>  }
+> =20
+> -bool vkms_get_vblank_timestamp(struct drm_device *dev, unsigned int pipe,
+> -			       int *max_error, ktime_t *vblank_time,
+> -			       bool in_vblank_irq)
+> +static bool vkms_get_vblank_timestamp(struct drm_crtc *crtc,
+> +				      int *max_error, ktime_t *vblank_time,
+> +				      bool in_vblank_irq)
+>  {
+> +	struct drm_device *dev =3D crtc->dev;
+> +	unsigned int pipe =3D crtc->index;
+>  	struct vkms_device *vkmsdev =3D drm_device_to_vkms_device(dev);
+>  	struct vkms_output *output =3D &vkmsdev->output;
+>  	struct drm_vblank_crtc *vblank =3D &dev->vblank[pipe];
+> @@ -154,6 +156,7 @@ static const struct drm_crtc_funcs vkms_crtc_funcs =
+=3D {
+>  	.atomic_destroy_state   =3D vkms_atomic_crtc_destroy_state,
+>  	.enable_vblank		=3D vkms_enable_vblank,
+>  	.disable_vblank		=3D vkms_disable_vblank,
+> +	.get_vblank_timestamp	=3D vkms_get_vblank_timestamp,
+>  	.get_crc_sources	=3D vkms_get_crc_sources,
+>  	.set_crc_source		=3D vkms_set_crc_source,
+>  	.verify_crc_source	=3D vkms_verify_crc_source,
+> diff --git a/drivers/gpu/drm/vkms/vkms_drv.c b/drivers/gpu/drm/vkms/vkms_=
+drv.c
+> index 25bd7519295f..860de052e820 100644
+> --- a/drivers/gpu/drm/vkms/vkms_drv.c
+> +++ b/drivers/gpu/drm/vkms/vkms_drv.c
+> @@ -103,7 +103,6 @@ static struct drm_driver vkms_driver =3D {
+>  	.dumb_create		=3D vkms_dumb_create,
+>  	.gem_vm_ops		=3D &vkms_gem_vm_ops,
+>  	.gem_free_object_unlocked =3D vkms_gem_free_object,
+> -	.get_vblank_timestamp	=3D vkms_get_vblank_timestamp,
+>  	.prime_fd_to_handle	=3D drm_gem_prime_fd_to_handle,
+>  	.gem_prime_import_sg_table =3D vkms_prime_import_sg_table,
+> =20
+> diff --git a/drivers/gpu/drm/vkms/vkms_drv.h b/drivers/gpu/drm/vkms/vkms_=
+drv.h
+> index 7d52e24564db..eda04ffba7b1 100644
+> --- a/drivers/gpu/drm/vkms/vkms_drv.h
+> +++ b/drivers/gpu/drm/vkms/vkms_drv.h
+> @@ -111,10 +111,6 @@ struct vkms_gem_object {
+>  int vkms_crtc_init(struct drm_device *dev, struct drm_crtc *crtc,
+>  		   struct drm_plane *primary, struct drm_plane *cursor);
+> =20
+> -bool vkms_get_vblank_timestamp(struct drm_device *dev, unsigned int pipe,
+> -			       int *max_error, ktime_t *vblank_time,
+> -			       bool in_vblank_irq);
+> -
+>  int vkms_output_init(struct vkms_device *vkmsdev, int index);
+> =20
+>  struct drm_plane *vkms_plane_init(struct vkms_device *vkmsdev,
+> --=20
+> 2.24.1
+>=20
+
+--=20
+Rodrigo Siqueira
+Software Engineer, Advanced Micro Devices (AMD)
+https://siqueira.tech
+
+--mkcm5mxh5ewyz3eu
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCgAdFiEE4tZ+ii1mjMCMQbfkWJzP/comvP8FAl4fnb8ACgkQWJzP/com
+vP/gKw/+MnM27NT0QpqQpa6WMwn9PCq/07UFLOG7BuTGP2CvZOJv8Tma7U6bu9Sf
+Z3IwiMYNJV8FJtwdRd+BTThIYGPTtofxsJ2R3ybhUj/VEeUaEhC2ifzwVrphEePR
+3/b4QFlf/vrMfsdJSOSam6vvaiI+jE4X1ZASrUKbcl5w9KeBhs2VmcwVKmtqQgaD
+YHWIWUwiwsd544GltP+mx7qxZ5+ZHVC+OuJq/GNzhwD9MyXTliBcM6nov+FPV/HE
+aT4WrhBCiDHhISO9sTYPqiV6Vo7XV6sPzDMFncNqueMwP4qQr/mFebxPtlUtPYOO
+jwg0ZTq/6KL+QeJM55Ygg0cvVUvG14G8ZSktb4s7rPRWE4k7/DZWP2w/xP1xVsoP
+H+Q2jvjTV1qu+G2A7vtP2gYBsCx7WoYfIoR045pAIEKEz5FLF38GFY04uS/T0M3u
+eez0yNDC1EojMWeTTPM5Lm7MCUPx7sR6V14gGDDVs/QBmZpgyJkWj4unYBCwk9Ge
+oMSZkUhnnJT4FutLRaJk0awg7iMw7yj4XNJgKB1vEVwS2/RkJ6jrgw/PoihwOBLZ
+Gmm6Ys+btER/e9zHA+u8Z5z0guAkI8r9H8ikMtqSza6RipedsEIrncLV8U2l+hwT
+ooPnCySDn8Xkw985ZR+/UW0I+FjjWDVdn3jmwcyRZ99fksmbvkY=
+=KRlQ
+-----END PGP SIGNATURE-----
+
+--mkcm5mxh5ewyz3eu--
+
+--===============0332875045==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--===============0332875045==--
