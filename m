@@ -2,93 +2,71 @@ Return-Path: <SRS0=p2a1=3E=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.3 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-5.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,
+	SPF_HELO_NONE,SPF_PASS autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DACF3C33CB3
-	for <amd-gfx@archiver.kernel.org>; Wed, 15 Jan 2020 07:31:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 945A7C33CB2
+	for <amd-gfx@archiver.kernel.org>; Wed, 15 Jan 2020 07:44:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B88F92081E
-	for <amd-gfx@archiver.kernel.org>; Wed, 15 Jan 2020 07:31:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B88F92081E
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=suse.de
+	by mail.kernel.org (Postfix) with ESMTPS id 6A5AE222C3
+	for <amd-gfx@archiver.kernel.org>; Wed, 15 Jan 2020 07:44:53 +0000 (UTC)
+Authentication-Results: mail.kernel.org;
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=endlessm-com.20150623.gappssmtp.com header.i=@endlessm-com.20150623.gappssmtp.com header.b="TAhdPkwd"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6A5AE222C3
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=endlessm.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8E91D6E865;
-	Wed, 15 Jan 2020 07:31:26 +0000 (UTC)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9AD186E14D;
- Wed, 15 Jan 2020 07:31:24 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 0261FAD3C;
- Wed, 15 Jan 2020 07:31:21 +0000 (UTC)
-Subject: Re: [PATCH 01/23] drm: Add get_scanout_position() to struct
- drm_crtc_helper_funcs
-To: Yannick FERTRE <yannick.fertre@st.com>,
- "airlied@linux.ie" <airlied@linux.ie>, "daniel@ffwll.ch" <daniel@ffwll.ch>,
- "alexander.deucher@amd.com" <alexander.deucher@amd.com>,
- "christian.koenig@amd.com" <christian.koenig@amd.com>,
- "David1.Zhou@amd.com" <David1.Zhou@amd.com>,
- "maarten.lankhorst@linux.intel.com" <maarten.lankhorst@linux.intel.com>,
- "patrik.r.jakobsson@gmail.com" <patrik.r.jakobsson@gmail.com>,
- "robdclark@gmail.com" <robdclark@gmail.com>,
- "sean@poorly.run" <sean@poorly.run>,
- "benjamin.gaignard@linaro.org" <benjamin.gaignard@linaro.org>,
- Vincent ABRIOU <vincent.abriou@st.com>,
- Philippe CORNU <philippe.cornu@st.com>,
- "mcoquelin.stm32@gmail.com" <mcoquelin.stm32@gmail.com>,
- Alexandre TORGUE <alexandre.torgue@st.com>, "eric@anholt.net"
- <eric@anholt.net>,
- "rodrigosiqueiramelo@gmail.com" <rodrigosiqueiramelo@gmail.com>,
- "hamohammed.sa@gmail.com" <hamohammed.sa@gmail.com>,
- "linux-graphics-maintainer@vmware.com"
- <linux-graphics-maintainer@vmware.com>,
- "thellstrom@vmware.com" <thellstrom@vmware.com>,
- "bskeggs@redhat.com" <bskeggs@redhat.com>,
- "harry.wentland@amd.com" <harry.wentland@amd.com>,
- "sunpeng.li@amd.com" <sunpeng.li@amd.com>,
- "jani.nikula@linux.intel.com" <jani.nikula@linux.intel.com>,
- "joonas.lahtinen@linux.intel.com" <joonas.lahtinen@linux.intel.com>,
- "rodrigo.vivi@intel.com" <rodrigo.vivi@intel.com>
-References: <20200110092127.27847-1-tzimmermann@suse.de>
- <20200110092127.27847-2-tzimmermann@suse.de>
- <921ff745-0f2a-0bb6-c758-07174ac26e40@st.com>
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- mQENBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAG0J1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPokBVAQTAQgAPhYh
- BHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJbOdLgAhsDBQkDwmcABQsJCAcCBhUKCQgLAgQWAgMB
- Ah4BAheAAAoJEGgNwR1TC3ojR80H/jH+vYavwQ+TvO8ksXL9JQWc3IFSiGpuSVXLCdg62AmR
- irxW+qCwNncNQyb9rd30gzdectSkPWL3KSqEResBe24IbA5/jSkPweJasgXtfhuyoeCJ6PXo
- clQQGKIoFIAEv1s8l0ggPZswvCinegl1diyJXUXmdEJRTWYAtxn/atut1o6Giv6D2qmYbXN7
- mneMC5MzlLaJKUtoH7U/IjVw1sx2qtxAZGKVm4RZxPnMCp9E1MAr5t4dP5gJCIiqsdrVqI6i
- KupZstMxstPU//azmz7ZWWxT0JzgJqZSvPYx/SATeexTYBP47YFyri4jnsty2ErS91E6H8os
- Bv6pnSn7eAq5AQ0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRH
- UE9eosYbT6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgT
- RjP+qbU63Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+R
- dhgATnWWGKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zb
- ehDda8lvhFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r
- 12+lqdsAEQEAAYkBPAQYAQgAJhYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJbOdLgAhsMBQkD
- wmcAAAoJEGgNwR1TC3ojpfcIAInwP5OlcEKokTnHCiDTz4Ony4GnHRP2fXATQZCKxmu4AJY2
- h9ifw9Nf2TjCZ6AMvC3thAN0rFDj55N9l4s1CpaDo4J+0fkrHuyNacnT206CeJV1E7NYntxU
- n+LSiRrOdywn6erjxRi9EYTVLCHcDhBEjKmFZfg4AM4GZMWX1lg0+eHbd5oL1as28WvvI/uI
- aMyV8RbyXot1r/8QLlWldU3NrTF5p7TMU2y3ZH2mf5suSKHAMtbE4jKJ8ZHFOo3GhLgjVrBW
- HE9JXO08xKkgD+w6v83+nomsEuf6C6LYrqY/tsZvyEX6zN8CtirPdPWu/VXNRYAl/lat7lSI
- 3H26qrE=
-Message-ID: <fdef25cd-8784-c8b5-4cd0-1ffcf5e27695@suse.de>
-Date: Wed, 15 Jan 2020 08:31:16 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.3.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 002646E861;
+	Wed, 15 Jan 2020 07:44:52 +0000 (UTC)
+Received: from mail-qk1-x741.google.com (mail-qk1-x741.google.com
+ [IPv6:2607:f8b0:4864:20::741])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F31A76E861
+ for <amd-gfx@lists.freedesktop.org>; Wed, 15 Jan 2020 07:44:51 +0000 (UTC)
+Received: by mail-qk1-x741.google.com with SMTP id r14so14780027qke.13
+ for <amd-gfx@lists.freedesktop.org>; Tue, 14 Jan 2020 23:44:51 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=endlessm-com.20150623.gappssmtp.com; s=20150623;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=LTVIYeQ6AAaOMzE6Dr4mFcbzclaVh9FA4XP4/GSMGwo=;
+ b=TAhdPkwdP+lOPnPQhyn6iJBFNZ4wBz8+zXiyysfz1KEJoDMd8LosaF14Eqgwle9Wvh
+ /tYpzFKHdXMc3D+g96wMtv5pAv832YmU3YDFTIACU8Dc4qVMpbnV0cYIKkbRkzqqhkYF
+ QE5ItFnyXfS0OBMjn0ypeGfDpP9kgJKcgmCcUJCsSFBeWtoG3AlLI68AminHhFwysxiP
+ gHywwAvbjJfgjCBUKjLa01odKz7fc5uZUkUGDJM5tGRcN9X48V05EH1WeiTLDDooCSWj
+ Bj++DInpQqRbYvRZPT4y2rxul5CzpnKF2xuAP8prwCcbXaSlUPUwU4UrIZZ96WRASX2T
+ qdeg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=LTVIYeQ6AAaOMzE6Dr4mFcbzclaVh9FA4XP4/GSMGwo=;
+ b=pRvvBeituzTTfhCtyGdJbCtbAsSSfqxMgMh6XTrsVEMveOXmOcTFIkJccB6UoiihAT
+ WsOolKrJdJe2hRSt98AZOXf5F3MGx1vl+C8YZBPZqcOKabiNYRMcw0NeqrgW6qWKLrSu
+ nwr+rFKAEzIyr7tVZFzHtKuumY7IM8qF3vht3QEYdKqccrJLwaP5osol92OtXnRu9PZ8
+ Ifp5sGo4k5ElJwb0c0PSpZPYo8Tj073cxn++kOG774VB4sUia5XWzV62NDYUQ8kMGF+2
+ jxbIsG7Zc+PIougHNJlXiEixyqeTKFDDFUdp3mGE8SBNcQVakRgPRJTgrIMykyLEaKJM
+ MqXg==
+X-Gm-Message-State: APjAAAVwRAM/7Uk1KdQsEe6XzGm9HPFO8W6nNsNzjPBTef5KwBtyRRcd
+ IDXBdPFiMz0QrNf0Ozeu7TY+Kc/q4B1v8GS14RRKQg==
+X-Google-Smtp-Source: APXvYqwrUfbScoyVZBBbQjT7My45ZO3JYPfT0OQJZ0tiAMVJJkFQNgCiI1RYTDY1ZGHFHLvLSkzKWpV9AvEJ96llcck=
+X-Received: by 2002:a37:9ec2:: with SMTP id h185mr25663168qke.14.1579074290928; 
+ Tue, 14 Jan 2020 23:44:50 -0800 (PST)
 MIME-Version: 1.0
-In-Reply-To: <921ff745-0f2a-0bb6-c758-07174ac26e40@st.com>
+References: <20191015065002.18701-1-drake@endlessm.com>
+ <CADnq5_M4Leu0raYS6M72MqTm1+PLg9BjHCHLAYuB2-dEVP56_A@mail.gmail.com>
+ <CAD8Lp443ZhPEo0PJRxbTSB9DY9x92OvWBeH29m9Ehpyhg+2n5A@mail.gmail.com>
+ <CADnq5_OaATVESAY9E2mtd7PoV2VjG=WLS56LCHVpieSHDTas0A@mail.gmail.com>
+ <CAD8Lp46f9LR_VJ26BGfOGvj8sTjKZowkbjLNv6R4CsVMfRZQ=Q@mail.gmail.com>
+ <CAD8Lp46+Te+AUQKLkLEcGf34izw=JzkU5w=CsZRf_UKJQ_k7qg@mail.gmail.com>
+ <CADnq5_OObnKTP7-tBmPz75R5qXs8ubRxgfX-qkBnzqcox0TZyQ@mail.gmail.com>
+In-Reply-To: <CADnq5_OObnKTP7-tBmPz75R5qXs8ubRxgfX-qkBnzqcox0TZyQ@mail.gmail.com>
+From: Daniel Drake <drake@endlessm.com>
+Date: Wed, 15 Jan 2020 15:44:39 +0800
+Message-ID: <CAD8Lp44FKuEsmdK+zDX_-ZYQEnqjQM-z6nnfE-CJ62mutd+scA@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: always reset asic when going into suspend
+To: Alex Deucher <alexdeucher@gmail.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,297 +78,91 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "linux-arm-msm@vger.kernel.org" <linux-arm-msm@vger.kernel.org>,
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "nouveau@lists.freedesktop.org" <nouveau@lists.freedesktop.org>,
- "freedreno@lists.freedesktop.org" <freedreno@lists.freedesktop.org>
-Content-Type: multipart/mixed; boundary="===============2099872557=="
+Cc: "Deucher, Alexander" <alexander.deucher@amd.com>,
+ Chunming Zhou <David1.Zhou@amd.com>,
+ Christian Koenig <christian.koenig@amd.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Linux PM <linux-pm@vger.kernel.org>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---===============2099872557==
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="dy8utQKQWBe6XuW8macqRBBoPSguKlppq"
+On Thu, Dec 19, 2019 at 10:08 PM Alex Deucher <alexdeucher@gmail.com> wrote:
+> I think there may be some AMD specific handling needed in
+> drivers/acpi/sleep.c.  My understanding from reading the modern
+> standby documents from MS is that each vendor needs to provide a
+> platform specific PEP driver.  I'm not sure how much of that current
+> code is Intel specific or not.
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---dy8utQKQWBe6XuW8macqRBBoPSguKlppq
-Content-Type: multipart/mixed; boundary="SmewxxS8D8HCScoDniLEP9bGTKtCgtZAO";
- protected-headers="v1"
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: Yannick FERTRE <yannick.fertre@st.com>,
- "airlied@linux.ie" <airlied@linux.ie>, "daniel@ffwll.ch" <daniel@ffwll.ch>,
- "alexander.deucher@amd.com" <alexander.deucher@amd.com>,
- "christian.koenig@amd.com" <christian.koenig@amd.com>,
- "David1.Zhou@amd.com" <David1.Zhou@amd.com>,
- "maarten.lankhorst@linux.intel.com" <maarten.lankhorst@linux.intel.com>,
- "patrik.r.jakobsson@gmail.com" <patrik.r.jakobsson@gmail.com>,
- "robdclark@gmail.com" <robdclark@gmail.com>,
- "sean@poorly.run" <sean@poorly.run>,
- "benjamin.gaignard@linaro.org" <benjamin.gaignard@linaro.org>,
- Vincent ABRIOU <vincent.abriou@st.com>,
- Philippe CORNU <philippe.cornu@st.com>,
- "mcoquelin.stm32@gmail.com" <mcoquelin.stm32@gmail.com>,
- Alexandre TORGUE <alexandre.torgue@st.com>, "eric@anholt.net"
- <eric@anholt.net>,
- "rodrigosiqueiramelo@gmail.com" <rodrigosiqueiramelo@gmail.com>,
- "hamohammed.sa@gmail.com" <hamohammed.sa@gmail.com>,
- "linux-graphics-maintainer@vmware.com"
- <linux-graphics-maintainer@vmware.com>,
- "thellstrom@vmware.com" <thellstrom@vmware.com>,
- "bskeggs@redhat.com" <bskeggs@redhat.com>,
- "harry.wentland@amd.com" <harry.wentland@amd.com>,
- "sunpeng.li@amd.com" <sunpeng.li@amd.com>,
- "jani.nikula@linux.intel.com" <jani.nikula@linux.intel.com>,
- "joonas.lahtinen@linux.intel.com" <joonas.lahtinen@linux.intel.com>,
- "rodrigo.vivi@intel.com" <rodrigo.vivi@intel.com>
-Cc: "linux-arm-msm@vger.kernel.org" <linux-arm-msm@vger.kernel.org>,
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "nouveau@lists.freedesktop.org" <nouveau@lists.freedesktop.org>,
- "freedreno@lists.freedesktop.org" <freedreno@lists.freedesktop.org>
-Message-ID: <fdef25cd-8784-c8b5-4cd0-1ffcf5e27695@suse.de>
-Subject: Re: [PATCH 01/23] drm: Add get_scanout_position() to struct
- drm_crtc_helper_funcs
-References: <20200110092127.27847-1-tzimmermann@suse.de>
- <20200110092127.27847-2-tzimmermann@suse.de>
- <921ff745-0f2a-0bb6-c758-07174ac26e40@st.com>
-In-Reply-To: <921ff745-0f2a-0bb6-c758-07174ac26e40@st.com>
+I don't think there is anything Intel-specific in drivers/acpi/sleep.c.
 
---SmewxxS8D8HCScoDniLEP9bGTKtCgtZAO
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: quoted-printable
+Reading more about PEP, I see that Linux supports PEP devices with
+ACPI ID INT33A1 or PNP0D80. Indeed the Intel platforms we work with
+have INT33A1 devices in their ACPI tables.
 
-Hi
+This product has a \_SB.PEP ACPI device with _HID AMD0004 and _CID
+PNP0D80. Full acpidump:
+https://gist.github.com/dsd/ff3dfc0f63cdd9eba4a0fbd9e776e8be (see
+ssdt7)
 
-Am 14.01.20 um 16:31 schrieb Yannick FERTRE:
-> Thanks for the patch.
->=20
-> Tested-by: Yannick Fertr=C3=A9 <yannick.fertre@st.com>=20
+This PEP device responds to a _DSM with UUID argument
+"e3f32452-febc-43ce-9039-932122d37721", which is not the one
+documented at https://uefi.org/sites/default/files/resources/Intel_ACPI_Low_Power_S0_Idle.pdf
 
-Thanks for testing all these patches.
+Nevertheless, there is some data about the GPU:
+                    Package (0x04)
+                    {
+                        One,
+                        "\\_SB.PCI0.GP17.VGA",
+                        Zero,
+                        0x03
+                    },
 
-Best regards
-Thomas
+However since this data is identical to many other devices that
+suspend and resume just fine, I wonder if it is really important.
 
->=20
-> BR
-> Yannick Fertr=C3=A9
->=20
->=20
-> On 1/10/20 10:21 AM, Thomas Zimmermann wrote:
->> The new callback get_scanout_position() reads the current location of
->> the scanout process. The operation is currentyl located in struct
->> drm_driver, but really belongs to the CRTC. Drivers will be converted
->> in separate patches.
->>
->> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
->> ---
->>  drivers/gpu/drm/drm_vblank.c             | 24 ++++++++----
->>  include/drm/drm_drv.h                    |  7 +---
->>  include/drm/drm_modeset_helper_vtables.h | 47 +++++++++++++++++++++++=
-+
->>  3 files changed, 65 insertions(+), 13 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/drm_vblank.c b/drivers/gpu/drm/drm_vblank=
-=2Ec
->> index 1659b13b178c..c12f0b333e14 100644
->> --- a/drivers/gpu/drm/drm_vblank.c
->> +++ b/drivers/gpu/drm/drm_vblank.c
->> @@ -30,6 +30,7 @@
->>  #include <drm/drm_crtc.h>
->>  #include <drm/drm_drv.h>
->>  #include <drm/drm_framebuffer.h>
->> +#include <drm/drm_modeset_helper_vtables.h>
->>  #include <drm/drm_print.h>
->>  #include <drm/drm_vblank.h>
->> =20
->> @@ -590,7 +591,7 @@ EXPORT_SYMBOL(drm_calc_timestamping_constants);
->>   * Implements calculation of exact vblank timestamps from given drm_d=
-isplay_mode
->>   * timings and current video scanout position of a CRTC. This can be =
-directly
->>   * used as the &drm_driver.get_vblank_timestamp implementation of a k=
-ms driver
->> - * if &drm_driver.get_scanout_position is implemented.
->> + * if &drm_crtc_helper_funcs.get_scanout_position is implemented.
->>   *
->>   * The current implementation only handles standard video modes. For =
-double scan
->>   * and interlaced modes the driver is supposed to adjust the hardware=
- mode
->> @@ -632,8 +633,9 @@ bool drm_calc_vbltimestamp_from_scanoutpos(struct =
-drm_device *dev,
->>  	}
->> =20
->>  	/* Scanout position query not supported? Should not happen. */
->> -	if (!dev->driver->get_scanout_position) {
->> -		DRM_ERROR("Called from driver w/o get_scanout_position()!?\n");
->> +	if (!dev->driver->get_scanout_position ||
->> +	    !crtc->helper_private->get_scanout_position) {
->> +		DRM_ERROR("Called from CRTC w/o get_scanout_position()!?\n");
->>  		return false;
->>  	}
->> =20
->> @@ -664,11 +666,17 @@ bool drm_calc_vbltimestamp_from_scanoutpos(struc=
-t drm_device *dev,
->>  		 * Get vertical and horizontal scanout position vpos, hpos,
->>  		 * and bounding timestamps stime, etime, pre/post query.
->>  		 */
->> -		vbl_status =3D dev->driver->get_scanout_position(dev, pipe,
->> -							       in_vblank_irq,
->> -							       &vpos, &hpos,
->> -							       &stime, &etime,
->> -							       mode);
->> +		if (crtc->helper_private->get_scanout_position) {
->> +			vbl_status =3D
->> +				crtc->helper_private->get_scanout_position(
->> +					crtc, in_vblank_irq, &vpos, &hpos,
->> +					&stime, &etime, mode);
->> +		} else {
->> +			vbl_status =3D
->> +				dev->driver->get_scanout_position(
->> +					dev, pipe, in_vblank_irq, &vpos,
->> +					&hpos, &stime, &etime, mode);
->> +		}
->> =20
->>  		/* Return as no-op if scanout query unsupported or failed. */
->>  		if (!vbl_status) {
->> diff --git a/include/drm/drm_drv.h b/include/drm/drm_drv.h
->> index cf13470810a5..d0049e5786fc 100644
->> --- a/include/drm/drm_drv.h
->> +++ b/include/drm/drm_drv.h
->> @@ -362,11 +362,8 @@ struct drm_driver {
->>  	 * True on success, false if a reliable scanout position counter cou=
-ld
->>  	 * not be read out.
->>  	 *
->> -	 * FIXME:
->> -	 *
->> -	 * Since this is a helper to implement @get_vblank_timestamp, we sho=
-uld
->> -	 * move it to &struct drm_crtc_helper_funcs, like all the other
->> -	 * helper-internal hooks.
->> +	 * This is deprecated and should not be used by new drivers.
->> +	 * Use &drm_crtc_helper_funcs.get_scanout_position instead.
->>  	 */
->>  	bool (*get_scanout_position) (struct drm_device *dev, unsigned int p=
-ipe,
->>  				      bool in_vblank_irq, int *vpos, int *hpos,
->> diff --git a/include/drm/drm_modeset_helper_vtables.h b/include/drm/dr=
-m_modeset_helper_vtables.h
->> index 5a87f1bd7a3f..e398512bfd5f 100644
->> --- a/include/drm/drm_modeset_helper_vtables.h
->> +++ b/include/drm/drm_modeset_helper_vtables.h
->> @@ -450,6 +450,53 @@ struct drm_crtc_helper_funcs {
->>  	 */
->>  	void (*atomic_disable)(struct drm_crtc *crtc,
->>  			       struct drm_crtc_state *old_crtc_state);
->> +
->> +	/**
->> +	 * @get_scanout_position:
->> +	 *
->> +	 * Called by vblank timestamping code.
->> +	 *
->> +	 * Returns the current display scanout position from a CRTC and an
->> +	 * optional accurate ktime_get() timestamp of when the position was
->> +	 * measured. Note that this is a helper callback which is only used
->> +	 * if a driver uses drm_calc_vbltimestamp_from_scanoutpos() for the
->> +	 * @drm_driver.get_vblank_timestamp callback.
->> +	 *
->> +	 * Parameters:
->> +	 *
->> +	 * crtc:
->> +	 *     The CRTC.
->> +	 * in_vblank_irq:
->> +	 *     True when called from drm_crtc_handle_vblank(). Some drivers
->> +	 *     need to apply some workarounds for gpu-specific vblank irq
->> +	 *     quirks if the flag is set.
->> +	 * vpos:
->> +	 *     Target location for current vertical scanout position.
->> +	 * hpos:
->> +	 *     Target location for current horizontal scanout position.
->> +	 * stime:
->> +	 *     Target location for timestamp taken immediately before
->> +	 *     scanout position query. Can be NULL to skip timestamp.
->> +	 * etime:
->> +	 *     Target location for timestamp taken immediately after
->> +	 *     scanout position query. Can be NULL to skip timestamp.
->> +	 * mode:
->> +	 *     Current display timings.
->> +	 *
->> +	 * Returns vpos as a positive number while in active scanout area.
->> +	 * Returns vpos as a negative number inside vblank, counting the num=
-ber
->> +	 * of scanlines to go until end of vblank, e.g., -1 means "one scanl=
-ine
->> +	 * until start of active scanout / end of vblank."
->> +	 *
->> +	 * Returns:
->> +	 *
->> +	 * True on success, false if a reliable scanout position counter cou=
-ld
->> +	 * not be read out.
->> +	 */
->> +	bool (*get_scanout_position)(struct drm_crtc *crtc,
->> +				     bool in_vblank_irq, int *vpos, int *hpos,
->> +				     ktime_t *stime, ktime_t *etime,
->> +				     const struct drm_display_mode *mode);
->>  };
->> =20
->>  /**
->=20
->=20
-> _______________________________________________
-> dri-devel mailing list
-> dri-devel@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/dri-devel
->=20
+The one supported method does offer two calls which may mirror the
+Display Off/On Notifications in the above spec:
+                        Case (0x02)
+                        {
+                            \_SB.PCI0.SBRG.EC0.CSEE (0xB7)
+                            Return (Zero)
+                        }
+                        Case (0x03)
+                        {
+                            \_SB.PCI0.SBRG.EC0.CSEE (0xB8)
+                            Notify (\_SB.PCI0.SBRG.EC0.LID, 0x80) //
+Status Change
+                            Return (Zero)
+                        }
 
---=20
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Maxfeldstr. 5, 90409 N=C3=BCrnberg, Germany
-(HRB 36809, AG N=C3=BCrnberg)
-Gesch=C3=A4ftsf=C3=BChrer: Felix Imend=C3=B6rffer
+but I tried executing this code after suspending amdgpu, and the
+problem still stands, amdgpu cannot wakeup correctly.
 
+There's nothing else really interesting in the PEP device as far as I can see.
 
---SmewxxS8D8HCScoDniLEP9bGTKtCgtZAO--
+PEP things aside, I am still quite suspicious about the fact that
+calling amdgpu_device_suspend() then amdgpu_device_resume() on
+multiple products (not just this one) fails. It seems that this code
+flow is relying on the BIOS doing something in the S3 suspend/resume
+path in order to make the device resumable by amdgpu_device_resume(),
+which is why we have only encountered this issue for the first time on
+our first AMD platform that does not support S3 suspend.
 
---dy8utQKQWBe6XuW8macqRBBoPSguKlppq
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="signature.asc"
+With that in mind, and lacking any better info, wouldn't it make sense
+for amdgpu_device_resume() to always call reset? Maybe it's not
+necessary in the S3 case, but it shouldn't harm anything. Or perhaps
+it could check if the device is alive and reset it if it's not?
 
------BEGIN PGP SIGNATURE-----
+Alternatively do you have any other contacts within AMD that could
+help us figure out the underlying question of how to correctly suspend
+and resume these devices? Happy to ship an affected product sample
+your way.
 
-iQEzBAEBCAAdFiEEchf7rIzpz2NEoWjlaA3BHVMLeiMFAl4ev8cACgkQaA3BHVML
-eiPQPAgAhNBXxz0tZEzNlLqbwwfpcEJrCLZf/o7JVn07uUaHaDDU/MOgY7tyis90
-qcfe1ZSVJsNiKyd81M5WVhxnzywTZbhJOlifgzdF0QJV8j+oPYSoNyUf2FkFdI25
-Z0qCKYBW/07bNezPyl8OWD4teGOvMmQFCM7u6ZmaWL7O0kXgAb18zp2d8gZ47Cua
-eoVZ6Dkz339eNR/o+N13BcSQH0G5WY736lmO/NI3jAkPpdv09v1L1HzNjrbkEGqb
-E5WzMu+rDk0N7MHxa16XNSv9a9WCmLRfeqnQTxmCJ5B/CH5l/OXGFjytPMC9vAjp
-SFw+EjFt/J9IAV9D/CxaWttoRrzadg==
-=NncW
------END PGP SIGNATURE-----
-
---dy8utQKQWBe6XuW8macqRBBoPSguKlppq--
-
---===============2099872557==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+Thanks
+Daniel
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---===============2099872557==--
