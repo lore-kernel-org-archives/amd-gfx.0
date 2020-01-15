@@ -8,64 +8,63 @@ X-Spam-Status: No, score=-9.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
 	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id CAFE4C32771
-	for <amd-gfx@archiver.kernel.org>; Wed, 15 Jan 2020 17:31:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2C372C32771
+	for <amd-gfx@archiver.kernel.org>; Wed, 15 Jan 2020 17:58:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9F8E32084D
-	for <amd-gfx@archiver.kernel.org>; Wed, 15 Jan 2020 17:31:48 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 01E812077B
+	for <amd-gfx@archiver.kernel.org>; Wed, 15 Jan 2020 17:58:42 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="tWA47MpK"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9F8E32084D
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Q1JDZtmy"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 01E812077B
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 493FA6EA5B;
-	Wed, 15 Jan 2020 17:31:48 +0000 (UTC)
-Received: from mail-qk1-x741.google.com (mail-qk1-x741.google.com
- [IPv6:2607:f8b0:4864:20::741])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A36466EA5B
- for <amd-gfx@lists.freedesktop.org>; Wed, 15 Jan 2020 17:31:47 +0000 (UTC)
-Received: by mail-qk1-x741.google.com with SMTP id r14so16371087qke.13
- for <amd-gfx@lists.freedesktop.org>; Wed, 15 Jan 2020 09:31:47 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5D20F6EA68;
+	Wed, 15 Jan 2020 17:58:42 +0000 (UTC)
+Received: from mail-qt1-x843.google.com (mail-qt1-x843.google.com
+ [IPv6:2607:f8b0:4864:20::843])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BD8536EA68
+ for <amd-gfx@lists.freedesktop.org>; Wed, 15 Jan 2020 17:58:40 +0000 (UTC)
+Received: by mail-qt1-x843.google.com with SMTP id c24so5756580qtp.5
+ for <amd-gfx@lists.freedesktop.org>; Wed, 15 Jan 2020 09:58:40 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
- bh=MyicgG5o9wgKbVrlzwPSu8gP9oSj27YmNPnB8pr6338=;
- b=tWA47MpK0+6zlHe9m1CCH0UF2xF2O5G1lTdB4kOJL7JnohkcTMluC4k0/ANBm4tkOh
- MWVSmFpgNoTX9qy1Cm2MsqT4Qf8obnOMWHwL8RFsyJspwXPSlF4bZ5tx6RHdMy7AkOrS
- 3SDiGbvgZp4xBiy60YDQ8XXGMtfdHwo8E778Vrh9RwU5D/jDhTW4HE8Y1tgda6RAmIh+
- /rpf2sltbvRcktVRlQiQCfFSZ8zVUofV3hN/Jari0hoFEWD9xiIqj3UJQJnusbY5qQoi
- ++qtNSTPl7cEP4ABJr24yfWQI4AUkHRBEqwuKUX4ORN941Km3aI4fNWpQGuNO8KP5BIb
- zzBw==
+ bh=omZU/HIw+D1J4H3NFlNbx4GGEXD/G5g2SsL9hF+quuc=;
+ b=Q1JDZtmy4Pe1Rnx52INgoTD10idLzwYTZZ4wkvVz+uxU0Js1c8hpk8Po6FUkYX6YqV
+ tYJiExOyPEDOb6g0W3KX5eJAyYCd6ELKT8Zv2bD7YHFI8nBsmu3Gw8Bp37CPnyL3uW6N
+ 2+8AJsVlTRv9dkPvSqiVbNhV33NhBLp9rQFwdSw1l7vf+X/VtOc1XcboY3//ZIpdHdv8
+ 6sxaXReP5szZgFdM7+NHhiWDBTutzY9LmxH6XtsGAQpCMcNbFk3vDoNfNnCDHe1rnN1J
+ o+Yick/FJ3lWmSQ8oiCWbLbKAcFbuBVeEEIspBySfhBuCtZUU7ys4/z9KvFauuijKLUb
+ wCoQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
- bh=MyicgG5o9wgKbVrlzwPSu8gP9oSj27YmNPnB8pr6338=;
- b=lj2axuynW70K/4sWWyq4KhZoffsOgsGV8idhbIrfdiQA66Lu/bmF1efEqpnNVPq/Tq
- jFOwwJXpaBzHDa14nJiIq87zUqzdN0Tudw8Rr0rD/V6xOBSOoBEh+aXIV0aWa6zyvKZZ
- tTJ1m8bO3CvB9PIUvcfuFWpLkIYQ3kglZcHVEMaGhVkJxXBje5ShoLRFVdQHYEvoBDCy
- kPq+7IHJIE59zGjXlpawvGfNoKuUqyCdAyBsa1Y1PhDFuyEwVuLuRxl6GzLSyM/eLrb+
- Vr2M84ATo+3GO62WNrUrw1MOElgycZ9d80IGM9wFo/kxEh8SxZEZvg53cZokSmXNKPHy
- Nw1A==
-X-Gm-Message-State: APjAAAXvLNLfCJshGzLbbiN4aEZNdT+HB+pDXAkJIIFTvWIskHq+zANd
- HLGH7KMFKB5sCrrcHrtKuKgFkS/J
-X-Google-Smtp-Source: APXvYqz2W/ySqiiii6/9zLl8RDR7FML8lLZ1n6+F8i3+mTBcpZwVzrX6ns2ZEK4HEgJ1JsEnzcL+oA==
-X-Received: by 2002:a05:620a:1108:: with SMTP id
- o8mr26883938qkk.118.1579109506615; 
- Wed, 15 Jan 2020 09:31:46 -0800 (PST)
+ bh=omZU/HIw+D1J4H3NFlNbx4GGEXD/G5g2SsL9hF+quuc=;
+ b=j0r1fJsEwi8QvevChEKXPpikPh7Pmao5pM96aiTEknJLoHDYjeDosTeHDPm0oZR0yQ
+ EfScwKhHP0y1k5GOPHk+myOXdXDkvP1GASmr86lE6kW6Cy+V3Xthhvu3Ha9GakQVfrNM
+ IenYsxPNDwkKrqRKDkmfyumwCOmETlxQbot4jips/vdLGG/UhPy3vw/w24RO+wkWSuEv
+ KfBpxnfu1vlWTmFmBqWeoK5G/iXDTGIS4w3TKl+T4C3slKYtA4jt3yYz3aEvE3RzGQ+s
+ lyDItV5hDONS1piRKA+hHwfD/UBNOlTyhE5QM4I8k/IfMMAXEug+DCoAus/e54KMBKLR
+ vLsg==
+X-Gm-Message-State: APjAAAWjw4ZpWPj6L4NcMjaoG09cCNLry0/GVUpiAefBhRIftphhZLaC
+ ztoppprVFPwLNcJweSgiZLu1XTzE
+X-Google-Smtp-Source: APXvYqygc6mSU7JhrwHcJZNgwfVCIcM1GqMT2hrnBMZUp/mQc80B/5MsmU+mOWflSZSzq1rdit/StQ==
+X-Received: by 2002:ac8:33ab:: with SMTP id c40mr4769093qtb.250.1579111119652; 
+ Wed, 15 Jan 2020 09:58:39 -0800 (PST)
 Received: from localhost.localdomain ([71.219.59.120])
- by smtp.gmail.com with ESMTPSA id 21sm8771609qky.41.2020.01.15.09.31.45
+ by smtp.gmail.com with ESMTPSA id u16sm8760067qku.19.2020.01.15.09.58.38
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 15 Jan 2020 09:31:46 -0800 (PST)
+ Wed, 15 Jan 2020 09:58:39 -0800 (PST)
 From: Alex Deucher <alexdeucher@gmail.com>
 X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH] drm/amdgpu: attempt to enable gfxoff on more raven1 boards
-Date: Wed, 15 Jan 2020 12:31:39 -0500
-Message-Id: <20200115173139.1392429-1-alexander.deucher@amd.com>
+Subject: [PATCH] drm/amdgpu: original raven doesn't support full asic reset
+Date: Wed, 15 Jan 2020 12:58:30 -0500
+Message-Id: <20200115175830.1433967-1-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.24.1
 MIME-Version: 1.0
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -85,74 +84,28 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Switch to a blacklist so we can disable specific boards
-that are problematic.
+So don't use it.
 
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c | 42 ++++++++++++++++++++++++---
- 1 file changed, 38 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/soc15.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-index e3d466bd5c4e..b48b07bcd0fb 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-@@ -1031,6 +1031,37 @@ static void gfx_v9_0_check_fw_write_wait(struct amdgpu_device *adev)
- 	}
- }
+diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c b/drivers/gpu/drm/amd/amdgpu/soc15.c
+index 317803f6a561..a672c10ecff7 100644
+--- a/drivers/gpu/drm/amd/amdgpu/soc15.c
++++ b/drivers/gpu/drm/amd/amdgpu/soc15.c
+@@ -537,6 +537,10 @@ soc15_asic_reset_method(struct amdgpu_device *adev)
  
-+struct amdgpu_gfxoff_quirk {
-+	u16 chip_vendor;
-+	u16 chip_device;
-+	u16 subsys_vendor;
-+	u16 subsys_device;
-+	u8 revision;
-+};
-+
-+static const struct amdgpu_gfxoff_quirk amdgpu_gfxoff_quirk_list[] = {
-+	/* https://bugzilla.kernel.org/show_bug.cgi?id=204689 */
-+	{ 0x1002, 0x15dd, 0x1002, 0x15dd, 0xc8 },
-+	{ 0, 0, 0, 0, 0 },
-+};
-+
-+static bool gfx_v9_0_raven_check_disable_gfxoff(struct pci_dev *pdev)
-+{
-+	const struct amdgpu_gfxoff_quirk *p = amdgpu_gfxoff_quirk_list;
-+
-+	while (p && p->chip_device != 0) {
-+		if (pdev->vendor == p->chip_vendor &&
-+		    pdev->device == p->chip_device &&
-+		    pdev->subsystem_vendor == p->subsys_vendor &&
-+		    pdev->subsystem_device == p->subsys_device &&
-+		    pdev->revision == p->revision) {
-+			return true;
-+		}
-+		++p;
-+	}
-+	return false;
-+}
-+
- static void gfx_v9_0_check_if_need_gfxoff(struct amdgpu_device *adev)
+ static int soc15_asic_reset(struct amdgpu_device *adev)
  {
- 	switch (adev->asic_type) {
-@@ -1039,10 +1070,13 @@ static void gfx_v9_0_check_if_need_gfxoff(struct amdgpu_device *adev)
- 	case CHIP_VEGA20:
- 		break;
- 	case CHIP_RAVEN:
--		if (!(adev->rev_id >= 0x8 ||
--		      adev->pdev->device == 0x15d8) &&
--		    (adev->pm.fw_version < 0x41e2b || /* not raven1 fresh */
--		     !adev->gfx.rlc.is_rlc_v2_1)) /* without rlc save restore ucodes */
-+		if (!(adev->rev_id >= 0x8 || adev->pdev->device == 0x15d8) &&
-+		    ((adev->gfx.rlc_fw_version != 106 &&
-+		      adev->gfx.rlc_fw_version < 531) ||
-+		     (adev->gfx.rlc_fw_version == 53815) ||
-+		     (adev->gfx.rlc_feature_version < 1) ||
-+		     !adev->gfx.rlc.is_rlc_v2_1) &&
-+		    !gfx_v9_0_raven_check_disable_gfxoff(adev->pdev))
- 			adev->pm.pp_feature &= ~PP_GFXOFF_MASK;
- 
- 		if (adev->pm.pp_feature & PP_GFXOFF_MASK)
++	/* original raven doesn't have full asic reset */
++	if (adev->pdev->device == 0x15dd && adev->rev_id < 0x8)
++		return 0;
++
+ 	switch (soc15_asic_reset_method(adev)) {
+ 		case AMD_RESET_METHOD_BACO:
+ 			if (!adev->in_suspend)
 -- 
 2.24.1
 
