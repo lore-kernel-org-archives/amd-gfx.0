@@ -6,26 +6,26 @@ X-Spam-Status: No, score=-9.8 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
 	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4E450C33CB3
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BCDFDC33CB8
 	for <amd-gfx@archiver.kernel.org>; Wed, 15 Jan 2020 12:17:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2F393207FF
+	by mail.kernel.org (Postfix) with ESMTPS id 9E17E207FF
 	for <amd-gfx@archiver.kernel.org>; Wed, 15 Jan 2020 12:17:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2F393207FF
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9E17E207FF
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=suse.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1B9C66E95A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9488A6E961;
 	Wed, 15 Jan 2020 12:17:08 +0000 (UTC)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8ED106E93D;
- Wed, 15 Jan 2020 12:17:03 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CC69E6E942;
+ Wed, 15 Jan 2020 12:17:04 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 05135AD03;
- Wed, 15 Jan 2020 12:17:00 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 5EDFCAFD8;
+ Wed, 15 Jan 2020 12:17:03 +0000 (UTC)
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: airlied@linux.ie, daniel@ffwll.ch, alexander.deucher@amd.com,
  christian.koenig@amd.com, David1.Zhou@amd.com,
@@ -38,10 +38,9 @@ To: airlied@linux.ie, daniel@ffwll.ch, alexander.deucher@amd.com,
  bskeggs@redhat.com, harry.wentland@amd.com, sunpeng.li@amd.com,
  jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com,
  rodrigo.vivi@intel.com
-Subject: [PATCH v2 02/21] drm: Evaluate struct
- drm_device.vblank_disable_immediate on each use
-Date: Wed, 15 Jan 2020 13:16:33 +0100
-Message-Id: <20200115121652.7050-3-tzimmermann@suse.de>
+Subject: [PATCH v2 06/21] drm/gma500: Convert to CRTC VBLANK callbacks
+Date: Wed, 15 Jan 2020 13:16:37 +0100
+Message-Id: <20200115121652.7050-7-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.24.1
 In-Reply-To: <20200115121652.7050-1-tzimmermann@suse.de>
 References: <20200115121652.7050-1-tzimmermann@suse.de>
@@ -66,97 +65,157 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-VBLANK interrupts can be disabled immediately or with a delay, where the
-latter is the default. The former option can be selected by setting
-get_vblank_timestamp, and enabling vblank_disable_immediate in struct
-drm_device.
-
-The setup is only evaluated once when DRM initializes VBLANKs. Evaluating
-the settings on each use of vblank_disable_immediate will allow for easy
-integration of CRTC VBLANK functions.
+VBLANK callbacks in struct drm_driver are deprecated in favor of
+their equivalents in struct drm_crtc_funcs. Convert gma500 over.
 
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
 ---
- drivers/gpu/drm/drm_vblank.c | 31 ++++++++++++++-----------------
- 1 file changed, 14 insertions(+), 17 deletions(-)
+ drivers/gpu/drm/gma500/cdv_intel_display.c |  3 +++
+ drivers/gpu/drm/gma500/psb_drv.c           |  4 ----
+ drivers/gpu/drm/gma500/psb_drv.h           |  6 +++---
+ drivers/gpu/drm/gma500/psb_intel_display.c |  3 +++
+ drivers/gpu/drm/gma500/psb_irq.c           | 12 +++++++++---
+ drivers/gpu/drm/gma500/psb_irq.h           |  7 ++++---
+ 6 files changed, 22 insertions(+), 13 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_vblank.c b/drivers/gpu/drm/drm_vblank.c
-index 3f1dd54cc8bb..abb085c67d82 100644
---- a/drivers/gpu/drm/drm_vblank.c
-+++ b/drivers/gpu/drm/drm_vblank.c
-@@ -481,19 +481,6 @@ int drm_vblank_init(struct drm_device *dev, unsigned int num_crtcs)
+diff --git a/drivers/gpu/drm/gma500/cdv_intel_display.c b/drivers/gpu/drm/gma500/cdv_intel_display.c
+index 1ed854f498b7..686385a66167 100644
+--- a/drivers/gpu/drm/gma500/cdv_intel_display.c
++++ b/drivers/gpu/drm/gma500/cdv_intel_display.c
+@@ -977,6 +977,9 @@ const struct drm_crtc_funcs cdv_intel_crtc_funcs = {
+ 	.set_config = gma_crtc_set_config,
+ 	.destroy = gma_crtc_destroy,
+ 	.page_flip = gma_crtc_page_flip,
++	.enable_vblank = psb_enable_vblank,
++	.disable_vblank = psb_disable_vblank,
++	.get_vblank_counter = psb_get_vblank_counter,
+ };
  
- 	DRM_INFO("Supports vblank timestamp caching Rev 2 (21.10.2013).\n");
+ const struct gma_clock_funcs cdv_clock_funcs = {
+diff --git a/drivers/gpu/drm/gma500/psb_drv.c b/drivers/gpu/drm/gma500/psb_drv.c
+index 52591416f8fe..36cb292fdebe 100644
+--- a/drivers/gpu/drm/gma500/psb_drv.c
++++ b/drivers/gpu/drm/gma500/psb_drv.c
+@@ -363,7 +363,6 @@ static int psb_driver_load(struct drm_device *dev, unsigned long flags)
+ 	drm_irq_install(dev, dev->pdev->irq);
  
--	/* Driver specific high-precision vblank timestamping supported? */
--	if (dev->driver->get_vblank_timestamp)
--		DRM_INFO("Driver supports precise vblank timestamp query.\n");
--	else
--		DRM_INFO("No driver support for vblank timestamp query.\n");
--
--	/* Must have precise timestamping for reliable vblank instant disable */
--	if (dev->vblank_disable_immediate && !dev->driver->get_vblank_timestamp) {
--		dev->vblank_disable_immediate = false;
--		DRM_INFO("Setting vblank_disable_immediate to false because "
--			 "get_vblank_timestamp == NULL\n");
--	}
--
- 	return 0;
+ 	dev->max_vblank_count = 0xffffff; /* only 24 bits of frame count */
+-	dev->driver->get_vblank_counter = psb_get_vblank_counter;
  
- err:
-@@ -1070,6 +1057,15 @@ int drm_crtc_vblank_get(struct drm_crtc *crtc)
- }
- EXPORT_SYMBOL(drm_crtc_vblank_get);
+ 	psb_modeset_init(dev);
+ 	psb_fbdev_init(dev);
+@@ -507,9 +506,6 @@ static struct drm_driver driver = {
+ 	.irq_postinstall = psb_irq_postinstall,
+ 	.irq_uninstall = psb_irq_uninstall,
+ 	.irq_handler = psb_irq_handler,
+-	.enable_vblank = psb_enable_vblank,
+-	.disable_vblank = psb_disable_vblank,
+-	.get_vblank_counter = psb_get_vblank_counter,
  
-+static bool __vblank_disable_immediate(struct drm_device *dev, unsigned int pipe)
-+{
-+	if (!dev->vblank_disable_immediate)
-+		return false;
-+	if (!dev->driver->get_vblank_timestamp)
-+		return false;
-+	return true;
-+}
-+
- static void drm_vblank_put(struct drm_device *dev, unsigned int pipe)
+ 	.gem_free_object = psb_gem_free_object,
+ 	.gem_vm_ops = &psb_gem_vm_ops,
+diff --git a/drivers/gpu/drm/gma500/psb_drv.h b/drivers/gpu/drm/gma500/psb_drv.h
+index 3d4ef3071d45..956926341316 100644
+--- a/drivers/gpu/drm/gma500/psb_drv.h
++++ b/drivers/gpu/drm/gma500/psb_drv.h
+@@ -681,15 +681,15 @@ extern void psb_irq_turn_off_dpst(struct drm_device *dev);
+ extern void psb_irq_uninstall_islands(struct drm_device *dev, int hw_islands);
+ extern int psb_vblank_wait2(struct drm_device *dev, unsigned int *sequence);
+ extern int psb_vblank_wait(struct drm_device *dev, unsigned int *sequence);
+-extern int psb_enable_vblank(struct drm_device *dev, unsigned int pipe);
+-extern void psb_disable_vblank(struct drm_device *dev, unsigned int pipe);
++extern int psb_enable_vblank(struct drm_crtc *crtc);
++extern void psb_disable_vblank(struct drm_crtc *crtc);
+ void
+ psb_enable_pipestat(struct drm_psb_private *dev_priv, int pipe, u32 mask);
+ 
+ void
+ psb_disable_pipestat(struct drm_psb_private *dev_priv, int pipe, u32 mask);
+ 
+-extern u32 psb_get_vblank_counter(struct drm_device *dev, unsigned int pipe);
++extern u32 psb_get_vblank_counter(struct drm_crtc *crtc);
+ 
+ /* framebuffer.c */
+ extern int psbfb_probed(struct drm_device *dev);
+diff --git a/drivers/gpu/drm/gma500/psb_intel_display.c b/drivers/gpu/drm/gma500/psb_intel_display.c
+index fed3b563e62e..531c5485be17 100644
+--- a/drivers/gpu/drm/gma500/psb_intel_display.c
++++ b/drivers/gpu/drm/gma500/psb_intel_display.c
+@@ -433,6 +433,9 @@ const struct drm_crtc_funcs psb_intel_crtc_funcs = {
+ 	.set_config = gma_crtc_set_config,
+ 	.destroy = gma_crtc_destroy,
+ 	.page_flip = gma_crtc_page_flip,
++	.enable_vblank = psb_enable_vblank,
++	.disable_vblank = psb_disable_vblank,
++	.get_vblank_counter = psb_get_vblank_counter,
+ };
+ 
+ const struct gma_clock_funcs psb_clock_funcs = {
+diff --git a/drivers/gpu/drm/gma500/psb_irq.c b/drivers/gpu/drm/gma500/psb_irq.c
+index 91f90016dba9..15eb3770d817 100644
+--- a/drivers/gpu/drm/gma500/psb_irq.c
++++ b/drivers/gpu/drm/gma500/psb_irq.c
+@@ -506,8 +506,10 @@ int psb_irq_disable_dpst(struct drm_device *dev)
+ /*
+  * It is used to enable VBLANK interrupt
+  */
+-int psb_enable_vblank(struct drm_device *dev, unsigned int pipe)
++int psb_enable_vblank(struct drm_crtc *crtc)
  {
- 	struct drm_vblank_crtc *vblank = &dev->vblank[pipe];
-@@ -1086,7 +1082,7 @@ static void drm_vblank_put(struct drm_device *dev, unsigned int pipe)
- 			return;
- 		else if (drm_vblank_offdelay < 0)
- 			vblank_disable_fn(&vblank->disable_timer);
--		else if (!dev->vblank_disable_immediate)
-+		else if (__vblank_disable_immediate(dev, pipe))
- 			mod_timer(&vblank->disable_timer,
- 				  jiffies + ((drm_vblank_offdelay * HZ)/1000));
- 	}
-@@ -1663,7 +1659,7 @@ int drm_wait_vblank_ioctl(struct drm_device *dev, void *data,
- 	/* If the counter is currently enabled and accurate, short-circuit
- 	 * queries to return the cached timestamp of the last vblank.
- 	 */
--	if (dev->vblank_disable_immediate &&
-+	if (__vblank_disable_immediate(dev, pipe) &&
- 	    drm_wait_vblank_is_query(vblwait) &&
- 	    READ_ONCE(vblank->enabled)) {
- 		drm_wait_vblank_reply(dev, pipe, &vblwait->reply);
-@@ -1820,7 +1816,7 @@ bool drm_handle_vblank(struct drm_device *dev, unsigned int pipe)
- 	 * been signaled. The disable has to be last (after
- 	 * drm_handle_vblank_events) so that the timestamp is always accurate.
- 	 */
--	disable_irq = (dev->vblank_disable_immediate &&
-+	disable_irq = (__vblank_disable_immediate(dev, pipe) &&
- 		       drm_vblank_offdelay > 0 &&
- 		       !atomic_read(&vblank->refcount));
++	struct drm_device *dev = crtc->dev;
++	unsigned int pipe = crtc->index;
+ 	struct drm_psb_private *dev_priv = dev->dev_private;
+ 	unsigned long irqflags;
+ 	uint32_t reg_val = 0;
+@@ -545,8 +547,10 @@ int psb_enable_vblank(struct drm_device *dev, unsigned int pipe)
+ /*
+  * It is used to disable VBLANK interrupt
+  */
+-void psb_disable_vblank(struct drm_device *dev, unsigned int pipe)
++void psb_disable_vblank(struct drm_crtc *crtc)
+ {
++	struct drm_device *dev = crtc->dev;
++	unsigned int pipe = crtc->index;
+ 	struct drm_psb_private *dev_priv = dev->dev_private;
+ 	unsigned long irqflags;
  
-@@ -1893,7 +1889,8 @@ int drm_crtc_get_sequence_ioctl(struct drm_device *dev, void *data,
- 	pipe = drm_crtc_index(crtc);
+@@ -618,8 +622,10 @@ void mdfld_disable_te(struct drm_device *dev, int pipe)
+ /* Called from drm generic code, passed a 'crtc', which
+  * we use as a pipe index
+  */
+-u32 psb_get_vblank_counter(struct drm_device *dev, unsigned int pipe)
++u32 psb_get_vblank_counter(struct drm_crtc *crtc)
+ {
++	struct drm_device *dev = crtc->dev;
++	unsigned int pipe = crtc->index;
+ 	uint32_t high_frame = PIPEAFRAMEHIGH;
+ 	uint32_t low_frame = PIPEAFRAMEPIXEL;
+ 	uint32_t pipeconf_reg = PIPEACONF;
+diff --git a/drivers/gpu/drm/gma500/psb_irq.h b/drivers/gpu/drm/gma500/psb_irq.h
+index 58fd502e3b9d..4f73998848d1 100644
+--- a/drivers/gpu/drm/gma500/psb_irq.h
++++ b/drivers/gpu/drm/gma500/psb_irq.h
+@@ -12,6 +12,7 @@
+ #ifndef _PSB_IRQ_H_
+ #define _PSB_IRQ_H_
  
- 	vblank = &dev->vblank[pipe];
--	vblank_enabled = dev->vblank_disable_immediate && READ_ONCE(vblank->enabled);
-+	vblank_enabled = __vblank_disable_immediate(dev, pipe) &&
-+			 READ_ONCE(vblank->enabled);
++struct drm_crtc;
+ struct drm_device;
  
- 	if (!vblank_enabled) {
- 		ret = drm_crtc_vblank_get(crtc);
+ bool sysirq_init(struct drm_device *dev);
+@@ -26,9 +27,9 @@ int psb_irq_enable_dpst(struct drm_device *dev);
+ int psb_irq_disable_dpst(struct drm_device *dev);
+ void psb_irq_turn_on_dpst(struct drm_device *dev);
+ void psb_irq_turn_off_dpst(struct drm_device *dev);
+-int  psb_enable_vblank(struct drm_device *dev, unsigned int pipe);
+-void psb_disable_vblank(struct drm_device *dev, unsigned int pipe);
+-u32  psb_get_vblank_counter(struct drm_device *dev, unsigned int pipe);
++int  psb_enable_vblank(struct drm_crtc *crtc);
++void psb_disable_vblank(struct drm_crtc *crtc);
++u32  psb_get_vblank_counter(struct drm_crtc *crtc);
+ 
+ int mdfld_enable_te(struct drm_device *dev, int pipe);
+ void mdfld_disable_te(struct drm_device *dev, int pipe);
 -- 
 2.24.1
 
