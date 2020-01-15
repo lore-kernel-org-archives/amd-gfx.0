@@ -4,28 +4,28 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-9.8 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 62908C33CB2
-	for <amd-gfx@archiver.kernel.org>; Wed, 15 Jan 2020 12:17:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id EBD3AC33CB2
+	for <amd-gfx@archiver.kernel.org>; Wed, 15 Jan 2020 12:17:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 405842467E
-	for <amd-gfx@archiver.kernel.org>; Wed, 15 Jan 2020 12:17:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 405842467E
+	by mail.kernel.org (Postfix) with ESMTPS id C7E5D207FF
+	for <amd-gfx@archiver.kernel.org>; Wed, 15 Jan 2020 12:17:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C7E5D207FF
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=suse.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 955766E940;
-	Wed, 15 Jan 2020 12:17:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5AFD56E94A;
+	Wed, 15 Jan 2020 12:17:06 +0000 (UTC)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0FFB56E939;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 542166E93B;
  Wed, 15 Jan 2020 12:17:03 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 051C9AE62;
- Wed, 15 Jan 2020 12:17:00 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id ABBD7AFC4;
+ Wed, 15 Jan 2020 12:17:01 +0000 (UTC)
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: airlied@linux.ie, daniel@ffwll.ch, alexander.deucher@amd.com,
  christian.koenig@amd.com, David1.Zhou@amd.com,
@@ -38,10 +38,10 @@ To: airlied@linux.ie, daniel@ffwll.ch, alexander.deucher@amd.com,
  bskeggs@redhat.com, harry.wentland@amd.com, sunpeng.li@amd.com,
  jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com,
  rodrigo.vivi@intel.com
-Subject: [PATCH v2 01/21] drm: Add get_scanout_position() to struct
- drm_crtc_helper_funcs
-Date: Wed, 15 Jan 2020 13:16:32 +0100
-Message-Id: <20200115121652.7050-2-tzimmermann@suse.de>
+Subject: [PATCH v2 04/21] drm/amdgpu: Convert to struct
+ drm_crtc_helper_funcs.get_scanout_position()
+Date: Wed, 15 Jan 2020 13:16:35 +0100
+Message-Id: <20200115121652.7050-5-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.24.1
 In-Reply-To: <20200115121652.7050-1-tzimmermann@suse.de>
 References: <20200115121652.7050-1-tzimmermann@suse.de>
@@ -61,113 +61,171 @@ Cc: linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
  amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  Thomas Zimmermann <tzimmermann@suse.de>, nouveau@lists.freedesktop.org,
  freedreno@lists.freedesktop.org
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-VGhlIG5ldyBjYWxsYmFjayBnZXRfc2Nhbm91dF9wb3NpdGlvbigpIHJlYWRzIHRoZSBjdXJyZW50
-IGxvY2F0aW9uIG9mCnRoZSBzY2Fub3V0IHByb2Nlc3MuIFRoZSBvcGVyYXRpb24gaXMgY3VycmVu
-dHlsIGxvY2F0ZWQgaW4gc3RydWN0CmRybV9kcml2ZXIsIGJ1dCByZWFsbHkgYmVsb25ncyB0byB0
-aGUgQ1JUQy4gRHJpdmVycyB3aWxsIGJlIGNvbnZlcnRlZAppbiBzZXBhcmF0ZSBwYXRjaGVzLgoK
-djI6CgkqIGZpeCBsb2dpY2FsIG9wIGluIGRybV9jYWxjX3ZibHRpbWVzdGFtcF9mcm9tX3NjYW5v
-dXRwb3MoKQoKU2lnbmVkLW9mZi1ieTogVGhvbWFzIFppbW1lcm1hbm4gPHR6aW1tZXJtYW5uQHN1
-c2UuZGU+ClRlc3RlZC1ieTogWWFubmljayBGZXJ0csOpIDx5YW5uaWNrLmZlcnRyZUBzdC5jb20+
-Ci0tLQogZHJpdmVycy9ncHUvZHJtL2RybV92YmxhbmsuYyAgICAgICAgICAgICB8IDI0ICsrKysr
-KysrLS0tLQogaW5jbHVkZS9kcm0vZHJtX2Rydi5oICAgICAgICAgICAgICAgICAgICB8ICA3ICst
-LS0KIGluY2x1ZGUvZHJtL2RybV9tb2Rlc2V0X2hlbHBlcl92dGFibGVzLmggfCA0NyArKysrKysr
-KysrKysrKysrKysrKysrKysKIDMgZmlsZXMgY2hhbmdlZCwgNjUgaW5zZXJ0aW9ucygrKSwgMTMg
-ZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2RybV92YmxhbmsuYyBi
-L2RyaXZlcnMvZ3B1L2RybS9kcm1fdmJsYW5rLmMKaW5kZXggMTY1OWIxM2IxNzhjLi4zZjFkZDU0
-Y2M4YmIgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9kcm1fdmJsYW5rLmMKKysrIGIvZHJp
-dmVycy9ncHUvZHJtL2RybV92YmxhbmsuYwpAQCAtMzAsNiArMzAsNyBAQAogI2luY2x1ZGUgPGRy
-bS9kcm1fY3J0Yy5oPgogI2luY2x1ZGUgPGRybS9kcm1fZHJ2Lmg+CiAjaW5jbHVkZSA8ZHJtL2Ry
-bV9mcmFtZWJ1ZmZlci5oPgorI2luY2x1ZGUgPGRybS9kcm1fbW9kZXNldF9oZWxwZXJfdnRhYmxl
-cy5oPgogI2luY2x1ZGUgPGRybS9kcm1fcHJpbnQuaD4KICNpbmNsdWRlIDxkcm0vZHJtX3ZibGFu
-ay5oPgogCkBAIC01OTAsNyArNTkxLDcgQEAgRVhQT1JUX1NZTUJPTChkcm1fY2FsY190aW1lc3Rh
-bXBpbmdfY29uc3RhbnRzKTsKICAqIEltcGxlbWVudHMgY2FsY3VsYXRpb24gb2YgZXhhY3QgdmJs
-YW5rIHRpbWVzdGFtcHMgZnJvbSBnaXZlbiBkcm1fZGlzcGxheV9tb2RlCiAgKiB0aW1pbmdzIGFu
-ZCBjdXJyZW50IHZpZGVvIHNjYW5vdXQgcG9zaXRpb24gb2YgYSBDUlRDLiBUaGlzIGNhbiBiZSBk
-aXJlY3RseQogICogdXNlZCBhcyB0aGUgJmRybV9kcml2ZXIuZ2V0X3ZibGFua190aW1lc3RhbXAg
-aW1wbGVtZW50YXRpb24gb2YgYSBrbXMgZHJpdmVyCi0gKiBpZiAmZHJtX2RyaXZlci5nZXRfc2Nh
-bm91dF9wb3NpdGlvbiBpcyBpbXBsZW1lbnRlZC4KKyAqIGlmICZkcm1fY3J0Y19oZWxwZXJfZnVu
-Y3MuZ2V0X3NjYW5vdXRfcG9zaXRpb24gaXMgaW1wbGVtZW50ZWQuCiAgKgogICogVGhlIGN1cnJl
-bnQgaW1wbGVtZW50YXRpb24gb25seSBoYW5kbGVzIHN0YW5kYXJkIHZpZGVvIG1vZGVzLiBGb3Ig
-ZG91YmxlIHNjYW4KICAqIGFuZCBpbnRlcmxhY2VkIG1vZGVzIHRoZSBkcml2ZXIgaXMgc3VwcG9z
-ZWQgdG8gYWRqdXN0IHRoZSBoYXJkd2FyZSBtb2RlCkBAIC02MzIsOCArNjMzLDkgQEAgYm9vbCBk
-cm1fY2FsY192Ymx0aW1lc3RhbXBfZnJvbV9zY2Fub3V0cG9zKHN0cnVjdCBkcm1fZGV2aWNlICpk
-ZXYsCiAJfQogCiAJLyogU2Nhbm91dCBwb3NpdGlvbiBxdWVyeSBub3Qgc3VwcG9ydGVkPyBTaG91
-bGQgbm90IGhhcHBlbi4gKi8KLQlpZiAoIWRldi0+ZHJpdmVyLT5nZXRfc2Nhbm91dF9wb3NpdGlv
-bikgewotCQlEUk1fRVJST1IoIkNhbGxlZCBmcm9tIGRyaXZlciB3L28gZ2V0X3NjYW5vdXRfcG9z
-aXRpb24oKSE/XG4iKTsKKwlpZiAoIWRldi0+ZHJpdmVyLT5nZXRfc2Nhbm91dF9wb3NpdGlvbiAm
-JgorCSAgICAhY3J0Yy0+aGVscGVyX3ByaXZhdGUtPmdldF9zY2Fub3V0X3Bvc2l0aW9uKSB7CisJ
-CURSTV9FUlJPUigiQ2FsbGVkIGZyb20gQ1JUQyB3L28gZ2V0X3NjYW5vdXRfcG9zaXRpb24oKSE/
-XG4iKTsKIAkJcmV0dXJuIGZhbHNlOwogCX0KIApAQCAtNjY0LDExICs2NjYsMTcgQEAgYm9vbCBk
-cm1fY2FsY192Ymx0aW1lc3RhbXBfZnJvbV9zY2Fub3V0cG9zKHN0cnVjdCBkcm1fZGV2aWNlICpk
-ZXYsCiAJCSAqIEdldCB2ZXJ0aWNhbCBhbmQgaG9yaXpvbnRhbCBzY2Fub3V0IHBvc2l0aW9uIHZw
-b3MsIGhwb3MsCiAJCSAqIGFuZCBib3VuZGluZyB0aW1lc3RhbXBzIHN0aW1lLCBldGltZSwgcHJl
-L3Bvc3QgcXVlcnkuCiAJCSAqLwotCQl2Ymxfc3RhdHVzID0gZGV2LT5kcml2ZXItPmdldF9zY2Fu
-b3V0X3Bvc2l0aW9uKGRldiwgcGlwZSwKLQkJCQkJCQkgICAgICAgaW5fdmJsYW5rX2lycSwKLQkJ
-CQkJCQkgICAgICAgJnZwb3MsICZocG9zLAotCQkJCQkJCSAgICAgICAmc3RpbWUsICZldGltZSwK
-LQkJCQkJCQkgICAgICAgbW9kZSk7CisJCWlmIChjcnRjLT5oZWxwZXJfcHJpdmF0ZS0+Z2V0X3Nj
-YW5vdXRfcG9zaXRpb24pIHsKKwkJCXZibF9zdGF0dXMgPQorCQkJCWNydGMtPmhlbHBlcl9wcml2
-YXRlLT5nZXRfc2Nhbm91dF9wb3NpdGlvbigKKwkJCQkJY3J0YywgaW5fdmJsYW5rX2lycSwgJnZw
-b3MsICZocG9zLAorCQkJCQkmc3RpbWUsICZldGltZSwgbW9kZSk7CisJCX0gZWxzZSB7CisJCQl2
-Ymxfc3RhdHVzID0KKwkJCQlkZXYtPmRyaXZlci0+Z2V0X3NjYW5vdXRfcG9zaXRpb24oCisJCQkJ
-CWRldiwgcGlwZSwgaW5fdmJsYW5rX2lycSwgJnZwb3MsCisJCQkJCSZocG9zLCAmc3RpbWUsICZl
-dGltZSwgbW9kZSk7CisJCX0KIAogCQkvKiBSZXR1cm4gYXMgbm8tb3AgaWYgc2Nhbm91dCBxdWVy
-eSB1bnN1cHBvcnRlZCBvciBmYWlsZWQuICovCiAJCWlmICghdmJsX3N0YXR1cykgewpkaWZmIC0t
-Z2l0IGEvaW5jbHVkZS9kcm0vZHJtX2Rydi5oIGIvaW5jbHVkZS9kcm0vZHJtX2Rydi5oCmluZGV4
-IGNmMTM0NzA4MTBhNS4uZDAwNDllNTc4NmZjIDEwMDY0NAotLS0gYS9pbmNsdWRlL2RybS9kcm1f
-ZHJ2LmgKKysrIGIvaW5jbHVkZS9kcm0vZHJtX2Rydi5oCkBAIC0zNjIsMTEgKzM2Miw4IEBAIHN0
-cnVjdCBkcm1fZHJpdmVyIHsKIAkgKiBUcnVlIG9uIHN1Y2Nlc3MsIGZhbHNlIGlmIGEgcmVsaWFi
-bGUgc2Nhbm91dCBwb3NpdGlvbiBjb3VudGVyIGNvdWxkCiAJICogbm90IGJlIHJlYWQgb3V0Lgog
-CSAqCi0JICogRklYTUU6Ci0JICoKLQkgKiBTaW5jZSB0aGlzIGlzIGEgaGVscGVyIHRvIGltcGxl
-bWVudCBAZ2V0X3ZibGFua190aW1lc3RhbXAsIHdlIHNob3VsZAotCSAqIG1vdmUgaXQgdG8gJnN0
-cnVjdCBkcm1fY3J0Y19oZWxwZXJfZnVuY3MsIGxpa2UgYWxsIHRoZSBvdGhlcgotCSAqIGhlbHBl
-ci1pbnRlcm5hbCBob29rcy4KKwkgKiBUaGlzIGlzIGRlcHJlY2F0ZWQgYW5kIHNob3VsZCBub3Qg
-YmUgdXNlZCBieSBuZXcgZHJpdmVycy4KKwkgKiBVc2UgJmRybV9jcnRjX2hlbHBlcl9mdW5jcy5n
-ZXRfc2Nhbm91dF9wb3NpdGlvbiBpbnN0ZWFkLgogCSAqLwogCWJvb2wgKCpnZXRfc2Nhbm91dF9w
-b3NpdGlvbikgKHN0cnVjdCBkcm1fZGV2aWNlICpkZXYsIHVuc2lnbmVkIGludCBwaXBlLAogCQkJ
-CSAgICAgIGJvb2wgaW5fdmJsYW5rX2lycSwgaW50ICp2cG9zLCBpbnQgKmhwb3MsCmRpZmYgLS1n
-aXQgYS9pbmNsdWRlL2RybS9kcm1fbW9kZXNldF9oZWxwZXJfdnRhYmxlcy5oIGIvaW5jbHVkZS9k
-cm0vZHJtX21vZGVzZXRfaGVscGVyX3Z0YWJsZXMuaAppbmRleCA1YTg3ZjFiZDdhM2YuLmUzOTg1
-MTJiZmQ1ZiAxMDA2NDQKLS0tIGEvaW5jbHVkZS9kcm0vZHJtX21vZGVzZXRfaGVscGVyX3Z0YWJs
-ZXMuaAorKysgYi9pbmNsdWRlL2RybS9kcm1fbW9kZXNldF9oZWxwZXJfdnRhYmxlcy5oCkBAIC00
-NTAsNiArNDUwLDUzIEBAIHN0cnVjdCBkcm1fY3J0Y19oZWxwZXJfZnVuY3MgewogCSAqLwogCXZv
-aWQgKCphdG9taWNfZGlzYWJsZSkoc3RydWN0IGRybV9jcnRjICpjcnRjLAogCQkJICAgICAgIHN0
-cnVjdCBkcm1fY3J0Y19zdGF0ZSAqb2xkX2NydGNfc3RhdGUpOworCisJLyoqCisJICogQGdldF9z
-Y2Fub3V0X3Bvc2l0aW9uOgorCSAqCisJICogQ2FsbGVkIGJ5IHZibGFuayB0aW1lc3RhbXBpbmcg
-Y29kZS4KKwkgKgorCSAqIFJldHVybnMgdGhlIGN1cnJlbnQgZGlzcGxheSBzY2Fub3V0IHBvc2l0
-aW9uIGZyb20gYSBDUlRDIGFuZCBhbgorCSAqIG9wdGlvbmFsIGFjY3VyYXRlIGt0aW1lX2dldCgp
-IHRpbWVzdGFtcCBvZiB3aGVuIHRoZSBwb3NpdGlvbiB3YXMKKwkgKiBtZWFzdXJlZC4gTm90ZSB0
-aGF0IHRoaXMgaXMgYSBoZWxwZXIgY2FsbGJhY2sgd2hpY2ggaXMgb25seSB1c2VkCisJICogaWYg
-YSBkcml2ZXIgdXNlcyBkcm1fY2FsY192Ymx0aW1lc3RhbXBfZnJvbV9zY2Fub3V0cG9zKCkgZm9y
-IHRoZQorCSAqIEBkcm1fZHJpdmVyLmdldF92YmxhbmtfdGltZXN0YW1wIGNhbGxiYWNrLgorCSAq
-CisJICogUGFyYW1ldGVyczoKKwkgKgorCSAqIGNydGM6CisJICogICAgIFRoZSBDUlRDLgorCSAq
-IGluX3ZibGFua19pcnE6CisJICogICAgIFRydWUgd2hlbiBjYWxsZWQgZnJvbSBkcm1fY3J0Y19o
-YW5kbGVfdmJsYW5rKCkuIFNvbWUgZHJpdmVycworCSAqICAgICBuZWVkIHRvIGFwcGx5IHNvbWUg
-d29ya2Fyb3VuZHMgZm9yIGdwdS1zcGVjaWZpYyB2YmxhbmsgaXJxCisJICogICAgIHF1aXJrcyBp
-ZiB0aGUgZmxhZyBpcyBzZXQuCisJICogdnBvczoKKwkgKiAgICAgVGFyZ2V0IGxvY2F0aW9uIGZv
-ciBjdXJyZW50IHZlcnRpY2FsIHNjYW5vdXQgcG9zaXRpb24uCisJICogaHBvczoKKwkgKiAgICAg
-VGFyZ2V0IGxvY2F0aW9uIGZvciBjdXJyZW50IGhvcml6b250YWwgc2Nhbm91dCBwb3NpdGlvbi4K
-KwkgKiBzdGltZToKKwkgKiAgICAgVGFyZ2V0IGxvY2F0aW9uIGZvciB0aW1lc3RhbXAgdGFrZW4g
-aW1tZWRpYXRlbHkgYmVmb3JlCisJICogICAgIHNjYW5vdXQgcG9zaXRpb24gcXVlcnkuIENhbiBi
-ZSBOVUxMIHRvIHNraXAgdGltZXN0YW1wLgorCSAqIGV0aW1lOgorCSAqICAgICBUYXJnZXQgbG9j
-YXRpb24gZm9yIHRpbWVzdGFtcCB0YWtlbiBpbW1lZGlhdGVseSBhZnRlcgorCSAqICAgICBzY2Fu
-b3V0IHBvc2l0aW9uIHF1ZXJ5LiBDYW4gYmUgTlVMTCB0byBza2lwIHRpbWVzdGFtcC4KKwkgKiBt
-b2RlOgorCSAqICAgICBDdXJyZW50IGRpc3BsYXkgdGltaW5ncy4KKwkgKgorCSAqIFJldHVybnMg
-dnBvcyBhcyBhIHBvc2l0aXZlIG51bWJlciB3aGlsZSBpbiBhY3RpdmUgc2Nhbm91dCBhcmVhLgor
-CSAqIFJldHVybnMgdnBvcyBhcyBhIG5lZ2F0aXZlIG51bWJlciBpbnNpZGUgdmJsYW5rLCBjb3Vu
-dGluZyB0aGUgbnVtYmVyCisJICogb2Ygc2NhbmxpbmVzIHRvIGdvIHVudGlsIGVuZCBvZiB2Ymxh
-bmssIGUuZy4sIC0xIG1lYW5zICJvbmUgc2NhbmxpbmUKKwkgKiB1bnRpbCBzdGFydCBvZiBhY3Rp
-dmUgc2Nhbm91dCAvIGVuZCBvZiB2YmxhbmsuIgorCSAqCisJICogUmV0dXJuczoKKwkgKgorCSAq
-IFRydWUgb24gc3VjY2VzcywgZmFsc2UgaWYgYSByZWxpYWJsZSBzY2Fub3V0IHBvc2l0aW9uIGNv
-dW50ZXIgY291bGQKKwkgKiBub3QgYmUgcmVhZCBvdXQuCisJICovCisJYm9vbCAoKmdldF9zY2Fu
-b3V0X3Bvc2l0aW9uKShzdHJ1Y3QgZHJtX2NydGMgKmNydGMsCisJCQkJICAgICBib29sIGluX3Zi
-bGFua19pcnEsIGludCAqdnBvcywgaW50ICpocG9zLAorCQkJCSAgICAga3RpbWVfdCAqc3RpbWUs
-IGt0aW1lX3QgKmV0aW1lLAorCQkJCSAgICAgY29uc3Qgc3RydWN0IGRybV9kaXNwbGF5X21vZGUg
-Km1vZGUpOwogfTsKIAogLyoqCi0tIAoyLjI0LjEKCl9fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMu
-ZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlz
-dGluZm8vYW1kLWdmeAo=
+The callback struct drm_driver.get_scanout_position() is deprecated in
+favor of struct drm_crtc_helper_funcs.get_scanout_position(). Convert
+amdgpu over.
+
+Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_display.c       | 12 ++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c           | 11 -----------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h          |  5 +++++
+ drivers/gpu/drm/amd/amdgpu/dce_v10_0.c            |  1 +
+ drivers/gpu/drm/amd/amdgpu/dce_v11_0.c            |  1 +
+ drivers/gpu/drm/amd/amdgpu/dce_v6_0.c             |  1 +
+ drivers/gpu/drm/amd/amdgpu/dce_v8_0.c             |  1 +
+ drivers/gpu/drm/amd/amdgpu/dce_virtual.c          |  1 +
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  3 ++-
+ 9 files changed, 24 insertions(+), 12 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
+index 4e699071d144..a1e769d4417d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
+@@ -914,3 +914,15 @@ int amdgpu_display_crtc_idx_to_irq_type(struct amdgpu_device *adev, int crtc)
+ 		return AMDGPU_CRTC_IRQ_NONE;
+ 	}
+ }
++
++bool amdgpu_crtc_get_scanout_position(struct drm_crtc *crtc,
++			bool in_vblank_irq, int *vpos,
++			int *hpos, ktime_t *stime, ktime_t *etime,
++			const struct drm_display_mode *mode)
++{
++	struct drm_device *dev = crtc->dev;
++	unsigned int pipe = crtc->index;
++
++	return amdgpu_display_get_crtc_scanoutpos(dev, pipe, 0, vpos, hpos,
++						  stime, etime, mode);
++}
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+index 26f318a867fe..18c0aa4779e5 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+@@ -1367,16 +1367,6 @@ int amdgpu_file_to_fpriv(struct file *filp, struct amdgpu_fpriv **fpriv)
+ 	return 0;
+ }
+ 
+-static bool
+-amdgpu_get_crtc_scanout_position(struct drm_device *dev, unsigned int pipe,
+-				 bool in_vblank_irq, int *vpos, int *hpos,
+-				 ktime_t *stime, ktime_t *etime,
+-				 const struct drm_display_mode *mode)
+-{
+-	return amdgpu_display_get_crtc_scanoutpos(dev, pipe, 0, vpos, hpos,
+-						  stime, etime, mode);
+-}
+-
+ static struct drm_driver kms_driver = {
+ 	.driver_features =
+ 	    DRIVER_USE_AGP | DRIVER_ATOMIC |
+@@ -1392,7 +1382,6 @@ static struct drm_driver kms_driver = {
+ 	.enable_vblank = amdgpu_enable_vblank_kms,
+ 	.disable_vblank = amdgpu_disable_vblank_kms,
+ 	.get_vblank_timestamp = drm_calc_vbltimestamp_from_scanoutpos,
+-	.get_scanout_position = amdgpu_get_crtc_scanout_position,
+ 	.irq_handler = amdgpu_irq_handler,
+ 	.ioctls = amdgpu_ioctls_kms,
+ 	.gem_free_object_unlocked = amdgpu_gem_object_free,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
+index eb9975f4decb..37ba07e2feb5 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
+@@ -612,6 +612,11 @@ void amdgpu_panel_mode_fixup(struct drm_encoder *encoder,
+ 			     struct drm_display_mode *adjusted_mode);
+ int amdgpu_display_crtc_idx_to_irq_type(struct amdgpu_device *adev, int crtc);
+ 
++bool amdgpu_crtc_get_scanout_position(struct drm_crtc *crtc,
++			bool in_vblank_irq, int *vpos,
++			int *hpos, ktime_t *stime, ktime_t *etime,
++			const struct drm_display_mode *mode);
++
+ /* fbdev layer */
+ int amdgpu_fbdev_init(struct amdgpu_device *adev);
+ void amdgpu_fbdev_fini(struct amdgpu_device *adev);
+diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
+index 40d2ac723dd6..bdc1e0f036d4 100644
+--- a/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
+@@ -2685,6 +2685,7 @@ static const struct drm_crtc_helper_funcs dce_v10_0_crtc_helper_funcs = {
+ 	.prepare = dce_v10_0_crtc_prepare,
+ 	.commit = dce_v10_0_crtc_commit,
+ 	.disable = dce_v10_0_crtc_disable,
++	.get_scanout_position = amdgpu_crtc_get_scanout_position,
+ };
+ 
+ static int dce_v10_0_crtc_init(struct amdgpu_device *adev, int index)
+diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c
+index 898ef72d423c..0319da5f7bf9 100644
+--- a/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c
+@@ -2793,6 +2793,7 @@ static const struct drm_crtc_helper_funcs dce_v11_0_crtc_helper_funcs = {
+ 	.prepare = dce_v11_0_crtc_prepare,
+ 	.commit = dce_v11_0_crtc_commit,
+ 	.disable = dce_v11_0_crtc_disable,
++	.get_scanout_position = amdgpu_crtc_get_scanout_position,
+ };
+ 
+ static int dce_v11_0_crtc_init(struct amdgpu_device *adev, int index)
+diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
+index db15a112becc..78642c3b14fc 100644
+--- a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
+@@ -2575,6 +2575,7 @@ static const struct drm_crtc_helper_funcs dce_v6_0_crtc_helper_funcs = {
+ 	.prepare = dce_v6_0_crtc_prepare,
+ 	.commit = dce_v6_0_crtc_commit,
+ 	.disable = dce_v6_0_crtc_disable,
++	.get_scanout_position = amdgpu_crtc_get_scanout_position,
+ };
+ 
+ static int dce_v6_0_crtc_init(struct amdgpu_device *adev, int index)
+diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
+index f06c9022c1fd..1e8d4975435a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
+@@ -2593,6 +2593,7 @@ static const struct drm_crtc_helper_funcs dce_v8_0_crtc_helper_funcs = {
+ 	.prepare = dce_v8_0_crtc_prepare,
+ 	.commit = dce_v8_0_crtc_commit,
+ 	.disable = dce_v8_0_crtc_disable,
++	.get_scanout_position = amdgpu_crtc_get_scanout_position,
+ };
+ 
+ static int dce_v8_0_crtc_init(struct amdgpu_device *adev, int index)
+diff --git a/drivers/gpu/drm/amd/amdgpu/dce_virtual.c b/drivers/gpu/drm/amd/amdgpu/dce_virtual.c
+index e4f94863332c..4b2f915aba47 100644
+--- a/drivers/gpu/drm/amd/amdgpu/dce_virtual.c
++++ b/drivers/gpu/drm/amd/amdgpu/dce_virtual.c
+@@ -218,6 +218,7 @@ static const struct drm_crtc_helper_funcs dce_virtual_crtc_helper_funcs = {
+ 	.prepare = dce_virtual_crtc_prepare,
+ 	.commit = dce_virtual_crtc_commit,
+ 	.disable = dce_virtual_crtc_disable,
++	.get_scanout_position = amdgpu_crtc_get_scanout_position,
+ };
+ 
+ static int dce_virtual_crtc_init(struct amdgpu_device *adev, int index)
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index d6543ef68210..3d52c933a519 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -4822,7 +4822,8 @@ static bool dm_crtc_helper_mode_fixup(struct drm_crtc *crtc,
+ static const struct drm_crtc_helper_funcs amdgpu_dm_crtc_helper_funcs = {
+ 	.disable = dm_crtc_helper_disable,
+ 	.atomic_check = dm_crtc_helper_atomic_check,
+-	.mode_fixup = dm_crtc_helper_mode_fixup
++	.mode_fixup = dm_crtc_helper_mode_fixup,
++	.get_scanout_position = amdgpu_crtc_get_scanout_position,
+ };
+ 
+ static void dm_encoder_helper_disable(struct drm_encoder *encoder)
+-- 
+2.24.1
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
